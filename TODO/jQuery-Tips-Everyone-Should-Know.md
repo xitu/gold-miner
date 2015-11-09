@@ -1,4 +1,4 @@
-> * 原文链接 : [jquery-tips-everyone-should-know/README.md at master · AllThingsSmitty/jquery-tips-everyone-should-know](https://github.com/AllThingsSmitty/jquery-tips-everyone-should-know/blob/master/README.md)
+> * 原文链接 : [jquery-tips-everyone-should-know](https://github.com/AllThingsSmitty/jquery-tips-everyone-should-know/blob/master/README.md)
 * 原文作者 : [AllThingsSmitty (Matt Smith)](https://github.com/AllThingsSmitty)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : 
