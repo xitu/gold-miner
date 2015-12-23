@@ -31,3 +31,9 @@
 * [How do Promises Work?](http://gold.xitu.io/entry/5665281460b21eab5d5c41fa)
 * [Absolute Beginner's Guide to Swift](http://gold.xitu.io/entry/5662e08960b204d55d49b95a)
 * [JavaScript 开发者年度调查报告](http://gold.xitu.io/entry/566d29cf60b2e416628e6ff0)
+
+## React
+
+* [Making React Native apps accessible](http://gold.xitu.io/entry/566b01a800b0d1dbc721e56b)
+* [如何发布一个 React components](http://gold.xitu.io/entry/566951db60b25a8c2e23daaa)
+* [Things I Wish I Were Told About React Native](http://gold.xitu.io/entry/563d9b9960b2c82f2b9da18d)
