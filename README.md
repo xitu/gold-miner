@@ -37,3 +37,10 @@
 * [Making React Native apps accessible](http://gold.xitu.io/entry/566b01a800b0d1dbc721e56b)
 * [如何发布一个 React components](http://gold.xitu.io/entry/566951db60b25a8c2e23daaa)
 * [Things I Wish I Were Told About React Native](http://gold.xitu.io/entry/563d9b9960b2c82f2b9da18d)
+ 
+## 教程
+
+* [Chrome Devtools Tips & Tricks](http://gold.xitu.io/entry/5625ae6e60b2d1400143a89b)
+* [通过 Electron 开发一个简单地桌面应用](http://gold.xitu.io/entry/56722bd300b01b78b5395115)
+* [Retrofit 入门教程](http://gold.xitu.io/entry/5652610c00b0bf37326a7be1)
+* [Pokedex.org 给宠物小精灵爱好者的 web app 的技术选型](http://gold.xitu.io/entry/56630cf260b259ca649136e6)
