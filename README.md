@@ -14,3 +14,12 @@
 * [Android Guides - Github](http://gold.xitu.io/entry/5584f8e9e4b09e372efeca9a)
 * [6 Things I wish I Knew before I Wrote my first Android App](http://gold.xitu.io/entry/55a38698e4b0ed48f0bfc1ef)
 * [Android 上的数据格式 FlatBuffers 介绍](http://gold.xitu.io/entry/55dd1e3b60b27e6cd500d266)
+
+## iOS
+
+* [Facebook iOS 应用是如何加速图片显示的？](http://gold.xitu.io/entry/55d182c460b2b750998476c4)
+* [编写高质量的 Swift 代码](http://gold.xitu.io/entry/5661031d00b0c0607132b6da)
+* [Artsy 工程师总结的一些 Cocoa 开发设计误区](http://gold.xitu.io/entry/55fb191f60b20bbff6370fc5)
+* [UIKit 里如何面向协议编程](http://gold.xitu.io/entry/5611522e60b2b52c9cead330)
+* [3D Force Touch 的新玩儿法](http://gold.xitu.io/entry/562d9cd660b2c1e233c9106b)
+* [Absolute Beginner's Guide to Swift](http://gold.xitu.io/entry/5662e08960b204d55d49b95a)
