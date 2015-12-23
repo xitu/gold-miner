@@ -23,3 +23,11 @@
 * [UIKit 里如何面向协议编程](http://gold.xitu.io/entry/5611522e60b2b52c9cead330)
 * [3D Force Touch 的新玩儿法](http://gold.xitu.io/entry/562d9cd660b2c1e233c9106b)
 * [Absolute Beginner's Guide to Swift](http://gold.xitu.io/entry/5662e08960b204d55d49b95a)
+
+## JavaScript
+
+* [350 个特性看透 ES6](http://gold.xitu.io/entry/5622740a60b27457e870342e)
+* [2015 年底 JS 必备工具集](http://gold.xitu.io/entry/566d34d760b202590bde4c88)
+* [How do Promises Work?](http://gold.xitu.io/entry/5665281460b21eab5d5c41fa)
+* [Absolute Beginner's Guide to Swift](http://gold.xitu.io/entry/5662e08960b204d55d49b95a)
+* [JavaScript 开发者年度调查报告](http://gold.xitu.io/entry/566d29cf60b2e416628e6ff0)
