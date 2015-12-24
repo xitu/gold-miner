@@ -1,3 +1,10 @@
+> * 原文链接 : [How to improve quality and syntax of your Android code](http://vincentbrison.com/2014/07/19/how-to-improve-quality-and-syntax-of-your-android-code/)
+* 原文作者 : [Vincent Brison](http://vincentbrison.com/author/admin/)
+* 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
+* 译者 : 
+* 校对者: 
+* 状态 :  待定
+
 In this article, I will present different ways of improving your Android code with automatic tools such as [Checkstyle](http://checkstyle.sourceforge.net/), [Findbugs](http://findbugs.sourceforge.net/),  [PMD](http://pmd.sourceforge.net/), and of course [Android Lint](http://tools.android.com/tips/lint). Test your code in an automated way can be very useful, especially when you are working with teammates, in order to maintain a rigorous syntax through your code, and avoid a lot of bad practices and errors. I will explain precisely how to use these tools directly through your Gradle build script, and how to configure them at your convenience.
 
 ## Fork the example !
