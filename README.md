@@ -20,7 +20,7 @@
 * [Facebook iOS 应用是如何加速图片显示的？](http://gold.xitu.io/entry/55d182c460b2b750998476c4)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/faster-photos-in-facebook-for-ios.md))
 * [编写高质量的 Swift 代码](http://gold.xitu.io/entry/5661031d00b0c0607132b6da)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/OptimizationTips.rst))
 * [Artsy 工程师总结的一些 Cocoa 开发设计误区](http://gold.xitu.io/entry/55fb191f60b20bbff6370fc5)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/Cocoa-Architecture-Dropped-Design-Patterns.md))
-* [UIKit 里如何面向协议编程](http://gold.xitu.io/entry/5611522e60b2b52c9cead330)
+* [UIKit 里如何面向协议编程](http://gold.xitu.io/entry/5611522e60b2b52c9cead330)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/ios-9-tutorial-series-protocol-oriented-programming-with-uikit.md))
 * [3D Force Touch 的新玩儿法](http://gold.xitu.io/entry/562d9cd660b2c1e233c9106b)
 * [Absolute Beginner's Guide to Swift](http://gold.xitu.io/entry/5662e08960b204d55d49b95a)
 
