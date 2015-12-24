@@ -1,3 +1,10 @@
+> * 原文链接: [Effective OkHttp](http://omgitsmgp.com/2015/12/02/effective-okhttp/)
+* 原文作者 : [Michael Parker](http://omgitsmgp.com/)
+* 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
+* 译者 : 
+* 校对者: 
+* 状态 :  待定
+
 [OkHttp](http://square.github.io/okhttp/) was an invaluable library when developing the [Android app](https://play.google.com/store/apps/details?id=org.khanacademy.android) for [Khan Academy](https://www.khanacademy.org/). While its default configuration offers significant utility, below are some steps we took for increasing the resourcefulness and introspective power of OkHttp:
 
 ### 1\. Enable response caching on the filesystem
