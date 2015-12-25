@@ -46,7 +46,7 @@
 
 ## 设计
 
-* [Mastering Sketch 3](http://gold.xitu.io/entry/5659daf9ddb299ad38f9e446)
+* [Mastering Sketch 3](http://gold.xitu.io/entry/5659daf9ddb299ad38f9e446)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/sketch-mastering.md))
 * [Making Learning Easy by Design](http://gold.xitu.io/entry/5632212260b21ee8e6d49a5d)
 * [An Introduction to Sprite Animation](http://gold.xitu.io/entry/561c78e760b22ed7aa58292f)
 * [Animated SVG vs GIF](http://gold.xitu.io/entry/5655432d00b0bf379ee801dd)
