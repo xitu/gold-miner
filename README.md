@@ -10,10 +10,10 @@
 * [每个 Android 开发者都应该读的 Android Studio Tips](http://gold.xitu.io/entry/5664efa500b0ec3f657bae1d)
 * [MVVM模式介绍](http://gold.xitu.io/entry/560933ce60b227b771931f90)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO%2Fapproaching-android-with-mvvm.md))
 * [Android 的一个 MVP 基础项目模板](http://gold.xitu.io/entry/5630f9c600b0ee7f0bb48c25)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/android-basic-project-architecture-for-mvp.md))
-* [让 Toolbar 随着 RecyclerView 的滚动而显示/隐藏](http://gold.xitu.io/entry/56320b3400b05c9d2b0f7f6f)([markdown](https://github.com/xitu/gold-miner/blob/master/How-to-hideshow-Toolbar-when-list-is-scroling.md))
+* [让 Toolbar 随着 RecyclerView 的滚动而显示/隐藏](http://gold.xitu.io/entry/56320b3400b05c9d2b0f7f6f)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/How-to-hideshow-Toolbar-when-list-is-scroling.md))
 * [Android Guides - Github](http://gold.xitu.io/entry/5584f8e9e4b09e372efeca9a)
-* [6 Things I wish I Knew before I Wrote my first Android App](http://gold.xitu.io/entry/55a38698e4b0ed48f0bfc1ef)([markdown](https://github.com/xitu/gold-miner/blob/master/things-i-wish-i-knew-before-i-wrote-my-first-android-app.md))
-* [Android 上的数据格式 FlatBuffers 介绍](http://gold.xitu.io/entry/55dd1e3b60b27e6cd500d266)([markdown](https://github.com/xitu/gold-miner/blob/master/flatbuffers-in-android-introdution.md))
+* [6 Things I wish I Knew before I Wrote my first Android App](http://gold.xitu.io/entry/55a38698e4b0ed48f0bfc1ef)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/things-i-wish-i-knew-before-i-wrote-my-first-android-app.md))
+* [Android 上的数据格式 FlatBuffers 介绍](http://gold.xitu.io/entry/55dd1e3b60b27e6cd500d266)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/flatbuffers-in-android-introdution.md))
 
 ## iOS
 
@@ -28,13 +28,12 @@
 
 * [350 个特性看透 ES6](http://gold.xitu.io/entry/5622740a60b27457e870342e)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/es6.md))
 * [2015 年底 JS 必备工具集](http://gold.xitu.io/entry/566d34d760b202590bde4c88)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/must-see-javascript-dev-tools-that-put-other-dev-tools-to-shame.md))
-* [How do Promises Work?](http://gold.xitu.io/entry/5665281460b21eab5d5c41fa)([markdown](https://github.com/xitu/gold-miner/blob/master/how-do-promises-work.md))
-* [Absolute Beginner's Guide to Swift](http://gold.xitu.io/entry/5662e08960b204d55d49b95a)([markdown](https://github.com/xitu/gold-miner/blob/master/an-absolute-beginners-guide-to-swift.md))
-* [JavaScript 开发者年度调查报告](http://gold.xitu.io/entry/566d29cf60b2e416628e6ff0)([markdown](https://github.com/xitu/gold-miner/blob/master/javascript-developer-survey-results.md))
+* [How do Promises Work?](http://gold.xitu.io/entry/5665281460b21eab5d5c41fa)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/how-do-promises-work.md))
+* [JavaScript 开发者年度调查报告](http://gold.xitu.io/entry/566d29cf60b2e416628e6ff0)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/javascript-developer-survey-results.md))
 
 ## React
 
-* [Making React Native apps accessible](http://gold.xitu.io/entry/566b01a800b0d1dbc721e56b)([markdown](https://github.com/xitu/gold-miner/tree/master)）
+* [Making React Native apps accessible](http://gold.xitu.io/entry/566b01a800b0d1dbc721e56b)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/making-react-native-apps-accessible.md)）
 * [如何发布一个 React components](http://gold.xitu.io/entry/566951db60b25a8c2e23daaa)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/distributing-react-components.md))
 * [Things I Wish I Were Told About React Native](http://gold.xitu.io/entry/563d9b9960b2c82f2b9da18d)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/things-i-wish-i-were-told-about-react-native.md))
  
