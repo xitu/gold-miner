@@ -89,7 +89,7 @@ $('img').on('error', function () {
 
 ### 鼠标悬停切换class
 
-如果你希望在用户将鼠标悬停在某个可点击元素上时，改变它的视觉效果，你可以给该元素在悬停时添加一个class，当鼠标不再悬停时，移除这个class：
+如果你希望在用户将鼠标悬停在某个可点击元素上时，改变它的视觉效果，你可以给该元素在悬停时添加一个 class，当鼠标不再悬停时，移除这个 class：
 
 ```javascript
 $('.btn').hover(function () {
@@ -271,7 +271,6 @@ $('#elem')
   .otherStuff();
 ```
 
-An alternative is to cache the element in a variable (prefixed with `$`):
 另一种方法是在变量（以 `$` 为前缀）中，对元素进行缓存：
 
 ```javascript
@@ -281,5 +280,4 @@ $elem.html('bla');
 $elem.otherStuff();
 ```
 
-Both chaining and caching methods in jQuery are best practices that lead to shorter and faster code.
 无论是链式操作，还是缓存元素，都是 jQuery 中用以简化和优化代码的极佳方法。
