@@ -237,3 +237,7 @@ Take into consideration that the packaging takes all your assets, all the requi
 The only major difference with NW.js that you will see in our example is that NW.js opens an HTML page directly, whereas Electron starts up by executing a JavaScript file and you create an application window through code. Electron’s way gives you more control, as you can easily build multi-window applications and organize the communication between them.
 
 Overall Electron is an exciting way to build desktop web applications using web technologies. Here is what you should read next:
+
+* [Electron’s Quick Start Guide](https://github.com/atom/electron/blob/master/docs/tutorial/quick-start.md)
+* [Electron’s Documentation](https://github.com/atom/electron/tree/master/docs)
+* [Apps Built with Electron](http://electron.atom.io/#built-on-electron)
