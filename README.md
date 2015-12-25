@@ -13,7 +13,7 @@
 * [让 Toolbar 随着 RecyclerView 的滚动而显示/隐藏](http://gold.xitu.io/entry/56320b3400b05c9d2b0f7f6f)([markdown](https://github.com/xitu/gold-miner/blob/master/How-to-hideshow-Toolbar-when-list-is-scroling.md))
 * [Android Guides - Github](http://gold.xitu.io/entry/5584f8e9e4b09e372efeca9a)
 * [6 Things I wish I Knew before I Wrote my first Android App](http://gold.xitu.io/entry/55a38698e4b0ed48f0bfc1ef)([markdown](https://github.com/xitu/gold-miner/blob/master/things-i-wish-i-knew-before-i-wrote-my-first-android-app.md))
-* [Android 上的数据格式 FlatBuffers 介绍](http://gold.xitu.io/entry/55dd1e3b60b27e6cd500d266)
+* [Android 上的数据格式 FlatBuffers 介绍](http://gold.xitu.io/entry/55dd1e3b60b27e6cd500d266)([markdown](https://github.com/xitu/gold-miner/blob/master/flatbuffers-in-android-introdution.md))
 
 ## iOS
 
