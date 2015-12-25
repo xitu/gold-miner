@@ -1,4 +1,9 @@
-
+> * 原文链接: [Android Basic Project Architecture for MVP — mobiwise blog — Medium](https://medium.com/mobiwise-blog/android-basic-project-architecture-for-mvp-72f4b33252d0#.ha8kjbx3w)
+* 原文作者 : [MuratCanBur](https://medium.com/@muratcanbur)
+* 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
+* 译者 : 
+* 校对者 :
+* 状态 : 待定
 
 Nowadays, I read lots of articles about how to create a basic project structure for our Android applications. As far as I understand from them, the main approach is implementing **MVP (Model View Presenter)** pattern which is also important in the development of Android community.
 
