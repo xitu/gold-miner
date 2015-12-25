@@ -30,7 +30,7 @@
 * [2015 年底 JS 必备工具集](http://gold.xitu.io/entry/566d34d760b202590bde4c88)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/must-see-javascript-dev-tools-that-put-other-dev-tools-to-shame.md))
 * [How do Promises Work?](http://gold.xitu.io/entry/5665281460b21eab5d5c41fa)([markdown](https://github.com/xitu/gold-miner/blob/master/how-do-promises-work.md))
 * [Absolute Beginner's Guide to Swift](http://gold.xitu.io/entry/5662e08960b204d55d49b95a)([markdown](https://github.com/xitu/gold-miner/blob/master/an-absolute-beginners-guide-to-swift.md))
-* [JavaScript 开发者年度调查报告](http://gold.xitu.io/entry/566d29cf60b2e416628e6ff0)
+* [JavaScript 开发者年度调查报告](http://gold.xitu.io/entry/566d29cf60b2e416628e6ff0)([markdown](https://github.com/xitu/gold-miner/blob/master/javascript-developer-survey-results.md))
 
 ## React
 
