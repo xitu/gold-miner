@@ -2,6 +2,13 @@
 
 翻译优质的互联网技术文章
 
+# 如何参与
+
+1. 从下面的文章列表中挑选出待翻译的文章
+2. 在 issue 中提交翻译申请
+3. 申请请求通过后，fork 此仓库开始翻译
+4. 翻译完成，发送 Pull Request
+
 ## Android
 
 * [2015 年度 Android 开发者必备的 5 个开源库](http://gold.xitu.io/entry/5649b8d160b2ed36204eabad)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/Top-5-Android-libraries-every-Android-developer-should-know-about.md))
