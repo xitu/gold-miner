@@ -1,64 +1,61 @@
-> * 原文链接 : [Chrome Devtools Tips & Tricks](http://mo.github.io/2015/10/19/chrome-devtools.html)
+> * 原文链接 : [Chrome 开发者工具建议与技巧](http://mo.github.io/2015/10/19/chrome-devtools.html)
 * 原文作者 : [	Assigned](https://code.google.com/p/chromium/issues/detail?id=174309)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
+* 译者 :  matrixorz
 * 校对者: 
 * 状态 :  待定
 
-Lately I’ve spent more time than usual using the Chrome Developer Tools. Along the way I found a couple of nice features that I had previously missed (or at least hadn’t needed enough to look for; e.g. blackboxing and asynchronous stacktraces). Because of this, I wanted to summarized a few of the features that I really like about devtools.
+最近我在Chrome开发者工具上花费了比平时更多的时间，一路上我发现一系列很炫酷的技巧，这些技巧是我之前错过的(至少没有探讨的如此深刻，比如黑盒子和异步栈跟踪)。由此，我想总结那些我喜欢的开发工具的技巧
 
-*   The little magnifier glass icon that shows you which CSS class/selector in what CSS file that ultimately decides the styling for a specific element and CSS property. For example, select “inspect” on any DOM element and then switch to the “Computed” sub-tab to the right. Find the CSS property you’re interested in and clicking the magnifier icon takes you straight to the correct CSS class/selector in the right .css file (very useful when you start out working on a new large web app):
+*  放大镜小图标会告诉你css文件中css类|选择器决定选中的元素和css属性的最终样式。举个例子，在任一个DOM元素选择”审查“后，进而转到右边的计算后子标签页。找到你感兴趣的css属性，然后点击放大图标会直接将你导入到正确的css类和选择器（这个技巧在当你开始做大型web应用时非常有用）
 
 ![](http://mo.github.io/assets/devtools-css-magnifier-icon.png)
 
-*   To see what XHRs the web app sends while you’re using it, check the “Log XMLHttpRequests” checkbox under “Settings” and keep an eye on the console tab. Before I knew about this, I would set up my browser to go through an HTTP intercept proxy like Burp suite but this more convenient if you just want an quick overview. Of course, with an intercept proxy you also get the opportunity to modify the XHRs before they reach the server, which is really nice for security testing. A lightweight alternative to that is to look under “Sources :: XHR Breakpoints” and activate the “Any XHR” breakpoint.
+*   在使用XHRs时想知道Web应用发送了什么样的XHRs，可以在设置下选中Log XMLHttpRequests 复选框，同时注意console标签页。在你知道发生了什么之前，我已将浏览器建立类似Burp Suite的HTTP拦截代理上了，但是这里的代理在你只是想得到一个快速的概览时使用更方便。当然，使用拦截代理时你也有机会在XHRs到达服务器之前进行修改，这对于安全测试是非常有用的。一个轻量化的替代方案是在”Sources::XHR Breakpoints“下激活”任意XHR“断点
 
 ![](http://mo.github.io/assets/devtools-settings-log-xhr.png)
+*   现在，假设你开发的web应用在定期创建XHR（比如保证当前视图最新），你想知道在哪儿建立定时器（比如在哪里调用setTimeout或者setInterval），为了弄清楚这个问题，你可以调到源码标签页，选中“Async“复选框。这样会让你所有的栈跟踪能继续跳过setTimeout以及关联的事件，甚至多层嵌套。对于requestAnimationFrame和addEventListener以及其他的事件同样适用。你将在下面看到复选框。
 
-*   Now, suppose that the web app you’re working on is making some XHR at a regular interval (for example, keeping the current view up to date) and you would like to know where this timer is setup (i.e. where the call to `setTimeout()` or possibly `setInterval()` is made). To figure this out, you switch to the “Sources” tab, and check the “Async” checkbox. This will make all your stacktraces continue beyond `setTimeout()` and friends, even multiple levels deep. It does the same thing for `requestAnimationFrame()` and `addEventListener()` and a few others too. You’ll find the checkbox here:
-
-![](http://mo.github.io/assets/devtools-async-stacktraces.png)
-
-*   To quickly find the code that runs when you click a particular button or link is clicked, activate an “Event listener breakpoint” for Mouse :: Click just before you click the particular button (another killer feature when starting out work on an existing large web app):
+![](http://mo.github.io/assets/devtools-async-stacktraces.png)  
+*   为了快速的发现你点击的按钮或链接时将要运行的代码，在你点击特定的按钮之前激活鼠标::点击的"事件监听断点"（当你开始做现有的大型web应用中的另一个杀手级特征）
 
 ![](http://mo.github.io/assets/devtools-event-listener-breakpoints.png)
-
-*   When you use “Event listener breakpoint :: Mouse :: Click” you might end up in a third-party library like jQuery at first, and so you’d have to step a few times in the debugger to arrive at the “real” event handler. A great way to avoid this is to “blackbox” the third-party script. The debugger will never stop inside a blackboxed script, instead it continues to run until it reaches a line that isn’t in a blackboxed file. You can blackbox a script by right clicking the filename of the third-party library in the callstack and the selecting “Blackbox Script” from the context menu:
+*   当你使用"事件监听断点::鼠标::点击"时，一开始你可能会结束在jQuery这样的第三方库中，你不得不在调试器中多进入几次从而到达真正的事件处理中，一个避免这样问题的优雅方法是黑盒化三方脚本。调试器在黑盒化后的脚本将不会停止，取而代之的是他将继续运行，直到它到达不在黑盒脚本文件中的首行。你可以在调用栈中，通过右击三方库的脚本文件从上下文菜单中选择黑盒化脚本选项黑盒化一个脚本。
 
 ![](http://mo.github.io/assets/devtools-blackbox-third-party-script.png)
-
-*   You can jump to a specific file, by name, using `ctrl-p` (just like in atom):
+*   你可以跳转到特定的文件，也就是，使用ctrl-p（与atom中使用方法一样）
 
 ![](http://mo.github.io/assets/devtools-open-file-ctrl-o.png)
 
-*   You can jump to a function, by name (but only in the currently open file), using `ctrl-shift-p`:
+*   你能跳转到一个函数（不限制于当前打开的文件中），也就是，使用‘ctrl-shift-p';
 
 ![](http://mo.github.io/assets/devtools-go-to-member.png)
 
-*   You can search through all files using `ctrl-shift-f`:
+*   你可以通过'ctrl-shift-f'搜索所有的文件：
 
 ![](http://mo.github.io/assets/devtools-search-all-files-ctrl-shift-f.png)
 
-*   You can edit using multiple simultaneous cursors by selecting some word and then pressing `ctrl-d` a few times to select more instances of that word (again, just like in atom). Very nice for renaming variables:
+*   你可以多次使用'ctrl-d'去选择一个单词的关联实例，使多个游标选择一些单词然后同时进行编辑（再一次的与atom使用方法一样）。在重命名变量时这个技巧非常有用。
 
 ![](http://mo.github.io/assets/devtools-multiple-cursors-ctrl-d.gif)
-
-*   When working on a website stored locally it’s possible to edit files in devtools and save the changes directly to disk. To do this, switch to the Sources tab, right click on the Sources sub-tab and select “Add Folder to Workspace” and then finally select the local folder where your project is located. After that, right click the local copy of some file in your site and select “Map to Network Resource…” and then select the corresponding “network” file:
+*   当在本地存储的网站上工作时，在开发工具中可能会去编辑文件，想在本地磁盘中存储这些变化。为了达到这样的目的，可以回到source标签页，右击Source子标签页然后选择”添加文件夹到工作空间“中，进而选择你项目所在的本地文件夹，之后，在你的网站上右击一些文件的本地副本，选择“映射到网络资源...”，并选择相应的网络文件：
 
 ![](http://mo.github.io/assets/devtools-workspace-map-network-resource.png)
 
-Other handy tips include:
+其他实用技巧包括
 
-*   `$0` in console is the element you selected in the elements view.
-*   You can evaluate XPath expressions using `$x("//p")` (very useful if you’re writing selenium testcases and CSS selectors doesn’t get you all the way).
+*    终端中的`$0`是你在元素视图中选择的那个元素
+*    你可以使用`$x("//p")`计算Xpath表达式(在你编写不完全的seleninum测试用例和css选择器时非常有用)
 
-I also recommend that you install two Chrome extensions:
+我也建议你安装下面两个Chrome扩展：
 
-*   [JSONView](https://www.google.se/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=0CCAQFjAAahUKEwje6JvErs_IAhVI_iwKHSwaALo&url=https%3A%2F%2Fchrome.google.com%2Fwebstore%2Fdetail%2Fjsonview%2Fchklaanhfefbnpoihckbnefhakgolnmc%3Fhl%3Den&usg=AFQjCNH3ET5JyRh_aKGH_G5Ws5MXENK5bA&sig2=JD7IupIQ8cZJwE_05USbwg) will indent and syntax highlight JSON blobs for you (and even allow you to expand/collapse blocks). It also makes URLs inside JSON clickable which often makes it possible to explore a JSON-based API via the browser. For example, try navigating to [`http://omahaproxy.appspot.com/all.json`](http://omahaproxy.appspot.com/all.json) before and after you install it (better formatting) and also [`https://api.github.com/`](https://api.github.com/) (clickable URLs make it easier to explore the API).
+*   [JSONView](https://www.google.se/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=0CCAQFjAAahUKEwje6JvErs_IAhVI_iwKHSwaALo&url=https%3A%2F%2Fchrome.google.com%2Fwebstore%2Fdetail%2Fjsonview%2Fchklaanhfefbnpoihckbnefhakgolnmc%3Fhl%3Den&usg=AFQjCNH3ET5JyRh_aKGH_G5Ws5MXENK5bA&sig2=JD7IupIQ8cZJwE_05USbwg)将为你缩进和高亮json块，（甚至允许你对其展开/折叠）。它也可让json中的urls可以点击，能够通过浏览器就可探查基于json的api，例如，访问[`http://omahaproxy.appspot.com/all.json`](http://omahaproxy.appspot.com/all.json)，之后你安装JSONView，发现json格式化的更好,[`https://api.github.com/`](https://api.github.com/)也可以 (可点击的URLs能够更容易探查API)
 
-*   [JS Error Notifier (non-“spyware” version)](https://chrome.google.com/webstore/detail/javascript-errors-notifie/fhbooopdkjpkogooopbmabepipljagfn) creates a popup each time a Javascript error is printed to the console. Unfortunately, the main version of this extension submits private “usage data” to a third-party service (see discussion in [issue #28](https://github.com/barbushin/javascript-errors-notifier/issues/28)). But at any rate, this extension has helped me notice and fix several bugs.
+*   [JS Error Notifier (non-“spyware” version)](https://chrome.google.com/webstore/detail/javascript-errors-notifie/fhbooopdkjpkogooopbmabepipljagfn) 会创建弹出框当在终端上打印javascript 错误时。不幸的是，这个扩展的主版本会提交私有使用数据到一个第三方服务(讨论参见 [issue #28](https://github.com/barbushin/javascript-errors-notifier/issues/28))。但是，这个扩展确实帮助我留意和修改了好几个bug。
 
-All in all I really like devtools, the only annoying thing that I can think of is that you cannot customize keybindings:
+
+总之，我非常喜欢开发者工具，我能想到的困扰就只是不能进行键盘绑定的定制化：
+
 
 *   [Allow to customize keyboard shortcuts/key bindings](https://code.google.com/p/chromium/issues/detail?id=174309)
 
