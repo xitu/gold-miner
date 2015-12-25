@@ -13,7 +13,7 @@
 
 * [2015 年度 Android 开发者必备的 5 个开源库](http://gold.xitu.io/entry/5649b8d160b2ed36204eabad)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/Top-5-Android-libraries-every-Android-developer-should-know-about.md))
 * [如何提高安卓代码的质量和语法](http://gold.xitu.io/entry/561104a260b2b52c9ce40ea0)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/how-to-improve-quality-and-syntax-of-your-android-code.md))
-* [如何更高效的使用 okhttp](http://gold.xitu.io/entry/5665ac0f60b202595a710eb6)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/effective-okhttp.md))
+* [如何更高效的使用 okhttp](http://gold.xitu.io/entry/5665ac0f60b202595a710eb6)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/effective-okhttp.md)) ([boolstudio](https://github.com/boolstudio) 认领)
 * [每个 Android 开发者都应该读的 Android Studio Tips](http://gold.xitu.io/entry/5664efa500b0ec3f657bae1d)
 * [MVVM模式介绍](http://gold.xitu.io/entry/560933ce60b227b771931f90)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO%2Fapproaching-android-with-mvvm.md))
 * [Android 的一个 MVP 基础项目模板](http://gold.xitu.io/entry/5630f9c600b0ee7f0bb48c25)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/android-basic-project-architecture-for-mvp.md))
