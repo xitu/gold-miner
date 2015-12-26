@@ -1,7 +1,7 @@
 > * 原文链接 : [How do Promises Work? - Quils in Space](http://robotlolita.me/2015/11/15/how-do-promises-work.html)
 * 原文作者 : [Quil](http://robotlolita.me/about/index.html)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
+* 译者 : [Zhangjd](https://github.com/Zhangjd)
 * 校对者: 
 * 状态 :  待定
 
@@ -9,110 +9,88 @@
 
 
 
-## Table of Contents
+## 目录
 
-## 1\. Introduction
+## 1\. 入门介绍
 
-Most implementations of JavaScript happen to be single-threaded, and given the language’s semantics, people tend to use _callbacks_ to direct concurrent processes. While there isn’t anything particularly wrong with using [Continuation-Passing Style](http://matt.might.net/articles/by-example-continuation-passing-style/) in JavaScript, in practice it’s very easy for them to make the code harder to read, and more procedural than it should be.
+许多JavaScript的实现碰巧是单线程的，并且考虑到语言的语义，人们倾向于使用 _callbacks_ 来管理并行的过程。在JavaScript中，虽然使用 [Continuation-Passing Style(后继传递格式)](http://matt.might.net/articles/by-example-continuation-passing-style/) 并没有什么明显的过错， 但实际上，这样做会非常容易让代码变得难以阅读和更加程序化（比起它本应有的样子）。
 
-Many solutions for this have been proposed, and the usage of promises to synchronise these concurrent processes is one of them. In this blog post we’ll look at what promises are, how they work, and why you should or shouldn’t use them.
+关于这一问题，人们已经提出了很多建议，在这当中，使用promises来让这些并行过程同时进行就是其中之一。 在这篇博文中我们将看到什么是promises，promises是怎样工作的，和你应该什么时候使用promises，什么时候不用。
 
-> **Note** This article assumes the reader is at least familiar with higher-order functions, closures, and callbacks (continuation-passing style). You might still be able to get something out of this article without that knowledge, but it’s better to come back after acquiring a basic understanding of those concepts.
+> **备注** 这篇文章假定读者至少熟悉高阶函数、闭包和回调（CPS）。 或许缺少这些知识，你也能从本文收获到一些什么，但是还是建议你先了解清楚这些概念，再回来读这篇文章。
 
-## 2\. A Conceptual Understanding of Promises
+## 2\. 从概念上理解Promises
 
-Let’s start from the beginning and answer a very important question: “What _are_ promises anyway?”
+在一开始，让我们先来回答一个非常重要的问题: “到底什么是promises?”
 
-To answer this question, we’ll consider a very common scenario in real life.
+要回答这个问题，我们先来看一个生活中很常见的情景。
 
-### Interlude: The Girl Who Hated Queues
+### 插曲: 讨厌排队的女孩
 
-![](http://robotlolita.me/files/2015/09/promises-01.png) _Girfriends trying to have dinner at a very popular food place._
+![](http://robotlolita.me/files/2015/09/promises-01.png) 
 
-Alissa P. Hacker and her girlfriend decided to have dinner at a very popular restaurant. Unfortunately, as it was to be expected, when they arrived there all of the tables were already occupied.
+_女生们想要在一个热闹的餐馆里吃晚餐。_
 
-In some places, this would mean that they would either have to give up and choose somewhere else to eat, or wait in a long queue until they could get a table. But Alissa hated queues, and this place had the perfect solution for her.
+Alissa P. Hacker 和她的女性朋友决定到一个非常受欢迎的餐馆吃晚餐。 不幸的是，正如预想的那样，当她们到达的时候所有的餐桌都被占满了。
 
-> “This is a magical device that represents your future table…”
+在一些地方，这意味着她们要不放弃，要不选择去别的地方吃，又或者在这排长队，直到有空桌。 但是Alissa讨厌排队，还好这个地方给她提供了完美的解决方法。
 
-![](http://robotlolita.me/files/2015/09/promises-02.png) _A device that represents your future table in the restaurant._
+> “这是一个有魔力的装置，它代表着你未来的餐桌……”
 
-“Worry not, my dear, just hold on to this device, and everything will be taken care of for you,” the lady at the restaurant said, as she held a small box.
+![](http://robotlolita.me/files/2015/09/promises-02.png) 
 
-“What is this…?” Alissa’s girlfriend, Rue Bae, asked.
+_代表着未来餐桌的装置。_
 
-“This is a magical device that represents your future table at this restaurant,” the lady spoke, then beckoned to Bae. “There’s no magic, actually, but it’ll tell you when your table is ready so you can come and eat,” she whispered.
+“别担心，亲爱的，只要拿着这款装置，它会帮你处理好一切。” 餐厅里的女士对她说，手里正拿一个小盒子。
 
-### 2.1\. What Are Promises?
+“这是啥……?” Alissa的朋友，Rue Bae问。
 
-Much like the “magical” device that stands in for your future table at the restaurant, promises exist to represent _something_ that will be available in the future. In a programming language, these things are values.
+“这是一个有魔力的装置，它代表着你在这家餐厅里将来的餐桌,” 女士一边说，一边示意Bae， “其实呢里面没有魔力，但是当排到你的时候，它会告诉你，然后你们就可以过来吃了。” 她低声说道。
 
-![](http://robotlolita.me/files/2015/09/promises-03.png) _Whole apple in, apple slices out._
+### 2.1\. 什么是Promises?
 
-In the synchronous world, it’s very simple to understand computations when thinking about functions: you put things into a function, and the function gives you something in return.
+就像那个“有魔力的”装置可以代表着你未来在餐厅里的餐桌，promises的存在就是为了代表将会在未来发生的_某些东西_。 在编程语言中，这就是指值。
 
-This _input-goes-in-output-comes-out_ model is very simple to understand, and something most programmers are very familiar with. All syntactic structures and built-in functionality in JavaScript assume that your functions will follow this model.
+![](http://robotlolita.me/files/2015/09/promises-03.png) 
 
-There is one big problem with this model, however: in order for us to be able to get our delicious things out when we put things into the function, we need to sit there and wait until the function is done with its work. But ideally we would want to do as many things as we can with the time we have, rather than sit around waiting.
+_放进整个苹果，出来的是苹果片_
 
-To solve this problem promises propose that, instead of waiting for the value we want, we get something that represents that value right away. We can then move on with our lives, and, at some later point in time, come back to get the value we need.
+在同步的世界里，当谈到函数时，我们很容易去理解它的计算: 你把输入放进函数里，函数就会给出一些内容作为输出。
 
-> Promises are representations of eventual values.
+这种 _输入输出_ 的模型很容易理解，大部分程序员对此也非常熟悉。 所有JavaScript的句法结构与内建功能，都假设你的函数会跟随这一模型。
 
-![](http://robotlolita.me/files/2015/09/promises-04.png) _Whole apple in, ticket for rescuing our delicious apple slices later out._
+可是这一模型有一个大问题: 当我们要给函数提供了输入，为了让我们获得想要的输出，我们需要一直坐等直到函数完成它的工作。 但是理想情况是我们想要在这段时间内尽量多做点别的事情，而不是坐着等待。
 
-### Interlude: Order of Execution
+为了解决这种问题，promises被提了出来，我们会立刻取得某种东西来代表这个值，而不是一直等到最终结果出来。 我们可以继续我们的生活，然后在某个时间点，回来取得我们所需要的值。
 
-Now that we, hopefully, understand what a promise is, we can look at how promises help us write concurrent programs in an easier way. But before we do that, let’s take a step back and think about a more fundamental problem: the order of execution of our programs.
+> Promises是最终结果的表示形式。
 
-As a JavaScript programmer you might have noticed that your program executes in a very peculiar order, which happens to be the order in which you write the instructions in your program’s source code:
+![](http://robotlolita.me/files/2015/09/promises-04.png) 
 
+_放进整个苹果，随后出来一张苹果切片的票据。_
 
+### 插曲: 执行顺序
 
+既然我们很想明白什么是promises，我们可以看看promises是怎么帮助我们更容易写并行程序的。 但在这之前，让我们后退一步，思考一个更基本的问题: 我们程序中的执行顺序。
 
-
-
-
-
-
-
+作为一个JavaScript程序员，你可能已经注意到，你的程序通过一种独特的方法执行，恰好是你在程序源码中所写指令的顺序:
 
 ```
 var circleArea = 10 * 10 * Math.PI;
 var squareArea = 20 * 20;
 ```
 
+如果我们执行这个程序，首先我们的JavaScript虚拟机会计算`circleArea`，一旦计算完成，再执行`squareArea`的计算。 换句话说，我们的程序会告诉机器，“做这个，再做那个，然后再做那个……”
 
+> **问题时间!** 为什么我们的机器一定要先计算 `circleArea` 再计算 `squareArea`? 如果我们颠倒数序或者同时执行，会产生什么问题呢?
 
+原来，按顺序执行每样东西的代价是昂贵的。如果 `circleArea` 花费太多时间，我们将会阻塞 `squareArea` 执行直到它完成。 实际上，对于这一个例子，我们选择什么样的顺序都没问题，结果是一样的。我们程序中可以任意调整这个顺序。
 
+> […] 按顺序是非常昂贵的。
 
+我们想要我们的电脑做更多事情，并且要做得更 _快_。 为了做到这样，首先我们完全去掉执行顺序。换言之，我们假设在我们的程序中所有表达式在同一时间执行。
 
-
-
-
-
-
-If we execute this program, first our JavaScript VM will run the computation for `circleArea`, and once it’s finished, it’ll execute the computation for `squareArea`. In other words, our programs are telling the machines “Do this. Then do that. Then do that. Then…”
-
-> **Question time!** Why must our machine execute `circleArea` before `squareArea`? Would there be any issues if we inverted the order, or executed both at the same time?
-
-Turns out, executing everything in order is very expensive. If `circleArea` takes too long to finish, then we’re blocking `squareArea` from executing at all until then. In fact, for this example, it doesn’t matter which order we pick, the result is always going to be the same. The order expressed in our programs is too arbitrary.
-
-> […] order is very expensive.
-
-We want our computers to be able to do more things, and do more things _faster_. To do so, let’s, at first, dispense with order of execution entirely. That is, we’ll assume that in our programs all expressions are executed at the exact same time.
-
-This idea works very well with our previous example. But it breaks as soon as we try something slightly different:
-
-
-
-
-
-
-
-
-
-
+这个主意在我们前一个例子中完美运行。但是当我们一做轻微改变的时，问题就来了:
 
 ```
 var radius = 10;
@@ -121,118 +99,93 @@ var squareArea = 20 * 20;
 print(circleArea);
 ```
 
+如果我们没有任何顺序，我们怎么能从其他表达式构成值呢? 好吧，我们办不到，因为没办法保证当我们需要用到值的时候，它已经被计算出来。
 
+来换种方法，我们程序中唯一的顺序被定义为表达式的组件之间的相互依赖。本质上意味着一旦它的组件准备好了，马上执行，即使其它内容正在执行中。
 
+![](http://robotlolita.me/files/2015/09/promises-05.png) _我们的简单例子里的依赖图。_
 
+并不是一定要声明我们执行程序的时候的顺序，我们只需要定义好每一个计算是如何相互依赖的。 手里拿着这些数据，电脑可以创建如上的依赖图，并自己推断出最高效执行程序的方式。
 
+> **有趣的事实!** 这个图表很好地描述了程序在Haskell编程语言中是怎么样被评估的，它也非常接近于表达式在更加熟知的系统中是怎样被评估的，比如Excel。
 
+### 2.2\. Promises和并发
 
+前面一章所描述的执行模型，where order is defined simply by the dependencies between each expression，非常强大和高效，但我们如何应用到JavaScript中呢?
 
+我们不能直接把这个模型应用到JavaScript，因为这门语言的内在语义是同步顺序的。但我们可以创造一种分离机制，来描述表达式之间的相互依赖，并且帮助我们解决这些依赖，根据这些规则执行程序。其中一种实现方法，就是通过在promises之上引入依赖的概念.
 
+这种promises的新规划由两个主要部分构成: 一是可以表示值并把值放入表示中；二是创建表达式和值之间的依赖，创建一个新的promise，就是为了取得表达式的结果。
 
+![](http://robotlolita.me/files/2015/09/promises-06.png) 
 
-If we don’t have any order at all, how can we compose values coming from other expressions? Well, we can’t, since there’s no guarantee that the value would have been computed by the time we need it.
+_创建未来值的表示。_ 
 
-Let’s try something different. The only order in our programs will be defined by the dependencies between the components of the expressions. Which, in essence, means that expressions are executed as soon as all of its components are ready, even if other things are already executing.
+![](http://robotlolita.me/files/2015/09/promises-07.png) 
 
-![](http://robotlolita.me/files/2015/09/promises-05.png) _The dependency graph for our simple example._
+_创建值和表达式之间的依赖_
 
-Instead of having to declare which order the program should use when executing, we’ve only defined how each computation depends on each other. With that data in hand, a computer can create the dependency graph above, and figure out itself the most efficient way of executing this program.
+我们的promises代表着我们还没计算出来的值。这个表示方法是不透明的: 我们看不见值，也不能直接和值相互作用。此外，在JavaScript promises中，我们也不能从表示方法中取出值。一旦你把一些东西放进一个JavaScript promises，你 **不能** 从promise里面拿出来了。(http://robotlolita.me/2015/11/15/how-do-promises-work.html#fn:1)
 
-> **Fun fact!** The graph above describes very well how programs are evaluated in the Haskell programming language, but it’s also very close to how expressions are evaluated in more well-known systems, such as Excel.
+这本身没什么用，因为我们需要能够以某种方法使用这些值。如果我们不能从表示方法中取出值，我们需要想别的办法去实现。结果解决 “取出问题”的最简单方法，是通过描述我们想怎么让程序去执行，通过明确地提供依赖，然后解决这个依赖图并执行它。
 
-### 2.2\. Promises and Concurrency
+对于这项工作，我们需要一种方法堵塞表达式中的实际值，然后延迟表达式的执行，直到它确实被需要。很幸运JavaScript让我们回到这里: first-class functions（一等函数）可以达到这个目的。
 
-The execution model described in the previous section, where order is defined simply by the dependencies between each expression, is very powerful and efficient, but how do we apply it to JavaScript?
+### 插曲: 表达式的抽象
 
-We can’t apply this model directly to JavaScript because the language semantics are inherently synchronous and sequential. But we can create a separate mechanism to describe dependencies between expressions, and to resolve these dependencies for us, executing the program according to those rules. One way to do this is by introducing this concept of dependencies on top of promises.
-
-This new formulation of promises consists of two major components: Something that makes representations of values, and can put values in this representation. And something that creates a dependency between one expression and a value, creating a new promise for the result of the expression.
-
-![](http://robotlolita.me/files/2015/09/promises-06.png) _Creating representations of future values._ ![](http://robotlolita.me/files/2015/09/promises-07.png) _Creating dependencies between values and expressions._
-
-Our promises represent values that we haven’t computed yet. This representation is opaque: we can’t see the value, nor interact with the value directly. Furthermore, in JavaScript promises, we also can’t extract the value from the representation. Once you put something in a JavaScript promise, you **cannot** take it out of the promise (http://robotlolita.me/2015/11/15/how-do-promises-work.html#fn:1).
-
-This by itself isn’t much useful, because we need to be able to use these values somehow. And if we can’t extract the values from the representation, we need to figure out a different way of using them. Turns out that the simplest way of solving this “extraction problem” is by describing how we want our program to execute, by explicitly providing the dependencies, and then solving this dependency graph to execute it.
-
-For this to work, we need a way of plugging the actual value in the expression, and delaying the execution of this expression until strictly needed. Fortunately JavaScript has got our back in this: first-class functions serve exactly this purpose.
-
-### Interlude: Abstracting Over Expressions
-
-If one has an expression of the form `a + 1`, then it is possible to abstract over this expression such that `a` becomes a value that can be plugged in, once it’s ready. This way, the expression:
-
-
-
-
-
-
-
-
-
-
+比如像 `a + 1` 这种表达式，一旦`a`的值计算好，可以通过值来代入`a`来抽象化表达式。按这种方式，表达式为:
 
 ```
 var a = 2;
 a + 1;
-// { replace `a` by its current value }
+// { 用 `a` 的当前值替换 }
 // => 2 + 1
-// { reduce the expression }
+// { 简化表达 }
 // => 3
 ```
 
-
-
-
-
-
-
-
-
-
-
-Becomes the following lambda abstraction(http://robotlolita.me/2015/11/15/how-do-promises-work.html#fn:2):
+再变成以下的lambda抽象(http://robotlolita.me/2015/11/15/how-do-promises-work.html#fn:2):
 
 ```
 var abstraction = function(a) {
   return a + 1;
 };
 
-// We can then plug `a` in:
+// 然后我们把 `a` 装上:
 abstraction(2);
 // => (a => a + 1)(2)
-// { replace `a` by the provided value }
+// { 用提供的值替换 `a` }
 // => (2 => 2 + 1)
-// { reduce the expression }
+// { 简化表达式 }
 // => 2 + 1
-// { reduce the expression }
+// { 简化表达式 }
 // => 3
 ```
 
 
+一等函数是一个很强大的概念（不管是不是匿名）。因为有了这个，JavaScript可以用一个非常自然的方式去描述这些依赖关系，通过转换使用了promises的表达式为一等函数，我们可以在之后插入值。
 
-First-class functions are a very powerful concept (whether they are anonymous — a lambda abstraction — or not). Since JavaScript has them we can describe these dependencies in a very natural way, by transforming the expressions that use the values of promises into first-class functions so we can plug in the value later.
+## 3\. 理解Promises的机制
 
-## 3\. Understanding the Promises Machinery
+### 3.1\. Promises的顺序表达
 
-### 3.1\. Sequencing Expressions with Promises
+既然我们经历了promises的概念本质，我们开始理解他们在机器中是怎么样工作的。我们将会描述创建promises需要的操作，把值放进去，然后描述表达式和值之间的依赖。 为了我们的例子，我们将使用非常描写性的操作，偶尔会用一些不存在的Promises实现:
 
-Now that we went through the conceptual nature of promises, we can start understanding how they work in a machine. We’ll describe the operations used to create promises, put values in them, and describe the dependencies between expressions and values. For the sake of our examples we’ll use the following very descriptive operations, which happen to be used by no existing Promises implementation:
+*   `createPromise()` 构造出一个值的表示方法。这个值必须要在之后及时提供。
 
-*   `createPromise()` constructs a representation of a value. The value must be provided at later point in time.
+*   `fulfil(promise, value)` 把值放进promise中，也允许表达式依赖值去计算。
 
-*   `fulfil(promise, value)` puts a value in the promise, allowing the expressions that depend on the value to be computed.
+*   `depend(promise, expression)` 定义了表达式和Promise的值之间的依赖。返回一个新的promise作为表达式的结果，因此新的表达式可以依赖于那个值。
 
-*   `depend(promise, expression)` defines a dependency between the expression and the value of the promise. It returns a new promise for the result of the expression, so new expressions can depend on that value.
-
-Let’s go back to the circles and squares example. For now, we’ll start with the simpler one: turning the synchronous `squareArea` into a concurrent description of the program by using promises. `squareArea` is simpler because it only depends on the `side` value:
+让我们回到圆形和正方形的例子。目前，我们用简单点的例子开始: 通过使用promises，把同步的`squareArea`变成一个用并行描述的程序。 `squareArea`之所以简单，因为它只依赖于`side`值:
 
 ```
-// The expression:
+// 表达式:
 var side = 10;
 var squareArea = side * side;
 print(squareArea);
 
-// Becomes:
+// 变成:
 var squareAreaAbstraction = function(side) {
   var result = createPromise();
   fulfil(result, side * side);
@@ -251,17 +204,15 @@ var printPromise = depend(squareAreaPromise, printAbstraction);
 fulfil(sidePromise, 10);
 ```
 
+这里会引起很多议论，如果我们和同步版本的代码相比较，这个新版本并没有和JavaScript的执行顺序相关联，在执行中的唯一约束，是我们所描述的依赖关系。
 
+### 3.2\. 一个最小限度的Promise实现
 
-This is a lot of noise, if we compare with the synchronous version of the code, however this new version isn’t tied to JavaScript’s order of execution. Instead, the only constraints on its execution are the dependencies we’ve described.
+还有一个悬而未决的问题需要回答: 我们如何运行代码，使得实际顺序跟我们描述的依赖一样呢? 如果我们不跟随JavaScript的执行顺序，别的东西必须提供我们想要的执行顺序。
 
-### 3.2\. A Minimal Promise Implementation
+幸运地，按照我们所使用的函数，这很容易被定义。首先，我们必须决定如何表示值和它们的关系，最自然的方式是把这个数据添加到`createPromise`的返回值。
 
-There’s one open question left to be answered: how do we actually run the code so the order follows from the dependencies we’ve described? If we’re not following JavaScript’s execution order, something else has to provide the execution order we want.
-
-Luckily, this is easily definable in terms of the functions we’ve used. First we must decide how to represent values and their dependencies. The most natural way of doing this is by adding this data to the value returned from `createPromise`.
-
-First, Promises of _something_ must be able to represent that value, however they don’t necessarily contain a value at all times. A value is only placed into the promise when we invoke `fulfil`. A minimal representation for this would be:
+首先，_事物_的Promises必须可以表示那个值，然而并不是在所有时间都必须包含一个值。当我们调用`fulfil`时，值才会被放入到promise。最小限度的表示这个就是:
 
 ```
 data Promise of something = {
@@ -269,9 +220,9 @@ data Promise of something = {
 }
 ```
 
-A `Promise of something` springs into existence containing the value `null`. At some later point in time someone may invoke the `fulfil` function for that promise, and from there on the promise will contain the given fulfilment value. Since promises can only be fulfilled once, that value is what the promise will contain for the rest of the program.
+`Promise of something`以空值`null`初始化，在某个时间点某个人可能调用这个promise的`fulfil`函数，从那以后这个promise将包含给定的实现值。由于promises只能被实现一次，那个值将会在剩余的程序中一直包含着。
 
-Given that it’s not possible to figure out if a promise has already been fulfilled by just looking at the `value` (`null` is a valid value), we also need to keep track of the state the promise is in, so we don’t risk fulfilling it more than once. This requires a small change to the our previous representation:
+考虑到一个promise不能通过只看着`value`（`null`是一个有效值）来判断是否被实现了，我们还需要跟踪promise处于哪种状态，所以我们不会冒险多于一次去实现它。这需要我们对之前的表示方法做一点小改变:
 
 ```
 data Promise of something = {
@@ -280,7 +231,7 @@ data Promise of something = {
 }
 ```
 
-We also need to handle the dependencies that are created by the `depend` function. A dependency is a function that will, eventually, be filled with the value in the promise, so it can be evaluated. One promise can have many functions which depend on its value, so a minimal representation for this would be:
+我们还需要处理由`depend`函数创建出的依赖关系。一个依赖关系是一个函数，最终将会被promise中的值所填充，所以它是可以被评估的。一个promise可以有很多依赖其值的函数，因此这样的一个最小限度表示方法可以是:
 
 ```
 data Promise of something = {
@@ -290,52 +241,48 @@ data Promise of something = {
 }
 ```
 
-Now that we’ve decided on a representation for our promises, let’s start by defining the function that creates new promises:
+既然我们已经决定好我们的promises表示方法，让我们一起开始定义创造新promises的函数:
 
 ```
 function createPromise() {
   return {
-    // A promise starts containing no value,
+    // promise初始化为空值,
     value: null,
-    // with a "pending" state, so it can be fulfilled later,
+    // 待定状态的promise可以在稍后实现,
     state: "pending",
-    // and it has no dependencies yet.
+    // 它现在还没有依赖关系。
     dependencies: []
   };
 }
 ```
 
-Since we’ve decided on our simple representation, constructing a new object for that representation is fairly straightforward. Let’s move to something more complicated: attaching dependencies to a promise.
+既然我们决定了我们的简单表示方法，构造一个新对象来表示是相当简单的。让我们来看点更复杂的: 附加依赖到Promise中。
 
-One of the ways of solving this problem would be to put all of the dependencies created in the `dependencies` field of the promise, then feed the promise to an interpreter that would run the computations as needed. With this implementation, no dependency would ever execute before the interpreter is started. We’ll not implement promises this way because it doesn’t fit how people usually write JavaScript programs(http://robotlolita.me/2015/11/15/how-do-promises-work.html#fn:3).
+解决这个问题的其中一个方法，是把所有创造出的依赖放入promise的`dependencies`中，然后把promise交给解释器按需计算。用这个实现，解释器开启之前将没有依赖会被执行。我们不会这样去实现promises，因为这对于人们通常所写的JavaScript程序并不适合(http://robotlolita.me/2015/11/15/how-do-promises-work.html#fn:3)。
 
-Another way of solving this problem comes from the realisation that we only really need to keep track of the dependencies for a promise while the promise is in the `pending` state, because once a promise is fulfilled we can just execute the function right away!
+另一种解决方案的来源，事实上我们只有当promise处于`pending`状态时，才真正需要跟踪一个promise的依赖，因为一旦promise被实现，我们就可以立刻执行函数了！
 
 ```
 function depend(promise, expression) {
-  // We need to return a promise that will contain the value of
-  // the expression, when we're able to compute the expression
+  // 当我们可以计算表达式的时候，我们需要返回一个包含表达式的值的promise
   var result = createPromise();
 
-  // If we can't execute the expression yet, put it in the list of
-  // dependencies for the future value
-  if (promise.state === "pending") {
-    promise.dependencies.push(function(value) {
-      // We're interested in the eventual value of the expression
-      // so we can put that value in our result promise.
+  // 假若我们还不能执行表达式，把它放进依赖列表，作为未来的值
+  if (Promise.state === "pending") {
+    Promise.dependencies.push(function(value) {
+      // 我们关心的是表达式最后的值，所以我们可以把值放进我们的promise结果中
       depend(expression(value), function(newValue) {
         fulfil(result, newValue);
-        // We return an empty promise because `depend` requires one promise
+        // 我们返回一个空的promise，因为`depend`函数需要一个promise
         return createPromise();
       })
     });
 
-  // Otherwise just execute the expression, we've got the value
-  // to plug in ready!
+  // 否则只需要执行表达式，我们就可以得到准备好插入的值
   } else {
-    depend(expression(promise.value), function(newValue) {
+    depend(expression(Promise.value), function(newValue) {
       fulfil(result, newValue);
-      // We return an empty promise because `depend` requires one promise
+      // 我们返回一个空的promise，因为`depend`函数需要一个promise
       return createPromise();
     })
   }
@@ -344,9 +291,9 @@ function depend(promise, expression) {
 }
 ```
 
-The `depend` function takes care of executing our dependent expressions when the value they’re waiting for is ready, but if we attach the dependency too soon that function will just end up in an array in the promise object, so our job is not done yet. For the second part of the execution, we need to run the dependencies when we’ve got the value. Luckily, the `fulfil` function can be used for this.
+当`depend`函数等待的值准备好的时候，`depend`函数负责执行我们的依赖关系计算，但如果我们太早附加依赖，那样函数会在promise对象的一个数组中结束，这样我们的工作并没有完成。对于第二部分的执行，需要在得到值的时候，运行依赖关系。幸运地，我们可以使用`fulfil`函数。
 
-We can fulfil promises that are in the `pending` state by calling the `fulfil` function with the value we want to put in the promise. This is a good time to invoke any dependencies that were created before the value of the promise was available, and takes care of the other half of the execution.
+通过调用`fulfil`函数把我们的值放进promise当中，我们可以实现正处于`pending`状态的promise。这是一个好时机，来调用promise值可以用之前所创建的任何的依赖关系，并负责另外一半的执行工作。
 
 ```
 function fulfil(promise, value) {
@@ -355,9 +302,9 @@ function fulfil(promise, value) {
   } else {
     promise.state = "fulfilled";
     promise.value = value;
-    // Dependencies may add other dependencies to this promise, so we
-    // need to clean up the dependency list and copy it so our
-    // iteration isn't affected by that.
+    // 依赖关系可以添加其他的依赖到这个promise当中，
+    // 因此我们需要清理依赖列表，
+    // 把列表复制出来以避免我们的的迭代受影响。
     var dependencies = promise.dependencies;
     promise.dependencies = [];
     dependencies.forEach(function(expression) {
@@ -367,37 +314,45 @@ function fulfil(promise, value) {
 }
 ```
 
-## 4\. Promises and Error Handling
+## 4\. Promises和错误处理
 
-### Interlude: When Computations Fail
+### 插曲: 当计算失败的时候
 
-Not all computations can always produce a valid value. Some functions, like `a / b`, or `a[0]` are partial, and thus only defined for a subset of possible values for `a` or `b`. If we write programs that contain partial functions, and we hit one of the cases that the function can’t handle, we won’t be able to continue executing the program. In other words, our entire program would crash.
+并非所有计算都总能产生一个有效值。某些函数，比如`a / b`或`a[0]`，称作部分函数，因此只能被定义为`a`或`b`的可能取值的子集。 如果我们写的代码包含了部分函数，并碰上了一种函数不能处理的情况，我们就不能继续执行程序了。换句话说，我们的整个程序会崩溃。
 
-A better way of incorporating partial functions in a program is by making it total. That is, defining the parts of the function that weren’t defined before. In general, this means that we consider the cases the function can handle a form of “Success”, and the cases it can’t handle a form of “Failure”. This alone already allows us to write entire programs that may continue executing even when faced with a computation that can’t produce a valid value:
+在程序中，一个更好的合并部分函数的方法是通过合起来。也就是说，定义函数过去没被定义的部分。总之，我们要考虑让函数处理“成功”的情况，和不能处理的“失败”情况。仅这一点，就已经让我们写出整个流畅的程序，甚至当面临计算不能产生出一个有效值的时候，也可以继续执行:
 
-![](http://robotlolita.me/files/2015/09/promises-08.png) _Branching on partial functions_
+![](http://robotlolita.me/files/2015/09/promises-08.png)
 
-Branching on each possible failure is a reasonable way of handling them, but not necessarily a practical one. For example, if we compose three computations that could fail, that means we’d have to define at least 6 different branches, for the simplest composition!
+_部分函数的分支_
 
-![](http://robotlolita.me/files/2015/09/promises-09.png) _Branching on every partial function_
+一个合理的处理方法，是在每一个可能的失败值上建立分支来处理，但不一定实用。比如，我们组合三个可能失败的计算，意味着我们至少要定义6个不同的分支!
 
-> **Fun fact!** Some programming languages, like OCaml, prefer this style of error handling because it’s very explicit on what’s happening. In general functional programming favours explicitness, but some functional languages, like Haskell, use an interface called Monad(http://robotlolita.me/2015/11/15/how-do-promises-work.html#fn:4) to make error handling (among other things) more practical.
+![](http://robotlolita.me/files/2015/09/promises-09.png) 
 
-Ideally, we’d like to write just `y / (x / (a / b))`, and handle possible errors just once, for the entire composition, rather than handling errors in each sub-expression. Programming languages have different ways of letting you do this. Some let you ignore errors entirely, or at least put off touching it as much as possible, like C and Go. Some will let the program crash, but give you tools to recover from the crashing, like Erlang. But the most common approach is to assign a “failure handler” to a block of code where failures may happen. JavaScript allows the latter approach through the `try/catch` statement, for example.
+_在每个部分函数都建分支_
 
-![](http://robotlolita.me/files/2015/09/promises-10.png) _One of the approaches for handling failures in a practical way_
+> **有趣的事实!** 对一些编程语言，比如 OCaml，更喜欢这种风格的错误处理，因为这样可以很清楚每个步骤。通常来说函数式编程语言偏爱这种明确性，但在某些编程语言，比如 Haskell，使用一个称作Monad的接口(http://robotlolita.me/2015/11/15/how-do-promises-work.html#fn:4)来让错误处理变得更为实用。
 
-### 4.1\. Handling Errors With Promises
+更理想的方法是，我们只需要写`y / (x / (a / b))`，然后对整个组合式只处理一次错误，而不是处理每一个子表达式的错误。编程语言对此有不同的处理方法，比如 C 和 Go，让你可以完全忽略错误，或者至少尽可能延迟碰它。比如Erlang，会让程序崩溃，但也会提供工具让你的程序恢复运行。但最通用的方法，是给可能发生错误的代码块定义一个“错误处理程序”。JavaScript允许通过`try/catch`声明，实现后一种方法，比如：
 
-Our formulation of Promises so far does not admit failures. So, all of the computations that happen in promises must always produce a valid result. This is a problem if we were to run a computation like `a / b` inside a promise, because if `b` is 0, like in `2 / 0`, that computation can’t produce a valid result.
+![](http://robotlolita.me/files/2015/09/promises-10.png)
 
-![](http://robotlolita.me/files/2015/09/promises-11.png) _Possible states of our new promise_
+_一种错误处理的可行方法_
 
-We can modify our promise to contemplate the representation of failures quite easily. Currently our promises start at the `pending` state, and then it can only be fulfilled. If we add a new state, `rejected`, then we can model partial functions in our promises. A computation that succeeds would start at pending, and eventually move to `fulfilled`. A computation that fails would start at pending, and eventually move to `rejected`.
+### 4.1\. 用Promises处理错误
 
-Since we now have the possibility of failure, the computations that depend on the value of the promise also must be aware of that. For now we’ll have our `depend` failure just take an expression to run when the promise is fulfilled, and one expression to run when the promise is rejected.
+至今，我们的promise构想中，还没允许失败。因此，所有在promises中的计算必须产生一个有效的结果。如果我们要在promise中运行像 `a / b` 这样的计算，如果 `b` 取 0，比如 `2 / 0`，那样的话计算不能产生有效的结果。
 
-With this, our new representation of promises becomes:
+![](http://robotlolita.me/files/2015/09/promises-11.png)
+
+_我们的新promise的可能状态_
+
+我们可以修改promise，来简化失败的表达方式。当前我们的promise以`pending`状态开始，然后它只能被实现。假如我们增加一个新的状态，`rejected`，然后我们就可以在promise当中模仿部分函数了。成功的计算以`pending`开始，最终以`fulfilled`状态结束。 失败的计算也以`pending`开始，但状态最后会变为`rejected`。
+
+既然现在我们有可能失败，依赖于promise的值的计算也必须要意识这一点。 目前我们的`depend`失败，在promise实现和被拒的时候各自运行不同的表达式。
+
+带着这个，我们的promise表示方法变成了:
 
 ```
 data Promise of (value, error) = {
@@ -410,20 +365,18 @@ data Promise of (value, error) = {
 }
 ```
 
-The promise may contain either a proper value, or an error, and contains `null` until it settles (is either fulfilled or rejected). To handle this, our dependencies also need to know what to do for proper values and error values, so the array of dependencies has to be changed slightly.
+Promise可能包含一个合理值，或者一个错误，又或者是 `null` 直到它解决（可能是成功也可能失败）。要这样处理的话，我们的依赖关系也需要知道对于合理值和错误值分别怎样处理，因此稍微改变一下dependencies数组。
 
-Besides the change in representation, we need to change our `depend` function, which now reads like this:
+除了在表示方法中的改变，我们还要改一下 `depend` 函数，现在读起来就像这样:
 
 ```
-// Note that we now take two expressions, rather than one.
+// 注意我们现在需要两个表达式了，而不是一个。
 function depend(promise, onSuccess, onFailure) {
   var result = createPromise();
 
   if (promise.state === "pending") {
-    // Dependencies now gets an object containing
-    // what to do in case the promise succeeds, and
-    // what to do in case the promise fails. The functions
-    // are roughly the same as the previous ones.
+    // 依赖关系现在拿到一个对象，包含了promise在成功与失败情况下分别该怎么做。
+    // 函数和前面的大致相同。
     promise.dependencies.push({
       fulfilled: function(value) {
         depend(onSuccess(value),
@@ -431,17 +384,14 @@ function depend(promise, onSuccess, onFailure) {
                  fulfil(result, newValue);
                  return createPromise()
                },
-               // We have to care about errors that
-               // happen when applying the expression too
+               // 我们在应用表达式的时候也必须关心错误
                function(newError) {
                  reject(result, newError);
                  return createPromise();
                });
       },
 
-      // The rejected branch does the same as the
-      // fulfilled branch, but uses the onFailure
-      // expression.
+      // 失败的分支和成功的分支做的事情是一样的，只不过是使用onFailure表达式。
       rejected: function(error) {
         depend(onFailure(error),
                function(newValue) {
@@ -456,7 +406,7 @@ function depend(promise, onSuccess, onFailure) {
       });
     }
   } else {
-    // if the promise has been fulfilled, we run onSuccess
+    // 如果promise已经成功实现，我们运行onSuccess
     if (promise.state === "fulfilled") {
       depend(onSuccess(promise.value),
              function(newValue) {
@@ -484,7 +434,7 @@ function depend(promise, onSuccess, onFailure) {
 }
 ```
 
-And finally, we need a way of putting errors in promises. For this we need a `reject` function.:
+最终，我们需要一个把错误放进promise的方法。为此我们需要一个 `reject` 函数：
 
 ```
 function reject(promise, error) {
@@ -502,7 +452,7 @@ function reject(promise, error) {
 }
 ```
 
-We also need to review the `fulfil` function slightly due to our change to the `dependencies` field:
+由于`dependencies`改变了，我们还要轻微改变下 `fulfil` 函数。
 
 ```
 function fulfil(promise, value) {
@@ -520,10 +470,10 @@ function fulfil(promise, value) {
 }
 ```
 
-And with these new additions, we’re ready to start putting computations that may fail in our promises:
+有了这些新内容，我们已经准备好把可能失败的计算放进promise中：
 
 ```
-// A computation that may fail
+// 可能失败的计算
 var div = function(a, b) {
   var result = createPromise();
 
@@ -540,7 +490,7 @@ var printFailure = function(error) {
   console.error(error);
 };
 
-var a = 1, b = 2, c = 0, d = 3;
+var a = 1，b = 2，c = 0，d = 3;
 var xPromise = div(a, b);
 var yPromise = depend(xPromise,
                       function(x) {
@@ -554,31 +504,31 @@ var zPromise = depend(yPromise,
                       printFailure);
 ```
 
-### 4.2\. Failure Propagation With Promises
+### 4.2\. Promises中的错误传播
 
-The last code example will never execute `zPromise`, because `c` is 0, and it causes the computation `div(x, c)` to fail. This is exactly what we expect, but right now we need to pass the failure branch every time we define a computation in our promise. Ideally, we’d like to only define the failure branches where necessary, like we do with `try/catch` for synchronous computations.
+上一段代码永远不会执行 `zPromise`，因为 `c` 的值是0，并导致了 `div(x，c)` 计算失败。这正是我们希望的，但是现在我们需要的是：在promise中定义的每一个计算都传递错误。理想情况下，我们喜欢只在必要情况之下定义错误分支，就像我们用 `try/catch` 处理同步的计算一样。
 
-Turns out it’s trivial for our promise to support this functionality. It’s only necessary to define our branches for success and failure all the time if we can’t abstract over it, and it’s often the case with control flow. For example, in JavaScript, it’s not possible to abstract over an `if` statement, or a `for` statement, because they’re second-class control flow mechanisms, and you can’t modify those, pass them around, or store them in variables. Our promises are first-class objects, they have a concrete representation of failures and successes, which we can inspect and react to whenever we want, not just at the point they are created.
+对我们的promise来说，支持这一功能并不重要。只需要在我们不能抽象的时候，始终定义我们的成功分支与失败分支，并且这通常是在控制流中的条件。比如在JavaScript中，不可能在 `if` 声明或者 `for` 声明上面抽象，因为他们是二等控制流机制了，并且你也不能修改、传递，或者保存在变量当中。我们的promise是一等的对象，有具体的失败与成功的表示方法，以便我们去审查并作出反应什么时候需要它，而不仅仅在它们被创建的时间点上。
 
-![](http://robotlolita.me/files/2015/09/promises-12.png) _Possible lifecycle of a promise chain_
+![](http://robotlolita.me/files/2015/09/promises-12.png)
 
-In order to be able to achieve something similar to `try/catch` we first must be able to do two things with our representation of successes and failures:
+_promise可能的链式生命周期_
 
-*   **recover from a failure**: If a computation failed, I must be able to turn that value into some sort of success that makes sense. This allows, for example, the use of a default value when retrieving some data from a `Map` or `Array` structure. `map.get("foo").recover(1) + 2` would give you `3` if there’s no `"foo"` key in the map.
+为了可以得到像 `try/catch` 这样的结构，首先，我们必须在成功和失败分支做两件事情：
 
-*   **fail anytime**: If I have a successful computation, I must be able to turn that value into a failure, and if I have a failure, I must be able to keep the failure. The former allows short-circuiting a computation, and the latter allows failure propagation. With both, you’re able to capture the semantics of `(a / b) / (c / d)` failing entirely if any subexpression fails.
+*   **从错误中恢复**: 如果计算失败了，我必须可以把值变成某种有意义的成功。比如说，当从 `Map` 或者 `Array` 中尝试取值时，设置默认值。 如果map中不存在 `"foo"` 这个键，`map.get("foo").recover(1) + 2` 会返回3。
 
-Luckily for us, the `depend` function already does most of this work. Because `depend` requires its expressions to return _whole_ promises it’s able to propagate not only the values, but the state the promise is in. This is important since if we define just a `successful` branch, and the promise fails, we want to propagate not only the value, but also its failure state.
+*   **任何时候可能失败**: 如果我进行了一个成功的计算，我必须可以把那个值变成失败；如果我失败了，我必须可以保持这个失败。前面的模型允许了计算短路，后面这个则允许了错误传播。有了这两个，即使 `(a / b) / (c / d)` 的任何的子表达式失败了，你也可以完全去捕获它。
 
-With these mechanisms already in place, supporting simple failure propagation, error handling, and short-circuiting on failures requires adding two operations: `chain`, which creates a dependency on the successful value of a promise, but short-circuits on failures; and `recover`, which creates a dependency on the failure value of a promise, and allows recovering from that error.
+我们很幸运，`depend` 函数已经帮我们完成了大部分工作了。因为 `depend` 要求它的表达式返回_整个_ promise，使得其不仅可以传播值，也可以传播状态。这很重要，因为如果我们只定义了一个 `successful` 分支，然后promise失败了，我们就不仅要传播值，也要传播失败的状态。
+
+带着这些适如其分的机制，支持简单的失败传播，错误处理，和失败时短路，需要添加两个操作：`chain` 在promise的成功值上创建一个依赖关系，在失败时进行短路计算；`recover` 在promise的失败值上创建依赖关系，并允许从错误中恢复。
 
 ```
 function chain(promise, expression) {
   return depend(promise, expression,
                 function(error) {
-                  // We propagate the state and
-                  // value of the error by just
-                  // creating an equivalent promise
+                  // 只需要创建一个等价的promise，我们便可以错误状态和值。
                   var result = createPromise();
                   reject(result, error);
                   return result;
@@ -588,9 +538,7 @@ function chain(promise, expression) {
 function recover(promise, expression) {
   return depend(promise,
                 function(value) {
-                  // We propagate successful values
-                  // by just creating an equivalent
-                  // promise.
+                  // 只需要创建一个等价的promise，我们便可以传播成功值。
                   var result = createPromise();
                   fulfil(result, value);
                   return result;
@@ -599,20 +547,10 @@ function recover(promise, expression) {
 }
 ```
 
-We can then use these two functions to simplify our previous division example:
-
-
-
-
-
-
-
-
-
-
+我们可以用这两个函数来简化我们之前的除法例子：
 
 ```
-var a = 1, b = 2, c = 0, d = 3;
+var a = 1，b = 2，c = 0，d = 3;
 var xPromise = div(a, b);
 var yPromise = chain(xPromise, function(x) {
                                  return div(x, c)
@@ -623,33 +561,13 @@ var zPromise = chain(yPromise, function(y) {
 var resultPromise = recover(zPromise, printFailure);
 ```
 
+## 5\. 组合promise
 
+### 5.1\. 组合确定性的promise
 
+对promise进行顺序操作时，要求我们创建一个依赖关系链，而并行组合promise只要求promise相互间不存在依赖。
 
-
-
-
-
-
-
-
-## 5\. Combining Promises
-
-### 5.1\. Combining Promises Deterministically
-
-While sequencing operations with promises requires one to create a chain of dependencies, combining promises concurrently just requires that the promises don’t have a dependency on each other.
-
-For our Circle example we have a computation that is naturally concurrent. The `radius` expression and the `Math.PI` expression don’t depend on each other, so they can be computed separately, but `circleArea` depends on both. In terms of code, we have the following:
-
-
-
-
-
-
-
-
-
-
+在我们的圆形例子中，我们进行了自然应该并行的计算。`radius` 表达式和 `Math.PI` 表达式之间没有互相依赖，因此它们可以分开计算，但是 `circleArea` 依赖它们俩的值。依据这个，代码可以写成：
 
 ```
 var radius = 10;
@@ -657,17 +575,7 @@ var circleArea = radius * radius * Math.PI;
 print(circleArea);
 ```
 
-
-
-
-
-
-
-
-
-
-
-If one wanted to express this with promises, they’d have:
+如果用promise来表达，代码如下：
 
 ```
 var circleAreaAbstraction = function(radius, pi) {
@@ -692,19 +600,17 @@ fulfil(radiusPromise, 10);
 fulfil(piPromise, Math.PI);
 ```
 
-We have a small problem here: `circleAreaAbstraction` is an expression that depends on **two** values, but `depend` is only able to define dependencies for expressions that depend on a single value!
+这里有个小问题: `circleAreaAbstraction` 是依赖于 **两个** 值的表达式，但是 `depend` 只能够定义表达式和单个值的依赖！
 
-There are a few ways of working around this limitation, we’ll start with the simple one. If `depend` can provide a single value for one expression, then it must be possible to capture the value in a closure, and extract the values from the promises one at a time. This does create some implicit ordering, but it shouldn’t impact concurrency too much.
+有些变通的方法可以解决这个限制，让我们从简单的开始。如果 `depend` 对一个表达式能提供单个值，那就必须能够在一个闭包中获取值，然后从promise中每次提取一个值。虽然这样确实创建出一种隐含顺序，但这不应该过分影响并发性。
 
 ```
 function wait2(promiseA, promiseB, expression) {
-  // We extract the value from promiseA first.
+  // 我们先从 promiseA 提取值
   return chain(promiseA, function(a) {
-    // Then we extract the value of promiseB
+    // 然后从 promiseB 提取值
     return chain(promiseB, function(b) {
-      // Now that we've got access to both values,
-      // we can execute the expression that depends
-      // on more than one value:
+      // 既然我们已经取得两个值了，我们就可以执行依赖多于一个值的表达式：
       var result = createPromise();
       fulfil(result, expression(a, b));
       return result;
@@ -713,49 +619,43 @@ function wait2(promiseA, promiseB, expression) {
 }
 ```
 
-With this, we can define `circleAreaPromise` as the following:
+有了这个，我们定义如下的 `circleAreaPromise` ：
 
 ```
 var circleAreaPromise = chain(wait2(radiusPromise, piPromise),
                               circleAreaAbstraction);
 ```
 
-We could define `wait3` for expressions that depend on three values, `wait4` for expressions that depend on four values, and so on, and so forth. But `wait*` creates an implicit ordering (promises are executed in a particular order), and it requires that we know the amount of values that we’re going to plug in advance. So it doesn’t work if we want to wait for an entire array of promises, for example (although one could combine `wait2` and `Array.prototype.reduce` for that).
+对于依赖三个值的表达式我们可以定义 `wait3` ，依赖四个值的表达式我们可以定义 `wait4`等。但是，`wait*` 创建出一种隐含顺序(promise以某种特定顺序执行)，这样还要求我们提前知道我们需要依赖值的个数。所以，举个例子，如果我们想等待一整个promise数组的话，这种方法就不好使了。（尽管可以通过组合 `wait2` 和 `Array.prototype.reduce`来这么做）
 
-Another way of solving this problem is to accept an array of promises, and execute each one as soon as possible, then give back a promise for an array of the values the original promises contained. This approach is a little more complicated, since we need to implement a simple Finite State Machine, but there is no implicit ordering (besides JavaScript’s own execution semantics).
+另一种解决方案是接收一个promise数组作为参数，逐一执行，然后归还一个promise到原promise包含的值数组。这种方法有点复杂，因为我们要实现一个简单的有限状态机，但是这样没有隐含顺序（除了JavaScript自己的执行语义）。
 
 ```
 function waitAll(promises, expression) {
-  // An array of the values of the promise, which we'll fill in
-  // incrementally.
+  // 用于存放promise值的数组，一旦有值会马上放进该数组。
   var values = new Array(promises.length);
-  // How many promises we're still waiting for
+  // 记录有多少个promise还在等待着
   var pending = values.length;
-  // The resulting promise
+  // promise结果
   var result = createPromise();
-  // Whether the promise has been resolved or not
+  // 记录promise是否已经被解决
   var resolved = false;
 
-  // We start by executing each promise. We keep track of the
-  // original index so we know where to put the value in the 
-  // resulting array.
+  // 我们开始执行每个promise，并跟踪原始索引值，以此来获取应该把值放进结果数组的哪个位置。
   promises.forEach(function(promise, index) {
-    // For each promise, we'll wait for the promise to resolve,
-    // and then store the value in the `values` array.
+    // 对于每个promise，我们会等到promise解决，然后把值存入 `values` 数组
     depend(promise, function(value) {
       if (!resolved) {
         values[index] = value;
         pending = pending - 1;
 
-        // If we finished waiting for all of the promises, we
-        // can put the array of values in the resulting promise
+        // 如果我们完成了等待所有的promise，我们可以把values数组放进结果的promise中。
         if (pending === 0) {
           resolved = true;
           fulfil(result, values);
         }
       }
-      // We don't care about doing anything else with this promise.
-      // We return an empty promise because `depends` requires it.
+      // 我们并不关心这个promise的其它方面，并返回空的promise，因为`depends`需要它。
       return createPromise();
     }, function(error) {
       if (!resolved) {
@@ -766,40 +666,37 @@ function waitAll(promises, expression) {
     })
   });
 
-  // Finally, we return a promise for the eventual array of values
+  // 最后，我们返回一个promise，作为最终的值数组。
   return result;
 }
 ```
 
-If we were to use `waitAll` for the `circleAreaAbstraction`, it would look like the following:
+如果我们要把 `waitAll` 用到 `circleAreaAbstraction`，应该会像下面这样：
 
 ```
 var circleAreaPromise = chain(waitAll([radiusPromise, piPromise]),
                               function(xs) {
-                                return circleAreaAbstraction(xs[0], xs);
+                                return circleAreaAbstraction(xs[0]，xs);
                               })
 ```
 
-### 5.2\. Combining Promises Non-Deterministically
+### 5.2\. 组合非确定性的promise
 
-We’ve seen how to combine promises, but so far we can only combine them deterministically. This doesn’t help us if we need to, for example, select the fastest of two computations. Maybe we’re searching for something on two servers, and we don’t care which one answers, we’ll just go with the fastest one.
+我们已经知道怎样合并promise了，但是到现在我们只能确定性地合并它们。举个例子，比如我们想选择两个计算中最快一个的时候，这就帮不到我们了。可能我们正在两台服务器上面搜索某些东西，而且并不关心哪一台会应答我们，我们只选择最快那一个。
 
-In order to support this we’ll introduce some non-determinism. In particular, we need an operation that, given two promises, takes the value and state of the one which resolves the fastest. The idea behind the operation is simple: run two promises concurrently, and wait for the first resolution, then propagate that to the resulting promise. The implementation is somewhat less simple, since we need to keep state around:
+为了支持这样，我们先介绍一些非决定论的知识。特别是，我们需要一个操作是，给定两个promise，拿走更快那个的值与状态。这个主意背后的操作很简单：并行运行两个promise，等待第一个解决，然后把它传播到promise结果。这个实现并不那么简单，因为我们需要保持着状态。
 
 ```
 function race(left, right) {
-  // Create the resulting promise.
+  // 创建promise结果
   var result = createPromise();
 
-  // Waits for both promises concurrently. doFulfil
-  // and doReject will propagate the result/state of
-  // the first promise to resolve. This is done by
-  // checking the current state of `result` to make
-  // sure it's already pending.
-  depend(left, doFulfil, doReject);
-  depend(right, doFulfil, doReject);
+  // 并行等待两个promise，doFulfil 和 doReject 会传播第一个解决的值与状态。
+  // 这通过检查 `result` 的当前状态并确认是等待中来完成。
+  depend(left, doFulfil，doReject);
+  depend(right, doFulfil，doReject);
 
-  // Return the resulting promise
+  // 返回promise结果
   return result;
 
   function doFulfil(value) {
@@ -816,7 +713,7 @@ function race(left, right) {
 }
 ```
 
-With this we can start combining operations by choosing between them non-deterministically. If we take the previous example:
+通过这种非确定的选择，我们就可以开始组合操作了。就拿上面的例子来说：
 
 ```
 function searchA() {
@@ -836,10 +733,10 @@ function searchB() {
 }
 
 var valuePromise = race(searchA(), searchB());
-// => valuePromise will eventually be 30
+// => valuePromise最终的值是30
 ```
 
-Choosing between more than two promises is possible, because `race(a, b)` basically _becomes_ `a` or `b` depending on which one resolves the fastest. So if we have `race(c, race(a, b))`, and `b` resolves first, then that’s the same as `race(c, b)`. Of course, typing `race(a, race(b, race(c, ...)))` isn’t the best thing, so we can write a simple combinator to do that for us:
+在两个promise中选择已经成为了可能，因为 `race(a, b)` 基本成为 `a` 或 `b`，依赖于哪个解决得更快。因此，如果我们进行 `race(c，race(a, b))`，并且 `b` 先解决，然后就变得和 `race(c，b)` 一样了。当然了，输入 `race(a，race(b，race(c，。。。)))` 并非最佳，因此我们可以写一个简单的组合器来完成这件事：
 
 ```
 function raceAll(promises) {
@@ -847,55 +744,31 @@ function raceAll(promises) {
 }
 ```
 
-And then we can use it:
-
-
-
-
-
-
-
-
-
-
+然后我们可以这样使用:
 
 ```
 raceAll([searchA(), searchB(), waitAll([searchA(), searchB()])]);
 ```
 
-
-
-
-
-
-
-
-
-
-
-Another way of choosing between two promises non-deterministically is to wait for the first one to be _successfully fulfilled_. For example, if you’re trying to find a valid download link in a list of mirrors, you don’t want to fail if the first one fails, you want to download from the first mirror you can, and fail if all of them fail. We can write an `attempt` operation to capture this:
+另一种在两个promise中作出非确定性选择的方法，是等待直到第一个_成功实现_。举个例子，如果你正试图从一个镜像源列表里面找出一个可用的下载链接，你可不想因为第一个链接不能下载而失败了，你想要的是从第一个能下载的镜像进行下载，如果全都不能下才算失败。我们可以写一个尝试操作 `attempt` 来这么做： 
 
 ```
 function attempt(left, right) {
-  // Creates the resulting promise.
+  // 创建promise结果
   var result = createPromise();
 
-  // doFulfil will propagate the result/state of the first
-  // promise that resolves successfully, whereas doReject
-  // will aggregate the errors until all of the promises
-  // fail.
+  // doFulfil会传播传播第一个成功解决的值与状态。
+  // 反之，doReject会合计错误，直到所有的promise失败
   //
-  // We need to keep track of the errors that happened
+  // 我们需要跟踪发生的错误
   var errors = {}
 
-  // Now we can wait for both promises, just like in `race`.
-  // The difference here is that `doReject` needs to know
-  // which promise it is rejecting, to keep track of the
-  // errors.
-  depend(left, doFulfil, doReject('left'));
-  depend(right, doFulfil, doReject('right'));
+  // 现在我们可以等待两个promise，就像在`race`中那样。
+  // 不同的是，在这里`doReject`需要知道拒绝哪一个promise，并保持跟踪错误。
+  depend(left, doFulfil，doReject('left'));
+  depend(right, doFulfil，doReject('right'));
 
-  // Finally, return the resulting promise.
+  // 最后，把promise结果作为返回值。
   return result;
 
   function doFulfil(value) {
@@ -907,14 +780,12 @@ function attempt(left, right) {
   function doReject(field) {
     return function(value) {
       if (result.state === "pending") {
-        // If we're still pending, we can safely keep aggregating
-        // the errors. We make sure the error we got goes into the
-        // right field of the object aggregating these errors
+        // 如果我们还在等待中，我们可以安全地一直收集错误。
+        // 我们确保得到的错误能进入对象中正确收集这些错误的地方
         errors[field] = value;
 
-        // If we've managed to catch all of the errors, we can
-        // reject the resulting promise. We reject it with all
-        // of the errors that happened, in the right order.
+        // 如果我们设法收集了所有的错误，我们可以拒绝promise结果。
+        // 我们在所有错误都发生时，以正确顺序拒绝它。
         if ('left' in errors && 'right' in errors) {
           reject(result, [errors.left, errors.right]);
         }
@@ -924,18 +795,16 @@ function attempt(left, right) {
 }
 ```
 
-Usage is the same as `race`, so `attempt(searchA(), searchB())` would return the first promise that resolves successfully, rather than just the first promise to resolve. However, unlike `race`, `attempt` doesn’t compose naturally because it aggregates the errors. So, if we want to attempt several promises, we need to account for that:
+用法和 `race` 一样，因此 `attempt(searchA(), searchB())` 会返回第一个_成功_解决的promise，而不只是第一个解决的promise。可是，和 `race` 不一样，`attempt` 不会自然构成，因为它会聚集错误。因此，如果我们想尝试几个promise时，我们需要解释下：
 
 ```
 function attemptAll(promises) {
-  // Since we aggregate all promises, we need to start from a
-  // rejected one, otherwise attempt would never finish if we
-  // have errors.
+  // 由于我们聚集了所有的promise，我们需要从被拒绝的一个promise开始，
+  // 否则，如果存在错误，我们的尝试将一直不能完成。
   var initial = createPromise();
   reject(initial, []);
 
-  // Finally, we use `attempt` to combine the promises, taking
-  // care of flattening the arrays of errors at each step:
+  // 最后，我们用 `attempt` 来把promise组合起来，注意每一步都要平铺错误数组：
   return promises.reduce(function(result, promise) {
     return recover(attempt(result, promise), function(errors) {
       return errors[0].concat([errors]);
@@ -946,151 +815,92 @@ function attemptAll(promises) {
 attemptAll([searchA(), searchB(), searchC(), searchD()]);
 ```
 
-## 6\. A Practical Understanding of Promises
-
-[ECMAScript 2015](http://www.ecma-international.org/ecma-262/6.0/) defines the concept of Promises for JavaScript, but up until now we’ve been using a very simple, but unconventional implementation of promises. The reason for this is that ECMAScript’s standard promise is too complex, and it would make it harder to explain the concepts from the ground up. However, now that you know what promises are, and how each aspect of them can be implemented, it’s very trivial to make the move to the standard promises.
-
-### 6.1\. Introducing ECMAScript Promises
-
-The new version of the ECMAScript language defines a [standard for promises](http://www.ecma-international.org/ecma-262/6.0/#sec-promise-constructor) in JavaScript. This standard differs from the minimal promise implementation we’ve introduced in a few ways, which makes it more complex, but also more practical and easier to use. The table below lists the differences between each implementation:
-
-
-
-
-
-
-
-<th>Our Promises</th>
-
-<th>ES2015 Promises</th>
-
-
-
-
-
-
-
-
-
-`p = createPromise()`
-
-`p = new Promise(...)`
-
-
-
-
-
-`fulfil(p, x)`
-
-`p = new Promise((fulfil, reject) => fulfil(x))`
-
-
-
-
-
-`p = Promise.resolve(x)`
-
-
-
-
-
-`reject(p, x)`
-
-`p = new Promise((fulfil, reject) => reject(x))`
-
-
-
-
-
-`p = Promise.reject(x)`
-
-
-
-
-
-`depend(p, f, g)`
-
-`p.then(f, g)`
-
-
-
-
-
-`chain(p, f)`
-
-`p.then(f)`
-
-
-
-
-
-`recover(p, g)`
-
-`p.catch(g)`
-
-
-
-
-
-`waitAll(ps)`
-
-`Promise.all(ps)`
-
-
-
-
-
-`raceAll(ps)`
-
-`Promise.race(ps)`
-
-
-
-
-
-`attemptAll(ps)`
-
-(None)
-
-
-
-
-
-
-
-The main methods in the standard promise are `new Promise(...)`, which introduce a promise object, and `.then(...)` which transforms it. There are a few differences in the way they work, when compared to the operations described so far.
-
-`new Promise(f)` introduces a new promise object, it does so by taking a computation which eventually either succeeds or fails with a particular value. The act of succeeding and failing is captured by the two function arguments passed to the function `f`, which it expects. Thus:
+## 6\. Promises的实践理解
+
+[ECMAScript 2015](http://www.ecma-international.org/ecma-262/6.0/) 定义了JavaScript中promise的定义，但直到现在，我们使用的还是一个非常简单却非常规的promise实现。其原因是ECMAScript的promise标准过于复杂，要彻底解释这个概念更加艰难。但是，既然你现在知道promise是什么了，和其中的每个方面是怎样实现的，要迁移到理解标准promise也就很简单了。
+
+### 6.1\. 介绍ECMAScript Promises
+
+新版本ECMAScript语言中，定义了一种JavaScript中的promise标准 [standard for promises](http://www.ecma-international.org/ecma-262/6.0/#sec-promise-constructor)。这个标准和最小限度promise实现有所不同，我们将从几个方面进行介绍，这使得它更复杂，但也更加实际和易于使用。下面的表格列出了每一个实现的不同之处。
+
+<table>
+  <thead>
+    <tr>
+      <th>我们的 Promises</th>
+      <th>ES2015 Promises</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>p = createPromise()</td>
+      <td>p = new Promise(...)</td>
+    </tr>
+    <tr>
+      <td>fulfil(p，x)</td>
+      <td>p = new Promise((fulfil, reject) => fulfil(x))</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>p = Promise.resolve(x)</td>
+    </tr>
+    <tr>
+      <td>reject(p，x)</td>
+      <td>p = new Promise((fulfil, reject) => reject(x))</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>p = Promise.reject(x)</td>
+    </tr>
+    <tr>
+      <td>depend(p, f, g)</td>
+      <td>p.then(f, g)</td>
+    </tr>
+    <tr>
+      <td>chain(p，f)</td>
+      <td>p.then(f)</td>
+    </tr>
+    <tr>
+      <td>recover(p，g)</td>
+      <td>p.catch(g)</td>
+    </tr>
+    <tr>
+      <td>waitAll(ps)</td>
+      <td>Promise.all(ps)</td>
+    </tr>
+    <tr>
+      <td>raceAll(ps)</td>
+      <td>Promise.race(ps)</td>
+    </tr>
+    <tr>
+      <td>attemptAll(ps)</td>
+      <td>(None)</td>
+    </tr>
+  </tbody>
+</table>
+
+在标准promise中，主要的方法是 `new Promise(...)`，用来引入一个promise对象，然后用 `.then(...)` 变换。通过对比所描述的操作，它们的工作方式也有些不一样的地方。
+
+`new Promise(f)` 引入一个新的promise对象，它通过计算一个特定的值，最终成功或失败。成功或失败的行为按照预期，会被两个函数参数捕捉，传递到函数 `f`，因此：
 
 ```
 var p = createPromise();
 fulfil(p, 10);
 
-// Becomes:
+// 变为:
 var p = new Promise((fulfil, reject) => fulfil(10));
 
 // ---
-// And:
+// 并且:
 var q = createPromise();
 reject(q, 20);
 
-// Becomes:
+// 变为:
 var p = new Promise((fulfil, reject) => reject(20));
 ```
 
-`promise.then(f, g)` is an operation that creates a dependency between an expression with a hole for a value, and the value in the promise, similar to the `depend` operation. Both `f` and `g` are optional arguments, if they aren’t provided the promise will propagate the value in that state.
+`Promise.then(f，g)` 是一个操作，它在一个有空洞的表达式和一个值之间创建依赖关系，类似于 `depend` 操作。 `f` 和 `g` 都是可选参数，如果它们都没被提供，promise会把值在那个状态中传播。
 
-Unlike our `depend`, `.then` is a complex operation, which tries to make using promises easier. The function arguments passed to `.then` can return either a promise, or a regular value, in which case the operation takes care of automatically putting them into a promise for you. Thus:
-
-
-
-
-
-
-
-
-
-
+不像我们的 `depend`，`.then` 是一个复杂的操作，它试图让使用promise变得更简单。传给 `.then` 的函数参数可以是一个promise，也可以是一个规则的值，在这种情况下操作会负责自动地为你把值放入到promise当中。因此：
 
 ```
 depend(promise, function(value) {
@@ -1100,21 +910,11 @@ depend(promise, function(value) {
 })
 
 // ---
-// Becomes:
-promise.then(value => value + 1);
+// 变为:
+Promise.then(value => value + 1);
 ```
 
-
-
-
-
-
-
-
-
-
-
-These allow the code using promises to be concise and easier to read, compared to our previous formulation:
+对比我们之前的构想，这样使得promise的代码变得简洁和更方便阅读。
 
 ```
 var squareAreaAbstraction = function(side) {
@@ -1135,18 +935,18 @@ var printPromise = depend(squareAreaPromise, printAbstraction);
 fulfil(sidePromise, 10);
 
 // ---
-// Becomes
+// 变为：
 var sideP = Promise.resolve(10);
 var squareAreaP = sideP.then(side => side * side);
 squareAreaP.then(area => print(area));
 
-// Which is more akin to the synchronous version:
+// 这更加类似于同步的版本:
 var side = 10;
 var squareArea = side * side;
 print(squareArea);
 ```
 
-Depending on multiple values concurrently is handled by the `Promise.all` operation, which is similar to our `waitAll` operation:
+类似于我们的 `waitAll` 操作，需要依赖多个值并行处理的工作可以通过 `Promise.all` 操作来处理：
 
 ```
 var radius = 10;
@@ -1155,7 +955,7 @@ var circleArea = radius * radius * pi;
 print(circleArea);
 
 // ---
-// Becomes:
+// 变为:
 var radiusP = Promise.resolve(10);
 var piP = Promise.resolve(Math.PI);
 var circleAreaP = Promise.all([radiusP, piP])
@@ -1163,7 +963,8 @@ var circleAreaP = Promise.all([radiusP, piP])
 circleAreaP.then(circleArea => print(circleArea));
 ```
 
-Error and success propagation is handled by the `.then` operation itself, and the `.catch` operation is provided as a concise way of invoking `.then` without defining a success branch:
+失败和成功的传播通过 `.then` 操作自身来处理，另外，`.catch` 操作作为一种简洁的无需定义成功分支的 `.then` 调用被提供。
+Error and success propagation is handled by the `.then` operation itself，and the `。catch` operation is provided as a concise way of invoking `.then` without defining a success branch:
 
 ```
 var div = function(a, b) {
@@ -1178,7 +979,7 @@ var div = function(a, b) {
   return result;
 }
 
-var a = 1, b = 2, c = 0, d = 3;
+var a = 1，b = 2，c = 0，d = 3;
 var xPromise = div(a, b);
 var yPromise = chain(xPromise, function(x) {
                                  return div(x, c)
@@ -1189,7 +990,7 @@ var zPromise = chain(yPromise, function(y) {
 var resultPromise = recover(zPromise, printFailure);
 
 // ---
-// Becomes:
+// 变为:
 var div = function(a, b) {
   return new Promise((fulfil, reject) => {
     if (b === 0)  reject(new Error("Division by 0"));
@@ -1197,67 +998,59 @@ var div = function(a, b) {
   })
 }
 
-var a = 1, b = 2, c = 0, d = 3;
+var a = 1，b = 2，c = 0，d = 3;
 var xP = div(a, b);
-var yP = xP.then(x => div(x, c));
-var zP = yP.then(y => div(y, d));
+var yP = xP.then(x => div(x，c));
+var zP = yP.then(y => div(y，d));
 var resultP = zP.catch(printFailure);
 ```
 
-### 6.2\. A Closer Look Into `.then`
+### 6.2\. 深入探究 `.then`
 
-There are a few things that make the `.then` method different from our previous `depend` function. While `.then` is one method to define dependency relationships between eventual values and some computation, it also tries to make the usage of the method easy for the majority of cases. This makes `.then` a complex method(http://robotlolita.me/2015/11/15/how-do-promises-work.html#fn:5), but we can understand it by relating our previous machinery to this new method.
+`.then` 方法和我们之前的 `depend` 函数相比，有几个不同之处。 `.then` 是一个用来的定义最终值和某些计算的依赖关系的方法，它也尝试让大部分情况下promise的使用变得更加容易。这使得 `.then` 成为了一个复杂的方法(http://robotlolita.me/2015/11/15/how-do-promises-work.html#fn:5)，但我们可以通过联系我们之前的机制，去理解这个新方法。
 
-#### `.then` automatically lifts regular values
+#### `.then` 自动适应常规值
 
-Our `depend` function worked in the domain of promises. It expected its dependent computation to return a promise in order to return a promise itself. `.then` doesn’t have this requirement. If the dependent computation returns a regular value, like `42`, `.then` will convert that value to a promise containing the value. In essence, `.then` lifts regular values into the domain of promises, as needed.
+我们的 `depend` 函数只适用于接受promise作为参数。它期待于计算依赖关系会返回一个promise，目的是为了它自身的promise返回值。 `.then` 却没有这个要求。如果依赖关系返回的是一个像 `42` 这样的常规值，`.then`会把值转换成一个包含该值的promise。本质上说，`.then` 会按需把常规值转换为promise。
 
-Compare the simplified types of our `depend` function:
-
-
+把简化类型和我们的 `depend` 函数相比较:
 
     depend : (Promise of α, (α -> Promise of β)) -> Promise of β
 
+把简化类型和 `.then` 方法相比较:
 
+    Promise.then : (this: Promise of α, (α -> β)) -> Promise of β
+    Promise.then : (this: Promise of α, (α -> Promise of β)) -> Promise of β
 
-With the simplified types of the `.then` method:
+在 `depend` 函数里，我们唯一能做的，就是返回一个包含某些东西的promise（并且在promise结果中包含同样的东西）， `.then` 函数为了方便，也接受返回一个常规值，而不需要把值包装在promise当中。
 
+#### `.then` 不允许嵌套 promise
 
+为了让通常使用情况更方便，ECMAScript 2015 promises的另一种方法是禁止嵌套promise。通过同化带有 `.then` 方法的任何东西，会使得你在不期待同化的情景之下出问题(http://robotlolita.me/2015/11/15/how-do-promises-work.html#fn:6)，但另一方面也使大家摆脱了思考匹配返回值类型的痛苦。
 
-    promise.then : (this: Promise of α, (α -> β)) -> Promise of β
-    promise.then : (this: Promise of α, (α -> Promise of β)) -> Promise of β
-
-
-
-While in the `depend` function the only thing we can do is return a promise of something (and have that same something be in the resulting promise), the `.then` function also accepts returning a regular value, without wrapping it in a promise, for convenience.
-
-#### `.then` disallows nested promises
-
-Another way in which ECMAScript 2015 promises try to make usage easier for the common use cases is by disallowing nested promises. It does so by assimilating anything that has a `.then` method, which can be problematic in cases where you’re not expecting assimilation(http://robotlolita.me/2015/11/15/how-do-promises-work.html#fn:6), but otherwise relieves one from thinking about matching the types of the return values.
-
-It’s not possible to give the `.then` method a sensible type in non-dependent type systems because of this feature, but, roughly, this means that the following example:
+受这一功能影响，不可能在非依赖类型系统中给 `.then` 方法一个明智的类型，但大概这意味着如下的例子：
 
 ```
 Promise.resolve(1).then(x => Promise.resolve(Promise.resolve(x + 1)))
 ```
 
-Is equivalent to:
+等价于:
 
 ```
 Promise.resolve(1).then(x => Promise.resolve(x + 1))
 ```
 
-This is also enforced with `Promise.resolve`, but not with `Promise.reject`.
+这里执行 `Promise.resolve` ，而不是 `Promise.reject`。
 
-#### `.then` reifies exceptions
+#### `.then` 使异常具体化
 
-If an exception happens synchronously during the evaluation of a dependent computation attached through the `.then` method, that exception will be caught and reified as a rejected promise. In essence, this means that all of the computations attached to a promise’s values through the `.then` method should be treated as if implicitly wrapped in a `try/catch` block, such that:
+如果一个异常同步地发生在 `.then` 方法计算依赖关系的过程中，那么异常会被捕捉到，并具体化为一个被拒绝的Promise。本质上，这意味着所有的附加在promise的值之上的计算，在 `.then` 方法中，就好像被包裹住 `try/catch` 代码块之中，如此:
 
 ```
 Promise.resolve(1).then(x => null());
 ```
 
-Is equivalent to:
+等价于：
 
 ```
 Promise.resolve(1).then(x => {
@@ -1269,166 +1062,158 @@ Promise.resolve(1).then(x => {
 });
 ```
 
-Native implementations of promises will track these and report the ones that are not handled. There’s no specification about what constitutes a “caught error” in a promise, so development tools will differ on how they report it. Chrome’s development tools, for example, will output all instances of rejected promises to the console, which might give you false positives.
+Promise的原生实现会追踪这些，并汇报没被处理的内容。由于没有详述promise中，一个“捕获的错误”是由什么构成，所以不同的开发工具汇报的内容有所不同。例如，Chrome开发者工具会输出所有被拒绝的实例到控制台，这可能会给你造成误报。
 
-#### `.then` invokes dependencies asynchronously
+#### `.then` 异步调用依赖关系
 
-While our previous implementation of promises invokes the dependent computations synchronously, standard ECMAScript promises do so asynchronously. This makes it very hard for one to depend on the value of a promise without using the proper means to do so: the `.then` method.
+我们之前的promise实现是同步调用依赖关系计算的，标准ECMAScript promise做这个事情是异步的。如果不是用合理手段（`.then`方法）的话，我们将很难依赖一个promise的值。
 
-Thus, the following code would not work:
+因此，下面的代码将不会起作用:
 
 ```
 var value;
 Promise.resolve(1).then(x => value = x);
 console.log(value);
 // => undefined
-// (`value = x` happens here, after all other code has finished)
+// (`value = x` 到这里才发生，在所有其它代码运行以后)
 ```
 
-This ensures that dependent computations always execute on an empty stack, though such guarantees are less essential in ECMAScript 2015, which requires that all implementations support proper tail calls(http://robotlolita.me/2015/11/15/how-do-promises-work.html#fn:7).
+这保证了依赖关系运算总是执行在一个空栈上，尽管这种保证在 ECMAScript 2015 中并不是那么重要，因为其要求所有的实现都支持适当的尾部调用(http://robotlolita.me/2015/11/15/how-do-promises-work.html#fn:7)。
 
-## 7\. When Are Promises A Bad Fit?
+## 7\. 什么时候不适合用promise？
 
-While promises work nicely as a concurrency primitive, they are neither as general as Continuation-Passing Style, nor are they the best primitive for all use cases. Promises are placeholders for values that will eventually be computed, so they can only make sense in contexts where you would use those values themselves.
+虽然promise作为原生并发可以很好地工作，但promise既不像Continuation-Passing Style那样普遍，也不是所有用例的最佳解决方案。Promise是值的占位符，最终会被计算出来，因此它只能在上下文当中有意义，因为你可以使用那些值自身。
 
-![](http://robotlolita.me/files/2015/09/promises-13.png) _Promises only make sense in the **value** context_
+![](http://robotlolita.me/files/2015/09/promises-13.png)
 
-Trying to use promises for anything besides that is going to result in very complicated codebases that are hard to maintain, understand, and extend. The following are some examples where promises should be entirely avoided:
+_Promises只在**值**的上下文中起作用_
 
-*   **Notifying the progress of computing a particular value**. Promises are used in the same context as the value itself, so just like we can’t know the progress of computing a particular string, given the string itself, we can’t do that for promises. Because of this, if you’re interested in knowing how much of a file has been downloaded, you’ll want a separate thing, like Events.
+试着在想要的结果之外使用promise，包括在一些非常复杂的代码库，理解，并且扩展。以下是一些应该完全避免使用promise的例子：
 
-*   **Producing multiple values over time**. Promises can only represent a single eventual value. For the cases where several values might be produced over time (the equivalent of asynchronous iterators), one would need something like Streams, [Observables](http://reactivex.io/documentation/observable.html), or [CSP](http://www.usingcsp.com/cspbook.pdf) Channels.
+*   **通知计算某个特定值的结果**。 Promise被用在和值本身一样的上下文中，所以就像我们不能知道计算某个特定的字符串的进度一样，给定字符串本身，我们不能用promise来做这个。因为这个，如果你有兴趣知道一个文件的下载进度，你会想要一个分离的东西，比如说事件。
 
-*   **Representing actions**. This also means that it’s not possible to execute promises in order, since once one has got a promise, the computation that provides the value for it has already started. For actions you can use [CPS](http://matt.might.net/articles/by-example-continuation-passing-style/), a [Continuation monad](http://www.haskellforall.com/2012/12/the-continuation-monad.html), or a [Task (co)monad](https://www.cl.cam.ac.uk/teaching/1213/R204/asynclecture.pdf), like C♯ does.
+*   **一段时间内需要产生多个值**。 Promises只能代表单个最终值。对于一段时间内要产生多个值的情况 (等价于异步迭代器)，你可能需要像流(Streams)，[Observables](http://reactivex.io/documentation/observable.html)，或者 [CSP](http://www.usingcsp.com/cspbook.pdf) 通道。
 
-## 8\. Conclusion
+*   **表示动作**。 这也意味着不能按顺序执行promise，因为一旦得到一个promise，就马上开始计算它的值了。对于动作可以使用 [CPS](http://matt.might.net/articles/by-example-continuation-passing-style/)，[Continuation monad](http://www.haskellforall.com/2012/12/the-continuation-monad.html)，或者 [Task (co)monad](https://www.cl.cam.ac.uk/teaching/1213/R204/asynclecture.pdf)，就像 C♯ 那样。
 
-Promises are a great way of dealing with eventual values, allowing one to compose and synchronise processes that depend on values that are computed asynchronously. And while the ECMAScript 2015 standard for promises has its own set of issues, like automatically reifying errors that should crash the process, it’s a decent enough tool to deal with the aforementioned problem. Whether you use them or not, an understanding of what they are and how they work is essential, now that they’re going to be even more pervasive in the all ECMAScript projects.
+## 8\. 结论
 
-## References
+Promise对于处理最后返回的值是一种很棒的方式，允许我们组合同步与异步工程。当然 ECMAScript 2015 里面的promise标准还有它自身的一系列问题，比如自动地具体化错误会使进程崩溃，它有一个非常好用的工具来处理上述问题。无论你是否使用他们，理解promise是什么和它的工作原理是很重要的，因为在所有的ECMAScript工程当中，它们的使用正变得越来越普遍。
 
-
+## 引用
 
 [ECMAScript® 2015 Language Specification](http://www.ecma-international.org/ecma-262/6.0/)
 
-_Allen Wirfs-Brock_ — Defines the standard for Promises in JavaScript.
+_Allen Wirfs-Brock_ — 定义了 JavaScript 中的 promise 标准。
 
 [Alice Through The Looking Glass](http://www.ps.uni-saarland.de/Papers/abstracts/alice-looking-glass.html)
 
-_Andreas Rossberg, Didier Le Botlan, Guido Tack, Thorsten Brunklaus, and Gert Smolka_ — Presents the Alice language, which supports concurrency through futures and promises.
+_Andreas Rossberg，Didier Le Botlan，Guido Tack，Thorsten Brunklaus，and Gert Smolka_ — 提出了Alice语言，通过futures和promises支持了并发。
 
 [Haskell 98 Language and Libraries](https://www.haskell.org/definition/haskell98-report.pdf)
 
-_Simon Peyton Jones_ — Describes, informally, the semantics of the Haskell programming language.
+_Simon Peyton Jones_ — 非正式地描述了Haskell编程语言的语义。
 
 [Communicating Sequential Processes](http://www.usingcsp.com/cspbook.pdf)
 
-_C. A. R. Hoare_ — Describes concurrent combinations of processes, such as deterministic and non-deterministic choices.
+_C. A. R. Hoare_ — 描述了进程的并发组合，比如确定性和非确定性的选择。
 
 [Monads For Functional Programming](http://homepages.inf.ed.ac.uk/wadler/papers/marktoberdorf/baastad.pdf)
 
-_Philip Wadler_ — Describes, amongst other things, how monads can be used for error handling in functional languages. Promise’s sequencing and error handling is very similar to the monadic formulation, although Promises don’t implement the monad interface in the ECMAScript 2015 standard.
+_Philip Wadler_ — 描述了在这当中的其他内容，monads是如何被用在函数式语言错误处理的。Promise的顺序和错误处理非常接近于monad的构想，尽管在ECMAScript 2015中，promise没有实现monad的接口。
 
-
-
-## Additional Resources
-
-
+## 附加资源
 
 [Source Code For This Blog Post](https://github.com/robotlolita/robotlolita.github.io/tree/master/examples/promises)
 
-Contains all of the (commented) source code for this blog post (including a minimal implementation of promises conforming to the ECMAScript 2015 specification).
+Contains all of the (commented) source code for this blog post (including a minimal implementation of promises conforming to the ECMAScript 2015 specification)。
+包含了这篇博文里所有的（有注释的）源代码（包含一个遵循了 ECMAScript 2015 规范的promise最小化实现）。
 
 [Promises/A+ Considered Harmful](http://robotlolita.me/2013/06/28/promises-considered-harmful.html)
 
-_Quildreen Motta_ — Discusses some of the problems that the Promises/A+ and the ECMAScript 2015 Promises standard have, in terms of complexity, error handling, and performance.
+_Quildreen Motta_ — 在复杂程度、错误处理、性能方面，讨论了Promises/A+ 和 ECMAScript 2015 Promises 标准中的一些问题。
 
 [Professor Frisby’s Mostly Adequate Guide to Functional Programming](https://www.gitbook.com/book/drboolean/mostly-adequate-guide/details)
 
-_Brian Lonsdorf_ — An introductory book to functional programming in JavaScript.
+_Brian Lonsdorf_ — 一本关于JavaScript函数式编程的引导性的图书。
 
-[Callbacks Are Imperative, Promises Are Functional: Node’s Biggest Missed Opportunity](https://blog.jcoglan.com/2013/03/30/callbacks-are-imperative-promises-are-functional-nodes-biggest-missed-opportunity/)
+[Callbacks Are Imperative，Promises Are Functional: Node’s Biggest Missed Opportunity](https://blog.jcoglan.com/2013/03/30/callbacks-are-imperative-promises-are-functional-nodes-biggest-missed-opportunity/)
 
-_James Coglan_ — Contrasts Continuation-Passing Style and Promise for describing a program’s order of execution.
+_James Coglan_ — 对比了 Continuation-Passing Style 和 Promise，通过描述一个程序的执行顺序。
 
 [Simple Made Easy](http://www.infoq.com/presentations/Simple-Made-Easy)
 
-_Rich Hickey_ — While not directly related to promises, Rich’s talk discusses “simple” and “easy” in the context of design, which is always relevant to programming.
+_Rich Hickey_ — Rich在演讲中讨论了在设计的背景下的“简单”和“容易”，虽然和promise没有直接相关，但是和编程有很大的关系
 
 [Proper Tail Calls in Harmony](https://blog.mozilla.org/dherman/2011/01/30/proper-tail-calls-in-harmony/)
 
-_Dave Herman_ — Discusses the benefits of having Proper Tail Calls in ECMAScript.
+_Dave Herman_ — 讨论了在ECMAScript中，合理使用尾部调用的好处。
 
 [Your Mouse is a Database](http://queue.acm.org/detail.cfm?id=2169076)
 
-_Erik Meijer_ — Discusses the coordination and orchestration of event-based and asynchronous computations in Rx using the concept of Observables.
+_Erik Meijer_ — 讨论了基于事件和异步计算的Rx的协调和编制，使用了观察者的概念。
 
 [Stream Handbook](https://github.com/substack/stream-handbook)
 
-_James Halliday (substack)_ — Covers the basics of writing Node.js programs with Streams.
+_James Halliday (substack)_ — 涵盖了编写 Node.js 并使用流(Streams)的程序的一些基础知识。
 
 [By Example: Continuation-Passing Style in JavaScript](http://matt.might.net/articles/by-example-continuation-passing-style/)
 
-_Matt Might_ — Describes how continuation-passing style can be used for handling non-blocking computations in JavaScript.
+_Matt Might_ — 描述了continuation-passing style如何被应用在JavaScript中的非阻塞计算。
 
 [The Continuation Monad](http://www.haskellforall.com/2012/12/the-continuation-monad.html)
 
-_Gabriel Gonzalez_ — Discusses the concept of continuations as monads, in the context of the Haskell programming language.
+_Gabriel Gonzalez_ — 基于Haskell编程语言环境，讨论了诸如monads这样的概念延续。
 
 [Pause ‘n’ Play: Asynchronous C♯ Explained](https://www.cl.cam.ac.uk/teaching/1213/R204/asynclecture.pdf)
 
-_Claudio Russo_ — Explains how asynchronous computations work in C♯ using the Task comonad, and how that solution relates to other models.
+_Claudio Russo_ — 解释了使用Task comonad的异步计算在C♯中如何工作，以及那个解决方案是怎样和其它模型建立联系的。
 
-
-
-## Resources and Libraries
-
-
+## 资源库
 
 [es6-promise](https://www.npmjs.com/package/es6-promise)
 
-A polyfill for ECMAScript 2015 standard promises, for platforms that don’t implement ES2015.
+对于没有实现ECMAScript 2015的平台，这是一个用来实现ES2015标准promise的polyfill。
 
 [Bluebird](https://www.npmjs.com/package/bluebird)
 
-An efficient Promises/A+ implementation.
+一个高效的Promises/A+实现。
 
+#### 脚注
 
+1.  在JavaScript中，你不能在Promises/A，Promises/A+和其它promise的一般实现中直接取出promise的值。
 
-#### Footnotes
+    在一些JavaScript环境中，比如Rhino和Nashorn，你可能可以实现支持提取值的promise。Java的Futures就是一个例子。
 
-*   You can’t extract the values of promises in Promises/A, Promises/A+ and other common formulations of promises in JavaScript.
+    要从promise取出还没计算出来的值，要求阻塞线程直到值被计算出来。对于大多数JS环境，这并不通用，因为它们都是单线程的。 [↩](#fnref:1)
 
-    In some JavaScript environments, like Rhino and Nashorn, you might have access to implementations of promises that support extracting the value out of it. Java’s Futures are an example.
+2.  “Lambda抽象” 是Lambda演算给这些匿名函数抽象出来的表达式的名字。JavaScript的匿名函数等价于LC的Lambda抽象，然而JavaScript也允许给函数命名。 [↩](#fnref:2)
 
-    Extracting a value that hasn’t been computed yet out of a promise requires blocking the thread until that value is computed, which doesn’t work for most JS environments, since they’re single-threaded. [↩](#fnref:1)
+3.  Haskell编程语言的工作方式，就是“计算定义”和“执行计算”的分离。一个Haskell程序只不过是大量 `IO` 数据结构。这个结果多少类似于我们在这里定义的 `Promise` 结构，因为它只定义了程序中不同计算之间的依赖关系。
 
-    *   “Lambda Abstraction” is the name Lambda Calculus gives to these anonymous functions that abstract over terms in an expression. JavaScript’s anonymous functions are equivalent to LC’s Lambda Abstractions, however JavaScript also allows one to name their functions. [↩](#fnref:2)
+    In Haskell your program must return a value of type `IO`，which is then passed to a separate interpreter。 The interpreter only knows how to run `IO` computations and respect the dependencies it defines。 It would be possible to define something similar for JS。 If we did that all of our JS program would be just one expression resulting in a Promise，and that Promise would be passed to a separate component that knows how to execute Promises and their dependencies.
+    在Haskell中，你的程序必须返回 `IO` 类型的值，这个值会虽然传递到一个分离的解释器。解释器只知道如何允许 `IO` 计算，并遵守其定义的依赖关系。它将可能定义某些类似于JS的内容。如果我们那样做，所有我们的JS程序都仅仅是一个导致promise的表达式，并且那个promise会传递到一个分离的组件，这个组件知道如何执行promise和它的依赖关系。
 
-    *   This separation of “computation definition” and “execution of computations” is how the Haskell programming language works. A Haskell program is nothing more than a huge expression that evaluates to an `IO` data structure. This structure is somewhat similar to the `Promise` structure we’ve defined here, in that it only defines dependencies between different computations in the program.
+    看看 [Pure Promises](https://github.com/robotlolita/robotlolita.github.io/tree/master/examples/promises/pure/) 示例目录，作为这种promise形式的一个实现。 [↩](#fnref:3)
 
-    In Haskell your program must return a value of type `IO`, which is then passed to a separate interpreter. The interpreter only knows how to run `IO` computations and respect the dependencies it defines. It would be possible to define something similar for JS. If we did that all of our JS program would be just one expression resulting in a Promise, and that Promise would be passed to a separate component that knows how to execute Promises and their dependencies.
-
-    See the [Pure Promises](https://github.com/robotlolita/robotlolita.github.io/tree/master/examples/promises/pure/) example directory for an implementation of this form of promises. [↩](#fnref:3)
-
-    *   A Monad is an interface that can be (and often is) used for sequencing semantics, when described as a structure with the following operations:
+4.  Monad是一个接口，可以（并且通常是）用作顺序语义，通过以下操作，可被描述为一个结构：
 
         class Monad m where
-          -- Puts a value in the monad
-          of    :: ∀a. a -> Monad a
+          -- 把值放进monad中
+          of    :: ∀a。 a -> Monad a
 
           -- Transforms the value in the monad
           -- (The transformation must maintain the same type)
-          chain :: ∀a, b. m a -> (a -> m b) -> m b
+          chain :: ∀a, b。 m a -> (a -> m b) -> m b
 
-    In this formulation, it would be possible to see something like JavaScript’s “semicolon operator” (i.e.: `print(1); print(2)`) as the use of the monadic `chain` operator: `print(1).chain(_ => print(2))`. [↩](#fnref:4)
+    在这个构想中，monad `chain` 操作符 `print(1).chain(_ => print(2))` 和JS的 “分号操作符” 多少有点类似(例如: `print(1); print(2)`)。 [↩](#fnref:4)
 
-    *   This is using Rich Hickey’s notion of “complex” and “easy”. `.then` is definitely an easy method. It caters to the common use cases, at the expense of conceptual simplicity. That is, `.then` does too many things, and those things have a fair amount of overlapping.
+5.  这里使用了Rich Hickey的概念：“复杂”和“简单”。 `.then` 就被定义为一种简单的方法。它迎合了一般的使用案例，作为简化概念的代价，那就是 `.then` 做了太多的事情，而且这些事情有相当多的重叠。
 
-    A simple API, on the other hand, would move these separate concepts to different functions which you’d be able to use together with the `.then` method. [↩](#fnref:5)
+    另一方面，一个简单的API，会把这些分离的概念搬到不同的函数中，然而你可以用 `.then` 把这些功能都实现。 [↩](#fnref:5)
 
-    *   The `.then` method assimilates the state and value of everything that looks like a Promise. Historically, this was done through an interface check, and this meant just checking if the object provided a `.then` method, which would include all objects whose `.then` method doesn’t conform to the Promise’s `.then` method.
+6.  `.then` 方法吸收了所有东西的值和状态，让它们看起来像一个promise。从历史观点上说，这些可以通过一个接口检查来完成。这意味着，通过检查一个对象是否提供了 `.then` 方法，可以包含所有的对象，它们都不符合promise的 `.then` 方法。
 
-    If standard Promises weren’t limited by backwards compatibility with existing promises implementation it would be possible to have a more reliable test, by using Symbols for interfaces, or some similar form of branding. [↩](#fnref:6)
+    如果promise标准不受限于向后兼容性，使用现存的promise实现，通过使用接口符号，或者品牌的某些类似形式。 [↩](#fnref:6)
 
-    *   Proper Tail Calls are a guarantee that all calls in tail position will happen with constant stack. In essence, this guarantees that as long as your program or computation is made up entirely of tail calls, the stack will not grow, and thus stack overflow errors are impossible in such code. Incidentally, it also allows an implementation of the language to make such code much faster, as it doesn’t need to deal with some of the usual overhead of function calls. [↩](#fnref:7)
+7.  适当的尾部调用保证了尾部位置的所有调用将在恒定的堆栈中发生。本质上，这保证了你的程序完全由尾部调用构成，栈将不会增加，因此栈溢出错误在这样的代码中将不可能增加。顺便，它也允许语言实现了来让这样的代码变得更快，因为她不需要处理常见的函数调用开销。 [↩](#fnref:7)
