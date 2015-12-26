@@ -53,7 +53,7 @@
 *   我入口地址的代码是遵循 ES6 标准来书写的，然而并不是所有的开发者都遵循 ES6 标准且在建立过程中使用到转译器。因此，入口地址代码应该是遵循兼容性更高的 ES5 标准。
 *   webpack 的输出确实满足了上面所述的两个要求，然而它有一个问题。那就是该代码包装工具包含了整个 React 库，而我们想包装的只是该组件，不是 React。
 
-&#160; &#160; &#160; &#160;综上所述，webpack 在开发过程的确是很有用，然而却并不能生成一个可用于引入或导入的文件。我尝试使用 webpack 的 [externals](https://webpack.github.io/docs/library-and-externals.html) 选项来解决问题的时候发现只要当我们有全局可用的依赖时，该方法是可行的。
+&#160; &#160; &#160; &#160;综上所述，webpack 在开发过程的确是很有用，然而却并不能生成一个可用于引入或导入的文件。我尝试使用 webpack 的 [externals](https://webpack.github.io/docs/library-and-externals.html) 选项来解决问题的时候发现，当我们有全局可用的依赖时，该问题仍然是存在的。
 
 ## [](http://krasimirtsonev.com/blog/article/distributing-react-components-babel-browserify-webpack-uglifyjs#producing-es5-entry-point)建立符合 ES5 标准的入口地址
 
@@ -120,16 +120,16 @@
     var _react = (window.React);
     var _reactDom = (window.ReactDOM);
 
-&#160; &#160; &#160; &#160;在谈论把构件作为`script>`标签引入时，我想我们应该需要对其进行压缩。当然，在生产环境，我们还应该对`build/react-place.js`文件生成一个压缩版本。[Uglifyjs](https://www.npmjs.com/package/uglify-js) 是一个不错的模块，可用于压缩 JavaScript 代码。我们只需要在”浏览器化“后调用即可：
+&#160; &#160; &#160; &#160;在谈论把构件作为`script>`标签引入时，我想我们应该需要对其进行压缩。当然，在生产环境，我们还应该对`build/react-place.js`文件生成一个压缩版本。[Uglifyjs](https://www.npmjs.com/package/uglify-js) 是一个不错的模块，其可用于压缩 JavaScript 代码。而我们只需要在“浏览器化”后调用即可：
 
     ./node_modules/.bin/uglifyjs ./build/react-place.js 
     --compress --mangle 
     --output ./build/react-place.min.js 
     --source-map ./build/react-place.min.js.map
 
-## [](http://krasimirtsonev.com/blog/article/distributing-react-components-babel-browserify-webpack-uglifyjs#the-result)The result
+## [](http://krasimirtsonev.com/blog/article/distributing-react-components-babel-browserify-webpack-uglifyjs#the-result)结果
 
-The final script is a combination of Babel, Browserify and Uglifyjs:
+&#160; &#160; &#160; &#160;最后，所生成的脚本文件是一个结合了 Babel， Browserify 和 Uglifyjs三个模块的文件。
 
     // package.json
     "prepublish": "
