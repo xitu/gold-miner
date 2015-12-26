@@ -57,6 +57,6 @@
 * [Making Learning Easy by Design](http://gold.xitu.io/entry/5632212260b21ee8e6d49a5d)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/google-design.md)) ([s2dongman (申悦)](https://github.com/s2dongman) 认领)
 * [An Introduction to Sprite Animation](http://gold.xitu.io/entry/561c78e760b22ed7aa58292f)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/sprite-animation.md))
 * [Animated SVG vs GIF](http://gold.xitu.io/entry/5655432d00b0bf379ee801dd)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/svg-vs-gif.md)) ([rainyear (Yusheng)](https://github.com/rainyear) 认领)
-* [探索 Stripe Dashboard 产品设计之道](http://gold.xitu.io/entry/56287ca460b20fc981076b8f)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/exploring-the-product.md))
+* [探索 Stripe Dashboard 产品设计之道](http://gold.xitu.io/entry/56287ca460b20fc981076b8f)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/exploring-the-product.md)) ([CaesarPan](https://github.com/CaesarPan) 认领)
 * [苹果正在带坏整个设计圈](http://gold.xitu.io/entry/5649381200b0bf37d8439ba7)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/how-apple.md)) ([crackhy (曹康)](https://github.com/crackhy) 认领)
 * [Slack如此成功的秘诀](http://gold.xitu.io/entry/5645499900b07eb0181e63df)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/slack-s-2-8-billion-dollar-secret-sauce.md)) ([Boyce Chang](https://github.com/boycechang) 认领)
