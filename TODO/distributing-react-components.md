@@ -20,7 +20,8 @@
 ## [](http://krasimirtsonev.com/blog/article/distributing-react-components-babel-browserify-webpack-uglifyjs#the-base)The base
 
 &#160; &#160; &#160; &#160;两周前，我创建了一个 [react-webpack-started](https://github.com/krasimir/react-webpack-starter)。它接收一个 JSX 文件作为输入并用 Babel 生成对应的 ES5 文件。我们有一部用于服务的本地设备、测试设定以及一个 linter 插件，然而这是另外一个故事，这里并不详述。（在[这里](http://krasimirtsonev.com/blog/article/a-modern-react-starter-pack-based-on-webpack)有相关更多的信息）。
-&#160; &#160; &#160; &#160;半年前，我更喜欢用 NPM 来定义项目的建立任务。下面是我刚开始可以运行的 NPM 脚本：
+<br />
+&#160; &#160; &#160; &#160;在半年前，我更喜欢用 NPM 来定义项目的建立任务。下面是我刚开始可以运行的 NPM 脚本：
 
     // in package.json
     "scripts": {
