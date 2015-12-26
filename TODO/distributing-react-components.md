@@ -11,7 +11,7 @@
 
 ## [](http://krasimirtsonev.com/blog/article/distributing-react-components-babel-browserify-webpack-uglifyjs#the-component)构件
 
-&#160; &#160; &#160; &#160;[react-place](https://github.com/krasimir/react-place) 是一个提供输入服务的构件。当用户输入一个城市的名字时，该构件会作出预测并提供建议选项给该用户。`onLocationSet`是该构件的一个属性值。当用户选择某些建议选项时，它将被进行赋值操作。除此之外，该构件里有那么一个函数，它是接收一个对象作为参数输入。该对象包含有对一个城市的简短描述以及其地理坐标。总的来说，我们是和一个外部API（谷歌地图）和一个参与的硬关联（自动完成输入组件）进行通信操作。[这里](http://krasimir.github.io/react-place/example/index.html)，有一个展示该构件如何工作的例子。
+&#160; &#160; &#160; &#160;[react-place](https://github.com/krasimir/react-place) 是一个提供输入服务的构件。当用户输入一个城市的名字时，该构件会作出预测并提供建议选项给该用户。`onLocationSet`是该构件的一个属性值。当用户选择某些建议选项时，它将被进行赋值操作。除此之外，该构件里有那么一个函数，它是接收一个对象作为参数输入。该对象包含有对一个城市的简短描述以及其地理坐标。总的来说，我们是和一个外部 API （谷歌地图）和一个参与的硬关联（自动完成输入组件）进行通信操作。[这里](http://krasimir.github.io/react-place/example/index.html)，有一个展示该构件如何工作的例子。
 
 &#160; &#160; &#160; &#160;我们来一起看看构件是如何完成？为何完成后，该构件还不能被发布？
 
