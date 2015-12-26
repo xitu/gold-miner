@@ -1,19 +1,21 @@
 > * 原文链接 : [Distributing React components](http://krasimirtsonev.com/blog/article/distributing-react-components-babel-browserify-webpack-uglifyjs)
 * 原文作者 : [Krasimir ](http://krasimirtsonev.com/blog/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
+* 译者 : [aleen42](http://aleen42.github.io/)
 * 校对者: 
 * 状态 :  待定
 
-While I was open sourcing [react-place](https://github.com/krasimir/react-place) I noticed that there is some complexity around preparing the component for releasing. I decided to document the process here so I have a solid resource next time. You may be surprised but writing the working `jsx` file doesn’t mean that the component is ready for publishing and is usable for other developers.
+&#160; &#160; &#160; &#160;在我开源 [react-place](https://github.com/krasimir/react-place) 项目到时候，我注意到那么一个问题。那就是，在准备构件发布方面上存在着一定的复杂度。因此，我决定在此用文档的形式记录该过程，以便日后遇到同样的问题时可查。
+<br />
+&#160; &#160; &#160; &#160;在准备构件期间，你会惊奇地发现建立`jsx`文件并不意味着该构件可用于发布，因为`jsx`文件对于其他开发人员来说，是不可重用的东西。
 
-## [](http://krasimirtsonev.com/blog/article/distributing-react-components-babel-browserify-webpack-uglifyjs#the-component)The component
+## [](http://krasimirtsonev.com/blog/article/distributing-react-components-babel-browserify-webpack-uglifyjs#the-component)构件
 
-[react-place](https://github.com/krasimir/react-place) is a component that renders an input field. The user starts typing a city name and the component makes predictions/suggestions. The component accepts a property called `onLocationSet`. It is fired once the user selects some of the suggestions. The function receives an object containing short description and geo coordinates of the city. Overall, we have a communication with an external API (Google maps) and a hard dependency involved (autocomplete widget). A demo of how the component works could be seen [here](http://krasimir.github.io/react-place/example/index.html).
+&#160; &#160; &#160; &#160;[react-place](https://github.com/krasimir/react-place) 是一个提供输入服务的构件. 当用户输入一个城市的名字时，该构件会作出预测并提供建议选项给该用户。`onLocationSet`是该构件的一个属性值. 当用户选择某些建议选项时，它将被进行赋值操作。除此之外，该构件里有那么一个函数，它是接收一个对象作为参数输入。该对象包含有对一个城市的简短描述以及其地理坐标。总的来说，我们是和一个外部API（谷歌地图）和一个参与的硬关联（自动完成输入组件）进行通信操作。[这里](http://krasimir.github.io/react-place/example/index.html)，有一个展示该构件如何工作的例子。
 
-Let’s see how the component was done and why after finishing it it wasn’t ready for publishing.
+&#160; &#160; &#160; &#160;我们来一起看看构件是如何完成？为何完成后，该构件还不能被发布？
 
-There are few things which are at the top of the wave right now. One of them is React and its [JSX syntax](https://facebook.github.io/react/docs/jsx-in-depth.html). Another one is the new ES6 spec and all these goodies that are landing in our browsers. I wanted to use them as soon as possible but because they are not well supported everywhere I needed a transpiler. Tool that will parse my ES6 code and will produce ES5 version. [Babel](http://babeljs.io/) does the job and plays very well with React. Along with the transpiler I needed a bundler. Something that will resolve the [imports](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) and will generate only one file containing my application. My choice for that is [webpack](https://webpack.github.io/).
+&#160; &#160; &#160; &#160;时下，有一些概念处于风口浪尖。其中，就有React和它的[JSX语法](https://facebook.github.io/react/docs/jsx-in-depth.html)。另外，还有新版的ES6标准，而所有的这些，都与我们的浏览器息息相关。虽然，我想尽早应用这些新鲜的概念，但我需要一个转译器，用于解决它们兼容性不高的问题。该转译器将需要解析ES6版本的代码并生成对应的ES5版本的。[Babel](http://babeljs.io/)就是一款专门做这样工作的转换编译器，并且它能很好地结合于React使用。除了转译器之外，我还需要一个代码包装工具。该工具能解析[输入](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import)并生成一个包含应用的文件。在众多包装工具中，[webpack](https://webpack.github.io/)就是我的选择。
 
 ## [](http://krasimirtsonev.com/blog/article/distributing-react-components-babel-browserify-webpack-uglifyjs#the-base)The base
 
