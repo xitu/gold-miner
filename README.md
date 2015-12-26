@@ -29,7 +29,7 @@
 * [Artsy 工程师总结的一些 Cocoa 开发设计误区](http://gold.xitu.io/entry/55fb191f60b20bbff6370fc5)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/Cocoa-Architecture-Dropped-Design-Patterns.md))
 * [UIKit 里如何面向协议编程](http://gold.xitu.io/entry/5611522e60b2b52c9cead330)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/ios-9-tutorial-series-protocol-oriented-programming-with-uikit.md))
 * [3D Force Touch 的新玩儿法](http://gold.xitu.io/entry/562d9cd660b2c1e233c9106b)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/3d-force-touch-beyond-peek-pop.md)) ([shiguol (SAlex)](https://github.com/shiguol) 认领)
-* [Absolute Beginner's Guide to Swift](http://gold.xitu.io/entry/5662e08960b204d55d49b95a)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/an-absolute-beginners-guide-to-swift.md))
+* [Absolute Beginner's Guide to Swift](http://gold.xitu.io/entry/5662e08960b204d55d49b95a)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/an-absolute-beginners-guide-to-swift.md)) ([cdpath](https://github.com/cdpath) 认领)
 
 ## JavaScript
 
