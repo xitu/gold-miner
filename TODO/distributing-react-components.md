@@ -11,11 +11,11 @@
 
 ## [](http://krasimirtsonev.com/blog/article/distributing-react-components-babel-browserify-webpack-uglifyjs#the-component)构件
 
-&#160; &#160; &#160; &#160;[react-place](https://github.com/krasimir/react-place) 是一个提供输入服务的构件. 当用户输入一个城市的名字时，该构件会作出预测并提供建议选项给该用户。`onLocationSet`是该构件的一个属性值. 当用户选择某些建议选项时，它将被进行赋值操作。除此之外，该构件里有那么一个函数，它是接收一个对象作为参数输入。该对象包含有对一个城市的简短描述以及其地理坐标。总的来说，我们是和一个外部API（谷歌地图）和一个参与的硬关联（自动完成输入组件）进行通信操作。[这里](http://krasimir.github.io/react-place/example/index.html)，有一个展示该构件如何工作的例子。
+&#160; &#160; &#160; &#160;[react-place](https://github.com/krasimir/react-place) 是一个提供输入服务的构件。当用户输入一个城市的名字时，该构件会作出预测并提供建议选项给该用户。`onLocationSet`是该构件的一个属性值。当用户选择某些建议选项时，它将被进行赋值操作。除此之外，该构件里有那么一个函数，它是接收一个对象作为参数输入。该对象包含有对一个城市的简短描述以及其地理坐标。总的来说，我们是和一个外部API（谷歌地图）和一个参与的硬关联（自动完成输入组件）进行通信操作。[这里](http://krasimir.github.io/react-place/example/index.html)，有一个展示该构件如何工作的例子。
 
 &#160; &#160; &#160; &#160;我们来一起看看构件是如何完成？为何完成后，该构件还不能被发布？
 
-&#160; &#160; &#160; &#160;时下，有一些概念处于风口浪尖。其中，就有React和它的[JSX语法](https://facebook.github.io/react/docs/jsx-in-depth.html)。另外，还有新版的ES6标准，而所有的这些，都与我们的浏览器息息相关。虽然，我想尽早应用这些新鲜的概念，但我需要一个转译器，用于解决它们兼容性不高的问题。该转译器将需要解析ES6版本的代码并生成对应的ES5版本的。[Babel](http://babeljs.io/)就是一款专门做这样工作的转换编译器，并且它能很好地结合于React使用。除了转译器之外，我还需要一个代码包装工具。该工具能解析[输入](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import)并生成一个包含应用的文件。在众多包装工具中，[webpack](https://webpack.github.io/)就是我的选择。
+&#160; &#160; &#160; &#160;时下，有一些概念处于风口浪尖。其中，就有 React 和它的[ JSX 语法](https://facebook.github.io/react/docs/jsx-in-depth.html)。另外，还有新版的ES6标准，而所有的这些，都与我们的浏览器息息相关。虽然，我想尽早应用这些新鲜的概念，但我需要一个转译器，用于解决它们兼容性不高的问题。该转译器将需要解析ES6版本的代码并生成对应的ES5版本的。[Babel](http://babeljs.io/)就是一款专门做这样工作的转换编译器，并且它能很好地结合于React使用。除了转译器之外，我还需要一个代码包装工具。该工具能解析[输入](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import)并生成一个包含应用的文件。在众多包装工具中，[webpack](https://webpack.github.io/)就是我的选择。
 
 ## [](http://krasimirtsonev.com/blog/article/distributing-react-components-babel-browserify-webpack-uglifyjs#the-base)The base
 
