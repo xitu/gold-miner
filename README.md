@@ -40,7 +40,7 @@
 
 ## React
 
-* [Making React Native apps accessible](http://gold.xitu.io/entry/566b01a800b0d1dbc721e56b)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/making-react-native-apps-accessible.md)）
+* [Making React Native apps accessible](http://gold.xitu.io/entry/566b01a800b0d1dbc721e56b)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/making-react-native-apps-accessible.md)) ([void-main](https://github.com/void-main) 认领)
 * [如何发布一个 React components](http://gold.xitu.io/entry/566951db60b25a8c2e23daaa)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/distributing-react-components.md)) ([aleen42](https://github.com/aleen42) 认领)
 * [Things I Wish I Were Told About React Native](http://gold.xitu.io/entry/563d9b9960b2c82f2b9da18d)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/things-i-wish-i-were-told-about-react-native.md)) ([huanglizhuo](https://github.com/huanglizhuo) 认领)
  
