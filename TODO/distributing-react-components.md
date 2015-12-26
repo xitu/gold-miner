@@ -96,9 +96,9 @@
     --source-maps --presets es2015,react 
     --plugins babel-plugin-add-module-exports
 
-## [](http://krasimirtsonev.com/blog/article/distributing-react-components-babel-browserify-webpack-uglifyjs#generating-browser-bundle)Generating browser bundle
+## [](http://krasimirtsonev.com/blog/article/distributing-react-components-babel-browserify-webpack-uglifyjs#generating-browser-bundle)浏览器化
 
-&#160; &#160; &#160; &#160;前面部分介绍所生成的是一个可被任何 JavaScript 项目导入或引用的文件。任何一个代码包装工具像 webpack 或 [Browserify](http://browserify.org/) 都可以解决所需要的依赖包问题。 但我最后考虑的一点是，如果开发人员不适用代码包装工具，那怎么办？简单来说，就是我们需要一个已经生成好的 JavaScript 文件，并直接可以使用 `script>` 标签引入该文件到我的页面里。 假设 React 已经加载到页面里，那么我只需要再把有着自动完成组件的该构件引入到页面即可。
+&#160; &#160; &#160; &#160;前面部分介绍所生成的是一个可被任何 JavaScript 项目导入或引用的文件。任何一个代码包装工具像 webpack 或 [Browserify](http://browserify.org/) 都可以解决所需要的依赖包问题。 但我最后考虑的一点是，如果开发人员不使用代码包装工具，那怎么办？简而言之，就是我们需要一个已经生成好的 JavaScript 文件，并直接可以使用 `script>` 标签引入该文件到我的页面里。 假设 React 已经加载到页面里，那么我只需要再把有着自动完成组件的该构件引入到页面即可。
 
 &#160; &#160; &#160; &#160;为了解决这个，我将会有效地利用了`lib`文件夹下的文件。这就是我之前所提的“浏览器化”。那么，我们来看看该怎么处理：
 
@@ -107,7 +107,7 @@
     --transform browserify-global-shim 
     --standalone ReactPlace
 
-&#160; &#160; &#160; &#160;`-o`选项是用来指定输出文件。 `--standalone` 选项是必须的，因为我并没有一个模块系统，所以我需要对该组建可全局访问。有趣的一点是`--transform browserify-global-shim`选项。这是一个转化加载项，其可用于排除 React 而只导入那个自动完成组件。 为了使其工作，我需要在`package.js`添加新的条目：
+&#160; &#160; &#160; &#160;`-o`选项是用来指定输出文件。`--standalone` 选项是必须的，因为我并没有一个模块系统，所以该构件需要可全局访问。有趣的一点是`--transform browserify-global-shim`选项。这是一个转化加载项，其可用于排除 React 而只导入那个自动完成组件。 为了使其工作，我需要在`package.js`添加新的条目：
 
     // package.json
     "browserify-global-shim": {
@@ -115,12 +115,12 @@
       "react-dom": "ReactDOM"
     }
 
-I specified the names of the global variables that will be resolve when I call `require('react')` and `require('react-dom')` from within the component. If we open the generated `build/react-place.js` file we will see:
+&#160; &#160; &#160; &#160;在此，我声明了一些全局变量的名字。而这些全局变量将会在调用构件里的`require('react')`和`require('react-dom')`时被解析。当我们打开生成的`build/react-place.js`文件，我们将会看到：
 
     var _react = (window.React);
     var _reactDom = (window.ReactDOM);
 
-And when I talk about a component that is dropped as a `script>` tag then I think we need a minification. In production we should use a compressed version of the same `build/react-place.js` file. [Uglifyjs](https://www.npmjs.com/package/uglify-js) is a nice module for minifying JavaScript. Just after the Browserify call:
+&#160; &#160; &#160; &#160;在谈论把构件作为`script>`标签引入时，我想我们应该需要对其进行压缩。 当然，在生产环境，我们还应该对`build/react-place.js`文件生成一个压缩版本。[Uglifyjs](https://www.npmjs.com/package/uglify-js) 是一个不错的模块，可用于压缩 JavaScript 代码。 我们只需要在”浏览器化“后调用即可：
 
     ./node_modules/.bin/uglifyjs ./build/react-place.js 
     --compress --mangle 
