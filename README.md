@@ -46,7 +46,7 @@
  
 ## 教程
 
-* [Chrome Devtools Tips & Tricks](http://gold.xitu.io/entry/5625ae6e60b2d1400143a89b)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/chrome-devtools.md))
+* [Chrome Devtools Tips & Tricks](http://gold.xitu.io/entry/5625ae6e60b2d1400143a89b)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/chrome-devtools.md)) ([chemzqm (Qiming zhao)](https://github.com/chemzqm) 认领)
 * [通过 Electron 开发一个简单地桌面应用](http://gold.xitu.io/entry/56722bd300b01b78b5395115)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/creating-your-first-desktop.md)) ([Zhangdroid](https://github.com/Zhangdroid) 认领)
 * [Retrofit 入门教程](http://gold.xitu.io/entry/5652610c00b0bf37326a7be1)([maekdown](https://github.com/xitu/gold-miner/blob/master/TODO/retrofit-getting-started.md))
 * [Pokedex.org 给宠物小精灵爱好者的 web app 的技术选型](http://gold.xitu.io/entry/56630cf260b259ca649136e6)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/introducing-pokedex-org.md))
