@@ -6,7 +6,7 @@
 * 状态 :  待定
 
 &#160; &#160; &#160; &#160;在我开源 [react-place](https://github.com/krasimir/react-place) 项目到时候，我注意到那么一个问题。那就是，在准备构件发布方面上存在着一定的复杂度。因此，我决定在此用文档的形式记录该过程，以便日后遇到同样的问题时可查。
-<br />
+
 &#160; &#160; &#160; &#160;在准备构件期间，你会惊奇地发现建立`jsx`文件并不意味着该构件可用于发布，因为`jsx`文件对于其他开发人员来说，是不可重用的东西。
 
 ## [](http://krasimirtsonev.com/blog/article/distributing-react-components-babel-browserify-webpack-uglifyjs#the-component)构件
