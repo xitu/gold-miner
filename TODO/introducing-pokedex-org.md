@@ -5,6 +5,8 @@
 * 校对者: 
 * 状态 :  待定
 
+# Pokedex.org 给宠物小精灵爱好者的 web app 的技术选型
+
 The mobile web has a bad reputation these days. Everyone agrees it's slow, but there's no shortage of differing opinions on how to fix it.
 移动网站有个坏名声。大家都认为它很慢，但在如何修复的问题上并不缺少不同的意见。
 
@@ -30,10 +32,10 @@ I decided to put these ideas together and build a webapp with a rich, interactiv
 
 
 ## Pokémon – an ambitious target
-## 神奇宝贝 - 一个雄心勃勃的目标
+## 宠物小精灵 - 一个雄心勃勃的目标
 
 For those uninitiated to the world of Pokémon, a Pokédex is an encyclopedia of the hundreds of species of cutesy critters, as well as their stats, types, evolutions, and moves. The data is surprisingly vast for what is supposedly a children's game (read up on [Effort Values](http://bulbapedia.bulbagarden.net/wiki/Effort_values) if you want your brain to hurt over how deep this can get). So it's the perfect target for an ambitious web application.
-对于那些未初始化到神奇宝贝的世界里，一个图鉴包含数以百计的娇媚的小生物，以及他们的属性，类型，进化和移动信息的百科全书。对于一个儿童游戏来说恐怕数据量的巨大是令人惊讶的(假如你希望烧脑，可以通过仔细研究[努力值](http://bulbapedia.bulbagarden.net/wiki/Effort_values))。所以这是一个雄心勃勃的Web应用程序的理想目标。
+对于那些未初始化到宠物小精灵的世界里，一个图鉴包含数以百计的娇媚的小生物，以及他们的属性，类型，进化和移动信息的百科全书。对于一个儿童游戏来说恐怕数据量的巨大是令人惊讶的(假如你希望烧脑，可以通过仔细研究[努力值](http://bulbapedia.bulbagarden.net/wiki/Effort_values))。所以这是一个雄心勃勃的Web应用程序的理想目标。
 
 <video width="400" poster="//nolanlawson.s3.amazonaws.com/vid/DeliriousNeedyAnophelesmosquito.png"><source src="http://nolanlawson.s3.amazonaws.com/vid/DeliriousNeedyAnophelesmosquito.webm" type="video/webm"> <source src="http://nolanlawson.s3.amazonaws.com/vid/DeliriousNeedyAnophelesmosquito.mp4" type="video/mp4"></video> 
 
@@ -41,13 +43,15 @@ The first issue is getting the data, which is easy thanks to the wonderful [Pok�
 第一个问题是获取数据，这个很容易，多亏了精彩的[Pokéapi](http://pokeapi.co/)。第二个问题是，如果我们希望应用程序脱机工作，数据库过于庞大，不能保持在内存中，所以我们需要一些聪明的办法来使用 `IndexedDB` 和/或 `ServiceWorker`。
 
 For this app, I decided to use [PouchDB](http://pouchdb.com/) for the Pokémon data (because it's good at sync), as well as [LocalForage](https://github.com/mozilla/localForage) for app state data (because it has a nice key-value API). Both PouchDB and LocalForage are using IndexedDB inside a web worker, which means any database operations are [fully non-blocking](http://nolanlawson.com/2015/09/29/indexeddb-websql-localstorage-what-blocks-the-dom/).
+这个程序，我决定使用[PouchDB]（http://pouchdb.com/）保存宠物小精灵数据（因为它的同步良好），同时使用[LocalForage](https://github.com/mozilla/localForage)作为应用的状态数据存储（因为它有一个很好的键值API）。无论 `PouchDB` 和 `LocalForage` 使用 `IndexedDB` 的 `Web Worder`，这意味着任何数据库操作者将是[完全无阻塞](http://nolanlawson.com/2015/09/29/indexeddb-websql-localstorage-what-blocks-the-dom/)。
 
 However, it's also true that the Pokémon data isn't immediately available when the site is first loaded, because it takes awhile to sync from the server. So I'm also using a fallback strategy of "local first, then remote":
+然而，事实是在第一次加载网站时宠物小精灵数据是不能马上使用的，因为它需要一段时间来从服务器同步。所以，我还使用了后备策略“优先本地，然后才是远端”：
 
 ![](http://static1.squarespace.com/static/54d00072e4b0c38f7e184ee0/t/56437650e4b08c803b7dcf42/1447261785905/?format=1500w)
 
 When the site first loads, PouchDB starts syncing with the remote database, which in my case is [Cloudant](http://cloudant.com/) (a CouchDB-as-a-service provider). Since PouchDB has a dual API for both local and remote, it's easy to query the local database and then fall back to the remote database if that fails:
-
+在网站第一次加载时，PouchDB开始从远端数据库同步，在我的项目中使用的是[Cloudant](http://cloudant.com/)（一个CouchDB即服务的提供者）。由于 `PouchDB` 具有本地和远程两套API，可以很容易地从本地数据库查询，如果失败再回退到远程数据库：
  ```
  async function getById() {
    {
@@ -55,8 +59,8 @@ When the site first loads, PouchDB starts syncing with the remote database, whic
   } catch () {
     return await remoteDB.();
   }
-}
-```
+ }
+ ```
 
 (Yes, I also decided to use [ES7 async/await](http://pouchdb.com/2015/03/05/taming-the-async-beast-with-es7.html) for this app, using [Regenerator](https://github.com/facebook/regenerator) and [Babel(http://babeljs.io/). It adds < 4KB minified/gzipped to the build size, so it's well worth the developer convenience.)
 
