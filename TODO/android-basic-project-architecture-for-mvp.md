@@ -295,6 +295,6 @@ The most important idea is here that we want to create a project that is indepen
 
 **Resources**:
 
-1.  [http://saulmm.github.io/2015/02/02/A%20useful%20stack%20on%20android%20%231,%20architecture/](http://saulmm.github.io/2015/02/02/A%20useful%20stack%20on%20android%20%231,%20architecture/)
+1. [http://saulmm.github.io/2015/02/02/A%20useful%20stack%20on%20android%20%231,%20architecture/](http://saulmm.github.io/2015/02/02/A%20useful%20stack%20on%20android%20%231,%20architecture/)
 
-2\. [http://fernandocejas.com/2014/09/03/architecting-android-the-clean-way/](http://fernandocejas.com/2014/09/03/architecting-android-the-clean-way/)
+2. [http://fernandocejas.com/2014/09/03/architecting-android-the-clean-way/](http://fernandocejas.com/2014/09/03/architecting-android-the-clean-way/)
