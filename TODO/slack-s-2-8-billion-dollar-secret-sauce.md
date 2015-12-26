@@ -41,8 +41,7 @@
 
 你会愿意使用哪一个呢？他们的功能是相似的，但一个看起来感觉暗淡沉闷，一个富有活力和乐趣。其中的差别就在于Slack使用了更多活泼的颜色，优美的无衬线字体，友好的图标和无处不在的笑脸及图标。
 
-
-Slack is also chock full of fun little interactions. The logo animates in a burst of colors as it loads; modals slide down from the top of the screen; changing teams flips the screen around like a deck of cards. Throughout the entire product, everything seems to playfully jump around and pop off the screen. Each of these interactions is designed not only to help the user understand what’s going on, but put a little smile on their face.
+Slack中有丰富的有趣的交互细节。Logo在载入的时候会有颜色四溅的动画，各个模块内容从屏幕的顶端滑入，切换团队的时候屏幕如扑克牌一样翻转。整个产品的交互都是在愉快轻松的滑动和跳跃中完成的。这些设计不仅仅让用户更容易理解产品的逻辑，也会让他们会心一笑。
 
 > _“我们给他赋予了游戏般的色彩，而不是传统的企业协作工具的样子。"_
 
