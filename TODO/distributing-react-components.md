@@ -120,7 +120,7 @@
     var _react = (window.React);
     var _reactDom = (window.ReactDOM);
 
-&#160; &#160; &#160; &#160;在谈论把构件作为`script>`标签引入时，我想我们应该需要对其进行压缩。 当然，在生产环境，我们还应该对`build/react-place.js`文件生成一个压缩版本。[Uglifyjs](https://www.npmjs.com/package/uglify-js) 是一个不错的模块，可用于压缩 JavaScript 代码。 我们只需要在”浏览器化“后调用即可：
+&#160; &#160; &#160; &#160;在谈论把构件作为`script>`标签引入时，我想我们应该需要对其进行压缩。当然，在生产环境，我们还应该对`build/react-place.js`文件生成一个压缩版本。[Uglifyjs](https://www.npmjs.com/package/uglify-js) 是一个不错的模块，可用于压缩 JavaScript 代码。我们只需要在”浏览器化“后调用即可：
 
     ./node_modules/.bin/uglifyjs ./build/react-place.js 
     --compress --mangle 
