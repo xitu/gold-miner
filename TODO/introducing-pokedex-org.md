@@ -7,28 +7,28 @@
 
 # Pokedex.org 给宠物小精灵爱好者的 web app 的技术选型
 
-The mobile web has a bad reputation these days. Everyone agrees it's slow, but there's no shortage of differing opinions on how to fix it.
 移动网站有个坏名声。大家都认为它很慢，但在如何修复的问题上并不缺少不同的意见。
+> The mobile web has a bad reputation these days. Everyone agrees it's slow, but there's no shortage of differing opinions on how to fix it.
 
-Recently, Jeff Atwood argued convincingly that [the state of single-threaded JavaScript on Android is poor](https://meta.discourse.org/t/the-state-of-javascript-on-android-in-2015-is-poor/33889). Then Henrik Joreteg questioned [the viability of JavaScript frameworks on mobile](https://joreteg.com/blog/viability-of-js-frameworks-on-mobile) altogether, saying that tools like Ember and Angular are just too bloated for mobile networks to bear. (See also [these](https://aerotwist.com/blog/the-cost-of-frameworks/) [posts](http://tomdale.net/2015/11/javascript-frameworks-and-mobile-performance/) for a good follow-up discussion.)
 近日，`Jeff Atwood` 令人信服地指出[在Android设备上的单线程JavaScript的状态表现差](https://meta.discourse.org/t/the-state-of-javascript-on-android-in-2015-is-poor/33889)。然后 `Henrik Joreteg` 也质疑[JavaScript框架的在移动端生存能力](https://joreteg.com/blog/viability-of-js-frameworks-on-mobile)，他说对于在移动网络上承担像 `Ember` 和 `Angular` 的框架是太过臃肿。(为了后续良好的讨论，请参见[这些](https://aerotwist.com/blog/the-cost-of-frameworks/) [文章](http://tomdale.net/2015/11/javascript-frameworks-and-mobile-performance/))
+> Recently, Jeff Atwood argued convincingly that [the state of single-threaded JavaScript on Android is poor](https://meta.discourse.org/t/the-state-of-javascript-on-android-in-2015-is-poor/33889). Then Henrik Joreteg questioned [the viability of JavaScript frameworks on mobile](https://joreteg.com/blog/viability-of-js-frameworks-on-mobile) altogether, saying that tools like Ember and Angular are just too bloated for mobile networks to bear. (See also [these](https://aerotwist.com/blog/the-cost-of-frameworks/) [posts](http://tomdale.net/2015/11/javascript-frameworks-and-mobile-performance/) for a good follow-up discussion.)
 
-So to recap: Atwood says the problem is single-threadedness; Joreteg says it's mobile networks. And in my opinion, they're both right. As someone who does nearly as much Android development as web development, I can tell you first-hand that the network and concurrency are two of my primary concerns when writing a performant native app.
 回顾一下：`Atwood` 说，问题是单线程; `Joreteg` 说，问题是移动网络。我认为他们都是对的。正如做 `Android` 开发的人与做 `web` 开发的人几乎一样多，我会直接告诉你网络和并发能力这两方面是当我写一份原生应用的性能表现时最关心的问题。
+> So to recap: Atwood says the problem is single-threadedness; Joreteg says it's mobile networks. And in my opinion, they're both right. As someone who does nearly as much Android development as web development, I can tell you first-hand that the network and concurrency are two of my primary concerns when writing a performant native app.
 
-Ask any iOS or Android developer how we make our apps so fast, and most likely you'll hear about two major strategies:
 问任何 `iOS` 或 `Android` 开发者，怎样使我们的应用更快，极有可能你将听到以下两个主要的策略：
+> Ask any iOS or Android developer how we make our apps so fast, and most likely you'll hear about two major strategies:
 
-1.  **Eliminate network calls.** Chatty network activity can kill the performance of a mobile app, even on a good 3G or 4G connection. Staring at a loading spinner is not a good user experience.
 1.  **禁用网络通话** 即使是在较好的 `3G` 或 `4G` 连接状态下，健谈的网络活动将使移动应用严重损失性能。让用户盯着加载进度并不是良好的用户体验。
-2.  **Use background threads.** To hit a silky-smooth 60 FPS, your operations on the main thread must take less than 16ms. Anything unrelated to the UI should be offloaded to a background thread.
+> 1.  **Eliminate network calls.** Chatty network activity can kill the performance of a mobile app, even on a good 3G or 4G connection. Staring at a loading spinner is not a good user experience.
 2.  **使用后台线程** 要产生 60`FPS` 的流畅感，你在主线程上的操作必须少于 16ms。任何与 UI(用户界面) 不相关的工作都将转交给一个后台线程去完成。
+> 2.  **Use background threads.** To hit a silky-smooth 60 FPS, your operations on the main thread must take less than 16ms. Anything unrelated to the UI should be offloaded to a background thread.
 
-I believe the web is as capable of solving these problems as native apps, but most web developers just aren't aware that the tools are out there. For the network and concurrency problems, the web has two very good answers:
 我认为 `web` 作为原生应用能够解决这些问题，只是大多数 `Web` 开发人员不知道这些工具就在外面。对于网络和并发性的问题，`web` 有两个非常好的答案：
+> I believe the web is as capable of solving these problems as native apps, but most web developers just aren't aware that the tools are out there. For the network and concurrency problems, the web has two very good answers:
 
-I decided to put these ideas together and build a webapp with a rich, interactive experience that's every bit as compelling as a native app, but is also "just" a web site. Following guidelines from the Chrome team, I built [Pokedex.org](http://pokedex.org/) – a [progressive webapp](https://infrequently.org/2015/06/progressive-apps-escaping-tabs-without-losing-our-soul/) that works offline, can be launched from the home screen, and runs at 60 FPS even on mediocre Android phones. This blog post explains how I did it.
 我决定将这些想法放在一起构建一个像原生应用一样的丰富交互体验的 `webapp`，但其实它仅仅只是一个网站。根据 Chrome 小组的准则，我构建了 [Pokedex.org](http://pokedex.org) - 一个离线工作的[渐进网页应用](https://infrequently.org/2015/06/progressive-apps-escaping-tabs-without-losing-our-soul/)，它可以从主屏幕启动，甚至在普通的 `Android` 手机上运行在 60 `FPS`。这篇博客文章将解释我是如何做到的。
+> I decided to put these ideas together and build a webapp with a rich, interactive experience that's every bit as compelling as a native app, but is also "just" a web site. Following guidelines from the Chrome team, I built [Pokedex.org](http://pokedex.org/) – a [progressive webapp](https://infrequently.org/2015/06/progressive-apps-escaping-tabs-without-losing-our-soul/) that works offline, can be launched from the home screen, and runs at 60 FPS even on mediocre Android phones. This blog post explains how I did it.
 
 
 ## Pokémon – an ambitious target
