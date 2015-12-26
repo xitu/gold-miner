@@ -53,11 +53,11 @@
 *   我入口地址的代码是遵循 ES6 标准来书写的，然而并不是所有的开发者都遵循 ES6 标准且在建立过程中使用到转译器。因此，入口地址代码应该是遵循兼容性更高的 ES5 标准。
 *   webpack 的输出确实满足了上面所述的两个要求，然而它有一个问题。那就是该代码包装工具包含了整个 React 库，而我们想包装的只是该组件，不是 React。
 
-&#160; &#160; &#160; &#160;综上所述，webpack 在开发过程的确是很有用，然而却并不能生成一个可用于引入或导入的文件。我尝试使用 [externals](https://webpack.github.io/docs/library-and-externals.html) 选项来解决问题的时候发现只要当我们有全局可用的依赖时，该方法是可行的。
+&#160; &#160; &#160; &#160;综上所述，webpack 在开发过程的确是很有用，然而却并不能生成一个可用于引入或导入的文件。我尝试使用 webpack 的 [externals](https://webpack.github.io/docs/library-and-externals.html) 选项来解决问题的时候发现只要当我们有全局可用的依赖时，该方法是可行的。
 
 ## [](http://krasimirtsonev.com/blog/article/distributing-react-components-babel-browserify-webpack-uglifyjs#producing-es5-entry-point)建立符合 ES5 标准的入口地址
 
-So, defining a new NPM script made a lot of sense. NPM even [has](https://docs.npmjs.com/misc/scripts) a `prepublish` entry that runs before the package is published and local `npm install`. I continued with the following:
+&#160; &#160; &#160; &#160;从前面可以看到，定义一个是新的 NPM 脚本是很重要的。 NPM 甚至 [有](https://docs.npmjs.com/misc/scripts) 一个 `prepublish` 入口。它将会在包发布前，在本地执行`npm install`命令时执行。下面是我新添加的定义：
 
     // package.json
     "scripts": {
@@ -65,7 +65,7 @@ So, defining a new NPM script made a lot of sense. NPM even [has](https://docs.n
       ...
     }
 
-No webpack, just Babel. It gets everything from the `src` directory, converts the JSX to pure JavaScript calls and ES6 to ES5\. The result is:
+&#160; &#160; &#160; &#160;在这里，我们不需要使用 webpack，而只是使用 Babel。它会从`src`文件夹获取所有需要的东西，转化 JSX 文件为纯 JavaScript 调用并把 ES6 标准下的代码转成 ES5标准下的。 因此，文件结构将是：
 
     |
     +-- example-es6
