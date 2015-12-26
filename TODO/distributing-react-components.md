@@ -138,9 +138,9 @@
       ./node_modules/.bin/uglifyjs ./build/react-place.js --compress --mangle --output ./build/react-place.min.js --source-map ./build/react-place.min.js.map
     ",
 
-_(notice that I added few new lines to make the script readable here but in the [original package.json](https://github.com/krasimir/react-place/blob/master/package.json#L25) file everything is placed onto one line)_
+&#160; &#160; &#160; &#160;_(注：为了使得脚本更加稳定，我把语句分成了几行。但是，在原来的 [package.json](https://github.com/krasimir/react-place/blob/master/package.json#L25) 文件里，所有的语句都被摆放成一行。)_
 
-The final directories/files in the project look like the following:
+&#160; &#160; &#160; &#160;最后，项目里的文件夹/文件将如下所示：
 
     |
     +-- build
