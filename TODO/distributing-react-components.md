@@ -17,7 +17,7 @@
 
 &#160; &#160; &#160; &#160;时下，有一些概念处于风口浪尖。其中，就有 React 和它的[ JSX 语法](https://facebook.github.io/react/docs/jsx-in-depth.html)。另外，还有新版的 ES6 标准，而所有的这些，都与我们的浏览器息息相关。虽然，我想尽早应用这些新鲜的概念，但我需要一个转译器，用于解决它们兼容性不高的问题。该转译器将需要解析 ES6 版本的代码并生成对应的 ES5 版本的。[Babel](http://babeljs.io/) 就是一款专门做这样工作的转换编译器，并且它能很好地结合于 React 使用。除了转译器之外，我还需要一个代码包装工具。该工具能解析[输入](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import)并生成一个包含应用的文件。在众多包装工具中，[webpack](https://webpack.github.io/) 就是我的选择。
 
-## [](http://krasimirtsonev.com/blog/article/distributing-react-components-babel-browserify-webpack-uglifyjs#the-base)The base
+## [](http://krasimirtsonev.com/blog/article/distributing-react-components-babel-browserify-webpack-uglifyjs#the-base)主要开发过程
 
 &#160; &#160; &#160; &#160;两周前，我创建了一个 [react-webpack-started](https://github.com/krasimir/react-webpack-starter)。它接收一个 JSX 文件作为输入并用 Babel 生成对应的 ES5 文件。我们有一部用于服务的本地设备、测试设定以及一个 linter 插件，然而这是另外一个故事，这里并不详述。（在[这里](http://krasimirtsonev.com/blog/article/a-modern-react-starter-pack-based-on-webpack)有相关更多的信息）。
 
@@ -47,15 +47,15 @@
 
 &#160; &#160; &#160; &#160;我要发布的构件是放在`Location.jsx`里。为了测试它，我创建了一个简单的 app 应用（`example-es6` 文件夹）来导入该文件。
 
-I spent some time developing the component and finally it was done. I pushed the changes to the [repository](https://github.com/krasimir/react-place) in GitHub and I thought that it is ready for distributing. Well, five minutes later I realized that it wasn’t enough. Here is why:
+&#160; &#160; &#160; &#160;花了一些时间，终于把该构件开发完成。我把更改部分推送到 GitHub 的 [repository](https://github.com/krasimir/react-place) 并错误认为该构件已经可以被分享出去。然而，五分钟后我意识到这构件并不能。那是因为：
 
-*   If I publish the component as a NPM package I’ll need an entry point. Is my JSX file suitable for that? No, it’s not because not every developer likes JSX. The component should be distributed in a non-JSX version.
-*   My code is written in ES6\. Not every developer uses ES6 and has a transpiler in its building process. So the entry point should be ES5 compatible.
-*   The output of webpack indeed satisfies the two points above but it has one problem. What we have is a bundle. It contains the whole React library. We want to bundle the autocomplete widget but not React.
+*   如果我以 NPM 包发布该构件，我将需要一个入口地址。那么我想，我的 JSX 文件适合作入口地址吗？并不能，因为并不是所有的开发人员都喜欢 JSX。因此，该构件应该开发成非 JSX 版本。
+*   我入口地址的代码是遵循 ES6 标准来书写的，然而并不是所有的开发者都遵循 ES6 标准且在建立过程中使用到转译器。因此，入口地址代码应该是遵循兼容性更高的 ES5 标准。
+*   webpack 的输出确实满足了上面所述的两个要求，然而它有一个问题。那就是该代码包装工具包含了整个 React 库。我们想包装的只是该组件而不是 React。
 
-So, webpack is useful while developing but can’t generate a file that could be required or imported. I tried using the [externals](https://webpack.github.io/docs/library-and-externals.html) option but that works if we have globally available dependencies.
+&#160; &#160; &#160; &#160;综上所述，webpack 在开发过程的确是很有用，然而却并不能生成一个能够引入或导入的文件。我尝试使用 [externals](https://webpack.github.io/docs/library-and-externals.html) 选项来解决问题的时候发现只要当我们有全局可用的依赖时，该方法是可行的。
 
-## [](http://krasimirtsonev.com/blog/article/distributing-react-components-babel-browserify-webpack-uglifyjs#producing-es5-entry-point)Producing ES5 entry point
+## [](http://krasimirtsonev.com/blog/article/distributing-react-components-babel-browserify-webpack-uglifyjs#producing-es5-entry-point)建立符合 ES5 标准的入口地址
 
 So, defining a new NPM script made a lot of sense. NPM even [has](https://docs.npmjs.com/misc/scripts) a `prepublish` entry that runs before the package is published and local `npm install`. I continued with the following:
 
