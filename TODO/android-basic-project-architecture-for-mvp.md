@@ -37,49 +37,49 @@ This layer is completely independent since this represents business logic for **
 
 Let’s try to imagine a newsfeed application and try to define a basic **usecase** scenario. I tried to implement a basic usecase interface. This is really simple interface that tells the app scenario.
 
-```
+```java
 public interface GetPopularTitlesUsecase extends Usecase {
 
-void getPopularTitles();
+  void getPopularTitles();
 
-void onPopularTitlesReceived(ArrayList
+  void onPopularTitlesReceived(ArrayList<Title> title);
 
-void sendToPresenter();
+  void sendToPresenter();
 }
 ```
 
 
 After writing an interface, it is time to create a class that implements **GetPopularTitlesUsecase.** Here a basic implementation example class.
 
-```
+```java
 public class GetPopularTitlesUsecaseController implements GetPopularTitlesUsecase {
 
-  private List
 
-public GetPopularTitlesUsecaseController() {
+  private List<Title> titleList;
+
+  public GetPopularTitlesUsecaseController() {
     BusUtils.getRestBusInstance().register(this);
   }
 
-@Override
+  @Override
   public void getPopularTitles() {
     SyncService.start();
   }
 
-@Subscribe
+  @Subscribe
   @Override
-  public void onPopularTitlesReceived(ArrayList
-
+  public void onPopularTitlesReceived(ArrayList<Title> titleList) {
     this.titleList = titleList;
     sendToPresenter();
   }
 
-@Override
+  @Override
   public void sendToPresenter() {
     BusUtils.getUIBusInstance().post(titleList);
     BusUtils.getRestBusInstance().unregister(this);
   }
 
-@Override
+  @Override
   public void execute() {
     getPopularTitles();
   }
@@ -98,14 +98,14 @@ It is the most basic and common known layer among all. This is the layer that re
 ##View
 View in MVP represents the UI components.
 
-```
+```java
 public interface PopularTitlesView extends MVPView {
 
-void showTitles(List
+  void showTitles(List<Title> titleList);
 
-void showLoading();
+  void showLoading();
 
-void hideLoading();
+  void hideLoading();
 }
 ```
 
@@ -114,56 +114,56 @@ void hideLoading();
 
 Presenter in MVP is a kind of bridge **between view and model**. According to common implementation way, We should create a model interface classes that represent fingerprint of our usecase classes.
 
-```
+```java
 public interface RadioListPresenter extends Presenter {
   void loadRadioList();
 
-void onRadioListLoaded(RadioWrapper radioWrapper);
+  void onRadioListLoaded(RadioWrapper radioWrapper);
 }
 ```
 
 
 After creating a simple Radio List presenter, it is time to create a class that implements this interface.
 
-```
+```java
 public class RadioListPresenterImp implements RadioListPresenter {
 
-RadioListView radioListView;
+  RadioListView radioListView;
 
-GetRadioListUsecase getRadioListUsecase;
+  GetRadioListUsecase getRadioListUsecase;
 
-Bus uiBus;
+  Bus uiBus;
 
-@Inject
+  @Inject
   public RadioListPresenterImp(GetRadioListUsecase getRadioListUsecase, Bus uiBus) {
     this.getRadioListUsecase = getRadioListUsecase;
     this.uiBus = uiBus;
   }
 
-@Override
+  @Override
   public void loadRadioList() {
     radioListView.showLoading();
     getRadioListUsecase.execute();
   }
 
-@Subscribe
+  @Subscribe
   @Override
   public void onRadioListLoaded(RadioWrapper radioWrapper) {
     radioListView.onListLoaded(radioWrapper);
     radioListView.dismissLoading();
   }
 
-@Override
+  @Override
   public void start() {
     uiBus.register(this);
   }
 
-@Override
+  @Override
   public void stop() {
     uiBus.unregister(this);
   }
 
-@Override
+  @Override
   public void attachView(MVPView mvpView) {
     radioListView = (RadioListView) mvpView;
   }
@@ -177,98 +177,94 @@ Bus uiBus;
 
 Each Activity, Fragment should implement view interfaces according to the logic that represents. According to my project example, my RadioListFragment should implement **RadioListView.** After implement this interface, You should override methods and put presenter methods related the logic.
 
-    public class RadioListFragment extends Fragment implements RadioListView, SwipeRefreshLayout.OnRefreshListener {
+```java
+public class RadioListFragment extends Fragment implements RadioListView, SwipeRefreshLayout.OnRefreshListener {
 
-      @Inject
-      RadioListPresenter radioListPresenter;
+  @Inject
+  RadioListPresenter radioListPresenter;
 
-      public RadioListFragment() {
-      }
+  public RadioListFragment() {
+  }
 
-      public static RadioListFragment newInstance() {
-        RadioListFragment fragment = new RadioListFragment();
-        return fragment;
-      }
+  public static RadioListFragment newInstance() {
+    RadioListFragment fragment = new RadioListFragment();
+    return fragment;
+  }
 
-      @Override
-      public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        BusUtil.BUS.register(this);
-        initializeInjector();
-      }
+  @Override
+  public void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    BusUtil.BUS.register(this);
+    initializeInjector();
+  }
 
-      @Override
-      public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        radioListPresenter.loadRadioList();
-      }
+  @Override
+  public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+    super.onActivityCreated(savedInstanceState);
+    radioListPresenter.loadRadioList();
+  }
 
-      private void initializeInjector() {
-        RadyolandApp app = (RadyolandApp) getActivity().getApplication();
+  private void initializeInjector() {
+    RadyolandApp app = (RadyolandApp) getActivity().getApplication();
 
-        DaggerGetRadioListComponent.builder()
-            .appComponent(app.getAppComponent())
-            .getRadioListModule(new GetRadioListModule())
-            .build()
-            .inject(this);
-      }
+    DaggerGetRadioListComponent.builder()
+        .appComponent(app.getAppComponent())
+        .getRadioListModule(new GetRadioListModule())
+        .build()
+        .inject(this);
+  }
 
-      @Override
-      public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                               Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_radio_list, container, false);
-        ButterKnife.bind(this, view);
-        BusUtil.BUS.post(new TitleEvent(R.string.radio_list));
-        radioListPresenter.start();
-        radioListPresenter.attachView(this);
-        return view;
-      }
+  @Override
+  public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                           Bundle savedInstanceState) {
+    View view = inflater.inflate(R.layout.fragment_radio_list, container, false);
+    ButterKnife.bind(this, view);
+    BusUtil.BUS.post(new TitleEvent(R.string.radio_list));
+    radioListPresenter.start();
+    radioListPresenter.attachView(this);
+    return view;
+  }
 
-      @Override
-      public void showLoading() {
-        swipeRefresh.setRefreshing(true);
-      }
 
-      @Override
-      public void dismissLoading() {
-        swipeRefresh.setRefreshing(false);
-      }
+  @Override
+  public void showLoading() {
+    swipeRefresh.setRefreshing(true);
+  }
 
-      @Override
-      public void onListLoaded(RadioWrapper radioWrapper) {
-        radioListAdapter.setRadioList(radioWrapper.radioList);
-        radioListAdapter.notifyDataSetChanged();
-        DatabaseUtil.saveRadioList(radioWrapper.radioList);
-      }
+  @Override
+  public void dismissLoading() {
+    swipeRefresh.setRefreshing(false);
+  }
 
-      @Subscribe
-      public void RefreshRadioListEvent(RefreshRadioListEvent radioListEvent) {
-        radioListPresenter.loadRadioList();
-      }
+  @Override
+  public void onListLoaded(RadioWrapper radioWrapper) {
+    radioListAdapter.setRadioList(radioWrapper.radioList);
+    radioListAdapter.notifyDataSetChanged();
+    DatabaseUtil.saveRadioList(radioWrapper.radioList);
+  }
 
-      @Override
-      public void onDestroy() {
-        super.onDestroy();
-        BusUtil.BUS.unregister(this);
-      }
+  @Subscribe
+  public void RefreshRadioListEvent(RefreshRadioListEvent radioListEvent) {
+    radioListPresenter.loadRadioList();
+  }
 
-      @Override
-      public void onRefresh() {
-        radioListPresenter.loadRadioList();
-      }
+  @Override
+  public void onDestroy() {
+    super.onDestroy();
+    BusUtil.BUS.unregister(this);
+  }
+
+  @Override
+  public void onRefresh() {
+    radioListPresenter.loadRadioList();
+  }
+```
 
 #### Package Structure ideas
 
 When I first try to search these topics on the internet, I saw many people create different modules for each layer. This idea seems perfect for many developers but not for me. That’s why I don’t create different modules for each layer. I create different packages for each module or layer. I believe in that this is not the base case, but It is my way. I feel more comfortable.
 
-
-
-
-
 ![](http://ww3.sinaimg.cn/large/005SiNxyjw1eymj1ql90mj30cd0lwmyn.jpg)
-
-
-
 
 
 ### Worth to mention;
@@ -279,13 +275,10 @@ Lately, I created a project that called Android-base-project
 
 I want to create a base project (not a library, just a guide project.)that contains base fragment, activity and retrofit classes, Utility classes and common **Gradle** file structure that can fit many of Android project. I think it is time to implement more generic classes based on MVP pattern.
 
+
 ### Conclusion;
 
-
-
 ![](https://cdn-images-1.medium.com/max/800/1*Rt3vsG8LWHB8LPGrhRftAA.gif)
-
-
 
 I didn’t try to mention any of libraries you should use for almost many Android project like Dagger 2, RxJava etc. I just want to keep simple, mainly focus on App structure.
 
@@ -293,8 +286,8 @@ I believe in that there may be a lot of different implementations. I always try 
 
 The most important idea is here that we want to create a project that is independent from libraries, UI things, database or REST implementation. if we can create a project that contains this kind of app structure, we can have project easy to develop, test and maintain.
 
+
 **Resources**:
 
 1. [http://saulmm.github.io/2015/02/02/A%20useful%20stack%20on%20android%20%231,%20architecture/](http://saulmm.github.io/2015/02/02/A%20useful%20stack%20on%20android%20%231,%20architecture/)
-
 2. [http://fernandocejas.com/2014/09/03/architecting-android-the-clean-way/](http://fernandocejas.com/2014/09/03/architecting-android-the-clean-way/)
