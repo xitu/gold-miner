@@ -19,7 +19,7 @@
 * [Android 的一个 MVP 基础项目模板](http://gold.xitu.io/entry/5630f9c600b0ee7f0bb48c25)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/android-basic-project-architecture-for-mvp.md)) ([foolishgao](https://github.com/foolishgao) 认领)
 * [让 Toolbar 随着 RecyclerView 的滚动而显示/隐藏](http://gold.xitu.io/entry/56320b3400b05c9d2b0f7f6f)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/How-to-hideshow-Toolbar-when-list-is-scroling.md)) ([MiJack (江湖迈杰)](https://github.com/MiJack) 认领)
 * [Android Guides - Github](http://gold.xitu.io/entry/5584f8e9e4b09e372efeca9a) ([SeniorZhai](https://github.com/SeniorZhai)认领)
-* [6 Things I wish I Knew before I Wrote my first Android App](http://gold.xitu.io/entry/55a38698e4b0ed48f0bfc1ef)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/things-i-wish-i-knew-before-i-wrote-my-first-android-app.md))
+* [6 Things I wish I Knew before I Wrote my first Android App](http://gold.xitu.io/entry/55a38698e4b0ed48f0bfc1ef)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/things-i-wish-i-knew-before-i-wrote-my-first-android-app.md)) ([404neko](https://github.com/404neko) 认领)
 * [Android 上的数据格式 FlatBuffers 介绍](http://gold.xitu.io/entry/55dd1e3b60b27e6cd500d266)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/flatbuffers-in-android-introdution.md)) ([lihb (lhb)](https://github.com/lihb) 认领)
 
 ## iOS
