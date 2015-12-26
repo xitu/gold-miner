@@ -34,7 +34,7 @@
 ## JavaScript
 
 * [350 个特性看透 ES6](http://gold.xitu.io/entry/5622740a60b27457e870342e)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/es6.md)) ([Go7hic](https://github.com/dyygtfx) 认领)
-* [2015 年底 JS 必备工具集](http://gold.xitu.io/entry/566d34d760b202590bde4c88)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/must-see-javascript-dev-tools-that-put-other-dev-tools-to-shame.md))
+* [2015 年底 JS 必备工具集](http://gold.xitu.io/entry/566d34d760b202590bde4c88)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/must-see-javascript-dev-tools-that-put-other-dev-tools-to-shame.md)) ([赵鑫晖](https://github.com/zxc0328) 认领)
 * [How do Promises Work?](http://gold.xitu.io/entry/5665281460b21eab5d5c41fa)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/how-do-promises-work.md)) ([Zhangjd](https://github.com/Zhangjd) 认领)
 * [JavaScript 开发者年度调查报告](http://gold.xitu.io/entry/566d29cf60b2e416628e6ff0)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/javascript-developer-survey-results.md)) ([sqrthree (根号三)](https://github.com/sqrthree) 认领)
 
