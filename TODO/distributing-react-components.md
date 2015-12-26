@@ -57,7 +57,7 @@
 
 ## [](http://krasimirtsonev.com/blog/article/distributing-react-components-babel-browserify-webpack-uglifyjs#producing-es5-entry-point)建立符合 ES5 标准的入口地址
 
-&#160; &#160; &#160; &#160;从前面可以看到，定义一个是新的 NPM 脚本是很重要的。 NPM 甚至 [有](https://docs.npmjs.com/misc/scripts) 一个 `prepublish` 入口。它将会在包发布前，在本地执行`npm install`命令时执行。下面是我新添加的定义：
+&#160; &#160; &#160; &#160;从前面可以看到，定义一个是新的 NPM 脚本是很重要的。 NPM 甚至[有](https://docs.npmjs.com/misc/scripts)一个`prepublish`入口。它可以在包发布前且在本地执行`npm install`命令时执行。下面是我新添加的定义：
 
     // package.json
     "scripts": {
@@ -80,17 +80,17 @@
         |   +-- google.js
         + -- Location.jsx
 
-The `src` folder is translated to plain JavaScript plus source maps generated. An important role here plays the presets [`es2015`](https://babeljs.io/docs/plugins/preset-es2015/) and [`react`](https://babeljs.io/docs/plugins/preset-react/).
+&#160; &#160; &#160; &#160;`src`文件夹中的文件会被翻译成普通的 JavaScript 文件加上生成的源映射。在这过程中 [`es2015`](https://babeljs.io/docs/plugins/preset-es2015/) 和 [`react`](https://babeljs.io/docs/plugins/preset-react/) 将扮演着重要的角色。
 
-In theory, from within a ES5 code we should be able to `require('Location.js')` and get the component working. However, when I opened the file I saw that there is no `module.exports`. Only
+&#160; &#160; &#160; &#160;理论上，从 ES5 标准下的代码中，我们应该可以通过命令`require('Location.js')`使得构件运作起来。但是，当我打开文件时，我发现这里并没有`module.exports`，而只是发现
 
     exports.default = Location;
 
-Which means that I had to require the library with
+&#160; &#160; &#160; &#160;这将意味着我需要通过下面的命令来引入库：
 
     require('Location').default;
 
-Thankfully there is plugin [babel-plugin-add-module-exports](https://www.npmjs.com/package/babel-plugin-add-module-exports) that solves the issue. I changed the script to:
+&#160; &#160; &#160; &#160;很感谢地说，[babel-plugin-add-module-exports](https://www.npmjs.com/package/babel-plugin-add-module-exports) 解决了该问题。我把 NPM 脚本改成了如下：
 
     ./node_modules/.bin/babel ./src --out-dir ./lib 
     --source-maps --presets es2015,react 
@@ -98,16 +98,16 @@ Thankfully there is plugin [babel-plugin-add-module-exports](https://www.npmjs.c
 
 ## [](http://krasimirtsonev.com/blog/article/distributing-react-components-babel-browserify-webpack-uglifyjs#generating-browser-bundle)Generating browser bundle
 
-The result of the previous section was a file which may be imported/required by any JavaScript project. Any bundling tool like webpack or [Browserify](http://browserify.org/) will resolve the needed dependencies. The last bit that I had to take care is the case where the developer doesn’t use a bundler. Let’s say that I want an already generated JavaScript file add it to my page with a `script>` tag. I assume that React is already loaded on the page and I need only the component with its autocomplete widget included.
+&#160; &#160; &#160; &#160;前面部分介绍所生成的是一个可被任何 JavaScript 项目导入或引用的文件。任何一个代码包装工具像 webpack 或 [Browserify](http://browserify.org/) 都可以解决所需要的依赖包问题。 但我最后考虑的一点是，如果开发人员不适用代码包装工具，那怎么办？简单来说，就是我们需要一个已经生成好的 JavaScript 文件，并直接可以使用 `script>` 标签引入该文件到我的页面里。 假设 React 已经加载到页面里，那么我只需要再把有着自动完成组件的该构件引入到页面即可。
 
-To achieve this I effectively used the file under the `lib` folder. I mentioned Browserify above so let’s go with it:
+&#160; &#160; &#160; &#160;为了解决这个，我将会有效地利用了`lib`文件夹下的文件。这就是我之前所提的“浏览器化”。那么，我们来看看该怎么处理：
 
     ./node_modules/.bin/browserify ./lib/Location.js 
     -o ./build/react-place.js 
     --transform browserify-global-shim 
     --standalone ReactPlace
 
-`-o` option is used to specify the output file. `--standalone` is needed because I don’t have a module system and I need a global access to the component. The interesting bit is `--transform browserify-global-shim`. This is the transform plugin that excludes React but imports the autocomplete widget. To make it works I created a new entry in `package.js`:
+&#160; &#160; &#160; &#160;`-o`选项是用来指定输出文件。 `--standalone` 选项是必须的，因为我并没有一个模块系统，所以我需要对该组建可全局访问。有趣的一点是`--transform browserify-global-shim`选项。这是一个转化加载项，其可用于排除 React 而只导入那个自动完成组件。 为了使其工作，我需要在`package.js`添加新的条目：
 
     // package.json
     "browserify-global-shim": {
