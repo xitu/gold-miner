@@ -85,9 +85,13 @@
 
 ![An screenshot of the percentages for the eleventh question](https://i.imgur.com/20nUzJu.png)
 
+## 你使用过哪个代码质量检测工具？
+
 看起来受访者在 ESLint 和 JSHint之间分成了两派，但是 JSLint 还是有差不多 30% 的投票率，在这么多年之后势头还是惊人的强劲。
 
 ![An screenshot of the percentages for the 12th question](https://i.imgur.com/RC8ePwr.png)
+
+## 你通过哪种方式来处理客户端依赖关系？
 
 npm 接管了客户端依赖管理系统的天下，有超过 60% 的投票就是证明它的方式。Bower 仍然有 20% 的观众，而通过下载和插入 `<script>` 标签来管理的普通旧式方法则获得了 13.7% 的选票。
 
@@ -154,6 +158,8 @@ npm 接管了客户端依赖管理系统的天下，有超过 60% 的投票就�
 
 ![An screenshot of the percentages for the 23th question](https://i.imgur.com/PmLbtAo.png)
 
+## 你是通过哪种方式搜索到可重用的代码、库和工具的？
+
 受访者似乎更青睐于 [GitHub](https://github.com) 和搜索引擎，但是也有一部分人使用博客，Twitter 和 npm 网站。
 
 ![An screenshot of the percentages for the 24th question](https://i.imgur.com/HpmV9yz.png)
@@ -188,6 +194,8 @@ npm 接管了客户端依赖管理系统的天下，有超过 60% 的投票就�
 超过 85% 的人听说过 ServiceWorker，我很想知道这些人中有多少人使用过它。
 
 ![An screenshot of the percentages for the 29th question](https://i.imgur.com/8o3Jq2R.png)
+
+## 除了 JavaScript，你还主要使用哪些语言？
 
 这有太多的语言可供选择，我肯定会漏掉一些。但是结果不言自明。
 
