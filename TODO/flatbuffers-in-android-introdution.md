@@ -40,7 +40,7 @@ _但是在你转移所有数据到FlatBuffers之前，请慎重考虑你是否�
 首先，我们必须得到**flatc** - FlatBuffers编译器，你可以通过源码来构建，源码放在Google的[FlatBuffers仓库](https://github.com/google/flatbuffers)。我们将源码下载或者克隆到本地。整个构建过程在[构建FlatBuffers](https://google.github.io/flatbuffers/md__building.html) 文档中有详细描述。如果你是Mac用户，你需要做的仅仅是：
  
 1.  进入下载好了的源码目录 `\{extract directory}\build\XcodeFlatBuffers.xcodeproj`
-2.  按下**Play**按钮或者`⌘ + R`快捷键运行***flatc**纲要文件（默认会被选中）
+2.  按下**Play**按钮或者`⌘ + R`快捷键运行**flatc**纲要文件（默认会被选中）
 3.  运行完成后，**flatc**可执行文件将会出现在工程的根目录中
  
 现在我们可以使用[纲要文件编译器](https://google.github.io/flatbuffers/md__compiler.html)根据指定范围的纲要文件（Java，C#，Python，GO和C++）生成模型类，或者将JSON文件转换成FlatBuffer格式的二进制文件。
@@ -109,7 +109,7 @@ JSON文件的部分代码如下所示：
  
  ## FlatBuffers数据文件
 
-好了，现在我们要做的是将`repos_json.json`文件转换成FlatBuffers的二进制文件以及生成Java模型，该Java模型是以一种对Java来说很友好的方式来展现的（所有我们需要的文件都可再[这里](https://github.com/frogermcs/FlatBuffs/tree/master/flatbuffers) 下载）:
+好了，现在我们要做的是将`repos_json.json`文件转换成FlatBuffers的二进制文件以及生成Java模型，该Java模型是以一种对Java来说很友好的方式来展现的（所有我们需要的文件都可在[这里](https://github.com/frogermcs/FlatBuffs/tree/master/flatbuffers) 下载）:
 
 `$ ./flatc -j -b repos_schema.fbs repos_json.json`
 
@@ -256,7 +256,7 @@ ProgressBar是用来展示不恰当的的数据处理（在UI主线程中）将�
 
 评价标准是将全部元素（90个）转换成对应的Java文件。
 
-JSON - 平均加载时间为200ms（波动范围在：180ms - 250ms），JSON文件大小：478kb。FlatBuffers - 平均加载时间为5ms (波动范围在: 3ms - 10ms)，FlatBuffers二进制文件大小：362kB。
+JSON - 平均加载时间为200ms（波动范围在：180ms - 250ms），JSON文件大小：478kb。FlatBuffers - 平均加载时间为5ms （波动范围在: 3ms - 10ms），FlatBuffers二进制文件大小：362kB。
 
 还记得我们的[16ms规则](https://www.youtube.com/watch?v=CaMTIgxCSqU)吗?我们将在UI线程中调用上述方法，用来观察我们界面的显示行为:
 
@@ -268,11 +268,11 @@ JSON - 平均加载时间为200ms（波动范围在：180ms - 250ms），JSON文
 
 ![FlatBuffers](http://frogermcs.github.io/images/17/flatbuffers.gif "FlatBuffers")
 
-看到区别了吗？当使用JSON加载数据时，ProgressBar冻住了一会儿，这使得我们的界面不舒服（操作耗时超过了16ms）。
+看到区别了吗？当使用JSON加载数据时，ProgressBar明显冻住了一会儿，这使得我们的界面不舒服（操作耗时超过了16ms）。
 
 ### 内存分配，CPU使用情况等
 
-想测试更多标准？这可能是尝试使用[Android Studio 1.3](http://android-developers.blogspot.com/2015/07/get-your-hands-on-android-studio-13.html)和其新特性的好机会。Android Studio 1.3可用来测试新特性有内存分配跟踪，内存查看和方法追踪等。
+想用更多标准来测试？这可能是尝试使用[Android Studio 1.3](http://android-developers.blogspot.com/2015/07/get-your-hands-on-android-studio-13.html)和其新特性的好机会。Android Studio 1.3可用来测试新特性有内存分配跟踪，内存查看和方法追踪等。
 
 ## 源代码
 
