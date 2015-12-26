@@ -19,9 +19,8 @@
 
 ## [](http://krasimirtsonev.com/blog/article/distributing-react-components-babel-browserify-webpack-uglifyjs#the-base)The base
 
-Before a couple of weeks I created [react-webpack-started](https://github.com/krasimir/react-webpack-starter). It gets JSX file as an input and using Babel generates ES5 file. We have a local dev server running, testing setup and a linter but that’s another story (more about that [here](http://krasimirtsonev.com/blog/article/a-modern-react-starter-pack-based-on-webpack)).
-
-Last half a year I like to use NPM as a place to define the project’s build tasks. Here are the NPM scripts that I was able to run in the beginning:
+&#160; &#160; &#160; &#160;两周前，我创建了一个 [react-webpack-started](https://github.com/krasimir/react-webpack-starter)。它接收一个 JSX 文件作为输入并用 Babel 生成对应的 ES5 文件。我们有一部用于服务的本地设备、测试设定以及一个 linter 插件，然而这是另外一个故事，这里并不详述。（在[这里](http://krasimirtsonev.com/blog/article/a-modern-react-starter-pack-based-on-webpack)有相关更多的信息）。
+&#160; &#160; &#160; &#160;半年前，我更喜欢用 NPM 来定义项目的建立任务。下面是我刚开始可以运行的 NPM 脚本：
 
     // in package.json
     "scripts": {
@@ -30,7 +29,7 @@ Last half a year I like to use NPM as a place to define the project’s build ta
       "test:ci": "watch 'npm run test' src/"
     }
 
-`npm run dev` fires the webpack compilation and the dev server. The testing is done with [Karma runner](http://karma-runner.github.io/) and Phantomjs. The directory structure that I used is as follows:
+&#160; &#160; &#160; &#160;`npm run dev` 该命令将触发 webpack 进行编译并启动设备进行服务。而测试是通过 [Karma runner](http://karma-runner.github.io/) 和 Phantomjs 来完成的。而我使用的文件结构则如下面展示：
 
     |
     +-- example-es6
