@@ -20,7 +20,7 @@
 ## [](http://krasimirtsonev.com/blog/article/distributing-react-components-babel-browserify-webpack-uglifyjs#the-base)The base
 
 &#160; &#160; &#160; &#160;两周前，我创建了一个 [react-webpack-started](https://github.com/krasimir/react-webpack-starter)。它接收一个 JSX 文件作为输入并用 Babel 生成对应的 ES5 文件。我们有一部用于服务的本地设备、测试设定以及一个 linter 插件，然而这是另外一个故事，这里并不详述。（在[这里](http://krasimirtsonev.com/blog/article/a-modern-react-starter-pack-based-on-webpack)有相关更多的信息）。
-<br />
+
 &#160; &#160; &#160; &#160;在半年前，我更喜欢用 NPM 来定义项目的建立任务。下面是我刚开始可以运行的 NPM 脚本：
 
     // in package.json
@@ -30,7 +30,7 @@
       "test:ci": "watch 'npm run test' src/"
     }
 
-&#160; &#160; &#160; &#160;`npm run dev` 该命令将触发 webpack 进行编译并启动设备进行服务。而测试是通过 [Karma runner](http://karma-runner.github.io/) 和 Phantomjs 来完成的。而我使用的文件结构则如下面展示：
+&#160; &#160; &#160; &#160;`npm run dev` 该命令将触发 webpack 进行编译并启动设备进行服务。测试是通过 [Karma runner](http://karma-runner.github.io/) 和 Phantomjs 来完成的。而我使用的文件结构则如下所示：
 
     |
     +-- example-es6
@@ -45,7 +45,7 @@
         |   +-- google.js
         + -- Location.jsx
 
-The component that I want to publish is placed in `Location.jsx`. In order to test it I created a simple app (`example-es6` folder) that imports the file.
+&#160; &#160; &#160; &#160;我要发布的构件是放在`Location.jsx`里。为了测试它，我创建了一个简单的 app 应用（`example-es6` 文件夹）来导入该文件。
 
 I spent some time developing the component and finally it was done. I pushed the changes to the [repository](https://github.com/krasimir/react-place) in GitHub and I thought that it is ready for distributing. Well, five minutes later I realized that it wasn’t enough. Here is why:
 
