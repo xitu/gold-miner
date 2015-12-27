@@ -7,7 +7,7 @@
 
 这是Retrofit系列文章中的第一篇，这个系列前前后后有几个用例，并且还分析了Retrofit的功能性和可扩展性。
 
-** — 2015.10.21日更新**
+**2015.10.21日更新**
 
 除了之前已经有的关于Retrofit 1.9的代码样例，我们也已经添加了新的关于Retrofit 2（基于 2.0.0-beta2）的代码样例。 并且也已经发布了一个扩展的Retrofit更新指南：在下述内容的 #15。
 
@@ -90,6 +90,7 @@ Retrofit 2默认使用OKHttp作为网络层,并且在它上面进行构建。 �
 
 
 **ServiceGenerator** 是我们 API/HTTP客户端的核心， 在目前的阶段，它只定义了一个对给定的类或者接口创建一个基本的REST适配器(adapter)的方法。
+
 **Retrofit 1.9**
 
     public class ServiceGenerator {
