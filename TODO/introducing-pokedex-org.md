@@ -174,5 +174,105 @@ Pokedex.org中禁用了JavaScript。
 
 <video width="400" poster="//nolanlawson.s3.amazonaws.com/vid/SlimySelfishHermitcrab.png"><source src="http://nolanlawson.s3.amazonaws.com/vid/SlimySelfishHermitcrab.webm" type="video/webm">	<source src="http://nolanlawson.s3.amazonaws.com/vid/SlimySelfishHermitcrab.mp4" type="video/mp4"></video>	
 
------
-@TODO
+
+关于翻转动画最好的部分是，他们结合JavaScript的灵活性CSS动画的表现。因此，尽管小宠物的初始状态是不预先确定，我们仍然可以从列表中的任意位置动画在详细信息视图中的固定位置，在不牺牲任何帧。我们还可以运行相当多的动画并联 - 注意到该背景填充，子画面的运动，并且面板滑动三个单独的动画。
+>	The best part about FLIP animations is that they combine the flexibility of JavaScript with the performance of CSS animations. So although the Pokémon's initial state isn't pre-determined, we can still animate from anywhere in the list to a fixed position in the detail view, without sacrificing any frames. We can also run quite a few animations in parallel – notice that the background fill, the sprite movement, and the panel slide are three separate animations.
+
+
+我与 `Lewis` 的翻转算法唯一不同，也仅仅是稍微不同，是宠物小精灵的动画。因为无论是源还是目标被定位的方式都是有利于动画的，为此我不得不创建第三个精灵，绝对定位在身体内，在两者之间过渡时作为幌子。
+>	The only place where I deviated slightly from Lewis' FLIP algorithm was the animation of the Pokémon sprite. Because neither the source nor the target were positioned in a way that was conducive to animations, I had to create a third sprite, absolutely positioned within the body, as a façade to transition between the two.
+
+## 技巧
+>	## Gotchas
+
+当然，如果你不仔细关注 `Chrome探查器` 并经常检查你的假设的真实设备，任何的 `Web` 应用将会在速度变慢上吃亏。一些我碰到的问题：
+>	Of course, any webapp can suffer from slowdowns if you're not careful to keep an eye on the Chrome profiler and constantly check your assumptions on a real device. Some of the issues I ran into:
+
+
+1. `CSS sprites` 能很好的减少负荷大小，但他们由于过多的内存使用拖慢应用。我最终选择使用内联Base64。
+
+>	1.  CSS sprites are great for reducing the payload size, but they slowed the app down to a crawl due to excessive memory usage. I ultimately went with base64 inlining.
+
+2. 我需要一个高性能的滚动列表，而我从[Ionic collection-repeat](http://ionicframework.com/blog/collection-repeat/)，[Ember list-view](https://github.com/emberjs/list-view)和[Android ListView](https://developer.android.com/guide/topics/ui/layout/listview.html)获得了一些灵感，构建一个简单的 `<ul>` 那_仅仅_是用来呈现并保存这些 `<li>` 的可见视图。这样减少了内存的使用，让动画和触摸交互更加迅捷。再一个，所有列表的计算和差异都是在 `web worker` 内部完成，所以滚动效果能保持流畅。这一点也适用于将多达649个宠物小精灵一次显示。
+
+>	2.  I needed a performant scrolling list, so I took some inspiration from [Ionic collection-repeat](http://ionicframework.com/blog/collection-repeat/), [Ember list-view](https://github.com/emberjs/list-view), and [Android ListView](https://developer.android.com/guide/topics/ui/layout/listview.html), to build a simple `<ul>` that _just_ renders the `<li>`s that are in the visible viewport, with stubs for everything else. This cuts down on memory usage, making the animations and touch interactions much snappier. And once again, all of the list computation and diffing is done inside of the web worker, so scrolling is kept buttery-smooth. This works with as many as 649 Pokémon being shown at once.
+
+3. 仔细地选择你你用的库！我使用[MUI](http://muicss.com/)作为我的“素材” `CSS` 库，这是在非常棒的引导，但可悲的是我发现它基本没有做性能优化。所以，最后我不得不自己为它的部分代码重新实现。例如，侧面菜单最初是使用 `margin-left` 而不是 `transform`，从而导致[在移动设备上的难伺候的动画(janky animations on mobile)](https://youtu.be/Q-nxiBNxCA4)。
+
+>	3. Be careful what libraries you choose! I'm using [MUI](http://muicss.com/) as my "Material" CSS library, which is great for bootstrapping, but sadly I discovered that it often wasn't doing the optimal thing for performance. So I ended up having to re-implement parts of it myself. For instance, the side menu was originally being animated using `margin-left` instead of `transform`, which leads to [janky animations on mobile](https://youtu.be/Q-nxiBNxCA4).
+
+
+4. 事件监听器是一种威胁。在一个点 `MUI` 是为每个 `<LI>`（为“波纹”效应）添加事件侦听，增加了内存用量，这就导致降低甚至包括硬件加速的CSS动画。幸运的是，`Chrome` 浏览器开发工具中有一个“显示滚动优先的问题(Show scrolling perf issues)”复选框，立即就发现了问题：
+
+>	4. Event listeners are a menace. At one point MUI was adding an event listener on every `<li>` (for the "ripple" effect), which slowed down even the hardware-accelerated CSS animations due to memory usage. Luckily the Chrome Dev Tools has a "Show scrolling perf issues" checkbox, which immediately revealed the problem:
+
+
+![](http://static1.squarespace.com/static/54d00072e4b0c38f7e184ee0/t/56437d45e4b07a45a8692ee2/1447263577485/?format=1500w)
+
+要解决这个问题，我连接到单一的事件监听器到整个 `<ul>` 上，`<ul>` 负责单个 `<li>` 上波纹效果动画。
+>	To work around this, I attached a single event listener to the entire `<ul>` which is responsible for animating the ripple effect on individual `<li>`s.
+
+## 浏览器支持
+>	## Browser support
+
+事实证明，很多我上面提到的API不能完美地支持所有浏览器。最值得注意的是，在Safari、iOS、IE或Edge中 `ServiceWorker` 是不可用的。 （Firefox很快将在 nightly 版本中交付。）这意味着离线功能将不会在这些浏览器上正常工作 - 如果你没有连接的情况下刷新了页面，内容将不存在了。
+>	As it turns out, a lot of the APIs I mention above aren't perfectly supported in all browsers. Most notably, ServiceWorker is not available in Safari, iOS, IE, or Edge. (Firefox has it in nightly and will ship very soon.) This means that the offline functionality won't work in those browsers – if you refresh the page without a connection, the content won't be there anymore.
+
+我遇到的另一个障碍是[Safari不支持在`web worker` 中 使用`IndexedDB`(Safari does not support IndexedDB in a web worker)](https://bugs.webkit.org/show_bug.cgi?id=149953)，这意味着我不得不写一个解决办法，以避免 `web worker` 在Safari，只是使用通过 `WebSQL` 来使用 `PouchDB`/`LocalForage`。 Safari 也还是有350毫秒延迟，我选择不去[修复快速点击(FastClick hack)](https://github.com/ftlabs/fastclick) 的问题，因为我知道，Safari 将在[即将发布的版本(an upcoming release)](https://twitter.com/jaffathecake/status/659174357583814656)中进行修复。动量滚动，也破坏了iOS的体验，原因我暂时还不知道。 （**更新：**[貌似]（https://github.com/nolanlawson/pokedex.org/issues/4）需要 `-webkit-overflow-scroll: touch`）
+>	Another hurdle I ran into is that [Safari does not support IndexedDB in a web worker](https://bugs.webkit.org/show_bug.cgi?id=149953), meaning I had to write a workaround to avoid the web worker in Safari and just use PouchDB/LocalForage over WebSQL. Safari also still has the 350ms tap delay, which I chose not to fix with the [FastClick hack](https://github.com/ftlabs/fastclick) because I know Safari will fix it themselves in [an upcoming release](https://twitter.com/jaffathecake/status/659174357583814656). Momentum scrolling is also broken in iOS, for reasons I don't yet understand. (**Update:** [looks like](https://github.com/nolanlawson/pokedex.org/issues/4) it needs `-webkit-overflow-scroll: touch`.)
+
+出乎意料的是，Edge 和 FirefoxOS 都可以正常工作（除了 `ServiceWorker`）。 FirefoxOS 甚至有状态栏的主题颜色，而且很整齐。我还没有在Windows Phone上测试过。
+>	Surprisingly, Edge and FirefoxOS both worked without a hitch (except for ServiceWorker). FirefoxOS even has the status bar theme colors, which is neat. I haven't tested in Windows Phone yet.
+
+当然了，如果修复这些兼容性问题，我还有成千上万的工作要做 - [苹果触摸Icons(Apple touch icons)](https://developer.apple.com/library/ios/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html)而不是[Web Manifests](http://www.w3.org/TR/appmanifest/)，[AppCache](http://alistapart.com/article/application-cache-is-a-douchebag)，而不是 `ServiceWorker` ，`FastClick`，等等。尽管如此，我对这个应用设定的目标是对那些非标准兼容的浏览器_逐渐降级_提高体验质量。对于支持 `ServiceWorker` 的浏览器，该应用是一个丰富的，高品质的离线应用。而在其他的浏览器，它只是一个网站。
+>	Of course, I could have fixed all these compatibility issues with a million polyfills – [Apple touch icons](https://developer.apple.com/library/ios/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html) instead of [Web Manifests](http://www.w3.org/TR/appmanifest/), [AppCache](http://alistapart.com/article/application-cache-is-a-douchebag) instead of ServiceWorker, FastClick, etc. However, one of my goals for this app was to make a high-quality experience with _progressive degradation_ for the less standards-compliant browsers. On browsers with ServiceWorker, the app is a rich, high-quality offline app. On other browsers, it's just a web site.
+
+
+对我这来，这些没什么关系。我坚信，如果我们期望浏览器厂商有动力来提高他们的实现，那web开发者需要在这些事情上做出推动。引用 WebKit 开发者 `Dean Jackson` 的话，他们没有优先考虑 `IndexedDB` 的原因之一是他们觉得[它盾上去并没什么用("don't see much use.")](https://twitter.com/grorgwork/status/610905347306328065)。换句话说，即使有很多优质网站依赖 `IndexedDB` ，然后WebKit也将推动实现它。但开发者们并没有加快他们的比赛，最终浏览器厂商也只是耸耸肩。
+>	And I'm okay with that. I strongly believe that web developers need to push the envelope on this stuff, if we expect browser vendors to have any motivation to improve their implementations. To quote WebKit developer Dean Jackson, one of the reasons they didn't prioritize IndexedDB was because they ["don't see much use."](https://twitter.com/grorgwork/status/610905347306328065) In other words, if there were a lot of high-quality sites that depended on IndexedDB, then WebKit would have been pushed to implement it. But developers didn't step up their game, so browser vendors just shrugged it off.
+
+
+我们如果只使用IE8中特性，那我们会谴责自己生活在一个IE8的世界里。而这个应用就是对这种心态的抗议。
+>	If we only use features that work in IE8, then we're condemning ourselves to live in an IE8 world. This app is a protest against that mindset.
+
+## 待做的事情
+>	## TODOs
+
+
+对这个应用而言，仍然还有许多有待改进。我来说有一些悬而未决的问题，特别是涉及 `ServiceWorker`：
+>	There are still more improvements to make to this app. Some unanswered questions for me, especially involving ServiceWorker:
+
+
+1. **如何处理路由？** 比如我用“正确”的方式使用 `HTML5 History API`（而不是哈希的URL），这是否意味着我在在服务器端、客户端_以及_ `ServiceWorker` 中重复我的路由逻辑？似乎需要这样。
+
+>	1.  **How to handle routing?** If I do it the "right" way with the HTML5 History API (as opposed to hash URLs), does that mean I need to duplicate my routing logic on the server side, the client side, _and_ in the ServiceWorker? Sure seems that way.
+
+2.**如何更新ServiceWorker？** 我将各版本的数据都存储在 `ServiceWorker` 缓存中，但我不知道如何为现有用户清理陈旧数据。目前，他们需要刷新页面或重新启动他们的浏览器使 `ServiceWorker` 更新，尽管我不想如此，但又只能这样。
+>	2.  **How to update the ServiceWorker?** I'm versioning all the data I store in the ServiceWorker Cache, but I'm not sure how to evict stale data for existing users. Currently they need to refresh the page or restart their browser so that the ServiceWorker can update, but I'd like to do it live somehow.
+
+3. **如何控制该应用的横幅？** Chrome浏览器会显示一个“安装到主屏幕”的横幅，如果你在同一个星期访问该网站的两倍（从某种启发算法），但我真的很喜欢这种方式[Flipkart精简版(Flipkart Lite)](http://flipkart.com/)捕获的横幅事件，使他们可以启动它自己。这样体验感觉才更加合理。
+>	3.  **How to control the app banner?** Chrome will show an "install to home screen" banner if you visit the site twice in the same week (with some heuristics), but I really like the way [Flipkart Lite](http://flipkart.com/) captures the banner event so that they can launch it themselves. It feels like a more streamlined experience.
+
+<video width="400" poster="//nolanlawson.s3.amazonaws.com/vid/pokedex-install-banner.png"><source src="http://nolanlawson.s3.amazonaws.com/vid/pokedex-install-banner.webm" type="video/webm">	<source src="http://nolanlawson.s3.amazonaws.com/vid/pokedex-install-banner.mp4" type="video/mp4"></video>	
+
+## 结论
+>	## Conclusion
+
+在移动端上web也很迅速地追赶上来，当然，也总有需要改进的。就像每一个好的宠物小精灵，我希望 Pokedex.org会越来越完善，[就像没有应用(like no app ever was)](https://www.youtube.com/watch?v=DqXlSwBIHFc)
+>	The web is quickly catching up on mobile, but of course there are always improvements to be made. And like any good Pokémaniac, I want Pokedex.org to be the very best, [like no app ever was](https://www.youtube.com/watch?v=DqXlSwBIHFc).
+
+
+所以我鼓励大家都可以看一看[在Github上的源码](https://github.com/nolanlawson/pokedex.org/)，并告诉我在那里可以得到改善。就现在而言，我觉得Pokedex.org是一个华丽的、沉浸式的移动应用，另外它也是量身订做的网页。我希望它可以演示2015年的web能提供的一些伟大的特性，同时还担任了宠物小精灵粉丝们提供宝贵资源，谁的得赶上呢。
+>	So I encourage anyone to take a look at [the source on Github](https://github.com/nolanlawson/pokedex.org/) and tell me where it can improve. As it stands, though, I think Pokedex.org is a gorgeous, immersive mobile app, and one that's tailor-made for the web. My hope is that it can demonstrate some of the great features that the web of 2015 can offer, while also serving as a valuable resource for the Pokémon fan who's gotta catch 'em all.
+
+
+
+_感谢 `Jacob Angel` 为这个博文草稿提供的反馈建议_
+
+>	_Thanks to Jacob Angel for providing feedback on a draft of this blog post._
+
+
+_想了解 Pokedex.org 背后更多技术，可查看[我的“渐进式Web应用程序”阅读列表](https://gist.github.com/nolanlawson/d9e66349635452a95bb1)._
+
+>	_For more on the tech behind Pokedex.org, check out [my "progressive webapp" reading list](https://gist.github.com/nolanlawson/d9e66349635452a95bb1)._
+
