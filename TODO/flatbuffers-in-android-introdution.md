@@ -7,15 +7,15 @@
 
 
 
-JSON格式 - 基本上人人知道的，一个轻量级的，并被现代服务器所广泛使用的数据格式。它相对过时的、讨厌的XML数据格式来说，它量级轻，易于人们阅读，对开发人员也更为友好。 JSON是一个语言-即时性的数据格式，但是它解析数据并将之转换成如Java对象时，会消耗我们的时间和内存资源。几天前，Facebook宣称自己的Android app在数据处理的性能方面有了极大的提升。在整个app中，他们放弃了JSON而用FlatBuffers取而代之。请查阅[这篇文章](https://code.facebook.com/posts/872547912839369/improving-facebook-s-performance-on-android-with-flatbuffers/)来获取关于FlatBuffers的基本知识以及怎样从JSON格式过渡到FlatBuffers格式。
+JSON格式 - 基本上人人知道的，一个轻量级的，并被现代服务器所广泛使用的数据格式。它相对过时的、讨厌的XML数据格式来说，它量级轻，易于人们阅读，对开发人员也更为友好。 JSON是一个语言-即时性的数据格式，但是它解析数据并将之转换成如Java对象时，会消耗我们的时间和内存资源。几天前，Facebook宣称自己的Android app在数据处理的性能方面有了极大的提升。在几乎整个app中，他们放弃了JSON而用FlatBuffers取而代之。请查阅[这篇文章](https://code.facebook.com/posts/872547912839369/improving-facebook-s-performance-on-android-with-flatbuffers/)来获取关于FlatBuffers的基础知识以及从JSON格式过渡到FlatBuffers格式后的结果。
  
-虽然粗略一看这个实现不是很简单，但结果是非常有前途的，Facebook没有对实现进行过多的说明。这就是我发表这篇文章的原因，我将在文章中展示如何在我们的工作中使用FlatBuffers。
+虽然这个结果非常激动人心，但咋一看这个实现不是很明显，Facebook没有对实现进行过多的说明。这也是我发表这篇文章的原因，我将在文章中说明如何使用FlatBuffers来开始我们的工作。
 
 ## FlatBuffers介绍
 
 简而言之, [FlatBuffers](https://github.com/google/flatbuffers) 是一个来自Google的跨平台序列化库, Google开发出来专门用在游戏开发中，并在构建平滑和高响应的Android UI中遵循[16毫秒规则](https://www.youtube.com/watch?v=CaMTIgxCSqU)，就像Facebook向我们展示的那样。
 
-_但是在你转移所有数据到FlatBuffers之前，请慎重考虑你是否真的需要它。因为有时候这点性能的影响是可以忽略的，有时候[数据安全](https://publicobject.com/2014/06/18/im-not-switching-to-flatbuffers/)比只有几十毫秒区别的计算速度更重要。_
+_但是，嘿。。哥们，在你转移所有数据到FlatBuffers之前，请慎重考虑你是否真的需要它。因为有时候这点性能的影响是可以忽略的，有时候[数据安全](https://publicobject.com/2014/06/18/im-not-switching-to-flatbuffers/)可比只有几十毫秒区别的计算速度更为重要。_
  
 什么原因使得FlatBuffers如此高效？
  
@@ -29,11 +29,11 @@ _但是在你转移所有数据到FlatBuffers之前，请慎重考虑你是否�
  
 该文将介绍在Android app中使用FlatBuffers最简单的方法
  
-*   JSON数据将被转换成FlatBuffers格式的数据放在app以外的_某个地方_（例如，API会返回一个二进制文件或者目录）
+*   在app项目以外的_某个地方_，JSON数据将被转换成FlatBuffers格式的数据（如，API会返回一个二进制文件或者目录）
 *   数据模型（Java类）是使用**flatc**（FlatBuffers编译器）手动生成的
-*   对JSON文件的一些限制条件（不能使用空的字段，日期类型将被解析成字符串类型）
+*   对JSON文件的一些限制条件（不能使用空字段，日期类型将被解析成字符串类型）
   
-将来，我们可能准备介绍一些更复杂的解决方法。
+不久后，我们可能准备介绍一些更复杂的解决方法。
  
 ## FlatBuffers编译器
  
@@ -41,9 +41,9 @@ _但是在你转移所有数据到FlatBuffers之前，请慎重考虑你是否�
  
 1.  进入下载好了的源码目录 `\{extract directory}\build\XcodeFlatBuffers.xcodeproj`
 2.  按下**Play**按钮或者`⌘ + R`快捷键运行**flatc**纲要文件（默认会被选中）
-3.  运行完成后，**flatc**可执行文件将会出现在工程的根目录中
+3.  运行完成后，**flatc**可执行文件将会出现在项目的根目录中
  
-现在我们可以使用[纲要文件编译器](https://google.github.io/flatbuffers/md__compiler.html)根据指定范围的纲要文件（Java，C#，Python，GO和C++）生成模型类，或者将JSON文件转换成FlatBuffer格式的二进制文件。
+现在，我们可以使用放在其他地方的[纲要文件编译器](https://google.github.io/flatbuffers/md__compiler.html)来根据指定的纲要文件（Java，C#，Python，GO和C++）生成模型类，或者将JSON文件转换成FlatBuffer格式的二进制文件。
 
 ## 纲要文件
 
@@ -125,7 +125,7 @@ JSON文件的部分代码如下所示：
 现在，让我们创建一个例子程序来展示FlatBuffers格式在实际开发中是如何工作的。程序截图如下所示。
 ![截图](http://frogermcs.github.io/images/17/screenshot.png "ScreenShot")
 
-ProgressBar是用来展示不恰当的的数据处理（在UI主线程中）将会对用户界面的平滑性产生怎样的影响。
+ProgressBar是用来展示不正确的的数据处理（在UI主线程中）将会对用户界面的平滑性产生怎样的影响。
 
 本程序中的`app/build.gradle`文件如下所示： 
 
@@ -162,11 +162,11 @@ ProgressBar是用来展示不恰当的的数据处理（在UI主线程中）将�
 
 当然，你没有必要在该示例程序中使用RxJava或ButterKnife库，但是，我们为什么不使用他们来使得我们的程序变得更好一点呢 😉 ？
 
-将repos_flat.bin文件和repos_json.json文件放在`res/raw/`目录。
+将repos_flat.bin文件和repos_json.json文件放在项目的`res/raw/`目录。
 
 程序中，帮助我们读取raw文件的工具类 [RawDataReader](https://github.com/frogermcs/FlatBuffs/blob/master/app/src/main/java/frogermcs/io/flatbuffs/utils/RawDataReader.java)可在此下载。
 
-最后，将`Repo`，`ReposList`和`User`文件放在工程源码目录的某个地方。
+最后，将`Repo`，`ReposList`和`User`文件放在项目源码的某个地方。
 
 ### FlatBuffers类库
 
@@ -174,7 +174,7 @@ ProgressBar是用来展示不恰当的的数据处理（在UI主线程中）将�
 
 `$ mvn install`
 
-现在，将.jar文件放在Android工程的`app/libs/`目录下。
+现在，将.jar文件放在Android项目的`app/libs/`目录下。
 
 好，现在我们所需要做的是去实现`MainActivity`类，该文件的完整代码如下所示：
 
@@ -272,11 +272,11 @@ JSON - 平均加载时间为200ms（波动范围在：180ms - 250ms），JSON文
 
 ### 内存分配，CPU使用情况等
 
-想用更多标准来测试？这可能是尝试使用[Android Studio 1.3](http://android-developers.blogspot.com/2015/07/get-your-hands-on-android-studio-13.html)和其新特性的好机会。Android Studio 1.3可用来测试新特性有内存分配跟踪，内存查看和方法追踪等。
+想用更多标准来测试？这可能是尝试使用[Android Studio 1.3](http://android-developers.blogspot.com/2015/07/get-your-hands-on-android-studio-13.html)和其新特性的好机会。Android Studio 1.3可用来进行测试的新特性有内存分配跟踪，内存查看和方法追踪等。
 
 ## 源代码
 
-完整的工程源代码可以在Github的[这里](https://github.com/frogermcs/FlatBuffs)下载到。你不必处理整个Flatbuffers工程 - 你所需要的都在 `flatbuffers/` 目录。
+完整的项目源代码可以在Github的[这里](https://github.com/frogermcs/FlatBuffs)下载到。你不必处理整个Flatbuffers项目 - 你所需要的都在 `flatbuffers/` 目录。
 
 [Miroslaw Stanek](http://about.me/froger_mcs)  
 _Head of Mobile Development_ @ [Azimo Money Transfer](https://azimo.com)
