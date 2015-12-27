@@ -278,8 +278,10 @@ JSON - 平均加载时间为200ms（波动范围在：180ms - 250ms），JSON文
 
 完整的项目源代码可以在Github的[这里](https://github.com/frogermcs/FlatBuffs)下载到。你不必处理整个Flatbuffers项目 - 你所需要的都在 `flatbuffers/` 目录。
 
+## 作者信息
+
 [Miroslaw Stanek](http://about.me/froger_mcs)  
-_Head of Mobile Development_ @ [Azimo Money Transfer](https://azimo.com)
+[Azimo Money Transfer](https://azimo.com)公司_移动开发主管_
 
 如果你喜欢这篇文章，请在Twitter上[分享给你们的粉丝](https://twitter.com/intent/tweet?url=http://frogermcs.github.io/flatbuffers-in-android-introdution/&text=FlatBuffers%20in%20Android%20-%20introduction&via=froger_mcs)，或者在Twitter上[关注](https://twitter.com/froger_mcs)我！
 
