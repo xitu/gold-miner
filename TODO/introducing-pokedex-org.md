@@ -3,7 +3,7 @@
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : RobertWang
 * 校对者: 
-* 状态 : Translating
+* 状态 : Done - Version 1
 
 -----
 
