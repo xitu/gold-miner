@@ -8,7 +8,7 @@
 2. 在 [issue](https://github.com/xitu/gold-miner/issues/new) 中提交翻译申请，如果能介绍一下自己就更好咯。
 3. 申请请求通过后，Fork 此仓库开始翻译
 4. 翻译完成，发送 Pull Request
-5. 至少审核两篇其他译者发 PR 的文章
+5. 至少审核两篇其他译者发 PR 的文章→[#84](https://github.com/xitu/gold-miner/issues/84)
 
 ## Android
 
