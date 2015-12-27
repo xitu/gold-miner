@@ -1,7 +1,7 @@
 > * 原文链接 : [FlatBuffers in Android - introduction – froger_mcs dev blog – Coding with love {❤️}](http://frogermcs.github.io/flatbuffers-in-android-introdution/)
 * 原文作者 : [froger_mcs dev blog](http://frogermcs.github.io/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
+* 译者 : [lihb (lhb)](https://github.com/lihb)
 * 校对者: 
 * 状态 :  待定
 
@@ -29,8 +29,8 @@ _但是在你转移所有数据到FlatBuffers之前，请慎重考虑你是否�
  
 该文将介绍在Android app中使用FlatBuffers最简单的方法
  
-*   JSON数据将被转换成FlatBuffers格式放在app以外的_某个地方_（例如，将一个二进制文件作为文件交付或者直接从API中返回）
-*   数据模型（Java类）是使用**flatc**（FlatBuffers编译器）手工生成的
+*   JSON数据将被转换成FlatBuffers格式的数据放在app以外的_某个地方_（例如，API会返回一个二进制文件或者目录）
+*   数据模型（Java类）是使用**flatc**（FlatBuffers编译器）手动生成的
 *   对JSON文件的一些限制条件（不能使用空的字段，日期类型将被解析成字符串类型）
   
 将来，我们可能准备介绍一些更复杂的解决方法。
@@ -107,7 +107,7 @@ JSON文件的部分代码如下所示：
  
 该纲要文件的完整版本可从[这里](https://github.com/frogermcs/FlatBuffs/blob/master/flatbuffers/repos_schema.fbs)下载。
  
- ## FlatBuffers数据文件
+## FlatBuffers数据文件
 
 好了，现在我们要做的是将`repos_json.json`文件转换成FlatBuffers的二进制文件以及生成Java模型，该Java模型是以一种对Java来说很友好的方式来展现的（所有我们需要的文件都可在[这里](https://github.com/frogermcs/FlatBuffs/tree/master/flatbuffers) 下载）:
 
@@ -160,7 +160,7 @@ ProgressBar是用来展示不恰当的的数据处理（在UI主线程中）将�
         compile 'io.reactivex:rxandroid:1.0.0'
     }
 
-当然，你没有必要在该示例程序中使用Rx和ButterKnife框架，但是，我们为什么不使用他们来使得我们的程序变得更好一点 😉 ？
+当然，你没有必要在该示例程序中使用RxJava或ButterKnife库，但是，我们为什么不使用他们来使得我们的程序变得更好一点呢 😉 ？
 
 将repos_flat.bin文件和repos_json.json文件放在`res/raw/`目录。
 
