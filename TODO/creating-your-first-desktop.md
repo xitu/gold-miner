@@ -11,9 +11,9 @@ Web 应用这些年来变得越来越强大，但相比于桌面应用能够完�
 
 ### Electron 入门
 
-使用 Electron 创建的应用其实就是一个在内嵌的 Chromium 浏览器中打开的 Web 网站，除了常规的 HTML5 API，还可以使用任意的 Node.js 模块和一些 Electron 特有的模块来访问操作系统。
+使用 Electron 创建的应用其实就是一个在内嵌的 Chromium 浏览器中打开的 Web 网站。除了常规的 HTML5 API，(这些网站)还可以使用任意的 Node.js 模块和一些 Electron 特有的模块来访问操作系统。
 
-在整个教程中，我们将创建一个简单的应用：它能够通过 RSS 获取到 Tutorialzine 上最近的文章，并让它们显示在一个很酷的图片轮播上。所有需要的文件已经打包好，**[点击这里](http://demo.tutorialzine.com/2015/12/creating-your-first-desktop-app-with-html-js-and-electron/creating-your-first-desktop-app-with-electron.zip)**下载。
+在整个教程中，我们将创建一个简单的应用：它能够通过 RSS 获取到 Tutorialzine 上最近的文章，并通过一个看起来很酷的轮播效果来展示它们。所有需要的文件已经打包好，**[点击这里](http://demo.tutorialzine.com/2015/12/creating-your-first-desktop-app-with-html-js-and-electron/creating-your-first-desktop-app-with-electron.zip)**下载。
 
 把它解压到你想要的地方。从项目结构上看，你一定猜不到这不仅仅是一个简单的网站，而是一个桌面应用程序。
 
