@@ -2,10 +2,10 @@
 * 原文作者 : [ponyfoo](https://ponyfoo.com/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [sqrthree(根号三)](https://github.com/sqrthree)
-* 校对者: 
+* 校对者:
 * 状态 :  翻译完成
 
-截止目前有超过了 5000 人参与了(该次调查)，准确的说是 5350 人。我迫不及待的想要和大家分享一下这次调查的细节。在分享之前我想要感谢参与调查的每一个人。这是 Javascript 社区一个伟大的时刻，我对未来的事情感到无比激动。
+截至目前有超过了 5000 人参与了(该次调查)，准确的说是 5350 人。我迫不及待的想要和大家分享一下这次调查的细节。在分享之前我想要感谢参与调查的每一个人。这是 Javascript 社区一个伟大的时刻，我对未来的事情感到无比激动。
 
 我没有想到大家如此积极，下一次我一定会对版式做一些改进。换句话说，就是我会先将问卷调查放到 [Github](https://github.com/) 上，以便于在开始调查之前，社区有一到两周的时间来收集改进问题和选项。这样，我就可以得到更精确的结果，也可以避免出现诸如 "我很震惊你竟然没有包含 Emacs" 这样的抱怨。
 
@@ -15,13 +15,13 @@
 
 有高达 97.4% 的受访者用 Javascript 写 web 浏览器程序，其中有 37% 的受访者写移动端 web 程序。超过 3000 人(56.6%) 也写服务端的 Javascript。在这些参与调查者的人中间，有 5.5% 的人还在一些嵌入式环境中使用 Javascript，例如 Tessel 或 a Raspberry Pi (树莓派).
 
-少数参与者表示他们也在其他一些地方使用 Javascript，尤其是在开发 CLI 和桌面应用方面。还有少数提到了 Pebble 和 Apple TV. 这些都归类在 **Other** 一类中，占总票数的 2.2%.
+少数参与者表示他们也在其他一些地方使用 Javascript，尤其是在开发 CLI 和桌面应用方面。还有少数提到了 Pebble 和 Apple TV. 这些都归类在 **Other(其他)** 一类中，占总票数的 2.2%.
 
 ![An screenshot of the percentages for the first question](https://i.imgur.com/c0q4LvI.png)
 
 ## 你在哪里使用 Javascript？
 
-不出所料的，94.9% 的参与者在工作中使用 Javascript，但是，统计中也有很大一部分(占总票数的 82.3%) 参与者也在其他项目中使用。其他的回复则包括了教学，好玩，和非盈利目的的使用。
+不出所料地，有 94.9% 的参与者在工作中使用 Javascript，但是，统计中也有很大一部分(占总票数的 82.3%) 参与者也在其他项目中使用。其他的回复则包括了教学，好玩，和非盈利目的的使用。
 
 ![An screenshot of the percentages for the second question](https://i.imgur.com/K5nSsyr.png)
 
@@ -31,11 +31,11 @@
 
 ![An screenshot of the percentages for the third question](https://i.imgur.com/P5ev9fL.png)
 
-## 如果可以的话，你使用哪种 compile-to-JavaScript 语言？
+## 如果可以的话，你使用哪种 compile-to-JavaScript(编译为 JavaScript 的) 语言？
 
 有高达 **85%** 的受访者表示他们使用 ES6 编译成 ES5。与此同时，有 15% 的人仍然使用 `CoffeeScript`，15.2% 的人使用 `TypeScript`，只有区区 1.1% 的人使用 `Dart`.
 
-这是我想进一步探讨的问题之一，因为有 13.8% 的人选择了 _“Other”_，选择 _“Other”_ 的绝大部分的回答是 `ClojureScript`, `elm`, `Flow`, 和 `JSX`.
+这是我想进一步探讨的问题之一，因为有 13.8% 的人选择了 _“Other(其他)”_，选择 _“Othe(其他)r”_ 的绝大部分的回答是 `ClojureScript`, `elm`, `Flow`, 和 `JSX`.
 
 ![An screenshot of the percentages for the fourth question](https://i.imgur.com/12mL6u6.png)
 
@@ -51,7 +51,7 @@
 
 ## 你使用过 ES5 的哪些特性？
 
-79.2% 的受访者都使用过数组的一些功能方法，76.3% 的开发者使用严格模式。30% 的开发者使用 `Object.create`，而使用过 getters 和 setters 的开发者仅占了 28%.
+79.2% 的受访者都使用过 `Array(数组)` 的一些实用的方法，76.3% 的开发者使用严格模式。30% 的开发者使用 `Object.create`，而使用过 getters 和 setters 的开发者仅占了 28%.
 
 ![An screenshot of the percentages for the sixth question](https://i.imgur.com/W9pUOua.png)
 
@@ -111,20 +111,19 @@ npm 接管了客户端依赖管理系统的天下，有超过 60% 的投票就�
 
 ## 你使用过哪些库？
 
-现在回顾起来，这是一个受益于协同编辑的问题之一。jQuery 获得了超过 50% 的选票证明了它依然很强劲。在参与投票的 JavaScript 使用者中，Lodash 与 Underscore 也被很大一部分开发者使用。 `xhr` 微型库只获得了 8% 的票数。
+现在回顾起来，这是一个受益于协同编辑的问题之一。jQuery 获得了超过 50% 的选票证明了它的势头依然很强劲。在参与投票的 JavaScript 使用者中，Lodash 与 Underscore 也被很大一部分开发者使用。 `xhr` 微型库只获得了 8% 的票数。
 
 ![An screenshot of the percentages for the 16th question](https://i.imgur.com/7jAwy05.png)
 
 ## 你使用过哪些框架？
 
-毫无意外的，React 和 Angular 遥遥领先于其他框架，有着 22.8% 的 Backbone 仍然处在一个安全的位置。
+毫无意外地，React 和 Angular 遥遥领先于其他框架，有着 22.8% 的 Backbone 仍然处在一个安全的位置。
 
 ![An screenshot of the percentages for the 17th question](https://i.imgur.com/zpSAISK.png)
 
 ## 你使用 ES6 吗？
 
 受访者在这个问题上的反应相当分歧，有近 20% 的人几乎从不使用 ES6，超过 10% 的人只写 ES6，接近 30% 的人广泛使用 ES6，近 40% 的人偶尔使用。
-
 
 ![An screenshot of the percentages for the 18th question](https://i.imgur.com/hAnbtfN.png)
 
@@ -152,7 +151,7 @@ npm 接管了客户端依赖管理系统的天下，有超过 60% 的投票就�
 
 ![An screenshot of the percentages for the 22th question](https://i.imgur.com/Vt8ve7s.png)
 
-## 你更喜欢使用什么操作系统用于开发?
+## 你更喜欢使用什么操作系统作为开发环境?
 
 超过 60% 的投票者使用 Mac，使用 Linux 和 Windows 的用户都接近 20%。
 
@@ -164,22 +163,21 @@ npm 接管了客户端依赖管理系统的天下，有超过 60% 的投票就�
 
 ![An screenshot of the percentages for the 24th question](https://i.imgur.com/HpmV9yz.png)
 
-## 你参加过 Javascript 的社会活动吗？
+## 你参加过 Javascript 的社交活动吗？
 
 有近 60% 的人参加过至少一次，74% 的人表示他们喜欢参加聚会。
-
 
 ![An screenshot of the percentages for the 25th question](https://i.imgur.com/EnQWGzf.png)
 
 ## 在你的 Javascript 应用中，你都支持哪些浏览器？
 
-这是相当分散的回答，但是好在大多数受访者表示他们不再处理使用 IE6 的客户(的问题)了。
+回答相当分散，但是好在大多数受访者表示他们不再处理使用 IE6 的客户(的问题)了。
 
 ![An screenshot of the percentages for the 26th question](https://i.imgur.com/BV3eU0X.png)
 
 ## 你会定期了解有关 Javascript 的最新特性吗？
 
-有 80% 的受访者会尝试实时了解并保持学习 Javascript 的最新特性。
+有 80% 的受访者会尝试实时了解并持续学习 Javascript 的最新特性。
 
 ![An screenshot of the percentages for the 27th question](https://i.imgur.com/5TZUW2i.png)
 
@@ -203,7 +201,6 @@ npm 接管了客户端依赖管理系统的天下，有超过 60% 的投票就�
 
 ## 谢谢
 
-最后，我想感谢参与此次调查的每一个人。这次调查的受欢迎程度超出了我的预期，我很期待明年再进行一次类似的调查。我希望，那将会是一个更多样性的，也许会再少一点偏见的调查。
+最后，我想感谢参与此次调查的每一个人。这次调查的受欢迎程度超出了我的预期，我很期待明年再进行一次类似的调查。我希望，那将会是一个更多样性的，也许会再少一点倾向性的调查。
 
 > 你从这次调查中获得了什么呢？
-
