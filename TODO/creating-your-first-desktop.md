@@ -11,7 +11,7 @@ Web 应用这些年来变得越来越强大，但相比于桌面应用能够完�
 
 ### Electron 入门
 
-使用 Electron 创建的应用其实就是一个在内嵌的 Chromium 浏览器中打开的 Web 网站，除了常规的 HTML5 APIs，还可以使用任意的 Node.js 模块和一些 Electron 特有的模块来访问操作系统。
+使用 Electron 创建的应用其实就是一个在内嵌的 Chromium 浏览器中打开的 Web 网站，除了常规的 HTML5 API，还可以使用任意的 Node.js 模块和一些 Electron 特有的模块来访问操作系统。
 
 在整个教程中，我们将创建一个简单的应用：它能够通过 RSS 获取到 Tutorialzine 上最近的文章，并让它们显示在一个很酷的图片轮播上。所有需要的文件已经打包好，**[点击这里](http://demo.tutorialzine.com/2015/12/creating-your-first-desktop-app-with-html-js-and-electron/creating-your-first-desktop-app-with-electron.zip)**下载。
 
@@ -44,13 +44,13 @@ npm start
 
 ![Electron App In Action](http://cdn.tutorialzine.com/wp-content/uploads/2015/12/electron_app_1.png)
 
-正在运行的 Electron 应用
+Electron 实战
 
 
 
 你可能注意到打开这个应用的方式对用户并不友好。但这仅仅是开发者打开它的方式，当它面向公众被打包好之后, 就可以像一般的应用一样安装，并通过双击图标来打开它。
 
-### 创建应用
+### 如何工作
 
 在这部分，我们将讨论所有 Electron 应用中最重要的一些文件。首先是 package.json，它包含有关项目的各种信息，比如版本、npm 依赖和其他重要设置。
 
@@ -117,7 +117,7 @@ app.on('ready', function() {
 });
 ```
 
-回顾一下我们在“准备”阶段做的事情。首先我们定义一个浏览器窗口并给它了初始化的大小，然后我们在它里面载入了  **index.html** 这个文件，效果和你在浏览器里打开它差不多。
+观察一下我们在“ready”方法中做的事情。首先我们定义一个浏览器窗口并给它了初始化的大小，然后我们在它里面载入了  **index.html** 这个文件，效果和你在浏览器里打开它差不多。
 
 正如你所看到的，这个 HTML 文件没有什么特别的 – 一个图片轮播和一段显示 CPU 和 RAM 统计数据的文字被包含在容器之中。
 #### index.html
@@ -133,7 +133,7 @@ app.on('ready', function() {
     <link rel="stylesheet" href="./css/jquery.flipster.min.css">
     <link rel="stylesheet" href="./css/styles.css">
 
-<!--> 在 Electron中，应该这样引入 jQuery <-->
+<!-- 在 Electron中，应该这样引入 jQuery -->
 <script>window.$ = window.jQuery = require('./js/jquery.min.js');</script>
 
 ```
