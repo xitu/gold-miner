@@ -283,7 +283,7 @@ public class RadioListFragment extends Fragment implements RadioListView, SwipeR
 
 我相信MVP有很多的不同的实现方式，我经常会去学习其他开发者的方式，找出我认为最好的来实践。
 
-重要的一点是我们应该开发一个可以独立于其他libraries，UI层，数据库和网络层的项目。如果你开发的项目基本满足以上，这个项目一定是易于开发，测试和维护的。
+重要的一点是我们应该开发一个可以独立于其他libraries、UI层、数据库和网络层的项目。如果你开发的项目基本满足以上，这个项目一定是易于开发，测试和维护的。
 
 
 **Resources**:
