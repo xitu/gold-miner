@@ -32,7 +32,8 @@
 
 对于那些不知道口袋妖怪世界的人们，一个图鉴包含数以百计的可爱的小生物，以及他们的属性，类型，进化和移动信息的百科全书。按照一个儿童游戏的规则，其数据量大得令人惊叹(假如你希望烧脑，可以通过仔细研究[努力值](http://bulbapedia.bulbagarden.net/wiki/Effort_values))。所以这是一个雄心勃勃的Web应用程序的理想目标。
 
-<video width="400" poster="//nolanlawson.s3.amazonaws.com/vid/DeliriousNeedyAnophelesmosquito.png"><source src="http://nolanlawson.s3.amazonaws.com/vid/DeliriousNeedyAnophelesmosquito.webm" type="video/webm">	<source src="http://nolanlawson.s3.amazonaws.com/vid/DeliriousNeedyAnophelesmosquito.mp4" type="video/mp4"></video>	
+![](introducing-pokedex-org/DeliriousNeedyAnophelesmosquito.gif)
+[查看原文视频](http://nolanlawson.s3.amazonaws.com/vid/DeliriousNeedyAnophelesmosquito.mp4)
 
 第一个问题是获取数据，这个很容易，多亏了精彩的[Pokéapi](http://pokeapi.co/)。第二个问题是，如果我们希望应用程序脱机工作，数据库过于庞大，不能保持在内存中，所以我们需要巧妙地使用使用 `IndexedDB` 和/或 `ServiceWorker`。
 
@@ -98,7 +99,7 @@
 
 您还会注意到，这两个版本大约需要相同的时间（300-400ms），但前者比后者阻塞 `UI` 线程的更少。在我的例子中，我使用 `GPU` 加速的 `CSS` 动画，所以你不会注意到两种方式太大的差别。但你可以设想下，在一个更复杂的应用中，可能有很多JS逻辑同时抢着占用UI线程（比如，第三方广告、滚动效果等等）这个技巧就意味着UI卡顿和平滑的区别了。
 
-## 渐进式渲染
+## 先进的渲染
 
 虚拟的DOM的另一个好处是，我们可以在服务器端预先渲染应用的初始状态。我使用[vdom-to-html](https://github.com/nthtran/vdom-to-html/)渲染排在前面的30个口袋妖怪，把`HTML`直接内嵌到页面中。 （把HTML内嵌到我们的HTML中！是怎样一个概念。）虚拟 `DOM` 在客户端重新合成，它和使用[vdom-as-json](https://github.com/nolanlawson/vdom-as-json)建立初始的虚拟DOM状态一样简单。
 
@@ -116,7 +117,8 @@
 
 当然了，`ServiceWorker` 也存储所有静态的“应用外壳”(资源) - HTML，CSS，JavaScript和图像。我使用的是 `先本地后远程` 策略，以确保最佳的离线体验，代码主要是从`Jake's Archibald`优美的[SVGOMG](https://github.com/jakearchibald/svgomg)中借来的（当然，其实是偷来的）代码。就像`SVGOMG`那样，应用也会弹出一个`toast`消息，提示用户app工作在离线状态，以消除用户疑虑。 （这是新的技术，用户需要了解一下吧！）
 
-<video width="400" poster="//nolanlawson.s3.amazonaws.com/vid/offline-pokedex.png"><source src="http://nolanlawson.s3.amazonaws.com/vid/offline-pokedex.webm" type="video/webm">	<source src="http://nolanlawson.s3.amazonaws.com/vid/offline-pokedex.mp4" type="video/mp4"></video>	
+![](introducing-pokedex-org/offline-pokedex.gif)
+[查看原文视频](http://nolanlawson.s3.amazonaws.com/vid/offline-pokedex.mp4)
 
 归功于`ServiceWorker`，后续的页面加载完全不会受到网络限制。因此首次访问后，整个站点完全本地化了，这意味着页面可以在一秒钟不到以内渲染出来。（根据设备速度，可能会比这稍慢。）
 
@@ -124,7 +126,8 @@
 
 因为我的目标是让应用跑在 60FPS 上，甚至是低端机，为此我选择了 `Paul Lewis` 著名的[FLIP 技术](https://aerotwist.com/blog/flip-your-animations/)处理动态的动画，只使用硬件加速的 `CSS` 属性（即`transform`和`opacity`）。结果是这样美丽[material design](https://www.google.com/design/spec/material-design/introduction.html)风格的动画，它运行得很好，甚至在我早期的 `Galaxy Nexus` 的手机上：
 
-<video width="400" poster="//nolanlawson.s3.amazonaws.com/vid/SlimySelfishHermitcrab.png"><source src="http://nolanlawson.s3.amazonaws.com/vid/SlimySelfishHermitcrab.webm" type="video/webm">	<source src="http://nolanlawson.s3.amazonaws.com/vid/SlimySelfishHermitcrab.mp4" type="video/mp4"></video>	
+![](introducing-pokedex-org/SlimySelfishHermitcrab.gif)
+[查看原文视频](http://nolanlawson.s3.amazonaws.com/vid/SlimySelfishHermitcrab.mp4)
 
 关于`FLIP`动画最好的部分是，结合了JS的灵活性和 CSS动画的性能。因此，尽管口袋妖怪的初始状态是不预先确定，我们的动画依然可以从列表的任意位置变换到某个详细视图的固定位置，我们也可以并行运行许多动画 - 注意到该背景填充，子画面的运动，并且面板滑动三个独立的动画。
 
@@ -166,7 +169,8 @@
 2.**如何更新ServiceWorker？** 我将各版本的数据都存储在 `ServiceWorker` 缓存中，但我不知道如何为现有用户清理陈旧数据。目前，他们需要刷新页面或重新启动他们的浏览器使 `ServiceWorker` 更新，尽管我不想如此，但又只能这样。
 3. **如何控制该应用的横幅？** Chrome浏览器会显示一个“安装到主屏幕”的横幅，如果你在同一个星期访问该网站的两倍（从某种启发算法），但我真的很喜欢这种方式[Flipkart精简版(Flipkart Lite)](http://flipkart.com/)捕获的横幅事件，使他们可以启动它自己。这样体验感觉才更加合理。
 
-<video width="400" poster="//nolanlawson.s3.amazonaws.com/vid/pokedex-install-banner.png"><source src="http://nolanlawson.s3.amazonaws.com/vid/pokedex-install-banner.webm" type="video/webm">	<source src="http://nolanlawson.s3.amazonaws.com/vid/pokedex-install-banner.mp4" type="video/mp4"></video>	
+![](introducing-pokedex-org/pokedex-install-banner.gif)
+[查看原文视频](http://nolanlawson.s3.amazonaws.com/vid/pokedex-install-banner.mp4)
 
 ## 结论
 
