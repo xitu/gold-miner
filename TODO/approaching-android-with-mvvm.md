@@ -1,9 +1,9 @@
 > * 原文链接 : [Approaching Android with MVVM — ribot labs — Medium](https://medium.com/ribot-labs/approaching-android-with-mvvm-8ceec02d5442#.8c8bnpmwi)
 * 原文作者 : [Joe Birch](https://twitter.com/hitherejoe)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 :
+* 译者 :[Sausure](https://github.com/Sausure)
 * 校对者:
-* 状态 :  待定
+* 状态 :  翻译完成
 
 我考察了一段时间安卓的数据绑定类库，决定尝试下它的“Model-View-ViewModel”模式。因为我曾经和 [@matto1990](https://twitter.com/matto1990) 合作开发过一款应用 [HackerNews Reader](https://github.com/hitherejoe/HackerNewsReader)，所以我决定利用这种模式重新实现它。
 
@@ -13,7 +13,7 @@
 
 
 ### 什么是MVVM模式?
-**Model-View-ViewModel** 就是将其中的 **View** 的状态和行为抽象化，让我们可以将UI和交互逻辑分开。当然这些工作 **ViewModel** 已经帮我们做了，它可以获取到 **Model** 传出的数据并将这些数据显示到 **View** 上。
+**Model-View-ViewModel** 就是将其中的 **View** 的状态和行为抽象化，让我们可以将UI和业务逻辑分开。当然这些工作 **ViewModel** 已经帮我们做了，它可以获取到 **Model** 传出的数据并将这些数据显示到 **View** 上。
 
 MVVM模式是通过以下三个核心组件组成，每个都有它自己独特的角色：
 
