@@ -5,7 +5,7 @@
 * 校对者 :
 * 状态 : 待定
 
-迄今为止，我阅读了很多有关Android软件开发中结构设计的文章。以我对他们的认识，比较好的方法是实现MVP(Model View Presenter)模式，这对Android开发者也是非常重要的。
+迄今为止，我阅读了很多有关Android软件开发中结构设计的文章。以我对他们的认识，比较好的方法是实现**MVP(Model View Presenter)**模式，这对Android开发者也是非常重要的。
 
 我在其他开发者的技术博客和项目中学到了一些有用的东西，现在我决定开发一个基本的项目架构来用于实现我们的客户端软件[mobiwise](https://medium.com/u/8d64c93a5e63). 我选择了MVP模式作为项目架构，让我们开始了解一下。
 
@@ -21,7 +21,7 @@
 
 ### 层
 
-为了使项目易于理解，我们首先做的是抽象出各个层面。这对开发测试和维护代码都非常重要。在任何Android项目中为了开发需要都有会抽象出很多层面，这里我说下重点！
+为了使项目易于理解，我们首先做的是抽象出各个层面。这对开发测试和维护代码都非常重要。在任何Android项目中为了开发需要都会抽象出很多层，这里我说下重点！
 
 项目中特有的业务逻辑部分，这里称之为**Domain layer**, 数据模型、网络相关、数据库操作部分，这里称之为**Model layer**，只有Android特有的部分，称之为**Presentation or App Layer。** 最后一个，也很重要，用于第三方library或者项目中共用的、基础工具类等，称之 **Common Layer.**
 
@@ -33,9 +33,9 @@
 
 #### Domain Layer
 
-这一层是完全独立的因为它指定特定项目的业务逻辑。就我在网上查阅过资料，这一层有个差不多的实现方式。根据项目的命名规则，定义出项目的业务逻辑接口，再创建楚控制实现类来实现这些接口来做相应的工作。
+这一层是完全独立的因为它指定了**特定项目**的业务逻辑。就我在网上查阅过的资料，这一层有个差不多的实现方式。根据项目的命名规则，定义出项目业务逻辑的**用例接口**，在创建出**用例控制实现类**来实现这个接口做相对应的工作。
 
-让我们试想一个新闻应用程序，并试着定义个基本的业务用例场景。我定义了一个基本的业务用例接口，一个很简单的场景用例接口。
+让我们试想一个新闻应用程序，并试着定义个基本的业务**用例**场景。我定义了一个基本的业务用例接口，一个很简单的场景用例接口。
 
 ```java
 public interface GetPopularTitlesUsecase extends Usecase {
@@ -88,7 +88,7 @@ public class GetPopularTitlesUsecaseController implements GetPopularTitlesUsecas
 
 #### Model Layer
 
-开发者都知道的，在项目中必须有一个Model Layer来处理网络请求和数据库存储相关的工作。我一般把这些部分的代码分成三个包，分别叫entity, rest和database。对于大部分项目分成这样已经足够。也许你需要创建有别于数据层的业务相关层。比如，你想展示用户的全称，就不应该通过在数据层中获取用户的姓和用户的名再通过制定的adapter类等方式做一个拼接处理，这很笨拙，此时应该定义业务层来实现这个操作。定义两个不同的数据层很笨拙。但是仍然重要。
+开发者都知道的，在项目中必须有一个Model Layer来处理**网络请求和数据库存取**相关的工作。我一般把这些部分的代码分成三个包，分别叫entity, rest和database。对于大部分项目分成这样已经足够。也许你需要创建有别于数据层的业务相关层。比如，你想展示用户的全称，就不应该通过在数据层中获取用户的姓和用户的名再通过指定的adapter类或者view类等方式做一个拼接处理，这很笨拙，此时应该定义业务层来实现这个操作。定义两个不同的数据层很笨拙。但是仍然重要。
 
 #### Presentation or App Layer
 
@@ -112,7 +112,7 @@ public interface PopularTitlesView extends MVPView {
 
 #### Presenter
 
-Presenter在MVP中类似于连接**view**和**model**的桥梁。常用的实现方式，我们需要创建model接口来处理特定的场景。
+Presenter在MVP中类似于连接**view和model**的桥梁。常用的实现方式，我们需要创建model接口来处理特定的场景。
 
 ```java
 public interface RadioListPresenter extends Presenter {
@@ -279,7 +279,7 @@ public class RadioListFragment extends Fragment implements RadioListView, SwipeR
 
 ![](https://cdn-images-1.medium.com/max/800/1*Rt3vsG8LWHB8LPGrhRftAA.gif)
 
-我不想推荐给你在Android项目开发中使用哪些libraries，诸如Dagger 2, RxJava等，我只希望一切简单就好，把重点放在项目的结构设计上。
+我并不是想推荐给你在Android项目开发中使用的那些libraries，诸如Dagger 2, RxJava等。我只希望一切简单就好，把重点放在项目的结构设计上。
 
 我相信MVP有很多的不同的实现方式，我经常会去学习其他开发者的方式，找出我认为最好的来实践。
 
