@@ -2,10 +2,10 @@
 * 原文作者 : [Infinum](https://infinum.co/the-capsized-eight/author/ivan-kust)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [Kassadin](https://github.com/kassadin)
-* 校对者: 
-* 状态 :  待定
+* 校对者: [xiuweikang](https://github.com/xiuweikang) [lihb](https://github.com/lihb)
+* 状态 : 
 
-在2014年6月，我们发表了一篇关于[5 个顶级 Android 开源库](https://infinum.co/the-capsized-eight/articles/top-5-android-libraries-every-android-developer-should-know-about)的文章，我们在使用并且相信这是每一个 Android 开发者都应该知道。从那之后，Android方面已经发生了很多变化，所以我们写了这篇文章，我们最喜欢的5个开源库的更新版。
+在2014年6月，我们发表了一篇关于[5 个顶级 Android 开源库](https://infinum.co/the-capsized-eight/articles/top-5-android-libraries-every-android-developer-should-know-about)的文章，我们一直在用，并且相信每个Android开发者都应该了解这些开源库。从那之后，Android方面已经发生了很多变化，所以我们写了这篇文章，我们最喜欢的5个开源库的更新版。
 
 下面是更新列表:
 
@@ -126,7 +126,7 @@ class ExampleActivity extends Activity {
 
 一个主要的改进就是生成的注入代码不再依赖反射，这使得调试容易了许多。
 
-Dagger 为您创建类的实例，并满足他们的依赖。这依赖于 javax.inject.Inject 注释，以确定哪些构造函数或字段应被视为依赖。以著名的咖啡机(CoffeeMaker)为例:
+Dagger 为您创建类的实例，并满足他们的依赖。这依赖于 javax.inject.Inject 注解，以确定哪些构造函数或字段应被视为依赖。以著名的咖啡机(CoffeeMaker)为例:
 
 > 译者注：Dagger 和 Dagger 2 的官方文档里都是使用这个例子，所以著名…
 
