@@ -1,3 +1,10 @@
+> * 原文链接: [Android Studio Tips by Philippe Breault](https://github.com/pavlospt/Android-Studio-Tips-by-Philippe-Breault/wiki)
+* 原文作者 : [Philippe Breault](https://github.com/pavlospt)
+* 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
+* 译者 : 
+* 校对者 :
+* 状态 : 待定
+
 Welcome to the Android-Studio-Tips-by-Phillipe-Breault wiki!
 
 Ι am creating this Repository because i think every Android Studio Tip that Phillipe Breault is posting **NEEDS** to be recorded :) 
