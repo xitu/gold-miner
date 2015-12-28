@@ -10,6 +10,10 @@
 4. 翻译完成，发送 Pull Request
 5. 至少审核两篇其他译者发 PR 的文章→[#84](https://github.com/xitu/gold-miner/issues/84)
 
+**文章都被认领了怎么办？**
+
+快来 [issue](https://github.com/xitu/gold-miner/issues/new)申请成为译者吧。
+
 ## Android
 
 * [2015 年度 Android 开发者必备的 5 个开源库](http://gold.xitu.io/entry/5649b8d160b2ed36204eabad)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/Top-5-Android-libraries-every-Android-developer-should-know-about.md)) ([kassadin (kass)](https://github.com/kassadin) 认领)
