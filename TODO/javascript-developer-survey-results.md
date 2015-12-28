@@ -35,7 +35,7 @@
 
 有高达 **85%** 的受访者表示他们使用 ES6 编译成 ES5。与此同时，有 15% 的人仍然使用 `CoffeeScript`，15.2% 的人使用 `TypeScript`，只有区区 1.1% 的人使用 `Dart`.
 
-这是我想进一步探讨的问题之一，因为有 13.8% 的人选择了 _“Other(其他)”_，选择 _“Othe(其他)r”_ 的绝大部分的回答是 `ClojureScript`, `elm`, `Flow`, 和 `JSX`.
+这是我想进一步探讨的问题之一，因为有 13.8% 的人选择了 _“Other(其他)”_，选择 _“Othe(其他)”_ 的绝大部分的回答是 `ClojureScript`, `elm`, `Flow`, 和 `JSX`.
 
 ![An screenshot of the percentages for the fourth question](https://i.imgur.com/12mL6u6.png)
 
