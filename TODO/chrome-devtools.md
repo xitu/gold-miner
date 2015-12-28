@@ -31,11 +31,13 @@ _译注：新版 Chrome 已经没有放大镜图标了，相应的 css 文件和
 
 * 你可以使用 `ctrl-p` （后面还可以跟 `:` 加行号跳转到特定行）快速跳转到一个引用文件（就像在atom 编辑器里一样）
 
-_译注：这些 Chrome 开发者工具提供的快捷键里面的 `ctrl` 在 Mac 操作系统上对应为 `⌘`。
+_译注：这些 Chrome 开发者工具提供的快捷键里面的 `ctrl` 在 Mac 系统下对应为 `⌘`。
 
 ![](http://mo.github.io/assets/devtools-open-file-ctrl-o.png)
 
 * 你可以使用 `ctrl-shift-p` 跳转到一个特定函数（仅限当前打开的文件）
+
+_译注：`ctrl-shift-p` 在 Mac 系统下默认操作为 ‘进去/退出全屏’。
 
 ![](http://mo.github.io/assets/devtools-go-to-member.png)
 
