@@ -3,7 +3,8 @@
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [赵鑫晖](https://github.com/zxc0328)
 * 校对者 :
-* 状态 : 翻译完成
+* 状态 : 翻译完成  
+
 
 
 >“Javascript没法胜任大型应用，因为它甚至不能确定一个变量的类型，而且很难重构”~一大堆困惑的人
@@ -68,7 +69,7 @@
 
 
 
-但是我对这些IDE体积的膨胀感到厌倦，所以在最近几年里，我的代码都是在更精简的编辑器中写成的。主要是Sublime Text，不过我最近切换到了[**Atom**<sup>[1]</sup>](https://atom.io/)。你一定会需要[**Atom**<sup>[1]</sup>](https://atom.io/)来启用JavaScript智能感知特性。你可能也会对Visual Studio Code感兴趣。这是一个简约版Visual Studio，专为喜欢像Sublime Text和Atom这样的小型可拓展编辑器的人打造。
+但是我对这些IDE体积的膨胀感到厌倦，所以在最近几年里，我的代码都是在更精简的编辑器中写成的。主要是Sublime Text，不过我最近切换到了[**Atom**<sup>[1]</sup>](https://atom.io/)。你一定会需要[atom-ternjs<sup>[2]</sup>](https://atom.io/packages/atom-ternjs)来启用JavaScript智能感知特性。你可能也会对Visual Studio Code感兴趣。这是一个简约版Visual Studio，专为喜欢像Sublime Text和Atom这样的小型可拓展编辑器的人打造。
 
 
 我也使用vim在终端里进行快速编辑。
