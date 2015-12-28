@@ -15,14 +15,14 @@ Web 应用这些年来变得越来越强大，但相比于桌面应用能够完�
 
 在整个教程中，我们将创建一个简单的应用：它能够通过 RSS 获取到 Tutorialzine 上最近的文章，并通过一个看起来很酷的轮播效果来展示它们。所有需要的文件已经打包好，**[点击这里](http://demo.tutorialzine.com/2015/12/creating-your-first-desktop-app-with-html-js-and-electron/creating-your-first-desktop-app-with-electron.zip)**下载。
 
-把它解压到你想要的地方。从项目结构上看，你一定猜不到这不仅仅是一个简单的网站，而是一个桌面应用程序。
+把它解压到你想要的地方。从项目结构上看，你一定猜不到这不仅仅是一个简单的网站，而且是一个桌面应用程序。
 
 ![项目结构](http://cdn.tutorialzine.com/wp-content/uploads/2015/12/electron-app-tree.png)
 
 项目结构
 
 
-我们一会儿会更仔细的看看这些有趣的文件，了解它们的原理。不过，先让我们把应用跑起来吧。
+我们一会儿会更仔细的看看这些有趣的文件，了解它们的原理。不过在此之前，先让我们把应用跑起来吧。
 
 ### 运行应用
 
