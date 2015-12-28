@@ -84,13 +84,13 @@ var squareArea = 20 * 20;
 
 > **问题时间!** 为什么我们的机器一定要先计算 `circleArea` 再计算 `squareArea`? 如果我们颠倒顺序或者同时执行，会产生什么问题呢?
 
-事实证明，按顺序执行每样东西的代价是昂贵的。如果 `circleArea` 花费太多时间，我们将会阻塞 `squareArea` 执行直到前者完成。实际上，对于这一个例子，我们选择什么样的顺序都没问题，结果是一样的。我们程序中可以任意调整这个顺序。
+事实证明，按顺序执行每样东西的代价是很高的。如果 `circleArea` 花费太多时间，我们将会阻塞 `squareArea` 执行直到前者完成。实际上，对于这一个例子，我们选择什么样的顺序都没问题，结果是一样的。我们程序中可以任意调整这个顺序。
 
-> […] 按顺序是非常昂贵的。
+> […] 按顺序执行的代价是非常高的。
 
 我们想要我们的计算机做更多事情，并且要做得更 _快_。 为了做到这样，首先我们完全去掉执行顺序。换言之，我们假设在我们的程序中所有表达式在同一时间执行。
 
-这个主意在我们前一个例子中完美运行。但是当我们做一点轻微改变的时候，问题就来了:
+这个方法很适合我们之前的例子。但是当我们做一点细微的改变时，问题就来了:
 
 ```
 var radius = 10;
@@ -117,7 +117,7 @@ _我们的简单例子里的依赖关系图。_
 
 我们不能直接把这个模型应用到JavaScript，因为这门语言的内在语义是同步顺序的。但我们可以创造一种分离机制，来描述表达式之间的依赖，并且帮助我们解决这些依赖关系，然后根据这些规则执行程序。其中一种实现方法，就是通过在promise之上引入依赖的概念.
 
-这种promises的新规划由两个主要部分构成: 一是可以作为值的表现形式（representations），并把值放入这种表示形式中；二是创建表达式（expressions）和值（values）之间的依赖关系（dependencies），创建一个新的promise，就是为了取得表达式的结果。
+这种promises的新机制由两个主要部分构成: 一是可以作为值的表现形式（representations），并把值放入这种表示形式中；二是创建表达式（expressions）和值（values）之间的依赖关系（dependencies），创建一个新的promise，就是为了取得表达式的结果。
 
 ![](http://robotlolita.me/files/2015/09/promises-06.png) 
 
@@ -164,7 +164,7 @@ abstraction(2);
 // => 3
 ```
 
-First-class functions是一个很强大的概念（不管是否匿名）。因为有了这个，JavaScript可以用一个非常自然的方式去描述这些依赖关系，通过转换使用了promise值的表达式为first-class functions，我们可以在随后插入值。
+First-class functions是一个很强大的概念（不管是否 lambda 抽象）。因为有了这个，JavaScript可以用一个非常自然的方式去描述这些依赖关系，通过转换使用了promise值的表达式为first-class functions，我们可以在随后插入值。
 
 ## 3\. 理解Promise的机制
 
@@ -568,7 +568,7 @@ var resultPromise = recover(zPromise, printFailure);
 
 对promise进行顺序操作时，要求我们创建一个依赖关系链，而并行组合promise只要求promise不存在相互间依赖。
 
-在我们的圆形例子中，我们进行了自然应该并行的计算。`radius` 表达式和 `Math.PI` 表达式之间没有互相依赖，因此它们可以分开计算，但是 `circleArea` 依赖它们俩的值。依据这个，代码可以写成：
+在我们的圆形例子中，我们自然地进行了并行计算。`radius` 表达式和 `Math.PI` 表达式之间没有互相依赖，因此它们可以分开计算，但是 `circleArea` 依赖它们俩的值。依据这个，代码可以写成：
 
 ```
 var radius = 10;
@@ -685,7 +685,7 @@ var circleAreaPromise = chain(waitAll([radiusPromise, piPromise]),
 
 我们已经知道怎样合并promise了，但是到现在我们只能确定性地合并它们。举个例子，比如我们想选择两个计算中最快一个的时候，这就帮不到我们了。或许我们正在两台服务器上面搜索某些东西，而且并不关心哪一台会应答我们，我们只选择最快那一个。
 
-为了支持这样，我们先介绍一些非决定论的知识。特别是，我们需要一个操作是，给定两个promise，拿走更快那个的值与状态。这个主意背后的操作很简单：并行运行两个promise，等待第一个解决，然后把它传播到promise结果。但实现起来并不那么简单，因为我们需要保持着状态。
+为了支持这样，我们先介绍一些非决定论的知识。特别是，我们需要一个操作是，给定两个promise，拿走更快那个的值与状态。这个主意背后的操作很简单：并行运行两个promise，等待第一个解决，然后把它传到promise结果中。但实现起来并不那么简单，因为我们需要保持着状态。
 
 ```
 function race(left, right) {
@@ -758,7 +758,7 @@ function attempt(left, right) {
   // 创建promise结果
   var result = createPromise();
 
-  // doFulfil会传播传播第一个成功解决的值与状态。
+  // doFulfil会传第一个成功解决的值与状态。
   // 反之，doReject会合计错误，直到所有的promise失败
   //
   // 我们需要跟踪发生的错误
@@ -818,7 +818,7 @@ attemptAll([searchA(), searchB(), searchC(), searchD()]);
 
 ## 6\. Promise的实践理解
 
-[ECMAScript 2015](http://www.ecma-international.org/ecma-262/6.0/) 定义了JavaScript中promise的定义，但直到现在，我们使用的还是一个非常简单却非常规的promise实现。其原因是ECMAScript的promise标准过于复杂，要彻底解释这个概念更加艰难。但是，既然你现在知道promise是什么了，和其中的每个方面是怎样实现的，要迁移到理解标准promise也就很简单了。
+[ECMAScript 2015](http://www.ecma-international.org/ecma-262/6.0/) 定义了JavaScript中promise的概念，但直到现在，我们使用的还是一个非常简单却非常规的promise实现。其原因是ECMAScript的promise标准过于复杂，要彻底解释这个概念更加艰难。但是，既然你现在知道promise是什么了，和其中的每个方面是怎样实现的，要迁移到理解标准promise也就很简单了。
 
 ### 6.1\. 介绍ECMAScript Promise
 
@@ -1178,7 +1178,7 @@ _Claudio Russo_ — 解释了使用 Task comonad 的异步计算在 C♯ 中如�
 
 #### 脚注
 
-1.  在 JavaScript 中，你不能在 Promises/A，Promises/A+ 和其它 promise 的一般实现中，直接取出 promise 的值。
+1.  在 JavaScript 中，你不能在 Promises/A，Promises/A+ 和其它 promise 的常见实现中，直接取出 promise 的值。
 
     在一些 JavaScript 环境中，比如 Rhino 和 Nashorn，你可能可以实现支持提取值的 promise。Java的 Futures 也是一个例子。
 
