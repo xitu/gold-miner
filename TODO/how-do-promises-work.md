@@ -1180,36 +1180,36 @@ _Claudio Russo_ — 解释了使用 Task comonad 的异步计算在 C♯ 中如�
 
 1.  在 JavaScript 中，你不能在 Promises/A，Promises/A+ 和其它 promise 的常见实现中，直接取出 promise 的值。
 
-    在一些 JavaScript 环境中，比如 Rhino 和 Nashorn，你可能可以实现支持提取值的 promise。Java的 Futures 也是一个例子。
+    在一些 JavaScript 环境中，比如 Rhino 和 Nashorn（译者注：都是用Java实现的JavaScript引擎），也许可以实现支持提取值的 promise。Java的 Futures 就是一个例子。
 
     要从 promise 取出还没计算出来的值，要求阻塞线程，直到值被计算出来。对于大多数JS环境，这并不通用，因为它们都是单线程的。 [↩](#fnref:1)
 
-2.  “Lambda抽象” 是匿名函数抽象出来的 Lambda 演算的表达式名字。JavaScript 的匿名函数等价于LC的Lambda抽象，然而 JavaScript 也允许给函数命名。 [↩](#fnref:2)
+2.  “lambda抽象”是一种在表达式中使用抽象变量的匿名函数。JavaScript 的匿名函数等价于LC的Lambda抽象，然而 JavaScript 也允许给函数命名。 [↩](#fnref:2)
 
 3.  Haskell编程语言的工作方式，就是“计算定义”和“执行计算”的分离。一个 Haskell 程序只不过是大量计算结果为 `IO` 数据结构的表达式。这个结果多少类似于我们在这里定义的 `Promise` 结构，因为它只定义了程序中不同计算之间的依赖关系。
 
-    在Haskell中，你的程序必须返回 `IO` 类型的值，这个值会随后传递到一个单独的解释器。解释器只知道如何允许 `IO` 计算，并遵守其定义的依赖关系。它将可能定义某些类似于JS的内容。如果我们那样做，所有我们的JS程序都仅仅是一个导致promise的表达式，并且那个promise会传递到一个单独的组件，这个组件知道如何执行promise和它的依赖关系。
+    在Haskell中，你的程序必须返回 `IO` 类型的值，这个值会随后传递到一个单独的解释器。解释器只知道如何允许 `IO` 计算，并遵守其定义的依赖关系。对于JS，也可以定义某些类似的内容。如果我们那样做的话，所有我们的JS程序都仅仅是一个导致 promise 的表达式，并且那个 promise 会传递到一个单独的组件，这个组件知道如何执行 promise 和它的依赖关系。
 
-    看看 [Pure Promises](https://github.com/robotlolita/robotlolita.github.io/tree/master/examples/promises/pure/) 示例目录，可作为这种promise形式的一个实现。 [↩](#fnref:3)
+    看看 [Pure Promises](https://github.com/robotlolita/robotlolita.github.io/tree/master/examples/promises/pure/) 示例目录，可作为这种 promise 形式的一个实现。 [↩](#fnref:3)
 
-4.  Monad是一个接口，可以（并且通常是）用作顺序语义，通过以下操作，可被描述为一个结构：
+4.  Monad 是一个接口，可以（并且通常是）用作顺序语义，通过以下操作，可被描述为一个结构体：
 
         class Monad m where
           -- 把值放进monad中
           of    :: ∀a. a -> Monad a
 
-          -- Transforms the value in the monad
-          -- (The transformation must maintain the same type)
+          -- 在 monad 中变换值
+          -- (转换必须保持类型不变)
           chain :: ∀a, b. m a -> (a -> m b) -> m b
 
-    在这个构想中，monad `chain` 操作符 `print(1).chain(_ => print(2))` 和JS的 “分号操作符” 多少有点类似(例如: `print(1); print(2)`)。 [↩](#fnref:4)
+    在这个构想中，monad 的 `chain` 操作符 `print(1).chain(_ => print(2))` 和JS的 “分号操作符” 多少有点类似(例如: `print(1); print(2)`)。 [↩](#fnref:4)
 
 5.  这里使用了Rich Hickey的概念：“复杂”和“简单”。 `.then` 就被定义为一种简单的方法。它迎合了一般的使用案例，作为简化概念的代价，那就是 `.then` 做了太多的事情，而且这些事情有相当多的重叠。
 
-    另一方面，一个简单的API，会把这些概念分离到不同的函数中，然而你可以用 `.then` 把这些功能都实现。 [↩](#fnref:5)
+    另一方面，一个简单的API，会把这些单独概念分离到不同的函数中，使得你可以用 `.then` 把这些功能都实现。 [↩](#fnref:5)
 
-6.  `.then` 方法吸收了所有东西的值和状态，让它们看起来像一个promise。从历史观点上说，这些可以通过一个接口检查来完成。这意味着，通过检查一个对象是否提供了 `.then` 方法，可以包含所有的对象，它们都不符合promise的 `.then` 方法。
+6.  `.then` 方法接收一切值和状态，让它们看起来像一个 promise 。在以前，这些是通过一个接口去检查，这意味着通过检查一个对象是否提供了 `.then` 方法，可以包含所有的对象，它们都不符合 promise 的 `.then` 方法。
 
-    如果promise标准不受限于向后兼容性，使用现存的promise实现，通过使用接口符号，或者品牌的某些类似形式。 [↩](#fnref:6)
+    如果 promise 标准不受限于向后兼容性，使用现存的 promise 实现，可以进行更可靠的测试，通过使用接口符号（Symbols for interfaces），或者品牌的某些类似形式实现。 [↩](#fnref:6)
 
 7.  适当的尾部调用保证了尾部位置的所有调用将在恒定的堆栈中发生。本质上，这保证了你的程序完全由尾部调用构成，栈将不会增加，因此，栈溢出错误在这样的代码中将不可能出现。附带地，它也允许语言实现，来让这样的代码变得更快，因为它不需要处理常见的函数调用开销。 [↩](#fnref:7)
