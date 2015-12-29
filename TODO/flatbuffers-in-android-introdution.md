@@ -21,7 +21,7 @@ _但是，嘿。。哥们，在你转移所有数据到FlatBuffers之前，请�
  
 *   因为有了扁平二进制文件，访问序列化数据甚至层级数据都不要解析。归功于此，我们不需要花费时间去初始化解析器（意味着构建复杂的字段映射）和解析数据。
   
-*   FlatBuffers数据不需要分配更多的内存，因为它有自己的缓冲区可使用。我们不需要像JSON那样在解析数据的时候，为整个层级数据分配额外的内存对象。
+*   FlatBuffers数据相比使用自己的缓冲区，不需要分配其他更多的内存。我们不需要像JSON那样在解析数据的时候，为整个层级数据分配额外的内存对象。
 
 更具体的原因，请再次查看关于如何迁移到FlatBuffers的[facebook文章](https://code.facebook.com/posts/872547912839369/improving-facebook-s-performance-on-android-with-flatbuffers/)，或者查阅[Google官方文档](http://google.github.io/flatbuffers/)。
  
@@ -40,14 +40,14 @@ _但是，嘿。。哥们，在你转移所有数据到FlatBuffers之前，请�
 首先，我们必须得到**flatc** - FlatBuffers编译器，你可以通过源码来构建，源码放在Google的[FlatBuffers仓库](https://github.com/google/flatbuffers)。我们将源码下载或者克隆到本地。整个构建过程在[构建FlatBuffers](https://google.github.io/flatbuffers/md__building.html) 文档中有详细描述。如果你是Mac用户，你需要做的仅仅是：
  
 1.  进入下载好了的源码目录 `\{extract directory}\build\XcodeFlatBuffers.xcodeproj`
-2.  按下**Play**按钮或者`⌘ + R`快捷键运行**flatc**纲要文件（默认会被选中）
+2.  按下**Play**按钮或者`⌘ + R`快捷键运行**flatc**提纲文件（默认会被选中）
 3.  运行完成后，**flatc**可执行文件将会出现在项目的根目录中
  
-现在，我们可以使用放在其他地方的[纲要文件编译器](https://google.github.io/flatbuffers/md__compiler.html)来根据指定的纲要文件（Java，C#，Python，GO和C++）生成模型类，或者将JSON文件转换成FlatBuffer格式的二进制文件。
+现在，我们可以使用放在其他地方的[提纲文件编译器](https://google.github.io/flatbuffers/md__compiler.html)来根据指定的提纲文件（Java，C#，Python，GO和C++）生成模型类，或者将JSON文件转换成FlatBuffer格式的二进制文件。
 
-## 纲要文件
+## 提纲文件
 
-现在我们准备一份纲要文件，该文件定义了我们想要序列化/反序列化的数据结构。我们使用该文件和flatc工具，去生成Java数据模型并将JSON格式的文件转换成FlatBuffer格式的二进制文件。
+现在我们准备一份提纲文件，该文件定义了我们想要序列化/反序列化的数据结构。我们使用该文件和flatc工具，去生成Java数据模型并将JSON格式的文件转换成FlatBuffer格式的二进制文件。
  
 JSON文件的部分代码如下所示：
  
@@ -78,7 +78,7 @@ JSON文件的部分代码如下所示：
  
 整个JSON文件可以在[这里](https://github.com/frogermcs/FlatBuffs/blob/master/flatbuffers/repos_json.json)下载。该文件是调用Github的API来[获取google在github上的仓库](https://api.github.com/users/google/repos)结果的一个修改版本。
  
-要编写一份Flatbuffer纲要文件，请参考[这篇文档](https://google.github.io/flatbuffers/md__schemas.html)，我不会在此做深入的探索，因此我们使用的纲要文件不会很复杂。我们所需要做的仅仅是创建3张表。`ReposList`表，`Repo`表和`User`表, 以及定义一个 `root_type`。这份纲要文件的核心部分如下所示：
+要编写一份Flatbuffer提纲文件，请参考[这篇文档](https://google.github.io/flatbuffers/md__schemas.html)，我不会在此对它做深入的探索，因此我们使用的提纲文件不会很复杂。我们所需要做的仅仅是创建3张表。`ReposList`表，`Repo`表和`User`表, 以及定义一个 `root_type`。这份提纲文件的核心部分如下所示：
  
      table ReposList {
         repos : [Repo];
@@ -105,7 +105,7 @@ JSON文件的部分代码如下所示：
 
     root_type ReposList;
  
-该纲要文件的完整版本可从[这里](https://github.com/frogermcs/FlatBuffs/blob/master/flatbuffers/repos_schema.fbs)下载。
+该提纲文件的完整版本可从[这里](https://github.com/frogermcs/FlatBuffs/blob/master/flatbuffers/repos_schema.fbs)下载。
  
 ## FlatBuffers数据文件
 
