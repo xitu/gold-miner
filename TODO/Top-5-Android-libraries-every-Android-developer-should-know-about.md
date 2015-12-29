@@ -19,7 +19,7 @@
 
 通过注解，你可以轻松地添加请求体，操作URL或请求头并添加查询参数。
 
-为方法添加返回类型会使该方法同步执行，添加Callback(回调)则会使之异步。
+为方法添加返回类型会使该方法同步执行，然而添加Callback（回调）会使之异步执行，完成后回调success或failure方法。
 
 ```java
 public interface RetrofitInterface {
