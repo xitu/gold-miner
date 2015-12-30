@@ -1,9 +1,9 @@
 > * 原文链接 : [jquery-tips-everyone-should-know](https://github.com/AllThingsSmitty/jquery-tips-everyone-should-know/blob/master/README.md)
 * 原文作者 : [AllThingsSmitty (Matt Smith)](https://github.com/AllThingsSmitty)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : Yves X
-* 校对者: 
-* 状态 :  待定
+* 译者 : [Yves X](https://github.com/Yves-X)
+* 校对者: [sqrthree(根号三)](https://github.com/sqrthree)
+* 状态 :  第一次校对
 
 # 人人须知的jQuery技巧
 
@@ -13,16 +13,17 @@
 1. [预加载图片](#预加载图片)
 1. [判断图片是否加载完成](#判断图片是否加载完成)
 1. [自动修复失效图片](#自动修复失效图片)
-1. [鼠标悬停切换class](#鼠标悬停切换class)
+1. [鼠标悬停切换 class](#鼠标悬停切换 class)
 1. [禁用输入字段](#禁用输入字段)
 1. [阻止链接加载](#阻止链接加载)
-1. [切换淡出/滑动](#切换淡出/滑动)
+1. [缓存 jQuery 选择器](#缓存 jQuery 选择器)
+1. [切换淡出 / 滑动](#切换淡出 / 滑动)
 1. [简单的手风琴效果](#简单的手风琴效果)
-1. [使两个div等高](#使两个div等高)
-1. [在新标签页/新窗口打开外部链接](#在新标签页/新窗口打开外部链接)
+1. [使两个 div 等高](#使两个 div 等高)
+1. [在新标签页 / 新窗口打开外部链接](#在新标签页 / 新窗口打开外部链接)
 1. [通过文本查找元素](#通过文本查找元素)
-1. [在visibility属性变化时触发](#在visibility属性变化时触发)
-1. [Ajax调用错误处理](#Ajax调用错误处理)
+1. [在 visibility 属性变化时触发](#在 visibility 属性变化时触发)
+1. [Ajax 调用错误处理](#Ajax 调用错误处理)
 1. [链式插件调用](#链式插件调用)
 
 
@@ -43,7 +44,7 @@ $('a.top').click(function (e) {
 <a class="top" href="#">Back to top</a>
 ```
 
-调整 `scrollTop` 的值即可改变滚动着陆位置。你实际所做的是在 800 毫秒内设置文档主体的效果，直到滚动到顶部。
+调整 `scrollTop` 的值即可改变滚动着陆位置。你实际所做的是在 800 毫秒内不断设置文档主体的位置，直到它滚动到顶部。
 
 ### 预加载图片
 
@@ -87,9 +88,9 @@ $('img').on('error', function () {
 即使你暂无任何失效的链接，添加这段代码也不会有任何损失。
 
 
-### 鼠标悬停切换class
+### 鼠标悬停切换 class
 
-如果你希望在用户将鼠标悬停在某个可点击元素上时，改变它的视觉效果，你可以给该元素在悬停时添加一个 class，当鼠标不再悬停时，移除这个 class：
+如果你希望在用户将鼠标悬停在某个可点击元素上时改变它的视觉效果，你可以在该元素被悬停时给它添加一个 class，当鼠标不再悬停时，移除这个 class：
 
 ```javascript
 $('.btn').hover(function () {
@@ -107,12 +108,12 @@ $('.btn').hover(function () {
 });
 ```
 
-**注**：CSS 在这种情况下使用是一个更快速的解决方案，但依然值得稍作了解。
+**注**：在这种情况下，使用 CSS 或许是一个更快速的解决方案，但这种方法仍然值得稍作了解。
 
 
 ### 禁用输入字段
 
-有时，你可能希望表单的提交按钮或其中某个输入框在用户完成特定操作前不可见（例如，勾选“我已阅读条例”的确认框）。你可以在你的输入字段上添加 `disabled` 属性，以便你在需要时启用它：
+有时，你可能希望在用户完成特定操作（例如，勾选“我已阅读条例”的确认框）前禁用表单的提交按钮或禁用其中某个输入框。你可以在你的输入字段上添加 `disabled` 属性，而后你能在需要时启用它：
 
 ```javascript
 $('input[type="submit"]').prop('disabled', true);
@@ -125,6 +126,28 @@ $('input[type="submit"]').prop('disabled', false);
 ```
 
 
+### 缓存 jQuery 选择器
+
+想想你在项目中一次又一次地写了多少相同的选择器吧。每个 `$('.element')` 都必须查询一次整个 DOM,不管它是否曾这样执行过。作为代替，我们只运行一次选择器，并把结果储存在一个变量中：
+
+```javascript
+var blocks = $('#blocks').find('li');
+```
+
+现在你能在任何地方使用 `blocks` 变量而无需每次查询 DOM 了:
+
+```javascript
+$('#hideBlocks').click(function () {
+  blocks.fadeOut();
+});
+
+$('#showBlocks').click(function () {
+  blocks.fadeIn();
+});
+```
+
+缓存 jQuery 的选择器是种简单的性能提升。
+
 ### 阻止链接加载
 
 有时你不希望链接到指定页面或者重载当前页面，而是想让它们干些别的，例如触发其它脚本。这需要在阻止默认动作上做些文章：
@@ -136,7 +159,7 @@ $('a.no-link').click(function (e) {
 ```
 
 
-### 切换淡出/滑动
+### 切换淡出 / 滑动
 
 淡出和滑动都是我们在 jQuery 中大量使用的效果。你可能只想在用户点击后展现某个元素，此时用 `fadeIn` 和 `slideDown` 方法就很完美。但是如果你希望这个元素在首次点击时出现，在再次点击时消失，这段代码就很有用了：
 
@@ -173,7 +196,7 @@ $('#accordion').find('.accordion-header').click(function () {
 通过添加这段脚本，你实际要做的只是提供必要的 HTML 元素以便它正常运行。
 
 
-### 使两个div等高
+### 使两个 div 等高
 
 有时你希望无论两个 div 各自包含什么内容，它们总有相同的高度：
 
@@ -204,7 +227,7 @@ $rows.each(function () {
 ```
 
 
-### 在新标签页/新窗口打开外部链接
+### 在新标签页 / 新窗口打开外部链接
 
 在一个新的浏览器标签页或窗口中打开外部链接，并确保相同来源的链接在同一个标签页或者窗口中打开：
 
@@ -214,7 +237,7 @@ $('a[href^="//"]').attr('target', '_blank');
 $('a[href^="' + window.location.origin + '"]').attr('target', '_self');
 ```
 
-**注：** `window.location.origin` 在 IE10 中不可用. [这个修复](http://tosbourn.com/a-fix-for-window-location-origin-in-internet-explorer/) 正是关注于该问题。
+**注：** `window.location.origin` 在 IE10 中不可用. [这个修复方案](http://tosbourn.com/a-fix-for-window-location-origin-in-internet-explorer/) 正是关注于该问题。
 
 
 ### 通过文本查找元素
@@ -226,7 +249,7 @@ var search = $('#search').val();
 $('div:not(:contains("' + search + '"))').hide();
 ```
 
-### 在visibility属性变化时触发
+### 在 visibility 属性变化时触发
 
 当用户的焦点离开或者重新回到某个标签页时，触发 Javasrcipt：
 
@@ -241,7 +264,7 @@ $(document).on('visibilitychange', function (e) {
 ```
 
 
-### Ajax调用错误处理
+### Ajax 调用错误处理
 
 当一个 Ajax 调用返回 404 或 500 错误时，错误处理程序将被执行。若错误处理未被定义，其它 jQuery 代码可能不再有效。所以定义一个全局的 Ajax 错误处理：
 
@@ -280,4 +303,4 @@ $elem.html('bla');
 $elem.otherStuff();
 ```
 
-无论是链式操作，还是缓存元素，都是 jQuery 中用以简化和优化代码的极佳方法。
+无论是链式操作，还是缓存元素，都是 jQuery 中用以简化和优化代码的最佳实践。
