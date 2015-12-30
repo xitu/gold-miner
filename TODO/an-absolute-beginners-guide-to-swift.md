@@ -12,7 +12,7 @@
 
 如果你没听过 Swift，这里简单介绍一下。Apple 刚刚为 iOS 和 OSX 开发者带来了全新的 Swift 语言。我们知道 Apple 自 2010 年开始开发 Swift ，距第一个 SDK [^1: iPhone OS 1.x: SDK]发布已有两年。Apple 认识到了 Objective-C 的局限性，毕竟它已有 30 年的历史，是时候作出改变了。但是以 Apple 的风格，发布一个半成品语言不可想象的。Apple 认为尽管 Objective-C 有不少缺点，依然可以将其利用到极致，Apple 做到了。
 
-在第一个 SDK 发布后的六年里，有 120 万个 App 发布到了 App Store。数百万的程序员领略了 Objective-C 语法的晦涩难懂并认识到了其局限性。最近有几个直言不讳的家伙决定站出来[大胆](http://ashfurrow.com/blog/we-need-to-replace-objective-c)[表达](http://informalprotocol.com/2014/02/replacing-cocoa/)他们对这一过时语言的困扰。
+在第一个 SDK 发布后的六年里，有 120 万个 App 提交到了 App Store。数百万的程序员领略了 Objective-C 语法的晦涩难懂并认识到了其局限性。最近有几个直言不讳的家伙决定站出来[大胆](http://ashfurrow.com/blog/we-need-to-replace-objective-c)[表达](http://informalprotocol.com/2014/02/replacing-cocoa/)他们对这一过时语言的困扰。
 
 Swift 是众多热爱打磨新语言的聪明人历时四年多的杰作。他们到处寻求灵感，不仅仅发明了这门新语言还创造了相关工具让其易于学习。
 
@@ -108,7 +108,7 @@ Swift 是众多热爱打磨新语言的聪明人历时四年多的杰作。他�
 
 ### 其他类型
 
-除字符串类型以外，还有 `Int` 表示整数，`Double` 和 `Flout` 表示浮点数以及`Bool` 表示布尔值（比如真或假）。这些类型都可以跟字符串类型一样通过类型推导自动得到，所以创建变量时没有必要显式写出类型。
+除字符串类型以外，还有 `Int` 表示整数，`Double` 和 `Float` 表示浮点数以及`Bool` 表示布尔值（比如真或假）。这些类型都可以跟字符串类型一样通过类型推导自动得到，所以创建变量时没有必要显式写出类型。
 
 `Float` 和 `Double` 的区别在于精度不同，能存储的最大数字也不同。
 
@@ -262,7 +262,7 @@ Swift 是众多热爱打磨新语言的聪明人历时四年多的杰作。他�
 
 ### Switch 表达式
 
-Swift 中的 `switch` 表达式功能丰富特性众多。下面是 `swift` 表达式的一些基本规则：
+Swift 中的 `switch` 表达式功能丰富特性众多。下面是 `switch` 表达式的一些基本规则：
 
 
 *   每个 `case` 表达式后面不要求有 `break` 表达式。
