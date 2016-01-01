@@ -2,14 +2,14 @@
 * 原文作者 : [froger_mcs dev blog](http://frogermcs.github.io/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [lihb (lhb)](https://github.com/lihb)
-* 校对者: 
-* 状态 :  待定
+* 校对者: [yinshudi](https://github.com/yinshudi) [404neko](https://github.com/404neko)
+* 状态 :  审核中
 
 
 
-JSON格式 - 基本上人人知道的，一个轻量级的，并被现代服务器所广泛使用的数据格式。它相对过时的、讨厌的XML数据格式来说，它量级轻，易于人们阅读，对开发人员也更为友好。 JSON是一个语言-即时性的数据格式，但是它解析数据并将之转换成如Java对象时，会消耗我们的时间和内存资源。几天前，Facebook宣称自己的Android app在数据处理的性能方面有了极大的提升。在几乎整个app中，他们放弃了JSON而用FlatBuffers取而代之。请查阅[这篇文章](https://code.facebook.com/posts/872547912839369/improving-facebook-s-performance-on-android-with-flatbuffers/)来获取关于FlatBuffers的基础知识以及从JSON格式过渡到FlatBuffers格式后的结果。
+JSON格式 - 一个基本上人人知道的，轻量级的，并被现代服务器所广泛使用的数据格式。相对过时的、讨厌的XML数据格式来说，它量级轻，易于人们阅读，对开发人员也更为友好。 JSON是一种独立于语言存在的数据格式，但是它解析数据并将之转换成如Java对象时，会消耗我们的时间和内存资源。几天前，Facebook宣称自己的Android app在数据处理的性能方面有了极大的提升。在几乎整个app中，他们放弃了JSON而用FlatBuffers取而代之。请查阅[这篇文章](https://code.facebook.com/posts/872547912839369/improving-facebook-s-performance-on-android-with-flatbuffers/)来获取关于FlatBuffers的基础知识以及从JSON格式过渡到FlatBuffers格式后的结果。
  
-虽然这个结果非常激动人心，但咋一看这个实现不是很明显，Facebook没有对实现进行过多的说明。这也是我发表这篇文章的原因，我将在文章中说明如何使用FlatBuffers来开始我们的工作。
+虽然这个结果非常激动人心，但咋一看如何使用不是很明显，Facebook没有对实现进行过多的说明。这也是我发表这篇文章的原因，我将在文章中说明如何使用FlatBuffers来开始我们的工作。
 
 ## FlatBuffers介绍
 
@@ -19,7 +19,7 @@ _但是，嘿。。哥们，在你转移所有数据到FlatBuffers之前，请�
  
 什么原因使得FlatBuffers如此高效？
  
-*   因为有了扁平二进制文件，访问序列化数据甚至层级数据都不要解析。归功于此，我们不需要花费时间去初始化解析器（意味着构建复杂的字段映射）和解析数据。
+*   因为有了扁平二进制缓冲区，访问序列化数据甚至层级数据都不要解析。归功于此，我们不需要花费时间去初始化解析器（意味着构建复杂的字段映射）和解析数据。
   
 *   FlatBuffers数据相比使用自己的缓冲区，不需要分配其他更多的内存。我们不需要像JSON那样在解析数据的时候，为整个层级数据分配额外的内存对象。
 
@@ -40,14 +40,14 @@ _但是，嘿。。哥们，在你转移所有数据到FlatBuffers之前，请�
 首先，我们必须得到**flatc** - FlatBuffers编译器，你可以通过源码来构建，源码放在Google的[FlatBuffers仓库](https://github.com/google/flatbuffers)。我们将源码下载或者克隆到本地。整个构建过程在[构建FlatBuffers](https://google.github.io/flatbuffers/md__building.html) 文档中有详细描述。如果你是Mac用户，你需要做的仅仅是：
  
 1.  进入下载好了的源码目录 `\{extract directory}\build\XcodeFlatBuffers.xcodeproj`
-2.  按下**Play**按钮或者`⌘ + R`快捷键运行**flatc**提纲文件（默认会被选中）
+2.  按下**Play**按钮或者`⌘ + R`快捷键运行**flatc**结构描述文件（默认会被选中）
 3.  运行完成后，**flatc**可执行文件将会出现在项目的根目录中
  
-现在，我们可以使用放在其他地方的[提纲文件编译器](https://google.github.io/flatbuffers/md__compiler.html)来根据指定的提纲文件（Java，C#，Python，GO和C++）生成模型类，或者将JSON文件转换成FlatBuffer格式的二进制文件。
+现在，我们可以使用放在其他地方的[结构描述文件编译器](https://google.github.io/flatbuffers/md__compiler.html)来根据指定的结构描述文件（Java，C#，Python，GO和C++）生成模型类，或者将JSON文件转换成FlatBuffer格式的二进制文件。
 
-## 提纲文件
+## 结构描述文件
 
-现在我们准备一份提纲文件，该文件定义了我们想要序列化/反序列化的数据结构。我们使用该文件和flatc工具，去生成Java数据模型并将JSON格式的文件转换成FlatBuffer格式的二进制文件。
+现在我们准备一份结构描述文件，该文件定义了我们想要序列化/反序列化的数据结构。我们使用该文件和flatc工具，去生成Java数据模型并将JSON格式的文件转换成FlatBuffer格式的二进制文件。
  
 JSON文件的部分代码如下所示：
  
@@ -78,7 +78,7 @@ JSON文件的部分代码如下所示：
  
 整个JSON文件可以在[这里](https://github.com/frogermcs/FlatBuffs/blob/master/flatbuffers/repos_json.json)下载。该文件是调用Github的API来[获取google在github上的仓库](https://api.github.com/users/google/repos)结果的一个修改版本。
  
-要编写一份Flatbuffer提纲文件，请参考[这篇文档](https://google.github.io/flatbuffers/md__schemas.html)，我不会在此对它做深入的探索，因此我们使用的提纲文件不会很复杂。我们所需要做的仅仅是创建3张表。`ReposList`表，`Repo`表和`User`表, 以及定义一个 `root_type`。这份提纲文件的核心部分如下所示：
+要编写一份Flatbuffer结构描述文件，请参考[这篇文档](https://google.github.io/flatbuffers/md__schemas.html)，我不会在此对它做深入的探索，因此我们使用的结构描述文件不会很复杂。我们所需要做的仅仅是创建3张表。`ReposList`表，`Repo`表和`User`表, 以及定义一个 `root_type`。这份结构描述文件的核心部分如下所示：
  
      table ReposList {
         repos : [Repo];
@@ -105,7 +105,7 @@ JSON文件的部分代码如下所示：
 
     root_type ReposList;
  
-该提纲文件的完整版本可从[这里](https://github.com/frogermcs/FlatBuffs/blob/master/flatbuffers/repos_schema.fbs)下载。
+该结构描述文件的完整版本可从[这里](https://github.com/frogermcs/FlatBuffs/blob/master/flatbuffers/repos_schema.fbs)下载。
  
 ## FlatBuffers数据文件
 
@@ -276,7 +276,7 @@ JSON - 平均加载时间为200ms（波动范围在：180ms - 250ms），JSON文
 
 ## 源代码
 
-完整的项目源代码可以在Github的[这里](https://github.com/frogermcs/FlatBuffs)下载到。你不必处理整个Flatbuffers项目 - 你所需要的都在 `flatbuffers/` 目录。
+完整的项目源代码可以在Github的[这里](https://github.com/frogermcs/FlatBuffs)下载到。你不必了解整个Flatbuffers项目 - 你所需要的都在 `flatbuffers/` 目录。
 
 ## 作者信息
 
