@@ -1,7 +1,7 @@
 > * 原文链接 : [Animated SVG vs GIF [CAGEMATCH]](https://sarasoueidan.com/blog/svg-vs-gif/)
 * 原文作者 : [Sara Soueidan](https://twitter.com/SaraSoueidan)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 :
+* 译者 : [Yusheng](https://github.com/rainyear)
 * 校对者:
 * 状态 :  待定
 
