@@ -14,7 +14,7 @@
 理解任务在Gradle中的概念是理解这篇文章的基础(广义上，也是学会撰写Gradle脚本的基础)。我强烈建议你先阅读一下Gradle关于任务的文档([这个](http://www.gradle.org/docs/current/userguide/tutorial_using_tasks.html)和[这个](http://www.gradle.org/docs/current/userguide/more_about_tasks.html))。
 文档中包含许多例子，非常容易理解。好了，那现在我就假设你已经fork了我的仓库，将项目导入了你的Android Studio，同时也已经熟悉了Gradle的任务。如果没有也不必担心，我会尽我所能解释得通俗易懂。
 
-## 关于我demo项目的层次
+## Demo项目的层次结构
 你能将`gradle`脚本分离在很多文件中，目前我分了3个`gradle`文件：
 * [一个在根目录](https://github.com/vincentbrison/vb-android-app-quality/blob/master/build.gradle)，这个文件是关于项目的一些配置(比如使用的maven仓库和使用的Gradle版本)；
 * [一个在子文件夹`app`中](https://github.com/vincentbrison/vb-android-app-quality/blob/master/app/build.gradle)，这是一个典型的构建Android应用的Gradle文件。
