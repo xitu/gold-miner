@@ -101,7 +101,7 @@ Android Studio甚至可以做比上面更牛叉的事情[Learning shortcuts](htt
 
 这也许听起来非常扯淡，但是这就是当我写我第一个应用到时候犯下的错误。如果你在重复其他人犯过的错误，你这是在浪费自己的时间。在我写第一个app的时候，浪费了很多时间，如果我多花一点时间去向有经验的软件开发人员学习的话，我就可以避免一些错误，从而节省时间。不要担心，每个人都在犯错。
 
-读下[Pragmatic Programmer](http://www.amazon.com/The-Pragmatic-Programmer-Journeyman-Master/dp/020161622X). Then read [Effective Java](http://www.amazon.com/Effective-Java-Edition-Joshua-Bloch/dp/0321356683)这本书吧 然后去读下[Effective Java](http://www.amazon.com/Effective-Java-Edition-Joshua-Bloch/dp/0321356683)这本书。 这两本书可以帮你避免一些新手常犯的错误。即使在你看完这两本书之后，也请保持着新手的姿态向大神们学习。
+读下[Pragmatic Programmer](http://www.amazon.com/The-Pragmatic-Programmer-Journeyman-Master/dp/020161622X). 然后再看下 [Effective Java](http://www.amazon.com/Effective-Java-Edition-Joshua-Bloch/dp/0321356683)这本书吧 这两本书可以帮你避免一些新手常犯的错误。即使在你看完这两本书之后，也请保持着新手的姿态向大神们学习。
 
 ## 6\. 使用库
 
@@ -109,8 +109,8 @@ Android Studio甚至可以做比上面更牛叉的事情[Learning shortcuts](htt
 
 在我的第一个app中，我写的功能已经被其他库所提供了，它们中的一些库来自于标准的java中的一部分。另一些则是像Retrofit和Picasso这样的库。如果你不确定你要应该用什么库，你能做3件事：
 
-1.听 [Google IO Fragmented podcast episode](http://fragmentedpodcast.com/episodes/9/) 在这一节里面讲了第三方的库对于开发者是多么的重要。 透露一下，差不多就是 Dagger, Retrofit, Picasso, 和 Mockito这4个库.
-2.订阅 [to Android Weekly](http://androidweekly.net/) 在上面看看对你有用的东西
+1.听[Google IO Fragmented podcast episode](http://fragmentedpodcast.com/episodes/9/) 在这一节里面讲了第三方的库对于开发者是多么的重要。 透露一下，差不多就是 Dagger, Retrofit, Picasso, 和 Mockito这4个库.
+2.订阅[to Android Weekly](http://androidweekly.net/) 在上面看看对你有用的东西
 3.寻找解决类似问题的开源应用。你可能发现它们用了第三方的库(third-party library)或者用了你并没有在意的标准的java库。
 
 
