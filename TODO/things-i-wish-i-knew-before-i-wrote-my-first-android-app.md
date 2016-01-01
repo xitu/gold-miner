@@ -110,7 +110,7 @@ Android Studio甚至可以做比上面更牛叉的事情[Learning shortcuts](htt
 在我的第一个app中，我写的功能已经被其他库所提供了，它们中的一些库来自于标准的java中的一部分。另一些则是像Retrofit和Picasso这样的库。如果你不确定你要应该用什么库，你能做3件事：
 
 1.听[Google IO Fragmented podcast episode](http://fragmentedpodcast.com/episodes/9/) 在这一节里面讲了第三方的库对于开发者是多么的重要。 透露一下，差不多就是 Dagger, Retrofit, Picasso, 和 Mockito这4个库.
-2.订阅[to Android Weekly](http://androidweekly.net/) 在上面看看对你有用的东西
+2.订阅[Android Weekly](http://androidweekly.net/) 在上面看看对你有用的东西
 3.寻找解决类似问题的开源应用。你可能发现它们用了第三方的库(third-party library)或者用了你并没有在意的标准的java库。
 
 
