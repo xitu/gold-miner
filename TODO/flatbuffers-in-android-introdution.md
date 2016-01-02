@@ -125,7 +125,7 @@ JSON文件的部分代码如下所示：
 现在，让我们创建一个例子程序来展示FlatBuffers格式在实际开发中是如何工作的。程序截图如下所示。
 ![截图](http://frogermcs.github.io/images/17/screenshot.png "ScreenShot")
 
-ProgressBar是用来展示不正确的的数据处理（在UI主线程中）将会对用户界面的平滑性产生怎样的影响。
+ProgressBar用来展示不正确的数据处理（在UI主线程中）将会对用户界面的平滑性产生怎样的影响。
 
 本程序中的`app/build.gradle`文件如下所示： 
 
@@ -264,7 +264,7 @@ JSON - 平均加载时间为200ms（波动范围在：180ms - 250ms），JSON文
 
 ![JSON](http://frogermcs.github.io/images/17/json.gif "JSON")
 
-### FlatBuffe加载数据
+### FlatBuffer加载数据
 
 ![FlatBuffers](http://frogermcs.github.io/images/17/flatbuffers.gif "FlatBuffers")
 
