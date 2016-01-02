@@ -88,7 +88,7 @@ extension UICoordinateSpace {
         return CGRectApplyAffineTransform(rect, transform)
     }
 }
-```swift
+```
 
 
 
@@ -104,7 +104,7 @@ class DrawingView : UIView {
         print(NSStringFromCGRect(invertedRect)) // 50.0, -150.0, 200.0, 100.0
     }
 }
-```swift
+```
 
 
 
@@ -121,7 +121,7 @@ extension UITableViewDataSource {
         let totalSections = self.numberOfSectionsInTableView?(tableView) ?? 1
         var s = 0, t = 0
         while s < totalsections="" {="" t="" +="self.tableView(tableView," numberofrowsinsection:="" s)="" s++="" }="" return="" t="" }="">
-```swift
+```
 
 
 
@@ -139,7 +139,7 @@ class ItemsController: UITableViewController {
         return ""
     }
 }
-```swift
+```
 
 
 
@@ -178,7 +178,7 @@ extension UIViewControllerContextTransitioning {
         return nil
     }
 }
-```swift
+```
 
 
 
@@ -203,7 +203,7 @@ class AnimationCoordinator : NSObject, UIViewControllerAnimatedTransitioning {
         return 5.0
     }
 }
-```swift
+```
 
 
 
@@ -218,7 +218,7 @@ extension UIScrollViewDelegate {
         pageControl.currentPage = lroundf(Float(scrollView.contentOffset.x / (scrollView.contentSize.width / CGFloat(pageControl.numberOfPages))));
     }
 }
-```swift
+```
 
 
 
@@ -241,7 +241,7 @@ class PagedCollectionView : UICollectionViewController {
         self.updatePageControl(self.pageControl)
     }
 }
-```swift
+```
 
 
 
@@ -268,7 +268,7 @@ When working with protocols it's best to start at the highest level of abstracti
 ```swift
 // Any entity which represents data which can be loaded from a remote source.
 protocol RemoteResource {}
-```swift
+```
 
 
 
@@ -306,7 +306,7 @@ extension RemoteResource {
 }
 
 public var dataCache: [String : NSData] = [:]
-```swift
+```
 
 
 
@@ -327,7 +327,7 @@ protocol MediaResource : RemoteResource {
     var mediaHost: String { get }
     var mediaPath: String { get }
 }
-```swift
+```
 
 
 
@@ -356,7 +356,7 @@ extension JSONResource {
         }
     }
 }
-```swift
+```
 
 
 
@@ -384,7 +384,7 @@ extension MediaResource {
         }
     }
 }
-```swift
+```
 
 
 
@@ -416,7 +416,7 @@ extension MediaResource {
         return nil
     }
 }
-```swift
+```
 
 
 
@@ -455,7 +455,7 @@ extension NSObjectProtocol where Self: Unique {
         return false
     }
 }
-```swift
+```
 
 
 
@@ -477,7 +477,7 @@ class Song : NSObject, JSONResource, Unique {
     // MARK: - Unique
     var id: String!
 }
-```swift
+```
 
 
 
@@ -500,7 +500,7 @@ extension JSONResource where Self: Song {
         }
     }
 }
-```swift
+```
 
 
 
@@ -517,7 +517,7 @@ let artistLabel = UILabel()
 s.loadJSON { (success) -> () in
     artistLabel.text = s.artist
 }
-```swift
+```
 
 
 
@@ -549,7 +549,7 @@ extension JSONResource where Self: Playlist {
         }
     }
 }
-```swift
+```
 
 
 
@@ -561,7 +561,7 @@ Before we blindly implement `MediaResource` for `Playlist`, we should step back 
 extension MediaResource where Self: Unique {
     var mediaPath: String { return String(format: "/images/%@", self.id) }
 }
-```swift
+```
 
 
 
@@ -578,7 +578,7 @@ let playlistImageView = UIImageView(frame: CGRectMake(0.0, 0.0, 200.0, 200.0))
 p.loadMedia { () -> () in
     playlistImageView.image = p.imageValue
 }
-```swift
+```
 
 
 
@@ -612,7 +612,7 @@ protocol StringRepresentable {
 extension NSObjectProtocol where Self: StringRepresentable {
     var description: String { return self.longString }
 }
-```swift
+```
 
 
 
@@ -632,7 +632,7 @@ class Album : NSObject, StringRepresentable {
     var artist: Artist!
     var tracks: Int!
 }
-```swift
+```
 
 
 
@@ -652,7 +652,7 @@ extension StringRepresentable where Self: Album {
     var mediumString: String { return String(format: "%@ (%d Tracks)", self.title, self.tracks) }
     var longString: String { return String(format: "%@, an Album by %@ (%d Tracks)", self.title, self.artist.name, self.tracks) }
 }
-```swift
+```
 
 
 
@@ -666,7 +666,7 @@ protocol StringDisplay {
     var containerFont: UIFont { get }
     func assignString(str: String)
 }
-```swift
+```
 
 
 
@@ -698,7 +698,7 @@ extension StringDisplay {
 
     private func stringWithin(str: String) -> Bool {
         return self.sizeWithString(str).height <= self.containersize.height="" }="">
-```swift
+```
 
 
 
@@ -716,7 +716,7 @@ extension UILabel : StringDisplay {
         self.text = str
     }
 }
-```swift
+```
 
 
 
@@ -748,7 +748,7 @@ extension UIViewController : StringDisplay {
         self.title = str
     }
 }
-```swift
+```
 
 
 
@@ -761,7 +761,7 @@ let a = Artist()
 a.name = "Bob Marley"
 a.instrument = "Guitar / Vocals"
 a.bio = "Every little thing's gonna be alright."
-```swift
+```
 
 
 
@@ -779,7 +779,7 @@ let mediumButton = UIButton(frame: CGRectMake(0.0, 0.0, 300.0, 40.0))
 mediumButton.displayStringValue(a)
 
 print(mediumButton.titleLabel!.text) // 'Bob Marley (Guitar / Vocals)'
-```swift
+```
 
 
 
@@ -800,7 +800,7 @@ class AlbumDetailsViewController : UIViewController {
         self.displayStringValue(self.album)
     }
 }
-```swift
+```
 
 
 
@@ -821,7 +821,7 @@ First we'll define a base protocol that represents an entity which is styled, de
 protocol Styled {
     func updateStyles()
 }
-```swift
+```
 
 
 
@@ -838,7 +838,7 @@ protocol FontWeight : Styled {
     var size: CGFloat { get }
     var bold: Bool { get }
 }
-```swift
+```
 
 
 
@@ -859,7 +859,7 @@ extension FontWeight_H1 {
     var size: CGFloat { return 24.0 }
     var bold: Bool { return true }
 }
-```swift
+```
 
 
 
@@ -880,7 +880,7 @@ extension UITableViewCell : Styled {
         }
     }
 }
-```swift
+```
 
 
 
@@ -894,7 +894,7 @@ public override func awakeFromNib() {
         self.updateStyles()
     }
 }
-```swift
+```
 
 
 
@@ -904,7 +904,7 @@ Now when we create our cell we can just adopt the styles we want!
 
 ```swift
 class PurpleHeaderCell : UITableViewCell, BackgroundColor_Purple, FontWeight_H1 {}
-```swift
+```
 
 
 
@@ -952,7 +952,7 @@ class PreviewController: UIViewController {
         super.init(nibName: "PreviewController", bundle: NSBundle.mainBundle())
     }
 }</stringrepresentable></stringrepresentable>
-```swift
+```
 
 
 
@@ -976,7 +976,7 @@ override func viewDidLoad() {
             self.imageView.image = self.modelObject.imageValue
         }
     }
-```swift
+```
 
 
 
@@ -1005,7 +1005,7 @@ Finally, we can use the same methods to obtain metadata for our Facebook functio
         }
     }
 }
-```swift
+```
 
 
 
@@ -1027,7 +1027,7 @@ class TweetObject {
     var user_name: String!
     var profile_image_id: String!
 }
-```swift
+```
 
 
 
@@ -1046,7 +1046,7 @@ extension TweetObject : StringRepresentable, MediaResource {
     var mediumString: String { return String(format: "%@ (%d Retweets)", self.user_name, self.retweet_count) }
     var longString: String { return String(format: "%@ Wrote: %@", self.user_name, self.text) }
 }
-```swift
+```
 
 
 
@@ -1057,7 +1057,7 @@ Now we can now pass a `TweetObject` to our `PreviewController` and it doesn't ev
 ```swift
 let tweet = TweetObject()
 let vc = PreviewController(previewObject: tweet)
-```swift
+```
 
 
 
@@ -1070,6 +1070,3 @@ It's a cost-benefit question of code interpretability. Protocols & extensions do
 In the end I wouldn't call protocol extensions a universal game-changing feature, but rather a constructive tool in highly precise development scenarios. Still, I think it's worth it for any developer to try protocol-oriented techniques -- you'll never fully know the benefits until you start to refocus your existing code in the context of protocols. Use them wisely.
 
 For any questions, or if you want to chat in more detail, shoot me an [email](mailto:ttillage@captechconsulting.com) or find me on [Twitter](https://twitter.com/ttillage)!
-
-
-
