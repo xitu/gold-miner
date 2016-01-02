@@ -2,12 +2,12 @@
 * 原文作者 : [Marcus Pöhls](https://futurestud.io/blog/author/marcus)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : Kevin Xiu
-* 校对者: 
-* 状态 :  初稿待审核
+* 校对者: [kassadin](https://github.com/kassadin)、[foolishgao](https://github.com/foolishgao)
+* 状态 :  审核完待通过
 
 这是Retrofit系列文章中的第一篇，这个系列前前后后有几个用例，并且还分析了Retrofit的功能性和可扩展性。
 
-** — 2015.10.21日更新**
+**— 2015.10.21日更新**
 
 除了之前已经有的关于Retrofit 1.9的代码样例，我们也已经添加了新的关于Retrofit 2（基于 2.0.0-beta2）的代码样例。 并且也已经发布了一个扩展的Retrofit更新指南：在下述内容的 #15。
 
@@ -27,7 +27,7 @@
 你将会用注解去描述HTTP请求，同时Retrofit默认集成URL参数替换和查询参数.除此之外它还支持 Multipart请求和文件上传。
 
 
-## 如何去声明请求（或者API）
+## 如何去声明请求（API）
 
 请去[Retrofit 主页](http://square.github.io/retrofit/#api-declaration) 浏览并阅读相应的API声明章节来理解如何发送一个请求。你可以在上面找到所有重要的信息，和非常清楚的代码样例。
 
@@ -36,7 +36,7 @@
 
 ### 定义依赖关系：Gradle 或者 Maven
 
-现在，在你的项目中设置 Retrofit依赖。 根据你自己的构建工具，在`pom.xml`或者`build.gradle`中定义Retrofit和它的依赖关系。当运行命令去构建你的项目时，构建系统会在你的项目里下载相应的库。 我们建议用OkHTTP搭配Retrofit，OKHTTP同样需要定义[Okio](https://github.com/square/okio#download)依赖。
+现在，在你的项目中设置 Retrofit依赖。 根据你自己的构建工具，在`pom.xml`或者`build.gradle`中定义Retrofit和它的依赖关系。当运行命令去构建你的项目时，构建系统会在你的项目里下载相应的库。 我们建议用OkHTTP搭配Retrofit，oKHttp同样需要定义[Okio](https://github.com/square/okio#download)依赖。
 
 #### **Retrofit 1.9**
 
@@ -90,6 +90,7 @@ Retrofit 2默认使用OKHttp作为网络层,并且在它上面进行构建。 �
 
 
 **ServiceGenerator** 是我们 API/HTTP客户端的核心， 在目前的阶段，它只定义了一个对给定的类或者接口创建一个基本的REST适配器(adapter)的方法。
+
 **Retrofit 1.9**
 
     public class ServiceGenerator {
@@ -143,7 +144,8 @@ Retrofit 1.9 默认提供Google的GSON。你需要做的只是定义好你的res
 ### GitHub 客户端
 
 
-接下来的代码定义了一个`GithubClient`和一个请求仓库的贡献者列表的方法。它也说明了Retrofit的参数替换功能（当调用对象的方法时，在定义的路径中的{owner} and {repo}将会被所给的变量所替换）。
+接下来的代码定义了一个`GithubClient`和一个请求仓库的贡献者列表的方法。它也说明了Retrofit的参数替换功能（当调用对象的方法时，在定义的路径中的{owner} 和 {repo}将会被所给的变量所替换）。
+
 **Retrofit 1.9**
 
     public interface GitHubClient {  
