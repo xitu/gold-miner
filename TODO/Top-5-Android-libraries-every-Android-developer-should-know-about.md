@@ -171,7 +171,7 @@ class DripCoffeeModule {
 
 ```
 
-关于依赖注入本身，如果获取更多信息，请查看Dagger 2 主页或 [talk about Dagger 2 by Gregory Kick](https://www.youtube.com/watch?v=oK_XtfXPkqw).
+关于依赖注入本身，如果想获取更多信息，请查看Dagger 2 主页或 [talk about Dagger 2 by Gregory Kick](https://www.youtube.com/watch?v=oK_XtfXPkqw).
 
 ### 附加链接
 
