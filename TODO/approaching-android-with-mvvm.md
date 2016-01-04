@@ -13,21 +13,21 @@
 
 
 ### 什么是MVVM模式?
-**Model-View-ViewModel** 就是将其中的 **View** 的状态和行为抽象化，让我们可以将UI和业务逻辑分开。当然这些工作 **ViewModel** 已经帮我们做了，它可以获取到 **Model** 传出的数据并将这些数据显示到 **View** 上。
+**Model-View-ViewModel** 就是将其中的 **View** 的状态和行为抽象化，让我们可以将UI和业务逻辑分开。当然这些工作 **ViewModel** 已经帮我们做了，它可以取出 **Model** 的数据同时帮忙处理 **View** 中由于需要展示内容而涉及的业务逻辑。
 
 MVVM模式是通过以下三个核心组件组成，每个都有它自己独特的角色：
 
 *   **Model** - 包含了业务和验证逻辑的数据模型
-*   **View** - 表示屏幕上的一个视图
-*   **ViewModel** - 扮演“View”和“Model”之间的使者,帮忙处理一些 **View** 的逻辑事务
+*   **View** - 定义屏幕中View的结构，布局和外观
+*   **ViewModel** - 扮演“View”和“Model”之间的使者,帮忙处理 **View** 的全部业务逻辑
 
 ![](https://cdn-images-1.medium.com/max/1600/1*VLhXURHL9rGlxNYe9ydqVg.png)
 
-那这和我们曾经用过的MVC模式有什么不同呢？以下就是MVC的结构
+那这和我们曾经用过的MVC模式有什么不同呢？以下是MVC的结构
 
 *   **View** 在 **Controller** 的顶端，而 **Model** 在 **Controller** 的底部
 *   **Controller** 需要同时关注 **View** 和 **Model**
-*   **View** 只需要关注随时来自 **Model** 的通知
+*   **View** 只能知道 **Model** 的存在并且能在Model的值变更时收到通知
 
 MVVM模式和MVC有些类似，但有以下不同：
 
@@ -43,12 +43,12 @@ MVVM模式和MVC有些类似，但有以下不同：
 
 正如前面提及过的，我将我原来的一个项目拆开为这篇文章服务。这款应用有以下几种特性:
 
-*   检索帖子
+*   查看帖子列表
 *   查看单个帖子
 *   查看帖子下的评论
 *   查看指定作者的帖子
 
-因为这些都是已经实现过的，所以减少了我们不少代码量，让我们更加容易去了解这些操作是如何进行的。下面的图片能让你很快了解它是怎么工作的：
+我们这么做是为了缩减代码库的规模，更加容易去了解这些操作是如何进行的。下面的图片能让你很快了解它是怎么工作的：
 
 ![](https://cdn-images-1.medium.com/max/1600/1*zMUV6foMMwgciC44zkP3Vg.png)
 
@@ -60,7 +60,7 @@ MVVM模式和MVC有些类似，但有以下不同：
 
 每个帖子信息都用 **RecyclerView** 所包含的 **CardView** 包装起来，正如上图展示的。
 
-通过MVVM我们可以将不同层抽象出来很好的实现这些卡片，这意味着每个MVVM组件只要处理它被分配的任务即可。那么我们该如何将它们从布局中抽离出来？
+使用MVVM我们可以将不同层抽象出来很好的实现这些卡片，这意味着每个MVVM组件只要处理它被分配的任务即可。通过使用前面介绍的MVVM的不同组件，组合在一起后能构造出我们的帖子卡片实例，那么我们该如何将它们从布局中抽离出来？
 
 ![](https://cdn-images-1.medium.com/max/1600/1*W5rJoOlz6YpZn6s36BLvSw.png)
 
@@ -110,7 +110,7 @@ public class Post {
 
 }
 ```
-
+为了可读性，上面的 **POST** 类中去掉了一些Parcelable变量和方法
 这里你可以看到**Post**类只包含所有它的属性，没有一点别的逻辑 - 别的组件会处理它们。
 
 ##View
@@ -335,7 +335,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.BindingHolder>
 
 ### ViewModel
 
-**ViewModel** 扮演了 **View** 和 **Model** 之间使者的角色，让它来关注所有涉及到**View**的业务逻辑，同时它可以访问**Model**的方法和属性，这些最终会作用到**View**中。
+**ViewModel** 扮演了 **View** 和 **Model** 之间使者的角色，让它来关注所有涉及到 **View** 的业务逻辑，同时它可以访问 **Model** 的方法和属性，这些最终会作用到 **View** 中。通过
+**ViewModel**，可以移除原本需要在别的组件中返回或处理的数据。
 
 在这里，[PostViewModel](https://github.com/hitherejoe/MVVM_Hacker_News/blob/master/app/src/main/java/com/hitherejoe/mvvm_hackernews/viewModel/PostViewModel.java) 用 **Post** 对象来处理 **CardView** 需要显示的内容，在下面的类中，你可以看到一系列的方法，每个方法对最终作用于我们的帖子视图。
 
