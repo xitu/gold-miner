@@ -5,6 +5,16 @@
 * 校对者 :
 * 状态 : 待定
 
+Welcome to the Android-Studio-Tips-by-Phillipe-Breault wiki!
+
+Ι am creating this Repository because i think every Android Studio Tip that Phillipe Breault is posting **NEEDS** to be recorded :) 
+
+I will keep updating this repository with every new Tip.
+
+Stay tuned !!
+
+Credits to: [Philippe Breault](https://plus.google.com/u/0/+PhilippeBreault)
+
 # 1. 分析数据流传递到此处的路径（Analyze data flow to here）
 
 - **描述：**这个操作将会根据当前选中的变量、参数或者字段，分析出其传递到此处的路径。
@@ -529,5 +539,3 @@ IDE能帮我们干点啥呢？当然是一个舒服的界面来编写和测试�
 - **快捷键：**Ctrl + V(OS X)、Alt + `(Windows/Linux)
 
 ![](https://lh4.googleusercontent.com/-ECCa5aqBxCk/VC02T6rz1gI/AAAAAAAAN7E/dtD24CNJbdg/w450-h329-no/37-vcspopup.gif)
-
-
