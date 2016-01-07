@@ -462,7 +462,7 @@ IDE能帮我们干点啥呢？当然是一个舒服的界面来编写和测试�
 
 ![](https://lh4.googleusercontent.com/-6i3EY9IZJBg/VCqVy_ab3EI/AAAAAAAAN4U/ebD7lM9J68Q/w451-h265-no/35-stoprocess.gif)
 
-# 55. 多行选择编辑（Sublime Text Multi Selection）
+# 55. 多处选择编辑（Sublime Text Multi Selection）
 
 - **描述：**这个功能超级赞！该操作会识别当前选中字符串，选择下一个同样的字符串，并且添加一个光标。这意味着你可以在同一个文件里拥有多个光标，你可以同时在所有光标处输入任何东西。
 - **快捷键：**Ctrl + G(OS X)、Alt + Ｊ（Windows、Linux）
