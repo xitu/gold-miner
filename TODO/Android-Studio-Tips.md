@@ -537,17 +537,6 @@ Shortcut (on a file tab):
 ![](https://lh5.googleusercontent.com/-EAoir3ZP1bM/VFtyO5OaU_I/AAAAAAAAOug/b6jeKDVT-BM/w418-h268-no/62-openfinder.gif)
 
 
-# Open File Externally
-
-With this shortcut, you can open your file navigator to the current file or any of its parent folder simply by clicking on its tab.
-
-Shortcut (on a file tab): 
-  Mac: **Cmd+Click**
-  Windows/Linux: **Ctrl+Alt+F12**
-
-![](https://lh5.googleusercontent.com/-EAoir3ZP1bM/VFtyO5OaU_I/AAAAAAAAOug/b6jeKDVT-BM/w418-h268-no/62-openfinder.gif)
-
-
 # Parameter Info
 
 This is the same list of parameter names as the one that appears when you are writing a method call. It is useful when you want to see an existing method's params.
