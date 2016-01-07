@@ -47,10 +47,10 @@ Credits to: [Philippe Breault](https://plus.google.com/u/0/+PhilippeBreault)
 - **描述：**这是一个很有用的功能，让你可以在某处做个标记（书签），方便后面再跳转到此处。
 - **调用：**Menu → Navigate → Bookmarks
 - **快捷键：**
-- 添加/移除书签：F3(OS X) 、F11(Windows/Linux);
-- 添加/移除书签(带标记)：Alt + F3(OS X)、Ctrl + F11(Windows/Linux);
-- 显示全部书签：Cmd + F3(OS X) 、Shift + F11(Windows/Linux)，显示所有的书签列表，并且是可以搜索的。
-- 上一个/下一个书签：无，可以在设置中设置快捷键。
+    - 添加/移除书签：F3(OS X) 、F11(Windows/Linux);
+    - 添加/移除书签(带标记)：Alt + F3(OS X)、Ctrl + F11(Windows/Linux);
+    - 显示全部书签：Cmd + F3(OS X) 、Shift + F11(Windows/Linux)，显示所有的书签列表，并且是可以搜索的。
+    - 上一个/下一个书签：无，可以在设置中设置快捷键。
 - **更多：**当你为某个书签指定了标记，你可以使用快捷键 Ctrl + 标记 来快速跳转到标记处，比如输入Ctrl + 1，跳到标记为1的书签处。
 
 ![](https://lh4.googleusercontent.com/-Srf301d5soU/U_M7Y6YtTpI/AAAAAAAAM2w/o5cIvPjGwNo/w848-h371-no/07-bookmarks.gif)
@@ -219,10 +219,10 @@ IDE能帮我们干点啥呢？当然是一个舒服的界面来编写和测试�
 - **定位到上一处/下一处：**Menu → Edit → Find → Find Next/Previous；
 - **快捷键：**相关快捷键请在菜单中查看；
 - **更多：**
-- 如果高亮一个方法的`return`或`throw`语句，将会高亮方法所有结束的地方；
-- 如果高亮某个类定义处的`extend`或`implements`语句，将会高亮继承的或实现的方法；
-- 高亮一个`import`语句也会高亮使用到的地方；
-- 按下Esc可以退出高亮模式；
+    - 如果高亮一个方法的`return`或`throw`语句，将会高亮方法所有结束的地方；
+    - 如果高亮某个类定义处的`extend`或`implements`语句，将会高亮继承的或实现的方法；
+    - 高亮一个`import`语句也会高亮使用到的地方；
+    - 按下Esc可以退出高亮模式；
 
 ![](https://lh4.googleusercontent.com/-PHQFYqcYi58/U-tQtazuCbI/AAAAAAAAMrE/SGNBmtGwMAk/w198-h184-no/01-highlight.gif)
 
@@ -244,9 +244,9 @@ IDE能帮我们干点啥呢？当然是一个舒服的界面来编写和测试�
 # 27. 合并行和文本（Join Lines and Literals）
 
 - **描述：**这个操作比起在行末使劲按删除键爽多了！该操作遵守格式化规则，同时：
-- 合并两行注释，同时移除多余的`//`；
-- 合并多行字符串，移除`+`和双引号；
-- 合并字段的声明和初始化赋值；
+    - 合并两行注释，同时移除多余的`//`；
+    - 合并多行字符串，移除`+`和双引号；
+    - 合并字段的声明和初始化赋值；
 
 - **快捷键：**Ctrl + Shift + J；
 
@@ -364,9 +364,9 @@ IDE能帮我们干点啥呢？当然是一个舒服的界面来编写和测试�
 你可以在某个表达式后面输入点号，出现一个候选列表，在常规的代码补全提示就可以看到一系列后缀补全关键字，同样的，你也可以在`Editor → Postfix Completion`中看到一系列后缀补全关键字。
 
 - 常用的有后缀补全关键字有：
-- **.for** (补全foreach语句)
-- **.format** (使用`String.format()`包裹一个字符串)
-- **.cast** (使用类型转化包裹一个表达式)
+    - **.for** (补全foreach语句)
+    - **.format** (使用`String.format()`包裹一个字符串)
+    - **.cast** (使用类型转化包裹一个表达式)
 
 ![](https://lh5.googleusercontent.com/-rLMdeb9cbBM/VCVUw0Y656I/AAAAAAAANt8/J2KiRPMjRzs/w474-h136-no/33-postfixcompletion.gif)
 
@@ -419,12 +419,12 @@ IDE能帮我们干点啥呢？当然是一个舒服的界面来编写和测试�
 # 49. 返回到编辑器（Return to the Editor）
 
 - **描述：**一大堆快捷键操作会把你从编辑器带走（type hierarchy, find usages, 等等）。如果你想返回到编辑器，你有两个选项：
-1. Esc：该操作仅仅把光标移回编辑器。
-2. Shift + Esc：该操作会关闭当前面板，然后把光标移回到编辑器。
+    1. Esc：该操作仅仅把光标移回编辑器。
+    2. Shift + Esc：该操作会关闭当前面板，然后把光标移回到编辑器。
 
 - **快捷键：**
-- 返回但保留打开的面板：Esc
-- 关闭面板并返回：Shift + Esc
+    - 返回但保留打开的面板：Esc
+    - 关闭面板并返回：Shift + Esc
 
 ![](https://lh6.googleusercontent.com/-q4dM4dIngCI/VDPLU9ZaohI/AAAAAAAAN_g/5IEsckp4usI/w550-h299-no/40-returntoeditor.gif)
 
@@ -509,8 +509,8 @@ IDE能帮我们干点啥呢？当然是一个舒服的界面来编写和测试�
 - **描述：**该操作可以展示当前类的大纲，并且可以快速跳转。你还可以通过键盘输入来过滤结果。这是一种很高效的方法来跳转到指定方法。
 
 - **更多：**
-- 你在输入字符的时候可以用驼峰风格来过滤选项。比如输入"oCr"会找到"onCreate"
-- 你可以通过勾选多选框来决定是否显示匿名类。这在某些情况下很有用，比如你想直接跳转到一个OnClickListener的onClick方法。
+    - 你在输入字符的时候可以用驼峰风格来过滤选项。比如输入"oCr"会找到"onCreate"
+    - 你可以通过勾选多选框来决定是否显示匿名类。这在某些情况下很有用，比如你想直接跳转到一个OnClickListener的onClick方法。
 
 - **快捷键：**Cmd + F12(OS X)、Ctrl + F12(Windows/Linux)
 - **调用：**Menu → Navigate → File Structure
