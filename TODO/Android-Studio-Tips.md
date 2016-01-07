@@ -79,9 +79,9 @@
 # 9. 语句补全（Complete Statement）
 
 - **描述：**这个方法将会生成缺失的代码来补全语句，常用的使用场景如下：
-- 在行末添加一个分号，即使光标不在行末；
-- 为if、while、for 语句生成圆括号和大括号；
-- 方法声明后，添加大括号；
+    - 在行末添加一个分号，即使光标不在行末；
+    - 为if、while、for 语句生成圆括号和大括号；
+    - 方法声明后，添加大括号；
 - **调用：**Menu → Edit → Compelete Current Statement
 - **快捷键：**Cmd + Shift + Enter(OS X)、Ctrl + Shift + Enter(Windows/Linux)；
 - **更多：**如果一个语句已经补全，当你执行该操作时，则会直接跳到下一行，即使光标不在当前行的行末。
@@ -128,9 +128,9 @@
 # 15. 编写正则表达式（Edit Regex）
 
 - **描述：**使用Java编写正则表达式是一件很困难的事，主要原因是：
-- 你必须得避开反斜杠；
-- 说实话，正则很难；
-- 看第二条。
+    - 你必须得避开反斜杠；
+    - 说实话，正则很难；
+    - 看第二条。
 
 IDE能帮我们干点啥呢？当然是一个舒服的界面来编写和测试正则啦~
 - **快捷键：**Alt + Enter → check regexp
@@ -309,7 +309,7 @@ IDE能帮我们干点啥呢？当然是一个舒服的界面来编写和测试�
 
 ![](https://lh6.googleusercontent.com/-23C2Q2S0c2E/VFzEI5iu0GI/AAAAAAAAOwM/Os1jGMHGVIA/w418-h268-no/63-nestednavigation.gif)
 
-# 37. 定位到父类（Navigate to parent）	
+# 37. 定位到父类（Navigate to parent） 
 
 - **描述：**如果光标是在一个继承父类重写的方法里，这个操作将定位到父类实现的地方。如果光标是在类名上，则定位到父类类名。
 - Menu → Navigate → Super Class/Method
@@ -354,16 +354,16 @@ IDE能帮我们干点啥呢？当然是一个舒服的界面来编写和测试�
 你可以在某个表达式后面输入点号，出现一个候选列表，在常规的代码补全提示就可以看到一系列后缀补全关键字，同样的，你也可以在`Editor → Postfix Completion`中看到一系列后缀补全关键字。
 
 - 常用的有后缀补全关键字有：
-- for (补全foreach语句)
-- .format (使用`String.format()`包裹一个字符串)
-- .cast (使用类型转化包裹一个表达式)
+- **.for** (补全foreach语句)
+- **.format** (使用`String.format()`包裹一个字符串)
+- **.cast** (使用类型转化包裹一个表达式)
 
 ![](https://lh5.googleusercontent.com/-rLMdeb9cbBM/VCVUw0Y656I/AAAAAAAANt8/J2KiRPMjRzs/w474-h136-no/33-postfixcompletion.gif)
 
 
 # 43. 快速查看定义（Quick Definition Lookup）
 
-- **描述：**你曾经是否想查看一个方法或者类的具体实现，但是不想离开当前界面？	该操作可以帮你搞定。
+- **描述：**你曾经是否想查看一个方法或者类的具体实现，但是不想离开当前界面？   该操作可以帮你搞定。
 - **快捷键：**Alt + Space / Cmd + Y(OS X)、Ctrl + Shift + I(Windows/Linux)
 
 ![](https://lh4.googleusercontent.com/-m6b46h-k1ac/U_Ca197xNxI/AAAAAAAAMyQ/6W2kUyV6Ru0/w584-h191-no/05-quickdefinition.gif)
