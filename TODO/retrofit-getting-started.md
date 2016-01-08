@@ -36,7 +36,7 @@
 
 ### 定义依赖关系：Gradle 或者 Maven
 
-现在，在你的项目中设置 Retrofit依赖。 根据你自己的构建工具，在`pom.xml`或者`build.gradle`中定义Retrofit和它的依赖关系。当运行命令去构建你的项目时，构建系统会在你的项目里下载相应的库。 我们建议用OkHTTP搭配Retrofit，oKHttp同样需要定义[Okio](https://github.com/square/okio#download)依赖。
+现在，在你的项目中设置 Retrofit依赖。 根据你自己的构建工具，在`pom.xml`或者`build.gradle`中定义Retrofit和它的依赖关系。当运行命令去构建你的项目时，构建系统会在你的项目里下载相应的库。 我们建议用OkHttpP搭配Retrofit，OKHttp同样需要定义[Okio](https://github.com/square/okio#download)依赖。
 
 #### **Retrofit 1.9**
 
@@ -76,7 +76,7 @@
     }
 
 
-Retrofit 2默认使用OKHttp作为网络层,并且在它上面进行构建。 你不需要在你的项目中显示的定义OkHttp依赖，除非你有一个特殊的版本需求。
+Retrofit 2默认使用OKHttp作为网络层,并且在它上面进行构建。 你不需要在你的项目中显式的定义OkHttp依赖，除非你有一个特殊的版本需求。
 
 现在你的项目已经集成了Retrofit,让我们一起创建一个具有持久性的 Android API/HTTP客户端吧
 
@@ -133,7 +133,7 @@ Retrofit 2默认使用OKHttp作为网络层,并且在它上面进行构建。 �
 
 Retrofit 1.9 默认提供Google的GSON。你需要做的只是定义好你的response对象，之后这个response将会被自动的映射。
 
-当用Retrofit 2时，你需要对`Retrofit`对象显示的添加一个转换器(converter).这就是为什么我们要在Retrofit的 builder上调用`.addConverterFactory(GsonConverterFactory.create())`去集成GSON作为默认的JSON转换器。
+当用Retrofit 2时，你需要对`Retrofit`对象显式的添加一个转换器(converter).这就是为什么我们要在Retrofit的 builder上调用`.addConverterFactory(GsonConverterFactory.create())`去集成GSON作为默认的JSON转换器。
 
 ## Retrofit实战
 
