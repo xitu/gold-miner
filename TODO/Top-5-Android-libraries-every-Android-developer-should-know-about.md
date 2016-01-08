@@ -13,9 +13,9 @@
 
 ## 1\. [Retrofit](https://github.com/square/retrofit/tree/version-one)
 
-当涉及到实现 REST APIs时，Retrofit 仍是我们的最爱.
+当涉及到实现 REST APIs时，Retrofit 仍是我们的最爱。
 
-他们的网站上写着: “Retrofit 将 REST API 转换为 Java 接口.” 当然，还有其他解决方案, 但 Retrofit 已经被证明是在一个项目中管理 API 调用最优雅、最方便的解决方案。使用注解添加请求方法和相对地址使得代码干净简单。
+他们的网站上写着: “Retrofit 将 REST API 转换为 Java 接口。” 是的，还有其他解决方案, 但是 Retrofit 已经被证明是在一个项目中管理 API 调用最优雅、最方便的解决方案。使用注解添加请求方法和相对地址使得代码干净简单。
 
 通过注解，你可以轻松地添加请求体，操作URL或请求头并添加查询参数。
 
@@ -52,9 +52,9 @@ retrofitInterface.getUser(2048, new Callback<User>() {
 });
 ```
 
-Retrofit 默认使用 [Gson](https://code.google.com/p/google-gson/) , 所以不需要手动解析 JSON. 当然其他的转换器也是支持的。
+Retrofit 默认使用 [Gson](https://code.google.com/p/google-gson/), 所以不需要手动解析 JSON。当然其他的转换器也是支持的。
 
-现在 Retrofit 2.0 正在活跃地开发着，仍然是 beta，但你可以从[这里](http://square.github.io/retrofit/)获取到.从 Retrofit 1.9开始，很多的东西都被砍了，也有一些重大的变化比如使用新的调用接口取代回调。 
+现在 Retrofit 2.0 正在活跃地开发着，仍然是 beta，但你可以从[这里](http://square.github.io/retrofit/)获取到.从 Retrofit 1.9开始，很多的东西都被砍了，也有一些重大的变化比如使用新的调用接口取代回调。
 
 ## 2\. [DBFlow](https://github.com/Raizlabs/DBFlow)
 
@@ -87,7 +87,7 @@ DBFlow 是一个不错的 ORM，这将消除大量用于处理数据库的样板
 
 ## 3\. [Glide](https://github.com/bumptech/glide)
 
-Glide 是一个用于加载图片的库. 当前备选方案有 [Universal Image Loader](https://github.com/nostra13/Android-Universal-Image-Loader) 和 [Picasso](https://github.com/square/picasso); 但是, 以我来看, Glide 是当前的最佳选择。
+Glide 是一个用于加载图片的库。当前备选方案有 [Universal Image Loader](https://github.com/nostra13/Android-Universal-Image-Loader) 和 [Picasso](https://github.com/square/picasso); 但是, 以我来看, Glide 是当前的最佳选择。
 
 下面是一个简单的例子，关于如何使用 Glide 从 URL 加载图片到 ImageView。
 
