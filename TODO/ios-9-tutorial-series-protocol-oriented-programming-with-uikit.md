@@ -1,84 +1,84 @@
 > * 原文链接: [iOS 9 Tutorial Series: Protocol-Oriented Programming with UIKit](http://www.captechconsulting.com/blogs/ios-9-tutorial-series-protocol-oriented-programming-with-uikit)
 * 原文作者 : [TYLER TILLAGE](http://www.captechconsulting.com/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
+* 译者 : [walkingway](https://github.com/walkingway)
 * 校对者 :
 * 状态 : 待定
 
-After the thought-provoking [Protocol-Oriented Programming in Swift](https://developer.apple.com/videos/wwdc/2015/?id=408) talk at WWDC 2015 (yeah, the "Crusty" one) it seems like everyone has been talking about **protocol extensions**, that exciting new language feature that makes everyone confused at least once.
 
-I've read countless articles about Swift protocols and the ins/outs of protocol extensions, and it's clear that protocol extensions will be another strong ingredient in the Swift recipe. Apple even recommends defaulting to a protocol instead of a class whenever possible -- this approach is the crux of **protocol-oriented programming**.
+Swift 中令人耳目一新的『面向协议编程』在 2015 年 WWDC 上一经推出，街头巷尾都在热情洋溢地讨论着**协议扩展**（protocol extensions）---这一激动人心的语言新特性，既然是新特性，第一次接触总要走点弯路。
 
-But while the articles I've read have been clear on what protocol extensions _are_, they don't reveal what protocol-oriented programming truly _means_ for UI development in particular. Most of the sample code currently available is built from contrived scenarios that don't utilize any frameworks.
+我已经阅读过无数篇关于 Swift 协议和协议扩展来龙去脉的文章，这些文章无疑都表达了同一个观点：在 Swift 新版图中**协议扩展**拥有绝对主力位置。苹果官方甚至推荐默认使用协议（protocol）来替换类（class），而实现这种方式的关键正是面向协议编程。
 
-I wanna know how protocol extensions affect the apps I've already built, how I can leverage them to work more powerfully within the single most important iOS framework, UIKit.
+但是我读过的这些文章只是把『什么是协议扩展』讲清楚了，并没有揭开『面向协议编程』真正的面纱。尤其是针对日常 UI 的开发，大部分实例代码并没有切合实际的使用场景，也没有利用任何框架。
 
-Now that we have protocol extensions, are protocol-based approaches more valuable in the class-heavy land of UIKit? This article is my attempt to rationalize Swift protocol extensions with real-world UI scenarios, and a chronicle of my discovery that protocol extensions aren't quite what I expected them to be.
+我想要明确的是：**协议扩展**如何影响现有构建的工程，并且利用这一新特性更好地与 UIKit 协同工作。
 
-### The Benefit of Protocols
+现在我们已经拥有了协议扩展，那么在以类为主的 UIKit 中改用基于协议的实现方式是否更有价值。这篇文章我尝试将 Swift 的协议扩展与真实世界的 UI 完美结合，但随着我们进一步探索，就会发现二者的匹配度并不如我们所期望的那样。 
+
+###协议的优势
 
 Protocols are nothing new, but the idea that we can _extend_ them with built-in functionality, shared logic, magical power...well that's a fascinating thought. More protocols == more flexibility. A protocol extension is a small chunk of modular functionality that can be adopted, overriden (or not) and can interact with type-specific code through the `where` clause.
 
-> _Protocols_ really only exist to keep the compiler happy, but protocol  
-> _extensions_ are tangible pieces of logic shared across the entire codebase.
+协议并不是什么新技术，但我们可以使用内置的函数扩展他们，共享内部逻辑，很神奇不是吗？真是个美妙的想法，协议越多代表灵活性越好。一个协议扩展代表可被部署的单一功能模块，并且该模块可以被重载（或不可以）和通过 where 子句与特定类型的代码交互。
 
-While it's only possible to inherit from one superclass, we can adopt as many extended protocols as desired. Adopting a protocol that's extended is kind of like adding a directive to an element in Angular.js -- we're injecting logic that alters the way our object behaves. Protocols are no longer just a contract, with extensions they can be an adoption of functionality.
+> 协议 _Protocols_ 存在的目的让编译器满意就好，但协议扩展 _extensions_ 是一段代码片段，可在整个代码库里共享的有形资产
 
-## How to Use Protocol Extensions
+虽然只可能从一个父类继承，但只要我们需要，可以尽可能多地部署协议扩展。部署一个协议就像是添加一个指令到 Angular.js 里的元素中，我们通过向某些对象注射逻辑从而改变这些对象的行为。协议不再仅仅是一份合同，通过扩展成为了一种可被部署的功能。
 
-The usage of protocol extensions is very simple. This article is not a how-to, but instead a discussion about the applicability of protocol extensions to UIKit development. If you need to get up-to-speed on how they work, check out the [Official Swift Documentation on Procotol Extensions](https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Protocols.html#//apple_ref/doc/uid/TP40014097-CH25-ID521).
+## 如何使用扩展协议
 
-### Protocol Extension Limitations
+协议扩展的用法非常简单，这篇文章不会教你用法，而是引领你们手握`协议扩展`这一利器在 UKIit 开发领域做一些有价值的尝试。如果你需要火速熟悉基本用法，请参考苹果的官方文档 [Official Swift Documentation on Procotol Extensions](https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Protocols.html#//apple_ref/doc/uid/TP40014097-CH25-ID521)
 
-Before we get started, let's clear the air about what protocol extensions _aren't_. There's a lot we can't do with protocol extensions, many of them by design. However I would love to see Apple address some of these limitations in future versions of Swift.
+### 协议扩展的局限
 
-*   Cannot call protocol extension members from Objective-C.
-*   Cannot use the `where` clause with a `struct` type.
-*   Cannot define multiple comma-separated `where` clauses, similar to an `if let` statement.
-*   Cannot store dynamic variables inside a protocol extension.
-    *   This is also true for non-generic extensions.
-    *   Static variables are supposed to be allowed, but as of Xcode 7.0 they print the error "static stored properties not yet supported in generic types."
-*   Cannot call `super` to invoke a protocol extension, unlike a non-generic extension.
-    *   For this reason there's no real concept of protocol extension inheritance.
-*   Cannot adopt multiple protocol extensions with duplicate members.
-    *   The Swift runtime chooses the last protocol adopted and ignores the others.
-    *   For example, if we have 2 protocol extensions which implement the same methods, only the last one we've adopted will be used when the method is invoked. There's no way to invoke the methods from the other extensions.
-*   Cannot extend optional protocol methods.
-    *   Optional protocol methods require the `@objc` tag, which cannot be used together with a protocol extension.
-*   Cannot declare a protocol & its extension at the same time.
-    *   It would be nice to be able to declare `extension protocol SomeProtocol {}` to simultaneously declare the protocol and implement the extension, since protocols don't always have any members when the extension contains all of the important logic.
+在我们开始前，先让我们澄清下**协议扩展**不是什么，有很多事情**协议扩展**是做不了的，这种限制取决于语言自身设计。不过我还是很期待苹果在未来的 Swift 版本更新中解除一些限制。
 
-## Part 1: Extending Existing UIKit Protocols
+* 不能在协议扩展里调用来自 Objective-C 的成员
+* 不能使用 `where` 字句限定 `struct` 类型
+* 不能定义多个以逗号分隔的 `where` 从句，类似于 `if let` 语句
+* 不能在协议扩展内部存储动态变量
+	* 该规则同样适用于非泛型扩展
+	* 静态变量应该是允许的，但截至 Xcode 7.0 还会打印 "静态存储属性不支持泛型类型" 的错误。
+* 与非泛型扩展不同，不能调用 `super` 来执行一个协议扩展
+	* 因为这个原因，协议扩展没有继承的概念
+* 不能为同一成员部署多个协议扩展
+	* Swift 的运行时只会选择最后匹配的协议，而忽略其他的
+	* 举个例子，如果你有两个协议扩展都实现了相同的方法，那么只有后部署的协议方法的会被实际调用，不能从其他扩展里执行该方法
+* 不能扩展可选的协议方法
+	* 可选协议要求 @objc 标签，不能和协议扩展一起使用
+* 不能在同一时刻声明一个协议和他的扩展
+	* 但使用 `extension protocol SomeProtocol {}` 是可以实现同时声明协议与实现扩展的，当扩展包含所有必要的逻辑时，协议并不包含任何成员。
 
-When I first learned about protocol extensions, the protocol that popped into my head was `UITableViewDataSource`, arguably the most widely implemented protocol on the iOS platform. Wouldn't it be interesting, I pondered, if I could provide a _default implementation_ for all of the `UITableViewDataSource` adopters in my app?
+## Part 1: 扩展现有UIKit协议
 
-If every `UITableView` has a set # of sections, why not extend `UITableViewDataSource` and implement `numberOfSectionsInTableView:` in one place? If I implement the same swipe to delete functionality in all of my tables, why not implement `UITableViewDelegate` inside a protocol extension?
+当我第一次学习协议扩展时，首先想到的就是 `UITableViewDataSource` 这个广为人知的数据源协议。我琢磨着如果能向所有部署了 `UITableViewDataSource` 协议的对象都提供默认的实现，岂不是很有意思？
 
-For now, that's not possible.
+如果每个 `UITableView` 都有一组 sections，那么为什么不扩充 `UITableViewDataSource`，然后在同一个位置实现 `numberOfSectionsInTableView:` 方法？如果在所有的 tables 上都需要滑动删除的功能，为什么不在协议扩展里实现 `UITableViewDelegate` 的相关方法？
 
-**What we CAN'T do:**  
-_Provide default implementations for Objective-C protocols._
+目前来说，这都是不可能的
 
-UIKit is still compiled from Objective-C, and Objective-C has no concept of protocol extendability. What this means in practice is that despite our ability to declare extensions on UIKit protocols, UIKit objects can't see the methods inside our extensions.
+**我们不能做什么：**
+为 Objective-C 协议提供一个默认的实现
 
-For example: if we extend `UICollectionViewDelegate` to implement `collectionView:didSelectItemAtIndexPath:`, it won't be invoked when tapping the cell because `UICollectionView` itself can't see the method from the Objective-C context. If we put a non-optional method in the protocol extension like `collectionView:cellForItemAtIndexPath:`, the compiler will complain that our adopter doesn't conform to `UICollectionViewDelegate`.
+UIKit 依旧采用 Objective-C 编译，况且 Objective-C 没有协议扩展的概念。这意味着在真实项目中尽管我们有能力在 UIKit 协议里声明扩展，但是 UIKit 对象并不能看到我们扩展里的方法。
 
-Xcode vainly attempts to fix this problem by prepending `@objc` to our protocol extension methods, which reveals a new error "Method in protocol extension cannot be represented in Objective-C." This is the underlying issue -- protocol extensions are only available in Swift 2+ code.
+举个例子，如果我们扩充了 `UICollectionViewDelegate` 来实现 `collectionView:didSelectItemAtIndexPath:`。但是当你点击 cell 并不会触发该协议方法，这是因为在 Objective-C 上下文环境中 `UICollectionView` 自己是看不到我们实现的协议方法。如果我们将一个必须实现的 delegate 方法（`collectionView:cellForItemAtIndexPath:`）放到协议扩展中，编译器会向我们抱怨：『声明实现协议的对象』没有遵守 `UICollectionViewDelegate` 协议（因为看不到） 
 
-**What we CAN do:**  
-_Add new methods to existing Objective-C protocols._
+Xcode 尝试在我们的协议扩展方法前添加 `@objc` 来解决这一问题，只能说想象总是美好的，现实却很残酷。又冒出一个新错误：『协议扩展中的方法不能应用于 Objective-C』，这才是根本问题所在--协议扩展只适用于 Swift 2.0 以上的版本
 
-We _can_ invoke UIKit protocol extension methods directly from Swift even if UIKit can't see them. This means that although we can't _override_ existing UIKit protocol methods, we can _add_ new convenience methods for when we're working with that protocol.
+**我们能做什么**
+添加一个新方法到现有的 Objective-C 协议中
 
-Not as exciting, I admit. And any legacy Objective-C code still can't invoke these methods. But there remain some opportunities here. Below are some simple examples of what's now possible when combining protocol extensions & existing UIKit protocols.
+我们能够在 Swift 里直接调用 UIKit 协议扩展里的方法，即使 UIKit 看不见他们。这就意味着尽管我们不能覆盖 _override_ UIKit 已有的协议方法，但是我们能为现有的协议添加新的便利方法。
 
-### UIKit Protocol Extension Examples
+我承认，不那么令人兴奋，任何属于 Objective-C 的框架代码都不能调用这些方法。但别灰心，我们还有机会。下面一些例子尝试将协议扩展和 UIKit 里存在的协议结合起来。
 
-#### Extending `UICoordinateSpace`
+### UIKit协议扩展示例
 
-Ever have to convert between the Core Graphics and UIKit coordinate space? We can add helper methods to `UICoordinateSpace`, a protocol adopted by `UIView`.
+#### 扩展 `UICoordinateSpace`
 
-
+有时候需要在 Core Graphics 和 UIKit 的坐标系之间进行转换，我们可以添加一个 helper 方法到协议 `UICoordinateSpace` 中，UIView 也遵守该协议
 
 ```swift
 extension UICoordinateSpace {
@@ -90,11 +90,7 @@ extension UICoordinateSpace {
 }
 ```
 
-
-
-Now our `invertedRect` method is available within any `UICoordinateSpace` adopter. We can use it in our drawing code:
-
-
+现在我们的 `invertedRect` 方法可以应用在任何遵守 `UICoordinateSpace` 协议的对象上，我们在绘图代码中使用他：
 
 ```swift
 class DrawingView : UIView {
@@ -105,14 +101,11 @@ class DrawingView : UIView {
     }
 }
 ```
+> `UIView` 遵守 `UICoordinateSpace` 协议
 
+#### 扩展 `UITableViewDataSource`
 
-
-#### Extending `UITableViewDataSource`
-
-Although we can't provide default implementations of `UITableViewDataSource` methods, we can still put global logic into the protocol to be used by any `UITableViewDataSource` in our app.
-
-
+尽管我们不能提供关于 `UITableViewDataSource` 默认的实现方法，但我们依旧可以将全局逻辑放进协议中方便遵守 `UITableViewDataSource` 的对象使用。
 
 ```swift
 extension UITableViewDataSource {
@@ -123,11 +116,7 @@ extension UITableViewDataSource {
         while s < totalsections="" {="" t="" +="self.tableView(tableView," numberofrowsinsection:="" s)="" s++="" }="" return="" t="" }="">
 ```
 
-
-
-The `totalRows:` method above is a quick way to tally up how many items we have in our table view, useful if we want to display a total label but have our content separated into sections. A good place to use this is `tableView:titleForFooterInSection:`.
-
-
+上面的 `totalRows:` 方法可以快速统计 table view 中有多少条目（item），当我们的 cell 分散在各个 sections 之中，而又想快速得到一个总条目数时尤其有用。调用该方法的一个绝佳位置就在 `tableView:titleForFooterInSection:` 里：
 
 ```swift
 class ItemsController: UITableViewController {
@@ -141,13 +130,9 @@ class ItemsController: UITableViewController {
 }
 ```
 
+####扩展 `UIViewControllerContextTransitioning`
 
-
-#### Extending `UIViewControllerContextTransitioning`
-
-Maybe you're working on a custom navigation transition after reading my iOS 7 article on [Custom Navigation Transitions & More](https://www.captechconsulting.com/blogs/ios-7-tutorial-series-custom-navigation-transitions--more) (shameless plug). Here are a couple methods that I could have used in that tutorial, made available through the `UIViewControllerContextTransitioning` protocol.
-
-
+或许你已读过我在 iOS 7 出来时写的关于自定义导航栏的[文章](https://www.captechconsulting.com/blogs/ios-7-tutorial-series-custom-navigation-transitions--more)，也尝试开始自定义导航栏过渡。这里有一组之前文章使用的方法，让我们统统放进 `UIViewControllerContextTransitioning` 协议里。
 
 ```swift
 extension UIViewControllerContextTransitioning {
@@ -180,11 +165,7 @@ extension UIViewControllerContextTransitioning {
 }
 ```
 
-
-
-We can call these methods on the `transitionContext` object passed into our animation coordinator:
-
-
+我们在 `transitionContext` 对象（`UIViewControllerContextTransitioning`）中执行这些方法，该对象一般作为参数传递给我们的 **animation coordinator**（`UIViewControllerAnimatedTransitioning`）：
 
 ```swift
 class AnimationCoordinator : NSObject, UIViewControllerAnimatedTransitioning {
@@ -205,11 +186,7 @@ class AnimationCoordinator : NSObject, UIViewControllerAnimatedTransitioning {
 }
 ```
 
-
-
-Let's say we have multiple `UIPageControl` instances throughout our app and we copied and pasted some code between our `UIScrollViewDelegate` implementations to make them work. With protocol extensions we can make this logic global, all while still calling it using `self`.
-
-
+比方说我们的应用程序有多个 `UIPageControl` 实例，然后我们复制粘贴一些代码在 `UIScrollViewDelegate` 的实现里让其工作。通过协议扩展我们可以构建全局一种逻辑，调用时仍然使用 `self`
 
 ```swift
 extension UIScrollViewDelegate {
@@ -220,15 +197,11 @@ extension UIScrollViewDelegate {
 }
 ```
 
-
-
-Additionally, if we know `Self` is a `UICollectionViewController` we can eliminate the method's `scrollView` parameter.
-
-
+此外，如果我们知道 `Self` 就是 `UICollectionViewController`，那么可以去掉**参数** `scrollView` 
 
 ```swift
 extension UIScrollViewDelegate where Self: UICollectionViewController {
-    func updatePageControl(pageControl: UIPageControl) {
+   func updatePageControl(pageControl: UIPageControl) {
         pageControl.currentPage = lroundf(Float(self.collectionView!.contentOffset.x / (self.collectionView!.contentSize.width / CGFloat(pageControl.numberOfPages))));
     }
 }
@@ -243,38 +216,30 @@ class PagedCollectionView : UICollectionViewController {
 }
 ```
 
+无可否认的，这些例子有些牵强，事实证明想要扩展现有 UIKit 协议时，我们并没有太多手段，任何努力都有点微不足道。但是，这儿仍有一个问题需要我们面对，就是如何配合现有的 UIKit 设计模式部署自定义的协议扩展。 
 
+## Part 2: 扩展自定义协议
 
-Admittedly, these examples are pretty contrived. It turns out that there just aren't a huge number of options when it comes to extending existing UIKit protocols, and any added value is only subtle. However, there's still the question of how we can employ **custom** protocol extensions within existing UIKit design patterns.
+### MVC 中使用面向协议编程
 
-## Part 2: Extending Custom Protocols
-
-### Protocol-Oriented Programming with MVC
-
-At its core, an iOS application performs 3 essential functions. This is commonly described as the MVC (Model-View-Controller) design pattern. All an app really does is manipulate some kind of data to be represented visually.
+一个 iOS 应用程序从其核心来看执行三个基本功能，通常描述为 MVC（模型-视图-控制器）模型。所有的 App 所做的不过是对数据进行一些操作并将其显示在屏幕上。
 
 ![](http://www.captechconsulting.com/blogs/library/A9AAC94D44AB4D64B4F2634F2E4AF6B8.ashx?h=480&w=1200)
 
-In the next 3 examples I'll demonstrate some protocol-oriented design patterns that feature protocol extensions, working through each of the 3 components of the MVC pattern in the order Model -> Controller -> View.
+下面三个例子中，我将会向你们安利**面向协议编程**的设计模式思想，并尝试使用**协议扩展**依次改造 MVC 模式下的三个组件 Model -> Controller -> View。
 
-### Protocols for Model Management (M)
+### Model 管理中的协议（M）
 
-Say we're making a music app, call it Pear Music. Say we have model objects for Artists, Albums, Songs and Playlists. We need to structure some code to load these models from the network based on an identifier that we've already loaded.
+假设我们要做一个音乐 App，叫做鸭梨音乐。也就是有一堆关于艺术家、专辑、歌曲和播放列表的 **model** 对象，接下来我们要构建一些**基于的标识符代码**来从网络下载这些 models（标识符已经预先载入）
 
-When working with protocols it's best to start at the highest level of abstraction. The fundamental idea here is a resource which has a remote representation that we need to populate using an API. Let's make a protocol for that:
-
-
+实践协议最好的方式是从高等级的抽象开始。最原始的想法是我们有一个资源需要通过远端服务器 API 获取，来吧少年！开始创建一个协议
 
 ```swift
 // Any entity which represents data which can be loaded from a remote source.
 protocol RemoteResource {}
 ```
 
-
-
-But wait, that's just an empty protocol! `RemoteResource` is not intended to be adopted directly. It's not a contract, but a collection of functionality that involves making network requests. Therefore the real value of `RemoteResource` lies in its protocol extension:
-
-
+但是别急，这还只是一个空协议! `RemoteResource` 并不是用来直接部署的，他不是一份合同契约，而是一组用来执行网络请求的功能集合。因此 `RemoteResource` 真正的价值在于他的协议扩展。
 
 ```swift
 extension RemoteResource {
@@ -308,13 +273,9 @@ extension RemoteResource {
 public var dataCache: [String : NSData] = [:]
 ```
 
+现在我们有一个协议，内建了从远程服务器抓取数据的功能，任何部署了该协议的对象都能自动获得这些方法。
 
-
-Now we have a protocol with built-in functionality to load remote data and retrieve it. Any adopter of this protocol will automatically have access to these methods.
-
-We've been given 2 APIs to interface with, one for JSON data (api.pearmusic.com) and one for media (media.pearmusic.com). To handle this, we'll make sub-protocols of `RemoteResource` for each type of data.
-
-
+我们有两个 API 用来和远程服务器交互，一个适用于 JSON 数据 (api.pearmusic.com)，另一个适用于媒体数据 (media.pearmusic.com)，为了处理这些数据，我们将针对不同的数据类型创建相应的 `RemoteResource` 子协议。
 
 ```swift
 protocol JSONResource : RemoteResource {
@@ -329,11 +290,7 @@ protocol MediaResource : RemoteResource {
 }
 ```
 
-
-
-Let's build the implementations of these protocols.
-
-
+让我们实现这些协议
 
 ```swift
 extension JSONResource {
@@ -358,13 +315,9 @@ extension JSONResource {
 }
 ```
 
+我们提供了一个默认主机值，一个生成完整 URL 的请求方法，以及一个从 `RemoteResource` 载入加载资源的 `load:` 方法。我们接下来依赖以上实现来提供正确的解析方法 `jsonPath`
 
-
-We provided a default host, a way to generate the full request URL, and a way to load the resource itself using the `load:` method from `RemoteResource`. We'll then rely on our adopters to provide the correct `jsonPath`.
-
-`MediaResource` follows a similar pattern:
-
-
+`MediaResource` 的实现遵循类似模式：
 
 ```swift
 extension MediaResource {
@@ -386,15 +339,11 @@ extension MediaResource {
 }
 ```
 
+你或许可能注意到了这些实现非常相似。事实上，将很多方法提升到 `RemoteResource` 层面具有非凡的意义，根据需要从子协议返回相应的主机值（host）即可。
 
+美中不足的是，我们的协议并不是相互排斥的，我们希望有一个对象能同时满足 `JSONResource` 和 `MediaResource`。记住协议扩展是彼此相互覆盖的，除非我们采用不同的属性或方法，不然每次都是最后部署的协议才会被调用
 
-You may notice that these implementations are very much alike. In fact, it would make a lot of sense to elevate these methods to `RemoteResource` itself, only using our sub-protocols to return the proper host.
-
-The catch is that our protocols are not mutually exclusive -- we want to be able to have an object which is both a `JSONResource` and a `MediaResource`. Remember that protocol extensions override eachother. Unless we explicitly separate these properties & methods, only those within the _last protocol adopted_ will be called.
-
-Let's specialize even more by giving ourselves some data accessors.
-
-
+让我们来专门研究下数据访问方法
 
 ```swift
 extension JSONResource {
@@ -418,13 +367,9 @@ extension MediaResource {
 }
 ```
 
+这是一个关于协议扩展经典的例子，传统的协议会说：『我承诺我是这种类型，具备这些特性』。而一个协议扩展则会说：『因为我有这些特性，所以我能做这些独一无二的事情』。既然 `MediaResource` 有能力访问图像数据，那么应用该协议的对象也能很轻松地提供一个 `imageValue` ，而不用考虑特定类型或上下文环境。
 
-
-This is a classic example of the value of protocol extensions. While a traditional protocol is saying "I promise I am _this_ type of thing, with _these_ features," a protocol extension is saying "_because_ I have these features I can _do_ these unique things" Since `MediaResource` has access to image data, it can easily provide an `imageValue` regardless of specific types or contexts.
-
-I mentioned we'll be loading our models based on known identifiers, so let's make a protocol for any entity which has a unique identifier.
-
-
+前面提到我们将会基于已知的标识符加载 models，所以让我们为『具有唯一标识的实体』创建一个协议
 
 ```swift
 protocol Unique {
@@ -457,13 +402,9 @@ extension NSObjectProtocol where Self: Unique {
 }
 ```
 
+由于不能在扩展 extension 中创建存储属性，我们还是需要依赖遵守 `Unique` 协议的对象来声明`id` 属性。加之，你或许注意到了我仅在 `Self: NSObject` 时扩展了 `Unique`，否则，我们不能调用 `self.init()`，这是因为没有他的声明。一个变通的解决方案就是在该协议中声明一个 `init()` ，但是需要遵守协议的对象来显式实现他， 因为我们所有的 models 都是基于 `NSObject`的，所幸这并不成问题。
 
-
-We'll still have to rely on our `Unique` adopters to declare the `id` property since we can't store properties inside extensions. Additionally, you probably noticed that I only extended `Unique` when `Self: NSObject`. Otherwise we couldn't call `self.init()` as it wouldn't be declared. A workaround for this is to declare the `init()` method as part of the protocol, but that would require the adopters to implement it. Since all of our models are `NSObject`-based, this condition is not a problem.
-
-Ok, we've got a basic strategy for loading resources from the network. Let's start conforming our models to these protocols. Here's what our `Song` model would look like:
-
-
+好了，我们已经得到了一个从网络获取资源的基本方案，让我们开始创建遵守这些协议的  models。下面是我们的 `Song` 模型的样子：
 
 ```swift
 class Song : NSObject, JSONResource, Unique {
@@ -479,13 +420,9 @@ class Song : NSObject, JSONResource, Unique {
 }
 ```
 
+等等，`JSONResource` 的实现在哪里？
 
-
-But wait, where's the `JSONResource` implementation?
-
-Instead of implementing `JSONResource` directly within our class, we can use a conditional protocol extension. This gives us the ability to organize all of our `RemoteResource`-based formatting logic in one place for easy adjustment, and keeps our model implementation clean. Therefore we'd put the following into our `RemoteResource.swift` file, in addition to all of the previous `RemoteResource`-based logic.
-
-
+相比直接在类中实现 `JSONResource`，我们可以使用条件协议扩展来代替，这会让我们有能力将所有基于 `RemoteResource` 的逻辑代码组织整合在一起，这样调整起来更方便，也使 model 实现更清晰。因此除了 `RemoteResource` 逻辑之前的代码外，我们将下面的代码放进 `RemoteResource.swift` 文件，
 
 ```swift
 extension JSONResource where Self: Song {
@@ -502,13 +439,9 @@ extension JSONResource where Self: Song {
 }
 ```
 
+将所有与 `RemoteResource` 相关的代码整合在同一个位置好处多多。首先在同一个地方完成协议实现，扩展的作用域很清晰。当声明一个将要扩展的协议时，我建议将扩展代码和声明的协议放在同一文件中
 
-
-Keeping everything related to `RemoteResource` in a single place has organizational advantages. The protocol implementation is in one place, and the scope of the extension is clear. When declaring a protocol which is to be extended, I suggest keeping the extensions within the same file.
-
-Here's what it looks like to load a `Song` thanks to the `JSONResource` and `Unique` protocol extensions:
-
-
+下面是加载歌曲 `Song` 的实现，多亏了 `JSONResource` 和 `Unique` 协议扩展
 
 ```swift
 let s = Song(id: "abcd12345")
@@ -519,13 +452,9 @@ s.loadJSON { (success) -> () in
 }
 ```
 
+我们的歌曲 `Song` 对象是一些元数据的简单封装，他本该如此，所有的苦差事都应交给协议扩展去做。
 
-
-Suddenly our `Song` object is simply a wrapper around some metadata, which is all it really should be. Our protocol extensions are doing all of the hard work!
-
-Here's an example of a `Playlist` object which conforms to both `JSONResource` and `MediaResource`:
-
-
+下面例子中的 `Playlist` 对象同时遵守了 `JSONResource` 和 `MediaResource` 协议
 
 ```swift
 class Playlist: NSObject, JSONResource, MediaResource, Unique {
@@ -551,11 +480,7 @@ extension JSONResource where Self: Playlist {
 }
 ```
 
-
-
-Before we blindly implement `MediaResource` for `Playlist`, we should step back a bit. We notice our media API only requires the identifier in the endpoint, with nothing type-specific. That means as long as we know the identifier we can build the `mediaPath`. Let's use a `where` clause to make `MediaResource` work intelligently with `Unique`.
-
-
+在我们盲目地为 `Playlist` 实现 `MediaResource` 之前，先回退一步，我们注意到我们的媒体 API 只需要远端的标识，并没有指定协议应用者的类型，这就意味只要我们知道标识符，我们就能构建 `mediaPath`。让我们使用一个 `where` 从句来限定 `MediaResource` 聪明到只在 `Unique` 下工作
 
 ```swift
 extension MediaResource where Self: Unique {
@@ -563,13 +488,9 @@ extension MediaResource where Self: Unique {
 }
 ```
 
+因为 `Playlist` 已经遵循了 `Unique`，因此我们不需要显式的处理，他就可以和MediaResource 一起愉快地工作！同样的逻辑反过来也成立（遵循了 `MediaResource`，也必然适配于 `Unique` 协议）只要对象的标识与媒体 API 中的一张图片相对应，就能正常工作。（创建 `mediaPath`）
 
-
-Since our `Playlist` already conforms to `Unique` there's literally nothing we have to implement to make it work with `MediaResource`! The same logic applies to any `MediaResource` which is also `Unique` -- as long as the object's identifier corresponds to an image inside our media API, it'll just work.
-
-Here's how it looks to load our `Playlist` image:
-
-
+这里是如何载入 `Playlist` 图像
 
 ```swift
 let p = Playlist(id: "abcd12345")
@@ -580,25 +501,21 @@ p.loadMedia { () -> () in
 }
 ```
 
+我们现在有一种通用方式来定义远程资源，能够被程序中的任意实体使用，而不仅仅局限于这些模型对象。我们能够很方便地扩展 `RemoteResource` 来处理不同类型的 REST 操作，并针对更多的数据类型添加额外的子协议。
 
+### 数据格式化的协议
 
-We now have a generic way of defining remote resources that can be used with _any other entity in our app_, not just these model objects. We could easily extend `RemoteResource` to handle different types of REST operations, and build more sub-protocols for additional types of data.
+现在我们已经构造了一种加载模型对象的方式，让我们继续往前走。我们需要格式化来自对象的元数据，并以一致的方式显示在用户面前。
 
-### Protocols for Data Formatting (C)
+鸭梨音乐是一个大工程，拥有相当数量不同类型的模型，每一个模型都可能在不同位置显示。比如，如果我们有一个以 `Artist` 为标题的 view controller，我们会只显示艺术家名字 {name}。但是，如果我们拥有额外的空间，比如一个存在 `UITableViewCell`，我们就会使用 "{name} ({instrument})"。再进一步，如果在 `UILabel` 里有更大空间，则会使用 "{name} ({instrument}) {bio}"。
 
-Now that we've constructed a way to load our model objects, let's move on to the next step. We need to format the metadata from our objects for display in a consistent manner.
+虽然将这些格式化代码放到 view controllers, cells 和 labels 中可以正常工作，但是如果我们能将这些分散的逻辑提取出来供整个 app 使用，会提高整个应用的可维护性。
 
-Pear Music is a big app, and we have lots of different types of models. Each model can be displayed in a variety of places. For example, if we have an `Artist` as the title of a view controller, we want it to display simply as "{name}". However if we have some extra space, say in a `UITableViewCell`, we'd like to use "{name} ({instrument})" instead. And if we have even more space in a larger `UILabel`, we'd like to use "{name} ({instrument}) {bio}".
+我们应该将字符串格式化代码就放在模型对象中，但当我们真要显示字符串时，需要确定 model 的类型。
 
-We _could_ put all of this formatting code within our view controllers, cells and labels. It would work fine, but we'd be spreading out the logic across our app and reducing maintainability.
+我们应当在基类中定义一些便利方法，并且每个子类模型都提供自己的格式化方法，但是在面向协议编程中，我们应该思考更加通用的方式。
 
-We _could_ put the string formatting in our model object itself, but we'd have to make type assumptions when we're actually trying to display the strings.
-
-We _could_ throw some convenience methods in a base class and have each model subclass to provide their own formatting, but with protocol-oriented programming we should be thinking more generically.
-
-Let's abstract this idea into another protocol, which designates any entity which can be represented as a string. We'll provide various lengths of strings to be used in different UI scenarios.
-
-
+让我们将这种想法抽象成另一个协议，指定任意实体可表现为字符串。我们将会针对不同的 UI 方案，提供各种长度的字符串
 
 ```swift
 // Any entity which can be represented as a string of varying lengths.
@@ -614,11 +531,7 @@ extension NSObjectProtocol where Self: StringRepresentable {
 }
 ```
 
-
-
-Easy enough. Here are a few more model objects that we're going to make `StringRepresentable`:
-
-
+足够简单吧，这里还有几个模型对象，我们将他们变成 `StringRepresentable`：
 
 ```swift
 class Artist : NSObject, StringRepresentable {
@@ -634,11 +547,7 @@ class Album : NSObject, StringRepresentable {
 }
 ```
 
-
-
-Similar to how we organized our `RemoteResource` implementations, we'll put all of our formatting logic into a single `StringRepresentable.swift` file:
-
-
+类似于在 `RemoteResource` 中我们的实现，我们将所有的格式化逻辑放进单独的 `StringRepresentable.swift` 文件。
 
 ```swift
 extension StringRepresentable where Self: Artist {
@@ -654,11 +563,7 @@ extension StringRepresentable where Self: Album {
 }
 ```
 
-
-
-Now that we've handled our formatting we need a way to choose which string to use based on a given UI scenario. Sticking with our generic approach, let's define behavior for displaying any `StringRepresentable` onscreen, given a `containerSize` and `containerFont` for calculation.
-
-
+至此，我们已经处理了各种格式。现在我们需要基于给定的 UI 来选择相应的字符串显示。基于通用考虑，让我们将实现了 `StringRepresentable` 协议的对象显示在屏幕上，并提供一个 `containerSize` 和 `containerFont` 方便计算。
 
 ```swift
 protocol StringDisplay {
@@ -668,10 +573,7 @@ protocol StringDisplay {
 }
 ```
 
-
-
-I recommend only declaring methods inside the protocol which are meant to be implemented by adopters. In the protocol extension, we'll put the methods which contain the actual functionality of the protocol. The `displayStringValue:` determines which string to use, and passes it on to the type-specific `assignString:` method.
-
+我推荐只在协议中声明方法，实现由遵循协议的对象实现。在协议扩展中，我们将添加真正的实现代码。`displayStringValue:` 方法会决定哪个字符串会被使用，然后传递给指定类型的 `assignString:` 方法
 
 
 ```swift
@@ -700,13 +602,9 @@ extension StringDisplay {
         return self.sizeWithString(str).height <= self.containersize.height="" }="">
 ```
 
+现在我们有一个遵守 `StringRepresentable` 协议的模型对象，还有了可以自动选择字符串的协议。一旦部署成功，将会自动帮助我们选择正确的字符串，那么如何整合到 UIKit 中呢？
 
-
-Now we have model objects which are `StringRepresentable`, and a protocol which, when adopted, will help us automatically choose the right string to use. So how do we plug this into UIKit?
-
-Let's start with `UILabel`, the simplest example. The traditional choice would be to subclass `UILabel` and adopt the protocol, then use the custom `UILabel` whenever we want to make use of a `StringRepresentable`. However a better choice (assuming we don't need the subclass) is to use a non-generic extension to have all `UILabel` instances adopt `StringDisplay` automatically:
-
-
+让我们先拿最简单的 `UILabel` 开刀。传统的方式是创建 `UILabel` 的子类，然后部署该协议，接下来在需要使用 `StringRepresentable` 的地方使用这个自定义的 `UILabel`。但更好的选择是使用一个指定类型的扩展（UILable 类）让所有的 `UILabel` 实例自动部署 `StringDisplay` 协议：
 
 ```swift
 extension UILabel : StringDisplay {
@@ -718,11 +616,7 @@ extension UILabel : StringDisplay {
 }
 ```
 
-
-
-That's really all there is to it. We can do the same with other UIKit classes, simply returning the data that `StringDisplay` requires to work its magic.
-
-
+就是这么简单，对于其他的 UIKit 类，我们可以做同样的事情，只要返回 `StringDisplay` 需要的数据就能正常工作了，是不是很神奇呢？
 
 ```swift
 extension UITableViewCell : StringDisplay {
@@ -750,11 +644,7 @@ extension UIViewController : StringDisplay {
 }
 ```
 
-
-
-So what does this look like in practice? Let's declare an `Artist` object, which already adopts `StringRepresentable`.
-
-
+下面我们来看看以上实现在真实世界的样子，让我们声明一个 `Artist` 对象，已经部署了 `StringRepresentable` 协议。
 
 ```swift
 let a = Artist()
@@ -763,11 +653,7 @@ a.instrument = "Guitar / Vocals"
 a.bio = "Every little thing's gonna be alright."
 ```
 
-
-
-Since all `UIButton` instances have been extended to adopt `StringDisplay`, we can call the `displayStringValue:` method on them.
-
-
+因为 `UIButton` 的所有实例都被扩展地部署了 `StringDisplay` 协议，妈妈再也不用担心我们直接调用他的 `displayStringValue:` 方法了
 
 ```swift
 let smallButton = UIButton(frame: CGRectMake(0.0, 0.0, 120.0, 40.0))
@@ -781,13 +667,11 @@ mediumButton.displayStringValue(a)
 print(mediumButton.titleLabel!.text) // 'Bob Marley (Guitar / Vocals)'
 ```
 
-
-
-The button's title now reflects the appropriate string based on its frame.
+按钮现可以根据自身 frame 大小灵活显示标题了。
 
 Say our user taps an `Album` and we push an `AlbumDetailsViewController`. Our protocols can negotiate the formatting of the navigation title. Because of our `StringDisplay` protocol extension, the `UINavigationBar` will display a longer string on iPads and a shorter one on iPhones.
 
-
+当用户点击一个 `Album` 唱片，我们为其压栈（push）一个 `AlbumDetailsViewController`。此刻我们的协议能够依照协定找到一个合适字符串作为导航栏标题。这是因为在 `StringDisplay` 协议扩展中的定义，`UINavigationBar` 会在 iPad 上显示长的标题，而在 iPhone 上显示短标题。
 
 ```swift
 class AlbumDetailsViewController : UIViewController {
@@ -802,19 +686,15 @@ class AlbumDetailsViewController : UIViewController {
 }
 ```
 
+模型中的字符串格式化代码实现可以全部放到协议扩展里面，之后再根据具体的 UI 元素灵活显示。这种模式可以在将来的模型对象上重复使用，应用在各种 UI 元素上。因为这种协议具备良好的扩展性，所以可以推广到更多非 UI 的场景。
 
+### 在样式中使用协议 (V)
 
-We've made sure that the string formatting of our models is done in a single place, and the display of them is flexible based on the UI element being used. This pattern can be repeated for future models & a variety of UI elements. Because of the flexibility we've built into our protocols, we could even use this approach for non-UI situations.
+我们已经完成了用协议扩展对模型、格式化字符串的改造，现在让我们来看一个纯粹的前端示例，学习下协议扩展如何增强我们的UI开发
 
-### Protocols for Styling (V)
+我们可以将协议看做类似于 CSS 的东西，并且使用他们来定义我们 UIKit 对象的样式。通过部署这些样式协议，来自动更新显示外观。
 
-We've covered the use of protocol extensions for our model & our string formatting, now let's look at a purely front-end example of how protocol extensions can empower our UI development.
-
-We can treat protocols like CSS classes, and use them to define styling for our UIKit objects. Then, by adopting a styling protocol the visual appearance of our object changes automatically.
-
-First we'll define a base protocol that represents an entity which is styled, declaring a method that will eventually be used to apply the styles.
-
-
+首先，我们将定义一个基础协议，用来表示一个应用样式的实体；声明一个方法，用于最终的应用样式。
 
 ```swift
 // Any entity which supports protocol-based styling.
@@ -823,11 +703,7 @@ protocol Styled {
 }
 ```
 
-
-
-Then we'll make some sub-protocols which define different types of styles we'd like to use.
-
-
+接着我们将会创建一些子协议，这些协议会定义各种类型的样式。
 
 ```swift
 protocol BackgroundColor : Styled {
@@ -840,13 +716,9 @@ protocol FontWeight : Styled {
 }
 ```
 
+我们让这些子协议继承自 `Styled`，这样遵守这些子协议的对象就不用再显式调用了。
 
-
-We make these inherit `Styled` so our adopters don't have to explicitly do so.
-
-Now we can branch off into specific styles, and use protocol extensions to actually return the values required.
-
-
+现在我们可以将具体的样式分类，并使用协议扩展返回需要的值。
 
 ```swift
 protocol BackgroundColor_Purple : BackgroundColor {}
@@ -861,11 +733,7 @@ extension FontWeight_H1 {
 }
 ```
 
-
-
-All that's left is implementing the `updateStyles` method based on the type of UIKit element. We'll use a non-generic extension to have all `UITableViewCell` instances conform to the `Styled` protocol.
-
-
+剩下的事情就是基于 UIKit 对象类型，实现 `updateStyles` 方法。我们将使用指定类型的扩展让所有的 `UITableViewCell` 实例都遵守 `Styled` 协议
 
 ```swift
 extension UITableViewCell : Styled {
@@ -882,11 +750,7 @@ extension UITableViewCell : Styled {
 }
 ```
 
-
-
-To make sure that `updateStyles` is called automatically, we'll override `awakeFromNib` in our extension. For those who are curious -- this override is essentially inserted into the inheritance chain, as if the extension was the immediate subclass of `UITableViewCell` itself. Calling `super` from a `UITableViewCell` subclass now calls this method directly.
-
-
+为了确保 `updateStyles` 会被自动调用，我们将在扩展中重载 `awakeFromNib` 方法。有些童鞋可能会好奇，这种重载操作实际是插入到继承链中，就如同扩展是 `UITableViewCell` 自身的直接子类。在 `UITableViewCell` 的子类中调用 `super`，之后就可以直接调用 `updateStyles` 了。
 
 ```swift
 public override func awakeFromNib() {
@@ -896,47 +760,39 @@ public override func awakeFromNib() {
 }
 ```
 
-
-
-Now when we create our cell we can just adopt the styles we want!
-
-
+现在当我们创建了自己的 cell，接下来就可以部署我们需要的样式了
 
 ```swift
 class PurpleHeaderCell : UITableViewCell, BackgroundColor_Purple, FontWeight_H1 {}
 ```
 
+我们已经在 UIKit 元素上创建了类似于 CSS 样式风格的声明。使用协议扩展，我们甚至可以为 UIKit 山寨一个 Bootstrap 样式。这种方式可以在很多场景下都能增强我们的开发体验，特别是在应用开发时，当并且拥有数量庞大的视觉元素，且样式高度动态时尤其有用。
 
+想象一下，一个 App 拥有 20 个以上不同的 view controllers，每个都遵守 2~3 个通用的视觉样式，比起强迫我们创建一个基类或使用一组数量持续增长的全局方法来定义样式，现在仅需要遵守一些样式协议，然后着手实现就好。
 
-We've created CSS-like style declarations on our UIKit elements. We could even write something akin to a Bootstrap clone for UIKit. This approach could be enhanced in numerous directions, and would be valuable in applications where styling is highly dynamic and the number of visual elements is large.
+## 我们得到了什么？
 
-Imagine an app that has 20+ different view controllers, each conforming to 2-3 common visual styles. Instead of forcing ourselves into sharing a base class or having some growing list of global methods to configure our styling, we can just adopt the style protocol that's needed and proceed with the more important implementation details.
+我们目前为止做了很多有趣的事情，但是通过使用协议和协议扩展最终获得了什么？可能有人觉得我们跟本没必要创建这么多协议。
 
-## What Have We Gained?
+>面向协议编程并不完美匹配所有基于 UI 的场景。
 
-We've done a lot so far, and it's very interesting, but what have we gained by using protocols & protocol extensions? One could argue that the protocols we've created aren't really necessary.
+当我们需要在应用中添加共享代码和通用的功能时，协议和协议扩展将变得非常有价值。并且代码的组织结构也更加清晰有条理。
 
-> Protocol-oriented programming isn't a perfect fit for every UI-based scenario.
+随着数据类型的增多，协议越能施展他的拳脚。当 UI 需要显示多种格式的信息时，使用协议会让我们身轻如燕。但是这并不意味着我们需要添加 6 个协议和一大堆扩展，只是为了让一个紫色的单元格显示一个艺术家的名字。
 
-Protocols & protocol extensions typically only become valuable when we add shared, generic functionality to our application. Additionally, the value added tends to be more organizational than functional.
+让我们扩充鸭梨音乐场景，来见识一下『面向协议编程』真正的价值所在。
 
-The more data types there are, the more protocols may become useful. Whenever there's UI which displays multiple formats of information, protocols might offer great improvements. But that doesn't mean we need 6 protocols and a bunch of extensions just to make a purple cell which displays an artist's name.
+## 添加复杂度
 
-Let's augment the Pear Music scenario to see if our protocol-oriented approach becomes more worthwhile.
+我们已经在 Pear Music 上下了很大功夫，现在拥有界面美观的专辑列表、艺术家、歌曲和播放列表，我们还使用了美妙的协议和协议扩展来优化 MVC 的原有结构。现在鸭梨公司 CEO 要求我们构建 鸭梨音乐 2.0 的版本，希望可以和 Apple Music 一争高下。
 
-## Adding Complexity
+我们需要一项酷炫的新特性来脱颖而出，经过头脑风暴后，我们决定添加：『长按预览』这个新特性。听上去是个大胆的创意，我们的 Jony Ive（黑的漂亮）似乎已经在摄像机前娓娓而谈了。让我们使用面向协议编程配合 UIKit 来完成他。
 
-Say we've worked on Pear Music for a while, and we have great UI for listing albums, artists, songs and playlists. We're still using our fancy protocols & extensions to facilitate all aspects of our MVC process. Now the Pear CEO has asked us to build version 2.0 of Pear Music...we need to compete with a strange new competitor called Apple Music.
+### 创建 Modal Page
 
-We need a cool new feature to define ourselves, and after extensive research we've decided that feature is **long-press to preview**. It's bold, it's innovative, our Jony Ive look-alike is already on camera talking about it. Let's build it using protocol-oriented programming with UIKit.
+下面来阐述下他的工作原理，当我们的用户**长按**艺术家、专辑、歌曲或播放列表时，一个模态视图会以动画的形式展示在屏幕上，从网络载入条目的图像，然后他的描述信息和一个 Facebook 分享按钮。
 
-### Building the Modal Page
-
-Here's how it will work -- our users long-press an artist, album, song or playlist and a modal view animates onscreen, loads the item's image from the network, and displays a description of the item as well as a Facebook share button.
-
-Let's build the `UIViewController` which we'll present modally when the user long-presses something. From the getgo we can be generic with our initializer, only requiring _something_ which conforms to `StringRepresentable` and `MediaResource`.
-
-
+让我先构建一个 `UIViewController`，用做用户长按手势后的模态展示。从一开始我们可以让初始化方法更加通用，仅需要一些遵守 `StringRepresentable` 和 `MediaResource` 的对象做参数即可
 
 ```swift
 class PreviewController: UIViewController {
@@ -954,11 +810,7 @@ class PreviewController: UIViewController {
 }</stringrepresentable></stringrepresentable>
 ```
 
-
-
-Next we can used the built-in protocol extension methods to assign data to our `descriptionLabel` and `imageView`.
-
-
+下一步，我们可以使用内建的协议扩展方法分配数据给我们的 `descriptionLabel` 和 `imageView`
 
 ```swift
 override func viewDidLoad() {
@@ -978,11 +830,7 @@ override func viewDidLoad() {
     }
 ```
 
-
-
-Finally, we can use the same methods to obtain metadata for our Facebook functionality.
-
-
+最后，我们可以使用相同的方法来从 Facebook 函数获取元数据
 
 ```swift
 // Called when tapping the Facebook share button.
@@ -1007,17 +855,13 @@ Finally, we can use the same methods to obtain metadata for our Facebook functio
 }
 ```
 
+我们已经收获了许多协议，没有他们，我们或许要在 `PreviewController` 中根据不同的类型，分别创建初始化方法。通过基于协议的方式，不但保持了 view controller 的绝对简洁，而且还保证了其在未来的可扩展性。
 
+我们只剩一个轻量级的、简明的 `PreviewController`，他可以接受一个 `Artist`, `Album`, `Song`, `Playlist` 或任意匹配了我们协议的 model。`PreviewController` 没有一行关于特定模型的代码。
 
-We've gained a lot with protocols -- without them we may have defined intializers in `PreviewController` for each type of object we accept. Using the protocol-based approach lets us keep our view controller super clean, and opens our implementation to future flexibility.
+### 集成第三方代码
 
-We're left with a lightweight, concise `PreviewController` that can be passed an `Artist`, `Album`, `Song`, `Playlist` or **any** other model we build into our protocol pattern. `PreviewController` doesn't have a single line of model-specific code!
-
-### Integrating 3rd Party Code
-
-Here's one last awesome scenario that we enabled by using protocols & protocol extensions when building `PreviewController`. Say we're integrating with a new framework which loads Twitter information for the musicians in our app. We want to display the list of tweets on our main page, and we're given a model object for a tweet:
-
-
+当我们使用协议和协议扩展构建 `PreviewController` 时，这里还有最后一个特别棒的应用场景。我们融入了一个新的框架，该框架在我们的 App 中可以用来载入音乐家的 Twitter 信息。我们想要在主页面显示 tweets 列表，通常会指定一个 model 对象对应一条 tweet：
 
 ```swift
 class TweetObject {
@@ -1029,11 +873,7 @@ class TweetObject {
 }
 ```
 
-
-
-We don't own this code, and we can't modify `TweetObject`, but we still want our users to be able to long-press to preview the tweets using the same `PreviewController` UI. All we need to do is extend it to adopt our existing protocols!
-
-
+我们并不拥有此代码，也不能修改 `TweetObject`，但我们仍然想要用户通过长按手势，在`PreviewController` UI 上来预览这些 tweets。而我们所要做的就是扩展这些现有协议。
 
 ```swift
 extension TweetObject : StringRepresentable, MediaResource {
@@ -1048,25 +888,19 @@ extension TweetObject : StringRepresentable, MediaResource {
 }
 ```
 
-
-
-Now we can now pass a `TweetObject` to our `PreviewController` and it doesn't even know we're working with an external framework!
-
-
+现在我们可以传递一个 `TweetObject` 到我们的 `PreviewController` 中，对于 `PreviewController` 来讲，他甚至不知道我们正在工作的外部框架
 
 ```swift
 let tweet = TweetObject()
 let vc = PreviewController(previewObject: tweet)
 ```
 
+## 课程总结
 
+在 WWDC 2015 的开发者大会上，苹果官方推荐使用协议来替代类，但是我认为这条规则忽视了协议扩展工作在某些重型框架（UIKit）下的局限性。只有当协议扩展被广泛使用，而且不需要考虑遗产代码时，才能发挥他的威力。虽然最初的例子看上去较为琐碎，但随时间的增长，应用的尺寸和复杂度都会成倍增长，这种通用设计就会变得格外有效。
 
-## Lessons Learned
+这是一个代码解释性的成本收益问题。在一个的 UI 占大头的大型应用中，协议 & 扩展并不那么实用。如果你有一个单独的页面只展示一种类型的信息（今后也不会改变），那么就不要考虑用协议来实现了。但是如果你的应用界面在不同的视觉样式、表现风格间游走，那么将协议和协议扩展作为连接数据和外观之间的桥梁是极其有用的，你会在未来的开发中受益匪浅。
 
-At WWDC 2015 Apple recommended creating protocols when we would normally create classes, but I argue that this rule ignores the subtle limitations of protocol extensions when working with a class-heavy framework like UIKit. Protocol extensions only add real value when they are widely applicable and don't need to support legacy code. Although some of the examples I mentioned sound trivial at first, this kind of versatile design becomes extremely effective as your application grows in size and complexity.
+最后，我并不是想把协议看成一种银弹，而是将其看做是在某些开发场景中的一把利器。尽管如此，面向协议编程都是值得开发者们学习的--只有你真正按照协议的方式，重新审视、重构之前的代码，才能体会其中的精妙之处。
 
-It's a cost-benefit question of code interpretability. Protocols & extensions don't always have a place in a largely UI-based application. If you have a single view which displays a single type of information that will never change, don't overthink it with protocols. But if your app drifts between different visual states, styles & representations of the same core information, using protocols & protocol extensions as a bridge between your data and its visual representation is a thoughtful approach that will reap future rewards.
-
-In the end I wouldn't call protocol extensions a universal game-changing feature, but rather a constructive tool in highly precise development scenarios. Still, I think it's worth it for any developer to try protocol-oriented techniques -- you'll never fully know the benefits until you start to refocus your existing code in the context of protocols. Use them wisely.
-
-For any questions, or if you want to chat in more detail, shoot me an [email](mailto:ttillage@captechconsulting.com) or find me on [Twitter](https://twitter.com/ttillage)!
+如果你有任何问题，或想了解更多的细节，请务必联系我 [email](mailto:ttillage@captechconsulting.com) ，这是我的 [Twitter](https://twitter.com/ttillage)！
