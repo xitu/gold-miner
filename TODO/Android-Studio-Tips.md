@@ -5,15 +5,16 @@
 * 校对者 :
 * 状态 : 待定
 
-Welcome to the Android-Studio-Tips-by-Phillipe-Breault wiki!
+欢迎来到Phillipe Breault发布的Android Studio技巧wiki页面。
 
-Ι am creating this Repository because i think every Android Studio Tip that Phillipe Breault is posting **NEEDS** to be recorded :) 
+我创建了这个仓库是因为我认为Phillipe Breault发布的每一个Android Studio技巧都应该被记录下来。
 
-I will keep updating this repository with every new Tip.
+随着新技巧的发布，我将会一直保持更新。
 
-Stay tuned !!
+敬请关注！！
 
-Credits to: [Philippe Breault](https://plus.google.com/u/0/+PhilippeBreault)
+鸣谢：[Philippe Breault](https://plus.google.com/u/0/+PhilippeBreault)
+
 
 # 1. 分析数据流传递到此处的路径（Analyze data flow to here）
 
@@ -74,7 +75,7 @@ Credits to: [Philippe Breault](https://plus.google.com/u/0/+PhilippeBreault)
 
 # 7. 与分支比对（Compare With Branch (Git)）
 
-- **描述：**假如你的项目是使用git来管理的，你可以将当前文件或者文件夹与其他的分支进行比对。
+- **描述：**假如你的项目是使用git来管理的，你可以将当前文件或者文件夹与其他的分支进行比对。比较有用的是可以让你了解到你与主分支有多少差别。
 - **调用：**Menu → VCS → Git → Compare With Branch 
 
 ![](https://lh6.googleusercontent.com/-xW1J3BBZHZc/VC6FVCMexWI/AAAAAAAAN8M/GEJqszoqzXk/w570-h328-no/38-comparewithbranch.gif)
@@ -107,7 +108,7 @@ Credits to: [Philippe Breault](https://plus.google.com/u/0/+PhilippeBreault)
 
 # 11. 上下文信息（Context Info）
 
-- **描述：**当前区域超过滚动区域，执行该操作将显示所在的上下文信息，通常它显示的是类名或者内部类类名或者当前所在的方法名。
+- **描述：**当前区域超过滚动区域，执行该操作将显示所在的上下文信息，通常它显示的是类名或者内部类类名或者当前所在的方法名。该操作在xml文件中同样适用。
 - **调用：**Menu → View → Context Info
 - **快捷键：**Alt + Q (Windows/Linux)
 - **更多：**比较好用的是，可以用来快速看当前类继承的父类或实现的接口。
