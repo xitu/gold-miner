@@ -1,8 +1,8 @@
 > * 原文链接 : [Making React Native apps accessible | Engineering Blog | Facebook Code | Facebook](https://code.facebook.com/posts/435862739941212/making-react-native-apps-accessible/)
-* 原文作者 : [	Chace Liang](https://www.facebook.com/chaceliang)
+* 原文作者 : [Chace Liang](https://www.facebook.com/chaceliang)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [void-main](https://github.com/void-main)
-* 校对者:
+* 校对者: [aleen42](https://github.com/aleen42)
 * 状态 :  翻译完成
 
 
