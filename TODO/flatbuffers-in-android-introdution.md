@@ -7,7 +7,7 @@
 
 
 
-JSON 格式 - 一个基本上人人知道的，轻量级的，并被现代服务器所广泛使用的数据格式。相对过时的、讨厌的XML数据格式来说，它量级轻，易于人们阅读，对开发人员也更为友好。 JSON 是一种独立于语言存在的数据格式，但是它解析数据并将之转换成如 Java 对象时，会消耗我们的时间和内存资源。几天前，Facebook 宣称自己的 Android app 在数据处理的性能方面有了极大的提升。在几乎整个 app 中，他们放弃了 JSON 而用 FlatBuffers 取而代之。请查阅[这篇文章](https://code.facebook.com/posts/872547912839369/improving-facebook-s-performance-on-android-with-flatbuffers/)来获取关于 FlatBuffers 的基础知识以及从 JSON 格式过渡到 FlatBuffers 格式后的结果。
+JSON 格式 - 一个基本上人人知道的，轻量级的，并被现代服务器所广泛使用的数据格式。相对过时的、讨厌的 XML 数据格式来说，它量级轻，易于人们阅读，对开发人员也更为友好。 JSON 是一种独立于语言存在的数据格式，但是它解析数据并将之转换成如 Java 对象时，会消耗我们的时间和内存资源。几天前，Facebook 宣称自己的 Android app 在数据处理的性能方面有了极大的提升。在几乎整个 app 中，他们放弃了 JSON 而用 FlatBuffers 取而代之。请查阅[这篇文章](https://code.facebook.com/posts/872547912839369/improving-facebook-s-performance-on-android-with-flatbuffers/)来获取关于 FlatBuffers 的基础知识以及从 JSON 格式过渡到 FlatBuffers 格式后的结果。
 
 虽然这个结果非常激动人心，但咋一看如何使用不是很明显，Facebook 没有对实现进行过多的说明。这也是我发表这篇文章的原因，我将在文章中说明如何使用 FlatBuffers 来开始我们的工作。
 
@@ -15,7 +15,7 @@ JSON 格式 - 一个基本上人人知道的，轻量级的，并被现代服务
 
 简而言之, [FlatBuffers](https://github.com/google/flatbuffers) 是一个来自 Google 的跨平台序列化库, 被 Google 开发出来专门用在游戏开发中，并在构建平滑和高响应的 Android UI 中遵循 [16 毫秒规则](https://www.youtube.com/watch?v=CaMTIgxCSqU)，就像 Facebook 向我们展示的那样。
 
-_但是，嘿。。哥们，在你转移所有数据到FlatBuffers之前，请慎重考虑你是否真的需要它。因为有时候这点性能的影响是可以忽略的，有时候[数据安全](https://publicobject.com/2014/06/18/im-not-switching-to-flatbuffers/)可比只有几十毫秒区别的计算速度更为重要。_
+_但是，嘿。。哥们，在你转移所有数据到 FlatBuffers 之前，请慎重考虑你是否真的需要它。因为有时候这点性能的影响是可以忽略的，有时候[数据安全](https://publicobject.com/2014/06/18/im-not-switching-to-flatbuffers/)可比只有几十毫秒区别的计算速度更为重要。_
 
 什么原因使得 FlatBuffers 如此高效？
 
@@ -23,27 +23,27 @@ _但是，嘿。。哥们，在你转移所有数据到FlatBuffers之前，请�
 
 *   FlatBuffers 数据相比使用自己的缓冲区，不需要分配其他更多的内存。我们不需要像 JSON 那样在解析数据的时候，为整个层级数据分配额外的内存对象。
 
-更具体的原因，请再次查看关于如何迁移到 FlatBuffers 的 [facebook 文章](https://code.facebook.com/posts/872547912839369/improving-facebook-s-performance-on-android-with-flatbuffers/)，或者查阅[Google官方文档](http://google.github.io/flatbuffers/)。
+更具体的原因，请再次查看关于如何迁移到 FlatBuffers 的 [facebook 文章](https://code.facebook.com/posts/872547912839369/improving-facebook-s-performance-on-android-with-flatbuffers/)，或者查阅 [Google 官方文档](http://google.github.io/flatbuffers/)。
 
 ## 实现步骤
 
 该文将介绍在 Android app 中使用 FlatBuffers 最简单的方法。
 
-*   在app项目以外的_某个地方_，JSON 数据将被转换成FlatBuffers格式的数据（如，API 会返回一个二进制文件或者目录）
-*   数据模型（Java 类）是使用 **flatc**（ FlatBuffers 编译器）手动生成的
+*   在app项目以外的_某个地方_，JSON 数据将被转换成 FlatBuffers 格式的数据（如，API 会返回一个二进制文件或者目录）
+*   数据模型（Java 类）是使用 **flatc**（FlatBuffers 编译器）手动生成的
 *   对 JSON 文件的一些限制条件（不能使用空字段，日期类型将被解析成字符串类型）
 
 不久后，我们可能准备介绍一些更复杂的解决方法。
 
 ## FlatBuffers 编译器
 
-首先，我们必须得到**flatc** - FlatBuffers 编译器，你可以通过源码来构建，源码放在 Google 的 [FlatBuffers 仓库](https://github.com/google/flatbuffers)。我们将源码下载或者克隆到本地。整个构建过程在[构建 FlatBuffers](https://google.github.io/flatbuffers/md__building.html)  文档中有详细描述。如果你是Mac用户，你需要做的仅仅是：
+首先，我们必须得到 **flatc** - FlatBuffers 编译器，你可以通过源码来构建，源码放在 Google 的 [FlatBuffers 仓库](https://github.com/google/flatbuffers)。我们将源码下载或者克隆到本地。整个构建过程在[构建 FlatBuffers](https://google.github.io/flatbuffers/md__building.html)  文档中有详细描述。如果你是 Mac 用户，你需要做的仅仅是：
 
 1.  进入下载好了的源码目录 `\{extract directory}\build\XcodeFlatBuffers.xcodeproj`
 2.  按下 **Play** 按钮或者`⌘ + R`快捷键运行 **flatc** 结构描述文件（默认会被选中）
 3.  运行完成后，**flatc** 可执行文件将会出现在项目的根目录中
 
-现在，我们可以使用放在其他地方的[结构描述文件编译器](https://google.github.io/flatbuffers/md__compiler.html)来根据指定的结构描述文件（Java，C#，Python，GO 和 C++）生成模型类，或者将JSON文件转换成 FlatBuffer 格式的二进制文件。
+现在，我们可以使用放在其他地方的[结构描述文件编译器](https://google.github.io/flatbuffers/md__compiler.html)来根据指定的结构描述文件（Java，C#，Python，GO 和 C++）生成模型类，或者将 JSON 文件转换成 FlatBuffer 格式的二进制文件。
 
 ## 结构描述文件
 
@@ -76,7 +76,7 @@ JSON 文件的部分代码如下所示：
     }
 
 
-整个 JSON 文件可以在[这里](https://github.com/frogermcs/FlatBuffs/blob/master/flatbuffers/repos_json.json)下载。该文件是调用Github的API来[获取 google 在 github 上的仓库](https://api.github.com/users/google/repos)结果的一个修改版本。
+整个 JSON 文件可以在[这里](https://github.com/frogermcs/FlatBuffs/blob/master/flatbuffers/repos_json.json)下载。该文件是调用 Github 的 API 来[获取 google 在 github 上的仓库](https://api.github.com/users/google/repos)结果的一个修改版本。
 
 要编写一份 Flatbuffer 结构描述文件，请参考[这篇文档](https://google.github.io/flatbuffers/md__schemas.html)，我不会在此对它做深入的探索，因此我们使用的结构描述文件不会很复杂。我们所需要做的仅仅是创建3张表。`ReposList` 表，`Repo` 表和 `User` 表, 以及定义一个 `root_type`。这份结构描述文件的核心部分如下所示：
 
@@ -125,7 +125,7 @@ JSON 文件的部分代码如下所示：
 现在，让我们创建一个例子程序来展示 FlatBuffers 格式在实际开发中是如何工作的。程序截图如下所示。
 ![截图](http://frogermcs.github.io/images/17/screenshot.png "ScreenShot")
 
-ProgressBar用来展示不正确的数据处理（在 UI 主线程中）将会对用户界面的平滑性产生怎样的影响。
+ProgressBar 用来展示不正确的数据处理（在 UI 主线程中）将会对用户界面的平滑性产生怎样的影响。
 
 本程序中的 `app/build.gradle` 文件如下所示：
 
