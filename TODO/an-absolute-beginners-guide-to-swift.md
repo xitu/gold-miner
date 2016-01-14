@@ -2,8 +2,8 @@
 * 原文作者 : [Amit Bijlani](http://blog.teamtreehouse.com/author/amitbijlani)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [cdpath](https://github.com/cdpath)
-* 校对者 : 
-* 状态 : 翻译完成
+* 校对者 : [Zhangjd (达仔(*/ω＼*))](https://github.com/Zhangjd)、[CaesarPan (Caesar)](https://github.com/CaesarPan)
+* 状态 : 完成
 * 说明 : 注释皆为译者注
 
 **更新:** 我们高兴地宣布 Treehouse 已经发布了[学习 Swift 教程](http://teamtreehouse.com/learn-swift "Learn Swift on Treehouse")！快来学习 Swift 基础知识， Swift 函数并用 Swift 构建两个真正的 App吧。 [了解详情](http://teamtreehouse.com/learn-swift "Learn Swift on Treehouse")。
