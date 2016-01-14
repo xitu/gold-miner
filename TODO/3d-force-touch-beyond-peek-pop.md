@@ -1,9 +1,9 @@
 > * 原文链接: [3D Force Touch: beyond peek & pop](https://medium.com/produkt-blog/3d-force-touch-beyond-peek-pop-c448edc2b1f5#.4miueafqm)
 * 原文作者 : [Victor Baro](https://medium.com/@victorbaro)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : shiguol(SAlex)
-* 校对者 :
-* 状态 : 初稿
+* 译者 : [shiguol(SAlex)](https://github.com/shiguol)
+* 校对者 : [cdpath (cdpath)](https://github.com/cdpath) [nathanwhy (nathan)](https://github.com/nathanwhy)
+* 状态 : 完成
 
 几天前我买了部 iPhone 6S，接着我被 **3D touch** 功能深深地吸引住了，于是迫不及待地体验了一番。
 
