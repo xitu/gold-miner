@@ -9,6 +9,7 @@
 
 这里收集了一些简单的窍门，助你玩转 jQuery。
 
+1. [检查 jQuery 是否加载](#检查-jQuery-是否加载)
 1. [返回顶部按钮](#返回顶部按钮)
 1. [预加载图片](#预加载图片)
 1. [判断图片是否加载完成](#判断图片是否加载完成)
@@ -26,6 +27,17 @@
 1. [Ajax 调用错误处理](#Ajax-调用错误处理)
 1. [链式插件调用](#链式插件调用)
 
+
+### 检查 jQuery 是否加载
+
+在使用 jQuery 进行任何操作之前，你需要先确认它已经加载：
+```javascript
+if (typeof jQuery == 'undefined') {
+  console.log('jQuery hasn\'t loaded');
+} else {
+  console.log('jQuery has loaded');
+}
+```
 
 ### 返回顶部按钮
 
