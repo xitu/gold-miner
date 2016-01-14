@@ -1,43 +1,42 @@
 > * 原文链接 : [Retrofit — Getting Started and Create an Android Client](https://futurestud.io/blog/retrofit-getting-started-and-android-client)
 * 原文作者 : [Marcus Pöhls](https://futurestud.io/blog/author/marcus)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者: 
-* 状态 :  待定
+* 译者 : Kevin Xiu
+* 校对者: [kassadin](https://github.com/kassadin)、[foolishgao](https://github.com/foolishgao)
+* 状态 :  审核完待通过
 
-This is the first post in a series of Retrofit articles. The series dives through several use cases and examines Retrofits range of functions and extensibility.
+这是Retrofit系列文章中的第一篇，这个系列前前后后有几个用例，并且还分析了Retrofit的功能性和可扩展性。
 
-**Update — October 21st 2015**
+**— 2015.10.21日更新**
 
-We’ve added new code examples for Retrofit 2 (based on 2.0.0-beta2) besides the existing ones for Retrofit 1.9\. We’ve also published an extensive Retrofit upgrade guide: link #15 in the outline below.
+除了之前已经有的关于Retrofit 1.9的代码样例，我们也已经添加了新的关于Retrofit 2（基于 2.0.0-beta2）的代码样例。 并且也已经发布了一个扩展的Retrofit更新指南：在下述内容的 #15。
 
 
+## 文章概述
 
-## Retrofit Posts Overview
+通过这篇博客，我们会学到Retrofit的基本用法和实现一个针对API或者HTTP请求的Android客户端。
 
-Within this blog post we’re going through the basics of Retrofit and create an android client for API or HTTP requests.
+**然而，这篇博客不会讲太多入门的知识，也不会讲Retrofit是关于什么的，如果你想要了解这些，可以看[Retrofit项目主页](http://square.github.io/retrofit/)**.
 
-**However, this post doesn’t cover too much getting started information and what’s Retrofit about. For those information, please visit the [projects homepage](http://square.github.io/retrofit/)**.
+## Retrofit是什么
 
-## What is Retrofit
+官方的Retrofit主页是这样描述它的
 
-The official Retrofit page describes itself as
+> 用于Android和Java的一个类型安全(type-safe)的REST客户端
 
-> A type-safe REST client for Android and Java.
+你将会用注解去描述HTTP请求，同时Retrofit默认集成URL参数替换和查询参数.除此之外它还支持 Multipart请求和文件上传。
 
-You’ll use annotations to describe HTTP requests, URL parameter replacement and query parameter support is integrated by default. Additionally, it provides functionality for multipart request body and file uploads.
 
-## How to Declare (API) Requests
+## 如何去声明请求（API）
 
-Please visit and read the API declaration section on the [Retrofit homepage](http://square.github.io/retrofit/#api-declaration) to understand and get a feeling of how to make requests. You’ll find all important information, clearly depicted with code examples.
+请去[Retrofit 主页](http://square.github.io/retrofit/#api-declaration) 浏览并阅读相应的API声明章节来理解如何发送一个请求。你可以在上面找到所有重要的信息，和非常清楚的代码样例。
 
-## Prepare Your Android Project
+## 准备你的Android项目
+现在，让我们把手放回到键盘上来。如果你已经建了一个Android项目的话，你可以直接看下一条，否则，在你最熟悉的IDE上建立一个Android项目。我们更倾向于用Gradle构建项目，但是如果你用Maven也是可以的。
 
-Now let’s get our hands dirty and back to the keyboard. If you already created your Android project, just go ahead and start from the next paragraph. Else, create a new project in your favorite IDE. We prefer Gradle as the build system, but you surely can use Maven as well.
+### 定义依赖关系：Gradle 或者 Maven
 
-### Define Dependencies: Gradle or Maven
-
-Now let’s set Retrofit as a dependency for your project. Select your used build system and define Refrofit and its dependencies in your `pom.xml` or `build.gradle`. When running the command to build your code, the build system will download and provide the library for your project. We propose to use Retrofit with OkHTTP which requires [Okio](https://github.com/square/okio#download) to be defined as a dependency as well.
+现在，在你的项目中设置 Retrofit依赖。 根据你自己的构建工具，在`pom.xml`或者`build.gradle`中定义Retrofit和它的依赖关系。当运行命令去构建你的项目时，构建系统会在你的项目里下载相应的库。 我们建议用OkHttpP搭配Retrofit，OKHttp同样需要定义[Okio](https://github.com/square/okio#download)依赖。
 
 #### **Retrofit 1.9**
 
@@ -61,7 +60,7 @@ Now let’s set Retrofit as a dependency for your project. Select your used buil
 
 #### Retrofit 2
 
-Use the following dependencies if you’re using Retrofit in version 2.
+如果你正在用Retrofit2.0版，请用下面的依赖
 
 **pom.xml**
 
@@ -76,19 +75,21 @@ Use the following dependencies if you’re using Retrofit in version 2.
         compile 'com.squareup.retrofit:retrofit:2.0.0-beta2'
     }
 
-Retrofit 2 by default leverages OkHttp as the networking layer and is built on top of it. You don’t need to explicitely define OkHttp as a dependency for your project, unless you have a specific version requirement.
 
-Now that your project is ready to integrate Retrofit, let’s create a lasting Android API/HTTP client.
+Retrofit 2默认使用OKHttp作为网络层,并且在它上面进行构建。 你不需要在你的项目中显式的定义OkHttp依赖，除非你有一个特殊的版本需求。
 
-## Sustainable Android Client
+现在你的项目已经集成了Retrofit,让我们一起创建一个具有持久性的 Android API/HTTP客户端吧
 
-During the research for already existing Retrofit clients, the [example repository of Bart Kiers](https://github.com/bkiers/retrofit-oauth/tree/master/src/main/java/nl/bigo/retrofitoauth) came up. Actually, it’s an example for OAuth authentication with Retrofit. However, it provides all necessary fundamentals for a sustainable android client. That’s why we’ll use it as a stable foundation and extend it during future blog posts with further authentication functionality.
 
-The following class defines the basis of our android client: **ServiceGenerator**.
+##可持续的Android客户端
+在对已经有的Retrofit的客户端的研究期间，发现了[example repository of Bart Kiers](https://github.com/bkiers/retrofit-oauth/tree/master/src/main/java/nl/bigo/retrofitoauth)。实际上，它是一个用Retrofit进行OAuth认证的例子。然而，它提供了做一个可持续的Android客户端需要的全部基本原理。这就是为什么我们在未来的博客文章中要把它作为一个基础进行扩展，将认证功能更进一步。
 
+
+接下来的这个类是我们的Android客户端的主要成分：**ServiceGenerator**。
 ### Service Generator
 
-The **ServiceGenerator** is our API/HTTP client heart. In its current state, it only defines one method to create a basic REST adapter for a given class/interface. Here is the code:
+
+**ServiceGenerator** 是我们 API/HTTP客户端的核心， 在目前的阶段，它只定义了一个对给定的类或者接口创建一个基本的REST适配器(adapter)的方法。
 
 **Retrofit 1.9**
 
@@ -124,21 +125,26 @@ The **ServiceGenerator** is our API/HTTP client heart. In its current state, it 
         }
     }
 
-The `ServiceGenerator` class uses Retrofit’s `RestAdapter`-Builder to create a new REST client with a given API base url. For example, GitHub’s API base url is `https://developer.github.com/v3/`. The `serviceClass` defines the annotated class or interface for API requests. The following section shows the concrete usage of Retrofit and how to define an examplary client.
 
-## JSON Mapping
+`ServiceGenerator`类 用Retrofit的 `RestAdapter`-Builder与给定的API基础url来创建一个新的REST客户端。例如，Github的API基础url是`https://developer.github.com/v3/`。
 
-Retrofit 1.9 ships with Google’s GSON by default. All you need to do is define the class of your response object and the response will be mapped automatically.
+`serviceClass`类定义了用于API请求的注解了的类或接口。接下里的章节会向我们展示Retrofit的实用的用法，还有如何写出一个值得仿效的客户端。
+## JSON 映射
 
-When using Retrofit 2, you need to add a converter explicitely to the `Retrofit` object. That’s the reason why we call `.addConverterFactory(GsonConverterFactory.create())` on Retrofit’s builder to integrate GSON as the default JSON converter.
+Retrofit 1.9 默认提供Google的GSON。你需要做的只是定义好你的response对象，之后这个response将会被自动的映射。
 
-## Retrofit in Use
+当用Retrofit 2时，你需要对`Retrofit`对象显式的添加一个转换器(converter).这就是为什么我们要在Retrofit的 builder上调用`.addConverterFactory(GsonConverterFactory.create())`去集成GSON作为默认的JSON转换器。
 
-Ok, let’s face an example and define a REST client to request data from GitHub. First, we have to create an interface and define required methods.
+## Retrofit实战
 
-### GitHub Client
 
-The following code defines the `GitHubClient` and a method to request the list of contributors for a repository. It also illustrates the usage of Retrofit’s parameter replacement functionality ({owner} and {repo} in the defined path will be replaced with the given variables when calling the object method).
+好的，让我们写一个 REST的 客户端向Github请求数据。
+
+首先，我们必须创建一个接口和定义需要的方法。
+### GitHub 客户端
+
+
+接下来的代码定义了一个`GithubClient`和一个请求仓库的贡献者列表的方法。它也说明了Retrofit的参数替换功能（当调用对象的方法时，在定义的路径中的{owner} 和 {repo}将会被所给的变量所替换）。
 
 **Retrofit 1.9**
 
@@ -160,28 +166,31 @@ The following code defines the `GitHubClient` and a method to request the list o
         );
     }
 
-There is a defined class `Contributor`. This class comprises required class properties to map the response data.
+这里定义了一个`Contributor`类，这个类包含了要映射到response数据的所有需要的属性。
 
     static class Contributor {  
         String login;
         int contributions;
     }
 
-With regard to previous mentioned JSON mapping: the defined `GitHubClient` defines a method named `contributors` with return type `List`. Retrofit makes sure the server response gets mapped correctly (in case the response matches the given class).
 
-### API Example Request
+关于之前提到的JSON映射：`GithubClient` 定义了一个返回类型是`List`的命名为`contributors`的方法。Retrofit确保服务端返回的response 能够得到正确的映射(在这里 服务端返回的response 匹配所给的Contributor类)。
+### API 请求样例
 
-The snippet below illustrates the usage of `ServiceGenerator` to instantiate your client, concretely the GitHub client, and the method call to get contributors using the created client. This snippet is a modified version of the provided [Retrofit github-client example](https://github.com/square/retrofit/tree/master/samples/src/main/java/com/example/retrofit).
+下面的片段说明了如何用`ServiceGenerator`去实例化你的客户端，具体点，这个Github客户端就是得到contributors的方法 用到的客户端。[Retrofit github-client example](https://github.com/square/retrofit/tree/master/sa
+mples/src/main/java/com/example/retrofit)是一个修改后的版本。
 
-You need to manually define the base url within the `ServiceGenerator` to `"https://developer.github.com/v3/"` when executing the GitHub example. Another option is to create an extra `createService()` method accepting two paramters: the client class and base url.
+
+当执行Github的这个例子的时候，你需要手动的在`ServiceGenerator`中用`"https://developer.github.com/v3/"`作为基础的url。另一个选择是用额外的`createService()`方法接受两个参数: 客户端类名，和基础的url。
 
 **Retrofit 1.9**
 
     public static void main(String... args) {  
-        // Create a very simple REST adapter which points the GitHub API endpoint.
+    
+        // 创建一个非常简单的 指向Github API端点的 RSET 适配器
         GitHubClient client = ServiceGenerator.createService(GitHubClient.class);
 
-        // Fetch and print a list of the contributors to this library.
+        // 得到并打印这个仓库的贡献者列表
         List contributors =
             client.contributors("fs_opensource", "android-boilerplate");
 
@@ -194,10 +203,10 @@ You need to manually define the base url within the `ServiceGenerator` to `"http
 **Retrofit 2**
 
     public static void main(String... args) {  
-        // Create a very simple REST adapter which points the GitHub API endpoint.
+        // 创建一个非常简单的 指向Github API端点的 RSET 适配器 
         GitHubClient client = ServiceGenerator.createService(GitHubClient.class);
 
-        // Fetch and print a list of the contributors to this library.
+        // 得到并打印这个仓库的贡献者列表
         Call> call =
             client.contributors("fs_opensource", "android-boilerplate");
 
@@ -209,30 +218,29 @@ You need to manually define the base url within the `ServiceGenerator` to `"http
         }
     }
 
-## What Comes Next
 
-The next posts explains how to implement basic authentication with Retrofit. We’ll show code examples to authenticate against webservices or APIs with username/email and password. Further, future posts will cover API authentication with tokens (including OAuth).
 
-We hope you enjoyed this overview and how to make your first request with Retrofit :)
+## 下面会讲什么
 
-## Not enough Retrofit? Buy our book!
+下一篇文章主要解释了如何用Retrofit去实现基本的认证。我们将会展示一些用 用户名/邮箱 和密码验证webservices或者APIs的代码样例。进一步讲，之后的文章主要会涉及到用tokens（包括OAuth）的API认证
+
+我们希望你能对这个概览感到满意，也希望你能用Retrofit来发出你的第一个请求。
+
+## 对Retrofit的讲解还不够？ 买我们的书吧！
 
 [![](https://futurestud.io/blog/content/images/2015/07/futurestudio-retrofitbook.png)](https://leanpub.com/retrofit-love-working-with-apis-on-android "Retrofit: Love working with APIs on Android")
 
-Learn how to create effective REST clients on Android with Retrofit. Boost your productivity and enjoy working with complex APIs.
-
-**Retrofit: Love working with APIs on Android** is available [for sale on Leanpub.com](https://leanpub.com/retrofit-love-working-with-apis-on-android "Retrofit: Love working with APIs on Android")
+学会如何在Android上用Retrofit创建一个高效率的RSET客户端，通过复杂的APIs提升你的效率，享受工作的乐趣。
 
 
-
+**Retrofit：Love working with APIs on Android**  在[Leanpub.com](https://leanpub.com/retrofit-love-working-with-apis-on-android "Retrofit: Love working with APIs on Android")上可购
 
 
 
 
-## Get Articles Directly to Your Inbox
+## 直接在你的收信箱里浏览文章
 
-**Subscribe to receive a bi-weekly summary of our latest articles about  
-Android, Node.js, open source, and more!**
+**订阅就可以收到我们每周总结的最新的关于Android、Node.js、开源代码和其他方面的文章。**
 
 
 
