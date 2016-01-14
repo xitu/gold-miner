@@ -1,9 +1,9 @@
 > * 原文链接 : [Retrofit — Getting Started and Create an Android Client](https://futurestud.io/blog/retrofit-getting-started-and-android-client)
 * 原文作者 : [Marcus Pöhls](https://futurestud.io/blog/author/marcus)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : Kevin Xiu
+* 译者 : [Kevin Xiu](https://github.com/xiuweikang)
 * 校对者: [kassadin](https://github.com/kassadin)、[foolishgao](https://github.com/foolishgao)
-* 状态 :  审核完待通过
+* 状态 :  完成
 
 这是Retrofit系列文章中的第一篇，这个系列前前后后有几个用例，并且还分析了Retrofit的功能性和可扩展性。
 
