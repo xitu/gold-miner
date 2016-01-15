@@ -1,73 +1,71 @@
 > * 原文链接 : [Approaching Android with MVVM — ribot labs — Medium](https://medium.com/ribot-labs/approaching-android-with-mvvm-8ceec02d5442#.8c8bnpmwi)
 * 原文作者 : [Joe Birch](https://twitter.com/hitherejoe)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者: 
-* 状态 :  待定
+* 译者 :[Sausure](https://github.com/Sausure)
+* 校对者:
+* 状态 :  翻译完成
 
-The Data Binding library for android is something that I’ve been keen to check out for a short while. I decided to _experiment_ with it using the Model-View-ViewModel architectural approach. To do this, I took a [HackerNews Reade](https://github.com/hitherejoe/HackerNewsReader)r app that [@matto1990](https://twitter.com/matto1990) and I worked on together, re-implementing what I could using this approach.
+我考察了一段时间安卓的数据绑定类库，决定尝试下它的“Model-View-ViewModel”模式。因为我曾经和 [@matto1990](https://twitter.com/matto1990) 合作开发过一款应用 [HackerNews Reader](https://github.com/hitherejoe/HackerNewsReader)，所以我决定利用这种模式重新实现它。
 
 ![](https://cdn-images-1.medium.com/max/800/1*jI0Qc7-8vYy7UpKuTLWrKg.png)
 
+这篇文章通过一款简单的App来论证MVVM模式，我建议你先看看这个[项目](https://github.com/hitherejoe/MVVM_Hacker_News),让你大概了解下它。
 
-This article references a sample app to demonstrate the implementation of using an MVVM approach. To help with your understanding, [I suggest you take a look at the repository for this sample app here.](https://github.com/hitherejoe/MVVM_Hacker_News)
 
+### 什么是MVVM模式?
+**Model-View-ViewModel** 就是将其中的 **View** 的状态和行为抽象化，让我们可以将UI和业务逻辑分开。当然这些工作 **ViewModel** 已经帮我们做了，它可以取出 **Model** 的数据同时帮忙处理 **View** 中由于需要展示内容而涉及的业务逻辑。
 
-### What is MVVM?
+MVVM模式是通过以下三个核心组件组成，每个都有它自己独特的角色：
 
-Model-View-ViewModel is an architecural approach used to abstract the state and behaviour of a view, which allows us to separate the development of the UI from the business logic. This is accomplished by the introduction of a ViewModel, whos responsibility is to expose the data objects of a model and handle any of the applications logic involved in the display of a view.
+*   **Model** - 包含了业务和验证逻辑的数据模型
+*   **View** - 定义屏幕中View的结构，布局和外观
+*   **ViewModel** - 扮演“View”和“Model”之间的使者,帮忙处理 **View** 的全部业务逻辑
 
-This approach (MVVM) is made up of three core components, each with it’s own distinct and separate role:
-
-*   **Model** - Data model containing business and validation logic
-*   **View** - Defines the structure, layout and appearance of a view on screen
-*   **ViewModel** - Acts a link between the View and Model, dealing with any view logic
 ![](https://cdn-images-1.medium.com/max/1600/1*VLhXURHL9rGlxNYe9ydqVg.png)
 
-So how does this differ from the MVC approach that we’re used to? The architecture for MVC is as follows:
+那这和我们曾经用过的MVC模式有什么不同呢？以下是MVC的结构
 
-*   The **View** sits at the top of the architure with the **Controller** below it, followed by the **Model**
-*   The **Controller** is aware of both the **View** and **Model**
-*   The **View** is aware of just the **Model** andis notified whenever there are changes to it
+*   **View** 在 **Controller** 的顶端，而 **Model** 在 **Controller** 的底部
+*   **Controller** 需要同时关注 **View** 和 **Model**
+*   **View** 只能知道 **Model** 的存在并且能在Model的值变更时收到通知
 
-In MVVM the architecture is similar, but there are a few distinct differences:
+MVVM模式和MVC有些类似，但有以下不同：
 
-*   The **Controller** is replaced by a **View Model**, which sits below the UI layer
-*   This **View Model** exposes the data and command objects that the **View** requires
-*   The **View Model** receives its data from the **Model**
+*   **ViewModel** 替换了 **Controller**，在UI层之下
+*   **ViewModel** 向 **View** 暴露它所需要的数据和指令对象
+*   **ViewModel** 接收来自 **Model** 的数据 
 
-You can see here that the two approaches use a similar architecture, with the addition of a **View Model** and the way that it introduces a different approach to the communication between components. The architecture introduces two-way communication between its components, whereas MVC is only capable of one-way communication.
+你可以看到这两种模式有着相似的结构，但新加入的 **ViewModel** 是用不同的方法将组件们联系起来的，它是双向的，而MVC只能单向连接。
 
-In a nutshell, MVVM is a progression of the MVC architecture - using an additonal layer of non-visual components on top of the **Model** (but below the **View**) to map data closer to the **View** components in the architecture. We’ll take more of a look at the nature of MVVM over the next few sections.
+概括起来，MVVM是由MVC发展而来 - 通过在 **Model** 之上而在 **View** 之下增加一个非视觉的组件将来自 **Model** 的数据映射到 **View** 中。接下来，我们将更多地看到MVVM的这种特性。
 
 ### The Hacker News reader
 
-As previously mentioned, I took an old project of mine and stripped it back for use with this article. The features of this sample application consist of:
+正如前面提及过的，我将我原来的一个项目拆开为这篇文章服务。这款应用有以下几种特性:
 
-*   Retrieval of Posts
-*   Viewing a single Post
-*   Viewing comments for a Post
-*   Viewing a selected authors Posts
+*   查看帖子列表
+*   查看单个帖子
+*   查看帖子下的评论
+*   查看指定作者的帖子
 
-This was done in the hope that it would reduce the codebase, hence making it a little easier to follow and understand how the implementation operates. The screens of the app that we’re working with are as shown below:
+我们这么做是为了缩减代码库的规模，更加容易去了解这些操作是如何进行的。下面的图片能让你很快了解它是怎么工作的：
 
 ![](https://cdn-images-1.medium.com/max/1600/1*zMUV6foMMwgciC44zkP3Vg.png)
 
-The main part of the application that I’m going to be looking at is the listing of Posts, shown on the left. The comments screen works in _pretty much_ the same way, with a few slight differences (which we’ll look at later).
+左边的图片展示的是帖子的列表，它也是这款应用的主要部分，接下来右边的图片展示的是该帖子的评论列表，它和前者有相似的地方，但也有一些不同，我们将在后面看到。
 
-### Displaying Posts
+### 展示帖子
 
 ![](https://cdn-images-1.medium.com/max/800/1*QbhJtmYYtGzU7AfeybxRJA.png)
 
-Each Post instance is displayed in a recycler view within a card view, as shown on the left.
+每个帖子信息都用 **RecyclerView** 所包含的 **CardView** 包装起来，正如上图展示的。
 
-Using MVVM we will be able to abstract the different layers that make up this card, meaning that each MVVM component will only be dealing with its assigned responsibility. Using these different components introduced with MVVM, working together they are able to construct the Post card instance. So how can we break this up?
+使用MVVM我们可以将不同层抽象出来很好的实现这些卡片，这意味着每个MVVM组件只要处理它被分配的任务即可。通过使用前面介绍的MVVM的不同组件，组合在一起后能构造出我们的帖子卡片实例，那么我们该如何将它们从布局中抽离出来？
 
 ![](https://cdn-images-1.medium.com/max/1600/1*W5rJoOlz6YpZn6s36BLvSw.png)
 
 ### Model
-
-Quite simply put, the Model consists of the business logic belonging to a Post. This includes different properties such as the id, name, text etc. The code below shows a reduced version of this class:
+简单来说，**Model** 由那些帖子的业务逻辑组成，包括一些像 id，name，text之类的属性，以下代码展示了该类的部分代码：
 
 ```
 
@@ -109,40 +107,39 @@ public class Post {
     }
 
     public Post() { }
-    
+
 }
 ```
+为了可读性，上面的 **POST** 类中去掉了一些Parcelable变量和方法
+这里你可以看到**Post**类只包含所有它的属性，没有一点别的逻辑 - 别的组件会处理它们。
 
-The Post Model, stripped back of Parcelable and other methods for readability
-
-
-
-Here you can see that all our Post Model contains is it’s properties, no other logic has been placed in this class - that’ll be dealt with by the other components.
 ##View
-Our **View** is responsible for defining the layout, appearance and structure of its components. The **View** itself will be (ideally) constructed completely of XML, however if any java code is used then it should **not** consist of any business logic. The **View** retrieves its data from a **View Model** through the use of binding. Then at run time, the UI content is set and can be updated when the **View Model** properties flag any change notification events.
+**View** 的任务是定义布局，外观和结构。**View** 最好能完全通过XML来定义，即使它包含些许java代码也不应该有业务逻辑部分，
+**View** 会通过绑定从 **ViewModel**中取出数据。在运行时，若 **ViewModel**的属性的值有变化的话它会通知 **View**来更新UI。
 
-To begin with, we created a custom adapter to use with our RecyclerView. For this, we needed to make a create a BindingHolder to keep a reference to our Binding.
+首先，我们先给 **RecyclerView** 传入一个自定义的适配器。为此，我们需要让我们的 **BindingHolder** 类持有对 **Binding** 的引用。
 
 ```
-public static class BindingHolder extends RecyclerView.ViewHolder {  
-    private ItemPostBinding binding;  
+public static class BindingHolder extends RecyclerView.ViewHolder {
+    private ItemPostBinding binding;
 
-public BindingHolder(ItemPostBinding binding) {  
-        super(binding.cardView);  
-        this.binding = binding;  
-    }  
+public BindingHolder(ItemPostBinding binding) {
+        super(binding.cardView);
+        this.binding = binding;
+    }
 }
 ```
 
-The **onBindViewHolder()** method is where the actual binding of the ViewModel and View takes place. We create a new ItemPostBinding (generated from our item_post layout) and set the View Model to a new instance of our **PostViewModel** class.
+**onBindViewHolder()** 方法才是真正将 **ViewModel** 和 **View** 绑定的地方。我们获取一个 **ItemPostBinding** 对象（它会被 **item_post** 布局自动生成），然后将新建的 **PostViewModel** 对象传给它的 **ViewModel** 引用。
 
 ```
-ItemPostBinding postBinding = holder.binding;  
-postBinding.setViewModel(new PostViewModel(mContext,    
+ItemPostBinding postBinding = holder.binding;
+postBinding.setViewModel(new PostViewModel(mContext,
                              mPosts.get(position), mIsUserPosts));
 ```
 
-Other than the standard adapter views, that’s pretty much it! The full PostAdapter class is displayed below:
+下面就是完整的 **PostAdaper** 类：
+
 ```
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.BindingHolder> {
@@ -198,7 +195,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.BindingHolder>
 
 }
 ```
-Moving on to our XML layout file, we first begin by wrapping our entire layout in a <layout> tag and declare our ViewModel using the <data> tag:
+
+看下我们的XML布局，首先我们要将所有的布局都包含在layout标签下，同时使用data标签来声明我们的 **ViewModel**:
 
 ```
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
@@ -207,12 +205,13 @@ Moving on to our XML layout file, we first begin by wrapping our entire layout i
 <!-- Other layout views -->
 </layout>
 ```
+声明 **ViewModel** 可以让我们在整个布局中引用它，在[item_post](https://github.com/hitherejoe/MVVM_Hacker_News/blob/master/app/src/main/res/layout/item_post.xml) 布局中我们会多次用到 **ViewModel**:
 
-Declaring our View Model is required to allow us to reference it throughout our layout file. I’ve made use of the ViewModel in several places within the [item_post](https://github.com/hitherejoe/MVVM_Hacker_News/blob/master/app/src/main/res/layout/item_post.xml) layout:
+*   **androidText** - 你可以从 **ViewModel** 中引用相应的方法给文本视图设置内容。正如下面你所看到的 **@{viewModel.postTitle}**，它从 **ViewModel** 中引用了 **getPostTitle()** 方法 - 它将返回相应帖子的标题。
 
-*   **androidText** - It’s possible to set the content of a text view by referencing the corresponding method in our ViewModel. You can see below the use of **@{viewModel.postTitle}**, this references the **getPostTitle()** method in our ViewModel - which returns us the title of the corresponding post instance.
-*   **onClick** - We can also reference click events from our layout file. As shown in the layout file, **@{viewModel.onClickPost}** is used to reference the **onClickPost()** method in our ViewModel, which returns an OnClickListener containing the click event.
-*   **visibility** - The ability to open the comments activity for a post depends on whether the post has any comments or not. This is done by checking the size of the comments list and setting the visibility based on the result, which should take place in the ViewModel. Here, we use the **getCommentsVisiblity()** method which returns the calculated visibility.
+*   **onClick** - 我们也可以引用单击事件到布局文件中。如你所看到的，**@{viewModel.onClickPost}** 是指从 **ViewModel** 中引用 **onClickPost()**方法 - 它将返回一个能处理单击事件的 **OnClickListener** 对象。
+
+*   **visibility** - 控制去**comments activity**的入口，依赖于该帖子是否有相应的评论。通过检查 **comments list** 的长度来决定该 **visibility** 的值，这些操作都是在 **ViewModel** 中完成的。在这里，我们引用了它的**getCommentsVisiblity()**方法来计算是否该显示
 
 ```
 
@@ -332,20 +331,21 @@ Declaring our View Model is required to allow us to reference it throughout our 
 </layout>
 ```
 
-That’s great isn’t it? This allows us to abstract the display logic from our layout file, handing it over to our ViewModel to take care of it for us.
+这样做实在太棒了，我们能抽象出显示逻辑到我们的布局文件中，让我们的 **ViewModel** 来关注它们。
 
 ### ViewModel
 
-The ViewModel is the component which acts as the link between the View and the Model, giving it the responsibility of all of the logic relating to our View. The ViewModel is responsible for accessing the methods and properties of the Model, which is then made available to the View. Within our ViewModel, this data can be returned as is or formatted to again remove this responsibility from other components.
+**ViewModel** 扮演了 **View** 和 **Model** 之间使者的角色，让它来关注所有涉及到 **View** 的业务逻辑，同时它可以访问 **Model** 的方法和属性，这些最终会作用到 **View** 中。通过
+**ViewModel**，可以移除原本需要在别的组件中返回或处理的数据。
 
-In our case, the [PostViewModel](https://github.com/hitherejoe/MVVM_Hacker_News/blob/master/app/src/main/java/com/hitherejoe/mvvm_hackernews/viewModel/PostViewModel.java) uses the Post object to handle the display of content on the CardView of a Post instance. Within this class (below) you can see a whole bunch of methods, each corresponding to a different property of our Post View.
+在这里，[PostViewModel](https://github.com/hitherejoe/MVVM_Hacker_News/blob/master/app/src/main/java/com/hitherejoe/mvvm_hackernews/viewModel/PostViewModel.java) 用 **Post** 对象来处理 **CardView** 需要显示的内容，在下面的类中，你可以看到一系列的方法，每个方法对最终作用于我们的帖子视图。
 
-*   **getPostTitle()** - This uses the Post instance to return the Post title
-*   **getPostAuthor()** - This method begins by retreiving a String from the app resources and formatting it with the author of the Post instance. Then if our **isUserPosts** equates to true we underline the text, finally returning our content String
-*   **getCommentsVisibility()** - This method returns the value that should be used for the comment TextViews visibility
-*   **onClickPost()** - This method returns a click event when the corresponding view is pressed
+*   **getPostTitle()** - 通过 **Post** 对象返回一个帖子的标题
+*   **getPostAuthor()** - 这个方法首先会从应用的resources中获取相应的字符串，然后传入**Post**对象的**author**属性对它进行格式化，如果**isUserPosts** 等于true我们就需要加入下划线，最终返回该字符串。
+*   **getCommentsVisibility()** - 该方法决定是否显示有关评论的TextView
+*   **onClickPost()** - 该方法返回相应View需要的**OnClickListener**
 
-These samples show the different kinds of logic that can currently be handled by our ViewModel. Below shows the complete [PostViewModel](https://github.com/hitherejoe/MVVM_Hacker_News/blob/master/app/src/main/java/com/hitherejoe/mvvm_hackernews/viewModel/PostViewModel.java) class and its methods which are referenced from our [item_post](https://github.com/hitherejoe/MVVM_Hacker_News/blob/master/app/src/main/res/layout/item_post.xml) view.
+这些例子表明不同的业务逻辑都有我们的 **ViewModel** 来处理。下面就是我们[PostViewModel](https://github.com/hitherejoe/MVVM_Hacker_News/blob/master/app/src/main/java/com/hitherejoe/mvvm_hackernews/viewModel/PostViewModel.java)类的完整代码以及那些被[item_post](https://github.com/hitherejoe/MVVM_Hacker_News/blob/master/app/src/main/res/layout/item_post.xml)布局引用的方法。
 
 ```
 
@@ -423,21 +423,22 @@ public class PostViewModel extends BaseObservable {
 }
 ```
 
-Great, huh? As you can see, our PostViewModel takes care of:
+是不是很爽？正如你看到的，我们的**PostViewModel**关注以下方面：
 
-*   Providing the Post objects properties to be displayed in our view
-*   Carrying out any required formatting on these properties
-*   Returning click events to any views using the onClick attribute
-*   Handling the visibility of any views based on Post properties
+*   维护**Post**对象的属性，最终会在**View**中展示
+*   对这些属性进行相应的格式化
+*   通过 **onclick** 属性给相应的views对提供点击事件的支持
+*   通过**Post**对象的属性处理相关views的显示
 
-### Testing the ViewModel
+### 测试 ViewModel
 
-One of the great things about MVVM is that our View Model is now extremely easy to unit test. For the PostViewModel, a simple test class was created to test that the methods in the ViewModel were implemented correctly.
+使用MVVM的一大好处是我们可以很容易对 **ViewModel** 进行单元测试。在**PostViewModel**中，可以写些简单的测试方法来验证我们的**ViewModel**是否正确实现。
 
-*   **shouldGetPostScore()** - Test the getPostScore() method, to ensure that the score for the Post is correctly formatted as a String and returned.
-*   **shouldGetPostTitle()** - Test the getPostTitle() method, to ensure that the correct Post title is returned.
-*   **shouldGetPostAuthor()** - Test the getPostAuthor() method, to ensure that a correctly formatted string using the Post author is returned.
-*   **shouldGetCommentsVisiblity()** - Test that the getCommentsVisibility() method returns the correct visibility for the ‘Comments’ button on the Post card. We pass ArrayLists of different states to ensure that the correct visibility is returned for each case.
+*   **shouldGetPostScore()** - 测试getPostScore()方法，确认该帖子的得分是否正确地格式化成字符串对象并返回。
+*   **shouldGetPostTitle()** - 测试getPostTitle()方法，确认该帖子的标题被正确返回。
+*   **shouldGetPostAuthor()** - 测试getPostAuthor()方法，确认返回的帖子的作者被正确地格式化了
+*   **shouldGetCommentsVisiblity()** - 测试getCommentsVisibility()方法是否正确返回了visibility属性的值，它将会用在帖子的‘Comments’按钮中。我们传入一个包含不同状态的ArrayLists来确认它是否能正确返回。
+
 ```
 
 @RunWith(RobolectricTestRunner.class)
@@ -485,98 +486,92 @@ public class PostViewModelTest {
     }
 }
 ```
-And now we know that our **ViewModel** is working as it should, great!
+现在我们可以知道的 **ViewModel** 已经正确工作了！！
 
-### Comments
+### 评论
 
-The approach used for comments is very similar to that of the Post instances, however there is one difference that I would like to point out.
+实现评论的方法和前面很像但还是有点不同。
 
-Two different view models are used regarding the comments, the [CommentHeaderViewModel](https://github.com/hitherejoe/MVVM_Hacker_News/blob/master/app/src/main/java/com/hitherejoe/mvvm_hackernews/viewModel/CommentHeaderViewModel.java) and [CommentViewModel](https://github.com/hitherejoe/MVVM_Hacker_News/blob/master/app/src/main/java/com/hitherejoe/mvvm_hackernews/viewModel/CommentViewModel.java). If you look at the [CommentAdapter](https://github.com/hitherejoe/MVVM_Hacker_News/blob/master/app/src/main/java/com/hitherejoe/mvvm_hackernews/view/adapter/CommentAdapter.java) then you’ll notice two different view types, which are:
+有两个不同的**ViewModel**被用来操作这次评论，[CommentHeaderViewModel](https://github.com/hitherejoe/MVVM_Hacker_News/blob/master/app/src/main/java/com/hitherejoe/mvvm_hackernews/viewModel/CommentHeaderViewModel.java) 和 [CommentViewModel](https://github.com/hitherejoe/MVVM_Hacker_News/blob/master/app/src/main/java/com/hitherejoe/mvvm_hackernews/viewModel/CommentViewModel.java)。正如你在[CommentAdapter](https://github.com/hitherejoe/MVVM_Hacker_News/blob/master/app/src/main/java/com/hitherejoe/mvvm_hackernews/view/adapter/CommentAdapter.java)中看到的，我们的 **View** 有两种的不同类型：
 
 ```
-private static final int VIEW_TYPE_COMMENT = 0;      
+private static final int VIEW_TYPE_COMMENT = 0;
 private static final int VIEW_TYPE_HEADER = 1;
 ```
-
-If the Post type is an **Ask** post, then we show a header section at the top of the screen containing the question which was asked - the comments are displayed as normal below. You’ll notice in the **onCreateViewHolder()** method we inflate the layout based on the VIEW_TYPE that we are currently dealing with, this simply returns one of our two different layouts.
+如果该帖子是一个**发问**的帖子，我们将在屏幕的顶端显示一个头部，它显示所问的问题 - 接着评论会正常显示在下面。同时你应该会注意到在 **onCreateViewHolder()** 中我们会通过判断 VIEW_TYPE 来加载不同的布局，它会返回两种不同布局中的其中一种。
 
 ```
-if (viewType == _VIEW_TYPE_HEADER_) {  
-    ItemCommentsHeaderBinding commentsHeaderBinding =       
-    DataBindingUtil._inflate_(  
-            LayoutInflater._from_(parent.getContext()),  
-            R.layout._item_comments_header_,  
-            parent,  
-            false);  
-    return new BindingHolder(commentsHeaderBinding);  
-} else {  
-    ItemCommentBinding commentBinding =   
-        DataBindingUtil._inflate_(  
-            LayoutInflater._from_(parent.getContext()),  
-            R.layout._item_comment_,  
-            parent,  
-            false);  
-    return new BindingHolder(commentBinding);  
+if (viewType == _VIEW_TYPE_HEADER_) {
+    ItemCommentsHeaderBinding commentsHeaderBinding =
+    DataBindingUtil._inflate_(
+            LayoutInflater._from_(parent.getContext()),
+            R.layout._item_comments_header_,
+            parent,
+            false);
+    return new BindingHolder(commentsHeaderBinding);
+} else {
+    ItemCommentBinding commentBinding =
+        DataBindingUtil._inflate_(
+            LayoutInflater._from_(parent.getContext()),
+            R.layout._item_comment_,
+            parent,
+            false);
+    return new BindingHolder(commentBinding);
+}
+```
+接着在我们的 **onBindViewHolder()**方法中我们会根据不同的视图类型来创建绑定。这是因为不同的 **ViewModel** 对头部有不同的处理方法
+
+```
+if (getItemViewType(position) == _VIEW_TYPE_HEADER_) {
+    ItemCommentsHeaderBinding commentsHeaderBinding =
+                        (ItemCommentsHeaderBinding) holder.binding;
+    commentsHeaderBinding.setViewModel(new
+                          CommentHeaderViewModel(mContext, mPost));
+} else {
+    int actualPosition = (postHasText()) ? position - 1 : position;
+    ItemCommentBinding commentsBinding =
+                               (ItemCommentBinding) holder.binding;
+    mComments.get(actualPosition).isTopLevelComment =
+                                               actualPosition == 0;
+    commentsBinding.setViewModel(new CommentViewModel(
+                         mContext, mComments.get(actualPosition)));
 }
 ```
 
-Then in our **onBindViewHolder()** method we create the binding depending on the type view that we’re dealing with. This is because we’re using a slightly different View Model for the cases when there is a header section (for our ASK post question text) used.
+这就是它们的不同点，评论部分有两个不同的**ViewModel**类型 — 取决于该帖子是否是**发问**类的帖子。
 
-```
-if (getItemViewType(position) == _VIEW_TYPE_HEADER_) {  
-    ItemCommentsHeaderBinding commentsHeaderBinding =   
-                        (ItemCommentsHeaderBinding) holder.binding;  
-    commentsHeaderBinding.setViewModel(new     
-                          CommentHeaderViewModel(mContext, mPost));  
-} else {  
-    int actualPosition = (postHasText()) ? position - 1 : position;  
-    ItemCommentBinding commentsBinding =   
-                               (ItemCommentBinding) holder.binding;  
-    mComments.get(actualPosition).isTopLevelComment =   
-                                               actualPosition == 0;  
-    commentsBinding.setViewModel(new CommentViewModel(  
-                         mContext, mComments.get(actualPosition)));  
-}
-```
+### 总结
 
-And that’s pretty much all that is different about it, the comments section just has two different ViewModel types available - the one chosen is dependent on whether the post is an **ASK** post or not.
+如果正确使用，数据绑定类库可能会改变我们开发应用的方式。当然，还有其他方法实现数据的绑定，使用MVVM模式只是其中的一种途径。
 
-### To conclude…
-
-The data binding library, if used correctly, has the potential to really change the way in which we develop applications. There are other ways in which we could make use of data binding in our applications, using an MVVM structure is just one of the ways in which we can do so.
-
-For example, we could simply reference our Model in the layout file and access its properties through a variable reference:
+比如，你可以在布局中引用我们的 **Model** 然后通过它的变量引用直接访问它的属性：
 
 ```
 <data>
     <variable name="post" type="your.package.name.model.Post"/>
 </data>
-<TextView 
+<TextView
     ...
     android:text="@{post.title}"/>
 ```
 
-This is simple to do and could help to remove some basic display logic from adapters and/or classes. Whilst this is nice, a similar approach could result in the following:
+同时我们可以很容易从adapers和classes中移除一些基础的显示逻辑。下面有种很新颖的方法实现我们这种需求：
 
 ```
 <data>
     <import type="android.view.View"/>
 </data>
-<TextView 
+<TextView
     ...
-    android:visibility="@{post.hasComments ? View.Visible :      
+    android:visibility="@{post.hasComments ? View.Visible :
     View.Gone}"/>
 ```
 
-
-
 ![](https://cdn-images-1.medium.com/max/1600/1*bEQosDqPGuIbNcdPQDNktQ.gif)
-Me upon seeing the above.
+这就是我看到上面实现方式的表情！
 
+我认为这是数据绑定类库中不好的地方，它将 **View** 的显示逻辑包含到了 **View** 中。不仅会造成混乱，也让我们的测试和调试变的更加困难，因为它将逻辑和布局混淆在一起。
 
+当然，认定MVVM是开发应用的正确方式还为时过早，但这次尝试也让我有机会见识到未来项目的一种趋势。如果你想阅读更多有关数据绑定类库的文章，你可以看[这里](https://developer.android.com/tools/data-binding/guide.html)。同时微软也有一篇关于MVVM通俗易懂的[文章](https://msdn.microsoft.com/en-gb/library/hh848246.aspx).
 
-For me, this is where Data Binding could have a negative effect on its usage. This is moving a Views display logic into the View itself. Not only do I find this messy, but it would also make testing / debugging more difficult by mixing logic and layout code together.
-
-It’s still too early to know if this approach is the correct way of developing an application, but this experiment has given me a chance to look at one of the possibilities for future projects. It’s something I definitely want to play around with more. If you wish to read more about the Data Binding library, you can do so [here](https://developer.android.com/tools/data-binding/guide.html). Microsoft has also written a short and easy to understand article on MVVM [here](https://msdn.microsoft.com/en-gb/library/hh848246.aspx).
-
-I’d love to hear your thoughts on this experiment, if you’ve got any comments and/or suggestions then feel free to leave a response or drop me a tweet!
+我很愿意听取你们想法，如果你们有任何的看法和建议可以随时在Tweet上和我讨论！
