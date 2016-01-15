@@ -1,33 +1,33 @@
-> * 原文链接 : [JavaScript Developer Survey Results](https://ponyfoo.com/articles/javascript-developer-survey-results)
+> * 原文链接 : [JavaScript Developer Survey Results](https://ponyfoo.com/articles/JavaScript-developer-survey-results)
 * 原文作者 : [ponyfoo](https://ponyfoo.com/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [sqrthree(根号三)](https://github.com/sqrthree)
-* 校对者:
-* 状态 :  翻译完成
+* 校对者: [Yves-X](https://github.com/Yves-X)
+* 状态 :  完成
 
-截至目前有超过了 5000 人参与了(该次调查)，准确的说是 5350 人。我迫不及待的想要和大家分享一下这次调查的细节。在分享之前我想要感谢参与调查的每一个人。这是 Javascript 社区一个伟大的时刻，我对未来的事情感到无比激动。
+截至目前有超过了 5000 人参与了(该次调查)，准确的说是 5350 人。我迫不及待的想要和大家分享一下这次调查的细节。在分享之前我想要感谢参与调查的每一个人。这是 JavaScript 社区一个伟大的时刻，我对未来的事情感到无比激动。
 
 我没有想到大家如此积极，下一次我一定会对版式做一些改进。换句话说，就是我会先将问卷调查放到 [Github](https://github.com/) 上，以便于在开始调查之前，社区有一到两周的时间来收集改进问题和选项。这样，我就可以得到更精确的结果，也可以避免出现诸如 "我很震惊你竟然没有包含 Emacs" 这样的抱怨。
 
 现在，基于调查结果。我将保持中立的态度发表一下调查结果，这样你就可以得出自己的公正的结论。
 
-## 你写什么类型的 Javascript？
+## 你写什么类型的 JavaScript？
 
-有高达 97.4% 的受访者用 Javascript 写 web 浏览器程序，其中有 37% 的受访者写移动端 web 程序。超过 3000 人(56.6%) 也写服务端的 Javascript。在这些参与调查者的人中间，有 5.5% 的人还在一些嵌入式环境中使用 Javascript，例如 Tessel 或 a Raspberry Pi (树莓派).
+有高达 97.4% 的受访者用 JavaScript 写 web 浏览器程序，其中有 37% 的受访者写移动端 web 程序。超过 3000 人(56.6%) 也写服务端的 JavaScript。在这些参与调查者的人中间，有 5.5% 的人还在一些嵌入式环境中使用 JavaScript，例如 Tessel 或 a Raspberry Pi (树莓派).
 
-少数参与者表示他们也在其他一些地方使用 Javascript，尤其是在开发 CLI 和桌面应用方面。还有少数提到了 Pebble 和 Apple TV. 这些都归类在 **Other(其他)** 一类中，占总票数的 2.2%.
+少数参与者表示他们也在其他一些地方使用 JavaScript，尤其是在开发 CLI 和桌面应用方面。还有少数提到了 Pebble 和 Apple TV. 这些都归类在 **Other(其他)** 一类中，占总票数的 2.2%.
 
 ![An screenshot of the percentages for the first question](https://i.imgur.com/c0q4LvI.png)
 
-## 你在哪里使用 Javascript？
+## 你在哪里使用 JavaScript？
 
-不出所料地，有 94.9% 的参与者在工作中使用 Javascript，但是，统计中也有很大一部分(占总票数的 82.3%) 参与者也在其他项目中使用。其他的回复则包括了教学，好玩，和非盈利目的的使用。
+不出所料地，有 94.9% 的参与者在工作中使用 JavaScript，但是，统计中也有很大一部分(占总票数的 82.3%) 参与者也在其他项目中使用。其他的回复则包括了教学，好玩，和非盈利目的的使用。
 
 ![An screenshot of the percentages for the second question](https://i.imgur.com/K5nSsyr.png)
 
-## 你写 Javascript 多长时间了？
+## 你写 JavaScript 多长时间了？
 
-超过 33% 的受访者表示他们写 Javascript 代码已经超过了 6 年时间。除了这些人之外，有 5.2% 的人一年前开始写 Javascript 代码，12.4% 的人是两年前，还有 15.1% 的人是三年前。这说明在 5350 个投票者中，有 32.7% 的人是在近几年才开始写 Javascript 的。
+超过 33% 的受访者表示他们写 JavaScript 代码已经超过了 6 年时间。除了这些人之外，有 5.2% 的人一年前开始写 JavaScript 代码，12.4% 的人是两年前，还有 15.1% 的人是三年前。这说明在 5350 个投票者中，有 32.7% 的人是在近几年才开始写 JavaScript 的。
 
 ![An screenshot of the percentages for the third question](https://i.imgur.com/P5ev9fL.png)
 
@@ -39,7 +39,7 @@
 
 ![An screenshot of the percentages for the fourth question](https://i.imgur.com/12mL6u6.png)
 
-## 你更喜欢哪一种 Javascript 编程风格？
+## 你更喜欢哪一种 JavaScript 编程风格？
 
 回答这个问题的绝大多数开发者(79.9%)都选择了分号。相反，有 11% 的开发者指出更喜欢不使用分号。
 
@@ -81,13 +81,13 @@
 
 ## 你使用过哪个单元测试库？
 
-似乎大部分投票者都使用 Mocha 或是 Jasmine 来运行他们的 Javascript 测试用例。而 Tape 收到了 9.8% 的选票。
+似乎大部分投票者都使用 Mocha 或是 Jasmine 来运行他们的 JavaScript 测试用例。而 Tape 收到了 9.8% 的选票。
 
 ![An screenshot of the percentages for the eleventh question](https://i.imgur.com/20nUzJu.png)
 
 ## 你使用过哪个代码质量检测工具？
 
-看起来受访者在 ESLint 和 JSHint之间分成了两派，但是 JSLint 还是有差不多 30% 的投票率，在这么多年之后势头还是惊人的强劲。
+看起来受访者在 ESLint 和 JSHint 之间分成了两派，但是 JSLint 还是有差不多 30% 的投票率，在这么多年之后势头还是惊人的强劲。
 
 ![An screenshot of the percentages for the 12th question](https://i.imgur.com/RC8ePwr.png)
 
@@ -163,27 +163,27 @@ npm 接管了客户端依赖管理系统的天下，有超过 60% 的投票就�
 
 ![An screenshot of the percentages for the 24th question](https://i.imgur.com/HpmV9yz.png)
 
-## 你参加过 Javascript 的社交活动吗？
+## 你参加过 JavaScript 的社交活动吗？
 
 有近 60% 的人参加过至少一次，74% 的人表示他们喜欢参加聚会。
 
 ![An screenshot of the percentages for the 25th question](https://i.imgur.com/EnQWGzf.png)
 
-## 在你的 Javascript 应用中，你都支持哪些浏览器？
+## 在你的 JavaScript 应用中，你都支持哪些浏览器？
 
 回答相当分散，但是好在大多数受访者表示他们不再处理使用 IE6 的客户(的问题)了。
 
 ![An screenshot of the percentages for the 26th question](https://i.imgur.com/BV3eU0X.png)
 
-## 你会定期了解有关 Javascript 的最新特性吗？
+## 你会定期了解有关 JavaScript 的最新特性吗？
 
-有 80% 的受访者会尝试实时了解并持续学习 Javascript 的最新特性。
+有 80% 的受访者会尝试实时了解并持续学习 JavaScript 的最新特性。
 
 ![An screenshot of the percentages for the 27th question](https://i.imgur.com/5TZUW2i.png)
 
 ## 你在哪了解最新的 JavaScript 特性？
 
-不出所料地，[Mozilla 开发者网络](https://developer.mozilla.org/) 在 Javascript 文档和新闻方面处于领先地位。[JavaScript 周刊](http://javascriptweekly.com/) 也是一个非常受欢迎的新闻和文章的直接来源，它有着超过 40% 的投票。
+不出所料地，[Mozilla 开发者网络](https://developer.mozilla.org/) 在 JavaScript 文档和新闻方面处于领先地位。[JavaScript 周刊](http://JavaScriptweekly.com/) 也是一个非常受欢迎的新闻和文章的直接来源，它有着超过 40% 的投票。
 
 ![An screenshot of the percentages for the 28th question](https://i.imgur.com/7Jlg7zh.png)
 
