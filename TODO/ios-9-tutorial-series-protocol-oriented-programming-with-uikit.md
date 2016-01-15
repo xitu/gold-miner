@@ -1,11 +1,9 @@
-> * 原文链接: [iOS 9 Tutorial Series: Protocol-Oriented Programming with UIKit](http://www.captechconsulting.com/blogs/ios-9-tutorial-series-protocol-oriented-programming-with-uikit)
+> * 原文链接: [iOS 9 系列教程: 使用 UIKit 进行面向协议的编程](http://www.captechconsulting.com/blogs/ios-9-tutorial-series-protocol-oriented-programming-with-uikit)
 * 原文作者 : [TYLER TILLAGE](http://www.captechconsulting.com/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [walkingway](https://github.com/walkingway)
 * 校对者 :
 * 状态 : 待定
-
-##使用 UIKit 进行面向协议的编程
 
 Swift 中令人耳目一新的『面向协议编程』在 2015 年 WWDC 上一经推出，街头巷尾都在热情洋溢地讨论着**协议扩展**（protocol extensions）---这一激动人心的语言新特性，既然是新特性，第一次接触总要走点弯路。
 
