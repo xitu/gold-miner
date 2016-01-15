@@ -19,8 +19,6 @@ Swift 中令人耳目一新的『面向协议编程』在 2015 年 WWDC 上一�
 
 ###协议的优势
 
-Protocols are nothing new, but the idea that we can _extend_ them with built-in functionality, shared logic, magical power...well that's a fascinating thought. More protocols == more flexibility. A protocol extension is a small chunk of modular functionality that can be adopted, overriden (or not) and can interact with type-specific code through the `where` clause.
-
 协议并不是什么新技术，但我们可以使用内置的函数扩展他们，共享内部逻辑，很神奇不是吗？真是个美妙的想法，协议越多代表灵活性越好。一个协议扩展代表可被部署的单一功能模块，并且该模块可以被重载（或不可以）和通过 where 子句与特定类型的代码交互。
 
 > 协议 _Protocols_ 存在的目的让编译器满意就好，但协议扩展 _extensions_ 是一段代码片段，可在整个代码库里共享的有形资产
