@@ -2,7 +2,7 @@
 * 原文作者 : [Molsson](http://mo.github.io/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [chemzqm](http://chemzqm.me)
-* 校对者: 
+* 校对者: [RobertWang](https://github.com/RobertWang)、[EthanWu](https://github.com/EthanWu)、[Zhangdroid](https://github.com/Zhangdroid)
 * 状态 : 翻译完成
 
 最近我花了很多的时间使用我的 Chrome 开发者工具。 通过这个过程我发现了一些以前错过的很棒的特性（或者说当时觉得没有必要去深究，例如：黑箱特性和异步栈追踪）。 因此，我想简要阐述一些我特别喜欢的开发者工具特性。
