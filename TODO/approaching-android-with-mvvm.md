@@ -9,7 +9,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*jI0Qc7-8vYy7UpKuTLWrKg.png)
 
-这篇文章通过一款简单的App来论证MVVM模式，我建议你先看看这个[项目](https://github.com/hitherejoe/MVVM_Hacker_News),让你大概了解下它。
+这篇文章通过一款简单的App来论证MVVM模式，我建议你先看看这个[项目](https://github.com/hitherejoe/MVVM_Hacker_News)，让你大概了解下它。
 
 
 ### 什么是MVVM模式?
@@ -19,7 +19,7 @@ MVVM模式是通过以下三个核心组件组成，每个都有它自己独特�
 
 *   **Model** - 包含了业务和验证逻辑的数据模型
 *   **View** - 定义屏幕中View的结构，布局和外观
-*   **ViewModel** - 扮演“View”和“Model”之间的使者,帮忙处理 **View** 的全部业务逻辑
+*   **ViewModel** - 扮演“View”和“Model”之间的使者，帮忙处理 **View** 的全部业务逻辑
 
 ![](https://cdn-images-1.medium.com/max/1600/1*VLhXURHL9rGlxNYe9ydqVg.png)
 
@@ -205,7 +205,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.BindingHolder>
 <!-- Other layout views -->
 </layout>
 ```
-声明 **ViewModel** 可以让我们在整个布局中引用它，在[item_post](https://github.com/hitherejoe/MVVM_Hacker_News/blob/master/app/src/main/res/layout/item_post.xml) 布局中我们会多次用到 **ViewModel**:
+声明 **ViewModel** 可以让我们在整个布局中引用它，在 [item_post](https://github.com/hitherejoe/MVVM_Hacker_News/blob/master/app/src/main/res/layout/item_post.xml) 布局中我们会多次用到 **ViewModel**:
 
 *   **androidText** - 你可以从 **ViewModel** 中引用相应的方法给文本视图设置内容。正如下面你所看到的 **@{viewModel.postTitle}**，它从 **ViewModel** 中引用了 **getPostTitle()** 方法 - 它将返回相应帖子的标题。
 
@@ -425,19 +425,19 @@ public class PostViewModel extends BaseObservable {
 
 是不是很爽？正如你看到的，我们的**PostViewModel**关注以下方面：
 
-*   维护**Post**对象的属性，最终会在**View**中展示
+*   维护 **Post** 对象的属性，最终会在 **View** 中展示
 *   对这些属性进行相应的格式化
 *   通过 **onclick** 属性给相应的views对提供点击事件的支持
-*   通过**Post**对象的属性处理相关views的显示
+*   通过 **Post** 对象的属性处理相关views的显示
 
 ### 测试 ViewModel
 
-使用MVVM的一大好处是我们可以很容易对 **ViewModel** 进行单元测试。在**PostViewModel**中，可以写些简单的测试方法来验证我们的**ViewModel**是否正确实现。
+使用MVVM的一大好处是我们可以很容易对 **ViewModel** 进行单元测试。在 **PostViewModel** 中，可以写些简单的测试方法来验证我们的 **ViewModel** 是否正确实现。
 
 *   **shouldGetPostScore()** - 测试getPostScore()方法，确认该帖子的得分是否正确地格式化成字符串对象并返回。
 *   **shouldGetPostTitle()** - 测试getPostTitle()方法，确认该帖子的标题被正确返回。
 *   **shouldGetPostAuthor()** - 测试getPostAuthor()方法，确认返回的帖子的作者被正确地格式化了
-*   **shouldGetCommentsVisiblity()** - 测试getCommentsVisibility()方法是否正确返回了visibility属性的值，它将会用在帖子的‘Comments’按钮中。我们传入一个包含不同状态的ArrayLists来确认它是否能正确返回。
+*   **shouldGetCommentsVisiblity()** - 测试getCommentsVisibility()方法是否正确返回了visibility属性的值，它将会用在帖子的 `Comments` 按钮中。我们传入一个包含不同状态的ArrayLists来确认它是否能正确返回。
 
 ```
 
@@ -574,4 +574,4 @@ if (getItemViewType(position) == _VIEW_TYPE_HEADER_) {
 
 当然，认定MVVM是开发应用的正确方式还为时过早，但这次尝试也让我有机会见识到未来项目的一种趋势。如果你想阅读更多有关数据绑定类库的文章，你可以看[这里](https://developer.android.com/tools/data-binding/guide.html)。同时微软也有一篇关于MVVM通俗易懂的[文章](https://msdn.microsoft.com/en-gb/library/hh848246.aspx).
 
-我很愿意听取你们想法，如果你们有任何的看法和建议可以随时在Tweet上和我讨论！
+我很愿意听取你们想法，如果你们有任何的看法和建议可以随时发 Tweet 和我讨论！
