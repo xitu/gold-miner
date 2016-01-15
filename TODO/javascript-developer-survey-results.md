@@ -13,9 +13,9 @@
 
 ## 你写什么类型的 JavaScript？
 
-有高达 97.4% 的受访者用 JavaScript 写 web 浏览器程序，其中有 37% 的受访者写移动端 web 程序。超过 3000 人(56.6%) 也写服务端的 JavaScript。在这些参与调查者的人中间，有 5.5% 的人还在一些嵌入式环境中使用 JavaScript，例如 Tessel 或 a Raspberry Pi (树莓派).
+有高达 97.4% 的受访者用 JavaScript 写 web 浏览器程序，其中有 37% 的受访者写移动端 web 程序。超过 3000 人(56.6%) 也写服务端的 JavaScript。在这些参与调查者的人中间，有 5.5% 的人还在一些嵌入式环境中使用 JavaScript，例如 Tessel 或 a Raspberry Pi (树莓派)。
 
-少数参与者表示他们也在其他一些地方使用 JavaScript，尤其是在开发 CLI 和桌面应用方面。还有少数提到了 Pebble 和 Apple TV. 这些都归类在 **Other(其他)** 一类中，占总票数的 2.2%.
+少数参与者表示他们也在其他一些地方使用 JavaScript，尤其是在开发 CLI 和桌面应用方面。还有少数提到了 Pebble 和 Apple TV. 这些都归类在 **Other(其他)** 一类中，占总票数的 2.2%。
 
 ![An screenshot of the percentages for the first question](https://i.imgur.com/c0q4LvI.png)
 
@@ -33,9 +33,9 @@
 
 ## 如果可以的话，你使用哪种 compile-to-JavaScript(编译为 JavaScript 的) 语言？
 
-有高达 **85%** 的受访者表示他们使用 ES6 编译成 ES5。与此同时，有 15% 的人仍然使用 `CoffeeScript`，15.2% 的人使用 `TypeScript`，只有区区 1.1% 的人使用 `Dart`.
+有高达 **85%** 的受访者表示他们使用 ES6 编译成 ES5。与此同时，有 15% 的人仍然使用 `CoffeeScript`，15.2% 的人使用 `TypeScript`，只有区区 1.1% 的人使用 `Dart`。
 
-这是我想进一步探讨的问题之一，因为有 13.8% 的人选择了 _“Other(其他)”_，选择 _“Othe(其他)”_ 的绝大部分的回答是 `ClojureScript`, `elm`, `Flow`, 和 `JSX`.
+这是我想进一步探讨的问题之一，因为有 13.8% 的人选择了 _“Other(其他)”_，选择 _“Othe(其他)”_ 的绝大部分的回答是 `ClojureScript`, `elm`, `Flow`, 和 `JSX`。
 
 ![An screenshot of the percentages for the fourth question](https://i.imgur.com/12mL6u6.png)
 
@@ -57,7 +57,7 @@
 
 ## 你使用过 ES6 的哪些特性？
 
-显然，在这些投票中，箭头函数是使用最多的 ES6 特性，占了 79.6%。在所有调查者中，Let 和 const 加在一起一共占了 77.8% 。promises 也有 74.4% 的开发者采用。不出所料，只有 4% 的参与者使用 proxies，只有 13.1% 的用户表示他们使用 symbols，同时有超过 30% 的人说他们使用 iterators.
+显然，在这些投票中，箭头函数是使用最多的 ES6 特性，占了 79.6%。在所有调查者中，Let 和 const 加在一起一共占了 77.8% 。promises 也有 74.4% 的开发者采用。不出所料，只有 4% 的参与者使用 proxies，只有 13.1% 的用户表示他们使用 symbols，同时有超过 30% 的人说他们使用 iterators。
 
 ![An screenshot of the percentages for the seventh question](https://i.imgur.com/okcvuos.png)
 
@@ -147,7 +147,7 @@ npm 接管了客户端依赖管理系统的天下，有超过 60% 的投票就�
 
 ## 你更喜欢什么文本编辑器？
 
-再一次，由于存在各种各样的选择导致结果非常分散。超过一半的受访者喜欢 [Sublime Text](http://www.sublimetext.com/)，超过 30% 的受访者喜欢使用 [atom](https://atom.io/) 和 它的开源克隆版。超过 25% 的选票投给了 WebStorm，也有 25% 的选票投给了 vi/vim.
+再一次，由于存在各种各样的选择导致结果非常分散。超过一半的受访者喜欢 [Sublime Text](http://www.sublimetext.com/)，超过 30% 的受访者喜欢使用 [atom](https://atom.io/) 和 它的开源克隆版。超过 25% 的选票投给了 WebStorm，也有 25% 的选票投给了 vi/vim。
 
 ![An screenshot of the percentages for the 22th question](https://i.imgur.com/Vt8ve7s.png)
 
