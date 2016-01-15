@@ -1,9 +1,9 @@
 > * 原文链接 : [Exploring the Product Design of the Stripe Dashboard for iPhone — Startups, Wanderlust, and Life Hacking — Medium](https://medium.com/swlh/exploring-the-product-design-of-the-stripe-dashboard-for-iphone-e54e14f3d87e#.ff88r5yuu)
 * 原文作者 : [Michaël Villar](https://medium.com/@michaelvillar)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者: 
-* 状态 :  待定
+* 译者 : [CaesarPan](https://github.com/CaesarPan)
+* 校对者: [Zhangjd](https://github.com/Zhangjd)、[404neko](https://github.com/404neko)
+* 状态 :  完成
 
 考虑到它提供的服务类型，Stripe没有像很多现在的新公司那样从移动端开始做起。Stripe的核心业务是它的支付API，这些API可以让使用它们的公司在几分钟内就完成支付设置。网页端的页面可以让一个团队里的每一个人都轻松地跟踪和管理订阅信息、支付信息、交易信息以及他们的顾客。但是这个页面是给大屏幕设计的，也正因此，它在移动端上几乎可以说是不可用的。不过，在将Checkout的最新版本发布之后，我们决定从iPhone下手，集中精力开发[一个移动端的app](https://stripe.com/dashboard/iphone)。
 
