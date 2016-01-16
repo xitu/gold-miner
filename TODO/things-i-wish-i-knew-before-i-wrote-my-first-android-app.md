@@ -11,7 +11,7 @@
 
 My first app was terrible. It was so terrible, in fact, that I removed it from the store and I don’t even bother listing it on my resume’ anymore. That app wouldn’t have been so terrible if I knew a few things about Android development before I wrote it.
 
-我的第一个APP是极其糟糕的. 实际上, 它甚至已经糟糕到了让我把它从商店下架, 这样我就不必再为它在我的简历上而感到烦恼了的地步. 这个APP本来不会这样糟糕, 如果在我写它之前知道一些关于安卓开发的事情.
+我的第一个APP是极其糟糕的. 实际上, 它甚至已经糟糕到了让我把它从商店下架, 这样我就不会因为它在我的简历里面而烦恼了. 这个APP本来不会这样糟糕, 如果在我写它之前知道一些关于安卓开发的事情.
 
 Here’s a list of things to keep in mind as you’re writing your first Android apps. These lessons are derived from actual mistakes that I made in the source code of my first app, mistakes that I’ll be showing below. Keeping these things in mind will help you write an app that you can be a little prouder of.
 
@@ -27,7 +27,7 @@ Of course, if you’re doing your job right as a student of Android development,
 
 > 如果你一年前写的代码现在看起来还挺不错的, 你可能获得没有什么足够的长进(在这一年之间).
 > 
-> — Code Standards (@codestandards) [May 21, 2015](https://twitter.com/codestandards/status/601373392059518976)
+> — Code Standards (@codestandards) [2015年5月21日](https://twitter.com/codestandards/status/601373392059518976)
 
 If you’re an experienced Java developer, items 1, 2, and 5 probably won’t be interesting to you. Items 3 and 4, on the other hand, might show you some cool stuff you can do with Android Studio that you might not have known about, even if you’ve never been guilty of making the mistakes I demo in those items.
 
@@ -66,7 +66,7 @@ If MeTrackerStore keeps a reference to the Activity passed into its constructor,
 
 If you find yourself tempted to do this, there’s probably something seriously wrong with your code. Find help. Maybe looking at Google’s Udacity course on [“Android Development for Beginners”](https://www.udacity.com/course/android-development-for-beginners--ud837) will help you out.
 
-如果你发现你愿意这么做, 那么你的代码可能存在一些严重的错误. 寻求帮助. 可以去看看在[“Android Development for Beginners”] 的Google’s Udacity课程.
+如果你发现你愿意这么做, 那么你的代码可能存在一些严重的错误. 寻求帮助. 可以去看看在Google在Udacity的课程 ["Android Development for Beginners"](https://www.udacity.com/course/android-development-for-beginners--ud837).
 
 Note: Technically, you can hold a static reference to an application Context without causing a memory leak, but I wouldn’t recommend that you do that either. 
 
@@ -129,7 +129,7 @@ This snippet is what Android Studio generated when I used the “Generate Getter
 
 Regardless of whether you think prefixing ‘m’ to your instance variables is a good idea, there’s a lesson here: Android studio can help you code to whatever convention you adopt. For example, you can use the code style dialog in Android Studio to make Android Studio automatically prepend ‘m’ to your instance variable and automatically remove the ‘m’ when its generating getters, setters, and constructor params for the instance variables.
 
-不论你是否认为"m" 前缀是不是一个好主意, 这有一点人生的经验: Android studio可以帮助你把代码转换成任何你想要的样子. 例如, 你可以在Android Studio的代码样式对话框设定自动加上"m" 前缀给你的实例变量并且自动移除"m" 当生成getters, setters和构造函数的参数的时候.
+不论你是否认为"m" 前缀是不是一个好主意, 这有一点人生的经验: Android studio可以帮助你把代码转换成任何你想要的样子. 例如, 你可以在Android Studio的代码样式对话框设定里设定给你的实例变量自动加上"m" 前缀并在生成getters, setters和构造函数参数的时候自动移除"m".
 
 [![Screen Shot 2015-07-09 at 4.16.13 PM](http://i1.wp.com/www.philosophicalhacker.com/wp-content/uploads/2015/07/Screen-Shot-2015-07-09-at-4.16.13-PM.png?resize=620%2C432)](http://i1.wp.com/www.philosophicalhacker.com/wp-content/uploads/2015/07/Screen-Shot-2015-07-09-at-4.16.13-PM.png)
 
@@ -145,7 +145,7 @@ Android Studio可以做很多事情. [学习快捷键](http://www.developerphil.
 
 There’s a method in one of the classes that I wrote that’s over 100 lines long. Such methods are hard to read, modify, and reuse. Try to write methods that only do one thing. Typically, this means that you should be suspicious of methods that are over 20 lines long. Here you can recruit Android Studio to help you spot problematic methods:
 
-这有一个我写了超过100行的类方法. 这样的方法是难以阅读和修改甚至再利用的. 试着写只做一件事的方法. 有代表行的说, 这意味着超过20 行恶类都应该被怀疑. 说到这你可以用你的Android Studio 帮助你定位有问题的方法:
+这有一个我写了超过100行的类方法. 这样的方法是难以阅读和修改甚至再利用的. 试着写只做一件事的方法. 有代表行的说, 这意味着超过20 行的类都应该被怀疑. 说到这你可以用你的Android Studio 帮助你定位有问题的方法:
 
 [![Screen Shot 2015-07-09 at 4.25.00 PM](http://i2.wp.com/www.philosophicalhacker.com/wp-content/uploads/2015/07/Screen-Shot-2015-07-09-at-4.25.00-PM.png?resize=620%2C435)](http://i2.wp.com/www.philosophicalhacker.com/wp-content/uploads/2015/07/Screen-Shot-2015-07-09-at-4.25.00-PM.png)
 
@@ -154,7 +154,7 @@ There’s a method in one of the classes that I wrote that’s over 100 lines lo
 
 ## 5\. Learn from other people who are smarter and more experienced than you.
 
-## 5\. 间贤思齐
+## 5\. 见贤思齐
 
 This might sound trivial, but its a mistake that I made when I wrote my first app.
 
@@ -162,11 +162,11 @@ This might sound trivial, but its a mistake that I made when I wrote my first ap
 
 When you’re writing an app you’re going to make mistakes. Other people have already made those mistakes. Learn from those people. You’re wasting your time if you repeat the avoidable mistakes of others. I wasted a ton of time on my first app making mistakes that I could have avoided if I just spent a little more time learning from experienced software developers.
 
- 当你写一个APP的时候你野同时在犯错误. 其他人已经犯过这些错误了.  向这些人学习. 如果你反复犯这些他人犯过恶本来可以避免的错误那就是在浪费时间. 我写第一个APP的时候我浪费了成吨的时间在那些如果我向其他开发者学习本可以避免的错误上.
+ 当你写一个APP的时候你也同时在犯错误. 其他人已经犯过这些错误了.  向这些人学习. 如果你反复犯这些他人犯过的本来可以避免的错误那就是在浪费时间. 我写第一个APP的时候我浪费了成吨的时间在那些如果我向其他开发者学习本可以避免的错误上.
 
 Read [Pragmatic Programmer](http://www.amazon.com/The-Pragmatic-Programmer-Journeyman-Master/dp/020161622X). Then read [Effective Java](http://www.amazon.com/Effective-Java-Edition-Joshua-Bloch/dp/0321356683). These two books will help you avoid making common mistakes that we make as novice developers. After you done with those books, keep looking for smart people to learn from.
 
-读读Pragmatic Programmer. 然后再读Effective Java. 这两本书会帮助你避免犯一些常见的错误. 当你读完这两本书后, 继续向聪明的人学习.
+读读Pragmatic Programmer(http://www.amazon.com/The-Pragmatic-Programmer-Journeyman-Master/dp/020161622X). 然后再读Effective Java(http://www.amazon.com/Effective-Java-Edition-Joshua-Bloch/dp/0321356683). 这两本书会帮助你避免犯一些常见的错误. 当你读完这两本书后, 继续向聪明的人学习.
 
 ## 6\. Use Libraries
 
@@ -195,4 +195,4 @@ In my first app, I wrote code that provided functionality that’s already provi
 
 Writing good Android apps can be very difficult. Don’t make it harder on yourself by repeating the mistakes I made. If you found a mistake in what I’ve written, please let me know in the comments. (Misleading comments are worse than no comments at all.) If you think this’ll be useful for a new developer, share it. Save them some headache.
 
-写一个好的Android APP是非常难的. 不要因为重复我的错误让它变的更加艰难. 如果你发现我的文章中的错误, 请在评论中告诉我. (不过垃圾评论不如不评论)如果你认为这个对萌新开发者是有用的, 分享这篇文章. 拯救一些头痛的人.
+写一个好的Android APP是非常难的. 不要因为重复我的错误让它变的更加艰难. 如果你发现我的文章中的错误, 请在评论中告诉我. (不过垃圾评论不如不评论)如果你认为这个对萌新开发者是有用的, 分享这篇文章. 把他们(萌新开发者)从头痛中拯救出来.
