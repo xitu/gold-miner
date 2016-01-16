@@ -16,19 +16,19 @@
 鸣谢：[Philippe Breault](https://plus.google.com/u/0/+PhilippeBreault)
 
 
-# 1. 分析数据流传递到此处的路径（Analyze data flow to here）
+# 1. 分析传入数据流（Analyze data flow to here）
 
 - **描述：**这个操作将会根据当前选中的变量、参数或者字段，分析出其传递到此处的路径。
 当你进入某段陌生的代码，试图明白某个参数是怎么传递到此处的时候，这是一个非常有用的操作。
 - **调用：**Menu → Analyze → Analyze Data Flow to Here
 - **快捷键：**无，可以在设置中指定。
-- **相反的操作：**分析数据流往下传递的路径（Analyze data flow from here），这个将会分析当前选中的变量往下传递的路径，直到结束。
+- **相反的操作：**分析传出数据流（Analyze data flow from here），这个将会分析当前选中的变量往下传递的路径，直到结束。
 
 ![](https://lh4.googleusercontent.com/-Fv4MxHWIdHw/VCFWY4Ykv0I/AAAAAAAANoQ/YVe2hmnkAPE/w667-h348-no/31-analyzedataflow.gif)
 
 # 2. 堆栈追踪分析（Analyze Stacktrace）
 
-- **描述：** 这个操作将会产生一个堆栈追踪，而且和logcat输出中显示的一样，堆栈信息是可以点击的。当你从bug报告中或者终端复制了一份堆栈追踪，使用该操作可以很方便地调试。
+- **描述：** 这个操作读取一份堆栈追踪信息，并且使它像logcat中那样可以点击。当你从bug报告中或者终端复制了一份堆栈追踪，使用该操作可以很方便地调试。
 - **调用：**Menu → Analyze → Analyze Stacktrace
 - **快捷键：**无，可以在设置中指定。
 - **更多：**通过使用“ProGuard Unscramble Plugin”插件，也可以分析混淆过的堆栈追踪。
@@ -108,10 +108,10 @@
 
 # 11. 上下文信息（Context Info）
 
-- **描述：**当前区域超过滚动区域，执行该操作将显示所在的上下文信息，通常它显示的是类名或者内部类类名或者当前所在的方法名。该操作在xml文件中同样适用。
+- **描述：**当前作用域定义超过滚动区域，执行该操作将显示所在的上下文信息，通常它显示的是类名或者内部类类名或者当前所在的方法名。该操作在xml文件中同样适用。
 - **调用：**Menu → View → Context Info
 - **快捷键：**Alt + Q (Windows/Linux)
-- **更多：**比较好用的是，可以用来快速看当前类继承的父类或实现的接口。
+- **更多：**个人认为，这个功能更好的用法是快速查看当前类继承的父类或者实现的接口。
 
 ![](https://lh4.googleusercontent.com/-FNg2h15F4c0/VD-rJupXgkI/AAAAAAAAOL4/lfaQmbjwpaw/w574-h174-no/47-contextinfo.gif)
 
@@ -122,16 +122,16 @@
 
 ![](https://lh3.googleusercontent.com/-bP5WOVMfp7A/U_cpQi0bvhI/AAAAAAAAM9c/dcvvJu1US40/w265-h103-no/10-deleteline.gif)
 
-# 13. 断点失效（Disable Breakpoints）
+# 13. 禁用断点（Disable Breakpoints）
 
-- 这个操作将使得断点失效。当处在一种复杂的状态或者某个断点你现在不需要，但是下次又不用重新创建，该操作是很方便的。
+- 这个操作将使得断点。当你有一个设置过复杂条件的断点或者是日志断点，当前不需要，但是下次又不用重新创建，该操作是很方便的。
 - **调用：**按住Alt，然后单击断点即可。
 
 ![](https://lh3.googleusercontent.com/-hNk0kuL1WBM/VBbQXamG8-I/AAAAAAAANeM/ynfSJ5hqCvA/w365-h235-no/25-diablebreakpoint.gif)
 
 # 14. 行复制（Duplicate Line）
 
-- **描述：**复制当前行，并粘贴到下一行。
+- **描述：**复制当前行，并粘贴到下一行，这个操作不会影响剪贴板的内容。这个命令配合移动行快捷键非常有用。
 - **快捷键：**Cmd + D(OS X)、Ctrl + D(Windows/Linux)
 
 ![](https://lh6.googleusercontent.com/-1dno1jn2Pcg/U_sfhOxXTkI/AAAAAAAANC8/8sl3TVz1dAo/w265-h103-no/11-duplicate_lines.gif)
@@ -158,7 +158,7 @@ IDE能帮我们干点啥呢？当然是一个舒服的界面来编写和测试�
 
 # 17. 计算表达式（Evaluate Expression）
 
-- **描述：**这是一个很有用的操作用来审查某个变量的内容和计算表达式的值。
+- **描述：**这个操作可以用来查看变量的内容并且计算几乎任何有效的java表达式。需要注意的是，如果你修改了变量的状态，这个状态在你恢复代码执行后依然会保留。
 - **快捷键：**处在断点状态时，光标放在变量处，按Alt + F8，即可显示计算表达式对话框。
 
 ![](https://lh5.googleusercontent.com/-yVa3T6tUVJE/VBls7HooneI/AAAAAAAANg0/MtJpIKCVEws/w739-h215-no/27-evaluateexpression.gif)
@@ -205,7 +205,7 @@ IDE能帮我们干点啥呢？当然是一个舒服的界面来编写和测试�
 
 ![](https://lh4.googleusercontent.com/-8HBauw90IYU/VFoSq77EbfI/AAAAAAAAOss/_8BMNjgAst4/w418-h268-no/61-findcompletion.gif)
 
-# 23. 隐藏所有面板（Hide All Windows）
+# 23. 隐藏所有面板（Hide All Panels）
 
 - **描述：**切换编辑器铺满整个程序界面，隐藏其他的面板。再次执行该操作，将会回到隐藏前的状态。
 - **调用：**Menu → Window → Active Tool Window → Hide All Windows；
@@ -215,12 +215,12 @@ IDE能帮我们干点啥呢？当然是一个舒服的界面来编写和测试�
 
 # 24. 高亮一切（Hightlight All the Things）
 
-- **描述：**该操作将会高亮某个字符在当前文件中所有出现的地方。这不仅仅是简单的匹配，实际上它会分析当前的范围，只高亮相关的部分。
+- **描述：**该操作将会高亮某个字符在当前文件中所有出现的地方。这不仅仅是简单的匹配，实际上它会分析当前的作用域，只高亮相关的部分。
 - **调用：**Menu → Edit → Find → Highlight Usages in File；
 - **定位到上一处/下一处：**Menu → Edit → Find → Find Next/Previous；
 - **快捷键：**相关快捷键请在菜单中查看；
 - **更多：**
-    - 如果高亮一个方法的`return`或`throw`语句，将会高亮方法所有结束的地方；
+    - 如果高亮一个方法的`return`或`throw`语句，将会高亮这个方法的所有出口/结束点；
     - 如果高亮某个类定义处的`extend`或`implements`语句，将会高亮继承的或实现的方法；
     - 高亮一个`import`语句也会高亮使用到的地方；
     - 按下Esc可以退出高亮模式；
@@ -450,7 +450,7 @@ IDE能帮我们干点啥呢？当然是一个舒服的界面来编写和测试�
 - **描述：**该操作会立刻把你的光标移回到当前debug处。
 
 通常的情况是：
-1. 在调试途中休息
+1. 你在某处触发了断点
 2. 然后在文件中随意浏览
 3. 直接调用这个快捷键，快速返回之前逐步调试的地方。
 
@@ -473,7 +473,7 @@ IDE能帮我们干点啥呢？当然是一个舒服的界面来编写和测试�
 
 ![](https://lh4.googleusercontent.com/-6i3EY9IZJBg/VCqVy_ab3EI/AAAAAAAAN4U/ebD7lM9J68Q/w451-h265-no/35-stoprocess.gif)
 
-# 55. 多处选择编辑（Sublime Text Multi Selection）
+# 55. Sublime Text式的多处选择（Sublime Text Multi Selection）
 
 - **描述：**这个功能超级赞！该操作会识别当前选中字符串，选择下一个同样的字符串，并且添加一个光标。这意味着你可以在同一个文件里拥有多个光标，你可以同时在所有光标处输入任何东西。
 - **快捷键：**Ctrl + G(OS X)、Alt + Ｊ（Windows、Linux）
@@ -520,7 +520,7 @@ IDE能帮我们干点啥呢？当然是一个舒服的界面来编写和测试�
 
 # 60. 切换器（The Switcher）
 
-- **描述：**该快捷键比IDE的alt+tab / cmd+tab快捷键更好用。你可以用它在导航tab或者面板切换。一旦打开这个窗口，只要一直按着ctrl键，你可以通过对应的数字或者字母快捷键快速选择。你也可以通过backspace键来关闭一个已选中的tab或者面板。
+- **描述：**该快捷键基本上就是IDE的alt+tab/cmd+tab命令。你可以用它在导航tab或者面板切换。一旦打开这个窗口，只要一直按着ctrl键，你可以通过对应的数字或者字母快捷键快速选择。你也可以通过backspace键来关闭一个已选中的tab或者面板。
 
 - **快捷键：**Ctrl + Tab
 
