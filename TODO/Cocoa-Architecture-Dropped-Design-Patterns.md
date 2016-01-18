@@ -126,7 +126,7 @@ I'm a big fan of the idea of Dependency Injection within tests. This, roughly _T
 
 The problem with a class based API, is that it becomes difficult to inject that object. This doesn't flow well with writing simple, fast tests. You can use a mocking library to fake the class API, but that feels weird. Mocking should be used for things you don't control. You control the object if you're making the API. Having an instance'd object means being able to provide different versions with different behaviors or values, even better if you can reduce the behavior to [a protocol](https://github.com/artsy/eigen/blob/e19ac594bf6240d076e8092d9c56e9876c94444e/Artsy/Networking/Network_Models/ARArtistNetworkModel.h).
 
-基于类的 API，它的问题在于变得很难注入对象。这不利于写出更简洁快速的测试。你可以使用一个模拟对象（mocking）库来伪造类 API，但这感觉很奇怪。模拟对象（mocking）应该被用于你不操控的事物。如果你正在写 API，那么你就在操控对象。拥有一个实例对象意味着可以给不同行为和值提供不同的版本，如果你可以减少 [协议（protocol）](https://github.com/artsy/eigen/blob/e19ac594bf6240d076e8092d9c56e9876c94444e/Artsy/Networking/Network_Models/ARArtistNetworkModel.h) 上的行为，那就更好了。
+基于类的 API，它的问题在于变得很难注入对象。这不利于写出简洁快速的测试。你可以使用一个模拟（mocking）库来伪造类 API，但这感觉很奇怪。模拟（mocking）应该被用于你不控制的事物。如果你正在写 API，那么你就控制了这个对象。拥有一个实例对象意味着可以给不同的版本提供不同行为和值，如果你可以通过 [协议（protocol）](https://github.com/artsy/eigen/blob/e19ac594bf6240d076e8092d9c56e9876c94444e/Artsy/Networking/Network_Models/ARArtistNetworkModel.h) 减少实例上的行为，那就更好了。
 
 ## Objects Sneakily Networking
 
