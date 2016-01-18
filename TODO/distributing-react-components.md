@@ -19,7 +19,7 @@
 
 ## [](http://krasimirtsonev.com/blog/article/distributing-react-components-babel-browserify-webpack-uglifyjs#the-base)主要开发过程
 
-&#160; &#160; &#160; &#160;两周前，我创建了一个 [react-webpack-started](https://github.com/krasimir/react-webpack-starter)。它接收一个 JSX 文件作为输入并用 Babel 生成对应的 ES5 文件。我们有一部用于服务的本地设备、测试设定以及一个 linter 插件，然而这是另外一个故事，这里并不详述。（在[这里](http://krasimirtsonev.com/blog/article/a-modern-react-starter-pack-based-on-webpack)有相关更多的信息）。
+&#160; &#160; &#160; &#160;两周前，我创建了一个 [react-webpack-started](https://github.com/krasimir/react-webpack-starter)。它接收一个 JSX 文件作为输入并用 Babel 生成对应的 ES5 文件。我们有一部本地开发伺服器、测试设定以及一个 linter 插件，然而这是另外一个故事，这里并不详述。（在[这里](http://krasimirtsonev.com/blog/article/a-modern-react-starter-pack-based-on-webpack)有相关更多的信息）。
 
 &#160; &#160; &#160; &#160;在半年前，我更喜欢用 NPM 来定义项目的任务建立。下面是我刚开始可以运行的 NPM 脚本：
 
@@ -98,7 +98,7 @@
 
 ## [](http://krasimirtsonev.com/blog/article/distributing-react-components-babel-browserify-webpack-uglifyjs#generating-browser-bundle)浏览器化
 
-&#160; &#160; &#160; &#160;前面部分介绍所生成的是一个可被任何 JavaScript 项目导入或引用的文件。任何一个代码包装工具像 webpack 或 [Browserify](http://browserify.org/) 都可以解决必须依赖包所带来问题。但我最后考虑的一点是，如果开发人员不使用代码包装工具，那怎么办？简而言之，就是我们需要一个已经生成好的 JavaScript 文件，并直接可以使用 `script>` 标签引入该文件到我的页面里。假设 React 已经加载到页面里，那么我只需要再把有着自动完成组件的构件引入到页面即可。
+&#160; &#160; &#160; &#160;前面部分介绍所生成的是一个可被任何 JavaScript 项目导入或引用的文件。任何一个代码包装工具像 webpack 或 [Browserify](http://browserify.org/) 都会解析所需要的依赖。但我最后考虑的一点是，如果开发人员不使用代码包装工具，那怎么办？简而言之，就是我们需要一个已经生成好的 JavaScript 文件，并直接可以使用 `script>` 标签引入该文件到我的页面里。假设 React 已经加载到页面里，那么我只需要再把有着自动完成组件的构件引入到页面即可。
 
 &#160; &#160; &#160; &#160;为了解决这个，我将会有效地利用了`lib`文件夹下的文件。这就是我之前所提的“浏览器化”。那么，我们来看看该怎么处理：
 
