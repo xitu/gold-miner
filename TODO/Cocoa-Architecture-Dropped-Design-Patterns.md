@@ -10,9 +10,9 @@ As a part of going through the design patterns we've found in the creation of th
 
 It's important to preface that I don't believe in perfect code, or am I a fan of big re-writes. We can spot a bad pattern, but not do anything about it. We do have apps to ship, not a codebase to make perfect for the sake of technical purity.
 
-在开发 Artsy 这款 iOS app 的时候，我们尝试了一些设计模式。现在我想要谈谈那些我们现在有的和已经被移除的设计模式。这里并没有百分之百详尽，毕竟已经历了那么长时间，有那么多人参与过。而我想从更高的层面去审视，关注那些我感觉总体上更重要的东西。
+在开发 Artsy 这款 iOS app 的时候，我们尝试了一些设计模式。现在我想要谈谈那些我们现在有的和已经被移除的设计模式。我不会面面俱到，毕竟已经历了那么长时间，有那么多人参与过。而我想从更高的层面去审视，关注那些总体上更重要的东西。
 
-很重要的一点需要先声明下，我不相信有完美的代码，或者说我喜欢重写代码。我们可以发现一个坏的模式而什么都不做。毕竟我们有 app 需要完成，而不可能纯粹为了技术，为了更完美的代码库。
+很重要的一点需要先声明下，我不相信有完美的代码，或者说我喜欢重写代码。我们可以发现一个坏的模式而什么都不做。毕竟我们有 app 需要完成，而不可能纯粹为了技术，追求更完美的代码库。
 
 ## NSNotifications as a decoupling method
 
@@ -20,7 +20,7 @@ It's important to preface that I don't believe in perfect code, or am I a fan of
 
 A lot of the initial codebase for Energy relied on using NSNotifications as a way of passing messages throughout the application. There were notifications for user settings changes, download status updates, anything related to authentication and the corresponding different error states and a few app features. These relied on sending global notifications with very little attempts at scoping the relationship between objects.
 
-大量 Energy 的初始代码库依靠 `NSNotification` 在应用程序内传递信息。这些通知用于用户设置调整，下载状态更新，授权与相应的错误状态，以及一些 app 特性。这些依靠发送全局通知，而鲜有尝试去窥探对象之间的关系。
+大量 Energy 的初始代码库依靠 `NSNotification` 在应用程序内传递信息。这些通知用于用户设置调整，下载状态更新，授权与相应的错误状态，以及一些 app 特性。这些 Energy 代码太过于依赖这些全局通知进行交流，而鲜有尝试去窥探对象之间的关系。
 
 NSNotificationCenter notifications are an implementation of the [Observer Pattern](https://en.wikipedia.org/wiki/Observer_pattern) in Cocoa. They are a beginner to intermediate programmer's design paradigm dream. It offers a way to have objects send messages to each other without having to go through any real coupling. As someone just starting with writing apps for iOS, it was an easy choice to adapt.
 
@@ -118,11 +118,11 @@ This gives us the ability to not sprinkle analytics code around the app in every
 
 For a very long time, I preferred aesthetics of class based APIs. E.g. using only class methods instead instance methods. I think I still do. However, once you start adding tests to a project then they become a bit of a problem.
 
-很长一段时间，我更喜欢基于类的 API 美学。比如使用类方法而不是实例方法。我一直是这么做。然而，一旦你开始给项目添加测试，这就变成了一堆问题。
+很长一段时间，我更喜欢基于类的 API 美学。比如使用类方法而不是实例方法。我一直是这么做。然而，一旦你开始给项目添加测试，这就会产生一些问题。
 
 I'm a big fan of the idea of Dependency Injection within tests. This, roughly _TL:DR'd_, means passing in any additional context, instead of an object finding the context itself. A common case is a call to `NSUserDefaults`. It's very likely _not_ the role of your class to know which `NSUserDefault`s object you're working with, but it's likely that you're making that decision in the method by doing something like `[[NSUserDefaults standardUserDefaults] setObject:reminderID forKey:@"ARReminderID"];`. Using dependency injection would be allowing that object to come from outside that method. If you're interested in a longer and better, explanation, read this great [objc.io](https://www.objc.io/issues/15-testing/dependency-injection/) by [Jon Reid](http://qualitycoding.org/about/).
 
-我热衷于在测试内应用依赖注入的思想。这个 *TL:DR’d* 大致意味着传入一个额外的上下文，而不是一个对象自己找到上下文（不理解这句）。常见的例子就是 `NSUserDefaults`。可能你的类并不需要知道你使用的是哪个 `NSUserDefault` 对象，而是你调用的方法在决定，比如 `[[NSUserDefaults standardUserDefaults] setObject:reminderID forKey:@"ARReminderID"];`。使用依赖注入将允许对象通过方法从外部传入。如果你想更深入了解这块，可以看看 [Jon Reid](http://qualitycoding.org/about/) 这篇  [objc.io](https://www.objc.io/issues/15-testing/dependency-injection/) [译文：依赖注入](http://objccn.io/issue-15-3/)。
+我热衷于在测试内应用依赖注入的思想。这个说来话长，简要来说， 就是传入一个额外的上下文，而不是一个对象自己找到上下文。常见的例子就是 `NSUserDefaults`。可能你的类并不需要知道你使用的是哪个 `NSUserDefault` 对象，而是你调用的方法在决定，比如 `[[NSUserDefaults standardUserDefaults] setObject:reminderID forKey:@"ARReminderID"];`。使用依赖注入将允许对象通过方法从外部传入。如果你想更深入了解这块，可以看看 [Jon Reid](http://qualitycoding.org/about/) 这篇  [objc.io](https://www.objc.io/issues/15-testing/dependency-injection/) [译文：依赖注入](http://objccn.io/issue-15-3/)。
 
 The problem with a class based API, is that it becomes difficult to inject that object. This doesn't flow well with writing simple, fast tests. You can use a mocking library to fake the class API, but that feels weird. Mocking should be used for things you don't control. You control the object if you're making the API. Having an instance'd object means being able to provide different versions with different behaviors or values, even better if you can reduce the behavior to [a protocol](https://github.com/artsy/eigen/blob/e19ac594bf6240d076e8092d9c56e9876c94444e/Artsy/Networking/Network_Models/ARArtistNetworkModel.h).
 
@@ -134,7 +134,7 @@ The problem with a class based API, is that it becomes difficult to inject that 
 
 When you have a complicated application, there can be a lot of places you can perform networking. We've had it in models, view controllers and views. Basically throwing the idea of purity in MVC out of the system. We started to recognise a pattern in eigen, we were not doing a good job of keeping our networking well abstracted. If you want to see the full story check out the [moya/Moya README](https://github.com/Moya/Moya).
 
-当你有一个复杂的应用，会有很多地方可以执行网络操作。我们在模型，视图控制器和视图都有过网络操作。基本上把纯粹的 MVC 模式给抛弃了。我们开始意识到 eigen 的设计模式，因为它以前的网络层并未抽取出来。如果你想要看到完整内容，请查看 [moya/Moya README](https://github.com/Moya/Moya)。
+当你有一个复杂的应用，会有很多地方可以执行网络操作。我们在模型，视图控制器和视图都有过网络操作。基本上把纯粹的 MVC 模式给抛弃了。我们开始意识到 eigen 的设计模式，因为它以前的网络层并未抽象出来。如果你想要看到完整内容，请查看 [moya/Moya README](https://github.com/Moya/Moya)。
 
 One attempt to at trying to fix this pattern by creating a different type of networking client I've just referenced, [Moya](https://github.com/Moya/Moya).
 
@@ -142,7 +142,7 @@ One attempt to at trying to fix this pattern by creating a different type of net
 
 The other was to abstract any networking performed into a separate object. If you've heard of Model-View-ViewModel ([MVVM](http://www.teehanlax.com/blog/model-view-viewmodel-for-ios/)) then this is a similar premise for networking instead of views. Network Models give us a way to abstract the networking into a set of behaviors. The extra abstraction means that you think "I want the things related to _x_" instead of "send a GET to address _x_ and turn it into _y_."
 
-另一方面，是将网络层抽取到一个独立的对象。如果你听过 Model-View-ViewModel ([MVVM](http://www.teehanlax.com/blog/model-view-viewmodel-for-ios/))，这很相似，只是视图（View）换成网络操作。网络操作模型给我们提供了一个方法来将网络操作抽象成一系列行为。额外的抽取意味着“我想要关于 x 的东西，而不是发送一个 GET 给 x 地址，并且变成 y”。
+另一方面，是将网络层抽象成一个独立的对象。如果你听过 Model-View-ViewModel ([MVVM](http://www.teehanlax.com/blog/model-view-viewmodel-for-ios/))，这很相似，只是视图（View）换成网络操作。网络操作模型给我们提供了一个方法来将网络操作抽象成一系列行为。额外的抽象意味着“我想要关于 x 的东西，而不是发送一个 GET 给 x 地址，并且变成 y”。
 
 Network models also make it extremely easy to swap behavior out in tests. In eigen, we have our asynchronous networking [run synchronously in tests](https://github.com/artsy/eigen/pull/575) but we still use the network models to be able to provide [whatever data we want to expect](https://github.com/artsy/eigen/blob/master/Artsy_Tests/View_Controller_Tests/Artist/ARArtistViewControllerTests.m#L29-L40) from the server in our tests.
 
@@ -170,7 +170,7 @@ A good example of this comes [from Energy](https://github.com/artsy/energy/blob/
 
 A one of the most important aspects of Energy is to [email artworks](http://folio.artsy.net). So there is a lot of code around configuring the email you want to send, and then generating HTML from those settings. This started out pretty simple as we had very few app-wide settings. Over time, deciding what we need to show in terms of settings and how they affected the email became very complicated.
 
-Energy 最重要的一方面就是 [email artworks](http://folio.artsy.net/)。配置你想要发送的邮件，然后根据设置生成 HTML，因此这会产生大量的代码。这个开始很简单，因为我们只有很少的应用设置。随着时间的推移，依据设置和它们如何影响邮件决定我们需要显示什么，这会变得很复杂。
+Energy 最重要的一部分就是 [email artworks](http://folio.artsy.net/)。配置你想要发送的邮件，然后根据设置生成 HTML，因此这会产生大量的代码。这个开始很简单，因为我们只有很少的应用设置。随着时间的推移，依据设置和它们如何影响邮件决定我们需要显示什么，这会变得很复杂。
 
 The part that eventually became a strong enough code-smell to warrant a re-write was the view controller which allowed a partner to choose what information to send would pass details individually to an object that would generate the HTML. I found it difficult to write simple tests for the class' behavior. Initially I would mock the email composer, then inspect the methods that were called. This felt wrong, as you shouldn't really be mocking classes you own. Given the importance of the functionality that classes provide our application, ideas on ways to improve the section of code stayed on my mind for a long time.
 
@@ -194,7 +194,7 @@ Before I worked at Artsy, I was a [Mac developer](http://i.imgur.com/Am9LjED.gif
 
 We have this problem with our Artwork view controller in Eigen. There are buttons that are many [stack views deep](https://speakerdeck.com/orta/ios-at-artsy?slide=38) that need to pass a message back to the view controller. When we first hit this the issue I immediately used the responder chain, you write a [line of code](https://github.com/artsy/eigen/blob/e19ac594bf6240d076e8092d9c56e9876c94444e/Artsy/Views/Artwork/ARArtworkActionsView.m#L85) like: `[bidButton addTarget:self action:@selector(tappedBidButton:) forControlEvents:UIControlEventTouchUpInside];` where the `self` is referring to the view. This would send the message `tappedBidButton:` up the responder chain where it is reacted upon by the [ARArtworkViewController](https://github.com/artsy/eigen/blob/e19ac594bf6240d076e8092d9c56e9876c94444e/Artsy/View_Controllers/Artwork/ARArtworkViewController+ButtonActions.m#L114).
 
-我们在 Eigen 的视图控制器也有这种问题。有一些按钮在很深的视图层级，需要将信息传递到视图控制器。在我们第一次碰到这种问题，我们立马使用了响应链，你写了[几行代码](https://github.com/artsy/eigen/blob/e19ac594bf6240d076e8092d9c56e9876c94444e/Artsy/Views/Artwork/ARArtworkActionsView.m#L85)类似：`[bidButton addTarget:self action:@selector(tappedBidButton:) forControlEvents:UIControlEventTouchUpInside];`，其中 self 指向视图。这会向上传递信息 `tappedBidButton:` ，直到被  [ARArtworkViewController](https://github.com/artsy/eigen/blob/e19ac594bf6240d076e8092d9c56e9876c94444e/Artsy/View_Controllers/Artwork/ARArtworkViewController+ButtonActions.m#L114) 响应。
+我们在 Eigen 的视图控制器也有这种问题。有一些按钮在很深的视图层级，需要将信息传递到视图控制器。当我们第一次碰到这种问题，立即使用了响应链，你写了[几行代码](https://github.com/artsy/eigen/blob/e19ac594bf6240d076e8092d9c56e9876c94444e/Artsy/Views/Artwork/ARArtworkActionsView.m#L85)类似：`[bidButton addTarget:self action:@selector(tappedBidButton:) forControlEvents:UIControlEventTouchUpInside];`，其中 self 指向视图。这会向上传递信息 `tappedBidButton:` ，直到被  [ARArtworkViewController](https://github.com/artsy/eigen/blob/e19ac594bf6240d076e8092d9c56e9876c94444e/Artsy/View_Controllers/Artwork/ARArtworkViewController+ButtonActions.m#L114) 响应。
 
 I had to explain the premise of the responder chain to almost everyone touching this area of the code base. This is great in terms of the ["lucky 10,000"](https://xkcd.com/1053/) but means that the pattern is unintuitive to those who have not previously heard of it. There was one more issue, the lack of coupling means that renaming selectors via refactoring can break the chain.
 
