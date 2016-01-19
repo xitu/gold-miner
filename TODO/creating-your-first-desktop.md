@@ -1,59 +1,58 @@
 > * 原文链接 : [Creating Your First Desktop App With HTML, JS and Electron | Tutorialzine](http://tutorialzine.com/2015/12/creating-your-first-desktop-app-with-html-js-and-electron/)
 * 原文作者 : [Danny Markov](http://tutorialzine.com/category/tutorials/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
+* 译者 : [Zhangdroid](https://github.com/Zhangdroid)
 * 校对者: 
-* 状态 :  待定
+* 状态 :  初稿
 
-Web applications become more and more powerful every year, but there is still room for desktop apps with full access to the hardware of your computer. Today you can create desktop apps using the already familiar HTML, JS and Node.js, then package it into an executable file and distribute it accordingly across Windows, OS X and Linux.
+Web 应用这些年来变得越来越强大，但相比于桌面应用能够完全访问计算机硬件，Web 应用还有一些差距。现在，你能够通过已经熟悉了的HTML、JavaScript 和 Node.js 来创建桌面应用，然后打包成可执行文件，并在 Windows、OS X 和 Linux 上发布它。
 
-There are two popular open source projects which make this possible. These are [NW.js](http://nwjs.io/), which [we covered a few months ago](http://tutorialzine.com/2015/01/your-first-node-webkit-app/ "Creating Your First Desktop App With HTML, JS and Node-WebKit"), and the newer [Electron](http://electron.atom.io/), which we are going to use today (see the differences between them [here](https://github.com/atom/electron/blob/master/docs/development/atom-shell-vs-node-webkit.md)). We are going to rewrite the older NW.js version to use Electron, so you can easily compare them.
+目前已经有两个流行的开源项目实现了这个想法。首先是 [NW.js](http://nwjs.io/)，[我们在几个月前讨论过它](http://tutorialzine.com/2015/01/your-first-node-webkit-app/ "Creating Your First Desktop App With HTML, JS and Node-WebKit")；然后是更新一些的 [Electron](http://electron.atom.io/), 也就是我们今天所使用到的（可以在[这里](https://github.com/atom/electron/blob/master/docs/development/atom-shell-vs-node-webkit.md)查看它与 NW.js 的不同之处）。我们将用 Electron 重写旧的 NW.js 版本的应用，这样你就能轻易的对比它们了。
 
-### Getting Started With Electron
+### Electron 入门
 
-Apps built with Electron are just web sites which are opened in an embedded Chromium web browser. In addition to the regular HTML5 APIs, these websites can use the full suite of Node.js modules and special Electron modules which give access to the operating system.
+使用 Electron 创建的应用其实就是一个在内嵌的 Chromium 浏览器中打开的 Web 网站。除了常规的 HTML5 API，(这些网站)还可以使用任意的 Node.js 模块和一些 Electron 特有的模块来访问操作系统。
 
-For the sake of this tutorial, we will be building a simple app that fetches the most recent Tutorialzine articles via our RSS feed and displays them in a cool looking carousel. All the files needed for the app to work are available in an archive which you can get from the **Download** button near the top of the page.
+在整个教程中，我们将创建一个简单的应用：它能够通过 RSS 获取到 Tutorialzine 上最近的文章，并通过一个看起来很酷的轮播效果来展示它们。所有需要的文件已经打包好，**[点击这里](http://demo.tutorialzine.com/2015/12/creating-your-first-desktop-app-with-html-js-and-electron/creating-your-first-desktop-app-with-electron.zip)**下载。
 
-Extract its contents in a directory of your choice. Judging by the file structure, you would never guess this is a desktop application and not just a simple website.
+把它解压到你想要的地方。从项目结构上看，你一定猜不到这不仅仅是一个简单的网站，而且是一个桌面应用程序。
 
-![Directory Structure](http://cdn.tutorialzine.com/wp-content/uploads/2015/12/electron-app-tree.png)
+![项目结构](http://cdn.tutorialzine.com/wp-content/uploads/2015/12/electron-app-tree.png)
 
-Directory Structure
+项目结构
 
 
+我们一会儿会更仔细的看看这些有趣的文件，了解它们的原理。不过在此之前，先让我们把应用跑起来吧。
 
-We will take a closer look at the more interesting files and how it all works in a minute, but first, let’s take the app for a spin.
+### 运行应用
 
-### Running the App
+由于 Electron 是一个优秀的 Node.js 应用，所以你必须安装 [npm](https://www.npmjs.com/)。 你可以轻松的在[这里](http://blog.npmjs.org/post/85484771375/how-to-install-npm)学习到如何安装它。
 
-Since an Electron app is just a fancy Node.js app, you will need to have [npm](https://www.npmjs.com/) installed. You can learn how to do it [here](http://blog.npmjs.org/post/85484771375/how-to-install-npm), it’s pretty straightforward.
-
-Once you’ve got that covered, open a new cmd or terminal in the directory with the extracted files and run this command:
+完成之后，在项目目录下打开 cmd 或者终端，运行下面的命令：
 
 ```
 npm install
 ```
 
-This will create a **node_modules** folder containing all the Node.js dependencies required for the app to work. Everything should be good to go now, in the same terminal as before enter the following:
+它将会创建 **node_modules** 文件夹来存放这个应用运行所需的所有 Node.js 依赖。 一切都没问题的话在同一个终端下输入下面的命令：
 
 ```
 npm start
 ```
 
-The app should open up in it’s own window. Notice it has a top menu bar and everything!
+你所创建的应用应该会在一个独立的窗口中打开。可以注意到它有一个顶部菜单栏和其他的一些部分！
 
 ![Electron App In Action](http://cdn.tutorialzine.com/wp-content/uploads/2015/12/electron_app_1.png)
 
-Electron App In Action
+Electron 实战
 
 
 
-You’ve probably noticed that starting the app isn’t too user friendly. However, this is just the developer’s way of running an Electron app. When packaged for the public, the it will be installed like a normal program and opened like one, just by double clicking on its icon.
+你可能注意到打开这个应用的方式对用户并不友好。但这仅仅是开发者打开它的方式，当它面向公众被打包好之后, 就可以像一般的应用一样安装，并通过双击图标来打开它。
 
-### How it’s made
+### 如何工作
 
-Here, we will talk about the most essential files in any electron app. Let’s start with package.json, which holds various information about the project, such as the version, npm dependencies and other important settings.
+在这部分，我们将讨论所有 Electron 应用中最重要的一些文件。首先是 package.json，它包含有关项目的各种信息，比如版本、npm 依赖和其他重要设置。
 
 #### package.json
 
@@ -77,50 +76,50 @@ Here, we will talk about the most essential files in any electron app. Let’s 
 }
 ```
 
-If you’ve worked with node.js before, you already know how this works. The most significant thing to note here is the **scripts** property, where we’ve defined the `npm start` command, allowing us to run the app like we did earlier. When we call it, we ask electron to run the **main.js** file. This JS file contains a short script that opens the app window, and defines some options and event handlers.
+如果以前用过 node.js，那么你已经知道它是如何工作的了。最重要的是注意这里的 **scripts** 属性，它定义了 `npm start` 命令，这条命令能够让我们像之前那样运行应用。当我们执行这条命令时，我们其实是在要求 electron 去运行 **main.js** 这个文件。这个 JS 文件包括一些简短的脚本：打开应用的窗口、定义一些设置和一些事件的处理。 
 
 #### main.js
 
 ```
-var app = require('app');  // Module to control application life.
-var BrowserWindow = require('browser-window');  // Module to create native browser window.
+var app = require('app');  // 控制应用生命周期的模块。
+var BrowserWindow = require('browser-window');  // 创建原生浏览器窗口的模块
 
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the JavaScript object is garbage collected.
+// 保持一个对于 window 对象的全局引用，不然，当 JavaScript 被 "垃圾回收机制" 回收，
+// 窗口会被自动地关闭
 var mainWindow = null;
 
-// Quit when all windows are closed.
+// 当所有窗口被关闭了，退出。
 app.on('window-all-closed', function() {
-    // On OS X it is common for applications and their menu bar
-    // to stay active until the user quits explicitly with Cmd + Q
-    if (process.platform != 'darwin') {
-        app.quit();
-    }
+  // 在 OS X 上，通常用户在明确地按下 Cmd + Q 之前
+  // 应用会保持活动状态
+  if (process.platform != 'darwin') {
+    app.quit();
+  }
 });
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
+// 当 Electron 完成了初始化并且准备创建浏览器窗口的时候
+// 这个方法就被调用
 app.on('ready', function() {
-    // Create the browser window.
-    mainWindow = new BrowserWindow({width: 900, height: 600});
+  // 创建浏览器窗口。
+  mainWindow = new BrowserWindow({width: 900, height: 600});
 
-    // and load the index.html of the app.
-    mainWindow.loadURL('file://' + __dirname + '/index.html');
+  // 加载应用的 index.html
+  mainWindow.loadURL('file://' + __dirname + '/index.html');
 
-    // Emitted when the window is closed.
-    mainWindow.on('closed', function() {
-        // Dereference the window object, usually you would store windows
-        // in an array if your app supports multi windows, this is the time
-        // when you should delete the corresponding element.
-        mainWindow = null;
-    });
+
+  // 当 window 被关闭，这个事件会被发出
+  mainWindow.on('closed', function() {
+    // 取消引用 window 对象，如果你的应用支持多窗口的话，
+    // 通常会把多个 window 对象存放在一个数组里面，
+    // 但这次不是。
+    mainWindow = null;
+  });
 });
 ```
 
-Take a look at what we do in the ‘ready’ method. First we define a browser window and set it’s initial size. Then, we load the **index.html** file in it, which works similarly to opening a HTML file in your browser.
+观察一下我们在“ready”方法中做的事情。首先我们定义一个浏览器窗口并给它了初始化的大小，然后我们在它里面载入了  **index.html** 这个文件，效果和你在浏览器里打开它差不多。
 
-As you will see, the HTML file itself is nothing special – a container for the carousel and a paragraph were CPU and RAM stats are displayed.
-
+正如你所看到的，这个 HTML 文件没有什么特别的 – 一个图片轮播和一段显示 CPU 和 RAM 统计数据的文字被包含在容器之中。
 #### index.html
 
 ```
@@ -134,19 +133,19 @@ As you will see, the HTML file itself is nothing special – a container for th
     <link rel="stylesheet" href="./css/jquery.flipster.min.css">
     <link rel="stylesheet" href="./css/styles.css">
 
-In Electron, this is the correct way to include jQuery<-->
+<!-- 在 Electron中，应该这样引入 jQuery -->
 <script>window.$ = window.jQuery = require('./js/jquery.min.js');</script>
 
 ```
 
-The HTML also links to the needed stylesheets, JS libraries and scripts. Notice that jQuery is included in a weird way. See [this issue](http://stackoverflow.com/questions/32621988/electron-jquery-is-not-defined) for more information about that.
+这个 HTML 文件同样也引入了所需的 CSS 文件、JS库和其它的脚本。注意，jQuery 需要以一种奇怪的方式引入。更多相关信息可以参考[这里](http://stackoverflow.com/questions/32621988/electron-jquery-is-not-defined)。
 
-Finally, here is the actual JavaScript for the app. In it we access Tutorialzine’s RSS feed, fetch recent articles and display them. If we try to do this in a browser environment, it won’t work, because the RSS feed is located on a different domain and fetching from it is forbidden. In Electron, however, this limitation doesn’t apply and we can simply get the needed information with an AJAX request.
+最后，这是这个应用实际的 Javascript 文件。在这里面，我们访问 Tutorialzine 的 RSS 源，获取最新的文章并把它们显示出来。直接在浏览器中这样做是没有效果的，因为从不同的域名获取 RSS 订阅是被禁止的（参见[同源策略](https://developer.mozilla.org/zh-CN/docs/Web/Security/Same-origin_policy)）。但在 Electron 中并没有这个限制，我们可以通过 AJAX 请求轻松的获取到我们想要的信息。
 
 ```
 $(function(){
 
-    // Display some statistics about this computer, using node's os module.
+    // 显示有关该计算机的一些统计数据，使用的是 node 的 os 模块。
 
     var os = require('os');
     var prettyBytes = require('pretty-bytes');
@@ -154,22 +153,22 @@ $(function(){
     $('.stats').append('Number of cpu cores: ' + os.cpus().length + '');
     $('.stats').append('Free memory: ' + prettyBytes(os.freemem())+ '');
 
-    // Electron's UI library. We will need it for later.
+    // Electron 的 UI 库。我们在之后会用到它。
 
     var shell = require('shell');
 
-    // Fetch the recent posts on Tutorialzine.
+    // 从 Tutorialzine 上获取最近的文章。
 
     var ul = $('.flipster ul');
 
-    // The same-origin security policy doesn't apply to electron, so we can
-    // send ajax request to other sites. Let's fetch Tutorialzine's rss feed:
+    // Electron 并没有采用同源安全策略, 所以我们能够
+    // 发送 ajax 请求给其它网站。让我们获取 Tutorialzine 的 RSS 订阅：
 
     $.get('http://feeds.feedburner.com/Tutorialzine', function(response){
 
         var rss = $(response);
 
-        // Find all articles in the RSS feed:
+        // 在 RSS 订阅中找到所有的文章：
 
         rss.find('item').each(function(){
             var item = $(this);
@@ -177,11 +176,10 @@ $(function(){
             var content = item.find('encoded').html().split('')[0]+'';
             var urlRegex = /(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?/g;
 
-            // Fetch the first image of the article.
+            // 获取文章的第一幅图。
             var imageSource = content.match(urlRegex)[1];
 
-            // Create a li item for every article, and append it to the unordered list.
-
+            // 为每一篇文章创建一个 li 元素，并把它追加到 ul 中。
             var li = $('*   <a target="_blank"></a>');
 
             li.find('a')
@@ -194,20 +192,20 @@ $(function(){
 
         });
 
-        // Initialize the flipster plugin.
+        // 初始化 flipster 插件。
 
         $('.flipster').flipster({
             style: 'carousel'
         });
 
-        // When an article is clicked, open the page in the system default browser.
-        // Otherwise it would open it in the electron window which is not what we want.
+        // 当一篇文章被点击时，用系统默认的浏览器打开它，
+        // 否则的话会用 electron 的窗口打开它，这不是我们想要的结果。
 
         $('.flipster').on('click', 'a', function (e) {
 
             e.preventDefault();
 
-            // Open URL with default browser.
+            // 使用系统默认的浏览器打开 URL。
 
             shell.openExternal(e.target.href);
 
@@ -218,22 +216,26 @@ $(function(){
 });
 ```
 
-A cool thing about the above code, is that in one file we simultaneously use:
+上面的代码里有一件很酷的事情，在一个文件中我们同时使用了：
 
-*   JavaScript libraries – jQuery and [jQuery Flipster](https://github.com/drien/jquery-flipster) to make the carousel.
-*   Electron native modules – Shell which provides APIs for desktop related tasks, in our case opening a URL in the default web browser.
-*   Node.js modules – [OS](https://nodejs.org/api/os.html) for accessing system memory information, [Pretty Bytes](https://www.npmjs.com/package/pretty-bytes) for formatting.
+*   JavaScript 库 – 使用 jQuery 和 [jQuery Flipster](https://github.com/drien/jquery-flipster) 来实现图片轮播。
+*   Electron 原生模块 – Shell 提供了一些桌面任务相关的 API，在这里我们通过它使用了系统默认的浏览器打开 URL。
+*   Node.js 模块 – 使用 [OS](https://nodejs.org/api/os.html) 来获取系统的内存信息，使用 [Pretty Bytes](https://www.npmjs.com/package/pretty-bytes) 格式化它们。
 
-And with this our app is ready!
+就这样我们的应用已经准备好了！
 
-### Packaging and Distribution
+### 打包和发布
 
-There is one other important thing to do to make your app ready for end users. You need to package it into an executable that can be started with a double click on users’ machines. Since Electron apps can work on multiple operating systems and every OS is different, there need to be separate distributions for Windows, for OS X and for Linux. Tools such as this npm module are a good place to start – [Electron Packager](https://github.com/maxogden/electron-packager).
+还有一件重要的事情：让你的应用准备好面对最终的用户。你需要把它打包成一个在用户电脑上双击就可以使用的可执行文件。由于 Electron 应用能够在多个操作系统上运行，每个操作系统又各不相同，所以需要为 Windows、Linux和 OS X 分别打包。使用像这个 npm 模块一样的工具可以很好的帮助你开始 – [Electron Packager](https://github.com/maxogden/electron-packager).
 
-Take into consideration that the packaging takes all your assets, all the required node.js modules, plus a minified WebKit browser and places them together in a single executable file. All these things sum up and the final result is an app that is roughly 50mb in size. This is quite a lot and isn’t practical for a simple app like our example here, but this becomes irrelevant when we work with big, complex applications.
+考虑到要将所有的资源文件、所有需要的 npm 模块、以及一个迷你的 WebKit 浏览器打包进一个可执行文件，所有的这些打包完后（的大小约）有 50MB。对于像这样一个简单的应用来说这是相当大的了，是不现实的。但当我们创建更大、更复杂的应用时，这个问题就变的无关紧要了。
 
-### Conclusion
+### 结论
 
-The only major difference with NW.js that you will see in our example is that NW.js opens an HTML page directly, whereas Electron starts up by executing a JavaScript file and you create an application window through code. Electron’s way gives you more control, as you can easily build multi-window applications and organize the communication between them.
+通过我们的例子，你可以看到 NW.js 与 Electron 最主要的不同是：NW.js 直接打开了一个 HTML页面；而 Electron 是通过 JavaScript 文件启动并通过代码来创建应用程序窗口。 Electron 的方式给了你更多控制的权利，你能够轻松地创建多窗口应用程序并组织它们之间的通信。
 
-Overall Electron is an exciting way to build desktop web applications using web technologies. Here is what you should read next:
+总而言之 Electron 是一种非常令人激动的通过 Web 技术来创建桌面应用的方式。这是你接下来可能需要阅读的内容：
+
+* [Electron 快速入门](https://github.com/atom/electron/blob/master/docs-translations/zh-CN/tutorial/quick-start.md)
+* [Electron 文档](https://github.com/atom/electron/tree/master/docs-translations/zh-CN)
+* [使用 Electron 创建的应用](http://electron.atom.io/#built-on-electron)
