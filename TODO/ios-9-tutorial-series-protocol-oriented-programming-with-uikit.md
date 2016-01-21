@@ -119,13 +119,13 @@ extension UITableViewDataSource {
 }
 ```
 
-上面的 `totalRows:` 方法可以快速统计 table view 中有多少条目（item），当我们的 cell 分散在各个 sections 之中，而又想快速得到一个总条目数时尤其有用。调用该方法的一个绝佳位置就在 `tableView:titleForFooterInSection:` 里：
+上面的 `totalRows:` 方法可以快速统计 table view 中有多少条目（item），特别是 cell 分散在各个 sections 之中，而又想快速得到一个总条目数时尤其有用。调用该方法的一个绝佳位置就在 `tableView:titleForFooterInSection:` 里：
 
 ```swift
 class ItemsController: UITableViewController {
     // Example -- displaying total # of items as a footer label.
     override func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        if section == self.numberOfSectionsInTableView(tableView)-1 {
+        if section == self.numberOfSectionsInTableView(tableView) - 1 {
             return String("Viewing %f Items", self.totalRows(tableView))
         }
         return ""
@@ -135,11 +135,13 @@ class ItemsController: UITableViewController {
 
 ####扩展 `UIViewControllerContextTransitioning`
 
-或许你已读过我在 iOS 7 出来时写的关于自定义导航栏的[文章](https://www.captechconsulting.com/blogs/ios-7-tutorial-series-custom-navigation-transitions--more)，也尝试开始自定义导航栏过渡。这里有一组之前文章使用的方法，让我们统统放进 `UIViewControllerContextTransitioning` 协议里。
+或许你已拜读过我在 iOS 7 出来时写的关于自定义导航栏的[文章](https://www.captechconsulting.com/blogs/ios-7-tutorial-series-custom-navigation-transitions--more)，也尝试开始自定义导航栏过渡。这里有一组之前文章使用的方法，让我们统统放进 `UIViewControllerContextTransitioning` 协议里。
 
 ```swift
 extension UIViewControllerContextTransitioning {
-    // Mock the indicated view by replacing it with its own snapshot. Useful when we don't want to render a view's subviews during animation, such as when applying transforms.
+    // Mock the indicated view by replacing it with its own snapshot. 
+    // Useful when we don't want to render a view's subviews during animation, 
+    // such as when applying transforms.
     func mockViewWithKey(key: String) -> UIView? {
         if let view = self.viewForKey(key), container = self.containerView() {
             let snapshot = view.snapshotViewAfterScreenUpdates(false)
@@ -153,7 +155,8 @@ extension UIViewControllerContextTransitioning {
         return nil
     }
 
-    // Add a background to the container view. Useful for modal presentations, such as showing a partially translucent background behind our modal content.
+    // Add a background to the container view. Useful for modal presentations, 
+    // such as showing a partially translucent background behind our modal content.
     func addBackgroundView(color: UIColor) -> UIView? {
         if let container = self.containerView() {
             let bg = UIView(frame: container.bounds)
@@ -318,7 +321,7 @@ extension JSONResource {
 }
 ```
 
-我们提供了一个默认主机值，一个生成完整 URL 的请求方法，以及一个从 `RemoteResource` 载入加载资源的 `load:` 方法。我们接下来依赖以上实现来提供正确的解析方法 `jsonPath`
+我们提供了一个默认主机值，一个生成完整 URL 的请求方法，以及一个从 `RemoteResource` 载入加载资源的 `load:` 方法。我们稍后会依赖以上实现来提供正确的解析方法 `jsonPath`
 
 `MediaResource` 的实现遵循类似模式：
 
@@ -370,7 +373,7 @@ extension MediaResource {
 }
 ```
 
-这是一个关于协议扩展经典的例子，传统的协议会说：『我承诺我是这种类型，具备这些特性』。而一个协议扩展则会说：『因为我有这些特性，所以我能做这些独一无二的事情』。既然 `MediaResource` 有能力访问图像数据，那么应用该协议的对象也能很轻松地提供一个 `imageValue` ，而不用考虑特定类型或上下文环境。
+这是一个关于协议扩展经典的例子，传统的协议会说：『我承诺我属于这种类型，具备这些特性』。而一个协议扩展则会说：『因为我有这些特性，所以我能做这些独一无二的事情』。既然 `MediaResource` 有能力访问图像数据，那么应用该协议的对象也能很轻松地提供一个 `imageValue` ，而不用考虑特定类型或上下文环境。
 
 前面提到我们将会基于已知的标识符加载 models，所以让我们为『具有唯一标识的实体』创建一个协议
 
@@ -491,9 +494,9 @@ extension MediaResource where Self: Unique {
 }
 ```
 
-因为 `Playlist` 已经遵循了 `Unique`，因此我们不需要显式的处理，他就可以和MediaResource 一起愉快地工作！同样的逻辑反过来也成立（遵循了 `MediaResource`，也必然适配于 `Unique` 协议）只要对象的标识与媒体 API 中的一张图片相对应，就能正常工作。（创建 `mediaPath`）
+因为 `Playlist` 已经遵循了 `Unique`，因此我们不需要再做字面上的处理，就可以和 `MediaResource` 一起愉快地工作！同样的逻辑反过来也成立（遵循了 `MediaResource`，也必然适配于 `Unique` 协议），即只要对象的标识对应媒体 API 中的一张图片，就能正常工作。（创建 `mediaPath`）
 
-这里是如何载入 `Playlist` 图像
+下面演示如何载入 `Playlist` 图像
 
 ```swift
 let p = Playlist(id: "abcd12345")
@@ -504,21 +507,21 @@ p.loadMedia { () -> () in
 }
 ```
 
-我们现在有一种通用方式来定义远程资源，能够被程序中的任意实体使用，而不仅仅局限于这些模型对象。我们能够很方便地扩展 `RemoteResource` 来处理不同类型的 REST 操作，并针对更多的数据类型添加额外的子协议。
+我们现在拥有一种通用方式来定义远程资源，能够被程序中的任意实体使用，而不仅仅局限于这些模型对象。我们能够很方便地扩展 `RemoteResource` 来处理不同类型的 REST 操作，并针对更多的数据类型添加额外的子协议。
 
 ### 数据格式化的协议
 
-现在我们已经构造了一种加载模型对象的方式，让我们继续往前走。我们需要格式化来自对象的元数据，并以一致的方式显示在用户面前。
+现在我们已经构造了一种加载模型对象的方式，继续深入到下一个阶段吧。我们需要格式化来自对象的元数据，并以一致的方式显示在用户面前。
 
 鸭梨音乐是一个大工程，拥有相当数量不同类型的模型，每一个模型都可能在不同位置显示。比如，如果我们有一个以 `Artist` 为标题的 view controller，我们会只显示艺术家名字 {name}。但是，如果我们拥有额外的空间，比如一个存在 `UITableViewCell`，我们就会使用 "{name} ({instrument})"。再进一步，如果在 `UILabel` 里有更大空间，则会使用 "{name} ({instrument}) {bio}"。
 
-虽然将这些格式化代码放到 view controllers, cells 和 labels 中可以正常工作，但是如果我们能将这些分散的逻辑提取出来供整个 app 使用，会提高整个应用的可维护性。
+虽然将这些格式化代码放到 view controllers, cells 和 labels 中也可以正常工作，但是如果我们能将这些分散的逻辑提取出来供整个 app 使用，会提高整个应用的可维护性。
 
-我们应该将字符串格式化代码就放在模型对象中，但当我们真要显示字符串时，需要确定 model 的类型。
+我们可以将字符串格式化代码就放在模型对象中，但当我们真要显示字符串时，需要确定 model 的类型。
 
-我们应当在基类中定义一些便利方法，并且每个子类模型都提供自己的格式化方法，但是在面向协议编程中，我们应该思考更加通用的方式。
+我们可以在基类中定义一些便利方法，然后每个子类模型都提供自己的格式化方法，但是在面向协议编程中，我们应该思考更加通用的方式。
 
-让我们将这种想法抽象成另一个协议，指定任意实体可表现为字符串。我们将会针对不同的 UI 方案，提供各种长度的字符串
+让我们将这种想法抽象成另一个协议，指定一些可以表现为字符串的实体。然后将会针对各种 UI 方案，提供不同长度的字符串
 
 ```swift
 // Any entity which can be represented as a string of varying lengths.
