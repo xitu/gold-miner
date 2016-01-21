@@ -110,7 +110,13 @@ extension UITableViewDataSource {
     func totalRows(tableView: UITableView) -> Int {
         let totalSections = self.numberOfSectionsInTableView?(tableView) ?? 1
         var s = 0, t = 0
-        while s < totalsections="" {="" t="" +="self.tableView(tableView," numberofrowsinsection:="" s)="" s++="" }="" return="" t="" }="">
+        while s < totalSections {
+            t += self.tableView(tableView, numberOfRowsInSection: s)
+            s++
+        }
+        return t
+    }
+}
 ```
 
 上面的 `totalRows:` 方法可以快速统计 table view 中有多少条目（item），当我们的 cell 分散在各个 sections 之中，而又想快速得到一个总条目数时尤其有用。调用该方法的一个绝佳位置就在 `tableView:titleForFooterInSection:` 里：
