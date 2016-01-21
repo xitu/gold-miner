@@ -569,7 +569,7 @@ extension StringRepresentable where Self: Album {
 }
 ```
 
-至此，我们已经处理了各种格式。现在我们需要基于给定的 UI 来选择相应的字符串显示。基于通用考虑，让我们将实现了 `StringRepresentable` 协议的对象显示在屏幕上，并提供一个 `containerSize` 和 `containerFont` 方便计算。
+至此，我们已经处理了各种格式。现在我们需要针对特定的 UI 来显示对应的字符串。基于这种通用的方式，让我们定义一种行为，将满足了 `StringRepresentable` 协议的对象显示在屏幕上，在该协议提供了 `containerSize` 和 `containerFont` 用来计算。
 
 ```swift
 protocol StringDisplay {
@@ -579,7 +579,7 @@ protocol StringDisplay {
 }
 ```
 
-我推荐只在协议中声明方法，实现由遵循协议的对象实现。在协议扩展中，我们将添加真正的实现代码。`displayStringValue:` 方法会决定哪个字符串会被使用，然后传递给指定类型的 `assignString:` 方法
+我推荐在协议中只声明方法，而具体实现放到遵循协议的对象中。在协议扩展中，我们将添加真正的实现代码。`displayStringValue:` 方法会决定哪个字符串会被使用，然后传递给指定类型的 `assignString:` 方法
 
 
 ```swift
@@ -608,9 +608,11 @@ extension StringDisplay {
         return self.sizeWithString(str).height <= self.containersize.height="" }="">
 ```
 
-现在我们有一个遵守 `StringRepresentable` 协议的模型对象，还有了可以自动选择字符串的协议。一旦部署成功，将会自动帮助我们选择正确的字符串，那么如何整合到 UIKit 中呢？
+现在我们有一个遵守 `StringRepresentable` 协议的模型对象，还拥有可以自动选择字符串的协议。此协议一旦成功部署，会自动帮助我们选择正确的字符串，那么接下来该如何整合进 UIKit 中呢？
 
-让我们先拿最简单的 `UILabel` 开刀。传统的方式是创建 `UILabel` 的子类，然后部署该协议，接下来在需要使用 `StringRepresentable` 的地方使用这个自定义的 `UILabel`。但更好的选择是使用一个指定类型的扩展（UILable 类）让所有的 `UILabel` 实例自动部署 `StringDisplay` 协议：
+先拿最简单的 `UILabel` 开刀吧。传统的方式是创建 `UILabel` 的子类，然后部署该协议，接下来在需要使用 `StringRepresentable` 的地方使用这个自定义的 `UILabel`。但更好的选择是使用一个指定类型（UILable 类）的扩展让所有的 `UILabel` 实例自动部署 `StringDisplay` 协议：
+
+>这种方式就不需要创建 `UILable` 的子类了
 
 ```swift
 extension UILabel : StringDisplay {
@@ -622,7 +624,7 @@ extension UILabel : StringDisplay {
 }
 ```
 
-就是这么简单，对于其他的 UIKit 类，我们可以做同样的事情，只要返回 `StringDisplay` 需要的数据就能正常工作了，是不是很神奇呢？
+就是这么简单，对于其他的 UIKit 类，我们可以做同样的事情，只要满足 `StringDisplay` 协议就能正常工作了，是不是很神奇呢？
 
 ```swift
 extension UITableViewCell : StringDisplay {
@@ -650,7 +652,7 @@ extension UIViewController : StringDisplay {
 }
 ```
 
-下面我们来看看以上实现在真实世界的样子，让我们声明一个 `Artist` 对象，已经部署了 `StringRepresentable` 协议。
+下面我们来看看以上实现在真实世界的样子，先声明一个 `Artist` 对象，已经部署了 `StringRepresentable` 协议。
 
 ```swift
 let a = Artist()
@@ -659,7 +661,7 @@ a.instrument = "Guitar / Vocals"
 a.bio = "Every little thing's gonna be alright."
 ```
 
-因为 `UIButton` 的所有实例都被扩展地部署了 `StringDisplay` 协议，妈妈再也不用担心我们直接调用他的 `displayStringValue:` 方法了
+因为 `UIButton` 的所有实例都通过扩展的方式部署了 `StringDisplay` 协议，妈妈再也不用担心我们直接调用他们的 `displayStringValue:` 方法了
 
 ```swift
 let smallButton = UIButton(frame: CGRectMake(0.0, 0.0, 120.0, 40.0))
@@ -674,8 +676,6 @@ print(mediumButton.titleLabel!.text) // 'Bob Marley (Guitar / Vocals)'
 ```
 
 按钮现可以根据自身 frame 大小灵活显示标题了。
-
-Say our user taps an `Album` and we push an `AlbumDetailsViewController`. Our protocols can negotiate the formatting of the navigation title. Because of our `StringDisplay` protocol extension, the `UINavigationBar` will display a longer string on iPads and a shorter one on iPhones.
 
 当用户点击一个 `Album` 唱片，我们为其压栈（push）一个 `AlbumDetailsViewController`。此刻我们的协议能够依照协定找到一个合适字符串作为导航栏标题。这是因为在 `StringDisplay` 协议扩展中的定义，`UINavigationBar` 会在 iPad 上显示长的标题，而在 iPhone 上显示短标题。
 
@@ -692,7 +692,7 @@ class AlbumDetailsViewController : UIViewController {
 }
 ```
 
-模型中的字符串格式化代码实现可以全部放到协议扩展里面，之后再根据具体的 UI 元素灵活显示。这种模式可以在将来的模型对象上重复使用，应用在各种 UI 元素上。因为这种协议具备良好的扩展性，所以可以推广到更多非 UI 的场景。
+我们可以将模型 models 中有关字符串格式化的代码全部集中转移到一个协议扩展里面，之后再根据具体的 UI 元素灵活显示。这种模式可以在将来的模型对象上重复使用，应用在各种 UI 元素上。此外这种协议具备良好的扩展性，还可以推广到更多非 UI 的场景。
 
 ### 在样式中使用协议 (V)
 
@@ -739,7 +739,7 @@ extension FontWeight_H1 {
 }
 ```
 
-剩下的事情就是基于 UIKit 对象类型，实现 `updateStyles` 方法。我们将使用指定类型的扩展让所有的 `UITableViewCell` 实例都遵守 `Styled` 协议
+剩下的事情就是基于具体的 UIKit 元素类型，实现 `updateStyles` 方法。我们将使用指定类型的扩展让所有的 `UITableViewCell` 实例都遵从 `Styled` 协议
 
 ```swift
 extension UITableViewCell : Styled {
@@ -766,39 +766,39 @@ public override func awakeFromNib() {
 }
 ```
 
-现在当我们创建了自己的 cell，接下来就可以部署我们需要的样式了
+现在我们创建了自己的 cell，接下来就可以部署我们需要的样式了
 
 ```swift
 class PurpleHeaderCell : UITableViewCell, BackgroundColor_Purple, FontWeight_H1 {}
 ```
 
-我们已经在 UIKit 元素上创建了类似于 CSS 样式风格的声明。使用协议扩展，我们甚至可以为 UIKit 山寨一个 Bootstrap 样式。这种方式可以在很多场景下都能增强我们的开发体验，特别是在应用开发时，当并且拥有数量庞大的视觉元素，且样式高度动态时尤其有用。
+我们已经在 UIKit 元素上创建了类似于 CSS 样式风格的声明。使用协议扩展，我们甚至可以为 UIKit 山寨一个 Bootstrap 样式。这种方式可以在很多场景下都能增强我们的开发体验，特别是在应用开发中，当拥有数量繁多的视觉元素，且样式高度动态时尤其有用。
 
-想象一下，一个 App 拥有 20 个以上不同的 view controllers，每个都遵守 2~3 个通用的视觉样式，比起强迫我们创建一个基类或使用一组数量持续增长的全局方法来定义样式，现在仅需要遵守一些样式协议，然后着手实现就好。
+想象一下，一个 App 拥有 20 个以上不同的 view controllers，每个都遵守 2~3 个通用的视觉样式，比起强迫我们创建一个基类或使用一组数量持续增长的全局方法来定义样式，现在仅需要遵守一些样式协议，然后顺手实现就好。
 
 ## 我们得到了什么？
 
-我们目前为止做了很多有趣的事情，但是通过使用协议和协议扩展最终获得了什么？可能有人觉得我们跟本没必要创建这么多协议。
+我们目前为止做了很多有趣的事情，那么通过使用协议和协议扩展我们最终得到了什么？可能有人觉得我们跟本没必要创建这么多协议。
 
 >面向协议编程并不完美匹配所有基于 UI 的场景。
 
 当我们需要在应用中添加共享代码和通用的功能时，协议和协议扩展将变得非常有价值。并且代码的组织结构也更加清晰有条理。
 
-随着数据类型的增多，协议越能施展他的拳脚。当 UI 需要显示多种格式的信息时，使用协议会让我们身轻如燕。但是这并不意味着我们需要添加 6 个协议和一大堆扩展，只是为了让一个紫色的单元格显示一个艺术家的名字。
+随着数据类型的增多，协议就越能发挥其用武之地。特别是当 UI 需要显示多种格式的信息时，使用协议会让我们身轻如燕。但是这并不意味着我们需要添加六个协议和一大堆扩展，只是为了让一个紫色的单元格显示一个艺术家的名字。
 
 让我们扩充鸭梨音乐场景，来见识一下『面向协议编程』真正的价值所在。
 
 ## 添加复杂度
 
-我们已经在 Pear Music 上下了很大功夫，现在拥有界面美观的专辑列表、艺术家、歌曲和播放列表，我们还使用了美妙的协议和协议扩展来优化 MVC 的原有结构。现在鸭梨公司 CEO 要求我们构建 鸭梨音乐 2.0 的版本，希望可以和 Apple Music 一争高下。
+我们已经在 Pear Music 上下了很大功夫，现在拥有界面美观的专辑列表、艺术家、歌曲和播放列表，我们还使用了美妙的协议和协议扩展来优化 MVC 的原有结构。现在鸭梨公司 CEO 要求我们构建鸭梨音乐 2.0 的版本，希望可以和 Apple Music 一争高下。
 
-我们需要一项酷炫的新特性来脱颖而出，经过头脑风暴后，我们决定添加：『长按预览』这个新特性。听上去是个大胆的创意，我们的 Jony Ive（黑的漂亮）似乎已经在摄像机前娓娓而谈了。让我们使用面向协议编程配合 UIKit 来完成他。
+我们需要一项酷炫的新特性来脱颖而出，经过头脑风暴后，我们决定添加：『长按预览』这个新特性。听上去是个大胆的创意，我们的 Jony Ive（黑的漂亮）似乎已经在摄像机前娓娓而谈了。让我们使用面向协议编程配合 UIKit 来完成任务。
 
 ### 创建 Modal Page
 
-下面来阐述下他的工作原理，当我们的用户**长按**艺术家、专辑、歌曲或播放列表时，一个模态视图会以动画的形式展示在屏幕上，从网络载入条目的图像，然后他的描述信息和一个 Facebook 分享按钮。
+下面来阐述下新特性的工作原理，当用户**长按**艺术家、专辑、歌曲或播放列表时，一个模态视图会以动画的形式出现在屏幕上，展示从网络载入的条目图像，以及描述信息和一个 Facebook 分享按钮。
 
-让我先构建一个 `UIViewController`，用做用户长按手势后的模态展示。从一开始我们可以让初始化方法更加通用，仅需要一些遵守 `StringRepresentable` 和 `MediaResource` 的对象做参数即可
+我们先来构建一个 `UIViewController`，用做用户长按手势后的模态展示的 VC。从一开始我们就能让初始化方法更加通用，传入的参数仅需遵守 `StringRepresentable` 和 `MediaResource` 即可。
 
 ```swift
 class PreviewController: UIViewController {
@@ -861,9 +861,9 @@ override func viewDidLoad() {
 }
 ```
 
-我们已经收获了许多协议，没有他们，我们或许要在 `PreviewController` 中根据不同的类型，分别创建初始化方法。通过基于协议的方式，不但保持了 view controller 的绝对简洁，而且还保证了其在未来的可扩展性。
+我们已经收获了许多协议，没有他们，我们或许要在 `PreviewController` 中根据不同的类型，分别创建初始化方法。通过协议的方式，不仅保持了 view controller 的绝对简洁，还保证了其在未来的可扩展性。
 
-我们只剩一个轻量级的、简明的 `PreviewController`，他可以接受一个 `Artist`, `Album`, `Song`, `Playlist` 或任意匹配了我们协议的 model。`PreviewController` 没有一行关于特定模型的代码。
+最后只剩一个轻量级的、清爽的 `PreviewController`，可以接受一个 `Artist`, `Album`, `Song`, `Playlist` 或任意匹配了我们协议的 **model**。`PreviewController` 没有一行关于特定模型的代码。
 
 ### 集成第三方代码
 
