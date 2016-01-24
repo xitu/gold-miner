@@ -12,7 +12,7 @@ While I was open sourcing [react-place](https://github.com/krasimir/react-place)
 [react-place](https://github.com/krasimir/react-place) is a component that renders an input field. The user starts typing a city name and the component makes predictions/suggestions. The component accepts a property called `onLocationSet`. It is fired once the user selects some of the suggestions. The function receives an object containing short description and geo coordinates of the city. Overall, we have a communication with an external API (Google maps) and a hard dependency involved (autocomplete widget). A demo of how the component works could be seen [here](http://krasimir.github.io/react-place/example/index.html).
 
 Let’s see how the component was done and why after finishing it it wasn’t ready for publishing.
-
+#Toolset
 There are few things which are at the top of the wave right now. One of them is React and its [JSX syntax](https://facebook.github.io/react/docs/jsx-in-depth.html). Another one is the new ES6 spec and all these goodies that are landing in our browsers. I wanted to use them as soon as possible but because they are not well supported everywhere I needed a transpiler. Tool that will parse my ES6 code and will produce ES5 version. [Babel](http://babeljs.io/) does the job and plays very well with React. Along with the transpiler I needed a bundler. Something that will resolve the [imports](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) and will generate only one file containing my application. My choice for that is [webpack](https://webpack.github.io/).
 
 ## [](http://krasimirtsonev.com/blog/article/distributing-react-components-babel-browserify-webpack-uglifyjs#the-base)The base
