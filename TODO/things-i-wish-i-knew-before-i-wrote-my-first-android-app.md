@@ -11,11 +11,11 @@
 
 My first app was terrible. It was so terrible, in fact, that I removed it from the store and I don’t even bother listing it on my resume’ anymore. That app wouldn’t have been so terrible if I knew a few things about Android development before I wrote it.
 
-我的第一个APP是极其糟糕的. 实际上, 它甚至已经糟糕到了让我把它从商店下架, 这样我就不会因为它在我的简历里面而烦恼了. 这个APP本来不会这样糟糕, 如果在我写它之前知道一些关于安卓开发的事情.
+我的第一个APP是极其糟糕的. 实际上, 它已经糟糕到了让我把它从商店下架, 我甚至不愿费事儿再把它写进简历. 这个APP本来不会这样糟糕, 如果在我写它之前知道一些关于安卓开发的事情.
 
 Here’s a list of things to keep in mind as you’re writing your first Android apps. These lessons are derived from actual mistakes that I made in the source code of my first app, mistakes that I’ll be showing below. Keeping these things in mind will help you write an app that you can be a little prouder of.
 
-这有一个你在开发你的第一个安卓APP需要牢记的事情的列表. 这些经验教训都是从我在我的第一个安卓APP的源码里的真实的错误中得来的.
+这有一个你在开发你的第一个安卓APP需要牢记的事情的列表. 我下面要说的这些经验教训都是从我在我的第一个安卓APP的源码里的真实的错误中得来的. 将这些(经验)铭记在心将会帮助你写一个你可以为止骄傲的APP.
 
 Of course, if you’re doing your job right as a student of Android development, you’ll probably hate your app later regardless. As @codestandards says,
 
@@ -145,7 +145,7 @@ Android Studio可以做很多事情. [学习快捷键](http://www.developerphil.
 
 There’s a method in one of the classes that I wrote that’s over 100 lines long. Such methods are hard to read, modify, and reuse. Try to write methods that only do one thing. Typically, this means that you should be suspicious of methods that are over 20 lines long. Here you can recruit Android Studio to help you spot problematic methods:
 
-这有一个我写了超过100行的类方法. 这样的方法是难以阅读和修改甚至再利用的. 试着写只做一件事的方法. 有代表行的说, 这意味着超过20 行的类都应该被怀疑. 说到这你可以用你的Android Studio 帮助你定位有问题的方法:
+这有一个我写了超过100行的类方法. 这样的方法是难以阅读和修改甚至再利用的. 试着写只做一件事的方法. 通常来说, 这意味着超过20 行的类都应该被怀疑. 说到这你可以用你的Android Studio 帮助你定位有问题的方法:
 
 [![Screen Shot 2015-07-09 at 4.25.00 PM](http://i2.wp.com/www.philosophicalhacker.com/wp-content/uploads/2015/07/Screen-Shot-2015-07-09-at-4.25.00-PM.png?resize=620%2C435)](http://i2.wp.com/www.philosophicalhacker.com/wp-content/uploads/2015/07/Screen-Shot-2015-07-09-at-4.25.00-PM.png)
 
