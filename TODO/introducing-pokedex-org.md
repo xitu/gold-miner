@@ -18,6 +18,9 @@ Ask any iOS or Android developer how we make our apps so fast, and most likely y
 
 I believe the web is as capable of solving these problems as native apps, but most web developers just aren't aware that the tools are out there. For the network and concurrency problems, the web has two very good answers:
 
+* [Offline-first](http://offlinefirst.org/) (e.g. [IndexedDB](http://w3c.github.io/IndexedDB/) and [ServiceWorkers](https://ponyfoo.com/articles/serviceworker-revolution))
+* [Web workers](http://www.html5rocks.com/en/tutorials/workers/basics/)
+
 I decided to put these ideas together and build a webapp with a rich, interactive experience that's every bit as compelling as a native app, but is also "just" a web site. Following guidelines from the Chrome team, I built [Pokedex.org](http://pokedex.org/) – a [progressive webapp](https://infrequently.org/2015/06/progressive-apps-escaping-tabs-without-losing-our-soul/) that works offline, can be launched from the home screen, and runs at 60 FPS even on mediocre Android phones. This blog post explains how I did it.
 
 ## Pokémon – an ambitious target

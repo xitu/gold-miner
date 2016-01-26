@@ -16,7 +16,7 @@
 不过这个观点已经被推翻很久了，今天，Javascript已经拥有了在我见过的所有语言中最好的开发工具生态系统。
 
 
-请注意，我没有说“最好的IDE”。如果你正在寻找一款统一了不同开发工具使用体验的集成式IDE，请试试为C#打造的微软Visual Studio，和Unity一起使用风味更佳。虽然我本人并没有使用过，但是听我信任的人说这很靠谱。
+请注意，我没有说“最好的IDE”。如果你正在寻找一款统一了不同开发工具使用体验的集成式IDE，请试试微软为C#打造的Visual Studio，和Unity一起使用风味更佳。虽然我本人并没有使用过，但是听我信任的人说这很靠谱。
 
 
 我用过C++和虚幻引擎。当我第一次试用的时候，我意识到web平台的开发工具仍然有很长的路要走。
@@ -82,7 +82,7 @@
 <iframe width="854" height="480" src="https://www.youtube.com/embed/bDUDuQy3R7Y?list=PLOU2XLYxmsILKwwASNS0xgfcmakbK_8JZ" frameborder="0" allowfullscreen=""></iframe>
 
 
-在这些好东西之上，Chrome DevTools也有一些酷炫的特性，比如像CSS实时编辑，以及可以帮助你编辑动画的超酷特性。去了解Chrome DevTools吧，你不会后悔的。
+除此之外，Chrome DevTools也有一些酷炫的特性，比如像CSS实时编辑，以及可以帮助你编辑动画的超酷特性。去了解Chrome DevTools吧，你不会后悔的。
 
 <iframe width="700" height="393" src="https://www.youtube.com/embed/hJdqtBeAUNI" frameborder="0" allowfullscreen=""></iframe>
 
@@ -95,12 +95,12 @@
 **BrowserSync:** [BrowserSync<sup>[5]</sup>](http://www.browsersync.io/)可以一次同时控制几个浏览器，这是检测你的响应式布局的一种好办法。换句话说，你可以使用BrowserSync CLI来在桌面，平板和手机上打开你的app。
 
 
-你可以设定文件监视（watch files），然后当文件改动时，几个同步的浏览器会自动刷新。滚动，点击，以及表单互动这些动作都将会被同步到所有设备，所有你可以简单的测试你的app的工作流，确保事情在任何设备上都看起来都对劲。
+你可以设定文件监视（watch files），然后当文件改动时，几个同步的浏览器会自动刷新。滚动，点击，以及表单互动这些动作都将会被同步到所有设备，所以你可以毫不费力地测试 app 的工作流，确保它在任何设备上都能正常运行。
 
 <iframe width="640" height="480" src="https://www.youtube.com/embed/heNWfzc7ufQ" frameborder="0" allowfullscreen=""></iframe>
 
 
-**TraceGL:** [TraceGL<sup>[6]</sup>](https://github.com/traceglMPL/tracegl) 是一个运行时调试工具，它让你可以观察软件中实时发生的所有函数调用，而不是逐步手动调试你的代码，一次一步。这个是一个超级强大和有用的功能。
+**TraceGL:** [TraceGL<sup>[6]</sup>](https://github.com/traceglMPL/tracegl) 是一个运行时调试工具，它让你可以观察软件中实时发生的所有函数调用，而不是逐步手动调试你的代码，一次一步。这是一个超级强大和有用的功能。
 
 <iframe width="700" height="393" src="https://www.youtube.com/embed/TW6uMJtbVrk" frameborder="0" allowfullscreen=""></iframe>
 
@@ -223,6 +223,6 @@ JavaScript的linting，运行时监视（runtime monitoring）和时间旅行调
 *   React
 
 
-**_Eric Elliott_**是[_"Programming JavaScript Applications"_](http://pjabook.com) _(O'Reilly), 和_ [_"Learn JavaScript Universal App Development with Node, ES6, & React"_](https://leanpub.com/learn-javascript-react-nodejs-es6/)_的作者。他向_ **_Adobe Systems_**_,_ **_Zumba Fitness_**_,_ **_The Wall Street Journal_**_,_ **_ESPN_**_,_ **_BBC_**_, 和包括_ **_Usher_**_,_ **_Frank Ocean_**_,_ **_Metallica_**_在内的顶级艺术家, 以及更多贡献了软件开发经验。_
+**_Eric Elliott_**是[_"Programming JavaScript Applications"_](http://pjabook.com) _(O'Reilly), 和_ [_"Learn JavaScript Universal App Development with Node, ES6, & React"_](https://leanpub.com/learn-javascript-react-nodejs-es6/)_的作者。他在_ **_Adobe Systems_**_,_ **_Zumba Fitness_**_,_ **_The Wall Street Journal_**_,_ **_ESPN_**_,_ **_BBC_**_, 和为包括_ **_Usher_**_,_ **_Frank Ocean_**_,_ **_Metallica_**_在内的顶级艺术家, 开发过软件。_
 
 _他的大多数时间花在和世界上最美丽的女人一起呆在旧金山湾区._
