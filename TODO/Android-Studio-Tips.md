@@ -3,7 +3,7 @@
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [Jaeger](https://github.com/laobie), [Brucezz](https://github.com/brucezz)
 * 校对者 :[Glow Chiang](https://github.com/Glowin), [Void Main](https://github.com/void-main)
-* 状态 : 根据审核意见修改完成
+* 状态 : 完成
 
 欢迎来到Phillipe Breault发布的Android Studio技巧wiki页面。
 
