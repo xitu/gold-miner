@@ -2,8 +2,8 @@
 * 原文作者 : [Eric Elliott](https://medium.com/@_ericelliott)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [赵鑫晖](https://github.com/zxc0328)
-* 校对者 :
-* 状态 : 翻译完成  
+* 校对者 : [achilleo](https://github.com/achilleo)
+* 状态 : 完成  
 
 
 
