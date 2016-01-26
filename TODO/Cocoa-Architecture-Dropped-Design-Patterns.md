@@ -10,7 +10,7 @@ As a part of going through the design patterns we've found in the creation of th
 
 It's important to preface that I don't believe in perfect code, or am I a fan of big re-writes. We can spot a bad pattern, but not do anything about it. We do have apps to ship, not a codebase to make perfect for the sake of technical purity.
 
-在开发 Artsy 这款 iOS app 的时候，我们尝试了一些设计模式。现在我想要谈谈那些我们现在有的和已经被移除的设计模式。我不会面面俱到，毕竟已经历了那么长时间，有那么多人参与过。而我想从更高的层面去审视，关注那些总体上更重要的东西。
+在开发 Artsy 这款 iOS app 的时候，我们尝试了一些设计模式。现在我想要谈谈我们现在有的和已经被移除的设计模式。我不会面面俱到，毕竟已经历了那么长时间，有那么多人参与过。而我想从更高的层面去审视，关注那些总体上更重要的东西。
 
 很重要的一点需要先声明下，我不相信有完美的代码，或者说我喜欢重写代码。我们可以发现一个坏的模式而什么都不做。毕竟我们有 app 需要完成，而不可能纯粹为了技术，追求更完美的代码库。
 
@@ -122,11 +122,11 @@ For a very long time, I preferred aesthetics of class based APIs. E.g. using onl
 
 I'm a big fan of the idea of Dependency Injection within tests. This, roughly _TL:DR'd_, means passing in any additional context, instead of an object finding the context itself. A common case is a call to `NSUserDefaults`. It's very likely _not_ the role of your class to know which `NSUserDefault`s object you're working with, but it's likely that you're making that decision in the method by doing something like `[[NSUserDefaults standardUserDefaults] setObject:reminderID forKey:@"ARReminderID"];`. Using dependency injection would be allowing that object to come from outside that method. If you're interested in a longer and better, explanation, read this great [objc.io](https://www.objc.io/issues/15-testing/dependency-injection/) by [Jon Reid](http://qualitycoding.org/about/).
 
-我热衷于在测试内应用依赖注入的思想。这个说来话长，简要来说， 就是传入一个额外的上下文，而不是一个对象自己找到上下文。常见的例子就是 `NSUserDefaults`。可能你的类并不需要知道你使用的是哪个 `NSUserDefault` 对象，而是你调用的方法在决定，比如 `[[NSUserDefaults standardUserDefaults] setObject:reminderID forKey:@"ARReminderID"];`。使用依赖注入将允许对象通过方法从外部传入。如果你想更深入了解这块，可以看看 [Jon Reid](http://qualitycoding.org/about/) 这篇  [objc.io](https://www.objc.io/issues/15-testing/dependency-injection/) [译文：依赖注入](http://objccn.io/issue-15-3/)。
+我热衷于在测试内应用依赖注入的思想。这个有点复杂，简要来说， 就是传入一个额外的上下文，而不是一个对象自己找到上下文。常见的例子就是 `NSUserDefaults`。可能你的类并不需要知道你使用的是哪个 `NSUserDefault` 对象，而是你调用的方法在决定，比如 `[[NSUserDefaults standardUserDefaults] setObject:reminderID forKey:@"ARReminderID"];`。使用依赖注入将允许对象通过方法从外部传入。如果你想更深入了解这块，可以看看 [Jon Reid](http://qualitycoding.org/about/) 这篇  [objc.io](https://www.objc.io/issues/15-testing/dependency-injection/) [译文：依赖注入](http://objccn.io/issue-15-3/)。
 
 The problem with a class based API, is that it becomes difficult to inject that object. This doesn't flow well with writing simple, fast tests. You can use a mocking library to fake the class API, but that feels weird. Mocking should be used for things you don't control. You control the object if you're making the API. Having an instance'd object means being able to provide different versions with different behaviors or values, even better if you can reduce the behavior to [a protocol](https://github.com/artsy/eigen/blob/e19ac594bf6240d076e8092d9c56e9876c94444e/Artsy/Networking/Network_Models/ARArtistNetworkModel.h).
 
-基于类的 API，它的问题在于变得很难注入对象。这不利于写出简洁快速的测试。你可以使用一个模拟（mocking）库来伪造类 API，但这感觉很奇怪。模拟（mocking）应该被用于你不控制的事物。如果你正在写 API，那么你就控制了这个对象。拥有一个实例对象意味着可以给不同的版本提供不同行为和值，如果你可以通过 [协议（protocol）](https://github.com/artsy/eigen/blob/e19ac594bf6240d076e8092d9c56e9876c94444e/Artsy/Networking/Network_Models/ARArtistNetworkModel.h) 减少实例上的行为，那就更好了。
+基于类的 API，它的问题在于变得很难注入对象。这不利于写出简洁快速的测试。你可以使用一个模拟（mocking）库来伪造类 API，但这感觉很奇怪。模拟（mocking）应该被用于你不控制的事物。如果你正在写 API，那么你就控制了这个对象。拥有一个实例对象意味着可以给不同的版本提供不同行为和值，如果你可以通过 [协议（protocol）](https://github.com/artsy/eigen/blob/e19ac594bf6240d076e8092d9c56e9876c94444e/Artsy/Networking/Network_Models/ARArtistNetworkModel.h) 减少实例上的行为，那会更好。
 
 ## Objects Sneakily Networking
 
@@ -146,7 +146,7 @@ The other was to abstract any networking performed into a separate object. If yo
 
 Network models also make it extremely easy to swap behavior out in tests. In eigen, we have our asynchronous networking [run synchronously in tests](https://github.com/artsy/eigen/pull/575) but we still use the network models to be able to provide [whatever data we want to expect](https://github.com/artsy/eigen/blob/master/Artsy_Tests/View_Controller_Tests/Artist/ARArtistViewControllerTests.m#L29-L40) from the server in our tests.
 
-网络模型也使得在测试中交换行为变得极为容易。在 eigen，我们拥有异步网络，能[在测试中异步运行](https://github.com/artsy/eigen/pull/575)，但我们还是一直使用网络模型，从而可以在测试中提供[我们期望服务端返回的数据](https://github.com/artsy/eigen/blob/master/Artsy_Tests/View_Controller_Tests/Artist/ARArtistViewControllerTests.m#L29-L40) 。
+网络模型也使得在测试中交换行为变得极为容易。在 eigen，我们拥有异步网络，能[在测试中同步运行](https://github.com/artsy/eigen/pull/575)，但我们还是一直使用网络模型，从而可以在测试中提供[我们期望服务端返回的数据](https://github.com/artsy/eigen/blob/master/Artsy_Tests/View_Controller_Tests/Artist/ARArtistViewControllerTests.m#L29-L40) 。
 
 ## Subclassing more than twice
 
@@ -162,7 +162,7 @@ One pattern for handling this is [class composition](http://stackoverflow.com/qu
 
 A good example of this comes [from Energy](https://github.com/artsy/energy/blob/aa97d90cf37932d4c0f49ea4c4d31f7e491f16a6/Classes/Controllers/Top%20View%20Controller/ARTopViewToolbarController.m), our root view controller `ARTopViewController` used to control its own toolbar items. Over 4 years this became difficult to manage, and a lot of extra code in the view controller. By abstracting out the implementation details of managing the toolbar items into it's [own class](https://github.com/artsy/energy/blob/aa97d90cf37932d4c0f49ea4c4d31f7e491f16a6/Classes/Controllers/Top%20View%20Controller/ARTopViewToolbarController.m) we were able to allow the `ARTopViewController` to state what it wanted by not how it was done.
 
-举一个来自 Energy 的好例子，我们的根控制器 `ARTopViewController` 过去常常控制自己的工具栏项目（toolbar items）。经过四年的时间这变得难以管理，在视图控制器有大量的额外代码。通过抽取控制工具栏项目（toolbar items）的实现细节到他们自己的类，从而让 `ARTopViewController` 展示自己想要做的而不是怎么做的。
+举一个来自 Energy 的好例子，我们的根视图控制器 `ARTopViewController` 过去常常控制自己的工具栏项目（toolbar items）。经过四年的时间这变得难以管理，在视图控制器有大量的额外代码。通过抽取控制工具栏项目（toolbar items）的实现细节到他们自己的类，从而让 `ARTopViewController` 展示自己想要做的而不是怎么做的。
 
 ## Configuration Classes over Inter-Class Communication
 
