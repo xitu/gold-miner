@@ -19,18 +19,18 @@
 1.  **禁用网络通话** 即使是在较好的 `3G` 或 `4G` 连接状态下，健谈的网络活动将使移动应用严重损失性能。让用户盯着加载进度并不是良好的用户体验。
 2.  **使用后台线程** 要产生 60`FPS` 的流畅感，你在主线程上的操作必须少于 16ms。任何与 UI(用户界面) 不相关的工作都将转交给一个后台线程去完成。
 
-我认为 `web` 作为原生应用能够解决这些问题，只是大多数 `Web` 开发人员不知道这些工具就在外面。对于网络和并发性的问题，`web` 有两个非常好的答案：
-我认为以web的能力能像native apps那样解决这些问题，只是大多数web开发者不知道工具就在那儿。
+我认为 `web` 完全可以像原生应用一样解决这些问题，只是大多数 `Web` 开发者并不知道这些工具就在那儿。对于网络和并发性的问题，`web` 有两个非常好的答案：
 
-1. 离线优先（比如IndexedDB和ServiceWorkers)
+1. 离线优先（比如选用[IndexedDB](http://w3c.github.io/IndexedDB/)和[ServiceWorkers](https://ponyfoo.com/articles/serviceworker-revolution))
 2. Web workers
 
-我决定将这些想法放在一起，构建一个和native app一样引人注目的，有丰富交互体验的webapp，但它 “仅仅” 是一个网站。根据 Chrome 小组的准则，我构建了 [Pokedex.org](http://pokedex.org) - 一个离线工作的[先进的网页应用(progressive webapp)](https://infrequently.org/2015/06/progressive-apps-escaping-tabs-without-losing-our-soul/)，它可以从主屏幕启动，甚至在普通的 `Android` 手机上运行在 60FPS。这篇博客文章将解释我是如何做到的。
+我决定将这些想法放在一起，构建一个像native app一样引人注目的，有丰富交互体验的webapp，但它 “仅仅” 是一个网站。根据 Chrome 小组的准则，我构建了 [Pokedex.org](http://pokedex.org) - 一个离线工作的[先进的网页应用(progressive webapp)](https://infrequently.org/2015/06/progressive-apps-escaping-tabs-without-losing-our-soul/)，它可以从主屏幕启动，甚至在普通的 `Android` 手机上运行在 60FPS。这篇博客文章将解释我是如何做到的。
 
 
 ## 口袋妖怪 - 一个雄心勃勃的目标
 
-对于那些不知道口袋妖怪世界的人们，一个图鉴包含数以百计的可爱的小生物，以及他们的属性，类型，进化和移动信息的百科全书。按照一个儿童游戏的规则，其数据量大得令人惊叹(假如你希望烧脑，可以通过仔细研究[努力值](http://bulbapedia.bulbagarden.net/wiki/Effort_values))。所以这是一个雄心勃勃的Web应用程序的理想目标。
+对于那些不知道口袋妖怪世界的人们，口袋妖怪图鉴是一本包含数以百计的可爱的小生物，以及他们的属性、类型、进化和移动信息的百科全书。按照一个儿童游戏的规则，这将是信息量大得惊人(若你想烧脑，可以更深入地研究[成就值](http://bulbapedia.bulbagarden.net/wiki/Effort_values)参数)。所以，这将是一个雄心勃勃的Web应用程序的理想选择。
+
 
 ![](introducing-pokedex-org/DeliriousNeedyAnophelesmosquito.gif)
 [查看原文视频](http://nolanlawson.s3.amazonaws.com/vid/DeliriousNeedyAnophelesmosquito.mp4)
@@ -39,11 +39,11 @@
 
 这个程序，我决定使用[PouchDB]（http://pouchdb.com/）保存口袋妖怪数据（因为它擅长同步），同时使用[LocalForage](https://github.com/mozilla/localForage)作为应用的状态数据存储（因为它有一个很好的键值API(key-value API)）。 `PouchDB` 和 `LocalForage` 都在 `web worker` 中使用 `IndexedDB`，这意味着任何数据库操作者将是[完全无阻塞](http://nolanlawson.com/2015/09/29/indexeddb-websql-localstorage-what-blocks-the-dom/)。
 
-然而，事实是在第一次加载网站时口袋妖怪数据是不能马上使用的，因为它需要一段时间来从服务器同步。所以，我还使用了回退策略“优先本地，然后才是远端”：
+然而，事实是在第一次加载网站时口袋妖怪数据并是不能马上可用的，因为它需要一段时间从服务器同步数据。为此，我还使用了回退策略“优先本地，再远端”：
 
 ![](http://static1.squarespace.com/static/54d00072e4b0c38f7e184ee0/t/56437650e4b08c803b7dcf42/1447261785905/?format=1500w)
 
-在网站第一次加载时，PouchDB开始从远端数据库同步，在我的项目中使用的是[Cloudant](http://cloudant.com/)（一个CouchDB即服务的提供者）。由于 `PouchDB` 具有本地和远程两套API，可以很容易地从本地数据库查询，如果失败再回退到远程数据库：
+在网站第一次加载时，PouchDB开始从远端数据库同步，我在项目中使用的是[Cloudant](http://cloudant.com/)（一个CouchDB即服务的提供者）。由于 `PouchDB` 具有本地和远程两套API，可以很容易地从本地数据库查询，如果查询失败才去远程数据库查询：
 
  ```
  async function getById() {
@@ -55,14 +55,14 @@
  }
  ```
 
-（是的，在这个应用中我也决定使用[ES7 async/await](http://pouchdb.com/2015/03/05/taming-the-async-beast-with-es7.html)，使用[Regenerator](https://github.com/facebook/regenerator)和[Babel](http://babeljs.io/)，通过最小化/gzip压缩构建后的大小增加了小于 4KB ，所以对于方便开发者，这样做还是非常值得的。）
+（没错，我决定在这个应用中使用[ES7 async/await](http://pouchdb.com/2015/03/05/taming-the-async-beast-with-es7.html)机制，使用[Regenerator](https://github.com/facebook/regenerator)和[Babel](http://babeljs.io/)，通过最小化/gzip压缩构建后的大小增加了不到 4KB ，方便了开发者，所以这样做还是非常值得的。）
 
-所以当该网站第一次加载，这是一个相当标准的 `AJAX` 应用，使用 `Cloudant` 获取和显示数据。一旦同步完成（在较好的连接状态下只需要几秒钟），所有交互将成为纯粹的本地访问，这意味着它们(运行的)更快并且能脱机工作。这是实现应用“先进的”体验的途径之一。
+所以当该网站第一次加载，这是一个相当标准的 `AJAX` 应用，使用 `Cloudant` 获取和显示数据。一旦同步完成（在较好的连接状态下只需要几秒钟），所有交互将成为纯粹的本地访问，这京意味着应用可以运行的更快，而且还能脱机工作。这是实现应用“先进的”体验的途径之一。
 
 ## 我喜欢你的工作方式
 
 
-我还在这个应用中大量引入[web worker](http://www.html5rocks.com/en/tutorials/workers/basics/)。一个 `web worker` 的本质是一个后台线程，你可以访问除了 `DOM` 之外，浏览器中几乎所有的 `API`，在 `worker` 执行时不会阻塞 `UI`，这有益于你要做的任何事情。
+我还在这个应用中大量引入[web worker](http://www.html5rocks.com/en/tutorials/workers/basics/)。一个 `web worker` 本质是一个后台线程，你可以访问除了 `DOM` 之外，浏览器中几乎所有的 `API`，在 `worker` 内部执行的事情并不会阻塞 `UI`，这是 有益处的。
 
 从[web worker](http://www.html5rocks.com/en/tutorials/workers/basics/) [文献](http://ejohn.org/blog/web-workers/)了解 `web worker`，可能你误以为 `web worker` 作用仅仅是有限的校验、解析和其他费时的计算任务。然而，事实上`Angular 2`正计划一种架构，
 [让`web worker`几乎存活在整个应用生命周期](https://docs.google.com/document/d/1M9FmT05Q6qpsjgvH1XvCm840yn2eWEg0PMskSQz7k4E)，这在个理论上能够提高并行并减少 `jank`，特别是在移动端。类似技术 [Flux](https://medium.com/@nsisodiya/flux-inside-web-workers-cc51fb463882#.ooz0ho5si) 和 [Ember](http://blog.runspired.com/2015/06/05/using-webworkers-to-bring-native-app-best-practices-to-javascript-spas/) 也在探索，尽管现在还没有实质结果。
