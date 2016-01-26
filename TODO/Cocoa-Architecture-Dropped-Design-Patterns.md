@@ -1,9 +1,9 @@
 > * 原文链接: [Cocoa Architecture: Dropped Design Patterns](http://artsy.github.io/blog/2015/09/01/Cocoa-Architecture-Dropped-Design-Patterns/)
 * 原文作者 : [Author: orta - Artsy Engineering](http://artsy.github.io/author/orta/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : nathanwhy
-* 校对者: 
-* 状态 :  待定
+* 译者 : [nathanwhy](https://github.com/nathanwhy)
+* 校对者: [walkingway](https://github.com/walkingway)、[iThreeKing](https://github.com/iThreeKing)
+* 状态 :  完成
 
 
 在开发 Artsy 这款 iOS app 的时候，我们尝试了一些设计模式。现在我想要谈谈我们现在有的和已经被移除的设计模式。我不会面面俱到，毕竟已经历了那么长时间，有那么多人参与过。而我想从更高的层面去审视，关注那些总体上更重要的东西。
