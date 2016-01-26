@@ -2,7 +2,7 @@
 * 原文作者 : [ponyfoo](https://ponyfoo.com/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [sqrthree(根号三)](https://github.com/sqrthree)
-* 校对者: [Yves-X](https://github.com/Yves-X)
+* 校对者: [Zhangdroid](https://github.com/Zhangdroid)
 * 状态 :  完成
 
 截至目前有超过了 5000 人参与了(该次调查)，准确的说是 5350 人。我迫不及待的想要和大家分享一下这次调查的细节。在分享之前我想要感谢参与调查的每一个人。这是 JavaScript 社区一个伟大的时刻，我对未来的事情感到无比激动。
