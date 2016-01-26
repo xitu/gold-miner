@@ -3,7 +3,7 @@
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [Yves X](https://github.com/Yves-X)
 * 校对者: [sqrthree(根号三)](https://github.com/sqrthree)
-* 状态 :  第一次校对
+* 状态 :  完成
 
 # 人人须知的 jQuery 技巧
 
