@@ -15,7 +15,7 @@
 
 大部分的JavaScript实现都是单线程的，并且考虑到语言的语义，人们倾向于使用 _callbacks_ （回调函数）来管理并行的过程。在JavaScript中，虽然使用 [Continuation-Passing Style(后继传递格式)](http://matt.might.net/articles/by-example-continuation-passing-style/) 并没有什么明显的过错， 但实际上，这样做会非常容易让代码变得难以阅读和更加程序化（比起它本应有的样子）。
 
-关于这一问题，人们已经提出了很多建议，在这当中，使用promise来让这些并行过程同时进行就是其中之一。 在这篇博文中我们将看到什么是promise，它是怎样工作的，和你应该什么时候使用它，什么时候不用。
+关于这一问题，人们已经提出了很多建议，在这当中，使用promise来让这些并行过程同时进行就是其中之一。 在这篇博文中我们将看到什么是promise，它是怎样工作的，为什么你应该/不该使用它们。
 
 > **备注** 这篇文章假定读者至少熟悉高阶函数、闭包和回调（continuation-passing style）。 或许缺少这些知识，你也能从本文收获到一些什么，但是还是建议你先了解清楚这些概念，再回来读这篇文章。
 
@@ -55,7 +55,7 @@ _代表着未来餐桌的装置。_
 
 _放进整个苹果，出来的是苹果片_
 
-在同步的世界里，当谈到函数时，我们很容易去理解它的计算: 你把输入放进函数里，函数就会给出一些内容作为输出。
+在同步的世界里，当想到函数时，我们很容易理解计算: 你把输入放进函数里，函数就会给出一些内容作为输出。
 
 这种 _输入输出_ 的模型很容易理解，大部分程序员对此也非常熟悉。 所有JavaScript的句法结构与内建功能，都假设你的函数会跟随这一模型。
 
@@ -90,7 +90,7 @@ var squareArea = 20 * 20;
 
 我们想要我们的计算机做更多事情，并且要做得更 _快_。 为了做到这样，首先我们完全去掉执行顺序。换言之，我们假设在我们的程序中所有表达式在同一时间执行。
 
-这个方法很适合我们之前的例子。但是当我们做一点细微的改变时，问题就来了:
+这个方法很适合我们之前的例子。但是当我们做一点细微改变的时候，问题就来了:
 
 ```
 var radius = 10;
@@ -170,7 +170,7 @@ First-class functions是一个很强大的概念（不管是否 lambda 抽象）
 
 ### 3.1\. Promise的顺序表达
 
-既然我们看过了promise的概念本质，我们开始理解它们在机器中是怎么样工作的。我们将会描述创建promise用到的操作，再把值放进去，然后描述表达式和值之间的依赖。为了我们的例子，我们将使用非常描写性的操作，偶尔会用到一些不真实存在的promise实现:
+既然我们看过了promise的概念本质，我们开始理解它们在机器中是怎么样工作的。我们将会描述创建promise用到的操作，再把值放进去，然后描述表达式和值之间的依赖。为了方便举例，我们接下来将会用到非常直观的操作，这些操作恰好没有被现存的promise实现使用:
 
 *   `createPromise()` 构造出一个值的表示形式。这个值必须要在之后及时提供。
 
@@ -221,9 +221,9 @@ data Promise of something = {
 }
 ```
 
-`Promise of something`以空值`null`初始化，在某个时间点，某个人可能调用这个promise的`fulfil`函数，从那以后这个promise将包含给定的实现值。由于promise只能被实现一次，那个值将会在剩余的程序中一直包含着。
+`Promise of something`以空值`null`初始化，在某个时间点，某个人可能调用这个promise的`fulfil`函数，从那以后这个promise将包含给定的实现值 (fulfilment value)。由于promise只能fulfill一次，那个值将会在剩余的程序中一直包含着。
 
-考虑到一个promise不能通过只看着`value`（因为`null`也是一个有效值）来判断是否被实现了，我们还需要跟踪promise处于哪种状态，所以我们不会冒险多于一次去调用fulfil。这需要我们对之前的表示形式做一点小改变:
+考虑到一个promise不能只通过`value`（因为`null`也是一个有效值）来判断是否被fulfil，我们还需要跟踪promise处于哪种状态，所以我们不会冒险多于一次去调用fulfil。这需要我们对之前的表示形式做一点小改变:
 
 ```
 data Promise of something = {
@@ -242,14 +242,14 @@ data Promise of something = {
 }
 ```
 
-既然我们已经决定好我们的promises表示形式，让我们一起开始定义创造新promises的函数:
+既然我们已经决定好promise的表示形式，让我们一起开始定义创建新promise的函数:
 
 ```
 function createPromise() {
   return {
     // promise初始化为空值,
     value: null,
-    // 待定状态的promise，所以它可以在稍后实现,
+    // 待定状态的promise，所以它可以在稍后变成fulfilled,
     state: "pending",
     // 它现在还没有依赖关系。
     dependencies: []
@@ -261,7 +261,7 @@ function createPromise() {
 
 解决这个问题的其中一个方法，是把所有创造出的依赖放入promise的 `dependencies` 属性中，然后把promise交给解释器按需计算。用这种实现，解释器开启之前将没有依赖关系会被执行。我们不会这样去实现promise，因为这对于人们通常所写的JavaScript程序并不适合(http://robotlolita.me/2015/11/15/how-do-promises-work.html#fn:3)。
 
-另一种解决方案，来源于这个事实：我们只有当promise处于`pending`状态时，才真正需要跟踪一个promise的依赖关系，因为一旦promise被实现，我们就可以立刻执行函数了！
+另一种解决方案，来源于这个事实：我们只有当promise处于`pending`状态时，才真正需要跟踪一个promise的依赖关系，因为一旦promise被调用fulfil，我们就可以立刻执行函数了！
 
 ```
 function depend(promise, expression) {
@@ -349,9 +349,9 @@ _一种错误处理的可行方法_
 
 _我们的新promise的可能状态_
 
-我们可以很容易修改promise，来考虑失败的表达方式。当前我们的promise以`pending`状态开始，然后它只能被实现。假如我们增加一个新的状态`rejected`，然后我们就可以在promise当中模仿部分函数了。成功的计算以`pending`开始，最终以`fulfilled`状态结束。失败的计算也以`pending`开始，但状态最后会变为`rejected`。
+我们可以很容易修改promise，来考虑失败的表达方式。当前我们的promise以`pending`状态开始，然后它只能被满足。假如我们增加一个新的状态`rejected`，然后我们就可以在promise当中模仿部分函数了。成功的计算以`pending`开始，最终以`fulfilled`状态结束。失败的计算也以`pending`开始，但状态最后会变为`rejected`。
 
-既然现在我们有可能失败，依赖于promise的值的计算也必须要意识这一点。目前我们的`depend`失败，在promise实现和被拒的时候各自运行不同的表达式。
+既然现在我们有可能失败，依赖于promise的值的计算也必须要意识这一点。目前我们的`depend`失败只需在promise变成`fulfilled`或者`rejected`的时候各自运行不同的表达式。
 
 带着这个，我们的promise表示形式变成了:
 
@@ -366,7 +366,7 @@ data Promise of (value, error) = {
 }
 ```
 
-Promise可能包含一个合适的值，或者一个错误，又或者是 `null` 直到它解决（可能是成功也可能失败）。要这样处理的话，我们的依赖关系也需要知道对于合适值和错误值分别怎样处理，因此稍微改变一下dependencies数组。
+Promise可能包含一个合适的值，或者一个错误，又或者是 `null` 直到它解决（可能是`fulfilled`或者`rejected`）。要这样处理的话，我们的依赖关系也需要知道对于合适值和错误值分别怎样处理，因此稍微改变一下dependencies数组。
 
 除了在表示形式中的改变，我们还要改一下 `depend` 函数，现在读起来就像这样:
 
@@ -751,7 +751,7 @@ function raceAll(promises) {
 raceAll([searchA(), searchB(), waitAll([searchA(), searchB()])]);
 ```
 
-另一种在两个promise中作出非确定性选择的方法，是等待直到第一个_成功实现_的promise。举个例子，如果你正试图从一个镜像源列表里面找出一个可用的下载链接，你可不想因为第一个链接不能下载而失败了，你想要的是从第一个能下载的镜像进行下载，如果全都不能下才算失败。我们可以写一个`attempt`操作来这么做： 
+另一种在两个promise中作出非确定性选择的方法，是等待第一个_成功满足_的promise。举个例子，如果你正试图从一个镜像源列表里面找出一个可用的下载链接，你可不想因为第一个链接不能下载而失败了，你想要的是从第一个能下载的镜像进行下载，如果全都不能下才算失败。我们可以写一个`attempt`操作来这么做： 
 
 ```
 function attempt(left, right) {
