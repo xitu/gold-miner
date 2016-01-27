@@ -1,76 +1,73 @@
-> * 原文链接 : [Top 5 Android libraries every Android developer should know about - v. 2015](https://infinum.co/the-capsized-eight/articles/top-five-android-libraries-every-android-developer-should-know-about-v2015)
+> * 原文链接 : [An Introduction to Sprite Animation](http://eighthdaydesign.com/journal/sprite-animation)
 * 原文作者 : [ eighthday](http://codepen.io/eighthday/pen/dYNJyR)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
+* 译者 :  [阿树](http://aaaaaashu.me/)
 * 校对者: 
-* 状态 :  待定
+* 状态 :  翻译完成
 
-#### We always strive to add an element of movement to our websites. Carefully considered fluid animation can elevate a site above the humdrum landscape of templated website design.
+#关于 Sprite 动画简介
 
-The technique for sprite animation is not new, the Victorians taught us how to do it with their zoetrope's, and 8-bit video game designers showed us how to do it in the digital age. At its heart, all we are doing is moving sequentially through a series of images.
+#### 我们总是希望添加运动的元素到我们的网站上，并认为流畅的动画可以让乏味的模板化网站设计得到改善。
+
+Sprite 动画并不是一项新技术，在维多利亚时代的人就已经用他们的西洋镜教我们如何实现它，而在数字化时代，8-bit 电子游戏设计师通过 8 bit 像素展示给我们怎么实现它。然而它的核心，其实就是一连串的图片循序的运动。
 
 ![Sprite walk cycle animation ](http://eighthdaydesign.com/resources/images/1-10-2015/80-299.Paul_walk_2560_2.gif) ![Sprite walk cycle animation ](http://eighthdaydesign.com/resources/work/1-10-2015/2-2-299.Paul_walk_mob_2.gif)
 
-## The making of a spritesheet
+#### Spritesheet 的制作
 
-It does not matter how you get there, what you need is a one image made up of a number of equally sized frames (sprites). Spritesheets can be made in any application that is capable of outputting to PNG or SVG.
+不管你如何获得，你需要的就是一张由许多同等大小的帧（sprites）组成的图片。 Sprintesheets 可以被任何输出 PNG 和 SVG 的应用制作。
 
-SVGs have the advantage of looking pin sharp on high-resolution screens, but struggle with textures, gradients and complex illustrations. We can often achieve surprisingly small file sizes aided by apps like [SVGCleaner](http://sourceforge.net/projects/svgcleaner/) and [SVGOMG](https://jakearchibald.github.io/svgomg/). PNG is a native export option of heavyweight animation apps: Flash & After Effects, allowing us to create fluid animation in environments built to do just that.
+SVGs 在高分辨率显示器上有着看起来锐利的优势，但在纹理，渐变，和复杂的插图上表现并不如意。我们通常可以在 [SVGCleaner](http://sourceforge.net/projects/svgcleaner/) 和  [SVGOMG](https://jakearchibald.github.io/svgomg/) 这样的应用帮助下，获得超小的文件大小。 PNG 格式是重量级动画应用：Flash & After Effects 原生输出选项，我们也可以通过这样的构建环境去创造流畅的动画。
 
-The goal is always to create retina ready animations. We have had limited success exporting from After Effects as a series of PSDs and then batch live tracing in Illustrator (via Bridge) to convert to SVG. You can also double size PNGs and scale with JavaScript, both workflows are far from perfect.
+我们的目标是创造视网膜(retina)级的动画。我们已经成功的从 After Effect 输出一连串的 PSDs，并且在  Illustrator 上通过 Bridge 批处理转换成 SVG。你也可以增大两倍 PNGs 的尺寸和通过 JavaScript 控制比例，但这样的工作流离完美很远。
 
-#### Bringing it to life
+#### 回到现实
 
-To achieve a basic looping animation, we assign a background image to a html element and then use JavaScript to adjust its background position over time. You can do something similar with CSS3 steps() but for complete control and better cross compatibility, JavaScript libraries like Greensocks GSAP are hard to beat.
+为了实现基本的循环动画，我们给一个 HTML 元素赋予背景图片，并随着时间用 JavaScript  调整背景图片的位置。
+
+你也可以使用 CSS3 steps()  做类似的事情，但为了全面的控制和更好的浏览器兼容，像 Greensocks  [GSAP](http://greensock.com/gsap) 这样的 JavaScript 库更合适解决这样的问题。
 
 <iframe height="268" scrolling="no" src="//codepen.io/eighthday/embed/dYNJyR/?height=268&amp;theme-id=0&amp;default-tab=result" frameborder="no" allowtransparency="true" allowfullscreen="true" style="width: 100%;">See the Pen <a href="http://codepen.io/eighthday/pen/dYNJyR/">Responsive SVG walk cycle with GSAP</a> by eighthday (<a href="http://codepen.io/eighthday">@eighthday</a>) on <a href="http://codepen.io">CodePen</a>.</iframe>
 
-## Bringing it to life
-
-To achieve a basic looping animation, we assign a background image to a html element and then use JavaScript to adjust its background position over time.
-
-You can do something similar with CSS3 steps() but for complete control and better cross compatibility, JavaScript libraries like [GSAP](http://greensock.com/gsap) coupled with [Jquery](https://jquery.com/) are hard to beat.
-
-
 See the Pen [dYNJyR](http://codepen.io/eighthday/pen/dYNJyR/) by eighthday ([@eighthday](http://codepen.io/eighthday)) on [CodePen](http://codepen.io).
 
-## HTML & CSS
+#### HTML & CSS
 
-All we are doing here is assigning a background to an HTML element and fixing the height & width so we only see one sprite at a time.
+我们所作的就是给一个 HTML 元素赋予背景，并固定其宽高，这样我们仅能在每一刻看到一个 sprite。
 
-If you are using more than one animation you can combine spritesheets to reduce HTTP requests.
+> 如果你使用不少于一个动画，你可以合并 spritesheets 减少 HTTP 请求。
 
-
-
+    <div id="mySpritesheet"></div>
+	
     #mySpritesheet {
       background: url('my.svg');
       width: 100px;
       height: 100px;
     }
 
+#### JavaScript
 
-## JavaScript
+TimelineMax 提供一个很方便的方法定义我们如何更新背景位置，以及让我们很好的控制我们的动画。如果复杂程度渐增，这就变得很有价值了。
 
-TimelineMax provides a succinct way of defining how we update the background position and gives us excellent control over our animation. This becomes very valuable as complexity increases.
+> 你可以使用一个 Timeline 来控制多个动画，使得一连串 spritesheets 尽可能的同步。
 
-You can control multiple animations within one Timeline, making it possible to sync a series of spritesheets.
-
-First we define the parameters of the animation
+首先我们定义动画的参数
 
     var svg = $("#mySpritesheet")
     var totalFrames = 22;
     var frameWidth = 162
     var speed = 0.9;
 
-And work out how far we want to scroll the background
+然后算出我们希望背景滚动的距离
 
     var finalPosition = '-' + (frameWidth * totalFrames) + 'px 0px';
 
-Then create new TimelineMax & SteppedEase instances to define how many steps our timeline will take
+然后创建TimelineMax 和 SteppedEase 的实例，定义我们的时间轴将耗费多少帧
 
     var svgTL = new TimelineMax() 
     var svgEase = new SteppedEase(totalFrames)
 
+最后我们在一个 tween，将所有内容关联起来
 Finally we put it all together in a tween
 
     svgTL.to(svg, speed, {
@@ -79,6 +76,6 @@ Finally we put it all together in a tween
         repeat: -1,
     })
 
-## Taking control
+## 获得控制
 
-At this stage you might be thinking the end result is not too dissimilar to an animated GIF (and the world does need more animated GIFs). The difference is we can take complete control of our animation; we can pause, reverse, loop sections, even temporarily swap it out with another sprite to create complex movements tied to user interactions.
+在这阶段，你也许在想最后的结果不就是一个会动的 GIF 嘛（这个世界的确需要更多的会动的 GIF），不同的是，我们可以完全的控制我们的动画，我们可以停止、反转、循环、甚至与用户交互时，临时的替换另一个 sprite 去完成复杂的动画。
