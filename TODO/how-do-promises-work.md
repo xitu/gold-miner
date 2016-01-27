@@ -2,12 +2,8 @@
 * 原文作者 : [Quil](http://robotlolita.me/about/index.html)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [Zhangjd](https://github.com/Zhangjd)
-* 校对者: 
-* 状态 :  待定
-
-
-
-
+* 校对者: [zxc0328](https://github.com/zxc0328)、[Aaaaaashu](https://github.com/Aaaaaashu)
+* 状态 :  完成
 
 ## 目录
 
