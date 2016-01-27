@@ -2,8 +2,8 @@
 * 原文作者 : [ eighthday](http://codepen.io/eighthday/pen/dYNJyR)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 :  [阿树](http://aaaaaashu.me/)
-* 校对者: 
-* 状态 :  翻译完成
+* 校对者: [iThreeKing](https://github.com/iThreeKing)
+* 状态 :  完成
 
 #关于 Sprite 动画简介
 
