@@ -2,8 +2,8 @@
 * 原文作者 : [Krasimir ](http://krasimirtsonev.com/blog/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [aleen42](http://aleen42.github.io/)
-* 校对者: 
-* 状态 :  待校订
+* 校对者: [Aaaaaashu](https://github.com/Aaaaaashu)、[achilleo](https://github.com/achilleo)
+* 状态 : 完成
 
 &#160; &#160; &#160; &#160;在我开源 [react-place](https://github.com/krasimir/react-place) 项目到时候，我注意到那么一个问题。那就是，准备构件发布有些复杂。因此，我决定在此记录该过程，以便日后遇到同样的问题时可查。
 
