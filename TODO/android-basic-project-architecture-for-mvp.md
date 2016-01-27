@@ -1,31 +1,31 @@
 > * 原文链接: [Android Basic Project Architecture for MVP — mobiwise blog — Medium](https://medium.com/mobiwise-blog/android-basic-project-architecture-for-mvp-72f4b33252d0#.ha8kjbx3w)
 * 原文作者 : [MuratCanBur](https://medium.com/@muratcanbur)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者 :
-* 状态 : 待定
+* 译者 : [foolishgao](https://github.com/foolishgao)
+* 校对者 : [kassadin](https://github.com/kassadin)、[Sausure](https://github.com/Sausure)
+* 状态 : 完成
 
-Nowadays, I read lots of articles about how to create a basic project structure for our Android applications. As far as I understand from them, the main approach is implementing **MVP (Model View Presenter)** pattern which is also important in the development of Android community.
+迄今为止，我阅读了很多有关Android软件开发中结构设计的文章。以我对他们的认识，比较好的方法是实现**MVP(Model View Presenter)**模式，这对Android开发者也是非常重要的。
 
-After I learned some useful things from other developers, blog posts and example projects, I decided to create a basic project structure approach so that I can implement it to our client applications for [mobiwise](https://medium.com/u/8d64c93a5e63). I have choosen MVP pattern for main app structure. Let’s start with it and try to understand.
+我在其他开发者的技术博客和项目中学到了一些有用的东西，现在我决定开发一个基本的项目架构来用于实现我们的客户端软件[mobiwise](https://medium.com/u/8d64c93a5e63). 我选择了MVP模式作为项目架构，让我们开始了解一下。
 
 
 ![](https://cdn-images-1.medium.com/max/800/1*OX-xyuKXFOyQSdUKNZRGVg.jpeg)
 
 
-#### What is MVP?
+#### 什么是MVP?
 
-You can find many explanation and dictionary definition on the internet. Let me tell you what I understand from the definition; MVP is an architectural pattern that allows you to separate **presentation and business logic layers from each other.** I believe keeping separate these layers from each other is kind of pain in the ass!
+你能在网上找到很多MVP相关解释和定义，让我来说一下我对MVP的理解。MVP是一种分离**展示层和业务逻辑层的模式，使两者独立存在**的模式。我相信分离这些部分的代码的过程属实令人厌烦。
 
-To present these kind of implementation, we should provide layers across all the application.
+为了这个实践，我们应该在项目中提供出各个抽象层。
 
-### Layers
+### 层
 
-We should define layers to represent more clear our Android applications. It is so important both for developing stage and maintenance. There are many layers in any android application that fits for project needs. I want to mention important ones here!
+为了使项目易于理解，我们首先做的是抽象出各个层面。这对开发测试和维护代码都非常重要。在任何Android项目中为了开发需要都会抽象出很多层，这里我说下重点！
 
-One for our business logic in mobile application called **Domain layer**, one for data model for REST, Database connectivity related things called **Model layer**. One for dedicated only to Android part called **Presentation or App Layer.** Last but not least for third party library stuff or common things across the application called **Common Layer.**
+项目中特有的业务逻辑部分，这里称之为**Domain layer**, 数据模型、网络相关、数据库操作部分，这里称之为**Model layer**，只有Android特有的部分，称之为**Presentation or App Layer。** 最后一个，也很重要，用于第三方library或者项目中共用的、基础工具类等，称之 **Common Layer.**
 
-I think because there are many layers, In the first time, it looks like kind of hard to understand and implement.
+我觉得，抽象出这么多层，在开始阶段，似乎难以理解和实现。
 
 
 ![](https://cdn-images-1.medium.com/max/800/1*fpnNs0T_yWslrfkrQrlv1Q.jpeg)
@@ -33,9 +33,9 @@ I think because there are many layers, In the first time, it looks like kind of 
 
 #### Domain Layer
 
-This layer is completely independent since this represents business logic for **application**. As far as I see on the internet, there is a common implementation way for this layer. According to the naming convention, there are **usecase interfaces** that represent logic of the application, and **usecase controller classes** that implement these interfaces and define the way of working for application.
+这一层是完全独立的因为它指定了**特定项目**的业务逻辑。就我在网上查阅过的资料，这一层有个差不多的实现方式。根据项目的命名规则，定义出项目业务逻辑的**用例接口**，在创建出**用例控制实现类**来实现这个接口做相对应的工作。
 
-Let’s try to imagine a newsfeed application and try to define a basic **usecase** scenario. I tried to implement a basic usecase interface. This is really simple interface that tells the app scenario.
+让我们试想一个新闻应用程序，并试着定义个基本的业务**用例**场景。我定义了一个基本的业务用例接口，一个很简单的场景用例接口。
 
 ```java
 public interface GetPopularTitlesUsecase extends Usecase {
@@ -48,8 +48,7 @@ public interface GetPopularTitlesUsecase extends Usecase {
 }
 ```
 
-
-After writing an interface, it is time to create a class that implements **GetPopularTitlesUsecase.** Here a basic implementation example class.
+定义好接口，开始写class来实现**GetPopularTitlesUsecase**。下面是个基本的实现类。
 
 ```java
 public class GetPopularTitlesUsecaseController implements GetPopularTitlesUsecase {
@@ -89,14 +88,15 @@ public class GetPopularTitlesUsecaseController implements GetPopularTitlesUsecas
 
 #### Model Layer
 
-As my developer perceptive, there must be a model layer for your application that contains **REST and database connectivity** related works in your project. I always separate three different packages called entity, rest and database. I think this is enough for most of the project. Also you may need to create business model classes that differs from data model classes. For example, if you want to show full name of user, You shouldn’t need to get first name and given name of user from data model classes and make string convention in your adapter or view classes. You should define a business model classes. This is really silly example why you need to create two different model classes. But it still counts.
+开发者都知道的，在项目中必须有一个Model Layer来处理**网络请求和数据库存取**相关的工作。我一般把这些部分的代码分成三个包，分别叫entity, rest和database。对于大部分项目分成这样已经足够。也许你需要创建有别于数据层的业务相关层。比如，你想展示用户的全称，就不应该通过在数据层中获取用户的姓和用户的名再通过指定的adapter类或者view类等方式做一个拼接处理，这很笨拙，此时应该定义业务层来实现这个操作。定义两个不同的数据层很笨拙。但是仍然重要。
 
 #### Presentation or App Layer
 
-It is the most basic and common known layer among all. This is the layer that represent Android application itself.
+这是最基本和熟知的抽象层，指代了Android程序开发中特有组件的部分。
 
 ##View
-View in MVP represents the UI components.
+
+View在MVP中代表UI组件部分。
 
 ```java
 public interface PopularTitlesView extends MVPView {
@@ -112,7 +112,7 @@ public interface PopularTitlesView extends MVPView {
 
 #### Presenter
 
-Presenter in MVP is a kind of bridge **between view and model**. According to common implementation way, We should create a model interface classes that represent fingerprint of our usecase classes.
+Presenter在MVP中类似于连接**view和model**的桥梁。常用的实现方式，我们需要创建model接口来处理特定的场景。
 
 ```java
 public interface RadioListPresenter extends Presenter {
@@ -121,9 +121,8 @@ public interface RadioListPresenter extends Presenter {
   void onRadioListLoaded(RadioWrapper radioWrapper);
 }
 ```
+创建完简单的RadioListPresenter接口，我们来实现这个接口。
 
-
-After creating a simple Radio List presenter, it is time to create a class that implements this interface.
 
 ```java
 public class RadioListPresenterImp implements RadioListPresenter {
@@ -171,11 +170,11 @@ public class RadioListPresenterImp implements RadioListPresenter {
 ```
 
 
-**All these class example from our code base, just a simple example implementation. These are not complete or best case usage. It may differ from one project to another.**
+**所有以上这些来自我们代码中的例子，只是一个简单的实现。这些都不绝对完全也不是最好的，不同的项目需要不同的方式来实践，要视情况而定。**
 
-### How to implement
+### 如何实践
 
-Each Activity, Fragment should implement view interfaces according to the logic that represents. According to my project example, my RadioListFragment should implement **RadioListView.** After implement this interface, You should override methods and put presenter methods related the logic.
+每一个Activity,Fragment要根据逻辑功能来实现一个View接口，以我项目中的例子来说，RadioListFragment应该实现**RadioListView**接口，覆写相关的方法并让相关的presentar的方法来处理对应逻辑。
 
 ```java
 public class RadioListFragment extends Fragment implements RadioListView, SwipeRefreshLayout.OnRefreshListener {
@@ -260,31 +259,31 @@ public class RadioListFragment extends Fragment implements RadioListView, SwipeR
   }
 ```
 
-#### Package Structure ideas
+#### 包组织结构的想法
 
-When I first try to search these topics on the internet, I saw many people create different modules for each layer. This idea seems perfect for many developers but not for me. That’s why I don’t create different modules for each layer. I create different packages for each module or layer. I believe in that this is not the base case, but It is my way. I feel more comfortable.
+当我第一次在网上搜索这方面的内容时，我发现很多开发者给每一层都分别创建了不同的modules。这个方法似乎适用于很多开发者，但是我不喜欢。是为什么我没有这么做的原因。我给每个module或者层创建了不同的包，相信这不适用于所有人，只是我的方式，我感觉这样很舒服。
 
 ![](http://ww3.sinaimg.cn/large/005SiNxyjw1eymj1ql90mj30cd0lwmyn.jpg)
 
 
-### Worth to mention;
+### 值得一提
 
-Lately, I created a project that called Android-base-project
+最后，我写了Android-base-project项目
 
 [**mobiwiseco/Android-Base-Project** _Android-Base-Project - An Android Base Project which can be example for every Android project._github.com](https://github.com/mobiwiseco/Android-Base-Project "https://github.com/mobiwiseco/Android-Base-Project")
 
-I want to create a base project (not a library, just a guide project.)that contains base fragment, activity and retrofit classes, Utility classes and common **Gradle** file structure that can fit many of Android project. I think it is time to implement more generic classes based on MVP pattern.
+我写了一个适用于很多开发项目的基础项目（不是library,只是一个指导的project）包括基础Fragment,Activity和Retrofit网络层相关类，工具类和常见**Gradle**文件结构。是时候让更多的类基于MVP模式来开发。
 
 
-### Conclusion;
+### 结论
 
 ![](https://cdn-images-1.medium.com/max/800/1*Rt3vsG8LWHB8LPGrhRftAA.gif)
 
-I didn’t try to mention any of libraries you should use for almost many Android project like Dagger 2, RxJava etc. I just want to keep simple, mainly focus on App structure.
+我并不是想推荐给你在Android项目开发中使用的那些libraries，诸如Dagger 2, RxJava等。我只希望一切简单就好，把重点放在项目的结构设计上。
 
-I believe in that there may be a lot of different implementations. I always try to learn from other developers to find the best case and implement it.
+我相信MVP有很多的不同的实现方式，我经常会去学习其他开发者的方式，找出我认为最好的来实践。
 
-The most important idea is here that we want to create a project that is independent from libraries, UI things, database or REST implementation. if we can create a project that contains this kind of app structure, we can have project easy to develop, test and maintain.
+重要的一点是我们应该开发一个可以独立于其他libraries、UI层、数据库和网络层的项目。如果你开发的项目基本满足以上，这个项目一定是易于开发，测试和维护的。
 
 
 **Resources**:
