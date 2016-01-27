@@ -9,7 +9,7 @@
 
 #### 我们总是希望添加运动的元素到我们的网站上，并认为流畅的动画可以让乏味的模板化网站设计得到改善。
 
-Sprite 动画并不是一项新技术，在维多利亚时代就已经用他们的西洋镜教我们怎么实现它，而在数字化时代，8-bit 电子游戏设计师通过 8 bit 像素展示给我们怎么实现它。然而它的核心，其实就是一连串的图片循序的运动。
+Sprite 动画并不是一项新技术，在维多利亚时代的人就已经用他们的西洋镜教我们如何实现它，而在数字化时代，8-bit 电子游戏设计师通过 8 bit 像素展示给我们怎么实现它。然而它的核心，其实就是一连串的图片循序的运动。
 
 ![Sprite walk cycle animation ](http://eighthdaydesign.com/resources/images/1-10-2015/80-299.Paul_walk_2560_2.gif) ![Sprite walk cycle animation ](http://eighthdaydesign.com/resources/work/1-10-2015/2-2-299.Paul_walk_mob_2.gif)
 
@@ -19,7 +19,7 @@ Sprite 动画并不是一项新技术，在维多利亚时代就已经用他们�
 
 SVGs 在高分辨率显示器上有着看起来锐利的优势，但在纹理，渐变，和复杂的插图上表现并不如意。我们通常可以在 [SVGCleaner](http://sourceforge.net/projects/svgcleaner/) 和  [SVGOMG](https://jakearchibald.github.io/svgomg/) 这样的应用帮助下，获得超小的文件大小。 PNG 格式是重量级动画应用：Flash & After Effects 原生输出选项，我们也可以通过这样的构建环境去创造流畅的动画。
 
-我们的目标是创造视网膜级的动画。我们已经成功的从 After Effect 输出一连串的 PSDs，并且在  Illustrator 上通过 Bridge 批处理转换成 SVG。你也可以增大两倍 PNGs 的尺寸和通过 JavaScript 控制比例，但这样的工作流离完美很远。
+我们的目标是创造视网膜(retina)级的动画。我们已经成功的从 After Effect 输出一连串的 PSDs，并且在  Illustrator 上通过 Bridge 批处理转换成 SVG。你也可以增大两倍 PNGs 的尺寸和通过 JavaScript 控制比例，但这样的工作流离完美很远。
 
 #### 回到现实
 
