@@ -11,9 +11,32 @@
 
 Sprite 动画并不是一项新技术，在维多利亚时代的人就已经用他们的西洋镜教我们如何实现它，而在数字化时代，8-bit 电子游戏设计师通过 8 bit 像素展示给我们怎么实现它。然而它的核心，其实就是一连串的图片循序的运动。
 
-![Sprite walk cycle animation ](http://eighthdaydesign.com/resources/images/1-10-2015/80-299.Paul_walk_2560_2.gif) ![Sprite walk cycle animation ](http://eighthdaydesign.com/resources/work/1-10-2015/2-2-299.Paul_walk_mob_2.gif)
+![Sprite walk cycle animation ](http://eighthdaydesign.com/resources/images/1-10-2015/80-299.Paul_walk_2560_2.gif) ![Sprite walk cycle animation](http://eighthdaydesign.com/resources/work/1-10-2015/2-2-299.Paul_walk_mob_2.gif)
 
 #### Spritesheet 的制作
+
+<table>
+   <tbody><tr>
+      <td>Ai</td>
+      <td>Illustrator</td>
+      <td>SVG</td>
+   </tr>
+   <tr>
+<td>Fl</td>
+      <td>Flash</td>
+      <td>PNG</td>
+   </tr>
+<tr>
+<td>Ps</td>
+      <td>Photoshop</td>
+      <td>PNG</td>
+   </tr>
+<tr>
+<td>Ae</td>
+      <td>After Effects</td>
+      <td>PNG</td>
+   </tr>
+</tbody></table>
 
 不管你如何获得，你需要的就是一张由许多同等大小的帧（sprites）组成的图片。 Sprintesheets 可以被任何输出 PNG 和 SVG 的应用制作。
 
