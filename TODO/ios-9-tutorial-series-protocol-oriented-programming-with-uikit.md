@@ -605,7 +605,9 @@ extension StringDisplay {
     }
 
     private func stringWithin(str: String) -> Bool {
-        return self.sizeWithString(str).height <= self.containersize.height="" }="">
+        return self.sizeWithString(str).height <= self.containerSize.height
+    }
+}
 ```
 
 现在我们有一个遵守 `StringRepresentable` 协议的模型对象，还拥有可以自动选择字符串的协议。此协议一旦成功部署，会自动帮助我们选择正确的字符串，那么接下来该如何整合进 UIKit 中呢？
@@ -813,7 +815,7 @@ class PreviewController: UIViewController {
 
         super.init(nibName: "PreviewController", bundle: NSBundle.mainBundle())
     }
-}</stringrepresentable></stringrepresentable>
+}
 ```
 
 下一步，我们可以使用内建的协议扩展方法分配数据给我们的 `descriptionLabel` 和 `imageView`
