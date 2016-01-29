@@ -2,8 +2,8 @@
 * 原文作者 : [Danny Markov](http://tutorialzine.com/category/tutorials/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [Zhangdroid](https://github.com/Zhangdroid)
-* 校对者: 
-* 状态 :  初稿
+* 校对者: [void-main](https://github.com/void-main)、[根号三](https://github.com/sqrthree)
+* 状态 :  完成
 
 Web 应用这些年来变得越来越强大，但相比于桌面应用能够完全访问计算机硬件，Web 应用还有一些差距。现在，你能够通过已经熟悉了的HTML、JavaScript 和 Node.js 来创建桌面应用，然后打包成可执行文件，并在 Windows、OS X 和 Linux 上发布它。
 
