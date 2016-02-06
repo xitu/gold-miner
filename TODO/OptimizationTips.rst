@@ -1,8 +1,8 @@
   - 原文链接: `Optimization Tips <https://github.com/apple/swift/blob/master/docs/OptimizationTips.rst>`_
   - 原文作者 : `apple <https://github.com/apple>`_
   - 译文出自 : `掘金翻译计划 <https://github.com/xitu/gold-miner>`_
-  - 译者 : [iThreeKing](github.com/iThreeKing)
-  - 校对者: [nathanwhy](github.com/nathanwhy) [walkingway](github.com/walkingway)
+  - 译者 : `iThreeKing <https://github.com/iThreeKing>`_
+  - 校对者: `nathanwhy <https://github.com/nathanwhy>`_  `walkingway <https://github.com/walkingway>`_
   - 状态 :  翻译完成
 
 编写高性能的 Swift 代码
