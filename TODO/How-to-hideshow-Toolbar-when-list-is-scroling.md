@@ -2,7 +2,7 @@
 * 原文作者 : [Michał Z.](https://twitter.com/mzmzgreen)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [Mi&Jack](https://github.com/mijack)
-* 校对者: 
+* 校对者:
 * 状态 :  已翻译
 
 
@@ -12,19 +12,19 @@
 
 在这篇文章中，我们将看到如何实现像Google+ 应用程序一样，当列表下滑时，Toolbar和FAB（包括其他的View）隐藏；当列表上滑时，Toolbar和FAB（包括其他的View）显示的效果；这种效果在[Material Design Checklist](http://android-developers.blogspot.com/2014/10/material-design-on-android-checklist.html)提到过.
 
->“在一些场景下，当屏幕向上滚动时，app bar将会从屏幕上移除，留出更多的空间供内容。相反，当向上滚动时，app bar应再次显示。
+>“在一些场景下，当屏幕向上滚动时，app bar将会从屏幕上移除，给内容留出更多的空间。相反，当向上滚动时，app bar应再次显示。
 
 我们的目标效果如下图所示：
 
 ![](https://mzgreen.github.io/images/1/demo_gif.gif)
 
-我们将使用`RecyclerView`为我们的List，当然，你也可以选择其他滚动控件（例如` ListView `，但它就意味着更多的编码。现在，我有两种具体的实现方法：
+我们将使用为我们的列表使用`RecyclerView`，当然，你也可以选择其他滚动控件（例如` ListView `)，但它就意味着更多的编码。现在，我有两种具体的实现方法：
 
 1. 给List设置padding
 2. 给List添加一个headr
 
 我只是决定执行第二个方案，因为我发现在如何给`RecyclerView`添加header这一问题上，有很多需要注意的地方，这是一个很好的机会去解决他们。
-我也将简要描述第一个。
+我也将简要描述第一个方案。
 
 ###我们开始吧
 
@@ -51,7 +51,7 @@
 接下来是创建`Activity`的布局：
 
 ```
-<FrameLayout 
+<FrameLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -299,7 +299,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<recyclerview.viewholde
 
 ```
     <view xmlns:android="http://schemas.android.com/apk/res/android"
-    	android:layout_width="match_parent" 
+    	android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize">
     </view>
 ```
@@ -328,7 +328,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<recyclerview.viewholde
       private static final int HIDE_THRESHOLD = 20;
       private int scrolledDistance = 0;
       private boolean controlsVisible = true;
-      
+
       @Override
       public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
 		super.onScrolled(recyclerView, dx, dy);
@@ -345,10 +345,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<recyclerview.viewholde
 			scrolledDistance += dy;
     	}
       }
-      
+
       public abstract void onHide();
       public abstract void onShow();
-    
+
     }
 
 真正起到作用的方法就是你现在看到的方法` onscrolled() `方法。它的参数——dx，dy是水平和垂直滚动的量。其实他们是每次滑动的变化量，是两个前后事件的差，不是总滚动距离。
@@ -356,14 +356,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<recyclerview.viewholde
 
 基本的实现思路如下：
 
-- 我们计算总的滚动距离（每一次滚动的总和）。但是，我们只关心View隐藏时的向上滑动或者View显示时的向下滑动，因为这些是我们所关心的场景。
+- 我们计算总的滚动距离（每一次滚动的总和）。但是，我们只关心View隐藏时的向上滑动或者View显示时的向下滑动，因为这些是我们所关心的情况。
 
     if((controlsVisible && dy>0) || (!controlsVisible && dy<0)) {
     	scrolledDistance += dy;
     }
 
-    
-- 如果当滚动值超过某个阈值（你可以设置的值越大，需要滚动滚动更多的距离，才能看到显示/隐藏View的效果）。我们根据滚动的方向来显示/隐藏View（DY＞0意味着我们向下滚动，Dy＜0意味着我们滚动起来）。
+
+- 如果当滚动值超过某个阈值（你可以设置阈值，值越大，需要滚动滚动更多的距离，才能看到显示/隐藏View的效果）。我们根据滚动的方向来显示/隐藏View（DY＞0意味着我们向下滚动，Dy＜0意味着我们滚动起来）。
 
     if (scrolledDistance > HIDE_THRESHOLD && controlsVisible) {
       onHide();
@@ -378,7 +378,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<recyclerview.viewholde
 - 事实上，我们不可能在Scroll Listener中显示/隐藏View，更为靠谱的做法是，将其抽象出来，调用show()/hide()方法，所以我们需要在回调中实现它们。
 
 现在，我们需要给`RecyclerView`设置listener:
-    
+
     private void initRecyclerView() {
       RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
       recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -401,12 +401,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<recyclerview.viewholde
 
 	private void hideViews() {
 	  mToolbar.animate().translationY(-mToolbar.getHeight()).setInterpolator(new AccelerateInterpolator(2));
-	  
+
 	  FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) mFabButton.getLayoutParams();
 	  int fabBottomMargin = lp.bottomMargin;
 	  mFabButton.animate().translationY(mFabButton.getHeight()+fabBottomMargin).setInterpolator(new AccelerateInterpolator(2)).start();
 	}
-	
+
 	private void showViews() {
 	  mToolbar.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2));
 	  mFabButton.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).start();
@@ -423,7 +423,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<recyclerview.viewholde
     @Override
     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
       super.onScrolled(recyclerView, dx, dy);
-      
+
       int firstVisibleItem = ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
       //show views if first item is first visible position and views are hidden
       if (firstVisibleItem == 0) {
@@ -442,7 +442,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<recyclerview.viewholde
       scrolledDistance = 0;
     }
       }
-      
+
       if((controlsVisible && dy>0) || (!controlsVisible && dy<0)) {
     scrolledDistance += dy;
       }
@@ -457,9 +457,7 @@ Yup! 现在看上去很不错哦！
 
 这是我第一次写的博客，所以可能存在着一些错误，以后我会有所提高的。
 
-And if you don’t want to use the method with adding a header, you can still use the second one with adding padding to the `RecyclerView`. Just add the padding and use `HidingScrollListener` that we’ve just created and it will work :)
-
-如果你不想添加Head的方法，你仍然可以使用第二个加垫的` recyclerview `。只要加入我们刚刚创建的，它将填充和使用` hidingscrolllistener `：）
+如果你不想使用添加Head的方式，你也可以使用第二种给RecyclerView添加padding的方式。只需要加上padding，然后使用我们之前创建的 HidingScrollListener ，就可以实现了: )
 
 在下一个部分，我将告诉你如何做出像Google Play一样的效果。
 
