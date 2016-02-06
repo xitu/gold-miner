@@ -3,7 +3,7 @@
   - 译文出自 : `掘金翻译计划 <https://github.com/xitu/gold-miner>`_
   - 译者 : `iThreeKing <https://github.com/iThreeKing>`_
   - 校对者: `nathanwhy <https://github.com/nathanwhy>`_、`walkingway <https://github.com/walkingway>`_
-  - 状态 :  待定
+  - 状态 :  完成
 
 编写高性能的 Swift 代码
 ===================================
