@@ -1,4 +1,4 @@
-> * 原文链接 : [Top 5 Android libraries every Android developer should know about - v. 2015](https://infinum.co/the-capsized-eight/articles/top-five-android-libraries-every-android-developer-should-know-about-v2015)
+> * 原文链接 : [A GENTLE INTRODUCTION TO FUNCTIONAL JAVASCRIPT: PART 1](https://infinum.co/the-capsized-eight/articles/top-five-android-libraries-every-android-developer-should-know-about-v2015)
 * 原文作者 : [James Sinclair](http://jrsinclair.com/about.html)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者: 
