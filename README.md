@@ -17,6 +17,7 @@
 ## 需要认领的
 
 * Google Cloud Functions 文档 ([认领issue地址](https://github.com/xitu/gold-miner/issues/104))
+* A GENTLE INTRODUCTION TO FUNCTIONAL JAVASCRIPT: PART 1 ([认领issue地址](https://github.com/xitu/gold-miner/issues/105))
 
 ## Android
 
