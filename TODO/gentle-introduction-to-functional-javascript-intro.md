@@ -3,7 +3,7 @@
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者: 
 * 校对者: 
-* 状态: 
+* 状态: 待认领
 
 
 This is part one of a <strike>three</strike>four-part series introducing 'functional' programming in JavaScript. In this article we take a look at the building blocks that make JavaScript a 'functional' language, and examine why that might be useful.
