@@ -2,8 +2,8 @@
 * 原文作者 : [Michał Z.](https://twitter.com/mzmzgreen)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [Mi&Jack](https://github.com/mijack)
-* 校对者:
-* 状态 :  已翻译
+* 校对者 : [@laobie](https://github.com/laobie)
+* 状态 :  翻译完成
 
 
 让 Toolbar 随着 RecyclerView 的滚动而显示/隐藏
