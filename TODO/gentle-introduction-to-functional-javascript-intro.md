@@ -5,6 +5,7 @@
 * 校对者: 
 * 状态: 待认领<https://github.com/xitu/gold-miner/issues/105>
 
+# A GENTLE INTRODUCTION TO FUNCTIONAL JAVASCRIPT: PART 1
 
 This is part one of a <strike>three</strike>four-part series introducing 'functional' programming in JavaScript. In this article we take a look at the building blocks that make JavaScript a 'functional' language, and examine why that might be useful.
 
