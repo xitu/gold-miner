@@ -1,23 +1,24 @@
 > * 原文链接: [3D Force Touch: beyond peek & pop](https://medium.com/produkt-blog/3d-force-touch-beyond-peek-pop-c448edc2b1f5#.4miueafqm)
 * 原文作者 : [Victor Baro](https://medium.com/@victorbaro)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者 :
-* 状态 : 待定
+* 译者 : [shiguol(SAlex)](https://github.com/shiguol)
+* 校对者 : [cdpath (cdpath)](https://github.com/cdpath) [nathanwhy (nathan)](https://github.com/nathanwhy)
+* 状态 : 完成
 
-A few days ago I bought an iPhone 6S. I was super impressed with its new **3D touch** and I could not wait to start experimenting.
+几天前我买了部 iPhone 6S，接着我被 **3D touch** 功能深深地吸引住了，于是迫不及待地体验了一番。
 
 <iframe width="382" height="214" src="https://www.youtube.com/embed/d-hlQISXj8M" frameborder="0" allowfullscreen=""></iframe>
 
-Peek & pop is a great feature to include in an app. The downside: we don’t have much control over it. We can only add a preview and a few actions — iOS manages the rest.
+在一个应用程序中，Peek 和 pop 是一个很出彩的特性。不过话说回来：我们没有太多的控制权。我们只能添加一个预览功能和几个动作 - iOS 系统会管理剩下的工作。
 
-Since I discovered _3D Touch_, I have been thinking about new ways of interacting with the content. Peek & pop is a great interaction; but what I really want is to create my own controls.
+因为我探索了 _3D Touch_ 功能，就一直在思考与内容互动的新方式。Peek 和 pop 是一个很好的交互方式; 但我真正想要的是创建自定义的控制技术。
 
-We need to take into account that, because _3D touch_ is only available in iPhone 6S and 6S Plus, no action should be completed **just** by using this feature. The user should be able to achieve any action without using _3D touch_ (just like peek & pop does), and _3D touch_ should only provide an extra level of interaction.
+我们需要考虑的是，由于 _3D touch_ 仅在 iPhone 6S 和 6S Plus 上提供，所以不应该存在**仅**能使用该动作执行的功能。用户应不依赖 _3D touch_ 也可以完成所有功能（就像使用 Peek 和 pop 实现的一样）, 而 _3D touch_ 最好只提供额外的交互体验。
 
-#### Accessing force property
+#### 访问 force 属性
 
-The new force property can be found in UITouch class. To get the user _touch_ we should override _touches_ methods (touchesBegan, touchesMoved, touchesEnded), either subclassing (e.g. UIView, UIButton; see example 1) or creating a gesture recognizer (see below; used in examples 2 and 3).
+新的 force 属性在 UITouch 类中。如果想获得用户 _touch_ 事件，我们应该重写 _touches_ 相关方法（类如：touchesBegan, touchesMoved, touchesEnded）, 或者继承相关类（例如 UIView，UIButton；见例1），抑或继承实现一个手势（见下文，例 2 和 例 3）；
+
 
     import UIKit.UIGestureRecognizerSubclass
 
@@ -56,11 +57,12 @@ The new force property can be found in UITouch class. To get the user _touch_ we
         }
     }
 
-The force value goes from 0.0 to 6.667\. For further details, I extremely recommend [Exploring Apple’s 3D Touch post](https://medium.com/@rknla/exploring-apple-s-3d-touch-f5980ef45af5).
 
-#### Example 1: Force Button
+在这里，我们可以看到 force 属性值介于 0.0 ~ 6.667 之间；关于该值的更多讨论，推荐看这篇文章[探索 Apple`s 3D Touch](https://medium.com/@rknla/exploring-apple-s-3d-touch-f5980ef45af5).
 
-**Force Button** is a subclass of UIButton that modifies its shadow based on the input force (as seen in the top video).
+#### 例 1: Force Button
+
+**Force Button** 是 UIButton 的子类，可根据按压的力量变化来修改按钮的阴影属性（见文章开头处视频）。
 
     func shadowWithAmount(amount: CGFloat) {
         self.layer.shadowColor = shadowColor.CGColor
@@ -71,19 +73,19 @@ The force value goes from 0.0 to 6.667\. For further details, I extremely recomm
         self.layer.shadowRadius = maxShadowRadius - amount
     }
 
-The above function modifies the button shadow based on input force. You can find another example on how to modify the button scale while its being pressed [here](https://github.com/Produkt/3dForceTouchExamples).
+上面的函数依据按压力的大小来修改按钮的阴影。你可以找到另外一个例子，解释了如何依据按压力的大小来缩放按钮，[文章在这里]（https://github.com/Produkt/3dForceTouchExamples）。
 
-This button uses _3D touch_ only for visual purposes, it does not add any extra feature. It might be nice to add an extra event (e.g. _UIControlEvents.ForceMaxInside)_ to add a taget action once the user has pressed the button to its maximum force.
+这个按钮使用 _3D touch_ 技术只实现了视觉上的反馈，它没有任何额外的功能。其实，它可以在用户用力按压按钮时系统回调的事件（如 _UIControlEvents.ForceMaxInside）中进行我们自己额外的事件响应。
 
 #### Example 2: Zooming
 
 <iframe width="382" height="214" src="https://www.youtube.com/embed/8RcDqH4kfo8" frameborder="0" allowfullscreen=""></iframe>
 
-We are all used to pinch to zoom in and out, it feels natural. However, sometimes it is tricky to use 2 fingers while holding the device with 1 hand. Google maps app tries to solve this issue by using a _doble-tap-longPress-drag_ gesture (which feels weird if you are not use to it).
+我们都是用来双指的捏来实现放大和缩小，这样操作起来感觉自然。然而，有时候当你单手拿着手机时，双指缩放手势操作起来会感觉怪怪的。谷歌地图应用程序尝试通过使用 _doble-tap-longPress-drag_ 手势来解决这个的问题（这感觉怪怪的，如果你不使用它）。
 
-Using ForceGestureRecognizer (see code above), it is really easy to zoom in and out while dragging your finger. If you have an iPhone 6S give it a go, it feels great.
+当使用 ForceGestureRecognizer 手势时（见上面的代码），该手势在你拖拽时也很容易放大和缩小。如果你有一个 iPhone6S 可以试一试，这感觉太棒了。
 
-To achieve this effect, I simply apply a CATransform3D scale to the imageView layer. By doing this, the image scales from its center. To move the image under my finger (zooming to an specific area) I need to update the anchorPoint based on the finger’s location.
+为了达到这个效果，我简单地应用一个 CATransform3D 缩放效果到 ImageView 的层。这样，图像从它的中心进行缩放。通过按住并移动我的手指（缩小到一个特定的区域），我就可以根据手指的位置更新图片的锚点。
 
     func imagePressed(sender: ForceGestureRecognizer) {
         let point = sender.locationInView(self.view)
@@ -106,16 +108,16 @@ To achieve this effect, I simply apply a CATransform3D scale to the imageView la
         }
     }
 
-The last interaction I am proposing for the 3D _touch_ is to **control an animation**. To be honest, I haven’t found any interesting use for this interaction (other than being great for fine-tunning), but I would like to mention it (someone might find it useful).
+最后一个关于 _3D_touch_ 的交互特性我觉得就是**控制动画**了.不过，实话说，我还没有发现这种相互作用的任何有趣的用途（不是作为精细调谐），但我想提一提它（有人可能会发现它很有用）。
 
-Here is a quick video of an animation being controlled with _3D touch._
+这里有一个动画视频是由 _3D_touch_ 进行的控制。
 
 <iframe width="382" height="214" src="https://www.youtube.com/embed/LXQ-iSYhHFI" frameborder="0" allowfullscreen=""></iframe></div>
 
-These are just a few examples of new ways of interaction that _3D Touch_ brings to designers and developers. I hope I have convinced you to try _3D Touch_.
+这里还有给设计师和工程师的一些示例演示了使用 _3D_touch_ 进行交互的方法。我希望我已经说服你去尝试 _3D_touch_。
 
-I would like to finish by recommending [FlexMonkey’s bog](http://flexmonkey.blogspot.com.es), and specially his latest post: [3D Retouch](http://flexmonkey.blogspot.com.es/2015/10/3d-retouch-experimental-retouching-app.html), where he uses 3D Touch to modify the intensity of filters.
+我想通过推荐[FlexMonkey 的博客]（http://flexmonkey.blogspot.com.es）最新文章：[3D Retouch]（http://flexmonkey.blogspot.com.es/2015/10/3D-retouch-experimental-retouching-app.html），在这篇文章中，他使用 3D Touch 修改滤镜的强度。
 
-Find the whole project in [github](https://github.com/Produkt/3dForceTouchExamples).
+整个项目在这里[github]（https://github.com/Produkt/3dForceTouchExamples）。
 
-_Special thanks to @pivalue_
+_特别感谢 @pivalue_
