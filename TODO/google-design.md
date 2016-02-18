@@ -1,100 +1,91 @@
 > * 原文链接 : [Making Learning Easier by Design — Google Design — Medium](https://medium.com/google-design/designing-a-ux-for-learning-ebed4fa0a798#.64ivy5kwl)
 * 原文作者 : [Sandra Nam](https://medium.com/@snambomb)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
+* 译者 : s2dongman(申悦)
 * 校对者: 
-* 状态 :  待定
+* 状态 :  翻译已完成
 
-How can design make learning feel like less of a chore?
+通过设计让学习变轻松
 
-It’s not as easy as it sounds. Flat out, people usually won’t go out of their way to learn something new. Research shows that only 3% of adults in the U.S. spend time learning during their day.¹
+——Google的Primer团队是如何做用户体验设计的
 
-Think about that for a second: Despite all the information available at our fingertips, and all the new technologies that emerge seemingly overnight, 97% of people won’t spend any time actively seeking out new knowledge for their own development.
+学习一向是个苦差事，如何在设计上下功夫，让学习变得愉快呢？
 
-That was the challenge at hand when our team at Google set out to create [**Primer**](https://www.yourprimer.com/?utm_source=medium&utm_medium=referral&utm_content=2015-10-13-customer-needs&utm_campaign=lesson-launch), a new mobile app that helps people learn digital marketing concepts in 5 minutes or less.
+说起来容易做起来难。直观上讲，人们通常不会全力以赴地学习新知识。调查显示，仅3%的美国成年人在他们的日常生活中会花费时间去学习。¹
 
-UX was at the heart of this mission. Learning has several barriers to entry: you need to figure out what, where, how you want to learn, and then you need the time, money, and energy to follow through.
+那么可想而知：尽管大量信息对我们来说触手可及，而所有的新技术都似乎在一夜之间涌出，97%的人丝毫不会为了提升自己而花时间寻求这些新知识。
 
-> **This meant our UX needed to serve double duty: The app needed to be inviting and intuitive, _and_ it needed to overcome all the factors that keep people from learning.**
+这就是我们团队在Google打造 [**Primer**](https://www.yourprimer.com/?utm_source=medium&utm_medium=referral&utm_content=2015-10-13-customer-needs&utm_campaign=lesson-launch)，时面临的挑战，Primer是一款帮助人们在5分钟之内学习数字营销知识的app。
 
-To tackle that challenge, we thought about the three main places where users would spend time in our app: the dashboard, the individual lessons, and the activities within each lesson.
+用户体验是解决这个问题的关键。学习有几个门槛要面对：你需要弄清楚你要学习什么，在哪儿学，以及你想怎么学，然后你需要时间、金钱和精力去跟进。
 
-The dashboard is incredibly important because it’s the first thing people see when they open the app. We iterated and prototyped different dashboards for months. We had lots of ideas: lesson packs, letting users pick from three random lessons, geolocation for events related to the lesson topic, or special widgets about experts and brands we worked with. The possibilities were endless.
+> **这意味着我们的用户体验设计（UX）需要满足两点：app需要直观和引人入胜，此外还需要克服一切影响用户学习的障碍。**
 
+为了迎接这个挑战，我们考虑了三种用户使用我们app的场景：仪表盘、独立课程以及每节课的活动。
+
+1、仪表盘
+
+仪表盘的作用至关重要，因为这是人们首次打开app看到的界面。我们花了几个月的时间迭代和设计了不同仪表盘的原型，尝试了各种方案：课程包；让用户从3个随机课程中进行挑选；对课程主题相关事件进行地理位置定位；或者为我们合作的专家和品牌制作专属小部件（widgets）。一切皆有可能、方案层出不穷。
 
 <div score="1.25">
-
 <figure score="-12.5">
-
 <div score="6.25">![](https://cdn-images-1.medium.com/max/1200/1*hnTEbP8ArWSMmGdB4O-NVA.png)
-
-Early dashboard prototypes.
-
+<center>早期的仪表盘原型</center>
 <div score="12.0">
-
-It was clear we needed a guiding principle, so we put ourselves in users’ shoes. We theorized that people coming into the app would fall into one of three camps:
-
-*   **Passive**: They will be looking around and browsing.
-*   **Curious**: They will be looking to learn something, but not sure what.
-*   **Active**: They will have more of an idea about what they want to learn.
-
+很明显我们需要一个指导方针，因此我们从用户角度出发。通过调查发现，使用这个应用的用户可以被分为三类：
+*   **被动型**: 他们会四处寻找和浏览。
+*   **好奇型**: 他们希望学习一些东西，但不知道学什么。
+*   **主动型**: 他们目标明确，对想学的内容有不止一种想法。
 <div score="1.25">
-
 <figure score="-12.5">
-
 <div score="6.25">![](https://cdn-images-1.medium.com/max/1200/1*jjX_yBbyir0ozLe1JKGIUA.png)
-
-Final dashboard views: Featured, Categories, and Queue.
-
-
+<center>最终的仪表盘样式：精选、分类和队列</center>
 <div score="1.25">
 
-For the **Passive** group, we created the Featured section, which shows five suggested lessons people can do right away.
+对于 **被动型**， 我们打造了特色专区，其中展示了5个人们能立刻开始学习的推荐课程。
 
-Meanwhile, we made it easy for **Curious** users to find lessons via topic or category: Advertising, Content, Measurement, and Strategy.
+与此同时，我们让 **好奇型** 用户能方便地通过主题或分类查找课程，其中包括——广告、内容、度量和策略。
 
-And, for **Active** users, we created a curation tool: the Queue. Here, they can put together their own “playlists” and easily add and remove lessons as they wish.
+此外，对于 **主动型** 用户，我们提供了一个管理工具：队列。他们能在这里生成专属课程列表，还能方便地随意添加和删除课程。
 
-The next element of the app is the lessons themselves. Primer’s lessons are meant to be great time-passers; users can do them on the train or while their kids watch cartoons.
+2、课程
 
-> **But learning requires engagement. We can’t afford to let users swipe through the content mindlessly.**
+app接下来要考虑的就是课程本身。Primer的课程目的是极大程度地消磨时间，用户可以在火车上或孩子看动画时进行学习。
 
-We dubbed our solution “Rhythmic Learning.” Every lesson element — each swipe, each card stack, and each illustration — was designed to rhythmically guide the user through the content.
+> **但是，学习需要集中力。我们不能让用户心不在焉地阅读课程。**
+
+我们把我们的解决方案命名为“节奏化学习”，每个课程元素——每次滑动、每个卡堆，以及每张插图——都在用户阅读内容时被设计为节奏型向导。
 
 <figure score="-12.5">
-
 <div score="6.25">![](https://cdn-images-1.medium.com/max/600/1*YE7tBa5FHr983s1V5L8inQ.gif)
 
-The swiping gestures give users a sense of completion with each card and stack. A text document packed with information feels daunting, but a lesson broken down into cards feels manageable. These cards are grouped in stacks of 3 to 7, and once the last card is swiped away, another stack slides into view. Finishing a stack becomes a micro-accomplishment, meaning users don’t have to wait until the end of the lesson to feel like they’ve learned something.
+这种滑动手势让用户在阅读每张卡片时都有一种完成的感觉。挤满了信息的文本文件使人退却，但分解成卡片的课程则让人有操控感。这些卡片3-7张为一组堆叠在一起，一旦最后一张卡片被滑走，另外一组就会重新滑入。每完成一组，就会有个小成就，意味着用户不需要一直等到课程结束才能感到学有所获。
 
-That’s also where the illustrations come in. Each illustration is a small moment of delight, providing a chuckle or a smile that helps bring the content to life. Incorporating an illustrator into our lesson-creation process added an extra workstream, but it also added a wonderful mix of humor and editorial-ness to the lessons.
+完成时刻，就会展示插图。每张插图就是个小惊喜，让用户在微笑中将学习成果融入生活。尽管将展示插图加入课程创建的过程中会增加额外的工作流，但这也给课程加入了一种幽默和编辑（editorial-ness）的奇妙融合。
 
-The third and final element of our UX design is the activities. We landed on three types of interactions that appear at different times: Quick Starts appear early in each lesson; Mid-Lesson Activities appear during the lesson; and Do This Nows come at the end.
+3、活动
 
-The point of the Quick Starts is to get people engaged with the concept of the lesson right away. In the search advertising lesson, for example, users are asked to find a striped sock in a pile of clothing. This Where’s Waldo-style activity illustrates the value of appearing near the top of search results: Unlike a pair of socks lost among other clothing items, a search ad stands out among search results. The interaction is not a test but a way to get people thinking about the topic right away.
+用户体验设计的第3个，也是最后一个元素就是活动。我们在不同时段设计了三种互动方案：每节课早期的“快速开始（Quick Starts）”；课程中期的“课间互动（Mid-Lesson）”；以及在结束时的“现在就做（Do This Nows）”。
+
+快速开始（Quick Starts）的目的是让用户迅速对课程上手。例如，在搜索广告课程中，用户被要求从一堆衣服中找到条纹袜子。这种“找不同”游戏（Waldo-style activity）说明了（广告）内容在搜索结果顶部出现的价值——搜索结果能够明显区别于其他搜索结果，而不像是隐藏在一堆衣服中的袜子。这种互动不是考试测验，而是能让用户立刻对课程主题产生思考。
 
 <div score="1.25">
 
 <figure score="-12.5">
 
 <div score="6.25">![](https://cdn-images-1.medium.com/max/1200/1*6MNlTTITAbFnkCXB4dIMHQ.png)
+<center>在这个“快速开始”中，我们使用了一种“找不同”的游戏方式证明了搜索广告的优点。</center>
 
-In this Quick Start, we use a Where’s Wald0-style activity to illustrate the advantages of search advertising.
-
-
-Mid-Lesson Activities appear, as you might expect, halfway through the lesson to break up the reading and get users interacting with the topic in a new way. In one lesson, we feature an activity that asks the user to literally put the puzzle pieces of programmatic media buying together. In another lesson, we include a common sense do-or-don’t activity to reframe a complex subject. For example, while explaining mobile engagement, we ask the user whether it’s a good idea to send mobile notifications with abandon. The answer is obvious, and that’s the point. These interactions build confidence and get the user to process information in a way that’s easy and intuitive, and then build on that knowledge.
-
+就像你想的那样，“课间互动（Mid-Lesson）”出现在课程学习中间出现，中断阅读，并让用户以一种新的形式参与主题互动。在其中一节课中，我们的互动形式是要求用户把程序化媒体购买(programmatic media buying)的拼图从字面上拼在一起。在另外一课，我们把常见意义上的“做或不做”行为重新设计为一种复杂的主题。例如，在解释“移动端用户参与度”上，我们询问用户放弃发送移动推送通知是不是个好主意？结果是显而易见的，而这正是我们想要的。这些互动活动给用户带来自信，并让用户以一种轻松直观的方式获取信息，然后在脑中形成知识体系。
 
 <div score="1.25">
 
 <figure score="-12.5">
 
 <div score="6.25">![](https://cdn-images-1.medium.com/max/1200/1*rJppkYZXcl_cmQo4Q2DV8Q.png)
+<center>这个“课间互动拼图”以一种轻松直观的方式解释了一个复杂的概念</center>
 
-This puzzle Mid-Lesson Activity explains a complicated subject in a way that’s both intuitive and tactile.
-
-Finally, the Do This Now feature gives users a legitimate takeaway that’s immediately applicable to their business. Where should you start tracking metrics for your website? Are you ready for a programmatic buy? This makes the lessons feel more personal and action-oriented. We believe that putting knowledge into practice is the best way to learn, even if it’s a baby step.
-
+最后，现在就做（Do This Nows）功能为用户提供了一种真实的案例，能够让用户立即应用到自己的项目中。你应该从哪里跟踪你网站的数据指标？你准备好程序化购买了么？这么做会让课程感觉更有针对性和目的性。我们相信把课程用于实践是最好的学习方法，即使只是刚起步状态。
 
 <div score="1.25">
 
@@ -102,18 +93,16 @@ Finally, the Do This Now feature gives users a legitimate takeaway that’s imme
 
 <div score="6.25">![](https://cdn-images-1.medium.com/max/1200/1*ixTHfyFvdF3ebat4xNTpzQ.png)
 
-Do This Now’s are personalized by letting users fill-in-the-blanks.
-
+<center>“现在就做”让用户在填空的过程中提供了一种个性化的体验。</center>
 
 <section score="41.25">
 
 <div score="31.25">
 
+像其他app一样，Primer在生存空间和关注度上面临着激烈竞争。所以说，给用户提供集知识性、趣味性和高效率于一体的体验设计至关重要。
 
+我们的用户体验设计，目的是让学习更有趣——这也是很多人所希望的，他们不想让学习成为一件充满压力的事情。我们希望用户喜欢这样的形式和它的灵活性。学习在以往可能被看做一种义务，而现在，这就是一种每天早上你在等咖啡——无论在上网或在家——或任何5分钟自由时间时都可以很容易做的事。
 
-Primer, like all mobile apps, faces stiff competition for space and attention. That’s why it was so important to design a fun, quick, and informative user experience.
-
-Our UX design aims to make learning enjoyable — something someone would want to do instead of just another stressful part of their day. We hope users appreciate that format and the flexibility it allows. What once might have seemed like an obligation is now an easy thing to do every morning while you’re waiting for your coffee — in line or at home — or any time you have 5 minutes free.
-
-> 1) Data for U.S. adults over 25 from the Bureau of Labor Statistics’ 2015 American Time Use Survey.
+脚注：
+> 1) 25岁以上美国成人的数据，来源于劳工统计局“2015美国人时间利用调查”。
 
