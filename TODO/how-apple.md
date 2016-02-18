@@ -1,9 +1,9 @@
 > * 原文链接 : [How Apple Is Giving Design A Bad Name](http://www.fastcodesign.com/3053406/how-apple-is-giving-design-a-bad-name)
 * 原文作者 : [Don Norman ](http://www.fastcodesign.com/user/don-norman-and-bruce-tognazzini)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : crackhy
-* 校对者: 
-* 状态 :  待定
+* 译者 : [crackhy](https://github.com/crackhy)
+* 校对者: [achilleo](https://github.com/achilleo)、[iThreeKing](https://github.com/iThreeKing)
+* 状态 :  完成
 
 Once upon a time, Apple was known for designing easy-to-use, easy-to-understand products. It was a champion of the graphical user interface, where it is always possible to discover what actions are possible, clearly see how to select that action, receive unambiguous feedback as to the results of that action, and have the power to reverse that action—to undo it—if the result is not what was intended.
 曾几何时，苹果公司因为产品设计易于使用和易于理解而闻名。它是图形用户界面的冠军，总是能够发现可能的动作，清楚地明白如何选择动作，并且得到该动作明确的反馈。如果结果和预期不一致，系统有权力扭转该动作。
