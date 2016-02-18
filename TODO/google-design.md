@@ -1,8 +1,8 @@
 > * 原文链接 : [Making Learning Easier by Design — Google Design — Medium](https://medium.com/google-design/designing-a-ux-for-learning-ebed4fa0a798#.64ivy5kwl)
 * 原文作者 : [Sandra Nam](https://medium.com/@snambomb)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : s2dongman(申悦)
-* 校对者: 
+* 译者 : [s2dongman(申悦)](https://github.com/s2dongman)
+* 校对者: [Yves-X](https://github.com/Yves-X)、[boycechang](https://github.com/boycechang)、[achilleo](https://github.com/achilleo)
 * 状态 :  翻译已完成
 
 通过设计让学习变轻松
@@ -27,20 +27,16 @@
 
 仪表盘的作用至关重要，因为这是人们首次打开app看到的界面。我们花了几个月的时间迭代和设计了不同仪表盘的原型，尝试了各种方案：课程包；让用户从3个随机课程中进行挑选；对课程主题相关事件进行地理位置定位；或者为我们合作的专家和品牌制作专属小部件（widgets）。一切皆有可能、方案层出不穷。
 
-<div score="1.25">
-<figure score="-12.5">
-<div score="6.25">![](https://cdn-images-1.medium.com/max/1200/1*hnTEbP8ArWSMmGdB4O-NVA.png)
-<center>早期的仪表盘原型</center>
-<div score="12.0">
+![](https://cdn-images-1.medium.com/max/1200/1*hnTEbP8ArWSMmGdB4O-NVA.png)
+早期的仪表盘原型
+
 很明显我们需要一个指导方针，因此我们从用户角度出发。通过调查发现，使用这个应用的用户可以被分为三类：
 *   **被动型**: 他们会四处寻找和浏览。
 *   **好奇型**: 他们希望学习一些东西，但不知道学什么。
 *   **主动型**: 他们目标明确，对想学的内容有不止一种想法。
-<div score="1.25">
-<figure score="-12.5">
-<div score="6.25">![](https://cdn-images-1.medium.com/max/1200/1*jjX_yBbyir0ozLe1JKGIUA.png)
-<center>最终的仪表盘样式：精选、分类和队列</center>
-<div score="1.25">
+
+![](https://cdn-images-1.medium.com/max/1200/1*jjX_yBbyir0ozLe1JKGIUA.png)
+最终的仪表盘样式：精选、分类和队列
 
 对于 **被动型**， 我们打造了特色专区，其中展示了5个人们能立刻开始学习的推荐课程。
 
@@ -56,8 +52,7 @@ app接下来要考虑的就是课程本身。Primer的课程目的是极大程�
 
 我们把我们的解决方案命名为“节奏化学习”，每个课程元素——每次滑动、每个卡堆，以及每张插图——都在用户阅读内容时被设计为节奏型向导。
 
-<figure score="-12.5">
-<div score="6.25">![](https://cdn-images-1.medium.com/max/600/1*YE7tBa5FHr983s1V5L8inQ.gif)
+![](https://cdn-images-1.medium.com/max/600/1*YE7tBa5FHr983s1V5L8inQ.gif)
 
 这种滑动手势让用户在阅读每张卡片时都有一种完成的感觉。挤满了信息的文本文件使人退却，但分解成卡片的课程则让人有操控感。这些卡片3-7张为一组堆叠在一起，一旦最后一张卡片被滑走，另外一组就会重新滑入。每完成一组，就会有个小成就，意味着用户不需要一直等到课程结束才能感到学有所获。
 
@@ -69,35 +64,23 @@ app接下来要考虑的就是课程本身。Primer的课程目的是极大程�
 
 快速开始（Quick Starts）的目的是让用户迅速对课程上手。例如，在搜索广告课程中，用户被要求从一堆衣服中找到条纹袜子。这种“找不同”游戏（Waldo-style activity）说明了（广告）内容在搜索结果顶部出现的价值——搜索结果能够明显区别于其他搜索结果，而不像是隐藏在一堆衣服中的袜子。这种互动不是考试测验，而是能让用户立刻对课程主题产生思考。
 
-<div score="1.25">
+![](https://cdn-images-1.medium.com/max/1200/1*6MNlTTITAbFnkCXB4dIMHQ.png)
 
-<figure score="-12.5">
-
-<div score="6.25">![](https://cdn-images-1.medium.com/max/1200/1*6MNlTTITAbFnkCXB4dIMHQ.png)
-<center>在这个“快速开始”中，我们使用了一种“找不同”的游戏方式证明了搜索广告的优点。</center>
+在这个“快速开始”中，我们使用了一种“找不同”的游戏方式证明了搜索广告的优点。
 
 就像你想的那样，“课间互动（Mid-Lesson）”出现在课程学习中间出现，中断阅读，并让用户以一种新的形式参与主题互动。在其中一节课中，我们的互动形式是要求用户把程序化媒体购买(programmatic media buying)的拼图从字面上拼在一起。在另外一课，我们把常见意义上的“做或不做”行为重新设计为一种复杂的主题。例如，在解释“移动端用户参与度”上，我们询问用户放弃发送移动推送通知是不是个好主意？结果是显而易见的，而这正是我们想要的。这些互动活动给用户带来自信，并让用户以一种轻松直观的方式获取信息，然后在脑中形成知识体系。
 
-<div score="1.25">
+![](https://cdn-images-1.medium.com/max/1200/1*rJppkYZXcl_cmQo4Q2DV8Q.png)
 
-<figure score="-12.5">
-
-<div score="6.25">![](https://cdn-images-1.medium.com/max/1200/1*rJppkYZXcl_cmQo4Q2DV8Q.png)
-<center>这个“课间互动拼图”以一种轻松直观的方式解释了一个复杂的概念</center>
+这个“课间互动拼图”以一种轻松直观的方式解释了一个复杂的概念
 
 最后，现在就做（Do This Nows）功能为用户提供了一种真实的案例，能够让用户立即应用到自己的项目中。你应该从哪里跟踪你网站的数据指标？你准备好程序化购买了么？这么做会让课程感觉更有针对性和目的性。我们相信把课程用于实践是最好的学习方法，即使只是刚起步状态。
 
-<div score="1.25">
 
-<figure score="-12.5">
+![](https://cdn-images-1.medium.com/max/1200/1*ixTHfyFvdF3ebat4xNTpzQ.png)
 
-<div score="6.25">![](https://cdn-images-1.medium.com/max/1200/1*ixTHfyFvdF3ebat4xNTpzQ.png)
+“现在就做”让用户在填空的过程中提供了一种个性化的体验。
 
-<center>“现在就做”让用户在填空的过程中提供了一种个性化的体验。</center>
-
-<section score="41.25">
-
-<div score="31.25">
 
 像其他app一样，Primer在生存空间和关注度上面临着激烈竞争。所以说，给用户提供集知识性、趣味性和高效率于一体的体验设计至关重要。
 
@@ -105,4 +88,3 @@ app接下来要考虑的就是课程本身。Primer的课程目的是极大程�
 
 脚注：
 > 1) 25岁以上美国成人的数据，来源于劳工统计局“2015美国人时间利用调查”。
-
