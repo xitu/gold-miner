@@ -49,12 +49,13 @@
 
 ```
 注意这里的 project ID 可能和项目名字不一样
+
 ```
 
-	开启alpha 特性访问 Cloud Functions:
+开启alpha 特性访问 Cloud Functions:
 
-	> $ gcloud components update alpha
+> $ gcloud components update alpha
 
-	执行 gcloud functions 帮助命令确定所有都就绪了(别忘了加上 alpha 参数):
+执行 gcloud functions 帮助命令确定所有都就绪了(别忘了加上 alpha 参数):
 
-	> $ gcloud alpha functions -h
+> $ gcloud alpha functions -h

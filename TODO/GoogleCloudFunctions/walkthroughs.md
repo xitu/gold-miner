@@ -15,11 +15,13 @@
 Linux/Mac
 
 >$ mkdir ~/gcf_hello_world
+
 >$ cd ~/gcf_hello_world
 
 Windows
 
 >$ mkdir %HOMEPATH%\gcf_hello_world
+
 >$ cd %HOMEPATH%\gcf_hello_world
 
 新建一个 index.js 的文件(注意，如果你想用另一个名字来命名，记得在 package.json 中把它定义成主属性)，并把下面的代码复制进去:
@@ -86,16 +88,19 @@ triggers:
 Linux/Mac
 
 >$ mkdir ~/gcf_hello_http
+
 >$ cd ~/gcf_hello_http
 
 Windows
 
 >$ mkdir %HOMEPATH%\gcf_hello_http
+
 >$ cd %HOMEPATH%\gcf_hello_http
 
 新建一个 index.js 的文件(注意，如果你想用另一个名字来命名，记得在 package.json 中把它定义成主属性)，并把下面的代码复制进去:
 
 index.js
+
 
 ```js
 rts.hellohttp = function (context, data) {
