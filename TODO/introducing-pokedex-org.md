@@ -23,7 +23,14 @@ I believe the web is as capable of solving these problems as native apps, but mo
 * [离线优先](http://offlinefirst.org/)（比如选用[IndexedDB](http://w3c.github.io/IndexedDB/)和[ServiceWorkers](https://ponyfoo.com/articles/serviceworker-revolution))
 * [Web workers](http://www.html5rocks.com/en/tutorials/workers/basics/)
 
+<<<<<<< HEAD
 我决定将这些想法放在一起，构建一个像native app一样引人注目的，有丰富交互体验的 webapp，但它 “仅仅” 是一个网站。依据 Chrome 小组的准则，我构建了 [Pokedex.org](http://pokedex.org) - 这是一个离线工作的[先进的网页应用(progressive webapp)](https://infrequently.org/2015/06/progressive-apps-escaping-tabs-without-losing-our-soul/)，它可以从主屏幕启动，甚至在普通的 Android 手机上运行在 60FPS。这篇博客文章就来介绍是我如何做的。
+=======
+* [Offline-first](http://offlinefirst.org/) (e.g. [IndexedDB](http://w3c.github.io/IndexedDB/) and [ServiceWorkers](https://ponyfoo.com/articles/serviceworker-revolution))
+* [Web workers](http://www.html5rocks.com/en/tutorials/workers/basics/)
+
+I decided to put these ideas together and build a webapp with a rich, interactive experience that's every bit as compelling as a native app, but is also "just" a web site. Following guidelines from the Chrome team, I built [Pokedex.org](http://pokedex.org/) – a [progressive webapp](https://infrequently.org/2015/06/progressive-apps-escaping-tabs-without-losing-our-soul/) that works offline, can be launched from the home screen, and runs at 60 FPS even on mediocre Android phones. This blog post explains how I did it.
+>>>>>>> 06ed450db073609c8c52de344a6823bb5efb695b
 
 ## 口袋妖怪 - 一个雄心勃勃的目标
 

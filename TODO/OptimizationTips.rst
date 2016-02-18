@@ -1,79 +1,50 @@
   - 原文链接: `Optimization Tips <https://github.com/apple/swift/blob/master/docs/OptimizationTips.rst>`_
   - 原文作者 : `apple <https://github.com/apple>`_
   - 译文出自 : `掘金翻译计划 <https://github.com/xitu/gold-miner>`_
-  - 译者 : 
-  - 校对者: 
-  - 状态 :  待定
+  - 译者 : `iThreeKing <https://github.com/iThreeKing>`_
+  - 校对者: `nathanwhy <https://github.com/nathanwhy>`_、`walkingway <https://github.com/walkingway>`_
+  - 状态 :  完成
 
-Writing High-Performance Swift Code
+编写高性能的 Swift 代码
 ===================================
 
-The following document is a gathering of various tips and tricks for writing
-high-performance Swift code. The intended audience of this document is compiler
-and standard library developers.
+这篇文章整合了许多编写高性能的 Swift 代码的提示与技巧。文章的受众是编译器和标准库的开发者。
 
-Some of the tips in this document can help improve the quality of your Swift
-program and make your code less error prone and more readable. Explicitly
-marking final-classes and class-protocols are two obvious examples. However some
-of the tips described in this document are unprincipled, twisted and come to
-solve a specific temporary limitation of the compiler or the language. Many of
-the recommendations in this document come with trade offs for things like
-program runtime, binary size, code readability, etc.
+这篇文章中的一些技巧可以帮助提高你的 Swift 程序质量，并且可以减少代码中的容易出现的错误，使代码更具可读性。显式地标记出最终类和类的协议是两个显而易见的例子。然而，文章中描述的一些技巧是不符合规定的，扭曲的，仅仅解决由于编译器或者语言暂时限制的问题。文章中的建议来自多方面的权衡，例如程序运行时，二进制大小，代码可读性等等。
 
 
-Enabling Optimizations
+启用优化
 ======================
 
-The first thing one should always do is to enable optimization. Swift provides
-three different optimization levels:
+每个人应该做的第一件事是启用优化。 Swift 提供了三种不同的优化级别：
 
-- ``-Onone``: This is meant for normal development. It performs minimal
-  optimizations and preserves all debug info.
-- ``-O``: This is meant for most production code. The compiler performs
-  aggressive optimizations that can drastically change the type and amount of
-  emitted code. Debug information will be emitted but will be lossy.
-- ``-Ounchecked``: This is a special optimization mode meant for specific
-  libraries or applications where one is willing to trade safety for
-  performance.  The compiler will remove all overflow checks as well as some
-  implicit type checks.  This is not intended to be used in general since it may
-  result in undetected memory safety issues and integer overflows. Only use this
-  if you have carefully reviewed that your code is safe with respect to integer
-  overflow and type casts.
+- ``-Onone``: 这是为正常开发准备，它执行最少的优化并保留所有调试的信息。
+- ``-O``: 是为大多数生产代码准备，编译器执行积极的优化，可以很大程度上改变提交代码的类型和数量。调试信息同样会被输出，但是有损耗。
+- ``-Ounchecked``: 这个是特定的优化模式，为了特定的库或应用程序，舍弃安全性来提高性能。编译器将移除所有溢出检查以及一些隐式类型检查。由于这样会导致未被发现的存储安全问题和整数溢出，所以一般情况下并不会使用这种模式。仅使用于你已经仔细审查了自己的代码对于整数溢出和类型转换是友好的情况下。
 
-In the Xcode UI, one can modify the current optimization level as follows:
+在 Xcode UI 中，人们可以按照下面修改当前优化级别：
 
 ...
 
 
-Whole Module Optimizations
+优化整个组件
 ==========================
 
-By default Swift compiles each file individually. This allows Xcode to
-compile multiple files in parallel very quickly. However, compiling each file
-separately prevents certain compiler optimizations. Swift can also compile
-the entire program as if it were one file and optimize the program as if it
-were a single compilation unit. This mode is enabled using the command
-line flag ``-whole-module-optimization``. Programs that are compiled in
-this mode will most likely take longer to compile, but may run faster.
+默认情况下 Swift 单独编译每个文件。这使得 Xcode 可以非常快速的并行编译多个文件。然而，分开编译每个文件可以阻止某些编译器优化。 Swift 也可以把整个程序看做一个文件来编译，并把程序当成单个编译单元来优化。这个模式可以使用命令行 ``-whole-module-optimization`` 来启用。在这种模式下程序需要花费更长的时间来编译，但运行起来却更快。
 
-This mode can be enabled using the Xcode build setting 'Whole Module Optimization'.
+这个模式可以通过 Xcode 构建设置中的'Whole Module Optimization'来启用。
 
 
-Reducing Dynamic Dispatch
+降低动态调度 (Reducing Dynamic Dispatch)
 =========================
 
-Swift by default is a very dynamic language like Objective-C. Unlike Objective
-C, Swift gives the programmer the ability to improve runtime performance when
-necessary by removing or reducing this dynamicism. This section goes through
-several examples of language constructs that can be used to perform such an
-operation.
+在默认情况下， Swift 是一个类似 Objective-C 的动态语言。与 Objective-C 不同的是，程序员在必要的时候可移除或减少 Swift 这种动态特性，从而提高运行时性能。本节将提供几个能够被用于操作语言结构的例子。
 
-Dynamic Dispatch
+动态调度
 ----------------
 
-Classes use dynamic dispatch for methods and property accesses by default. Thus
-in the following code snippet, ``a.aProperty``, ``a.doSomething()`` and
-``a.doSomethingElse()`` will all be invoked via dynamic dispatch:
+在默认情况下，类使用动态调度的方法和属性访问。因此在下面的代码片段中， ``a.aProperty``, ``a.doSomething()`` 和
+``a.doSomethingElse()`` 都将通过动态调度来调用:
 
 ::
 
@@ -97,57 +68,40 @@ in the following code snippet, ``a.aProperty``, ``a.doSomething()`` and
     a.aProperty = ...
   }
 
-In Swift, dynamic dispatch defaults to indirect invocation through a vtable
-[#]_. If one attaches the ``dynamic`` keyword to the declaration, Swift will
-emit calls via Objective-C message send instead. In both cases this is slower
-than a direct function call because it prevents many compiler optimizations [#]_
-in addition to the overhead of performing the indirect call itself. In
-performance critical code, one often will want to restrict this dynamic
-behavior.
+在 Swift 中，动态调度默认通过一个 vtable [1]_ （虚函数表）间接调用。如果使用 ``dynamic`` 关键字声明, Swift 的调用方式将变为：『通过 Objective-C 的消息传递机制 』。在上面这两种情况下，后者『通过 Objective-C 的消息传递』要比直接进行函数调用慢，因为他阻止了编译器的很多优化 [2]_ ，除了自身的间接调用开销。在性能优先的代码中，人们常常想限制这种动态行为。
 
-Advice: Use 'final' when you know the declaration does not need to be overridden
+建议：当你在声明时知道不会被重写时使用 'final'
 --------------------------------------------------------------------------------
 
-The ``final`` keyword is a restriction on a declaration of a class, a method, or
-a property such that the declaration cannot be overridden. This implies that the
-compiler can emit direct function calls instead of indirect calls. For instance
-in the following ``C.array1`` and ``D.array1`` will be accessed directly
-[#]_. In contrast, ``D.array2`` will be called via a vtable:
+``final`` 关键字是类、方法或属性声明中的限制，从而让声明不被重写。这就意味着编译器可以使用直接函数调用代替间接函数调用。例如下面的 ``C.array1`` 和 ``D.array1`` 将会被直接访问 [3]_ 。与之相反， ``D.array2`` 将通过一个虚函数表访问：
 
 ::
 
   final class C {
-    // No declarations in class 'C' can be overridden.
+    // 类'C'中没有声明可以被重写
     var array1: [Int]
     func doSomething() { ... }
   }
 
   class D {
-    final var array1 [Int] // 'array1' cannot be overridden by a computed property.
-    var array2: [Int]      // 'array2' *can* be overridden by a computed property.
+    final var array1 [Int] //'array1'不可以被计算属性重写
+    var array2: [Int]      //'array2'*可以*被计算属性重写
   }
 
   func usingC(c: C) {
-     c.array1[i] = ... // Can directly access C.array without going through dynamic dispatch.
-     c.doSomething() = ... // Can directly call C.doSomething without going through virtual dispatch.
+     c.array1[i] = ... //可以直接使用C.array而不用通过动态调用
+     c.doSomething() = ... //可以直接调用C.doSomething而不用通过虚函数表访问
   }
 
   func usingD(d: D) {
-     d.array1[i] = ... // Can directly access D.array1 without going through dynamic dispatch.
-     d.array2[i] = ... // Will access D.array2 through dynamic dispatch.
+     d.array1[i] = ... //可以直接使用D.array1而不用通过动态调用
+     d.array2[i] = ... //将通过动态调用使用D.array2
   }
 
-Advice: Use 'private' when declaration does not need to be accessed outside of file
+建议：当声明不需要被文件外部访问到的时候，使用'private'
 -----------------------------------------------------------------------------------
 
-Applying the ``private`` keyword to a declaration restricts the visibility of
-the declaration to the file in which it is declared. This allows the compiler to
-be able to ascertain all other potentially overriding declarations. Thus the
-absence of any such declarations enables the compiler to infer the ``final``
-keyword automatically and remove indirect calls for methods and field accesses
-accordingly. For instance in the following, ``e.doSomething()`` and
-``f.myPrivateVar``, will be able to be accessed directly assuming ``E``, ``F``
-do not have any overriding declarations in the same file:
+在声明中使用 ``private`` 关键字，会限制对其声明文件的可见性。这会让编译器能查出所有其它潜在的重写声明。因此，由于没有了这样的声明，编译器就可以自动推断出 ``final`` 关键字，并移除间接的方法调用和域访问。例如下面，假设在同一文件中 ``E`` , ``F`` 并没有任何重写声明，那么 ``e.doSomething()`` 和 ``f.myPrivateVar`` 将可以被直接访问：
 
 ::
 
@@ -160,39 +114,30 @@ do not have any overriding declarations in the same file:
   }
 
   func usingE(e: E) {
-    e.doSomething() // There is no sub class in the file that declares this class.
-                    // The compiler can remove virtual calls to doSomething()
-                    // and directly call A’s doSomething method.
+    e.doSomething() // 文件中没有替代类来声明这个类
+                    // 编译器可以移除 doSomething() 的虚拟调用
+                    // 并直接调用类 E 的 doSomething 方法
   }
 
   func usingF(f: F) -> Int {
     return f.myPrivateVar
   }
 
-Using Container Types Efficiently
+高效地使用容器类型
 =================================
 
-An important feature provided by the Swift standard library are the generic
-containers Array and Dictionary. This section will explain how to use these
-types in a performant manner.
+通用的容器 Array 和 Dictionary 是 Swift 标准库提供的一个重要特性。本节将解释如何用高性能方式使用这些类型。
 
-Advice: Use value types in Array
+建议：在数组中使用值类型
 --------------------------------
 
-In Swift, types can be divided into two different categories: value types
-(structs, enums, tuples) and reference types (classes). A key distinction is
-that value types cannot be included inside an NSArray. Thus when using value
-types, the optimizer can remove most of the overhead in Array that is necessary
-to handle the possibility of the array being backed an NSArray.
+在 Swift 中，类型可以分为不同的两类：值类型（结构体，枚举，元组）和引用类型（类）。一个关键的差别就是 NSArray 中不能含有值类型。因此当使用值类型时，优化器就不需要去处理对 NSArray 的支持，从而可以在数组上省去大部分的消耗。
 
-Additionally, In contrast to reference types, value types only need reference
-counting if they contain, recursively, a reference type. By using value types
-without reference types, one can avoid additional retain, release traffic inside
-Array.
+此外，相比引用类型，如果值类型递归地包含引用类型，那么值类型仅需要引用计数器。使用不含引用类型的值类型，就可以避免额外的开销（数组内的元素执行 retain、release 操作所产生的通讯量）。
 
 ::
 
-  // Don't use a class here.
+  // 这里不要使用类
   struct PhonebookEntry {
     var name : String
     var number : [Int]
@@ -200,45 +145,30 @@ Array.
 
   var a : [PhonebookEntry]
 
-Keep in mind that there is a trade-off between using large value types and using
-reference types. In certain cases, the overhead of copying and moving around
-large value types will outweigh the cost of removing the bridging and
-retain/release overhead.
+牢记在使用大的值类型和引用类型之间要做好权衡。在某些情况下，拷贝和移动大的值类型消耗要大于移除桥接和保留/释放的消耗。
 
-Advice: Use ContiguousArray with reference types when NSArray bridging is unnecessary
+建议：当 NSArray 桥接不必要时，使用 ContiguousArray 存储引用类型
 -------------------------------------------------------------------------------------
 
-If you need an array of reference types and the array does not need to be
-bridged to NSArray, use ContiguousArray instead of Array:
+如果你需要一个引用类型的数组，并且数组不需要被桥接到 NSArray ，使用 ContiguousArray 代替 Array 。
 
 ::
 
   class C { ... }
   var a: ContiguousArray<C> = [C(...), C(...), ..., C(...)]
 
-Advice: Use inplace mutation instead of object-reassignment
+建议：使用就地转变而不是对象的再分配
 -----------------------------------------------------------
 
-All standard library containers in Swift are value types that use COW
-(copy-on-write) [#]_ to perform copies instead of explicit copies. In many cases
-this allows the compiler to elide unnecessary copies by retaining the container
-instead of performing a deep copy. This is done by only copying the underlying
-container if the reference count of the container is greater than 1 and the
-container is mutated. For instance in the following, no copying will occur when
-``d`` is assigned to ``c``, but when ``d`` undergoes structural mutation by
-appending ``2``, ``d`` will be copied and then ``2`` will be appended to ``d``:
+在 Swift 中，所有的标准库容器都是值类型，使用 COW(copy-on-write) [4]_ 机制执行拷贝以代替直接拷贝。在很多情况下，通过保持容器的引用而不是执行深度拷贝能够让编译器节省不必要的拷贝。如果容器的引用计数大于1并且容器发生转变，这将只通过拷贝底层容器实现。例如下面的情况，当 ``d`` 被分配给 ``c`` 时不进行拷贝，但当 ``d`` 通过结构的改变附加到 ``2``，那么 ``d`` 就会被拷贝，然后 ``2`` 就会被附加到 ``d``：
 
 ::
 
   var c: [Int] = [ ... ]
-  var d = c        // No copy will occur here.
-  d.append(2)      // A copy *does* occur here.
+  var d = c        //这里没有拷贝
+  d.append(2)      //这里*有*拷贝
 
-Sometimes COW can introduce additional unexpected copies if the user is not
-careful. An example of this is attempting to perform mutation via
-object-reassignment in functions. In Swift, all parameters are passed in at +1,
-i.e. the parameters are retained before a callsite, and then are released at the
-end of the callee. This means that if one writes a function like the following:
+如果用户不小心，有时 COW 机制会引起额外的拷贝。例如，在函数中，试图通过对象的再分配执行修改操作。在 Swift 中，所有的参数传递时都会被拷贝，例如，参数在调用之前会保留，然后在调用结束时会释放。也就是像下面的函数：
 
 ::
 
@@ -250,9 +180,7 @@ end of the callee. This means that if one writes a function like the following:
   var a = [1, 2, 3]
   a = append_one(a)
 
-``a`` may be copied [#]_ despite the version of ``a`` without one appended to it
-has no uses after ``append_one`` due to the assignment. This can be avoided
-through the usage of ``inout`` parameters:
+尽管 ``a`` （一开始未执行 append 操作）在 ``append_one`` 之后也没有使用，但仍然可能会被拷贝 [5]_ 。这可以通过使用参数 ``inout`` 来避免：
 
 ::
 
@@ -263,18 +191,15 @@ through the usage of ``inout`` parameters:
   var a = [1, 2, 3]
   append_one_in_place(&a)
 
-Unchecked operations
+未检查操作
 ====================
 
-Swift eliminates integer overflow bugs by checking for overflow when performing
-normal arithmetic. These checks are not appropriate in high performance code
-where one knows that no memory safety issues can result.
+在执行普通的整数运算时，Swift 会检查运算结果是否溢出，从而消除 bug。然而在已知没有内存安全问题发生的高性能代码中，这样的检查是不合适的。
 
-Advice: Use unchecked integer arithmetic when you can prove that overflow cannot occur
+建议：如果你知道不会发生溢出时，使用未检查整型计算
 ---------------------------------------------------------------------------------------
 
-In performance-critical code you can elide overflow checks if you know it is
-safe.
+在性能优先的代码中，如果你知道代码是安全的，那么你可以忽略溢出检查。
 
 ::
 
@@ -282,36 +207,24 @@ safe.
   b : [Int]
   c : [Int]
 
-  // Precondition: for all a[i], b[i]: a[i] + b[i] does not overflow!
+  //前提：对于所有的 a[i], b[i],a[i] + b[i]都不会溢出！
   for i in 0 ... n {
     c[i] = a[i] &+ b[i]
   }
 
-Generics
+泛型
 ========
 
-Swift provides a very powerful abstraction mechanism through the use of generic
-types. The Swift compiler emits one block of concrete code that can perform
-``MySwiftFunc<T>`` for any ``T``. The generated code takes a table of function
-pointers and a box containing ``T`` as additional parameters. Any differences in
-behavior between ``MySwiftFunc<Int>`` and ``MySwiftFunc<String>`` are accounted
-for by passing a different table of function pointers and the size abstraction
-provided by the box. An example of generics:
+Swift通过使用泛型类型，提供了一种十分强大的抽象机制。 Swift 编译器发出一个具体的代码块，从而可以对任何 ``T`` 执行 ``MySwiftFunc<T>``。生成的代码需要一个函数指针表和一个包含 ``T`` 的封装作为额外参数。通过传递不同的函数指针表及封装提供的抽象大小，从而来说明 ``MySwiftFunc<Int>`` 和 ``MySwiftFunc<String>`` 之间的不同行为。一个泛型的例子：
 
 ::
 
   class MySwiftFunc<T> { ... }
 
-  MySwiftFunc<Int> X    // Will emit code that works with Int...
-  MySwiftFunc<String> Y // ... as well as String.
+  MySwiftFunc<Int> X    // 将通过 Int 类型传递代码
+  MySwiftFunc<String> Y // 此处为 String 类型
 
-When optimizations are enabled, the Swift compiler looks at each invocation of
-such code and attempts to ascertain the concrete (i.e. non-generic type) used in
-the invocation. If the generic function's definition is visible to the optimizer
-and the concrete type is known, the Swift compiler will emit a version of the
-generic function specialized to the specific type. This process, called
-*specialization*, enables the removal of the overhead associated with
-generics. Some more examples of generics:
+当启用优化时， Swift 编译器查看每段调用的代码，并试着查明其中具体使用的类型(例如:非泛型类型)。如果泛型函数定义对优化器可见，并且具体类型已知，那么 Swift 编译器将产生一个具有特殊类型的特殊泛型函数。这一过程被称作 *特殊化*，从而可以避免与泛型关联的消耗。一些泛型的例子：
 
 ::
 
@@ -322,39 +235,28 @@ generics. Some more examples of generics:
 
   func myAlgorithm(a: [T], length: Int) { ... }
 
-  // The compiler can specialize code of MyStack[Int]
+  //编译器可以特殊化 MyStack[Int] 的代码
   var stackOfInts: MyStack[Int]
-  // Use stack of ints.
+  //使用整型类型的栈
   for i in ... {
     stack.push(...)
     stack.pop(...)
   }
 
   var arrayOfInts: [Int]
-  // The compiler can emit a specialized version of 'myAlgorithm' targeted for
-  // [Int]' types.
+  //编译器可以为目标为 [Int] 的 myAlgorithm 函数执行一个特殊化版本
+
   myAlgorithm(arrayOfInts, arrayOfInts.length)
 
-Advice: Put generic declarations in the same file where they are used
+建议：将泛型声明放在使用它的文件中
 ---------------------------------------------------------------------
 
-The optimizer can only perform specializations if the definition of the generic
-declaration is visible in the current Module. This can only occur if the
-declaration is in the same file as the invocation of the generic. *NOTE* The
-standard library is a special case. Definitions in the standard library are
-visible in all modules and available for specialization.
+只有泛型声明在当前模块可见，优化器才能进行特殊化。这样只发生在使用泛型和声明泛型在同一个文件中的情况下。*注意*标准库是一个例外。在标准库中声明泛型，可以对所有模块可见且进行特殊化。
 
-Advice: Allow the compiler to perform generic specialization
+建议：允许编译器进行泛型特殊化
 ------------------------------------------------------------
 
-The compiler can only specialize generic code if the call site and the callee
-function are located in the same compilation unit. One trick that we can use to
-allow compiler to optimize the callee function is to write code that performs a
-type check in the same compilation unit as the callee function. The code behind
-the type check then re-dispatches the call to the generic function - but this
-time it has the type information. In the code sample below we've inserted a type
-check into the function "play_a_game" and made the code run hundreds of times
-faster.
+只有调用和被调用函数位于同一编译单元，编译器才能够对泛型代码进行特殊化。我们可以使用一个技巧让编译器对被调用函数进行优化，就是在被调用函数的编译单元中执行类型检查代码。进行类型检查的代码会被重新发送来调用泛型函数---但是这样做会包含类型信息。在下面的代码中，我们在函数"play_a_game"中插入类型检查，使代码运行速度提高了几百倍。
 
 ::
 
@@ -378,8 +280,8 @@ faster.
   }
 
   func play_a_game(game : Playable ) {
-    // This check allows the optimizer to specialize the
-    // generic call 'play'
+    //这个检查允许优化器对泛型函数'play'进行特殊化
+
     if let z = game as? Game<Int> {
       z.play()
     } else {
@@ -394,24 +296,17 @@ faster.
   play_a_game(Game(10))
 
 
-The cost of large swift values
+ Swift 中大的值类型的开销
 ==============================
 
-In Swift, values keep a unique copy of their data. There are several advantages
-to using value-types, like ensuring that values have independent state. When we
-copy values (the effect of assignment, initialization, and argument passing) the
-program will create a new copy of the value. For some large values these copies
-could be time consuming and hurt the performance of the program.
+在 Swift 中，值保留有一份独有的数据拷贝。使用值类型有很多优点，比如能保证值具有独立的状态。当我们拷贝值时(等同于分配，初始化和参数传递)，程序将会创建一份新的拷贝。对于一些大的值类型，这样的拷贝是相当耗时的，也可能会影响到程序的性能。
 
-.. More on value types:
+.. 更多关于值类型的知识:
 .. https://developer.apple.com/swift/blog/?id=10
 
-Consider the example below that defines a tree using "value" nodes. The tree
-nodes contain other nodes using a protocol. In computer graphics scenes are
-often composed from different entities and transformations that can be
-represented as values, so this example is somewhat realistic.
+考虑下面的代码，代码中使用'值'类型的节点定义了一棵树。树的节点包括其它使用协议的节点。计算机图形场景通常由不同的实体和变形体构成，而他们都能表示为值的形式，所以这个例子很有实际意义。
 
-.. See Protocol-Oriented-Programming:
+.. 查看面向协议编程:
 .. https://developer.apple.com/videos/play/wwdc2015-408/
 
 ::
@@ -427,27 +322,16 @@ represented as values, so this example is somewhat realistic.
   }
 
 
-When a tree is copied (passed as an argument, initialized or assigned) the whole
-tree needs to be copied. In the case of our tree this is an expensive operation
-that requires many calls to malloc/free and a significant reference counting
-overhead.
+当树进行拷贝(传递参数，初始化或者赋值操作)，整棵树都要被拷贝。这是一个花销很大的操作，需要调用很多 malloc/free (分配/释放)以及大量引用计数操作。
 
-However, we don't really care if the value is copied in memory as long as the
-semantics of the value remains.
+然而，我们并不是真的关心值是否被拷贝，只要这些值还保留在内存中。
 
-Advice: Use copy-on-write semantics for large values
+建议：对大的值类型使用 copy-on-write 机制
 ----------------------------------------------------
 
-To eliminate the cost of copying large values adopt copy-on-write behavior.  The
-easiest way to implement copy-on-write is to compose existing copy-on-write data
-structures, such as Array. Swift arrays are values, but the content of the array
-is not copied around every time the array is passed as an argument because it
-features copy-on-write traits.
+减少拷贝大的值类型的开销，可以采用 copy-on-write 的方法。实现 copy-on-write 机制最简单的办法就是采用已经存在的 copy-on-write 的数据结构，比如数组。 Swift 的数组是值类型，因为它具有 copy-on-write 的特性，所以当数组作为参数被传递时，并不需要每次都进行拷贝。
 
-In our Tree example we eliminate the cost of copying the content of the tree by
-wrapping it in an array. This simple change has a major impact on the
-performance of our tree data structure, and the cost of passing the array as an
-argument drops from being O(n), depending on the size of the tree to O(1).
+在我们'树'的例子中，通过将树中的内容封装到数组中，从而减少拷贝带来的开销。通过这一简单的改变就能极大地提示我们树的数据结构性能，数组作为参数传递的开销从 O(n) 降到了 O(1) 。
 
 ::
 
@@ -459,26 +343,13 @@ argument drops from being O(n), depending on the size of the tree to O(1).
   }
 
 
-There are two obvious disadvantages of using Array for COW semantics. The first
-problem is that Array exposes methods like "append" and "count" that don't make
-any sense in the context of a value wrapper. These methods can make the use of
-the reference wrapper awkward. It is possible to work around this problem by
-creating a wrapper struct that will hide the unused APIs and the optimizer will
-remove this overhead, but this wrapper will not solve the second problem.  The
-Second problem is that Array has code for ensuring program safety and
-interaction with Objective-C. Swift checks if indexed accesses fall within the
-array bounds and when storing a value if the array storage needs to be extended.
-These runtime checks can slow things down.
+使用数组来实现 COW 机制有两个明显的缺点。第一个问题就是数组中类似"append"和"count"的方法，它们在值封装中没有任何作用。这些方法让引用封装变得很不方便。我们可以通过创建一个隐藏未用到的 API 的封装结构来解决这个问题，并且优化器会移除它的开销，但是这样的封装并不能解决第二个问题。第二个问题就是数组内存在保证程序安全性和与 Objective-C 进行交互的代码， Swift 会检查索引访问是否在数组边界内，以及保存值时会判断数组存储时否需要扩展存储空间。这些操作运行时都会降低程序速度。
 
-An alternative to using Array is to implement a dedicated copy-on-write data
-structure to replace Array as the value wrapper. The example below shows how to
-construct such a data structure:
+一个替代方法就是实现一个 copy-on-write 机制的数据结构来代替数组作为值封装。下面的例子就是介绍如何构建一个这样的数据结构：
 
-.. Note: This solution is suboptimal for nested structs, and an addressor based
-..       COW data structure would be more efficient. However at this point it's not
-..       possible to implement addressors out of the standard library.
+.. Note: 这样的解决办法，对于嵌套结构并非最优，并且一个基于 COW 数据结构的 addressor 会更加高效。然而在这种情况下，抛开标准库执行 addressor 是行不通的。
 
-.. More details in this blog post by Mike Ash:
+.. 更多细节详见 Mike Ash 的博文:
 .. https://www.mikeash.com/pyblog/friday-qa-2015-04-17-lets-build-swiftarray.html
 
 ::
@@ -504,19 +375,12 @@ construct such a data structure:
       }
   }
 
-The type ``Box`` can replace the array in the code sample above.
+``Box`` 类型可以代替上个例子中的数组。
 
-Unsafe code
+不安全的代码
 ===========
 
-Swift classes are always reference counted. The swift compiler inserts code
-that increments the reference count every time the object is accessed.
-For example, consider the problem of scanning a linked list that's
-implemented using classes. Scanning the list is done by moving a
-reference from one node to the next: ``elem = elem.next``. Every time we move
-the reference swift will increment the reference count of the ``next`` object
-and decrement the reference count of the previous object. These reference
-count operations are expensive and unavoidable when using Swift classes.
+ Swift 中类总是采用引用计数。 Swift 编译器会在每次对象被访问时插入增加引用计数的代码。例如，考虑一个通过使用类实现遍历链表的例子。遍历链表是通过从一个节点到下一个节点移动引用实现： ``elem = elem.next``。每次我们移动这个引用， Swift 将会增加 ``next`` 对象的引用计数，并且减少前一个对象的引用计数。这样的引用计数方法成本很高，但只要我们使用 Swift 的类就无法避免。
 
 ::
 
@@ -527,12 +391,10 @@ count operations are expensive and unavoidable when using Swift classes.
   }
 
 
-Advice: Use unmanaged references to avoid reference counting overhead
+建议：使用非托管的引用来避免引用计数带来的开销
 ---------------------------------------------------------------------
 
-In performance-critical code you can use choose to use unmanaged
-references. The ``Unmanaged<T>`` structure allows developers to disable
-automatic reference counting for a specific reference.
+在性能优先代码中，你可以选择使用未托管的引用。其中 ``Unmanaged<T>`` 结构体就允许开发者关闭对于特殊引用的自动引用计数 (ARC) 功能。
 
 ::
 
@@ -544,22 +406,15 @@ automatic reference counting for a specific reference.
     }
 
 
-Protocols
+协议
 =========
 
-Advice: Mark protocols that are only satisfied by classes as class-protocols
+建议：标记只能由类实现的协议为类协议
 ----------------------------------------------------------------------------
 
-Swift can limit protocols adoption to classes only. One advantage of marking
-protocols as class-only is that the compiler can optimize the program based on
-the knowledge that only classes satisfy a protocol. For example, the ARC memory
-management system can easily retain (increase the reference count of an object)
-if it knows that it is dealing with a class. Without this knowledge the compiler
-has to assume that a struct may satisfy the protocol and it needs to be prepared
-to retain or release non-trivial structures, which can be expensive.
+ Swift 可以限定协议只能通过类实现。标记协议只能由类实现的一个优点就是，编译器可以基于只有类实现协议这一事实来优化程序。例如，如果 ARC 内存管理系统知道正在处理类对象，那么就能够简单的保留(增加对象的引用计数)它。如果编译器不知道这一事实，它就不得不假设结构体也可以实现协议，那么就需要准备保留或者释放不可忽视的结构体，这样做的代价很高。
 
-If it makes sense to limit the adoption of protocols to classes then mark
-protocols as class-only protocols to get better runtime performance.
+如果限定只能由类实现某个协议，那么就需要标记类实现的协议为类协议，以便获得更好的运行性能。
 
 ::
 
@@ -569,19 +424,15 @@ protocols as class-only protocols to get better runtime performance.
 
 
 
-Footnotes
+脚注
 =========
 
-.. [#] A virtual method table or 'vtable' is a type specific table referenced by
-       instances that contains the addresses of the type's methods. Dynamic
-       dispatch proceeds by first looking up the table from the object and then
-       looking up the method in the table.
+.. [1]  虚拟方法表或者'vtable'是一种被包含类型方法地址实例引用的类型特定表。动态分发执行时，首先要从对象中查找这张表，然后在表中查找方法。
 
-.. [#] This is due to the compiler not knowing the exact function being called.
+.. [2]  这是因为编译器不知道具体哪个函数被调用。
 
-.. [#] i.e. a direct load of a class's field or a direct call to a function.
+.. [3]  例如，直接加载类域或者直接调用函数。
 
-.. [#] Explain what COW is here.
+.. [4]  解释 COW 是什么。
 
-.. [#] In certain cases the optimizer is able to via inlining and ARC
-       optimization remove the retain, release causing no copy to occur.
+.. [5]  在某些情况下，优化器能够通过直接插入和 ARC 优化，来移除保持的引用、这种释放确保拷贝不会发生。
