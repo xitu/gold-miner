@@ -5,68 +5,67 @@
 * 校对者: 
 * 状态 :  待定
 
-Your Facebook News Feed is filled with photos of your friends, family, and loved ones — photos you may want to view on your phone. We are always looking for ways to make things better and faster for mobile. So, our team took a look at how we can make photos faster on iOS and we found a way to reduce the data used by Facebook for iOS by about 10% and show a good image 15% faster than before. Here's how we did it.
+你的Facebook的动态消息中总是充满了那些你想要在手机上看的照片。照片里有可能是你的朋友，家人甚至是你最爱的人。我们一直在寻找提升用户体验的方式，包括更优秀和更快的移动端体验。为了达到这个目标，我们的团队仔细查看了我们如何在iOS设备上更好的显示照片并且我们找到了一种能够让Facebook在iOS系统中减少数据占用10%的方法而且同时还能加载图片的速度比以前提升15%。接下来是我们如何做到这一点的。
 
-## How photos used to work
+## 过去图片是如何被处理的
 
-Up until now, Facebook for iOS app has loaded your photos in News Feed as follows:
+直到现在，iOS端上的Facebook已经按照下列的要求在用户的动态消息更好的加载照片：
 
-*   Photo URLs were downloaded first, and then are used to download the actual photo data in JPEG format.
-*   At least two versions of the image were fetched in parallel, a small one and a full-size one. As soon as we have the smaller one, we show it until the larger, more detailed one is available.
-*   Sometimes we download the same photos multiple times in different sizes. The sizes depend on the type of device being used or where in the app it appears (e.g. News Feed or the fullscreen photo viewer).
-*   Every image we download is cached to disk. Since we downloaded multiple image sizes for each photo, multiple sizes of the same image were often stored on disk.
+*   照片的链接为最先下载，之后再用它来下载JPEG格式的真实大小照片
+*   至少有2个版本的同一张图片被使用，这包括一张缩略图和一张全尺寸的图片。一旦小的缩略图下载好之后，我们会先显示小的缩略图直到更高精度的图片能被用于展示。
+*   有时候我们会多次下载同一张图片的不同尺寸。在不同设备的型号和在不同的场景下（比如在动态消息当中或者是全屏显示图片），被使用的尺寸也是不同的。
+*   所有被下载的图片都是被储存到硬盘的。因为我们下载同一张图片不同尺寸大小的图片，所以多个尺寸的同一张图片通常都被储存在用户的硬盘中
 
-## Progressive JPEG
+## 渐进式图片
 
-Progressive JPEG (PJPEG) is an image format that stores multiple, individual “scans” of a photo, each with an increasing level of detail. When put together, the scans create a full-quality image. The first scan gives a very low-quality representation of the image, and each following scan further increases the level of detail and quality. When images are downloaded using PJPEG, we can render the image as soon as we have the the first scan. As later scans come through, we update the image and re-render it at higher and higher quality.
+渐进式图片Progressive JEPG（简称为PJEPG）是一种储存多个独立的扫描的图片格式。并且图片的精度会随着扫描的次数增加，变的越来越清晰。当所有的扫描版本叠加之后，一张最高精度的图片就会被显示出来。第一次的扫描能给予用户第一个低质量的缩略图。之后的每一层扫描都会使得这张图片的精度上升一个等级。当图片以PJPEG的格式被下载的时候，一旦第一层扫描结束我们可以马上在手机上为用户显示缩略图。当之后的扫描被下载后，我们会更新图片到一个更好的质量。
 
-Support for PJPEG became popular in browsers in 2010, and we've been serving photos as PJPEGs for a while now. However, mobile apps haven't really caught up yet. For example, there is currently no out-of-the-box support on iOS for rendering images progressively, so we had to build our own for the Facebook app.
+游览器对于PJEPG格式图片的支持在2010的时候就已经非常流行了。并且我们已经用PJEPG作为图片储存有一段时间了。然而，手机端的应用们似乎还没赶上这个潮流。举个例子，iOS端上还没有渐进式处理图片的支持，所以我们不得不为在iOS上的Facebook开发新的方式来做到这一点。
 
-## Using PJPEG in Facebook for iOS
+## 在Facebook的iOS客户端上用渐进式图片
 
-Rendering images progressively in the Facebook app has some advantages:
+在Facebook这个应用中，渐进式的图片推送在以下几个方面有不同的好处：
 
-1.  Data consumption: PJPEG allows us to skip downloading smaller versions of an image.
-2.  Network connections: Since we don't download smaller versions of an image anymore, we now use only one connection per image instead of many.
-3.  Disk storage: Storing fewer photos on disk decreases the amount of disk space used by the app.
-4.  One URL: Since we no longer need to download multiple images at different sizes, we can simply use one URL.
+1.  数据消耗：PJPEG使得我们可以无需下载小尺寸的图片的过程。
+2.  网络连接：因为我们不再需要下载缩略图，我们现在每张图片只需要用到一个数据连接来代替过去使用多个数据连接来下载同一张图片。
+3.  硬盘储存：使用PJPEG来储存图片减少了应用对于硬盘的占用。
+4.  一个链接：因为我们不再需要下载多个图片，所以我们只需要用一个链接。
 
-There is a downside to PJPEG: Decoding and rendering the image multiple times at varying scan levels uses more CPU. Decoding images can be moved to background threads, but the process is still heavy on CPU. The real challenge for us was to find the right balance between data usage, network latency, and CPU utilization. For instance, we considered using [WebP](http://l.facebook.com/l.php?u=http%3A%2F%2Fen.wikipedia.org%2Fwiki%2FWebP&h=5AQEbNxXm&s=1) since it is more optimal in file size than JPEG in some cases, but the format does not support progressive rendering.
+然而使用PJPEG的图片有一个缺点：下载并排列多个扫描层会占用更多CPU的资源。即使解码这些图片可以在后台处理，但是这个进程对于CPU来说还是非常繁重。对于我们来说，问题在于在数据占用，网络延迟和CPU的利用率上找到一个平衡点。比如说我们曾经考虑使用[WebP](http://l.facebook.com/l.php?u=http%3A%2F%2Fen.wikipedia.org%2Fwiki%2FWebP&h=5AQEbNxXm&s=1) 来做到这一点因为从某种角度来说它时最好的，但是它的格式并不支持渐进式处理
 
-## Waiting for images
+## 等待图片加载
 
-The following diagram shows how we used to download photos in Facebook for iOS. Each bar indicates an image download, and “Wait Time” is the period of time between viewing a photo placeholder to viewing a photo that is clear enough to enjoy. Even when the smaller image appeared, many people ended up waiting for the full image:
+下面这张图片很好的解释了我们在iOS端的Facebook上是如何下载图片的。下面的两张图片都表示下载一张图片的情况。“Wait Time”表示了一段加载出清晰地能让人表示满意所需要的时间。甚至在当只有小的图片出现的时候，很多人就停止了下载整个图片：
 
 ![](https://fbcdn-dragon-a.akamaihd.net/hphotos-ak-xaf1/t39.2365-6/10540969_770021873088131_38326442_n.jpeg)
 
-Throwing PJPEG into the mix changes the picture:
-
+当我们使用PJPEG的图片的时候：
 ![](https://fbcdn-dragon-a.akamaihd.net/hphotos-ak-xap1/t39.2365-6/10935998_1623200524568459_2147345899_n.jpeg)
 
-We render three different scans of each photo:
+我们对每一张图片扫描3次：
 
-1.  First we render a preview scan: this is pixelated.
-2.  Then we render a scan that looks good to the naked eye. In fact, it looks almost perfect to the naked eye.
-3.  Finally we render at full-quality: the best resolution possible.
+1.  首先我们扫描并展示一张预览图片
+2.  然后我们扫描并展示一张肉眼看上去还不错的图片。事实上，它几乎已经看上去是完美的了。
+3.  最后我们扫描最后一层然后得到质量最好的图片：这也许是最好的解决方式了。
 
-The result is that people see a good photo sooner!
+结果就是用户们可以更快的看到一张棒棒的图片！
 
 ![](https://fbcdn-dragon-a.akamaihd.net/hphotos-ak-xft1/t39.2365-6/10935975_819617794775832_888993011_n.png)
 
-## Finding the right scan level
+## 如何找到正确的扫描分层程度
 
-To determine what “good” means, we tried several different scan-levels and found the levels at which people interacted with photos the most. We also looked at the relative similarity between each of the scans and the final image. Our comparison function takes two images and returns a number between 0 and 1\. A score of 0 means completely different, while 1 means exactly the same. Here are the results:
+为了知道什么叫做一张棒棒的图片，我们尝试了多个不同的扫描分层程度并找到了人们最喜欢的那个平衡点。我们同时也关注着扫描的图片和最重的图片之间相对而言的相似度。我们的对比功能会获取两张图片并返还一个0到1之间的数字来表示他们的相似度。0是完全不像，1是完全一样。下面是一些测试的结果：
 
 ![](https://fbcdn-dragon-a.akamaihd.net/hphotos-ak-xpf1/t39.2365-6/10956903_771333189588155_1044601403_n.png)
 
-To measure the impact of choosing different scan levels, we ran an [A/B test](https://code.facebook.com/posts/520580318041111/airlock-facebook-s-mobile-a-b-testing-framework/) and then examined the data.
+为了对比选择不同扫描分层深度所带来的影响，我们还做了个[A/B 测试](https://code.facebook.com/posts/520580318041111/airlock-facebook-s-mobile-a-b-testing-framework/) 然后估算出了数据。
 
-## The Wins
+## 取得的成果
 
-1.  Adopting PJPEG reduced the data used by Facebook for iOS by about 10%.
-2.  Using PJPEG, we can show a good image 15% faster than before. This image is barely discernible from the full-quality version.
-3.  Adopting PJPEG helps us improve a different metric: “perceived wait-time”. The CPU is doing a little more work by showing earlier scans while the image continues to download, but we reduce how long it *appears* to take for images to download.
+1.  在iOS端上的Facebook采用PJPEG减少了10%的数据占用。
+2.  在用了用PJPEG之后，我们可以提高加载一张棒棒的图片的速度15%左右。新的图片和原来的全精度图片相比几乎没有区别。
+3.  采用PJEPG帮助我们提高了预览图的加载速度。通过这种方式，虽然CPU比以前多用了一点资源，但是我们大大减少了需要下载一张图片的时间。
 
-At Facebook, we continually work hard to reduce the amount of time you spend waiting, and this is just one of our many efforts. While PJPEG has helped make photos load faster, we know there is always room for improvement.
+在Facebook，我们仍然继续致力于减少用户等待的时间，并且这只是我们很多努力中的一小部分。即使当PJPEG已经帮助图片加载的更快的时候，我们知道还是有很多上升的空间。
 
-Many people worked on this effort; credit should go to Linji Yang, Miguel Cohnen, Kun Chen, Kirill Pugin, Edward Kandrot, Marty Greenia, Brian Cabral and Tomer Bar.
+很多人都在这个项目上花费了相当的时间；我们应当感谢Linji Yang, Miguel Cohnen, Kun Chen, Kirill Pugin, Edward Kandrot, Marty Greenia, Brian Cabral 和 Tomer Bar.
