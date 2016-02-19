@@ -16,7 +16,8 @@
 
 ## 需要认领的
 
-* HTTP/2 For Web Developers [认领地址](https://github.com/xitu/gold-miner/issues/110)
+* [英] 世界级的 Android 测试流程（一） ([认领地址](https://github.com/xitu/gold-miner/issues/111))
+* HTTP/2 For Web Developers ([认领地址](https://github.com/xitu/gold-miner/issues/110))
 * Google Cloud Functions 文档 ([认领issue地址](https://github.com/xitu/gold-miner/issues/104))
 * A GENTLE INTRODUCTION TO FUNCTIONAL JAVASCRIPT: PART 1 ([认领issue地址](https://github.com/xitu/gold-miner/issues/105))
 
