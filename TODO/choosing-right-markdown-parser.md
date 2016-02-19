@@ -1,4 +1,9 @@
-
+* 原文链接 : [Choosing the Right Markdown Parser](https://css-tricks.com/choosing-right-markdown-parser/)
+* 原文作者 : [CSS-TRICKS](https://css-tricks.com)
+* 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
+* 译者 : [认领地址](https://github.com/xitu/gold-miner/issues/113)
+* 校对者: 
+* 状态 : 认领中
 
 _The following is a guest post by [Ray Villalobos](http://www.raybo.org/). Ray is going to explore many of the different varietals of Markdown. All of them offer features beyond what the original Markdown can do, but they offer different features amongst themselves. If you're choosing a version to use (or a version you're offering to users on your web product), it pays to know what you are getting into, as it's difficult to switch once you've chosen and there is content out there that depends on those features. Ray, who has [a course on Markdown](http://www.lynda.com/Web-Development-tutorials/Up-Running-Markdown/438888-2.html), is going to share which versions have which features to help you make an informed choice._
 
