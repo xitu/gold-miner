@@ -16,6 +16,7 @@
 
 ## 需要认领的
 
+* 选择使用正确的 Markdown Parser （[认领地址]（））
 * [英] 世界级的 Android 测试流程（二） ([认领地址](https://github.com/xitu/gold-miner/issues/112))
 * [英] 世界级的 Android 测试流程（一） ([认领地址](https://github.com/xitu/gold-miner/issues/111))
 * HTTP/2 For Web Developers ([认领地址](https://github.com/xitu/gold-miner/issues/110))
