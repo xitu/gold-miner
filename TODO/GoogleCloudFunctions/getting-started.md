@@ -1,3 +1,5 @@
+原文[Getting Started](https://cloud.google.com/functions/getting-started)
+
 ##开始
 
 使用 [Google Cloud Functions](https://cloud.google.com/functions/docs/) 的准备工作：

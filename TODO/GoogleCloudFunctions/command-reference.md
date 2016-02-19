@@ -1,3 +1,5 @@
+原文[Command Reference](https://cloud.google.com/functions/reference)
+
 ##命令行参考
 
 ###Cloud Functions 命令行界面
