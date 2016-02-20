@@ -1,4 +1,9 @@
-
+* 原文链接 : [OAuth2 Authentication with Lua](http://www.bigeng.io/how-we-css-at-bigcommerce/)
+* 原文作者 : [Israel Sotomayor](https://twitter.com/zot24)
+* 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
+* 译者 : [认领地址](https://github.com/xitu/gold-miner/issues/115)
+* 校对者: 
+* 状态 : 认领中
 
 <small>By Israel Sotomayor Jan 14 2016 14:50 [Webdev](http://lua.space/webdev) [Reblogged](https://moltin.com/blog/2016/01/oauth2-authentication-with-lua) [Comments](http://lua.space/webdev/oauth2-authentication-with-lua#disqus_thread)</small>
 
