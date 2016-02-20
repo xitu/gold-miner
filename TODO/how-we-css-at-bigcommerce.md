@@ -3,7 +3,7 @@
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [shenxn](https://github.com/shenxn)
 * 校对者: 
-* 状态 : 
+* 状态 : 翻译完成
 
 # 在BigCommerce我们如何编写CSS
 
