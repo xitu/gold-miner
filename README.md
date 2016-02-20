@@ -16,6 +16,7 @@
 
 ## 需要认领的
 
+* Sketch 作者的采访 ([认领地址](https://github.com/xitu/gold-miner/issues/118))
 * OAuth2 Authentication with Lua ([认领地址](https://github.com/xitu/gold-miner/issues/117))
 * How we "CSS" at BigCommerce ([认领地址](https://github.com/xitu/gold-miner/issues/114))
 * 选择使用正确的 Markdown Parser  ([认领地址](https://github.com/xitu/gold-miner/issues/113))
