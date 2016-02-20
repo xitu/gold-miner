@@ -162,7 +162,7 @@ One of the best additions for developers is the ability to easily add code to yo
 
 #### 围栏代码块
 
-其中一个最好的对于开发者的就是能够简单的添加代码在Markdown中。原始的实现自动添加将一块文本作为代码如果它以四个空格或是一个制表符开头
+其中一个最好的对于开发者的就是能够简单的添加代码在Markdown中。原始的实现对如以四个空格或是一个制表符开头的行自动将文本作为代码块。这在一些时候会产生错误，所以严肃的实现引入了围栏代码块通过允许你在将一块文本标记为代码时使用三个刻度标记（`），或在某些情况下三重符号（〜）字符：
 
 
     ``` 
@@ -187,6 +187,10 @@ One of the best additions for developers is the ability to easily add code to yo
 
 Adding code blocks is great but, by default, markdown interpreters will simply wrap the blocks inside `<code>` and `<pre></pre>` tags, which makes the text show up as pre-formatted text in a fixed width font. Some implementations can improve on this by allowing you to specify a language next to the tickmarks and may include a parser that automatically lets you choose different color styles and specify which language your code was written so that the colors are more meaningful. 
 
+#### 语法高亮
+
+添加代码块是很棒的，但是默认Markdown的解释器将会将代码使用`<code>` 和 `<pre></pre>` 标记简单的包裹起来，这将使文本以一种预定格式和固定宽度字体格式显示。一些实现可以通过允许您指定旁边的刻度标记语言改善这一点，并可能包括一个分析器，可以自动让你选择不同的色彩款式，并指定语言代码编写，这样的颜色是更有意义的。
+
     ```css 
     body { 
       margin: 0; 
@@ -204,11 +208,18 @@ Adding code blocks is great but, by default, markdown interpreters will simply w
 
 * Some of this support doesn't come embedded into the parser, but is dependent upon other libraries like [highlight.js]( https://highlightjs.org/). 
 
+*有些支持不嵌入到解析器，而是依赖于其它的库如[highlight.js]（https://highlightjs.org/）。
+
 
 
 #### Tables 
 
 Writing tables in HTML can be cumbersome. Some versions of markdown can take care of this by letting you add tables with a fairly simple syntax. 
+
+#### 表格
+
+在HTML编写表格很笨拙。 markdown的某些版本可以让你添加表以一个相当简单的语法。
+
 
     Dimensions | Megapixels 
     ---|--- 
@@ -224,9 +235,9 @@ Renders like this:
 
 <tr> 
 
-<th>Dimensions</th> 
+<th>尺寸</th> 
 
-<th>Megapixels</th> 
+<th>百万像素</th> 
 
 </tr> 
 
@@ -264,6 +275,9 @@ Renders like this:
 
 It takes a few minutes to get the hang of building tables like this, but after you do it a few times, you’ll think of using HTML a bit of a hassle. If you need help creating tables, check out this [Markdown Tables Generator]( http://www.tablesgenerator.com/markdown_tables). 
 
+只需要几分钟就能够做出像这样的一个表格，但是在你做过几次后，你会认为使用HTML有一些麻烦。如果你需要帮助创建表格，阅读这篇指南[Markdown Tables Generator]( http://www.tablesgenerator.com/markdown_tables).
+
+
 [![Markdown Tables Generator]( https://cdn.css-tricks.com/wp-content/uploads/2016/01/OiO5m2q.png)]( http://www.tablesgenerator.com/markdown_tables) 
 
 **Available with:** [Github Flavored Markdown]( https://help.github.com/articles/github-flavored-markdown/), [Kramdown]( http://kramdown.gettalong.org/), [Markdown-it]( https://markdown-it.github.io/), [Marked]( https://github.com/chjj/marked), [Maruku]( http://maruku.rubyforge.org/index.html), [Multi-Markdown]( http://fletcherpenney.net/multimarkdown/), [PHP Markdown Extended]( https://github.com/piwi/markdown-extended), [Python Markdown]( https://pythonhosted.org/Markdown/), [Redcarpet]( https://github.com/vmg/redcarpet), [Remarkable]( https://jonschlinkert.github.io/remarkable/demo/), [Showdown]( http://showdownjs.github.io/demo/) 
@@ -273,6 +287,10 @@ It takes a few minutes to get the hang of building tables like this, but after y
 #### Metadata 
 
 Some extensions will let you add meta data that you can use to add information that your app can parse like perhaps choosing a template or setting the page title. Some use the [Multi-Markdown structure]( https://github.com/fletcher/MultiMarkdown/wiki/MultiMarkdown-Syntax-Guide#metadata) for this metadata, and others like the Jekyll parser use [YAML]( http://www.yaml.org/) as the format, which lets you express complex data within this metadata section. This can be a really useful handy feature for app developers. 
+
+#### 元数据
+
+一些拓展将会让你添加元数据
 
     --- 
     Title:  SVG Article  
