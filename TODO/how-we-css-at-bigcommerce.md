@@ -1,33 +1,34 @@
 * 原文链接 : [How we "CSS" at BigCommerce](http://www.bigeng.io/how-we-css-at-bigcommerce/)
 * 原文作者 : [Simon Taggart](http://www.bigeng.io/author/simon-taggart/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : [认领地址](https://github.com/xitu/gold-miner/issues/114)
+* 译者 : [shenxn](https://github.com/shenxn)
 * 校对者: 
-* 状态 : 认领中
+* 状态 : 
 
 TL;DR [Our SASS Style Guide is available on GitHub](https://github.com/bigcommerce/sass-style-guide)
 
-CSS is hard. Writing good CSS is harder. Writing good CSS with a big team on a large codebase… wow, just wow.
+CSS很难，而写出好的CSS代码更难。在一个大团队中，基于巨大的基本代码写出好的CSS代码，更是难上加难。
 
-We're not exactly unique as a software company; 120 engineers, 4 offices, 3 countries, 3 time zones and 7 years present an environment for a codebase we all know well. Everyone has had a go, there are 30 different button styles, 4 variations of your "Brand color" and a package.json / bower.json file listing every possible JavaScript package on the Internet. CSS just seems to be, in relative comparison to other languages, the most poorly neglected child, where the least amount of care is particularly given. There's no set rules, no conventions and no built in tools to prevent you from yourself. It's a minefield. We've all been there and a lot of people and teams will still be neck deep in it.
+我们不是一个特殊的软件公司：120个工程师，4间办公室，3个不同国家，3个时区，以及7年时间，代表着一个我们都很熟悉的代码库环境。每个人都一直在尝试，代码库中也许有30种不同的按钮风格，4个不同的“品牌色彩”变量，以及一个列举了互联网上所有JavaScript包的 package.json / bower.json 文件。CSS与其他语言相比，看起来就像是一个被忽视的孩子，没有得到应有的照顾。CSS没有固定的规范，没有约定，也没有內建工具来防止你写出自己的代码风格。CSS就是一个雷区，我们都在这个雷区里面，许许多多其他人和团队也会持续不断地陷入其中。
 
-At BC we decided that we could at least tackle some of the common problems in writing a lot of CSS, just by setting some ground rules and making everyone who contributes CSS follow them. Our SASS Style guide is nothing new or groundbreaking, and the concept is very similar to AirBnB's excellent [JavaScript Style guide](https://github.com/airbnb/javascript). I'm not going to copy and paste verbatim in this blog post either, instead you can [find it on GitHub](https://github.com/bigcommerce/sass-style-guide) and have a read in full for yourself. I did think, however, that it would be much more useful to call out some specific rules and explain them in greater detail, list the stack we build on and the tools we use to help everyone stay on the same page.
+在BC，我们认为至少可以通过设置一些基本规范，并且让每一个编写CSS的人遵循它们，来解决一些在编写大量CSS代码时经常会遇到的问题。我们的《SAAS风格指南》并没有什么突破性的内容，并且其中的观点很像AirBnB的 [《JavaScript风格指南 - JavaScript Style Guide》](https://github.com/airbnb/javascript)。我不会把那篇文章原封不动地复制到我的博客里，但是你可以[在GitHub上找到](https://github.com/bigcommerce/sass-style-guide)。然而我认为，详细解释一些具体规则并且列出我们使用的工具会更加有帮助。
 
-## The Aim
 
-First and foremost, what we wanted to achieve wasn't trying to be clever, cutting edge or highly optimised. We were after an open policy; sensible over optimised, clear over clever. It was aimed at making the codebase easy to on-board and share across a large team. You'll notice language like "readable and understandable", "simple", "short as possible but as long as necessary", and "Just because you can, doesn't mean you should" throughout the document to give us a common sense approach to writing CSS.
+## 目标
 
-## Principles
+首先，我们不是想要变得更巧妙或者进行很好的优化。我们遵循一个开放策略：合理性高于优化，清晰高于精巧。我们的目标是让我们的代码库更容易在一个大型团队中交流与共享。你会注意到在整篇文档中出现了许多类似“可读且可理解的”，“简单的”，“在包含必要内容的前提下尽量精简”，以及“你能做不意味着你应该做”等语句，告诉我们一些关于编写CSS的常识。
 
-Our CSS contribution is based on some guiding principles to how we think about CSS and components. I'll call out a couple of super important ones to us as they're either key or not particularly obvious:
+## 原则
 
-> Don't try to prematurely optimise your code; keep it readable and understandable
+我们的CSS代码基于一些关于CSS和组件的指导性原则。我会提到其中很重要的，或者是不那么显而易见的点：
 
-Our CSS code base is SASS, specifically SCSS syntax. SASS is wonderful, powerful and terrible all at the same time. With any powerful tool, comes the risk of software engineers doing the very thing they're _really_ good at: Over Engineering things.
+> 不要试图贸然地优化你的代码，你应该先保证代码可读且可理解。
 
-The phrase "Just because you can, doesn't mean you should" applies a lot to SASS. I've seen some really crazy complex SASS functions generating a bunch of crazy clever CSS and the danger is, not many people really pay much attention to the output. Output is pretty important, especially with weight and specificity. Also clever syntax or selector nesting like the [Parent Selector Suffix](http://thesassway.com/news/sass-3-3-released#parent-selector-suffixes) are neat, but are hell-a-difficult to search for in a codebase.
+我们的CSS代码基于SAAS，准确来说是SCSS语法。SASS是很强大的，同时也是很糟糕的。使用任何强大的工具，都会带来一个风险：软件工程师总是会做一件他们_非常_擅长的事：过度开发。
 
-    /* Try to avoid */
+“你能做不意味着你应该做”用在SASS上非常合适。我见到过一些非常复杂的SASS函数生成一大串非常疯狂的，巧妙的CSS代码。其中的危险在于：很多人根本不关注生成的代码。生成的代码是非常重要的，特别是代码量和代码的明确性。同时，使用巧妙的语法或者选择器构造（类似[《父选择器前缀 - Parent Selector Suffix》](http://thesassway.com/news/sass-3-3-released#parent-selector-suffixes)）会使代码变得简洁，但会使代码在代码库中非常难以搜索。
+
+    /* 尽量避免 */
     .component {
         &-parentSelectorSuffix { ... } /* .component-parentSelectorSuffix {} */
 
@@ -36,25 +37,25 @@ The phrase "Just because you can, doesn't mean you should" applies a lot to SASS
         .notSoObviousParentSelector & { ... } /* .notSoObviousParentSelector .component {} */
     }
 
-Don't be clever, be a good citizen, play nice with others. It makes it really hard for me to just pick up your code and contribute to it. Make it simpler and let post-processing do some of the clever stuff, I'll thank you for it later.
+不要过分聪明，做一个好公民，与他人好好合作。使用那些巧妙的方法甚至会使我难以找到你的代码。让代码更简单一些，让预处理器去做那些巧妙地事情，我一定会感谢你的。
 
-> Break down complex components until they are made up of simple components
+> 简化复杂的组件名称
 
-Undeniably the most important thing when composing components in your HTML and CSS patterns. Naming conventions like BEM or SUITCSS or SMACSS are really handy tools for keeping your modules modularised, but following the "convention" too strictly can lead to complex and long class names when dealing with deeply nested child elements.
+不可否认，这是在合并HTML和CSS样式组件时最重要的事。BEM，SUITCSS，SMACSS等命名规范都是保持你代码模块化的非常方便的工具，但是过分遵从这些“规范”会在处理一些深层子元素时产生一下非常长非常复杂的类名。
 
-Start abstracting out some common child patterns as early as you can to prevent these kind of dreaded dreaded selectors:
+尽早抽象一些常用的子样式来防止产生像这样的可怕的选择器：
 
     .componentName__childName__otherChildName__thisIsSillyNow__nopeYouTotallyMissedThePointOfThis--modifier {
         …
     }
 
-> Build your component as a mixin which outputs optional css
+> 使用mixin（混合）构建你的组件以输出可定义的CSS
 
-This is an interesting one. We as a team build patterns, common markup and CSS rules for displaying a certain type of data in the UI, in a particular way. Our framework doesn't output CSS by default, you have to opt in to the components you want.
+这是一个很有趣的点。我们作为一个团队，以一种特定的方式编写样式，公共标记和CSS规则来在UI中显示某一种数据。我们的框架不会默认输出CSS，你必须选择你想要的组件。
 
-Our framework also serves multiple, varied domains or properties, where the data might be the same, the pattern might be similar but for whatever reason the name we've chosen for our very generic pattern doesn't suit. Maybe our "card" component is better suited to be your "product" component in the context of that domains codebase. So every component we build is always a mixin, wrapped in a generic class name.
+同时，我们的框架服务多个不同的域名。这其中的数据可能是一样的，样式可能也是非常相似的，但因为某种原因，我们选择的通用样式命名却不适用。也许我们的“card”组件在你域名的代码库下叫做"product"更加合适。所以我们构建的所有组件都是一个mixin，包装在一个通用的类名内。
 
-    /* The media object as an example */
+    /* 以media对象作为例子 */
     .media {
         @include media;
     }
@@ -63,15 +64,16 @@ Our framework also serves multiple, varied domains or properties, where the data
         @include media("table");
     }
 
-Because you can opt out of the CSS that's generated, you are free to rename the component to your choosing, include the mixin, and still get the agreed upon design pattern.
+因为你可以自定义生成的CSS代码，你就可以自由地重命名你选择的组件，引用mixin，并且依然遵循设计样式。
 
-## Some Key Rules to Highlight
+## 一些需要强调的规则
 
-I'll highlight some key rules we think are important to a happy codebase, used on a large-ish product.
+我会强调一些我们认为对于一个好的代码库很重要的规则。
 
-#### Specificity [<small>(Link)</small>](https://github.com/bigcommerce/sass-style-guide#specificity)
+#### 明确性 [<small>(链接)</small>](https://github.com/bigcommerce/sass-style-guide#specificity)
 
 Aim for selectors that are as low in specificity as you can humanly make them. It'll help abstract components into smaller chunks, allow for greater re-use and re-mix of patterns, and it'll stop you having a lot of specificity clashes in the future.
+
 
     /* Avoid styling IDs */
     #component { … }
