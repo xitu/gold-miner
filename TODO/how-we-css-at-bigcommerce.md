@@ -26,7 +26,7 @@ CSS很难，而写出好的CSS代码更难。在一个大团队中，基于巨�
 
 我们的CSS代码基于SAAS，准确来说是SCSS语法。SASS是很强大的，同时也是很糟糕的。使用任何强大的工具，都会带来一个风险：软件工程师总是会做一件他们_非常_擅长的事：过度开发。
 
-“你能做不意味着你应该做”用在SASS上非常合适。我见到过一些非常复杂的SASS函数生成一大串非常疯狂的，巧妙的CSS代码。其中的危险在于：很多人根本不关注生成的代码。生成的代码是非常重要的，特别是代码量和代码的明确性。同时，使用巧妙的语法或者选择器构造（类似[《父选择器前缀 - Parent Selector Suffix》](http://thesassway.com/news/sass-3-3-released#parent-selector-suffixes)）会使代码变得简洁，但会使代码在代码库中非常难以搜索。
+“你能做不意味着你应该做”用在SASS上非常合适。我见到过一些非常复杂的SASS函数生成一大串非常疯狂的，巧妙的CSS代码。其中的危险在于：很多人根本不关注生成的代码。生成的代码是非常重要的，特别是代码量和代码的特殊性。同时，使用巧妙的语法或者选择器构造（类似[《父选择器前缀 - Parent Selector Suffix》](http://thesassway.com/news/sass-3-3-released#parent-selector-suffixes)）会使代码变得简洁，但会使代码在代码库中非常难以搜索。
 
     /* 尽量避免 */
     .component {
@@ -70,24 +70,23 @@ CSS很难，而写出好的CSS代码更难。在一个大团队中，基于巨�
 
 我会强调一些我们认为对于一个好的代码库很重要的规则。
 
-#### 明确性 [<small>(链接)</small>](https://github.com/bigcommerce/sass-style-guide#specificity)
+#### 特殊性 [<small>(链接)</small>](https://github.com/bigcommerce/sass-style-guide#specificity)
 
-Aim for selectors that are as low in specificity as you can humanly make them. It'll help abstract components into smaller chunks, allow for greater re-use and re-mix of patterns, and it'll stop you having a lot of specificity clashes in the future.
+尽量使用具有低特殊性的选择器。这会帮助你把组件抽象成小块，并更容易重用和重混合样式。同时，这能防止你的代码在将来产生很多特殊性冲突。
 
-
-    /* Avoid styling IDs */
+    /* 避免使用ID */
     #component { … }
 
-    /* Avoid styling descendant elements */
+    /* 避免使用子标签 */
     .component h2 { … }
 
-    /* Avoid element qualified selectors */
+    /* 避免使用修饰的标签选择器 */
     div.component { … }
 
-    /* Avoid overly specific rules */
+    /* 避免使用过于具体的选择器 */
     ul.component li span a:hover { … }  
 
-#### Declaring Values [<small>(Link)</small>](https://github.com/bigcommerce/sass-style-guide#when-declaring-values)
+#### 声明值 [<small>(链接)</small>](https://github.com/bigcommerce/sass-style-guide#when-declaring-values)
 
 When building a large codebase of patterns, try to only style the property you are explicitly concerned with to avoid overzealously resetting something you might want to inherit.
 
