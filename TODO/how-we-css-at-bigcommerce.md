@@ -9,9 +9,9 @@
 
 TL;DR [Our SASS Style Guide is available on GitHub](https://github.com/bigcommerce/sass-style-guide)
 
-CSS很难，而写出好的CSS代码更难。在一个大团队中，基于巨大的基本代码写出好的CSS代码，更是难上加难。
+CSS很难，而写出好的CSS代码更难。在一个大团队中，基于巨大的代码库写出好的CSS代码，更是难上加难。
 
-我们不是一个特殊的软件公司：120个工程师，4间办公室，3个不同国家，3个时区，以及7年时间，代表着一个我们都很熟悉的代码库环境。每个人都一直在尝试，代码库中也许有30种不同的按钮风格，4个不同的“品牌色彩”变量，以及一个列举了互联网上所有JavaScript包的 package.json / bower.json 文件。CSS与其他语言相比，看起来就像是一个被忽视的孩子，没有得到应有的照顾。CSS没有固定的规范，没有约定，也没有內建工具来防止你写出自己的代码风格。CSS就是一个雷区，我们都在这个雷区里面，许许多多其他人和团队也会持续不断地陷入其中。
+我们不是一个特殊的软件公司：120个工程师，4间办公室，3个不同国家，3个时区，以及7年时间，代表着一个大家都很熟悉的代码库环境。每个人都一直在尝试，代码库中也许有30种不同的按钮风格，4个不同的“品牌色彩”变量，以及一个列举了互联网上所有JavaScript包的 package.json / bower.json 文件。CSS与其他语言相比，看起来就像是一个被忽视的孩子，没有得到应有的照顾。CSS没有固定的规范，没有约定，也没有內建工具来防止你写出自己的代码风格。CSS就是一个雷区，我们都在这个雷区里面，许许多多其他人和团队也会持续不断地陷入其中。
 
 在BC，我们认为至少可以通过设置一些基本规范，并且让每一个编写CSS的人遵循它们，来解决一些在编写大量CSS代码时经常会遇到的问题。我们的《SAAS风格指南》并没有什么突破性的内容，并且其中的观点很像AirBnB的 [《JavaScript风格指南 - JavaScript Style Guide》](https://github.com/airbnb/javascript)。我不会把那篇文章原封不动地复制到我的博客里，但是你可以[在GitHub上找到](https://github.com/bigcommerce/sass-style-guide)。然而我认为，详细解释一些具体规则并且列出我们使用的工具会更加有帮助。
 
@@ -28,7 +28,7 @@ CSS很难，而写出好的CSS代码更难。在一个大团队中，基于巨�
 
 我们的CSS代码基于SAAS，准确来说是SCSS语法。SASS是很强大的，同时也是很糟糕的。使用任何强大的工具，都会带来一个风险：软件工程师总是会做一件他们_非常_擅长的事：过度开发。
 
-“你能做不意味着你应该做”用在SASS上非常合适。我见到过一些非常复杂的SASS函数生成一大串非常疯狂的，巧妙的CSS代码。其中的危险在于：很多人根本不关注生成的代码。生成的代码是非常重要的，特别是代码量和代码的特殊性。同时，使用巧妙的语法或者选择器构造（类似[《父选择器前缀 - Parent Selector Suffix》](http://thesassway.com/news/sass-3-3-released#parent-selector-suffixes)）会使代码变得简洁，但会使代码在代码库中非常难以搜索。
+“你能做不意味着你应该做”用在SASS上非常合适。我见到过一些非常复杂的SASS函数生成一大串非常疯狂的，巧妙的CSS代码。其中的危险在于：很多人根本不关注生成的代码。生成的代码是非常重要的，特别是代码量和代码的特殊性。同时，使用巧妙的语法或者选择器嵌套（类似[《父选择器前缀 - Parent Selector Suffix》](http://thesassway.com/news/sass-3-3-released#parent-selector-suffixes)）会使代码变得简洁，但会使代码在代码库中非常难以搜索。
 
     /* 尽量避免 */
     .component {
@@ -43,7 +43,7 @@ CSS很难，而写出好的CSS代码更难。在一个大团队中，基于巨�
 
 > 简化复杂的组件名称
 
-不可否认，这是在合并HTML和CSS样式组件时最重要的事。BEM，SUITCSS，SMACSS等命名规范都是保持你代码模块化的非常方便的工具，但是过分遵从这些“规范”会在处理一些深层子元素时产生一下非常长非常复杂的类名。
+不可否认，这是在合并HTML和CSS样式组件时最重要的事。BEM，SUITCSS，SMACSS等命名规范都是保持你代码模块化的非常方便的工具，但是过分遵从这些“规范”会在处理一些深层嵌套的子元素时产生一下非常长非常复杂的类名。
 
 尽早抽象一些常用的子样式来防止产生像这样的可怕的选择器：
 
@@ -101,7 +101,7 @@ CSS很难，而写出好的CSS代码更难。在一个大团队中，基于巨�
 
 首先使用`@extend`，然后使用`@include`，最后设置你的属性。理论上来说，extend和include不需要覆盖你的属性。同时，根据我的习惯，我总是按照**字母顺序**排列属性。
 
-There's been a lot of think pieces by lots of different people about all the magical and logical ways people like to group their CSS properties together inside a rule. Don't force people to learn your opinion or "logic" each time a new starter comes onboard. The order _**literally**_ doesn't matter. Aim for common sense, predictability and wide adoption; a lot of people know the alphabet and it'll let you spot repeat declarations easily.
+不同的人喜欢不同的方式来组合他们的CSS属性，每当有新人加入时，不要强迫他们学习你的观点或者是“逻辑”。属性的顺序事实上并不重要。考虑到常识和可预测性，大多数人都知道字母表，并且按字母顺序排序可以让你更快找到重复定义。
 
     .component {
         @extend %a-placeholder;
@@ -115,11 +115,12 @@ There's been a lot of think pieces by lots of different people about all the mag
         width: 150px;
     }
 
-#### Nesting [<small>(Link)</small>](https://github.com/bigcommerce/sass-style-guide#nesting)
+#### 嵌套 [<small>(链接)</small>](https://github.com/bigcommerce/sass-style-guide#nesting)
 
 Don't. Or at least try your damned hardest not to.
+不要使用，或者至少是尽量少用。
 
-The output of your compiled CSS is extremely easy to lose track of. You can easily break [Specificity](https://github.com/bigcommerce/sass-style-guide#specificity) and [Performance](https://github.com/bigcommerce/sass-style-guide#performance) guidelines when creating your selectors when you start nesting with SASS. Just because you can, doesn't mean you should. We aim for a maximum of 1 level deep of nesting, with the use of common sense when that's not achievable.
+你编译好的代码很容易被遗忘。当你在SASS中使用嵌套来构造选择器时，你会很容易破坏[特殊性](https://github.com/bigcommerce/sass-style-guide#specificity)和[性能](https://github.com/bigcommerce/sass-style-guide#performance)指导原则。你能做不意味着你应该做。我们最多只使用1层嵌套。
 
     .panel-body {
         position: relative;
@@ -141,24 +142,25 @@ The output of your compiled CSS is extremely easy to lose track of. You can easi
         }
     }
 
-#### Variable Names [<small>(Link)</small>](https://github.com/bigcommerce/sass-style-guide#variables)
+#### 变量名 [<small>(链接)</small>](https://github.com/bigcommerce/sass-style-guide#variables)
 
 Abstract the name of your variables. Don't name your variables, for example, the name of the colour you are setting. This is no longer a variable, and is no different to finding and replacing a hex colour code in your codebase, if you decide to change the value of `$background-color-blue`, to be red.
+抽象你的函数名称。不要使用你设置的颜色等来命名你的变量。使用颜色命名的变量不再是一个变量了，并且当你想把变量`$background-color-blue`的值改成red的时候，使用这样的变量与查找和替换一个十六进制颜色码没有区别了。
 
 *   `$color-brandPrimary` over `$bigcommerceBlue`
 
-#### Maps, and Map Functions [<small>(Link)</small>](https://github.com/bigcommerce/sass-style-guide#component--micro-app-level-variables)
+#### 映射以及映射函数 [<small>(链接)</small>](https://github.com/bigcommerce/sass-style-guide#component--micro-app-level-variables)
 
-As described by the excellent Erskine Design Article, [Friendlier colour names with SASS maps](http://erskinedesign.com/blog/friendlier-colour-names-sass-maps/), we use SASS maps for a lot of global style properties, not just colours, that our developers are going to need frequent access to.
+正如Erskine设计文章[《SASS映射中更友好的颜色名称 - Friendlier colour names with SASS maps》](http://erskinedesign.com/blog/friendlier-colour-names-sass-maps/)中所描述的，我们使用SASS映射来完成大量全局样式属性，不仅仅是颜色这种我们开发者经常需要用到的属性。
 
-It allows a simple, predictable API for them and a set scale for things like z-index, font-weight and line-height. We'll cover this in much more detail is a coming blog post.
+SASS为映射提供了一个简单且可预测的API，并且可以用于大量属性类似z-index，font-weight和line-height。我们会在将来的一篇博客中更详细讲述这个主题。
 
     color: color("grey", "darker");  
     font-size: fontSize("largest");  
     line-height: lineHeight("smaller");  
     z-index: zIndex("highest");  
 
-#### Component Naming Conventions [<small>(Link)</small>](https://github.com/bigcommerce/sass-style-guide#components)
+#### 组件命名规则 [<small>(链接)</small>](https://github.com/bigcommerce/sass-style-guide#components)
 
 We took pretty heavy influence from [SuitCSS](http://suitcss.github.io/) and slightly modified it to our tastes and needs. For example we opted for camel case instead of pascal case.
 
