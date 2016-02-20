@@ -5,6 +5,8 @@
 * 校对者: 
 * 状态 : 
 
+# 在BigCommerce我们如何编写CSS
+
 TL;DR [Our SASS Style Guide is available on GitHub](https://github.com/bigcommerce/sass-style-guide)
 
 CSS很难，而写出好的CSS代码更难。在一个大团队中，基于巨大的基本代码写出好的CSS代码，更是难上加难。
@@ -80,24 +82,24 @@ CSS很难，而写出好的CSS代码更难。在一个大团队中，基于巨�
     /* 避免使用子标签 */
     .component h2 { … }
 
-    /* 避免使用修饰的标签选择器 */
+    /* 避免使用有条件的标签选择器 */
     div.component { … }
 
     /* 避免使用过于具体的选择器 */
     ul.component li span a:hover { … }  
 
-#### 声明值 [<small>(链接)</small>](https://github.com/bigcommerce/sass-style-guide#when-declaring-values)
+#### 关于声明属性值 [<small>(链接)</small>](https://github.com/bigcommerce/sass-style-guide#when-declaring-values)
 
-When building a large codebase of patterns, try to only style the property you are explicitly concerned with to avoid overzealously resetting something you might want to inherit.
+在构建一个大的样式代码库时，试图只定义那些你明确关注的属性，以防止过度重置你想要继承的属性。
 
-*   `background-color: #333;` over `background: #333`
-*   `margin-top: 10px;` over `margin: 10px 0 0;`
+*   使用 `background-color: #333;` 而不是 `background: #333`
+*   使用 `margin-top: 10px;` 而不是 `margin: 10px 0 0;`
 
-Declaring a shorthand property of background for example, resets `background-position`, `background-image`, `background-size` etc which you may not want to do. Play nice with others.
+举例来说，在使用background的一个简略写法时，你将会重设`background-position`, `background-image`, `background-size`等你不想设的属性。
 
-#### Declaration Order [<small>(Link)</small>](https://github.com/bigcommerce/sass-style-guide#declaration-order)
+#### 声明顺序 [<small>(链接)</small>](https://github.com/bigcommerce/sass-style-guide#declaration-order)
 
-`@extend` first, then `@include`, then set your properties. Ideally the extend and include don't have to override or clash with your properties. Followed by my personal favourite rule, **alphabetical order**, always.
+首先使用`@extend`，然后使用`@include`，最后设置你的属性。理论上来说，extend和include不需要覆盖你的属性。同时，根据我的习惯，我总是按照**字母顺序**排列属性。
 
 There's been a lot of think pieces by lots of different people about all the magical and logical ways people like to group their CSS properties together inside a rule. Don't force people to learn your opinion or "logic" each time a new starter comes onboard. The order _**literally**_ doesn't matter. Aim for common sense, predictability and wide adoption; a lot of people know the alphabet and it'll let you spot repeat declarations easily.
 
