@@ -7,7 +7,7 @@
 
 # 在BigCommerce我们如何编写CSS
 
-TL;DR [Our SASS Style Guide is available on GitHub](https://github.com/bigcommerce/sass-style-guide)
+[我们的《SASS风格指南 - SASS Style Guide》现在已经可以在GitHub上找到](https://github.com/bigcommerce/sass-style-guide)
 
 CSS很难，而写出好的CSS代码更难。在一个大团队中，基于巨大的代码库写出好的CSS代码，更是难上加难。
 
@@ -55,7 +55,7 @@ CSS很难，而写出好的CSS代码更难。在一个大团队中，基于巨�
 
 这是一个很有趣的点。我们作为一个团队，以一种特定的方式编写样式，公共标记和CSS规则来在UI中显示某一种数据。我们的框架不会默认输出CSS，你必须选择你想要的组件。
 
-同时，我们的框架服务多个不同的域名。这其中的数据可能是一样的，样式可能也是非常相似的，但因为某种原因，我们选择的通用样式命名却不适用。也许我们的“card”组件在你域名的代码库下叫做"product"更加合适。所以我们构建的所有组件都是一个mixin，包装在一个通用的类名内。
+同时，我们的框架服务多个不同的领域。这其中的数据可能是一样的，样式可能也是非常相似的，但因为某种原因，我们选择的通用样式命名却不适用。也许我们的“card”组件在你领域的代码库下叫做"product"更加合适。所以我们构建的所有组件都是一个mixin，包装在一个通用的类名内。
 
     /* 以media对象作为例子 */
     .media {
@@ -189,7 +189,7 @@ SASS为映射提供了一个简单且可预测的API，并且可以用于大量�
 
 正如我之前提到的，我们新的CSS代码库是基于SASS的，并且像其他的酷小孩一样使用[libSass](http://sass-lang.com/libsass)来编译我们的样式表。其实还存在一些项目使用Ruby Sass，但是其性能的下降是非常显而易见的。
 
-我也提到了让你的编译器来做一些巧妙的事情。其中一个例子就是浏览器引擎前缀（Vendor Prefixes）。我们在SASS处理完成后使用Autoprefixer来自动添加浏览器引擎前缀，而不是使用不同浏览器专用的实现，或是让SASS做一些额外的事情来扰乱我们的代码。
+我也提到了让你的编译器来做一些巧妙的事情。其中一个例子就是浏览器引擎前缀（Vendor Prefixes）。我们在SASS处理完成后使用Autoprefixer来自动添加浏览器引擎前缀，而不是使用不同浏览器专用的实现来扰乱我们的代码，或是让SASS做一些额外的Grunt任务。
 
 #### 优化
 
@@ -197,35 +197,35 @@ SASS为映射提供了一个简单且可预测的API，并且可以用于大量�
 
 我知道你们中的一些人会在阅读指南的时候惊讶于我们一些规则引入的“重复代码”。然而CSSO帮助我们处理这些问题，并且我们依赖Gzip来移除可能剩下的重复代码片段。这使得我们的代码库可读，清晰并且容易理解。让工具来帮你做事。
 
-#### Linting
+#### 审查
 
-Lastly, how do you check your fellow team members are adhering to the rules? A good Pull Request policy will help most of the time, but on large teams that's not exactly scalable from a small CSS team.
+最后，你如何检查你的团队成员是否遵从这些规则呢？一个好的Pull Request政策在大多数时候是有效的，但是对于一个大团队来说并不只是一个小团队的扩容。
 
-We make use of [scss-lint](https://github.com/brigade/scss-lint) to analyse our code as we write it, and upon creating a pull request to the core libraries (just in case you thought you could just sneak that CSS in without spinning any of it up in a browser). If it fails to adhere to the styleguide, your code doesn't build on your machine, travis fails and your PR is marked as so. Helpfully we include the [YAML file for our rule set](https://github.com/bigcommerce/sass-style-guide/blob/master/.scss-lint.yml) which seems to get us really close to the style guide, so anyone can follow it. This configuration is also stored in our common grunt tasks that every new Front End project starts with, so you get CSS code linting out of the box.
+当我们编写代码和在核心库上创建Pull Request时，我们使用[scss-lint](https://github.com/brigade/scss-lint)来分析我们的代码。如果代码不符合风格指南，你的代码不会在你的机器上构建，Travis会失败，你的Pull Request也会被标记为失败。我们使用[YAML文件描述我们的规则 set](https://github.com/bigcommerce/sass-style-guide/blob/master/.scss-lint.yml)，这帮助我们非常接近风格指南，所以任何人都可以遵守。这个配置也被储存在我们开始所有新前端项目的公共Grunt任务上，所以你的CSS代码总是能被审查。
 
-## What actually happened
+## 到底发生了什么
 
-Despite our best efforts, it's still really difficult to enforce these ideas over a wide team. The tools only get you so far and you can still contribute CSS that is functional but doesn't make the grade.
+尽管我们已经尽力了，要把这些观点应用在一个大型的团队中依然非常困难。工具能够对你有所帮助，但是你依然可能编写出那些只是功能上满足但是并不好的CSS代码。
 
-We found education and coaching worked best, coupled with the tools and guidelines as reference. I particularly found that in many cases you really have to learn from your own mistakes with CSS before it really "clicks". Writing functional CSS that "just does the job" is extremely easy to do. Learning to spot how that will play in a wider eco-system and predict what side effects it might cause in the future, takes some time.
+与工具和指南相比，我们发现教育和训练是更好用的。我尤其发现很多时候你真的需要在为时已晚之前从你在CSS上犯的错误中学习。编写只是功能上满足的CSS代码是很容易的，要花一些时间去学习这样的代码在整个生态系统中扮演着怎样的条件，并尝试预测这会带来什么副作用。
 
-On the plus side, distributing our linting rules as part of our grunt plugin package was extremely handy to gain adoption and people generally found it extremely useful. The conventions we put in place for our map based properties like fonts, sizes, spacing, line heights and z-indexes were certainly a highlight for our JavaScript Engineers, as it was completely predictable and easy to remember.
+从好处来说，把我们的审查规则作为我们插件包的一部分确实能使风格指南易于被采用，并且人们都认为这非常实用。我们在基于映射的属性（像fonts，sizes，spacing，line，heights和z-index）中使用的规则对于我们的JavaScript工程师也帮助非常大，因为这些都是可预测而且便于记忆的。
 
-CSS in large teams on a large codebase is hard but you can make it suck less by implementing a few guidelines, tools and training sessions to help your teammates stay on the same page. Overall I think we've done a pretty good job so far.
+在大团队中基于大代码库编写CSS是非常困难的，但是你可以通过使用一些指南，工具和训练来帮助你的团队成员保持一致。总体来说，我觉得我们到目前为止都做得很好。
 
-Now, to preempt another one of those "But what about X which solves that better" moments I know you're having right now, I'd like to quickly acknowledge some of the great work people have been doing around this exact topic with regards to "[CSS in JavaScript](https://github.com/MicheleBertoli/css-in-js)" "[Inline CSS](https://speakerdeck.com/vjeux/react-css-in-js)" or the particularly awesome "[CSS Modules](http://glenmaddern.com/articles/css-modules)". These deal with legit problems, I'm not going to rubbish them whilst protecting the "old guard" way of doing CSS, though there are a few reasons why we haven't gone down this path. Some things we can't deal with. Some things we actually really like about CSS like media queries. Most of these ideas come from the React eco-system which we don't use. Most come from the fortunate place where the majority of your front-end is already in JavaScript, and ours certainly isn't. The chances are your codebase is newer than ours, significantly smaller or you've got more money and developers than sense. We envy you. It doesn't mean we or you are wrong.
+我知道你们一些人可能会说“可是X把这个处理得更好”。参考[《JavaScript中的CSS - CSS in JavaScript》](https://github.com/MicheleBertoli/css-in-js)，[《内联CSS - Inline CSS》](https://speakerdeck.com/vjeux/react-css-in-js)以及[《CSS模块 - CSS Modules》](http://glenmaddern.com/articles/css-modules)，我希望能介绍一些出色的人在这个问题上是怎么做的。我不会通过贬损这些处理方法，来保护那种编写CSS的老式方法，虽然说的确有一些原因使得我们没有按照那些方法去做。有一些问题是我们无法解决的；有一些问题我们真的很喜欢使用CSS，比如媒体查询（Media Query）。大多数上面的观点都是从React这个我们不使用的生态环境中来的。大多数也是来自于一些更幸运的环境比如大多数前端都已经是JavaScript，但我们的并不是，只是因为你们的代码库比我们的更新，更小，或者你们有更多钱和更多工程师，但这并不意味着我们是错的或者你们是错的。
 
-#### Summary
+#### 总结
 
-So that is our approach. Aimed for our environment, our eco-system and a place where (I imagine) a lot of other teams who aren't Facebook or live in a super ideal world, would find themselves in.
+这就是我们的全部内容了。着眼于我们的环境，我们的生态系统，一个很多其他没有使用Facebook或者生活在一个非常理想世界的团队生存的地方。
 
-I hope it'll help you, because with the combination of a well reasoned, pragmatic code style guide that's fairly easy for people to understand, coupled with post processing tools and code linting, we are able to find a relatively happy place in terms of a large CSS codebase.
+我希望这能够帮助你，因为使用一个有理有据的，实用的，并且通俗易懂的代码风格指南，以及一些预处理工具和代码审查，我们将能够在一个巨大的CSS代码库中找到乐趣。
 
-It's obviously not bullet proof, especially on it's own, and we'll be following up on this post with a few articles around "How we CSS" and how we make things "less terrible". We'll be tackling:
+很明显，文章中的很多内容都没有被着重阐明。我们将会发表一些其他关于“我们如何编写CSS”以及我们如何让事情“不那么糟糕”的文章。我们将会解答：
 
-*   Our CSS framework, Citadel, and how it helps us reduce and share code between completely different domain teams.
-*   Responsive and Scalable design patterns for building components that proportionally scale with browser size.
-*   Creating a simple developer API for dealing with common properties and sensible, predictable values for developer happiness.
-*   Creating a living Pattern-Lab for your organisation
-*   Techniques to deal with an enterprise scale design pattern library with the aim of creating consistency and reducing mutations and snowflakes.
+*   我们的CSS框架——Citadel，以及它如何帮助我们减少代码和在不同领域的团队间共享代码。
+*   构建自适应浏览器宽度的组件时使用的响应式和可伸缩设计样式。
+*   创建一个简单的开发接口来处理公共属性和合理的，可预测的开发者幸福度.
+*   为你的组织创建一个即时的Pattern-Lab
+*   处理一个为了创建连贯性并减少变化的企业范围设计样式库的技巧
 
