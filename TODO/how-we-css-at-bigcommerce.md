@@ -117,7 +117,6 @@ CSS很难，而写出好的CSS代码更难。在一个大团队中，基于巨�
 
 #### 嵌套 [<small>(链接)</small>](https://github.com/bigcommerce/sass-style-guide#nesting)
 
-Don't. Or at least try your damned hardest not to.
 不要使用，或者至少是尽量少用。
 
 你编译好的代码很容易被遗忘。当你在SASS中使用嵌套来构造选择器时，你会很容易破坏[特殊性](https://github.com/bigcommerce/sass-style-guide#specificity)和[性能](https://github.com/bigcommerce/sass-style-guide#performance)指导原则。你能做不意味着你应该做。我们最多只使用1层嵌套。
@@ -162,9 +161,9 @@ SASS为映射提供了一个简单且可预测的API，并且可以用于大量�
 
 #### 组件命名规则 [<small>(链接)</small>](https://github.com/bigcommerce/sass-style-guide#components)
 
-We took pretty heavy influence from [SuitCSS](http://suitcss.github.io/) and slightly modified it to our tastes and needs. For example we opted for camel case instead of pascal case.
+我们深受[SuitCSS](http://suitcss.github.io/)的启发，并且将其规则稍稍改动以符合我们的口味和需求。比如说，我们使用驼峰命名法替代Pascal命名法。
 
-As I mentioned earlier, correctly naming your descendant children is pretty important and we take a fairly pragmatic approach. Just because an element is a descendant of a descendant to the root of your component, doesn't mean it _has_ to live at that level in the DOM. It could easily function the same way and be adjacent to the first descendant.
+正如我之前提到的，正确命名你的继承是非常重要的，我们使用了一些相当实用的方法。一个元素是你组件根的继承的继承，不意味着它在DOM中_必须_处在那个层级，它可以在与第一个继承相邻的位置完成相同的功能。
 
     <article>  
       <header>
@@ -176,7 +175,7 @@ As I mentioned earlier, correctly naming your descendant children is pretty impo
       </div>
     </article>  
 
-When dealing with plurals of something, perhaps the descendant name is better suited to be the singular version, and not appended to the parent name.
+当我们处理一些复数的东西时，也许单数形式的继承名字会更合适，并且最好不要附加父亲的名字。
 
     <ul>  
       <li>
@@ -184,19 +183,19 @@ When dealing with plurals of something, perhaps the descendant name is better su
       </li>
     </ul>  
 
-It's much better to avoid verbose descendant class names, by keeping class names as short as possible and as long as necessary.
+最好在保留必要内容的情况下尽量精简来避免冗长的类名。
 
-#### Tools and Enforcement
+#### 工具和执行
 
-As I've mentioned our new CSS code base is in SASS and of course like all the other cool kids, we use [libSass](http://sass-lang.com/libsass) to compile our stylesheets. There are a couple of projects that use Ruby Sass, and the performance slow down is extremely noticeable.
+正如我之前提到的，我们新的CSS代码库是基于SASS的，并且像其他的酷小孩一样使用[libSass](http://sass-lang.com/libsass)来编译我们的样式表。其实还存在一些项目使用Ruby Sass，但是其性能的下降是非常显而易见的。
 
-I also mentioned about doing clever things with your code _**post**_ compilation. An example of this is vendor prefixes for CSS features that may not be fully adopted by certain browsers. Instead of littering our code with these vendor prefixes, proprietary implementations, or making Sass do a bunch of extra grunt work, we use Autoprefixer to do it for us after Sass has done it's job.
+我也提到了让你的编译器来做一些巧妙的事情。其中一个例子就是浏览器引擎前缀（Vendor Prefixes）。我们在SASS处理完成后使用Autoprefixer来自动添加浏览器引擎前缀，而不是使用不同浏览器专用的实现，或是让SASS做一些额外的事情来扰乱我们的代码。
 
-#### Optimisation
+#### 优化
 
-In terms of output optimisation, we use [CSSO](http://css.github.io/csso/) to optimise our code when we perform a deploy of our core CSS libraries. CSSO does the usual things you'd expect from minification like stripping out all the whitespace, but it also does some structural optimisations on the code for us. Grouping like selectors together from different components, shortening syntax where it can, shaving off small bites that we may introduce in our more "common sense", "clear over clever" approach to writing our code. Sounds risky, I know, but so far we haven't noticed anything breaking and it works really well.
+关于输出优化，我们在每次部署核心CSS库的时候使用[CSSO](http://css.github.io/csso/)来优化我们的代码。CSSO会做一些常见的操作如通过删除空白符来压缩文件等，但是CSSO也会对我们的代码进行一些结构优化：从不同的组件中将相似的选择器分组，缩减语法，并除去由于我们使用更多“常识”和“清晰高于精巧”原则所带来的一些影响。我知道这听起来有些风险，但是到目前为止我们都没有发现任何问题并且CSSO一直都运作良好。
 
-I'm sure some of you will have read along and through the guide and thrown your arms up in dismay at "the repetition of code" we'd introduce with some of our rules. Well CSSO helps us deal with that _after_ the fact, and we can rely heavily on Gzip to remove some of the other repetitive code snippets that might remain. This leaves our code base readable, clear and obvious. Let tools do the work for you.
+我知道你们中的一些人会在阅读指南的时候惊讶于我们一些规则引入的“重复代码”。然而CSSO帮助我们处理这些问题，并且我们依赖Gzip来移除可能剩下的重复代码片段。这使得我们的代码库可读，清晰并且容易理解。让工具来帮你做事。
 
 #### Linting
 
