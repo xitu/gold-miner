@@ -13,12 +13,12 @@ CSS很难，而写出好的CSS代码更难。在一个大团队中，基于巨�
 
 我们不是一个特殊的软件公司：120个工程师，4间办公室，3个不同国家，3个时区，以及7年时间，代表着一个大家都很熟悉的代码库环境。每个人都一直在尝试，代码库中也许有30种不同的按钮风格，4个不同的“品牌色彩”变量，以及一个列举了互联网上所有JavaScript包的 package.json / bower.json 文件。CSS与其他语言相比，看起来就像是一个被忽视的孩子，没有得到应有的照顾。CSS没有固定的规范，没有约定，也没有內建工具来防止你写出自己的代码风格。CSS就是一个雷区，我们都在这个雷区里面，许许多多其他人和团队也会持续不断地陷入其中。
 
-在BC，我们认为至少可以通过设置一些基本规范，并且让每一个编写CSS的人遵循它们，来解决一些在编写大量CSS代码时经常会遇到的问题。我们的《SAAS风格指南》并没有什么突破性的内容，并且其中的观点很像AirBnB的 [《JavaScript风格指南 - JavaScript Style Guide》](https://github.com/airbnb/javascript)。我不会把那篇文章原封不动地复制到我的博客里，但是你可以[在GitHub上找到](https://github.com/bigcommerce/sass-style-guide)。然而我认为，详细解释一些具体规则并且列出我们使用的工具会更加有帮助。
+在BigCommerce，我们认为至少可以通过设置一些基本规范，并且让每一个编写CSS的人遵循它们，来解决一些在编写大量CSS代码时经常会遇到的问题。我们的《SAAS风格指南》并没有什么突破性的内容，并且其中的观点很像AirBnB的 [《JavaScript风格指南 - JavaScript Style Guide》](https://github.com/airbnb/javascript)。我不会把那篇文章原封不动地复制到我的博客里，但是你可以[在GitHub上找到](https://github.com/bigcommerce/sass-style-guide)。然而我认为，详细解释一些具体规则并且列出我们使用的工具会更加有帮助。
 
 
 ## 目标
 
-首先，我们不是想要变得更巧妙或者进行很好的优化。我们遵循一个开放策略：合理性高于优化，清晰高于精巧。我们的目标是让我们的代码库更容易在一个大型团队中交流与共享。你会注意到在整篇文档中出现了许多类似“可读且可理解的”，“简单的”，“在包含必要内容的前提下尽量精简”，以及“你能做不意味着你应该做”等语句，告诉我们一些关于编写CSS的常识。
+首先，我们不是想要变得更巧妙或者进行很好的优化。我们遵循一个公开的策略：合理性高于优化，清晰高于精巧。我们的目标是让我们的代码库更容易在一个大型团队中交流与共享。你会注意到在整篇文档中出现了许多类似“可读且可理解的”、“简单的”、“在包含必要内容的前提下尽量精简”、以及“你能做不意味着你应该做”等语句，告诉我们一些关于编写CSS的常识。
 
 ## 原则
 
@@ -28,7 +28,7 @@ CSS很难，而写出好的CSS代码更难。在一个大团队中，基于巨�
 
 我们的CSS代码基于SAAS，准确来说是SCSS语法。SASS是很强大的，同时也是很糟糕的。使用任何强大的工具，都会带来一个风险：软件工程师总是会做一件他们_非常_擅长的事：过度开发。
 
-“你能做不意味着你应该做”用在SASS上非常合适。我见到过一些非常复杂的SASS函数生成一大串非常疯狂的，巧妙的CSS代码。其中的危险在于：很多人根本不关注生成的代码。生成的代码是非常重要的，特别是代码量和代码的特殊性。同时，使用巧妙的语法或者选择器嵌套（类似[《父选择器前缀 - Parent Selector Suffix》](http://thesassway.com/news/sass-3-3-released#parent-selector-suffixes)）会使代码变得简洁，但会使代码在代码库中非常难以搜索。
+“你能做不意味着你应该做”用在SASS上非常合适。我见到过一些非常复杂的SASS函数生成一大串非常疯狂的，“巧妙”的CSS代码。其中的危险在于：很多人根本不关注生成的代码。生成的代码是非常重要的，特别是代码量和代码的特殊性（specificity）。同时，使用巧妙的语法或者选择器嵌套（类似[《父选择器前缀 - Parent Selector Suffix》](http://thesassway.com/news/sass-3-3-released#parent-selector-suffixes)）会使代码变得简洁，但会使代码在代码库中非常难以搜索。
 
     /* 尽量避免 */
     .component {
@@ -39,11 +39,11 @@ CSS很难，而写出好的CSS代码更难。在一个大团队中，基于巨�
         .notSoObviousParentSelector & { ... } /* .notSoObviousParentSelector .component {} */
     }
 
-不要过分聪明，做一个好公民，与他人好好合作。使用那些巧妙的方法甚至会使我难以找到你的代码。让代码更简单一些，让预处理器去做那些巧妙地事情，我一定会感谢你的。
+不要过度使用一些“巧妙”的技巧。使用那些巧妙的方法甚至会使我难以找到你的代码。让代码更简单一些，让预处理器去做那些巧妙的事情。
 
 > 简化复杂的组件名称
 
-不可否认，这是在合并HTML和CSS样式组件时最重要的事。BEM，SUITCSS，SMACSS等命名规范都是保持你代码模块化的非常方便的工具，但是过分遵从这些“规范”会在处理一些深层嵌套的子元素时产生一下非常长非常复杂的类名。
+不可否认，这是在合并HTML和CSS样式组件时最重要的事。BEM，SUITCSS，SMACSS等命名规范都是保持你代码模块化非常方便的工具，但是过分遵从这些“规范”会在处理一些深层嵌套的子元素时产生一些非常长非常复杂的类名。
 
 尽早抽象一些常用的子样式来防止产生像这样的可怕的选择器：
 
@@ -53,7 +53,7 @@ CSS很难，而写出好的CSS代码更难。在一个大团队中，基于巨�
 
 > 使用mixin（混合）构建你的组件以输出可定义的CSS
 
-这是一个很有趣的点。我们作为一个团队，以一种特定的方式编写样式，公共标记和CSS规则来在UI中显示某一种数据。我们的框架不会默认输出CSS，你必须选择你想要的组件。
+这是一个很有趣的点。我们作为一个团队，以一种特定的方式编写样式、公共标记和CSS规则以在UI中显示某一种数据。我们的框架不会默认输出CSS，你必须选择你想要的组件。
 
 同时，我们的框架服务多个不同的领域。这其中的数据可能是一样的，样式可能也是非常相似的，但因为某种原因，我们选择的通用样式命名却不适用。也许我们的“card”组件在你领域的代码库下叫做"product"更加合适。所以我们构建的所有组件都是一个mixin，包装在一个通用的类名内。
 
@@ -66,15 +66,15 @@ CSS很难，而写出好的CSS代码更难。在一个大团队中，基于巨�
         @include media("table");
     }
 
-因为你可以自定义生成的CSS代码，你就可以自由地重命名你选择的组件，引用mixin，并且依然遵循设计样式。
+因为你可以自定义生成的CSS代码，你就可以自由地重命名你选择的组件和引用mixin。同时你依然遵循设计样式。
 
 ## 一些需要强调的规则
 
 我会强调一些我们认为对于一个好的代码库很重要的规则。
 
-#### 特殊性 [<small>(链接)</small>](https://github.com/bigcommerce/sass-style-guide#specificity)
+#### 特殊性（Specificity） [<small>(链接)</small>](https://github.com/bigcommerce/sass-style-guide#specificity)
 
-尽量使用具有低特殊性的选择器。这会帮助你把组件抽象成小块，并更容易重用和重混合样式。同时，这能防止你的代码在将来产生很多特殊性冲突。
+尽量使用具有低特殊性的选择器。这会帮助你把组件抽象成小块，并更容易重用和重混合样式。同时，这能防止你的代码在将来产生很多特殊性冲突（Specificity Clash）。
 
     /* 避免使用ID */
     #component { … }
@@ -88,14 +88,14 @@ CSS很难，而写出好的CSS代码更难。在一个大团队中，基于巨�
     /* 避免使用过于具体的选择器 */
     ul.component li span a:hover { … }  
 
-#### 关于声明属性值 [<small>(链接)</small>](https://github.com/bigcommerce/sass-style-guide#when-declaring-values)
+#### 声明属性 [<small>(链接)</small>](https://github.com/bigcommerce/sass-style-guide#when-declaring-values)
 
 在构建一个大的样式代码库时，试图只定义那些你明确关注的属性，以防止过度重置你想要继承的属性。
 
 *   使用 `background-color: #333;` 而不是 `background: #333`
 *   使用 `margin-top: 10px;` 而不是 `margin: 10px 0 0;`
 
-举例来说，在使用background的一个简略写法时，你将会重设`background-position`, `background-image`, `background-size`等你不想设的属性。
+举例来说，在使用background简略写法时，你将会重设`background-position`, `background-image`, `background-size`等你不想重设的属性。
 
 #### 声明顺序 [<small>(链接)</small>](https://github.com/bigcommerce/sass-style-guide#declaration-order)
 
@@ -115,7 +115,7 @@ CSS很难，而写出好的CSS代码更难。在一个大团队中，基于巨�
         width: 150px;
     }
 
-#### 嵌套 [<small>(链接)</small>](https://github.com/bigcommerce/sass-style-guide#nesting)
+#### 嵌套（Nesting） [<small>(链接)</small>](https://github.com/bigcommerce/sass-style-guide#nesting)
 
 不要使用，或者至少是尽量少用。
 
@@ -143,12 +143,11 @@ CSS很难，而写出好的CSS代码更难。在一个大团队中，基于巨�
 
 #### 变量名 [<small>(链接)</small>](https://github.com/bigcommerce/sass-style-guide#variables)
 
-Abstract the name of your variables. Don't name your variables, for example, the name of the colour you are setting. This is no longer a variable, and is no different to finding and replacing a hex colour code in your codebase, if you decide to change the value of `$background-color-blue`, to be red.
-抽象你的函数名称。不要使用你设置的颜色等来命名你的变量。使用颜色命名的变量不再是一个变量了，并且当你想把变量`$background-color-blue`的值改成red的时候，使用这样的变量与查找和替换一个十六进制颜色码没有区别了。
+抽象你的变量名称。不要使用你设置的颜色等来命名你的变量。使用颜色命名的变量不再是一个变量了，并且当你想把变量`$background-color-blue`的值改成red的时候，使用这样的变量与查找和替换一个十六进制颜色码就没有区别了。
 
-*   `$color-brandPrimary` over `$bigcommerceBlue`
+*   使用 `$color-brandPrimary` 而不是 `$bigcommerceBlue`
 
-#### 映射以及映射函数 [<small>(链接)</small>](https://github.com/bigcommerce/sass-style-guide#component--micro-app-level-variables)
+#### 映射（Map）以及映射函数（Map Function） [<small>(链接)</small>](https://github.com/bigcommerce/sass-style-guide#component--micro-app-level-variables)
 
 正如Erskine设计文章[《SASS映射中更友好的颜色名称 - Friendlier colour names with SASS maps》](http://erskinedesign.com/blog/friendlier-colour-names-sass-maps/)中所描述的，我们使用SASS映射来完成大量全局样式属性，不仅仅是颜色这种我们开发者经常需要用到的属性。
 
@@ -161,7 +160,7 @@ SASS为映射提供了一个简单且可预测的API，并且可以用于大量�
 
 #### 组件命名规则 [<small>(链接)</small>](https://github.com/bigcommerce/sass-style-guide#components)
 
-我们深受[SuitCSS](http://suitcss.github.io/)的启发，并且将其规则稍稍改动以符合我们的口味和需求。比如说，我们使用驼峰命名法替代Pascal命名法。
+我们深受[SuitCSS](http://suitcss.github.io/)的启发，并且将其规则稍稍改动以符合我们的口味和需求。比如说，我们使用驼峰命名法（Camel Case）替代Pascal命名法（Pascal Case）。
 
 正如我之前提到的，正确命名你的继承是非常重要的，我们使用了一些相当实用的方法。一个元素是你组件根的继承的继承，不意味着它在DOM中_必须_处在那个层级，它可以在与第一个继承相邻的位置完成相同的功能。
 
@@ -175,7 +174,7 @@ SASS为映射提供了一个简单且可预测的API，并且可以用于大量�
       </div>
     </article>  
 
-当我们处理一些复数的东西时，也许单数形式的继承名字会更合适，并且最好不要附加父亲的名字。
+当我们处理一些复数的东西时，也许单数形式的继承名字会更合适，并且最好不要附加父元素的名字。
 
     <ul>  
       <li>
@@ -189,7 +188,7 @@ SASS为映射提供了一个简单且可预测的API，并且可以用于大量�
 
 正如我之前提到的，我们新的CSS代码库是基于SASS的，并且像其他的酷小孩一样使用[libSass](http://sass-lang.com/libsass)来编译我们的样式表。其实还存在一些项目使用Ruby Sass，但是其性能的下降是非常显而易见的。
 
-我也提到了让你的编译器来做一些巧妙的事情。其中一个例子就是浏览器引擎前缀（Vendor Prefixes）。我们在SASS处理完成后使用Autoprefixer来自动添加浏览器引擎前缀，而不是使用不同浏览器专用的实现来扰乱我们的代码，或是让SASS做一些额外的Grunt任务。
+我也提到了让你的编译器来做一些巧妙的事情。其中一个例子就是浏览器引擎前缀（Vendor Prefixes ）。我们在SASS处理完成后使用Autoprefixer来自动添加浏览器引擎前缀，而不是使用不同浏览器专用的实现来扰乱我们的代码，或是让SASS做一些额外的Grunt任务。
 
 #### 优化
 
@@ -199,7 +198,7 @@ SASS为映射提供了一个简单且可预测的API，并且可以用于大量�
 
 #### 审查
 
-最后，你如何检查你的团队成员是否遵从这些规则呢？一个好的Pull Request政策在大多数时候是有效的，但是对于一个大团队来说并不只是一个小团队的扩容。
+最后，你如何检查你的团队成员是否遵从这些规则呢？一个好的Pull Request政策在大多数时候是有效的，但是对于一个大团队来说这并不只是一个小团队政策的放大版本。
 
 当我们编写代码和在核心库上创建Pull Request时，我们使用[scss-lint](https://github.com/brigade/scss-lint)来分析我们的代码。如果代码不符合风格指南，你的代码不会在你的机器上构建，Travis会失败，你的Pull Request也会被标记为失败。我们使用[YAML文件描述我们的规则 set](https://github.com/bigcommerce/sass-style-guide/blob/master/.scss-lint.yml)，这帮助我们非常接近风格指南，所以任何人都可以遵守。这个配置也被储存在我们开始所有新前端项目的公共Grunt任务上，所以你的CSS代码总是能被审查。
 
@@ -207,25 +206,25 @@ SASS为映射提供了一个简单且可预测的API，并且可以用于大量�
 
 尽管我们已经尽力了，要把这些观点应用在一个大型的团队中依然非常困难。工具能够对你有所帮助，但是你依然可能编写出那些只是功能上满足但是并不好的CSS代码。
 
-与工具和指南相比，我们发现教育和训练是更好用的。我尤其发现很多时候你真的需要在为时已晚之前从你在CSS上犯的错误中学习。编写只是功能上满足的CSS代码是很容易的，要花一些时间去学习这样的代码在整个生态系统中扮演着怎样的条件，并尝试预测这会带来什么副作用。
+与工具和指南相比，我们发现教育和训练是更好用的。我尤其发现很多时候你真的需要在为时已晚之前从你在CSS上犯的错误中学习。编写只是功能上满足的CSS代码是很容易的，要花一些时间去学习这样的代码在整个生态系统中扮演着怎样的角色，并尝试预测这会带来什么副作用。
 
-从好处来说，把我们的审查规则作为我们插件包的一部分确实能使风格指南易于被采用，并且人们都认为这非常实用。我们在基于映射的属性（像fonts，sizes，spacing，line，heights和z-index）中使用的规则对于我们的JavaScript工程师也帮助非常大，因为这些都是可预测而且便于记忆的。
+从好的方面来说，把我们的审查规则作为我们插件包的一部分确实能使风格指南易于被采用，并且人们都认为这非常实用。我们在基于映射的属性（像fonts，sizes，spacing，line，heights和z-index）中使用的规则对于我们的JavaScript工程师也帮助非常大，因为这些都是可预测而且便于记忆的。
 
 在大团队中基于大代码库编写CSS是非常困难的，但是你可以通过使用一些指南，工具和训练来帮助你的团队成员保持一致。总体来说，我觉得我们到目前为止都做得很好。
 
-我知道你们一些人可能会说“可是X把这个处理得更好”。参考[《JavaScript中的CSS - CSS in JavaScript》](https://github.com/MicheleBertoli/css-in-js)，[《内联CSS - Inline CSS》](https://speakerdeck.com/vjeux/react-css-in-js)以及[《CSS模块 - CSS Modules》](http://glenmaddern.com/articles/css-modules)，我希望能介绍一些出色的人在这个问题上是怎么做的。我不会通过贬损这些处理方法，来保护那种编写CSS的老式方法，虽然说的确有一些原因使得我们没有按照那些方法去做。有一些问题是我们无法解决的；有一些问题我们真的很喜欢使用CSS，比如媒体查询（Media Query）。大多数上面的观点都是从React这个我们不使用的生态环境中来的。大多数也是来自于一些更幸运的环境比如大多数前端都已经是JavaScript，但我们的并不是，只是因为你们的代码库比我们的更新，更小，或者你们有更多钱和更多工程师，但这并不意味着我们是错的或者你们是错的。
+我知道你们一些人可能会说“可是X把这个处理得更好”。我希望能介绍一些出色的人在这个问题上是怎么做的，参考[《JavaScript中的CSS - CSS in JavaScript》](https://github.com/MicheleBertoli/css-in-js)，[《内联CSS - Inline CSS》](https://speakerdeck.com/vjeux/react-css-in-js)以及[《CSS模块 - CSS Modules》](http://glenmaddern.com/articles/css-modules)。我不会通过贬损这些处理方法，来保护那种编写CSS的老式方法，然而的确有一些原因使得我们没有按照那些方法去做。有一些问题是我们无法解决的；有一些问题我们真的很喜欢使用CSS来解决，比如使用媒体查询（Media Query）。大多数上面的观点和方法都是从React这个我们不使用的生态环境中来的。大多数也是来自于一些更幸运的环境比如大多数前端都已经是JavaScript，但我们的并不是。只是因为你们的代码库比我们的更新，更小，或者你们有更多钱和更多工程师，但这并不意味着我们是错的或者你们是错的。
 
 #### 总结
 
-这就是我们的全部内容了。着眼于我们的环境，我们的生态系统，一个很多其他没有使用Facebook或者生活在一个非常理想世界的团队生存的地方。
+这就是我们的全部内容了。着眼于我们的环境、我们的生态系统，一个很多其他没有使用Facebook或者没有生活在一个非常理想世界的团队生存的地方。
 
-我希望这能够帮助你，因为使用一个有理有据的，实用的，并且通俗易懂的代码风格指南，以及一些预处理工具和代码审查，我们将能够在一个巨大的CSS代码库中找到乐趣。
+我希望这能够帮助你，因为使用一个有理有据的、实用的、并且通俗易懂的代码风格指南，以及一些预处理工具和代码审查，我们将能够在一个巨大的CSS代码库中找到乐趣。
 
 很明显，文章中的很多内容都没有被着重阐明。我们将会发表一些其他关于“我们如何编写CSS”以及我们如何让事情“不那么糟糕”的文章。我们将会解答：
 
 *   我们的CSS框架——Citadel，以及它如何帮助我们减少代码和在不同领域的团队间共享代码。
 *   构建自适应浏览器宽度的组件时使用的响应式和可伸缩设计样式。
-*   创建一个简单的开发接口来处理公共属性和合理的，可预测的开发者幸福度.
-*   为你的组织创建一个即时的Pattern-Lab
-*   处理一个为了创建连贯性并减少变化的企业范围设计样式库的技巧
+*   创建一个简单的开发接口来处理公共属性。
+*   为你的组织创建一个即时的Pattern-Lab。
+*   处理一个企业范围的设计样式库的技巧
 
