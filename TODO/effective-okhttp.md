@@ -3,7 +3,7 @@
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [Brucezz](https://github.com/brucezz)
 * 校对者: 
-* 状态 :  初稿
+* 状态 :  待定
 
 在为[可汗学院](https://www.khanacademy.org/)开发 [Android app](https://play.google.com/store/apps/details?id=org.khanacademy.android) 时，[OkHttp](http://square.github.io/okhttp/) 是一个很重要的开源库。虽然它的默认配置提供了重要的工具，下面是我们为了提高 OkHttp 的可用性和自我检查能力而采取的一些措施：
 
@@ -15,10 +15,11 @@
 
 正如 [Jesse Wilson 所建议的](http://stackoverflow.com/a/32752861/400717)，我们将响应缓存在 `context.getCacheDir()` 的子文件夹中：
 
+
 ```java
-// Base directory recommended by http://stackoverflow.com/a/32752861/400717.
-// Guard against null, which is possible according to
-// https://groups.google.com/d/msg/android-developers/-694j87eXVU/YYs4b6kextwJ and
+// 缓存根目录，由这里推荐 -> http://stackoverflow.com/a/32752861/400717.
+// 小心可能为空，参考下面两个链接
+// https://groups.google.com/d/msg/android-developers/-694j87eXVU/YYs4b6kextwJ 和
 // http://stackoverflow.com/q/4441849/400717.
 final @Nullable File baseDir = context.getCacheDir();
 if (baseDir != null) {
@@ -37,19 +38,21 @@ Stetho 不仅能够观察应用的 SQLite 数据库和 View 的层级结构，�
 
 ![Image of Stetho](http://omgitsmgp.com/assets/images/posts/stetho-inspector-network.png)
 
-这种自我检查机制（Introspection）有效地确保服务器返回了允许缓存资源的 HTTP 头部，以及喝茶缓存资源存在时没有发出任何请求。
+这种自我检查机制（Introspection）有效地确保服务器返回了允许缓存资源的 HTTP 头部，以及核查缓存资源存在时没有发出任何请求。
 
 开启 Stetho，只用简单地添加一个 `StethoInterceptor` 实例到网络拦截器（Network Interceptor）的列表中去：
+
 
 ```java
 okHttpClient.networkInterceptors().add(new StethoInterceptor());
 ```
 
+
 应用运行完毕之后，打开 Chrome 然后跳转到 `chrome://inspect`。设备、应用以及应用标识符信息会被列举出来。直接点击“inspect”链接就可以打开开发者工具，然后切换到 Network 标签开始监测 OkHttp 发出的请求。
 
 ### 3\. 使用 Picasso 和 Retrofit
 
-如果你喜欢我们，你可能会使用 [Picasso](http://square.github.io/picasso/) 来加载网络图片，或者使用 [Retrofit](http://square.github.io/retrofit/) 来简化网络请求和解析响应消息的问题。默认情况下，如果你没有显式地指定一个 `OkHttpClient`，这些开源库会隐式的创建它们自己的 `OkHttpClient` 实例供内部使用。以下代码来自于 Picasso v2.5.2 的 `OkHttpDownloader` 类：
+如果你喜欢我们，你可能会使用 [Picasso](http://square.github.io/picasso/) 来加载网络图片，或者使用 [Retrofit](http://square.github.io/retrofit/) 来简化网络请求和解析响应消息。默认情况下，如果你没有显式地指定一个 `OkHttpClient`，这些开源库会隐式地创建它们自己的 `OkHttpClient` 实例以供内部使用。以下代码来自于 Picasso 2.5.2 版本的 `OkHttpDownloader` 类：
 
 
 ```java
@@ -64,7 +67,7 @@ private static OkHttpClient defaultOkHttpClient() {
 
 Retrofit 也有类似的工厂方法用来创建它自己的 `OkHttpClient`。
 
-图片是应用中需要加载的最大的资源之一。Picasso 是严格地在内存中按照 LRU 策略维护它的图片缓存。如果客户端用 Picasso 尝试加载一张图片，但是 Picasso 没有在内存的缓存中找到这张图片，那么它会委托它内部的 `OkHttpClient` 实例来加载该图片。在默认情况下，该实例会一直从服务器加载图片，因为前面的 `defaultOkHttpClient` 方法没有在文件系统中配置响应缓存。
+图片是应用中需要加载的最大的资源之一。Picasso 是严格地按照 LRU 策略在内存中维护它的图片缓存。如果客户端用 Picasso 尝试加载一张图片，然而 Picasso 没有在内存的缓存中找到这张图片，那么它会委托内部的 `OkHttpClient` 实例来加载该图片。在默认情况下，该实例会一直从服务器加载图片，因为前面的 `defaultOkHttpClient` 方法没有在文件系统中配置响应缓存。
 
 设置你自己的 `OkHttpClient` 实例允许从文件系统返回一个已缓存的响应消息。没有一张图片从服务器加载。这在应用第一次加载时是尤为重要的。在这个时候，Picasso 的内存中的缓存是 [“冷”](http://stackoverflow.com/a/22756972/400717)的，它会频繁地委托 `OkHttpClient` 实例去加载图片。
 
@@ -77,18 +80,20 @@ final Picasso picasso = new Picasso.Builder(context)
     .downloader(new OkHttpDownloader(okHttpClient))
     .build();
 
-// The client should inject this instance whenever it is needed, but replace the singleton
-// instance just in case.
+//客户端应该在任何需要的时候来创建这个实例
+//以防万一，替换掉那个单例对象
 Picasso.setSingletonInstance(picasso);
 ```
 
 在 Retrofit 1.9.x 中，配合着 `RestAdapter` 使用你的 `OkHttpClient` 实例，把 `OkHttpClient` 实例包装到一个 `OkClient` 实例中，然后传递给 `RestAdapter.Builder` 实例的 `setClient` 方法：
 
+
     restAdapterBuilder.setClient(new OkClient(httpClient));
+
 
 在 Retrofit 2.0 中，直接 `OkHttpClient` 实例传递给 `Retrofit.Builder` 实例的 `client` 即可。 
 
-在可汗学院的应用中，我们使用 [Dagger](http://google.github.io/dagger/) 来确保只有一个 `OkHttpClient` 实例，而且它被 Picasso 和 Retrofit 一起使用。我们为带 `@Singleton` 注解的 `OkHttpClient` 实例创建了一个 provider：
+在可汗学院的应用中，我们使用 [Dagger](http://google.github.io/dagger/) 来确保只有一个 `OkHttpClient` 实例，而且 Picasso 和 Retrofit 都会使用到它。我们为带 `@Singleton` 注解的 `OkHttpClient` 实例创建了一个 provider：
 
 ```java
 @Provides
