@@ -286,11 +286,11 @@ It takes a few minutes to get the hang of building tables like this, but after y
 
 #### Metadata 
 
-Some extensions will let you add meta data that you can use to add information that your app can parse like perhaps choosing a template or setting the page title. Some use the [Multi-Markdown structure]( https://github.com/fletcher/MultiMarkdown/wiki/MultiMarkdown-Syntax-Guide#metadata) for this metadata, and others like the Jekyll parser use [YAML]( http://www.yaml.org/) as the format, which lets you express complex data within this metadata section. This can be a really useful handy feature for app developers. 
+Some extensions will let you add meta data that you can use to add information that your app can parse like perhaps choosing a template or setting the page title. Some use the [Multi-Markdown structure]( https://github.com/fletcher/MultiMarkdown/wiki/MultiMarkdown-Syntax-Guide#metadata) for this metadata, and others like the Jekyll parser use [YAML]( http://www.yaml.org/) as the format, which lets you express complex data within this metadata section. This can be a really useful handy feature for app developers.
 
 #### 元数据
 
-一些拓展将会让你添加元数据
+一些拓展将会让你添加元数据以便添加一些信息，例如你的应用可以解析的像是选择模版或是设置一个文章标题。一些人使用[Multi-Markdown structure]( https://github.com/fletcher/MultiMarkdown/wiki/MultiMarkdown-Syntax-Guide#metadata)为了元数据，其他人喜欢Jekyll parser的使用[YAML]( http://www.yaml.org/)，它可以让你表达这种元数据部分中复杂的数据。这对于应用程序开发人员一个非常有用的方便的功能。
 
     --- 
     Title:  SVG Article  
@@ -312,6 +312,9 @@ Some extensions will let you add meta data that you can use to add information t
 
 These fairly simple extensions allows URLs that naturally occur within your text to convert to links automatically via the parser. This is really convenient and is really useful in an implementation like GFM, where making URLs clickable without additional work makes for documentation that's easier to write. 
 
+#### URL 自动链接
+这些简单的扩展让你的文字中出现的URL通过分析器会自动转换为链接。这实在是方便，实用的例如GFM，使链接可点击而无需额外的工作使得文档更容易编写的实现。
+
 **Available with:** [CommonMark]( http://commonmark.org/), [Github Flavored Markdown]( https://help.github.com/articles/github-flavored-markdown/), [Kramdown]( http://kramdown.gettalong.org/), [Markdown-it](   https://markdown-it.github.io/), [Marked]( https://github.com/chjj/marked), [Maruku]( http://maruku.rubyforge.org/index.html), [Multi-Markdown]( http://fletcherpenney.net/multimarkdown/), [PHP Markdown Extended]( https://github.com/piwi/markdown-extended), [Python Markdown]( https://pythonhosted.org/Markdown/), [Redcarpet]( https://github.com/vmg/redcarpet), [Remarkable]( https://jonschlinkert.github.io/remarkable/demo/), [Showdown]( http://showdownjs.github.io/demo/) 
 
 
@@ -320,13 +323,22 @@ These fairly simple extensions allows URLs that naturally occur within your text
 
 Footnotes allows you to create links within your document to references that are placed at the bottom of the markdown page. This is different than normal links, which are placed inline within your content. This allows users to view all of the related links within a document in a single section, which is nice sometimes. 
 
-    You can find a demo of a site[^Demo] built with PostCSS in our footnotes, or you can checkout the [^Github Repo] for the project. 
+#### 脚注和其他链接类型
 
+脚注允许你创建你的文档中到放置在Markdown页面底部引用链接。这比普通的链接、行内放置您的内容的不同。这允许用户在一个单独的部分，浏览所有的相关链接，有时会很有帮助。
+
+    You can find a demo of a site[^Demo] built with PostCSS in our footnotes, or you can checkout the [^Github Repo] for the project. 
+	
+	你能够找到一个站点的例子[^Demo]使用了PostCSS构建的脚注，或是你能够查看的[^Github Repo]从这个项目。
+	
     #### Footnotes 
     [Demo]( http://iviewsource.com/exercises/postcsslayouts) 
     [Github Repo]( https://github.com/planetoftheweb/postcsslayouts) 
 
 There are a couple of other alternate link methods in Multi-Markdown, but they have virtually no support outside that specification. This includes [Cross References and Citations]( https://rawgit.com/fletcher/human-markdown-reference/master/index.html). Chances are, the way that the individual parsers handle links is something you’ll want to explore. 
+
+在Multi-Markdown中还有很多其他的交互链接方式，但是它们在规范之外几乎没有任何支持。包括[交叉引用和引文]( https://rawgit.com/fletcher/human-markdown-reference/master/index.html).很有可能个人解析器处理链接的方式就是你将要发掘的东西。
+
 
 **Available with:** [Kramdown]( http://kramdown.gettalong.org/), [Markdown-it]( https://markdown-it.github.io/), [Maruku]( http://maruku.rubyforge.org/index.html), [Multi-Markdown]( http://fletcherpenney.net/multimarkdown/), [PHP Markdown Extended]( https://github.com/piwi/markdown-extended), [Python Markdown]( https://pythonhosted.org/Markdown/), [Redcarpet]( https://github.com/vmg/redcarpet), [Remarkable]( https://jonschlinkert.github.io/remarkable/demo/), [Showdown]( http://showdownjs.github.io/demo/) 
 
@@ -336,9 +348,14 @@ There are a couple of other alternate link methods in Multi-Markdown, but they h
 
 This is a Github Flavored Markdown feature that has caught on in some implementations. It adds to-do list markup so that you can create checkboxes next to content to simulate a to do list. 
 
-    - [ ] Run `> npm-install` to install the project dependencies 
-    - [X] Install gulp.js via the Mac terminal or Gitbash on a PC `> npm install -g gulp` 
-    - [ ] Run the Gulp command `> gulp` 
+#### 任务列表
+
+这是GFM的特性，并且已经被部分的实现。它增加了任务列表标记使您可以创建复选框旁边的内容来模拟一个任务列表清单。
+
+
+    - [ ] 运行 `> npm-install` 安装项目依赖
+    - [X] 安装 gulp.js 通过Mac的terminal或是PC上的Gitbash `> npm install -g gulp` 
+    - [ ] 运行Gulp命令行`> gulp` 
 
 **Available with:** [Github Flavored Markdown]( https://help.github.com/articles/github-flavored-markdown/), [Markdown-it]( https://markdown-it.github.io/), [Marked]( https://github.com/chjj/marked), [Python Markdown]( https://pythonhosted.org/Markdown/), [Redcarpet]( https://github.com/vmg/redcarpet),[Showdown]( http://showdownjs.github.io/demo/) 
 
@@ -348,30 +365,42 @@ This is a Github Flavored Markdown feature that has caught on in some implementa
 
 Although definitions lists are not as common as other types of lists, it's a great way of coding certain types of elements in HTML, some implementations add a way to create these in a much simpler way. There are two ways of defining them, depending on the language, using a colon (`:`) or a tilde (`~`), although the implementation with the colons are more common. 
 
+#### 定义列表
+
+虽然定义列表不为其他类型的列表为常见，这是一个伟大的方式编码在HTML中的某些类型的元素，有些实现创建了更简单的添加方式去添加这些。他们的定义有两种方式，根据不同的语言，用冒号（`：`）或符号（` ~ `），虽然冒号的实用更为常见。
+
+
     ES6/ES2015 
-    :   The new version of the popular JavaScript language 
+    :   流行JavaScript的新版本
 
     TypeScript 
-      ~ TypeScript is a language that is a superset of JavaScript that can be compiled through a transpiler to JavaScript that will work with most browsers. 
+      ~ TypeScript是一个能够转换为JavaScript的、工作在大多数浏览器上的
 
 **Available with:** [Kramdown]( http://kramdown.gettalong.org/), [Markdown-it]( https://markdown-it.github.io/)*, [Maruku]( http://maruku.rubyforge.org/index.html), [Multi-Markdown]( http://fletcherpenney.net/multimarkdown/), [PHP Markdown Extended]( https://github.com/piwi/markdown-extended), [Python Markdown]( https://pythonhosted.org/Markdown/), [Remarkable]( https://jonschlinkert.github.io/remarkable/demo/) 
 
-* requires an extension 
+* 需要拓展
 
 
 
-#### Math 
+#### 数学 
 
 The ability to create mathematical formulas can be useful to some users so a language for creating them has appeared within some markdown implementations, namely Multi-Markdown. Support in other languages is available, sometimes through an extension. 
 
+对于一些用户创建数学公式是非常有用的，所以可以创建这些的语言已经在一些markdown的实现中出现，即Multi-Markdown。在其他语言的支持是可用的，有时通过扩展。
+
+
 **Available with:** [Kramdown]( http://kramdown.gettalong.org/)*, [Maruku]( http://maruku.rubyforge.org/index.html), [Multi-Markdown]( http://fletcherpenney.net/multimarkdown/), [Markdown-it]( https://markdown-it.github.io/), [Python Markdown]( https://pythonhosted.org/Markdown/)* 
 
-* requires an extension 
+* 需要拓展 
 
 
 
 ### Oh that sweet I/O 
 
+
+### 哦 亲爱的 I/O
+
 One thing that you have to be careful about is how different versions handle input and output. Just because a versions says it support tables, doesn't mean that there's a standard way of defining the tables. Furthermore, some versions will generate HTML that is extremely verbose and some will be very minimalist. There’s also wide variations of how things like white space are handled. Some versions will place IDs within each headline and some won’t. This has been one of the concerns behind the OpenMark. The best way to identify how the version you’ve chosen handles this is to use the [Babelmark 2 test]( http://johnmacfarlane.net/babelmark2/). Paste some code and it will show you how different parsers take care of the output as well as a preview. 
 
+有一件事是你必须要小心的是如何处理不同版本的输入和输出。只是因为一个版本说它支持表，并不意味着定义表的标准方式。此外，一些版本将生成HTML，有些极其冗长，有些会很简。还有一大变化的东西，如白色空间处理。有些版本将在每个标题设置ID但其他一些不会。这已经是OpenMark之后关注点之一。最好辨识你选择的版本支持哪些方式的方法是使用[Babelmark 2 test]( http://johnmacfarlane.net/babelmark2/). 粘贴一些代码，它将会向你展示不同的解析器的输出作为预览
 
