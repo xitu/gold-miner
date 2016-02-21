@@ -5,10 +5,10 @@
 # 如何参与
 
 1. 从下面的文章列表中挑选出待翻译的文章
-2. 在 [issue](https://github.com/xitu/gold-miner/issues/new) 中提交翻译申请，如果能介绍一下自己就更好咯。
+2. 在 [issue](https://github.com/xitu/gold-miner/issues) 中认领翻译或者审核文章，如果能介绍一下自己就更好咯。
 3. 申请请求通过后，Fork 此仓库开始翻译
 4. 翻译完成，发送 Pull Request
-5. 至少审核两篇其他译者发 PR 的文章→[#84](https://github.com/xitu/gold-miner/issues/84)
+5. 至少审核两篇其他译者发 PR 的文章
 
 **文章都被认领了怎么办？**
 
