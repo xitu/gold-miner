@@ -274,7 +274,7 @@ Renders like this:
 
 #### 定义列表
 
-虽然定义列表不为其他类型的列表为常见，这是一个伟大的方式编码用HTML中的某些类型的元素，有些实现创建了更简单的添加方式去添加这些。他们的定义有两种方式，根据不同的语言，用冒号（`：`）或符号（` ~ `），虽然冒号的实用更为常见。
+虽然定义列表不为其他类型的列表为常见，这是一个伟大的方式编码用HTML中的某些类型的元素，有些实现创建了更简单的添加方式去添加这些。他们的定义有两种方式，根据不同的语言，用冒号（`：`）或符号（` ~ `），不过用冒号的实现版本更为常见一些。
 
 
     ES6/ES2015 
@@ -291,7 +291,7 @@ Renders like this:
 
 #### 数学 
 
-对于一些用户创建数学公式是非常有用的，所以可以创建这些的语言已经在一些markdown的实现中出现，即Multi-Markdown。在其他语言的支持是可用的，有时通过扩展。
+对于一些用户来说创建数学公式是非常有用的，所以可以创建这些的语言已经在一些markdown的实现中出现，即Multi-Markdown。在其他语言的支持是可用的，有时通过扩展。
 
 
 **Available with:** [Kramdown]( http://kramdown.gettalong.org/)*, [Maruku]( http://maruku.rubyforge.org/index.html), [Multi-Markdown]( http://fletcherpenney.net/multimarkdown/), [Markdown-it]( https://markdown-it.github.io/), [Python Markdown]( https://pythonhosted.org/Markdown/)* 
@@ -300,5 +300,5 @@ Renders like this:
 
 ### 哦 亲爱的 I/O
 
-有一件事是你必须要小心的是如何处理不同版本的输入和输出。只是因为一个版本说它支持表，并不意味着定义表的标准方式。此外，一些版本将生成HTML，有些极其冗长，有些会很简。还有一大变化的东西，如白色空间处理。有些版本将在每个标题设置ID但其他一些不会。这已经是OpenMark之后关注点之一。最好辨识你选择的版本支持哪些方式的方法是使用[Babelmark 2 test]( http://johnmacfarlane.net/babelmark2/). 粘贴一些代码，它将会向你展示不同的解析器的输出作为预览
+有一件事是你必须要小心的是不同版本是如何处理输入输出的。只是因为一个版本说它支持表，并不意味着定义表的标准方式。此外，一些版本将生成HTML，有些极其冗长，有些会很简。还有一大变化的东西，如空白间隔处理。有些版本将在每个标题设置ID但其他一些不会。这已经是OpenMark之后关注点之一。最好辨识你选择的版本支持哪些方式的方法是使用[Babelmark 2 test]( http://johnmacfarlane.net/babelmark2/). 粘贴一些代码，它将会向你展示不同的解析器的输出作为预览
 
