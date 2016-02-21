@@ -5,18 +5,18 @@
 * 校对者: 
 * 状态 : 已认领  
 
-_以下客座文章由[Ray Villalobos]( http://www.raybo.org/)提供。在这篇文章中Ray将要去探索很多种不同的Markdown语法。所有的这些MarkDown语法均提供了不同的特性，都超越传统的Markdown语法，却又相互之间又各有不同。如果你正在挑选一门Markdown语言使用（或是提供给你的Web产品的用户使用），那你就值得的去了解它们，因为你的选择将会非常困难而且挑选的结果依赖于你需要哪些特性。Ray提供的一门[关于MarkDown课程]( http://www.lynda.com/Web-Development-tutorials/Up-Running-Markdown/438888-2.html)将会分享这些不同的版本都拥有哪些特性去帮助你做出明智的选择。_ 
+_以下客座文章由[Ray Villalobos]( http://www.raybo.org/)提供。在这篇文章中Ray将要去探索很多种不同的Markdown语法。所有的这些MarkDown变种均提供了不同的特性，都超越传统的Markdown语法，却又相互之间又各有不同。如果你正在挑选一门Markdown语言使用（或是提供给你的Web产品的用户使用），那你就值得的去了解它们，一旦选定就很难再切换到别的Markdown版本而且挑选的结果依赖于你需要哪些特性。Ray提供的一门[关于MarkDown课程]( http://www.lynda.com/Web-Development-tutorials/Up-Running-Markdown/438888-2.html)将会分享这些不同的版本都拥有哪些特性去帮助你做出明智的选择。_ 
 
-Markdown改变了很多专业领域的书写方式。这种语言使用简单的文本和极少的标记并可以将其转换为越来越多的格式。然而不是所有的Markdown解析器是被等同的创造出来的。因为原来的规范没有与时俱进,替代版本像是 Multi-Markdown,GFM(Github Flavored Markdown),Markdown Extra和其他的版本扩充了这门语言。
+Markdown改变了很多专业领域的书写方式。这种语言使用简单的文本和极少的标记并可以将其转换为越来越多的格式。然而不是所有的Markdown解析器被创造出来都是一样的。因为原来的规范没有与时俱进,替代版本像是 Multi-Markdown,GFM(Github Flavored Markdown),Markdown Extra和其他的版本扩充了这门语言。
 
-[Markdown的原始解析器]( https://daringfireball.net/projects/markdown/)是由Perl编写的。核心的特性包括解析块元素（例如段落，换行，标头，块引用，列表，代码块和垂直线）和行内元素（链接，加重，代码段和图片）。从此以后，这个语言没有被它的创造者John Gruber扩充，所以很多的新增和实现伴随着不同的他们认为合适的、或是支持解释某些元素的解析器支持浮出水面。
+[Markdown的原始解析器]( https://daringfireball.net/projects/markdown/)是用Perl编写的。核心的特性包括解析块元素（例如段落，换行，标头，块引用，列表，代码块和水平线）和行内元素（链接，加重，代码段和图片）。从那以后，该解析器的作者John Gruber再也没有扩充过语法了，所以很多的新增和实现伴随着不同的他们认为合适的、或是支持解释某些元素的解析器支持浮出水面。
 
 
 <figure>![]( https://cdn.css-tricks.com/wp-content/uploads/2016/01/choose-markdown.jpg)</figure> 
 
 ### 选择一个版本
 
-实现Markdown功能在一个程序里需要考虑很多，包括你将要使用的开发语言和你想要支持的特性。原始的版本是由Perl编写的，但是这不是对于每一个项目实用的选择。最流行的实现版本包括：PHP, Ruby和JavaScript。你选择了哪种语言将会间接影响你能支持哪些特性和能使用哪些库。让我们来看看一些选择：
+在一个程序里实现Markdown功能需要考虑很多，包括你将要使用的开发语言和你想要支持的特性。原始的版本是由Perl编写的，对于每一个项目来说，这并不是一个实用的选择。最流行的实现版本包括：PHP, Ruby和JavaScript。你选择了哪种语言将会间接影响你能支持哪些特性和能使用哪些库。让我们来看看一些选择：
 
 <table> 
 
@@ -78,20 +78,21 @@ Markdown改变了很多专业领域的书写方式。这种语言使用简单的
 
 </table> 
 
-这里还有一些额外的支持使用了很多[其他的语言](https://github.com/markdown/markdown.github.com/wiki/Implementations),万一希望使用其他语言实现Markdown。
+
+以防万一你想用别的语言去实现Markdown，这里还有许多额外的[其他的语言](https://github.com/markdown/markdown.github.com/wiki/Implementations)实现的版本。
 
 ### 核心特性  
 
-核心Markdown语言支持许多非常有用的默认功能。虽然不同的实现支持一系列的扩展功能，他们都应该至少支持以下核心语法：[Inline HTML]( https://daringfireball.net/projects/markdown/syntax#html), [Automatic paragraphs]( https://daringfireball.net/projects/markdown/syntax#p), [headers]( https://daringfireball.net/projects/markdown/syntax#header), [blockquotes]( https://daringfireball.net/projects/markdown/syntax#blockquote), [lists]( https://daringfireball.net/projects/markdown/syntax#list), [code blocks]( https://daringfireball.net/projects/markdown/syntax#precode), [horizontal rules]( https://daringfireball.net/projects/markdown/syntax#hr), [links]( https://daringfireball.net/projects/markdown/syntax#link), [emphasis]( https://daringfireball.net/projects/markdown/syntax#em), [inline code]( https://daringfireball.net/projects/markdown/syntax#code) 和 [images]( https://daringfireball.net/projects/markdown/syntax#img). 
+核心Markdown语言支持许多非常有用的默认功能。虽然不同的实现支持一系列的扩展功能，他们都应该至少支持以下核心语法：[行内html]( https://daringfireball.net/projects/markdown/syntax#html), [自动分段]( https://daringfireball.net/projects/markdown/syntax#p), [标头]( https://daringfireball.net/projects/markdown/syntax#header), [块引用]( https://daringfireball.net/projects/markdown/syntax#blockquote), [列表]( https://daringfireball.net/projects/markdown/syntax#list), [代码块]( https://daringfireball.net/projects/markdown/syntax#precode), [水平线]( https://daringfireball.net/projects/markdown/syntax#hr), [链接]( https://daringfireball.net/projects/markdown/syntax#link), [加重]( https://daringfireball.net/projects/markdown/syntax#em), [行内代码]( https://daringfireball.net/projects/markdown/syntax#code) 和 [图片]( https://daringfireball.net/projects/markdown/syntax#img). 
 
 ### 值得注意的版本
 
-可用Markdown的很多版本，有几个已经对其它版本有很大的影响。正因如此，你会经常看到他们被其他版本引述作为其中的一部分。例如，库会提到支持CommonMark，GFM或是Multi-Markdown。让我们来看看那意味着什么。
+可用Markdown的版本有很多，有几个已经对其它版本有很大的影响。正因如此，你会经常看到他们被其他版本引述作为其中的一部分。例如，库会提到支持CommonMark，GFM或是Multi-Markdown。让我们来看看那意味着什么。
 
 
 #### GFM 
 
-Github是使Markdown在开发者中流行的原因之一，开源共享平台接受并扩展了一个版本的语言叫[Github Flavored Markup]( https://help.github.com/articles/working-with-advanced-formatting/)（GFM）包括围栏代码块，URL自动链接，删除线，表格甚至能够创建带有勾选框的任务列表。所以，当一个版本支持提及的GFM，就是实现了这些扩展。
+Github是使Markdown在开发者中流行的原因之一，开源共享平台接受并扩展了一个叫[Github Flavored Markup]( https://help.github.com/articles/working-with-advanced-formatting/)的版本，（GFM）包括围栏代码块，URL自动链接，删除线，表格甚至能够创建带有勾选框的任务列表。所以，当一个版本支持提及的GFM，就是实现了这些扩展。
 
 **Supports**: [Fenced Codeblocks], [Syntax Highlighting], [Tables], [URL AutoLinking], [Strikethrough] 
 
@@ -100,22 +101,22 @@ Github是使Markdown在开发者中流行的原因之一，开源共享平台接
 
 最近有一个行动去规范Markdown语法。一组Markdown开发者加入去创建一个版本，测试和文档，最终的结果就是名为[CommonMark](http://commonmark.org/)的更强大的规范语言。此时，这个实现添加了围栏代码块，但是更多的是某些特征是如何获得一致的输出和转换要实现的具体细节。很多的拓展将会带来更加符合[其他语言](https://github.com/jgm/CommonMark/wiki/Proposed-Extensions)已经提出的特性.
 
-这种格式是相对新的，不支持很多功能，但它正在积极开发并有计划地增加了许多Multi-Markdown的特点。
+这种格式是较新的，不支持很多功能，但它正在积极开发并有计划地增加了许多Multi-Markdown的特性。
 
 **Supports**: [Fenced Codeblocks], [URL AutoLinking], [Strikethrough] 
 
 
 #### Multi-markdown 
 
-第一个拓展了这门语言的严肃项目是Multi-Markdown。它增加了许多功能，是由其它版本所支持的特性。它最初是用Perl编写，如Markdown，但随后又转而到C上.所以，如果你看到一个项目支持Multi-Markdown，那么它很可能具有[这些功能](https://rawgit.com/fletcher/human-markdown-reference/master/index.html)大部分。
+第一个拓展了这门语言的重大的项目是Multi-Markdown。它增加了很多其他版本已经支持的特性。它最初和Markdown一样是用Perl编写的，不过后来转用C来写。所以，如果你看到一个项目支持Multi-Markdown，那么它很可能具有[这些功能](https://rawgit.com/fletcher/human-markdown-reference/master/index.html)大部分。
 
 ### 可选择特性
 
-让我们来看看这些可通过不同的实现的特性。
+让我们来看看这些不同实现版本都支持的特性。
 
 #### 围栏代码块
 
-其中一个最好的对于开发者的就是能够简单的添加代码在Markdown中。原始的实现对如以四个空格或是一个制表符开头的行自动将文本作为代码块。这在一些时候会产生错误，所以严肃的实现引入了围栏代码块通过允许你在将一块文本标记为代码时使用三个刻度标记（`），或在某些情况下三重符号（〜）字符：
+其中一个最好的对于开发者的就是能够简单的添加代码在Markdown中。原始的实现对如以四个空格或是一个制表符开头的行自动将文本作为代码块。这在一些时候会产生错误，所以重大的实现引入了围栏代码块通过允许你在将一块文本标记为代码时使用三个刻度标记（`），或在某些情况下三重符号（〜）字符：
 
 
     ``` 
