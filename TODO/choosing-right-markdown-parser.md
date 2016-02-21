@@ -213,7 +213,7 @@ Renders like this:
 
 </table> 
 
-只需要几分钟就能够做出像这样的一个表格，但是在你做过几次后，你会认为使用HTML有一些麻烦。如果你需要帮助创建表格，阅读这篇指南[Markdown Tables Generator]( http://www.tablesgenerator.com/markdown_tables).
+只需要几分钟就能够做出像这样的一个表格，但是在你做过几次后，你会认为使用HTML有一些麻烦。如果你创建表格需要帮助，阅读这篇指南[Markdown Tables Generator]( http://www.tablesgenerator.com/markdown_tables).
 
 
 [![Markdown Tables Generator]( https://cdn.css-tricks.com/wp-content/uploads/2016/01/OiO5m2q.png)]( http://www.tablesgenerator.com/markdown_tables) 
@@ -274,7 +274,7 @@ Renders like this:
 
 #### 定义列表
 
-虽然定义列表不为其他类型的列表为常见，这是一个伟大的方式编码在HTML中的某些类型的元素，有些实现创建了更简单的添加方式去添加这些。他们的定义有两种方式，根据不同的语言，用冒号（`：`）或符号（` ~ `），虽然冒号的实用更为常见。
+虽然定义列表不为其他类型的列表为常见，这是一个伟大的方式编码用HTML中的某些类型的元素，有些实现创建了更简单的添加方式去添加这些。他们的定义有两种方式，根据不同的语言，用冒号（`：`）或符号（` ~ `），虽然冒号的实用更为常见。
 
 
     ES6/ES2015 
