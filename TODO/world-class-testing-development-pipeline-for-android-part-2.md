@@ -2,7 +2,7 @@
 * 原文作者 : [Karumi](hello@karumi.com)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [markzhai](https://github.com/markzhai)
-* 校对者:
+* 校对者: [JustWe](https://github.com/lfkdsk)
 * 状态 : 翻译完成
 
 在我们的上一篇博客文章，[“世界级的Android测试开发流程（一）”，我们开始讨论一个Android的测试开发流程](http://blog.karumi.com/world-class-testing-development-pipeline-for-android/)。我们讨论了一个软件工程师从开始写测试到找到测试开发的一些问题的演化过程。我们获得了以下结论，概括如下：
@@ -13,7 +13,7 @@
 *   - 我们的测试的质量与可读性并不总是能达到预期。
 *   - 一个测试开发流程对定义测什么与怎么测来说是必须的。
 
-响应地，任何应用的测试关键部分是：
+相应地，任何应用的测试关键部分是：
 
 *   - 独立于框架或者库去测试业务逻辑。
 *   - 测试服务器端的API集成。
@@ -23,7 +23,7 @@
 
 ### **独立于框架或者库去测试业务逻辑：**
 
-检查[业务逻辑](http://c2.com/cgi/wiki?BusinessLogicDefinition)如果确实实现了预定义的产品要求是必要的。我们需要隔离想要测试的代码，模拟不同的初始场景，以设置运行时的一些组件的行为。接着，我们将会通过选择想要练习的部分来测试代码。一旦完成，我们需要检查软件状态在训练该测试主题后是否正确。
+检查[业务逻辑](http://c2.com/cgi/wiki?BusinessLogicDefinition)是否确实实现了预定的产品需求是必要的。我们需要隔离想要测试的代码，模拟不同的初始场景，以设置运行时的一些组件的行为。接着，我们将会通过选择想要练习的部分来测试代码。一旦完成，我们需要检查软件状态在训练该测试主题后是否正确。
 Next, we will test the code by choosing the parts we want to exercise. Once completed, we need to check if the state of the software is correct after exercising the subject under test.
 
 这个测试方法的关键是 [依赖倒置原则](http://martinfowler.com/articles/dipInTheWild.html)。通过写依赖于抽象的代码，我们将可以把我们的软件分离为不同的层次。为了获得一个依赖的实例，我们需要从某个地方去请求它。或者，我们可以在实例被创建的时候获得它。我们软件的一部分要求我们创建代码来获取协作者的实例。在这些点，我们将会引入测试替身(Test Double)来模拟初始场景或编写不同行为来设计我们的测试。通过使用 [测试替身](http://martinfowler.com/articles/mocksArentStubs.html)，我们将能模拟生产环境代码的行为与状态。同时，它能帮助我们选择测试的范围（从根本上代表了要测试的代码的数量）。如果没有依赖倒置，所有类就需要各自去获得它们的依赖。从而导致类实现和依赖的实现相互耦合，进而无法引入测试替身来切断生产环境代码的执行流。
@@ -64,7 +64,7 @@ Next, we will test the code by choosing the parts we want to exercise. Once comp
       }
     }
 
-前三个测试是检查GameBoy MMU（内存管理单元）是否实现正确。成功的关键在于检查测试执行的最后MMU状态是否正确。所有的测试检查MMU是否被正确初始化。如果reset后，MMU被清理了，或者写了2个字节后和期望的词相等，则最后的读取是正确的。为了测试模拟器软件的这部分，我们选择了一个简化的范围，仅仅一个类作为测试下的主题。
+前三个测试是检查GameBoy MMU（内存管理单元）是否实现正确。成功的关键在于检查测试执行的最后MMU状态是否正确。所有的测试检查MMU是否被正确初始化。如果reset后，MMU被清理了，或者写了2个字节后和期望的词相等，则最后的读取是正确的。为了测试模拟器软件的这部分，我们简化了测试范围，仅有一个类作为测试的主题。
 
     public class GameBoyBIOSExecutionTest {
 
@@ -97,7 +97,7 @@ Next, we will test the code by choosing the parts we want to exercise. Once comp
 
     }
 
-在这两个测试中，我们检查了跨越不同阶段的BIOS是否执行正确。在BIOS执行的最后，内存中具体位置的一个字节必须被初始化为具体的一个值。接着，在第三阶段的最后，任天堂的logo必须被读取到VRAM。我们决定为了这些测试使用一个更大的范围，因为整个BIOS执行时任何模拟器开发的关键部分之一。关于该测试的主题是CPU，CPU指令集的部分（只包括BIOS执行相关的指令），以及MMU。为了检查执行的状态是否正确，我们必须在MMU状态上进行assert。**一个能显著提升测试质量的关键就是检查执行最后的软件状态，而避免去验证和其他组件的交互。这是因为即便和你的组件交互正确，状态仍然可能错误。** 知道这些测试的部分是独立的也很重要，像是CPU指令。
+在这两个测试中，我们检查了跨越不同阶段的BIOS是否执行正确。在BIOS执行的最后，内存中具体位置的一个字节必须被初始化为具体的一个值。接着，在第三阶段的最后，任天堂的logo必须被读取到VRAM。我们决定扩大测试的范围，因为整个BIOS执行是任何模拟器开发的关键部分之一。关于该测试的主题是CPU，CPU指令集的部分（只包括BIOS执行相关的指令），以及MMU。为了检查执行的状态是否正确，我们必须在MMU状态上进行assert。**一个能显著提升测试质量的关键就是检查执行最后的软件状态，而避免去验证和其他组件的交互。这是因为即便和你的组件交互正确，状态仍然可能错误。** 知道这些测试的部分是独立的也很重要，像是CPU指令。
 
 这些测试的另一个主要亮点是使用了测试替身，以模拟Android SDK使用相关的那些代码。在执行BIOS之前，GameBoy游戏必须被读取到GameBoy MMU里。然后，在测试期间，Android SDK将会变得不可用，作为一种变通方法，我们将不得不替换为从测试环境读取GameBoy rom。_* 我们使用了依赖倒置原则不仅仅是为了隐藏实现细节或者定义边界，—_* 也是为了替代实际生产环境的AndroidGameReader为FakeGameReader，一个测试替身，**从而不依赖于框架和库去测试代码。这样，我们创建了一个隔离的测试环境，并调整了测试范围。**
 
