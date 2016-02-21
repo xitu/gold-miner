@@ -5,7 +5,7 @@
 * 校对者: 
 * 状态 :  待定
 
-在为[可汗学院](https://www.khanacademy.org/)开发 [Android app](https://play.google.com/store/apps/details?id=org.khanacademy.android) 时，[OkHttp](http://square.github.io/okhttp/) 是一个很重要的开源库。虽然它的默认配置提供了重要的工具，下面是我们为了提高 OkHttp 的可用性和自我检查能力而采取的一些措施：
+在为[可汗学院](https://www.khanacademy.org/)开发 [Android app](https://play.google.com/store/apps/details?id=org.khanacademy.android) 时，[OkHttp](http://square.github.io/okhttp/) 是一个很重要的开源库。虽然它的默认配置已经提供了很好的效果，但是我们还是采取了一些措施提高OkHttp的可用性和自我检查能力：
 
 ### 1\. 在文件系统中开启响应缓存
 
@@ -32,9 +32,9 @@ if (baseDir != null) {
 
 ### 2\. 集成 Stetho
 
-[Stetho](http://facebook.github.io/stetho/) 是一个 Facebook 出品的超赞的开源库，它可以让你用 Chrome 的 [开发者工具](https://developers.google.com/web/tools/setup/workspace/setup-devtools) 来观察你的 Android 应用。
+[Stetho](http://facebook.github.io/stetho/) 是一个 Facebook 出品的超赞的开源库，它可以让你用 Chrome 的特性——[开发者工具](https://developers.google.com/web/tools/setup/workspace/setup-devtools) 来检查调试你的 Android 应用。
 
-Stetho 不仅能够观察应用的 SQLite 数据库和 View 的层级结构，还可以观察 OkHttp 的每一条请求和响应消息：
+Stetho 不仅能够检查应用的 SQLite 数据库和视图层次，还可以检查 OkHttp 的每一条请求和响应消息：
 
 ![Image of Stetho](http://omgitsmgp.com/assets/images/posts/stetho-inspector-network.png)
 
@@ -48,7 +48,7 @@ okHttpClient.networkInterceptors().add(new StethoInterceptor());
 ```
 
 
-应用运行完毕之后，打开 Chrome 然后跳转到 `chrome://inspect`。设备、应用以及应用标识符信息会被列举出来。直接点击“inspect”链接就可以打开开发者工具，然后切换到 Network 标签开始监测 OkHttp 发出的请求。
+应用运行完毕之后，打开 Chrome 然后跳转到 `chrome://inspect`。设备、应用以及应用标识符信息会被陈列出来。直接点击“inspect”链接就可以打开开发者工具，然后切换到 Network 标签开始监测 OkHttp 发出的请求。
 
 ### 3\. 使用 Picasso 和 Retrofit
 
@@ -91,7 +91,7 @@ Picasso.setSingletonInstance(picasso);
     restAdapterBuilder.setClient(new OkClient(httpClient));
 
 
-在 Retrofit 2.0 中，直接 `OkHttpClient` 实例传递给 `Retrofit.Builder` 实例的 `client` 即可。 
+在 Retrofit 2.0 中，直接把 `OkHttpClient` 实例传递给 `Retrofit.Builder` 实例的 `client` 即可。 
 
 在可汗学院的应用中，我们使用 [Dagger](http://google.github.io/dagger/) 来确保只有一个 `OkHttpClient` 实例，而且 Picasso 和 Retrofit 都会使用到它。我们为带 `@Singleton` 注解的 `OkHttpClient` 实例创建了一个 provider：
 
@@ -155,9 +155,9 @@ settings.setUserAgentString(userAgentHeaderValue);
 
 ### 5\. 指定合理的超时
 
-在 2.5.0 版本之前，OkHttp 请求默认永不超时。从 2.5.0 版本开始，如果建立了一个连接，然后从连接读取下一个字节，或者向连接写入下一个字节，花费超过了10秒，请求就会超时。更新到 2.5.0 版本而使我们代码中出现的 bug， 因为我们一开始走错了路。分别调用 `setConnectTimeout`，`setReadTimeout` 或 `setWriteTimeout` 可以重写那些默认值。
+在 2.5.0 版本之前，OkHttp 请求默认永不超时。从 2.5.0 版本开始，如果建立了一个连接，然后从连接读取下一个字节，或者向连接写入下一个字节，花费超过了10秒，请求就会超时。更新到 2.5.0 版本使我们代码中出现的 bug， 因为我们一开始就走错了路。分别调用 `setConnectTimeout`，`setReadTimeout` 或 `setWriteTimeout` 可以重写那些默认值。
 
-小提示：分别为 Picasso 和 Retrofit 的默认 `OkHttpClient` 实例指定不同的超时时长。
+小提示：Picasso 和 Retrofit 为它们的默认 `OkHttpClient` 实例指定不同的超时时长。
 默认情况下， Picasso 设定如下：
 
 *   连接超时15秒
@@ -174,4 +174,4 @@ Retrofit 设定如下：
 
 ### 结论
 
-再次强调，OkHttp 的默认配置提供了重要的工具。采取以上的措施，可以是提高它的可用性和自我检查能力，并且提升你的应用的质量。
+再次强调，OkHttp 的默认配置提供了显著的效果。采取以上的措施，可以是提高它的可用性和自我检查能力，并且提升你的应用的质量。
