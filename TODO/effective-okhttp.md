@@ -2,18 +2,18 @@
 * 原文作者 : [Michael Parker](http://omgitsmgp.com/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [Brucezz](https://github.com/brucezz)
-* 校对者: [iThreeKing](https://github.com/iThreeKing), [shenxn](https://github.com/shenxn)
-* 状态 :  待定
+* 校对者: [iThreeKing](https://github.com/iThreeKing), [Adam Shen](https://github.com/shenxn), [Jaeger](https://github.com/laobie)
+* 状态 :  根据审核意见修改完成
 
 在为[可汗学院](https://www.khanacademy.org/)开发 [Android app](https://play.google.com/store/apps/details?id=org.khanacademy.android) 时，[OkHttp](http://square.github.io/okhttp/) 是一个很重要的开源库。虽然它的默认配置已经提供了很好的效果，但是我们还是采取了一些措施提高OkHttp的可用性和自我检查能力：
 
 ### 1\. 在文件系统中开启响应缓存
 
-默认情况下，OkHttp 不会去缓存那些包含了 HTTP `Cache-Control` 头部的响应消息。因此你的客户端可能会因为不断请求相同的资源而浪费时间和带宽，而不是简单地读取一下首次响应消息的缓存副本。
+有些响应消息通过包含 `Cache-Control` HTTP 首部字段允许缓存，但是默认情况下，OkHttp 并不会缓存这些响应消息。因此你的客户端可能会因为不断请求相同的资源而浪费时间和带宽，而不是简单地读取一下首次响应消息的缓存副本。
 
 为了在文件系统中开启响应缓存，需要配置一个 `com.squareup.okhttp.Cache` 实例，然后把它传递给 `OkHttpClient` 实例的 `setCache` 方法。你必须用一个表示目录的 `File` 对象和最大字节数来实例化 `Cache` 对象。那些能够缓存的响应消息会被写在指定的目录中。如果已缓存的响应消息导致目录内容超过了指定的大小，响应消息会按照最近最少使用（[LRU Policy](https://en.wikipedia.org/wiki/Cache_algorithms#LRU)）的策略被移除。
 
-正如 [Jesse Wilson 所建议的](http://stackoverflow.com/a/32752861/400717)，我们将响应缓存在 `context.getCacheDir()` 的子文件夹中：
+正如 [Jesse Wilson 所建议的](http://stackoverflow.com/a/32752861/400717)，我们将响应消息缓存在 `context.getCacheDir()` 的子文件夹中：
 
 
 ```java
@@ -32,13 +32,13 @@ if (baseDir != null) {
 
 ### 2\. 集成 Stetho
 
-[Stetho](http://facebook.github.io/stetho/) 是一个 Facebook 出品的超赞的开源库，它可以让你用 Chrome 的特性——[开发者工具](https://developers.google.com/web/tools/setup/workspace/setup-devtools) 来检查调试你的 Android 应用。
+[Stetho](http://facebook.github.io/stetho/) 是一个 Facebook 出品的超赞的开源库，它可以让你用 Chrome 的功能——[开发者工具](https://developers.google.com/web/tools/setup/workspace/setup-devtools) 来检查调试你的 Android 应用。
 
 Stetho 不仅能够检查应用的 SQLite 数据库和视图层次，还可以检查 OkHttp 的每一条请求和响应消息：
 
 ![Image of Stetho](http://omgitsmgp.com/assets/images/posts/stetho-inspector-network.png)
 
-这种自我检查机制（Introspection）有效地确保服务器返回了允许缓存资源的 HTTP 头部，以及核查缓存资源存在时没有发出任何请求。
+这种自我检查方式（Introspection）有效地确保了服务器返回允许缓存资源的 HTTP 首部时，且核缓存资源存在时，不再发出任何请求。
 
 开启 Stetho，只用简单地添加一个 `StethoInterceptor` 实例到网络拦截器（Network Interceptor）的列表中去：
 
@@ -52,7 +52,7 @@ okHttpClient.networkInterceptors().add(new StethoInterceptor());
 
 ### 3\. 使用 Picasso 和 Retrofit
 
-如果你喜欢我们，你可能会使用 [Picasso](http://square.github.io/picasso/) 来加载网络图片，或者使用 [Retrofit](http://square.github.io/retrofit/) 来简化网络请求和解析响应消息。默认情况下，如果你没有显式地指定一个 `OkHttpClient`，这些开源库会隐式地创建它们自己的 `OkHttpClient` 实例以供内部使用。以下代码来自于 Picasso 2.5.2 版本的 `OkHttpDownloader` 类：
+可能和我们一样，你使用 [Picasso](http://square.github.io/picasso/) 来加载网络图片，或者使用 [Retrofit](http://square.github.io/retrofit/) 来简化网络请求和解析响应消息。在默认情况下，如果你没有显式地指定一个 `OkHttpClient`，这些开源库会隐式地创建它们自己的 `OkHttpClient` 实例以供内部使用。以下代码来自于 Picasso 2.5.2 版本的 `OkHttpDownloader` 类：
 
 
 ```java
@@ -67,11 +67,11 @@ private static OkHttpClient defaultOkHttpClient() {
 
 Retrofit 也有类似的工厂方法用来创建它自己的 `OkHttpClient`。
 
-图片是应用中需要加载的最大的资源之一。Picasso 是严格地按照 LRU 策略在内存中维护它的图片缓存。如果客户端用 Picasso 尝试加载一张图片，然而 Picasso 没有在内存的缓存中找到这张图片，那么它会委托内部的 `OkHttpClient` 实例来加载该图片。在默认情况下，该实例会一直从服务器加载图片，因为前面的 `defaultOkHttpClient` 方法没有在文件系统中配置响应缓存。
+图片是应用中需要加载的最大的资源之一。Picasso 是严格地按照 LRU 策略在内存中维护它的图片缓存。如果客户端尝试用 Picasso 加载一张图片，并且 Picasso 没有在内存缓存中找到该图片，那么它会委托内部的 `OkHttpClient` 实例来加载该图片。在默认情况下，由于前面的 `defaultOkHttpClient` 方法没有在文件系统中配置响应缓存，该实例会一直从服务器加载图片。
 
-设置你自己的 `OkHttpClient` 实例允许从文件系统返回一个已缓存的响应消息。没有一张图片从服务器加载。这在应用第一次加载时是尤为重要的。在这个时候，Picasso 的内存中的缓存是 [“冷”](http://stackoverflow.com/a/22756972/400717)的，它会频繁地委托 `OkHttpClient` 实例去加载图片。
+自定义一个 `OkHttpClient` 实例，将从文件系统返回一个已缓存的响应消息这种情况考虑在内。没有一张图片直接从服务器加载。这在应用第一次加载时是尤为重要的。在这个时候，Picasso 的内存中的缓存是 [“冷”](http://stackoverflow.com/a/22756972/400717)的，它会频繁地委托 `OkHttpClient` 实例去加载图片。
 
-这就需要构建一个用你的 `OkHttpClient` 配置的 `Picasso` 实例。如果你在代码中使用  `Picasso.with(context).load(...)` 来加载图片，你要使用 `Picasso` 单例对象，这个单例对象是懒加载的，并且通过 `with` 方法配置它自己的 `OkHttpClient`。因此我们必须在调用 `with` 方法之前指定自己的 `Picasso` 实例作为单例对象。
+这就需要构建一个用你的 `OkHttpClient` 配置的 `Picasso` 实例。如果你在代码中使用  `Picasso.with(context).load(...)` 来加载图片，你所使用的 `Picasso` 单例对象，是在  `with` 方法中用自己的 `OkHttpClient` 延迟加载和配置的。因此我们必须在第一次调用 `with` 方法之前指定自己的 `Picasso` 实例作为单例对象。
 
 简单地把 `OkHttpClient` 实例包装到一个 `OkHttpDownloader` 对象中，然后传递给 `Picasso.Builder` 实例的 `downloader` 方法：
 
@@ -85,7 +85,7 @@ final Picasso picasso = new Picasso.Builder(context)
 Picasso.setSingletonInstance(picasso);
 ```
 
-在 Retrofit 1.9.x 中，配合着 `RestAdapter` 使用你的 `OkHttpClient` 实例，把 `OkHttpClient` 实例包装到一个 `OkClient` 实例中，然后传递给 `RestAdapter.Builder` 实例的 `setClient` 方法：
+在 Retrofit 1.9.x 中，通过 `RestAdapter` 使用你的 `OkHttpClient` 实例，把 `OkHttpClient` 实例包装到一个 `OkClient` 实例中，然后传递给 `RestAdapter.Builder` 实例的 `setClient` 方法：
 
 
     restAdapterBuilder.setClient(new OkClient(httpClient));
@@ -155,7 +155,7 @@ settings.setUserAgentString(userAgentHeaderValue);
 
 ### 5\. 指定合理的超时
 
-在 2.5.0 版本之前，OkHttp 请求默认永不超时。从 2.5.0 版本开始，如果建立了一个连接，然后从连接读取下一个字节，或者向连接写入下一个字节，花费超过了10秒，请求就会超时。更新到 2.5.0 版本使我们代码中出现的 bug， 因为我们一开始就走错了路。分别调用 `setConnectTimeout`，`setReadTimeout` 或 `setWriteTimeout` 可以重写那些默认值。
+在 2.5.0 版本之前，OkHttp 请求默认永不超时。从 2.5.0 版本开始，如果建立了一个连接，或从连接读取下一个字节，或者向连接写入下一个字节，用时超过了10秒，请求就会超时。分别调用 `setConnectTimeout`，`setReadTimeout` 或 `setWriteTimeout` 方法可以重写那些默认值。
 
 小提示：Picasso 和 Retrofit 为它们的默认 `OkHttpClient` 实例指定不同的超时时长。
 默认情况下， Picasso 设定如下：
@@ -174,4 +174,4 @@ Retrofit 设定如下：
 
 ### 结论
 
-再次强调，OkHttp 的默认配置提供了显著的效果。采取以上的措施，可以是提高它的可用性和自我检查能力，并且提升你的应用的质量。
+再次强调，OkHttp 的默认配置提供了显著的效果，但是采取以上的措施，可以提高 OkHttp 的可用性和自我检查能力，并且提升你的应用的质量。
