@@ -28,16 +28,16 @@
 
 ## Android
 
-* [2015 年度 Android 开发者必备的 5 个开源库](http://gold.xitu.io/entry/5649b8d160b2ed36204eabad)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/Top-5-Android-libraries-every-Android-developer-should-know-about.md)) ([kassadin (kass)](https://github.com/kassadin) 认领)
-* [如何提高安卓代码的质量和语法](http://gold.xitu.io/entry/561104a260b2b52c9ce40ea0)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/how-to-improve-quality-and-syntax-of-your-android-code.md)) ([yinshudi](https://github.com/yinshudi) 认领)
-* [如何更高效的使用 okhttp](http://gold.xitu.io/entry/5665ac0f60b202595a710eb6)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/effective-okhttp.md)) ([Brucezz](https://github.com/brucezz) 认领)
-* [每个 Android 开发者都应该读的 Android Studio Tips](http://gold.xitu.io/entry/5664efa500b0ec3f657bae1d) ([Jaeger](https://github.com/laobie) 认领)
-* [MVVM模式介绍](http://gold.xitu.io/entry/560933ce60b227b771931f90)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO%2Fapproaching-android-with-mvvm.md)) ([Sausure](https://github.com/Sausure) 认领)
-* [Android 的一个 MVP 基础项目模板](http://gold.xitu.io/entry/5630f9c600b0ee7f0bb48c25)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/android-basic-project-architecture-for-mvp.md)) ([foolishgao](https://github.com/foolishgao) 认领)
-* [让 Toolbar 随着 RecyclerView 的滚动而显示/隐藏](http://gold.xitu.io/entry/56320b3400b05c9d2b0f7f6f)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/How-to-hideshow-Toolbar-when-list-is-scroling.md)) ([MiJack (江湖迈杰)](https://github.com/MiJack) 认领)
-* [Android Guides - Github](http://gold.xitu.io/entry/5584f8e9e4b09e372efeca9a) ([SeniorZhai](https://github.com/SeniorZhai)认领)
-* [6 Things I wish I Knew before I Wrote my first Android App](http://gold.xitu.io/entry/55a38698e4b0ed48f0bfc1ef)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/things-i-wish-i-knew-before-i-wrote-my-first-android-app.md)) ([404neko](https://github.com/404neko) 认领)
-* [Android 上的数据格式 FlatBuffers 介绍](http://gold.xitu.io/entry/55dd1e3b60b27e6cd500d266)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/flatbuffers-in-android-introdution.md)) ([lihb (lhb)](https://github.com/lihb) 认领)
+* [2015 年度 Android 开发者必备的 5 个开源库](https://github.com/xitu/gold-miner/blob/master/TODO/Top-5-Android-libraries-every-Android-developer-should-know-about.md) ([kassadin (kass)](https://github.com/kassadin) 翻译)
+* [如何提高安卓代码的质量和语法](https://github.com/xitu/gold-miner/blob/master/TODO/how-to-improve-quality-and-syntax-of-your-android-code.md) ([yinshudi](https://github.com/yinshudi) 翻译)
+* [如何更高效的使用 okhttp](https://github.com/xitu/gold-miner/blob/master/TODO/effective-okhttp.md)) ([Brucezz](https://github.com/brucezz) 翻译)
+* [每个 Android 开发者都应该读的 Android Studio Tips](https://github.com/xitu/gold-miner/blob/master/TODO/Android-Studio-Tips.md) ([Jaeger](https://github.com/laobie) 翻译)
+* [MVVM模式介绍](https://github.com/xitu/gold-miner/blob/master/TODO%2Fapproaching-android-with-mvvm.md) ([Sausure](https://github.com/Sausure) 翻译)
+* [Android 的一个 MVP 基础项目模板](https://github.com/xitu/gold-miner/blob/master/TODO/android-basic-project-architecture-for-mvp.md) ([foolishgao](https://github.com/foolishgao) 翻译)
+* [让 Toolbar 随着 RecyclerView 的滚动而显示/隐藏](https://github.com/xitu/gold-miner/blob/master/TODO/How-to-hideshow-Toolbar-when-list-is-scroling.md) ([MiJack (江湖迈杰)](https://github.com/MiJack) 翻译)
+* [Android Guides - Github](http://gold.xitu.io/entry/5584f8e9e4b09e372efeca9a) ([SeniorZhai](https://github.com/SeniorZhai) 翻译)
+* [6 Things I wish I Knew before I Wrote my first Android App](https://github.com/xitu/gold-miner/blob/master/TODO/things-i-wish-i-knew-before-i-wrote-my-first-android-app.md) ([404neko](https://github.com/404neko) 翻译)
+* [Android 上的数据格式 FlatBuffers 介绍](https://github.com/xitu/gold-miner/blob/master/TODO/flatbuffers-in-android-introdution.md) ([lihb (lhb)](https://github.com/lihb) 翻译)
 
 ## iOS
 
