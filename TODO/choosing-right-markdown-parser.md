@@ -241,16 +241,16 @@ Renders like this:
 
 
 #### URL 自动链接
-这些简单的扩展让你的文字中出现的URL通过分析器会自动转换为链接。这实在是方便，实用的例如GFM，使链接可点击而无需额外的工作使得文档更容易编写的实现。
+这些简单的扩展让你的文字中出现的URL通过分析器会自动转换为链接。这种功能的确很方便实用，像GFM这样的实现版本，无需额外的工作即可使链接可以点击，使得写文档更简单。
 
 **Available with:** [CommonMark]( http://commonmark.org/), [Github Flavored Markdown]( https://help.github.com/articles/github-flavored-markdown/), [Kramdown]( http://kramdown.gettalong.org/), [Markdown-it](   https://markdown-it.github.io/), [Marked]( https://github.com/chjj/marked), [Maruku]( http://maruku.rubyforge.org/index.html), [Multi-Markdown]( http://fletcherpenney.net/multimarkdown/), [PHP Markdown Extended]( https://github.com/piwi/markdown-extended), [Python Markdown]( https://pythonhosted.org/Markdown/), [Redcarpet]( https://github.com/vmg/redcarpet), [Remarkable]( https://jonschlinkert.github.io/remarkable/demo/), [Showdown]( http://showdownjs.github.io/demo/) 
 
 
 #### 脚注和其他链接类型
 
-脚注允许你创建你的文档中到放置在Markdown页面底部引用链接。这比普通的链接、行内放置您的内容的不同。这允许用户在一个单独的部分，浏览所有的相关链接，有时会很有帮助。
+脚注允许你创建你的文档中到放置在Markdown页面底部引用链接。这不同于放置在文章内容中的普通链接。这允许用户在一个单独的部分，浏览所有的相关链接，有时会很有帮助。
 
-	你能够找到一个站点的例子[^Demo]使用了PostCSS构建的脚注，或是你能够查看的[^Github Repo]从这个项目。
+	你可以在我们的注脚找到一个用 PostCSS 搭建的站点的例子，或者在Github Repo 查看这个项目。
 	
     #### Footnotes 
     [Demo]( http://iviewsource.com/exercises/postcsslayouts) 
@@ -267,7 +267,7 @@ Renders like this:
 
 
     - [ ] 运行 `> npm-install` 安装项目依赖
-    - [X] 安装 gulp.js 通过Mac的terminal或是PC上的Gitbash `> npm install -g gulp` 
+    - [X] 通过Mac的terminal或是PC上的Gitbash安装 gulp.js 运行Gulp命令 `> npm install -g gulp` 
     - [ ] 运行Gulp命令行`> gulp` 
 
 **Available with:** [Github Flavored Markdown]( https://help.github.com/articles/github-flavored-markdown/), [Markdown-it]( https://markdown-it.github.io/), [Marked]( https://github.com/chjj/marked), [Python Markdown]( https://pythonhosted.org/Markdown/), [Redcarpet]( https://github.com/vmg/redcarpet),[Showdown]( http://showdownjs.github.io/demo/) 
