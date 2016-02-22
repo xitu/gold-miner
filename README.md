@@ -2,19 +2,23 @@
 
 翻译优质的互联网技术文章
 
-# 如何参与
+# 如何参与翻译
 
-1. 从下面的文章列表中挑选出待翻译的文章
-2. 在 [issue](https://github.com/xitu/gold-miner/issues) 中认领翻译或者审核文章，如果能介绍一下自己就更好咯。
-3. 申请请求通过后，Fork 此仓库开始翻译
-4. 翻译完成，发送 Pull Request
-5. 至少审核两篇其他译者发 PR 的文章
+1. 在 [待认领文章列表](https://github.com/xitu/gold-miner/issues?q=is%3Aissue+is%3Aopen+label%3A%E6%96%87%E7%AB%A0%E8%AE%A4%E9%A2%86) 中认领翻译文章（如果是第一次认领，介绍一下自己就更好咯）
+2. 申请请求通过后，Fork 此仓库开始翻译
+3. 翻译完成，发送 Pull Request
+4. 至少审核两篇其他译者发 PR 的[文章](https://github.com/xitu/gold-miner/pulls?q=is%3Apr+is%3Aopen+label%3A%E6%A0%A1%E5%AF%B9%E8%AE%A4%E9%A2%86)
 
 **文章都被认领了怎么办？**
 
-快来 [issue](https://github.com/xitu/gold-miner/issues/new)申请成为译者吧。
+快来 [issue](https://github.com/xitu/gold-miner/issues/new) 申请成为译者吧。
 
-## 需要认领的
+# 如何参与校对
+
+1. 在[待校对文章列表](https://github.com/xitu/gold-miner/issues?q=is%3Aissue+is%3Aopen+label%3A%E6%A0%A1%E5%AF%B9%E8%AE%A4%E9%A2%86)中认领校对文章，如果能介绍一下自己就更好咯
+2. 申请通过后，直接在文章对应的 PR 里面添加 note 校对
+
+## 正在进行的
 
 * Sketch 作者的采访 ([认领地址](https://github.com/xitu/gold-miner/issues/118))
 * OAuth2 Authentication with Lua ([认领地址](https://github.com/xitu/gold-miner/issues/117))
