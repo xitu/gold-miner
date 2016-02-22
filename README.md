@@ -14,6 +14,11 @@
 
 快来 [issue](https://github.com/xitu/gold-miner/issues/new)申请成为译者吧。
 
+## 需要认领的
+
+* Google Cloud Functions 文档 ([认领issue地址](https://github.com/xitu/gold-miner/issues/104))
+* A GENTLE INTRODUCTION TO FUNCTIONAL JAVASCRIPT: PART 1 ([认领issue地址](https://github.com/xitu/gold-miner/issues/105))
+
 ## Android
 
 * [2015 年度 Android 开发者必备的 5 个开源库](http://gold.xitu.io/entry/5649b8d160b2ed36204eabad)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/Top-5-Android-libraries-every-Android-developer-should-know-about.md)) ([kassadin (kass)](https://github.com/kassadin) 认领)
