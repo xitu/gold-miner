@@ -11,14 +11,14 @@
 
 CSS很难，而写出好的CSS代码更难。在一个大团队中，基于巨大的代码库写出好的CSS代码，更是难上加难。
 
-我们不是一个特殊的软件公司：120个工程师，4间办公室，3个不同国家，3个时区，以及7年时间，代表着一个大家都很熟悉的代码库环境。每个人都一直在尝试，代码库中也许有30种不同的按钮风格，4个不同的“品牌色彩”变量，以及一个列举了互联网上所有JavaScript包的 package.json / bower.json 文件。CSS与其他语言相比，看起来就像是一个被忽视的孩子，没有得到应有的照顾。CSS没有固定的规范，没有约定，也没有內建工具来防止你写出自己的代码风格。CSS就是一个雷区，我们都在这个雷区里面，许许多多其他人和团队也会持续不断地陷入其中。
+我们不是一个特殊的软件公司：120个工程师，4间办公室，3个不同国家，3个时区，以及7年时间，代表着一个大家都很熟悉的代码库环境。每个人都一直在尝试，代码库中也许有30种不同的按钮风格，4个不同的“品牌色彩”变量，以及一个列举了互联网上所有JavaScript包的 package.json / bower.json 文件。CSS与其他语言相比，看起来就像是一个被忽视的孩子，没有得到应有的照顾。CSS没有固定的规范，没有约定，也没有內建工具来防止你写出自己的代码风格。CSS就是一个雷区，我们困在其中，也有许多人会继续一头扎进来。
 
-在BigCommerce，我们认为至少可以通过设置一些基本规范，并且让每一个编写CSS的人遵循它们，来解决一些在编写大量CSS代码时经常会遇到的问题。我们的《SAAS风格指南》并没有什么突破性的内容，并且其中的观点很像AirBnB的 [《JavaScript风格指南 - JavaScript Style Guide》](https://github.com/airbnb/javascript)。我不会把那篇文章原封不动地复制到我的博客里，但是你可以[在GitHub上找到](https://github.com/bigcommerce/sass-style-guide)。然而我认为，详细解释一些具体规则并且列出我们使用的工具会更加有帮助。
+在BigCommerce，我们认为至少可以通过设置一些基本规范，并且让每一个编写CSS的人遵循它们，来解决一些在编写大量CSS代码时经常会遇到的问题。我们的《SAAS风格指南》并没有什么突破性的内容，并且其中的观点很像AirBnB的 [《JavaScript风格指南 - JavaScript Style Guide》](https://github.com/airbnb/javascript)。我不会把那篇文章原封不动地复制到我的博客里，你可以[在GitHub上找到](https://github.com/bigcommerce/sass-style-guide)。同时我认为，详细解释一些具体规则并且列出我们使用的工具会更加有帮助。
 
 
 ## 目标
 
-首先，我们不是想要变得更巧妙或者进行很好的优化。我们遵循一个公开的策略：合理性高于优化，清晰高于精巧。我们的目标是让我们的代码库更容易在一个大型团队中交流与共享。你会注意到在整篇文档中出现了许多类似“可读且可理解的”、“简单的”、“在包含必要内容的前提下尽量精简”、以及“你能做不意味着你应该做”等语句，告诉我们一些关于编写CSS的常识。
+首先，我们不是想要变得更巧妙或者进行很好的优化。我们遵循一个公开的策略：合理性高于优化，清晰高于精巧。我们的目标是让我们的代码库更容易在一个大型团队中交流与共享。你会注意到在整篇文档中出现了许多类似“可读且可理解的”、“简单的”、“在包含必要内容的前提下尽量精简”、以及“你能做不意味着你应该做”等语句，来帮助我们更好地编写CSS。
 
 ## 原则
 
@@ -149,7 +149,7 @@ CSS很难，而写出好的CSS代码更难。在一个大团队中，基于巨�
 
 #### 映射（Map）以及映射函数（Map Function） [<small>(链接)</small>](https://github.com/bigcommerce/sass-style-guide#component--micro-app-level-variables)
 
-正如Erskine设计文章[《SASS映射中更友好的颜色名称 - Friendlier colour names with SASS maps》](http://erskinedesign.com/blog/friendlier-colour-names-sass-maps/)中所描述的，我们使用SASS映射来完成大量全局样式属性，不仅仅是颜色这种我们开发者经常需要用到的属性。
+正如Erskine Design的[《SASS映射中更友好的颜色名称 - Friendlier colour names with SASS maps》](http://erskinedesign.com/blog/friendlier-colour-names-sass-maps/)所描述的，我们使用SASS映射来完成大量全局样式属性，不仅仅是颜色这种我们开发者经常需要用到的属性。
 
 SASS为映射提供了一个简单且可预测的API，并且可以用于大量属性类似z-index，font-weight和line-height。我们会在将来的一篇博客中更详细讲述这个主题。
 
