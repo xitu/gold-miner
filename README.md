@@ -11,7 +11,7 @@
 
 **文章都被认领了怎么办？**
 
-快来 [issue](https://github.com/xitu/gold-miner/issues/new) 申请成为译者吧。
+快来 [issue](https://github.com/xitu/gold-miner/issues/new) 申请成为译者吧，或者先校对一两篇文章感受一下。
 
 # 如何参与校对
 
