@@ -21,7 +21,7 @@
 ## 正在进行的
 
 *  [Sketch 作者的采访](https://github.com/xitu/gold-miner/issues/118)
-*  [OAuth2 Authentication with Lua](https://github.co](https://github.com/xitu/gold-miner/issues/117)
+*  [OAuth2 Authentication with Lua](https://github.com/xitu/gold-miner/issues/117)
 *  [How we "CSS" at BigCommerce](https://github.com/xitu/gold-miner/issues/114)
 *  [选择使用正确的 Markdown Parser](https://github.com/xitu/gold-miner/issues/113)
 *  [[英] 世界级的 Android 测试流程（二）](https://github.com/xitu/gold-miner/issues/112)
