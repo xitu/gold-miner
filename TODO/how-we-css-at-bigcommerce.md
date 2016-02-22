@@ -4,7 +4,7 @@
 * 原文作者 : [Simon Taggart](http://www.bigeng.io/author/simon-taggart/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [shenxn](https://github.com/shenxn)
-* 校对者: 
+* 校对者: [bobmayuze](https://github.com/bobmayuze)
 * 状态 : 翻译完成
 
 [我们的《SASS风格指南 - SASS Style Guide》现在已经可以在GitHub上找到](https://github.com/bigcommerce/sass-style-guide)
