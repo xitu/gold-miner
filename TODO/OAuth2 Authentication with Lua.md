@@ -1,11 +1,9 @@
-* 原文链接 : [OAuth2 Authentication with Lua](http://www.bigeng.io/how-we-css-at-bigcommerce/)
-* 原文作者 : [Israel Sotomayor](https://twitter.com/zot24)
+* 原文链接 : [OAuth2 Authentication with Lua](http://lua.space/webdev/oauth2-authentication-with-lua)
+* 原文作者 : [Israel Sotomayor](https://github.com/zot24)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [认领地址](https://github.com/xitu/gold-miner/issues/117)
 * 校对者: 
 * 状态 : 认领中
-
-<small>By Israel Sotomayor Jan 14 2016 14:50 [Webdev](http://lua.space/webdev) [Reblogged](https://moltin.com/blog/2016/01/oauth2-authentication-with-lua) [Comments](http://lua.space/webdev/oauth2-authentication-with-lua#disqus_thread)</small>
 
 Just to clarify, this won't be a detailed technical guide about how you can build your own authentication layer using [OpenResty](https://openresty.org) + [Lua](http://www.lua.org), rather it is a document explaining the process behind the solution.
 
@@ -151,10 +149,9 @@ Here are some interesting resources on Lua that we used when creating our authen
 
 #### Lua
 
-![](/images/loading.png)
-
-### About Israel Sotomayor
-
-#### [](http://lua.space/webdev/zot24.com)[](http://twitter.com/zot24)[](http://github.com/zot24)
-
-Software developer at Moltin  
+*   [Lua formdata type](http://blog.zot24.com/lua-formdata-type/)
+*   [Lua sugar syntax double dots](http://blog.zot24.com/lua-sugar-syntax-double-dots/)
+*   [How to use a classs constructor on Lua](http://blog.zot24.com/how-to-use-a-classs-constructor-on-lua/)
+*   [Returning status code with OpenResty Lua](http://blog.zot24.com/returning-status-code-with-openresty-lua/)
+*   [Return JSON responses when using OpenResty + Lua](http://blog.zot24.com/return-json-responses-when-using-openresty-lua/)
+*   [When ngx exit using OpenResty precede it with return](http://blog.zot24.com/when-ngx-exit-using-openresty-precede-it-with-return/)
