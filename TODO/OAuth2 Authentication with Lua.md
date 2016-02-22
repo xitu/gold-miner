@@ -43,7 +43,7 @@ We followed the concept behind [Kong](https://github.com/Mashape/kong), who use 
 
 Below is how [moltin](https://moltin.com)'s infrastructure currently looks:
 
-![](/images/loading.png)
+![](https://moltin.com/files/large/67b084c60b6d0ff)
 
 *   OpenResty (Nginx)
 *   Lua scripts
@@ -53,7 +53,7 @@ Below is how [moltin](https://moltin.com)'s infrastructure currently looks:
 
 This is the bit that rules them all.
 
-![](/images/loading.png)
+![](https://moltin.com/files/large/8b359a7b2bad55a)
 
 We have routing in place to process each of the different user's requests as you can see below:
 
