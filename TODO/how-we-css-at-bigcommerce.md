@@ -4,14 +4,14 @@
 * 原文作者 : [Simon Taggart](http://www.bigeng.io/author/simon-taggart/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [shenxn](https://github.com/shenxn)
-* 校对者: [bobmayuze](https://github.com/bobmayuze)
+* 校对者: [bobmayuze](https://github.com/bobmayuze)，[aleen42](https://github.com/aleen42)
 * 状态 : 翻译完成
 
 [我们的《SASS风格指南 - SASS Style Guide》现在已经可以在GitHub上找到](https://github.com/bigcommerce/sass-style-guide)
 
 CSS很难，而写出好的CSS代码更难。在一个大团队中，基于巨大的代码库写出好的CSS代码，更是难上加难。
 
-我们不是一个特殊的软件公司：120个工程师，4间办公室，3个不同国家，3个时区，以及7年时间，代表着一个大家都很熟悉的代码库环境。每个人都一直在尝试，代码库中也许有30种不同的按钮风格，4个不同的“品牌色彩”变量，以及一个列举了互联网上所有JavaScript包的 package.json / bower.json 文件。CSS与其他语言相比，看起来就像是一个被忽视的孩子，没有得到应有的照顾。CSS没有固定的规范，没有约定，也没有內建工具来防止你写出自己的代码风格。CSS就是一个雷区，我们困在其中，也有许多人会继续一头扎进来。
+我们并不是一家独一无二的软件公司：120个工程师，4间办公室，3个不同国家，3个时区，以及7年时间，代表着一个大家都很熟悉的代码库环境。每个人都有着一份干劲。这里有着30种不同风格的按钮，4种“品牌色彩”的变形，以及一个列举了互联网上所有JavaScript包的 package.json / bower.json 文件。CSS与其他语言相比，看起来就像是一个被忽视的可的孩子，只得到了最少的关怀。CSS没有固定的规范，没有约定，也没有內建工具来防止你写出只有自己看得懂的代码。CSS就是一个雷区，我们困在其中，也有许多人会继续一头扎进来。
 
 在BigCommerce，我们认为至少可以通过设置一些基本规范，并且让每一个编写CSS的人遵循它们，来解决一些在编写大量CSS代码时经常会遇到的问题。我们的《SAAS风格指南》并没有什么突破性的内容，并且其中的观点很像AirBnB的 [《JavaScript风格指南 - JavaScript Style Guide》](https://github.com/airbnb/javascript)。我不会把那篇文章原封不动地复制到我的博客里，你可以[在GitHub上找到](https://github.com/bigcommerce/sass-style-guide)。同时我认为，详细解释一些具体规则并且列出我们使用的工具会更加有帮助。
 
@@ -198,7 +198,7 @@ SASS为映射提供了一个简单且可预测的API，并且可以用于大量�
 
 #### 审查
 
-最后，你如何检查你的团队成员是否遵从这些规则呢？一个好的Pull Request政策在大多数时候是有效的，但是对于一个大团队来说这并不只是一个小团队政策的放大版本。
+最后，你如何检查你的团队成员是否遵从这些规则呢？一个好的Pull Request规则在大多数时候是有效的，但是对于一个大团队来说这并不只是一个小团队规则的放大版本。
 
 当我们编写代码和在核心库上创建Pull Request时，我们使用[scss-lint](https://github.com/brigade/scss-lint)来分析我们的代码。如果代码不符合风格指南，你的代码不会在你的机器上构建，Travis会失败，你的Pull Request也会被标记为失败。我们使用[YAML文件描述我们的规则 set](https://github.com/bigcommerce/sass-style-guide/blob/master/.scss-lint.yml)，这帮助我们非常接近风格指南，所以任何人都可以遵守。这个配置也被储存在我们开始所有新前端项目的公共Grunt任务上，所以你的CSS代码总是能被审查。
 
@@ -216,7 +216,7 @@ SASS为映射提供了一个简单且可预测的API，并且可以用于大量�
 
 #### 总结
 
-这就是我们的全部内容了。着眼于我们的环境、我们的生态系统，一个很多其他没有使用Facebook或者没有生活在一个非常理想世界的团队生存的地方。
+这就是我们的全部内容了。着眼于我们以及很多不是Facebook的团队或不是生活在理想世界中的团队所生存的环境和生态系统。
 
 我希望这能够帮助你，因为使用一个有理有据的、实用的、并且通俗易懂的代码风格指南，以及一些预处理工具和代码审查，我们将能够在一个巨大的CSS代码库中找到乐趣。
 
