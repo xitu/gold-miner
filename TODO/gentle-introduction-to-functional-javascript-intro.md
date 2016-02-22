@@ -2,17 +2,17 @@
 * 原文作者 : [James Sinclair](http://jrsinclair.com/about.html)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者: [Zhangjd](https://github.com/zhangjd)
-* 校对者: 
-* 状态: 待校对
+* 校对者: [markzhai](https://github.com/markzhai), [sqrthree](https://github.com/sqrthree)
+* 状态: 校对中
 
 # 函数式 JavaScript 教程（一）
 
-本文是介绍 JavaScript 函数式编程的四部分之首。在这篇文章里，我们来看一下那些让 JavaScript 适合作为函数式编程语言的组成部分，并探讨函数式编程有用的可能原因。
+本文是介绍 JavaScript 函数式编程的四部分之首篇。在这篇文章里，我们来看一下那些让 JavaScript 适合作为函数式编程语言的组成部分，并探讨为什么函数式编程可能是有用的。
 
-*   Part 1: [Building blocks and motivation](http://jrsinclair.com/articles/2016/gentle-introduction-to-functional-javascript-intro/)
-*   Part 2: [Working with Arrays and Lists](http://jrsinclair.com/articles/2016/gentle-introduction-to-functional-javascript-arrays/)
-*   Part 3: [Functions for making functions](http://jrsinclair.com/articles/2016/gentle-introduction-to-functional-javascript-functions/)
-*   Part 4: [Doing it with style](http://jrsinclair.com/articles/2016/gentle-introduction-to-functional-javascript-style/)
+*   Part 1: [组成部分与动机](http://jrsinclair.com/articles/2016/gentle-introduction-to-functional-javascript-intro/)
+*   Part 2: [处理数组和列表](http://jrsinclair.com/articles/2016/gentle-introduction-to-functional-javascript-arrays/)
+*   Part 3: [生成函数的函数](http://jrsinclair.com/articles/2016/gentle-introduction-to-functional-javascript-functions/)
+*   Part 4: [函数式风格编程](http://jrsinclair.com/articles/2016/gentle-introduction-to-functional-javascript-style/)
 
 ## 什么是函数？
 
@@ -34,7 +34,7 @@
 
 这句话创建了一个名为 `myContainer` 的容器，并把一个字符串放了进去。
 
-现在来看看函数，函数是一种封装若干指令，使其便于重复利用的方式；也可以理解为把若干事情先组织起来，使你不需要立马思考一切细节。可以这样创建函数：
+现在来看看函数，函数是一种封装若干指令，使其便于重复利用的方式；也可以理解为把若干事情先组织起来，使你不必立即想清楚一切。可以创建一个像这样的函数：
 
     function log(someVariable) {
         console.log(someVariable);
@@ -46,7 +46,7 @@
     log(myContainer);
     // Hey everybody! Come see how good I look!
 
-如果你熟悉 JavaScript，应该还会知道另一种定义函数的方法：
+如果你熟悉 JavaScript，应该还知道我们可以像这样定义和调用函数：
 
     var log = function(someVariable) {
         console.log(someVariable);
@@ -83,9 +83,9 @@
 
 现在你可能觉得这个结果没什么特别的，但对于计算机科学家而言就非常兴奋了。这种把函数放进变量的特性，有时候会被称为 “函数是 JavaScript 的一等公民” （functions are first class objects in JavaScript.）。这意味着大部分时候，可以把函数和其他数据类型（比如对象或字符串）等同对待。这个看起来小的特征可是相当的强大，不过在理解原因之前，我们需要先来介绍一下 DRY 原则。
 
-## Don't Repeat Yourself
+## 不要重复你自己
 
-程序员都喜欢提及 DRY 原则 - Don't Repeat Yourself （不要重复你自己）。其思想就是，如果你需要多次进行相同的工作，那就把它们打包起来，放入到某种可重用的包装里（比如函数）。通过这种方式，如果想要优化任务集合时，你就只需要改动一个地方。
+程序员都喜欢提及 DRY 原则 - 不要重复你自己（Don't Repeat Yourself）。其思想就是，如果你需要多次进行相同的工作，那就把它们打包起来，放入到某种可重用的包装里（比如函数）。通过这种方式，一旦想要调整那个任务集，你就只需要改动一个地方。
 
 看这个例子，我们使用了一个轮播库，创建三个轮播组件，并放到页面中：
 
