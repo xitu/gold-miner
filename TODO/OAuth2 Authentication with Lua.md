@@ -1,8 +1,8 @@
 * 原文链接 : [OAuth2 Authentication with Lua](http://lua.space/webdev/oauth2-authentication-with-lua)
 * 原文作者 : [Israel Sotomayor](https://github.com/zot24)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : [认领地址](https://github.com/xitu/gold-miner/issues/117)
-* 校对者: 
+* 译者 : [BOBO](https://github.com/CoderBOBO)
+* 校对者: [iThreeKing](https://github.com/iThreeKing)
 * 状态 : 认领中
 
 Just to clarify, this won't be a detailed technical guide about how you can build your own authentication layer using [OpenResty](https://openresty.org) + [Lua](http://www.lua.org), rather it is a document explaining the process behind the solution.
