@@ -14,7 +14,7 @@ Recently I’ve been working on a command-line tool, [devtool](https://github.co
 
 The recording below shows setting breakpoints within an HTTP server.
 
-![movie](/images/loading.png)
+![movie](http://i.imgur.com/V4RQSZ2.gif)
 
 This tool builds on [Electron](https://github.com/atom/electron/) to blend Node.js and Chromium features. It aims to provide a simple interface for debugging, profiling, and developing Node.js applications.
 
@@ -30,7 +30,7 @@ In some ways, we can use it as a replacement to the `node` shell command. For ex
 
 This will launch a new Chrome DevTools instance with Node.js support:
 
-![console](/images/loading.png)
+![console](http://i.imgur.com/bnInBHA.png)
 
 We can require Node modules, local npm modules, and built-ins like `process.cwd()`. We also have access to Chrome DevTools functions like `copy()` and `table()`.
 
@@ -53,15 +53,15 @@ We can use `devtool` for general purpose module and application development, ins
 
 This will launch our `app.js` in a Chrome DevTools console. With `--watch`, saving the file will reload the console.
 
-![console](/images/loading.png)
+![console](http://i.imgur.com/NuoYkJK.png)
 
 Clicking on the [`app.js:1`](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools) link will take us to the relevant line in the `Sources` tab:
 
-![line](/images/loading.png)
+![line](http://i.imgur.com/mH5jWT9.png)
 
 While in the `Sources` tab, you can also hit `Cmd/Ctrl + P` to quickly search across required modules. You can even inspect and debug internal modules, such as those of Node.js. You can also use the left-hand panel to browse modules.
 
-![Sources](/images/loading.png)
+![Sources](http://i.imgur.com/jn3RmnV.png)
 
 ## [ ](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#debugging)Debugging
 
@@ -69,7 +69,7 @@ Since we have access to the `Sources` tab, we can use it for debugging our appli
 
     devtool app.js --break
 
-![break](/images/loading.png)
+![break](http://i.imgur.com/hJ2pLW1.png)
 
 Below are a few features that may not be immediately obvious to those learning Chrome DevTools:
 
@@ -80,7 +80,7 @@ Below are a few features that may not be immediately obvious to those learning C
 
 > _tip_ – While the debugger is paused, you can hit the `Escape` key to open a console that executes within the current scope. You can change variables and then continue execution.
 
-![Imgur](/images/loading.png)
+![Imgur](http://i.imgur.com/nG9ellE.gif)
 
 ## [ ](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#profiling)Profiling
 
@@ -107,11 +107,11 @@ Now we can run `devtool` on our file:
 
 After execution, we can see the results in the `Profiles` tab.
 
-![profile](/images/loading.png)
+![profile](http://i.imgur.com/vSu7Lcz.png)
 
 We can use the links on the right side to view and debug the hot code paths:
 
-![debug](/images/loading.png)
+![debug](http://i.imgur.com/O4DZHyv.png)
 
 ## [ ](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#advanced-options)Advanced Options
 
@@ -119,11 +119,11 @@ We can use the links on the right side to view and debug the hot code paths:
 
 Chrome is constantly pushing new features and experiments into their DevTools, like the **Promise Inspector**. You can enable it by clicking the three dots in the top right corner, and selecting `Settings -> Experiments`.
 
-![experiments](/images/loading.png)
+![experiments](http://i.imgur.com/dNuIMw0.png)
 
 Once enabled, hit the `Escape` key to bring up a panel with the _Promises_ inspector.
 
-![](/images/loading.png)
+![](https://i.imgur.com/xKkTEeg.png)
 
 > _tip_ – In the _Experiments_ page, if you hit `Shift` 6 times, you will be exposed to some even more experimental (and unstable) features.
 
@@ -180,7 +180,7 @@ And in shell:
 
 Now, we can inspect requests `Network` tab:
 
-![requests](/images/loading.png)
+![requests](http://i.imgur.com/BWciXuh.png)
 
 #### [ ](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#codenonodetimerscode)`--no-node-timers`
 
@@ -190,7 +190,7 @@ However, you can disable this to improve support for Async stack traces.
 
     devtool app.js --no-node-timers
 
-![async](/images/loading.png)
+![async](http://i.imgur.com/dmfOfMx.png)
 
 #### [ ](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#v8-flags)V8 Flags
 
@@ -218,7 +218,7 @@ There are already some existing debuggers for Node.js, so you may be wondering w
 
 The [WebStorm](https://www.jetbrains.com/webstorm/) editor includes a very powerful Node.js debugger. This is great if you are already using WebStorm as your code editor.
 
-> ![](/images/loading.png)
+> ![](https://i.imgur.com/cfwG6qY.png)
 
 However, it lacks some features and polish of Chrome DevTools, such as:
 
@@ -232,7 +232,7 @@ But since it integrates with your WebStorm workspace, you can make modifications
 
 ### [ ](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#ironnode)iron-node
 
-![](/images/loading.png)
+![](https://i.imgur.com/fkbLvoS.png)
 
 A similar Electron-based debugger is [iron-node](https://github.com/s-a/iron-node). `iron-node` includes a built-in command to recompile native addons and a complex graphical interface that shows your `package.json` and `README.md`.
 
@@ -242,7 +242,7 @@ Whereas `devtool` is more focused on the command-line, Unix-style piping/redirec
 
 ### [ ](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#nodeinspector)node-inspector
 
-![](/images/loading.png)
+![](https://i.imgur.com/T4fpxjU.png)
 
 You may also like [node-inspector](https://github.com/node-inspector/node-inspector), which uses remote debugging instead of building on top of Electron.
 
