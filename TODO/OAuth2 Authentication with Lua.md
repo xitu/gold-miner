@@ -46,7 +46,7 @@ So we decided to move all logic one layer up to [OpenResty](https://openresty.or
 *   改进身份验证访问令牌时的次数和重定向后再次向API发送请求的次数。
 
 We wanted, and needed, to have more control on each request before hitting the actual API and so we decided to use something fast enough to allow us to pre-process each request and flexible enough to be integrated into our actual system. Doing this led us to use `OpenResty`, a modified version of [Nginx](https://www.nginx.com/), that allowed us to use [Lua](http://www.lua.org), the language used to pre-process those requests. Why? Because it's robust and fast enough to use for these purposes and it's a highly recognised scripting language used daily by many large companies.
-我们希望并需要在请求API之前，让每个请求拥有更多的控制权限，因此我们决定采用速度足够快的工具，使我们能对每个请求进行预处理，并可以十分灵活地将它们集成到我们的实际系统中。这样做的结果就是，我们就可以使用OpenResty（即Nginx修改后的版本），并且也能使用Lua脚本（即用于预先处理这些请求的语言）。原因是什么呢？因为它强大而且速度足够快，并能够解决这些问题，lua是许多大公司每天都在使用的一种受到高度认可的脚本语言。
+我们希望并需要在请求 API 之前更好地控制每个请求，因此我们决定采用速度足够快的工具，使我们能对每个请求进行预处理，并可以十分灵活地将它们集成到我们的实际系统中。最终，我们选择了 OpenResty（一个 [Nginx](https://www.nginx.com/) 的修改版本），这使得我们可以使用 [Lua](http://www.lua.org) 来预先处理这些请求。因为 [Lua](http://www.lua.org) 强大并且速度快，足以解决这些问题，并且 [Lua](http://www.lua.org) 是许多大公司每天都在使用的一种受到高度认可的脚本语言。
 
 We followed the concept behind [Kong](https://github.com/Mashape/kong), who use [OpenResty](https://openresty.org) + [Lua](http://www.lua.org), to offer several micro-services that could be plugged into your API project. However we found that Kong is in a very early stage and is actually trying to offer more than what we needed therefore we decided to implement our own Auth layer to allow us to have more control over it.
 我们跟随Kong背后的思想使用OpenResty+ Lua脚本，kong提供了一些可插入到你的API项目中的微服务。然而，我们发现Kong仍处于一个非常初期的阶段，实际上kong正在试图提供更多我们需要的东西。因此，我们决定实现自己的验证层，使我们对它有更多的控制权。
