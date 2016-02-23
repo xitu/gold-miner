@@ -9,6 +9,8 @@
 3. 翻译完成，发送 [Pull Request](https://github.com/xitu/gold-miner/pull/new/master)
 4. 至少审核两篇其他译者发 PR 的[文章](https://github.com/xitu/gold-miner/pulls?q=is%3Apr+is%3Aopen+label%3A%E6%A0%A1%E5%AF%B9%E8%AE%A4%E9%A2%86)
 
+> 建议：Fork 此仓库后，请先从 master 分支上 `git checkout -b translate` 一个新的 translate 分支来翻译文章，翻译完成后再把 translate 分支发 PR。
+
 **文章都被认领了怎么办？**
 
 快来 [issue](https://github.com/xitu/gold-miner/issues/new) 申请成为译者吧，或者先校对一两篇文章感受一下。
