@@ -4,7 +4,7 @@
 * 原文作者 : [Simon Taggart](http://www.bigeng.io/author/simon-taggart/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [shenxn](https://github.com/shenxn)
-* 校对者: [bobmayuze](https://github.com/bobmayuze)，[aleen42](https://github.com/aleen42)
+* 校对者: [bobmayuze](https://github.com/bobmayuze)，[aleen42](https://github.com/aleen42)，[Evaxtt](https://github.com/Evaxtt)
 * 状态 : 翻译完成
 
 [我们的《SASS风格指南 - SASS Style Guide》现在已经可以在GitHub上找到](https://github.com/bigcommerce/sass-style-guide)
@@ -28,7 +28,7 @@ CSS很难，而写出好的CSS代码更难。在一个大团队中，基于巨�
 
 我们的CSS代码基于SAAS，准确来说是SCSS语法。SASS是很强大的，同时也是很糟糕的。使用任何强大的工具，都会带来一个风险：软件工程师总是会做一件他们_非常_擅长的事：过度开发。
 
-“你能做不意味着你应该做”这样的措辞在SASS中的应用会非常的多。我见到过一些非常复杂的SASS函数生成一串巧妙的CSS代码。而其中的危险在于：很多人根本不关注函数的输出。其实，这些输出是非常重要的，特别是代码量和代码的特殊性（specificity）。同时，使用巧妙的语法或者选择器嵌套（类似[《父选择器前缀 - Parent Selector Suffix》](http://thesassway.com/news/sass-3-3-released#parent-selector-suffixes)）会使代码变得简洁，但这会使代码在代码库中非常难以被搜索出来。
+“你能做不意味着你应该做”这样的措辞在SASS中的应用会非常的多。我见到过一些非常复杂的SASS函数生成一串巧妙的CSS代码。而其中的危险在于：很多人根本不关注函数的输出。其实，这些输出是非常重要的，特别是代码的权重和特殊性（specificity）。同时，使用巧妙的语法或者选择器嵌套（类似[《父选择器前缀 - Parent Selector Suffix》](http://thesassway.com/news/sass-3-3-released#parent-selector-suffixes)）会使代码变得简洁，但这会使代码在代码库中非常难以被搜索出来。
 
     /* 尽量避免 */
     .component {
@@ -162,7 +162,7 @@ SASS为映射提供了一个简单且可预测的API，并且可以用于大量�
 
 我们深受[SuitCSS](http://suitcss.github.io/)的启发，并且将其规则稍稍改动以符合我们的口味和需求。比如说，我们使用驼峰命名法（Camel Case）替代Pascal命名法（Pascal Case）。
 
-正如我之前提到的，正确命名你的继承是非常重要的，我们使用了一些相当实用的方法。一个元素是你组件根的继承的继承，不意味着它在DOM中_必须_处在那个层级，它可以在与第一个继承相邻的位置完成相同的功能。
+正如我之前提到的，正确命名你的继承是非常重要的，因此我们使用了一些相当实用的方法。一个元素是你组件根的继承的继承，不意味着它在DOM中_必须_处在那个层级，它可以在与第一个继承相邻的位置完成相同的功能。
 
     <article>  
       <header>
@@ -182,17 +182,17 @@ SASS为映射提供了一个简单且可预测的API，并且可以用于大量�
       </li>
     </ul>  
 
-最好在保留必要内容的情况下尽量精简来避免冗长的类名。
+所以，我们最好尽可能去精简类名以防止其过于冗长，但我们依然需要保证包含了必要的内容。
 
 #### 工具和执行
 
-正如我之前提到的，我们新的CSS代码库是基于SASS的，并且像其他的酷小孩一样使用[libSass](http://sass-lang.com/libsass)来编译我们的样式表。其实还存在一些项目使用Ruby Sass，但是其性能的下降是非常显而易见的。
+正如我之前提到的，我们新的CSS代码库是基于SASS的，并且像其他的流行库一样使用[libSass](http://sass-lang.com/libsass)来编译我们的样式表。然而还存在一些项目使用Ruby来编译Sass，以致其性能的下降是非常明显。
 
 我也提到了让你的编译器来做一些巧妙的事情。其中一个例子就是浏览器引擎前缀（Vendor Prefixes ）。我们在SASS处理完成后使用Autoprefixer来自动添加浏览器引擎前缀，而不是使用不同浏览器专用的实现来扰乱我们的代码，或是让SASS做一些额外的Grunt任务。
 
 #### 优化
 
-关于输出优化，我们在每次部署核心CSS库的时候使用[CSSO](http://css.github.io/csso/)来优化我们的代码。CSSO会做一些常见的操作如通过删除空白符来压缩文件等，但是CSSO也会对我们的代码进行一些结构优化：从不同的组件中将相似的选择器分组，缩减语法，并除去由于我们使用更多“常识”和“清晰高于精巧”原则所带来的一些影响。我知道这听起来有些风险，但是到目前为止我们都没有发现任何问题并且CSSO一直都运作良好。
+关于输出优化，我们在每次部署核心CSS库的时候使用[CSSO](http://css.github.io/csso/)来优化我们的代码。CSSO会做一些常见的操作如通过删除空白符来压缩文件等，但是CSSO也会对我们的代码进行一些结构优化：从不同的组件中将相似的选择器分组，尽量缩减语法，并除去由于我们使用更多“共识”和“清晰高于精巧”原则所带来的影响。我知道这听起来有些风险，但是到目前为止我们都没有发现任何问题并且CSSO一直都运作良好。
 
 我知道你们中的一些人会在阅读指南的时候惊讶于我们一些规则引入的“重复代码”。然而CSSO帮助我们处理这些问题，并且我们依赖Gzip来移除可能剩下的重复代码片段。这使得我们的代码库可读，清晰并且容易理解。让工具来帮你做事。
 
