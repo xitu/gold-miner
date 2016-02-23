@@ -3,7 +3,6 @@
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者: [Zhangjd](https://github.com/zhangjd)
 * 校对者: [markzhai](https://github.com/markzhai), [sqrthree](https://github.com/sqrthree)
-* 状态: 校对中
 
 # 函数式 JavaScript 教程（一）
 
