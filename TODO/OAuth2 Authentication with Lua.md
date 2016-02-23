@@ -15,7 +15,7 @@ The logic used to authenticate a user was originally embedded into [moltin](http
 用于验证用户的方法最初是被在运用在PHP框架Laravel所搭建的moltin 相关的API当中。这就意味着在认证身份、驳回请求或验证消息从而导致高度延时的用户请求之前需启动大量的代码。
 
 I'm not going to give details about how much time a PHP Framework could take to give a basic response, but if we compare it to other languages/frameworks, you can probably understand.
-我不会详细地去介绍一个PHP框架需要花多长时间才能给出一个基础响应，但如果我们将它和其他语言/框架进行比较，也许你就可以理解相关的差异。
+我不会详细地去介绍一个PHP框架需要花多长时间才能给出一个基本响应，但如果我们将它和其他语言/框架进行比较，也许你就可以理解相关的差异。
 
 This is roughly how it looked at that time:
 以下是它所呈现的大致情景：
