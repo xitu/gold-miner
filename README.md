@@ -22,6 +22,7 @@
 
 ## 正在进行的
 
+*  [在 chrome 的开发者工具里 debug node.js 代码](https://github.com/xitu/gold-miner/issues/128)
 *  [无缝迁移 Angular 1 项目到 Angular 2](https://github.com/xitu/gold-miner/issues/127)
 *  [Sketch 作者的采访](https://github.com/xitu/gold-miner/issues/118)
 *  [OAuth2 Authentication with Lua](https://github.com/xitu/gold-miner/issues/117)
