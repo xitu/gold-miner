@@ -6,10 +6,10 @@
 * 状态 : 认领中
 
 Just to clarify, this won't be a detailed technical guide about how you can build your own authentication layer using [OpenResty](https://openresty.org) + [Lua](http://www.lua.org), rather it is a document explaining the process behind the solution.
-在此说明该教程将不提供详细的技术指导，教您如何使用OpenResty+Lua构建自己的认证层，而是讲解一下解决方案背后的处理过程。
+在此说明该教程将不提供详细的技术指导，教您如何使用 [OpenResty](https://openresty.org) + [Lua](http://www.lua.org) 构建自己的认证层，而是讲解一下解决方案背后的处理过程。
 
 This is a real example of how [moltin](https://moltin.com)'s API has come to rely on [OpenResty](https://openresty.org) + [Lua](http://www.lua.org) to handle our oauth2 authentication for all users.
-这是一个真实的案例：介绍如何通过moltin API的同时利用OpenResty+Lua为所有的用户处理oauth2身份认证。
+这是一个真实的案例：[moltin](https://moltin.com)'s API 如何依赖 [OpenResty](https://openresty.org) + [Lua](http://www.lua.org) 来为所有的用户处理 oauth2 身份认证
 
 The logic used to authenticate a user was originally embedded into [moltin](https://moltin.com)'s API, built using the PHP Framework [Laravel](https://laravel.com/). This means a lot of code had to be booted before we could authenticate, reject or validate a user request resulting in a high latency.
 用于验证用户的方法最初是被在运用在PHP框架Laravel所搭建的moltin 相关的API当中。这就意味着在认证身份、驳回请求或验证消息从而导致高度延时的用户请求之前需启动大量的代码。
