@@ -162,7 +162,5 @@ One thing I have observed as an experienced Angular developer is that the Angula
 
 Just as we saw in this guide, you can just use Angular 2 from scratch, write Angular 1 in Angular 2 form or gradually leverage ngUpgrade to upgrade your existing.
 
-## Scotchmas Giveaway Day 7 and 8
 
-Enter for your chance to win a [Misfit Flash](http://misfit.com/products/flash) and a $50 Starbucks Gift Card.
 
