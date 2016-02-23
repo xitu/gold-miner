@@ -54,7 +54,7 @@ We followed the concept behind [Kong](https://github.com/Mashape/kong), who use 
 ### 基础架构
 
 Below is how [moltin](https://moltin.com)'s infrastructure currently looks:
-moltin的基础架构
+moltin当前的基础架构
 
 ![](https://moltin.com/files/large/67b084c60b6d0ff)
 
