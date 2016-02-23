@@ -2,7 +2,7 @@
 * 原文作者 : [Israel Sotomayor](https://github.com/zot24)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [认领地址](https://github.com/xitu/gold-miner/issues/117)
-* 校对者: [CoderBOBO]
+* 校对者: 
 * 状态 : 认领中
 
 Just to clarify, this won't be a detailed technical guide about how you can build your own authentication layer using [OpenResty](https://openresty.org) + [Lua](http://www.lua.org), rather it is a document explaining the process behind the solution.
@@ -72,6 +72,7 @@ This is the bit that rules them all.
 
 We have routing in place to process each of the different user's requests as you can see below:
 我们设置了一些路由来处理不同用户的请求，你可以看到如下情况：
+
 **nginx.conf**
 
     location ~/oauth/access_token {
@@ -106,6 +107,7 @@ We make use of the OpenResty directives [content_by_lua_file](https://github.com
 
 This is where all the magic happens. We have two scripts to do this:
 这是个不可思议的环节。我们需要编写两个lua脚本来做到这一点：
+
 **get_oauth_access.lua**
 
     ...
@@ -167,6 +169,7 @@ This is where the created access tokens are stored. We can remove, expire or ref
 
 Here are some interesting resources on Lua that we used when creating our authentication layer.
 以下是我们在创建验证层时所用到的一些与Lua相关的有趣资源。
+
 #### Lua
 
 *   [Lua formdata type](http://blog.zot24.com/lua-formdata-type/)
