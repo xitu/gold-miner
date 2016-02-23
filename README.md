@@ -20,6 +20,7 @@
 
 ## 正在进行的
 
+*  [无缝迁移 Angular 1 项目到 Angular 2](https://github.com/xitu/gold-miner/issues/127)
 *  [Sketch 作者的采访](https://github.com/xitu/gold-miner/issues/118)
 *  [OAuth2 Authentication with Lua](https://github.com/xitu/gold-miner/issues/117)
 *  [How we "CSS" at BigCommerce](https://github.com/xitu/gold-miner/issues/114)
