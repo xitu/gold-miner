@@ -2,8 +2,7 @@
 * 原文作者 : [Karumi](hello@karumi.com)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [markzhai](https://github.com/markzhai)
-* 校对者: [JustWe](https://github.com/lfkdsk)
-* 状态 : 翻译完成
+* 校对者: [JustWe](https://github.com/lfkdsk), [Hugo Xie](https://github.com/xcc3641)
 
 在我们的上一篇博客文章，[“世界级的Android测试开发流程（一）”，我们开始讨论一个Android的测试开发流程](http://blog.karumi.com/world-class-testing-development-pipeline-for-android/)。我们讨论了一个软件工程师从开始写测试到找到测试开发的一些问题的演化过程。我们获得了以下结论，概括如下：
 
@@ -17,14 +16,13 @@
 
 *   - 独立于框架或者库去测试业务逻辑。
 *   - 测试服务器端的API集成。
-*   - 测试黑盒场景下，从用户视角写的的接收准则。
+*   - 在黑盒场景测试下，从用户角度写的的接收准则。
 
 在这篇文章中，我们将会看到几个测试方法，它们覆盖了上述部分并保证了一个稳若盘石的测试开发流程。
 
 ### **独立于框架或者库去测试业务逻辑：**
 
-检查[业务逻辑](http://c2.com/cgi/wiki?BusinessLogicDefinition)是否确实实现了预定的产品需求是必要的。我们需要隔离想要测试的代码，模拟不同的初始场景，以设置运行时的一些组件的行为。接着，我们将会通过选择想要练习的部分来测试代码。一旦完成，我们需要检查软件状态在训练该测试主题后是否正确。
-Next, we will test the code by choosing the parts we want to exercise. Once completed, we need to check if the state of the software is correct after exercising the subject under test.
+至关重要的是检查[业务逻辑](http://c2.com/cgi/wiki?BusinessLogicDefinition)是否确实实现了预定的产品需求。我们需要隔离想要测试的代码，模拟不同的初始场景，以设置运行时的一些组件的行为。接着，我们将会通过选择想要练习的部分来测试代码。一旦完成，我们需要检查软件状态在训练该测试主题后是否正确。
 
 这个测试方法的关键是 [依赖倒置原则](http://martinfowler.com/articles/dipInTheWild.html)。通过写依赖于抽象的代码，我们将可以把我们的软件分离为不同的层次。为了获得一个依赖的实例，我们需要从某个地方去请求它。或者，我们可以在实例被创建的时候获得它。我们软件的一部分要求我们创建代码来获取协作者的实例。在这些点，我们将会引入测试替身(Test Double)来模拟初始场景或编写不同行为来设计我们的测试。通过使用 [测试替身](http://martinfowler.com/articles/mocksArentStubs.html)，我们将能模拟生产环境代码的行为与状态。同时，它能帮助我们选择测试的范围（从根本上代表了要测试的代码的数量）。如果没有依赖倒置，所有类就需要各自去获得它们的依赖。从而导致类实现和依赖的实现相互耦合，进而无法引入测试替身来切断生产环境代码的执行流。
 
@@ -64,7 +62,7 @@ Next, we will test the code by choosing the parts we want to exercise. Once comp
       }
     }
 
-前三个测试是检查GameBoy MMU（内存管理单元）是否实现正确。成功的关键在于检查测试执行的最后MMU状态是否正确。所有的测试检查MMU是否被正确初始化。如果reset后，MMU被清理了，或者写了2个字节后和期望的词相等，则最后的读取是正确的。为了测试模拟器软件的这部分，我们简化了测试范围，仅有一个类作为测试的主题。
+前三个测试是检查GameBoy MMU（内存管理单元）是否正确实现。成功的关键在于检查测试执行的最后MMU状态是否正确。所有的测试检查MMU是否被正确初始化。如果reset后，MMU被清理了，或者写了2个字节后和期望的词相等，则最后的读取是正确的。为了测试模拟器软件的这部分，我们缩小了测试范围，仅有一个类作为测试对象。
 
     public class GameBoyBIOSExecutionTest {
 
