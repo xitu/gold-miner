@@ -8,7 +8,7 @@
 
 With Marshmallow a new permissions model was added to Android which requires developers to take a somewhat different approach to permissions on Android. In this series we’ll take a look at ways to handle requesting permissions both from a technical perspective, and in term of how to provide a smooth user experience.  
 
-[![](/images/loading.png)  
+[![](http://ww1.sinaimg.cn/large/9b5c8bd8jw1f1ad3bu5htj206o06oq32.jpg)  
 ](https://blog.stylingandroid.com/?attachment_id=3476)Before we get stuck in it’s worth pointing out that permissions required by an app really fall in to one of two categories: Those that are core to the app’s operation – the app cannot function correctly without those core permissions; and those that are required for more peripheral features. For example, For a Camera app the `CAMERA` permission is part of the core functionality – a Camera app which couldn’t actually take any pictures would be pretty useless. However, there may be additional functionality such as tagging the picture with the location where it was taken (requiring `ACCESS_FINE_LOCATION`) which is a nice feature, but the app can operate without it.
 
 So we’re going to start work on an app for the next series of posts, but it actually requires two permissions for it to be any use whatsoever: `RECORD_AUDIO` and `MODIFY_AUDIO_SETTINGS`. In order to obtain these permissions we need to declare them in the Manifest as we always have:
@@ -104,11 +104,11 @@ So that is actually fairly straightforward.
 
 This will work as-is on pre-Marshamllow devices:
 
-[![](/images/loading.png)](https://blog.stylingandroid.com/?attachment_id=3479)
+[![](http://ww3.sinaimg.cn/large/9b5c8bd8jw1f1ad406ecij208c069jr8.jpg)](https://blog.stylingandroid.com/?attachment_id=3479)
 
 But we don’t yet have any missing handling for Marshmallow and later – we just display a _Snackbar_:
 
-[![](/images/loading.png)>](https://blog.stylingandroid.com/?attachment_id=3480)
+[![](http://ww1.sinaimg.cn/large/9b5c8bd8jw1f1ad4dgmdhj208c069glh.jpg)>](https://blog.stylingandroid.com/?attachment_id=3480)
 
 Requesting missing permissions is where some complexity begins to creep in. We’ll look at this in the next article.
 
