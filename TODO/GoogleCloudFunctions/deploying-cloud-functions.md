@@ -1,111 +1,121 @@
-# Deploying Cloud Functions
+原文[ Deploying Cloud Functions](https://cloud.google.com/functions/deploying)
 
-## Building and Testing Locally
+##部署 Cloud Functions
 
-Cloud Functions execute in a managed Node.js runtime environment so you can build and test your functions locally just using a standard Node.js runtime along with your favorite development tools.
+###构建并在本地测试
 
-## Deployment
+Cloud Functions 是在一个 Node.js 运行环境中管理的，因此你可以在你喜欢的开发工具在本地 Node.js 环境进行构建和测试你的函数。
 
-You can deploy Cloud Functions from your local file system (via a [Google Cloud Storage bucket](https://cloud.google.com/storage/docs/)) or from your Github or Bitbucket source repository (via [Cloud Source Repositories](https://cloud.google.com/tools/cloud-repositories/docs/)).
+###部署
 
-When deploying, Cloud Functions will look for a file named `index.js` or `function.js`. If you've provided a `package.json` file that contains a `"main"` entry, then Cloud Functions will look for the specified file instead.
+你可以从本地文件系统(借助[Google Storage bucket](https://cloud.google.com/storage/docs/))部署 Cloud Functions，也可以从你 Github 或 Bitbucket 源码仓库(借助 [Cloud Source Respositories](https://cloud.google.com/tools/cloud-repositories/docs/))部署
 
-**Note:** The first time you deploy a function it may take several minutes as we need to provision the underlying infrastructure to support your functions. Subsequent deployments will be much faster.
+在部署时，Cloud Functions 会查找名叫 index.js 或者 function.js 的文件。如果你提供的 package.js 文件中包含 "main" 入口，Cloud Functions 就会寻找对应的指定文件而不是前面的这两个。
 
-### Local file system
+```
+注意：首次部署函数时可能要花费几分钟，因为我们需要为你的函数提供底层支持。随后的部署就会很快了
 
-Local file system deployments work by uploading a ZIP file containing your function to a Cloud Storage Bucket, then including that bucket in the `deploy` CLI command line. When using the CLI, Cloud Functions zips up the contents of your functions directory for you. Alternatively you can use the Cloud Functions interface in the Cloud Platform Console to upload a ZIP file you make yourself.
+```
 
-#### Create a Cloud Storage Bucket
+###本地文件系统
 
-First you'll need a Cloud Storage Bucket to act as the temporary staging area for your function code.
+本地文件系统部署方式是通过上传一个包含你函数的 ZIP 文件到 Cloud Storage Bucket 中，然后通过命令行工具吧那个 bucket 包含在部署中。当使用命令行工具时，Cloud Functions 把包含函数的文件夹打包。另外，你也可以使用 Cloud Platform Console 的 Cloud Functions 界面上传你自己打包的 ZIP 文件。
 
-If you don't already have a Cloud Storage Bucket, follow these steps to create one:
+####创建一个 Cloud Storage Bucket
 
-1.  Open the [Cloud Storage Console](https://console.cloud.google.com/project/_/storage/browser).
-2.  Create a new bucket.
-3.  Type the bucket name (we will use the name "cloud-functions" hereafter), then choose whichever storage class and location you prefer.
-4.  Click **Create**.
+首先你需要一个 Cloud Storage Bucket 作为你函数代码的临时存数地点。
 
-#### Deploy using the gcloud CLI
+ 如果你还没有 Cloud Storage Bucket ，跟随下面的步骤创建一个：
 
-Using the `gcloud` CLI, deploy your function from the path containing your function code with the `deploy` command. The command has the following format:
+1. 打开 [Cloud Storage Console](https://console.cloud.google.com/project/_/storage/browser?_ga=1.242691842.1008720489.1449201561)
+
+2. 创建一个新的 bucket
+
+3. 输入 bucket 名字(这里我们使用"cloud-functions")，然后根据你的喜好选择存储类型和位置。
+
+4. 点击创建。
+
+####使用 gcloud 命令行 部署
+
+在你本地函数代码所在的文件夹使用 gcloud 命令行工具的 deploy 命令。命令格式如下：
 
 > $ gcloud alpha functions deploy <NAME> --bucket <BUCKET_NAME> <TRIGGER>
 
-Let's look at the arguments in this command:
+下表是命令中的参数说明:
 
-
-Argument|Description
+参数|说明
 ----|----
-deploy| The Cloud Functions command you are executing, in this case the deploy command.
-<NAME>| The name of the Cloud Function you are deploying. This name may contain only lowercase letters, numbers, or hyphens. Unless you specify the --`entry-point` option, your module must export a function with the same name.
---bucket <BUCKET_NAME>| The name of the Cloud Storage bucket where your function source will be uploaded.
-<TRIGGER>|The trigger type for this function (see [Calling Cloud Functions](https://cloud.google.com/functions/calling)).
-Optional Arguments|
---entry-point <FUNCTION_NAME>|The name of a function that should be used as an entry point, instead of the `<NAME>` argument that is used by default. Use this optional argument when the function exported in your source file has a different name than the `<NAME>` argument you're using to deploy.
+deploy| 执行的 Cloud Functions 命令，这里是 deploy 命令。
+<NAME>| 你部署的 Cloud Functions 的名称。名称中只能有小写字母，数字和连字符。除非你指定了 --entry-point 选项，否则你模块中必须导出和这个同名的函数。
+--bucket <BUCKET_NAME>| 函数源码要上传的 Cloud Storage bucket 的名字
+<TRIGGER>|此函数的触发器(参考[Calling Cloud Functions](https://cloud.google.com/functions/calling)) 
+可选参数|
+--entry-point <FUNCTION_NAME>|作为入口的函数名，而不是<NAME> 参数中使用的那个默认的。这个参数主要用在你源文件中导出的函数名和你部署是<NAME> 参数指定的函数名不一致时。
 
-The following example deploys a function and assigns it an HTTP trigger:
+下面的例子部署了一个函数并指明它有一个 HTTP 触发器:
 
 > $ gcloud alpha functions deploy helloworld --bucket cloud-functions --trigger-http
 
-Let's look at the arguments in this command:
+下表是命令中的参数说明:
 
-Argument|Description
---------|-----------
-deploy|The Cloud Functions command you are executing, in this case the deploy command.
-helloworld|The name of the Cloud Function you are deploying, in this case helloworld. The deployed Cloud Function will be registered under the name helloworld, and the source file must export a function named helloworld.
---bucket cloud-functions|The name of the Cloud Storage bucket where your function source will be uploaded, in this case cloud-functions.
---trigger-http|The trigger type for this function, in this case an HTTP request (webhook).
+参数|说明
+----|----
+deploy| 执行的 Cloud Functions 命令，这里是 deploy 命令。
+helloworld| 部署的函数名，这里是 helloworld 。部署的 CLoud Functions 将会注册到 helloworld 名字下，而源代码中必须导出一个名字是 helloworld 的函数。
+--bucket cloud-functions| 源代码上传到的 Cloud Storage bucket 名字，这里是 cloud-functions
+--trigger-http|函数触发器的类型，这里是 HTTP 请求(webhook)
 
-The following example deploys the same function but under a different name:
+下面的例子部署了同一个函数但是在不同的名字下面：
 
 > $ gcloud alpha functions deploy hello --entry-point helloworld --bucket cloud-functions --trigger-http
 
-Let's look at the arguments in this command:
+下表是命令中的参数说明:
 
-Argument|Description
---------|-----------
-deploy|The Cloud Functions command you are executing, in this case the deploy command.
-hello|The name of the Cloud Function you are deploying, in this case hello. The deployed Cloud Function will be registered under the name hello.
---entry-point helloworld|The deployed Cloud Function will use an exported function named helloworld.
---bucket cloud-functions|The name of the Cloud Storage bucket where your function source will be uploaded, in this case cloud-functions.
---trigger-http|The trigger type for this function, in this case an HTTP request (webhook).
+参数|说明
+----|----
+deploy| 执行的 Cloud Functions 命令，这里是 deploy 命令。
+hello | 部署的函数名，这里是 hello 。部署的函数会注册在 hello 名下。
+--entry-point helloworld|部署的 Cloud Functions 使用一个名字为 helloworld 的导出函数
+--bucket cloud-functions| 源代码上传到的 Cloud Storage bucket 名字，这里是 cloud-functions
+--trigger-http|函数触发器的类型，这里是 HTTP 请求(webhook)
 
-The `--entry-point` option is useful when the names of your exported functions do not meet the naming requirements for Cloud Functions.
+--entry-point 选项在你导出函数的名字和 Cloud Functions 命名规则不符合时很有用。
 
-### Cloud Repositories
+###Cloud 仓库
 
-If you prefer to deploy your function source code from a source repository like Github or Bitbucket, you can use [Google Cloud Source Repositories](https://cloud.google.com/tools/cloud-repositories/docs) to deploy functions directly from branches or tags in your repository.
+如果你更喜欢使用像 Github 或者 Bitbucket 源码仓库来部署你的函数，那么你可以使用 [Google Cloud Source Repositories](https://cloud.google.com/tools/cloud-repositories/docs) 从你仓库的分支或者 tag 直接部署。
 
-#### Set up Cloud Source Repositories
+####设置云代码仓库
 
-1.  Follow the Cloud Source Repositories [getting started steps](https://cloud.google.com/tools/cloud-repositories/docs/cloud-repositories-setup) to set up your repository.
-2.  Connect your Github or Bitbucket repository by following the [hosted repository guide](https://cloud.google.com/tools/cloud-repositories/docs/cloud-repositories-hosted-repository).
+1. 遵循 Cloud Source Respositories 的[开始](https://cloud.google.com/tools/cloud-repositories/docs/cloud-repositories-setup) 设置你的仓库。
 
-Once the connection between Cloud Source Repositories and your external repository is established, these repositories are kept synchronized so that you can commit to your chosen repository as you would normally.
+2. 更随这份[指导](https://cloud.google.com/tools/cloud-repositories/docs/cloud-repositories-hosted-repository)
 
-#### Deploy using the `gcloud` CLI
+一旦 Cloud Source Repositories 和你附属的仓库建立了联系，这些仓库就会保持同步，这样你就可以给你通常提交的那个仓库提交了。
 
-To deploy a function from your source repo, use the `--source-url` command line argument:
+####通过 gcloud 命令行工具部署
 
-> $ gcloud alpha functions deploy helloworld \
->   --source-url https://source.developers.google.com/p/<PROJECT_ID> <TRIGGER>
+使用 --source-url 参数从你的源码仓库部署函数：
 
-Let's look at the arguments in this command:
+>$ gcloud alpha functions deploy helloworld \
+  --source-url https://source.developers.google.com/p/<PROJECT_ID> <TRIGGER>
 
-Argument|Description
---------|-----------
-deploy|The Cloud Functions command you are executing, in this case the deploy command.
-helloworld|The name of the Cloud Function you are deploying, in this case helloworld. The deployed Cloud Function will be registered under the name helloworld, and the source file must export a function named helloworld.
---source-url https://source.developers.google.com/p/<PROJECT_ID>|The URL for the project's Cloud Source Repository. This should be in the form https://source.developers.google.com/p/<PROJECT_ID>, where is your Cloud Project ID.
-<TRIGGER>|The trigger type for this function (see Calling Cloud Functions).
-Optional Arguments| 
---source <SOURCE>|The path within your source tree that contains your function. For example, "/functions".
---source-branch <SOURCE_BRANCH>|The name of the branch containing your function source.
---source-tag <SOURCE_TAG>|The name of the tag containing your function source.
---source-revision <SOURCE_REVISION>|The name of the revision (commit) containing your function source.
+下表是命令中的参数说明:
 
-#### Deploy using Cloud Console
+参数|说明
+----|----
+deploy| 执行的 Cloud Functions 命令，这里是 deploy 命令。
+helloworld| 部署的函数名，这里是 helloworld 。部署的 CLoud Functions 将会注册到 helloworld 名字下，而源代码中必须导出一个名字是 helloworld 的函数。
+--source-url https://source.developers.google.com/p/<PROJECT_ID>| 项目云仓库的 url 。格式应该是https://source.developers.google.com/p/<PROJECT_ID> 最后跟的是你的 Cloud Project ID
+<TRIGGER>|此函数的触发器(参考[Calling Cloud Functions](https://cloud.google.com/functions/calling)) 
+可选参数|
+--source <SOURCE>|源码树包含函数的路径。例子中是 "/functions"
+--source-branch <SOURCE_BRANCH>|包含函数源码的分支名
+--source-tag <SOURCE_TAG> |包含函数源码的 tag 名
+--source-revision <SOURCE_REVISION>	|包含函数源码的 revision 名
 
-If you prefer to use the Cloud Platform Console UI, you can also [create and deploy](https://console.cloud.google.com/project/_/functions/add) functions from the Cloud Functions page in the Cloud Platform Console.
+####使用 Cloud Console 部署
+
+如果你更喜欢使用 Cloud Platform Console 的图形界面，在 Cloud Platform Console 的 Cloud Functions 页面的创建和部署函数。
+
+

@@ -1,75 +1,80 @@
-# Calling Cloud Functions
+原文[Calling Cloud Functions](https://cloud.google.com/functions/calling)
 
-Google Cloud Functions can be associated with a specific trigger. The trigger type determines how and when your function will execute. The current version of Cloud Functions supports the following native trigger mechanisms:
+##调用 Cloud Functions
 
-*   [Google Cloud Pub/Sub](#google_cloud_pubsub)
-*   [Google Cloud Storage](#google_cloud_storage)
-*   [HTTP Invocation](#http_invocation)
-*   [Debug/Direct Invocation](#debugdirect_invocation)
+Google Cloud Functions 可以和一个指定的触发器联系起来。触发器的类型决定了你的函数执行方式和执行时间。当前版本的 Cloud Functions 支持以下本地触发机制：
 
-You can also integrate Cloud Functions with any other Google service that supports Cloud Pub/Sub, or any service that provides HTTP callbacks (webhooks). This is described in more detail in [Additional Triggers](#other).
+* [Goocle Cloud Pub/Sub](https://cloud.google.com/functions/calling#google_cloud_pubsub)
+* [Goocle Cloud Storage](https://cloud.google.com/functions/calling#google_cloud_storage)
+* [HTTO Invocation](https://cloud.google.com/functions/calling#http_invocation)
+* [Debug/Direct Invocation](https://cloud.google.com/functions/calling#debugdirect_invocation)
 
-## Google Cloud Pub/Sub
+你也可以把 Cloud Functions 和其它支持 Cloud Pub/Sub 的 Google 服务整合在一起，也可以和任何支持 HTTP 回调(webhooks) 的服务整合。这部分的更多细节在[补充触发器](https://cloud.google.com/functions/calling#other)中。
 
-Cloud Functions can be triggered asynchronously via a [Cloud Pub/Sub topic](https://cloud.google.com/pubsub/docs). Cloud Pub/Sub is a globally distributed message bus that automatically scales as you need it and provides a foundation for building your own robust, global services.
+##Google Cloud Pub/Sub
 
-Example:
+Cloud Functions 可以通过 Cloud Pub/Sub 主题异步触发。Cloud Pub/Sub 全球性的分布式消息总线，可以根据你的需求弹性扩展与收缩，为你构建强健的，全球化的服务提供良好的基础。
+
+例子：
 
 > $ gcloud alpha functions deploy helloworld --bucket cloud-functions --trigger-topic hello_world
 
-Argument|Description
---------|-----------
---trigger-topic|The name of the Cloud Pub/Sub topic to which the function will be subscribed.
+参数|描述
+----|----
+--trigger-topic|函数要订阅的Cloud Pub/Sub 主题名
 
-Cloud Functions invoked from Cloud Pub/Sub triggers will be invoked with the data contained in the message that was published to the Pub/Sub topic. This must be a JSON document.
+由 Cloud Pub/Sub 触发器调用的 Cloud Functions 会接收到一个发布到 Pub/Sub 主题的 message，message
+ 必须是 JSON 格式。
 
-## Google Cloud Storage
+###Google Cloud Storege
 
-Cloud Functions can respond to Object Change Notifications emerging from [Google Cloud Storage](https://cloud.google.com/storage/docs). These change notifications are triggered in response to object addition (create), update (modify), or deletion.
+Cloud Functions 可以对 Google Cloud Storage 发出的对象修改通知做出回应。这些通知是由对象添加(创建)，更新(修改)，或者删除触发的。
 
-Example:
+例子：
 
 > $ gcloud alpha functions deploy helloworld --bucket cloud-functions --trigger-gs-uri my-bucket
 
+参数|描述
+----|----
+--trigger-gs-uri| 函数要监听变更的 Cloud Storage bucket 名字
 
-Argument|Description
---------|-----------
---trigger-gs-uri|The name of the Cloud Storage bucket the function will watch for changes.
+由 Cloud Storage 触发器触发的 Cloud Functions 会接受到对象增加，更新，或者删除事件发出的预定义好的 JSON 结构，像这个[文档](https://cloud.google.com/storage/docs/object-change-notification#_Type_AddUpdateDel)中这样。
 
-Cloud Functions invoked from Cloud Storage triggers will be invoked with an Object Addition, Update, or Deletion event which has a predefined JSON structure, as [documented here](https://cloud.google.com/storage/docs/object-change-notification#_Type_AddUpdateDel).
+###HTTP 触发
 
-## HTTP Invocation
+Cloud Functions 可以由 HTTP POST 方法同步的触发。给你的函数添加一个 HTTP 端点，你得在部署函数时通过 --trigger-http 指明触发器类型。HTTP 调用时同步触发的，也就意味着函数的结果会在 HTTP 响应的 body 中返回。
 
-Cloud Functions can be invoked synchronously via an HTTP POST. To create an HTTP endpoint for your function, you specify `--trigger-http` as the trigger type when deploying your function. HTTP invocations are synchronous, which means that the result of your function execution will be returned as the HTTP response body.
-
-Example:
+例子：
 
 > $ gcloud alpha functions deploy helloworld --bucket cloud-functions --trigger-http
 
-> **Note:** HTTP invocation currently only supports the HTTP POST method. Any other invocation method (such as GET or PUT) causes a 405 (Method Not Supported) result.
+```
+注意：现在只支持 HTTP POST 方法。其它任何方法(比如 GET 或者 PUT)都会引发 405(方法不支持) 错误。
 
-A Cloud Function deployed with an HTTP trigger can then be invoked with a simple `curl` command:
+部署带有 HTTP 触发的 Cloud Functions 可以通过简单的 curl 命令触发：
 
 > $ curl -X POST <HTTP_URL> --data '{"message":"Hello World!"}'
+```
 
-The `<HTTP_URL>` associated with a Cloud Function can be seen after the function is deployed, or queried at any time via the `describe` command in gcloud.
+<HTTP_URL> 在函数部署后会返回，也可使用 gcloud 的 describe 产看
 
-## Debug/Direct Invocation
+###Debug/Direct 调用
 
-To support quick iteration and debugging, Cloud Functions provides a _call_ command in the CLI and a test function in the UI. This allows you to manually invoke a function to ensure it is behaving as expected. This causes the function to execute synchronously even though it may have been deployed with an asynchronous trigger type like Cloud Pub/Sub.
+为了支持迭代和调试，Cloud Functions  命令行工具提供了 call 命令，并且在 UI 中提供了一个测试函数。这样你就可以手动调用函数并确保它的正确性。这种调用方式会同步触发函数的执行，即使部署时它的触发器是异步的，比如 Cloud Pub/Sub 触发器。
 
-Example:
+例子：
 
 > $ gcloud alpha functions call helloworld --data '{"message":"Hello World!"}'
 
-## Additional Triggers
 
-Because Cloud Functions can be invoked by messages on a Cloud Pub/Sub topic, you can easily integrate Cloud Functions with any other Google service that supports Cloud Pub/Sub as an event bus. In addition by leveraging HTTP invocation you can also integrate with any service that provides HTTP callbacks (webhooks).
+###其它触发器 
 
-### Cloud Logging
+由于 Cloud Functions 可以由 Cloud Pub/Sub 主题消息触发，因此你可以把它和任何其它支持 Cloud Pub/Sub 作为事件总线的的 Google 服务整合起来。 借助于 HTTP 触发方式，你可以把任何其它提供 HTTP 回调(webhooks) 的服务整合起来。
 
-Google Cloud Logging events can be exported to a Cloud Pub/Sub topic from which they can then be consumed by a Cloud Functions. See the Cloud Logging documentation on [exporting logs](https://cloud.google.com/logging/docs/export/configure_export) for more information.
+###Cloud 日志
 
-### GMail
+Google Cloud Logging 事件可以输出到任何可以被 Cloud Functions 消费的 Cloud Pub/Sub 主题。在[这里](https://cloud.google.com/logging/docs/export/configure_export)参看更多关于 Cloud Logging 的文档。
 
-Using the [GMail Push Notification API](https://developers.google.com/gmail/api/guides/push) you can send GMail events to a Cloud Pub/Sub topic and consume them with a Cloud Function.
+###GMail
+
+使用 [GMail推送通知 API](https://developers.google.com/gmail/api/guides/push) 你可以把 GMail 事件发送给 Cloud Functions 要消费的 Cloud Pub/Sub 主题。

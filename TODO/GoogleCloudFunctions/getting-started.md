@@ -1,46 +1,63 @@
-# Getting Started
+原文[Getting Started](https://cloud.google.com/functions/getting-started)
 
-To get started using [Google Cloud Functions](https://cloud.google.com/functions/docs/):
+##开始
 
-1.  If you don't already have a Google Account, [create one](https://accounts.google.com/SignUp).
-2.  Create a Billing Account within your Google Account.
+使用 [Google Cloud Functions](https://cloud.google.com/functions/docs/) 的准备工作：
 
-    In order to use Google Cloud Functions, you must enable billing for the Cloud project you intend to use, but first you need to have a billing account.
+ 1. 要是你还没有 Google 账户的话[点击这里创建](https://accounts.google.com/SignUp)
+ 2. 通过你的 Google 账户创建一个可以结算的账户
+	
+	为了使用 Google Cloud Function 你必须开启你计划使用的云工程的结算渠道，前提是你必须先有个可以结算的账户
 
-    If you already have a billing account, you can just use that. If not, you can [create a Billing Account here](https://console.cloud.google.com/billing).
+	如果你有可以结算的账户，那么点击[这里](https://console.cloud.google.com/billing?_ga=1.11430708.1008720489.1449201561)
 
-3.  Create a Cloud Platform Project.
+ 3. 创建云平台工程
 
-    We recommend that you create a new project to experiment with Google Cloud Functions, but you can also use an existing Cloud project if you prefer. You can [create a new Cloud Project here](https://console.cloud.google.com/project).
+	我们建议大家创建一个新的工程体验 Google Cloud Functions。当然你也可以使用已经创建的工程。点击[这里](https://console.cloud.google.com/project?_ga=1.203378321.1008720489.1449201561)创建新的项目。
 
-4.  Enable Billing for your project.
+ 4. 给你的项目开启结算
 
-    Billing must be enabled for the Cloud project you're using. You can [enable billing for your project here](https://console.cloud.google.com/project/_/settings).
+	你要使用的云项目必须开启结算。可以在[这里](https://console.cloud.google.com/project?_ga=1.203378321.1008720489.1449201561) 开启结算。
 
-5.  Enable the Cloud Functions API.
+ 5. 开启云函数 APIs
 
-    Before you can start using Cloud Functions, you need to ensure the Cloud Functions API is enabled. You can [enable the Cloud Functions API for your project here](https://console.cloud.google.com/flows/enableapi?apiid=cloudfunctions&redirect=https:%2F%2Fcloud.google.com%2Ffunctions%2Fgetting-started&showconfirmation=true&pli=1).
+	在开始使用 Cloud Functions 前，你需要确保云函数 API(以及所有的依赖 API ) 是开启的。好消息是你可以一步把它们完成。
 
-6.  Install Google Cloud SDK
+	点击[这里](https://console.cloud.google.com/flows/enableapi?apiid=cloudfunctions,container,compute_component,storage_component,pubsub,logging,source&pli=1&_ga=1.1977009.1008720489.1449201561)开启云函数 APIs
+	
+	这将会开启下面的云平台 APIs
+	
+	* Google Cloud Functions
+	* Google Container Engine
+	* Google Compute Engine
+	* Google Cloud Pub/Sub
+	* Google Cloud Logging
+	* Google Cloud Storage
+	* Cloud Source Repositories 
 
-    The walkthrough examples in this document use the `gcloud` command line tool available via the Cloud SDK. For instructions to install and set up the Cloud SDK, see the Cloud SDK [Installation and Quick Start](https://cloud.google.com/sdk).
+6. 安装 Google Cloud SDK
 
-    Next, open a terminal on your local machine and type the following command to authenticate:
+	这份文档中的 walkthrough 例子就是使用的 gcloud 命令行工具可以在 Cloud SDK 中找到。安装和设置 Cloud SDK 的指导文档请参看 Cloud SDK 的[安装和快速开始](https://cloud.google.com/sdk)
+
+	接下来在你自己的机器上用下面的命令进行认证：
 
 	> $ gcloud auth login
 
-    Set the active project in gcloud. This should be the same project you chose to use earlier:
+	在 gcloud 中设置项目，这个项目是应该是你之前选择的同一个项目：
 
 	> $ gcloud config set project <PROJECT_ID>
 
-    You can determine the `<PROJECT_ID>` by looking at the [Cloud Platform Console projects page](https://console.cloud.google.com/project). Or by viewing the Project information from the global project menu accessible from the top-right corner of the Cloud Platform Console.
+	参看 [Cloud Platform Console projects page](https://console.cloud.google.com/project?_ga=1.241528706.1008720489.1449201561) 来决定 <PROJECT_ID> 或者通过 Google CLoud Platform Console 的控制台查找 ID
 
-    **Note:** The project ID may not be the same as the project name shown at the top of the Cloud Platform Console.
+```
+注意这里的 project ID 可能和项目名字不一样
 
-    Enable alpha features to access Cloud Functions:
+```
 
-	> $ gcloud components update alpha
+开启alpha 特性访问 Cloud Functions:
 
-    Execute the `gcloud functions` help command to verify that everything is working (don't forget the alpha argument):
+> $ gcloud components update alpha
 
-    > $ gcloud alpha functions -h
+执行 gcloud functions 帮助命令确定所有都就绪了(别忘了加上 alpha 参数):
+
+> $ gcloud alpha functions -h
