@@ -1,5 +1,6 @@
 原文[Calling Cloud Functions](https://cloud.google.com/functions/calling)
 
+
 ##调用 Cloud Functions
 
 Google Cloud Functions 可以和一个指定的触发器联系起来。触发器的类型决定了你的函数执行方式和执行时间。当前版本的 Cloud Functions 支持以下本地触发机制：

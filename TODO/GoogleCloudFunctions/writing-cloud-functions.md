@@ -1,5 +1,6 @@
 原文[Writing Cloud Functions](https://cloud.google.com/functions/writing)
 
+
 ##编写 Cloud Functions
 
 Google Cloud Functions 是由 JavaScript 编写并在 node.js 运行环境中执行。当创建 Cloud Functions 时，你的函数源码必须导出为 Node.js 的[模块](https://nodejs.org/api/modules.html)

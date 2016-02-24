@@ -1,5 +1,6 @@
 原文[Quickstarts - Guides](https://cloud.google.com/functions/docs)
 
+
 ##什么是 Google 云函数(Google Cloud Function)?
 
 ```
