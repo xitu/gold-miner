@@ -22,6 +22,7 @@
 
 ## 正在进行的
 
+*  [RxSwift at first sight](https://github.com/xitu/gold-miner/issues/136)
 *  [设计师的理解字距设计指南](https://github.com/xitu/gold-miner/issues/134)
 *  [深入浅出 Android 权限（二）](https://github.com/xitu/gold-miner/issues/133)
 *  [深入浅出 Android 权限（一）](https://github.com/xitu/gold-miner/issues/132)
