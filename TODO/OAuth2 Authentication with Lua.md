@@ -4,6 +4,8 @@
 * 译者 : [BOBO](https://github.com/CoderBOBO)
 * 校对者: [Adam Shen](https://github.com/shenxn) [iThreeKing](https://github.com/iThreeKing)
 
+#使用Lua完成OAuth2的身份验证
+
 在此说明该教程将不提供详细的技术指导，教您如何使用 [OpenResty](https://openresty.org) + [Lua](http://www.lua.org) 构建自己的认证层，而是讲解一下解决方案背后的处理过程。
 
 这是一个真实的案例：[moltin](https://moltin.com)'s API 如何依赖 [OpenResty](https://openresty.org) + [Lua](http://www.lua.org) 来为所有的用户处理 oauth2 身份认证
