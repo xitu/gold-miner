@@ -1,9 +1,11 @@
+
+# 选择使用正确的 Markdown Parser
+
 * 原文链接 : [Choosing the Right Markdown Parser]( https://css-tricks.com/choosing-right-markdown-parser/) 
 * 原文作者 : [CSS-TRICKS]( https://css-tricks.com) 
 * 译文出自 : [掘金翻译计划]( https://github.com/xitu/gold-miner) 
 * 译者 : [lfkdsk]( https://github.com/lfkdsk) 
-* 校对者: 
-* 状态 : 已认领  
+* 校对者: [brucezz](https://github.com/brucezz) [lekenny](https://github.com/lekenny)
 
 _以下客座文章由[Ray Villalobos]( http://www.raybo.org/)提供。在这篇文章中Ray将要去探索很多种不同的Markdown语法。所有的这些MarkDown变种均提供了不同的特性，都超越传统的Markdown语法，却又相互之间又各有不同。如果你正在挑选一门Markdown语言使用（或是提供给你的Web产品的用户使用），那你就值得的去了解它们，一旦选定就很难再切换到别的Markdown版本而且挑选的结果依赖于你需要哪些特性。Ray提供的一门[关于MarkDown课程]( http://www.lynda.com/Web-Development-tutorials/Up-Running-Markdown/438888-2.html)将会分享这些不同的版本都拥有哪些特性去帮助你做出明智的选择。_ 
 
