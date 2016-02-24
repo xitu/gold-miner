@@ -22,6 +22,7 @@
 
 ## 正在进行的
 
+*  [深入浅出 Android 权限（二）](https://github.com/xitu/gold-miner/issues/133)
 *  [深入浅出 Android 权限（一）](https://github.com/xitu/gold-miner/issues/132)
 *  [在 chrome 的开发者工具里 debug node.js 代码](https://github.com/xitu/gold-miner/issues/128)
 *  [无缝迁移 Angular 1 项目到 Angular 2](https://github.com/xitu/gold-miner/issues/127)
