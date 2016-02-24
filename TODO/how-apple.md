@@ -2,14 +2,13 @@
 * 原文作者 : [Don Norman ](http://www.fastcodesign.com/user/don-norman-and-bruce-tognazzini)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : crackhy
-* 校对者: 
-* 状态 :  待定
+* 校对者: achilleo;iThreeKing
 
 Once upon a time, Apple was known for designing easy-to-use, easy-to-understand products. It was a champion of the graphical user interface, where it is always possible to discover what actions are possible, clearly see how to select that action, receive unambiguous feedback as to the results of that action, and have the power to reverse that action—to undo it—if the result is not what was intended.
-曾几何时，苹果公司因为产品设计易于使用和易于理解而闻名。它是图形用户界面的冠军，总是能够发现可能的动作，清楚地明白如何选择动作，并且得到该动作明确的反馈。如果结果和预期不一致，系统有权力扭转该动作。
+曾几何时，苹果公司因为产品设计易于使用和易于理解而闻名。作为图形用户界面的冠军，它总是能够让用户知道可以进行什么操作，清楚地了解如何进行这些操作，收到关于操作结果的明确反馈，并且有权力撤销与预期不符的操作。
 
 No more. Now, although the products are indeed even more beautiful than before, that beauty has come at a great price. Gone are the fundamental principles of good design: discoverability, feedback, recovery, and so on. Instead, Apple has, in striving for beauty, created fonts that are so small or thin, coupled with low contrast, that they are difficult or impossible for many people with normal vision to read. We have obscure gestures that are beyond even the developer’s ability to remember. We have great features that most people don’t realize exist.
-不再如此。尽管现在的产品确实比以前更漂亮，但是美丽是付出了巨大的代价换来的。良好设计的基本原则已经一去不复返了：可发现性、反馈、恢复等等。相反，苹果公司为了追求美丽，创造出了很小很薄，并且低对比度的字体，许多视力正常的人都很难或者根本无法阅读这些字体。我们有连开发者自己都记不住的模糊手势。我们有很多人都不会注意到存在的出众特性。
+然而现在却不再如此。尽管现在的产品确实比以前更漂亮，但是美丽是付出了巨大的代价换来的。良好设计的基本原则已经一去不复返了：可发现性、反馈、恢复等等。作为替代，苹果公司致力于追求美观，创造出的字体很小或者很细，再加上低对比度。我们有连开发者自己都记不住的模糊手势。我们有很多人都不会注意到存在的出众特性。
 
 The products, especially those built on iOS, Apple’s operating system for mobile devices, no longer follow the well-known, well-established principles of design that Apple developed several decades ago. These principles, based on experimental science as well as common sense, opened up the power of computing to several generations, establishing Apple’s well-deserved reputation for understandability and ease of use. Alas, Apple has abandoned many of these principles. True, Apple’s design guidelines for developers for both iOS and the Mac OS X still pay token homage to the principles, but, inside Apple, many of the principles are no longer practiced at all. Apple has lost its way, driven by concern for style and appearance at the expense of understandability and usage.
 苹果公司的产品，尤其是那些建立在苹果公司为移动设备开发的iOS系统上的产品，已经不再遵守自己几十年前发展起来的众所周知，十分成熟的设计原则，这些设计原则基于实验科学和常识，把计算能力提高了几代，建立了苹果产品名不虚传的可理解性和易用性。可惜的是，苹果公司已经放弃了很多这些原则。诚然，苹果给iOS和Mac OS X开发者的设计指导方针仍然对这些原则表示敬意，但是在苹果公司内部，许多这些原则不再实行。苹果已经迷失了方向，被风格和外观所驱使，以可理解性和易用性为代价。
@@ -18,7 +17,7 @@ Apple is destroying design.
 苹果正在毁灭设计。
 
 Apple is destroying design. Worse, it is revitalizing the old belief that design is only about making things look pretty. No, not so! Design is a way of thinking, of determining people’s true, underlying needs, and then delivering products and services that help them. Design combines an understanding of people, technology, society, and business. The production of beautiful objects is only one small component of modern design: Designers today work on such problems as the design of cities, of transportation systems, of health care. Apple is reinforcing the old, discredited idea that the designer’s sole job is to make things beautiful, even at the expense of providing the right functions, aiding understandability, and ensuring ease of use.
-苹果正在毁灭设计。更糟糕的是，它使设计出只要外形漂亮的物品这种老旧的的理念重新燃起。不，不能这样！设计是思考的一种方式，决定于人们真实的，潜在的需要，然后给人们提供带来帮助的产品和服务。设计包含一个人对科技、社会和商业的理解。制作外形美观的物体只是现代设计的一小部分：当今的设计师们就城市交通系统，卫生保健系统的设计进行研究。苹果公司加强陈旧的，不足以使人信服的理念，即设计者的唯一工作要求就是使物品造型更加美观，甚至以提供正确合适的功能，增强可理解性，确保方便使用产品为代价。
+苹果正在毁灭设计。更糟糕的是，它使设计出只要外形漂亮的物品这种老旧的的理念重新燃起。不，不能这样！设计是思考的一种方式，决定于人们真实的，潜在的需要，然后给人们提供带来帮助的产品和服务。设计包含一个人对科技、社会和商业的理解。制作外形美观的物体只是现代设计的一小部分：当今的设计师们就城市交通系统，卫生保健系统的设计进行研究。苹果公司加强陈旧的，不足以使人信服的理念，即设计者的唯一工作要求就是使物品造型更加美观，甚至以提供正确合适的功能、增强可理解性和确保方便使用产品为代价。
 
 #### Apple, you used to be the leader. Why are you now so self-absorbed? Worse, why does Google follow all your worst examples?
 #### 苹果，你曾经是行业的领导者。为什么你如今变得如此自闭？更糟糕的是，为什么谷歌遵循你最坏的例子？
@@ -29,7 +28,7 @@ Yes, once upon a time, Apple was known for its ease of use, for computers and ap
 ![](http://ww4.sinaimg.cn/large/005SiNxyjw1ezc1w3tm5vg30r80jm7wy.gif)
 
 However, when Apple moved to gestural-based interfaces with the first iPhone, followed by its tablets, it deliberately and consciously threw out many of the key Apple principles. No more discoverability, no more recoverability, just the barest remnants of feedback. Why? Not because this was to be a gestural interface, but because Apple simultaneously made a radical move toward visual simplicity and elegance at the expense of learnability, usability, and productivity. They began shipping systems that people have difficulty learning and using, getting away with it because people don’t recognize such problems until it is too late, and money has already changed hands. Even then, people tend to blame themselves for the shortcomings of their devices: "If I weren’t so stupid . . . !"
-然而，在苹果推出自己的平板电脑之后，苹果第一部基于手势界面的手机问世了，这次苹果故意抛弃了许多苹果关键的原则。没有了可发现性，没有了可恢复性，仅仅残存着反馈。为什么？不是因为这是个手势交互，而是因为苹果同时做了个激进的行动，为了达到视觉的简约和优雅，以可学习性，可用性和效率为代价。他们开始了出货系统，然而对于新产品人们在学习和使用上遇到了困难，人们开始渐渐远离它，当人们意识到这些问题时已经为时已晚，钱已经被苹果赚去了。即使到这个时候，人们还倾向于责备他们自己：“如果我不那么笨就好了...!”，其实这些本来就是设备的缺点。
+然而，在苹果第一部基于手势界面的手机问世之后，紧接着发布了平板电脑。这次苹果故意抛弃了许多关键的原则。没有了可发现性，没有了可恢复性，仅仅残存着反馈。为什么？不是因为这是个手势交互，而是因为苹果同时做了个激进的行动，为了达到视觉的简约和优雅，以可学习性，可用性和效率为代价。他们开始了出货系统，然而对于新产品人们在学习和使用上遇到了困难，人们开始渐渐远离它，当人们意识到这些问题时已经为时已晚，钱已经被苹果赚去了。即使到这个时候，人们还倾向于责备他们自己：“如果我不那么笨就好了...!”，其实这些本来就是设备的缺点。
 
 Today’s iPhones and iPads are a study in visual simplicity. Beautiful fonts. A clean appearance, uncluttered by extraneous words, symbols, or menus. So what if many people can't read the text? It’s beautiful.
 今天的 iPhones 和 iPads 都在简洁视觉上做文章。优美的字体，清爽的外表，外来词，标志或是菜单都是整洁的。然后很多人不能读这些文章，它又有什么用呢？它仅仅美丽而已。
