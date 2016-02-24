@@ -11,16 +11,14 @@ _Have you ever looked at a word or phrase you’re typesetting and something jus
 
 It might just be a kerning problem. Kerning refers to the amount of space between two letters (or other characters: numbers, punctuation, etc.) and the process of adjusting that space to avoid awkward-­looking gaps between your letters and improve legibility.
 
-
-<figure><picture><source media="(min-width: 1280px)"><source media="(min-width: 1000px)"><source media="(min-width: 568px)"><source media="(min-width: 320px)"><source media="(min-width: 0px)">![](http://ww1.sinaimg.cn/large/9b5c8bd8jw1f0n4he76qij20ie0dtwhp.jpg)</picture></figure>
-
+![](http://ww1.sinaimg.cn/large/9b5c8bd8jw1f0n4he76qij20ie0dtwhp.jpg)
 
 Sometimes a font’s default kerning isn’t ideal for certain letter combinations, so you’ll want to manually adjust it so the spacing between all the letters looks consistent. It’s important to note here that kerning is a visual exercise; it’s about the _perceived_ amount of space between letters rather than the actual distance between them. Kerning involves adjusting your typography to _look_ right rather than creating mathematically equal spacing.
 
 Type is a funny thing in that it can be a sort of optical illusion. If you were to typeset a word with exactly equal spacing between each letter, it wouldn’t actually look evenly spaced. That’s because letters have unique shapes, like puzzle pieces, and need to be fit together in the way that works best for each pair.
 
 
-<figure><picture><source media="(min-width: 1280px)"><source media="(min-width: 1000px)"><source media="(min-width: 568px)"><source media="(min-width: 320px)"><source media="(min-width: 0px)">![](http://ww3.sinaimg.cn/large/9b5c8bd8jw1f0n4i8c0dzj20ie0lbq5x.jpg)</picture></figure>
+![](http://ww3.sinaimg.cn/large/9b5c8bd8jw1f0n4i8c0dzj20ie0lbq5x.jpg)
 
 
 Keep reading to find out why kerning is so important in design, along with nine expert tips you can rely on to start kerning like the pros.
@@ -34,13 +32,13 @@ Kerning may seem like an unnecessary or unimportant detail, but adding it as a q
 To get a better understanding of why kerning is a smart move, imagine each letter bounded by a box. You’ve probably seen pictures of old wooden or metal type like this:
 
 
-<figure><picture><source media="(min-width: 1280px)"><source media="(min-width: 1000px)"><source media="(min-width: 568px)"><source media="(min-width: 320px)"><source media="(min-width: 0px)">![](http://ww3.sinaimg.cn/large/9b5c8bd8jw1f0n4ijh5k0j20ie0cbmzi.jpg)</picture></figure>
+![](http://ww3.sinaimg.cn/large/9b5c8bd8jw1f0n4ijh5k0j20ie0cbmzi.jpg)
 
 
 Although most of us don’t use physical blocks of type anymore, the digital fonts we use work in a similar way. Each letter is still surrounded by an invisible box, and sometimes those boxes create too much space between letter pairs, so their boundaries need to overlap to create the appearance of even spacing. In the old days of printing presses, typographers would fix this problem by cutting notches in the wooden blocks to help the letters fit closer together in a more visually pleasing way. Now, the process is far less involved and can be done with just a few clicks.
 
 
-<figure><picture><source media="(min-width: 1280px)"><source media="(min-width: 1000px)"><source media="(min-width: 568px)"><source media="(min-width: 320px)"><source media="(min-width: 0px)">![](http://ww1.sinaimg.cn/large/9b5c8bd8jw1f0n4iytwoxj20ie0dt40m.jpg)</picture></figure>
+![](http://ww1.sinaimg.cn/large/9b5c8bd8jw1f0n4iytwoxj20ie0dt40m.jpg)
 
 
 ## Learn to Kern: 9 Pro Tips
@@ -63,7 +61,7 @@ The shapes of some letters (particularly ones that have strong slants or extende
 If a problem letter falls in the middle of a word, make sure to look at how it interacts with other letters on both sides. For instance, the first A in PANCAKE below looks fine next to the N, but creates a big gap next to the P.
 
 
-<figure><picture><source media="(min-width: 1280px)"><source media="(min-width: 1000px)"><source media="(min-width: 568px)"><source media="(min-width: 320px)"><source media="(min-width: 0px)">![](http://ww1.sinaimg.cn/large/9b5c8bd8jw1f0n4j61thwj20ie0dt3zk.jpg)</picture></figure>
+![](http://ww1.sinaimg.cn/large/9b5c8bd8jw1f0n4j61thwj20ie0dt3zk.jpg)
 
 
 ## <span>02\.</span> Understand the relationship between space and letter shape.
@@ -73,7 +71,7 @@ In the previous point, we focused mostly on how pairs of uppercase letters can b
 
 Typographer Ilene Strizver [recommends](http://creativepro.com/typetalk-kerning-principles/) approaching kerning in this way: two straight letters need the most space; a straight and a round need slightly less to look equivalent; and two round letters need slightly less than that. It helps to visualize this (check out the example below). Hopefully you can see how the amount of space between letters (indicated by the colored bars) decreases from left to right. Yet, when viewed on their own, the letters look evenly spaced.
 
-<figure><picture><source media="(min-width: 1280px)"><source media="(min-width: 1000px)"><source media="(min-width: 568px)"><source media="(min-width: 320px)"><source media="(min-width: 0px)">![](http://ww3.sinaimg.cn/large/9b5c8bd8jw1f0n4jbmxp9j20ie0dtdgp.jpg)</picture></figure>
+![](http://ww3.sinaimg.cn/large/9b5c8bd8jw1f0n4jbmxp9j20ie0dtdgp.jpg)
 
 
 Let’s apply this idea to an actual word. Looking at both sides of each letter, the spacing should be consistent for each of the three types of shape combinations we discussed above.
@@ -91,7 +89,7 @@ The size you set your font at will influence your kerning. In other words, lette
 For that reason, it’s a good idea to kern after you’ve settled on the size of your type. Or, if you’re working on something like a logo that will appear in print at one size on a business card and at another larger size on a t-shirt, kern those separately. Keep in mind that any kerning mistakes (or neglecting to kern at all) will be most glaring when you’re working with large, highly visible letters.
 
 
-<figure><picture><source media="(min-width: 1280px)"><source media="(min-width: 1000px)"><source media="(min-width: 568px)"><source media="(min-width: 320px)"><source media="(min-width: 0px)">![](http://ww3.sinaimg.cn/large/9b5c8bd8jw1f0n4jpbpymj20ie0elgn3.jpg)</picture></figure>
+![](http://ww3.sinaimg.cn/large/9b5c8bd8jw1f0n4jpbpymj20ie0elgn3.jpg)
 
 
 As a general rule of thumb, you can get away with tighter kerning at larger sizes, but letters can look closer together at smaller sizes, so looser kerning may be required. (More on this in the next tip.)
@@ -100,11 +98,11 @@ As a general rule of thumb, you can get away with tighter kerning at larger size
 ## <span>04\.</span> Err on the side of over­-kerning.
 
 
-<figure><picture><source media="(min-width: 1280px)"><source media="(min-width: 1000px)"><source media="(min-width: 568px)"><source media="(min-width: 320px)"><source media="(min-width: 0px)">![](http://ww3.sinaimg.cn/large/9b5c8bd8jw1f0n4jvc2fzj20ie0fsgne.jpg)</picture></figure>
+![](http://ww3.sinaimg.cn/large/9b5c8bd8jw1f0n4jvc2fzj20ie0fsgne.jpg)
 
 Text that is tightly spaced can be hard to read, especially at small sizes. Another negative side effect of under-­kerning is that letters can be so close that they touch, which sometimes creates a whole other letter (or word!). This witty poster demonstrates that possibility: What happens when the “r” and “n” in “kerning” are spaced too closely? They become an “m” (and create a new term to add to your typographic glossary):
 
-![](http://ww1.sinaimg.cn/large/9b5c8bd8jw1f0n4qdog63j20ie0prgms.jpg)</div>
+![](http://ww1.sinaimg.cn/large/9b5c8bd8jw1f0n4qdog63j20ie0prgms.jpg)
 
 So since readability and legibility should be a top concern for typography in any design, when in doubt, it’s best to kern letters slightly looser to avoid giving viewers eyestrain or any opportunity for misinterpretation.
 
@@ -113,7 +111,7 @@ So since readability and legibility should be a top concern for typography in an
 
 Sometimes it’s hard to spot where you need to make kerning adjustments, because your brain wants to look at what the letters say. One way to shift your focus is to flip your type upside down — this helps you zero in on the shapes of the letters and the spaces they create, rather than getting distracted by the word itself.
 
-<figure><picture><source media="(min-width: 1280px)"><source media="(min-width: 1000px)"><source media="(min-width: 568px)"><source media="(min-width: 320px)"><source media="(min-width: 0px)">![](http://ww4.sinaimg.cn/large/9b5c8bd8jw1f0n4rlmj4ij20ie0dt75v.jpg)</picture></figure>
+![](http://ww4.sinaimg.cn/large/9b5c8bd8jw1f0n4rlmj4ij20ie0dt75v.jpg)
 
 
 ## <span>06\.</span> Save kerning ‘til last.
@@ -148,19 +146,19 @@ Besides, going through a page full of text and kerning letters pair by pair woul
 Kerning is one of those design concepts that you really need to practice yourself — both to understand how it works and to get good at it. Aside from starting to kern type in your own projects, you can try out your kerning skills (and get feedback) with a web game called [Kerntype](http://type.method.ac/):
 
 
-<figure><picture><source media="(min-width: 1280px)"><source media="(min-width: 1000px)"><source media="(min-width: 568px)"><source media="(min-width: 320px)"><source media="(min-width: 0px)">![](http://ww4.sinaimg.cn/large/9b5c8bd8jw1f0n4uxns6ej20ie0cngn4.jpg)</picture></figure>
+![](http://ww4.sinaimg.cn/large/9b5c8bd8jw1f0n4uxns6ej20ie0cngn4.jpg)
 
 
 The game doesn’t have any instructions, so here’s how it works: You’re given a word to kern; the first and last letters are locked in place, and you’re supposed to move the remaining letters to create the appearance of equal spacing.
 
 
-<figure><picture><source media="(min-width: 1280px)"><source media="(min-width: 1000px)"><source media="(min-width: 568px)"><source media="(min-width: 320px)"><source media="(min-width: 0px)">![](http://ww2.sinaimg.cn/large/9b5c8bd8jw1f0n4x0ubz4j20ie09u3z8.jpg)</picture></figure>
+![](http://ww2.sinaimg.cn/large/9b5c8bd8jw1f0n4x0ubz4j20ie09u3z8.jpg)
 
 
 After you’re done, click “Compare” and then make sure to select the “Both” option so you can see your kerning work (in white) compared to the recommended solution (in blue). You get a score according to how close you came to the recommendation. Exercises like this one can help you get accustomed to the visual process of kerning.
 
 
-<figure><picture><source media="(min-width: 1280px)"><source media="(min-width: 1000px)"><source media="(min-width: 568px)"><source media="(min-width: 320px)"><source media="(min-width: 0px)">![](http://ww2.sinaimg.cn/large/9b5c8bd8jw1f0n4w9up6wj20ie0cs0tr.jpg)</picture></figure>
+![](http://ww2.sinaimg.cn/large/9b5c8bd8jw1f0n4w9up6wj20ie0cs0tr.jpg)
 
 
 ## <span>09\.</span> For web designers: You can kern, too!
@@ -168,7 +166,7 @@ After you’re done, click “Compare” and then make sure to select the “Bot
 Kerning has generally been considered something that graphic and print designers do for projects where the typography is static. But since the Internet came along, type­-savvy web designers and programmers wanted to kern, too. And now there are tools to help them do that. One is [Kerning.js](http://kerningjs.com/), a script that allows you to manipulate your web typography’s kerning via CSS. Learn more about web­-specific kerning and other typographic techniques [here](http://webdesign.tutsplus.com/articles/the-anatomy-of-web-typography--webdesign-10533).
 
 
-<figure><picture><source media="(min-width: 1280px)"><source media="(min-width: 1000px)"><source media="(min-width: 568px)"><source media="(min-width: 320px)"><source media="(min-width: 0px)">![](http://ww3.sinaimg.cn/large/9b5c8bd8jw1f0n4xtq3lcj20ie0bj0uj.jpg)</picture></figure>
+![](http://ww3.sinaimg.cn/large/9b5c8bd8jw1f0n4xtq3lcj20ie0bj0uj.jpg)
 
 
 ## Over to you…
