@@ -38,8 +38,8 @@
 
 ## Android
 
-*  [[英] 世界级的 Android 测试流程（二）](http://blog.zhaiyifan.cn/2016/02/23/world-class-testing-development-pipeline-for-android-part-2/) [markzhai](https://github.com/markzhai) 翻译
-*  [[英] 世界级的 Android 测试流程（一）](http://blog.zhaiyifan.cn/2016/02/23/world-class-testing-development-pipeline-for-android-part-1/) [markzhai](https://github.com/markzhai) 翻译
+*  [[英] 世界级的 Android 测试流程（一）](https://github.com/xitu/gold-miner/blob/master/TODO/world-class-testing-development-pipeline-for-android.md) ([markzhai](https://github.com/markzhai) 翻译)
+*  [[英] 世界级的 Android 测试流程（二）](https://github.com/xitu/gold-miner/blob/master/TODO/world-class-testing-development-pipeline-for-android-part-2.md) ([markzhai](https://github.com/markzhai) 翻译)
 * [2015 年度 Android 开发者必备的 5 个开源库](https://github.com/xitu/gold-miner/blob/master/TODO/Top-5-Android-libraries-every-Android-developer-should-know-about.md) ([kassadin (kass)](https://github.com/kassadin) 翻译)
 * [如何提高安卓代码的质量和语法](https://github.com/xitu/gold-miner/blob/master/TODO/how-to-improve-quality-and-syntax-of-your-android-code.md) ([yinshudi](https://github.com/yinshudi) 翻译)
 * [如何更高效的使用 okhttp](https://github.com/xitu/gold-miner/blob/master/TODO/effective-okhttp.md) ([Brucezz](https://github.com/brucezz) 翻译)
