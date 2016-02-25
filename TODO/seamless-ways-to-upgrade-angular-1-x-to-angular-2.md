@@ -76,7 +76,7 @@ Web组件就是Web的未来。若各位还不打算接受这一事实的话，�
 
     npm i --save ng-forward@latest reflect-metadata
 
-安装最新版 ngForward 及反射原数据模块。现在，请输入你的 index.html ，看看即将产生的以下效果：
+安装最新版 ngForward 及反射原数据模块。现在，请准备好你的 index.html，使得它看起来像下面这样：
 
     <!DOCTYPE html>
     <html lang="en">
