@@ -73,7 +73,7 @@
 
 值得重申的是_ContextCompat_能在这里为我们做什么。运行在 Marshmallow（Android6.0）以前的不支持新的运行权限模型的设备上时（旧的系统上是隐式授予权限）`checkSelfPermission()` 方法总会返回`PackageManger.PERMISSION_GRANTED`，因为`Manifest`的申明，只需要调用一个方法让它运行在所有版本系统中，并且我们不需要在自己的代码中写任何API-level 具体的checks。
 
-我为这个创建了一个具体的类是因为以后我们需要使用这些checks在应用中所有的Activities中，这样就可以将checking逻辑从我们的_Activity_分离出来，使减少重复和增加可维护性的代码。
+之所以为此创建了一个具体的类，是因为我们以后需要在app中所有activity里做这些检查，这样把检查逻辑从Activity中分离出来可以减少重复代码，提高可维护性。
 
 所以在实际应用在我们的_Activity_中，我们可以简单地把它称为_Activity_ 请求的权限清单。
 
@@ -104,7 +104,7 @@
 
 [![](http://ww3.sinaimg.cn/large/9b5c8bd8jw1f1ad406ecij208c069jr8.jpg)](https://blog.stylingandroid.com/?attachment_id=3479)
 
-Marshamllow（Android 6.0）运行时，但是我们还没有对缺少的权限进行处理——只是展示了一个_Snackbar_：
+但我们还没有对Marshamllow（Android 6.0）和以后的版本进行缺少的权限的处理——只是展示了一个_Snackbar_：
 
 [![](http://ww1.sinaimg.cn/large/9b5c8bd8jw1f1ad4dgmdhj208c069glh.jpg)>](https://blog.stylingandroid.com/?attachment_id=3480)
 
