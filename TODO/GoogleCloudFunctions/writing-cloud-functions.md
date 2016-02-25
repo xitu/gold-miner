@@ -30,13 +30,13 @@ module.exports = {
 
 ###Context参数
 
-context函数包含执行环境的信息并且包括一个回调函数来单独完成你的函数：
+context 函数包含执行环境的信息并且包括一个回调函数来标示你的函数运行完成
 
 | Function       | Aruments           | Description  |
 | ------------- |:-------------:| -----:|
-|context.success([message])|message (string)|Called when your function completes successfully. An optional message argument may be passed to success that will be returned when the function is executed synchronously.|
-|context.failure([message])|message (string)|Called when your function completes unsuccessfully. An optional message argument may be passed to failure that will be returned when the function is executed synchronously.|
-|context.done([message])|message (string)|Short-circuit function that behaves like success when no message argument is provided, and behaves like failure when a message argument is provided.
+|context.success([message])|message (string)|当你函数成功完成时调用。可以给它传一个可选的 message 参数给 success 用于当函数同步执行结束时返回|
+|context.failure([message])|message (string)|当函数运行失败是调用。可以给它传一个可选的 message 参数给 failure 用于当函数同步执行结束时返回|
+|context.done([message])|message (string)|短路函数，当没有提供 message 参数时表现和 success 一样当提供 message 参数时表现和 failure 一样。|
 
 >注意: 当你的函数完成时一定要调用 success(),failure(),或者 done() 中的一个。否则你的函数可能继续运行直到被系统强制结束。
 
@@ -59,13 +59,13 @@ module.exports = {
 
 ###Data 参数
 
-Data 参数持有事件相关的数据，这里的事件是指引起触发器执行函数的事件。data 对象的上下文依赖于函数注册的触发器(比如，[Cloud Pub/Sub topic](https://cloud.google.com/pubsub/docs) or [Google Cloud Storage bucket](https://cloud.google.com/storage/docs/))。在自触发的函数中(比如手动给 Cloud Pub/Sub 发布事件) data 参数包含你要发布的信息
+Data 参数持有事件相关的数据，这里的事件是指引起触发器执行函数的事件。data 对象的上下文依赖于函数注册的触发器(比如，[Cloud Pub/Sub topic](https://cloud.google.com/pubsub/docs) 或者 [Google Cloud Storage bucket](https://cloud.google.com/storage/docs/))。在自触发的函数中(比如手动给 Cloud Pub/Sub 发布事件) data 参数包含你发布的信息
 
 ##函数依赖
 
 Cloud Function 允许使用其它 Node.js 模块，以及其它的本地数据。在 Node.js 中依赖是由 [npm](https://docs.npmjs.com/) 管理的，在 package.json 中添加。你可以直接将全部依赖打包在你的函数包中，也可以在 package.json 中简单的声明一下，Cloud Function 会在你需要用到的时候自动下载它们。参考[npm 文档](https://docs.npmjs.com/files/package.json)了解更多关于 package.json 内容。
 
-在这个例子中依赖是列举在 package.json 文件中的:
+在这个例子中依赖是列举在 `package.json` 文件中的:
 
 ```js
 "dependencies": {
@@ -84,7 +84,7 @@ exports.uuid = function (context, data) {
 
 ##记录和查看日志
 
-从你的 Cloud Function 中输出日志可以使用 console.log 或者 console.error
+你可以使用 console.log 或者 console.error 来从 Cloud Function 中输出日志
 
 比如：
 
@@ -105,15 +105,16 @@ Cloud Function 的日志可以通过 Cloud Logging 界面查看，或者通过�
 
 > $ gcloud alpha functions get-logs
 
-把函数名作为查看特定函数日志的参数：
+把函数名作为参数来查看特定函数的日志:
+
 
 > $ gcloud alpha functions get-logs <FUNCTION_NAME>
 
-你甚至可以查看具体执行的日志：
+你甚至可以查看某次执行的日:
 
 > $ gcloud alpha functions get-logs <FUNCTION_NAME> --execution-id d3w-fPZQp9KC-0
 
-查看日志所有选项使用如下命令：
+通过 get-logs 的帮助信息来了解查看日志的所有选项:
 
 > $ gcloud alpha functions get-logs -h
 
