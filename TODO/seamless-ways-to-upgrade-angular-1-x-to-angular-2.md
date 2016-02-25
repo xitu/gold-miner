@@ -33,7 +33,7 @@ Add a line note
 
 > 我花了三个星期才能理解 Angular1 的概念。尽管我的合作开发伙伴从未使用过 Angular1，**却仅用了四天时间就能理解 Angular2 **。
 
-如果你已经看过Angular2的应用文件，你应该认识到：
+如果你已经看过Angular2的应用文件，你应该认识下边的代码：
 
     import {Component} from 'angular2/core';
 
