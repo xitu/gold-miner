@@ -62,30 +62,30 @@
 
 ## JavaScript
 
-* [350 个特性看透 ES6](http://gold.xitu.io/entry/5622740a60b27457e870342e)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/es6.md)) ([Go7hic](https://github.com/dyygtfx) 认领)
-* [2015 年底 JS 必备工具集](http://gold.xitu.io/entry/566d34d760b202590bde4c88)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/must-see-javascript-dev-tools-that-put-other-dev-tools-to-shame.md)) ([赵鑫晖](https://github.com/zxc0328) 认领)
-* [How do Promises Work?](http://gold.xitu.io/entry/5665281460b21eab5d5c41fa)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/how-do-promises-work.md)) ([Zhangjd](https://github.com/Zhangjd) 认领)
-* [JavaScript 开发者年度调查报告](http://gold.xitu.io/entry/566d29cf60b2e416628e6ff0)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/javascript-developer-survey-results.md)) ([sqrthree (根号三)](https://github.com/sqrthree) 认领)
+* [350 个特性看透 ES6](http://gold.xitu.io/entry/5622740a60b27457e870342e)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/es6.md)) ([Go7hic](https://github.com/dyygtfx) 翻译)
+* [2015 年底 JS 必备工具集](http://gold.xitu.io/entry/566d34d760b202590bde4c88)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/must-see-javascript-dev-tools-that-put-other-dev-tools-to-shame.md)) ([赵鑫晖](https://github.com/zxc0328) 翻译)
+* [How do Promises Work?](http://gold.xitu.io/entry/5665281460b21eab5d5c41fa)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/how-do-promises-work.md)) ([Zhangjd](https://github.com/Zhangjd) 翻译)
+* [JavaScript 开发者年度调查报告](http://gold.xitu.io/entry/566d29cf60b2e416628e6ff0)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/javascript-developer-survey-results.md)) ([sqrthree (根号三)](https://github.com/sqrthree) 翻译)
 
 ## React
 
-* [Making React Native apps accessible](http://gold.xitu.io/entry/566b01a800b0d1dbc721e56b)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/making-react-native-apps-accessible.md)) ([void-main](https://github.com/void-main) 认领)
-* [如何发布一个 React components](http://gold.xitu.io/entry/566951db60b25a8c2e23daaa)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/distributing-react-components.md)) ([aleen42](https://github.com/aleen42) 认领)
-* [Things I Wish I Were Told About React Native](http://gold.xitu.io/entry/563d9b9960b2c82f2b9da18d)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/things-i-wish-i-were-told-about-react-native.md)) ([huanglizhuo](https://github.com/huanglizhuo) 认领)
+* [Making React Native apps accessible](http://gold.xitu.io/entry/566b01a800b0d1dbc721e56b)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/making-react-native-apps-accessible.md)) ([void-main](https://github.com/void-main) 翻译)
+* [如何发布一个 React components](http://gold.xitu.io/entry/566951db60b25a8c2e23daaa)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/distributing-react-components.md)) ([aleen42](https://github.com/aleen42) 翻译)
+* [Things I Wish I Were Told About React Native](http://gold.xitu.io/entry/563d9b9960b2c82f2b9da18d)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/things-i-wish-i-were-told-about-react-native.md)) ([huanglizhuo](https://github.com/huanglizhuo) 翻译)
  
 ## 教程
 
-* [Chrome Devtools Tips & Tricks](http://gold.xitu.io/entry/5625ae6e60b2d1400143a89b)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/chrome-devtools.md)) ([chemzqm (Qiming zhao)](https://github.com/chemzqm) 认领)
-* [通过 Electron 开发一个简单地桌面应用](http://gold.xitu.io/entry/56722bd300b01b78b5395115)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/creating-your-first-desktop.md)) ([Zhangdroid](https://github.com/Zhangdroid) 认领)
-* [Retrofit 入门教程](http://gold.xitu.io/entry/5652610c00b0bf37326a7be1)([maekdown](https://github.com/xitu/gold-miner/blob/master/TODO/retrofit-getting-started.md)) ([kevin xiu](https://github.com/xiuweikang) 认领)
-* [Pokedex.org 给宠物小精灵爱好者的 web app 的技术选型](http://gold.xitu.io/entry/56630cf260b259ca649136e6)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/introducing-pokedex-org.md)) ([RobertWang](https://github.com/RobertWang) 认领)
+* [Chrome Devtools Tips & Tricks](http://gold.xitu.io/entry/5625ae6e60b2d1400143a89b)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/chrome-devtools.md)) ([chemzqm (Qiming zhao)](https://github.com/chemzqm) 翻译)
+* [通过 Electron 开发一个简单地桌面应用](http://gold.xitu.io/entry/56722bd300b01b78b5395115)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/creating-your-first-desktop.md)) ([Zhangdroid](https://github.com/Zhangdroid) 翻译)
+* [Retrofit 入门教程](http://gold.xitu.io/entry/5652610c00b0bf37326a7be1)([maekdown](https://github.com/xitu/gold-miner/blob/master/TODO/retrofit-getting-started.md)) ([kevin xiu](https://github.com/xiuweikang) 翻译)
+* [Pokedex.org 给宠物小精灵爱好者的 web app 的技术选型](http://gold.xitu.io/entry/56630cf260b259ca649136e6)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/introducing-pokedex-org.md)) ([RobertWang](https://github.com/RobertWang) 翻译)
 
 ## 设计
 
-* [Mastering Sketch 3](http://gold.xitu.io/entry/5659daf9ddb299ad38f9e446)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/sketch-mastering.md)) ([jabez128](https://github.com/jabez128) 认领)
-* [Making Learning Easy by Design](http://gold.xitu.io/entry/5632212260b21ee8e6d49a5d)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/google-design.md)) ([s2dongman (申悦)](https://github.com/s2dongman) 认领)
-* [An Introduction to Sprite Animation](http://gold.xitu.io/entry/561c78e760b22ed7aa58292f)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/sprite-animation.md)) ([Aaaaaashu](https://github.com/Aaaaaashu?tab=repositories) 认领)
-* [Animated SVG vs GIF](http://gold.xitu.io/entry/5655432d00b0bf379ee801dd)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/svg-vs-gif.md)) ([rainyear (Yusheng)](https://github.com/rainyear) 认领)
-* [探索 Stripe Dashboard 产品设计之道](http://gold.xitu.io/entry/56287ca460b20fc981076b8f)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/exploring-the-product.md)) ([CaesarPan](https://github.com/CaesarPan) 认领)
-* [苹果正在带坏整个设计圈](http://gold.xitu.io/entry/5649381200b0bf37d8439ba7)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/how-apple.md)) ([crackhy (曹康)](https://github.com/crackhy) 认领)
-* [Slack如此成功的秘诀](http://gold.xitu.io/entry/5645499900b07eb0181e63df)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/slack-s-2-8-billion-dollar-secret-sauce.md)) ([Boyce Chang](https://github.com/boycechang) 认领)
+* [Mastering Sketch 3](http://gold.xitu.io/entry/5659daf9ddb299ad38f9e446)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/sketch-mastering.md)) ([jabez128](https://github.com/jabez128) 翻译)
+* [Making Learning Easy by Design](http://gold.xitu.io/entry/5632212260b21ee8e6d49a5d)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/google-design.md)) ([s2dongman (申悦)](https://github.com/s2dongman) 翻译)
+* [An Introduction to Sprite Animation](http://gold.xitu.io/entry/561c78e760b22ed7aa58292f)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/sprite-animation.md)) ([Aaaaaashu](https://github.com/Aaaaaashu?tab=repositories) 翻译)
+* [Animated SVG vs GIF](http://gold.xitu.io/entry/5655432d00b0bf379ee801dd)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/svg-vs-gif.md)) ([rainyear (Yusheng)](https://github.com/rainyear) 翻译)
+* [探索 Stripe Dashboard 产品设计之道](http://gold.xitu.io/entry/56287ca460b20fc981076b8f)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/exploring-the-product.md)) ([CaesarPan](https://github.com/CaesarPan) 翻译)
+* [苹果正在带坏整个设计圈](http://gold.xitu.io/entry/5649381200b0bf37d8439ba7)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/how-apple.md)) ([crackhy (曹康)](https://github.com/crackhy) 翻译)
+* [Slack如此成功的秘诀](http://gold.xitu.io/entry/5645499900b07eb0181e63df)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/slack-s-2-8-billion-dollar-secret-sauce.md)) ([Boyce Chang](https://github.com/boycechang) 翻译)
