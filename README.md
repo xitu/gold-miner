@@ -38,8 +38,8 @@
 
 ## Android
 
-*  [[英] 世界级的 Android 测试流程（一）](https://github.com/xitu/gold-miner/blob/master/TODO/world-class-testing-development-pipeline-for-android.md) ([markzhai](https://github.com/markzhai) 翻译)
-*  [[英] 世界级的 Android 测试流程（二）](http://gold.xitu.io/entry/56cd87ba7db2a26229196d01) ([markzhai](https://github.com/markzhai) 翻译)
+*  [世界级的 Android 测试流程（一）](https://github.com/xitu/gold-miner/blob/master/TODO/world-class-testing-development-pipeline-for-android.md) ([markzhai](https://github.com/markzhai) 翻译)
+*  [世界级的 Android 测试流程（二）](http://gold.xitu.io/entry/56cd87ba7db2a26229196d01) ([markzhai](https://github.com/markzhai) 翻译)
 * [2015 年度 Android 开发者必备的 5 个开源库](https://github.com/xitu/gold-miner/blob/master/TODO/Top-5-Android-libraries-every-Android-developer-should-know-about.md) ([kassadin (kass)](https://github.com/kassadin) 翻译)
 * [如何提高安卓代码的质量和语法](http://gold.xitu.io/entry/56cd6ebb99a6ce005a2887e3) ([yinshudi](https://github.com/yinshudi) 翻译)
 * [如何更高效的使用 okhttp](http://gold.xitu.io/entry/56ca8873d342d300544bdbf8) ([Brucezz](https://github.com/brucezz) 翻译)
