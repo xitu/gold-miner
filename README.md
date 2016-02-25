@@ -88,4 +88,4 @@
 * [Animated SVG vs GIF](http://gold.xitu.io/entry/56cb0c95efa631005c3a50f2)([rainyear (Yusheng)](https://github.com/rainyear) 翻译)
 * [探索 Stripe Dashboard 产品设计之道](http://gold.xitu.io/entry/56c7cad1d342d30054334db5)([CaesarPan](https://github.com/CaesarPan) 翻译)
 * [苹果正在带坏整个设计圈](https://github.com/xitu/gold-miner/blob/master/TODO/how-apple.md)([crackhy (曹康)](https://github.com/crackhy) 翻译)
-* [Slack如此成功的秘诀](http://gold.xitu.io/entry/5645499900b07eb0181e63df)([Boyce Chang](https://github.com/boycechang) 翻译)
+* [Slack如此成功的秘诀](http://gold.xitu.io/entry/56cbd5427db2a20051a7dbb2)([Boyce Chang](https://github.com/boycechang) 翻译)
