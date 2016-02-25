@@ -37,8 +37,8 @@
     </uses-permission></uses-permission></manifest>
 
 
-从API1\开始这已经成为一种标准的方法去请求Android里的权限。不过，从`targetSdkVersion 23`或者已更新的版本，我们也需要在运行中去请求我们需要的权限。这是非常重要的，因为已经有很多开发者在他们的例子中只是简单地把`targetSdkVersion`设置为最新，然后他们发现自己的应用直接崩溃了，因为他们并没有在应用运行中实现必要的代码去请求权限。当你考虑到，一旦已经发布一款针对API23或者更新的应用程序到Google Play，你不能接着替换掉那个针对较早版本的APK。
-值得一提的另外一件事情是在这一点上已经有一些旨在简化在运行中请求权限流程的库。这些在代码质量和可用性是多样化的，但是我觉得有必要了解底层流程再使用这种类型的库，否则你可能会遇到问题，因为你根本不了解你所使用的库实际上在做什么。这就是这一系列文章的主要动机。
+从API1\开始这已经成为一种标准的方法去请求Android里的权限。不过，从`targetSdkVersion 23`或者已更新的版本，我们也需要在运行中去请求我们需要的权限。这是非常重要的，因为已经有很多开发者在他们的例子中只是简单地把`targetSdkVersion`设置为最新，然后他们发现自己的应用直接崩溃了，因为他们并没有在应用运行中实现必要的代码去请求权限。问题的是，一旦当你发布一个目标API23的app到Google Play后，接着就没法用一个目标API更早的APK去替换它了。
+值得一提的另外一件事情是在这一点上已经有一些旨在简化在运行中请求权限流程的库。这些库在代码质量和有效性上是多样化的，但是我觉得有必要了解底层流程再使用这种类型的库，否则你可能会遇到问题，因为你根本不了解你所使用的库实际上在做什么。这就是这一系列文章的主要动机。
 我们需要这两个权限实际上是属于两个不同类别的权限：`RECORD_AUDIO` 是被认为一种高危的权限，`MODIFY_AUDIO_SETTINGS` 被认为是一种正常的权限。高危权限可能会危及到安全或隐私；尽管一个普通的权限是为了访问应用领域之外的资源，但是用户的隐私风险会有很少甚至没有。普通的权限会被系统自动地授予，然而高危的权限在运行过程中需要使用者明确地授予给你的应用。
 
 我们需要做的第一件事是这部分过程首先确定是否我们已经获得了我们所需要的权限。在API 23中， _Context_加入了新的方法去检查是否已被授予了特定的权限。
@@ -68,7 +68,7 @@
 
     }
 
-这其实是非常简单的 —— `ContextCompat#checkSelfPermission` 方法是很容易理解的，未被授权将返回`PackageManager.PERMISSION_DENIED`已被授权将返回`PackageManager.PERMISSION_GRANTED`。
+这其实是非常直接的 —— `ContextCompat#checkSelfPermission` 方法是很容易理解的，未被授权将返回`PackageManager.PERMISSION_DENIED`已被授权将返回`PackageManager.PERMISSION_GRANTED`。
 我对这个app添加好了一些进一步的逻辑，刚好可以实现它的这个功能：检测出任何没有被授权的但又是必要的权限。
 
 值得重申的是_ContextCompat_能在这里为我们做什么。运行在 Marshmallow（Android6.0）以前的不支持新的运行权限模型的设备上时（旧的系统上是隐式授予权限）`checkSelfPermission()` 方法总会返回`PackageManger.PERMISSION_GRANTED`，因为`Manifest`的申明，只需要调用一个方法让它运行在所有版本系统中，并且我们不需要在自己的代码中写任何API-level 具体的checks。
@@ -110,4 +110,4 @@ Marshamllow（Android 6.0）运行时，但是我们还没有对缺少的权限�
 
 请求缺少的权限是一个非常复杂的变化过程，我们将会在下一篇文章进行讲解。
 
-这篇文章的资源代码可以[在这里获取](https://github.com/StylingAndroid/Permissions/tree/Part1)。
+这篇文章的源码代码可以[在这里获取](https://github.com/StylingAndroid/Permissions/tree/Part1)。
