@@ -55,7 +55,7 @@ Each field in the query calls a resolver function on the server, which can acces
 
 Note that there is no restriction on data sources - you could have your todo lists stored in one database, and your tasks in a different one. In fact, one of the main benefits of GraphQL is a total abstraction over where the data is coming from, so that frontend developers don't have to worry about it, and backend developers are free to move around data or services as needed. Here's what that looks like in terms of the components of the architecture:
 
-![](/images/loading.png)
+![](http://ww1.sinaimg.cn/large/9b5c8bd8jw1f0zsqywxqlj20xu0t2jve.jpg)
 
 Note that there is a GraphQL cache - what this does is decompose the results of the query into nodes. A smart cache can refetch just part of a query, or even a single field on a previously-fetched object, in the case where the data requirements change or something needs to be refreshed. So in our above example, the data in the cache might be stored like:
 
@@ -144,7 +144,7 @@ Based on the above primitives, here is a stateless strategy for GraphQL reactivi
 
 There are ways to move more state to the server to optimize the latency of the system and reduce roundtrips, but those can be added later.
 
-![](/images/loading.png)
+![](http://ww2.sinaimg.cn/large/9b5c8bd8jw1f0zsr810o2j21920vctef.jpg)
 
 ### Reducing latency
 
@@ -202,7 +202,7 @@ Sometimes, you will want or need to emit invalidations manually. For example, in
 
 Hopefully, with time, we can make more and more invalidations automatic, but it's always good to have an “escape hatch” for more complex situations where the developer needs all the control they can get.
 
-![](/images/loading.png)
+![](http://ww1.sinaimg.cn/large/9b5c8bd8jw1f0zsrhktvvj21kw0s845z.jpg)
 
 You can see in the diagram how invalidations flow from the mutation to the relevant clients, which then refetch the data as needed.
 
@@ -245,7 +245,7 @@ After you analyze the two paths above, there should be a clear path to optimizat
 
 Here's a diagram of all of the pieces we think will need to be built to have a complete system:
 
-![](/images/loading.png)
+![](http://ww2.sinaimg.cn/large/9b5c8bd8jw1f1amo4kr54j21kw0ul7gm.jpg)
 
 Individual designs for each of the components incoming – for example, how does the invalidation server work? The goal of this document is mostly to outline how they will all work together. We want all of the components of the system to have clean, well-documented APIs so that you can write your own implementation of any part if you need to.
 
