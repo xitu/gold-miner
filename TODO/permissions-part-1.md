@@ -2,7 +2,7 @@
 * 原文作者 : [Styling Android](https://blog.stylingandroid.com/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [Hugo Xie](https://github.com/xcc3641)
-* 校对者 : [BOBO](https://github.com/CoderBOBO)
+* 校对者 : [BOBO](https://github.com/CoderBOBO)，[markzhai](https://github.com/markzhai)
 * 状态 : 已翻译
 
 
