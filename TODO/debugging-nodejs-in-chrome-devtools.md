@@ -44,7 +44,7 @@
     # pipe in JavaScript to eval it
     browserify index.js | devtool
 
-## [ ](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#development)Development 开发
+## [ ](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#development) 开发
 
 我们可以在通用模块和应用程序的开发中使用 `devtool`，来代替像 [nodemon](https://www.npmjs.com/package/nodemon) 这样目前已经存在的工具。
 
@@ -62,7 +62,7 @@
 
 ![Sources](http://i.imgur.com/jn3RmnV.png)
 
-## [ ](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#debugging)Debugging 调试
+## [ ](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#debugging) 调试
 
 因为我们能够访问 `Sources` 标签，所以我们可以用它来调试我们的应用程序。你可以设置一个断点，然后重新加载调试器(`Cmd/Ctrl + R`)，或者你也可以通过 `--break` 标记来设置一个初始断点。
 
