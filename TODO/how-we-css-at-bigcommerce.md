@@ -1,4 +1,4 @@
-# 在BigCommerce我们如何编写CSS
+# 在 BigCommerce 我们如何编写 CSS
 
 * 原文链接 : [How we "CSS" at BigCommerce](http://www.bigeng.io/how-we-css-at-bigcommerce/)
 * 原文作者 : [Simon Taggart](http://www.bigeng.io/author/simon-taggart/)
@@ -13,7 +13,7 @@ CSS 很难，而写出好的 CSS 代码更难。在一个大团队中，基于�
 
 我们并不是一家独一无二的软件公司：120个工程师，4间办公室，3个不同国家，3个时区，以及7年时间，代表着一个大家都很熟悉的代码库环境。每个人都有着一份干劲。这里有着30种不同风格的按钮，4种“品牌色彩”的变形，以及一个列举了互联网上所有 JavaScript 包的 package.json / bower.json 文件。CSS 与其他语言相比，看起来就像是一个被忽视的可的孩子，只得到了最少的关怀。CSS 没有固定的规范，没有约定，也没有內建工具来防止你写出只有自己看得懂的代码。CSS 就是一个雷区，我们困在其中，也有许多人会继续一头扎进来。
 
-在 BigCommerce，我们认为至少可以通过设置一些基本规范，并且让每一个编写 CSS 的人遵循它们，来解决一些在编写大量 CSS 代码时经常会遇到的问题。我们的《SAAS 风格指南》并没有什么突破性的内容，并且其中的观点很像 AirBn B的 [《JavaScript 风格指南 - JavaScript Style Guide》](https://github.com/airbnb/javascript)。我不会把那篇文章原封不动地复制到我的博客里，你可以[在 GitHub 上找到](https://github.com/bigcommerce/sass-style-guide)。同时我认为，详细解释一些具体规则并且列出我们使用的工具会更加有帮助。
+在 BigCommerce，我们认为至少可以通过设置一些基本规范，并且让每一个编写 CSS 的人遵循它们，来解决一些在编写大量 CSS 代码时经常会遇到的问题。我们的《SAAS 风格指南》并没有什么突破性的内容，并且其中的观点很像 AirBnB 的 [《JavaScript 风格指南 - JavaScript Style Guide》](https://github.com/airbnb/javascript)。我不会把那篇文章原封不动地复制到我的博客里，你可以[在 GitHub 上找到](https://github.com/bigcommerce/sass-style-guide)。同时我认为，详细解释一些具体规则并且列出我们使用的工具会更加有帮助。
 
 
 ## 目标
