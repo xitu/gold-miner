@@ -2,42 +2,54 @@
 
 翻译优质的互联网技术文章
 
-# 如何参与
+# 如何参与翻译
 
-1. 从下面的文章列表中挑选出待翻译的文章
-2. 在 [issue](https://github.com/xitu/gold-miner/issues/new) 中提交翻译申请，如果能介绍一下自己就更好咯。
-3. 申请请求通过后，Fork 此仓库开始翻译
-4. 翻译完成，发送 Pull Request
-5. 至少审核两篇其他译者发 PR 的文章→[#84](https://github.com/xitu/gold-miner/issues/84)
+1. 在 [待认领文章列表](https://github.com/xitu/gold-miner/issues?q=is%3Aissue+is%3Aopen+label%3A%E6%96%87%E7%AB%A0%E8%AE%A4%E9%A2%86) 中认领翻译文章（如果是第一次认领，介绍一下自己就更好咯）
+2. 申请请求通过后，Fork 此仓库开始翻译
+3. 翻译完成，发送 [Pull Request](https://github.com/xitu/gold-miner/pull/new/master)
+4. 至少审核两篇其他译者发 PR 的[文章](https://github.com/xitu/gold-miner/pulls?q=is%3Apr+is%3Aopen+label%3A%E6%A0%A1%E5%AF%B9%E8%AE%A4%E9%A2%86)
+
+> 建议：Fork 此仓库后，请先从 master 分支上 `git checkout -b translate` 一个新的 translate 分支来翻译文章，翻译完成后再把 translate 分支发 PR。
 
 **文章都被认领了怎么办？**
 
-快来 [issue](https://github.com/xitu/gold-miner/issues/new)申请成为译者吧。
+快来 [issue](https://github.com/xitu/gold-miner/issues/new) 申请成为译者吧，或者先校对一两篇文章感受一下。
 
-## 需要认领的
+# 如何参与校对
 
-* Sketch 作者的采访 ([认领地址](https://github.com/xitu/gold-miner/issues/118))
-* OAuth2 Authentication with Lua ([认领地址](https://github.com/xitu/gold-miner/issues/117))
-* How we "CSS" at BigCommerce ([认领地址](https://github.com/xitu/gold-miner/issues/114))
-* 选择使用正确的 Markdown Parser  ([认领地址](https://github.com/xitu/gold-miner/issues/113))
-* [英] 世界级的 Android 测试流程（二） ([认领地址](https://github.com/xitu/gold-miner/issues/112))
-* [英] 世界级的 Android 测试流程（一） ([认领地址](https://github.com/xitu/gold-miner/issues/111))
-* HTTP/2 For Web Developers ([认领地址](https://github.com/xitu/gold-miner/issues/110))
-* Google Cloud Functions 文档 ([认领issue地址](https://github.com/xitu/gold-miner/issues/104))
-* A GENTLE INTRODUCTION TO FUNCTIONAL JAVASCRIPT: PART 1 ([认领issue地址](https://github.com/xitu/gold-miner/issues/105))
+1. 在[待校对文章列表](https://github.com/xitu/gold-miner/issues?q=is%3Aissue+is%3Aopen+label%3A%E6%A0%A1%E5%AF%B9%E8%AE%A4%E9%A2%86)中认领校对文章，如果能介绍一下自己就更好咯
+2. 申请通过后，直接在文章对应的 PR 里面添加 note 校对
+
+## 正在进行的
+
+*  [RxSwift at first sight](https://github.com/xitu/gold-miner/issues/136)
+*  [设计师的理解字距设计指南](https://github.com/xitu/gold-miner/issues/134)
+*  [深入浅出 Android 权限（二）](https://github.com/xitu/gold-miner/issues/133)
+*  [深入浅出 Android 权限（一）](https://github.com/xitu/gold-miner/issues/132)
+*  [在 chrome 的开发者工具里 debug node.js 代码](https://github.com/xitu/gold-miner/issues/128)
+*  [无缝迁移 Angular 1 项目到 Angular 2](https://github.com/xitu/gold-miner/issues/127)
+*  [Sketch 作者的采访](https://github.com/xitu/gold-miner/issues/118)
+*  [OAuth2 Authentication with Lua](https://github.com/xitu/gold-miner/issues/117)
+*  [How we "CSS" at BigCommerce](https://github.com/xitu/gold-miner/issues/114)
+*  [选择使用正确的 Markdown Parser](https://github.com/xitu/gold-miner/issues/113)
+*  [HTTP/2 For Web Developers](https://github.com/xitu/gold-miner/issues/110)
+*  [Google Cloud Functions 文档](https://github.com/xitu/gold-miner/issues/104)
+*  [A GENTLE INTRODUCTION TO FUNCTIONAL JAVASCRIPT: PART 1](https://github.com/xitu/gold-miner/issues/105)
 
 ## Android
 
-* [2015 年度 Android 开发者必备的 5 个开源库](http://gold.xitu.io/entry/5649b8d160b2ed36204eabad)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/Top-5-Android-libraries-every-Android-developer-should-know-about.md)) ([kassadin (kass)](https://github.com/kassadin) 认领)
-* [如何提高安卓代码的质量和语法](http://gold.xitu.io/entry/561104a260b2b52c9ce40ea0)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/how-to-improve-quality-and-syntax-of-your-android-code.md)) ([yinshudi](https://github.com/yinshudi) 认领)
-* [如何更高效的使用 okhttp](http://gold.xitu.io/entry/5665ac0f60b202595a710eb6)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/effective-okhttp.md)) ([Brucezz](https://github.com/brucezz) 认领)
-* [每个 Android 开发者都应该读的 Android Studio Tips](http://gold.xitu.io/entry/5664efa500b0ec3f657bae1d) ([Jaeger](https://github.com/laobie) 认领)
-* [MVVM模式介绍](http://gold.xitu.io/entry/560933ce60b227b771931f90)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO%2Fapproaching-android-with-mvvm.md)) ([Sausure](https://github.com/Sausure) 认领)
-* [Android 的一个 MVP 基础项目模板](http://gold.xitu.io/entry/5630f9c600b0ee7f0bb48c25)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/android-basic-project-architecture-for-mvp.md)) ([foolishgao](https://github.com/foolishgao) 认领)
-* [让 Toolbar 随着 RecyclerView 的滚动而显示/隐藏](http://gold.xitu.io/entry/56320b3400b05c9d2b0f7f6f)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/How-to-hideshow-Toolbar-when-list-is-scroling.md)) ([MiJack (江湖迈杰)](https://github.com/MiJack) 认领)
-* [Android Guides - Github](http://gold.xitu.io/entry/5584f8e9e4b09e372efeca9a) ([SeniorZhai](https://github.com/SeniorZhai)认领)
-* [6 Things I wish I Knew before I Wrote my first Android App](http://gold.xitu.io/entry/55a38698e4b0ed48f0bfc1ef)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/things-i-wish-i-knew-before-i-wrote-my-first-android-app.md)) ([404neko](https://github.com/404neko) 认领)
-* [Android 上的数据格式 FlatBuffers 介绍](http://gold.xitu.io/entry/55dd1e3b60b27e6cd500d266)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/flatbuffers-in-android-introdution.md)) ([lihb (lhb)](https://github.com/lihb) 认领)
+*  [[英] 世界级的 Android 测试流程（二）](http://blog.zhaiyifan.cn/2016/02/23/world-class-testing-development-pipeline-for-android-part-2/) [markzhai](https://github.com/markzhai) 翻译
+*  [[英] 世界级的 Android 测试流程（一）](http://blog.zhaiyifan.cn/2016/02/23/world-class-testing-development-pipeline-for-android-part-1/) [markzhai](https://github.com/markzhai) 翻译
+* [2015 年度 Android 开发者必备的 5 个开源库](https://github.com/xitu/gold-miner/blob/master/TODO/Top-5-Android-libraries-every-Android-developer-should-know-about.md) ([kassadin (kass)](https://github.com/kassadin) 翻译)
+* [如何提高安卓代码的质量和语法](https://github.com/xitu/gold-miner/blob/master/TODO/how-to-improve-quality-and-syntax-of-your-android-code.md) ([yinshudi](https://github.com/yinshudi) 翻译)
+* [如何更高效的使用 okhttp](https://github.com/xitu/gold-miner/blob/master/TODO/effective-okhttp.md) ([Brucezz](https://github.com/brucezz) 翻译)
+* [每个 Android 开发者都应该读的 Android Studio Tips](https://github.com/xitu/gold-miner/blob/master/TODO/Android-Studio-Tips.md) ([Jaeger](https://github.com/laobie) 翻译)
+* [MVVM模式介绍](https://github.com/xitu/gold-miner/blob/master/TODO%2Fapproaching-android-with-mvvm.md) ([Sausure](https://github.com/Sausure) 翻译)
+* [Android 的一个 MVP 基础项目模板](https://github.com/xitu/gold-miner/blob/master/TODO/android-basic-project-architecture-for-mvp.md) ([foolishgao](https://github.com/foolishgao) 翻译)
+* [让 Toolbar 随着 RecyclerView 的滚动而显示/隐藏](https://github.com/xitu/gold-miner/blob/master/TODO/How-to-hideshow-Toolbar-when-list-is-scroling.md) ([MiJack (江湖迈杰)](https://github.com/MiJack) 翻译)
+* [Android Guides - Github](http://gold.xitu.io/entry/5584f8e9e4b09e372efeca9a) ([SeniorZhai](https://github.com/SeniorZhai) 翻译)
+* [6 Things I wish I Knew before I Wrote my first Android App](https://github.com/xitu/gold-miner/blob/master/TODO/things-i-wish-i-knew-before-i-wrote-my-first-android-app.md) ([404neko](https://github.com/404neko) 翻译)
+* [Android 上的数据格式 FlatBuffers 介绍](https://github.com/xitu/gold-miner/blob/master/TODO/flatbuffers-in-android-introdution.md) ([lihb](https://github.com/lihb) 翻译)
 
 ## iOS
 

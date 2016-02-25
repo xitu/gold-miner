@@ -11,6 +11,9 @@
 
 本文中我们将重点关注 React Native 应用。在设计 React 无障碍 API 的时候，我们力求与 iOS 和 Android 相关 API 相似。如果你曾经在 Web、IOS 或 Android 平台上开发过无障碍应用，那么你应该会习惯 React AX API 所提供的框架与术语。举例来说，你可以把一个 UI 元素标记为 _accessible_ (由此会暴露给辅助工具)，并使用 _accessibilityLabel_ 为这个元素提供一个文字描述。
 
+```
+<View accessible={true} accessibilityLabel=”This is simple view”>
+```
 
 让我们通过研究 Facebook 自己的一个基于 React 的产品来深入了解 React AX API：**广告管理APP(Ads Manager app)**。
 
