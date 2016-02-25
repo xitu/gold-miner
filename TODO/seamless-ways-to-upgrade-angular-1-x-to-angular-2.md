@@ -51,7 +51,7 @@ Add a line note
 
 ### 关于未来
 
-Angular2 采用了所有具备潜质的功能，web 作为一个整体呈现出来。在使用 TypeScript 植入 Angular 时，被称为 ES6 的 ES2015 是主要的ECMAScript。
+Angular 2 采用了所有整个 Web 领域趋向流行的那些具备潜质的功能在使用 TypeScript 植入 Angular 时，被称为 ES6 的 ES2015 是主要的ECMAScript。
 Web组件就是Web的未来。若各位还不打算接受这一事实的话，那意味着你的方向已经走偏了。
 
 ## 升级到Angular 2
