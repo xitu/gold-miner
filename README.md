@@ -53,12 +53,12 @@
 
 ## iOS
 
-* [Facebook iOS 应用是如何加速图片显示的？](http://gold.xitu.io/entry/55d182c460b2b750998476c4)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/faster-photos-in-facebook-for-ios.md)) ([bobmayuze](https://github.com/bobmayuze)认领)
-* [编写高质量的 Swift 代码](http://gold.xitu.io/entry/5661031d00b0c0607132b6da)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/OptimizationTips.rst)) ([iThreeKing](https://github.com/iThreeKing) 认领)
-* [Artsy 工程师总结的一些 Cocoa 开发设计误区](http://gold.xitu.io/entry/55fb191f60b20bbff6370fc5)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/Cocoa-Architecture-Dropped-Design-Patterns.md)) ([nathanwhy](https://github.com/nathanwhy) 认领)
-* [UIKit 里如何面向协议编程](http://gold.xitu.io/entry/5611522e60b2b52c9cead330)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/ios-9-tutorial-series-protocol-oriented-programming-with-uikit.md)) ([walkingway](https://github.com/walkingway) 认领)
-* [3D Force Touch 的新玩儿法](http://gold.xitu.io/entry/562d9cd660b2c1e233c9106b)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/3d-force-touch-beyond-peek-pop.md)) ([shiguol (SAlex)](https://github.com/shiguol) 认领)
-* [Absolute Beginner's Guide to Swift](http://gold.xitu.io/entry/5662e08960b204d55d49b95a)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/an-absolute-beginners-guide-to-swift.md)) ([cdpath](https://github.com/cdpath) 认领)
+* [Facebook iOS 应用是如何加速图片显示的？](https://github.com/xitu/gold-miner/blob/master/TODO/faster-photos-in-facebook-for-ios.md) ([bobmayuze](https://github.com/bobmayuze) 翻译)
+* [编写高质量的 Swift 代码](https://github.com/xitu/gold-miner/blob/master/TODO/OptimizationTips.rst) ([iThreeKing](https://github.com/iThreeKing) 翻译)
+* [Artsy 工程师总结的一些 Cocoa 开发设计误区](https://github.com/xitu/gold-miner/blob/master/TODO/Cocoa-Architecture-Dropped-Design-Patterns.md) ([nathanwhy](https://github.com/nathanwhy) 翻译)
+* [UIKit 里如何面向协议编程](https://github.com/xitu/gold-miner/blob/master/TODO/ios-9-tutorial-series-protocol-oriented-programming-with-uikit.md) ([walkingway](https://github.com/walkingway) 翻译)
+* [3D Force Touch 的新玩儿法](https://github.com/xitu/gold-miner/blob/master/TODO/3d-force-touch-beyond-peek-pop.md) ([shiguol](https://github.com/shiguol) 翻译)
+* [Absolute Beginner's Guide to Swift](https://github.com/xitu/gold-miner/blob/master/TODO/an-absolute-beginners-guide-to-swift.md) ([cdpath](https://github.com/cdpath) 翻译)
 
 ## JavaScript
 
