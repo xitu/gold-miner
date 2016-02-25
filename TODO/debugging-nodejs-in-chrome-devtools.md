@@ -9,7 +9,7 @@
 
 ## [ ](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#devtool)devtool
 
-最近我一直在开发一个命令行工具[devtool](https://github.com/Jam3/devtool)，它可以在 Chrome 的开发者工具中运行 Node.js 程序。
+最近我一直在开发一个命令行工具 [devtool](https://github.com/Jam3/devtool)，它可以在 Chrome 的开发者工具中运行 Node.js 程序。
 
 下面的记录显示了在一个 HTTP 服务器中设置断点的情况。
 
@@ -23,7 +23,7 @@
 
 ## [ ](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#repl)REPL
 
-在某种程度上，我们可以用它来作为 `node` shell 命令的替代品。例如，我们可以这样打开一个 REPL (译者注: REPL 全称为"Read-Eval-Print Loop"，是一个简单的，交互式的编程环境)。
+在某种程度上，我们可以用它来作为 `node` shell 命令的替代品。例如，我们可以这样打开一个 REPL (译者注: REPL 全称为"Read-Eval-Print Loop"，是一个简单的、交互式的编程环境)。
 
     devtool
 
@@ -58,7 +58,7 @@
 
 ![line](http://i.imgur.com/mH5jWT9.png)
 
-在 `Sources` 标签中，你也可以敲击 `Cmd/Ctrl + P` 按键在所有依赖的模块中进行快速搜索。你甚至可以审查和调试内置模块，如 Node.js 中的那些。你也可以使用左手边的面板来浏览模块。
+在 `Sources` 标签中，你也可以敲击 `Cmd/Ctrl + P` 按键在所有依赖的模块中进行快速搜索。你甚至可以审查和调试内置模块，比如 Node.js 中的那些。你也可以使用左手边的面板来浏览模块。
 
 ![Sources](http://i.imgur.com/jn3RmnV.png)
 
