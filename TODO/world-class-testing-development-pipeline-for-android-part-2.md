@@ -6,17 +6,17 @@
 
 在我们的上一篇博客文章，[“世界级的Android测试开发流程（一）”，我们开始讨论一个Android的测试开发流程](http://blog.karumi.com/world-class-testing-development-pipeline-for-android/)。我们讨论了一个软件工程师从开始写测试到找到测试开发的一些问题的演化过程。我们获得了以下结论，概括如下：
 
-*   - 自动化测试是成功的软件开发的关键。
-*   - 为了写特定类型的测试，可测试的代码是必须的。
-*   - 一些开发者对测什么与怎么测一无所知，就开始写测试。
-*   - 我们的测试的质量与可读性并不总是能达到预期。
-*   - 一个测试开发流程对定义测什么与怎么测来说是必须的。
+* 自动化测试是成功的软件开发的关键。
+* 为了写特定类型的测试，可测试的代码是必须的。
+* 一些开发者对测什么与怎么测一无所知，就开始写测试。
+* 我们的测试的质量与可读性并不总是能达到预期。
+* 一个测试开发流程对定义测什么与怎么测来说是必须的。
 
 相应地，任何应用的测试关键部分是：
 
-*   - 独立于框架或者库去测试业务逻辑。
-*   - 测试服务器端的API集成。
-*   - 在黑盒场景测试下，从用户角度写的的接收准则。
+* 独立于框架或者库去测试业务逻辑。
+* 测试服务器端的API集成。
+* 在黑盒场景测试下，从用户角度写的的接收准则。
 
 在这篇文章中，我们将会看到几个测试方法，它们覆盖了上述部分并保证了一个稳若盘石的测试开发流程。
 
@@ -115,8 +115,8 @@
 
 参考：
 
-*   - 世界级的Android测试开发流程（一）by Pedro Vicente Gómez Sánchez. [http://www.slideshare.net/PedroVicenteGmezSnch/worldclass-testing-development-pipeline-for-android](http://www.slideshare.net/PedroVicenteGmezSnch/worldclass-testing-development-pipeline-for-android)
-*   - Android GameBoy 模拟器 GitHub Repository by Pedro Vicente Gómez Sánchez. [https://github.com/pedrovgs/AndroidGameBoyEmulator](https://github.com/pedrovgs/AndroidGameBoyEmulator)
-*   - 控制反转容器和依赖注入模式 by Martin Fowler. [http://martinfowler.com/articles/injection.html](http://martinfowler.com/articles/injection.html)
-*   - 在野外的DIP by Martin Fowler.[http://martinfowler.com/articles/dipInTheWild.html](http://martinfowler.com/articles/dipInTheWild.html)
-*   - 测试替身 by Martin Fowler. [http://www.martinfowler.com/bliki/TestDouble.html](http://www.martinfowler.com/bliki/TestDouble.html)
+* 世界级的Android测试开发流程（一）by Pedro Vicente Gómez Sánchez. [http://www.slideshare.net/PedroVicenteGmezSnch/worldclass-testing-development-pipeline-for-android](http://www.slideshare.net/PedroVicenteGmezSnch/worldclass-testing-development-pipeline-for-android)
+* Android GameBoy 模拟器 GitHub Repository by Pedro Vicente Gómez Sánchez. [https://github.com/pedrovgs/AndroidGameBoyEmulator](https://github.com/pedrovgs/AndroidGameBoyEmulator)
+* 控制反转容器和依赖注入模式 by Martin Fowler. [http://martinfowler.com/articles/injection.html](http://martinfowler.com/articles/injection.html)
+* 在野外的DIP by Martin Fowler.[http://martinfowler.com/articles/dipInTheWild.html](http://martinfowler.com/articles/dipInTheWild.html)
+* 测试替身 by Martin Fowler. [http://www.martinfowler.com/bliki/TestDouble.html](http://www.martinfowler.com/bliki/TestDouble.html)
