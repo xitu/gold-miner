@@ -1,4 +1,8 @@
-原文[Quickstarts - Guides](https://cloud.google.com/functions/docs)
+* 原文[Quickstarts - Guides](https://cloud.google.com/functions/docs)
+* 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
+* 译者 : [huanglizhuo](https://github.com/huanglizhuo)
+* 校对者: [shenxn](https://github.com/shenxn) [CoderBOBO](https://github.com/CoderBOBO) [edvarHua](https://github.com/edvardHua)
+
 
 ##什么是 Google 云函数(Google Cloud Function)?
 
