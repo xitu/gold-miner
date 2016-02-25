@@ -1,8 +1,8 @@
 * 原文链接 : [Seamless Ways to Upgrade Angular 1.x to Angular 2](https://scotch.io/tutorials/seamless-ways-to-upgrade-angular-1-x-to-angular-2)
 * 原文作者 : [Chris Nwamba](https://scotch.io/author/chris92)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : [认领地址](https://github.com/xitu/gold-miner/issues/127)
-* 校对者: 
+* 译者 : [CoderBOBO](https://github.com/CoderBOBO)
+* 校对者: [根号三](https://github.com/sqrthree) [Adam Shen](https://github.com/shenxn)
 
 
 
