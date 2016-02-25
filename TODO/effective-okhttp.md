@@ -3,7 +3,6 @@
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [Brucezz](https://github.com/brucezz)
 * 校对者: [iThreeKing](https://github.com/iThreeKing), [Adam Shen](https://github.com/shenxn), [Jaeger](https://github.com/laobie)
-* 状态 :  根据审核意见修改完成
 
 在为[可汗学院](https://www.khanacademy.org/)开发 [Android app](https://play.google.com/store/apps/details?id=org.khanacademy.android) 时，[OkHttp](http://square.github.io/okhttp/) 是一个很重要的开源库。虽然它的默认配置已经提供了很好的效果，但是我们还是采取了一些措施提高 OkHttp 的可用性和自我检查能力：
 
