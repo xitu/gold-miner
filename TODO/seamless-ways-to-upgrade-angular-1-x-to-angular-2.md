@@ -147,7 +147,7 @@ Web组件就是Web的未来。若各位还不打算接受这一事实的话，�
 
 编写一个形似Angular2 的 Angular1.x 应用并非尽善尽美。我们需要的是真正的法宝。一个大型现有 Angular1.x 项目成为最大的挑战，将我们所有的应用重新编写到 Angular2 会变得非常困难，甚至即使使用 ngForward 也并不理想。这时候，ngUpgrade 便派上用场了。ngUpgrade 才是我们真正需要的法宝。
 
-与 ngForward 不同，ngUpgrade 清晰地覆盖在 Angular2 文件上。如果你还未掌握使用这种路径的开发者目录，那先腾出几分钟消化下这些知识。[知识](https://angular.io/docs/ts/latest/guide/upgrade.html).
+与 ngForward 不同，ngUpgrade 清晰地覆盖在 Angular2 文件上。如果你还未掌握这种途径的开发者目录，那先腾出几分钟消化下这些知识。[知识](https://angular.io/docs/ts/latest/guide/upgrade.html).
 
 此外，我们还会写更多关于升级到 Angular2 的文章。在日后的文章中，我们会侧重说明 ngUpgrade 的相关问题。
 
