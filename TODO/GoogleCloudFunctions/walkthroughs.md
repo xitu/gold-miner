@@ -12,7 +12,7 @@
 
 ###第一步：创建函数
 
-在你本地系统创建工程：
+在你的本地文件系统中创建一个项目的位置:
 
 Linux/Mac
 
@@ -39,7 +39,7 @@ exports.helloworld = function (context, data) {
 
 ###第二步：部署你的函数
 
-部署一个函数，触发器是 主题为 hello_world 的 Pub/Sub 消息
+使用一个名为 hello_world 的 Pub/Sub topic 部署函数
 
 >$ gcloud alpha functions deploy helloworld --bucket cloud-functions --trigger-topic hello_world
 
@@ -113,7 +113,7 @@ rts.hellohttp = function (context, data) {
 
 ###第二步：部署你的函数
 
-部署一个触发器为 http 的函数
+部署一个拥有 http 触发器的函数
 
 > $ gcloud alpha functions deploy helloworld --bucket cloud-functions --trigger-topic hello_world
 
