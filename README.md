@@ -22,6 +22,7 @@
 
 ## 正在进行的
 
+*  [利用 input-placeholder 属性来实现 input label 特殊效果](https://github.com/xitu/gold-miner/issues/149)
 *  [一个专业的 Web 开发者却无法在 10 天内开发出一个简单的产品](https://github.com/xitu/gold-miner/issues/150)
 *  [Reactive GraphQL Architecture](https://github.com/xitu/gold-miner/issues/146)
 *  [RxSwift at first sight](https://github.com/xitu/gold-miner/issues/136)
