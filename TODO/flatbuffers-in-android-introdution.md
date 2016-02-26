@@ -3,9 +3,6 @@
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [lihb (lhb)](https://github.com/lihb)
 * 校对者: [yinshudi](https://github.com/yinshudi) [404neko](https://github.com/404neko)
-* 状态 :  审核中
-
-
 
 JSON 格式 - 一个基本上人人知道的、轻量级的、并被现代服务器所广泛使用的数据格式。相对过时的、讨厌的 XML 数据格式来说，它量级轻、易于人们阅读、对开发人员也更为友好。 JSON 是一种独立于语言存在的数据格式，但是它解析数据并将之转换成如 Java 对象时，会消耗我们的时间和内存资源。几天前，Facebook 宣称自己的 Android app 在数据处理的性能方面有了极大的提升。在几乎整个 app 中，他们放弃了 JSON 而用 FlatBuffers 取而代之。请查阅[这篇文章](https://code.facebook.com/posts/872547912839369/improving-facebook-s-performance-on-android-with-flatbuffers/)来获取关于 FlatBuffers 的基础知识以及从 JSON 格式过渡到 FlatBuffers 格式后的结果。
 
