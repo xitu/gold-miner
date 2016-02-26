@@ -2,7 +2,7 @@
 * 原文作者 : [MATT DESLAURIERS](http://mattdesl.svbtle.com/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [sqrthree (根号三)](https://github.com/sqrthree)
-* 校对者: 
+* 校对者: [shenxn](https://github.com/shenxn)
 * 状态 : 翻译完成，待校对
 
 这篇文章介绍了一种在 Chrome 开发者工具里面开发、调试和分析 Node.js 应用程序的新方法。
@@ -84,7 +84,7 @@
 
 ## [ ](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#profiling) 分析
 
-使用 `devtool` 的另一个方面是当作像 [browserify](https://github.com/substack/node-browserify), [gulp](https://github.com/gulpjs/gulp) 和 [babel](https://github.com/babel/babel) 这样的分析工具。
+`devtool` 的另一个功能是分析像 [browserify](https://github.com/substack/node-browserify), [gulp](https://github.com/gulpjs/gulp) 和 [babel](https://github.com/babel/babel) 这样的程序。
 
 这里我们使用 [`console.profile()`](https://developer.chrome.com/devtools/docs/console-api) (Chrome 的一个功能)来分析一个打包工具的 CPU 使用情况。
 
@@ -121,7 +121,7 @@ Chrome 会不断的向他们的开发者工具中推送新功能和实验，例�
 
 ![experiments](http://i.imgur.com/dNuIMw0.png)
 
-一旦启用，你就可以通过敲击 `Escape` 按键来调处一个带有 _Promises_ 监视器的面板。
+一旦启用，你就可以通过敲击 `Escape` 按键来调出一个带有 _Promises_ 监视器的面板。
 
 ![](https://i.imgur.com/xKkTEeg.png)
 
@@ -136,7 +136,7 @@ Chrome 会不断的向他们的开发者工具中推送新功能和实验，例�
 
 #### [ ](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#codecode-and-codeprocessargvcode)`--` 和 `process.argv`
 
-你的脚本可以像一个普通的 Node.js 应用那样解析 `process.argv`。如果你在 `devtool` 命令中传递一个句号(`--`)，它后面的所有内容都可以通过 `process.argv` 来使用。例如:
+你的脚本可以像一个普通的 Node.js 应用那样解析 `process.argv`。如果你在 `devtool` 命令中传递一个句号(`--`)，它后面的所有内容都会被当做一个新的 `process.argv` 。例如:
 
     devtool script.js --console -- input.txt
 
@@ -151,7 +151,7 @@ Chrome 会不断的向他们的开发者工具中推送新功能和实验，例�
 
 #### [ ](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#codequitcode-and-codeheadlesscode)`--quit` 和 `--headless`
 
-使用 `--quit`，当遇到了一个错误(如语法错误或者未捕获的异常)时，进程将使用代码 `1` 安静的退出。
+使用 `--quit`，当遇到了一个错误(如语法错误或者未捕获的异常)时，进程将会安静的退出，并返回结束码`1` 。
 
 使用 `--headless`，开发工具将不会被打开。
 
@@ -163,7 +163,7 @@ Chrome 会不断的向他们的开发者工具中推送新功能和实验，例�
 
 一些模块为了更好的在浏览器中运行或许会提供一个入口点。当你需要这些模块时，你可以使用 `--browser-field` 来支持 [package.json flag](https://github.com/defunctzombie/package-browser-field-spec)
 
-例如，我们可以使用 [xhr-request](https://github.com/Jam3/xhr-request) (一个当带有 `"browser"` 字段被引用时会使用 XHR 的模块)
+例如，我们可以使用 [xhr-request](https://github.com/Jam3/xhr-request) ，当带有 `"browser"` 字段被引用时，这个模块会使用 XHR。
 
     const request = require('xhr-request');
 
@@ -195,7 +195,7 @@ Chrome 会不断的向他们的开发者工具中推送新功能和实验，例�
 
 #### [ ](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#v8-flags)V8 Flags
 
-在当前目录，你可以创建一个 `.devtoolrc` 文件，里面包含有诸如 V8 flags 这样的高级设置。
+在当前目录，你可以创建一个 `.devtoolrc` 文件来进行诸如 V8 flags 这样的高级设置。
 
     {
       "v8": {
@@ -249,6 +249,6 @@ Chrome 会不断的向他们的开发者工具中推送新功能和实验，例�
 
 这意味着你的代码将运行在一个真正的 Node 环境中，没有任何 `window` 或其他的 Browser/Electron API 来污染作用域并导致某些模块出现问题。对于大型 Node.js 应用(即本地插件)来说它有一个强有力的支持，并且在开发者工具实例中拥有更多的控制权(即可以注入断点和支持网络请求)。
 
-然而，由于它重新实现了大量的调试技巧，因此对于开发来说感觉可能比最新版的 Chrome 开发者工具要慢、笨拙和脆弱。它有经常崩溃的倾向，往往导致 Node.js 开发人员很无奈。
+然而，由于它重新实现了大量的调试技巧，因此对于开发来说感觉可能比最新版的 Chrome 开发者工具要慢、笨拙和脆弱。它经常会崩溃，往往导致 Node.js 开发人员很无奈。
 
 而 `devtool` 的目的是让那些从 Chrome 开发者工具中转过来的人觉得比较亲切，而且也增进了像 Browser/Electron APIs 这样的功能。
