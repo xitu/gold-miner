@@ -6,22 +6,23 @@
 * 状态 : 认领中
 
 
-# High-level design
+# 高水平设计
 
-This is a high-level overview of the architecture of a reactive GraphQL data loading system, aimed at getting feedback from engineers who have been there and done that. We want to share what we're working on to see if people find it interesting, and to validate our design against what others have seen in the field.
+这是对于一个响应式 GraphQL 数据载入系统结构的总览，我们这么做的目的是希望得到那些相关领域工程师的反馈。我们想要分享我们正在做的事以确认人们是否对它感兴趣，同时使得该领域中的人能够接受我们的设计。
 
-*   If you haven't yet, read our [announcement post](http://info.meteor.com/blog/reactive-graphql) which outlines all of the problems we are aiming to solve.
-*   You can also read Arunoda's post that summarizes this doc: [Meteor's Reactive GraphQL is Just Awesome](https://voice.kadira.io/meteor-s-reactive-graphql-is-just-awesome-b21074231528#.3h3hmtbm2)
+*   如果你还不了解我们的设计，请阅读我们的[介绍页面](http://info.meteor.com/blog/reactive-graphql)，这个页面概述了所有我们希望解决的问题。
+*   你也可以阅读 Arunoda 的文章，那篇文章总结了我们的介绍内容：[Meteor's Reactive GraphQL is Just Awesome](https://voice.kadira.io/meteor-s-reactive-graphql-is-just-awesome-b21074231528#.3h3hmtbm2)
 
-Here's a summary of the design in a diagram, which will be explained in more detail later:
+这是一张总结了我们设计的图表，之后我们会进行详细的解释：
 
 ![](http://ww1.sinaimg.cn/large/9b5c8bd8jw1f0zsqg1w7fj21kw0s845z.jpg)
 
 ## GraphQL
 
-(You can [skip this part](#reactive-graphql) if you are already familiar with GraphQL)
+（如果你已经对 GraphQL 很熟悉了，你可以[跳过这个部分](#reactive-graphql)）
 
 GraphQL is a tree-shaped query language for querying a schema of node types. So, for example, if you have users, todo lists, and tasks, you might query them like this:
+GraphQL 是一个用于查询节点类型图表的树形查询语言。举例来说，如果你有一些用户，一些待办事项列表，和一些任务，你就可以像下面这样查询：
 
     me {
       username,
@@ -36,7 +37,7 @@ GraphQL is a tree-shaped query language for querying a schema of node types. So,
       }
     }
 
-Each field in the query calls a resolver function on the server, which can access any data source or API. The return values are aggregated into a JSON response shaped exactly like the query, and you don't get any fields you didn't ask for. For the query above, you'll get back data that looks like this:
+查询中的每一个字段都调用了服务器上的一个可以访问任何数据源或API的解析函数。返回值被集合在一个与查询的样子类似的 JSON 响应中，并且你不会得到任何你没有查询的字段。针对上面的查询，你会得到如下数据：
 
     {
       me: {
@@ -51,34 +52,34 @@ Each field in the query calls a resolver function on the server, which can acces
       }
     }
 
-> You can follow the [LearnGraphQL](https://learngraphql.com/) interactive course to learn GraphQL basics. You could complete it in few hours.
+> 你可以跟随一个时长几个小时的交互式课程 [LearnGraphQL](https://learngraphql.com/) 来学习 GraphQL 的基础知识。
 
-Note that there is no restriction on data sources - you could have your todo lists stored in one database, and your tasks in a different one. In fact, one of the main benefits of GraphQL is a total abstraction over where the data is coming from, so that frontend developers don't have to worry about it, and backend developers are free to move around data or services as needed. Here's what that looks like in terms of the components of the architecture:
+注意，数据源是没有限制的，你可以在一个数据库中储存你的待办事项列表，并在另一个数据库中储存你的任务。事实上，GraphQL 的主要好处就是，你可以把数据从数据源中抽象出来，这样前端开发者就不用担心数据源的问题了，后端开发者也可以自由地更改数据或者服务。下图展示了这种设计使用结构组件来表示的样子：
+
 
 ![](http://ww1.sinaimg.cn/large/9b5c8bd8jw1f0zsqywxqlj20xu0t2jve.jpg)
-
-Note that there is a GraphQL cache - what this does is decompose the results of the query into nodes. A smart cache can refetch just part of a query, or even a single field on a previously-fetched object, in the case where the data requirements change or something needs to be refreshed. So in our above example, the data in the cache might be stored like:
+注意，GraphQL 拥有一个缓存，这个缓存是用来把查询结果分解成节点。一个聪明的缓存可以在数据需求变化或者部分数据需要刷新的时候，在之间缓存对象的基础上只重新获取查询的一部分，甚至是一个字段。
 
     { type: "me", username: "sashko", lists: [1] }
     { type: "list", id: 1, name: "My first todo list", tasks: [...] }
 
-This is clearly very simplified, and you can read about how the Relay cache works on [Huey Petersen's website](http://hueypetersen.com/posts/2015/09/30/quick-look-at-the-relay-store/). The important thing to note is that the cache decomposes query results into a flat structure, and a smart cache will be able to generate a query to update just one list and its tasks, or just the list's name, as necessary.
+这个例子非常简明。你可以在 [Huey Petersen 的网站](http://hueypetersen.com/posts/2015/09/30/quick-look-at-the-relay-store/)上了解 Relay 缓存的工作方式。需要注意的是，缓存系统会将查询结果分解成平面结构，并且一个聪明的缓存将能够在必要时生成一个查询来更新 `list` 和它的 `tasks`，或者仅仅更新 `list` 的 `name`。
 
-## Reactive GraphQL
+## 响应式 GraphQL
 
-People are excited about GraphQL, and it solves a lot of the problems which many developers, including Meteor's customers and users, have brought to light. But when you're building an app, you need more than just a way to query the server and get a response. For example, some parts of your app will want the data to update reactively when a different user makes a change.
+人们对 GraphQL 感到很激动，并且它解决了许多开发者（包括 Metor 的顾客和用户）遇到的许多问题。但是当你构建一个应用的时候，你不止是需要一种向服务器发起查询并得到响应的方式。举例来说，你应用的一部分可能会在另一个用户做出一些修改的时候需要响应式更新数据。
 
-The client and server parts of the GraphQL system will need to collaborate to make this possible, but one of our goals is to make minimal changes to the current reference implementation of GraphQL so that developers can take advantage of current and future productivity tools for GraphQL.
+GraphQL 系统的客户端和服务器需要合作来实现上述功能，但是我们的一个目标是尽量减少对现行 GraphQL 执行方式的改变，从而使得开发者能够充分利用现在和将来用于 GraphQL 的生产力工具。
 
-### Dependencies
+### 依赖（Dependency）
 
-The core concept of the system we envision is the idea of a dependency, or dep for short. A dep is a tuple of `key` and `version`, where `key` globally represents a particular unit of data (for example, a row in a database or the result of a query), and `version` globally represents how many times it has been changed.
+我们想象中的系统的核心观点就是依赖。一个依赖就是一个 `键（key）` 和 `版本（version）` 的元组，其中 `键` 在全局中代表一个特定的数据单元（比如数据库中的一条记录或是一个查询的结果），而 `版本` 在全局中代表数据被修改的次数。
 
-The intended result is that if you are holding a piece of data, and you have a dep for it, you can ask the global dependency server whether it has changed by sending the key and version. The main benefit of this approach is that the application server doesn't need to be aware of which queries each client is currently tracking - the client can keep that knowledge for itself, reducing the burden on the server and giving the developer more options for controlling when new data is fetched.
+预想中的结果是，如果你拥有一些数据，并且你有这个数据的依赖，你就可以通过发送键和版本的方式向全局依赖服务器询问数据是否已经被修改了。这样做的主要好处是，应用程序的服务器不需要知道每个客户端当前正在追踪的查询，客户端可以自己保存这些信息。这减少了服务器的负担，并且使得开发者可以更自由地选择抓取新数据的时间。
 
-### Returning dependencies to the client
+### 将依赖返回到客户端
 
-Before, we gave an example of a GraphQL response for a simple query. If you make a reactive GraphQL query, the client needs extra metadata to know which parts of the result tree are reactive, and what keys they should be invalidated by. The client query fetcher will inject fields for this metadata into your query automatically, so that internally the response will look like this:
+之前，我们给了一个简单查询的 GraphQL 响应作为例子。如果你需要创建一个响应式的 GraphQL 查询，客户端需要需要一些额外的元数据来知道结果树中的哪些部分是响应式的，并且哪些键是无效的。客户端查询器会自动把这个元数据的字段添加到你的查询中，所以内部的响应应该会像下面这样：
 
     {
       me: {
@@ -101,27 +102,30 @@ Before, we gave an example of a GraphQL response for a simple query. If you make
       }
     }
 
-This will tell the client which dependencies they should watch to figure out if the list object itself changed, or if the list of tasks needs to be updated. Of course, the extra metadata will be filtered out before passing the data to the actual consumer.
+这会告诉客户端哪些依赖它们应该监视来获知 `list` 对象本身的更改，或是 `tasks` 列表需要被更新。当然，这些额外的元数据会在传递给真实客户之前被过滤掉。
 
-Note that can't put the `__deps` field on tasks itself, because JSON doesn't allow it, so we have to put it on the parent instead. Also, the `__self` field is a shorthand to avoid listing all of the properties of the list object - it could have `name`, `description`, and so on, and it would be a waste of bandwidth to send all of those key names again.
+需要注意的是，`__deps` 字段不能被添加到 `tasks` 中，因为 JSON 语法不允许这么做，所以我们不得不把它放在父元素中。同样，`__self` 字段是对象的一个简略表达方式，这样就不需要列出 `list` 对象的所有属性（会包含 `name`，`description` 等，并且重新发送所有的键会浪费带宽）。
 
-### Automatically recording dependencies when reading data
+
+### 在读入数据时自动记录依赖
 
 In order to know when a GraphQL query needs to be re-run, we need to know what deps represent different parts of the query. These deps can be recorded manually for complex queries, but simple queries can have their deps identified automatically. For example, here's a JavaScript SQL query that could be used in a particular part of the GraphQL resolution tree:
+为了知道一个 GraphQL 查询在什么时候需要被重新运行，我们需要先知道哪些依赖代表了查询中的不同部分。复杂查询的依赖可以被手动记录，但是一些简单查询的依赖可以被自动识别。举例来说，这是一个可以被用在 GraphQL 解析树上特定部分中的 Javascript SQL 查询：
 
     todoLists.select('*').where('id', 1);
 
-This will automatically record the following dependency:
+这会自动记录如下的依赖：
 
     { key: 'todoLists:1', version: 0 }
 
-The dependency recording mechanism queries the dependency tracking server to figure out the current version.
+这个依赖记录机制需要依赖跟踪服务器确认当前的版本。
 
-### Manually recording dependencies
+### 手动记录依赖
 
-The automatic dependency recording mechanism won't work if it isn't possible to analyze the query to determine the dependencies. In these cases, the developer will need to manually record a dependency, using any string key they want.
+如果不能通过分析请求来确认依赖，自动依赖记录机制就不能工作。在这样的情况下，开发者将需要使用任何他们喜欢的字符串来手动记录一个依赖。
 
 For example, if you have a complex query to count the number of notifications a user has, you might want a custom invalidation key for that number:
+举例来说，
 
     // somewhere, a function that consistently generates a key
     function notificationDepKeyForUser(userId) {
