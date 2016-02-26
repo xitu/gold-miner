@@ -64,7 +64,7 @@
 ## JavaScript
 
 * [350 个特性看透 ES6](https://github.com/xitu/gold-miner/blob/master/TODO/es6.md) ([Go7hic](https://github.com/dyygtfx) 翻译)
-* [2015 年底 JS 必备工具集](https://github.com/xitu/gold-miner/blob/master/TODO/how-do-promises-work.md) ([赵鑫晖](https://github.com/zxc0328) 翻译)
+* [2015 年底 JS 必备工具集](https://github.com/xitu/gold-miner/blob/master/TODO/must-see-javascript-dev-tools-that-put-other-dev-tools-to-shame.md) ([赵鑫晖](https://github.com/zxc0328) 翻译)
 * [How do Promises Work?](http://gold.xitu.io/entry/56cc0bcf8ac2470053b7c5ab) ([Zhangjd](https://github.com/Zhangjd) 翻译)
 * [JavaScript 开发者年度调查报告](http://gold.xitu.io/entry/56ca985071cfe40054d98994)([sqrthree (根号三)](https://github.com/sqrthree) 翻译)
 
