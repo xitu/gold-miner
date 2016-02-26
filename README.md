@@ -21,7 +21,7 @@
 2. 申请通过后，直接在文章对应的 PR 里面添加 note 校对
 
 ## 正在进行的
-
+*  [产品文案要说人话](https://github.com/xitu/gold-miner/issues/152)
 *  [「保存」图标用哪个好？](https://github.com/xitu/gold-miner/issues/151)
 *  [利用 input-placeholder 属性来实现 input label 特殊效果](https://github.com/xitu/gold-miner/issues/149)
 *  [一个专业的 Web 开发者却无法在 10 天内开发出一个简单的产品](https://github.com/xitu/gold-miner/issues/150)
