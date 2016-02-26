@@ -3,7 +3,7 @@
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [Hugo Xie](https://github.com/xcc3641)
 * 校对者 : [BOBO](https://github.com/CoderBOBO)，[markzhai](https://github.com/markzhai)
-* 状态 : 已翻译
+
 
 
 因为 Marshmallow（Android 6.0）一个新的权限模型的引入，Android 开发者需要采取不同于以往的方式来获取 Android的权限。本系列中我们将从技术以及如何提供流畅用户体验的角度，讲解如何处理请求权限。
