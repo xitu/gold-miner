@@ -2,8 +2,8 @@
 * 原文作者 : [Styling Android](https://blog.stylingandroid.com/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [Hugo](https://github.com/xcc3641)
-* 校对者 :
-* 状态 : 翻译完成
+* 校对者 : 
+* 状态 : 翻译完成 
 
 # 深入浅出Android权限（二）
 
