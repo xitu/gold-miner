@@ -1,4 +1,4 @@
-> * 原文链接 : [FlatBuffers in Android - introduction – froger_mcs dev blog – Coding with love {❤️}](http://frogermcs.github.io/flatbuffers-in-android-introdution/)
+> * 原文链接 : [FlatBuffers in Android](http://frogermcs.github.io/flatbuffers-in-android-introdution/)
 * 原文作者 : [froger_mcs dev blog](http://frogermcs.github.io/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [lihb (lhb)](https://github.com/lihb)
