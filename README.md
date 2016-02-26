@@ -22,6 +22,7 @@
 
 ## 正在进行的
 
+*  [一个专业的 Web 开发者却无法在 10 天内开发出一个简单的产品](https://github.com/xitu/gold-miner/issues/150)
 *  [Reactive GraphQL Architecture](https://github.com/xitu/gold-miner/issues/146)
 *  [RxSwift at first sight](https://github.com/xitu/gold-miner/issues/136)
 *  [设计师的理解字距设计指南](https://github.com/xitu/gold-miner/issues/134)
