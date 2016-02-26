@@ -49,7 +49,7 @@ At [Drift<sup class="readableLinkFootnote">[4]</sup>](http://blog.drift.com/), w
 
 It doesn't matter if it's an email we're sending, copy on a landing page, or text in a tool-tip inside of our product, everything that we write has to be written in a way that our customers will understand and care about.
 
-![](/images/loading.png)
+![](https://cdn-images-1.medium.com/max/800/1*z8qq6Ibom4R_M7xg89lusg.png)
 
 **We always try and ask ourselves these questions:**
 
