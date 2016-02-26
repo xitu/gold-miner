@@ -1,832 +1,542 @@
 > * 原文链接: [Android Studio Tips by Philippe Breault](https://github.com/pavlospt/Android-Studio-Tips-by-Philippe-Breault/wiki)
 * 原文作者 : [Philippe Breault](https://github.com/pavlospt)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者 :
-* 状态 : 待定
+* 译者 : [Jaeger](https://github.com/laobie), [Brucezz](https://github.com/brucezz)
+* 校对者 :[Glow Chiang](https://github.com/Glowin), [Void Main](https://github.com/void-main)
+* 状态 : 完成
 
-Welcome to the Android-Studio-Tips-by-Phillipe-Breault wiki!
+欢迎来到Phillipe Breault发布的Android Studio技巧wiki页面。
 
-Ι am creating this Repository because i think every Android Studio Tip that Phillipe Breault is posting **NEEDS** to be recorded :) 
+我创建了这个仓库是因为我认为Phillipe Breault发布的每一个Android Studio技巧都应该被记录下来。
 
-I will keep updating this repository with every new Tip.
+随着新技巧的发布，我将会一直保持更新。
 
-Stay tuned !!
+敬请关注！！
 
-Credits to: [Philippe Breault](https://plus.google.com/u/0/+PhilippeBreault)
+鸣谢：[Philippe Breault](https://plus.google.com/u/0/+PhilippeBreault)
 
-# Analyze Data flow to Here
 
-This will take the current variable, parameter or field and show you the path it has taken to get here!
+# 1. 分析传入数据流（Analyze data flow to here）
 
-This is very useful when you are entering an unfamiliar place in the code base and you want to understand how this parameter got there.
-
-Additional Tip:
- - There is also the reverse operation "Analyze Data Flow from Here" that will show you where your variable, field or return type will end up.
-
-Shortcut : There is no shortcut for this...
- - Menu: **Analyze → Analyze Data Flow to Here**
- - Find action: **Analyze Data Flow to Here﻿**
+- **描述：**这个操作将会根据当前选中的变量、参数或者字段，分析出其传递到此处的路径。
+当你进入某段陌生的代码，试图明白某个参数是怎么传递到此处的时候，这是一个非常有用的操作。
+- **调用：**Menu → Analyze → Analyze Data Flow to Here
+- **快捷键：**无，可以在设置中指定。
+- **相反的操作：**分析传出数据流（Analyze data flow from here），这个将会分析当前选中的变量往下传递的路径，直到结束。
 
 ![](https://lh4.googleusercontent.com/-Fv4MxHWIdHw/VCFWY4Ykv0I/AAAAAAAANoQ/YVe2hmnkAPE/w667-h348-no/31-analyzedataflow.gif)
 
-# Analyze Stacktrace
+# 2. 堆栈追踪分析（Analyze Stacktrace）
 
-This will take a stacktrace and make it clickable just as if it had been shown in logcat. 
-This is particularly useful when copying a stacktrace from a bug report or from a terminal.
-
-Additional tip:
- - You can also analyze a proguarded stack trace using the "ProGuard Unscramble Plugin"
-
-Shortcut : There is no shortcut for this...
- - Menu: **Analyze → Analyze Stacktrace**
- - Find action: **analyze stacktrace﻿**
+- **描述：** 这个操作读取一份堆栈追踪信息，并且使它像logcat中那样可以点击。当你从bug报告中或者终端复制了一份堆栈追踪，使用该操作可以很方便地调试。
+- **调用：**Menu → Analyze → Analyze Stacktrace
+- **快捷键：**无，可以在设置中指定。
+- **更多：**通过使用“ProGuard Unscramble Plugin”插件，也可以分析混淆过的堆栈追踪。
 
 ![](https://lh3.googleusercontent.com/-ud2l1QdHTow/VCAEACCK1bI/AAAAAAAANmY/5a3od9nIm2E/w676-h392/30-analyzestacktrace.gif)
 
+# 3.  关联调试程序（Attach Debugger）
 
-# Attach Debugger
-
-Start debugger even if you didn't start the app in debug mode.
-This is very useful since you don't have to redeploy the app to start debugging.
-It is pretty useful also when somebody is testing the app, encounters a bug and gives you his device. 
-
-Shortcut: 
-  - Mouse: **click on its icon or select the menu item Build → Attach to Android Process**
-  - There is no keyboard shortcut but you should create one!﻿
+- **描述：**随时启动调试程序，即使你没有以调试模式启动你的应用。这是一个很方便的操作，因为你不必为了调试程序而以调试模式重新部署你的应用。当别人正在测试应用，突然遇到一个bug而将设备交给你时，你也可以很快地进入调试模式。
+- **调用：**点击工具栏图标或者Menu → Build → Attach to Android Process
+- **快捷键：**无，可以在设置中指定，或者点击工具栏对应的图标。
 
 ![](https://lh3.googleusercontent.com/-yOySWA1dWPU/VBgiH8KnkGI/AAAAAAAANfU/0E6-y0u5sic/w378-h236-no/26-attachdebugger.gif)
 
+# 4. 书签（Bookmarks）
 
-# Bookmarks
-
-Surprise! This lets you mark a spot so that you can come back to it later!
-
-Toggle Bookmark: **f3(mac)** or **f11(windows/linux)**
-
-Toggle Bookmark with mnemonic: **alt+f3(mac)** or **ctrl+f11(windows/linux)**
-
-Show Bookmark: **cmd+f3(mac)** or **shift+f11(windows/linux)**
-
-Do you have another keymap? Look up the shortcuts to the right of this menu: **Navigate → Bookmarks**
-
-Additional tips:
- - If you use **Navigate → Bookmarks → Toggle Bookmark** with Mnemonic and assign it a <number>, you can go back to the bookmark using this shortcut: **ctrl+<number>**
- - You can get a list of your current bookmarks in **Navigate → Bookmarks → Show Bookmarks**. This list is searchable.﻿
+- **描述：**这是一个很有用的功能，让你可以在某处做个标记（书签），方便后面再跳转到此处。
+- **调用：**Menu → Navigate → Bookmarks
+- **快捷键：**
+    - 添加/移除书签：F3(OS X) 、F11(Windows/Linux);
+    - 添加/移除书签(带标记)：Alt + F3(OS X)、Ctrl + F11(Windows/Linux);
+    - 显示全部书签：Cmd + F3(OS X) 、Shift + F11(Windows/Linux)，显示所有的书签列表，并且是可以搜索的。
+    - 上一个/下一个书签：无，可以在设置中设置快捷键。
+- **更多：**当你为某个书签指定了标记，你可以使用快捷键 Ctrl + 标记 来快速跳转到标记处，比如输入Ctrl + 1，跳到标记为1的书签处。
 
 ![](https://lh4.googleusercontent.com/-Srf301d5soU/U_M7Y6YtTpI/AAAAAAAAM2w/o5cIvPjGwNo/w848-h371-no/07-bookmarks.gif)
 
+# 5. 折叠/展开代码块（Collapse Expand Code Block）
 
-# Collapse Expand Code Block
-
-Menu: **Code → Folding → Expand/Collapse**
-
-The goal of this feature is to let you hide things you don't care about at the moment.
-In its simplest form, it will hide a whole code block (e.g. ignoring the import list when you open a new file). A more interesting use is that it will hide the boilerplate around simple anonymous inner classes and make it look like a lambda expression.
-
-Additional tip:
- - You can setup the default folding behaviour in the preferences at Editor → Code Folding﻿
-
-Shortcut: **cmd+plus/minus(mac)** or **ctrl+shift+plus/minus(windows/linux)**
+- **描述：**该操作提供一种方法，让你隐藏你不关心的部分代码，以一种较为简洁的格式显示关键代码。一个有意思的用法是隐藏匿名内部类的代码，让其看起来像一个Lambda表达式。
+- **快捷键：**Cmd + "+"/"-"(OS X)、Ctrl + Shift + "+"/"-"(Windows/Linux);
+- **更多：**可以在Settig → Editor → General → Code Folding 中设置折叠规则。
 
 ![](https://lh4.googleusercontent.com/-sx5EajIBZsY/U_HpxtCFalI/AAAAAAAAM1Q/T-8P33ntdlE/w268-h147-no/06-codefolding.gif)
 
+# 6. 列选择/块选择（Column Selection）
 
-# Column Selection
-
-Enable column selections, also known as block selection.
-Basically, if you select down, it will go down and not bother wrapping to the end of the line.
-
-This will also put a cursor after each line of the block selection from where you can type.
-
-Shortcut : 
- - Mouse: **Alt+MouseDrag**
- - Mac : **Cmd+Shift+8**
- - Windows/Linux: **Shift+Alt+Insert﻿**
+- **描述：**正常选择时，当你向下选择时，会直接将当前行到行尾都选中，而块选择模式下，则是根据鼠标选中的矩形区域来选择。
+- **调用：**按住Alt，然后拖动鼠标选择。
+- 开启/关闭块选择：Menu → Edit → Column Selection Mode 
+- **快捷键：**切换块选择模式：Cmd + Shift + 8(OS X)、Shift + Alt + Insert﻿(Windows/Linux);
 
 ![](https://lh5.googleusercontent.com/-sw7u-9Usecg/VCP-tea3SEI/AAAAAAAANr4/Cyla2sVqsUI/w497-h137-no/33-columnselection.gif)
 
+# 7. 与分支比对（Compare With Branch (Git)）
 
-# Compare With Branch(Git)
-
-Assuming that your project is under Git, you can compare the current file or folder with another branch.
-
-Pretty useful to get an idea of how much you have diverged from your main branch.
-
-
-Shortcut :
-  - Menu : **VCS -> Git -> Compare With Branch** 
-  - Find Actions: **Compare With Branch﻿**
+- **描述：**假如你的项目是使用git来管理的，你可以将当前文件或者文件夹与其他的分支进行比对。比较有用的是可以让你了解到你与主分支有多少差别。
+- **调用：**Menu → VCS → Git → Compare With Branch 
 
 ![](https://lh6.googleusercontent.com/-xW1J3BBZHZc/VC6FVCMexWI/AAAAAAAAN8M/GEJqszoqzXk/w570-h328-no/38-comparewithbranch.gif)
 
+# 8. 与剪切板比对（Compare With Clipboard）
 
-# Compare With Clipboard
-
-This will take the current selection and do a diff with the content of your clipboard.
-
-Shortcut:
-- Mouse: **right-click** the selection and select **Compare With Clipboard**
-- Find action: **compare with clipboard﻿**
+- **描述：**将当前选中的部分与剪切板上的内容进行比对。
+- **调用：**右键选中的部分，在右键菜单中选择“Compare With Clipboard”。
 
 ![](https://lh6.googleusercontent.com/-6rDn8kL7Pgw/VClEM13oYKI/AAAAAAAAN0o/JWiduW1pWsU/w519-h265-no/34-comparewithclipboard.gif)
 
+# 9. 语句补全（Complete Statement）
 
-# Complete Statement
-
-This will generate the missing code to complete a statement
-The usual use cases are:
-  - Add a semicolon at the end of the line, even if you are not at the end of the line
-  - Add the parentheses and curly braces after an if, while or for
-  - Add the curly braces after a method declaration
-
-Additional Tip:
- - If a statement is already completed, it will go to the next line even if you are not at the last character of the current line.
-
-Shortcut: 
- - Mac: **Cmd+Shift+Enter**
- - Windows/Linux: **Ctrl-Shift-Enter﻿**
+- **描述：**这个方法将会生成缺失的代码来补全语句，常用的使用场景如下：
+    - 在行末添加一个分号，即使光标不在行末；
+    - 为if、while、for 语句生成圆括号和大括号；
+    - 方法声明后，添加大括号；
+- **调用：**Menu → Edit → Compelete Current Statement
+- **快捷键：**Cmd + Shift + Enter(OS X)、Ctrl + Shift + Enter(Windows/Linux)；
+- **更多：**如果一个语句已经补全，当你执行该操作时，则会直接跳到下一行，即使光标不在当前行的行末。
 
 ![](https://lh6.googleusercontent.com/-oZeWSimrvoU/VAWr5QoA-oI/AAAAAAAANQE/0LxL0LkN8Jw/w281-h124-no/16-completestatement.gif)
 
+# 10. 条件断点（Conditional Breakpoints）
 
-# Conditional Breakpoints
-
-In a nutshell, only do break when a certain condition is met. You can enter any java expression that returns a boolean based on the current scope. 
-And do enjoy the fact that the condition textbox supports code completion!
-
-Shortcut: 
-  - **Right click on a breakpoint and enter a condition**.﻿
+- **描述：**简单说，就是当设定的条件满足时，才会触发断点。你可以基于当前范围输入一个java布尔表达式，并且条件输入框内是支持代码补全的。
+- **调用：**右键需要填写表达式的断点，然后输入布尔表达式。
 
 ![](https://lh6.googleusercontent.com/-p9k6JiNLQmY/VBAweflrkYI/AAAAAAAANX8/gCaufjGbd1c/w514-h264-no/22-conditionalbreakpoint.gif)
 
+# 11. 上下文信息（Context Info）
 
-# Context Info
-
-
-So this will show you where you are when your scope definition is out of the scrolling area. Usually, this will be the name of the class or inner class  but it might also be the current method name.
-
-Its better use, IMHO, is to get a quick look at what the current class extends or implements.
-
-It also works in xml files.
-
-Shortcut: **Alt+Q**
+- **描述：**当前作用域定义超过滚动区域，执行该操作将显示所在的上下文信息，通常它显示的是类名或者内部类类名或者当前所在的方法名。该操作在xml文件中同样适用。
+- **调用：**Menu → View → Context Info
+- **快捷键：**Alt + Q (Windows/Linux)
+- **更多：**个人认为，这个功能更好的用法是快速查看当前类继承的父类或者实现的接口。
 
 ![](https://lh4.googleusercontent.com/-FNg2h15F4c0/VD-rJupXgkI/AAAAAAAAOL4/lfaQmbjwpaw/w574-h174-no/47-contextinfo.gif)
 
+# 12. 删除行（Delete Line）
 
-# Delete Line
-
-It deletes the current line without having to select it.
-If a block is already selected, it will delete every line in the selection.
-
-Shortcut: **cmd+backspace(mac)** or **ctrl+y(windows/linux)﻿**
+- **描述：**如果没选中，则删除光标所在行，如果选中，则会删除选中所在的所有行。
+- **快捷键：**Cmd + Delete(OS X)、Ctrl + Y(Windows/Linux)
 
 ![](https://lh3.googleusercontent.com/-bP5WOVMfp7A/U_cpQi0bvhI/AAAAAAAAM9c/dcvvJu1US40/w265-h103-no/10-deleteline.gif)
 
+# 13. 禁用断点（Disable Breakpoints）
 
-# Disable Breakpoints
-
-This will disable the breakpoint. Particularly useful when you have some complicated conditional or logging breakpoint that you don't need right now but don't want to recreate next time.
-
-Shortcut: 
-  - Mouse: **Alt+LeftClick** on an existing breakpoint in the left gutter
-  - There is no keyboard shortcut but you can create one if you use it often enough.﻿
+- 这个操作将使得断点。当你有一个设置过复杂条件的断点或者是日志断点，当前不需要，但是下次又不用重新创建，该操作是很方便的。
+- **调用：**按住Alt，然后单击断点即可。
 
 ![](https://lh3.googleusercontent.com/-hNk0kuL1WBM/VBbQXamG8-I/AAAAAAAANeM/ynfSJ5hqCvA/w365-h235-no/25-diablebreakpoint.gif)
 
+# 14. 行复制（Duplicate Line）
 
-# Duplicate Line
-
-Just as it says: it will copy the current line and paste it below without interfering with your clipboard. It can be pretty useful when it's used with the move line shortcut!
-
-Shortcut: **cmd+d(mac)** or **ctrl+d(windows/linux)﻿**
+- **描述：**复制当前行，并粘贴到下一行，这个操作不会影响剪贴板的内容。这个命令配合移动行快捷键非常有用。
+- **快捷键：**Cmd + D(OS X)、Ctrl + D(Windows/Linux)
 
 ![](https://lh6.googleusercontent.com/-1dno1jn2Pcg/U_sfhOxXTkI/AAAAAAAANC8/8sl3TVz1dAo/w265-h103-no/11-duplicate_lines.gif)
 
+# 15. 编写正则表达式（Edit Regex）
 
-# Edit Regex
+- **描述：**使用Java编写正则表达式是一件很困难的事，主要原因是：
+    - 你必须得避开反斜杠；
+    - 说实话，正则很难；
+    - 看第二条。
 
-Editing a regex in Java is a bit difficult for a couple of reasons
-1) You have to escape the backslashes
-2) Let's face it, regex are hard!
-3) See point #2
-
-So what can the IDE do to help us? Give us a nice interface to code and test regexes of course!
-
-Shortcut: **Alt+Enter → check regexp**
+IDE能帮我们干点啥呢？当然是一个舒服的界面来编写和测试正则啦~
+- **快捷键：**Alt + Enter → check regexp
 
 ![](https://lh4.googleusercontent.com/-zinVQioQi0c/VGX3txYe0iI/AAAAAAAAO5c/D5nhpSSyImk/w419-h170-no/68-checkregexp.gif)
 
+# 16. 使用Enter和Tab进行代码补全的差别（Enter vs Tab for Code Completion）
 
-# Enter vs Tab for Code Completion
-
-There is an interesting difference whether you use code completion with tab or with enter. 
-
-Using enter will complete the statement as you would expect.
-Using tab will complete the statement and delete everything forward until the next dot, parentheses, semicolon or space.
-
-Shortcut (during code completion): **enter or tab**
+- **描述：**代码补全时，可以使用Enter或Tab来进行补全操作，但是两者是有差别的。
+- 使用Enter时：从光标处插入补全的代码，对原来的代码不做任何操作。
+- 使用Tab时：从光标处插入补全的代码，并删除后面的代码，直到遇到点号、圆括号、分号或空格为止。
 
 ![](https://lh3.googleusercontent.com/-zkDYRijGp4A/VD0KtdkrqFI/AAAAAAAAOJE/wEr134jmFxE/w252-h123-no/45-codecompletionentertab.gif)
 
+# 17. 计算表达式（Evaluate Expression）
 
-# Evaluate Expression
-
-This is used to inspect a variable's content and evaluate pretty much any valid java expression right there, right now.
-Just be aware that if you are mutating state, it will stay that way when you resume the execution of the program.
-
-Shortcut: **Alt+F8﻿**
-
+- **描述：**这个操作可以用来查看变量的内容并且计算几乎任何有效的java表达式。需要注意的是，如果你修改了变量的状态，这个状态在你恢复代码执行后依然会保留。
+- **快捷键：**处在断点状态时，光标放在变量处，按Alt + F8，即可显示计算表达式对话框。
 
 ![](https://lh5.googleusercontent.com/-yVa3T6tUVJE/VBls7HooneI/AAAAAAAANg0/MtJpIKCVEws/w739-h215-no/27-evaluateexpression.gif)
 
+# 18. 提取方法（Extract Method）
 
-# Extract Method
+- **描述：**提取一段代码块，生成一个新的方法。当你发现某个方法里面过于复杂，需要将某一段代码提取成单独的方法时，该技巧是很有用的。
+- **调用：**Menu → Refactor → Extract → Method
+- **快捷键：**Cmd + Alt + M(OS X)、Ctrl + Alt + M(Windows/Linux)；
+- **更多：**在提取代码的对话框，你可以更改方法的修饰符和参数的变量名。
 
-Following in my streak of extract refactoring, here is the one to extract a code block in a new method.
-
-This thing is extremely useful. Whenever you encounter a method that is starting to become a bit complex, you can use this to safely extract a portion in another method. I say safely because the IDE won't make a silly copy-paste mistake like we might do.
-
-Additional tip:
-  - Once you are in the extracting dialog, you can change the visibility of the method and the parameter names.
-
-Shortcut (Menu):
- - Mac: **Cmd+Alt+M**
- - Windows/Linux: **Ctrl+Alt+M**
 ![](https://lh3.googleusercontent.com/-9QE0n8if48M/VEpNnAADJvI/AAAAAAAAOaA/hdn-oMyW-VA/w584-h458-no/53-extractmethod.gif)
 
+# 19. 提取参数（Extract Parameter）
 
-# Extract Parameter
-
-This is a shortcut to extract a parameter without going through the refactoring menu.
-
-This thing is useful when you realize that a method could be generified by extracting one part as a parameter. The way it works is that it will take the current value, make it a parameter and copy the old value as the parameter for each caller.
-
-Additional tip:
-  - You can also keep the original method and have it delegate to the new one by ticking the "delegate" box.
-
-Shortcut (Menu):
- - Mac: **Cmd+Alt+P**
- - Windows/Linux: **Ctrl+Alt+P**
+- **描述：**这是一个提取参数的快捷操作。当你觉得可以通过提取参数来优化某个方法的时候，这个技巧将很有用。该操作会将当前值作为一个方法的参数，将旧的值放到方法调用的地方，作为传进来的参数。
+- **调用：**Menu → Refactor → Extract → Parameter
+- **快捷键：**Cmd + Alt + P(OS X)、Ctrl + Alt + P(Windows/Linux)；
+- **更多：**通过勾选“delegate”，可以保持旧的方法，重载生成一个新方法。
 
 ![](https://lh6.googleusercontent.com/-056PKjDxw7U/VEjoRXblk9I/AAAAAAAAOXo/DWOEUMikWMU/w474-h263-no/52-extractparam.gif)
 
+# 20. 提取变量（Extract Variable）
 
-# Extract Variable
-
-This is a shortcut to extract a variable without going through the refactoring menu.
-
-This is very useful when you are generating code on the fly as you can avoid typing the variable declaration and go straight to the value. The IDE will then generate the declaration and it will come up with some suggestions on how to name the variable.
-
-Additional tip:
-  - If you want to change the declaration type to something more generic (e.g. List instead of ArrayList), you can press Shift+Tab and it will give you a list of valid types.
-
-Shortcut (Menu):
- - Mac: **Cmd+Alt+V**
- - Windows/Linux: **Ctrl+Alt+V**
+- **描述：**这是一个提取变量的快捷操作。当你在没有写变量声明的直接写下值的时候，这是一个很方便生成变量声明的操作，同时还会给出一个建议的变量命名。
+- **调用：**Menu → Refactor → Extract → Variable
+- **快捷键：**Cmd + Alt + V(OS X)、Ctrl + Alt + V(Windows/Linux)；
+- **更多：**当你需要改变变量声明的类型，例如使用 List 替代 ArrayList，可以按下Shift + Tab，就会显示所有可用的变量类型。
 
 ![](https://lh3.googleusercontent.com/-76GH8fwlP8w/VEeXW1x5qcI/AAAAAAAAOV0/Y_DTUoO5V-c/w368-h269-no/51-extractvariable.gif)
 
+# 21. 查找操作（Find Action）
 
-# Find Actions
-
-You can invoke any menu or action known to Android Studio by its name! This is pretty useful for commands that you use once in a while but don't have a shortcut for.
-
-Additional tip:
- - If there is a shortcut associated to the action, it will be shown by its side﻿
-
-Shortcut: **cmd+shift+a(mac)** or **ctrl+shift+a(windows/linux)**
+- **描述：**输入某个操作的名称，快速查找，对于没有快捷键的部分操作这是一个很有用的技巧。
+- **快捷键：**Cmd +Shift + A(OS X)、Ctrl + Shift + A(Windows/Linux)；
+- **更多：**当某个操作是有快捷键的，会显示在旁边。
 
 ![](https://lh3.googleusercontent.com/-1R5g6c953Pc/U_SJUUK_zZI/AAAAAAAAM4A/78kPgI_U5X4/w500-h233-no/08-findaction.gif)
 
+# 22. 查找补全（Find Complection）
 
-# Find Complection
-
-When you do a find in files, invoking the autocomplete shortcut will suggest words that are in the current file.
-
-Shortcut: 
-  Mac: **Cmd+F** , type something and autocomplete
-  Windows/Linux: **Ctrl+F**, type something and autocomplete
+- **描述：**当你在一个文件中进行查找时，使用自动补全快捷键可以给出在当前文件中出现的建议单词；
+- **快捷键：**Cmd + F(OS X),Ctrl + F(Windows/Linux),输入一些字符，然后使用自动补全；
 
 ![](https://lh4.googleusercontent.com/-8HBauw90IYU/VFoSq77EbfI/AAAAAAAAOss/_8BMNjgAst4/w418-h268-no/61-findcompletion.gif)
 
+# 23. 隐藏所有面板（Hide All Panels）
 
-# Hide All Panels
-
-Puts the editor in some sort of full screen mode.
-Invoking the shortcut a second time returns all panels to their previous state.
-
-Shortcut :
-  - Mac: **Cmd+Shift+F12**
-  - windows/linux: **Ctrl+Shift+F12**
+- **描述：**切换编辑器铺满整个程序界面，隐藏其他的面板。再次执行该操作，将会回到隐藏前的状态。
+- **调用：**Menu → Window → Active Tool Window → Hide All Windows；
+- **快捷键：**Cmd +Shift + F12(OS X)、Ctrl + Shift + F12(Windows/Linux)；
 
 ![](https://lh5.googleusercontent.com/-I5KEtqjL6cc/VDZuyxdTi7I/AAAAAAAAOB8/jrMR5xhtmEI/w566-h387-no/42-hideallwindows.gif)
 
+# 24. 高亮一切（Hightlight All the Things）
 
-# Hightlight All the Things
-
-Look up the shortcut to the right of this menu: **Edit → Find → Highlight Usages in File**
-
-This will highlight every occurrence of a symbol in the current file. This is more than some simple pattern matching, it will actually understand the current scope and  only highlight what is relevant.
-
-You can then navigate up or down using the shortcuts from **Edit → Find → Find Next/Previous**
-
-Additional tips:
- - Highlighting a "return" or a "throw" statement in a method will also highlight all the exit points of the method.
- - Highlighting the "extends" or the "implements" portion of the class definion will also highlight the methods that are overriden/implemented.
- - Highlighting an import will also highlight where it is used.
- - You can cancel the highlighting by pressing Escape﻿
+- **描述：**该操作将会高亮某个字符在当前文件中所有出现的地方。这不仅仅是简单的匹配，实际上它会分析当前的作用域，只高亮相关的部分。
+- **调用：**Menu → Edit → Find → Highlight Usages in File；
+- **定位到上一处/下一处：**Menu → Edit → Find → Find Next/Previous；
+- **快捷键：**相关快捷键请在菜单中查看；
+- **更多：**
+    - 如果高亮一个方法的`return`或`throw`语句，将会高亮这个方法的所有出口/结束点；
+    - 如果高亮某个类定义处的`extend`或`implements`语句，将会高亮继承的或实现的方法；
+    - 高亮一个`import`语句也会高亮使用到的地方；
+    - 按下Esc可以退出高亮模式；
 
 ![](https://lh4.googleusercontent.com/-PHQFYqcYi58/U-tQtazuCbI/AAAAAAAAMrE/SGNBmtGwMAk/w198-h184-no/01-highlight.gif)
 
+# 25. 内置（Inline）
 
-# Inline
-
-So you have gone a bit crazy with extraction and now you have too much stuff? You can do the reverse operation, which is called "inline".
-
-This will work with methods, fields, parameters and variables.
-
-Shortcut:
- - Mac: **Cmd+Alt+N**
- - Windows/Linux: **Ctrl+Alt+M﻿**
+- **描述：**当你开始对提取操作有点兴奋的时候，突然觉得东西太多了，怎么办呢？这是一个和提取相反的操作。该操作对方法、字段、参数和变量均有效。
+- **调用：**Menu → Refactor → Inline
+- **快捷键：**Cmd + Alt + N(OS X)、Ctrl + Alt + N(Windows/Linux)；
 
 ![](https://lh6.googleusercontent.com/-OgvCsxlSlhk/VE4ztIVmEgI/AAAAAAAAOc4/TJdTcGGzeZc/w495-h232-no/54-inline.gif)
 
+# 26. 审查变量（Inspect Variable）
 
-# Inspect Variable
-
-This evaluates an expression without opening the Evaluate Expression dialog
-
-Shortcut: **Alt+LeftClick** on an expression﻿
+- **描述：**该操作可以在不打开计算表达式对话框就能审查表达式的值。
+- **快捷键：**调试状态下，按住Alt键，然后单击表达式即可。
 
 ![](https://lh3.googleusercontent.com/-e8FaMIQ-o4g/VBq_YKo27NI/AAAAAAAANiQ/RLl4c4nQCMQ/w783-h250-no/28-mouse_evaluate_expression.gif)
 
+# 27. 合并行和文本（Join Lines and Literals）
 
-# Join Lines and Literals
+- **描述：**这个操作比起在行末使劲按删除键爽多了！该操作遵守格式化规则，同时：
+    - 合并两行注释，同时移除多余的`//`；
+    - 合并多行字符串，移除`+`和双引号；
+    - 合并字段的声明和初始化赋值；
 
-This is doing more than simulating the delete key at the end of the line!
-It will preserve formatting rules and it will also:
-  - Merge two comment lines and remove the unused //
-  - Merge multiline strings, removing the + signs and the double-quotes
-  - Join fields and assignments
-
-Additional Tip:
-  - If you select a string that spans multiple lines, it will merge it on a single one.
-
-Shortcut: **Ctrl+Shift+J﻿**
+- **快捷键：**Ctrl + Shift + J；
 
 ![](https://lh3.googleusercontent.com/-B18BYlHuIe0/VAhGAtACHPI/AAAAAAAANSc/GzYIuGENiXU/w365-h303-no/18-joinlines.gif)
 
+# 28. 回到上一个工具窗口（Jump to Last Tool Window）
 
-# Jump to Last Tool Window
-
-Sometimes, you return to the editor from a panel but find yourself having to go back to this panel.
-e.g. browsing find usages.
-With this, you can go back to the previous panel without your mouse.
-
-Shortcut: **F12**  (might interfere with the OS's default keybindings)﻿
+- **描述：**有时候你会从某个工具窗口跳到编辑器里面，然后又需要重新回到刚才操作的那个工具窗，比如你查找使用情况的时，使用该操作可以在不使用鼠标的情况下跳转到之前的工具窗口。
+- **快捷键：**F12；
 
 ![](https://lh5.googleusercontent.com/-1i-62oPE1_c/VDUgjA0EglI/AAAAAAAAOAc/zHw0D-zDW8c/w495-h176-no/41-lasttoolwindow.gif)
 
+# 29. 上一个编辑位置（Last Edit Location）
 
-# Last Edit Location
-
-This will make you navigate through the last changes you made. 
-This is different from clicking the back arrow in the toolbar in that it makes you travel within your edition history and not your navigation history.
-
-Shortcut: 
- - Mac: **Cmd+Shift+Backspace**
- - Windows/Linux: **Ctrl-Shift-Backspace﻿**
+- **描述：**该操作将使得你导航到上一处你改动过的地方，这与点击工具栏上的返回箭头回到上一个定位位置是不一样的，该操作将会返回到上一个编辑的位置。
+- **快捷键：** Cmd + Shift + Delete(OS X)、Ctrl + Shift + Backspace﻿(Windows/Linux);
 
 ![](https://lh3.googleusercontent.com/-I7EB361tSvQ/VAcAhKjmftI/AAAAAAAANQw/WJ12zWckTx0/w339-h100-no/17-navigate-previous-changes.gif)
 
+# 30. 动态模板（Live Templates）
 
-# Live Templates
-
-The live template is a way to quickly insert a snippet of code. The interesting thing with live templates is that they can be parameterized with sensible defaults and guide you through the parameters when you insert it.
-
-Additional Tip:
-  - You don't need to invoke the shortcut if you know the abbreviation. You only need to type it and complete using the Tab key.
-
-Shortcut: 
- - Mac: **Cmd+J**
- - Windows/Linux: **Ctrl+J﻿**
+- **描述：**动态模板是一种快速插入代码片段的方法，使用动态模板比较有意思的是你可以使用合适的默认值将模板参数化，当你插入代码片段时，这可以指导你完成参数。
+- **更多：**如果你知道模板的缩写，就可以不必使用快捷键，只需要键入缩写并使用Tab键补全即可。
+- **快捷键：**Cmd + J(OS X)、Ctrl + J(Windows/Linux);
 
 ![](https://lh5.googleusercontent.com/-uDazeA2SuDU/VABeDd244gI/AAAAAAAANL0/LvID7zv5dbA/w456-h258-no/15-live_templates.gif)
 
-## Logging Breakpoints
+# 31. 日志断点（Logging Breakpoints）
 
-This is a breakpoint that logs stuff instead of breaking.
-This can be useful when you want to log some stuff right now but cannot or don't want to redeploy with logging code added.
-
-Shortcut: 
-  - **Right click on a breakpoint, uncheck Suspend and type your message in "Log evaluated Expression"﻿**
+- **描述：**这是一种打印日志而不是暂停的断点，当你想打印一些日志信息但是不想添加`log`代码后重新部署项目，这是一个非常有用的操作。
+- **调用：**在断点上右键，取消`Suspend`的勾选，然后勾选上`Log evaluated Expression`，并在输入框中输入你要打印的日志信息。
 
 ![](https://lh6.googleusercontent.com/-HCtmbS0lEX4/VBGLfCszvyI/AAAAAAAANZg/pnjHOIPJP4U/w601-h470-no/23-loggingbreakpoints.gif)
 
+# 32. 标记对象（Mark Object）
 
-# Mark Object
-
-During a debugging session, this will let you add a label to a particular object so that you can identify it later.
-Very useful in those debugging sessions where you have a bunch of similar object and you want to know if it is the same one as before.
-
-Shortcut (from the variables or watch panel):
- - Mouse: **right-click** and select **"Mark Object"**
- - OSX : **F3** with the object selected 
- - Windows/Linux: **F11** with the object selected
+- **描述：**当你在调试的时候，这个操作可以让你给某个特殊的对象添加一个标签，方便你后面很快地辨认。在调试时，当你从一堆相似的对象中查看某个对象是否和之前是一样的，这就是一个非常有用的操作。
+- **调用：**右键你需要标记的对象，选中`Mark Object`，输入标签；
+- **快捷键：**选中对象时，按F3(OS X)、F11(Windows/Linux)；
 
 ![](https://lh5.googleusercontent.com/-YucV0sOVgXE/VBwUt3L0gWI/AAAAAAAANjk/24G70gPtFv0/w607-h301-no/29-markobject.gif)﻿
 
+# 33. 在方法和内部类之间跳转（Move Between Methods and Inner Classes）
 
-# Move Line Up Down
+- **描述：**该操作让光标在当前文件的方法或内部类的名字间跳转。
+- **调用：**Navigate → Next Method/Previous Method;
+- **快捷键：**Ctrl + Up/Down﻿(OS X)、Alt + Up/Down﻿(Windows/Linux);
 
-Yeah. This will move lines up or down without copy-pasting. Not much more to say. Enjoy!
+![](https://lh4.googleusercontent.com/-FXLgOWtteIo/U-ygY2U1y1I/AAAAAAAAMsQ/hxJUIs_kgvw/w425-h414-no/02-move_between_methods.gif)
 
-Shortcut: **Alt+Shift+Up/Down﻿**
+# 34. 上下移动行（Move Lines Up Down）
+
+- **描述：**不需要复制粘贴就可以上下移动行了。
+- **快捷键：**Alt + Shift + Up/Down﻿；
 
 ![](https://lh5.googleusercontent.com/-vkDNFuL049E/U_XXi3NMx9I/AAAAAAAAM58/dwQ6qz2vCWY/w279-h122-no/09-movelines.gif)
 
 
-# Move Between Methods and Inner Classes
+# 35. 移动方法（Move Methods）
 
-Look up the shortcut to the right of these menus: **Navigate → Next Method and Navigate → Previous Method**
-Chances are that it will be **ctrl+up/down** on a Mac and **alt+up/down** on Windows and Linux.
-
-This wil move your cursor to the name of the next method or class in the current file.
-
-Additional tip:
- - If you are in the body of a method, going up will put the cursor on its name. This can be very useful because it puts you at the right place to refactor or find the usages of this method.﻿
-
-![](https://lh4.googleusercontent.com/-FXLgOWtteIo/U-ygY2U1y1I/AAAAAAAAMsQ/hxJUIs_kgvw/w425-h414-no/02-move_between_methods.gif)
-
-
-# Move Methods
-
-This is like the Move Line shortcut but applied to whole methods.
-It allows you to move a method below or above another one without copy-pasting.
-
-The real name of this action is Move Statement. Meaning that it moves any kind of statement. E.g. you can reorder fields and inner classes. However, I found that moving method is pretty much its only day-to-day use
-
-Shortcut:
-- Mac: **Cmd+Alt+Up / Cmd+Alt+Down**
-- Windows/Linux: **Ctrl-Shift-Up / Ctrl-Shift-Down**
+- **描述：**这个操作和移动行操作很类似，不过该操作是应用于整个方法的，在不需要复制、粘贴的情况下，就可以将整个方法块移动到另一个方法的前面或后面。该操作的实际叫做“移动语句”，这意味着你可以移动任何类型的语句，你可以方便地调整字段或内部类的顺序。
+- **快捷键：**Cmd + Alt + Up/Down(OS X)、Ctrl + Shift + Up/Down(Windows/Linux);
 
 ![](https://lh6.googleusercontent.com/-mZG5Fj_QM_Q/VARxn8TXmkI/AAAAAAAANOk/ASUpXpD-NLg/w264-h266-no/15-movemethods.gif)
 
+# 36. 定位到嵌套文件（Navigate to Nested File）
 
-# Navigate to Nested File
-
-Sometimes you have a couple of files that have the exact same name but are in different directory. E.g. many AndroidManifest.xml in different modules.
-So when you try to navigate to a file, you get a bunch of results and have to think which one you need.
-
-By prefixing a portion of the path and adding a slash to your search query, you can get the right one on the first try.
-
-Shortcut: 
-  Mac: **Cmd+O**, then type it!
-  Windows/Linux: **Ctrl+N**, then type it!
+- **描述：**有时你有一堆存放在不同目录下的同名文件，例如不同模块下的`AndroidManifest.xml`文件，当你想定位到其中的一个文件，你会得到一堆搜索结果，你还得辨认哪个才是你需要的。通过在检索框中输入部分路径的前缀，并添加斜杠号，你就可以在第一次尝试的时候就找到正确的那个。
+- **快捷键：**Cmd + O(OS X)、Ctrl + N﻿(Windows/Linux);
 
 ![](https://lh6.googleusercontent.com/-23C2Q2S0c2E/VFzEI5iu0GI/AAAAAAAAOwM/Os1jGMHGVIA/w418-h268-no/63-nestednavigation.gif)
 
+# 37. 定位到父类（Navigate to parent） 
 
-# Navigate to Parent
-
-If you are in a method that is overriding a parent class (e.g. Activity#onCreate()), it will navigate to the parent implementation.
-
-If you are on the class name, it will navigate to the parent class.
-
-Shortcut :
-  - Mac: **Cmd+U**
-  - Windows/Linux: **Ctrl+U**
+- **描述：**如果光标是在一个继承父类重写的方法里，这个操作将定位到父类实现的地方。如果光标是在类名上，则定位到父类类名。
+- Menu → Navigate → Super Class/Method
+- **快捷键：**Cmd + U(OS X)、Ctrl + U(Windows/Linux);
 
 ![](https://lh3.googleusercontent.com/-HCX5cbjkiuo/VDJ-dJa7wUI/AAAAAAAAN-M/dW0h7cQ9l0Y/w416-h290/39-navigatetoparent.gif)
 
+# 38. 取反补全（Negation Completion）
 
-# Negation Completion
-
-Sometimes you autocomplete a boolean and then you go back to the beginning to add a "!" in front of it to negate it. 
-Turns out that that you can skip that part **by pressing the "!" key** instead of the enter key to auto-complete it. 
-
-Shortcut (during code completion on a boolean): **!**
+- **描述：**有时你自动补全一个布尔值，然后回到该值的前面添加一个感叹号来完成取反操作，现在通过使用输入`!`代替`enter`完成补全操作，就可以跳过这些繁琐的操作了。
+- **快捷键：**代码补全的时候，按下`!`即可（有时需要上下键选中候选项）；
 
 ![](https://lh5.googleusercontent.com/-L971XD2Nezg/VFN0qljSJQI/AAAAAAAAOj8/5k9fkjOwjIQ/w466-h254-no/58-negatecompletion.gif)
 
+# 39. 根据编号打开面板（Open a Panel by Its Number）
 
-# Open a Panel by Its Number
-
-You might have noticed that some of the panels have a number to the left of their name.
-That's a shortcut to open them!
-
-Just in case you don't see the panel names, click the box thing in the lower left corner of the IDE.
-
-Shortcut :
-  - Mac: **Cmd+Number**
-  - Windows/Linux: **Alt+Number**
+- **描述：**你可能已经注意到某些面板的名称左边有一个数字，这里有个快捷操作可以打开它们。如果你没看到面板的名称，请点击IDE的左下角的切换按钮。
+- **快捷键：**Cmd + 数字(OS X)、Alt + 数字(Windows/Linux);
 
 ![](https://lh3.googleusercontent.com/-9qiNX0P0KSk/VDfBFEAKW8I/AAAAAAAAOD4/HytPoJV07BA/w567-h387-no/42-openpanelbynumber.gif)
 
+# 40. 在外部打开文件（Open File Externally）
 
-# Open File Externally
-
-With this shortcut, you can open your file navigator to the current file or any of its parent folder simply by clicking on its tab.
-
-Shortcut (on a file tab): 
-  Mac: **Cmd+Click**
-  Windows/Linux: **Ctrl+Alt+F12**
+- **描述：**通过这个快捷键，简单地点击Tab，就可以打开当前文件所在的位置或者该文件的任意上层路径。
+- **快捷键：**Cmd + 单击Tab(OS X)、Ctrl + 点击Tab(Windows/Linux);
 
 ![](https://lh5.googleusercontent.com/-EAoir3ZP1bM/VFtyO5OaU_I/AAAAAAAAOug/b6jeKDVT-BM/w418-h268-no/62-openfinder.gif)
 
+# 41. 参数信息（Parameter Info）
 
-# Open File Externally
-
-With this shortcut, you can open your file navigator to the current file or any of its parent folder simply by clicking on its tab.
-
-Shortcut (on a file tab): 
-  Mac: **Cmd+Click**
-  Windows/Linux: **Ctrl+Alt+F12**
-
-![](https://lh5.googleusercontent.com/-EAoir3ZP1bM/VFtyO5OaU_I/AAAAAAAAOug/b6jeKDVT-BM/w418-h268-no/62-openfinder.gif)
-
-
-# Parameter Info
-
-This is the same list of parameter names as the one that appears when you are writing a method call. It is useful when you want to see an existing method's params.
-
-The Parameter under your cursor will be in yellow.
-If nothing is in yellow, that means that the method call is not valid, probably something that is not casted right (e.g. a float in an int param).
-
-When you are writing a method call and you dismiss it by accident, like I usually do, you can also type a comma (,) to trigger the parameter info. 
-
-Shortcut :
-  - Mac: **Cmd+P**
-  - windows/linux: **Ctrl+P**
+- **描述：**这个操作将显示和你在方法声明处写一样的参数列表，当你想看某个存在的方法的参数，这是一个很有用的操作。光标下的参数显示为黄色，如果没有参数显示黄色，意味着你的方法调用是无效的，很可能是某个参数分配不对。（例如一个浮点数赋值给了整型参数）。如果你正在写一个方法调用，突然离开编辑的地方，再返回的时候，输入一个逗号，就可以重新触发参数信息。
+- **快捷键：**Cmd + P(OS X)、Ctrl + U(Windows/Linux);
 
 ![](https://lh4.googleusercontent.com/-npufWa5yynk/VDvJpJ717BI/AAAAAAAAOHs/Sx3OHdapfRk/w472-h195-no/44-parameterinfo.gif)
 
+# 42. 后缀补全（Postfix Completion）
 
-# Postfix Completion
+- **描述：**你可以认为该操作是一种代码补全，它会在点号之前生成代码，而不是在点号之后。实际上你调用这个操作和正常的代码补全操作一样：在一个表达式之后输入点号。
 
-You can think of it as a code completion that will generate code before the dot instead of after it. In fact, you invoke it just like a regular code completion: you type a dot after an expression.
+例如对一个列表进行遍历，你可以输入`myList.for`，然后按下Tab键，就会自动生成`for`循环代码。
+- **调用：** 
+你可以在某个表达式后面输入点号，出现一个候选列表，在常规的代码补全提示就可以看到一系列后缀补全关键字，同样的，你也可以在`Editor → Postfix Completion`中看到一系列后缀补全关键字。
 
-E.g. to iterate a list, you could go "myList.for", press tab and it would generate the for loop for you.
-
-You can get a list of what you can type by typing a dot after a statement and looking at the postfix keywords that come right after the regular code completion keywords. There is also a list of all available keywords in Editor → Postfix Completion
-
-Some of my personal favorites:
-- **.for** (for a foreach)
-- **.format** (wraps a string in String.format())
-- **.cast** (wraps an expression in a type cast)﻿
+- 常用的有后缀补全关键字有：
+    - **.for** (补全foreach语句)
+    - **.format** (使用`String.format()`包裹一个字符串)
+    - **.cast** (使用类型转化包裹一个表达式)
 
 ![](https://lh5.googleusercontent.com/-rLMdeb9cbBM/VCVUw0Y656I/AAAAAAAANt8/J2KiRPMjRzs/w474-h136-no/33-postfixcompletion.gif)
 
 
-# Quick Definition Lookup
+# 43. 快速查看定义（Quick Definition Lookup）
 
-Ever wondered whats the implementation of a method or class but don't want to lose your current context?
-Use this shortcut to look it up in place.﻿
-
-Shortcut: **alt+space(cmd+Y)(mac)** or **ctrl+shift+i(windows/linux)**
+- **描述：**你曾经是否想查看一个方法或者类的具体实现，但是不想离开当前界面？   该操作可以帮你搞定。
+- **快捷键：**Alt + Space / Cmd + Y(OS X)、Ctrl + Shift + I(Windows/Linux)
 
 ![](https://lh4.googleusercontent.com/-m6b46h-k1ac/U_Ca197xNxI/AAAAAAAAMyQ/6W2kUyV6Ru0/w584-h191-no/05-quickdefinition.gif)
 
+# 44. 最近修改的文件（Recently Changed Files）
 
-# Recently Changed Files
-
-This is a variation of the "Recents" popup that lists files that were recently modified locally.
-It is sorted in order of modification (most recently edited on top).
-A nice bonus is that you can type to filter the list.
-
-Shortcut (Menu):
- - Mac: **Cmd+Shift+E**
- - Windows/Linux: **Ctrl+Shift+E**
+- **描述：**该操作类似于“最近访问（Recents）”弹窗，会显示最近本地修改过的文件列表，根据修改时间排列。可以输入字符来过滤列表结果。
+- **快捷键：**Cmd + Shift + E(OS X)、Ctrl + Shift + E(Windows/Linux)
 
 ![](https://lh4.googleusercontent.com/-_WNvGPZ3az0/VET1ysjYmEI/AAAAAAAAOSA/bpAbyKszjtU/w411-h365-no/49-recentlyedited.gif)
 
+# 45. 最近访问（Recents）
 
-# Recents
-
-Using this, you get a searchable list of the most recently consulted files!
-
-Shortcut: 
- - Mac: **Cmd+E**
- - Windows/Linux: **Ctrl+E﻿**
+- **描述：**该操作可以得到一个最近访问文件的可搜索的列表。
+- **快捷键：**Cmd + E(OS X)、Ctrl + E(Windows/Linux)
 
 ![](https://lh3.googleusercontent.com/-EPVBvnrdPgM/U_8OI4fcZfI/AAAAAAAANKE/FjVm2bKiJzA/w480-h300-no/14-recents.gif)
 
 
-# Refactor This
+# 46. 重构（Refactor This）
 
-It helps you navigate between your layout and your activity/fragment with ease.
-There is also a shortcut in the gutter next to the class name and one at the top of the layout file.
+- **描述：**该操作可以显示所有对当前选中项可行的重构方法。这个列表可以用数字序号快速选择。
 
-Shortcut (Menu):
- - Mac: **Ctrl+Cmd+Up**
- - Windows/Linux: **Ctrl+Alt+Home**
+- **快捷键：**Ctrl + T(OS X)、Ctrl + Alt + Shift + T(Windows/Linux)
 
 ![](https://lh5.googleusercontent.com/-S_zwUzYS4gk/VEZBrBGH0lI/AAAAAAAAOUw/n7QoGhegtZQ/w480-h206-no/50-relatedfile.gif)
 
+# 47. 相关文件（Related File）
 
-# Related File
-
-It helps you navigate between your layout and your activity/fragment with ease.
-There is also a shortcut in the gutter next to the class name and one at the top of the layout file.
-
-Shortcut (Menu):
- - Mac: **Ctrl+Cmd+Up**
- - Windows/Linux: **Ctrl+Alt+Home**
+- **描述：**该操作有助于在布局文件和Activity/Fragment之间轻松跳转。这也是一个快捷操作，在类名/布局顶端的左侧。
+- **快捷键：**Ctrl + Cmd + Up(OS X)、Ctrl + Alt + Home(Windows/Linux)
 
 ![](https://lh5.googleusercontent.com/-S_zwUzYS4gk/VEZBrBGH0lI/AAAAAAAAOUw/n7QoGhegtZQ/w480-h206-no/50-relatedfile.gif)
 
+# 48. 重命名（Rename）
 
-# Rename
-
-With this, you can rename a variable, field, method, class and event package.
-This will, of course, make sure that the renaming makes sense in the context of your app, it won't simply do a find and replace in all files!
-
-Additional Tip:
-  - If you can't remember this shortcut, you can always invoke the quick fix shortcut and it will always include the rename refactoring.
-
-Shortcut: **Shift+F6**
+- **描述：**你可以通过该操作重命名变量、字段、方法、类、包。当然了，该操作会确保重命名对上下文有意义，不会无脑替换掉所有文件中的名字；
+- **快捷键：**Shift + F6
+- **更多：**如果你忘记了这个快捷键，你可以使用快速修复（Quick Fix）的快捷键，它通常包含重命名选项。
 
 ![](https://lh4.googleusercontent.com/-ARaBtgwf8cc/VE97brZNoII/AAAAAAAAOeE/0JlFDxsxH5g/w332-h177-no/55-rename.gif)
 
+# 49. 返回到编辑器（Return to the Editor）
 
-# Return to the Editor
+- **描述：**一大堆快捷键操作会把你从编辑器带走（type hierarchy, find usages, 等等）。如果你想返回到编辑器，你有两个选项：
+    1. Esc：该操作仅仅把光标移回编辑器。
+    2. Shift + Esc：该操作会关闭当前面板，然后把光标移回到编辑器。
 
-A bunch of shortcuts will take you away from the editor (type hierarchy, find usages, etc.)
-If you want to return to the editor, your options are:
-  - Escape: This will simply return the cursor to the editor.
-  - Shift+Escape: This will close the current panel and then return your cursor to the editor.
-
-Shortcut :
-  - Return and keep panel open: **Escape**
-  - Close panel and Return: **Shift+Escape**
+- **快捷键：**
+    - 返回但保留打开的面板：Esc
+    - 关闭面板并返回：Shift + Esc
 
 ![](https://lh6.googleusercontent.com/-q4dM4dIngCI/VDPLU9ZaohI/AAAAAAAAN_g/5IEsckp4usI/w550-h299-no/40-returntoeditor.gif)
 
+# 50. Select In
 
-# Select In
+- **描述：**拿着当前文件然后问你在哪里选中该文件。恕我直言，最有用的就是在项目结构或者资源管理器中打开该文件。每一个操作都有数字或者字母作为前缀，可以通过这个前缀来快速跳转。通常，我会 Alt + F1 然后 回车(Enter) 来打开项目视图，然后 再用 Alt + F1 在OS X的Finder里找到文件。你可以在文件中或者直接在项目视图里使用该操作。
 
-Takes the current file and asks you where to select it.
-The most useful shortcuts IMHO are to open in the project structure or in your file explorer.
-
-Note that each action is prefixed by a number or a letter, this is the shortcut to invoke it quickly.
-
-Usually, I'll go **Alt+F1** then **Enter** to open in the project view and **Alt+F1+** to reveal the file in Finder on the Mac.
-
-You can invoke this from a file or directly from the project view.
-
-Shortcut: **Alt+F1﻿**
+- **快捷键：**Alt + F1；
 
 ![](https://lh5.googleusercontent.com/-MFV8-JsmzSU/VAmquOrEs8I/AAAAAAAANT0/_2TV_0RGtgg/w449-h337-no/19-select-in.gif)
 
+# 51. 分号/点 补全（Semicolon Dot Completion）
 
-# Semicolon Dot Completion
-
-Code completion is great and we are probably already familiar with the usual case: start typing something, we get some suggestions from the IDE and we accept the one we like with enter or tab. 
-
-Turns out that there is still another way to accept a completion: we can type a dot or a semicolon. This will result in the completion taking place and have that character added. This is useful to finish a statement with the completion or quickly chaining method calls.
-
-One caveat to this method: if you are completing to a method that requires parameters, they will be skipped.
-
-Shortcut: **Autocomplete + "." or ";"**
+- **描述：**代码补全这个功能太棒啦！我们大概都对以下这种情况很熟悉：开始输入点什么东西，接着从IDE得到一些建议的选项，然后通过Enter或者Tab来选择我们想要的补全代码。其实还有另外一种方法来选择补全的代码：我们可以输入一个点(.)或者一个分号(;)。这样就会完成补全，添加所选字符。这在结束一条语句补全或者快速链式调用方法的时候特别有用。
+- **注意点：**如果你要代码补全的方法需要参数，这些参数会被略过。
+- **快捷键：**Autocomplete + "." 或者 ";"
 
 ![](https://lh4.googleusercontent.com/-rkL6r3uJeeI/VGnwEJ9ULYI/AAAAAAAAO90/biElGOpX60I/w352-h177-no/69-semicolondotcompletion.gif)
 
+# 52. 显示当前运行点（Show Execution Point）
 
-# Show Execution Point
+- **描述：**该操作会立刻把你的光标移回到当前debug处。
 
-This will put the cursor back to where you are debugging right now.
+通常的情况是：
+1. 你在某处触发了断点
+2. 然后在文件中随意浏览
+3. 直接调用这个快捷键，快速返回之前逐步调试的地方。
 
-The usual case is:
-1) You break somewhere
-2) You start looking around in this file and then a bunch of other files
-3) You invoke this shortcut to return exactly to where you were in your step-by-step debugging session
 
-Shortcut (when debugging) : **Alt+F10**﻿
+- **快捷键：**（Debug时) Alt + F10；
 
 ![](https://lh3.googleusercontent.com/-sXEoJvHd_QQ/VCvo5CMmOuI/AAAAAAAAN5c/zq_9YB05-3U/w443-h287-no/36-executionpoint.gif)
 
+# 53. 扩大选择（Shrink Selection）
 
-# Shrink Selection
-
-This will contextually expand the current selection.
-E.g. it will select the current variable, then the statement, then the method, etc. 
-
-Shortcut: 
- - Mac: **Alt+Up/Down**
- - Windows/Linux: **Ctrl+W / Ctrl+Shift+W﻿**
+- **描述：**该操作会在上下文逐渐扩大当前选择范围。例如，它会先选中当前变量，再选中当前语句，然后选中整个方法，等等。
+- **快捷键：**Cmd + F2(OS X)、Ctrl + F2（Windows、Linux）
 
 ![](https://lh6.googleusercontent.com/-7KdcfTVc-is/U_xh2BbGyzI/AAAAAAAANFE/joWJV9qWBB4/w357-h212-no/12-expand_shrink_selection.gif)
 
+# 54. 终止进程（Stop Process）
 
-# Stop Process
-
-This will stop the currently running task or show a list of possible tasks to stop if there is more than one.
-
-Pretty useful to stop debugging or abort a build.
-
-Shortcut : 
- - Mac : **Cmd+F2**
- - Windows/Linux: **Ctrl+F2﻿**
+- **描述：**该操作会终止当前正在运行的任务。如果任务数量大于一，则显示一个列表供你选择。在终止调试或者中止编译的时候特别有用！
+- **快捷键：**Cmd + F2(OS X)、Ctrl + F2（Windows、Linux）；
 
 ![](https://lh4.googleusercontent.com/-6i3EY9IZJBg/VCqVy_ab3EI/AAAAAAAAN4U/ebD7lM9J68Q/w451-h265-no/35-stoprocess.gif)
 
+# 55. Sublime Text式的多处选择（Sublime Text Multi Selection）
 
-# Sublime Text Multi Selection
-
-This one is particularly nice!
-It will take the current selection, select the next occurrence and add a cursor there.
-This means that you can have multiple cursors in the same file! 
-Everything you type will be written at each cursor.
-
-Shortcut : 
- - Mac : **Ctrl+G**
- - Windows/Linux: **Alt+J﻿**
+- **描述：**这个功能超级赞！该操作会识别当前选中字符串，选择下一个同样的字符串，并且添加一个光标。这意味着你可以在同一个文件里拥有多个光标，你可以同时在所有光标处输入任何东西。
+- **快捷键：**Ctrl + G(OS X)、Alt + Ｊ（Windows、Linux）
 
 ![](https://lh6.googleusercontent.com/-WnxHwPuakFo/VCKmDdkETtI/AAAAAAAANqM/ZHrNT4clOZ0/w228-h146-no/32-multiselection.gif)
 
+# 56. 包裹代码（Surround With）
 
-# Surround with
+- **描述：** 该操作可以用特定代码结构包裹住选中的代码块，通常是if语句，循环，try/catch语句或者runnable语句。
+如果你没有选中任何东西，该操作会包裹当前一整行。
 
-This can be used to wrap a block of code in some structure. Usually an if statement, a loop, a try-catch or a runnable.
-
-If you have nothing selected, it will wrap the current line.
-
-Shortcut: 
- - Mac: **Cmd+Alt+T**
- - Windows/Linux: **Ctrl+Alt+T﻿**
+- **快捷键：**Cmd + Alt + T(OS X)、Ctrl + Alt + T(Windows/Linux)
 
 ![](https://lh3.googleusercontent.com/-WNvPYepdWXY/U_268lLrzWI/AAAAAAAANHc/CgirqvEZTbw/w299-h167-no/13-surround_with.gif)
 
+# 57. 临时断点（Temporary Breakpoints）
 
-# Temporary Breakpoints
+- **描述：**通过该操作可以添加一个断点，这个断点会在第一次被命中的时候自动移除。
 
-This is a way to add a breakpoint that will be removed automatically the first time you hit it.
-
-Shortcut: 
-  - Mouse: **Alt+LeftClick** in the left gutter
-  - Mac: **Cmd+Alt+Shift+F8**
-  - Windows/Linux: **Ctrl+Alt+Shift+F8﻿**
+- **快捷键：**Alt + 鼠标左键 点击代码左侧（鼠标）、Cmd + Alt + Shift + F8(OS X)、Ctrl + Alt + Shift + F8(Windows/Linux)
 
 ![](https://lh6.googleusercontent.com/-v8cbsJxsip0/VBLWIO7o0FI/AAAAAAAANbo/XNNiE_ZDCg0/w487-h212-no/24-temporarybreakpoints.gif)
 
+# 58. 调用层级树弹窗（The Call Hierarchy Popup）
 
-# The Call Hierarchy Popup
+- **描述：**该操作会给你展示 在一个方法的声明和调用之间所有可能的路径。
 
-This will show you the possible paths between a method's declaration and its invocations!﻿
-
-Shortcut: **Ctrl+Alt+H**
+- **快捷键：**Ctrl + Alt + H
 
 ![](https://lh6.googleusercontent.com/-Edb4Dy_berY/U-9E-x1D78I/AAAAAAAAMwg/Mq7X_Xvj-qg/w451-h384-no/04-callinghierarchy.gif)
 
+# 59. 文件结构弹窗（The File Structure Popup）
 
-# The File Struture Popup
+- **描述：**该操作可以展示当前类的大纲，并且可以快速跳转。你还可以通过键盘输入来过滤结果。这是一种很高效的方法来跳转到指定方法。
 
-The idea here is to show an outline of the current class and navigate in it. The best thing about it is that you can filter using your keyboard. This is a very efficient way to go to a method you know by name.
+- **更多：**
+    - 你在输入字符的时候可以用驼峰风格来过滤选项。比如输入"oCr"会找到"onCreate"
+    - 你可以通过勾选多选框来决定是否显示匿名类。这在某些情况下很有用，比如你想直接跳转到一个OnClickListener的onClick方法。
 
-Additional tips:
- - You can use camel-case matching when typing to filter the list. Example: typing "oCr" would find "onCreate"
- - You can toggle a checkbox to also show anonymous classes. It could be useful in some cases like if you want to go directly to the onClick method in an OnClickListener.﻿
-
-OSX: **cmd+f12**
-Windows/Linux: **ctrl+f12 **
-Other Keymap: Look up the shortcut to the right of this menu: **Navigate → File Structure**
+- **快捷键：**Cmd + F12(OS X)、Ctrl + F12(Windows/Linux)
+- **调用：**Menu → Navigate → File Structure
 
 ![](https://lh6.googleusercontent.com/-oU5M7gpIox0/U-38k3PKTbI/AAAAAAAAMvY/FtzUQhfhvIc/w326-h297-no/03-filestructure.gif)
 
+# 60. 切换器（The Switcher）
 
-# The Switcher
+- **描述：**该快捷键基本上就是IDE的alt+tab/cmd+tab命令。你可以用它在导航tab或者面板切换。一旦打开这个窗口，只要一直按着ctrl键，你可以通过对应的数字或者字母快捷键快速选择。你也可以通过backspace键来关闭一个已选中的tab或者面板。
 
-So this thing is pretty much the alt+tab / cmd+tab of the IDE. It allows you to navigate to a tab or a panel.
-
-Once it is opened, as long as you hold the ctrl key, you can navigate quickly by using the number or letter shortcut. You can also close a tab or a panel by pressing backspace when it is selected.
-
-Shortcut: **Ctrl+Tab**
+- **快捷键：**Ctrl + Tab
 
 ![](https://lh5.googleusercontent.com/-AUk6sHCcJVo/VD5Xhfy0uHI/AAAAAAAAOKg/O9z7RomZZ3I/w532-h349-no/46-switcher.gif)
 
+# 61. 移除包裹代码（Unwrap Remove）
 
-# Unwrap Remove
+- **描述：**该操作会移除周围的代码，它可能是一条if语句，一个while循环，一个try/catch语句甚至是一个runnable语句。该操作恰恰和包裹代码（Surround With）相反。
 
-This will remove the surrounding code. It could be to remove an if statement, a while, a try/catch or even a runnable.
-
-This is exactly the opposite of the Surround With shortcut.
-
-Shortcut: 
- - Mac: **Cmd+Shift+Delete**
- - Windows/Linux: **Ctrl+Shift+Delete﻿**
+- **快捷键：**Cmd + Shift + Delete(OS X)、Ctrl + Shift + Delete(Windows/Linux)
 
 ![](https://lh6.googleusercontent.com/-0k_qemxahqE/VA2Qvc28GWI/AAAAAAAANVc/haz3hyVg-nM/w546-h237-no/20-unwrap.gif)
 
+# 62. 版本控制操作弹窗（VCS Operations Popup）
 
-# VCS Operations Popup
-
-This will show you the most frequent version control operations.
-If your project is not under git or another sytem, it will at least give you a local history maintained by the IDE.
-
-Shortcut : 
-  - Mac: **Ctrl+V**
-  - Windows/Linux: **Alt+`**
+- **描述：**该操作会给你显示最常用的版本控制操作。如果你的项目没有用git等版本控制软件进行管理，它至少会给你提供一个由IDE维护的本地历史记录。
+- **快捷键：**Ctrl + V(OS X)、Alt + `(Windows/Linux)
 
 ![](https://lh4.googleusercontent.com/-ECCa5aqBxCk/VC02T6rz1gI/AAAAAAAAN7E/dtD24CNJbdg/w450-h329-no/37-vcspopup.gif)

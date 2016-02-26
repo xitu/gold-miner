@@ -1,552 +1,417 @@
 > * 原文链接 : [Animated SVG vs GIF [CAGEMATCH]](https://sarasoueidan.com/blog/svg-vs-gif/)
 * 原文作者 : [Sara Soueidan](https://twitter.com/SaraSoueidan)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者: 
-* 状态 :  待定
+* 译者 : [Yusheng](https://github.com/rainyear)
+* 校对者: [ychow](https://github.com/ychow)
+* 状态 :  完成
 
-SVG can do much more than display static images. Its animation capabilities are one of its most powerful features, giving it a distinctive advantage over all other image formats. They are one of many reasons that make SVG images better than raster images, including GIFs. But this, of course, only applies to images that are good candidates for SVG, such as:
+SVG不仅可用于展示静态图像，与其它图片格式相比，呈现动画的能力只是其强大的特性之一。这也是SVG优于包括GIF在内的其它位图格式的众多原因之一。当然，这种优势仅适用于适合SVG的应用场景，例如：
 
-*   Logos,
-*   non-complex, vector-based illustrations,
-*   user interface controls,
-*   infographics,
-*   and icons.
+* Logo图，
+* 不复杂的矢量图，
+* UI组件，
+* 信息化图表，
+* 图标。
 
-Of course, if you have an image that is better suited for the raster format—such as a photograph or a very complex vector illustration (that would normally have a very big size as an SVG), then you should use a raster image format instead. Not only should the image be a good candidate for SVG, but SVG should also be a good candidate for the image. If the image size is much less as a PNG, for example, then you should use PNG, and serve different versions/resolutions of that image using `srcset`, or , depending on what you’re working on and trying to achieve.
+当然，如果你的图片更适合用位图格式——例如照片或非常复杂的矢量图形（通常会导致 SVG 格式的文件非常大），那么你还是应该用位图。不仅图片可以考虑用SVG格式，也要考虑SVG是否适用于当前图片。例如，如果用PNG格式时图片的文件更小，那么你就应该使用PNG格式，针对不同的版本、分辨率可以通过`srcset`属性来控制，或者根据工作目标寻找其它合理的解决方案。
 
-> Not only should the image be a good candidate for SVG, but SVG should also be a good candidate for the image.
+> 不仅图片可以考虑用SVG格式，也要考虑SVG是否适用于当前图片。
 
-Generally speaking, the images listed above are usually perfect candidates for SVG. And if you're going to animate any of those, creating your animations by animating the SVG code is the sensible way to go.
+通常来说，上面列出的图片都非常适合用SVG格式。如果你想给它们添加动画效果，通过修改SVG代码来生成动画效果也是非常合理的选择。
 
-However, last week, a link popped up in my Twitter timeline that linked to a set of icons that are animated as GIFs.
+然而，上星期有一个展示了一些GIF格式的动态图标链接出现在我的Twitter时间轴上。
 
-The first thing that crossed my mind when I saw them was that they were perfect candidates for SVG and should be created as SVG images, not GIFs.
+我看到这些图标的第一个想法就是这些图标非常适合用SVG呈现，而且也应该用SVG而非GIF。
 
-SVGs can indeed replace GIFs in many places, just like they can replace other raster image formats for candidates like those mentioned above. The ability to animate SVG images is what gives it this advantage and ability. And this applies to more than just animated icons.
+SVG格式的确可以在很多地方取代GIF格式，就像上面提到的那些应用场景中可以取代其它位图格式一样。SVG的动画能力给它这样的优势和能力，而且绝不仅仅是体现在制作动画图标上。
 
-So, here is why I think you should use SVG instead of GIFs whenever you can.
+下面是我总结出我认为你应该尽可能的使用SVG而不是GIF的原因。
 
-## Image Quality
+## 图像质量
 
-The first advantage to using SVG over GIFs—or any image format, for that matter—is, unsurprisingly, SVG’s number one feature: resolution-independence. An SVG image will look super crisp on any screen resolution, no matter how much you scale it up. Whereas GIFs—a raster image format—do not. Try zooming in a page that contains a GIF image and watch the GIF become pixelated and its contents blurred.
+毫无意外地，SVG相对于GIF（或其他图片格式）的第一个优势同时也是SVG的首要特征：分辨率独立性。SVG图片在任何分辨率的屏幕上，无论你如何放大，看起来都非常清晰。而像GIF这样的位图格式则不然。试着放大一个有GIF图像的页面你可以看到GIF会变得像素化，内容也会变模糊。
 
-For example, the following GIF recording of an SVG animation looks fine at this small size:
+例如，下面这张通过录制SVG动画得到的GIF图片在较小尺寸时看起来还没有问题：
 
 ![](https://sarasoueidan.com/images/svg-vs-gif--animation-example.gif)
 
 A GIF recording of the [SVG Motion Trails demo](http://codepen.io/chrisgannon/pen/myZzJv) by Chris Gannon.
 
-
-
-Zooming into the page a few times will cause the image to be pixelated and the edges and curves of the elements inside to become jagged, as you can see in the image below:
+把这个页面放大几次会导致图片像素化，内部元素的边缘和曲线会出现锯齿，就像下面这张图片这样：
 
 ![](https://sarasoueidan.com/images/svg-vs-gif--animation-example-zoomed-in.png)
 
-Whereas if you [check the SVG demo out](http://codepen.io/chrisgannon/pen/myZzJv) and zoom into the page, the SVG content will remain crisp and clear no matter how much you zoom in.
+然而当你查看[SVG demo](http://codepen.io/chrisgannon/pen/myZzJv)并且放大页面时，无论放大多少次，SVG图片内容依然保持清晰不变。
 
-To provide crisp images for high-resolution displays when you’re using a bitmap image format like GIF, you need to use or `srcset` and switch the images up for different contexts.
+想要在高分辨率显示器上呈现清晰的位图格式的图像，如GIF，你需根据上下文用`srcset`属性将图像进行放大。
 
-Of course, the higher the image resolution, the bigger the file size will be. With GIFs, the file size will end up ridiculously large; but we'll get to that in a minute. Also, using a high-resolution GIF and serving it at a smaller size for mobiles is bad for performance. **Don’t do it.**
+当然，图像的分辨率越高，图像文件也就越大。如果用GIF格式，文件尺寸将会变得出奇的大，这一点我们后面马上就会看到。除此之外，在手机中用高分辨率的GIF来呈现较小的尺寸会损害页面性能。**不要这样做。**
 
-When you create GIF-animated icons or images, their dimensions are fixed. Change the dimensions or zoom in and out of the page, and they’ll get pixelated. With SVG, size is free, and clarity is a constant. You can create a small SVG and have it scale up as much as needed without sacrificing image clarity.
+在你创建GIF动画图标或图片时，它们的尺寸是固定的，页面的缩放或尺寸的改变会导致像素化。SVG的尺寸是自由的，而且清晰度则是固定的。你可以创建一个小尺寸的SVG并任意放大而不损失清晰度。
 
-**Conclusion**:
+**结论**：
 
 <table>
-
 <tbody>
-
 <tr>
-
 <td>GIF</td>
-
 <td>Animated SVG</td>
-
 </tr>
-
 <tr>
-
-<td>GIF, just like other image formats, are not resolution-independent, and will therefore look pixelated when scaled up or viewed on higher resolutions.</td>
-
-<td>SVG is scalable and resolution-independent, and will look crisp clear on any screen resolution.</td>
-
+<td>GIF和其他图片格式一样，不能适配各种分辨率，在放大或高分辨率显示器上时会出现像素化。</td>
+<td>SVG可缩放和自适配，在任意分辨率的屏幕上都可以清晰地呈现。</td>
 </tr>
-
 </tbody>
-
 </table>
 
-## Colors and Transparency
+## 颜色和透明度
 
-Perhaps the number one deal-breaker with GIFs is the way transparency is handled, especially when the image is displayed on a background other than a white background.
+对透明度的处理方法有可能是破坏GIF市场的首要因素，尤其是当图片成现在有颜色的背景上时。
 
-This is an issue that is most likely to emerge when using GIF icons (whether animated or not), since icons are usually created with transparent backgrounds.
+这是使用GIF图标时（无论是否有动画）最有可能出现的问题，因为通常情况下图标背景是透明的。
 
-For example, take the following circle with a stroke, created as both an SVG image (left) and a GIF with a transparent background (right). The problem is evident as soon as you look at the two images: the GIF circle has grey fringes around its stroke.
+以下面透明背景上带有描边的圆圈为例，左边是SVG格式，右边是GIF格式。看到下面的图片你马上可以发现问题：GIF中的圆圈在描边外面有灰色的毛边。
 
 <figure style="background-color: #003366;">![](https://sarasoueidan.com/images/svg-vs-gif--circle-on-transparent-background.svg) ![](https://sarasoueidan.com/images/svg-vs-gif--circle-on-transparent-background.gif)
 
-If you’re not reading this in the browser, the effect might not be visible to you because the figure styles might not be applied. Here is a screenshot showing the problem (on the right):
+如过不是在浏览器里阅读这篇文章你可能看不到上面的效果，下面是截屏图片（右边是有问题的GIF格式）：
 
 ![](https://sarasoueidan.com/images/svg-vs-gif--artefact.png)
 
-This happens because transparency in GIF images is binary. This means that each pixel is either _on_ or _off_; a pixel is either transparent or fully opaque. This, in turn, means that the transition between the foreground color and the background color is not as smooth, and results in artefacts caused by inadequate sampling frequency, commonly known as _aliasing_.
+这是因为GIF图像中的透明度是通过二值化实现的。也就是说每个像素只有 _开_ 和 _关_ 两种状态：要么是完全透明的要么是完全不透明。这就意味着图片中前景与背景颜色之间无法平滑过度，从而因为不充足地抽样频率导致这样的边缘伪迹，通常称为 _锯齿_。
 
-When a line is not completely straight, it causes some pixels (around the edges) to be partially transparent and partially opaque, so the software needs to figure out what color to use for those pixels. The halo effect “is caused by all the pixels which would have been > 50% opaque being fully opaque and carrying the bg color against which they were rasterized” ([Chris Lilley](http://twitter.com/svgeesus/)). So this effect is usually a result of pixel contamination from the color of the background against which the image was composited against upon creation/saving in a graphics editor.
+当一条线不是绝对笔直时，会导致（靠近边缘的）一些像素部分是透明的，部分是不透明的，呈现图片的软件必须知道这些像素需要用什么颜色呈现。光环效应（Halo effect）“是指所有透明度大于50%的像素变成完全不透明并且携带将要被栅格化的背景颜色”([Chris Lilley](http://twitter.com/svgeesus/))。这一效应通常由于图像编辑软件新建/保存时像素颜色与背景色相混合所导致的。
 
-Aliasing is usually countered with _anti-aliasing_, but that is not as simple when transparency is binary:
+通常我们通过 _抗锯齿处理_ 来抵消锯齿化现象，但如果透明度是二值化的就没那么简单了。
 
-> There is a **severe interaction between anti-aliasing and binary transparency**. Because the background colour of the image is mixed in with the foreground colours, simply replacing a single background colour with another is not enough to simulate transparency. There will be a whole host of shades which are _mixtures_ of background and foreground colours [...]. The effect in this case is a white halo around objects, because the original image was anti-aliased to a white background colour.
-> 
+> **抗锯齿化和二值化透明度之间存在严重的相互干扰作用**。由于图像的被背景颜色是与前景颜色混合在一起的，单纯地将一个背景颜色换成另外一个颜色并不能很好地模拟透明度。这将会产生一堆由背景色和前景色混合而成的阴影[...]。如果对白色背景的原始图片进行抗锯齿化处理，就会产生围绕在物体周围的白色光圈。
 > <cite>— [Chris Lilley](http://twitter.com/svgeesus/) ([Source](http://www.w3.org/Conferences/WWW4/Papers/53/gq-trans.html))</cite>
 
-The solution to this problem is variable transparency, commonly known as the alpha channel, which allows for varying degrees of transparency and hence a smoother transition between the foreground and background color, which is not what is available in GIF; thus, the halo effect problem. Images with the halo effect usually look best when used with white backgrounds; any other high-contrast background color will make the artefact visible.
+这一问题的解决方案就是采用量化透明度，也就是我们通常所说的alpha通道。alpha通道可以允许不同程度的透明度，使前景色和背景色之间的过度更加平滑，这在GIF中是无法做到的；带有光环效果的图像只有用在白色背景上看起来效果最好，任意其它对比度高的背景色都会使边缘的伪迹清晰可见。
 
-I’m not quite sure if there is a way to work around this issue, but I’ve not yet come across a GIF with a transparent background and curved edges that did not have this problem. I’ve even seen rectangular shapes suffer from it as well.
+我不是很确定（针对GIF的）这一问题是否有解决方案，但我还从没见过透明背景的GIF中曲线边缘没有这一问题，我甚至还看过矩形边缘也存在这样的问题。
 
-If you want to use your image/icon on a non-white background—say, on a dark footer background, this alone could be a deal-breaker. But there are other reasons SVG is better than GIFs too, that we’ll cover in the next sections.
+如果你想要将你的图片/图标用在非白色背景上，例如黑色的页脚背景上，单单这一个问题就可以让你否决掉 GIF。然而还有其他原因证明SVG比GIF更好，我们将会在后面的小节中看到。
 
-**Note:** if you're reading this article in a browser but still don't see the fringes in the first image on a smaller screen, try zooming the page in to see the effect.
+**注意：** 如果你用浏览器阅读这篇文章仍然没办法看到第一张图片里面的锯齿效果，试着放大页面再来看。
 
-Why might you not be able to see the fringes on smaller sizes? The answer is: the browser smoothes the edges as a part of the image resize process. Does this mean that you can utilize this to get rid of the fringes and still use a GIF? Yes, you can. But to do that, you have to use a GIF that is much bigger than the size you want to render it at, and then resize it. This also means that you will be serving your users images that are much bigger than they need, therefore taking up more of their bandwidth on mobile, as well as hurting the overall page size and performance. Please don't do that.
+为什么图片在较小尺寸时看不到锯齿？这是因为：浏览器在调整图像尺寸的过程中将边缘的锯齿抚平了。这是否意味着你可以借此摆脱锯齿问题继续使用GIF？是的，你可以。但是要这样做你必须使用比你想要的尺寸大得多的GIF，然后进行缩小。这也意味着你的用户需要从你的服务器下载更大的图片文件，进而占据他们手机更多的带宽，同时也会影响整个页面的大小和性能。请不要这样做。
 
-**Conclusion**:
+**总结**：
 
 <table>
-
 <tbody>
-
 <tr>
-
 <td>GIF</td>
-
 <td>Animated SVG</td>
-
 </tr>
-
 <tr>
-
-<td>GIF images are capable of only binary transparency. This causes artefacts, known as the _halo effect_ to show up whenever the image or icon is used on a non-white background. The higher the background color contrast with the image, the more visible the halo effect, which makes the icons practically unusable.</td>
-
-<td>SVG images come with an alpha channel and do not suffer from any problems when they are used on different background colors.</td>
-
+<td>GIF只能二值化地表示透明度。这导致图像或图标用于非白色背景上时会产生伪迹，也就是 _光环效果_。背景色与图像的对比度越高，光环效果越明显，导致图标几乎无法使用。</td>
+<td>SVG包含alpha通道，因此在任何颜色的背景上都不存在这些问题。</td>
 </tr>
-
 </tbody>
-
 </table>
 
-## Animation Techniques & Animation Performance
+## 动画技术和动画性能
 
-**You can animate SVGs using CSS, javaScript or SMIL**, and each of them gives you a different level of control that you can take advantage of to create all kinds of animations on SVG elements.
+**你可以用CSS、JavaScript或者是SMIL制作SVG动画**，而且它们都可以让你通过不同层面上的控制，使SVG里面的元素产生各种不同的动画效果。
 
-There are no "techniques" to animate GIF images. They are animated by showing a series of images—one for each frame—sequentially, in a fixed manner, at a fixed pace. You know, the way GIFs just work. Granted, you can get creative with your icons before you turn them into GIFs and then “record” the animation and convert it into a GIF, but how good will it look? And how much control over the animation timing will you get afterwards? None.
+GIF图片则不存在“动画技术”这一说。它们的动画效果是通过一种固定的方式和步调，连续呈现一系列图片（每一帧一张图片）。诚然，你可以通过“录制”动画并转换成 GIF 格式的方式来创建图标，但这种方法做出来的图标能有多好看？而且对于动画的时机在录制完成后你又有多大的控制权？完全没有。
 
-Unless you make sure you have at least 60 frames—that is, 60 images—_**per second**_ to create your GIF, the animation will not look smooth. Whereas with SVG, achieving smooth animations is much easier and simpler by taking advantage of browser optimizations.
+除非你能肯定你创建的GIF至少有60帧（_每秒钟_ 60张图片），否则它的动画效果很难看起来比较流畅。而SVG利用浏览器的优化，想要获得流畅的动画效果则简单地多。
 
-A GIF has a bigger file size than PNG or JPEGs, and the longer the animation duration, the bigger the size will be. Now, what if your animation plays for at least 5 ot 6 seconds? What if it plays for much longer?
+GIF文件的尺寸比PNG或JPEG大得多，而且动画的时间越长，文件越大。想象一下，如果你的动画需要持续5到6秒钟会怎样？如果持续时间更长呢？
 
-You get the picture.
+结果可想而知。
 
-Let's look at a more specific yet minimal example. Below are two images: an animated SVG on the left, and an animated GIF on the right. The rectangle in both images changes color over the course of six seconds.
+让我们来看一个具体的小例子。下面是两张图片：左边的是SVG动画，右边是GIF。图中的矩形都是在6秒钟时间内变换其颜色。
 
 <svg width="300" height="150" viewBox="0 0 300 150" xmlns="http://www.w3.org/2000/svg"><style>svg{width:48%;}path{animation:loop 6s linear infinite;}@keyframes loop{to{fill:#009966;}}</style></svg> ![](https://sarasoueidan.com/images/svg-vs-gif--rectangle-animation.gif)
 
-The SVG image on the left and the GIF on the right.
+需要注意的有以下几点：
 
+* GIF动画看起来好像更流畅，但如果看仔细一些你会发现SVG中矩形颜色变化的范围更广，因为它是从颜色的起始值到终止值连续变化而来的。**GIF中颜色变化数量的上限是其帧数**。上图中的GIF包含60帧，也就是60种颜色，而SVG则遍历了整个颜色图谱中粉色到绿色之间的所有颜色。
+* 对于这种循环播放的动画效果，通常来说最好避免颜色的剧烈跳转。在制作动画时，颜色变化的最后最好可以平滑地过度到初始的粉色，这样第二轮动画继续开始时就不会看到明显的颜色跳转。通过CSS，你可以利用`alternate`属性设定SVG动画的变化方向。但是对于GIF，你需要在帧数上面下功夫，并且很有可能需要在现有的帧数基础上加倍，当然，这同样会导致图片文件大小的增加。
 
+上面两张图片的大小比较：
 
-There are a couple of things to note here:
+* GIF图片：**21.23KB**
+* SVG图片：**0.355KB**
 
-*   The GIF animation looks smooth but if you look closely you will notice that the SVG rectangle is going through a wider range of colors as it transitions from the initial to the final color. **The number of colors the GIF goes through is limited by its number of frames.** In the above image, the GIF goes through 60 frames, i.e. 60 colors, whereas the SVG goes through the entire spectrum between the shade of pink used and the final green color.
-*   For looping animations like this one, it is generally best to avoid the color jump shown in the above animation, and create the animation so that it reverses once it reaches the green color; that way, it will transition smoothly back to pink and then start the second round of animation from there too, avoiding that unsightly color jump.
+这可不是什么微不足道的差别。当然我们都知道可以对图片进行优化，让我们来试试看。
 
-    With CSS, you can reverse the animation using the `alternate` animation direction value. But with GIF, you will need to work on your number of frames and probably end up doubling it to make this happen; this will, of course, also increase the size of the image as well.
+SVGO可以将SVG文件优化至 **0.249KB**。
 
-The sizes of the two images shown above are:
+优化GIF有很多线上工具可以选择。我用[ezgif.com](http://ezgif.com/)对上图进行优化，（其它工具包括： [gifsicle](http://www.lcdf.org/gifsicle/)）文件可以压缩至**19.91KB**。
 
-*   GIF image size: **21.23KB**
-*   SVG image size: **0.355KB**
+优化GIF时有很多选项可以选择。我在优化上图时保持帧数不变，使用了有损压缩，这样可以将文件大小压缩30%-50%，作为代价会产生一些抖动/噪音。
 
-This is no trivial difference. But we all know we can optimize our images. So let’s do that.
+你也可以通过每n帧里面移除一帧的抽样方法进行优化；这样可以进一步降低文件大小，但是将导致动画效果不再那么流畅。以当前的动画效果为例，去除某些帧将导致颜色变化更加“跳跃”且更容易被察觉。
 
-Optimizing the SVG using the SVGO Drag-and-Drop GUI brings the SVG’s file size down to **0.249KB**.
+其它优化选项包括减少颜色数量（这一方法不适用于我们这个依赖颜色的动画效果）和降低透明度等。你可以通过[ezgif.com](http://ezgif.com/)的优化页面了解更多关于这些选项的知识。
 
-To optimize the GIF, you can use one of the several GIF optimization tools online. I used [ezgif.com](http://ezgif.com/) to optimize the above image. (Other tools also exist; [gifsicle](http://www.lcdf.org/gifsicle/) is one of them.) The file size dropped down to **19.91KB**.
+简要概括：如果你希望你的GIF动画更流畅，你就需要更高的帧率，而这将导致文件大小的增加。而对于SVG，你所需要维护的文件相对来说小得多。上面只是一个简单的小例子，我敢肯定还有更多更好的例子，但是我在这里只是希望突出两种格式的差异。
 
-There are many options you can choose from when optimizing GIF images. I optimized the above image so that the number of frames remains intact, using Lossy GIF compression, which <q>can reduce animated GIF file size by 30%—50% at a cost of some dithering/noise.</q>
+即使你用JavaScript甚至是JavaScript框架（因为IE浏览器不支持SVG动画）来产生上面的动画效果，将框架文件包含在内总的SVG文件大小仍然比GIF小或者最多一样大。以[GreenSock](http://greensock.com)的TweenLite为例，包含库文件在内SVG文件小于13KB（仍然比GIF小得多），而TweenLite本身压缩完就有12KB。即使最终文件大小跟GIF一样，SVG的其它优势仍然足以超越GIF，而且后文中还会看到更多。
 
-You can also optimize it by removing every nth frame; that can reduce the file size even further, but at the cost of the animation not being smooth anymore. And in the case of an animation like the case at hand, removing frames will make the change in color be "jumpy" and noticeable.
+其它一些JavaScript库只关注某些特定的动画效果，因此文件更小（<5KB），例如用于创建直线绘制效果的[Segment](https://github.com/lmgonzalves/segment/blob/gh-pages/dist/segment.min.js) 。Segment压缩后只有2.72KB。还不算太坏，是吧？
 
-Other optimization options are also available such as color reduction (which wouldn't be suitable for our color-dependent animation here) and transparency reduction. You can learn more about these options on the [ezgif.com](http://ezgif.com/) optimization page.
+当然可能会有例外存在，因而你需要经过测试再做决定。但是考虑到GIF的本质和其工作原理，你会发现在大部分情况下SVG都是一个更好的选择。
 
-To recap: If you want your GIF animation to be smooth, you’re going to need more frames per second, and that will consequently increase the file size by a lot. Whereas with SVG, you’re likely to maintain a much smaller file size. The above example is minimal, and I’m sure there are better ones out there, but I wanted the most minimal example to show the difference between the two formats.
+注意：SVG的性能在今天来看还没有达到最优化水平，并且在将来很有希望得到改善。IE/MS Edge在当下所有浏览器中渲染 SVG的性能最好。除此之外，SVG动画看起来仍然比GIF动画要好，尤其是在应对较长时间的动画时。因为假设是60fps的GIF动画，文件的大小将会降低整个页面的性能。像GreenSock之类的库也（为SVG）提供了很好的性能支持。
 
-Even if you were animating the above rectangle using JavaScript or even a JavaScript framework—since animations on SVG don’t work in IE, for example, the file size of that framework combined with that of the SVG is still likely to be smaller or at least equal to the size of the GIF image size. For example, using [GreenSock](http://greensock.com)’s TweenLite, the size of the SVG with the library combined would be less than 13KB (which is still less than the size of the GIF), since TweenLite is 12KB minified. If you do end up with a size equal to that of the GIF, the other benefits of SVG will tip the scale and you will be getting more out of it.
-
-Some other JavaScript libraries exist that focus on certain animation tasks at a time, and come in impressivly small file sizes (<5KB), such as [Segment](https://github.com/lmgonzalves/segment/blob/gh-pages/dist/segment.min.js) which is used to animate SVG paths to create line drawing effects. Segment is 2.72KB minified. That’s not too shabby, is it?
-
-There can be exceptions, so you should always test. But given the nature of GIFs and how they work, you will likely find that SVG is a better option in most cases.
-
-Note: SVG Performance is not at its absolute best today, but this will hopefully change in the future. IE/MS Edge offer the best SVG rendering performance among all browsers today. Despite that, SVG animations will still look better than GIF animations, especially when you're tackling long animations, because the file size of the GIF—assuming it’s recorded at 60fps—will have a negative impact on the overall page performance. Libraries like GreenSock also offer impressive performance as well.
-
-**Conclusion**:
+**总结**：
 
 <table>
-
 <tbody>
-
 <tr>
-
 <td>GIF</td>
-
 <td>Animated SVG</td>
-
 </tr>
-
 <tr>
-
 <td>
-
-1.  GIF images are generally larger than SVG images. The more complex and longer the animation, the more frames are required to create it and therefore the bigger the file size and the more the negative impact on performance.
-2.  Unless GIF animation plays at 60fps, the animation is going to be jagged and not smooth. Also, the more the number of frames per second, the bigger the file size, especially for longer animations.
-
-**Result:** There will be a compromise that needs to be made. Either the GIF animation is smooth and the overall file and page size and performance is negatively affected, or the GIF animation will suffer with less frames. One form of performance is risked in both scenarios.
-
+1. 一般来说GIF比SVG图片要大。动画越复杂时间越长，所需要的帧数越多，会导致文件越大，对性能的影响也越大。
+2. 除非GIF的帧率达到60fps，否则动画效果看起来可能会不够流畅。然而帧率越高，尤其是长时间的动画，又会导致文件越大。
+**结果：** 需要对性能做出妥协。要么是为了保持GIF动画的流畅性而增加总体页面大小影响其性能，要么是采用较少的帧数影响动画性能。 总会有一种形式的性能受到影响。
 </td>
-
 <td>
+SVG利用浏览器优化和自身动画元素的优势，即便当前浏览器的性能尚未达到最优化水平的条件下，在保持更好动画效果的同时不需要牺牲页面性能做出妥协。
 
-SVG images take advantage of the browser optimizations when animating elements. Even though browser performance on SVG elements is still not at its best, animation will still perform better without having to make page performance compromises.
-
-SVG file size is still very reasonable, if not very small, compared to GIFs, even when certain animation libraries might be required to create cross-browser animations.
-
+如果不是在非常小的情况下，与GIF相比，即使是包含一些跨浏览器支持的动画库的情况下，SVG文件的大小也是很合理的。
 </td>
-
 </tr>
-
 </tbody>
-
 </table>
 
-### Maintaining & Modifying Animations
+### 维护和修改动画
 
-..is a pain if you are using GIFs. You will need to use a graphics editor such as Photoshop or Illustrator or After Effects, to name a few. And if you're like me, then graphics editors are not where your skills shine, and you feel more at home when you make modifications in code, not in graphics editors.
+……对于GIF来说是非常痛苦的。你需要用到Photoshop、Illustrator或After Effects之类的图像编辑器，如果你对这些编辑器本身并不熟练，你一定会觉得直接修改代码比使用图像编辑器更舒适一些。
 
 ![](https://sarasoueidan.com/images/svg-vs-gif--photoshop-frames.png)
 
-Screenshot of the animation timeline as created in Photoshop. The lower part shows a fraction of the frames created for the animation. Fore more complex animations, more frames are required. Also notice the layers panel.
+上图是用Photoshop创建GIF动画时间轴的截屏。图中底部显示的是动画中的每一帧，越复杂的动画需要的帧数越多，同时也不要忘了还有复杂的图层面板。
+small>感谢我的设计师朋友[Stephanie Walter](http://twitter.com/WalterStephanie)对PS动画的建议</small>
 
-<small>Thanks to my designer friend [Stephanie Walter](http://twitter.com/WalterStephanie) for the PS animation tips.</small>
+想象一下如果你想改变动画的时间要怎么办？如果你想同时改变图像中一个或多个元素随时间变化的函数怎么办？或者想要改变元素移动的方向呢？如果想要改变整体效果让图片中的元素做出完全不同的动作呢？
 
+你需要从头重新绘制图像或图标。任何改动都需要你重新打开图像编辑器针对每一帧进行修改。这对于开发者来说是一种折磨，而对于那些对编辑器不够熟悉的人来说简直就是“不可能完成的任务”。
 
+对于SVG，任何动画的改动都只是几行代码的事而已。
 
-
-
-What happens if you want to change your animation timing? or if you want to change the timing functions for one or multiple elements inside your image? or if you want to change the direction in which an element moves? What if you want to change the entire effect and have the elements in your image do something completely different?
-
-You will need to recreate the image or icon all over again. Any change requires you to jump into the graphics editor and work with frames and a frame-based UI. That would be like torture to developers, and a Mission Impossible for those of us who don’t know our way around those editors enough to make these changes.
-
-With SVG, making any kind of change to the animation(s) is only a few lines of code away.
-
-**Conclusion (developer’s perspective)**:
+**总结（开发者的角度）**：
 
 <table>
-
 <tbody>
-
 <tr>
-
 <td>GIF</td>
-
 <td>Animated SVG</td>
-
 </tr>
-
 <tr>
+<td>维护和修改GIF动画需要重新创建图像或通过图像编辑器对原有的每一帧进行重新整理，对那些不熟悉设计的开发者来说这是很大的问题。</td>
 
-<td>Maintaining and modifying GIF animations requires re-creating the image or resorting to a frame-based graphics editor’s UI to do so, which is a problem for design-challenged developers.</td>
-
-<td>SVG animations can be changed and controlled right inside the SVG code—or anywhere the animations are defined, usually using a few lines of code.</td>
-
+<td>SVG动画可以直接在SVG代码中进行控制和修改，通常只需要几行代码就可以搞定。</td>
 </tr>
-
 </tbody>
-
 </table>
 
-## File Size, Page Load Time & Performance
+## 文件大小，页面加载时间和性能
 
-In the previous section, we focused on the performance of the animation itself. In this one, I want to shed some light on the page performance as a whole and how it is affected by the image format choice you make.
+前面的小节中我们关注了动画性能本身，在这一小节中，我希望关注页面整体性能以及你所选择的图片格式对其产生的影响。
 
-Fact: The bigger the file size, the more the negative impact on page load time and performance. With that in mind, let's see how using SVG instead of GIFs can help improve the overall page load time by looking at a more practical, real-world example.
+事实：文件越大，对页面加载时间和性能的负面影响越大。基于这种情况，让我们通过一个更加实际、现实生活中的例子，来观察用SVG替换GIF是怎样优化整体页面的加载时间的。
 
-At my first SVG talk, 18 months ago, I mentioned how SVG can be used to replace animated GIFs and result in overall better page performance. In that talk, I provided a real-world example of a real-world web page that took advantage of what SVG has to offer and reaped the benefits: the [Sprout](http://sprout.is/) homepage.
+18个月前，在我的第一个关于SVG的演讲中，我提到过如何使用SVG替换GIF并且得到整个页面性能的提升。在那个演讲中，我用真实世界中的网页作为例子来展示如何利用SVG的优势：[Sprout网站](http://sprout.is/)首页。
 
-The Sprout homepage has two animated images that were initially created and displayed as GIFs. Two years ago, [Mike Fortress](https://twitter.com/mfortress) wrote [an article on the Oak blog](http://oak.is/thinking/animated-svgs/), in which he explains how they recreated the animated GIFs, particularly the chart GIF (see image below) as an animated SVG image.
+Sprout网站首页的两个动画图像最初是使用GIF展示的。两年前[Mike Fortress](https://twitter.com/mfortress)[在Oak上写了一篇博文](http://oak.is/thinking/animated-svgs/)，文中解释了如何用SVG动画重新实现了原来的GIF动画，特别是下图所示的图表动画：
 
 ![](https://sarasoueidan.com/images/svg-vs-gif--sprout-chart.svg)
 
 The SVG version of the chart used on the Sprout homepage and written about on the Oak article. <small>(All rights reserved by their owners.)</small>
 
-Note that the animation is created using SMIL so it will not be animating if you’re viewing it in Internet Explorer.
+注意这一动画是用SMIL创建的，如果你正在用IE浏览器是看不到的。
 
+在他的文章中，Mike分享了一些关于他们切换成SVG后的新页面性能的有趣结果：
 
-
-
-
-In his article, Mike shares some interesting insights on their new page performance as a result of making the switch to SVG:
-
-> This chart, and one other animation on Sprout, were initially GIFs. By using animated SVGs instead of GIFs we were able to reduce our page size **from 1.6 mb to 389 kb**, and reduce our page load time **from 8.75 s to 412 ms**. That’s a huge difference.
-> 
+> 这一图表和Sprout页面上的另外一个动画，最初是GIF格式的。替换成SVG后我们的页面从 **1.6 mb缩减到389 kb**，页面加载时间 **从8.75 s缩减到412 ms**。这是一个巨大的差异。
 > <cite>—Mike Fortress, [“Animated SVGs: Custom Easing and Timing”](http://oak.is/thinking/animated-svgs/)</cite>
 
-A huge difference indeed.
+的确是非常巨大的差异。
 
-The Sprout chart is a perfect candidate for SVG. There is no reason to animate it by converting the animation into a GIF recording, when SVG can bring so much more benefits.
+Sprout首页上的图表非常适合用SVG。如果SVG有这么多优势完全没有理由录制成GIF。
 
-[Jake Archibald](https://jakearchibald.com/) realizes the power of SVG animations too, and uses them to create and animate interactive illustrations to complement his articles. His [Offline Cookbook](https://jakearchibald.com/2014/offline-cookbook/) article is an excellent example (and an excellent article, by the way). Could he have used GIFs to do that? Of course. But given the number of images he used, the GIFs could have easily increased the overall page size to a couple or few megabytes, with each GIF being at least hundreds of kilobytes in size; whereas **the entire web page currently weighs at 128KB only with _all_ the SVG images embedded inline**, because [you can reuse elements in SVG](https://sarasoueidan.com/blog/structuring-grouping-referencing-in-svg), so any repetitive elements will not only cause the entire page to [gzip much, much better](http://calendar.perfplanet.com/2014/tips-for-optimising-svg-delivery-for-the-web/), but for each page, the overall size of the SVGs becomes smaller.
+[Jake Archibald](https://jakearchibald.com/)也意识到SVG动画的威力，并将其用于他文章中交互插图的部分。他的[Offline Cookbook](https://jakearchibald.com/2014/offline-cookbook/)就是很好的例子（同时也是一篇很好的文章）。他可以用GIF来做吗？当然可以。然而考虑到他用到的图片数量，GIF会轻松地将其整个页面的大小增加至几M，因为每张GIF至少需要几百K；然而 **_所有_SVG内嵌的条件下整个页面总体大小只有128KB**，因为[你可以重复利用SVG中的元素](https://sarasoueidan.com/blog/structuring-grouping-referencing-in-svg)，任何重复元素不仅会让整个页面的[gzip效果更好](http://calendar.perfplanet.com/2014/tips-for-optimising-svg-delivery-for-the-web/)，对于每个页面，所有SVG总体大小也变得更小。
 
-Now _that_ is impressive.
+_这_ 够牛逼了吧。
 
-I will rest my case about page load and performance here. But it is still important to note that there _can_ be exceptions. Again, in most cases, you’re likely going to find that SVG is better than a GIF, but you’ll always need to test anyway.
+关于页面加载和性能的讨论暂时就到这里。但是需要注意的是仍然 _可能_ 存在例外，虽然大多数情况下你都会发现SVG比GIF更好，但最好还是测试一下。
 
-**Conclusion**:
+**总结**：
 
 <table>
-
 <tbody>
-
 <tr>
-
 <td>GIF</td>
-
 <td>Animated SVG</td>
-
 </tr>
-
 <tr>
-
-<td>GIF images are generally bigger in size than SVG images are with animations added to them. This negatively affects the overall page size, load times and performance.</td>
-
-<td>SVG images can be used and reused, as well as gzipped better, making their file sizes generally smaller than those of GIFs, thus improving page load times and performance.</td>
-
+<td>GIF动画图片通常比SVG大，这将会导致对整体页面、加载时间和性能的负面影响。</td>
+<td>SVG可以重复利用，gzip压缩效果更好，也使得其整体体积比GIF更小，因而可以优化页面加载时间和性能。</td>
 </tr>
-
 </tbody>
-
 </table>
 
-## Browser Support
+## 浏览器支持
 
-Probably the only absolute advantage to GIFs over SVGs is browser support. GIFs work pretty much everywhere, while SVG support is less global. Even though we have many [ways to provide fallback for non-supporting browsers](https://css-tricks.com/a-complete-guide-to-svg-fallbacks/)—and current browser support should not be hindering anyone from using SVG, the fallback images, if provided as PNG or JPG, are going to be static, animation-less.
+GIF相比SVG唯一的绝对优势可能就是浏览器支持。GIF在任何地方都能很好展现，而SVG的支持相对来说不够全面。虽然我们有很多[针对不支持SVG浏览器的后备方案](https://css-tricks.com/a-complete-guide-to-svg-fallbacks/)，而且以当下的浏览器来说不应该成为阻碍任何人使用SVG的理由，但是备选图片如果采用PNG或JPG格式，就会变成静态、无动画的。
 
-Of course, you can always provide a GIF as a fallback to SVG, but the previously-mentioned considerations and disadvantages should be kept in mind.
+当然，你也可以将GIF作为SVG的后备方案，但还是不得不考虑上文中提到的所有顾虑和缺点。
 
-**Conclusion**:
+**总结**：
 
 <table>
-
 <tbody>
-
 <tr>
-
 <td>GIF</td>
-
 <td>Animated SVG</td>
-
 </tr>
-
 <tr>
-
-<td>GIF images work pretty much everywhere.</td>
-
-<td>SVG images have less global browser support, but they come with a lot of ways to provide fallback for non-supporting browsers.</td>
-
+<td>GIF在任何地方都可以使用。</td>
+<td>SVG浏览器支持不够完全，但是对于不支持的浏览器也有很多后备方案。</td>
 </tr>
-
 </tbody>
-
 </table>
 
-## Accessibility Concerns (#a11y)
+## 可控性考虑
 
-Move something on a page, or anywhere, for that matter, and you've instantly added a distraction—something that is sure to grab a user’s attention as soon as it starts moving. This is simply how the human brain works. This is also one of the reasons ad banners are so focused on—and built with—a strong focus on animation. This is also why animated ad banners are **extremely annoying**. They are distracting, especially when you're trying to perform a task on a page that requires your entire attention, such as reading an article.
+在页面上或任何地方移动什么东西，就此而言，会立即产生一个分心物-肯定能够在开始移动时立即吸引用户的注意。人类大脑就是这样运行的。这也是广告条如此致力于制作动画效果的原因之一，也是动画广告条 **极度烦人** 的原因。它们会在你需要集中注意执行某项任务（例如阅读一篇文章）时分散你的注意。
 
-Now imagine a page with a set of animated icons (or images) that just won't stop animating no matter what you do. We’re no longer talking about one or two images on a homepage or within an article here; we’re talking about UI elements and controls, and smaller icons that are likely to be present in multiple places on a page, and on multiple pages. Unless your icon is _supposed_ to be inifnitely animation—for example, if it is a spinner animating during a user-inactive waiting phase, then it is likely to introduce a problem, and become more of an annoyance, than a “nice thing”.
+想象一个页面汇集了一堆动画图标（或图片），无论你做什么它们都不停地动来动去。我说的不是首页或文章中的一两个动画图片，而是UI中的元素和控制键以及会在许多不同地方重复出现的小图标。除非你的图标 _原本_ 就是设计成无限循环动画的，比如说用户交互等待过程中的spinner，否则将会变得非常恼人，而不再是什么“好事”。
 
-As a matter of fact, for some people it can become more of an annoyance, as continuous motion can literally make some people feel ill.
+事实上，对于某些人来说可能不只是恼人，持续的动画可能会让有些人感到难受。
 
-In her article [“Designing Safer Web Animation For Motion Sensitivity”](http://alistapart.com/article/designing-safer-web-animation-for-motion-sensitivity), designer and web animation consultant Val Head discusses the effects of overused animation on the web on people with visually-triggered vestibular disorders (emphasis mine):
+在Val Head的文章[“Designing Safer Web Animation For Motion Sensitivity”](http://alistapart.com/article/designing-safer-web-animation-for-motion-sensitivity)中，这位设计师及网页动画顾问讨论了网页中过度使用动画对视觉诱发前庭障碍人群的影响：
 
-> It’s no secret that a lot of people consider scrolljacking and parallax effects annoying and overused. But what if motion does more than just annoy you? What if it also makes you ill?
-> 
-> That’s a reality that people with visually-triggered vestibular disorders have to deal with. As animated interfaces increasingly become the norm, more people have begun to notice that **large-scale motion on screen can cause them dizziness, nausea, headaches, or worse. For some, the symptoms can last long after the animation is over.** Yikes.
+> 人们认为scrolljacking和视差效果烦人和被过度使用已经不是什么秘密。但你有没有想过这些动画不只是惹恼你还可能会让你生病？
+> 对于视觉诱发前庭障碍患者来说这已经是事实。因为动画交互变得越来越常见，越来越多的人注意到 **屏幕上大规模的动画可能导致他们头昏，恶心，头疼甚至更糟。对有些人来说这些症状甚至会在动画结束之后持续很久。** Yikes.
 
-Now imagine if the animation does _not_ end... Double Yikes.
+现在想象一下如果这些动画 _永不_ 停止…… Yikes+1。
 
-Val’s article explains the problem in more detail, as she gathers feedback from two people who actually have these problems and share their experience with animation in different examples.
+Val的文章更详细地解释了这一问题，因为她收集了两个真实病人在看到不同动画时体验的反馈。
 
-One of the solutions that can help avoid these problems is to [provide the user with the ability to control the animation](http://alistapart.com/article/designing-safer-web-animation-for-motion-sensitivity#section10) so that they can stop it when it gets disturbing.
+避免这些问题的解决方案之一是[提供给用户控制这些动画的方法](http://alistapart.com/article/designing-safer-web-animation-for-motion-sensitivity#section10)，这样当他们觉得被干扰时就可以停止这些动画。
 
-With SVG, you can do that. You can fully control the animation and play it once or twice on page load—if you really need to have it play as soon as the user “enters” your page, and then fire it on hover for subsequent tweens, using nothing but a few lines of CSS or JavaScript. **You do not need hundreds or thousands of lines of CSS or JavaScript to create an icon animation**, unless your icon is a really complex scene with a lot of components that are animated inside of it. But I think that in that case, it does not count as an “icon” anymore, but more of a regular image.
+对于SVG来说，你可以完全控制这些动画。如果你真的需要用户进入页面后马上播放，你可以在页面加载后播放一次或两次。然后你可以仅用几行CSS或JavaScript就可以让用户通过hover动作来再次触发它们。**你不需要几百上千行CSS或JavaScript 行代码让图标产生动画**，除非你的图标是一个非常复杂的场景，里面包含很多动画成分。如果真是这样，我觉得已经不能算是“图标”而是常规的图片。
 
-You can go even as far as control playback, speed for each consequent tween, and much more, assuming, of course, you are using JavaScript to gain this level of control.
+你甚至可以控制回放、每个Tween动画的速度，当然，如果你用JavaScript控制的话你可以做到更多。
 
-Or you can add a toggle to give the user the ability to stop an infinitely playing animation. You can’t do that with GIFs... unless you opt for replacing the GIF with a static image upon a certain toggle action.
+或者你可以添加切换按钮让用户可以随时停止循环播放的动画。但是你没办法对GIF这样做……除非你的切换动作是用静态图片替换原来的GIF。
 
-Some might even argue that you could display a static version of the image—as a PNG for example, and then provide the GIF version on hover. But this comes with a few problems of its own:
+可能有人认为可以通过展示动画图片的静态画面，例如PNG，然后在用户的hover动作时替换成GIF。但是这样做会带来一些问题：
 
-*   If the images are inline, you’ll need to replace these images using JavaScript. That action does not require any JavaScript if you are using SVG.
-*   If the images are foreground images (embedded in the HTML using ), and you need to replace these images, you will end up with double the amount of HTTP requests for every image. And if they are background images inlined in the style sheet (which is not recommended), the images (especially the GIFs) will add to the size of the style sheet and therefore to the overall render-blocking time of the page.
-*   If/when you switch image sources on hover, there is a noticable flash between the first and the second image on slower connections. My connection is slow; sometimes 3G-slow, and I have yet to remember a time when an image was replaced with another one on hover, viewport resize, or whatever, and not have seen that flash. This situation gets even worse when the second image (GIF loaded on hover) is fairly big in size—there will be a flash, followed by a slow, janky animation of the GIF while it loads completely. That’s never attractive.
+* 如果图片是内嵌的，你需要通过JavaScript来替换这些图片。而这一动作在SVG中不需要用到任何JavaScript。
+* 如果图片是前景图片（嵌入HTML中），而你需要替换它们，那么每张图片需要双倍的HTTP请求。如果图片作为样式表中内嵌的背景图片（不推荐这样做），图片（尤其是GIF）大小将会累加到样式文件中，从而阻塞整个页面的渲染时间。
+* 如果你在用户hover时替换图片地址，网速较慢时将会在前后两张图片之间产生一个明显的闪烁。我的网络连接比较慢，有时候用3G网络，在hover或是viewport改变之类的随便其它什么情况下看到两张图片的切换，还没有记得哪次没有出现闪烁。这种情况在第二张图片（hover时加载GIF图片）较大的时候，闪烁之后会紧跟着一段加载缓慢而劣质的动画。这样真的毫无吸引力可言。
 
-So, yes, you can switch image sources to control if or when the GIF animation plays, but you’re losing the finer control over the GIF and affecting the user’s experience with the UI.
+所以说，你当然可以通过切换图片来控制动画的播放，但是你会因为无法精确控制GIF而影响用户对UI的使用体验。
 
-You are also able to control how many times the animation plays in the GIF—which is pretty cool, but that means that the animation will play only **_n_** number of times. And then to re-fire the animation upon a user interaction, you will need to resort to the above technique with multiple images.
+你也可以控制GIF动画的播放次数（很酷的办法），但是这意味着动画只能播放 **_n_** 次。如果你需要根据用户的行为来重新播放，你还是需要将上面总结的技术应用到多张图片上去实现。
 
-Multiple images to maintain, multiple HTTP requests, and an overall hacky, non-optimal solution to what could have been easily achieved with one SVG image.
+（如果用GIF你需要）维护多张图片，多次HTTP请求，采用一些非最优化的hacky方案来解决这些本来在SVG中非常容易解决的问题：
 
-*   Embed the **one** SVG image on the page.
-*   Create the animation any way you want/need. (Or create the animation before you embed the image.)
-*   Play, pause, control the animation; and give the user the ability to control it as well.
+* 在页面中内嵌 **一个** SVG 图片。
+* 在任何你需要的地方创建动画（或者在嵌入图片之前创建动画）
+* 对动画的播放，暂停等控制；让用户也可以控制。
 
-No extra HTTP requests for every image, no complicated animation timeline maintenance in graphics editors, and no accessibility concerns or woes that cannot be avoided with a few lines of code.
+不需要额外的HTTP请求去加载，不需要在图像编辑器中维护复杂的动画时间轴，不需要顾虑可控性问题，用几行代码就能避免各种顾虑。
 
-**Conclusion**:
+**结论**：
 
 <table>
-
 <tbody>
-
 <tr>
-
 <td>GIF</td>
-
 <td>Animated SVG</td>
-
 </tr>
-
 <tr>
-
-<td>GIF images cannot be stopped by the user without requiring extra images and extra HTTP requests. Even then, the control is not full.</td>
-
-<td>SVG animations can be fully customized so that they are enabled, disabled and controlled by the user without requiring any hacky approaches.</td>
-
+<td>GIF不通过额外的HTTP请求加载图片无法实现用户停止播放动画的功能。即便通过这种方式也无法实现对动画的完全控制。</td>
+<td>SVG可以完全定制化，可以通过常规的方法让用户完成启用、停用等控制。</td>
 </tr>
-
 </tbody>
-
 </table>
 
-### Content Accessibility
+### 内容可控性
 
 <table>
-
 <tbody>
-
 <tr>
-
 <td>GIF</td>
-
 <td>Animated SVG</td>
-
 </tr>
-
 <tr>
-
-<td>GIF images are only as accessible as PNG and JPEG images are—using an appropriate `alt` attribue value to describe them.
-
-The content inside the image cannot be discerned or made directly accessible to screen readers beyond what the overall image description does.
-
+<td>GIF只能像PNG和JPEG等格式一样通过`alt`属性进行描述。图像的内容无法被识别或通过超出图像整体描述之外的方法直接操作。
 </td>
-
-<td>SVG images are accessible as well as semantic. The content inside the image that is being animated can also be described and made accessible to screen readers using SVG’s built-in accessibility elements, and enhanced using ARIA roles and attributes as well. (You can read all about making SVGs accessible [here](http://www.sitepoint.com/tips-accessible-svg/).)</td>
-
+<td>SVG内容及语义结构都是直接可控的。SVG中用于产生动画的内容也能够通过SVG内置的可操作元素以及ARIA规则和属性被渲染的屏幕操作。（可以从[这里](http://www.sitepoint.com/tips-accessible-svg/)了解更多关于SVG可控性的知识）。</td>
 </tr>
-
 </tbody>
-
 </table>
 
-## Interactivity
+## 交互性
 
-There’s not much to add here but the fact that you can interact with individual elements inside an SVG, during, before or after an animation, but that is not possible with a GIF. So, if you use a GIF, you will lose the ability to do anything beyond triggering or stopping the animation, and even those are not really done inside the SVG, as we’ve seen, but are achieved by swapping the GIF out with a static replacement. Even changing the colors of elements inside the GIF would require additional images to do so. That is yet another advantage to using SVG over GIFs.
+SVG内部的元素在动画期间、之前和之后都是可以交互的，除此之外在没有别的什么可说的，然而这些在GIF中都是不可能的。因此，如果你用GIF，你将失去任何超出触发和停止动画之外的控制，即使这些也不是真正在GIF（此处可能是作者笔误为SVG）内部实现的，就像我们刚刚看到的，是通过将GIF替换成静态图片实现的。即使是改变GIF内部元素的颜色也需要借助额外的图片来完成。这也是SVG相比于GIF的另一优势。
 
-**Conclusion**:
+**总结**：
 
 <table>
-
 <tbody>
-
 <tr>
-
 <td>GIF</td>
-
 <td>Animated SVG</td>
-
 </tr>
-
 <tr>
+<td>GIF中定义的动画无法进行交互。你无法与GIF内的个别元素进行交互，也不能针对个别元素创建链接。</td>
 
-<td>Animations defined in GIF images cannot be interactive. You cannot interact with individual elements inside a GIF element, nor create links out of individual elements either.</td>
-
-<td>SVG content is fully interactive. You can create hover and click interactions (and more) to which individual elements inside the SVG image can respond.</td>
-
+<td>SVG的内容是完全可交互的。你可以让内部个别元素响应用户的hover和点击等相关动作。</td>
 </tr>
-
 </tbody>
-
 </table>
 
-## Responsive & Adaptive Animations
+## 响应式和自适应动画
 
-The ability to animate SVG directly from the code, as well as manipulate its many, many attributes, results in and adds yet another advantage over GIF-based animations: the ability to create responsive, adaptive and performant animations, without adding any extra HTTP requests, using a few lines of code, and with quite smaller file sizes.
+可以直接通过代码控制SVG动画及其多种多样的属性，使得SVG比GIF又多了一个优势：不需要额外的HTTP请求，只需要几行代码和很小的文件就能创建响应式、自适应以及高性能的动画。
 
-Sarah Drasner wrote [an article on Smashing Magazine](http://www.smashingmagazine.com/2015/03/different-ways-to-use-svg-sprites-in-animation/) showing different ways to animate SVG sprites. One of these ways is having multiple "scenes" inside an SVG, animating them with CSS, and then changing the SVG "view"—by changing the value of [the `viewBox` attribute](https://sarasoueidan.com/blog/svg-coordinate-systems)—to show one scene at a time, depending on the current viewport size and available screen estate.
+Sarah Drasner曾在[Smashing Magazine上写过一篇文章](http://www.smashingmagazine.com/2015/03/different-ways-to-use-svg-sprites-in-animation/)，展示了由SVG精灵产生动画的不同方法。其中一种是在SVG内部创建多个“场景”，通过CSS来产生动画，然后通过改变[`viewBox`属性]((https://sarasoueidan.com/blog/svg-coordinate-systems)的值来改变SVG的“视图”，根据当前的窗口大小和可用屏幕区域每次呈现一个场景。
 
-If you wanted to create the same animation using GIF images, you would lose the animation control capabilities as well as require multiple images which are probably going to be bigger (in file size) than the one SVG image.
+如果你希望创建相同的GIF动画，你将失去对动画的控制，同时需要多张图片来实现，多张图片的大小可比一张SVG图片要大得多。
 
-But if you don't want to go with animating SVG code, you could always create an SVG sprite and animate it the way you would animate any other image format—using `steps()` and a few lines of CSS. Sarah also talks about this technique in her article. Animating SVG images does not need to be complicated, and is generally performant.
+如果你不想跟SVG动画代码打交道，你可以创建SVG精灵并像其他格式的图片一样去产生动画，用`steps()`方法和几行CSS就可以实现。Sarah也在她的文章中讨论了这一技术。SVG动画并不需要很复杂的方法就能做到高性能。
 
-**Conclusion**:
+**结论**：
 
 <table>
-
 <tbody>
-
 <tr>
-
 <td>GIF</td>
-
 <td>Animated SVG</td>
-
 </tr>
-
 <tr>
+<td>由于GIF的内容无法通过代码控制，因而要想让动画自动响应窗口或上下文的变化，需要对多张图片分别进行整理操作。</td>
 
-<td>Given that content inside a GIF cannot be controlled with code, it is not possible to make the animations adapt or respond to viewport or context changes without resorting to seperate images.</td>
-
-<td>Given that SVG content is directly animatable using code, the content as well as its animations can be modified so that they respond and/or adapt to different viewport sizes and contexts, without having to resort to any additional assets.</td>
-
+<td>由于SVG直接通过代码产生动画，其内容和动画可以根据视窗大小的和上下文的变化自动响应或适应，不需要对其它资源进行操作。</td>
 </tr>
-
 </tbody>
-
 </table>
 
-## Final Words
+## 结束语
 
-GIFs have pretty good browser support, yes, but the advantages of SVGs outweigh theirs in almost every aspect. There might be exceptions, and in those cases do, by all means, use GIFs or any other image format that does a better job than SVG would. You might even use Video or HTML5 Canvas or whatever.
+GIF拥有非常好的浏览器支持，但是SVG在其它各个方面都远胜GIF。当然有可能存在例外的情况，你还是可以用GIF或其它任何图片格式来弥补SVG的不足，你甚至可以用视频或HTML5 Canvas或随便别的什么东西。
 
-SVG can bring a lot of performance benefits to the table when compared to other image formats, especially GIFs.
+SVG相比其它图片格式可以带来性能上的优势，相比GIF尤其如此。
 
-Thus, given all of the above, I recommend that anywhere SVG could be used for animation, GIFs should be avoided. You’re free to ignore my recommendation, of course, but you’d be giving up on the many benefits that SVG animations offer.
+因此，基于以上所有内容，我推荐在任何可以使用SVG动画的地方都要尽量避免使用GIF。你当然也可以忽略我的建议，但同时你也放弃了SVG提供的诸多优势。
 
-Unless GIFs show a lot of advantages over SVGs that go beyond browser support for IE8 and below, then I believe SVGs should be the way to go.
+除非GIF在IE 8一下版本浏览器支持方面体现出比SVG更多的优势，否则我认为SVG应该是正确的选择。
 
-A few resources to help you get started with SVG animations:
+下面的链接可以帮助你开始使用SVG动画：
 
 *   [The State of SVG Animation](http://blogs.adobe.com/dreamweaver/2015/06/the-state-of-svg-animation.html)
 *   [A Few Different Ways to Use SVG Sprites in Animation](http://www.smashingmagazine.com/2015/03/different-ways-to-use-svg-sprites-in-animation/)
@@ -557,10 +422,10 @@ A few resources to help you get started with SVG animations:
 *   [Styling and Animating SVGs with CSS](http://www.smashingmagazine.com/2014/11/styling-and-animating-svgs-with-css/)
 *   [Animated Line Drawing in SVG](https://jakearchibald.com/2013/animated-line-drawing-svg/)
 
-* * *
+---
 
-I hope you found this article useful.
+希望这篇文章对你有所帮助。
 
-Thank you for reading.
+感谢您的阅读。
 
-Many thanks to Jake Archibald for reviewing and giving feedback to the article, and to Chris Lilley for his feedback re transparency in GIF images. It wouldn’t have been so comprehensive (read: ridiculously long) without their feedback. ^^
+非常感谢Jake Archibald对本篇文章的审阅和反馈，感谢Chris Lilley对GIF图片的透明度部分的反馈。没有他们的反馈帮助，这篇文章就没办法如此简要而又全面^^

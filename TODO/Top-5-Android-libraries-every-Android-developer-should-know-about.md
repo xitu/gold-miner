@@ -1,44 +1,44 @@
 > * 原文链接 : [Top 5 Android libraries every Android developer should know about - v. 2015](https://infinum.co/the-capsized-eight/articles/top-five-android-libraries-every-android-developer-should-know-about-v2015)
 * 原文作者 : [Infinum](https://infinum.co/the-capsized-eight/author/ivan-kust)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者: 
-* 状态 :  待定
+* 译者 : [Kassadin](https://github.com/kassadin)
+* 校对者: [xiuweikang](https://github.com/xiuweikang) [lihb](https://github.com/lihb)
+* 状态 : 
 
-In June 2014, we published an article about [top 5 Android libraries](https://infinum.co/the-capsized-eight/articles/top-5-android-libraries-every-android-developer-should-know-about) we were using back then and believed every Android developer should know about. Since then, there have been a lot of changes on the Android scene, so we’re giving you the updated list of our five favorites.
+在2014年6月，我们发表了一篇关于[5 个顶级 Android 开源库](https://infinum.co/the-capsized-eight/articles/top-5-android-libraries-every-android-developer-should-know-about)的文章，我们一直在用，并且相信每个 Android 开发者都应该了解这些开源库。从那之后，Android 方面已经发生了很多变化，所以我们写了这篇文章，我们最喜欢的5个开源库的更新版。
 
-So here's the updated list:
+下面是更新列表:
 
 ![Top 5 Android libraries](https://s3.amazonaws.com/infinum.web.production/repository_items/files/000/000/308/original/top_5_android_libraries.png?1402486321)
 
 ## 1\. [Retrofit](https://github.com/square/retrofit/tree/version-one)
 
-Retrofit is still our favorite when it comes to implementing REST APIs.
+当涉及到实现 REST APIs 时，Retrofit 仍是我们的最爱。
 
-From their site: “Retrofit turns your REST API into Java interface.” Yes, there are other solutions, but Retrofit has proven to be the most elegant and simple solution for organizing API calls in a project. The request method and relative URL are added with an annotation, which makes code clean and simple.
+他们的网站上写着: “Retrofit 将 REST API 转换为 Java 接口。”是的，还有其他解决方案，但是 Retrofit 已经被证明是在一个项目中管理 API 调用最优雅、最方便的解决方案。使用注解添加请求方法和相对地址使得代码干净简单。
 
-With annotations, you can easily add a request body, manipulate the URL or headers and add query parameters.
+通过注解，你可以轻松地添加请求体，操作 URL 或请求头并添加查询参数。
 
-Adding a return type to a method will make it synchronous, while adding a Callback will allow it to finish asynchronously with success or failure.
+为方法添加返回类型会使该方法同步执行，然而添加Callback（回调）会使之异步执行，完成后回调 success 或 failure 方法。
 
 ```java
 public interface RetrofitInterface {
 
-    // asynchronously with a callback
+    // 异步带回调
     @GET("/api/user")
     User getUser(@Query("user_id") int userId, Callback<User> callback);
 
-    // synchronously
+    // 同步
     @POST("/api/user/register")
     User registerUser(@Body User user);
 }
 
 
-// example
+// 例子
 RetrofitInterface retrofitInterface = new RestAdapter.Builder()
             .setEndpoint(API.API_URL).build().create(RetrofitInterface.class);
 
-// fetch user with id 2048
+// 获取 id 为 2048 的用户
 retrofitInterface.getUser(2048, new Callback<User>() {
     @Override
     public void success(User user, Response response) {
@@ -52,19 +52,15 @@ retrofitInterface.getUser(2048, new Callback<User>() {
 });
 ```
 
+Retrofit 默认使用 [Gson](https://code.google.com/p/google-gson/)，所以不需要手动解析 JSON。当然其他的转换器也是支持的。
 
-
-
-
-Retrofit uses [Gson](https://code.google.com/p/google-gson/) by default, so there is no need for custom parsing. Other converters are supported as well.
-
-Retrofit 2.0 is being actively developed at the moment. It is still in beta, but you can check it out [here](http://square.github.io/retrofit/). A lot of things from Retrofit 1.9 have been stripped down and some major changes include a new Call interface which replaces Callback.
+现在 Retrofit 2.0 正在活跃地开发着，仍然是 beta，但你可以从[这里](http://square.github.io/retrofit/)获取到。从 Retrofit 1.9 开始，很多的东西都被砍了，也有一些重大的变化比如使用新的调用接口取代回调。
 
 ## 2\. [DBFlow](https://github.com/Raizlabs/DBFlow)
 
-If you are going to store any more complex data in your project, you should use DBFlow. As stated on their GitHub, it's “a blazing fast, powerful, and very simple ORM Android database library that writes database code for you.”
+如果你正准备在你的项目中存储任意复杂的数据，你应该使用 DBFlow。正如他们的 GitHub 上所说，这是“一个速度极快，功能强大，而且非常简单的 Android 数据库 ORM 库，为你编写数据库代码”。
 
-Just a few short examples:
+一些简单的栗子:
 
 ```java
 // Query a List
@@ -87,13 +83,13 @@ new Select().method(SomeTable$Table.SALARY, "MAX").from(SomeTable.class).queryLi
 
 ```
 
-DBFlow is a nice ORM that will remove a lot of boilerplate code used for working with databases. While there are other ORM alternatives for Android, DBFlow has proven to be the best solution for us.
+DBFlow 是一个不错的 ORM，这将消除大量用于处理数据库的样板代码。虽然 Android 也有其他的 ORM 方案，但对我们来说 DBFlow 已被证明是最好的解决方案。
 
 ## 3\. [Glide](https://github.com/bumptech/glide)
 
-Glide is the library to use for loading images. Current alternatives are [Universal Image Loader](https://github.com/nostra13/Android-Universal-Image-Loader) and [Picasso](https://github.com/square/picasso); but, in my opinion, Glide is the best choice at the moment.
+Glide 是一个用于加载图片的库。当前备选方案有 [Universal Image Loader](https://github.com/nostra13/Android-Universal-Image-Loader) 和 [Picasso](https://github.com/square/picasso)；但是，以我来看，Glide 是当前的最佳选择。
 
-Here's a simple example how you can use Glide to load an image from a URL into ImageView:
+下面是一个简单的例子，关于如何使用 Glide 从 URL 加载图片到 ImageView。
 
 ```java
 ImageView imageView = (ImageView) findViewById(R.id.my_image_view);
@@ -105,7 +101,7 @@ Glide.with(this).load("http://goo.gl/gEgYUd").into(imageView);
 
 ## 4\. [Butterknife](http://jakewharton.github.io/butterknife/)
 
-A library for binding Android views to fields and methods (for instance, binding a view OnClick to a method). Basic functionality hasn’t changed from the early versions, but the number of options has grown. Example:
+一个用于将 Android 视图绑定到属性和方法的库（例如，绑定一个 view 的 OnClick 事件到一个方法）。较之前版本而言，基本功能没有变化，但可选项增加了。栗子：
 
 ```java
 class ExampleActivity extends Activity {
@@ -126,11 +122,13 @@ class ExampleActivity extends Activity {
 
 ## 5\. [Dagger 2](http://google.github.io/dagger/)
 
-Since we moved to MVP architecture, we’ve started using dependency injection extensively. Dagger 2 is the successor of the famous Dagger dependency injection library and we highly recommend it.
+自从我们迁移到 MVP 架构，我们就开始了广泛使用依赖注入。Dagger 2 是著名的依赖注入库 Dagger 的继承者，我们强烈推荐它。
 
-One of the major improvements is using zero reflection in generated injection code, which makes debugging a lot easier.
+一个主要的改进就是生成的注入代码不再依赖反射，这使得调试容易了许多。
 
-Dagger creates instances of your classes and satisfies their dependencies. It relies on javax.inject.Inject annotation to identify which constructors or fields should be treated as dependencies. From the famous CoffeeMaker example:
+Dagger 为您创建类的实例，并满足他们的依赖。这依赖于 javax.inject.Inject 注解，以确定哪些构造函数或字段应被视为依赖。以著名的咖啡机(CoffeeMaker)为例:
+
+> 译者注：Dagger 和 Dagger 2 的官方文档里都是使用这个例子，所以著名…
 
 ```java
 class Thermosiphon implements Pump {
@@ -145,7 +143,7 @@ class Thermosiphon implements Pump {
 }
 ```
 
-An example with direct injection into fields:
+直接注入到字段的栗子：
 
 ```java
 class CoffeeMaker {
@@ -157,7 +155,7 @@ class CoffeeMaker {
 
 ```
 
-Dependencies are provided via modules and @Proivides annotation from Dagger:
+通过 modules 和 @Proivides 注解提供依赖(Dependencies)：
 
 ```java
 @Module
@@ -173,15 +171,12 @@ class DripCoffeeModule {
 
 ```
 
-If you want more information on dependency injection itself, check out the Dagger 2 page or this great [talk about Dagger 2 by Gregory Kick](https://www.youtube.com/watch?v=oK_XtfXPkqw).
+关于依赖注入本身，如果想获取更多信息，请查看 Dagger 2 主页或 [talk about Dagger 2 by Gregory Kick](https://www.youtube.com/watch?v=oK_XtfXPkqw)。
 
-### ADDITIONAL LINKS
+### 附加链接
 
-[Android Weekly](http://androidweekly.net/) is still one of the best sources for learning about new Android libraries. It's a weekly newsletter about Android development.
+[Android 周报](http://androidweekly.net/) 仍然是学习 Android 库最好的资源之一。这是关于Android开发的每周时事资讯。
 
-Also, here's a list of big shots in the Android world who regularly post about Android development:
+此外，下面是 Android 行业经常发关于 Android 开发文章的大咖们：
 
 [Jake Wharton](https://twitter.com/JakeWharton) [Chris Banes](https://twitter.com/chrisbanes) [Cyril Mottier](https://twitter.com/cyrilmottier) [Mark Murphy](https://twitter.com/commonsguy) [Mark Allison](https://twitter.com/MarkIAllison) [Reto Meier](https://twitter.com/retomeier)
-
-
-
