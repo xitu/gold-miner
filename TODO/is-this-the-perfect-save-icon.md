@@ -1,3 +1,9 @@
+>* 原文链接 : [Is this the perfect save icon?](https://medium.com/@etchuk/is-this-the-perfect-save-icon-9651129bda85#.4jwcx3q5m)
+* 原文作者 : [Etch](https://medium.com/@etchuk)
+* 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
+* 译者 : 
+* 校对者: 
+* 状态： 认领中
 
 ![](https://cdn-images-1.medium.com/max/1200/1*koe64usSwmwA485C8rPMzQ.jpeg)
 
