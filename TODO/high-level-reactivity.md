@@ -21,7 +21,6 @@
 
 （如果你已经对 GraphQL 很熟悉了，你可以[跳过这个部分](#reactive-graphql)）
 
-GraphQL is a tree-shaped query language for querying a schema of node types. So, for example, if you have users, todo lists, and tasks, you might query them like this:
 GraphQL 是一个用于查询节点类型图表的树形查询语言。举例来说，如果你有一些用户，一些待办事项列表，和一些任务，你就可以像下面这样查询：
 
     me {
@@ -238,22 +237,21 @@ Based on the above primitives, here is a stateless strategy for GraphQL reactivi
 
 ## 应用性能监控和优化
 
-One thing we discovered about the stateful livequery approach to reactivity and subscriptions in the current Meteor system was that it can make things harder to debug and analyze. When you are debugging your app or trying to figure out a performance issue, you need to reproduce a situation on your server which causes a certain problem. When there is a lot of state there, lots of which depends on what the database happens to be doing at the time, which queries you have running, and the specific combination of clients looking at the data, it's difficult to isolate what is causing your problem.
+我们在 Metor 的系统中使用有状态的实时查询来实现响应性和订阅特性时发现，这会使得程序变得难以调试和分析。当你在调试你的程序或是试图找出性能问题时，你需要在你的服务器上重现这个问题出现的情形。如果你的服务器上有大量的状态，并且这些状态依赖于数据库当时的情况，包括你在执行哪些查询，以及哪些特定的客户端集合正在查看这些数据，这会使得你非常难以找出造成错误的原因。
 
+这个新的系统就是设计来避免这个问题的，并且该系统的实现是从底层开始支持用于开发和生产的性能分析。我们为那些希望做性能分析的开发者设计了两条路径：
 
-The new system is designed to avoid this issue, and the implementation will be built from the ground up to support performance analysis both for development and production use. We envision two main paths that a developer would want to analyze:
+1.  **数据加载** 页面上的一系列 UI 组件应该如何被翻译成 GraphQL 查询，以及这些查询在一系列后端数据源上如何运作。这个问题对于任何基于 GraphQL 的系统来说都很常见，但是这个问题很难被单一工具解决，因为这天生将客户端和服务器绑在了一起。
+2.  **Mutations.** 在一个响应式系统中，一个 mutation 会造成一些客户端需要重新获取数据。所以跟踪 mutation 的行为是非常重要的：哪些行为从数据库加载了数据，哪些依赖过期了，以及在其他客户端上发生了哪些重取。这可以帮助你在保持你的用户拥有良好用户体验的前提下，优化你的 UI 结构、数据加载样式、响应性、以及 mutation 来减少你的服务器负担。
 
-1.  **Data loading.** How a specific set of UI components on the page translates into a GraphQL query, and how that query performs when run against a set of backend data sources. This question is generic to any GraphQL-based system, but can be difficult to solve with one tool because it inherently spans the client-server divide.
-2.  **Mutations.** In a reactive system, a mutation will cause that client to refetch some data, and possibly some other clients. It is important to track which mutations are happening, what performance load those incur on the database, which dependencies that invalidates, and which refetches that causes in the other clients. This should give you the tools to optimize your UI structure, data loading patterns, reactivity, and mutations to reduce load on your server while maintaining a great experience for your app's users.
+在你从上述两条路径分析了你的应用之后，你应该可以清楚地知道你应该通过小心地进行手动失效以及禁用响应性来优化你的程序，这会使得你能够在修改尽可能少的应用代码的前提下，极大地优化性能。
 
-After you analyze the two paths above, there should be a clear path to optimization through careful manual invalidations and disabling reactivity that will let you change a minimum of app code to “twist the knobs” on performance.
+## 执行计划
 
-## Implementation plan
-
-Here's a diagram of all of the pieces we think will need to be built to have a complete system:
+这张图表描述了我们认为一个完整系统需要构建的所有东西：
 
 ![](http://ww2.sinaimg.cn/large/9b5c8bd8jw1f1amo4kr54j21kw0ul7gm.jpg)
 
-Individual designs for each of the components incoming – for example, how does the invalidation server work? The goal of this document is mostly to outline how they will all work together. We want all of the components of the system to have clean, well-documented APIs so that you can write your own implementation of any part if you need to.
+每一个组件的独立设计将会在之后的文章中讲到，举例来说，失效服务器是如何工作的？这篇文档的主要目的是概述这些组件如何一起工作。我们希望系统中的所有组件都是清晰的，并且拥有完善文档的 API，这样你就能在需要的时候为任意部分编写你自己的实现。
 
-It's a lot of stuff, but a lot of it already exists thanks to the Relay project, and some of the things can be contributed by the community once the structure is clearer, for example some of the database drivers.
+这将会是一个很大的工作量，但是多亏 Relay 项目，大多数工作都已经完成了，并且有些任务可以在整个竞购更清晰之后由社区贡献，比如说数据库驱动。
