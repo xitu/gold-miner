@@ -17,11 +17,11 @@
 
 从用户的角度来看，在第一次运行程序的时候，用户会被询问是否授予所需权限：
 
-[![](http://ww2.sinaimg.cn/large/9b5c8bd8jw1f0ks01vnq4j208c069jrd.jpg)](https://blog.stylingandroid.com/?attachment_id=3484)
+![](http://ww2.sinaimg.cn/large/675f4a91jw1f1dpk1jhhlj21kw16ogof.jpg)
 
 如果用户授予了所需权限，一切都很好，我们可以继续下去。但是，如果他们拒绝授予权限，我们可以反复询问用户所需的权限：
 
-[![](http://ww3.sinaimg.cn/large/9b5c8bd8jw1f0ks09cnnuj208c069dft.jpg)](https://blog.stylingandroid.com/?attachment_id=3485)
+![](http://ww3.sinaimg.cn/large/675f4a91jw1f1dpivkftsj21kw16odiq.jpg)
 
 但是注意，如果用户已经在之前拒绝了这个所需权限，我们应该提供一个“不再询问”的选项给用户。如果用户选择了这个选项，任何附加的功能所需的权限请求，应该通过我们编程自动拒绝而不是提示用户。显然地，这会对我们开发者造成问题，所以我们需要考虑到这一点。
 
