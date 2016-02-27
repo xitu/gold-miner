@@ -124,57 +124,59 @@ In order to know when a GraphQL query needs to be re-run, we need to know what d
 
 如果不能通过分析请求来确认依赖，自动依赖记录机制就不能工作。在这样的情况下，开发者将需要使用任何他们喜欢的字符串来手动记录一个依赖。
 
-For example, if you have a complex query to count the number of notifications a user has, you might want a custom invalidation key for that number:
-举例来说，
+举例来说，假设你有一个用来计算用户通知数量的复杂查询，你也许需要为这个数字设置一个自定义的失效键：
 
-    // somewhere, a function that consistently generates a key
+    // 在程序的某个地方，一个用于生成键的函数
     function notificationDepKeyForUser(userId) {
       return 'notificationCount:' + userId;
     }
 
-    // inside the GraphQL resolver
+    // 在 GraphQL 解析器内部
     numNotifications = getNotificationCountForUser(userId);
     context.recordDependency(notificationDepKeyForUser(userId));
 
-This will let you manually specify situations in which the number of notifications should be refreshed. Advanced users with particularly strict performance requirements, like a site-wide visitor count or a realtime high-score table, might also choose to use manually constructed dependencies for more control over their data flow.
+这会使得你可以手动指定通知数量被刷新的时间。有些高级用户可能会对性能有非常严格的要求，像需要计算全站的访客数量或是维护一个实时的高分表，这时他们也会选择使用手动构建依赖以更好地控制他们的数据流。
 
-## Simple reactivity model
+## 简单的响应式模型
 
 Based on the above primitives, here is a stateless strategy for GraphQL reactivity:
+基于上面的描述，我要介绍一个实现响应式 GraphQL 的无状态策略：
 
-1.  The client fetches the query from the GraphQL server, which includes a set of deps in the response.
-2.  The client periodically polls the invalidation server with the set of deps, and the server returns the list of deps which have a newer version available. Note that this can easily be converted to a stateful approach where the client subscribes to a list of depenencies over a websocket, for parts of the client which need lower latency - see the [section below](#reducing-latency).
-3.  The client re-fetches the subtrees of the query which depend on the invalidated deps.
+1.  客户端向 GraphQL 服务器发送查询，接收到一个包含一系列依赖的响应。
+2.  客户端周期性查询服务器，获知依赖是否失效，服务器返回包含新版本号的依赖列表。对于一些需要更低延迟的客户端来说，可以通过使用 websocket 来订阅依赖的方式，将上述方法轻松转变成有状态的方式，具体可以查阅[下面一节](#reducing-latency)。
+3.  客户端重新抓取依赖于失效依赖的子查询树。
 
-There are ways to move more state to the server to optimize the latency of the system and reduce roundtrips, but those can be added later.
+有许多方法可以在服务器上添加更多状态来优化系统延迟并减少客户端和服务器的通信次数，这些方法可以在之后再添加。
 
 ![](http://ww2.sinaimg.cn/large/9b5c8bd8jw1f0zsr810o2j21920vctef.jpg)
 
-### Reducing latency
+### 降低延迟
 
-The rest of the document talks in terms of polling a dependency server for updates. This results in two roundtrips per update: one to get the invalidated keys, and another to actually get the new data. Here's how that could be reduced to 1 or 0 round trips:
+文档的剩余部分将会讲述从依赖服务器获取更新的话题。上面的方法导致了每次更新数据时服务器和客户端之间都需要两轮通信：一轮获取失效键，一轮获取新数据本身。下面的方法可以使得通信次数下降为1次甚至0次：
 
-1.  The invalidation server could accept websocket connections, and let the client subscribe to the dependency keys it cares about - this would mean the invalidation is pushed immediately, and then there is one roundtrip to fetch the actual data.
-2.  The application server could subscribe to the invalidations, and do the GraphQL queries _on the server_, and then diff that against the current state of the client and send a patch. This would make the system work almost exactly like Meteor today, and could be a good option for applications with fewer users and a great need for low latency.
+1.  失效服务器可以接受 websocket 连接，并且允许客户端订阅它需要的依赖键， 这意味着失效信息是被即时推送到客户端的，并且获取数据本身只需要一轮通信。
+2.  让应用服务器订阅失效信息，并且_在服务器上_发起 GraphQL 请求，然后将请求结果与当前客户端状态进行比较并且发送一个补丁。这种方法几乎与 Meteor 现在采取的方法一致，这对于那些拥有少量用户并且要求低延迟的应用来说，是一个非常好的选择。
 
-Since both of those approaches don't change anything about the inherent design of the system and are relatively simple to implement, we'll leave them as optimizations for the future.
+因为这些方法并没有修改系统的内部设计，而且非常易于执行，我们会把它们当做优化并且留到将来再处理。
 
-## Invalidating dependencies
+## 使依赖失效
 
-We haven't talked at all about how the invalidation server finds out that a dependency version has incremented, and that clients should reload that data. At the lowest level, your code posts to the invalidation server the list of keys that need to be invalidated whenever you make a write to the data store. This section will also talk about a nice high-level wrapper around that for application developers.
+我们还没有讨论过失效服务器如何知道一个依赖的版本号已经增加了（这就意味着客户端上的数据需要重新加载）。最低级的方法是，你的代码在写入数据的时候，将失效的依赖列表发送给失效服务器。这部分同样也会讨论上述方法的一个高级封装。
 
 ### Mutations
 
-So far, we have only talked about loading data, which is fine if your app is just a view or dashboard onto some data you don't control. However, most apps also have controls for the users to manipulate their persistent data.
+到目前为止，我们只讨论了如何加载数据，如果你的应用程序只是用来查看一些你不能控制的数据，这就足够了。然而，大多数应用依然需要允许他们的用户操作数据。
 
-In GraphQL, the messages sent to the server requesting data writes are called mutations, so that's what we'll call them here as well.
+在 GraphQL 中，发送给服务器的数据修改请求被称为 mutation，所以我们在这篇文档中也会这样称呼它们。
 
-### What is a mutation?
+### mutation 是什么？
 
-You can think of a mutation as a remote procedure call endpoint. At the end of the day, it's a named function on the server that can be called from the client with some arguments.
+你可以把一个 mutation 想象成一个远程程序的调用点。归根结底，这就是服务器上一个函数的名称，客户端可以通过这个名称和一些相应的参数来调用函数。
 
 In this dependency-based system, mutations need to do several things:
+在这个基于依赖的系统上，mutation 需要做这些事：
 
+1.  
 1.  Write data to the backend database or API
 2.  Emit the appropriate invalidations to the invalidation server
 3.  Optionally, do an optimistic update on the client to show something nice while the server roundtrip is happening
