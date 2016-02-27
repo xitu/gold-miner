@@ -173,72 +173,73 @@ Based on the above primitives, here is a stateless strategy for GraphQL reactivi
 
 你可以把一个 mutation 想象成一个远程程序的调用点。归根结底，这就是服务器上一个函数的名称，客户端可以通过这个名称和一些相应的参数来调用函数。
 
-In this dependency-based system, mutations need to do several things:
 在这个基于依赖的系统上，mutation 需要做这些事：
 
-1.  
-1.  Write data to the backend database or API
-2.  Emit the appropriate invalidations to the invalidation server
-3.  Optionally, do an optimistic update on the client to show something nice while the server roundtrip is happening
+1.  将数据写入后端数据库或者调用相关 API。
+2.  给失效服务器发送适当的失效信息。
+3.  可选优化更新客户端，使客户端更好地与服务器进行数据交换。
 
-We hope this system will put less burden on the developer to specify which data might have changed when they are calling a mutation, while leaving the door open for such an optimization when it is necessary.
+我们希望这个系统能使开发者在调用一个 mutation 的时候，可以尽可能少地操心哪些数据可能发生了变化，同时，我们也允许开发者自己处理数据的变化以便于优化。
 
-Having mutations emit invalidations is also a great way to do optimistic UI. You can simply return the dependency keys invalidated by the mutation to the client, and then the client knows it has the real data from the server as soon as it has refetched those dependencies.
+让 mutation 发送失效信息也是做乐观 UI 的一个好方法。你可以简单地从 mutation 返回已经失效的依赖键，然后客户端就可以在需要重新获取那些依赖的时候，直接从服务器取得真实数据。
 
-The hardest question here is (2) - how does a mutation notify the invalidation server, and therefore the appropriate app clients, which data it has changed?
+这里最大的困难是(2)：mutation 如何通知失效服务器，以及通知那些数据被修改的客户端？
 
 ### Automatic dependency invalidation
+### 自动依赖失效
 
-Just like for data reading, in simple cases we should be able to emit invalidations from mutations automatically. For example, if you ran the following SQL update query in your mutation resolver:
+就像读取数据一样，在简单的情况下我们可以从 mutation 自动发送失效信息。举例来说，如果你在 mutation 解析器中执行如下 SQL 更新查询：
 
     todoLists.update('name', 'The new name for my todo list').where('id', 1);
 
-We should invalidate the following dependency key:
+我们需要使得下面的依赖键失效：
 
     'todoLists:1'
 
-You can see that this matches up with the dependency we automatically recorded when reading that row, so the appropriate queries would rerun.
+你可以看到，这对应了我们在读取这个记录时，自动记录的依赖，所以合适的请求将会重新运行。
 
-### Manual dependency invalidation
+### 手动依赖失效
 
-Sometimes, you will want or need to emit invalidations manually. For example, in the above example about notifications, we will want to invalidate the notification count manually when we add a notification:
+
+有时你希望手动发送失效信息。俱来来说，在上面通知的例子中，我们希望在添加通知时手动失效通知总数：
 
     notifications.insert(...);
     context.invalidateDependency(notificationDepKeyForUser(userId));
 
-Hopefully, with time, we can make more and more invalidations automatic, but it's always good to have an “escape hatch” for more complex situations where the developer needs all the control they can get.
+我们希望将来我们可以让程序自动处理越来越多的失效信息，但是为更复杂的情况预留一条后路让程序员进行完全的控制总是好的。
 
 ![](http://ww1.sinaimg.cn/large/9b5c8bd8jw1f0zsrhktvvj21kw0s845z.jpg)
 
-You can see in the diagram how invalidations flow from the mutation to the relevant clients, which then refetch the data as needed.
+你可以通过这个图表来了解失效信息如何从 mutation 传递到相关的客户端中，客户端之后会在需要的时候重新抓取相关数据。
 
-### Writing from external services
+### 向外部服务写入数据
 
-If the writes to your backend are coming from an external source, you won't be able to take advantage of automatic invalidation. This means you will need something else to provide the reactivity if you need that data to update in your UI. The simplest thing to do is to have the service making the external write also post to the invalidation server directly.
+如果你的后端代码需要向外部源写入数据，你将无法使用自动失效。这意味着如果你想要你 UI 中的数据被更新，你需要做一些额外的事情来提供响应性。最简单的方式就是让进行外部数据写入的服务将失效信息直接发送给失效服务器。
 
-Another way to make external updates reactive is to set up a live query implementation that invalidates dependencies by watching the database. For example, Meteor's Livequery could be set up to watch MongoDB and fire the `todoLists:1` invalidation above when the result for `todoLists.find({ id: 1 })` changes.
+另一种能使外部更新具有响应性的方法就是设置一个实时的查询执行系统，并通过监视数据库的方法来使依赖失效。举个例子，Metor 的 Livequery 可以设置成监视 MongoDB，并且在 `tofoLists.find({ id: 1})` 的结果发生变化时，使 `todoLists:1` 失效。
 
-The initial version of the system won't have built-in support for livequeries, but we hope that well-defined APIs for all parts of the system will make these components easy to plug in to the rest of the stack.
+系统的初始版本并不会拥有一个內建的实时查询支持，但是我们希望系统各部分中那些设计巧妙的 API 可以使这些组件很容易被集成进去。
 
-Finally, if it is appropriate for your application, you will be able to handle the situation without firing any dependencies by simply re-polling the right data from the client. For some applications loading the extra data is not a big deal - for example, if you have an internal dashboard used by a total of 5 people. In this case simplicity of implementation might trump performance and efficiency concerns.
+最后，如果你觉得适用于你的应用的话，你甚至可以在不使用任何依赖的情况下，直接通过客户端轮询正确的数据。对于一些应用程序来说，加载数据本身并没有很大的开销。举个例子，如果你有一个5人使用的内部控制面板，在这种情况下实现的简单性要远比性能重要。
 
-## Data drivers
+## 数据驱动
 
-To make this system easy to get started with, we'll need some well-designed drivers for popular data sources. Connecting an arbitrary data source into the system will be trivial if you don't need reactivity - you can just pick any data loading package from NPM or write some simple functions to fetch the data. To add reactivity, you can use manual dependency recording and invalidation.
+为了让这个系统更便于使用，我们需要为流行的数据源提供一些设计良好的驱动。如果你不需要响应性的话，连接到一个随意的数据源是非常简单的，你可以直接使用 NPM 中的任何数据载入包或者是写一些简单的函数来获取数据。如果要添加响应性的话，你可以使用手动的依赖记录和依赖过期。
 
-However, we expect more friendly data drivers to be written by the community, in addition to the official ones maintained by Meteor, which may include one or more of SQL, MongoDB, and REST APIs.
+然而，我们希望除了 Meteor 官方维护的 SQL，MongoDB 和 REST APIs 驱动之外，社区可以编写出更友好的数据驱动。
 
-A first-class developer friendly backend data driver will need to:
+一个顶尖的开发者友好的后端数据驱动需要：
 
-1.  Read objects from the data source and automatically record dependencies for simple queries
-2.  Write objects to the data source and in most cases automatically emit invalidations
-3.  Have basic caching for better performance
+1.  从数据源读取对象并且为简单查询自动记录依赖。
+2.  将对象写入数据源，并且在大多数情况下自动发送失效信息。
+3.  拥有基础的缓存以优化性能。
 
-While the ideal driver would emit exact deps and invalidations automatically for all queries, this is not likely to be practical for an arbitrary datastore. In practice, drivers will likely fall back to broader deps and invalidations, and tooling will help developers identify places where these invalidations can be optimized. The developer can then rework their query or emit manual invalidations as needed.
+虽然说一个理想的驱动将能够自动为所有查询发送准确的依赖和失效信息，但是这对于一个任意的数据储存来说是不现实的。在实际情况下，驱动将会回落到一个更大范围的依赖和失效信息，并且一些工具可以帮助开发者寻找这些过期信息可以被优化的地方。然后开发者就可以根据需要重新构造他们的查询或是手动发送过期信息。
 
-## Application performance monitoring and optimization
+## 应用性能监控和优化
 
 One thing we discovered about the stateful livequery approach to reactivity and subscriptions in the current Meteor system was that it can make things harder to debug and analyze. When you are debugging your app or trying to figure out a performance issue, you need to reproduce a situation on your server which causes a certain problem. When there is a lot of state there, lots of which depends on what the database happens to be doing at the time, which queries you have running, and the specific combination of clients looking at the data, it's difficult to isolate what is causing your problem.
+
 
 The new system is designed to avoid this issue, and the implementation will be built from the ground up to support performance analysis both for development and production use. We envision two main paths that a developer would want to analyze:
 
