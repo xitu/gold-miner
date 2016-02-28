@@ -1,31 +1,50 @@
+# Sketch的过去现在和未来
 * 原文链接 : [The Past, Present and Future of Sketch](https://medium.com/habit-of-introspection/the-past-present-and-future-of-sketch-d5237879b7af#.1qa7ojbp1)
 * 原文作者 : [Geoff Teehan](https://medium.com/@gt)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : [认领地址](https://github.com/xitu/gold-miner/issues/118)
+* 译者 : [lfkdsk](https://github.com/lfkdsk)
 * 校对者: 
 * 状态 : 认领中
 
 
 
-I was at an Adobe event the other day when someone asked me what my thoughts were on [Comet](http://landing.adobe.com/en/na/products/creative-cloud/comet/229818-notifyme.html?sdid=NYTLR42C&mv=search&s_kwcid=AL!3085!3!93823739227!e!!g!!adobe%20comet&ef_id=VWDaFgAABRB1hgVZ:20160111181832:s). It got me thinking about what Comet may mean for [Sketch](https://www.sketchapp.com/).
+<!--I was at an Adobe event the other day when someone asked me what my thoughts were on [Comet](http://landing.adobe.com/en/na/products/creative-cloud/comet/229818-notifyme.html?sdid=NYTLR42C&mv=search&s_kwcid=AL!3085!3!93823739227!e!!g!!adobe%20comet&ef_id=VWDaFgAABRB1hgVZ:20160111181832:s). It got me thinking about what Comet may mean for [Sketch](https://www.sketchapp.com/).-->
 
-Sketch and Photoshop have been the tools of choice for product designers, and most designers I speak to today have moved from Photoshop to Sketch.
-
-Prototyping has become an integral part of product design, and Adobe was doing nothing of real value in that space, until Comet. Adobe also saw a simple and focused design tool like Sketch gradually increase in popularity as a primary tool for product designers, which possibly played a role in Comet coming to fruition.
-
-My immediate thoughts were that if I were Pieter, I’d be scared shitless. The conversation that transpired around me focused on Pieter, Comet, and how Sketch will fare against it. At the time, I was pretty harsh on Pieter actually, saying that he needs to take on funding and grow Sketch if he wants to fend off the very company he’d already disrupted. David and Goliath, or perhaps now, Goliath and David.
-
-I went on to say that while Sketch had made good progress in the 4+ years it has been out; it wasn’t moving nearly fast enough to maintain the trajectory it needs to maintain its position.
-
-I was aware Pieter isn’t in the habit of giving a lot of interviews so I wasn’t certain how he would feel about chatting with me on any topic, much less Comet vs Sketch. However, when I contacted him, Pieter was gracious and open. Here are some highlights of our chat.
+在一次Adobe的活动上有人问我对[Comet](http://landing.adobe.com/en/na/products/creative-cloud/comet/229818-notifyme.html?sdid=NYTLR42C&mv=search&s_kwcid=AL!3085!3!93823739227!e!!g!!adobe%20comet&ef_id=VWDaFgAABRB1hgVZ:20160111181832:s)有什么看法。这让我想起了Comet对[Sketch](https://www.sketchapp.com/)意味着什么。
 
 
+<!--Sketch and Photoshop have been the tools of choice for product designers, and most designers I speak to today have moved from Photoshop to Sketch.-->
 
-**How would you describe Sketch to our parents?  
-**It’s very difficult to explain to my parents exactly what Sketch is. To me, it’s fundamentally a drawing app for digital design. It’s not _just_ a drawing app, nor is it _just_ a photo editor. It uses these tools among many others to let you expand and refine the product you hope to produce—to best represent you artistically and creatively. It also strives to not limit you by the design tools you have available. It’s a great question. Geoff, how would you describe what it does? Because after all these years I still don’t really have a concise or thorough way to describe it.
+Sketch和Photoshop已经为产品设计者的首选工具，而且大多数设计师跟说我现在的工具已经从Photoshop转移到Sketch了。
+
+<!--Prototyping has become an integral part of product design, and Adobe was doing nothing of real value in that space, until Comet. Adobe also saw a simple and focused design tool like Sketch gradually increase in popularity as a primary tool for product designers, which possibly played a role in Comet coming to fruition.
+-->
+原型产品已经成为产品设计的一个重要组成部分，但是直到Comet出现前Adobe在这个领域没有做任何有价值的事情。Adobe也看到了一个简单而又专注的设计工具，像是Sketch作为一个针对可能在即将实现的Comet中占据重要位置的产品设计者的首选工具慢慢的积累用户。
+
+<!--My immediate thoughts were that if I were Pieter, I’d be scared shitless. The conversation that transpired around me focused on Pieter, Comet, and how Sketch will fare against it. At the time, I was pretty harsh on Pieter actually, saying that he needs to take on funding and grow Sketch if he wants to fend off the very company he’d already disrupted. David and Goliath, or perhaps now, Goliath and David.-->
+
+我当时的想法是如果我是Pieter，我一定会吓得屁滚尿流。出现在我周围对话关注于Pieter，Comet还有Sketch将会如何反对它。当时，我对Pieter的确非常严厉，和他说，如果他想避免他的公司破产，他就需要承担资金和发展Sketch。David和Goliath, 也许现在的, Goliath和David.
+
+<!--I went on to say that while Sketch had made good progress in the 4+ years it has been out; it wasn’t moving nearly fast enough to maintain the trajectory it needs to maintain its position.-->
+
+我继续说尽管Sketch在推出的四年多已经有了很好的进展。但是它没有足够快的上升去维持它所在位置需要维持的轨迹。
+
+<!--I was aware Pieter isn’t in the habit of giving a lot of interviews so I wasn’t certain how he would feel about chatting with me on any topic, much less Comet vs Sketch. However, when I contacted him, Pieter was gracious and open. Here are some highlights of our chat.-->
+
+我意识到Pieter没有进行很多面试的习惯，所以我不确定他和我聊天谈论任何话题有什么感觉，更不用说谈论Comet vs Sketch了。然而，当我和他交流的时候，Pieter是亲切而又开朗的。下面是我们聊天的一些亮点。
+
+<!--**How would you describe Sketch to our parents?  **  -->
+<!--It’s very difficult to explain to my parents exactly what Sketch is. To me, it’s fundamentally a drawing app for digital design. It’s not _just_ a drawing app, nor is it _just_ a photo editor. It uses these tools among many others to let you expand and refine the product you hope to produce—to best represent you artistically and creatively. It also strives to not limit you by the design tools you have available. It’s a great question. Geoff, how would you describe what it does? Because after all these years I still don’t really have a concise or thorough way to describe it.-->
+
+**你怎么向我们的父母那代人描述Sketch？**  
+向我的父母解释Sketch是什么是非常困难的。对于我，它是一个基础的针对数字化设计的应用。它不 _仅仅_ 是个绘图的应用，也不 _仅仅_ 是个图片的编辑器。它使用这些以及其他很多工具去让你扩展和细化你希望最能代表你的艺术性和创造性的产品。它也同时力争不让你被你能获得的设计工具所限制。这是个很棒的问题。Geoff，你如何去描述它所做的？因为在这些年之后，我仍然没有一个简明的或彻底的方式来形容它。
+
 
 **Ha! I didn’t think about answering this question myself. Do you think you could describe it as a design application that helps you design applications?  
  **Yes! We set out to build it for websites and icons, then it became popular for design applications when those became more popular. That was basically the idea.
+
+**哈，我自己没有考虑过这个问题的答案。你认为可以把它描述成一个帮助你应用的设计应用？**  
+是的！我们
 
 **When you set out to create it, is that what you intended it to be?  
  **Yes, for websites, apps and icons. That was basically the idea.
@@ -117,14 +136,28 @@ Whenever you have a server-based product it’s more acceptable to charge per mo
 
 
 
-_It was interesting and engaging hearing Pieter’s thoughts and hopes for Sketch and where it resides in the space. He remains pleased with the size, scale and rate of growth at which Sketch is progressing. I’m now personally looking forward to more to come from Pieter and his team. While I don’t think Comet is going to be an overnight success that kills Sketch off, I do think it may take a bite out of Pieter’s lunch. One thing I did come away with, is that Pieter is dedicated and passionate about Sketch and that regardless of what competitors do, he’s not going anywhere for a long time._
+<!--_It was interesting and engaging hearing Pieter’s thoughts and hopes for Sketch and where it resides in the space. He remains pleased with the size, scale and rate of growth at which Sketch is progressing. I’m now personally looking forward to more to come from Pieter and his team. While I don’t think Comet is going to be an overnight success that kills Sketch off, I do think it may take a bite out of Pieter’s lunch. One thing I did come away with, is that Pieter is dedicated and passionate about Sketch and that regardless of what competitors do, he’s not going anywhere for a long time._-->
 
-_I am grateful for Pieter’s time and directness in discussing a company he started because he rightly sensed a need in the space. I understand the pros and cons of growing a company, especially one you founded, and it was very interesting to get Pieter’s take on the different aspects of running a lean, completely remote company, and his projections for the future of Sketch._
 
-_Thanks, Pieter, and best of luck,  
+_听Pieter对于Sketch的想法和希望是有趣和引人入胜的，并且长存于空间中。他对Sketch的大小，规模和增长速度仍然十分满意。我个人期待更多来自Pieter和他的团队的分享。尽管我不认为Comet将会一夜成名击败Sketch，但是我认为它可能会抢占Sketch一定的市场。但是一件事我始终坚信，Pieter敬业而且热爱Sketch，无论竞争者做什么，他都不会耽搁很长时间。_
+
+
+
+<!--_I am grateful for Pieter’s time and directness in discussing a company he started because he rightly sensed a need in the space. I understand the pros and cons of growing a company, especially one you founded, and it was very interesting to get Pieter’s take on the different aspects of running a lean, completely remote company, and his projections for the future of Sketch._
+-->
+_我对于Pieter能抽出时间并且直率的谈论他所创建的公司感到感激，因为他明确的看到了未来的需求。我懂得了创建一个公司的利弊，尤其是你创建的，而且了解Pieter在运营一家精益、完全远程的公司时不同方面的表现还有他对Sketch的未来预测是非常有趣的。_
+
+
+<!--_Thanks, Pieter, and best of luck,  
+~Geoff_-->
+
+_多谢Pieter，祝你有个好运气
 ~Geoff_
 
-Me, on [Twitter](https://twitter.com/gt).
+
+我的[推特](https://twitter.com/gt)
+
+<!--Me, on [Twitter](https://twitter.com/gt).-->
 
 
 
