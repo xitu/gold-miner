@@ -22,6 +22,7 @@
 
 ## 正在进行的
 
+*  [Leveling Up Your JavaScript](https://github.com/xitu/gold-miner/issues/162)
 *  [Android 开发中利用异步来优化运行速度和性能](https://github.com/xitu/gold-miner/issues/161)
 *  [产品文案要说人话](https://github.com/xitu/gold-miner/issues/152)
 *  [「保存」图标用哪个好？](https://github.com/xitu/gold-miner/issues/151)
