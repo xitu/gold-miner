@@ -22,6 +22,7 @@
 
 ## 正在进行的
 
+*  [在 Android 下进行实时模糊渲染](https://github.com/xitu/gold-miner/issues/164)
 *  [Introducing Swift 3.0](https://github.com/xitu/gold-miner/issues/163)
 *  [Leveling Up Your JavaScript](https://github.com/xitu/gold-miner/issues/162)
 *  [Android 开发中利用异步来优化运行速度和性能](https://github.com/xitu/gold-miner/issues/161)
