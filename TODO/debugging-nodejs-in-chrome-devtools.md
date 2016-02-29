@@ -3,7 +3,6 @@
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [sqrthree (根号三)](https://github.com/sqrthree)
 * 校对者: [shenxn](https://github.com/shenxn)、[CoderBOBO](https://github.com/CoderBOBO)
-* 状态 : 翻译完成，待校对
 
 这篇文章介绍了一种在 Chrome 开发者工具里面开发、调试和分析 Node.js 应用程序的新方法。
 
