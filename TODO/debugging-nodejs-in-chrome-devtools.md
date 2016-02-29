@@ -2,7 +2,7 @@
 * 原文作者 : [MATT DESLAURIERS](http://mattdesl.svbtle.com/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [sqrthree (根号三)](https://github.com/sqrthree)
-* 校对者: [shenxn](https://github.com/shenxn)
+* 校对者: [shenxn](https://github.com/shenxn)、[CoderBOBO](https://github.com/CoderBOBO)
 * 状态 : 翻译完成，待校对
 
 这篇文章介绍了一种在 Chrome 开发者工具里面开发、调试和分析 Node.js 应用程序的新方法。
@@ -70,7 +70,7 @@
 
 ![break](http://i.imgur.com/hJ2pLW1.png)
 
-下面是一些对于那些学习 Chrome 开发者工具的人来说可能不是特别明显的功能:
+下面是一些对于那些学习 Chrome 开发者工具的人来说可能不是特别常用的功能:
 
 *   [条件断点](http://blittle.github.io/chrome-dev-tools/sources/conditional-breakpoints.html)
 *   [有未捕获的异常时暂停](http://blittle.github.io/chrome-dev-tools/sources/uncaught-exceptions.html)
@@ -109,7 +109,7 @@
 
 ![profile](http://i.imgur.com/vSu7Lcz.png)
 
-我们可以使用右边的链接来查看和调试代码的热路径。
+我们可以使用右边的链接来查看和调试执行频率较高的代码路径。
 
 ![debug](http://i.imgur.com/O4DZHyv.png)
 
@@ -251,4 +251,4 @@ Chrome 会不断的向他们的开发者工具中推送新功能和实验，例�
 
 然而，由于它重新实现了大量的调试技巧，因此对于开发来说感觉可能比最新版的 Chrome 开发者工具要慢、笨拙和脆弱。它经常会崩溃，往往导致 Node.js 开发人员很无奈。
 
-而 `devtool` 的目的是让那些从 Chrome 开发者工具中转过来的人觉得比较亲切，而且也增进了像 Browser/Electron APIs 这样的功能。
+而 `devtool` 的目的是让那些从 Chrome 开发者工具中转过来的人觉得比较亲切，而且也增加了像 Browser/Electron APIs 这样的功能。
