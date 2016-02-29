@@ -1,43 +1,43 @@
 > * 原文链接: [Revisiting the Float Label pattern with CSS](http://thatemil.com/blog/2016/01/23/floating-label-no-js-pure-css/)
 * 原文作者：[Emil Björklund](http://thatemil.com/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
+* 译者 : [Zhangjd](https://github.com/zhangjd)
 * 校对者:
-* 状态 :  认领中
+* 状态 : 待校对
 
 
-The [float label pattern](http://mds.is/float-label-pattern/) is a slick pattern that designers seem to love. I’m not sure that I'm 100% in love with it, but I couldn't resist cooking up a quick demo implementation. This version uses a few nice form-styling tricks using modern CSS that I've seen recently, particularly the `:placeholder-shown` selector.
+设计师似乎喜欢用 [浮动 label 模式](http://mds.is/float-label-pattern/) 来设计漂亮的效果，虽然我不确定我是否百分百喜欢这种方式，但我忍不住快速实现了一个这样的 demo。这个版本用上了一些新的表单样式技巧，这些技巧是我最近才看见的，特别是 `:placeholder-shown` 选择器。
 
-First things first: this is **not** a "Best practice" implementation in any way, shape or form. It works in recent versions of some browsers — most notably Chrome/Opera and Safari/WebKit. It fails miserably in Firefox. I have barely tested it. Be warned.
+先说重点：不管从形状或者形式上，这都**不是**一种最佳实践。这个 demo 只能在某些浏览器的较新的版本上才能起效 - 特别是 Chrome/Opera 和 Safari/WebKit。非常不幸的是，在 Firefox 上 demo 失效了。要注意了，我可几乎没有测试过它。
 
-I'm relying on quite a few moving parts here:
+我主要是参考了下面这些技巧来实现该效果的：
 
-1.  Flexbox—using [Hugo Giraudel’s pattern](http://codepen.io/HugoGiraudel/pen/b3274eb0bf93bed79afeafd30b7a33f1) for putting the label after the input in the markup, then reversing the order.
-2.  A `transform` to shift the `label` down over the input. When this state is active, the placeholder text get's an `opacity: 0` so the two pieces of text don’t overlap.
-3.  Shifting the `label` up only when the placeholder is _not_ shown, i.e. when the field is filled in, or when it’s focused, inspired by [Jeremy’s ”Pseudon’t” post](https://adactio.com/journal/10000).
+1.  Flexbox — 借助 [Hugo Giraudel 的示例代码](http://codepen.io/HugoGiraudel/pen/b3274eb0bf93bed79afeafd30b7a33f1) ，在 HTML 中，把 label 放在了 input 之后，并通过 CSS 颠倒其显示顺序。
+2.  使用 `transform` 属性，把 label 放在 input 之上。当处于该状态的时候，placeholder 的文字被设置为 `opacity: 0`，也就是透明，因此 label 和 placeholder 的文本不会重叠显示。
+3.  当 placeholder _不_ 显示，比如表单域被填充或者获得焦点的时候，才把 label 上移，这里我是受到了 [Jeremy 关于 ”Pseudon’t” 的文章](https://adactio.com/journal/10000) 启发。
 
-That last part is what separates this implementation from for example [Chris Coyier’s](http://css-tricks.com/float-labels-css/) and [Jonathan Snook’s](http://snook.ca/archives/html_and_css/floated-label-pattern-css) versions, in that they use the `:valid` pseudo-class. I think this demo steps around that particular limitation, but as I said at the start, there are limitations in the form of browser support.
+最后一点是，我的实现不同于 [Chris Coyier](http://css-tricks.com/float-labels-css/) 和 [Jonathan Snook](http://snook.ca/archives/html_and_css/floated-label-pattern-css) 的版本，他们在代码中都使用了 `:valid` 伪类。我想这个 demo 只是围绕特定限制所实现的，但也正如我一开始所说，这会受限于浏览器支持。
 
-This version instead uses the `:placeholder-shown` pseudo-class, but negated to only move the label out of the way when the placeholder text is not showing—which plays nicely with how the pattern is supposed to work.
+这个版本使用了 `:placeholder-shown` 伪类作为代替，但不仅仅是在 placeholder 文本不显示时移动 label 的位置 - 而是生动地展示出这个模式应该是怎么生效的。
 
-Here's the relevant HTML:
+这里是相关 HTML 代码：
 
     <div class="field">
         <input type="text" placeholder="Jane Appleseed">
         <label for="fullname">Name</label>
     </div>
 
-...and the CSS:
+...以及 CSS 代码：
 
     /**
-    * Make the field a flex-container, reverse the order so label is on top.
+    * 把区域设置为 flex 容器，并逆序排列，使得 label 标签显示在上方
     */
     .field {
       display: flex;
       flex-flow: column-reverse;
     }
     /**
-    * Add a transition to the label and input.
+    * 给 label 和 input 设置一个过渡属性
     */
     label, input {
       transition: all 0.2s;
@@ -49,17 +49,16 @@ Here's the relevant HTML:
       border-bottom: 1px solid #ccc;
     }
     /**
-    * Change input border on focus.
+    * 设置 input 获得焦点时的边框样式
     */
     input:focus {
       outline: 0;
       border-bottom: 1px solid #666;
     }
     /**
-    * 1\. Make sure the label is only on one row, at max 2/3rds of the
-    *     field—to make sure it scales properly and doesn't wrap.
-    * 2\. Fix the cursor.
-    * 3\. Translate down and scale the label up to cover the placeholder.
+    * 1\. 标签最多占据一行 2/3 的宽度，超出显示省略号，以确保其放大后内容正常显示不超出一行。
+    * 2\. 修正光标形状，使用户知道这里可以输入.
+    * 3\. 把标签往下平移并放大1.5倍，使其覆盖 placeholder 层.
     */
     label {
       /* [1] */
@@ -74,24 +73,22 @@ Here's the relevant HTML:
       transform: translate(0, 2.125rem) scale(1.5);
     }
     /**
-    * By default, the placeholder should be transparent. Also, it should 
-    * inherit the transition.
+    * 默认情况下，placeholder 应该是透明的，并且其 transition 属性应被设置为 inherit。
     */
     ::-webkit-input-placeholder {
       transition: inherit;
       opacity: 0;
     }
     /**
-    * Show the placeholder when the input is focused.
+    * 在 input 获得焦点时，显示 placeholder 内容。
     */
     input:focus::-webkit-input-placeholder {
       opacity: 1;
     }
     /**
-    * 1\. When the element is focused, remove the label transform.
-    *     Also, do this when the placeholder is _not_ shown, i.e. when 
-    *     there's something in the input at all.
-    * 2\. ...and set the cursor to pointer.
+    * 1\. 当元素获取焦点时，还原 transform 效果，把 label 移回原来的位置。
+    *     并且，当 placeholder 不显示，比如用户已经输入了内容时，也作同样处理。
+    * 2\. ...并把光标设置为指针形状。
     */
     input:not(:placeholder-shown) + label,
     input:focus + label {
@@ -99,6 +96,6 @@ Here's the relevant HTML:
       cursor: pointer; /* [2] */
     }
 
-Update 2016-01-26: I updated the selector for the label so that the transformed label is only used when it's following an input matching :placeholder-shown. That way, non-supporting browsers fall back to the ”normal” label-above-the-input pattern.
+2016-01-26 更新: 我更新了 label 的选择器，以便其对应的 input 标签符合 :placeholder-shown 属性时才被使用。那样的话，不支持的浏览器就回退到 “正常模式” ，也就是标签显示在 input 上方。
 
-Here's the full [JSBin demo](http://jsbin.com/pagiti/9/edit?html,css,output).
+点这里查看 [JSBin 实例](http://jsbin.com/pagiti/9/edit?html,css,output).
