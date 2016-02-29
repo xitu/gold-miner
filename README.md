@@ -22,6 +22,7 @@
 
 ## 正在进行的
 
+*  [Introducing Swift 3.0](https://github.com/xitu/gold-miner/issues/163)
 *  [Leveling Up Your JavaScript](https://github.com/xitu/gold-miner/issues/162)
 *  [Android 开发中利用异步来优化运行速度和性能](https://github.com/xitu/gold-miner/issues/161)
 *  [产品文案要说人话](https://github.com/xitu/gold-miner/issues/152)
