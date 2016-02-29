@@ -104,11 +104,11 @@ So that is actually fairly straightforward.
 
 This will work as-is on pre-Marshamllow devices:
 
-[![](http://ww3.sinaimg.cn/large/9b5c8bd8jw1f1ad406ecij208c069jr8.jpg)](https://blog.stylingandroid.com/?attachment_id=3479)
+![](http://ww4.sinaimg.cn/large/675f4a91jw1f1dpo9nh1bj21kw16oabl.jpg)
 
 But we don’t yet have any missing handling for Marshmallow and later – we just display a _Snackbar_:
 
-[![](http://ww1.sinaimg.cn/large/9b5c8bd8jw1f1ad4dgmdhj208c069glh.jpg)>](https://blog.stylingandroid.com/?attachment_id=3480)
+![](http://ww2.sinaimg.cn/large/675f4a91jw1f1dpp12qimj21kw16owgi.jpg)
 
 Requesting missing permissions is where some complexity begins to creep in. We’ll look at this in the next article.
 

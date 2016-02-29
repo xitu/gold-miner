@@ -21,6 +21,11 @@
 2. 申请通过后，直接在文章对应的 PR 里面添加 note 校对
 
 ## 正在进行的
+
+*  [在 Android 下进行实时模糊渲染](https://github.com/xitu/gold-miner/issues/164)
+*  [Introducing Swift 3.0](https://github.com/xitu/gold-miner/issues/163)
+*  [Leveling Up Your JavaScript](https://github.com/xitu/gold-miner/issues/162)
+*  [Android 开发中利用异步来优化运行速度和性能](https://github.com/xitu/gold-miner/issues/161)
 *  [产品文案要说人话](https://github.com/xitu/gold-miner/issues/152)
 *  [「保存」图标用哪个好？](https://github.com/xitu/gold-miner/issues/151)
 *  [利用 input-placeholder 属性来实现 input label 特殊效果](https://github.com/xitu/gold-miner/issues/149)
@@ -29,9 +34,9 @@
 *  [RxSwift at first sight](https://github.com/xitu/gold-miner/issues/136)
 *  [设计师的理解字距设计指南](https://github.com/xitu/gold-miner/issues/134)
 *  [深入浅出 Android 权限（二）](https://github.com/xitu/gold-miner/issues/133)
-*  [深入浅出 Android 权限（一）](https://github.com/xitu/gold-miner/issues/132)
-*  [在 chrome 的开发者工具里 debug node.js 代码](https://github.com/xitu/gold-miner/issues/128)
-*  [无缝迁移 Angular 1 项目到 Angular 2](https://github.com/xitu/gold-miner/issues/127)
+*  [深入浅出 Android 权限（一）](http://gold.xitu.io/entry/56d11137c24aa800544db479)
+*  [在 chrome 的开发者工具里 debug node.js 代码](http://gold.xitu.io/entry/56d3cfea6be3ff005c5f9b89)
+*  [无缝迁移 Angular 1 项目到 Angular 2](http://gold.xitu.io/entry/56d3bd6a1ea493005c1eddfa)
 *  [Sketch 作者的采访](https://github.com/xitu/gold-miner/issues/118)
 *  [OAuth2 Authentication with Lua](http://gold.xitu.io/entry/56cd222199a6ce005a25b9ef)
 *  [How we "CSS" at BigCommerce](http://gold.xitu.io/entry/56ce82cbc24aa800520f4215)

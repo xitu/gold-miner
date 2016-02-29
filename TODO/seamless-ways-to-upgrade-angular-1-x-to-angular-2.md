@@ -1,42 +1,38 @@
-* 原文链接 : [Seamless Ways to Upgrade Angular 1.x to Angular 2](https://scotch.io/tutorials/seamless-ways-to-upgrade-angular-1-x-to-angular-2)
+* 原文链接 : [Seamless Ways to Upgrade to Angular 2](https://scotch.io/tutorials/seamless-ways-to-upgrade-angular-1-x-to-angular-2)
 * 原文作者 : [Chris Nwamba](https://scotch.io/author/chris92)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : [认领地址](https://github.com/xitu/gold-miner/issues/127)
-* 校对者: 
-* 状态 : 认领中
+* 译者 : [CoderBOBO](https://github.com/CoderBOBO)
+* 校对者: [根号三](https://github.com/sqrthree) [Adam Shen](https://github.com/shenxn)
 
+#如何从 Angular 1.x 无缝升级到 Angular 2
 
-Angular 2 was released a couple of months back and a beta version is just a couple of weeks old. Trust me, I can tell your thoughts about this change. You are probably asking yourself (or actually your computer screen) why on earth would the Angular team make such a huge jump. After all, you are (or at least you think you are) fine with what you already have in Angular 1.
+Angular 2 已经发布了数月，两三周前也刚发布了一个新的 beta 版本。相信我，我绝对能猜到各位对此次优化改动的想法。你可能会问自己（或是对着你的计算机屏幕自言自语）：Angular 团队究竟凭借什么实现如此大的飞跃。毕竟，你（或至少你认为你）觉得Angular1 就已经能满足所有个人需求了。
+先暂时停下手上正在使用的代码编辑器吧，一起来讨论下为什么这是一次志在必行的大调整，以及我们通过哪些方法促使我们成功迈出这一大步。
 
-Give your code editor a little break so we can discuss on why this jump is necessary and ways we can _jump_ and not fall.
+## 为什么转向研发Angular2 ？
 
-## Why Turn to Angular 2?
+Angular 1.x性能优良，并且会继续投入使用，而Angular2 将会有更加杰出的表现。各位是否认为Angular 团队是一群无所事事的团队，所以忙于创造一些无用的东西？不，当然不是这样！那么，请你耐心地和我们一起讨论一下Angular2 吧！
 
-Angular 1.x is fine and here to stay but Angular 2 is better. Do you think the Angular team are just jobless and work on creating something useless? No of course! So sit tight so we can talk about it.
+事实上，Angular 2 的存在并不意味着 Angular 1 会被遗弃或者失去支持。我们都很清楚IT行业一般是如何运作的。大家依然会使用IE 8、安卓的老版本及网络开发者使用的Web窗体等。这就是为什么Angular1直到现在还存在的原因。
+阐明这个观点后，让我们来看看到底为什么你应该开始考虑使用Angular2。
 
-The fact that Angular 2 exists does not mean Angular 1 will be deprecated or lack support. We know how it goes in IT generally, people still use IE 8, older versions of Andriod, Web Forms for .Net developers, etc. This is why Angular 1, for the time being is still here to stay.
+### 性能
 
-Having made this point, let us actually take a look at why you should start considering Angular 2.
+当我们谈起Angular2 的优点时，性能永远是排在第一位的。通常对于那些认为 Angular 1 的速度和性太低的团队来说至关重要。在大部分的Angular数据绑定概念中有证可寻。
+Angular2 具有更好的策略和概念，能够改善使用Angular开发的Web应用程序的性能。
 
-### Performance
+### 更好的移动端支持
 
-Performance is always the first point when talking about benefits of Angular 2\. The reason being that critics were on the team’s neck concerning the speed and performance of Angular 1 even as mush. This could be found mostly in Angular’s data binding concept.
+Angular 1.x 在开发时并没有考虑到移动端支持
+。幸运的是，这样的设计有利于像 Ionic 这样的框架。
+我们使用了较为粗暴的方法将 Angular 植入到像 Ionic 这样的框架当中，这样做影响了用户在执行应用程序时的体验及性能。
+正因有了这些可怕的体验，Angular 2 才被设计的更好，Angular2 已准备好应对移动端的一切情况。
 
-Angular 2 had better strategies and concepts to improve the performance of web applications made with Angular.
+### 更好的学习途径
 
-### Better Mobile Support
+> 我花了三个星期才能理解 Angular1 的概念。尽管我的合作开发伙伴从未使用过 Angular1，**却仅用了四天时间就能理解 Angular2 **。
 
-Angular 1.x was not built with mobile support in mind, but fortunately frameworks like Ionic found favor in them.
-
-Angular was implemented in frameworks like Ionic in a _hard_ manner which was detrimental to the user’s experience and performance of the application in general.
-
-With all this terrible experience, Angular 2 was designed to be better and ready for any thing coming its way that is mobile oriented.
-
-### Better Learning Path
-
-> It took me three weeks to wrap my head around the concept of Angular 1 but it took my co-developer who never used Angular 1 **four days to understand Angular 2**.
-
-If you have looked at an Angular 2 app file, you should recognize this:
+如果你已经看过Angular2的应用文件，你应该认识下边的代码：
 
     import {Component} from 'angular2/core';
 
@@ -49,39 +45,37 @@ If you have looked at an Angular 2 app file, you should recognize this:
         title = "My First Angular 2 App"
     }
 
-Looking at this piece of code, might get you intimidated at first but there is nothing more to Angular 2 than just that (and a more of it when your app grows). If you understand that basic syntax, you are good to go.
+如果光看这段代码，刚开始时你可能会吓一跳。不过 Angular2 也就只有这些代码（当你的应用程序增长时也只是更多类似的代码）。掌握基本语法之后，你便可以开始使用它了。
+另一方面，与我们学习 Angular 1.x. 的方式相比。Angular 1.x 的文档简直要让人抓狂，居然有一大堆复杂的文件要学。我用了三个星期才理解了 Angular1 的概念，尽管我的合作开发伙伴从未使用过 Angular1，却只用了 1 天时间就掌握 了Angular2。
 
-On the other hand, compare it with the way we learned Angular 1.x. The docs were crazy. There were tons of complicated documentations to study. It took me three weeks to wrap my head around the concept of Angular 1 but it took my co-developer who never used Angular 1 four days to understand Angular 2.
+### 关于未来
 
-### The Future
+Angular 2 采用了所有整个 Web 领域趋向流行的那些具备潜质的功能在使用 TypeScript 植入 Angular 时，被称为 ES6 的 ES2015 是主要的ECMAScript 版本。
+Web组件就是Web的未来。若各位还不打算接受这一事实的话，那意味着你的方向已经走偏了。
 
-Angular 2 uses all the promising features the web as a whole is coming up with. ES2015 also known as ES6 is the major ECMAScript version for Angular implemented with TypeScript.
+## 升级到Angular 2
 
-Web Components are the future of the Web and if you are not planning to accept that yet, then you are driving on the wrong lane.
-
-## Upgrading to Angular 2
-
-Upgrading to Angular 2 is quite an easy step to take, but one that should be made carefully.
-
-There are **two major ways to feel the taste of Angular 2 in your project**. Which you use depends on whatever requirements your project has. The angular team have provided two paths to this:
+升级到Angular2仅需一个非常简单的步骤，但仍需小心升级。
+有2种主要方式可以体验到 Angular2 为你的项目带来的变化：使用哪种方法取决于你的项目需求。Angular 团队提供了2种途径去实现：
 
 ### ngForward
 
 [![ng-forward-logo](https://scotch.io/wp-content/uploads/2015/12/ng-forward-logo.png)](https://scotch.io/wp-content/uploads/2015/12/ng-forward-logo.png)
 
-[ngForward](https://github.com/ngUpgraders/ng-forward) is not a real upgrade framework for Angular 2 but instead we can use it to create Angular 1 apps that look like Angular 2.
+[ngForward](https://github.com/ngUpgraders/ng-forward)并不是 Angular2 真正的升级框架，但我们可以用它来创建一个形似 Angular2 的 Angular 1 应用程序。
 
-If you still feel uncomfortable upgrading your existing application to Angular 2, you can fall to ngForward to feel the taste and sweetness of the good tidings Angular 2 brings but still remain in your _comfort_ zone.
+要是你还不愿意将现有应用程序升级到 Angular2 的话，你可以退一步先使用 ngForward，这既能让你感受到 Angular 2优势所产生的优质变化，同时又能让你继续待在自己的舒适区当中。
 
-You can either re-write your angular app gradually to look as if it was written in Angular 2 or add features in an Angular 2 manner leaving the existing project untouched. Another benefit that comes with this is that it prepares you and your team for the future even when you choose to hold onto the past for a little bit longer.
+又或者，你可以慢慢重新编写你的 angular 应用程序，使它看起来像用 Angular2 编写一样；你也能用 Angular2 的方式增加一些特征，仅现有项目不受到影响。而它带来的其他好处是：在你选择尽可能长久时间地坚持使用过去的框架时，它已经为你及你团队的未来打好了基础。
 
-I will guide you through a basic setup to use ngForward but in order to be on track, have a look at the [Quick Start](https://angular.io/docs/ts/latest/quickstart.html) for Angular 2.
+我将引导你通过一个基本设置来使用 ngForward 入门，但是为了能够步入正轨，你还是应该看一看 Angular 2 的 快速入门
 
-In your existing Angular 1.x (should be 1.3+) app run:
+在你现有的 Angular1.x（应该是1.3 +）应用程序上运行：
+
 
     npm i --save ng-forward@latest reflect-metadata
 
-This installs the latest version of `ngForward` and also the `reflect-metadata`module. Now prepare your `index.html` to look like what we have below:
+安装最新版 ngForward 及reflect-metadata。现在，请准备好你的 index.html，使得它看起来像下面这样：
 
     <!DOCTYPE html>
     <html lang="en">
@@ -110,7 +104,7 @@ This installs the latest version of `ngForward` and also the `reflect-metadata`m
 
     </html>
 
-Notice the `config.js` we are referencing. We can create it now:
+请注意我们正在引用的 config.js。现在我们可以创建它：
 
     System.config({
       defaultJSExtensions: true,
@@ -133,7 +127,7 @@ Notice the `config.js` we are referencing. We can create it now:
       }
     });
 
-If you took time to review the Quick Start as I suggested, you won’t be lost with the configuration. SystemJS is used to load the Angular application after it has been bootstrapped as we will soon see. Finally in our `app.ts`, we can code like it’s Angular 2.
+如果你听取了我的建议，能够花些时间去回顾一下快速启动内容的话，那你就不会被这些配置绕晕。SystemJS 被引导后（这点我们很快就会看到），它将用于加载 Angular 应用。最后，在我们的 app.ts 中，我们可以把它当做 Angular2 对其进行编写。
 
     import {Component,  bootstrap} from 'ng-forward';
 
@@ -146,21 +140,21 @@ If you took time to review the Quick Start as I suggested, you won’t be lost w
     }
     bootstrap(AppComponent);
 
-You can view a detailed demo [here](http://plnkr.co/edit/tpcJFVkcbSGhsE38lnmh?p=preview)
+在这里，你可以看到详细的演示过程。 [演示](http://plnkr.co/edit/tpcJFVkcbSGhsE38lnmh?p=preview)
 
 ### ngUpgrade
 
-Writing an Angular 1.x app that looks like Angular 2 is not good enough. We need the real stuff. The challenge then becomes that with a large existing Angular 1.x project, it becomes really difficult to re-write all our app to Angular 2, and even using ngForward would not be ideal. This is where ngUpgrade comes to our aid. ngUpgrade is the real stuff.
+编写一个形似Angular2 的 Angular1.x 应用并非尽善尽美。我们需要的是真正的法宝。一个大型现有 Angular1.x 项目成为最大的挑战，将我们所有的应用重新编写到 Angular2 会变得非常困难，甚至即使使用 ngForward 也并不理想。这时候，ngUpgrade 便派上用场了。ngUpgrade 才是我们真正需要的法宝。
 
-Unlike ngForward, ngUpgrade was covered clearly in the Angular 2 docs. If you fall in the category of developers that will take this path, then spare few minutes and digest [this](https://angular.io/docs/ts/latest/guide/upgrade.html).
+与 ngForward 不同，ngUpgrade 清晰地覆盖在 Angular2 文件上。如果你还未掌握这种途径的开发者目录，那先腾出几分钟消化下这些知识。[知识](https://angular.io/docs/ts/latest/guide/upgrade.html).
 
-We’ll also be writing more articles on upgrading to Angular 2 and we’ll focus more on ngUpgrade in a future article.
+此外，我们还会写更多关于升级到 Angular2 的文章。在日后的文章中，我们会侧重说明 ngUpgrade 的相关问题。
 
-## Final Remarks
+## 结语
 
-One thing I have observed as an experienced Angular developer is that the Angular team has a good habit of providing tons of option to solve a single problem.
+作为一个有经验的Angular开发者，我注意到 Angular 团队有一个好习惯，那就是提供无数方案去解决一个问题。
 
-Just as we saw in this guide, you can just use Angular 2 from scratch, write Angular 1 in Angular 2 form or gradually leverage ngUpgrade to upgrade your existing.
+正如在本教程所看到的一样，你可以从零开始学习使用 Angular2 ，用 Angular2 的形式编写 Angular1 ，或者通过一步步使用 ngUpgrade ，对你现有的软件进行升级。
 
 
 

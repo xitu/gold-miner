@@ -16,11 +16,11 @@ So the first thing we need to understand is how the permissions request model wo
 
 From the users’ perspective, the way this works is that the user will be asked for the require permission the first time they run the app:
 
-[![](http://ww2.sinaimg.cn/large/9b5c8bd8jw1f0ks01vnq4j208c069jrd.jpg)](https://blog.stylingandroid.com/?attachment_id=3484)
+![](http://ww2.sinaimg.cn/large/675f4a91jw1f1dpk1jhhlj21kw16ogof.jpg)
 
 If they allow the permission then everything is fine and we can carry on. However, if they deny the permission then we can repeatedly ask them for the required permission:
 
-[![](http://ww3.sinaimg.cn/large/9b5c8bd8jw1f0ks09cnnuj208c069dft.jpg)](https://blog.stylingandroid.com/?attachment_id=3485)
+![](http://ww3.sinaimg.cn/large/675f4a91jw1f1dpivkftsj21kw16odiq.jpg)
 
 But note that if the user has previously denied the permission being requested they will be given the option to never be asked for the permission again. If the user selects this option then any further attempts by our code to request the permission will automatically be denied without prompting the user. Clearly this can be problematic for us as developers, so we need to make allowance for it.
 
