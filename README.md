@@ -22,6 +22,7 @@
 
 ## 正在进行的
 
+*  [Simplify Your Life With an SSH Config File](https://github.com/xitu/gold-miner/issues/175)
 *  [Disassembling JavaScript's IIFE Syntax](https://github.com/xitu/gold-miner/issues/174)
 *  [Python3.5 协程原理](https://github.com/xitu/gold-miner/issues/173)
 *  [11 Top Designers Share Honest Career Advice](https://github.com/xitu/gold-miner/issues/172)
