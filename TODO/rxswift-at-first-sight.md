@@ -1,7 +1,7 @@
 > * 原文链接 : [RxSwift at first sight](https://blog.alltheflow.com/rxswift-at-first-sight/?utm_campaign=iOS%2BDev%2BWeekly&utm_medium=email&utm_source=iOS_Dev_Weekly_Issue_236)
 * 原文作者 : [alltheflow](https://blog.alltheflow.com/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : [SatanWoo](http://satanwoo.github.io)
+* 译者 : [SatanWoo](https://github.com/SatanWoo)
 * 校对者 : [iThreeKing](https://github.com/iThreeKing), [davidear](https://github.com/davidear)
 * 状态 : 校对完成
 
