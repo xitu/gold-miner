@@ -22,6 +22,7 @@
 
 ## 正在进行的
 
+*  [11 Top Designers Share Honest Career Advice](https://github.com/xitu/gold-miner/issues/172)
 *  [在 Android 下进行实时模糊渲染](https://github.com/xitu/gold-miner/issues/164)
 *  [Introducing Swift 3.0](https://github.com/xitu/gold-miner/issues/163)
 *  [Leveling Up Your JavaScript](https://github.com/xitu/gold-miner/issues/162)
