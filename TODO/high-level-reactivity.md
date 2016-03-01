@@ -36,7 +36,7 @@ GraphQL 是一个用于查询节点类型图表的树形查询语言。举例来
       }
     }
 
-查询中的每一个字段都调用了服务器上的一个可以访问任何数据源或API的解析函数。返回值被集合在一个与查询的样子类似的 JSON 响应中，并且你不会得到任何你没有查询的字段。针对上面的查询，你会得到如下数据：
+查询中的每一个字段都调用了服务器上的一个可以访问任何数据源或API的解析函数。返回值被封装在一个与查询的样子类似的 JSON 响应中，并且你不会得到任何你没有查询的字段。针对上面的查询，你会得到如下数据：
 
     {
       me: {
@@ -53,11 +53,11 @@ GraphQL 是一个用于查询节点类型图表的树形查询语言。举例来
 
 > 你可以跟随一个时长几个小时的交互式课程 [LearnGraphQL](https://learngraphql.com/) 来学习 GraphQL 的基础知识。
 
-注意，数据源是没有限制的，你可以在一个数据库中储存你的待办事项列表，并在另一个数据库中储存你的任务。事实上，GraphQL 的主要好处就是，你可以把数据从数据源中抽象出来，这样前端开发者就不用担心数据源的问题了，后端开发者也可以自由地更改数据或者服务。下图展示了这种设计使用结构组件来表示的样子：
+注意，数据源是没有限制的，你可以在一个数据库中储存你的待办事项列表，并在另一个数据库中储存你的任务。事实上，GraphQL 的主要好处就是，你可以把数据从数据源中提取出来，这样前端开发者就不用担心数据源的问题了，后端开发者也可以自由地更改数据或者服务。下图展示了这种设计使用结构组件来表示的样子：
 
 
 ![](http://ww1.sinaimg.cn/large/9b5c8bd8jw1f0zsqywxqlj20xu0t2jve.jpg)
-注意，GraphQL 拥有一个缓存，这个缓存是用来把查询结果分解成节点。一个聪明的缓存可以在数据需求变化或者部分数据需要刷新的时候，在之间缓存对象的基础上只重新获取查询的一部分，甚至是一个字段。
+注意，GraphQL 拥有一个缓存，这个缓存是用来把查询结果分解成节点。一个聪明的缓存可以在数据需求变化或者部分数据需要刷新的时候，在之间缓存对象的基础上只重新获取查询的一部分，甚至是一个字段。在上面的例子中，缓存中的数据可能会被这样存储：
 
     { type: "me", username: "sashko", lists: [1] }
     { type: "list", id: 1, name: "My first todo list", tasks: [...] }
@@ -108,7 +108,6 @@ GraphQL 系统的客户端和服务器需要合作来实现上述功能，但是
 
 ### 在读入数据时自动记录依赖
 
-In order to know when a GraphQL query needs to be re-run, we need to know what deps represent different parts of the query. These deps can be recorded manually for complex queries, but simple queries can have their deps identified automatically. For example, here's a JavaScript SQL query that could be used in a particular part of the GraphQL resolution tree:
 为了知道一个 GraphQL 查询在什么时候需要被重新运行，我们需要先知道哪些依赖代表了查询中的不同部分。复杂查询的依赖可以被手动记录，但是一些简单查询的依赖可以被自动识别。举例来说，这是一个可以被用在 GraphQL 解析树上特定部分中的 Javascript SQL 查询：
 
     todoLists.select('*').where('id', 1);
@@ -138,7 +137,6 @@ In order to know when a GraphQL query needs to be re-run, we need to know what d
 
 ## 简单的响应式模型
 
-Based on the above primitives, here is a stateless strategy for GraphQL reactivity:
 基于上面的描述，我要介绍一个实现响应式 GraphQL 的无状态策略：
 
 1.  客户端向 GraphQL 服务器发送查询，接收到一个包含一系列依赖的响应。
@@ -184,7 +182,6 @@ Based on the above primitives, here is a stateless strategy for GraphQL reactivi
 
 这里最大的困难是(2)：mutation 如何通知失效服务器，以及通知那些数据被修改的客户端？
 
-### Automatic dependency invalidation
 ### 自动依赖失效
 
 就像读取数据一样，在简单的情况下我们可以从 mutation 自动发送失效信息。举例来说，如果你在 mutation 解析器中执行如下 SQL 更新查询：
@@ -200,12 +197,12 @@ Based on the above primitives, here is a stateless strategy for GraphQL reactivi
 ### 手动依赖失效
 
 
-有时你希望手动发送失效信息。俱来来说，在上面通知的例子中，我们希望在添加通知时手动失效通知总数：
+有时你希望手动发送失效信息。举例来说，在上面通知的例子中，我们希望在添加通知时手动失效通知总数：
 
     notifications.insert(...);
     context.invalidateDependency(notificationDepKeyForUser(userId));
 
-我们希望将来我们可以让程序自动处理越来越多的失效信息，但是为更复杂的情况预留一条后路让程序员进行完全的控制总是好的。
+我们希望将来可以让程序自动处理越来越多的失效信息，但是为更复杂的情况预留一条后路让程序员进行完全的控制总是好的。
 
 ![](http://ww1.sinaimg.cn/large/9b5c8bd8jw1f0zsrhktvvj21kw0s845z.jpg)
 
