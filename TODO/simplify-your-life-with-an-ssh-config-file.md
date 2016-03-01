@@ -102,8 +102,10 @@ Now I don't know about you, but remembering that sequence of flags and options f
 
 Which means I can simply do:
 
+```
    $ ssh -f -N tunnel
 
+```
 And my local port forwarding will be enabled using all of the configuration directives I set up for the tunnel host. Slick.
 
 ### Homework
