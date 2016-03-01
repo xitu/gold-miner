@@ -1,37 +1,50 @@
 > * 原文链接 : [jquery-tips-everyone-should-know](https://github.com/AllThingsSmitty/jquery-tips-everyone-should-know/blob/master/README.md)
 * 原文作者 : [AllThingsSmitty (Matt Smith)](https://github.com/AllThingsSmitty)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者: 
-* 状态 :  待定
+* 译者 : [Yves X](https://github.com/Yves-X)
+* 校对者: [sqrthree(根号三)](https://github.com/sqrthree)
+* 状态 :  完成
 
-# jQuery Tips Everyone Should Know
+# 人人须知的 jQuery 技巧
 
-A collection of simple tips to help up your jQuery game.
+这里收集了一些简单的窍门，助你玩转 jQuery。
 
-1. [Back to Top Button](#back-to-top-button)
-1. [Preload Images](#preload-images)
-1. [Checking If Images Are Loaded](#checking-if-images-are-loaded)
-1. [Fix Broken Images Automatically](#fix-broken-images-automatically)
-1. [Toggle Classes on Hover](#toggle-classes-on-hover)
-1. [Disabling Input Fields](#disabling-input-fields)
-1. [Stop the Loading of Links](#stop-the-loading-of-links)
-1. [Toggle Fade/Slide](#toggle-fadeslide)
-1. [Simple Accordion](#simple-accordion)
-1. [Make Two Divs the Same Height](#make-two-divs-the-same-height)
-1. [Open External Links in New Tab/Window](#open-external-links-in-new-tabwindow)
-1. [Find Element By Text](#find-element-by-text)
-1. [Trigger on Visibility Change](#trigger-on-visibility-change)
-1. [Ajax Call Error Handling](#ajax-call-error-handling)
-1. [Chain Plugin Calls](#chain-plugin-calls)
+1. [检查 jQuery 是否加载](#检查-jQuery-是否加载)
+1. [返回顶部按钮](#返回顶部按钮)
+1. [预加载图片](#预加载图片)
+1. [判断图片是否加载完成](#判断图片是否加载完成)
+1. [自动修复失效图片](#自动修复失效图片)
+1. [鼠标悬停切换 class](#鼠标悬停切换-class)
+1. [禁用输入字段](#禁用输入字段)
+1. [阻止链接加载](#阻止链接加载)
+1. [缓存 jQuery 选择器](#缓存-jQuery-选择器)
+1. [切换淡出 / 滑动](#切换淡出--滑动)
+1. [简单的手风琴效果](#简单的手风琴效果)
+1. [使两个 div 等高](#使两个-div-等高)
+1. [在新标签页 / 新窗口打开外部链接](#在新标签页--新窗口打开外部链接)
+1. [通过文本查找元素](#通过文本查找元素)
+1. [在 visibility 属性变化时触发](#在-visibility-属性变化时触发)
+1. [Ajax 调用错误处理](#Ajax-调用错误处理)
+1. [链式插件调用](#链式插件调用)
 
 
-### Back to Top Button
+### 检查 jQuery 是否加载
 
-By using the `animate` and `scrollTop` methods in jQuery you don't need a plugin to create a simple scroll-to-top animation:
+在使用 jQuery 进行任何操作之前，你需要先确认它已经加载：
+```javascript
+if (typeof jQuery == 'undefined') {
+  console.log('jQuery hasn\'t loaded');
+} else {
+  console.log('jQuery has loaded');
+}
+```
+
+### 返回顶部按钮
+
+利用 jQuery 中的 `animate` 和 `scrollTop` 方法，你无需插件就可以创建简单的 scroll up 效果:
 
 ```javascript
-// Back to top
+// 返回顶部
 $('a.top').click(function (e) {
   e.preventDefault();
   $(document.body).animate({scrollTop: 0}, 800);
@@ -39,16 +52,15 @@ $('a.top').click(function (e) {
 ```
 
 ```html
-<!-- Create an anchor tag -->
+<!-- 设置锚 -->
 <a class="top" href="#">Back to top</a>
 ```
 
-Changing the `scrollTop` value changes where you wants the scrollbar to land. All you're really doing is animating the body of the document throughout the course of 800 milliseconds until it scrolls to the top of the document.
+调整 `scrollTop` 的值即可改变滚动着陆位置。你实际所做的是在 800 毫秒内不断设置文档主体的位置，直到它滚动到顶部。
 
+### 预加载图片
 
-### Preload Images
-
-If your web page uses a lot of images that aren't visible initially (e.g., on hover) it makes sense to preload them:
+如果你的网页使用了大量并非立即可见的图片（例如悬停鼠标触发的图片），那么预加载这些图片就显得很有意义了:
 
 ```javascript
 $.preloadImages = function () {
@@ -61,9 +73,9 @@ $.preloadImages('img/hover-on.png', 'img/hover-off.png');
 ```
 
 
-### Checking If Images Are Loaded
+### 判断图片是否加载完成
 
-Sometimes you might need to check if your images have fully loaded in order to continue on with your scripts:
+在有些情况下，为了继续执行脚本，你需要检查图片是否已经完全加载:
 
 ```javascript
 $('img').load(function () {
@@ -71,12 +83,11 @@ $('img').load(function () {
 });
 ```
 
-You can also check if one particular image has loaded by replacing the `<img>` tag with an ID or class.
+同样，换用一个带有 id 或者 class 属性的 `<img>` 标签，你也可以检查特定图片是否加载完成。
 
+### 自动修复失效图片
 
-### Fix Broken Images Automatically
-
-If you happen to find broken image links on your site replacing them one by one can be a pain. This simple piece of code can save a lot of headaches:
+如果你在你的网站上发现了失效的图片链接，逐个去替换它们将会是个苦差。这段简单的代码可以很大程度地减轻痛苦：
 
 ```javascript
 $('img').on('error', function () {
@@ -86,12 +97,12 @@ $('img').on('error', function () {
 });
 ```
 
-Even if you don't have any broken links, adding this won't do any harm.
+即使你暂无任何失效的链接，添加这段代码也不会有任何损失。
 
 
-### Toggle Classes on Hover
+### 鼠标悬停切换 class
 
-Let's say you want to change the visual of a clickable element on your page when a user hovers over it. You can add a class to your element when the user is hovering; when the user stops hovering removes the class:
+如果你希望在用户将鼠标悬停在某个可点击元素上时改变它的视觉效果，你可以在该元素被悬停时给它添加一个 class，当鼠标不再悬停时，移除这个 class：
 
 ```javascript
 $('.btn').hover(function () {
@@ -101,7 +112,7 @@ $('.btn').hover(function () {
 });
 ```
 
-You just need to add the necessary CSS. If you want an even _simpler_ way use the `toggleClass` method:
+如果你还寻求_更简单_的途径，可以使用 `toggleClass` 方法，仅需添加必要的 CSS：
 
 ```javascript
 $('.btn').hover(function () {
@@ -109,27 +120,27 @@ $('.btn').hover(function () {
 });
 ```
 
-**Note**: CSS may be a faster solution in this case but it's still worthwhile to know this.
+**注**：在这种情况下，使用 CSS 或许是一个更快速的解决方案，但这种方法仍然值得稍作了解。
 
 
-### Disabling Input Fields
+### 禁用输入字段
 
-At times you may want the submit button of a form or one of its text inputs to be disabled until the user has performed a certain action (e.g., checking the "I've read the terms" checkbox). Add the `disabled` attribute to your input so you can enable it when you want:
+有时，你可能希望在用户完成特定操作（例如，勾选“我已阅读条例”的确认框）前禁用表单的提交按钮或禁用其中某个输入框。你可以在你的输入字段上添加 `disabled` 属性，而后你能在需要时启用它：
 
 ```javascript
 $('input[type="submit"]').prop('disabled', true);
 ```
 
-All you need to do is run the `prop` method again on the input, but set the value of `disabled` to `false`:
+你只需在输入字段上再次运行 `prop` 方法, 但是这一次把 `disabled` 值改为 `false`：
 
 ```javascript
 $('input[type="submit"]').prop('disabled', false);
 ```
 
 
-### Stop the Loading of Links
+### 阻止链接加载
 
-Sometimes you don't want links to go to a certain web page nor reload the page; you might want them to do something else like trigger some other script. This will do the trick of preventing the default action:
+有时你不希望链接到指定页面或者重载当前页面，而是想让它们干些别的，例如触发其它脚本。这需要在阻止默认动作上做些文章：
 
 ```javascript
 $('a.no-link').click(function (e) {
@@ -138,32 +149,55 @@ $('a.no-link').click(function (e) {
 ```
 
 
-### Toggle Fade/Slide
+### 缓存 jQuery 选择器
 
-Slideing and fading are something we use plenty in our animations with jQuery. You might just want to show an element when a user clicks something, which makes the `fadeIn` and `slideDown` methods perfect. But if you want that element to appear on the first click and then disappear on the second this will work just fine:
+想想你在项目中一次又一次地写了多少相同的选择器吧。每个 `$('.element')` 都必须查询一次整个 DOM,不管它是否曾这样执行过。作为代替，我们只运行一次选择器，并把结果储存在一个变量中：
 
 ```javascript
-// Fade
+var blocks = $('#blocks').find('li');
+```
+
+现在你能在任何地方使用 `blocks` 变量而无需每次查询 DOM 了:
+
+```javascript
+$('#hideBlocks').click(function () {
+  blocks.fadeOut();
+});
+
+$('#showBlocks').click(function () {
+  blocks.fadeIn();
+});
+```
+
+缓存 jQuery 的选择器是种简单的性能提升。
+
+
+### 切换淡出 / 滑动
+
+淡出和滑动都是我们在 jQuery 中大量使用的效果。你可能只想在用户点击后展现某个元素，此时用 `fadeIn` 和 `slideDown` 方法就很完美。但是如果你希望这个元素在首次点击时出现，在再次点击时消失，这段代码就很有用了：
+
+```javascript
+// 淡出
 $('.btn').click(function () {
   $('.element').fadeToggle('slow');
 });
 
-// Toggle
+// 切换
 $('.btn').click(function () {
   $('.element').slideToggle('slow');
 });
 ```
 
 
-### Simple Accordion
+### 简单的手风琴效果
 
-This is a simple method for a quick accordion:
+这是一个快速实现手风琴效果的简单方法:
 
 ```javascript
-// Close all panels
+// 关闭所有面板
 $('#accordion').find('.content').hide();
 
-// Accordion
+// 手风琴效果
 $('#accordion').find('.accordion-header').click(function () {
   var next = $(this).next();
   next.slideToggle('fast');
@@ -172,18 +206,18 @@ $('#accordion').find('.accordion-header').click(function () {
 });
 ```
 
-By adding this script all you really needs to do on your web page is the necessary HTML go get this working.
+通过添加这段脚本，你实际要做的只是提供必要的 HTML 元素以便它正常运行。
 
 
-### Make Two Divs the Same Height
+### 使两个 div 等高
 
-Sometimes you'll want two divs to have the same height no matter what content they have in them:
+有时你希望无论两个 div 各自包含什么内容，它们总有相同的高度：
 
 ```javascript
 $('.div').css('min-height', $('.main-div').height());
 ```
 
-This example sets the `min-height` which means that it can be bigger than the main div but never smaller. However, a more flexible method would be to loop over a set of elements and set the height to the height of the tallest element:
+这个例子设置了 `min-height`，意味着高度可以大于主 div 而不能小于它。然而，更灵活的方法是遍历一组元素，然后将高度设置为最高元素的高度：
 
 ```javascript
 var $columns = $('.column');
@@ -196,7 +230,7 @@ $columns.each(function () {
 $columns.height(height);
 ```
 
-If you want _all_ columns to have the same height:
+如果你希望_所有_列高度相同：
 
 ```javascript
 var $rows = $('.same-height-columns');
@@ -206,9 +240,9 @@ $rows.each(function () {
 ```
 
 
-### Open External Links in New Tab/Window
+### 在新标签页 / 新窗口打开外部链接
 
-Open external links in a new browser tab or window and ensure links on the same origin open in the same tab or window:
+在一个新的浏览器标签页或窗口中打开外部链接，并确保相同来源的链接在同一个标签页或者窗口中打开：
 
 ```javascript
 $('a[href^="http"]').attr('target', '_blank');
@@ -216,21 +250,21 @@ $('a[href^="//"]').attr('target', '_blank');
 $('a[href^="' + window.location.origin + '"]').attr('target', '_self');
 ```
 
-**Note:** `window.location.origin` doesn't work in IE10. [This fix](http://tosbourn.com/a-fix-for-window-location-origin-in-internet-explorer/) takes care of the issue.
+**注：** `window.location.origin` 在 IE10 中不可用. [这个修复方案](http://tosbourn.com/a-fix-for-window-location-origin-in-internet-explorer/) 正是关注于该问题。
 
 
-### Find Element By Text
+### 通过文本查找元素
 
-By using the `contains()` selector in jQuery you can find text in content of an element. If text doesn't exists, that element will be hidden:
+通过使用 jQuery 的 `contains()` 选择器，你能够查找元素内容中的文本。若文本不存在，该元素将被隐藏：
 
 ```javascript
 var search = $('#search').val();
 $('div:not(:contains("' + search + '"))').hide();
 ```
 
-### Trigger on Visibility Change
+### 在 visibility 属性变化时触发
 
-Trigger JavaScript when the user is no longer focusing on a tab, or refocuses on a tab:
+当用户的焦点离开或者重新回到某个标签页时，触发 Javasrcipt：
 
 ```javascript
 $(document).on('visibilitychange', function (e) {
@@ -243,9 +277,9 @@ $(document).on('visibilitychange', function (e) {
 ```
 
 
-### Ajax Call Error Handling
+### Ajax 调用错误处理
 
-When an Ajax call returns a 404 or 500 error the error handler will be executed. If the handler isn't defined, other jQuery code might not work anymore. Define a global Ajax error handler:
+当一个 Ajax 调用返回 404 或 500 错误时，错误处理程序将被执行。若错误处理未被定义，其它 jQuery 代码可能不再有效。所以定义一个全局的 Ajax 错误处理：
 
 ```javascript
 $(document).ajaxError(function (e, xhr, settings, error) {
@@ -254,9 +288,9 @@ $(document).ajaxError(function (e, xhr, settings, error) {
 ```
 
 
-### Chain Plugin Calls
+### 链式插件调用
 
-jQuery allows for the "chaining" of plugin method calls to mitigate the process of repeatedly querying the DOM and creating multiple jQuery objects. Let's say the following snippet represents your plugin method calls:
+jQuery 允许通过“链式”插件调用的方法，来缓解反复查询 DOM 和创建多个 jQuery 对象的过程。例如，下面的代码代表着你的插件调用：
 
 ```javascript
 $('#elem').show();
@@ -264,7 +298,7 @@ $('#elem').html('bla');
 $('#elem').otherStuff();
 ```
 
-This could be vastly improved by using chaining:
+通过使用链式操作，有了显著的改善:
 
 ```javascript
 $('#elem')
@@ -273,7 +307,7 @@ $('#elem')
   .otherStuff();
 ```
 
-An alternative is to cache the element in a variable (prefixed with `$`):
+另一种方法是在变量（以 `$` 为前缀）中，对元素进行缓存：
 
 ```javascript
 var $elem = $('#elem');
@@ -282,4 +316,4 @@ $elem.html('bla');
 $elem.otherStuff();
 ```
 
-Both chaining and caching methods in jQuery are best practices that lead to shorter and faster code.
+无论是链式操作，还是缓存元素，都是 jQuery 中用以简化和优化代码的最佳实践。

@@ -1,25 +1,24 @@
 > * 原文链接: [Effective OkHttp](http://omgitsmgp.com/2015/12/02/effective-okhttp/)
 * 原文作者 : [Michael Parker](http://omgitsmgp.com/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者: 
-* 状态 :  待定
+* 译者 : [Brucezz](https://github.com/brucezz)
+* 校对者: [iThreeKing](https://github.com/iThreeKing), [Adam Shen](https://github.com/shenxn), [Jaeger](https://github.com/laobie)
 
-[OkHttp](http://square.github.io/okhttp/) was an invaluable library when developing the [Android app](https://play.google.com/store/apps/details?id=org.khanacademy.android) for [Khan Academy](https://www.khanacademy.org/). While its default configuration offers significant utility, below are some steps we took for increasing the resourcefulness and introspective power of OkHttp:
+在为[可汗学院](https://www.khanacademy.org/)开发 [Android app](https://play.google.com/store/apps/details?id=org.khanacademy.android) 时，[OkHttp](http://square.github.io/okhttp/) 是一个很重要的开源库。虽然它的默认配置已经提供了很好的效果，但是我们还是采取了一些措施提高 OkHttp 的可用性和自我检查能力：
 
-### 1\. Enable response caching on the filesystem
+### 1\. 在文件系统中开启响应缓存
 
-By default, OkHttp does not cache responses that permit caching by including such a HTTP `Cache-Control` header. Therefore your client may be wasting time and bandwidth by requesting the same resource again and again, as opposed to simply reading a cached copy after the initial response.
+有些响应消息通过包含 `Cache-Control` HTTP 首部字段允许缓存，但是默认情况下，OkHttp 并不会缓存这些响应消息。因此你的客户端可能会因为不断请求相同的资源而浪费时间和带宽，而不是简单地读取一下首次响应消息的缓存副本。
 
-To enable caching of responses on the filesystem, configure a `com.squareup.okhttp.Cache` instance and pass it to the `setCache` method of your `OkHttpClient` instance. You must instantiate the `Cache` with a `File` representing a directory, and a maximum size in bytes. Responses that can be cached are written to the given directory. If the caching of a response causes the directory contents to exceed the given size, responses are evicted while adhering to a [LRU policy](https://en.wikipedia.org/wiki/Cache_algorithms#LRU).
+为了在文件系统中开启响应缓存，需要配置一个 `com.squareup.okhttp.Cache` 实例，然后把它传递给 `OkHttpClient` 实例的 `setCache` 方法。你必须用一个表示目录的 `File` 对象和最大字节数来实例化 `Cache` 对象。那些能够缓存的响应消息会被写在指定的目录中。如果已缓存的响应消息导致目录内容超过了指定的大小，响应消息会按照最近最少使用（[LRU Policy](https://en.wikipedia.org/wiki/Cache_algorithms#LRU)）的策略被移除。
 
-As [recommended by Jesse Wilson](http://stackoverflow.com/a/32752861/400717), we cache responses in a subdirectory of `context.getCacheDir()`:
+正如 [Jesse Wilson 所建议的](http://stackoverflow.com/a/32752861/400717)，我们将响应消息缓存在 `context.getCacheDir()` 的子文件夹中：
 
 
 ```java
-// Base directory recommended by http://stackoverflow.com/a/32752861/400717.
-// Guard against null, which is possible according to
-// https://groups.google.com/d/msg/android-developers/-694j87eXVU/YYs4b6kextwJ and
+// 缓存根目录，由这里推荐 -> http://stackoverflow.com/a/32752861/400717.
+// 小心可能为空，参考下面两个链接
+// https://groups.google.com/d/msg/android-developers/-694j87eXVU/YYs4b6kextwJ 和
 // http://stackoverflow.com/q/4441849/400717.
 final @Nullable File baseDir = context.getCacheDir();
 if (baseDir != null) {
@@ -28,19 +27,19 @@ if (baseDir != null) {
 }
 ```
 
-In the Khan Academy application, we specify `HTTP_RESPONSE_DISK_CACHE_MAX_SIZE` as `10 * 1024 * 1024`, or 10 MB.
+在可汗学院的应用中，我们指定了 `HTTP_RESPONSE_DISK_CACHE_MAX_SIZE` 的大小为 `10 * 1024 * 1024`，即 10MB。
 
-### 2\. Integrate with Stetho
+### 2\. 集成 Stetho
 
-[Stetho](http://facebook.github.io/stetho/) is a lovely library by Facebook that allows you to inspect your Android application using the [Chrome Developer Tools](https://developers.google.com/web/tools/setup/workspace/setup-devtools) feature of Chrome.
+[Stetho](http://facebook.github.io/stetho/) 是一个 Facebook 出品的超赞的开源库，它可以让你用 Chrome 的功能——[开发者工具](https://developers.google.com/web/tools/setup/workspace/setup-devtools) 来检查调试你的 Android 应用。
 
-In addition to allowing you to inspect the SQLite databases and view hierarchies of your application, Stetho allows you to inspect each request and response made by OkHttp:
+Stetho 不仅能够检查应用的 SQLite 数据库和视图层次，还可以检查 OkHttp 的每一条请求和响应消息：
 
 ![Image of Stetho](http://omgitsmgp.com/assets/images/posts/stetho-inspector-network.png)
 
-This introspection is very useful for ensuring that the server is returning the HTTP headers that permit caching of resources, as well as verifying that no requests are made when cached resources should exist.
+这种自我检查方式（Introspection）有效地确保了服务器返回允许缓存资源的 HTTP 首部时，且核缓存资源存在时，不再发出任何请求。
 
-To enable Stetho, simply add a `StethoInterceptor` instance to the list of network interceptors:
+开启 Stetho，只用简单地添加一个 `StethoInterceptor` 实例到网络拦截器（Network Interceptor）的列表中去：
 
 
 ```java
@@ -48,11 +47,11 @@ okHttpClient.networkInterceptors().add(new StethoInterceptor());
 ```
 
 
-Then, after running your application, open Chrome and navigate to `chrome://inspect`. The device and application identifier of the application should be listed. Visit its “inspect” link to open the Developer Tools, and then open the Network tab to begin monitoring requests by OkHttp.
+应用运行完毕之后，打开 Chrome 然后跳转到 `chrome://inspect`。设备、应用以及应用标识符信息会被陈列出来。直接点击“inspect”链接就可以打开开发者工具，然后切换到 Network 标签开始监测 OkHttp 发出的请求。
 
-### 3\. Use your client with Picasso and Retrofit
+### 3\. 使用 Picasso 和 Retrofit
 
-If you are like us, you might use [Picasso](http://square.github.io/picasso/) to load images over the network, or use [Retrofit](http://square.github.io/retrofit/) to simplify issuing requests and decoding responses. By default, these libraries will implicitly create their own `OkHttpClient` for internal use if you do not explicitly specify one. From the `OkHttpDownloader` class of version 2.5.2 of Picasso:
+可能和我们一样，你使用 [Picasso](http://square.github.io/picasso/) 来加载网络图片，或者使用 [Retrofit](http://square.github.io/retrofit/) 来简化网络请求和解析响应消息。在默认情况下，如果你没有显式地指定一个 `OkHttpClient`，这些开源库会隐式地创建它们自己的 `OkHttpClient` 实例以供内部使用。以下代码来自于 Picasso 2.5.2 版本的 `OkHttpDownloader` 类：
 
 
 ```java
@@ -65,41 +64,35 @@ private static OkHttpClient defaultOkHttpClient() {
 }
 ```
 
+Retrofit 也有类似的工厂方法用来创建它自己的 `OkHttpClient`。
 
-Retrofit has a similar factory method for creating its own `OkHttpClient`.
+图片是应用中需要加载的最大的资源之一。Picasso 是严格地按照 LRU 策略在内存中维护它的图片缓存。如果客户端尝试用 Picasso 加载一张图片，并且 Picasso 没有在内存缓存中找到该图片，那么它会委托内部的 `OkHttpClient` 实例来加载该图片。在默认情况下，由于前面的 `defaultOkHttpClient` 方法没有在文件系统中配置响应缓存，该实例会一直从服务器加载图片。
 
-Images are some of the largest resources that your application will load. While Picasso maintains its own LRU cache for images, it is strictly in-memory. If the client attempts to load an image using Picasso, and Picasso does not find that image in its in-memory cache, then it will delegate loading that image to its internal `OkHttpClient` instance. And by default that instance will always load the image from the server, as the `defaultOkHttpClient` method above does not configure it with a response cache on the filesystem.
+自定义一个 `OkHttpClient` 实例，将从文件系统返回一个已缓存的响应消息这种情况考虑在内。没有一张图片直接从服务器加载。这在应用第一次加载时是尤为重要的。在这个时候，Picasso 的内存中的缓存是 [“冷”](http://stackoverflow.com/a/22756972/400717)的，它会频繁地委托 `OkHttpClient` 实例去加载图片。
 
-Specifying your own `OkHttpClient` instance allows for returning a cached response from the filesystem. No image is loaded from the server. This is especially important after the app is first launched. At this time Picasso’s in-memory cache is [cold](http://stackoverflow.com/a/22756972/400717), and so it will delegate loading images to the `OkHttpClient` instance frequently.
+这就需要构建一个用你的 `OkHttpClient` 配置的 `Picasso` 实例。如果你在代码中使用  `Picasso.with(context).load(...)` 来加载图片，你所使用的 `Picasso` 单例对象，是在  `with` 方法中用自己的 `OkHttpClient` 延迟加载和配置的。因此我们必须在第一次调用 `with` 方法之前指定自己的 `Picasso` 实例作为单例对象。
 
-This requires building a `Picasso` instance that is configured with your `OkHttpClient`. If you are loading images by using `Picasso.with(context).load(...)` in your code, then you are using the `Picasso` singleton instance, which is lazily instantiated and configured with its own `OkHttpClient` by method `with`. Therefore we must assign our own `Picasso` instance as the singleton before the first call to `with`.
-
-To do this, simply wrap the `OkHttpClient` instance in an `OkHttpDownloader`, and pass that to the `downloader` method of your `Picasso.Builder` instance:
-
+简单地把 `OkHttpClient` 实例包装到一个 `OkHttpDownloader` 对象中，然后传递给 `Picasso.Builder` 实例的 `downloader` 方法：
 
 ```java
 final Picasso picasso = new Picasso.Builder(context)
     .downloader(new OkHttpDownloader(okHttpClient))
     .build();
 
-// The client should inject this instance whenever it is needed, but replace the singleton
-// instance just in case.
+//客户端应该在任何需要的时候来创建这个实例
+//以防万一，替换掉那个单例对象
 Picasso.setSingletonInstance(picasso);
 ```
 
-
-To use your `OkHttpClient` instance with a `RestAdapter` in Retrofit 1.9.x, wrap the `OkHttpClient` in an `OkClient` instance, and pass that to the `setClient` method of your `RestAdapter.Builder` instance:
-
+在 Retrofit 1.9.x 中，通过 `RestAdapter` 使用你的 `OkHttpClient` 实例，把 `OkHttpClient` 实例包装到一个 `OkClient` 实例中，然后传递给 `RestAdapter.Builder` 实例的 `setClient` 方法：
 
 
     restAdapterBuilder.setClient(new OkClient(httpClient));
 
 
+在 Retrofit 2.0 中，直接把 `OkHttpClient` 实例传递给 `Retrofit.Builder` 实例的 `client` 即可。 
 
-In Retrofit 2.0, simply pass the `OkHttpClient` instance to the `client` method of your `Retrofit.Builder` instance.
-
-In the Khan Academy application, we leverage [Dagger](http://google.github.io/dagger/) to ensure that we have only one `OkHttpClient` instance, and that it is used by both Picasso and Retrofit. We create a provider for the `OkHttpClient` instance with the `@Singleton` annotation:
-
+在可汗学院的应用中，我们使用 [Dagger](http://google.github.io/dagger/) 来确保只有一个 `OkHttpClient` 实例，而且 Picasso 和 Retrofit 都会使用到它。我们为带 `@Singleton` 注解的 `OkHttpClient` 实例创建了一个 provider：
 
 ```java
 @Provides
@@ -111,12 +104,11 @@ public OkHttpClient okHttpClient(final Context context, ...) {
 }
 ```
 
+这个 `OkHttpClient` 实例随后通过 Dagger 注入到其他用来创建 `RestAdapter` 和 `Picasso` 实例的 provider 里。
 
-This `OkHttpClient` is then injected with Dagger into the other providers that create our `RestAdapter` and `Picasso` instances.
+### 4\. 设置用户代理拦截器（User-Agent Interceptor）
 
-### 4\. Specify a user agent interceptor
-
-Log files and analytics are much more informative when clients provide a detailed `User-Agent` header value in every request. By default, OkHttp includes a `User-Agent` value that specifies only the version of OkHttp. To specify your own user agent, first create an interceptor that replaces the value, [following this suggestion on StackOverflow](http://stackoverflow.com/a/27840834/400717):
+当客户端在每一次请求中都提供一个详细的 `User-Agent` 头部信息时，日志文件和分析数据提供了很有用的信息。默认情况下，OkHttp 的 `User-Agent` 值仅仅只有它的版本号。要设定你自己的 User-Agent，创建一个拦截器（Interceptor）然后替换掉默认值，参考 [StackOverflow 上的建议](http://stackoverflow.com/a/27840834/400717)：
 
 
 ```java
@@ -140,20 +132,19 @@ public final class UserAgentInterceptor implements Interceptor {
 }
 ```
 
+使用任何你觉得有价值的信息，来创建 `User-Agent` 值，然后传递给 `UserAgentInterceptor` 的构造函数。我们使用了这些字段：
 
-To construct the `User-Agent` header value that is passed into the constructor of `UserAgentInterceptor`, use whatever values you would find informative. We use:
+*   `os` 字段，值设置为 `Android`，明确表明这是一个 Android 设备
+*   `Build.MODEL` 字段，即用户可见的终端产品的名称
+*   `Build.BRAND` 字段，即消费者可见的跟产品或硬件相关的商标
+*   `Build.VERSION.SDK_INT` 字段，即用户可见的 [Android] 框架版本号
+*   `BuildConfig.APPLICATION_ID` 字段
+*   `BuildConfig.VERSION_NAME` 字段
+*   `BuildConfig.VERSION_CODE`字段
 
-*   an `os` value of `Android` to clearly communicate that this is an Android device
-*   `Build.MODEL`, or the “end-user-visible name for the end product”
-*   `Build.BRAND`, or the “consumer-visible brand with which the product/hardware will be associated”
-*   `Build.VERSION.SDK_INT`, or the “user-visible SDK version of the [Android] framework”
-*   `BuildConfig.APPLICATION_ID`
-*   `BuildConfig.VERSION_NAME`
-*   `BuildConfig.VERSION_CODE`
+最后三个字段是根据我们的 Gradle 构建脚本中的 `applicationId`, `versionCode` 和 `versionName` 的值来确定的。了解更多信息请参考文档 [应用版本控制](http://developer.android.com/tools/publishing/versioning.html)，和 [使用 Gradle 配置你的 `applicationId`](http://tools.android.com/tech-docs/new-build-system/applicationid-vs-packagename)。
 
-The last three values are specified by the `applicationId`, `versionCode`, and `versionName` values in our Gradle build script. For more information, consult the documents on [versioning your applications](http://developer.android.com/tools/publishing/versioning.html), and on [configuring your `applicationId` with Gradle](http://tools.android.com/tech-docs/new-build-system/applicationid-vs-packagename).
-
-Note that if your application uses a `WebView`, you can configure it to use the same `User-Agent` header value that you constructed the `UserAgentInterceptor` with:
+小提示：如果你的应用中用到了 `WebView`，你可以配置使用相同的 `User-Agent` 值，即之前创建的 `UserAgentInterceptor`：
 
 
 ```java
@@ -161,25 +152,25 @@ WebSettings settings = webView.getSettings();
 settings.setUserAgentString(userAgentHeaderValue);
 ```
 
+### 5\. 指定合理的超时
 
-### 5\. Specify reasonable timeouts
+在 2.5.0 版本之前，OkHttp 请求默认永不超时。从 2.5.0 版本开始，如果建立了一个连接，或从连接读取下一个字节，或者向连接写入下一个字节，用时超过了10秒，请求就会超时。分别调用 `setConnectTimeout`，`setReadTimeout` 或 `setWriteTimeout` 方法可以重写那些默认值。
 
-Before version 2.5.0, OkHttp requests defaulted to never timing out. Starting with version 2.5.0, a request times out if establishing a connection, reading the next byte from a connection, or writing the next byte to a connection takes more than 10 seconds to complete. Doing nothing more than updating to version 2.5.0 revealed bugs in our own code, simply because we began exercising certain error paths for the first time. To override these default values, invoke `setConnectTimeout`, `setReadTimeout` or `setWriteTimeout` respectively.
+小提示：Picasso 和 Retrofit 为它们的默认 `OkHttpClient` 实例指定不同的超时时长。
+默认情况下， Picasso 设定如下：
 
-Note that Picasso and Retrofit specify different timeout values for their default `OkHttpClient` instances. By default, Picasso specifies:
+*   连接超时15秒
+*   读取超时20秒
+*   写入超时20秒
 
-*   A connect timeout of 15 seconds.
-*   A read timeout of 20 seconds.
-*   A write timeout of 20 seconds.
+Retrofit 设定如下：
 
-Whereas Retrofit specifies:
+*   连接超时15秒
+*   读取超时20秒
+*   写入无超时
 
-*   A connect timeout of 15 seconds.
-*   A read timeout of 20 seconds.
-*   No write timeout.
+用你自己的 `OkHttpClient` 实例配置好 Picasso 和 Retrofit 之后，就能确保所有请求超时的一致性了。
 
-By configuring Picasso and Retrofit with your own `OkHttpClient` instance, you can ensure consistent timeouts by all requests.
+### 结论
 
-### Conclusion
-
-Again, the default configuration of OkHttp offers significant utility. By adopting the steps above, you can increase its resourcefulness and introspective power, and improve the quality of your application.
+再次强调，OkHttp 的默认配置提供了显著的效果，但是采取以上的措施，可以提高 OkHttp 的可用性和自我检查能力，并且提升你的应用的质量。
