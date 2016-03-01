@@ -1,8 +1,8 @@
 > * 原文链接: [Reactive GraphQL Architecture](https://github.com/apollostack/apollo/blob/master/design/high-level-reactivity.md)
 * 原文作者 : [stubailo](https://github.com/apollostack/apollo/commits/master/design/high-level-reactivity.md?author=stubailo)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者 :
+* 译者 : [shenxn](https://github.com/shenxn)
+* 校对者 : [lekenny](https://github.com/lekenny)
 * 状态 : 认领中
 
 
