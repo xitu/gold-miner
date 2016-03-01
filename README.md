@@ -34,19 +34,18 @@
 *  [RxSwift at first sight](https://github.com/xitu/gold-miner/issues/136)
 *  [设计师的理解字距设计指南](https://github.com/xitu/gold-miner/issues/134)
 *  [深入浅出 Android 权限（二）](https://github.com/xitu/gold-miner/issues/133)
-*  [深入浅出 Android 权限（一）](http://gold.xitu.io/entry/56d11137c24aa800544db479)
-*  [在 chrome 的开发者工具里 debug node.js 代码](http://gold.xitu.io/entry/56d3cfea6be3ff005c5f9b89)
-*  [无缝迁移 Angular 1 项目到 Angular 2](http://gold.xitu.io/entry/56d3bd6a1ea493005c1eddfa)
+*  [在 chrome 的开发者工具里 debug node.js 代码](http://gold.xitu.io/entry/56d3cfea6be3ff005c5f9b89)([sqrthree (根号三)](https://github.com/sqrthree) 翻译)
+*  [无缝迁移 Angular 1 项目到 Angular 2](http://gold.xitu.io/entry/56d3bd6a1ea493005c1eddfa)([BOBO](https://github.com/CoderBOBO) 翻译)
 *  [Sketch 作者的采访](https://github.com/xitu/gold-miner/issues/118)
-*  [OAuth2 Authentication with Lua](http://gold.xitu.io/entry/56cd222199a6ce005a25b9ef)
-*  [How we "CSS" at BigCommerce](http://gold.xitu.io/entry/56ce82cbc24aa800520f4215)
-*  [选择使用正确的 Markdown Parser](http://gold.xitu.io/entry/56ce79db1532bc0053728c2f)
-*  [HTTP/2 For Web Developers](http://gold.xitu.io/entry/56ce7d1a1532bc005372a7fa)
+*  [OAuth2 Authentication with Lua](http://gold.xitu.io/entry/56cd222199a6ce005a25b9ef)([BOBO](https://github.com/CoderBOBO) 翻译)
+*  [How we "CSS" at BigCommerce](http://gold.xitu.io/entry/56ce82cbc24aa800520f4215)([shenxn](https://github.com/shenxn) 翻译)
+*  [选择使用正确的 Markdown Parser](http://gold.xitu.io/entry/56ce79db1532bc0053728c2f)([lfkdsk](https://github.com/lfkdsk) 翻译)
+*  [HTTP/2 For Web Developers](http://gold.xitu.io/entry/56ce7d1a1532bc005372a7fa)([Zhongyi Tong](https://github.com/geeeeeeeeek) 翻译)
 *  [Google Cloud Functions 文档](https://github.com/xitu/gold-miner/issues/104)
-*  [Functional JavaScript 教程（一）](http://gold.xitu.io/entry/56d4e8b57db2a200556c64cb)  ([Zhangjd](https://github.com/zhangjd) 翻译)
 
 ## Android
 
+*  [深入浅出 Android 权限（一）](http://gold.xitu.io/entry/56d11137c24aa800544db479)([Hugo Xie](https://github.com/xcc3641) 翻译)
 *  [世界级的 Android 测试流程（一）](https://github.com/xitu/gold-miner/blob/master/TODO/world-class-testing-development-pipeline-for-android.md) ([markzhai](https://github.com/markzhai) 翻译)
 *  [世界级的 Android 测试流程（二）](http://gold.xitu.io/entry/56cd87ba7db2a26229196d01) ([markzhai](https://github.com/markzhai) 翻译)
 * [2015 年度 Android 开发者必备的 5 个开源库](https://github.com/xitu/gold-miner/blob/master/TODO/Top-5-Android-libraries-every-Android-developer-should-know-about.md) ([kassadin (kass)](https://github.com/kassadin) 翻译)
@@ -75,6 +74,7 @@
 * [2015 年底 JS 必备工具集](https://github.com/xitu/gold-miner/blob/master/TODO/must-see-javascript-dev-tools-that-put-other-dev-tools-to-shame.md) ([赵鑫晖](https://github.com/zxc0328) 翻译)
 * [How do Promises Work?](http://gold.xitu.io/entry/56cc0bcf8ac2470053b7c5ab) ([Zhangjd](https://github.com/Zhangjd) 翻译)
 * [JavaScript 开发者年度调查报告](http://gold.xitu.io/entry/56ca985071cfe40054d98994)([sqrthree (根号三)](https://github.com/sqrthree) 翻译)
+*  [Functional JavaScript 教程（一）](http://gold.xitu.io/entry/56d4e8b57db2a200556c64cb)  ([Zhangjd](https://github.com/zhangjd) 翻译)
 
 ## React
 
