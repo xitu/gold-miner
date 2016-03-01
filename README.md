@@ -35,7 +35,7 @@
 *  [利用 input-placeholder 属性来实现 input label 特殊效果](https://github.com/xitu/gold-miner/issues/149)
 *  [一个专业的 Web 开发者却无法在 10 天内开发出一个简单的产品](https://github.com/xitu/gold-miner/issues/150)
 *  [Reactive GraphQL Architecture](https://github.com/xitu/gold-miner/issues/146)
-*  [RxSwift at first sight](https://github.com/xitu/gold-miner/issues/136)
+*  [RxSwift at first sight](http://gold.xitu.io/entry/56d5528a1532bc004c6e913a)([SatanWoo](https://github.com/SatanWoo)翻译）
 *  [设计师的理解字距设计指南](https://github.com/xitu/gold-miner/issues/134)
 *  [深入浅出 Android 权限（二）](https://github.com/xitu/gold-miner/issues/133)
 *  [在 chrome 的开发者工具里 debug node.js 代码](http://gold.xitu.io/entry/56d3cfea6be3ff005c5f9b89)([sqrthree (根号三)](https://github.com/sqrthree) 翻译)
