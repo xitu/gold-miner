@@ -43,7 +43,7 @@
 *  [选择使用正确的 Markdown Parser](http://gold.xitu.io/entry/56ce79db1532bc0053728c2f)
 *  [HTTP/2 For Web Developers](http://gold.xitu.io/entry/56ce7d1a1532bc005372a7fa)
 *  [Google Cloud Functions 文档](https://github.com/xitu/gold-miner/issues/104)
-*  [A GENTLE INTRODUCTION TO FUNCTIONAL JAVASCRIPT: PART 1](https://github.com/xitu/gold-miner/issues/105)
+*  [Functional JavaScript 教程（一）](http://gold.xitu.io/entry/56d4e8b57db2a200556c64cb)  ([Zhangjd](https://github.com/zhangjd) 翻译)
 
 ## Android
 
