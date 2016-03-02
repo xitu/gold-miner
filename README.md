@@ -22,6 +22,7 @@
 
 ## 正在进行的
 
+*  [Wrapping Existing Libraries With RxJava](https://github.com/xitu/gold-miner/issues/181)
 *  [用简洁的 Architecture Pattern 来开发 Android 应用](https://github.com/xitu/gold-miner/issues/180)
 *  [前端框架选择：Angular vs Ember vs React](https://github.com/xitu/gold-miner/issues/177)
 *  [Simplify Your Life With an SSH Config File](https://github.com/xitu/gold-miner/issues/175)
