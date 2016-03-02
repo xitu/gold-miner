@@ -181,7 +181,7 @@ public class WelcomingInteractorImpl extends AbstractInteractor implements Welco
         // we have retrieved our message, notify the UI on the main thread
         postMessage(message);
     }
-    ```
+```
     
 
 This just attempts to retrieve the message and sends the message or the error to the UI to display it. We notify the UI using our Callback which is actually going to be our Presenter. **That is the crux of our business logic. Everything else we need to do is framework dependent.**
