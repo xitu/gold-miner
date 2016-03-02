@@ -22,6 +22,7 @@
 
 ## 正在进行的
 
+*  [前端框架选择：Angular vs Ember vs React](https://github.com/xitu/gold-miner/issues/177)
 *  [Simplify Your Life With an SSH Config File](https://github.com/xitu/gold-miner/issues/175)
 *  [Disassembling JavaScript's IIFE Syntax](https://github.com/xitu/gold-miner/issues/174)
 *  [Python3.5 协程原理](https://github.com/xitu/gold-miner/issues/173)
