@@ -74,7 +74,7 @@ The general structure for an Android app looks like this:
 *   Middle layer packages: Presenters, Converters
 *   Inner layer packages: Interactors, Models, Repositories, Executor
 
-###　Outer layer
+### Outer layer
 
 As already mentioned, this is where the framework details go.
 
@@ -84,7 +84,7 @@ As already mentioned, this is where the framework details go.
 
 **Network — **Things like [**Retrofit**](http://square.github.io/retrofit/) go here.
 
-＃＃＃　Middle layer
+### Middle layer
 
 Glue code layer which connects the implementation details with your business logic.
 
@@ -92,7 +92,7 @@ Glue code layer which connects the implementation details with your business log
 
 **Converters — **Converter objects are responsible for converting inner models to outer models and vice versa.
 
-＃＃＃ Inner layer
+### Inner layer
 
 The core layer contains the most high-level code. **All classes here are POJOs**. Classes and objects in this layer have no knowledge that they are run in an Android app and can easily be ported to any machine running JVM.
 
@@ -144,8 +144,6 @@ Now let’s implement our Interactor interface with our business logic. **It is 
 
 ```
 public class WelcomingInteractorImpl extends AbstractInteractor implements WelcomingInteractor {
-    
-    ...
     
     private void notifyError() {
         mMainThread.post(new Runnable() {
@@ -206,8 +204,6 @@ As you can see, there is **no mention of any Android code.** That is the **main 
 We can now run and **test our Interactor without running an emulator**. So let’s write a simple **JUnit** test to make sure it works:
 
 ```
-...
-
     @Test
     public void testWelcomeMessageFound() throws Exception {
 
