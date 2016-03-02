@@ -1,125 +1,153 @@
-# Walkthroughs
+* 原文[Walkthroughs](https://cloud.google.com/functions/walkthroughs)
+* 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
+* 译者 : [huanglizhuo](https://github.com/huanglizhuo)
+* 校对者: [shenxn](https://github.com/shenxn) [CoderBOBO](https://github.com/CoderBOBO) [edvarHua](https://github.com/edvardHua)
 
-## Hello World with Cloud Pub/Sub
 
-This section shows a basic "Hello World" example. The example uses the following components:
+##演练
 
-*   Google Cloud Functions: create a Hello World function.
-*   Google Cloud Pub/Sub: send a message to the function.
-*   Google Cloud Logging: view the "hello world" message.
+###Cloud 发布/订阅 版 Hello World
 
-### Step 1 - Create the function
+这节将会演示一个基本的 "Hello World" 例子。这个例子主要用了以下组件：
 
-Choose a location on your local file system to contain the project:
+* Google Cloud Functions: 创建 Hello World 函数。
+* Google Cloud Pub/Sub: 给函数发送消息。
+* Google Cloud Logging: 查看 "hello world" 的消息。
+
+###第一步：创建函数
+
+在你的本地文件系统中创建一个项目的位置:
 
 Linux/Mac
 
-> $ mkdir ~/gcf_hello_world
-> $ cd ~/gcf_hello_world
+>$ mkdir ~/gcf_hello_world
+
+>$ cd ~/gcf_hello_world
 
 Windows
 
-> $ mkdir %HOMEPATH%\gcf_hello_world
-> $ cd %HOMEPATH%\gcf_hello_world
+>$ mkdir %HOMEPATH%\gcf_hello_world
 
-Create a file called `index.js` and paste in the following code (note that if you want to name the file differently, then it must be defined in a `package.json` file as main property):
+>$ cd %HOMEPATH%\gcf_hello_world
+
+新建一个 index.js 的文件(注意，如果你想用另一个名字来命名，记得在 package.json 中把它定义成主属性)，并把下面的代码复制进去:
 
 index.js
 
-> exports.helloworld = function (context, data) {
->   console.log('My GCF Function: ' + data.message);
->   context.success();
-> };
+```js
+exports.helloworld = function (context, data) {
+  console.log('My GCF Function: ' + data.message);
+  context.success();
+};
+```
 
-### Step 2 - Deploy your function
+###第二步：部署你的函数
 
-Deploy the function with a Pub/Sub topic called `hello_world`:
+使用一个名为 hello_world 的 Pub/Sub topic 部署函数
 
-> $ gcloud alpha functions deploy helloworld --bucket cloud-functions --trigger-topic hello_world
+>$ gcloud alpha functions deploy helloworld --bucket cloud-functions --trigger-topic hello_world
 
-The `--trigger-topic` argument represents the Cloud Pub/Sub topic that will be used or created and on which you can publish events.
+--trigger-topic 参数表示要创建或使用 Cloud Pub/Sub 主题，在这个主题下你可以发布事件。
 
-**Note:** The first time you deploy a function it may take several minutes as we need to provision the underlying infrastructure to support your functions. Subsequent deployments will be much faster.
+```
+注意：首次部署函数时可能要花费几分钟，因为我们需要为你的函数提供底层支持。随后的部署就会很快了
+```
 
-You can verify the status of a function at any time using the `describe` command:
+使用 describe 命令可以随时产看函数的状态：
 
-> $ gcloud alpha functions describe helloworld
+>$ gcloud alpha functions describe helloworld
 
-Once the function is deployed, you should see a status of READY reported, along with the path to the Cloud Pub/Sub topic created:
+一旦函数部署成功，你将会看到状态变为 READY ，同时会有 Cloud Pub/Sub 主题的路径显示出来：
 
-> status: READY
-> triggers:
-> - pubsubTopic: projects/<PROJECT_ID>/topics/hello_world</pre>
+```
+status: READY
+triggers:
+- pubsubTopic: projects/<PROJECT_ID>/topics/hello_world</pre>
+```
 
-### Step 3 - Test your Function with the "call" command
+###第三步：使用 call 命令测试你的函数
 
-You can test the function from the command line by using the call command:
+通过 call 命令可以在命令行下测试你的函数：
 
 > $ gcloud alpha functions call helloworld --data '{"message":"Hello World!"}'
 
-### Step 4 - View the logs
+###第四步：查看日志
 
-The above code doesn't return a value, so you'll need to check the logs to see the "Hello World!" string:
+上面的命令是没有返回值的，你需要查看日志才能看到 "Hello World!" 字符串：
 
-> $ gcloud alpha functions get-logs helloworld
+>$ gcloud alpha functions get-logs helloworld
 
-### Step 5 - Send a Message using Pub/Sub
+###第五步：使用 Pub/Sub 发布一条消息
 
-This example uses Cloud Pub/Sub as a trigger, so you can also cause the function to execute by publishing to the Pub/Sub topic:
+这个例子使用 Cloud Pub/Sub 作为触发器，因此你也可以通过发布 Pub/Sub 消息来触发函数：
 
-> $ gcloud alpha pubsub topics publish hello_world '{"message":"Hello World!"}'
+>$ gcloud alpha pubsub topics publish hello_world '{"message":"Hello World!"}'
 
-## HTTP Invocation
+##HTTP 调用
 
-This example creates a simple function that can be invoked via an HTTP request.
+下面这个例子创建了一个可以通过 HTTP 请求触发的简单函数。
 
-### Step 1 - Create the function
+###第一步：创建函数
 
-Choose a location on your local file system to contain the project:
+在你本地系统创建工程：
 
 Linux/Mac
 
-> $ mkdir ~/gcf_hello_http
-> $ cd ~/gcf_hello_http
+>$ mkdir ~/gcf_hello_http
+
+>$ cd ~/gcf_hello_http
 
 Windows
 
-> $ mkdir %HOMEPATH%\gcf_hello_http
-> $ cd %HOMEPATH%\gcf_hello_http
+>$ mkdir %HOMEPATH%\gcf_hello_http
 
-Create a file called `index.js` and paste in the following code (note that if you want to name the file differently, then it must be defined in a `package.json` file as main property):
+>$ cd %HOMEPATH%\gcf_hello_http
+
+新建一个 index.js 的文件(注意：如果你想用另一个名字来命名，记得在 package.json 中把它定义成主属性)，并把下面的代码复制进去:
 
 index.js
 
-> exports.hellohttp = function (context, data) {
->   // Use the success argument to send data back to the caller
->   context.success('My GCF Function: ' + data.message);
-> };
 
-### Step 2 - Deploy your function
+```js
+rts.hellohttp = function (context, data) {
+  // Use the success argument to send data back to the caller
+  context.success('My GCF Function: ' + data.message);
+};
+```
 
-Deploy the function with an http trigger:
+###第二步：部署你的函数
 
-> $ gcloud alpha functions deploy hellohttp --bucket cloud-functions --trigger-http
+部署一个拥有 http 触发器的函数
 
-> **Note:** The first time you deploy a function it may take several minutes as we need to provision the underlying infrastructure to support your functions. Subsequent deployments will be much faster.
+> $ gcloud alpha functions deploy helloworld --bucket cloud-functions --trigger-topic hello_world
 
-Once the function is deployed, you should see a status of READY reported, along with the HTTP url.
+```
+注意：首次部署函数时可能要花费几分钟，因为我们需要为你的函数提供底层支持。随后的部署就会很快了
+```
 
-> status: READY
-> triggers:
-> - webTrigger:
->   url: https://<REGION>.<PROJECT_ID>.cloudfunctions.net/hellohttp
+使用 describe 命令可以随时产看函数的状态：
 
-The `<REGION>` shows the deployment region of your function, and the `<PROJECT_ID>` is your project. For example:
+>$ gcloud alpha functions describe helloworld
 
-> https://us-central1.my-project.cloudfunctions.net/hellohttp
+一旦函数部署成功，你将会看到状态变为 READY ，同时会有一个 HTTP url：
 
-### Step 3 - Invoke your Function
+```
+status: READY
+triggers:
+- webTrigger:
+  url: https://<REGION>.<PROJECT_ID>.cloudfunctions.net/hellohttp
+```
 
-You can test the function from the command line using the `curl` command:
+<REGION> 表示你部署函数的地区，<PROJECT_ID> 是你项目的 ID 。比如：
+
+>https://us-central1.my-project.cloudfunctions.net/hellohttp
+
+###第三步：触发你的函数
+
+可以用 crul 命令行工具测试你的函数：
 
 > $ curl -X POST https://<REGION>.<PROJECT_ID>.cloudfunctions.net/hellohttp \
->   --data '{"message":"Hello World!"}'
+  --data '{"message":"Hello World!"}'
 
-Make sure you use an HTTP POST as Cloud Functions do not currently support other HTTP methods.
+确保你的使用的是 HTTP POST 方法，因为 Cloud Functions 现在还不支持其它的 HTTP 方法。
+

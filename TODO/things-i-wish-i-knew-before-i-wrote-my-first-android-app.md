@@ -43,7 +43,7 @@
 
 如果你发现你愿意这么做, 那么你的代码可能存在一些严重的错误. 寻求帮助. 可以去看看在 Google 在 Udacity 的课程 ["Android Development for Beginners"](https://www.udacity.com/course/android-development-for-beginners--ud837).
 
-注意: 从技术的角度讲, 你可以持有一个应用 Context 的静态引用而不会引起内存泄漏, 但是我根本不会提倡你这样做的.
+注意: 从技术的角度讲, 你可以持有一个 Application Context 的静态引用而不会引起内存泄漏, 但是我根本不会提倡你这样做的.
 
 ## 2\. 小心对你不能控制生命周期的对象的隐式引用
 
@@ -67,7 +67,7 @@
 
 这段代码存在很多问题. 我将把重点放在其中的一个上.  在 Java 中, (非静态的) 内部类对包含它的类对象有一个隐式的引用.
 
-在这个例子中, 任何 GetLatAndLongAndUpdateMapCameraAsyncTask 对象都将有 个DefineGeofenceFragment 对象的引用. 匿名类也是如此: 它会对包含它的类对象有个隐式的引用.
+在这个例子中, 任何 GetLatAndLongAndUpdateMapCameraAsyncTask 对象都将有个DefineGeofenceFragment 对象的引用. 匿名类也是如此: 它会对包含它的类对象有个隐式的引用.
 
 这个 GetLatAndLongAndUpdateMapCameraAsyncTask 对象对 Fragment 对象有个隐式的的引用, 一个我们无法控制它生命周期的对象. Android SDK 负责适当的创建和销毁 Fragment 对象, 如果因为 GetLatAndLongAndUpdateMapCameraAsyncTask 对象正在执行所以不能被回收的话, 那它持有对象也无法被回收.
 
@@ -84,7 +84,7 @@
 
 (另外, 你一定想知道为什么实例变量声明的时候要带个 "m" 前缀: "m" 经常作为实例变量的前缀的约定. 它代表了成员(member).)
 
-不论你是否认为 "m" 前缀是不是一个好主意, 这有一点人生的经验: Android studio 可以帮助你把代码转换成任何你想要的样子. 例如, 你可以在 Android Studio 的代码样式对话框设定里设定给你的实例变量自动加上 "m" 前缀并在生成 getters, setters 和构造函数参数的时候自动移除 "m".
+不论你是否认为 "m" 前缀是不是一个好主意, 这有一点人生的经验: Android Studio 可以帮助你把代码转换成任何你想要的样子. 例如, 你可以在 Android Studio 的代码样式对话框设定里设定给你的实例变量自动加上 "m" 前缀并在生成 getters, setters 和构造函数参数的时候自动移除 "m".
 
 [![Screen Shot 2015-07-09 at 4.16.13 PM](http://i1.wp.com/www.philosophicalhacker.com/wp-content/uploads/2015/07/Screen-Shot-2015-07-09-at-4.16.13-PM.png?resize=620%2C432)](http://i1.wp.com/www.philosophicalhacker.com/wp-content/uploads/2015/07/Screen-Shot-2015-07-09-at-4.16.13-PM.png)
 
@@ -112,7 +112,7 @@ Android Studio可以做很多事情. [学习快捷键](http://www.developerphil.
 
 1. 收听 [Google IO Fragmented podcast episode](http://fragmentedpodcast.com/episodes/9/). 在这集中, 有一些要求开发了解的第三方 Android 库. 
 剧透: 大部分都是 Dagger, Retrofit, Picasso, and Mockito.
-2. 订阅[to Android Weekly](http://androidweekly.net/). 这里有一个板块包含最新的安卓库. 留心那些对你有用的库.
+2. 订阅[to Android Weekly](http://androidweekly.net/). 这里有一个板块包含最新的 Android 库. 留心那些对你有用的库.
 3. 寻找解决类似问题的开源应用. 你可能发现它们用了第三方的库或者用了你并没有在意的标准Java库
 
 ##总结
