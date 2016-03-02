@@ -8,7 +8,7 @@
 
 [![Swift 3.0](https://img.shields.io/badge/Swift-3.0-orange.svg?style=flat)](https://swift.org/)
 
-如果你正在寻找 Swift 2.2 Ubuntu 的包，请查看我们[这里](http://dev.iachieved.it/iachievedit/ubuntu-packages-for-open-source-swift/)的参考。
+如果你正在寻找 Swift 2.2 的 Ubuntu 包，请查看我们[这里](http://dev.iachieved.it/iachievedit/ubuntu-packages-for-open-source-swift/)的引导。
 ### Swift 3.0
 
 Swift 2.2 已经从 `master` 分支移到了 `swift-2.2` 分支上。现在，Swift 3.0 版本的开发工作在仓库的 `master` 分支上进行。克隆完整编译 Swift 所有源代码的方式已经与之前有很大变化。相比之前要逐个仓库进行克隆，现在你可以这样做:
