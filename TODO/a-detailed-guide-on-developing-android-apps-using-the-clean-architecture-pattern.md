@@ -196,7 +196,6 @@ import com.kodelabs.boilerplate.domain.interactors.base.AbstractInteractor;
 import com.kodelabs.boilerplate.domain.repository.MessageRepository;
 ```
 
-
 As you can see, there is **no mention of any Android code.** That is the **main benefit** of this approach. You can see that the **Independent of Frameworks** point holds. Also, we do not care about specifics of the UI or database, we just call interface methods that someone somewhere in the outer layer will implement. Therefore, we are **Independent of UI** and **Independent of Databases.**
 
 ## Testing our Interactor
@@ -224,7 +223,7 @@ We can now run and **test our Interactor without running an emulator**. So letâ€
         Mockito.verifyNoMoreInteractions(mMessageRepository);
         Mockito.verify(mMockedCallback).onMessageRetrieved(msg);
     }
-    ```
+```
     
 Again, this Interactor code has no idea that it will live inside an Android app. This proves that our business logic is **Testable,** which was the second point to show.
 
