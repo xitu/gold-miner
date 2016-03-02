@@ -1,40 +1,39 @@
 > * 原文链接: [A Blurring View for Android](http://developers.500px.com/2015/03/17/a-blurring-view-for-android.html)
 * 原文作者 : [Jun Luo](https://500px.com/junluo)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
+* 译者 : [Sausre](https://github.com/Sausure)
 * 校对者 :
-* 状态 : 认领中
+* 状态 : 翻译完成
 
-## Blur Effect
+## 模糊渲染
+  模糊渲染能生动地表达内容间的层次感。当专注于当前特定内容的时候，它允许用户维持相对的上下文，即使模糊层以下的内容被转换成视差效果或者是动态改变的。(even if what’s under the blurring surface shifts in a parallax fashion or changes dynamically.`校对者请注意，抱歉，这句我不懂翻译通顺，以下通过括号围起来且最前面有个问号的即我不会的，多多费心了`)
 
-Blur effect can be used to vividly convey a sense of layering of content. It allows the user to maintain the context, while focused on the currently featured content, even if what’s under the blurring surface shifts in a parallax fashion or changes dynamically.
-
-On iOS, we could get this sort of blurring by first constructing a `UIVisualEffectView`:
+在IOS开发中，我们首先可以通过构造`UIVisualEffectView`获得这种模糊效果：
 
     UIVisualEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
     UIVisualEffectView *visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
 
-and then adding `visualEffectView` to a view hierarchy, in which it will dynamically blur what’s under it.
+接着我们可以添加`visualEffectView`到视图层中，那么在它之下的内容都会动态渲染模糊效果。
 
-## State of the Art on Android
+## 在Android中的状况（? State of the Art on Android）
 
-While things are not as straightforward on Android, we did see great examples of the blur effect, such as in the Yahoo Weather app. According to [Nicholas Pomepuy’s blog post](http://nicolaspomepuy.fr/blur-effect-for-android-design/), however, the blurring is here achieved through caching a pre-render blurred version of the background image.
+虽然在Android中并没有直接的方法实现模糊渲染，但我们依然能见到些十分优秀的例子比如Yahoo Weather应用，见[Nicholas Pomepuy的博文](http://nicolaspomepuy.fr/blur-effect-for-android-design/)，然而，它是通过缓存一张预先渲染模糊的背景图片实现的。
 
-While this approach could be very effective, it is not exactly suitable for our needs. At [500px](https://500px.com), images are typically the focal content rather than merely supplying a background. That means images could change a lot and change quickly, even if they are behind a blurring layer. The tour in [our Android app](https://play.google.com/store/apps/details?id=com.fivehundredpx.viewer) is a case in point. Here, as the user swipes for the next page, rows of images shift in opposite directions and fade out, making it difficult to appropriately manage multiple pre-rendered images for composing the required blur effect.
+虽然这种方法挺有效果，但并不是我们想要的。在[500px](https://500px.com)社区，图片是关注的焦点而不仅仅是张背景，(? images are typically the focal content rather than merely supplying a background)这意味着图片可以随意改变甚至迅速改变，即使它们被覆盖在模糊层之下。[我们的Android应用](https://play.google.com/store/apps/details?id=com.fivehundredpx.viewer)就是个十分典型的例子。比如，当用户滑到下一页时，图片会向反方向移动并淡出，通过适当地维护多个预先渲染模糊的图片是很难满足这种需求的。
 
 ![Blurring in the tour of 500px Android App](http://developers.500px.com/images/2015-03-17-500px-android-tour-blurring.png)
 
-## A View Drawing Approach
+## 通过自定义View的OnDraw方法
 
-What we needed for the tour is a blurring view that dynamically blurs the views underneath it in real time. The interface we eventually arrived at is as simple as first giving the blurring view a reference to the blurred view:
+我们的需求是希望能实现一个模糊视图(blurringView应该翻译成怎样才能让读者分清blurringView和blurredView的区别？模糊视图和被模糊视图？)它能实时地动态地模糊渲染在它之下的视图。我们最终想要的代码最好能尽量简单例如直接让模糊视图拥有一份被模糊视图的引用:
 
     blurringView.setBlurredView(blurredView);
 
-and then whenever the blurred view changes – whether it is due to content change (e.g. displaying a new photo), view transformation, or a step in animation, we invalidate the blurring view:
+然后当被模糊视图改变时 - 不管是内容的改变（如显示张新的图片）、视图的移动、或者是视图动画，我们都需要刷新模糊视图：
 
     blurringView.invalidate();
 
-To implement the blurring view, we subclass the `View` class and override the `onDraw()` method to render the blurred effect:
+为了实现模糊视图，我们需要继承`View`类然后重写`onDraw()`方法来渲染模糊效果：
 
     protected void onDraw(Canvas canvas) {
     super.onDraw(canvas);
@@ -53,13 +52,13 @@ To implement the blurring view, we subclass the `View` class and override the `o
     canvas.restore();
     }
 
-The key here is that when the blurring view redraws, it uses the `draw()` method of the blurred view, to which it has a reference, but draws into a private, bitmap-backed canvas:
+这里的关键是当模糊视图重绘的时候，我们会通过对被模糊视图的引用来调用它的`draw`方法，同时它会在我们私有的画布上绘画（注：对该画布的操作最终会作用到我们私有的位图上）:
 
     mBlurredView.draw(mBlurringCanvas);
 
-(It is worth noting that this approach of calling another view’s `draw()` method is also suitable for building a magnifier or signature UI, wherein the content of the magnified or signature area is enlarged, rather than blurred.)
+（通过这种途径访问其它的视图的`draw`方法十分有意义，我们也可以实现一个放大镜或者用来标注的视图，相对于模糊渲染，放大镜或者标注的区域更需要放大。）
 
-Following the ideas discussed in [Nicholas Pomepuy’s post](http://nicolaspomepuy.fr/blur-effect-for-android-design/), we use a combination of subsampling and [RenderScript](http://developer.android.com/guide/topics/renderscript/compute.html) for fast processing. The setup for subsampling is done when we initialize the blurring view’s private canvas `mBlurringCanvas`:
+下面的想法在[Nicholas Pomepuy的博文](http://nicolaspomepuy.fr/blur-effect-for-android-design/)中有谈到,我们结合二次抽样(? subsampling)与[RenderScript](http://developer.android.com/guide/topics/renderscript/compute.html)进行快速处理。当我们初始化模糊视图的私有画布`mBlurringCanvas`后二次抽样也设置完成：
 
     int scaledWidth = mBlurredView.getWidth() / DOWNSAMPLE_FACTOR;
     int scaledHeight = mBlurredView.getHeight() / DOWNSAMPLE_FACTOR;
@@ -67,42 +66,41 @@ Following the ideas discussed in [Nicholas Pomepuy’s post](http://nicolaspomep
     mBitmapToBlur = Bitmap.createBitmap(scaledWidth, scaledHeight, Bitmap.Config.ARGB_8888);
     mBlurringCanvas = new Canvas(mBitmapToBlur);
 
-Given this setup and appropriate initialization of RenderScript, the `blur()` method used in `onDraw()` above is as simple as:
+通过了上面的设置后接着适当地初始化RenderScript。那么上文`onDraw()`调用的`blur()`方法就简单多了：
 
     mBlurInput.copyFrom(mBitmapToBlur);
     mBlurScript.setInput(mBlurInput);
     mBlurScript.forEach(mBlurOutput);
     mBlurOutput.copyTo(mBlurredBitmap);
 
-Now that `mBlurredBitmap` is ready, the rest of the `onDraw()` method takes care of drawing it into the blurring view’s own canvas using appropriate translation and scaling.
+注意此时`mBlurredBitmap`已经渲染好了，余下的工作是`onDraw()`方法将它适当的移动和缩放后绘制到模糊视图自己的画布中。
 
-## Implementation Detail
+## 实现细节
 
-For a full implementation, we need to be mindful of several technical points. First, we have found that a factor of 8 for downsampling scaling and a blurring radius of 15 to be good for our purposes. Parameters suitable for your needs may be different.
+对于完全的实现，我们需要留心多个技术细节。首先，我们意识到，8个单位的缩放采样以及15个单位的模糊半径能能好地呈现我们想要的效果。当然，或许对你来说，别的参数才能满足你的要求。
 
-Second, we encountered some RenderScript artifacts at the edge of the blurred bitmap. To counter that, we rounded the scaled width and height up to the nearest multiple of 4:
+其次，(? we encountered some RenderScript artifacts at the edge of the blurred bitmap. To counter that, we rounded the scaled width and height up to the nearest multiple of 4:)
 
     // The rounding-off here is for suppressing RenderScript artifacts at the edge.
     scaledWidth = scaledWidth - (scaledWidth % 4) + 4;
     scaledHeight = scaledHeight - (scaledHeight % 4) + 4;
 
-Third, to further ensure good performance, we create the two bitmaps `mBitmapToBlur`, which backs the private canvas `mBlurringCanvas`, and `mBlurredBitmap` on demand and recreate them only if the blurred view’s size has changed. Likewise, we create RenderScript’s `Allocation` objects `mBlurInput` and `mBlurOutput` only when the blurred view’s size has changed.
+第三，我们为了更好地保证性能，需要创建第二张位图(? 这里two bitmaps是应该翻译成两张位图，可是两张位图的话为什么只有一个名字而且还是个对象成员变量)`mBitmapToBlur`按需要分别作为私有的画布即`mBlurrigCanvas`的底图和`mBlurredBitmap`的副本，并会在被模糊视图的大小改变时重新创建它们。同时，我们也只有当被模糊视图的大小改变时重新创建RenderScript中`Allocation`对象`mBlurInput`和`mBlurOutput`。(? 这段有点难翻译，劳烦校对者多费心了)
 
-Fourth, we also draw a layer of uniform, semi-transparent white color with `PorterDuff.Mode.OVERLAY` on top of the blurred image for the lightness required for our design.
+第四，当最上面的被模糊视图拥有属性`PorterDuff.Mode.OVERLAY`时我们也可以绘制一个统一白色半透明层为了设计的明亮程度考虑。
 
-Finally, because RenderScript is only available on API level 17 and up, we need to degrade gracefully on older versions of Android. Unfortunately, a bitmap blurring solution in Java as noted in [Nicholas Pomepuy’s post](http://nicolaspomepuy.fr/blur-effect-for-android-design/), while adequate for pre-rendering a cached copy, is not fast enough for realtime rendering. The decision we made was to simply use a semitransparent view with high opacity as fallback.
+最后，由于RenderScript仅在API版本17及以上有效，我们在较低级版本也应该有个比较优雅的降级方案。可不幸的是，正如[Nicholas Pomepuy的博文](http://nicolaspomepuy.fr/blur-effect-for-android-design/)中说的那样，通过Java来实现图片模糊渲染速度上达不到实时渲染的要求。最后我们只能决定使用个有较高透明度的半透明视图最为降级方案。
 
-## Pros and Cons
+## 优缺点
 
-We like this view drawing approach because it blurs in real time, it’s easy to use, it allows agnosticity of the blurred view’s content, it also allows some flexibility in the relationship between the blurring and the blurred view, and, above all, it suits our needs.
+我们欣赏这个视图的绘制策略因为它能做到实时模糊同时十分简单易用。它对被模糊视图的内容是不可知的，同时在模糊和被模糊视图的关系之间有很大的灵活性。当然，最重要的是他很好地满足了我们的要求。
 
-However, this approach does expect the blurring view to be privy to the whereabouts of the blurred view for appropriate coordinate transformation. Relatedly, the blurring view must not be a subview of the blurred view, otherwise you’ll get a stack overflow from mutually nested drawing calls. A simple but principled way with this limitation is to ensure that the blurring view is a sibling of the blurred view that sits in front of it in z-order.
+然而，这种策略需要模糊视图能掌握被模糊视图的位置通过适当的坐标转换。关键是模糊视图不能是被模糊视图的子视图否则你将会收到堆栈溢出错误提示因为它们在互相调用对方的绘制方法。一个简单但又十分有效摆脱这种限制的方法是保证模糊视图是被模糊视图的姊妹视图通过z-order来变换它们的层次关系。
 
-Another limitation we have noticed has to do with vector drawing and text, which does not seem to play well with our use of the default bitmap downsampling.
+还有个注意点是对于矢量图和文本，默认的位图采样并不太有效。
 
-## Library and Demo
+## 类库和演示
 
-To see our solution in action, you can check out the tour in [our Android app](https://play.google.com/store/apps/details?id=com.fivehundredpx.viewer). We have also put together a tiny open source library [on GitHub](https://github.com/500px/500px-android-blur) along with a detailed demo that shows how to use it with content change and with animation as well as view transformation.
+你可以在[我们的Android应用](https://play.google.com/store/apps/details?id=com.fivehundredpx.viewer)中看到完全的解决方案。同时我们也[在GitHub上](https://github.com/500px/500px-android-blur)推出了一个轻量级的开源类库，里面有个演示应用来展示如何在内容发生改变和视图动画时使用该类库。
 
 ![500px Blurring View Demo](https://github.com/500px/500px-android-blur/raw/master/blurdemo.gif)
-
