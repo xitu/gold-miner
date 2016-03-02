@@ -1,7 +1,7 @@
 > * 原文链接: [A Blurring View for Android](http://developers.500px.com/2015/03/17/a-blurring-view-for-android.html)
 * 原文作者 : [Jun Luo](https://500px.com/junluo)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : [Sausre](https://github.com/Sausure)
+* 译者 : [Sausure](https://github.com/Sausure)
 * 校对者 :
 * 状态 : 翻译完成
 
