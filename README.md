@@ -22,6 +22,7 @@
 
 ## 正在进行的
 
+*  [为什么有些设计初衷很好，结果却很糟糕？](https://github.com/xitu/gold-miner/issues/182)
 *  [2016 - the year of web streams](https://github.com/xitu/gold-miner/issues/178)
 *  [Wrapping Existing Libraries With RxJava](https://github.com/xitu/gold-miner/issues/181)
 *  [用简洁的 Architecture Pattern 来开发 Android 应用](https://github.com/xitu/gold-miner/issues/180)
