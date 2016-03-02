@@ -116,7 +116,7 @@ apt-get install swift-3.0
     Description-md5: 08508c39657c159d064917af87d8d411
     Homepage: http://dev.iachieved.it/iachievedit/swift
 
-每次编译源代码的树形_未受影响_。
+每次编译原始树_未受影响_。
 
 **Q.** 上传二进制文件前你测试过它们吗？
 **A.** Swift 进行编译时会对产生的二进制文件进行测试，然后我会做一些基础测试并用它编译我自己的应用程序，但是现在没有详尽全面的测试用例。
