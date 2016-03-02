@@ -11,7 +11,7 @@
 如果你正在寻找 Swift 2.2 的 Ubuntu 包，请查看我们[这里](http://dev.iachieved.it/iachievedit/ubuntu-packages-for-open-source-swift/)的引导。
 ### Swift 3.0
 
-Swift 2.2 已经从 `master` 分支移到了 `swift-2.2` 分支上。现在，Swift 3.0 版本的开发工作在仓库的 `master` 分支上进行。克隆完整编译 Swift 所有源代码的方式已经与之前有很大变化。相比之前要逐个仓库进行克隆，现在你可以这样做:
+Swift 2.2 已经从 `master` 分支移到了 `swift-2.2` 分支上。从那以后，仓库的 `master` 分支就被用来进行 3.0 版本的开发。完整克隆并编译 Swift 源码的方式已经与之前有很大变化。相比之前要逐个仓库进行克隆，现在你可以这样做:
 
     mkdir swift-build
     cd swift-build
@@ -32,7 +32,7 @@ Swift 2.2 已经从 `master` 分支移到了 `swift-2.2` 分支上。现在，Sw
     rm -rf $INSTALL_DIR $PACKAGE
     ./swift/utils/build-script --preset=buildbot_linux_${LSB_RELEASE} install_destdir=${INSTALL_DIR} in
 
-这个脚本中关键的事情就是检测 Ubuntu 的版本 (`lsb_release -rs`)，并且使用 `buildbot_linux_${LSB_RELEASE}` 预设编译同时把所有东西打包到 `${PACKAGE}` `.tar.gz` 文件中。
+这个脚本中关键的事情就是检测 Ubuntu 的版本 (`lsb_release -rs`)，并且使用 `buildbot_linux_${LSB_RELEASE}` 预设来编译并把所有东西打包到 `${PACKAGE}` `.tar.gz` 文件中。
 ### apt-get
 
 从 Apple 官方下载 `.tar.gz` 是个明智的选择。其实在 Ubuntu 发行版本上使用 `apt-get` 指令是更好的方法。为了使在 Linux 上编译 Swift 代码变得更加容易，我们为你提供了包含最新 Swift 包的 Ubuntu 仓库。
@@ -119,19 +119,19 @@ apt-get install swift-3.0
 每次编译源代码的树形_未受影响_。
 
 **Q.** 上传二进制文件前你测试过它们吗？
-**A.** Swift 进行编译时会对产生的二进制文件进行测试，我在编译自己的应用之前也做过基础的测试，但是现在没有详尽全面的测试用例。
+**A.** Swift 进行编译时会对产生的二进制文件进行测试，然后我会做一些基础测试并用它编译我自己的应用程序，但是现在没有详尽全面的测试用例。
 
 **Q.** 你会按照时间表定期编译吗？  
-**A.** 并不会，尽管我想尝试与 Apple 官方保持同步。然而我的想法只是做一下实验，从而我可以在 Linux 上 编写 Swift 程序。
+**A.** 并不会，尽管我想尝试与 Apple 官方保持同步。然而我的想法只是做一下实验，从而我可以在 Linux 上编写 Swift 程序。
 
 **Q.** 所有内容会被安装到哪里？ 
 **A.**所有内容会被放在 `/usr` 目录下，就像安装 `clang` 、 `gcc` 那样。
 
 **Q.** 如何理解包版本号的意义？  
-**A.** 这就是我一开始就想到的问题，我认为应该需要一个合适的包版本号。把 `3.0-0ubuntu2~trusty1` 个版本分解一下，应该是这样：
+**A.** 这就是我一开始就想到的问题，我认为应该需要一个合适的包版本号。把 `3.0-0ubuntu2~trusty1` 分解一下，应该是这样：
 
 *   3.0 是指所打包的 Swift 版本。
-*   -0ubuntu2 表示为 Ubuntu 打包的第二个版本，0 表示在 Debian 包上没有其依赖的包。
+*   -0ubuntu2 表示为 Ubuntu 打包的第二个版本，0 表示其上没有依赖的 Debian 包。
 *   ~trusty1 表示这个包是为 Trusty Tahr 准备的。
 
 Wily 的包版本号并不包括任何类似 `~wiley1` 这样的内容，因为从 Trusty 升级到 Wiley 后，它能够正确地自动更新 `swift-3.0` 的包。
@@ -140,6 +140,6 @@ Wily 的包版本号并不包括任何类似 `~wiley1` 这样的内容，因为�
 
 ## 工作原理是什么?
 
-我参考了[这些超赞的指南](http://xn.pinkhamster.net/blog/tech/host-a-debian-repository-on-s3.html)，在 Amazon S3 上搭建了一个 Debian 包仓库。我试着在上面建立了一个 PPA (译者注:Personal-Package-Archives，个人软件包档案) 发布平台，但是说实话，将所有元数据同时放进一个简单包中是很困难的。我明确知道搭建分发仓库很必要，但是这样做又有一些过头。不过那些开发 [fpm](https://github.com/jordansissel/fpm) 的人也有一些关于这个的建议。
+我参考了[这些超赞的指南](http://xn.pinkhamster.net/blog/tech/host-a-debian-repository-on-s3.html)，在 Amazon S3 上搭建了一个 Debian 包仓库。我试着在上面建立了一个 PPA (译者注:Personal-Package-Archives，个人软件包档案) 发布平台，但是说实话，为了发布一个简单的包处理如此多的元数据真的非常痛苦。我明确知道搭建分发仓库很必要，但是这样做又有一些过头。不过那些开发 [fpm](https://github.com/jordansissel/fpm) 的人也有一些关于这个的建议。
 
 那些打包好用来编译内容并且上传到仓库的脚本可以在 [Github](https://github.com/iachievedit/package-swift) 上找到。学习 Swift 3.0 可以查看 `swift-3.0` 分支。
