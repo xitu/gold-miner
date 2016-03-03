@@ -3,8 +3,9 @@
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [iThreeKing](https://github.com/iThreeKing)
 * 校对者 : [CoderBOBO](https://github.com/CoderBOBO) [shenxn](https://github.com/shenxn)
-* 状态 : 翻译完成
 
+Linux 系统下 Swift 3.0 的介绍
+====================
 
 [![Swift 3.0](https://img.shields.io/badge/Swift-3.0-orange.svg?style=flat)](https://swift.org/)
 
@@ -90,9 +91,11 @@ apt-get install swift-3.0
 ## FAQ
 
 **Q.** Apple 官方会编译这些二进制文件吗？
+
 **A.** 并不会，我在自己的个人服务器上编译它们，你们可以参考[这里](http://dev.iachieved.it/iachievedit/keeping-up-with-open-source-swift/)
 
 **Q.** 编译项目中的 git 修改版本怎么查找？
+
 **A.** 你可以使用 `apt-cache show swift-3.0` 指令来查看这项信息。比如:
 
     # apt-cache show swift-3.0
@@ -119,15 +122,19 @@ apt-get install swift-3.0
 每次编译原始树_未受影响_。
 
 **Q.** 上传二进制文件前你测试过它们吗？
+
 **A.** Swift 进行编译时会对产生的二进制文件进行测试，然后我会做一些基础测试并用它编译我自己的应用程序，但是现在没有详尽全面的测试用例。
 
-**Q.** 你会按照时间表定期编译吗？  
+**Q.** 你会按照时间表定期编译吗？
+
 **A.** 并不会，尽管我想尝试与 Apple 官方保持同步。然而我的想法只是做一下实验，从而我可以在 Linux 上编写 Swift 程序。
 
-**Q.** 所有内容会被安装到哪里？ 
+**Q.** 所有内容会被安装到哪里？
+
 **A.**所有内容会被放在 `/usr` 目录下，就像安装 `clang` 、 `gcc` 那样。
 
-**Q.** 如何理解包版本号的意义？  
+**Q.** 如何理解包版本号的意义？
+
 **A.** 这就是我一开始就想到的问题，我认为应该需要一个合适的包版本号。把 `3.0-0ubuntu2~trusty1` 分解一下，应该是这样：
 
 *   3.0 是指所打包的 Swift 版本。
