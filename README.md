@@ -41,13 +41,13 @@
 *  [一个专业的 Web 开发者却无法在 10 天内开发出一个简单的产品](https://github.com/xitu/gold-miner/issues/150)
 *  [Reactive GraphQL Architecture](https://github.com/xitu/gold-miner/issues/146)
 *  [设计师的理解字距设计指南](https://github.com/xitu/gold-miner/issues/134)
-*  [深入浅出 Android 权限（二）](https://github.com/xitu/gold-miner/issues/133)
 *  [Sketch 作者的采访](https://github.com/xitu/gold-miner/issues/118)
 *  [Google Cloud Functions 文档](https://github.com/xitu/gold-miner/issues/104)
 
 ## Android
 
-*  [深入浅出 Android 权限（一）](http://gold.xitu.io/entry/56d11137c24aa800544db479)([Hugo Xie](https://github.com/xcc3641) 翻译)
+*  [深入浅出 Android 权限（二）](http://gold.xitu.io/entry/56d802ab8ac2470054759796) ([Hugo Xie](https://github.com/xcc3641) 翻译)
+*  [深入浅出 Android 权限（一）](http://gold.xitu.io/entry/56d11137c24aa800544db479) ([Hugo Xie](https://github.com/xcc3641) 翻译)
 *  [世界级的 Android 测试流程（一）](https://github.com/xitu/gold-miner/blob/master/TODO/world-class-testing-development-pipeline-for-android.md) ([markzhai](https://github.com/markzhai) 翻译)
 *  [世界级的 Android 测试流程（二）](http://gold.xitu.io/entry/56cd87ba7db2a26229196d01) ([markzhai](https://github.com/markzhai) 翻译)
 * [2015 年度 Android 开发者必备的 5 个开源库](https://github.com/xitu/gold-miner/blob/master/TODO/Top-5-Android-libraries-every-Android-developer-should-know-about.md) ([kassadin (kass)](https://github.com/kassadin) 翻译)
