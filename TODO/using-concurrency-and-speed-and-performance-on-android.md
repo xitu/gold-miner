@@ -9,9 +9,7 @@
 
 #### 我们知道，在Android框架中提供了很多异步处理的工具类。然而，他们中大部分实现是通过提供单一的后台线程来处理任务队列的。如果我们需要更多的后台线程的时候该怎么办呢？
 
-大家都知道Android的UI更新是在UI线程中进行的（也称之为主线程）。所以如果我们在UI线程中编写耗时任务都可能会阻塞UI线程更新UI。为了避免这种情况我们可以使用 AsyncTask, IntentService和Threads。在之前我写的一篇文章介绍了[Android 中异步处理的8种方法](https://medium.com/android-news/8-ways-to-do-asynchronous-processing-in-android-and-counting-f634dc6fae4e#.bkk6mudb4)
-
-但是，Android提供的[AsyncTasks](http://developer.android.com/reference/android/os/AsyncTask.html)和[IntentService](http://developer.android.com/reference/android/os/AsyncTask.html)都是利用单一的后台线程来处理异步任务的。那么，开发人员如何创建多线程呢？
+大家都知道Android的UI更新是在UI线程中进行的（也称之为主线程）。所以如果我们在UI线程中编写耗时任务都可能会阻塞UI线程更新UI。为了避免这种情况我们可以使用 AsyncTask, IntentService和Threads。在之前我写的一篇文章介绍了[Android 中异步处理的8种方法](https://medium.com/android-news/8-ways-to-do-asynchronous-processing-in-android-and-counting-f634dc6fae4e#.bkk6mudb4)。但是，Android提供的[AsyncTasks](http://developer.android.com/reference/android/os/AsyncTask.html)和[IntentService](http://developer.android.com/reference/android/os/AsyncTask.html)都是利用单一的后台线程来处理异步任务的。那么，开发人员如何创建多线程呢？
 
 **更新:** [Marco Kotz](https://medium.com/u/b49242be2be7) [指出](https://medium.com/@mrcktz/hi-ali-nice-article-thanks-for-sharing-ba72b07f1fb3)结合使用ThreadPool Executor和AsyncTask，后台可以有多个线程（默认为5个）同时处理AsyncTask。 
 
