@@ -2,8 +2,8 @@
 * 原文作者 : [ Joe](http://dev.iachieved.it/iachievedit/author/admin/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [iThreeKing](https://github.com/iThreeKing)
-* 校对者 :
-* 状态 : 认领中
+* 校对者 : [CoderBOBO](https://github.com/CoderBOBO) [shenxn](https://github.com/shenxn)
+* 状态 : 翻译完成
 
 
 [![Swift 3.0](https://img.shields.io/badge/Swift-3.0-orange.svg?style=flat)](https://swift.org/)
