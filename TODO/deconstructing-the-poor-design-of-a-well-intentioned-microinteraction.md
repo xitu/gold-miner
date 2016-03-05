@@ -1,81 +1,81 @@
 >* 原文链接 : [Deconstructing the Poor Design of a Well-Intentioned Microinteraction](https://medium.com/ux-immersion-interactions/deconstructing-the-poor-design-of-a-well-intentioned-microinteraction-e667e022e628#.u41e59zgi)
 * 原文作者 : [Jared M. Spool](https://medium.com/@jmspool)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
+* 译者 : [L9m](https://github.com/L9m)
 * 校对者: 
-* 状态： 认领中
+* 状态： 翻译完成
 
-The American Airlines customer stared at the message on the screen: _Your session expired._ It wasn’t there before, but now it’s there. And she didn’t know what to do about it.
+美国航空的客户愣愣地盯着屏幕上的消息：_你的会话已过期._它忽然显示出来。她对此不知所措。
 
-A few moments earlier, after she thought she’d bought her plane tickets, she opened up another tab to book her hotel rooms for the trip. Then she rented a car. She came back to the American Airlines tab to get her confirmation number, to put that on her calendar.
+几分钟前，在她觉得自己买了机票之后，她打开另一个标签页预定这次旅行的酒店房间。随后她又租了一辆车。她返回美国航空的标签页想把确认编号记在她的日历上。
 
-Instead of the number, she found the expiration message. _Any confirmed transactions are saved, but you’ll need to restart any searches or unfinished transactions._ Was the transaction finished? She was pretty sure she’d bought tickets, but were these confirmed? She didn’t know what she was supposed to do next.
+取确认编号代之的是过期提示。_所有已确认事务都已保存，但你需要重新开始未完成的事务或重新开始查询._已经完成了吗？她很确定自己买了票，但这些确认？她不知道接下来该做什么。
 
-#### A Canonical Security Design Pattern
+#### 一种典型的安全性设计模式
 
-The designers at American Airlines have lots of reasons to want a session to time out. A customer who isn’t sure about a flight (or shopping around at competitors), might leave a half booked flight open, never intending to finish it. American’s designers want to return the fights to the open inventory, so another customer could book those seats.
+美国航空的设计者们又很多理由想要一个会话过期。一个用户不确定航班（或从竞争对手购买），可能留下从没完成的半预定航班。而美国航空的设计者们想要一份敞开的清单，让其他用户能预订这些机票。
 
-Similarly, if someone else sits down at the machine after the customer is done, but hasn’t closed the browser, they might have access to details and capabilities the customer didn’t intend to share. Having the session expire will prevent a future messy situation.
+同样，如果某个人在别人订票完成但没关闭浏览器的情况下使用机器，他们就有可能获取用户不愿意公开的详细资料和使用功能。有会话过期就可以防止混乱。
 
-Session time outs aren’t unique to American Airlines. Banking sites, business tools, and other applications will log someone off if they take too long to complete the transaction or leave the application without activity for a long period.
+美国航空会话过期不是唯一的。银行网站，业务工具和其他应用也是如此，如果某人花太长时间或长时间未活动，将会记录此人离开。
 
-Often, the session timeout invokes a _Your session expired_ design pattern. This message pops up after some arbitrarily chosen time period. For most users, this revelation is rarely good news. Either an important function has been interrupted, or it’s just noise that’s confusing.
+经常，会话过期会激活一个 _你的会话已过期_设计模式。这个消息会在任意时间弹出。对大多数用户来说，这通常以为着没什么好消息。无论是一个重要功能中断或只是令人困惑的噪音。
 
-#### A Poor Microinteraction that’s Well Intentioned.
+#### 初衷很好但交互性差
 
-The _Your session expired_ design pattern is a microinteraction, an interaction in the design that’s small and functional. Microinteractions make up much of any design and suffer from lack of attention from the design team. This design pattern is no exception.
+_你的会话已过期_ 设计模式是一个微交互，一种有功能性的设计的细微的交互。微交互构成了所有的设计但却遭到设计团队的轻视。这个设计模式也不例外。
 
 ![](https://cdn-images-1.medium.com/max/600/1*h11V6a7RWk1PxpVMzp1z9A.jpeg)]
 
-American’s designers want to protect their customers from evildoers or seat hoarders. A noble goal.
+美国航空的设计者们想要从坏人的手中保护他们的客户。一个高尚的目标。
 
-However, it seems they haven’t paid attention to the experience they’ve created by suddenly timing out the users’ session. When confronted with the message (which, is a form of error message), the user has few options on how to continue.
+然而，似乎他们没有重视他们造成用户会话忽然过期的体验。当用户面对这消息（错误信息的一种形式），如何继续并不明确。
 
-Session timeouts don’t happen frequently in the real world. When shopping in a grocery store, your cart doesn’t suddenly empty if you’ve stopped filling it for a long period. You don’t automatically get locked out of your house when you go for a long walk around the block. Your TV doesn’t put up a message every 15 minutes demanding you prove you are still in the room.
+会话继续在真实世界不会常常发生。当你在杂货店购物时，你的购物车不会因为你长时间未添加东西而突然清空。当你饶街区走很长一段路时，不会自动被锁在你房子外面。你的电视不会每过15分钟就检查一次你是否还在房间里。
 
-Session timeouts are commonplace, an artifact of how poorly our digital world integrates with our real world. If our laptops could accurately tell that someone else has sat in front of it, we could better protect our users from evildoers.
+会话过期随处可见，可见我们的真实世界和数字世界是多么不协调。如果你的笔记本能准确知道其他某个人坐在它之前，我们就能更好的从坏人手中保护用户。
 
-It’s a good intention. We’re protecting the needs of the business.
+保护业务需求这个初衷是好的。
 
-Design is what we do when we render our intentions in the world. The American Airlines session timeout frustrates its users, something which is likely not the intention of American Airlines’ site designers. How could they have improved that?
+设计是关于我们在这个世界呈现我们的所思所想。美国航空的会话过期挫败了它的用户，这些并不是美国航空网站设计者们的初衷。我们能怎样提高呢？
 
-#### Improving Design with the Microinteractions Framework
+#### 用微交互框架改进设计
 
-For the last few years, Dan Saffer studied the design of microinteractions and wrote a book on the topic called (get this) _Microinteractions._ Dan breaks down microinteractions into four components: _feedback, modes and loops, triggers,_ and _rules._ We can use these four components to look at where we could improve American Airlines’ session expired microinteraction:
+几年前，Dan Saffer 致力于研究于微交互的设计并在此方面谢了一本叫(做好) _微交互._ 的书。Dan 把微交互分解成四个构成因素：_反馈, 模式 和 循环, 触发器,_ 和 _规则._ 。我们能从这四构成因素着手改进美国航空网站的会话过期的微交互。
 
-**Feedback** is how the user learns of the microinteraction. In this case, it’s a dialogue box informing the user their session has expired, but doesn’t tell them what that means. It does explain that “confirmed transactions are saved” without explaining what a confirmed transaction is or what it means to be saved. Is a booked flight a confirmed transaction?
+**反馈** 是用户怎样去了解这个微交互。在这里, 一个对话框提示用户会话已过期，但是没有告诉用户意味着什么. 他确实解释了“确认的交易已保存”，但是没有解释确认的交易是什么或保存的是什么。预定了的航班一个确认交易？
 
-Would it help users to use terminology they’re familiar with? (A message such as “_Your flight to Peoria has been ticketed and a confirmation has been sent to your email”_ would deliver more confidence that they didn’t lose their booking.)
+使用用户熟悉的语言会更有帮助吗？（一条像“_你飞往皮奥里亚的航班已出票，确认邮件已发至您的邮箱”_ 是不是好很多？）
 
-The label on the only button says Back to Home. Is going back to the home page the likely next action the user would take? What are the likely next actions? Could the dialogue box give the user a list of things to do next (and then ask them to re-authenticate, just to ensure it’s really the same user)?
+按钮上唯一标签标示回到首页。回到首页后用户要干嘛呢？下一步可能的操作是什么？对话框能出用户一些下面该做什么事（然后要他们重新认证，确保是同一用户）？
 
-**Modes** are how the system decides what the user has access to. On the American Airlines site, they seem to use a binary authentication — either the user has access or they don’t. When the session expires, the system changes from the authenticated state to the not-authenticated state.
+**模式**是系统决定用户怎样访问的。在美国航空的网站上，他们看起来使用一种二元验证 — 用户有权使用或无权。当会话过期，系统会从验证状态变成未验证状态。
 
-Depending on the likely next actions, would it make sense for the designers to think about more than two authentication modes?
+根据下一步可能的操作，对设计者来说，思考关于超过两种的验证模式是否有意义？
 
-**Triggers** determine when the design will invoke the microinteraction. It seems American Airlines triggers the session expiration microinteraction after 15 or so minutes have elapsed since the last page load.
+**触发器** 决定何时触发微交互。 看起来美国航空的会话过期触发器会在最后一个页面加载后15分钟后触发。
 
-Is page load the correct starting point for the clock? If the user is active at the keyboard or changing focus with the mouse, should that restart the countdown?
+页面正确加载在计时器的起点吗？如果用户用键盘或鼠标改变焦点，应重启计时吗？
 
-Why is it 15 minutes? Why not 20? Or 40? Where did 15 minutes come from and what research shows that’s the best amount of time?
+为什么是15分钟？为什么不是20或40分钟？15分钟的依据在哪里，什么研究表明它是最佳时间？
 
-Should it be the same time for inactivity after a flight is successfully booked than before the booking? After all, an un-booked flight might be holding high demand inventory, but that inventory is no longer available after it’s been booked.
+航班预订成功后，与机票预定成功之前应该是同一时间把机票从库存减去吗？毕竟，一个未预订的航班可能供不应求，但在被预订之后不再可订。
 
-Should the trigger be time based at all? Is there a better way to determine if the user has become disinterested or left the machine, creating a security threat?
+触发器应该完全基于时间吗？有没有更好的办法来确定用户离开或不感兴趣，要创造一个安全威胁吗？
 
-What if the trigger was next action based? If the screen is left untouched, the microinteraction doesn’t fire. But if the user tries to do something after the expiration time, what if the microinteraction informs them that they need to re-authenticate or checks the inventory to see if the seats are still available?
+如果下一步触发基于什么呢？如果屏幕不动，微交互不会消失。但是如果用户试图在会话过期后做点什么，如果微交互通知他们需要重新认证或查看库存？
 
-**Rules** direct the microinteraction’s behavior. The rule for session expiration says to give the user feedback and change their mode from authenticated to not-authenticated, to prevent further access.
+**规则** 指导微交互的行为。会话过期的规则是为了防止进一步访问，从验证状态变成未验证状态，并给用户反馈。
 
-Do we need to tell the user their session has expired? After all, there’s not much they can do with that information. Instead, what if the design remained silent, then if the user tries to do anything that requires authenticated access, we trigger a microinteraction to log in?
+我们需要告诉用户他们的会话已过期吗？毕竟，没有根据这个消息他们也做不了什么。反之，如果没有提示，然后如果用户做任何试图需要身份验证的访问，我们可以触发登录的微交互？
 
-#### Intentionally Designing the Microinteraction Experience
+#### 有意设计的微交互体验
 
-Must the needs of the business, like security enforcement and inventory management, always come at the expense of a great user experience? Session expiration solves a problem, but is the design the best it could be?
+像安全执行，存量管理这样的业务需求总是在牺牲用户体验？会话过期解决了这个问题，但这种设计是最好的吗？
 
-Many microinteractions, like error messages and alerts, are unintentionally designed. Often, a developer rushing to meet a deadline, creates a solution to deal with a discovered edge condition, without giving any consideration to the experience users encounter.
+许多微交互，像错误信息和警报，都是无意之中为之。通常，一个开发者急于赶时间，不会考虑在边缘状况时用户的体验。
 
-Teams that pay attention to these little details and ask questions will create a better experience. Dan’s framework for microinteractions help us hone in on the right questions, which, in turn, gets us to that better design.
+注重这些小细节并提出问题 会创造一个更好的体验。Dan的微交互框架会帮助我们发现其中的问题，反过来，能让我们更好的设计。
 
-Knowing that microinteractions are critical to building great experiences, we asked Dan Saffer to lead a one-day workshop on [_Designing the Critical Details using Microinteractions_.](https://uxi16.uie.com/workshops/designing-the-critical-details-using-microinteractions?src=workshop-desc) It’s part of the UX Immersion Conference, April 18–20 in San Diego, CA. Dan’s workshop is filled with solid data, incredible wisdom, and actionable techniques for designing rich, effective microinteractions. Don’t miss it. Details at [uxi16.com](https://uxi16.uie.com/#designing-the-critical-details-using-microinteractions).
+微交互是对构建优秀的用户体验至关重要，Dan Saffer组织一次名为[_使用微交互设计关键的细节_.](https://uxi16.uie.com/workshops/designing-the-critical-details-using-microinteractions?src=workshop-desc)的研讨会。它是4月18-20日在加利福尼亚的圣迭戈UX Immersion的一部分。Dan的研讨会有充实的数据，精彩的观点，设计出彩的做法，有效的微交互。不要错过。 详情请点击 [uxi16.com](https://uxi16.uie.com/#designing-the-critical-details-using-microinteractions)。
 
