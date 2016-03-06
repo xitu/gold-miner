@@ -3,7 +3,6 @@
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [Sausre](https://github.com/Sausure)
 * 校对者 :[lekenny](https://github.com/lekenny),[Adam Shen](https://github.com/shenxn)
-* 状态:第二次校对结束
 
 
 ## 模糊渲染
@@ -27,15 +26,15 @@
 ## 通过自定义View的OnDraw方法
 
 我们的需求是希望能实现一个模糊视图，它能实时动态地模糊渲染在它之下的视图。我们最终想要的代码最好能尽量简单例如直接让模糊视图拥有一份被模糊视图的引用:
-
+```java
     blurringView.setBlurredView(blurredView);
-
+```
 然后当被模糊视图改变时 - 不管是内容的改变（如显示张新的图片）、视图的移动、或者是视图动画，我们都需要刷新模糊视图：
-
+```java
     blurringView.invalidate();
-
+```
 为了实现模糊视图，我们需要继承`View`类然后重写`onDraw()`方法来渲染模糊效果：
-
+```java
     protected void onDraw(Canvas canvas) {
     super.onDraw(canvas);
 
@@ -52,28 +51,28 @@
     canvas.drawBitmap(mBlurredBitmap, 0, 0, null);
     canvas.restore();
     }
-
+```
 这里的关键是当模糊视图重绘的时候，我们会通过对被模糊视图的引用来调用它的`draw`方法，同时它会在我们私有的画布上绘画（译者注：对该画布的操作最终会作用到我们私有的位图上）:
-
+```java
     mBlurredView.draw(mBlurringCanvas);
-
+```
 （通过这种途径访问其它的视图的`draw`方法十分有参考价值，我们也可以实现一个放大镜或者用来标注的视图，相对于模糊渲染，放大镜或者标注的区域更需要放大。）
 
 下面的想法在[Nicholas Pomepuy的博文](http://nicolaspomepuy.fr/blur-effect-for-android-design/)中有谈到,我们结合二次抽样与[RenderScript](http://developer.android.com/guide/topics/renderscript/compute.html)进行快速处理。在我们完成模糊视图的私有画布`mBlurringCanvas`的初始化后二次抽样也设置完成：
-
+```java
     int scaledWidth = mBlurredView.getWidth() / DOWNSAMPLE_FACTOR;
     int scaledHeight = mBlurredView.getHeight() / DOWNSAMPLE_FACTOR;
 
     mBitmapToBlur = Bitmap.createBitmap(scaledWidth, scaledHeight, Bitmap.Config.ARGB_8888);
     mBlurringCanvas = new Canvas(mBitmapToBlur);
-
+```
 通过了上面的设置后再适当地初始化RenderScript。那么上文`onDraw()`调用的`blur()`方法就简单多了：
-
+```java
     mBlurInput.copyFrom(mBitmapToBlur);
     mBlurScript.setInput(mBlurInput);
     mBlurScript.forEach(mBlurOutput);
     mBlurOutput.copyTo(mBlurredBitmap);
-
+```
 注意此时`mBlurredBitmap`已经渲染好了，余下的工作是`onDraw()`方法对它适当的移动和缩放后绘制到模糊视图默认画布中。
 
 ## 实现细节
@@ -81,11 +80,11 @@
 对于完全的实现，我们需要留心多个技术细节。首先，我们意识到，8个单位的缩放采样以及15个单位的模糊半径就能很好地呈现我们想要的效果。当然，或许对你来说，别的参数才能满足你的需求。
 
 其次，在模糊位图的边缘处我们遇到了一些RenderScript的历史遗留问题,为了应对这个问题,我们对宽度和高度缩放到近似4倍。
-
+```java
     // The rounding-off here is for suppressing RenderScript artifacts at the edge.
     scaledWidth = scaledWidth - (scaledWidth % 4) + 4;
     scaledHeight = scaledHeight - (scaledHeight % 4) + 4;
-
+```
 第三，我们为了更好地保证性能，需要创建两张位图分别是`mBitmapToBlur`做为私有画布`mBlurringCanvas`的底图和`mBlurredBitmap`，并会在被模糊视图的大小改变时重新创建它们。同时，我们也需要重新创建RenderScript的`Allocation`对象也就是`mBlurInput`和`mBlurOutput`。
 
 第四，为了设计的明亮程度考虑，当最上面的被模糊视图拥有属性`PorterDuff.Mode.OVERLAY`时我们也可以绘制一个统一白色半透明层。
