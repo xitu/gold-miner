@@ -40,33 +40,57 @@ Sketch和Photoshop已经为产品设计者的首选工具，而且大多数设�
 向我的父母解释Sketch是什么是非常困难的。对于我，它是一个基础的针对数字化设计的应用。它不 _仅仅_ 是个绘图的应用，也不 _仅仅_ 是个图片的编辑器。它使用这些以及其他很多工具去让你扩展和细化你希望最能代表你的艺术性和创造性的产品。它也同时力争不让你被你能获得的设计工具所限制。这是个很棒的问题。Geoff，你如何去描述它所做的？因为在这些年之后，我仍然没有一个简明的或彻底的方式来形容它。
 
 
-**Ha! I didn’t think about answering this question myself. Do you think you could describe it as a design application that helps you design applications?  
+<!--**Ha! I didn’t think about answering this question myself. Do you think you could describe it as a design application that helps you design applications?  
  **Yes! We set out to build it for websites and icons, then it became popular for design applications when those became more popular. That was basically the idea.
+-->
 
 **哈，我自己没有考虑过这个问题的答案。你认为可以把它描述成一个帮助你应用的设计应用？**  
-是的！我们
+是的！我们开始是为了网站和图标制作Sketch，之后当它所设计的应用越来越流行的时候，它也随之流行起来。那是最初的想法。
 
-**When you set out to create it, is that what you intended it to be?  
- **Yes, for websites, apps and icons. That was basically the idea.
+<!--**When you set out to create it, is that what you intended it to be?  
+ **Yes, for websites, apps and icons. That was basically the idea.-->
 
-**Do you feel you’ve been successful?  
- **I think we have. We built an application exactly for those purposes we set out to do, so to me I suppose that’s some level of success.
+**当你着手设计它的时候，现在的Sketch是你所希望的样子么？**
+是的，为了网站、应用、和图标。那是最初的想法。
 
-**What does the makeup of your company look like?  
+<!--**Do you feel you’ve been successful?  
+ **I think we have. We built an application exactly for those purposes we set out to do, so to me I suppose that’s some level of success.-->
+ 
+**你认为你已经成功了么？**
+我想我们已经成功了。我们做出来能满足我们最初目标的应用，对于我来说这已经是某种意义上的成功了。
+
+<!--**What does the makeup of your company look like?  
  **It started out with just my friend and me, and right now it’s 13 people. A few people fill multiple roles, but I would say 6 developers, a few designers, support, QA and someone who deals with the plugin and scripting community.
+-->
 
-**What do you want for your employees?  
-**That’s a good question. I would hope that they have a sense of pride from building the application, pride to say that they work on Sketch. Everybody is completely remote. The first developer we brought on lives in Hebrides, an island off the coast of Scotland. Needless to say, it’s not what you’d call a really tight physical office culture. We don’t see each other every day, nor do we eat lunch together. It’s quite the opposite — we only see each other once or twice a year. It’s a bit of a different dynamic than you might expect compared to other companies like ours. Ultimately, I would like them to enjoy the work the are doing. I want them to feel challenged by the different and difficult issues that we have to solve. I think there are plenty of areas with enough challenges to keep them interested. I definitely don’t want to work them to death, so I want them to feel balanced.
+**你现在的公司是什么样的？**
+我的公司开始的时候只有我和我的朋友，但是现在有了13个人了。一些员工在公司同时干多种工作，但是我想说6个开发者，几个设计师，技术支持，测试还有一些人编写插件和脚本。
 
-**What advantages does being located outside the valley offer?  
+<!--**What do you want for your employees?  
+**That’s a good question. I would hope that they have a sense of pride from building the application, pride to say that they work on Sketch. Everybody is completely remote. The first developer we brought on lives in Hebrides, an island off the coast of Scotland. Needless to say, it’s not what you’d call a really tight physical office culture. We don’t see each other every day, nor do we eat lunch together. It’s quite the opposite — we only see each other once or twice a year. It’s a bit of a different dynamic than you might expect compared to other companies like ours. Ultimately, I would like them to enjoy the work the are doing. I want them to feel challenged by the different and difficult issues that we have to solve. I think there are plenty of areas with enough challenges to keep them interested. I definitely don’t want to work them to death, so I want them to feel balanced.-->
+
+**你对你的员工有什么希望？**
+这是一个好问题。我希望他们有对做出这个产品的自豪感，能自豪地说他们为了Sketch工作。每个员工所在的地方之间都特别偏远。我们找的第一个开发者生活在苏格兰海岸外一个名叫赫布里底群岛的小岛。不用说，这不是你所称的紧实而实际的办公室文化。我们每天都看不见对方，也不在一起吃午餐。正相反，我们一年只能见一次或者两次。我们相比于其他像我们这样的公司是有些不同并且更有活力的。最后我希望他们能够享受他们正在做的事情。我希望他们在处理不同的困难的问题时能够感受挑战性。我觉得有很多有足够的挑战的领域能保持他们的兴趣。我绝对不希望他们工作到死，所以我想让他们感到平衡。
+
+<!--**What advantages does being located outside the valley offer?  
 **There are many benefits that come from being in the Valley. Access to investors is easier in the Valley, less so outside. But, the fact that I’m physically far away has not been an issue because I like being outside the bubble.
 
 I’ve always had this idea that the Valley is a bit self obsessed. I think having an outside perspective is definitely useful. I’ve of course travelled there a number of times. Everybody you speak to seems to be doing something with software or design and I appreciate that in my normal, day-to-day life. By not being there, I avoid immersion in those types of self-referential conversations—I’m in a completely different world.
 
-The fact that I’m not in the Valley also means that I don’t have to pay your very high rents and other premium costs of living. Another advantage I see is the fact that we’re completely remote. It means we don’t necessarily have to compete with those who need to live physically there. We can hire people who are perfectly happy living on an island off the coast of Scotland and just hire them because they are good and wouldn’t require—or even want to—move to San Francisco, or Amsterdam, or wherever.
+The fact that I’m not in the Valley also means that I don’t have to pay your very high rents and other premium costs of living. Another advantage I see is the fact that we’re completely remote. It means we don’t necessarily have to compete with those who need to live physically there. We can hire people who are perfectly happy living on an island off the coast of Scotland and just hire them because they are good and wouldn’t require—or even want to—move to San Francisco, or Amsterdam, or wherever.-->
+
+**不在硅谷工作有什么好处？**
+在硅谷工作有很多的好处。在硅谷联系投资人更加的容易，在外面就更难了。但是事实上物理上的距离并不是我不在硅谷工作的困难，而是我喜欢泡在外面。
+
+我一直认为硅谷有点自我陶醉。我想有一个外部的视角时非常有用的。我去过那里很多次。和你交流的每个人看起来都在做一些软件或是设计，令我感谢我自己普通的、日复一日的生活。由于没有在那里，我避免这些类型的自我指涉的对话——我的沉浸在一个完全不同的世界。
+
+事实上我不在硅谷还意味着我不用支付高额的租金和其他额外的生活支出。我想另一个优点是我和员工们住的距离很远。这意味着我们不需要和我们住的近的人竞争。我们可以雇佣幸福的居住在苏格兰海岸外一个小岛上的人，并且雇佣他们仅仅是因为他们很优秀而不需要或者说甚至想要移动到旧金山、阿姆斯特丹、或其它地方。
+
 
 **What have you learned in the last year that will inform this company in the next year?  
 **In the last year we’ve grown the company quite a bit — we probably doubled in size. So last year was a good lesson on how to manage more people, and how to get them up to speed on everything we’re doing. I think in the coming year we’ll be able to reap the rewards of that work. Because as you know Geoff, it takes time for people to get to know the code, the way a company works, and all of those things. And I think now those familiarizing pieces are all in place, it will facilitate us getting much more done. It also means that I now know how to manage growth in my company.
+
+
 
 **What challenges have you faced with growth in the past?  
  **I would say we are still competing with companies with a lot more money, and we can’t match them on that front. Also, people with expertise we need are relatively rare. It’s not easy to find people with the skill sets we require, and also have them want to work remotely. So, because we only hire exactly who we need to do exactly what we need them to do, selection and availability of personnel have been somewhat of a challenge.
