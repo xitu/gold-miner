@@ -18,7 +18,7 @@
 
 最后一点正是将我这个实现与 [Chris Coyier](http://css-tricks.com/float-labels-css/) 和 [Jonathan Snook](http://snook.ca/archives/html_and_css/floated-label-pattern-css) 的示例区分开来的地方，后两者均使用了 `:valid` 伪类。我认爲我这个 demo 背后有特定的局限性，但正如我一开始所讲，对于浏览器支持总是会有限制的。
 
-_译注：`:placeholder-shown` 属于尚未发行的 CSS4 规范，查询 [Can I Use](http://caniuse.com/#search=placeholder-shown) 可以得知，迄今为止只有 Chrome (>=47)、Safari (>=9)、Opera (>=35)、Android Browser (>=47) 和 Chrome for Android (>=47) 这五种浏览器支持 `:placeholder-shown` 伪类。作者在这里提及的局限性应该就是指浏览器对 `:placeholder-shown` 的支持度。_
+> 译注：`:placeholder-shown` 属于尚未发行的 CSS4 规范，查询 [Can I Use](http://caniuse.com/#search=placeholder-shown) 可以得知，迄今为止只有 Chrome (>=47)、Safari (>=9)、Opera (>=35)、Android Browser (>=47) 和 Chrome for Android (>=47) 这五种浏览器支持 `:placeholder-shown` 伪类。作者在这里提及的局限性应该就是指浏览器对 `:placeholder-shown` 的支持度。
 
 这个版本改用了 `:placeholder-shown` 伪类，但不仅仅是在 placeholder 文本不显示时移动 label 的位置 - 在该模型预设的工作方式中 `:placeholder-shown` 伪类发挥着很好的作用。
 
