@@ -9,14 +9,15 @@
 
 #### 我们知道，在Android框架中提供了很多异步处理的工具类。然而，他们中大部分实现是通过提供单一的后台线程来处理任务队列的。如果我们需要更多的后台线程的时候该怎么办呢？
 
-大家都知道Android的UI更新是在UI线程中进行的（也称之为主线程）。所以如果我们在UI线程中编写耗时任务都可能会阻塞UI线程更新UI。为了避免这种情况我们可以使用 AsyncTask, IntentService和Threads。在之前我写的一篇文章介绍了[Android 中异步处理的8种方法](https://medium.com/android-news/8-ways-to-do-asynchronous-processing-in-android-and-counting-f634dc6fae4e#.bkk6mudb4)。但是，Android提供的[AsyncTasks](http://developer.android.com/reference/android/os/AsyncTask.html)和[IntentService](http://developer.android.com/reference/android/os/AsyncTask.html)都是利用单一的后台线程来处理异步任务的。那么，开发人员如何创建多线程呢？
+大家都知道Android的UI更新是在UI线程中进行的（也称之为主线程）。所以如果我们在UI线程中编写耗时任务都可能会阻塞UI线程更新UI。为了避免这种情况我们可以使用 AsyncTask, IntentService和Threads。在之前我写的一篇文章介绍了[Android 中异步处理的8种方法](https://medium.com/android-news/8-ways-to-do-asynchronous-processing-in-android-and-counting-f634dc6fae4e#.bkk6mudb4)。但是，Android提供的[AsyncTasks](http://developer.android.com/reference/android/os/AsyncTask.html)和[IntentService](http://developer.android.com/reference/android/os/AsyncTask.html)都是利用单一的后台线程来处理异步任务的。那么，开发人员如何创建多个后台线程呢？
 
 **更新:** [Marco Kotz](https://medium.com/u/b49242be2be7) [指出](https://medium.com/@mrcktz/hi-ali-nice-article-thanks-for-sharing-ba72b07f1fb3)结合使用ThreadPool Executor和AsyncTask，后台可以有多个线程（默认为5个）同时处理AsyncTask。 
 
 ### 创建多线程常用的方法
 
-在大多数使用场景下，我们没有必要产生多线程，简单的创建AsyncTasks或者使用基于任务队列的IntentService就可以很好的满足我们对异步处理的需求。然而当我们真的需要多线程的时候，我们常常会使用下面的代码简单的创建多个线程。
+在大多数使用场景下，我们没有必要产生多个后台线程，简单的创建AsyncTasks或者使用基于任务队列的IntentService就可以很好的满足我们对异步处理的需求。然而当我们真的需要多个后台线程的时候，我们常常会使用下面的代码简单的创建多个线程。
 
+```java
     String[] urls = …
     for (final String url : urls) {
         new Thread(new Runnable() {
@@ -25,10 +26,11 @@
             }
         }).start();
     }
+```
 
 该方法有几个问题。一方面，操作系统限制了同一域下连接数（限制为4）。这意味着，你的代码并没有真的按照你的意愿执行。新建的线程如果超过数量限制则需要等待旧线程执行完毕。 另外，每一个线程都被创建来执行一个任务，然后销毁。这些线程也没有被重用。
 
-### 这种方法存在的问题
+### 常用方法存在的问题
 
 举个例子，如果你想开发一个连拍应用能在1秒钟连拍10张图片（或者更多）。应用该具备如下的子任务：
 
@@ -44,6 +46,7 @@
 
 另外一个可选的解决方案是创建一个长时间在后台运行的HandlerThread，它能够接受相机预览的数据，并处理完剩下的全部任务。当然这种做法的性能会好些，但是如果用户想再连拍的话，将会面临较大的延迟，因为他需要等待HandlerThread处理完前一次连拍。
 
+```java
     public class CameraHandlerThread extends HandlerThread
             implements Camera.PictureCallback, Camera.PreviewCallback {
         private static String TAG = "CameraHandlerThread";
@@ -97,8 +100,9 @@
             }
         }
     }
+```    
 
-**提醒：** 如果你需要学习更多有关于HandlerThreads内容以及如何使用它，请阅读[我发表的关于HandlerThreads](https://medium.com/@ali.muzaffar/handlerthreads-and-why-you-should-be-using-them-in-your-android-apps-dc8bf1540341#.co4ilm67m)的文章.
+**提醒：** 如果你需要学习更多有关于HandlerThreads内容以及如何使用它，请阅读[我发表的关于HandlerThreads的文章。](https://medium.com/@ali.muzaffar/handlerthreads-and-why-you-should-be-using-them-in-your-android-apps-dc8bf1540341#.co4ilm67m)
 
 看起来所有的任务都被后台的单一线程处理完毕了，我们性能提升主要得益于后台线程长期运行并不会被销毁和重建。然而，我们后台的单一线程却要和其他优先等级更高的任务共享，而且这些任务只能够顺序执行。
 
@@ -110,6 +114,7 @@
 
 通过创建ThreadPool对象的单例来在你的应用中使用ThreadPool。
 
+```java
     public class BitmapThreadPool {
         private static BitmapThreadPool mInstance;
         private ThreadPoolExecutor mThreadPoolExec;
@@ -139,10 +144,11 @@
             mInstance.mThreadPoolExec.shutdown();
         }
     }
+```
 
 然后，在上面的代码中，简单的修改Handler的回调函数为：
-Then in the code above, simply change the Handler callback to:
 
+```java
     mHandler = new Handler(getLooper(), new Handler.Callback() {
 
         @Override
@@ -158,6 +164,7 @@ Then in the code above, simply change the Handler callback to:
             return true;
         }
     });
+```
 
 优化已经完成！通过下面的视频，我们观察到加载缩略图的速度提升是非常明显的。
 
@@ -167,7 +174,7 @@ Then in the code above, simply change the Handler callback to:
 
 上面这个简单例子代码可以在[我的GitHub](https://github.com/alphamu/ThreadPoolWithCameraPreview)上得到，欢迎看完代码后给我反馈
 
-另外，你也可以在[Google Play](https://play.google.com/store/apps/details?id=au.com.alphamu.camerapreviewcaptureimage)上面下载这个例子的。
+另外，你也可以在[Google Play](https://play.google.com/store/apps/details?id=au.com.alphamu.camerapreviewcaptureimage)上面下载演示应用。
 
 **使用ThreadPool前:** 如果可以，从顶部观察计数器的变化来得知当底部缩略图从开始显示到全部显示完成所耗费的时间。在程序中除了adapter中的notifyDataSetChanged()方法外，我已经将大部分的操作从主线程中剥离，所以计数器的运行是很流畅的。
 
