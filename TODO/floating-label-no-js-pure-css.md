@@ -3,8 +3,8 @@
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [Zhangjd](https://github.com/zhangjd)
 * 校对者: [Adam Shen](https://github.com/shenxn), [Jing KE](https://github.com/jingkecn)
-* 状态 : 校对完成
 
+# 利用 :placeholder-shown 选择器实现 label 浮动效果
 
 设计师似乎喜欢用 [浮动 label 模式](http://mds.is/float-label-pattern/) 来设计华丽的效果，虽然我不确定我是否百分百喜欢这种方式，但我忍不住快速实现了一个这样的 demo。这个版本用上了一些我最近才看见的现代 CSS 表单样式技巧，特别是 `:placeholder-shown` 选择器。
 
