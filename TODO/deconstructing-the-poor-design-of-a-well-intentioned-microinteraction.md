@@ -75,7 +75,7 @@ _你的会话已过期_ 设计模式是一个微交互，微交互指的是设�
 
 许多微交互，像错误信息和警报，都是无意之中为之。通常，一个开发者急于赶时间，不会考虑在边缘状况时用户的体验。
 
-注重这些小细节并提出问题 会创造一个更好的体验。Dan的微交互框架会帮助我们发现其中的问题，反过来，能让我们更好的设计。
+注重这些小细节并提出问题 会创造一个更好的体验。Dan 的微交互框架会帮助我们发现其中的问题，反过来，能让我们更好的设计。
 
 微交互对构建优秀的用户体验是至关重要的，我们邀请 Dan Saffer 组织了一次名为[_使用微交互设计关键的细节_.](https://uxi16.uie.com/workshops/designing-the-critical-details-using-microinteractions?src=workshop-desc)的研讨会。它是4月18-20日在加利福尼亚的圣迭戈UX Immersion的一部分。Dan的研讨会有充实的数据，精彩的观点，设计出彩的做法，有效的微交互。不要错过。 详情请点击 [uxi16.com](https://uxi16.uie.com/#designing-the-critical-details-using-microinteractions)。
 
