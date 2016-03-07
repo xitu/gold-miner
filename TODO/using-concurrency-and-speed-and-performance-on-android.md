@@ -2,8 +2,7 @@
 * 原文作者 : [Ali Muzaffar](https://medium.com/@ali.muzaffar)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [edvardHua](https://github.com/edvardHua)
-* 校对者:
-* 状态 : 翻译完成
+* 校对者: [JOJO](https://github.com/Sausure)、[Jing KE](https://github.com/jingkecn)
 
 ![](http://ww1.sinaimg.cn/large/9b5c8bd8jw1f1cvbu9fzaj20m80fj48q.jpg)
 
