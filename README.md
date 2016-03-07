@@ -20,29 +20,6 @@
 1. 在[待校对文章列表](https://github.com/xitu/gold-miner/issues?q=is%3Aissue+is%3Aopen+label%3A%E6%A0%A1%E5%AF%B9%E8%AE%A4%E9%A2%86)中认领校对文章，如果能介绍一下自己就更好咯
 2. 申请通过后，直接在文章对应的 PR 里面添加 note 校对
 
-## 正在进行的
-
-*  [为什么有些设计初衷很好，结果却很糟糕？](https://github.com/xitu/gold-miner/issues/182)
-*  [2016 - the year of web streams](https://github.com/xitu/gold-miner/issues/178)
-*  [Wrapping Existing Libraries With RxJava](https://github.com/xitu/gold-miner/issues/181)
-*  [用简洁的 Architecture Pattern 来开发 Android 应用](https://github.com/xitu/gold-miner/issues/180)
-*  [前端框架选择：Angular vs Ember vs React](https://github.com/xitu/gold-miner/issues/177)
-*  [Simplify Your Life With an SSH Config File](https://github.com/xitu/gold-miner/issues/175)
-*  [Disassembling JavaScript's IIFE Syntax](https://github.com/xitu/gold-miner/issues/174)
-*  [Python3.5 协程原理](https://github.com/xitu/gold-miner/issues/173)
-*  [11 Top Designers Share Honest Career Advice](https://github.com/xitu/gold-miner/issues/172)
-*  [在 Android 下进行实时模糊渲染](https://github.com/xitu/gold-miner/issues/164)
-*  [Introducing Swift 3.0](http://gold.xitu.io/entry/56d8027da341310053daae8f)
-*  [Leveling Up Your JavaScript](https://github.com/xitu/gold-miner/issues/162)
-*  [Android 开发中利用异步来优化运行速度和性能](https://github.com/xitu/gold-miner/issues/161)
-*  [产品文案要说人话](https://github.com/xitu/gold-miner/issues/152)
-*  [「保存」图标用哪个好？](https://github.com/xitu/gold-miner/issues/151)
-*  [利用 input-placeholder 属性来实现 input label 特殊效果](https://github.com/xitu/gold-miner/issues/149)
-*  [一个专业的 Web 开发者却无法在 10 天内开发出一个简单的产品](https://github.com/xitu/gold-miner/issues/150)
-*  [Reactive GraphQL Architecture](https://github.com/xitu/gold-miner/issues/146)
-*  [设计师的理解字距设计指南](https://github.com/xitu/gold-miner/issues/134)
-*  [Sketch 作者的采访](https://github.com/xitu/gold-miner/issues/118)
-*  [Google Cloud Functions 文档](https://github.com/xitu/gold-miner/issues/104)
 
 ## Android
 
