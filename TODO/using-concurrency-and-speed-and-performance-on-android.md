@@ -1,49 +1,51 @@
 * 原文链接 : [Using concurrency to improve speed and performance in Android](https://medium.com/@ali.muzaffar/using-concurrency-and-speed-and-performance-on-android-d00ab4c5c8e3#.rt9z1k25u)
 * 原文作者 : [Ali Muzaffar](https://medium.com/@ali.muzaffar)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者:
-* 状态 : 待认领
+* 译者 : [edvardHua](https://github.com/edvardHua)
+* 校对者: [JOJO](https://github.com/Sausure)、[Jing KE](https://github.com/jingkecn)
 
 ![](http://ww1.sinaimg.cn/large/9b5c8bd8jw1f1cvbu9fzaj20m80fj48q.jpg)
 
-#### The Android framework provides great utility classes for asynchronous processing. However, most of them queue up on a single background thread. What do you do when you need more threads?
+#### 我们知道，在Android框架中提供了很多异步处理的工具类。然而，他们中大部分实现是通过提供单一的后台线程来处理任务队列的。如果我们需要更多的后台线程的时候该怎么办呢？
 
-It is well known that all UI updates in Android happen on the UI thread (also known as the main thread). Any operations on this thread will block UI updates and so AsyncTask, IntentService and Threads are used when heavy computation is needed. As a matter of fact, I wrote on at least [8 ways to do asynchronous processing in Android](https://medium.com/android-news/8-ways-to-do-asynchronous-processing-in-android-and-counting-f634dc6fae4e#.bkk6mudb4) not too long ago. However, [AsyncTasks](http://developer.android.com/reference/android/os/AsyncTask.html) in Android are executed on a single background thread and the same is true for [IntentService](http://developer.android.com/reference/android/os/AsyncTask.html). So, what is a developer to do?
+大家都知道Android的UI更新是在UI线程中进行的（也称之为主线程）。所以如果我们在UI线程中编写耗时任务都可能会阻塞UI线程更新UI。为了避免这种情况我们可以使用 AsyncTask, IntentService和Threads。在之前我写的一篇文章介绍了[Android 中异步处理的8种方法](https://medium.com/android-news/8-ways-to-do-asynchronous-processing-in-android-and-counting-f634dc6fae4e#.bkk6mudb4)。但是，Android提供的[AsyncTasks](http://developer.android.com/reference/android/os/AsyncTask.html)和[IntentService](http://developer.android.com/reference/android/os/AsyncTask.html)都是利用单一的后台线程来处理异步任务的。那么，开发人员如何创建多个后台线程呢？
 
-**Update:** As [Marco Kotz](https://medium.com/u/b49242be2be7) [points out](https://medium.com/@mrcktz/hi-ali-nice-article-thanks-for-sharing-ba72b07f1fb3), you can use a ThreadPool Executor with AsyncTask so that more than one background thread can be used by your AsyncTasks.
+**更新:** [Marco Kotz](https://medium.com/u/b49242be2be7) [指出](https://medium.com/@mrcktz/hi-ali-nice-article-thanks-for-sharing-ba72b07f1fb3)结合使用ThreadPool Executor和AsyncTask，后台可以有多个线程（默认为5个）同时处理AsyncTask。 
 
-### What most developers do
+### 创建多线程常用的方法
 
-In most scenarios, you do not have to spawn multiple threads, simply spinning off AsyncTasks or queuing operations for IntentService is more than enough. However, when you truly needs multiple threads, more often than not, I've seen developers simply spin-off plain old Threads.
+在大多数使用场景下，我们没有必要产生多个后台线程，简单的创建AsyncTasks或者使用基于任务队列的IntentService就可以很好的满足我们对异步处理的需求。然而当我们真的需要多个后台线程的时候，我们常常会使用下面的代码简单的创建多个线程。
 
+```java
     String[] urls = …
     for (final String url : urls) {
         new Thread(new Runnable() {
             public void run() {
-                //Make API call or, download data or download image
+                // 调用API、下载数据或图片
             }
         }).start();
     }
+```
 
-There are a few problems with this approach. For one thing, the operating system limits the number of connections to the same domain to (I believe) four. Which means, this code is not really doing what you think it is doing. It created threads that have to wait on other threads to complete before they can begin their operation. Also, each thread is being created, used to perform a task, and then destroyed. There is no reuse.
+该方法有几个问题。一方面，操作系统限制了同一域下连接数（限制为4）。这意味着，你的代码并没有真的按照你的意愿执行。新建的线程如果超过数量限制则需要等待旧线程执行完毕。 另外，每一个线程都被创建来执行一个任务，然后销毁。这些线程也没有被重用。
 
-### Why is this a problem?
+### 常用方法存在的问题
 
-Lets say for example that you want to develop a burst shooting app that takes 10 shots a second from the Camera preview (or more). The features of the app could be something as follows:
+举个例子，如果你想开发一个连拍应用能在1秒钟连拍10张图片（或者更多）。应用该具备如下的子任务：
 
-*   Capture 10 shots in the form of byte[], in a second without blocking the UI.
-*   Convert each byte[] from the YUV format to RGB format.
-*   Create a Bitmap from the converted array.
-*   Fix orientation of the bitmap.
-*   Generate a thumbnail size bitmap.
-*   Write full size bitmap to disk as a compressed Jpeg.
-*   Queue full size image for upload to the server.
+*   在一秒的时间内扑捉10张以byte[]形式储存的照片，并且不能够阻塞UI线程。
+*   将byte[]储存的数据格式从YUV转换成RGB。
+*   使用转换后的数据创建Bitmap。
+*   变换Bitmap的方向。
+*   生成缩略图大小的Bitmap。
+*   将全尺寸的Bitmap以Jpeg压缩文件的格式写入磁盘中。
+*   使用上传队列将图片保存到服务器中。
 
-Understandably, if you did all of this on the main UI thread. You would not get a lot of performance out of your app. The only way you would stand a chance would be to cache the camera preview data and process it while the UI is idle.
+很明显，如果你将太多的子任务放在UI线程中，你的应用在性能上的表现将不会太好。在这种情况下，唯一的解决方案就是先将相机预览的数据缓存起来，当UI线程闲置的时候再来利用缓存的数据执行剩下的任务。
 
-An alternative might be to create a long running HandlerThread that can be used to receive your camera preview on a background thread and do all of this processing. While this would work better, there would be too much of a delay between subsequent burst shots because of all the processing required.
+另外一个可选的解决方案是创建一个长时间在后台运行的HandlerThread，它能够接受相机预览的数据，并处理完剩下的全部任务。当然这种做法的性能会好些，但是如果用户想再连拍的话，将会面临较大的延迟，因为他需要等待HandlerThread处理完前一次连拍。
 
+```java
     public class CameraHandlerThread extends HandlerThread
             implements Camera.PictureCallback, Camera.PreviewCallback {
         private static String TAG = "CameraHandlerThread";
@@ -64,7 +66,7 @@ An alternative might be to create a long running HandlerThread that can be used 
                 @Override
                 public boolean handleMessage(Message msg) {
                     if (msg.what == WHAT_PROCESS_IMAGE) {
-                        //Do everything
+                        // 业务逻辑
                     }
                     return true;
                 }
@@ -97,19 +99,21 @@ An alternative might be to create a long running HandlerThread that can be used 
             }
         }
     }
+```    
 
-**Note:** If you need to learn more above HandlerThreads and how to use them, be sure to [read my post on HandlerThreads](https://medium.com/@ali.muzaffar/handlerthreads-and-why-you-should-be-using-them-in-your-android-apps-dc8bf1540341#.co4ilm67m).
+**提醒：** 如果你需要学习更多有关于HandlerThreads内容以及如何使用它，请阅读[我发表的关于HandlerThreads的文章。](https://medium.com/@ali.muzaffar/handlerthreads-and-why-you-should-be-using-them-in-your-android-apps-dc8bf1540341#.co4ilm67m)
 
-Since everything is being done on one background Thread, our main performance benefit here is that our Thread is long running and isn’t being destroyed and recreated. However, the thread is being shared by a lot of expensive operations which is can only do in a linear manner.
+看起来所有的任务都被后台的单一线程处理完毕了，我们性能提升主要得益于后台线程长期运行并不会被销毁和重建。然而，我们后台的单一线程却要和其他优先等级更高的任务共享，而且这些任务只能够顺序执行。
 
-We could create a second HandlerThread to process our images and a third to write them to the disk and a fourth to perform our upload to the server. We would be able to take pictures faster, however, these threads would still be dependant on each other in a linear manner. There is no true concurrency. We would be able to take pictures faster, however, because of the time required to process each image, the users would still perceive a big a lag between when they click a button and the thumbnails are displayed.
+我们也可以创建第二个HandlerThread来处理我们的图像，然后创建第三个HandlerThread来将照片写入磁盘，最后再创建第四个HandlerThread来将照片上传到服务器中。我们能够加快拍照的速度，但是，这些线程相互之间还是遵循顺序执行的规则，并不是真的并发。因为每张照片是顺序处理的，而且处理每一张照片需要一定的时间，导致用户在点击拍照按钮到显示全部缩略图的时候仍然能够明显的感觉到延迟。
 
-### Using a ThreadPool to improve the situation
+### 使用ThreadPool并发处理任务
 
-While we could just spin off a lot of threads as needed, there is a time cost associated with creating a thread and destroying it. We also, do not want to create more threads than we need and want to make full use of our available hardware. Too many threads can affect the performance by eating up CPU cycles. The solution is to use a ThreadPool.
+我们可以根据需求创建多个线程，但是创建过多的线程会消耗CPU周期影响性能，并且线程的创建和销毁也需要时间成本。所以我们不想创建多余的线程，但是又想能够充分的利用设备的硬件资源。这个时候我们可以使用ThreadPool。
 
-Creating a ThreadPool for use in your app is straight forward, start by creating a Singleton which will represent your ThreadPool.
+通过创建ThreadPool对象的单例来在你的应用中使用ThreadPool。
 
+```java
     public class BitmapThreadPool {
         private static BitmapThreadPool mInstance;
         private ThreadPoolExecutor mThreadPoolExec;
@@ -139,9 +143,11 @@ Creating a ThreadPool for use in your app is straight forward, start by creating
             mInstance.mThreadPoolExec.shutdown();
         }
     }
+```
 
-Then in the code above, simply change the Handler callback to:
+然后，在上面的代码中，简单的修改Handler的回调函数为：
 
+```java
     mHandler = new Handler(getLooper(), new Handler.Callback() {
 
         @Override
@@ -150,34 +156,35 @@ Then in the code above, simply change the Handler callback to:
                 BitmapThreadPool.post(new Runnable() {
                     @Override
                     public void run() {
-                        //do everything
+                        // 做你想做的任何事情
                     }
                 });
             }
             return true;
         }
     });
+```
 
-That’s it! The performance improvement will be noticeable, just look at the videos below!
+优化已经完成！通过下面的视频，我们观察到加载缩略图的速度提升是非常明显的。
 
-The advantage here is that we can define our pool size and even specify how long to keep threads around before reclaiming them. We can also create different ThreadPools for different operations or use one ThreadPool for many. Just be careful to clean up properly when you’re done with the threads.
+这种做法的优点是我们可以定义线程池的大小并且指定空余线程保持活动的时间。我们也可以创建多个ThreadPools来处理多个任务或者使用单个ThreadPool来处理多个任务。但是在使用完后记得清理资源。
 
-We can even create ThreadPools that specialize in various jobs, one ThreadPool to convert the data to Bitmaps, one to write the data out to disk and a third to upload the Bitmaps to the server. In doing so, if our ThreadPool has a max of 4 threads, we can convert, write and upload 4 images at a time instead of just one. The user will see 4 images show up at a time rather than one.
+我们甚至可以为每一个功能创建一个独立的ThreadPool。譬如说在这个例子中我们可以创建三个ThreadPool,第一个ThreadPool负责数据转换成Bitmap，第二个ThreadPool负责写数据到磁盘中去，第三个ThreadPool上传Bitmap到服务器中去。这样做的话，如果我们的ThreadPool最大拥有4条线程，那么我们就能够同时的转换，写入，上传四张相片。用户将看到4张缩略图是同时显示而不是一个个的显示出来的。
 
-The above is a simplified example, however, the [full code for my project is on GitHub](https://github.com/alphamu/ThreadPoolWithCameraPreview) and you can take a look and give me some feedback.
+上面这个简单例子代码可以在[我的GitHub](https://github.com/alphamu/ThreadPoolWithCameraPreview)上得到，欢迎看完代码后给我反馈
 
-You can also [check out the demo app on Google Play](https://play.google.com/store/apps/details?id=au.com.alphamu.camerapreviewcaptureimage).
+另外，你也可以在[Google Play](https://play.google.com/store/apps/details?id=au.com.alphamu.camerapreviewcaptureimage)上面下载演示应用。
 
-**Before implementing ThreadPool:** If you can, follow the timer on top of the screen as the thumbnails begin the show up at the bottom. Since I’ve taken all operations except the notifyDataSetChanged() on the adapter off the main thread, the counter should continue to run smoothly.
+**使用ThreadPool前:** 如果可以，从顶部观察计数器的变化来得知当底部缩略图从开始显示到全部显示完成所耗费的时间。在程序中除了adapter中的notifyDataSetChanged()方法外，我已经将大部分的操作从主线程中剥离，所以计数器的运行是很流畅的。
 
 <figure><iframe frameborder="0" allowfullscreen="1" title="YouTube video player" width="640" height="360" src="https://www.youtube.com/embed/YmU8ogom_5g?wmode=opaque&amp;widget_referrer=https%3A%2F%2Fmedium.com%2Fmedia%2F6a9266d6d49e3e234f9d60f5763602df%3FmaxWidth%3D640&amp;enablejsapi=1&amp;origin=https%3A%2F%2Fcdn.embedly.com"></iframe></figure>
 
-**After implementing ThreadPool:** The counter on top of the screen should still run smoothly, however, image thumbnails are showing up a lot faster.
+**使用ThreadPool后:** 通过顶部的计数器，我们发现使用了ThreadPool后，照片的缩略图加载速度明显变快。
 
 <figure><iframe frameborder="0" allowfullscreen="1" title="YouTube video player" width="640" height="360" src="https://www.youtube.com/embed/77Lh9XpXArw?wmode=opaque&amp;widget_referrer=https%3A%2F%2Fmedium.com%2Fmedia%2F53c35a233037c20ad1c4f2cba7528580%3FmaxWidth%3D640&amp;enablejsapi=1&amp;origin=https%3A%2F%2Fcdn.embedly.com"></iframe></figure>
 
-### Finally
+### 最后
 
-In order to build great Android apps, [read more of my articles](https://medium.com/@ali.muzaffar).
+如果想要开发更加快的应用程序, [请阅读我的文章](https://medium.com/@ali.muzaffar).
 
-Yay! you made it to the end! We should hang out! feel free to follow me on Medium, [LinkedIn](https://www.linkedin.com/in/alimuzaffar), [Google+](https://plus.google.com/+AliMuzaffar) or [Twitter](https://twitter.com/ali_muzaffar).
+文章已经到底了，在Medium上Follow我吧。 [LinkedIn](https://www.linkedin.com/in/alimuzaffar), [Google+](https://plus.google.com/+AliMuzaffar) or [Twitter](https://twitter.com/ali_muzaffar).
