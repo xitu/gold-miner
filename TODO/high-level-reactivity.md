@@ -2,13 +2,12 @@
 * 原文作者 : [stubailo](https://github.com/apollostack/apollo/commits/master/design/high-level-reactivity.md?author=stubailo)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [shenxn](https://github.com/shenxn)
-* 校对者 : [lekenny](https://github.com/lekenny)
-* 状态 : 认领中
+* 校对者 : [lekenny](https://github.com/lekenny)，[CoderBOBO](https://github.com/CoderBOBO)
 
 
 # 高水平设计
 
-这是对于一个响应式 GraphQL 数据载入系统结构的总览，我们这么做的目的是希望得到那些相关领域工程师的反馈。我们想要分享我们正在做的事以确认人们是否对它感兴趣，同时使得该领域中的人能够接受我们的设计。
+这是一个高度概述的响应式 GraphQL 数据加载系统的体系结构。，我们这么做的目的是希望得到那些相关领域工程师的反馈。我们想要分享我们正在做的事以确认人们是否对它感兴趣，同时使得该领域中的人能够接受我们的设计。
 
 *   如果你还不了解我们的设计，请阅读我们的[介绍页面](http://info.meteor.com/blog/reactive-graphql)，这个页面概述了所有我们希望解决的问题。
 *   你也可以阅读 Arunoda 的文章，那篇文章总结了我们的介绍内容：[Meteor's Reactive GraphQL is Just Awesome](https://voice.kadira.io/meteor-s-reactive-graphql-is-just-awesome-b21074231528#.3h3hmtbm2)
