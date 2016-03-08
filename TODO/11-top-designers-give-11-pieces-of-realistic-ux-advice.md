@@ -1,27 +1,29 @@
->* 原文链接 : [11 Top Designers Share Honest Career Advice](https://studio.uxpin.com/blog/11-top-designers-give-11-pieces-of-realistic-ux-advice/)
+# 11个顶级设计师分享他们的职业建议
+
+* 原文链接 : [11 Top Designers Share Honest Career Advice](https://studio.uxpin.com/blog/11-top-designers-give-11-pieces-of-realistic-ux-advice/)
 * 原文作者 : [Roger Huang]
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
+* 译者 : [Adam Shen](https://github.com/shenxn)
 * 校对者: 
-* 状态： 认领中
 
-Great designers are lifelong learners.
+优秀的设计者是终生学习者。
 
-At [Springboard](http://springboard.com), we pair mentors with learners in UX and data science, so it makes a lot of sense for us to counsel listening to your elders.
+在 [Springboard](http://springboard.com)，我们将用户体验以及数据科学的导师和学习者配对，这有助于我们听从前辈的意见。
 
-We compiled a lot of advice from top practitioners in the field for our free [Guide to UX Careers](https://www.springboard.com/guide-to-ux-design-careers/).
+在我们免费的[用户体验职业引导 - Guide to UX Careers](https://www.springboard.com/guide-to-ux-design-careers/) 中，我们汇总了许多领域内顶尖从业者的建议。
 
-As a result, we got to interview 11 kickass UX designers to ask them what inspires them–and also what UX advice they’d give to other practitioners.
+我们采访了11位厉害的用户体验设计师，询问了他们设计的灵感，并且也让他们给其他从业者提了一些用户体验方面的建议。
 
-We collaborated with the team at [UXPin](https://www.uxpin.com/) to bring you their insights below. 
+我们与 [UXPin](https://www.uxpin.com/) 的团队合作为你带来了以下的见解。
 
 ## 1\. [**Paul Boag**](https://twitter.com/boagworld)
 
-Having worked with the web for over two decades, Paul is a co-founder of web design  agency [Headscape](http://headscape.co.uk/) (which counts Nestle, Macmillan, and several UK universities as clients). He is also a prolific writer and speaker.
+作为一个网站设计代理商 [Headscape](http://headscape.co.uk/)(雀巢、麦克米伦、以及一些英国的大学都是他们的客户) 的联合创始人，Paul 从事网站相关工作已经二十多年了。他同时也是一个发表了大量作品的作家和演说家。
 
 ![image05](https://studio.uxpin.com/wp-content/uploads/2016/02/image052.png)
 
 ### **Design Inspiration**:
+### **设计灵感**：
 
 My favorite piece of design is the original [London Underground Map](http://www.theverge.com/2013/3/29/4160028/harry-beck-designer-of-iconic-london-underground-map).
 
