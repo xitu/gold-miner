@@ -2,7 +2,7 @@
 * 原文作者 : [Jared M. Spool](https://medium.com/@jmspool)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [L9m](https://github.com/L9m)
-* 校对者: [shenxn](https://github.com/shenxn), [xcc](https://github.com/xcc3641)
+* 校对者: [shenxn](https://github.com/shenxn), [xcc3641](https://github.com/xcc3641)
 * 状态： 翻译完成
 
 美航的乘客愣愣地盯着屏幕上的突然出现的信息：_你的会话已过期._。她对此不知所措。
