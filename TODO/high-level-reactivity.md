@@ -1,4 +1,4 @@
-> * 原文链接: [Reactive GraphQL Architecture](https://github.com/apollostack/apollo/blob/master/design/high-level-reactivity.md)
+* 原文链接: [Reactive GraphQL Architecture](https://github.com/apollostack/apollo/blob/master/design/high-level-reactivity.md)
 * 原文作者 : [stubailo](https://github.com/apollostack/apollo/commits/master/design/high-level-reactivity.md?author=stubailo)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [shenxn](https://github.com/shenxn)
@@ -67,7 +67,7 @@ GraphQL 是一个用于查询节点类型图表的树形查询语言。举例来
 
 人们对 GraphQL 感到很激动，并且它解决了许多开发者（包括 Metor 的顾客和用户）遇到的许多问题。但是当你构建一个应用的时候，你不止是需要一种向服务器发起查询并得到响应的方式。举例来说，你应用的一部分可能会在另一个用户做出一些修改的时候需要响应式更新数据。
 
-GraphQL 系统的客户端和服务器需要合作来实现上述功能，但是我们的一个目标是尽量减少对现行 GraphQL 执行方式的改变，从而使得开发者能够充分利用现在和将来用于 GraphQL 的生产力工具。
+GraphQL 系统的客户端和服务器需要合作来实现上述功能，但是我们的一个目标是尽量减少对现行 GraphQL 执行方式的改变，从而使得开发者不管是现在还是将来都可以将 GraphQL 作为生产力的工具。
 
 ### 依赖（Dependency）
 
