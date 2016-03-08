@@ -1,79 +1,90 @@
->* 原文链接 : [Building a Kotlin project 1/2](http://cirorizzo.net/2016/03/04/building-a-kotlin-project/)
+> 
+* 原文链接 : [Building a Kotlin project 1/2](http://cirorizzo.net/2016/03/04/building-a-kotlin-project/)
 * 原文作者 : [CIRO RIZZO](https://github.com/cirorizzo)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
+* 译者 : [Jing KE](https://github.com/jingkecn)
 * 校对者: 
-* 状态： 认领中
+* 状态： 翻译完成
 
 
-###### _Part 1_
+###### _第 1 部分_
 
-The best way to learn a new language is to use it in a real use case.  
-That's way this new series of posts are focused on building a proper Android project using Kotlin.
+学习一门新语言的最好途径是在实际情景中使用它。
+  
+这个新系列的文章正是以此方式来集中使用 Kotlin 建立一个真正的 Android 项目。
 
-#### Scenario
+#### 情景
 
-To cover as many scenarios as possible the project will require:
+为适用尽可能多的情景，该项目将需要：
 
-*   Accessing to the network
-*   Retrieving data through out a REST API call
-*   Deserialize data
-*   Showing Images in a list
+*   接入网络
+*   通过 REST API 访问取得数据
+>   【译注】[这里](https://zh.wikipedia.org/wiki/REST)了解 REST API 概念。
+*   反序列化数据
+>   【译注】[这里](https://zh.wikipedia.org/wiki/%E5%BA%8F%E5%88%97%E5%8C%96)了解**序列化**与**反序列化**概念。
+*   在一个列表中展示图片
 
-For this purpose why not have an app showing kittens? ;)  
-Using the [http://thecatapi.com/](http://thecatapi.com/) API we can retrieve several funny cat images  
+为此，何不干脆让此应用显示小猫咪呢？;)  
+
+使用 [http://thecatapi.com/](http://thecatapi.com/) API 我们可以获取几张有趣的小猫图片
+
 ![KittenApp](http://cirorizzo.net/content/images/2016/03/xkittenApp.png.pagespeed.ic.ulo4yWl6Cg.png)
 
-#### Dependencies
+#### 依赖
 
-It looks like a very good chance to try out some very cool libraries like
+这看来是个很好的机会以尝试一些非常酷的库：
 
-*   [Retrofit2](http://square.github.io/retrofit/) for the network access, REST API calls and deserializing data
-*   [Glide](https://github.com/bumptech/glide) for showing images
-*   [RxJava](https://github.com/ReactiveX/RxJava) to bind data
-*   [RecyclerView CardView](http://developer.android.com/training/material/lists-cards.html) as UI
-*   Everything wrapped in a [MVP](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93presenter) pattern
+*   [Retrofit2](http://square.github.io/retrofit/) 用于网络接入，访问 REST API 以及反序列化数据
+*   [Glide](https://github.com/bumptech/glide) 用于展示图片
+*   [RxJava](https://github.com/ReactiveX/RxJava) 用来绑定数据
+*   [RecyclerView CardView](http://developer.android.com/training/material/lists-cards.html) 作为用户界面
+*    一切都封装于 [MVP](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93presenter) 模式中
 
-#### Set Up the Project
+#### 创建项目
 
-Using [Android Studio](http://developer.android.com/sdk/index.html) is extremely simple create a new project from scratch
+使用 [Android Studio](http://developer.android.com/sdk/index.html) 可以非常简单地从头开始创建一个新项目
 
-**_Start a new Android Project_**
+**_启用一个新的 Android 项目_**
+
 ![Create New Project](http://cirorizzo.net/content/images/2016/03/xAndroidStudio_NewProject.png.pagespeed.ic.7fDR0qSTJd.png)
 
-**_Create a new project_**
+**_创建一个新项目_**
 
 ![New Project](http://cirorizzo.net/content/images/2016/03/xAndroidStudio_NewProject_Create_NEW-1.png.pagespeed.ic.rtJ-FIVYiG.png)
 
-**_Select Target Android Device_**
+**_选择目标 Android 设备_**
+
 ![Target](http://cirorizzo.net/content/images/2016/03/xAndroidStudio_NewProject_Target.png.pagespeed.ic.bXlb6fWH62.png)
 
-**_Add an activity_** ![Empty Activity](http://cirorizzo.net/content/images/2016/03/xAndroidStudio_NewProject_Empty.png.pagespeed.ic.VYxIdhZ3Xk.png)
+**_添加一个 `activity`_**
 
-**_Customize the Activity_** 
+![Empty Activity](http://cirorizzo.net/content/images/2016/03/xAndroidStudio_NewProject_Empty.png.pagespeed.ic.VYxIdhZ3Xk.png)
+
+**_定制 `activity`_**
 
 ![Customize Activity](http://cirorizzo.net/content/images/2016/03/xAndroidStudio_NewProject_Activity.png.pagespeed.ic.3g2X5Gs9Bn.png)
 
-Press on Finish, the new project from the chosen template will be created.
+按下 Finish，选定模板的新项目将会被创建。
 
 ![Basic Template](http://cirorizzo.net/content/images/2016/03/xAndroidStudio_Basic_Template.png.pagespeed.ic.3iX8nv51PP.png)
 
-This is the starting point of our Kitten App!  
-However the code is still in Java, later we’re going to see how to convert it.
+这里开始是我们小猫应用的基础部分！
 
-#### Defining Gradle Build Tool
+尽管代码仍然是 Java，后文我们将看到如何将其转换。
 
-The next step is to adjust the Build Tool and defining which libraries we're going to use for the project.
+#### 定义 Gradle Build 工具
 
-> _Before starting with this phase, have a look at what you need for an Android Kotlin project on this [post](http://www.cirorizzo.net/kotlin-code/)_
+下一步是调整 Build 工具以及确定我们会将到哪些库用于项目。
 
-Open the Module App `build.gradle` (highlighted with a red rectangle in the picture)
+> _此阶段开始之前，请前往这篇[文章](http://www.cirorizzo.net/kotlin-code/)去看看你需要在一个 Android Kotlin 项目中用到什么_
+
+打开 Module App `build.gradle` (图中用红色矩形框圈出)
 
 ![Build.Gradle Customizing](http://cirorizzo.net/content/images/2016/03/xAndroidStudio_Basic_Gradle_High.png.pagespeed.ic.0SHrJn4YZc.png)
 
-It's a very good practice collecting all the libraries' version and Android properties in separate scripts and accessing to them through the `ext` property object provided by Gradle.
+一个非常好的实践是，将所有库的版本号 (version) 和 Android 特性 (properties) 集中于一个单独的脚本中，然后通过  Gradle 提供的 `ext` 属性去访问它们。
 
-The easiest way is to add at the beginning of the `build.gradle` file the following snippet
+最简单的方法就是将以下代码片段添加到 `build.gradle` 文件的开头：
 
     buildscript {
       ext.compileSdkVersion_ver = 23
@@ -105,13 +116,13 @@ The easiest way is to add at the beginning of the `build.gradle` file the follow
       }
     }
 
-Then adding the Kotlin plugins as shown
+然后添加 Kotlin 插件，如同所示：
 
     apply plugin: 'com.android.application'
     apply plugin: 'kotlin-android'
     apply plugin: 'kotlin-android-extensions'
 
-Before adding the dependencies for the libraries we're going to use in the project starting to change all the version numbers of the script with the `ext` properties added early at the beginning of the file
+在为库添加依赖之前，我们将在项目中利用此前在文件开头添加的 `ext` 属性来更改脚本中的所有版本号：
 
     android {
       compileSdkVersion "$compileSdkVersion_ver".toInteger()
@@ -126,7 +137,7 @@ Before adding the dependencies for the libraries we're going to use in the proje
     }
     ...
 
-One more change to the `builTypes` section
+再更改一下 `buildTypes` 部分：
 
     buildTypes {
         debug {
@@ -148,7 +159,7 @@ One more change to the `builTypes` section
         main.java.srcDirs += 'src/main/kotlin'
     }
 
-Next step is to declare the Libraries used in the project
+下一步是声明项目中用到的库：
 
     dependencies {
       compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -173,23 +184,23 @@ Next step is to declare the Libraries used in the project
       compile "org.jetbrains.anko:anko-common:$anko_ver"
     }
 
-Finally the `build.gradle` is ready to work with the project.
+最后 `build.gradle` 对于项目已准备就绪。
 
-Just one more thing is to add the `uses-permission` to access to Internet, so add the following line to the `AndroidManifest.xml`
+还有一点就是添加 `uses-permission` 来接入网络，因此将下面这行添加到 `AndroidManifest.xml` 中：
 
     <uses-permission android:name="android.permission.INTERNET" />
 
-And now we are ready to go to the next step
+现在我们可以准备进行下一步了
 
-#### Designing Project Structure
+#### 设计项目结构
 
-Another good practice is to structure the project having different packages and folders for different group of Classes composing our project so we can structure our project as shown below.
+另一个较好的实践是，在项目使用不同的包 (packages) 和文件夹 (folders) 来组织组成我们项目的不同类集合，所以我们可以这样组织我们的项目：
 
 ![Project Structure](http://cirorizzo.net/content/images/2016/03/xProjectStructure.png.pagespeed.ic.pltXQ_UkqX.png)
 
-> _Right Click on the Root Package `com.github.cirorizzo.kshows` and then `New->Package`_
+> _右击根目录包 `com.github.cirorizzo.kshows` 然后 `New->Package`_
 
-#### Coding
+#### 编写代码
 
-The next [post](http://www.cirorizzo.net/2016/03/04/building-a-kotlin-project-2/) is on how to code the elements of the Kitten app
+下一篇[文章](http://www.cirorizzo.net/2016/03/04/building-a-kotlin-project-2/)将论述如何为小猫应用的各部分编码。
 
