@@ -188,7 +188,9 @@
 
 还有一点就是添加 `uses-permission` 来接入网络，因此将下面这行添加到 `AndroidManifest.xml` 中：
 
+```xml
     <uses-permission android:name="android.permission.INTERNET" />
+```
 
 现在我们可以准备进行下一步了
 
