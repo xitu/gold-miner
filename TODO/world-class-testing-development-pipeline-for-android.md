@@ -1,64 +1,62 @@
 * 原文链接 : [World-Class Testing Development Pipeline for Android - Part 1.](http://blog.karumi.com/world-class-testing-development-pipeline-for-android/)
 * 原文作者 : [Karumi](hello@karumi.com)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : [认领地址](https://github.com/xitu/gold-miner/issues/111)
-* 校对者: 
-* 状态 : 认领中
+* 译者 : [markzhai](https://github.com/markzhai)
+* 校对者: [JustWe](https://github.com/lfkdsk), [Hugo Xie](https://github.com/xcc3641)
 
-# 世界级的 Android 测试流程（一）
+# 世界级的 Android 测试开发流程（一）
 
-After developing mobile applications and collaborating with manual QA teams for several years we decided to start writing tests. We knew that, as engineers, **test automation is the key to successful mobile development.** In this blog post we’d like to share how our story, the Karumi testing story, started several years ago. This is the first blog post of a series where we will cover all aspects of world-class testing development pipeline for Android.
+在开发完移动应用并和手动QA团队合作了数年后，我们决定开始写测试。作为工程师，我们知道，**自动化测试是成功的移动开发之关键。** 在这篇博客里，我将会分享我们的故事——Karumi启动于几年前的测试故事。这是系列博客的第一篇，我们将会囊括世界级的 Android测试流程的所有方面。
 
-A couple of years ago we started writing tests for mobile applications. We had limited testing knowledge so we focused on acceptance and unit tests using the most common frameworks, a simple test runner and a mocking library. After some time we ran into problems:
+几年前，我们开始为移动应用写测试。我们对测试了解有限，所以我们致力于接受测试并使用最常用的框架来做单元测试，一个简单的test runner和mocking库。过了一段时间我们遇到了问题：
 
-- We had no idea what to test and how to test it.
-- Our code was not ready to be tested.
-- We were obsessed with Mike Cohn’s Test Pyramid without thinking about the type of software we were writing.
-- Just because our tests were passing didn’t mean the code was working.
+- 我们不知道测试什么和如何去测试它。
+- 我们的代码还没准备好被测试。
+- 我们沉迷于Mike Cohn的测试金字塔，却没有考虑到我们在写的软件类型。
+- 即使我们的测试通过了，也不意味着代码没有问题。
 
-Scary, right? We spent a lot of time trying to tackle these challenges and at some point we realized the approach wasn’t correct. Even with a high test coverage, our software was failing. Worst of all, we were getting no feedback whatsoever from our tests. **The key to start solving our problems was identifying the problems we continuously ran into:**
+是不是很可怕? 我们花了很多时间去克服这些挑战，在某个时刻我们意识到是方法错了。即便测试覆盖率很高，我们的软件仍然在出错。最坏的是，从我们的测试中，无法得到任何反馈。**解决我们的问题的关键是识别出我们一直碰到的问题所在：**
 
-- Our acceptance tests were too difficult to write because we needed to use a provisioning API to simulate an initial state for an acceptance test.
-- Most of the time our tests were failing randomly and we didn’t know why. Just by repeating the build we passed our tests.
-- We had tons of unit tests and high coverage, but our unit tests never failed. Our tests were passing even when the application was not working.
-- Most of the time we were verifying calls to mocks.
-- We had to use some “magic” testing tools to test our code, a private method or to mock the result of a static method invocation.
+- 我们的接受测试太难写了，因为我们需要提供配置API来模拟接受测试的初始状态。
+- 大部分时候，我们的测试会随机失败，而我们不知道为什么。只能用重复编译来通过测试。
+- 我们有大量的单元测试和高覆盖率，但我们的单元测试从未失败。即便应用出问题了，我们的测试仍然能通过。
+- 我们用很多时间去验证mock的调用。
+- 我们不得不使用一些“魔法”测试工具来测试代码，一个私有方法或者模拟静态方法的调用结果。
 
-At this point we decided to stop writing tests and started thinking about why we didn’t feel comfortable with our tests. We needed to find a solution to this problem, fast. Our project was telling us we were doing it wrong, we needed a solution, **we needed a testing development pipeline**. That said, a testing development pipeline is not always the first thing to fix in order to improve your project quality.
+这是我们决定停下，并开始思考为什么我们对自己的测试感觉不爽。我们快速需要找到问题的解决方案。我们的项目告诉说我们做错了，我们需要解决方案，**我们需要一个测试开发流程**。话虽如此，为了改善程序质量，测试开发流程不总是第一件要完善的事。
 
-**A testing development pipeline defines what to test and how**. What are the tools to use and why? What is the scope of our tests? **Even with a good testing development pipeline one needs a testable code to be confident enough to write tests**, because most of the tests are impossible, or at least, really difficult to write. The test closest to the code and related to a unit or integration scope is not always easy to write if your code is not ready. Therefore, we decided to first identify the problems in our application and then fix them with these goals in mind. The question was: if our code could be perfect, what would we expect from it? The expectations were:
+**一个测试开发流程定义了测什么、怎么测**。用什么工具，为什么用？测试的范围是什么？**即便有良好的测试开发流程，可测试的代码对有自信去写测试仍然是必须的**，因为大部分的测试是不可能的，或者至少，很难去写。如果你的代码没有准备好，与代码以及单元或集成范围最贴近的测试并不是那么容易去写的。因此，我们决定带着这些目标，首先识别出应用中的问题，然后去解决它们。那么问题来了，如果我们的代码能够是完美的，我们对它有何期望呢？期望是：
 
-- The application had to be testable.
-- The code had to be readable.
-- The responsibility had to be clear and structured.
-- The coupling had to be low and the cohesion high.
-- The code had to be honest.
+- 应用必须是可测试的。
+- 代码必须是可读的。
+- 职责必须是清晰而有结构的。
+- 低耦合高内聚。
+- 代码必须是诚实的。
 
-The code prior to the refactor was a mess. The software responsibility was missing between lines and lines of UI code. The implementation details were completely exposed, activities and fragments were responsible for handling the state of the software, and it was all over the place. Furthermore, our business logic was completely coupled to the framework. Given these problems we decided to change the application architecture to something with more structure. **The architecture we used is named [“Clean Architecture”](https://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html). In addition to the key concepts of the architecture, we applied some patterns related to the GUI applications like MVP or MVVM and patterns related to data handling such as the Repository pattern**. Architecture details are not relevant for this blog post (we will discuss it in future posts), **the key element** of the “Clean Architecture” is related to **one of the most important SOLID principles, the [Dependency Inversion Principle](http://martinfowler.com/articles/dipInTheWild.html)**.
+在重构之前代码一团糟。软件职责丢失在代码的行与行之间。实现细节是完全暴露的，activities和fragments负责处理软件的状态，到处都是软件状态。另外，我们的业务逻辑和框架是耦合的。带着这些问题，我们决定把应用架构改成其他更有结构的东西。**我们使用的架构是 [“Clean Architecture”](https://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html)。除了架构的核心内容，我们还应用了一些和GUI应用相关模式像是MVP和MMVM，以及数据处理相关的模式像是Repository模式**。架构详情和这篇博客没有关系（我们会在未来的博文中讨论到它），“Clean Architecture”的**核心元素**与**最重要的SOLID原则之一，[依赖倒置原则](http://martinfowler.com/articles/dipInTheWild.html)**相关。
 
-**The Dependency Inversion Principle specifies that your code should always depend on abstractions and not concretions**. This principle, just this simple principle was the key to success. It was **the key to changing our code and adapting our testing strategies to effectively tackle the problem at hand**. Depending on abstractions is neither related to dependency injection frameworks nor to always using a Java Interface to define your class API. However, it is related to hiding implementation details. Creating layers with different roles, points where the software responsibility changes and points to introduce a [TestDouble](http://www.martinfowler.com/bliki/TestDouble.html) much limit the scope of the test.
+**依赖倒置原则提出你的代码必须依赖于抽象而不是具体实现**。这个原则，仅仅是这个原则就是通向成功的钥匙。它是**改变我们的代码并适配测试策略以有效克服我们手上问题的关键**。依赖于抽象既无关于依赖注入框架，也无关于使用Java接口来定义类的API。然而，它与隐藏细节有关。根据不同角色，软件职责改变的点，引入[测试替身(TestDouble)](http://www.martinfowler.com/bliki/TestDouble.html)的点去创建层，大大限制了测试的范围。
 
-**We were able to choose the right amount of code to test by respecting the dependency inversion principle**. Once these points were clear, we stop writing tests full of mocks. We were able to use the exact number of mocks to cover a test case, making sure we were testing the state of the software and not only the interactions between components.
+**通过依赖倒置原则，我们能够去选择正确数量的代码去测试**。一旦这些点清晰了，我们就停下为所有的mocks去写测试。我们能够使用准确数字的mocks去覆盖一个测试用例，并确保我们在测试软件状态而不仅仅是组件之间的交互。
 
-Once the application architecture was clear we started **to define our testing development pipeline. We were aiming to answer two questions: What do we want to test? How do we want to test it?** After trying to find out how to split the tests and write them in an easy and readable way, we noticed that the layer separations were the perfect starting point. As a result, the solution became clear:
+一旦应用架构清晰了，我们开始 **定义我们的测试开发流程。我们的目标是回答2个问题：我们想要测试什么？我们如何去测试它？** 在尝试找出如何分割测试，并用简单又可读的方式去写以后，我们注意到层次分离是最完美的出发点。结果，解决方案变得清晰：
 
-What do we want to test?
+我们想要测试什么?
 
-- We want to test our business logic independently of any framework or library.
-- We want to test our API integration.
-- We want to test our integration with our persistence framework.
-- We want to test some generic UI components.
-- We want to test acceptance criteria written from the user’s point of view in a completely black box scenario.
+- 独立于任何框架或者库去测试我们的业务逻辑。
+- 测试我们的API集成。
+- 持久化框架的集成。
+- 一些通用UI组件。
+- 测试黑盒场景下，从用户视角写的的接收准则。
 
-How do we want to test it?
+我们想要怎么去测试?
 
-- This is something we will talk about in the next blog post, stay tuned! ;)
+- 这是我们在下一博客文章要说的东西，敬请期待！;)
 
-References:
+参考:
 
-- World-Class Testing Development Pipeline for Android slides by Pedro Vicente Gómez Sánchez. [http://www.slideshare.net/PedroVicenteGmezSnch/worldclass-testing-development-pipeline-for-android](http://www.slideshare.net/PedroVicenteGmezSnch/worldclass-testing-development-pipeline-for-android)
-- Mike Cohn’s Test Pyramid by Martin Fowler. [http://martinfowler.com/bliki/TestPyramid.html](http://martinfowler.com/bliki/TestPyramid.html)
-- Clean Architecture by Uncle Bob. [https://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html](https://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html)
-- DIP in the Wild by Martin Fowler.[http://martinfowler.com/articles/dipInTheWild.html](http://martinfowler.com/articles/dipInTheWild.html)
-- Test Double by Martin Fowler. [http://www.martinfowler.com/bliki/TestDouble.html](http://www.martinfowler.com/bliki/TestDouble.html)
-
+- 世界级的Android测试开发流程幻灯片 by Pedro Vicente Gómez Sánchez. [http://www.slideshare.net/PedroVicenteGmezSnch/worldclass-testing-development-pipeline-for-android](http://www.slideshare.net/PedroVicenteGmezSnch/worldclass-testing-development-pipeline-for-android)
+- Mike Cohn的测试金字塔 by Martin Fowler. [http://martinfowler.com/bliki/TestPyramid.html](http://martinfowler.com/bliki/TestPyramid.html)
+- Clean架构 by Uncle Bob. [https://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html](https://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html)
+- 在野外的DIP by Martin Fowler.[http://martinfowler.com/articles/dipInTheWild.html](http://martinfowler.com/articles/dipInTheWild.html)
+- 测试替身 by Martin Fowler. [http://www.martinfowler.com/bliki/TestDouble.html](http://www.martinfowler.com/bliki/TestDouble.html)

@@ -43,7 +43,6 @@
 
 ### 基础架构
 
-Below is how [moltin](https://moltin.com)'s infrastructure currently looks:
 [moltin](https://moltin.com) 当前的基础架构
 
 ![](https://moltin.com/files/large/67b084c60b6d0ff)
