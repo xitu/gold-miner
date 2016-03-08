@@ -109,25 +109,40 @@ The fact that I’m not in the Valley also means that I don’t have to pay your
 **你拿过投资么？**  
 没有，我们都是完全的自筹资金。没有其他的投资者。
 
-**Have you ever been tempted to take on outside investment?  
+<!--**Have you ever been tempted to take on outside investment?  
 **No. I’ve never been tempted. We are self-sufficient and profitable. If I were to take on an investment it would mean handing over a sizable portion of the company to an outside investor who would understandably expect a large return on their investment, maybe via avenues I might not agree an in the broader best interest of Sketch. I want to keep growing the company in a way that I see fit, and I don’t want to have the added pressure from someone who might expect more from it than I may even myself. Plus, with that money, I’d probably be expected to grow at a rate that I might not agree is best in the longer term. Similarly, I don’t want to be forced to hire so many people that we’re not profitable, and then only to be forced to take on more funding. We would probably quickly be expected to go from 6 developers to 20 or 30 — and that’s something that I don’t think is wise at this point in time. So in short I don’t currently see the benefits of taking outside funding.
+-->
+**你曾经被外面的投资吸引过么？**  
+没有，我从未被吸引过。我们能自给自足并且获利。如果我接受了一项投资，这将意味着把一个相当大的一部分公司交给通过了解他们会获得很大利润的外部投资者，可能是通过某种渠道，我可能不会同意出于对Sketch的极大兴趣。我想去以一种我认为合适的方式去发展公司，并且我不想去从一个比我期待还大的人身上获取压力。而且，拿了那笔钱，我可能被要求去以一种长远来看我不认为是最好的速度来开发软件。与之相类，我不想要去被强迫去招很多的人以至于我们无法获利，之后只好被强迫去拿更多的投资。我们可能会很多的从6个开发者发展到20个或者30个－在这个时间点我不认为是聪明的。所以在短期内我目前还没有看到外部资金的好处。
 
-**你曾经被外面的投资吸引过么？**
-没有，我从未被吸引过。我们能自给自足并且获利。如果我接受了一项投资，这将意味着把一个相当大的一部分公司交给通过了解他们会获得很大利润的外部投资者，可能是通过某种渠道，我可能不会同意出于对Sketch的极大兴趣。
+<!--**With this type of thinking on outside investment, do you worry that others will be able to outpace you?  
+**Well, yes and no. There is always the worry that someone else is going to do something you are not able to. But at the same time I think companies that are hell bent focused on growing can as a result lose time in setting up that growth; including setting up new staff, getting them moving in the right direction, etc. I think with a small focused team you can achieve plenty. I don’t think just having more people means you move faster or better.-->
 
-**With this type of thinking on outside investment, do you worry that others will be able to outpace you?  
-**Well, yes and no. There is always the worry that someone else is going to do something you are not able to. But at the same time I think companies that are hell bent focused on growing can as a result lose time in setting up that growth; including setting up new staff, getting them moving in the right direction, etc. I think with a small focused team you can achieve plenty. I don’t think just having more people means you move faster or better.
+**你对外部投资有这样的看法，你不担心其他人能够超过你么？**  
+好吧，我担心也不担心。我会一直担心其他人将会做到你做不到的东西。但是与此同时我认为一意孤行的发展公司会耽误公司的时间；包括招收新的职员，让他们在正确的方向前进，等等。我认为有一个小而又专注的团队你能够做的更多。我不认为仅有更多的人就意味着你可以前进的更快更远。
 
-**What’s the biggest vulnerability of the company?  
+<!--**What’s the biggest vulnerability of the company?  
 **There is always risk from competitors. Adobe announced Comet a few months ago. This definitely poses a serious threat. The risk with a company like Adobe is that it doesn’t have to be an instant success for them. They can lose money on it for years while they improve it — and they clearly have enough talented people in their company to do so, so I do feel some pressure from that announcement.
 
 I think there are many things that we want to do with our product. Maybe in the last year, progress hasn’t been as fast as I would have hoped. But, as we discussed, that is inevitable when you’re bringing new people on and truly taking the time to get them integrated and up to speed. There are also certain parts of the application that were written by me many years ago that need tweaking because what we’re building now is much larger in scope than what we had originally designed. It takes time to clean up that legacy and I think we’ve been good in the past year about cleaning some of that up, but there’s still more to do and of course that takes time and focus. I’m more focused on that internal issue than the external competition.
+-->
+**企业最大的弱点是什么？**  
+总会有来自竞争者的挑战。Adobe在几个月前公布了Comet。这无疑对我们产生了严重的威胁。和像Adobe这样的公司竞争的风险就是他们并不急功近利。在他们改善的过程中他们可以很多年的钱亏－并且他们显然有足够的人才在他们的公司工作，所以这个通知给我很大压力。
 
-**I think it’s safe to say that Sketch is eating into the space Photoshop created and has owned for decades. Will Comet eat into yours?  
+我想对于我们的产品还有很多的东西可以去做。也许在过去的一年，进展并没有我料想的快。但是，就像我们讨论过的，当你带来新的人并且真的花时间让他们成为一体、提升速度那是必然要做的。而且软件中还有一些很多年前我写的部分，因为我们现在扩大了原来的设计范围而需要修改。这需要时间去清理遗产并且我认为在过去的一年我们已经成功的清理了一部分，但还有更多的工作要做，当然，这需要时间和精力。我更关注于内部的问题而不是外部的问题。
+
+<!--**I think it’s safe to say that Sketch is eating into the space Photoshop created and has owned for decades. Will Comet eat into yours?  
 **We can definitely do many of the same things in Sketch like building prototypes. So I don’t think Comet can out-feature us. I think the ecosystem we’ve built up around Sketch is a distinct competitive advantage we have that Adobe can’t easily copy, including the tools that integrate plug ins, exporting to Framer, Origami, Principle etc.
+-->
+**我可以肯定地说Sketch正在蚕食Photeshop开创并持有多年的市场空间。你认为Comet会蚕食你们的么？**  
+我们可以确实地在Sketch上做很多事情就像建立原型。所以我不认为Comet可以在功能上超过我们。我认为，我们已经建立的Sketch周围的生态系统是一个独特的竞争优势，我们拥有了Adobe无法轻松地复制的优势，包括集成的插件工具，出口到成帧器，折纸，原理等等。
 
 **Do you see a convergence of design and prototyping? Or will there always be a need for more singularly focused tools?  
 **I think there is a broad spectrum of prototyping. On one end, you have basic things like the original Flinto where you’re tying screens together to visualize a flow. There’s definitely value in that. On the other end you have tools like Origami and Framer where you can go completely wild with very custom animations. You can do really interesting things there. However, I think that’s not something every designer will be interested in. I may be a bit worried that those kinds of animations are going to become as overdone as the skeuomorphic stuff we saw before the days of iOS 7\. I value animations but I think designers have a tendency to jump into new things a bit enthusiastically. If we just look at prototyping. We have very simple prototyping between screens to very complicated transitions between them. I could see the former being integrated into a tool like Sketch, but it’s going to be a very difficult job to build in the type of functionality that Framer or Origami has. You risk bloating the application to the point where it becomes like Photoshop, where most people only use a small subset of features. So I think there is value in having separate applications that do separate things. I’m not sure that we should be trying to dump everything into one app.
+
+**你看到设计和原型的融合了么？又或者是总会有对于更加突出关注的工具的需求？**
+
+
 
 **How do you go about making such a big decision like keeping Sketch focused on static design versus integrating prototyping?  
 **You’re not the first person to ask me a question like that. We talk to a number of designers in various companies about this type of thing. So that feedback in conjunction with our own opinions about what we want the app to be is how we make those decisions.
@@ -166,6 +181,8 @@ Whenever you have a server-based product it’s more acceptable to charge per mo
 **What’s coming for Sketch?  
 **With the recent exit of the Mac App Store we think that we can push updates faster. I’m really excited to be able to ship the things that we have planned for the new year. I think we learned that the last big update took too long and now we want to keep shipping smaller updates. But I don’t want to say too much, because we all know how that works with software!
 
+**Sketch将会发生什么改变？**  
+前不久我们离开了Mac的AppStore，我们认为我们可以更快的推送更新。我是真的激动地去能够交出我们原来对于新年的计划的东西。
 
 
 </section>
