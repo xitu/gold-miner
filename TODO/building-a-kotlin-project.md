@@ -26,7 +26,7 @@
 
 为此，何不干脆让此应用显示小猫咪呢？;)  
 
-使用 [http://thecatapi.com/](http://thecatapi.com/) API 我们可以获取几张有趣的小猫图片
+使用 [http://thecatapi.com/](http://thecatapi.com/) API 我们可以获取几张有趣的小猫图片：
 
 ![KittenApp](http://cirorizzo.net/content/images/2016/03/xkittenApp.png.pagespeed.ic.ulo4yWl6Cg.png)
 
@@ -42,7 +42,7 @@
 
 #### 创建项目
 
-使用 [Android Studio](http://developer.android.com/sdk/index.html) 可以非常简单地从头开始创建一个新项目
+使用 [Android Studio](http://developer.android.com/sdk/index.html) 可以非常简单地从头开始创建一个新项目。
 
 **_启用一个新的 Android 项目_**
 
@@ -76,9 +76,9 @@
 
 下一步是调整 Build 工具以及确定我们会将到哪些库用于项目。
 
-> _此阶段开始之前，请前往这篇[文章](http://www.cirorizzo.net/kotlin-code/)去看看你需要在一个 Android Kotlin 项目中用到什么_
+> _此阶段开始之前，请前往这篇[文章](http://www.cirorizzo.net/kotlin-code/)去看看你需要在一个 Android Kotlin 项目中用到什么。_
 
-打开 Module App `build.gradle` (图中用红色矩形框圈出)
+打开 Module App `build.gradle` (图中用红色矩形框圈出)：
 
 ![Build.Gradle Customizing](http://cirorizzo.net/content/images/2016/03/xAndroidStudio_Basic_Gradle_High.png.pagespeed.ic.0SHrJn4YZc.png)
 
@@ -192,7 +192,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 ```
 
-现在我们可以准备进行下一步了
+现在我们可以准备进行下一步了。
 
 #### 设计项目结构
 
@@ -200,7 +200,7 @@
 
 ![Project Structure](http://cirorizzo.net/content/images/2016/03/xProjectStructure.png.pagespeed.ic.pltXQ_UkqX.png)
 
-> _右击根目录包 `com.github.cirorizzo.kshows` 然后 `New->Package`_
+> _右击根目录包 `com.github.cirorizzo.kshows` 然后 `New->Package`。_
 
 #### 编写代码
 
