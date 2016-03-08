@@ -1,27 +1,26 @@
-> * 原文链接: [Reactive GraphQL Architecture](https://github.com/apollostack/apollo/blob/master/design/high-level-reactivity.md)
+* 原文链接: [Reactive GraphQL Architecture](https://github.com/apollostack/apollo/blob/master/design/high-level-reactivity.md)
 * 原文作者 : [stubailo](https://github.com/apollostack/apollo/commits/master/design/high-level-reactivity.md?author=stubailo)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者 :
-* 状态 : 认领中
+* 译者 : [shenxn](https://github.com/shenxn)
+* 校对者 : [lekenny](https://github.com/lekenny)，[CoderBOBO](https://github.com/CoderBOBO)
 
 
-# High-level design
+# 高水平设计
 
-This is a high-level overview of the architecture of a reactive GraphQL data loading system, aimed at getting feedback from engineers who have been there and done that. We want to share what we're working on to see if people find it interesting, and to validate our design against what others have seen in the field.
+这是一个高度概述的响应式 GraphQL 数据加载系统的体系结构。，我们这么做的目的是希望得到那些相关领域工程师的反馈。我们想要分享我们正在做的事以确认人们是否对它感兴趣，同时使得该领域中的人能够接受我们的设计。
 
-*   If you haven't yet, read our [announcement post](http://info.meteor.com/blog/reactive-graphql) which outlines all of the problems we are aiming to solve.
-*   You can also read Arunoda's post that summarizes this doc: [Meteor's Reactive GraphQL is Just Awesome](https://voice.kadira.io/meteor-s-reactive-graphql-is-just-awesome-b21074231528#.3h3hmtbm2)
+*   如果你还不了解我们的设计，请阅读我们的[介绍页面](http://info.meteor.com/blog/reactive-graphql)，这个页面概述了所有我们希望解决的问题。
+*   你也可以阅读 Arunoda 的文章，那篇文章总结了我们的介绍内容：[Meteor's Reactive GraphQL is Just Awesome](https://voice.kadira.io/meteor-s-reactive-graphql-is-just-awesome-b21074231528#.3h3hmtbm2)
 
-Here's a summary of the design in a diagram, which will be explained in more detail later:
+这是一张总结了我们设计的图表，之后我们会进行详细的解释：
 
 ![](http://ww1.sinaimg.cn/large/9b5c8bd8jw1f0zsqg1w7fj21kw0s845z.jpg)
 
 ## GraphQL
 
-(You can [skip this part](#reactive-graphql) if you are already familiar with GraphQL)
+（如果你已经对 GraphQL 很熟悉了，你可以[跳过这个部分](#reactive-graphql)）
 
-GraphQL is a tree-shaped query language for querying a schema of node types. So, for example, if you have users, todo lists, and tasks, you might query them like this:
+GraphQL 是一个用于查询节点类型图表的树形查询语言。举例来说，如果你有一些用户，一些待办事项列表，和一些任务，你就可以像下面这样查询：
 
     me {
       username,
@@ -36,7 +35,7 @@ GraphQL is a tree-shaped query language for querying a schema of node types. So,
       }
     }
 
-Each field in the query calls a resolver function on the server, which can access any data source or API. The return values are aggregated into a JSON response shaped exactly like the query, and you don't get any fields you didn't ask for. For the query above, you'll get back data that looks like this:
+查询中的每一个字段都调用了服务器上的一个可以访问任何数据源或API的解析函数。返回值被封装在一个与查询的样子类似的 JSON 响应中，并且你不会得到任何你没有查询的字段。针对上面的查询，你会得到如下数据：
 
     {
       me: {
@@ -51,34 +50,34 @@ Each field in the query calls a resolver function on the server, which can acces
       }
     }
 
-> You can follow the [LearnGraphQL](https://learngraphql.com/) interactive course to learn GraphQL basics. You could complete it in few hours.
+> 你可以跟随一个时长几个小时的交互式课程 [LearnGraphQL](https://learngraphql.com/) 来学习 GraphQL 的基础知识。
 
-Note that there is no restriction on data sources - you could have your todo lists stored in one database, and your tasks in a different one. In fact, one of the main benefits of GraphQL is a total abstraction over where the data is coming from, so that frontend developers don't have to worry about it, and backend developers are free to move around data or services as needed. Here's what that looks like in terms of the components of the architecture:
+注意，数据源是没有限制的，你可以在一个数据库中储存你的待办事项列表，并在另一个数据库中储存你的任务。事实上，GraphQL 的主要好处就是，你可以把数据从数据源中提取出来，这样前端开发者就不用担心数据源的问题了，后端开发者也可以自由地更改数据或者服务。下图展示了这种设计使用结构组件来表示的样子：
+
 
 ![](http://ww1.sinaimg.cn/large/9b5c8bd8jw1f0zsqywxqlj20xu0t2jve.jpg)
-
-Note that there is a GraphQL cache - what this does is decompose the results of the query into nodes. A smart cache can refetch just part of a query, or even a single field on a previously-fetched object, in the case where the data requirements change or something needs to be refreshed. So in our above example, the data in the cache might be stored like:
+注意，GraphQL 拥有一个缓存，这个缓存是用来把查询结果分解成节点。一个聪明的缓存可以在数据需求变化或者部分数据需要刷新的时候，在之间缓存对象的基础上只重新获取查询的一部分，甚至是一个字段。在上面的例子中，缓存中的数据可能会被这样存储：
 
     { type: "me", username: "sashko", lists: [1] }
     { type: "list", id: 1, name: "My first todo list", tasks: [...] }
 
-This is clearly very simplified, and you can read about how the Relay cache works on [Huey Petersen's website](http://hueypetersen.com/posts/2015/09/30/quick-look-at-the-relay-store/). The important thing to note is that the cache decomposes query results into a flat structure, and a smart cache will be able to generate a query to update just one list and its tasks, or just the list's name, as necessary.
+这个例子非常简明。你可以在 [Huey Petersen 的网站](http://hueypetersen.com/posts/2015/09/30/quick-look-at-the-relay-store/)上了解 Relay 缓存的工作方式。需要注意的是，缓存系统会将查询结果分解成平面结构，并且一个聪明的缓存将能够在必要时生成一个查询来更新 `list` 和它的 `tasks`，或者仅仅更新 `list` 的 `name`。
 
-## Reactive GraphQL
+## 响应式 GraphQL
 
-People are excited about GraphQL, and it solves a lot of the problems which many developers, including Meteor's customers and users, have brought to light. But when you're building an app, you need more than just a way to query the server and get a response. For example, some parts of your app will want the data to update reactively when a different user makes a change.
+人们对 GraphQL 感到很激动，并且它解决了许多开发者（包括 Metor 的顾客和用户）遇到的许多问题。但是当你构建一个应用的时候，你不止是需要一种向服务器发起查询并得到响应的方式。举例来说，你应用的一部分可能会在另一个用户做出一些修改的时候需要响应式更新数据。
 
-The client and server parts of the GraphQL system will need to collaborate to make this possible, but one of our goals is to make minimal changes to the current reference implementation of GraphQL so that developers can take advantage of current and future productivity tools for GraphQL.
+GraphQL 系统的客户端和服务器需要合作来实现上述功能，但是我们的一个目标是尽量减少对现行 GraphQL 执行方式的改变，从而使得开发者不管是现在还是将来都可以将 GraphQL 作为生产力的工具。
 
-### Dependencies
+### 依赖（Dependency）
 
-The core concept of the system we envision is the idea of a dependency, or dep for short. A dep is a tuple of `key` and `version`, where `key` globally represents a particular unit of data (for example, a row in a database or the result of a query), and `version` globally represents how many times it has been changed.
+我们想象中的系统的核心观点就是依赖。一个依赖就是一个 `键（key）` 和 `版本（version）` 的元组，其中 `键` 在全局中代表一个特定的数据单元（比如数据库中的一条记录或是一个查询的结果），而 `版本` 在全局中代表数据被修改的次数。
 
-The intended result is that if you are holding a piece of data, and you have a dep for it, you can ask the global dependency server whether it has changed by sending the key and version. The main benefit of this approach is that the application server doesn't need to be aware of which queries each client is currently tracking - the client can keep that knowledge for itself, reducing the burden on the server and giving the developer more options for controlling when new data is fetched.
+预想中的结果是，如果你拥有一些数据，并且你有这个数据的依赖，你就可以通过发送键和版本的方式向全局依赖服务器询问数据是否已经被修改了。这样做的主要好处是，应用程序的服务器不需要知道每个客户端当前正在追踪的查询，客户端可以自己保存这些信息。这减少了服务器的负担，并且使得开发者可以更自由地选择抓取新数据的时间。
 
-### Returning dependencies to the client
+### 将依赖返回到客户端
 
-Before, we gave an example of a GraphQL response for a simple query. If you make a reactive GraphQL query, the client needs extra metadata to know which parts of the result tree are reactive, and what keys they should be invalidated by. The client query fetcher will inject fields for this metadata into your query automatically, so that internally the response will look like this:
+之前，我们给了一个简单查询的 GraphQL 响应作为例子。如果你需要创建一个响应式的 GraphQL 查询，客户端需要需要一些额外的元数据来知道结果树中的哪些部分是响应式的，并且哪些键是无效的。客户端查询器会自动把这个元数据的字段添加到你的查询中，所以内部的响应应该会像下面这样：
 
     {
       me: {
@@ -101,152 +100,154 @@ Before, we gave an example of a GraphQL response for a simple query. If you make
       }
     }
 
-This will tell the client which dependencies they should watch to figure out if the list object itself changed, or if the list of tasks needs to be updated. Of course, the extra metadata will be filtered out before passing the data to the actual consumer.
+这会告诉客户端哪些依赖它们应该监视来获知 `list` 对象本身的更改，或是 `tasks` 列表需要被更新。当然，这些额外的元数据会在传递给真实客户之前被过滤掉。
 
-Note that can't put the `__deps` field on tasks itself, because JSON doesn't allow it, so we have to put it on the parent instead. Also, the `__self` field is a shorthand to avoid listing all of the properties of the list object - it could have `name`, `description`, and so on, and it would be a waste of bandwidth to send all of those key names again.
+需要注意的是，`__deps` 字段不能被添加到 `tasks` 中，因为 JSON 语法不允许这么做，所以我们不得不把它放在父元素中。同样，`__self` 字段是对象的一个简略表达方式，这样就不需要列出 `list` 对象的所有属性（会包含 `name`，`description` 等，并且重新发送所有的键会浪费带宽）。
 
-### Automatically recording dependencies when reading data
 
-In order to know when a GraphQL query needs to be re-run, we need to know what deps represent different parts of the query. These deps can be recorded manually for complex queries, but simple queries can have their deps identified automatically. For example, here's a JavaScript SQL query that could be used in a particular part of the GraphQL resolution tree:
+### 在读入数据时自动记录依赖
+
+为了知道一个 GraphQL 查询在什么时候需要被重新运行，我们需要先知道哪些依赖代表了查询中的不同部分。复杂查询的依赖可以被手动记录，但是一些简单查询的依赖可以被自动识别。举例来说，这是一个可以被用在 GraphQL 解析树上特定部分中的 Javascript SQL 查询：
 
     todoLists.select('*').where('id', 1);
 
-This will automatically record the following dependency:
+这会自动记录如下的依赖：
 
     { key: 'todoLists:1', version: 0 }
 
-The dependency recording mechanism queries the dependency tracking server to figure out the current version.
+这个依赖记录机制需要依赖跟踪服务器确认当前的版本。
 
-### Manually recording dependencies
+### 手动记录依赖
 
-The automatic dependency recording mechanism won't work if it isn't possible to analyze the query to determine the dependencies. In these cases, the developer will need to manually record a dependency, using any string key they want.
+如果不能通过分析请求来确认依赖，自动依赖记录机制就不能工作。在这样的情况下，开发者将需要使用任何他们喜欢的字符串来手动记录一个依赖。
 
-For example, if you have a complex query to count the number of notifications a user has, you might want a custom invalidation key for that number:
+举例来说，假设你有一个用来计算用户通知数量的复杂查询，你也许需要为这个数字设置一个自定义的失效键：
 
-    // somewhere, a function that consistently generates a key
+    // 在程序的某个地方，一个用于生成键的函数
     function notificationDepKeyForUser(userId) {
       return 'notificationCount:' + userId;
     }
 
-    // inside the GraphQL resolver
+    // 在 GraphQL 解析器内部
     numNotifications = getNotificationCountForUser(userId);
     context.recordDependency(notificationDepKeyForUser(userId));
 
-This will let you manually specify situations in which the number of notifications should be refreshed. Advanced users with particularly strict performance requirements, like a site-wide visitor count or a realtime high-score table, might also choose to use manually constructed dependencies for more control over their data flow.
+这会使得你可以手动指定通知数量被刷新的时间。有些高级用户可能会对性能有非常严格的要求，像需要计算全站的访客数量或是维护一个实时的高分表，这时他们也会选择使用手动构建依赖以更好地控制他们的数据流。
 
-## Simple reactivity model
+## 简单的响应式模型
 
-Based on the above primitives, here is a stateless strategy for GraphQL reactivity:
+基于上面的描述，我要介绍一个实现响应式 GraphQL 的无状态策略：
 
-1.  The client fetches the query from the GraphQL server, which includes a set of deps in the response.
-2.  The client periodically polls the invalidation server with the set of deps, and the server returns the list of deps which have a newer version available. Note that this can easily be converted to a stateful approach where the client subscribes to a list of depenencies over a websocket, for parts of the client which need lower latency - see the [section below](#reducing-latency).
-3.  The client re-fetches the subtrees of the query which depend on the invalidated deps.
+1.  客户端向 GraphQL 服务器发送查询，接收到一个包含一系列依赖的响应。
+2.  客户端周期性查询服务器，获知依赖是否失效，服务器返回包含新版本号的依赖列表。对于一些需要更低延迟的客户端来说，可以通过使用 websocket 来订阅依赖的方式，将上述方法轻松转变成有状态的方式，具体可以查阅[下面一节](#reducing-latency)。
+3.  客户端重新抓取依赖于失效依赖的子查询树。
 
-There are ways to move more state to the server to optimize the latency of the system and reduce roundtrips, but those can be added later.
+有许多方法可以在服务器上添加更多状态来优化系统延迟并减少客户端和服务器的通信次数，这些方法可以在之后再添加。
 
 ![](http://ww2.sinaimg.cn/large/9b5c8bd8jw1f0zsr810o2j21920vctef.jpg)
 
-### Reducing latency
+### 降低延迟
 
-The rest of the document talks in terms of polling a dependency server for updates. This results in two roundtrips per update: one to get the invalidated keys, and another to actually get the new data. Here's how that could be reduced to 1 or 0 round trips:
+文档的剩余部分将会讲述从依赖服务器获取更新的话题。上面的方法导致了每次更新数据时服务器和客户端之间都需要两轮通信：一轮获取失效键，一轮获取新数据本身。下面的方法可以使得通信次数下降为1次甚至0次：
 
-1.  The invalidation server could accept websocket connections, and let the client subscribe to the dependency keys it cares about - this would mean the invalidation is pushed immediately, and then there is one roundtrip to fetch the actual data.
-2.  The application server could subscribe to the invalidations, and do the GraphQL queries _on the server_, and then diff that against the current state of the client and send a patch. This would make the system work almost exactly like Meteor today, and could be a good option for applications with fewer users and a great need for low latency.
+1.  失效服务器可以接受 websocket 连接，并且允许客户端订阅它需要的依赖键， 这意味着失效信息是被即时推送到客户端的，并且获取数据本身只需要一轮通信。
+2.  让应用服务器订阅失效信息，并且_在服务器上_发起 GraphQL 请求，然后将请求结果与当前客户端状态进行比较并且发送一个补丁。这种方法几乎与 Meteor 现在采取的方法一致，这对于那些拥有少量用户并且要求低延迟的应用来说，是一个非常好的选择。
 
-Since both of those approaches don't change anything about the inherent design of the system and are relatively simple to implement, we'll leave them as optimizations for the future.
+因为这些方法并没有修改系统的内部设计，而且非常易于执行，我们会把它们当做优化并且留到将来再处理。
 
-## Invalidating dependencies
+## 使依赖失效
 
-We haven't talked at all about how the invalidation server finds out that a dependency version has incremented, and that clients should reload that data. At the lowest level, your code posts to the invalidation server the list of keys that need to be invalidated whenever you make a write to the data store. This section will also talk about a nice high-level wrapper around that for application developers.
+我们还没有讨论过失效服务器如何知道一个依赖的版本号已经增加了（这就意味着客户端上的数据需要重新加载）。最低级的方法是，你的代码在写入数据的时候，将失效的依赖列表发送给失效服务器。这部分同样也会讨论上述方法的一个高级封装。
 
 ### Mutations
 
-So far, we have only talked about loading data, which is fine if your app is just a view or dashboard onto some data you don't control. However, most apps also have controls for the users to manipulate their persistent data.
+到目前为止，我们只讨论了如何加载数据，如果你的应用程序只是用来查看一些你不能控制的数据，这就足够了。然而，大多数应用依然需要允许他们的用户操作数据。
 
-In GraphQL, the messages sent to the server requesting data writes are called mutations, so that's what we'll call them here as well.
+在 GraphQL 中，发送给服务器的数据修改请求被称为 mutation，所以我们在这篇文档中也会这样称呼它们。
 
-### What is a mutation?
+### mutation 是什么？
 
-You can think of a mutation as a remote procedure call endpoint. At the end of the day, it's a named function on the server that can be called from the client with some arguments.
+你可以把一个 mutation 想象成一个远程程序的调用点。归根结底，这就是服务器上一个函数的名称，客户端可以通过这个名称和一些相应的参数来调用函数。
 
-In this dependency-based system, mutations need to do several things:
+在这个基于依赖的系统上，mutation 需要做这些事：
 
-1.  Write data to the backend database or API
-2.  Emit the appropriate invalidations to the invalidation server
-3.  Optionally, do an optimistic update on the client to show something nice while the server roundtrip is happening
+1.  将数据写入后端数据库或者调用相关 API。
+2.  给失效服务器发送适当的失效信息。
+3.  可选优化更新客户端，使客户端更好地与服务器进行数据交换。
 
-We hope this system will put less burden on the developer to specify which data might have changed when they are calling a mutation, while leaving the door open for such an optimization when it is necessary.
+我们希望这个系统能使开发者在调用一个 mutation 的时候，可以尽可能少地操心哪些数据可能发生了变化，同时，我们也允许开发者自己处理数据的变化以便于优化。
 
-Having mutations emit invalidations is also a great way to do optimistic UI. You can simply return the dependency keys invalidated by the mutation to the client, and then the client knows it has the real data from the server as soon as it has refetched those dependencies.
+让 mutation 发送失效信息也是做乐观 UI 的一个好方法。你可以简单地从 mutation 返回已经失效的依赖键，然后客户端就可以在需要重新获取那些依赖的时候，直接从服务器取得真实数据。
 
-The hardest question here is (2) - how does a mutation notify the invalidation server, and therefore the appropriate app clients, which data it has changed?
+这里最大的困难是(2)：mutation 如何通知失效服务器，以及通知那些数据被修改的客户端？
 
-### Automatic dependency invalidation
+### 自动依赖失效
 
-Just like for data reading, in simple cases we should be able to emit invalidations from mutations automatically. For example, if you ran the following SQL update query in your mutation resolver:
+就像读取数据一样，在简单的情况下我们可以从 mutation 自动发送失效信息。举例来说，如果你在 mutation 解析器中执行如下 SQL 更新查询：
 
     todoLists.update('name', 'The new name for my todo list').where('id', 1);
 
-We should invalidate the following dependency key:
+我们需要使得下面的依赖键失效：
 
     'todoLists:1'
 
-You can see that this matches up with the dependency we automatically recorded when reading that row, so the appropriate queries would rerun.
+你可以看到，这对应了我们在读取这个记录时，自动记录的依赖，所以合适的请求将会重新运行。
 
-### Manual dependency invalidation
+### 手动依赖失效
 
-Sometimes, you will want or need to emit invalidations manually. For example, in the above example about notifications, we will want to invalidate the notification count manually when we add a notification:
+
+有时你希望手动发送失效信息。举例来说，在上面通知的例子中，我们希望在添加通知时手动失效通知总数：
 
     notifications.insert(...);
     context.invalidateDependency(notificationDepKeyForUser(userId));
 
-Hopefully, with time, we can make more and more invalidations automatic, but it's always good to have an “escape hatch” for more complex situations where the developer needs all the control they can get.
+我们希望将来可以让程序自动处理越来越多的失效信息，但是为更复杂的情况预留一条后路让程序员进行完全的控制总是好的。
 
 ![](http://ww1.sinaimg.cn/large/9b5c8bd8jw1f0zsrhktvvj21kw0s845z.jpg)
 
-You can see in the diagram how invalidations flow from the mutation to the relevant clients, which then refetch the data as needed.
+你可以通过这个图表来了解失效信息如何从 mutation 传递到相关的客户端中，客户端之后会在需要的时候重新抓取相关数据。
 
-### Writing from external services
+### 向外部服务写入数据
 
-If the writes to your backend are coming from an external source, you won't be able to take advantage of automatic invalidation. This means you will need something else to provide the reactivity if you need that data to update in your UI. The simplest thing to do is to have the service making the external write also post to the invalidation server directly.
+如果你的后端代码需要向外部源写入数据，你将无法使用自动失效。这意味着如果你想要你 UI 中的数据被更新，你需要做一些额外的事情来提供响应性。最简单的方式就是让进行外部数据写入的服务将失效信息直接发送给失效服务器。
 
-Another way to make external updates reactive is to set up a live query implementation that invalidates dependencies by watching the database. For example, Meteor's Livequery could be set up to watch MongoDB and fire the `todoLists:1` invalidation above when the result for `todoLists.find({ id: 1 })` changes.
+另一种能使外部更新具有响应性的方法就是设置一个实时的查询执行系统，并通过监视数据库的方法来使依赖失效。举个例子，Metor 的 Livequery 可以设置成监视 MongoDB，并且在 `tofoLists.find({ id: 1})` 的结果发生变化时，使 `todoLists:1` 失效。
 
-The initial version of the system won't have built-in support for livequeries, but we hope that well-defined APIs for all parts of the system will make these components easy to plug in to the rest of the stack.
+系统的初始版本并不会拥有一个內建的实时查询支持，但是我们希望系统各部分中那些设计巧妙的 API 可以使这些组件很容易被集成进去。
 
-Finally, if it is appropriate for your application, you will be able to handle the situation without firing any dependencies by simply re-polling the right data from the client. For some applications loading the extra data is not a big deal - for example, if you have an internal dashboard used by a total of 5 people. In this case simplicity of implementation might trump performance and efficiency concerns.
+最后，如果你觉得适用于你的应用的话，你甚至可以在不使用任何依赖的情况下，直接通过客户端轮询正确的数据。对于一些应用程序来说，加载数据本身并没有很大的开销。举个例子，如果你有一个5人使用的内部控制面板，在这种情况下实现的简单性要远比性能重要。
 
-## Data drivers
+## 数据驱动
 
-To make this system easy to get started with, we'll need some well-designed drivers for popular data sources. Connecting an arbitrary data source into the system will be trivial if you don't need reactivity - you can just pick any data loading package from NPM or write some simple functions to fetch the data. To add reactivity, you can use manual dependency recording and invalidation.
+为了让这个系统更便于使用，我们需要为流行的数据源提供一些设计良好的驱动。如果你不需要响应性的话，连接到一个随意的数据源是非常简单的，你可以直接使用 NPM 中的任何数据载入包或者是写一些简单的函数来获取数据。如果要添加响应性的话，你可以使用手动的依赖记录和依赖过期。
 
-However, we expect more friendly data drivers to be written by the community, in addition to the official ones maintained by Meteor, which may include one or more of SQL, MongoDB, and REST APIs.
+然而，我们希望除了 Meteor 官方维护的 SQL，MongoDB 和 REST APIs 驱动之外，社区可以编写出更友好的数据驱动。
 
-A first-class developer friendly backend data driver will need to:
+一个顶尖的开发者友好的后端数据驱动需要：
 
-1.  Read objects from the data source and automatically record dependencies for simple queries
-2.  Write objects to the data source and in most cases automatically emit invalidations
-3.  Have basic caching for better performance
+1.  从数据源读取对象并且为简单查询自动记录依赖。
+2.  将对象写入数据源，并且在大多数情况下自动发送失效信息。
+3.  拥有基础的缓存以优化性能。
 
-While the ideal driver would emit exact deps and invalidations automatically for all queries, this is not likely to be practical for an arbitrary datastore. In practice, drivers will likely fall back to broader deps and invalidations, and tooling will help developers identify places where these invalidations can be optimized. The developer can then rework their query or emit manual invalidations as needed.
+虽然说一个理想的驱动将能够自动为所有查询发送准确的依赖和失效信息，但是这对于一个任意的数据储存来说是不现实的。在实际情况下，驱动将会回落到一个更大范围的依赖和失效信息，并且一些工具可以帮助开发者寻找这些过期信息可以被优化的地方。然后开发者就可以根据需要重新构造他们的查询或是手动发送过期信息。
 
-## Application performance monitoring and optimization
+## 应用性能监控和优化
 
-One thing we discovered about the stateful livequery approach to reactivity and subscriptions in the current Meteor system was that it can make things harder to debug and analyze. When you are debugging your app or trying to figure out a performance issue, you need to reproduce a situation on your server which causes a certain problem. When there is a lot of state there, lots of which depends on what the database happens to be doing at the time, which queries you have running, and the specific combination of clients looking at the data, it's difficult to isolate what is causing your problem.
+我们在 Metor 的系统中使用有状态的实时查询来实现响应性和订阅特性时发现，这会使得程序变得难以调试和分析。当你在调试你的程序或是试图找出性能问题时，你需要在你的服务器上重现这个问题出现的情形。如果你的服务器上有大量的状态，并且这些状态依赖于数据库当时的情况，包括你在执行哪些查询，以及哪些特定的客户端集合正在查看这些数据，这会使得你非常难以找出造成错误的原因。
 
-The new system is designed to avoid this issue, and the implementation will be built from the ground up to support performance analysis both for development and production use. We envision two main paths that a developer would want to analyze:
+这个新的系统就是设计来避免这个问题的，并且该系统的实现是从底层开始支持用于开发和生产的性能分析。我们为那些希望做性能分析的开发者设计了两条路径：
 
-1.  **Data loading.** How a specific set of UI components on the page translates into a GraphQL query, and how that query performs when run against a set of backend data sources. This question is generic to any GraphQL-based system, but can be difficult to solve with one tool because it inherently spans the client-server divide.
-2.  **Mutations.** In a reactive system, a mutation will cause that client to refetch some data, and possibly some other clients. It is important to track which mutations are happening, what performance load those incur on the database, which dependencies that invalidates, and which refetches that causes in the other clients. This should give you the tools to optimize your UI structure, data loading patterns, reactivity, and mutations to reduce load on your server while maintaining a great experience for your app's users.
+1.  **数据加载** 页面上的一系列 UI 组件应该如何被翻译成 GraphQL 查询，以及这些查询在一系列后端数据源上如何运作。这个问题对于任何基于 GraphQL 的系统来说都很常见，但是这个问题很难被单一工具解决，因为这天生将客户端和服务器绑在了一起。
+2.  **Mutations.** 在一个响应式系统中，一个 mutation 会造成一些客户端需要重新获取数据。所以跟踪 mutation 的行为是非常重要的：哪些行为从数据库加载了数据，哪些依赖过期了，以及在其他客户端上发生了哪些重取。这可以帮助你在保持你的用户拥有良好用户体验的前提下，优化你的 UI 结构、数据加载样式、响应性、以及 mutation 来减少你的服务器负担。
 
-After you analyze the two paths above, there should be a clear path to optimization through careful manual invalidations and disabling reactivity that will let you change a minimum of app code to “twist the knobs” on performance.
+在你从上述两条路径分析了你的应用之后，你应该可以清楚地知道你应该通过小心地进行手动失效以及禁用响应性来优化你的程序，这会使得你能够在修改尽可能少的应用代码的前提下，极大地优化性能。
 
-## Implementation plan
+## 执行计划
 
-Here's a diagram of all of the pieces we think will need to be built to have a complete system:
+这张图表描述了我们认为一个完整系统需要构建的所有东西：
 
 ![](http://ww2.sinaimg.cn/large/9b5c8bd8jw1f1amo4kr54j21kw0ul7gm.jpg)
 
-Individual designs for each of the components incoming – for example, how does the invalidation server work? The goal of this document is mostly to outline how they will all work together. We want all of the components of the system to have clean, well-documented APIs so that you can write your own implementation of any part if you need to.
+每一个组件的独立设计将会在之后的文章中讲到，举例来说，失效服务器是如何工作的？这篇文档的主要目的是概述这些组件如何一起工作。我们希望系统中的所有组件都是清晰的，并且拥有完善文档的 API，这样你就能在需要的时候为任意部分编写你自己的实现。
 
-It's a lot of stuff, but a lot of it already exists thanks to the Relay project, and some of the things can be contributed by the community once the structure is clearer, for example some of the database drivers.
+这将会是一个很大的工作量，但是多亏 Relay 项目，大多数工作都已经完成了，并且有些任务可以在整个竞购更清晰之后由社区贡献，比如说数据库驱动。
