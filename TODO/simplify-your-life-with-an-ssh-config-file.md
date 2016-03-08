@@ -115,5 +115,6 @@ As any security-conscious developer would do, I set up firewalls on all of my se
 
 
 你可以在`~/.ssh/config`里面指定相当数量的配置选项，我强烈建议你常看网上的[documentation](http://linux.die.net/man/5/ssh_config)或者**ssh_config** man网页。你可以添加一些有趣/有用的东西：改变默认连接尝试数量、特殊本地环境变化再进行。指定本地环境变量将被传递到远程服务器的连接时连接。甚至是*还有?的通配符来匹配主机。
-I hope that some of this is useful to a few of you. Leave a note in the comments if you have any cool tricks for the SSH config file; I'm always on the lookout for fun hacks.
-我希望这些多少对你有用。如果你针对SSH配置文件有任何巧妙的做法，在评论中留下你的想法；我一直在寻找有趣的黑客。
+
+
+我希望这些多少对你有用。如果你针对SSH配置文件有任何很酷的技巧，在评论中留下你的想法；我一直在寻找有趣的黑客。
