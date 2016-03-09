@@ -134,50 +134,52 @@ Laura 在硅谷做了15年的工程师和设计师。她的目标是帮助创业
 
 ### **设计灵感**
 
-User Experience surrounds us and extends far beyond the grasp of the digital web. User Experience as a label has to be seen through the perspective of context in designed interaction versus the actual medium or platform.
-用户体验存在于我们生活中的方方面面，它已经远远超出数字网络的范围。
+用户体验存在于我们生活中的方方面面，它已经远远超出数字网络的范围。用户体验应该从与真实媒体或平台交互环境的角度来考虑。
 
-As an example, let’s take a look at automobiles in general.
+把汽车作为例子。
 
-It’s assumed that most of the time we spend in our vehicles we would be driving them. When we’re driving the priority, I hope, would be entirely based on the road in front of us. Stay in our lane. Stay under the speed limit. Watch out for other vehicles, pedestrians, or animals. But then we introduced a radio and thermostat. Looking away from the road for even a fraction of a second can lead to a lot of trouble for everyone on the road. So, why don’t the car manufacturers keep that in mind when designing the center consoles? Most have overly robust options, buttons, dials, and even touch screens to change the temperature or radio station.
+假设我们在车上的大多数时间都是在驾驶。当我们驾驶的时候，我希望能优先照顾到眼前道路上的情况：保持在自己的车道内行驶，不超速，主语其他车辆，行人和动物。但是我们在车辆中引入了收音机和空调。视线从道路上移开哪怕是不到一秒的时间，都会对在路上的每一个人造成很大的安全威胁。所以，为什么汽车制造商在设计中控板的时候，没有留心它呢？大多数车辆的中控板上都有过多的选项、按钮一级转盘，有些车辆甚至使用触摸屏来改变空调温度或是收音机电台。
 
-If User Experience is about the context of interaction, then we need to look at how we can simplify the experience so the user’s primary focus isn’t negatively affected.  
+如果用户体验是关于交互环境的话，我们需要关注如何简化体验来使用户的主要注意力不会放在那些不良影响上。
 
-Great design guides a user without requiring much thought. Confusion kills.
+一个优秀的设计能够在不需要用户过多思考的情况下就正确地引导他们。
 
-### **Career Advice**:
+### **职业建议**
 
-Be insatiable. Always be present. Don’t let a label define you or what you look to accomplish in life. Look to everyone and everything for answers even when they don’t seem to relate to the question at hand. You can be anything and everything you want to be.
+不要轻易满足。不要让一个标签定义你，或是限制你的人生目标。试图从一切人和物中寻找答案，即使一开始他们看起来与问题毫无关系。你总是能够变成任何你想要的样子。
+
 
 ## 7\. [**Kevin M. Hoffman**](https://twitter.com/kevinmhoffman)
 
-At Seven Heads Design, Kevin ‘solves problems you didn’t know you had’ – which involves not only how humans interact with computers, but also with themselves. His clients include Harvard University, Nintendo, and MTV. You can find him on his [website](http://kevinmhoffman.com/), and on [Twitter](https://twitter.com/kevinmhoffman).
+在 Seven Heads Design，Kevin “解决那些你甚至不知道你有的问题” —— 这不仅仅包含了人与电脑的交互，也包含了人与人自己的交互。他的客户包括哈佛大学、任天堂、以及 MTV。你可以在他的[网站](http://kevinmhoffman.com/)以及 [Twitter](https://twitter.com/kevinmhoffman) 上找到他。
 
 ![image04](https://studio.uxpin.com/wp-content/uploads/2016/02/image044.png)
 
-### **Design Inspiration**:
+### **设计灵感**
 
-I’m a big fan of the overall user experience of the stock or “Google Play” version of Android, and more recently Android Wear.
+我是整个 Android 系统以及 Google Play 用户体验的粉丝，我最近还爱上了 Android Wear。
 
-I experimented with the possible switch to Android for awhile when the “[Kit Kat](http://www.android.com/kitkat/)” version of the software and the Nexus 5 came out, and I haven’t looked back since. There’s a lot of interface choices that I think are great, but my favorite things are anticipatory and in the [microinteraction](http://microinteractions.com/) space, such as the different ways you can act with push notifications, or seamless integration with calendaring user needs.
+当 Android [Kit Kat](http://www.android.com/kitkat/) 版本以及 Nexus 5 发布的时候，我试着开始使用 Android。我认为其中有大量的界面选择都是非常好的。而其中我最喜欢的是其预料性以及[微交互（microinteraction）](http://microinteractions.com/)，比如在推送通知上你可以做的不同动作，以及系统与安排用户日程的无缝衔接。
 
 ![image03](https://studio.uxpin.com/wp-content/uploads/2016/02/image035.jpg)
 
-The first time I realized I could let people know I was running late for a meeting with two clicks/touches, I was like “Whoa! That’s useful.” Recently, I’ve been integrating the Android Wear watch, and it only took me about five days for that to become a completely natural part of my life. Now I can fade out of social situations by constantly looking at my watch instead of pulling my phone out of my pocket to check and interact with notifications.
+当我第一次发现我可以仅仅使用两次点击就让其他人知道我可能要迟到时，我感觉到“哇！这真的很实用”。最近，我开始使用 Android Wear 手表，仅仅使用了五天的时间它就完全成为我生活中很自然的一部分了。现在当我需要处理一些社交状态时，我只需要时常看一看我的手表，而不需要从口袋中拿出手机来查看通知并与之交互。
 
-I’m very much looking forward to Android Auto as well. We’ll see what the next iOS is like, but for the time being, I can’t see myself switching back  
+我同样也非常期待 Android Auto。我们还不知道下一代的 iOS 会是什么样的，但就现在来说，我并没有换回 iOS 的想法。
 
 
-### **Career Advice**:
+### **职业建议**
 
-“Hey younger self!
+“嘿，年轻的我！
 
-You will spend some time idealizing long term goals, and that’s a good exercise. You’ll think about your ideal job, employer, lifestyle, family, and more. But in reality, you’ll get very little satisfaction chasing those things, and you should never wait around for them.
+你会花一些时间理想化你的长期目标，那会是一个很好的练习。你会考虑你理想的工作、雇主、生活方式、家庭、以及很多其他的事。但是事实上，你在以上这些事情中很少为感到满意，并且你不应该去等待一个完美的状态。
 
-Spend life living.
+把你的人生用来生活。
 
-The most fun is in charting the actual, sometimes smaller (sometimes not) decisions that will confront you whether you want them to or not. Your goal should be getting better at making decisions when they can have the greatest impact on your life, and not any particular ideal.  
+最有趣的事，就是描绘那些你不论是否愿意而面对的事实上很小的决定。你的目标应该是做出更好的决定，使得它们能最大化地影响你的人生，而不是选择那些理想化的东西。
+
 Also, as much as you can, realize that self-doubt may help you with humility, but not much else. Don’t take yourself too seriously.  Exercise more, because dude, what have you done to me? Also, don’t overuse the word ‘also’.”  
+同时，尽可能去理解自我怀疑能且仅能帮助你变得谦卑。不要过于严肃地对待你自己。更多地练习，因为你，对于这个年长的我，做了一些什么呢？同时，不要过度使用‘同时’这个词。”
 
 
 ## 8\. [**Lis Hubert**](https://twitter.com/lishubert)
