@@ -12,7 +12,7 @@
 
 在我们免费的[用户体验职业引导 - Guide to UX Careers](https://www.springboard.com/guide-to-ux-design-careers/) 中，我们汇总了许多领域内顶尖从业者的建议。
 
-我们采访了11位厉害的用户体验设计师，询问了他们设计的灵感，并且也让他们给其他从业者提了一些用户体验方面的建议。
+我们采访了11位厉害的用户体验设计师，询问了他们的设计灵感，并且也让他们给其他从业者提了一些用户体验方面的建议。
 
 我们与 [UXPin](https://www.uxpin.com/) 的团队合作为你带来了以下的见解。
 
@@ -22,123 +22,120 @@
 
 ![image05](https://studio.uxpin.com/wp-content/uploads/2016/02/image052.png)
 
-### **Design Inspiration**:
-### **设计灵感**：
+### **设计灵感**
 
-My favorite piece of design is the original [London Underground Map](http://www.theverge.com/2013/3/29/4160028/harry-beck-designer-of-iconic-london-underground-map).
+我最喜欢的设计就是原始版本的[伦敦地铁图](http://www.theverge.com/2013/3/29/4160028/harry-beck-designer-of-iconic-london-underground-map)。
 
-What made this so groundbreaking was that it broke conventions. It rejected the convention of realistically showing distance and location. By letting go of those constraints they were able to create a simple representation of a complex network. For me this is what good design is all about – taking the complex and looking at it from a different angle to simplify it.
+这个设计突破了一些传统的约定，使得它具有如此的开创性。它抛弃了呈现真实距离和地点的约定，这样，他们就可以将复杂的地铁网络用非常简单的方式呈现出来。对我来说，这就是一个优秀的设计应该要做到的：从一个不同的角度切入以使用简单的方式去表达复杂的东西。
 
 ![image11](https://studio.uxpin.com/wp-content/uploads/2016/02/image11.png)
 
-### **Career** **Advice**:
+### **职业建议**
 
-Honestly, I would avoid giving any advice to my younger self because I know I wouldn’t listen to it!
+老实说，我绝对不会给年轻的我任何意见，因为我知道我一定不会听从。
 
-Even if I did, I wouldn’t gain as much value as I did discovering these things myself. The best way to learn anything is through making mistakes and so I would not want to deny my younger self that opportunity. As Winston Churchill once said “success is going from failure to failure with no loss of enthusiasm”.
+即使我听从了，我也不会像我自己发现一样学到那么多。学习任何事的最好方法都是去犯错，所以我不希望让年轻的我失去这个机会。就像 Winston Churchill 曾经说过的：“成功就是从失败走向失败却不丧失热情。”
 
-Don’t listen to anyone, make your own mistakes and then when you fail, get up and try again.
+不要听从任何人，犯你自己的错，当你失败的时候，爬起来，再试一次。
 
 ## 2\. [**Eva Kaniasty**](https://twitter.com/kaniasty)
 
-Eva runs her own company ([Red Pill UX](http://www.redpillux.com/)) based in Boston, is a regular at events of the [UXPA](http://www.upaboston.org/), of which she is the President.  
-
+Eva 运营着她自己在波士顿的公司 [Red Pill UX](http://www.redpillux.com/)。她同时也是 [UXPA](http://www.upaboston.org/) 的主席。
 
 ![image14](https://studio.uxpin.com/wp-content/uploads/2016/02/image14.png)
 
-### **Design Inspiration**:
+### **设计灵感**
 
-I recently discovered [Duolingo](https://en.duolingo.com/), an online language learning platform.
+我最近发现了 [多邻国](https://www.duolingo.com/)，一个在线语言学习平台
 
-I love the UX for so many reasons…it’s a very uncomplicated interface that’s fun and motivating. A lot of apps try to incorporate gamification or community just because it’s the cool thing to do, and it ends up feeling like an afterthought. Duolingo does a great job of using the gaming elements and variation in lessons to keep users engaged.
+我由于许多原因，非常喜欢它的用户体验。它的用户界面非常简洁、有趣且具有激励性。许多应用试图加入游戏性以及社区，只是因为这样做很酷，这最终导致这些功能就像是后来加入的。而多邻国在课程中完美运用游戏元素和变坏来吸引用户。
 
 ![image12](https://studio.uxpin.com/wp-content/uploads/2016/02/image12-1024x662.png)
 
-I also love the language immersion part, where users collaborate on translations. Memorization and repetition are innate parts of beginning language learning that can be quite boring, and it’s clear the folks at Duolingo have been very thoughtful in trying to alleviate this challenge.
+我也很喜欢它的语言沉浸功能，用户可以在翻译上相互合作。记忆和重复是语言初学者总是要经历的阶段，但这总让人感到无趣。而多邻国在这方面的尝试非常有创意。
 
-I often get the feeling that we’ve reached a bit of a plateau as far as consumer app innovation is concerned, so it’s great to see something that’s fresh and spot on.
+我总是觉得我们消费者应用的创新上已经到达了某种意义上的高处，所以还能见到一些很新鲜的同时也很合适的创意让人感到非常惊喜。
 
-### **Career Advice:**
+### **职业建议**
 
-Understand that in a collaborative profession like UX, people are more important than skills. If you have an aptitude for research or design, you’ll master those skills in time, but having the right relationships can make or break your career.
+要知道在像用户体验这样需要合作的职业中，人远比技能重要。如果你有研究和设计的天分，你迟早都能学会这些技能。但是人际关系会很大程度上影响你职业的成败。
 
-When I made my initial career change into high tech, I knew very few people who did the same thing I did. When I went back to school for Human Factors at Bentley University, it was like a whole new world opened up for me.  Of course, a big part of it was the learning, but the network of people I ended up meeting was just as valuable.
+当我把最初的职业变成高科技的时候，我知道很少有人跟我在做一样的事。当我回到学校，在 Bentley University 学习人为因素工程（Human Factors）的时候，我感觉像是进入了一个全新的世界。当然，这很大程度上是由于学到的东西，但是我在那里遇到的人也非常有价值。
 
-Today I stay engaged in that community through my local chapter of the UX Professionals Association, and that community is even more important now that I’m doing independent consulting. So meet as many people as you can who are as excited about UX as you are, and ask them for advice.
+现在我依然在参与当地的用户体验专家协会（UXPA）分会活动，当我现在开始做独立咨询的时候，那个团体甚至变得更重要了。所以尽可能去与那些跟你一样对用户体验富有热情的人交流，并且去询问他们的意见。
 
 ## 3\. [**Mike Kus**](https://twitter.com/mikekus)
 
-Having started out with graphic design and then making the move to web-design, Mike has worked with the likes of Twitter, Microsoft, and Mailchimp to create User Experiences that marry form and function.  
-
+Mike 最初从事平面设计，之后转而做网站设计。他与 Twitter、微软、MailChimp 等公司合作，创造了许多兼顾形式和功能性的用户体验设计。
 
 ![image01](https://studio.uxpin.com/wp-content/uploads/2016/02/image018.png)
 
-### **Design Inspiration:**
+### **设计灵感**
 
-[Hipopotam Studio](http://hipopotamstudio.pl). I love this site and UI for it’s pure creativity & fun.
+[Hipopotam Studio](http://hipopotamstudio.pl)，我喜欢这个网站以及它纯粹的、富有创意和乐趣的用户界面。
 
 ![image13](https://studio.uxpin.com/wp-content/uploads/2016/02/image13-1024x525.png)
 
-### **Career Advice**:
+### **职业建议**
 
-Learn to separate UI trends from practical/useful UI design conventions. Just because a current trend is widely used, doesn’t necessarily mean it’s the best way.
+学会将用户界面趋势和实用的设计惯例分开。单单因为一种设计方式被广泛使用，不意味着这就是最好的方法。
 
 ## 4\. [**Jack Zerby**](https://twitter.com/jackzerby)
 
-Co-founder of [Flavors.me](http://flavors.me/) and [Goodsie](http://goodsie.com/), and previously Design Director at [Vimeo](https://vimeo.com/), Jack says he was hooked onto design the very first time he started up Photoshop while he was in high school and counts his father as one of his primary influences. Nowadays, you can find him at [Workshop](https://thisisworkshop.com/) – a no nonsense entrepreneurship training program for young adults.
+Jack 是 [Flavors.me](http://flavors.me/) 和 [Flavors.me](http://flavors.me/) 的联合创始人，[Vimeo](https://vimeo.com/) 的前设计主管。Jack 说在它高中第一次启动 Phtoshop 时，就被设计吸引了，同时，他的父亲对他的影响也非常大。现在你可以在 [Workshop](https://thisisworkshop.com/)（一个年轻人的企业家培训项目） 上找到他
 
 ![image15](https://studio.uxpin.com/wp-content/uploads/2016/02/image15.png)
 
-## **Design Inspiration**:
+## **设计灵感**
 
-My favorite product experience lately has been using the [ParkMobile app](https://play.google.com/store/apps/details?id=net.sharewire.parkmobilev2&hl=en) around town.
+我近来最喜欢的产品体验就是在城区中使用 [ParkMobile 应用](https://play.google.com/store/apps/details?id=net.sharewire.parkmobilev2&hl=en)
 
-Instead of searching around for quarters, getting change from delis, all just to pay a parking meter, I can now just enter in a number [found on the meter](http://parkitnyc.com/wp-content/uploads/2011/08/image_parkmobile_meter-279x300.png), set the desired duration and pay the fee. It texts me when my time is almost up, and I can add more money if needed.
+我再也不需要在附近花几十分钟的时间寻找熟食店换零钱来支付停车费了，我现在可以直接输入[停车计时表上的数字](http://parkitnyc.com/wp-content/uploads/2011/08/image_parkmobile_meter-279x300.png)，设定好预计的停车时间，然后在应用中直接支付停车费。当预计时间快要结束时，应用还会给我发来消息，如果我需要的话，可以直接加钱以延长停车时间。
 
 ![image18](https://studio.uxpin.com/wp-content/uploads/2016/02/image18.png)
 
-Smooth and painless.
+流畅而且没有麻烦。
 
-### **Career Advice**:
+### **职业建议**
 
-Always consider the final outcome and context for the user/customer. What do they need to accomplish and in which context?
+总是去考虑最终呈现给用户的结果以及用户所处的情境：用户需要在怎样的情境中完成哪些任务？
 
-For example, I am trying to install a bike rack on my car and I visit the manufacturers website. The goal is to successfully install my bike rack and get on the road as quickly as possible. The context is, I’m standing outside my car in the hot sun with my kids crying because they want to go to the park now.
+举个例子，我试图在我的车上安装一个自行车架，于是我访问了制造商的网站。我的目标是尽快安装好自行车架并行驶上路。我当前的情形是，我顶着大太阳站在车外，而我的孩子们都在哭，因为他们想要立刻到公园去。
 
-Design with those parameters in mind. Know thy user. Just like with successful marketing, understand their pains, problems, frustrations, and use their language to communicate.
+设计的时候应时刻牢记，要试图去理解你的用户。就像是成功的营销一样，要去理解用户遇到的问题、挫折，并且使用他们能听懂的方式去交流。
 
-Don’t guess and fall prey to designer arrogance (which we all do from time to time).
+不要去猜测或是落入设计者的傲慢（这是我们总是在做的）。
 
 ## 5\. [**Laura Klein**](https://twitter.com/lauraklein)
 
-Laura has spent more than 15 years as an engineer and designer in Silicon Valley. Her goal is to help startups learn about their customers so that they can build better products faster. Her [book](http://www.amazon.com/UX-Lean-Startups-Experience-Research/dp/1449334911), and her popular design blog, [Users Know](http://usersknow.blogspot.com/), teach product owners what they need to know to do research and design.
+Laura 在硅谷做了15年的工程师和设计师。她的目标是帮助创业公司了解他们的用户，从而更快地做出更好的产品。她的书，[创业公司的用户体验 - UX for Lean Startups](http://www.amazon.com/UX-Lean-Startups-Experience-Research/dp/1449334911)，以及她的博客，[Users Know](http://usersknow.blogspot.com/)，都告诉了产品所有者他们在做研究和设计的时候，需要了解什么。
 
 ![image06](https://studio.uxpin.com/wp-content/uploads/2016/02/image062.png)
 
-### **Design Inspiration**:
+### **设计灵感**
 
-I think it is the curse of the UX designer that we only ever notice design that annoys us. Or maybe that’s just me. Whichever it is, I’m always in love with any design that is so simple and integrated into my life that I don’t notice it.
+用户体验设计师总是只注意到那些让我们感觉不舒服的设计，我想这大概是一种诅咒吧，又或者只有我是这样的。无论如何，我总是很喜欢任何简单的、与我的生活融为一体的、我甚至不去注意到的那些设计。
 
-###   
-**Career Advice:**
+### **职业建议**
 
-Get two mentors.
+寻找两位导师。
 
-The first one should be somebody older and influential in the field you care about. They will help by giving you perspective and teaching you the sorts of skills you need to get hired by somebody like them.
+第一位导师应该是一个在你关心的领域比你经验丰富并且具有影响力的人。他们会帮助你，给你一些观点，并且教会你被他们那样的人雇佣所必须的技能。
 
-The second mentor should be somebody a couple years older than you. They will tell you what you really need to know to do the job you’re likely to get. I don’t know what life is like for somebody who is just starting out in tech these days, but somebody who’s only been doing it for a couple of years will have really good insight.
+第二位导师应该是比你年长几岁的人。他们会教你做你想做的工作需要知道的东西。我不知道现在那些刚开始做科技相关工作的人的生活是怎么样的，但是我确定那些只要是已经做这个工作几年的人就会有非常深刻的理解。
 
-So, find two people: someone to help you get your next job and somebody to help you do your next job.
+所以，去寻找两个人：一个帮助你得到下一份工作的人和一个帮你做好下一份工作的人。
 
 ## 6\. [**Joshua Garity**](https://twitter.com/iamlucid)
 
-Described as a design psychologist and brand strategist, Joshua has worked with companies like Wendy’s and the New York Times to help connect with their customers and increase their revenues. You listen to what he has to say on [his blog](http://www.joshuagarity.com/), [Twitter](https://twitter.com/iamlucid) and [Candorem](http://www.candorem.com/), the company he runs.
+作为一个设计心理学家和品牌策略家，Joshua 曾与 Wendy's 以及纽约时报等公司合作，帮助他们更好地与顾客交流并增加他们的收入。你可以从[这个博客](http://www.joshuagarity.com/)、[Twitter](https://twitter.com/iamlucid) 以及 [Candorem](http://www.candorem.com/)（他经营的公司） 上看到他所说的东西。
 
 ![image17](https://studio.uxpin.com/wp-content/uploads/2016/02/image17.png)
 
-### **Design Inspiration**:
+### **设计灵感**
 
 User Experience surrounds us and extends far beyond the grasp of the digital web. User Experience as a label has to be seen through the perspective of context in designed interaction versus the actual medium or platform.
+用户体验存在于我们生活中的方方面面，它已经远远超出数字网络的范围。
 
 As an example, let’s take a look at automobiles in general.
 
