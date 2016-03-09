@@ -15,7 +15,7 @@
 
 #### 情景
 
-为适用尽可能多的情景，该项目将需要：
+为适用尽可能多的场合，该项目将需要：
 
 *   接入网络
 *   通过 REST API 访问取得数据
@@ -24,7 +24,7 @@
 >   【译注】[这里](https://zh.wikipedia.org/wiki/%E5%BA%8F%E5%88%97%E5%8C%96)了解**序列化**与**反序列化**概念。
 *   在一个列表中展示图片
 
-为此，何不干脆让此应用显示小猫咪呢？;)  
+为此，何不干脆让此应用展示小猫咪呢？;)  
 
 使用 [http://thecatapi.com/](http://thecatapi.com/) API 我们可以获取几张有趣的小猫图片：
 
@@ -32,19 +32,19 @@
 
 #### 依赖
 
-这看来是个很好的机会以尝试一些非常酷的库：
+看来这是个很好的机会以尝试一些非常酷的库：
 
 *   [Retrofit2](http://square.github.io/retrofit/) 用于网络接入，访问 REST API 以及反序列化数据
 *   [Glide](https://github.com/bumptech/glide) 用于展示图片
 *   [RxJava](https://github.com/ReactiveX/RxJava) 用来绑定数据
 *   [RecyclerView CardView](http://developer.android.com/training/material/lists-cards.html) 作为用户界面
-*    一切都封装于 [MVP](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93presenter) 模式中
+*   采用 [MVP](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93presenter) 架构
 
 #### 创建项目
 
-使用 [Android Studio](http://developer.android.com/sdk/index.html) 可以非常简单地从头开始创建一个新项目。
+使用 [Android Studio](http://developer.android.com/sdk/index.html) 可以非常简单地从头开始新建一个项目。
 
-**_启用一个新的 Android 项目_**
+**_开始一个新的 Android 项目_**
 
 ![Create New Project](http://cirorizzo.net/content/images/2016/03/xAndroidStudio_NewProject.png.pagespeed.ic.7fDR0qSTJd.png)
 
@@ -56,15 +56,15 @@
 
 ![Target](http://cirorizzo.net/content/images/2016/03/xAndroidStudio_NewProject_Target.png.pagespeed.ic.bXlb6fWH62.png)
 
-**_添加一个 `activity`_**
+**_添加一个 `Activity`_**
 
 ![Empty Activity](http://cirorizzo.net/content/images/2016/03/xAndroidStudio_NewProject_Empty.png.pagespeed.ic.VYxIdhZ3Xk.png)
 
-**_定制 `activity`_**
+**_定制 `Activity`_**
 
 ![Customize Activity](http://cirorizzo.net/content/images/2016/03/xAndroidStudio_NewProject_Activity.png.pagespeed.ic.3g2X5Gs9Bn.png)
 
-按下 Finish，选定模板的新项目将会被创建。
+按下 Finish，新的项目将按选定模板创建：
 
 ![Basic Template](http://cirorizzo.net/content/images/2016/03/xAndroidStudio_Basic_Template.png.pagespeed.ic.3iX8nv51PP.png)
 
@@ -76,13 +76,13 @@
 
 下一步是调整 Build 工具以及确定我们会将到哪些库用于项目。
 
-> _此阶段开始之前，请前往这篇[文章](http://www.cirorizzo.net/kotlin-code/)去看看你需要在一个 Android Kotlin 项目中用到什么。_
+> _此阶段开始之前，请前往这篇[文章](http://www.cirorizzo.net/kotlin-code/)去看看你在一个 Android Kotlin 项目中需要用到什么。_
 
 打开 Module App `build.gradle` (图中用红色矩形框圈出)：
 
 ![Build.Gradle Customizing](http://cirorizzo.net/content/images/2016/03/xAndroidStudio_Basic_Gradle_High.png.pagespeed.ic.0SHrJn4YZc.png)
 
-一个非常好的实践是，将所有库的版本号 (version) 和 Android 特性 (properties) 集中于一个单独的脚本中，然后通过  Gradle 提供的 `ext` 属性去访问它们。
+一个非常好的实践是，将所有库的版本号 (version) 和 Android 特性配置 (properties) 集中于一个单独的脚本中，然后通过 Gradle 提供的 `ext` 属性去访问它们。
 
 最简单的方法就是将以下代码片段添加到 `build.gradle` 文件的开头：
 
@@ -116,7 +116,7 @@
       }
     }
 
-然后添加 Kotlin 插件，如同所示：
+然后添加 Kotlin 插件，如下所示：
 
     apply plugin: 'com.android.application'
     apply plugin: 'kotlin-android'
@@ -184,7 +184,7 @@
       compile "org.jetbrains.anko:anko-common:$anko_ver"
     }
 
-最后 `build.gradle` 对于项目已准备就绪。
+至此项目的 `build.gradle` 已准备就绪。
 
 还有一点就是添加 `uses-permission` 来接入网络，因此将下面这行添加到 `AndroidManifest.xml` 中：
 
@@ -196,11 +196,11 @@
 
 #### 设计项目结构
 
-另一个较好的实践是，在项目使用不同的包 (packages) 和文件夹 (folders) 来组织组成我们项目的不同类集合，所以我们可以这样组织我们的项目：
+另一个较好的实践是，在项目使用不同的包 (packages) 和文件夹 (folders) 来组织构成我们项目的不同类集合，所以我们可以这样组织我们的项目：
 
 ![Project Structure](http://cirorizzo.net/content/images/2016/03/xProjectStructure.png.pagespeed.ic.pltXQ_UkqX.png)
 
-> _右击根目录包 `com.github.cirorizzo.kshows` 然后 `New->Package`。_
+> _右击根目录包 `com.github.cirorizzo.kshows` 然后选择 `New->Package`。_
 
 #### 编写代码
 
