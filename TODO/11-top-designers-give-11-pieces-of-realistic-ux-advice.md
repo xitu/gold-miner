@@ -249,16 +249,15 @@ Pavel 现在是 [Slack](http://slack.com) 的一名产品设计师。Pavel 说�
 
 ## 11**.** [**Robert Fabricant**](https://twitter.com/fabtweet)
 
-Robert specializes in design for health-care and social innovation. He recently led [Project Masiluleke](http://www.poptech.org/project_m), an initiative that harnesses the power of mobile technology to combat HIV/AIDS in South Africa. He has previously held the position of Fellow at the prestigious global agency [frog design](http://www.frogdesign.com/). He also [teaches](http://about.tisch.nyu.edu/object/FabricantR.html)**,** gives talks, and [writes](http://www.fastcodesign.com/user/robert-fabricant).
-Robert 是健康护理和社会创新设计方面的专家。它最近
+Robert 是健康护理和社会创新设计方面的专家。它最近在领导 [Masiluleke 项目](http://www.poptech.org/project_m)。这是一个在南非利用移动技术对抗 HIV/AIDS 的创新项目。他之前在一个国际上非常有声望的设计代理机构 [frog design](http://www.frogdesign.com/) 工作。他同时也[开设课程](http://about.tisch.nyu.edu/object/FabricantR.html)、做演讲、以及[写文章](http://www.fastcodesign.com/user/robert-fabricant)。
 
 ![image09](https://studio.uxpin.com/wp-content/uploads/2016/02/image091.jpg)
 
-### **Inspiration**:
+### **设计灵感**
 
-I am continually inspired, provoked and challenged by the [NYC subway system](http://www.fastcodesign.com/1665022/why-does-interaction-design-matter-lets-look-at-the-evolving-subway-experience) as an amazing, multi-faceted user experience.
+我总是会被[纽约市地铁系统](http://www.fastcodesign.com/1665022/why-does-interaction-design-matter-lets-look-at-the-evolving-subway-experience)惊人的、多方面的用户体验所启发。
 
-I have been a subway rider for (at least) 45 years. You can’t truly know or appreciate the value of an experience unless you have lived with it, and lived with it over an extensive period of time.
+我至少已经坐地铁45年了。除非你生活在其中，并且生活了很长一段时间，不然你永远无法准确说出一种体验的价值。
 
 Too many of the user experiences we celebrate are transient – apps that will likely not be in our phone in another month much less year. The subways are here to stay, and improvements are measured in pixels, people and steel. This sort of design is slow hard work.
 
