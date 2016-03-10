@@ -178,79 +178,79 @@ Laura 在硅谷做了15年的工程师和设计师。她的目标是帮助创业
 
 最有趣的事，就是描绘那些你不论是否愿意而面对的事实上很小的决定。你的目标应该是做出更好的决定，使得它们能最大化地影响你的人生，而不是选择那些理想化的东西。
 
-Also, as much as you can, realize that self-doubt may help you with humility, but not much else. Don’t take yourself too seriously.  Exercise more, because dude, what have you done to me? Also, don’t overuse the word ‘also’.”  
 同时，尽可能去理解自我怀疑能且仅能帮助你变得谦卑。不要过于严肃地对待你自己。更多地练习，因为你，对于这个年长的我，做了一些什么呢？同时，不要过度使用‘同时’这个词。”
 
 
 ## 8\. [**Lis Hubert**](https://twitter.com/lishubert)
 
-Lis has worked with a number of companies, large and small, to create technology products, – like espnw.com and nba.com, that change people’s lives in a meaningful way. She also serves as an Advisory Board Member for [Future Insights](http://futureinsights.com/) events.
+Lis 曾与很多大大小小的公司合作创造一些科技产品：像 espnw.com 和 nba.com。这些产品都以某种有意义的方式改变着人们的生活。她同时也是 [Future Insights](http://futureinsights.com/) 活动的咨询董事会成员。
 
 ![image10](https://studio.uxpin.com/wp-content/uploads/2016/02/image101.jpg)
 
-### Design Inspiration:
+### **设计灵感**
 
-One of my biggest inspirations lately has been public space design in large cities, like New York City, where I live.
+我近来最大的设计灵感来源于大城市的公共空间设计，比如我生活的纽约。
 
-I can’t help but notice not just how well designed the larger spaces like Central Park are, but also how convenient smaller spaces are available to the public wherever I look. I also find myself obsessed with watching people use parks, and the fields and courts within them. The reason I look to this ecosystem for inspiration is because in order to make these spaces successful one has to design for the experience of such a large, varied group of people to enjoy, what can be, such an overwhelming and crowded space.
+我不仅注意到像中央公园这样的大型空间被设计得很好，还发现那些小的公共空间也同样给人带来便利。同时，我还着迷于观察其他人在公园中、以及公园里的运动场和球场上活动。我把这样的生态系统当做灵感的原因是，要成功设计这些空间，设计师必须考虑到如此庞大的、多种多样的人群享受其中时的体验。如果设计不当，就很有可能变得拥挤不堪。
 
 ![image16](https://studio.uxpin.com/wp-content/uploads/2016/02/image16.png)
 
-This, to me, is the aim of architecting for a User’s Experience, allowing them to flow, how they decide, through a space, to get an intended result that is pleasing both to the user, as well as to the product owner or designer.
+这对我来说，就是在构建用户体验时的目标。去思考，他们是通过怎样的考虑，使得这些公共空间能使用户、拥有者以及设计师都感到满意。
 
-###   
-**Career Advice:**
+### **职业建议**
 
-Chill out, for starters.
+新手们，先冷静下来。
 
-One thing about being in our field is that we know the importance of our work, and we want everyone else to know that importance and “get it”. So, many times we find ourselves fighting tooth and nail to get the message out there.
+在我们这个领域中工作经常要做的是，我们知道我们工作的重要性，并且我们希望其他人也能知道并且理解这个重要性。所以很多时候我们都在奋力地把我们的想法传达出去。
 
-This, of course, leads to exhaustion and deflation. What I’ve realized is that fighting so very hard to imbue my knowledge on those outside of our field is not the point. I’ve also learned that it really doesn’t matter if the business, or the technology team, or whomever “get” what I do at the deepest level.
+这当然非常疲惫且令人沮丧。我意识到如此努力地把我的知识灌输给那些专业以外的人并不是主要该做的事。我同时也发现商业团队、技术团队或是其他任何人是否真正理解了我这些做法最深层次的意义并没有什么太大的关系。
 
-All that matters is that you are passionate about what you can control, do what you are responsible for (and more if necessary) to see that passion come to life, and that you enjoy the ride as you go!
+唯一重要的是，你对于你可以控制的内容富有热情，做好你负责的部分（如果有必要也可以做更多），来使你的这份热情来到生活中，并且你十分享受于这个过程。
 
 ## 9\. [**Matt Hamm**](https://twitter.com/matthamm)
 
-Matt is the co-founder of [Supereight Studio](http://www.supereightstudio.com) in the UK and has been designing on the Web since 1998\. You can check out his work [here](http://www.matthamm.com/portfolio.php) or hear what he has to say on [Twitter](http://www.twitter.com/matthamm).
+[Twitter](http://www.twitter.com/matthamm).
+Matt 是英国 [Supereight Studio](http://www.supereightstudio.com) 的联合创始人。他从1998年就开始设计网站了。你可以从[这里](http://www.matthamm.com/portfolio.php)找到他的作品，或是从 [Twitter](http://www.twitter.com/matthamm) 上找到他所说的话。
 
 ![image02](https://studio.uxpin.com/wp-content/uploads/2016/02/image024.png)
 
-### **Design Inspiration**:
+### **设计灵感**
 
-Dropbox continues to rule in UX – the app is very seamless.
+Dropbox 仍然引领着用户体验，其应用的体验是无缝的。
 
-Good UX design should appear to be invisible. Dropbox impresses me with the onboarding experience, attention to detail, and thinking differently rather than copying patterns to make it completely intuitive. 
+一个优秀的用户体验设计应该是无法被感知的。Dropbox 非常完美的体验带给我很深的印象。设计师重视细节，且有独特的想法，而不是完全凭直觉去复制一些固有的设计模式。
 
-### **Career Advice**:
+### **职业建议**
 
-Document everything!
+用文档写下所有的事情！
 
-Having an extensive reference of well ordered UX design to browse through helps you learn and also find solutions to problems as your reference builds. Remember to document real-world experiences too, these patterns can be referenced too.  
+如果一个有序的用户体验设计能有一份详尽的参考文档将会极大地帮助你理解问题和找到解决方案。记得要同时记录下真实的体验，这些也同样能被用作参考。
 
 
 ## 10**.** [**Pavel Macek**](https://twitter.com/pavel_macek)
 
-Currently a Product Designer for [Slack](http://slack.com), Pavel says that he ‘does give a sh*it about people’, and this  translates into his work – designing and building delightful things enjoyed by many. Follow him [here](https://twitter.com/pavel_macek).
+Pavel 现在是 [Slack](http://slack.com) 的一名产品设计师。Pavel 说他“非常在乎用户”，这也体现在他的作品中：他设计出的产品都令许多人感到享受。你可以在[这里](https://twitter.com/pavel_macek)关注他。
 
 ![image19](https://studio.uxpin.com/wp-content/uploads/2016/02/image19.png)
 
-### **Design Inspiration**:
+### **设计灵感**
 
-For me, one great example of UX design is Technics turntable SL-1200, which has been sold for 35 years without major modifications. It’s still the most popular turntable for DJs, producers and musicians.
+对我来说，用户体验设计的一个极佳的例子就是 Technics 唱机转盘 SL-1200，这款转盘已经在没有重大改动的情况下卖了35年了。然而这依然是 DJ、制作人和音乐家圈子中最流行的唱机转盘。
 
 ![image07](https://studio.uxpin.com/wp-content/uploads/2016/02/image072-1024x697.png)
 
-It demonstrates functional design at its best and the importance of coupling thoughtful design with precise execution. I think that the ensuring the best possible execution is very often forgotten part of a UX designer’s responsibility, but it ultimately defines the success of the product.
+这极好地证明了实用性设计以及将创新的设计和精确的执行相结合的重要性。我觉得人们常常忘记保证功能性也是用户体验设计师的职责所在，但这恰恰是决定产品是否成功的最终因素。
 
-### **Career Advice**:
+### **职业建议**
 
-Don’t get lost in all the  design methodologies and design patterns. It’s important to learn about design frameworks and have rigid design process, but the start is always very simple: Who am I designing this for? What does he need to achieve? How can I help him to achieve that?
+不要在所有的设计方法论和设计模式中迷失。学习设计框架以及保持严格的设计流程是非常重要的，但是开头总是很简单的：我在为谁设计？他需要完成什么？我能够如何帮助他完成？
 
-Then it’s just a matter of iteration and learning what works and what doesn’t.
+然后就只是重复和学习哪些方法可行而哪些不可行。
 
 ## 11**.** [**Robert Fabricant**](https://twitter.com/fabtweet)
 
 Robert specializes in design for health-care and social innovation. He recently led [Project Masiluleke](http://www.poptech.org/project_m), an initiative that harnesses the power of mobile technology to combat HIV/AIDS in South Africa. He has previously held the position of Fellow at the prestigious global agency [frog design](http://www.frogdesign.com/). He also [teaches](http://about.tisch.nyu.edu/object/FabricantR.html)**,** gives talks, and [writes](http://www.fastcodesign.com/user/robert-fabricant).
+Robert 是健康护理和社会创新设计方面的专家。它最近
 
 ![image09](https://studio.uxpin.com/wp-content/uploads/2016/02/image091.jpg)
 
