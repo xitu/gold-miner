@@ -259,28 +259,30 @@ Robert 是健康护理和社会创新设计方面的专家。它最近在领导 
 
 我至少已经坐地铁45年了。除非你生活在其中，并且生活了很长一段时间，不然你永远无法准确说出一种体验的价值。
 
-Too many of the user experiences we celebrate are transient – apps that will likely not be in our phone in another month much less year. The subways are here to stay, and improvements are measured in pixels, people and steel. This sort of design is slow hard work.
+我们赞美的太多用户体验都是转瞬即逝的：那些应用没几个月可能就不在我们的手机里了。但是地铁一直都在这里，任何改进都是很缓慢的，都需要人工和钢铁来进行。这样的设计是很慢而且很困难的工作。
 
 ![image00](https://studio.uxpin.com/wp-content/uploads/2016/02/image009-1024x602.png)
 
-Yet change is constant. As a resident of NYC there are few systems that are more important to “learn” than the subway. But where does the experience begin and end? It is not simply contained in the stations, trains and turnstiles.
+然而，改变是唯一不变的。作为纽约居民，几乎没有什么其他的系统比地铁更需要了解了。但是体验是从哪里开始哪里结束的呢？体验并不仅仅局限于地铁站内、地铁上和验票闸门口。
 
-In recent years the subway system has become a platform for experimentation, both authorized and improvised. Recently, large touch-screen information displays have started popping up on the Union Square platform. It is fascinating to watch people interact with them for the first time, peeling back one more layer on an experience that connects so many of us together in this great city (yes it is my home town).
+近年来，地铁系统已经成为了一个实验平台。用于实验不论是经过验证的还是临时性的想法。最近，联合广场的平台上开始试用一些大型的触摸屏信息显示器。观察人们第一次与之互动，并通过这一项实验把这座大型城市（对这就是我的家乡）中这么多人连接起来，是一件非常吸引人的事。
 
-As UX designers we should be thinking – and crafting – experiences on a big scale. What better than a city, where data and mobility are beautifully intertwined, and where we can constantly explore (and enjoy) the seams between our own experiences and those around us?
+作为用户体验设计师，我们应该思考和实践一些大范围的实验。什么对象会比一座城市更好？数据和移动性在哪里可以更好地结合？以及我们在哪里可以持续探索和享受我们自己的实验与周围实验的差距。
 
-### **Career Advice**:
+### **职业建议**
 
-I love to talk to designers about the first moment that you put your design in front of a person to explore, experience and (hopefully) enjoy.
+我很喜欢与其他设计师谈论你第一次把自己的设计放在别人面前，看着他探索、体验和（希望是）享受的时刻。
 
-In that one moment, even before the person actually engages with the artifact, you always see it differently. It is like the old expression about the ‘scales falling from your eyes’. You suddenly see (and know) so many things that were just outside your understanding, planning and intuition.
+在那一刻，即使是在那个人真正被设计吸引之前，你总是能看到一些你之前不曾注意的东西。就像是老话说的那样“鳞片从你的眼中掉下来了（译者注：指恍然大悟）”。你突然发现了在你的理解、计划和直觉之外的那么多东西。
 
-Those moments are precious – very, very precious – as well as humbling for every designer, no matter how accomplished.
+那些时刻是非常珍贵的，这对于所有的设计师来说都是一样的，不论他有多高的成就。
 
-Design is not precious in comparison, so try to make as many of these moments as possible happen on your projects. You don’t need to ask for permission!
+相比来说，设计本身似乎变得不那么珍贵了，所以在项目中尽可能创造这种时刻。你不需要为此获得许可。
 
-Working at [frog](http://www.frogdesign.com/) for 13 years, I had the pleasure of being in those situations over and over again with many different teams – Close Encounters of the Design Kind.
+在 [frog](http://www.frogdesign.com/) 工作了13年，我有幸在许多不同的团队中经历了一次又一次那样的情形。
 
 Quality is always, and only, measured in the response the artifact elicits – in how it engages, delights and supports the user.
+设计的质量总是，而且也仅仅只能由设计所产生的反馈来衡量，通过这个设计如何吸引、支持用户并使他们感到高兴。
 
-[Behavior is our medium](http://www.ixda.org/resources/robert-fabricant-behavior-our-medium). Never forget it.
+不要忘记，[行为就是我们的媒体](http://www.ixda.org/resources/robert-fabricant-behavior-our-medium)。
+
