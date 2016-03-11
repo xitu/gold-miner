@@ -20,7 +20,7 @@
 ```
     public Observable
          wrappedMethod() {
-          return Observable.defer(() -&gt; {
+          return Observable.defer(() -> {
             return Observable.just(library.synchronousMethod());
           });
         }
@@ -55,7 +55,7 @@
 
 让我们分别看看如何用 RxJava 中的 Observable 包裹这几种类型的方法。
 
-####温馨小贴士
+>####温馨小贴士
 我在代码示例中使用了 Java 8的 lambdas 语法来使代码看起来更简洁，但我并未将它用在产品中。如果谁非想在产品中使用它，可以使用开源项目[Retrolambda](https://github.com/evant/gradle-retrolambda)，恩，不用谢。
 
 ## 用 RxJava 包裹带有监听的方法
@@ -63,9 +63,9 @@
 包裹那些使用 listeners 的方法时，`Observable.just()`并不管用，因为它一般没有返回值。我们必须用`Observable.create()`,这样我们就可以将 Listener  的结果回调给 subscriber。
 ```
     public Observable setup() {
-      return Observable.create(subscriber -&gt; {
+      return Observable.create(subscriber - {
         if (!helper.setupSuccessful()) {
-          helper.startSetup(result -&gt; {
+          helper.startSetup(result -> {
             if (subscriber.isUnsubscribed()) return;
 
             if (result.isSuccess()) {
@@ -98,7 +98,7 @@
 我们可以很轻松地用`Observable.defer()`来解决这个问题。我们将同步调用的代码用 try-catch 包起来，并根据结果返回`Observable.just()`或是`Observable.error()`.
 ```
     public Observable queryInventory(final List skus) {
-      return Observable.defer(() -&gt; {
+      return Observable.defer(() -> {
         try {
           return Observable.just(helper.queryInventory(skus));
         } catch (IabException e) {
@@ -117,8 +117,8 @@
 由于这和第一个 listener 的例子类似，我们直接来看 OpenIAB 的实现。
 ```
     public Observable purchase(final String sku) {
-      return Observable.create(subscriber -&gt; {
-        helper.launchPurchaseFlow(activity, sku, REQUEST_CODE_PURCHASE, (result, info) -&gt; {
+      return Observable.create(subscriber -> {
+        helper.launchPurchaseFlow(activity, sku, REQUEST_CODE_PURCHASE, (result, info) -> {
           if (subscriber.isUnsubscribed()) return;
 
           if (result.isSuccess() || result.getResponse() == IabHelper.BILLING_RESPONSE_RESULT_ITEM_ALREADY_OWNED) {
