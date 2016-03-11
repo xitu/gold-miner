@@ -8,15 +8,15 @@
 
 [RxJava](https://github.com/ReactiveX/RxJava) 是最近 Android 世界里最流行的一个库，而且当之无愧。同时，考虑到函数式响应编程的学习曲线十分陡峭，RxJava 的好处相当之大。
 
-我曾经遇到过一个问题：我需要使用一个库，但它并不支持 RxJava，而是用 Listener 模式取而代之。因此我无法享受很多 Rx 的好处。
+我曾遇到的一个问题是我需要使用一个不支持RxJava，而是使用了Listener模式的库，因此无法享受Rx的很多在可组合性方面的便利。
 
-我偶然发现这个现实的问题是在[集成OpenIAB](http://ryanharter.com/blog/2015/07/04/using-all-the-app-stores/)至最新版本的[Fragment](https://play.google.com/store/apps/details?id=com.pixite.fragment)时。更糟糕的是,[OpenIAB](http://onepf.org/openiab/)使用`startActivityForResult`来启动一个新的 Activity 并返回一个结果。这使我开始思考，如何将 OpenIAB 和 RxJava 结合在一起使用呢？
+我碰到这个实际问题是在[集成OpenIAB](http://ryanharter.com/blog/2015/07/04/using-all-the-app-stores/)至最新版本的[Fragment](https://play.google.com/store/apps/details?id=com.pixite.fragment)时。更糟糕的是,[OpenIAB](http://onepf.org/openiab/)使用`startActivityForResult`来启动一个新的 Activity 并返回一个结果。这使我开始思考，如何将 OpenIAB 和 RxJava 结合在一起使用呢？
 
 ## 将它包裹起来
 
 解决方案是将现有的库用 Rx 包裹起来。这实际上非常简单，并且这些基本的原则能应用于任何基于 listener 的库。
 
-如果你的库拥有可用的同步方法，那么将其用RxJava 包裹起来的最好的方式是使用`Observable.defer()`。这种方式下，observable 会被延迟到它被订阅时调用，并在指定的线程中执行操作。
+如果你的库拥有可用的同步方法，那么将其用RxJava 包裹起来的最好的方式是使用`Observable.defer()`。这会简单地延迟这个调用直到observable被订阅，然后在subscription的分配线程中执行action。
 ```
     public Observable
          wrappedMethod() {
@@ -31,7 +31,7 @@
 
 ## API
 
-我喜欢在外部构建库，因此我们首先需要定义我们的 API。
+我喜欢在外部构建库[^1]，因此我们首先需要定义我们的 API。
 ```
     public interface InAppHelper {
 
@@ -141,3 +141,5 @@
 
 ## Rx全世界
 这些只是几个简单的例子来演示如何用 RxJava 将现存的库包裹起来。这能帮你灵活地在你的 Android 应用中使用函数式响应编程，并享受它的诸多好处。
+
+[^1]:参考我在 Droidcon Montreal 上关于函数库架构的[发言](https://www.youtube.com/watch?v=VITu_wp4pNc&list=PLqUf0A_J96n7NSfEUMjISZJPH4A-RIhta&index=6)
