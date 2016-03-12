@@ -55,7 +55,7 @@ Sketch和Photoshop已经为产品设计者的首选工具，而且大多数设�
 
 <!--**Do you feel you’ve been successful?  
  **I think we have. We built an application exactly for those purposes we set out to do, so to me I suppose that’s some level of success.-->
- 
+
 **你认为你已经成功了么？**  
 我想我们已经成功了。我们做出来能满足我们最初目标的应用，对于我来说这已经是某种意义上的成功了。
 
@@ -96,9 +96,8 @@ The fact that I’m not in the Valley also means that I don’t have to pay your
 
 <!--**What challenges have you faced with growth in the past?  
  **I would say we are still competing with companies with a lot more money, and we can’t match them on that front. Also, people with expertise we need are relatively rare. It’s not easy to find people with the skill sets we require, and also have them want to work remotely. So, because we only hire exactly who we need to do exactly what we need them to do, selection and availability of personnel have been somewhat of a challenge.-->
- 
- 
-**在过去的成长中你曾经面对了哪些问题**  
+
+**在过去的成长中你曾经面对了哪些问题？**  
 我想说我们一直和有很多钱的大公司们竞争，并且我们不能和他们正面竞争。而且，我们需要的有专长的人非常的少。找到满足我们需求的人并不容易，而且耀荣他们想要远程工作就更难了。所以，因为我们只招收能够精确地满足我们需要的人，挑选可利用的员工有点挑战性。
     
 
@@ -136,53 +135,94 @@ I think there are many things that we want to do with our product. Maybe in the 
 -->
 **我可以肯定地说Sketch正在蚕食Photeshop开创并持有多年的市场空间。你认为Comet会蚕食你们的么？**  
 我们可以确实地在Sketch上做很多事情就像建立原型。所以我不认为Comet可以在功能上超过我们。我认为，我们已经建立的Sketch周围的生态系统是一个独特的竞争优势，我们拥有了Adobe无法轻松地复制的优势，包括集成的插件工具，出口到成帧器，折纸，原理等等。
-
+<!--
 **Do you see a convergence of design and prototyping? Or will there always be a need for more singularly focused tools?  
-**I think there is a broad spectrum of prototyping. On one end, you have basic things like the original Flinto where you’re tying screens together to visualize a flow. There’s definitely value in that. On the other end you have tools like Origami and Framer where you can go completely wild with very custom animations. You can do really interesting things there. However, I think that’s not something every designer will be interested in. I may be a bit worried that those kinds of animations are going to become as overdone as the skeuomorphic stuff we saw before the days of iOS 7\. I value animations but I think designers have a tendency to jump into new things a bit enthusiastically. If we just look at prototyping. We have very simple prototyping between screens to very complicated transitions between them. I could see the former being integrated into a tool like Sketch, but it’s going to be a very difficult job to build in the type of functionality that Framer or Origami has. You risk bloating the application to the point where it becomes like Photoshop, where most people only use a small subset of features. So I think there is value in having separate applications that do separate things. I’m not sure that we should be trying to dump everything into one app.
+**I think there is a broad spectrum of prototyping. On one end, you have basic things like the original Flinto where you’re tying screens together to visualize a flow. There’s definitely value in that. On the other end you have tools like Origami and Framer where you can go completely wild with very custom animations. You can do really interesting things there. However, I think that’s not something every designer will be interested in. I may be a bit worried that those kinds of animations are going to become as overdone as the skeuomorphic stuff we saw before the days of iOS 7\. I value animations but I think designers have a tendency to jump into new things a bit enthusiastically. If we just look at prototyping. We have very simple prototyping between screens to very complicated transitions between them. I could see the former being integrated into a tool like Sketch, but it’s going to be a very difficult job to build in the type of functionality that Framer or Origami has. You risk bloating the application to the point where it becomes like Photoshop, where most people only use a small subset of features. So I think there is value in having separate applications that do separate things. I’m not sure that we should be trying to dump everything into one app.-->
 
-**你看到设计和原型的融合了么？又或者是总会有对于更加突出关注的工具的需求？**
+**你看到设计和原型的融合了么？又或者是总会有对于更加突出关注的工具的需求？**  
+我认为原型设计有宽广的发展。一方面，你可以使用基本的工具像是原始的Flinto所提供的屏幕可视化流程。这十分的有价值。另一方面你可以使用像是Origami和Framer这样你可以完全自定义动画的工具。你可以做非常有趣的事情。然而我认为这不是每个设计者都感兴趣的事。我担心这些动画会像前一阵出的iOS7的skeuomorphic stuff一样做得过分。我很看重动画，但是我认为设计师应该有热情迎接新事物的倾向。如果我们只看原型。我们必须在他们之间非常复杂的过渡屏幕之间进行非常简单的原型设计。我可以看到以前被集成进去的的工具像是Sketch，但是开发像是Framer或是Origami那样的实用程序将会是非常难的。你可能会把应用膨胀到大多数用户只会使用其中一小部分功能像是Photoshop那样。所以我认为独立应用做独立的功能是非常有价值的。我不确定我们应该试图把每个东西添加到应用中。
 
 
+<!--**How do you go about making such a big decision like keeping Sketch focused on static design versus integrating prototyping?  
+**You’re not the first person to ask me a question like that. We talk to a number of designers in various companies about this type of thing. So that feedback in conjunction with our own opinions about what we want the app to be is how we make those decisions.-->
 
-**How do you go about making such a big decision like keeping Sketch focused on static design versus integrating prototyping?  
-**You’re not the first person to ask me a question like that. We talk to a number of designers in various companies about this type of thing. So that feedback in conjunction with our own opinions about what we want the app to be is how we make those decisions.
+**你是怎么做出像是让Sketch保持静态设计而不是集成融合这么重大的决定呢？**  
+你不是第一个问我这个问题的人。我们和很多公司的设计师交流过关于这类事情。因此我们做出这些决定结合了反馈和我们自己的想法。
 
-**Do you think people know what they want?  
-**In a certain way they do. In the last year we’ve spoken to a lot of people and companies and I’ve very often heard “Sketch is just perfect the way it is, you just need to add this one thing.” One person mentions auto-layout, someone else mentions prototyping, someone else mentions data driven design. So often these suggestions sound easy to the speaker, but what they are saying is to take these already fundamentally very complex ideas and then if we could just add just one little thing to Sketch, then it would be perfect. Everyone suggests something else, there doesn’t seem to be any underlying parallel requests or even themes. And many of the suggestions may sound like an easy tweak, but are actually very complex to address. At some point we have to choose and understand we can’t satisfy everyone. I don’t want to make an application that is purely driven by what customers say or think they want. It’s also important to preserve your own vision with the app and not just dump things in because customers ask for them.
 
-**Do you have a set of values that drive these decisions? Do they change over time?  
-**I think what we want is relatively clear. I’ve never really tried to write them on a list and say these are our core values and principles of what Sketch should be. I guess we’ve just always made decisions with values in mind but I wouldn’t be able to tell them to you because if I make a list now I’ll probably come up with another list next week just because I forgot to mention a bunch of things.
+<!--**Do you think people know what they want?  
+**In a certain way they do. In the last year we’ve spoken to a lot of people and companies and I’ve very often heard “Sketch is just perfect the way it is, you just need to add this one thing.” One person mentions auto-layout, someone else mentions prototyping, someone else mentions data driven design. So often these suggestions sound easy to the speaker, but what they are saying is to take these already fundamentally very complex ideas and then if we could just add just one little thing to Sketch, then it would be perfect. Everyone suggests something else, there doesn’t seem to be any underlying parallel requests or even themes. And many of the suggestions may sound like an easy tweak, but are actually very complex to address. At some point we have to choose and understand we can’t satisfy everyone. I don’t want to make an application that is purely driven by what customers say or think they want. It’s also important to preserve your own vision with the app and not just dump things in because customers ask for them.-->
 
-**Who’s making the most progress in this space right now?  
+
+**你认为人们知道他们想要什么么？**  
+他们当然知道。去年我们曾经与很多人和公司交流过，我经常听到“Sketch已经很完美了，你只需要加入这个东西”。一个人关注自动布局，一些人可能关注原型，另一些人关注数据驱动设计。所以经常这些建议对于说话的人听起来很简单，但是他们说的只是采取这些基本上非常父子的想法，而且之后如果我们可以只在Sketch添加一个小小的功能，那么它将会非常完美。每个人建议一些事情，都没有看起来相似的请求甚至是主题。并且很多建议可能听起来是一个简单的变化，但是解决起来都非常复杂。与此同时我们不得不选择和理解我们不能满足每一个人。
+我不想做一个完全由用户说什么或是想要什么主导的应用。保留你自己的想法不只是因为用户想要什么就添加什么。
+
+<!--**Do you have a set of values that drive these decisions? Do they change over time?  
+**I think what we want is relatively clear. I’ve never really tried to write them on a list and say these are our core values and principles of what Sketch should be. I guess we’ve just always made decisions with values in mind but I wouldn’t be able to tell them to you because if I make a list now I’ll probably come up with another list next week just because I forgot to mention a bunch of things.-->
+
+**你有一系列的价值观去驱动这些决定么？它们随着时间变化么？**  
+我想我们想要什么是相当清楚的。我从没有真的去尝试把他们写在一个单子上然后说这就是我们的核心价值观和Sketch应该是什么样的原则。我猜我们只是经常用思想里的价值观做出决定，但是我不能够把他们告诉你，因为如果我现在列出一个单子，我将有可能下周列出另一个单子因为我忘了去关注一些事情。
+
+<!--**Who’s making the most progress in this space right now?  
 **I know a few apps that integrate with Sketch like Framer, Principle and Flinto that have all recently made a solid series of updates or brand new apps that I’m quite impressed by. But that’s probably just because it’s closely related to Sketch and that’s what I’m exposed to all the time. I’m not someone who spends much time on Tech Crunch or Product Hunt to find out what the latest is that I should be looking at, because I’m just very busy and interested with Sketch itself.
+-->
+**在这个领域谁的进展最大？**  
+我知道一些融合了Sketch的应用像是Framer，Principle，和Flinto，最近都有一系列的更新或者是生产全新的应用程序，这使我十分感动。但是这就可能只是因为它和Sketch紧密相关而且他就是我所有时间所暴露的。
+我不会消耗很多时间在技术危机或产品搜寻上去寻找我应该关注的最新的项目，因为我非常的忙，并且对Sketch非常感兴趣。
 
-**How do you know if you’re moving fast enough?  
-**I have no idea. I wish it were simple. As I said earlier, I know there are certain things that we need to develop — invisible parts that just need to grow with the new greater scope of the application. That kind of work is never going fast enough. At the same time, it’s complex, so I can’t expect it to be done in a few months. So how do I know if we’re moving fast enough? No one can reliably predict the future on these things. I guess we can only see that looking back. At the moment I think we moving at a good pace.
+<!--**How do you know if you’re moving fast enough?  
+**I have no idea. I wish it were simple. As I said earlier, I know there are certain things that we need to develop — invisible parts that just need to grow with the new greater scope of the application. That kind of work is never going fast enough. At the same time, it’s complex, so I can’t expect it to be done in a few months. So how do I know if we’re moving fast enough? No one can reliably predict the future on these things. I guess we can only see that looking back. At the moment I think we moving at a good pace.-->
 
-**How do you balance quality while scaling?  
-**That is one of the things I would be scared of in a company that grows too fast. There was a posting on Medium or Hackernews that there are 300 developers at Facebook committing code to their iOS app, and that’s pretty scary. For us, we now have a full-time QA person and we’ve put quite a bit of process into code reviews. I think in order to be effective with peer reviewed code it is important to have developers who of course objectively know what they are doing, and also have just the right level of personal interaction and knowledge that they are familiar enough when reviewing each others code that they can judge its impact.
+**如果你前进的过快，你怎么知道？**  
+我不知道。我希望那能简单一点。就像我说最初，我只知道有一些事情我们需要去开发－只需要去更新扩大还没有的部分就可以。这种类型的工作从来也不会走的足够的快。与此同时，它也是复杂的，所以我不能期待它在几个月内完成。所以如果我前进的过快，我怎么知道？没有人能对这些事情进行可靠的预言。我猜我们仅能事后回顾。此刻，我认为我们走了正确的一步。
 
-**Has QA been one of the bigger pain points for Sketch?  
+<!--**How do you balance quality while scaling?  
+**That is one of the things I would be scared of in a company that grows too fast. There was a posting on Medium or Hackernews that there are 300 developers at Facebook committing code to their iOS app, and that’s pretty scary. For us, we now have a full-time QA person and we’ve put quite a bit of process into code reviews. I think in order to be effective with peer reviewed code it is important to have developers who of course objectively know what they are doing, and also have just the right level of personal interaction and knowledge that they are familiar enough when reviewing each others code that they can judge its impact.-->
+
+**你如何平衡质量等级？**  
+我非常恐惧的事情其中之一就是公司发展过快。据Medium和Hackernews的报道，大概有300个开发者在Facebook为他们的iOS应用提供代码，这真是令人非常害怕。对于我们，我们现在有一个全职的测试人员而且我们在代码审查方面下了很大功夫。我认为为了有效仔细的审查代码，能客观地知道他们在做什么的开发者们是重要的，并且有着良好的个人交流和因他们足够熟悉当他们互相审查时能判断其代码影响的知识。
+
+<!--**Has QA been one of the bigger pain points for Sketch?  
 **I think it’s fair to say, yes. There is a mountain of complexity that you open up with everything that you add to the application. Just something as simple as copy and paste. There are enormous numbers of edge cases, including: Where do you copy from? Where do you paste into? Where should it end up in the page? To which group does it belong? Does what you have currently selected play into that? Etc. There is just a staggering amount of complexity in an application such as Sketch where you can basically do whatever you want at any point. So it’s a challenge, for sure.
+-->
+**测试已经成为Sketch最大的痛苦了吗？**  
+公正地说，是。你开启的每个被添加到应用程序上的功能像是复杂的山区一样。有的是仅仅像复制粘贴一样简单。
+但是他们有着大量的边缘事例，包括：你从哪拷贝的？你要粘贴到哪里？它将在页面的哪里结束？它属于哪个组？
+对当前的选择在那里你打算做什么？等等。像Sketch这样你基本上可以在任何点做任何事的应用其中一定有一大堆复杂的东西。这是一个挑战是肯定的。
 
-**Are you surprised at where Sketch is today?  
+<!--**Are you surprised at where Sketch is today?  
 **I would have never expected the market to be as big as it is. I started with version 1 of Sketch in a time where there was no iPhone or App store. I knew there were a few people making icons and application interfaces in this small corner of Photoshop. I thought well, there should be enough room for a small indie to serve that niche. I’ve been really surprised by the size of this market and how big it has grown, and I think it has surprised Adobe as well.
+-->
+**你会为今天Sketch的地位惊讶么？**  
+我从未期待过市场像现在的Sketch那样大。我刚开始做Sketch第一个版本的时候，无论iPhone还是App store都没有呢。我知道很少的人使用Photoshop的一些小功能去制作图标和用户界面。我想好，这里应当有足够的空间去满足一个非主流的需求。我被这个市场的大小还有它已经扩展了多大吓到了，我想他也同样吓到了Adobe。
 
-**Do you think your current flat, one-time fee is sustainable for you to grow Sketch?**  
-Well, that term is not quite accurate. We released version 3 almost two years ago, which was a paid upgrade. So it’s basically the same model that Adobe had been doing before they switched to their Creative Cloud subscriptions. I absolutely agree that a one-time fee for an application is not sustainable. I also know that we don’t want to switch to a subscription model. The appeal of subscriptions to the company is high. It’s nice that you always get money coming in — then you don’t have to come up with these big releases where you have to hope that you convince enough people to upgrade again, etc.
+<!--**Do you think your current flat, one-time fee is sustainable for you to grow Sketch?**  
+Well, that term is not quite accurate. We released version 3 almost two years ago, which was a paid upgrade. So it’s basically the same model that Adobe had been doing before they switched to their Creative Cloud subscriptions. I absolutely agree that a one-time fee for an application is not sustainable. I also know that we don’t want to switch to a subscription model. The appeal of subscriptions to the company is high. It’s nice that you always get money coming in — then you don’t have to come up with these big releases where you have to hope that you convince enough people to upgrade again, etc.-->
 
-Customers just don’t like the idea of subscribing to software. We’ve seen that when Adobe discontinued Fireworks — that was one of our biggest sales days. Adobe’s pitch was basically that you can now switch to Photoshop. And many people said, I don’t really like Photoshop and I don’t want to pay for it monthly, so let me see what else is out there. In the beginning, Adobe introduced subscriptions as an alternative to the normal paid upgrades. Then a few years after that, they switched to subscriptions only–that was another one of our biggest sales days. We could clearly see people don’t like the idea of subscriptions if they don’t perceive a very obvious justification for it.
+<!--Customers just don’t like the idea of subscribing to software. We’ve seen that when Adobe discontinued Fireworks — that was one of our biggest sales days. Adobe’s pitch was basically that you can now switch to Photoshop. And many people said, I don’t really like Photoshop and I don’t want to pay for it monthly, so let me see what else is out there. In the beginning, Adobe introduced subscriptions as an alternative to the normal paid upgrades. Then a few years after that, they switched to subscriptions only–that was another one of our biggest sales days. We could clearly see people don’t like the idea of subscriptions if they don’t perceive a very obvious justification for it.
+-->
+<!--Whenever you have a server-based product it’s more acceptable to charge per month for something, but if it’s just an app that just sits on your Mac and doesn’t talk to a server and can just do it’s thing, people don’t understand why they should pay again every month.-->
 
-Whenever you have a server-based product it’s more acceptable to charge per month for something, but if it’s just an app that just sits on your Mac and doesn’t talk to a server and can just do it’s thing, people don’t understand why they should pay again every month.
+**你认为就你现在的水平，一次性的收费对你开发Sketch是可持续性的么？**  
+好吧，这个描述不是非常精准。我们大概在两年前发布需要有尝升级的第三版。所以这和Adobe选择他们的创新云服务之前的模式一样。我绝对同意应用的一次性收费不是一种可持续性方式。我同样知道我们不想要选择一种订购的模式。订购的呼吁很高。你总是能拿到收入这点非常好－那么你不必拿出这些大的版本，你要希望你能说服足够多的人再次升级，等等。
 
-**What is success for Sketch?  
-**I really like working on Sketch, and working with the people on my team. And I see myself doing that happily for many, many years to come. There is no finish line or point at which I say that I have enough money, enough customers, enough success, or that I would get bored with the app, or sell it or something — no. No, I can’t. What I do now I hope to be doing for a very long time.
+顾客不喜欢订购软件的方式。当Adobe终止Fireworks的时候，那是我们卖的最多的日子之一。Adobe的定位十分基础，你可以现在选择Photoshop。而且很多人说，我真的不是喜欢Photoshop，而且我不想每个月支付，
+所以这让我看到了还可以怎么收费。在最开始，Adobe引入了订购的方式作为一种相对于传统方式可供替代的方式。在那几年之后，他们选择了仅支持订购的方式，这是我们又一次卖的最多的日子。如果他们不了解一个非常明显的理由，我们可以清楚的发现人们不喜欢订购这种方式。
 
-**What’s coming for Sketch?  
+当你开发一个以服务器为基础的产品时，每个月支付的方式更容易被接受，但是如果这只是一个应用仅仅用在你的Mac上而不和服务器进行交互直接做一些事情，人们就不理解为什么他们每个月都要付费。
+
+<!--**What is success for Sketch?  
+**I really like working on Sketch, and working with the people on my team. And I see myself doing that happily for many, many years to come. There is no finish line or point at which I say that I have enough money, enough customers, enough success, or that I would get bored with the app, or sell it or something — no. No, I can’t. What I do now I hope to be doing for a very long time.-->
+
+**Sketchs的成功是什么？**  
+我真的喜欢为Sketch工作，和我们团队的人一起工作。并且我认为我自己将会很开心的做这件事很多年。并不会因为我有足够的钱、足够的用户、足够成功、或是对应用感到厌倦、或是把它卖了之类的事情而停止－不，我不能。我希望在将来很长一段时间我还能做我现在做的事情。
+
+<!--**What’s coming for Sketch?  
 **With the recent exit of the Mac App Store we think that we can push updates faster. I’m really excited to be able to ship the things that we have planned for the new year. I think we learned that the last big update took too long and now we want to keep shipping smaller updates. But I don’t want to say too much, because we all know how that works with software!
-
+-->
 **Sketch将会发生什么改变？**  
-前不久我们离开了Mac的AppStore，我们认为我们可以更快的推送更新。我是真的激动地去能够交出我们原来对于新年的计划的东西。
+前不久我们离开了Mac的AppStore，我们认为我们可以更快的推送更新。我是真的激动地去能够交出我们原来对于新年的计划的东西。我们发现上一个大更新用了我们太长的时间，现在我们打算持续的推送小更新。但是我不打算说的太多，因为我们都知道软件时怎样工作的。
 
 
 </section>
