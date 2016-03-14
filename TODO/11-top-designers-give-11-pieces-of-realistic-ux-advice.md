@@ -281,7 +281,7 @@ Robert 是健康护理和社会创新设计方面的专家。它最近在领导 
 
 在 [frog](http://www.frogdesign.com/) 工作了13年，我有幸在许多不同的团队中经历了一次又一次那样的情形。
 
-设计的质量总是，而且也仅仅只能由设计所产生的反馈来衡量，通过这个设计如何吸引、支持用户并使他们感到高兴。
+设计的质量总是，也只能由设计所产生的反馈来衡量，通过这个设计如何吸引、支持用户并使他们感到高兴。
 
-不要忘记，[行为就是我们的媒体](http://www.ixda.org/resources/robert-fabricant-behavior-our-medium)。
+[行为就是我们的媒体](http://www.ixda.org/resources/robert-fabricant-behavior-our-medium)，切记！
 
