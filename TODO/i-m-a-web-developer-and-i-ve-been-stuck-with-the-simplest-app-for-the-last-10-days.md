@@ -1,46 +1,47 @@
 >* 原文链接 : [I’m a web developer and I’ve been stuck with the simplest app for the last 10 days](https://medium.com/@pistacchio/i-m-a-web-developer-and-i-ve-been-stuck-with-the-simplest-app-for-the-last-10-days-fb5c50917df#.1i4q6te4a)
 * 原文作者 : [pistacchio](https://medium.com/@pistacchio)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
+* 译者 : woota
 * 校对者: 
-* 状态： 认领中
+* 状态： 翻译中
 
 
+#JavaScript生态之乱象
+####（原标题：作为一名web开发者，我已经被一个极度简单的app卡了10天）
 
+我是一名全职开发者。我大部分工作的内容是网站的全栈开发。偶尔，我也用**Python**或**Ruby**写写后端的服务器，有时写点儿**C#**。我还用**C++**或**Node.js**开发一些命令行工具，我发现Clojure很有意思，我接触web开发是在多年以前，那时用的是**Perl**和**PHP**，而在我首次进入职业开发道路的时候，我写了几年**Java**。
 
-I’m a full time developer. Most of my work is developing web sites full-stack. Sometimes I write backend servers in **Python** or **Ruby**, sometimes I work with **C#**. I also develop command line utilities in **C++** or **Node.js**, I find Clojure fun, I approached web development years ago with **Perl** and **PHP** and when I first entered the professional world of development I worked for years with **Java**.
+在我第一次接触**JavaScript**时，它主要用来往网页上写“*现在是几点*”这样的东西。我说的是上个世纪90年代，每个人都想让自己的页面变得更加有趣，*动态地*告诉偶然到来的访客今天是周几（哇！），并以此为乐。这些年来，我们都发现JavaScript能做的远不止这些，我们都想要全效的**DHTML**(Dynamic HTML)。是的，我们的HTML变得充满*动态效果*了！
 
-When I first encountered **Javascript** it was mainly used to add “_The current time is_” on pages. I’m talking about the Nineties here and everybody wanted to spice up their pages telling the occasional visitor what day of the week it was _dynamically (!)_ and it felt good. Over the years we all discovered that Javascript can do so much more than that and we all went full **DHTML**. Yes, our HTML went full _dynamic_!
+在过去的几年中，我用过一些不同的框架开发过几个比较大型的单页应用，有时候忙起来，JavaScript代码组织的极烂，把**jQuery**调用写得到处都是。
 
-In the last years I’ve developed pretty large Single Page Applications with various frameworks or, when in a rush, mostly a mess of badly organized Javascript code that vomits **jQuery** calls here and there.
+大概10天前，我想开发一个简单的*SPA*给自己用，把一个小工具改写成一个小项目。这一般也就是两三天的功夫。在过去的这半年，我一直在用C#写一个桌面应用。这是一个相当无聊的工作流管理程序，有一个网络服务后台和winform客户端。
 
-Some ten days ago I wanted to program a very simple _SAP_ for my personal use, a little utility to grow as a pet project. I’m talking about a two, three days effort here. In the last six months I’ve been working on a C# Desktop app. It is a rather boring workflow management program with a webservice backend and winforms on the client.
+当我起念要开发这个小型web应用的时候，我便预见这是一个尝试新技术的好机会，我曾在网上读到过一些，以此刷新我的web开发工具库并收获一点乐趣。想想都觉得激动，没什么太复杂的东西，也不用太费劲。
 
-As the idea of this little web app popped into my mind, I envisioned the opportunity to try out a few new things I’ve been reading about online, refresh my web-dev tools and have some fun. Pretty exciting, nothing too complicated or demanding.
+可事实证明，我根本无法着手编写这个简单的项目，因为我陷入了一种**分析瘫痪循环**
 
-As it turned out, I haven’t been able to program that simple project because I’m stuck in an **analysis paralysis loop**.
+到目前为止，我已经有了四到五次失败的开始。问题的核心是在*选择*上，以及要如何从过度繁多的工具库中挑选出合适的工具。
 
-I’ve already had four or five “false starts” so far. The core of the problem is _choice_ and the overwhelming abundance of tools to choose from.
-
-Who wants to write
+谁想写这样的代码
 
     MyNotReallyClass.prototype.getCarrots = function () {}
 
-when ES6 is _almost_ here, it has _almost_ real classes and it’s _almost_ well supported? Who wants to have ten
+ES6*都快*落地了，它有了*近似*真正的类，并且*差不多*得到了完好的支持？市面上有那么多的打包工具，谁还想写十行
 
     <script src="%E2%80%9Dlibrary-12.js%E2%80%9D"></script>
 
-on top of the page when there multiple packers out there? Who want to write
+在页面的顶部？有那么多的框架帮我们组织应用，谁还要写这样的代码
 
     $(‘.carrots’).innerHTML(myJson.some.property[3]) 
 
-when there are so many frameworks out there to help you structure your app? Who wants to ignore the fact that now browser Javascript is written with the help of Node.js command line tools?
+谁又想忽视如今编写浏览器端Javascript代码有了Node.js命令行工具辅助的事实？
 
-So I went knee deep into the pool of new things, things I’ve used in the past and I’ve forgotten or have evolved and so on. And man, apart for a few HTML forms I haven’t been able to make any progress so far.
+所以我深入研究这些新事物，这些我曾经用过现在忘了或是进化了的事物。可天知道，除了一点HTML表单，我一直没能取得任何的进展。
 
-Remember, this is a simple personal project, I mostly wanted to have fun, so my mind was set to zero-tolerance mode. As soon as something annoyed me I went away looking for something else to smoothen my experience.
+请记住，这是一个简单的个人项目，我主要是想找点儿乐子，因此我的脑袋被设置为零容忍模式。一旦什么东西令我厌烦，我就抛开它去寻找其它的东西来抚平我的体验。
 
-These are just a couple of examples of what to expect when trying out new things in Javascript-land today
+这是今天在Javascript领域尝试新技术，我所期待的几个东西，例举如下
 
 At first I wanted to give **Typescript** a try. Having worked mostly with C# in the last months, I remembered how cool it is to have a statically typed language: it makes you feel more confident about your code, the refactoring is easier and IDEs, with a sensitive autocomplete, write half of your code no matter how messed your classes are.
 
