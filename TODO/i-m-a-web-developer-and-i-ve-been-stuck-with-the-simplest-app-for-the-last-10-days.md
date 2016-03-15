@@ -6,30 +6,30 @@
 * 状态： 翻译中
 
 
-#JavaScript生态之乱象
+# JavaScript生态之乱象
 ####（原标题：作为一名web开发者，我已经被一个极度简单的app卡了10天）
 
 我是一名全职开发者。我大部分工作的内容是网站的全栈开发。偶尔，我也用**Python**或**Ruby**写写后端的服务器，有时写点儿**C#**。我还用**C++**或**Node.js**开发一些命令行工具，我发现Clojure很有意思，我接触web开发是在多年以前，那时用的是**Perl**和**PHP**，而在我首次进入职业开发道路的时候，我写了几年**Java**。
 
-在我第一次接触**JavaScript**时，它主要用来往网页上写“*现在是几点*”这样的东西。我说的是上个世纪90年代，每个人都想让自己的页面变得更加有趣，*动态地*告诉偶然到来的访客今天是周几（哇！），并以此为乐。这些年来，我们都发现JavaScript能做的远不止这些，我们都想要全效的**DHTML**(Dynamic HTML)。是的，我们的HTML变得充满*动态效果*了！
+在我第一次接触**JavaScript**时，它主要用来往网页上写“_现在是几点_”这样的东西。我说的是上个世纪90年代，每个人都想让自己的页面变得更加有趣，_动态地_告诉偶然到来的访客今天是周几（哇！），并以此为乐。这些年来，我们都发现JavaScript能做的远不止这些，我们都想要全效的**DHTML**(Dynamic HTML)。是的，我们的HTML变得充满_动态效果_了！
 
 在过去的几年中，我用过一些不同的框架开发过几个比较大型的单页应用，有时候忙起来，JavaScript代码组织的极烂，把**jQuery**调用写得到处都是。
 
-大概10天前，我想开发一个简单的*SPA*给自己用，把一个小工具改写成一个小项目。这一般也就是两三天的功夫。在过去的这半年，我一直在用C#写一个桌面应用。这是一个相当无聊的工作流管理程序，有一个网络服务后台和winform客户端。
+大概10天前，我想开发一个简单的_SPA_给自己用，把一个小工具改写成一个小项目。这一般也就是两三天的功夫。在过去的这半年，我一直在用C#写一个桌面应用。这是一个相当无聊的工作流管理程序，有一个网络服务后台和winform客户端。
 
 当我起念要开发这个小型web应用的时候，我便预见这是一个尝试新技术的好机会，我曾在网上读到过一些，以此刷新我的web开发工具库并收获一点乐趣。想想都觉得激动，没什么太复杂的东西，也不用太费劲。
 
 可事实证明，我根本无法着手编写这个简单的项目，因为我陷入了一种**分析瘫痪循环**
 
-到目前为止，我已经有了四到五次失败的开始。问题的核心是在*选择*上，以及要如何从过度繁多的工具库中挑选出合适的工具。
+到目前为止，我已经有了四到五次失败的开始。问题的核心是在 _选择_ 上，以及要如何从过度繁多的工具库中挑选出合适的工具。
 
 谁想写这样的代码
 
     MyNotReallyClass.prototype.getCarrots = function () {}
 
-ES6*都快*落地了，它有了*近似*真正的类，并且*差不多*得到了完好的支持？市面上有那么多的打包工具，谁还想写十行
+ES6 _都快_ 落地了，它有了 _近似_ 真正的类，并且 _差不多_ 得到了完好的支持？市面上有那么多的打包工具，谁还想写十行
 
-    <script src="%E2%80%9Dlibrary-12.js%E2%80%9D"></script>
+    <script src="library-12.js"></script>
 
 在页面的顶部？有那么多的框架帮我们组织应用，谁还要写这样的代码
 
@@ -43,65 +43,84 @@ ES6*都快*落地了，它有了*近似*真正的类，并且*差不多*得到�
 
 这是今天在Javascript领域尝试新技术，我所期待的几个东西，例举如下
 
-At first I wanted to give **Typescript** a try. Having worked mostly with C# in the last months, I remembered how cool it is to have a statically typed language: it makes you feel more confident about your code, the refactoring is easier and IDEs, with a sensitive autocomplete, write half of your code no matter how messed your classes are.
+首先，我想试试**Typescript**。在过去几个月中我一直写的是C#，我知道有一门静态类型的语言是多么棒的一件事：它让你对自己的代码更加自信，重构起来更为便利，IDE自动补全，不论你写的类有多么的混乱，你都只要写一半的代码。
 
-I needed two external libraries just for the core functionalities. They were not on [DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped) , so I spent half of my day learning about **.d.ts** files and writing the wrappers for those libraries. Not something that I call productive, but I went with it.
+我需要两个外部的库来实现核心功能。它们不在[DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped)中，因此我花了半天时间学习**.d.ts**文件以及为这几个库写包装类。谈不上富有成效，但我还是写出来了。
 
-I wanted to add some testing with **Mocha** from the start. Welcome to hell. I looked for a way to have multiple **.tsconfig.json** files in the project but JetBrains WebStorm didn’t support them, so the compiler kept packing the tests with the actual code. I stared reading guides, gists, **StackOverflow** questions. _Use this_ **_Gulp_** _configuration file. You have to compile the scripts before testing them but hey, are you also writing the tests in Typescrip? Then use this Gulp plugin but it doesn’t work well with_ **_watchify_**. After the first day I had a mess of files being merged, compiled, _src_ and _dest_ and _test_ folders that made unwanted tasks triggered. I stopped being able to follow what was going on in the background. When is something compiled, where are the dependencies, should I **include** or **require** this file? _Fuck with it_.
+我一开始就想用**Mocha**添加一些测试。这里是噩梦的开端。我尝试为项目添加多个**.tsconfig.json**文件，但JetBrains WebStorm不支持，因此编译器不断地把测试代码打包到实际代码中。我开始阅读指导，查看gist，**StackOverflow**的相关问题。_使用这个_ **_Gulp_** _配置文件。你必须先编译脚本，然后再对它们进行测试。但如果你测试也是用Typescript写的，那你还得用这个Gulp插件，不过它对_ **_watchify_** _的支持不好_。第一天过后，我有了一堆被合并、编译过的文件，_src_和_dest_、_test_文件夹触发了一些不必要的任务。我已经弄不懂底层究竟是怎么一回事。当编译代码时，依赖在哪里，我是应该**import**还是**require**或是**reference**这个文件？_我去他大爷的_。
 
-I had a short but pleasant experience with **React** in a very small project before and I thought of giving it a try. I grabbed some Gulp configurations to get going. Here the problem was with React itself. I’ve already laid out my models, but React.js likes to mix models and states and properties, so I had to rethink it. My app is simple but form-intense. And guess what, from the official React documentation:
+之前，我曾在一个小项目中简单地用过一点**React**，体验还不错。我想再试试它。为此我添加了一些Gulp配置。这里的问题出在了React本身。我已经设计好了我的数据模型，但是React.js喜欢把数据模型、状态、属性混在一起，为此我不得不重新思考这个问题。我的应用很简单但是表单很密集。你猜怎么着，React官方文档说：
 
-> If you’re new to the framework, note that ReactLink is not needed for most applications and should be used cautiously.  
-> In React, data flows one way: from owner to child. This is because data only flows one direction in the Von Neumann model of computing. You can think of it as “one-way data binding.”
+> 如果你是初次使用这套框架，注意ReactLink在绝大多数的应用中是用不到的，而且你应该小心使用它。
+> 在React中，数据单向流动：从拥有者到子对象。这是因为在冯·诺依曼计算模型中数据只能单向流动。你可以把它当做“单向数据绑定”。
 
-Yeah, but a form, and a heavy one, is intrinsically a two-way binding artifact. So React, without plugins and mixins, doesn’t work well with you inputting a lot of things into it. You have to decorate all your input fields to support that. It soon became annoying. Also, talking about mixins, I was using ES6 but React classes don’t support them. _Fuck with it_.
+说得很有道理的样子，但是一个表单，尤其是一个重表单，本质上就是一个双向绑定的东西。因此，React在没有插件和mixin的情况下，对大量输入的支持不好。你得装饰所有的input框来支持这个功能。很快，事情就变得让人厌烦起来。还有，说到mixin，我用的是ES6但React的类不支持。_去他大爷的_。
 
-So, I need a lot of two-way data binding, right? **Knockout** is excellent in that and I have some experience with it. Again, I tried using ES6 classes but the _this_ binding gets all messed up. Without using classes, the code soon got messed up. Javascript mixed with HTML seems ugly after having tried React. There you have HTML within Javascript but it does make sense since at least you can struture sensible logical units and have them self-contained
+所以，我需要大量的双向数据绑定，对吗？**Knockout**在这方面做得很出色，我也有过一点使用它的经验。再一次，我尝试使用ES6的类，但是_this_的绑定又乱作一团。不用类的话，代码很快变得混乱起来。在尝试了React后，Javascript和HTML混起来看丑的一逼。HTML包含在Javascript中，不过这还算有点道理。至少你能够组织合理的逻辑单元，并使它们内聚。
 
-_(As a side note of irritation, it seems that no matter what you choose, you need some watch tasks running in the background compiling, linting, packing, testing. I write something in my editor, Cmd+S to save, Cmd+Tab to switch to the editor, Cmd+R to refresh the page and I don’t see any difference. Guess what, sometimes I’m faster that the compiler or the “watch” task didn’t notice my editing or it threw an exception.)_
+_（这是一条愤怒的旁注，似乎不论我选择什么构建工具，都需要有一些观察任务跑在后台，来进行编译，检查，打包，测试。我在编辑器里写了一些东西，然后Cmd+S保存，Cmd+Tab切回浏览器，再Cmd+R刷新页面，可我并没有察觉到有什么变化。你猜怎么着，有时候我动作比编译器快，或者是“观察”任务没有检测到我的编辑动作，抑或是它抛出了一个异常。）_
 
-So, before even starting to write a single line of code, you have to choose what you want to spice up (dependancy management, packagin, testing, building and so on) and each choice opens a world of alternatives that may be either competing, more or less standard, more or less used, with different kind of maturity and that may work more or less well together.
+所以，甚至在我开始写一行代码之前，就不得不先选好我所要用到的工具（依赖管理，打包，测试，构建等等），而且每一种选择都有众多的替代品，它们要么相互竞争，要么相互补充，或多或少更接近标准，或多或少更为成熟，又或者两个合在一起用效果多多少少更好一点。
 
-What flavor of Javascript are you going to use? Are you gonna use a transpiler? From what language? Grun? Gulp? Bower? Yeoman? Browserify? Webpack? Babel? Common.js? Amd? Angular? Ember? Linting? What am I talking about? Am I mixing things up? Am I confused? Fuck with it? Yeah, fuck with it.
+你想使用哪种风格的Javascript？你要用转译器吗？用什么语言？要用Grunt吗？Gulp？Bower？Yeoman？Browserify？Webpack？Babel？Common.js？Amd？Angular？Ember？Linting？我究竟在说什么？我是不是把东西给搞混了？我困惑了吗？去他大爷的？对，去他大爷的。
 
-If you’re still with me, it seems that making a web-app, today, is like playing a very hard **Interactive Fiction** game (a-la **Zork**). Let’s travel back in time and make a program some years ago:
+如果你还认同我所说的话，现如今，制作一个web-app就好像在玩一个非常困难的**互动小说**游戏（如**魔城**）。让我们穿回多年以前来开发一个程序
 
-> You are in the room of programs. You can only make a command-line program. You see the C language and the Assembly language  
-> > get C language  
-> Ok, you can start writing your program
+> 你置身于一个程序房间。你只能开发命令行程序。出现在你面前的是C语言和Assembly语言
 
-Now, let’s get back to 2016:
+> \> 用C语言
 
-> You are in the room of web apps.  
-> > make web app  
-> Are you making a game? Consider using Unity or GameMaker or similar softwares that export for the web  
-> > make web app  
-> Have you considered making a desktop program with web technologies? You can use NW.js or Electron, for instance  
-> > make web app  
-> Some languages appear. You see Javascript, Coffescript, Typescript, Clojurescript, Dart, asm.js. Type “more” if you want the list of all the 127 available languages  
-> > get javascript  
-> A couple of languages appear: ES5 and ES6  
-> > get ES6  
-> You are in the room of transpilers. You see Babel, Traceur or you can hope that the browser already supports the features that you’ll use. Type “more” for a list of transpilers and read the book “Transpiler Tools aka Necronomicon”   
-> > get Babel  
-> You arrive in the corridor of Tasks. You see a Grunt in a corner, a Gulp in the other. A Babelify attacks you, Webpacks gather all around. In a nearby room you hear Browserify screaming and fighting with Require.js. In your inventory you have “transpile on save”.  
-> > run away  
-> a Yeoman glows in an alcove nearby. In your hand you have npm but your project.json is broken. You hear a Broccoli and a Jasmine howling in the distance.  
-> > fuck with it  
-> You can’t “fuck with it” because seven rooms ago you chose “npm install node-jsx” and it is not currently compatible with your configuration of “fuck with it”  
-> > quit.
+> 好的，你可以开始编写你的程序
 
-#### Update
+现在，让我们回到2016年：
 
-This post got some interest on [Hacker News](https://news.ycombinator.com/item?id=11080080). I found it quite ironic that some of the comments are:
+> 你置身于一个web应用的房间。
 
-> > I’ve already laid out my models, but React.js likes to mix models and states and properties, so I had to rethink it  
-> => **Redux**  
-> > this Gulp configuration file…  
-> => **Webpack**
+> \> 开发web应用
 
-> **ClojureScript**. Just learn that; the ClojureScript community will keep it up with the times, and you can help out too at times. Yes, you’ll have to debug a little under the hood, but your background should be sufficient for that.
+> 你是要开发游戏吗？不妨考虑使用Unity或者GameMaker或类似的可为web导出的软件
 
-> Which combination of tools should you use? **Ember** if you have no idea where to start — otherwise thing about the problem you have with other tools and find tools that solve those problems.
+> \> 开发web应用
 
-So, I guess, talking to the community about my “analysis paralysis loop” caused by the excessive amount of available tools to choose from and to investigate resulted in the community suggesting to try out, spend time, learn and investigate four more technologies that I haven’t even considered in the first place. Good job, Javascript!
+> 你有没有想过用web技术来开发桌面程序呢？比如，你可以使用NW.js或Electron
+
+> \> 开发web应用
+
+> 几门语言出现在了你的面前。你看到Javascript，Coffescript，Typescript，Clojurescript，Dart，asm.js。输入“更多”，如果你想浏览总共127种可用语言。
+
+> \> 用javascript
+
+> 出现了两门语言：ES5和ES6
+
+> \> 用ES6
+
+> 你来到一间转译器的屋子。你看到了Babel，Traceur或者你可以寄希望于浏览器已经支持了你将要用到的特性。输入“更多”查看更多转译器或者阅读“转译器工具（又名——死灵之书）”
+
+> \> 使用Babel
+
+> 你来到任务走廊。你看到一只Grunt在一个角落，一只Gulp在另一角。一只Babelify攻击了你，众多Webpack正在聚集。在附近的房间里，你听到Browserify在叫喊，它正在与Require.js战斗。在你的背包中有“转译保存”。
+
+> \> 离开这里
+
+> 在近处的壁龛中有一只Yeoman在发光。你手握npm但你的project.json坏了。在地板上还躺着Gruntfile，.jshitrc，.babelrc和tsconfig.json。你远远听见一只Broccoli和一只Jasmine在呼号。
+
+> \> 操他大爷
+
+> 你不能操他大爷，因为七个房间以前你选择了“npm安装node-jsx”，而它目前还不兼容你的配置“操他大爷”
+
+> \> 退出。
+
+#### 更新
+
+这篇文章在[Hacker News](https://news.ycombinator.com/item?id=11080080)上受到了一些关注。我发现有些评论还真是够讽刺的：
+
+> \> 我已经设计好了我的数据模型，但是React.js喜欢把数据模型、状态、属性混在一起，因此我又不得不重新思考这个问题。
+> 用 **Redux**  
+> \> 这个Gulp配置文件...
+> 用 **Webpack**
+
+> **ClojureScript**。好好学吧；ClojureScript社区会积极跟上时代潮流，又或许偶尔你也可以为社区尽一份力。是的，你得做一些底层的调试工作，不过以你的技术背景应该是小菜一碟。
+
+> 你该使用哪种组合工具？如果你不知道从何下手，可以试试**Ember**——这里没有其它工具有的那些问题，也可以在这里找到解决那些问题的工具。
+
+由此，我猜测，跟社区讨论我因从过量工具库中选取和调研工具所导致的“分析瘫痪循环”，的结果是被社区建议去尝试，花时间学习和再多研究四门我先开始没想到过的技术。Javascript，干得漂亮！
