@@ -31,7 +31,7 @@
 
 ## API
 
-我喜欢由外而内地构建一个库[^1]，因此我们首先需要定义我们的 API。
+我喜欢由外而内地构建一个库<sup>[1](http://ryanharter.com/blog/2015/07/07/wrapping-existing-libraries-with-rxjava/#sub-1)</sup>，因此我们首先需要定义我们的 API。
 ```
 public interface InAppHelper {
 
@@ -141,5 +141,3 @@ public boolean handleActivityResult(int requestCode, int resultCode, Intent data
 
 ## Rx无处不在
 这些只是几个简单的例子来演示如何用 RxJava 将现有的库封装起来。这能帮你灵活地在你的 Android 应用中使用函数式响应编程，并享受它的诸多好处。
-
-[^1]:参考我在 Droidcon Montreal 上关于函数库架构的[发言](https://www.youtube.com/watch?v=VITu_wp4pNc&list=PLqUf0A_J96n7NSfEUMjISZJPH4A-RIhta&index=6)
