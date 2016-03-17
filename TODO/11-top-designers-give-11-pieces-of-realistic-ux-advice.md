@@ -8,7 +8,7 @@
 
 优秀的设计者是终生学习者。
 
-在 [Springboard](http://springboard.com)，我们将 UX 以及数据科学的导师和学习者配对，这有助于我们听从前辈的意见。
+在 [Springboard](http://springboard.com)，我们将 UX（User Experience 即用户体验） 以及数据科学的导师和学习者配对，这有助于我们听从前辈的意见。
 
 在我们免费的[用户体验职业引导 - Guide to UX Careers](https://www.springboard.com/guide-to-ux-design-careers/) 中，我们汇总了许多领域内顶尖从业者的建议。
 
@@ -108,7 +108,7 @@ Jack 是 [Flavors.me](http://flavors.me/) 和 [Flavors.me](http://flavors.me/) �
 
 ## 5\. [**Laura Klein**](https://twitter.com/lauraklein)
 
-Laura 在硅谷做了15年的工程师和设计师。她的目标是帮助创业公司了解他们的用户，从而更快地做出更好的产品。她的书，[UX 精益创业 - UX for Lean Startups](http://www.amazon.com/UX-Lean-Startups-Experience-Research/dp/1449334911)，以及她备受欢迎的设计博客，[Users Know](http://usersknow.blogspot.com/)，都告诉了产品所有者他们在做研究和设计的时候，需要了解什么。
+Laura 在硅谷做了15年的工程师和设计师。她的目标是帮助创业公司了解他们的用户，从而更快地做出更好的产品。她的书，[UX 精益创业 - UX for Lean Startups](http://www.amazon.com/UX-Lean-Startups-Experience-Research/dp/1449334911)，以及她倍受欢迎的设计博客，[Users Know](http://usersknow.blogspot.com/)，都告诉了产品所有者他们在做研究和设计的时候，需要了解什么。
 
 ![image06](https://studio.uxpin.com/wp-content/uploads/2016/02/image062.png)
 
@@ -146,12 +146,12 @@ Laura 在硅谷做了15年的工程师和设计师。她的目标是帮助创业
 
 ### **职业建议**
 
-不要轻易满足。不要让一个标签定义你，或是限制你的人生目标。试图从一切人和物中寻找答案，即使一开始他们看起来与问题毫无关系。你总是能够变成任何你想要的样子。
+不要轻易满足。活在当下。不要让一个标签定义你，或是限制你的人生目标。试图从一切人和物中寻找答案，即使一开始他们看起来与问题毫无关系。你总是能够变成任何你想要的样子。
 
 
 ## 7\. [**Kevin M. Hoffman**](https://twitter.com/kevinmhoffman)
 
-在 Seven Heads Design，Kevin “解决那些你甚至不知道你有的问题” —— 这不仅仅包含了人与电脑的交互，也包含了人与人自己的交互。他的客户包括哈佛大学、任天堂、以及 MTV。你可以在他的[网站](http://kevinmhoffman.com/)以及 [Twitter](https://twitter.com/kevinmhoffman) 上找到他。
+在 Seven Heads Design，Kevin 致力于“解决那些你甚至不知道你有的问题” —— 这不仅仅包含了人与电脑的交互，也包含了人与人自己的交互。他的客户包括哈佛大学、任天堂、以及 MTV。你可以在他的[网站](http://kevinmhoffman.com/)以及 [Twitter](https://twitter.com/kevinmhoffman) 上找到他。
 
 ![image04](https://studio.uxpin.com/wp-content/uploads/2016/02/image044.png)
 
@@ -159,7 +159,7 @@ Laura 在硅谷做了15年的工程师和设计师。她的目标是帮助创业
 
 我是整个 Android 系统以及 Google Play 用户体验的粉丝，我最近还爱上了 Android Wear。
 
-当 Android [Kit Kat](http://www.android.com/kitkat/) 版本以及 Nexus 5 发布的时候，我试着开始使用 Android。我认为其中有大量的界面选择都是非常好的。而其中我最喜欢的是其预料性以及[微交互（microinteraction）](http://microinteractions.com/)，比如在推送通知上你可以做的不同动作，以及系统与安排用户日程的无缝衔接。
+当 Android [Kit Kat](http://www.android.com/kitkat/) 版本以及 Nexus 5 发布的时候，我试着开始使用 Android。我认为其中有大量的界面选择都是非常好的。而其中我最喜欢的是其预见性以及[微交互（microinteraction）](http://microinteractions.com/)，比如在推送通知上你可以做的不同动作，或者系统将用户所需日程安排无缝整合。
 
 ![image03](https://studio.uxpin.com/wp-content/uploads/2016/02/image035.jpg)
 
@@ -178,7 +178,7 @@ Laura 在硅谷做了15年的工程师和设计师。她的目标是帮助创业
 
 最有趣的事，就是描绘那些你不论是否愿意而面对的事实上很小的决定。你的目标应该是做出更好的决定，使得它们能最大化地影响你的人生，而不是选择那些理想化的东西。
 
-同时，尽可能去理解自我怀疑能且仅能帮助你变得谦卑。不要过于严肃地对待你自己。更多地练习，因为你，对于这个年长的我，做了一些什么呢？同时，不要过度使用‘同时’这个词。”
+此外，尽可能去理解自我怀疑能且仅能帮助你变得谦卑。不要过于严肃地对待你自己。更多地练习，因为你，对于这个年长的我，做了一些什么呢？此外（Also），不要过度使用‘also’这个词。”
 
 
 ## 8\. [**Lis Hubert**](https://twitter.com/lishubert)
