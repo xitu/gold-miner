@@ -3,7 +3,6 @@
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [@Yushneng](https://github.com/rainyear)
 * 校对者: [@L9m](https://github.com/L9m)，[@iThreeKing](https://github.com/iThreeKing)
-* 状态：翻译完成
 
 
 作为 [Python](https://www.python.org/) 核心开发者之一，让我很想了解这门语言是如何运作的。我发现总有一些阴暗的角落我对其中错综复杂的细节不是很清楚，但是为了能够有助于 Python 的一些问题和其整体设计，我觉得我应该试着去理解 Python 的核心语法和内部运作机制。
