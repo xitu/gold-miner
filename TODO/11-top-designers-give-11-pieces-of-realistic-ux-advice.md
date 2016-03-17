@@ -4,7 +4,7 @@
 * 原文作者 : [Roger Huang]
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [Adam Shen](https://github.com/shenxn)
-* 校对者: 
+* 校对者: [iThreeKing](https://github.com/iThreeKing)，[circlelove](https://github.com/circlelove)
 
 优秀的设计者是终生学习者。
 
