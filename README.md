@@ -88,7 +88,8 @@
 
 ## 设计
 
-* [[译]为什么有些设计初衷很好，结果却很糟糕](http://gold.xitu.io/entry/56e000421532bc005161b4af)([L9m](https://github.com/L9m) 翻译)
+* [[译] 11 个顶级设计师分享他们的职业建议](http://gold.xitu.io/entry/56ea5b03731956005d025af3) ([Adam Shen](https://github.com/shenxn) 翻译)
+* [[译]为什么有些设计初衷很好，结果却很糟糕](http://gold.xitu.io/entry/56e000421532bc005161b4af) ([L9m](https://github.com/L9m) 翻译)
 * [Mastering Sketch 3](http://gold.xitu.io/entry/5659daf9ddb299ad38f9e446)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/sketch-mastering.md)) ([jabez128](https://github.com/jabez128) 翻译)
 * [Making Learning Easy by Design](http://gold.xitu.io/entry/56cbbf9671cfe40054e91c02)([s2dongman (申悦)](https://github.com/s2dongman) 翻译)
 * [An Introduction to Sprite Animation](https://github.com/xitu/gold-miner/blob/master/TODO/sprite-animation.md)([Aaaaaashu](https://github.com/Aaaaaashu?tab=repositories) 翻译)
