@@ -9,7 +9,7 @@
 ###### _第 2 部分_
 
 在先前的[文章<sup class="readableLinkFootnote">[1]</sup>](http://www.cirorizzo.net/building-a-kotlin-project/)中，我们从零开始创建了一个新项目，并且为小猫咪应用调整了 `build.gradle`。
-> 译注：前文[译本](http://gold.xitu.io/#/entry/56e3fdc3df0eea0054c7c61f)
+> 译注：[点此](http://gold.xitu.io/#/entry/56e3fdc3df0eea0054c7c61f)查看前文译本
 
 接下来就是针对应用的基础部分编写代码了。
 
