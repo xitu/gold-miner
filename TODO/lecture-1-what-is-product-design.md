@@ -1,175 +1,177 @@
 >* 原文链接 : [What is Product Design?](https://medium.com/intro-to-digital-product-design/lecture-1-what-is-product-design-c290bfe799a9#.ctnank1m1)
 * 原文作者 : [Andrew Aquino](https://medium.com/@andrewaquino)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
+* 译者 : [Zhangjd](https://github.com/zhangjd)
 * 校对者: 
-* 状态： 认领中
+* 状态 : 待校对
 
 ![](https://cdn-images-1.medium.com/max/2000/1*kOx2oUFQrrXhbUF9CMQHog.jpeg) 
 
-### Lecture 1: What is Product Design?
+### 第一课：什么是产品设计?
 
-_This post is a summarized transcript from Intro to Digital Product Design course hosted by CUAppDev at Cornell University. The course is a 1 credit S/U and runs on Mondays 5:30PM to 6:30PM in Phillips 203._
+_这篇文章是对 CUAppDev 在康奈尔大学主办的 Intro to Digital Product Design 课程的总结记录。这门课程是1学分的，时间每周一 5:30PM 到 6:30PM，地点 Phillips 203。_
 
-### What is Good Design?
+### 什么是好的设计?
 
-Craigslist is famous for its aesthetic, which seems aged compared to today’s Flat UI and large hero images. But, that brings up the question:
+Craigslist 以其美学标准而闻名，和今天的扁平风格 UI 与大英雄形象相比，Craigslist 的审美看起来似乎有点老了。但是，问题来了：
 
-> Is Craigslist good design?
+> Craigslist 是不是好的设计?
 
-Many are quick to say that Craigslist’s design is old and cluttered, and therefore a bad design. However, what metrics can prove that? Craigslist reels in **50 billion page views** a month.
+许多人很快会说，Craigslist 的设计既过时又杂乱，因此是坏的设计。可是，有什么指标可以证明这个观点呢？Craigslist 每个月可是有 500 亿 PV 呢。
 
-Despite what may be intuition, Craigslist works — it actually works well. Most users have little trouble finding specific categories and performing actions like selling and buying.
+尽管直觉上感觉是那样，但 Craigslist 确实成功了 - 事实上它是挺好用的。大部分用户在寻找特定分类和进行买卖等操作时，都不会有太大的困难。
 
-There is a difference between good user interfaces and good user experience. Craigslist has a dated user interface, but it most importantly has great user experience. This is why Craigslist can be considered good design.
+好的用户界面和好的用户体验是有区别的。Craigslist 有着过时的用户界面，但更重要的是它有很棒的用户体验。这就是为什么我们可以认为 Craigslist 拥有良好的设计。
 
 ![](https://cdn-images-1.medium.com/max/800/1*flGQAGbkERLU7wOQKiImnw.jpeg) 
 
-### So, what actually is product design?
+### 所以，到底什么是产品设计?
 
-Product Design is about problem solving, and product designers seek to improve the experiences of products. And, they do so by using a variety of skills: Animating, Prototyping, Coding, Research, Visual, Interaction Design, Psychology, and Business Strategy (E[ric Eriksson](https://medium.com/@ericeriksson)).
+产品设计离不开解决问题，而产品设计师追求的是提高产品的体验。并且，他们还要懂得通过运用许多技能来完成这一目标：动画、原型、编程、调查、视觉设计、交互设计、心理学以及经营策略 ([Eric Eriksson](https://medium.com/@ericeriksson)).
 
-> “ If you look at your Product Designer as someone that makes your solution look presentable, look again. A product designer helps you identify, investigate, and validate the problem, and ultimately craft, design, test and ship the solution.” — Eric Eriksson
+> “如果你只把产品设计师视作一种把方案设计得可以见人的职业，请重新思考。产品设计师是帮你识别、调查和验证问题的，并最终精巧地制作、设计、测试和完成整个解决方案的。” — Eric Eriksson
 
-Here are four examples to show you just a taste of what product designers do:
+以下四个例子，可以让你浅尝到当一个产品设计师的体验：
 
-**Product Designers explore solutions.**
+**产品设计师探索解决方案。**
 
-The Slack interface you see could be totally different. A designer should never commit to one idea from a client or a manager, but should explore various alternatives to solve a single problem.
+你所看见的 Slack 用户界面会是完全不同的。一个设计师不应该仅从一个客户端或者从一个管理器提交一个创意，而应该探索各种不同的可能性，从而解决单个问题。
 
 ![](https://cdn-images-1.medium.com/max/600/1*B4GBOSHIt1Ws6W_T3R6eag.jpeg) 
 
 ![](https://cdn-images-1.medium.com/max/600/1*eTkC_l2vUaYuStgBQoRoNA.jpeg) 
 
-**Product Designers validate solutions.**
+**产品设计师验证解决方案。**
 
-Quirky clothing brand, [Betabrand](http://betabrand.com), wanted to test a question: Do length of beards affect the click-through rates of advertisements.
+古怪的服装品牌，[Betabrand](http://betabrand.com)，想要测试一个问题：胡须的长度是否会影响广告的点击率。
 
-They proceeded to test various ads using the same model with beards ranging from short to really large. _What did they find?_ Their analytics found that the ad’s clickthrough rate improved almost double with the largest beard.
+于是他们就着手测试了不同的广告，这些广告都用了同一个模特，只是胡子的长度从短到长分为多个等级。_他们发现了什么呢？_ 经过他们的分析，胡子长度最长的广告，点击率几乎提升了两倍。
 
 ![](https://cdn-images-1.medium.com/max/600/1*-_h5Losqn2mtA4emTxDqdw.jpeg) 
 
 ![](https://cdn-images-1.medium.com/max/600/1*bLP2bqxfZv4RNyO-OwAgeQ.jpeg) 
 
-**Product Designers discover the real issue.**
+**产品设计师发现真实问题。**
 
-Whether it was for disliking obnoxious political posts, showing disapproval at WorldStar videos, or showing sadness at catastrophes, everyone wanted a dislike button. However, c_an you imagine being afraid to post content because someone might dislike it?_ A dislike would have caused more problems than solutions; it would have made Facebook a place more susceptible to negativity.
+每个人都想要一个“不喜欢”的按钮，不管是为了反感讨厌的政治文章，还是在 WorldStar 视频中提出反对意见，抑或是在灾害时表达悲伤。可是，你是否可以想象到因为某人可能不喜欢而害怕发表内容的情形？不喜欢按钮引起的新问题可能比解决的问题还多；它会使 Facebook 变成一个更容易受到消极影响的地方。
 
-Designers discovered that the real issue was not the lack of a dislike button, but the idea that [not everything in life is likable](https://medium.com/facebook-design/reactions-not-everything-in-life-is-likable-5c403de72a3f#.lu650bnu7), hence: Facebook Reactions.
+设计师发现，真实问题并不是缺少一个不喜欢按钮，而是 [生活中的每样东西并非都是可以点赞的](https://medium.com/facebook-design/reactions-not-everything-in-life-is-likable-5c403de72a3f#.lu650bnu7), 因此: Facebook 作出了以下反应。
 
 ![](https://cdn-images-1.medium.com/max/600/1*0NvkunCJ6HWa3JfzDgflbQ.jpeg) 
 
 ![](https://cdn-images-1.medium.com/max/600/1*eQK9fd_TEayTt8Wvox6m8w.jpeg) 
 
-**Product Designers do what is essential.**
+**产品设计师做必要的事情。**
 
-Design is not always minimal. Google added an extra step to the sign-in process. Google did this to remove confusion for users who use multiple accounts and to prepare for new authentication solutions. While the solution arguably makes a simple task more complex, it was within their business constraint and user goals. This solution is not minimal, but rather essential.
+设计并不总是要最简化的，Google 就在登录过程里添加了一个额外步骤。Google 这样做是为了消除那些使用多重账号的人的疑虑，并为他们准备了新的验证解决方案。虽然这样的解决方案让一个简单的任务变得更加复杂，但却是符合他们的业务约束与用户目标的。这个解决方案虽然不是最简化的，但却是相当有必要的。
 
  ![](https://cdn-images-1.medium.com/max/600/1*kJW8OR5BfoPnTN0-Qdhj0Q.jpeg) 
 
 ![](https://cdn-images-1.medium.com/max/600/1*6yyZLQFU98Yygt9CpIm3JQ.jpeg) 
 
-### What makes good product design?
+### 好的产品设计，关键是什么?
 
  ![](https://cdn-images-1.medium.com/max/800/1*uTDWovhGf6miGk_MSRYmTg.png) 
 
-<figcaption>This is a paraphrased diagram from Jesse James Garrett, writer of the Elements of User Experience. Image creator is unknown (If anyone knows, please ping me).</figcaption>
+<figcaption>这是转述自 Elements of User Experience 作者 Jesse James Garrett 的一个图表。图片创作者未知（如果有人知道，请联系我）。</figcaption>
 
-Design does not only deal with visual design, but instead deals with several layers that contribute to user experience. These layers of design can be approached through a **design process**.
+设计不仅要处理视觉设计，还要处理用户体验的几个层面。这些层面上的设计可以通过一个 **设计过程** 来接近。
 
-From the process, some considerations will include: strategically approaching how one actually addresses a user, scoping what content needs to be presented, and mapping out steps a user takes to achieve a goal.
+在这个过程中，会考虑以下这些方面：战略上接近用户的实际需求，调查需要呈现什么样的内容，并描绘出用户需要哪些步骤去实现一个目标。
 
-> “But, I just want to make things look good.”
+> “但我只想要把样子变得更好看呀。”
 
-This is a common sentiment. However, these short-sighted goals can harm even the best, most innovative, ideas because…
+这是一个常见的观点。可是，这些目光短浅的目标，甚至会伤害最好的、最创新的 idea, 因为...
 
 >![](https://cdn-images-1.medium.com/max/800/1*m4-53lKUMg6R_Ek8rXaB9Q.jpeg) 
 
-A good aesthetic design cannot make up for a bad product. If you ask a designer to just make their product look nice, you’re making a mistake. How do you know if your product is actually solving a problem?
+一个好的美术设计不能弥补一个坏的产品。如果你让一个设计师只管把产品变得好看，那就错了。你怎么知道你的产品是否确实在解决问题？
 
-There needs to be some validation to design decisions whether it is made by a designer, a developer, or a product manager. Someone has to think about the overall product from a human-first standpoint.
+有需要做一些验证，来设计决定是由设计师、开发者还是产品经理拍板。他必须从人类第一的角度来看，思考整个产品的方方面面。
 
 > _Process comes from empathy_
+> _过程来自于执着_
 
-Empathy is your care for your users. You, as the designer, must _want_ to provide the best experience possible. You do this through a **design process** that fundamentally teaches you to leave no stone unturned when designing a product. (Jared Erondu)
+执着就是你对于你的用户的关心。作为一个设计师，你必须想要提供最佳的用户体验可能。你在设计产品的过程中，通过一个 **设计过程** 来完成这个目标，过程会从根本上不遗余力地教你。(Jared Erondu)
 
 ![](https://cdn-images-1.medium.com/max/2000/1*ZoU6Z_tuuKSIYtjZnHHydg.jpeg) 
 
-### 1.Course Overview
+### 课程总览
 
-#### What you will learn?
+#### 你将学到什么？
 
-2.  How to identify problems.
-3.  How to explore solutions.
-4.  & How to validate them.
-5.  How to design visually.
-6.  How to present designs.
+1.  如何确定问题。
+2.  如果探索问题。
+3.  并如何验证问题。
+4.  如何做视觉设计。
+5.  如何呈现设计。
 
-There will be no official syllabus. The course is designed to be fluid depending on the class’ progress.
+没有官方的教学大纲。本课程随着班级的进度灵活教学。
 
-#### How will you learn?
+#### 你将如何学习?
 
-**Class Structure**
+**课程结构**
 
-This lecture is more traditional, but classes in general may consist of small critiques, tool demonstrations, project walkthroughs, etc.
+这门课会更加传统，但班级通常由小讨论、工具示范、项目走查等组成。
 
-**Grading**
+**等级评定**
 
-1.  Come to class: You will are permitted 2 unexcused absences.
-2.  Hand in your assignments on time.
+1.  来上课：你可以有两次无故缺席的机会。
+2.  按时交作业。
 
-**Class Project**
+**课程项目**
 
-You pick a problem. You discover a solution. You deliver it as a case study. Example: [http://www.teehanlax.com/story/medium/](http://www.teehanlax.com/story/medium/)
+你可以挑选一个问题，然后发现解决方案，作为一个学习案例提交上来。例如：[http://www.teehanlax.com/story/medium/](http://www.teehanlax.com/story/medium/)
 
-*   Each post-assignment contributes to this class project.
+*   每次发布作业都算进这个课程项目。
 
-**Assignments  
-**You must submit both to the Facebook Group.
+**任务**
 
-1.  Post Assignments: These assignments can vary. They will always be due the Sunday before the next class.
-2.  Weekly UI (Optional) : _These are a spin-off of DailyUI_. The goal of weekly UI is to practice visual design without constraints.
+你必须把这两者都提交到 Facebook Group.
+
+1.  发布作业：这些作业可能不尽相同，但都要在下次课的前一个星期天之前提交。
+2.  Weekly UI (选做) : _这些是 DailyUI 的一个拆分_. Weekly UI 的目的是可以不受约束地练习视觉设计.
 
 ![](https://cdn-images-1.medium.com/max/800/1*zFimCaH0gGaeYjJ1WVFoSA.png) 
 
-<figcaption>Nike Cards by [Ranjith Alingal](https://dribbble.com/ranjithalingal)</figcaption>
+<figcaption>[Ranjith Alingal](https://dribbble.com/ranjithalingal) 设计的 Nike 卡片</figcaption>
 
-Yes, WeeklyUI’s are optional. However, the only way to improve visual design is to practice.
+是的，WeeklyUI 是可选做的作业。可是，想要提高视觉设计的水平，唯一途径还是要练习。
 
-> **“It is only by going through a volume of work that you will close that gap, and your work will be as good as your ambitions.” — Ira Glass**
+> **“只有通过进行大量的工作，你才能缩小差距，你的作品才能配得上野心。” — Ira Glass**
 
 <iframe src="https://player.vimeo.com/video/85040589?color=1fc9a2&portrait=0" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 
-**Course Tools**
+**课程工具**
 
-**Piazza** for logistics and questions. Lecture slides will be posted to Piazza as well.
+**Piazza** 用于组织工作和提问。演讲的幻灯片也会被传到 Piazza。
 
-**Facebook Group** for your post-assignments, peer/facilitator feedback, and extra resources. _We decided to use Facebook Group because sharing your work in public is important._
+**Facebook Group** 用在你的上传作业，同伴、推动人反馈意见，以及其它资源。_我们决定使用 Facebook Group ，是因为公开分享你的作品是很重要的。_
 
-**Medium** for lecture transcripts will be in a Medium collection.
+**Medium** 讲座记录会放在 Medium 收藏中。
 
-**Extended Resources**
+**扩展资源**
 
-**Office Hours** are Wednesday 11:00–12:00PM, Wednesday 1:30PM-2:30PM, Friday 10:00PM-11:00PM
+**办公时间** 在周三 11:00–12:00PM, 周三 1:30PM-2:30PM, 周五 10:00PM-11:00PM
 
-**1-on-1s** will be scheduled to talk to you about progress
+**一对一辅导** 将被安排用于讨论进度
 
-**Lunches** will be Mondays 12:00 to 1:00PM. These are for anything: feedback, advice, etc.
+**午餐** 安排在周一 12:00 到 1:00PM. 这些时间可以用来反馈、提意见等。
 
-**What you need (Choose one or more of the following)**
+**你需要的软件 (选择以下一项或多项)**
 
-*   Photoshop (20$/month for Adobe CC)
-*   Illustrator (20$/month for Adobe CC)
-*   Sketch (40$ for student discount)
-*   _Other design programs that you can use._
+*   Photoshop (20$/月, Adobe CC 版本)
+*   Illustrator (20$/月, Adobe CC 版本)
+*   Sketch ($40 学生优惠价)
+*   _你可以使用的其他设计程序。_
 
-#### What is in it for you?
+#### 这对你有什么好处?
 
-**Experience** You will leave with a comprehensive product case study, familiarity with design tools. But, you will also be able to communicate product decisions with product managers, designers, clients, and other stakeholders more easily.
+**经验** 当你结课时，你将获得一个完整的产品学习经验，更加熟悉设计工具。除此之外，你将可以更容易地和产品经理、设计师、客户以及其他利益相关者进行沟通。
 
-**Product Design Thinking** can translate anywhere beyond digital products. For example, product design can be as physical as the layout of the keyboard or as policy-related as organizing a classroom. Overall, this framework can help you validate _any_ decisions you have to make.
+**产品设计思想** 可以转换到数字产品之外的任何地方。比如，产品设计可以用在键盘的物理布局，或者作为决策相关的，比如组织一个课室。总之，这个框架可以帮助你验证任何你所需要做的决定。
 
-#### What is in it for us?
+#### 这对我们有什么好处?
 
 ![](https://cdn-images-1.medium.com/max/400/1*YVdmW91Yui8R8kQcEqLoPA.jpeg) 
 
@@ -177,117 +179,118 @@ Yes, WeeklyUI’s are optional. However, the only way to improve visual design i
 
 ![](https://cdn-images-1.medium.com/max/400/1*CnkBQkmVFik5V-PajgRJug.jpeg) 
 
-I’m sure you have heard people say: “_I learned everything I know from the workplace._” and “_I don’t use anything I learned from school_”. While the argument is that an education’s purpose is for maximum exposure instead of applied skills, we begged to differ in regards to design.
+我确定你曾经听过人们这样讲过：“_我在工作的地方学习了我所知道的所有东西。_” 和 “_我不会使用我在学校里学到的任何东西_”。这里的争论是，教育的目的是为了最大化接触，而不是应用技能，因此我们在设计上的要求是有所不同的。
 
-Cornell is not meeting the demand for design opportunities. That is because education lags behind industry. It will probably be a while until you see a complete course on iOS development, content marketing, front-end frameworks, etc.
+Cornell 的目的不是在迎合设计工作的具体需求。这是因为教育是滞后于产业的。知道你看到一些更完整的课程，比如 iOS 开发, 内容运营, 前端框架等之前, 情况可能一直会是这样子。
 
-As a result, there are students who are pushed into fields because specific passions cannot be fulfilled formally with credit hours. For us, there are designers who end up pursuing other majors because the “Product Designer” is unknown to them. This was the problem.
+作为结果，那些因为特定的激情才被推入到这里的学生不能在学时里真正学到东西。对于我们来说，有些设计师是结束追求其他专业来到这里，只因为“产品设计”对于他们来说是未知的。这才是主要的问题。
 
-Therefore, our solution was to fill an important gap in something that we are passionate about: design.
+因此，我们的解决方案是，在我们都满怀热情的地方填补一个重大空白：设计。
 
-#### What is in it for everyone?
+#### 这对每个人有什么好处?
 
-_The following is an adaption of [Intro to Product Design](https://medium.com/p/c2dbbc7809d3) by Stephanie Engle, who framed an excellent argument for understanding product design._
+_下面是改编自 Stephanie Engle 的一篇[关于产品设计的介绍](https://medium.com/p/c2dbbc7809d3)，他提出了一个关于理解产品设计的优秀的论据。_
 
-The lack of user-centered design of products affect people everyday; it leads to frustration and confusion to smaller and larger degrees.
+那些缺乏以用户为中心的设计，影响着人们每一天的生活，并或多或少导致失意与挫败的情绪。
 
 ![](https://cdn-images-1.medium.com/max/600/1*R4p2RGfzyDRGg-2WyhJ4CA.jpeg) 
 
 ![](https://cdn-images-1.medium.com/max/600/1*sNkNpmrVuz2tXxcyzPCoLg.jpeg) 
 
-However, at its worse design can kill. ([Stephanie Engle](https://medium.com/hh-design/intro-to-product-design-c2dbbc7809d3)).
+然而，更糟糕的设计甚至会夺走人的生命。 ([Stephanie Engle](https://medium.com/hh-design/intro-to-product-design-c2dbbc7809d3)).
 
-> **“Jenny had died of toxicity and dehydration. All because her very seasoned nurses were preoccupied trying to figure out this interface.” — **[Jonathan Shariat](https://medium.com/u/62abc616e750)
+> **“Jenny 死于中毒和脱水。全因为照顾她那位老练的护士一直在花时间操作这个界面。” — **[Jonathan Shariat](https://medium.com/u/62abc616e750)
 
 ![](https://cdn-images-1.medium.com/max/800/1*o_OGbnZnX2aNDaNuLod6uQ.jpeg) 
 
-<figcaption>**Jonathan Shariat**, Author of Tragic Design.</figcaption>
+<figcaption>**Jonathan Shariat**，Tragic Design 的作者。</figcaption>
 
-Despite the bad, design has an opportunity to spark innovation. Thinking like a designer, you can contribute in telling stories not only about how we exist, but also how we ought to exist.
+除开不好的地方，设计还有机会激发创新。像一个设计师那样思考，你可以去分享这个故事，这不仅关于我们如何存在，而且我们应该如何存在。
 
 ![](https://cdn-images-1.medium.com/max/800/1*KthtYqzfjoVkKp-WlfoVtA.jpeg) 
 
-<figcaption>Mercedes-Benz designing a potentially social experience with the incoming self-driving cars.</figcaption>
+<figcaption>梅赛德斯奔驰把潜在的社会经验用在自动驾驶汽车设计上。</figcaption>
 
 ![](https://cdn-images-1.medium.com/max/2000/1*ANw9c6PDOtB4-b35Qb85zg.jpeg) 
 
-**“But Nicole and Andrew — you aren’t teachers.”**
+**但是 Nicole 和 Andrew — 你们不是老师。”**
 
-And you’re right. We aren’t teachers. **We don’t know what we’re doing.** However, this course is an opportunity for all to learn something new. One a side note: anyone regardless of status has a right to share knowledge and experiences. [SkillShare](http://skillshare.com/) and [Berkeley’s DeCal](http://www.decal.org/) program are both real life examples that serve the greater good. Do not think of us as teachers, but instead as facilitators or content curators.
+你说得对，我们不是老师。 **我们也不知道我们在干嘛。** 可是，这个课程是一个机会，让所有人学到一些新的东西。请注意了：任何人都有权利分享知识和经验。[SkillShare](http://skillshare.com/) 和 [Berkeley’s DeCal](http://www.decal.org/) 项目都是现实生活中服务大我的鲜活例子。请试着不要把我们当作老师，而是促进者或者内容管理者。
 
-With that being said, we designed our classroom with the same framework you will learn in class. We identified several approaches, tested them for feedback, and solidified our best solution for having you learn product design.
+所以，我们设计我们的课堂，你将在课堂上学习相同的框架。我们确定了几种方法，测试了它们的反馈，并巩固了我们最好的解决方案，让你学习产品设计。
 
-In fact, several industry professionals from a16z Gen.D Mentorship program, BuzzFeed Product Design, and Facebook Product Design helped us in some shape or form to create this classroom and impart what they wished they learned about product design earlier.
+事实上，有几种专业的设计课程，包括 a16z Gen.D Mentorship program, BuzzFeed Product Design, 和 Facebook Product Design 都帮助我们设计这个课堂的形状与形式，并传授了他们所希望的，在产品设计的早期能学习到的东西。
 
-Here are some people who helped us out creating this first lecture  
+以下是帮助我们设计出第一课的人们：
  [Jared Erondu](https://medium.com/u/2bf050c6e495), [Stephanie Engle](https://medium.com/u/625007cfe848), [Cap Watkins](https://medium.com/u/2757f3636a9f), [Allison Chefec](https://medium.com/u/eedf78d45a92), [Tom Harman](https://medium.com/u/98b2642f8375), [Lindsey Maratta](https://medium.com/u/2f53109682dd), and [Sabrina Majeed](https://medium.com/u/ebec6c3f778e).
 
-To even facilitate this learning experience even more, we have an [anonymous feedback form](http://goo.gl/forms/IdkNCsbUwc)
+为了进一步促进学习体验，我们设置设计了 [匿名反馈表单](http://goo.gl/forms/IdkNCsbUwc)
 
 ![](https://cdn-images-1.medium.com/max/800/1*rmf09RfocAk2TW9Y76-ihA.jpeg) 
 
 ![](https://cdn-images-1.medium.com/max/800/1*wXzzkatTR0neLfwG_ix5Vg.jpeg) 
 
-### Logistics
+### 逻辑
 
-#### _How to register_
+#### _如何注册_
 
-Instructions on how to register are on the Facebook Group and the Piazza.
+在 Facebook Group 和 the Piazza 上面可以看到关于如何注册的指引。
 
-#### Assignments
+#### 作业
 
-All assignments are to be submitted in the Facebook group under the respective post.
+所有的作业都要上传到 Facebook group 下特定的分类里。
 
-**Post-Assignment 1: Identifying Problems**
+**分配作业 1: 分类问题**
 
-> When _____ , I want to _____ , so I can _____ .
+> 当 _____ 的时候, 我想要 _____ , 以便 _____ .
 
-Problems can be thought about in the structure above, adapted from Clay Christensen’s Jobs framework (Inspired by design team at Intercom). This will motivate you to identify shortcomings within your daily experience that you normally would not ever notice.
+参考 Clay Christensen’s Jobs framework (Inspired by design team at Intercom)，问题可以通过上面这个结构来思考。这将激励你在每天的经历中分辨出你平常没有注意到的缺点。
 
-> Eg) When taking a group photo, I want to take it on one phone, so I can avoid taking the same photo on multiple phones.
+> 例) 当拍合照的时候，我想要在一台手机上拍，以便避免在多台手机上拍同一张照片。
 
-**WeeklyUI: Mobile Sign Up Page (Optional)**
+
+**WeeklyUI: 移动端登录页面 (选做)**
 
 ![](https://cdn-images-1.medium.com/max/800/1*WYT7dZ59cv1AKEypH4-dJA.jpeg) 
 
-<figcaption>Left: [Michał Ptaszyński](https://dribbble.com/michal_ptaszynski),</figcaption>
+<figcaption>左边: [Michał Ptaszyński](https://dribbble.com/michal_ptaszynski),</figcaption>
 
-### Extended Resources
+### 扩展资源
 
 *   [https://startupsthisishowdesignworks.com/](https://startupsthisishowdesignworks.com/)
 *   [Intro To Product Design — HH Design — Medium](https://medium.com/hh-design/intro-to-product-design-c2dbbc7809d3#.iup6b4d9z)
 *   [What is Product Design? — Medium](https://medium.com/@ericeriksson/what-is-product-design-9709572cb3ff#.xsp0td71g)
 
-### What we learned
+### 我们学到了什么
 
-#### Interest
+#### 兴趣
 
-We gauged interest from more than 100 signups scaling from various colleges.
+我们调查了来自不同大学的超过 100 名注册者。
 
 ![](https://cdn-images-1.medium.com/max/800/1*9fCD64REOU_OfMlNI9jHyg.png) 
 
-<figcaption>Initial survey completed by 80 people.</figcaption>
+<figcaption>80 人完成了首次调查。</figcaption>
 
-We found that **Facebook groups** provide a unique interactive experience in addition to the class. Visualizing a product design centered community in place in which no one thought it existed, is rewarding not only to us, but to individual members.
+我们发现 **Facebook groups** 独立提供了一个课程外的交互体验。在这个没人想到的地方，虚拟化一个产品设计为中心的社区，不仅对我们有益，对于个体成员也会有所帮助。
 
-We use this to provide tools that immerse themselves into a design culture, share extended resources on new developments with design.
+我们使用这个来提供工具，使他们可以投入在设计课程中，还可以分享在设计过程中新发现的扩展资源。
 
 ![](https://cdn-images-1.medium.com/max/600/1*Qr8OXBY58xjGr9faAmvtLw.png) 
 
 ![](https://cdn-images-1.medium.com/max/600/1*RqARvkGP7D2E_hsfEBAckg.png)
 
-<figcaption>Left: Sharing a reading on the new Facebook reactions, Right: Sharing a tool to make it easier to stumble upon good design.</figcaption>
+<figcaption>左边：在 Facebook reactions 分享阅读，右边：分享一个工具，可以用来发现一些好的设计</figcaption>
 
-#### Weekly UI’s as optional assignments
+#### Weekly UI 作为选做作业
 
-WeeklyUI’s were more popular than we expected. People are very receptive to critique and feedback. We also find it easier to identify common visual design with our students.
+WeeklyUI 比我们想象的还要流行的多。大家都非常乐意接受批评和反馈。我们还发现用它可以更容易和我们的学生辨认通常的视觉设计。
 
 ![](https://cdn-images-1.medium.com/max/800/1*cL9G0hLCkfzvKMo1z0p5bA.gif)
 
-#### We are still growing
+#### 我们还在成长
 
-Please if you have any suggestions, thoughts or critiques, please message me or Nicole or fill out our [anonymous feedback form](http://goo.gl/forms/qz7rflmf5N).
+如果你有任何的建议、想法或者批评，请联系我或者 Nicole，或者填写这份 [匿名反馈表单](http://goo.gl/forms/qz7rflmf5N).
 
-### Final Thoughts
+### 最终的想法
 
 ![](https://cdn-images-1.medium.com/max/2000/1*tgU7bw1Befb6co1O5MkUqQ.jpeg)
