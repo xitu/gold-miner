@@ -98,5 +98,7 @@
 * [苹果正在带坏整个设计圈](https://github.com/xitu/gold-miner/blob/master/TODO/how-apple.md)([crackhy (曹康)](https://github.com/crackhy) 翻译)
 * [Slack如此成功的秘诀](http://gold.xitu.io/entry/56cbd5427db2a20051a7dbb2)([Boyce Chang](https://github.com/boycechang) 翻译)
 
+## 产品
 
+* [产品文案要说人](https://github.com/xitu/gold-miner/blob/master/TODO/the-secret-to-writing-killer-product-copy.md) ([iThreeKing](https://github.com/iThreeKing) 翻译)
 
