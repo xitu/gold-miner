@@ -1,135 +1,133 @@
->* 原文链接 : [the basics of designing mobile apps](http://www.designyourway.net/blog/inspiration/the-basics-of-designing-mobile-apps/)
+# 设计一款移动应用前你应该知道这些事情
+
+>* 原文链接 : [The Basics of Designing Mobile Apps](http://www.designyourway.net/blog/inspiration/the-basics-of-designing-mobile-apps/)
 * 原文作者 : [Bogdan Sandu]
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
+* 译者 : [shenxn](https://github.com/shenxn)
 * 校对者: 
 * 状态：认领中
 
-to achieve the perfect final product.
+我们有一些好消息也有一些坏消息，可能所有好消息都取决于你自己的观点。好消息是，你终于拥有了所有用于构建你自己应用的工具！
 
-We have some good news and some bad news here, potentially all good news depending on your outlook. Good news: you finally have all the tools to create your own app!
+构建应用的技术和工具都在变得更容易获得和使用。坏消息是，你不是唯一知道这个事实的人。全世界的人都在着手于构建他们的第一个应用。但是不用担心，还有更多的好消息：你可以在这里了解到构建一个完美应用的所有知识。
 
-Everyday, the technology and tools to create apps are becoming more easily accessible and more user friendly. Bad news: you are not the only one who knows this. People all over the world are embarking on their first app making journeys. But no worries, there is more good news: everything you need to know to design the perfect app is right here.
+当今的移动应用产业比以往的任何时候都更发达。所有的商业，从运动用品专营店到食品杂货店都在试图设计一个移动应用。试想哪个消费者会不希望将他们最喜欢的队伍或是他们的购物清单放在口袋里呢？
 
-The mobile app industry is bigger and better than ever. Every business, from sports franchises to grocery stores are looking to design a mobile app. And what client doesn’t want their favorite team or their shopping list in right in their pocket?
+![线框图](https://dn-shenxn.qbox.me/1207907.jpg)  
+[图片来源](https://dribbble.com/shots/1207907-Wireframes)
 
-![Wireframes](http://www.designyourway.net/diverse/4/appbasics/1207907.jpg?209eb7)  
-[Image source](https://dribbble.com/shots/1207907-Wireframes)
+在设计移动应用的时候，你需要对产品的外观、体验、以及应用和用户之间的关系负责。记住，这种责任是永远不会结束的。然而，有这么多成功的机会，也会有很大犯错的可能。
 
-With mobile app designing, you are in charge of the look and feel of the product, as well as the relationship between app and user. Knowing this, the possibilities are endless. However, with so much room for success, there is also a lot of room for error.  
+我们来了解一些设计应用时非常重要的事，包括如何做研究到如何与开发团队合作。
 
-Lets take a look at the top things to keep in mind when designing your app, from research to working with developing teams.
+### 第一，做研究
 
-### First, research
+在我们开始讨论研究部分前，先回顾一下你之前所做的。恭喜你！你将要踏上一个非常有趣、有一点困难并且非常值得的旅程。
 
-Before we take a look at the research portion of creating an app, take a second to pat yourself on the back. Congratulations! You are about to embark on a journey that is very fun, a little difficult, and extremely rewarding.
+有句格言说：写你所知道的。这对于应用设计来说同样适用。如果你想要做一个应用的设计师，你应该先成为一个应用的用户。作为一个用户，你会开始开始了解你喜欢应用的哪些部分，又不喜欢哪些部分。比如哪些字体看起来最棒，或者哪些布局最易于使用。
 
-The old proverb says, write what you know. This applies to app designing. If you are planning on becoming an app designer a good first step is to be an app user. As an app user, you will start to learn what you like and don’t like in an app, like which fonts look the best and which layouts are easiest to use.
+移动应用于网站或者在线应用有很大的不同，但是你知道：到目前为止你是应用的一个活跃用户，也是一个重度的智能手机拥有者。你知道移动应用是有重心的、具有特殊性的，并且是独立的、封闭的。在你设计你自己的应用时也要牢记这些。
 
-Mobile apps are very different than websites or online applications, but you know that- by now you are an prolific app user and an obsessive smartphone owner, right? You know that mobile apps are focused. They are specific. They are individual. They are insular. Remember this when you are designing your app.
+另一件需要记住的是，移动应用都是全新的！同时，它们使用的平台、智能手机也都是新的。保持在世界智能手机创新的顶峰能让你在设计领域不断向前，也让你的应用成为最新、最闪耀的应用。
 
-Another thing to keep in mind is that mobile applications are new! And so are the platforms they are used on, smart phones. Keeping on top of the new innovations in the world of smart phones will put you ahead of the curve in the designing world, helping your app to be the newest, shiniest version of itself.
+此外，阅读官方的设计指南不是一个坏主意，像是 [iOS 用户界面指南 - iOS Human Interface Guidelines](https://developer.apple.com/library/iOS/documentation/userexperience/conceptual/mobilehig/) 或是 [Android 用户界面指南 - Android User Interface Guidelines](https://developer.android.com/design/index.html)。
 
-Also, reading about the official guidelines for design, the [iOS Human Interface Guidelines](https://developer.apple.com/library/iOS/documentation/userexperience/conceptual/mobilehig/) or [Android User Interface Guidelines](https://developer.android.com/design/index.html), is not a bad idea.
+### 第二，做更多的研究
 
-### Second, more research
+你为什么要做这个？你打算怎么做？这是两个令人胆怯，但显然是非常重要的问题。在你开始你的应用设计之前，你必须要问你自己。
 
-Why are you doing this and how are you going to do it? These are two daunting, but absolutely necessary, questions you must ask yourself at the beginning of your app designing process.
+![第二，做更多的研究](https://dn-shenxn.qbox.me/a490147fjw1f1zzi4m85sj20jg0elwiw.jpg) 
+[图片来源](https://dribbble.com/shots/992731-Wireframing-Close)
 
-![Second, more research](http://ww1.sinaimg.cn/large/a490147fjw1f1zzi4m85sj20jg0elwiw.jpg) 
-[Image source](https://dribbble.com/shots/992731-Wireframing-Close)
+你为什么要做这个？你想通过设计一个应用做到什么？这是一个市场化还是品牌化行动？它是为了获得额外的收入渠道吗？这知识你在线产品的一个移动端版本吗？你有两个目标。
 
-Why are you doing this? What are you accomplishing by designing an app? Is it a marketing or branding move? It is to gain extra revenue channels? Is it simply a mobile version of your online presence or product? You have two goals.
+第一是设计一个应用，第二是使应用达成你的目的，不论是为了钱、交流或是便利性。如果你能在设计进程中牢记你的目标，最终的产品就会更加有效。
 
-First to design an app, second for the app to generate something, whether it be money, discussion, or convenience. If you have clearly in mind the latter goal during the designing process, the product will be more effective.
+你打算怎么做一个应用？列出你构建应用所必须完成的任务是非常有帮助的。做一个计划日程来检查列表上所有的项目是创建一个应用最有效率的方式。
 
-How are you going to make an app? Writing a list of tasks that must be completed in order to create your app is extremely helpful. Having an agenda and a plan to check off every item on your list is the most efficient way to go about creating your app.
+此外，思考一下谁将要使用你的应用。如果你同时从设计师和用户的角度去思考你的应用，你将能创造一个两边都感到开心的应用。
 
-Also, think about who is going to be using your app. If you are think about your app from your perspective as a designer and the audience’s perspective as users, you will create an app with which both sides are happy.
+### 研究你的竞争对手
 
-### Check out your competition
+![研究你的竞争对手](https://dn-shenxn.qbox.me/922825.jpg)  
+[图片来源](https://dribbble.com/shots/922825-close-side-menu)
 
-![Check out your competition](http://www.designyourway.net/diverse/4/appbasics/922825.jpg?209eb7)  
-[Image source](https://dribbble.com/shots/922825-close-side-menu)
+不论你是在一个乐队战争或是烹饪比赛中，了解你的对手总是聪明的。对移动应用来说，有太多不同的网站、论坛和帖子可以让用户分享他们对于应用的观点。
 
-Seeing what you are up against is always smart, regardless of whether you are in a battle of the bands or a cooking competition. In the case of mobile apps, there are many different sites, forums, and threads for users to express opinions about apps.
+花上几个小时详细阅读这些网站和评论，你就可以对市场上的应用有一个比较全面的认识，同时也可以了解到用户想要什么。在开始设计应用之前知道你用户的偏好可以在之后为你节省很多修改的时间。
 
-Perusing these sites and comment sections for a few hours can give you a really good picture of what is on the market, as well as what the users wish was on the market. Knowing your user’s preferences before you even begin to design the app is going to save you a lot of time editing later.
+当然用户总是对的，但是不要把互联网上的话都当成对的。下载一些应用，考虑哪些观点是正确的，而哪些地方你不认同。
 
-Of course the customer is always right, but don’t take the internet’s word for it! Watch and learn. Download a couple of apps, think about what they got right and what you would do differently.
+### 获得灵感
 
-### Get inspiration
+![获得灵感](https://dn-shenxn.qbox.me/1367175.jpg)  
+[图片来源](https://dribbble.com/shots/1367175-Sleep-Tracker-UI-Part-2-UX-iPhone-interface-App-iOS-7)
 
-![Get inspiration](http://www.designyourway.net/diverse/4/appbasics/1367175.jpg?209eb7)  
-[Image source](https://dribbble.com/shots/1367175-Sleep-Tracker-UI-Part-2-UX-iPhone-interface-App-iOS-7)
+就像之前提到的，你正在进入一个巨大的、瞬息万变的、并且年轻的领域。每天都有成百上千的应用被创造出来，每一天都会有新的东西。流行语“有一个实现了该功能的应用”不是凭空出现的。应用的总数以及它们实现的功能都是令人震惊的。你希望你的应用是独特但易于使用的。
 
-As previously mentioned, you are entering into a huge, dynamic, and young field. With thousands of apps being created every day, there is always something new. The popular phrase, “There’s an app for that”, didn’t sprout up out of nowhere. The amount of apps and things that they do is staggering. You want to be different but approachable. Be unique and usable.
+视觉灵感是非常重要的。这甚至是一种可以让你在整个产业留下自己印记的方式。想想那些手机上已经存在的手势。在手机上完成任务的技术是不断发展的。想想那些还没有出现的手势。你应该时刻想着：“完成这项任务最自然的方式是什么？”双击？滑动？还是输入文字？
 
-Visual inspiration is very important part of this. It is also a way that you could leave your own mark on the entire industry. Think about the gestures that exist on mobile phones. The techniques used to get stuff done on our phones is constantly evolving. Think about what doesn’t exist yet. Your mantra should be, “What is the most natural way to get this done.” Double tapping? Swiping? Typing?
+记住：寻找灵感但不要剽窃。你可以通过观察那些已经存在的应用学到很多，并且极大地改善你自己的应用。
 
-Remember: inspire yourself but don’t steal. You will learn a great deal and vastly improve your app by looking at what is already out there.
+### 是时候设计应用了
 
-### Now it’s time to design the app
+![是时候设计应用了](https://dn-shenxn.qbox.me/934508.jpg)  
+[图片来源](https://dribbble.com/shots/934508-Secret-Project)
 
-![Now it's time to design the app](http://www.designyourway.net/diverse/4/appbasics/934508.jpg?209eb7)  
-[Image source](https://dribbble.com/shots/934508-Secret-Project)
+终于，是时候应用所有的研究成果了！想想你使用应用时所有的体验，以及你读到的所有用户的评论、顾虑和意见。现在，记住你希望你的应用看起来如何？带给用户怎样的感觉？怎样来使用？不论是画草图还是 Photoshop，开始设计你的应用吧。
 
-Finally! Time to put all that research to use! Think about all the things you experienced using apps and all of the comments, concerns, and suggestions of the users that you have read. Now, keeping this in mind, how do you want your app to look? To feel? To be used? Either by sketching or using Photoshop, start to design the app.
+这一部分可能会很难而且很耗费时间。记住：现在花费的时间就是将来节省的时间。
 
-This part of the process can be difficult and time consuming. Remember: Time spent here is time saved later.
+当你的应用有一个基本草图的时候，不论是在纸上的还是在你的硬盘里，你就可以开始构建应用的结构了。有很多的原型设计应用可以使用，只需要确保你使用的应用与你设计的界面兼容就可以了。
 
-After you have a vision for your app, one that you have put on paper or on your hard drive, it is time to build the bones of your app. There are many prototyping applications you can use, just be sure to use one that is compatible with the interface you are designing for.
+确保应用的基础组件具备功能性显然是非常重要的。创建一个强健的核心可以保证你的应用易于使用，而不是使用户感到困扰的。你应用不同的草稿或是版本是非常必要的，所以从基础开始设计你的应用可以使你所有的版本即使不是完美的也是有用的。
 
-Making sure that the basic components of your app are functional is very important for obvious reasons. Creating a strong core will ensure that your app is a pleasure to use, instead of a hassle. Different drafts or versions of your app will be necessary, so starting with the basics will make all of your versions usable, if not perfect.
+### 关于细节
 
-### Details matter
+如果魔鬼存在于细节中，那天使也同样在细节中。一个美妙的重音符号或是一个有风格的字体都会是你的应用在巨大的市场中获得成功。那些细节可以成就一款应用，也可能毁掉一款应用。
 
-If the devil is in the details, so is the angel. A beautiful accent or a stylish font will help your app to stick out in a huge market. The little things matter; they can make or break an app.
+**导航**
 
-**Navigation**
+![导航](https://dn-shenxn.qbox.me/889785.jpg)  
+[图片来源](https://dribbble.com/shots/889785-Profile-Sreen)
 
-![Navigation](http://www.designyourway.net/diverse/4/appbasics/889785.jpg?209eb7)  
-[Image source](https://dribbble.com/shots/889785-Profile-Sreen)
+在你的应用中浏览应该是非常容易的。如果用户不能找到他们想要的，他们就不能获得完整的应用体验。用户之前的使用习惯应该高于应用的风格，这样才能创造流畅的用户体验。将谷歌、必应、或是其他流行搜索引擎作为参考不失为一个好方法。
 
-Navigating your app should be easy. If users can’t find what they’re looking for, they will not get the full app experience. Intuitive use should take precedent over style. Taking a page out of the books of google, bing, or other popular search engines is not a bad idea.
+有经验的应用设计师都赞同，导航不应该是一个有过多创新的元素。可以在传统的搜索系统上增加一些个人的特色，但不要创造一个用户需要学习的系统。
 
-Experienced app designers all agree, navigation is not an element to be extremely creative with. Add personal flare to conventional searching systems, don’t create a system that users will have to learn.
+**排版**
 
-**Typography**
+![排版](https://dn-shenxn.qbox.me/1139651.jpg)  
+[图片来源](https://dribbble.com/shots/1139651-Tiny-green-app)
 
-![Typography](http://www.designyourway.net/diverse/4/appbasics/1139651.jpg?209eb7)  
-[Image source](https://dribbble.com/shots/1139651-Tiny-green-app)
+这是设计应用最重要的一个方面。如果你的文本难以阅读或者你的字体很难看，你的应用将会变得无法使用。
 
-This is one of the most important aspects of designing your app. If your text is difficult to read or your font is hard to look at, your app will be impossible to use.
+行间距以及字间距都是非常重要的，特别是当移动应用只有有限的空间时。你希望在不影响文字阅读的前提下最大化利用你的空间。
 
-Spaces between lines and words are important to nail, especially with mobile apps where the space is limited. You want to make sure you are maximizing your space without cramping your text.
+有经验的应用设计师都赞同，你可以让你的用户自定义文字样式，但是你依然应该使用好看的字体。如果用户可以选择字体将会给他们留下更深的印象，但是不论你的设计中是否包括字体设置，你的字体都应该是易于阅读的，有风格的，并且合适的。
 
-Experienced app designers all agree, you can make it possible for the client to choose the text but you still have to make the fonts look great. Its all the more impressive if your clients get options when it comes to font. But regardless of whether you include font settings in your design, make it readable, make it stylish, and make it match.
+**配色方案**
 
-**Color scheme**
+![配色方案](https://dn-shenxn.qbox.me/1382687.jpg)  
+[图片来源](https://dribbble.com/shots/1382687-FM-Radio-UI-iOS-7-App)
 
-![Color scheme](http://www.designyourway.net/diverse/4/appbasics/1382687.jpg?209eb7)  
-[Image source](https://dribbble.com/shots/1382687-FM-Radio-UI-iOS-7-App)
+如果你像我一样，这将会是有趣的一部分！选择完美的颜色来补足你的设计是有趣且重要的。过多的颜色可能会分散用户的注意力，或使用户感到困惑。
 
-If you are anything like me, this is the fun part! Picking out the perfect colors to complement your design is fun and important. Too many colors can be distracting or confusing.
+尝试不同的配色方案是最好的测试方法。你肯定希望你的颜色没有冲突，并且你的文字在背景上可见。有经验的应用设计师会告诉你，在颜色上，少即是多。
 
-Trying out different schemes is the best way to test your color scheme. You definitely want to make sure that your colors aren’t clashing and that your text is visible over your background. Experienced app designers will tell you, less is more when it comes to colors.
+### 测试是至关重要的
 
-### Testing is vital
+现在你的想法是一流的，你的设计是漂亮的，颜色是完美协调的，并且文字也拥有完美的字体，那接下来你要做什么呢？你需要确认真实的用户在使用你的应用时是怎样的体验。在应用将会被运行的设备上测试无疑是非常重要的，这确保你的设计可以给用户最大限度地享受和生产力。
 
-So your idea is stellar, your design is beautiful, the colors are perfectly coordinated and the text is the perfect font and size- now what? You want to make sure that your app is built for an actual person to use is what. Testing out your app on devices that the app will be used on is incredibly important to ensure that the user will receive maximum enjoyment and productivity from your design.
+设计中很重要的细节在测试中都非常关键。你能够单手够到所有的案件吗？可以的话，那你在打字的时候另一只手会遮住重要信息吗？
 
-The details mattered in the design and they matter now. Can you reach all the keypads with one hand? Good. But are you blocking important information with your other hand while you type?
+![测试是至关重要的](https://dn-shenxn.qbox.me/thumb_zone.jpg)  
+[图片来源](http://uxmag.com/articles/excerpt-from-the-new-book-the-mobile-frontier)
 
-![Testing is vital](http://www.designyourway.net/diverse/4/appbasics/thumb_zone.jpg?209eb7)  
-[Image source](http://uxmag.com/articles/excerpt-from-the-new-book-the-mobile-frontier)
+此外同样重要的是，你的应用在比你的测试机更老更差的设备上是否依然运行良好。确保所有的用户都能完整体验你的应用是成功的一个重要因素。
 
-And, just as importantly, will the app still look great on an older or inferior model than the device that you are using to test your prototype on. Making sure that all of your users can experience the full grandeur of your app is a key component in being successful.
+### 结语
 
-### Ending thoughts
+现在你已经知道设计移动应用所有的基本内容了，去制作你自己的杰作吧！移动应用平台是一个极棒的平台，那上面有大量的选择和机会。
 
-Now that you know all the basics of designing mobile apps, go and make your masterpiece! The mobile app platform is a fantastic one to design in, with so many options and opportunities.
-
-As a parting tip, working closely with the developer of your app is always a good idea. You want to make sure that your app is exactly how you envisioned it, in all its splendor and glory. Working for months on an app just to have the developer flip your project on its head is never fun. So although this final part of the process may be tedious, it is the smartest way to achieve the perfect final product.
-
-
+最后我要提的是，与应用的开发者紧密合作总是一个好主意。你希望确保你应用的方方面面都跟你预想的一样。花几个月的时间设计一款应用，开发者却按照他自己的思路应付你的项目将会让人沮丧。所以即使进程的最终部分是沉闷冗长的，这将是创造出完美的最终应用的最佳方式。
