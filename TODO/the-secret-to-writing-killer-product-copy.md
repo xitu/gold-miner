@@ -1,14 +1,14 @@
-> * 原文链接: [The Secret To Writing Killer Product Copy](https://mng.lincolnwdaniel.com/the-secret-to-writing-killer-product-copy-4f23b7d0c842#.cdbnonpna)
-* 原文作者：[Dave Gerhardt](https://medium.com/@davegerhardt)
+> * 原文链接 : [The Secret To Writing Killer Product Copy](https://mng.lincolnwdaniel.com/the-secret-to-writing-killer-product-copy-4f23b7d0c842#.cdbnonpna)
+* 原文作者 ：[Dave Gerhardt](https://medium.com/@davegerhardt)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [iThreeKing](https://github.com/iThreeKing)
-* 校对者: [devSC](https://github.com/devSC) [L9m](https://github.com/L9m)
+* 校对者 : [devSC](https://github.com/devSC)、[L9m](https://github.com/L9m)
 
 
 # 产品文案要说人话
 
 
-自从 Web 2.0 以来，许多改变让商业世界变得更美好，但我们创作和销售的产品文案的方式, 仍然停留在上世纪90年代中期。
+自从 Web 2.0 以来，许多改变让商业世界变得更美好，但我们创作和销售的产品文案的方式，仍然停留在上世纪90年代中期。
 
 我对这种情况有两点思考，其中一点比另一点更令人深思。
 
@@ -32,19 +32,19 @@
 
 我根本不认为自己是个写手。
 
-我写的很多东西也许会被英文专业或者以 AP (Associated Press,即美联社写作风格)风格为指导的人_撕掉_。
+我写的很多东西也许会被英文专业或者以 AP (Associated Press)，即美联社写作风格)风格为指导的人*撕掉*。
 
 现今，作为一个营销人员来说，最被忽视的（我认为重要）能力就是文案写作。
 
-> “这里有个简单的技巧，能够让更多的人阅读你写的东西：用口语话来写。” — [Paul Graham<sup class="readableLinkFootnote">[1]</sup>](https://medium.com/u/1753cee1bce5)
+> “这里有个简单的技巧，能够让更多的人阅读你写的东西：用口语话来写。” — [Paul Graham](https://medium.com/u/1753cee1bce5)
 
-> “让商务写作更好的最简单的方法就是：不要采用商务写作风格。” — [Seth Godin<sup class="readableLinkFootnote">[2]</sup>](https://medium.com/u/f9ac9806e153)
+> “让商务写作更好的最简单的方法就是：不要采用商务写作风格。” — [Seth Godin](https://medium.com/u/f9ac9806e153)
 
-> “让真正的读者紧跟我们的思想。同时，我们要尽可能的把我们的信息传递的清楚。” — [Ali Mese<sup class="readableLinkFootnote">[3]</sup>](https://medium.com/u/d43c46db5b92)
+> “让真正的读者紧跟我们的思想。同时，我们要尽可能的把我们的信息传递的清楚。” — [Ali Mese](https://medium.com/u/d43c46db5b92)
 
 ### 客户驱动(Customer-Driven)的文案策划
 
-在这篇[文章<sup class="readableLinkFootnote">[4]</sup>](http://blog.drift.com/)中, 我们称之其为客户驱动文案策划。
+在这篇[文章](http://blog.drift.com/)中，我们称之其为客户驱动文案策划。
 
 我们正在发送的邮件无论是登陆页面文案还是产品内部的说明文字都无妨，所有我们写的东西必须按照我们客户理解和关心的方式来写。
 
@@ -62,15 +62,15 @@ _这是你怎样在一杯咖啡的时间把文案内容描述给一位朋友？�
 
 ![](https://cdn-images-1.medium.com/max/800/1*P2hpXwAJCDMQe-md9nEang.png)
 
-[Segment<sup class="readableLinkFootnote">[6]</sup>](https://segment.com/) 是一个为工程师创造的工具。如果他们可以为每个很有技术含量的产品写出这样出色的文案，那么你也可以：
+[Segment](https://segment.com/) 是一个为工程师创造的工具。如果他们可以为每个很有技术含量的产品写出这样出色的文案，那么你也可以：
 
 ![](https://cdn-images-1.medium.com/max/800/1*PD8XfjXbB2SHTNFVUVA3Iw.png)
 
-[Stripe<sup class="readableLinkFootnote">[7]</sup>](https://stripe.com/) 也是一样，为开发者创造，但有的东西我妈妈都能懂。当然，她不会知道“一套统一 API ”是什么意思，但是 Stripe 做的很好的部分是如果你删除第一行信息，它的意思仍然清楚。
+[Stripe](https://stripe.com/) 也是一样，为开发者创造，但有的东西我妈妈都能懂。当然，她不会知道“一套统一 API ”是什么意思，但是 Stripe 做的很好的部分是如果你删除第一行信息，它的意思仍然清楚。
 
 ![](https://cdn-images-1.medium.com/max/800/1*oOzb3Ldce8uu1hll-sBqmg.png)
 
-[PillPack<sup class="readableLinkFootnote">[8]</sup>](https://www.pillpack.com/) 是一个可以派送处方药上门的在线药店。虽然这会使他们的业务陷入混杂的状况，但是他们保持事情简单、干净和清楚。
+[PillPack](https://www.pillpack.com/) 是一个可以派送处方药上门的在线药店。虽然这会使他们的业务陷入混杂的状况，但是他们保持事情简单、干净和清楚。
 
 要记住作为营销者的关键是，你的工作并不是在某个人第一次访问你的网站时，把你的整个想法都灌输给他。你的目标应该总是让他足够感兴趣再进行下一步。PillPack 就是这样提供更好更简单的用户体验 － 绝大多数人不会从一家药店得到的体验。
 
@@ -96,23 +96,23 @@ _这是你怎样在一杯咖啡的时间把文案内容描述给一位朋友？�
 
 我曾经花了很多时间逛 Quora 。它是一种难以置信的资源，因为它的机制很棒：一个人来到问答页面来问提问关于某件事的问题。自己思考它是一回事，跑去 Quora 问个问题是另外一回事。
 
-我们有一个帮助计算自己应用内部 NPS (Net Promoter Score,即净推荐值，又称净促进者得分) 的工具，所以我曾花了很多时间试图查明人们如何用自己的话来谈论 NPS 。
+我们有一个帮助计算自己应用内部 NPS (Net Promoter Score，即净推荐值，又称净促进者得分) 的工具，所以我曾花了很多时间试图查明人们如何用自己的话来谈论 NPS 。
 
-Quora 像一个知识宝库并且这里有很多评论来帮助 [完成这篇关于 NPS 的文章<sup class="readableLinkFootnote">[9]</sup>] (http://blog.drift.com/how-to-measure-nps)。
+Quora 像一个知识宝库并且这里有很多评论来帮助 [完成这篇关于 NPS 的文章] (http://blog.drift.com/how-to-measure-nps)。
 
 ![](https://cdn-images-1.medium.com/max/800/1*6IE0XgdoE_5kHqVsJstQHw.png)
 
-<figcaption>[https://www.quora.com/How-can-I-increase-the-response-rate-of-Net-Promoter-Score<sup class="readableLinkFootnote">[10]</sup>](https://www.quora.com/How-can-I-increase-the-response-rate-of-Net-Promoter-Score)</figcaption>
+<figcaption>[https://www.quora.com/How-can-I-increase-the-response-rate-of-Net-Promoter-Score](https://www.quora.com/How-can-I-increase-the-response-rate-of-Net-Promoter-Score)</figcaption>
 
 ![](https://cdn-images-1.medium.com/max/800/1*H53Xv24OI2rdMr5teK08kQ.png)
 
 #### Product Hunt
 
-现在少有全新的想法或者产品了。你可以把它变成你的优势。[Product Hunt<sup class="readableLinkFootnote">[11]</sup>](https://medium.com/u/b8b4445269d0) 的评论是文案优秀的资源库。
+现在少有全新的想法或者产品了。你可以把它变成你的优势。[Product Hunt](https://medium.com/u/b8b4445269d0) 的评论是文案优秀的资源库。
 
 Product Hunt 最棒的地方就是它的社区十分活跃，所以这里经常有许多来自特定产品用户的评论。
 
-我们最近发布了一款[免费工具<sup class="readableLinkFootnote">[12]</sup>](http://www.drift.com/daily)，它会向你展示你的 VIP 潜在客户是谁(你会收到每日邮件或者 Slack 通知)，于是我在 Product Hunt 的搜索框中搜索了一下，然后发现了几个之前也做过类似工具的创业公司，但是他们做完这个就倒闭了。
+我们最近发布了一款[免费工具](http://www.drift.com/daily)，它会向你展示你的 VIP 潜在客户是谁(你会收到每日邮件或者 Slack 通知)，于是我在 Product Hunt 的搜索框中搜索了一下，然后发现了几个之前也做过类似工具的创业公司，但是他们做完这个就倒闭了。
 
 这些评论将会对写关于一个新的免费应用的文案有巨大帮助：
 
@@ -143,7 +143,7 @@ Product Hunt 最棒的地方就是它的社区十分活跃，所以这里经常�
 
 你现在正在搭建一个崭新的电商销售平台吗？亚马逊上可没有关于电商销售平台的评论，但是它_有_销售市场类书的评论。
 
-_向写了《Copy Hackers》这本书的_ [_Joanna Wiebe_<sup class="readableLinkFootnote">[13]</sup>](https://medium.com/u/58a844d8d962) _致敬。_ _如果你感兴趣，你应该读一读_[_她所有关于如何做文案的部分_<sup class="readableLinkFootnote">[14]</sup>](https://copyhackers.com/2014/10/amazon-review-mining/)_。_
+_向写了《Copy Hackers》这本书的_ [_Joanna Wiebe_](https://medium.com/u/58a844d8d962) _致敬。_ _如果你感兴趣，你应该读一读_[_她所有关于如何做文案的部分_](https://copyhackers.com/2014/10/amazon-review-mining/)_。_
 
 你去哪里寻找点子都没关系，但是要知道，重点是关于文案的好点子到都是。有时候我们只需要跳出自己的思维定式来寻找它们。
 
