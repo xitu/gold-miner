@@ -1,9 +1,9 @@
 >* 原文链接 : [Simplify Your Life With an SSH Config File](http://nerderati.com/2011/03/17/simplify-your-life-with-an-ssh-config-file/)
 * 原文作者 : [Joël Perras](http://nerderati.com/about/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者: 
-* 状态： 认领中
+* 译者 : [@circlelove](https://github.com/circlelove)
+* 校对者: [@sqrthree](https://github.com/sqrthree) ;[@L9m](https://github.com/L9m)
+* 状态： 翻译完成
 
 # SSH 简化配置
 
