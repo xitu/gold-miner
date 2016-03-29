@@ -2,8 +2,10 @@
 >* 原文作者 : [Corinne Krych](https://www.raywenderlich.com/u/ckrych)
 >* 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 >* 译者 : [Zhongyi Tong (geeeeeeeeek)](https://github.com/geeeeeeeeek)
->* 校对者: 
+>* 校对者:
 
+
+# UIScrollView新手教程
 
 _Ray的温馨提示_：这是本站原先Objective-C热门教程的Swift升级版。Corinne Krych将教程升级到了Swift, iOS 9和Xcode 7.1.1；[原文](https://www.raywenderlich.com/?p=10518)由教程团队成员[Matt Galloway](http://www.raywenderlich.com/u/mattjgalloway)编写。阅读愉快！
 
@@ -13,7 +15,7 @@ _Ray的温馨提示_：这是本站原先Objective-C热门教程的Swift升级�
 *   如何在缩放时保持`UIScrollView`的内容居中
 *   如何在自动布局时使用`UIScrollView`进行竖直滚动
 *   如何在键盘呼出时保持文本输入控件可见
-*   如何和`UIPageControl`一起使用`UIPageViewController`，实现内容多页滚动
+*   如何和`UIPageControl`一起使用`UIPageViewController`，实现内容多页连播
 
 这份教程假定你会使用Interface Builder给一个视图添加新的对象，连接你的代码和StoryBoard。在开始之前你需要熟悉Storyboard，所以如果你没有接触过的话，一定要看一下我们的[Storyboard教程(然而并没有翻译)](https://www.raywenderlich.com/?p=5138)。
 
@@ -33,19 +35,19 @@ Build之后运行，看看我们最初的项目：
 
 这份`UIScrollView`教程教给你的第一件事是，如何设置一个滚动视图，允许用户缩放、移动图片。
 
-首先，你需要添加一个滚动视图。打开_Main.storyboard_，从_Object Library_拖动一个_Scroll View_，放到_Zoomed Photo View Controller Scene_视图下的文档大纲。将_Image View_移动到你新建的_Scroll View_中。你的文档大纲现在应该是这样的：
+首先，你需要添加一个滚动视图。打开_Main.storyboard_，从_Object Library_拖动一个_Scroll View_，放到_Zoomed Photo View Controller Scene_视图下的Document Outline。将_Image View_移动到你新建的_Scroll View_中。你的Document Outline现在应该是这样的：
 
 ![](http://ww4.sinaimg.cn/large/005SiNxygw1f1ysxw8ed9j30jg09etbj.jpg)![](http://www.raywenderlich.com/wp-content/uploads/2016/01/Screen-Shot-2016-01-05-at-8.42.59-PM.png)
 
-看到红点了么？Xcode正在提示你有一些自动布局的规则没有被正确地定义。为了解决这个问题，选中你的_Scroll View_，点击故事板窗口底部的锁定按钮。添加四个新的约束：顶部、底部、前后间距。取消选中_Constrain to margins_，将所有的约束值都设为0。
+看到红点了么？Xcode正在提示你有一些自动布局的规则没有被正确地定义。为了解决这个问题，选中你的_Scroll View_，点击Storyboard窗口底部的锁定按钮。添加四个新的约束：顶部、底部、前后间距。取消选中_Constrain to margins_，将所有的约束值都设为0。
 
 ![](http://ww1.sinaimg.cn/large/005SiNxygw1f1yswkubkaj30fj0dwmyl.jpg)
 
 接下来选中_Image View_并添加相同约束。
 
-选中文档大纲中的_Zoomed Photo View Controller_来消除自动布局的警告，然后选择_Editor\Resolve Auto Layout Issues\Update Frames_。
+选中Document Outline中的_Zoomed Photo View Controller_来消除自动布局的警告，然后选择_Editor\Resolve Auto Layout Issues\Update Frames_。
 
-最后，在_Zoomed Photo View Controller_的属性检查器中取消选中_Adjust Scroll View Insets_。
+最后，在_Zoomed Photo View Controller_的Attribute Inspector中取消选中_Adjust Scroll View Insets_。
 
 Build之后运行。
 
@@ -55,7 +57,7 @@ Build之后运行。
 
 准备好开始写代码了吗？
 
-打开_ZoomedPhotoViewController.swift_，在类声明中，添加下面的输出管属性：
+打开_ZoomedPhotoViewController.swift_，在类声明中，添加下面的outlet属性：
 
 ```swift
 @IBOutlet weak var scrollView: UIScrollView! 
@@ -65,7 +67,7 @@ Build之后运行。
 @IBOutlet weak var imageViewTrailingConstraint: NSLayoutConstraint!
 ```
 
-回到_Main.storyboard_，为了将_Scroll View_和__Zoomed View Controller_组装起来，我们需要将它添加到`scrollView`输出管，将_Zoomed View Controller_设置为_Scroll View_的代理。同样地，将_Zoomed View Controller_中新的约束输出管连接到_Document Outline_中相应的约束，就像这样：
+回到_Main.storyboard_，为了将_Scroll View_和__Zoomed View Controller_组装起来，我们需要将它添加到`scrollView` outlet，将_Zoomed View Controller_设置为_Scroll View_的代理。同样地，将_Zoomed View Controller_中新的约束outlet连接到_Document Outline_中相应的约束，就像这样：
 
 ![](http://ww1.sinaimg.cn/large/005SiNxygw1f1yt7ib5j1j30jg09etbj.jpg)![](http://www.raywenderlich.com/wp-content/uploads/2016/01/Screen-Shot-2016-01-05-at-8.53.38-PM.png)
 
@@ -165,25 +167,25 @@ _注意_：一般来说，自动布局将视图的上下左右边界作为可视
 
 你可以在Apple的[技术笔记](https://developer.apple.com/library/ios/technotes/tn2154/_index.html)中了解更多。
 
-你会在实践中学到，如果使用故事板的自动布局来修复滚动视图的宽度，或是内容的真实宽度。
+你会在实践中学到，如果使用Storyboard的自动布局来修复滚动视图的宽度，或是内容的真实宽度。
 
 ### 滚动视图和自动布局
 
 打开_Main.storyboard_，新建一个场景：
 
-首先，添加一个新的_View Controller_。在尺寸检视面板中，将_Simulated Size_的_Fixed_替换为_Freeform_，并输入宽度340、高度800。你会注意到控制器的布局变得更窄更长了，模拟长条形的竖直内容的行为。模拟尺寸帮助你在Interface Builder中可视化显示效果。它不会影响运行时的效果。
+首先，添加一个新的_View Controller_。在Size Inspector中，将_Simulated Size_的_Fixed_替换为_Freeform_，并输入宽度340、高度800。你会注意到控制器的布局变得更窄更长了，模拟长条形的竖直内容的行为。模拟尺寸帮助你在Interface Builder中可视化显示效果。它不会影响运行时的效果。
 
-在新建的视图控制器中的属性检视面板中取消选中_Adjust Scroll View Insets_。
+在新建的视图控制器中的Attribute Inspector中取消选中_Adjust Scroll View Insets_。
 
 添加一个滚动视图，填充整个视图控制器的空间。在视图管理器中添加首尾约束为常数0（确认取消选中了_Constrain to margin_）。将_Scroll View_中的顶部和底部约束分别添加到顶部和底部布局向导。它们的值应该也是常数0。
 
-添加一个_Scroll View_的子视图，填充_Scroll View_所有的推荐。将它的故事板_Label_重命名为_Container View_。和以前一样，添加顶部、底部、前后约束。
+添加一个_Scroll View_的子视图，填充_Scroll View_所有的推荐。将它的Storyboard_Label_重命名为_Container View_。和以前一样，添加顶部、底部、前后约束。
 
 为了定义滚动视图的大小，并修复自动布局的错误，你需要定义它的内容大小。定义_Container View_的宽度贴合视图控制器。将_View Controller_主视图的宽度约束设置与_Container View_一致。将_Container View_的高度约束设置为500。
 
 _注意_：自动布局的规则必须完备地定义滚动视图的`contentSize`。这是在自动布局下让滚动视图正确显示大小的关键一步。
 
-在_Container View_内添加一个_Image View_。在属性检视面板中：将图像指定为_photo1_，选择_Aspect Fit_模式，选中_Clip Subviews_。像之前一样给Container View添加顶部、首尾约束。为图片视图添加n倍宽度约束为300。
+在_Container View_内添加一个_Image View_。在Attribute Inspector中：将图像指定为_photo1_，选择_Aspect Fit_模式，选中_Clip Subviews_。像之前一样给Container View添加顶部、首尾约束。为图片视图添加n倍宽度约束为300。
 
 在_Container View_中的图片下方添加一个_Label_。指定文字为“_What name fits me best?_”。在_Container View_中添加一个水平居中的宽度约束。添加与_Photo View_的竖直间距约束为0。
 
@@ -223,7 +225,7 @@ public class PhotoCommentViewController: UIViewController {
 
 更新后的`PhotoCommentViewController`实现添加了`IBOutlet`，并根据`photoName`设置`imageView`的图片。
 
-回到故事板，打开_View Controller_中的_Identity Inspector_，将_Class_设置为_PhotoCommentViewController_。打开_Connections Inspector_，装配`PhotoCommentViewController`中滚动视图、图像、文本框的_IBOutlet_。
+回到Storyboard，打开_View Controller_中的_Identity Inspector_，将_Class_设置为_PhotoCommentViewController_。打开_Connections Inspector_，装配`PhotoCommentViewController`中滚动视图、图像、文本框的_IBOutlet_。
 
 打开_CollectionViewController.swift_，将`prepareForSegue(_:sender:)`替换为下面的代码：
 
@@ -237,7 +239,7 @@ override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 }
 ```
 
-当其中一张图片被按下时，这张图片的名称会被显示在`PhotoCommentViewController`。
+当其中一张图片被按下时，这张图片的名称会被显示在`PhotoCommentViewController`。
 
 Build之后运行。
 
@@ -329,7 +331,7 @@ Build之后运行。
 
 _添加UIPageViewController_
 
-回到_Main.storyboard_，从对象库面板拖一个_Page View Controller_。打开标识检视面板，_Storyboard ID_输入_PageViewController_，在属性检视面板中，_Transition Style_默认设为_Page Curl_；改为_Scroll_并将_Page Spacing_设为_8_。
+回到_Main.storyboard_，从对象库面板拖一个_Page View Controller_。打开Identifier Inspector，_Storyboard ID_输入_PageViewController_，在Attribute Inspector中，_Transition Style_默认设为_Page Curl_；改为_Scroll_并将_Page Spacing_设为_8_。
 
 在_Photo Comment View Controller_场景的_Identity Inspector_中，指定_Storyboard ID_为_PhotoCommentViewController_，然后你可以在代码中引用它。
 
@@ -385,7 +387,7 @@ class ManagePageViewController: UIPageViewController {
 
 这段代码做了这两件微小的事情：
 
-1.  `viewPhotoCommentController(_:_)`通过故事板创建了`PhotoCommentViewController`的一个实例。你将图像的名字作为参数传递，这样视图中显示的图片和前一屏中选中的会是同一张。
+1.  `viewPhotoCommentController(_:_)`通过Storyboard创建了`PhotoCommentViewController`的一个实例。你将图像的名字作为参数传递，这样视图中显示的图片和前一屏中选中的会是同一张。
 2.  通过传入一个数组，包含刚创建的各个视图控制器，你完成了`UIPageViewController`的设置。
 
 你会发现Xcode报了一个错，提示`delegate`的值不能被设为`self`。这是因为现在`ManagePageViewController`还没有遵从`UIPageViewControllerDataSource`。在_ManagePageViewController.swift_中，`ManagePageViewController`定义外添加下面的代码：
@@ -449,7 +451,7 @@ _显示PageControl指示_
 
 在这份`UIScrollView`教程的最后一节中，你将会为应用添加一个`UIPageControl`。
 
-`UIPageViewController`可以自动提供一个`UIPageControl`。为了这样做，你的`UIPageViewController`必须拥有一个`UIPageViewControllerTransitionStyleScroll`的过渡样式，而且你必须提供`UIPageViewControllerDataSource`两个特殊方法的实现（如果你还记得的话，你已经在故事板中将_Transition Style_ 设为_Scroll_ ）在_ManagePageViewController.swift_中为`UIPageViewControllerDataSource`扩展添加这些方法：
+`UIPageViewController`可以自动提供一个`UIPageControl`。为了这样做，你的`UIPageViewController`必须拥有一个`UIPageViewControllerTransitionStyleScroll`的过渡样式，而且你必须提供`UIPageViewControllerDataSource`两个特殊方法的实现（如果你还记得的话，你已经在Storyboard中将_Transition Style_ 设为_Scroll_ ）在_ManagePageViewController.swift_中为`UIPageViewControllerDataSource`扩展添加这些方法：
 
 ```swift
 // MARK: UIPageControl
@@ -503,7 +505,7 @@ override public func prepareForSegue(segue: UIStoryboardSegue,
 }
 ```
 
-在_Main.storyboard_中，添加一个从_Photo Comment View Controller_到_Zoomed Photo View Controller_的_Show Detail_联线。选中这个联线后，打开标识检视面板，将_Identifier_设为_zooming_。
+在_Main.storyboard_中，添加一个从_Photo Comment View Controller_到_Zoomed Photo View Controller_的_Show Detail_联线。选中这个联线后，打开Identifier Inspector，将_Identifier_设为_zooming_。
 
 选择_Photo Comment View Controller_中的_Image View_，打开_Attributes Inspector_，选中_User Interaction Enabled_。添加一个_Tap Gesture Recognizer_，并连接到`openZoomingController(_:)`。
 
