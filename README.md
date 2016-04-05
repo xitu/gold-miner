@@ -101,5 +101,5 @@
 
 ## 产品
 
-* [产品文案要说人](https://github.com/xitu/gold-miner/blob/master/TODO/the-secret-to-writing-killer-product-copy.md) ([iThreeKing](https://github.com/iThreeKing) 翻译)
+* [产品文案要说人话](https://github.com/xitu/gold-miner/blob/master/TODO/the-secret-to-writing-killer-product-copy.md) ([iThreeKing](https://github.com/iThreeKing) 翻译)
 
