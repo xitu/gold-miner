@@ -5,7 +5,6 @@
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [shenxn](https://github.com/shenxn)
 * 校对者: [markzhai](https://github.com/markzhai)，[ZhaofengWu](https://github.com/ZhaofengWu)
-* 状态：认领中
 
 我们有一些好消息也有一些坏消息，也可能在你眼中这些都是好消息。好消息是，你终于拥有了所有用于构建你自己应用的工具！
 
