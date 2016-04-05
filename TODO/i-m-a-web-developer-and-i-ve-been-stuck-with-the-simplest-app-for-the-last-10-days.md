@@ -1,9 +1,8 @@
 >* 原文链接 : [I’m a web developer and I’ve been stuck with the simplest app for the last 10 days](https://medium.com/@pistacchio/i-m-a-web-developer-and-i-ve-been-stuck-with-the-simplest-app-for-the-last-10-days-fb5c50917df#.1i4q6te4a)
 * 原文作者 : [pistacchio](https://medium.com/@pistacchio)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : woota
-* 校对者: 
-* 状态： 翻译中
+* 译者 : [woota](https://github.com/woota)
+* 校对者: [iThreeKing](https://github.com/iThreeKing) [sqrthree](https://github.com/sqrthree)
 
 # JavaScript 生态之乱象
 ####（原标题：作为一名 web 开发者，我已经被一个极度简单的 app 卡了 10 天）
