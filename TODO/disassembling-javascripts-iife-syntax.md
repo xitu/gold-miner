@@ -2,7 +2,7 @@
 * 原文作者 : [Marius Schulz](https://blog.mariusschulz.com/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 :  [huxpro](https://github.com/Huxpro)
-* 校对者 : [L9m](https://github.com/L9m),[sqrthree](https://github.com/sqrthree)
+* 校对者 : [L9m](https://github.com/L9m), [sqrthree](https://github.com/sqrthree)
 
 
 # 揭秘 IIFE 语法
