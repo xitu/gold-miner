@@ -53,6 +53,7 @@
 
 ## 前端
 
+* [揭秘 IIFE 语法](http://gold.xitu.io/entry/5704e12771cfe4005dc85868) ([huxpro](https://github.com/Huxpro) 翻译)
 * [利用 :placeholder-shown 选择器实现 label 浮动效果](http://gold.xitu.io/entry/56de3c291532bc005620b320)([Zhangjd](https://github.com/zhangjd) 翻译)
 * [响应式 GraphQL 结构](http://gold.xitu.io/entry/56de66fe731956005c46782a)([shenxn](https://github.com/shenxn) 翻译)
 * [How we "CSS" at BigCommerce](http://gold.xitu.io/entry/56ce82cbc24aa800520f4215)([shenxn](https://github.com/shenxn) 翻译)
@@ -73,6 +74,7 @@
 
 ## 后端
 
+*  [SSH 简化配置](http://gold.xitu.io/entry/5704cf8e71cfe4005dc76f18) ([circlelove](https://github.com/circlelove) 翻译)
 *  [Python3.5 协程原理](http://gold.xitu.io/entry/56ea295ed342d300546e1e22)  ([Yushneng](https://github.com/rainyear) 翻译)
 *  [人人须知的 jQuery 技巧](http://gold.xitu.io/entry/56e1a95b731956005da35c24)  ([Yves-X](https://github.com/Yves-X) 翻译)
 *  [OAuth2 Authentication with Lua](http://gold.xitu.io/entry/56cd222199a6ce005a25b9ef)([BOBO](https://github.com/CoderBOBO) 翻译)
