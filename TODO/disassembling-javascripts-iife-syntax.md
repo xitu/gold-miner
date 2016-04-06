@@ -1,4 +1,4 @@
-> * 原文链接: [Disassembling JavaScript's IIFE Syntax](https://blog.mariusschulz.com/2016/01/13/disassembling-javascripts-iife-syntax)
+> * 原文链接 : [Disassembling JavaScript's IIFE Syntax](https://blog.mariusschulz.com/2016/01/13/disassembling-javascripts-iife-syntax)
 * 原文作者 : [Marius Schulz](https://blog.mariusschulz.com/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 :  [huxpro](https://github.com/Huxpro)
