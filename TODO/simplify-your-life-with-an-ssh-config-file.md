@@ -2,7 +2,7 @@
 * 原文作者 : [Joël Perras](http://nerderati.com/about/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [circlelove](https://github.com/circlelove)
-* 校对者: [sqrthree](https://github.com/sqrthree) ;[L9m](https://github.com/L9m)
+* 校对者: [sqrthree](https://github.com/sqrthree) ; [L9m](https://github.com/L9m)
 * 状态： 翻译完成
 
 # SSH 简化配置
