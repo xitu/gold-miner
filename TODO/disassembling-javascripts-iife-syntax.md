@@ -1,14 +1,12 @@
 > * 原文链接: [Disassembling JavaScript's IIFE Syntax](https://blog.mariusschulz.com/2016/01/13/disassembling-javascripts-iife-syntax)
 * 原文作者 : [Marius Schulz](https://blog.mariusschulz.com/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 :  @huxpro
-* 校对者 : 
-* 状态 : 待校对
+* 译者 :  [huxpro](https://github.com/Huxpro)
+* 校对者 : [L9m](https://github.com/L9m),[sqrthree](https://github.com/sqrthree)
+
 
 # 揭秘 IIFE 语法
 
-
-If you've spent even just a little time in the JavaScript world, you've likely come across the following pattern quite frequently. It's called an _IIFE_, which stands for _immediately invoked function expression_:
 
 只要你稍微接触过一些 JavaScript，你一定会频繁地接触到下面这个模式 —— *IIFE*，其全称为 *immediately invoked function expression*，即“立即调用的函数表达式”：
 
@@ -17,26 +15,20 @@ If you've spent even just a little time in the JavaScript world, you've likely c
     })();
 
 
-A lot of the time, the function scope of an IIFE is used to prevent leaking local variables to the global scope. Similarly, IIFEs can be used to wrap state (or data in general) that's meant to be private. The basic pattern is the same in both cases.
 
 一直以来，IIFE 创造的函数作用域被用于防止局部变量泄漏至全局作用域中。类似地，我们可以用 IIFE 来包裹私有状态（或广而言之，数据），这两者本质上是相通的。
 
 
-> Check out [this excellent post](https://toddmotto.com/what-function-window-document-undefined-iife-really-means/) by [@toddmotto](https://twitter.com/toddmotto) for more information on what IIFEs can be used for — better minification results, for instance!
 
 > 想知道 IIFE 的更多用途吗，比如提高代码压缩率？不妨看看[@toddmotto](https://twitter.com/toddmotto) 的[这篇文章](https://toddmotto.com/what-function-window-document-undefined-iife-really-means/)
 
 
 
-However, you might've been wondering why we write IIFEs the way we do. They look a little odd, after all. Let's inspect the IIFE syntax and disassemble it into its parts.
-
 不过，你可能还是会好奇为什么 IIFE 的语法是这样的？它看上去的确有一点点奇怪，让我们一点一点地来揭开她神秘的面纱吧。
 
-## [The IIFE Syntax](https://blog.mariusschulz.com/2016/01/13/disassembling-javascripts-iife-syntax#the-iife-syntax)
 
 ## [IIFE 语法](https://blog.mariusschulz.com/2016/01/13/disassembling-javascripts-iife-syntax#the-iife-syntax)
 
-At the heart of each IIFE is the function itself. It spans from the `function` keyword to the closing brace:
 
 IIFE 的核心无非就是一个函数，从 `function` 关键字开始，到右花括号结束：
 
@@ -45,14 +37,7 @@ IIFE 的核心无非就是一个函数，从 `function` 关键字开始，到右
         // ...
     }
 
-
-This piece of code alone is **not** valid JavaScript, though. When the parser sees the `function` keyword at the beginning of the statement, it expects a function declaration to follow. Since the function doesn't have a name, it doesn't follow the grammar rules of a function declaration. Therefore, the parsing attempt fails and we get a syntax error.
-
 不过，这可**不是**一段合法的 JavaScript 代码。当 parser（语法分析器）看到这段语句由 `function` 关键字开头时，它就会按照函数声明（Function Declaration）的方式开始解析了。可是这段函数声明并没有声明函数名，不符合语法规则。因此解析失败，我们只会得到一个语法错误。
-
-
-We somehow have to make the JavaScript engine parse a _function expression_ rather than a _function declaration_. If you're unsure about the difference, please refer to my post on the different kinds of [function definitions in JavaScript](https://blog.mariusschulz.com/2016/01/06/function-definitions-in-javascript).
-
 所以我们得想个办法让 JavaScript 引擎把它作为*函数表达式（Function Expression）*而非*函数声明（Function Declaration）*来解析。如果你还不知道这两者的区别，可以看看原作者这篇有关 [JavaScript 中不同声明函数方式差异](https://blog.mariusschulz.com/2016/01/06/function-definitions-in-javascript)的文章。
 
 
