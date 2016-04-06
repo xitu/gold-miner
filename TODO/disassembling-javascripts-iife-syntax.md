@@ -27,7 +27,7 @@
 不过，你可能还是会好奇为什么 IIFE 的语法是这样的？它看上去的确有一点点奇怪，让我们一点一点地来揭开她神秘的面纱吧。
 
 
-## [IIFE 语法](https://blog.mariusschulz.com/2016/01/13/disassembling-javascripts-iife-syntax#the-iife-syntax)
+## IIFE 语法
 
 
 IIFE 的核心无非就是一个函数，从 `function` 关键字开始，到右花括号结束：
@@ -73,7 +73,7 @@ IIFE 的核心无非就是一个函数，从 `function` 关键字开始，到右
 
 
 
-## [圆括号应该放哪？](https://blog.mariusschulz.com/2016/01/13/disassembling-javascripts-iife-syntax#where-do-the-parentheses-go)
+## 圆括号应该放哪？
 
 
 我们刚才的做法，是把用于调用函数表达式的圆括号直接放在用于包裹的圆括号之后：
@@ -93,7 +93,7 @@ IIFE 的核心无非就是一个函数，从 `function` 关键字开始，到右
 其实两种做法从功能还是语义上来说都差不多，所以选择一种你喜欢的并坚持下去就好了。
 
 
-## [实名 IIFE](https://blog.mariusschulz.com/2016/01/13/disassembling-javascripts-iife-syntax#named-iifes)
+## 实名 IIFE
 
 
 
@@ -117,7 +117,7 @@ IIFE 的核心无非就是一个函数，从 `function` 关键字开始，到右
 虽然 parser 现在可以成功地把它作为函数声明来解析，但很快，紧跟的 `(` 符号就会抛出语法错误了。与函数表达式不同，函数声明并不可以被立刻调用。
 
 
-## [避免文件合并时遇到问题](https://blog.mariusschulz.com/2016/01/13/disassembling-javascripts-iife-syntax#preventing-issues-when-concatenating-files)
+## 避免文件合并时遇到问题
 
 
 有时，你会看到 IIFE 的前面放了个分号：
@@ -162,7 +162,7 @@ IIFE 的核心无非就是一个函数，从 `function` 关键字开始，到右
 JavaScript [自动添加分号](http://www.ecma-international.org/ecma-262/6.0/#sec-automatic-semicolon-insertion)的特性很容易让意想不到的错误发生。我建议你永远显式地写好分号，以防解释器自己添加。
 
 
-## [用箭头函数代替函数表达式](https://blog.mariusschulz.com/2016/01/13/disassembling-javascripts-iife-syntax#arrow-functions-instead-of-function-expressions)
+## 用箭头函数代替函数表达式
 
 
 
