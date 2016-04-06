@@ -23,8 +23,8 @@
 
 ## Android
 
-* [[译]在 Android 下进行实时模糊渲染](http://gold.xitu.io/entry/56dd55d6df0eea0055b40083) ([Sausre](https://github.com/Sausure) 翻译)
-* [[译]Android 开发中利用异步来优化运行速度和性能](http://gold.xitu.io/entry/56dd4bf37664bf0052047906) ([edvardHua](https://github.com/edvardHua) 翻译)
+* [在 Android 下进行实时模糊渲染](http://gold.xitu.io/entry/56dd55d6df0eea0055b40083) ([Sausre](https://github.com/Sausure) 翻译)
+* [Android 开发中利用异步来优化运行速度和性能](http://gold.xitu.io/entry/56dd4bf37664bf0052047906) ([edvardHua](https://github.com/edvardHua) 翻译)
 *  [深入浅出 Android 权限（二）](http://gold.xitu.io/entry/56d802ab8ac2470054759796) ([Hugo Xie](https://github.com/xcc3641) 翻译)
 *  [深入浅出 Android 权限（一）](http://gold.xitu.io/entry/56d11137c24aa800544db479) ([Hugo Xie](https://github.com/xcc3641) 翻译)
 *  [世界级的 Android 测试流程（一）](https://github.com/xitu/gold-miner/blob/master/TODO/world-class-testing-development-pipeline-for-android.md) ([markzhai](https://github.com/markzhai) 翻译)
@@ -53,8 +53,8 @@
 
 ## 前端
 
-* [[译] 利用 :placeholder-shown 选择器实现 label 浮动效果](http://gold.xitu.io/entry/56de3c291532bc005620b320)([Zhangjd](https://github.com/zhangjd) 翻译)
-* [[译] 响应式 GraphQL 结构](http://gold.xitu.io/entry/56de66fe731956005c46782a)([shenxn](https://github.com/shenxn) 翻译)
+* [利用 :placeholder-shown 选择器实现 label 浮动效果](http://gold.xitu.io/entry/56de3c291532bc005620b320)([Zhangjd](https://github.com/zhangjd) 翻译)
+* [响应式 GraphQL 结构](http://gold.xitu.io/entry/56de66fe731956005c46782a)([shenxn](https://github.com/shenxn) 翻译)
 * [How we "CSS" at BigCommerce](http://gold.xitu.io/entry/56ce82cbc24aa800520f4215)([shenxn](https://github.com/shenxn) 翻译)
 * [无缝迁移 Angular 1 项目到 Angular 2](http://gold.xitu.io/entry/56d3bd6a1ea493005c1eddfa)([BOBO](https://github.com/CoderBOBO) 翻译)
 * [在 chrome 的开发者工具里 debug node.js 代码](http://gold.xitu.io/entry/56d3cfea6be3ff005c5f9b89)([sqrthree (根号三)](https://github.com/sqrthree) 翻译)
@@ -88,8 +88,9 @@
 
 ## 设计
 
-* [[译] 11 个顶级设计师分享他们的职业建议](http://gold.xitu.io/entry/56ea5b03731956005d025af3) ([Adam Shen](https://github.com/shenxn) 翻译)
-* [[译]为什么有些设计初衷很好，结果却很糟糕](http://gold.xitu.io/entry/56e000421532bc005161b4af) ([L9m](https://github.com/L9m) 翻译)
+* [设计一款移动应用前你应该知道这些事情](http://gold.xitu.io/entry/57034d617db2a200592a5213) ([Adam Shen](https://github.com/shenxn) 翻译)
+* [11 个顶级设计师分享他们的职业建议](http://gold.xitu.io/entry/56ea5b03731956005d025af3) ([Adam Shen](https://github.com/shenxn) 翻译)
+* [为什么有些设计初衷很好，结果却很糟糕](http://gold.xitu.io/entry/56e000421532bc005161b4af) ([L9m](https://github.com/L9m) 翻译)
 * [Mastering Sketch 3](http://gold.xitu.io/entry/5659daf9ddb299ad38f9e446)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/sketch-mastering.md)) ([jabez128](https://github.com/jabez128) 翻译)
 * [Making Learning Easy by Design](http://gold.xitu.io/entry/56cbbf9671cfe40054e91c02)([s2dongman (申悦)](https://github.com/s2dongman) 翻译)
 * [An Introduction to Sprite Animation](https://github.com/xitu/gold-miner/blob/master/TODO/sprite-animation.md)([Aaaaaashu](https://github.com/Aaaaaashu?tab=repositories) 翻译)
@@ -100,5 +101,5 @@
 
 ## 产品
 
-* [产品文案要说人](https://github.com/xitu/gold-miner/blob/master/TODO/the-secret-to-writing-killer-product-copy.md) ([iThreeKing](https://github.com/iThreeKing) 翻译)
+* [产品文案要说人话](https://github.com/xitu/gold-miner/blob/master/TODO/the-secret-to-writing-killer-product-copy.md) ([iThreeKing](https://github.com/iThreeKing) 翻译)
 
