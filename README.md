@@ -23,8 +23,9 @@
 
 ## Android
 
-* [[译]在 Android 下进行实时模糊渲染](http://gold.xitu.io/entry/56dd55d6df0eea0055b40083) ([Sausre](https://github.com/Sausure) 翻译)
-* [[译]Android 开发中利用异步来优化运行速度和性能](http://gold.xitu.io/entry/56dd4bf37664bf0052047906) ([edvardHua](https://github.com/edvardHua) 翻译)
+* [使用 RxJava 封装现有的库](http://gold.xitu.io/entry/5705e94a2e958a0059c4479e) ([尹述迪](http://yinshudi.com/) 翻译)
+* [在 Android 下进行实时模糊渲染](http://gold.xitu.io/entry/56dd55d6df0eea0055b40083) ([Sausre](https://github.com/Sausure) 翻译)
+* [Android 开发中利用异步来优化运行速度和性能](http://gold.xitu.io/entry/56dd4bf37664bf0052047906) ([edvardHua](https://github.com/edvardHua) 翻译)
 *  [深入浅出 Android 权限（二）](http://gold.xitu.io/entry/56d802ab8ac2470054759796) ([Hugo Xie](https://github.com/xcc3641) 翻译)
 *  [深入浅出 Android 权限（一）](http://gold.xitu.io/entry/56d11137c24aa800544db479) ([Hugo Xie](https://github.com/xcc3641) 翻译)
 *  [世界级的 Android 测试流程（一）](https://github.com/xitu/gold-miner/blob/master/TODO/world-class-testing-development-pipeline-for-android.md) ([markzhai](https://github.com/markzhai) 翻译)
@@ -53,8 +54,9 @@
 
 ## 前端
 
-* [[译] 利用 :placeholder-shown 选择器实现 label 浮动效果](http://gold.xitu.io/entry/56de3c291532bc005620b320)([Zhangjd](https://github.com/zhangjd) 翻译)
-* [[译] 响应式 GraphQL 结构](http://gold.xitu.io/entry/56de66fe731956005c46782a)([shenxn](https://github.com/shenxn) 翻译)
+* [揭秘 IIFE 语法](http://gold.xitu.io/entry/5704e12771cfe4005dc85868) ([huxpro](https://github.com/Huxpro) 翻译)
+* [利用 :placeholder-shown 选择器实现 label 浮动效果](http://gold.xitu.io/entry/56de3c291532bc005620b320)([Zhangjd](https://github.com/zhangjd) 翻译)
+* [响应式 GraphQL 结构](http://gold.xitu.io/entry/56de66fe731956005c46782a)([shenxn](https://github.com/shenxn) 翻译)
 * [How we "CSS" at BigCommerce](http://gold.xitu.io/entry/56ce82cbc24aa800520f4215)([shenxn](https://github.com/shenxn) 翻译)
 * [无缝迁移 Angular 1 项目到 Angular 2](http://gold.xitu.io/entry/56d3bd6a1ea493005c1eddfa)([BOBO](https://github.com/CoderBOBO) 翻译)
 * [在 chrome 的开发者工具里 debug node.js 代码](http://gold.xitu.io/entry/56d3cfea6be3ff005c5f9b89)([sqrthree (根号三)](https://github.com/sqrthree) 翻译)
@@ -67,12 +69,14 @@
 
 ## React
 
+* [JavaScript 生态之乱象](http://gold.xitu.io/entry/5705e71ed342d3005418ea66) ([woota](https://github.com/woota) 翻译)
 * [Making React Native apps accessible](http://gold.xitu.io/entry/56cc0ab299a6ce005a1c3b2b)([void-main](https://github.com/void-main) 翻译)
 * [如何发布一个 React components](http://gold.xitu.io/entry/56ce8d1fc24aa800520f94e8)([aleen42](https://github.com/aleen42) 翻译)
 * [Things I Wish I Were Told About React Native](http://gold.xitu.io/entry/56cbf55cefa631005c441d9b)([huanglizhuo](https://github.com/huanglizhuo) 翻译)
 
 ## 后端
 
+*  [SSH 简化配置](http://gold.xitu.io/entry/5704cf8e71cfe4005dc76f18) ([circlelove](https://github.com/circlelove) 翻译)
 *  [Python3.5 协程原理](http://gold.xitu.io/entry/56ea295ed342d300546e1e22)  ([Yushneng](https://github.com/rainyear) 翻译)
 *  [人人须知的 jQuery 技巧](http://gold.xitu.io/entry/56e1a95b731956005da35c24)  ([Yves-X](https://github.com/Yves-X) 翻译)
 *  [OAuth2 Authentication with Lua](http://gold.xitu.io/entry/56cd222199a6ce005a25b9ef)([BOBO](https://github.com/CoderBOBO) 翻译)
@@ -88,8 +92,9 @@
 
 ## 设计
 
-* [[译] 11 个顶级设计师分享他们的职业建议](http://gold.xitu.io/entry/56ea5b03731956005d025af3) ([Adam Shen](https://github.com/shenxn) 翻译)
-* [[译]为什么有些设计初衷很好，结果却很糟糕](http://gold.xitu.io/entry/56e000421532bc005161b4af) ([L9m](https://github.com/L9m) 翻译)
+* [设计一款移动应用前你应该知道这些事情](http://gold.xitu.io/entry/57034d617db2a200592a5213) ([Adam Shen](https://github.com/shenxn) 翻译)
+* [11 个顶级设计师分享他们的职业建议](http://gold.xitu.io/entry/56ea5b03731956005d025af3) ([Adam Shen](https://github.com/shenxn) 翻译)
+* [为什么有些设计初衷很好，结果却很糟糕](http://gold.xitu.io/entry/56e000421532bc005161b4af) ([L9m](https://github.com/L9m) 翻译)
 * [Mastering Sketch 3](http://gold.xitu.io/entry/5659daf9ddb299ad38f9e446)([markdown](https://github.com/xitu/gold-miner/blob/master/TODO/sketch-mastering.md)) ([jabez128](https://github.com/jabez128) 翻译)
 * [Making Learning Easy by Design](http://gold.xitu.io/entry/56cbbf9671cfe40054e91c02)([s2dongman (申悦)](https://github.com/s2dongman) 翻译)
 * [An Introduction to Sprite Animation](https://github.com/xitu/gold-miner/blob/master/TODO/sprite-animation.md)([Aaaaaashu](https://github.com/Aaaaaashu?tab=repositories) 翻译)
@@ -98,5 +103,7 @@
 * [苹果正在带坏整个设计圈](https://github.com/xitu/gold-miner/blob/master/TODO/how-apple.md)([crackhy (曹康)](https://github.com/crackhy) 翻译)
 * [Slack如此成功的秘诀](http://gold.xitu.io/entry/56cbd5427db2a20051a7dbb2)([Boyce Chang](https://github.com/boycechang) 翻译)
 
+## 产品
 
+* [产品文案要说人话](https://github.com/xitu/gold-miner/blob/master/TODO/the-secret-to-writing-killer-product-copy.md) ([iThreeKing](https://github.com/iThreeKing) 翻译)
 
