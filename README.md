@@ -23,6 +23,7 @@
 
 ## Android
 
+* [使用 RxJava 封装现有的库](http://gold.xitu.io/entry/5705e94a2e958a0059c4479e) ([尹述迪](http://yinshudi.com/) 翻译)
 * [在 Android 下进行实时模糊渲染](http://gold.xitu.io/entry/56dd55d6df0eea0055b40083) ([Sausre](https://github.com/Sausure) 翻译)
 * [Android 开发中利用异步来优化运行速度和性能](http://gold.xitu.io/entry/56dd4bf37664bf0052047906) ([edvardHua](https://github.com/edvardHua) 翻译)
 *  [深入浅出 Android 权限（二）](http://gold.xitu.io/entry/56d802ab8ac2470054759796) ([Hugo Xie](https://github.com/xcc3641) 翻译)
@@ -68,6 +69,7 @@
 
 ## React
 
+* [JavaScript 生态之乱象](http://gold.xitu.io/entry/5705e71ed342d3005418ea66) 
 * [Making React Native apps accessible](http://gold.xitu.io/entry/56cc0ab299a6ce005a1c3b2b)([void-main](https://github.com/void-main) 翻译)
 * [如何发布一个 React components](http://gold.xitu.io/entry/56ce8d1fc24aa800520f94e8)([aleen42](https://github.com/aleen42) 翻译)
 * [Things I Wish I Were Told About React Native](http://gold.xitu.io/entry/56cbf55cefa631005c441d9b)([huanglizhuo](https://github.com/huanglizhuo) 翻译)
