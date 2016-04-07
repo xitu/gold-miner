@@ -69,7 +69,7 @@
 
 ## React
 
-* [JavaScript 生态之乱象](http://gold.xitu.io/entry/5705e71ed342d3005418ea66) 
+* [JavaScript 生态之乱象](http://gold.xitu.io/entry/5705e71ed342d3005418ea66) ([woota](https://github.com/woota) 翻译)
 * [Making React Native apps accessible](http://gold.xitu.io/entry/56cc0ab299a6ce005a1c3b2b)([void-main](https://github.com/void-main) 翻译)
 * [如何发布一个 React components](http://gold.xitu.io/entry/56ce8d1fc24aa800520f94e8)([aleen42](https://github.com/aleen42) 翻译)
 * [Things I Wish I Were Told About React Native](http://gold.xitu.io/entry/56cbf55cefa631005c441d9b)([huanglizhuo](https://github.com/huanglizhuo) 翻译)
