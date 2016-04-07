@@ -16,7 +16,7 @@
 
 解决方案是将现有的库用 Rx 封装起来。这实际上非常简单，并且这些基本的原则能应用于任何基于监听器的库。
 
-如果你的库拥有可用的同步方法，那么将其用 RxJava 封装起来的最好的方式是使用`Observable.defer()`。这会简单地延迟这个调用直到observable被订阅，然后在subscription的分配线程中执行。
+如果你的库拥有可用的同步方法，那么将其用 RxJava 封装起来的最好的方式是使用`Observable.defer()`。这会简单地延迟这个调用直到 observable 被订阅，然后在 subscription 的分配线程中执行。
 ```
     public Observable
          wrappedMethod() {
@@ -51,7 +51,7 @@ public interface InAppHelper {
   Observable purchase(String sku);
 }
 ```
-这三个方法在 OpenIAB 中的基本实现有些小小的不同。`setup()`使用了一个标准的回调接口，`queryInventory()`能同步使用，但会抛出一个必须被catch的异常，`purchase()`使用了一个监听器，但也依赖于`startActivityForResult`。
+这三个方法在 OpenIAB 中的基本实现有些小小的不同。`setup()`使用了一个标准的回调接口，`queryInventory()`能同步使用，但会抛出一个必须被 catch 的异常，`purchase()`使用了一个监听器，但也依赖于`startActivityForResult`。
 
 让我们分别看看如何用 RxJava 中的 Observable 封装这几种类型的方法。
 
@@ -83,7 +83,7 @@ public Observable setup() {
 }
 ```
 
-一步一步地看上面的代码，你会发现我们可以在`setup()`方法中使用`Observable.create()`创建一个 Observable，并在`OnSubscribe`代码块(译者注：即lambda表达式`subscriber -> {}`中的代码)中调用我们基于监听器的方法。在这些代码中，**我们实现自己的监听器**，并将结果传给相应的 subscriber。
+一步一步地看上面的代码，你会发现我们可以在`setup()`方法中使用`Observable.create()`创建一个 Observable，并在`OnSubscribe`代码块(译者注：即 lambda 表达式`subscriber -> {}`中的代码)中调用我们基于监听器的方法。在这些代码中，**我们实现自己的监听器**，并将结果传给相应的 subscriber。
 
 具体到这个示例中，我们在 OnSubscribe 类中调用`helper.startSetup()`方法，通过我们自己实现的`OnIabSetupFinishedListener`将结果传递给相应的 subscriber。
 
@@ -108,7 +108,7 @@ public Observable queryInventory(final List skus) {
 }
 ```
 
-这是一个非常简单的例子。有点需要注意的是返回`Observable.error()`并不是最好的方法。如果这个异常是可以接受的，那你需要返回一个有用的带有值的Observable。记住，`onError()`只能在 subscription 不再有用时被调用。
+这是一个非常简单的例子。有点需要注意的是返回`Observable.error()`并不是最好的方法。如果这个异常是可以接受的，那你需要返回一个有用的带有值的 Observable。记住，`onError()`只能在 subscription 不再有用时被调用。
 
 ## 封装使用了监听器和 Activity Results 的方法
 
