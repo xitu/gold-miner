@@ -1,9 +1,8 @@
 >* 原文链接 : [Right Click Logo to Show Logo Download Options](https://css-tricks.com/right-click-logo-show-logo-download-options/)
 * 原文作者 : [CHRIS COYIER ](https://css-tricks.com/author/chriscoyier/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : [@Yushneng](https://github.com/rainyear)
-* 校对者: [@circlelove](https://github.com/circlelove)，[@ZhaofengWu](https://github.com/ZhaofengWu)
-* 状态： 认领中
+* 译者 : [Yushneng](https://github.com/rainyear)
+* 校对者: [circlelove](https://github.com/circlelove)，[ZhaofengWu](https://github.com/ZhaofengWu)
 
 
 
@@ -22,7 +21,7 @@
 
 ### 下面是一个简单的无依赖的实现方法
 
-看这个来自 Chris Coyier（[@chriscoyier](http://codepen.io/chriscoyier)） 的示例 [右击 Logo 以显示 Logo 选项](http://codepen.io/chriscoyier/pen/QNyeVd/)（）。
+看这个来自 Chris Coyier（[@chriscoyier](http://codepen.io/chriscoyier) 的示例 [右击 Logo 以显示 Logo 选项](http://codepen.io/chriscoyier/pen/QNyeVd/)）。
 
 <iframe height="268" scrolling="no" src="//codepen.io/chriscoyier/embed/QNyeVd/?height=268&amp;theme-id=0&amp;default-tab=result" frameborder="no" allowtransparency="true" allowfullscreen="true" style="width: 100%;">See the Pen &lt;a href="http://codepen.io/chriscoyier/pen/QNyeVd/"&gt;Right Click Logo to Show Logo Options&lt;/a&gt; by Chris Coyier (&lt;a href="http://codepen.io/chriscoyier"&gt;@chriscoyier&lt;/a&gt;) on &lt;a href="http://codepen.io"&gt;CodePen&lt;/a&gt;.</iframe>
 
@@ -102,7 +101,6 @@
 
 ### 永远不要用你自己自定义的行为破坏原有的右键菜单，我的天，你这个根本就不应该存在的恶魔
 
-You're right! Oh god what have I done! Nothing can ever change! Murderous screams!!
 你是对的！天呐我都做了些什么！Murderous screams!!
 
 <iframe src="https://vine.co/v/i675aBFnWta/embed/simple" width="600" height="600" frameborder="0"></iframe><script src="https://platform.vine.co/static/scripts/embed.js"></script>
