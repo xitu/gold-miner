@@ -2,8 +2,7 @@
 * 原文作者 : [Andrew Aquino](https://medium.com/@andrewaquino)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [Zhangjd](https://github.com/zhangjd)
-* 校对者: 
-* 状态 : 待校对
+* 校对者: [hikerpig](https://github.com/hikerpig), [iThreeKing](https://github.com/iThreeKing)
 
 ![](https://cdn-images-1.medium.com/max/2000/1*kOx2oUFQrrXhbUF9CMQHog.jpeg) 
 
