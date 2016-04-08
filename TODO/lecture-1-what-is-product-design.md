@@ -13,7 +13,7 @@ _这篇文章是对 CUAppDev 在康奈尔大学主办的 Intro to Digital Produc
 
 ### 什么是好的设计?
 
-Craigslist 以其美学标准而闻名，和今天的扁平风格 UI 与巨大的头图相比，Craigslist 的审美看起来似乎有点老了。但是，问题来了：
+Craigslist 以其美学标准而闻名，和今天的扁平风格 UI 与巨大的首图相比，Craigslist 的审美看起来似乎有点老了。但是，问题来了：
 
 > Craigslist 是不是好的设计?
 
@@ -55,7 +55,7 @@ Craigslist 以其美学标准而闻名，和今天的扁平风格 UI 与巨大�
 
 每个人都想要一个“不喜欢”的按钮，不管是为了反感讨厌的政治文章，还是在 WorldStar 视频中提出反对意见，抑或是在灾害时表达悲伤。可是，你是否可以想象到因为某人可能不喜欢而害怕发表内容的情形？不喜欢按钮引起的新问题可能比解决的问题还多；它会使 Facebook 变成一个更容易受到消极影响的地方。
 
-设计师发现，真实问题并不是缺少一个不喜欢按钮，而是 [生活中的每样东西并非都是可以点赞的](https://medium.com/facebook-design/reactions-not-everything-in-life-is-likable-5c403de72a3f#.lu650bnu7), 因此: 有了 Facebook reactions。
+设计师发现，真实问题并不是缺少一个不喜欢按钮，而是 [生活中的每样东西并非都是可以点赞的](https://medium.com/facebook-design/reactions-not-everything-in-life-is-likable-5c403de72a3f#.lu650bnu7), 因此: 有了 Facebook reactions（反应按钮）。
 
 ![](https://cdn-images-1.medium.com/max/600/1*0NvkunCJ6HWa3JfzDgflbQ.jpeg) 
 
@@ -89,7 +89,6 @@ Craigslist 以其美学标准而闻名，和今天的扁平风格 UI 与巨大�
 
 无论是设计师、开发者还是产品经理做的设计决策，都需要有一个评价标准。他必须从人类第一的角度来看，思考整个产品的方方面面。
 
-> _Process comes from empathy_
 > _过程来自于同理心_
 
 同理心即你对用户的关怀。作为一个设计师，你必须想要提供最佳的用户体验可能。**设计流程**让你不遗余力地考虑方方面面，从而来完成这个目标。(Jared Erondu)
@@ -138,7 +137,7 @@ Craigslist 以其美学标准而闻名，和今天的扁平风格 UI 与巨大�
 
 是的，WeeklyUI 是可选做的作业。可是，想要提高视觉设计的水平，唯一途径还是要练习。
 
-> **“只有通过进行大量的工作，你才能缩小差距，你的作品才能配得上野心。” — Ira Glass**
+> **“只有通过进行大量的工作，你才能缩小差距，你的作品才能配得上你所追求的目标。” — Ira Glass**
 
 <iframe src="https://player.vimeo.com/video/85040589?color=1fc9a2&portrait=0" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 
