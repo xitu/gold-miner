@@ -8,7 +8,7 @@
 
 ###### _第 2 部分_
 
-在先前的[文章<sup class="readableLinkFootnote">[1]</sup>](http://www.cirorizzo.net/building-a-kotlin-project/)中，我们从零开始创建了一个新项目，并且为小猫咪应用调整了 `build.gradle`。
+在先前的[文章<sup class="readableLinkFootnote">[1]</sup>](http://www.cirorizzo.net/building-a-kotlin-project/)中，我们从零开始新建了一个项目，并且为小猫咪应用调整了 `build.gradle`。
 > 译注：[点此](http://gold.xitu.io/#/entry/56e3fdc3df0eea0054c7c61f)查看前文译本
 
 接下来就是针对应用的基础部分编写代码了。
@@ -27,7 +27,7 @@ API 返回一个 `XML` 文件，如下：
 
 Kotlin 有一个非常有用的数据类（`data class`）可以完美实现此目的。
 
-右击 `model.cats` 包 (package) 开始创建一个新的类文件并且选择  `New -> Kotlin File/Class` 然后将其命名为 `Cats` 并选择 `Class` 作为文件类型。
+右击 `model.cats` 包 (package) 开始新建一个类文件并且选择  `New -> Kotlin File/Class` 然后将其命名为 `Cats` 并选择 `Class` 作为文件类型。
 
 为像接收到的 `XML` 文件那样构造类，`Cats.kt` 文件将如下所示：
 
@@ -74,7 +74,7 @@ _尤其是在需要从线上 API 切换到测试 API 的时候_。
 
 所以下一步便是其实现。
  
-同在 `network` 包下，创建一个新的类并将其命名为 `CatAPINetwork`，如下：
+同在 `network` 包下，新建一个类并将其命名为 `CatAPINetwork`，如下：
 
     class CatAPINetwork {
         fun getExec(): Observable<Cats> {
@@ -219,7 +219,7 @@ _尤其是在需要从线上 API 切换到测试 API 的时候_。
 
 现在已经有了 `Layout` 的基本部分，那么接下来我们继续实现 `MainActivity` 和 `Adapter`。
 
-从 `Adapter` 开始首先要创建其 `interface` 以被前面的 `MasterPresenterImpl` 调用，所以我们在 `view` 包中创建一个新的文件并将其命名为 `ImagesAdapter`，然后内容如下：
+从 `Adapter` 开始首先要创建其 `interface` 以被前面的 `MasterPresenterImpl` 调用，所以我们在 `view` 包中新建一个文件并将其命名为 `ImagesAdapter`，然后内容如下：
 
     interface ImagesAdapter {
         fun setObservable(observableCats: Observable<Cats>)
