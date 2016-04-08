@@ -2,13 +2,13 @@
 * 原文作者 : [CHRIS COYIER ](https://css-tricks.com/author/chriscoyier/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [@Yushneng](https://github.com/rainyear)
-* 校对者:
+* 校对者: [@circlelove](https://github.com/circlelove)，[@ZhaofengWu](https://github.com/ZhaofengWu)
 * 状态： 认领中
 
 
 
 
-有一天我在访问 [Invision](http://www.invisionapp.com/) 网站时，不知道什么原因突然想要抓取他们网站的 logo。有时候如果运气好的话（例如你非常开心地发现他们 logo 的 SVG 文件），你不需要去 Google 图片搜索甚至普通网页搜索关键词 “Invision Logo”，最终找到一些品牌介绍页面之类的可以下载 logo 图片。
+有一天我在访问 [Invision](http://www.invisionapp.com/) 网站时，突然想要抓取他们网站的 logo。如果运气好的话（例如你非常开心地发现他们 logo 的 SVG 文件），有时候你不需要去 Google 图片搜索，也不用普通网页搜索关键词 “Invision Logo”找到一些品牌介绍页面之类网页，才可以下载 logo 图片。
 
 因此我右击了他们的 logo，希望可以通过”查看元素”从开发者工具（DevTools）中找到它的图片文件。
 
@@ -17,7 +17,7 @@
 
 ![](https://css-tricks.com/wp-content/uploads/2016/03/show-logo.gif)
 
-我感到非常意外地惊喜，因为这正是我想要的。
+我感到非常惊喜，因为这正是我想要的。
 
 
 ### 下面是一个简单的无依赖的实现方法
@@ -42,10 +42,10 @@
       <p><button id="close-modal-button">Close</button></p>
     </div>
 
-和一个计划表：
+还有一个计划表：
 
-1. 当 logo 被右击时，显示浮层和对话框
-2. 当点击关闭按钮时，隐藏它们
+1. 右击 logo 时，显示浮层和对话框
+2. 点击关闭按钮时，隐藏它们
 
 没问题：
 
@@ -100,7 +100,7 @@
       color: #900;
     }
 
-### 永远不要用你自己自定义的行为破坏原有的右键菜单，OMG 你这个根本就不应该存在的恶魔
+### 永远不要用你自己自定义的行为破坏原有的右键菜单，我的天，你这个根本就不应该存在的恶魔
 
 You're right! Oh god what have I done! Nothing can ever change! Murderous screams!!
 你是对的！天呐我都做了些什么！Murderous screams!!
