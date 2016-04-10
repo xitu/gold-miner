@@ -115,9 +115,9 @@ Do you want to learn more about CSS transforms and animations? 你想学习更�
     top: 50%;
     transform: translateY(-50%) translateX(-50%);
 
-在我们的例子中，虽然我们想要居中 ink.png 雪碧图的第一帧，因为  `div.bg-layer`  宽度 为父元素宽度的 25 倍, 我们使用 translateX(-(50/25)%).
+在我们的例子中，虽然我们想要居中 ink.png 雪碧图的第一帧，因为  `div.bg-layer`  宽度为父元素宽度的 25 倍, 我们可以使用 translateX(-(50/25)%).
 
-To create the ink animation, we change the translate value of the `div.bg-layer`; we defined the `cd-sequence` keyframes rule:
+为了创建墨水动画，我们改变 `div.bg-layer` 的  translate 值； 我们定义 `cd-sequence` 关键帧规则:
 
     @keyframes cd-sequence {
       0% {
@@ -128,11 +128,11 @@ To create the ink animation, we change the translate value of the `div.bg-layer`
       }
     }
 
-This way, at the end of the animation, the last frame of the ink.png sprite is centered inside the `div.cd-transition-layer` element.
+这样，在动画的最后，ink.png 雪碧图将在 `div.cd-transition-layer` 元素内呈现.
 
-Note: since we have 25 frames, to show the last one you need to translate the `.bg-layer` of -100% * (25 – 1) = -96%; but then, to center it inside its parent, you need to add the additional -2%.
+记住:因为我们有25帧，展示最后一帧你需要把 translate 设置为 `.bg-layer` of -100% * (25 – 1) = -96%; 但另外，基于它的元素居中, 你需要额外增加 -2%。
 
-When a user clicks the `a.cd-modal-trigger`, the `.visible` class is added to the `.cd-transition-layer` to show it, while the `.opening` class is used to trigger the ink animation:
+当用户点击 `a.cd-modal-trigger`, `.visible` 添加到  `.cd-transition-layer` 上而显示它, 当 `.opening` 类来触发墨水动画：
 
     .cd-transition-layer.visible {
       opacity: 1;
@@ -143,13 +143,13 @@ When a user clicks the `a.cd-modal-trigger`, the `.visible` class is added to th
       animation-fill-mode: forwards;
     }
 
-Note that we used the `steps()` function: that’s because we don’t want the translate value to change continuously, but rather change through fixed steps, in order to show one frame at a time; the number of steps used is equal to our frames less one.
+然后我们使用 `steps()` 方法: 因为不想不断地修改 transslate 值，而是通过固定的步调来改变以一次显示一帧; 步数比我们的帧数少一。
 
-## Events handling
+## 时间处理
 
-We used jQuery to add/remove classes when user clicks the `a.cd-modal-trigger` or `.modal-close` to open/close the modal window.
+当用户点击 `a.cd-modal-trigger` 或 `.modal-close` 打开/关闭 模态窗口,我们使用 jQuery 增加/移除类.
 
-Besides, we change the `.bg-layer` dimensions in order not to modify the png frames aspect ratio. In the style.css file, we set `.bg-layer` height and width so that each frame has height and width equal to the ones of the viewport. Viewport and frames could have a different aspect ratio though and that could distort the single frame. The `setLayerDimensions()` function has been used to prevent this from happening:
+另外, 为了不修改帧的宽高比, 我们改变 `.bg-layer` 的尺寸. 在 style.css 文件中, 我们设置 `.bg-layer` 高度和宽度使帧的宽高等于一个视口宽高. 视口和帧可能拥有不同的宽高比而导致帧的扭曲。  `setLayerDimensions()` 方法防止这种情况的发生：
 
     var frameProportion = 1.78, //png frame aspect ratio
         frames = 25, //number of png frames
