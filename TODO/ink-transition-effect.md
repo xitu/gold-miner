@@ -7,11 +7,11 @@
 
 一个用 CSS 动画实现的墨水晕开过渡效果。
 
-我最近遇到有几个网站使用墨水晕开作为过渡效果。 一个很好的例子是 [Sevenhills website](http://www.sevenhillswholefoods.com/experience/). 起初我以为他们使用 HTML canvas 来实现(允许透明度), 然后我查看源代码发现他们没有并使用视频，而是一个 PNG 雪碧图。
+我最近遇到有几个网站使用墨水晕开作为过渡效果。 一个很好的例子是 [Sevenhills website](http://www.sevenhillswholefoods.com/experience/)。起初我以为他们使用 HTML canvas 来实现(允许透明度)， 然后我查看源代码发现他们没有并使用视频，而是一个 PNG 雪碧图。
 
-通过用一个 PNG 雪碧图和 CSS 中的 **steps()** 定时方法,我们能创建视频效果并使用它们作为过渡。 在我们的方法中, 我们使用这种手段去触发一个模态窗口, 但你也能使用它作为两个页面之间的过渡效果。
+通过用一个 PNG 雪碧图和 CSS 中的 **steps()** 定时方法，我们能创建视频效果并使用它们作为过渡。 在我们的方法中， 我们使用这种手段去触发一个模态窗口, 但你也能使用它作为两个页面之间的过渡效果。
 
-创建这些效果的过程很简单，让我详细分解给你:
+创建这些效果的过程很简单，让我详细分解给你：
 
 首先，你需要一个有填充效果的视频和一个透明区域。 然后你需要把这个视屏导出为 PNG 序列。我们使用 Afrer Effects 导出这个队列（确保导出 alpha 通道）。
 
@@ -27,13 +27,13 @@
 
 为了将序列变成一个视频，我们只需要平移这个 PNG 雪碧图，然后使用 **steps()** 方法定义帧的数目。
 
-Do you want to learn more about CSS transforms and animations? 你想学习更多关于 CSS 变换和动画的相关内容吗？[查看我们 课程](https://codyhouse.co/course/mastering-css-transitions-transformations-animations/) ;)
+你想学习更多关于 CSS 变换和动画的相关内容吗？[查看我们 课程](https://codyhouse.co/course/mastering-css-transitions-transformations-animations/) ;)
 
 现在让我们进入代码！
 
 ## 创建结构
 
- **HTML 结构** 由三个元素组成: 一个 `main.cd-main-content` 容纳页面主要内容, 一个 `div.cd-modal` 容纳一个模态窗口和一个 `div.cd-transition-layer` 包含过渡层。
+ **HTML 结构** 由三个元素组成：一个 `main.cd-main-content` 容纳页面主要内容，一个 `div.cd-modal` 容纳一个模态窗口和一个 `div.cd-transition-layer` 包含过渡层。
 
     <main class="cd-main-content">
         <div class="center">
@@ -62,8 +62,8 @@ Do you want to learn more about CSS transforms and animations? 你想学习更�
 
 ## 增加样式
 
-这`.cd-modal` 窗口最初的CSS属性 visibility: hidden, height: 100% 和 width: 100% 并且固定定位.  
-当用户点击 `a.cd-modal-trigger`, 模态窗口变为可见，并且它的透明度变为1（使用 `.visible` 类）。
+这`.cd-modal` 窗口最初的CSS属性 visibility: hidden, height: 100% 和 width: 100% 并且固定定位.。
+当用户点击 `a.cd-modal-trigger`，模态窗口变为可见，并且它的透明度变为1（使用 `.visible` 类）。
 
     .cd-modal {
       position: fixed;
@@ -147,9 +147,9 @@ Do you want to learn more about CSS transforms and animations? 你想学习更�
 
 ## 事件处理
 
-当用户点击 `a.cd-modal-trigger` 或 `.modal-close` 打开/关闭 模态窗口,我们使用 jQuery 增加/移除类.
+当用户点击 `a.cd-modal-trigger` 或 `.modal-close` 打开/关闭 模态窗口,我们使用 jQuery 增加/移除类。
 
-另外, 为了不修改帧的宽高比, 我们改变 `.bg-layer` 的尺寸. 在 style.css 文件中, 我们设置 `.bg-layer` 高度和宽度使帧的宽高等于一个视口宽高. 视口和帧可能拥有不同的宽高比而导致帧的扭曲。  `setLayerDimensions()` 方法防止这种情况的发生：
+另外, 为了不修改帧的宽高比， 我们改变 `.bg-layer` 的尺寸。 在 style.css 文件中, 我们设置 `.bg-layer` 高度和宽度使帧的宽高等于一个视口宽高. 视口和帧可能拥有不同的宽高比而导致帧的扭曲。  `setLayerDimensions()` 方法防止这种情况的发生：
 
     var frameProportion = 1.78, //png frame aspect ratio
         frames = 25, //number of png frames
