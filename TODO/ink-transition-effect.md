@@ -145,7 +145,7 @@ Do you want to learn more about CSS transforms and animations? 你想学习更�
 
 然后我们使用 `steps()` 方法: 因为不想不断地修改 transslate 值，而是通过固定的步调来改变以一次显示一帧; 步数比我们的帧数少一。
 
-## 时间处理
+## 事件处理
 
 当用户点击 `a.cd-modal-trigger` 或 `.modal-close` 打开/关闭 模态窗口,我们使用 jQuery 增加/移除类.
 
