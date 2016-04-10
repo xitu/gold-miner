@@ -130,7 +130,7 @@
 
 这样，在动画的最后，ink.png 雪碧图将在 `div.cd-transition-layer` 元素内呈现.
 
-记住:因为我们有25帧，展示最后一帧你需要把 translate 设置为 `.bg-layer` of -100% * (25 – 1) = -96%; 但另外，基于它的元素居中, 你需要额外增加 -2%。
+记住:因为我们有25帧，展示最后一帧你需要把 translate 设置为 `.bg-layer` of -100% * (25 – 1) = -96%; 但另外，基于它的父元素居中, 你需要额外增加 -2%。
 
 当用户点击 `a.cd-modal-trigger`, `.visible` 添加到  `.cd-transition-layer` 上而显示它, 当 `.opening` 类来触发墨水动画：
 
