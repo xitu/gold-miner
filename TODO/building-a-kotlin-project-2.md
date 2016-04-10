@@ -1,35 +1,34 @@
 >* 原文链接 : [Building a Kotlin project 2/2](http://www.cirorizzo.net/2016/03/04/building-a-kotlin-project-2/)
 * 原文作者 : [CIRO RIZZO](https://github.com/cirorizzo)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : [Jing KE](https://github.com/jingkecn)
-* 校对者: [lizhuo](https://github.com/huanglizhuo)、[DianaZhou](https://github.com/DianaZhou)
-* 状态 : 校对完成
+* 译者 : 
+* 校对者: 
+* 状态： 认领中
 
 
-###### _第 2 部分_
+###### _Part 2_
 
-在先前的[文章<sup class="readableLinkFootnote">[1]</sup>](http://www.cirorizzo.net/building-a-kotlin-project/)中，我们从零开始新建了一个项目，并且为小猫咪应用调整了 `build.gradle`。
-> 译注：[点此](http://gold.xitu.io/#/entry/56e3fdc3df0eea0054c7c61f)查看前文译本
+In the previous [post<sup class="readableLinkFootnote">[1]</sup>](http://www.cirorizzo.net/building-a-kotlin-project/) we started a new project from scratch, and adjusted the `build.gradle` for the Kitten App purpose.
 
-接下来就是针对应用的基础部分编写代码了。
+The next steps are going to be the programming of the elements of the app.
 
-#### 数据模型
+#### Data Model
 
-此应用的一个主要特征是通过网络从 `http://thecatapi.com/` 中解析数据。
+One of the main features of the app is to retrieve data through Internet via the `http://thecatapi.com/`
 
-> _完整的 API 如此调用：`http://thecatapi.com/api/images/get?format=xml&amp;results_per_page=10`_
+> _The complete API call will be i.e. `http://thecatapi.com/api/images/get?format=xml&amp;results_per_page=10`_
 
-API 返回一个 `XML` 文件，如下：
+The API sends back an `XML` file like this one
 
-![XML API](http://www.cirorizzo.net/content/images/2016/03/xxmlAPI.png.pagespeed.ic.CABTBWB1Ch.png)
+<div class="readableLargeImageContainer">![XML API](http://www.cirorizzo.net/content/images/2016/03/xxmlAPI.png.pagespeed.ic.CABTBWB1Ch.png)</div>
 
-它需要反序列化数据来获取包含小猫咪图片位置的 `url` 属性。
+It needs to deserialize in order to get the `url` property containing the location of the Kitten image.
 
-Kotlin 有一个非常有用的数据类（`data class`）可以完美实现此目的。
+Kotlin has a very useful class called `data class` that is perfect for the purpose.
 
-右击 `model.cats` 包 (package) 开始新建一个类文件并且选择  `New -> Kotlin File/Class` 然后将其命名为 `Cats` 并选择 `Class` 作为文件类型。
+Let's starting to create a new class file in the `model.cats` package using right click on it and `New->Kotlin File/Class` and call it `Cats` and choose `Class` as kind.
 
-为像接收到的 `XML` 文件那样构造类，`Cats.kt` 文件将如下所示：
+In order to structure the class as the `XML` file received the `Cats.kt` will be as the following
 
     data class Cats(var data: Data? = null)
 
@@ -37,44 +36,38 @@ Kotlin 有一个非常有用的数据类（`data class`）可以完美实现此�
 
     data class Image(var url: String? = "", var id: String? = "", var source_url: String? = "")
 
-目前还非常简单……
+So far very simple...  
+The same class in Java is much longer!
 
-但同样的类在 Java 中长多了！
+The Kotlin Data Class has several benefits, some of them are that the compiler generates `getter()`, `setter()` and `toString()` methods, and many more like `equals()` `hashCode()` and `copy()`. So it's the perfect class to use to deserialize data
 
-Kotlin 中的数据类有几个好处，例如由编译器生成 `getter()`、`setter()` 以及 `toString()` 方法，还有更多的像 `equals()`、`hashCode()` 以及 `copy()` 这些。所以使用它反序列化数据甚是完美。
+#### API Call
 
-#### API 调用
+There are many ways to retrieve data through the network, and different libraries to handle it. One of these libraries is the [Retrofit2<sup class="readableLinkFootnote">[2]</sup>](http://square.github.io/retrofit/) library from Square.  
+This is a very powerful `HTTPClient` and easy to set up.
 
-通过网络解析数据有很多种方法，也有各种第三方库可以应付。其中就有 Square 的 [Retrofit2<sup class="readableLinkFootnote">[2]</sup>](http://square.github.io/retrofit/) 
-
-这是一个非常强大的 `HTTPClient` 并且安装简单。
-
-我们从 `interface` 开始，先在 `network` 包下创建之。
- 
-称其为 `CatAPI`，如下所示：
+Let's start with the `interface` and create it under the `network` package.  
+Call it `CatAPI` as shown
 
     interface CatAPI {
         @GET("/api/images/get?format=xml&amp;results_per_page=" + BuildConfig.MAX_IMAGES_PER_REQUEST)
         fun getCatImageURLs(): Observable<Cats>
     }
 
-`interface` 会完成对 API 端 `/api/images/get?format=xml&amp;results_per_page=` 的 `Get` 请求。
- 
-本例中 `results_per_page` 参数从 `build.gradle` 中定义的 `MAX_IMAGES_PER_REQUEST` 常量获取数值，该常量的不同取值取决于使用的 `buildTypes`。
+The `interface` will manage the `Get` request to the API Endpoint `/api/images/get?format=xml&amp;results_per_page=`.  
+In this case the param `results_per_page` retrieve its numerical value from the constant defined in the `build.gradle` called `MAX_IMAGES_PER_REQUEST` that will have different values depending on the `buildTypes` used.
 
     buildTypes {
         debug {
             buildConfigField("int", "MAX_IMAGES_PER_REQUEST", "10")
             ...
 
-> 此方式对常量在像 `debug` 或 `release` 情景下的不同取值极其有用，
-_尤其是在需要从线上 API 切换到测试 API 的时候_。
+> This method is very useful to have different value of constants in case we're using `debug` type or `release` one i.e. _especially in case you need to access to the debug API instead of the production one_
 
-关于 `interface CatAPI` 有一个关键点，那就是用来实现从 API 回调的函数 `fun getCatImageURLs(): Observable<Cats>`。
+About the `interface CatAPI` is very interesting the function called to manage the callback from the API `fun getCatImageURLs(): Observable<Cats>`
 
-所以下一步便是其实现。
- 
-同在 `network` 包下，新建一个类并将其命名为 `CatAPINetwork`，如下：
+So the next step is its implementation.  
+Let's create a new class under the same package (`network`) and call it `CatAPINetwork` as this
 
     class CatAPINetwork {
         fun getExec(): Observable<Cats> {
@@ -92,13 +85,13 @@ _尤其是在需要从线上 API 切换到测试 API 的时候_。
         }
     }
 
-`fun getExec(): Observable<Cats>` 为隐式 `public`，这意味着它可以在此类以外被调用。
+The `fun getExec(): Observable<Cats>` is implicitly `public` so that means available to be called by outside this class.
 
-`.addConverterFactory(SimpleXmlConverterFactory.create())` 这一行表明使用 `XML` 转换器来反序列化调用 API 的结果。
+The line `.addConverterFactory(SimpleXmlConverterFactory.create())` indicates to use the `XML` converter to deserialize the result form the API call.
 
-接着 `.addCallAdapterFactory(RxJavaCallAdapterFactory.create())` 是用于 API 回调的调用适配器。
+Then the `.addCallAdapterFactory(RxJavaCallAdapterFactory.create())` is the call adapter to use on the API Callback
 
-`return` 行返回 `RxJava` 的 `Observable` 对象：
+The `return` lines referring to the `RxJava` `Observable`
 
     return catAPI.getCatImageURLs().
                 subscribeOn(Schedulers.io()).
@@ -106,20 +99,20 @@ _尤其是在需要从线上 API 切换到测试 API 的时候_。
 
 #### Presenter
 
-`Presenter` 模块负责完成应用的逻辑部分并在 `View` 和 `Model` 之间实现数据绑定。
+The `Presenter` modules are in charge of managing the logic of the app and to bind data between the `View` and the `Model`.
 
-本例会实现 `View` 调用以解析 API 数据的方法并将其送至负责展示的 `Adapter`。
+In our case it will implement the method called by the `View` to retrieve the API data and send them to the `Adapter` in charge to show up.
 
-为与 `View` 通信，我们先在 `presenter` 包中创建其 `interface` 然后将其命名为 `MasterPresenter`，如下所示：
+In order to communicate with the `View` we're starting to create its `interface` called `MasterPresenter` under the package `presenter` as the followed
 
     interface MasterPresenter {
         fun connect(imagesAdapter: ImagesAdapter)
         fun getMasterRequest()
     }
 
-第一个函数 `fun connect(imagesAdapter: ImagesAdapter)` 用来连接 `Adapter interface` 以显示数据，并且由 `fun getMasterRequest()` 启动 API 请求。
+The first function `fun connect(imagesAdapter: ImagesAdapter)` will be used to connect the `Adapter interface` to show data, and the `fun getMasterRequest()` will be the one to start the API request.
 
-我们将这些实现置于 `presenter` 包的一个新类中并将其命名为 `MasterPresenterImpl`：
+Let's the implementations in a new class under the same `presenter` package and call it `MasterPresenterImpl`
 
     class MasterPresenterImpl : MasterPresenter {
         lateinit private var imagesAdapter: ImagesAdapter
@@ -137,29 +130,28 @@ _尤其是在需要从线上 API 切换到测试 API 的时候_。
         }
     }
 
-值得注意的是，在 `lateinit private var imagesAdapter: ImagesAdapter` 一行中，Kotlin 允许我们使用 `lateinit` 关键字在未初始化的情况下声明一个非空可变的对象。它将会在运行时第一次使用它的时候被初始化，比如在本例中会调用 `fun connect(imagesAdapter: ImagesAdapter)`。
+Interesting line at `lateinit private var imagesAdapter: ImagesAdapter` where Kotlin give us the chance to declare a Non-Nullable mutable object without initialization thanks to `lateinit` keyword. So it will be initialize at the first time it will be used at runtime; in our case on calling the `fun connect(imagesAdapter: ImagesAdapter)`.
 
-`fun getMasterRequest()` 函数负责启用 API 调用，只设置 `Observable` 以便 `Adapter`  (例如 `imagesAdapter`)在启用执行 API 调用的 `catAPINetwork.getExec()` 函数后“订阅”之。
+The function `fun getMasterRequest()` is in charge of starting the API call, just set the `Observable` in order to be subscribed by the `Adapter` (i.e. `imagesAdapter`) after starts the `catAPINetwork.getExec()` that executes the API call
 
-#### View 部分
+#### View section
 
-实现 UI 的类均集中于 `view` 包中。
-
-基本上都是 `View` 和 `Adapter` 这些；本例中是 `MainActivity` 和 `ImagesAdapter`。
+In the `view` package are collected the classes to manage the UI.  
+Basically are the `View` and the `Adapter` ones; in our case `MainActivity` and `ImagesAdapter`.
 
 ###### Layouts
 
-开始实现之前，我们先来研究一下布局 ( `Layout` ) 设计。
+Before starting with their implementation, let's go through the `Layout` designing.
 
-![Kitten App](http://www.cirorizzo.net/content/images/2016/03/xkittenApp-1.png.pagespeed.ic.ulo4yWl6Cg.png)
+<div class="readableLargeImageContainer float">![Kitten App](http://www.cirorizzo.net/content/images/2016/03/xkittenApp-1.png.pagespeed.ic.ulo4yWl6Cg.png)</div>
 
-为实现此设计我们大体上需要<mark>主容器</mark>和<mark> item 容器</mark>这两个基本组件。
+To design it we need basically of two elements the <mark>main container</mark> and the <mark>item container</mark>.
 
-主容器包含 item 列表，且我们会将其置于项目 `res -> layout`  文件夹的 `activity_main.xml` 中；此文件已在[创建项目<sup class="readableLinkFootnote">[3]</sup>](http://www.cirorizzo.net/building-a-kotlin-project/)的初始价段自动生成。
+The <mark>main container</mark> is the element containing the list of the item and we're going to place it in the `activity_main.xml` contained in the `res->layout` folder of the project; this one has been automatically created during the initial phase of [Project Creation<sup class="readableLinkFootnote">[3]</sup>](http://www.cirorizzo.net/building-a-kotlin-project/).
 
-我们需要将应用装进一个`RecyclerView` 组件中（一个非常强大并且改良过的列表视图组件）。
+For our app we need to inject in a `RecyclerView` component (a very powerful and optimized component for listing views).
 
-`activity_main.xml` 如下所示：
+The `activity_main.xml` will be like shown
 
     <?xml version="1.0" encoding="utf-8"?>
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -177,9 +169,9 @@ _尤其是在需要从线上 API 切换到测试 API 的时候_。
             android:layout_centerInParent="true" />
     </RelativeLayout>
 
-`containerRecyclerView` 组件代表 item 列表<mark>主容器</mark>
+The component `containerRecyclerView` represents the <mark>main container</mark> of the list of item
 
-`row_card_view.xml` 是列表的<mark>条目容器</mark>，大体上像这样：
+The `row_card_view.xml` is the <mark>item container</mark> of our list and basically it appears like this
 
     <?xml version="1.0" encoding="utf-8"?>
     <android.support.v7.widget.CardView
@@ -213,24 +205,24 @@ _尤其是在需要从线上 API 切换到测试 API 的时候_。
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 
-如你所见，条目容器正是主要由一个包含 `ImageView` (`imgVw_cat`) 的 `RelativeLayout` 组成的 `card_view`。
+As you can see the item container is the `card_view` that basically is composed by a `RelativeLayout` containing an `ImageView` (`imgVw_cat`)
 
 ###### Adapter
 
-现在已经有了 `Layout` 的基本部分，那么接下来我们继续实现 `MainActivity` 和 `Adapter`。
+Now we've got basic elements of the `Layout`, so let's move on implementing the `MainActivity` and the `Adapter`.
 
-从 `Adapter` 开始首先要创建其 `interface` 以被前面的 `MasterPresenterImpl` 调用，所以我们在 `view` 包中新建一个文件并将其命名为 `ImagesAdapter`，然后内容如下：
+Starting on `Adapter` the first thing to create is its `interface` in order to be invoked by the previous `MasterPresenterImpl` so let's create a new file in the `view` package and called it `ImagesAdapter` and write it down like this
 
     interface ImagesAdapter {
         fun setObservable(observableCats: Observable<Cats>)
         fun unsubscribe()
     }
 
-`setObservable(observableCats: Observable<Cats>)` 函数被 `MasterPresenterImpl` 调用来设置 `Observable` 以及让 `Adapter` “订阅”。
+The function `setObservable(observableCats: Observable<Cats>)` is called by `MasterPresenterImpl` to set the `Observable` and give the `Adapter` to subscribe to it.
 
-`unsubscribe()` 函数会被 `MainActivity` 调用以在 activity 被销毁的时候“退订” `Adapter`。
+The `unsubscribe()` function will be invoked by the `MainActivity` to unsubscribe the `Adapter` from the `Observable` when the activity is destroyed.
 
-现在我们在同一个包下一个新建的类中实现它们，称其为 `ImagesAdapterImpl`，如下：
+Now let's implement them in a new class under the same package called `ImagesAdapterImpl` that appears like that
 
     class ImagesAdapterImpl : RecyclerView.Adapter<ImagesAdapterImpl.ImagesURLsDataHolder>(), ImagesAdapter {
         private val TAG = ImagesAdapterImpl::class.java.simpleName
@@ -297,17 +289,17 @@ _尤其是在需要从线上 API 切换到测试 API 的时候_。
         }
     }
 
-这是填充 `row_card_view.xml` 的类，基本上就是 `onCreateViewHolder` 函数的<mark>条目容器</mark>。
+This is the class inflate the `row_card_view.xml`, basically the <mark>item container</mark> as you can see at function `onCreateViewHolder`
 
-在 `private val subscriber: Subscriber<Cats> by lazy { getSubscribe() }` 一行中，`getSubscribe()` 函数为 `Adapter` “订阅”用到的 `Observable`，这里你会看到 `lazy` 初始化，这是一种声明一个不可变对象的方法（比如 `subscriber`）并且会在运行时首次调用时创建于函数体内（例如 `getSubscribe()`）。
+The function `getSubscribe()` provide to subscribe the `Adapter` to the `Observable` used at line `private val subscriber: Subscriber<Cats> by lazy { getSubscribe() }` where you can notice the `lazy` initialization, this is a way to declare an unmutable object (i.e. `subscriber`) and it'll be created through the function enclosed in the braces (i.e. `getSubscribe()`) at the first invocation at runtime.
 
-> _Subscriber 和 Observable 概念来源于 [RxJava<sup class="readableLinkFootnote">[4]</sup>](https://github.com/ReactiveX/RxJava)；我们今后会深入讨论。_
+> _The Subscriber and Observable concepts comes from [RxJava<sup class="readableLinkFootnote">[4]</sup>](https://github.com/ReactiveX/RxJava); We can dig deeper in some next posts_
 
-最后值得注意的还有使用 `Glide` 库来填充 `imgVw_cat` 的名为 `ImagesURLsDataHolder` 的内部类 (inner class) ，这有助于从调用 API 取得的传递 `URL` 获取图片。这部分包含在 `bindImages(imgURL: String)` 函数中并且由统一文件中的 `onBindViewHolder` 方法调用。
+At the end, a very interesting piece of code is the inner class called `ImagesURLsDataHolder` used to fill up the `imgVw_cat` using the `Glide` library, that helps to retrieve the image from the passed `URL` extracted by the API call. This part is wrapped in the function `bindImages(imgURL: String)` and invoked by the method `onBindViewHolder` in the same file.
 
 ###### Activity
 
-最后同样重要的便是 `Activity`（例如 `MainActivity`）：
+Last but not least the the `Activity` (i.e. `MainActivity`)
 
     class MainActivity : AppCompatActivity() {
         private val imagesAdapterImpl: ImagesAdapterImpl by lazy { ImagesAdapterImpl() }
@@ -345,20 +337,19 @@ _尤其是在需要从线上 API 切换到测试 API 的时候_。
         }
     }
 
-注意到以下函数：
+Notice the functions
 
 *   `initRecyclerView()`
 *   `connectingToMasterPresenter()`
 *   `getURLs()`
 
-分别用于：
+Respectively used to
 
-*    初始化<mark>主容器</mark>（例如 `RecyclerView`）
-*    将 `MasterPresenterImpl` 连接至 `MainActivity` 并传至 `ImagesAdapterImpl`（又称 `Adapter`） 的 `interface`
-*    `getURLs()` 启动 API 请求以获取 `XML` 数据，然后执行任务（反序列化数据，通过 `Adapter` 获取图片）。
+*   initialize the <mark>main container</mark> (i.e. `RecyclerView`)
+*   connecting the `MainActivity` to the `MasterPresenterImpl` and pass to it the `interface` of the `ImagesAdapterImpl` (aka `Adapter`)
+*   `getURLs()` starts the API request to retrieve the `XML` data, and so executing the followed tasks (deserialize data, retrieving images through `Adapter`).
 
-至此小猫咪应用已经准备就绪。
+The Kitten App is now ready to run.  
+In any case you can find the entire project on my Github Repository of the [KShow<sup class="readableLinkFootnote">[5]</sup>](https://github.com/cirorizzo/KShows) project.  
+The same project has been written in Java as well [JShows<sup class="readableLinkFootnote">[6]</sup>](https://github.com/cirorizzo/JShows) so you can comparing them
 
-你可以在我 Github 仓库中找到 [KShow<sup class="readableLinkFootnote">[5]</sup>](https://github.com/cirorizzo/KShows) 完整的项目。
-
-该项目也有 Java 的实现：[JShows<sup class="readableLinkFootnote">[6]</sup>](https://github.com/cirorizzo/JShows)，以便对比。
