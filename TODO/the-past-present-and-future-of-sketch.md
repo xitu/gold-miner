@@ -18,32 +18,32 @@ Sketch 和 Photoshop 已经为产品设计者的首选工具，而且大多数�
 
 <!--Prototyping has become an integral part of product design, and Adobe was doing nothing of real value in that space, until Comet. Adobe also saw a simple and focused design tool like Sketch gradually increase in popularity as a primary tool for product designers, which possibly played a role in Comet coming to fruition.
 -->
-原型设计已经成为产品设计的一个重要组成部分，但是直到 Comet 出现前， Adobe 在这个领域没有做任何有价值的事情。 Adobe 也意识到了一个像是即将实现在 Comet 中的 Sketch 那样简单而又专注于产品设计的设计工具会慢慢的积累用户。
+原型设计已经成为产品设计的一个重要组成部分，但是直到 Comet 出现前， Adobe 在这个领域没有做任何有价值的事情。 Adobe 也隐隐意识到了一个类似 Sketch ，简单但是专注设计的工具，慢慢地成为产品设计者的主要工具，这可能对于Comet的面世扮演了一个相当重要的角色。
 
 <!--My immediate thoughts were that if I were Pieter, I’d be scared shitless. The conversation that transpired around me focused on Pieter, Comet, and how Sketch will fare against it. At the time, I was pretty harsh on Pieter actually, saying that he needs to take on funding and grow Sketch if he wants to fend off the very company he’d already disrupted. David and Goliath, or perhaps now, Goliath and David.-->
 
-我当时的想法是如果我是 Pieter ，我一定会吓得屁滚尿流。我周围人的对话都关注于Pieter，Comet还有Sketch将会如何毁了它。当时，我和 Pieter 说的非常严厉，和他说，如果他想避免他的公司破产，他就需要融资和发展Sketch。David和Goliath，也许现在的，Goliath 和 David .
+我当时的想法是如果我是 Pieter ，我一定会吓得屁滚尿流。我周围人的对话都关注于Pieter， Comet还有 Sketch将会如何反击。当时，我和 Pieter 说的非常严厉，和他说，如果他想避免他的公司破产，他就需要融资和发展 Sketch ，以一个弱者的姿态勇敢得去挑战那个巨人。David和Goliath，也许现在角色要对换一下。
 
 <!--I went on to say that while Sketch had made good progress in the 4+ years it has been out; it wasn’t moving nearly fast enough to maintain the trajectory it needs to maintain its position.-->
 
-我继续说尽管 Sketch 在推出的四年多已经有了很好的进展。但是它没有足够快的上升去维持它所在位置需要维持的轨迹。
+接下来我想说，尽管Sketch 在推出的四年多已经有了很好的进展，但是它并没有成长到它应有的高度。
 
 <!--I was aware Pieter isn’t in the habit of giving a lot of interviews so I wasn’t certain how he would feel about chatting with me on any topic, much less Comet vs Sketch. However, when I contacted him, Pieter was gracious and open. Here are some highlights of our chat.-->
 
-我意识到 Pieter 没有进行很多面试的习惯，所以我不确定他和我聊天谈论感觉如何，更不用说谈论 Comet vs Sketch 了。然而，当我和他交流的时候， Pieter 是亲切而又开朗的。下面是我们聊天的一些亮点。
+我意识到 Pieter 没有大量面试的习惯，所以我不确定他和我聊天谈论感觉如何，更不用说谈论 Comet vs Sketch 了。然而，当我和他交流的时候， Pieter 是亲切而又开朗的。下面是我们聊天的一些亮点。
 
 <!--**How would you describe Sketch to our parents?  **  -->
 <!--It’s very difficult to explain to my parents exactly what Sketch is. To me, it’s fundamentally a drawing app for digital design. It’s not _just_ a drawing app, nor is it _just_ a photo editor. It uses these tools among many others to let you expand and refine the product you hope to produce—to best represent you artistically and creatively. It also strives to not limit you by the design tools you have available. It’s a great question. Geoff, how would you describe what it does? Because after all these years I still don’t really have a concise or thorough way to describe it.-->
 
 **你怎么向我们的父母那代人描述 Sketch ？**  
-向我的父母解释Sketch是什么是非常困难的。对于我，它是一个基础的针对数字化设计的应用。它不 _仅仅_ 是个绘图的应用，也不 _仅仅_ 是个图片的编辑器。它使用这些以及其他很多工具去让你扩展和细化你希望最能代表你的艺术性和创造性的产品。它也同时力争不让你被你能获得的设计工具所限制。这是个很棒的问题。Geoff，你如何去描述它做了什么？因为在这些年之后，我仍然没有一个简明的彻底的方式来形容它。
+向我的父母解释Sketch是什么是非常困难的。对于我，它是一个基础的针对数字化设计的应用。它不 _仅仅_ 是个绘图的应用，也不 _仅仅_ 是个图片的编辑器。它使用这些以及其他很多工具去让你扩展和细化你希望最能代表你的艺术性和创造性的产品。它也同时力争不让你被那些可用的设计工具所限制。这是个很棒的问题。Geoff，你如何去描述它做了什么？因为虽然过去了这么多年，我仍然没有一个简明的彻底的方式来形容它。
 
 
 <!--**Ha! I didn’t think about answering this question myself. Do you think you could describe it as a design application that helps you design applications?  
  **Yes! We set out to build it for websites and icons, then it became popular for design applications when those became more popular. That was basically the idea.
 -->
 
-**哈，我自己没有考虑过这个问题的答案。你认为可以把它描述成一个帮助你应用的设计应用？**    
+**哈，我自己没有考虑过这个问题的答案。你认为可以把它描述成一个帮助你设计应用的应用？**    
 是的！我们开始是为了网站和图标制作 Sketch ，之后当它所设计的应用越来越流行的时候，它也随之流行起来。但那是最初的想法。
 
 <!--**When you set out to create it, is that what you intended it to be?  
@@ -90,13 +90,13 @@ The fact that I’m not in the Valley also means that I don’t have to pay your
 **In the last year we’ve grown the company quite a bit — we probably doubled in size. So last year was a good lesson on how to manage more people, and how to get them up to speed on everything we’re doing. I think in the coming year we’ll be able to reap the rewards of that work. Because as you know Geoff, it takes time for people to get to know the code, the way a company works, and all of those things. And I think now those familiarizing pieces are all in place, it will facilitate us getting much more done. It also means that I now know how to manage growth in my company.-->
 
 **过去的一年你学到了什么来推动公司下一年的发展？**  
-在过去的一年我们扩大了公司规模－我们可能是之前的两倍大小了。所以说去年我在如何管理更多的人还有如何安排他们快速的去处理我们在做的每一件事。我想在接下来的一年我们将收获这项工作的成果。因为就像你所知的 Geoff ，人们需要时间去了解代码，公司的工作方式，以及所有的事情。我想现在熟悉工作已经做完，这将有利于我们做更多的事。这也意味着我现在知道如何管理我公司的成长。
+在过去的一年我们扩大了公司规模－我们可能是之前规模的两倍了。所以说去年我在如何管理更多的人还有如何安排他们快速的去处理我们在做的每一件事。我想在接下来的一年我们将收获这项工作的成果。因为就像你所知的 Geoff ，人们需要时间去了解代码，公司的工作方式，以及所有的事情。我想现在熟悉工作已经做完，这将有利于我们做更多的事。这也意味着我现在知道如何管理我公司的成长。
 
 
 <!--**What challenges have you faced with growth in the past?  
  **I would say we are still competing with companies with a lot more money, and we can’t match them on that front. Also, people with expertise we need are relatively rare. It’s not easy to find people with the skill sets we require, and also have them want to work remotely. So, because we only hire exactly who we need to do exactly what we need them to do, selection and availability of personnel have been somewhat of a challenge.-->
 
-**在过去的成长中你曾经面对了哪些问题？**  
+**在公司过去发展过程中你遇到了哪些挑战?**  
 我们一直和有很多钱的大公司们竞争，并且我们不能和他们正面竞争。而且，我们需要的有专长的人非常的少。找到满足我们需求的人并不容易，而且要求他们想要远程工作就更难了。所以，因为我们只招收能够精确地满足我们需求的人，挑选可利用的员工有点挑战性。
 
 
@@ -124,7 +124,7 @@ The fact that I’m not in the Valley also means that I don’t have to pay your
 
 I think there are many things that we want to do with our product. Maybe in the last year, progress hasn’t been as fast as I would have hoped. But, as we discussed, that is inevitable when you’re bringing new people on and truly taking the time to get them integrated and up to speed. There are also certain parts of the application that were written by me many years ago that need tweaking because what we’re building now is much larger in scope than what we had originally designed. It takes time to clean up that legacy and I think we’ve been good in the past year about cleaning some of that up, but there’s still more to do and of course that takes time and focus. I’m more focused on that internal issue than the external competition.
 -->
-**公司最大的弱点是什么？**  
+**你们公司最大的弱点是什么？**  
 总会有来自竞争者的挑战。 Adobe 在几个月前公布了 Comet 。这无疑对我们产生了严重的威胁。和像 Adobe 这样的公司竞争的风险就是他们并不急功近利。在他们改善的过程中他们可以很多年的钱亏－并且他们显然有足够的人才在他们的公司工作，所以这个消息给我很大压力。
 
 我想对于我们的产品还有很多的东西可以去做。也许在过去的一年，进展并没有我料想的快。但是，就像我们讨论过的，当你带来新的人并且真的花时间让他们成为一体、提升速度那是必然要做的。而且软件中还有一些很多年前我写的部分，因为我们现在扩大了原来的设计范围而需要修改。这需要时间去清理并且在过去的一年我们已经成功的清理了一部分，但还有更多的工作要做，当然，这需要时间和精力。我更关注于内部的问题而不是外部的问题。
@@ -154,7 +154,7 @@ I think there are many things that we want to do with our product. Maybe in the 
 
 
 **你认为人们知道他们想要什么么？**  
-他们当然知道。去年我们曾经与很多公司的人交流过，我经常听到“ Sketch 已经很完美了，你只需要加入这个东西就更好了”。一些人关注自动布局，一些人可能关注原型设计，另一些人关注数据驱动设计。所以经常这些建议对于说话的人听起来很简单，但是他们说的只是采取这些基本上非常复杂的想法，而且之后如果我们可以只在 Sketch 添加一个小小的功能，那么它将会非常完美。每个人建议一些事情，都没有看起来相似的请求甚至是主题。并且很多建议可能听起来是一个简单的变化，但是解决起来都非常复杂，所以我们不得不选择和理解我们不能满足每一个人。
+他们当然知道。去年我们曾经与很多公司的人交流过，我经常听到“ Sketch 已经很完美了，你只需要加入这个东西就更好了”。一些人关注自动布局，一些人可能关注原型设计，另一些人关注数据驱动设计。所以经常这些建议对于说话的人听起来很简单，但是他们说的只是采取这些基本上非常复杂的想法，而且之后如果我们可以只在 Sketch 添加一个小小的功能，那么它将会非常完美。每个人建议一些事情，都没有看起来相似的请求甚至是主题。并且很多建议可能听起来是一个简单的变化，但是解决起来都非常复杂，所以我们不得不选择和理解，我们不能满足每一个人。
 我不想做一个完全由用户说什么或是想要什么主导的应用。保留你自己的想法而不只是用户想要什么就添加什么。
 
 <!--**Do you have a set of values that drive these decisions? Do they change over time?  
@@ -173,21 +173,21 @@ I think there are many things that we want to do with our product. Maybe in the 
 <!--**How do you know if you’re moving fast enough?  
 **I have no idea. I wish it were simple. As I said earlier, I know there are certain things that we need to develop — invisible parts that just need to grow with the new greater scope of the application. That kind of work is never going fast enough. At the same time, it’s complex, so I can’t expect it to be done in a few months. So how do I know if we’re moving fast enough? No one can reliably predict the future on these things. I guess we can only see that looking back. At the moment I think we moving at a good pace.-->
 
-**你怎么知道如果你前进的过快？**  
-我不知道。我希望那能简单一点。就像我说最初，我只知道有一些事情我们需要去开发－只需要去更新扩大还没有完成的部分就可以。这种类型的工作从来也不会走的足够的快。与此同时，它也是复杂的，所以我不能期待它在几个月内完成。所以如果我前进的过快，我怎么知道？没有人能对这些事情进行可靠的预言。我猜我们仅能事后回顾。此刻，我认为我们走了正确的一步。
+**你怎么知道你是不是前进的够快？**  
+我不知道。我希望那能简单一点。就像我说最初，我只知道有一些事情我们需要去开发－只需要去更新扩大还没有完成的部分就可以。这种类型的工作从来也不会走的足够的快。与此同时，它也是复杂的，所以我不能期待它在几个月内完成。所以如果我前进的过快，我怎么知道？没有人能对这些事情进行可靠的预言。我猜我们仅能事后回顾。此刻，我认为我们前进的步伐恰到好处。
 
 <!--**How do you balance quality while scaling?  
 **That is one of the things I would be scared of in a company that grows too fast. There was a posting on Medium or Hackernews that there are 300 developers at Facebook committing code to their iOS app, and that’s pretty scary. For us, we now have a full-time QA person and we’ve put quite a bit of process into code reviews. I think in order to be effective with peer reviewed code it is important to have developers who of course objectively know what they are doing, and also have just the right level of personal interaction and knowledge that they are familiar enough when reviewing each others code that they can judge its impact.-->
 
 **你如何平衡质量等级？**  
-我非常恐惧的事情其中之一就是公司发展过快。据 Medium 和 Hackernews 的报道，大概有300个开发者在 Facebook 为他们的 iOS 应用提供代码，这真是令人非常害怕。对于我们，我们现在有一个全职的测试人员而且我们在代码审查方面下了很大功夫。我认为为了有效仔细的审查代码，能客观地知道他们在做什么的并且有着良好的个人交流，因他们足够熟悉所以互相审查时能判断其代码影响的开发者们是十分重要的。
+我非常恐惧的事情其中之一就是公司发展过快。根据Medium 和 Hackernews之前的一篇报道：Facebook的IOS应用有多达300名开发人员，这是很吓人的。对于我们，我们现在有一个全职的测试人员而且我们在代码审查方面下了很大功夫，我认为为了让每一行的代码审查都是有效的，开发人员清楚地知道自己在做什么是很重要的，并且他们应该有着良好的交流，相互十分熟悉，这样他们在看对方的代码的时候能清楚的知道它的作用。
 
 <!--**Has QA been one of the bigger pain points for Sketch?  
 **I think it’s fair to say, yes. There is a mountain of complexity that you open up with everything that you add to the application. Just something as simple as copy and paste. There are enormous numbers of edge cases, including: Where do you copy from? Where do you paste into? Where should it end up in the page? To which group does it belong? Does what you have currently selected play into that? Etc. There is just a staggering amount of complexity in an application such as Sketch where you can basically do whatever you want at any point. So it’s a challenge, for sure.
 -->
-**测试已经成为 Sketch 最大的痛苦了吗？**  
+**测试已经成为 Sketch 最大的痛点了吗？**  
 公正地说，是。你开启的每个被添加到应用程序上的功能像是复杂的山区一样。有的是仅仅像复制粘贴一样简单。
-但是他们有着大量的边缘事例，包括：你从哪拷贝的？你要粘贴到哪里？它将在页面的哪里结束？它属于哪个组？
+但是他们有很多边缘的容易被忽视的问题，包括：你从哪拷贝的？你要粘贴到哪里？它将在页面的哪里结束？它属于哪个组？
 对当前的选择在那里你打算做什么？等等。像 Sketch 这样你基本上可以在任何点做任何事的应用其中一定有一大堆复杂的东西。这肯定是一个挑战。
 
 <!--**Are you surprised at where Sketch is today?  
@@ -204,7 +204,7 @@ Well, that term is not quite accurate. We released version 3 almost two years ag
 <!--Whenever you have a server-based product it’s more acceptable to charge per month for something, but if it’s just an app that just sits on your Mac and doesn’t talk to a server and can just do it’s thing, people don’t understand why they should pay again every month.-->
 
 **你认为就公司现在的发展，一次性的收费对你开发 Sketch 是可持续性的么？**  
-好吧，这个描述不是非常精准。我们大概在两年前发布需要有尝升级的第三版。所以这和 Adobe 选择他们的 Creative Cloud 之前的模式一样。我绝对同意应用的一次性收费不是一种可持续性方式。我同样知道我们不想要用订购的模式。订购的方案在公司呼吁很高。你总是能拿到收入这点非常好－那么你不必拿出这些大的版本，你要希望你能说服足够多的人再次升级，等等。
+好吧，这个描述不是非常精准。我们大概在两年前发布需要有尝升级的第三版。所以这和 Adobe 选择他们的 Creative Cloud 之前的模式一样。我绝对同意应用的一次性收费不是一种可持续性方式。我同样知道我们不想要用订购的模式。订购的方案在公司呼吁很高。你总是能拿到收入这点非常好－那么你不必拿出这些大的版本来说服足够多的人再次升级，等等。
 
 顾客不喜欢订购软件的方式。当 Adobe 终止 Fireworks 的时候，那是我们卖的最多的日子之一。 Adobe 的定位十分基础，你可以现在选择 Photoshop 。而且很多人说，我真的不是喜欢 Photoshop ，而且我不想每个月支付，所以这让我了解了其他的收费方式。在最开始， Adobe 引入了订购的方式作为一种相对于传统方式的可供替代的方式。在那几年之后，他们选择了仅支持订购的方式，这是我们又一次卖的最多的日子。如果他们不了解一个非常明显的理由，我们可以清楚的发现人们不喜欢订购这种方式。
 
@@ -220,7 +220,7 @@ Well, that term is not quite accurate. We released version 3 almost two years ag
 **With the recent exit of the Mac App Store we think that we can push updates faster. I’m really excited to be able to ship the things that we have planned for the new year. I think we learned that the last big update took too long and now we want to keep shipping smaller updates. But I don’t want to say too much, because we all know how that works with software!
 -->
 **Sketch 将会发生什么改变？**  
-前不久我们离开了 Mac 的 App Store ，我们认为我们可以更快的推送更新。我是真的激动地去能够交出我们原来对于新年的计划的东西。我们发现上一个大更新用了我们太长的时间，现在我们打算持续的推送小更新。但是我不打算说的太多，因为我们都知道软件是怎样工作的。
+前不久我们离开了 Mac 的 App Store ，我们认为我们可以更快的推送更新。我是真的激动地去能够交出我们原来对于新年的计划的东西。我们发现上一个大更新用了我们太长的时间，现在我们打算持续的推送小更新。但是我不打算说的太多，因为我们都知道软件行业的一些规则。
 
 
 </section>
@@ -232,13 +232,13 @@ Well, that term is not quite accurate. We released version 3 almost two years ag
 <!--_It was interesting and engaging hearing Pieter’s thoughts and hopes for Sketch and where it resides in the space. He remains pleased with the size, scale and rate of growth at which Sketch is progressing. I’m now personally looking forward to more to come from Pieter and his team. While I don’t think Comet is going to be an overnight success that kills Sketch off, I do think it may take a bite out of Pieter’s lunch. One thing I did come away with, is that Pieter is dedicated and passionate about Sketch and that regardless of what competitors do, he’s not going anywhere for a long time._-->
 
 
-_听 Pieter 对于 Sketch 的想法和希望是有趣和引人入胜的，并且长存于空间中。他对 Sketch 的大小，规模和增长速度仍然十分满意。我个人期待更多来自 Pieter 和他的团队的分享。尽管我不认为 Comet 将会一夜成名击败 Sketch ，但是我认为它可能会抢占 Sketch 一定的市场。但是一件事我始终坚信， Pieter 敬业而且热爱 Sketch ，无论竞争者做什么，他都不会耽搁很长时间。_
+_听 Pieter 对于 Sketch 的想法和希望是有趣和引人入胜的，并且会长存于这个领域。他对 Sketch 的大小，规模和增长速度仍然十分满意。我个人期待更多来自 Pieter 和他的团队的分享。尽管我不认为 Comet 将会一夜成名击败 Sketch ，但是我认为它可能会抢占 Sketch 一定的市场。但是一件事我始终坚信， Pieter 敬业而且热爱 Sketch ，无论竞争者做什么，他都不会耽搁很长时间。_
 
 
 
 <!--_I am grateful for Pieter’s time and directness in discussing a company he started because he rightly sensed a need in the space. I understand the pros and cons of growing a company, especially one you founded, and it was very interesting to get Pieter’s take on the different aspects of running a lean, completely remote company, and his projections for the future of Sketch._
 -->
-_我对于 Pieter 能抽出时间并且直率的谈论他所创建的公司而感到感激，因为他明确的看到了未来的需求。我懂得了创建一个公司的利弊，尤其是你创建的，而且了解 Pieter 在运营一家精益、完全远程的公司时不同方面的表现还有他对 Sketch 的未来预测是非常有趣的。_
+_我对于 Pieter 能抽出时间并且直率的谈论他所创建的公司而感到感激，因为他明确的看到了未来的需求。我懂得了发展一个公司的利弊，尤其是你创建的，而且了解 Pieter 在运营一家精益、完全远程的公司时不同方面的表现还有他对 Sketch 的未来预测是非常有趣的。_
 
 
 <!--_Thanks, Pieter, and best of luck,  
