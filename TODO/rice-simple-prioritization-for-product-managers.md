@@ -1,132 +1,161 @@
 >* 原文链接 : [RICE: SIMPLE PRIORITIZATION FOR PRODUCT MANAGERS](https://blog.intercom.io/rice-simple-prioritization-for-product-managers/)
-* 原文作者 : [Sean McBride](https://blog.intercom.io/author/smcbride/)
-* 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者:
+>* 原文作者 : [Sean McBride](https://blog.intercom.io/author/smcbride/)
+>* 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
+>* 译者 : [ZhaofengWu](https://github.com/ZhaofengWu)
+>* 校对者:
 
 
-Prioritization is a perennial challenge when building a product roadmap. How do you decide what to work on first?
+在确立产品路线图时，优先级永远都是一个难题。你该怎么决定从何处着手呢？
 
-If you’ve put the effort into brainstorming new ideas, finding opportunities for improvement, and collecting feedback, you’ll have a [solid product roadmap](https://blog.intercom.io/where-do-product-roadmaps-come-from/) full of good ideas. But the order in which you tackle those ideas deserves just as much thought. You need to take the time to prioritize well.
+如果你花了足够的功夫来构思新的想法、寻找改善的机会、并收集反馈，你会有一个[可靠的路线图](httop://blog.intercom.io/where-do-product-roadmaps-come-from/)，其中也会充满着好想法。不过，着手这些想法的顺序同样值得充分思考。你需要花一些时间来合理地确立优先级。
 
-## Prioritization is a difficult problem
 
-So why is prioritizing a product roadmap so difficult? Let me count the ways:
 
-*   It’s satisfying to work on pet ideas you’d use yourself, instead of projects with broad reach.
-*   It’s tempting to focus on clever ideas, instead of projects that directly impact your goals.
-*   It’s exciting to dive into new ideas, instead of projects that you’re already confident about.
-*   It’s easy to discount the additional effort that one project will require over another.
+## 优先级是个难题
 
-Even if you make it through this mental minefield intact, you’re left with the tough task of consistently combining and comparing these factors across all project ideas. Thankfully, you don’t have to do this in your head.
 
-## A simple tool for prioritization
+为什么确立产品路线图的顺序这么难？我们来列一下：
 
-This is where a scoring system comes in. A good one can help you consider each factor about a project idea with clear-eyed discipline and combine those factors in a rigorous, consistent way.
+*   相比影响广泛的项目，实现自己个人的小想法会更令人满足。
+*   相比直接影响你的目标的项目，专注于小聪明的想法更有诱惑力。
+*   相比已经成竹在胸的项目，跃入新的想法更令人激动。
+*   你很容易忽略，某些项目可能会需要比其他项目付出更多的付精力。
 
-Using a scoring system for prioritization certainly isn’t new. Systems designed to balance costs and benefits abound. But on my team at Intercom, we had a hard time finding one that allowed us to usefully compare different ideas in a consistent way.
+就算你能够完美克服这些难题，在所有项目的想法中，你还会一直需要将这些因素结合与比较。不过好在，你不需要在你的脑海中做这些事。
 
-So, last August, we began developing our own scoring system for prioritization from first principles. After lots of testing and iteration, we settled on four factors, and a method for combining them.
 
-## RICE: Four factors for assessing priority
 
-RICE is an acronym for the four factors we use to evaluate each project idea: reach, impact, confidence, and effort.
+## 一个简单的优先级工具
 
-### Reach
+
+这时，一个打分系统就有用了。一个好的打分系统能够清晰、系统地帮助你考虑到一个项目的想法中上述每一个因素，并将这些因素严密及统一地结合起来。
+
+
+利用这样一个打分系统来确立优先级并不新鲜。现在就有很多系统用来平衡收支。不过，我在 Intercom 的团队并没有找到一个完善的系统能够让我们统一地比较诸多想法。
+
+
+所以，去年八月，从最基础的原理开始，我们开始着手开发我们自己的优先级打分系统。很多次测试与循环之后，我们确立了四个因素，以及一个将它们结合的方法。
+
+
+
+## RICE: 四个估计有限性的因素
+
+RICE 是我们用来评判项目想法的四个因素的首字母缩写：范围 (reach)、影响力度 (impact)、信心 (confidence)、和付出 (effort)。
+
+
+
+### 范围
+
 
 ![](https://blog.intercomassets.com/wp-content/uploads/2016/03/15031653/Reach.png)
 
-To avoid bias towards features you’d use yourself, estimate how many people each project will affect within a given period. For my team, it’s “how many customers will this project impact over a single quarter?”.
 
-Reach is measured in number of people/events per time period. That might be “customers per quarter” or “transactions per month”. As much as possible, use real measurements from product metrics instead of pulling numbers from a hat.
+为了避免个人因素产生的偏见，你应该先估计在一段时间内每个项目影响的范围。比如对于我们团队，要估计的就是我们项目在一个季度会影响多少用户。
 
-#### Example
+范围衡量的是每个时间段中的人数或事件数。它可以是"每季度的顾客量"或者"每月的交易量"。尽量使用产品现实的数据而不是随便想一些数。
 
-> _Project 1: 500 customers reach this point in the signup funnel each month, and 30% choose this option. The reach is 500 × 30% × 3 = 450 customers per quarter._
-> 
-> Project 2: Every customer who uses this feature each quarter will see this change. The reach is 2,000 customers per quarter.
-> 
-> Project 3: This change will have a one-time effect on 800 existing customers, with no ongoing effect. The reach is 800 customers per quarter.
+#### 示例
 
-### Impact
+> _项目1：每月有 500 顾客到达了这个注册过程，其中 30% 选择了这个选项。那么范围就是 500 × 30% × 3 = 450 顾客每季度。_
+>
+> _项目2：每个季度所有使用这个特性的顾客都会注意到这个改变。那么范围就是 2,000 顾客每季度。_
+>
+> _项目3：这个改变只会对目前的 800 名用户有一次性的效果，并不会对以后有任何影响。那么范围就是 800 顾客每季度。_
+
+
+
+### 影响力度
+
 
 ![](https://blog.intercomassets.com/wp-content/uploads/2016/03/15030742/impact.png)
 
-To focus on projects that move the needle on your goal, estimate the impact on an individual person. For my team, it’s “how much will this project increase conversion rate when a customer encounters it?”. Your team might replace this with another goal, such as “increase adoption”, or “maximize delight”.
+为了让项目精准地实现你的目标，你需要顾及项目对于个体的影响。我们团队要问的问题就是，当顾客使用我们的项目，会使汇率提高多少。当然，你们的团队要将之改为你们的目标，比如提高收养率或使心情最佳。
 
-Impact is difficult to measure precisely. So, I choose from a multiple-choice scale: 3 for “massive impact”, 2 for “high”, 1 for “medium”, 0.5 for “low”, and finally 0.25 for “minimal”. These numbers get multiplied into the final score to scale it up or down.
+影响力度很难准确衡量。所以，我采用了一个量表的形式：3 代表"巨大影响"，2 代表"高"，1 是"中等"，0.5 是"低"，而 0.25 就是"几乎没有"。在计算最终的分数时，这些数字会和系数相乘，来放大或缩小。
 
-Choosing an impact number may seem unscientific. But remember the alternative: a tangled mess of gut feeling.
+如此为影响力度选择一个数字似乎有些不科学，但否则如果只用直觉的话，结果会一团糟。
 
-#### Example
+#### 示例
 
-> _Project 1: For each customer who sees it, this will have a huge impact. The impact score is 3._
-> 
-> Project 2: This will have a lesser impact for each customer. The impact score is 1.
-> 
-> Project 3: This is somewhere in-between in terms of impact. The impact score is 2.
+> _项目1：对于每个顾客都会有巨大的影响。影响分数为 3 。_
+>
+> _项目2：对于每个顾客都会有较小的影响。影响分数为 1 。_
+>
+> _项目3：影响力度大约在二者之间。影响分数为 2 。_
 
-### Confidence
+### 
+
+### 信心
 
 ![](https://blog.intercomassets.com/wp-content/uploads/2016/03/15030748/confidence.png)
 
-To curb enthusiasm for exciting but ill-defined ideas, factor in your level of confidence about your estimates. If you think a project could have huge impact but don’t have data to back it up, confidence lets you control that.
+为了控制过度地热衷于令人激动但是不明确的想法，你应该考虑到你对于一些预估的信心。如果你觉得一个项目会有巨大的影响力，但是并没有任何支持的数据，该信心因素就能让你控制你的冲动。
 
-Confidence is a percentage, and I use another multiple-choice scale to help avoid decision paralysis. 100% is “high confidence”, 80% is “medium”, 50% is “low”. Anything below that is “total moonshot”. Be honest with yourself: how much support do you really have for your estimates?
+信心是一个百分数，而我同样也用了一个量表的形式来避免选择困难症。100％ 是“高度信心”，80% 代表"中等"，50% 则是“低”。比这再低？那简直就是无稽之谈来。不过你要对自己诚实：你的预估背后究竟有多少支撑？
 
-#### Example
+#### 示例
 
-> _Project 1: We have quantitative metrics for reach, user research for impact, and an engineering estimate for effort. This project gets a 100% confidence score._
-> 
-> Project 2: I have data to support the reach and effort, but I’m unsure about the impact. This project gets an 80% confidence score.
-> 
-> Project 3: The reach and impact may be lower than estimated, and the effort may be higher. This project gets a 50% confidence score.
+> _项目1：我们有对范围的定量计算，对影响力度的用户调研，以及对于工程上的精力的估计。这个项目就可以有 100% 的信心分数。_
+>
+> _项目2：我拥有支撑范围和精力的数据，但是我不太确定影响力度。这个项目就有 80% 的信心分数。_
+>
+> _项目3：范围和影响力度可能比预估低一点，但是精力可能会高一点。这个项目就只能有 50% 的信心分数。 _
 
-### Effort
+### 
+
+### 精力
 
 ![](https://blog.intercomassets.com/wp-content/uploads/2016/03/15030800/effort.png)
 
-To move quickly and have impact with the least amount of effort, estimate the total amount of time a project will require from all members of your team: product, design, and engineering.
+为了用最少的精力和最快的节奏产生影响，你需要估计一个项目所需的时间。你需要从每个团队成员的角度去预估：产品人员、设计师、和工程师。
 
-Effort is estimated as a number of “person-months” – the work that one team member can do in a month. There are many unknowns here, so I keep my estimates rough by sticking to whole numbers (or 0.5 for anything well under a month). Unlike the other positive factors, more effort is a bad thing, so it divides the total impact.
+精力是用"人月"这个数字来估计的——一个团队成员在一个月中可以做的工作量。这里会有很多未知的因素，所以我粗略地用整数来估计这个量（或者对于远小于一个月的工作量，就用0.5）。不像其它正面的因素，更多的精力是一个坏事。所以，我们需要用总影响力来除以这个数字。
 
-#### Example
 
-> _Project 1: This will take about a week of planning, 1-2 weeks of design, and 2-4 weeks of engineering time. I’ll give it an effort score of 2 person-months._
-> 
-> Project 2: This project will take several weeks of planning, a significant amount of design time, and at least two months of one engineer’s time. I’ll give it an effort score of 4 person-months.
-> 
-> Project 3: This only requires a week of planning, no new design, and a few weeks of engineering time. I’ll give it an effort score of 1 person-month.
 
-## Combining factors to get a RICE score
+#### 示例
 
-So, to quickly summarise our four factors:
+> _项目1：这个项目要一周左右的计划，一两周的设计，和两到四周的工程时间。我觉得 2 人月的估计比较合适。_
+>
+> _项目2：这个项目要花几周时间来规划，一段较长的时间来设计，以及每个工程师至少两个月的时间。这个项目大约就是 4 人月的精力分数。_
+>
+> _项目3：这个项目只需要一周的规划，不用任何新设计，以及仅仅几周的工程时间。那么它就只是 1 人月的分数。_
 
-**Reach:** how many people will this impact? (Estimate within a defined time period.)  
-**Impact:** how much will this impact each person? (Massive = 3x, High = 2x, Medium = 1x, Low = 0.5x, Minimal = 0.25x.)  
-**Confidence:** how confident are you in your estimates? (High = 100%, Medium = 80%, Low = 50%.)  
-**Effort:** how many “person-months” will this take? (Use whole numbers and minimum of half a month – don’t get into the weeds of estimation.)
 
-Once you’ve estimated these factors, combine them into a single score so you can compare projects at a glance. Here’s the simple formula:
+
+## 合并因素，得到RICE分数
+
+总结一下我们的四个因素：
+
+**范围：**它会影响多少人？（在某一固定时间范围内）
+
+**影响力度：**它会在多大程度上影响一个人？（很大 = 3x，大 = 2x，中 = 1x，低 = 0.5x，很低 = 0.25x）
+
+**信心：**你对你的预估有多大信心？（高 = 100%，中 = 80%，低 = 50%）
+
+**精力：**它会占用多少 "人月" ？（用整数，或者在很小的情况下，用0.5——也不用太精确）
+
+一旦你估计好了这些因素，将它们合并成一个分数，这样你就可以一眼比较多个项目了。公式如下：
 
 ![](https://blog.intercomassets.com/wp-content/uploads/2016/03/15030740/formula.png)
 
-The resulting score measures “total impact per time worked” – exactly what we’d like to maximize. I set up a [spreadsheet](https://docs.google.com/spreadsheets/d/12BY8jlCPOVav1KFocIx-wruLjO-TVE2tpLO-oFM3SDA/edit#gid=0) to automatically calculate the score for me as I estimate each factor.
+得出的分数衡量了"每单位工作时间带来的影响"——这正就是我们想要最大化的。我做了一份[电子表格](https://docs.google.com/spreadsheets/d/12BY8jlCPOVav1KFocIx-wruLjO-TVE2tpLO-oFM3SDA/edit#gid=0)来自动计算这个分数。
 
 [  
 ![](https://blog.intercomassets.com/wp-content/uploads/2016/03/15032115/spreadsheet-screenshot.png)](https://docs.google.com/spreadsheets/d/12BY8jlCPOVav1KFocIx-wruLjO-TVE2tpLO-oFM3SDA/edit#gid=0)
 
-_Feel free to duplicate the spreadsheet for your own use. Or [download an .xls](https://blog.intercomassets.com/wp-content/uploads/2016/03/15033140/RICE-scoring-example-spreadsheet-1.xlsx) version._
+_你可以复制一份该表格作为自用。你也可以[下载一个 .xls 的版本](https://blog.intercomassets.com/wp-content/uploads/2016/03/15033140/RICE-scoring-example-spreadsheet-1.xlsx)_
 
-Once the initial scoring is done, sort your list and re-evaluate. Are there projects where the score seems too high or too low? If so, reconsider your estimates and make changes, or accept that your gut instinct may be wrong.
+一旦第一步计算完了分数，你就可以排序你的列表，并重新评估。有没有得分过高或过低的项目？如果有，重新考虑你的预估，并且要不然进行改动，要不然接受你的直觉可能不准这个事实。
 
-I’ve used RICE to score over 100 project ideas during the past six months, and it has helped immensely when deciding between hard-to-compare ideas. It forces you to think about why a project idea will have impact, and to be honest about the effort that’s needed to achieve it.
+我在过去六个月用了该 RICE 分数评估了超过 100 个项目的想法。它巨大地帮了我决定难以比较的想法。它强迫你去想为什么一个项目的想法会拥有影响力，也让你真实地面对需要付出的精力。
 
-## Using RICE scores effectively
 
-Of course, RICE scores shouldn’t be used as a hard and fast rule. There are many reasons why you might work on a project with a lower score first. One project may be a dependency for another project, so it needs to happen first, or another feature might be “table stakes” to sell to certain customers.
 
-On my team, we sometimes work on projects “out of order”. And that’s OK! With a scoring system in place, we can clearly identify when we’re making these trade-offs.
+## 有效地使用RICE分数
 
-A scoring system like RICE will help you make better-informed decisions about what to work on first and defend those decisions to others. Give RICE a try in your own prioritization process and let us know how it works for you.
+当然，RICE 分数不应该被奉为金科玉律。一些得分低的项目可能也有充足的理由需要首先做。比如，一个项目可能依赖于另一个，所以后者需要先去做。或者，某个特性可能是个卖点。
 
+我们的团队有时会不按 RICE 分数的顺序来进行，这是完全没有问题的。这个打分系统只是让我们更清晰地看到取舍而已。
+
+RICE 这样的打分系统会帮你做出基于更多信息的优先决定，也帮你向别人解释你这样做的道理。在你自己的优先级评定的过程中，试试 RICE ，并告诉我们用得怎么样！
