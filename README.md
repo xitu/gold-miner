@@ -54,6 +54,7 @@
 
 ## 前端
 
+* [JavaScript 生态之乱象](http://gold.xitu.io/entry/5705e71ed342d3005418ea66) ([woota](https://github.com/woota) 翻译)
 * [在网站 Logo 上右击时提示下载网站的 Logo 素材下载](http://gold.xitu.io/entry/570b2b671ea493005c024ee3) ([Yushneng](https://github.com/rainyear) 翻译)
 * [揭秘 IIFE 语法](http://gold.xitu.io/entry/5704e12771cfe4005dc85868) ([huxpro](https://github.com/Huxpro) 翻译)
 * [利用 :placeholder-shown 选择器实现 label 浮动效果](http://gold.xitu.io/entry/56de3c291532bc005620b320)([Zhangjd](https://github.com/zhangjd) 翻译)
@@ -70,7 +71,6 @@
 
 ## React
 
-* [JavaScript 生态之乱象](http://gold.xitu.io/entry/5705e71ed342d3005418ea66) ([woota](https://github.com/woota) 翻译)
 * [Making React Native apps accessible](http://gold.xitu.io/entry/56cc0ab299a6ce005a1c3b2b)([void-main](https://github.com/void-main) 翻译)
 * [如何发布一个 React components](http://gold.xitu.io/entry/56ce8d1fc24aa800520f94e8)([aleen42](https://github.com/aleen42) 翻译)
 * [Things I Wish I Were Told About React Native](http://gold.xitu.io/entry/56cbf55cefa631005c441d9b)([huanglizhuo](https://github.com/huanglizhuo) 翻译)
@@ -106,5 +106,6 @@
 
 ## 产品
 
+* [什么是产品设计?](http://gold.xitu.io/entry/570b6a6a75c4cd3c3b917bd0) ([Zhangjd](https://github.com/zhangjd) 翻译)
 * [产品文案要说人话](https://github.com/xitu/gold-miner/blob/master/TODO/the-secret-to-writing-killer-product-copy.md) ([iThreeKing](https://github.com/iThreeKing) 翻译)
 
