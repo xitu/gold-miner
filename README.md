@@ -23,6 +23,7 @@
 
 ## Android
 
+* [使用 RxJava 封装现有的库](http://gold.xitu.io/entry/5705e94a2e958a0059c4479e) ([尹述迪](http://yinshudi.com/) 翻译)
 * [在 Android 下进行实时模糊渲染](http://gold.xitu.io/entry/56dd55d6df0eea0055b40083) ([Sausre](https://github.com/Sausure) 翻译)
 * [Android 开发中利用异步来优化运行速度和性能](http://gold.xitu.io/entry/56dd4bf37664bf0052047906) ([edvardHua](https://github.com/edvardHua) 翻译)
 *  [深入浅出 Android 权限（二）](http://gold.xitu.io/entry/56d802ab8ac2470054759796) ([Hugo Xie](https://github.com/xcc3641) 翻译)
@@ -53,6 +54,9 @@
 
 ## 前端
 
+* [JavaScript 生态之乱象](http://gold.xitu.io/entry/5705e71ed342d3005418ea66) ([woota](https://github.com/woota) 翻译)
+* [在网站 Logo 上右击时提示下载网站的 Logo 素材下载](http://gold.xitu.io/entry/570b2b671ea493005c024ee3) ([Yushneng](https://github.com/rainyear) 翻译)
+* [揭秘 IIFE 语法](http://gold.xitu.io/entry/5704e12771cfe4005dc85868) ([huxpro](https://github.com/Huxpro) 翻译)
 * [利用 :placeholder-shown 选择器实现 label 浮动效果](http://gold.xitu.io/entry/56de3c291532bc005620b320)([Zhangjd](https://github.com/zhangjd) 翻译)
 * [响应式 GraphQL 结构](http://gold.xitu.io/entry/56de66fe731956005c46782a)([shenxn](https://github.com/shenxn) 翻译)
 * [How we "CSS" at BigCommerce](http://gold.xitu.io/entry/56ce82cbc24aa800520f4215)([shenxn](https://github.com/shenxn) 翻译)
@@ -73,6 +77,7 @@
 
 ## 后端
 
+*  [SSH 简化配置](http://gold.xitu.io/entry/5704cf8e71cfe4005dc76f18) ([circlelove](https://github.com/circlelove) 翻译)
 *  [Python3.5 协程原理](http://gold.xitu.io/entry/56ea295ed342d300546e1e22)  ([Yushneng](https://github.com/rainyear) 翻译)
 *  [人人须知的 jQuery 技巧](http://gold.xitu.io/entry/56e1a95b731956005da35c24)  ([Yves-X](https://github.com/Yves-X) 翻译)
 *  [OAuth2 Authentication with Lua](http://gold.xitu.io/entry/56cd222199a6ce005a25b9ef)([BOBO](https://github.com/CoderBOBO) 翻译)
@@ -101,5 +106,6 @@
 
 ## 产品
 
+* [什么是产品设计?](http://gold.xitu.io/entry/570b6a6a75c4cd3c3b917bd0) ([Zhangjd](https://github.com/zhangjd) 翻译)
 * [产品文案要说人话](https://github.com/xitu/gold-miner/blob/master/TODO/the-secret-to-writing-killer-product-copy.md) ([iThreeKing](https://github.com/iThreeKing) 翻译)
 
