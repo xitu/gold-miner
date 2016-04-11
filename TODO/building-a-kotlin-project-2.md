@@ -2,7 +2,7 @@
 * 原文作者 : [CIRO RIZZO](https://github.com/cirorizzo)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [Jing KE](https://github.com/jingkecn)
-* 校对者: [lizhuo](https://github.com/huanglizhuo) [DianaZhou](https://github.com/DianaZhou)
+* 校对者: [lizhuo](https://github.com/huanglizhuo), [DianaZhou](https://github.com/DianaZhou)
 
 
 ###### _第 2 部分_
