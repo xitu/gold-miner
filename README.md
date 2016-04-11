@@ -54,6 +54,7 @@
 
 ## 前端
 
+* [在网站 Logo 上右击时提示下载网站的 Logo 素材下载](https://github.com/rainyear/gold-miner/blob/fabff8780118b24c61c57b13577cf971757c84d5/TODO/right-click-logo-show-logo-download-options.md) ([Yushneng](https://github.com/rainyear) 翻译)
 * [揭秘 IIFE 语法](http://gold.xitu.io/entry/5704e12771cfe4005dc85868) ([huxpro](https://github.com/Huxpro) 翻译)
 * [利用 :placeholder-shown 选择器实现 label 浮动效果](http://gold.xitu.io/entry/56de3c291532bc005620b320)([Zhangjd](https://github.com/zhangjd) 翻译)
 * [响应式 GraphQL 结构](http://gold.xitu.io/entry/56de66fe731956005c46782a)([shenxn](https://github.com/shenxn) 翻译)
