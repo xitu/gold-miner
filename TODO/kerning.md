@@ -1,14 +1,13 @@
 * 原文链接 : [A Beginner’s Guide to Kerning Like a Designer](https://designschool.canva.com/blog/kerning/)
 * 原文作者 : [Janie Kliever](https://designschool.canva.com/blog/author/janiekliever/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : cdpath
-* 校对者 : L9m
-* 状态 : 校对中
+* 译者 : [cdpath](https://github.com/cdpath)
+* 校对者 : [L9m](https://github.com/L9m), [shenxn](https://github.com/shenxn)
 
 
 _你可曾盯着刚排版的单词或词组却觉得看上去间距有点远？_
 
-这就涉及到字偶距的问题了。字偶距是指两个字母（或其他字符，比如数字，标点符号等)之间的空白，而调整该空白可以避免看起来笨拙的单词间隙，同时提升可读性。
+这就涉及到字偶距的问题了。字偶距是指两个字母（或其他字符，比如数字，标点符号等）之间的空白，而调整该空白可以避免看起来笨拙的单词间隙，同时提升可读性。
 
 ![](http://ww1.sinaimg.cn/large/9b5c8bd8jw1f0n4he76qij20ie0dtwhp.jpg)
 
