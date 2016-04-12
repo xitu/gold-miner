@@ -2,151 +2,152 @@
 >* 原文链接 : [A Guide to Interviewing for Product Design Internships](https://medium.com/facebook-design/a-guide-to-interviewing-for-product-design-internships-d719dd4c146c#.jhgjr12c)
 * 原文作者 : [Andrew Hwang](https://medium.com/@ahwng)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
+* 译者 : [iThreeKing](https://github.com/iThreeKing)
 * 校对者: 
 
 
 
 
 
-“We reviewed your portfolio, and we’d love to interview you for our product design internship. What times will you be available in the upcoming week?”
+“我们查看了你的作品集，诚挚邀请你参加我们公司产品设计实习生的面试。请问在将来这一周你什么时间有空呢？”
 
-Upon seeing this email, your pulse quickens. Your eyes widen. You drool a little. You sent out so many cover letters, submitted so many applications, and — finally! A small but meaningful step on the journey to becoming a full-fledged product designer.
+看到这封邮件时，你的脉搏加快，眼睛睁大，有点流口水。你已经寄出很多求职信，提交了很多求职申请，最后 - 终于如愿！你在成为一个羽翼丰满的产品设计师之路上跨出了虽然很小一步，但是却很有意义一步。
 
-But what will they ask you? And how could you possibly prepare?
+但是他们会问你什么？你如何尽全力的准备呢？
 
 
-Breaking into the product design field as a student is hard. Some product designers stumble into the field with a graphic design or art degree. Others are self-taught. Either way the field of digital product design is so new that there are very few resources for curious students.
+一名学生突然闯入产品设计领域是比较困难的。一些有图形设计或者艺术学历的产品设计师也是迷迷糊糊地走进这个领域。另外一些则是自学成才。无论是哪种方式，数字产品设计依然是新的领域，对于那些充满好奇心的学生来说资源很少。
 
-In high school I hadn’t yet heard of the product design industry. I dabbled in web design but quite frankly, I was terrible at it. I couldn’t imagine it going anywhere.
+高中我都没有听说过产品设计行业。我了解过 web 设计领域，但是说实在的，我曾讨厌它。无法想象它能应用在哪些地方。
 
-But over time I accumulated enough design work to find myself with a design internship at a mobile app startup. There I first got a taste of product design. And I fell in love with the problem-solving, the complexity, the collaboration with product managers and engineers and illustrators to build something from nothing. So I pursued it ruthlessly.
+随着时间的推移，我在一家手机 app 创业公司进行设计实习，积累了足够的设计经验来找到自己(喜欢什么)。在这里，我第一次体验到了产品设计，并且爱上了解决错综复杂的问题，爱上了与产品经理、工程师和 UI 设计师一起团队合作实现一个产品从 0 到 1 的过程。所以我义无反顾地选择了这个行业。
 
-The following summer I ramped up my internship application game, submitting resumes to over 50 companies. Five of them responded positively. Of those five, three small tech companies interviewed me immediately. But I went into those interviews not having the faintest idea what they’d ask, so those doors shut as quickly as they had opened.
+年夏天我继续玩大了自己实习生申请的“游戏”，向超过 50 家公司投递了简历。其中有五家公司对我有兴趣。这五家之中，有三家小型科技公司立刻面试了我。但是我去那些面试时根本不知道他们会问些什么，所以那些为我敞开的门又很快像它们刚打开那样关上了。
 
-Evernote was the fourth company to respond positively. And though I had botched the previous three interviews, I had a better idea of what to expect when I hopped on the phone with the Evernote designers.
+Evernote 是第四家对我有兴趣的公司。虽然我搞糟了之前三场面试，但是在与 Evernote 设计师电话面试时表现的还不错。（并不知道这个怎么翻译。。。）
 
-I landed the Evernote product design internship that summer. And with a bit more experience under my belt, the following summer I received an offer for Facebook’s product design internship. Now I’m a full-time product designer at Facebook.
+在那个夏天我去 Evernote 产品设计岗位实习。因为有了更多实习经验，接下来的那年夏天我拿到了 Facebook 产品设计实习的 offer。现在我在 Facebook 担任全职产品设计师。
 
-As a student I interviewed for product design internships at many of the Silicon Valley behemoths: Google; Facebook; Mozilla; Quora; Groupon; Dropbox. And if one thing stuck with me, it was that product design interviews are quite similar across tech companies. They usually include all or some combination of the following:
+一个学生，我面试过很多家硅谷大公司的产品设计实习岗位:Google;Facebook; Mozilla; Quora; Groupon; Dropbox.其中有一件事情我一直记得，那就是科技公司产品设计面试流程相当的类似。他们面试的部分通常包括以下所有或者下面的一些组合：
 
-1.  Phone screen
-2.  Portfolio review
-3.  Design exercise
-4.  App critique
+1. 视频面试
+2. 作品集审查
+3. 设计任务
+4. App 批判性问答 
 
-Let’s dig a little deeper into each step
+让我们更加深入的了解每一步。
 
-**1\. The Phone Screen**
+**1\. 视频面试**
 
-The phone screen allows the recruiter to get to know you better, to go past the words on your resume. You might be asked:
+视频面试能够让面试官更好的了解你，更好的浏览你简历上所写的东西。你可能被问到：
 
-*   What’s your background like?
-*   How did you get into design?
-*   Why are you interested in working here?
-*   What was your favorite past project, and why?
+*   你的个人背景？
+*   你是如何进入设计领域？
+*   为什么你对所面试公司感兴趣？
+*   你做的项目中最喜欢哪个以及为什么？
 
-During the phone screen, sound excited. And come prepared with questions for the recruiter. Try to ask questions specific to the company, questions that are not easily answerable with a Google search. Recruiters can tell generic questions from authentic ones, and asking canned questions may damage the strength of your candidacy.
+在视频面试中，声音要有激情。同时也为面试官准备一些问题。试着问一下公司具体情况的问题，那些不是很容易在 Google 搜索找到答案的问题。面试官会从真实可信数据中解答一些常见问题，但是问一些封闭问题可能会影响你候选的资格。
 
-While preparing for my first phone screen with Facebook, for instance, I [discovered](http://www.quora.com/What-do-Facebook-interns-do) the company regularly hosts intern hack-a-thons. So during the phone screen I probed further about the hack-a-thons: How do they work, exactly? Is it okay for interns to completely ignore their summer projects during the hack-a-thons? Who reviews the final projects? Questions like these show genuine interest. They tell the recruiter you’ve done your homework and care deeply about the internship opportunity.
+准备第一次 Facebook 视频面试的时候，举个例子，我[发现](http://www.quora.com/What-do-Facebook-interns-do)Facebook 会定期举行实习生编程马拉松(hack-a-thons)活动。所以在视频面试的时候我进一步和面试官探讨了编程马拉松：它们究竟如何工作？在编程马拉松活动时，实习生完全忽略他们的夏季项目这样好吗？谁审查最后的项目？这些问题能表现出你真正的兴趣。同时也告诉了面试官你是下了功夫并且十分在乎实习机会的。
 
-If the recruiter thinks your background and interests might be a good fit for the internship, the next step is usually a showcase of your past work.
+如果面试官认为你的个人背景和兴趣比较适合实习，那么下一环节通常就是你过去工作的一个展示。
 
-#### 2\. The Portfolio Review
+#### 2\. 作品集审核
 
-Here you’ll speak with a designer. Typically, the review will include a deep dive into three or four of your portfolio projects. The point of the portfolio review is for the designer to tease out your design process, to understand what types of questions you ask and what kinds of solutions you consider. In short, the interviewer wants to know how you approach design. You might be asked questions such as:
+这一步你会和设计师直接对话。通常情况下，审核将包括你做过的三四个项目作品的深入了解。作品集审核的关键在于帮助设计师梳理你的设计流程，了解你提出了什么样的问题和你考虑了什么样的解决办法。简单来说，面试官想知道你是如何接近设计的。你可能会被问到这样的问题：
 
-*   What were the problems you were trying to solve?
-*   Who did you partner with?
-*   What kind of research did you perform, if any?
-*   Why did you choose that design solution over this one?
-*   What were the tradeoffs?
-*   What challenges did you face in designing X?
-*   If you had more time to work on Y, what would you change?
-*   If you got stuck on a certain design problem, how did you overcome it?
+*   你想要努力解决什么问题？
+*   你曾和谁组队搭档？
+*   你做过哪种调研，有没有例子？
+*   为什么你选择那种的设计方案而不是这种？
+*   应该权衡哪些东西？
+*   在设计某个产品 X 时你遇到了哪些挑战？
+*   如果你有更多时间在某个产品 Y 上，你会做什么改变？
+*   如果你在一个确切设计问题上卡住，你会如何克服它?
 
-One of your main tasks in the portfolio review is to show **intentionality** in your design process, to demonstrate that you thought through each design decision carefully, from the high-level product features to the visual styling of a button.
+作品集审核中，一个主要任务就是在你的设计流程中展现出你的**意向**，来表明你思考每一个设计决定都是很细心的，无论是从高级产品特性还是到一个按钮的视觉造型。
 
-Describe your rationale clearly. Arbitrary design decisions won’t hold up to the scrutiny of a portfolio review.
+清楚地描述你的逻辑根据。武断地设计决定经不起作品集审核的仔细检查。
 
 
 
 ![](http://ww4.sinaimg.cn/large/a490147fjw1f2lzu8uvhoj20m80ah75i.jpg)
 
-<figcaption>Make sure you can articulate your design decisions. Comic credit: Andrew Hwang</figcaption>
+<figcaption>确保自己能清晰地表达自己的设计决定。漫画作者：Andrew Hwang</figcaption>
 
 
-During the portfolio review, you should also be able to **thoughtfully critique** your own designs. No design solution is perfect. Reflect on your projects and come up with suggestions for how to improve them.
+在作品集审核中，你也应该**深思熟虑地以批判性眼光看待**自己的设计。没有哪一款设计方案是完美的。反观自己的项目，然后想出一些如何提高它们的建议。
 
-Many companies think of product design as having three pillars:
+许多公司认为产品设计有三个基础：
 
-1.  Visual design: How polished are your designs? Do they feel well-crafted and refined? Are they aesthetically pleasing?
-2.  Interaction design: Can you design intuitive end-to-end user flows? Do you consider edge cases appropriately? How easy is it to get from point A to point B in an app you designed?
-3.  Product thinking: What problems are you trying to solve? Who are you designing for? What features should be included in your product, and why?
+1.  视觉设计：如何改进你的设计？它们是否感觉起来有好的工艺和改进？它们是否美观地和人心意？
+2.  交互设计：你能凭直观设计出端到端的用户流吗？你合理地考虑了边缘情况吗？在你设计的 app 中，如何简单的从 A 点到 B 点？
+3.  产品思维：你要努力解决什么样的问题？你为谁而设计？哪些特性应当包含在你的产品中，为什么？
 
-The portfolio review helps the interviewer gauge your strengths and weaknesses in these areas. Maybe you’re more comfortable with visual design and less so with interaction design. Maybe you’re a fantastic product thinker but can’t build a prototype to save your life. But that’s okay! You’re a student. Interviewers don’t expect you to be a rockstar in every facet of product design. Being honest about your weaknesses shows humility, a vital quality for any designer.
+作品集审核能够帮助面试官衡量你在这些领域的强项和弱项。或许你在更适合视觉设计却缺少交互设计的能力。或许你是个稀奇古怪的产品思维者却不能在现实中创建原型。但是这都没问题！你还只是个学生。面试官不会很期待你在产品设计的每个方面都出众。勇于承认自己的弱项以表谦逊，这是任何一个设计师都必不可少的素质。
 
-**Preparing for the portfolio review is key**. While interviewing I often found myself nervously rushing through each project in my portfolio. Having a list of talking points prevented me from skipping over any important items and forced me to slow down.
+**为作品集审核做好准备是关键。**在面试的时候，我经常发现自己会紧张急躁地展示自己作品集每一个项目。列的一些要点会防止我跳过重要的部分，同时也会让我渐渐慢下来平静下来。
 
-Your list of talking points should shed more light on the specific design process for each project, elaborating on what went wrong and what went right. Reflect deeply on each piece you plan to present. Write down everything you can remember about the design process. Ask a friend to mock interview you. Prepare, prepare, prepare!
+你列的要点应该侧重每一个项目具体的设计流程，详细阐述它们运行错误和运行正确的情况。深刻反省你预计出现的每一种情况。写下所有自己能记得的设计流程。让一个朋友模拟面试你。准备，准备，准备！
 
-If the portfolio review goes well, it’s on to the design exercise.
+若果作品集审核进展顺利，那么你就会进入设计任务阶段。
 
-#### 3\. The Design Exercise
+#### 3\. 设计任务
 
-The typical design exercise follows this pattern:
+传统的设计任务都会遵循下面这个模式：
 
-_Please design an interface/object/product that does X or solves Y._
+_请为需求 X 或者解决 Y 问题设计一个界面/物品／产品。_
 
-Its on-the-spot nature can make the design exercise intimidating. Where the portfolio review fleshed out your past design processes, the design exercise asks that you flex your design chops right here, right now.
+当场进行设计任务自然会更加吓人。如果说作品集审核是要充实你过去的设计流程，那么设计任务则是要求你实时实地的展示你的设计内涵思想。
 
-Some exercises I’ve encountered:
+一些我曾遇到的任务：
 
-*   Design a web form that collects only high-quality phone numbers. That is, if you called the phone numbers, someone would receive the call.
-*   Design the homepage for a search engine.
-*   Brainstorm products you could design using the Kindle’s e-reader screen material.
+*   设计一款采集高保真电话号码的 web 表格。同时，如果你说电话号码，某个人会接到电话。
+*   为搜索引擎设计主页。
+*   展开头脑风暴，使用 Kindle 电子阅读器屏幕的材料设计一款产品。
 
-Every designer has their own design process, so I can’t exactly tell you how to go about the design exercise. But I’d suggest thinking about who you’re designing for, quickly sketching out many different options, and analyzing the tradeoffs of each option as you go. Don’t dive too deeply into the interaction or visual details of any one option before completing a thorough high-level exploration.
+每一位设计师都有他们自己的设计流程，所以我不能准确的告诉你在设计任务中如何应对。但是我建议可以思考一下你在为谁设计，快速地勾勒出许多不同的选项，并分析这些选项之间的权衡之处。在完成一个彻底的全局思考之前，不要在交互或者视觉细节的选项上陷得太深。
 
-I was once asked to design a mobile app that made it easy for restaurant customers to split the bill. The exercise started well. I quickly sketched one design option where the waiter enters the items on the receipt. Then another option where the customer enters the data by hand. But before finishing the high-level exploration, I became married to this option, diving too far into the details (what would the layout be? how would the typography work?)
+我曾是被要求设计一款手机 app，从而能更简单地为餐厅的顾客分开账单。最开始进展的不错。我很快地为服务员进入账目收据勾勒出了一个设计选项。然后另外一个选项是用户手动输入数据。但是在结束全局思考之前，我沉迷于这个选项的设计，在细节上陷的太深。(布局应该是什么样？版面设计如何工作？)
 
-I wasted my time on the visual details and as a result, I didn’t have enough time to explore other types of solutions (e.g. using the customer’s smartphone to take a picture of the receipt). The week after that interview I received a rejection from the recruiter. But looking back, it taught me a valuable lesson about the design exercise: the interviewer cares much more about your high-level idea explorations than your pixel-level ambitions.
+
+我在视觉细节上浪费了时间，结果导致我没有足够的时间思考其他类型的方案(例如，用顾客的手机为账单拍张照)。那次面试的第二周我收到了面试官的拒信。但是回想这件事，设计任务方面给我上了宝贵的一课：面试官更关心你全局思想的探索而不是你的细节追求。
 
 ![](http://ww1.sinaimg.cn/large/a490147fjw1f2lzxz07syj20m80agt9x.jpg)
 
-<figcaption>Don’t get caught up in the visual design details before thinking deeply about the bigger picture. Comic credit: Andrew Hwang</figcaption>
+<figcaption>在深入思考整体设计之前，不要陷入到视觉设计细节中去。漫画作者：Andrew Hwang</figcaption>
 
 </figure>
 
-In the design exercise it’s crucial to **demonstrate your idea generation skills.** So don’t be afraid to come up with some crazy blue-sky ideas. Ask your interviewer questions. Don’t assume anything. And remember, brainstorming and analyzing high-level feature ideas is much more meaningful than exploring a bunch of different button styles.
+在设计任务环节最至关重要的是**展示你的想法代替技巧**。所以不要害怕想一些疯狂天马行空的点子。询问你的面试官一些问题。不要假设任何事情。并且要记住，头脑风暴和分析高级点子比探索不同的按钮样式要更加有意义。
 
-Thankfully, the high-pressure design exercise is not part of every interview loop. You might be tasked with the app critique instead.
+谢天谢地，如此高压的设计任务并不是每次面试流程都有的环节。取而代之的，你还有可能经历 app 的批判性问答。
 
-#### 4\. The App Critique
+#### 4\. App 批判性问答
 
-Pick an app. Any app. Make sure it’s an app you know well.
+选择一款 app。任何 app 都可以。确保这款 app 你了解的很清楚。
 
-The app critique is intended to analyze your product thinking skills. You’ll walk the interviewer through an app of your choice. Along the way, the interviewer will stop you and ask questions such as:
+app 批判性问答环节主要是为了分析你的产品思维技能。你会带领面试官走进你选择的 app。在这过程中，面试官会打断你并问类似这样的问题：
 
-*   What audience do you think this app was intended for?
-*   What problem is the app supposed to solve?
-*   How well does it solve the problem?
-*   What are your favorite features on the app, and why?
-*   What are your least favorite features on the app? Why?
-*   Why do you think the designers made decision X?
-*   What is the point of feature Y? What value does it add?
-*   How would you improve the app?
-*   Who are the app’s competitors?
-*   What does the app do better than its competitors? What does it do worse?
+*   你认为这款 app 的用户人群是什么？
+*   这款 app 企图解决什么样的问题？
+*   它如何解决问题的？
+*   你最喜欢这款 app 的哪些特性，为什么？
+*   你最不喜欢这款 app 的哪些特性，为什么？
+*   你认为为什么设计者会做出决定 X？
+*   某一特性的关键是什么？它这样增加特性有什么价值？
+*   你会怎么提升这款 app？
+*   这款 app 的竞争对手有哪些？
+*   这款 app 在哪些方面做得比竞争对手好？哪些方面比竞争对手差？
 
-Strategizing for the app critique is hard because it relies so heavily on your product intuition. The best advice I can give is to practice analyzing apps at a high level. Forget about the colors, the typography, the buttons. Instead, think about **what value the app provides**. And **how features in the app align with the app’s overall value proposition**. Snapchat, for example, strives to be _the_ app for live sharing with friends. So they built awesome features like Live Snapchat stories for major events and Live Video in direct message threads.
+在 app 批判性问答上运筹帷幄很难，因为它需要你有很强大的产品嗅觉。我能给出的最好建议就是练习从高角度分析 app。忘掉颜色、排版设计和按钮。取而代之的，深入思考**app 提供了哪些价值**。并且思考**app 的一些特性如何与其整体价值相平衡**。例如，Snapchat 就是致力于解决与朋友实时分享的问题。所以他们就做出了一些很棒的特性例如 Live Snapchat 的故事主事件和 Live Video 直接进行信息分发。（这里有点不太明白）
 
-### In Summary
-Product design interviews are hard. They’re stressful, and open-ended, and you can receive rejection after rejection with no idea what you’re doing wrong.
+###  总结
+产品设计面试很难。这样的面试压力很大，不限成员名额，并且你在不断接到拒信的同时却根本不知道自己哪里做错了。
 
-But interviewing for product design internships is like any other skill. With time and practice, you improve. It never hurts to interview for a few companies you have no intention of working at, just to practice your interviewing skills.
+但是面试产品设计实习生就像其它任何技能一样。花时间多练习，你就会有所提高。面试一些你没有意愿在那里工作的公司是无关痛痒的，只是去锻炼你的面试技巧。
 
-Have notes prepared before you start each interview. Especially the portfolio review. I found it extremely helpful to write down a list of talking points for each project. This list prevents you from nervously skipping over any important items.
+在你开始每一场面试前做好准备的笔记。尤其是在作品集审核环节。我发现写下每个项目可以谈及的关键点十分有帮助。这会防止你因为紧张跳过重要的部分。
 
-Last but not least, the design community is small and tight-knit and people are more than willing to help if you can just find the courage to ask.
+最后但是并非最不重要的一点，设计社区很小并且联系紧密，如果你有勇气问问题，人们是很愿意帮助你的。
 
