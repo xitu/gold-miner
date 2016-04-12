@@ -44,6 +44,7 @@
 
 ## iOS
 
+* [UIScrollView 新手教程](http://gold.xitu.io/entry/570c71a81ea4930068dcbc5e)([Zhongyi Tong (geeeeeeeeek)](https://github.com/geeeeeeeeek)翻译）
 * [RxSwift at first sight](http://gold.xitu.io/entry/56d5528a1532bc004c6e913a)([SatanWoo](https://github.com/SatanWoo)翻译）
 * [Facebook iOS 应用是如何加速图片显示的？](http://gold.xitu.io/entry/56de9bc7731956005e1b5b2e) ([bobmayuze](https://github.com/bobmayuze) 翻译)
 * [编写高质量的 Swift 代码](http://gold.xitu.io/entry/56b60c97816dfa005ae0c0d4) ([iThreeKing](https://github.com/iThreeKing) 翻译)
