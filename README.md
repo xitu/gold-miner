@@ -94,6 +94,7 @@
 
 ## 设计
 
+* [写给设计师的字偶距调整指南](http://gold.xitu.io/entry/570e5530c4c971005496adc4) ([cdpath](https://github.com/cdpath) 翻译)
 * [设计一款移动应用前你应该知道这些事情](http://gold.xitu.io/entry/57034d617db2a200592a5213) ([Adam Shen](https://github.com/shenxn) 翻译)
 * [11 个顶级设计师分享他们的职业建议](http://gold.xitu.io/entry/56ea5b03731956005d025af3) ([Adam Shen](https://github.com/shenxn) 翻译)
 * [为什么有些设计初衷很好，结果却很糟糕](http://gold.xitu.io/entry/56e000421532bc005161b4af) ([L9m](https://github.com/L9m) 翻译)
