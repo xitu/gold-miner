@@ -23,6 +23,8 @@
 
 ## Android
 
+* [创建一个基于 Kotlin 的 Android 项目（下集）](http://gold.xitu.io/entry/570f52981ea493006b5cc9ff) ([Jing KE](https://github.com/jingkecn) 翻译)
+* [创建一个基于 Kotlin 的 Android 项目（上集）](http://gold.xitu.io/entry/56e3fdc3df0eea0054c7c61f) ([Jing KE](https://github.com/jingkecn) 翻译)
 * [使用 RxJava 封装现有的库](http://gold.xitu.io/entry/5705e94a2e958a0059c4479e) ([尹述迪](http://yinshudi.com/) 翻译)
 * [在 Android 下进行实时模糊渲染](http://gold.xitu.io/entry/56dd55d6df0eea0055b40083) ([Sausre](https://github.com/Sausure) 翻译)
 * [Android 开发中利用异步来优化运行速度和性能](http://gold.xitu.io/entry/56dd4bf37664bf0052047906) ([edvardHua](https://github.com/edvardHua) 翻译)
