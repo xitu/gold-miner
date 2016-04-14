@@ -1,91 +1,93 @@
 >* 原文链接 : [Is this the perfect save icon?](https://medium.com/@etchuk/is-this-the-perfect-save-icon-9651129bda85#.4jwcx3q5m)
 * 原文作者 : [Etch](https://medium.com/@etchuk)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者: 
-* 状态： 认领中
+* 译者 : [vlux](https://github.com/vlux)
+* 校对者: [lekenny](https://github.com/lekenny) / [mdluo](https://github.com/mdluo)
 
 ![](https://cdn-images-1.medium.com/max/1200/1*koe64usSwmwA485C8rPMzQ.jpeg)
 
-## The hunt for the perfect save icon
+## 寻找最完美的“保存”图标
+上周在 Etch 公司，我的朋友兼同事 [**Matt Jackson**](https://twitter.com/Jacky_Vee_) 问了我一个简单的问题：
 
-Last week at Etch, my friend and colleague [**Matt Jackson**](https://twitter.com/Jacky_Vee_) asked me a simple question:
+> 如今用软盘作为“保存”图标依然合适吗？
 
-> _Is using a floppy disk as a save icon still relevant?_
+这一问题近年来被人们反复提起，在好奇心驱使下我们开始找寻更好的解答。
 
-This is something that has come up time and time again, so naturally we started to do some digging around to find a better solution.
-
-According to a survey taken in 2013: 1,000 children, from kindergarten through to 5th graders, were questioned about iconography. Among the findings was an interesting tidbit: Only 14 percent of the kids knew what the save icon represented.
+根据一项 2013 年的调查：1000 名来自幼儿园到五年级的孩子们被问及关于图解的问题，结果呈现一个很有趣的现象：只有 14% 的孩子知道“保存”图标代表着什么。
 
 ![](https://cdn-images-1.medium.com/max/800/1*AGarz-ZbYsJgC3B4YqV1Jg.png)
 
-That’s a concerning statistic. The whole idea of a user interface is to create a connection between human and machine where both can understand the input and output of information, so we should always be striving for icons that convey meaning to our users.
+这是一项令人担忧的统计结果。用户界面的最终目的就是在人与机器之间建立一个双方都理解的信息输入输出连接。所以我们应该一直为那些能向用户传达意义的图标而努力。
 
-We’re now approaching an era in which the predominant user base interacting with this are young teens. Users with little or no experience in ever using a floppy disk. With that in mind can we honestly say that we as designers are communicating this in the best way possible?
+我们现在已经进入了一个主要用户群体是年轻人的时代。用户们很少、甚至没有用过软盘。鉴于这种情况，我们作为设计师能很确信地说我们用了最好的方式来传递“保存”这个概念？
 
-> You want to use a floppy what?!
+> 啥是“软盘”?!
 
-In fact, the more I think about it, I would be surprised if any millennial knew a lot about hard disks. Even the concept of reading/writing data to a physical object is probably alien to them.
+事实上，我对这件事想的越多，我们越疑惑有00后知道些关于硬盘的知识吗。甚至对于设备数据的读/写数据这一概念对他们来说都可能是“天外飞仙“。
 
-## So how do we fix this?
+## 如何弥补这个问题？
 
-**The definition of icon design is:**  
-The process of designing a graphic symbol that represents some real, fantasy or abstract motive, entity or action. In the context of software applications, an icon often represents a program, a function, data or a collection of data on a computer system.
+**“图标设计”的概念是:**
 
-**Let’s look at that in more detail:**  
-_Designing a graphic symbol that represents something real._
+设计一个图标的过程，它代表一些真实的，美轮美奂的或是抽象的动机，实体或是行为。在软件应用的背景下，一个图标通常代表一个程序，一个功能，一个数据或是电脑系统上的一组数据。
 
-A symbol is a visual representation of an idea or concept. They take inspiration from actions like sounds, gestures, feelings and words.
 
-That’s all fine, I’m down with that, but it’s the next part of this sentence that starts to introduce the problem. “**Something real**”. It’s the easy thing to do, it’s the literal symbol of the object that’s right in front of you.
+**让我们再深入的了解下:**  
+_设计一个能反应真实情况的图标。_
 
-But what happens over time is these objects evolve and change into something completely different. The literal object for a telephone no longer consists of a rotary dial, microphone and an ear trumpet! I mean take a look at a few of these _classic_ icons. Ask yourself whether you think they are still relevant to someone today?
+一个图标是一个想法或者概念的视觉传达。他们从一些行为比如声音，形态，感觉或者言语中获得灵感。
+
+这没什么问题，我十分同意这种说法，但是是这句话的后半部分引起了问题，“**真实情况**”。这是一个简单事儿，它是你眼前这个实物的字面意思。
+
+但是随着时间推移这些实物演变成一些彻彻底底不同的物体。对于“电话”的字面解释已经不再包含“旋转拨号盘”，“麦克风”和“听筒”这些字眼。我的意思是看一下这些所谓的_经典_图标。问问自己是否他们还像他们今天的样子？ 
 
 ![](https://cdn-images-1.medium.com/max/800/0*NTJOxf6bqJ0LP1UH.png)
 
-## Dealing with icon evolution Abstraction.
+## 讲解下图标的演变 
+### 抽象概念
 
-The other part of our definition for icon design mentions the idea of fantasy. Abstract motive, entity or action. This really excites me, but it’s ridiculously hard to do. Hence why a lot of the time we take the easy option and just make it literal.
+在我们的“图标设计”的概念里另一部分提到“美轮美奂的或是抽象的动机，实体或是行为”。这句话真的很令我兴奋。但是这真的很难去实现，这也就是为什么大多数情况情况下我们选择更容易的方式并且只是让它具有字面意。
 
-I love the idea of designing iconography based on the emotional effect and the reactive nature of a human interacting with something. Here are a few examples that we put together based on symbolising an action rather then an object.
+我很喜欢依据感性和人对于一些事物自然的反应去设计图解。下面列出的是一些符号化动作而不是实体的例子。
 
 ![](https://cdn-images-1.medium.com/max/800/0*_wRiCmXC-2gDW7NV.png)
 
-They’re far from perfect but it was definitely a good exercise in opening our imagination and getting creative. Our aim was to produce something timeless and effective. Or should I say, **_iconic_**.
+它们离“完美”还差得远但它绝对是一个拓展我们想象空间和创造力的好例子。我们的目标是创造一些永恒的并且有效的东西，或者我应该说 **_图标化_**
 
-One truly great example of this is [**the work from the Google design team**](https://www.youtube.com/watch?v=IYyRpZglZP4).
+一个优秀的事例是[**Google设计团队的作品**](https://www.youtube.com/watch?v=IYyRpZglZP4).
 
 ![](https://cdn-images-1.medium.com/max/800/0*nzyx1xNHj8iNH6sN.gif)
 
 ![](https://cdn-images-1.medium.com/max/800/0*oUX704mMfs3LGB0N.jpg)
 
-It’s amazing how they bring life and meaning to the same 4 little dots, each time symbolising an action we can instantly identify with.
+他们给这四个同样的小圆点带来了生机与意义的设计真的是令人称赞。并且每次符号化一个动作我们都可以立即分辨出来它所代表的意思。
 
-## Ok cool, but where’s the new damn save icon!? well, about that…
+## 真棒，但新的“保存”图标到底在哪儿!? 
+### 好吧，关于这个问题…
 
-You see the thing is you probably don’t even need one. The times they are a changing and like I mentioned before, who’s still reading and writing data from a physical object these days?
+事实情况是你可能真的不需要一个新的“保存”图标。就像我之前说过的，时代是变化的，现在谁还会从固件读写数据？
 
-It’s all in the cloud baby. Yes, I know the that the cloud is made up of huge data centres somewhere but manually saving is just something we don’t need to clutter our lives with anymore.
+亲爱的，现在都用“云”了。是的，我知道“云”是由巨大的数据中心组成，但是手动存储数据已经不再是让我们凌乱的事情了。
 
-Today when I’m working all I want to know is; do I have an internet connection and am I syncing my data successfully? Big green tick yes, awesome! I know I have access to that work from any device, anywhere in the world and at any time.
+现如今当我工作的时候我只需要知道：我有网络连接吗？我成功同步数据了吗？大大的对号！棒棒哒！我知道我随时从世界的任何一个角落通过任意一台设备都能访问到我同步的那份数据。
 
-As always with these types of questions we love to rope in our in house design psychologist [**Paul Davies**](https://twitter.com/thedesignpsych) to impart his ever wonderful wisdom. His solution, albeit simple, is an effective one indeed. So if you really do need to “save” something:
+通常对于这类的问题，我们喜欢用房屋设计咨询师[**Paul Davies**](https://twitter.com/thedesignpsych)传授的伟大智慧来说服我们自己。他的方法虽然简单，但确实是有效的。所以如果你确实需要“保存”某个东西：
 
-> Make a button and put the word save in it.
+> 做一个按钮然后把“保存”两个字放上面！
 
-I started writing this thinking that the floppy disk was terrible as an icon and to be honest I’m now feeling like my reaction was a little brash.
+我一开始写这篇文章的时候觉得软盘作为一个图标太渣了，实话实话我现在觉得我当时反应有些过激了。
 
-**I wanna look back at that survey for a second:**  
-_Only 14 percent of the kids knew what the save icon represented_
+**我来再回顾下那份调查:**  
+_只有14%的孩子知道“保存”图标代表着什么_
 
-Fourteen percent? Really? Interesting, now I read this as 100 percent knew this was a save icon but only 14 percent understood the history behind the symbol. So does this icon enable the user and machine to interact together? I would say it does.
+14%？真的吗？呵呵，现在读来我认为的是100%的孩子知道这是一个“保存”图标，但是只有14%的孩子知道这个符号背后隐含的历史。所以说这个图标确保了用户和机器的交互了吗？我觉得应该说“是的”。
 
-Let’s look at it like this, how many of you knew that the USB symbol was based on Neptune’s Trident, the mighty Dreizack, or that the bluetooth symbol is a combination of the two runes that represent the initials of Harald Blåtand? Harald happened to be such a connoisseur of blueberries it was believed he always had one blue tooth. Maybe some of you did. But those of you who didn’t, probably haven’t struggled to connect your latest smart phone to your car radio or plug in your USB device.
+让我们来这么看待这个问题，你们多少人知道USB符号的原型是海神尼普顿的三叉戟（那把强有力的Dreizack），蓝牙符号是两个代表Harald Blåtand首字母的如尼字母组合而来。Harald碰巧是蓝莓的忠实粉丝，所以据称他总是有一颗蓝色的牙齿。可能确实你们中有人知道这些典故。但是那些不知道典故的人并没有因此很困难的把手机用蓝牙连上车载音响或是使用USB设备。
 
-**The key thing is, if you really need an icon just make sure that it is simple, identifiable and consistent.**
+**问题的关键是，如果你真的需要一个图标，请确保它是简单、易辨识、始终如一的。**
 
-It’s unclear what the future will hold for the floppy disk icon. Maybe there is an argument that you don’t really need to know that it’s a floppy disk at all? You just need to know that pressing this weird boxy symbol means to manually save something. For the new generation with no experience of using a floppy disk, this symbol might as well be some weird abstraction, a fantasy object anyway.
+以后世人怎么认为这个软盘的图标我们无从知晓，可能那是一个你根本就不需要知道它是一个关于软盘的争论。你只需要知道摁下那个奇怪的四四方方的图标就代表着保存东西。对于那些没有使用过软盘的新一代，这个符号可能是一个奇怪的抽象的概念，但终究还是一个美轮美奂的事物吧。
 
-And maybe that’s OK, maybe that makes it the perfect icon already.
+或许那也无所谓，或者这就已经是最完美的“保存”图标了。
 
 ![](https://cdn-images-1.medium.com/max/800/0*MqZQiPMgmDTNGEnD.png)
