@@ -296,7 +296,7 @@ _尤其是在需要从线上 API 切换到测试 API 的时候_。
         }
     }
 
-这是填充 `row_card_view.xml` 的类，基本上就是 `onCreateViewHolder` 函数的<mark>条目容器</mark>。
+这是填充 `row_card_view.xml` 的类，基本上就是 `onCreateViewHolder` 函数的 <mark>item 容器</mark>。
 
 在 `private val subscriber: Subscriber<Cats> by lazy { getSubscribe() }` 一行中，`getSubscribe()` 函数为 `Adapter` “订阅”用到的 `Observable`，这里你会看到 `lazy` 初始化，这是一种声明一个不可变对象的方法（比如 `subscriber`）并且会在运行时首次调用时创建于函数体内（例如 `getSubscribe()`）。
 
