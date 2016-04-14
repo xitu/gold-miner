@@ -178,7 +178,7 @@ _尤其是在需要从线上 API 切换到测试 API 的时候_。
 
 `containerRecyclerView` 组件代表 item 列表<mark>主容器</mark>
 
-`row_card_view.xml` 是列表的<mark>条目容器</mark>，大体上像这样：
+`row_card_view.xml` 是列表的 <mark>item 容器</mark>，大体上像这样：
 
     <?xml version="1.0" encoding="utf-8"?>
     <android.support.v7.widget.CardView
@@ -212,7 +212,7 @@ _尤其是在需要从线上 API 切换到测试 API 的时候_。
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 
-如你所见，条目容器正是主要由一个包含 `ImageView` (`imgVw_cat`) 的 `RelativeLayout` 组成的 `card_view`。
+如你所见，item 容器正是主要由一个包含 `ImageView` (`imgVw_cat`) 的 `RelativeLayout` 组成的 `card_view`。
 
 ###### Adapter
 
