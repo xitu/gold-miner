@@ -3,7 +3,7 @@
 * 原文作者 : [Andrew Hwang](https://medium.com/@ahwng)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [iThreeKing](https://github.com/iThreeKing)
-* 校对者: 
+* 校对者: [邵辉Vista](https://github.com/shaohui10086) [circlelove](https://github.com/circlelove)
 
 
 
