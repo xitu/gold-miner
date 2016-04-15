@@ -12,7 +12,6 @@ N.B. In the following examples we will be taking advantage of some of the new ab
 
 Estimate reading 9 minutes
 
-<div>
 
 ### What is React?
 
@@ -34,7 +33,7 @@ The attributes of HTML tags within JSX are practically the same as those of norm
 
 ## Example: pirates’ extintion
 
-<figure>![](https://upload.wikimedia.org/wikipedia/it/8/84/PiratiVsTemp.png)</figure>
+![](http://ww4.sinaimg.cn/large/a490147fjw1f2x94p1ev2j20m80etjtt.jpg)
 
 If we choose to create this graphic using React, we will be able to visualize the various dates on-screen and make the relevant temperature and number of pirates appear when those dates are clicked on.
 
