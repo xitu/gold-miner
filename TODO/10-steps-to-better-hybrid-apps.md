@@ -109,16 +109,16 @@ Hybrid 应用的核心以 Web 技术构建。这意味着非设备的功能可�
 
 #### 流行的 Hybrid 应用框架
 
-[CORDOVA](http://cordova.apache.org)
+[CORDOVA](http://cordova.apache.org)   
 原始且最受欢迎的开源 Hybrid 框架。JS APIs 可调用手机原生功能。它有助力开发跨平台应用的 CLI。
 
-[PHONEGAP](http://phonegap.com)
+[PHONEGAP](http://phonegap.com)   
 PhoneGap 是在 Cordova 基础上构建的 Adobe 产品。这俩基本是一样的，但 PhoneGap 提供了额外的服务，包括云上的应用构建和跨渠道经销。
 
-[IONIC](http://ionicframework.com)
+[IONIC](http://ionicframework.com)   
 Ionic 为商业逻辑和设计准则给 Cordova 添加了 AngularJS 和自有 UI 框架。它基于 Cordova 的 CLI，并向之添加了 LiveReload 这样的服务来部署设备。[Ionic Creator](http://creator.ionic.io) 允许使用它的 Web 接口创建应用。
 
-[APPCELERATOR](http://appcelerator.com)
+[APPCELERATOR](http://appcelerator.com)   
 它提供了一个用以构建原生和 Web 应用的统一平台，辅以自动化测试工具、实时分析和 BaaS。它旨在提供你部署和延伸应用所需的一切，且这些服务在你应用上架以前都是免费的。
 
 [COCOONJS](http://ludei.com/cocoonjs)   
