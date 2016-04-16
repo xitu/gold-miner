@@ -2,7 +2,7 @@
 * 原文作者 : [Sergii Zhuk](https://medium.com/@sergii)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [markzhai](https://github.com/markzhai)
-* 校对者:
+* 校对者: [narcotics726](https://github.com/narcotics726)
 
 
 Android团队最近发布了Android N Preview，带来了很多提升，包括由Jack编译器提供的Java 8支持。在这篇文章中，我们将来看看它究竟对Android开发者意味着什么，以及如何尝试新的语言特性。
@@ -17,7 +17,7 @@ Android团队最近发布了Android N Preview，带来了很多提升，包括�
 
 在这篇文章中，去介绍Oracle Java 8的新特性并没有太大意义 —— 很多信息已经在互联网上有了。我个人最喜欢的是Simon Ritter的“[Java SE 8的55个新特性<sup class="readableLinkFootnote">[2]</sup>](https://www.youtube.com/watch?v=rtAredKhyac)”。
 
-另一方面，Android [官方的Java 8公告<sup class="readableLinkFootnote">[3]</sup>](http://android-developers.blogspot.de/2016/03/first-preview-of-android-n-developer.html) 留下了很多开放的问题给开发者们，听起来像是原始的Java 8功能并不总是可用的。更多详细的在 [技术公告<sup class="readableLinkFootnote">[4]</sup>](http://developer.android.com/intl/ru/preview/j8-jack.html) 确认了这一点。我们可以把Java 8的语言特性归类为以下：
+另一方面，Android [官方的Java 8公告<sup class="readableLinkFootnote">[3]</sup>](http://android-developers.blogspot.de/2016/03/first-preview-of-android-n-developer.html) 留下了很多开放的问题给开发者们，感觉上并非所有的原生 Java 8 功能都是可用的。更详细的 [技术公告<sup class="readableLinkFootnote">[4]</sup>](http://developer.android.com/intl/ru/preview/j8-jack.html) 确认了这一点。我们可以根据在 Android N 中的可用性，将这些语言特性分类如下：
 
 Android Gingebread (API 9)及以上:
 
@@ -31,9 +31,9 @@ Android N及以上:
 *   [流(Streams)](http://www.oracle.com/technetwork/articles/java/ma14-java-se-8-streams-2177646.html)
 *   反射APIs
 
-所以对Java 8特性和使用的minSdkVersion之间的关联性，开发者必须去精心选择。我们也必须注意到语言向后兼容是由Jack编译器提供的。在概念上，Jack编译器 [合并 <sup class="readableLinkFootnote">[5]</sup>](https://www.guardsquare.com/blog/the_upcoming_jack_and_jill_compilers_in_android)了javac, ProGuard, 以及 dex的功能到一个单个的转换步骤。[这意味着sup class="readableLinkFootnote">[6]</sup>](http://trickyandroid.com/the-dark-world-of-jack-and-jill/)其中没有中间的Java字节码可用，且像是JaCoCo和Mockito的工具将无法工作，DexGuard也一样 (ProGuard的企业版本)。让我们祈祷这只是一个早期的preview版本，且这些问题将在未来被修复。
+所以对Java 8特性和使用的minSdkVersion之间的关联性，开发者必须去精心选择。我们也必须注意到语言向后兼容是由Jack编译器提供的。在概念上，Jack编译器将javac，ProGuard，以及dex的功能 [合并 <sup class="readableLinkFootnote">[5]</sup>](https://www.guardsquare.com/blog/the_upcoming_jack_and_jill_compilers_in_android)到了一个转换步骤中。[这意味着<sup class="readableLinkFootnote">[6]</sup>](http://trickyandroid.com/the-dark-world-of-jack-and-jill/)其中没有中间的Java字节码可用，且像是JaCoCo和Mockito的工具将无法工作，DexGuard也一样 (ProGuard的企业版本)。让我们祈祷这只是一个早期的preview版本，且这些问题将在未来被修复。
 
-Lambda表达式以及相关的函数功能APIs —— 这是一个每个Android开发都会喜欢的东西。这类功能将会对增加代码可读性极为有用 —— 它替代了提供事件监听器的匿名内部类。而之前只能通过 [额外的工具<sup class="readableLinkFootnote">[7]</sup>](http://zserge.com/blog/android-lambda.html) 或者由Android Studio编辑器去折叠代码。
+Lambda表达式以及相关的函数功能APIs —— 这是一个每个Android开发都会喜欢的东西。这类功能将会对增加代码可读性极为有用 —— 它替代了提供事件监听器的匿名内部类。而之前只能通过 [额外的工具<sup class="readableLinkFootnote">[7]</sup>](http://zserge.com/blog/android-lambda.html) 来实现，或者由Android Studio编辑器去折叠代码。
 
 默认及静态interface方法可以帮助我们减少额外的工具类的数量，但显然不是最需要的特性。还有一些其他的新增功能，我希望去说的更详细一些，因此不在本文的范围内。
 
@@ -45,7 +45,7 @@ Lambda表达式以及相关的函数功能APIs —— 这是一个每个Android�
 
 ![](http://ww4.sinaimg.cn/large/a490147fjw1f2w1lxrva9j20m803pt9h.jpg)
 
-下一步是去配置你的app模块的 build.gradle 文件。你可以在下面看到实例的 build.gradle 文件。从N SDK上的公告来看，似乎可以设置 _minSdkVersion_ 为 Jelly Bean 或者 KitKat。 但… 在 Android N Preview _targetSdkVersion_ 它 [无法工作在API低于N的设备上<sup class="readableLinkFootnote">[11]</sup>](http://stackoverflow.com/questions/36278517/java-8-in-android-n-preview)。另外，如果你把 _minSdkVersion_ 设置为23或者更低 —— Java 8代码将无法编译。这里是一些在 [SO forums<sup class="readableLinkFootnote">[12]</sup>](http://stackoverflow.com/questions/35929484/android-n-cannot-run-on-lower-api-though-minsdk-set-to-14)的hack，描述了怎么设置minSdk为想要的值并使得app可以工作。我希望你不会在生产代码中使用这种方法 :)
+下一步是去配置你的app模块的 build.gradle 文件。你可以在下面看到实例的 build.gradle 文件。从N SDK上的公告来看，似乎可以设置 _minSdkVersion_ 为 Jelly Bean 或者 KitKat。 但… 在将 _targetSdkVersion_ 设为Android N Preview后，[将无法工作在API低于N的设备上<sup class="readableLinkFootnote">[11]</sup>](http://stackoverflow.com/questions/36278517/java-8-in-android-n-preview)。另外，如果你把 _minSdkVersion_ 设置为23或者更低 —— Java 8代码将无法编译。这里是一些在 [SO forums<sup class="readableLinkFootnote">[12]</sup>](http://stackoverflow.com/questions/35929484/android-n-cannot-run-on-lower-api-though-minsdk-set-to-14)的hack，描述了怎么设置minSdk为想要的值并使得app可以工作。我希望你不会在生产代码中使用这种方法 :)
 
 我决定保持实例代码干净，所以没有添加任何hack手段来做低版本兼容，请读者自由去尝试或者使用N的测试设备/模拟器。
 
@@ -56,7 +56,7 @@ android {
 
     defaultConfig {
         applicationId "org.sergiiz.thermometer"
-        minSdkVersion 'N' // 在 N Preview 中不能使用更低的
+        minSdkVersion 'N' // 在 N Preview 中不能使用低于N的版本
         targetSdkVersion 'N'
         versionCode 1
         versionName "1.0"
