@@ -2,7 +2,7 @@
 * 原文作者 : [LAUREN WEBER](http://topics.wsj.com/person/W/lauren-weber/7369)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [Zhangjd](https://github.com/Zhangjd)
-* 校对者:
+* 校对者: [yangzj1992](https://github.com/yangzj1992)
 
 <div class="entry-content">![](http://ww2.sinaimg.cn/large/a490147fjw1f2uxkmiivnj20kt0dvae7.jpg)
 
@@ -14,7 +14,7 @@
 
 并且在 95% 的技术部门招聘广告中，都列出了最低学历要求，雇主们需要学士或以上学位的开发者，与此同时，所有寻找开发者的雇主中，对开发者有学历要求的比例是 92%。
 
-Burning Glass 的 CEO，**Matt Sigelman**，感到很困惑，“一方面是诸如比尔盖茨和扎克伯格这样的传说级人物，人们对于他们的成功奥秘很感兴趣，因为”。- [他们都是哈佛大学的辍学生](http://www.wsj.com/articles/college-dropouts-thrive-in-tech-1433323802) — “但另一方面，现实是许多优质岗位并不欢迎那些没有拿到大学学位的人”。
+Burning Glass 的 CEO，**Matt Sigelman**，对于表面现象和调查结果的分歧感到很困惑，“一方面是诸如比尔盖茨和扎克伯格这样的传说级人物，人们对于他们的成功奥秘很感兴趣，因为”。- [他们都是哈佛大学的辍学生](http://www.wsj.com/articles/college-dropouts-thrive-in-tech-1433323802) — “但另一方面，现实是许多优质岗位并不欢迎那些没有拿到大学学位的人”。
 
 在美国，25 岁以上的人群中，多达 68% 的人没有学士及以上学位。
 
@@ -32,7 +32,7 @@ Burning Glass 还发现，公司会为那些高学历人群开出更高的工资
 
 大部分雇主认为，拥有高学历的员工会在软技能上面体现优势，比如沟通协作能力和批判性思维。而在硅谷那些快速成长的公司中，才华可能显得尤其重要。但是，Sigelman 先生也提到，“大学学历和拥有这些技能之间并没有明显的联系”。
 
-虽然一些公司已经开始尝试 “[blind hiring](http://www.wsj.com/articles/the-boss-doesnt-want-your-resume-1452025908)” 招聘过程 - 旨在完全根据作品而非简历信息来评价候选人 - 不过这一实践目前还没有被深入探索。
+虽然一些公司已经开始尝试 “[盲眼招聘](http://www.wsj.com/articles/the-boss-doesnt-want-your-resume-1452025908)” 流程 - 一种完全根据工作能力而非简历信息来评价候选人的招聘方式 - 不过这一招聘方式目前尚未被深入探索。
 
-不幸的是，技术部门仍在使用大学学历作为许多高薪工作机会的筛选条件。Sigelman 透露，他们的公司正在把数据和分析报告贡献给 White House TechHire Initiative，目的是提高美国人在互联网行业中的技能水平。“这一行业目前在招聘市场充满活力，而且正处于快速发展中，我们对于如何把这些机会开放给大部分的美国群众非常感兴趣。”
+不幸的是，技术部门仍在使用大学学历作为许多高薪工作机会的筛选条件。Sigelman 透露，他的公司正将相关数据和分析报告作为技术招聘倡议书提交给白宫 ，目的是提高美国人在互联网行业中的技能水平。“这一充满活力的行业正是招聘市场高速增长的引擎，我们对于如何把这些机会开放给大部分的美国群众非常感兴趣。”
 
