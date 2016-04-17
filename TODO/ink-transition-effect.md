@@ -80,7 +80,7 @@
       visibility: visible;
     }
 
-这 `div.cd-transition-layer` 元素用来创建墨水过渡效果:  visibility: hidden, height: 100% 和 width: 100% 并且固定定位。
+这 `div.cd-transition-layer` 元素用来创建墨水过渡效果:  visibility: hidden, height: 100% 和 width: 100% 并且使用固定定位。
 
     .cd-transition-layer {
       position: fixed;
