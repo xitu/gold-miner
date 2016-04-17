@@ -1,118 +1,118 @@
 >* 原文链接 : [Design Systems Ops](https://medium.com/salesforce-ux/introducing-design-systems-ops-7f34c4561ba7#.iumcuwu3v)
 * 原文作者 : [Kaelig](https://medium.com/@kaelig)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 :
+* 译者 : [L9m](https://github.com/l9m/)
 * 校对者:
 
 
 ![](https://cdn-images-1.medium.com/max/2000/1*RbwXg-OMlJTG7iiHs4NMQg.jpeg)
 
-<figcaption>Design Systems Ops: shipping (design) at scale.</figcaption>
+<figcaption>Design Systems Ops: 规模化地装运（设计）。</figcaption>
 
-The best products are built by teams with great communication bridges between designers and engineers. Whether you’re one or the other, at the end of the day… we’re all shipping software. When a design system is invited to the party, communication is even better.
+伟大的产品离不开开发和设计的良好沟通。无论你是谁，归根结底，我们都是在转运软件。有了设计系统之后，沟通将变得更简单
 
-But who will bridge the gap between the design systems team and the engineering team?
+但是谁将建立起设计和开发之间的沟通桥梁呢？
 
-I call these enablers _Design Systems Ops._
+我把这些推动者为 _Design Systems Ops._
 
-A Design Systems Ops is a person who is part of a design systems team, who needs to get into the designers’ shoes, and have a feel what their are trying to conceptualize. At the same time, Design Systems Ops need to understand the engineering requirements and define methods that will help shipping and scaling the Design System. In a way, a Design Systems Ops is the translator between these two worlds.
+一个 Design Systems Ops 是设计团队的一部分，他需要是一名设计，并且要了解将他们所想进行概念化。同时， Design Systems Ops 需要理解有助于装运和规模化设计系统的开发需求和定义方法。 在某种情况下，一个 Design Systems Ops 是两个世界的转换者。
 
-### The problem with most companies
+### 大多数公司存在的问题
 
-In most structures, the story from the concept to the user is so disjointed that the products ends up being something that doesn’t feel at all like what the designers had first intended.
+在大多数结构中，从概念到用户的过程是相当脱节的，产品完成时并不是设计者最初的想法。
 
 ![](https://cdn-images-1.medium.com/max/800/1*NJbl6JkUcbGPLU1bxVW7kw.png)
 
-<figcaption>A typical flow of the distance between a concept and the user: fidelity fades away as it gets closer to the user.</figcaption>
+<figcaption>从概念到用户的一种典型流程：还原度越靠近用户阶段越低。</figcaption>
 
-The signal (the concept) fades as it goes through perturbations (inefficiencies), and ends up into the product in a much lower fidelity. That delivery failure has a massive impact on the company’s ability to ship high quality products, which has a huge business opportunity cost.
+信号 （概念）通过干扰（低效率）而逐渐变弱 ，并在一个相当低的还原度中结束。这种交付失败对公司有着巨大商业机会成本的，有着巨大的影响。That delivery failure has a massive impact on the company’s ability to ship high quality products, which has a huge business opportunity cost.
 
-### Where Design Systems help
+### 设计系统能干什么
 
-Style guides, pattern libraries, design systems… all help normalizing practices and design patterns around a common language. That language barrier is actually where originate most of the inefficiencies.
+风格指南，模式库，设计系统等等所有围绕一种语言有助于规范化实践和设计模式的。大多数低效都是源自于语言的障碍。
 
-It starts with: naming colors, objects, conventions, components… down to documenting the finest details of the experience, such as animation timings or the roundness of corners on form elements.
+从颜色命名，对象，约定，组件等等直到记录最佳体验细节。比如动画定时或表单元素的圆角度值。 
 
-A good design system helps making design decisions much faster (e.g. “what color should a call-to-action be”). Designers can then spend more time on user flows, and exploring multiple concepts in the same amount of time.
+一个好的设计系统能让设计决策更快。（比如 “行动召唤应该是什么颜色”）。设计师们有更多实践聚焦与用户流程，并且在同一时间探索多种概念，
 
-A good design system also helps engineering teams refer to a single source of truth at the implementation phase. This is good for consistency, as all the call-to-actions will look the same across screens.
+一个好的设计系统也能帮助开发团队引用独一的真相来源。这对一致性有好处，因为所有的行动召唤跨屏看起一样。
 
 ![](https://cdn-images-1.medium.com/max/800/1*lIa0DiwLnfc1y14t3KTWpA.png)
 
-<figcaption>Design Systems reduce inefficiencies along the way: fidelity keeps a lot steadier along the way.</figcaption>
+<figcaption>设计系统在这个过程中减少低效：还原度一路将保持大致稳定。</figcaption>
 
-Some design systems also ship patterns using code. These design systems can prove to be valuable from the beginning of the concept phase, to the prototyping phase, down to the implementation phase. It’s a good sign for both productivity and fidelity when a company follows that path.
+一些设计系统也用代码装运模式。这些设计系统从概念开始阶段，到原型阶段，直到实现阶段都能证明其价值。 当公司遵循这条路线，对生产效率和还原度都是一个好消息。
 
-> A Design System isn’t a Project. It’s a Product, Serving Products — Nathan Curtis
+> 一个设计系统不是一个项目，它是一个产品，服务型产品 — Nathan Curtis
 
-Yet, some design systems don’t get the love they deserve and end up being glorified lists of patterns, afar from production code. That’s because a partial investment from a few designers and developers [is not enough](https://medium.com/@marcelosomers/a-maturity-model-for-design-systems-93fff522c3ba): a design system isn’t simply a project, it is a product (or as Nathan Curtis [puts it](https://medium.com/eightshapes-llc/a-design-system-isn-t-a-project-it-s-a-product-serving-products-74dcfffef935): “_A Design System isn’t a Project. It’s a Product, Serving Products_.”). For a design system to show sustainable value at scale and at all phases of the delivery process, it needs proper planning, user research, and methods (and lots of love!). We’ll call these optimal design systems, powered by a team who is given goals: _living design systems_.
+然而，一些设计系统远至产品代码获得它们应得的赞并在光荣列表中结束这是因为对于几个设计师和工程师的部分投资 [是不足够](https://medium.com/@marcelosomers/a-maturity-model-for-design-systems-93fff522c3ba)的：一个设计系统不是简单一个项目，他是一个产品(或就像 Nathan Curtis [说的](https://medium.com/eightshapes-llc/a-design-system-isn-t-a-project-it-s-a-product-serving-products-74dcfffef935): “_一个设计系统不是一个项目，它是一个产品，服务型产品_.”). 为了让设计系统在交付流程的不同阶段都显示出对应的价值，它需要适当规划，用户研究和方法（和很多热爱）。 我们将那些团队把设计系统目标定位为：_有生命力的设计系统_称之为最优设计系统。
 
-### Introducing Design Systems Ops
+### 介绍 Design Systems Ops
 
-The remaining inefficiencies between the living design system and the rest of the world are numerous. Mostly because of a lack of good communication between design and engineering teams. At the end of the day, the product is shipping in the form of code, and anything that makes that process less efficient should be reviewed. Introducing a role of Design Systems Ops (freely inspired by the [DevOps](https://en.wikipedia.org/wiki/DevOps) movement), can help mitigate these inefficiencies:
+有生命力的设计系统和世界上数不清其他设计系统间剩下的低效率。 大多数是因为开发团队和设计团队却反良好的沟通。 在结束的那一天，产品将用代码的格式转运 ，在这过程中任何影响效率的任何事情都应该被审查。介绍一种 Design Systems Ops 的角色 （灵感来自 [DevOps](https://en.wikipedia.org/wiki/DevOps) 运动），它可以缓解这些低效率：
 
 ![](https://cdn-images-1.medium.com/max/800/1*Bp4eHmFtS5pfdPHv4pEwdQ.png)
 
-<figcaption>Reducing inefficiencies further, by introducing an intermediary to help communication between both Design and Engineering, increasing fidelity of software delivery.</figcaption>
+<figcaption>通过在设计和开发间引入一位中间者，进一步减少低效，增加软件交付的还原度。</figcaption>
 
-Many questions arise from both sides of the Design Systems:
+来自于两边的关于设计系统的许多问题：
 
-*   Where do I find markup, colors swatches, values, icons, patterns, breakpoints?
-*   How do I load the CSS if I’m prototyping, in production, in a web view?
-*   What’s the best way to load fonts, to display icons?
-*   What is their impact on performance?
-*   Where should I file bugs and find where other people found a solution to their problems (issue tracking, knowledge base)?
-*   How do I contribute to the Design System (fix a bug, add an icon)?
-*   I’m a contributor, how do I test my code in multiple environments and make sure I didn’t break something?
-*   I’m a developer, what should I know about the design system?
-*   I’m a designer, how can I iterate in the browser on an existing pattern?
-*   What is the upgrade path from v1.0 to v2.0?
-*   Where is the documentation of version 0.5.0?
+*   我从哪里可以找到标记, 颜色面板，数值，图标，模式，断点？
+*   如果我在原型中，产品中，Web view 中如何加载CSS？
+*   加载字体图标的最佳方式事什么？
+*   他们对性能有什么影响？
+*   我应该在哪里发现文件错误并且在哪里寻找其他人对他们问题的解决办法（问题追踪，知识基础）？
+*   我该如何为设计系统做贡献（修复 bug,增加一个图标）？
+*   我是一个参与者，我该怎样在多种环境中测试我的代码而不至于出错呢？
+*   我事一个开发者，对于设计系统我该知道什么？
+*   我事一个设计师，我该怎样迭代I’m a designer, how can I iterate in the browser on an existing pattern?
+*   从 v1.0 到 v2.0 的升级路径事什么？
+*   0.5.0 版本的文档在哪里？
 
-I’ve learned a lot watching open source projects such as [Bootstrap](http://getbootstrap.com/) and [Material Design Lite](http://getmdl.io/). At the Guardian, [I started bridging the gap between designers and developers](https://www.youtube.com/watch?v=ciG-A_1FyVg), mostly using Sass. Working on [Origami](http://origami.ft.com) at the Financial Times then helped me discover new ways of thinking about scaling design. Where I work today, [Salesforce](https://www.lightningdesignsystem.com), there is a team of engineers who fill the roles of Design Systems Ops, all passionate about shipping faster and better code to the users.
+我学习了一些像[Bootstrap](http://getbootstrap.com/) 和 [Material Design Lite](http://getmdl.io/) 这样的开源项目。在卫报, [我开始构建起设计和开发的桥梁](https://www.youtube.com/watch?v=ciG-A_1FyVg)，大多采用 Sass 。在金融时报时 [Origami](http://origami.ft.com) 工作时帮助我发现规模化设计的新思路。 我今天工作的地方， [Salesforce](https://www.lightningdesignsystem.com)，有一个团队的工程师作为 Design Systems Ops，热爱于装运更快并且更好的代码给用户。
 
-After looking at how the scaling design worked in my previous experiences, here are some things that could fall under Design System Ops’s umbrellas:
+在回顾我过往如何规模化设计的经验之后，这里here are some things that could fall under Design System Ops’s umbrellas:
 
-*   Local development environment (sourcemaps, live reload, speed)
-*   Hosting (for design showcases and documentation)
-*   Coding playgrounds (e.g. CodePen, JS Bin)
-*   Technical documentation (installation, troubleshooting)
-*   Front-end automated testing (accessibility, integration)
-*   Cross-browser tests automation
-*   Visual regression testing
-*   Code style linting ([I wrote about it before](https://www.theguardian.com/info/developer-blog/2014/may/13/improving-sass-code-quality-on-theguardiancom))
+*   本地开发环境 （源映射，无刷新重载，速度）
+*   托管（放置设计展示和文档）
+*   代码演示（比如 CodePen, JS Bin）
+*   技术文档（安装，问题诊断）
+*   前端自动化测试（可访问性，集成）
+*   跨浏览器自动化测试
+*   视觉回归测试
+*   代码风格检查 ([我之前写的](https://www.theguardian.com/info/developer-blog/2014/may/13/improving-sass-code-quality-on-theguardiancom))
 
-The above set of responsibilities is pretty front-end centric, but here are a few more that are closer to the metal:
+前面这一系列是以前端为中心的，但是这里有些更接近后端的：
 
-*   Build systems
-*   Asset storage and distribution (CDN, minification)
-*   Measuring performance (assets sizes, server load, CDN response times…)
-*   Versioning flow (e.g. git, SemVer)
-*   Release process (e.g. [continuous deployment](http://radar.oreilly.com/2009/03/continuous-deployment-5-eas.html), [continuous integration](http://guide.agilealliance.org/guide/ci.html))
-*   Testing/staging environments
-*   Surfacing test results and performance results (e.g. dashboards, emails)
+*   构建系统
+*   资源储存和分布（CDN，压缩）
+*   性能测试（资源大小，服务器加载，CDN 响应时间等等）
+*   版本流程（比如 git, SemVer）
+*   发布流程 （比如 [持续开发](http://radar.oreilly.com/2009/03/continuous-deployment-5-eas.html), [持续集成](http://guide.agilealliance.org/guide/ci.html)）
+*   测试/阶段环境
+*   展现测试结果和性能结果（比如 仪表板，邮件）
 
-Or, closer to the marketing side of things (developer advocacy):
+或者，更靠近市场营销这边的事情（开发宣传）：
 
-*   Building demos
-*   Helping developers implement the Design System
-*   Evangelizing the Design System to the developer community
+*   构建示例
+*   帮助开发者实现这设计系统
+*   给开发社区布道这设计系统
 
-As mentioned previously, having solid solutions in these areas can massively help design systems teams improve the quality of deliverable, the speed and confidence at which they operate. **That’s why I believe having good Ops as part of a Design Systems team will strongly set the project up for success.**
+就像前面提到的这些方面有坚实的解决方案能很大地帮助设计团队提高交付质量。the speed and confidence at which they operate. **这是我相信为什么在设计团队中有个好的参谋将增加项目成功的可能。**
 
-### Epilogue
+### 总结
 
-As more and more companies build their own design systems, they are showing interest in adding technical people to support design efforts and tooling. As it is only the beginning for this type of roles, our community will have many questions. The ones that keep me up at night are:
+随着越来越多的公司构建属于自己的设计系统，他们也显示出对于增加支持设计工作和工具的技术人员表现出兴趣。因为它只是这个角色的开始 ，我们将有很多问题。那些让我夜不能寐。
 
-*   **What other areas should Design Systems Ops help with?**
-*   **What tools can help smaller teams follow that path at a small cost?**
-*   **Aside from development speed, what other metrics should a Design Systems Ops be judged on?**
+*   ** Design Systems Ops 能在其他方面做些什么？**
+*   **什么工具能帮助小型团队在成本有限的情况下遵循这个路线呢？**
+*   **除了开发速度，还有那些方面应该是Design Systems Ops应该评判的？**
 
-I’d love to read your thoughts, and if you’re in San Francisco, why not [have a coffee](https://twitter.com/kaelig) and talk about it.
+我喜欢了解你的所想，如果你也在旧金山，来[享受一杯咖啡](https://twitter.com/kaelig)并谈谈你的想法。
 
-I did not come up with all of this Design Systems Ops thing from nothing, and to understand better where I come from, you can read [Ian Feather’s awesome presentation about Front End Ops](http://ianfeather.co.uk/presentations/front-end-ops/).
+Design Systems Ops 并没有我凭空产生的想法，要理解我想法的由来，你可以阅读[Ian Feather's awesome presentation about Front End Ops](http://ianfeather.co.uk/presentations/front-end-ops/).
 
-Also, definitely listen to the [Design Details](http://spec.fm/) podcast, where some of the very best designers in the world are bringing up their experience creating design systems and style guides.
+同样， 听 [Design Details](http://spec.fm/) 播客，那些有创造他们的设计系统和风格指南的全世界很优秀的设计师。
 
-Finally, if you like talking design systems in general or want to learn more about them, don’t miss [Clarity Conference](http://clarityconf.com/), March 31st–April 1st, 2016 in San Francisco (organized by the design systems queen herself: [jina ₍˄ุ.͡˳̫.˄ุ₎](https://medium.com/u/f5d1807b4e38)).
+最后，如果你想从整体上讨论上设计系统或想去更多学习它们，不要错过 2016年3月31日到4月1日在旧金山举行的 [Clarity Conference](http://clarityconf.com/) （由设计系统女王自己组织: [jina ₍˄ุ.͡˳̫.˄ุ₎](https://medium.com/u/f5d1807b438)).
 
