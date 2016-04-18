@@ -1,8 +1,8 @@
 * 原文链接 : [The Two Types of Product Virality](https://medium.com/@philipla/the-two-types-of-product-virality-8ae744b1c4d7#.lwgcxzx4d)
 * 原文作者 : [Philip La](https://medium.com/@philipla)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者:
+* 译者 : [lizhuo](https://github.com/huanglizhuo) 
+* 校对者: [JasinYip](https://github.com/JasinYip) [godofchina](https://github.com/godofchina)
 
 无论我是在演讲还是在讲授，在讨论对于“病毒式营销”所带来的增长时，我都认为对于产品来说这是一个最好的吸引眼球和增加新用户的途径。它不但免费，而且可以带来广泛影响。
 
@@ -16,7 +16,7 @@
 
 病毒式营销的例子：
 
-*   **Dropbox 文件夹分享 **：你正在带着组员做一个项目，而且你需要共享文件，你会自然而然的把他们加进来。
+*   **Dropbox 文件夹分享 **：你和你的团队正在做一个项目，你需要共享文件给团队，所以你会尝试把队员拉进来。
 
 ![](https://cdn-images-1.medium.com/max/800/1*eA5Ae-IdNiKUBJltCRBLjA.png)
 
@@ -34,7 +34,7 @@
 
 正如上面的例子中讲的，WhatsApp 群消息 和 Dropbox 的文件夹共享功能_需要_特定的人加入才能获取这一功能的主要价值。而 Facebook 照片标签是另一种，收到在照片中被提及消息的人通过一种很连贯的方式的意识到 Facebook 的存在。 因此，WhatsApp 和 Dropbox 属于 PPV 而 Facebook 照片标签属于 DPV.
 
-使用 PPV, 你的用户会很积极的说服他们圈子里的朋友使用你的产品来获得你产品的好处, 而 DPV 中, 你的用户只是让他圈子里的人意识到你产品的存在，并且不需要通过特定的人加入而获得价值。
+使用 PPV, 用户为了自己的利益会很积极的说服他们周围的人使用产品, 而 DPV 中, 用户只是让他圈子里的人意识到产品的存在，并且不需要通过特定的人加入而获得价值。
 
 更多 PPV 的例子:
 
