@@ -7,7 +7,7 @@
 
 一个用 CSS 动画实现的墨水晕开过渡效果。
 
-我最近遇到有几个网站使用墨水晕开作为过渡效果。 一个很好的例子是 [Sevenhills website](http://www.sevenhillswholefoods.com/experience/)。起初我以为他们使用 HTML canvas 来实现(允许透明度)， 然后我查看源代码发现他们没有并使用视频，而是一个 PNG 雪碧图。
+我最近遇到有几个网站使用墨水晕开作为过渡效果。 一个很好的例子是 [Sevenhills website](http://www.sevenhillswholefoods.com/experience/)。起初我以为他们使用 HTML canvas 来实现(允许透明度)， 然后我查看源代码发现他们并没有使用视频，而是一个 PNG 雪碧图。
 
 通过用一个 PNG 雪碧图和 CSS 中的 **steps()** 定时方法，我们能创建视频效果并使用它们作为过渡。 在我们的方法中， 我们使用这种手段去触发一个模态窗口, 但你也能使用它作为两个页面之间的过渡效果。
 
@@ -17,7 +17,7 @@
 
 ![ae-01](https://0bf196087c14ed19d1f11cf1-ambercreativelab.netdna-ssl.com/wp-content/uploads/2016/03/ae-01.png)
 
-因为我们的视频由25帧组成， 导出 25 张PNG 图片资源. 只是为了给你更好设置组成的更多信息, 我们创建了一个宽高为 640x360px 帧率为 25，时长为 1 秒的视频。
+因为我们的视频由25帧组成，导出 25 张 PNG 图片资源。 只是为了给你更好设置组成的更多信息， 我们创建了一个宽高为 640x360px 帧率为 25，时长为 1 秒的视频。
 
 ![ae-02](https://0bf196087c14ed19d1f11cf1-ambercreativelab.netdna-ssl.com/wp-content/uploads/2016/03/ae-02.png)
 
@@ -62,8 +62,8 @@
 
 ## 增加样式
 
-这`.cd-modal` 窗口最初的CSS属性 visibility: hidden, height: 100% 和 width: 100% 并且使用固定定位.。
-当用户点击 `a.cd-modal-trigger`，模态窗口变为可见，并且它的透明度变为1（使用 `.visible` 类）。
+这`.cd-modal` 窗口最初的CSS属性 visibility: hidden, height: 100% 和 width: 100% 并且使用固定定位。
+当用户点击 `a.cd-modal-trigger`，模态窗口变为可见，并且它的透明度变为 1 （使用 `.visible` 类）。
 
     .cd-modal {
       position: fixed;
