@@ -13,7 +13,7 @@
 
 创建这些效果的过程很简单，让我来给你详细分解：
 
-首先，你需要一个有填充效果的视频和一个透明区域。 然后你需要把这个视屏导出为 PNG 序列。我们使用 After Effects 导出这个队列（确保导出 alpha 通道）。
+首先，你需要一个有填充效果的视频和一个透明区域。 然后你需要把这个视频导出为 PNG 序列。我们使用 After Effects 导出这个队列（确保导出 alpha 通道）。
 
 ![ae-01](https://0bf196087c14ed19d1f11cf1-ambercreativelab.netdna-ssl.com/wp-content/uploads/2016/03/ae-01.png)
 
@@ -143,7 +143,7 @@
       animation-fill-mode: forwards;
     }
 
-然后我们使用 `steps()` 方法: 因为不想不断地修改 transslate 值，而是通过固定的步调来改变以一次显示一帧; 步数比我们的帧数少一。
+然后我们使用 `steps()` 方法: 因为不想不断地修改 translate 值，而是通过固定的步调来改变以一次显示一帧; 步数比我们的帧数少一。
 
 ## 事件处理
 
