@@ -25,7 +25,7 @@
 
 <figcaption>从概念到用户的一种典型流程：还原度越靠近用户阶段越低。</figcaption>
 
-信号 （概念）通过干扰（低效率）而逐渐变弱 ，并在一个相当低的还原度中结束。这种交付失败对公司有着巨大商业机会成本的，有着巨大的影响。That delivery failure has a massive impact on the company’s ability to ship high quality products, which has a huge business opportunity cost.
+信号 （概念）通过干扰（低效率）而逐渐变弱 ，并在一个相当低的还原度中结束。这种交付失败对公司有着巨大商业机会成本，构建高质量产品的能力有着巨大的影响。
 
 ### 设计系统能干什么
 
