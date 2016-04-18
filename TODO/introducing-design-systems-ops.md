@@ -9,7 +9,7 @@
 
 <figcaption>Design Systems Ops: 规模化地装运（设计）。</figcaption>
 
-伟大的产品离不开开发和设计的良好沟通。无论你是谁，归根结底，我们都是在转运软件。有了设计系统之后，沟通将变得更简单
+伟大的产品离不开开发和设计的良好沟通。无论你是谁，归根结底，我们都是在装运软件。有了设计系统之后，沟通将变得更简单。
 
 但是谁将建立起设计和开发之间的沟通桥梁呢？
 
@@ -23,7 +23,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*NJbl6JkUcbGPLU1bxVW7kw.png)
 
-<figcaption>从概念到用户的一种典型流程：还原度越靠近用户阶段越低。</figcaption>
+<figcaption>从概念到用户的一种典型流程：越靠近用户阶段还原度越低。</figcaption>
 
 信号 （概念）通过干扰（低效率）而逐渐变弱 ，并在一个相当低的还原度中结束。这种交付失败对公司有着巨大商业机会成本，构建高质量产品的能力有着巨大的影响。
 
@@ -33,13 +33,13 @@
 
 从颜色命名，对象，约定，组件等等直到记录最佳体验细节。比如动画定时或表单元素的圆角度值。 
 
-一个好的设计系统能让设计决策更快。（比如 “行动召唤应该是什么颜色”）。设计师们有更多实践聚焦与用户流程，并且在同一时间探索多种概念，
+一个好的设计系统能让设计决策更快。（比如 “行动召唤应该是什么颜色”）。设计师们有更多时间聚焦于用户流程，并且在同一时间探索多种概念，
 
-一个好的设计系统也能帮助开发团队引用独一的真相来源。这对一致性有好处，因为所有的行动召唤跨屏看起一样。
+一个好的设计系统也能帮助开发团队引用独一的真相来源。这对一致性有好处，因为所有的行动召唤跨屏幕将表现一致。
 
 ![](https://cdn-images-1.medium.com/max/800/1*lIa0DiwLnfc1y14t3KTWpA.png)
 
-<figcaption>设计系统在这个过程中减少低效：还原度一路将保持大致稳定。</figcaption>
+<figcaption>设计系统在这个过程中能减少低效：还原度一路将保持大致稳定。</figcaption>
 
 一些设计系统也用代码装运模式。这些设计系统从概念开始阶段，到原型阶段，直到实现阶段都能证明其价值。 当公司遵循这条路线，对生产效率和还原度都是一个好消息。
 
@@ -55,7 +55,7 @@
 
 <figcaption>通过在设计和开发间引入一位中间者，进一步减少低效，增加软件交付的还原度。</figcaption>
 
-来自于两边的关于设计系统的许多问题：
+来自于两边的关于设计系统的一些问题：
 
 *   我从哪里可以找到标记, 颜色面板，数值，图标，模式，断点？
 *   如果我在原型中，产品中，Web view 中如何加载CSS？
@@ -65,13 +65,13 @@
 *   我该如何为设计系统做贡献（修复 bug,增加一个图标）？
 *   我是一个参与者，我该怎样在多种环境中测试我的代码而不至于出错呢？
 *   我事一个开发者，对于设计系统我该知道什么？
-*   我事一个设计师，我该怎样迭代I’m a designer, how can I iterate in the browser on an existing pattern?
+*   我事一个设计师，我该怎样在浏览器中迭代一个现有模式呢？
 *   从 v1.0 到 v2.0 的升级路径事什么？
 *   0.5.0 版本的文档在哪里？
 
 我学习了一些像[Bootstrap](http://getbootstrap.com/) 和 [Material Design Lite](http://getmdl.io/) 这样的开源项目。在卫报, [我开始构建起设计和开发的桥梁](https://www.youtube.com/watch?v=ciG-A_1FyVg)，大多采用 Sass 。在金融时报时 [Origami](http://origami.ft.com) 工作时帮助我发现规模化设计的新思路。 我今天工作的地方， [Salesforce](https://www.lightningdesignsystem.com)，有一个团队的工程师作为 Design Systems Ops，热爱于装运更快并且更好的代码给用户。
 
-在回顾我过往如何规模化设计的经验之后，这里here are some things that could fall under Design System Ops’s umbrellas:
+在回顾我过往如何规模化设计的经验之后，这里有些事能归入Design System Ops 的作用下：
 
 *   本地开发环境 （源映射，无刷新重载，速度）
 *   托管（放置设计展示和文档）
@@ -98,21 +98,21 @@
 *   帮助开发者实现这设计系统
 *   给开发社区布道这设计系统
 
-就像前面提到的这些方面有坚实的解决方案能很大地帮助设计团队提高交付质量。the speed and confidence at which they operate. **这是我相信为什么在设计团队中有个好的参谋将增加项目成功的可能。**
+就像前面提到的这些方面有坚实的解决方案能很大地帮助设计团队提高交付质量。提高他们操作的速度和信心。 **这是我相信为什么在设计团队中有个好的参谋将增加项目成功的可能。**
 
 ### 总结
 
 随着越来越多的公司构建属于自己的设计系统，他们也显示出对于增加支持设计工作和工具的技术人员表现出兴趣。因为它只是这个角色的开始 ，我们将有很多问题。那些让我夜不能寐。
 
-*   ** Design Systems Ops 能在其他方面做些什么？**
+*   **Design Systems Ops 能在其他方面做些什么？**
 *   **什么工具能帮助小型团队在成本有限的情况下遵循这个路线呢？**
 *   **除了开发速度，还有那些方面应该是Design Systems Ops应该评判的？**
 
-我喜欢了解你的所想，如果你也在旧金山，来[享受一杯咖啡](https://twitter.com/kaelig)并谈谈你的想法。
+我喜欢了解你的所想，如果你也在旧金山，来[享受一杯咖啡](https://twitter.com/kaelig)并谈谈你的想法吧。
 
-Design Systems Ops 并没有我凭空产生的想法，要理解我想法的由来，你可以阅读[Ian Feather's awesome presentation about Front End Ops](http://ianfeather.co.uk/presentations/front-end-ops/).
+Design Systems Ops 并不是我凭空产生的想法，要理解我想法的由来，你可以阅读[Ian Feather's awesome presentation about Front End Ops](http://ianfeather.co.uk/presentations/front-end-ops/).
 
-同样， 听 [Design Details](http://spec.fm/) 播客，那些有创造他们的设计系统和风格指南的全世界很优秀的设计师。
+同样， 听 [Design Details](http://spec.fm/) 播客，那里有创造他们的设计系统和风格指南的全世界很优秀的设计师。
 
 最后，如果你想从整体上讨论上设计系统或想去更多学习它们，不要错过 2016年3月31日到4月1日在旧金山举行的 [Clarity Conference](http://clarityconf.com/) （由设计系统女王自己组织: [jina ₍˄ุ.͡˳̫.˄ุ₎](https://medium.com/u/f5d1807b438)).
 
