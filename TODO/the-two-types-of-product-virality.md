@@ -2,7 +2,7 @@
 * 原文作者 : [Philip La](https://medium.com/@philipla)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [huanglizhuo](https://github.com/huanglizhuo) 
-* 校对者: [JasinYip](https://github.com/JasinYip) [godofchina](https://github.com/godofchina)
+* 校对者: [JasinYip](https://github.com/JasinYip), [godofchina](https://github.com/godofchina)
 
 无论我是在演讲还是在讲授，在讨论对于“病毒式营销”所带来的增长时，我都认为对于产品来说这是一个最好的吸引眼球和增加新用户的途径。它不但免费，而且可以带来广泛影响。
 
@@ -16,7 +16,7 @@
 
 病毒式营销的例子：
 
-*   **Dropbox 文件夹分享 **：你和你的团队正在做一个项目，你需要共享文件给团队，所以你会尝试把队员拉进来。
+*   **Dropbox 文件夹分享**：你和你的团队正在做一个项目，你需要共享文件给团队，所以你会尝试把队员拉进来。
 
 ![](https://cdn-images-1.medium.com/max/800/1*eA5Ae-IdNiKUBJltCRBLjA.png)
 
