@@ -2,7 +2,7 @@
 * 原文作者 : [Jonas Downey](https://medium.com/@jonasdowney)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [circlelove](https://github.com/circlelove)
-* 校对者:
+* 校对者:[Jonwei](https://github.com/Jonwei) [Ruixi](https://github.com/Ruixi)
 
 
 美丽、清新、整洁、明了、极简。这些词语在相当一段时间里面主导了设计的话语。为了防止你忘记他们，在Creativeblog上面查看[网站的合集](http://www.creativebloq.com/portfolios/examples-712368)。在一篇文章当中，美丽这个词被使用了6次，而简单被用了11次。
@@ -80,6 +80,6 @@ You could attempt to reduce your solution down to a minimal version, cutting out
 
 
 
-我们不必在美丽极简设计的祭坛前祈祷。设计不一定是神圣的。扔掉你的假设，构建能最有效解决问题的东西。我们让Basecamp成为那些救星般庞大冗杂的问提解决方案之一。去! [BASECAMP.COM]{http://basecamp.com} 看一看吧！
+我们不必在美丽极简设计的祭坛前祈祷。设计不一定是神圣的。扔掉你的假设，构建能最有效解决问题的东西。我们让Basecamp成为那些救星般庞大冗杂的问提解决方案之一。去! [BASECAMP.COM](http://basecamp.com)看一看吧！
 
 
