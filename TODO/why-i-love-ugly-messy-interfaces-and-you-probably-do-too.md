@@ -21,7 +21,7 @@
 
 
 
-这样巧妙的设计变得如此普遍以至于_美丽_和_简洁_几乎成为新项目的基本条件。似乎每个设计者都有相同的 Pintest 咖啡店的狂热的梦，认定了世界要变得时尚。
+这样巧妙的设计变得如此普遍以至于_美丽_和_简单_几乎成为新项目的基本条件。似乎每个设计者都有相同的 Pintest 咖啡店的狂热的梦，认定了世界要变得时尚。
 
  
 
@@ -52,11 +52,11 @@
 
 假设你的目的是完成一个全球的P2P商业网络。那真的需要解决一个巨大庞杂的项目。
 
-You could attempt to reduce your solution down to a minimal version, cutting out features and reducing density in the name of beauty and simplicity. Here’s a Craigslist redesign concept like that. (Designers sure hate Craigslist, don’t they? Has any other site had more unsolicited redesigns?)
 
-![](http://ww4.sinaimg.cn/large/a490147fgw1f2p9mpbsv9j20m80dwdha.jpg)
 
 你会去尝试压缩你的解决方案到一个最简化的版本，以美丽简洁之名砍掉功能，减小密度。下面这个网站的设计理念就挺 Craigslist 。（设计者们讨厌 Craigslist ，不是吗？其他的网站也对 Craigslists 设计风格进行了重新设计 ）
+
+![](http://ww4.sinaimg.cn/large/a490147fgw1f2p9mpbsv9j20m80dwdha.jpg)
 
 或者，你决定不去砍掉功能，因为抓住你关注的每一个案例更重要。（记住，你必须支持大量的方案才能满足项目的投入需求。）现在美丽和简洁的优先级更低了。实用至上！
 
@@ -65,7 +65,6 @@ You could attempt to reduce your solution down to a minimal version, cutting out
 
 
 换句话说，有时候，这么做不好
-
 
 ![](http://ww1.sinaimg.cn/large/a490147fgw1f2p9n56c23j20aq0bdwf0.jpg)
 
