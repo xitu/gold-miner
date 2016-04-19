@@ -17,6 +17,7 @@
 
 
 如果你也这么干过，你可能有一个看上去像这样的一个网站：
+
 ![](http://ww3.sinaimg.cn/large/a490147fgw1f2p9je65eqj20wa0tuaix.jpg)
 
 
@@ -69,6 +70,7 @@
 ![](http://ww1.sinaimg.cn/large/a490147fgw1f2p9n56c23j20aq0bdwf0.jpg)
 
 你真正需要的是这个（设计得不那么简洁）
+
 ![](http://ww4.sinaimg.cn/large/a490147fgw1f2p9ng4br1j20dh09e405.jpg)
 
 此时我并不是要你去复杂化你的设计工作或者故意让它们看起来糟糕。我也不是在暗示上述的例子无法改善。
