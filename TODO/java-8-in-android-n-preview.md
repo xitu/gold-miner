@@ -2,7 +2,7 @@
 * 原文作者 : [Sergii Zhuk](https://medium.com/@sergii)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [markzhai](https://github.com/markzhai)
-* 校对者: [narcotics726](https://github.com/narcotics726)
+* 校对者: [narcotics726](https://github.com/narcotics726), [MiJack](https://github.com/MiJack)
 
 
 Android团队最近发布了Android N Preview，带来了很多提升，包括由Jack编译器提供的Java 8支持。在这篇文章中，我们将来看看它究竟对Android开发者意味着什么，以及如何尝试新的语言特性。
@@ -136,4 +136,4 @@ buttonFahrenheit.setOnClickListener(view1 -> {
 
 ### 总结
 
-在这篇文章中，我们看到了Java 8的用例，以及其目前在Android N Preview SDK的实现状态。我们看到了现存的Jack编译器的限制及其在最后发布前可能被修复的功能。在demo项目中我们检验了如何去使用新的Java 8特性，以及它们可以被应用的target SDKs。
+在这篇文章中，我们了解了Java 8的用例，以及目前其在Android N Preview SDK的实现情况。我们也看到了当前Jack编译器的限制，及其在最后发布前可能被修复的功能。在demo项目中我们检验了如何去使用新的Java 8特性，以及它们可以被应用的target SDK版本。
