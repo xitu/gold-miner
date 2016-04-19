@@ -2,7 +2,7 @@
 * 原文作者 : [Claudia Romano](https://twitter.com/romano_cla)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [L9m](https://github.com/L9m)
-* 校对者:
+* 校对者: [hikerpig](https://github.com/hikerpig), [sqrthree](https://github.com/sqrthree)
 
 
 一个用 CSS 动画实现的墨水晕开过渡效果。
@@ -21,7 +21,7 @@
 
 ![ae-02](https://0bf196087c14ed19d1f11cf1-ambercreativelab.netdna-ssl.com/wp-content/uploads/2016/03/ae-02.png)
 
-最后乏味的部分: 你需要创建一个将所有帧包含在同一行的 PNG 图片。我们手动在 Photoshop 中将所有帧组合在一个 16000×360 像素的图片中。
+最后乏味的部分：你需要创建一个将所有帧包含在同一行的 PNG 图片。我们手动在 Photoshop 中将所有帧组合在一个 16000×360 像素的图片中。
 
 ![png-sequence-preview](https://0bf196087c14ed19d1f11cf1-ambercreativelab.netdna-ssl.com/wp-content/uploads/2016/03/png-sequence-preview.png)
 
@@ -115,7 +115,7 @@
     top: 50%;
     transform: translateY(-50%) translateX(-50%);
 
-在我们的例子中，虽然我们想要居中 ink.png 雪碧图的第一帧，因为  `div.bg-layer`  宽度为父元素宽度的 25 倍, 我们可以使用 translateX(-(50/25)%).
+在我们的例子中，虽然我们想要居中 ink.png 雪碧图的第一帧，因为  `div.bg-layer`  宽度为父元素宽度的 25 倍，我们可以使用 translateX(-(50/25)%)。
 
 为了创建墨水动画，我们改变 `div.bg-layer` 的  translate 值； 我们定义 `cd-sequence` 关键帧规则:
 
@@ -128,7 +128,7 @@
       }
     }
 
-这样，在动画的最后，ink.png 雪碧图将在 `div.cd-transition-layer` 元素内呈现.
+这样，在动画的最后，ink.png 雪碧图将在 `div.cd-transition-layer` 元素内呈现。
 
 记住:因为我们有25帧，展示最后一帧你需要把 translate 设置为 `.bg-layer` of -100% * (25 – 1) = -96%; 但另外，基于它的父元素居中, 你需要额外增加 -2%。
 
