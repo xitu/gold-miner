@@ -9,7 +9,7 @@
 
 我最近遇到有几个网站使用墨水晕开作为过渡效果。 一个很好的例子是 [Sevenhills website](http://www.sevenhillswholefoods.com/experience/)。起初我以为他们使用 HTML canvas 来实现(允许透明度)， 然后我查看源代码发现他们并没有使用视频，而是一个 PNG 雪碧图。
 
-通过用一个 PNG 雪碧图和 CSS 中的 **steps()** 定时方法，我们能创建视频效果并使用它们作为过渡。 在我们的方法中， 我们使用这种手段去触发一个模态窗口, 但你也能使用它作为两个页面之间的过渡效果。
+通过用一个 PNG 雪碧图和 CSS 中的 **steps()** 定时方法，我们能创建视频效果并使用它们作为过渡。 在我们的方法中， 我们使用这种手段去触发一个模态窗口，但你也能使用它作为两个页面之间的过渡效果。
 
 创建这些效果的过程很简单，让我来给你详细分解：
 
@@ -62,7 +62,7 @@
 
 ## 增加样式
 
-这`.cd-modal` 窗口最初的CSS属性 visibility: hidden, height: 100% 和 width: 100% 并且使用固定定位。
+这`.cd-modal` 窗口最初的CSS属性 visibility: hidden， height: 100% 和 width: 100% 并且使用固定定位。
 当用户点击 `a.cd-modal-trigger`，模态窗口变为可见，并且它的透明度变为 1 （使用 `.visible` 类）。
 
     .cd-modal {
@@ -80,7 +80,7 @@
       visibility: visible;
     }
 
-这 `div.cd-transition-layer` 元素用来创建墨水过渡效果:  visibility: hidden, height: 100% 和 width: 100% 并且使用固定定位。
+这 `div.cd-transition-layer` 元素用来创建墨水过渡效果：visibility: hidden，height: 100% 和 width: 100% 并且使用固定定位。
 
     .cd-transition-layer {
       position: fixed;
@@ -94,7 +94,7 @@
       overflow: hidden;
     }
 
-它的子元素 `div.bg-layer` 使用 ink.png 雪碧图作为背景， background-size: 100%,  height: 100% 和 width: 2500% (ink.png 雪碧图 由 25 帧组成); 它的 left/top/translate 值设置为最初 ink.png 雪碧图第一帧在 `div.cd-transition-layer`居中:
+它的子元素 `div.bg-layer` 使用 ink.png 雪碧图作为背景， background-size: 100%， height: 100% 和 width: 2500% (ink.png 雪碧图 由 25 帧组成)；它的 left/top/translate 值设置为最初 ink.png 雪碧图第一帧在 `div.cd-transition-layer`居中：
 
     .cd-transition-layer .bg-layer {
       position: absolute;
@@ -117,7 +117,7 @@
 
 在我们的例子中，虽然我们想要居中 ink.png 雪碧图的第一帧，因为  `div.bg-layer`  宽度为父元素宽度的 25 倍，我们可以使用 translateX(-(50/25)%)。
 
-为了创建墨水动画，我们改变 `div.bg-layer` 的  translate 值； 我们定义 `cd-sequence` 关键帧规则:
+为了创建墨水动画，我们改变 `div.bg-layer` 的  translate 值； 我们定义 `cd-sequence` 关键帧规则：
 
     @keyframes cd-sequence {
       0% {
@@ -130,9 +130,9 @@
 
 这样，在动画的最后，ink.png 雪碧图将在 `div.cd-transition-layer` 元素内呈现。
 
-记住:因为我们有25帧，展示最后一帧你需要把 translate 设置为 `.bg-layer` of -100% * (25 – 1) = -96%; 但另外，基于它的父元素居中, 你需要额外增加 -2%。
+记住：因为我们有25帧，展示最后一帧你需要把 translate 设置为 `.bg-layer` of -100% * (25 – 1) = -96%；但另外，基于它的父元素居中， 你需要额外增加 -2%。
 
-当用户点击 `a.cd-modal-trigger`, `.visible` 添加到  `.cd-transition-layer` 上而显示它, 当 `.opening` 类来触发墨水动画：
+当用户点击 `a.cd-modal-trigger`，`.visible` 添加到  `.cd-transition-layer` 上而显示它，当 `.opening` 类来触发墨水动画：
 
     .cd-transition-layer.visible {
       opacity: 1;
@@ -147,9 +147,9 @@
 
 ## 事件处理
 
-当用户点击 `a.cd-modal-trigger` 或 `.modal-close` 打开/关闭 模态窗口,我们使用 jQuery 增加/移除类。
+当用户点击 `a.cd-modal-trigger` 或 `.modal-close` 打开/关闭 模态窗口，我们使用 jQuery 增加/移除类。
 
-另外, 为了不修改帧的宽高比， 我们改变 `.bg-layer` 的尺寸。 在 style.css 文件中, 我们设置 `.bg-layer` 高度和宽度使帧的宽高等于一个视口宽高. 视口和帧可能拥有不同的宽高比而导致帧的扭曲。  `setLayerDimensions()` 方法防止这种情况的发生：
+另外，为了不修改帧的宽高比， 我们改变 `.bg-layer` 的尺寸。 在 style.css 文件中，我们设置 `.bg-layer` 高度和宽度使帧的宽高等于一个视口宽高。视口和帧可能拥有不同的宽高比而导致帧的扭曲。  `setLayerDimensions()` 方法防止这种情况的发生：
 
     var frameProportion = 1.78, //png frame aspect ratio
         frames = 25, //number of png frames
