@@ -62,5 +62,4 @@ __来，给你表演个魔法__。按住 `alt` 并单击蓝色的的标记框把
 
 这意味这我可以以合理的速度继续工作了。`Executed 15 tests, with 0 failures (0 unexpected) in 0.277 (0.312) seconds`。现在我可以在我泡一杯茶的时间内运行一遍完整的测试套件了。
 
-_Note:_ If you want to avoid using the mouse to change scheme, the [key commands](http://artsy.github.io/images/2016-04-06-Testing-Schemes/next_prev.png) to change between visible schemes is `cmd + ctrl + [` and `cmd + ctrl + ]`.
 __额外提醒__：如果你不想用鼠标来改变 scheme，这些 [快捷键](http://artsy.github.io/images/2016-04-06-Testing-Schemes/next_prev.png) 可以让你在 scheme 之间上(``cmd + ctrl + [``)下(`cmd + ctrl + ]`)切换。
