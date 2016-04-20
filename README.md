@@ -23,6 +23,7 @@
 
 ## Android
 
+* [在 Android N 预览版中使用 Java 8 的新特性](http://gold.xitu.io/entry/5716fc67ebcb7d005cad214c) ([markzhai](https://github.com/markzhai) 翻译)
 * [创建一个基于 Kotlin 的 Android 项目（下集）](http://gold.xitu.io/entry/570f52981ea493006b5cc9ff) ([Jing KE](https://github.com/jingkecn) 翻译)
 * [创建一个基于 Kotlin 的 Android 项目（上集）](http://gold.xitu.io/entry/56e3fdc3df0eea0054c7c61f) ([Jing KE](https://github.com/jingkecn) 翻译)
 * [使用 RxJava 封装现有的库](http://gold.xitu.io/entry/5705e94a2e958a0059c4479e) ([尹述迪](http://yinshudi.com/) 翻译)
@@ -57,6 +58,7 @@
 
 ## 前端
 
+* [使用 CSS 和 jQuery 来做一个墨水晕开的效果](http://gold.xitu.io/entry/57160c4b8ac2470062601b1f) ([L9m](https://github.com/L9m) 翻译)
 * [JavaScript 生态之乱象](http://gold.xitu.io/entry/5705e71ed342d3005418ea66) ([woota](https://github.com/woota) 翻译)
 * [在网站 Logo 上右击时提示下载网站的 Logo 素材下载](http://gold.xitu.io/entry/570b2b671ea493005c024ee3) ([Yushneng](https://github.com/rainyear) 翻译)
 * [揭秘 IIFE 语法](http://gold.xitu.io/entry/5704e12771cfe4005dc85868) ([huxpro](https://github.com/Huxpro) 翻译)
@@ -96,6 +98,7 @@
 
 ## 设计
 
+* [为什么我们喜欢丑的、一团糟的界面以及你为什么也要这样](http://gold.xitu.io/entry/57172a4f2e958a0054a8ffcf) circlelove](https://github.com/circlelove) 翻译)
 * [写给设计师的字偶距调整指南](http://gold.xitu.io/entry/570e5530c4c971005496adc4) ([cdpath](https://github.com/cdpath) 翻译)
 * [设计一款移动应用前你应该知道这些事情](http://gold.xitu.io/entry/57034d617db2a200592a5213) ([Adam Shen](https://github.com/shenxn) 翻译)
 * [11 个顶级设计师分享他们的职业建议](http://gold.xitu.io/entry/56ea5b03731956005d025af3) ([Adam Shen](https://github.com/shenxn) 翻译)
@@ -110,6 +113,8 @@
 
 ## 产品
 
+* [产品设计实习生面试指南](http://gold.xitu.io/entry/5715b102c4c971005bdc93e9) ([iThreeKing](https://github.com/iThreeKing) 翻译)
+* [你真的懂病毒式营销吗](http://gold.xitu.io/entry/5715d39cdf0eea005c930d80) ([huanglizhuo](https://github.com/huanglizhuo) 翻译)
 * [什么是产品设计?](http://gold.xitu.io/entry/570b6a6a75c4cd3c3b917bd0) ([Zhangjd](https://github.com/zhangjd) 翻译)
 * [产品文案要说人话](https://github.com/xitu/gold-miner/blob/master/TODO/the-secret-to-writing-killer-product-copy.md) ([iThreeKing](https://github.com/iThreeKing) 翻译)
 
