@@ -1,39 +1,39 @@
 >* 原文链接 : [Ink Transition Effect](https://codyhouse.co/gem/ink-transition-effect/)
 * 原文作者 : [Claudia Romano](https://twitter.com/romano_cla)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者:
+* 译者 : [L9m](https://github.com/L9m)
+* 校对者: [hikerpig](https://github.com/hikerpig), [sqrthree](https://github.com/sqrthree)
 
 
-An ink bleed transition effect, powered by CSS animations.
+一个用 CSS 动画实现的墨水晕开过渡效果。
 
-I recently came across a couple of websites using ink bleeds as transition effects. A great example is the [Sevenhills website](http://www.sevenhillswholefoods.com/experience/). At first I thought they were using a HTML canvas powered technique (for allowing transparency), then I checked the source code and found out they weren’t using a video, but a PNG image sprite.
+我最近遇到有几个网站使用墨水晕开作为过渡效果。 一个很好的例子是 [Sevenhills website](http://www.sevenhillswholefoods.com/experience/)。起初我以为他们使用 HTML canvas 来实现(允许透明度)， 然后我查看源代码发现他们并没有使用视频，而是一个 PNG 雪碧图。
 
-By using a PNG sprite and the **steps()** timing function in CSS, we can create video effects and use them as transitions! In our resource, we used this technique to fire a modal window, but you can use it to transition between two different pages as well.
+通过用一个 PNG 雪碧图和 CSS 中的 **steps()** 定时方法，我们能创建视频效果并使用它们作为过渡。 在我们的方法中， 我们使用这种手段去触发一个模态窗口，但你也能使用它作为两个页面之间的过渡效果。
 
-The process to create these effects is simple, let me break it down for you:
+创建这些效果的过程很简单，让我来给你详细分解：
 
-First, you need a video with a filling effect and a transparent area. Then you need to export this video as a PNG sequence. We used After Effects to export the sequence (make sure to export the alpha channel as well).
+首先，你需要一个有填充效果的视频和一个透明区域。 然后你需要把这个视频导出为 PNG 序列。我们使用 After Effects 导出这个队列（确保导出 alpha 通道）。
 
 ![ae-01](https://0bf196087c14ed19d1f11cf1-ambercreativelab.netdna-ssl.com/wp-content/uploads/2016/03/ae-01.png)
 
-Since our video is composed of 25 frames, the assets exported are 25 PNG images. Just to give you more info about the composition settings, we created a 640x360px video with a duration of 1 second and a frame rate equal to 25.
+因为我们的视频由25帧组成，导出 25 张 PNG 图片资源。 只是为了给你更好设置组成的更多信息， 我们创建了一个宽高为 640x360px 帧率为 25，时长为 1 秒的视频。
 
 ![ae-02](https://0bf196087c14ed19d1f11cf1-ambercreativelab.netdna-ssl.com/wp-content/uploads/2016/03/ae-02.png)
 
-Finally the tedious part: you need to create the PNG sprite, by creating a new image that includes all frames on the same row. We did this manually using Photoshop, and combined all frames into a single 16000×360 pixels image.
+最后乏味的部分：你需要创建一个将所有帧包含在同一行的 PNG 图片。我们手动在 Photoshop 中将所有帧组合在一个 16000×360 像素的图片中。
 
 ![png-sequence-preview](https://0bf196087c14ed19d1f11cf1-ambercreativelab.netdna-ssl.com/wp-content/uploads/2016/03/png-sequence-preview.png)
 
-In order to turn the sequence into a video, we just need to translate the PNG sprite, and use the **steps()** function to define the number of frames.
+为了将序列变成一个视频，我们只需要平移这个 PNG 雪碧图，然后使用 **steps()** 方法定义帧的数目。
 
-Do you want to learn more about CSS transforms and animations? [Check out our course](https://codyhouse.co/course/mastering-css-transitions-transformations-animations/) ;)
+你想学习更多关于 CSS 变换和动画的相关内容吗？[查看我们的 课程](https://codyhouse.co/course/mastering-css-transitions-transformations-animations/) ;)
 
-Now let’s jump into the code!
+现在让我们进入代码！
 
-## Creating the structure
+## 创建结构
 
-The **HTML structure** is composed of 3 main elements: a `main.cd-main-content` for the page main content, a `div.cd-modal` for the modal window and a `div.cd-transition-layer` for the transition layer.
+ **HTML 结构** 由三个元素组成：一个 `main.cd-main-content` 容纳页面主要内容，一个 `div.cd-modal` 容纳一个模态窗口和一个 `div.cd-transition-layer` 包含过渡层。
 
     <main class="cd-main-content">
         <div class="center">
@@ -60,10 +60,10 @@ The **HTML structure** is composed of 3 main elements: a `main.cd-main-content` 
         <div class="bg-layer"></div>
     </div> <!-- .cd-transition-layer -->
 
-## Adding style
+## 增加样式
 
-The `.cd-modal` window has, initially, visibility: hidden, height: 100% and width: 100% and is in fixed position.  
-When a user clicks the `a.cd-modal-trigger`, the visibility of the modal window is changed to visible and its opacity to 1 (using the `.visible` class).
+这`.cd-modal` 窗口最初的CSS属性 visibility: hidden， height: 100% 和 width: 100% 并且使用固定定位。
+当用户点击 `a.cd-modal-trigger`，模态窗口变为可见，并且它的透明度变为 1 （使用 `.visible` 类）。
 
     .cd-modal {
       position: fixed;
@@ -80,7 +80,7 @@ When a user clicks the `a.cd-modal-trigger`, the visibility of the modal window 
       visibility: visible;
     }
 
-The `div.cd-transition-layer` element is used to create the transition ink effect: it has visibility: hidden, height: 100% and width: 100% and is in fixed position.
+这 `div.cd-transition-layer` 元素用来创建墨水过渡效果：visibility: hidden，height: 100% 和 width: 100% 并且使用固定定位。
 
     .cd-transition-layer {
       position: fixed;
@@ -94,7 +94,7 @@ The `div.cd-transition-layer` element is used to create the transition ink effec
       overflow: hidden;
     }
 
-Its child element `div.bg-layer` has the ink.png sprite as background-image, a background-size: 100%,  height: 100% and width: 2500% (the ink.png sprite is composed of 25 frames); its left/top/translate values are set so that, initially, the first frame of the ink.png sprite is centered inside the `div.cd-transition-layer`:
+它的子元素 `div.bg-layer` 使用 ink.png 雪碧图作为背景， background-size: 100%， height: 100% 和 width: 2500% (ink.png 雪碧图 由 25 帧组成)；它的 left/top/translate 值设置为最初 ink.png 雪碧图第一帧在 `div.cd-transition-layer`居中：
 
     .cd-transition-layer .bg-layer {
       position: absolute;
@@ -108,16 +108,16 @@ Its child element `div.bg-layer` has the ink.png sprite as background-image, a 
       background-size: 100% 100%;
     }
 
-Note: to center an element inside its parent, you would use:
+你可能使用以下方式在父元素中居中一个元素：
 
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translateY(-50%) translateX(-50%);
 
-In our case, though, we want to center the first frame of the ink.png sprite, and since `div.bg-layer` width is 25 times the one of its parent, we use a translateX(-(50/25)%).
+在我们的例子中，虽然我们想要居中 ink.png 雪碧图的第一帧，因为  `div.bg-layer`  宽度为父元素宽度的 25 倍，我们可以使用 translateX(-(50/25)%)。
 
-To create the ink animation, we change the translate value of the `div.bg-layer`; we defined the `cd-sequence` keyframes rule:
+为了创建墨水动画，我们改变 `div.bg-layer` 的  translate 值； 我们定义 `cd-sequence` 关键帧规则：
 
     @keyframes cd-sequence {
       0% {
@@ -128,11 +128,11 @@ To create the ink animation, we change the translate value of the `div.bg-layer`
       }
     }
 
-This way, at the end of the animation, the last frame of the ink.png sprite is centered inside the `div.cd-transition-layer` element.
+这样，在动画的最后，ink.png 雪碧图将在 `div.cd-transition-layer` 元素内呈现。
 
-Note: since we have 25 frames, to show the last one you need to translate the `.bg-layer` of -100% * (25 – 1) = -96%; but then, to center it inside its parent, you need to add the additional -2%.
+记住：因为我们有25帧，展示最后一帧你需要把 translate 设置为 `.bg-layer` of -100% * (25 – 1) = -96%；但另外，基于它的父元素居中， 你需要额外增加 -2%。
 
-When a user clicks the `a.cd-modal-trigger`, the `.visible` class is added to the `.cd-transition-layer` to show it, while the `.opening` class is used to trigger the ink animation:
+当用户点击 `a.cd-modal-trigger`，`.visible` 添加到  `.cd-transition-layer` 上而显示它，当 `.opening` 类来触发墨水动画：
 
     .cd-transition-layer.visible {
       opacity: 1;
@@ -143,13 +143,13 @@ When a user clicks the `a.cd-modal-trigger`, the `.visible` class is added to th
       animation-fill-mode: forwards;
     }
 
-Note that we used the `steps()` function: that’s because we don’t want the translate value to change continuously, but rather change through fixed steps, in order to show one frame at a time; the number of steps used is equal to our frames less one.
+然后我们使用 `steps()` 方法: 因为不想不断地修改 translate 值，而是通过固定的步调来改变以一次显示一帧; 步数比我们的帧数少一。
 
-## Events handling
+## 事件处理
 
-We used jQuery to add/remove classes when user clicks the `a.cd-modal-trigger` or `.modal-close` to open/close the modal window.
+当用户点击 `a.cd-modal-trigger` 或 `.modal-close` 打开/关闭 模态窗口，我们使用 jQuery 增加/移除类。
 
-Besides, we change the `.bg-layer` dimensions in order not to modify the png frames aspect ratio. In the style.css file, we set `.bg-layer` height and width so that each frame has height and width equal to the ones of the viewport. Viewport and frames could have a different aspect ratio though and that could distort the single frame. The `setLayerDimensions()` function has been used to prevent this from happening:
+另外，为了不修改帧的宽高比， 我们改变 `.bg-layer` 的尺寸。 在 style.css 文件中，我们设置 `.bg-layer` 高度和宽度使帧的宽高等于一个视口宽高。视口和帧可能拥有不同的宽高比而导致帧的扭曲。  `setLayerDimensions()` 方法防止这种情况的发生：
 
     var frameProportion = 1.78, //png frame aspect ratio
         frames = 25, //number of png frames
