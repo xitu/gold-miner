@@ -23,6 +23,7 @@
 
 ## Android
 
+* [在 Android N 预览版中使用 Java 8 的新特性](http://gold.xitu.io/entry/5716fc67ebcb7d005cad214c) ([markzhai](https://github.com/markzhai) 翻译)
 * [创建一个基于 Kotlin 的 Android 项目（下集）](http://gold.xitu.io/entry/570f52981ea493006b5cc9ff) ([Jing KE](https://github.com/jingkecn) 翻译)
 * [创建一个基于 Kotlin 的 Android 项目（上集）](http://gold.xitu.io/entry/56e3fdc3df0eea0054c7c61f) ([Jing KE](https://github.com/jingkecn) 翻译)
 * [使用 RxJava 封装现有的库](http://gold.xitu.io/entry/5705e94a2e958a0059c4479e) ([尹述迪](http://yinshudi.com/) 翻译)
