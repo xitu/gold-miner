@@ -2,7 +2,7 @@
 * 原文作者 : [LAUREN WEBER](http://topics.wsj.com/person/W/lauren-weber/7369)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [Zhangjd](https://github.com/Zhangjd)
-* 校对者: [yangzj1992](https://github.com/yangzj1992)
+* 校对者: [yangzj1992](https://github.com/yangzj1992), [shaohui10086](https://github.com/shaohui10086)
 
 <div class="entry-content">![](http://ww2.sinaimg.cn/large/a490147fjw1f2uxkmiivnj20kt0dvae7.jpg)
 
