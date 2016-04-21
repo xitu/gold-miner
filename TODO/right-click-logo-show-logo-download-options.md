@@ -1,36 +1,37 @@
 >* 原文链接 : [Right Click Logo to Show Logo Download Options](https://css-tricks.com/right-click-logo-show-logo-download-options/)
 * 原文作者 : [CHRIS COYIER ](https://css-tricks.com/author/chriscoyier/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者: 
-* 状态： 认领中
+* 译者 : [Yushneng](https://github.com/rainyear)
+* 校对者: [circlelove](https://github.com/circlelove)，[ZhaofengWu](https://github.com/ZhaofengWu)
 
 
 
 
-I was on the [Invision](http://www.invisionapp.com/) website the other day and I wanted to snag their logo for some reason or another. Sometimes you can have better luck doing that (like when you happily discover it's SVG) than you can Google Image Searching or even regular web searching for something like "Invision Logo" and loping to find some kind of branding page with a logo kit download.
+有一天我在访问 [Invision](http://www.invisionapp.com/) 网站时，突然想要抓取他们网站的 logo。如果运气好的话（例如你非常开心地发现他们 logo 的 SVG 文件），有时候你不需要去 Google 图片搜索，也不用普通网页搜索关键词 “Invision Logo”找到一些品牌介绍页面之类网页，才可以下载 logo 图片。
 
-So I right-clicked their logo, hoping to "inspect" it with the DevTools and check it out.
+因此我右击了他们的 logo，希望可以通过”查看元素”从开发者工具（DevTools）中找到它的图片文件。
 
-Rather than showing me a context menu, it triggered a modal:
+然而并没有出现右键菜单，而是触发了一个对话框：
+
 
 ![](https://css-tricks.com/wp-content/uploads/2016/03/show-logo.gif)
 
-I was pleasantly surprised, because that's exactly what I wanted.
+我感到非常惊喜，因为这正是我想要的。
 
-### Here's a simple zero-dependencies way to do that
 
-See the Pen [Right Click Logo to Show Logo Options](http://codepen.io/chriscoyier/pen/QNyeVd/) by Chris Coyier ([@chriscoyier](http://codepen.io/chriscoyier)) on [CodePen](http://codepen.io).
+### 下面是一个简单的无依赖的实现方法
+
+看这个来自 Chris Coyier（[@chriscoyier](http://codepen.io/chriscoyier) 的示例 [右击 Logo 以显示 Logo 选项](http://codepen.io/chriscoyier/pen/QNyeVd/)）。
 
 <iframe height="268" scrolling="no" src="//codepen.io/chriscoyier/embed/QNyeVd/?height=268&amp;theme-id=0&amp;default-tab=result" frameborder="no" allowtransparency="true" allowfullscreen="true" style="width: 100%;">See the Pen &lt;a href="http://codepen.io/chriscoyier/pen/QNyeVd/"&gt;Right Click Logo to Show Logo Options&lt;/a&gt; by Chris Coyier (&lt;a href="http://codepen.io/chriscoyier"&gt;@chriscoyier&lt;/a&gt;) on &lt;a href="http://codepen.io"&gt;CodePen&lt;/a&gt;.</iframe>
 
-Your app might already have a whole fancy system for showing modals. If so, then it's even easier. Attach a "right click" event (it's actually called `contextmenu`) to the logo and do your thing.
+你的应用可能已经有一整套精致的系统来展示对话框了。如果是这样，那就更简单了。为 logo 绑定“右击”事件（准确来说是`contextmenu`）并加入你想完成的操作。
 
     logo.addEventListener('contextmenu', function(event) {
       // do whatever you do to show a modal
     }, false);
 
-If you don't have a modal system in place, it's very easy to make a rudimentary one. You need an overlay and a modal element:
+如果你当前没有实现对话框的系统，也很容易实现一个简单的版本。你需要一个浮层和一个对话框元素：
 
     <div class="overlay" id="overlay"></div>
 
@@ -40,12 +41,12 @@ If you don't have a modal system in place, it's very easy to make a rudimentary 
       <p><button id="close-modal-button">Close</button></p>
     </div>
 
-And a plan:
+还有一个计划表：
 
-1.  When the logo is right-clicked, show the overlay and modal
-2.  When the close button is clicked, hide them
+1. 右击 logo 时，显示浮层和对话框
+2. 点击关闭按钮时，隐藏它们
 
-No problem:
+没问题：
 
     var logo = document.querySelector("#logo");
     var button = document.querySelector("#close-modal-button");
@@ -64,7 +65,7 @@ No problem:
       modal.classList.remove("show");
     }, false);
 
-Bare bones styling:
+基本样式：
 
     .overlay {
       position: fixed;
@@ -98,8 +99,8 @@ Bare bones styling:
       color: #900;
     }
 
-### Never EVER break the default context menu and override with your own custom behavior OMG what are you an evil troll you should have never been born
+### 永远不要用你自己自定义的行为破坏原有的右键菜单，我的天，你这个根本就不应该存在的恶魔
 
-You're right! Oh god what have I done! Nothing can ever change! Murderous screams!!
+你是对的！天呐我都做了些什么！Murderous screams!!
 
 <iframe src="https://vine.co/v/i675aBFnWta/embed/simple" width="600" height="600" frameborder="0"></iframe><script src="https://platform.vine.co/static/scripts/embed.js"></script>
