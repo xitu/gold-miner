@@ -1,8 +1,8 @@
 >* 原文链接 : [Embedding Lua in the Web](http://starlight.paulcuth.me.uk/docs/embedding-lua-in-the-web)
 * 原文作者 : [paulcuth](https://github.com/paulcuth)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : narcotics726
-* 校对者:
+* 译者 : [narcotics726](https://github.com/narcotics726)
+* 校对者: [markzhai](https://github.com/markzhai), [yangzj1992](https://github.com/yangzj1992)
 
 
 Starlight 可以让你通过「将 Lua 代码置于 `<script>` 标签内」的方式在网页内运行 Lua 脚本。
@@ -13,11 +13,11 @@ Starlight 可以让你通过「将 Lua 代码置于 `<script>` 标签内」的�
 
 [JS Bin on jsbin.com](http://jsbin.com/rovibad/embed?html,console)
 
-可以看到，我们把 Lua 代码包围在一个 `type="application/lua"` 的 `<script>` 标签内部。这样的标签告诉浏览器不要把这段代码当作 JavaScript，同时也通知 Starlight 对该标签的代码进行解析。
+可以看到，我们把 Lua 代码包围在一个 `type="application/lua"` 的 `<script>` 标签内部。这样的标签告诉浏览器不要把这段代码当作 JavaScript，也通知 Starlight 对该标签的代码进行解析。
 
-同时我们也引入了 Babel 的浏览器端运行时，因为 Starlight 输出的是 ES6 代码。另外，至少到目前为止，大多数的浏览器尚未全面支持 ES6。希望在不远的未来我们对于「引入 Babel」的需求可以大大降低。也可以参见 [使用 Grunt 与 Starlight 协作](http://starlight.paulcuth.me.uk/docs/using-starlight-with-grunt) 来学习如何通过预编译来避免引入 Babel。
+同时我们在浏览器环境中也引入了 Babel，因为 Starlight 输出的是 ES6 代码。并且至少到目前为止，大多数的浏览器也尚未全面支持 ES6。希望在不远的未来我们对于「引入 Babel」的需求可以大大降低。也可以参见 [使用 Grunt 与 Starlight 协作](http://starlight.paulcuth.me.uk/docs/using-starlight-with-grunt) 来学习如何通过预编译来避免引入 Babel。
 
-我们还需要引入 Starlight 本身。在这里，我们使用 `data-run-script-tags` 这个布尔属性来告诉 Starlight 在页面载入时运行代码。缺少这个属性的话，这些代码就只能被手动执行了。
+我们还需要引入 Starlight 本身。在这里，我们使用 `data-run-script-tags` 这个布尔属性来告诉 Starlight 在页面载入时运行脚本。缺少这个属性的话，这些脚本就只能被手动执行了。
 
 到这里为止就不需要其他准备工作了。注意 `print()` 方法会把内容输出到浏览器的控制台窗口。这一行为可以在 Starlight 的配置中修改。
 
@@ -36,21 +36,21 @@ Starlight 会解析所有含有以下 `type` 的标签：
 
 [counter-app.lua](http://paulcuth.me.uk/starlight/lua/counter-app.lua) [JS Bin on jsbin.com](http://jsbin.com/mohoci/embed?html,output)
 
-所有脚本会按照页面上的顺序依次进行解析。要实现非阻塞的加载，你可以添加一个 `defer` 属来将某个脚本的加载动作延迟到其余所有脚本都加载完毕之后。在行内 `script` 标签中，`defer` 会被忽略。
+脚本会按照在页面出现的顺序进行解析。要实现非阻塞的加载，你可以添加一个 `defer` 属来将某个脚本的加载动作延迟到其余所有脚本都加载完毕之后。在内联脚本标签中，`defer` 会被忽略。
 
-### 通过编程在 JavaScript 中执行 Lua 脚本
+### 在JavaScript中直接执行Lua代码
 
-利用 Starlight，你可以在 JavaScript 中执行任意 Lua 代码。使用 `starlight.parser.parse()` 即可。
+使用 starlight.parser.parse() ，就可以用 Starlight 在 JavaScript 中执行任意 Lua 代码。
 
 [JS Bin on jsbin.com](http://jsbin.com/rutoni/embed?html,console,output)
 
-在这种场景下，使用解析器（parser）的一个良好实践是：将 Lua 代码放置在 `script` 标签中，然后按需执行它们。这样的话，要记得不要在页面加载时就执行这些 Lua 代码，也就是说，不要加上 `data-run-script-tags` 这个属性。
+在这种场景下，使用解析器（parser）的一个优秀范例是：将 Lua 代码放置在 `script` 标签中，然后按需执行它们。这样的话，要记得不要在页面加载时就执行这些 Lua 代码，也就是说，不要加上 `data-run-script-tags` 这个属性。
 
 [JS Bin on jsbin.com](http://jsbin.com/coheya/embed?html,console,output)
 
 ### 模块
 
-通过 `data-modname` 这个属性，我们可以将 `script` 标签转变成一个 Lua 模块。这个标签会被预加载但不会立刻执行，同时，可以被之后其他的 Lua 代码引用（require）。但要确认：这个模块所在的标签位置必须在其他引用它的代码之前。
+通过 `data-modname` 这个属性，我们可以将 `script` 标签转变成一个 Lua 模块。这个标签会被预加载但不会立刻执行，同时，可以被之后其他的 Lua 代码引用（require）。但要保证这个模块所在的标签出现在其他引用它的脚本之前。
 
 [JS Bin on jsbin.com](http://jsbin.com/gadequp/embed?html,console)
 
