@@ -8,6 +8,7 @@
 2. 申请请求通过后，Fork 此仓库开始翻译
 3. 翻译完成，发送 [Pull Request](https://github.com/xitu/gold-miner/pull/new/master)
 4. 至少审核两篇其他译者发 PR 的[文章](https://github.com/xitu/gold-miner/pulls?q=is%3Apr+is%3Aopen+label%3A%E6%A0%A1%E5%AF%B9%E8%AE%A4%E9%A2%86)
+5. 分享你的译文到[掘金](http://gold.xitu.io)，让更多的开发者看到好的文章。
 
 > 建议：Fork 此仓库后，请先从 master 分支上 `git checkout -b translate` 一个新的 translate 分支来翻译文章，翻译完成后再把 translate 分支发 PR。
 
