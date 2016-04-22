@@ -83,9 +83,8 @@ See the Pen [State2](http://codepen.io/makhenzi/pen/EPKwRo/) by Makhenzi ([@makh
 
 所以，每次父组件的状态发生改变，其子组件的属性内容就会自动进行更新。但是，正如子组件的`render()`方法会显示属性内容，它也会基于单向的数据线性流，根据任何收到的新信息去进行更新。
 
-<iframe height="266" scrolling="no" src="//codepen.io/makhenzi/embed/EPKbmO/?height=266&amp;theme-id=0&amp;default-tab=js,result&amp;embed-version=2" frameborder="no" allowtransparency="true" allowfullscreen="true" style="width: 100%;">See the Pen &lt;a href="http://codepen.io/makhenzi/pen/EPKbmO/"&gt;Props&lt;/a&gt; by Makhenzi (&lt;a href="http://codepen.io/makhenzi"&gt;@makhenzi&lt;/a&gt;) on &lt;a href="http://codepen.io"&gt;CodePen&lt;/a&gt;.</iframe>
-
-See the Pen [Props](http://codepen.io/makhenzi/pen/EPKbmO/) by Makhenzi ([@makhenzi](http://codepen.io/makhenzi)) on [CodePen](http://codepen.io).
+<iframe height='266' scrolling='no' src='//codepen.io/makhenzi/embed/EPKbmO/?height=266&theme-id=0&default-tab=js,result&embed-version=2' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'>See the Pen <a href='http://codepen.io/makhenzi/pen/EPKbmO/'>Props</a> by Makhenzi (<a href='http://codepen.io/makhenzi'>@makhenzi</a>) on <a href='http://codepen.io'>CodePen</a>.
+</iframe>
 
 搞定了！组件们会互相交互，并根据我们的点击在 DOM 里渲染不同数据，而不需要单页去进行刷新。以这个为基础，交互的复杂性和组件的数量可以按需增加，使我们能创建复杂高效的应用。
 
