@@ -2,7 +2,7 @@
 * 原文作者 : Elise Cicognani
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [markzhai](https://github.com/markzhai)
-* 校对者: [JasinYip](https://github.com/JasinYip)
+* 校对者: [JasinYip](https://github.com/JasinYip), [malcolmyu](https://github.com/malcolmyu)
 
 
 
