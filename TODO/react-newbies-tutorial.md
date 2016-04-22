@@ -2,7 +2,7 @@
 * 原文作者 : Elise Cicognani
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [markzhai](https://github.com/markzhai)
-* 校对者: [JasinYip](https://github.com/JasinYip), [malcolmyu](https://github.com/malcolmyu)
+* 校对者: [JasinYip](https://github.com/JasinYip), [malcolmyu](https://github.com/malcolmyu), [羊羊羊](https://github.com/antonia0912)
 
 
 
@@ -45,11 +45,11 @@ React 结构，被称为[虚拟 DOM](https://facebook.github.io/react/docs/worki
 
 ## 状态(State)和属性(props)
 
-在我们的例子里，那个独立的变量 data 是由日期组成的。这些会根据点击事件所集合的DOM内连锁反应进而根据对应海盗、温度信息而进行改变。所以我们将会根据每个 “DATA” 对象内的对应日期去保存信息。我们还将利用React在父组件内的 `this.state={}` 属性来以键值对拷贝形式保存变量数据的。
+在我们的例子里，那个独立的变量 data 是由日期组成的。这些会根据点击事件所集合的 DOM 内连锁反应进而根据对应海盗、温度信息而进行改变。所以我们将会根据每个 “DATA” 对象内的对应日期去保存信息。我们还将利用 React 在父组件内的 `this.state={}` 属性来以键值对拷贝形式保存变量数据的。
 
-以这种形式组织程序使得我们可以利用React提供的方法，来以“状态(state)”的形式和数据交互，并对其进行任意更改。
+以这种形式组织程序使得我们可以利用 React 提供的方法，来以“状态(state)”的形式和数据交互，并对其进行任意更改。
 
-考虑到我们想要使用 DATA 对象的 key 来渲染 HTML 内的日期，最好可以找到一种方法来在 key 上使用JS的 `map()` 方法([Array.prototype.map()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map))，以便能直接显示返回到 `render()` 的 HTML。事实上确实有方法可以做到！我们只需要把 JS 代码包裹在双花括号里，并放置在想要代码输出显示的管理该组件的 DOM 块内，然后就好了。
+考虑到我们想要使用 DATA 对象的 key 来渲染 HTML 内的日期，最好可以找到一种方法来在 key 上使用 JS 的 `map()` 方法([Array.prototype.map()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map))，以便能直接显示返回到 `render()` 的 HTML。事实上确实有方法可以做到！我们只需要把 JS 代码包裹在双花括号里，并放置在想要代码输出显示的管理该组件的 DOM 块内，然后就好了。
 
 在这个特殊例子中，我们将在组件内的方法里定义 `map()` 回调，其将在同一组件的`render()`内返回一片 HTML 代码。
 
