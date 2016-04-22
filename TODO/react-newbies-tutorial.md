@@ -8,12 +8,12 @@
 
 正如你能从标题猜到的，这篇文章的目标是给那些有很少编程经验的读者的。比如，像我这样的人：因为迄今为止，我才探索了编程世界6个月。**所以，这将是一篇新手村教程！** 你只需要拥有对 HTML 和 CSS 的理解，以及基本的 JavaScript（JS）知识就能看懂本文。
 
-注意：在接下来的例子中，我们将会利用 ES6 提供的新能力，来简化写 JS 代码的过程。然而，你也能完全使用ES5来写React。
+注意：在接下来的例子中，我们将会利用 ES6 提供的新能力，来简化写 JS 代码的过程。然而，你也能完全使用 ES5 来写 React。
 
 预计阅读时间9分钟
 
 
-### 什么是 React ？
+# 什么是 React ？
 
 React 是一个 JS 库，由 Facebook 和 Instagram 创建([https://facebook.github.io/react/](https://facebook.github.io/react/))。它通过将应用分为一些动态的、可复用的 **组件**，来使我们可以创建单页应用([Single Page Applications (SPA)](http://www.leanpanda.com/blog/2015/05/25/single-page-application-development/))。
 
@@ -21,7 +21,7 @@ React 是一个 JS 库，由 Facebook 和 Instagram 创建([https://facebook.git
 
 这种用来定义 React 组件的语法被称为 **JSX**。该语法由 React 的创建者们所开发，被用来简化 JS-HTML 代码的组件内交互。使用该语法写的代码在变成实际 JS 代码前必须被编译。
 
-### 创建一个组件（component）
+# 创建一个组件（component）
 
 为了创建我们的组件并将它渲染为一页 HTML，我们首先在我们的 HTML 文件里需要定义一个有唯一 id 的 div。接着，我们将要在 JSX 文件里写代码，以连接 React 组件到使用其 id 的 div，如下面的例子所示。这样做将会指导浏览器在相关 DOM 标签所在的页面渲染组件。
 
@@ -61,7 +61,7 @@ See the Pen [State1](http://codepen.io/makhenzi/pen/qbZbxR/) by Makhenzi ([@makh
 
 在该属性中，我们会调用组件的方法，该方法则会定义我们希望在 onClick 事件后触发的状态修改和其他变更。
 
-在我们的例子里，我们定义该函数为 `handleClick()`。在 handleClick() 中，我们会调用React方法 `setState()`，其允许我们在在每个点击事件中去更改状态数据。我们只需要插入一个包含我们想要修改的状态 key 的对象，并在后者括号内分配给它们新的相关联值。
+在我们的例子里，我们定义该函数为 `handleClick()`。在 handleClick() 中，我们会调用 React 方法 `setState()`，其允许我们在在每个点击事件中去更改状态数据。我们只需要插入一个包含我们想要修改的状态 key 的对象，并在后者括号内分配给它们新的相关联值。
 
 总的来说，每次一个日期被点击，被选中的div的onClick属性会调用 `HandClick()` 方法，该方法会调用 setState() 方法来修改组件的状态。
 
