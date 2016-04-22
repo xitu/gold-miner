@@ -61,13 +61,13 @@ See the Pen [State1](http://codepen.io/makhenzi/pen/qbZbxR/) by Makhenzi ([@makh
 
 在该属性中，我们会调用组件的方法，该方法则会定义我们希望在 onClick 事件后触发的状态修改和其他变更。
 
-在我们的例子里，我们定义该函数为 `handleClick()`。在 handleClick() 中，我们会调用React方法 `setState()`，其允许我们在在每个点击事件中去更改状态数据。我们只需要插入一个包含我们想要修改的状态key的对象，并在后者括号内分配给它们新的相关联值。
+在我们的例子里，我们定义该函数为 `handleClick()`。在 handleClick() 中，我们会调用React方法 `setState()`，其允许我们在在每个点击事件中去更改状态数据。我们只需要插入一个包含我们想要修改的状态 key 的对象，并在后者括号内分配给它们新的相关联值。
 
 总的来说，每次一个日期被点击，被选中的div的onClick属性会调用 `HandClick()` 方法，该方法会调用 setState() 方法来修改组件的状态。
 
-每次状态改变，一旦发生React就会自动检查组件的 `render()` 函数的返回，以寻找基于新状态需要更新的内容。一旦有那样的数据，React就会自动触发一次新的 `render()` 来更新那些有变更的HTML片段。
+每次状态改变，一旦发生 React 就会自动检查组件的 `render()` 函数的返回，以寻找基于新状态需要更新的内容。一旦有那样的数据， React 就会自动触发一次新的 `render()` 来更新那些有变更的 HTML 片段。
 
-(我很抱歉，在接着的例子里，我插入了三行利用了 Classnames 的代码，一个用来基于状态变更来做CSS管理的小工具，我这么做只是为了给预览一点颜色。我还会使用它在最终的例子里给预览填充一些海盗变量。你可以找到 GitHub 上 Classnames 仓库的链接，还有一个[简要使用向导](https://github.com/JedWatson/classnames))
+(我很抱歉，在接着的例子里，我插入了三行利用了 Classnames 的代码，一个用来基于状态变更来做 CSS 管理的小工具，我这么做只是为了给预览一点颜色。我还会使用它在最终的例子里给预览填充一些海盗变量。你可以找到 GitHub 上 Classnames 仓库的链接，还有一个[简要使用向导](https://github.com/JedWatson/classnames))
 
 <iframe height="266" scrolling="no" src="//codepen.io/makhenzi/embed/EPKwRo/?height=266&amp;theme-id=0&amp;default-tab=js,result&amp;embed-version=2" frameborder="no" allowtransparency="true" allowfullscreen="true" style="width: 100%;">See the Pen &lt;a href="http://codepen.io/makhenzi/pen/EPKwRo/"&gt;State2&lt;/a&gt; by Makhenzi (&lt;a href="http://codepen.io/makhenzi"&gt;@makhenzi&lt;/a&gt;) on &lt;a href="http://codepen.io"&gt;CodePen&lt;/a&gt;.</iframe>
 
@@ -75,11 +75,11 @@ See the Pen [State2](http://codepen.io/makhenzi/pen/EPKwRo/) by Makhenzi ([@makh
 
 如此，我们的父组件状态已经被设定好根据选中数据去创建子组件（其将会描述海盗数量和对应温度）。
 
-我们将会在 JSX 文件中创建子组件的实例，正如我们之前对父组件所做的。为了链接子组件到其父亲上，我们只需要在后者的 `render()` 函数使用同一种语法和一个 HTML 标签去定义关系。如果我们称它为“Child”，它将会在我们插入 `<Child />`处所在的 HTML 块内出现。
+我们将会在 JSX 文件中创建子组件的实例，正如我们之前对父组件所做的。为了链接子组件到其父亲上，我们只需要在后者的 `render()` 函数使用同一种语法和一个 HTML 标签去定义关系。如果我们称它为 “Child” ，它将会在我们插入 `<Child />`处所在的 HTML 块内出现。
 
 我们的子组件还必须根据现在选中数据所关联的海盗和温度，传递数据到其父亲。为此，我们将利用赋给 Child 标签的属性，其名字可以随便取，其信息只对父组件可见。
 
-如此一来，子组件将可以通过显式访问归属于其父组件的数据，即利用这些“attribute-bridges”，或者 **属性(props)**，来获取到它自己内部信息的访问权。
+如此一来，子组件将可以通过显式访问归属于其父组件的数据，即利用这些 “attribute-bridges”，或者 **属性(props)**，来获取到它自己内部信息的访问权。
 
 所以，每次父组件的状态发生改变，其子组件的属性内容就会自动进行更新。但是，正如子组件的`render()`方法会显示属性内容，它也会基于单向的数据线性流，根据任何收到的新信息去进行更新。
 
