@@ -29,7 +29,7 @@ React 是一个 JS 库，由 Facebook 和 Instagram 创建([https://facebook.git
 
 See the Pen [Start](http://codepen.io/makhenzi/pen/XXdmvL/) by Makhenzi ([@makhenzi](http://codepen.io/makhenzi)) on [CodePen](http://codepen.io).
 
-JSX 内的 HTML 标签属性和普通 HTML 内的是几乎一样的；唯一不同的是“class”，在 JSX 里面变成了“className”。类 HTML 语法使用圆括号闭合，而包含 JS 的块则使用尖括号闭合。正如你将看到的。render() _总_ 会返回一个 div，而在其中开发者可以自由引入他们认为合适的任意多的标签和元素。
+JSX 内的 HTML 标签属性和普通 HTML 内的是几乎一样的；唯一不同的是“class”，在 JSX 里面变成了“className”。类 HTML 语法使用圆括号闭合，而包含 JS 的块则使用尖括号闭合。正如你将看到的。render() **总**会返回一个 div，而在其中开发者可以自由引入他们认为合适的任意多的标签和元素。
 
 ## 例子：海盗的灭绝
 
