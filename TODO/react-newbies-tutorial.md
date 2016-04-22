@@ -17,7 +17,7 @@
 
 React 是一个 JS 库，由 Facebook 和 Instagram 创建([https://facebook.github.io/react/](https://facebook.github.io/react/))。它通过将应用分为一些动态的、可复用的 **组件**，来使我们可以创建单页应用([Single Page Applications (SPA)](http://www.leanpanda.com/blog/2015/05/25/single-page-application-development/))。
 
-一个React组件是一个继承了由React提供的 **Component** 的JS类。一个组件代表并定义了一块HTML代码，以及任何与这块代码相关的行为，比如点击事件。组件就像是乐高积木，可以用来组建成所需的复杂应用。完全由JS代码构成的组件，可以被隔离和复用。基本方法是 **render()**，它简单地返回一片HTML代码。
+一个 React 组件是一个继承了由 React 提供的 **Component** 的 JS 类。一个组件代表并定义了一块 HTML 代码，以及任何与这块代码相关的行为，比如点击事件。组件就像是乐高积木，可以用来组建成所需的复杂应用。完全由 JS 代码构成的组件，可以被隔离和复用。基本方法是 **render()**，它简单地返回一片HTML代码。
 
 这种用来定义 React 组件的语法被称为 **JSX**。该语法由 React 的创建者们所开发，被用来简化 JS-HTML 代码的组件内交互。使用该语法写的代码在变成实际 JS 代码前必须被编译。
 
@@ -81,7 +81,7 @@ See the Pen [State2](http://codepen.io/makhenzi/pen/EPKwRo/) by Makhenzi ([@makh
 
 如此一来，子组件将可以通过显式访问归属于其父组件的数据，即利用这些“attribute-bridges”，或者 **属性(props)**，来获取到它自己内部信息的访问权。
 
-所以，每次父组件的状态发生改变，其儿子的属性内容就会自动进行更新。但是，正如子组件的`render()`方法会显示属性内容，它也会基于单向的数据线性流，根据任何收到的新信息去进行更新。
+所以，每次父组件的状态发生改变，其子组件的属性内容就会自动进行更新。但是，正如子组件的`render()`方法会显示属性内容，它也会基于单向的数据线性流，根据任何收到的新信息去进行更新。
 
 <iframe height="266" scrolling="no" src="//codepen.io/makhenzi/embed/EPKbmO/?height=266&amp;theme-id=0&amp;default-tab=js,result&amp;embed-version=2" frameborder="no" allowtransparency="true" allowfullscreen="true" style="width: 100%;">See the Pen &lt;a href="http://codepen.io/makhenzi/pen/EPKbmO/"&gt;Props&lt;/a&gt; by Makhenzi (&lt;a href="http://codepen.io/makhenzi"&gt;@makhenzi&lt;/a&gt;) on &lt;a href="http://codepen.io"&gt;CodePen&lt;/a&gt;.</iframe>
 
