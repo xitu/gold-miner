@@ -14,15 +14,15 @@
 
 <!--Sketch and Photoshop have been the tools of choice for product designers, and most designers I speak to today have moved from Photoshop to Sketch.-->
 
-Sketch 和 Photoshop 已经为产品设计者的首选工具，而且大多数设计师跟说我他们现在用的工具已经从 Photoshop 转移到 Sketch 了。
+Sketch 和 Photoshop 已经成为产品设计者的首选工具，而且大部分我今天交流的设计者都已经从 Photoshop 切换到 Sketch 了。
 
 <!--Prototyping has become an integral part of product design, and Adobe was doing nothing of real value in that space, until Comet. Adobe also saw a simple and focused design tool like Sketch gradually increase in popularity as a primary tool for product designers, which possibly played a role in Comet coming to fruition.
 -->
-原型设计已经成为产品设计的一个重要组成部分，但是直到 Comet 出现前， Adobe 在这个领域没有做任何有价值的事情。 Adobe 也隐隐意识到了一个类似 Sketch ，简单但是专注设计的工具，慢慢地成为产品设计者的主要工具，这可能对于Comet的面世扮演了一个相当重要的角色。
+产品原型已经成为产品设计的一个重要组成部分，然而直到 Comet 出现之前， Adobe 在这个领域没有做出任何建树。 Adobe 也意识到类似于 Sketch 的简单而专注的设计工具会逐渐流行普及，变成产品设计者的首选工具，这可能对 Comet 的问世充当了重要的角色。
 
 <!--My immediate thoughts were that if I were Pieter, I’d be scared shitless. The conversation that transpired around me focused on Pieter, Comet, and how Sketch will fare against it. At the time, I was pretty harsh on Pieter actually, saying that he needs to take on funding and grow Sketch if he wants to fend off the very company he’d already disrupted. David and Goliath, or perhaps now, Goliath and David.-->
 
-我当时的想法是如果我是 Pieter ，我一定会吓得屁滚尿流。我周围人的对话都关注于Pieter， Comet还有 Sketch将会如何反击。当时，我和 Pieter 说的非常严厉，和他说，如果他想避免他的公司破产，他就需要融资和发展 Sketch ，以一个弱者的姿态勇敢得去挑战那个巨人。David和Goliath，也许现在角色要对换一下。
+我当时的想法是如果我是 Pieter ，我一定会吓得屁滚尿流。我周围的谈话都是关于 Pieter ， Comet 以及 Sketch 将如何反击的。当时，我非常严厉的跟Pieter说，如果他想避免公司破产，他就需要融资并发展 Sketch 。 David 和 Goliath ，也许现在角色要对换一下。
 
 <!--I went on to say that while Sketch had made good progress in the 4+ years it has been out; it wasn’t moving nearly fast enough to maintain the trajectory it needs to maintain its position.-->
 
@@ -30,13 +30,13 @@ Sketch 和 Photoshop 已经为产品设计者的首选工具，而且大多数�
 
 <!--I was aware Pieter isn’t in the habit of giving a lot of interviews so I wasn’t certain how he would feel about chatting with me on any topic, much less Comet vs Sketch. However, when I contacted him, Pieter was gracious and open. Here are some highlights of our chat.-->
 
-我意识到 Pieter 没有大量面试的习惯，所以我不确定他和我聊天谈论感觉如何，更不用说谈论 Comet vs Sketch 了。然而，当我和他交流的时候， Pieter 是亲切而又开朗的。下面是我们聊天的一些亮点。
+我意识到 Pieter 不经常接受采访，所以我不确定他和我聊天谈论感觉如何，更不用说谈论 Comet vs Sketch 了。然而，当我和他交流的时候， Pieter 是亲切而又开朗的。下面是我们聊天的一些亮点。
 
 <!--**How would you describe Sketch to our parents?  **  -->
 <!--It’s very difficult to explain to my parents exactly what Sketch is. To me, it’s fundamentally a drawing app for digital design. It’s not _just_ a drawing app, nor is it _just_ a photo editor. It uses these tools among many others to let you expand and refine the product you hope to produce—to best represent you artistically and creatively. It also strives to not limit you by the design tools you have available. It’s a great question. Geoff, how would you describe what it does? Because after all these years I still don’t really have a concise or thorough way to describe it.-->
 
 **你怎么向我们的父母那代人描述 Sketch ？**  
-向我的父母解释Sketch是什么是非常困难的。对于我，它是一个基础的针对数字化设计的应用。它不 _仅仅_ 是个绘图的应用，也不 _仅仅_ 是个图片的编辑器。它使用这些以及其他很多工具去让你扩展和细化你希望最能代表你的艺术性和创造性的产品。它也同时力争不让你被那些可用的设计工具所限制。这是个很棒的问题。Geoff，你如何去描述它做了什么？因为虽然过去了这么多年，我仍然没有一个简明的彻底的方式来形容它。
+向我的父母解释 Sketch 是什么是非常困难的。就我来说，从根本上，它是用于数字化设计的绘图应用。它既不 _仅仅_ 是个绘图应用，也不 _仅仅_ 是个图片编辑器。它使用这些以及其他很多工具，让你扩展和细化你希望生产的产品—最能代表你艺术性和创造性的产品。它同时力争让你摆脱那些可用的设计工具的束缚。这是个很棒的问题。Geoff，你如何去描述它做了什么？因为这么多年过去了，我还真没有一个简洁全面的方式来描述它。
 
 
 <!--**Ha! I didn’t think about answering this question myself. Do you think you could describe it as a design application that helps you design applications?  
@@ -44,8 +44,7 @@ Sketch 和 Photoshop 已经为产品设计者的首选工具，而且大多数�
 -->
 
 **哈，我自己没有考虑过这个问题的答案。你认为可以把它描述成一个帮助你设计应用的应用？**    
-是的！我们开始是为了网站和图标制作 Sketch ，之后当它所设计的应用越来越流行的时候，它也随之流行起来。但那是最初的想法。
-
+是的！最初我们就是为了网站和图片而设计了 Sketch ，之后随着设计应用越来越流行，它也流行起来。不过那是初衷。
 <!--**When you set out to create it, is that what you intended it to be?  
  **Yes, for websites, apps and icons. That was basically the idea.-->
 
@@ -79,9 +78,9 @@ I’ve always had this idea that the Valley is a bit self obsessed. I think havi
 The fact that I’m not in the Valley also means that I don’t have to pay your very high rents and other premium costs of living. Another advantage I see is the fact that we’re completely remote. It means we don’t necessarily have to compete with those who need to live physically there. We can hire people who are perfectly happy living on an island off the coast of Scotland and just hire them because they are good and wouldn’t require—or even want to—move to San Francisco, or Amsterdam, or wherever.-->
 
 **不在硅谷工作有什么好处？**  
-在硅谷工作有很多的好处。在硅谷联系投资人更加的容易，在外面就更难了。但是事实上物理上的距离并不是我不在硅谷工作的困难，而是我喜欢泡在外面。
+公司选址在硅谷有很多好处。拜访投资人更加容易，在谷外就比较难。但是，事实上距离不是问题，因为我喜欢远离投资圈。
 
-我一直认为硅谷有点自我陶醉。我想有一个外部的视角是非常有用的。我去过那里很多次。和你交流的每个人看起来都在做一些软件或是设计，这令我感谢我自己普通的、日复一日的生活。由于没有在那里，我避免这些自我陶醉的对话——我的沉浸在一个完全不同的世界。
+我一直认为硅谷有点自我陶醉了。我认为有个旁观者的视角是很有用的。我已经去那里很多次了。每个与你交流的人看上去都做着软件或设计工作，这让我感激我平凡又日复一日的生活。由于不在那里，我免于沉浸在自我陶醉的对话中——我处在一个完全不同的世界。
 
 事实上我不在硅谷还意味着我不用支付高额的租金和其他额外的生活支出。我想另一个优点是我和员工们住的距离很远。这意味着我们不需要和我们住的近的人竞争。我们可以雇佣幸福的居住在苏格兰海岸外一个小岛上的人，并且雇佣他们仅仅是因为他们很优秀而不需要他们搬家到旧金山、阿姆斯特丹、或其它地方。
 
@@ -90,7 +89,7 @@ The fact that I’m not in the Valley also means that I don’t have to pay your
 **In the last year we’ve grown the company quite a bit — we probably doubled in size. So last year was a good lesson on how to manage more people, and how to get them up to speed on everything we’re doing. I think in the coming year we’ll be able to reap the rewards of that work. Because as you know Geoff, it takes time for people to get to know the code, the way a company works, and all of those things. And I think now those familiarizing pieces are all in place, it will facilitate us getting much more done. It also means that I now know how to manage growth in my company.-->
 
 **过去的一年你学到了什么来推动公司下一年的发展？**  
-在过去的一年我们扩大了公司规模－我们可能是之前规模的两倍了。所以说去年我在如何管理更多的人还有如何安排他们快速的去处理我们在做的每一件事。我想在接下来的一年我们将收获这项工作的成果。因为就像你所知的 Geoff ，人们需要时间去了解代码，公司的工作方式，以及所有的事情。我想现在熟悉工作已经做完，这将有利于我们做更多的事。这也意味着我现在知道如何管理我公司的成长。
+过去一年我们扩大了公司规模 - 可能是之前的两倍。所以去年我学会了如何管理更多的员工，如何加速他们处理我们做的每件事。我认为接下来的一年我们将劳有所得。因为你知道杰夫，员工需要花时间去了解代码，公司的运作方式和其他一切。我想经过了去年大家已经熟悉了所有，这将有利于我们我们取得更多的成果。这也意味着我现在知道如何管理公司的成长。
 
 
 <!--**What challenges have you faced with growth in the past?  
@@ -186,7 +185,7 @@ I think there are many things that we want to do with our product. Maybe in the 
 **I think it’s fair to say, yes. There is a mountain of complexity that you open up with everything that you add to the application. Just something as simple as copy and paste. There are enormous numbers of edge cases, including: Where do you copy from? Where do you paste into? Where should it end up in the page? To which group does it belong? Does what you have currently selected play into that? Etc. There is just a staggering amount of complexity in an application such as Sketch where you can basically do whatever you want at any point. So it’s a challenge, for sure.
 -->
 **测试已经成为 Sketch 最大的痛点了吗？**  
-公正地说，是。你开启的每个被添加到应用程序上的功能像是复杂的山区一样。有的是仅仅像复制粘贴一样简单。
+公正的说，是的。对应用增加需求就像开凿一个复杂的大山。有些简单的像复制黏贴。
 但是他们有很多边缘的容易被忽视的问题，包括：你从哪拷贝的？你要粘贴到哪里？它将在页面的哪里结束？它属于哪个组？
 对当前的选择在那里你打算做什么？等等。像 Sketch 这样你基本上可以在任何点做任何事的应用其中一定有一大堆复杂的东西。这肯定是一个挑战。
 
