@@ -7,8 +7,7 @@
 
 ###### _第 2 部分_
 
-在先前的[文章<sup class="readableLinkFootnote">[1]</sup>](http://www.cirorizzo.net/building-a-kotlin-project/)中，我们从零开始新建了一个项目，并且为小猫咪应用调整了 `build.gradle`。
-> 译注：[点此](http://gold.xitu.io/#/entry/56e3fdc3df0eea0054c7c61f)查看前文译本
+在先前的[文章](http://gold.xitu.io/entry/56e3fdc3df0eea0054c7c61f)中，我们从零开始新建了一个项目，并且为小猫咪应用调整了 `build.gradle`。
 
 接下来就是针对应用的基础部分编写代码了。
 
@@ -44,7 +43,7 @@ Kotlin 中的数据类有几个好处，例如由编译器生成 `getter()`、`s
 
 #### API 调用
 
-通过网络解析数据有很多种方法，也有各种第三方库可以应付。其中就有 Square 的 [Retrofit2<sup class="readableLinkFootnote">[2]</sup>](http://square.github.io/retrofit/) 
+通过网络解析数据有很多种方法，也有各种第三方库可以应付。其中就有 Square 的 [Retrofit2<sup class="readableLinkFootnote"></sup>](http://square.github.io/retrofit/) 
 
 这是一个非常强大的 `HTTPClient` 并且安装简单。
 
@@ -154,7 +153,7 @@ _尤其是在需要从线上 API 切换到测试 API 的时候_。
 
 为实现此设计我们大体上需要<mark>主容器</mark>和<mark> item 容器</mark>这两个基本组件。
 
-主容器包含 item 列表，且我们会将其置于项目 `res -> layout`  文件夹的 `activity_main.xml` 中；此文件已在[创建项目<sup class="readableLinkFootnote">[3]</sup>](http://www.cirorizzo.net/building-a-kotlin-project/)的初始价段自动生成。
+主容器包含 item 列表，且我们会将其置于项目 `res -> layout`  文件夹的 `activity_main.xml` 中；此文件已在[创建项目<sup class="readableLinkFootnote"></sup>](http://www.cirorizzo.net/building-a-kotlin-project/)的初始价段自动生成。
 
 我们需要将应用装进一个`RecyclerView` 组件中（一个非常强大并且改良过的列表视图组件）。
 
@@ -300,7 +299,7 @@ _尤其是在需要从线上 API 切换到测试 API 的时候_。
 
 在 `private val subscriber: Subscriber<Cats> by lazy { getSubscribe() }` 一行中，`getSubscribe()` 函数为 `Adapter` “订阅”用到的 `Observable`，这里你会看到 `lazy` 初始化，这是一种声明一个不可变对象的方法（比如 `subscriber`）并且会在运行时首次调用时创建于函数体内（例如 `getSubscribe()`）。
 
-> _Subscriber 和 Observable 概念来源于 [RxJava<sup class="readableLinkFootnote">[4]</sup>](https://github.com/ReactiveX/RxJava)；我们今后会深入讨论。_
+> _Subscriber 和 Observable 概念来源于 [RxJava<sup class="readableLinkFootnote"></sup>](https://github.com/ReactiveX/RxJava)；我们今后会深入讨论。_
 
 最后值得注意的还有使用 `Glide` 库来填充 `imgVw_cat` 的名为 `ImagesURLsDataHolder` 的内部类 (inner class) ，这有助于从调用 API 取得的传递 `URL` 获取图片。这部分包含在 `bindImages(imgURL: String)` 函数中并且由统一文件中的 `onBindViewHolder` 方法调用。
 
@@ -358,6 +357,6 @@ _尤其是在需要从线上 API 切换到测试 API 的时候_。
 
 至此小猫咪应用已经准备就绪。
 
-你可以在我 Github 仓库中找到 [KShow<sup class="readableLinkFootnote">[5]</sup>](https://github.com/cirorizzo/KShows) 完整的项目。
+你可以在我 Github 仓库中找到 [KShow<sup class="readableLinkFootnote"></sup>](https://github.com/cirorizzo/KShows) 完整的项目。
 
-该项目也有 Java 的实现：[JShows<sup class="readableLinkFootnote">[6]</sup>](https://github.com/cirorizzo/JShows)，以便对比。
+该项目也有 Java 的实现：[JShows<sup class="readableLinkFootnote"></sup>](https://github.com/cirorizzo/JShows)，以便对比。
