@@ -124,8 +124,7 @@ The fact that I’m not in the Valley also means that I don’t have to pay your
 I think there are many things that we want to do with our product. Maybe in the last year, progress hasn’t been as fast as I would have hoped. But, as we discussed, that is inevitable when you’re bringing new people on and truly taking the time to get them integrated and up to speed. There are also certain parts of the application that were written by me many years ago that need tweaking because what we’re building now is much larger in scope than what we had originally designed. It takes time to clean up that legacy and I think we’ve been good in the past year about cleaning some of that up, but there’s still more to do and of course that takes time and focus. I’m more focused on that internal issue than the external competition.
 -->
 **你们公司最大的弱点是什么？**  
-总会有来自竞争者的挑战。 Adobe 在几个月前公布了 Comet 。这无疑对我们产生了严重的威胁。和像 Adobe 这样的公司竞争的风险就是他们并不急功近利。在他们改善的过程中他们可以很多年的钱亏－并且他们显然有足够的人才在他们的公司工作，所以这个消息给我很大压力。
-
+危机来自挑战者。 Adobe 几个月前宣布了 Comet 。这对我们无疑构成了严重威胁。像 Adobe 这样的巨头，与他们竞争的风险就是他们不急于求成。他们可以边亏钱边提成 Comet — 并且他们公司有足够多的天才员工来这样做，因此这则消息给我很大压力。
 我想对于我们的产品还有很多的东西可以去做。也许在过去的一年，进展并没有我料想的快。但是，就像我们讨论过的，当你带来新的人并且真的花时间让他们成为一体、提升速度那是必然要做的。而且软件中还有一些很多年前我写的部分，因为我们现在扩大了原来的设计范围而需要修改。这需要时间去清理并且在过去的一年我们已经成功的清理了一部分，但还有更多的工作要做，当然，这需要时间和精力。我更关注于内部的问题而不是外部的问题。
 
 <!--**I think it’s safe to say that Sketch is eating into the space Photoshop created and has owned for decades. Will Comet eat into yours?  
