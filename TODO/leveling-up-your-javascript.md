@@ -85,17 +85,17 @@ JavaScript 初学者总是不可避免地在他们的 HTML 页面里写上一大
 当我们终于征服了这坨诡异的语法之后，真正的模块模式究竟长啥样呢？
 
     var counterModule = (function() {
-    	var counter = 0;
+      var counter = 0;
 
-    	return {
-    		incrementCounter: function () {
-    			return counter++;
-    		},
-    		resetCounter: function () {
-    			console.log("counter value prior to reset: " + counter );
-    			counter = 0;
-    		}
-    	};
+      return {
+        incrementCounter: function () {
+          return counter++;
+        },
+        resetCounter: function () {
+          console.log("counter value prior to reset: " + counter );
+          counter = 0;
+        }
+      };
 
     }());
 
@@ -123,56 +123,57 @@ JavaScript 初学者总是不可避免地在他们的 HTML 页面里写上一大
 先写下这个超简单的表单。
 
     <html>
-    	<head>
+      <head>
 
-    	</head>
+      </head>
 
-    	<body>
+      <body>
 
-    		<p>Text would be here to describe the rules...</p>
+        <p>Text would be here to describe the rules...</p>
 
-    		<form>
-    			<input type="text" placeholder="Identifer">
-    			<input type="submit" value="Register Identifer.">
-    		</form>
-    		<script src="app.js"></script>
-    	</body>
+        <form>
+          <input type="text" placeholder="Identifer">
+          <input type="submit" value="Register Identifer.">
+        </form>
+        <script src="app.js"></script>
+      </body>
     </html>
 
 除了我描述的输入框，表单里还有个提交按钮。然后我加了些有关上面提到的规则的说明，先尽量保持精简。让我们来看看代码。
 
     var badWords = ["kitten","puppy","beer"];
     function hasBadWords(s) {
-    	for(var i=0;i<badwords.length; i++)="" {="" if(s.indexof(badwords[i])="">= 0) return true;
-    	}
-    	return false;
+      for(var i=0; i < badwords.length; i++) {
+        if(s.indexof(badwords[i]) >= 0) return true;
+      }
+      return false;
     }
 
     function validIdentifier(s) {
-    	//是否为空
-    	if(s === "") return false;
-    	//至少两个字符
-    	if(s.length === 1) return false;
-    	//必须以大写字母开头
-    	if(s.charAt(0) !== s.charAt(0).toUpperCase()) return false;
-    	//只允许字母和空格
-    	if(/[^a-z ]/i.test(s)) return false;
-    	//没有敏感词
-    	if(hasBadWords(s)) return false;
-    	return true;
+      //是否为空
+      if(s === "") return false;
+      //至少两个字符
+      if(s.length === 1) return false;
+      //必须以大写字母开头
+      if(s.charAt(0) !== s.charAt(0).toUpperCase()) return false;
+      //只允许字母和空格
+      if(/[^a-z ]/i.test(s)) return false;
+      //没有敏感词
+      if(hasBadWords(s)) return false;
+      return true;
     }
 
     document.getElementById("submitButton").addEventListener("click", function(e) {
 
-    	var identifier = document.getElementById("identifer").value;
+      var identifier = document.getElementById("identifer").value;
 
-    	if(validIdentifier(identifier)) {
-    		return true;
-    	} else { console.log('false');
-    		e.preventDefault();
-    		return false;
-    	}
-    });</badwords.length;>
+      if(validIdentifier(identifier)) {
+        return true;
+      } else { console.log('false');
+        e.preventDefault();
+        return false;
+      }
+    });
 
 从代码底部开始，你看到我写了点基本的获取页面元素的代码（没错伙计们这里我没有用 jQuery）然后监听 button 上的点击事件。拿到用户输入的用户名字段然后传给验证函数。验证的内容也就是我之前描述的那些。这里代码还没有_太_乱，不过随着之后验证逻辑的增长和页面交互逻辑的增加，代码会越来越难以维护。所以我们把这里重写为模块吧。
 
@@ -180,13 +181,14 @@ JavaScript 初学者总是不可避免地在他们的 HTML 页面里写上一大
 
     var gameModule = (function() {
 
-    	var badWords = ["kitten","puppy","beer"];
+      var badWords = ["kitten","puppy","beer"];
 
-    	function hasBadWords(s) {
-    		for(var i=0;i<badwords.length; i++)="" {="" if(s.indexof(badwords[i])="">= 0) return true;
-    		}
-    		return false;
-    	}
+      function hasBadWords(s) {
+        for(var i=0; i < badwords.length; i++) {
+          if(s.indexof(badwords[i]) >= 0) return true;
+        }
+        return false;
+      }
 
       function validIdentifier(s) {
         //是否为空
@@ -202,25 +204,25 @@ JavaScript 初学者总是不可避免地在他们的 HTML 页面里写上一大
         return true;
       }
 
-    	return {
-    		valid:validIdentifier
-    	}
+      return {
+        valid:validIdentifier
+      }
 
-    }());</badwords.length;>
+    }());
 
 现在的代码和之前相比没有翻天覆地的差别，只不过是被封装成了一个有一个 `valid` 接口的 `gameModule` 变量。接下来我们来看看 app.js 文件。
 
 
     document.getElementById("submitButton").addEventListener("click", function(e) {
 
-    	var identifier = document.getElementById("identifer").value;
+      var identifier = document.getElementById("identifer").value;
 
-    	if(gameModule.valid(identifier)) {
-    		return true;
-    	} else { console.log('false');
-    		e.preventDefault();
-    		return false;
-    	}
+      if(gameModule.valid(identifier)) {
+        return true;
+      } else { console.log('false');
+        e.preventDefault();
+        return false;
+      }
     });
 
 看看我们的 DOM 监听函数里少了多少代码。所有的验证逻辑（两个函数和一个敏感词列表）被安全地移到了模块里后，这里的代码就更好维护了。如果你的编辑器支持，你在此处还能有模块方法名的代码补全。
@@ -272,7 +274,7 @@ JSHint 错误。
 来个更真实的例子如何？以下的代码（嗯现在我_是_用了 jQuery），我写了点简单的 JavaScript 做表单验证。都是些鸡毛蒜皮的东西，不过今天几乎一半的 JavaScript 代码做的都是这些事（哦哦当然还有创建弹出框然后问你要不要"赞"这个网站。真特么爱死这些了）。这些代码可以在 demo_jshint 文件夹的 app_orig.js 中找到。
 
     function validAge(x) {
-    	return $.isNumeric(x) && x >= 1;  
+      return $.isNumeric(x) && x >= 1;
     }
 
     function invalidEmail(e) {
@@ -281,18 +283,28 @@ JSHint 错误。
 
     $(document).ready(function() {
 
-    	$("#saveForm").on("submit", function(e) {
-    		e.preventDefault();
+      $("#saveForm").on("submit", function(e) {
+        e.preventDefault();
 
-    		var name = $("#name").val();
-    		var age = $("#age").val();
-    		var email = $("#email").val();
+        var name = $("#name").val();
+        var age = $("#age").val();
+        var email = $("#email").val();
 
-    		badForm = false;
+        badForm = false;
 
-    		if(name == "") badForm = true;
-    		if(age == "") badForm = true;
-    		if(!$.isNumeric(age) || age <= 0)="" badform="true;" if(email="=" "")="" if(invalidemail(email))="" console.log(badform);="" if(badform)="" alert('bad="" form!');="" else="" {="" do="" something="" on="" good="" }="" });="" });<="" code=""></=>
+        if(name == "") badForm = true;
+        if(age == "") badForm = true;
+        if(!$.isNumeric(age) || age <= 0) badForm = true;
+        if(email == "") badForm = true;
+        if(invalidemail(email)) badForm = true;
+
+        console.log(badform);
+        if (badform) alert('Bad Form!');
+        else {
+          // do something on good
+        }
+      });
+    });
 
 开始是两个辅助验证的函数（对年龄和 email）。然后是 `document.ready` 代码块里对表单提交的监听。获取表单中三个字段的值，检查是否为空（或是无效输入），若表单无效就弹出警告，否则继续（在我们的例子里，什么也没发生，表单没变化）。
 
@@ -305,7 +317,7 @@ JSHint 对我们样例代码的报错。
 哇塞好多东西！看起来是类似的问题出现了多次。我开始用检验器的时候这种情况挺常见。我并没有弄出很多种错误，而仅仅是同种错误的重复。第一个非常简单—— 检查相等时使用三等号替代双等号。简单来说就是用更严格的标准检测空字符串。先修复这个(demo_jshint/app_mod1.js)。
 
     function validAge(x) {
-    	return $.isNumeric(x) && x >= 1;  
+      return $.isNumeric(x) && x >= 1;
     }
 
     function invalidEmail(e) {
@@ -314,18 +326,28 @@ JSHint 对我们样例代码的报错。
 
     $(document).ready(function() {
 
-    	$("#saveForm").on("submit", function(e) {
-    		e.preventDefault();
+      $("#saveForm").on("submit", function(e) {
+        e.preventDefault();
 
-    		var name = $("#name").val();
-    		var age = $("#age").val();
-    		var email = $("#email").val();
+        var name = $("#name").val();
+        var age = $("#age").val();
+        var email = $("#email").val();
 
-    		badForm = false;
+        badForm = false;
 
-    		if(name === "") badForm = true;
-    		if(age === "") badForm = true;
-    		if(!$.isNumeric(age) || age <= 0)="" badform="true;" if(email="==" "")="" if(invalidemail(email))="" console.log(badform);="" if(badform)="" alert('bad="" form!');="" else="" {="" do="" something="" on="" good="" }="" });="" });<="" code=""></=>
+        if(name == "") badForm = true;
+        if(age == "") badForm = true;
+        if(!$.isNumeric(age) || age <= 0) badForm = true;
+        if(email == "") badForm = true;
+        if(invalidemail(email)) badForm = true;
+
+        console.log(badform);
+        if (badform) alert('Bad Form!');
+        else {
+          // do something on good
+        }
+      });
+    });
 
 JSHint 报告变成了:
 
@@ -337,7 +359,7 @@ JSHint 对我们样例代码的报错。
 
     /* globals $ */
     function validAge(x) {
-    	return $.isNumeric(x) && x >= 1;  
+      return $.isNumeric(x) && x >= 1;
     }
 
     function invalidEmail(e) {
@@ -346,18 +368,28 @@ JSHint 对我们样例代码的报错。
 
     $(document).ready(function() {
 
-    	$("#saveForm").on("submit", function(e) {
-    		e.preventDefault();
+      $("#saveForm").on("submit", function(e) {
+        e.preventDefault();
 
-    		var name = $("#name").val();
-    		var age = $("#age").val();
-    		var email = $("#email").val();
+        var name = $("#name").val();
+        var age = $("#age").val();
+        var email = $("#email").val();
 
-    		var badForm = false;
+        var badForm = false;
 
-    		if(name === "") badForm = true;
-    		if(age === "") badForm = true;
-    		if(!$.isNumeric(age) || age <= 0)="" badform="true;" if(email="==" "")="" if(invalidemail(email))="" console.log(badform);="" if(badform)="" alert('bad="" form!');="" else="" {="" do="" something="" on="" good="" }="" });="" });<="" code=""></=>
+        if(name == "") badForm = true;
+        if(age == "") badForm = true;
+        if(!$.isNumeric(age) || age <= 0) badForm = true;
+        if(email == "") badForm = true;
+        if(invalidemail(email)) badForm = true;
+
+        console.log(badform);
+        if (badform) alert('Bad Form!');
+        else {
+          // do something on good
+        }
+      });
+    });
 
 JSHint 报告变成了:
 
@@ -369,7 +401,7 @@ JSHint 对我们样例代码的报错。
 
     /* globals $ */
     function validAge(x) {
-    	return $.isNumeric(x) && x >= 1;  
+      return $.isNumeric(x) && x >= 1;
     }
 
     function invalidEmail(e) {
@@ -378,27 +410,27 @@ JSHint 对我们样例代码的报错。
 
     $(document).ready(function() {
 
-    	$("#saveForm").on("submit", function(e) {
-    		e.preventDefault();
+      $("#saveForm").on("submit", function(e) {
+        e.preventDefault();
 
-    		var name = $("#name").val();
-    		var age = $("#age").val();
-    		var email = $("#email").val();
+        var name = $("#name").val();
+        var age = $("#age").val();
+        var email = $("#email").val();
 
-    		var badForm = false;
+        var badForm = false;
 
-    		if(name === "") badForm = true;
-    		if(age === "") badForm = true;
-    		if(!validAge(age)) badForm = true;
-    		if(email === "") badForm = true;
-    		if(invalidEmail(email)) badForm = true;
+        if(name === "") badForm = true;
+        if(age === "") badForm = true;
+        if(!validAge(age)) badForm = true;
+        if(email === "") badForm = true;
+        if(invalidEmail(email)) badForm = true;
 
-        	console.log(badForm);
-    		if(badForm) alert('Bad Form!');
-    		else {
-    			//do something on good
-    		}
-    	});
+        console.log(badForm);
+        if(badForm) alert('Bad Form!');
+        else {
+          //do something on good
+        }
+      });
     });
 
 最终版本"通过"了 JSHint 的测试。虽然实际上并不完美。注意到我两个检验函数一个叫 `validAge` 一个叫 `invalidEmail` ，一个返回肯定一个返回否定。更好的做法是保持语义一致性。还有每次这个验证函数运行的时候，jQuery 需要获取DOM 中的三个元素，其实它们只需要被获取一次。我应该在表单提交回调函数外创建这些变量，每次验证的时候重复使用。如我所言，JSHint 不是完美的，但代码最终版本绝对比第一版要好很多，我的修改也没有花多少时间。
@@ -437,34 +469,34 @@ xunit 创建的测试。
 
     var formatterModule = (function() {
 
-    	function fnum(x) {
-    		if(isNaN(x)) return x;
+      function fnum(x) {
+        if(isNaN(x)) return x;
 
-    		if(x < 9999) {
-    			return x;
-    		}
+        if(x < 9999) {
+          return x;
+        }
 
-    		if(x < 1000000) {
-    			return Math.round(x/1000) + "K";
-    		}
-    		if(x < 10000000) {
-    			return (x/1000000).toFixed(2) + "M";
-    		}
+        if(x < 1000000) {
+          return Math.round(x/1000) + "K";
+        }
+        if(x < 10000000) {
+          return (x/1000000).toFixed(2) + "M";
+        }
 
-    		if(x < 1000000000) {
-    			return Math.round((x/1000000)) + "M";
-    		}
+        if(x < 1000000000) {
+          return Math.round((x/1000000)) + "M";
+        }
 
-    		if(x < 1000000000000) {
-    			return Math.round((x/1000000000)) + "B";
-    		}
+        if(x < 1000000000000) {
+          return Math.round((x/1000000000)) + "B";
+        }
 
-    		return "1T+";
-    	}
+        return "1T+";
+      }
 
-    	return {
-    		fnum:fnum
-    	}
+      return {
+        fnum:fnum
+      }
 
     }());
 
@@ -482,9 +514,9 @@ xunit 创建的测试。
 
     describe("It can format numbers nicely", function() {
 
-    	it("takes 9999 and returns 9999", function() {
-    		expect(9999).toBe(formatterModule.fnum(9999));
-    	});
+      it("takes 9999 and returns 9999", function() {
+        expect(9999).toBe(formatterModule.fnum(9999));
+      });
 
     });
 
@@ -497,7 +529,7 @@ xunit 创建的测试。
 修复起来很简单。把条件里的数字从9999增到10000:
 
     if(x < 10000) {
-    	return x;
+      return x;
     }
 
 不论何时再跑测试你能看到一片欢乐。
