@@ -116,6 +116,7 @@
 
 ## 产品
 
+* [互联网公司真的是「看重能力，不看重学历」吗？](http://gold.xitu.io/entry/571d8e4c8ac24700646f30ae?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zhangjd](https://github.com/zhangjd) 翻译)
 * [产品设计实习生面试指南](http://gold.xitu.io/entry/5715b102c4c971005bdc93e9?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([iThreeKing](https://github.com/iThreeKing) 翻译)
 * [你真的懂病毒式营销吗](http://gold.xitu.io/entry/5715d39cdf0eea005c930d80?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([huanglizhuo](https://github.com/huanglizhuo) 翻译)
 * [什么是产品设计?](http://gold.xitu.io/entry/570b6a6a75c4cd3c3b917bd0?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zhangjd](https://github.com/zhangjd) 翻译)
