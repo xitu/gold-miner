@@ -8,7 +8,7 @@
 
 In this Meteor tutorial we’ll be taking a look at the Meteor 1.3 beta release. Meteor 1.3 is in the works, and we have access to the beta version so we can start hacking on it right away. Although Meteor 1.3 is awesome and comes with some great changes, there is a bit of fuzziness on exactly how to develop with it. MDG is working on the Meteor Guide for Meteor 1.3, and hopefully when that comes out, along with the official release of 1.3, we will have some solid information on the best way to develop with Meteor 1.3.
 
-**_Side note: I wrote a book on developing applications using Meteor 1.3, React, and React-Bootstrap, following the Mantra spec. Learn more and get the first three chapters free_ **[**_here_**](http://kenrogers.co/meteor-react)**_._**
+**_Side note: I wrote a book on developing applications using Meteor 1.3, React, and React-Bootstrap, following the Mantra spec. Learn more and get the first three chapters free [**_here_**](http://kenrogers.co/meteor-react)._**
 
 I created this guide to get developers up and running with Meteor 1.3 in its current state. As you work through this guide, keep in mind that 1.3 is still in beta, so things will change. I will try my best to keep this updated as new versions are released, and if you find something out of date, please reach out and let me know.
 
