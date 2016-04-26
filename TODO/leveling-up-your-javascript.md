@@ -2,7 +2,7 @@
 * 原文作者 : [Raymond Camden](http://developer.telerik.com/author/rcamden/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [Hikerpig](https://github.com/hikerpig)
-* 校对者:
+* 校对者: [Nark Qi](https://github.com/narcotics726), [JasinYip](https://github.com/JasinYip)
 
 
 JavaScript 是一门入门容易，但是相当难以精通的语言。可现今一些文章总假设你已经精通了它。
