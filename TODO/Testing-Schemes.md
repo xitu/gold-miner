@@ -4,23 +4,23 @@
 * 译者 : [Tuccuay](https://github.com/Tuccuay)
 * 校对者 :
 
-[Eigen](https://github.com/artsy/eigen) 是个应对测试这样例行公事的行为的好办法。这是一个积极的迹象，在过去的三年内应用程序的大小、复杂度和开发人员的数量都在急剧增加。测试套件让我们可以舒适的进行这一演变。
+[Eigen](https://github.com/artsy/eigen) 这个项目用来介绍测试集再好不过。这个项目在过去3年里，程序包的大小，复杂度和开发人员的数量都不断增加，这是积极的迹象。这种测试模式让我们对这些变化更加顺手。
 
-在我最快的计算机上，我们只需要等一分钟—— `Executed 1105 tests, with 1 failure (0 unexpected) in 43.221 (48.201) seconds` 来执行整个套件。我想大概可以用 20 秒来完成，所以我研究了如何用 [AppCode](https://www.jetbrains.com/objc/) 处理运行测试，这份指导可以帮助你轻松的把测试集跑起来。
+在我最快的计算机上，我们只需要等一分钟—— `Executed 1105 tests, with 1 failure (0 unexpected) in 43.221 (48.201) seconds` 来执行整个测试集。我觉得我可以只用 20 秒来完成，所以我研究了如何用 [AppCode](https://www.jetbrains.com/objc/) 处理运行测试，这份指南可以帮助你通过这个技术轻松的在Xcode里搭建起测试集。
 
-我曾经有一个 [点子](https://github.com/orta/life/issues/71) 来节约时间进行通常的测试，基于 [代码注入](http://artsy.github.io/blog/2016/03/05/iOS-Code-Injection/)，但它并没有完全解决问题，我希望是时间密集型的，当时还没有完全达到要求。
+我曾经有一个 [点子](https://github.com/orta/life/issues/71) 在通常的测试中去节约时间，基于 [代码注入](http://artsy.github.io/blog/2016/03/05/iOS-Code-Injection/)，但它并没有完全解决问题，我希望是时间密集型的，当时还没有完全达到要求。
 
 ### 什么是 Schemes？
 
 > 一个 Xcode scheme 定义了一个构建目标集合。一个构建时所使用的配置和一个用于测试的集合。
 >
-> 如果你想的话，你可以有很多 schemes，但是你一次只能运行一个而不能同时运行。你可以指定一个 scheme 是否要放在一个项目中，这种情况下他在每一个包含这个项目的工作区都可以使用。或者仅仅在一个工作空间中，这种情况下仅仅在这个工作区可用。当你选择了一个活动的 scheme，你也就选择了一个运行目标（也就是选择的产品构建的硬件架构）。
+> 如果你想的话，你可以有很多 schemes，但是你一次只能运行一个而不能同时运行。你可以指定一个 scheme 是否要放在一个项目中，这种情况下他在每一个包含这个项目的工作区都可以使用。或者仅仅在一个工作空间中，这种情况下仅仅在这个工作区可用。当你选中了一个 scheme，你也就选择了一个运行目标（也就是选择的产品构建的硬件架构）。
 
 引用自 [Apple](https://developer.apple.com/library/ios/featuredarticles/XcodeConcepts/Concept-Schemes.html)。
 
 ### 规划 Scheme
 
-这个测试套件大概有 50 个类，看起来像是这样：
+这个测试测试集大概有 50 个类，看起来像是这样：
 
 ![Tests](http://artsy.github.io/images/2016-04-06-Testing-Schemes/tests.png)
 
@@ -28,7 +28,7 @@
 
 ![Empty Scheme](http://artsy.github.io/images/2016-04-06-Testing-Schemes/empty_scheme.png)
 
-我的看起来像是这样，我们需要创建一个新的 scheme。当你需要选择你应用的 target 的时候将会 modal 出一个窗口（这样你可以按下 `cmd + r` 继续运行）。
+在我这看起来就像这样，我们想要创建一个新的 scheme，当需要我们选择 target 的时候，会弹起一个模块选择的窗口。（这样你就可以按下 `cmd + r` 继续运行）。
 
 ![New Scheme](http://artsy.github.io/images/2016-04-06-Testing-Schemes/new_scheme.png)
 
@@ -60,6 +60,6 @@ __来，给你表演个魔法__。按住 `alt` 并单击蓝色的的标记框把
 
 ### 封装起来
 
-这意味这我可以以合理的速度继续工作了。`Executed 15 tests, with 0 failures (0 unexpected) in 0.277 (0.312) seconds`。现在我可以在我泡一杯茶的时间内运行一遍完整的测试套件了。
+这意味着我可以以合理的步调继续我的工作了。`Executed 15 tests, with 0 failures (0 unexpected) in 0.277 (0.312) seconds`。现在我可以在我泡一杯茶的时间内运行一遍完整的测试测试集了。
 
 __额外提醒__：如果你不想用鼠标来改变 scheme，这些 [快捷键](http://artsy.github.io/images/2016-04-06-Testing-Schemes/next_prev.png) 可以让你在 scheme 之间上(``cmd + ctrl + [``)下(`cmd + ctrl + ]`)切换。
