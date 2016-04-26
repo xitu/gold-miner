@@ -2,7 +2,7 @@
 * 原文作者 : [Orta Therox](http://artsy.github.io/author/orta/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [Tuccuay](https://github.com/Tuccuay)
-* 校对者 :
+* 校对者 : [Dwight](https://github.com/ldhlfzysys)
 
 [Eigen](https://github.com/artsy/eigen) 这个项目用来介绍测试集再好不过。这个项目在过去3年里，程序包的大小，复杂度和开发人员的数量都不断增加，这是积极的迹象。这种测试模式让我们对这些变化更加顺手。
 
