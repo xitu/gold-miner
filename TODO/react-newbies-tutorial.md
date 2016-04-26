@@ -1,91 +1,91 @@
 >* 原文链接 : [HOMEBLOG React JS: newbies tutorial](http://www.leanpanda.com/blog/2016/04/06/react-newbies-tutorial/)
 * 原文作者 : Elise Cicognani
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者:
+* 译者 : [markzhai](https://github.com/markzhai)
+* 校对者: [JasinYip](https://github.com/JasinYip), [malcolmyu](https://github.com/malcolmyu), [羊羊羊](https://github.com/antonia0912)
 
 
 
-As you can probably guess from the title, this post is aimed at readers with very little experience of programming. That is, at people such as myself: as I've only been exploring the world of programming for six months now. **So, it's going to be a genuine newbies tutorial!** To follow it, you'll only need to have an understanding of HTML and CSS and a basic level of Javascript (JS).  
+正如你能从标题猜到的，这篇文章的目标是给那些有很少编程经验的读者的。比如，像我这样的人：因为迄今为止，我才探索了编程世界6个月。**所以，这将是一篇新手村教程！** 你只需要拥有对 HTML 和 CSS 的理解，以及基本的 JavaScript（JS）知识就能看懂本文。
 
-N.B. In the following examples we will be taking advantage of some of the new abilities offered by ES6 to facilitate the process of writing JS code. It is, however, entirely possible to use React with ES5.
+注意：在接下来的例子中，我们将会利用 ES6 提供的新能力，来简化写 JS 代码的过程。然而，你也能完全使用 ES5 来写 React。
 
-Estimate reading 9 minutes
+预计阅读时间9分钟
 
 
-### What is React?
+# 什么是 React ？
 
-React is a JS library, created by Facebook and Instagram ([https://facebook.github.io/react/](https://facebook.github.io/react/)), which makes it possible to create single-page applications ([Single Page Applications (SPA)](http://www.leanpanda.com/blog/2015/05/25/single-page-application-development/)) using a structure that divides them into a number of dynamic, reusable **components**.
+React 是一个 JS 库，由 Facebook 和 Instagram 创建([https://facebook.github.io/react/](https://facebook.github.io/react/))。它通过将应用分为一些动态的、可复用的 **组件**，来使我们可以创建单页应用([Single Page Applications (SPA)](http://www.leanpanda.com/blog/2015/05/25/single-page-application-development/))。
 
-A React component is a JS class that extends the **Component** class provided by React itself. A component represents and defines a block of HTML code, together with any behaviour associated with that block, such as a click event. Components are like Lego blocks that can be assembled to create complex applications as desired. Components, which are entirely composed of JS code, can be isolated and re-used. The fundamental method is **render()**, which simply returns a piece of HTML code.
+一个 React 组件是一个继承了由 React 提供的 **Component** 的 JS 类。一个组件代表并定义了一块 HTML 代码，以及任何与这块代码相关的行为，比如点击事件。组件就像是乐高积木，可以用来组建成所需的复杂应用。完全由 JS 代码构成的组件，可以被隔离和复用。基本方法是 **render()**，它简单地返回一片HTML代码。
 
-The syntax used to define the React components is called **JSX**. This syntax was developed by the React creators to facilitate JS-HTML code interaction within components. Code written using the syntax must be compiled prior to becoming actual JS code.
+这种用来定义 React 组件的语法被称为 **JSX**。该语法由 React 的创建者们所开发，被用来简化 JS-HTML 代码的组件内交互。使用该语法写的代码在变成实际 JS 代码前必须被编译。
 
-### Creating a component
+# 创建一个组件（component）
 
-In order to create our component and render it on a page of HTML, we will first need to define a div, with a unique id, within our HTML file. Next, we will write code in the JSX file to connect the React component to the div using its id, as shown in the following example. Doing things this way will instruct the browser to render the component on the page within the related DOM tag.
+为了创建我们的组件并将它渲染为一页 HTML，我们首先在我们的 HTML 文件里需要定义一个有唯一 id 的 div。接着，我们将要在 JSX 文件里写代码，以连接 React 组件到使用其 id 的 div，如下面的例子所示。这样做将会指导浏览器在相关 DOM 标签所在的页面渲染组件。
 
 <iframe height="266" scrolling="no" src="//codepen.io/makhenzi/embed/XXdmvL/?height=266&amp;theme-id=0&amp;default-tab=js,result&amp;embed-version=2" frameborder="no" allowtransparency="true" allowfullscreen="true" style="width: 100%;">See the Pen &lt;a href="http://codepen.io/makhenzi/pen/XXdmvL/"&gt;Start&lt;/a&gt; by Makhenzi (&lt;a href="http://codepen.io/makhenzi"&gt;@makhenzi&lt;/a&gt;) on &lt;a href="http://codepen.io"&gt;CodePen&lt;/a&gt;.</iframe>
 
 See the Pen [Start](http://codepen.io/makhenzi/pen/XXdmvL/) by Makhenzi ([@makhenzi](http://codepen.io/makhenzi)) on [CodePen](http://codepen.io).
 
-The attributes of HTML tags within JSX are practically the same as those of normal HTML; with the exception of “class”, which becomes “className” in JSX. The HTML-like syntax is enclosed in round brackets, while the sections containing JS are enclosed in squared ones; as you will see further on. render() will _always_ return a single div, within which the developer is free to include as many tags and elements as they see fit.
+JSX 内的 HTML 标签属性和普通 HTML 内的是几乎一样的；唯一不同的是“class”，在 JSX 里面变成了“className”。类 HTML 语法使用圆括号闭合，而包含 JS 的块则使用尖括号闭合。正如你将看到的。render() **总**会返回一个 div，而在其中开发者可以自由引入他们认为合适的任意多的标签和元素。
 
-## Example: pirates’ extintion
+## 例子：海盗的灭绝
 
 ![](http://ww4.sinaimg.cn/large/a490147fjw1f2x94p1ev2j20m80etjtt.jpg)
 
-If we choose to create this graphic using React, we will be able to visualize the various dates on-screen and make the relevant temperature and number of pirates appear when those dates are clicked on.
+如果我们选择使用 React 来创建这张图，我们可以对屏幕上各个日期进行可视化，并在那些日期被点击的时候，才显示对应的温度和海盗数量。
 
-For this we will need two components: the first will be required in order to render the dates and will connect each date to a given number of pirates and a given temperature; the second will be required in order to receive the information relating to the click event on the date, the number of pirates, the temperature and to render the selected elements on the basis of that data.
+为此我们需要2个组件：第一个用来渲染日期，并将每个日期链接到给定的海盗数量和温度；第二个则需要用来接收日期上的点击事件对应的信息，如海盗的数量和当时的温度，接着基于这些数据渲染选择的元素。
 
-The former component will act as a the “parent” and will contain links to the various latter “child” components, which will themselves be closely dependent on their “parents”.
+前者相当于是“父亲”的角色，并包含多个后面的“子”组件的链接，而后者则紧密依赖于它们的“父亲”。
 
-The React structure, known as a [virtual DOM](https://facebook.github.io/react/docs/working-with-the-browser.html), makes it possible to update a component every time its content undergoes a change, without the need for the entire page to be refreshed. For this purpose, the component will require an internal method in which the variable data and specific HTML attributes assigned to the element which are to undergo changes will be saved. Those attributes will themselves be linked to other methods which we will define within the components and which will be responsible for bringing about changes.
+React 结构，被称为[虚拟 DOM](https://facebook.github.io/react/docs/working-with-the-browser.html)，可以使我们在组件的内容发生改变的时候，不需要刷新整个页面，而可以只更新对应组件。为此，组件需要一个内部方法，来保存变量 data 和 赋值给该元素的会被改变的 HTML 属性。这些属性会自行链接到那些我们在组件内定义的，会负责响应变化的方法。
 
-## State e props
+## 状态(State)和属性(props)
 
-In our example, the independent variable data is composed of dates. These vary as a result of click events which set of chain reactions within the DOM that alter according to the information relating to pirates and temperature. We will therefore save the information related to each date in a “DATA” object. We will also make use of React’s `this.state={}` property within the parent component to save variable data in the form of key-value copies.
+在我们的例子里，那个独立的变量 data 是由日期组成的。这些会根据点击事件所集合的 DOM 内连锁反应进而根据对应海盗、温度信息而进行改变。所以我们将会根据每个 “DATA” 对象内的对应日期去保存信息。我们还将利用 React 在父组件内的 `this.state={}` 属性来以键值对拷贝形式保存变量数据的。
 
-Organizing the programme in this way will make it possible for us to take advantage of the methods Reach puts at our disposal to enable us to interact with that data in “state” and carry out arbitrary changes to it.
+以这种形式组织程序使得我们可以利用 React 提供的方法，来以“状态(state)”的形式和数据交互，并对其进行任意更改。
 
-Given that we want to use the keys of our DATA object to render the dates in HTML, it would be great if we could find a way of using the JS `map()` method ([Array.prototype.map()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map)) on the keys, so as to display the return directly in the `render()` HTML. And there is a way to do so! We’ll just need to wrap the JS code in double squared parentheses at the point where we want the output of that code to be displayed in the DOM block that manages the component, and we’re done.
+考虑到我们想要使用 DATA 对象的 key 来渲染 HTML 内的日期，最好可以找到一种方法来在 key 上使用 JS 的 `map()` 方法([Array.prototype.map()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map))，以便能直接显示返回到 `render()` 的 HTML。事实上确实有方法可以做到！我们只需要把 JS 代码包裹在双花括号里，并放置在想要代码输出显示的管理该组件的 DOM 块内，然后就好了。
 
-In this particular case, we will define the `map()` callback in a method within the component, which will return a piece of HTML in the `render()` of the same component.
+在这个特殊例子中，我们将在组件内的方法里定义 `map()` 回调，其将在同一组件的`render()`内返回一片 HTML 代码。
 
 <iframe height="266" scrolling="no" src="//codepen.io/makhenzi/embed/XXdmvL/?height=266&amp;theme-id=0&amp;default-tab=js,result&amp;embed-version=2" frameborder="no" allowtransparency="true" allowfullscreen="true" style="width: 100%;">See the Pen &lt;a href="http://codepen.io/makhenzi/pen/XXdmvL/"&gt;Start&lt;/a&gt; by Makhenzi (&lt;a href="http://codepen.io/makhenzi"&gt;@makhenzi&lt;/a&gt;) on &lt;a href="http://codepen.io"&gt;CodePen&lt;/a&gt;.</iframe>
 
 See the Pen [State1](http://codepen.io/makhenzi/pen/qbZbxR/) by Makhenzi ([@makhenzi](http://codepen.io/makhenzi)) on [CodePen](http://codepen.io).
 
-In order to assign a click event to each date, we will assign them the `onClick` attribute. In this attribute we will call the method of the component in which we are going to define the logic that will modify the state and other changes that we may wish to trigger following the onClick event.
+为了分配点击事件到每个日期，我们将会分配 `onClick` 属性给它们。
 
-In our example, we will define this method as `handleClick()`. Within handleClick() we will call the React method `setState()`, which will permit us to change the state data at each click event. We will just need to insert an object containing the keys of the state that we want to modify and assigning them their related new values inside the parentheses of the latter.
+在该属性中，我们会调用组件的方法，该方法则会定义我们希望在 onClick 事件后触发的状态修改和其他变更。
 
-To summarize, every time a date is clicked on the onClick attribute in the selected div calls the `HandClick()` method, which in turns calls the setState() method which modifies the component’s state.
+在我们的例子里，我们定义该函数为 `handleClick()`。在 handleClick() 中，我们会调用 React 方法 `setState()`，其允许我们在在每个点击事件中去更改状态数据。我们只需要插入一个包含我们想要修改的状态 key 的对象，并在后者括号内分配给它们新的相关联值。
 
-Every time the state changes, and as soon as that happens, React automatically checks the return of the `render()` of the component, in search of content to be updated based on the new state. In the case of there being such data, React will automatically trigger a new `render()` updating only the piece of HTML that is to changed.
+总的来说，每次一个日期被点击，被选中的div的onClick属性会调用 `HandClick()` 方法，该方法会调用 setState() 方法来修改组件的状态。
 
-(You have my apologies, but in the following example I have inserted three lines of code that make use of Classnames, a little utility for managing CSS on the basis of state changes. I’ve done so just to give a bit of colour to the preview. I will also make use of it in the final example to populate the preview with a number of pirate variables. You can find a link to the Classnames GitHub repository, together with an [easy-to-use to guide](https://github.com/JedWatson/classnames).)
+每次状态改变，一旦发生 React 就会自动检查组件的 `render()` 函数的返回，以寻找基于新状态需要更新的内容。一旦有那样的数据， React 就会自动触发一次新的 `render()` 来更新那些有变更的 HTML 片段。
+
+(我很抱歉，在接着的例子里，我插入了三行利用了 Classnames 的代码，一个用来基于状态变更来做 CSS 管理的小工具，我这么做只是为了给预览一点颜色。我还会使用它在最终的例子里给预览填充一些海盗变量。你可以找到 GitHub 上 Classnames 仓库的链接，还有一个[简要使用向导](https://github.com/JedWatson/classnames))
 
 <iframe height="266" scrolling="no" src="//codepen.io/makhenzi/embed/EPKwRo/?height=266&amp;theme-id=0&amp;default-tab=js,result&amp;embed-version=2" frameborder="no" allowtransparency="true" allowfullscreen="true" style="width: 100%;">See the Pen &lt;a href="http://codepen.io/makhenzi/pen/EPKwRo/"&gt;State2&lt;/a&gt; by Makhenzi (&lt;a href="http://codepen.io/makhenzi"&gt;@makhenzi&lt;/a&gt;) on &lt;a href="http://codepen.io"&gt;CodePen&lt;/a&gt;.</iframe>
 
 See the Pen [State2](http://codepen.io/makhenzi/pen/EPKwRo/) by Makhenzi ([@makhenzi](http://codepen.io/makhenzi)) on [CodePen](http://codepen.io).
 
-Now that the state of our parent component has been set up to change on the basis of selected data the time to create the child component, which will illustrate the number of pirates and the appropriate temperature, has arrived.
+如此，我们的父组件状态已经被设定好根据选中数据去创建子组件（其将会描述海盗数量和对应温度）。
 
-We will create an instance of the child component in our JSX file, as we previously did with the parent component. In order to link the child to the parent it will be sufficient for us to define the connection within the return of the latter’s `render()` using the same syntax and a HTML tag. If we call it “Child”, it will appear within the HTML block at the point where we insert `<child></child>`.
+我们将会在 JSX 文件中创建子组件的实例，正如我们之前对父组件所做的。为了链接子组件到其父亲上，我们只需要在后者的 `render()` 函数使用同一种语法和一个 HTML 标签去定义关系。如果我们称它为 “Child” ，它将会在我们插入 `<Child />`处所在的 HTML 块内出现。
 
-Our child component must also pass the information it has regarding the currently selected data related to pirates and temperature to its parent. For this purpose, we will make use of the attributes assigned Child’s tag, in which names are chosen in an arbitrary fashion and whose information is available to the parent component.
+我们的子组件还必须根据现在选中数据所关联的海盗和温度，传递数据到其父亲。为此，我们将利用赋给 Child 标签的属性，其名字可以随便取，其信息只对父组件可见。
 
-In this way, the child component will be able to gain access to its own internal information by means of accessing data apparently belonging to its parent, by making use of these “attribute-bridges”, or **props**. In our example, Child’s props will be `this.props.pirates` and `this.props.temperature`, and will contain information that will vary according to the current state of parent component.
+如此一来，子组件将可以通过显式访问归属于其父组件的数据，即利用这些 “attribute-bridges”，或者 **属性(props)**，来获取到它自己内部信息的访问权。
 
-So, every time the state of the parent changes, the content of the child’s props are automatically updated too. But, as the child’s `render()` displays the props content, this will also be automatically updated on the basis of any new information received, following a linear flow of unidirectional data.
+所以，每次父组件的状态发生改变，其子组件的属性内容就会自动进行更新。但是，正如子组件的`render()`方法会显示属性内容，它也会基于单向的数据线性流，根据任何收到的新信息去进行更新。
 
-<iframe height="266" scrolling="no" src="//codepen.io/makhenzi/embed/EPKbmO/?height=266&amp;theme-id=0&amp;default-tab=js,result&amp;embed-version=2" frameborder="no" allowtransparency="true" allowfullscreen="true" style="width: 100%;">See the Pen &lt;a href="http://codepen.io/makhenzi/pen/EPKbmO/"&gt;Props&lt;/a&gt; by Makhenzi (&lt;a href="http://codepen.io/makhenzi"&gt;@makhenzi&lt;/a&gt;) on &lt;a href="http://codepen.io"&gt;CodePen&lt;/a&gt;.</iframe>
+<iframe height='266' scrolling='no' src='//codepen.io/makhenzi/embed/EPKbmO/?height=266&theme-id=0&default-tab=js,result&embed-version=2' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'>See the Pen <a href='http://codepen.io/makhenzi/pen/EPKbmO/'>Props</a> by Makhenzi (<a href='http://codepen.io/makhenzi'>@makhenzi</a>) on <a href='http://codepen.io'>CodePen</a>.
+</iframe>
 
-See the Pen [Props](http://codepen.io/makhenzi/pen/EPKbmO/) by Makhenzi ([@makhenzi](http://codepen.io/makhenzi)) on [CodePen](http://codepen.io).
+搞定了！组件们会互相交互，并根据我们的点击在 DOM 里渲染不同数据，而不需要单页去进行刷新。以这个为基础，交互的复杂性和组件的数量可以按需增加，使我们能创建复杂高效的应用。
 
-All done! The components interact with each other and render diverse content in the DOM according to our clicks, without the need for a single page to be refreshed. Working from this base, the complexity of the interactions and the number of component can be increased as desired, making it possible to create complex, efficient applications.
-
-If you to be inspired by this library’s potential, [take a look at the react.rocks site](https://react.rocks/), where you’ll find a load of interesting ideas to get you started. (:
-
+如果你被这个库的潜力启发了，[不妨看看 react.rocks 网站](https://react.rocks/)，在那里你会找到很多有趣的点子来帮助你开始。(:

@@ -1,38 +1,40 @@
 >* 原文链接 : [Dropouts Need Not Apply: Silicon Valley Asks Mostly for Developers With Degrees](http://blogs.wsj.com/economics/2016/03/30/dropouts-need-not-apply-silicon-valley-asks-mostly-for-developers-with-degrees/)
 * 原文作者 : [LAUREN WEBER](http://topics.wsj.com/person/W/lauren-weber/7369)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者:
+* 译者 : [Zhangjd](https://github.com/Zhangjd)
+* 校对者: [yangzj1992](https://github.com/yangzj1992), [shaohui10086](https://github.com/shaohui10086)
 
 <div class="entry-content">![](http://ww2.sinaimg.cn/large/a490147fjw1f2uxkmiivnj20kt0dvae7.jpg)
 
-Facebook founder Mark Zuckerberg chats with reporters at Harvard University in 2011\. He famously left the school without a degree in 2005\. Silicon Valley employers are actually more likely to require a degree or advanced degree, according to new data from Burning Glass Technologies.
+图为 Facebook 创始人马克·扎克伯格 2011 年在哈佛大学和记者交流。众所周知，扎克伯格曾经在 05 年辍学，但根据 Burning Glass Technologies 的最新调查数据显示，硅谷的雇主们更倾向于雇佣一个有本科甚至更高级学位的员工。
 
-There’s a long-lived myth that Silicon Valley and the technology industry are meritocracies where all that matters is the caliber of your code. But it turns out that tech companies are more likely than other employers to require college degrees when hiring software developers.
+有种说法在硅谷流传已久，那就是科技公司招聘只看重你的代码能力而非学历。但调查发现，科技公司在招聘软件工程师时，相比于其他雇主，更倾向于要求大学学历。
 
-Seventy-five percent of job ads for those roles at technology companies specify an educational requirement, compared with 58% of openings posted by the full universe of employers that are hiring software developers, according to **Burning Glass Technologies**, a labor-market data firm that analyzed 1.6 million ads for software-developer jobs nationwide.
+**Burning Glass Technologies** 是一家劳动市场数据分析公司，他们分析了全美国 160 万条关于软件工程师的招聘信息，根据报告显示，技术型公司高达 75% 的招聘广告都指明了学历要求，相比之下，所有包含软件工程师岗位的公司中，只有 58% 公开表明有学历要求。
 
-And in 95% of the tech-sector job ads that list a minimum credential, the employer calls for a bachelor’s degree or higher, versus 92% of the ads from all employers seeking developers.
+并且在 95% 的技术部门招聘广告中，都列出了最低学历要求，雇主们需要学士或以上学位的开发者，与此同时，所有寻找开发者的雇主中，对开发者有学历要求的比例是 92%。
 
-**Matt Sigelman**, Burning Glass’s chief executive, said he was struck by “the extent of the discord between, on the one side, the meritocratic mystique and the lore of the Bill Gateses and Mark Zuckerbergs”—[both **Harvard University** dropouts<sup>[1]</sup>](http://www.wsj.com/articles/college-dropouts-thrive-in-tech-1433323802)—“and on the other side, the reality of so many of the best kinds of jobs being closed to those who don’t have a college degree.”
+Burning Glass 的 CEO，**Matt Sigelman**，对于表面现象和调查结果的分歧感到很困惑，“一方面是诸如比尔盖茨和扎克伯格这样的传说级人物，人们对于他们的成功奥秘很感兴趣，因为”。- [他们都是哈佛大学的辍学生](http://www.wsj.com/articles/college-dropouts-thrive-in-tech-1433323802) — “但另一方面，现实是许多优质岗位并不欢迎那些没有拿到大学学位的人”。
 
-Nationally, 68% of adults over age 25 don’t have bachelor’s degrees.
+在美国，25 岁以上的人群中，多达 68% 的人没有学士及以上学位。
 
-Burning Glass found employers in Silicon Valley were the most exacting in terms of credentials, listing education requirements in 77% of developer job postings, and in those ads, demanding a bachelor’s or advanced degree 98% of the time.
+Burning Glass 发现，硅谷的雇主对于学历的要求最为严格，在 77% 的开发岗招聘启事里列出了教育程度要求，并且其中 98% 的广告都要求学士或以上学位。
 
 ![](http://ww3.sinaimg.cn/large/005SiNxygw1f2mzk4y4tvj30qn0hr0v3.jpg)
+_辍学生更受技术公司欢迎？招聘启事里可不是这么说的。硅谷的高科技行业的雇主们在招聘开发者时，更倾向于在招聘启事中对学历作出要求。图中列出的是学历要求在招聘启事中所占比例。从左到右依次为：包含软件工程师岗位的公司、技术型公司、硅谷的技术型公司。_
 
 ![](http://ww1.sinaimg.cn/large/005SiNxygw1f2mzkkvlyqj30qn0hr40v.jpg)
+_在列出学历要求的招聘启事中，硅谷的技术公司相对于其他公司更倾向于考虑学士以上学历的人群。图中列出的是学历最低要求在招聘启事中的比例分布，蓝色为学士以下学历，绿色为学士学历，红色为硕士以上学历。从左到右依次为：包含软件工程师岗位的公司、技术型公司、硅谷的技术型公司。_
 
-By contrast, Portland, Ore., employers asked for a college degree in 88% of job ads with a credential requirement; in Dallas and Minneapolis, 90% did.
+相比之下，在俄勒冈州波特兰市，开发岗招聘广告中有要求大学文凭的比例是 88%，在达拉斯和明尼阿波里斯的比例是 90%。
 
-Companies pay a high premium for those credentials, offering salaries an average of 29% higher for college grads across all employers, and 36% higher among tech-sector employers, Burning Glass found.
+Burning Glass 还发现，公司会为那些高学历人群开出更高的工资，对于大学毕业生，雇主支出的工资比平均水平要高出 29%，其中技术部门雇主的支出要比平均水平更是高出 36%。
 
-The firm also looked at the skill requirements of job ads seeking college graduates and those that didn’t, but found that the five skills in highest demand in both sets were the same. So what accounts for the difference?
+这家公司还对比了有大学学历要求的职位和没有学历要求的职位之间的技能要求，却发现两者提到最多的前五项技能都是相同的。所以学历要求体现了什么作用呢？
 
-Many employers view a bachelor’s as evidence of soft skills like collaboration and critical thinking, talents that might be especially useful in the kinds of high-growth companies that populate Silicon Valley. But “it’s not necessarily clear that college degrees are good proxies” for those skills, Mr. Sigelman said.
+大部分雇主认为，拥有高学历的员工会在软技能上面体现优势，比如沟通协作能力和批判性思维。而在硅谷那些快速成长的公司中，才华可能显得尤其重要。但是，Sigelman 先生也提到，“大学学历和拥有这些技能之间并没有明显的联系”。
 
-While some firms are experimenting with “[blind hiring<sup>[2]</sup>](http://www.wsj.com/articles/the-boss-doesnt-want-your-resume-1452025908)” processes—designed to judge job applicants purely based on work samples rather than resumes—the practice hasn’t penetrated deeply yet.
+虽然一些公司已经开始尝试 “[盲眼招聘](http://www.wsj.com/articles/the-boss-doesnt-want-your-resume-1452025908)” 流程 - 一种完全根据工作能力而非简历信息来评价候选人的招聘方式 - 不过这一招聘方式目前尚未被深入探索。
 
-It’s unfortunate that the tech sector is using college degrees as a screening mechanism for so many well-paying jobs, said Mr. Sigelman, whose company is contributing data and analysis to the White House TechHire Initiative, an effort to skill up Americans for jobs in the industry. “The sector is such an engine of growth and dynamism in the job market, and we’re interested in how it can be a point of opportunity for the majority of Americans.”
+不幸的是，技术部门仍在使用大学学历作为许多高薪工作机会的筛选条件。Sigelman 透露，他的公司正将相关数据和分析报告作为技术招聘倡议书提交给白宫 ，目的是提高美国人在互联网行业中的技能水平。“这一充满活力的行业正是招聘市场高速增长的引擎，我们对于如何把这些机会开放给大部分的美国群众非常感兴趣。”
 
