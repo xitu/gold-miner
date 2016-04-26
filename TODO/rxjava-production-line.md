@@ -2,7 +2,7 @@
 * 原文作者 : [Mateusz Budzar]()
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [Sausure](https://github.com/Sausure)
-* 校对者 : [lizhuo](https://github.com/huanglizhuo)、[Rocky](https://github.com/rockzhai)
+* 校对者 : [lizhuo](https://github.com/huanglizhuo), [Rocky](https://github.com/rockzhai)
 
 
 
