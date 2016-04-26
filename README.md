@@ -24,6 +24,7 @@
 
 ## Android
 
+* [用工厂流水线的方式来理解 RxJava 的概念](http://gold.xitu.io/entry/571f2cc971cfe40057351e95?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Sausure](https://github.com/Sausure) 翻译)
 * [在 Android N 预览版中使用 Java 8 的新特性](http://gold.xitu.io/entry/5716fc67ebcb7d005cad214c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([markzhai](https://github.com/markzhai) 翻译)
 * [创建一个基于 Kotlin 的 Android 项目（下集）](http://gold.xitu.io/entry/570f52981ea493006b5cc9ff?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Jing KE](https://github.com/jingkecn) 翻译)
 * [创建一个基于 Kotlin 的 Android 项目（上集）](http://gold.xitu.io/entry/56e3fdc3df0eea0054c7c61f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Jing KE](https://github.com/jingkecn) 翻译)
