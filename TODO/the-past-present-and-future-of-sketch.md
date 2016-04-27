@@ -2,14 +2,13 @@
 * 原文作者 : [Geoff Teehan](https://medium.com/@gt)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [lfkdsk](https://github.com/lfkdsk)
-* 校对者:
-* 状态 : 认领中
-# Sketch的过去现在和未来
+* 校对者:[邵辉Vista](https://github.com/shaohui10086), [lihenair](https://github.com/lihenair)
 
+# Sketch的过去现在和未来
 
 <!--I was at an Adobe event the other day when someone asked me what my thoughts were on [Comet](http://landing.adobe.com/en/na/products/creative-cloud/comet/229818-notifyme.html?sdid=NYTLR42C&mv=search&s_kwcid=AL!3085!3!93823739227!e!!g!!adobe%20comet&ef_id=VWDaFgAABRB1hgVZ:20160111181832:s). It got me thinking about what Comet may mean for [Sketch](https://www.sketchapp.com/).-->
 
-在一次Adobe的活动上有人问我对[Comet](http://landing.adobe.com/en/na/products/creative-cloud/comet/229818-notifyme.html?sdid=NYTLR42C&mv=search&s_kwcid=AL!3085!3!93823739227!e!!g!!adobe%20comet&ef_id=VWDaFgAABRB1hgVZ:20160111181832:s)有什么看法。这让我想起了Comet对[Sketch](https://www.sketchapp.com/)意味着什么。
+在一次Adobe的活动上有人问我对 [Comet](http://landing.adobe.com/en/na/products/creative-cloud/comet/229818-notifyme.html?sdid=NYTLR42C&mv=search&s_kwcid=AL!3085!3!93823739227!e!!g!!adobe%20comet&ef_id=VWDaFgAABRB1hgVZ:20160111181832:s) 有什么看法。这让我想起了 Comet 对 [Sketch](https://www.sketchapp.com/) 意味着什么。
 
 
 <!--Sketch and Photoshop have been the tools of choice for product designers, and most designers I speak to today have moved from Photoshop to Sketch.-->
@@ -26,7 +25,7 @@ Sketch 和 Photoshop 已经成为产品设计者的首选工具，而且大部�
 
 <!--I went on to say that while Sketch had made good progress in the 4+ years it has been out; it wasn’t moving nearly fast enough to maintain the trajectory it needs to maintain its position.-->
 
-接下来我想说，尽管Sketch 在推出的四年多已经有了很好的进展，但是它并没有成长到它应有的高度。
+我接着说，尽管Sketch从发布以来已经连续4年多取得了良好发展；但它没有在原轨道上高速提升来维持它应有的地位。
 
 <!--I was aware Pieter isn’t in the habit of giving a lot of interviews so I wasn’t certain how he would feel about chatting with me on any topic, much less Comet vs Sketch. However, when I contacted him, Pieter was gracious and open. Here are some highlights of our chat.-->
 
@@ -43,14 +42,13 @@ Sketch 和 Photoshop 已经成为产品设计者的首选工具，而且大部�
  **Yes! We set out to build it for websites and icons, then it became popular for design applications when those became more popular. That was basically the idea.
 -->
 
-**哈，我自己没有考虑过这个问题的答案。你认为可以把它描述成一个帮助你设计应用的应用？**    
+**哈，我自己没有考虑过这个问题的答案。你认为可以把它描述成一个帮助你设计应用的应用？**   
 是的！最初我们就是为了网站和图片而设计了 Sketch ，之后随着设计应用越来越流行，它也流行起来。不过那是初衷。
 <!--**When you set out to create it, is that what you intended it to be?  
  **Yes, for websites, apps and icons. That was basically the idea.-->
 
 **当你着手设计它的时候，现在的 Sketch 是你所希望的样子么？**  
 是的，为了网站、应用、和图标。那是最初的想法。
-
 <!--**Do you feel you’ve been successful?  
  **I think we have. We built an application exactly for those purposes we set out to do, so to me I suppose that’s some level of success.-->
 
