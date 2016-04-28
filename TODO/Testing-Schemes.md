@@ -32,7 +32,7 @@
 
 ![New Scheme](http://artsy.github.io/images/2016-04-06-Testing-Schemes/new_scheme.png)
 
-我给它起名叫 "Artsy just for Fairs"，因为我是唯一会看到它的人，所以我可以随意命名成我想要的。点击 "OK" 选择它，这个 modal 会被收起。你现在需要回到 target 选择，并且从 "Edit Schemes ..." 来继续。
+我给它起名叫 "Artsy just for Fairs"，因为我是唯一会看到它的人，所以我可以随意命名成我想要的。点击 "OK" 选择它，这个 modal 会被收起。你现在需要回到 target 选择，并且选择 "Edit Schemes ..." 来继续。
 
 ![Edit Schemes](http://artsy.github.io/images/2016-04-06-Testing-Schemes/edit_schemes.png)
 
