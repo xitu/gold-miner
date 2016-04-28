@@ -1,7 +1,7 @@
 >* 原文链接 : [Why Building Community Is the New “Growth Hack”](http://thehustle.co/why-building-community-is-the-new-growth-hack)
 * 原文作者 : [TAM PHAM](http://thehustle.co/author/tam/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : [Zhongyi Tong][https://github.com/geeeeeeeeek]
+* 译者 : [Zhongyi Tong](https://github.com/geeeeeeeeek)
 * 校对者 : [JasinYip](https://github.com/JasinYip), [godofchina](https://github.com/godofchina)
 
 
