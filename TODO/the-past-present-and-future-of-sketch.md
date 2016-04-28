@@ -173,6 +173,4 @@ _多谢 Pieter ，祝好运
 ~Geoff_
 
 
-我的[推特](https://twitter.com/gt)
-
 <!--Me, on [Twitter](https://twitter.com/gt).-->
