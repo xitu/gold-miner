@@ -115,4 +115,3 @@ I did not come up with all of this Design Systems Ops thing from nothing, and to
 Also, definitely listen to the [Design Details](http://spec.fm/) podcast, where some of the very best designers in the world are bringing up their experience creating design systems and style guides.
 
 Finally, if you like talking design systems in general or want to learn more about them, don’t miss [Clarity Conference](http://clarityconf.com/), March 31st–April 1st, 2016 in San Francisco (organized by the design systems queen herself: [jina ₍˄ุ.͡˳̫.˄ุ₎](https://medium.com/u/f5d1807b4e38)).
-

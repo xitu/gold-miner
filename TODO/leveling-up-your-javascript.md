@@ -1,259 +1,261 @@
 * 原文链接 : [Leveling Up Your JavaScript](http://developer.telerik.com/featured/leveling-up-your-javascript/)
 * 原文作者 : [Raymond Camden](http://developer.telerik.com/author/rcamden/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者:
-* 状态 : 待认领
+* 译者 : [Hikerpig](https://github.com/hikerpig)
+* 校对者: [Nark Qi](https://github.com/narcotics726), [JasinYip](https://github.com/JasinYip)
 
 
-JavaScript is one of those languages that can be easy to pick up, it can be infinitely more difficult to master. However, a lot of articles seem to assume that you are already a master.
+JavaScript 是一门入门容易，但是相当难以精通的语言。可现今一些文章总假设你已经精通了它。
 
-I’ve been using JavaScript since its introduction as LiveScript in 1995, but slowly moved away from client-side development to retreat into the safe confines of the server. For the past five years, I’ve refocused on the client-side. I’m happy to find that browsers are far more competent, powerful, and easier to debug than they were in the early days. But JavaScript has grown in complexity and is not any easier to master. Recently I came to a conclusion. I don’t necessarily need to _master_ JavaScript – but I can get better. I am happy being a “good” JavaScript developer.
+我从 1995 年 JavaScript 还以 LiveScript 名字出现的时候就开始用它了，但后来逐渐从前端开发撤回服务器的安全怀抱中，直到五年前才重拾。很高兴看到如今的浏览器更加的强大和易于调试。但 JavaScript 已经演变得越来越复杂且难以精通了。不过最近我终于得出结论，我并不需要_精通_ Javascript，只需要比以前更进一步就好。能成为一个"好"的 JavaScript 开发者我便觉欣慰。
 
-What follows are the tips and techniques that I have found to be useful and – most of all – _practical_ in terms of writing JavaScript: [organizing code](http://developer.telerik.com/featured/leveling-up-your-javascript/#organization); [linting](http://developer.telerik.com/featured/leveling-up-your-javascript/#linting); [testing](http://developer.telerik.com/featured/leveling-up-your-javascript/#testing); and [using browser developer tools](http://developer.telerik.com/featured/leveling-up-your-javascript/#devtools). While some of these may seem obvious to experienced JavaScript developers, it’s very easy to fall into bad habits when you are new to a language. These guidelines have helped me level up my skills and produce better experiences for my users. And _that’s_ our number one goal, right?
+以下是我发现的一些_实用_的 JavaScript 小技巧: [组织代码](#组织代码); [代码检验](#代码检验(Linting)); [测试](#测试); 以及 [使用开发者工具](#浏览器开发者工具)。里面有几条对有经验的 JavaScript 开发者来说可能很显而易见，但是语言初学者很容易养成坏习惯。这些技巧提高了我的技术水平，同时也为我的用户创造了更好的体验。_这_难道不是我们最大的目标么。
 
-> You can download the source code for the examples in this [article here](http://developer.telerik.com/wp-content/uploads/2016/01/code.zip).
+> 你可在此处[下载](http://developer.telerik.com/wp-content/uploads/2016/01/code.zip)本文的样例代码。
 
-## Organization
+## 组织代码
 
-As a new JavaScript developer begins learning their craft, they will inevitably begin with a large block of code on top of their HTML page. It always starts simple. A simple bit of jQuery to autofocus a form field. Then maybe form validation. Then a little dialog widget that marketing just loves – you know, the ones that stop people from reading content so that they can Facebook Like the site itself. After a few iterations of this you’ve got a few hundred lines of JavaScript within an HTML file that probably has a few hundred lines of tags.
+JavaScript 初学者总是不可避免地在他们的 HTML 页面里写上一大坨代码。开始的时候都是很简单的，例如使用 jQuery 给一个表单输入自动加上焦点，然后要加上表单验证，然后又要加上一些市场上走俏的模态框组件——就是那些阻止用户往下阅读内容好让他们在 Facebook 上给网站点赞的东西。经过这些七七八八的功能迭代后你的一个文件里 HTML 标签和 JavaScript 都有了几百行。
 
-It’s a mess. Stop doing it. It sounds simple, and I’m almost embarrassed to even write it down as a tip, but it is _very_ tempting to just whip up a quick script block on top of your page. Avoid that temptation like the plague please. Make it a habit when you create a new web site to go ahead and create an empty JavaScript file. Include it via the script tag and it will be ready for you when you begin adding interactivity and other client-side features.
+别再继续这种乱七八糟的方式了。这个技巧太简单了我都不好意思单独把它列出来，但大家还_真的_很难拒绝这种把代码一坨扔上页面的偷懒做法。还请各位务必避之如瘟疫。养成好习惯：在开始的时候就先创建好一个空的 JavaScript 文件，然后用 script 标签引入它。这样一来，之后的交互与其他客户端功能代码就可以直接填入先前准备好的空文件里去了。
 
-Once you’ve gotten off the HTML page (doesn’t that feel cleaner?), the next problem you’ll run into is organization of the code itself. Those few hundred lines of JavaScript may work just fine, but the first time you have to debug or modify the code after a few months away you may find yourself wondering just where in the heck a particular function exists.
+把 JavaScript 从 HTML 页面中剥离以后（干净多了是不是？），下一个问题就是关于这些代码的组织形式了。这几百行 JavaScript 也许功能没啥问题，但是几个月后，一旦你开始想调试或是改点东西，你可能特么找不到某个函数在哪了。
 
-So if simply moving a bunch of code off HTML into another file isn’t enough, what’s the next solution?
+若仅仅把代码从 HTML 中剥离到一个单独文件中是不够的，那还能怎么办呢？
 
-### Frameworks!
+### 框架！
 
-Obviously a framework is the solution. Move everything to AngularJS. Or Ember. Or React. Or one of the hundred or so other options. Rebuild the entire site into a Single Page Application and MVC and just go crazy.
+显然解决方案是框架。把所有东西用 AngularJS，或 Ember，或 React 或其他几百个框架中某一个写一遍。哼哧哼哧地把整个网站重写为一个单页应用，用上 MVC 什么的。
 
-Or maybe not. Don’t get me wrong, I love Angular when I’m building apps, but there’s a difference between an “app” and a web page with interactivity. There’s a difference between a fancy Ajax-enhanced product catalog and Gmail – at least a few hundred thousand lines of code different. But if you aren’t going to go the framework route, what’s the other choice?
+或者根本不需要。当然了，别误会我，在编写应用的时候我喜欢用 Angular，但是一个"应用"和一个页面的交互复杂度是有区别的。一个用上 Ajax 技术的产品目录页和 Gmail 也是有区别的 - 起码几十万行代码的区别。那么，如果不走框架这条路的话，还有什么选择呢？
 
-### Design Patterns
+### 设计模式
 
-Design patterns are a fancy way of saying, “here is an approach to handle a problem that people have had in the past.” They can definitely be useful. Addy Osmani wrote an excellent book on the topic, [Learning JavaScript Design Patterns](http://addyosmani.com/resources/essentialjsdesignpatterns/book/), that you can download and read for free. I recommend it. But an issue I had with the book (and similar discussions on the topic), was that you end up looking at code like this.
+设计模式是对"这是过去人们解决问题的一个方法"这句话的高级说法。Addy Osmani 写过一本关于此的很好的书，[学习 JavaScript 设计模式](http://addyosmani.com/resources/essentialjsdesignpatterns/book/)，可以免费下载阅读。我推荐这本书。但是我对它（以及类似的关于此议题的讨论）有点小看法，因为最后你们写的代码可能变成这样:
 
     var c = new Car();
     c.startEngine();
     c.drive();
     c.soNotRealistic();
 
-Abstractly, design patterns made sense to me, but _practically_, they did not. It was difficult to take the patterns and apply them in context to a real web page with real code.
+对我来说，设计模式在抽象层面上是有意义的，但是在_实际工作中_，没有什么用。在实际项目的环境下，挑选并应用设计模式是件很困难的事情。
 
-#### Modules
+#### 模块
 
-Among all the patterns I read about, I felt like the Module pattern was both the simplest and easiest to apply to existing code.
+在所有我看过的设计模式中，我觉得模块模式是最简单也是最容易应用到现有代码里的。
 
-At a high level, the Module Pattern simply creates a package around a set of code. You can take a related collection of functions, drop them into a module, and then explicitly decide what you want to expose. This creates a “black box” of code that can more easily be shared amongst other projects. You can also move code in modules into separate files.
+纵而览之，模块模式就是一系列代码之外加了个包装。你抽取出一系列功能相关的代码扔到一个模块里，决定需要暴露的部分，也可以把一个模块里的代码放到不同的文件里。然后建立一个易于在项目之间共享的代码黑匣。
 
-Let’s look at a simple example of the Module Pattern. It has a syntax that may seem weird at first. It certainly did to me. Let’s begin with the “wrapper” and I’ll explain the various bits.
+看看这个简单的例子。此处的语法乍看可能有点奇怪，起码我一开始是这样觉得的。我们先从"包装"部分开始看，然后我再解释其余部分。
 
 ![](http://ww4.sinaimg.cn/large/9b5c8bd8jw1f0zumg7z7gj20kp05ojru.jpg)
 
-Wrapper for the module pattern.
+模块模式的包装。
 
-So, am I the only one who sees that and gets confused by all the parentheses? Mentally it was difficult to wrap my head around what this was doing – and I know JavaScript. It helped me to look at it from the inside out.
+只有我一个人被这些括号搞晕了么？我搞不明白这里是干嘛的，这还是在我懂 JavaScript 的前提下。其实这里如果从里往外看，就清晰很多。
 
 ![](http://ww2.sinaimg.cn/large/9b5c8bd8jw1f0zuncbxnuj20m805lgly.jpg)
 
-The inside of the module pattern is just a regular function.
+模块的内部只是个普通的函数。
 
-You begin with a simple function. This is where you will define the methods you can call on your module.
+从一个简单的函数开始，在其内部定义该模块的实际需要提供的代码。
 
 ![](http://ww1.sinaimg.cn/large/9b5c8bd8jw1f0zunvmhafj20m805ot94.jpg)
 
-The parenthesis will automatically run the function.
+圆括号使得这个函数自动执行。
 
-The parenthesis at the end there will then automatically run the function. Whatever we return is the module, which, for now, we’re keeping empty. What you see highlighted now is _not_ valid JavaScript however. So what makes it valid?
+最后的圆括号会让该函数立即执行。我们在函数里返回了什么，模块就是什么。此时我们这里还是空的。不过此时上图高亮的部分还_不是_合法的 JavaScript。那么，怎样让它变得合法呢？
 
 ![](http://ww4.sinaimg.cn/large/9b5c8bd8jw1f0zuoenvzjj20m805mdg9.jpg)
 
-The outer parenthesis makes this crazy stuff work.
+外边的圆括号开始发功了。
 
-The parenthesis around the `function() { }()` block is what makes this whole thing valid JavaScript. If you don’t believe me, you can open up your developer tools console and try entering that yourself.
+在`function() { }()` 外的圆括号使得此处成为合法JavaScript。你要是不信我，就打开开发者工具的控制台自己输入看看。
 
-Which brings up back to the beginning…
+这样就是我们一开始看到的。
 
 ![](http://ww1.sinaimg.cn/large/9b5c8bd8jw1f0zuotyvzej20m808ngm7.jpg)
 
-The result is assigned to a variable.
+返回值被赋给一个变量。
 
-The very last thing that happens is the result is assigned to a variable. Even with me personally understanding of all this, every time I see this in code I have to mentally pause for a second and remind myself of just what in the heck is going on here. I’m not ashamed to say it – I keep this code handy in my editor so I can copy and paste the ’empty’ Module for quick reuse.
+最后一件事是把返回值赋给一个变量。尽管我自己完全懂得这里，但每次我看见这种代码我都得暂停一秒钟来提醒自己这是什么鬼。说来也不怕羞，我在编辑器里存着这段空模块代码随时快手粘贴。
 
-Now that we’ve gotten over the hump of that slightly weird syntax, what does an actual Module pattern look like?
+当我们终于征服了这坨诡异的语法之后，真正的模块模式究竟长啥样呢？
 
     var counterModule = (function() {
-    	var counter = 0;
+      var counter = 0;
 
-    	return {
-    		incrementCounter: function () {
-    			return counter++;
-    		},
-    		resetCounter: function () {
-    			console.log("counter value prior to reset: " + counter );
-    			counter = 0;
-    		}
-    	};
+      return {
+        incrementCounter: function () {
+          return counter++;
+        },
+        resetCounter: function () {
+          console.log("counter value prior to reset: " + counter );
+          counter = 0;
+        }
+      };
 
     }());
 
-The previous code creates a module called `counterModule`. It has two functions: `incrementCounter` and `resetCounter`. Using them could look something like this:
+这段代码创建了一个叫做 `counterModule` 的模块。它有两个函数，`incrementCounter` 和 `resetCounter`。可以这样使用它们：
 
     console.log(counterModule.getCounter()); //0
-    counterModule.incrementCounter(); 
+    counterModule.incrementCounter();
     console.log(counterModule.getCounter()); //1
     counterModule.resetCounter();
     console.log(counterModule.getCounter()); //0
 
-The idea is that all of the code behind my `counterModule` is packaged away nicely. Packaging is computer science 101, and the future of JavaScript will provide even simpler ways of doing this, but for now, I find the Module pattern to an incredibly simple, practical way of handling the issue of organization.
+主要的思想就是把 `counterModule` 里的代码好好地封装起来。封装是计算机科学基础概念，将来 JavaScript 还会提供更简单的封装方法，不过就现在来说，我觉得模块模式已是个超级简单和使用的组织代码方案。
 
-#### A Practical Module Sample
+#### 一个实用的模块案例
 
-I began this discussion by complaining about the appropriateness of some of the examples I see online (see the Car example). Let’s build a simple example of this that actually matches a real world scenario. I’m going to keep it simple for the sake of this article, but applicable to something you may actually encounter in a real web application.
+吐槽完网上看到的样例（例如上面那个 Car 的例子）。我们现在需要编写一个符合实际场景需求的简单代码。限于本文篇幅，我会写得尽量简单，但会贴合你在遇到实际 web 项目时的情况。
 
-Your online game company, Lyntendo (don’t sue me), has a user sign up portal where users must create a game identity. You need to build a form where the user can select a name. The rules for identifiers are a bit weird:
+假设你的网游公司愣天堂 (任粉莫喷)，在用户要创建游戏人物的时候需要一个注册页面。你需要一个可以让用户选择名字的表单。构建名字的规则有点诡异：
 
-*   Identifiers must begin with capital letter.
-*   Identifiers must be two or more characters long.
-*   Spaces are allowed, but no punctuation.
-*   Identifiers can’t include certain “naughty” words.
+*   必须以大写字母开头
+*   长度不小于2
+*   允许空格，但是不能有标点
+*   不能有"敏感"词汇
 
-Let’s mock this up in an incredibly simple form.
+先写下这个超简单的表单。
 
     <html>
-    	<head>
+      <head>
 
-    	</head>
+      </head>
 
-    	<body>
+      <body>
 
-    		<p>Text would be here to describe the rules...</p>
+        <p>Text would be here to describe the rules...</p>
 
-    		<form>
-    			<input type="text" placeholder="Identifer">
-    			<input type="submit" value="Register Identifer.">
-    		</form>
-    		<script src="app.js"></script>
-    	</body>
+        <form>
+          <input type="text" placeholder="Identifer">
+          <input type="submit" value="Register Identifer.">
+        </form>
+        <script src="app.js"></script>
+      </body>
     </html>
 
-You can see the form I mentioned as well as a submit button. I’d also include text describing the rules I mentioned above, but I’m keeping it simple for now. Let’s look at the code.
+除了我描述的输入框，表单里还有个提交按钮。然后我加了些有关上面提到的规则的说明，先尽量保持精简。让我们来看看代码。
 
     var badWords = ["kitten","puppy","beer"];
     function hasBadWords(s) {
-    	for(var i=0;i<badwords.length; i++)="" {="" if(s.indexof(badwords[i])="">= 0) return true;	
-    	}
-    	return false;
+      for(var i=0; i < badwords.length; i++) {
+        if(s.indexof(badwords[i]) >= 0) return true;
+      }
+      return false;
     }
 
     function validIdentifier(s) {
-    	//is it blank?
-    	if(s === "") return false;
-    	//must be at least 2 chars
-    	if(s.length === 1) return false;
-    	//must begin with a capital letter
-    	if(s.charAt(0) !== s.charAt(0).toUpperCase()) return false;
-    	//only letters and spaces
-    	if(/[^a-z ]/i.test(s)) return false;
-    	//no bad words!
-    	if(hasBadWords(s)) return false;
-    	return true;
+      //是否为空
+      if(s === "") return false;
+      //至少两个字符
+      if(s.length === 1) return false;
+      //必须以大写字母开头
+      if(s.charAt(0) !== s.charAt(0).toUpperCase()) return false;
+      //只允许字母和空格
+      if(/[^a-z ]/i.test(s)) return false;
+      //没有敏感词
+      if(hasBadWords(s)) return false;
+      return true;
     }
 
     document.getElementById("submitButton").addEventListener("click", function(e) {
 
-    	var identifier = document.getElementById("identifer").value;
+      var identifier = document.getElementById("identifer").value;
 
-    	if(validIdentifier(identifier)) {
-    		return true;
-    	} else { console.log('false');
-    		e.preventDefault();
-    		return false;	
-    	}
-    });</badwords.length;>
+      if(validIdentifier(identifier)) {
+        return true;
+      } else { console.log('false');
+        e.preventDefault();
+        return false;
+      }
+    });
 
-Starting at the bottom, you can see I’ve got some basic code to get the elements from the page (yes, folks, in this case I didn’t use jQuery) and then listen for click events on the button. I get the value the user used for their proposed identifier and then pass it to my validation. The validation is nothing more than what I described above. The code isn’t _too_ messy, but as my validation rules increase and as I add other interactivity points to my page, it will get harder to work with. Let’s rewrite this as a module.
+从代码底部开始，你看到我写了点基本的获取页面元素的代码（没错伙计们这里我没有用 jQuery）然后监听 button 上的点击事件。拿到用户输入的用户名字段然后传给验证函数。验证的内容也就是我之前描述的那些。这里代码还没有_太_乱，不过随着之后验证逻辑的增长和页面交互逻辑的增加，代码会越来越难以维护。所以我们把这里重写为模块吧。
 
-First, I created a new file called game.js and included it via a script tag in my index.html file. I then moved the contents of my validation logic inside a module.
+首先，创建 game.js 文件并在 index.html 中使用 script 标签引入它。然后把验证逻辑移到一个模块里。
 
     var gameModule = (function() {
 
-    	var badWords = ["kitten","puppy","beer"];
+      var badWords = ["kitten","puppy","beer"];
 
-    	function hasBadWords(s) {
-    		for(var i=0;i<badwords.length; i++)="" {="" if(s.indexof(badwords[i])="">= 0) return true;	
-    		}
-    		return false;
-    	}
+      function hasBadWords(s) {
+        for(var i=0; i < badwords.length; i++) {
+          if(s.indexof(badwords[i]) >= 0) return true;
+        }
+        return false;
+      }
 
-    	function validIdentifier(s) {
-    		//is it blank?
-    		if(s === "") return false;
-    		//must be at least 2 chars
-    		if(s.length === 1) return false;
-    		//must begin with a capital letter
-    		if(s.charAt(0) !== s.charAt(0).toUpperCase()) return false;
-    		//only letters and spaces
-    		if(/[^a-z ]/i.test(s)) return false;
-    		//no bad words!
-    		if(hasBadWords(s)) return false;
-    		return true;
-    	}
+      function validIdentifier(s) {
+        //是否为空
+        if(s === "") return false;
+        //至少两个字符
+        if(s.length === 1) return false;
+        //必须以大写字母开头
+        if(s.charAt(0) !== s.charAt(0).toUpperCase()) return false;
+        //只允许字母和空格
+        if(/[^a-z ]/i.test(s)) return false;
+        //没有敏感词
+        if(hasBadWords(s)) return false;
+        return true;
+      }
 
-    	return {
-    		valid:validIdentifier	
-    	}
+      return {
+        valid:validIdentifier
+      }
 
-    }());</badwords.length;>
+    }());
 
-This isn’t terribly different from before, but now it’s packaged into a variable called `gameModule` that has one API, `valid`. Now let’s look at app.js.
+现在的代码和之前相比没有翻天覆地的差别，只不过是被封装成了一个有一个 `valid` 接口的 `gameModule` 变量。接下来我们来看看 app.js 文件。
+
 
     document.getElementById("submitButton").addEventListener("click", function(e) {
 
-    	var identifier = document.getElementById("identifer").value;
+      var identifier = document.getElementById("identifer").value;
 
-    	if(gameModule.valid(identifier)) {
-    		return true;
-    	} else { console.log('false');
-    		e.preventDefault();
-    		return false;	
-    	}
+      if(gameModule.valid(identifier)) {
+        return true;
+      } else { console.log('false');
+        e.preventDefault();
+        return false;
+      }
     });
 
-Notice how much less code we have mixed in with our DOM listeners. All the functionality of validation (two functions and a list of bad words) are all now safely put away in the module making the code I have here easier to work with. Depending on your editor, you’ll also get code completion for the methods of your module.
+看看我们的 DOM 监听函数里少了多少代码。所有的验证逻辑（两个函数和一个敏感词列表）被安全地移到了模块里后，这里的代码就更好维护了。如果你的编辑器支持，你在此处还能有模块方法名的代码补全。
 
-Working with modules isn’t necessarily rocket science, but it is _cleaner_ and _simpler_ and that’s a real good thing!
+模块化不是什么高深的东西，但它使我们的代码_更干净_，_更简单_ ，这绝对是件好事。
 
-## Linting
+## 代码检验(Linting)
 
-If you aren’t aware of the term, linting refers to checking your code for best practices and other problems. A noble cause, right? As nice as it is, I was always left with the impression that linting was something only fussy developers worried about. Obviously I want my code to be great. I also want time to play video games too. Having my code be less than some Perfect High Ideal(tm) while it still actually worked was perfectly fine by me.
+简单给初闻者解释下，代码检验表示使用最佳实践和一些避免出错的规则对代码进行检查。很高大上对不对？这么好的东西，我以前却以为只有挑剔过头的开发者才会考虑这个。当然了，我期望自己写出超棒的代码，但我也需要腾出时间玩游戏。就算我的代码够不上某些高大上的完美标准，但它能好好工作我就能满意了。
 
-But then…
+然而...
 
-You know those times when you rename a function and remind yourself that you’re going to fix it later?
+记不记得你有多少次重命名了个函数然后提醒自己之后一定会改？
 
-You know those times when you define a function to accept two arguments and end up only ever using one?
+记不记得你有多少次创建了个有两个形参的函数，其实最后只用了一个？
 
-You know how sometimes you write really stupid code? I mean code that won’t even come close to working. My favorite is `fuction` and `functon`.
+记不记得你有多少次写过多少蠢代码？我说的是那些根本不能工作的，类似我最爱的 `fuction` 和 `functon`。
 
-Yeah, linting actually helps with that! As I keep saying, while it is probably obvious to everyone but me, the fact that linting was more than just best practices but also syntax and basic logic checking as well was news to me. Another factor also put it over the edge from “Will do when I have more time than I know what to do with” to “I will use this religiously” was the fact that most modern editors have it built in. My current editors (Sublime, Brackets, and Visual Studio Code), all support providing real time feedback on your code.
+代码检验就是这时候站出来帮你的！除了我之外大家都知道，代码检验不只有风格的最佳实践，还包含语法和基本的逻辑检验。还有一个让我从"等我有时间一定或做的" 跳到"我会虔诚地遵循它" 的原因，那就是几乎所有现代编辑器都支持此功能。我目前用的编辑器（ Sublime, Brackets 和 Visual Studio Code）都支持代码实时检验和反馈。
 
-As an example, here is a report from Visual Studio Code on some code I intentionally wrote poorly. Honestly. I did it on purpose.
+举个例子，以下是 Visual Studio Code 对我一段很挫的代码的提示。当然了，我是故意写得很挫的。
 
 ![](http://ww4.sinaimg.cn/large/9b5c8bd8jw1f0zupgeoxdj20m80d1q40.jpg)
 
-Visual Studio Code linting.
+Visual Studio Code 代码检验。
 
-In the figure above, you can Visual Studio Code <strike>complaining</strike>pointing out a few mistakes in my code. Visual Studio Code’s linter, and most linters, have options for what you care about and what is considered an error (“must fix”) versus a warning (“should fix, stop being lazy”).
+上图中，你能看到 Visual Studio Code <strike>抱怨</strike>我代码中的几个错误。Visual Studio Code 的代码检验器，和大多数检验器一样，可配置你关心的检验规则以及对其中"错误"（必须修正）和"警告"(别偷懒啊，总要修复的)的定义。
 
-If you don’t want to install anything or try configuring your editor, a great way to test linting online is at [JSHint.com](http://jshint.com). JSHint is probably the most popular linter and is based on another linter, JSLint (Not confusing at all, honest). JSHint was created partially in response to how strict JSLint could be. While you can use JSHint directly in editors or via the command line, one of the easiest ways to to try it out is on the site itself.
+如果你不想安装任何东西，也不想折腾编辑器，另一种好方法是使用[JSHint.com](http://jshint.com)在线检验代码。JSHint 差不多是最流行的检验器，它基于另一个检验器 JSLint (谁说它们长得像来着？)。JSHint 的诞生一部分原因是由于 JSLint 太过严格。你可以直接在编辑器里或是通过命令行使用 JSHint，最简单的体验方法是在它的网站上试试。
 
 ![](http://ww1.sinaimg.cn/large/9b5c8bd8jw1f0zuppot76j20m804w0t8.jpg)
 
-JSHint site.
+JSHint 网站。
 
-While it may not be immediately obvious, the code on the left hand side is a live editor. On the right hand side is a live report based on that code. The easiest way to see this is to just introduce a simple error in the code. I began by changing the `main` function to `main2`:
+乍看可能不太明显，其实左边是在一个在线代码编辑器。右边的是一份对左边代码的检验报告。要看到检验效果，最简单方式是在代码里随便写错点什么。我这里把 `main` 函数名改成了 `main2`。
 
     function main2() {
       return 'Hello, World!';
@@ -261,16 +263,16 @@ While it may not be immediately obvious, the code on the left hand side is a liv
 
     main();
 
-Immediately, the site reported two errors from this. Now keep in mind, these aren’t syntax errors. Everything may look valid in the code above, but JSHint notices the problems that you may not (Of course, this is a 5 line block of code, but imagine a larger file with the function and call separated by many lines).
+马上，网页就对此给我报了两个错误。注意了，这并不是语法错误。代码在语法上是完全没问题的，但是 JSHint 发现了你可能忽视了的问题所在（当然了，这里代码只有5行，但想象下一个大文件里函数定义和调用之间隔了好多行的时候）。
 
 ![](http://ww4.sinaimg.cn/large/9b5c8bd8jw1f0zuq1qvjvj209t070wei.jpg)
 
-JSHint errors.
+JSHint 错误。
 
-How about a real example? In the code below (yep, now I _am_ using jQuery), I’ve written a simple bit of JavaScript to handle form validation. It’s trivial stuff, but probably half the JavaScript written today is doing something like this (Oh, and creating pop up modals asking you to “Like” the site. I love those). You can find this code in the demo_jshint folder as app_orig.js.
+来个更真实的例子如何？以下的代码（嗯现在我_是_用了 jQuery），我写了点简单的 JavaScript 做表单验证。都是些鸡毛蒜皮的东西，不过今天几乎一半的 JavaScript 代码做的都是这些事（哦哦当然还有创建弹出框然后问你要不要"赞"这个网站。真特么爱死这些了）。这些代码可以在 demo_jshint 文件夹的 app_orig.js 中找到。
 
     function validAge(x) {
-    	return $.isNumeric(x) && x >= 1;  
+      return $.isNumeric(x) && x >= 1;
     }
 
     function invalidEmail(e) {
@@ -279,31 +281,41 @@ How about a real example? In the code below (yep, now I _am_ using jQuery), I’
 
     $(document).ready(function() {
 
-    	$("#saveForm").on("submit", function(e) {
-    		e.preventDefault();
+      $("#saveForm").on("submit", function(e) {
+        e.preventDefault();
 
-    		var name = $("#name").val();
-    		var age = $("#age").val();
-    		var email = $("#email").val();
+        var name = $("#name").val();
+        var age = $("#age").val();
+        var email = $("#email").val();
 
-    		badForm = false;
+        badForm = false;
 
-    		if(name == "") badForm = true;
-    		if(age == "") badForm = true;
-    		if(!$.isNumeric(age) || age <= 0)="" badform="true;" if(email="=" "")="" if(invalidemail(email))="" console.log(badform);="" if(badform)="" alert('bad="" form!');="" else="" {="" do="" something="" on="" good="" }="" });="" });<="" code=""></=>
+        if(name == "") badForm = true;
+        if(age == "") badForm = true;
+        if(!$.isNumeric(age) || age <= 0) badForm = true;
+        if(email == "") badForm = true;
+        if(invalidemail(email)) badForm = true;
 
-The code begins with two functions written to help with validation (for age and email). Then we have a `document.ready` block where we listen for the form submission. Values from three fields are fetched, checked if blank (or invalid), and then either an alert is fired that the form is invalid or things carry on (or in our example case, the form just sits there).
+        console.log(badform);
+        if (badform) alert('Bad Form!');
+        else {
+          // do something on good
+        }
+      });
+    });
 
-Let’s throw this into JSHint and see what we get:
+开始是两个辅助验证的函数（对年龄和 email）。然后是 `document.ready` 代码块里对表单提交的监听。获取表单中三个字段的值，检查是否为空（或是无效输入），若表单无效就弹出警告，否则继续（在我们的例子里，什么也没发生，表单没变化）。
+
+扔到 JSHint 上看看发生了啥：
 
 ![](http://ww3.sinaimg.cn/large/9b5c8bd8jw1f0zuqkjapdj20b90s5q3x.jpg)
 
-JSHint errors for our demo.
+JSHint 对我们样例代码的报错。
 
-Woah, that’s a lot! However, it looks like it’s actually similar problems that occured multiple times. This was common for me as I began using linters. I typically wasn’t making a lot of unique errors, just a lot of the same error again and again. The first one is easy enough – using triple equals for checking versus double equals. The short story on that it is stricter test for checking that the values are empty strings. Let’s fix that first (demo_jshint/app_mod1.js).
+哇塞好多东西！看起来是类似的问题出现了多次。我开始用检验器的时候这种情况挺常见。我并没有弄出很多种错误，而仅仅是同种错误的重复。第一个非常简单—— 检查相等时使用三等号替代双等号。简单来说就是用更严格的标准检测空字符串。先修复这个(demo_jshint/app_mod1.js)。
 
     function validAge(x) {
-    	return $.isNumeric(x) && x >= 1;  
+      return $.isNumeric(x) && x >= 1;
     }
 
     function invalidEmail(e) {
@@ -312,30 +324,40 @@ Woah, that’s a lot! However, it looks like it’s actually similar problems th
 
     $(document).ready(function() {
 
-    	$("#saveForm").on("submit", function(e) {
-    		e.preventDefault();
+      $("#saveForm").on("submit", function(e) {
+        e.preventDefault();
 
-    		var name = $("#name").val();
-    		var age = $("#age").val();
-    		var email = $("#email").val();
+        var name = $("#name").val();
+        var age = $("#age").val();
+        var email = $("#email").val();
 
-    		badForm = false;
+        badForm = false;
 
-    		if(name === "") badForm = true;
-    		if(age === "") badForm = true;
-    		if(!$.isNumeric(age) || age <= 0)="" badform="true;" if(email="==" "")="" if(invalidemail(email))="" console.log(badform);="" if(badform)="" alert('bad="" form!');="" else="" {="" do="" something="" on="" good="" }="" });="" });<="" code=""></=>
+        if(name == "") badForm = true;
+        if(age == "") badForm = true;
+        if(!$.isNumeric(age) || age <= 0) badForm = true;
+        if(email == "") badForm = true;
+        if(invalidemail(email)) badForm = true;
 
-And here is the updated report from JSHint:
+        console.log(badform);
+        if (badform) alert('Bad Form!');
+        else {
+          // do something on good
+        }
+      });
+    });
+
+JSHint 报告变成了:
 
 ![](http://ww2.sinaimg.cn/large/9b5c8bd8jw1f0zur1n2y4j20am0lb0t8.jpg)
 
-JSHint errors for our demo.
+JSHint 对我们样例代码的报错。
 
-Ok, we’re getting there. The next block is about “undefined variables.” That may seem odd. If you’re using jQuery, you know `<div exists. The issue with `badForm` is simpler – I forgot to `var` scope it. But how do we fix `<div? JSHint provides a way to configure how code is checked for issues. By adding a comment to our code, we can let JSHint know that the `<div variable exists as a global and is safe to use. Let’s add that and fix the missing `var` statement (demo_jshint/app_mod2.js):
+算是解决了。下一个错误类型是"未声明变量"。看着有点诡异。如果使用 jQuery 的话，你知道`$` 是存在的。`badForm` 的问题就更简单点——我忘记用 `var` 声明它了。那我们怎么解决`$`的问题呢？JSHint 提供了对代码规则检验方法的配置。在代码里加上一个注释以后，我们告诉 JSHint `$` 变量是作为全局变量可以放心使用。接下来我们补上这个注释，并且加上丢失的 `var` 声明（demo_jshint/app_mod2.js）。
 
     /* globals $ */
     function validAge(x) {
-    	return $.isNumeric(x) && x >= 1;  
+      return $.isNumeric(x) && x >= 1;
     }
 
     function invalidEmail(e) {
@@ -344,30 +366,40 @@ Ok, we’re getting there. The next block is about “undefined variables.” Th
 
     $(document).ready(function() {
 
-    	$("#saveForm").on("submit", function(e) {
-    		e.preventDefault();
+      $("#saveForm").on("submit", function(e) {
+        e.preventDefault();
 
-    		var name = $("#name").val();
-    		var age = $("#age").val();
-    		var email = $("#email").val();
+        var name = $("#name").val();
+        var age = $("#age").val();
+        var email = $("#email").val();
 
-    		var badForm = false;
+        var badForm = false;
 
-    		if(name === "") badForm = true;
-    		if(age === "") badForm = true;
-    		if(!$.isNumeric(age) || age <= 0)="" badform="true;" if(email="==" "")="" if(invalidemail(email))="" console.log(badform);="" if(badform)="" alert('bad="" form!');="" else="" {="" do="" something="" on="" good="" }="" });="" });<="" code=""></=>
+        if(name == "") badForm = true;
+        if(age == "") badForm = true;
+        if(!$.isNumeric(age) || age <= 0) badForm = true;
+        if(email == "") badForm = true;
+        if(invalidemail(email)) badForm = true;
 
-And the updated report from JSHint:
+        console.log(badform);
+        if (badform) alert('Bad Form!');
+        else {
+          // do something on good
+        }
+      });
+    });
+
+JSHint 报告变成了:
 
 ![](http://ww4.sinaimg.cn/large/9b5c8bd8jw1f0zurgx350j209204gwed.jpg)
 
-JSHint errors for our demo.
+JSHint 对我们样例代码的报错。
 
-Woot! Almost done. This final issue is a perfect example of where JSHint can provide useful information that isn’t an error or best practice. In this case, I simply forgot that I wrote a function to handle age verification. You can see I’ve created `validAge`, but in the form checking area, I don’t use it. Maybe I should kill the function – it’s only one line – but it feels more proper to keep the function – just in case the validation gets more intense later on. Here is the final version of the code (demo_jshint/app.js):
+哇哦！就快结束了！最后一个问题恰好的展示了 JSHint 在提示最佳代码风格实践和指出错误以外的用途。这里我忘了写过一个处理年龄验证的函数。你看我创建了 `validAge`，但是在表单验证代码区域没使用它。也许我该删了这个函数 —— 反正也只有一行，但我觉得留下来更好——以免以后验证逻辑越来越复杂。以下就是完整的代码了(demo_jshint/app.js)。
 
     /* globals $ */
     function validAge(x) {
-    	return $.isNumeric(x) && x >= 1;  
+      return $.isNumeric(x) && x >= 1;
     }
 
     function invalidEmail(e) {
@@ -376,100 +408,99 @@ Woot! Almost done. This final issue is a perfect example of where JSHint can pro
 
     $(document).ready(function() {
 
-    	$("#saveForm").on("submit", function(e) {
-    		e.preventDefault();
+      $("#saveForm").on("submit", function(e) {
+        e.preventDefault();
 
-    		var name = $("#name").val();
-    		var age = $("#age").val();
-    		var email = $("#email").val();
+        var name = $("#name").val();
+        var age = $("#age").val();
+        var email = $("#email").val();
 
-    		var badForm = false;
+        var badForm = false;
 
-    		if(name === "") badForm = true;
-    		if(age === "") badForm = true;
-    		if(!validAge(age)) badForm = true;
-    		if(email === "") badForm = true;
-    		if(invalidEmail(email)) badForm = true;
+        if(name === "") badForm = true;
+        if(age === "") badForm = true;
+        if(!validAge(age)) badForm = true;
+        if(email === "") badForm = true;
+        if(invalidEmail(email)) badForm = true;
 
-        	console.log(badForm);
-    		if(badForm) alert('Bad Form!');
-    		else {
-    			//do something on good 
-    		}
-    	});
+        console.log(badForm);
+        if(badForm) alert('Bad Form!');
+        else {
+          //do something on good
+        }
+      });
     });
 
-This version finally “passes” the JSHint test. To be clear, this code isn’t perfect. Notice how I have a validation function called `validAge` and one called `invalidEmail`. One is positive while the other is negative. It would be better if I were consistent. Also notice how every time validation is run, jQuery is asked to fetch three items from the DOM. They really only needed to be loaded once. I should create those variables outside of the submission block and reuse them every time. As I said, JSHint isn’t perfect, but the final version of the code is definitely better than the first and it didn’t take long to update.
+最终版本"通过"了 JSHint 的测试。虽然实际上并不完美。注意到我两个检验函数一个叫 `validAge` 一个叫 `invalidEmail` ，一个返回肯定一个返回否定。更好的做法是保持语义一致性。还有每次这个验证函数运行的时候，jQuery 需要获取DOM 中的三个元素，其实它们只需要被获取一次。我应该在表单提交回调函数外创建这些变量，每次验证的时候重复使用。如我所言，JSHint 不是完美的，但代码最终版本绝对比第一版要好很多，我的修改也没有花多少时间。
 
-You can find linters for JavaScript ([JSLint](http://www.jslint.com) and [JSHint](http://www.jshint.com)), HTML ([HTMLHint](http://htmlhint.com/) and the [W3C Validator](https://validator.w3.org/)) and CSS ([CSSLint](http://csslint.net/)). Along with editor support, if you’re really fancy, you can also automate it with tools like Grunt and Gulp.
+不同用途的代码检验器有 JavaScript([JSLint](http://www.jslint.com)和 [JSHint](http://www.jshint.com))，HTML([HTMLHint](http://htmlhint.com/)和 [W3C Validator](https://validator.w3.org/))和CSS ([CSSLint](http://csslint.net/))。如果编辑器支持，而你还是个"前端潮人"，还可以用 Grunt 和 Gulp 工具对这些进行自动化。
 
-## Testing
+## 测试
 
-I don’t write tests.
+我不写测试。
 
-There. I said it. The world didn’t end. To be fair, I _do_ write tests (ok, I _try_ to write tests) when working on client projects, but for my main job I tend to do blog posts and demos of various features. I don’t write tests for these as they’re just proof of concepts and not production work. That being said, I can say that even before I became an evangelist and stopped doing “real” work, I often used the same excuses for not linting as for not writing tests. And it turns out that many of the same things that made linting easier are also helping out on the testing side.
+没错，我话就撂这儿了。世界不会停止转动。不过，在开发客户端项目时，我其实_是_写测试的（好啦实际是我_尝试_去写测试），但是我的主要工作写博客，和各种功能的样例代码。这些代码只为验证概念而非投入生产环境使用，因此不写测试没什么大不了的。其实，在我成为布道者和不做"实际"工作之前，我也是敢这么放话的，不写测试的借口和不使用代码检验器一样。不过一些给检验器加分的因素放在测试上也很好用。
 
-First – many editors will actually generate tests for you. For example, in Brackets, you can use the [xunit](https://github.com/dschaffe/brackets-xunit) extension. It lets you right click on a JavaScript  
-file and generate a test (in multiple popular testing framework formats).
+首先——许多编辑器会为你自动生成测试代码。例如在 Brackets 中，可以使用 [xunit](https://github.com/dschaffe/brackets-xunit) 扩展。借助它你只要在 JavaScript 文件上调出右键菜单就能生成测试代码（支持多种流行测试框架格式）。
 
 ![](http://ww1.sinaimg.cn/large/9b5c8bd8jw1f0zus4jz8sj20m80hymy4.jpg)
 
-Test being created with xunit.
+xunit 创建的测试。
 
-The extension will do its best to attempt to write a test based on existing code. This test will be a 'stub’ and you’ll need to flesh out some actual data in it, but the important thing is that it gets the grunt work out of your way.
+该扩展基于现存代码去生成测试代码。生成的测试代码只是个模板，你需要自己去填写具体内容，这避免了一些无聊的重复劳动。
 
 ![](http://ww2.sinaimg.cn/large/9b5c8bd8jw1f0zuthjkyxj20m80hxjtd.jpg)
 
-Test created with xunit.
+xunit 创建的测试。
 
-Once you begin actually fleshing out those details, the extension will automatically run your tests for you. Honestly, at this point, not writing tests begins to plain look lazy.
+完成了测试细节的填充后，该扩展会帮你自动执行测试。都到了这份上了，不写代码基本上就只是懒了。
 
 ![](http://ww2.sinaimg.cn/large/9b5c8bd8jw1f0zutuzzmij20m80l50we.jpg)
 
-Test report.
+测试报告。
 
-You’ll probably have heard of TDD (Test Driven Development). This is the concept of writing unit tests before any actual functionality. Essentially, the idea is that your tests help drive your development. As you write your code and see your tests begin to pass, you have some assurance that your on the right path.
+你也许听过 TDD (测试驱动开发)。说的是在写具体代码之前先把单元测试写好。本质上是测试主导你的开发。写下代码并看它通过测试的时候，这些通过的测试能让你确保自己没有走错路。
 
-I think that’s a noble idea, but it may be difficult to achieve for everyone. How about starting simpler? Imagine you’ve got a set of existing code that – as far as you know – works just fine. Then you discover a bug. Before fixing the bug, you can create a test to verify the bug, fix it, then use the test to ensure it _stays_ fixed as you work on it in the future. As I said, this isn’t the ideal path, but can be a way to gently ramp up into including testing in all stages of your development.
+我觉得这个想法不错，不过让所有人都这么做的确是有点困难。我们干脆先从简单点的开始。想象下你手上有一些据你所知功能正常的代码，然后你发现了个 bug。在修复它之前，你可以创建一个测试去检验出此 bug，修复 bug，然后跑跑测试，确保此后相同的 bug _不会_再次出现。如我所言，这不是最理想的实践，但也能算是朝着以后在开发所有阶段实践测试的一个过渡。
 
-For our sample code with a bug we’ll use a little function that I wrote that tries to shorten numbers. So for example, 109203 could be simplified as 109K. An even bigger number like 2190290 could be turned into 2M. Let’s look at the code and then I’ll demonstrate the bug.
+我用我写的一个精简数字显示的函数作为 bug 的例子。109203可以精简为109K。更大的例如2190290这样的数可精简为2M。看下代码然后我会说说 bug。
 
     var formatterModule = (function() {
 
-    	function fnum(x) {
-    		if(isNaN(x)) return x;
+      function fnum(x) {
+        if(isNaN(x)) return x;
 
-    		if(x < 9999) {
-    			return x;
-    		}
+        if(x < 9999) {
+          return x;
+        }
 
-    		if(x < 1000000) {
-    			return Math.round(x/1000) + "K";
-    		}
-    		if(x < 10000000) {
-    			return (x/1000000).toFixed(2) + "M";
-    		}
+        if(x < 1000000) {
+          return Math.round(x/1000) + "K";
+        }
+        if(x < 10000000) {
+          return (x/1000000).toFixed(2) + "M";
+        }
 
-    		if(x < 1000000000) {
-    			return Math.round((x/1000000)) + "M";
-    		}
+        if(x < 1000000000) {
+          return Math.round((x/1000000)) + "M";
+        }
 
-    		if(x < 1000000000000) {
-    			return Math.round((x/1000000000)) + "B";
-    		}
+        if(x < 1000000000000) {
+          return Math.round((x/1000000000)) + "B";
+        }
 
-    		return "1T+";
-    	}
+        return "1T+";
+      }
 
-    	return {
-    		fnum:fnum	
-    	}
+      return {
+        fnum:fnum
+      }
 
     }());
 
-Maybe you see the issue right away? Give up? When given 9999 as an input, it returns 10K. Now, that might be a useful shortening, but the code is supposed to treat all numbers below 10K as their original value. It is an easy enough correction, but let’s use this as an opportunity to add a test. For our testing framework we’ll use [Jasmine](http://jasmine.github.io/). Jasmine has a great, easy to understand language for writing tests and a simple way to run them. The quickest way to get started is to download the library. Once you’ve done that and extracted it, you’ll find a file called SpecRunner.html. This file handles loading your code, loading a test, and then running the tests and creating a pretty report. It requires the lib folder from the zip but you can begin by copying both SpecRunner and the lib to someplace on your web server.
+你马上看出问题了？还是放弃了？当输入9999的时候，会返回10K。尽管此精简可能有用，但代码对于所有小于10K的数字应该一视同仁，都返回它们的原始值。这个修正很简单，我们正好当作添加测试的机会。关于测试框架我选择 [Jasmine](http://jasmine.github.io/)。Jasmine 的测试易于编写和运行。最快的使用方法是下载这个库。解压后你会发现 SpecRunner.html 文件。此文件负责引入我们的代码，引入测试，而后运行测试和生成漂亮的报告。它依赖于压缩包中的 lib 文件夹，你一开始可以把 SpecRunner 和 lib 文件夹一起复制到你的服务器某处。
 
-Open up SpecRunner.html and on top you’ll see:
+打开 SpecRunner.html 你会看到。
 
     <!-- include source files here... -->
     script tags here...
@@ -477,70 +508,70 @@ Open up SpecRunner.html and on top you’ll see:
     <!-- include spec files here... -->
     more script tags here...
 
-Under the first comment you’ll want to remove the existing line and simply add a script tag pointing to the code containing your code. If you’ve got the zip file for this article you can see my code in demo4 in a file called formatter.js. Next you’ll want to add a script tag pointing to the spec, or test. Maybe you haven’t seen Jasmine before, but take a look at the spec. It is _very_ readable, even to the untrained eye.
+在第一个注释下你需要删除已有的代码然后加上一个 script 标签引入你的代码。如果下载了此文的代码，你可以在 demo4 文件夹里找到 formatter.js 文件。之后你要加一个 script 标签引入测试代码。你可能之前没见过 Jasmine，但你看看这个测试代码，_非常_易读，新手也能懂。
 
     describe("It can format numbers nicely", function() {
 
-    	it("takes 9999 and returns 9999", function() {
-    		expect(9999).toBe(formatterModule.fnum(9999));
-    	});
+      it("takes 9999 and returns 9999", function() {
+        expect(9999).toBe(formatterModule.fnum(9999));
+      });
 
     });
 
-Basically my test is saying that when 9999 is passed to the library it should get 9999 out again. If you open the SpecRunner.html in your browser you can see it reporting the failure.
+我的测试说的是当9999作为输入时应该返回9999。在浏览器里打开 SpecRunner.html 你就能看到错误报告。
 
 ![](http://ww4.sinaimg.cn/large/9b5c8bd8jw1f0zuu5bbhaj20m80e1q61.jpg)
 
-Report of the failing test.
+测试失败的报告。
 
-The fix, is rather simple. Change that conditional using 9999 to 10000:
+修复起来很简单。把条件里的数字从9999增到10000:
 
     if(x < 10000) {
-    	return x;
+      return x;
     }
 
-Now when you run the tests you’ll see a much happier picture:
+不论何时再跑测试你能看到一片欢乐。
 
 ![](http://ww2.sinaimg.cn/large/9b5c8bd8jw1f0zuuh4xj8j20m804y74k.jpg)
 
-Report of the passing test.
+测试成功的报告。
 
-Looking at the module, you can probably think of a number of related tests that would really flesh out the suite. In general, there’s nothing wrong with going overboard on your testing and trying to cover every possible use of your code possible. Consider the awesome date/time library [Moment.js](http://momentjs.com/). It has – I kid you not – over fifty-seven thousand tests. That’s thousand. You read it right.
+你估计能想出一些相关测试完善这套测试。通常来说，积极地添加测试以覆盖你代码的各种可能使用场景没有任何不妥。关于日期和时间的牛库 [Moment.js](http://momentjs.com/)，不是我骗你，有超过五万七千多个测试。你真没看错，就是几万个。
 
-Other options for testing JavaScript code include [QUnit](https://qunitjs.com/) and [Mocha](http://mochajs.org/). As with linting you can automate testing with tasks runners like Grunt, and you can even go full stack and test the browser itself with [Selenium](http://www.seleniumhq.org/).
+JavaScript 测试框架的其他选择有 [QUnit](https://qunitjs.com/)和 [Mocha](http://mochajs.org/)。和代码检验一样，你能使用 Grunt 之类的工具自动化测试，甚至可以往全栈靠一点，使用 [Selenium](http://www.seleniumhq.org/) 测试浏览器。
 
-## Browser Developer Tools
+## 浏览器开发者工具
 
-The final tool I’ll mention are those within the browser itself – the dev tools. You can find multiple articles, presentations, and videos on this topic so I won’t say much more about it, outside of my belief that, amongst everything I’ve discussed today, this is probably the one thing I’d call **required knowledge** for web developers. It is perfectly fine to write broken code. And it is perfectly fine to not know everything. But browser dev tools at least help you _find_ the broken bits. At that point a solution is typically one Google search away.
+我提到的最后一个工具在浏览器里——开发者工具。你能找到许多关于此的文章、演讲和视频，我亦不需赘言。在今天所说的所有内容中，这一条我认为应该是 web 开发者的**必需知识**。你可以写出不能用的代码，可以不是什么都懂，但起码还有开发者工具帮你找出错误所在，然后你只需要 google 一下问题就能解决了。
 
-If I can add one final piece of advice here, it is that you should not focus on only one browser’s dev tools. I was playing with App Cache a few years ago (yes, I’m a glutton for punishment) and ran into issues with my code working in Chrome. Of course, I had my dev tools open, but it wasn’t helping. On a whim, I opened up the code in Firefox and used their dev tools, and **immediately** I discovered the issue. Firefox simply reported more information about the request compared to Chrome. Running it one time was all I needed to correct the issue. (Ok, that’s a lie. Firefox showed me the problem but it took a bit longer to fix.) If you find yourself stuck, just open another browser and see if the error reporting offers a different perspective.
+再多提一个建议，你不该把自己吊在一个浏览器的开发者工具上。几年前我在鼓捣 App Cache （没错我就是爱自虐），碰上了个只在 Chrome 下出现的问题。当时开着开发者工具，但是没啥用。我灵机一动用 Firefox 打开我的代码，使用它的工具调试，然后我**立刻**就发现了问题所在。Firefox 列出的关于请求的信息比 Chrome 多。我用了一次这个工具立马解决了问题（好吧其实这是胡诌的，Firefox 的确显出问题所在不过我修复问题也用了好些时间）。如果你卡在某个问题上，不如试试打开其他浏览器看看错误报告有没有多说些什么。
 
-On the off chance you’ve never actually _seen_ your browser tools in action, here are instructions on how to view them in all the major browsers, as well as the best link to get started for reading more.
+万一万一你真从没_见_过开发者工具，以下有些主流浏览器工具阅览指南和极好的详细教程。
 
 ### Google Chrome
 
-To open dev tools, click the hamburger menu icon on the upper right of your browser, select “More Tools”, and then “Developer Tools”. You can also open up dev tools using your keyboard. For example, on OSX the combination is `CMD+SHIFT+C`. You can find documentation for Chrome’s dev tools at [“Chrome DevTools Overview”](https://developer.chrome.com/devtools).
+点击浏览器右上角的汉堡菜单图标，选择"更多工具" -> "开发者工具"。也可以用键盘快捷键打开，例如在 OSX 下快捷键是 `CMD+SHIFT+C`。关于谷歌的开发者工具文档可到 [Chrome 开发者工具纵览](https://developer.chrome.com/devtools)寻找。
 
 ### Mozilla Firefox
 
-To open dev tools, click “Tools” in the main menu, then “Web Developer” and “Toggle Tools”. Note that Firefox has a cool toolbar that can be used to issue commands and make opening up dev tools even easier. This can be enabled from the same menu. You can learn more at [Firefox Developer Tools](https://developer.mozilla.org/en-US/docs/Tools).
+在主菜单的"工具"栏里，选择 "Web 开发者" -> "切换工具箱"。Firefox 工具栏很酷，在同一菜单下，有许多快速打开开发者工具命令。详情请见 [Firefox 开发者工具](https://developer.mozilla.org/en-US/docs/Tools)
 
-### Apple Safari (AKA the browser for watching Apple keynotes)
+### Apple Safari (传说中用来看 Apple keynotes 的浏览器)
 
-Before you can work with dev tools, you have to enable the “Develop” menu. Go to Safari preferences, then “Advanced”, and click “Show Develop menu in menu bar.” Then you can select the “Develop” menu and use “Show Web Inspector” (or the three items below it) to open dev tools. You can read more about this at [“About Safari Web Inspector”](https://developer.apple.com/library/safari/documentation/AppleApplications/Conceptual/Safari_Developer_Guide/Introduction/Introduction.html).
+你得先开启"开发"菜单才能使用开发者工具。进入 Safari 偏好设置，选择"高级"，选中"在菜单栏中显示'开发'菜单"。然后就能从"开发菜单"里通过"显示 Web 检查器"（或者其下的其他三个菜单项）打开工具。详情见[关于 Safari Web 检查器](https://developer.apple.com/library/safari/documentation/AppleApplications/Conceptual/Safari_Developer_Guide/Introduction/Introduction.html)。
 
 ### Internet Explorer
 
-You can open Internet Explorer’s Dev Tools by clicking the gear icon in the upper right hand of the browser (or by presing F12). You can read more here, [“Using the F12 developer tools”](https://msdn.microsoft.com/library/bg182326%28v=vs.85%29).
+点击浏览器右上角的设置按钮或按下键盘 F12键打开开发者工具。详情见[使用 F12 开发者工具](https://msdn.microsoft.com/library/bg182326%28v=vs.85%29)。
 
-## Learning More
+## 更多学习
 
-Sometimes it seems as if our job as developers is never complete. While writing this article, did you know that thirteen more JavaScript frameworks were released? True story! So here is some final advice on how to learn and how to keep up – as best as possible.
+有时候感觉像我们这些做开发的，工作就从来没有完成的时候。你知道在这篇文章写作期间有13个新的 JavaScript 框架发布了么？讲真！以下是最后几个让你学习并且跟上潮流的建议，尽量跟上。
 
-For learning, I focus my attention on the [Mozilla Developer Network](http://developer.mozilla.org) (when you google, try preprending your term with “mdn”), [CodeSchool](http://www.codeschool.com) (a commercial video training company with great content), and [Khan Academy](https://www.khanacademy.org/). I want to specifically call out Mozilla Developer Network (MDN) as I avoided it for years thinking it was a Netscape/Firefox only site. That was pretty dumb.
+学习方面，我选择专注于 [Mozilla Developer Network](http://developer.mozilla.org)(你要是准备 google 什么，最好加上 "mdn" 作为前缀)，[CodeSchool](http://www.codeschool.com) (一个商业的编程学习视频网站，内容还不错), 和 [Khan Academy](https://www.khanacademy.org/)。特别要说下 Mozilla 开发者网络(MDN)，多年来我以为它只有 Netscape/Firefox 知识而忽视了它，蠢死了我。
 
-Another suggestion is to just read code! Many of us have used jQuery, but have you ever actually opened up the file to take a look at how it is built? Reading other people’s code can be a great way to get exposed to other techniques and methods. While it may be scary, I also strongly encourage you to share your own code. Not only will you get the benefit of having an extra pair of eyes (or many thousands of them) look at your code, you may actually help others as well. A few years back I was watching a junior programmer share some code and while he made some fairly typical “noob” mistakes, he also used some techniques that were outright brilliant.
+另一建议是多读代码！你们中许多人都用过 jQuery，但你有打开它的源码看看它的实现么？读别人的代码是一个很好的学习技巧的和方法的途径。还有一个听起来可能有点恐怖，不过我真的强烈建议你分享自己的代码。不光是多了双雪亮的眼睛（或者成千上万双）来审视你的代码，你也许也能帮助其他的人。几年前我看见一个初级程序员分享他的代码，虽然里面有些菜鸟级的错误，但也有一些超棒的技巧。
 
-For keeping up on the latest news, I subscribe to the various “weekly” newsletters run by [Cooper Press](http://cooperpress.com). They have an HTML weekly, a JavaScript one, a Node one, a Mobile one, and so forth. It can get overwhelming, but do what you can do. When I see that some new tool has been released that does Foo and I don’t particularly _need_ Foo at the moment, I don’t even try to learn this tool. I just remember, “Hey, there’s a tool that does Foo.” so that when I need it in the future, I can dedicate the time then.
+为获取最新资讯，我订阅了 [Cooper Press](http://cooperpress.com) 发行的一系列周报。有 HTML 的，JavaScript 的，Node 的和移动开发(Mobile) 和其他一系列。信息可能会淹没你，尽你所能阅读就行。当我看到某个新发布的工具有我_并不_需要的 XXX 功能的时候，我也不用去学它。我只要记住"诶哟有个工具有 XXX 功能"，以后我需要这个功能的时候再去学习。
 
-_Header image courtesy of [Lemsipmatt](https://flic.kr/p/5PS638)_
+_感谢[Lemsipmatt](https://flic.kr/p/5PS638)提供的首图_
