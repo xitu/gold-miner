@@ -1,8 +1,8 @@
 >* 原文链接 : [Why Building Community Is the New “Growth Hack”](http://thehustle.co/why-building-community-is-the-new-growth-hack)
 * 原文作者 : [TAM PHAM](http://thehustle.co/author/tam/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : [Zhongyi Tong (geeeeeeeeek)][https://github.com/geeeeeeeeek]
-* 校对者:
+* 译者 : [Zhongyi Tong][https://github.com/geeeeeeeeek]
+* 校对者 : [JasinYip](https://github.com/JasinYip), [godofchina](https://github.com/godofchina)
 
 
 # 构建用户社区 - 新的“增长黑客”方式
@@ -49,7 +49,7 @@ theSkimm 很快在三年内将他们的邮件列表扩展到100万个订阅者�
 
 他们现在有 12,000 多个大使，分在两个 Facebook 小组中: 一组是大学生，另一组是其他所有人。
 
-我们学到了: theSkimm 读者喜欢周边产品并把 theSkimm 展示给他们的朋友和家人。他们同样喜欢和其他 “Skimm 小伙伴” 线上联系，热衷于参与他们都感兴趣的话题。
+我们从中得知: theSkimm 读者喜欢周边产品并把 theSkimm 展示给他们的朋友和家人。他们同样喜欢和其他 “Skimm 小伙伴” 线上联系，热衷于参与他们都感兴趣的话题。
 
 ![](http://ww3.sinaimg.cn/large/a490147fgw1f2tx2frkrej20le0a9tar.jpg)
 
@@ -73,7 +73,7 @@ Huckberry 提供了不同的措施来激励大使，包括小玩意、特殊项�
 
 Huckberry 在 2015 年 在 Instagram 上取得了 84% 的年度增长，他们将此部分归结于 Instagram 上的大使所做的交叉推广。这个项目相对较新，目前通过网站流量、新增用户、社交增长来衡量成功与否。他们告诉 The Hustle ，他们首要的目标是建立一个紧密的探险者、创新者和运动员的大家庭，他们的职业更贴近 Huckberry 的文化。
 
-我们学到了: 保持私人感。创建一个紧密的大家庭，其中的成员欣赏 Huckberry 的品牌和生活方式。
+我们从中得知: 保持私人感。创建一个紧密的大家庭，其中的成员欣赏 Huckberry 的品牌和生活方式。
 
 ![Chubbies 3](http://thehustle.co/wp-content/uploads/2016/02/Chubbies-3.jpg)
 
@@ -107,7 +107,7 @@ Chubbies 现在在全国有 400 个大使。
 
 > “这个项目对品牌成长的贡献无法估量，我们非常激动，因为我们预计这个项目的影响只会增长。” Chubbies 的内容导师 Mason 说。
 
-我们学到了：高度评价大使的工作。鼓励他们创造与你品牌相符的内容，以创造双赢的局面。
+我们从中得知：高度评价大使的工作。鼓励他们创造与你品牌相符的内容，以创造双赢的局面。
 
 ![](http://ww4.sinaimg.cn/large/a490147fgw1f2tx5d8pzpj20le0lemyv.jpg)
 
@@ -142,7 +142,7 @@ Serengetee 在 2012 年创立公司之后发展到了 2,500 个学员代表。
 
 创始人说，校园代表项目是他们重要的增长要素。
 
-我们学到了：大学生和高中生可以成为你在社交渠道上品牌宣传最重要的资产。
+我们从中得知：大学生和高中生可以成为你在社交渠道上品牌宣传最重要的资产。
 
 ![](http://ww4.sinaimg.cn/large/a490147fgw1f2txkae8jgj20le0leq3k.jpg)
 
