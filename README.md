@@ -49,6 +49,8 @@
 
 ## iOS
 
+
+* [使用 Xcode 的 Scheme 来跑不同的测试集合](http://gold.xitu.io/entry/5723223f71cfe400575f4528?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Tuccuay](https://github.com/Tuccuay)翻译）
 * [UIScrollView 新手教程](http://gold.xitu.io/entry/570c71a81ea4930068dcbc5e?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zhongyi Tong](https://github.com/geeeeeeeeek)翻译）
 * [RxSwift at first sight](http://gold.xitu.io/entry/56d5528a1532bc004c6e913a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([SatanWoo](https://github.com/SatanWoo)翻译）
 * [Facebook iOS 应用是如何加速图片显示的？](http://gold.xitu.io/entry/56de9bc7731956005e1b5b2e?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([bobmayuze](https://github.com/bobmayuze) 翻译)
