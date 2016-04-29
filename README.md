@@ -60,6 +60,7 @@
 
 ## 前端
 
+* [JavaScript 姿势提升简略](http://gold.xitu.io/entry/5722c838128fe100601dc3a8?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Hikerpig](https://github.com/hikerpig) 翻译)
 * [Starlight - 在网页中运行 Lua](http://gold.xitu.io/entry/5719907eebcb7d005cc6acca?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([narcotics726](https://github.com/narcotics726) 翻译)
 * [React.js 新手村教程](http://gold.xitu.io/entry/5719b6acebcb7d006a007d9b?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([markzhai](https://github.com/markzhai) 翻译)
 * [使用 CSS 和 jQuery 来做一个墨水晕开的效果](http://gold.xitu.io/entry/57160c4b8ac2470062601b1f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([L9m](https://github.com/L9m) 翻译)
