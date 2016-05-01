@@ -1,6 +1,8 @@
 # 掘金翻译计划
 
-翻译优质的互联网技术文章
+掘金翻译计划是一个翻译优质互联网技术文章的社区，文章来源为[掘金](http://gold.xitu.io)上的英文分享文章。内容覆盖 Android、iOS、前端、后端、产品、设计等领域，读者为热爱新技术的新锐开发者。
+
+掘金翻译计划目前翻译完成 80 余篇文章，共有 [49](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 名译者贡献翻译。
 
 # 如何参与翻译
 
@@ -49,6 +51,8 @@
 
 ## iOS
 
+
+* [使用 Xcode 的 Scheme 来跑不同的测试集合](http://gold.xitu.io/entry/5723223f71cfe400575f4528?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Tuccuay](https://github.com/Tuccuay)翻译）
 * [UIScrollView 新手教程](http://gold.xitu.io/entry/570c71a81ea4930068dcbc5e?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zhongyi Tong](https://github.com/geeeeeeeeek)翻译）
 * [RxSwift at first sight](http://gold.xitu.io/entry/56d5528a1532bc004c6e913a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([SatanWoo](https://github.com/SatanWoo)翻译）
 * [Facebook iOS 应用是如何加速图片显示的？](http://gold.xitu.io/entry/56de9bc7731956005e1b5b2e?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([bobmayuze](https://github.com/bobmayuze) 翻译)
@@ -60,6 +64,7 @@
 
 ## 前端
 
+* [JavaScript 姿势提升简略](http://gold.xitu.io/entry/5722c838128fe100601dc3a8?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Hikerpig](https://github.com/hikerpig) 翻译)
 * [Starlight - 在网页中运行 Lua](http://gold.xitu.io/entry/5719907eebcb7d005cc6acca?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([narcotics726](https://github.com/narcotics726) 翻译)
 * [React.js 新手村教程](http://gold.xitu.io/entry/5719b6acebcb7d006a007d9b?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([markzhai](https://github.com/markzhai) 翻译)
 * [使用 CSS 和 jQuery 来做一个墨水晕开的效果](http://gold.xitu.io/entry/57160c4b8ac2470062601b1f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([L9m](https://github.com/L9m) 翻译)
@@ -102,6 +107,7 @@
 
 ## 设计
 
+* [Sketch的过去现在和未来](http://gold.xitu.io/entry/5721e59771cfe40057521079?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lfkdsk](https://github.com/lfkdsk) 翻译)
 * [为什么我们喜欢丑的、一团糟的界面以及你为什么也要这样](http://gold.xitu.io/entry/57172a4f2e958a0054a8ffcf?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([circlelove](https://github.com/circlelove) 翻译)
 * [写给设计师的字偶距调整指南](http://gold.xitu.io/entry/570e5530c4c971005496adc4?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([cdpath](https://github.com/cdpath) 翻译)
 * [设计一款移动应用前你应该知道这些事情](http://gold.xitu.io/entry/57034d617db2a200592a5213?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Adam Shen](https://github.com/shenxn) 翻译)
@@ -117,6 +123,8 @@
 
 ## 产品
 
+* [为什么 Spotify 的付费转化率比 Dropbox 高了 667%](http://gold.xitu.io/entry/57232041f38c8400599ef706?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([SatanWoo](https://github.com/SatanWoo)翻译）
+* [新的 “增长黑客” 实践 —— 构建用户社区](http://gold.xitu.io/entry/5721e80cf38c84005992097e?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zhongyi Tong](https://github.com/geeeeeeeeek)翻译）
 * [互联网公司真的是「看重能力，不看重学历」吗？](http://gold.xitu.io/entry/571d8e4c8ac24700646f30ae?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zhangjd](https://github.com/zhangjd) 翻译)
 * [产品设计实习生面试指南](http://gold.xitu.io/entry/5715b102c4c971005bdc93e9?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([iThreeKing](https://github.com/iThreeKing) 翻译)
 * [你真的懂病毒式营销吗](http://gold.xitu.io/entry/5715d39cdf0eea005c930d80?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([huanglizhuo](https://github.com/huanglizhuo) 翻译)
