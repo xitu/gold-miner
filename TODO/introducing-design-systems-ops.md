@@ -55,29 +55,29 @@ Design Systems Ops 是设计团队的一部分，他需要足够了解设计，�
 
 <figcaption>通过在设计和开发间引入一位中间者，进一步减少低效，增加软件交付的还原度。</figcaption>
 
-来自于两边的关于设计系统的许多问题：
+来自于设计系统两边的许多问题：
 
-*   我从哪里可以找到标记, 颜色面板，数值，图标，模式，断点？
-*   如果我在原型中，产品中，Web view 中如何加载CSS？
-*   加载字体图标的最佳方式事什么？
-*   他们对性能有什么影响？
-*   我应该在哪里发现文件错误并且在哪里寻找其他人对他们问题的解决办法（问题追踪，知识基础）？
-*   我该如何为设计系统做贡献（修复 bug,增加一个图标）？
+*   我从哪里可以找到标记、颜色面板、数值、图标、模式、断点？
+*   在制作原型时、在产品中、或者在 Web 视图中我应该如何加载 CSS？
+*   加载字体图标的最佳方式是什么？
+*   它们对性能有什么影响？
+*   我应该在哪里发现文件错误，又应该在哪里寻找其他人解决自身问题的办法（问题追踪，知识基础）？
+*   我该如何为设计系统做贡献（修复 bug 、增加一个图标）？
 *   我是一个参与者，我该怎样在多种环境中测试我的代码而不至于出错呢？
-*   我事一个开发者，对于设计系统我该知道什么？
-*   我事一个设计师，我该怎样迭代I’m a designer, how can I iterate in the browser on an existing pattern?
-*   从 v1.0 到 v2.0 的升级路径事什么？
+*   我是一个开发者，对于设计系统我该知道些什么？
+*   我是一个设计师，我该怎样迭代浏览器中的现有模式？
+*   从 v1.0 到 v2.0 的升级路径是什么？
 *   0.5.0 版本的文档在哪里？
 
-我学习了一些像[Bootstrap](http://getbootstrap.com/) 和 [Material Design Lite](http://getmdl.io/) 这样的开源项目。在卫报, [我开始构建起设计和开发的桥梁](https://www.youtube.com/watch?v=ciG-A_1FyVg)，大多采用 Sass 。在金融时报时 [Origami](http://origami.ft.com) 工作时帮助我发现规模化设计的新思路。 我今天工作的地方， [Salesforce](https://www.lightningdesignsystem.com)，有一个团队的工程师作为 Design Systems Ops，热爱于装运更快并且更好的代码给用户。
+我学习了一些像 [Bootstrap](http://getbootstrap.com/) 和 [Material Design Lite](http://getmdl.io/) 这样的开源项目。在《卫报》, [我开始构建起设计和开发的桥梁](https://www.youtube.com/watch?v=ciG-A_1FyVg)，里面提到主要采用 Sass 。在金融时报为 [Origami](http://origami.ft.com) 项目工作时也帮助我发现规模化设计的新思路。 我今天工作的地方， [Salesforce](https://www.lightningdesignsystem.com)，有一个团队的工程师作为 Design Systems Ops，热衷于将更快更好的代码交付给用户。
 
-在回顾我过往如何规模化设计的经验之后，这里here are some things that could fall under Design System Ops’s umbrellas:
+在回顾我过往如何规模化设计的经验之后，这些都是 Design System Ops 可以做的工作：
 
-*   本地开发环境 （源映射，无刷新重载，速度）
+*   本地开发环境（源映射，无刷新重载，速度）
 *   托管（放置设计展示和文档）
-*   代码演示（比如 CodePen, JS Bin）
-*   技术文档（安装，问题诊断）
-*   前端自动化测试（可访问性，集成）
+*   代码演示（比如 CodePen、JS Bin）
+*   技术文档（安装、问题诊断）
+*   前端自动化测试（可访问性、集成）
 *   跨浏览器自动化测试
 *   视觉回归测试
 *   代码风格检查 ([我之前写的](https://www.theguardian.com/info/developer-blog/2014/may/13/improving-sass-code-quality-on-theguardiancom))
@@ -85,34 +85,33 @@ Design Systems Ops 是设计团队的一部分，他需要足够了解设计，�
 前面这一系列是以前端为中心的，但是这里有些更接近后端的：
 
 *   构建系统
-*   资源储存和分布（CDN，压缩）
-*   性能测试（资源大小，服务器加载，CDN 响应时间等等）
-*   版本流程（比如 git, SemVer）
-*   发布流程 （比如 [持续开发](http://radar.oreilly.com/2009/03/continuous-deployment-5-eas.html), [持续集成](http://guide.agilealliance.org/guide/ci.html)）
-*   测试/阶段环境
-*   展现测试结果和性能结果（比如 仪表板，邮件）
+*   资源储存和分布（CDN、压缩）
+*   性能测试（资源大小、服务器加载、CDN 响应时间等等）
+*   版本流程（比如 git、SemVer）
+*   发布流程 （比如 [持续开发](http://radar.oreilly.com/2009/03/continuous-deployment-5-eas.html)、[持续集成](http://guide.agilealliance.org/guide/ci.html)）
+*   Testing/Staging阶段环境
+*   展现测试和性能结果（比如 仪表板、邮件）
 
 或者，更靠近市场营销这边的事情（开发宣传）：
 
 *   构建示例
-*   帮助开发者实现这设计系统
-*   给开发社区布道这设计系统
+*   帮助开发者实现这套设计系统
+*   给开发社区布道这套设计系统
 
-就像前面提到的这些方面有坚实的解决方案能很大地帮助设计团队提高交付质量。the speed and confidence at which they operate. **这是我相信为什么在设计团队中有个好的参谋将增加项目成功的可能。**
+就像前面提到的，在这些方面有坚实的解决方案能很大地帮助设计团队提高交付质量，并提高工作的速度和信心。**这是为什么我相信在设计团队中有个好的参谋将增加项目成功的可能性。**
 
 ### 总结
 
-随着越来越多的公司构建属于自己的设计系统，他们也显示出对于增加支持设计工作和工具的技术人员表现出兴趣。因为它只是这个角色的开始 ，我们将有很多问题。那些让我夜不能寐。
+随着越来越多的公司构建属于自己的设计系统，他们也开始显示出增加技术人员去支持设计的工作和工具的兴趣。因为它只是这个角色的开始，有些问题也让我夜不能寐。
 
-*   ** Design Systems Ops 能在其他方面做些什么？**
+*   **Design Systems Ops 能在其他方面做些什么？**
 *   **什么工具能帮助小型团队在成本有限的情况下遵循这个路线呢？**
 *   **除了开发速度，还有那些方面应该是Design Systems Ops应该评判的？**
 
-我喜欢了解你的所想，如果你也在旧金山，来[享受一杯咖啡](https://twitter.com/kaelig)并谈谈你的想法。
+我非常乐意听听你的看法，如果你也在旧金山，来[喝杯咖啡](https://twitter.com/kaelig)聊一聊。
 
 Design Systems Ops 并没有我凭空产生的想法，要理解我想法的由来，你可以阅读[Ian Feather's awesome presentation about Front End Ops](http://ianfeather.co.uk/presentations/front-end-ops/).
 
-同样， 听 [Design Details](http://spec.fm/) 播客，那些有创造他们的设计系统和风格指南的全世界很优秀的设计师。
+同样， 听 [Design Details](http://spec.fm/) 播客，全世界许多优秀的设计师都在那里分享他们创造设计系统和风格指南的经验。
 
-最后，如果你想从整体上讨论上设计系统或想去更多学习它们，不要错过 2016年3月31日到4月1日在旧金山举行的 [Clarity Conference](http://clarityconf.com/) （由设计系统女王自己组织: [jina ₍˄ุ.͡˳̫.˄ุ₎](https://medium.com/u/f5d1807b438)).
-
+如果你想从整体上讨论设计系统或者想要更多地了解它们，不要错过 2016年3月31日到4月1日在旧金山举行的 [Clarity Conference](http://clarityconf.com/) （由设计系统女王自己组织: [jina ₍˄ุ.͡˳̫.˄ุ₎](https://medium.com/u/f5d1807b438)).
