@@ -2,7 +2,7 @@
 * 原文作者 : [Kaelig](https://medium.com/@kaelig)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [L9m](https://github.com/l9m/)
-* 校对者:
+* 校对者: [JasinYip](https://github.com/JasinYip)、[shenxn](https://github.com/shenxn)、[Ruixi](https://github.com/Ruixi)
 
 
 ![](https://cdn-images-1.medium.com/max/2000/1*RbwXg-OMlJTG7iiHs4NMQg.jpeg)
@@ -23,7 +23,7 @@ Design Systems Ops 是设计团队的一部分，他需要足够了解设计，�
 
 ![](https://cdn-images-1.medium.com/max/800/1*NJbl6JkUcbGPLU1bxVW7kw.png)
 
-<figcaption>从概念到用户的一种典型流程：还原度越靠近用户阶段越低。</figcaption>
+<figcaption>从概念到用户的一种典型流程是：越靠近用户阶段，还原度越低。</figcaption>
 
 信号（概念）受到干扰（低效率）而逐渐变弱，产品在一个非常低的还原度中结束。这种失败对公司创造高质量产品的能力有着巨大影响，并且造成巨大商业机会的浪费。
 
