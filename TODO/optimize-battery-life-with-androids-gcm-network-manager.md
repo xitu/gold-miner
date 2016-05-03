@@ -1,28 +1,33 @@
 # 使用GCM网络管理工具优化电池使用
 
-[原文链接：https://www.bignerdranch.com/blog/optimize-battery-life-with-androids-gcm-network-manager/](https://www.bignerdranch.com/blog/optimize-battery-life-with-androids-gcm-network-manager/)
+> * 原文链接 : [Optimize Battery Life with Android's GCM Network Manager](https://www.bignerdranch.com/blog/optimize-battery-life-with-androids-gcm-network-manager/)
+* 原文作者 : [Matt Compton](https://www.bignerdranch.com/about-us/nerds/matt-compton/)
+* 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
+* 译者 : 程大治
+* 校对者: [leokelly](https://github.com/leokelly)/[Zhongyi Tong](https://github.com/geeeeeeeeek)
+* 状态 :  
 
-通过GCM网络管理工具我们可以注册用于执行网络任务的服务，其中每一个任务都是一件独立的工作。GCM的API帮助进行任务的调度，并让Google Play服务在系统中批量进行网络操作。
+通过[GCM网络管理工具](https://developers.google.com/android/reference/com/google/android/gms/gcm/GcmNetworkManager)我们可以注册用于执行网络任务的服务，其中每一个任务都是一件独立的工作。GCM的API帮助进行任务的调度，并让Google Play服务在系统中批量进行网络操作。
 
 其API还有助于简化网络操作模式，比如等待网络连接、进行网络重连与补偿等。总的来说，GCM网络管理工具通过提供一个简洁明快的网络请求调度API来帮助开发者在网络相关的问题上少费心思。
 
 ## 电量和网络操作
 
-在深入GCM与其优势之前，我们先聊一聊与网络请求相关的电池使用问题，这有助于我们认识管理网络操作的重要性。
+在深入GCM与其优势之前，我们先聊一聊与网络请求相关的电池使用问题，这有助于我们认识批量处理网络操作的重要性。
 
-下面是Android通讯模块(radio)的图解：
+下面是Android通讯模块(radio)的状态机：
 
 ![radio_diagram](http://7xpg2f.com1.z0.glb.clouddn.com/mobile_radio_state_machine.png)
 
-这个图还是挺清晰的。我想通过这个图标告诉大家唤醒通讯模块是处理网络连接时最耗电的操作，可见，网络操作是电池最大的消耗者。
+这个图还是挺清晰的。我想通过这个图表告诉大家唤醒通讯模块是处理网络连接时最耗电的操作，也就是说，网络操作是电池最大的消耗者。
 
 虽然一个网络操作不可能耗尽电池，但唤醒通讯模块所发送的单个请求数目相当可观。如果网络请求是单独发送的，那么设备就会被持续唤醒，通讯模块也会保持开启状态。设备持续唤醒无法休眠会导致电量大幅消耗。（就如人睡不着觉一样）
 
-下面的示意图说明了一个叫PhotoGallery的图片获取APP的单次网络请求。
+下面的示意图说明了一个叫PhotoGallery的图片获取APP的单次网络请求，这个APP也是我们的畅销书[Android Programming Book](https://www.bignerdranch.com/we-write/android-programming/)中的一个示例APP。
 
 ![network_request](http://7xpg2f.com1.z0.glb.clouddn.com/network_request_single.png)
 
-看起来单词网络操作也没啥。网络模块被唤醒了，但这可只是单词请求。
+看起来单次网络操作也没啥。网络模块被唤醒了，但这只是单次请求。
 
 而多次请求的示意图是这样的：
 
@@ -188,7 +193,7 @@ GcmNetworkManager对象是用来调度网络任务的，所以我们可以在onC
 		// 以其他方式处理task
 	}
 
-如果Google Play服务不可使用，GcmNetworkManager会静静地失效，这就是为什么需要提前检测。
+如果Google Play服务不可使用，GcmNetworkManager会静默失效，这就是为什么需要提前检测。
 
 类似地，当Google Play服务或是客户端APP被升级，所有的已调度的任务都会失效。为了避免丢失当前已调度的任务，GcmNetworkManager会调用GcmTaskService(这里是CustomService)的onInitializeTasks()方法。这个方法是用来重新调度任务的，对周期性任务尤其常见。下面是示例：
 
