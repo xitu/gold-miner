@@ -5,27 +5,27 @@
 * 校对者:
 
 
-由于目前 Meteor 1.3正式版仍在开发中，在这份 Meteor 指南里我们采用了目前可以获取到的 Meteor 1.3 beta 版本进行开发。尽管 Meteor 1.3版本很棒并有着许多精彩的改进，但部分人对于到底应该如何使用它来进行开发仍有一些困惑。 MDG(Meteor Development Group)目前正努力编写Meteor 1.3版指南，希望能随1.3正式版的发布同步发布，我们也将会获得一些可靠的 Meteor 1.3版本最佳开发实践的信息。
+由于目前 Meteor 1.3 正式版仍在开发中，在这份 Meteor 指南里我们采用了目前可以获取到的 Meteor 1.3 beta 版本进行开发。尽管 Meteor 1.3 版本很棒并有着许多精彩的改进，但部分人对于到底应该如何使用它来进行开发仍有一些困惑。 MDG(Meteor Development Group) 目前正在编写 Meteor 1.3 版指南，随着 1.3 正式版的发布，我们将会获得 Meteor 1.3 最佳开发实践的确切信息。
 
-**边注：我写了一本关于使用Meteor 1.3, React , React-Bootstrap遵循Mantra框架规范进行应用开发的书，点击[这里](http://kenrogers.co/meteor-react)可以了解更多并获取前三章的免费内容**。
+**旁注：我写了一本关于使用 Meteor 1.3 ，React ，React-Bootstrap 遵循Mantra框架规范进行应用开发的书，点击[这里](http://kenrogers.co/meteor-react)可以了解更多并免费获取前三章的内容**。
 
-在现在的 Meteor 1.3版本下，我编写了这份指南来为使用 Meteor 开发程序提供指引，当你阅读本指南时，需要留意1.3版本目前仍处于 beta 阶段，因此内容可能发生任何变化。我会尽我所能的更新这份指南来适应最新版本。如果你发现了什么过期的内容，希望能指出来让我知道。
+在现在的 Meteor 1.3 版本下，我编写了这份指南来为使用 Meteor 开发程序提供指引，当你阅读本指南时，需要留意 1.3 版本目前仍处于 beta 阶段，因此内容可能发生任何变化。我会尽我所能的更新这份指南来适应最新版本。如果你发现了什么过期的内容，希望能指出来让我知道。
 
-在这份指南中，我们将要构建一个简单的任务清单，开玩笑而已，不会再是任务清单了。我们将用Meteor 1.3， React 和 React-Bootstrap 构建一个基本的日志记录应用。
+在这份指南中，我们将要构建一个简单的任务清单，开玩笑而已，不会再是任务清单了。我们将用 Meteor 1.3 ，React 和 React-Bootstrap 构建一个基本的日志记录应用。
 
-我们将采用 Arunoda 的 Mantra 规范。如果你对 Mantra 不够熟悉，你可以访问[这里](https://github.com/kadirahq/mantra)了解更多. 基本来说，Mantra 应用程序架构规范向我们提供了一个宜于维护的方式去构建 Meteor 应用。
+我们将采用 Arunoda 的 Mantra 规范。如果你对 Mantra 不够熟悉，你可以访问[这里](https://github.com/kadirahq/mantra)了解更多。 基本来说， Mantra 应用程序架构规范向我们提供了一个宜于维护的方式去构建 Meteor 应用。
 
-在我们开始前，你需要安装好 Meteor 并需要对 Meteor 的原理及使用方法具备一定的理解。如果你并不熟悉,可以看看[官方 Meteor 向导](https://www.meteor.com/tutorials/react/creating-an-app)。
+在我们开始前，你需要安装好 Meteor 并需要对 Meteor 的原理及使用方法具备一定的理解。如果你并不熟悉，可以看看[官方 Meteor 向导](https://www.meteor.com/tutorials/react/creating-an-app)。
 
-首先我们将通过一些资源来熟悉 Meteor 1.3和 Mantra ，然后运用它们创建一个简单的日志记录应用。
+首先我们将通过一些资源来熟悉 Meteor 1.3 和 Mantra ，然后运用它们创建一个简单的日志记录应用。
 
 #### 了解 Meteor 1.3
 
-首先我们要介绍 Meteor 1.3 并且了解它的主要改动包含什么。在1.3版本中它最大的改动是完全支持 ES2015 和模块功能化。
+首先我们要介绍 Meteor 1.3 并且了解它的主要改动包含什么。在 1.3 版本中它最大的改动是完全支持 ES2015 和模块功能化。
 
 在一开始你会发现这些新的改变与我们过去用 Meteor 开发应用有很大的区别，但一旦你习惯之后体验是相当不错的，特别由 Mantra 来支持你的系统。
 
-这里有一篇关于 Meteor 1.3的模块是怎样工作的精彩介绍：[https://github.com/meteor/meteor/blob/release-1.3/packages/modules/README.md](https://github.com/meteor/meteor/blob/release-1.3/packages/modules/README.md)
+这里有一篇关于 Meteor 1.3 的模块是怎样工作的精彩介绍：[https://github.com/meteor/meteor/blob/release-1.3/packages/modules/README.md](https://github.com/meteor/meteor/blob/release-1.3/packages/modules/README.md)
 
 模块可以让我们更容易的去写更多的代码，同时也实现了模块化。这样我们可以更好地组织我们的应用，由于它也附带了 npm 包的支持，我们不必在只有 Meteor 包的情况下进行开发了。
 
@@ -41,7 +41,7 @@
 
     meteor create journal --release 1.3-modules-beta.8
 
-**但是稍等一下**，在使用 Mantra 开发应用时有许多配置项目的方式可以选择，为了加快开发速度，我已经使用Meteor 1.3，React，Mantra 创建了一个样板项目。我们就用它来代替初始方案直接开始。
+**但是稍等一下**，在使用 Mantra 开发应用时有许多配置项目的方式可以选择，为了加快开发速度，我已经使用 Meteor 1.3 ，React ，Mantra 创建了一个样板项目。我们就用它来代替初始方案直接开始。
 
 如果你想知道这些具体做了什么，查看 [Mantra 规范](https://kadirahq.github.io/mantra/)和 [Mantra 博客应用实例](https://github.com/mantrajs/mantra-sample-blog-app)。
 
@@ -63,7 +63,7 @@
 
 在我们添加内容前我们来看看样例项目的目录结构，你可以发现，在客户端文件夹中我们将整个应用分成一个个模块，这些模块是你的应用的主要组成部分。
 
-我们总是需要一个核心模块，如果你的APP比较简单，这个核心模块就是你所唯一需要的。在我们的APP中包含了核心模块和用户模块，这里还要加入一个条目模块来添加我们的日志记录。
+我们总是需要一个核心模块，如果你的 APP 比较简单，这个核心模块就是你所唯一需要的。在我们的 APP 中包含了核心模块和用户模块，这里还要加入一个条目模块来添加我们的日志记录。
 
 这样的模块结构让我们可以轻松地保证良好的代码组织。
 
@@ -89,7 +89,7 @@
 
 你可以看到我们在这里实际上并没有进行任何渲染，我们只是做一些设置和清理的工作，然后在 NewUser 组件中我们才实际上渲染了视图。
 
-如果你运行应用并访问 /register 路由，打开 React 开发工具，你可以看到 react-komposer 正在幕后执行。它会创建一个容器组件负责处理底层子组件的数据或是UI组件。
+如果你运行应用并访问 /register 路由，打开 React 开发工具，你可以看到 react-komposer 正在幕后执行。它会创建一个容器组件负责处理底层子组件的数据或是 UI 组件。
 
 当我们获取数据时容器组件的用途将会得到具体的展现，但是这里我们不这样处理。
 
@@ -124,7 +124,7 @@ React-Bootstrap 并不依赖任何特定的 Bootstrap 库，所以只添加我�
 在这里，我们从 react-boostrap 包中引入 Grid 和 Row 组件，并且像使用 div 一样为它们添加合适的 bootstrap 类。
 想要了解更多关于这个优秀的包的工作原理，可以在[这里](https://react-bootstrap.github.io/components.html)查看组件列表。
 
-现在让我们修改 NewUser 和 Login UI 的组件让他们更友好的贴近 Bootstrap。 打开 NewUser.jsx 文件进行如下修改：
+现在让我们修改 NewUser 和 Login UI 的组件让他们更友好的贴近 Bootstrap 。打开 NewUser.jsx 文件进行如下修改：
 
     import React from ‘react’;
     import { Col, Panel, Input, ButtonInput, Glyphicon } from ‘react-bootstrap’;
@@ -162,7 +162,7 @@ React-Bootstrap 并不依赖任何特定的 Bootstrap 库，所以只添加我�
 
     create(email.getValue(), password.getValue());
 
-将调用该方法并创建实际用户。Mantra 重点强调了希望把一切分离成单独的文件。因此，我们将文件分为展示、逻辑、以及这个应用程序的每个组件。
+将调用该方法并创建实际用户。 Mantra 重点强调了希望把一切分离成单独的文件。因此，我们将文件分为展示、逻辑、以及这个应用程序的每个组件。
 
 现在让我们修改登录表单如下：
 
@@ -244,7 +244,7 @@ Mantra 设置一个单入口索引。这个索引文件负责导入内容以及�
 
 你可以通过查看例子中 users 模块的方法文件来了解这是怎么工作的。
 
-在action.js 中添加下面的内容来补全条目模块
+在 action.js 中添加下面的内容来补全条目模块
 
     export default {
      create({Meteor, LocalState, FlowRouter}, text) {
@@ -472,7 +472,7 @@ clearErrors 方法负责清除组件卸载时发生的任何错误的报错
      useDeps()
     )(Entry);
 
-此容器使用了一个 entryId(将通过我们之后设立的一个路由进行传递)并且找到一个合适的入口，来通过属性传递它给UI组件。
+此容器使用了一个 entryId (将通过我们之后设立的一个路由进行传递)并且找到一个合适的入口，来通过属性传递它给UI组件。
 
 让我们在之前设置的发布列表中快速设置发布来展示发布条目。
 
@@ -486,7 +486,7 @@ clearErrors 方法负责清除组件卸载时发生的任何错误的报错
 
 **路由** 
 
-打开routes文件来添加一些新的路由，修改 routes 文件类似如下所示：
+打开 routes 文件来添加一些新的路由，修改 routes 文件类似如下所示：
 
     import React from ‘react’;
     import {mount} from ‘react-mounter’;
