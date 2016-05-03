@@ -123,6 +123,7 @@
 
 ## 产品
 
+* [设计师如何跟开发打好关系？](http://gold.xitu.io/entry/57286f4f2e958a00657d2450?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([L9m](https://github.com/L9m) 翻译)
 * [为什么 Spotify 的付费转化率比 Dropbox 高了 667%](http://gold.xitu.io/entry/57232041f38c8400599ef706?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([SatanWoo](https://github.com/SatanWoo)翻译）
 * [新的 “增长黑客” 实践 —— 构建用户社区](http://gold.xitu.io/entry/5721e80cf38c84005992097e?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zhongyi Tong](https://github.com/geeeeeeeeek)翻译）
 * [互联网公司真的是「看重能力，不看重学历」吗？](http://gold.xitu.io/entry/571d8e4c8ac24700646f30ae?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zhangjd](https://github.com/zhangjd) 翻译)
