@@ -2,7 +2,7 @@
 * 原文作者 : [Kaelig](https://medium.com/@kaelig)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [L9m](https://github.com/l9m/)
-* 校对者: [JasinYip](https://github.com/JasinYip)、[shenxn](https://github.com/shenxn)、[Ruixi](https://github.com/Ruixi)
+* 校对者: [JasinYip](https://github.com/JasinYip), [shenxn](https://github.com/shenxn), [Ruixi](https://github.com/Ruixi)
 
 
 ![](https://cdn-images-1.medium.com/max/2000/1*RbwXg-OMlJTG7iiHs4NMQg.jpeg)
