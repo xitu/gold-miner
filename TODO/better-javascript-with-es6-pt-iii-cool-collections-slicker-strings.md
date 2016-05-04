@@ -201,7 +201,7 @@ ES2015 也添加了 [String.prototype.includes](https://developer.mozilla.org/en
 
 无论如何我不得不跳过它的最后一部分。 虽然有些老但是还是有优点的。
 
-这里是文档中缺失的字符串方法, 因此你会知道缺少哪些东西了。
+这里是文档中缺失的字符串方法, 这样你会知道缺哪些东西了。
 
 *   [String.fromCodePoint](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/fromCodePoint) & [String.prototype.codePointAt](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/codePointAt);
 *   [String.prototype.normalize](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/normalize); 和
