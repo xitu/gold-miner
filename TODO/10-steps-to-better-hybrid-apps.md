@@ -2,7 +2,7 @@
 * 原文作者 : [Oliver Lindberg](https://medium.com/@oliverlindberg)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [Yves X](https://github.com/Yves-X)
-* 校对者: [Malcolm](https://github.com/malcolmyu) [circlelove](https://github.com/circlelove)
+* 校对者: [Malcolm](https://github.com/malcolmyu), [circlelove](https://github.com/circlelove)
 
 
 **随着 Hybrid 应用人气渐涨，人们创造了越来越多的工具帮助开发者高效创建跨平台应用。** [**James Miller**](https://twitter.com/jimhunty) **介绍了 10 条建议以助你得到最佳成果。** 
