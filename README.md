@@ -64,6 +64,7 @@
 
 ## 前端
 
+* [10 步带你做一个棒棒的 Hybrid 应用](http://gold.xitu.io/entry/5729a76479df5400608d1f9f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Yves-X](https://github.com/Yves-X) 翻译)
 * [JavaScript 姿势提升简略](http://gold.xitu.io/entry/5722c838128fe100601dc3a8?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Hikerpig](https://github.com/hikerpig) 翻译)
 * [Starlight - 在网页中运行 Lua](http://gold.xitu.io/entry/5719907eebcb7d005cc6acca?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([narcotics726](https://github.com/narcotics726) 翻译)
 * [React.js 新手村教程](http://gold.xitu.io/entry/5719b6acebcb7d006a007d9b?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([markzhai](https://github.com/markzhai) 翻译)
