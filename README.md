@@ -7,7 +7,7 @@
 # 如何参与翻译
 
 1. 在 [待认领文章列表](https://github.com/xitu/gold-miner/issues?q=is%3Aissue+is%3Aopen+label%3A%E6%96%87%E7%AB%A0%E8%AE%A4%E9%A2%86) 中认领翻译文章（如果是第一次认领，介绍一下自己就更好咯）
-2. 申请请求通过后，Fork 此仓库开始翻译
+2. 认领通过后，Fork 此仓库开始翻译
 3. 翻译完成，发送 [Pull Request](https://github.com/xitu/gold-miner/pull/new/master)
 4. 至少审核两篇其他译者发 PR 的[文章](https://github.com/xitu/gold-miner/pulls?q=is%3Apr+is%3Aopen+label%3A%E6%A0%A1%E5%AF%B9%E8%AE%A4%E9%A2%86)
 5. 分享你的译文到[掘金](http://gold.xitu.io)，让更多的开发者看到好的文章。
