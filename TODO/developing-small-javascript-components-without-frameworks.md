@@ -5,7 +5,7 @@
 * 校对者: [wild-flame](https://github.com/wild-flame), [hikerpig](https://github.com/hikerpig)
 
 
-许多开发者（包括我）犯的一个错误是当遇到问题时他们总是自上而下地考虑问题。他们想问题的时候，总是从考虑框架（Framework），插件（Plugin），预先处理（Pre-processors），事后处理（Post-processors），面向对象模式（objected-oriented patterns）等等这些方面出发，他们也可能会从他们以前看过的一篇文章来考虑。而这时如果有一个生成器（Generator）的话，他们当然也愿意使用生成器提供的脚手架（Scaffold）来解决这样的问题。但是随着所有这些优秀的工具和强大的插件，我们往往忽略了，我们到底要构建什么，以及我们为什么要构建。在大多数情况下，然而我们实际上并不需要 _任何_  的这些框架！我们在 _没有_ 使用任何 JavaScript 框架和工具的情况下构建一个简单组件实例。这篇文章给想给那些中高级程序员提个醒，其实不用框架和膨胀软件（Bloatware）也可以做事。当然，这里的经验和代码示例对初级工程师们来说也是易懂和实用的。
+许多开发者（包括我）犯的一个错误是当遇到问题时他们总是自上而下地考虑问题。他们想问题的时候，总是从考虑框架（Framework），插件（Plugin），预处理器（Pre-processors），后处理器（Post-processors），面向对象模式（objected-oriented patterns）等等这些方面出发，他们也可能会从他们以前看过的一篇文章来考虑。而这时如果有一个生成器（Generator）的话，他们当然也愿意使用生成器提供的脚手架（Scaffold）来解决这样的问题。但是随着使用所有这些优秀的工具和强大的插件，我们往往忽略了，我们到底要构建什么，以及我们为什么要构建。在大多数情况下，然而实际上我们并不需要 _任何_  的这些框架！我们在 _没有_ 使用任何 JavaScript 框架和工具的情况下构建了一个简单组件实例。这篇文章给想给那些中高级程序员提个醒，其实不用框架和膨胀软件（Bloatware）也可以做事。当然，这里的经验和代码示例对初级工程师们来说也是易懂和实用的。
 
 我们要建立一个公司员工列表（通常我说的是一个最近推文或某事的列表但他们现在需要你建立一个应用访问他们的 API，挺复杂的）。我们的产品经理想要在公司网站首页上放上最近员工的列表，并且要做到自动更新。这个列表要包括新员工的照片，名字，所在城市等信息。没什么夸张的，对吧？那么，在目前情况下，比方说公司首页是和其他代码库是分开的，而且它已经用 jQuery 做了几个动画效果。那么，这是我们的假设：
 
@@ -15,11 +15,11 @@
 *   时间和资源都是无限的
 *   这个页面上已经用了 jQuery
 
-所以你从何处下手呢？你是否立即要用 Angular ？因为你知道你不花时间激发一个 `$scope.employees` 和 `ng-repeat` 。你是否要用 React ？因为它在列表中插入员工标签 **很快** 。亦或是切换到静态网页然后使用 Webpack？然后你就能用 Jade 写 HTML 用Sass 写 CSS ？因为说实话谁还会看原始的标签。不想骗你，最后一个对我 _真的_ 很有吸引力。但是我们真的需要它吗？正确的答案是 'no' 。这些东西并不能切实解决我们手上的问题。而且他们让软件栈方面变得更加令人困惑。想想如果下次另一个工程师，特别是初级工程师来接手这个项目；当另一个工程师只是做较小修改时，你并不想要他被这些花哨功能所困惑。所以，我们简单组件的代码是什么样的呢？
+所以你从何处下手呢？你是否立即要用 Angular ？因为你知道你不花时间使用一个 `$scope.employees` 和 `ng-repeat` 。你是否要用 React ？因为它在列表中插入员工标签 **很快** 。亦或是切换到静态网页然后使用 Webpack？然后你就能用 Jade 写 HTML 用Sass 写 CSS ？因为说实话谁还会看原始的标签。不想骗你，最后一个对我 _真的_ 很有吸引力。但是我们真的需要它吗？正确的答案是 'no' 。这些东西并不能切实解决我们手上的问题。而且他们让软件栈方面变得更加令人困惑。想想如果下次另一个工程师，特别是初级工程师来接手这个项目；当另一个工程师只是做较小修改时，你并不想要他被这些花哨功能所困惑。所以，我们简单组件的代码是什么样的呢？
 
     <ul class="employee-list js-employee-list"></ul>  
 
-就是它。这就是我们所有的开始。你可能注意到我给这个 div 添加的第二个类是以 `js-` 开始的。如果你不熟悉这种模式的话，这样做是因为我想向以后的开发者表明这个组件与 JavaScript 关联。这种方式我们就能够区分 _只是_ 为 JS 做交互的类和 只是和 CSS 绑定的类。它能让重构更容易。现在，让我们最后让这个列表变得美观 _一点_ 。（读者注意：我可能是世界上最糟的设计师）。我更喜欢使用像一种 BEM 和 SMACSS 的 CSS 结构，但是为了这个例子更简洁，这些名称和结构就先这样保留吧：
+就是它。这就是我们所有开始的地方。你可能注意到我给这个 div 添加的第二个类是以 `js-` 开始的。如果你不熟悉这种模式的话，这样做是因为我想向以后的开发者表明这个组件与 JavaScript 关联。这种方式我们就能够区分 _只是_ 为 JS 做交互的类和 只是和 CSS 绑定的类。它能让重构更容易。现在，让我们最后让这个列表变得美观 _一点_ 。（读者注意：我可能是世界上最糟的设计师）。我更喜欢使用像一种 BEM 和 SMACSS 的 CSS 结构，但是为了这个例子更简洁，这些名称和结构就先这样保留吧：
 
     * { box-sizing: border-box; }
 
@@ -62,7 +62,7 @@
       padding: 0 0.5rem 0.5rem 0;
     }
 
-棒极了！所以现在我们有一个有些简单样式和布局的一个员工列表。那么，接下来是什么？员工的数量应该可能不只有一个。我们需要自动获取他们。我们来获取员工数据：
+棒极了！所以现在我们有一个拥有简单样式和布局的一个员工列表。那么，接下来是什么？员工的数量应该可能不只有一个。我们需要自动获取他们。我们来获取员工数据：
 
     // 用一个 IIFE 包裹代码，从而使它们与其他代码隔离开。
     (() => {
@@ -82,7 +82,7 @@
       })
     })()
 
-很棒！我们获得了员工数据，其间没有依靠框架和复杂的预处理器，没有花两小时争论选用哪个脚手架工具。目前我们使用 `alert` 函数 来替代测试框架以确保数据符合我们的预期。现在，我们需要通过一些模版解析数据去插入到 `.employee-list` 中。所以 完成之后然后来制作模版：
+很棒！我们获得了员工数据，其间没有依靠框架和复杂的预处理器，也没有花两小时争论要选用哪个脚手架工具。目前我们使用 `alert` 函数 来替代测试框架以确保数据符合我们的预期。现在，我们需要通过一些模版解析数据去插入到 `.employee-list` 中。所以 完成之后然后来制作模版：
 
     $.ajax({
       url: 'https://randomuser.me/api/',
@@ -137,14 +137,14 @@
 
 源代码 [MyGVOv](http://codepen.io/jacopotarantino/pen/MyGVOv/) 作者： jacopotarantino ([@jacopotarantino](http://codepen.io/jacopotarantino)) 在 [CodePen](http://codepen.io).
 
-现在，显然这只是一个非常非常简单的组件而且可能不能满足你特定项目的所有需求。如果你保持简单的想法，你能坚持无框架这个原则做到更多。或者，如果你的需求很多但复杂度较低，可以考虑像 Webpack 这样的构建工具。构建工具（在这个主题上）并不完全像 框架和插件它们那样完成事情。构建工具并不会在最后服务用户的代码中添加臃肿的东西，它只存在你的工具箱中。因为我们的目标是从框架中剥离我们为最后的使用者创造更好体验，和对自己来说则是创造更好的管理的代码。Webpack 能处理大量繁杂的事务从而让你专注于更有意思的事。我在我的 [UI Component Generator](https://github.com/jacopotarantino/generator-ui-component) 用了它，其中还引入了非常小的框架和工具可以让你去写没有冗余的大量功能代码。当你不用 JavaScript 框架，事情可能很快变得"原始"而且代码可能变得令人困惑。所以，当你做这些组件时，要考虑一种代码结构并且坚持它。一致性是确保代码优雅的关键。
+现在，显然这只是一个非常非常简单的组件而且可能不能满足你特定项目的所有需求。如果你保持简单的想法，你能坚持无框架这个原则做到更多。或者，如果你的需求很多但复杂度较低，可以考虑像 Webpack 这样的构建工具。构建工具（在这个主题上）并不完全像 框架和插件它们那样完成事情。构建工具并不会在最后服务用户的代码中添加臃肿的东西，它只存在于你的工具箱中。因为我们的目标是从框架中剥离并为我们的使用者创造更好体验，和对自己来说则是创造更好管理的代码。Webpack 能处理大量繁杂的事务从而让你专注于更有意思的事。我在我的 [UI Component Generator](https://github.com/jacopotarantino/generator-ui-component) 用了它，其中还引入了非常小的框架和工具可以让你去写没有冗余的大量功能代码。当你不用 JavaScript 框架，事情可能很快变得"原始"而且代码可能变得令人困惑。所以，当你做这些组件时，要考虑一种代码结构并且坚持它。一致性是确保代码优雅的关键。
 
 记住，最重要的是你一定要测试和给你代码编写文档。
-“不写文档，等于没写” - [@mirisuzanne](https://twitter.com/mirisuzanne)
+“不写代码文档，等于没写” - [@mirisuzanne](https://twitter.com/mirisuzanne)
 
 ## 彩蛋
 
-我做了一次标题党，而我使用了 jQuery。这是为了简洁起见，我并不赞成使用 jQuery，你并不需要它。对于这些好奇，其实可以利用下面的原生代码来重写那些超级易懂的代码。
+我做了一次标题党，而我使用了 jQuery。这只是为了简洁起见，我并不赞成使用 jQuery，你并不需要它。对于这些好奇，其实可以利用下面的原生代码来重写那些超级易懂的代码。
 
 ### 原生 JavaScript 的 AJAX 请求
 
@@ -153,22 +153,22 @@
     (() => {
       'use strict'
 
-      // create a new XMLHttpRequest. This is how we do AJAX without frameworks.
+      // 创建一个新的 XMLHttpRequest。这是在无框架情况下使用 AJAX 的方法
       const xhr = new XMLHttpRequest()
-      // tell it which HTTP method to use and where to request
+      // 声明 HTTP 请求方法和地址
       xhr.open('GET', 'https://randomuser.me/api/?results=3')
-      // in a GET request what you send doesn't matter
+      // in a GET request what you send doesn't matter GET 请求
       // in a POST request this is the request body
       xhr.send(null)
 
-      // we need to wait for the 'readystatechange' event to fire on the xhr object
+      // 等待 'readystatechange' 状态改变去触发 xhr 对象
       xhr.onreadystatechange = function () {
-        // if the xhr has not finished we're not ready yet so just return
+        //等待 xhr 成功成功返回
         if (xhr.readyState !== 4 ) { return }
-        // if it didn't get a 200 status back log the error
+        // 非 200 状态时输出错误信息
         if (xhr.status !== 200) { return console.log('Error: ' + xhr.status) }
 
-        // everything went well! log the response
+        // 一切正常！输出响应
         console.log(xhr.responseText)
       }
     })()
@@ -205,6 +205,6 @@
 
 #### 箭头函数
 
-用 `(employee) => {` 替换 `function (employee) {` 。 再提醒一次，这个例子中代码可以替代但是你自己的代码你要当心。`let`， `const`，和箭头函数和 `var` 和 `function` 的作用域不同，并且如果你的代码马虎，没有结构化，在它们之间切换可能会破坏你的代码。
+用 `(employee) => {` 替换 `function (employee) {` 。 再提醒一次，这个例子中代码可以被替代，但是你自己的代码你要当心。`let`， `const`，和箭头函数和 `var` 和 `function` 的作用域不同，并且如果你的代码马虎，没有结构化，在它们之间切换可能会破坏你的代码。
 
 
