@@ -2,7 +2,7 @@
 * 原文作者 : [Matt Gallagher](http://www.cocoawithlove.com/about/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [Tuccuay](https://github.com/Tuccuay)
-* 校对者 : [jingkecn](https://github.com/jingkecn)
+* 校对者 : [Jing KE](https://github.com/jingkecn), [Jack King](https://github.com/Jack-Kingdom)
 
 
 
@@ -28,7 +28,7 @@
 
 虽然一个「结构体」通常不会具有 `deinit` 方法，但像其它的 Swift 类型一样，他也需要被正确的引用计数。当结构体内的成员变量被引用或者整个结构体被销毁时，都必须正确的将引用计数增加或减少。
 
-事实上我们可以这样做，当一个「结构体」满足一定条件的时候，其引用计数将随「结构体」的相应行为减少，就好像它拥有 `deinit` 方法一样：
+事实上我们可以这样做，当一个「结构体」满足一定条件的时候，其引用计数将随「结构体」的相应行为减少，就好像它拥有 `deinit` 方法一样，要做到这一点，我们可以使用 OnDelete 类
 
 ```swift
 public final class OnDelete {
@@ -96,7 +96,7 @@ struct Counter {
 
 "Excellent!"，我现在很开心(I'm Angry!)。
 
-当然，我会这样做来避免编译器报错：
+当然，我能这样避免所有的编译错误：
 
 ```swift
 struct Counter {
@@ -134,13 +134,13 @@ struct Counter {
 }
 ```
 
-万岁！这一切都是可变的并且共享的，我们已经成功的捕获了这个变量，编译器也没有崩溃。
+万岁！这样就更完美了。 一切都是可变的并且共享的。 我们捕获到了 count 变量，并且通过了编译。
 
 我们应该来尝试使用这个代码，因为他能很好的工作，不是吗？
 
 ## 疯狂的循环 <a name="completely-loopy" />
 
-如果我们运行代码的方式和一起一样的话，显然是不行的：
+如果我们像之前那样运行代码的话，显然是不行的：
 
 ```swift
 do {
@@ -158,7 +158,7 @@ Not deleted, yet
 
 这个 `OnDelete` 闭包没有被调用，为什么？
 
-通过查看 SIL(Swift Intermediate Language，Swift 中继语言，通过 `swiftc -emit-sil` 命令返回)，很显然在 `OnDelete` 的闭包里阻止了 `self` 被优化到堆中。这就意味着使用 `alloc_stack` 被 `alloc_box` 替代用来分配 `self` 变量：
+通过查看 SIL(Swift Intermediate Language，Swift 中继语言，通过 `swiftc -emit-sil` 命令返回)，很显然在 `OnDelete` 的闭包里阻止了 `self` 被优化到堆中。这就意味着并非使用 `alloc_stack`，`self` 变量是通过 `alloc_box` 来分配的：
 
 ```bash
 %1 = alloc_box $Counter, var, name "self", argno 1 // users: %2, %20, %22, %29
@@ -166,7 +166,7 @@ Not deleted, yet
 
 并且这个 `OnDelete` 的闭包引用了这个 `alloc_box`。
 
-发生了什么问题？这是一个循环强引用：
+发生了什么问题？这是一个引用计数循环：
 
 闭包引用了这个封装的 `Counter` → 这个封装的 `Counter` 引用了 `OnDelete` → `OnDelete` 引用了闭包
 
@@ -185,7 +185,7 @@ c.od = nil
 
 不行，依然不能正常工作，这是为什么呢？
 
-当这个 `Counter.init` 函数返回时，`alloc_box` 将会将会被拷贝到堆中。这意味着这个被 `OnDelete` 引用的版本和我们能访问到的版本并不相同。`OnDelete` 所引用的那个版本我们无法访问。
+当 `Counter.init` 函数结束时，`alloc_box` 所创建的被拷贝到了堆栈中。这意味着这个被 `OnDelete` 引用的副本与我们所访问到的副本不同。`OnDelete` 引用的副本现在我们无法访问。
 
 我们已经创建了一个牢不可破的循环。
 
@@ -195,7 +195,7 @@ c.od = nil
 
 这样的问题产生是因为我们的方法返回的副本和从 `self` 的 `Counter.init` 返回的不同。我们需要的让返回的版本和引用的版本相同。
 
-让我们避免在 `init` 方法中做任何事情，并且使用一个 `static`（静态）函数来替代它。
+让我们避免在 `init` 方法中做任何事情，并且使用一个 `static`（静态）方法来替代它。
 
 ```swift
 struct Counter {
@@ -249,7 +249,7 @@ do {
 Counter value is 1
 ```
 
-这是我们的最终作品，可以看到我们的 `loopBreaker` 闭包正确的影响到了 `OnDelete` 闭包的打印结果。
+这样终于奏效了，可以看到我们的 `loopBreaker` 闭包正确的影响到了 `OnDelete` 闭包的打印结果。
 
 现在我们不再需要返回 `Counter` 实例，我们不再会拷贝一个单独的副本。现在只有一个 `Counter` 实例的副本并且它 `alloc_box` 的版本同时共享给两个闭包，我们引用了堆中的 `struct`，并且 `OnDelete` 方法也可以在 `struct` 被销毁的时候正确的访问到它的成员变量了。
 
@@ -280,4 +280,4 @@ class Counter {
 
 所有情况都表明，这篇文章带你看了一种非常愚蠢的做法：试图用一个结构体捕获它自身。不要那样做，像其它使用引用计数的结构一样，不应该是一个循环。如果你发现你正在尝试着创造一个循环，那你可能需要使用 `class` 类型并且用 weak（弱引用）来从子元素连接父元素。
 
-最后的最后，我还有一个使用 `OnDelete` 这个类的好想法（我将会在下一篇文章中使用它），但是我捕获再在一开始就想着让它能够像 `deinit` 方法一样工作——这是它产生问题的关键（它的属性超出作用域）。
+最后的最后，我还有一个使用 `OnDelete` 这个类的好想法（我将会在下一篇文章中使用它），但是我不应该在一开始就想着让它能够像 `deinit` 方法一样工作——这是它产生问题的关键（它的属性超出作用域）。
