@@ -2,7 +2,7 @@
 >* 原文作者 : [Sean McBride](https://blog.intercom.io/author/smcbride/)
 >* 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 >* 译者 : [ZhaofengWu](https://github.com/ZhaofengWu)
->* 校对者:
+>* 校对者: [lynulzy](https://github.com/lynulzy), [dongpeiguo](https://github.com/dongpeiguo)
 
 
 在确立产品路线图时，优先级永远都是一个难题。你该如何决定从何处着手呢？
