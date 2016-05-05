@@ -219,7 +219,7 @@ do {
 
 还是同样的问题：我们获得了一个 `Counter` ，它被永久性的嵌入在 `OnDelete` 上，这不是被返回的那个版本。
 
-让我们来改变这个 `static` 函数...
+让我们来改变这个 `static` 方法...
 
 ```swift
 struct Counter {
