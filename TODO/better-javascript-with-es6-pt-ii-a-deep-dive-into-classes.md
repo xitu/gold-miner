@@ -2,13 +2,13 @@
 * 原文作者 : [Peleke](https://github.com/Peleke)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [Malcolm](https://github.com/malcolmyu)
-* 校对者:
+* 校对者: [嘤嘤嘤](https://github.com/xingwanying)
 
 ## 辞旧迎新
 
 在本文的开始，我们要说明一件事：
 
-> 从本质上说，ES6 的 classes 主要是给创建老式构造函数提供了一种更加方法的语法，并不是什么新魔法 —— Axel Rauschmayer，Exploring ES6 作者
+> 从本质上说，ES6 的 classes 主要是给创建老式构造函数提供了一种更加方便的语法，并不是什么新魔法 —— Axel Rauschmayer，Exploring ES6 作者
 
 从功能上来讲，`class` 声明就是一个语法糖，它只是比我们之前一直使用的基于原型的行为委托功能更强大一点。本文将从新语法与原型的关系入手，仔细研究 ES2015 的 `class` 关键字。文中将提及以下内容：
 
@@ -29,13 +29,13 @@ JavaScript 的『类』与 Java、Python 或者其他你可能用过的面向对
 
 而 JavaScript **没有**这样的复制机制。在 JavaScript 中『实例化』一个类创建了一个新对象，但这个新对象却**不**独立于它的父类。
 
-正相反，它创建了一个与**原型**相连接的对象。即使是在**实例化之后**，对于原型的修改也会传递到新对象去。
+正相反，它创建了一个与**原型**相连接的对象。即使是在**实例化之后**，对于原型的修改也会传递到实例化的新对象去。
 
 原型本身就是一个无比强大的设计模式。有许多使用了原型的技术模仿了传统类的机制，`class` 便为这些技术提供了简洁的语法。
 
 总而言之：
 
-1. JavaScript **没有**类，这个概念是 Java 和其他语言里的；
+1. JavaScript **不存在** Java 和其他面向对象语言中的类概念；
 2. JavaScript 的 `class` 很大程度上只是原型继承的语法糖，与传统的类继承有**很大的不同**。
 
 搞清楚这些之后，让我们先看一下 `class`。
@@ -83,7 +83,7 @@ JavaScript 的『类』与 Java、Python 或者其他你可能用过的面向对
 
     "use strict";
 
-    class NoConstructor { 
+    class NoConstructor {
         /* JavaScript 会插入这样的代码：
          constructor () { }
         */
@@ -97,12 +97,12 @@ JavaScript 的『类』与 Java、Python 或者其他你可能用过的面向对
 
     // 这是一个匿名类表达式，在类主体中我们不能通过名称引用它
     const Food = class {
-        // 和上面一样的类定义…… 
+        // 和上面一样的类定义……
     }
 
     // 这是一个命名类表达式，在类主体中我们可以通过名称引用它
     const Food = class FoodClass {
-        // 和上面一样的类定义…… 
+        // 和上面一样的类定义……
 
         //  添加一个新方法，证明我们可以通过内部名称引用 FoodClass……        
         printMacronutrients () {
@@ -115,12 +115,12 @@ JavaScript 的『类』与 Java、Python 或者其他你可能用过的面向对
 
     // 但是不能在外部引用
     try {
-        console.log(FoodClass.protein); // 引用错误 
-    } catch (err) { 
+        console.log(FoodClass.protein); // 引用错误
+    } catch (err) {
         // pass
     }
 
-这一行为与[匿名函数与命名函数](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/function)很类似。
+这一行为与[匿名函数与命名函数表达式](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/function)很类似。
 
 ## 使用 `extends` 创建子类以及使用 super 调用
 
@@ -136,7 +136,7 @@ JavaScript 的『类』与 Java、Python 或者其他你可能用过的面向对
         }
 
         print () {
-            super.print(); 
+            super.print();
             console.log(`Would you look at that -- ${this.name} has no fat!`);
         }
 
@@ -210,10 +210,9 @@ JavaScript 的『类』与 Java、Python 或者其他你可能用过的面向对
     // 演示示例：消除对 'new' 关键字的依赖
     function Food (name, protein, carbs, fat) {
         // 第一步：创建新方法
-        const obj = { }; 
+        const obj = { };
 
-        // Step Two: Link prototypes -- we'll cover this in greater detail shortly
-        // 第二步：链接原型 
+        // 第二步：链接原型——我们在下文会更加具体地探究原型的概念
         Object.setPrototypeOf(obj, Food.prototype);
 
         // 第三步：设置 'this' 指向我们的新对象
@@ -231,9 +230,9 @@ JavaScript 的『类』与 Java、Python 或者其他你可能用过的面向对
     const fish = Food('Halibut', 26, 0, 2);
     console.log(fish.protein); // 26
 
-四步中的三步都是简单明了的。创建一个对象、赋值属性、然后写一个 `return` 语句，这些操作对大多数开发者来说没有理解上的问题——然而这就是难倒众人的黑魔法原型。
+四步中的三步都是简单明了的。创建一个对象、赋值属性、然后写一个 `return` 声明，这些操作对大多数开发者来说没有理解上的问题——然而这就是难倒众人的黑魔法原型。
 
-### 原型的使用
+### 直观理解原型链
 
 在通常情况下，JavaScript 中的包括函数在内的所有对象都会链接到另一个对象上，这就是**原型**。
 
@@ -293,18 +292,17 @@ JavaScript 的『类』与 Java、Python 或者其他你可能用过的面向对
 
 ### 名为 Object 的函数
 
-在 JavaScript 引擎执行程序之前，它会创建一个环境让程序在内部执行，在执行环境中会创建一个函数，叫做 [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object), 以及一个联系对象，叫做 [Object.prototype](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/prototype)。
+在 JavaScript 引擎执行程序之前，它会创建一个环境让程序在内部执行，在执行环境中会创建一个函数，叫做 [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object), 以及一个关联对象，叫做 [Object.prototype](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/prototype)。
 
 换句话说，`Object` 和 `Object.prototype` 在**任意**执行中的 JavaScript 程序中**永远**存在。
 
-这个 `Object` 函数和其他函数不同，它是一个**构造器**——特别是在调用时，它返回一个新对象：
+这个 `Object` 乍一看好像和其他函数没什么区别，但特别之处在于它是一个**构造器**——在调用它时返回一个新对象：
 
     "use strict";
 
     typeof new Object(); // "object"
     typeof Object();     // 这个 Object 函数的特点是不需要使用 new 关键字调用
 
-The _object_, `Object.prototype`, is . . . Well, an object. And, like many objects, it has properties.
 这个 `Object.prototype` **对象**是个……对象。正如其他对象一样，它有属性。
 
 ![Object.prototype 上的属性](https://i.imgsafe.org/ebbd5e3.png)
@@ -326,7 +324,7 @@ The _object_, `Object.prototype`, is . . . Well, an object. And, like many objec
     console.log(foo.prototype.constructor); // 指向 'foo' 函数
 
     foo.prototype.constructor(); // 输出 'Foo!' —— 仅为证明确实有 'foo.prototype.constructor' 这么个方法且指向原函数
-    
+
 需要记住以下几个要点：
 
 1. 所有的函数都有一个属性，叫做 `.prototype`，它指向这个函数的关联对象。
@@ -380,7 +378,7 @@ The _object_, `Object.prototype`, is . . . Well, an object. And, like many objec
 
 ```js
 const tootsie_roll = new Food('Tootsie Roll', 0, 26, 0);
-	
+
 Object.getPrototypeOf(tootsie_roll) === Food.prototype; // true
 tootsie_roll.constructor === Food; // true
 ```
@@ -470,7 +468,7 @@ tootsie_roll.constructor === Food; // true
 * 构造器；
 * 静态方法；
 * 原型方法；
-* 一种特殊的**原型方法**：『标记方法』。
+* 一种**原型方法**的特殊情况：『标记方法』。
 
 并非我提出的这三组方法，这要归功于 Rauschmayer 博士在 [探索 ES6](http://exploringjs.com/es6/ch_classes.html) 一书中的定义。
 
@@ -530,7 +528,7 @@ ES2015 引入了一个属性使得这种检测变得简单: `[new.target]`([http
     function Food (name, protein, carbs, fat) {
         // 如果用户忘了手工调用一下
         if (!new.target)
-            return new Food(name, protein, carbs, fat); 
+            return new Food(name, protein, carbs, fat);
 
         this.name    = name;
         this.protein = protein;
@@ -548,7 +546,7 @@ ES2015 引入了一个属性使得这种检测变得简单: `[new.target]`([http
     function Food (name, protein, carbs, fat) {
 
         if (!(this instanceof Food))
-            return new Food(name, protein, carbs, fat); 
+            return new Food(name, protein, carbs, fat);
 
         this.name    = name;
         this.protein = protein;
@@ -598,7 +596,7 @@ ES2015 引入了一个属性使得这种检测变得简单: `[new.target]`([http
 
 ### 原型方法
 
-任何不适构造方法和静态方法的方法都是**原型方法**。之所以叫原型方法，是因为我们之前通过给构造函数的原型上附加方法的方式来实现这一功能。
+任何不是构造方法和静态方法的方法都是**原型方法**。之所以叫原型方法，是因为我们之前通过给构造函数的原型上附加方法的方式来实现这一功能。
 
     "use strict";
 
@@ -613,7 +611,7 @@ ES2015 引入了一个属性使得这种检测变得简单: `[new.target]`([http
         }
 
         toString () {  
-            return `${this.name} | ${this.protein}g P :: ${this.carbs}g C :: ${this.fat}g F`; 
+            return `${this.name} | ${this.protein}g P :: ${this.carbs}g C :: ${this.fat}g F`;
         }
 
         print () {  
@@ -631,11 +629,11 @@ ES2015 引入了一个属性使得这种检测变得简单: `[new.target]`([http
 
     // 『原型方法』的命名大概来自我们之前通过给构造函数的原型上附加方法的方式来实现这一功能。
     Food.prototype.toString = function toString () {
-        return `${this.name} | ${this.protein}g P :: ${this.carbs}g C :: ${this.fat}g F`; 
+        return `${this.name} | ${this.protein}g P :: ${this.carbs}g C :: ${this.fat}g F`;
     };
 
     Food.prototype.print = function print () {
-        console.log( this.toString() ); 
+        console.log( this.toString() );
     };
 
 应该说明，在方法定义时完全可以使用生成器。
@@ -736,19 +734,19 @@ ES2015 引入了一个属性使得这种检测变得简单: `[new.target]`([http
     const foodset = new FoodSet(new Food('Fish', 26, 0, 16), new Food('Hamburger', 26, 48, 24));
 
     // 当我们使用 for ... of 操作 FoodSet 时，JavaScript 将会使用
-    // 我们之间用 [Symbol.iterator] 做键值的方法
+    // 我们之前用 [Symbol.iterator] 做键值的方法
     for (let food of foodset) {
         // 打印全部 food
         console.log( food );
     }
-    
+
     // 当我们执行数组的 `filter` 方法时，JavaScript 创建并返回一个新对象
     // 我们在什么对象上执行 `filter` 方法，新对象就使用这个对象作为默认构造器来创建
     // 然而大部分代码都希望 filter 返回一个数组，于是我们通过重写 [Symbol.species]
     // 的方式告诉 JavaScript 使用数组的构造器
     const healthy_foods = foodset.filter((food) => food.name !== 'Hamburger');
 
-    console.log( healthy_foods instanceof FoodSet ); // 
+    console.log( healthy_foods instanceof FoodSet ); //
     console.log( healthy_foods instanceof Array );
 
 当你使用 `for...of` 遍历一个对象时，JavaScript 将会尝试执行对象的**迭代器**方法，这一方法就是该对象 `Symbol.iterator` 属性上关联的方法。如果我们提供了自己的方法定义，JavaScript 就会使用我们自定义的。如果没有自己制定的话，如果有默认的实现就用默认的，没有的话就不执行。
@@ -765,7 +763,7 @@ ES2015 引入了一个属性使得这种检测变得简单: `[new.target]`([http
 
 ## 结论
 
-ES2015 的 `class` 关键字**没有**带给我们 Java 里或是 SmallTalk 里那种『真正的类』。宁可说它只是提供了一种更加方便来创建通过原型关联的对象，本质上没有什么新东西。
+ES2015 的 `class` 关键字**没有**带给我们 Java 里或是 SmallTalk 里那种『真正的类』。宁可说它只是提供了一种更加方便的语法来创建通过原型关联的对象，本质上没有什么新东西。
 
 在我们的论述中我基本涵盖了 JavaScript 的原型机制，但还需要说一点：看一下 Kyle Simpson 的 [this 与对象原型](https://github.com/getify/You-Dont-Know-JS/tree/master/this%20%26%20object%20prototypes)一文可以对上面所述的进行一次全面的回顾，它的[附录 A](https://github.com/getify/You-Dont-Know-JS/blob/master/this%20&%20object%20prototypes/apA.md) 也与本文密切相关。
 
@@ -774,4 +772,3 @@ ES2015 的 `class` 关键字**没有**带给我们 Java 里或是 SmallTalk 里�
 最后如果你有什么问题，可以给我评论或者 [Twitter](https://twitter.com/PelekeS) 上艾特我。我会尽我所能回答每个人的问题。
 
 你对 `class` 的感受是什么呢？喜欢、讨厌，还是毫无感觉？每个人都有自己的观点——在下面说出你的观点吧！
-
