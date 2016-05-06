@@ -1,13 +1,13 @@
 >* 原文链接 : [Build A Journaling App with Meteor 1.3 (Beta), React, React-Bootstrap, and Mantra](https://medium.com/@kenrogers/build-a-journaling-app-with-meteor-1-3-beta-react-react-bootstrap-and-mantra-7965d9e9fc23#.bjcr4yhbf)
 * 原文作者 : [Ken Rogers](https://medium.com/@kenrogers)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 :  [yangzj1992](http://qcyoung.com)
-* 校对者:
+* 译者 : [yangzj1992](http://qcyoung.com)
+* 校对者: [Zhongyi Tong](https://github.com/geeeeeeeeek), [刘鑫](https://github.com/lx7575000)
 
 
 由于目前 Meteor 1.3 正式版仍在开发中，在这份 Meteor 指南里我们采用了目前可以获取到的 Meteor 1.3 beta 版本进行开发。尽管 Meteor 1.3 版本很棒并有着许多精彩的改进，但部分人对于到底应该如何使用它来进行开发仍有一些困惑。 MDG(Meteor Development Group) 目前正在编写 Meteor 1.3 版指南，随着 1.3 正式版的发布，我们将会获得 Meteor 1.3 最佳开发实践的确切信息。
 
-**旁注：我写了一本关于使用 Meteor 1.3 ，React ，React-Bootstrap 遵循Mantra框架规范进行应用开发的书，点击[这里](http://kenrogers.co/meteor-react)可以了解更多并免费获取前三章的内容**。
+**旁注：我写了一本关于使用 Meteor 1.3 ，React ，React-Bootstrap 遵循 Mantra 框架规范进行应用开发的书，点击[这里](http://kenrogers.co/meteor-react)可以了解更多并免费获取前三章的内容**。
 
 我写这份指南的目的是让开发者现在就能用上 Meteor 1.3 。当你阅读本指南时，需要留意 1.3 版本目前仍处于 beta 阶段，因此内容可能发生任何变化。我会尽我所能的更新这份指南来适应最新版本。如果你发现了什么过期的内容，希望能指出来让我知道。
 
