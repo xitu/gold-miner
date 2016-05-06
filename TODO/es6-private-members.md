@@ -1,8 +1,8 @@
 >* 原文链接 : [Private members in ES6 classes](https://gist.github.com/greim/44e54c2f23eab955bb73b31426e96d6c)
 * 原文作者 : [Greg Reimer](https://github.com/greim)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : XRene
-* 校对者:
+* 译者 : [XRene](https://github.com/CommanderXL)
+* 校对者:[narcotics726](https://github.com/narcotics726), [jingkecn](https://github.com/jingkecn)
 
 
 “...让我们创建一个ES6的类吧，”你说。“再给它一个私有变量”
