@@ -7,7 +7,7 @@
 
 ## 简介
 
-ES2015 发生了一些重大变革, 像 [promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) 和 [generators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators). 但并不是_每个改动_都是里程碑式的。 -- 事实上有一些新特性可以快速上手。
+ES2015 发生了一些重大变革, 像 [promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) 和 [generators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Iterators_and_Generators). 但并非新标准的一切都高不可攀。 -- 相当一部分新特性可以快速上手。
 
 在这篇文章里，我们来看下新特性带来的益处:
 
@@ -26,9 +26,9 @@ _标注: 这是 the Better JavaScript 系列的第三章。 前两章在这儿:_
 
 **模板常量** 解决了三个痛点, 允许你做如下操作:
 
-1.  定义在字符串_内部的_表达式, 称为 _字符串嵌入值_。
-2.  写多行字符串无需用换行符 (`\n`) 拼接。
-3.  使用 "raw" 字符串 -- 在字符串内部的反斜线不会被解析。
+1.  定义在字符串_内部的_表达式, 称为 _字符串插值_。
+2.  写多行字符串无须用换行符 (`\n`) 拼接。
+3.  使用 "raw" 字符串 -- 在反斜杠内的字符串不会被转义, 视为常量。
 
     "use strict";
 
@@ -85,20 +85,20 @@ _标注: 这是 the Better JavaScript 系列的第三章。 前两章在这儿:_
     console.log("User's name is " + user.name + "."); // A little cumbersome . . . 
     console.log(`User's name is ${user.name}.`); // . . . A bit nicer.
 
-1.  使用字符串嵌入值, 用反引号代替引号包裹字符串, 并把要放到`${}`里的表达式包裹到内部。
-2.  多行字符串, 只需要把你要写的字符串包裹在反引号里，在要换行的地方直接换行。 JavaScript 会在换行处插入新行。
+1.  使用字符串嵌入值, 用反引号代替引号包裹字符串, 并把我们想要的表达式嵌入在${}中。
+2.  对于多行字符串, 只需要把你要写的字符串包裹在反引号里，在要换行的地方直接换行。 JavaScript 会在换行处插入新行。
 3.  使用原生字符串, 在模板常量前加前缀`String.raw`，仍然使用反引号包裹字符串。
 
-模板常量比语法糖稍甜一些 . . . 但它是最甜的。
+模板常量或许只不过是一种语法糖 . . . 但它是最甜的。
 
 ## 新的字符串方法
 
 ES2015 也给 `String` 新增了一些方法。 他们主要归为两类:
 
-1.  常用的便捷方法; 和
-2.  更好的 unicode 方法。
+1.  通用的便捷方法; 和
+2.  扩充Unicode支持的方法。
 
-在本文里我们只讲第一类, 同时 unicode 特定方法也有想当好的用例 。如果你感兴趣的话，这是地址 [The MDN docs have a a full list of the new String methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/New_in_JavaScript/ECMAScript_6_support_in_Mozilla#Additions_to_the_String_object)。
+在本文里我们只讲第一类, 同时 unicode 特定方法也有相当好的用例 。如果你感兴趣的话，这是地址 [The MDN docs have a a full list of the new String methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/New_in_JavaScript/ECMAScript_6_support_in_Mozilla#Additions_to_the_String_object)。
 
 ## startsWith & endsWith
 
@@ -107,9 +107,9 @@ ES2015 也给 `String` 新增了一些方法。 他们主要归为两类:
 1.  一个是 _search string_; 还有
 2.  整形的位置参数, _n_。这是可选的。
 
-`String.prototype.startsWith` 会检查字符串的 _nth_ 字符会以 _search string_ 开头。 如果不传第一个参数, 他会从开始位置检查。
+`String.prototype.startsWith` 方法会检查以_nth_位起的字符串是否以_search string_开始。如果没有位置参数，则默认从头开始。
 
-如果字符以要搜索的字符串开头返回 `true`, 否则返回 `false`。
+如果字符串以要搜索的字符串开头返回 `true`, 否则返回 `false`。
 
     "use strict";
 
@@ -126,11 +126,11 @@ ES2015 也给 `String` 新增了一些方法。 他们主要归为两类:
 
 ## endsWith
 
-[String.prototype.endsWith](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/endsWith) 和startswith相似: 它也需要两个参数一个是要搜索的字符串一个是位置。
+[String.prototype.endsWith](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/endsWith) 和startswith相似: 它也需要两个参数：一个是要搜索的字符串, 一个是位置。
 
 然而 `String.prototype.endsWith` 位置参数会告诉函数要搜索的字符串在原始字符串中被当做结尾处理。
 
-换句话说, 他会切掉_nth_后的所有字符串, 并检查是否已要搜索的字符串结尾。
+换句话说, 它会切掉_nth_后的所有字符串, 并检查是否以要搜索的字符结尾。
 
     "use strict";
 
@@ -161,16 +161,16 @@ ES2015 也添加了 [String.prototype.includes](https://developer.mozilla.org/en
     // does this string include the word impressively?
     contrived_example.includes("impressively"); // true
 
-返回原始时代，我们会这样:
+ES2015之前, 我们只能这样:
 
     "use strict";
     contrived_example.indexOf("impressively") !== -1 // true
 
-不能更糟了。 但是, `String.prototype.includes` _是_ 一个改善, 它屏蔽了任意整数返回值为true的漏洞。
+不算太坏。 但是, `String.prototype.includes` _是_ 一个改善, 它屏蔽了任意整数返回值为true的漏洞。
 
 ## repeat
 
-还有 [String.prototype.repeat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/repeat)。 可以对任意字符串使用, 像 `includes` 一样，它会做它的名字暗示的事情。
+还有 [String.prototype.repeat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/repeat)。 可以对任意字符串使用, 像 `includes` 一样，它会或多或少地完成函数名指示的工作。
 
 它只需要一个参数: 一个整型的 _count_。使用案例说明一切, 上代码:
 
@@ -182,7 +182,7 @@ ES2015 也添加了 [String.prototype.includes](https://developer.mozilla.org/en
 
 最后, 我们有 [String.raw](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/raw), 我们在上面简单介绍过。
 
-一个模板常量以 `String.raw` 为前缀, it won't evaluate escape sequences within the string:
+一个模板常量以 `String.raw` 为前缀, 它将不会在字符串中转义:
 
     /* Since the backslash alone means "escape", we need to double it to print
       *   one. Similarly, \n in a normal string is interpreted as "newline". 
@@ -302,7 +302,7 @@ Maps are sweet。但是 Object 在保存键值对的时候仍然有用。 如果
 2.  你知道你可能不会去增加或删除你的键值对。
 3.  你使用的键全都是 string 或 symbol。
 
-另一方面, 如果下面的_任意_一条是真, 你可能会想使用一个map。
+另一方面, 如果符合以下_任意_条件, 你可能会想使用一个map。
 
 1.  你需要遍历整个map -- 然而这对 object 来说是难以置信的.
 2.  当你写代码的时候不需要知道键的名字或数量。
@@ -310,7 +310,7 @@ Maps are sweet。但是 Object 在保存键值对的时候仍然有用。 如果
 
 像遍历一个 map 一样遍历一个 object 是可行的, 但奇妙的是 -- 还会有一些坑潜伏在暗处。 Map 更容易使用, 并且增加了一些可集成的优势。然而 object 是以随机顺序遍历的 Whereas object properties are iterated in random order, **map 是以插入的顺序遍历的**。
 
-添加随意动态键名的键值对给一个 object 是_可能的_。但奇妙的是: 比如说如果你曾经遍历过一个伪 map , 你需要记住手动更新条目数。
+添加随意动态键名的键值对给一个 object 是_可行的_。但奇妙的是: 比如说如果你曾经遍历过一个伪 map , 你需要记住手动更新条目数。
 
 最后一条, 如果你要设置的键名不是 string 或 symbol, 你除了选择 Map 别无选择。
 
@@ -318,17 +318,17 @@ Maps are sweet。但是 Object 在保存键值对的时候仍然有用。 如果
 
 ## WeakMap
 
-你可能听说过一个特别棒的特性 [garbage collector](https://en.wikipedia.org/wiki/Garbage_collection_(computer_science)), 会定期地检查不再使用的对象并清除。
+你可能听说过一个特别棒的特性 [garbage collector](https://en.wikipedia.org/wiki/Garbage_collection_(computer_science)), 它会定期地检查不再使用的对象并清除。
 
 [To quote Dr Rauschmayer](http://www.2ality.com/2015/01/es6-maps-sets.html):
 
-> WeakMap 是一种不会被垃圾收集的 map。那意味着你可以把数据和对象关联起来不用担心内存泄漏。
+> WeakMap 是一种不会被垃圾回收的 map。那意味着你可以把数据和对象关联起来不用担心内存泄漏。
 
-换句换说, 就是你的程序丢掉了 WeakMap _键_ 的所有外部引用, 可以自行垃圾收集。
+换句换说, 就是你的程序丢掉了 WeakMap _键_ 的所有外部引用, 他能自动垃圾回收他们的值。
 
-For a good, albeit drastically simplified, use case, consider a SPA that displays items on a user's wishlists, with item descriptions and an image, which we consume as JSON returned by an API call.
+尽管大大简化了用例, 考虑到 SPA(单页面应用) 就是用来展示用户希望展示的东西, 像一些物品描述和一张图片, 我们可以理解为 API 返回的 JSON。
 
-理论上来说我们可以通过缓存响应结果来减少请求服务器的次数。我们这一这样用 Map :
+理论上来说我们可以通过缓存响应结果来减少请求服务器的次数。我们可以这样用 Map :
 
     "use strict";
 
@@ -344,7 +344,7 @@ For a good, albeit drastically simplified, use case, consider a SPA that display
 
 . . . 这是行得通的, 但是有内存泄漏的危险。
 
-因为这是一个SPA(单页面应用), 用户或许想离开这个视图, 这样的话我们的 "视图" object 就会失效, 会被垃圾收集。
+因为这是一个 SPA, 用户或许想离开这个视图, 这样的话我们的 "视图" object 就会失效, 会被垃圾回收。
 
 不幸的是，如果你使用的是正常的 Map ,当这些 object 不使用时，你必须自行清除。
 
@@ -356,7 +356,7 @@ For a good, albeit drastically simplified, use case, consider a SPA that display
 
     // The rest is the same . . . 
 
-这样当应用失去不需要的元素的引用时, 垃圾收集系统可以自动重用那些元素。
+这样当应用失去不需要的元素的引用时, 垃圾回收系统可以自动重用那些元素。
 
 WeakMap 的API 和Map 相似, 但有如下几点不同:
 
@@ -364,7 +364,7 @@ WeakMap 的API 和Map 相似, 但有如下几点不同:
 2.  WeakMap 只有 `set`, `get`, `has`, 和 `delete` 方法 -- 那意味着 **你不能遍历 weak map**.
 3.  WeakMaps 没有 `size` 属性。
 
-你不能遍历或检查Weak的长度的原因是, 在遍历过程中可能会遇到垃圾收集系统的运行: 这一瞬间是满的, 下一秒就没了。
+你不能遍历或检查Weak的长度的原因是, 在遍历过程中可能会遇到垃圾回收系统的运行: 这一瞬间是满的, 下一秒就没了。
 
 这种不可预测的行为需要谨慎对待, TC39(ECMA第39届技术委员会) 曾试图避免禁止 WeakMap 的遍历和长度检测。
 
@@ -376,7 +376,7 @@ WeakMap 的API 和Map 相似, 但有如下几点不同:
 
 这是一个有用的数据类型, 如果你要追踪唯一并且固定的 object ,比如说聊天室的当前用户。
 
-Set 和 Map 有完全相同的 API。主要的不同是 Set 没有 `set` 方法, 因为它不能存储键值对。剩下的大都相同。
+Set 和 Map 有完全相同的 API。主要的不同是 Set 没有 `set` 方法, 因为它不能存储键值对。剩下的几乎相同。
 
     "use strict";
 
@@ -472,7 +472,7 @@ Weak set的用例并不多, 但是这儿有一些 [Domenic Denicola](https://mai
 
 这是一个轻量科学的方法防止大家在一个 _没有_ 被 `Foo` 构造出的 object上使用 `method`。
 
-使用的 WeakSet 的优势是允许 `foo` 里的 object 使用完后被垃圾收集。
+使用的 WeakSet 的优势是允许 `foo` 里的 object 使用完后被垃圾回收。
 
 ## 总结
 
