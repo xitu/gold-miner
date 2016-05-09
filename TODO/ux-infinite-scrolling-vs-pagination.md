@@ -58,19 +58,19 @@ Another problem is limited resources of the user’s device. On many infinite sc
 
 Another issue with infinite scrolling is that when users get to a certain point in the stream, they _can’t bookmark_ their location and come back to it later. If they leave the site, they’ll lose all their progress and will have to scroll down again to get back to the same spot. This inability to determine the scrolling position of the user not only causes annoyance or confusion to the users but also hurts the overall user experience, as a result.
 
-In 2012 Etsy had spent time implementing an infinite scroll interface and [found<sup>[5]</sup>](http://www.slideshare.net/danmckinley/design-for-continuous-experimentation) that the new interface just didn’t perform as well as a pagination. Although the amount of purchases stayed roughly the same, user engagement has gone down — now people weren’t using the search so much.
+In 2012 Etsy had spent time implementing an infinite scroll interface and [found<sup></sup>](http://www.slideshare.net/danmckinley/design-for-continuous-experimentation) that the new interface just didn’t perform as well as a pagination. Although the amount of purchases stayed roughly the same, user engagement has gone down — now people weren’t using the search so much.
 
-![](https://cdn-images-1.medium.com/max/800/1*fzb-pg0noBPYBia8ZhsLBw.png)</div>
+![](https://cdn-images-1.medium.com/max/800/1*fzb-pg0noBPYBia8ZhsLBw.png)
 
 <figcaption>Etsy’s search interface with infinite scroll. Current version has a pagination.</figcaption>
 
-As Dmitry Fadeyev [points out<sup>[6]</sup>](http://usabilitypost.com/2013/01/07/when-infinite-scroll-doesnt-work/): “People will want to go back to the list of search results to check out the items they’ve just seen, comparing them to what else they’ve discovered somewhere else down the list. Not only does the infinite scroll break this dynamic, it also makes it difficult to move up and down the list, especially when you return to the page at another time and find yourself back at the top, being forced to scroll down the list once again and wait for the results to load. In this way the infinite scroll interface is actually slower than the paginated one.”
+As Dmitry Fadeyev [points out<sup></sup>](http://usabilitypost.com/2013/01/07/when-infinite-scroll-doesnt-work/): “People will want to go back to the list of search results to check out the items they’ve just seen, comparing them to what else they’ve discovered somewhere else down the list. Not only does the infinite scroll break this dynamic, it also makes it difficult to move up and down the list, especially when you return to the page at another time and find yourself back at the top, being forced to scroll down the list once again and wait for the results to load. In this way the infinite scroll interface is actually slower than the paginated one.”
 
 #### Cons #3: Irrelevant Scroll Bar
 
 Another annoying thing is that _scroll bars don’t reflect the actual amount of data available_. You’ll scroll down happily assuming you are close to the bottom, which by itself tempts you to scroll that little bit more, only to find that the results have just doubled by the time you get there. From an accessibility point of view it’s quite bad to break the use of scrollbars for your users.
 
-![](https://cdn-images-1.medium.com/freeze/max/30/1*8ArcBlJK19mNRGIg3jBa-g.jpeg?q=20)![](https://cdn-images-1.medium.com/max/800/1*8ArcBlJK19mNRGIg3jBa-g.jpeg)</div>
+![](https://cdn-images-1.medium.com/freeze/max/30/1*8ArcBlJK19mNRGIg3jBa-g.jpeg?q=20)![](https://cdn-images-1.medium.com/max/800/1*8ArcBlJK19mNRGIg3jBa-g.jpeg)
 
 <figcaption>Scroll bar should reflect real page length</figcaption>
 
@@ -79,19 +79,19 @@ Another annoying thing is that _scroll bars don’t reflect the actual amount of
 Footers exist for a reason: they contain content that the user sometimes needs — if users can’t find something or they want additional information, they often go there. But because the feed scrolls infinitely, more data gets loaded as soon as user reach the bottom, pushing the footer out of view every time.
 ![](https://cdn-images-1.medium.com/freeze/max/30/1*wywLjoN1ngn3ngTYu6p9qw.jpeg?q=20)
 
-![](https://cdn-images-1.medium.com/max/800/1*wywLjoN1ngn3ngTYu6p9qw.jpeg)</div>
+![](https://cdn-images-1.medium.com/max/800/1*wywLjoN1ngn3ngTYu6p9qw.jpeg)
 
 <figcaption>When LinkedIn introduced infinite scrolling in 2012, users managed to grab a screen just before it loaded new stories.</figcaption>
 
 Sites that implement infinite scrolling should either make the footer accessible by making it _sticky_ or relocate the links to a top or _side bar._
 
-![](https://cdn-images-1.medium.com/max/800/1*S0DOI2NG84PBMGO0gPn71A.png)</div>
+![](https://cdn-images-1.medium.com/max/800/1*S0DOI2NG84PBMGO0gPn71A.png)
 
 <figcaption>Facebook moved all links from the footer (e.g. ‘Legal’, ‘Careers’) to the right side bar.</figcaption>
 
 Another solution is to load content _on demand_ using a _Load More_ button. New content won’t automatically load until the user clicks the More button. This way users can get to your footer easily without having to chase it down.
 
-![](https://cdn-images-1.medium.com/max/800/1*du1cepjlGiMG-yMfV2RRSw.png)</div>
+![](https://cdn-images-1.medium.com/max/800/1*du1cepjlGiMG-yMfV2RRSw.png)
 
 <figcaption>Instagram uses ‘Load More’ button in order to make footer accessible for the users</figcaption>
 
@@ -99,7 +99,7 @@ Another solution is to load content _on demand_ using a _Load More_ button. New 
 
 Pagination is a user interface pattern that divides content into separate pages. If you scroll to the bottom of a page and see the row of numbers — that row of numbers is a site’s or app’s pagination.
 
-![](https://cdn-images-1.medium.com/max/800/1*Cmf8-zXra4FXC7sRlS0yzw.jpeg)</div>
+![](https://cdn-images-1.medium.com/max/800/1*Cmf8-zXra4FXC7sRlS0yzw.jpeg)
 
 <figcaption>Pagination</figcaption>
 
@@ -109,13 +109,13 @@ Pagination is good when the user is _searching_ for something in particular with
 
 You may measure the benefits of pagination with the example of Google Search. Looking for the best search result could take a second or an hour, depending on your research. But when you decide to stop searching in Google’s current format, you know the exact number of search results. You can make an decision about where to stop or how many results to peruse.
 
-![](https://cdn-images-1.medium.com/max/800/1*UkscmldH9wnnFEGV70OtuA.png)</div>
+![](https://cdn-images-1.medium.com/max/800/1*UkscmldH9wnnFEGV70OtuA.png)
 
 <figcaption>Google search result data</figcaption>
 
 #### **Pros #2: Sense of Control**
 
-_Infinite scrolling is like an endless game _— no matter how far you scroll, you feel like you’ll never get to the end. When the users know the number of results availablethey are able to make a more informed decision, rather than be left to scour an infinitely scrolling list. According to the David Kieras research [Psychology in Human-Computer Interaction<sup>[7]</sup>](http://videolectures.net/chi08_kieras_phc/): “_Reaching an end point provides a sense of control_”. The research also clarifies that when users have limited but still relevant results, they are able to determine easily if what they’re seeking is actually there or not.
+_Infinite scrolling is like an endless game _— no matter how far you scroll, you feel like you’ll never get to the end. When the users know the number of results availablethey are able to make a more informed decision, rather than be left to scour an infinitely scrolling list. According to the David Kieras research [Psychology in Human-Computer Interaction<sup></sup>](http://videolectures.net/chi08_kieras_phc/): “_Reaching an end point provides a sense of control_”. The research also clarifies that when users have limited but still relevant results, they are able to determine easily if what they’re seeking is actually there or not.
 
 Also when users see total number of results (of course when a total amount of data isn’t infinite) they will be able to estimate how much time it’ll take to find what they’re actually looking for.
 
@@ -123,13 +123,13 @@ Also when users see total number of results (of course when a total amount of da
 
 Having a paginated interface lets the user keep a _mental location_ of the item. They may not necessarily know the exact page number of page, but they will remember roughly what it was, and the paginated links will let them get there easier.
 
-![](https://cdn-images-1.medium.com/max/800/1*yHj3EYY8ebffjwyM-bwjoQ.png)</div>
+![](https://cdn-images-1.medium.com/max/800/1*yHj3EYY8ebffjwyM-bwjoQ.png)
 
 <figcaption>With paginations users are in control of navigation because they know which page to click on to get back to where they were.</figcaption>
 
 Pagination is good for ecomerce sites and apps. When users shop online, they want to be able to come back to the place they left off and continue their shopping.
 
-![](https://cdn-images-1.medium.com/max/800/1*osnIWtLG6UusQjDJZGRpDw.jpeg)</div>
+![](https://cdn-images-1.medium.com/max/800/1*osnIWtLG6UusQjDJZGRpDw.jpeg)
 
 <figcaption>MR Porter site uses a pagination for items</figcaption>
 
@@ -137,7 +137,7 @@ Pagination is good for ecomerce sites and apps. When users shop online, they wan
 
 To get to the next page in a pagination, the user has to find the link target (e.g. “Next”), hover the mouse over it, click it and wait for the new page to load.
 
-![](https://cdn-images-1.medium.com/max/800/1*l5djDDvsP0_JU7oP1EQIbg.png)</div>
+![](https://cdn-images-1.medium.com/max/800/1*l5djDDvsP0_JU7oP1EQIbg.png)
 
 <figcaption>Clicking for a content</figcaption>
 
