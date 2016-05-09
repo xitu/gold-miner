@@ -1,7 +1,7 @@
 >* 原文链接 : [Regarding Swift build time optimizations](https://medium.com/@RobertGummesson/regarding-swift-build-time-optimizations-fc92cdd91e31#.w81y3zhjr)
 * 原文作者 : [Robert Gummesson](https://medium.com/@RobertGummesson)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : ［杨龙龙](http://www.yanglonglong.com)
+* 译者 : [杨龙龙](http://www.yanglonglong.com)
 * 校对者:
 
 ![](http://ww3.sinaimg.cn/large/005SiNxygw1f3p3jimjllj31jk0dwqft.jpg)
