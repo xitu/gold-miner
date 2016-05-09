@@ -34,11 +34,11 @@ You may measure the benefits of infinite scrolling with the example of a Faceboo
 
 #### Pros #2: Scrolling is Better Than Clicking
 
-_Users have better experiences with scrolling than clicking/tapping_. The mouse wheels or touchscreens make scrolling faster and easier than clicking. For a continuous and lengthy content, like a tutorial, scrolling provides even [better usability<sup>[1]</sup>](http://www.hugeinc.com/ideas/perspective/everybody-scrolls) than slicing up the text to several separate screens or pages.
+_Users have better experiences with scrolling than clicking/tapping_. The mouse wheels or touchscreens make scrolling faster and easier than clicking. For a continuous and lengthy content, like a tutorial, scrolling provides even [better usability<sup></sup>](http://www.hugeinc.com/ideas/perspective/everybody-scrolls) than slicing up the text to several separate screens or pages.
 
 ![](https://cdn-images-1.medium.com/max/800/1*UFQxw3Mvf7XgdRGNYZ_2yA.jpeg)</div>
 
-<figcaption>For clicking/tapping: each content update requires an additional click action and wait time for a page to load. For scrolling: single scrolling action for content update. Image credit: [designbolts<sup>[2]</sup>](http://www.designbolts.com/2014/12/30/10-of-the-most-anticipated-web-design-trends-to-look-for-in-2015/)</figcaption>
+<figcaption>For clicking/tapping: each content update requires an additional click action and wait time for a page to load. For scrolling: single scrolling action for content update. Image credit: [designbolts<sup></sup>](http://www.designbolts.com/2014/12/30/10-of-the-most-anticipated-web-design-trends-to-look-for-in-2015/)</figcaption>
 
 #### Pros #3: Scrolling is Good For Mobile Devices
 
@@ -46,11 +46,11 @@ _The smaller the screen, the longer the scroll_. The popularization of mobile br
 
 ![](http://ww3.sinaimg.cn/large/005SiNxygw1f3p890yozrg30m80go7wo.gif)</div>
 
-<figcaption>Source: [Dribbble<sup>[3]</sup>](https://dribbble.com/shots/2352597-Craigslist-redesign-mobile)</figcaption>
+<figcaption>Source: [Dribbble<sup></sup>](https://dribbble.com/shots/2352597-Craigslist-redesign-mobile)</figcaption>
 
 #### Cons #1: Page Performance and Device Resources
 
-_Page-loading speed is everything for good user experience_. Multiple researches have [shown<sup>[4]</sup>](https://blog.kissmetrics.com/loading-time/) that slow load times result in people leaving your site or delete your app which result in low conversion rates. And that’s bad news for those who use an infinite-scrolling. The more users scroll down a page, more content has to load on the same page. As a result, the _page performance will increasingly slow down_.
+_Page-loading speed is everything for good user experience_. Multiple researches have [shown<sup></sup>](https://blog.kissmetrics.com/loading-time/) that slow load times result in people leaving your site or delete your app which result in low conversion rates. And that’s bad news for those who use an infinite-scrolling. The more users scroll down a page, more content has to load on the same page. As a result, the _page performance will increasingly slow down_.
 
 Another problem is limited resources of the user’s device. On many infinite scrolling sites, especially those with many images, devices with limited resources such as an iPad can start slowing down because of the sheer number of assets it has loaded.
 
