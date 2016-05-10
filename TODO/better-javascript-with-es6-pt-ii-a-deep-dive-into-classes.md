@@ -2,7 +2,7 @@
 * 原文作者 : [Peleke](https://github.com/Peleke)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [Malcolm](https://github.com/malcolmyu)
-* 校对者: [嘤嘤嘤](https://github.com/xingwanying)
+* 校对者: [嘤嘤嘤](https://github.com/xingwanying) [Jack-Kingdom](https://github.com/Jack-Kingdom)
 
 ## 辞旧迎新
 
@@ -42,7 +42,7 @@ JavaScript 的『类』与 Java、Python 或者其他你可能用过的面向对
 
 ## 类基础：声明与表达式
 
-我们使用 `class` 关键字创建类，关键字之后是变量标示符，最后是一个称作**类主体**的代码块。这种写法称作**类的声明**。没有使用 `extends` 关键字的类声明被称作**基类**：
+我们使用 `class` 关键字创建类，关键字之后是变量标识符，最后是一个称作**类主体**的代码块。这种写法称作**类的声明**。没有使用 `extends` 关键字的类声明被称作**基类**：
 
     "use strict";
 
@@ -147,7 +147,7 @@ JavaScript 的『类』与 Java、Python 或者其他你可能用过的面向对
 
 派生类拥有我们上文讨论的一切有关基类的特性，另外还有如下几点新特点：
 
-* 子类使用 `class` 关键字声明，之后写标识符，然后写 `extend` 关键字，最后写一个**任意表达式**。这个表达式通常来讲就是个标识符，但[理论上也可以是函数](https://gist.github.com/sebmarkbage/fac0830dbb13ccbff596)。
+* 子类使用 `class` 关键字声明，之后紧跟一个标识符，然后使用 `extend` 关键字，最后写一个**任意表达式**。这个表达式通常来讲就是个标识符，但[理论上也可以是函数](https://gist.github.com/sebmarkbage/fac0830dbb13ccbff596)。
 * 如果你的派生类需要引用它的父类，可以使用 `super` 关键字。
 * 一个派生类不能有一个空的构造函数。即使这个构造函数就是调用了一下 `super()`，你也得把它显式的写出来。但派生类却可以**没有**构造函数。
 * 在派生类的构造函数中，**必须**先调用 `super`，才能使用 `this` 关键字（译者注：仅在构造函数中是这样，在其他方法中可以直接使用 `this`）。
@@ -170,7 +170,7 @@ JavaScript 的『类』与 Java、Python 或者其他你可能用过的面向对
 
 * 使用构造调用创建对象；
 * 原型连接的本质；
-* 属性和方法代理；
+* 属性和方法委托；
 * 使用原型模拟类。
 
 ### 使用构造调用创建对象
@@ -209,7 +209,7 @@ JavaScript 的『类』与 Java、Python 或者其他你可能用过的面向对
 
     // 演示示例：消除对 'new' 关键字的依赖
     function Food (name, protein, carbs, fat) {
-        // 第一步：创建新方法
+        // 第一步：创建新对象
         const obj = { };
 
         // 第二步：链接原型——我们在下文会更加具体地探究原型的概念
@@ -217,7 +217,7 @@ JavaScript 的『类』与 Java、Python 或者其他你可能用过的面向对
 
         // 第三步：设置 'this' 指向我们的新对象
         // 尽然我们不能再运行的执行上下文中重置 `this`
-        // 我们在使用 'obj' 而不是 'this' 来模拟第三步
+        // 我们在使用 'obj' 取代 'this' 来模拟第三步
         obj.name    = name;
         obj.protein = protein;
         obj.carbs   = carbs;
@@ -236,7 +236,7 @@ JavaScript 的『类』与 Java、Python 或者其他你可能用过的面向对
 
 在通常情况下，JavaScript 中的包括函数在内的所有对象都会链接到另一个对象上，这就是**原型**。
 
-如果我们请一个对象本身没有的属性，JavaScript 就会在对象的原型上检查该属性。换句话说，如果你对一个对象请求它没有的属性，它会对你说：『这个我不知道，问我的原型吧』。
+如果我们访问一个对象本身没有的属性，JavaScript 就会在对象的原型上检查该属性。换句话说，如果你对一个对象请求它没有的属性，它会对你说：『这个我不知道，问我的原型吧』。
 
 在另一个对象上查找不存在属性的过程称作**委托**。
 
@@ -257,7 +257,7 @@ JavaScript 的『类』与 Java、Python 或者其他你可能用过的面向对
 
 当我们寻找 `sara.toString()` 方法时，`sara` 说：『我没有 `toString` 属性，找我的原型吧』。正如上文所说，JavaScript 会亲切的询问 `Object.prototype` 是否含有 `toString` 属性。由于原型上有这一属性，JS 就会把 `Object.prototype` 上的 `toString` 返回给我们程序并执行。
 
-`sara` 本身没有属性没关系——**我们会把查找操作代理到原型上**。
+`sara` 本身没有属性没关系——**我们会把查找操作委托到原型上**。
 
 换言之，我们就可以访问到对象上并不存在的属性，**只要其的原型上有这些属性**。我们可以利用这一点将属性和方法赋值到对象的原型上，然后我们就可以调用这些属性，好像它们真的存在在那个对象上一样。
 
@@ -374,7 +374,7 @@ JavaScript 的『类』与 Java、Python 或者其他你可能用过的面向对
 当我们使用 `new` 关键字创建一个对象，JavaScript 将会：
 
 1. 设置这个对象的原型指向我们使用 `new` 调用的函数的 `.prototype` 属性；
-2. 设置这个对象的 `.constructor` 指向我们使用 `new` 调用到函数。
+2. 设置这个对象的 `.constructor` 指向我们使用 `new` 调用到的构造函数。
 
 ```js
 const tootsie_roll = new Food('Tootsie Roll', 0, 26, 0);
@@ -417,7 +417,7 @@ tootsie_roll.constructor === Food; // true
 2. 设置它的原型引用；
 3. 返回这个新对象。
 
-[你可以自己去 polyfill 上看下研究研究。](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create)
+[你可以自己去看下 MDN 上写的那个 polyfill。](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create)
 （译者注：polyfill 就是给老代码实现现有新功能的补丁代码，这里就是指老版本 JS 没有 `Object.create` 函数，MDN 上有手工撸的一个替代方案）
 
 ### 模拟 `class` 行为
@@ -446,7 +446,7 @@ tootsie_roll.constructor === Food; // true
     // LINE A :: 使用 Object.create 手动设置 FatFreeFood's 『父类』.
     FatFreeFood.prototype = Object.create(Food.prototype);
 
-    // LINE B :: 手工重新设置 constructor 的引用
+    // LINE B :: 手工重置 constructor 的引用
     Object.defineProperty(FatFreeFood.constructor, "constructor", {
         enumerable : false,
         writeable  : true,
@@ -477,7 +477,7 @@ tootsie_roll.constructor === Food; // true
 一个类的 `constructor` 方法用于关注我们的初始化逻辑，`constructor` 方法有以下几个特殊点：
 
 1. 只有在构造方法里，我们才可以调用父类的构造器；
-2. 它在背后处理了所有设置原型链属性的工作；
+2. 它在背后处理了所有设置原型链的工作；
 3. 它被用作类的定义。
 
 第二点就是在 JavaScript 中使用 `class` 的一个主要好处，我们来引用一下《探索 ES6》书里的 15.2.3.1 的标题：
@@ -486,7 +486,7 @@ tootsie_roll.constructor === Food; // true
 
 正如我们所见，手工设置非常繁琐且容易出错。如果我们使用 `class` 关键字，JavaScript 在内部会负责搞定这些设置，这一点也是使用 `class` 的优势。
 
-第三点有点意思，在 JavaScript 中类仅仅是个函数——它等同于与类中的 `constructor` 方法。
+第三点有点意思。在 JavaScript 中类仅仅是个函数——它等同于与类中的 `constructor` 方法。
 
     "use strict";
 
@@ -496,7 +496,7 @@ tootsie_roll.constructor === Food; // true
 
     typeof Food; // 'function'
 
-与以往的把函数作为构造器不同，我们不能不用 `new` 关键字而直接调用类构造器：
+与一般把函数作为构造器的方式不同，我们不能不用 `new` 关键字而直接调用类构造器：
 
 `const burrito = Food('Heaven', 100, 100, 25); // 类型错误`
 
