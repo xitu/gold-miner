@@ -92,13 +92,13 @@ First there is the static Android logo:
 
 As this is a static _VectorDrawable_ we’d expect it to work, and it looks great. What happens when we animate it (these examples are all from a GenyMotion JellyBean emulator):
 
-<span><iframe type="text/html" width="480" height="300" src="https://www.youtube.com/embed/iJqCtjj4Jd0?version=3&amp;rel=1&amp;fs=1&amp;autohide=2&amp;showsearch=0&amp;showinfo=1&amp;iv_load_policy=1&amp;wmode=transparent" allowfullscreen="true" style="border:0;"></iframe></span>
+![](http://ww4.sinaimg.cn/large/a490147fgw1f3qiw99kzeg20qo0g01es.gif)
 
 The frame-rate is pretty good – and this is on an emulator rather than a real device! Obviously frame-rates will be worse on lower powered devices, and we’re likely to encounter many more of them when targeting earlier versions of Android, but the results are pretty impressive, nonetheless.
 
 So how about the `trimPath` animation?:
 
-<span><iframe type="text/html" width="480" height="300" src="https://www.youtube.com/embed/7cUrin0eRZA?version=3&amp;rel=1&amp;fs=1&amp;autohide=2&amp;showsearch=0&amp;showinfo=1&amp;iv_load_policy=1&amp;wmode=transparent" allowfullscreen="true" style="border:0;"></iframe></span>
+![](http://ww2.sinaimg.cn/large/a490147fgw1f3qizfsrzjg20qo0g04ly.gif)
 
 Once again, this is pretty impressive – it works as it should and is very smooth.
 
