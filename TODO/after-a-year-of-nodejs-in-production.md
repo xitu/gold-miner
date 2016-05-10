@@ -9,7 +9,6 @@
 
 本文是[「我为什么弃 Python 从 Node.js」](http://geekforbrains.com/post/why-im-switching-from-python-to-node-js)一文的续集。一年多前，我因为对 Python 的挫败，还想解释为什么转而尝试 Node ，故写下那篇文章。
 
-
 一年后，公司内部的 CLI（命令行） 工具，客户项目以及[我司](http://inputlogic.ca)产品的更新，这些都是我学到的。不仅仅是 Node，基本上对 JavaScript 也学到不少。
 
 ### 易学难精
