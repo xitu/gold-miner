@@ -10,20 +10,20 @@
 
 这些模式的代码样例都使用了 [Font Face Observer](https://github.com/bramstein/fontfaceobserver)，一个精简的网络字体加载器。Font Face Observer 将会根据浏览器的兼容情况使用最高效的方式来加载字体，所以这是一个非常棒的网络字体加载方式，同时你不需要为跨浏览器的兼容性而操心。
 
-1.  [基础字体加载](#basic-font-loading)
-2.  [分组加载字体](#loading-groups-of-fonts)
-3.  [为字体加载添加超时行为](#loading-fonts-with-a-timeout)
-4.  [优先队列加载](#prioritised-loading)
-5.  [自定义字体显示](#custom-font-display)
+1.  [基础字体加载模式](#basic-font-loading)
+2.  [分组字体加载模式](#loading-groups-of-fonts)
+3.  [限制字体加载时间](#loading-fonts-with-a-timeout)
+4.  [队列加载模式](#prioritised-loading)
+5.  [自定义字体显示行为](#custom-font-display)
 6.  [为缓存优化](#optimise-for-caching)
 
-推荐一种适用于所有人的最佳加载模式是不可能的。仔细研究你的网站以及你网站的访问者，并且选择一个、或者一系列加载模式，将会是最适合的。
+不存在一种普适所有情况的单一模式。选择一种适合你自己网站的字体加载模式才是最好的。
 
-## [](#basic-font-loading)基础字体加载
+## [](#basic-font-loading)基础字体加载模式
 
-Font Face Observer 使用一种基于 Promise（译者注：Promise 对象是用于进行延迟或者异步运算的，一个 Promise 代表一个尚未执行，但是将会执行的操作） 的接口来提供对网络字体加载的完整控制。你字体的来源并不重要：你可以将他们挂载在你自己的服务器上，也可以使用 [Google Fonts](http://www.google.com/fonts)、[Typekit](http://typekit.com/)、[Fonts.com](https://fonts.com/)、[Webtype](http://webtype.com/) 等服务。
+Font Face Observer 使用一种基于 Promise（译者注：Promise 对象是用于进行延迟或者异步运算的，一个 Promise 代表一个尚未执行，但是将会执行的操作） 的接口来提供对网络字体加载的完整控制。你字体放在哪里并不重要：你可以自行放置，也可以使用 [Google Fonts](http://www.google.com/fonts)、[Typekit](http://typekit.com/)、[Fonts.com](https://fonts.com/)、[Webtype](http://webtype.com/) 等服务。
 
-为了保持模式的精简，这篇文章假设你将网络字体放在自己的服务器上。这意味着你的 CSS 文件中应该有一个或多个 `@font-face` 来定义你希望通过 Font Face Observer 加载的字体。为了简洁，`@font-face` 不会出现在所有的模式中，但是你应该假设它们存在。
+为了保持模式示例的精简，这篇文章假设你将网络字体放在自己的服务器上。这意味着你的 CSS 文件中应该有一个或多个 `@font-face` 来定义你希望通过 Font Face Observer 加载的字体。为了简洁，`@font-face` 不会出现在所有的模式中，但是你应该假设它们存在。
 
     @font-face {
       font-family: Output Sans;
@@ -44,9 +44,9 @@ Font Face Observer 使用一种基于 Promise（译者注：Promise 对象是用
       console.log('Input Mono has loaded.');
     });
 
-通过这种方式，每个网络字体将会被独立加载，这在字体间没有依赖关系且应该渐进步渲染（即在加载完成后就渲染）时非常有用。与 [原生字体加载接口](https://www.w3.org/TR/css-font-loading/) 不同，你不需要将字体的 URL 传递给 Font Face Observer，它会使用 CSS 文件中已经定义的 `@font-face` 规则来加载字体。这样你就可以在使用 JavaScript 手动加载字体的同时，还能优雅降级到 CSS 的实现。
+通过这种方式，每个网络字体将会被独立加载，这在字体间没有依赖关系且应该渐进渲染（即在加载完成后就渲染）时非常有用。与 [原生字体加载接口](https://www.w3.org/TR/css-font-loading/) 不同，你不需要将字体的 URL 传递给 Font Face Observer，它会使用 CSS 文件中已经定义的 `@font-face` 规则来加载字体。这样你就可以在使用 JavaScript 手动加载字体的同时，还能优雅降级到利用 CSS 的实现。
 
-## [](#loading-groups-of-fonts)分组加载字体
+## [](#loading-groups-of-fonts)分组字体加载模式
 
 你也可以在加载多个字体的时候将它们分组：一个组内的字体只能全部加载成功或是全部加载失败。如果你加载的字体文件属于同一个字体族，且你希望仅在它们全部加载成功时才进行渲染，那么这种方式将会非常实用。这可以阻止浏览器在没能成功加载整个字体族时渲染出糟糕的网页。
 
@@ -64,9 +64,9 @@ Font Face Observer 使用一种基于 Promise（译者注：Promise 对象是用
 
 你可以使用 `Promise.all` 来对字体进行分组。只有在所有字体都成功加载后 Promise 才会被解析，一旦有某个字体加载失败，Promise 就会被拒绝。
 
-将字体分组的另一个用途是减少页面布局的重新计算渲染。如果你逐步加载和渲染所有字体，浏览器将会因为网络字体和降级字体之间不同的尺寸而多次重新计算布局。将字体分组可以把重计算布局减少为一次。
+将字体分组的另一个用途是减少页面布局的重新计算渲染。如果你逐步加载和渲染所有字体，浏览器将会因为网络字体和降级字体之间不同的尺寸而多次重新计算布局。将字体分组可以把多次计算布局优化为一次。
 
-## [](#loading-fonts-with-a-timeout)为字体加载添加超时设置
+## [](#loading-fonts-with-a-timeout)限制字体加载时间
 
 有些时候字体需要很长时间来加载，但由于字体通常是用于渲染网站的主要内容——文字，长时间的加载就会造成问题。无限制地等待一个字体的加载是不可接受的。你可以通过向字体加载添加一个计时器来解决这个问题。
 
@@ -93,9 +93,9 @@ Font Face Observer 使用一种基于 Promise（译者注：Promise 对象是用
 
 在这个例子中，字体与一个1秒的计时器竞速。除了与单个字体竞速，计时器还可以与一组字体竞速。这是一种简单而且有效的限制字体加载时间的方法。
 
-## [](#prioritised-loading)优先队列加载
+## [](#prioritised-loading)队列加载模式
 
-通常情况下，只有部分字体对于渲染首屏内容来说是必要的。在加载其它可选字体之前先加载这些字体，将会极大程度地改善你网站的性能。你可以使用优先队列加载来实现。
+通常情况下，只有部分字体对于渲染首屏内容来说是必要的。在加载其它可选字体之前先加载这些字体，将会极大程度地改善你网站的性能。你可以使用队列加载模式来实现。
 
     var primary = new FontFaceObserver('Primary');
     var secondary = new FontFaceObserver('Secondary');
@@ -108,15 +108,15 @@ Font Face Observer 使用一种基于 Promise（译者注：Promise 对象是用
       });
     });
 
-优先队列加载将会使次要字体依赖于主要字体。如果主要字体加载失败，次要字体将不会被加载。这会是一个非常重要的特性。
+队列加载模式将会使次要字体依赖于主要字体。如果主要字体加载失败，次要字体将不会被加载。这会是一个非常重要的特性。
 
-举个例子，你可以使用优先队列加载来加载一个小的主要字体以提供有限的支持，之后再加载一个更大的次要字体来提供更多特征和样式。因为主要字体非常小，它的加载和渲染将会非常快。如果主要字体加载失败，你可能也不希望加载次要字体，因为其很可能也会加载失败。
+举个例子，你可以使用队列加载模式来加载一个小的主要字体以提供有限的支持，之后再加载一个更大的次要字体来提供更多特征和样式。因为主要字体非常小，它的加载和渲染将会非常快。如果主要字体加载失败，你可能也不希望加载次要字体，因为其很可能也会加载失败。
 
-如果需要更详细的关于优先队列加载的信息，请参阅 Zach Leatherman 的文章 [Flash of Faux Text](http://www.zachleat.com/web/foft/) 以及 [Web Font Anti-Patterns: Data URIs](http://www.zachleat.com/web/web-font-data-uris/)。
+如果需要更详细的关于队列加载模式的信息，请参阅 Zach Leatherman 的文章 [Flash of Faux Text](http://www.zachleat.com/web/foft/) 以及 [Web Font Anti-Patterns: Data URIs](http://www.zachleat.com/web/web-font-data-uris/)。
 
-## [](#custom-font-display)自定义字体显示
+## [](#custom-font-display)自定义字体显示行为
 
-浏览器显示网络字体前需要先通过网络下载字体，这通常需要一定的时间，并且不同的浏览器在下载网络字体时有不同的行为。一些浏览器浏览器在加载字体时隐藏文字，而另一些浏览器会先显示降级字体。这两种方法通常被称为 Flash Of Invisible Text（FOIT）和 Flash Of Unstyled Text（FOUT）。
+浏览器显示网络字体前需要先通过网络下载字体，这通常需要一定的时间，并且不同的浏览器在下载网络字体时有不同的行为。一些浏览器在加载字体时隐藏文字，而另一些浏览器会先显示降级字体。这两种方法通常被称为 Flash Of Invisible Text（FOIT）和 Flash Of Unstyled Text（FOUT）。
 
 ![](http://ww1.sinaimg.cn/large/a490147fgw1f3aa9x12itj21540lraf4.jpg)
 
