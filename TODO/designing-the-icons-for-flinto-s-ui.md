@@ -2,7 +2,7 @@
 * 原文作者 : [Peter Nowell](https://medium.com/@pnowelldesign)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [edvardhua](https://github.com/edvardHua)
-* 校对者 : [Ruixi](https://github.com/Ruixi) [CoderBOBO](https://github.com/CoderBOBO)
+* 校对者 : [Ruixi](https://github.com/Ruixi), [CoderBOBO](https://github.com/CoderBOBO)
 
 [Flinto 团队](https://www.flinto.com/mac) 最近采访了我关于Flinto用户界面图标背后的设计流程。
 
