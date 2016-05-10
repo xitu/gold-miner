@@ -15,7 +15,7 @@ As before we’re going to use the official SVG logo as our benchmark as it uses
 
 If we import the logo (available in [SVG form](http://www.w3.org/Icons/SVG/svg-logo-v.svg)) using `New|Vector Asset|Local SVG File` we no longer get a parsing error when we import, but what actually gets imported isn’t quite right:
 
-[![svg_logo3](/images/loading.png)](https://i0.wp.com/blog.stylingandroid.com/wp-content/uploads/2015/12/svg_logo3.png?ssl=1)
+[![](http://ww3.sinaimg.cn/large/a490147fgw1f3qdvqii2ej208c08c745.jpg)](https://i0.wp.com/blog.stylingandroid.com/wp-content/uploads/2015/12/svg_logo3.png?ssl=1)
 
 There is only really one missing aspect of SVG support which is causing this: Local IRI references are not supported. Local IRI references allow a specific shape to be defined once, and then used multiple times within the document with different strokes, fills and transformations. The official SVG logo defines a dumbbell-like shape (a line with circles at each end) in such a way and uses it with a black and yellow fills, plus various rotations to get the flower-like component of the SVG logo. Similarly the letters ‘S’, ‘V’, & ‘G’ are defined in the same way and do not get rendered as a result.
 
@@ -23,7 +23,7 @@ It isn’t overly difficult to manually edit the source SVG and replace any Loca
 
 For the sake of completeness I also tried converting the logo using the [Juraj Novák’s online conversion tool](http://inloop.github.io/svg2android/), which fared no better – again because of local IRI references:
 
-[![svg_logo4](/images/loading.png)](https://i1.wp.com/blog.stylingandroid.com/wp-content/uploads/2015/12/svg_logo4.png?ssl=1)
+[![](http://ww3.sinaimg.cn/large/a490147fgw1f3qdwanyr0j208c08ca9z.jpg)](https://i1.wp.com/blog.stylingandroid.com/wp-content/uploads/2015/12/svg_logo4.png?ssl=1)
 
 So there are still issues with importing / converting SVG assets as VectorDrawable but I think it only fair to say that there has been a vast improvement since I last tried. Previously I just got some fairly meaningless errors messages which did not help me to determine where the problem lay. I suspect that for SVG assets which do not rely on local IRI references there will be a much higher success rate than before – so there is a definite improvement!
 
@@ -33,7 +33,7 @@ When I tried this previously, I found that `<group></group>` elements within the
 
 I am extremely happy to report that this issue has now been resolved, and the conversion of my hand-tweaked (to remove the local IRI references) which I used in previously now renders beautifully to a PNG (this is the actual PNG that was produced by a build):
 
-[![svg_logo2](/images/loading.png)](https://i0.wp.com/blog.stylingandroid.com/wp-content/uploads/2015/12/svg_logo2.png?ssl=1)
+[![](http://ww1.sinaimg.cn/large/a490147fgw1f3qdwqyc6nj208c08caaj.jpg)](https://i0.wp.com/blog.stylingandroid.com/wp-content/uploads/2015/12/svg_logo2.png?ssl=1)
 
 I must say that I was rather disappointed at the time I wrote the previous article about the many issues that I hit and somewhat reluctantly reached the conclusion that the tools were really not ready to use in real projects. However, I think that many of those issues have been resolved and these tools are reaching a point where I would be happy to use them is real projects. There are still some import / conversion issues but that is always going to be the case with a format like SVG which is very open to interpretation – no two SVG authors (be they human or software) will do a particular thing in the same way. But if the tools keep improving at the rate that they have already, then who knows!
 
