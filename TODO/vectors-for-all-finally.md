@@ -51,11 +51,24 @@ What this does it essentially turn off the auto-generation of PNG assets from ou
 The next thing that we need to do is switch to `app:srcCompat` instead of `android:src` for the _ImageView_ in our layout:
 
     <?xml version="1.0" encoding="utf-8"?>
-    <relativelayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent" android:layout_height="match_parent" android:paddingbottom="@dimen/activity_vertical_margin" android:paddingleft="@dimen/activity_horizontal_margin" android:paddingright="@dimen/activity_horizontal_margin" android:paddingtop="@dimen/activity_vertical_margin" tools:context=".MainActivity">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:paddingBottom="@dimen/activity_vertical_margin"
+      android:paddingLeft="@dimen/activity_horizontal_margin"
+      android:paddingRight="@dimen/activity_horizontal_margin"
+      android:paddingTop="@dimen/activity_vertical_margin"
+      tools:context=".MainActivity">
 
-      <imageview android:layout_width="wrap_content" android:layout_height="wrap_content" android:contentdescription="@null" app:srccompat="@drawable/svg_logo2">
+      <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@null"
+        app:srcCompat="@drawable/svg_logo2" />
 
-    </imageview></relativelayout>
+    </RelativeLayout>
 
 That’s all there is to it! Our _Activity_ already extends _AppCompatActivity_ which is the other prerequisite.
 
