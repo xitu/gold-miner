@@ -104,7 +104,7 @@
 
     npm install react-bootstrap
 
-React-Bootstrap 并不依赖任何特定的 Bootstrap 库，所以我们需要自行添加，现在让我们添加 Twitter 的官方 Meteor 包。
+因为 React-Bootstrap 并不依赖任何特定的 Bootstrap 库，所以我们需要自行添加，现在让我们添加 Twitter 的官方 Meteor 包。
 
     meteor add twbs:bootstrap
 
@@ -570,7 +570,7 @@ clearErrors 方法负责清除组件卸载时发生的所有错误。
 
     meteor
 
-你应当可以看到应用程序在 Mantra 的默认加载屏幕中启动了，让我们添加一个条目，这样我们应该可以在屏幕上看到效果了。
+你可以看到应用程序在 Mantra 提供的默认加载效果中启动，让我们添加一个条目，这样我们应该可以在屏幕上看到效果了。
 
 访问 localhost:3000/new-entry ，填写并提交表单来添加一个条目。
 
