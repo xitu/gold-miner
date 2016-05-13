@@ -1,17 +1,17 @@
->* 原文链接 : [十件你很可能不知道的事关于Facebook部署 JavaScript (React 与 Node.js) 和 GraphQL](https://hashnode.com/post/10-things-you-probably-didnt-know-about-javascript-react-and-nodejs-and-graphql-development-at-facebook-cink0r0e500h5io53fpl7ediu)
+>* 原文链接 : [10-things-you-probably-didnt-know-about-javascript-react-and-nodejs-and-graphql-development-at-facebook](https://hashnode.com/post/10-things-you-probably-didnt-know-about-javascript-react-and-nodejs-and-graphql-development-at-facebook-cink0r0e500h5io53fpl7ediu)
 * 原文作者 : [Sandeep Panda](https://hashnode.com/@sandeep)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [Jack](https://github.com/Jack-Kingdom)
 * 校对者: [DeadLion](https://github.com/DeadLion),[Joddiy](https://github.com/joddiy)
 
 
-最近, 来自 Facebook 的 Lee Byron ([@leebyron](https://hashnode.com/@leebyron)) 在Hashnode上主办了一场 [AMA](https://hashnode.com/ama/with-lee-byron-cin0kpe8p0073rb53b19emcda)( Ask Me Anything )。 这里提出了许多有趣的问题，并且 Lee 透露了一些关于Facebook如何使用 React 、GraphQL 、和 React Native 的惊人事实与细节。我拜读了他在 AMA 上的回答，思考并总结出了十条有趣的重点。
+最近, 来自 Facebook 的 Lee Byron ([@leebyron](https://hashnode.com/@leebyron)) 在Hashnode上主办了一场 [AMA](https://hashnode.com/ama/with-lee-byron-cin0kpe8p0073rb53b19emcda)( Ask Me Anything )。 这里提出了许多有趣的问题，并且 Lee 透露了一些关于 Facebook 如何使用 React 、GraphQL 、和 React Native 的惊人事实与细节。我拜读了他在 AMA 上的回答，思考并总结出了十条有趣的重点。
 
 那么，开始吧。
 
 ## React 背后的灵感?
 
-React 一定程度上受到了 [XHP](https://github.com/facebook/xhp-lib) 的启发，来自 Facebook 的 Marcel Laverdet 在2009年创建了此项目，用于模块化Facebook的用户界面。详见[这里](https://hashnode.com/ama/with-lee-byron-cin0kpe8p0073rb53b19emcda#cin120uib00edlv533i6d8yd7)。
+React 一定程度上受到了 [XHP](https://github.com/facebook/xhp-lib) 的启发，来自 Facebook 的 Marcel Laverdet 在2009年创建了此项目，用于模块化 Facebook 的用户界面。详见[这里](https://hashnode.com/ama/with-lee-byron-cin0kpe8p0073rb53b19emcda#cin120uib00edlv533i6d8yd7)。
 
 ## Facebook计划用React Native 重写他的移动应用吗？
 
@@ -38,7 +38,7 @@ Lee 透露到他们禁止导入 CSS 规则到除 React 组件以外的任意文�
 
 ## GraphQL 背后的故事是什么?
 
-GraphQL 诞生于2012年，当时 Lee 正在IOS组致力于 News Feed 。 当时，在一些网络环境糟糕的地区，Facebook 正急速增长。 因此, GraphQL 最初被设计于应对缓慢的手机连接。 不久，当 Relay 正准备开源时，他们认为缺乏 GraphQL ，Relay 的开源就没有多少意义。 同时，他们也意识到 GraphQL 服务编写得很巧妙并且大多数 Facebook 以外的公司都未尝使用过。因此，他们决定通过编写一个语言无关的规范来发布它。那就是 GraphQL 背后的故事。详情可阅读 [此处](https://hashnode.com/ama/with-lee-byron-cin0kpe8p0073rb53b19emcda#cin1gw37n00kwlv53rretxpe8) 的回答。
+GraphQL 诞生于2012年，当时 Lee 正在 IOS 组致力于 News Feed 。 当时，在一些网络环境糟糕的地区，Facebook 正急速增长。 因此, GraphQL 最初被设计于应对缓慢的手机连接。 不久，当 Relay 正准备开源时，他们认为缺乏 GraphQL ，Relay 的开源就没有多少意义。 同时，他们也意识到 GraphQL 服务编写得很巧妙并且大多数 Facebook 以外的公司都未尝使用过。因此，他们决定通过编写一个语言无关的规范来发布它。那就是 GraphQL 背后的故事。详情可阅读 [此处](https://hashnode.com/ama/with-lee-byron-cin0kpe8p0073rb53b19emcda#cin1gw37n00kwlv53rretxpe8) 的回答。
 
 ## Facebook 正在什么场景使用 GraphQL ？
 
