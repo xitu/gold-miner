@@ -40,11 +40,11 @@ Lee 透露到他们禁止导入 CSS 规则到除 React 组件以外的任意文�
 
 GraphQL 诞生于2012年，当时 Lee 正在IOS组致力于 News Feed 。 当时，在一些网络环境糟糕的地区，Facebook 正急速增长。 因此, GraphQL 最初被设计于应对缓慢的手机连接。 不久，当 Relay 正准备开源时，他们认为缺乏 GraphQL ，Relay 的开源就没有多少意义。 同时，他们也意识到 GraphQL 服务编写得很巧妙并且大多数 Facebook 以外的公司都未尝使用过。因此，他们决定通过编写一个语言无关的规范来发布它。那就是 GraphQL 背后的故事。详情可阅读 [此处](https://hashnode.com/ama/with-lee-byron-cin0kpe8p0073rb53b19emcda#cin1gw37n00kwlv53rretxpe8) 的回答。
 
-## Facebook 正在什么场景使用GraphQL？
+## Facebook 正在什么场景使用 GraphQL ？
 
 Facebook的 Android 和 IOS 应用 几乎全部依赖于 GraphQL 支持。 在一些情况下, 如Ads Manager，整个应有都在使用 Relay + GraphQL 。
 
-是的, Facebook 重度依赖 SSR 。尽管如此，Lee 说他们很少有在服务器使用React渲染组件的场景。这个主要取决于他们的服务器环境。
+是的, Facebook 重度依赖 SSR 。尽管如此，Lee 说他们很少有在服务器使用 React 渲染组件的场景。这个主要取决于他们的服务器环境。
 
 ## Facebook 使用 Node.js 吗？
 
