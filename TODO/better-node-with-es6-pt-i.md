@@ -2,7 +2,7 @@
 * 原文作者 : [Peleke](https://github.com/Peleke)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [huanglizhuo](https://github.com/huanglizhuo) 
-* 校对者: [yllziv](https://github.com/yllziv) [godofchina](https://github.com/godofchina)
+* 校对者: [yllziv](https://github.com/yllziv) , [godofchina](https://github.com/godofchina)
 
 ## 介绍 
 
