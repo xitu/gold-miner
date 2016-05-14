@@ -5,18 +5,23 @@
 * 校对者:
 
 The ES2015 specification, also referred to as ES6, has been approved by ECMA International back in June 2015\. In April 2016, Node.js Foundation team has released Node.js framework v6 supporting 93% of ES6 language features, thanks to V8 v5.0.
+ES2015 规范，也被称为 ES6，在2015年六月被 ECMA 国际批准成为正式标准。而在2016年四月，Node.js 基金会就发布了支持93%的 ES6 语言特性的 Node.js 框架 v6，多亏了 V8引擎 v5.0版本。
 
 It’s hard to argue that having a JavaScript library written by using ES6+ syntax and existing language features instead of relying on 3rd party libraries and plyfills has clear benefits. Such as having less verbose, more readable code, using fewer abstractions, having the codebase that is easy to maintain and extend, being able to develop your library faster, **first to market** in the Lean Startup terminology.
+很难去争辩用 ES6 及以上的语法和现有语言特性替代第三方库和 plyfills 有明显好处。比如更加简洁，更可读的代码，更少的抽象化，更利于维护和扩展代码库，开发你的库更快，**市场首入** 是一个精益术语。
 
 If you’re developing a brand new JavaScript library (npm module) targeting Node.js platform, it might be a good idea to publish it on NPM optimized for Node.js v6 environment, and optionally provide a fallback for developers who are still forced to use v5 and earlier versions of Node.js. So that, Node 6 users could import your library as regular:
+如果你正在开发一个 Node.js 上全新 JavaScript 库(npm 模块)，对 Node.js v6 环境进行优化可能是一个好主意，然后对还在使用 Node.js v5 和更早版本选择性地提供回退。
 
     const MyLibrary = require('my-library');
 
 Yet being sure that the code will operate well in Node.js 6 environment. Whereas Node 0.x, 4.x, 5.x users would import ES5.1 version of your library instead (transpiled from ES6 to ES5.1 via Babel):
+然而确保代码在 Node.js 环境中运行正常。尽管 Node 0.x ，4.x ，5.x 用户 可以通过 Babel 将 ES6 翻译成 ES5.1 来导入你的库。
 
     var MyLibrary = require('my-library/legacy');
 
 In addition to that, it is highly recommended to include yet another version of the library into your NPM package that is using ES2015 modules syntax. [Modules](https://twitter.com/koistya/status/726042867211325440) haven’t landed yet in Node.js and V8 but are widely used in Node.js and frontend communities thanks to module bundlers such as Webpack, Browserify, JSPM and Babel compiler. In order to do so, you need to compile the source code into a distributable format optimized for Node.js 6 but additionally make sure that the import/export statements in the original source code are not transpiled into ES5 module.exports syntax. Let me show you how to do it with Babel and Rollup. The directory structure of your project may look as follows:
+除此之外，在此强烈推荐将又一个这个库的版本使用 ES2015 模块语法包括在 NPM 模块中。
 
     .
     ├── /dist/                  # Temp folder for compiled output
