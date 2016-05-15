@@ -1,157 +1,157 @@
 >* 原文链接 : [UX: Infinite Scrolling vs. Pagination](https://uxplanet.org/ux-infinite-scrolling-vs-pagination-1030d29376f1#.4mfu0ijhu)
 * 原文作者 : [Nick Babich](https://medium.com/@101)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
+* 译者 : Ruixi
 * 校对者:
 
 
-“Should I use Infinite scrolling or Pagination for my content?” Some designers are still refereeing a tug-o-war between the two methods to decide which to implement into their projects. Each of them has their strengths and weaknesses and in this article we’ll overview the two methods and decide which one we should use for our projects.
+“我应该为我的项目选择无限下拉模式还是分页模式呢？” 一些设计师依然在为项目应该选择这两种模式之间的哪个来实现而纠结。每种模式都有他们的优势和劣势，而在这篇文章中，我们会概述着两种模式，并决定为我们的项目选择哪一个。
 
-### Infinite Scrolling
+### 无限下拉模式
 
-Infinite scrolling is a technique that allowing users to scroll through a massive chunk of content with no finishing-line in sight. This technique simply keeps refreshing a page when you scroll down it. Tempting as it may sound, the technique isn’t a one-size-fits-all solution for every site or app.
+无限下拉模式是一种允许用户无限下滑浏览大量块状信息的手段。它仅仅在你向下滑动页面的时候保持页面刷新。听上去似乎还挺诱人的，然而这种模式并不是应对所有网站或应用的万全之策。
 
 ![](https://cdn-images-1.medium.com/freeze/max/30/1*4YjR_KzD2wsFP_MDM5lE0Q.png?q=20)![](https://cdn-images-1.medium.com/max/800/1*4YjR_KzD2wsFP_MDM5lE0Q.png)</div>
 
-<figcaption>Infinite scrolling</figcaption>
+<figcaption>无限下拉</figcaption>
 
 
-#### **Pros #1: User Engagement and Content Discovery**
+#### **优势 #1: 用户参与和内容发现**
 
-When you use scrolling as your prime method of exploring the data, it _may_ make the user to stay longer on your web page, and so increase engagement. With the popularity of social media, massive amounts of data are being consumed; infinite scrolling offers an _efficient way to browse that ocean of information_, without having to wait for pages to preload.
+当你使用滚动作为检索数据的主要方式的时候，它_可能_会让用户在你的网页上停留得更久，用户参与也随之增加。随着社交网络的普及，大量的信息被消耗；无限下拉提供了一种无需等待页面预加载即可_畅游信息之海的有效方法_。
 
-Infinite scrolling is almost a must-have feature for _discovery interfaces_. When the user does not search for something specific so they need to see a large amount of items to find the one thing they like.
+无限下拉是几乎每个_发现界面_的必备功能。在用户并不搜索特定内容，而是需要阅览海量信息来发现他们感兴趣的事物时。
 
 ![](https://cdn-images-1.medium.com/max/800/1*ufczGiC2hnW3ogCNsXNzuQ.png)</div>
 
-<figcaption>_Pinterest’s ocean of pins_</figcaption>
+<figcaption>_Pinterest的海量pins_</figcaption>
 
-You may measure the benefits of infinite scrolling with the example of a Facebook news feed. By unspoken agreement, users are aware that they won’t get to see _everything_ on the feed, because the content is updated too frequently. With infinite scrolling, Facebook is doing it’s best to expose as much information as possible to the users and they are scanning and _consuming_ this flow of information.
+你可能会把 Facebook news feed 作为估量无限下拉模式优势的例证。不必明言,用户清楚自己不回在信息流中看到_所有_的东西，因为内容的刷新实再是频繁。 通过使用无限下拉模式，Facebook 尽力向用户展现尽可能多的信息，而用户则浏览着，_消耗_着这股信息流。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Tp7uqBoVLSOIfwngtJMeGg.png)</div>
 
-<figcaption>Facebook news feed keeps user scrolling more and more for content update</figcaption>
+<figcaption>Facebook news feed 促使用户不断下滑以刷新内容</figcaption>
 
-#### Pros #2: Scrolling is Better Than Clicking
+#### 优势 #2: 下拉比点击更易于操作
 
-_Users have better experiences with scrolling than clicking/tapping_. The mouse wheels or touchscreens make scrolling faster and easier than clicking. For a continuous and lengthy content, like a tutorial, scrolling provides even [better usability<sup></sup>](http://www.hugeinc.com/ideas/perspective/everybody-scrolls) than slicing up the text to several separate screens or pages.
+_相对于点击来说用户更熟悉下拉_。鼠标滚轮或者触摸屏让下拉（的动作）要比点击来的轻松迅捷。对于连续而冗长的内容，比如一篇教程，下拉模式相对将文本分为几个不同的屏幕或页面提供了 [更好的可用性<sup></sup>](http://www.hugeinc.com/ideas/perspective/everybody-scrolls)。
 
 ![](https://cdn-images-1.medium.com/max/800/1*UFQxw3Mvf7XgdRGNYZ_2yA.jpeg)</div>
 
-<figcaption>For clicking/tapping: each content update requires an additional click action and wait time for a page to load. For scrolling: single scrolling action for content update. Image credit: [designbolts<sup></sup>](http://www.designbolts.com/2014/12/30/10-of-the-most-anticipated-web-design-trends-to-look-for-in-2015/)</figcaption>
+<figcaption>点击事件: 每次内容刷新都需要一次额外的点击动作，还有等待页面加载的时间。下拉: 内容刷新只需要一个下拉动作。 图片来源:[designbolts<sup></sup>](http://www.designbolts.com/2014/12/30/10-of-the-most-anticipated-web-design-trends-to-look-for-in-2015/)</figcaption>
 
-#### Pros #3: Scrolling is Good For Mobile Devices
+#### 优势 #3: 下拉适用于移动设备
 
-_The smaller the screen, the longer the scroll_. The popularization of mobile browsing is another significant supporter of long scrolling. The gesture controls of mobile devices make scrolling intuitive and easy to use. As a result, the users enjoy a truly responsive experience, whatever device they’re using.
+_屏幕越小，拉得越长_。移动浏览的普及是长下拉的又一重要支撑。移动设备的手势使下拉（的动作）直观易用。其结果是，无论所使用的设备如何，用户都能享受到真正的即时体验。
 
 ![](http://ww3.sinaimg.cn/large/005SiNxygw1f3p890yozrg30m80go7wo.gif)</div>
 
-<figcaption>Source: [Dribbble<sup></sup>](https://dribbble.com/shots/2352597-Craigslist-redesign-mobile)</figcaption>
+<figcaption>来源: [Dribbble<sup></sup>](https://dribbble.com/shots/2352597-Craigslist-redesign-mobile)</figcaption>
 
-#### Cons #1: Page Performance and Device Resources
+#### 劣势 #1: 页面性能和设备资源
 
-_Page-loading speed is everything for good user experience_. Multiple researches have [shown<sup></sup>](https://blog.kissmetrics.com/loading-time/) that slow load times result in people leaving your site or delete your app which result in low conversion rates. And that’s bad news for those who use an infinite-scrolling. The more users scroll down a page, more content has to load on the same page. As a result, the _page performance will increasingly slow down_.
+_页面加载速度对于良好的用户体验来说意味着一切_。 多项研究已经[表明<sup></sup>](https://blog.kissmetrics.com/loading-time/) 缓慢的加载速度会导致人们离开你的网站或者卸载你的应用，而这些则意味着低转化率。着对于那些使用了无限下拉模式的人们来说是个坏事。用户下拉的越多，在同一页面加载的内容也就越多。其结果是，_页面性能会越来越慢_。
 
-Another problem is limited resources of the user’s device. On many infinite scrolling sites, especially those with many images, devices with limited resources such as an iPad can start slowing down because of the sheer number of assets it has loaded.
+另一个问题是用户设备的资源限制。在很多能够无限下拉的网站，特别是由很多图片的那种，资源有限的设备，比如iPad，可能会由于大量加载的数据而变慢。
 
-#### **Cons #2: Item Search and Location**
+#### **劣势 #2: 项目搜索和定位**
 
-Another issue with infinite scrolling is that when users get to a certain point in the stream, they _can’t bookmark_ their location and come back to it later. If they leave the site, they’ll lose all their progress and will have to scroll down again to get back to the same spot. This inability to determine the scrolling position of the user not only causes annoyance or confusion to the users but also hurts the overall user experience, as a result.
+无限下拉的另一个问题是当用户在信息流中选定一个点的时候，他们_无法标记_并稍后返回到这里。一旦离开站点，他们会丢失所有的进度，还不得不重新下拉到原来的位置。 无法确定下拉的位置不仅会为用户带来烦恼或困惑，也会导致对整体用户体验的损害。
 
-In 2012 Etsy had spent time implementing an infinite scroll interface and [found<sup></sup>](http://www.slideshare.net/danmckinley/design-for-continuous-experimentation) that the new interface just didn’t perform as well as a pagination. Although the amount of purchases stayed roughly the same, user engagement has gone down — now people weren’t using the search so much.
+2012年 Etsy 花了些时间实现了无限下拉的界面，却 [发现<sup></sup>](http://www.slideshare.net/danmckinley/design-for-continuous-experimentation) 新界面的运行并不如分页模式的界面。尽管交易额坚挺如旧，用户参与却有所降低——现在人们使用搜索已经不再那么频繁。
 
 ![](https://cdn-images-1.medium.com/max/800/1*fzb-pg0noBPYBia8ZhsLBw.png)
 
-<figcaption>Etsy’s search interface with infinite scroll. Current version has a pagination.</figcaption>
+<figcaption>Etsy 的无限下拉式搜索界面。目前的版本有分页。</figcaption>
 
-As Dmitry Fadeyev [points out<sup></sup>](http://usabilitypost.com/2013/01/07/when-infinite-scroll-doesnt-work/): “People will want to go back to the list of search results to check out the items they’ve just seen, comparing them to what else they’ve discovered somewhere else down the list. Not only does the infinite scroll break this dynamic, it also makes it difficult to move up and down the list, especially when you return to the page at another time and find yourself back at the top, being forced to scroll down the list once again and wait for the results to load. In this way the infinite scroll interface is actually slower than the paginated one.”
+Dmitry Fadeyev [指出<sup></sup>](http://usabilitypost.com/2013/01/07/when-infinite-scroll-doesnt-work/): “人们会想要回去看一眼搜索结果列表来检查他们刚过看过的项目，将它们与自己在列表中的其他地方看到的进行比对。无限下拉模式不但破坏了这种动态，更将其中的上下移动列表变得的困难起来，特别是你在其他时间回到这个页面，却发现你又要从头再来，不得不重新向下滑动列表，还要等待加载结果的时候。这样的话，无限下拉模式实际上比分页模式要慢。”
 
-#### Cons #3: Irrelevant Scroll Bar
+#### 劣势 #3: 不相干的滚动条
 
-Another annoying thing is that _scroll bars don’t reflect the actual amount of data available_. You’ll scroll down happily assuming you are close to the bottom, which by itself tempts you to scroll that little bit more, only to find that the results have just doubled by the time you get there. From an accessibility point of view it’s quite bad to break the use of scrollbars for your users.
+另一个烦人的东西是不反映实际可用数据量的滚动条。 你可能愉悦的滑动页面，以为自己正靠近底部，这可能会让你稍微多滑了那么一点，结果就会是在当你抵达的时候，（内容）刚好翻了一倍。从辅助的角度来说的话，影响你用户对滚动条的使用这一点真是糟糕。
 
 ![](https://cdn-images-1.medium.com/freeze/max/30/1*8ArcBlJK19mNRGIg3jBa-g.jpeg?q=20)![](https://cdn-images-1.medium.com/max/800/1*8ArcBlJK19mNRGIg3jBa-g.jpeg)
 
-<figcaption>Scroll bar should reflect real page length</figcaption>
+<figcaption>滚动条应反映实际的页面长度</figcaption>
 
-#### Cons #4: Lack of a Footer
+#### 劣势 #4: 缺少底栏
 
-Footers exist for a reason: they contain content that the user sometimes needs — if users can’t find something or they want additional information, they often go there. But because the feed scrolls infinitely, more data gets loaded as soon as user reach the bottom, pushing the footer out of view every time.
+底栏是有理由存在的：它们包含用户有时会需要的信息——一旦用户找不到什么东西或者想要获取更多信息的话，他们常常会去看看那里。但因为无限下拉的缘故，用户在触及底部的同时，会有更多的数据加载，每次都会将底栏推到视线之外。
 ![](https://cdn-images-1.medium.com/freeze/max/30/1*wywLjoN1ngn3ngTYu6p9qw.jpeg?q=20)
 
 ![](https://cdn-images-1.medium.com/max/800/1*wywLjoN1ngn3ngTYu6p9qw.jpeg)
 
-<figcaption>When LinkedIn introduced infinite scrolling in 2012, users managed to grab a screen just before it loaded new stories.</figcaption>
+<figcaption>LinkedIn 在2012引入了无限下拉时，在用户加载新的内容之前，设法抓取了一屏。</figcaption>
 
-Sites that implement infinite scrolling should either make the footer accessible by making it _sticky_ or relocate the links to a top or _side bar._
+使用无限下拉的网站，应该让底栏_固定位置_或将链接移至顶栏或_侧边栏_。
 
 ![](https://cdn-images-1.medium.com/max/800/1*S0DOI2NG84PBMGO0gPn71A.png)
 
-<figcaption>Facebook moved all links from the footer (e.g. ‘Legal’, ‘Careers’) to the right side bar.</figcaption>
+<figcaption>Facebook 把所有底部链接 (比如“法律声明”“招贤纳士”) 移到了右侧边栏。</figcaption>
 
-Another solution is to load content _on demand_ using a _Load More_ button. New content won’t automatically load until the user clicks the More button. This way users can get to your footer easily without having to chase it down.
+另一个解决方案是通过使用一个加载更多的按钮，_根据需要_加载。新内容不会自动加载，除非点击_加载更多_的按钮。这样以来用户不用追逐就能容易的到达你的底栏。
 
 ![](https://cdn-images-1.medium.com/max/800/1*du1cepjlGiMG-yMfV2RRSw.png)
 
-<figcaption>Instagram uses ‘Load More’ button in order to make footer accessible for the users</figcaption>
+<figcaption>Instagram 使用“加载更多”按钮以期让底栏对于用户来说更加便利。</figcaption>
 
-### Pagination
+### 分页模式
 
-Pagination is a user interface pattern that divides content into separate pages. If you scroll to the bottom of a page and see the row of numbers — that row of numbers is a site’s or app’s pagination.
+分页模式是一种将内容分解到不同的独立页面的用户界面模型。如果你下拉到页面底部，看到了一串数字——那就是这个网站或者应用的分页。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Cmf8-zXra4FXC7sRlS0yzw.jpeg)
 
-<figcaption>Pagination</figcaption>
+<figcaption>分页</figcaption>
 
-#### **Pros #1: Good Conversion**
+#### **优势 #1: 优秀的转化效果**
 
-Pagination is good when the user is _searching_ for something in particular within the list of results, not just scanning and _consuming_ the flow of information.
+分页模式适用于用户需要在搜索结果列表中_检索_特定内容的时候，而不是仅仅对信息流进行_浏览_。
 
-You may measure the benefits of pagination with the example of Google Search. Looking for the best search result could take a second or an hour, depending on your research. But when you decide to stop searching in Google’s current format, you know the exact number of search results. You can make an decision about where to stop or how many results to peruse.
+你可能会把 Google 搜索作为估量分页模式优势的例证。寻找最好的搜索结果，短只需要几秒钟，长则花个把小时，都取决于你的研究。但当你决定不再在 Google 的当前模式下搜索时，你知道搜索结果的具体数量。 你可以决定在何处停止或有多少搜索结果需要阅览。
 
 ![](https://cdn-images-1.medium.com/max/800/1*UkscmldH9wnnFEGV70OtuA.png)
 
-<figcaption>Google search result data</figcaption>
+<figcaption>Google 搜索结果数据</figcaption>
 
-#### **Pros #2: Sense of Control**
+#### **优势 #2: 掌控感**
 
-_Infinite scrolling is like an endless game _— no matter how far you scroll, you feel like you’ll never get to the end. When the users know the number of results availablethey are able to make a more informed decision, rather than be left to scour an infinitely scrolling list. According to the David Kieras research [Psychology in Human-Computer Interaction<sup></sup>](http://videolectures.net/chi08_kieras_phc/): “_Reaching an end point provides a sense of control_”. The research also clarifies that when users have limited but still relevant results, they are able to determine easily if what they’re seeking is actually there or not.
+_无限下拉像是一场无休止的游戏 _——不论你已经下拉了多长，你都会觉得这永远都不会有尽头。用户在知道搜索结果数目的不同时更能够作出更明智的决定，而不是被留下面对着一个无限下拉的表单时。 根据 David Kieras 的研究[人机交互中的心理学<sup></sup>](http://videolectures.net/chi08_kieras_phc/): “抵达终点提供了一种掌控感。_”。这项研究也阐明了当用户受限但是依然有相关结果时，他们很容易确定自己在找的到底在不在这里。
 
-Also when users see total number of results (of course when a total amount of data isn’t infinite) they will be able to estimate how much time it’ll take to find what they’re actually looking for.
+当用户看到的结果总数（当数据总量不是无限的）他们会多估计长时间自己寻找所需的时间。
 
-#### Pros #3: Item Location
+#### 优势 #3: 项目位置
 
-Having a paginated interface lets the user keep a _mental location_ of the item. They may not necessarily know the exact page number of page, but they will remember roughly what it was, and the paginated links will let them get there easier.
+一个有分页的界面会让用户对项目的大致位置有所感观。他们可能不清楚具体的页码，但会记得大致位置，而分页的链接则让这个过程更加轻松。
 
 ![](https://cdn-images-1.medium.com/max/800/1*yHj3EYY8ebffjwyM-bwjoQ.png)
 
-<figcaption>With paginations users are in control of navigation because they know which page to click on to get back to where they were.</figcaption>
+<figcaption>对于用户来说分页把点击哪里可以返回他们的历史位置表达的很清晰，所以他们用分页来控制导航。</figcaption>
 
-Pagination is good for ecomerce sites and apps. When users shop online, they want to be able to come back to the place they left off and continue their shopping.
+分页模式很适合哪些电子商务性质的网站和应用。当用户在线购物时，他们会想要回到刚才离开的位置，继续购物。
 
 ![](https://cdn-images-1.medium.com/max/800/1*osnIWtLG6UusQjDJZGRpDw.jpeg)
 
-<figcaption>MR Porter site uses a pagination for items</figcaption>
+<figcaption>MR Porter 网站项目使用了分页模式</figcaption>
 
-#### Cons: Extra Actions
+#### 劣势: 额外的动作
 
-To get to the next page in a pagination, the user has to find the link target (e.g. “Next”), hover the mouse over it, click it and wait for the new page to load.
+在分页模式下，如果要去下一个页面，用户需要找到目标链接（比如“下一页”），把鼠标悬停在其上方，点击，还要等待新页面加载完毕。
 
 ![](https://cdn-images-1.medium.com/max/800/1*l5djDDvsP0_JU7oP1EQIbg.png)
 
-<figcaption>Clicking for a content</figcaption>
+<figcaption>点击获取内容</figcaption>
 
-The main problem here is that most sites show users very limited content with a single page. By making your pages longer without compromising loading speed, users will get more content per page and won’t have to click or tap the pagination button as much.
+这里主要的问题是，大多数网站都只为用户在一个单一的页面中显示非常有限的内容。只有在使你的网页更长且不影响加载速度的情况下，用户将在每页获得的更多的内容且不需要name频繁的点击分页按钮。
 
-### When To Use Infinite Scrolling/Pagination?
+### 什么时候选用无限下拉/分页模式?
 
-There are only a few instances where infinite scrolling is effective. It’s best suited for sites and apps that _boast user-generated content_ (Twitter, Facebook) or _visual content_ (Pinterest, Instagram). Pagination, on the other hand, is a safe option, and good solution for sites and apps that intend to satisfy the goal-oriented activities of the users.
+只有在少数几种情境下无限下拉模式才会相当好用。它非常适合那些_用户产生内容_(Twitter, Facebook) 或者 _视觉内容_ (Pinterest, Instagram)的网站和应用. 另一方面，分页模式则是一种安全的选择，也是那些以满足用户的目标为导向的网站和应用的优秀解决方案。
 
-Google experience is a good illustration for this point. Google Images uses infinite scroll because users are able to scan and process images much more quickly than text. Reading a search result takes much longer. This is the reason why their Google Search results still use the more traditional pagination technique.
+在这一点上 Google 的经验就是一个很好的例子。 Google Images 选用了无限下拉模式，因为用户浏览和理解图像的速度要快于文本。阅读搜索结果需要更长的时间。这就是为什么 Google Search 依然使用分页模式。
 
-### Conclusion
+### 结论
 
-Designers should weigh the pros and cons of infinite scrolling and pagination before select the one. The choice depends on the context of your design and how that content is delivered. In general, an infinite scroll works well for something like Twitter where users consuming an endlessly flowing stream of data _without looking for anything in particular_, while pagination interface is good for search results pages _where people are looking for a specific item and where the location of all the items the user has viewed matter_.
+设计师们需要在权衡这两种模式的优劣之后作出选择。选择取决于你的设计情境和内容的传达方式。总的来说，无限下拉模式适用于类似 Twitter 这种网站，用户消耗着永不停歇的信息流，_不需要寻找什么特定的东西_；而分页模式则适用于_用户需要查找特定项目，而且已浏览项目的所在位置也很重要的_搜索页。
 
-In upcoming articles we’ll overview best practices for infinite scroll and pagination. So stay tuned!
+在以后的文章中我们将介绍无限下拉模式和分页模式的最佳实践。敬请期待！
 
