@@ -1,26 +1,22 @@
 >* 原文链接 : [How to Build and Publish ES6 Modules Today, with Babel and Rollup](https://medium.com/@tarkus/how-to-build-and-publish-es6-modules-today-with-babel-and-rollup-4426d9c7ca71#.oqt9xunbj)
 * 原文作者 : [Konstantin Tarkus](https://medium.com/@tarkus)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
+* 译者 : [L9m](https://github.com/L9m)
 * 校对者:
 
 ES2015 规范，也称作 ES6，早在2015年六月被 ECMA 国际（ECMA International）批准被正式标准。在2016年四月，Node.js 基金会发布了支持 93% ES6语言特性的 Node.js 框架 v6，这要归功于 V8（引擎）的 v5.0（Node.js）。
 
-It’s hard to argue that having a JavaScript library written by using ES6+ syntax and existing language features instead of relying on 3rd party libraries and plyfills has clear benefits. Such as having less verbose, more readable code, using fewer abstractions, having the codebase that is easy to maintain and extend, being able to develop your library faster, **first to market** in the Lean Startup terminology.
-很难说有一个库用 ES6 及以上的语法和现有语法特性写替代第三方库和 plyfills 有明显的好处。 有明显好处。比如更加简洁，更可读的代码，更少的抽象化，更利于维护和扩展代码库，开发你的库更快，**市场首入** 是一个精益术语。
+很难说用 ES6 及以上的语法和现有语法特性替代第三方库和 plyfills 有明显的好处。比如语法更加简洁，更可读的代码，更少的抽象，更易于代码库的维护和扩展，能让开发你的库更快，**市场首入** 是一个精益术语。
 
-If you’re developing a brand new JavaScript library (npm module) targeting Node.js platform, it might be a good idea to publish it on NPM optimized for Node.js v6 environment, and optionally provide a fallback for developers who are still forced to use v5 and earlier versions of Node.js. So that, Node 6 users could import your library as regular:
-如果你正在开发一个 Node.js 上全新 JavaScript 库(npm 模块)，对 Node.js v6 环境进行优化可能是一个好主意，然后对还在使用 Node.js v5 和更早版本选择性地提供回退。
+如果你正在开发一个基于 Node.js 平台的全新 JavaScript 库（npm 模块），对 Node.js v6 环境进行优化，对还在使用 Node.js v5 和更早版本的开发者选择性地提供回退可能是一个好主意。好让 Node.js 用户能像往常导入你的库：
 
     const MyLibrary = require('my-library');
 
-Yet being sure that the code will operate well in Node.js 6 environment. Whereas Node 0.x, 4.x, 5.x users would import ES5.1 version of your library instead (transpiled from ES6 to ES5.1 via Babel):
-然而确保代码在 Node.js 环境中运行正常。尽管 Node 0.x ，4.x ，5.x 用户 可以通过 Babel 将 ES6 翻译成 ES5.1 来导入你的库。
+确保代码在 Node.js 环境中运行正常。 Node 0.x 、4.x 、5.x 的用户可以导入你的库的 ES5.1版本来替代（通过 Babel 将 ES6 转换成 ES5.1）：
 
     var MyLibrary = require('my-library/legacy');
 
-In addition to that, it is highly recommended to include yet another version of the library into your NPM package that is using ES2015 modules syntax. [Modules](https://twitter.com/koistya/status/726042867211325440) haven’t landed yet in Node.js and V8 but are widely used in Node.js and frontend communities thanks to module bundlers such as Webpack, Browserify, JSPM and Babel compiler. In order to do so, you need to compile the source code into a distributable format optimized for Node.js 6 but additionally make sure that the import/export statements in the original source code are not transpiled into ES5 module.exports syntax. Let me show you how to do it with Babel and Rollup. The directory structure of your project may look as follows:
-除此之外，在此强烈推荐将又一个这个库的版本使用 ES2015 模块语法包括在 NPM 模块中。
+除此之外，在此强烈推荐将使用 ES2015 模块语法的另一个版本的库包含到你的 NPM 包中。[模块](https://twitter.com/koistya/status/726042867211325440) 还没有落地到 Node.js 和 V8 中，但是由于 WebPack、Browserify、JSPM 和 Babel 编译器，而在 Node.js 和前端社区中被广泛使用。为此，你需要将源码编译成针对 Node.js 6 优化的一种可分发格式（distributable format），另外要确保源码中的 import/export 声明不会被转换成 ES5 模块的 exports 语法。让我们示范一下使用 Rollup 和 Babel 该怎么做。你项目的目录机构可能如下：
 
     .
     ├── /dist/                  # Temp folder for compiled output
@@ -43,9 +39,9 @@ In addition to that, it is highly recommended to include yet another version of 
     │   └── /build.js           # Builds the project with Babel/Rollup
     └── package.json            # Project settings
 
-Where you have the “src” folder containing ES2015+ source code of your library, and a “dist” (or “build”) folder, that is created on the fly when you build the project. From that “dist” folder you will publish your NPM library containing CommonJS, ES6 and UMD bundles compiled with Babel and Rollup.
+这里有一个包含你的库的 （使用）ES2015+ 语法源码的 “src” 文件夹，和一个你创建项目生成的 “dist” （或“build”）文件夹。在 “dist” 文件夹中你将发布包括用 Babel 和 Rollup 编译的 Common JS、ES6 和 UMD bundlers。
 
-The “package.json” file will contain references to these bundles:
+“package.json” 文件包含这些管理器的引用：
 
       {  
       "name": "my-library",  
@@ -56,7 +52,7 @@ The “package.json” file will contain references to these bundles:
       ...  
     }
 
-“tools/build.js” script is a handy way to configure that compilation step. It may look as follows:
+“tools/build.js” 脚本是配置编译步骤地一个简便方法。它看起来如下：
 
     'use strict';
 
@@ -141,9 +137,9 @@ The “package.json” file will contain references to these bundles:
 
 
 
-Now you can build your library by running “node tools/build” (assuming you have Node.js 6 installed on your local machine) and publish it from inside the “dist” folder to NPM registry.
+现在你可以通过运行 “node tools/build”（假设你本地已经安装 Node.js）来构建你的库并发布在 “dist” 文件夹中。
 
-I hope this post will be helpful for developers trying to figure out what’s the best way to publish ES6 on NPM. You can also find a pre-configured NPM library boilerplate here: [https://github.com/kriasoft/babel-starter-kit](https://github.com/kriasoft/babel-starter-kit)
+我希望这篇文章能有助于开发者找在 NPM 上发布 ES6 （模块） 的最佳方法。你也可以这里找到一个预配置的 NPM 库样板： [https://github.com/kriasoft/babel-starter-kit](https://github.com/kriasoft/babel-starter-kit)
 
-If you think something is missing or inaccurate, please comment below. Happy coding!
+如果你有什么意见或建议，欢迎在下方留言。Happy Coding!
 
