@@ -137,7 +137,7 @@ ES2015 规范，也称作 ES6，早在2015年六月被 ECMA 国际（ECMA Intern
 
 
 
-现在你可以通过运行 “node tools/build”（假设你本地已经安装 Node.js）来构建你的库并发布在 “dist” 文件夹中。
+现在你可以通过运行 “node tools/build”（假设你本地已经安装 Node.js）来构建你的库并发布在 “dist” 文件夹中来进行 NPM 发布。
 
 我希望这篇文章能有助于开发者找在 NPM 上发布 ES6 （模块） 的最佳方法。你也可以这里找到一个预配置的 NPM 库样板： [https://github.com/kriasoft/babel-starter-kit](https://github.com/kriasoft/babel-starter-kit)
 
