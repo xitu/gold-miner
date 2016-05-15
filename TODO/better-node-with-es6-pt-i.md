@@ -237,9 +237,9 @@ ES2015 提供了在对象上定义属性和方法的一些新方式。
     "use strict";
 
     const myObject = {
-        const foo = function () {
+        foo : function () {
             console.log('bar');
-        },
+        }
     }
 
 在ES2015 中，我们可以这样简写：
