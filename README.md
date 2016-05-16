@@ -66,6 +66,7 @@
 
 ## 前端
 
+* [深入探究 [类]--使用 ES6 编写更好的 JavaScript Part 2](http://gold.xitu.io/entry/573969b91ea4930060f3e31a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Malcolm](https://github.com/malcolmyu) 翻译)
 * [使用 ES6 写更好的 JavaScript part I](http://gold.xitu.io/entry/5736e4f41532bc006545106e?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([huanglizhuo](https://github.com/huanglizhuo) 翻译)
 * [网页端字体加载优化](http://gold.xitu.io/entry/5732936d49830c0061c7ec72?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([shenxn](https://github.com/shenxn) 翻译)
 * [怎样在不使用框架的基础上开发一个 Javascript 组件](http://gold.xitu.io/entry/572d5f132e958a0066873e2c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([L9m](https://github.com/L9m) 翻译)
