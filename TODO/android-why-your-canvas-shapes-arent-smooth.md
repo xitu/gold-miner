@@ -2,7 +2,7 @@
 * 原文作者 : [Ali Muzaffar](https://medium.com/@ali.muzaffar)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [Sausure](https://github.com/Sausure)
-* 校对者:[zhangzhaoqi](https://github.com/joddiy)、[lovexiaov](https://github.com/lovexiaov)
+* 校对者:[zhangzhaoqi](https://github.com/joddiy), [lovexiaov](https://github.com/lovexiaov)
 
 
 通过 Google 搜索我们很快就能找到这个在 StackOverflow 中被问了很多次的问题，同时答案也经常是相同的：你需要给你的 Paint 对象设置 ANTI_ALIAS_FLAG 属性。但对于大多数人来说这并不能解决问题。下面我讲讲原因。
