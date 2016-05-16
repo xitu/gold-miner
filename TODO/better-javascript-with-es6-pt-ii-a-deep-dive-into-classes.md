@@ -2,7 +2,7 @@
 * 原文作者 : [Peleke](https://github.com/Peleke)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [Malcolm](https://github.com/malcolmyu)
-* 校对者: [嘤嘤嘤](https://github.com/xingwanying) [Jack-Kingdom](https://github.com/Jack-Kingdom)
+* 校对者: [嘤嘤嘤](https://github.com/xingwanying), [Jack-Kingdom](https://github.com/Jack-Kingdom)
 
 ## 辞旧迎新
 
