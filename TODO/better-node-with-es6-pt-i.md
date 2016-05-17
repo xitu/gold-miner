@@ -71,7 +71,7 @@
 
 还有些要强调的
 
-*   注意 `foobar` 在 `if` 块之外是不可见的，因为我们没有用`let` 声明；
+*   注意 `foobar` 在 `if` 块之外是不可见的，因为我们有用`let` 声明；
 *   我们可以在任何地方使用 `foo` ，因为我们用 `var` 定义它为全局作用域可见；
 *   我们可以在 `baz` 内部任何地方使用 `bar`， 因为 `var`-声明的变量是在定义的整个作用域内都可见。
 *   用 let or const 声明的变量不能在定义前调用。换句话说，它不会像 `var` 变量一样被编译器提升到作用域的开始处。
@@ -103,7 +103,7 @@
         console.log(`${languages[i]} is a Scandinavian language.`);
     }
 
-    console.log(i); // 4
+    console.log(i); // 3
 
     for (let j = 0; j < languages.length; j += 1) {
         console.log(`${languages[j]} is a Scandinavian language.`);
