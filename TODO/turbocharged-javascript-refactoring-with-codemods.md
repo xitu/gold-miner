@@ -2,7 +2,7 @@
 * 原文作者 :[Joe Lencioni](https://medium.com/u/e52389684329)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [Hikerpig](https://github.com/hikerpig)
-* 校对者:
+* 校对者: [Jack-Kingdom](https://github.com/Jack-Kingdom)
 
 
 
@@ -18,9 +18,9 @@
 
 ![](http://ww1.sinaimg.cn/large/005SiNxygw1f3j83hmmrij30jk0dvjsn.jpg)
 
-我执着于增加团队效率，也深知保持一致性的代码能增速团队反馈和减少无效沟通。我们最近开始了一个整理代码的项目，准备把许多陈旧的 JavaScript 代码转化得符合我们的代码风格，亦使我们的代码检验器有更多用武之地。若全都手动完成，会是件十分无聊和耗时的苦差，所以我们借助工具帮我们自动化此工作。虽说使用 eslint 的 fix 模式是个不错的开始，但[它现在所能有限](https://github.com/eslint/eslint/issues/5329)。尽管他们[最近开始接受允许修复所有规则的PR](https://twitter.com/geteslint/status/723909416957829122)，也准备[构建 JavaScript 的具体语法树](https://github.com/cst/cst)，但等这些功能完成还需要些时间。感谢上苍我们发现了 Facebook 的 [jscodeshift](https://github.com/facebook/jscodeshift)，这是一个重构工具（协助大型代码库的自动化重构）。如果代码库是个花园，那么 jscodeshift 就像个除草机器人。
+我执着于增加团队效率，也深知保持一致性的代码能增速团队反馈和减少无效沟通。我们最近开始了一个整理代码的项目，准备把许多陈旧的 JavaScript 代码转化得符合我们的代码风格，亦使我们的代码检验器有更多用武之地。若全都手动完成，会是件十分无聊和耗时的苦差，所以我们借助工具帮我们自动化此工作。虽说使用 _`eslint -fix`_ 是个不错的开始，但[它现在所能有限](https://github.com/eslint/eslint/issues/5329)。尽管他们[最近开始接受修复所有规则的PR](https://twitter.com/geteslint/status/723909416957829122)，也准备[构建 JavaScript 的具体语法树](https://github.com/cst/cst)，但等这些功能完成还需要些时间。感谢上苍我们发现了 Facebook 的 [jscodeshift](https://github.com/facebook/jscodeshift)，这是一个重构工具（协助大型代码库的自动化重构）。如果代码库是个花园，那么 jscodeshift 就像个除草机器人。
 
-此工具将 JavaScript 解析为一棵 [抽象语法树](https://en.wikipedia.org/wiki/Abstract_syntax_tree)，并在其上进行变换，然后输出符合指定代码风格的新 JavaScript 代码。转换过程是用 JavaScript 本身实现的，所以我们团队很容易接受此工具。寻找或是创建转换代码能加速我们乏味的重构，让我们团队能够专注于更有意义的工作。
+此工具将 JavaScript 解析为一棵 [抽象语法树](https://en.wikipedia.org/wiki/Abstract_syntax_tree)，并在其上进行变换，然后输出符合指定代码风格的新 JavaScript 代码。转换过程是用 JavaScript 本身实现的，所以我们团队很乐意使用此工具。寻找或是创建转换代码能加速我们乏味的重构，让我们团队能够专注于更有意义的工作。
 
 运行几个代码重构件后，我们的花园整洁了点：
 
@@ -28,7 +28,7 @@
 
 ### 策略
 
-鉴于多数重构件能在一分钟内处理上千文件，我发现它是我打发主要工作的等待间隙（例如等代码审查）时间的不错选择。它帮我最大提升了工作效率从而让我能在更大和更重要的项目中有所建树。
+鉴于多数重构件能在一分钟内处理上千文件，我发现它是我打发主要工作的等待间隙（例如等代码审查）的不错选择。它帮我最大化提升了工作效率从而让我能在更大和更重要的项目中有所建树。
 
 大规模重构主要面临四大挑战。沟通、正确性、代码审查以及冲突合并。我采取以下策略来应对这些挑战。
 
@@ -38,13 +38,13 @@
     git add --patch
     git checkout --patch
 
-保持每个提交和 PR 在小的体量是好的做法，对于重构件也不例外。我通常一段时间内进行一类重构，减少代码审查和冲突合并的麻烦。我亦经常让重构件自动提交一次结果，而后若有需要，便紧接着再提交一些手动清理。如此一来在衍合我的分支的时候合并冲突会轻松点，因为我可以使用
+保持每个提交和 PR 在小的体量是好的做法，对于重构件也不例外。我通常一段时间内进行一类重构，减少代码审查和冲突合并的麻烦。我亦经常让重构件自动提交重构结果，而后若有必要，再手动清理。这样在衍合分支时解决冲突会轻松点，因为我可以使用
 
     git checkout --ours path/to/conflict
 
 然后在那个文件上再运行一次重构件，之后也不会弄乱我自己的手动提交。
 
-有时重构件生成了很大的变动，我觉得在此情况下根据目录或文件名来分成数次提交或 PR 会比较好。例如，一个提交重构了 .js 文件而另一个提交重构了.jsx 文件。这样之后代码审查和冲突合并会相对轻松一点。谨遵 [Unix 哲学](https://en.wikipedia.org/wiki/Unix_philosophy)，分批进行文件重构类似于对 _`find`_ 命令的参数调整：
+有时重构件生成了很大的变动，我觉得在此情况下根据目录或文件名来分成数次提交或 PR 会比较好。例如，一个提交重构 .js 文件，另一个提交重构.jsx 文件。这样之后代码审查和冲突合并会相对轻松一点。谨遵 [Unix 哲学](https://en.wikipedia.org/wiki/Unix_philosophy)，分批进行文件重构简单到仅需调整 _`find`_ 命令的参数：
 
     find app/assets/javascripts -name *.jsx -not -path */vendor/* | \
       xargs jscodeshift -t ~/path/to/transform.js
@@ -55,7 +55,7 @@
 
 虽然此工具还比较新，已然有了一些实用的重构件。以下是一些我们成功上手了的。
 
-#### 轻量的重构件
+#### 轻量级重构件
 
 以下是些用着不那么痛苦的，立刻上手感受成效。
 
@@ -71,7 +71,7 @@
 
     [1, 2, 3].map(x => x * x);
 
-[**js-codemod/no-vars**](https://github.com/cpojer/js-codemod#no-vars)**:** 谨慎地将 _`var'_ 转化为 _`const`_ 或 _`let`_。
+[**js-codemod/no-vars**](https://github.com/cpojer/js-codemod#no-vars)**:** 将 _`var'_ 安全转化为 _`const`_ 或 _`let`_。
 
 使用前:
 
@@ -108,7 +108,7 @@
     const belong = 'anywhere';
     const welcome = 'home';
 
-[**js-codemod/unquote-properties**](https://github.com/cpojer/js-codemod#unquote-properties)**:** 移除对象的键的引号。
+[**js-codemod/unquote-properties**](https://github.com/cpojer/js-codemod#unquote-properties)**:** 移除对象属性的引号。
 
 使用前:
 
@@ -128,7 +128,7 @@
 
 [**react-codemod/class**](https://github.com/reactjs/react-codemod#class)**:** 把 _`React.createClass`_ 转为 ES6 class 的实现。
 
-此重构件在有 mixin 的时候不会变换，在类似于 _`propTypes`_、默认 props 和 initial state 定义这样的必要转换做得很好，还能将事件回调函数上下文绑定到构造器上。
+此重构件在有 mixin 的时候不会变换，在类似于 _`propTypes`_、默认 props 和 initial state 定义这样的必要转换做得很好，还能将事件回调函数绑定到构造器上。
 
 使用前:
 
@@ -176,7 +176,7 @@
 
 [**js-codemod/template-literals**](https://github.com/cpojer/js-codemod#template-literals)**:** 把字符串的串联转换为字符串模板字面量表示。
 
-因为我们多处用到字符串串联，而且这个重构件尽其所能把所有字符串都转成模板，我发现很多转换结果其实并不合理。我把这个重构件放到"重量级"的列表里，也是因为它会改动很多文件而且之后还得手动修改以保证得到最好结果。
+因为我们多处用到字符串串联，而且这个重构件尽其所能把所有字符串都转成模板，我发现很多转换结果其实并不合理。我之所以这个重构件放到"重量级"列表里，是因为它会改动很多文件，而且之后我们还得进行大量的手动修改才能得到满意的结果。
 
 使用前:
 
@@ -201,4 +201,4 @@
 
 在使用了一些现成的和我们自己写的并贡献给社区的重构件之后，我们的旧代码质量获得很大的提升。我不费吹灰之力便重构了40000行代码，将旧代码调整至符合 ES6 代码风格。花园焕然一新，我们之后的工作也更有效率和乐趣。
 
-使用已有的重构件仅是牛刀小试，只有在你拿起键盘写出自己的重构件时，真正的能量才会释放。无论是对代码风格重构，或是对失效 API 的调用调整，重构件都能大显身手，你可以尽情想象发挥。这些技术值得学习投入，能省下你和使用你的项目的人很多时间精力。
+使用已有的重构件仅是牛刀小试，只有在你拿起键盘写出自己的重构件时，真正的能量才会释放。无论是对代码风格重构，或是对失效 API 的调用调整，重构件都能大显身手，你可以尽情想象发挥。这些技术值得学习投入，能省下你和使用你的项目使用者很多时间精力。
