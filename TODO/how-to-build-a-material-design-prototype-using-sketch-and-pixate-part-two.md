@@ -4,14 +4,14 @@
 * 译者 : 
 * 校对者:
 
-In [Part 1](http://createdineden.com/blog/post/material-design-prototype-tutorial-part-1/ "How to build a material design prototype using Sketch and Pixate - part one") of the tutorial we made a simple login screen and got all our assets exported. 
+在教程的 [第一部分](http://createdineden.com/blog/post/material-design-prototype-tutorial-part-1/ "如何使用 Sketch 和 Pixate 来构建一个材料设计原型 —— 第一部分") 我们制作了一个登录界面并导出了所有资源。
 
-In Part 2, we’re going to move on to creating the prototype in Pixate. For this part, you’ll need:
+在第二部分，我们打算继续在 Pixate 里创建一个原型。对于这一部分，你可能需要：
 
 
-*   <span>Android or iOS device (preferably Android). If you can get something with a 1080 x 1920 size screen then all the better, but it’s not necessary, Pixate will scale the prototype for you.</span>
-*   [<span>Pixate Studio</span>](http://www.pixate.com/getstarted/ "Pixate Studio")
-*   <span><span>Pixate app downloaded on to your</span> [Android](http://bit.ly/1Wp5wuG "Pixate Android App") <span>or</span> [iOS](http://apple.co/1qdImcZ "Pixate App iOS") <span>phone. </span></span>
+*   <span> Android 或者 IOS 设备（最好是 Android ）。如果你能弄到屏幕尺寸是 1080 x 1920 的设备那更好了，不过没有也没关系， Pixate 将为你测量这个原型。！！</span>
+*   [<span>Pixate 工具</span>](http://www.pixate.com/getstarted/ "Pixate Studio")
+*   <span><span>下载 Pixate app 到你的</span> [Android](http://bit.ly/1Wp5wuG "Pixate Android App") <span>或者</span> [iOS](http://apple.co/1qdImcZ "Pixate App iOS") <span>设备。 </span></span>
 *   <span>WiFi</span>
 
 ## Prototyping in Pixate
