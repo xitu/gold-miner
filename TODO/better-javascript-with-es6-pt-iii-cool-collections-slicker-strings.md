@@ -2,7 +2,7 @@
 * 原文作者 : [Peleke](https://github.com/Peleke)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [godofchina](https://github.com/godofchina)
-* 校对者: [Jack-Kingdom](https://github.com/Jack-Kingdom)，[malcolmyu](https://github.com/malcolmyu)
+* 校对者: [Jack-Kingdom](https://github.com/Jack-Kingdom)， [malcolmyu](https://github.com/malcolmyu)
 
 
 ## 简介
@@ -12,7 +12,7 @@ ES2015 发生了一些重大变革，像 [promises](https://developer.mozilla.or
 在这篇文章里，我们来看下新特性带来的好处:
 
 *   新的集合: `map`，`weakmap`，`set`， `weakset`
-*   大部分的 [new `String` methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/New_in_JavaScript/ECMAScript_6_support_in_Mozilla#Additions_to_the_String_object) 和
+*   大部分的 [new `String` methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/New_in_JavaScript/ECMAScript_6_support_in_Mozilla#Additions_to_the_String_object)
 *   模板字符串。
 
 我们开始这个系列的最后一章吧。
@@ -92,9 +92,9 @@ _标注: 这是 the Better JavaScript 系列的第三章。 前两章在这儿:_
 
 ## 新的字符串方法
 
-ES2015 也给 `String` 新增了一些方法。 他们主要归为两类:
+ES2015 也给 `String` 新增了一些方法。他们主要归为两类:
 
-1.  通用的便捷方法和
+1.  通用的便捷方法
 2.  扩充 Unicode 支持的方法。
 
 在本文里我们只讲第一类，同时 unicode 特定方法也有相当好的用例 。如果你感兴趣的话，这是地址 [在 MDN 的文档里，有一个关于字符串新方法的完整列表](https://developer.mozilla.org/en-US/docs/Web/JavaScript/New_in_JavaScript/ECMAScript_6_support_in_Mozilla#Additions_to_the_String_object)。
@@ -103,7 +103,7 @@ ES2015 也给 `String` 新增了一些方法。 他们主要归为两类:
 
 对新手而言，我们有 [String.prototype.startsWith](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/startsWith)。 它对任何字符串都有效，它需要两个参数:
 
-1.  一个是 _search string_; 还有
+1.  一个是 _search string_ 还有
 2.  整形的位置参数 _n_。这是可选的。
 
 `String.prototype.startsWith` 方法会检查以 _nth_ 位起的字符串是否以 _search string_ 开始。如果没有位置参数，则默认从头开始。
@@ -151,7 +151,7 @@ ES2015 也给 `String` 新增了一些方法。 他们主要归为两类:
 
 ## includes
 
-ES2015 也添加了 [String.prototype.includes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/includes)。 你需要用字符串调用它，并且要传递一个搜索项。 如果字符串包含搜索项会返回 `true`，反之返回 `false`。
+ES2015 也添加了 [String.prototype.includes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/includes)。 你需要用字符串调用它，并且要传递一个搜索项。如果字符串包含搜索项会返回 `true`，反之返回 `false`。
 
     "use strict";
 
@@ -165,11 +165,11 @@ ES2015之前，我们只能这样:
     "use strict";
     contrived_example.indexOf("impressively") !== -1 // true
 
-不算太坏。 但是，`String.prototype.includes` _是_ 一个改善，它屏蔽了任意整数返回值为 true 的漏洞。
+不算太坏。但是，`String.prototype.includes` _是_ 一个改善，它屏蔽了任意整数返回值为 true 的漏洞。
 
 ## repeat
 
-还有 [String.prototype.repeat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/repeat)。 可以对任意字符串使用，像 `includes` 一样，它会或多或少地完成函数名指示的工作。
+还有 [String.prototype.repeat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/repeat)。可以对任意字符串使用，像 `includes` 一样，它会或多或少地完成函数名指示的工作。
 
 它只需要一个参数: 一个整型的 _count_。使用案例说明一切，上代码:
 
@@ -193,8 +193,8 @@ ES2015之前，我们只能这样:
 ## Unicode 方法
 
 虽然我们不涉及剩余的 string 方法，但是如果我不告诉你去这个主题的必读部分就会显得我疏忽。 
-*   Dr Rauschmayer 对于 [Unicode in JavaScript](http://speakingjs.com/es5/ch24.html) 的介绍;
-*   他关于 [ES2015's Unicode Support in Exploring ES6](http://exploringjs.com/es6/ch_unicode.html#sec_escape-sequences) ; 和
+*   Dr Rauschmayer 对于 [Unicode in JavaScript](http://speakingjs.com/es5/ch24.html) 的介绍
+*   他关于 [ES2015's Unicode Support in Exploring ES6](http://exploringjs.com/es6/ch_unicode.html#sec_escape-sequences) 和
 *   [The Absolute Minimum Every Software Developer Needs to Know About Unicode](http://www.joelonsoftware.com/articles/Unicode.html) 的讨论。
 
 无论如何我不得不跳过它的最后一部分。虽然有些老但是还是有优点的。
@@ -216,7 +216,7 @@ ES2015 新增了一些集合类型:
 
 ## Map
 
-_map_ 就是简单的键值对。 最简单的理解方式就是和 object 类似，一个键对应一个值。
+_map_ 就是简单的键值对。最简单的理解方式就是和 object 类似，一个键对应一个值。
 
     "use strict";
 
@@ -439,7 +439,7 @@ Set 和 Map 有完全相同的 API。主要的不同是 Set 没有 `set` 方法�
 
 ## WeakSet
 
-WeakSet 相对于 Set 就像 WeakMap 相对于 Map。就像 WeakMap:
+WeakSet 相对于 Set 就像 WeakMap 相对于 Map :
 
 1.  在 WeakSet 里 object 的引用是弱类型的。 
 2.  WeakSet 没有 property 属性。
