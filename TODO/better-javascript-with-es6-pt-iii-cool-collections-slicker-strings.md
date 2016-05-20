@@ -1,8 +1,8 @@
 >* 原文链接 : [Better JavaScript with ES6, Pt. III: Cool Collections & Slicker Strings](https://scotch.io/tutorials/better-javascript-with-es6-pt-iii-cool-collections-slicker-strings)
 * 原文作者 : [Peleke](https://github.com/Peleke)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者:
+* 译者 : [godofchina](https://github.com/godofchina)
+* 校对者: [Jack-Kingdom](https://github.com/Jack-Kingdom)，[malcolmyu](https://github.com/malcolmyu)
 
 
 ## 简介
@@ -11,7 +11,7 @@ ES2015 发生了一些重大变革，像 [promises](https://developer.mozilla.or
 
 在这篇文章里，我们来看下新特性带来的好处:
 
-*   新的集合: `map`，`weakmap`，`set`，和 `weakset`
+*   新的集合: `map`，`weakmap`，`set`， `weakset`
 *   大部分的 [new `String` methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/New_in_JavaScript/ECMAScript_6_support_in_Mozilla#Additions_to_the_String_object) 和
 *   模板字符串。
 
@@ -19,8 +19,8 @@ ES2015 发生了一些重大变革，像 [promises](https://developer.mozilla.or
 
 _标注: 这是 the Better JavaScript 系列的第三章。 前两章在这儿:_
 
-*   [Better JavaScript with ES6, Part 1: Popular Features](https://scotch.io/tutorials/better-node-with-es6-pt-i)
-*   [Better JavaScript with ES6, Part 2: A Deep Dive into Classes](https://scotch.io/tutorials/better-javascript-with-es6-pt-ii-a-deep-dive-into-classes)
+*   [Better JavaScript with ES6, Part 1: Popular Features](http://gold.xitu.io/entry/5736e4f41532bc006545106e)
+*   [Better JavaScript with ES6, Part 2: A Deep Dive into Classes](http://gold.xitu.io/entry/573969b91ea4930060f3e31a)
 
 ## 模板字符串
 
@@ -88,7 +88,7 @@ _标注: 这是 the Better JavaScript 系列的第三章。 前两章在这儿:_
 2.  对于多行字符串，只需要把你要写的字符串包裹在反引号里，在要换行的地方直接换行。 JavaScript 会在换行处插入新行。
 3.  使用原生字符串，在模板字符串前加前缀`String.raw`，仍然使用反引号包裹字符串。
 
-模板字符串或许只不过是一种语法糖 . . . 但比语法糖它略胜一筹。
+模板字符串或许只不过是一种语法糖 . . . 但它比语法糖略胜一筹。
 
 ## 新的字符串方法
 
@@ -165,7 +165,7 @@ ES2015之前，我们只能这样:
     "use strict";
     contrived_example.indexOf("impressively") !== -1 // true
 
-不算太坏。 但是，`String.prototype.includes` _是_ 一个改善，它屏蔽了任意整数返回值为true的漏洞。
+不算太坏。 但是，`String.prototype.includes` _是_ 一个改善，它屏蔽了任意整数返回值为 true 的漏洞。
 
 ## repeat
 
