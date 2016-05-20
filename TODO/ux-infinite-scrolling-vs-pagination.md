@@ -1,8 +1,8 @@
 >* 原文链接 : [UX: Infinite Scrolling vs. Pagination](https://uxplanet.org/ux-infinite-scrolling-vs-pagination-1030d29376f1#.4mfu0ijhu)
 * 原文作者 : [Nick Babich](https://medium.com/@101)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : Ruixi
-* 校对者:Velacielad、wild-flame
+* 译者 :  [Ruixi](https://github.com/Ruixi)
+* 校对者:[Velacielad](https://github.com/Velacielad), [wild-flame](https://github.com/wild-flame)
 
 
 “我应该为我的项目选择无限下拉模式还是分页模式呢？” 一些设计师依然在为项目应该选择这两种模式之间的哪个来实现而纠结。每种模式都有他们的优势和劣势，而在这篇文章中，我们会概述这两种模式，并决定为我们的项目选择哪一个。
