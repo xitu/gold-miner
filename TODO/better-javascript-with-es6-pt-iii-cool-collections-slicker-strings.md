@@ -268,8 +268,8 @@ _map_ 就是简单的键值对。 最简单的理解方式就是和 object 类�
     scotch_inventory.set('Lagavulin 18', 1);
     scotch_inventory.set('Glenfiddich 18', 1);
     
-    /* Map.prototype.forEach(callback[, thisArg]) :: Execute a function, callback, on every key-value pair in the map. 
-      *   You can set the value of 'this' inside the callback by passing a thisArg, but that's optional and seldom necessary.
+    /* Map.prototype.forEach(callback[, thisArg]) :: 对 map 里的每个键值对执行一个回调函数 
+      *   你可以在回调函数内部设置 'this' 的值，通过传递一个 thisArg 参数，那是可选的而且没有太大必要那样做
       *   Finally, note that the callback gets passed the VALUE and KEY, in that order. */
     scotch_inventory.forEach(function (quantity, scotch) {
         console.log(`Excuse me while I sip this ${scotch}.`);
