@@ -90,7 +90,7 @@ In Part 2, we’re going to move on to creating the prototype in Pixate. For thi
 
 <span>Now if you go back to your device, then the Pixate app should flash as it updates itself. Now if everything is setup correctly, when you click the _email text field_, it should fade out and the _email text field with input_ should appear.</span>
 
-![](http://ww2.sinaimg.cn/large/a490147fgw1f41u0mjc9cj20ba0k0aan.jpg)
+![](http://ww4.sinaimg.cn/large/a490147fgw1f41u4q550uj20ba0k0t9s.jpg)
 
 <span>You now need to reproduce these steps to do the _password text field_ and _password text field with input_.</span>
 
@@ -144,13 +144,13 @@ This should place the buttons all directly above each other and have room for th
 
 <span>Ok, so you should now have something that looks like this:</span>
 
-![](http://ww2.sinaimg.cn/large/a490147fgw1f41u2oblj3j20ba0k0q3n.jpg)
+![](http://ww1.sinaimg.cn/large/a490147fjw1f41vs6l528g20ba0k0q89.gif)
 
 ## ARISE SER BUTTON!
 
 <span>The very last thing we need to do is make our _login button_ 'raise' when pressed; just like what happens normally with a button in Lollipop onwards. As you can see in the example of the Fantasy Football Fix login screen, the “Upload Squad” button seem’s to magnetise to your finger as you press the button, with the shadows increasing.</span>
 
-<![](http://ww4.sinaimg.cn/large/a490147fgw1f41u4q550uj20ba0k0t9s.jpg)
+![](http://ww2.sinaimg.cn/large/a490147fjw1f41vufzbuyg20ba0k0gtk.gif)
 
 <span>We're going to be making use of the _raised login button_ obviously. Firstly, drag a “Tap” interaction to the _login button_ as we need to know when it’s been pressed. Then we’re going to need two fades again for this so drag two over to the _raised login button_.</span>
 
