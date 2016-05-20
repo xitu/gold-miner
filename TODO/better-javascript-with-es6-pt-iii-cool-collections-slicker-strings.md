@@ -270,7 +270,7 @@ _map_ 就是简单的键值对。 最简单的理解方式就是和 object 类�
     
     /* Map.prototype.forEach(callback[, thisArg]) :: 对 map 里的每个键值对执行一个回调函数 
       *   你可以在回调函数内部设置 'this' 的值，通过传递一个 thisArg 参数，那是可选的而且没有太大必要那样做
-      *   Finally, note that the callback gets passed the VALUE and KEY, in that order. */
+      *   最后，注意回调函数已经被传了键和值 */
     scotch_inventory.forEach(function (quantity, scotch) {
         console.log(`Excuse me while I sip this ${scotch}.`);
     });
@@ -449,8 +449,8 @@ Weak set的用例并不多，但是这儿有一些 [Domenic Denicola](https://ma
 
 这儿是他给的例子:
 
-    /* 下面这个例子来自 Weakset 使用案例的归类邮件（archived emaill thread）  
-      *    邮件的内容和 thread 的其余部分在这儿:
+    /* 下面这个例子来自 Weakset 使用案例的邮件讨论 
+      *    邮件的内容和讨论的其余部分在这儿:
       *      https://mail.mozilla.org/pipermail/es-discuss/2015-June/043027.html
       */
 
