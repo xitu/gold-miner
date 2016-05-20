@@ -84,13 +84,13 @@ In Part 2, we’re going to move on to creating the prototype in Pixate. For thi
 ## Creating more animations
 
 <span>Right, so now we have to finish this animation off. Empty space when we click the _email text field_ is no good. Click on the _email text field_ _with input_, and then click and drag “Fade” from the animations box and drop it on it. When you click on the first drop down box for “Based on” under “Fade” make sure you select _email text field_. What we’re going to do is make the _email text field with input_ appear as the _email text field_ fades out. Under “Fade to” enter “100”.</span><span>  
-![](http://ww3.sinaimg.cn/large/a490147fjw1f41tu588uej20jp0ci75p.jpg)
+![](http://ww1.sinaimg.cn/large/a490147fgw1f41wtvuc3qj20jp0ci75p.jpg)
 
 <span>What we’re effectively saying is, when the _email text field_ has been tapped, then fade it to 0 and fade the _email text field with input_ to 100\. It’s a bit, "if this, then that".</span>
 
 <span>Now if you go back to your device, then the Pixate app should flash as it updates itself. Now if everything is setup correctly, when you click the _email text field_, it should fade out and the _email text field with input_ should appear.</span>
 
-![](http://ww4.sinaimg.cn/large/a490147fgw1f41u4q550uj20ba0k0t9s.jpg)
+![](http://ww4.sinaimg.cn/large/a490147fgw1f41wt2s6lmg20ba0k0tca.gif)
 
 <span>You now need to reproduce these steps to do the _password text field_ and _password text field with input_.</span>
 
@@ -162,7 +162,7 @@ That should make our button appear and seemingly rise, but if you click the _log
 
 <span>Now if you tap your _login button_ you should get the nice raised effect!</span>
 
-<span><iframe width="420" height="315" src="https://www.youtube.com/embed/Jp5nU_geCrw?feature=oembed"></iframe></span>
+<span>![](http://ww1.sinaimg.cn/large/a490147fgw1f41web91qbg20ba0k0dlb.gif)</span>
 
 <span>If you want to get a bit more fancy you can fade the _login button_ in and out too when it’s tapped but I’ll leave that to you as an extra task ;) A by product of this will be a slight flash so it looks like the button’s been tapped. Also note this will not look that great if you do not have the _login button_ and _raised login button_ both lined up correctly in Pixate so make sure you have that sorted.</span>
 
