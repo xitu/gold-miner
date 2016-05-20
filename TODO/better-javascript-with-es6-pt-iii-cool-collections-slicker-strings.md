@@ -32,38 +32,37 @@ _标注: 这是 the Better JavaScript 系列的第三章。 前两章在这儿:_
 
     "use strict";
 
-    /* There are three major use cases for tempate literals: 
-      * String interpolation, multi-line strings, and raw strings.
+    /* 三个模板字符串的例子: 
+      * 字符串插值，多行字符串，raw 字符串。
       * ================================= */
 
     // ==================================
-    // 1\. STRING INTERPOLATION :: Evaluate an expression -- /any/ expression -- inside of a string.
+    // 1\. 字符串插值 :: 解析任何一个字符串中的表达式。
     console.log(`1 + 1 = ${1 + 1}`);
 
     // ==================================
-    // 2\. MULTI-LINE STRINGS :: Write this:
+    // 2\. 多行字符串 :: 这样写:
     let childe_roland = 
     `I saw them and I knew them all. And yet
     Dauntless the slug-horn to my lips I set,
     And blew “Childe Roland to the Dark Tower came.”`
 
-    // . . . Instead of this:
+    // . . . 代替下面的写法:
     child_roland = 
     'I saw them and I knew them all. And yet\n' +
     'Dauntless the slug-horn to my lips I set,\n' +
     'And blew “Childe Roland to the Dark Tower came.”';
 
     // ==================================
-    // 3\. RAW STRINGS :: Prefixing with String.raw cause JavaScript to ignore backslash escapes.
-    // It'll still evaluate expressions wrapped in ${}, though.
+    // 3\. raw 字符串 :: 在字符串前加 raw 前缀，javascript 会忽略转义字符。
+    // 依然会解析包在 ${} 的表达式
     const unescaped = String.raw`This ${string()} doesn't contain a newline!\n`
 
     function string () { return "string"; }
 
-    console.log(unescaped); // 'This string doesn't contain a newline!\n' -- Note that \n is printed literally
+    console.log(unescaped); // 'This string doesn't contain a newline!\n' -- 注意 \n 会被原样输出
 
-    // You can use template strings to create HTML templates similarly to the way
-    //   React uses JSX (Angular 2 uses them this way).
+    // 你可以像 React 使用 JSX 一样，用模板字符串创建 HTML 模板
     const template = 
     `
     <div class="${getClass()}">
@@ -77,13 +76,13 @@ _标注: 这是 the Better JavaScript 系列的第三章。 前两章在这儿:_
         return "some-stateful-class";
     }
 
-    console.log(template); // A bit bulky to copy the output here, so try it yourself!
+    console.log(template); // 这样使用略显笨，自己试试吧！
 
-    // Another common use case is printing variable names:
+    // 另一个常用的例子是打印变量名:
     const user = { name : 'Joe' };
 
-    console.log("User's name is " + user.name + "."); // A little cumbersome . . . 
-    console.log(`User's name is ${user.name}.`); // . . . A bit nicer.
+    console.log("User's name is " + user.name + "."); // 有点冗长
+    console.log(`User's name is ${user.name}.`); // 这样稍好一些
 
 1.  使用字符串插值，用反引号代替引号包裹字符串，并把我们想要的表达式嵌入在${}中。
 2.  对于多行字符串，只需要把你要写的字符串包裹在反引号里，在要换行的地方直接换行。 JavaScript 会在换行处插入新行。
@@ -115,13 +114,13 @@ ES2015 也给 `String` 新增了一些方法。 他们主要归为两类:
 
     const contrived_example = "This is one impressively contrived example!";
 
-    // does this string start with "This is one"?
+    // 这个字符串是以 "This is one" 开头吗?
     console.log(contrived_example.startsWith("This is one")); // true
 
-    // does this start with "is" at character 4?
+    // 这个字符串的第四个字符以 "is" 开头?
     console.log(contrived_example.startsWith("is", 4)); // false
 
-    // does this start with "is" at character 5?
+    // 这个字符串的第五个字符以 "is" 开始?
     console.log(contrived_example.startsWith("is", 5)); // true
 
 ## endsWith
@@ -141,12 +140,12 @@ ES2015 也给 `String` 新增了一些方法。 他们主要归为两类:
     console.log(contrived_example.slice(0, 11)); // "This is one"
     console.log(contrived_example.endsWith("one", 11)); // true
 
-    // In general, passing a position is like doing this:
+    // 通常情况下，传一个位置参数向下面这样:
     function substringEndsWith (string, search_string, position) {
         // Chop off the end of the string
         const substring = string.slice(0, position);
 
-        // Check if the shortened string ends with the search string
+        // 检查被截取的字符串是否已 search_string 结尾
         return substring.endsWith(search_string);
     }
 
@@ -158,7 +157,7 @@ ES2015 也添加了 [String.prototype.includes](https://developer.mozilla.org/en
 
     const contrived_example = "This is one impressively contrived example!";
 
-    // does this string include the word impressively?
+    // 这个字符串是否包含单词 impressively ?
     contrived_example.includes("impressively"); // true
 
 ES2015之前，我们只能这样:
@@ -184,12 +183,11 @@ ES2015之前，我们只能这样:
 
 一个模板字符串以 `String.raw` 为前缀，它将不会在字符串中转义:
 
-    /* Since the backslash alone means "escape", we need to double it to print
-      *   one. Similarly, \n in a normal string is interpreted as "newline". 
+    /* 单右斜线要转义，我们需要双右斜线才能打印一个右斜线，\n 在普通字符串里会被解析为换行
       *   */
     console.log('This string \\ has fewer \\ backslashes \\ and \n breaks the line.');
 
-    // Not so, with String.raw!
+    // 不想这样写的话用 raw 字符串
     String.raw`This string \\ has too many \\ backslashes \\ and \n doesn't break the line.`
 
 ## Unicode 方法
@@ -222,10 +220,10 @@ _map_ 就是简单的键值对。 最简单的理解方式就是和 object 类�
 
     "use strict";
 
-    // We can think of foo as a key, and bar as a value.
+    // 我们可以把 foo 当键，bar 当值
     const obj = { foo : 'bar' };
 
-    // The foo 'key' of obj has value 'bar'
+    // 对象键为 foo 的值为 bar
     obj.foo === 'bar'; // true
 
 新的 Map 类型在概念上是相似的，但是可以使用任意的数据类型作为键 -- 不止 strings 和 symbols -- 还有除了 [pitfalls associated with trying to use an objects a map](http://www.2ality.com/2012/01/objects-as-maps.html) 的一些东西。
@@ -234,7 +232,7 @@ _map_ 就是简单的键值对。 最简单的理解方式就是和 object 类�
 
     "use strict";
 
-    // Constructor  
+    // 构造器
     let scotch_inventory = new Map();
 
     // BASIC API METHODS
@@ -242,34 +240,34 @@ _map_ 就是简单的键值对。 最简单的理解方式就是和 object 类�
     scotch_inventory.set('Lagavulin 18', 2);
     scotch_inventory.set('The Dalmore', 1);
 
-    // You can also create a map from an array of 2-element arrays.
+    // 你可以创建一个 map 里面包含一个有两个元素的数组
     scotch_inventory = new Map([['Lagavulin 18', 2], ['The Dalmore', 1]]);
 
-    // All maps have a size property. This tells you how many key-value pairs are stored within.
-    //   BE SURE TO USE 'size', NOT 'length', when you work with Map and Set.
+    // 所有的 map 都有 size 属性，这个属性会告诉你 map 里有多少个键值对。
+    // 用 Map 或 Set 的时候，一定要使用 size ，不能使用 length
     console.log(scotch_inventory.size); // 2
 
-    // Map.prototype.get(K) :: Return the value associated with the key, K. If the key doesn't exist, return undefined.
+    // Map.prototype.get(K) :: 返回键相关的值。如果键不存在返回 undefined
     console.log(scotch_inventory.get('The Dalmore')); // 1
     console.log(scotch_inventory.get('Glenfiddich 18')); // undefined
 
-    // Map.prototype.has(K) :: Return true if map contains the key, K. Otherwise, return false.
+    // Map.prototype.has(K) :: 如果 map 里包含键 K 返回true，否则返回 false
     console.log(scotch_inventory.has('The Dalmore')); // true
     console.log(scotch_inventory.has('Glenfiddich 18')); // false
 
-    // Map.prototype.delete(K) :: Remove the key, K, from the map. Return true if succesful, or false if K doesn't exist.
+    // Map.prototype.delete(K) :: 从 map 里删除键 K。成功返回true，不存在返回 false
     console.log(scotch_inventory.delete('The Dalmore')); // true -- breaks my heart
 
-    // Map.prototype.clear() :: Remove all key-value pairs from the map.
+    // Map.prototype.clear() :: 清楚 map 中的所有键值对
     scotch_inventory.clear();
     console.log( scotch_inventory ); // Map {} -- long night
 
-    // ITERATOR METHODS
-    // Maps provide a number of ways to loop through their keys and values. 
-    //  Let's reset our inventory, and then explore.
+    // 遍历方法
+    // Map 提供了多种方法遍历键值。 
+    //  重置值，继续探索
     scotch_inventory.set('Lagavulin 18', 1);
     scotch_inventory.set('Glenfiddich 18', 1);
-
+    
     /* Map.prototype.forEach(callback[, thisArg]) :: Execute a function, callback, on every key-value pair in the map. 
       *   You can set the value of 'this' inside the callback by passing a thisArg, but that's optional and seldom necessary.
       *   Finally, note that the callback gets passed the VALUE and KEY, in that order. */
@@ -277,26 +275,26 @@ _map_ 就是简单的键值对。 最简单的理解方式就是和 object 类�
         console.log(`Excuse me while I sip this ${scotch}.`);
     });
 
-    // Map.prototype.keys() :: Returns an iterator over the keys in the map.
+    // Map.prototype.keys() :: 返回一个 map 中的所有键
     const scotch_names = scotch_inventory.keys();
     for (let name of scotch_names) {
         console.log(`We've got ${name} in the cellar.`);
     }
 
-    // Map.prototype.values() :: Returns an iterator over the values of the map.
+    // Map.prototype.values() :: 返回 map 中的所有值
     const quantities = scotch_inventory.values();
     for (let quantity of quantities) {
         console.log(`I just drank ${quantity} of . . . Uh . . . I forget`);
     }
 
-    // Map.prototype.entries() :: Returns an iterator over [key, value] pairs, provided as an array with two entries. 
-    //   You'll often see [key, value] pairs referred to as "entries" when people talk about maps. 
+    // Map.prototype.entries() :: 返回 map 的所有键值对，提供一个包含两个元素的数组 
+    //   以后会经常看到 map 里的键值对和 "entries" 关联 
     const entries = scotch_inventory.entries();
     for (let entry of entries) {
         console.log(`I remember! I drank ${entry[1]} bottle of ${entry[0]}!`);
     }
 
-Maps are sweet。但是 Object 在保存键值对的时候仍然有用。 如果符合下面的全部条件，你可能还是想用 Object:
+但是 Object 在保存键值对的时候仍然有用。 如果符合下面的全部条件，你可能还是想用 Object:
 
 1.  当你写代码的时候，你知道你的键值对。
 2.  你知道你可能不会去增加或删除你的键值对。
@@ -352,9 +350,9 @@ Maps are sweet。但是 Object 在保存键值对的时候仍然有用。 如果
 
     "use strict";
 
-    const cache = new WeakMap(); // No more memory leak!
+    const cache = new WeakMap(); // 不会再有内存泄露了
 
-    // The rest is the same . . . 
+    // 剩下的都一样
 
 这样当应用失去不需要的元素的引用时，垃圾回收系统可以自动重用那些元素。
 
@@ -380,60 +378,60 @@ Set 和 Map 有完全相同的 API。主要的不同是 Set 没有 `set` 方法�
 
     "use strict";
 
-    // Constructor  
+    // 构造器
     let scotch_collection = new Set();
 
-    // BASIC API METHODS
-    // Set.prototype.add (O) :: Add an object, O, to the set.
+    // 基本的 API 方法
+    // Set.prototype.add (O) :: 和 set 一样，添加一个对象
     scotch_collection.add('Lagavulin 18');
     scotch_collection.add('The Dalmore');
 
-    // You can also create a set from an array.
+    // 你也可以用数组构造一个 set
     scotch_collection = new Set(['Lagavulin 18', 'The Dalmore']);
 
-    // All sets have a length property. This tells you how many objects are stored.
-    //   BE SURE TO USE 'size', NOT 'length', when you work with Map and Set.
+    // 所有的 set 都有一个 length 属性。这个属性会告诉你 set 里有多少对象
+    //   用 set 或 map 的时候，一定记住用 size，不用 length
     console.log(scotch_collection.size); // 2
 
-    // Set.prototype.has(O) :: Return true if set contains the object, O. Otherwise, return false.
+    // Set.prototype.has(O) :: 包含对象 O 返回 true 否则返回 false
     console.log(scotch_collection.has('The Dalmore')); // true
     console.log(scotch_collection.has('Glenfiddich 18')); // false
 
-    // Set.prototype.delete(O) :: Remove the object, O, from the set. Return true if successful; false if O isn't in the set.
-    scotch_collection.delete('The Dalmore'); // true -- breaks my heart
+    // Set.prototype.delete(O) :: 删除 set 中的 O 对象，成功返回 true，不存在返回 false
+    scotch_collection.delete('The Dalmore'); // true -- break my heart
 
-    // Set.prototype.clear() :: Remove all objects from the set.
+    // Set.prototype.clear() :: 删除 set 中的所有对象
     scotch_collection.clear();
     console.log( scotch_collection ); // Set {} -- long night.
 
-    /* ITERATOR METHODS
-     * Sets provide a number of ways to loop through their keys and values. 
-     *  Let's reset our collection, and then explore. */
+    /* 迭代方法
+     * Set 提供了多种方法遍历
+     *  重新设置值，继续探索 */
     scotch_collection.add('Lagavulin 18');
     scotch_collection.add('Glenfiddich 18');
 
-    /* Set.prototype.forEach(callback[, thisArg]) :: Execute a function, callback,
-     *  on every key-value pair in the set. You can set the value of 'this' inside 
+    /* Set.prototype.forEach(callback[, thisArg]) :: 执行一个函数，回调函数
+     *  set 里在每个的键值对。 You can set the value of 'this' inside 
      *  the callback by passing a thisArg, but that's optional and seldom necessary. */
     scotch_collection.forEach(function (scotch) {
         console.log(`Excuse me while I sip this ${scotch}.`);
     });
 
-    // Set.prototype.values() :: Returns an iterator over the values of the set.
+    // Set.prototype.values() :: 返回 set 中的所有值
     let scotch_names = scotch_collection.values();
     for (let name of scotch_names) {
         console.log(`I just drank ${name} . . . I think.`);
     }
  
-    // Set.prototype.keys() :: For sets, this is IDENTICAL to the values function.
+    // Set.prototype.keys() ::  对 set 来说，和 Set.prototype.values() 方法一致
     scotch_names = scotch_collection.keys();
     for (let name of scotch_names) {
         console.log(`I just drank ${name} . . . I think.`);
     }
 
-    /* Set.prototype.entries() :: Returns an iterator over [value, value] pairs, 
-     *   provided as an array with two entries. This is a bit redundant, but it's
-     *   done this way to maintain interoperability with the Map API. */
+    /* Set.prototype.entries() :: 返回 map 的所有键值对，提供一个包含两个元素的数组 
+     *   这有点多余，但是这种方法可以保留 map API 的可操作性
+     *    */
     const entries = scotch_collection.entries();
     for (let entry of entries) {
         console.log(`I got some ${entry[0]} in my cup and more ${entry[1]} in my flask!`);
@@ -451,8 +449,8 @@ Weak set的用例并不多，但是这儿有一些 [Domenic Denicola](https://ma
 
 这儿是他给的例子:
 
-    /* The following example comes from an archived email thread on use cases for WeakSet.
-      *    The text of the email, along with the rest of the thread, is available here:
+    /* 下面这个例子来自 Weakset 使用案例的归类邮件（archived emaill thread）  
+      *    邮件的内容和 thread 的其余部分在这儿:
       *      https://mail.mozilla.org/pipermail/es-discuss/2015-June/043027.html
       */
 
@@ -470,7 +468,7 @@ Weak set的用例并不多，但是这儿有一些 [Domenic Denicola](https://ma
       }
     }
 
-这是一个轻量科学的方法防止大家在一个 _没有_ 被 `Foo` 构造出的 object上使用 `method`。
+这是一个轻量科学的方法防止大家在一个 _没有_ 被 `Foo` 构造出的 object 上使用 `method`。
 
 使用的 WeakSet 的优势是允许 `foo` 里的 object 使用完后被垃圾回收。
 
