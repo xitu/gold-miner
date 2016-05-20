@@ -236,7 +236,7 @@ _map_ 就是简单的键值对。 最简单的理解方式就是和 object 类�
     let scotch_inventory = new Map();
 
     // BASIC API METHODS
-    // Map.prototype.set (K, V) :: Create a key, K, and set its value to V.
+    // Map.prototype.set (K, V) :: 创建一个键 K，并设置它的值为 V。
     scotch_inventory.set('Lagavulin 18', 2);
     scotch_inventory.set('The Dalmore', 1);
 
