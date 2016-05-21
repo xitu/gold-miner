@@ -25,27 +25,27 @@
 
 ![](http://ww3.sinaimg.cn/large/a490147fgw1f41tri3lmej20ke0egq3u.jpg)
 
-<span>再回到“ Layers ”菜单（小图标菜单的最上面那个）然后让我们开始引用我们的资源吧。
-Navigate back to the “Layers” menu (the top icon in the left hand icon menu) and let’s get started on bringing our assets in.</span>
+<span>再回到“ Layers ”菜单（小图标菜单的最上面那个）然后让我们开始引用我们的资源吧！！。</span>
 
-<span>In the “Layers” menu, click the small plus icon to create a new layer. A small grey box should then appear in the above the white rectangle. Rename this layer to “Login Screen” so we know what it is. Then expand the box so that it fills the whole of the white background rectangle.</span>
+<span>在“ Layers ”菜单，点击“ + ”小按钮来创建一个新的层。这时在你的空白的矩形画布上方会出现一个灰色的小格子。重命名这个层为“ Login Screen ”好让我们知道这是什么。然后扩展这个格子让它填充满整个白色背景矩形。</span>
 
-<span>This grey rectangle is going to be the holder of our Login Screen. Ensure _Login Screen_ is selected in the left hand menu, and look to the “Properties” menu on the right hand side. We’re interested in the “Appearance” field. Click the small grey plus button and select our _Login Screen_ image that we exported from Sketch.</span>
+<span>这个灰色矩形将要成为登录页面的载体。在选中左边菜单栏中的 _Login Screen_ 前提下，查看右边的“ Properties ”菜单。关注一下“ Appearance ”栏，点击这个栏目右边的“ + ”小图标来选择我们刚刚从 Sketch 导出的 _Login Screen_ 图片。</span>
 
 ![](http://ww4.sinaimg.cn/large/a490147fgw1f41trxrhhpj20ke0egjsu.jpg)
 
 ## Can you field the pain?!
 
-<span>Now we need to add in our text fields. Click “Add a layer” again and we’ll get the familiar grey box. We need this to be the same dimensions as our _email text field_ from the Sketch project, which for me is 328 x 48\. Resize the box to these dimensions using the right hand “Properties” menu and the “Size” properties. We’ll also be using our positioning from Sketch as well. My _email text field_ [x] is 16 and it’s [y] is 296\. Enter these into the “Position” field in the right hand menu in Pixate. Lastly, we need to load our _email text field_ image that we exported from Sketch, just like we did earlier for the _Login Screen_.</span>
+<span>现在我们要加入文字框了，再一次点击“ Add a layer ”，然后我们能得到一个相同的灰色格子。这个格子的尺寸要和我们从 Sketch 项目中导出的 _email text field_ 的尺寸相同，对我来说尺寸是 328 x 48 。使用右侧的“ Properties ”菜单的“ Size ”栏来调整尺寸大小。同样，我们也使用 Sketch 中的定位，我的 _email text field_ 的x坐标为16，y坐标为296。然后把这些输入 Pixate 右边菜单中的 “ Position ”栏中。最后，我们像刚才对 _Login Screen_ 那样加载从 Sketch 导出的 _email text field_  图片。</span>
 
-<span>We need to move the _email text field_ to the be part of the _Login Screen_. Click and drag on the _email text field_ in the left hand “Layers” menu and place the _email text field_ on top of the _Login Screen_. The _email text field_ is now part of the _Login Screen_ and should be showing.</span>  
+<span>我们需要移动 _email text field_ 使它成为 _Login Screen_ 的一部分。在左边“ Layers ”菜单中点击并且拖动 _email text field_ 放置到  _Login Screen_ 上面，然后 _email text field_ 就成为了 _Login Screen_ 的一部分并且能被看到了。</span>  
 ![](http://ww2.sinaimg.cn/large/a490147fgw1f41tsa8p9tj20ke0eg75g.jpg)
 
-<span>BUT WAITTTTTTTTTTT! WHAT ARE THOSE UGLY GREY BARS DOING ON THE SIDE OF THE EMAIL INPUT FIELD?!</span>
+<span>但是！球多麻袋！EMAIL 输入框中那个丑陋的灰色线条是干嘛的？</span>
 
-<span>Well, when we selected our exported _email input field_ asset from Sketch, we didn’t remove the grey background colour from our layer. With the _email input field_ selected, look at the “Appearance” field in the right hand “Properties” menu. There’s a little grey box next to the name of your exported _email input field_ name. Click this and a colour palette box opens up. We want the transparent selection which is top left hand corner and has a red line through it diagonally. Ta da! The grey bars should now be removed. You’ll need to remember to do this for each image you import.</span>
+<span>好吧，当我们选择从 Sketch 中导出的 _email input field_ 资源时，我们没有从我们的层上去掉灰色背景。让我们选中 _email input field_ ，看一下右边“ Properties ”菜单中的“ Appearance ”栏。在靠近你导出的 _email input field_ 名字旁边有一个灰色小格子（译者注：_email input field_ 名字左边那个），点击一下然后弹出一个颜色调色板，我们需要选择透明色，就是左上角中间有个红色对角线的那个。嗒哒！然后灰色线条就被去掉了。要记得每次导入图片都要做这些噢。</span>
 
-<span>I’ll assume that your smart enough to realise that we need to this for the rest of the items for our _Login Screen_. Leave the _login button_, _raised login button_, _email text field with input_ and _password text field_ with input for now.</span>
+<span>我假定聪明的你已经意识到我们要对 _Login Screen_ 的其余组件都这样操作。
+I’ll assume that your smart enough to realise that we need to this for the rest of the items for our _Login Screen_. Leave the _login button_, _raised login button_, _email text field with input_ and _password text field_ with input for now.</span>
 
 <span>After you’ve finished you should have something that looks like this:</span>
 
