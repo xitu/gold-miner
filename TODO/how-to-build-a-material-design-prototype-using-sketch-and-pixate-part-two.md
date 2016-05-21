@@ -9,23 +9,24 @@
 在第二部分，我们打算继续在 Pixate 里创建一个原型。对于这一部分，你可能需要：
 
 
-*   <span> Android 或者 IOS 设备（最好是 Android ）。如果你能弄到屏幕尺寸是 1080 x 1920 的设备那更好了，不过没有也没关系， Pixate 将为你测量这个原型。！！</span>
-*   [<span>Pixate 工具</span>](http://www.pixate.com/getstarted/ "Pixate Studio")
+*   <span> Android 或者 IOS 设备（最好是 Android ）。如果你能弄到屏幕尺寸是 1080 x 1920 的设备那更好了，不过没有也没关系， Pixate 将为你按比例缩放这个原型。</span>
+*   [<span>Pixate Studio</span>](http://www.pixate.com/getstarted/ "Pixate Studio")
 *   <span><span>下载 Pixate app 到你的</span> [Android](http://bit.ly/1Wp5wuG "Pixate Android App") <span>或者</span> [iOS](http://apple.co/1qdImcZ "Pixate App iOS") <span>设备。 </span></span>
 *   <span>WiFi</span>
 
-## Prototyping in Pixate
+## 在 Pixate 上创建原型
 
-<span>Open Pixate and click “Create new prototype” or create a new one from the “File” menu. Let’s name it “Material Design Prototype” and save it somewhere. On the next screen select “Nexus 5” as your “Target Device”, and then “Add Prototype”. It should be said here that if your device screen resolution is bigger than the 1080x1920 then when you load the prototype on your phone it may look a little blurry. That’s due to the scaling that Pixate is doing for your device. For smaller devices Pixate will scale it down.</span>
+<span>打开 Pixate 时点击 “ Create new prototype ” 来创建一个原型，或者从“ File ”菜单创建一个。我们给它命名为“ Material Design Prototype ” 并保存起来。接下来选择“ Nexus 5 ”作为你的 “ Target Device ”（译者注：适配设备），然后点击“ Add Prototype ”完成创建。这里要说明的是如果你的设备屏幕分辨率大于 1080x1920 的话，当原型被加载到你的设备上时会显得有些模糊。这也确实说明 Pixate 为你的设备进行了比例缩放。同样，对于分辨率较小的设备， Pixate 也能把比例缩小。</span>
 
-<span>You should be presented with an empty rectangle with only some “Getting Started” text and looks eerily similar to _Login Screen_. They are there same size so our designs should transfer over nice and easy and in the correct proportions.</span><span>  
-![Empty Pixate project](http://createdineden.com/media/1527/screen-shot-2016-03-10-at-142718.png?width=726&height=540)</span>
+<span>在创建之后，你应该能看到一个空白的矩形画布，上面只有“ Getting Started ”几个字（译者注：在译者使用的 2.0.1 版本下，除了 Getting Started 几个大字外，下面还有一些说明性的小字），这看起来和 _Login Screen_ 有些神秘的相似。它们有着相同的尺寸，因此我们的设计可以且按照正确的比例简单地移植过去。</span><span>  
+![空 Pixate 项目](http://createdineden.com/media/1527/screen-shot-2016-03-10-at-142718.png?width=726&height=540)</span>
 
-<span>On the left hand side of Pixate Studio is a small icon menu. Select the “Assets” icon which is the second one down. Navigate to the folder where you placed all the Sketch exported assets, select all of them and then click “Open”. All the images should now be imported into Pixate:</span>
+<span>在 Pixate Studio 的左边是一个小图标菜单（译者注：最左边纵向排列的三个图标）。选择纵向第二个的“ Assets ”图标。导航到你放置所有 Sketch 导出资源的文件夹，全选并且点击“ Open ”。然后所有的图片就都被导入 Pixate 了：</span>
 
 ![](http://ww3.sinaimg.cn/large/a490147fgw1f41tri3lmej20ke0egq3u.jpg)
 
-<span>Navigate back to the “Layers” menu (the top icon in the left hand icon menu) and let’s get started on bringing our assets in.</span>
+<span>再回到“ Layers ”菜单（小图标菜单的最上面那个）然后让我们开始引用我们的资源吧。
+Navigate back to the “Layers” menu (the top icon in the left hand icon menu) and let’s get started on bringing our assets in.</span>
 
 <span>In the “Layers” menu, click the small plus icon to create a new layer. A small grey box should then appear in the above the white rectangle. Rename this layer to “Login Screen” so we know what it is. Then expand the box so that it fills the whole of the white background rectangle.</span>
 
