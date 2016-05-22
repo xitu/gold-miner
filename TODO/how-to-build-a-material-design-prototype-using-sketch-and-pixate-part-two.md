@@ -54,18 +54,18 @@
 
 <span>接下来你需要把已经填充好的栏目加进来。最简单的方法就是点击我们想要加入填充状态的输入框所属的层。然后点击“ Layers ”菜单顶部的“ Duplicate layer ”按钮。这将给你选择的东西创建一个拷贝。所以让我们对 _email text field with input_ 执行上述操作。在拷贝好之后,你需要点击并且拖动它确保它位于 _email text field_ 下面。然后你可能需要翻看你的 Sketch 项目找出正确的大小和位置，从而修改它的尺寸确保它不会超出规模，然后还要把它移动到合适的位置。</span>
 
-<span>
-Once you’ve got these layers below their empty counterparts you should click the eye icon to hide them, just like we did in Sketch. The last thing you should do is set the “Opacity” in the right hand properties menu for the _email text field with input_ and _password text field with input_ to 0%. The reason for this is so that they are not visible when we finally load the project using the Pixate app, as it doesn’t pay attention to the visibility set for the layer in Pixate Studio.</span>
+<span>一旦你已经把这些层放置到它们空白的相对应处，那就应该点击眼睛图标来隐藏它们，就像我们在 Sketch 做的那样。最后一件你应该做的事情是用右边属性菜单中的“ Opacity ”给 _email text field with input_ 和 _password text field with input_ 设置透明度为 0%。这样做的原因是当我们最终使用 Pixate 应用加载这个项目的时候它们是不可见的，所以在 Pixate Studio中没有必要 花费注意力在这些层的可见性设置上。</span>
 
 ![](http://ww2.sinaimg.cn/large/a490147fgw1f41tt3hbjvj20ke0eggmv.jpg)
 
-<span>As you can see in the screen shot above i’ve added the fields with with input but they are hidden. Now let’s get to the good stuff. Animating :D</span>
+<span>正如上面的截图，我加入了一些带有输入的栏目但是它们被隐藏了。现在我们搞点有趣的事情——动画 :D 。</span>
 
-## Animating the field inputs (because I couldn't think of a funny title)
+## 让输入框动起来 (我想不出有趣的题目了)
 
-<span>Now lets add in some animations for our login screen. We’ll start with the text fields and come to the button later.</span>
+<span>现在让我们给登录界面加入一些动画。我们从文本框开始，然后再弄按钮。</span>
 
-<span>Below the “Layers” menu on the left hand side are two boxes, “Interactions” and “Animations”. Each contain different Interactions and Animations. Interactions has things like “Tap” and “Drag”. Animations has things like “Scale” and “Move’. To use them, we need to drag them to layer upon which we want the interaction or animation to happen. Nice and simple.</span>
+<span>
+Below the “Layers” menu on the left hand side are two boxes, “Interactions” and “Animations”. Each contain different Interactions and Animations. Interactions has things like “Tap” and “Drag”. Animations has things like “Scale” and “Move’. To use them, we need to drag them to layer upon which we want the interaction or animation to happen. Nice and simple.</span>
 
 <span>Lets start with the _email text field_. Select it from the left hand side, and then click and drag the “Tap” from the “Interactions” box and drop it onto the _email text field_ layer. Next we need “Fade” from the “Animations” box. Click and drag this as well to the _email text field_. You should see a little Tap icon on the right in the “Properties” menu under the field “Interactions” and “Fade” under the heading “Animations”.</span>
 
