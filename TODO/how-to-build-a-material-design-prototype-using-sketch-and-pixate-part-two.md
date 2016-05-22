@@ -78,14 +78,15 @@
 
 <span>确认你已经下载 Pixate 应用到你的 [Android](http://bit.ly/1Wp5wuG "Pixate Android App") 或者 [iOS](http://apple.co/1qdImcZ "Pixate App iOS") 手机上了。</span>
 
+<span>打开 Pixate 应用。这个应用会从网络上查找你的 Pixate Studio ，所以稍等一下并且确保你已经连接 WiFi 了。 Pixate 应用有时对我不太友好，所以你可能需要退出并且从新进入它。你也可以通过 IP 地址连接。</span>
+
 <span>
-Open up the Pixate app. The app will start looking for you Pixate Studio on the network so give it a sec and make sure you're connected via WiFi. The Pixate app is sometimes a bit flippant for me and you may possibly need to exit it and re-enter. You can also connect via IP address.</span>
+When your computer appears, click on it. In Pixate Studio in the top right hand corner click on “Devices”. You should see your phone listed here and you have to approve the connection so click the tick and your device should be connected. Check your device and listed at the top should be your computer. Click it and you should be shown your prototypes. You should see “Material Design Prototype” (depending on what you've called it), click it. You’ll now be presented with some instructions of how to interact with the device when your using your prototype. Click “Get Started” and you should now see your Login Screen! What’s even better is if you now click on the _email text field_ it should now fade and disappear before your very eyes…</span>
 
-<span>When your computer appears, click on it. In Pixate Studio in the top right hand corner click on “Devices”. You should see your phone listed here and you have to approve the connection so click the tick and your device should be connected. Check your device and listed at the top should be your computer. Click it and you should be shown your prototypes. You should see “Material Design Prototype” (depending on what you've called it), click it. You’ll now be presented with some instructions of how to interact with the device when your using your prototype. Click “Get Started” and you should now see your Login Screen! What’s even better is if you now click on the _email text field_ it should now fade and disappear before your very eyes…</span>
+## 创建更多的动画
 
-## Creating more animations
-
-<span>Right, so now we have to finish this animation off. Empty space when we click the _email text field_ is no good. Click on the _email text field_ _with input_, and then click and drag “Fade” from the animations box and drop it on it. When you click on the first drop down box for “Based on” under “Fade” make sure you select _email text field_. What we’re going to do is make the _email text field with input_ appear as the _email text field_ fades out. Under “Fade to” enter “100”.</span><span>  
+<span>好的，
+Right, so now we have to finish this animation off. Empty space when we click the _email text field_ is no good. Click on the _email text field_ _with input_, and then click and drag “Fade” from the animations box and drop it on it. When you click on the first drop down box for “Based on” under “Fade” make sure you select _email text field_. What we’re going to do is make the _email text field with input_ appear as the _email text field_ fades out. Under “Fade to” enter “100”.</span><span>  
 ![](http://ww1.sinaimg.cn/large/a490147fgw1f41wtvuc3qj20jp0ci75p.jpg)
 
 <span>What we’re effectively saying is, when the _email text field_ has been tapped, then fade it to 0 and fade the _email text field with input_ to 100\. It’s a bit, "if this, then that".</span>
@@ -96,7 +97,7 @@ Open up the Pixate app. The app will start looking for you Pixate Studio on the 
 
 <span>You now need to reproduce these steps to do the _password text field_ and _password text field with input_.</span>
 
-## Push the button! Animating the Login Button
+## 点击按钮！让登录按钮动起来！
 
 <span>So the last thing we need to animate is the login button. What we want to happen is that when you click on the button, it raises and then lowers, just like it would on a real device. This adds a nice layer of realism to the prototype. If you’re trying to do a really quick prototype, then maybe you’d leave this out and just have a button that activates the next screen. But we’re exploring Pixate so we’re going to do it.</span>
 
