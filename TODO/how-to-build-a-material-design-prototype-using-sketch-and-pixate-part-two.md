@@ -44,18 +44,18 @@
 
 <span>好吧，当我们选择从 Sketch 中导出的 _email input field_ 资源时，我们没有从我们的层上去掉灰色背景。让我们选中 _email input field_ ，看一下右边“ Properties ”菜单中的“ Appearance ”栏。在靠近你导出的 _email input field_ 名字旁边有一个灰色小格子（译者注：_email input field_ 名字左边那个），点击一下然后弹出一个颜色调色板，我们需要选择透明色，就是左上角中间有个红色对角线的那个。嗒哒！然后灰色线条就被去掉了。要记得每次导入图片都要做这些噢。</span>
 
-<span>我假定聪明的你已经意识到我们要对 _Login Screen_ 的其余组件都这样操作。
-I’ll assume that your smart enough to realise that we need to this for the rest of the items for our _Login Screen_. Leave the _login button_, _raised login button_, _email text field with input_ and _password text field_ with input for now.</span>
+<span>我假定聪明的你已经意识到我们要对 _Login Screen_ 的其余组件都这样操作，包括 _login button_ ， _raised login button_ ， _email text field with input_ 和 _password text field_。 </span>
 
-<span>After you’ve finished you should have something that looks like this:</span>
+<span>在你昨晚这些应该做的事情之后，你会看到如下的界面：</span>
 
 ![](http://ww3.sinaimg.cn/large/a490147fgw1f41tsocpvfj20ke0egdh2.jpg)
 
-<span>As you can see everything i’ve added belongs to the _Login Screen_ layer.</span>
+<span>你可以看到我加入的每样东西都属于 _Login Screen_ 层。</span>
 
-<span>Next we need to add in our fields that have been filled. The easiest way to do this is to click the layer of the input field that we’re going be adding a filled in state for, and pressing the “Duplicate layer” button at the top of the “Layers” menu. This will create a copy above the layer the one you selected. So let’s do this for _email text field with input_. After it has been copied you have to click and drag it to make sure it is below the _email text field_. You may have to resize it also to make sure that it’s too scale, and then you may need to move it to the right position. Again, refer back to your Sketch project for correct sizing and positioning.</span>
+<span>接下来你需要把已经填充好的栏目加进来。最简单的方法就是点击我们想要加入填充状态的输入框所属的层。然后点击“ Layers ”菜单顶部的“ Duplicate layer ”按钮。这将给你选择的东西创建一个拷贝。所以让我们对 _email text field with input_ 执行上述操作。在拷贝好之后,你需要点击并且拖动它确保它位于 _email text field_ 下面。然后你可能需要翻看你的 Sketch 项目找出正确的大小和位置，从而修改它的尺寸确保它不会超出规模，然后还要把它移动到合适的位置。</span>
 
-<span>Once you’ve got these layers below their empty counterparts you should click the eye icon to hide them, just like we did in Sketch. The last thing you should do is set the “Opacity” in the right hand properties menu for the _email text field with input_ and _password text field with input_ to 0%. The reason for this is so that they are not visible when we finally load the project using the Pixate app, as it doesn’t pay attention to the visibility set for the layer in Pixate Studio.</span>
+<span>
+Once you’ve got these layers below their empty counterparts you should click the eye icon to hide them, just like we did in Sketch. The last thing you should do is set the “Opacity” in the right hand properties menu for the _email text field with input_ and _password text field with input_ to 0%. The reason for this is so that they are not visible when we finally load the project using the Pixate app, as it doesn’t pay attention to the visibility set for the layer in Pixate Studio.</span>
 
 ![](http://ww2.sinaimg.cn/large/a490147fgw1f41tt3hbjvj20ke0eggmv.jpg)
 
