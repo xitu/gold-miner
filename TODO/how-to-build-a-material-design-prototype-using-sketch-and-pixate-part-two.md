@@ -54,31 +54,32 @@
 
 <span>接下来你需要把已经填充好的栏目加进来。最简单的方法就是点击我们想要加入填充状态的输入框所属的层。然后点击“ Layers ”菜单顶部的“ Duplicate layer ”按钮。这将给你选择的东西创建一个拷贝。所以让我们对 _email text field with input_ 执行上述操作。在拷贝好之后,你需要点击并且拖动它确保它位于 _email text field_ 下面。然后你可能需要翻看你的 Sketch 项目找出正确的大小和位置，从而修改它的尺寸确保它不会超出规模，然后还要把它移动到合适的位置。</span>
 
-<span>一旦你已经把这些层放置到它们空白的相对应处，那就应该点击眼睛图标来隐藏它们，就像我们在 Sketch 做的那样。最后一件你应该做的事情是用右边属性菜单中的“ Opacity ”给 _email text field with input_ 和 _password text field with input_ 设置透明度为 0%。这样做的原因是当我们最终使用 Pixate 应用加载这个项目的时候它们是不可见的，所以在 Pixate Studio中没有必要 花费注意力在这些层的可见性设置上。</span>
+<span>一旦你已经把这些层放置到它们空白的相对应处，那就应该点击眼睛图标来隐藏它们，就像我们在 Sketch 做的那样。最后一件你应该做的事情是用右边属性菜单中的“ Opacity ”给 _email text field with input_ 和 _password text field with input_ 设置透明度为 0%。这样做的原因是当我们最终使用 Pixate 应用加载这个项目的时候它们是不可见的，所以在 Pixate Studio中没有必要花费注意力在这些层的可见性设置上。</span>
 
 ![](http://ww2.sinaimg.cn/large/a490147fgw1f41tt3hbjvj20ke0eggmv.jpg)
 
-<span>正如上面的截图，我加入了一些带有输入的栏目但是它们被隐藏了。现在我们搞点有趣的事情——动画 :D 。</span>
+<span>正如上面的截图，我加入了一些带有输入的栏目但是它们被隐藏了。现在我们搞点有趣的事情 —— 动画 :D 。</span>
 
 ## 让输入框动起来 (我想不出有趣的题目了)
 
 <span>现在让我们给登录界面加入一些动画。我们从文本框开始，然后再弄按钮。</span>
 
-<span>
-Below the “Layers” menu on the left hand side are two boxes, “Interactions” and “Animations”. Each contain different Interactions and Animations. Interactions has things like “Tap” and “Drag”. Animations has things like “Scale” and “Move’. To use them, we need to drag them to layer upon which we want the interaction or animation to happen. Nice and simple.</span>
+<span>在左边“ Layers ”菜单下面是两个格子 —— “Interactions” 和 “Animations”。这两个格子各自包含了不同的互动和动画。互动有类似“ Tap ”（打开）和“ Drag ”（拖动）。动画有类似“ Scale ”（缩放）和“ Move ”（移动）。为了使用它们，我们需要把它们拖动到我们想要互动和动画发生的层上面，真是简单好用。</span>
 
-<span>Lets start with the _email text field_. Select it from the left hand side, and then click and drag the “Tap” from the “Interactions” box and drop it onto the _email text field_ layer. Next we need “Fade” from the “Animations” box. Click and drag this as well to the _email text field_. You should see a little Tap icon on the right in the “Properties” menu under the field “Interactions” and “Fade” under the heading “Animations”.</span>
+<span>让我们从 _email text field_ 开始吧。 在左边选中它，然后从“ Interactions ”（互动）格子中点击并拖动“ Tap ”（打开），并且把它丢到 _email text field_ 层上面。接下来我们需要 “ Animations ”（动画）格子里面的“ Fade ”（渐隐），像对_email text field_操作那样点击并拖动它。你应该能在右边“ Properties ”（属性）菜单中的“ Interactions ”（互动）下面能看到一个小的 Tap （打开）按钮，在Animations ”（动画）下面看到“ Fade ”（渐隐）。</span>
 
-<span>We’re now going to get the _email text field_ to fade out when it’s been clicked on. Under the “Fade” on the right hand menu click “Based On” and choose _email text field_. More options should open up below that you can explore but we’re only interested in one, the “Fade to”. Click on the box and enter “0”.</span><span>  
+<span>我们现在想要设置当我们点击 _email text field_ 时使其渐隐。在右边菜单“ Fade ”（渐隐）下点击“ Based On ” （基于）并且选择 _email text field_ 。这时会弹出更多的选项，你可以研究一下，不过我们这里只关心“ Fade to ”（渐隐），点击格子并输入 “ 0 ”。</span>  
+
 ![](http://ww3.sinaimg.cn/large/a490147fgw1f41ttixjxnj20ke0egjt2.jpg)
 
-<span>We’re nearly there where you can witness your first animation! Now we just need to get the Pixate app setup on your device….</span>  
+<span>你快要能够见证你的第一个动画了，现在你仅仅需要在你的设备上运行 Pixate 应用。</span>  
 
-## Setting Up Pixate on your Device
+## 在你的设备上设置 Pixate 
 
-<span>Make sure you have the Pixate app downloaded on to your [Android](http://bit.ly/1Wp5wuG "Pixate Android App") or [iOS](http://apple.co/1qdImcZ "Pixate App iOS") phone. </span>
+<span>确认你已经下载 Pixate 应用到你的 [Android](http://bit.ly/1Wp5wuG "Pixate Android App") 或者 [iOS](http://apple.co/1qdImcZ "Pixate App iOS") 手机上了。</span>
 
-<span>Open up the Pixate app. The app will start looking for you Pixate Studio on the network so give it a sec and make sure you're connected via WiFi. The Pixate app is sometimes a bit flippant for me and you may possibly need to exit it and re-enter. You can also connect via IP address.</span>
+<span>
+Open up the Pixate app. The app will start looking for you Pixate Studio on the network so give it a sec and make sure you're connected via WiFi. The Pixate app is sometimes a bit flippant for me and you may possibly need to exit it and re-enter. You can also connect via IP address.</span>
 
 <span>When your computer appears, click on it. In Pixate Studio in the top right hand corner click on “Devices”. You should see your phone listed here and you have to approve the connection so click the tick and your device should be connected. Check your device and listed at the top should be your computer. Click it and you should be shown your prototypes. You should see “Material Design Prototype” (depending on what you've called it), click it. You’ll now be presented with some instructions of how to interact with the device when your using your prototype. Click “Get Started” and you should now see your Login Screen! What’s even better is if you now click on the _email text field_ it should now fade and disappear before your very eyes…</span>
 
