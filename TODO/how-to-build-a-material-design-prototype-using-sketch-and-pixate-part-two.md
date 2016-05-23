@@ -131,43 +131,44 @@
 
 <span>我们加了下划线，因为如果你的层名带空格的话， Pixate 会自动给我们的" Layer ID "加下划线。</span>
 
-<span>We check for the visibility using the opacity property on the _password text field_ layer and checking it’s set to 0.</span>
+<span>我们在 _password text field_ 层上通过可见性属性来检查它的可见性，并且确保设置为0。</span>
 
-<span>Now if you go back to your prototype on your device and press the _password text field_ and then the _email text field_, the disabled button should disappear!</span>
+<span>现在如果你回到你的设备上的原型，并且触压 _password text field_ ，然后  _email text field_ ，关闭状态的按钮应该就消失了。</span>
 
-<span>We have to add another fade out animation now. This is check in case the _email text field_ is faded out when the _password text field_ has been pressed. This is typically how the prototype would operate normally.</span>
+<span>我们现在需要添加另一个渐隐动画。这个动画是在 _password text field_ 被触压时，_email text field_ 渐隐。这也是典型的原型是如何正常操作的。</span>
 
-<span>You’ll need to do what we did before, but with the opposite settings. I’ll get you started, you need to click and drag ANOTHER “Fade” animation to the _disabled login button_. I’ll let you figure the rest out ;)</span>
+<span>你需要去做我们之前做的，但是采用相反的设置。我将教你如何开始，你需要点击并且拖动另外一个“ Fade ”动画到 _disabled login button_ 上。然后我再教你其他的 :)。</span>
 
-<span>Right if all goes well, then your _disabled login button_ should now disappear when both the _email text field_ and _password text field_ are no longer visible. Now we need to make the _login button_ visible. This will be just another simple fade in animation.</span>
+<span>如果一切就绪，然后当 _email text field_ 和 _password text field_ 不再可见时，你的 _disabled login button_ 按钮应该也消失了。现在我们要使 _login button_ 可见。这将是另外一个简单的渐显动画。</span>
 
-<span>We basically need to do the same as we did for the _disabled login button_, but we want the opacity to be 100 instead of 0 for both fade animations. I’m sure you can do this by now, but once again I’ll get you started. You need to drag a “Fade” animation to the _login button_. And remember to add the conditions in!</span>
+<span>我们基本上需要像对 _disabled login button_ 那样做相同的事情，但是对于两个动画来说，我们想要透明度变为100而不是0。我确认你现在已经可以做到了，但是再一次的，我将教你如何开始。你需要拖动“ Fade ”动画到 _login button_ 。并且记得添加条件。</span>
 
-<span>Ok, so you should now have something that looks like this:</span>
+<span>好的，现在你应该能看到类似这样的一些东西了：</span>
 
 ![](http://ww1.sinaimg.cn/large/a490147fjw1f41vs6l528g20ba0k0q89.gif)
 
-## ARISE SER BUTTON!
+## 抬起你的按钮!
 
-<span>The very last thing we need to do is make our _login button_ 'raise' when pressed; just like what happens normally with a button in Lollipop onwards. As you can see in the example of the Fantasy Football Fix login screen, the “Upload Squad” button seem’s to magnetise to your finger as you press the button, with the shadows increasing.</span>
+<span>最后我们需要做的是使 _login button_ 被触压的时候抬起；就像 Android 5.0 版本上一个按钮通常的那样。正如你在“ Fantasy Football Fix ”例子的登录页面看到的那样，当你触压“ Upload Squad ”按钮时，它的阴影变大，看起来好像吸住了你的手指一样。</span>
 
 ![](http://ww2.sinaimg.cn/large/a490147fjw1f41vufzbuyg20ba0k0gtk.gif)
 
-<span>We're going to be making use of the _raised login button_ obviously. Firstly, drag a “Tap” interaction to the _login button_ as we need to know when it’s been pressed. Then we’re going to need two fades again for this so drag two over to the _raised login button_.</span>
+<span>显然，我们打算使用 _raised login button_ 。首先，拖动“ Tap ”互动到 _login button_ 上，因为我们需要知道它何时被触压了。然后我们还需要两个渐变效果所以拖动他们到 _raised login button_ 上。</span>
 
-<span>The first fade needs to be triggered when the _login button_ is tapped, so make sure the _login button_ is selected in your “Based on” field. We want this first fade to make our raised button appear so set the opacity to 100\. We should probably name our fade as well, so we know what they are doing. Name it “Fade in on Login Button tap”.</span>
+<span>第一个渐变需要在点击 _login button_ 时触发，所以确保 _login button_ 在“ Based on ”栏中被选中。我们想要第一个渐变使我们抬起的按钮出现，因此设置它的透明度为100。我们还应该给渐变命名，这样我们就知道它是做什么的了。那么把这个渐变叫做“ Fade in on Login Button tap ”（当登陆按钮点击时渐入）吧。</span>
 
-That should make our button appear and seemingly rise, but if you click the _login button_ now, the _raised login button_ will appear and will stay there. We need it to disappear again to go back to our original _login button_, so we’re back in our resting state.
+这将使我们的按钮出现并且看起来抬起了，但是如果你现在点击 _login button_ ， _raised login button_ 将出现并且保持在那里。而我们需要的是再次消失回原始的 _login button_ ，所以我们将完成剩余的状态。
 
-<span>For this we need another “Fade” animation. Name this new one “Fade out after Rise”. This too needs to be based on the _login button_ tap. This one though we want to fade to 0%. Lastly. we need to set the “Delay” to “0.2”. This is so that we wait to fade the button back out, otherwise you won’t even see the button, as we’d be fading in and fading out at the same time.</span>
+<span>这里我们需要另外一个“ Fade ”（渐变）动画。把这个动画命名为“ Fade out after Rise ”（在抬起后渐出）。同样它也是在 _login button_ 点击时触发。这个动画虽然我们想渐变为 0% ，但是我们需要设置“ Delay ”（延迟）为 “ 0.2 ”。这是为了让我们等待 button 渐变回来，否则你甚至看不到这个按钮了，因为渐入和渐出会在同时发生。</span>
 
-<span>Now if you tap your _login button_ you should get the nice raised effect!</span>
+<span>现在如果你点击 _login button_ 你应该得到一个不错的抬起效果了。</span>
 
 <span>![](http://ww1.sinaimg.cn/large/a490147fgw1f41web91qbg20ba0k0dlb.gif)</span>
 
-<span>If you want to get a bit more fancy you can fade the _login button_ in and out too when it’s tapped but I’ll leave that to you as an extra task ;) A by product of this will be a slight flash so it looks like the button’s been tapped. Also note this will not look that great if you do not have the _login button_ and _raised login button_ both lined up correctly in Pixate so make sure you have that sorted.</span>
+<span>如果你想要得到更多的乐趣，你也可以让 _login button_ 在被点击时渐入和渐出，但是我把这留给你当作额外的任务 :) 。这样做的副作用是会产生轻微的闪光，所以看起来按钮好像被点击了。要注意的是，如果 _login button_ 和 _raised login button_ 没有在 Pixate 中被排列好的话，效果看起也不好，所以确保你已经排列好了。</span>
 
-## We got there, eventually!
+## 最终！我们做好了!
 
-<span>So that concludes this second meaty part of this series. I understand this was a lengthy process, but that’s just because of the sheer amount of instructions I had to write. Once you’ve done this once then you’ll always have it for reference. My advice would be to make loads of little sample projects, so that say if you need to remember how to do a raised button you can just open that project and see everything laid out nice and simply. As you get further into the prototype process things can start to get a bit busy in the project and you may not be able to easily locate the specific action/sequence of events.</span>
+<span>所以总结下这个系列的第二个“ 多汁 ”的部分吧。
+So that concludes this second meaty part of this series. I understand this was a lengthy process, but that’s just because of the sheer amount of instructions I had to write. Once you’ve done this once then you’ll always have it for reference. My advice would be to make loads of little sample projects, so that say if you need to remember how to do a raised button you can just open that project and see everything laid out nice and simply. As you get further into the prototype process things can start to get a bit busy in the project and you may not be able to easily locate the specific action/sequence of events.</span>
 
