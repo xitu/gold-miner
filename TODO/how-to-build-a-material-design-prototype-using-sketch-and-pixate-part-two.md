@@ -169,6 +169,5 @@
 
 ## 最终！我们做好了!
 
-<span>所以总结下这个系列的第二个“ 多汁 ”的部分吧。
-So that concludes this second meaty part of this series. I understand this was a lengthy process, but that’s just because of the sheer amount of instructions I had to write. Once you’ve done this once then you’ll always have it for reference. My advice would be to make loads of little sample projects, so that say if you need to remember how to do a raised button you can just open that project and see everything laid out nice and simply. As you get further into the prototype process things can start to get a bit busy in the project and you may not be able to easily locate the specific action/sequence of events.</span>
+<span>所以总结下这个系列的第二个充实的部分吧。我知道这是一个冗长的过程，但是这是因为我必须把绝对数量的指导都写出来。一旦你做过一次之后，你就可以把它作为参考了。我的建议都依附于箫的样本项目，所以如果你需要知道如何制作一个抬起的按钮，你仅仅需要打开这个项目然后简洁明了地看到列出的所有东西。当你给原型加入更多的流程性的东西时，就会使得项目变得忙乱，然后你可能就不能简单地定位指定事件的动作或序列了。</span>
 
