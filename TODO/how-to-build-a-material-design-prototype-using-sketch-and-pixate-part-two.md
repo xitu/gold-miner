@@ -117,20 +117,19 @@
 *   <span>width = 344pt</span>
 *   <span>height = 58pt</span>
 
+这些按钮相互直接应该可以直接替换并且还要给阴影留出空间。
 
-This should place the buttons all directly above each other and have room for the shadow.
+<span>我们需要设置一些条件使 _disabled login button_ 消失。我们想要使它在 _email_text_field_ 和 _password_text_field_ 都被点击并且 _email_text field with input_ 和 _password text field with input_ 都出现的时候消失。如何做呢？好的，当你在 Pixate 中加入一个动画时，你可以指定这个动画发生的条件。条件的编写就像写代码，所以程序员可能会用到这个，但是对于其他人就容忍我吧，并且我们将完成它 :) 。/span>
 
-<span>We need some condition for the _disabled login button_ to disappear on. We want it to disappear when both our _email_text_field_ and _password_text_field_ have both been tapped and the _email_text field with input_ and _password text field with input_ have both appeared. How do we do that? Well when you add an animation in Pixate you can also specify a condition upon which that animation can happen. The condition is written just like in code, so coders out there will be used to this but for the rest bear with me and we’ll get through it :)</span>
+<span>点击并且拖动“ Fade ”动画到 _disabled login button_ 上。现在给 _email text field_ 设置“ Based on ”。当你完成这些弹出的额外选项时，我们来关注一下“ If ”栏目，如果你点击它旁边的问题标志图标，你会得到一个通篇解释，关于这是做什么的和你想要知道的关于层的所有属性。</span>
 
-<span>Click and drag the “Fade” animation to the _disabled login button_. Now set the “Based on” to _email text field_. When you’ve done this the extra options should pop up. We’re interested in the “If” field. If you click the question mark icon next to it then you’ll get a through explanation of what this does as well as all the properties that you can check for on each of your layers.</span>
+<span>我们的条件是什么？我们想要去检查，如果 _password text field_ 不再可见，就使 _disabled login button_ 渐隐。正如我们所知道的，如果 _password text field_ 不再可见，那么 _password text field with input_ 就必须可见。</span>
 
-<span>What’s our condition? Well we want to check that if the _password text field_ is no longer visible thenfade out the _disabled login button_. We do this as we know that if the _password text field_ is no longer visible, then the _password text field with input_ must be showing.</span>
-
-<span>You’ll need to enter this conditional statement in the “If” box:</span>
+<span>你需要在“ If ”格子里输入这个条件声明：</span>
 
 <span>    password_text_field.opacity == 0</span>
 
-<span>We add the underscores as Pixate automatically add's them to our "Layer ID" when you name you layers with spaces.</span>
+<span>我们加了下划线，因为如果你的层名带空格的话， Pixate 会自动给我们的" Layer ID "加下划线。</span>
 
 <span>We check for the visibility using the opacity property on the _password text field_ layer and checking it’s set to 0.</span>
 
