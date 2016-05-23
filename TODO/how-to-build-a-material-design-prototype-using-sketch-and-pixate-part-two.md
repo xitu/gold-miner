@@ -1,7 +1,7 @@
 >* 原文链接 : [HOW TO BUILD A MATERIAL DESIGN PROTOTYPE USING SKETCH AND PIXATE - PART TWO](http://createdineden.com/blog/post/how-to-build-a-material-design-prototype-using-sketch-and-pixate-part-two/)
 * 原文作者 : Mike Scamell
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
+* 译者 : [zhangzhaoqi](https://github.com/joddiy)
 * 校对者:
 
 在教程的 [第一部分](http://createdineden.com/blog/post/material-design-prototype-tutorial-part-1/ "如何使用 Sketch 和 Pixate 来构建一个材料设计原型 —— 第一部分") 我们制作了一个登录界面并导出了所有资源。
@@ -66,7 +66,7 @@
 
 <span>在左边“ Layers ”菜单下面是两个格子 —— “Interactions” 和 “Animations”。这两个格子各自包含了不同的互动和动画。互动有类似“ Tap ”（打开）和“ Drag ”（拖动）。动画有类似“ Scale ”（缩放）和“ Move ”（移动）。为了使用它们，我们需要把它们拖动到我们想要互动和动画发生的层上面，真是简单好用。</span>
 
-<span>让我们从 _email text field_ 开始吧。 在左边选中它，然后从“ Interactions ”（互动）格子中点击并拖动“ Tap ”（打开），并且把它丢到 _email text field_ 层上面。接下来我们需要 “ Animations ”（动画）格子里面的“ Fade ”（渐隐），像对_email text field_操作那样点击并拖动它。你应该能在右边“ Properties ”（属性）菜单中的“ Interactions ”（互动）下面能看到一个小的 Tap （打开）按钮，在Animations ”（动画）下面看到“ Fade ”（渐隐）。</span>
+<span>让我们从 _email text field_ 开始吧。 在左边选中它，然后从“ Interactions ”（互动）格子中点击并拖动“ Tap ”（打开），并且把它丢到 _email text field_ 层上面。接下来我们需要 “ Animations ”（动画）格子里面的“ Fade ”（渐变），像对_email text field_操作那样点击并拖动它。你应该能在右边“ Properties ”（属性）菜单中的“ Interactions ”（互动）下面能看到一个小的 Tap （打开）按钮，在Animations ”（动画）下面看到“ Fade ”（渐变）。</span>
 
 <span>我们现在想要设置当我们点击 _email text field_ 时使其渐隐。在右边菜单“ Fade ”（渐隐）下点击“ Based On ” （基于）并且选择 _email text field_ 。这时会弹出更多的选项，你可以研究一下，不过我们这里只关心“ Fade to ”（渐隐），点击格子并输入 “ 0 ”。</span>  
 
