@@ -68,7 +68,7 @@
 
 <span>让我们从 _email text field_ 开始吧。 在左边选中它，然后从“ Interactions ”（互动）格子中点击并拖动“ Tap ”（打开），并且把它丢到 _email text field_ 层上面。接下来我们需要 “ Animations ”（动画）格子里面的“ Fade ”（渐变），像对_email text field_操作那样点击并拖动它。你应该能在右边“ Properties ”（属性）菜单中的“ Interactions ”（互动）下面能看到一个小的 Tap （打开）按钮，在Animations ”（动画）下面看到“ Fade ”（渐变）。</span>
 
-<span>我们现在想要设置当我们点击 _email text field_ 时使其渐隐。在右边菜单“ Fade ”（渐隐）下点击“ Based On ” （基于）并且选择 _email text field_ 。这时会弹出更多的选项，你可以研究一下，不过我们这里只关心“ Fade to ”（渐隐），点击格子并输入 “ 0 ”。</span>  
+<span>我们现在想要设置当我们点击 _email text field_ 时使其渐变。在右边菜单“ Fade ”（渐变）下点击“ Based On ” （基于）并且选择 _email text field_ 。这时会弹出更多的选项，你可以研究一下，不过我们这里只关心“ Fade to ”（渐变），点击格子并输入 “ 0 ”。</span>
 
 ![](http://ww3.sinaimg.cn/large/a490147fgw1f41ttixjxnj20ke0egjt2.jpg)
 
@@ -80,16 +80,16 @@
 
 <span>打开 Pixate 应用。这个应用会从网络上查找你的 Pixate Studio ，所以稍等一下并且确保你已经连接 WiFi 了。 Pixate 应用有时对我不太友好，所以你可能需要退出并且从新进入它。你也可以通过 IP 地址连接。</span>
 
-<span>当你的电脑有东西出现的时候，点击它。在 Pixate Studio 的右上角点击“ Devices ”。你能看到你的手机被列出在这里，你需要允许连接所以点击一下然后你的设备就被连接了。检查一下你的设备，你的电脑应该在顶部被列出了。点击它，然后你就能看到你的这些原型了。你应该看到“ Material Design Prototype ”（这取决于你给它的命名），点击它。现在你将被展示一些关于当你使用你的原型时如何与你的设备进行互动的指示。点击“ Get Started ”，然后你现在应该能看到登录页面了！更棒的是如果你现在点击 _email text field_，它将会渐隐然后从你的眼前消失了。</span>
+<span>当你的电脑有东西出现的时候，点击它。在 Pixate Studio 的右上角点击“ Devices ”。你能看到你的手机被列出在这里，你需要允许连接所以点击一下然后你的设备就被连接了。检查一下你的设备，你的电脑应该在顶部被列出了。点击它，然后你就能看到你的这些原型了。你应该看到“ Material Design Prototype ”（这取决于你给它的命名），点击它。现在你将被展示一些关于当你使用你的原型时如何与你的设备进行互动的指示。点击“ Get Started ”，然后你现在应该能看到登录页面了！更棒的是如果你现在点击 _email text field_，它将会渐变然后从你的眼前消失了。</span>
 
 ## 创建更多的动画
 
-<span>好的，现在我们要结束这些的动画了。当我点击  _email text field_ 时变得空白并不好。点击 _email text field_ _with input_ ，并且从动画格子中点击并拖动“ Fade ”然后丢到它上面。当你在“ Fade ”下面的“ Based on ”点击第一个下拉格子时，确保你选择了 _email text field_。我们想要展现的效果是当 _email text field_ 渐隐时， _email text field with input_ 出现。在“ Fade to ”里面输入100。</span>  
+<span>好的，现在我们要结束这些的动画了。当我点击  _email text field_ 时变得空白并不好。点击 _email text field_ _with input_ ，并且从动画格子中点击并拖动“ Fade ”然后丢到它上面。当你在“ Fade ”下面的“ Based on ”点击第一个下拉格子时，确保你选择了 _email text field_。我们想要展现的效果是当 _email text field_ 渐出时， _email text field with input_ 出现。在“ Fade to ”里面输入100。</span>
 ![](http://ww1.sinaimg.cn/large/a490147fgw1f41wtvuc3qj20jp0ci75p.jpg)
 
 <span>我们实际上是在说，当 _email text field_ 被点击时，它渐变到0，并且 _email text field with input_ 渐变到100。这有点像“如果这样，然后那样”。/span>
 
-<span>现在，如果你回到你的设备，Pixate 应用应该已经刷新了，因为它会自更新。现在如果每样事情都被设置正确了，那么当你点击 _email text field_ 时，它应该能渐隐然后 _email text field with input_ 应该会出现。</span>
+<span>现在，如果你回到你的设备，Pixate 应用应该已经刷新了，因为它会自更新。现在如果每样事情都被设置正确了，那么当你点击 _email text field_ 时，它应该能渐出然后 _email text field with input_ 应该会出现。</span>
 
 ![](http://ww4.sinaimg.cn/large/a490147fgw1f41wt2s6lmg20ba0k0tca.gif)
 
@@ -123,7 +123,7 @@
 
 <span>点击并且拖动“ Fade ”动画到 _disabled login button_ 上。现在给 _email text field_ 设置“ Based on ”。当你完成这些弹出的额外选项时，我们来关注一下“ If ”栏目，如果你点击它旁边的问题标志图标，你会得到一个通篇解释，关于这是做什么的和你想要知道的关于层的所有属性。</span>
 
-<span>我们的条件是什么？我们想要去检查，如果 _password text field_ 不再可见，就使 _disabled login button_ 渐隐。正如我们所知道的，如果 _password text field_ 不再可见，那么 _password text field with input_ 就必须可见。</span>
+<span>我们的条件是什么？我们想要去检查，如果 _password text field_ 不再可见，就使 _disabled login button_ 渐出。正如我们所知道的，如果 _password text field_ 不再可见，那么 _password text field with input_ 就必须可见。</span>
 
 <span>你需要在“ If ”格子里输入这个条件声明：</span>
 
@@ -135,7 +135,7 @@
 
 <span>现在如果你回到你的设备上的原型，并且触压 _password text field_ ，然后  _email text field_ ，关闭状态的按钮应该就消失了。</span>
 
-<span>我们现在需要添加另一个渐隐动画。这个动画是在 _password text field_ 被触压时，_email text field_ 渐隐。这也是典型的原型是如何正常操作的。</span>
+<span>我们现在需要添加另一个渐出动画。这个动画是在 _password text field_ 被触压时，_email text field_ 渐出。这也是典型的原型是如何正常操作的。</span>
 
 <span>你需要去做我们之前做的，但是采用相反的设置。我将教你如何开始，你需要点击并且拖动另外一个“ Fade ”动画到 _disabled login button_ 上。然后我再教你其他的 :)。</span>
 
