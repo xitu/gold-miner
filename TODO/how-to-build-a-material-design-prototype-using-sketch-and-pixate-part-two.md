@@ -4,7 +4,7 @@
 * 译者 : [zhangzhaoqi](https://github.com/joddiy)
 * 校对者:
 
-在教程的 [第一部分](http://createdineden.com/blog/post/material-design-prototype-tutorial-part-1/ "如何使用 Sketch 和 Pixate 来构建一个材料设计原型 —— 第一部分") 我们制作了一个登录界面并导出了所有资源。
+在教程的 [第一部分](http://createdineden.com/blog/post/material-design-prototype-tutorial-part-1/ " 如何使用 Sketch 和 Pixate 来构建一个材料设计原型 —— 第一部分") 我们制作了一个登录界面并导出了所有资源。
 
 在第二部分，我们打算继续在 Pixate 里创建一个原型。对于这一部分，你可能需要：
 
