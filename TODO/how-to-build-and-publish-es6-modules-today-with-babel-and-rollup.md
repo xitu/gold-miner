@@ -2,7 +2,7 @@
 * 原文作者 : [Konstantin Tarkus](https://medium.com/@tarkus)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [L9m](https://github.com/L9m)
-* 校对者:
+* 校对者: [yangzj1992](https://github.com/yangzj1992), [malcolmyu](https://github.com/malcolmyu)
 
 ES2015 规范，也称作 ES6，早在2015年六月被 ECMA 国际（ECMA International）批准为正式标准。在2016年四月，Node.js 基金会发布了支持 93% ES6语言特性的 Node.js 框架 v6，这要归功于 V8（引擎）的 v5.0（Node.js）。
 
