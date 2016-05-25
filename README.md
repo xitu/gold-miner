@@ -67,6 +67,7 @@
 
 ## 前端
 
+* [如何用 Babel 和 Rollup 来构建和发布 ES6 模块](http://gold.xitu.io/entry/574445d579bc44005c63265b?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([L9m](https://github.com/L9m) 翻译)
 * [10 个你可能不知道的事，关于 Facebook 内部开发环境是如何使用 JavaScript 和 GraphQL 的](http://gold.xitu.io/entry/5739f5dc71cfe400570ea59f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Jack](https://github.com/Jack-Kingdom) 翻译)
 * [使用 ES6 写更好的 JavaScript part III：好用的集合和反引号](http://gold.xitu.io/entry/573e7ef91ea49300601c7332?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([godofchina](https://github.com/godofchina) 翻译)
 * [使用 ES6 编写更好的 JavaScript Part II：深入探究 [类]](http://gold.xitu.io/entry/573969b91ea4930060f3e31a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Malcolm](https://github.com/malcolmyu) 翻译)
