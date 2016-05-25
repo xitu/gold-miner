@@ -26,6 +26,7 @@
 
 ## Android
 
+* [为什么 Android 上 Canvas 画出的图形不够平滑？](http://gold.xitu.io/entry/5739909a79df5400601cfc71?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Sausure](https://github.com/Sausure) 翻译)
 * [使用GCM网络管理工具优化电池使用](http://gold.xitu.io/entry/572b62c8c4c97100609dd6d9?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([程大治](http://blog.chengdazhi.com/) 翻译)
 * [用工厂流水线的方式来理解 RxJava 的概念](http://gold.xitu.io/entry/571f2cc971cfe40057351e95?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Sausure](https://github.com/Sausure) 翻译)
 * [在 Android N 预览版中使用 Java 8 的新特性](http://gold.xitu.io/entry/5716fc67ebcb7d005cad214c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([markzhai](https://github.com/markzhai) 翻译)
@@ -52,6 +53,7 @@
 
 ## iOS
 
+* [使用 webP 减少图片的大小](http://gold.xitu.io/entry/57383657c4c97100601212d5?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([circlelove](https://github.com/circlelove) 翻译)
 * [打破 Swift 结构体中的循环引用](http://gold.xitu.io/entry/572acc852e958a0069518605?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Tuccuay](https://github.com/Tuccuay)翻译）
 * [使用 Xcode 的 Scheme 来跑不同的测试集合](http://gold.xitu.io/entry/5723223f71cfe400575f4528?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Tuccuay](https://github.com/Tuccuay)翻译）
 * [UIScrollView 新手教程](http://gold.xitu.io/entry/570c71a81ea4930068dcbc5e?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zhongyi Tong](https://github.com/geeeeeeeeek)翻译）
@@ -65,6 +67,12 @@
 
 ## 前端
 
+* [如何用 Babel 和 Rollup 来构建和发布 ES6 模块](http://gold.xitu.io/entry/574445d579bc44005c63265b?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([L9m](https://github.com/L9m) 翻译)
+* [10 个你可能不知道的事，关于 Facebook 内部开发环境是如何使用 JavaScript 和 GraphQL 的](http://gold.xitu.io/entry/5739f5dc71cfe400570ea59f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Jack](https://github.com/Jack-Kingdom) 翻译)
+* [使用 ES6 写更好的 JavaScript part III：好用的集合和反引号](http://gold.xitu.io/entry/573e7ef91ea49300601c7332?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([godofchina](https://github.com/godofchina) 翻译)
+* [使用 ES6 编写更好的 JavaScript Part II：深入探究 [类]](http://gold.xitu.io/entry/573969b91ea4930060f3e31a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Malcolm](https://github.com/malcolmyu) 翻译)
+* [使用 ES6 写更好的 JavaScript part I：广受欢迎新特性](http://gold.xitu.io/entry/5736e4f41532bc006545106e?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([huanglizhuo](https://github.com/huanglizhuo) 翻译)
+* [网页端字体加载优化](http://gold.xitu.io/entry/5732936d49830c0061c7ec72?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([shenxn](https://github.com/shenxn) 翻译)
 * [怎样在不使用框架的基础上开发一个 Javascript 组件](http://gold.xitu.io/entry/572d5f132e958a0066873e2c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([L9m](https://github.com/L9m) 翻译)
 * [ECMAScript 6 里面的私有变量](http://gold.xitu.io/entry/572c0b2d2e958a00667a081d?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([XRene](https://github.com/CommanderXL) 翻译)
 * [10 步带你做一个棒棒的 Hybrid 应用](http://gold.xitu.io/entry/5729a76479df5400608d1f9f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Yves-X](https://github.com/Yves-X) 翻译)
@@ -89,12 +97,14 @@
 
 ## React
 
+* [基于 Meteor1.3 和 React 创建简单 App](http://gold.xitu.io/entry/5732a5af79df540060df2e53?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([yangzj1992](http://www.qcyoung.com/) 翻译)
 * [Making React Native apps accessible](http://gold.xitu.io/entry/56cc0ab299a6ce005a1c3b2b?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([void-main](https://github.com/void-main) 翻译)
 * [如何发布一个 React components](http://gold.xitu.io/entry/56ce8d1fc24aa800520f94e8?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([aleen42](https://github.com/aleen42) 翻译)
 * [Things I Wish I Were Told About React Native](http://gold.xitu.io/entry/56cbf55cefa631005c441d9b?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([huanglizhuo](https://github.com/huanglizhuo) 翻译)
 
 ## 后端
 
+*  [在生产环境中使用 Node.js 一年记](http://gold.xitu.io/entry/573d229ead5b950057645190?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([cdpath](https://github.com/cdpath) 翻译)
 *  [SSH 简化配置](http://gold.xitu.io/entry/5704cf8e71cfe4005dc76f18?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([circlelove](https://github.com/circlelove) 翻译)
 *  [Python3.5 协程原理](http://gold.xitu.io/entry/56ea295ed342d300546e1e22?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)  ([Yushneng](https://github.com/rainyear) 翻译)
 *  [人人须知的 jQuery 技巧](http://gold.xitu.io/entry/56e1a95b731956005da35c24?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)  ([Yves-X](https://github.com/Yves-X) 翻译)
@@ -129,6 +139,7 @@
 
 ## 产品
 
+* [无限下拉，还是分页？](http://gold.xitu.io/entry/573e978171cfe448aa9dd03db?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Ruixi](https://github.com/Ruixi) 翻译)
 * [给产品经理的简易优先级法则](http://gold.xitu.io/entry/572ad1cc1532bc0065d5e36b?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([ZhaofengWu](https://github.com/ZhaofengWu) 翻译)
 * [设计师如何跟开发打好关系？](http://gold.xitu.io/entry/57286f4f2e958a00657d2450?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([L9m](https://github.com/L9m) 翻译)
 * [为什么 Spotify 的付费转化率比 Dropbox 高了 667%](http://gold.xitu.io/entry/57232041f38c8400599ef706?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([SatanWoo](https://github.com/SatanWoo)翻译）
