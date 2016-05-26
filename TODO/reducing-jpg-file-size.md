@@ -25,7 +25,7 @@
 
 然而事实上，你可以在文件格式上[做更多](http://www.elektronik.htw-aalen.de/packjpg/_notes/PCS2007_PJPG_paper_final.pdf)。
 
-最开始，你可以使用一些像 [JPEGMini](http://www.jpegmini.com/) 的工具，在不过度影响图片保真度的情况下进行低质量压缩，就像是 Mozilla 的 [MOZJpeg](https://github.com/mozilla/mozjpeg/)（虽然 Mozilla 申明了他们的项目可能会影响兼容性）。
+你可以使用一些像 [JPEGMini](http://www.jpegmini.com/) 的工具，在不过度影响图片保真度的情况下进行低质量压缩，就像是 Mozilla 的 [MOZJpeg](https://github.com/mozilla/mozjpeg/)（虽然 Mozilla 申明了他们的项目可能会影响兼容性）。
 
 另外，[jpegTran/cjpeg](http://jpegclub.org/) 试图提供无损的体积优化。而 [packJPG](http://www.elektronik.htw-aalen.de/packjpg/) 会用一种更小的形式重新打包 JPG 数据，虽然这已经是一种不同的文件格式了，并且不再与 JPG 兼容（但如果你能在客户端自己对文件进行解析，就会非常方便）。
 
@@ -63,36 +63,36 @@ Twitter 用户 JPEG 图片: 30–100
 
 通常凭空选取一个质量值并应用到整个系统中，会导致一些图片能在损失极小质量的情况下被进一步压缩，而另一些图片则由于过度压缩而看起来不那么好。质量值应该是改变的，应该为每一张图片寻找其独特的最优参数。
 
-**What if** there was a way to measure the visual degradation that compression has on an image?  
-**What if** you could test that value against the quality metric to find out if it’s a good level?  
-**What if** you could automate the above two, to run on your server?
+**如果**有一种方法可以测出压缩对图片的破坏程度呢？
+**如果**你可以通过一个质量标准来判定当前的质量值是否最佳呢？
+**如果**你可以在服务器上自动运行上述两项任务呢？
 
-There **is**.  
-Can **do**.  
-Totally **possible**.
+**有**这样的方法。
+**可以**判定。
+**能够**自动运行。
 
-This all starts with something known as the [Psychovisual Error Threshold](http://ieeexplore.ieee.org/xpl/login.jsp?tp=&arnumber=6530010&url=http%3A%2F%2Fieeexplore.ieee.org%2Fiel7%2F6523355%2F6529997%2F06530010.pdf%3Farnumber%3D6530010), which basically denotes how much degradation can be inserted into an image before the human eye starts to notice it.
+这都要从[精神性视觉误差阈值 - Psychovisual Error Threshold](http://ieeexplore.ieee.org/xpl/login.jsp?tp=&arnumber=6530010&url=http%3A%2F%2Fieeexplore.ieee.org%2Fiel7%2F6523355%2F6529997%2F06530010.pdf%3Farnumber%3D6530010) 说起，这个阈值指示了在人类的眼睛可以察觉之前，一张图片最多可以下降多少质量。
 
-There’s a few measurements of this, notably the [PSNR](https://en.wikipedia.org/wiki/Peak_signal-to-noise_ratio) and [SSIM](https://en.wikipedia.org/wiki/Structural_similarity) metrics. Each has their own nuances with respect to evaluation measurement, which is why I rather prefer the new [Butteraugli](http://goo.gl/1ehQOi) project. After testing it on a corpus of images, I found that the metric is a lot more understandable to me in terms of visual quality.
+这个阈值有一些测量方法，尤其是 [PSNR](https://en.wikipedia.org/wiki/Peak_signal-to-noise_ratio) 和 [SSIM](https://en.wikipedia.org/wiki/Structural_similarity) 标准。每一个标准在进行测量时有一些细微差别，这就是为什么我更喜欢最新的 [Butteraugli](http://goo.gl/1ehQOi) 项目。在使用一个图片库进行测试后，我发现这种标准在视觉质量方面对我来说更容易理解。
 
-To do this, you write a simple script to:
+为了实现，你需要写一个简单的脚本来：
 
-*   Save a JPG file at various quality values
-*   Use [Butteraugli](http://goo.gl/1ehQOi) to test for the [Psychovisual Error Threshold](http://ieeexplore.ieee.org/xpl/login.jsp?tp=&arnumber=6530010&url=http%3A%2F%2Fieeexplore.ieee.org%2Fiel7%2F6523355%2F6529997%2F06530010.pdf%3Farnumber%3D6530010)
-*   Stop once the output value is > 1.1
-*   And save the final image using that quality value
+*   将一个 JPG 文件保存为多个不同质量值的版本
+*   使用 [Butteraugli](http://goo.gl/1ehQOi) 来测定它们的 [精神性视觉误差阈值](http://ieeexplore.ieee.org/xpl/login.jsp?tp=&arnumber=6530010&url=http%3A%2F%2Fieeexplore.ieee.org%2Fiel7%2F6523355%2F6529997%2F06530010.pdf%3Farnumber%3D6530010)
+*   当输出值大于 1.1 时停止
+*   使用当前的质量值来储存最终的图片
 
-The result is the smallest JPG file possible that doesn’t impact the PET more than significantly noticeable. For the image below, the difference is 170k in savings, but visually it looks the same.
+T最终的结果将是在不引入过大的精神性视觉误差阈值（不容易被察觉）的情况下最小的 JPG 文件。如下图片节省了 170k 体积，但是视觉上看起来仍然相同。
 
 ![](https://cdn-images-1.medium.com/max/800/1*QCVqIL_ueQju40gyJGXodg.png)
 
-Of course, you could go even further than this. Maybe your goal is to allow a lot more visual loss in order to conserve bandwidth. You could easily continue on with this, but there’s madness there. As of _right now_, the [Butteraugli](http://goo.gl/1ehQOi) denotes that any result > 1.1 is deemed “bad looking” and doesn’t try to define what any of that looks like, from a numerical authority. So you could run the script to stop once visual quality hits 2.0 (see the image below) but at that point, it’s unclear what the visual scalar is that you’re testing against.
+当然，你还可以进一步压缩。也许你的目标是允许更多的视觉损失来节省带宽，你可以很容易继续压缩，但这样有些疯狂。_到目前为止_，[Butteraugli](http://goo.gl/1ehQOi) 认为任何高于 1.1 的结果都是“难看”的并且没有试图定量地定义这样的图片看起来到底是怎么样的。所以你当然可以在输出值到达 2.0 时（如下图）停止脚本，但是到那时，你将难以确定你的图片到底处于一种怎样的视觉程度上。
 
 ![](https://cdn-images-1.medium.com/max/800/1*5yfAv-aFdneBAZywSUZ1Ag.png)
 
-### Blurring Chroma
+### 模糊色度
 
-One of the reasons that JPG is so powerful, is that expects there to be little visual variance in an 8x8 block. Directly, the human eye is more attuned to visual changes in the Luminosity channel of the [YCbCr](https://en.wikipedia.org/wiki/YCbCr) image. As such, if you can reduce the amount of variation in chroma across your 8x8 blocks, you’ll end up producing less visual artifacts, and better compression. The simplest way to do this is to apply a median filter to high-contrast areas of your chroma channel. Let’s take a look at this process with the sample image below.
+JPG 如此强大的一个原因是，假设在一个 8 x 8 的块上没有太多的视觉变化，但人的眼睛在 [YCbCr](https://en.wikipedia.org/wiki/YCbCr) 颜色通道的图片上对于视觉改变有更好的理解能力。因此，如果你能在 8 x 8 的块上减少色度的变化，你就能更少地影响图片的质量，同时更好地进行压缩。最简单的方法就是在颜色通道上高对比度的区域内进行中值过滤。样例如下。
 
 ![](https://cdn-images-1.medium.com/max/800/1*kxVa2DEkM048to6UnUYCfA.png)
 
