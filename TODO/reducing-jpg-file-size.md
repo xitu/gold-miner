@@ -92,11 +92,12 @@ T最终的结果将是在不引入过大的精神性视觉误差阈值（不容�
 
 ### 模糊色度
 
-JPG 如此强大的一个原因是，假设在一个 8 x 8 的块上没有太多的视觉变化，但人的眼睛在 [YCbCr](https://en.wikipedia.org/wiki/YCbCr) 颜色通道的图片上对于视觉改变有更好的理解能力。因此，如果你能在 8 x 8 的块上减少色度的变化，你就能更少地影响图片的质量，同时更好地进行压缩。最简单的方法就是在颜色通道上高对比度的区域内进行中值过滤。样例如下。
+JPG 如此强大的一个原因是，可以假设在一个 8 x 8 的块上没有太多的视觉变化，但人的眼睛在 [YCbCr](https://en.wikipedia.org/wiki/YCbCr) 颜色通道的图片上对于视觉改变有更好的理解能力。因此，如果你能在 8 x 8 的块上减少色度的变化，你就能更少地影响图片的质量，同时更好地进行压缩。最简单的方法就是在颜色通道上高对比度的区域内进行中值过滤。样例如下。
 
 ![](https://cdn-images-1.medium.com/max/800/1*kxVa2DEkM048to6UnUYCfA.png)
 
 One trick here is that most photo editing programs don’t support editing in [YCbCr](https://en.wikipedia.org/wiki/YCbCr) colorspace; but they do support [LAB](https://en.wikipedia.org/wiki/Lab_color_space). The L channel represents Lightness (which is close to the Y channel, luminosity) while the A and B channels represent Red/Green and Blue/Yellow, similar components to Cb and Cr. By converting your image to LAB, you should see the following channels:
+
 
 ![](https://cdn-images-1.medium.com/max/800/1*VwKrI76p9IsLWhJmPQaD6Q.jpeg)
 
