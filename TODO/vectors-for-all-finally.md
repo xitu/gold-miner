@@ -2,16 +2,16 @@
 * 原文作者 : [stylingandroid](https://blog.stylingandroid.com)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [Jaeger](https://github.com/laobie)
-* 校对者:
+* 校对者: [zhangzhaoqi](https://github.com/joddiy), [SatanWoo](https://github.com/SatanWoo)
 
 
-这是 _VectorDrawable_ 对 Android 支持情况的“偶尔关注系列”文章中的第三篇，之前的文章是[Vectors For All (almost)](https://blog.stylingandroid.com/vectors-for-all-almost/)，在此之前的另外一篇是[Vectors For All (slight return)](https://blog.stylingandroid.com/vectors-for-all-slight-return/)。这两篇文章向我们展示了 VectorDrawable 的可用性有了很大的提升，但是对 _VectorDrawableCompat_ 的热切等待一直落空。直到2016年2月24号，Google 发布了 Android Support Library 23.2 版本，其中就包含了一直期待的 _VectorDrawableCompat_ 。
+这是关注 Android 的 __VectorDrawable__ 系列博文中的第三篇，之前的文章是[Vectors For All (almost)](https://blog.stylingandroid.com/vectors-for-all-almost/)，在此之前的另外一篇是[Vectors For All (slight return)](https://blog.stylingandroid.com/vectors-for-all-slight-return/)。这两篇文章向我们展示了 VectorDrawable 的可用性有了很大的提升，但是对 _VectorDrawableCompat_ 的热切等待一直落空。直到2016年2月24号，Google 发布了 Android Support Library 23.2 版本，其中就包含了一直期待的 _VectorDrawableCompat_ 。
 
-我不会给你长篇大论地讲解 _VectorDrawableCompat_ 的使用细节，因为 [Chris Banes](https://chris.banes.me/) 已经在一篇相当有深度的 [博文](https://medium.com/@chrisbanes/appcompat-v23-2-age-of-the-vectors-91cbafa87c88#.kf57cowuy) 中做了这个工作。Chris 在解释如何使用 _VectorDrawableCompat_ 方面做了很棒的工作，因此在这就没简单重复此工作的意义了。
+我不会给你长篇大论地讲解 _VectorDrawableCompat_ 的使用细节，因为 [Chris Banes](https://chris.banes.me/) 已经写了一篇很有深度的 [博文](https://medium.com/@chrisbanes/appcompat-v23-2-age-of-the-vectors-91cbafa87c88#.kf57cowuy) ，解释了如何使用 _VectorDrawableCompat_ ，因此在这就做重复性工作了。
 
 因此，让我们看一下，我们需要对之前文章中使用的项目做些什么样的改动，以便可以使用 _VectorDrawableCompat_ 。首先要做的事就是修改我们的 _build.gradle_ 文件，正如 Chris 在他的文章中介绍的那样。
 
-在示例代码中我使用的 Android Gradle 插件是 1.5.0 版本，而不是比较新的 2.0.0 beta 版本。因为 beta 版本插件容易失效，而我希望发布的代码在未来的几周或几个月内仍然可以被编译——如果 2.0.0 发布了正式版，我将很乐意立即升级到 2.0.0 版本。即便如此，我们需要做以下几处修改（对于 2.0.0 版本，这些修改是不同的——可以去看 Chris 的文章了解更多细节——但我也测试了那个方法，同样也是有效的）：
+在示例代码中我使用的 Android Gradle 插件是 1.5.0 版本，而不是比较新的 2.0.0 beta 版本。因为 beta 版本插件容易失效，而我希望发布的代码在未来的几周或几个月内仍然可以成功编译——如果 2.0.0 发布了正式版，我将很乐意立即升级到 2.0.0 版本。即便如此，我们需要做以下几处修改（对于 2.0.0 版本，这些修改是不同的——可以去看 Chris 的文章了解更多细节——我也测试了 Chris 文中提到的方法，同样也是有效的）：
 
     apply plugin: 'com.android.application'
 
@@ -72,13 +72,13 @@
 
 这样就可以啦！当然确保我们的 _Activity_ 已经继承自 _AppCompatActivity_ ，这是使用 _VectorDrawableCompat_ 的前提。
 
-唯一一点让我发牢骚的是 Android Studio （当我写这篇文章时，我正在使用 2.0 beat 6 版本）不识别 `app:srcCompat` 属性，因此报错了。但是一切都编译正常。 我们也收到了一些错误的 Lint（译者注：静态代码检查工具）警告，但是如果你觉得有必要的话，这些警告是可以被关闭的。我希望这些错误的报错和警告问题能够尽快修复。
+唯一一点让我发牢骚的是 Android Studio （当我写这篇文章时，我正在使用 2.0 beat 6 版本）不识别 `app:srcCompat` 属性，因此报错了。但一切都可以正常编译。 我们也收到了一些错误的 Lint（译者注：静态代码检查工具）警告，但是如果你觉得有必要的话，这些警告是可以被关闭的。我希望这些错误的报错和警告问题能够尽快修复。
 
 如果我们在一台 6.0 的设备上运行，一切看起来都不错，正如我们所预期的那样：
 
 [![compat-m](https://i1.wp.com/blog.stylingandroid.com/wp-content/uploads/2016/02/compat-m.png?resize=300%2C225&ssl=1%20300w,%20https://i1.wp.com/blog.stylingandroid.com/wp-content/uploads/2016/02/compat-m.png?resize=768%2C576&ssl=1%20768w,%20https://i1.wp.com/blog.stylingandroid.com/wp-content/uploads/2016/02/compat-m.png?resize=1024%2C768&ssl=1%201024w,%20https://i1.wp.com/blog.stylingandroid.com/wp-content/uploads/2016/02/compat-m.png?resize=624%2C468&ssl=1%20624w)](https://blog.stylingandroid.com/?attachment_id=3696)
 
-如果我们在一个 4.4 的模拟器上运行这个程序，看起来也差不多一样。
+如果我们在一个 4.4 的模拟器上运行这个程序，看起来几乎一致。
 
 [![compat-jb](https://i0.wp.com/blog.stylingandroid.com/wp-content/uploads/2016/02/compat-jb.png?resize=180%2C300&ssl=1%20180w,%20https://i0.wp.com/blog.stylingandroid.com/wp-content/uploads/2016/02/compat-jb.png?w=480&ssl=1%20480w)](https://blog.stylingandroid.com/?attachment_id=3697)
 
@@ -90,11 +90,11 @@ _AnimatedVectorDrawableCompat_ 又是怎样的呢？让我们再次看看 [Styli
 
 [![screenshot-2016-02-27_11.03.32.637](https://i0.wp.com/blog.stylingandroid.com/wp-content/uploads/2016/03/screenshot-2016-02-27_11.03.32.637.png?resize=300%2C180&ssl=1%20300w,%20https://i0.wp.com/blog.stylingandroid.com/wp-content/uploads/2016/03/screenshot-2016-02-27_11.03.32.637.png?resize=768%2C461&ssl=1%20768w,%20https://i0.wp.com/blog.stylingandroid.com/wp-content/uploads/2016/03/screenshot-2016-02-27_11.03.32.637.png?resize=1024%2C614&ssl=1%201024w,%20https://i0.wp.com/blog.stylingandroid.com/wp-content/uploads/2016/03/screenshot-2016-02-27_11.03.32.637.png?resize=624%2C374&ssl=1%20624w,%20https://i0.wp.com/blog.stylingandroid.com/wp-content/uploads/2016/03/screenshot-2016-02-27_11.03.32.637.png?w=1280&ssl=1%201280w)](https://blog.stylingandroid.com/?attachment_id=3699)
 
-因为这是一个静态的 _VectorDrawable_ ，正如我们期待的那样，它看起来不错。当我们给它添加动画之后会发生什么呢？（这些例子全运行在 Android 4.4 的 GenyMotion 模拟器上）：
+正如我们所期待的那样，由于它是一个静态的_vectorDrawable，所以它的效果看起来很棒。当我们给它添加动画之后会发生什么呢？（这些例子全运行在 Android 4.4 的 GenyMotion 模拟器上）：
 
 ![](http://ww4.sinaimg.cn/large/a490147fgw1f3qiw99kzeg20qo0g01es.gif)
 
-要知道这可是在模拟器上而不是真机上运行。显然，低配置的机器上帧率会差一些，同样，当我们适配更早的 Android 版本时，也会遇到许多类似的情况，但是不管怎么说，效果感人啊。
+要知道这可是在模拟器上而不是真机上运行。显然，低配置的机器上帧率会差一些，同样，当我们适配更早的 Android 版本时，也会遇到许多类似的情况，但不管怎么说，这个结果是令人振奋的。
 
 `trimPath` 动画表现的怎么样呢？
 
