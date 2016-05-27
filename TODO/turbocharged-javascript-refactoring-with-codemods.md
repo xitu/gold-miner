@@ -2,7 +2,7 @@
 * 原文作者 :[Joe Lencioni](https://medium.com/u/e52389684329)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [Hikerpig](https://github.com/hikerpig)
-* 校对者: [Jack-Kingdom](https://github.com/Jack-Kingdom)
+* 校对者: [Jack-Kingdom](https://github.com/Jack-Kingdom)，[godofchina](https://github.com/godofchina)
 
 
 
@@ -14,7 +14,7 @@
 
 我通常讨厌除草，经常忘记这事的结果就是一团糟。谢天谢地在编程界有像 [ESLint](http://eslint.org/) 和 [SCSS-Lint](https://github.com/brigade/scss-lint) 这样的好东西提醒我们勤理代码。但是如果面对的是大段大段的历史代码，光是想想要手动调整成百十千万的空格和逗号，悲伤便逆流成河。
 
-8年来有几百万行 JavaScript 代码进入 Airbnb 的版本控制系统中。同时，前端界风起云涌。新功能，新框架，甚至 JavaScript 本身都在快速进化。尽管遵循[良好的代码风格](https://github.com/airbnb/javascript)会让变革少些疼痛，但还是很容易累积出不再遵循最新"最佳实践"的巨大代码库。每一处代码风格的不一致都是一棵杂草，唯一归宿就是被铲掉，化作春泥更护花，好让开发团队保持高效。让我们看看现在花园长啥样：
+8年来有几百万行 JavaScript 代码进入 Airbnb 的版本控制系统中。同时，前端界风起云涌。新功能，新框架，甚至 JavaScript 本身都在快速进化。尽管遵循[良好的代码风格](https://github.com/airbnb/javascript)会让变革少些疼痛，但还是很容易累积出不再遵循最新"最佳实践"的巨大代码库。每一处代码风格的不一致都是一棵杂草，唯一归宿就是被铲掉，化作春泥更护花，好让开发团队保持高效。来看看我们花园现在的样子：
 
 ![](http://ww1.sinaimg.cn/large/005SiNxygw1f3j83hmmrij30jk0dvjsn.jpg)
 
@@ -192,7 +192,7 @@
 
 *   [逐步改进复杂系统](https://www.youtube.com/watch?v=d0pOgY8__JM)：来自 Christoph Pojer 于 JSConf EU 2015 上关于 Facebook 的重构件的演讲。（亦可见[高效的 JavaScript 重构件](https://medium.com/@cpojer/effective-javascript-codemods-5a6686bb46fb)）。
 *   [如何写重构件](https://vramana.github.io/blog/2015/12/21/codemod-tutorial/): 带你写一个把字符串串联转化为字符串模板字面量的重构件的教程。
-*   [AST 探索](https://astexplorer.net/): 课查看由多种语法分析程序产生的 AST 的工具。好东西，可以看看你想转换的代码的 AST 长啥样。
+*   [AST 探索](https://astexplorer.net/): 可查看由多种语法分析程序产生的 AST 的工具。好东西，可以查看你想转换的代码的 AST。
 *   [NFL ♥ C重构件: 海量代码迁移](https://medium.com/nfl-engineers/nfl-codemods-migrating-a-monolith-1e3363571707): 关于 NFL 如何使用重构件的一个使用案例。
 *   [react-codemod](https://github.com/reactjs/react-codemod): 一系列关于 React 的重构件。
 *   [js-codemod](https://github.com/cpojer/js-codemod): 一系列常用的 JavaScript 重构件。
@@ -201,4 +201,4 @@
 
 在使用了一些现成的和我们自己写的并贡献给社区的重构件之后，我们的旧代码质量获得很大的提升。我不费吹灰之力便重构了40000行代码，将旧代码调整至符合 ES6 代码风格。花园焕然一新，我们之后的工作也更有效率和乐趣。
 
-使用已有的重构件仅是牛刀小试，只有在你拿起键盘写出自己的重构件时，真正的能量才会释放。无论是对代码风格重构，或是对失效 API 的调用调整，重构件都能大显身手，你可以尽情想象发挥。这些技术值得学习投入，能省下你和使用你的项目使用者很多时间精力。
+使用已有的重构件仅是牛刀小试，只有在你拿起键盘写出自己的重构件时，真正的能量才会释放。无论是对代码风格重构，或是对失效 API 的调整，重构件都能大显身手，你可以尽情想象发挥。这些技术值得学习投入，能省下你和使用你的项目使用者很多时间精力。
