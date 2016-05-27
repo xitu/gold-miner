@@ -5,9 +5,9 @@
 * 校对者:
 
 
-当我们学习如何使用 Swift 的类型系统时，理解 Swift（与其他编程语言类似）静态与动态两种不同的类型检查机制非常重要. 今天,我想简短地谈论一下二者的不同以及组合使用二者时一些令人头疼的地方。
+当我们学习如何使用 Swift 的类型系统时，理解 Swift（与其他编程语言类似）静态与动态两种不同的类型检查机制非常重要。 今天,我想简短地谈论一下二者的不同以及组合使用二者时一些令人头疼的地方。
 
-静态类型检查发生在编译期，动态类型检查则在运行期。 Each of these two stages come with a different, partially incompatible, toolset.
+静态类型检查发生在编译期，动态类型检查则在运行期。 二者使用了部分不兼容的不同工具集。
 
 ## 编译期的类型检查
 
@@ -16,11 +16,10 @@
 这是一个静态类型检查的简单的例子：
 
     let text: String = ""
-    // Compile Error: Cannot convert value of 
-    // type 'String' to specified type 'Int'
+    // 编译错误: 不能将 'String' 类型的值转换为 'Int' 
     let number: Int = text
 
-据源码编译器能够确定 `text` 不是 `Int` 类型 - 否则他就会发出编译错误。
+据源码编译器能够确定 `text` 不是 `Int` 类型 - 因此他发出了一个编译错误。
 
 Swift 的静态类型检查能完成很多强大的事，例如验证泛型约束：
 
@@ -36,12 +35,11 @@ Swift 的静态类型检查能完成很多强大的事，例如验证泛型约�
         // ...
     }
 
-    // Compiles fine:
+    // 正常编译：
     printHumanName(User())
-    // Compiles fine:
+    // 正常编译：
     printHumanName(Visitor())
-    // Compile Error: cannot invoke 'printHumanName' with an 
-    // argument list of type '(Car)'
+    // 编译错误： 在 '(Car)' 参数类型中不能调用 'printHumanName' 
     printHumanName(Car())
 
 在这个例子中，所有的类型检查再次发生在编译期，仅基于源代码。 Swift 编译器能够验证调用 `printHumanName` 函数的参数与泛型约束的是否匹配；一有不符便会发出编译错误。
@@ -49,7 +47,7 @@ Swift 的静态类型检查能完成很多强大的事，例如验证泛型约�
 
 ## 运行期的类型检查
 
-在一些不幸的情况下依靠静态类型检查是不可能的。 从外部资源（网络，数据库，等等）读取数据就是最常见的例子。 在这些情况下数据和类型信息并不在源码中，此外我们也无法向静态类型检查器证明我们的数据是一个特定的类型。（因为静态类型检查器只能对源码上获取的信息进行操作）
+在一些不幸的情况下依靠静态类型检查是不可能的。 从外部资源（网络，数据库，等等）读取数据就是最常见的例子。 在这些情况下数据和类型信息并不在源码中，此外我们也无法向静态类型检查器证明我们的数据是一个特定的类型（因为静态类型检查器只能对源码上获取的信息进行操作）。
 
 这意味着我们需要在运行期动态地_验证_类型，而非静态地定义。
 
@@ -81,8 +79,7 @@ Swift 的静态类型检查能完成很多强大的事，例如验证泛型约�
     var unknownData: Any = User()
 
     if let unknownData = unknownData as? protocol<HumanType, HasName> {
-        // Compile Error: cannot invoke 'printHumanName' 
-        // with an argument list of type '(protocol<HasName, HumanType>)'
+        // 编译错误：不能以 '(protocol<HasName, HumanType>)' 参数类型调用 'printHumanName' 
         printHumanName(unknownData)
     }
 
@@ -107,7 +104,7 @@ Swift 的静态类型检查能完成很多强大的事，例如验证泛型约�
         printHumanName(visitor)
     }
 
-并不优雅;但在某些情况下这是最可能的解决方案。
+并不优雅；但在某些情况下这是最可能的解决方案。
 
 重新实现 `printHumanName` 方法的解决方案如下(具体的方案有很多)： 
 
@@ -144,7 +141,7 @@ Swift 是否有可能会添加这样的支持呢？ 我认为这种动态地创�
     	printHumanName(value)
     }
 
-关于 Swift 编译期我了解的太少以至于我并不知道这样是否可行。 可以预见的是这样的改进相比给 Swift 代码库的微小益处而言，修改关联代码重新实现的代价将可能非常巨大。
+关于 Swift 编译器我了解的太少以至于我并不知道这样是否可行。 可以预见的是这样的改进相比给 Swift 代码库的微小益处而言，修改关联代码重新实现的代价将可能非常巨大。
 
 虽然如此, 根据这篇 [David Smith](https://twitter.com/Catfish_Man) 在 [Stack Overflow 的回答](http://stackoverflow.com/questions/28124684/swift-check-if-generic-type-conforms-to-protocol)， Swift 现今已可以在运行期检查泛型约束（除非编译器为一个函数生成的性能优化的副本）. 这意味着泛型约束的信息在运行期是可用的，并且至少在理论上来说动态创建元类型约束是可行的。
 
