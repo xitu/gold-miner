@@ -7,7 +7,7 @@
 
 只要你的项目相对较小，开发Android应用的 是很棒的。然而随着项目功能的增长，你会发现构建项目的时间也会随着增长。这种情况会导致你的大部分时间都花在如何更快的构建项目，而不是为应用增加更多的价值。
 
-网上有很多教你如何加快Gradle构建速度的教程。有一些很好的文章，譬如“[Making Gradle builds faster](http://zeroturnaround.com/rebellabs/making-gradle-builds-faster/)”。 通过这些方法我们可以节省几秒甚至上分钟的构建时间，但是人人存在一些构建上的瓶颈，举个例子，如果我们在项目中使用基于依赖注入的annotation来获得清晰的项目架构，那么它对项目的构建时间是有很大影响的。
+网上有很多教你如何加快Gradle构建速度的教程。有一些很好的文章，譬如“[Making Gradle builds faster](http://zeroturnaround.com/rebellabs/making-gradle-builds-faster/)”。 通过这些方法我们可以节省几秒甚至上分钟的构建时间，但是仍然存在一些构建上的瓶颈，举个例子，如果我们在项目中使用基于依赖注入的annotation来获得清晰的项目架构的话，那么它对项目的构建时间是有很大影响的。
 
 但是你可以尝试一下使用[JRebel for Android](https://zeroturnaround.com/software/jrebel-for-android/?utm_source=medium&utm_medium=getting-started-jra-post&utm_campaign=medium)。它不需要在每次改动代码后重新安装新的apk。而是在安装完一次应用后，通过增量包传递到设备或者模拟器上，并且能够应用在正在运行中的应用程序。这个想法（热部署）已经在JRebel的java开发工具上面使用超过8年的时间。
 
