@@ -6,13 +6,13 @@
 
 ![](http://assets.baymard.com/research/media_files/attachments/17301/original/research-media-file-f6c7249aa471651b567e784d21ca6238.jpg)</div>
 
-_“I miss a way to compare, so I don’t have to click one, then click back, click another, then click back, click..”_ a subject explained when looking for a sleeve for his laptop, _“Here I don’t really get any information besides the price and the name.”_ Note how half of the laptop case list items at Zappos either had none or only vague size descriptions available, such as “large”.
+_“我想有一种可以比较的方式，因此我可以不用点这个，再点返回，点那个，再点返回，点点点..”_ 一个顾客解释道，他想给自己的笔记本电脑找个包, _“除了价格和商品名称我在这找不到一点有用的信息。”_ 注意 Zappos 的多半电脑包描述里根本没有或只有模糊的有效尺寸描述，像 “大”。
 
-Users select and reject products based upon the **information available** about those items in the product list. It therefore isn’t all that surprising that during our large scale usability study of [Product Lists & Filtering](http://baymard.com/research/ecommerce-product-lists) we found poorly selected list item information to be one of the most severe usability issues related to product list navigation.
+用户基于产品列表里关于这些产品的**有效信息**来选择是否购买这些商品。因此在我们经过大规模的[产品列表和筛选](http://baymard.com/research/ecommerce-product-lists)可用性学习后毫不奇怪地发现贫乏的列表项信息是和产品列表导航相关的最严重的可用性问题。
 
-During testing we observe that too little or low-relevance list item information is highly problematic because users are **unable to adequately assess** the listed products when they lack essential information about those items. This led the test subjects to dismiss perfectly relevant products and forced them into unnecessary pogo-sticking between product list and product page – where they had to go back and forth, opening the product page of every single product listing just to learn the very most basic and core attributes of that product; a tiresome exercise that often resulted in the subjects abandoning the site as the friction in locating relevant products simply became too high. Clearly, displaying the right amount and the right kind of information in each list item is paramount to improving the user’s product finding experience.
+经测试我们发现极少或低相关的列表项信息是有极大问题的，因为用户**不能适当评估**列表产品当他们缺少这些商品的本质信息。这会导致受测对象完美地误解了相关产品并导致他们在产品页和列表页之间不必要的徘徊 – 他们不得不返回继续一遍刚才的操作, 打开列表页的每个产品只是为了了解它的基本属性和核心特征; a tiresome exercise that often resulted in the subjects abandoning the site as the friction in locating relevant products simply became too high. 显而易见，在每个列表页展示正确的数量和正确的类型信息对提升用户的产品查找体验是至关重要的。
 
-Alas, identifying how much and what type of information to display in product list items is a major issue “out in the wild”, as our [Product List benchmark](http://baymard.com/ecommerce-product-lists/benchmark/site-reviews) of 50 top US e-commerce websites reveal that 46% of those sites suffer from displaying too little or poorly chosen content. (A minor subset of the sites have gone too far in the opposite direction and display too much information in their list items!)
+另外，在产品列表页确认展示哪种类型的信息以及展示数量是个大问题 , 像我们[产品列表基准](http://baymard.com/ecommerce-product-lists/benchmark/site-reviews) 的前50名美国电商网站证明了这些网站中的46%经历过展示了贫乏的可选内容（翻的不太通顺求校对的童鞋给点建议）。(一小部分网站则截然相反，他们在列表项上展示了过多的信息!)
 
 ![](http://assets.baymard.com/research/media_files/attachments/17287/original/research-media-file-0f8ef662d7a97428d80c08682f3f36ca.jpg)</div>
 
