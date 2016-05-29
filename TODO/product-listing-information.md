@@ -16,15 +16,15 @@ _“我想有一种可以比较的方式，因此我可以不用点这个，再�
 
 ![](http://assets.baymard.com/research/media_files/attachments/17287/original/research-media-file-0f8ef662d7a97428d80c08682f3f36ca.jpg)</div>
 
-During testing [Gilt](http://baymard.com/ecommerce-product-lists/benchmark/site-reviews/228-gilt) failed to display a crucial piece of list information: alternative product variations! This caused multiple test subjects to reject products because they thought the item was only available in the displayed color, when in fact it was available in multiple color variations.
+测试期间发现，[Gilt](http://baymard.com/ecommerce-product-lists/benchmark/site-reviews/228-gilt) 失败地展示了列表信息的关键部分:  可选商品品种! 导致多个受测对象选择不购买这些商品，因为他们认为只有显示颜色的商品是在售的，事实上多种颜色的品种都是在售的。
 
 ![](http://assets.baymard.com/research/media_files/attachments/17288/original/research-media-file-61b54f07f843f261b3958b95261848b5.jpg)</div>
 
-In addition to all common “universal” attributes, [Crutchfield](http://baymard.com/ecommerce-product-lists/benchmark/site-reviews/254-crutchfield) also included three bullets with category-specific attributes – that is, information that is uniquely relevant to the product type. For instance, the ‘X-watts-RMS’ and ‘filter pass’ attributes are only relevant to car amplifiers and are therefore only displayed for these items. Meanwhile, elsewhere on the site products in other categories display attributes uniquely relevant to their particular verticals.
+除了所有的通用“普遍”属性， [Crutchfield](http://baymard.com/ecommerce-product-lists/benchmark/site-reviews/254-crutchfield) 在特定分类的属性也存在严重的问题 – 那就是和产品类型相关的唯一信息。举个例子，the ‘X-watts-RMS’ 和 ‘filter pass’ 属性只和汽车扩音器相关，因此只有这些产品才会展示这些信息。同时，这个站点的其他种类的产品只展示和这个种类相关的属性。
 
-Achieving an good **signal-to-noise ratio** in the list item information is key to improving the user’s ability to find the products they are looking for – yet it clearly isn’t easy to achieve. It requires considered curation of the product attributes displayed. In this article we’ll present test findings from our [Product Lists & Filtering](http://baymard.com/research/ecommerce-product-lists) study on how to identify exactly how much and what type of information to include in your product listings.
+在列表项中获得一个好的**信噪比**对提升用户找到他们想要找到商品的能力是至关重要的。– 很明显目前不容易得到这种能力。它需要仔细斟酌要展示产品属性的提炼。这篇文章里我们会为大家呈现从我们的[产品列表和筛选](http://baymard.com/research/ecommerce-product-lists)学习针对如何准确地评估产品列表里信息的展示量和种类得到的测试发现。
 
-_(Note that the following findings were also observed for – and thus apply equally to – both category listings and search results.)_
+_(注意以下的发现同样适用于种类列表和搜索结果。)_
 
 ## List Item Information: A Balancing Act
 
