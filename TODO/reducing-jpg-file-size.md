@@ -96,44 +96,45 @@ JPG 如此强大的一个原因是，可以假设在一个 8 x 8 的块上没有
 
 ![](https://cdn-images-1.medium.com/max/800/1*kxVa2DEkM048to6UnUYCfA.png)
 
-One trick here is that most photo editing programs don’t support editing in [YCbCr](https://en.wikipedia.org/wiki/YCbCr) colorspace; but they do support [LAB](https://en.wikipedia.org/wiki/Lab_color_space). The L channel represents Lightness (which is close to the Y channel, luminosity) while the A and B channels represent Red/Green and Blue/Yellow, similar components to Cb and Cr. By converting your image to LAB, you should see the following channels:
+大多数图片编辑软件都不支持 [YCbCr](https://en.wikipedia.org/wiki/YCbCr) 色彩空间，一个小技巧是它们大多支持 [LAB](https://en.wikipedia.org/wiki/Lab_color_space)。L 通道代表亮度（与 Y 通道类似），而 A 通道和 B 通道代表 红/绿色 以及 蓝/黄色，与 Cb、Cr 通道类似。将你的图片转换到 LAB 格式，你将可以看到下列通道：
 
 
 ![](https://cdn-images-1.medium.com/max/800/1*VwKrI76p9IsLWhJmPQaD6Q.jpeg)
 
-What we’d like to do is smooth out the sharp transitions in the A/B channels. Doing so will give the compressor more homogeneous values to work with. To do this, we select the areas of high detail in each of those channels, and apply a 1–3 pixel blur to that area. The result will smooth out the information significantly, without hurting the visual impact on the image much.
+我们需要做的就是消除 A/B 通道中颜色的急剧转换。这样做可以给合成器更多的相似值。我们可以选中图片中的高细节区域，并应用 1-3 个像素的模糊。最终的结果将会明显消除图像中的部分信息，但是却不会过多地影响图片的整体视觉效果。
 
 ![](https://cdn-images-1.medium.com/max/800/1*BGquAMZw-oEEj5IH-xJEhw.jpeg)
 
-<figcaption class="imageCaption">On the left, we see the selection mask in photoshop (we’re selecting the background houses) on the right, the result of the blur operation</figcaption>
+<figcaption class="imageCaption">左边我们可以看到 Photoshop 中的选框（我们选择了图中作为背景的房屋），而右边是模糊操作的结果。</figcaption>
 
-The main point here is that by slightly blurring the A/B modes of our image, we can reduce the amount of visual variance in those channels, such that when JPG goes through its’ down sampling phase, your image gets less unique information in the CbCr channels. You can see the result of that below.
+这样做的重点是，通过在图片的 A/B 模式上进行细微的模糊操作，我们可以减少这些通道中的视觉变量，这样的话，当 JPG 进行取样操作时，你的图片的 CbCr 通道中将含有更少的独特信息。你可以在下图中看到结果。
 
 ![](https://cdn-images-1.medium.com/max/800/1*sv9wBkOKWzaFIUOEiAHLLQ.png)
 
-The top image is our source file, and the bottom, we blurred some of the Cb/CR data in the image, producing a file that’s smaller by ~50%.
+上面的图片是我们的源文件，而下面的图片中我们模糊了部分 Cb/Cr 数据，这使得文件体积减小了大约 50%。
 
-### Consider WebP
+### 考虑使用 WebP
 
-At this point, [WebP](https://developers.google.com/speed/webp/) shouldn’t be news to you. I’ve been suggesting [folks use it](https://www.youtube.com/watch?v=1pkKMiDWwpM) for some time now, because it’s a really impressive codec. One of the o[riginal studies compared WebP to JPG](https://developers.google.com/speed/webp/docs/webp_study#introduction), showing that the files can be **25%-33%** smaller with the same SSIM index, which is a great amount of savings for just swapping file formats.
+对于现在的你来说，[WebP](https://developers.google.com/speed/webp/) 不应该还是什么新闻了。我已经在之前推荐过一些[使用它的人](https://www.youtube.com/watch?v=1pkKMiDWwpM)，因为这真的是一个能给人留下深刻印象的编码器。其中一个[对比 WebP 和 JPG 的原始数据](https://developers.google.com/speed/webp/docs/webp_study#introduction)显示，WebP 可以在相同 SSIM（结构相似性）指标的情况下，节省大约 **25% - 33%** 的文件体积，这对于仅仅是转换文件格式来说，已经节约了很多体积了。
 
-Regardless if you’re a web developer, or mobile developer, the support and savings from WebP denotes a firm evaluation for your pipeline.
+无论你是一个网页开发者，还是移动开发者，WebP 的支持程度和节约的空间，都给你足够的理由来使用它。
 
 ### “Science the shit out of it”
 
-[Thanks Mark](https://www.youtube.com/watch?v=d6lYeTWdYLw), I sent you some potatoes; LMK when they arrive.
+[感谢 Mark](https://www.youtube.com/watch?v=d6lYeTWdYLw)，我给你寄了一些土豆，你收到的时候告诉我。
 
-One of the biggest problems with modern image compression is that most engineering is done in the vacuum of “the file.” That is, pixel data comes in, compressed image format goes out.
+现代图片压缩过程的最大问题是，大多数工程师都只为“某一文件”进行压缩，也就是说，输入像素数据，然后输出指定格式的压缩图片。
 
-Done. Move on.
+完成，然后继续其他工作。
 
-But that’s really only half the story. Modern applications consume images at various places and methods, for various needs. There is no single “one size fits all” solution, and certainly there’s opportunities to leverage the internet as a medium to transfer information.
+但是这事实上只做了一半。现代应用程序将图片用在不同的地方，且有着不同的用途。没有一种单一的尺寸可以适用于所有的情况，并且这也许可以影响互联网传输信息的方式。
 
-That’s why it’s so impressive that the engineers over @ [Facebook](https://code.facebook.com/posts/991252547593574/the-technology-behind-preview-photos/) figured out a hell of a way to leverage every type of trick they could to compress their images. The result [has to be my favorite posts on the internet](https://code.facebook.com/posts/991252547593574/the-technology-behind-preview-photos/), reducing their preview photos to only 200bytes each.
+这就是为什么 [Facebook](https://code.facebook.com/posts/991252547593574/the-technology-behind-preview-photos/) 的工程师辛苦找寻一种方法来影响所有压缩图片的策略。其结果[是我互联网上最最喜欢的文章](https://code.facebook.com/posts/991252547593574/the-technology-behind-preview-photos/)，这将他们预览图片的体积减小到了每张 200 字节。
 
 ![](https://cdn-images-1.medium.com/max/800/0*qFRye2GXhYIH4Vkv.)
 
 The magic behind this solution came from a lot of analysis of the JPG header data (which they were able to remove & hard-code in the codec) alongside an aggressive Blurring & scaling process that occurs @ load time. **200 bytes is insane**. I haven’t seen anything that crazy since the [Twitter Image Encoding challenge](http://stackoverflow.com/questions/891643/twitter-image-encoding-challenge), which figured out you can evolve the [Mona Lisa using genetic programming](https://rogeralsing.com/2008/12/07/genetic-programming-evolution-of-mona-lisa/). Proof that thinking _just_ in the space of an image codec may be limiting the ability to do truly amazing things with your data compression.
+这个解决方案的魔力来源于对 JPG 数据头（他们能够在编码器中将其移除并进行硬编码）的深度分析。
 
 ### The takeaway
 
