@@ -1,12 +1,12 @@
 >* 原文链接 : [The GCD Handbook](http://khanlou.com/2016/04/the-GCD-handbook/)
 * 原文作者 : [Soroush](soroush@khanlou.com.)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者:
+* 译者 : [LoneyIsError](https://github.com/LoneyIsError)
+* 校对者:[woopqww111](https://github.com/woopqww111)[hsinshufan](https://github.com/hsinshufan)
 
 
 
-Grand Central Dispatch,或者GCD，是一个极其强大的工具。它给你一些底层的组件，像队列和信号量，让你可以通过一些有趣的方式来获得有用的多线程效果。不幸的是，这个基于C的API是一个有点神秘，它不会明显的告诉你如何使用这个底层组件来实现更高层次的方法。在这篇文章中，我希望描述那些你可以通过GCD提供给你的底层组件来实现的一些用法。
+Grand Central Dispatch,或者GCD，是一个极其强大的工具。它给你一些底层的组件，像队列和信号量，让你可以通过一些有趣的方式来获得有用的多线程效果。可惜的是，这个基于C的API是一个有点神秘，它不会明显的告诉你如何使用这个底层组件来实现更高层次的方法。在这篇文章中，我希望描述那些你可以通过GCD提供给你的底层组件来实现的一些用法。
 
 
 ### 后台工作
@@ -53,9 +53,9 @@ Grand Central Dispatch,或者GCD，是一个极其强大的工具。它给你一
 
 ### 扁平化一个完整的block
 
-现在 GCD 开始变得有趣了。使用一个信号装置，我们可以让一个线程暂停任意时间，直到另一个线程向它发送一个信号。这个信号装置，就像 GCD 休息一样，是线程安全的，并且他们可以从任何地方被触发。
+现在 GCD 开始变得有趣了。使用一个信号量，我们可以让一个线程暂停任意时间，直到另一个线程向它发送一个信号。这个信号量，就像 GCD 其余部分一样，是线程安全的，并且他们可以从任何地方被触发。
 
-当你需要去同步一个你不能修改的异步API时，你可以使用信号装置解决问题。
+当你需要去同步一个你不能修改的异步API时，你可以使用信号量解决问题。
 
 
     // on a background queue
@@ -94,7 +94,7 @@ Grand Central Dispatch,或者GCD，是一个极其强大的工具。它给你一
 
 
 
-这一小类可以创建一个串行队列，并允许你将工作添加到 block 中。当你的工作完成后， `WorkBlock` 会调用 `DoneBlock` ，开启信号装置，并允许串行队列继续。
+这一小类可以创建一个串行队列，并允许你将工作添加到 block 中。当你的工作完成后， `WorkBlock` 会调用 `DoneBlock` ，开启信号量，并允许串行队列继续。
 
 ### 限制并发 block 的数量。
 
@@ -121,11 +121,11 @@ Grand Central Dispatch,或者GCD，是一个极其强大的工具。它给你一
 
 这个例子从苹果的[Concurrency Programming Guide](https://developer.apple.com/library/ios/documentation/General/Conceptual/ConcurrencyProgrammingGuide/OperationQueues/OperationQueues.html#//apple_ref/doc/uid/TP40008091-CH102-SW24)拿来的。他们可以更好的解释在这里发生了什么：
 
-> 当你创建一个信号装置时，你可以指定你的可用资源的数量。这个值是信号量的初始计数变量。你每一次等待信号装置发送信号时，这个  `dispatch_semaphore_wait` 方法递减，计数变量为1。如果产生的值是负的，则函数告诉内核来阻止你的线程。在另一端，这个 `dispatch_semaphore_signal` 函数递增count变量用1表示资源已被释放。如果有任务阻塞和等待资源，其中一个是随后的畅通和允许做它的工作。
+> 当你创建一个信号量时，你可以指定你的可用资源的数量。这个值是信号量的初始计数变量。你每一次等待信号量发送信号时，这个  `dispatch_semaphore_wait` 方法使计数变量递减1。如果产生的值是负的，则函数告诉内核来阻止你的线程。在另一端，这个 `dispatch_semaphore_signal` 函数递增count变量用1表示资源已被释放。如果有任务阻塞和等待资源，其中一个随即被放行并进行它的工作。
 
-其效果类似于 `maxConcurrentOperationCount` 在 `NSOperationQueue` 。如果你使用原GCD队列而不是 `NSOperationQueue`，你可以使用信号庄主来限制同时执行的 block 数量。
+其效果类似于 `maxConcurrentOperationCount` 在 `NSOperationQueue` 。如果你使用原 GCD队 列而不是 `NSOperationQueue`，你可以使用信号庄主来限制同时执行的 block 数量。
 
-一个值得注意的就是，每次你调用 `enqueueWork` ，如果你打开信号装置的限制，就会启动一个新线程。如果你有一个低限并且大量工作的队列，您可以创建数百个线程。一如既往，先配置文件，然后更改代码。
+一个值得注意的就是，每次你调用 `enqueueWork` ，如果你打开信号量的限制，就会启动一个新线程。如果你有一个低限并且大量工作的队列，您可以创建数百个线程。一如既往，先配置文件，然后更改代码。
 
 ### 等待许多并发任务来完成
 
@@ -164,13 +164,13 @@ Grand Central Dispatch,或者GCD，是一个极其强大的工具。它给你一
 
 
 
-这段代码是比较复杂的，但通过一行一行的阅读可以帮助理解它。就像信号装置，groups 也还保持线程安全，是一个你可以操作的内部计数器。您可以使用此计数器来确保在执行完成 block 之前，多个长的运行任务都已完成。使用 “enter” 递增计数器，并用 “leave” 递减计数器。 `dispatch_group_async` 为你处理所有的这些细节，所以我愿意尽可能的使用它。
+这段代码是比较复杂的，但通过一行一行的阅读可以帮助理解它。就像信号量，groups 也还保持线程安全，是一个你可以操作的内部计数器。您可以使用此计数器来确保在执行完成 block 之前，多个长的运行任务都已完成。使用 “enter” 递增计数器，并用 “leave” 递减计数器。 `dispatch_group_async` 为你处理所有的这些细节，所以我愿意尽可能的使用它。
 
-在这段代码的最后一点是 `wait` 方法：它会阻塞线程，并在等待计数器为0继续进行。注意，即使你使用了`enter`/`leave` API，你也可以在在队列中添加一个 `dispatch_group_notify` block.反过来也是对的：当你使用 `dispatch_group_async` API时你也可以使用 `dispatch_group_wait` 。
+在这段代码的最后一点是 `wait` 方法：它会阻塞线程，并等待计数器为0后，继续执行。注意，即使你使用了`enter`/`leave` API，你也可以在在队列中添加一个 `dispatch_group_notify` block.反过来也是对的：当你使用 `dispatch_group_async` API时你也可以使用 `dispatch_group_wait` 。
 
-`dispatch_group_wait`，就像`dispatch_semaphore_wait`一样，可以设置超时。再一次声明，我觉得没有任何其他需要设置的，除了 `DISPATCH_TIME_FOREVER` 。当然就像 `dispatch_semaphore_wait` 一样，永远不要再主线程使用 `dispatch_group_wait` 。
+`dispatch_group_wait`，就像`dispatch_semaphore_wait`一样，可以设置超时。再一次声明，`DISPATCH_TIME_FOREVER` 已非常足够使用, 我从未觉得需要使用其他的来设置超时。当然就像 `dispatch_semaphore_wait` 一样，永远不要在主线程使用 `dispatch_group_wait` 。
 
-两者之间最大的区别是，使用 `notify` 可以完全从主线程调用，而使用 `wait`，必须发生在后台队列（至少 `wait` 一部分，因为它会完全阻塞当前队列）。
+两者之间最大的区别是，使用 `notify` 可以完全从主线程调用，而使用 `wait`，必须发生在后台队列（至少 `wait` 的部分，因为它会完全阻塞当前队列）。
 
 ### 隔离队列
 
@@ -226,7 +226,7 @@ Grand Central Dispatch,或者GCD，是一个极其强大的工具。它给你一
 
 `dispatch_sync` 将 block 添加到我们的隔离队列，然后等待它在返回之前执行。这样，我们就会有我们的同步阅读的结果。（如果我们没有做到同步，我们的 getter 方法可能需要一个完成的 block 。）因为 `accessQueue` 是并发的，这些同步读取就能同时发生。
 `dispatch_barrier_async` 将 block 添加到隔离队列。这个 `async` 部分意味着它将实际执行的 block 之前返回（执行写入操作）。这对我们的表现有好处，但也有一个缺点是，在 “write” 操作后立即执行 “read” 操作可能会导致获取改变之前的旧数据。
-这个 `dispatch_barrier_async` 的 `barrier` 部分，意味着它将等待直到当前运行队列中的每个 block 执行完毕后才执行。其他 block 将在它后面排队，当障碍调度完成时执行。
+这个 `dispatch_barrier_async` 的 `barrier` 部分，意味着它将等待直到当前运行队列中的每个 block 执行完毕后才执行。其他 block 将在它后面排队，当barrier调度完成时执行。
 
 ### 总结
 Grand Central Dispatch 是一个有很多底层语言的框架。使用它们，这个是我能建立的比较高级的技术。如果有其他一些你使用的GCD的高级用法而我没有罗列在这里，我喜欢听到它们并将它们添加到列表中。
