@@ -2,9 +2,9 @@
 * 原文作者 : Mike Scamell
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [zhangzhaoqi](https://github.com/joddiy)
-* 校对者:
+* 校对者: [Velacielad](https://github.com/Velacielad)，[Zheaoli](https://github.com/Zheaoli)
 
-在教程的 [第一部分](http://createdineden.com/blog/post/material-design-prototype-tutorial-part-1/ "如何使用 Sketch 和 Pixate 来构建一个材料设计原型 —— 第一部分") 我们制作了一个简单的登录界面并导出了所有资源。
+在教程的 [第一部分](http://createdineden.com/blog/post/material-design-prototype-tutorial-part-1/ "如何使用 Sketch 和 Pixate 来构建一个 Material Design 原型 —— 第一部分") 我们制作了一个简单的登录界面并导出了所有资源。
 
 在第二部分，我们打算继续在 Pixate 里创建一个原型。对于这一部分，你需要：
 
@@ -18,26 +18,26 @@
 
 <span>打开 Pixate 并且点击 “ Create new prototype ” 来创建一个原型，或者从“ File ”菜单新建一个。我们给它命名为“ Material Design Prototype ” 并保存到某个地方。在下一个界面选择“ Nexus 5 ”作为你的 “ Target Device ”（适配设备），然后点击“ Add Prototype ”完成创建。这里要说明的是如果你的设备屏幕分辨率大于 1080x1920 的话，当原型加载到你的手机上时会显得有些模糊。这也确实说明 Pixate 为你的设备进行了缩放。对于分辨率更小的设备， Pixate 也会把比例缩小。</span>
 
-<span>现在你应该能看到一个空白的矩形，上面只有“ Getting Started ”几个字（译者注：在译者使用的 2.0.1 版本下，除了 Getting Started 几个大字外，下面还有一些说明性的小字），这看起来和 _Login Screen_ 有些神秘的相似。它们有着相同的尺寸，因此我们的设计可以且按照正确的比例很好地、简单地移植过去。</span><span>
+<span>现在你应该能看到一个空白的矩形，上面只有“ Getting Started ”几个字（译者注：在译者使用的 2.0.1 版本下，除了 Getting Started 几个大字外，下面还有一些说明性的小字），这看起来和 _Login Screen_ 有些 迷之相似。它们有着相同的尺寸，因此我们的设计可以且按照正确的比例很好地、简单地移植过去。</span><span>
 ![空 Pixate 项目](http://createdineden.com/media/1527/screen-shot-2016-03-10-at-142718.png?width=726&height=540)</span>
 
 <span>在 Pixate Studio 的左手边是一个小图标菜单（译者注：最左边纵向排列的三个图标）。选择纵向第二个的“ Assets ”图标。导航到你放置 Sketch 所有导出资源的文件夹，全选并且点击“ Open ”。现在所有的图片就都被导入 Pixate 了：</span>
 
 ![](http://ww3.sinaimg.cn/large/a490147fgw1f41tri3lmej20ke0egq3u.jpg)
 
-<span>再导航回“ Layers ”菜单（左边小图标菜单的最上面那个）然后让我们从引用资源开始做起吧！！。</span>
+<span>再导航回“ Layers ”菜单（左边小图标菜单的最上面那个）然后让我们尽情利用我们的资源吧！！</span>
 
 <span>在“ Layers ”菜单，点击“ + ”小按钮来创建一个新的层。这时在你的空白矩形上方会出现一个灰色的小格子。重命名这个层为“ Login Screen ”，好让我们知道这是什么。然后扩展这个格子让它填充满整个白色矩形背景。</span>
 
-<span>这个灰色矩形将要成为 Login Screen （登录页面）的载体。在选中左手边菜单栏中的 _Login Screen_ 前提下，查看右边的“ Properties ”菜单。关注一下“ Appearance ”栏，点击“ + ”小图标（译者注：在这个栏的右边）来选择我们从 Sketch 导出的 _Login Screen_ 图片。</span>
+<span>这个灰色矩形将要成为 Login Screen （登录页面）的载体。在选中左手边菜单栏中的 _Login Screen_ 前提下，查看右边的“ Properties ”菜单。这个时候我们通过点击Appearance一栏右侧的“ + ”小图标（译者注：在这个栏的右边）来选择我们从 Sketch 导出的 _Login Screen_ 图片。</span>
 
 ![](http://ww4.sinaimg.cn/large/a490147fgw1f41trxrhhpj20ke0egjsu.jpg)
 
 ## 你能框住疼痛吗（译者注：关于介绍文本框的有趣说法）?!
 
-<span>现在我们要加入文本框了，再一次点击“ Add a layer ”，再一次的，我们得到了一个相似的灰色格子。这个格子的尺寸要和我们从 Sketch 项目中导出的 _email text field_ 的尺寸相同，对我来说是 328 x 48 。使用右手边的“ Properties ”菜单的“ Size ”属性来调整尺寸大小。我们也将使用 Sketch 中的定位，我的 _email text field_ 的x坐标为16，y坐标为296。然后把这些输入 Pixate 右边菜单中的 “ Position ”栏中。最后，我们像刚才对 _Login Screen_ 那样加载从 Sketch 导出的 _email text field_  图片。</span>
+<span>现在我们要加入文本框了，再一次点击“ Add a layer ”，再一次的，我们得到了一个相似的灰色格子。这个格子的尺寸要和我们从 Sketch 项目中导出的 _email text field_ 的尺寸相同，对我（译者注：本文原作者的设备）来说是 328 x 48 。使用右手边的“ Properties ”菜单的“ Size ”属性来调整尺寸大小。我们也将使用 Sketch 中的定位，我的 _email text field_ 的x坐标为16，y坐标为296。然后把这些输入 Pixate 右边菜单中的 “ Position ”栏中。最后，我们通过之前导出 _Login Screen_ 图片一样的操作来从 Sketch 导出 _email text field_  图片。</span>
 
-<span>我们需要移动 _email text field_ 使它成为 _Login Screen_ 的一部分。在左边“ Layers ”菜单中点击并且拖动 _email text field_ 放置到  _Login Screen_ 上面，然后 _email text field_ 就成为了 _Login Screen_ 的一部分并且能被看到了。</span>  
+<span>我们需要移动 _email text field_ 使它成为 _Login Screen_ 的一部分。在左边“ Layers ”菜单中点击并且拖动 _email text field_ 放置到  _Login Screen_ 上面，我们就能看到 _email text field_ 已经成为 _Login Screen_ 的一部分了。</span>  
 ![](http://ww2.sinaimg.cn/large/a490147fgw1f41tsa8p9tj20ke0eg75g.jpg)
 
 <span>但是！等等等下！EMAIL 输入框中那个丑陋的灰色线条是干嘛的？</span>
@@ -87,13 +87,13 @@
 <span>好的，现在我们要完成这些的动画了。当我点击  _email text field_ 时变得空白并不好。点击 _email text field_ _with input_ ，并且从动画格子中点击并拖动“ Fade ”然后丢到它上面。当你在“ Fade ”下面的“ Based on ”点击第一个下拉格子时，确保你选择了 _email text field_。我们想要展现的效果是当 _email text field_ 渐出时， _email text field with input_ 出现。在“ Fade to ”里面输入“ 100 ”。</span>
 ![](http://ww1.sinaimg.cn/large/a490147fgw1f41wtvuc3qj20jp0ci75p.jpg)
 
-<span>我们实际上是在说，当 _email text field_ 被点击时，它渐变到 0 ，并且 _email text field with input_ 渐变到 100 。这有点像“如果这样，然后那样”。/span>
+<span>我们实际上是在说，当 _email text field_ 被点击时，它渐变到 0 ，并且 _email text field with input_ 渐变到 100 。这有点像“如果这样，就那样”。/span>
 
 <span>现在，如果你回到你的设备，Pixate 应用应该已经刷新了，因为它会自更新。现在如果每样事情都被设置正确了，那么当你点击 _email text field_ 时，它应该能渐出然后 _email text field with input_ 应该会出现。</span>
 
 ![](http://ww4.sinaimg.cn/large/a490147fgw1f41wt2s6lmg20ba0k0tca.gif)
 
-<span>现在你需要对 _password text field_ 和 _password text field with input_ 重复这些过程。/span>
+<span>现在你需要对 _password text field_ 和 _password text field with input_ 重复之前的那些操作。/span>
 
 ## 点击按钮！让登录按钮动起来！
 
@@ -101,9 +101,9 @@
 
 <span>首先你需要把 _login button_ 和 _login button raised_ 加到项目里面。这两个在左侧菜单的层级关系里都隶属于 _disabled login button_ ，并且确保它们俩透明度都为 0 。 </span>
 
-<span>当你添加 _login button_ 和 _raised login button_ 时，你可能发现它们有些破碎的感觉。你需要注意的是阴影。不像 Sketch 那样忽视了阴影，Pixate 把阴影算做了图像的一部分。</span>
+<span>当你添加 _login button_ 和 _raised login button_ 时，你可能发现它们有些破碎的感觉。你需要注意的是阴影。不要像使用 Sketch 那样忽视了阴影，Pixate 把阴影算做了图像的一部分。</span>
 
-<span>这里是我关于登录按钮的设置</span>
+<span>这里是我对于登录按钮的设置</span>
 
 *   <span>x = 14pt</span>
 *   <span>y = 471pt</span>
@@ -137,11 +137,11 @@
 
 <span>我们现在需要添加另一个渐出动画。这个动画是在 _password text field_ 被触压时，_email text field_ 渐出。这也是典型的原型是如何正常操作的。</span>
 
-<span>你需要去做我们之前做的，但是采用相反的设置。我将教你如何开始，你需要点击并且拖动另外一个“ Fade ”动画到 _disabled login button_ 上。我把其他的留给你做 ;)。</span>
+<span>你需要去做的我们之前做一样，只不过采用相反的设置。我将教你如何开始，你需要点击并且拖动另外一个“ Fade ”动画到 _disabled login button_ 上。我把其他的留给你做 ;)。</span>
 
 <span>如果一切就绪，然后当 _email text field_ 和 _password text field_ 不再可见时，你的 _disabled login button_ 按钮应该也消失了。现在我们要使 _login button_ 可见。这将是另外一个简单的渐入动画。</span>
 
-<span>我们基本上需要像对 _disabled login button_ 那样做相同的事情，但是对于两个动画来说，我们想要透明度变为 100 而不是 0 。我确认你现在已经可以做到了，但是再一次的，我将教你如何开始。你需要拖动“ Fade ”动画到 _login button_ 。并且记得添加条件。</span>
+<span>我们基本上需要像对 _disabled login button_ 那样做相同的事情，但是对于两个动画来说，我们想要透明度变为 100 而不是 0 。我确认你现在已经可以做到了，但是我还是会教你如何开始。你需要拖动“ Fade ”动画到 _login button_ 。并且记得添加条件。</span>
 
 <span>好的，现在你应该能看到类似这样的一些东西了：</span>
 
