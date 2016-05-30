@@ -10,7 +10,7 @@ _“我想有一种可以比较的方式，因此我可以不用点这个，再�
 
 用户基于产品列表里关于这些产品的**有效信息**来选择是否购买这些商品。因此在我们经过大规模的[产品列表和筛选](http://baymard.com/research/ecommerce-product-lists)可用性学习后毫不奇怪地发现贫乏的列表项信息是和产品列表导航相关的最严重的可用性问题。
 
-经测试我们发现极少或低相关的列表项信息是有极大问题的，因为用户**不能适当评估**列表产品当他们缺少这些商品的本质信息。这会导致受测对象完美地误解了相关产品并导致他们在产品页和列表页之间不必要的徘徊 – 他们不得不返回继续一遍刚才的操作, 打开列表页的每个产品只是为了了解它的基本属性和核心特征; a tiresome exercise that often resulted in the subjects abandoning the site as the friction in locating relevant products simply became too high. 显而易见，在每个列表页展示正确的数量和正确的类型信息对提升用户的产品查找体验是至关重要的。
+经测试我们发现极少或低相关的列表项信息是有极大问题的，因为用户**不能适当评估**列表产品当他们缺少这些商品的本质信息。这会导致受测对象完美地误解了相关产品并导致他们在产品页和列表页之间不必要的来回跳转 – 他们不得不返回继续一遍刚才的操作, 打开列表页的每个产品只是为了了解它的基本属性和核心特征; a tiresome exercise that often resulted in the subjects abandoning the site as the friction in locating relevant products simply became too high. 显而易见，在每个列表页展示正确的数量和正确的类型信息对提升用户的产品查找体验是至关重要的。
 
 另外，在产品列表页确认展示哪种类型的信息以及展示数量是个大问题 , 像我们[产品列表基准](http://baymard.com/ecommerce-product-lists/benchmark/site-reviews) 的前50名美国电商网站证明了这些网站中的46%经历过展示了贫乏的可选内容（翻的不太通顺求校对的童鞋给点建议）。(一小部分网站则截然相反，他们在列表项上展示了过多的信息!)
 
@@ -26,34 +26,33 @@ _“我想有一种可以比较的方式，因此我可以不用点这个，再�
 
 _(注意以下的发现同样适用于种类列表和搜索结果。)_
 
-## List Item Information: A Balancing Act
+## 列表项信息: 平衡
 
-Whatever information that’s displayed in the product list is the basis on which the user assesses and judges the suitability of those products. Product list real estate therefore shouldn’t be squandered. Each and every element in the list item should be **carefully chosen** and presented to give users the best possible conditions for finding and choosing the products that are just right for them. A successful product list design must fulfill two requirements:
+无论如何展示在产品列表里的信息是用户评估和判断产品适用性的基础。因此产品列表不应该被浪费。列表里的每个元素都应该被**精斟细酌**，呈现给用户最适合他们挑选的条件。一个成功的产品列表设计应满足以下两点要求:
 
-*   Present the user with **sufficient product information** to adequately assess a product’s suitability (to their unique needs and desires),
-*   Enable the user to get an **overview of the product list** as a whole (i.e. the options available to them), and compare products of interest to one another.
+*   展现给用户**足够的产品信息**以适当地评估产品的适用性（针对他们的独特需求）,
+*   让用户把**产品列表**当成一个整体对待(i.e. the options available to them)，并可以把有兴趣的产品和另一个产品拿来对比。
 
-The first requires sufficient product information to be shown for each product while the latter requires a sufficient amount of products being displayed on the user’s screen. This creates a **dilemma**, as having too much product information will take up real estate resulting in less products per page, which was found to discourage product list exploration during testing. Yet having too many products will make it difficult to display adequate information in each list item, resulting in extensive pogo-sticking.
+前者是每个产品要展示充分的产品信息然而后者产品要在用户的屏幕上展示足够的产品数量。于是就造成了一个**进退维谷**的情况，如果每个产品的信息展示过多，会导致每页展示的产品数量下降。然而产品数量太多又会造成单个产品展示足够的信息变的相对困难，导致过多的来回跳转。
 
 ![](http://assets.baymard.com/research/media_files/attachments/17289/original/research-media-file-6debb0c41567623c2fbccb372f972d1c.jpg)</div>
 
-As is evident from our large-scale eye-tracking study, users tend to focus intensely on product thumbnails when scanning products in visually-driven product verticals. (Here seen at [REI](http://baymard.com/ecommerce-product-lists/benchmark/site-reviews/247-rei), heat-map of 32 subjects, accumulate count, total duration)
+从我们的大规模眼部追踪学习中明显得知, 当用户在浏览视觉导向的产品时极度倾向于关注产品缩略图。(这里我们可以看下 [REI](http://baymard.com/ecommerce-product-lists/benchmark/site-reviews/247-rei) 32个主题的热力图，点击量，总观察时间)
 
-Product list design therefore isn’t so much a matter of “less is more” as it is one of “just enough is more.” Figuring out which product attributes should be present in the list item and which shouldn’t is naturally highly site-specific and, as such, there are no hard-set rules. A good list item helps the user with just enough information to **accurately evaluate** which of the items in the list are of relevance to them, and – just as importantly – which items can be skipped. The list item information should furthermore enable the user to compare the relevant items to one another. It’s essentially an exercise in maximizing information scent and product comparability without bloating the product list.
+因此产品列表设计不是一个“少即是好”的事情而是一个“刚好合适才是好”的事。找出哪些属性应该被展示在列表项里哪些不应该被才是应该做的事，但是没有硬规则。好的产品列表应该帮助用户提供足够的信息去**准确评估**列表中的那些是和用户相关的 , – 同样重要的是 – 哪些应该被略去。列表信息应该更好地帮助用户对比相关产品。它本质上是一个不用通过遍历整个产品列表而最大化产品信息和产品对比的服务。
 
-Now, from our research studies we have found that there are **two general groups** of attributes that should be included in list items: Universal Attributes and Category-Specific Attributes. Universal Attributes are essential to virtually all products throughout the site and include things like price and product title (or type). Category-Specific Attributes meanwhile are unique to each product vertical and can therefore vary from product to product. In the following we’ll cover each in detail.
+现在我们通过研究发现，有**两组**属性应该被包含在列表项中：普通属性和特定种类属性。纵观整个站点的所有产品普通属性都包含价格和产品标题（或类型）。特定种类属性对每个产品种类来说是惟一的并且产品和产品之间是不同的。下面的例子中我们会讲到每个细节。
 
-## Universal Attributes
+## 普通属性
 
-There are a few Universal Attributes that should almost **always be displayed** in any given list item regardless of the products sold or the site context. For example, the product price is a fundamental product attribute that ought to be included under all circumstances (and in the few cases where it can’t, some indication of why is typically warranted).
+有一些普通属性应该被展示在几乎**所有地方**无论是任何在售产品的列表项或站点内容中。举个例子，产品价格是基本属性应该被放在所有环境下（）(and in the few cases where it can’t, some indication of why is typically warranted).
 
-Besides the fairly obvious price, the other key Universal Attributes are: product title or type, thumbnail, user ratings, and variations. For lists of search results, [contextual search snippets](http://baymard.com/blog/search-snippets) would fall in this category too. The following paragraphs will summarize the most crucial aspects of these Universal Attributes.
+除了相对明显的价格属性，其他的主要普通属性有: 产品标题或类型，缩略图，用户排名，数量。 对搜索结果列表, [contextual search snippets](http://baymard.com/blog/search-snippets) 在这方面也沦陷了。下面的文章会总结普通属性中最重要的几方面。
 
 ![](http://assets.baymard.com/research/media_files/attachments/17290/original/research-media-file-beb2f73890ac1b9795830c9a1ce304d8.jpg)</div>
 
-At IKEA, a subject sorted the sofas by price (low to high) – unfortunately this resulted in a list of sofa accessories, mattresses and slipcovers, rather than a list of sofas going from cheap to expensive. Further adding to the confusion, the slipcovers were displayed on actual sofas, making it difficult to determine whether a product was a sofa or a slipcover when quickly glancing over the product list.
-
-**The price** of each product is obviously critical to the user, both in terms of evaluating each product on its own as well as comparing products to one another. It is therefore essential that the price is permanently visible at all times. Our [product lists and filtering benchmark](http://baymard.com/ecommerce-product-lists/benchmark/site-reviews) shows that virtually all sites get this right.
+在IKEA，一个客户对沙发按价格进行排序（从低到高）– 不幸的是出现了沙发装饰品，沙发垫和沙发套而不是从便宜到贵的沙发。更困惑的是，沙发套被展示在沙发上，一眼扫过去人更加难判断卖的是沙发还是沙发套。
+对用户来说每个产品的**价格**很明显是至关重要的，不管是估算产品本身或者和其他产品对比。这就是价格要对永久用户可见的原因。 我们的 [product lists and filtering benchmark](http://baymard.com/ecommerce-product-lists/benchmark/site-reviews) 显示事实上所有站点都做到了这一点。
 
 However, some common issues related to the inclusion and presentation of the product price were observed during testing. For instance, in some cases it wasn’t obvious what was included in the price (this typically happened when several objects were displayed in the product thumbnail, e.g. for [compatibility products](http://baymard.com/blog/ecommerce-compatibility-databases) or bundle sales). It is therefore advisable to make it self-evident what’s included in the list item price. Similarly, displaying “price per unit” for multi-quantity items can be a great help to the user so they don’t have to calculate this for each and every list item just to figure out which ones offer the most value for money – alas 98% of sites selling multi quantity items fail to display unit costs (see all our test findings on [Price Per Unit](http://baymard.com/blog/price-per-unit)).
 
