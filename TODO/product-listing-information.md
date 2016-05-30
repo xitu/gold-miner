@@ -51,22 +51,22 @@ _(注意以下的发现同样适用于种类列表和搜索结果。)_
 
 ![](http://assets.baymard.com/research/media_files/attachments/17290/original/research-media-file-beb2f73890ac1b9795830c9a1ce304d8.jpg)</div>
 
-在IKEA，一个客户对沙发按价格进行排序（从低到高）– 不幸的是出现了沙发装饰品，沙发垫和沙发套而不是从便宜到贵的沙发。更困惑的是，沙发套被展示在沙发上，一眼扫过去人更加难判断卖的是沙发还是沙发套。
-对用户来说每个产品的**价格**很明显是至关重要的，不管是估算产品本身或者和其他产品对比。这就是价格要对永久用户可见的原因。 我们的 [product lists and filtering benchmark](http://baymard.com/ecommerce-product-lists/benchmark/site-reviews) 显示事实上所有站点都做到了这一点。
+一个客户对IKEA的沙发按价格进行排序（从低到高）– 不幸的是出现了沙发装饰品，沙发垫和沙发套而不是从便宜到贵的沙发。更困惑的是，沙发套被展示在沙发上，一眼扫过去人更加难判断卖的是沙发还是沙发套。
+对用户来说每个产品的**价格**很明显是至关重要的，不管是估算产品本身或者和其他产品对比。这就是价格要对永久用户可见的原因。我们的 [product lists and filtering benchmark](http://baymard.com/ecommerce-product-lists/benchmark/site-reviews) 显示所有站点都做到了这一点。
 
-However, some common issues related to the inclusion and presentation of the product price were observed during testing. For instance, in some cases it wasn’t obvious what was included in the price (this typically happened when several objects were displayed in the product thumbnail, e.g. for [compatibility products](http://baymard.com/blog/ecommerce-compatibility-databases) or bundle sales). It is therefore advisable to make it self-evident what’s included in the list item price. Similarly, displaying “price per unit” for multi-quantity items can be a great help to the user so they don’t have to calculate this for each and every list item just to figure out which ones offer the most value for money – alas 98% of sites selling multi quantity items fail to display unit costs (see all our test findings on [Price Per Unit](http://baymard.com/blog/price-per-unit)).
+测试期间发现一些和产品价格相关的常见问题。.举个例子，一些案例中价格中包括什么不是太明确（通常发生在几个产品被展示在产品缩略图中的时候，像[产品适用性](http://baymard.com/blog/ecommerce-compatibility-databases)或捆绑销售）。让顾客明确知道价格里包含什么是明智的。同样，展示“每单元的价格”有助于客户了解性价比 – 98%的站点在这方面做的不太好。(参考我们的测试结果 [Price Per Unit](http://baymard.com/blog/price-per-unit)).
 
 ![](http://assets.baymard.com/research/media_files/attachments/17291/original/research-media-file-b9db9eecf9fc4873a76746a11d479ed3.jpg)</div>
 
-_“I saw there was something, but there is no image, so I wouldn’t click it,”_ a subject explained at Best Buy, referring to the third item in the list. It turns out this was exactly the adapter she needed, but due to the missing thumbnail, this subject – like many others – simply skipped the product.
+_“我看到那儿有东西，但是没有图片，所以我不想点它”_ 一位客户解释道（在Best Buy），看着列表中的第三条。事实证明那确实是她想要的东西，但是由于没有缩略图，她像其他人一样直接跳过了那个产品。
 
-**Product thumbnails** proved to be one of the most important attributes for the test subjects, who would afford a disproportionately large amount of attention to it. List items without thumbnails were often completely ignored, as most of the subjects perceived these products as “incomplete.” Good product thumbnails thus tend to play a key role in the user’s search and selection of products. Hence it is crucial to provide the user with adequate visual product information.
+证明对受测对象来说**产品缩略图**是最重要的属性，受测对象愿意花大量的注意力在产品缩略图上。没有缩略图的列表项经常被忽略，大多数客户认为这些产品是“不完整的”。好的缩略图在用户搜索和选择产品的过程中扮演关键角色。因此给用户提供产品的视觉信息是至关重要的。
 
-In practice this means always having thumbnails for all list items and making sure the thumbnail size reflects the user’s need for visual product information (Product Lists report owners: see guidelines #25, #28, #29, #34 and #39). It is furthermore advisable to have a [secondary hover image](http://baymard.com/blog/secondary-hover-information) ( allowing for additional visual product information) and considering both [“use context” and “cut out” thumbnails](http://baymard.com/blog/ux-product-image-categories) (allowing both an isolated view of the product along with a more aspirational presentation).
+事实上这意味着为所有列表项提供缩略图并确保缩略图的尺寸能反应用户对产品视觉信息的要求。（Product Lists report owners: 参考规则 #25, #28, #29, #34 and #39）。 更加明智的做法是提供 [secondary hover image](http://baymard.com/blog/secondary-hover-information) （提供更多的产品视觉信息） 并同时考虑 [“use context” and “cut out” thumbnails](http://baymard.com/blog/ux-product-image-categories) （允许提供更加全面的产品视图）。
 
 ![](http://assets.baymard.com/research/media_files/attachments/17292/original/research-media-file-c77036a8531f2c8700f545ec63d6f399.jpg)</div>
 
-IKEA includes both product (series) title and type, as the names alone would be of little value to the user. Titles such as “Söderhamn” and “Poäng” are only meaningful to the user as a unique identifier of a product series. Furthermore, on hover a variation gallery is displayed, which is great, although there should ideally be some indication in the list item’s default state that multiple variations are available.
+IKEA提供了产品标题（系列）和类型，单独一个产品名称对用户说就显得没那么有价值。类似“Söderhamn”和“Poäng”的标题对用户来说只是提供了产品系列的唯一标识。Furthermore, on hover a variation gallery is displayed, which is great, although there should ideally be some indication in the list item’s default state that multiple variations are available.
 
 **Product title or type** also proved important to the subjects when scanning product lists (especially search results) and in some cases when wanting to verify the product type in case the thumbnail was difficult to decipher at a first glance. While descriptive product names can generally stand on their own as the product title, there are a few industries where the product type may actually make more sense to the user than the product title – especially if the titles are non-descriptive in nature. In those cases, product type may be displayed instead or in combination with the title.
 
