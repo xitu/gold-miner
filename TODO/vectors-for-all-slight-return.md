@@ -5,13 +5,13 @@
 * 校对者:
 
 
-大多数 Styling Android 的读者都知道我特别喜欢 _VectorDrawable_ 和 _AnimatedVectorDrawable_。 然而（在我写这篇文章时）我们任然在期待 _VectorDrawableCompat_ 发布，现在我们现在只能在 API 21 (Lollipop) 以及更高的版本上使用。 然而，Android Studio 添加了一些向后兼容的构建工具，这样我们就能在 Lolipop 之前的版本中使用 _VectorDrawable_ 。这篇文章中会讲它是怎么工作的。
+大多数 Styling Android 的读者都知道我特别喜欢 _VectorDrawable_ 和 _AnimatedVectorDrawable_。 然而（在我写这篇文章时）我们仍然在期待 _VectorDrawableCompat_ 发布，现在我们现在只能在 API 21 (Lollipop) 以及更高的版本上使用。 然而，Android Studio 添加了一些向后兼容的构建工具，这样我们就能在 Lolipop 之前的版本中使用 _VectorDrawable_ 。这篇文章中会讲它是怎么工作的。
 
 [![svg_logo2](https://i0.wp.com/blog.stylingandroid.com/wp-content/uploads/2015/12/svg_logo2.png?w=300%20300w,%20https://i0.wp.com/blog.stylingandroid.com/wp-content/uploads/2015/12/svg_logo2.png?resize=150%2C150%20150w)](https://i0.wp.com/blog.stylingandroid.com/wp-content/uploads/2015/12/svg_logo2.png?ssl=1)
 
 在[之前的文章](https://blog.stylingandroid.com/vectors-for-all-almost/) 中我们知道 _VectorDrawable_ 的支持是在 Android Studio 1.4 时添加的，并且发现他缺少一些关键部分区域。首先 SVG 导入工具并不能很好的导入 SVG 素材；其次，为 API21 之前设备准备的自动将 SVG 转为 PNG 的工具会导致我们的图片错位。
 
-随着 Android Studio 2.0 预览版的开放 (写这篇文章是刚放出) 是再看看这个工具是否有了改进。
+随着 Android Studio 2.0 预览版的到来（写这篇文章的时候谷歌刚好释放了下载链接），我们再回头来看看这个工具是否有了改进。
 
 和以前一样，我们将使用官方 SVG logo 作为我们的基准，因为它用了 SVG 很多方面来避免渐变（这一特性因为现实的性能问题恐怕不会很快支持）
 
@@ -21,7 +21,7 @@
 
 因为一个未支持的 SVG 特性导致这个问题，那就是本地 IRI 引用未支持。本地 IRI 应用允许特定的形状定义一次，然后在文档中多次使用，不论是笔画，填充，或是转换。官方的 SVG logo 定义了一个哑铃型的形状（一条线两端是圆）并用黑色和黄色填充，加上大量旋转形成像花一样的 SVG logo。字母 ‘S’，‘V’，& ‘G’ 也是用同样的方法定义，导致也没有渲染出来。
 
-手动编辑 SVG 源文件然后将本地的 IRI 引用替换成形状定义并不是很难，但却是一个繁重的工作，我们最后再讲。
+退一步来讲，手动编辑 SVG 源文件然后将本地的 IRI 引用替换成形状定义并不是很难，但却是一个繁重的工作。
 
 为了完整性我也尝试用 [Juraj Novák’s 在线转换工具](http://inloop.github.io/svg2android/), 做过转换，估计不会有更好的了-因为有本地 IRI 引用:
 
@@ -38,7 +38,7 @@
 
 [![](http://ww1.sinaimg.cn/large/a490147fgw1f3qdwqyc6nj208c08caaj.jpg)](https://i0.wp.com/blog.stylingandroid.com/wp-content/uploads/2015/12/svg_logo2.png?ssl=1)
 
-不得不说我在写上一篇关于众多问题文章的时候相当失望，当时这些问题折腾了很久才勉强得出这个工具不能真正的用在工程当中。现在这些问题很多都已经解决了，而且很多工具我可以用在实际的工程当中。但是还存在很多导入和转换的问题，但总会有像 SVG 格式这样的问题会出现 - 没有两个 SVG 作者（不管是人还是软件）会用同一种方式做事情。但如果这个工具一直提升的话，结局谁知道呢？
+不得不说我在写上一篇关于众多问题文章的时候相当失望，当时这些问题折腾了很久才勉强得出这个工具不能真正的用在工程当中。现在这些问题很多都已经解决了，而且很多工具我可以用在实际的工程当中。但是还存在很多导入和转换的问题，但总会有像 SVG 格式这样的问题会出现 - 没有两个 SVG 作者（不管是人还是软件）会用同一种方式做事情。但是如果这个工具一直优化和完善的话或许能解决这些问题，但是谁又知道呢？
 
 这篇文章并没有真正写代码，但前一篇的代码可以在 [这](https://github.com/StylingAndroid/Vectors4All/tree/master) 找到。
 
