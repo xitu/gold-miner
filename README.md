@@ -12,13 +12,13 @@
 4. 至少审核两篇其他译者发 PR 的[文章](https://github.com/xitu/gold-miner/pulls?q=is%3Apr+is%3Aopen+label%3A%E6%A0%A1%E5%AF%B9%E8%AE%A4%E9%A2%86)
 5. 分享你的译文到[掘金](http://gold.xitu.io)，让更多的开发者看到好的文章。
 
+**译者福利**：掘金翻译计划的译者都可以获得 [MarkEditor](http://zrey.com/app/markeditor) 激活码一个。
+
 > 建议：Fork 此仓库后，请先从 master 分支上 `git checkout -b translate` 一个新的 translate 分支来翻译文章，翻译完成后再把 translate 分支发 PR。
 
 **文章都被认领了怎么办？**
 
 快来 [issue](https://github.com/xitu/gold-miner/issues/new) 申请成为译者校对文章吧。
-
-**译者福利**：掘金翻译计划的译者都可以获得 [MarkEditor](http://zrey.com/app/markeditor) 激活码一个。
 
 # 如何参与校对
 
