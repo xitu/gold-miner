@@ -121,6 +121,7 @@
 
 ## 设计
 
+* [如何在移动 APP 中设计输入框](http://gold.xitu.io/entry/5745af0a2e958a002db75980?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zhangjd](https://github.com/zhangjd) 翻译)
 * [使用 Sketch 和 Pixate 构建 Material Design 原型 - 第一部分](http://gold.xitu.io/entry/574d062b2e958a0069335d8e?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Sausure](https://github.com/Sausure) 翻译)
 * [我是如何为 Mac 应用 Flinto 设计 UI 图标的](http://gold.xitu.io/entry/57315d571ea4930064f6bd45?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([edvardHua](https://github.com/edvardHua) 翻译)
 * [下拉菜单为何是一种不好的用户体验？](http://gold.xitu.io/entry/573154c249830c0061bdc180?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([邵辉Vista](https://github.com/shaohui10086) 翻译)
