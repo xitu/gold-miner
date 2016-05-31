@@ -420,6 +420,7 @@ This is commonly used when creating functions
     }
 
 #### Strategies to overcome the issue
+
 1\. Avoid creating dynamic props inside of components
 
 improve your data model so that you can just pass props straight through
@@ -461,6 +462,8 @@ If you really do need to pass in a dynamic object you could pass a string repres
             })}
         </item></div>
     }
+    
+#### Special case: functions
 
 1.  Do not pass functions if you can avoid it. Rather, let the child **dispatch** actions when it wants to. This has the added advantage of moving business logic out of components.
 2.  Ignore functions in your **shouldComponentUpdate** check. This is not ideal as it won't be able to know if the value of the function changes.
@@ -491,22 +494,11 @@ Example of strategy #4
     }
     </item>
 
-</div>
-
-</div>
-
-</section>
-
-<section score="41.25">
-
-<div score="32.5">
-
-<div score="11.5">
-
 ## Tooling
 
 All of the rules and techniques listed above were found by using performance measuring tools. Using tools will help you find performance hotspots specific to your application.
 
+#### console.time
 This one is fairly simple:
 
 1.  start a timer
