@@ -2,7 +2,7 @@
 * 原文作者 : [Andrei Popa](https://medium.com/@deioo)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [杨龙龙](https://github.com/yllziv)
-* 校对者: 
+* 校对者: [L9m](https://github.com/L9m), [JasinYip](https://github.com/JasinYip)
 
 
 
