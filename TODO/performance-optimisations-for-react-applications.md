@@ -499,6 +499,7 @@ Example of strategy #4
 All of the rules and techniques listed above were found by using performance measuring tools. Using tools will help you find performance hotspots specific to your application.
 
 #### console.time
+
 This one is fairly simple:
 
 1.  start a timer
@@ -521,6 +522,8 @@ A great way to do this is with a Redux middleware:
     };
 
 Using this method you can record the time taken for every action and its resulting render in your application. You can quickly see what actions take the longest amount of time to render which gives you a good place to start when addressing performance concerns. Having time values also helps you to see the what difference your changes are making to your application.
+
+#### React.perf
 
 This one uses the same idea as **console.time** but uses the React performance utility tools:
 
@@ -551,6 +554,8 @@ Example Redux middleware:
 
 Similar to the **console.time** method this will let you see performance metrics for each of your actions. For more information on the React performance addon [see here](https://facebook.github.io/react/docs/perf.html)
 
+#### Browser tools
+
 CPU profiler flame charts can also be helpful in finding performance problems in your applications.
 
 > The Flame Chart shows you the state of the JavaScript stack for your code at every millisecond during the performance profile. This gives you a way to know exactly which function was executing at any point during the recording, how long it ran for, and where it was called from - Mozilla
@@ -559,26 +564,4 @@ Firefox: [see here](https://developer.mozilla.org/en-US/docs/Tools/Performance/F
 
 Chrome: [see here](https://addyosmani.com/blog/devtools-flame-charts/)
 
-</div>
-
-</div>
-
-</section>
-
-<section score="41.25">
-
-<div score="31.25">
-
-<div>
-
 Thanks for reading and all the best in making highly performant React apps!
-
-</div>
-
-</div>
-
-</section>
-
-</div>
-
-</div>
