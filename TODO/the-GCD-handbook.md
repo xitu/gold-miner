@@ -2,7 +2,7 @@
 * 原文作者 : [Soroush](soroush@khanlou.com.)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [LoneyIsError](https://github.com/LoneyIsError)
-* 校对者:[woopqww111](https://github.com/woopqww111)[hsinshufan](https://github.com/hsinshufan)
+* 校对者:[woopqww111](https://github.com/woopqww111), [hsinshufan](https://github.com/hsinshufan)
 
 
 
