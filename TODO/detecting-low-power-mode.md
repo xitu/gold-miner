@@ -1,38 +1,38 @@
 >* 原文链接 : [Detecting low power mode](http://useyourloaf.com/blog/detecting-low-power-mode/)
 * 原文作者 : [useyourloaf](http://useyourloaf.com/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
+* 译者  Zheaoli: 
 * 校对者:
 
-I read a story this week about the Uber App knowing when your phone is in power saving mode. [Uber found people more likely to pay](http://www.npr.org/2016/05/17/478266839/this-is-your-brain-on-uber) higher rates when their phone is about to die. The company claims they do not use the data to set prices but it got me wondering **how can you detect low power mode with iOS?**
+这个星期，我阅读了一篇关于Uber怎样检测手机处于省电模式的文章。（注：文章连接是[Uber found people more likely to pay]）(http://www.npr.org/2016/05/17/478266839/this-is-your-brain-on-uber) 在人们手机快要关机时，使用Uber可能会面临更高的价格。 这家公司（注：指Uber）宣称他们不会利用手机是否处于节能模式这一数据来进行定价， 但是这使我开始关注一个问题 **我们怎样知道我们的处于节能模式**
 
 ### Low Power Mode
 
-With iOS 9 Apple added a [Low Power Mode](https://support.apple.com/en-gb/HT205234) to the iPhone. It extends battery life by stopping some battery heavy features such as email fetch, Hey Siri and background app refresh until you can recharge the device.
+在iOS9中，苹果为iPhone手机新添加了 [节能模式](https://support.apple.com/en-gb/HT205234) 功能。在你能充电之前，节能模式通过关闭诸如邮件收发，Siri，后台消息推送能耗电功能来延长你的电池使用时间。.
 
-It is important to understand that it is the user who decides to enter low power mode. You need to go into the battery settings to turn it on. When you do the battery in the status bar turns yellow:
+在这里面，很重要的一点是，是否进入节能模式是由用户自行决定的。 你需要进入电池设置中去开启节能模式。当你进入节能模式的时候，状态栏上的电池图标会变成黄色。
 
 ![Low Power Mode](http://ww3.sinaimg.cn/large/72f96cbajw1f4dvuztcnej20m80et0u9)
 
-It turns off automatically once you charge the device to 80%.
+当你充电至80%以上时，系统会自动关闭节能模式。
 
-### Detecting Low Power mode
+### 获取节能模式信息
 
-It turns out that it is easy to test for low power mode in iOS 9\. You can check if the user has switched to low power mode from the `NSProcessInfo` class:
+事实证明，在iOS9中获取节能模式信息是很容易的一件事\. 你可以通过'NSProcessInfo'这个类来判断用户是否进入了节能模式:
 
     // Swift
     if NSProcessInfo.processInfo().lowPowerModeEnabled {
       // stop battery intensive actions
     }
 
-If you are doing this in Objective-C:
+如果你想用Objective-C来实现这个功能:
 
     // Objective-C
     if ([[NSProcessInfo processInfo] isLowPowerModeEnabled]) {
       // stop battery intensive actions
     }
 
-To respond when the user changes the mode you need to listen for the `NSProcessInfoPowerStateDidChangeNotification` notification. For example, in the `viewDidLoad` method of a view controller:
+如果你监听了'NSProcessInfoPowerStateDidChangeNotification'通知，在用户切换进入节能模式的时候你将接收到一个消息。比如, 在视图控制器中的'viewDidLoad'方法中:
 
     // Swift
     NSNotificationCenter.defaultCenter().addObserver(self,
@@ -46,9 +46,9 @@ To respond when the user changes the mode you need to listen for the `NSProcessI
       name:NSProcessInfoPowerStateDidChangeNotification
       object:nil];
 
-_As somebody reminded me after I first posted this it is not necessary to remove the observer when the view controller goes away as long as we are only targetting iOS 9._
+在我第一次发布这篇文章后，很多人提醒我：对于只对iOS9.X适配的开发者而言，没有必要去删除这个观察者。
 
-Then in the action check the power mode and respond:
+接着在这个方法会监视电池模式并在切换的时候给予一个响应。
 
     // Swift
     func didChangePowerMode(notification: NSNotification) {
@@ -68,16 +68,15 @@ Then in the action check the power mode and respond:
       }
     }
 
-Notes:
+小贴士:
 
-*   The notification method and the property on NSProcessInfo are new in iOS 9\. If you are supporting iOS 8 or earlier you will need to [test for availability](http://useyourloaf.com/blog/checking-api-availability-with-swift/) before using either.
+*   这个通知方法和NSProcessInfo里的属性是在iOS9系统中新提供的方法. 如果你想让你的APP兼容iOS8或者更早版本的系统，你需要去这个网站 [test for availability](http://useyourloaf.com/blog/checking-api-availability-with-swift/)你的代码是否能正常运行。
 
-*   Low power mode is an iPhone only feature. Testing for it on an iPad will always return false.
+*   节能模式是iPhone独有的特性，如果你在iPad上测试前面的代码，会一直返回false。
 
-Detecting that the user has turned low power mode on is only useful if your app is able to take some energy-saving measures to prolong battery life. Some suggestions from Apple:
+判断用户是否进入节能模式这一特性仅仅对于那些能用一些方法延长电池使用时间的APP开发者有用。 这里对于节能模式，我对Apple公司有点建议:
 
-*   Stop location updates
-*   Limit the use of animations
-*   Stop background activities such as networking
-*   Disable motion effects
-
+*   停止更新位置
+*   减少用户交互动画
+*   关闭数据流量这样的后台操作
+*   关闭特效
