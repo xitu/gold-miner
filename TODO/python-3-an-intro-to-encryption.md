@@ -57,11 +57,10 @@ Python 内置标准库对密钥派生的支持非常有限。实际上 `hashlib`
 
 这里我们基于密码和一个简单的 `salt` 创建了一个 SHA256 哈希对象，但是经过了 100,000 次迭代。当然，实际上并不推荐 SHA 作为密码的密钥派生算法，而是应该使用 **scrypt** 之类的方法。另外一个很好的选择是使用第三方包：`bcrypt`，它的设计初衷就是为了专门应对密码哈希加密的。
 
-### pycryptodome
+### PyCryptodome
 
 `PyCryto` 可能是 Python 最著名的第三方加密包。可惜的是 `PyCryto` 的开发在 2012 年就停止了。但其他人在不停地发布新版本的 `PyCryto` 让你可以在 Python 3.5 中使用，如果你不介意使用第三方库作为加密方法的话。例如，我发现了 Github 上一个 Python 3.5 版本的二进制安装包（https://github.com/sfbahr/PyCrypto-Wheels）。
 
-Fortunately there is a fork of the project called PyCrytodome that is a drop-in replacement for PyCrypto. To install it for Linux, you can use the following pip command:
 幸运的是有一个名为 `PyCrytodome` 的 fork 项目可以替代 `PyCrypto`。在 Linux 上可以用 `pip` 命令安装：
 
 `pip install pycryptodome`
