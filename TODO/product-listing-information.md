@@ -95,15 +95,13 @@ Many users effectively rely on ratings as a proxy for “good quality / value fo
 有些用户在他们没法自己做出判断的时候就把排名作为“好质量/划算”的代表。因此，如果用户依赖的数据不是在售商品方面的专家，排名概述就应该被直接包含在产品列表中。
 
 
-## 特定种类的属性
+## 特有属性
 
 有些产品的少数属性对那产品来说特别重要，那么我们就应该把它们放进产品列表项的概览中，方便用户选择哪些产品该打开哪些产品该跳过时做出“富含信息量的决定”
 
-这些属性在分类之间变化幅度很大，而且必须是针对每个种类**唯一可选**。后面的是几个例子是不同的特定种类的属性被当做灵感来源在决定是否选择此商品时，对一个给定的分类来说产品属性会变得十分重要（这里的质量就被当做一个特性种类的属性）。
+这些属性在分类之间变化幅度很大，而且必须是针对每个种类**唯一可选**。后面的是几个例子是不同的特有属性被当做灵感来源在决定是否选择此商品时，对一个给定的分类来说产品属性会变得十分重要（这里的质量就被当做一个特性种类的属性）。
 
 ![](http://assets.baymard.com/research/media_files/attachments/17296/original/research-media-file-88602817b6d0a836c6ee58b1e7f79984.jpg)</div>
-
-[Newegg](http://baymard.com/ecommerce-product-lists/benchmark/site-reviews/244-newegg) only includes compatibility information for some of their laptop power adapters. For the subjects who would have preferred to buy a cheaper power adapter than the $116 adapter that included compatibility information, this annoyed them to no end.
 
 只有 [Newegg](http://baymard.com/ecommerce-product-lists/benchmark/site-reviews/244-newegg) 中的一些电源适配器包含适配信息。对一些客户来说，他们更愿意买一个便宜的电源适配器而不是一个包含适配信息的价值 $116 的适配器，这些信息会无休止地烦着他们。
 
