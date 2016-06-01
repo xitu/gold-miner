@@ -22,10 +22,11 @@
 
 事实证明，在iOS9中获取低电量模式信息是很容易的一件事。 你可以通过**NSProcessInfo**这个类来判断用户是否进入了低电量模式：
 
-    // Swift
+    ~~~ Swift
     if NSProcessInfo.processInfo().lowPowerModeEnabled {
       // stop battery intensive actions
     }
+    ~~~
 
 如果你想用Objective-C来实现这个功能:
 
