@@ -22,16 +22,16 @@
 
 事实证明，在iOS9中获取低电量模式信息是很容易的一件事。 你可以通过**NSProcessInfo**这个类来判断用户是否进入了低电量模式：
 
-    ~~~ Swift
+~~~ Swift
     if NSProcessInfo.processInfo().lowPowerModeEnabled {
       // stop battery intensive actions
     }
 
-    ~~~
+~~~
 
 如果你想用Objective-C来实现这个功能:
 
-~~~ Java
+~~~ Objective-C
     if ([[NSProcessInfo processInfo] isLowPowerModeEnabled]) {
       // stop battery intensive actions
     }
@@ -40,23 +40,25 @@
 
 如果你监听了**NSProcessInfoPowerStateDidChangeNotification**通知，在用户切换进入低电量模式的时候你将接收到一个消息。比如，在视图控制器中的**viewDidLoad**方法中:
 
-    // Swift
+~~~ Swift
     NSNotificationCenter.defaultCenter().addObserver(self,
       selector: #selector(didChangePowerMode(_:)),
       name: NSProcessInfoPowerStateDidChangeNotification,
       object: nil)
+~~~
 
-    // Objective-C
+~~~ Objective-C
     [[NSNotificationCenter defaultCenter] addObserver:self
       selector:@selector(didChangePowerMode:)
       name:NSProcessInfoPowerStateDidChangeNotification
       object:nil];
+~~~
 
 在我第一次发布这篇文章后，很多人提醒我：对于只对iOS9.X适配的开发者而言，没有必要在 **ViewController** 消失时去移除 **Observer** 。
 
 接着在这个方法会监视电池模式并在切换的时候给予一个响应。
 
-    //swift
+~~~ swift
     func didChangePowerMode(notification: NSNotification) {
         if NSProcessInfo.processInfo().lowPowerModeEnabled {
           // low power mode on
@@ -64,8 +66,9 @@
           // low power mode off
         }
     }
+~~~
 
-    // Objective-C
+~~~ Objective-C
     - (void)didChangePowerMode:(NSNotification *)notification {
       if ([[NSProcessInfo processInfo] isLowPowerModeEnabled]) {
         // low power mode on
@@ -73,7 +76,7 @@
         // low power mode off
       }
     }
-
+~~~
 小贴士:
 
 *   这个通知方法和NSProcessInfo里的属性是在iOS9系统中新提供的方法。如果你想让你的APP兼容iOS8或者更早版本的系统，你需要去这个网站 [test for availability](http://useyourloaf.com/blog/checking-api-availability-with-swift/)测试你的代码是否能正常运行。
