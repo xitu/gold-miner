@@ -2,18 +2,18 @@
 * 原文作者 : [Colt McAnlis](https://medium.com/@duhroach)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [SHENXN](https://github.com/shenxn)
-* 校对者:
+* 校对者: [Galen](https://github.com/galenyuan), [Hugo Xie](https://github.com/xcc3641)
 
 
 ![](https://cdn-images-1.medium.com/max/2000/1*sRYE2_-ROxbzz1y1s4M9GQ.png)
 
 ### 减少 JPG 文件大小
 
-如果你是一个现代的开发者，你一定会使用 JPG 文件，无论你是网站开发、移动开发、还是一些奇怪的系统管理程序。JPG 是你工作的一部分，并且对于用户体验有着极其重要的作用。
+如果你是一个现代的开发者，无论你是网站开发、移动开发、还是一些奇怪的系统管理程序，你一定会使用 JPG 文件。JPG 是你工作的一部分，并且对于用户体验有着极其重要的作用。
 
-为什么让 JPG 文件尽量小这么重要呢？由于 [当今平均网页体积与一个毁灭战士游戏（译者注：一款经典网络游戏）相当](http://www.wired.com/2016/04/average-webpage-now-size-original-doom/)，你应该开始问自己网页的那么多字节都分别是从哪里来的，并且你可以怎样尽可能地减少它们的体积（我不想从移动应用的大小开始讲）。
+为什么让 JPG 文件尽量小这么重要呢？由于 [当今平均网页体积与一个毁灭战士游戏（译者注：一款经典网络游戏）相当](http://www.wired.com/2016/04/average-webpage-now-size-original-doom/)，你应该自问页面上那么多字节都是从哪里来的，怎样做才能尽量削减它们（我不想从移动应用的大小开始讲）。
 
-虽然 [JPG 压缩令人印象深刻](https://medium.freecodecamp.com/how-jpg-works-a4dbd2316f35#.z4lekhosw)，但你如何_使用它_将会极大地影响文件的体积。因此我整理了一些能帮助你最大程度减小文件体积并增强用户体验的技巧。
+虽然 [JPG 压缩令人印象深刻](https://medium.freecodecamp.com/how-jpg-works-a4dbd2316f35#.z4lekhosw)，但是如何进行压缩将会极大地影响文件的体积。因此我总结了一些能帮助你最大程度减小文件体积并增强用户体验的技巧。
 
 ### 你应该使用一个优化工具
 
@@ -21,11 +21,11 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*vZF5gbyfYtDskdRr1MTZXA.png)
 
-一个_简单的红色正方形_图片减少了大约90%的体积。和 PNG 一样，JPG 同样支持一些[数据块](https://en.wikipedia.org/wiki/JPEG#Syntax_and_structure)，这就意味着图片编辑器或是相机能够[插入非图片信息](http://dev.exiv2.org/projects/exiv2/wiki/The_Metadata_in_JPEG_files)。这就是为什么你的图片分享服务知道你在哪里[吃的最后一个华夫饼](https://www.instagram.com/bestfoodaustin/)，以及你使用什么相机[拍下了这张照片](https://exposingtheinvisible.org/resources/obtaining-evidence/image-digging)。如果你的应用程序不需要这些额外的信息，那简单地从 JPG 文件中移除它们就能对文件体积有很大的改善。
+一个_简单的红色正方形_图片减少了大约90%的体积。和 PNG 一样，JPG 同样支持一些[数据块](https://en.wikipedia.org/wiki/JPEG#Syntax_and_structure)，这就意味着图片编辑器或是相机能够[插入非图片信息](http://dev.exiv2.org/projects/exiv2/wiki/The_Metadata_in_JPEG_files)。这就是为什么你的图片分享服务知道你在哪里[吃的最后一个华夫饼](https://www.instagram.com/bestfoodaustin/)，以及你使用什么相机[拍下了这张照片](https://exposingtheinvisible.org/resources/obtaining-evidence/image-digging)。如果你的应用程序不需要这些额外的信息，那直接从 JPG 文件中移除它们就能显著改善文件的体积。
 
 然而事实上，你可以在文件格式上[做更多](http://www.elektronik.htw-aalen.de/packjpg/_notes/PCS2007_PJPG_paper_final.pdf)。
 
-你可以使用一些像 [JPEGMini](http://www.jpegmini.com/) 的工具，在不过度影响图片保真度的情况下进行低质量压缩，就像是 Mozilla 的 [MOZJpeg](https://github.com/mozilla/mozjpeg/)（虽然 Mozilla 申明了他们的项目可能会影响兼容性）。
+对于初学者而言，你可以使用一些像 [JPEGMini](http://www.jpegmini.com/) 的工具，在不过度影响图片保真度的情况下进行低质量压缩，就像是 Mozilla 的 [MOZJpeg](https://github.com/mozilla/mozjpeg/)（虽然 Mozilla 申明了他们的项目可能会影响兼容性）。
 
 另外，[jpegTran/cjpeg](http://jpegclub.org/) 试图提供无损的体积优化。而 [packJPG](http://www.elektronik.htw-aalen.de/packjpg/) 会用一种更小的形式重新打包 JPG 数据，虽然这已经是一种不同的文件格式了，并且不再与 JPG 兼容（但如果你能在客户端自己对文件进行解析，就会非常方便）。
 
@@ -37,13 +37,13 @@
 
 首先要声明的是：你永远都不应该把 JPG 文件的质量值设置为 100。
 
-JPG 文件的力量来源于你能够使用一个标量来调节图片的质量与文件大小的比例。问题在于你应该如何找到图片的_正确_质量值。给你一个随机的图片，你应该如何确定最理想的设置？
+JPG 文件的魅力在于你能够使用一个标量来调节图片的质量与文件大小的比例。问题在于你应该如何找到图片的_正确_质量值。随意给你一张图片，你应该如何确定最理想的设置？
 
 正如 [imgmin](https://github.com/rflynn/imgmin) 所指出的，75 到 100 的 JPG 压缩等级只会给用户带去非常小的可感知的变化。
 
 > _JPEG 文件的质量值在 100 到 75 之间变化通常只会对图片质量造成非常微小的、很不明显的改变，但是却能显著减小文件的尺寸。也就是说许多图片在 75 的质量值时看起来依然很好，但却只有 95 质量值时一半的文件大小。当质量值减小到 75 以下时，造成的视觉上的差异会扩大，而文件尺寸的节约会减少。_
 
-因此，75 的质量值显然是一个很好的初始状态。但是我们有一个更大的问题：我们不能希望去手工设定每张图片的质量值。
+因此，75 的质量值显然是一个很好的初始状态。但是我们有一个更大的问题：我们不希望去手工设定每张图片的质量值。
 
 对于那些每天上传和转发成千上万 JPG 文件的媒体应用来说，你不能期望某个人去手工调节所有图片的参数。因此，大多数开发者会创建多组质量参数，并且依赖这些参数组来压缩它们的图片。
 
@@ -61,7 +61,7 @@ Twitter 用户 JPEG 图片: 30–100
 
 **这里的问题是选取的值不完美**
 
-通常凭空选取一个质量值并应用到整个系统中，会导致一些图片能在损失极小质量的情况下被进一步压缩，而另一些图片则由于过度压缩而看起来不那么好。质量值应该是改变的，应该为每一张图片寻找其独特的最优参数。
+通常凭空选取一个质量值并应用到整个系统中，会导致一些图片能在损失极小质量的情况下被进一步压缩，而另一些图片则由于过度压缩而看起来不那么好。质量值应该是可变的，应该为每一张图片寻找其最理想的参数。
 
 **如果**有一种方法可以测出压缩对图片的破坏程度呢？
 **如果**你可以通过一个质量标准来判定当前的质量值是否最佳呢？
@@ -82,11 +82,11 @@ Twitter 用户 JPEG 图片: 30–100
 *   当输出值大于 1.1 时停止
 *   使用当前的质量值来储存最终的图片
 
-最终的结果将是在不引入过大的精神性视觉误差阈值（不造成易被察觉的视觉改变）的情况下最小的 JPG 文件。如下图片节省了 170k 体积，但是视觉上看起来仍然相同。
+最终的结果将是在不引入过大的精神性视觉误差阈值（不造成易被察觉的视觉改变）的情况下最小的 JPG 文件。如下图片的体积缩减了 170k，但是视觉上看起来仍然相同。
 
 ![](https://cdn-images-1.medium.com/max/800/1*QCVqIL_ueQju40gyJGXodg.png)
 
-当然，你还可以进一步压缩。也许你的目标是允许更多的视觉损失来节省带宽，你可以很容易继续压缩，但这样有些疯狂。_到目前为止_，[Butteraugli](http://goo.gl/1ehQOi) 认为任何高于 1.1 的结果都是“难看”的并且没有试图定量地定义这样的图片看起来到底是怎么样的。所以你当然可以在输出值到达 2.0 时（如下图）停止脚本，但是到那时，你将难以确定你的图片到底处于一种怎样的视觉程度上。
+当然，你还可以进一步压缩。也许你的目标是允许更多的视觉损失来节省带宽，你可以很容易继续压缩，但这样有些疯狂。_到目前为止_，[Butteraugli](http://goo.gl/1ehQOi) 认为任何高于 1.1 的结果都是“难看”的并且没有试图用一个权威的数值来定义这些图片看起来究竟是怎么样的。所以你当然可以在输出值到达 2.0 时（如下图）停止脚本，但是到那时，你将难以确定你的图片到底处于一种怎样的视觉程度上。
 
 ![](https://cdn-images-1.medium.com/max/800/1*5yfAv-aFdneBAZywSUZ1Ag.png)
 
