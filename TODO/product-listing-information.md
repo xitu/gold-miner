@@ -26,7 +26,7 @@ _“我想有一种可以比较的方式，因此我可以不用点这个，再�
 
 _(注意以下的发现同样适用于种类列表和搜索结果。)_
 
-## 列表项信息: 平衡
+## 列表项信息: 平衡操作
 
 无论如何展示在产品列表里的信息是用户评估和判断产品适用性的基础。因此产品列表不应该被浪费。列表里的每个元素都应该被**精斟细酌**，呈现给用户最适合他们挑选的条件。一个成功的产品列表设计应满足以下两点要求:
 
@@ -58,7 +58,7 @@ _(注意以下的发现同样适用于种类列表和搜索结果。)_
 
 ![](http://assets.baymard.com/research/media_files/attachments/17291/original/research-media-file-b9db9eecf9fc4873a76746a11d479ed3.jpg)</div>
 
-_“我看到那儿有东西，但是没有图片，所以我不想点它”_ 一位客户解释道（在Best Buy），看着列表中的第三条。事实证明那确实是她想要的东西，但是由于没有缩略图，她像其他人一样直接跳过了那个产品。
+_“我看到那儿有东西，但是没有图片，所以我不想点它”_ 一位客户解释道（在Best Buy），看着列表中的第三条。事实证明那确实是她想要的东西，但是由于没有缩略图，她选择像其他人一样直接跳过了那个产品。
 
 证明对受测对象来说**产品缩略图**是最重要的属性，受测对象愿意花大量的注意力在产品缩略图上。没有缩略图的列表项经常被忽略，大多数客户认为这些产品是“不完整的”。好的缩略图在用户搜索和选择产品的过程中扮演关键角色。因此给用户提供产品的视觉信息是至关重要的。
 
@@ -66,63 +66,70 @@ _“我看到那儿有东西，但是没有图片，所以我不想点它”_ �
 
 ![](http://assets.baymard.com/research/media_files/attachments/17292/original/research-media-file-c77036a8531f2c8700f545ec63d6f399.jpg)</div>
 
-IKEA提供了产品标题（系列）和类型，单独一个产品名称对用户说就显得没那么有价值。类似“Söderhamn”和“Poäng”的标题对用户来说只是提供了产品系列的唯一标识。Furthermore, on hover a variation gallery is displayed, which is great, although there should ideally be some indication in the list item’s default state that multiple variations are available.
+IKEA提供了产品标题（系列）和类型，单独一个产品名称对用户说就显得没那么有价值。类似“Söderhamn”和“Poäng”的标题对用户来说只是提供了产品系列的唯一标识。同时鼠标移动上去后，相关的信息会展现出来，这个特别棒，如果默认状态下提示会列出相关信息就更好了。
 
-**Product title or type** also proved important to the subjects when scanning product lists (especially search results) and in some cases when wanting to verify the product type in case the thumbnail was difficult to decipher at a first glance. While descriptive product names can generally stand on their own as the product title, there are a few industries where the product type may actually make more sense to the user than the product title – especially if the titles are non-descriptive in nature. In those cases, product type may be displayed instead or in combination with the title.
+**产品标题或类型**也被证明是较为重要的，在客户浏览产品列表（尤其是搜索结果）而且产品缩略图很难一眼识别出产品类型的情况下。和产品标题一样形象生动的产品名称也可以代表自己，有些行业产品类型对用户来说比产品标题更容易理解 – 尤其在产品标题不明了的情况下。在这些情况下，产品类型会替代标题或和产品标题合并展示。
 
-For large or mixed-product catalogs, it might be too resource intensive to manually determine if each product title is descriptive or not, in which case it is recommended to include both. A better but more advanced alternative would be to dynamically scan each product title to determine if it includes product-type keywords and, based on this, include the product type for any products with non-descriptive titles. For either small or well-aligned product catalogs (e.g., a manufacturer e-commerce site such as IKEA), you might be able to determine the product title’s descriptiveness across the entire catalog based on company-wide product-naming policies.
+当存在一个数量巨大或者鱼龙混杂的产品目录的情况下，人工确定每个产品的标题的描述性可能会太消耗资源，这种情况下推荐两者都展示。还有一个较为高级的办法就是动态的浏览每个商品标题来确定是否包含产品类型关键词，基于此，还可以没有描述的标题中是否包含产品类型。对于既不小且排列杂乱的产品目录（像 IKEA 这样的制造业电商），需要通过整个公司基于产品命名规则的产品目录来决定产品标题的描述性。
 
 ![](http://assets.baymard.com/research/media_files/attachments/17293/original/research-media-file-0206f416589dd88e1ef3d8b03263694f.jpg)</div>
 
-Without an indication that some of these pans exist in multiple sizes, users will have to visit each product page at [Williams-Sonoma](http://baymard.com/ecommerce-product-lists/benchmark/site-reviews/219-williams-sonoma) to learn about the available variations. While the user can infer that multiple variations exist based on the listed price range, it’s needlessly cumbersome to have to infer this for each result in a list with tens or even hundreds of results. More importantly, a price range doesn’t indicate what the product variation is – do the pans vary in size, material, or color?
+在没有任何关于这些锅的尺寸的提示下，用户必须去浏览每个产品页来得到这些信息。虽然用户可以通过已存在的价格区间推测产品的别的参数, 如果搜索结果上百后就显得笨拙了。 更重要的是，盘子的价格区间不能告诉用户盘子的参数有哪些 – 盘子是靠颜色，尺寸还是材质区分？
 
 ![](http://assets.baymard.com/research/media_files/attachments/17294/original/research-media-file-c0d845fab21bb7d9f179f057c087c4cb.jpg)</div>
 
-In comparison, notice how users at [American Eagle Outfitters](http://baymard.com/homepage-and-category-usability/benchmark/site-reviews/145-american-eagle-outfitters) can just glance at the list to determine which shirts exists in multiple variations (indicated with a collection of color and pattern swatches) and which are only available in the specific style shown in the list item thumbnail.
+作为比较，我们看下用户在 [American Eagle Outfitters](http://baymard.com/homepage-and-category-usability/benchmark/site-reviews/145-american-eagle-outfitters) 是如何做到扫一眼就能确定衬衫的多个参数（颜色样式等）只在特定风格的列表项缩略图是有效的。
 
-**Product variations**, such as different colors, sizes, materials, looks, etc., is another essential attribute to indicate directly in the list item. Without them, the subjects often rejected products that actually matched what they were looking for simply because they couldn’t see that multiple variations of the item were available and therefore only judged the product on the default variation displayed, without ever realizing that multiple (highly relevant) product variations existed and would be available from the product page.
+**产品参数** 不同的颜色，尺寸，材质，外表等，需要在列表项里直接展示的。没有这些东西，客户经常会pass掉实际上是他们想要的东西，仅仅是因为他们看不见这些参数，只能通过展示的默认属性来判断是否是他们想要的东西，而不是通过查看产品详情页来确认与产品相关的属性。
 
-It’s not all product variations that should be displayed, however. For example, a desk available in different sizes would typically need an indication in the list item explaining that multiple sizes exist, whereas it’s probably less relevant for a shoe list item to indicate that multiple sizes exist as users will assume so due to the nature of the product.
+然而并不是所有产品都会被展示。举个例子，桌子是否可用得通过列表项里展示的桌子的多个尺寸参数来决定，然而鞋子就不一样了，用户可以根据鞋子的天然属性来推测产品的存在的参数。
 
 ![](http://assets.baymard.com/research/media_files/attachments/17295/original/research-media-file-a5a883ffb835cedef8d909f995655728.jpg)</div>
 
-Here a test subject – not really sure about the meaning of the different product specs – used the ratings at Tesco to decide which camera she should buy. User ratings often act as guidance for users who are undecided or have little knowledge about the product domain.
+这有一个测试对象 - 不太明白不同产品规格的含义 - 于是决定通过排序来决定应该购买哪个相机。用户排名经常被犹豫不决或者对产品了解不深的人当做指导。
 
-**User ratings** will for most industries and site types also be a Universal Attribute to include in all list items. Throughout testing, whenever the subjects had little knowledge about a particular domain, they would rely on the user ratings to gauge which results were relevant to explore further – viewing these highly rated items as a “safe choice” vetted by other users.
+**用户排名**经常被多数行业和网站当做普遍属性放在列表项里。经测试发现，无论何时对特性领域产品了解不深的用户都会依赖用户排名来评估搜索到的相关结果 - 并视那些高排名的项为被其他用户审查过“安全选择”。
 
 Many users effectively rely on ratings as a proxy for “good quality / value for money” when they don’t feel comfortable making that evaluation themselves. Thus, if a significant number of your user base aren’t experts in the product type(s) being sold at the site, a ratings summary should be included directly in the product list items. When including user ratings in the product list, note that it is essential to include _both_ the user rating average _and_ the number of ratings the average is based on – as we’ve time and again observed that users find the rating average useless without the number of rating (see [Users’ Perception of Product Ratings](http://baymard.com/blog/user-perception-of-product-ratings) and [Don’t Base ‘Customer Ratings’ Sorting on Averages Only](http://baymard.com/blog/sort-by-customer-ratings)).
 
-## Category-Specific Attributes
+有些用户在他们没法自己做出判断的时候就把排名作为“好质量/划算”的代表。因此，如果用户依赖的数据不是在售商品方面的专家，排名概述就应该被直接包含在产品列表中。
 
-Many product verticals will have one or a few attributes that are so important to the products in that category that they should be included directly in the list item overview in order for users to make an **informed decision** about which products to open and which to skip.
 
-These attributes will naturally vary greatly from category to category and must be **chosen uniquely** for each vertical. What follows are a few examples of different Category-Specific Attributes to use as a source of inspiration when trying to determine if and which product attributes may be uniquely important for a given category (and thus qualify as a Category-Specific Attribute).
+## 特定种类的属性
+
+有些产品的少数属性对那产品来说特别重要，那么我们就应该把它们放进产品列表项的概览中，方便用户选择哪些产品该打开哪些产品该跳过时做出“富含信息量的决定”
+
+这些属性在分类之间变化幅度很大，而且必须是针对每个种类**唯一可选**。后面的是几个例子是不同的特定种类的属性被当做灵感来源在决定是否选择此商品时，对一个给定的分类来说产品属性会变得十分重要（这里的质量就被当做一个特性种类的属性）。
 
 ![](http://assets.baymard.com/research/media_files/attachments/17296/original/research-media-file-88602817b6d0a836c6ee58b1e7f79984.jpg)</div>
 
 [Newegg](http://baymard.com/ecommerce-product-lists/benchmark/site-reviews/244-newegg) only includes compatibility information for some of their laptop power adapters. For the subjects who would have preferred to buy a cheaper power adapter than the $116 adapter that included compatibility information, this annoyed them to no end.
 
-The relevance of products in certain technical categories will be determined almost entirely by the product’s **compatibility** with another product. This “compatibility information” should therefore be included in the list items so users can identify the products that are relevant to them without having to open the product page of every single item in the list. Taking things a step further, if the user already has the compatibility-dependent product in their cart, the product list items should ideally state whether they are compatible with the item in the user’s cart (also see [6 Use Cases for Compatibility Databases on E-Commerce Sites](http://baymard.com/blog/ecommerce-compatibility-databases) and [Highlight Items Already in the User’s Cart](http://baymard.com/blog/highlight-products-if-in-users-cart)).
+只有 [Newegg](http://baymard.com/ecommerce-product-lists/benchmark/site-reviews/244-newegg) 中的一些电源适配器包含适配信息。对一些客户来说，他们更愿意买一个便宜的电源适配器而不是一个包含适配信息的价值 $116 的适配器，这些信息会无休止地烦着他们。
+
+在特定种类的高科技产品中产品的相关性几乎完全被产品和其他产品**适配性**来决定。因此“适配信息”应该被放在列表项里，用户可以不用打开列表中的每个产品来确定与产品是否与他们相关。进一步说，如果用户的购物车有适配性相关的产品，产品列表项应该智能的显示此产品是否和购物车里的产品适配。（参见 [6 Use Cases for Compatibility Databases on E-Commerce Sites](http://baymard.com/blog/ecommerce-compatibility-databases)和 [Highlight Items Already in the User’s Cart](http://baymard.com/blog/highlight-products-if-in-users-cart)）。
 
 ![](http://assets.baymard.com/research/media_files/attachments/17297/original/research-media-file-d408ce075d520f2eaae6b50eb46d843d.jpg)</div>
 
-Without the dimensions or sizes of the camera cases in the list items, the test subjects at Tesco had to open each case and hunt down the product specifications on the product page to determine whether it would fit their camera. A “use context” image can also help in communicating the approximate size (e.g. showing the case with a camera partially inside), but will obviously be much less accurate than listing the actual dimensions.
+因为列表项里没有相机套的尺寸，受测对象必须打开 Tesco 的每个产品页，搜索产品页的说明来确定相机套是否适合他们的相机。一张“使用情景”图也对判断尺寸是否合适有帮助（例如展示包含部分相机的相机套），但是明显没有在列表项里展示实际尺寸来得精准些。
 
-Another kind of compatibility information is **dimensions**. For example, any kind of case or bag that has to contain, carry, store, or otherwise hold another product will often need to have its inner dimensions listed so users can determine whether their product(s) will fit in it. That said, it is still less restrictive than the dependencies between technical products (which simply won’t work together) since a user may choose to buy a “container” that has room to spare after filling it with the product(s) to be stored.
+另一种适配信息是**尺寸**。举个例子，任意一种包都需要容纳，携带，存放另一种别的产品，所以我们需要列出它的内部尺寸来让用户确定是否和他们的物品适用。也就是说，比起高科技产品的适配性它还是不太严格的，因此用户可能会买一个“容器”来获得足够多的空间来容纳要存放的东西。
 
 ![](http://assets.baymard.com/research/media_files/attachments/17298/original/research-media-file-1fa562b7dfeb88a0ee73f22e5825165b.jpg)</div>
 
-Here, a test subject relied on the product thumbnail and recommended age span to find products suitable for her niece. The Entertainer understands that most of their customers aren’t the end-user and wisely includes a recommended age for their toys to help users identify age-appropriate products.
+有个受测对象依靠产品缩略图和推荐年龄范围来查找适合她外甥女的产品。Entertainer 明白他们用户中的大多数都不是最终用户，所以他们明智地给他们的玩具加上了一个推荐年龄范围来帮助用户来选择合适年龄段的产品。
 
-Attributes conveying appropriateness for a **recommended usage**, occasion, or audience, can be important in industries where the customer often won’t be the end-user. In fact, such attributes can almost function as an integrated help guide, directing the customer to products that will be suitable to their recipient or occasion, such as the type of flowers to buy for Mother’s Day.
+**推荐使用年龄段**的属性适用性，场景或受众，在客户不是最终使用者的产业十分重要。事实上，这些属性起到了综合使用手册的作用，引导用户到适合最终受众或场景的产品，像为母亲节买的花的种类。
 
 ![](http://assets.baymard.com/research/media_files/attachments/17299/original/research-media-file-dc720599f835747ad6f7f995f879dad8.jpg)</div>
 
-Go Outdoors doesn’t include the temperature rating for all their sleeping bags; only a few of them had it stamped onto the product thumbnail. Understandably, the test subjects found it frustrating that they had to open all the remaining products to determine if they were suitable for cold weather.
+Go Outdoors 在他们的所有睡袋里都没有加入舒适温度排名；只有极少会把舒适温度值印到产品缩略图上。受测对象沮丧地发现他们必须打开剩下的产品来确定产品是否适合在寒冷天气下使用。
 
-Another typical example of Category-Specific Attributes is any product that must work under **special conditions**. These include safety gear, outdoors products, underwater equipment, and any type of product that has to perform in a special context.
+另一个典型的特定种类属性的案例是任何产品都会有**特殊使用情况**，包括安全齿轮，户外装备，水下设备，任何类型的产品都必须在特殊环境下保持运行。
 
 The examples of Category-Specific Attributes are of course endless – the above paragraphs illustrate just a few instances of product types that have one or two attributes that a uniquely relevant to their vertical. The list naturally goes on and on. You might for instance want to include the resolution of a camera, the mileage or power of a car, the production method of foods, etc.
+
+
 
 Category-Specific Attributes are just as important Universal Attributes but they aren’t shared across product verticals – e.g. while an “age rating” is highly relevant to toys, it doesn’t make much sense to a collection of cameras – and vice versa, a “megapixel resolution” makes sense to the cameras but not the toys! Identifying Category-Specific Attributes therefore takes some work as it requires going over each and every category to determine if there are 1-3 attributes that are absolutely vital for the user to be able to determine the relevance of a product in the vertical, and then dynamically including that set of curated attributes in the product’s list item.
 
