@@ -31,12 +31,12 @@
 
 如果你想用Objective-C来实现这个功能:
 
-    ~~~ Java
+~~~ Java
     if ([[NSProcessInfo processInfo] isLowPowerModeEnabled]) {
       // stop battery intensive actions
     }
 
-    ~~~
+~~~
 
 如果你监听了**NSProcessInfoPowerStateDidChangeNotification**通知，在用户切换进入低电量模式的时候你将接收到一个消息。比如，在视图控制器中的**viewDidLoad**方法中:
 
