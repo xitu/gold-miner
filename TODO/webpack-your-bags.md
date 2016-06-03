@@ -63,7 +63,7 @@ Ultimately at the end of the food chain all loaders return strings. This allows 
 
 
 
-![](http://ww3.sinaimg.cn/large/a490147fgw1f4i0dgjspwj20dw06itaz.jpg)
+![](http://ww2.sinaimg.cn/large/a490147fgw1f4i0yb05tmg20dw06i4qp.gif)
 
 ## Why on earth would you do that?
 
@@ -766,7 +766,7 @@ So what has Webpack done: first of all since our example is very lightweight, ou
 
 Yes, yes it is, but this only happened because our app is very small. Now consider this: you didn’t have to think about what to merge, when or where. If your chunks suddenly start having more dependencies, the chunk will be moved to an async chunk instead of being merged; and if these chunks start looking too similar to be worth loading separately, they would be merged, etc. You just setup the rules, and from then on, Webpack will automatically optimize your application in the best way possible. No manual labor, no thinking about what dependencies go where or are needed where, everything is _automatic_.
 
-![](http://ww2.sinaimg.cn/large/a490147fgw1f4i0l4q0m6j206x04kq3u.jpg)
+![](http://ww2.sinaimg.cn/large/a490147fgw1f4i100zj8gg206x04kaim.gif)
 
 You may have noticed I didn’t setup anything to minify our HTML and CSS, that’s because the `css-loader` and `html-loader` already take care of that by default if the `debug` option we mentioned earlier is `false`. This is also the reason why Uglify is a separate plugin: because there is no `js-loader` in Webpack, since Webpack itself _is_ the JS loader.
 
@@ -945,7 +945,7 @@ Now to run the dev server, nothing simpler, just run the following command:
 
 The first flag tells Webpack to inline the HMR logic into the page (instead of presenting the page in an iframe) and the second enables HMR. Now let’s visit the web-server at `http://localhost:8080/webpack-dev-server/`. You’ll see your usual page, but now try to modify one of the Sass files and, magic:
 
-![](http://ww4.sinaimg.cn/large/a490147fgw1f4i0od4cuvj20i006wgpq.jpg)
+![](http://ww2.sinaimg.cn/large/a490147fgw1f4i10s9casg20i006w48b.gif)
 
 You can use the webpack-dev-server as your own local server. If you plan to always use it for HMR, you can say so in your configuration:
 
