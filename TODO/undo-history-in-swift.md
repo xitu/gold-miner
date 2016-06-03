@@ -1,7 +1,7 @@
 >* 原文链接 : [Undo History in Swift](http://chris.eidhof.nl/post/undo-history-in-swift/)
 * 原文作者 : [chriseidhof](https://twitter.com/chriseidhof/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
+* 译者 : [Zheaoli](https://github.com/Zheaoli)
 * 校对者:
 
 
@@ -13,7 +13,7 @@ In Swift, there is only a very limited reflection mechanism, although you can al
 Today, we’ll have a look at implementing undo functionality in Swift. One of the examples people keep bringing up to make the case for reflection (the way Objective-C) supports it is `NSUndoManager`. With struct semantics, we can add undo support to our apps in a different way. Before we get started, make sure that you understand how structs work in Swift (most importantly, how they are all unique copies). Clearly, this post will not remove the need for runtime programming in Swift, nor is it a replacement for `NSUndoManager`. It’s just a simple example of how to think different.
 
 We’ll build a struct called `UndoHistory`. It’s generic, with the caveat that it only works when `A` is a struct. To keep a history of all the states, we can store every value in an array. Whenever we want to change something, we just push onto the array, and whenever we want to undo, we pop from the array. We always want to start with an initial state, so we create an initializer for that:
-
+~~~ Swift
     struct UndoHistory<A> {
         private let initialValue: A
         private var history: [A] = []
@@ -21,22 +21,26 @@ We’ll build a struct called `UndoHistory`. It’s generic, with the caveat tha
             self.initialValue = initialValue
         }
     }
+~~~
 
 For example, if we want to add undo support to a table view controller that’s backed by an array, we can create a value of this struct:
-
+~~~ Swift
     var history = UndoHistory(initialValue: [1, 2, 3])
+~~~
 
 To support undo for a different struct, we just start with a different initial value:
-
+~~~ Swift
     struct Person {
         var name: String
         var age: Int
     }
-
+~~~
+~~~ Swift
     var personHistory = UndoHistory(initialValue: Person(name: "Chris", age: 31))
+~~~
 
 Of course, we want to have a way of getting the current state, and setting the current state (in other words: adding an item to our history). To get the current state, we simply return the last item in our `history` array, and if the array is empty, we return the initial value. To set the current state, we simply append to our `history` array.
-
+~~~ Swift
     extension UndoHistory {
         var currentItem: A {
             get {
@@ -47,28 +51,32 @@ Of course, we want to have a way of getting the current state, and setting the c
             }
         }
     }
+~~~
 
 For example, if we want to change the person’s age, we can easily do that through our new computed property:
-
+~~~ Swift
     personHistory.currentItem.age += 1
     personHistory.currentItem.age // Prints 32
+~~~
 
 Of course, the code isn’t complete without an `undo` method. This is as simple as removing the last item from the array. Depending on your preference, you could also make it `throw` when the undo stack is empty, but I’ve chosen not to do that.
-
+~~~ Swift
     extension UndoHistory {
         mutating func undo() {
             guard !history.isEmpty else { return }
             history.removeLast()
         }
     }
+~~~
 
 Using it is easy:
-
+~~~ Swift
     personHistory.undo()
     personHistory.currentItem.age // Prints 31 again
+~~~~
 
 Of course, our `UndoHistory` works on more than just simple `Person` structs. For example, if we want to create a table view controller that’s backed by an `Array`, we can use the `currentItem` property to get the array out :
-
+~~~ Swift
     final class MyTableViewController<item>: UITableViewController {
         var data: UndoHistory<[item]>
 
@@ -93,16 +101,16 @@ Of course, our `UndoHistory` works on more than just simple `Person` structs. Fo
             data.currentItem.removeAtIndex(indexPath.row)
         }
     }
-   
+~~~
 
 Another thing that is really cool with struct semantics: we get observation for free. For example, we could change the definition of `data`:
-
+~~~ Swift
     var data: UndoHistory<[item]> {
         didSet {
             tableView.reloadData()
         }
     }
-   
+~~~
 
 Even if we change something deep inside the array (e.g. `data.currentItem[17].name = "John"`) our `didSet` will get triggered. Of course, we probably want to do something a little bit smarter than `reloadData`. For example, we could use the [Changeset](https://github.com/osteslag/Changeset) library to compute a diff and have insert/delete/move animations.
 
@@ -112,4 +120,3 @@ Obviously, this approach has its drawbacks too. For example, it keeps a full his
 
 1.  It would probably be nice to define a computed property `items` which just gets and sets `data.currentItem`. This makes the data source / delegate method implementations much nicer. [<sup>[return]</sup>](#fnref:4f7f6a73fd4549ae772cf1c92915d55d:1)
 2.  If you want to take this further, there are a couple of fun exercises: try adding redo support, or labeled actions. You can implement reordering in the table view, and you will see that if you do it naively, you’ll end up with two entries in your undo history. [<sup>[return]</sup>](#fnref:4f7f6a73fd4549ae772cf1c92915d55d:2)
-
