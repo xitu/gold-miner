@@ -33,7 +33,7 @@ We need a “Move” animation for this, so drag this onto the _Navigation Drawe
 
 Ok time to test it out!
 
-<iframe width="480" height="360" src="https://www.youtube.com/embed/PHVv-ItODU4?feature=oembed"></iframe>
+![](http://ww4.sinaimg.cn/large/a490147fgw1f4i39fizqwg205m0a0gre.gif)
 
 <span>When we drag the drawer to the right it should stick in place. When we drag a bit left and let go it should move off screen. There’s more you could do to make it an accurate representation of the real navigation drawer, but that’s something you can explore yourself.  
 </span>
@@ -80,11 +80,11 @@ Ok so now we have all the items in place for us to get the tabs working like the
 
 And here’s what it looks like in action:
 
-<iframe width="480" height="360" src="https://www.youtube.com/embed/myya5BN4O_A?feature=oembed"></iframe>
+![](http://ww2.sinaimg.cn/large/a490147fgw1f4i3eljw7yg205m0a0dg4.gif)
 
 <span>Now we need to get the _Tab Indicator_ to move back when the _Versions Tab_ gets tapped. This is just a repeat process from before, only using the _Versions Tab_. This is an exercise I’ll leave to you. Just remember to drag a “Tap” interaction to the _Versions Tab_ otherwise you won’t see it in the drop-down menu for “Based On”.</span><span>Upon completion, you should have an indicator that moves back and forth when you tap the tabs!</span>
 
-<iframe width="480" height="360" src="https://www.youtube.com/embed/_cb2eOIHKKo?feature=oembed"></iframe>
+![](http://ww2.sinaimg.cn/large/a490147fgw1f4i3h4kcv9g205m0a074x.gif)
 
 ## You see me scrolling
 
@@ -98,7 +98,7 @@ And here’s what it looks like in action:
 
 You’ll first need to hide the _Version List_ to make this a bit easier. We need to create a new layer called “Scroll” that’s within the _Home Screen_ layer. This layer needs to start below the app bar and tabs and fill to the bottom. Its size is 360x512\. Its x=0 and y=128\. This should give you a grey box onscreen. Now drag the _Version List_ on to the _Scroll Content_ layer to make it part of it. Unhide the _Version List_ and everything should look the same as before. Now if you run the prototype you should be able to scroll the _Version List_ up and down.
 
-<iframe width="480" height="360" src="https://www.youtube.com/embed/18q9_nClkU0?feature=oembed"></iframe>
+![](http://ww3.sinaimg.cn/large/a490147fgw1f4i3o07r4rg205m0a0qb9.gif)
 
 ## Switching Tabs
 
@@ -113,7 +113,7 @@ You’ll first need to hide the _Version List_ to make this a bit easier. We nee
 
 Drag a “Scroll” interaction onto the _View Pager_ layer. Within this “Scroll” menu there should be an attribute called “Paging Mode”. Make sure you select “paging” from the drop down menu. If all has gone well you should now be able to swipe between screens!
 
-<iframe width="480" height="360" src="https://www.youtube.com/embed/kk5s1EUtS1c?feature=oembed"></iframe>
+![](http://ww2.sinaimg.cn/large/a490147fgw1f4i3qpkr60g205m0a0gsi.gif)
 
 ## Moving the tab indicator on swipe
 
@@ -126,7 +126,7 @@ Drag a “Move” animation onto the _Tab Indicator_ and name it “Move on Swip
 
 If you now swipe the screen the tab should now move too!
 
-<iframe width="480" height="360" src="https://www.youtube.com/embed/aeCnKuh-M0g?feature=oembed"></iframe>
+![](http://ww2.sinaimg.cn/large/a490147fgw1f4i3xx41irg205m0a0q8k.gif)
 
 <span>Now all you need to do is reverse this process to move the tab back when you swipe right. I’ll leave this as an exercise for you to do. I’ll give you this one line to help you out for the “IF” condition:</span>
 
@@ -135,7 +135,7 @@ If you now swipe the screen the tab should now move too!
 <span>When you have this figured out your _Tab Indicator_ should move back and forth as you swipe between tabs:  
 </span>
 
-<iframe width="480" height="360" src="https://www.youtube.com/embed/An5zOMWD7JI?feature=oembed"></iframe>
+![](http://ww2.sinaimg.cn/large/a490147fgw1f4i3zyhs8lg205m0a0guf.gif)
 
 ## Finishing Touches
 
@@ -147,7 +147,7 @@ We’ve based the animation on when the login button gets tapped, which only hap
 
 Here’s what it should look like:
 
-<span><iframe width="480" height="360" src="https://www.youtube.com/embed/lXgoC0SX0JY?feature=oembed"></iframe></span>
+![](http://ww2.sinaimg.cn/large/a490147fgw1f4i41gcndwg205m0a0wi2.gif)
 
 <span>Finally, lets make sure that the _Navigation Drawer_ cannot be swiped out on the _Login Screen_. Here are the settings we need:![Navigation Drawer fade in settings](http://createdineden.com/media/1761/part-3-image-12.png?width=305&height=411)</span>
 
@@ -155,7 +155,7 @@ Here’s what it should look like:
 
 And that’s the final step! If all’s gone well you should have a simple material design prototype app that you can show off!
 
-<iframe width="480" height="360" src="https://www.youtube.com/embed/b2_hwbLo5po?feature=oembed"></iframe>
+![](http://ww4.sinaimg.cn/large/a490147fgw1f4i43y44jwg205m0a0tcd.gif)
 
 ## The End
 
