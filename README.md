@@ -57,6 +57,7 @@
 
 ## iOS
 
+* [如何检测 iPhone 处于低电量模式](http://gold.xitu.io/entry/574ff27d7db2a20055c7aec3?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zheaoli](https://github.com/Zheaoli) 翻译)
 * [给 iOS 开发者的 GCD 用户手册](http://gold.xitu.io/entry/574e544971cfe4006bffa552?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([LoneyIsError](https://github.com/LoneyIsError) 翻译)
 * [使用 webP 减少图片的大小](http://gold.xitu.io/entry/57383657c4c97100601212d5?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([circlelove](https://github.com/circlelove) 翻译)
 * [打破 Swift 结构体中的循环引用](http://gold.xitu.io/entry/572acc852e958a0069518605?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Tuccuay](https://github.com/Tuccuay)翻译）
