@@ -2,12 +2,12 @@
 * 原文作者 : [Ted Kremenek](https://github.com/tkremenek/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [Tuccuay](https://github.com/Tuccuay)
-* 校对者 :
+* 校对者 : [Wilson Yuan](https://github.com/devSC), [Jasper Zhong](https://github.com/DeadLion)
 
 
-这篇文章讲述了 Swift 3.0 的目标、发布进程和预计的时间表。
+这篇文章介绍了 Swift 3.0 的目标、发布进程和预计的时间表。
 
-Swift 3.0 是一个不兼容 Swift 2.2 语法的大版本更新。它对于语法和基本库有根本性的改变。Swift 3.0 实现的完整修改列表可以在 [Swift evolution site](https://github.com/apple/swift-evolution#implemented-proposals-for-swift-3) 中查看。
+Swift 3.0 是一个不兼容 Swift 2.2 语法的大版本更新。它对语法和基本库有着根本性的改变。Swift 3.0 实现的完整修改列表可以在 [Swift evolution site](https://github.com/apple/swift-evolution#implemented-proposals-for-swift-3) 中查看。
 
 Swift 3.0 是首个包含 [Swift Package Manager](https://swift.org/package-manager/) 的发布版本。现在 Swift Package Manager 还处于早期开发版本，它支持开发和发布跨平台的 Swift 包。Swift Package Manager 将同时支持 Drawin 和 Linux 两个平台。
 
@@ -17,33 +17,33 @@ Swift 3.0 预计在 2016 年后半年的某个时候发布。除了 Swift.org �
 
 ## 开发前瞻
 
-* Swift 3.0 将会有一系列的开发者预览版本（例如「种子版」或「测试版」），这将会提供合格且聚合的 Swift 3 构建版本。其目标是为用户提供经过修正的更稳定和高质量的 Swift 二进制文件 [下载](https://swift.org/download) 并尝试，而不仅仅是对 `master` 分支抓取最新的快照。
+* Swift 3.0 将会有一系列的开发者预览版本（例如「种子版」或「测试版」），以提供合格且聚合的 Swift 3 构建版本。其目标是为用户提供更稳定和高质量的 Swift 二进制文件 [下载](https://swift.org/download) 并尝试，而不仅仅是对 `master` 分支抓取最新的快照。
 
 * 开发者预览版的发布节奏可能是不规律的，但通常会在 4~6 周之间。这将取决于变更进入 `master` 分支和让开发者预览版稳定下来的时间。
 
 * Swift 3.0 会将最后一个开发者预览版的分支标记为 "GM" 版本。
 
-* 进入开发者预览版的内容将由选出的发行管理者（见下文）管理。
+* 进入开发者预览版的内容将由合适的发行管理者（见下文）管理。
 
 ## 了解 Swift 3.0 的变化
 
 ### 分支
 
-* **master**: Swift 3.0 的开发都发生在 `master`。所有的改动都将合并到 `master` 并被作为 Swift 3.0 最终版本的一部分直到最后一个开发者预览版本分支被创建。并且这个 `master` 将继续跟进未来版本的 Swift。
+* **master**: Swift 3.0 的开发都发生在 `master`。所有的改动都将合并到 `master` 并被作为 Swift 3.0 最终版本的一部分，直到最后一个开发者预览版本分支被创建。并且这个 `master` 将继续跟进未来版本的 Swift。
 
-* **swift-3.0-preview--branch**: 这些分支都将从 `master` 创建。所有的合并请求都需要通过持续集成进行测试才能引入提交。这个分支用来管理和批准贡献者合并代码到开发者预览版分支的请求。
+* **swift-3.0-preview--branch**: 这些分支都将从 `master` 创建。所有的合并请求都需要通过持续集成测试才能提交。这个分支用来管理和批准贡献者合并代码到开发者预览版分支的请求。
 
 * **swift-3.0-branch**: 最后一个从 `master` 分支创建的开发者预览版本将会被命名为 `swift-3.0-branch`。这是最终的「发布分支」。
 
 ### 谈谈 Swift 3.0 理念上的变化
 
-* 在 Swift 3.0 中仅收入经过缜密考虑符合核心发行目标的改动。
+* 在 Swift 3.0 中仅收录经过缜密考虑符合核心发行目标的改动。
 
 * 对于语言崩坏性的改动将在经过逐个审查的基础上考虑。
 
 * Swift 3.0 所有的语言和 API 变化都将经过 [Swift Evolution](https://github.com/apple/swift-evolution) 过程。
 
-* 准则 - 由发行管理者决定 - 对于接受变更的政策将会随着版本发布的临近而变得越来越严格，相同的策略也使用于开发者预览分支，那些分支本质上是 mini-releases。
+* 准则 - 由发行管理者决定 - 对于接受变更的政策将会随着版本发布的临近而变得越来越严格，相同的策略也使用于开发者预览分支，开发者预览分支本质上是 mini-releases。
 
 ## 时间表
 
@@ -64,7 +64,7 @@ Swift 3.0 预计在 2016 年后半年的某个时候发布。除了 Swift.org �
 * [swift-corelibs-foundation](https://github.com/apple/swift-corelibs-foundation)
 * [swift-corelibs-xctest](https://github.com/apple/swift-corelibs-xctest)
 
-以下分支将只会拥有 `swift-3.0-branch` 分支作为开发者预览分支，因为他们已经很好的融合。
+以下仓库将只有一个 `swift-3.0-branch` 取代开发者预览分支，因为他们已经很好的融合。
 
 *   [swift-llvm](https://github.com/apple/swift-llvm)
 *   [swift-clang](https://github.com/apple/swift-clang)
@@ -97,12 +97,12 @@ Swift 3.0 预计在 2016 年后半年的某个时候发布。除了 Swift.org �
 
 * **影响范围**：影响范围和重要性的评估。例如「这是一个破坏性的语言修改」等等。
 
-* **SR Issue**：如果这个改动 修复/执行 了一个 [bugs.swift.org](https://bugs.swift.org) 上的 问题/增强。
+* **SR Issue**：这个改动 修复/执行 了一个 [bugs.swift.org](https://bugs.swift.org) 上的 问题/优化。
 
 * **风险**：这个改动会产生什么（特定的）风险？
 
 * **测试**：已经采取了什么测试手段或者需要进行什么样的进一步测试来评估这个改动所带来的影响？
 
-一个或更多 [code owners](https://swift.org/community/#code-owners) 会审查变更影响的组件。技术审查会委托一个 code owner 或者其它方式来证明它是否是必须的或者有用的。
+对于那些受影响的组件，一个或更多 [代码所有者](https://swift.org/community/#code-owners) 应该审核改动。技术审查可以由代码所有者委托其他人审核，或者其它合适、有效的方法。
 
 **所有的变更**进入开发者预览版分支**都必须经过合并请求**并且由相应的发行管理者审核。
