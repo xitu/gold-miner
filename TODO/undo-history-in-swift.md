@@ -6,13 +6,14 @@
 
 
 
-Over the last weeks, there have been a number of blog posts that want to add dynamic behavior to Swift. Swift is already a very dynamic language: it has generics, protocols, first-class functions, and the standard library is filled with functions like `map` and `filter`, which dynamically get their operation (not using a string like with KVC, but using a function, which is safer and more flexible). Most of the people that say they want dynamic behavior mean that they [want reflection](http://inessential.com/2016/05/26/a_definition_of_dynamic_programming_in_t) specifically: they want to analyze and modify the program at runtime.
+在过去的一段时间里，有很多的Blog推出了介绍关于**Swift**动态特性的文章.**Swift** 已经成为了一门具有相当多动态特性的语言：它拥有泛型，协议， 可以作为一等公民的函数（译者注：first-class function指函数可以向类一样作为参数传递），和包含很多可以的动态操作的函数的标准库，比如**map**和**filter**等（这意味着我们可以利用更安全更强大的函数来代替像KVC这样的操作方式）（译者注：KVC指Key-Value-Coding一个非正式的 Protocol，提供一种机制来间接访问对象的属性。）。对于大多数人而言，特别希望介绍[反射](http://inessential.com/2016/05/26/a_definition_of_dynamic_programming_in_t)这一特性，这意味着他们可以在程序运行时进行观察和修改。
 
-In Swift, there is only a very limited reflection mechanism, although you can already inspect and generate code at runtime. For example, here’s how to generate a dictionary ready for `NSCoding` or JSON serialization: [Swift mirrors and JSON](http://chris.eidhof.nl/post/swift-mirrors-and-json/).
+在**Swift**中，只有少量受限制的反射机制，尽管你可以在代码运行的时候动态的生成和插入一些东西。 比如这里是怎样为[**NSCoding**或者是JSON动态生成字典的实例](http://chris.eidhof.nl/post/swift-mirrors-and-json/).
 
-Today, we’ll have a look at implementing undo functionality in Swift. One of the examples people keep bringing up to make the case for reflection (the way Objective-C) supports it is `NSUndoManager`. With struct semantics, we can add undo support to our apps in a different way. Before we get started, make sure that you understand how structs work in Swift (most importantly, how they are all unique copies). Clearly, this post will not remove the need for runtime programming in Swift, nor is it a replacement for `NSUndoManager`. It’s just a simple example of how to think different.
+今天在这里，我们将一起看一下在**Swift**中怎样去实现撤销功能。 其中一种方法是通过利用**Objective-C**中基于的反射机制所提供的**NSUndoManager**。通过利用**struct**，我们可以利用不同的方式在我们的APP中实现撤销这一功能。 在教程开始之前，请务必确保你自己已经理解了**Swift**中**struct**的工作机制(最重要的是去理解**struct**的拷贝机制)。
+首先要声明的一点是，这篇文章并不是想告诉大家我们不需要对**runtime**进行操作，或者我们提供的是一种**NSUndoManager**的替代品。这篇文章只是告诉了大家一种不同的思考方式而已。
 
-We’ll build a struct called `UndoHistory`. It’s generic, with the caveat that it only works when `A` is a struct. To keep a history of all the states, we can store every value in an array. Whenever we want to change something, we just push onto the array, and whenever we want to undo, we pop from the array. We always want to start with an initial state, so we create an initializer for that:
+我们首先创建一个叫做**UndoHistory**的**struct**We’ll build a struct called `UndoHistory`. It’s generic, with the caveat that it only works when `A` is a struct. To keep a history of all the states, we can store every value in an array. Whenever we want to change something, we just push onto the array, and whenever we want to undo, we pop from the array. We always want to start with an initial state, so we create an initializer for that:
 ~~~ Swift
     struct UndoHistory<A> {
         private let initialValue: A
