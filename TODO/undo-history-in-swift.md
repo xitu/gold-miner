@@ -8,12 +8,12 @@
 
 在过去的一段时间里，有很多的Blog推出了介绍关于**Swift**动态特性的文章.**Swift** 已经成为了一门具有相当多动态特性的语言：它拥有泛型，协议， 可以作为一等公民的函数（译者注：first-class function指函数可以向类一样作为参数传递），和包含很多可以的动态操作的函数的标准库，比如**map**和**filter**等（这意味着我们可以利用更安全更强大的函数来代替像KVC这样的操作方式）（译者注：KVC指Key-Value-Coding一个非正式的 Protocol，提供一种机制来间接访问对象的属性。）。对于大多数人而言，特别希望介绍[反射](http://inessential.com/2016/05/26/a_definition_of_dynamic_programming_in_t)这一特性，这意味着他们可以在程序运行时进行观察和修改。
 
-在**Swift**中，只有少量受限制的反射机制，尽管你可以在代码运行的时候动态的生成和插入一些东西。 比如这里是怎样为[**NSCoding**或者是JSON动态生成字典的实例](http://chris.eidhof.nl/post/swift-mirrors-and-json/).
+在**Swift**中，只有少量受限制的反射机制，尽管你可以在代码运行的时候动态的生成和插入一些东西。 比如这里是怎样为[**NSCoding**或者是JSON动态生成字典](http://chris.eidhof.nl/post/swift-mirrors-and-json/)的实例。
 
 今天在这里，我们将一起看一下在**Swift**中怎样去实现撤销功能。 其中一种方法是通过利用**Objective-C**中基于的反射机制所提供的**NSUndoManager**。通过利用**struct**，我们可以利用不同的方式在我们的APP中实现撤销这一功能。 在教程开始之前，请务必确保你自己已经理解了**Swift**中**struct**的工作机制(最重要的是去理解**struct**的拷贝机制)。
 首先要声明的一点是，这篇文章并不是想告诉大家我们不需要对**runtime**进行操作，或者我们提供的是一种**NSUndoManager**的替代品。这篇文章只是告诉了大家一种不同的思考方式而已。
 
-我们首先创建一个叫做**UndoHistory**的**struct**We’ll build a struct called `UndoHistory`. It’s generic, with the caveat that it only works when `A` is a struct. To keep a history of all the states, we can store every value in an array. Whenever we want to change something, we just push onto the array, and whenever we want to undo, we pop from the array. We always want to start with an initial state, so we create an initializer for that:
+我们首先创建一个叫做**UndoHistory**的**struct**。 通常而言，如果**A**是一个**struct**的话，创建**UndoHistory**时会伴随一个警告。为了保存所有状态信息，我们需要将其存放入一个数组之中。当我们修改了什么时，我们只需要将其**push**进数组中， 当我们希望进行撤回时，我们将其从数组中**pop**出去。我们通常希望有一个初试状态，所以我们需要建立一个初始化方法：
 ~~~ Swift
     struct UndoHistory<A> {
         private let initialValue: A
@@ -24,12 +24,12 @@
     }
 ~~~
 
-For example, if we want to add undo support to a table view controller that’s backed by an array, we can create a value of this struct:
+举个例子，如果我们想在一个**tableViewController**中通过数组的方式提供撤销操作，我们可以创建这样一个**struct**：
 ~~~ Swift
     var history = UndoHistory(initialValue: [1, 2, 3])
 ~~~
 
-To support undo for a different struct, we just start with a different initial value:
+对于不同情境下的撤销操作，我们可以创建不同的**struct**来实现:
 ~~~ Swift
     struct Person {
         var name: String
@@ -40,7 +40,7 @@ To support undo for a different struct, we just start with a different initial v
     var personHistory = UndoHistory(initialValue: Person(name: "Chris", age: 31))
 ~~~
 
-Of course, we want to have a way of getting the current state, and setting the current state (in other words: adding an item to our history). To get the current state, we simply return the last item in our `history` array, and if the array is empty, we return the initial value. To set the current state, we simply append to our `history` array.
+当然，我们希望获得当前的状态，同时设置相关状态。(换句话说：我们希望实时的操作我们的历史记录）。我们可以从**history**数组中的最后一项值来获取我们的状态，同时如果数组为空的话，我们便返回我们的初始值。 我们可以通过将当前状态添加至**history**数组来改变我们的操作状态。
 ~~~ Swift
     extension UndoHistory {
         var currentItem: A {
@@ -54,13 +54,13 @@ Of course, we want to have a way of getting the current state, and setting the c
     }
 ~~~
 
-For example, if we want to change the person’s age, we can easily do that through our new computed property:
+比如，如果我们想修改个人年龄（译者注：指前面作者编写的**Person**结构体中的**age**属性）， 我们可以通过重新计算属性来很轻松的做到这一点：
 ~~~ Swift
     personHistory.currentItem.age += 1
     personHistory.currentItem.age // Prints 32
 ~~~
 
-Of course, the code isn’t complete without an `undo` method. This is as simple as removing the last item from the array. Depending on your preference, you could also make it `throw` when the undo stack is empty, but I’ve chosen not to do that.
+当然，**undo** 方法的编写并未完成。对于从数组中移出最后一个元素来讲是非常简单的。 根据你自己的声明，你可以在数组为空的时候抛出一个异常，不过，我没有选择这样一种做法。
 ~~~ Swift
     extension UndoHistory {
         mutating func undo() {
@@ -70,13 +70,13 @@ Of course, the code isn’t complete without an `undo` method. This is as simple
     }
 ~~~
 
-Using it is easy:
+很简单的使用它（译者注：这里指作者前面所编写的**undo**相关代码）
 ~~~ Swift
     personHistory.undo()
     personHistory.currentItem.age // Prints 31 again
 ~~~~
 
-Of course, our `UndoHistory` works on more than just simple `Person` structs. For example, if we want to create a table view controller that’s backed by an `Array`, we can use the `currentItem` property to get the array out :
+当然，我们到现在的**UndoHistory**操作只是基于一个很简单的**Person**类。比如，如果我们想利用**Array**来实现一个**tableviewcontroller**的**undo**操作，我们可以利用**属性**来获取从数组中得到的元素：
 ~~~ Swift
     final class MyTableViewController<item>: UITableViewController {
         var data: UndoHistory<[item]>
@@ -104,7 +104,7 @@ Of course, our `UndoHistory` works on more than just simple `Person` structs. Fo
     }
 ~~~
 
-Another thing that is really cool with struct semantics: we get observation for free. For example, we could change the definition of `data`:
+在**struct**中另一个非常爽的特性是：我们可以自用的使用监听者模式。 比如,我们可以修改**data**的值：
 ~~~ Swift
     var data: UndoHistory<[item]> {
         didSet {
@@ -113,11 +113,11 @@ Another thing that is really cool with struct semantics: we get observation for 
     }
 ~~~
 
-Even if we change something deep inside the array (e.g. `data.currentItem[17].name = "John"`) our `didSet` will get triggered. Of course, we probably want to do something a little bit smarter than `reloadData`. For example, we could use the [Changeset](https://github.com/osteslag/Changeset) library to compute a diff and have insert/delete/move animations.
+我们即使是修改数组内很深的值（比如：**data.currentItem[17].name = "John"**），我们通过**didSet**也能很方面的定位修改的地方。当然,我们可能希望做一些例如**reloadData**这样方便的事情。比如， 我们可以利用[Changeset](https://github.com/osteslag/Changeset) 库来计算变化，然后来根据插入/删除/移动/等不同的操作来添加动画。
 
-Obviously, this approach has its drawbacks too. For example, it keeps a full history of the state, rather than a diff. It only works with structs (to be precise: only with structs that have value semantics). That said, you do not have to read the [runtime programming guide](https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Introduction/Introduction.html), you only need to have a good grasp of structs and generics to come up with this solution.
+很明显的是, 这种方法有着它自身的缺点。例如，它保存了整个状态的历史操作，不是每次状态变化之间的不同点。 这种方法只使用了**struct**来实现**undo**操作 （更为准确的讲：是只使用了**struct**中值的一些特性）。这意味着，你并不需要去阅读 [**runtime**编程指导](https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Introduction/Introduction.html)这本书， 你只需要对**struct**的特性有足够的了解然后拿出一个通用的解决方案。
 
 
 
-1.  It would probably be nice to define a computed property `items` which just gets and sets `data.currentItem`. This makes the data source / delegate method implementations much nicer. [<sup>[return]</sup>](#fnref:4f7f6a73fd4549ae772cf1c92915d55d:1)
-2.  If you want to take this further, there are a couple of fun exercises: try adding redo support, or labeled actions. You can implement reordering in the table view, and you will see that if you do it naively, you’ll end up with two entries in your undo history. [<sup>[return]</sup>](#fnref:4f7f6a73fd4549ae772cf1c92915d55d:2)
+1.  为**data.currentItem**提供一个可计算的属性**items**来进行获取和设置操作是一个非常好的方法。这使得**data-source**和**delegate**等方法的实现变得更为容易。
+2.  如果你想更进一步优化，这里有一些非常有意思的想法：添加恢复功能，或者是编辑功能。你可以在**tableView**中去实现, 如果你真的很天真的按照这个去做了，那么你会发现在你的**undo**历史中会存在重复记录。
