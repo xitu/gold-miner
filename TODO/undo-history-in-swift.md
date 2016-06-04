@@ -2,7 +2,7 @@
 * 原文作者 : [chriseidhof](https://twitter.com/chriseidhof/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [Zheaoli](https://github.com/Zheaoli)
-* 校对者:
+* 校对者: [xcc3641](https://github.com/xcc3641)
 
 
 
