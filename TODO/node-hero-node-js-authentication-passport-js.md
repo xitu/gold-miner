@@ -1,7 +1,7 @@
 >* 原文链接 : [Node Hero - Node.js Authentication using Passport.js](https://blog.risingstack.com/node-hero-node-js-authentication-passport-js/)
 * 原文作者 : [risingstack](https://blog.risingstack.com)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
+* 译者 :  [circlelove](https://github.com/circlelove)
 * 校对者:
 
 
