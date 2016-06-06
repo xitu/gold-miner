@@ -8,11 +8,11 @@
 
 <figcaption>你将要创建的东西</figcaption>
 
-在你刚接触 Flexbox 的时候没有必要理解关于 Flexbox 的 _所有_ 方面。在这篇教程中，我们将介绍在设计一个“ news layout ”（新布局）时所用到的 Flexbox 的一些特性。这个新布局你可以在 [The Guardian](http://www.theguardian.com) 上看到。
+在你刚接触 Flexbox 的时候没有必要理解关于 Flexbox 的 _所有_ 方面。在这篇教程中，我们将介绍 Flexbox 的一些新特性。同时设计一种新的、像 [The Guardian](http://www.theguardian.com) 一样的布局方式。
 
 我们使用 Flexbox 是因为它提供了许多强大的特性：
 
-*   我们可以简单地制作可响应的列
+*   我们可以通过简单的方式来实现响应式的纵列
 *   我们可以使列等高
 *   我们可以把内容塞入容器的 _底部_
 
@@ -25,11 +25,11 @@
 Flexbox 使流程更加简单，提供了如下：
 
 *   **简洁的代码**：我们仅仅只需要在容器了添加 `display: flex`
-*   不需要去 **清除** float, Flexbox 阻止了不期望的布局行为
+*   不需要去 **清除** float, Flexbox 避免了不期望的布局行为
 *   **语义标记**
-*   **灵活性**：我们可以用很少的 CSS 代码来调整列的尺寸、伸缩、对齐
+*   **灵活性**：我们可以用很少的 CSS 代码来调整列的尺寸、伸缩和对齐方式
 
-让我们开始制作两列：一个占容器的 2/3 宽度，一个占 1/3 。
+让我们开始制作两列：一个占容器的 2/3 宽度，另一个占 1/3 。
 
     <div class="columns">
       <div class="column main-column">
@@ -43,7 +43,7 @@ Flexbox 使流程更加简单，提供了如下：
 这里有两个元素：
 
 1.  一个 `columns` 容器
-2.  两个 `column` 子容器，有一个 `main-column` 的附加 class 使它更宽。
+2.  两个 `column` 子容器，其中一个添加名为 `main-column` 的 class 来使它更宽。
 
     .columns {
       display: flex;
@@ -65,7 +65,7 @@ Flexbox 使流程更加简单，提供了如下：
 
 ## <span class="sectionnum">2.</span> 把每一列都变成 Flexbox 容器
 
-这两列中的每一个都会包含数个垂直文章堆积，所以我们打算也把 `column` 元素移到 Flexbox 容器中。我们想要：
+这两列中的每一个都会垂直地堆积数篇文章，所以我们打算也把 `column` 元素移到 Flexbox 容器中。我们想要：
 
 *   文章被垂直堆积
 *   文章可 _拉伸_ 并且充满可获得的空间
@@ -90,7 +90,7 @@ _容器_ 上的 `flex-direction: column` 规则合并了 _子容器_ 上的 `fle
 *   一个标题
 *   一段话
 *   一个带有作者和评论数量的信息栏
-*   一个可操作的响应图片
+*   一张可选的响应图片
 
 我们在这里使用 Flexbox 是为了把信息栏塞入底部。作为参照，这是我们的目标文章布局：
 
@@ -165,13 +165,13 @@ _容器_ 上的 `flex-direction: column` 规则合并了 _子容器_ 上的 `fle
       flex: 2;
     }
 
-这将使你的列是其它的两倍宽。
+这将使新创建列的宽度是其他列的两倍。
 
 <iframe src="https://codepen.io/tutsplus/embed/wWBKaq/?height=500&amp;theme-id=12451&amp;default-tab=result" width="850" height="500" frameborder="no" allowfullscreen="true" scrolling="no"></iframe>
 
-## <span class="sectionnum">5.</span> 给第一篇文章一个横向布局
+## <span class="sectionnum">5.</span> 给第一篇文章一个水平布局
 
-第一篇文章太大了。为了优化使用空间，让我们把它的布局变成横向的。
+第一篇文章太大了。为了优化使用空间，让我们把它的布局变成水平的。
 
     .first-article {
       flex-direction: row;
@@ -196,9 +196,9 @@ _容器_ 上的 `flex-direction: column` 规则合并了 _子容器_ 上的 `fle
 
 这就是我们想要的所有效果，虽然看起来有点破碎。让我们在可响应上修复它吧。
 
-Flexbox 一个非常好的特性是：为了使 Flexbox 完全失效，你仅仅只需要移除容器上的 `display: flex` 规则即可，其他的所有 Flexbox 属性（比如 `align-items` 或者 `flex`）完全可以保留。
+Flexbox 一个非常好的特性是：如果想让 Flexbox 完全失效，你仅仅只需要移除容器上的 `display: flex` 规则即可，其他的所有 Flexbox 属性（比如 `align-items` 或者 `flex`）完全可以保留。
 
-作为结果，你可以通过仅仅在特定的断点上使能 Flexbox 来触发一个可响应的布局。
+作为结果，你可以仅仅通过在某一特定断点上启用 Flexbox 来触发一个响应式布局。
 
 我们将从 `.columns` 和 `.column` 上移除 `display: flex` ，而不是把它们放入  Media Query （响应式布局）中。
 
@@ -213,7 +213,7 @@ Flexbox 一个非常好的特性是：为了使 Flexbox 完全失效，你仅仅
 
 ## <span class="sectionnum">7.</span> 添加一些结束的润色
 
-为了让布局在更大屏设备适应，让我们添加一些 CSS 微调：
+为了让布局在更大屏设备适应，让我们对 CSS 做一些微调：
 
     @media screen and (min-width: 1000px) {
       .first-article {
