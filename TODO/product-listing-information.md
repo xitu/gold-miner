@@ -8,19 +8,19 @@
 
 _“我想有一种可以比较的方式，因此我可以不用点这个，再点返回，点那个，再点返回，点点点..”_ 一个顾客解释道，他想给自己的笔记本电脑找个包, _“除了价格和商品名称我在这找不到一点有用的信息。”_ 注意 Zappos 的多半电脑包描述里根本没有或只有模糊的有效尺寸描述，像 “大”。
 
-用户基于产品列表里关于这些产品的**有效信息**来选择是否购买这些商品。因此在我们经过大规模的[产品列表和筛选](http://baymard.com/research/ecommerce-product-lists)可用性学习后毫不奇怪地发现贫乏的列表项信息是和产品列表导航相关的最严重的可用性问题。
+用户基于产品列表里关于这些产品的**有效信息**来选择是否购买这些商品。因此在我们经过大规模的[产品列表和筛选](http://baymard.com/research/ecommerce-product-lists)可用性学习后毫不奇怪地发现贫乏的列表项信息是关于产品列表导航的最严重的可用性问题。
 
-经测试我们发现极少或低相关的列表项信息是有极大问题的，因为用户**不能适当评估**列表产品当他们缺少这些商品的本质信息。这会导致受测对象完美地误解了相关产品并导致他们在产品页和列表页之间不必要的来回跳转 – 他们不得不返回继续一遍刚才的操作, 打开列表页的每个产品只是为了了解它的基本属性和核心特征; a tiresome exercise that often resulted in the subjects abandoning the site as the friction in locating relevant products simply became too high. 显而易见，在每个列表页展示正确的数量和正确的类型信息对提升用户的产品查找体验是至关重要的。
+通过测试，我们发现信息过少或信息相关性过低的列表项很有问题，因为用户在缺少这些商品的基本信息的情况下是**无法进行适当评估的**。这会导致受测对象完完全全地误解了相关产品，并导致他们在产品页和列表页之间不必要的来回跳转 – 他们不得不返回继续一遍刚才的操作, 打开列表页的每个产品只是为了了解它的基本属性和核心特征; 这个令人不快的实践经常导致受测对象放弃访问站点，因为简单地定位相关产品的矛盾太突出了。 显而易见，在每个列表页展示正确的数量和正确的类型信息对提升用户的产品查找体验是至关重要的。
 
-另外，在产品列表页确认展示哪种类型的信息以及展示数量是个大问题 , 像我们[产品列表基准](http://baymard.com/ecommerce-product-lists/benchmark/site-reviews) 的前50名美国电商网站证明了这些网站中的46%经历过展示了贫乏的可选内容（翻的不太通顺求校对的童鞋给点建议）。(一小部分网站则截然相反，他们在列表项上展示了过多的信息!)
+另外，在产品列表页确认展示哪种类型的信息以及展示数量是个大问题 , 就像我们全美 Top 50 的电商网站的[产品清单列表](http://baymard.com/ecommerce-product-lists/benchmark/site-reviews)  所显示的，这些网站中的 46% 都有展示内容过少或展示信息选择不当的毛病。(一小部分网站则截然相反，他们在列表项上展示了过多的信息!)
 
 ![](http://assets.baymard.com/research/media_files/attachments/17287/original/research-media-file-0f8ef662d7a97428d80c08682f3f36ca.jpg)</div>
 
-测试期间发现，[Gilt](http://baymard.com/ecommerce-product-lists/benchmark/site-reviews/228-gilt) 失败地展示了列表信息的关键部分:  可选商品品种! 导致多个受测对象选择不购买这些商品，因为他们认为只有显示颜色的商品是在售的，事实上多种颜色的品种都是在售的。
+测试期间发现，[Gilt](http://baymard.com/ecommerce-product-lists/benchmark/site-reviews/228-gilt) 没有展示了列表信息的关键部分:  可选商品的种类！这导致了多个测试受试者拒绝购买商品，因为他们认为该商品只有显示颜色的有货，实际上它有多种颜色可选择。
 
 ![](http://assets.baymard.com/research/media_files/attachments/17288/original/research-media-file-61b54f07f843f261b3958b95261848b5.jpg)</div>
 
-除了所有的通用“普遍”属性， [Crutchfield](http://baymard.com/ecommerce-product-lists/benchmark/site-reviews/254-crutchfield) 在特定分类的属性也存在严重的问题 – 那就是和产品类型相关的唯一信息。举个例子，the ‘X-watts-RMS’ 和 ‘filter pass’ 属性只和汽车扩音器相关，因此只有这些产品才会展示这些信息。同时，这个站点的其他种类的产品只展示和这个种类相关的属性。
+除了所有常见的“通用”属性， [Crutchfield](http://baymard.com/ecommerce-product-lists/benchmark/site-reviews/254-crutchfield) 在特定分类的属性也存在严重的问题 – 那就是和产品类型相关的唯一信息。举个例子，the ‘X-watts-RMS’ 和 ‘filter pass’ 属性只和汽车扩音器相关，也因此仅仅在这些栏目中被展示。同时，这个站点的其他种类的所有产品也仅仅只展示了垂直向的唯一相关性。
 
 在列表项中获得一个好的**信噪比**对提升用户找到他们想要找到商品的能力是至关重要的。– 很明显目前不容易得到这种能力。它需要仔细斟酌要展示产品属性的提炼。这篇文章里我们会为大家呈现从我们的[产品列表和筛选](http://baymard.com/research/ecommerce-product-lists)学习针对如何准确地评估产品列表里信息的展示量和种类得到的测试发现。
 
@@ -90,10 +90,8 @@ IKEA提供了产品标题（系列）和类型，单独一个产品名称对用�
 
 **用户排名**经常被多数行业和网站当做普遍属性放在列表项里。经测试发现，无论何时对特性领域产品了解不深的用户都会依赖用户排名来评估搜索到的相关结果 - 并视那些高排名的项为被其他用户审查过“安全选择”。
 
-Many users effectively rely on ratings as a proxy for “good quality / value for money” when they don’t feel comfortable making that evaluation themselves. Thus, if a significant number of your user base aren’t experts in the product type(s) being sold at the site, a ratings summary should be included directly in the product list items. When including user ratings in the product list, note that it is essential to include _both_ the user rating average _and_ the number of ratings the average is based on – as we’ve time and again observed that users find the rating average useless without the number of rating (see [Users’ Perception of Product Ratings](http://baymard.com/blog/user-perception-of-product-ratings) and [Don’t Base ‘Customer Ratings’ Sorting on Averages Only](http://baymard.com/blog/sort-by-customer-ratings)).
-
-有些用户在他们没法自己做出判断的时候就把排名作为“好质量/划算”的代表。因此，如果用户依赖的数据不是在售商品方面的专家，排名概述就应该被直接包含在产品列表中。
-
+有些用户在他们没法自己做出判断的时候就把评分作为“好质量/划算”的代表。因此，如果用户依赖的数据不是在售商品方面的专家，评分就应该被直接包含在产品列表中。
+当我们把用户评分放进产品列表时，注意实际上应该包括平均用户评分和平均评分数量。我们回过头来看，发现用户意识到平均评分在没有评分人数是没用的（参见[Users’ Perception of Product Ratings](http://baymard.com/blog/user-perception-of-product-ratings) 和 [Don’t Base ‘Customer Ratings’ Sorting on Averages Only](http://baymard.com/blog/sort-by-customer-ratings)）。
 
 ## 特有属性
 
