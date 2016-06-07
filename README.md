@@ -28,6 +28,7 @@
 
 ## Android
 
+* [Vector For All (slight return)](http://gold.xitu.io/entry/5756697ea341310063dd532c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([huanglizhuo](https://github.com/huanglizhuo) 翻译)
 * [Vectors For All (almost)](http://gold.xitu.io/entry/574e8b192b51e900560074f8?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([edvardhua](https://github.com/edvardHua) 翻译)
 * [Vectors For All (最终篇)](http://gold.xitu.io/entry/574d7894df0eea005bcfb10b?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Jaeger](https://github.com/laobie) 翻译)
 * [为什么 Android 上 Canvas 画出的图形不够平滑？](http://gold.xitu.io/entry/5739909a79df5400601cfc71?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Sausure](https://github.com/Sausure) 翻译)
