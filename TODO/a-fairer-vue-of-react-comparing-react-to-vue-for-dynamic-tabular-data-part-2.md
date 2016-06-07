@@ -28,9 +28,11 @@ Our first test suggested that Vue massively outperformed React, which was very s
 We also pushed some broken test data that further skewed the results by having Vue perform 10x as much work as the equivalent version in React. In our original tests both frameworks were run against equivalent data, but the version on Github had this inconsistency, so other people running the tests may have seen misleading results.
 
 ## Changes from previous test
+
 *   Run in [production mode](https://github.com/footballradar/VueReactPerf/pull/3)
 *   Add `webpack.optimize.UglifyJsPlugin`
 *   Add [babel-react-optimize preset](https://github.com/thejameskyle/babel-react-optimize)
+
 ## New Findings
 
 We'll post the timeline summaries below and we have screenshots of the actual timeline and bottom-up stacks in the repo: [https://github.com/footballradar/VueReactPerf/tree/master/results/v2](https://github.com/footballradar/VueReactPerf/tree/master/results/v2)
@@ -40,7 +42,7 @@ Interestingly the Chrome dev tools crashes when retrieving a 30s timeline for th
 All of the results below share a common theme: React performs more scripting work, as we would expect from its virtual DOM implementation, and Vue is heavier on painting and rendering as it touches the DOM directly. The key difference is that in terms of total work done, Vue _still_ appears to be faster by up to 25% in some cases. This is not the huge difference we originally reported but still noteworthy.
 ##### 50 games, 100ms delay between updates.
 React:  
-![](http://ac-Myg6wSTV.clouddn.com/db193173edb195a87f94.png)
+![](http://ww2.sinaimg.cn/large/a490147fgw1f4mtuj37onj207f04l74d.jpg)
 
 Vue:  
 ![](http://ac-Myg6wSTV.clouddn.com/29bf60c3f146eab2c6dc.png)
