@@ -206,83 +206,88 @@ const isArrayEqual = (array1 = [], array2 = []) => {
 ```
 
 
-## Make shouldComponentUpdate checks easy
+## 简化 shouldComponentUpdate 检查
 
-Example of a _hard_ **shouldComponentUpdate**
+先看一个_复杂_的 **shouldComponentUpdate** 示例
 
-        // Data structure with good separation of concerns (normalised data)
-    const state = {
-        items: [
-            {
-                id: 5,
-                description: 'some really cool item'
-            }
-        ],
-
-        // an object to represent the users interaction with the system
-        interaction: {
-            selectedId: 5
+```javascript
+// 关注分离的数据结构（标准化数据）
+const state = {
+    items: [
+        {
+            id: 5,
+            description: 'some really cool item'
         }
-    };
+    ]
 
-Structuring your data like this makes doing checks in your **shouldComponentUpdate** _hard_
+    // 表示用户与系统交互的对象
+    interaction: {
+        selectedId: 5
+    }
+};
+```
 
-        import React, {Component, PropTypes} from 'react';
+这样组织你的数据，会使得在 **shouldComponentUpdate** 变的_困难_
 
-    class List extends Component {
+```javascript
+import React, { Component, PropTypes } from 'react'
 
-        propTypes = {
-            items: PropTypes.array.isRequired,
-            interaction: PropTypes.object.isRequired
-        }
+class List extends Component {
 
-        shouldComponentUpdate (nextProps) {
-            // have any of the items changed?
-            if(!isArrayEqual(this.props.items, nextProps.items)){
-                return true;
-            }
-            // everything from here is horrible.
-
-            // if interaction has not changed at all then when can return false (yay!)
-            if(isObjectEqual(this.props.interaction, nextProps.interaction)){
-                return false;
-            }
-
-            // at this point we know:
-            //      1\. the items have not changed
-            //      2\. the interaction has changed
-            // we need to find out if the interaction change was relevant for us
-
-            const wasItemSelected = this.props.items.any(item => {
-                return item.id === this.props.interaction.selectedId
-            });
-            const isItemSelected = nextProps.items.any(item => {
-                return item.id === nextProps.interaction.selectedId
-            });
-
-            // return true when something has changed
-            // return false when nothing has changed
-            return wasItemSelected !== isItemSelected;
-        }
-
-        render() {
-            <div>
-                {this.props.items.map(item => {
-                    const isSelected = this.props.interaction.selectedId === item.id;
-                    return (<item item="{item}" isselected="{isSelected}">);
-                })}
-            </item></div>
-        }
+    propTypes = {
+        items: PropTypes.array.isRequired,
+        iteraction: PropTypes.object.isRequired
     }
 
-#### Problem 1: huge **shouldComponentUpdate** functions
+    shouldComponentUpdate (nextProps) {
+        // items 中的元素是否发生了改变？
+        if(!isArrayEqual(this.props.items, nextProps.items)) {
+            return true;
+        }
 
-You can see how big and complex the **shouldComponentUpdate** is with a very simple data. This is because the function needs to know about the data structures and how they related to one another. The complexity and size of **shouldComponentUpdate** functions only grows as your data structure does. This can _easily_ lead to two errors:
+        // 从这里开始事情会变的很恐怖
 
-1.  returning **false** when you should not (state is not correctly represented in the app)
-2.  returning **true** when you should not (performance problem)
+        // 如果 interaction 没有变化，那可以返回 false （真棒！）
+        if(isObjectEqual(this.props.interaction, nextProps.interaction)) {
+            return false;
+        }
 
-Why make things hard for yourself? You want these checks to be so easy that you do not need to really think about them.
+        // 如果代码运行到这里，我们知道：
+        //    1. items 没有变化
+        //    2. interaction 变了
+        // 我们需要 interaction 的变化是否与我们相干
+
+        const wasItemSelected = this.props.items.any(item => {
+            return item.id === this.props.interaction.selectedId
+        })
+        const isItemSelected = nextProps.items.any(item => {
+            return item.id === nextProps.interaction.selectedId
+        })
+
+        // 如果发生了改变就返回 true
+        // 如果没有发生变化就返回 false
+        return wasItemSelected !== isItemSelected;
+    }
+
+    render() {
+        <div>
+            {this.props.items.map(item => {
+                const isSelected = this.props.interaction.selectedId === item.id;
+                return (<Item item={item} isSelected={isSelected} />);
+            })}
+        </div>
+    }
+}
+```
+
+#### 问题1：**shouldComponentUpdate** 体积庞大
+
+你可以看出一个非常简单的数据对应的 **shouldComponentUpdate** 即庞大又复杂。这是因为它需要知道数据的结构以及它们之间的关联。**shouldComponentUpdate** 函数的复杂度和体积只随着你的数据结构增长。这_很容易_导致两点错误：
+
+1.  在不应该返回 **false** 的时候返回 **false**（应用显示错误的状态）
+2.  在不应该返回 **true** 的时候返回 **true**（引发性能问题）
+
+为什么要让事情变得这么复杂？你只想让这些检查变得简单一点，以至于你根本就不必考虑它们。
 
 #### Problem 2: tight coupling of parents to children
 
