@@ -289,297 +289,318 @@ class List extends Component {
 
 为什么要让事情变得这么复杂？你只想让这些检查变得简单一点，以至于你根本就不必考虑它们。
 
-#### Problem 2: tight coupling of parents to children
+#### 问题2：父子级之间强耦合
 
-Generally applications want to promote loose coupling (components know as little about other components as possible). Parent components should have as little understanding as possible about how their children work. This allows you to change the children's behaviour without the parent needing to know about the change (assuming the **PropTypes** remain the same). It also allows children to operate in isolation without needing a parent to tightly control it's behaviour.
+通常而言，应用都要推广松耦合（组件对其它的组件知道的越少越好）。父组件应该尽量避免知晓其子组件的工作原理。这就允许你改变子组件的行为而无须让父级知晓这些变化（假设 **PropsTypes** 保持不变）。它还允许子组件独立运转，而不必让父级紧密的控制其行为。
 
-#### Fix: **Denormalize your data**
+#### 解决办法：**压平你的数据**
 
-By denormalizing (merging) your data structure you can go back to just using really simple reference checks to see if anything has changed.
+通过压平（合并）你的数据结构，你可以重新使用非常简单的引用检查来看是否有什么发生了变化。
 
-        const state = {
-        items: [
-            {
-                id: 5,
-                description: 'some really cool item',
+```javascript
+const state = {
+    items: [
+        {
+            id: 5,
+            description: 'some really cool item',
 
-                // interaction now lives on the item itself
+            // interaction 现在存在于 item 的内部
+            interaction: {
+                isSelected: true
+            }
+        }
+    }
+};
+```
+
+这样组织你的数据使得在 **shouldComponentUpdate** 中做检查变得_简单_
+
+```javascript
+import React, {Component, PropTypes} from 'react'
+
+class List extends Component {
+
+    propTypes = {
+        items: PropTypes.array.isRequired
+    }
+
+    shouldComponentUpdate(nextProps) {
+        // so easy，麻麻再也不用担心我的更新检查了
+        return isObjectEqual(this.props, nextProps);
+    }
+
+    render() {
+        <div>
+            {this.props.items.map(item => {
+
+                return (
+                <Item item={item}
+                    isSelected={item.interaction.isSelected} />)
+            })}
+        </div>
+    }
+}
+```
+
+如果你想要更新 **interaction** 你就改变整个对象的引用
+
+```javascript
+// redux reducer
+export default (state, action) => {
+
+    if(action.type === 'ITEM_SELECT') {
+
+        const { itemId } = action;
+
+        const items = state.items.map(item => {
+            if(item.id !== itemId) {
+                return item;
+            }
+
+            // 改变整个对象的引用
+            return {
+                ...item,
                 interaction: {
                     isSelected: true
                 }
             }
-        ]
-    };
+        })
 
-Structuring your data like this makes doing checks in your **shouldComponentUpdate** _easy_
-
-        import React, {Component, PropTypes} from 'react';
-
-    class List extends Component {
-
-        propTypes = {
-            items: PropTypes.array.isRequired
-        }
-
-        shouldComponentUpdate (nextProps) {
-            // so easy
-            return isObjectEqual(this.props, nextProps);
-        }
-
-        render() {
-                <div>
-                    {this.props.items.map(item => {
-
-                        return (
-                        <item item="{item}" isselected="{item.interaction.isSelected}">);
-                    })}
-                </item></div>
-            }
+        return {
+            ...state,
+            items
+        };
     }
 
-If you want to update the **interaction** you change the reference to the whole object
+    return state;
+};
+```
 
-        // redux reducer
-    export default (state, action) => {
 
-        if(action.type === 'ITEM_SELECT') {
+## 误区：引用检查与动态 props
 
-            const {itemId} = action;
+一个创建动态 props 的例子
 
-            const items = state.items.map(item => {
-                if(item.id !== itemId) {
-                    return item;
+```javascript
+class Foo extends React.Component {
+    render() {
+        const {items} = this.props;
+
+        // 这个对象每次都有一个新的引用
+        const newData = { hello: 'world' };
+
+
+        return <Item name={name} data={newData} />
+    }
+}
+
+class Item extends React.Component {
+
+    // 即便前后两个对象的值相同，检查也总会返回true，因为 `data` 每次都会得到一个新的引用
+    shouldComponentUpdate(nextProps) {
+        return isObjectEqual(this.props, nextProps);
+    }
+}
+```
+
+通常我们不会在组件中创建一个新的 props 把它传下来 。但是，这在循环中更为常见
+
+```javascript
+class List exntends React.Component {
+    render() {
+        const {items} = this.props;
+
+        <div>
+            {items.map((item, index) => {
+                // 这个对象每次都会获得一个新引用
+                const newData = {
+                    hello: 'world',
+                    isFirst: index === 0
+                };
+
+
+                return <Item name={name} data={newData} />
+            })}
+        </div>
+    }
+}
+```
+
+这在创建函数时很常见
+
+```javascript
+import myActionCreator from './my-action-creator';
+
+class List extends React.Component {
+    render() {
+        const {items, dispatch} = this.props;
+
+        <div>
+            {items.map(item => {
+                // 这个函数的引用每次都会变
+                const callback = () => {
+                    dispatch(myActionCreator(item));
                 }
 
-                // changing the reference to the whole object
-                return {
-                    ...item,
-                    interaction: {
-                        isSelected: true
-                    }
-                }
-
-            });
-
-            return {
-              ...state,
-              items
-            };
-        }
-
-        return state;
-    };
-
-
-## Gotcha: reference checking and dynamic props
-
-An example of creating dynamic props
-
-        class Foo extends React.Component {
-        render() {
-            const {items} = this.props;
-
-            // this object will have a new reference every time
-            const newData = { hello: 'world' };
-
-            return <item data="{newData}">
-        }
+                return <Item name={name} onUpdate={callback} />
+            })}
+        </div>
     }
+}
+```
 
-    class Item extends React.Component {
+#### 解决问题的策略
 
-        // this will always return true as `data` will have a new reference every time
-        // even if the objects have the same value
-        shouldComponentUpdate(nextProps) {
-            return isObjectEqual(this.props, nextProps);
-        }
-    }
-    </item>
+1.  避免在组件中创建动态的 props
 
-Usually we do not create new props inside a component to just pass it down. However, it is more prevalent to do this inside of loops
+改善你的数据模型，这样你就可以直接把 props 传下来
 
-        class List extends React.Component {
-        render() {
-            const {items} = this.props;
-
-            <div>
-                {items.map((item, index) => {
-                     // this object will have a new reference every time
-                    const newData = {
-                        hello: 'world',
-                        isFirst: index === 0
-                    };
-
-                    return <item data="{newData}">
-                })}
-            </item></div>
-        }
-    }
-
-This is commonly used when creating functions
-
-    import myActionCreator from './my-action-creator';
-
-    class List extends React.Component {
-        render() {
-            const {items, dispatch} = this.props;
-
-            <div>
-                {items.map(item => {
-                     // this function will have a new reference every time
-                    const callback = () => {
-                        dispatch(myActionCreator(item));
-                    }
-
-                    return <item onupdate="{callback}">
-                })}
-            </item></div>
-        }
-    }
-
-#### Strategies to overcome the issue
-
-1\. Avoid creating dynamic props inside of components
-
-improve your data model so that you can just pass props straight through
-
-2\. Pass dynamic props as types that satisfy **===** equality
+2.  把动态 props 转化成满足全等（**===**）的类型传下来
 
 eg:  
 - boolean  
 - number  
 - string
 
-        const bool1 = true;
-    const bool2 = true;
+```javascript
+const bool1 = true;
+const bool2 = true;
 
-    bool1 === bool2; // true
+bool1 === bool2; // true
 
-    const string1 = 'hello';
-    const string2 = 'hello';
+const string1 = 'hello';
+const string2 = 'hello';
 
-    string1 === string2; // true
+string1 === string2; // true
+```
 
-If you really do need to pass in a dynamic object you could pass a string representation of the object that could be deconstructed in the child
+如果你实在需要传递动态对象，那就把它当作字符串传下来，再在子级进行解构
 
-        render() {
-        const {items} = this.props;
+```javascript
+render() {
+    const {items} = this.props;
 
-        <div>
-            {items.map(item => {
-                // will have a new reference every time
-                const bad = {
-                    id: item.id,
-                    type: item.type
-                };
+    <div>
+        {items.map(item => {
+            // 每次获得新引用
+            const bad = {
+                id: item.id,
+                type: item.type
+            };
 
-                // equal values will satify strict equality '==='
-                const good = `${item.id}::${item.type}`;
+            // 相同的值可以满足严格的全等 '==='
+            const good = `${item.id}::${item.type}`;
 
-                return <item identifier="{good}">
-            })}
-        </item></div>
-    }
+            return <Item identifier={good} />
+        })}
+    </div>
+}
+```
     
-#### Special case: functions
+#### 特殊情况：函数
 
-1.  Do not pass functions if you can avoid it. Rather, let the child **dispatch** actions when it wants to. This has the added advantage of moving business logic out of components.
-2.  Ignore functions in your **shouldComponentUpdate** check. This is not ideal as it won't be able to know if the value of the function changes.
-3.  Create a map of **data -> function** that does not change. You could put these in **state** in your **componentWillReceiveProps** function. That way each render would not get a new reference. This method is extremely heavy handed as you need to maintain and update a list of functions.
-4.  Create a middle component with the correct this binding. This is also not ideal as you introduce a redundant layer into your hierarchy
-5.  Anything else you can think of that avoids creating a new function every time **render** is called!
+1.  如果可以的话，尽量避免传递函数。相反，让子组件自由的 **dispatch** 动作。这还有个附加的好处就是把业务逻辑移出组件。
+2.  在 **shouldComponetUpdate** 中忽略函数检查。这样不是很理想，因我们不知道函数的值是否变化了。
+3.  创建一个 **data -> function** 的不可变绑定。你可以在 **componentWillReceiveProps** 函数中把它们存到 **state** 中去。这样就不会在每一次 render 时拿到新的引用。这个方法极度笨重，因为你须要维护和更新一个函数列表。
+4.  创建一个拥有正确 this 绑定的中间组件。这也不够理想，因为你在层级中引入了一个冗余层。
+5.  任何其它你能够想到的、能够避免每次 **render** 调用时创建一个新函数的方法。
 
-Example of strategy #4
+方案4 的示例
 
-        // introduce another layer 'ListItem'
-    <list>
-        <listitem> // you can create the correct this bindings in here
-            <item>
-        </item></listitem>
-    </list>
+```javascript
+// 引入另外一层 'ListItem'
+<List>
+    <ListItem> // 你可以在这里创建正确的 this 绑定
+        <Item />
+    </ListItem>
+</List>
 
-    class ListItem extends React.Component {
+class ListItem extends React.Component {
 
-        // this will always have the correct this binding as it is tied to the instance
-        // thanks es7!
-        const callback = () => {
-              dispatch(doSomething(item));
-        }
-
-        render() {
-            return <item callback="{this.callback}" item="{this.props.item}">
-        }
+    // 这样总能得到正确的 this 绑定，因为它绑定在了实例上
+    // 感谢 es7！
+    const callback = () => {
+        dispatch(doSomething());
     }
-    </item>
 
-## Tooling
+    render() {
+        return <Item callback={this.callback} item={this.props.item} />
+    }
+}
+```
 
-All of the rules and techniques listed above were found by using performance measuring tools. Using tools will help you find performance hotspots specific to your application.
+## 工具
+
+以上列出来的所有规则和技巧都是通过使用性能测量工具发现的。使用工具可以帮助你发现你的应用的具体性能问题所在。
 
 #### console.time
 
-This one is fairly simple:
+这一个相当简单：
 
-1.  start a timer
-2.  do stuff
-3.  stop the timer
+1.  开始一个计时器
+2.  做点什么
+3.  停止计时器
 
-A great way to do this is with a Redux middleware:
+一个比较好的做法是使用 Redux 中间件：
 
-    export default store => next => action => {
-        console.time(action.type);
+```javascript
+export default store => next => action => {
+    console.time(action.type)
 
-        // `next` is a function that takes an 'action' and sends it through to the 'reducers'
-        // this will result in a re-render of your application
-        const result = next(action);
+    // `next` 是一个函数，它接收 'action' 并把它发送到 ‘reducers' 进行处理
+    // 这会导致你应有的一次重渲
+    const result = next(action);
 
-        // how long did the render take?
-        console.timeEnd(action.type);
+    // 渲染用了多久？
+    console.timeEnd(action.type);
 
-        return result;
-    };
+    return result;
+};
+```
 
-Using this method you can record the time taken for every action and its resulting render in your application. You can quickly see what actions take the longest amount of time to render which gives you a good place to start when addressing performance concerns. Having time values also helps you to see the what difference your changes are making to your application.
+用这个方法可以记录你应用的每一个 action 和它引起的渲染所花费的时间。你可以快速知道哪些 action 渲染时间最长，这样当你解决性能问题时就可以从那里着手。拿到时间值还能帮助你判断你所做的性能优化是否奏效了。
 
 #### React.perf
 
-This one uses the same idea as **console.time** but uses the React performance utility tools:
+这个工具的思路和 **console.time** 是一致的，只不过用的是 React 的性能工具：
 
 1.  Perf.start()
 2.  do stuff
-3.  Perf.stop
+3.  Perf.stop()
 
-Example Redux middleware:
+Redux 中间件示例：
 
-        import Perf from 'react-addons-perf';
+```javascript
+import Perf from 'react-addons-perf';
 
-    export default store => next => action => {
-        const key = `performance:${action.type}`;
-        Perf.start();
+export default store => next => action => {
+    const key = `performance:${action.type}`;
+    Perf.start();
 
-        // will re-render the application with new state
-        const result = next(action);
-        Perf.stop();
+    // 拿到新的 state 重渲应用
+    const result = next(action);
+    Perf.stop();
 
-        console.group(key);
-        console.info('wasted');
-        Perf.printWasted();
-        // any other Perf measurements you are interested in
+    console.group(key);
+    console.info('wasted')'
+    Perf.printWasted();
+    // 你可以在这里打印任何你感兴趣的 Perf 测量值
 
-        console.groupEnd(key);
-        return result;
-    };
+    console.groupEnd(key);
+    return result;
+};
+```
 
-Similar to the **console.time** method this will let you see performance metrics for each of your actions. For more information on the React performance addon [see here](https://facebook.github.io/react/docs/perf.html)
+与 **console.time** 方法类似，它能让你看到你每一个 action 的性能指标。更多关于 React 性能 addon 的信息请点击[这里](https://facebook.github.io/react/docs/perf.html)
 
-#### Browser tools
+#### 浏览器工具
 
-CPU profiler flame charts can also be helpful in finding performance problems in your applications.
+CPU 分析器火焰图表在寻找你的应用程序的性能问题时也能发挥作用。
 
-> The Flame Chart shows you the state of the JavaScript stack for your code at every millisecond during the performance profile. This gives you a way to know exactly which function was executing at any point during the recording, how long it ran for, and where it was called from - Mozilla
+> 在做性能分析时，火焰图表会展示出每一毫秒你的代码的 Javascript 堆栈的状态。在记录的时候，你就可以确切地知道任意时间点执行的是哪一个函数，它执行了多久，又是谁调用了它。—— Mozilla
 
 Firefox: [see here](https://developer.mozilla.org/en-US/docs/Tools/Performance/Flame_Chart)
 
 Chrome: [see here](https://addyosmani.com/blog/devtools-flame-charts/)
 
-Thanks for reading and all the best in making highly performant React apps!
+感谢阅读，祝你顺利构建出高性能的 React 应用！
