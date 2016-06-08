@@ -6,60 +6,61 @@
 
 ![](http://ww2.sinaimg.cn/large/0060lm7Tgw1f47ucaolgzj31jk0lmtcc.jpg)
 
-#### TLDR;
+#### 要点梗概
 
-The main performance hotspot in React applications is redundant processing and DOM diffing in components. In order to avoid this return **false** from **shouldComponentUpdate** as high up in your application as you can.
+React 应用主要的性能问题在于多余的处理和组件的 DOM 比对。为了避免这些性能陷阱，你应该尽可能的在 **shouldComponentUpdate** 中返回 **false** 。
 
-To facilitate this:
 
-1.  Make **shouldComponentUpdate** checks _fast_
-2.  Make **shouldComponentUpdate** checks _easy_
+简而言之，归结于如下两点：
 
-#### Disclaimers!
+1.  _加速_ **shouldComponentUpdate** 的检查
+2.  _简化_ **shouldComponentUpdate** 的检查
 
-The examples in this blog will be using React + Redux. If you are using another data-flow library the principles will apply but the implementation will be different.
+#### 免责声明！
 
-I have not used an immutability library in this blog but only vanilla es6 and a little bit of es7\. A few things become easier when using an immutability library but I will not be discussing them here.
+文章中的示例是用 React + Redux 写的。如果你用的是其它的数据流库，原理是相通的但是实现会不同。
 
-## What is the main performance hotspot in React applications?
+在文章中我没有使用 immutability (不可变)库，只是一些普通的 es6 和一点 es7。有些东西用不可变数据库要简单一点，但是我不准备在这里讨论这一部分内容。
 
-1.  Redundant processing in components that do not update the DOM
-2.  DOM diffing leaf nodes that do not need to be updated  
-    - while DOM diffing is incredible and facilitates React, it is not trivial computationally
+## React 应用的主要性能问题是什么？
 
-## What is the default render behaviour in React?
+1.  组件中那些不更新 DOM 的冗余操作
+2.  DOM 比对那些无须更新的叶子节点  
+    - 虽则 DOM 比对很出色并加速了 React ，但计算成本是不容忽视的
 
-Let's take a look at how React renders components
+## React 默认的渲染行为是怎样的？
 
-#### Initial render
+我们来看一下 React 是如何渲染组件的。
 
-On the initial render we need the entire application to render  
-(green = nodes that rendered)
+#### 初始化渲染
+
+在初始化渲染时，我们需要渲染整个应用  
+（绿色 ＝ 已渲染节点）
 
 ![](http://ww2.sinaimg.cn/large/0060lm7Tgw1f47uc09colj318g0haacs.jpg)
 
-Every node has rendered - this is good! Our application now represents our initial state
+每一个节点都被渲染 —— 这很赞！我们的应用现在呈现了我们的初始状态。
 
-#### Proposed change
+#### 提出改变
 
-We want to update a piece of data. This change is only relevant to one leaf node
+我们想更新一部分数据。这些改变只和一个叶子节点相关
 
 ![](http://ww4.sinaimg.cn/large/0060lm7Tgw1f47ubbtpw1j318g0haju7.jpg)
 
-#### Ideal update
+#### 理想更新
 
-We want to only render the nodes that are along the critical path to our leaf node
+我们只想渲染通向叶子节点路径上的这几个节点
 
 ![](http://ww2.sinaimg.cn/large/0060lm7Tgw1f47ub7ewwsj318g0ha773.jpg)
 
-#### Default behaviour
+#### 默认行为
 
-This is what React does if you do not tell it otherwise  
-(orange = waste)
+如果你不告诉 React 别这样做，它便会如此
+（橘黄色 ＝ 浪费的渲染）
 
 ![](http://ww3.sinaimg.cn/large/0060lm7Tgw1f47ubiztaxj318g0hagoe.jpg)
 
-Oh no! All of our nodes have rendered.
+哦，不！我们所有的组件都重渲了。
 
 Every component in React has a **shouldComponentUpdate(nextProps, nextState)** function. It is the responsibility of this function to return **true** if the component should update and **false** if the component should not update. Returning **false** results in the components **render** function not being called at all. The default behaviour in React is that **shouldComponentUpdate** always returns **true**, even if you do not define a **shouldComponentUpdate** function explicitly.
 
