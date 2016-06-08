@@ -17,7 +17,7 @@ Activities are very hefty objects, so you should never choose to defy the Androi
 
 The easiest way to leak an Activity is by defining a static variable inside the class definition of the Activity and then setting it to the running instance of that [Activity](https://github.com/NimbleDroid/Memory-Leaks/blob/master/app/src/main/java/com/nimbledroid/memoryleaks/MainActivity.java#L110). If this reference is not cleared before the Activity’s lifecycle completes, the Activity will be leaked. This is because the object representing the class of the Activity (i.e., MainActivity) is static and remains loaded in memory for the entire runtime of the app. If this class object holds a reference to your Activity instance, it therefore won’t be eligible for garbage collection.
 
-<figure>
+
 
     void setStaticActivity() {
       activity = this;
@@ -31,7 +31,7 @@ The easiest way to leak an Activity is by defining a static variable inside the 
       }
     });
 
-</figure>
+
 
 ![](http://blog.nimbledroid.com/assets/memory-leaks-imgs/image07.png)
 
@@ -44,7 +44,7 @@ A similar situation would be implementing a singleton pattern where an activity 
 
 But what if we have a particular View that takes a great deal of effort to instantiate but will remain unchanged across different lifetimes of the same Activity? Well then let’s make just that View static after instantiating it and attaching it to the View hierarchy, like we do [here](https://github.com/NimbleDroid/Memory-Leaks/blob/master/app/src/main/java/com/nimbledroid/memoryleaks/MainActivity.java#L132). Now if our Activity is destroyed, we should be able to release most of its memory.
 
-<figure>
+
 
     void setStaticView() {
       view = findViewById(R.id.sv_button);
@@ -58,7 +58,7 @@ But what if we have a particular View that takes a great deal of effort to insta
       }
     });
 
-</figure>
+
 
 ![](http://blog.nimbledroid.com/assets/memory-leaks-imgs/image02.png)
 
@@ -71,7 +71,7 @@ Wait, what? Surely you knew that an attached View will maintain a reference to i
 
 Moving on, let’s say we define a class inside the definition of our Activity’s class, known as an [Inner Class](https://github.com/NimbleDroid/Memory-Leaks/blob/master/app/src/main/java/com/nimbledroid/memoryleaks/MainActivity.java#L126). The programmer may choose to do this for a number of reasons including increasing readability and encapsulation. What if we create an instance of this Inner Class and maintain a static reference to it? At this point you might as well just guess that a memory leak is imminent.
 
-<figure>
+
 
     void createInnerClass() {
         class InnerClass {
@@ -87,7 +87,7 @@ Moving on, let’s say we define a class inside the definition of our Activity�
         }
     });
 
-</figure>
+
 
 ![](http://blog.nimbledroid.com/assets/memory-leaks-imgs/image03.png)
 
@@ -99,7 +99,7 @@ Unfortunately because one of the benefits of Inner Class instances is that they 
 
 Similarly, Anonymous Classes will also maintain a reference to the class that they were declared inside. Therefore a leak can occur if you [declare and instantiate an AsyncTask anonymously inside your Activity](https://github.com/NimbleDroid/Memory-Leaks/blob/master/app/src/main/java/com/nimbledroid/memoryleaks/MainActivity.java#L102). If it continues to perform background work after the Activity has been destroyed, the reference to the Activity will persist and it won’t be garbage collected until after the background task completes.
 
-<figure>
+
 
     void startAsyncTask() {
         new AsyncTask<void, void,="" void="">() {
@@ -119,7 +119,7 @@ Similarly, Anonymous Classes will also maintain a reference to the class that th
         }
     });</void,>
 
-</figure>
+
 
 ![](http://blog.nimbledroid.com/assets/memory-leaks-imgs/image04.png)
 
@@ -129,7 +129,7 @@ Similarly, Anonymous Classes will also maintain a reference to the class that th
 
 The very same principle applies to background tasks [declared anonymously by a Runnable object and queued up for execution by a Handler object](https://github.com/NimbleDroid/Memory-Leaks/blob/master/app/src/main/java/com/nimbledroid/memoryleaks/MainActivity.java#L114). The Runnable object will implicitly reference the Activity it was declared in and will then be posted as a Message on the Handler’s MessageQueue. As long as the message hasn’t been handled before the Activity is destroyed, the chain of references will keep the Activity live in memory and will cause a leak.
 
-<figure>
+
 
     void createHandler() {
         new Handler() {
@@ -151,7 +151,7 @@ The very same principle applies to background tasks [declared anonymously by a R
         }
     });
 
-</figure>
+
 
 ![](http://blog.nimbledroid.com/assets/memory-leaks-imgs/image01.png)
 
@@ -161,7 +161,7 @@ The very same principle applies to background tasks [declared anonymously by a R
 
 We can repeat this same mistake again with both the [Thread](https://github.com/NimbleDroid/Memory-Leaks/blob/master/app/src/main/java/com/nimbledroid/memoryleaks/MainActivity.java#L142) and [TimerTask](https://github.com/NimbleDroid/Memory-Leaks/blob/master/app/src/main/java/com/nimbledroid/memoryleaks/MainActivity.java#L150) classes.
 
-<figure>
+
 
     void spawnThread() {
         new Thread() {
@@ -179,7 +179,7 @@ We can repeat this same mistake again with both the [Thread](https://github.com/
       }
     });
 
-</figure>
+
 
 ![](http://blog.nimbledroid.com/assets/memory-leaks-imgs/image06.png)
 
@@ -189,7 +189,7 @@ We can repeat this same mistake again with both the [Thread](https://github.com/
 
 As long as they are declared and instantiated anonymously, despite the work occurring in a separate thread, they will persist a reference chain to the Activity after it has been destroyed and will yet again cause a leak.
 
-<figure>
+
 
     void scheduleTimer() {
         new Timer().schedule(new TimerTask() {
@@ -208,7 +208,7 @@ As long as they are declared and instantiated anonymously, despite the work occu
         }
     });
 
-</figure>
+
 
 ![](http://blog.nimbledroid.com/assets/memory-leaks-imgs/image06.png)
 
@@ -218,7 +218,7 @@ As long as they are declared and instantiated anonymously, despite the work occu
 
 Finally, there are system services that can be retrieved by a Context with a call to [getSystemService](http://developer.android.com/reference/android/content/Context.html#getSystemService(java.lang.String)). These Services run in their own processes and assist applications by performing some sort of background work or interfacing to the device’s hardware capabilities. If the Context want to be notified every time an event occurs inside a Service, it needs to register itself as a [listener](https://github.com/NimbleDroid/Memory-Leaks/blob/master/app/src/main/java/com/nimbledroid/memoryleaks/MainActivity.java#L136). However, this will cause the Service to maintain a reference to the Activity, and if the programmer neglects to unregister the Activity as a listener before the Activity is destroyed it will be ineligible for garbage collection and leak will occur.
 
-<figure>
+
 
     void registerListener() {
            SensorManager sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -234,7 +234,7 @@ Finally, there are system services that can be retrieved by a Context with a cal
         }
     });
 
-</figure>
+
 
 ![](http://blog.nimbledroid.com/assets/memory-leaks-imgs/image00.png)
 
