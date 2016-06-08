@@ -2,7 +2,7 @@
 * 原文作者 : [Jeremy Thomas](http://tutsplus.com/authors/jeremy-thomas)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [zhangzhaoqi](https://github.com/joddiy)
-* 校对者:
+* 校对者: [Galen](https://github.com/galenyuan)，[Jasper Zhong](https://github.com/DeadLion)
 
 ![最终产品效果图](https://cms-assets.tutsplus.com/uploads/users/30/posts/26611/final_image/preview.png)
 
@@ -25,11 +25,11 @@
 Flexbox 使流程更加简单，提供了如下：
 
 *   **简洁的代码**：我们仅仅只需要在容器了添加 `display: flex`
-*   不需要去 **清除** float, Flexbox 避免了不期望的布局行为
+*   不需要去 **清除** float, Flexbox 避免出现无法预料的布局行为
 *   **语义标记**
 *   **灵活性**：我们可以用很少的 CSS 代码来调整列的尺寸、伸缩和对齐方式
 
-让我们开始制作两列：一个占容器的 2/3 宽度，另一个占 1/3 。
+让我们从创建两个列开始：一个占容器的 2/3 宽度，另一个占 1/3 。
 
     <div class="columns">
       <div class="column main-column">
@@ -68,7 +68,7 @@ Flexbox 使流程更加简单，提供了如下：
 这两列中的每一个都会垂直地堆积数篇文章，所以我们打算也把 `column` 元素移到 Flexbox 容器中。我们想要：
 
 *   文章被垂直堆积
-*   文章可 _拉伸_ 并且充满可获得的空间
+*   文章可 _拉伸_ 并且可用
 
     .column {
       display: flex;
@@ -88,7 +88,7 @@ _容器_ 上的 `flex-direction: column` 规则合并了 _子容器_ 上的 `fle
 现在，为了给我们额外的控制，我们要把每一篇文章移到 Flexbox 容器下。这些文章都包含：
 
 *   一个标题
-*   一段话
+*   一段报道
 *   一个带有作者和评论数量的信息栏
 *   一张可选的响应图片
 
@@ -194,11 +194,11 @@ _容器_ 上的 `flex-direction: column` 规则合并了 _子容器_ 上的 `fle
 
 ## <span class="sectionnum">6.</span> 使布局可响应
 
-这就是我们想要的所有效果，虽然看起来有点破碎。让我们在可响应上修复它吧。
+这就是我们想要的所有效果，虽然看起来有点破碎。让我们通过响应式来修复它。。
 
 Flexbox 一个非常好的特性是：如果想让 Flexbox 完全失效，你仅仅只需要移除容器上的 `display: flex` 规则即可，其他的所有 Flexbox 属性（比如 `align-items` 或者 `flex`）完全可以保留。
 
-作为结果，你可以仅仅通过在某一特定断点上启用 Flexbox 来触发一个响应式布局。
+这样一来，仅通过某一特定断点就能触发 “响应式” 布局。
 
 我们将从 `.columns` 和 `.column` 上移除 `display: flex` ，而不是把它们放入  Media Query （响应式布局）中。
 
