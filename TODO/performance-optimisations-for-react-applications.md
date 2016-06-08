@@ -1,7 +1,7 @@
 >* 原文链接 : [Performance optimisations for React applications](https://medium.com/@alexandereardon/performance-optimisations-for-react-applications-b453c597b191#.cymwuepwo)
 * 原文作者 : [Alex Reardon](https://medium.com/@alexandereardon)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
+* 译者 : [woota](https://github.com/woota)
 * 校对者:
 
 ![](http://ww2.sinaimg.cn/large/0060lm7Tgw1f47ucaolgzj31jk0lmtcc.jpg)
@@ -582,7 +582,7 @@ export default store => next => action => {
     Perf.stop();
 
     console.group(key);
-    console.info('wasted')'
+    console.info('wasted');
     Perf.printWasted();
     // 你可以在这里打印任何你感兴趣的 Perf 测量值
 
