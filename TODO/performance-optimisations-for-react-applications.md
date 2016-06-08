@@ -55,143 +55,155 @@ React 应用主要的性能问题在于多余的处理和组件的 DOM 比对。
 
 #### 默认行为
 
-如果你不告诉 React 别这样做，它便会如此
+如果你不告诉 React 别这样做，它便会如此  
 （橘黄色 ＝ 浪费的渲染）
 
 ![](http://ww3.sinaimg.cn/large/0060lm7Tgw1f47ubiztaxj318g0hagoe.jpg)
 
 哦，不！我们所有的组件都重渲了。
 
-Every component in React has a **shouldComponentUpdate(nextProps, nextState)** function. It is the responsibility of this function to return **true** if the component should update and **false** if the component should not update. Returning **false** results in the components **render** function not being called at all. The default behaviour in React is that **shouldComponentUpdate** always returns **true**, even if you do not define a **shouldComponentUpdate** function explicitly.
+React 的每一个组件都有一个 **shouldComponentUpdate(nextProps, nextState)** 函数。它的职责是当组件需要更新时返回 **true** ， 而组件不必更新时则返回 **false** 。返回 **false** 会导致组件的 **render** 函数不被调用。React 总是默认在 **shouldComponentUpdate** 中返回 **true**，即便你没有显示地定义一个 **shouldComponentUpdate** 函数。
 
-    // default behaviour
-    shouldComponentUpdate(nextProps, nextState) {
+```javascript
+// 默认行为
+shouldComponentUpdate(nextProps, nextState) {
+    return true;
+}
+```
+
+这就意味着在默认情况下，你每次更新你的顶层级的 **props**，整个应用的每一个组件都会渲染。这是一个主要的性能问题。
+
+## 我们如何获得理想的更新？
+
+尽可能的在 **shouldComponentUpdate** 中返回 **false** 。
+
+简而言之：
+
+1.  _加速_ **shouldComponentUpdate** 的检查
+2.  _简化_ **shouldComponentUpdate** 的检查
+
+## 加速 shouldComponentUpdate 检查
+
+理想情况下我们不希望在 **shouldComponentUpdate** 中做深等（也叫全等，相对于shallow equality(弱等，浅等)）检查，因为这非常昂贵，尤其是在大规模和拥有大的数据结构的时候。
+
+```javascript
+class Item extends React.component {
+    shouldComponentUpdate(nextProps) {
+      // 这很昂贵
+      return isDeepEqual(this.props, nextProps);
+    }
+    // ...
+}
+```
+
+一个替代方法是_只要对象的值发生了变化，就改变对象的引用_。
+
+```javascript
+const newValue = {
+    ...oldValue
+    // 在这里做你想要的修改
+};
+
+// 快速检查 —— 只要检查引用
+newValue === oldValue; // false
+
+// 如果你愿意也可以用 Object.assign 语法
+const newValue2 = Object.assign({}, oldValue);
+
+newValue2 === oldValue; // false
+```
+
+在 Redux reducer 中使用这个技巧：
+
+```javascript
+// 在这个 Redux reducer 中，我们将改变一个 item 的 description
+export default (state, action) {
+
+    if(action.type === 'ITEM_DESCRIPTION_UPDATE') {
+
+        const { itemId, description } = action;
+
+        const items = state.items.map(item => {
+            // action 和这个 item 无关 —— 我们可以不作修改直接返回这个 item
+            if(item.id !== itemId) {
+              return item;
+            }
+
+            // 我们想改变这个 item
+            // 这会保留原本 item 的值，但
+            // 会返回一个更新过 description 的新对象
+            return {
+              ...item,
+              description
+            };
+        });
+
+        return {
+          ...state,
+          items
+        };
+    }
+
+    return state;
+}
+```
+
+如果你采用这个方法，那你只需在 **shouldComponentUpdate** 函数中作引用检查
+
+```javascript
+// 超级快 —— 你所做的只是检查引用！
+shouldComponentUpdate(nextProps) {
+    return isObjectEqual(this.props, nextProps);
+}
+```
+
+**isObjectEqual** 的一个实现示例
+
+```javascript
+const isObjectEqual = (obj1, obj2) => {
+    if(!isObject(obj1) || !isObject(obj2)) {
+        return false;
+    }
+
+    // 引用是否相同
+    if(obj1 === obj2) {
         return true;
     }
 
-This means that by default every time you update your top level **props** every component in the whole application will **render**. This is a major performance problem.
+    // 它们包含的键名是否一致？
+    const item1Keys = Object.keys(obj1).sort();
+    const item2Keys = Object.keys(obj2).sort();
 
-## How do we get the ideal update?
-
-Return **false** from **shouldComponentUpdate** as high up in your application as you can.
-
-To facilitate this:
-
-1.  Make **shouldComponentUpdate** checks _fast_
-2.  Make **shouldComponentUpdate** checks _easy_
-
-## Make shouldComponentUpdate checks fast
-
-Ideally we do not want to be doing deep equality checks in our **shouldComponentUpdate** functions as they are expensive, especially at scale and with large data structures.
-
-        class Item extends React.Component {
-        shouldComponentUpdate(nextProps) {
-          // expensive!
-          return isDeepEqual(this.props, nextProps);
-        }
-        // ...
-        }
-
-An alternative approach is to _change an objects reference whenever it's value changes_.
-
-        const newValue = {
-        ...oldValue
-        // any modifications you want to do
-    };
-
-    // fast check - only need to check references
-    newValue === oldValue; // false
-
-    // you can also use the Object.assign syntax if you prefer
-    const newValue2 = Object.assign({}, oldValue);
-
-    newValue2 === oldValue; // false
-
-Using this technique in a Redux reducer:
-
-    // in this Redux reducer we are going to change the description of an item
-    export default (state, action) => {
-
-        if(action.type === 'ITEM_DESCRIPTION_UPDATE') {
-
-            const {itemId, description} = action;
-
-            const items = state.items.map(item => {
-                // action is not relevant to this item - we can return the old item unmodified
-                if(item.id !== itemId) {
-                  return item;
-                }
-
-                // we want to change this item
-                // this will keep the 'value' of the old item but 
-                // return a new object with an updated description
-                return {
-                  ...item,
-                  description
-                };
-            });
-
-            return {
-              ...state,
-              items
-            };
-        }
-
-        return state;
+    if(!isArrayEqual(item1Keys, item2Keys)) {
+        return false;
     }
 
-If you adopt this approach then all you need to do in your **shouldComponentUpdate** function is do reference checks
+    // 属性所对应的每一个对象是否具有相同的引用？
+    return item2Keys.every(key => {
+        const value = obj1[key];
+        const nextValue = obj2[key];
 
-        // super fast - all you are doing is checking references!
-    shouldComponentUpdate(nextProps) {
-        return isObjectEqual(this.props, nextProps);
-    }
-
-Example implementation of **isObjectEqual**
-
-        const isObjectEqual = (obj1, obj2) => {
-        if(!isObject(obj1) || !isObject(obj2)) {
-            return false;
-        }
-
-        // are the references the same?
-        if (obj1 === obj2) {
-           return true;
-        }
-
-       // does it contain objects with the same keys?
-       const item1Keys = Object.keys(obj1).sort();
-       const item2Keys = Object.keys(obj2).sort();
-
-       if (!isArrayEqual(item1Keys, item2Keys)) {
-            return false;
-       }
-
-       // does every object in props have the same reference?
-       return item2Keys.every(key => {
-           const value = obj1[key];
-           const nextValue = obj2[key];
-
-           if (value === nextValue) {
-               return true;
-           }
-
-           // special case for arrays - check one level deep
-           return Array.isArray(value) &&
-               Array.isArray(nextValue) &&
-               isArrayEqual(value, nextValue);
-       });
-    };
-
-    const isArrayEqual = (array1 = [], array2 = []) => {
-        if (array1 === array2) {
+        if(value === nextValue) {
             return true;
         }
 
-        // check one level deep
-        return array1.length === array2.length &&
-            array1.every((item, index) => item === array2[index]);
-    };
+        // 数组另外 —— 检查一个层级深度
+        return Array.isArray(value) && 
+            Array.isArray(nextValue) && 
+            isArrayEqual(value, nextValue);
+    });
+};
+
+const isArrayEqual = (array1 = [], array2 = []) => {
+    if(array1 === array2) {
+        return true;
+    }
+
+    // 检查一个层级深度
+    return array1.length === array2.length &&
+        array1.every((item, index) => item === array2[index]);
+};
+```
 
 
 ## Make shouldComponentUpdate checks easy
