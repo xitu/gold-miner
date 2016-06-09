@@ -1,83 +1,84 @@
 >* 原文链接 : ["A fairer Vue of React" - Comparing React to Vue for dynamic tabular data, part 2.](https://engineering.footballradar.com/a-fairer-vue-of-react-comparing-react-to-vue-for-dynamic-tabular-data-part-2/)
 * 原文作者 : [Max Willmott](https://engineering.footballradar.com/author/max-willmott/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
+* 译者 : @wildflame
 * 校对者:
 
 
-_For part one, please visit: [https://engineering.footballradar.com/from-a-react-point-of-vue-comparing-reactjs-to-vuejs-for-dynamic-tabular-data/](https://engineering.footballradar.com/from-a-react-point-of-vue-comparing-reactjs-to-vuejs-for-dynamic-tabular-data/). Note that the results of this first post have been invalidated by some unfortunate mistakes, but this should set the context for this post._
+有关第一部分的文章，请访问 [https://engineering.footballradar.com/from-a-react-point-of-vue-comparing-reactjs-to-vuejs-for-dynamic-tabular-data/](https://engineering.footballradar.com/from-a-react-point-of-vue-comparing-reactjs-to-vuejs-for-dynamic-tabular-data/) 。注：因为我们犯了一些意料之外的错误，在第一部分的实验结果并不准确，但是，那篇文章奠定了这篇文章的背景。
 
-Monday 23rd May we posted the results of a performance experiment using React and Vue. The idea was to work out whether React or Vue would be more suitable for tabular data that updates a lot, especially when performance is critical. This is very representative of some challenges we work on at Football Radar.
+五月23日，周一，我们发布了一篇关于比较 React 和 Vue 的性能的文章，其实验数据比较了二者谁更适合处理频繁更新的列表数据，特别应用在那些对性能要求非常高的场合上谁更合适。比方说我们手头上的一个足球雷达（Football Radar）的项目。
 
-Initially we were very encouraged and surprised by the results, but a few important mistakes meant that our "findings" were not as revelatory as as we thought. Thanks to some great feedback from both the React and Vue communities - especially React core engineer Christopher Chedeau ([@vjeux](https://twitter.com/vjeux)) and Vue creator Evan You ([@youyuxi](https://twitter.com/youyuxi)) - we were quickly able to narrow down the problems with our tests. We're very grateful for the high-quality discussion that followed; I'm slightly embarrassed that these mistakes made it into the open but we've learnt a lot from the responses, so it's been a blessing in disguise.
+最初，我们对那些结果非常满意。但由于我们在重要的地方犯了一些错误，结果其实没那么理想，至少，结果不那么客观了。我们非常感谢 React 和 Vue 社区里，那些给我们提供反馈的人 —— 特别是 React 的核心工程师克里斯托弗(Christopher Chedeau) ([@vjeux](https://twitter.com/vjeux))，和 Vue 的创始人埃文(Evan You)([@youyuxi](https://twitter.com/youyuxi))—— 因为你们，我们才能快速的锁定这次测试中的出现的问题，可以说是因祸得福，因为尽管错误被公开使我感到有一些小小的尴尬，但我的确学到了很多，所以衷心的感谢你们的讨论。
 
-Considering how many improvements have been made as a result of the first post there is nothing to say there can be no further improvements. With that in mind this post is more of a document of a journey than a conclusive, end result.
+考虑到我们为第一篇文章做了多少改进，不可能不说我们还能做得更好，因此这篇文章比起来，更像是一篇游记，而不是一个全面完善的结果。
 
-First of all I would like to recap the intention of this experiment, then talk about the mistakes we made - giving credit to those who helped us fix them - and finally post a fairer set of results from the updated tests.
+这里首先，我想重申一下这次实验的目的，然后讲一下我们所犯的错误 —— 掌声送给那些帮助我们改正错误的人 —— 最后我会公布更新的更公正的测试结果。
 
-## The Test
+## 测试
 
-The experiment was to output a list of football games, each updating its data once per second. In order to test performance and scaling characteristics, we altered two independent variables: number of games and delay between updates.
+这个实验的输出是一组足球比赛，每一个都一秒更新一次数据。在实验中，为了让测试性能，并且突出特征，我们会修改两组独立的数据：足球比赛数量和每次更新之间的延迟。
 
 ![](http://ac-Myg6wSTV.clouddn.com/5be4086d861ed7351bab.png)
 
-In order to test the performance, we tested with 50, 100 and 500 games in both Vue and React, with delays of 100ms and 1 second. The idea was to simulate the conditions of load on the page and see how both implementations scale.
+我们在 Vue 和 React 里分别测试了50，100，500场比赛，延迟分别是是100ms，1s，意在测试其性能，模拟读取页面时的情况，然后看其可拓展性如何。
 
-Our first test suggested that Vue massively outperformed React, which was very sensational and unexpected, but was caused by running the tests in development mode. This was the biggest omission and definitely the main cause of the skewed results. Thank you to Christopher Chedeau (@Vjeux) for catching this bug: [https://github.com/footballradar/VueReactPerf/pull/3](https://github.com/footballradar/VueReactPerf/pull/3). By running React in production mode, many expensive parts of React are avoided, including prop-types checking and warnings. This is an obvious optimisation, but since React runs in development mode by default, one that is easily overlooked. It should be stressed that Vue was _also_ running in development mode, so both tests were equally afflicted. The discussion that followed in that pull request was particularly insightful.
+我们的第一次结果不太客观，显示 Vue 的性能表现比 React 要好很多，其实是因为测试运行在开发模式（Development Mode），而这个疏忽是直接造成了结果偏差。感谢克里斯多弗（@Christopher）提出这个 问题：[https://github.com/footballradar/VueReactPerf/pull/3](https://github.com/footballradar/VueReactPerf/pull/3)。在生产模式（Production Mode）运行 React 避免了一些 React 中耗费很大的部分，包括了 prop-types 的检查和警告。尽管这是一个非常明显的优化，但由于 React 默认运行在开发者模式，所以这个优化很容易被忽略掉。我们要强调的是 Vue 也是运行在开发着模式的，二者都同样被影响到了。那篇 pull-request 里接下来的相关讨论都非常醍醐灌顶。
 
-We also pushed some broken test data that further skewed the results by having Vue perform 10x as much work as the equivalent version in React. In our original tests both frameworks were run against equivalent data, but the version on Github had this inconsistency, so other people running the tests may have seen misleading results.
+我们也用了一些坏掉的测试数据，这使得 Vue 的表现显得更加优秀，比起 React 在同等条件下快了10倍。在我们的测试中，两个框架都具有相同的测试数据。但是 Github 上的 pull-request 里的那个版本并没有确保这点一致性，所以其他测试的人也许会看到这个具有误导性的结论。
 
-## Changes from previous test
+## 与上一个测试相比的改变
 
-*   Run in [production mode](https://github.com/footballradar/VueReactPerf/pull/3)
-*   Add `webpack.optimize.UglifyJsPlugin`
-*   Add [babel-react-optimize preset](https://github.com/thejameskyle/babel-react-optimize)
+*   在[开发模式](https://github.com/footballradar/VueReactPerf/pull/3)
+下运行。
+*   添加了 `webpack.optimize.UglifyJsPlugin` 
+*   添加了 [babel-react-optimize preset](https://github.com/thejameskyle/babel-react-optimize)
 
-## New Findings
+## 新发现
 
-We'll post the timeline summaries below and we have screenshots of the actual timeline and bottom-up stacks in the repo: [https://github.com/footballradar/VueReactPerf/tree/master/results/v2](https://github.com/footballradar/VueReactPerf/tree/master/results/v2)
+接下来是按照时间线的简介，在下面的这个项目里有实际的栈和时间线的截图：[[https://github.com/footballradar/VueReactPerf/tree/master/results/v2](https://github.com/footballradar/VueReactPerf/tree/master/results/v2)
 
-Interestingly the Chrome dev tools crashes when retrieving a 30s timeline for the Vue 500 game tests but doesn't for React 500 game tests. We captured 15 seconds instead and that was even more confusing as Vue has a lot more idle time than React.
+有意思的是，Chrome 的开发工具在获取一个 30s 时间线的 Vue 的 500 场比赛的测试结果时崩溃了，但 React 的 500 场比赛测试却没有。我们截取了 15s 的结果以取代它，但是让人不解的是，Vue 相比于 React，其实有更多的空闲时间。
 
-All of the results below share a common theme: React performs more scripting work, as we would expect from its virtual DOM implementation, and Vue is heavier on painting and rendering as it touches the DOM directly. The key difference is that in terms of total work done, Vue _still_ appears to be faster by up to 25% in some cases. This is not the huge difference we originally reported but still noteworthy.
-##### 50 games, 100ms delay between updates.
+所有下面的结果都共享同一个主题：由于 React 的虚拟 Dom 的实现，它的脚本上运行的时间更长；Vue 由于要直接更改 Dom ，所以它有关在绘制和渲染工作上更耗费资源。最关键的是，所有工作都做完以后，Vue 在大多数情况下仍然比 React 快25%。这虽然不同于我们最初的巨大区别，仍然是一个值得关注的问题。
+
+##### 50 场比赛，100ms 的延迟
 React:  
 ![](http://ww2.sinaimg.cn/large/a490147fgw1f4mtuj37onj207f04l74d.jpg)
 
 Vue:  
 ![](http://ac-Myg6wSTV.clouddn.com/29bf60c3f146eab2c6dc.png)
-##### 50 games, 1s delay between updates.
+##### 50 场比赛，1s的延迟
 React:  
 ![](http://ac-Myg6wSTV.clouddn.com/b0b15f794c9a2070a533.png)
 
 Vue:  
 ![](http://ac-Myg6wSTV.clouddn.com/f6d6c16641bcdbfdc6cb.png)
-##### 100 games, 100ms delay between updates.
+##### 100 场比赛，100ms 的延迟
 React:  
 ![](http://ac-Myg6wSTV.clouddn.com/72c40b5122614ecb66af.png)
 
 Vue:  
 ![](http://ac-Myg6wSTV.clouddn.com/239e96ce2a5037dd7a9a.png)
-##### 100 games, 1s delay between updates.
+##### 100 场比赛，1s 的延迟
 React:  
 ![](http://ac-Myg6wSTV.clouddn.com/902c1fe2a6c6d5d9671f.png)
 
 Vue:  
 ![](http://ac-Myg6wSTV.clouddn.com/5490fb9635b763d94c05.png)
-##### 500 games, 100ms delay between updates.
+##### 500 场比赛，100ms 的延迟
 React:  
 ![](http://ac-Myg6wSTV.clouddn.com/352538cf119141efb387.png)
 
 Vue:  
 ![](http://ac-Myg6wSTV.clouddn.com/20251f4ab6a45b138669.png)
-##### 500 games, 1s delay between updates.
+##### 500 场比赛，1s 的延迟
 React:  
 ![](http://ac-Myg6wSTV.clouddn.com/04278f218752b89c2042.png)
 
 Vue:  
 ![](http://ac-Myg6wSTV.clouddn.com/f6095bbea3543f55a175.png)
 
-## Conclusion
+## 结论
 
-Overall, the original claims about Vue's performance still hold some value _in this use case_ but there was clearly a lot of opportunity for optimisation - especially with React. One surprising take away is how much work and collective knowledge was required to bring out better performance from React, while Vue was fairly well optimised from the get-go. Whatever we can say about the relative performance of these two libraries, this is definitely a win for Vue's developer experience.
-
+总的来说，最初那个 Vue 比 React 表现好的结论在_这个用例_上仍然是有价值的，但是明显还有很多可以优化的地方，特别是React。一个附带的结论是是，需要多少的工作和相关知识，才能提高 React 的性能，而 Vue 在这里就优化的很好。但不管我们说些什么，Vue 的开发者体验毫无疑问是更棒的。
