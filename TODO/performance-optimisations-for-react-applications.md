@@ -10,7 +10,6 @@
 
 React 应用主要的性能问题在于多余的处理和组件的 DOM 比对。为了避免这些性能陷阱，你应该尽可能的在 **shouldComponentUpdate** 中返回 **false** 。
 
-
 简而言之，归结于如下两点：
 
 1.  _加速_ **shouldComponentUpdate** 的检查
