@@ -1,22 +1,21 @@
 >* 原文链接 : [Eight Ways Your Android App Can Leak Memory](http://blog.nimbledroid.com/2016/05/23/memory-leaks.html)
 * 原文作者 : [Tom Huzij](http://blog.nimbledroid.com/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者:
+* 译者 : [zhangzhaoqi](https://github.com/joddiy)
+* 校对者: 
 
 
-One advantage of a garbage-collecting-language like Java is that it removes the need for developers to explicitly manage allocated memory. This reduces the likelihood of a segmentation fault crashing the app or an unfreed memory allocation bloating the heap, thus creating safer code. Unfortunately, there are other ways that memory can be leaked logically within Java. Ultimately, this means that your Android apps are still susceptible to wasting unnecessary memory and crashing as a result of out-of-memory (OOM) errors.
+诸如 JAVA 这样的 GC （垃圾回收）语言的一个好处就是免去了开发者明晰内存分配的必要。这样降低了段错误导致应用奔溃或者未释放的内存挤爆了堆的可能性，也因此产生了更安全的代码。不幸的是，JAVA 里仍然有其他一些方式会导致内存的逻辑泄露。最终，这意味着你的 Android 应用有浪费非必要内存以及导致出现 out-of-memory (OOM) 错误的可能性。
 
-Traditional memory leaks occur when you neglect to free allocated memory before all related references go out of scope. Logical memory leaks, on the other hand, are the result of forgetting to release references to objects that are no longer needed in your app. If a strong reference to an object still exists, the garbage collector cannot remove the object from memory. This is particularly problematic in Android development if you happen to leak a [Context](http://developer.android.com/reference/android/content/Context.html). This is because Contexts such as [Activities](http://developer.android.com/reference/android/app/Activity.html) contain many references to large amounts of memory, i.e. view hierarchies and other resources. If you leak a Context, you are also leaking everything that it points to. Android mostly runs on mobile devices with limited memory capacity so it’s very likely for your app to run out of available memory if too many leaks take place.
+传统的内存泄露发生的时机是：在所有的相关引用不再出现前，你忘记释放内存了。另一方面，逻辑的内存泄漏，是忘记去释放在应用中不再使用的对象引用的结果。如果对象仍然存在强引用（译者注：这里可以去关注下 Android 的弱引用），GC 就无法从内存中回收对象。这尤其在 Android 开发中是个大问题：如果你碰巧泄露了 [Context](http://developer.android.com/reference/android/content/Context.html)。这是因为像 [Activity](http://developer.android.com/reference/android/app/Activity.html) 一样的 Context 持有大量的内存引用，例如：view 层级和其他资源。如果你泄漏了 Context，就意味着你泄漏了它引用的所有东西。Android 应用通常在手机设备中运行在受限内存容器下，如果你的应用泄漏太多内存的话就会导致 out-of-memory (OOM) 错误了。
 
-Detecting logical memory leaks would be a subjective matter if the useful lifespan of an object were not clearly defined. Thankfully, activities have very explicitly defined [lifecycles](http://developer.android.com/reference/android/app/Activity.html#ActivityLifecycle) that reveal the point at which we can easily consider an instance of an Activity object to have been leaked.The [onDestroy()](http://developer.android.com/reference/android/app/Activity.html#onDestroy()) method of an Activity is called at end-of-life and indicates that it is being destroyed either through programmer intention or because Android needs to recuperate some memory. If this method completes but the Activity instance can be reached by a chain of strong references from a heap root, then the garbage collector cannot mark it for removal from memory - despite the original intention to delete it. As a result, we can define a leaked Activity object as one that persists beyond its natural lifecycle.
+如果对象的有用存在期没有被明确定义的话，探查逻辑内存泄漏将会变成一件主观的事情。幸好，Activity 明确定义了 [生命周期](http://developer.android.com/reference/android/app/Activity.html#ActivityLifecycle)，使得我们可以简单地知道一个 Activity 对象是否被泄漏了。在 Activity 的生命末期，[onDestroy()](http://developer.android.com/reference/android/app/Activity.html#onDestroy()) 方法被调用来销毁 Activity ，这样做的原因可能是因为程序本身的意愿或者是因为 Android 需要回收一些内存。如果这个方法完成了，但是因为 Activity 的实例被堆根的一个强引用链持有着，那么 GC 就无法标记它为可回收——尽管原本是想删掉它。总之，我们定义了一个超越生命周期存在的泄露的 Activity。
 
-Activities are very hefty objects, so you should never choose to defy the Android framework’s handling of them. However, there are ways that an Activity instance can become unintentionally leaked. In Android, all of the pitfalls that lead to potential memory leaks revolve around two fundamental situations. The first memory-leak-category is caused by a process-global static object that exists regardless of the app’s state and maintains a chain of references to the Activity. The other category is caused when a thread that outlasts the Activity’s lifetime neglects to clear a strong reference chain to that Activity. Let’s examine a few different ways that you might come across these situations.
+Activity 是非常重的对象，所以你从来就不应该去对抗它里面的 Android 框架的操作。然而，Activity 实例也有一些泄漏是非意愿造成的。在 Android 中，所有的可能导致内存泄漏的陷阱都围绕着两个基本场景。第一个内存泄漏种类是由独立于应用状态存在的全局静态对象对 Activity 的链式引用造成的。另一个种类是由独立于 Activity 生命周期的一个线程持有 Activity 的引用链造成。下面我们来解释一些你可能遇到这些场景的方式。
 
-### 1\. Static Activities
+### 1\. 静态 Activity
 
-The easiest way to leak an Activity is by defining a static variable inside the class definition of the Activity and then setting it to the running instance of that [Activity](https://github.com/NimbleDroid/Memory-Leaks/blob/master/app/src/main/java/com/nimbledroid/memoryleaks/MainActivity.java#L110). If this reference is not cleared before the Activity’s lifecycle completes, the Activity will be leaked. This is because the object representing the class of the Activity (i.e., MainActivity) is static and remains loaded in memory for the entire runtime of the app. If this class object holds a reference to your Activity instance, it therefore won’t be eligible for garbage collection.
-
+泄漏一个 Activity 最简单的方法是：定义 Activity 时在内部当年工艺一个静态变量，然后在运行这个 [Activity](https://github.com/NimbleDroid/Memory-Leaks/blob/master/app/src/main/java/com/nimbledroid/memoryleaks/MainActivity.java#L110) 实例的时候设置它。如果在 Activity 生命周期结束时没有清除引用的话，这个 Activity 就会泄漏。这是因为这个对象表示这个 Activity 类（比如：MainActivity ）是静态的并且在内存中一直保持加载状态。如果这个类对象持有了对 Activity 实例的引用，就不会被选中进行 GC 了。
 
 
     void setStaticActivity() {
@@ -35,10 +34,10 @@ The easiest way to leak an Activity is by defining a static variable inside the 
 
 ![](http://blog.nimbledroid.com/assets/memory-leaks-imgs/image07.png)
 
-<figcaption>Memory Leak 1 - Static Activity</figcaption>
+<figcaption>内存泄漏 1 - 静态 Activity</figcaption>
 
 
-### 2\. Static Views
+### 2\. 静态 View
 
 A similar situation would be implementing a singleton pattern where an activity might be visited often and it would be beneficial to keep the instance loaded in memory so that it can be restored quickly. However, for reasons stated before, defying the defined lifecycle of an Activity and persisting it in memory is an extremely dangerous and unnecessary practice - and should be avoided at all costs.
 
@@ -62,7 +61,7 @@ But what if we have a particular View that takes a great deal of effort to insta
 
 ![](http://blog.nimbledroid.com/assets/memory-leaks-imgs/image02.png)
 
-<figcaption>Memory Leak 2 - Static View</figcaption>
+<figcaption>内存泄漏 2 - 静态 View</figcaption>
 
 
 Wait, what? Surely you knew that an attached View will maintain a reference to its Context, which, in this case, is our Activity. By making a static reference to the View, we’ve created a persistent reference chain to our Activity and leaked it. Don’t make attached Views static and if you must, at least [detach](http://developer.android.com/reference/android/view/ViewGroup.html#removeView(android.view.View)) them from the View hierarchy at some point before the Activity completes.
