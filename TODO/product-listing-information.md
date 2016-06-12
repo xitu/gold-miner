@@ -1,8 +1,8 @@
 >* 原文链接 : [E-Commerce UX: What Information to Display in Product Listings (46% Get it Wrong)](http://baymard.com/blog/product-listing-information)
 * 原文作者 : [Jamie](http://baymard.com/blog)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者:
+* 译者 : [godofchina](https://github.com/godofchina)
+* 校对者:[joddiy](https://github.com/joddiy), [Ruixi](https://github.com/Ruixi)
 
 ![](http://assets.baymard.com/research/media_files/attachments/17301/original/research-media-file-f6c7249aa471651b567e784d21ca6238.jpg)</div>
 
