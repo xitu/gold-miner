@@ -554,9 +554,9 @@ Webpack 的输出现在应该发生了相应的变化，我们可以在命令加
         },
         plugins: [
             new webpack.optimize.CommonsChunkPlugin({
-                name:      'main', // Move dependencies to our main file
-                children:  true, // Look for common dependencies in all children,
-                minChunks: 2, // How many times a dependency must come up before being extracted
+                name:      'main', // 把依赖移动到主文件
+                children:  true, // 寻找所有子模块的共同依赖
+                minChunks: 2, // 设置一个依赖被引用超过多少次就提取出来
             }),
         ],
         module:  {
@@ -623,9 +623,9 @@ Ok，首先我们添加几个插件到我们的配置文件里，但是仅当 `N
 
     var plugins = [
         new webpack.optimize.CommonsChunkPlugin({
-            name:      'main', // Move dependencies to our main file
-            children:  true, // Look for common dependencies in all children,
-            minChunks: 2, // How many times a dependency must come up before being extracted
+            name:      'main', // 把依赖移动到主文件
+            children:  true, // 寻找所有子模块的共同依赖
+            minChunks: 2, // 设置一个依赖被引用超过多少次就提取出来
         }),
     ];
 
@@ -665,24 +665,17 @@ Ok，首先我们添加几个插件到我们的配置文件里，但是仅当 `N
     if (production) {
         plugins = plugins.concat([
 
-            // This plugin looks for similar chunks and files
-            // and merges them for better caching by the user
             // 这个插件搜索相似的块与文件并合并它们
             new webpack.optimize.DedupePlugin(),
 
-            // This plugins optimizes chunks and modules by
-            // how much they are used in your app
             // 这个插件通过计算子块和模块的使用次数进行优化
             new webpack.optimize.OccurenceOrderPlugin(),
 
-            // This plugin prevents Webpack from creating chunks
-            // that would be too small to be worth loading separately
             // 这个插件在子块文件太小时，会阻止生成，因为不值得独立加载
             new webpack.optimize.MinChunkSizePlugin({
                 minChunkSize: 51200, // ~50kb
             }),
 
-            // This plugin minifies all the Javascript code of the final bundle
             // 这个插件对最终生成的 JS 代码进行 Uglify
             new webpack.optimize.UglifyJsPlugin({
                 mangle:   true,
@@ -691,9 +684,6 @@ Ok，首先我们添加几个插件到我们的配置文件里，但是仅当 `N
                 },
             }),
 
-            // This plugins defines various variables that we can set to false
-            // in production to avoid code related to them from being compiled
-            // in our final bundle
             // 这个插件定义了不同变量，我们可以在生成环境关闭一些变量
             // 避免调试代码被编译到我们最终的包里
             new webpack.DefinePlugin({
@@ -745,8 +735,7 @@ Ok，首先我们添加几个插件到我们的配置文件里，但是仅当 `N
     if (production) {
         plugins = plugins.concat([
 
-            // Cleanup the builds/ folder before
-            // compiling our final assets
+            // 在编译最终的静态资源之前，清理 builds/ 文件夹
             new CleanPlugin('builds'),
 
 
@@ -801,9 +790,9 @@ Webpack 完成了这些事情：首先，由于我们的例子非常轻量级，
     var plugins = [
         new ExtractPlugin('bundle.css'), //
         new webpack.optimize.CommonsChunkPlugin({
-            name:      'main', // Move dependencies to our main file
-            children:  true, // Look for common dependencies in all children,
-            minChunks: 2, // How many times a dependency must come up before being extracted
+            name:      'main', // 把依赖移动到主文件
+            children:  true, // 寻找所有子模块的共同依赖
+            minChunks: 2, // 设置一个依赖被引用超过多少次就提取出来
         }),
     ];
 
@@ -845,7 +834,7 @@ Webpack 完成了这些事情：首先，由于我们的例子非常轻量级，
 
     import './styles.scss';
 
-    // Rest of our file
+    // 文件的剩余部分
 
 
 
@@ -1098,7 +1087,7 @@ Webpack 完成了这些事情：首先，由于我们的例子非常轻量级，
 
 ![](http://ww4.sinaimg.cn/large/a490147fjw1f4i0pxgo3bj20lo0knmzm.jpg)
 
-## That’s all folks
+## 总结
 
 在我的案例里面，Webpack 完全替代了 Grunt / Gulp：它们的大部分功能被 Webpack 取代，剩下的部分我只需要用 NPM scripts 来处理。比如我们想要使用 Aglio，把 API 文档转换为 HTML，只需要这么写：
 
