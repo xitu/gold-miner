@@ -1,59 +1,58 @@
 >* 原文链接 : [How to write low garbage real-time Javascript](https://www.scirra.com/blog/76/how-to-write-low-garbage-real-time-javascript)
 * 原文作者 : [Ashley ](https://www.scirra.com/users/ashley)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者:
+* 译者 : [yangzj1992](http://qcyoung.com)
+* 校对者: [L9m](https://github.com/L9m), [Dwight](https://github.com/ldhlfzysys), [宁金](https://github.com/godofchina)
 
-_Edit 27th March 2012: wow, this article went a long way, thanks for the great response! There has been some criticism of some of the techniques here, such as the use of 'delete'. I'm aware things like that can cause other slowdowns, we use it very very sparingly in our engine. As always everything involves tradeoffs and you have to use judgement to balance GC with other concerns. This is simply a list of techniques we've found useful in our engine and was not meant to be a complete reference. I hope it's still somehow useful though!_
+_编辑于 2012 年 3 月 27 日: 哇，这篇文章已经写了有很长一段时间了，十分感谢那些精彩的回复！其中有一些对于一些技术的指正，如使用 'delete' 。我知道了使用它可能会导致其他的降速问题，因此，我们在引擎中极少使用它。一如既往的你还需要对所有的事进行权衡并且需要通过其他关注点来平衡垃圾回收机制，这也只是一个在我们引擎中发现的的实用、简单的技术列表，它并不是一个完整的参考列表。但是我希望它还是有用的！_
 
-For HTML5 games written in Javascript, one of the biggest obstacles to a smooth experience is **garbage collection (GC) pauses.** Javascript doesn't have explicit memory management, meaning you create things but don't release them. Sooner or later the browser decides to clean up: execution is paused, the browser figures out which parts of memory are still currently in use, and then releases everything else. This blog post will go in to the technical details of avoiding GC overhead, which should also come in handy for any plugin or behavior developers working with Construct 2's [Javascript SDK](http://www.scirra.com/manual/15/sdk "Construct 2 Javascript Plugin and Behavior SDK").
+一个用 Javascript 编写的 HTML5 游戏，要达到流畅体验的一个最大阻碍就是**垃圾回收 ( GC )  卡顿**。 Javascript 并没有一个显式的内存管理，意味着你创造东西后却不能释放它们占用的内存。因此迟早浏览器便会替你决定去清理它们：这时代码执行就会被暂停，浏览器会找出哪一部分内存是现在仍在被使用的，并把其他所有东西占用的内存释放掉。这篇博文将会去探究避开GC开销的技术细节，这对方便进行使用任何插件或是使用 Construct 2 进行 [Javascript SDK](http://www.scirra.com/manual/15/sdk "Construct 2 Javascript Plugin and Behavior SDK")开发都应该能派上用场。
 
-There are lots of techniques browsers can employ to reduce GC pauses, but if your code creates a lot of garbage, sooner or later it's going to have to pause and clean up. This results in zig-zag memory usage graphs, as objects are gradually created, then the browser suddenly cleans up. For example, below is a graph of Chrome's memory usage while playing Space Blaster.
+浏览器有很多技术性手段来减少 GC 卡顿，但是如果你的代码创造了许多垃圾，迟早浏览器也将会暂停并进行清理。随着对象逐步创建的过程中，之后浏览器又突然清理，这最后将导致内存使用情况图表呈现 z 字形。例如，下面是 Chrome 在玩太空爆破手时的内存使用情况。
 
-![Chrome garbage-collected memory usage](https://www.scirra.com/images/chromememoryusage.png)  
+![Chrome garbage-collected memory usage](https://www.scirra.com/images/chromememoryusage.png) 
 
-_Zig-zag memory usage while playing a Javascript game. This can be mistaken for a memory leak, but is in fact the normal operation of Javascript._
+_当在玩一个 Javascript 游戏时会呈现 z 字形的内存占用情况。这可能是一个内存泄漏错误，但是实际上是 JavaScript 的正常操作。_
 
-Further, a game running at 60 fps only has 16ms to render each frame, and GC collection can easily take 100ms or more - resulting in a visible pause, or in even worse situations, a constantly choppy play experience. Therefore, for real-time Javascript code like game engines, the solution is to try and reach the point where _you create nothing at all_ during a typical frame. This is surprisingly difficult, because there are many innocuous looking Javascript statements that actually create garbage, and they _all_ have to be removed from the per-frame code path. In Construct 2 we've gone to great lengths to minimise the garbage overhead in the per-tick engine, but as you can see from the graph above there's still a small rate of object creation that Chrome is cleaning up every several seconds. Note it's only a small dip though - there isn't a large amount of memory being cleaned up. A taller, more extreme zig-zag would be a cause for concern. However it's probably good enough, since small collections are quicker, and the occasional small pause is not generally too noticable - and as we shall see, sometimes it's extremely difficult to avoid new allocations.
+此外，游戏以 60 fps 运行时只有 16 ms 的时间来渲染每一帧，但是 GC 会很轻易的产生最少 100 ms 以上明显的卡顿，在更糟的情况下，这会导致不断卡顿的游戏体验，因此对于像游戏引擎一样实时运行的 Javascript 代码，解决办法是努力尝试在典型帧的持续时间内_你不要创建任何东西_。这实际上是相当困难的，因为有许多看上去无害的 Javascript 语句实际上却创造了垃圾，它们_都_必须从每帧动画的代码路径里删除掉。在 Construct 2 中我们竭尽全力减少每一处引擎的垃圾开销，但是你可以从图表中看到上面仍然有许多小的对象被创建所以 Chrome 还会每隔数秒进行一次清除。要注意这里只是一个小的清理 - 这里并没有大量的内存被清理出来，因为一个更高更极端的z曲线会更引起关注，但是它可能已经足够好了，因为小型的垃圾集合执行会更快并且偶尔的小卡顿也一般不太引人注意 - 因此我们应该看到了，有时我们确实很难避免产生新的资源分配。
 
-It's also important for third-party plugin and behavior developers to follow these guidelines. Otherwise, a badly written plugin can create lots of garbage and cause the game to become choppy, even though the main Construct 2 engine is very low-garbage.
+同样重要的包括第三方插件以及开发人员行为也需要遵守这些原则，否则，一个写的不好的插件可以产生许多垃圾并会让游戏十分卡顿，尽管主引擎 Construct 2 已经是一个非常低垃圾开销的引擎了。
 
-### Simple techniques
+### 简单的技巧
 
-First of all, most obviously, the `new` keyword indicates an allocation, e.g. `new Foo()`. Where possible, try to create the object on startup, and simply **re-use the same object** for as long as possible.
+首先，最明显的是，关键词 `new` 指示了资源的分配，例如 `new Foo()`  在可能的情况下，它会在启动时尝试创建一个对象，并且尽可能长时间、简单的**重新使用相同的对象**。
 
-Less obviously, there are three syntax shortcuts for common uses of `new`:
+不太明显的是，这里有三种快捷语法方式来相似的调用 `new` :
 
-`{}` _(creates a new object)_  
-`[]` _(creates a new array)_  
-`function () { ... }` _(creates a new function, which are also garbage-collected!)_
+`{}` _(创建一个新对象)_
+`[]` _(创建一个新数组)_
+`function () { ... }` _(创建一个新函数，也会被垃圾收集)_
 
-For objects, avoid `{}` the same way you avoid `new` - try to recycle objects. Note this includes objects with properties like `{ "foo": "bar" }`, which is also commonly used in functions to return multiple values at once. It may be better to write the return value to the same (global) object every time and return that - providing you document this carefully, since you can cause bugs if you keep referencing the returned object which will change on every call!
+对于对象，用避免 `{}` 一样的方式来避免 `new` - 尝试去回收对象。请注意这包括像 `{ "foo": "bar" }` 这样带属性的对象，也就是我们在函数中常用的一次性返回多个值。或许将每一次的返回值写入一个相同的(全局)对象来返回的写法是更好的 - 在文档中要仔细记录这一点，因为如果你保持引用这样的返回对象，可能在每次调用改变的时候发生错误。
 
-You can actually re-cycle an existing object (providing it has no prototype chain) by deleting all of its properties, restoring it to an empty object like `{}`. For this you can use the `cr.wipe(obj)` function, defined as:
+实际上你可以回收一个存在的对象(如果它没有原型链)通过删除它的所有属性，将它还原为一个空的对象如 `{}` 一样。为此你可以使用 `cr.wipe(obj)` 函数，它的定义如下：
 
     // remove all own properties on obj,
     effectively reverting it to a new object
     cr.wipe = function (obj)
     {
-    	for (var p in obj)
-    	{
-    		if (obj.hasOwnProperty(p))
-    			delete obj[p];
-    	}
+        for (var p in obj)
+        {
+            if (obj.hasOwnProperty(p))
+                delete obj[p];
+        }
     };
 
-So in some cases you can re-use an object by calling `cr.wipe(obj)` and adding properties again. Wiping an object may take longer on-the-spot than simply assigning `{}`, but in real-time code it's much more important to avoid building up garbage which will later result in a pause.
+因此在某些情况下，你可以调用 `cr.wipe(obj)` 并为其再次添加属性来重用一个对象。比起重新简单分配 `{}` 现场清除一个对象可能需要更长的时间，但是在实时处理的代码中更重要的是避免产生垃圾，从而减少未来可能产生的卡顿情况。
 
-Assigning `[]` to an array is often used as a shorthand to clear it (e.g. `arr = [];`), but note this creates a new empty array and garbages the old one! It's better to write `arr.length = 0;` which has the same effect but while re-using the same array object.
+分配 `[]` 到一个数组中被经常用来作为一个快捷方式去清除这个数组(例如 `arr = [];`)，但请注意这将创建一个新的空数组并使旧的数组成为一个垃圾！更好的写法是 `arr.length = 0;` ，这种方式具有相同的效果但却继续使用了相同的数组对象。
 
-Functions are a bit trickier. Functions are commonly created at startup and don't tend to be allocated at run-time so much - but this means it's easy to overlook the cases where they are dynamically created. One example is functions which return functions. The main game loop typically uses `setTimeout` or `requestAnimationFrame` to call a member function something like this:
+函数则有一点棘手，函数通常在执行时创建并且不倾向于在运行时进行过多分配 - 但这意味着它们在动态创建时很容易被忽视。一个例子是返回函数的函数。主要的游戏循环使用了 `setTimeout` 或者 `requestAnimationFrame` 方法来调用一个成员函数类似如下：
 
 <pre>setTimeout((function (self) { return function () {
 self.tick(); }; })(this), 16);</pre>
 
-This looks like a reasonable way to call `this.tick()` every 16 ms. However, it also means every tick it returns a new function! This can be avoided by storing the function permanently, like so:
-
+这看起来像是一个合理的方式来每 16ms 调用一次 `this.tick()` 。然而，这也意味着每一次执行 tick 函数都会返回一个新函数！这可以通过永久存储函数的方法来避免，例如：
 
 
     // at startup
@@ -63,32 +62,34 @@ This looks like a reasonable way to call `this.tick()` every 16 ms. However, it 
     // in the tick() function
     setTimeout(this.tickFunc, 16); 
 
-This re-uses the same function every tick rather than spawning a new one. The same idea can be applied anywhere else functions are returned or otherwise created at runtime.
+这将在每次执行 tick 函数时重复使用相同的函数来代替产生一个新的函数。这个方法可以应用到任意其他地方的返回函数中或是运行创建的函数中。
 
-### Advanced techniques
+### 进阶技巧
 
-As we progress further avoiding garbage becomes more difficult, since Javascript is so fundamentally designed around the GC. Many of the convenient library functions in Javascript also create new objects. There is not much you can do here but go back to the documentation and look up the return values. For example, the array `slice()` method returns a new array (based on a range in the original array, which remains untouched), string's `substr` returns a new string (based on a range of characters in the original string, which remains untouched), and so on. Calling these functions creates garbage, and all you can do is either not call them, or in extreme cases re-write the functions in a way which does not create garbage. For example in the Construct 2 engine, for various reasons a regular operation is to delete the element at an index from an array. This convenient snippet was originally used for this:
+随着我们的进展，进一步的避免产生垃圾变得更加困难，由于 Javascript 本身就是围绕着 GC 所设计的。许多 Javascript 中方便的库函数也总是创建了新的对象。这儿没有什么你可以做的但是当你返回文档查阅那些返回值时。例如，数组中的 `slice()` 方法会返回一个数组(基于保持不变的原始数组范围内)，字符串的 `substr` 会返回一个新的字符串(基于保持不变的原始字符串字符的范围)，等等。调用这些函数都会产生垃圾，而你能做的就是不要去调用它们，或是在极端情况下重写你的函数使它们不再产生垃圾。例如在 Construct 2 这种引擎，由于各种原因一个经常的操作是通过索引去删除数组里的一个元素。这个方法的快捷使用方式如下：
 
     var sliced = arr.slice(index + 1);
     arr.length = index;
     arr.push.apply(arr, sliced);
 
-However, `slice()` returns a new array object with the latter part of the array, and it becomes garbage after being copied back in (`arr.push.apply`). Since this was a hot spot for garbage creation in our engine, it was rewritten to an iterative version:
+然而 `slice()` 返回一个原始数组的后半部分来组成了一个新的数组，并且在被(`arr.push.apply`)复制后产生了垃圾。由于这是我们引擎中一个生产垃圾的热门处，它被改写为了一个迭代版本：
 
     for (var i = index, len = arr.length - 1; i < len; i++)
-    	arr[i] = arr[i + 1];
+        arr[i] = arr[i + 1];
 
     arr.length = len;
 
-Obviously rewriting a lot of library functions is a huge pain, so you have to carefully balance the needs of convenience versus garbage creation. If it's called many times per frame, you may well want to rewrite a library function yourself.
+显然重写大量的库函数是相当痛苦的，所以你需要仔细的权衡需求实现的方便性以及垃圾产生之间的平衡。如果它在每帧中被调用了很多次，你可能最好重写这个你需要的函数库。
 
-It can be tempting to use `{}` syntax to pass data along in recursive functions. This is better done with a single array representing a stack which you push and pop for each level of recursion. Better yet, don't actually pop the array - you'll garbage the last object in the array. Instead use a 'top index' variable which you simply decrement. Then instead of pushing, increment the top index and re-use the next object in the array if there is one, otherwise do a real push.
+这里可以很容易的使用 `{}` 语法来沿着递归函数传递数据。通过一个数组来表示一个堆栈，在这个堆栈中对递归的每一级进行 push 和 pop 是更好的。更好的是，实际上你并不需要在数组中 pop  - 你应该将数组中最后一个对象像垃圾一样处理掉。来代替使用一个 'top index' 变量进行简单减量。然后为了代替 pushing ,则增加 top index 并且如果有的话就重用数组中的下一个对象，否则执行真正的 push。
 
-Also, **avoid vector objects if at all possible** (as in vector2 with x and y properties). While again it may be convenient to have functions return these objects so they can change or return both values at once, you can easily end up with hundreds of these created _every frame_, resulting in terrible GC performance. These functions must be separated out to work on each component separately, e.g. instead of `getPosition()` returning a vector2 object, have `getX()` and `getY()`.
+此外，**在所有可能的情况下避免向量对象**(如 vector2 中的 x 和 y 属性)。虽然可能函数返回这些对象会让它们立刻改变或返回这两个值时会方便些，你可以在_每一帧_中轻松地结束数百个这样的创建对象，这将导致可怕的 GC 性能。这些函数必须分离出来在每个单独的组件中工作，例如:使用 `getX()` 和 `getY()` 来代替 `getPosition()` 来返回一个 vector2 对象。
 
-Sometimes you're stuck with a library which is a garbage nightmare. The Box2Dweb library is a prime example: it spawns hundreds of b2Vec2 objects every frame constantly spraying the browser with garbage, and can end up causing significant garbage collector pauses. The best thing to do in this situation is create a recycling cache. We've been testing a modified version of Box2D ([Box2Dweb-closure](https://github.com/illandril/box2dweb-closure)) that does this and it seems to help alleviate (although not entirely solve) GC pauses. See the code for `Get` and `Free` in [b2Vec2.js](https://github.com/illandril/box2dweb-closure/blob/master/src/common/math/b2Vec2.js). There's an array called the 'free cache', and throughout the code if there's a b2Vec2 which is known to be no longer used, it is freed, which puts it in the free cache. When requesting a new b2Vec2, if there are any in the free cache they are re-used, otherwise a new one is allocated. It's not perfect, since by some measurements I made often only half the b2Vec2s created get recycled, but it does relieve the pressure on the GC helping there be less frequent pauses.
+有时候你无法摆脱一个库是一个产生垃圾的噩梦。 Box2Dweb 是一个典型的例子：它每一帧产生了数百个 b2Vec2 对象并且不断的在浏览器产生垃圾，并最终导致垃圾处理器产生显著的卡顿效果。在这种情况下最好的办法是创建一个缓存回收机制。我们一直在测试 Box2D([Box2Dweb-closure](https://github.com/illandril/box2dweb-closure)) 的修正版本，它似乎可以使 GC 暂停进行缓解(虽然没有完全解决)。查阅 [b2Vec2.js](https://github.com/illandril/box2dweb-closure/blob/master/src/common/math/b2Vec2.js) 的 `Get` 和 `Free` 代码。这里有一个名字叫 'free cache' 的数组，在之后的整个代码中如果不再使用 b2Vec2，它就会在 free cache 中被释放，当需要请求一个新的 b2Vec2，而它如果在 free cache 中还存在那么它就会被重用，否则才会分配一个新的。这并不完美，在一些测试后通常只有一半的 b2Vec2s 被创建并回收，但它确实帮助 GC 缓解了压力从而减少了频繁的卡顿。
 
-### Conclusion
+### 结论
 
-It's difficult avoiding garbage entirely in Javascript. The garbage-collection pattern is fundamentally at odds with the requirements of real-time software like games. It can also be a lot of work to eliminate garbage from Javascript code since there's a lot of straightforward code out there which has the side-effect of creating loads of garbage. However, with care and attention, it is possible to craft real-time Javascript with little to no garbage collector overhead, and this is essential for games and apps which need to be highly responsive.
+在 Javascript 中很难去完全避免垃圾。它的垃圾收集模式根本上是不符合像游戏这样的实时软件的需求的。从 Javascript 代码中需要进行大量的工作来消除垃圾，因为有很多直接的代码含有创建大量垃圾的副作用。然而，只要仔细小心一些，Javascript 也是可以在实时项目中不产生或是制造很少的垃圾开销，而对于需要保持高度响应性的游戏和应用程序这也是至关重要的。
+
+
 
