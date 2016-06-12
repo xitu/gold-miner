@@ -1,25 +1,20 @@
 >* 原文链接 : [Webpack your bags](https://blog.madewithlove.be/post/webpack-your-bags/)
 * 原文作者 : [Maxime Fabre](https://twitter.com/anahkiasen)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 :
+* 译者 : [达仔](https://github.com/Zhangjd)
 * 校对者:
 
 
 ![](https://webpack.github.io/assets/what-is-webpack.png)
 
-By now you’ve probably heard about this new cool tool on the block called **Webpack**. If you haven’t looked that much into it you’re probably a bit confused by some people calling it a build tool _à la_ **Gulp** and other people calling it a bundler like **Browserify**. If on the other hand you _have_ looked into it you’re probably still confused because the homepage presents Webpack as both.
 你可能已经在前端社区听过这个称为 **Webpack** 的新玩意儿了。如果你对这个工具还不算太了解的话，你可能会对于 **Webpack** 、**Gulp** 和 **Browserify** 之间的关系感到疑惑。但另一方面，如果你已经了解过它了，你大概还是会感到疑惑，因为官网居然把 Webpack 作为了它们的混合。
 
-To be honest, at first the blur around “what Webpack is” frustrated me, and I closed the tab. After all _I already had a build system_, and was perfectly happy with it. And if you follow closely the very fast Javascript scene, like me, you’ve probably been burnt in the past by jumping on the bandwagon too soon. Having now a bit more experience with it I felt I should write this article for those still on the fence to explain more clearly what Webpack is, and more importantly what is so great about it that it deserves so much attention.
 实话实说，刚开始时，对于“什么是 Webpack”的疑惑，一度让我感到了挫败感并关闭了标签页。毕竟我已经建立起一套构建系统了，并且这套系统运行良好。并且如果你也在密切关注 Javascript 生态圈的发展的话，你大概也会被过去的种种盲目跟风所伤害过。现在我知道的多一点了，我觉得我应该写下这篇文章给那些对于 Webpack 保持观望态度的人们看看到底什么是 Webpack，更重要的是，为什么 Webpack 很棒，值得我们更多的关注。
 
-## What is Webpack?
 ## 什么是 Webpack?
 
-Right off the bat let’s answer the question posed by the introduction: is Webpack a build system or a module bundler? Well, it’s both– and by this I don’t mean that it _does_ both I mean that it _combines_ both. Webpack doesn’t build your assets, and then separately bundle your modules, it considers your assets _to be modules themselves_.
 现在回答介绍中提出的问题：Webpack 到底是一个构建系统，还是一个模块打包器？嗯，它两种都是 —— 我的意思不是它两种工作都做，而是它把这两种工作组合起来了。Webpack 并不是帮你分别构建静态资源和打包模块，而是_把你的静态资源也当作模块本身_。
 
-What this means more precisely is that instead of building all your Sass files, and optimizing all your images, and including them on one side, then bundling all your modules, and including them on your page on another, you have this:
 更确切地说，这意味着你不需要构建你的 Sass 文件和对图片资源做优化了，只需要一边把它们都包含进来，然后打包你所有的模块，另一边在页面里引用资源。比如这样：
 
 
@@ -34,10 +29,8 @@ What this means more precisely is that instead of building all your Sass files, 
 ```
 
 
-All your assets are considered modules themselves, that can be imported, modified, manipulated, and that ultimately can be packed into your final bundle.
 你的所有静态资源都可以被当作是模块，然后引入、修改、操作，并打包到最终的输出文件中。
 
-In order for this to work, you register **loaders** in your Webpack configuration. Loaders are small plugins that basically say “When you encounter this kind of file, do this with it”. Some examples of loaders:
 为了实现这个目的，你需要在 Webpack 配置文件中注册 **loaders** 。Loaders 是一些小插件，基本功能就是说明了“当你遇到这个类型的文件时，对这些文件做什么操作”。以下是一些 loader 的例子：
 
 
@@ -62,8 +55,7 @@ In order for this to work, you register **loaders** in your Webpack configuratio
 
 
 
-Ultimately at the end of the food chain all loaders return strings. This allows Webpack to wrap them into Javascript modules. Per example once your Sass file is done being transformed by the loaders, it may internally look something like that:
-所有 loader 最终的输出都是返回字符串。这使得 Webpack 可以把他们都打包进 Javascript 模块当中。比如在例子中，你的 Sass 文件经过 loader 转换，最终输出的字符串可能是这样的：
+所有 loader 最终的输出都是返回字符串。这使得 Webpack 可以把他们都打包进 Javascript 模块当中。在例子中，你的 Sass 文件经过 loader 转换，最终输出的字符串可能是这样的：
 
 
 
@@ -73,22 +65,16 @@ Ultimately at the end of the food chain all loaders return strings. This allows 
 
 ![](http://ww2.sinaimg.cn/large/a490147fgw1f4i0yb05tmg20dw06i4qp.gif)
 
-## Why on earth would you do that?
 ## 到底为什么你要那样做呢？
 
-Once you understand what Webpack does that’s most likely the second question that will come to mind: what possible benefits could this approach have? “Images and CSS? In my JS? What the hell man?”. Well consider this: for a long while we’ve been taught and trained to concatenate all the things into one single file; to be very preserving about our HTTP requests, yada yada.
 一旦你明白了 Webpack 是什么之后，你会很快想到第二个问题：Webpack 这种做法有什么好处呢？“图像和 CSS 都在 JS 中？这到底是什么鬼！” 试想，在很长的一段时间里，为了减少 HTTP 请求，我们都被要求把所有东西整合到一个文件里，我的内心是拒绝的。
 
-This has led to one big downside which is that most people nowadays bundle _all their assets_ into one single `app.js` file that is then included in all the pages. Which means most of the time on any given page you’re loading a ton of assets that aren’t required. And if you aren’t doing that, then you’re most likely including assets by hand on certain pages but not on others, which leads to a big mess of dependency trees to maintain and keep track of: on which pages is this dependency needed already? Which pages do the stylesheets A and B affect?
 这种做法有一个很大的缺陷，因为现在大部分人把他们所有的静态资源打包到一个 `app.js` 文件中。这意味着在大部分时间里，打开某个特定页面，你额外加载了一大堆不必要的静态资源。如果你不想那样做的话，你很可能会把静态资源手动包含在特定页面里，导致依赖树非常混乱，难以维护和保持跟踪：这个依赖项用在哪个页面中？样式表 A 和 B 会影响哪些页面？
 
-Neither approaches are right, nor wrong. Consider Webpack a middleground– it’s not just a build system or a bundler, it’s a _wicked smart_ module packing system. Once properly configured, it’ll _know more about your stack_ then even you do, and it’ll know better than you how to best optimize it.
 这两种做法无关对错。可以把 Webpack 设想为一个平衡点 —— 既不只是构建系统，也不是打包器，它是一个聪明绝顶的模块打包系统。一旦合理配置好后，它甚至比你更了解你的技术栈，并帮你实现最佳的优化方案。
 
-## Let’s build a small app together
 ## 让我们一起来建一个小型 app 吧
 
-In order for you to more easily understand the benefits of Webpack we’ll build a _very_ small app and bundle the assets with it. For this tutorial I recommend running Node 4 (or 5) and NPM 3 as the flat dependency tree will avoid a good bunch of headaches when working with Webpack. If you don’t have NPM 3 yet, you can install it through `npm install npm@3 -g`.
 为了让你更好地理解 Webpack 的好处，我们将构建一个非常小的 app，并打包所有静态资源。在这个教程中，我建议你运行 Node 4 (或者 5) 和 NPM3，因为展平的依赖关系会避免 Webpack 的一些坑。如果你还没安装 NPM 3，可以通过 `npm install npm@3 -g` 安装。
 
 
@@ -100,13 +86,10 @@ In order for you to more easily understand the benefits of Webpack we’ll build
 
 
 
-I also recommend you add `node_modules/.bin` to your PATH variable to avoid having to type `node_modules/.bin/webpack` every time. All examples after this won’t show the `node_modules/.bin` part of the commands I’ll run.
 我建议你把 `node_modules/.bin` 添加到环境变量，以避免每次输入 `node_modules/.bin/webpack` 。在下面我运行的命令中，我将不会把 `node_modules/.bin` 部分写出了。
 
-### Basic bootstrapping
 ### 基本引导
 
-Let’s start by creating our project and installing Webpack, we’ll also pull in jQuery to demonstrate some things later on.
 让我们开始创建工程和安装 Webpack。我们引入 jQuery 来演示之后的一些功能。
 
 
@@ -117,7 +100,6 @@ Let’s start by creating our project and installing Webpack, we’ll also pull 
 
 
 
-Now let’s create our app’s entry point, in plain ES5 for now:
 现在让我们创建 app 的入口文件，我们现在使用 ES5 语法：
 
 **src/index.js**
@@ -130,7 +112,6 @@ Now let’s create our app’s entry point, in plain ES5 for now:
 
 
 
-And let’s create our Webpack configuration, in a `webpack.config.js` file. Webpack configuration is just Javascript, and needs to export an object:
 然后创建 Webpack 配置文件，配置在 `webpack.config.js` 文件中，语法也是 Javascript ，并且需要输出一个对象。
 
 **webpack.config.js**
@@ -147,7 +128,6 @@ And let’s create our Webpack configuration, in a `webpack.config.js` file. Web
 
 
 
-Here, `entry` tells Webpack which files are the _entry points_ of your application. Those are your main files, that sit at the top of your dependency tree. Then we tell it to compile our bundle in the `builds` directory under the name `bundle.js`. So let’s setup our index HTML accordingly:
 在这里，`entry` 告诉 Webpack 哪些文件是你的应用的入口点。那些文件都是你的主要文件，并且在依赖树的顶层。然后指明了输出的打包文件位于 `builds` 目录的 `bundle.js` 文件中。让我们根据设置，初始化首页的 HTML 文件。
 
 
@@ -164,7 +144,6 @@ Here, `entry` tells Webpack which files are the _entry points_ of your applicati
 ```
 
 
-Let’s run Wepack, and if everything went right we should get a message telling us it compiled our `bundle.js` properly:
 现在运行 Webpack，如果所有步骤都没有出错，我们会得到一下信息，告诉我们 `bundle.js` 已经编译好了。
 
 
@@ -180,7 +159,6 @@ Let’s run Wepack, and if everything went right we should get a message telling
 
 
 
-Here you can see Webpack tells you your `bundle.js` contains our entry point (`index.js`) as well as one hidden module. This is jQuery, by default Webpack hides modules that are not yours. To see all the modules compiled by Webpack, we can pass the `--display-modules` flag:
 这里你可以看到 Webpack 告诉你，`bundle.js` 包好了我们的入口处 (`index.js`) 和一个隐藏的模块，也就是 jQuery。默认情况下，Webpack 不会显示那些不是你的模块，想要看见 Webpack 编译好的所有模块，可以加上 `--display-modules` 选项：
 
 
@@ -192,16 +170,13 @@ Here you can see Webpack tells you your `bundle.js` contains our entry point (`i
 
 
 
-You can also run `webpack --watch` to make it automatically watch for changes to your files and recompile as needed.
 你还可以运行 `webpack --watch` ，使 webpack 自动监听你的文件改变，按需重新编译。
 
-### Setting up our first loader
 ### 设置我们的第一个 loader
 
-Now remember how we talked about Webpack being able to import CSS and HTML and all kinds of things? Where does that fit in? Well if you’re in tune with the large movement towards Web Components these past few years (Angular 2, Vue, React, Polymer, X-Tag, etc.) you’ve probably heard about the idea that your app – instead of being one interconnected monolithic piece of UI – would be more maintainable as a set of small reusable self-contained pieces of UI: web components (I’m simplifying here, but you get the idea). Now in order for components to be truly self-contained, they need to pack all their requirements within themselves. Imagine a button component: it has some HTML sure, but also some JS to make it interact with things, and probably also some styles. It would be nice if all of those would only be loaded when needed, right? Only when we import the Button component, would we get all its related assets.
-还记得我们提到 Webpack 是如何输入 CSS、HTML 和其他内容的吗？他们适合在哪些地方？如果你在关注最近几年 Web Components 的巨大变化 (Angular 2, Vue, React, Polymer, X-Tag 等)，你可能会听说过这种思路 —— 使用一套可重用、相互独立的 UI 组件，称为 web components（我在这里不做详述，读者明白意思就好）代替完整的一套相互连接的 UI。现在，为了让组件真正地相互独立开，必须在组件内部打包其所有的依赖。
+还记得我们提到 Webpack 是如何输入 CSS、HTML 和其他内容的吗？他们适合在哪些地方？如果你在关注最近几年 Web Components 的巨大变化 (Angular 2, Vue, React, Polymer, X-Tag 等)，你可能会听说过这种思路 —— 使用一套可重用、相互独立的 UI 组件，称为 web components（我在这里不做详述，读者明白意思就好），代替一套完整的、相互连接的 UI。现在，为了让组件真正地相互独立开，必须在组件内部打包其所有的依赖。
 
-Let’s write our button; first-off, as most of you are I assume now more accustomed to ES2015 we’ll add our first loader: Babel. To install a loader in Webpack you do two things: `npm install {whatever}-loader`, and add it to the `module.loaders` part of your Webpack configuration, so let’s do that. Here we want babel, so:
+现在开始写我们的按钮：首先，我猜你们大部分人现在更习惯使用 ES2015，因此我们先添加第一个 loader: Babel。要在 Webpack 安装 loader，需要两个步骤：输入命令 `npm install {whatever}-loader`，并在配置文件的 `module.loaders` 部分添加信息，如下所示，先安装 Babel：
 
 
 
@@ -209,7 +184,7 @@ Let’s write our button; first-off, as most of you are I assume now more accust
 
 
 
-We’ll also need to install Babel itself as in this particular case the loader won’t install it. We’ll need the `babel-core` package and the `es2015` preset:
+我们还需要安装 Babel 本身的 `babel-core` 包，以及我们需要的 `es2015` preset：
 
 
 
@@ -217,11 +192,12 @@ We’ll also need to install Babel itself as in this particular case the loader 
 
 
 
-And we’re going to create a `.babelrc` file to tell Babel to use that preset. It’s a simple JSON file allowing you to configure what transformers Babel will run on your code – in our case we’ll tell it to use the `es2015` preset.
+现在我们要创建一个 `.babelrc` 文件，告诉 Babel 使用哪个 preset。这是一个简单的 JSON 文件，允许你配置 Babel 使用哪些转换器来转换你的代码 —— 在我们的例子里使用的就是 `es2015` preset。
 
-**.babelrc** `<span>{</span><span>"presets"</span><span>:</span><span>[</span><span>"es2015"</span><span>]</span><span>}</span>`
 
-Now that Babel is setup and configured we can update our configuration: what do we want? We want Babel to run on all files that end in `.js`, **but** as Webpack traverses all dependencies we want to avoid Babel running on third-party code like jQuery, so we can filter this a bit more. Loaders can have both an `include` or an `exclude` rule. It can be a string, a regex, a callback, whatever you want. In our case, we want Babel to only run on _our_ files, so we’ll `include` only our source directory:
+**.babelrc** `{ "presets": ["es2015"] }`
+
+现在 Babel 已经安装配置好，我们可以修改 Webpack 配置了：我们想要 Babel 作用在所有 `.js` 文件里，**但是** 因为 Webpack 会遍历所有依赖，我们要避免 Babel 作用在 jQuery 这些第三方库。因此，我们可以加上过滤规则。Loaders 可以同时包含 `include` 或者 `exclude` 规则，它们的值可以是字符串、正则表达式、回调函数或者其它你想要的东西。在我们的例子中，我们想要 Babel 只作用在我们自己写的文件里，所以加上 `include` 规则，让它只作用在我们的源代码目录里。
 
 
 
@@ -244,7 +220,7 @@ Now that Babel is setup and configured we can update our configuration: what do 
 
 
 
-We can now rewrite our little `index.js` in ES6 since we pulled in Babel. All examples from now on will be in ES6.
+由于引入了 Babel，现在我们可以用 ES6 重写 `index.js` 了，从现在开始我们都使用 ES6 语法。
 
 
 
@@ -254,9 +230,9 @@ We can now rewrite our little `index.js` in ES6 since we pulled in Babel. All ex
 
 
 
-### Writing a small component
+### 写一个小组件
 
-Let’s now write a small Button component, it’ll have some SCSS styles, an HTML template, and some behavior. So we’ll install the things we need. First of all we’ll need Mustache which is a very lightweight templating package, but we’ll also need loaders for Sass and HTML files. Also, as results are piped from one loader to another, we’ll need a CSS loader to handle the results of the Sass loader. Now, once we have our CSS, there are multiple ways to handle them, for now we’ll use a loader called the `style-loader` which takes a piece of CSS and injects it into the page dynamically.
+我们现在来写一个小的按钮组件，它包含某些 SCSS 样式，一个 HTML 模板和某些行为。现在先安装依赖，我们使用 Mustache，它是一个轻量级的模板包，但我们还需要 Sass 和 HTML 文件的 loaders。由于结果是从一个 loader 向另一个 loader 管道式传递的，我们还需要 CSS loader 来处理 Sass loader 的输出结果。现在我们有了 CSS 资源，可以通过多种方式来处理它们，目前，我们会使用一个 `style-loader` ，它可以读取 CSS 文件，动态注入到页面中。
 
 
 
@@ -265,7 +241,7 @@ Let’s now write a small Button component, it’ll have some SCSS styles, an HT
 
 
 
-Now in order to tell Webpack to “pipe” things from one loader to another we simply pass a series of loaders, from right to left, separated by a `!`. Alternatively you can use an array by using the `loaders` attribute instead of `loader`:
+现在，为了告诉 Webpack 从一个 loader 向另一个 loader 管道式地传送文件，我们从右到左把 loader 串联起来，中间通过 `!` 分隔。或者你也可以使用一个数组作为值，然后用 `loaders` 属性代替 `loader`。
 
 
 
@@ -277,7 +253,7 @@ Now in order to tell Webpack to “pipe” things from one loader to another we 
     {
         test:   /\.scss/,
         loader: 'style!css!sass',
-        // Or
+        // 或者
         loaders: ['style', 'css', 'sass'],
     },
     {
@@ -287,7 +263,7 @@ Now in order to tell Webpack to “pipe” things from one loader to another we 
 
 
 
-Now that we have our loaders in place, let’s write our button:
+现在我们已经把 loader 放在合适位置了，是时候开始写我们的按钮了：
 
 **src/Components/Button.scss**
 
@@ -330,39 +306,39 @@ Now that we have our loaders in place, let’s write our button:
         render(node) {
             const text = $(node).text();
 
-            // Render our button
+            // 渲染按钮
             $(node).html(
                 Mustache.render(template, {text})
             );
 
-            // Attach our listeners
+            // 绑定事件
             $('.button').click(this.onClick.bind(this));
         }
     }
 
 
 
-Your `Button.js` is now 100% self-contained and whenever imported, in whichever context it’ll run, it’ll have all the tools in hands to be used and rendered properly. Now we just need to render (very dirtily) our Button on our page:
+你的 `Button.js` 现在是 100% 完全独立的，不管在何时引入和怎样的上下文中运行，它都能运用手上所有工具正确地调用和渲染。现在，我们只需要在页面中渲染我们的按钮就可以了（虽然这种写法很不优雅）。
 
-**src/index.js** ```js import Button from ‘./Components/Button’;
+**src/index.js** ```js import Button from './Components/Button';
 
-const button = new Button(‘google.com’); button.render(‘a’); ```
+const button = new Button('google.com'); button.render('a'); ```
 
-Let’s try to run Webpack and refresh our page, you should now see our disgusting button in action.
+现在运行 Webpack 然后刷新页面，你应该能看到页面中出现了一个丑丑的按钮了。
 
 ![](http://i.imgur.com/8Ov1x2P.png)
 
-You’ve now learned how to setup loaders and how to define the dependencies of each part of your app. This may look like it doesn’t matter much now, but let’s push our example further.
+现在你学会了如何设置 loaders 以及如何定义 app 中每个部分的依赖关系。虽然现在看起来还没多大用途，但是我们将继续改进代码。
 
-### Code splitting
+### 代码分离
 
-This example is fine and everything, but maybe we don’t always need our button. Maybe on some pages there won’t be an `a` to render the button on, and in these cases, we’d like to not import all the Button styles, and templates, and Mustache and everything, correct? That’s when code splitting comes into play. Code splitting is Webpack’s answer to this problematic of “Monolithic bundle” vs “Unmaintainable manual imports”. It’s the idea that you define, in your code, “split points”: areas of your code that could be easily split off into a separate file and then loaded on-demand. The syntax is very simple:
+上述的例子虽好，但是有时候我们不需要用到按钮，可能某些页面里不存在 `a` 标签让按钮放在那儿，在这种情况下，我们可不想引入所有的按钮样式、模板、Mustache 等各种东西，对吧？这时候代码分离就起作用了。代码分离，正是 Webpack 对于 “整个模块” 和 “不可维护的手动引入” 给出的答案。其思路就是可以在代码中定义“分离点”：这部分代码将被分离成一个独立的文件，按需加载。其语法非常简单：
 
 
 
     import $ from 'jquery';
 
-    // This is a split point
+    // 这里就是分离点
     require.ensure([], () => {
       // All the code in here, and everything that is imported
       // will be in a separate file
@@ -372,20 +348,19 @@ This example is fine and everything, but maybe we don’t always need our button
 
 
 
-Everything in the `require.ensure` callback would be split into a _chunk_ – a separate bundle that Webpack will load only when needed, through an AJAX request. That means we would basically have this:
-
+`require.ensure` 回调函数里面的所有内容，会被分离成一个_切块_ —— Webpack 只有在页面需要时，才会通过 AJAX 按需加载这部分内容。这意味着我们的代码结构变成了这样：
 
 
     bundle.js
     |- jquery.js
-    |- index.js // our main file
+    |- index.js // 主文件
     chunk1.js
     |- some-big-libray.js
-    |- index-chunk.js // the code in the callback
+    |- index-chunk.js // Callback 里的代码
 
 
 
-And you don’t have to import or load `chunk1.js` anywhere. Webpack will load it on-demand, only when it is needed. That means you can wrap chunks of your code with various pieces of logic, which is what we’ll do in our example. We only want our Button component when we have a link on the page:
+你不需要在任何地方引入或者加载 `chunk1.js` 文件，Webpack 会在页面真正需要这部分代码时按需加载。这意味着你可以把许多不同的代码逻辑包裹成不同的块，在我们的例子中，我们想要的是在页面包含 a 标签时才引入 Button 的代码：
 
 **src/index.js**
 
@@ -402,9 +377,9 @@ And you don’t have to import or load `chunk1.js` anywhere. Webpack will load i
 
 
 
-Note that when using `require` if you want the default export you need to manually grab it through `.default`. Reason for this is `require` doesn’t handle both default and normal exports so you have to specify which to return. Whereas `import` has a system for this in place so it knows already (eg. `import foo from 'bar')` vs `import {baz} from 'bar'`).
+要注意的是，使用 `require` 时，如果你想要默认 export，你需要手动包裹在 `.default` 里，因为 `require` 不会同时处理默认 export 和其它的 export，你需要指定 return 哪些内容。然而 `import` 对此有一个系统，它可以处理得很好（比如 `import foo from 'bar'` 和 `import {baz} from 'bar'`）。
 
-Webpack’s output should now be different, accordingly. Let’s run it with the `--display-chunks` flag to see what modules are in which chunks:
+Webpack 的输出现在应该发生了相应的变化，我们可以在命令加上 `--display-chunks` 参数，看看哪些模块在哪个 chunk 里面：
 
 
 
@@ -429,7 +404,7 @@ Webpack’s output should now be different, accordingly. Let’s run it with the
 
 
 
-As you can see, our entry point (`bundle.js`) now only contains some Webpack logic, and everything else (jQuery, Mustache, Button) is in the `1.bundle.js` chunk and will only be loaded if we have an anchor on the page. Now in order for Webpack to know where to find the chunks when loading them with AJAX, we have to add a little line to our configuration:
+正如你看到的那样，我们的入口点 (`bundle.js`) 现在只包含了 Webpack 本身的一些逻辑，其它东西 (jQuery, Mustache, Button) 放在了 `1.bundle.js` 块中，只会在页面包含 a 标签时才会引入。现在，为了让 Webpack 知道在哪里找到这个块，然后通过 AJAX 引入，我们需要在配置文件里多加一行：
 
 
 
@@ -439,11 +414,11 @@ As you can see, our entry point (`bundle.js`) now only contains some Webpack log
 
 
 
-The `output.publicPath` option tells Webpack where to find built assets _from the point of view of the page_ (so in our case in /builds/). If we visit our page now we’ll see that everything is still working, but more importantly we’ll see that, since we had an anchor on the page, Webpack properly loaded our chunk:
+`output.publicPath` 选项告诉 Webpack 在哪里可以找到生成的静态资源，其路径相对于我们的视图页面（所以在我们的例子里是 /builds/）。如果我们打开页面，效果依然相同，但更重要的是，我们会看到页面包含 a 标签时，Webpack 才会加载我们的块。
 
 ![](http://i.imgur.com/rPvIRiB.png)
 
-If we didn’t have an anchor on our page, only `bundle.js` would have been loaded. This allows you to intelligently split off heavy logic in your application and only let each page require what it truly needs. Note also that we can name our split points so that instead of `1.bundle.js` we have more meaningful chunk names. You can do so by passing a third argument to `require.ensure`:
+如果页面里没有 a 标签，只会加载 `bundle.js` 文件。这种做法允许你智能地分离出一些繁重的逻辑，让它们在页面真正需要时，才按需加载进来。值得注意的是，我们可以给分离点起个名字，替换原来的 `1.bundle.js` ，使得块名更加有意义。你可以通过给 `require.ensure` 传递第三个参数来做到这点： 
 
 
 
@@ -456,11 +431,11 @@ If we didn’t have an anchor on our page, only `bundle.js` would have been load
 
 
 
-Would generate `button.bundle.js` instead of `1.bundle.js`.
+这样生成的文件名将会是 `button.bundle.js` 而非 `1.bundle.js`。
 
-### Adding a second component
+### 添加第二个组件
 
-Now this is pretty cool and all but let’s add a second component to see if it works:
+现在一切都不错，我们试着添加第二个组件：
 
 **src/Components/Header.scss**
 
@@ -501,11 +476,11 @@ Now this is pretty cool and all but let’s add a second component to see if it 
 
 
 
-And let’s render it in our application:
+然后在应用里渲染它:
 
 
 
-    // If we have an anchor, render the Button component on it
+    // 如果有 a 标签，渲染按钮
     if (document.querySelectorAll('a').length) {
         require.ensure([], () => {
             const Button = require('./Components/Button');
@@ -515,7 +490,7 @@ And let’s render it in our application:
         });
     }
 
-    // If we have a title, render the Header component on it
+    // 如果有 h1 标签，渲染页眉
     if (document.querySelectorAll('h1').length) {
         require.ensure([], () => {
             const Header = require('./Components/Header');
@@ -526,7 +501,7 @@ And let’s render it in our application:
 
 
 
-Now if you look at the output Webpack with the `--display-chunks --display-modules` flags:
+现在，使用 `--display-chunks --display-modules` 参数调用 Webpack：
 
 
 
@@ -561,11 +536,12 @@ Now if you look at the output Webpack with the `--display-chunks --display-modul
 
 
 
-You may see a rather major issue: both our components need jQuery and Mustache, which means these dependencies are getting duplicated in our chunks, which is not what we want. By default Webpack will perform very little optimizations. But it packs in a lot of firepower to help you turn things around, in the form of _plugins_.
+你可能会发现一个相当重要的问题：我们的组件都依赖 jQuery 和 Mustache，这意味着这些依赖在我们的子块中重复出现了，这样的结果并不是我们想要的。默认情况下，Webpack 只会执行很少优化，但是它包含了强大的工具帮你改变这一状况，它就是_插件_。
 
-Plugins differ from loaders in the sense that instead of only executing on a certain set of files, and being more of a “pipe”, they execute on _all_ files and perform more advanced actions, that aren’t necessarily related to transformations. Webpack comes will a handful of plugins to perform all various kinds of optimizations. The one that interests us in this case is the **CommonChunksPlugin**: it analyzes your chunks for recurring dependencies, and extracts them somewhere else. It can be a completely separate file (like `vendor.js`) or it can be your main file.
 
-In our case we’d like to move common dependencies to our entry file because, if all pages need jQuery and Mustache, we might as well move it up. So let’s update our configuration:
+插件和 loader 的区别在于，插件作用在所有文件，执行更多高级操作，但这些操作不一定和转换相关；而 loader 只是作用在特定集合的文件，以及作为“管道”的一部分。Webpack 提供了一系列插件进行各种不同的优化，在这个例子中，**CommonChunksPlugin** 引起了我们的注意：它可以分析子块中的共同依赖，并提取出来放到其它地方，可以是一个完全独立的文件（比如 `vendor.js`）或者是你的主文件。
+
+在我们的例子里，我们打算把共同依赖放在主入口文件，因为如果所有页面都需要 jQuery 和 Mustache，我们可以把它们合起来。所以，现在我们更改一下配置文件：
 
 
 
@@ -590,7 +566,7 @@ In our case we’d like to move common dependencies to our entry file because, i
 
 
 
-If we run Webpack again, we can see it’s looking much better. Here `main` is the name of the default chunk.
+如果我们再次运行 Webpack，可以看到情况已经发生了变化，这里 `main` 是默认的块的名字。
 
 
 
@@ -613,7 +589,7 @@ If we run Webpack again, we can see it’s looking much better. Here `main` is t
 
 
 
-If we specified per example `name: 'vendor'`:
+如果我们特别指定 `name: 'vendor'`:
 
 
 
@@ -625,7 +601,7 @@ If we specified per example `name: 'vendor'`:
 
 
 
-Since that chunk doesn’t exist yet, Webpack would have created a `builds/vendor.js` that we would have then manually imported in our HTML:
+由于块还不存在，Webpack 会创建一个 `builds/vendor.js` 文件，我们需要在 HTML 中手动引入。
 
 
 
@@ -634,11 +610,11 @@ Since that chunk doesn’t exist yet, Webpack would have created a `builds/vendo
 
 
 
-You can also make common dependencies be loaded asynchronously by not providing a common chunk name and instead specifying `async: true`. Webpack has a lot of these powerful intelligent optimizations. I can’t possibly name them all but as an exercise let’s try to create a _production_ version of our application.
+你也可以不指定块名称并加上  `async: true`，让共同的依赖异步加载。Webpack 还有很多这类型的强大智能优化。我不可能把他们一一列举出来，但是作为练习，我们再来试试创建一个 _production_ 版本的配置。
 
-### To production and beyond
+### 生产环境和更多
 
-Ok first of all, we’re going to add several plugins to our configuration, but we only want to load them when `NODE_ENV` equals `production` so let’s add some logic for that in our configuration. Since it’s just a JS file, that’s easy to do:
+Ok，首先我们添加几个插件到我们的配置文件里，但是仅当 `NODE_ENV` 的值是 `production` 的时候，才会加载它们，我们要在配置文件里添加一些逻辑，由于配置文件是 JS 语法，所以很简单：
 
 
 
@@ -672,7 +648,7 @@ Ok first of all, we’re going to add several plugins to our configuration, but 
 
 
 
-Now second, Webpack also has several settings that we can switch off in production:
+其次，Webpack 还有一些相关设置，我们要在生产环境里关闭掉：
 
 
 
@@ -682,7 +658,7 @@ Now second, Webpack also has several settings that we can switch off in producti
 
 
 
-The first setting switches loaders to and from `debug` mode, which means they won’t pack-in more code to let you more easily debug things in local. The second is about sourcemaps generation. Webpack has [several ways](http://webpack.github.io/docs/configuration.html#devtool) to render [sourcemaps](http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/), `eval` is just the best one in local. In production we may not really care about sourcemaps so we disable them. Now let’s add our production plugins:
+第一个设置是关于 loader 的调试模式，如果关闭，意味着方便本地调试的那部分代码不会包含到代码中。第二个设置是关于 sourcemap 的生成，Webpack 有 [几种方法](http://webpack.github.io/docs/configuration.html#devtool) 生成 [sourcemaps](http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/)，`eval` 在本地环境下是最佳选择。在生产环境中，我们不需要用到 sourcemap 所以可以把选项关掉。现在，添加我们的生产环境插件：
 
 
 
@@ -691,19 +667,23 @@ The first setting switches loaders to and from `debug` mode, which means they wo
 
             // This plugin looks for similar chunks and files
             // and merges them for better caching by the user
+            // 这个插件搜索相似的块与文件并合并它们
             new webpack.optimize.DedupePlugin(),
 
             // This plugins optimizes chunks and modules by
             // how much they are used in your app
+            // 这个插件通过计算子块和模块的使用次数进行优化
             new webpack.optimize.OccurenceOrderPlugin(),
 
             // This plugin prevents Webpack from creating chunks
             // that would be too small to be worth loading separately
+            // 这个插件在子块文件太小时，会阻止生成，因为不值得独立加载
             new webpack.optimize.MinChunkSizePlugin({
                 minChunkSize: 51200, // ~50kb
             }),
 
             // This plugin minifies all the Javascript code of the final bundle
+            // 这个插件对最终生成的 JS 代码进行 Uglify
             new webpack.optimize.UglifyJsPlugin({
                 mangle:   true,
                 compress: {
@@ -714,6 +694,8 @@ The first setting switches loaders to and from `debug` mode, which means they wo
             // This plugins defines various variables that we can set to false
             // in production to avoid code related to them from being compiled
             // in our final bundle
+            // 这个插件定义了不同变量，我们可以在生成环境关闭一些变量
+            // 避免调试代码被编译到我们最终的包里
             new webpack.DefinePlugin({
                 __SERVER__:      !production,
                 __DEVELOPMENT__: !production,
@@ -728,9 +710,9 @@ The first setting switches loaders to and from `debug` mode, which means they wo
 
 
 
-That’s the ones I use most but Webpack offers a lot more plugins you can use to fine-tune your modules and chunks. There are also several user-contributed plugins that can be found on NPM and that accomplish various things. Links to available plugins can be found at the end of this article.
+以上是我最常使用的插件，不过 Webpack 还提供了很多其它插件，供你用在模块和子块的微调。此外，还有一部分用户贡献的插件，可以在 NPM 上找到，供你完成更多的事情。一些插件的链接可以在本文末尾找到。
 
-Now another aspect of production assets is ideally you’d like your assets to be versioned. Now remember when we set `output.filename` to `bundle.js`? Well there are several variables you can actually use in that option, one of which is `[hash]` and corresponds to a hash of the contents of the final bundle, so let’s change our code. We also want our chunks to be versioned so we’ll add an `output.chunkFilename` which accomplishes the same things:
+现在还有另一个问题，理想情况下，我们想要静态资源带上版本号。还记得我们设置 `output.filename` 为 `bundle.js` 吗？事实上有一些选项可以用在变量里，其中一个是 `[hash]`，对应着最终打包生成的文件内容的哈希值，我们改变一下这个设置。此外，我们还想要 `output.chunkFilename` 也带上版本号：
 
 
 
@@ -743,7 +725,7 @@ Now another aspect of production assets is ideally you’d like your assets to b
 
 
 
-As we don’t really have a way to dynamically retrieve the name of the compiled bundle in our simplistic app, we’ll only version assets in production, for the example. We may also want to clean up our builds folder before a production build (to save some space) so let’s install a third-party plugin that does just that:
+在这个简单的应用里，我们不想要动态取得编译出来的包名字，我们只会在生产环境里打上版本号，比如，我们可能想要在打包生产环境代码前，清理 builds 文件夹，这时候我们要安装一个第三方插件来完成这个事情：
 
 
 
@@ -751,7 +733,7 @@ As we don’t really have a way to dynamically retrieve the name of the compiled
 
 
 
-And add it to our configuration:
+然后添加到配置文件中：
 
 
 
@@ -769,7 +751,7 @@ And add it to our configuration:
 
 
 
-Ok, we have already done some nifty optimizations, let’s compare the results:
+现在我们完成了很棒的优化了，对比看看结果：
 
 
 
@@ -787,19 +769,19 @@ Ok, we have already done some nifty optimizations, let’s compare the results:
 
 
 
-So what has Webpack done: first of all since our example is very lightweight, our two async chunks weren’t worth the HTTP request so Webpack merged them back up to the entry point. Second everything was properly minified. We went from a total of 3 HTTP requests for 322kb to a single HTTP request for 97kb.
+Webpack 完成了这些事情：首先，由于我们的例子非常轻量级，我们的两个异步子块不值得额外 HTTP 请求，因此 Webpack 把它们和入口模块合在一起了。其次，所有内容都被压缩了，我们从三个 HTTP 请求，共 322kb，缩减到一个 HTTP 请求，仅 97kb。
 
-> But wasn’t the point of Webpack to stem away for one big ass JS file?
+> 但是 Webpack 生成了一个庞大的 JS 文件呀？
 
-Yes, yes it is, but this only happened because our app is very small. Now consider this: you didn’t have to think about what to merge, when or where. If your chunks suddenly start having more dependencies, the chunk will be moved to an async chunk instead of being merged; and if these chunks start looking too similar to be worth loading separately, they would be merged, etc. You just setup the rules, and from then on, Webpack will automatically optimize your application in the best way possible. No manual labor, no thinking about what dependencies go where or are needed where, everything is _automatic_.
+确实如此，不过这是由于我们的 app 非常小。试想：之前你不需要过多考虑合并什么、何时在哪合并。但是如果你的子块突然要依赖更多东西，子块或许会变为异步加载而不会被合并，如果这些子块的内容相似，不值得异步加载，那还不如合并起来。用上 Webpack，你只需要设置规则，从那以后，Webpack 会自动帮助你优化应用，不需要手工劳动，也不需要考虑依赖放在哪，所有事情都变成了自动完成。
 
 ![](http://ww2.sinaimg.cn/large/a490147fgw1f4i100zj8gg206x04kaim.gif)
 
-You may have noticed I didn’t setup anything to minify our HTML and CSS, that’s because the `css-loader` and `html-loader` already take care of that by default if the `debug` option we mentioned earlier is `false`. This is also the reason why Uglify is a separate plugin: because there is no `js-loader` in Webpack, since Webpack itself _is_ the JS loader.
+你可能注意到，我没有设置压缩 HTML 和 CSS，因为 `css-loader` 和 `html-loader` 在 `debug` 为 `false` 时，默认会完成这个工作，这也是 Uglify 单独拿出来做插件的原因：Webpack 并没有  `js-loader`，因为 Webpack 本身就是处理 JS 的。
 
-### Extraction
+### 提取
 
-Ok now as you may have noticed, since the beginning of this tutorial our styles have been injected live into the webpage which causes a FOUAP (Flash of Ugly Ass Page). Now wouldn’t it be nice if we could just, pipe all the styles that Webpack has gathered in the current build to a final CSS file? Sure we can, let’s call in some help from an external plugin:
+现在你可能会注意到，从一开始我们的样式就被动态地注入到页面里，导致页面加载完成前，样式会闪烁(Flash of Ugly Ass Page, FOUAP)。如果我们能把所有样式也打包成一个单独的 CSS 文件，不就更好吗？我们引入一个额外的插件来做这件事情：
 
 
 
@@ -807,7 +789,7 @@ Ok now as you may have noticed, since the beginning of this tutorial our styles 
 
 
 
-What this plugin does is exactly what I just said: gather a certain type of content from your final bundle, and pipe it elsewhere, most common use case being for CSS. So let’s set it up:
+这个插件的作用正如我刚才所说的，从最终的文件包里拿出某些内容，导出的别的地方，最常见的用例就是 CSS，修改一下配置：
 
 
 
@@ -843,7 +825,8 @@ What this plugin does is exactly what I just said: gather a certain type of cont
 
 
 
-Now the `extract` method takes two arguments: first is what to do with the extracted contents when we’re in a chunk (`'style'`), second is what to do when we’re in a main file (`'css!sass'`). Now if we’re in a chunk, we can’t just magically append our CSS to the generated one so we use the `style` loader here as before, but for all the styles that are found in the main file, pipe them to a `builds/bundle.css` file. Let’s test it out, let’s add a small main stylesheet for our application:
+现在 `extract` 方法接收两个参数：第一个我们在子块里 (`'style'`) 对提取出的内容做什么；第二个是在主文件 (`'css!sass'`) 里面对内容做什么。现在如果我们在子块里，我们不能像以前那样直接添加 CSS，需要使用 `style` loader，但对于所有主文件里的 CSS，导出到 `builds/bundle.css` 文件。让我们来试一试，在应用里添加一点主样式：
+
 
 **src/styles.scss**
 
@@ -866,7 +849,7 @@ Now the `extract` method takes two arguments: first is what to do with the extra
 
 
 
-Let’s run Webpack and sure enough we now have a `bundle.css` file that we can import in our HTML:
+运行 Wepback，并确保在 HTML 里引入了 `bundle.css` 文件：
 
 
     $ webpack
@@ -877,15 +860,15 @@ Let’s run Webpack and sure enough we now have a `bundle.css` file that we can 
 
 
 
-If you’d like to also extract the styles of the chunks, you can pass the `ExtractTextPlugin('bundle.css', {allChunks: true})` option. Do note that you can also use variables here in your filename, so if you wanted a versioned stylesheet you’d just do `ExtractTextPlugin('[name]-[hash].css')` same as for the Javascript file.
+如果你还想提取子块的样式，你可以传递 `ExtractTextPlugin('bundle.css', {allChunks: true})` 选项。注意你也可以在文件名使用变量，如果你想要样式表带上版本号，和 JS 文件一样，使用 `ExtractTextPlugin('[name]-[hash].css')` 选项。
 
-### Images all the people
+### 带上图片
 
-Now this is good for all our Javascript files but one topic we haven’t talked about much is concrete assets: images, fonts, etc. How do those work in the context of Webpack and how can we best optimize them? Let’s take a picture from the web that we’ll use as our page background because I’ve seen people doing it on [Geocities](https://www.google.com/search?q=Geocities&tbm=isch) and it looks so cool:
+现在我们能很好地处理 JS 文件了，但是我们还没涉及到具体的静态资源：图片、字体等。Webpack 是如果在上下文中处理这些资源，我们又可以做什么优化呢？让我们在网上拿一张图片，用作背景图。我在 [Geocities](https://www.google.com/search?q=Geocities&tbm=isch) 看见别人这么做了，看着挺酷：
 
 ![](http://ww1.sinaimg.cn/large/a490147fgw1f4i0mf8uwuj203k03kq2r.jpg)
 
-Let’s save this image in `img/puppy.jpg`, and update our Sass file accordingly:
+把图片保存为 `img/puppy.jpg`，并对应更新 Sass 文件：
 
 **src/styles.scss**
 
@@ -900,9 +883,9 @@ Let’s save this image in `img/puppy.jpg`, and update our Sass file accordingly
 
 
 
-Now if you do this, Webpack will legitimately tell you “What the fuck do I do with a JPG”, because we have no loader for it. There are two native loaders we can use to handle concrete assets: the `file-loader` and the `url-loader`: - The first one will just return a URL to the asset without any particular change, allowing you in the process to version the file (this is the default behavior). - The second one will inline the asset to a `data:image/jpeg;base64` URL
+现在如果你这么做，Webpack 会义正言辞地告诉你：“我压根不知道怎么处理 JPG 文件啊！”，因为没有合适的 loader 来处理它。我们有两个选择来处理这些资源： `file-loader` 和 `url-loader`：第一个会给静态资源返回一个 URL，不作其它更改，并允许你给文件加上版本号（这也是默认行为）；第二个会把资源转化成 `data:image/jpeg;base64` 格式。
 
-In reality it’s not black and white: if your background is a 2Mb image you don’t want to inline that and it would be preferable to load it separately. If on the other hand it’s a small icon of 2kb it’s better to inline it and spare the HTTP request, so let’s setup both:
+实际上没有绝对的对与错：如果背景是 2Mb 大小的图片，你可能不会把它内联，分开加载比较合理；如果是 2kb 的小图标文件，最好转为 base64 以节省 HTTP 请求，所以我们两个一起用：
 
 
 
@@ -919,7 +902,7 @@ In reality it’s not black and white: if your background is a 2Mb image you don
 
 
 
-Here, we’re passing a `limit` query parameter to the `url-loader` which tells it: if the asset is smaller than 10kb inline it, else, fallback to the `file-loader` and reference it. That syntax is called a query string, you use it to configure loaders, alternatively you can also configure loaders through an object:
+这里，我们传递了一个 `limit` 参数给 `url-loader` ，告诉 Webpack：如果文件小于 10kb 则内联，否则 fallback 给 `file-loader` 作处理。这种语法称为查询字符串，你可以用来配置 loader，或者你也可以通过写一个对象来配置：
 
 
 
@@ -933,7 +916,7 @@ Here, we’re passing a `limit` query parameter to the `url-loader` which tells 
 
 
 
-Ok let’s give it a shot:
+现在看看效果：
 
 
 
@@ -944,17 +927,18 @@ Ok let’s give it a shot:
 
 
 
-As we can see there is no mention of a JPG because our puppy image is smaller than the configured size, it has been inlined. Which means if we visit our page we can bask in the gloriousness of our puppies overlords.
+我们可以看到，没有提及到 JPG 文件，因为我们的小狗图片比配置的大小要小，所以被内联了。这意味着如果我们打开页面，我们就可以看到小狗图片了。
 
 ![](http://ww3.sinaimg.cn/large/a490147fgw1f4i0nf5qr1j20gz0n30w3.jpg)
 
-This is _very_ powerful because it means Webpack will now intelligently optimize any concrete assets found depending on the ratio of size/HTTP requests. There are a good load of loaders you can pipe to push things even further, most common one being [image-loader](https://github.com/tcoopman/image-webpack-loader) which will pass `imagemin` on all images before bundling them. It even has a `?bypassOnDebug` query parameter which allows you to only do that on production. There are a lot of plugins like that, I encourage you to take a look at the list at the end of this article.
+现在我们的 Webpack 已经很强大了，因为它可以智能地优化任何具体资源，以减少 HTTP 请求的频率和流量。使用 [image-loader](https://github.com/tcoopman/image-webpack-loader) 你还可以做更多优化工作，比如构建时传递 `imagemin` 参数，它甚至还有 `?bypassOnDebug` 查询字符串，允许你在生产环境才那么做。事实上还有很多类似插件，我鼓励你看完这篇文章后，再翻一翻文件结尾的列表。
 
-### We’ll do it live dammit
+### 实时更新
 
-Now that our production build is taken care of, let’s focus more on our local development. You may have noticed one big hole so far that usually comes up when mentioning build tools: live reloading: LiveReload, BrowserSync, whatever your cup of tea is. But having the whole page refresh that’s for suckers, let’s take it one step further with what is called _hot module replacement_ or _hot reload_. It’s the idea that, since Webpack knows exactly the position of each module in our dependency tree, a change in it can be represented by simply _patching_ that part of the tree with the new file. More clearly: your changes appear live on your screen without the page reloading.
+现在我们兼顾到了生产环境，把目光放回到开发环境。当提及到构建工具时，总有一个大坑需要填：实时刷新。LiveReload, BrowserSync 等，不管你喜欢用什么，等待整个页面重新刷新总是非常烦人，更好的做法是 _模块热替换（HMR，hot module replacement）_ 或者 _热刷新_。我们的想法是，由于 Webpack 清晰知道每个模块在依赖树的位置，发生更改时，只需要更换发生变化的那部分就好了。更清晰的想法是：你的更改实时反映在屏幕上，不需要刷新页面。
 
-In order for HMR to be used, we need a server from which the hot assets will be served. Webpack comes with a `dev-server` we can leverage for that, so let’s install it:
+
+为了用上 HMR，我们需要一个 server 来处理资源热替换。Webpack 提供了 `dev-server` 解决这个问题，我们可以安装它：
 
 
 
@@ -962,7 +946,7 @@ In order for HMR to be used, we need a server from which the hot assets will be 
 
 
 
-Now to run the dev server, nothing simpler, just run the following command:
+现在运行 dev server，非常简单，只需一条命令：
 
 
 
@@ -970,11 +954,11 @@ Now to run the dev server, nothing simpler, just run the following command:
 
 
 
-The first flag tells Webpack to inline the HMR logic into the page (instead of presenting the page in an iframe) and the second enables HMR. Now let’s visit the web-server at `http://localhost:8080/webpack-dev-server/`. You’ll see your usual page, but now try to modify one of the Sass files and, magic:
+第一个参数告诉 Webpack，把 HMR 逻辑内联到页面（而不是在 iframe 中呈现页面），第二个参数是启用 HMR。现在打开服务器地址 `http://localhost:8080/webpack-dev-server/`，再试试修改 Sass 文件，见证奇迹的时刻：
 
 ![](http://ww2.sinaimg.cn/large/a490147fgw1f4i10s9casg20i006w48b.gif)
 
-You can use the webpack-dev-server as your own local server. If you plan to always use it for HMR, you can say so in your configuration:
+现在你可以把 webpack-dev-server 当作本地服务器了，如果你打算一直使用 HMR，你可以在配置文件里作修改：
 
 
 
@@ -990,11 +974,11 @@ You can use the webpack-dev-server as your own local server. If you plan to alwa
 
 
 
-Now whenever we run `webpack-dev-server` it’ll already be in HMR mode. Note that we used `webpack-dev-server` here to serve the hot assets but you can use several other options, like an Express server. Webpack provides a middleware that you can use to plug in HMR capabilities to other servers.
+现在无论何时运行 `webpack-dev-server` 它总是在 HMR 模式中。注意我们在这里只是使用 `webpack-dev-server` 来处理热加载，但是你还可以用一些其它选项，用法就像 Express 的服务器那样。Webpack 还提供了一个中间件，使得你可以添加 HMR 功能给其它服务器。
 
-### Get clean or die lintin’
+### 添加语法检查
 
-If you’ve been following this tutorial closely you may have noticed something weird: why are loaders nested in `module.loaders` but plugins are not? That’s because there are other things you can put into `module` of course! Webpack doesn’t just have loaders, it also has pre-loaders and post-loaders: loaders that are executed on the code before or after our main loaders. Let’s take an example: I’m sure the code I wrote for this article is horrendous, so let’s apply ESLint to our code before we transform it:
+如果你一直紧跟教程，你可能留意到一个奇怪的问题：为什么 loaders 是嵌套在 `module.loaders` 而插件不是呢？因为你还可以在 `module` 放入其他东西。Webpack 除了 loaders，还有 pre-loaders 和 post-loaders，也就是在主 loaders 前后执行的内容。比如：这篇文章里的代码量很大，我们在转换前，需要借助 ESLint 来检测代码：
 
 
 
@@ -1002,7 +986,7 @@ If you’ve been following this tutorial closely you may have noticed something 
 
 
 
-And let’s create a minimalistic `.eslintrc` file that I know will fail:
+先创建一个 `.eslintrc` 文件，定义一个肯定不能通过的规则：
 
 **.eslintrc**
 
@@ -1014,7 +998,7 @@ And let’s create a minimalistic `.eslintrc` file that I know will fail:
 
 
 
-Now to add our pre-loader, we simply use the same syntax as before, but in `module.preLoaders`:
+现在添加 pre-loader，和前面的语法一样，但是放在 `module.preLoaders` 中：
 
 
 
@@ -1028,7 +1012,7 @@ Now to add our pre-loader, we simply use the same syntax as before, but in `modu
 
 
 
-And now if we run Webpack, sure enough it fails:
+现在运行 Webpack，果然会失败：
 
 
 
@@ -1057,7 +1041,7 @@ And now if we run Webpack, sure enough it fails:
 
 
 
-Let’s take another example of pre-loader: for every component we currently import its stylesheet of the same name, and its template of the same name. Let’s use a pre-loader to automatically load any files bearing the same name as a module:
+再举一个 pre-loader 的例子：对于每个组件，我们都输入和组件名字相同的样式表以及模板，使用一个 pre-loader 可以自动地帮我完成这个工作：
 
 
 
@@ -1074,7 +1058,7 @@ Let’s take another example of pre-loader: for every component we currently imp
 
 
 
-This tells Webpack: if you encounter an HTML file of the same name, import it as `template`, and also import any Sass file of the same name. We can now change our components from this:
+这个配置告诉 Webpack：如果遇到一个同名的 HTML 文件和 Sass 文件，作为模板和样式引入进来，现在可以把组件代码从：
 
 
 
@@ -1085,7 +1069,7 @@ This tells Webpack: if you encounter an HTML file of the same name, import it as
 
 
 
-To this:
+改为：
 
 
 
@@ -1094,11 +1078,11 @@ To this:
 
 
 
-As you can see pre-loaders can be pretty powerful, same goes for post-loaders. Take a look at the list of available loaders at the end of this article and you’ll surely find a lot of use cases in it.
+正如你看到的那样，pre-loaders 非常强大，而 post-loaders 也一样。在文章最后的列表中搜索一下，相信你会找到许多 post-loaders 的适用场景。
 
-### Would you like to know more?
+### 还想知道更多？
 
-Currently our application is rather small, but as it starts getting bigger it might be useful to be able to get more insights on what our actual dependency tree is. What we might be doing right or wrong, what are the bottlenecks of our application, etc. Now internally, Webpack knows all these things, but you have to ask him politely to show you what it knows. You can do so by generating a _profile file_ by running the following command:
+现在我们的应用还很轻量，但是一旦应用变得更加复杂，我们可能需要观察依赖树的情况，以便分析有什么做得好的和不合理的，以及应用的瓶颈等。Webpack 内部对此很了解，因此我们可以向 Webpack 了解更多，通过以下命令生成一个 _配置文件_ ：
 
 
 
@@ -1106,17 +1090,17 @@ Currently our application is rather small, but as it starts getting bigger it mi
 
 
 
-The first flag tells Webpack to generate a profile file, the second one to generate it in JSON, and finally we’re piping all this output to a JSON file. Now there are multiple websites to analyze these profile files, but Webpack provides an official one to decypher this information. So go to [Webpack Analyze](http://webpack.github.io/analyse/) and import your JSON file there. Now go into the **Modules** tab and you should see a visual representation of your dependency tree:
+第一个参数告诉 Webpack 生成配置文件，第二个参数是生成 JSON 格式，最终把所有内容输出到一个 JSON 文件中。现在有多个网站可以解析 profile 文件，Webpack 也有官方网站来分析信息。打开 [Webpack Analyze](http://webpack.github.io/analyse/) 并上传你的 JSON 文件，在 **Modules** 标签页，你可以看到依赖树的可视化结果：
 
 ![](http://ww2.sinaimg.cn/large/a490147fjw1f4i0piefhaj20or0kvmyk.jpg)
 
-The redder a dot is, the more it is problematic regarding your final bundle. In our case it’s marking jQuery as problematic because it’s the heaviest of all our modules. Take a look into all the tabs, look around, you won’t learn much on our minimal application but this tool is a very important one to gain insight into your tree and final bundle. Now as I said, other services offer insight into your profile file, another one I like is [Webpack Visualizer](http://chrisbateman.github.io/webpack-visualizer/) which spins up a doughnut chart of what takes up space in your bundle, which of course in our case:
+点的颜色越红，说明问题越大。这里把 jQuery 标红，因为它是我们所有模块中最重的。顺便看看其它标签页，你可能不会在我们的小应用里看到什么有价值的信息，但是这个工具对于了解依赖树和最终的包内容是非常重要的。现在正如我说的那样，其它网站服务也提供类似功能，比如我喜欢的是 [Webpack Visualizer](http://chrisbateman.github.io/webpack-visualizer/)，提供了环形图来显示你的包里面什么东西最占空间，在我们的例子里当然是 jQuery 了：
 
 ![](http://ww4.sinaimg.cn/large/a490147fjw1f4i0pxgo3bj20lo0knmzm.jpg)
 
 ## That’s all folks
 
-Now I know that in my case, Webpack has completely replaced Grunt or Gulp: most of what I used them for is now handled by it, and for the rest I just use NPM scripts. Per example one common task we had in the past was converting our API documentation to HTML with Aglio, this can easily be done like so:
+在我的案例里面，Webpack 完全替代了 Grunt / Gulp：它们的大部分功能被 Webpack 取代，剩下的部分我只需要用 NPM scripts 来处理。比如我们想要使用 Aglio，把 API 文档转换为 HTML，只需要这么写：
 
 **package.json**
 
@@ -1126,7 +1110,7 @@ Now I know that in my case, Webpack has completely replaced Grunt or Gulp: most 
 
 
 
-If however you have more complex tasks in your Gulp stack that are unrelated to bundling or assets, Webpack plays _very_ nicely with other build systems. Per example here is how to integrate Webpack in Gulp:
+但是，如果你在 Gulp 里面调用了更加复杂的任务，和打包或者静态资源无关，Webpack 对于其他构建系统也兼容，比如下面这个例子把 Gulp 整合到 Webpack 里：
 
 
 
@@ -1146,15 +1130,15 @@ If however you have more complex tasks in your Gulp stack that are unrelated to 
 
 
 
-And that’s pretty much it, since Webpack also has a Node API, it can easily be used in other build systems, and in any case you’ll find wrappers for it hanging a bit everywhere.
+就这么简单，由于 Webpack 还有 Node API，所以可以用在其它构建系统中，只需要包裹一层，就可以把它放在其它地方使用。
 
-Anyway, I think that’s a good enough bird’s eye view of what Webpack can do for you. You may think we have covered a lot in this article, but we have only _scratched the surface_: multiple entry points, prefetching, context replacement, etc. Webpack is an impressively powerful tool, which of course comes at the cost of a more opaque configuration syntax than your traditional build tool, I won’t deny it. But once you know how to tame it, it’ll purr the sweet sound of performance right into your ear. I used it on several projects, and it offers so much power of optimization and automation that I can’t honestly picture myself going back to banging my head on what assets is needed where or when.
+总而言之，我认为这篇文章可以帮你概览 Webpack 能帮你做什么事情。你可能会觉得我在本文里提及了很多内容，但是我们还只是讲了一点皮毛：多入口点、prefetching、上下文替换等还没提及呢。Webpack 很好很强大，所以比起其它构建工具的配置显得成本更高，但是我并不会因此而拒绝它。一旦你领悟了它，会给你带来很多好处。我在好几个项目里用上了 Webpack，它提供了强大的优化能力和自动处理能力，老实说我已经不能想象怎么回到那个手动解决静态资源问题的时代了。
 
-## Resources
+## 相关资源
 
-*   [Webpack documentation](https://webpack.github.io/)
-*   [List of loaders](http://webpack.github.io/docs/list-of-loaders.html)
-*   [List of plugins](http://webpack.github.io/docs/list-of-plugins.html)
-*   [Sources for this article](https://github.com/madewithlove/webpack-article/commits/master)
-*   [Our Webpack configuration package](https://github.com/madewithlove/webpack-config)
+*   [Webpack 官方文档](https://webpack.github.io/)
+*   [Loaders 列表](http://webpack.github.io/docs/list-of-loaders.html)
+*   [Plugins 列表](http://webpack.github.io/docs/list-of-plugins.html)
+*   [本文的源代码](https://github.com/madewithlove/webpack-article/commits/master)
+*   [本文的 Webpack 配置文件](https://github.com/madewithlove/webpack-config)
 
