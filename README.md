@@ -2,17 +2,18 @@
 
 [掘金翻译计划](http://gold.xitu.io/#/tag/%E6%8E%98%E9%87%91%E7%BF%BB%E8%AF%91%E8%AE%A1%E5%88%92)是一个翻译优质互联网技术文章的社区，文章来源为[掘金](http://gold.xitu.io)上的英文分享文章。内容覆盖 Android、iOS、前端、后端、产品、设计等领域，读者为热爱新技术的新锐开发者。
 
-掘金翻译计划目前翻译完成 [84](#android) 余篇文章，共有 [108](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 名译者贡献翻译。
+掘金翻译计划目前翻译完成 [108](#android) 余篇文章，共有 [120](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 名译者贡献翻译。
 
 # 如何参与翻译
 
-1. 在 [待认领文章列表](https://github.com/xitu/gold-miner/issues?q=is%3Aissue+is%3Aopen+label%3A%E6%96%87%E7%AB%A0%E8%AE%A4%E9%A2%86) 中认领翻译文章（如果是第一次认领，介绍一下自己就更好咯）
-2. 认领通过后，Fork 此仓库开始翻译
-3. 翻译完成，发送 [Pull Request](https://github.com/xitu/gold-miner/pull/new/master)
-4. 至少审核两篇其他译者发 PR 的[文章](https://github.com/xitu/gold-miner/pulls?q=is%3Apr+is%3Aopen+label%3A%E6%A0%A1%E5%AF%B9%E8%AE%A4%E9%A2%86)
-5. 分享你的译文到[掘金](http://gold.xitu.io)，让更多的开发者看到好的文章。
+1. 第一次follow掘金翻译计划的小伙伴要**先发issue申请成为我们的译者**，只有掘金翻译计划的译者才可以参与校对和翻译，issue内容可以介绍自己的英语水平、有无翻译英文技术文章的相关经历、工作等等，可参照[往期译者申请](https://github.com/xitu/gold-miner/issues/282)格式；
+2. 每一位新译者都要从校对文章开始，每篇译文需要**一位译者**和**两位校对者**（*label具体内容极其含义：校对认领=此文章需要两位校对者；校对认领+正在校对=此文章已经有一位校对者在校对了，现在还需要第二位校对者；正在校对=此文章已经有两位校对者在校对了*），校对文章只需在有**校对认领**label的issue下留言即可；
+3. 翻译文章，在 [待认领文章列表](https://github.com/xitu/gold-miner/issues?q=is%3Aissue+is%3Aopen+label%3A%E6%96%87%E7%AB%A0%E8%AE%A4%E9%A2%86) 中认领翻译文章；
+4. 认领通过后，Fork 此仓库开始翻译，*注意：fork到自己本地后要新建分支，不要在自己的master上翻译*；
+5. 翻译完成，发送 [Pull Request](https://github.com/xitu/gold-miner/pull/new/master)，*注意：发PR的时候请注意检查，一个PR只能有一篇文章，切勿两篇或多篇合并到一个PR*；
+6. 两位校对者校对完成后，可以根据校对者意见进行修改，修改完成后at[管理员羊三岁](https://github.com/antonia0912)进行最终检查，merge后分享你的译文到[掘金](http://gold.xitu.io)，让更多的开发者看到好的文章。
 
-**译者福利**：掘金翻译计划的译者都可以获得 [MarkEditor](http://zrey.com/app/markeditor) 激活码一个。
+[**译者福利**](https://github.com/xitu/gold-miner/wiki)。
 
 > 建议：Fork 此仓库后，请先从 master 分支上 `git checkout -b translate` 一个新的 translate 分支来翻译文章，翻译完成后再把 translate 分支发 PR。
 
