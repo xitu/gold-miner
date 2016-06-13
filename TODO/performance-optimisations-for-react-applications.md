@@ -2,7 +2,7 @@
 * 原文作者 : [Alex Reardon](https://medium.com/@alexandereardon)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [woota](https://github.com/woota)
-* 校对者:
+* 校对者: [malcolmyu](https://github.com/malcolmyu), [Zheaoli](https://github.com/Zheaoli)
 
 ![](http://ww2.sinaimg.cn/large/0060lm7Tgw1f47ucaolgzj31jk0lmtcc.jpg)
 
@@ -48,7 +48,7 @@ React 应用主要的性能问题在于多余的处理和组件的 DOM 比对。
 
 #### 理想更新
 
-我们只想渲染通向叶子节点路径上的这几个节点
+我们只想渲染通向叶子节点的关键路径上的这几个节点
 
 ![](http://ww2.sinaimg.cn/large/0060lm7Tgw1f47ub7ewwsj318g0ha773.jpg)
 
@@ -59,7 +59,7 @@ React 应用主要的性能问题在于多余的处理和组件的 DOM 比对。
 
 ![](http://ww3.sinaimg.cn/large/0060lm7Tgw1f47ubiztaxj318g0hagoe.jpg)
 
-哦，不！我们所有的组件都重渲了。
+哦，不！我们所有的节点都被重新渲染了。
 
 React 的每一个组件都有一个 **shouldComponentUpdate(nextProps, nextState)** 函数。它的职责是当组件需要更新时返回 **true** ， 而组件不必更新时则返回 **false** 。返回 **false** 会导致组件的 **render** 函数不被调用。React 总是默认在 **shouldComponentUpdate** 中返回 **true**，即便你没有显示地定义一个 **shouldComponentUpdate** 函数。
 
@@ -83,7 +83,7 @@ shouldComponentUpdate(nextProps, nextState) {
 
 ## 加速 shouldComponentUpdate 检查
 
-理想情况下我们不希望在 **shouldComponentUpdate** 中做深等（也叫全等，相对于shallow equality(弱等，浅等)）检查，因为这非常昂贵，尤其是在大规模和拥有大的数据结构的时候。
+理想情况下我们不希望在 **shouldComponentUpdate** 中做深等检查，因为这非常昂贵，尤其是在大规模和拥有大的数据结构的时候。
 
 ```javascript
 class Item extends React.component {
@@ -186,7 +186,7 @@ const isObjectEqual = (obj1, obj2) => {
             return true;
         }
 
-        // 数组另外 —— 检查一个层级深度
+        // 数组例外，再检查一个层级的深度
         return Array.isArray(value) && 
             Array.isArray(nextValue) && 
             isArrayEqual(value, nextValue);
@@ -226,7 +226,7 @@ const state = {
 };
 ```
 
-这样组织你的数据，会使得在 **shouldComponentUpdate** 变的_困难_
+如果这样组织你的数据，会使得在 **shouldComponentUpdate** 中进行检查变得_困难_
 
 ```javascript
 import React, { Component, PropTypes } from 'react'
@@ -598,8 +598,8 @@ CPU 分析器火焰图表在寻找你的应用程序的性能问题时也能发�
 
 > 在做性能分析时，火焰图表会展示出每一毫秒你的代码的 Javascript 堆栈的状态。在记录的时候，你就可以确切地知道任意时间点执行的是哪一个函数，它执行了多久，又是谁调用了它。—— Mozilla
 
-Firefox: [see here](https://developer.mozilla.org/en-US/docs/Tools/Performance/Flame_Chart)
+Firefox: [点击查看](https://developer.mozilla.org/en-US/docs/Tools/Performance/Flame_Chart)
 
-Chrome: [see here](https://addyosmani.com/blog/devtools-flame-charts/)
+Chrome: [点击查看](https://addyosmani.com/blog/devtools-flame-charts/)
 
 感谢阅读，祝你顺利构建出高性能的 React 应用！
