@@ -1,72 +1,71 @@
 >* 原文链接 : [PostCSS – What It Is And What It Can Do](https://web-design-weekly.com/2016/06/04/postcss-what-it-is-and-what-it-can-do/)
 * 原文作者 : Jake Bresnehan
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
+* 译者 : [Zheaoli](https://github.com/Zheaoli)
 * 校对者:
 
 
-[PostCSS](http://postcss.org) has been around since September 2013 and has been part of many developers workflow for a while. For those that haven’t had the time to dig into it and put some time aside to understand what it is and what it can do, this post is for you.
+[PostCSS](http://postcss.org) 起源于2013年9月，发展到现在，已经有很多开发者为其贡献代码。 这篇文章是写给那些，还没有来得及花一点时间去了解PostCSS是什么，可以用来干什么的人。
+> PostCSS是一种利用**JavaScript**来生成**CSS**的工具
 
-> PostCSS is a tool for transforming CSS with JavaScript.
+PostCSS 主体非常精简。主体只包含**CSS**生成器，操作**CSS**结构的API，资源生成器，以及一个字符串化节点树的工具。所有的黑魔法都是通过利用插件实现的。
 
-PostCSS itself is very small. It only includes a CSS parser, a CSS node tree API, a source map generator and a node tree stringifier. All the magic happens by the plugins.
+截止目前，**PostCSS** 的生态圈内已经拥有超过100种[插件](http://postcss.parts/ "PostCSS Plugins")。这些插件可以做太多的事情，比如**lint**（译者注1：一种用来检测CSS代码的工具），添加**vendor prefixes**（译者注2：添加浏览器内核前缀，可以使用浏览器的一些独有特性），允许使用最新的CSS特性，在你的**CSS**里提供统计数据，或者是允许你使用Sass，Less或者是Stylus等一系列事情。
 
-At the time of writing the PostCSS ecosystem has over 100 [plugins](http://postcss.parts/ "PostCSS Plugins"). These plugins can do a large array of things, from linting, adding vendor prefixes, enabling the use of the latest CSS syntax, providing statistics on your CSS or giving you the power to use a preprocessors like Sass, Less or Stylus.
-
-### 10 Plugins To Look Into
+### 让我们看看以下十种插件
 
 [Autoprefixer](https://github.com/postcss/autoprefixer "Autoprefixer")
 
-> Parse CSS and add vendor prefixes to CSS rules using values from Can I Use data.
+> 根据用户的使用场景来解析**CSS**和添加**vendor prefixes**（前文注2）。
 
 [PostCSS Focus](https://github.com/postcss/postcss-focus "PostCSS Focus")
 
-> PostCSS plugin to add `:focus` selector to every `:hover` for keyboard accessibility.
+> 一种利用键盘操作为每个**:hover**添加**:focus**选择器的**PostCSS**插件。
 
 [PreCSS](https://github.com/jonathantneal/precss "PreCSS")
 
-> A plugin that allows you to use Sass-like markup in your CSS files.
+>一个允许你在代码中使用类似**Sass**标记的插件。
 
 [Stylelint](https://github.com/stylelint/stylelint "Stylelint")
 
-> A mighty, modern CSS linter that helps you enforce consistent conventions and avoid errors in your stylesheets.
+> 一种强大的，先进的可以使你在**CSS**样式中保持一致性，避免错误的**CSS linter**工具。
 
 [PostCSS CSS Variables](https://github.com/MadLittleMods/postcss-css-variables "PostCSS CSS Vatiables")
 
-> A plugin to transform CSS Custom Properties(CSS variables) syntax into a static representation.
+> 一种将用户自定义**CSS**属性（**CSS variables**）转化为静态样式的插件。
 
 [PostCSS Flexbugs Fixes](https://github.com/luisrudge/postcss-flexbugs-fixes "PostCSS Flexbug FIxes")
 
-> A PostCSS plugin that tries to fix all of flexbug’s issues.
+> 一种试图修复**flexbug**的bug的插件。
 
 [PostCSS CSSnext](https://github.com/MoOx/postcss-cssnext "PostCSS CSSnext")
 
-> A plugin that helps you to use the latest CSS syntax today. It transforms CSS specs into more compatible CSS so you don’t need to wait for browser support.
+> 一种可以让你使用**CSS**最新特性的插件。它通过最新的**CSS**特性转变为现阶段浏览器所兼容的特性，这样你不用再等待浏览器对某一特定新特性的支持。
 
 [PostCSS CSS Stats](https://github.com/cssstats/postcss-cssstats "PostCSS CSSStats")
 
-> A PostCSS plugin for [cssstats](https://github.com/cssstats/cssstats "CSS Stats"). The plugin returns a cssstats object in the callback which can be used for css analysis.
+> 一种支持[cssstats](https://github.com/cssstats/cssstats "CSS Stats")的插件。这个插件将会返回一个**cssstatus** 对象，这样你可以利用它来进行**CSS**分析。
 
 [PostCSS SVGO](https://github.com/ben-eb/postcss-svgo "PostCSS SVGO")
 
-> Optimise inline SVG with PostCSS.
+> 优化在**PostCSS**中内置的SVG。
 
 [PostCSS Style Guide](https://github.com/morishitter/postcss-style-guide "PostCSS Style Guide")
 
-> A PostCSS plugin to generate a style guide automatically. CSS comments will be parsed through Markdown and displayed in a generated HTML document.
+> 一种可以自动生成风格知道的插件。将会在**Markdown**中生成**CSS**注释，并在生成的**HTML**文档中显示。
 
-If you feel like creating your own plugin and contributing back to the PostCSS community, be sure to have a look at these [guidelines](https://github.com/postcss/postcss/blob/master/docs/guidelines/plugin.md "PostCSS Guidelines") and the offical [PostCSS Plugin Boilerplate](https://github.com/postcss/postcss-plugin-boilerplate "PostCSS Boilerplate").
+如果你想编写自己的插件，并希望将其贡献给社区的话，请确保你是先看过[guidelines](https://github.com/postcss/postcss/blob/master/docs/guidelines/plugin.md "PostCSS Guidelines")这篇文档还有[PostCSS Plugin Boilerplate](https://github.com/postcss/postcss-plugin-boilerplate "PostCSS Boilerplate")这篇官方文档。
 
-### Intergrating PostCSS Into Your Workflow
+### 在你的工作中使用**PostCSS**
 
-PostCSS is written in JavaScript which makes it quite straight forward to add it to common front-end build tools like [Grunt](http://gruntjs.com/), [Gulp](http://gulpjs.com/) or [Webpack](https://webpack.github.io/).
+**PostCSS** 是用**JavaScript**所编写的，这使得其通过利用[Grunt](http://gruntjs.com/), [Gulp](http://gulpjs.com/) 或者 [Webpack](https://webpack.github.io/)来添加。
 
-For the examples below we are going to use the [Autoprefixer](https://github.com/postcss/autoprefixer "Autoprefixer") plugin.
+下面是我们使用 [Autoprefixer](https://github.com/postcss/autoprefixer "Autoprefixer") 插件的示例。
 
 `npm install autoprefixer --save-dev`
 
 **Gulp**  
-If you are using Gulp you will also need to install the [gulp-postcss](https://github.com/postcss/gulp-postcss) package.
+如果你使用**Gulp**，那么你需要安装[gulp-postcss](https://github.com/postcss/gulp-postcss) 这个包。
 
 `npm install --save-dev gulp-postcss`
 
@@ -80,7 +79,7 @@ If you are using Gulp you will also need to install the [gulp-postcss](https://g
     });
 
 **Grunt**  
-If you are using Grunt you will also need to install the [grunt-postcss](https://github.com/nDmitry/grunt-postcss) package.
+如果你使用**Grunt**，那么你需要安装[grunt-postcss](https://github.com/nDmitry/grunt-postcss) 这个包。
 
 `npm install grunt-postcss --save-dev`
 
@@ -108,7 +107,7 @@ If you are using Grunt you will also need to install the [grunt-postcss](https:/
     };
 
 **Webpack**  
-If you are using Webpack you will also need to install the [postcss-loader](https://github.com/postcss/postcss-loader) package.
+如果你使用**Webpack**，那么你需要安装 [postcss-loader](https://github.com/postcss/postcss-loader) 这个包。
 
 `npm install postcss-loader --save-dev`
 
@@ -128,9 +127,8 @@ If you are using Webpack you will also need to install the [postcss-loader](http
         }
     }
 
-Further reading about integrating can be found on the [PostCSS repo](https://github.com/postcss/postcss#usage).
+关于怎么整合**PostCSS**，你可以从这里 [PostCSS repo](https://github.com/postcss/postcss#usage)获取到帮助。
 
-### Taking The Leap
+### 写在最后的话
 
-Sometimes when new technology, new tools and new frameworks get released it is often wise to just observe and see how they evolve. Now that PostCSS has matured and proven its value I would highly recommend taking the leap and making it part of your workflow. It has been around for a while and won’t be going anywhere soon.
-
+在有些时候，在新技术，新工具，新框架发布的时候，去使用并观察其发展趋势无疑是一种明智的行为。 现在，**PostCSS** 已经发展到一个相当成熟的阶段，我强烈建议你在你的工作中使用它。 虽然我在我的工作中已经使用**PostCSS**一段时间，但是并不意味着我将会广泛的使用它。
