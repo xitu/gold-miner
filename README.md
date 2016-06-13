@@ -109,6 +109,7 @@
 * [How do Promises Work?](http://gold.xitu.io/entry/56cc0bcf8ac2470053b7c5ab?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zhangjd](https://github.com/Zhangjd) 翻译)
 * [JavaScript 开发者年度调查报告](http://gold.xitu.io/entry/56ca985071cfe40054d98994?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([sqrthree](https://github.com/sqrthree) 翻译)
 * [Functional JavaScript 教程（一）](http://gold.xitu.io/entry/56d4e8b57db2a200556c64cb?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)  ([Zhangjd](https://github.com/zhangjd) 翻译)
+*  [人人须知的 jQuery 技巧](http://gold.xitu.io/entry/56e1a95b731956005da35c24?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)  ([Yves-X](https://github.com/Yves-X) 翻译)
 
 
 ## React
@@ -123,7 +124,6 @@
 *  [在生产环境中使用 Node.js 一年记](http://gold.xitu.io/entry/573d229ead5b950057645190?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([cdpath](https://github.com/cdpath) 翻译)
 *  [SSH 简化配置](http://gold.xitu.io/entry/5704cf8e71cfe4005dc76f18?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([circlelove](https://github.com/circlelove) 翻译)
 *  [Python3.5 协程原理](http://gold.xitu.io/entry/56ea295ed342d300546e1e22?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)  ([Yushneng](https://github.com/rainyear) 翻译)
-*  [人人须知的 jQuery 技巧](http://gold.xitu.io/entry/56e1a95b731956005da35c24?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)  ([Yves-X](https://github.com/Yves-X) 翻译)
 *  [OAuth2 Authentication with Lua](http://gold.xitu.io/entry/56cd222199a6ce005a25b9ef?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([BOBO](https://github.com/CoderBOBO) 翻译)
 *  [HTTP/2 For Web Developers](http://gold.xitu.io/entry/56ce7d1a1532bc005372a7fa?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zhongyi Tong](https://github.com/geeeeeeeeek) 翻译)
  
