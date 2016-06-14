@@ -60,6 +60,7 @@
 
 ## iOS
 
+* [利用 Swift 在 APP 中实现撤销操作的功能](http://gold.xitu.io/entry/575fab19207703006bea9d27?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zheaoli](https://github.com/Zheaoli) 翻译)
 * [关于 Swift 编译时性能优化的一些思考](http://gold.xitu.io/entry/5757f29279bc440061f5822c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([杨龙龙](https://github.com/yllziv) 翻译)
 * [抢先看 Swift 3.0](http://gold.xitu.io/entry/57558db97db2a2006995ed53?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Tuccuay](https://github.com/Tuccuay)翻译）
 * [如何检测 iPhone 处于低电量模式](http://gold.xitu.io/entry/574ff27d7db2a20055c7aec3?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zheaoli](https://github.com/Zheaoli) 翻译)
