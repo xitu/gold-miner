@@ -6,14 +6,14 @@
 
 
 
-在过去的一段时间里，有很多的Blog推出了介绍关于**Swift**动态特性的文章.**Swift** 已经成为了一门具有相当多动态特性的语言：它拥有泛型，协议， 头等函数（译者注1：first-class function指函数可以向类一样作为参数传递），和包含很多可以的动态操作的函数的标准库，比如**map**和**filter**等（这意味着我们可以利用更安全更灵活的函数来代替 KVC 来使用 字符串）（译者注2：KVC指Key-Value-Coding一个非正式的 Protocol，提供一种机制来间接访问对象的属性。）。对于大多数人而言，特别希望介绍[反射](http://inessential.com/2016/05/26/a_definition_of_dynamic_programming_in_t)这一特性，这意味着他们可以在程序运行时进行观察和修改。
+在过去的一段时间里，有很多的Blog推出了关于他们想在**Swift**中所添加的动态特性的文章。事实上**Swift** 已经成为了一门具有相当多动态特性的语言：它拥有泛型，协议， 头等函数（译者注1：first-class function指函数可以向类一样作为参数传递），和包含很多可以的动态操作的函数的标准库，比如**map**和**filter**等（这意味着我们可以利用更安全更灵活的函数来代替 KVC 来使用 字符串）（译者注2：KVC指Key-Value-Coding一个非正式的 Protocol，提供一种机制来间接访问对象的属性）。对于大多数人而言，特别希望介绍[反射](http://inessential.com/2016/05/26/a_definition_of_dynamic_programming_in_t)这一特性，这意味着他们可以在程序运行时进行观察和修改。
 
-在**Swift**中，反射机制受到很多的限制，尽管你可以在代码运行的时候动态的生成和插入一些东西。 比如这里是怎样为[**NSCoding**或者是JSON动态生成字典](http://chris.eidhof.nl/post/swift-mirrors-and-json/)的实例。
+在**Swift**中，反射机制受到很多的限制，但是你仍然你可以在代码运行的时候动态的生成和插入一些东西。 比如这里是怎样为[**NSCoding**或者是JSON动态生成字典](http://chris.eidhof.nl/post/swift-mirrors-and-json/)的实例。
 
 今天在这里，我们将一起看一下在**Swift**中怎样去实现撤销功能。 其中一种方法是通过利用**Objective-C**中基于的反射机制所提供的**NSUndoManager**。通过利用**struct**，我们可以利用不同的方式在我们的APP中实现撤销这一功能。 在教程开始之前，请务必确保你自己已经理解了**Swift**中**struct**的工作机制(最重要的是理解他们都是独立的拷贝)。
 首先要声明的一点是，这篇文章并不是想告诉大家我们不需要对**runtime**进行操作，或者我们提供的是一种**NSUndoManager**的替代品。这篇文章只是告诉了大家一种不同的思考方式而已。
 
-我们首先创建一个叫做**UndoHistory**的**struct**。 通常而言，创建UndoHistory时会伴随一个警告，提示只有当A是一个struct的时才会生效。为了保存所有状态信息，我们需要将其存放入一个数组之中。当我们修改了什么时，我们只需要将其**push**进数组中， 当我们希望进行撤回时，我们将其从数组中**pop**出去。我们通常希望有一个初试状态，所以我们需要建立一个初始化方法：
+我们首先创建一个叫做**UndoHistory**的**struct**。 通常而言，创建UndoHistory时会伴随一个警告，提示只有当A是一个struct的时才会生效。为了保存所有状态信息，我们需要将其存放入一个数组之中。当我们修改了什么时，我们只需要将其**push**进数组中，当我们希望进行撤回时，我们将其从数组中**pop**出去。我们通常希望有一个初试状态，所以我们需要建立一个初始化方法：
 ~~~ Swift
     struct UndoHistory<A> {
         private let initialValue: A
@@ -40,7 +40,7 @@
     var personHistory = UndoHistory(initialValue: Person(name: "Chris", age: 31))
 ~~~
 
-当然，我们希望获得当前的状态，同时设置当前状态。(换句话说：我们希望实时的操作我们的历史记录）。我们可以从**history**数组中的最后一项值来获取我们的状态，同时如果数组为空的话，我们便返回我们的初始值。 我们可以通过将当前状态添加至**history**数组来改变我们的操作状态。
+当然，我们希望获得当前的状态，同时设置当前状态。(换句话说：我们希望实时地操作我们的历史记录）。我们可以从**history**数组中的最后一项值来获取我们的状态，同时如果数组为空的话，我们便返回我们的初始值。 我们可以通过将当前状态添加至**history**数组来改变我们的操作状态。
 ~~~ Swift
     extension UndoHistory {
         var currentItem: A {
