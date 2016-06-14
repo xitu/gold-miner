@@ -2,12 +2,14 @@
 * 原文作者 : [MATTHEW WEAR](http://matthewwear.xyz/author/matthew/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [Dwight](https://github.com/ldhlfzysys)
-* 校对者: [aidistan](https://github.com/aidistan)[Goshin](https://github.com/Goshin)
+* 校对者: [aidistan](https://github.com/aidistan), [Goshin](https://github.com/Goshin)
 
 
 你也许听过谷歌最新的设计理念 Material Design （“质感设计”）[规范](http://www.google.com/design/spec/patterns/navigation-drawer.html)，可以让你的抽屉式导航栏跨越整个屏幕，包括状态栏，并且让抽屉后的所有控件以灰暗的网格形式可见。
 
 然而，许多应用打开抽屉式导航栏时看来是这样的
+
+
 ![](http://matthewwear.xyz/content/images/2016/05/Screenshot-2016-05-31-09-57-54.png)
 
 这里将示范如何把这些元素改造成上面说到的规范。
@@ -49,7 +51,7 @@
 #### 配置 DrawerLayout 控件
 
 
-第二步，到你定义`DrawerLayout`控件的地方，设置`insetForegroundColor` (如果你不想控制 `ScrimInsetLayout`的颜色，你也可以不设置)。
+第二步，到你定义`DrawerLayout`控件的地方，设置`insetForegroundColor` (如果你不想控制 `ScrimInsetLayout`的颜色，你也可以不设置)。并设置好 `fitsSystemWindow` 属性值
 
     <android.support.v4.widget.DrawerLayout  
         ...
@@ -58,6 +60,7 @@
         >
 
 看起来这样
+
 
 ![](http://matthewwear.xyz/content/images/2016/05/Screenshot-2016-05-31-10-24-05.png)
 
