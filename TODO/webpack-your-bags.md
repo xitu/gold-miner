@@ -36,19 +36,17 @@
 
 
     {
-      // When you import a .ts file, parse it with Typescript
+      // 当你引入 .ts 后缀的文件时，使用 TypeScript 解析文件
       test: /\.ts/,
       loader: 'typescript',
     },
     {
-      // When you encounter images, compress them with image-webpack (wrapper around imagemin)
-      // and then inline them as data64 URLs
+      // 遇到图片文件，使用 image-webpack (封装了 imagemin) 压缩，并转换为内联 data64 URLs
       test: /\.(png|jpg|svg)/,
       loaders: ['url', 'image-webpack'],
     },
     {
-      // When you encounter SCSS files, parse them with node-sass, then pass autoprefixer on them
-      // then return the results as a string of CSS
+      // 遇到 SCSS 文件，使用 node-sass 解析，然后传递给 autoprefixer，最终以 CSS 字符串的形式返回结果
       test: /\.scss/,
       loaders: ['css', 'autoprefixer', 'sass'],
     }
@@ -67,7 +65,7 @@
 
 ## 到底为什么你要那样做呢？
 
-一旦你明白了 Webpack 是什么之后，你会很快想到第二个问题：Webpack 这种做法有什么好处呢？“图像和 CSS 都在 JS 中？这到底是什么鬼！” 试想，在很长的一段时间里，为了减少 HTTP 请求，我们都被要求把所有东西整合到一个文件里，我的内心是拒绝的。
+一旦你明白了 Webpack 是什么之后，你会很快想到第二个问题：Webpack 这种做法有什么好处呢？“图像和 CSS 都在 JS 中？这到底是什么鬼！” 试想，在很长的一段时间里，我们被教导要把所有东西整合到一个文件里，并说这样的好处是可以减少 HTTP 请求啊什么的。
 
 这种做法有一个很大的缺陷，因为现在大部分人把他们所有的静态资源打包到一个 `app.js` 文件中。这意味着在大部分时间里，打开某个特定页面，你额外加载了一大堆不必要的静态资源。如果你不想那样做的话，你很可能会把静态资源手动包含在特定页面里，导致依赖树非常混乱，难以维护和保持跟踪：这个依赖项用在哪个页面中？样式表 A 和 B 会影响哪些页面？
 
@@ -404,7 +402,7 @@ Webpack 的输出现在应该发生了相应的变化，我们可以在命令加
 
 
 
-正如你看到的那样，我们的入口点 (`bundle.js`) 现在只包含了 Webpack 本身的一些逻辑，其它东西 (jQuery, Mustache, Button) 放在了 `1.bundle.js` 块中，只会在页面包含 a 标签时才会引入。现在，为了让 Webpack 知道在哪里找到这个块，然后通过 AJAX 引入，我们需要在配置文件里多加一行：
+正如你看到的那样，我们的入口点 (`bundle.js`) 现在只包含了 Webpack 本身的一些逻辑，其它内容 (jQuery, Mustache, Button) 放在了 `1.bundle.js` 块中，只会在页面包含 a 标签时才会引入。现在，为了让 Webpack 知道在哪里找到这个块，然后通过 AJAX 引入，我们需要在配置文件里多加一行：
 
 
 
@@ -418,7 +416,7 @@ Webpack 的输出现在应该发生了相应的变化，我们可以在命令加
 
 ![](http://i.imgur.com/rPvIRiB.png)
 
-如果页面里没有 a 标签，只会加载 `bundle.js` 文件。这种做法允许你智能地分离出一些繁重的逻辑，让它们在页面真正需要时，才按需加载进来。值得注意的是，我们可以给分离点起个名字，替换原来的 `1.bundle.js` ，使得块名更加有意义。你可以通过给 `require.ensure` 传递第三个参数来做到这点： 
+如果页面里没有 a 标签，只会加载 `bundle.js` 文件。这种做法允许你智能地分离出一些繁重的逻辑，让它们在页面真正需要时，才按需加载进来。值得注意的是，我们可以给分离点起个名字，替换原来的 `1.bundle.js` ，使得块名更加有意义。你可以通过给 `require.ensure` 传递第三个参数来做到这点：
 
 
 
@@ -1001,7 +999,7 @@ Webpack 完成了这些事情：首先，由于我们的例子非常轻量级，
 
 
 
-现在运行 Webpack，果然会失败：
+现在运行 Webpack，果然构建失败了：
 
 
 
