@@ -29,6 +29,7 @@
 
 ## Android
 
+* [[译] 怎样在 5 分钟内使 Drawer 在状态栏下可见？](http://gold.xitu.io/entry/5760c75e207703006bf2792a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Dwight](https://github.com/ldhlfzysys) 翻译)
 * [怎样用 JRebel 启动 Android](http://gold.xitu.io/entry/57599a282e958a0069c9ccfc?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([edvardhua](https://github.com/edvardHua) 翻译)
 * [Vector For All (slight return)](http://gold.xitu.io/entry/5756697ea341310063dd532c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([huanglizhuo](https://github.com/huanglizhuo) 翻译)
 * [Vectors For All (almost)](http://gold.xitu.io/entry/574e8b192b51e900560074f8?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([edvardhua](https://github.com/edvardHua) 翻译)
