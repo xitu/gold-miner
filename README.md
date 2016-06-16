@@ -29,6 +29,7 @@
 
 ## Android
 
+* [[译] 怎样在 5 分钟内使 Drawer 在状态栏下可见？](http://gold.xitu.io/entry/5760c75e207703006bf2792a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Dwight](https://github.com/ldhlfzysys) 翻译)
 * [怎样用 JRebel 启动 Android](http://gold.xitu.io/entry/57599a282e958a0069c9ccfc?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([edvardhua](https://github.com/edvardHua) 翻译)
 * [Vector For All (slight return)](http://gold.xitu.io/entry/5756697ea341310063dd532c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([huanglizhuo](https://github.com/huanglizhuo) 翻译)
 * [Vectors For All (almost)](http://gold.xitu.io/entry/574e8b192b51e900560074f8?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([edvardhua](https://github.com/edvardHua) 翻译)
@@ -79,6 +80,7 @@
 
 ## 前端
 
+* [React 应用的性能优化之路](http://gold.xitu.io/entry/57621f7980dda4005f7332f3?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([woota](https://github.com/woota) 翻译)
 * [如何编写避免垃圾开销的实时 Javascript 代码](http://gold.xitu.io/entry/575d14937db2a2005437df32?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([yangzj1992](http://www.qcyoung.com/) 翻译)
 * [如何用 Flexbox 构建一个新闻网站布局](http://gold.xitu.io/entry/57580e885bbb500053bc70c4?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([zhangzhaoqi](https://github.com/joddiy) 翻译)
 * [使用 BEM 来模块化你的 CSS 代码](http://gold.xitu.io/entry/5757ce7b7db2a200540d51eb?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([杨龙龙](https://github.com/yllziv) 翻译)
