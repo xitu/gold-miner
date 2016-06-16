@@ -210,7 +210,7 @@ Passprot 是插件库的一个很棒的例子。这个教程当中，我们加�
 ["@RisingStack 说 为带有 Passport 的 Node.js 配置身份验证就是小菜一碟。 #nodejs](https://twitter.com/share?text=%22Setting%20up%20authentication%20for%20Node.js%20with%20Passport%20is%20a%20piece%20of%20cake!%E2%80%9D%20via%20%40RisingStack%20%23nodejs;url=https://blog.risingstack.com/node-hero-node-js-authentication-passport-js)
 
 
-                                                                                                        [点击推特](https://twitter.com/share?text=%22Rule+1:+Organize+your+files+around+features,+not+roles!%22+via+%40RisingStack&url=https://blog.risingstack.com/node-hero-node-js-authentication-passport-js)
+[点击推特](https://twitter.com/share?text=%22Rule+1:+Organize+your+files+around+features,+not+roles!%22+via+%40RisingStack&url=https://blog.risingstack.com/node-hero-node-js-authentication-passport-js)
 
 
 这次的 Node.js 教程当中，你学习了如何为应用添加基本的身份验证。之后，你可以使用更丰富的验证策略，比如使用 facebook 和 twitter。在[http://passportjs.org/](http://passportjs.org/).里你可以发现更多的策略
