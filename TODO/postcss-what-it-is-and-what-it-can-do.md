@@ -2,7 +2,7 @@
 * 原文作者 : Jake Bresnehan
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [Zheaoli](https://github.com/Zheaoli)
-* 校对者:
+* 校对者: [aidistan](https://github.com/aidistan), [JolsonZhu](https://github.com/JolsonZhu)
 
 
 [PostCSS](http://postcss.org) 起源于2013年9月，发展到现在，已经有很多开发者在工作中使用它。 如果你尚未接触过PostCSS，这篇文章正适合你。
