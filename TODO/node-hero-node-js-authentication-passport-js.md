@@ -57,8 +57,7 @@ Passport.js 是 Node.js 的身份验证中间件，我们可以用它来进行�
 #### Redis 是什么?
 
 
-> Redis is an open source (BSD licensed), in-memory data structure store, used as database, cache and message broker. - [redis.io](http://redis.io/)
-Redis 是一个开源的（BSD 许可的），内存数据结构存储，用作数据库、缓存和消息代理。
+> Redis 是一个开源的（BSD 许可的），内存数据结构存储，用作数据库、缓存和消息代理。--[redis.io](http://redis.io/)
 
 我们将在 Redis 里面存储我们用户的会话信息，而不是在进程的内存当中。这样一来我们的应用相当容易衡量。
 
@@ -115,7 +114,10 @@ _(在 [https://github.com/RisingStack/nodehero-authentication](https://github.co
 ## 步骤1.设置 Express
 
 我们将为服务器框架配置 Expres ----通过阅读我们的[Express 教程](https://blog.risingstack.com/your-first-node-js-http-server).你会学到比主题更多的东西
-    // file:app/index.js
+
+
+
+// file:app/index.js
     const express = require('express')  
     const passport = require('passport')  
     const session = require('express-session')  
@@ -133,9 +135,10 @@ _(在 [https://github.com/RisingStack/nodehero-authentication](https://github.co
     app.use(passport.initialize())  
     app.use(passport.session())  
 
+
 我们在这里做了哪些事情？
 
- 首先，我们要require 所有的依赖以管理会话。之后，从'express-session' 模块创建一个新的例子，用它来储存我们的会话。
+ 首先，我们要'require' 所有的依赖以管理会话。之后，从'express-session' 模块创建一个新的例子，用它来储存我们的会话。
 
 对于后备存储，我们现在使用的是 Redis ，不过你也可以用其他的，像 MySQL 、 MongoDB 之类的。
 
