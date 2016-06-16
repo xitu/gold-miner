@@ -18,28 +18,25 @@
 
 
 3.  [理解异步程序](/node-hero-async-programming-in-node-js)
-4.  
+
 4.  [你的第一个 Node.js HTTP 服务器](/your-first-node-js-http-server)
-5.  
+ 
 5.  [ Node.js 数据库教程](/node-js-database-tutorial)
 
 6.  [ Node.js 必须模块教程](/node-hero-node-js-request-module-tutorial)
 
 7.  [ Node.js 项目架构教程](/node-hero-node-js-project-structure-tutorial)
 
-8.  Node.js authentication using Passport.js _[you are reading it now]_
- 利用 Passport.js 进行 Node.js 身份验证 _[也就是你正在读的这章]_
+8.   利用 Passport.js 进行 Node.js 身份验证 _[也就是你正在读的这章]_
 
-9.  Testing Node.js applications 
-测试 Node.js 应用
+9. 测试 Node.js 应用
 
-10.  Debugging Node.js 
-调试 Node.js
+10. 调试 Node.js
 
-11.  Securing your application 
-巩固你的应用
+11. 巩固你的应用
 
 12.  为 PaaS 部署 Node.js 应用
+
 13.  监控和执行 Node.js 应用
 
 
@@ -63,7 +60,6 @@ Passport.js 是 Node.js 的身份验证中间件，我们可以用它来进行�
 > Redis is an open source (BSD licensed), in-memory data structure store, used as database, cache and message broker. - [redis.io](http://redis.io/)
 Redis 是一个开源的（BSD 许可的），内存数据结构存储，用作数据库、缓存和消息代理。
 
-We are going to store our user's session information in Redis, and not in the process's memory. This way our application will be a lot easier to scale.
 我们将在 Redis 里面存储我们用户的会话信息，而不是在进程的内存当中。这样一来我们的应用相当容易衡量。
 
 ## 应用样品
@@ -83,7 +79,7 @@ We are going to store our user's session information in Redis, and not in the pr
 ### 项目结构
 
 
-我们已经在前一个章节 Node Hero中学了 [how to structure Node.js projects](https://blog.risingstack.com/node-hero-node-js-project-structure-tutorial/) ，因此让我们应用这些知识吧！
+我们已经在前一个章节 Node Hero中学了 [如何构建 passport.js 项目 ](https://blog.risingstack.com/node-hero-node-js-project-structure-tutorial/) ，因此让我们应用这些知识吧！
 
 我们将利用以下结构
 
@@ -105,7 +101,6 @@ _(在 [https://github.com/RisingStack/nodehero-authentication](https://github.co
 
 ### Node.js 身份验证流。
 
-Our goal is to implement the following authentication flow into our application:
 我们的目标是在我们的应用当中实现如下的身份验证流：
 
 1.用户输入用户名和密码
@@ -115,7 +110,6 @@ Our goal is to implement the following authentication flow into our application:
 5.带有这样 cokie 的认证验证受限页面
 
 
-To set up an authentication strategy like this, follow these three steps:
 为了设置像这样的身份验证策略，按照以下三步进行：
 
 ## 步骤1.设置 Express
@@ -208,8 +202,8 @@ Passprot 是插件库的一个很棒的例子。这个教程当中，我们加�
 
     app.get('/profile', passport.authenticationMiddleware(), renderProfile)  
 
-## Summary
-总结
+## 总结
+
 ["@RisingStack 说 为带有 Passport 的 Node.js 配置身份验证就是小菜一碟。 #nodejs](https://twitter.com/share?text=%22Setting%20up%20authentication%20for%20Node.js%20with%20Passport%20is%20a%20piece%20of%20cake!%E2%80%9D%20via%20%40RisingStack%20%23nodejs;url=https://blog.risingstack.com/node-hero-node-js-authentication-passport-js)
 
 
