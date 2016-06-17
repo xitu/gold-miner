@@ -17,7 +17,7 @@ _有关第一部分的文章，请访问 [https://engineering.footballradar.com/
 
 ## 测试
 
-这个实验的输出是一组足球比赛，每一个都一秒更新一次数据。在实验中，为了让测试性能及可拓展性，我们会修改两组独立的数据：足球比赛数量和每次更新之间的延迟。
+这个实验的输出是一组足球比赛，每一个都一秒更新一次数据。在实验中，为了测试性能及可拓展性，我们会修改两组独立的数据：足球比赛数量和每次更新之间的延迟。
 
 ![](http://ac-Myg6wSTV.clouddn.com/5be4086d861ed7351bab.png)
 
@@ -37,7 +37,6 @@ _有关第一部分的文章，请访问 [https://engineering.footballradar.com/
 ## 新发现
 
 以下是部分的开发者工具timeline的概要，在下面的这个项目里有实际的栈和timeline的截图：[[https://github.com/footballradar/VueReactPerf/tree/master/results/v2](https://github.com/footballradar/VueReactPerf/tree/master/results/v2)
-
 
 有意思的是，Chrome 的开发工具在获取 Vue 的 500 场比赛测试结果的 30s 时间线时崩溃了，但 React 的 500 场比赛测试却没有。我们截取了 15s 的结果以取代它，但是让人不解的是，Vue 相比于 React，其实有更多的空闲时间。
 
