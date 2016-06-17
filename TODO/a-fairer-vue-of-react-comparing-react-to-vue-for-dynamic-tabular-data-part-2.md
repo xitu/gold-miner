@@ -29,8 +29,7 @@ _有关第一部分的文章，请访问 [https://engineering.footballradar.com/
 
 ## 与上一个测试相比的改变
 
-*   在[生产模式](https://github.com/footballradar/VueReactPerf/pull/3)
-下运行。
+*   在[生产模式](https://github.com/footballradar/VueReactPerf/pull/3)下运行。
 *   添加了 `webpack.optimize.UglifyJsPlugin` 
 *   添加了 [babel-react-optimize preset](https://github.com/thejameskyle/babel-react-optimize)
 
