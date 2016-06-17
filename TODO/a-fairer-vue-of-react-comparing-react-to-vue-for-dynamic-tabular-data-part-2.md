@@ -35,7 +35,7 @@ _有关第一部分的文章，请访问 [https://engineering.footballradar.com/
 
 ## 新发现
 
-以下是部分的开发者工具timeline的概要，在下面的这个项目里有实际的栈和timeline的截图：[[https://github.com/footballradar/VueReactPerf/tree/master/results/v2](https://github.com/footballradar/VueReactPerf/tree/master/results/v2)
+以下是部分的开发者工具 timeline 的概要，在下面的这个项目里有实际的栈和 timeline 的截图：[[https://github.com/footballradar/VueReactPerf/tree/master/results/v2](https://github.com/footballradar/VueReactPerf/tree/master/results/v2)
 
 有意思的是，Chrome 的开发工具在获取 Vue 的 500 场比赛测试结果的 30s 时间线时崩溃了，但 React 的 500 场比赛测试却没有。我们截取了 15s 的结果以取代它，但是让人不解的是，Vue 相比于 React，其实有更多的空闲时间。
 
