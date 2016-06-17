@@ -5,12 +5,12 @@
 * 校对者: [aidistan](https://github.com/aidistan), [JolsonZhu](https://github.com/JolsonZhu)
 
 
-[PostCSS](http://postcss.org) 起源于2013年9月，发展到现在，已经有很多开发者在工作中使用它。 如果你尚未接触过PostCSS，这篇文章正适合你。
-> PostCSS是一个使用**JavaScript**插件来转换**CSS**的工具。
+[PostCSS](http://postcss.org)起源于2013年9月，发展到现在，已经有很多开发者在工作中使用它。 如果你尚未接触过**PostCSS**，这篇文章正适合你。
+> **PostCSS**是一个使用**JavaScript**插件来转换**CSS**的工具。
 
-PostCSS 本身很小，其只包含**CSS**解析器，操作**CSS**节点树的API，资源生成器（译者注1：原文是source map），以及一个节点树字符串化工具。所有的黑魔法都是通过利用插件实现的。
+**PostCSS**本身很小，其只包含**CSS**解析器，操作**CSS**节点树的API，资源生成器（译者注1：原文是source map），以及一个节点树字符串化工具。所有的黑魔法都是通过利用插件实现的。
 
-截止目前，**PostCSS**的生态圈内已经拥有超过100种[插件](http://postcss.parts/ "PostCSS Plugins")。这些插件可以做太多的事情，比如**lint**（译者注2：一种用来检测CSS代码的工具），添加**vendor prefixes**（译者注3：添加浏览器内核前缀，可以使用浏览器的一些独有特性），允许使用最新的CSS特性，在你的**CSS**里提供统计数据，或者是允许你使用 **Sass**，**Less**或是**Stylus**等**CSS**预处理器。
+截止目前，**PostCSS**的生态圈内已经拥有超过100种[插件](http://postcss.parts/ "PostCSS Plugins")。这些插件可以做太多的事情，比如**lint**（译者注2：一种用来检测CSS代码的工具），添加**vendor prefixes**（译者注3：添加浏览器内核前缀，可以使用浏览器的一些独有特性），允许使用最新的CSS特性，在你的**CSS**里提供统计数据，或者是允许你使用**Sass**，**Less**或是**Stylus**等**CSS**预处理器。
 
 ### 让我们看看以下十种插件
 
@@ -32,7 +32,7 @@ PostCSS 本身很小，其只包含**CSS**解析器，操作**CSS**节点树的A
 
 [PostCSS CSS Variables](https://github.com/MadLittleMods/postcss-css-variables "PostCSS CSS Vatiables")
 
-> 一种将用户自定义**CSS**变量**CSS variables**）转化为静态样式的插件。
+> 一种将用户自定义**CSS**变量（**CSS variables**）转化为静态样式的插件。
 
 [PostCSS Flexbugs Fixes](https://github.com/luisrudge/postcss-flexbugs-fixes "PostCSS Flexbug FIxes")
 
@@ -58,9 +58,9 @@ PostCSS 本身很小，其只包含**CSS**解析器，操作**CSS**节点树的A
 
 ### 在你的工作中使用**PostCSS**
 
-**PostCSS**是用**JavaScript**所编写的，这使得我们在[Grunt](http://gruntjs.com/)，[Gulp](http://gulpjs.com/) 或 [Webpack](https://webpack.github.io/)等常用的前端构建工具中使用它变得非常方便。
+**PostCSS**是用**JavaScript**所编写的，这使得我们在[Grunt](http://gruntjs.com/)，[Gulp](http://gulpjs.com/)或[Webpack](https://webpack.github.io/)等常用的前端构建工具中使用它变得非常方便。
 
-下面是我们使用 [Autoprefixer](https://github.com/postcss/autoprefixer "Autoprefixer") 插件的示例。
+下面是我们使用[Autoprefixer](https://github.com/postcss/autoprefixer "Autoprefixer")插件的示例。
 
 `npm install autoprefixer --save-dev`
 
@@ -107,7 +107,7 @@ PostCSS 本身很小，其只包含**CSS**解析器，操作**CSS**节点树的A
     };
 
 **Webpack**  
-如果你使用**Webpack**，那么你需要安装 [postcss-loader](https://github.com/postcss/postcss-loader) 。
+如果你使用**Webpack**，那么你需要安装[postcss-loader](https://github.com/postcss/postcss-loader) 。
 
 `npm install postcss-loader --save-dev`
 
@@ -127,8 +127,8 @@ PostCSS 本身很小，其只包含**CSS**解析器，操作**CSS**节点树的A
         }
     }
 
-关于怎么整合**PostCSS**，你可以从这里 [PostCSS repo](https://github.com/postcss/postcss#usage)获取到帮助。
+关于怎么整合**PostCSS**，你可以从这里[PostCSS repo](https://github.com/postcss/postcss#usage)获取到帮助。
 
 ### 最后最后的诚心安利~
 
-在有些时候，在新技术，新工具，新框架发布的时候，去使用并观察其发展趋势无疑是一种明智的行为。 现在，**PostCSS**已经发展到一个相当成熟的阶段，我强烈建议你在你的工作中使用它。 因为它现在已经在工程中被广泛的使用，同时在未来一段时间内它不会发生太大的变化。
+在有些时候，在新技术，新工具，新框架发布的时候，去使用并观察其发展趋势无疑是一种明智的行为。现在，**PostCSS**已经发展到一个相当成熟的阶段，我强烈建议你在你的工作中使用它。 因为它现在已经在工程中被广泛的使用，同时在未来一段时间内它不会发生太大的变化。
