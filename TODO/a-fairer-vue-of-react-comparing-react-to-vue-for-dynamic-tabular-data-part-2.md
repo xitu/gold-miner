@@ -9,7 +9,7 @@ _有关第一部分的文章，请访问 [https://engineering.footballradar.com/
 
 五月23日，周一，我们发布了一篇关于比较 React 和 Vue 的性能的文章，其实验数据比较了二者谁更适合处理频繁更新的列表数据，特别是在对性能要求非常高的情况下。比方说我们手头上的一个足球雷达（Football Radar）的项目。
 
-最初我们对实验结果信心满满，但发现几个较为重要的错误后，才知道实验结果并非像我们预期的那样。我们非常感谢在React和Vue社区里的宝贵意见 —— 特别是 React 的核心工程师克里斯托弗(Christopher Chedeau) ([@vjeux](https://twitter.com/vjeux))，和 Vue 的创始人埃文(Evan You)([@youyuxi](https://twitter.com/youyuxi))—— 因为你们，我们才能快速的锁定这次测试中的出现的问题，可以说是因祸得福，因为尽管错误被公开使我感到有一些小小的尴尬，但我的确学到了很多，所以衷心的感谢你们的讨论。
+最初我们对实验结果信心满满，但发现几个较为重要的错误后，才知道实验结果并非像我们预期的那样。我们非常感谢在 React 和 Vue 社区里的宝贵意见 —— 特别是 React 的核心工程师克里斯托弗(Christopher Chedeau) ([@vjeux](https://twitter.com/vjeux))，和 Vue 的创始人埃文(Evan You)([@youyuxi](https://twitter.com/youyuxi))—— 因为你们，我们才能快速的锁定这次测试中的出现的问题，可以说是因祸得福，因为尽管错误被公开使我感到有一些小小的尴尬，但我的确学到了很多，所以衷心的感谢你们的讨论。
 
 鉴于我们已为第一篇文章做了许多改进，不能否定还有进一步改进的余地，因此这篇文章比起来，更像是一篇游记，而不是一个全面完善的结果。
 
@@ -21,7 +21,7 @@ _有关第一部分的文章，请访问 [https://engineering.footballradar.com/
 
 ![](http://ac-Myg6wSTV.clouddn.com/5be4086d861ed7351bab.png)
 
-为了模拟页面加载情况及测量其可扩展性，我们分别使用Vue和React测试了50，100，500场比赛，其延迟分别是100ms，1s，然后看其可拓展性如何。
+为了模拟页面加载情况及测量其可扩展性，我们分别使用 Vue 和 React 测试了50，100，500场比赛，其延迟分别是100ms，1s，然后看其可拓展性如何。
 
 我们的第一次结果不太客观，显示 Vue 的性能表现比 React 要好很多，其实是因为测试运行在开发模式（Development Mode），而这个疏忽直接造成了结果偏差。感谢克里斯多弗（@Christopher）提出这个问题：[https://github.com/footballradar/VueReactPerf/pull/3](https://github.com/footballradar/VueReactPerf/pull/3)。在生产模式（Production Mode）运行 React 忽略了一些消耗资源较大的进程，包括了 prop-types 的检查和警告。尽管这是一个非常明显的优化，但由于 React 默认运行在开发模式，所以这个优化很容易被忽略掉。我们要强调的是 Vue 也是运行在开发模式的，二者都同样被影响到了。那篇 pull-request 里接下来的相关讨论都非常醍醐灌顶。
 
@@ -41,7 +41,7 @@ _有关第一部分的文章，请访问 [https://engineering.footballradar.com/
 
 有意思的是，Chrome 的开发工具在获取 Vue 的 500 场比赛测试结果的 30s 时间线时崩溃了，但 React 的 500 场比赛测试却没有。我们截取了 15s 的结果以取代它，但是让人不解的是，Vue 相比于 React，其实有更多的空闲时间。
 
-所有下面的结果都共享同一个主题：由于 React 的虚拟 Dom 的实现，它的scripting上运行的时间更长；Vue 由于要直接更改 Dom ，所以它有关在painting和rendering工作上更耗费资源。然而，所有工作都做完以后，Vue 在大多数情况下仍然比 React 快25%。这虽然不同于我们最初的巨大区别，仍然是一个值得关注的问题。
+所有下面的结果都共享同一个主题：由于 React 的虚拟 Dom 的实现，它的 scripting 上运行的时间更长；Vue 由于要直接更改 Dom ，所以它有关在 painting 和 rendering 工作上更耗费资源。然而，所有工作都做完以后，Vue 在大多数情况下仍然比 React 快25%。这虽然不同于我们最初的巨大区别，仍然是一个值得关注的问题。
 
 ##### 50 场比赛，100ms 的延迟
 React:  
@@ -82,4 +82,4 @@ Vue:
 
 ## 结论
 
-总的来说，最初那个 Vue 比 React 表现好的结论在_这个用例_上仍然是有价值的，但是明显还有很多可以优化的地方，特别是React。一个附带的结论是是，需要多少的工作和相关知识，才能提高 React 的性能，而 Vue 在开箱即用的情况下就优化的很好。但不管我们说些什么，Vue 的开发者体验毫无疑问是更棒的。
+总的来说，最初那个 Vue 比 React 表现好的结论在_这个用例_上仍然是有价值的，但是明显还有很多可以优化的地方，特别是 React。一个附带的结论是是，需要多少的工作和相关知识，才能提高 React 的性能，而 Vue 在开箱即用的情况下就优化的很好。但不管我们说些什么，Vue 的开发者体验毫无疑问是更棒的。
