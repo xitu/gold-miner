@@ -1,27 +1,27 @@
 >* 原文链接 : [jQuery 3.0 Final Released!](https://blog.jquery.com/2016/06/09/jquery-3-0-final-released/)
 * 原文作者 : [Timmy Willison](https://blog.jquery.com/author/timmywil/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
+* 译者 : [Dwight](https://github.com/ldhlfzysys)
 * 校对者:
 
 
-jQuery 3.0 is now released! This version has been in the works since October 2014\. We set out to create a slimmer, faster version of jQuery (with backwards compatibility in mind). We’ve removed all of the old IE workarounds and taken advantage of some of the more modern web APIs where it made sense. It is a continuation of the 2.x branch, but with a few breaking changes that we felt were long overdue. While the 1.12 and 2.2 branches will continue to receive critical support patches for a time, they will not get any new features or major revisions. jQuery 3.0 is the future of jQuery. If you need IE6-8 support, you can continue to use the latest 1.12 release.
+从2014年10月开发到现在，jQuery 3.0终于发布了！我们的目的是创造一个更苗条、更快的jQuery版本（带着向后兼容的思想）。我们已经删除了旧的IE浏览器的解决方案支持并且采用更加现代化的web APIs。它是2.x分支的延续，但是我们对重大改变的感觉姗姗来迟。而1.12和2.2分支在短时间内会继续收到关键的补丁，但不会有新的功能和重大更改。jQuery 3.0是jQuery的未来。如果你需要支持IE6-8，你可以继续使用1.12的最新版本。
 
-Despite the 3.0 version number, we anticipate that these releases shouldn’t be too much trouble when it comes to upgrading existing code. Yes, there are a few “breaking changes” that justified the major version bump, but we’re hopeful the breakage doesn’t actually affect that many people.
+虽然一下升级到了3.0版本，我们预计在升级现有代码的时候不会发生太多问题。是的，只是一些用来调整重要版本冲突的零碎改变，但是我们希望这些改变不会影响到太多人。
 
-To assist with upgrading, we have a brand new [3.0 Upgrade Guide](https://jquery.com/upgrade-guide/3.0/). And the [jQuery Migrate 3.0 plugin](https://github.com/jquery/jquery-migrate#migrate-older-jquery-code-to-jquery-30) will help you to identify compatibility issues in your code. Your feedback on the changes will help us greatly, so please try it out on your existing code and plugins!
+为了帮助升级，我们有一个全新的 [3.0 Upgrade Guide](https://jquery.com/upgrade-guide/3.0/)(升级指南). 和 [jQuery Migrate 3.0 plugin](https://github.com/jquery/jquery-migrate#migrate-older-jquery-code-to-jquery-30)(迁移插件) 将帮助你定位代码的兼容问题。 你对这些变化的反馈将极大的帮助我们，所以请尝试在你现有的代码和插件里使用它们。
 
-You can get the files from the jQuery CDN, or link to them directly:
+你可以从 jQuery CDN 获取这些文件, 或直接链接它们:
 
 [https://code.jquery.com/jquery-3.0.0.js](https://code.jquery.com/jquery-3.0.0.js)
 
 [https://code.jquery.com/jquery-3.0.0.min.js](https://code.jquery.com/jquery-3.0.0.min.js)
 
-You can also get the release from npm:
+通过 npm 安装:
 
     npm install jquery@3.0.0
 
-In addition, we’ve got the release for jQuery Migrate 3.0\. We highly recommend using this to address any issues with breaking changes in jQuery 3.0\. You can get those files here:
+此外，我们已经发布3.0版本的 jQuery Migrate（迁移辅助插件）。我们极度推荐使用它来解决迁移jQuery 3.0时遇到的所有问题。你可以在这里获取这些文件：
 
 [https://code.jquery.com/jquery-migrate-3.0.0.js](https://code.jquery.com/jquery-migrate-3.0.0.js)
 
@@ -29,33 +29,37 @@ In addition, we’ve got the release for jQuery Migrate 3.0\. We highly recommen
 
     npm install jquery-migrate@3.0.0
 
-For more information about upgrading your jQuery 1.x and 2.x pages to jQuery 3.0 with the help of jQuery Migrate, see [the jQuery Migrate 1.4.1 blog post](http://blog.jquery.com/2016/05/19/jquery-migrate-1-4-1-released-and-the-path-to-jquery-3-0/).
+这里查看更多关于升级 jQuery 1.x 和 2.x 到 3.0 过程中 jQuery Migrate 的帮助信息：
+[the jQuery Migrate 1.4.1 blog post](http://blog.jquery.com/2016/05/19/jquery-migrate-1-4-1-released-and-the-path-to-jquery-3-0/).
 
-### Slim build
+### 瘦身版
 
-Finally, we’ve added something new to this release. Sometimes you don’t need ajax, or you prefer to use one of the many standalone libraries that focus on ajax requests. And often it is simpler to use a combination of CSS and class manipulation for all your web animations. Along with the regular version of jQuery that includes the ajax and effects modules, we’re releasing a “slim” version that excludes these modules. All in all, it excludes ajax, effects, and currently deprecated code. The size of jQuery is very rarely a load performance concern these days, but the slim build is about 6k gzipped bytes smaller than the regular version – 23.6k vs 30k. These files are also available in the npm package and on the CDN:
+最终，我们还是在新版本里添加了新的东西。有时你并不需要ajax，或者你只想用几个用于ajax requests的几个独立的库。以往，更简单的方式是使用CSS和类的组合操作来满足所有的web动画需求。针对普通版的jQuery包含ajax和effects modules（效果模块），我们发布了没有这些内容的瘦身版。总而言之，瘦身版删除了ajax,effects和已经废弃的代码。jQuery的大小和对加载性能的影响已经微乎其微，但是瘦身版仍在gzip压缩下比普通版小了6k左右，23.6k vs 30k.这些文件可以在npm包和CDN获取。
 
 [https://code.jquery.com/jquery-3.0.0.slim.js](https://code.jquery.com/jquery-3.0.0.slim.js)
 
 [https://code.jquery.com/jquery-3.0.0.slim.min.js](https://code.jquery.com/jquery-3.0.0.slim.min.js)
 
-This build was created with our custom build API, which allows you to exclude or include any modules you like. For more information, have a look at the [jQuery README](https://github.com/jquery/jquery/blob/master/README.md#how-to-build-your-own-jquery).  
+你可以通过我们的自定义生成API去根据你的需求来生成你的版本。更多的信息请看： [jQuery README](https://github.com/jquery/jquery/blob/master/README.md#how-to-build-your-own-jquery).  
 
-## Compatibility with jQuery UI and jQuery Mobile
 
-While most things will work, there are a few issues that jQuery UI and jQuery Mobile will be addressing in upcoming releases. If you find an issue, keep in mind that it may already be addressed upstream and using the [jQuery Migrate 3.0 plugin](http://code.jquery.com/jquery-migrate-3.0.0.js) should fix it. Expect releases soon.
+##  jQuery UI 和 jQuery Mobile 的兼容
 
-## Major changes
 
-Below are just the highlights of the major new features, improvements, and bug fixes in these releases, you can dig into more detail on the [3.0 Upgrade Guide](https://jquery.com/upgrade-guide/3.0/). A complete list of issues fixed is available on our [GitHub bug tracker](https://github.com/jquery/jquery/issues?q=is%3Aissue+milestone%3A3.0.0). If you read the blog post for 3.0.0-rc1, the below features are the same.
+虽然大部分是没有问题的，但是有几个jQuery UI和jQuery Mobile的兼容问题已经在即将发布的版本里被解决，如果你发现问题，请记住它有可能已经在上游被解决，用[jQuery Migrate 3.0 plugin](http://code.jquery.com/jquery-migrate-3.0.0.js)来修复它，新版本预计很快发布
 
-### jQuery.Deferred is now Promises/A+ compatible
+## 主要的变化
 
-jQuery.Deferred objects have been updated for compatibility with Promises/A+ and ES2015 Promises, verified with the [Promises/A+ Compliance Test Suite](https://github.com/promises-aplus/promises-tests). This meant we needed some major changes to the `.then()` method. Legacy behavior can be restored by replacing any use of `.then()` with the now-deprecated `.pipe()` method (which has an identical signature).
+这些发布中，高亮的地方表示重要的新特性、改进和bug修复。你可以在[3.0 Upgrade Guide](https://jquery.com/upgrade-guide/3.0/)挖掘更详细的信息。完整的问题解决列表在我们的[GitHub bug tracker](https://github.com/jquery/jquery/issues?q=is%3Aissue+milestone%3A3.0.0)。如果你看了 3.3.0-rc1的博客帖子，以下说的和博客里是一样的。
 
-1.  An exception thrown in a `.then()` callback now becomes a rejection value. Previously, exceptions bubbled all the way up, aborting callback execution. Any deferreds relying on the resolution of the deferred that threw an exception would never have resolved.
+### jQuery.Deferred 已经兼容 Promises/A+ 规范
 
-#### Example: uncaught exceptions vs. rejection values
+
+jQuery.Deferred 对象已经升级兼容 Promises/A+ 和 ES2015 规范，可在[Promises/A+ Compliance Test Suite](https://github.com/promises-aplus/promises-tests)进行验证。这意味着`.then()`方法会有一些重大的改变。Legacy行为可以通过使用现在不宜用的.pipe()方法(具有签名认证)来代替.then()使用来重新获取
+
+1.  在`.then()` 抛出异常变成一个注入值。以前，异常在回调里被一路抛出。任何deferred对象依靠deferred抛出异常的方式都无法解决问题。
+
+#### 示例: 未捕获异常 vs. 注入值
 
     var deferred = jQuery.Deferred();
     deferred.then(function() {
@@ -69,11 +73,11 @@ jQuery.Deferred objects have been updated for compatibility with Promises/A+ and
     });
     deferred.resolve();
 
-Previously, “first callback” was logged and the error was thrown. All execution was stopped. Neither “second callback” nor “rejection callback” would have been logged. The new, standards-compliant behavior is that you’ll now see “rejection callback” and `true` logged. `err` is the rejection value from the first callback.
+在以前，“first callback” 将会打印，异常会被抛出。然后就会终止，"second callback" 和 “rejection callback” 都不会被打印。在新版里，符合标准的行为是你将会看到 "rejection callback" 和 `true` 被打印，`err` 是第一个回调的拒绝值。
 
-2.  The resolution state of a Deferred created by `.then()` is now controlled by its callbacks—exceptions become rejection values and non-thenable returns become fulfillment values. Previously, returns from rejection handlers became _rejection_ values.
+2.  通过`.then()`创建Deferred的resolution状态现在是被它的回调函数控制-异常成为注入值以及non-thenable返回的结果成为fulfillment值。以前，从注入的处理器变成了注入值返回。
 
-#### Example: returns from rejection callbacks
+#### 示例: 来自注入回调函数的返回值
 
     var deferred = jQuery.Deferred();
     deferred.then(null, function(value) {
@@ -91,13 +95,13 @@ Previously, “first callback” was logged and the error was thrown. All execut
     });
     deferred.reject("value1");
 
-Previously, this would log “rejection callback 1 value1”, “rejection callback 2 value2”, and “rejection callback 3 undefined”.
+以前，将会打印“rejection callback 1 value1”, “rejection callback 2 value2”, 和 “rejection callback 3 undefined”.
 
-The new, standards-compliant behavior is that this will log “rejection callback 1 value1”, “**success** callback 2 value2″, and “rejection callback 3 [object Error]”.
+现在，符合标准的行为是打印“rejection callback 1 value1”, “success callback 2 value2″, 和 “rejection callback 3 [object Error]”
 
-3.  Callbacks are always invoked asynchronously, even if a Deferred has already been resolved. Previously, these callbacks were executed synchronously upon binding.
+3.  回调通常是异步的，即使Deferred已被解决。在这之前，这些回调一经绑定会同步执行。
 
-#### Example: async vs sync
+#### 示例: 异步 vs 同步
 
     var deferred = jQuery.Deferred();
     deferred.resolve();
@@ -106,52 +110,52 @@ The new, standards-compliant behavior is that this will log “rejection callbac
     });
     console.log("after binding");
 
-Previously, this would log “success callback” then “after binding”. Now, it will log “after binding” and then “success callback”.
+以前，会先打印 “success callback” 然后打印 “after binding”。现在，先打印 “after binding” 然后打印 “success callback”.
 
-#### Important: while caught exceptions had advantages for in-browser debugging, it is far more declarative (i.e. explicit) to handle them with rejection callbacks. Keep in mind that this places the responsibility on you to always add at least one rejection callback when working with promises. Otherwise, some errors might go unnoticed.
+#### 重要：当捕获异常时有利于在浏览器中进行debug，通过注入回调函数来处理异常非常具有陈述性。当与promises打交道时，记住至少要增加一个注入回调函数。否则，任何错误都不会提示。
 
-We’ve built a plugin to help in debugging Promises/A+ compatible Deferreds. If you are not seeing enough information about an error on the console to determine its source, check out the [jQuery Deferred Reporter Plugin](https://github.com/dmethvin/jquery-deferred-reporter).
+我们写了一个插件用来调试 Deferreds 的 Promises/A+ 兼容性。如果在控制台无法看到错误的详细信息和来源，可以在这里检查下[jQuery Deferred Reporter Plugin](https://github.com/dmethvin/jquery-deferred-reporter).
 
-`jQuery.when` has also been updated to accept any thenable object, which includes native Promise objects.
+`jQuery.when` 升级后可以接受所有thenable 对象，包括原生的 Promise 对象。
 
 [https://github.com/jquery/jquery/issues/1722](https://github.com/jquery/jquery/issues/1722)  
 [https://github.com/jquery/jquery/issues/2102](https://github.com/jquery/jquery/issues/2102)
 
-### Added .catch() to Deferreds
+### 为 Deferreds 添加 .catch()
 
-The `catch()` method was added to promise objects as an alias for `.then(null, fn)`.
+`catch()`方法在promise 对象中的别名是 `.then(null, fn)`。
 
 [https://github.com/jquery/jquery/issues/2102](https://github.com/jquery/jquery/issues/2102)
 
-### Error cases don’t silently fail
+### 错误情况不静默失败
 
-Perhaps in a profound moment you’ve wondered, “What is the offset of a window?” Then you probably realized that is a crazy question – how can a window even have an offset?
+也许在夜深人静的时候，你突然会想“window的offset是多少？”，然后你意识到这是一个疯狂的问题 —— window哪来的offset？
 
-In the past, jQuery has sometimes tried to make cases like this return _something_ rather than having them throw errors. In this particular case of asking for the offset of a window, the answer up to now has been `{ top: 0, left: 0 }` With jQuery 3.0, such cases will throw errors so that crazy requests aren’t silently ignored. Please try out this release and see if there is any code out there depending on jQuery to mask problems with invalid inputs.
+在过去，jQuery 也尝试过去返回某些东西而不是抛出异常。在这个window的offset问题的例子里，在jQuery 3.0里答案是`{ top: 0, left: 0 }`，这种情况下，疯狂的问题会抛出错误而不是被默默的忽略了。请在这个版本里试试所有以来jQuery的代码是否会影藏类似无效的输入。
 
 [https://github.com/jquery/jquery/issues/1784](https://github.com/jquery/jquery/issues/1784)
 
-### Removed deprecated event aliases
+### 删除弃用的事件别名
 
-`.load`, `.unload`, and `.error`, deprecated since jQuery 1.8, are no more. Use `.on()` to register listeners.
+`.load`, `.unload`, 和 `.error`, 在jQuery 1.8后被废弃，使用 `.on()` 来注册监听器。
 
 [https://github.com/jquery/jquery/issues/2286](https://github.com/jquery/jquery/issues/2286)
 
-### Animations now use `requestAnimationFrame`
+### 动画现在使用`requestAnimationFrame`
 
-On platforms that support the `requestAnimationFrame` API, which is pretty much everywhere but IE9 and Android<4.4, jquery="" will="" now="" use="" that="" api="" when="" performing="" animations.="" this="" should="" result="" in="" animations="" are="" smoother="" and="" less="" cpu="" time="" –="" save="" battery="" as="" well="" on="" mobile="" devices.<="" p="">
+在支持`requestAnimationFrame` API的平台上，除IE9和Android4.4外，几乎到处都在用。jQuery现在也将使用这个API来处理动画。这将让动画更加顺滑、更少的cpu消耗，在移动端也将更省电。
 
-jQuery tried using `requestAnimationFrame` a few years back but there were [serious compatibility issues](http://blog.jquery.com/2011/09/01/jquery-1-6-3-released/) with existing code so we had to back it out. We think we’ve beaten most of those issues by suspending animations while a browser tab is out of view. Still, any code that depends on animations to always run in nearly real-time is making an unrealistic assumption.
+jQuery在几年前就尝试使用`requestAnimationFrame`。但现存代码有有几个[兼容性问题http://blog.jquery.com/2011/09/01/jquery-1-6-3-released/]()不得不推迟。我们认为通过在浏览器选显卡显示的时候暂定动画处理好了大部分问题，但是，所有依赖动画的代码想要实时执行是不切合实际的。
 
-### Massive speedups for some jQuery custom selectors
+### jQuery自定义选择器的大提速
 
-Thanks to some detective work by Paul Irish at Google, we identified some cases where we could skip a bunch of extra work when custom selectors like `:visible` are used many times in the same document. That particular case is up to 17 times faster now!
+感谢来自谷歌爱尔兰部的Paul的查询工作，我们发现我们可以跳过一大堆额外的工作当像`:visible` 这种的自定义选择器在同一个文件里执行了多次。现在这个特殊的情况已经提升了17倍的速度！
 
-Keep in mind that even with this improvement, selectors like `:visible` and `:hidden` can be expensive because they depend on the browser to determine whether elements are actually displaying on the page. That may require, in the worst case, a complete recalculation of CSS styles and page layout! While we don’t discourage their use in most cases, we recommend testing your pages to determine if these selectors are causing performance issues.
+要记住的是，尽管有了这些改进，但像 `:visible` 和 `:hidden` 这类选择器耗时代价还是很高的，因为依赖浏览器上的元素是否已经展示出来。在最坏的情况下，这可能需要在完全重算CSS样式和页面布局后才能执行。大部分情况我们不能阻止你去使用它，但我们建议你可以测试一下你的页面，看看是否这些选择器造成了性能问题。
 
-This change actually made it into 1.12/2.2, but we wanted to reiterate it for jQuery 3.0.
+这些改动其实在1.12/2.2就已经完成了，但是我们还是想在jQuery 3.0里重申一次。
 
 [https://github.com/jquery/jquery/issues/2042](https://github.com/jquery/jquery/issues/2042)
 
-As mentioned above, the [Upgrade Guide](https://jquery.com/upgrade-guide/3.0/) is now available for anyone ready to try out this release. Aside from being helpful in upgrading, it also lists more of the notable changes.
+如上面提到的，[升级指南](https://jquery.com/upgrade-guide/3.0/) 已为各位备好，除了有助于升级，还列出了更多显著的变化。
 
