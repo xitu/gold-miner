@@ -5,7 +5,7 @@
 * 校对者: [aidistan](https://github.com/aidistan), [JolsonZhu](https://github.com/JolsonZhu)
 
 
-[PostCSS](http://postcss.org)起源于2013年9月，发展到现在，已经有很多开发者在工作中使用它。 如果你尚未接触过**PostCSS**，这篇文章正适合你。
+[PostCSS](http://postcss.org)起源于2013年9月，发展到现在，已经有很多开发者在工作中使用它。如果你尚未接触过**PostCSS**，这篇文章正适合你。
 > **PostCSS**是一个使用**JavaScript**插件来转换**CSS**的工具。
 
 **PostCSS**本身很小，其只包含**CSS**解析器，操作**CSS**节点树的API，资源生成器（译者注1：原文是source map），以及一个节点树字符串化工具。所有的黑魔法都是通过利用插件实现的。
@@ -65,7 +65,7 @@
 `npm install autoprefixer --save-dev`
 
 **Gulp**  
-如果你使用**Gulp**，那么你需要安装[gulp-postcss](https://github.com/postcss/gulp-postcss) 。
+如果你使用**Gulp**，那么你需要安装[gulp-postcss](https://github.com/postcss/gulp-postcss)。
 
 `npm install --save-dev gulp-postcss`
 
@@ -79,7 +79,7 @@
     });
 
 **Grunt**  
-如果你使用**Grunt**，那么你需要安装[grunt-postcss](https://github.com/nDmitry/grunt-postcss) 。
+如果你使用**Grunt**，那么你需要安装[grunt-postcss](https://github.com/nDmitry/grunt-postcss)。
 
 `npm install grunt-postcss --save-dev`
 
@@ -107,7 +107,7 @@
     };
 
 **Webpack**  
-如果你使用**Webpack**，那么你需要安装[postcss-loader](https://github.com/postcss/postcss-loader) 。
+如果你使用**Webpack**，那么你需要安装[postcss-loader](https://github.com/postcss/postcss-loader)。
 
 `npm install postcss-loader --save-dev`
 
@@ -131,4 +131,4 @@
 
 ### 最后最后的诚心安利~
 
-在有些时候，在新技术，新工具，新框架发布的时候，去使用并观察其发展趋势无疑是一种明智的行为。现在，**PostCSS**已经发展到一个相当成熟的阶段，我强烈建议你在你的工作中使用它。 因为它现在已经在工程中被广泛的使用，同时在未来一段时间内它不会发生太大的变化。
+在有些时候，在新技术，新工具，新框架发布的时候，去使用并观察其发展趋势无疑是一种明智的行为。现在，**PostCSS**已经发展到一个相当成熟的阶段，我强烈建议你在你的工作中使用它。因为它现在已经在工程中被广泛的使用，同时在未来一段时间内它不会发生太大的变化。
