@@ -9,7 +9,6 @@
 
 <span>最后在这个总结性的第三部分,我们升华一下，做一个更细致的原型。 开始之前，你应该已经完成了 [Part 1](http://gold.xitu.io/entry/574d062b2e958a0069335d8e "Part 1") and [Part 2](http://gold.xitu.io/entry/574eb491d342d300434cec1c "Part 2") , 如果没有的话，先去看看这两篇内容吧.</span>
 
-
 我已经上传了你在 Part 3 里所有需要的[Sketch 资源](https://www.dropbox.com/s/6ykfx9gukoacgp0/Material%20Design%20Prototype%20Assets.sketch?dl=0 "Material Design Prototype Sketch Assets") , 你要做的就是将它们导出来。记住，一定要按照 3x 方式导出，这样在手机上显示效果不错。 随意按照你喜欢的方式去修改它们，只要尽力保证大小相同，这样在这次教程中所用到的尺寸才能是正确的。
 
 ## 让我们 drawer 点灵感
