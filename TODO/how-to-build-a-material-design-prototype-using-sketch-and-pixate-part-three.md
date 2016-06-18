@@ -64,8 +64,6 @@
 
 ![Prototype with tabs added](http://createdineden.com/media/1769/part-3-image-4.png?width=751&height=477)
 
-
-
 我们忘记了一件事情，tab 的指示器。新建一个层级，取名为 “Tab Indicator” ，尺寸设为 180x2 并且保证是_Home Screen_的子集，_Home Screen_ 这层应该是所有层的最外层，在_Versions Tab_和_Background Tab_之上。这样它才可以在顶部绘制，我们才可以看到它。然后你需要导入“tab indicator” 图片，放在(126,0)位置。
 ![Prototype with tab indicator](http://createdineden.com/media/1768/part-3-image-5.png?width=735&height=462)
 
@@ -91,7 +89,6 @@
 
 新建一个“Version List”层级，放在_Home Screen_ 层下，尺寸设置为 360x1232。这会导致它比屏幕要长，但是别担心这个， Pixate 会帮我们解决。将_Version List_放在 toolbar 下面， 滑出内容会被 toolbar 遮盖。
 ![Prototype with Version List added](http://createdineden.com/media/1766/part-3-image-7.png?width=750&height=500)  
-
 
 现在我们赋予 list 滚动的能力。你可能会想我们只需要给_Version List_添加一个“Scroll” 交互就可以了，但是我们其实要做的事情是去指定一个可以滚动的区域。
 
@@ -133,8 +130,6 @@
 
 <span>    view_pager.contentX == 0</span>
 
-<span>When you have this figured out your _Tab Indicator_ should move back and forth as you swipe between tabs:  
-</span>
 当你搞定了后，你的_Tab Indicator_ 应该跟随着你滑动。
 
 ![](http://ww2.sinaimg.cn/large/a490147fgw1f4i3zyhs8lg205m0a0guf.gif)
