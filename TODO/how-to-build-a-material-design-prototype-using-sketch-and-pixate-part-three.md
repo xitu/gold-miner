@@ -101,7 +101,6 @@
 
 ## 切换 Tabs
 
-<span>So far we have a reasonably functional prototype but we’re still missing the ability to switch tabs. Let’s put that in now.</span>
 到目前为止，我们已经得到一个功能上还行的原型，但是我们还忘了给 tabs 添加切换能力。现在我们来做。
 
 我们在_Home Screen_层下新建一个“In Words”层，将它放在_Home Screen_的右边并且设置尺寸为360x512。将“In Words Content”图片添加进当前层，然后你会得到：
@@ -118,7 +117,6 @@
 
 ## 滑动中移动 tab 指示器
 
-<span>We have one little thing we have left to do to finish the _Home Screen_. That’s to move the tab indicator when swiping between tabs.</span>
 我们忘记了一件事情，我们还需要在滑动屏幕时，同时移动 tab 指示器，这样才能完成_Home Screen_。
 
 给 _Tab Indicator_  添加 “Move” 动画，取名为”Move on Swipe Left“。按照下面图片进行设置：
