@@ -2,25 +2,25 @@
 * 原文作者 : [WESLEY CHUN](http://google.com/+WesleyChun)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [Goshin](https://github.com/Goshin)
-* 校对者:
+* 校对者: [warcryDoggie](https://github.com/warcryDoggie), [jkjk77](https://github.com/jkjk77)
 
 
 
 ## 引言
 
-本文将演示如何使用最新的 [Google 表格 API](http://developers.google.com/sheets). Google 在 2016 I/O 大会上发布了第四版的表格 API（[博客](http://googleappsdeveloper.blogspot.com/2016/06/auto-generating-google-forms.html)，[视频](http://youtu.be/Gk-xpjgUwx4)），与之前版本相比，新版增加了大量功能。现在，你可以通过 API 完成 Google 表格移动版和桌面版的大部分操作。
+本文将演示如何使用最新的 [Google 表格 API](http://developers.google.com/sheets). Google 在 2016 I/O 大会上发布了第四版的表格 API（[博客](http://googleappsdeveloper.blogspot.com/2016/06/auto-generating-google-forms.html)，[视频](http://youtu.be/Gk-xpjgUwx4)），与之前版本相比，新版增加了大量功能。现在，你可以通过 API v4 完成 Google 表格移动版和桌面版的大部分操作。
 
 文章下面会通过 Python 脚本，一步步将一个玩具公司关系型数据库里的客户订单数据逐条读出，并写到一个 Google 表格中。其他会涉及到的 API 还有：新建 Google 表格、从表格中读取数据。
 
-在早期的[一些文章](http://goo.gl/57Gufk)中，我们已经介绍了 Google API 的结构和大致的使用说明，所以近期的文章会关注特定 API 的使用方法。如果你已经阅读过之前那篇，便可以从下面的授权范围开始，了解具体如何使用。
+在之前的[几篇文章](http://goo.gl/57Gufk)中，我们已经介绍了 Google API 的结构和大致的使用说明，所以近期的文章会关注特定 API 在实际问题中的使用方法。如果你已经阅读过之前那篇，便可以从下面的授权范围开始，了解具体如何使用。
 
-## Google 表格 API 授权认证及其范围
+## Google 表格 API 授权认证及权限范围
 
-之前版本的 Google 表格 API（早期名为 [Google 电子表格 API](http://developers.google.com/google-apps/spreadsheets)）作为 [GData API 组](http://developers.google.com/gdata/docs/directory) 的一部分，与其他 API 一起构建实现了较不安全的 [Google Data (GData) 协议](http://developers.google.com/gdata)，以一种 REST 驱动的技术方式读写网络中的信息。而新版表格 API 已成为 [Google APIs](http://developers.google.com/api-client-library/python/apis) 中的一员，使用 [OAuth2](http://oauth.net/) 方式认证，且利用 [Google APIs 客户端库](http://developers.google.com/discovery/libraries) 降低了使用难度。
+之前版本的 Google Sheets API（早期名为 [Google Spreadsheets  API](http://developers.google.com/google-apps/spreadsheets)）作为 [GData API 组](http://developers.google.com/gdata/docs/directory) 的一部分，与其他 API 一起构建实现了较不安全的 [Google Data (GData) 协议](http://developers.google.com/gdata)，以一种 REST 驱动的技术方式读写网络中的信息。而新版表格 API 已成为 [Google APIs](http://developers.google.com/api-client-library/python/apis) 中的一员，使用 [OAuth2](http://oauth.net/) 方式认证，且利用 [Google APIs 客户端库](http://developers.google.com/discovery/libraries) 降低了使用难度。
 
-目前 API 提供[两种授权范围](https://developers.google.com/sheets/guides/authorizing#OAuth2Authorizing)：只读和读写。一般建议开发者根据用途尽量选择高限制的授权范围。你需要向用户请求几个相关的权限，用户会很乐意有选择权，而且这样会令你的应用更加安全，防止可能的数据破坏，并可以预防流量及其他配额不经意地超出。这里我们需要创建和写入表格，所以_必须_选择『读写』授权范围。
+目前 API 提供[两种授权范围](https://developers.google.com/sheets/guides/authorizing#OAuth2Authorizing)：只读和读写。一般建议开发者根据用途尽量选择较多限制的授权范围。这样可以向用户请求较少的权限，用户更乐意一些，而且这样会令你的应用更加安全，防止可能的数据破坏，并可以预防流量及其他配额不经意地超出。在这个例子中我们需要创建表格并写入数据，所以_必须_选择『读写』授权。
 
-*   `'https://www.googleapis.com/auth/spreadsheets'` — 读写表格数据及表格属性
+* [参考文档 - 权限部分：读写表格数据及表格属性](https://www.googleapis.com/auth/spreadsheets)
 
 ## 使用 Google 表格 API
 
@@ -46,14 +46,14 @@
     }
     res = DRIVE.files().create(body=data).execute() # insert() for v2
 
-一般来说如果你只需要进行表格的操作，那仅表格的 API 就已足够。但如果你还需要创建其他文件，或是操作其他 Drive 文件和文件夹，你就需要 Drive API。当然如果你的应用复杂，你也可以都用，或是结合其他 Google API 使用。但这里就只用到表格 API。
+一般来说如果你只需要进行表格的操作，那仅表格的 API 就已足够。但如果你还需要创建其他文件，或是操作其他 Drive 文件和文件夹，你才需要 Drive API。当然如果你的应用复杂，你也可以都用，或是结合其他 Google API 使用。但这里就只用到表格 API。
 
 新建完表格后，获取并显示一些信息。
 
     SHEET_ID = res['spreadsheetId']
     print('Created "%s"' % res['properties']['title'])
 
-你也许会问：为什么我要先新建表格然后再另外调用 API 添加数据？为什么不能在新建表格的时候同时添加数据？这个问题的答案虽然是可以，但是这样做意味着你需要在创建表格的时候，构建一个包含整张表格所有单元格数据及其格式的 JSON，而且单元格的格式数据相当繁复，结构并不像一个数组这么简单（当然你可以尽管尝试）。所以才有了 [spreadsheets().values()](http://developers.google.com/sheets/reference/rest/v4/spreadsheets.values) 的一系列相关函数，来简化仅针对表格数据的上传和下载。
+你也许会问：为什么要先新建表格然后再另外调用 API 添加数据？为什么不能在新建表格的时候同时添加数据？这个问题的答案虽然是可以，但是这样做意味着你需要在创建表格的时候，构建一个包含整张表格所有单元格数据及其格式的 JSON，而且单元格的格式数据相当繁复，结构并不像一个数组这么简单（当然你可以尽管尝试）。所以才有了 [spreadsheets().values()](http://developers.google.com/sheets/reference/rest/v4/spreadsheets.values) 的一系列相关函数，来简化仅针对表格数据的上传和下载。
 
 现在再看看 [SQLite](http://sqlite.org) 数据库文件（[db.sqlite](https://github.com/googlecodelabs/sheets-api/blob/master/start/db.sqlite)） 读写部分，你可以从 [Google 表格 Node.js 代码实验](http://g.co/codelabs/sheets) 处获取该文件。下面的代码通过 [sqlite3](http://docs.python.org/library/sqlite3) 标准库来连接数据库，读取所有记录，添加表头，并去除最后两列时间戳：
 
@@ -141,7 +141,7 @@
     for row in rows:
         print(row)
 
-你可以根据你的需要修改定制这段代码，改成移动前端脚本、开发脚本、后端脚本，或是使用其他 Google API。如果你觉得例子太过复杂，可以看看这篇只涉及读取现有表格的 [Python 快速帮助](http://developers.google.com/sheets/quickstart/python)。如果你熟悉 JavaScript，想做点更正式的东西，可以了解一下这个 [Node.js 代码实验](http://g.co/codelabs/sheets)，就是我们获取数据库文件的地方。本文就写到这里，希望能在最新表格 API 的入门了解上对你有所帮助。
+你可以根据你的需要修改定制这段代码，改成移动前端脚本、开发脚本、后端脚本，或是使用其他 Google API。如果你觉得例子太过复杂，可以看看这篇只涉及读取现有表格的[快速入门 Python 部分](http://developers.google.com/sheets/quickstart/python)。如果你熟悉 JavaScript，想做点更正式的东西，可以了解一下这个 [Node.js 上手表格 API 代码实验](http://g.co/codelabs/sheets)，即上文中获取数据库文件的地方。本文就写到这里，希望能在最新表格 API 的入门了解上对你有所帮助。
 
 **附加题**: 请自由尝试单元格格式化及其他 API 的功能。除了读写数值，API 还有很多功能，挑战一下你自己吧！
 
