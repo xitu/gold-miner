@@ -9,7 +9,7 @@
 
 虽然一下升级到了3.0版本，我们预计在升级现有代码的时候不会发生太多问题。当然，此次主版本号的更新有着打破一切的大改变，但我们希望这些改变不会破坏大多数人的代码。
 
-为了帮助大家升级，我们有一个全新的升级指南 [3.0 Upgrade Guide](https://jquery.com/upgrade-guide/3.0/). 和迁移插件 [jQuery Migrate 3.0 plugin](https://github.com/jquery/jquery-migrate#migrate-older-jquery-code-to-jquery-30) 来帮助你定位代码的兼容问题。 你对这些变化的反馈将极大的帮助我们，所以请尝试在你现有的代码和插件里使用它们。
+为了帮助大家升级，我们有一个全新的升级指南 [3.0 Upgrade Guide](https://jquery.com/upgrade-guide/3.0/)。和迁移插件 [jQuery Migrate 3.0 plugin](https://github.com/jquery/jquery-migrate#migrate-older-jquery-code-to-jquery-30) 来帮助你定位代码的兼容问题。 你对这些变化的反馈将极大的帮助我们，所以请尝试在你现有的代码和插件里使用它们。
 
 你可以从 jQuery CDN 获取这些文件, 或直接链接它们:
 
@@ -34,19 +34,19 @@
 
 ### 精简版
 
-最后，此次发布我们还加入了一些新东西。有时你并不需要ajax，或者在众多独立库中你只需要一个用于 ajax 请求的库。以往，更简单的方式是使用CSS和类的组合操作来满足所有的web动画需求。针对普通版的jQuery包含ajax和effects modules（效果模块），我们发布了没有这些内容的瘦身版。总而言之，精简版删除了ajax,effects和已经废弃的代码。jQuery的大小和对加载性能的影响已经微乎其微，但是瘦身版仍在gzip压缩下比普通版小了6k左右，23.6k vs 30k。这些文件也都可以在npm包和CDN获得。
+最后，此次发布我们还加入了一些新东西。有时你并不需要ajax，或者在众多独立库中你只需要一个用于 ajax 请求的库。以往，更简单的方式是使用CSS和类的组合操作来满足所有的web动画需求。针对普通版的jQuery包含ajax和effects modules（效果模块），我们发布了没有这些内容的精简版。总而言之，精简版删除了ajax,effects和已经废弃的代码。jQuery的大小和对加载性能的影响已经微乎其微，但是精简版仍在gzip压缩下比普通版小了6k左右，23.6k vs 30k。这些文件也都可以在npm包和CDN获得。
 
 [https://code.jquery.com/jquery-3.0.0.slim.js](https://code.jquery.com/jquery-3.0.0.slim.js)
 
 [https://code.jquery.com/jquery-3.0.0.slim.min.js](https://code.jquery.com/jquery-3.0.0.slim.min.js)
 
-此版本是通过我们的自定义建构 API 生成，因此你可以按照自己的需求来选择添加或剔除某些模块。更多的信息请看： [jQuery README](https://github.com/jquery/jquery/blob/master/README.md#how-to-build-your-own-jquery).  
+此版本是通过我们的自定义建构 API 生成，因此你可以按照自己的需求来选择添加或剔除某些模块。更多的信息请看： [jQuery README](https://github.com/jquery/jquery/blob/master/README.md#how-to-build-your-own-jquery)。
 
 
 ##  jQuery UI 和 jQuery Mobile 的兼容
 
 
-虽然大部分是没有问题的，但是有几个jQuery UI和jQuery Mobile的兼容问题已经在即将发布的版本里被解决，如果你发现问题，请记住它有可能已经在上游被解决，用[jQuery Migrate 3.0 plugin](http://code.jquery.com/jquery-migrate-3.0.0.js)来修复它，新版本预计很快发布
+虽然大部分是没有问题的，但是有几个jQuery UI和jQuery Mobile的兼容问题已经在即将发布的版本里被解决，如果你发现问题，请记住它有可能已经在上游被解决，用[jQuery Migrate 3.0 plugin](http://code.jquery.com/jquery-migrate-3.0.0.js)来修复它，新版本预计很快发布。
 
 ## 主要的变化
 
@@ -75,7 +75,7 @@ jQuery.Deferred 对象已经升级兼容 Promises/A+ 和 ES2015 规范，且已�
 
 在以前，“first callback” 将会打印，异常会被抛出。然后就会终止，"second callback" 和 “rejection callback” 都不会被打印。在新版里，符合标准的行为是你将会看到 "rejection callback" 和 `true` 被打印，`err` 是第一个回调的拒绝值。
 
-2.  通过`.then()`创建Deferred的resolution状态现在是被它的回调函数控制-异常将会是拒绝值（rejection values）且 non-thenable 返回的结果是 fulfillment 值。
+2.  通过`.then()`创建Deferred的resolution状态现在是被它的回调函数控制-异常将会是拒绝值（rejection values）且 non-thenable 返回的结果是 fulfillment 值。而之前的版本中，拒绝处理 （rejection handler）返回的结果是 rejection 值
 
 #### 示例: 来自拒绝回调函数的返回值
 
