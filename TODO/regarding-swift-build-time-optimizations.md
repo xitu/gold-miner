@@ -1,41 +1,41 @@
 >* 原文链接 : [Regarding Swift build time optimizations](https://medium.com/@RobertGummesson/regarding-swift-build-time-optimizations-fc92cdd91e31#.w81y3zhjr)
 * 原文作者 : [Robert Gummesson](https://medium.com/@RobertGummesson)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者:
+* 译者 : [杨龙龙](http://www.yanglonglong.com)
+* 校对者: [申冠华](https://github.com/shenAlexy), [Jack King](https://github.com/Jack-Kingdom)
 
 ![](http://ww3.sinaimg.cn/large/005SiNxygw1f3p3jimjllj31jk0dwqft.jpg)
 
-### Regarding Swift build time optimizations
+### 关于 Swift 编译时性能优化的一些思考
 
-After I read [@nickoneill](https://medium.com/@nickoneill)’s excellent post [Speeding Up Slow Swift Build Times](https://medium.com/swift-programming/speeding-up-slow-swift-build-times-922feeba5780#.k0pngnkns) last week, it’s hard not to look at Swift code in a slightly different light.
+上周，我读了 [@nickoneill](https://medium.com/@nickoneill) 一篇优秀的帖子 [Speeding Up Slow Swift Build Times](https://medium.com/swift-programming/speeding-up-slow-swift-build-times-922feeba5780#.k0pngnkns) 之后，我发现用一个略不同以往的角度去读Swift代码，并不是很难。
 
-A single line of what could be considered clean code now raises a new question — should it be refactored to 9 lines to please the compiler? (_see the nil coalescing operator example further down_)What is more important? Concise code or compiler friendly code? Well, it depends on project size and developer frustration.
+一行之前很简洁的代码，现在却出现了新的问题——它是否应该重构为9行代码来达到更快的编译速度？ (_nil coalescing 运算符就是一个例子_)孰轻孰重？简洁的代码还是对编译器友好的代码？ 我觉得，它取决于项目的大小和开发者的想法。
 
-#### But wait… There is an Xcode plugin for that
+#### 但请等等... 这里有一个Xcode插件
 
-Before getting to some examples, let me first mention that going through log files manually is very time consuming. Someone came up with a terminal command to make it easier but I took it a step further and threw together [an Xcode plugin](https://github.com/RobertGummesson/BuildTimeAnalyzer-for-Xcode).
+在讲一些例子之前，我首先想到了通过手工提取日志信息是非常耗时的事情。通过命令行工具实现会相对容易一些，但是我把它往前推进了一步：集成为[Xcode插件](https://github.com/RobertGummesson/BuildTimeAnalyzer-for-Xcode)。
 
 ![](http://ww1.sinaimg.cn/large/005SiNxygw1f3p3hhivppj30m809lwis.jpg)
 
-In my case, the initial aim was to just identify and fix the most time consuming areas but I’m now of the opinion that it has to become more of an iterative process. That way I can, other than making the code build more efficiently, also guard against time consuming functions entering the project in first place.
+在这个例子中，最初的目的仅仅是识别并修复代码中最耗时的地方，但是现在我觉得它成为了一个必须要迭代的过程。这样我才可以更加高效地构建代码，并且防止在项目中出现耗时的函数。
 
-#### More than a few surprises
+#### 不少惊喜
 
-I frequently jump back and forth various Git branches and waiting for a slow project to compile tends to end up wasting a lot of time. I’ve been wondering for quite some time why a pet project of mine (roughly 20k lines of Swift code) builds as slowly as it does.
+我经常在不同的 Git 分支中跳转，并且等待一个暖慢的项目编译简直是在浪费我的生命。因此我思考了很长时间，一个玩具项目（大约两万行 Swift 代码）会编译如此长的时间。
 
-After having learnt what really caused it, I must admit I am really quite surprised to see single lines of code requiring several seconds to compile.
+当我知道是什么原因导致它如此慢之后，我不得不承认我震惊了，一行代码居然需要几秒的编译时间。
 
-Let’s have a look at a few examples.
+让我们来看几个例子。
 
-#### Nil Coalescing Operator
+#### Nil 合并运算符
 
-The compiler certainly didn’t like the first approach here. After unwrapping the two views, the build time was reduced by **99.4%**.
+编译器肯定不喜欢这里的第一种方法。在展开下面两处简写的代码之后，构建时间减少了 **99.4%**。
 
-    // Build time: 5238.3ms
+    // 构建时间： 5238.3ms
     return CGSize(width: size.width + (rightView?.bounds.width ?? 0) + (leftView?.bounds.width ?? 0) + 22, height: bounds.height)
 
-    // Build time: 32.4ms
+    // 构建时间： 32.4ms
     var padding: CGFloat = 22
     if let rightView = rightView {
         padding += rightView.bounds.width
@@ -48,22 +48,22 @@ The compiler certainly didn’t like the first approach here. After unwrapping t
 
 #### ArrayOfStuff + [Stuff]
 
-This one goes something like this:
+这个看起来像下面这样：
 
     return ArrayOfStuff + [Stuff]  
-    // rather than  
+    // 而不是  
     ArrayOfStuff.append(stuff)  
     return ArrayOfStuff
 
-I do this fairly regularly and it has an impact on the required build time every time. The below was the worst one and the build time reduction here was **97.9%**.
+我经常这么做，并且它影响了每次构建的时间。下面是最糟糕的一个例子，改写后构建时间可以减少 **97.9%**。
 
-    // Build time: 1250.3ms
+    // 构建时间： 1250.3ms
     let systemOptions = [ 7, 14, 30, -1 ]
     let systemNames = (0...2).map{ String(format: localizedFormat, systemOptions[$0]) } + [NSLocalizedString("everything", comment: "")]
     // Some code in-between 
     labelNames = Array(systemNames[0..<count]) + [systemNames.last!]
 
-    // Build time: 25.5ms
+    // 构建时间： 25.5ms
     let systemOptions = [ 7, 14, 30, -1 ]
     var systemNames = systemOptions.dropLast().map{ String(format: localizedFormat, $0) }
     systemNames.append(NSLocalizedString("everything", comment: ""))
@@ -71,14 +71,14 @@ I do this fairly regularly and it has an impact on the required build time every
     labelNames = Array(systemNames[0..<count])
     labelNames.append(systemNames.last!)
 
-#### Ternary operator
+#### 三元运算符
 
-By doing nothing more than replacing the ternary operator with an if else statement, the build time was reduced by **92.9%**. If _map_ is replaced with a for loop, it will drop another 75% (but then my eyes would hurt). 😉
+仅仅是通过替换三元运算符为 if else 语句就能减少 **92.9%** 的构建时间。如果使用一个for循环替换 _map_ 函数，它又能减少另一个 75%（但是我的眼睛可就受不了咯😉）。
 
-    // Build time: 239.0ms
+    // 构建时间： 239.0ms
     let labelNames = type == 0 ? (1...5).map{type0ToString($0)} : (0...2).map{type1ToString($0)}
 
-    // Build time: 16.9ms
+    // 构建时间： 16.9ms
     var labelNames: [String]
     if type == 0 {
         labelNames = (1...5).map{type0ToString($0)}
@@ -86,30 +86,30 @@ By doing nothing more than replacing the ternary operator with an if else statem
         labelNames = (0...2).map{type1ToString($0)}
     }
 
-#### Casting CGFloat to CGFloat
+#### 转换 CGFloat 到 CGFloat
 
-Not sure what I was thinking here. The values were already CGFloat and some parentheses were redundant. After cleaning up the mess, the build time dropped by **99.9%**.
+这里我所说的并不一定正确。变量已经使用了 CGFloat 并且有一些括号也是多余的。在清理了这些冗余之后，构建时间能减少 **99.9%**。
 
-    // Build time: 3431.7 ms
+    // 构建时间： 3431.7 ms
     return CGFloat(M_PI) * (CGFloat((hour + hourDelta + CGFloat(minute + minuteDelta) / 60) * 5) - 15) * unit / 180
 
-    // Build time: 3.0ms
+    // 构建时间： 3.0ms
     return CGFloat(M_PI) * ((hour + hourDelta + (minute + minuteDelta) / 60) * 5 - 15) * unit / 180
 
 #### Round()
 
-This is a really odd one. The below example variables are a mix of local and instance variables. The problem is likely not the rounding itself but a combination of code in the method. Removing the rounding did a massive difference though, **97.6%** to be precise.
+这个一个非常奇怪的例子，下面的例子中变量是一个局部变量与实例变量的混合。这个问题可能不是四舍五入本身，而是结合代码的方法。去掉四舍五入的方法大概能减少 **97.6%** 的构建时间。
 
-    // Build time: 1433.7ms
+    // 构建时间： 1433.7ms
     let expansion = a — b — c + round(d * 0.66) + e
-    // Build time: 34.7ms
+    // 构建时间： 34.7ms
     let expansion = a — b — c + d * 0.66 + e
 
-Note: All measures where made on a MacBook Air (13-inch, Mid 2013).
+注意：所有的测试都在 MacBook Air (13-inch, Mid 2013)中进行。
 
-#### Try it out
+#### 尝试它
 
-Whether or not you have a problem with slow build times, it is still useful to build an understanding of what confuses the compiler. I’m sure you’ll find a few surprises yourself. As a reference, here is the full code for the one requiring 5+ seconds to compile in my project…
+无论你是否面临过构建时间太长的问题，编写对编译器友好的代码都是非常有用的。我确定你自己会在其中找到一些惊喜。作为参考，这里有完整的代码，在我的工程中可以5秒内完成编译...
 
     import UIKit
 
