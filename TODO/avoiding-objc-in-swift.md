@@ -126,7 +126,7 @@ Finally, we can define our original `ViewControllerType` protocol as a `typealia
 
 
 
-    typealias ViewControllerType = protocol<viewmodelconfigurable, navigationitemconfigurable=""></viewmodelconfigurable,>
+    typealias ViewControllerType = protocol<ViewModelConfigurable, NavigationItemConfigurable>
 
 
 
