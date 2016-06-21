@@ -55,7 +55,7 @@ RemoteInput remoteInput = new RemoteInput.Builder(KEY_TEXT_REPLY)
 
 </pre>
 
-一旦已经构造好 `RemoteInput` ，可以通过恰当命名的 [addRemoteInput()](https://developer.android.com/reference/android/support/v4/app/NotificationCompat.Action.Builder.html?utm_campaign=android_series_notificationsandroidnblog_060816&utm_source=anddev&utm_medium=blog#addRemoteInput(android.support.v4.app.RemoteInput) 方法附加到 Action 上。也可以考虑调用 `setAllowGeneratedReplies(true)` 方法允许 [Android Wear 2.0](https://developer.android.com/wear/preview/index.html?utm_campaign=android_series_notificationsandroidnblog_060816&utm_source=anddev&utm_medium=blog) 生成[智能回复](https://developer.android.com/wear/preview/api-overview.html?utm_campaign=android_series_notificationsandroidnblog_060816&utm_source=anddev&utm_medium=blog#smart-replies)，方便用户快速回应。
+一旦已经构造好 `RemoteInput` ，可以通过恰当命名的 [addRemoteInput()](https://developer.android.com/reference/android/support/v4/app/NotificationCompat.Action.Builder.html?utm_campaign=android_series_notificationsandroidnblog_060816&utm_source=anddev&utm_medium=blog#addRemoteInput(android.support.v4.app.RemoteInput)) 方法附加到 Action 上。也可以考虑调用 `setAllowGeneratedReplies(true)` 方法允许 [Android Wear 2.0](https://developer.android.com/wear/preview/index.html?utm_campaign=android_series_notificationsandroidnblog_060816&utm_source=anddev&utm_medium=blog) 生成[智能回复](https://developer.android.com/wear/preview/api-overview.html?utm_campaign=android_series_notificationsandroidnblog_060816&utm_source=anddev&utm_medium=blog#smart-replies)，方便用户快速回应。
 
 <pre>// Add to your action, enabling Direct Reply for it
 NotificationCompat.Action action =
@@ -68,7 +68,7 @@ NotificationCompat.Action action =
 
 请记住，在 Marshmallow 中，被传入 `Action` 的 `pendingIntent` 应该是一个 `Activity`。更低版本的设备不支持直接回复（你可能会想解锁屏幕，启动一个 `Activity`，然后聚焦到用户回复的输入框中），Android N 设备上 `Service`（如果你想要在一个单独的线程中运行） 或 `BroadcastReceiver`（运行在 UI 线程中） 即便处于锁频状态，后台也能处理文本输入。（在系统设置中有一个独立的用户选项，可以启用/禁用锁定设备的直接回复功能。）
 
-在 `Service`/`BroadcastReceiver` 中提取输入的文本，可能需要 [RemoteInput.getResultsFromIntent()](https://developer.android.com/reference/android/support/v4/app/RemoteInput.html#getResultsFromIntent(android.content.Intent) 的帮助。
+在 `Service`/`BroadcastReceiver` 中提取输入的文本，可能需要 [RemoteInput.getResultsFromIntent()](https://developer.android.com/reference/android/support/v4/app/RemoteInput.html#getResultsFromIntent(android.content.Intent)) 的帮助。
 
 <pre>private CharSequence getMessageText(Intent intent) {
     Bundle remoteInput = RemoteInput.getResultsFromIntent(intent);
@@ -118,9 +118,9 @@ NotificationCompat.Action action =
 
 **捆绑通知** 提供两全其美的办法: 一个单独的概要通知，当用户在看其他通知或者想要同时操作所有通知时在个别通知上扩展了组操作能力（包括使用操作和直接回复）。
 
-如果你为 Android Wear 创建了 [堆通知](https://developer.android.com/training/wearables/notifications/stacks.html?utm_campaign=android_series_notificationsandroidnblog_060816&utm_source=anddev&utm_medium=blog)，这里使用的 API 是完全一样的。只需将 [setGroup()](https://developer.android.com/reference/android/support/v4/app/NotificationCompat.Builder.html?utm_campaign=android_series_notificationsandroidnblog_060816&utm_source=anddev&utm_medium=blog#setGroup(java.lang.String) 添加到每个单独通知中，将那些通知“绑定”到一起。不仅限于绑定成一组，所有捆绑通知是十分灵活的。对于邮件应用，可能考虑每个账户的邮件“捆”成一组。
+如果你为 Android Wear 创建了 [堆通知](https://developer.android.com/training/wearables/notifications/stacks.html?utm_campaign=android_series_notificationsandroidnblog_060816&utm_source=anddev&utm_medium=blog)，这里使用的 API 是完全一样的。只需将 [setGroup()](https://developer.android.com/reference/android/support/v4/app/NotificationCompat.Builder.html?utm_campaign=android_series_notificationsandroidnblog_060816&utm_source=anddev&utm_medium=blog#setGroup(java.lang.String)) 添加到每个单独通知中，将那些通知“绑定”到一起。不仅限于绑定成一组，所有捆绑通知是十分灵活的。对于邮件应用，可能考虑每个账户的邮件“捆”成一组。
 
-创建概要通知也是很重要的。这个概要通知，通过 [setGroupSummary(true)](https://developer.android.com/reference/android/support/v4/app/NotificationCompat.Builder.html?utm_campaign=android_series_notificationsandroidnblog_060816&utm_source=anddev&utm_medium=blog#setGroupSummary(boolean) 展示通知，这也是唯一支持 Marshmallow 和更低版本的设备的通知，会归纳所有个人通知（你猜对了）。这是使用 InboxStyle 的最佳时机，虽然没有要求用它。在 Android N 或更高版本设备上，从概要通知上提取的某些信息（如 subtext、content intent 和 delete intent），来为捆绑通知生成 collapsed 通知，所以你应该继续在所有 API级别上生成概要通知。
+创建概要通知也是很重要的。这个概要通知，通过 [setGroupSummary(true)](https://developer.android.com/reference/android/support/v4/app/NotificationCompat.Builder.html?utm_campaign=android_series_notificationsandroidnblog_060816&utm_source=anddev&utm_medium=blog#setGroupSummary(boolean)) 展示通知，这也是唯一支持 Marshmallow 和更低版本的设备的通知，会归纳所有个人通知（你猜对了）。这是使用 InboxStyle 的最佳时机，虽然没有要求用它。在 Android N 或更高版本设备上，从概要通知上提取的某些信息（如 subtext、content intent 和 delete intent），来为捆绑通知生成 collapsed 通知，所以你应该继续在所有 API级别上生成概要通知。
 
 为了提升所有 Android N 设备的用户体验，**发送 4 个或者更多通知时没有以组的方式，这些通知将自动合并成一组**
 
