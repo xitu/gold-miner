@@ -82,6 +82,8 @@
 
 ## 前端
 
+* [[译] jQuery 终于发布了](https://gold.xitu.io/entry/576917c0d342d30058097229?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Dwight](https://github.com/ldhlfzysys) 翻译)
+* [较为完整的 React.js / Vue.js 的性能比较](https://gold.xitu.io/entry/57691d5d6be3ff006a438e09?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([wildflame](https://github.com/wildflame) 翻译)
 * [【译】让 Webpack 来帮你打包吧](https://gold.xitu.io/entry/5767a975df0eea0062ffe193?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([达仔](https://github.com/Zhangjd) 翻译)
 * [关于 PostCSS 普及的一点微小的工作](https://gold.xitu.io/entry/57635cdda341310064c5910a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zheaoli](https://github.com/Zheaoli) 翻译)
 * [React 应用的性能优化之路](http://gold.xitu.io/entry/57621f7980dda4005f7332f3?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([woota](https://github.com/woota) 翻译)
