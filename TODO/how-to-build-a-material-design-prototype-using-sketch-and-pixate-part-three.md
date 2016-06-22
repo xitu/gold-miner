@@ -23,7 +23,7 @@
 
 ![Prototype with Navigation Drawer](http://createdineden.com/media/1771/part-3-image-2.png?width=750&height=497)
 
-## 拖出来（ps：感觉这里应该是 drag）
+## 画出来
 
 我们将会加更多的特性给_Navigation Drawer_。它会自动的离开屏幕，意味着我不需要一直拖着它到左侧。
 
@@ -85,7 +85,7 @@
 
 ## 看我上下滚动
 
-现在让我继续添加一个可滚动的列表给我的 app。我们已经得到了导出的 “Version List”  资源，所以让我马开始吧。
+现在让我继续添加一个可滚动的列表给我的 app。我们已经得到了导出的 “Version List”  资源，所以让我们马上开始吧。
 
 新建一个“Version List”层级，放在_Home Screen_ 层下，尺寸设置为 360x1232。这会导致它比屏幕要长，但是别担心这个， Pixate 会帮我们解决。将_Version List_放在 toolbar 下面， 滑出内容会被 toolbar 遮盖。
 ![Prototype with Version List added](http://createdineden.com/media/1766/part-3-image-7.png?width=750&height=500)  
