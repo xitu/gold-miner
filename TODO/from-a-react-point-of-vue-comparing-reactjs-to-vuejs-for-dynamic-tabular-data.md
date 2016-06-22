@@ -9,6 +9,7 @@
 ##### Update
 ##### 更新
 
+
 So I'd left React in development mode. A number of suggestions have been made and merged in. The PR is worth a read as it goes through what went wrong and has some results once corrected; [https://github.com/footballradar/VueReactPerf/pull/3](https://github.com/footballradar/VueReactPerf/pull/3).
 
 所以我把 React 设在了开发模式。创建和合并了许多建议。这个 PR 还是值得一读的，因为它经历了错误地方而一度得到了正确的返回。
@@ -158,36 +159,41 @@ We changed the data structure so we’re just exposing a POJO of state then pass
     });
 
 Instead of subscribing to the data source in the component, which is what we did in the React `App` component, we subscribe to it in our little store. We then expose the state via a getter so Vue can hook into it whilst keeping it readonly via our setter. I stole this approach by looking at the source of Vuex, a state management lib for Vue.
+我们没有订阅组件的数据源，那是我们在 React 的 `App`  组件里面使用的，我们订阅的是自己小的存储。利用获取器显示状态，Vue 就可以挂钩通顺保持通过我们获取器的制度了。我是从 Vuex 的源码里偷学的这种方法， Vuex 是一种 Vue 的状态管理库。
 
-Once that was sorted we ran the test and the results are insane:
-
-_Summary - Vue:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-01-40.png) _Summary - React:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-13-58-26-1.png)
+_概述 - Vue:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-01-40.png) _Summary - React:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-13-58-26-1.png)
 
 The first image is Vue, the second is the React summary from earlier. Look at that circle. So much idle. I had to run this test and the React one many, many times to make sure this was legit.
+第一幅图是 Vue ， 第二幅是 React 的概述。看这个饼图，真是空闲呢！我需要运行测试以及 React 多次来保证结果符合要求。
 
-_Bottom-up - Vue:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-02-17.png) _Bottom-up - React:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-13-59-00-1.png)
+_自下而上 - Vue:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-02-17.png) _Bottom-up - React:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-13-59-00-1.png)
 
 We can see here that Vue spends much less time in itself compared to React. This is down to how each component handles its data and updates.
+我们可以看到，相比 React 来说，Vue 在自身消耗的时间更少。 这是取决于每个组件处理的数据和更新速度。
 
-_Heaviest stack - Vue:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-04-19.png) _Heaviest stack - React:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-13-59-34.png)
+_重堆栈 - Vue:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-04-19.png) _Heaviest stack - React:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-13-59-34.png)
 
-_Timeline - Vue:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-05-11.png) _Timeline - React:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-07-19-1.png)
+_时间线 - Vue:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-05-11.png) _Timeline - React:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-07-19-1.png)
 
 I thought this was pretty telling too. Significantly less yellow on the Vue timeline. The memory seems pretty good too. Although it is creeping up, maybe indicating some issue in my data generation.
+我想这能代表的东西不少。Vue 的时间线上面，有意义的黄色更少了。内存也相当不错。尽管缓慢上升，或许这表明在我数据生成当中有某种问题发生。
 
 Okay cool so this is awesome but we evidently have some room to experiment. What happens when we scale up to 100 games? We’ll have to leave the page for a bit to let each game “kickoff”.
+好吧很酷，不过我们全身还有可以商量的实验空间。如果我们使用的规模是100个比赛呢？我们得离开页面一小会让每个游戏都 “开球”
 
-_Summary - Vue:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-13-50-29.png) _Summary - React:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-13-53-55.png)
+_概述 - Vue:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-13-50-29.png) _Summary - React:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-13-53-55.png)
 
 Our Vue implementation handles the load much better than our React one, which has spent over 3 times the amount of time scripting than with 50 games (half the games).
-
+我们的　Vue　实例处理加载比　React　更好，React　用了３倍的时间进行脚本处理了50个比赛。
 Not sure what’s gonna happen but let’s try 500 games, I’ll only record 15secs here (if we don’t kill the timeline buffer…)
+不知道为什么那就先试试500个游戏吧，我将只记录前15秒的信息（如果我们没有杀死时间线缓存的话。。。）
 
-_Summary - Vue:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-20-38.png) _Summary - React:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-36-14.png)
+_概述 - Vue:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-20-38.png) _Summary - React:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-36-14.png)
 
-_Bottom-up - Vue:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-21-14.png) _Bottom-up - React:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-36-33.png)
+_自下而上 - Vue:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-21-14.png) _Bottom-up - React:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-36-33.png)
 
 To be honest I’m surprised I could record 15 seconds of timeline for the React version. In fact it seemed to take up a lot less of the timeline buffer than the Vue implementation. The React page was unusable, taking ~10seconds to update the clock by 1 second. The Vue page didn’t fare much better but for different reasons, it’s pretty nice to see the painting time take longer than the scripting time. I could still highlight the rows and the updates weren’t in spikes, just behind.
+说实话我对于 React 前15秒的时间线记录十分吃惊。实际上似乎它比 Vue 实例在时间线缓存上用了更少的时间。React 页不可用，采集大概10秒来进行时钟更新。Vue 页面的耗费不多但是出于不同的原因，非常令人愉快地看到打印时间比脚本处理时间长。我能标注行和更新并不在峰位，而是在后面。
 
 ##### Conclusion结论
 
@@ -202,3 +208,4 @@ Cheers for reading.
 感谢您的阅读  
 
 [https://github.com/footballradar/VueReactPerf](https://github.com/footballradar/VueReactPerf)
+
