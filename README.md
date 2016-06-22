@@ -46,7 +46,7 @@
 * [Android 开发中利用异步来优化运行速度和性能](http://gold.xitu.io/entry/56dd4bf37664bf0052047906?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([edvardHua](https://github.com/edvardHua) 翻译)
 *  [深入浅出 Android 权限（二）](http://gold.xitu.io/entry/56d802ab8ac2470054759796?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Hugo Xie](https://github.com/xcc3641) 翻译)
 *  [深入浅出 Android 权限（一）](http://gold.xitu.io/entry/56d11137c24aa800544db479?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Hugo Xie](https://github.com/xcc3641) 翻译)
-*  [世界级的 Android 测试流程（一）](gold.xitu.io/entry/56cd878d6be3ff005e506d43) ([markzhai](https://github.com/markzhai) 翻译)
+*  [世界级的 Android 测试流程（一）](http://gold.xitu.io/entry/56cd878d6be3ff005e506d43) ([markzhai](https://github.com/markzhai) 翻译)
 *  [世界级的 Android 测试流程（二）](http://gold.xitu.io/entry/56cd87ba7db2a26229196d01?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([markzhai](https://github.com/markzhai) 翻译)
 * [2015 年度 Android 开发者必备的 5 个开源库](http://gold.xitu.io/entry/56cbde8ea3413100540bb7ef?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([kassadin](https://github.com/kassadin) 翻译)
 * [如何提高安卓代码的质量和语法](http://gold.xitu.io/entry/56cd6ebb99a6ce005a2887e3?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([yinshudi](https://github.com/yinshudi) 翻译)
