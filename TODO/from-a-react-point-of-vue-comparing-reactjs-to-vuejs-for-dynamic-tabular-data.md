@@ -1,4 +1,4 @@
->* 原文链接 : ["From a React point of Vue..." - comparing React.js to Vue.js for dynamic tabular data](https://engineering.footballradar.com/from-a-react-point-of-vue-comparing-reactjs-to-vuejs-for-dynamic-tabular-data/)
+>* 原文链接 : ["较为完整的 React.js / Vue.js 的性能比较 Part 1." - comparing React.js to Vue.js for dynamic tabular data](https://engineering.footballradar.com/from-a-react-point-of-vue-comparing-reactjs-to-vuejs-for-dynamic-tabular-data/)
 * 原文作者 : [Max Willmott](https://engineering.footballradar.com/author/max-willmott/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [circlelove](http://github.com/circlelove)
