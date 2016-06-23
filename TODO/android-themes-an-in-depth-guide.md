@@ -16,7 +16,7 @@ Theme.AppCompat, Theme.Base.AppCompat, Base.V7.Theme.AppCompat, Base.v11.Theme.A
 
 ### AppCompat v7
 
-鉴于不同的安卓平台定义了不同的主题、样式和属性，最初安卓主题的层级非常繁杂，而且很不直观。直到 v7 支持库带来了全新的主题架构以便所有平台上的安卓自 API v7 起能获得一致的材质外观 (Matertial apperance)。`Base.V...` 和 `Platform.AppCompat` 正在是在这个时候被加入了进来。
+鉴于不同的安卓平台定义了不同的主题、样式和属性，最初安卓主题的层级非常繁杂，而且很不直观。直到 v7 支持库带来了全新的主题架构，使得所有安卓平台自 API v7 起能够获得一致的材质外观 (Matertial apperance)。`Base.V...` 和 `Platform.AppCompat` 正是在这个时候被加入了进来。
 
 > 安卓开发者们在 GitHub 上撰写了一篇 [README](https://github.com/android/platform_frameworks_support/blob/master/v7/appcompat/THEMES.txt) 解释主题层级，我推荐你看一看。
 
@@ -24,13 +24,13 @@ Theme.AppCompat, Theme.Base.AppCompat, Base.V7.Theme.AppCompat, Base.v11.Theme.A
 
 **Level1 → Level2 → Level3 → Level4**
 
-除此之外，每个版本的安卓 API 都有一个 `values-v{api}` 文件夹存放各自需要定义或覆写的样式和属性：
+除此之外，每个版本的安卓 API 都有一个对应的 `values-v{api}` 文件夹存放各自需要定义或覆写的样式和属性：
 
 **values, values-v11, values-v14, values-v21, values-v22, values-v23**
 
 #### Level 4 （最底层）
 
-最底层直接包含了 `Platform.AppCompat` 主题。该主题总是指向当前版本中定义的主题，例如：
+最底层包含了 `Platform.AppCompat` 主题。该主题总是继承自当前版本中的默认主题，例如：
 
 **values**
 
@@ -119,7 +119,7 @@ Theme.AppCompat → Base.Theme.AppCompat → Base.V21.Theme.AppCompat → Base.V
 *   ThemeOverlay.ActionBar.Light
 *   ThemeOverlay.ActionBar.Dark
 
-这些主题又是做什么的呢？**仅用于为特定的用途定义必要的属性。** 例如 `ThemeOverlay` 主题只定义了 `textColor`，`textAppearance`，窗口的颜色属性和一些类似 _colorControlButton_ 的属性；`ThemeOverlay.ActionBar.Light`，被设定为 Toolbar 主题，仅将 _colorControlButton_ 的值定义为 _?attr:textColorSecondary_。
+这些主题又是做什么的呢？答案是 **仅用于为特定的用途定义必要的属性。** 例如 `ThemeOverlay` 主题只定义了 `textColor`，`textAppearance`，窗口的颜色属性和一些类似 _colorControlButton_ 的属性；通常用作于 Toolbar 主题的 `ThemeOverlay.ActionBar.Light`，仅将 _colorControlButton_ 的值定义为 _?attr:textColorSecondary_。
 
 ### 结论
 
