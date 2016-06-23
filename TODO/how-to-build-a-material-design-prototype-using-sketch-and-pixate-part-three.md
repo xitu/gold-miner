@@ -5,9 +5,9 @@
 * 校对者: [Zheaoli](https://github.com/Zheaoli),[阿宅](https://github.com/rockzhai)
 
 
-<span>在本系列的 [Part 2](http://gold.xitu.io/entry/574eb491d342d300434cec1c "Part 2") 我们已经将在 Sketch 中完成的作品导入到了 Pixate ，并且新建了一个简单的登陆原型。 </span>
+<span>在本系列的 [Part 2](https://gold.xitu.io/entry/574eb491d342d300434cec1c) 我们已经将在 Sketch 中完成的作品导入到了 Pixate ，并且新建了一个简单的登陆原型。 </span>
 
-<span>最后在这个总结性的第三部分,我们将进一步深入，同时将会作出一个更细致的原型。 开始之前，你应该已经完成了 [Part 1](http://gold.xitu.io/entry/574d062b2e958a0069335d8e "Part 1") and [Part 2](http://gold.xitu.io/entry/574eb491d342d300434cec1c "Part 2") , 如果没有的话，先去看看这两篇内容吧.</span>
+<span>最后在这个总结性的第三部分,我们将进一步深入，同时将会作出一个更细致的原型。 开始之前，你应该已经完成了 [Part 1](https://gold.xitu.io/entry/574d062b2e958a0069335d8e) and [Part 2](https://gold.xitu.io/entry/574eb491d342d300434cec1c) , 如果没有的话，先去看看这两篇内容吧.</span>
 
 我已经上传了你在 Part 3 里所有需要的[Sketch 资源](https://www.dropbox.com/s/6ykfx9gukoacgp0/Material%20Design%20Prototype%20Assets.sketch?dl=0 "Material Design Prototype Sketch Assets") , 你要做的就是将它们导出来。记住，一定要按照 3x 方式导出，这样在手机上显示效果不错。 随意按照你喜欢的方式去修改它们，只要尽力保证大小相同，这样在这次教程中所用到的尺寸才能是正确的。
 
@@ -19,7 +19,7 @@
 
 现在有 drawer 在面板上了，我们可以加上 “Drag” 交互，让它可以被滑动或者拖动。点击并且拖出 “Drag” 交互作用在_Navigation Drawer_层级（译者注：联想下 Android Studio XML 那里的 Design 拖拽添加布局），你会看到“Drag” 在右侧菜单的 “Interactions” 属性里。
 
-现在让我们配置一下“Drag”交互。我们仅仅想要 _Navigation Drawer_ 水平移动，所以我们得在“Move w/Drag”菜单选择“Horizontal”，然后我们再设置一个_Navigation Drawer_向右移动的最大值。如果我们不这样做，就可以将 drawer 一直拖出屏幕。在第一个参考建议里，我们应该确保已经选择了 “Left” 并且输入了 “-304” 在 “Min position” 输入框里。这样才可以保证 drawer 不会移到屏幕我们无法拖动的位置。第二个参考建议里，首先选择 "Right" 然后输入 "340" 到 "Max Position"。当我们拖动的时候，_Navigation Drawer_ 的 X 轴达到 340 时就会停住。如果以上都做好了，你应该会看到这样的画面：
+现在让我们配置一下“Drag”交互。我们仅仅想要 _Navigation Drawer_ 水平移动，所以我们得在“Move w/Drag”菜单选择“Horizontal”，然后我们再设置一个 _Navigation Drawer_ 向右移动的最大值。如果我们不这样做，就可以将 drawer 一直拖出屏幕。在第一个参考建议里，我们应该确保已经选择了 “Left” 并且输入了 “-304” 在 “Min position” 输入框里。这样才可以保证 drawer 不会移到屏幕我们无法拖动的位置。第二个参考建议里，首先选择 "Right" 然后输入 "340" 到 "Max Position"。当我们拖动的时候，_Navigation Drawer_ 的 X 轴达到 340 时就会停住。如果以上都做好了，你应该会看到这样的画面：
 
 ![Prototype with Navigation Drawer](http://createdineden.com/media/1771/part-3-image-2.png?width=750&height=497)
 
@@ -51,7 +51,7 @@
 
 回到 Pixate 然后导入这些资源。
 
-现在我们需要新建一个层级，命名为 “Home Screen”，将它的大小改成与_Login Screen_一样，360x640。确保新的层级包含整个 _Login Screen_ 层，不然待会出现问题。
+现在我们需要新建一个层级，命名为 “Home Screen”，将它的大小改成与 _Login Screen_ 一样，360x640。确保新的层级包含整个 _Login Screen_ 层，不然待会出现问题。
 
 现在我们新建一个名为“App and Status Bar”的层级，这个为_Home Screen_层的一部分，添加“app and status bar“ 从 Sketch 导出的图片作为properties menu，设置它的尺寸为 360x136 并且与顶部对齐。为什么作为 Sketch 文件高度是 136 而不是 128？现在我们需要对 Sketch 缺少的阴影做点解释，将颜色设置为透明，这样我可以避开任何背景，将灰色阴影渗出。然后你会得到一个这样的：
 ![Prototype with newly added Home Screen](http://createdineden.com/media/1770/part-3-image-3.png?width=750&height=476)
@@ -64,14 +64,14 @@
 
 ![Prototype with tabs added](http://createdineden.com/media/1769/part-3-image-4.png?width=751&height=477)
 
-我们忘记了一件事情，tab 的指示器。新建一个层级，取名为 “Tab Indicator” ，尺寸设为 180x2 并且保证是_Home Screen_的子集，_Home Screen_ 这层应该是所有层的最外层，在_Versions Tab_和_Background Tab_之上。这样它才可以在顶部绘制，我们才可以看到它。然后你需要导入“tab indicator” 图片，放在(126,0)位置。
+我们忘记了一件事情，tab 的指示器。新建一个层级，取名为 “Tab Indicator” ，尺寸设为 180x2 并且保证是_Home Screen_的子集，_Home Screen_ 这层应该是所有层的最外层，在 _Versions Tab_ 和 _Background Tab_ 之上。这样它才可以在顶部绘制，我们才可以看到它。然后你需要导入“tab indicator” 图片，放在(126,0)位置。
 ![Prototype with tab indicator](http://createdineden.com/media/1768/part-3-image-5.png?width=735&height=462)
 
 ## 指示器的动画
 
 好，现在我们设置好了像一个真实app tabs 运作需要的里所有部件。现在我们想做的事是当 tab 被点击的后，指示器能够移动到对应的 tab。现在我们从 _Background Tab_  开始。
 
-给_Background Tab_ 添加一个 “Tap” 交互，我们将会基于这个 “Tap” 交互配置 _Tab Indicator_ ，为_Tab Indicator_添加 “Move” 动画，命名为“Move on Background tap”，这样可以让我们清楚这个是做什么，在“Based On”下拉框里选择“Background Tab”，下面的“Move To”设置里，我们选择为“Right”并且输入参数 “360”，这个会移动_Background Tab_下的指示器。接下来，为了让 tab 的运动更加自然，我们在“Easing Curve” 设置里选择“ease out”，离开设置为“quadratic”。最后的一件事情，我们需要更改“Duration” 的参数为 “0.1”，像一个真实的 tab 指示器一样移动快速。这里就是你需要设置成的样子：
+给 _Background Tab_ 添加一个 “Tap” 交互，我们将会基于这个 “Tap” 交互配置 _Tab Indicator_ ，为 _Tab Indicator_ 添加 “Move” 动画，命名为“Move on Background tap”，这样可以让我们清楚这个是做什么，在“Based On”下拉框里选择“Background Tab”，下面的“Move To”设置里，我们选择为“Right”并且输入参数 “360”，这个会移动 _Background Tab_ 下的指示器。接下来，为了让 tab 的运动更加自然，我们在 “Easing Curve” 设置里选择“ease out”，离开设置为“quadratic”。最后的一件事情，我们需要更改“Duration” 的参数为 “0.1”，像一个真实的 tab 指示器一样移动快速。这里就是你需要设置成的样子：
 
 ![Tab Indicator movement settings](http://createdineden.com/media/1767/part-3-image-6.png?width=306&height=451)
 
@@ -162,10 +162,10 @@
 
 我希望你喜欢这个教程系列，你还可以在 Sketch 和 Pixate 上做很多事情来提示你的水平。如果你真的特别喜欢使用这些工具，我特别希望你可以去找更多的关于它们的教程。你可以做以下事情去完善这个原型：
 
-*   <span>在 navigation drawer 里实现多页面，比如退出按钮。</span>
+*   <span>在 Navigation drawer 里实现多页面，比如退出按钮。</span>
 *   <span>多屏幕适配</span>
 *   <span>完善登录页的消失动画</span>
-*   <span>完善Navigation Drawer 移动，比如拖到一半的时候就打开</span>
+*   <span>完善 Navigation Drawer 移动，比如拖到一半的时候就打开</span>
 *   <span>利用在 Sketch 资源文件中的未被选择的 tabs 显示在当 tab 没有被选择时</span>
 
 如果你完善了原型或者对该教程想到了更好的点子，务必联系我，让我知道。我会特别高兴知道你想到的东西，在twitter 上找[Eden](https://twitter.com/CreatedInEden "Eden")。
