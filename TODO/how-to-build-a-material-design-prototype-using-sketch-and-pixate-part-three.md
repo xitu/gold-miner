@@ -2,18 +2,18 @@
 * 原文作者 : Mike Scamell
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [Hugo](https://github.com/xcc3641)
-* 校对者:
+* 校对者: [Zheaoli](https://github.com/Zheaoli),[阿宅](https://github.com/rockzhai)
 
 
 <span>在本系列的 [Part 2](http://gold.xitu.io/entry/574eb491d342d300434cec1c "Part 2") 我们已经将在 Sketch 中完成的作品导入到了 Pixate ，并且新建了一个简单的登陆原型。 </span>
 
-<span>最后在这个总结性的第三部分,我们升华一下，做一个更细致的原型。 开始之前，你应该已经完成了 [Part 1](http://gold.xitu.io/entry/574d062b2e958a0069335d8e "Part 1") and [Part 2](http://gold.xitu.io/entry/574eb491d342d300434cec1c "Part 2") , 如果没有的话，先去看看这两篇内容吧.</span>
+<span>最后在这个总结性的第三部分,我们将进一步深入，同时将会作出一个更细致的原型。 开始之前，你应该已经完成了 [Part 1](http://gold.xitu.io/entry/574d062b2e958a0069335d8e "Part 1") and [Part 2](http://gold.xitu.io/entry/574eb491d342d300434cec1c "Part 2") , 如果没有的话，先去看看这两篇内容吧.</span>
 
 我已经上传了你在 Part 3 里所有需要的[Sketch 资源](https://www.dropbox.com/s/6ykfx9gukoacgp0/Material%20Design%20Prototype%20Assets.sketch?dl=0 "Material Design Prototype Sketch Assets") , 你要做的就是将它们导出来。记住，一定要按照 3x 方式导出，这样在手机上显示效果不错。 随意按照你喜欢的方式去修改它们，只要尽力保证大小相同，这样在这次教程中所用到的尺寸才能是正确的。
 
 ## 让我们 drawer 点灵感
 
-首先，往我们的原型加入一个 navigation drawer 。 [navigation drawer](https://www.google.com/design/spec/patterns/navigation-drawer.html "Navigation Drawer") 是如今常见的设计样式。 它有时候好像会误导我们，但是依旧流行。
+首先，往我们的原型加入一个 navigation drawer 。 [navigation drawer](https://www.google.com/design/spec/patterns/navigation-drawer.html "Navigation Drawer") 是如今常见的设计样式，虽然某些时候开发者在利用它的时候会出现一些错误，但是它依旧被广泛的使用。
 
 通过点一下显示在菜单层的眼睛来隐藏登陆界面。新建一个新的层，取名为“Navigation Drawer”。就像在 Sketch 里一样的尺寸 340x640。与登陆界面有 36 像素的 padding 值。这样我们才可以将 drawer 滑出。_Navigation Drawer_ 会占据 _Login Screen_ 左边页面空间，所以我们才可以将它滑出和滑进。_Navigation Drawer_ 层的 X 轴应该是 -304。这样才能保证我们操作的区域可以被滑动。当然，一定改变这个层级的 “Appearance” 为透明的或者让_Navigation Drawer_ 的右端有一个灰色横条。最后，将 "Nav Drawer with 36dp drag area" 图片导入这个层级。
 
