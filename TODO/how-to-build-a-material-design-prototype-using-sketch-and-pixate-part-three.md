@@ -58,20 +58,20 @@
 
 ## 加入 Tab
 
-现在我们得到了 tabs ，并且已经在它们之间添加了切换功能。
+现在我们得到了 tabs ，并且实现了在它们之间切换的功能。
 
 我们需要两个画布，尺寸都是180x48，一个取名为“ Versions Tab Selected ” ，另一个为“ Background Tab Selected ”。确保它们都是 _Home Screen_ 画布的子集。_Versions Tab Selected_  放在 (0，80) 的位置，_Background Selected Tab_ 放在 (180，80)。
 
 ![Prototype with tabs added](http://createdineden.com/media/1769/part-3-image-4.png?width=751&height=477)
 
-我们忘记了一件事情，tab 的指示器。新建一个画布，取名为 “ Tab Indicator ” ，尺寸设为 180x2 并且保证是_Home Screen_的子集，_Home Screen_ 这层应该是所有层的最外层，在 _Versions Tab_ 和 _Background Tab_ 之上。这样它才可以在顶部绘制，我们才可以看到它。然后你需要导入“ tab indicator ” 图片，放在(126,0)位置。
+我们忘记了一件事情，tab 的焦点。新建一个画布，取名为 “ Tab Indicator ” ，尺寸设为 180x2 并且保证是_Home Screen_的子集，_Home Screen_ 这层应该是所有层的最外层，在 _Versions Tab_ 和 _Background Tab_ 之上。这样它才可以在顶部绘制，我们才可以看到它。然后你需要导入“ tab indicator ” 图片，放在(126,0)位置。
 ![Prototype with tab indicator](http://createdineden.com/media/1768/part-3-image-5.png?width=735&height=462)
 
 ## 焦点的动画
 
-好，现在我们设置好了像一个真实 app tabs 运作需要的里所有部件。现在我们想做的事是当 tab 被点击的后，指示器能够移动到对应的 tab。现在我们从 _Background Tab_  开始。
+好，现在我们设置好了像一个真实 app tabs 运作需要的里所有部件。现在我们想做的事是当 tab 被点击的后，焦点能够移动到对应的 tab。现在我们从 _Background Tab_  开始。
 
-给 _Background Tab_ 添加一个 “ Tap ” 交互，我们将会基于这个 “ Tap ” 交互配置 _Tab Indicator_ ，为 _Tab Indicator_ 添加 “ Move ” 动画，命名为“ Move on Background tap ”，这样可以让我们清楚这个是做什么，在“ Based On ”下拉框里选择“ Background Tab ”，下面的“ Move To ”设置里，我们选择为“ Right ”并且输入参数 “360”，这个会移动 _Background Tab_ 下的指示器。接下来，为了让 tab 的运动更加自然，我们在 “ Easing Curve ” 设置里选择“ ease out ”，离开设置为“ quadratic ”。最后的一件事情，我们需要更改“ Duration ” 的参数为 “0.1”，像一个真实的 tab 指示器一样移动快速。这里就是你需要设置成的样子：
+给 _Background Tab_ 添加一个 “ Tap ” 交互，我们将会基于这个 “ Tap ” 交互配置 _Tab Indicator_ ，为 _Tab Indicator_ 添加 “ Move ” 动画，命名为“ Move on Background tap ”，这样可以让我们清楚这个是做什么，在“ Based On ”下拉框里选择“ Background Tab ”，下面的“ Move To ”设置里，我们选择为“ Right ”并且输入参数 “360”，这个会移动 _Background Tab_ 下的焦点。接下来，为了让 tab 的运动更加自然，我们在 “ Easing Curve ” 设置里选择“ ease out ”，离开设置为“ quadratic ”。最后的一件事情，我们需要更改“ Duration ” 的参数为 “0.1”，像一个真实的 tab 焦点一样移动快速。这里就是你需要设置成的样子：
 
 ![Tab Indicator movement settings](http://createdineden.com/media/1767/part-3-image-6.png?width=306&height=451)
 
@@ -112,15 +112,15 @@
 
 ![](http://ww2.sinaimg.cn/large/a490147fgw1f4i3qpkr60g205m0a0gsi.gif)
 
-## 滑动中移动 tab 指示器
+## 滑动中移动 tab 焦点
 
-我们忘记了一件事情，我们还需要在滑动屏幕时，同时移动 tab 指示器，这样才能完成 _Home Screen_ 。
+我们忘记了一件事情，我们还需要在滑动屏幕时，同时移动 tab 焦点，这样才能完成 _Home Screen_ 。
 
 给 _Tab Indicator_  添加 “ Move ” 动画，取名为” Move on Swipe Left “。按照下面图片进行设置：
 
 ![Tab Indicator left movement settings](http://createdineden.com/media/1764/part-3-image-9.png?width=306&height=447)
 
-好，我们将该运动建立在当前 _View Pager_ 下的 tab上，并且当滚动停止的时候，我们才活动。在我们的“ IF ” 部分我们会检测如果我们已经与开始的 X 轴坐标移动了 360 ，这样我们会切换到浏览下一个 tab。当生效后，我们希望往左移动到 180 ，将指示器放在 _In Words_ tab 下。接下来，为了像之前一样得到一个自然的运动，我们会改变“ Easing Curve ” 为“ ease out ”。最后，我们将改变 duration 为 0.1，尽可能地让 tab 快速移动。
+好，我们将该运动建立在当前 _View Pager_ 下的 tab上，并且当滚动停止的时候，我们才活动。在我们的“ IF ” 部分我们会检测如果我们已经与开始的 X 轴坐标移动了 360 ，这样我们会切换到浏览下一个 tab。当生效后，我们希望往左移动到 180 ，将焦点放在 _In Words_ tab 下。接下来，为了像之前一样得到一个自然的运动，我们会改变“ Easing Curve ” 为“ ease out ”。最后，我们将改变 duration 为 0.1，尽可能地让 tab 快速移动。
 
 现在如果你滑动屏幕，tab 也会跟着移动了。
 
