@@ -19,6 +19,7 @@
 
 ## Android
 
+* [[译] 深度讲解 Android 主题层级](https://gold.xitu.io/entry/576b9f912e958a005715c7a0?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([aidistan](https://github.com/aidistan) 翻译)
 * [八个造成 Android 应用内存泄露的原因](https://gold.xitu.io/entry/5768b8da6be3ff006a3fcbc8?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([zhangzhaoqi](https://github.com/joddiy) 翻译)
 * [[译] 怎样在 5 分钟内使 Drawer 在状态栏下可见？](http://gold.xitu.io/entry/5760c75e207703006bf2792a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Dwight](https://github.com/ldhlfzysys) 翻译)
 * [怎样用 JRebel 启动 Android](http://gold.xitu.io/entry/57599a282e958a0069c9ccfc?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([edvardhua](https://github.com/edvardHua) 翻译)
