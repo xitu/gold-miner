@@ -69,7 +69,7 @@
 
 ## 焦点的动画
 
-好，现在我们设置好了像一个真实 app tabs 运作需要的里所有部件。现在我们想做的事是当 tab 被点击的后，焦点能够移动到对应的 tab。现在我们从 _Background Tab_  开始。
+好，现在我们设置好了像一个真实 app tabs 运作需要的里所有部件。现在我们想做的事是当点击 tab 后，焦点能够移动到对应的 tab 下。现在我们从 _Background Tab_ 开始。
 
 给 _Background Tab_ 添加一个 “ Tap ” 交互，我们将会基于这个 “ Tap ” 交互配置 _Tab Indicator_ ，为 _Tab Indicator_ 添加 “ Move ” 动画，命名为“ Move on Background tap ”，这样可以让我们清楚这个是做什么，在“ Based On ”下拉框里选择“ Background Tab ”，下面的“ Move To ”设置里，我们选择为“ Right ”并且输入参数 “360”，这个会移动 _Background Tab_ 下的焦点。接下来，为了让 tab 的运动更加自然，我们在 “ Easing Curve ” 设置里选择“ ease out ”，离开设置为“ quadratic ”。最后的一件事情，我们需要更改“ Duration ” 的参数为 “0.1”，像一个真实的 tab 焦点一样移动快速。这里就是你需要设置成的样子：
 
@@ -168,7 +168,7 @@
 *   <span>完善 Navigation Drawer 移动，比如拖到一半的时候就打开</span>
 *   <span>利用在 Sketch 资源文件中的未被选择的 tabs 显示在当 tab 没有被选择时</span>
 
-如果你完善了原型或者对该教程想到了更好的点子，务必联系我，让我知道。我会特别高兴知道你想到的东西，在 twitter 上找[Eden](https://twitter.com/CreatedInEden "Eden")。
+如果你完善了原型或者对该教程想到了更好的点子，务必联系我，让我知道。我会特别高兴知道你想到的东西，在 twitter 上找 [Eden](https://twitter.com/CreatedInEden "Eden") 。
 
 感谢花时间学习这个教程系列。
 Good luck with Sketch and Pixate!
