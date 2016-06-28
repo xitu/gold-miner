@@ -11,8 +11,8 @@
 
 *   更简明的设计、实现、和使用
 *   更不容易出错
-*   更安全，因为可以轻松分享
-*   线程安全，无需同步
+*   更安全，因此可以轻松分享
+*   线程安全，无需同步锁
 
 本篇短文希望能够帮助你通过各种不同的方法在 Java 中更简洁地创建和生成不可变类。我们会谈到两种最常见代码生成库：**Immutables** 和 **AutoValue**，以及 **Guava’s** 中的一些不可变集合 (collection)。
 
@@ -22,11 +22,11 @@
 
 将一个类变为「不可变」类有以下几项基本步骤：
 
-*   **不可继承** 为类添加 _final_ 修饰即可， 这样便可预防恶意代码通过继承来改变该类的任何状态。
+*   **不可继承** 为类添加 _final_ 修饰即可， 这样可预防恶意代码通过继承来改变该类的任何状态。
 *   **所有类变量都不可更改.** 将变量全都设置为 final 时，所有的值都需要通过在构造函数中便传入，或者另建立一个*生成器模式* (builder pattern)。
 *   **将所有类变量都设置为私有 (private).** 显然，如果仍然设置为公共 (public)，这些类变量的值都有可能被读取和修改。
 
-一般 Java 中的不可变类:
+在 Java 中使用不可变类:
 
 
 
@@ -298,7 +298,6 @@ The usage is based on static classes, iterators and helpers.
 
 
 
-If interested in Guava, i gave an introductory talk called [“Cleaner code with Guava”](https://speakerdeck.com/alexsimo/cleaner-code-with-guava-v2), it also has an example repository.
 如果你对 Guava 有兴趣，可以参考我的一个相关演讲，名为 [“Guava 的简洁代码之道”](https://speakerdeck.com/alexsimo/cleaner-code-with-guava-v2)，它也有示例代码库。
 
 ### 相关链接
