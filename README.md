@@ -74,7 +74,7 @@
 ## 前端
 
 * [[译] jQuery 终于发布了](https://gold.xitu.io/entry/576917c0d342d30058097229?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Dwight](https://github.com/ldhlfzysys) 翻译)
-* [较为完整的 React.js / Vue.js 的性能比较](https://gold.xitu.io/entry/57691d5d6be3ff006a438e09?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([wildflame](https://github.com/wildflame) 翻译)
+* [较为完整的 React.js / Vue.js 的性能比较](https://gold.xitu.io/entry/57691d5d6be3ff006a438e09?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([wild-flame](https://github.com/wild-flame) 翻译)
 * [【译】让 Webpack 来帮你打包吧](https://gold.xitu.io/entry/5767a975df0eea0062ffe193?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([达仔](https://github.com/Zhangjd) 翻译)
 * [关于 PostCSS 普及的一点微小的工作](https://gold.xitu.io/entry/57635cdda341310064c5910a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zheaoli](https://github.com/Zheaoli) 翻译)
 * [React 应用的性能优化之路](http://gold.xitu.io/entry/57621f7980dda4005f7332f3?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([woota](https://github.com/woota) 翻译)
@@ -99,7 +99,7 @@
 * [JavaScript 生态之乱象](http://gold.xitu.io/entry/5705e71ed342d3005418ea66?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([woota](https://github.com/woota) 翻译)
 * [在网站 Logo 上右击时提示下载网站的 Logo 素材下载](http://gold.xitu.io/entry/570b2b671ea493005c024ee3?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Yushneng](https://github.com/rainyear) 翻译)
 * [揭秘 IIFE 语法](http://gold.xitu.io/entry/5704e12771cfe4005dc85868?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([huxpro](https://github.com/Huxpro) 翻译)
-* [利用 :placeholder-shown 选择器实现 label 浮动效果](http://gold.xitu.io/entry/56de3c291532bc005620b320?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zhangjd](https://github.com/zhangjd) 翻译)
+* [利用 :placeholder-shown 选择器实现 la 浮动效果](http://gold.xitu.io/entry/56de3c291532bc005620b320?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zhangjd](https://github.com/zhangjd) 翻译)
 * [响应式 GraphQL 结构](http://gold.xitu.io/entry/56de66fe731956005c46782a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([shenxn](https://github.com/shenxn) 翻译)
 * [How we "CSS" at BigCommerce](http://gold.xitu.io/entry/56ce82cbc24aa800520f4215?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([shenxn](https://github.com/shenxn) 翻译)
 * [无缝迁移 Angular 1 项目到 Angular 2](http://gold.xitu.io/entry/56d3bd6a1ea493005c1eddfa?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([BOBO](https://github.com/CoderBOBO) 翻译)
