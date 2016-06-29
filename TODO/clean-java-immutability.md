@@ -2,7 +2,7 @@
 * 原文作者 : [Alexandru Simonescu](http://blog.alexsimo.com/clean-java-immutability/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [buccoji] (https://github.com/buccoji)
-* 校对者: [WuHaojie 先生] (https://github.com/a-voyager)   [jamweak 先生] (https://github.com/jamweak)
+* 校对者: [WuHaojie] (https://github.com/a-voyager), [jamweak] (https://github.com/jamweak)
 
 
 当一个普通类 (class) 的实例不能被修改时，我们便称之为「不可变类」(immutable class)。这样的类在实例化时便需要提供其所有的值，而在之后的运行中便绝不可更改。比如大家可能都知道的 Java 中已有的一些**不可变**类型，_String_ (string 的字符串联很没效率，对吧), _BigInteger_, 和 BigDecimal_。
@@ -112,7 +112,7 @@
 
 
 
-以上这个**Deception**类将会生成** 280 行的不可变拓展类**，且提供一些非常实用的函数，例如 _copyOf(Deception)_，_toString()_，_hashCode()_，_equals()，以及一个好用且**流畅的**生成器 (builder)。
+以上这个 **Deception** 类将会生成 **280 行的不可变拓展类**，且提供一些非常实用的函数，例如 _copyOf(Deception)_，_toString()_，_hashCode()_，_equals()，以及一个好用且**流畅的**生成器 (builder)。
 
 不仅如此，不可变型还可以声明为**接口**。
 
