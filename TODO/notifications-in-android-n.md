@@ -9,34 +9,34 @@ Android 通知往往是应用和用户之间至关重要的交互形式。为了
 
 ### 同样的通知，不一样的“面貌”
 
-首先，最明显的变化是通知的默认外观已经显著改变。很多分散在通知周围的字段被折叠进新的标题行内，和应用程序的图标、名称固定在通知内。这一改变是为了确保尽可能腾出更多空间给标题、文本和大图标，这样一来通知就比现在的稍大些，更加易读。
+首先，最明显的变化是通知的默认外观已经显著改变。除了应用程序的图标和名称会固定在通知内，很多分散在通知周围的字段也被折叠进新的标题行内。这一改变是为了确保尽可能腾出更多空间给标题、文本和大图标，这样一来通知就比现在的稍大些，更加易读。
 
 ![](http://ww3.sinaimg.cn/large/a490147fgw1f4w3pakcdrj20hs0853zv.jpg)
 
-给出单标题行，这就比以往的信息更加重要且更有用。**当指定 Android N 时,默认情况下，时间会被隐藏** - 如果对时间敏感的通知（比如消息类应用），可以 `setShowWhen(true)` 设置重新启用显示时间。此外，现在 subtext 会取代内容消息和数量的作用：数量是绝不会在 Android N 设备上出现的，除非指定之前的 Android 版本，而且不包含任何 subtext，内容消息将会显示。在所有情况下，都要确保 subtext 是相关且有意义的。例如，如果用户有一个账号，就不要再添加邮箱账户作为 subtext 了。
+给出单标题行，这就比以往的信息更加重要且更有用。**当指定 Android N 时，默认情况下，时间会被隐藏** - 对时间敏感的通知（比如消息类应用），可以 `setShowWhen(true)` 设置重新启用显示时间。此外，现在 subtext 会取代内容消息和数量的作用：数量是绝不会在 Android N 设备上出现的，除非指定之前的 Android 版本，而且不包含任何 subtext，内容消息将会显示。在所有情况下，都要确保 subtext 是相关且有意义的。例如，如果用户只有一个账号，就不要再添加邮箱账户作为 subtext 了。
 
 通知收到后的操作也重新设计了，现在视觉上是在通知下方单独的一栏中。
 
 ![](http://ww4.sinaimg.cn/large/a490147fgw1f4w3pwyytkj20b203vdfw.jpg)
 
-你会注意到，图标都没有出现在新的通知中；取而代之的是，将通知内有限的空间提供给了标签本身。然而，通知操作图标仍然需要，并继续在旧版本的Android 和设备上使用，如 Android Wear 。
+你会注意到，图标都没有出现在新的通知中；取而代之的是，将通知内有限的空间提供给了标签本身。然而，在旧版本的 Android 和设备上，通知操作图标仍然需要且被继续使用，如 Android Wear 。
 
 如果你使用 [NotificationCompat.Builder](https://developer.android.com/reference/android/support/v4/app/NotificationCompat.Builder.html?utm_campaign=android_series_notificationsandroidnblog_060816&utm_source=anddev&utm_medium=blog) 创建了自己的通知，那么可以使用标准样式，无需修改任何代码就能变成默认的新样子。
 
 ### 更好的支持自定义视图
 
 
-如果要从自定义 `RemoteViews` 创建自己的通知，以适应任何新的样式一直以来都很具有挑战性。随着新的 header，扩展行为，操作，和大图标位置都作为元素，从通知的主要内容标题中分离出来，我们已经介绍一种新的 `DecoratedCustomViewStyle` 和 `DecoratedMediaCustomViewStyle` 提供所有这些元素使用，这样就能专注于内容部分以及新的 `setCustomContentView()` 方法了。
+如果要从自定义 `RemoteViews` 创建自己的通知，以适应任何新的样式一直以来都很具有挑战性。随着新的 header，扩展行为，操作，和大图标位置都作为元素从通知的主要内容标题中分离出来，我们已经介绍一种新的 `DecoratedCustomViewStyle` 和 `DecoratedMediaCustomViewStyle` 提供所有这些元素使用， 这样就能使用新的 `setCustomContentView()` 方法，专注于内容部分。
 
 ![](http://ww4.sinaimg.cn/large/a490147fjw1f4w3qquphlj209p03hglr.jpg)
 
 
-这也确保未来外观改变了，就能轻易的随着平台更新，适配这些样式，还无需修改 app 端的代码。
+这也确保未来外观改变了，也能轻易的随着平台更新，适配这些样式，还无需修改 app 端的代码。
 
 ### 直接回复
 
 
-虽然通知动作已经能够启动一个 `Activity`，或以一个 `Service` 、`BroadcastReceiver` 的方式在后台工作，**直接回复** 允许你使用通知操作直接在内嵌输入框中回复。
+虽然通知是可以用来启动一个 `Activity`，或以一个 `Service` 、`BroadcastReceiver` 的方式在后台工作，**直接回复** 允许你使用通知操作直接在内嵌输入框中回复。
 
 ![](http://ww2.sinaimg.cn/large/a490147fjw1f4w3r9gdt2j207l02pt8n.jpg)
 
@@ -80,7 +80,7 @@ NotificationCompat.Action action =
 
 </pre>
 
-处理文本后，**必须更新通知**。这将触发隐藏直接回复 UI，这可以作为一项技术来确认用户是否收到回复并正确处理。
+处理文本后，**必须更新通知**。这将触发隐藏直接回复 UI，这可以作为一种技巧来确认用户是否收到回复并正确处理。
 
 对于大多数模板，这将涉及使用新的 `setRemoteInputHistory()` 方法，将答复追加到通知底部。更多回复应该追到历史记录下，直到主要内容更新（比如别人的回复）。
 
