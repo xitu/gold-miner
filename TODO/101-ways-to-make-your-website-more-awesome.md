@@ -5,12 +5,6 @@
 * 校对者:
 
 
->* 原文链接 : [101 Ways to Make Your Website More Awesome](https://medium.freecodecamp.com/101-ways-to-make-your-website-more-awesome-79c934dd2a11#.enfq945da)
-* 原文作者 : [Nicholas Tart](https://medium.freecodecamp.com/@wntart)
-* 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者:
-
 
 I was talking to an old client last week and she said, “Nick, I know I need help with the site, but I’m not sure what I need.”
 
@@ -91,7 +85,7 @@ The point is…
 1.  Make sure your site is   `mobile-optimized  ` to display responsively on any device. Properly mobile-optimized sites load faster, rank higher, and give your users a better experience.
 2.  Generate and   `display the optimal image size  `. If you upload a large image, like a blog post feature image, and you want to display it in other places across the site, like the sidebar, make sure you display the thumbnail version of the image instead of the full-size image.
 3.  Add   `alt and title tags to all images and links  `. If for some reason an image isn’t loading, your site will display the alt text in its place. Also, when you hover over links, the browser displays the title tag for that link.
-4.  Use`<strong>`and`<em>`instead of <b> and <i> to bold and italicize text. They have the same effect, but they have a fundamental difference. <b> is a style. <strong> is an indication of how something should be understood.
+4.  Use`<strong>`and`<em>`instead of `<b>` and `<i>` to bold and italicize text. They have the same effect, but they have a fundamental difference. `<b>` is a style. `<strong>` is an indication of how something should be understood.
 5.    `Fix sloppy HTML  `. When you copy paste content into a WYSIWYG editor (like the visual view in WordPress), it adds lots of unnecessary spans and inline styles. Overtime, your site will become un-readable.
 6.  Speaking of which,   `remove inline styles  ` from your HTML. 99% of the time, your styling rules should go into a CSS file so you can update all instances of a component at the same time instead of page-by-page, line-by-line.
 7.  Use   `Sass variables  ` instead of CSS to keep colors and other components consistent across your site. Want to change a color and every shade of that color? Update one line instead of hundreds.
