@@ -7,33 +7,48 @@
 
 
 I was talking to an old client last week and she said, “Nick, I know I need help with the site, but I’m not sure what I need.”
+上周，我和一位老客户聊天，她说：“尼克，我觉得我的网站需要改进，但我不能确定我具体需要做什么。”
 
 So I asked around. Friends, family, other non-internet-y business folk. They all said the same thing:
+然后我就去问了一圈，包括朋友、家人和其他非互联网行业的商务人士，他们都提到了相同的观点：
+
 
 > “I need a checklist. I don’t know how to build a website. That’s why I need to hire someone. But I still want to know what’s involved.”
+> “我需要一个检查清单，因为我不知道怎样建站，这也是我要雇人来做这件事情的原因。但是我依然需要知道这涉及到哪些方面。”
 
 So I started making a list of everything we’ve done at [AwesomeWeb](https://awesomeweb.com/) (and some things we haven’t).
+因此，我开始建立这个包含所有方面的列表，包括我们在 [AwesomeWeb](https://awesomeweb.com/) 列出的内容，以及一些其他不涉及的内容。
 
 Here’s my promise…
+以下是我的承诺:
 
 …If you fix everything on this list, you’ll have one of if not the best site in your industry.
+如果你能把列表的每一项问题都改好，你将会拥有业界里最好的网站之一。
 
 _How do you know?_
+_你是怎么知道的？_
 
 At AwesomeWeb, I’ve reviewed 1,000+ of the world’s best freelancers. As far as I know, I’ve never seen a site that can check every box.
+在 AwesomeWeb 里，我已经评估过 1,000 多个自由职业者。据我所了解的情况，我从没见过一个网站可以把所有选框都打上勾的。
 
 As a business owner, use this list to know what needs to be done. Send it to your designer or developer. You’ll even be able to fix a few of them yourself.
+对于企业老板，根据这个列表，你可以了解到接下来可以做哪些改进工作，然后把它发给你的设计或者开发去修改。其中的一些步骤，你设置可以自己去修复好。
 
 As a freelancer, use this list to make everything you create more awesome. Go back to old clients and say:
+对于自由职业者，使用这个列表可以让你做出更加酷炫的内容，然后回去找你的老客户们，对他们说：
 
 “I was reviewing what we built and noticed that we can fix this, this, and this. I can do it for $500, $1000, $5000 and you can expect these results…”
+“我重新回顾了之前的项目，我们可以改进这里、这里和这里，给我 $500, $1000, $5000 然后你可以期待得到以下的结果……”
 
 The point is…
+重点是…
 
 …I want to help you make the web more awesome. It starts here, with this list.
+…我希望可以帮你构造出更加酷炫的网站。现在进入正题，开始介绍这个列表：
 
 
 ### Awesome Branding
+### 酷炫的品牌
 
 1.  Get a   `professional logo  `. It’s rare to find a website or a blog with a great logo. So it’s a good way to build instant credibility.
 2.  Upload a   `retina-ready favicon  ` (the square icon on your browser tab). Most sites have 16×16 pixel favicons. On retina screens, they’re blurry. Use [X-Icon Editor](http://www.xiconeditor.com/) to generate a 64×64 pixel favicon.
@@ -42,8 +57,16 @@ The point is…
 5.  When choosing a color palette, start with   `complementary or triad colors  `. Adjust from there. Good color combos give you a design that tells a story.
 6.    `Never use true black  ` (#000000). Pure black doesn’t exist so it looks out-of-place online. Black, in reality, is always a dark shade of another color.
 7.    `Never use a neutral grey  ` (e.g. #cccccc) if you want your design to have a personality. Add a tint of yellow to provide warmth, red to give energy, or blue to create trust.
+1. 挑选一个`专业的 logo`，现在很难找到一个带有很棒的 logo 的网站或者博客，因此这是一个瞬间获取信任感的好方法。
+2. 上传一个支持 retina 屏幕的 favicon (在浏览器标签上显示的正方形小图标)。大部分网站的 favicon 都是 16x16 像素的，在 retina 屏幕会显得模糊。使用 [X-Icon Editor](http://www.xiconeditor.com/) 生成 64x64 像素大小的 favicon。
+3. 使用支出 retina 屏幕的图片。这很简单，只需要确保图片宽高是容器的两倍，然后显示时缩放就可以了。
+4. 最多使用 2-3 种颜色。包括背景色、文字-动作颜色和强调色。
+5. 选择调色板时，从互补色或者三色组（complementary or triad colors）开始选择，然后再进行调整。好的颜色组合会给你带来充满故事感的设计。
+6. `不要使用纯黑色` (#000000)。纯黑色是不存在的，所以在网上使用纯黑色看起来不合适。实际上，黑色应该总是作为其它颜色的深色阴影。
+7. `不要使用浅灰色` (比如 #cccccc)。如果你希望设计更显个性化，添加一点黄色显得温暖，红色给予能量，而蓝色产生信任。
 
 ### Awesome Typography
+### 酷炫的排版
 
 1.  Pick a   `premium font  `. Use a service like [Typekit](https://typekit.com/). It’s been said that 95% of the web is typography. Going with a premium font is the easiest and most inexpensive way to make a good impression.
 2.  Use   `2–3 fonts max  `. More is messy and slows load time. Choose a heading font and a paragraph font. One more if you want a font for special cases.
@@ -51,22 +74,40 @@ The point is…
 4.  Choose a   `typographical scale  ` like the augmented fourth, perfect fifth, or golden ratio. Use the scale to set font sizes for your paragraph text, H4, H3, H2, and H1\. Base your line-heights and text margins on this scale.
 5.  Design other   `typographical elements  ` like blockquotes, bulleted lists, numbered lists, captions, help text, alerts, highlighted text, code samples, abbreviations, and even addresses.
 6.  Install a   `custom icon font  ` like [Font Awesome](https://fortawesome.github.io/Font-Awesome/) instead of using images for common elements like social media logos, navigation buttons, and interactive graphics. An icon font loads faster, scales endlessly, and gives you the freedom to change it’s color as you wish.
+1. 挑选一种高级字体。使用像 [Typekit](https://typekit.com/) 之类的服务吧。据说多达 95% 的网站都是有排版的，想要产生良好的第一印象，使用高级的字体是最简单和成本最低方法。
+2. 最多使用 2-3 种字体。使用更多字体会显得杂乱，并且减慢加载时间。挑选一种字体用在头部，一种用在段落中，如果有需要的话，还可以挑选一种用在其它特殊情况里。
+3. 设置 body 的字体大小为最低 16px，更小的字体在大屏幕中不方便阅读，如果是移动端页面可以考虑的最小值为 12px。
+4. 选择一种 `排版比例`，比如增四度（augmented fourth）、纯五度（perfect fifth）或者黄金比例（golden ratio）。使用这些比例来设置你的段落文本大小，以及 H4, H3, H2 和 H1。此外，行高和文本外边距也要基于这些比例。
+5. 设计其它的排版元素，包括引用、符号列表、数字编号列表、标题、帮助文本、警告框、高亮文本、代码示例、缩写甚至地址。
+6. 选择一种 `自定义图标字体`，比如 [Font Awesome](https://fortawesome.github.io/Font-Awesome/)，来代替图片和其它一些元素，比如社交媒体 logo、导航按钮、交互图形等。图标字体的加载速度更快，可以任意缩放，并且可以随意更改图标颜色。
 
 ### Awesome Layouts
+### 酷炫的布局
 
 1.  Use the   `rule of thirds  ` for a base layout. Divide your layout into thirds horizontally and vertically, then align key focus points where the lines intersect.
 2.  Maintain a   `vertical grid  ` with a grid system. Break your interface into 8-, 12-, 16-column layouts with generous gutters between columns.
 3.  Keep a consistent vertical rhythm with a   `baseline grid  `. The space between lines of text is just as important as the space between content blocks. Every line of text should have a margin bottom that sits on the baseline.
 4.    `White space  ` is luxurious. It’s there to create breathing room and balance. Draw your readers’ eye to what’s most important.
 5.    `Balance the visual elements  ` of your site like the buttons, inputs, forms, headlines, etc. You should be able to blur your eyes and track the path that you want your users to take.
+1. 使用三分法来设计基本布局。水平垂直把布局划成三等分，然后当线段横穿时，设法对齐关键的焦点。
+2. 使用一个网格系统来维护垂直方向的网格。把你的布局分隔成 8 列、12 列或者 16 列的布局，（with generous gutters between columns？？？）
+3. 使用基线网格保持垂直方向的调和感。文本行之间的空间和内容块之间的空间都同样重要。每行为文本应该都拥有一定的底部外边距，也就是位于基线的地方。
+4. 空格是奢侈的。空格的存在是为了创造呼吸空间和平衡，你应该把读者的眼球吸引到重要的地方去。
+5. 均衡摆放视觉元素，比如按钮、输入框、表单和大标题等。你应该把眼睛眯起来，试着跟踪那些你想让用户关注到的路径点。
 
 ### Awesome User Interfaces
+### 酷炫的用户界面
 
 1.  Use big, bold   `call-to-action buttons  `. Every page should have one goal. It’s almost always to click a button. Make sure that button can’t be missed.
 2.  Add   `hover and active states  ` to your links, buttons, inputs, and textareas. If you choose to lighten your buttons on hover, you should also lighten the links and the borders on your inputs.
 3.  Be consistent with   `form styling  `. All textareas and input fields should be styled the same. Same border colors, background colors, on hover, on active, placeholder text, active text, etc. Make sure the tabindex’s are set up correctly so you can tab through them in the right order.
 4.  Change the color of   `visited links  `, to let the user know that they’ve been to that page before.
 5.  Once you have your logo, colors, typography, layout, and image sizes, establish a   `style guide  `. Good user interfaces are built with consistent components that are always styled the same.
+1. 使用大大的加粗的文字-动作按钮。每个页面应该只有一个目标，几乎都是点击一个按钮而已。所以确保这个按钮不会被用户忽略。
+2. 添加鼠标悬停 (hover) 和鼠标点击 (active) 状态的样式给链接、按钮、输入框和文字区域。如果你选择在鼠标悬停时让按钮颜色变亮，那你也应该对于链接和输入框边框给出同样的样式。
+3. 保持表单样式的一致性。所有的文本区域和输入框都应该有相同的样式。包括相同的边框颜色、背景颜色、悬停状态、点击状态、占位符文字、激活时文字等。确保 tabindex 属性的正确设置，以便用户可以使用 tab 键在表单项之间用正确的顺序切换。
+4. 改变已经点击过的链接的颜色，让用户知道他们已经去过那个页面了。
+5. 一旦你拥有了自己的 logo、颜色、排版、布局和图像大小，你要建立一个 `风格指南`。好的用户界面应该使用一致的组件，其样式应该总是相同的。
 
 ### Awesome User Experience
 
