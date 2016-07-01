@@ -169,40 +169,40 @@ _ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2
 
 _概述 - Vue:_
 
-_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-01-40.png) 
+ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-01-40.png) 
 
 _概述 - React:_
 
-_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-13-58-26-1.png)
+ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-13-58-26-1.png)
 
 第一幅图是 Vue ， 第二幅是 React 的概述。看这个饼图，真是空闲呢！我需要运行测试以及 React 多次来保证结果符合要求。
 
 _自下而上 - Vue:_
 
-_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-02-17.png) 
+ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-02-17.png) 
 
 _自下而上 - React:_
 
-_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-13-59-00-1.png)
+ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-13-59-00-1.png)
 
 
 我们可以看到，相比 React 来说，Vue 在自身消耗的时间更少。 这是取决于每个组件处理的数据和更新速度。
 
 _重堆栈 - Vue:_
 
-_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-04-19.png) 
+ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-04-19.png) 
 
 _重堆栈- React:_
 
-_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-13-59-34.png)
+ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-13-59-34.png)
 
 _时间线 - Vue:_
 
-_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-05-11.png) 
+ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-05-11.png) 
 
 _时间线 - React:_
 
-_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-07-19-1.png)
+ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-07-19-1.png)
 
 
 我想这能代表的东西不少。Vue 的时间线上面，有意义的黄色更少了。内存也相当不错。尽管缓慢上升，或许这表明在我数据生成当中有某种问题发生。
@@ -211,11 +211,11 @@ _ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2
 
 _概述 - Vue:_
 
-_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-13-50-29.png) 
+ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-13-50-29.png) 
 
 _概述 - React:_
 
-_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-13-53-55.png)
+ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-13-53-55.png)
 
 我们的　Vue　实例处理加载比　React　更好，React　用了３倍的时间进行脚本处理了50个比赛。
 
@@ -224,19 +224,19 @@ _ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2
 
 _概述 - Vue:_
 
-_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-20-38.png) 
+ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-20-38.png) 
 
 _概述 - React:_
 
-_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-36-14.png)
+ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-36-14.png)
 
 _自下而上 - Vue:_
 
-_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-21-14.png) 
+ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-21-14.png) 
 
 _自下而上 - React:_
 
-_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-36-33.png)
+ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-36-33.png)
 
 说实话我对于 React 前15秒的时间线记录十分吃惊。实际上似乎它比 Vue 实例在时间线使用了更少的缓存。React 页不可用，采集大概10秒来进行时钟更新。Vue 页面的耗费不多但是出于不同的原因，非常令人愉快地看到打印时间比脚本处理时间长。我能标注行和更新并不在峰位，而是在后面。
 
