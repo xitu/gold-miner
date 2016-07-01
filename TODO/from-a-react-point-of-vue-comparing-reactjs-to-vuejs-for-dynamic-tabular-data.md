@@ -100,17 +100,17 @@ Our dataset is an array of 5-a-side football games. Each game updates once a sec
 
 这是来自 React 实例的第一个结果。
 
-_概述:
+_概述:_
 
 _ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-13-58-26.png) 
 
 
-_自下而上:
+_自下而上:_
 
 _ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-13-59-00.png) 
 
 
-_时间线:
+_时间线:_
 
 _ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-07-19.png)
 
@@ -167,40 +167,40 @@ _ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2
 
 我们没有订阅组件的数据源，那是我们在 React 的 `App`  组件里面使用的，我们订阅的是自己小的存储器当中。    利用获取器显示状态，Vue 就可以挂钩通顺保持通过我们获取器的只读状态了。我是从 Vuex 的源码里偷学的这种方法， Vuex 是一种 Vue 的状态管理库。
 
-_概述 - Vue:
+_概述 - Vue:_
 
 _ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-01-40.png) 
 
-_概述 - React:
+_概述 - React:_
 
 _ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-13-58-26-1.png)
 
 第一幅图是 Vue ， 第二幅是 React 的概述。看这个饼图，真是空闲呢！我需要运行测试以及 React 多次来保证结果符合要求。
 
-_自下而上 - Vue:
+_自下而上 - Vue:_
 
 _ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-02-17.png) 
 
-_自下而上 - React:
+_自下而上 - React:_
 
 _ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-13-59-00-1.png)
 
 
 我们可以看到，相比 React 来说，Vue 在自身消耗的时间更少。 这是取决于每个组件处理的数据和更新速度。
 
-_重堆栈 - Vue:
+_重堆栈 - Vue:_
 
 _ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-04-19.png) 
 
-_重堆栈- React:
+_重堆栈- React:_
 
 _ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-13-59-34.png)
 
-_时间线 - Vue:
+_时间线 - Vue:_
 
 _ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-05-11.png) 
 
-_时间线 - React:
+_时间线 - React:_
 
 _ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-07-19-1.png)
 
@@ -209,11 +209,11 @@ _ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2
 
 好吧很酷，不过我们全身还有可以商量的实验空间。如果我们使用的规模是100个比赛呢？我们得离开页面一小会让每个游戏都 “开球”
 
-_概述 - Vue:
+_概述 - Vue:_
 
 _ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-13-50-29.png) 
 
-_概述 - React:
+_概述 - React:_
 
 _ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-13-53-55.png)
 
@@ -222,19 +222,19 @@ _ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2
 
 不知道为什么那就先试试500个游戏吧，我将只记录前15秒的信息（如果我们没有杀死时间线缓存的话。。。）
 
-_概述 - Vue:
+_概述 - Vue:_
 
 _ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-20-38.png) 
 
-_概述 - React:
+_概述 - React:_
 
 _ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-36-14.png)
 
-_自下而上 - Vue:
+_自下而上 - Vue:_
 
 _ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-21-14.png) 
 
-_自下而上 - React:
+_自下而上 - React:_
 
 _ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-36-33.png)
 
