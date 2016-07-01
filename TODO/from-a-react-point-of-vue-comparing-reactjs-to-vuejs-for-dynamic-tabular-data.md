@@ -102,17 +102,17 @@ Our dataset is an array of 5-a-side football games. Each game updates once a sec
 
 _概述:_
 
-_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-13-58-26.png) 
+ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-13-58-26.png) 
 
 
 _自下而上:_
 
-_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-13-59-00.png) 
+ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-13-59-00.png) 
 
 
 _时间线:_
 
-_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-07-19.png)
+ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-07-19.png)
 
 
 大概10% 的浏览器时间用于脚本。当这不是空闲时，它主要是脚本，因此在时间轴中的峰值大都是黄色。我们可以确保时间都花在 React 而不是在重堆栈查找生成数据：
