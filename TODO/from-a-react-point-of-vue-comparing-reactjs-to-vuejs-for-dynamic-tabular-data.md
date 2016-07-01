@@ -100,13 +100,19 @@ Our dataset is an array of 5-a-side football games. Each game updates once a sec
 
 这是来自 React 实例的第一个结果。
 
-_Summary:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-13-58-26.png) 
+_概述:
+
+_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-13-58-26.png) 
 
 
-_Bottom-up:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-13-59-00.png) 
+_自下而上:
+
+_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-13-59-00.png) 
 
 
-_Timeline:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-07-19.png)
+_时间线:
+
+_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-07-19.png)
 
 
 大概10% 的浏览器时间用于脚本。当这不是空闲时，它主要是脚本，因此在时间轴中的峰值大都是黄色。我们可以确保时间都花在 React 而不是在重堆栈查找生成数据：
@@ -161,7 +167,9 @@ _Timeline:_ ![](https://engineering.footballradar.com/content/images/2016/05/Scr
 
 我们没有订阅组件的数据源，那是我们在 React 的 `App`  组件里面使用的，我们订阅的是自己小的存储器当中。    利用获取器显示状态，Vue 就可以挂钩通顺保持通过我们获取器的只读状态了。我是从 Vuex 的源码里偷学的这种方法， Vuex 是一种 Vue 的状态管理库。
 
-_概述 - Vue:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-01-40.png) 
+_概述 - Vue:
+
+_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-01-40.png) 
 
 _概述 - React:
 
@@ -170,6 +178,7 @@ _ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2
 第一幅图是 Vue ， 第二幅是 React 的概述。看这个饼图，真是空闲呢！我需要运行测试以及 React 多次来保证结果符合要求。
 
 _自下而上 - Vue:
+
 _ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-02-17.png) 
 
 _自下而上 - React:
