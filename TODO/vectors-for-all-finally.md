@@ -5,7 +5,7 @@
 * 校对者: [zhangzhaoqi](https://github.com/joddiy), [SatanWoo](https://github.com/SatanWoo)
 
 
-这是关注 Android 的 __VectorDrawable__ 系列博文中的第三篇，之前的文章是[Vectors For All (almost)](https://blog.stylingandroid.com/vectors-for-all-almost/)，在此之前的另外一篇是[Vectors For All (slight return)](https://blog.stylingandroid.com/vectors-for-all-slight-return/)。这两篇文章向我们展示了 VectorDrawable 的可用性有了很大的提升，但是对 _VectorDrawableCompat_ 的热切等待一直落空。直到2016年2月24号，Google 发布了 Android Support Library 23.2 版本，其中就包含了一直期待的 _VectorDrawableCompat_ 。
+这是关注 Android 的 __VectorDrawable__ 系列博文中的第三篇，之前的文章是[Vectors For All (almost)](http://gold.xitu.io/entry/574e8b192b51e900560074f8)，在此之前的另外一篇是[Vectors For All (slight return)](http://gold.xitu.io/entry/5756697ea341310063dd532c)。这两篇文章向我们展示了 VectorDrawable 的可用性有了很大的提升，但是对 _VectorDrawableCompat_ 的热切等待一直落空。直到2016年2月24号，Google 发布了 Android Support Library 23.2 版本，其中就包含了一直期待的 _VectorDrawableCompat_ 。
 
 我不会给你长篇大论地讲解 _VectorDrawableCompat_ 的使用细节，因为 [Chris Banes](https://chris.banes.me/) 已经写了一篇很有深度的 [博文](https://medium.com/@chrisbanes/appcompat-v23-2-age-of-the-vectors-91cbafa87c88#.kf57cowuy) ，解释了如何使用 _VectorDrawableCompat_ ，因此在这就做重复性工作了。
 
