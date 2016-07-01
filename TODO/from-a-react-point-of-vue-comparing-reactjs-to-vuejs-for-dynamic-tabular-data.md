@@ -41,7 +41,7 @@ The output of both view libs will look like this:
 ##### 数据
 
 Our dataset is an array of 5-a-side football games. Each game updates once a second and we’ll allow for a variable number of games. We won’t go into too much detail about how we’re generating the data but if you’re curious check out our `src/react.data.js` and `src/vue.data.js` in the 
-我们的数据设置是一个每方5人的足球比赛。每场比赛都是每秒更新一次，我们允许多场比赛同时进行。在这里我们不赘述生产数据的细节，如果你十分好奇，
+我们的数据设置是一个每方5人的足球比赛。每场比赛都是每秒更新一次，我们允许多场比赛同时进行。在这里我们不赘述生产数据的细节，如果你十分好奇，请访问
 [GitHub repo](https://github.com/footballradar/VueReactPerf)查看我们的`src/react.data.js` 和 `src/vue.data.js` 。
 
 这就是我们的比赛项目的架构
@@ -89,6 +89,8 @@ Our dataset is an array of 5-a-side football games. Each game updates once a sec
 
 任何时候当有嵌套的数据时，我们可以利用“Immutable 引用检查”的优势，即过创建一个子组件并实现‘shouldComponentUpdate’
 。这个案例当中，我们为`Game` 和 `Player`组件进行了此项操作。
+
+
     shouldComponentUpdate(nextProps){
         return nextProps.game !== this.props.game;
     }
@@ -98,10 +100,18 @@ Our dataset is an array of 5-a-side football games. Each game updates once a sec
 
 这是来自 React 实例的第一个结果。
 
-_Summary:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-13-58-26.png) _Bottom-up:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-13-59-00.png) _Timeline:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-07-19.png)
+_Summary:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-13-58-26.png) 
+
+
+_Bottom-up:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-13-59-00.png) 
+
+
+_Timeline:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-07-19.png)
 
 
 大概10% 的浏览器时间用于脚本。当这不是空闲时，它主要是脚本，因此在时间轴中的峰值大都是黄色。我们可以确保时间都花在 React 而不是在重堆栈查找生成数据：
+
+
 ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-13-59-34-1.png)
 
 由于没有什么可以比较的，也没有太多好说的。当我们第一次运行测试的时候我忘记了在`Game` 组件置放`shouldComponentUpdate` ，造成结果差异巨大。
@@ -116,6 +126,7 @@ _Summary:_ ![](https://engineering.footballradar.com/content/images/2016/05/Scre
 起初我并不确定是否要用 Immutable.js 的 Vue ，因为他依赖于挂钩朴素 JavaScript 对象的接收器/给定器。
 
 我第一个尝试确实死在了时间线上面。尽管如此我记录了30秒，只能得到5到20秒的结果。我意识到这可能是因为页面在15秒使用了完全的时间线缓冲！所以我只会打印前10秒的结果。
+
 ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-21-at-17-38-04.png)
 
 10秒的时间当中，2秒用于脚本的运行上。这并不乐观。Vue 耗费的时间重新创建组件的数据每次都是一个新的参考，这就是使用 Immutable.js 的一个关键。所有我们抛弃了这个方法。
@@ -150,34 +161,73 @@ _Summary:_ ![](https://engineering.footballradar.com/content/images/2016/05/Scre
 
 我们没有订阅组件的数据源，那是我们在 React 的 `App`  组件里面使用的，我们订阅的是自己小的存储器当中。    利用获取器显示状态，Vue 就可以挂钩通顺保持通过我们获取器的只读状态了。我是从 Vuex 的源码里偷学的这种方法， Vuex 是一种 Vue 的状态管理库。
 
-_概述 - Vue:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-01-40.png) _Summary - React:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-13-58-26-1.png)
+_概述 - Vue:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-01-40.png) 
+
+_概述 - React:
+
+_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-13-58-26-1.png)
 
 第一幅图是 Vue ， 第二幅是 React 的概述。看这个饼图，真是空闲呢！我需要运行测试以及 React 多次来保证结果符合要求。
 
-_自下而上 - Vue:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-02-17.png) _Bottom-up - React:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-13-59-00-1.png)
+_自下而上 - Vue:
+_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-02-17.png) 
+
+_自下而上 - React:
+
+_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-13-59-00-1.png)
 
 
 我们可以看到，相比 React 来说，Vue 在自身消耗的时间更少。 这是取决于每个组件处理的数据和更新速度。
 
-_重堆栈 - Vue:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-04-19.png) _Heaviest stack - React:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-13-59-34.png)
+_重堆栈 - Vue:
 
-_时间线 - Vue:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-05-11.png) _Timeline - React:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-07-19-1.png)
+_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-04-19.png) 
+
+_重堆栈- React:
+
+_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-13-59-34.png)
+
+_时间线 - Vue:
+
+_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-05-11.png) 
+
+_时间线 - React:
+
+_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-07-19-1.png)
 
 
 我想这能代表的东西不少。Vue 的时间线上面，有意义的黄色更少了。内存也相当不错。尽管缓慢上升，或许这表明在我数据生成当中有某种问题发生。
 
 好吧很酷，不过我们全身还有可以商量的实验空间。如果我们使用的规模是100个比赛呢？我们得离开页面一小会让每个游戏都 “开球”
 
-_概述 - Vue:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-13-50-29.png) _Summary - React:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-13-53-55.png)
+_概述 - Vue:
+
+_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-13-50-29.png) 
+
+_概述 - React:
+
+_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-13-53-55.png)
 
 我们的　Vue　实例处理加载比　React　更好，React　用了３倍的时间进行脚本处理了50个比赛。
 
 
 不知道为什么那就先试试500个游戏吧，我将只记录前15秒的信息（如果我们没有杀死时间线缓存的话。。。）
 
-_概述 - Vue:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-20-38.png) _Summary - React:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-36-14.png)
+_概述 - Vue:
 
-_自下而上 - Vue:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-21-14.png) _Bottom-up - React:_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-36-33.png)
+_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-20-38.png) 
+
+_概述 - React:
+
+_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-36-14.png)
+
+_自下而上 - Vue:
+
+_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-21-14.png) 
+
+_自下而上 - React:
+
+_ ![](https://engineering.footballradar.com/content/images/2016/05/Screen-Shot-2016-05-23-at-14-36-33.png)
 
 说实话我对于 React 前15秒的时间线记录十分吃惊。实际上似乎它比 Vue 实例在时间线使用了更少的缓存。React 页不可用，采集大概10秒来进行时钟更新。Vue 页面的耗费不多但是出于不同的原因，非常令人愉快地看到打印时间比脚本处理时间长。我能标注行和更新并不在峰位，而是在后面。
 
