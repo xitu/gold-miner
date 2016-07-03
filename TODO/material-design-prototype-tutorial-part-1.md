@@ -1,124 +1,123 @@
 >* 原文链接 : [HOW TO BUILD A MATERIAL DESIGN PROTOTYPE USING SKETCH AND PIXATE - PART ONE](http://createdineden.com/blog/post/material-design-prototype-tutorial-part-1/)
 * 原文作者 : Mike Scamell
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者:
+* 译者 : [Sausure](https://github.com/Sausure)
+* 校对者:[Ruixi](https://github.com/Ruixi) , [wild-flame](https://github.com/wild-flame)
 
-<span>Have you ever had a great idea for an app or wanted to demonstrate to someone how you think it would work? Have any of these things ever held you back?</span>
+你是否曾经对某一款应用有过很棒的想法或者想向别人展示你的想法会带来改变？可是否又有以下限制令你止步？
 
-*   <span>Lack of time to develop a proof of concept</span>
-*   <span>You not sure how well your colour scheme, layout, animations etc. would look</span>
-*   <span>You’re an app developer who’s not sure how to go about this design lark but you want to try it out</span>
-*   <span>You’re an app designer who wants to learn how Sketch and Pixate may benefit your design and prototype process</span>
-*   <span>You’re not sure if Material Design would improve your app but would like to see what it would look like (hopefully this one isn’t the case!)</span>
+*   没时间去开发款概念产品来证明自己
+*   你对色调、布局和动画等等该如何展示没有把握
+*   你是位应用开发者，想尝试但不知该如何设计
+*   你是位应用设计师，想了解 Sketch 和 Pixate 在设计和构建原型的优势
+*   你对 Material Design 能否提升你的应用没有把握但又想知道到底会变成怎样（希望这不是你的情况）
 
-<span>If you can identify with any of these, or maybe you’re just inquisitive about either Sketch or Pixate, then I implore you to read on.</span>
+如果上面有你关注的问题又或者你仅仅是想学习 Sketch 或 Pixate，那么我希望你能继续看下去。
 
-<span>[Sketch](http://bit.ly/22RgdKX "Sketch design tool") and [Pixate](http://bit.ly/1M2DyBP "Pixate prototyping tool") are my favourite tools for mocking up simple designs and prototypes. I am an Android Developer by trade and I don’t have much interest in learning the learning the complexities of Adobe Illustrator or the like. A few months ago I started designing the [Fantasy Football Fix app](http://bit.ly/1Tb18sZ "Fantasy Football Fix"). I heard good things about Sketch and I had just read a [Tech Crunch article](http://tcrn.ch/1OkuP9R "Tech Crunch article") about Google’s acquisition of Pixate and decided to give them both a go.</span>
+我非常喜欢用这两款工具 [Sketch](http://bit.ly/22RgdKX "Sketch design tool") 和 [Pixate](http://bit.ly/1M2DyBP "Pixate prototyping tool") 来设计与构建原型。作为一位职业的 Android 开发者，我对艰涩难学的 Adobe Illustrator 或者类似的软件不太感兴趣。几个月前在开始设计一款应用 [Fantasy Football Fix app](http://bit.ly/1Tb18sZ "Fantasy Football Fix") 时，我早已听闻用户对 Sketch 的称赞并刚好在 [Tech Crunch article](http://tcrn.ch/1OkuP9R "Tech Crunch article") 上看到 Google 收购 Pixate 的文章，便决定同时尝试下这两款工具。
 
-<span>Sketch is a design app that is easy and simple to use. The app splits design up into pages and artboards that allow you to group your designs. For example a page could consist of all the artboards for one feature of an app, say the login for instance. Or maybe one page for for beta/prototyping and one for the actual release designs. Regardless of how you do it, it is great for organising your designs. It also has plenty of [plugins for added functionality](http://bit.ly/1V9jYVN "Sketch plugins"). Some of my plugin highlights are:</span>
+Sketch 是一款简单易用的设计软件。它将设计拆分到 `Page` 和 `Artboard` 上以便让你自行组织。举个例子，一个应用的某一特征可以展现在某一张 `Page` 的全部 `Artboard` 当中，比如登录。或者用一张 `Page` 来包含所有测试/原型的而另开一张 `Page` 放实际发布的设计。不管你怎么做，它对组织你的设计都很有帮助。这里还有增强功能的插件 [plugins for added functionality](http://bit.ly/1V9jYVN "Sketch plugins")。 下面列出一些我使用的插件：
 
-*   <span class="s2"></span><span class="s1">[Sketch Artboard Tricks](http://bit.ly/1RPufrh "Sketch Art board Tricks plugin") which can help rearrange your scattered artboards</span>
-*   <span class="s2"></span><span class="s1">[Sketch Export Assets](http://bit.ly/1UEwVIU "Sketch Export Assets plugin") which easily helps you export your designs to iOS, Android and Windows Phone sizes</span>
+*   [Sketch Artboard Tricks](http://bit.ly/1RPufrh "Sketch Art board Tricks plugin") 可以帮你重新整理杂乱的 `Artboard`
+*   [Sketch Export Assets](http://bit.ly/1UEwVIU "Sketch Export Assets plugin") 可以帮助你根据 IOS、Android 和 Window Phone 的不同尺寸分别导出设计
 
-Pixate is a prototyping from Google. It’s has predefined animations and interactions. It has accompanying mobile apps so you can interact with your prototypes on an Android on iOS device. It has cloud features which start at $5 per month. These allow you to share your prototypes to the cloud, so clients and colleagues can get access. I enjoy using Pixate as I find it has some similarities to coding when doing condition and referencing layers for animation. We’ll just be using the free version that allows you to share through your Wifi to the app on your device.  
+Google 旗下的 Pixate 是一款原型设计软件。它包含一些预设的动画以及交互，同时配套的手机应用可以让你在 Android 或 IOS 设备上与原型进行交互。它还有云服务，起步价是 $5 每月，这样你就能将原型共享到云端以便让客户们与同事们访问。我十分享受使用 Pixate 的过程因为它有点像在敲代码，例如在进行条件判断以及布局动画时。我们现在用的是免费版，它能通过 Wifi 共享原型到你的设备上。
 
-<span>Another great thing about Pixate is that you can create your own Actions. These are scripts that you can write in a subset of Javascript to automate repetitive tasks or create common patterns. For example you could make an Action that fades a button and have it move 48px to the left, rather than having to use two steps every time. I have not used them yet but they seem handy. The ['Actions' feature](http://bit.ly/1ZMSPZK "Beta actions feature") is currently in beta.</span>
+Pixate 另一项很好的特性是你可以创建自己的 Action。你可以用 Javascript 的子集写个脚本帮忙进行重复的工作或者创建一个公共的模板。例如你可以写个 Action 代表一个按钮先向左移动 48px 后再逐渐消失，而不是每次都分两步实现。虽然至今我还没用过但它们似乎挺便利的样子。目前 ['Actions' feature](http://bit.ly/1ZMSPZK "Beta actions feature") 只是测试阶段。
 
-<span>In Part 1, I’ll be running you through importing assets to Sketch and using them to create a Login Screen. We’ll use this in Part 2 to create the start of the prototype in Pixate. In Part 3, I’ll provide you with all the assets you need to create the next stage of the prototype. This is so that we can speed things up a bit and get you to the juicy stuff, as i believe Sketch is pretty easy to get a grasp of.</span>
+在第一部分，我先教你在 Sketch 中导入资源并使用它们创建一个登录界面，它将会在第二部分中被 Pixate 用来创建原型。在第三部分，我将给你们提供所有用于构建下一阶段原型的资源。这样能帮助我们稍微加快学习的速度同时又能学到更有意义的内容，我相信 Sketch 足够简单到让你理解。
 
-## Things you’ll need to make the super awesome prototype
+## 在构建超棒的原型前你先需要准备的东西
 
-*   <span>Sketch - $99 for full version but does have free trial</span>
-*   <span>Pixate - Free but cloud features start at $5 per month (used in Part 2 and 3)</span>
-*   [<span>Assets Sticker Sheet </span>](https://www.dropbox.com/s/6ykfx9gukoacgp0/Material%20Design%20Prototype%20Assets.sketch?dl=0 "Assets Sticker Sheet")
-*   <span>Android device - You can use an iPhone, but an Android device is preferable. If you use an iOS device i cannot help you out if it doesn’t look right (used in Part 2 and 3)</span>
+*   Sketch - 完整版需要 $99,当然也有免费试用版
+*   Pixate - 免费但云服务功能需要每月 $5 （将会在第二三部分用到）
+*   [Assets Sticker Sheet](https://www.dropbox.com/s/6ykfx9gukoacgp0/Material%20Design%20Prototype%20Assets.sketch?dl=0 "Assets Sticker Sheet")
+*   Android 设备 - 你可以使用 iPhone，但 Android 设备更加合适。如果你使用 IOS 设备的话我无法保证它能正常显示（将会在第二三部分用到）
 
-The colours used within the tutorial are as follows:  
+本教程中使用到以下色调：
 
-*   <span>Primary - #4CAF50</span>
-*   <span>Primary Dark - #388E3C</span>
-*   <span>Accent - #D500F9</span>
-*   <span>Login Screen Background - #E8F5E9</span>
+*   主色 - #4CAF50
+*   主暗色 - #388E3C
+*   强调色 - #D500F9
+*   登录界面背景色 - #E8F5E9
 
-<span>These are all available in the Assets Sketch file as well. Feel free to use your own!</span>
+上面全部颜色都在 Sketch Assets 里，尽请使用吧！
 
-<span>Quick warning, i’m going to assume you have some sensibilities when it comes to creating this. If i leave something out i’ll assume it’s logical enough for you to work out yourself! This is not the complete, in depth, how to guide to using Sketch or Pixate. But if you feel like i’ve missed something important then please do drop me a comment.</span>
+注意：我假定你在接下来的构建过程中是有一定鉴赏能力。若在下文中略过一些内容，是因为我认为按常理来说你们完全可以独自做到！本文并没有完整深入地描述，而关注于如何引导你去使用 Sketch 和 Pixate。但如果你觉得我确实遗漏了些重要的知识，请务必告知。
 
-## Let’s make a login screen!
+## 那我们开始构建登录界面吧！
 
-<span>Adding the email and password text fields</span>
+添加邮箱以及密码文本域
 
-<span>First of all open the Assets Sketch file provided. In this are all the components we’re going to be using to create our prototype. Everything you need for this tutorial is under the Login Screen Assets artboard.</span>
+首先打开提供的 Sketch Assets，里面所有东西我们都可以用来构建原型。在本教程中你所有需要用来构建登录界面的资源在 Login Screen Assets `Artboard` 中都能找到。
 
-Open a new Sketch file and save it as something logical like “Material Design Prototype”. Next insert a new artboard using the “Insert” menu from the toolbar. From the right hand menu click the “Material Design” dropdown and select “Mobile Portrait”. If all’s gone well you should have a nice white rectangle on your screen.
+打开新的 Sketch 文件然后将其保存文件名为 “Material Design Prototype”，接着使用工具栏的 “Insert” 菜单插入一张新的 `Artboard`，然后在右侧栏中单击 “Material Design” 下拉框并选择 “Mobile Portrait”。经过这些步骤后会在你的屏幕上生成一张白色矩形。
 
 ![](http://ww2.sinaimg.cn/large/a490147fgw1f41t1ndhcpj20i50ef74u.jpg)  
 
-<span>Let’s rename the artboard to “Login Screen” by right clicking on “Mobile Portrait” in the left hand menu and clicking "Rename". It sounds simple but making sure that everything is named will avoid confusion, as it’s very easy to get lost while creating the Login Screen.</span>
+我们先对 `Artboard` 重命名。在左侧栏中右击 “Mobile Portrait” 然后选择 "Rename"，重命名为 “Login Screen”。虽然这听起来很简单但你要确保为所有东西命名以避免混淆，否则在构建登录界面时很容易不知所措。
 
-Let’s give the background some colour, while we’re at it. Select the Login Screen artboard from the left hand menu and some options should open up on the right hand side. Tick the “Background Color” box and then select the colour box next to it. Paste our background colour “E8F5E9” in to the “Hex” box and press enter. Et voila! A beautiful light green background. Have I mentioned green is my favourite colour?!  
+然后我们开始给当前的界面添加背景色。首先在左侧栏选中 “Login Screen”，右侧栏会自动弹出，接着选中 “Background Color” 然后选择旁边的色板框，将我们的背景色即 “E8F5E9” 粘贴到 “Hex” 框中后单击确认。你看，浅绿色背景多漂亮，以前我提到过我特别喜欢绿色吧？
 
-<span>Do you notice how the size of the artboard is 360 x 640? This helps for exporting to screen densities for different Android devices like hdpi, xxhdpi etc. More on this later.</span>
+你注意到 `Artboard` 的尺寸是 360 x 640 了没？这样可以方便导出适应不同 Android 设备的分辨率例如 hdpi 和 xxhdpi 等等。这些稍候还有介绍。
 
-At this point it’s going to be easier to have the Material Design Prototype and Assets Sketch files open side by side for easier drag and drop. Find the Login Screen artboard and find the text field asset and copy this into our login screen. Then rename “Hint Text” to “Email”. I placed mine in the middle of the screen. I’ve resized the text field asset so it is exactly 328 pixels. This gives a 16 pixel left and right margin which means we’re adhering to [Google Material Design guidelines](http://bit.ly/23YKwj9 "Google Material Design guidelines") on layout bounds. Copy and paste the text field asset again and make sure it’s 16 pixels below the email text field. Sketch will inform you of the distance between the two objects as you place it with a red line and number.
+接下来我们通过分别拖放 Sketch 的资源就能很容易地构建出 Material Design 原型。首先选中 “Login Screen” 然后在 Sketch Assets 中找到文本域，将其复制到我们的登录界面，并将 “Hint Text” 改为 “Email”，接着我将其移到屏幕的中间，尺寸改为 328 像素，这样它左右两边能保持 16 像素的边距，正好遵循了 [Google Material Design guidelines](http://bit.ly/23YKwj9 "Google Material Design guidelines") 中的布局规范。再次复制粘贴该文本域并在将其移到距离邮箱文本域下 16 像素处。Sketch 会通过红线和数字的方式提示你上面两者之间的距离。
 
 ![](http://ww1.sinaimg.cn/large/a490147fgw1f41t28fkj4j20hl0cnt9c.jpg)  
 
-## Adding a logo
+## 添加一个 LOGO
 
-<span>Now we’re going to add in our logo at the top, because you know… branding and stuff ;) Grab the Logo and place it above the email text field and password text field.</span>
+现在我们打算将我们的 LOGO 添加到顶部，原因你也懂，品牌效应嘛...拖拽 LOGO 并放置在邮箱、密码文本域之上。
 
-We just need the disabled login button that we’ll be transforming later for our login operation. Copy this from Assets to our Login Screen. If all’s gone well you should have something that looks like this:
+我们还需要一个被禁用的按钮以便在以后的登录操作中改变它的状态。从 Sketch Assets 中复制并添加到我们的登录界面。如果以上你的操作正确，你应该能获得类似下面这张图片的界面：
 
 ![](http://ww4.sinaimg.cn/large/a490147fgw1f41t2lrc8hj20hv0cxgmh.jpg)  
 
-<span>Right we finally have our Login Screen! Well sort of. What we’ve created is our start state. We'll need some of the other components to create our filled in state.  
-</span>
+好的，我们最终做好了登录界面！年轻人，别着急，这还只是刚刚开始，我们还需要创建一些组件填充到界面中。
 
-## Adding the filled in email and password
+## 填写邮箱和密码
 
-We need to copy and paste the email text field with input component. Place this on top of the email text field. This should just slot in over the top. Make sure the bottom lines match up. Now, hover over the email text field in the left hand menu and click the little eye that appears. The email text field should be hidden. You should only see the email text field with input. You’ll need to edit the actual text to something more relevant.
+我们需要复制输入组件并填充到邮箱文本域里。首先将其拖拽覆盖到邮箱文本域的上方，它会自动填充进去，这里要确保它们的下边沿重合。现在在左侧栏中选中邮箱文本域然后单击显示在一旁的小眼睛，邮箱文本域会被隐藏。现在你应该只能看到邮箱文本域的输入框了，这样你就可以直接在上面填写一些相关的文本。
 
 ![](http://ww4.sinaimg.cn/large/a490147fgw1f41t2ynw6ej20hv0cxmy3.jpg)  
 
-<span>Next we just have to repeat the process for the password text field. Make sure you are renaming the input fields in the left hand menu after you have copied them over. I’ve just used stars for the password text field with input to represent an entered password.</span>
+接下来我们对密码文本域重复刚刚的动作。记得在复制输入组件后要在左侧栏中对其重命名。这里我使用星星代表输入的密码。
 
-Now you should have something that looks like this:
+现在你的界面应该像这样子：
 
 ![](http://ww2.sinaimg.cn/large/a490147fgw1f41t4vfxw7j20i00d1wfm.jpg)
 
-Next up is the other login buttons. It’s the same process for the buttons; copy, paste, place over the top, and hide the previous.
+接下来就是添加其它状态的登录按钮。这过程和上面十分类似：复制、粘贴、拖拽到组件上方并隐藏原本的组件。
 
 ![](http://ww3.sinaimg.cn/large/a490147fgw1f41t584f7fj20i60d5q40.jpg)
 
-## Adding a status bar
+## 添加状态栏
 
-<span>Just one more little thing we’re missing. That’s the Status bar. When we’re in our prototype later on it won’t be displayed as the prototype goes full screen on the device. It could be left out, but i think adding it in makes it feel like you’re actually using a real app.</span>
+我们忽略了一个小细节，那就是状态栏。若假设原型是在在全屏状态下，不显示状态栏也是可以的，那样的话可以忽略它。但我觉得添加状态栏能让你感觉自己正在使用一款真正的应用。
 
-Find the status bar in the assets folder, copy it across and place it at the top and centred. We added this last so that we make sure it is over the top of everything else, otherwise it wouldn’t be visible.
+首先从 Sketch Assets 中找到状态栏，复制并放到界面的顶部居中位置。我们最后进行这项步骤是因为我们需要确保状态栏是处于最上方，而不会被挡住。
 
 ![](http://ww3.sinaimg.cn/large/a490147fgw1f41t5mjphxj20k60eft9w.jpg)
 
-## Exporting for Pixate
+## 导出到 Pixate
 
-Finally, we should now get all of our assets exported for using in Pixate. As we want our prototype to have a bit of movement we need to get the Login Screen back to basics. Hide everything thatwe’ve added to the Login Screen so far. Only the logo and status bar we imported should be left.
+最后，我们需要导出所有 Pixate 将会用到的资源。因为到时我们想让我们的原型有些移动的效果，所以先将界面恢复到基础状态。隐藏所有我们之后添加到登录界面的东西，除了 LOGO 以及状态栏。
 
 ![](http://ww3.sinaimg.cn/large/a490147fgw1f41t60k3ysj20k60ef3zn.jpg)  
 
-<span>Click on the Login Screen in the left hand menu. This should select the whole artboard for you. In the bottom right hand corner there should be some text, “Make Exportable”. Click this to make the Login Screen exportable and to open up a menu. This menu is handy, it can allow you to export your assets at various scales. This is great when trying to meet different device specs. Now that [VectorDrawableCompat](http://bit.ly/1P3A6RH "VectorDrawableCompat documentation") is out for Android, it’s not needed as much. Make the “Size” dropdown 3x and leave the suffix empty. This is also a nifty feature that lets you set some text for all the different size images e.g. login_screen_mdpi, login_screen_xxhdpi but we don’t need to use it. Lastly, make sure the “Include in Export” is ticked below “Background Color”. Without this the screen will be exported without our coloured background, which is not what we want! Click “Export Login Screen” and save it to some where appropriate. I placed mine in a folder call “Login Screen Assets”.</span>
+在左侧栏中点击 “Login Screen”，这样它就能帮你选中整个 `Artboard`。此时在右下角处会出现一行文字：“Make Exportable”，点击它确保登录界面可导出，之后会弹出一个菜单。菜单十分方便，它允许你根据不同的缩放尺寸导出，当你需要适配不同规格的设备时这个功能十分有用。但现在 Android 推出了 [VectorDrawableCompat](http://bit.ly/1P3A6RH "VectorDrawableCompat documentation")，所以我们并不需要这功能。我们先在 “Size” 下拉框中设置属性为 3x，然后清除后缀，这是个能帮你给不同分辨率的图片设置不同的名字的小特性，例如：login_screen_mdpi、 login_screen_xxhdpi，但现在我们并不需要。最后，记住要选中 “Background Color” 下面的 “Include in Export” 选项，否则导出的文件将不会包含我们设置的背景色，我们可不想那样！单击 “Export Login Screen” 然后将其保存到合适的位置。我将其保存到 “Login Screen Assets” 文件夹中。
 
-The rest of the items need to be exported individually. Let’s start with the email text field. Make sure the email text field is visible first of all, otherwise when you export it you’ll be exporting nothing! Click on email text field in the left hand menu. Click “Make Exportable”. Make the “Size” 3xand leave the suffix empty. Then click “Export email text field” and save to your chosen location.
+剩下的组件也需要分别导出。从邮箱文本域开始吧。记得先让文本域可见否则导出的文件是没有任何东西的！首先在左侧栏中选中邮箱文本域，单击 “Make Exportable”，设置 “Size” 为 3x 然后清除后缀，最后就是单击 “Export email text field” 并保存到你已选中的位置。
 
 ![](http://ww4.sinaimg.cn/large/a490147fgw1f41t6cn2ehj20k60ef3zv.jpg)  
 
-<span>This now needs to be done for the rest of the left over items:</span>
+剩下我们还需要保存的东西：
 
-*   <span>email text field with input</span>
-*   <span>password text field</span>
-*   <span>password text field with input</span>
-*   <span>login button</span>
-*   <span>raised login button</span>
-*   <span>disabled login button</span>
+*   邮箱文本域的输入组件
+*   密码文本域
+*   密码文本域的输入组件
+*   登录按钮
+*   可用状态的登录按钮
+*   被禁用状态的登录按钮
 
-Just make sure you’ve made them all visible before you export!
+一定要记得在导出前先让它们可见哟！

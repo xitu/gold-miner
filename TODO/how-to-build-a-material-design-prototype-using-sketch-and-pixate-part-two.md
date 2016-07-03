@@ -1,172 +1,173 @@
 >* 原文链接 : [HOW TO BUILD A MATERIAL DESIGN PROTOTYPE USING SKETCH AND PIXATE - PART TWO](http://createdineden.com/blog/post/how-to-build-a-material-design-prototype-using-sketch-and-pixate-part-two/)
 * 原文作者 : Mike Scamell
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者:
+* 译者 : [zhangzhaoqi](https://github.com/joddiy)
+* 校对者: [Velacielad](https://github.com/Velacielad)，[Zheaoli](https://github.com/Zheaoli)
 
-In [Part 1](http://createdineden.com/blog/post/material-design-prototype-tutorial-part-1/ "How to build a material design prototype using Sketch and Pixate - part one") of the tutorial we made a simple login screen and got all our assets exported. 
+在教程的 [第一部分](http://gold.xitu.io/entry/574d062b2e958a0069335d8e "如何使用 Sketch 和 Pixate 来构建一个 Material Design 原型 —— 第一部分") 我们制作了一个简单的登录界面并导出了所有资源。
 
-In Part 2, we’re going to move on to creating the prototype in Pixate. For this part, you’ll need:
+在第二部分，我们打算继续在 Pixate 里创建一个原型。对于这一部分，你需要：
 
 
-*   <span>Android or iOS device (preferably Android). If you can get something with a 1080 x 1920 size screen then all the better, but it’s not necessary, Pixate will scale the prototype for you.</span>
+*   <span> Android 或者 IOS 设备（最好是 Android ）。如果你能弄到屏幕尺寸是 1080 x 1920 的设备那更好了，但那不是必须的， Pixate 将为你缩放原型。</span>
 *   [<span>Pixate Studio</span>](http://www.pixate.com/getstarted/ "Pixate Studio")
-*   <span><span>Pixate app downloaded on to your</span> [Android](http://bit.ly/1Wp5wuG "Pixate Android App") <span>or</span> [iOS](http://apple.co/1qdImcZ "Pixate App iOS") <span>phone. </span></span>
+*   <span><span>下载 Pixate app 到你的</span> [Android](http://bit.ly/1Wp5wuG "Pixate Android App") <span>或者</span> [iOS](http://apple.co/1qdImcZ "Pixate App iOS") <span>手机上。 </span></span>
 *   <span>WiFi</span>
 
-## Prototyping in Pixate
+## 在 Pixate 上创建原型
 
-<span>Open Pixate and click “Create new prototype” or create a new one from the “File” menu. Let’s name it “Material Design Prototype” and save it somewhere. On the next screen select “Nexus 5” as your “Target Device”, and then “Add Prototype”. It should be said here that if your device screen resolution is bigger than the 1080x1920 then when you load the prototype on your phone it may look a little blurry. That’s due to the scaling that Pixate is doing for your device. For smaller devices Pixate will scale it down.</span>
+<span>打开 Pixate 并且点击 “ Create new prototype ” 来创建一个原型，或者从“ File ”菜单新建一个。我们给它命名为“ Material Design Prototype ” 并保存到某个地方。在下一个界面选择“ Nexus 5 ”作为你的 “ Target Device ”（适配设备），然后点击“ Add Prototype ”完成创建。这里要说明的是如果你的设备屏幕分辨率大于 1080x1920 的话，当原型加载到你的手机上时会显得有些模糊。这也确实说明 Pixate 为你的设备进行了缩放。对于分辨率更小的设备， Pixate 也会把比例缩小。</span>
 
-<span>You should be presented with an empty rectangle with only some “Getting Started” text and looks eerily similar to _Login Screen_. They are there same size so our designs should transfer over nice and easy and in the correct proportions.</span><span>  
-![Empty Pixate project](http://createdineden.com/media/1527/screen-shot-2016-03-10-at-142718.png?width=726&height=540)</span>
+<span>现在你应该能看到一个空白的矩形，上面只有“ Getting Started ”几个字（译者注：在译者使用的 2.0.1 版本下，除了 Getting Started 几个大字外，下面还有一些说明性的小字），这看起来和 _Login Screen_ 有些 迷之相似。它们有着相同的尺寸，因此我们的设计可以且按照正确的比例很好地、简单地移植过去。</span><span>
+![空 Pixate 项目](http://createdineden.com/media/1527/screen-shot-2016-03-10-at-142718.png?width=726&height=540)</span>
 
-<span>On the left hand side of Pixate Studio is a small icon menu. Select the “Assets” icon which is the second one down. Navigate to the folder where you placed all the Sketch exported assets, select all of them and then click “Open”. All the images should now be imported into Pixate:</span>
+<span>在 Pixate Studio 的左手边是一个小图标菜单（译者注：最左边纵向排列的三个图标）。选择纵向第二个的“ Assets ”图标。导航到你放置 Sketch 所有导出资源的文件夹，全选并且点击“ Open ”。现在所有的图片就都被导入 Pixate 了：</span>
 
 ![](http://ww3.sinaimg.cn/large/a490147fgw1f41tri3lmej20ke0egq3u.jpg)
 
-<span>Navigate back to the “Layers” menu (the top icon in the left hand icon menu) and let’s get started on bringing our assets in.</span>
+<span>再导航回“ Layers ”菜单（左边小图标菜单的最上面那个）然后让我们尽情利用我们的资源吧！！</span>
 
-<span>In the “Layers” menu, click the small plus icon to create a new layer. A small grey box should then appear in the above the white rectangle. Rename this layer to “Login Screen” so we know what it is. Then expand the box so that it fills the whole of the white background rectangle.</span>
+<span>在“ Layers ”菜单，点击“ + ”小按钮来创建一个新的层。这时在你的空白矩形上方会出现一个灰色的小格子。重命名这个层为“ Login Screen ”，好让我们知道这是什么。然后扩展这个格子让它填充满整个白色矩形背景。</span>
 
-<span>This grey rectangle is going to be the holder of our Login Screen. Ensure _Login Screen_ is selected in the left hand menu, and look to the “Properties” menu on the right hand side. We’re interested in the “Appearance” field. Click the small grey plus button and select our _Login Screen_ image that we exported from Sketch.</span>
+<span>这个灰色矩形将要成为 Login Screen （登录页面）的载体。在选中左手边菜单栏中的 _Login Screen_ 前提下，查看右边的“ Properties ”菜单。这个时候我们通过点击Appearance一栏右侧的“ + ”小图标（译者注：在这个栏的右边）来选择我们从 Sketch 导出的 _Login Screen_ 图片。</span>
 
 ![](http://ww4.sinaimg.cn/large/a490147fgw1f41trxrhhpj20ke0egjsu.jpg)
 
-## Can you field the pain?!
+## 你能框住疼痛吗（译者注：关于介绍文本框的有趣说法）?!
 
-<span>Now we need to add in our text fields. Click “Add a layer” again and we’ll get the familiar grey box. We need this to be the same dimensions as our _email text field_ from the Sketch project, which for me is 328 x 48\. Resize the box to these dimensions using the right hand “Properties” menu and the “Size” properties. We’ll also be using our positioning from Sketch as well. My _email text field_ [x] is 16 and it’s [y] is 296\. Enter these into the “Position” field in the right hand menu in Pixate. Lastly, we need to load our _email text field_ image that we exported from Sketch, just like we did earlier for the _Login Screen_.</span>
+<span>现在我们要加入文本框了，再一次点击“ Add a layer ”，再一次的，我们得到了一个相似的灰色格子。这个格子的尺寸要和我们从 Sketch 项目中导出的 _email text field_ 的尺寸相同，对我（译者注：本文原作者的设备）来说是 328 x 48 。使用右手边的“ Properties ”菜单的“ Size ”属性来调整尺寸大小。我们也将使用 Sketch 中的定位，我的 _email text field_ 的x坐标为16，y坐标为296。然后把这些输入 Pixate 右边菜单中的 “ Position ”栏中。最后，我们通过之前导出 _Login Screen_ 图片一样的操作来从 Sketch 导出 _email text field_  图片。</span>
 
-<span>We need to move the _email text field_ to the be part of the _Login Screen_. Click and drag on the _email text field_ in the left hand “Layers” menu and place the _email text field_ on top of the _Login Screen_. The _email text field_ is now part of the _Login Screen_ and should be showing.</span>  
+<span>我们需要移动 _email text field_ 使它成为 _Login Screen_ 的一部分。在左边“ Layers ”菜单中点击并且拖动 _email text field_ 放置到  _Login Screen_ 上面，我们就能看到 _email text field_ 已经成为 _Login Screen_ 的一部分了。</span>  
 ![](http://ww2.sinaimg.cn/large/a490147fgw1f41tsa8p9tj20ke0eg75g.jpg)
 
-<span>BUT WAITTTTTTTTTTT! WHAT ARE THOSE UGLY GREY BARS DOING ON THE SIDE OF THE EMAIL INPUT FIELD?!</span>
+<span>但是！等等等下！EMAIL 输入框中那个丑陋的灰色线条是干嘛的？</span>
 
-<span>Well, when we selected our exported _email input field_ asset from Sketch, we didn’t remove the grey background colour from our layer. With the _email input field_ selected, look at the “Appearance” field in the right hand “Properties” menu. There’s a little grey box next to the name of your exported _email input field_ name. Click this and a colour palette box opens up. We want the transparent selection which is top left hand corner and has a red line through it diagonally. Ta da! The grey bars should now be removed. You’ll need to remember to do this for each image you import.</span>
+<span>好吧，当我们从 Sketch 中选择我们导出的 _email input field_ 资源时，我们没有从我们的层上去掉灰色背景。让我们选中 _email input field_ ，看一下右边“ Properties ”菜单中的“ Appearance ”栏。在靠近你导出的 _email input field_ 名字旁边有一个灰色小格子（译者注：_email input field_ 名字左边那个），点击一下然后弹出一个颜色调色板，我们需要选择透明色，就是左上角中间有个红色对角线的那个。嗒哒！然后灰色线条就被去掉了。要记得每次导入图片都要做这些。</span>
 
-<span>I’ll assume that your smart enough to realise that we need to this for the rest of the items for our _Login Screen_. Leave the _login button_, _raised login button_, _email text field with input_ and _password text field_ with input for now.</span>
+<span>我假定你已经足够聪明去意识到我们要对 _Login Screen_ 的其余组件都这样操作，包括 _login button_ ， _raised login button_ ， _email text field with input_ 和 _password text field_。 </span>
 
-<span>After you’ve finished you should have something that looks like this:</span>
+<span>在你做完这些应该做的事情之后，你会看到下面的这样：</span>
 
 ![](http://ww3.sinaimg.cn/large/a490147fgw1f41tsocpvfj20ke0egdh2.jpg)
 
-<span>As you can see everything i’ve added belongs to the _Login Screen_ layer.</span>
+<span>你可以看到我加入的每样东西都属于 _Login Screen_ 层。</span>
 
-<span>Next we need to add in our fields that have been filled. The easiest way to do this is to click the layer of the input field that we’re going be adding a filled in state for, and pressing the “Duplicate layer” button at the top of the “Layers” menu. This will create a copy above the layer the one you selected. So let’s do this for _email text field with input_. After it has been copied you have to click and drag it to make sure it is below the _email text field_. You may have to resize it also to make sure that it’s too scale, and then you may need to move it to the right position. Again, refer back to your Sketch project for correct sizing and positioning.</span>
+<span>接下来你需要把已经填充好的栏目加进来。最简单的方法就是点击我们想要加入填充状态的输入框所属的层。然后点击“ Layers ”菜单顶部的“ Duplicate layer ”按钮。这将给你选择的东西创建一个拷贝。所以让我们对 _email text field with input_ 执行上述操作。在拷贝好之后,你需要点击并且拖动它，确保它位于 _email text field_ 下面。然后你可能需要翻看你的 Sketch 项目找出正确的大小和位置，从而修改它的尺寸确保它不会超出规模，然后还要把它移动到合适的位置。</span>
 
-<span>Once you’ve got these layers below their empty counterparts you should click the eye icon to hide them, just like we did in Sketch. The last thing you should do is set the “Opacity” in the right hand properties menu for the _email text field with input_ and _password text field with input_ to 0%. The reason for this is so that they are not visible when we finally load the project using the Pixate app, as it doesn’t pay attention to the visibility set for the layer in Pixate Studio.</span>
+<span>一旦你已经把这些层放置到它们空白的相对应处，那就应该点击眼睛图标来隐藏它们，就像我们在 Sketch 做的那样。最后一件你应该做的事情是用右边属性菜单中的“ Opacity ”给 _email text field with input_ 和 _password text field with input_ 设置为 0%。这样做的原因是当我们最终使用 Pixate 应用加载这个项目的时候它们是不可见的，所以在 Pixate Studio中没有必要花费注意力在这些层的可见性设置上。</span>
 
 ![](http://ww2.sinaimg.cn/large/a490147fgw1f41tt3hbjvj20ke0eggmv.jpg)
 
-<span>As you can see in the screen shot above i’ve added the fields with with input but they are hidden. Now let’s get to the good stuff. Animating :D</span>
+<span>正如上面的截图，我加入了一些带有输入的框但是它们被隐藏了。现在我们搞点有趣的事情 —— 动画 :D 。</span>
 
-## Animating the field inputs (because I couldn't think of a funny title)
+## 让框的输入动起来 (我想不出有趣的题目了)
 
-<span>Now lets add in some animations for our login screen. We’ll start with the text fields and come to the button later.</span>
+<span>现在让我们给登录界面加入一些动画。我们从文本框开始，然后再弄按钮。</span>
 
-<span>Below the “Layers” menu on the left hand side are two boxes, “Interactions” and “Animations”. Each contain different Interactions and Animations. Interactions has things like “Tap” and “Drag”. Animations has things like “Scale” and “Move’. To use them, we need to drag them to layer upon which we want the interaction or animation to happen. Nice and simple.</span>
+<span>在左边“ Layers ”菜单下面是两个格子 —— “Interactions”和 “Animations”，这两个格子各自包含了不同的互动和动画。互动有类似“ Tap ”（类似“点击打开”的意思）和“ Drag ”（拖动）。动画有类似“ Scale ”（缩放）和“ Move ”（移动）。为了使用它们，我们需要把它们拖动到我们想要互动和动画发生的层上面，真是简单好用。</span>
 
-<span>Lets start with the _email text field_. Select it from the left hand side, and then click and drag the “Tap” from the “Interactions” box and drop it onto the _email text field_ layer. Next we need “Fade” from the “Animations” box. Click and drag this as well to the _email text field_. You should see a little Tap icon on the right in the “Properties” menu under the field “Interactions” and “Fade” under the heading “Animations”.</span>
+<span>让我们从 _email text field_ 开始吧。 在左边选中它，然后从“ Interactions ”格子中点击并拖动“ Tap ”，并且把它丢到 _email text field_ 层上面。接下来我们需要 “ Animations ”（动画）格子里面的“ Fade ”（渐变），像对 _email text field_ 操作那样点击并拖动它。你应该能在右边“ Properties ”（属性）菜单中的“ Interactions ”下面能看到一个小的 Tap 图标，在Animations ”下面看到“ Fade ”。</span>
 
-<span>We’re now going to get the _email text field_ to fade out when it’s been clicked on. Under the “Fade” on the right hand menu click “Based On” and choose _email text field_. More options should open up below that you can explore but we’re only interested in one, the “Fade to”. Click on the box and enter “0”.</span><span>  
+<span>我们现在想要设置当我们点击 _email text field_ 时使其渐出。在右边菜单的“ Fade ”下点击“ Based On ”（基于）并且选择 _email text field_ 。这时会弹出更多的选项，你可以研究一下，不过我们这里只关心“ Fade to ”，点击格子并输入 “ 0 ”。</span>
+
 ![](http://ww3.sinaimg.cn/large/a490147fgw1f41ttixjxnj20ke0egjt2.jpg)
 
-<span>We’re nearly there where you can witness your first animation! Now we just need to get the Pixate app setup on your device….</span>  
+<span>你快要能够见证你的第一个动画了，现在你仅仅需要在你的设备上运行 Pixate 应用。</span>  
 
-## Setting Up Pixate on your Device
+## 在你的设备上设置 Pixate 
 
-<span>Make sure you have the Pixate app downloaded on to your [Android](http://bit.ly/1Wp5wuG "Pixate Android App") or [iOS](http://apple.co/1qdImcZ "Pixate App iOS") phone. </span>
+<span>确认你已经下载 Pixate 应用到你的 [Android](http://bit.ly/1Wp5wuG "Pixate Android App") 或者 [iOS](http://apple.co/1qdImcZ "Pixate App iOS") 手机上了。</span>
 
-<span>Open up the Pixate app. The app will start looking for you Pixate Studio on the network so give it a sec and make sure you're connected via WiFi. The Pixate app is sometimes a bit flippant for me and you may possibly need to exit it and re-enter. You can also connect via IP address.</span>
+<span>打开 Pixate 应用。这个应用会从网络上查找你的 Pixate Studio ，所以稍等一下并且确保你已经连接 WiFi 了。 Pixate 应用有时对我不太友好，所以你有可能需要退出并且重新进入。你也可以通过 IP 地址连接。</span>
 
-<span>When your computer appears, click on it. In Pixate Studio in the top right hand corner click on “Devices”. You should see your phone listed here and you have to approve the connection so click the tick and your device should be connected. Check your device and listed at the top should be your computer. Click it and you should be shown your prototypes. You should see “Material Design Prototype” (depending on what you've called it), click it. You’ll now be presented with some instructions of how to interact with the device when your using your prototype. Click “Get Started” and you should now see your Login Screen! What’s even better is if you now click on the _email text field_ it should now fade and disappear before your very eyes…</span>
+<span>当你的电脑出现的时候，点击它。在 Pixate Studio 的右上角点击“ Devices ”。你能看到你的手机被列在这里，你需要允许连接所以点击勾选然后你的设备就被连接了。检查一下你的设备，你的电脑应该在顶部被列出了。点击它，然后你就能看到你的这些原型了。你应该看到“ Material Design Prototype ”（这取决于你给它的命名），点击它。现在你将被展示一些关于当你使用你的原型时如何与你的设备进行互动的指示。点击“ Get Started ”，然后你现在应该能看到登录页面了！更棒的是如果你现在点击 _email text field_，它将会渐变然后从你的眼前消失了。</span>
 
-## Creating more animations
+## 创建更多的动画
 
-<span>Right, so now we have to finish this animation off. Empty space when we click the _email text field_ is no good. Click on the _email text field_ _with input_, and then click and drag “Fade” from the animations box and drop it on it. When you click on the first drop down box for “Based on” under “Fade” make sure you select _email text field_. What we’re going to do is make the _email text field with input_ appear as the _email text field_ fades out. Under “Fade to” enter “100”.</span><span>  
+<span>好的，现在我们要完成这些的动画了。当我点击  _email text field_ 时变得空白并不好。点击 _email text field_ _with input_ ，并且从动画格子中点击并拖动“ Fade ”然后丢到它上面。当你在“ Fade ”下面的“ Based on ”点击第一个下拉格子时，确保你选择了 _email text field_。我们想要展现的效果是当 _email text field_ 渐出时， _email text field with input_ 出现。在“ Fade to ”里面输入“ 100 ”。</span>
 ![](http://ww1.sinaimg.cn/large/a490147fgw1f41wtvuc3qj20jp0ci75p.jpg)
 
-<span>What we’re effectively saying is, when the _email text field_ has been tapped, then fade it to 0 and fade the _email text field with input_ to 100\. It’s a bit, "if this, then that".</span>
+<span>我们实际上是在说，当 _email text field_ 被点击时，它渐变到 0 ，并且 _email text field with input_ 渐变到 100 。这有点像“如果这样，就那样”。/span>
 
-<span>Now if you go back to your device, then the Pixate app should flash as it updates itself. Now if everything is setup correctly, when you click the _email text field_, it should fade out and the _email text field with input_ should appear.</span>
+<span>现在，如果你回到你的设备，Pixate 应用应该已经刷新了，因为它会自更新。现在如果每样事情都被设置正确了，那么当你点击 _email text field_ 时，它应该能渐出然后 _email text field with input_ 应该会出现。</span>
 
 ![](http://ww4.sinaimg.cn/large/a490147fgw1f41wt2s6lmg20ba0k0tca.gif)
 
-<span>You now need to reproduce these steps to do the _password text field_ and _password text field with input_.</span>
+<span>现在你需要对 _password text field_ 和 _password text field with input_ 重复之前的那些操作。/span>
 
-## Push the button! Animating the Login Button
+## 点击按钮！让登录按钮动起来！
 
-<span>So the last thing we need to animate is the login button. What we want to happen is that when you click on the button, it raises and then lowers, just like it would on a real device. This adds a nice layer of realism to the prototype. If you’re trying to do a really quick prototype, then maybe you’d leave this out and just have a button that activates the next screen. But we’re exploring Pixate so we’re going to do it.</span>
+<span>接下来我们要给登录按钮做动画。我们想要的效果是，当你点击按钮时，它抬起然后跌落，就像在真实设备上那样。这给原型添加了一个不错的现实主义的层（译者注：即仿真程度高），如果你想要做一个快速原型，你大可不必做这些，仅仅让这个按钮打开下个界面即可。不过我们这里是在研究 Pixate，所以让我们继续做吧。</span>
 
-<span>First you need to add the _login button_ and _login button raised_ to the project. These should both be below the _disabled login button_ in the left hand menu hierarchy and make sure that both opacities are set to “0”.</span>
+<span>首先你需要把 _login button_ 和 _login button raised_ 加到项目里面。这两个在左侧菜单的层级关系里都隶属于 _disabled login button_ ，并且确保它们俩透明度都为 0 。 </span>
 
-<span>You may notice when you add the _login button_ and _raised login button_ that they may look a bit squashed. What you need to account for is the shadow. Unlike Sketch, which ignores the shadow, Pixate counts it as part of the image.</span>
+<span>当你添加 _login button_ 和 _raised login button_ 时，你可能发现它们有些破碎的感觉。你需要注意的是阴影。不要像使用 Sketch 那样忽视了阴影，Pixate 把阴影算做了图像的一部分。</span>
 
-<span>Here’s my settings for the login button:</span>
+<span>这里是我对于登录按钮的设置</span>
 
 *   <span>x = 14pt</span>
 *   <span>y = 471pt</span>
 *   <span>width = 332pt</span>
 *   <span>height = 40pt</span>
 
-<span>And raised login button:</span>
+<span>还有抬起状态的按钮:</span>
 
 *   <span>x = 8pt</span>
 *   <span>y = 465pt</span>
 *   <span>width = 344pt</span>
 *   <span>height = 58pt</span>
 
-This should place the buttons all directly above each other and have room for the shadow.
+这些按钮相互之间应该可以直接替换并且还要给阴影留出空间。
 
-<span>We need some condition for the _disabled login button_ to disappear on. We want it to disappear when both our _email_text_field_ and _password_text_field_ have both been tapped and the _email_text field with input_ and _password text field with input_ have both appeared. How do we do that? Well when you add an animation in Pixate you can also specify a condition upon which that animation can happen. The condition is written just like in code, so coders out there will be used to this but for the rest bear with me and we’ll get through it :)</span>
+<span>我们需要设置一些条件使 _disabled login button_ 消失。我们想要使它在 _email_text_field_ 和 _password_text_field_ 都被点击并且 _email_text field with input_ 和 _password text field with input_ 都出现的时候消失。如何做呢？好的，当你在 Pixate 中加入一个动画时，你可以指定这个动画发生的条件。条件的编写就像写代码，所以程序员可能会用到这个，但是对于其他人就容忍我吧，并且我们将完成它 :) 。/span>
 
-<span>Click and drag the “Fade” animation to the _disabled login button_. Now set the “Based on” to _email text field_. When you’ve done this the extra options should pop up. We’re interested in the “If” field. If you click the question mark icon next to it then you’ll get a through explanation of what this does as well as all the properties that you can check for on each of your layers.</span>
+<span>点击并且拖动“ Fade ”动画到 _disabled login button_ 上。现在给 _email text field_ 设置“ Based on ”。当你完成这些弹出的额外选项时，我们来关注一下“ If ”栏，如果你点击它旁边的问题标志图标，你会得到一个通篇解释，关于这是做什么的和你想要知道的关于层的所有属性。</span>
 
-<span>What’s our condition? Well we want to check that if the _password text field_ is no longer visible thenfade out the _disabled login button_. We do this as we know that if the _password text field_ is no longer visible, then the _password text field with input_ must be showing.</span>
+<span>我们的条件是什么？我们想要去检查：如果 _password text field_ 不再可见，就使 _disabled login button_ 渐出。我们这样做是因为我们知道，如果 _password text field_ 不再可见，那么 _password text field with input_ 就必须可见。</span>
 
-<span>You’ll need to enter this conditional statement in the “If” box:</span>
+<span>你需要在“ If ”格子里输入这个条件声明：</span>
 
 <span>    password_text_field.opacity == 0</span>
 
-<span>We add the underscores as Pixate automatically add's them to our "Layer ID" when you name you layers with spaces.</span>
+<span>我们加了下划线，因为如果你的层名带空格的话， Pixate 会自动给我们的" Layer ID "加下划线。</span>
 
-<span>We check for the visibility using the opacity property on the _password text field_ layer and checking it’s set to 0.</span>
+<span>我们在 _password text field_ 层上通过可见性属性来检查它的可见性，并且确保设置为 0 。</span>
 
-<span>Now if you go back to your prototype on your device and press the _password text field_ and then the _email text field_, the disabled button should disappear!</span>
+<span>现在如果你回到你的设备上的原型，并且触压 _password text field_ ，然后触压 _email text field_ ，使否状态的按钮应该就消失了。</span>
 
-<span>We have to add another fade out animation now. This is check in case the _email text field_ is faded out when the _password text field_ has been pressed. This is typically how the prototype would operate normally.</span>
+<span>我们现在需要添加另一个渐出动画。这个动画是在 _password text field_ 被触压时，_email text field_ 渐出。这也是典型的原型是如何正常操作的。</span>
 
-<span>You’ll need to do what we did before, but with the opposite settings. I’ll get you started, you need to click and drag ANOTHER “Fade” animation to the _disabled login button_. I’ll let you figure the rest out ;)</span>
+<span>你需要去做的我们之前做一样，只不过采用相反的设置。我将教你如何开始，你需要点击并且拖动另外一个“ Fade ”动画到 _disabled login button_ 上。我把其他的留给你做 ;)。</span>
 
-<span>Right if all goes well, then your _disabled login button_ should now disappear when both the _email text field_ and _password text field_ are no longer visible. Now we need to make the _login button_ visible. This will be just another simple fade in animation.</span>
+<span>如果一切就绪，然后当 _email text field_ 和 _password text field_ 不再可见时，你的 _disabled login button_ 按钮应该也消失了。现在我们要使 _login button_ 可见。这将是另外一个简单的渐入动画。</span>
 
-<span>We basically need to do the same as we did for the _disabled login button_, but we want the opacity to be 100 instead of 0 for both fade animations. I’m sure you can do this by now, but once again I’ll get you started. You need to drag a “Fade” animation to the _login button_. And remember to add the conditions in!</span>
+<span>我们基本上需要像对 _disabled login button_ 那样做相同的事情，但是对于两个动画来说，我们想要透明度变为 100 而不是 0 。我确认你现在已经可以做到了，但是我还是会教你如何开始。你需要拖动“ Fade ”动画到 _login button_ 。并且记得添加条件。</span>
 
-<span>Ok, so you should now have something that looks like this:</span>
+<span>好的，现在你应该能看到类似这样的一些东西了：</span>
 
 ![](http://ww1.sinaimg.cn/large/a490147fjw1f41vs6l528g20ba0k0q89.gif)
 
-## ARISE SER BUTTON!
+## 抬起你的按钮!
 
-<span>The very last thing we need to do is make our _login button_ 'raise' when pressed; just like what happens normally with a button in Lollipop onwards. As you can see in the example of the Fantasy Football Fix login screen, the “Upload Squad” button seem’s to magnetise to your finger as you press the button, with the shadows increasing.</span>
+<span>最后我们需要做的是使 _login button_ 被触压的时候抬起；就像 Android 5.0 版本上一个按钮通常的那样。正如你在“ Fantasy Football Fix ”例子的登录页面看到的那样，当你触压“ Upload Squad ”按钮时，它的阴影变大，看起来好像吸住了你的手指一样。</span>
 
 ![](http://ww2.sinaimg.cn/large/a490147fjw1f41vufzbuyg20ba0k0gtk.gif)
 
-<span>We're going to be making use of the _raised login button_ obviously. Firstly, drag a “Tap” interaction to the _login button_ as we need to know when it’s been pressed. Then we’re going to need two fades again for this so drag two over to the _raised login button_.</span>
+<span>显然，我们打算使用 _raised login button_ 。首先，拖动“ Tap ”互动到 _login button_ 上，因为我们需要知道它何时被触压了。然后再一次我们需要两个渐变效果所以拖动它们到 _raised login button_ 上。</span>
 
-<span>The first fade needs to be triggered when the _login button_ is tapped, so make sure the _login button_ is selected in your “Based on” field. We want this first fade to make our raised button appear so set the opacity to 100\. We should probably name our fade as well, so we know what they are doing. Name it “Fade in on Login Button tap”.</span>
+<span>第一个渐变需要在点击 _login button_ 时触发，所以确保 _login button_ 在“ Based on ”栏中被选中。我们想要第一个渐变使我们抬起的按钮出现，因此设置它的透明度为 100 。我们还应该给渐变命名，这样我们就知道它们是做什么的了。那么把这个渐变叫做“ Fade in on Login Button tap ”（当登陆按钮点击时渐入）吧。</span>
 
-That should make our button appear and seemingly rise, but if you click the _login button_ now, the _raised login button_ will appear and will stay there. We need it to disappear again to go back to our original _login button_, so we’re back in our resting state.
+这将使我们的按钮出现并且看起来抬起了，但是如果你现在点击 _login button_ ， _raised login button_ 将出现并且保持在那里。而我们需要的是再次消失回原始的 _login button_ ，所以我们将完成剩余的状态。
 
-<span>For this we need another “Fade” animation. Name this new one “Fade out after Rise”. This too needs to be based on the _login button_ tap. This one though we want to fade to 0%. Lastly. we need to set the “Delay” to “0.2”. This is so that we wait to fade the button back out, otherwise you won’t even see the button, as we’d be fading in and fading out at the same time.</span>
+<span>这里我们需要另外一个“ Fade ”动画。把这个动画命名为“ Fade out after Rise ”（在抬起后渐出）。同样它也是在 _login button_ 点击时触发。这个动画虽然我们想渐变为 0% ，但是我们需要设置“ Delay ”（延迟）为“ 0.2 ”。这是为了让我们等待 button 渐出，否则你甚至看不到这个按钮了，因为渐入和渐出会在同时发生。</span>
 
-<span>Now if you tap your _login button_ you should get the nice raised effect!</span>
+<span>现在如果你点击 _login button_ 你应该得到一个不错的抬起效果了。</span>
 
 <span>![](http://ww1.sinaimg.cn/large/a490147fgw1f41web91qbg20ba0k0dlb.gif)</span>
 
-<span>If you want to get a bit more fancy you can fade the _login button_ in and out too when it’s tapped but I’ll leave that to you as an extra task ;) A by product of this will be a slight flash so it looks like the button’s been tapped. Also note this will not look that great if you do not have the _login button_ and _raised login button_ both lined up correctly in Pixate so make sure you have that sorted.</span>
+<span>如果你想要得到更多的乐趣，你也可以让 _login button_ 在被点击时渐入和渐出，但是我把这留给你当作额外的任务 ;) 。这样做的副作用是会产生轻微的闪光，所以看起来按钮好像被点击了。要注意的是，如果 _login button_ 和 _raised login button_ 没有在 Pixate 中被排列好的话，效果看起也不好，所以确保你已经排列好了。</span>
 
-## We got there, eventually!
+## 最终！我们做好了!
 
-<span>So that concludes this second meaty part of this series. I understand this was a lengthy process, but that’s just because of the sheer amount of instructions I had to write. Once you’ve done this once then you’ll always have it for reference. My advice would be to make loads of little sample projects, so that say if you need to remember how to do a raised button you can just open that project and see everything laid out nice and simply. As you get further into the prototype process things can start to get a bit busy in the project and you may not be able to easily locate the specific action/sequence of events.</span>
+<span>所以总结下这个系列的第二个充实的部分吧。我知道这是一个冗长的过程，但是这是因为我必须把绝对数量的指导都写出来。一旦你做过一次之后，你就可以把它作为参考了。我的建议都依附于小的样本项目，所以如果你需要知道如何制作一个抬起的按钮，你仅仅需要打开这个项目然后简洁明了地看到列出的所有东西。当你给原型加入更多的流程性的东西时，就会使得项目变得忙乱，然后你可能就不能简单地定位指定事件的动作或序列了。</span>
 

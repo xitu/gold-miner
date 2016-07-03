@@ -1,28 +1,27 @@
 >* 原文链接 : [Compile Time vs. Run Time Type Checking in Swift](http://blog.benjamin-encz.de/post/compile-time-vs-runtime-type-checking-swift/)
 * 原文作者 : [Benjamin Encz](https://twitter.com/benjaminencz)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者:
+* 译者 : [Jack](https://github.com/Jack-Kingdom)
+* 校对者: [Tuccuay](https://github.com/Tuccuay), [void-main](https://github.com/void-main)
 
 
-At some point, when learning how to use Swift’s type system, it is important to understand that Swift (like many other languages) has two different forms of type checking: static and dynamic. Today I want to briefly discuss the difference between them and why headaches might arise when we try to combine them.
+当我们学习如何使用 Swift 的类型系统时，理解 Swift（与其他编程语言类似）静态与动态两种不同的类型检查机制非常重要。 今天,我想简短地谈论一下二者的不同以及组合使用二者时一些令人头疼的地方。
 
-Static type checking occurs at compile time and dynamic type checking happens at run time. Each of these two stages come with a different, partially incompatible, toolset.
+静态类型检查发生在编译期，动态类型检查则在运行期。 二者使用了部分不兼容的不同工具集。
 
-## Compile Time Type Checking
+## 编译期的类型检查
 
-Compile time type checking (or static type checking) operates on the Swift source code. The Swift compiler looks at explicitly stated and inferred types and ensures correctness of our type constraints.
+编译期类型检查（或称为静态类型检查）操作 Swift 源码。 Swift 编译器会检查声明的类型并进行类型推断，确保类型约束的正确性。
 
-Here’s a trivial example of static type checking:
+这是一个静态类型检查的简单的例子：
 
     let text: String = ""
-    // Compile Error: Cannot convert value of 
-    // type 'String' to specified type 'Int'
+    // 编译错误: 不能将 'String' 类型的值转换为 'Int' 
     let number: Int = text
 
-Based on the source code the type checker can decide that `text` is not of type `Int` - therefore it will raise a compile error.
+据源码编译器能够确定 `text` 不是 `Int` 类型 - 因此他抛出了一个编译错误。
 
-Swift’s static type checker can do a lot more powerful things, e.g. verifying generic constraints:
+Swift 的静态类型检查器可以完成许多更强大的工作，例如验证泛型约束：
 
     protocol HasName {}
     protocol HumanType {}
@@ -36,29 +35,27 @@ Swift’s static type checker can do a lot more powerful things, e.g. verifying 
         // ...
     }
 
-    // Compiles fine:
+    // 正常编译：
     printHumanName(User())
-    // Compiles fine:
+    // 正常编译：
     printHumanName(Visitor())
-    // Compile Error: cannot invoke 'printHumanName' with an 
-    // argument list of type '(Car)'
+    // 不能用类型为 '(Car)' 的参数列表调用 'printHumanName' 
     printHumanName(Car())
 
-In this example, again, all of the type checking occurs at compile time, solely based on the source code. The swift compiler can verify which function calls provide arguments that match the generic constraints of the `printHumanName` function; and for ones that don’t it can emit a compile error.
+在这个例子中，所有的类型检查再次发生在编译期，仅基于源代码。 Swift 编译器能够验证调用 `printHumanName` 函数的参数与泛型约束的是否匹配；一有不符便会发出编译错误。
+尽管 Swift 的静态类型系统提供了如此多的编译期验证的强大工具。 但是，在某些情况下，运行期类型检查也是必要的。
 
-Since Swift’s static type system offers these powerful tools we try to verify as much as possible at compile time. However, in same cases run time type verification is necessary.
+## 运行期的类型检查
 
-## Run Time Type Checking
+不幸的是我们并不能光靠静态类型检查就解决所有问题。 从外部资源（网络，数据库，等等）读取数据就是最常见的例子。 在这些情况下数据和类型信息并不在源码中，此外我们也无法向静态类型检查器证明我们的数据是一个特定的类型（因为静态类型检查器只能对源码上获取的信息进行操作）。
 
-In some unfortunate cases relying on static type checking is not possible. The most common example is reading data from an outside resource (network, database, etc.). In such cases the data and thus the type information is not part of the source code, therefore we cannot prove to the static type checker that our data has a specific type (since the static type checker can only operate on type information it can extract from our source code).
+这意味着我们需要在运行期动态地_验证_类型，而非静态地定义。
 
-This means instead of being able to _define_ a type statically, we need to _verify_ a type dynamically at run time.
+在进行运行期的类型检查时我们依赖于 Swift 实例存储在内存中的元数据类型。 在这个阶段，`is` 和 `as` 关键字是验证元数据是否是特定类型或符合特定协议的实例的仅有工具。
 
-When checking types at run time we rely on the type metadata stored within the memory of all Swift instances). The only tools we have available at this stage are the `is` and `as` keywords that use that metadata to confirm whether or not the instance is of a certain type or conforms to a certain protocol.
+这也是形形色色的 Swift JSON 映射库所做的事——提供一套方便的API动态地转换一个未知的类型使其与一个特定变量的类型相匹配。
 
-This is what all the different Swift JSON mapping libraries do - they provide a convenient API for dynamically casting an unknown type to one that matches the type of a specified variable.
-
-In many scenarios dynamic type checking enables us to integrate types that are unknown at compile time with our statically checked Swift code:
+在许多情况下动态类型检查使得我们能够在通过静态检查的 Swift 代码中整合编译期的未知类型：
 
     func takesHuman(human: HumanType) {}
 
@@ -68,38 +65,38 @@ In many scenarios dynamic type checking enables us to integrate types that are u
         takesHuman(unknownData)
     }
 
-All we need to do in order to call the function with `unknownData` is to cast it to the argument type of the function.
+以 `unknownData` 调用函数，我们只需将其转换为函数的参数类型。
 
-However, if we try to use this approach to call a function that defines arguments as generic constraints, we run into issues…
+虽然如此，如果我们尝试使用这种方法去调用以泛型约束为参的函数时，则会出错...
 
-## Combining Dynamic and Static Type Checking
+## 结合动态与静态类型检查
 
-Continuing the earlier `printHumanName` example, let’s assume we have received data from a network request, and we need to call the `printHumanName` method - if the dynamically detected type allows us to do that.
+继续之前 `printHumanName` 的例子，假定我们通过网络请求收到了数据，继而我们需要调用 `printHumanName` 方法 - 如果动态类型推断允许我们这样做的话。
 
-We know that our type needs to conform to two different protocols in order to be eligible as argument for the `printHumanName` function. So let’s check that requirement dynamically:
+我们的类型必须符合两种不同的协议才能成为 `printHumanName` 函数的合格参数。
+那么，我们动态地检查一下条件：
 
     var unknownData: Any = User()
 
     if let unknownData = unknownData as? protocol<HumanType, HasName> {
-        // Compile Error: cannot invoke 'printHumanName' 
-        // with an argument list of type '(protocol<HasName, HumanType>)'
+        // 编译错误：不能以 '(protocol<HasName, HumanType>)' 参数类型调用 'printHumanName' 
         printHumanName(unknownData)
     }
 
-The dynamic type check in the above example actually works correctly. The body of the `if let` block is only executed for types that conform to our two expected protocols. However, we cannot convey this to the compiler. The compiler expects a _concrete_ type (one that has a fully specified type at compile time) that conforms to `HumanType` and `HasName`. All we can offer is a dynamically verified type.
+上面例子中的动态类型检查实际上正确地执行了。 确认类型满足两种预期的协议后， `if let`代码块才能执行。 虽然如此，我们不能对编译器如此使用。 编译器期待的是一个符合 `HumanType` 与 `HasName` 的_具体的_类型（能够在编译期完全界定的类型）。 而我们所能提供的是一个只能动态验证的类型。
 
-As of Swift 2.2, there is no way to get this to compile. At the end of this post I will briefly touch on which changes to Swift would likely be necessary to make this approach work.
+在 Swift 2.2 中，没有办法使其通过编译。 在这篇文章的最后，我我将简要地谈一谈如何对 Swift 做出一些必要的改变使得这种方法能够工作。
 
-For now, we need a workaround.
+现在，我们需要一个解决方案。
 
-### Workarounds
+### 解决方案
 
-In the past I’ve used one of these two approaches:
+之前，我们尝试使用了下面两种方法：
 
-*   Cast `unknowndData` to a concrete type instead of casting it to a protocol
-*   Provide a second implementation of `printHumanName` without generic constraints
+*   将 `unknownData` 转换为一种确定的类型而非协议
+*   提供 `printHumanName` 第二种不使用泛型约束的实现
 
-The concrete type solution would look something like this:
+确定类型的解决方案如下：
 
     if let user = unknownData as? User {
         printHumanName(user)
@@ -107,9 +104,9 @@ The concrete type solution would look something like this:
         printHumanName(visitor)
     }
 
-Not beautiful; but it might the best possible solution in some cases.
+并不优雅；但在某些情况下这是最可能的解决方案。
 
-A solution that involves providing a second implementation of `printHumanName` might look like this (though there are many other possible solutions):
+重新实现 `printHumanName` 方法的解决方案如下(具体的方案有很多)： 
 
     func _printHumanName(thing: Any) {
         if let hasName = thing as? HasName where thing is HumanType {
@@ -123,31 +120,31 @@ A solution that involves providing a second implementation of `printHumanName` m
 
     _printHumanName(unknownData)
 
-In this second solution we have substituted the compile time constraints for a run time check. We cast the `Any` type to `HasName`, that allows us to access the relevant information for printing a name, and we include an `is` check to verify that the type is one that conforms to `HumanType`. We have established a dynamic type check that is equivalent to our generic constraint.
+在这种解决方案里，我们用运行期检查取代了编译器约束。 我们将 `Any` 类型转换为能够允许我们获取相应信息打印姓名的 `HasName` 类型，并且我们使用了 `is` 检查确认类型符合 `HumanType` 。 我们已经确立了一种等价于泛型约束的动态类型检查。
 
-This way we have offered a second implementation that will run code dynamically, if an arbitrary type matches our protocol requirements. In practice I would extract the actual functionality of this function into a third function that gets called from both `printHumanName` and `_printHumanName` - that way we can avoid duplicate code.
+如果一个随机的类型符合我们需要的协议，那么我们所提供的第二种实现将会动态地执行。实际上，我会将调用 `printHumanName` 与 `_printHumanName` 的实际功能抽取出来写成一个新的函数——这样我们就能避免重复编码。
 
-The solution of the “type erased” function that accept an `Any` argument isn’t really nice either; but in practice I have used similar approaches in cases where other code guarantees that the function will be called with the correct type, but there wasn’t a way of expressing that within Swift’s type system.
+方案中的“类型擦除”函数接受一个 `Any` 参数并不十分美观； 实际上在函数能够被保证通过正确的类型调用时我使用过类似的方法，但是没有一种 Swift 类型系统支持的表达方式。
 
-## Conclusion
+## 结论
 
-The examples above are extremely simplified, but I hope they demonstrate the issues that can arise from differences in compile time and run time type checking. The key takeaways are:
+上面的例子是非常简单的，但是我希望他们能展示编译期与运行期类型检查的不同。 关键在于：
 
-*   The static type checker runs at compile time, operates on the source code and uses type annotations and constraints for type checking
-*   The dynamic type checker uses run time information and casting for type checking
-*   **We cannot cast a an argument dynamically, in order call a function that has generic constraints**.
+*   静态类型检查在编译期工作，依靠类型声明和类型约束对源码进行类型检查。
+*   动态类型检查依靠运行时的信息和转换进行类型检查。
+*   **我们不能动态转换一个参数去调用一个以泛型约束为参的函数**.
 
-Is there potential for adding support for this to Swift? I think we would need the ability to dynamically create & use a constrained metatype. One could imagine a syntax that looks somewhat like this:
+Swift 是否有可能会添加这样的支持呢？ 我认为这种动态地创建和使用约束元类型的能力需要的。
+这种语法可能会像这样：
 
     if let <T: HumanType, HasName> value = unknownData as? T {
     	printHumanName(value)
     }
 
-I know too little about the Swift compiler to know if this is feasible at all. I would assume that the relative cost of implementing this is huge, compared to the benefits it would provide to a very small part of the average Swift codebase.
+关于 Swift 编译器我了解的太少以至于我并不知道这样是否可行。 可以预见的是这样的改进相比给 Swift 代码库的微小益处而言，修改关联代码重新实现的代价将可能非常巨大。
 
-However, according to this [Stack Overflow answer](http://stackoverflow.com/questions/28124684/swift-check-if-generic-type-conforms-to-protocol) by [David Smith](https://twitter.com/Catfish_Man), Swift currently checks generic constraints at run time (unless the compiler generates specialized copies of a function for performance optimizations). This means the information about generic constraints is still available at run time and, at least in theory, the idea of dynamically created constrained metatypes might be possible.
+虽然如此, 根据这篇 [David Smith](https://twitter.com/Catfish_Man) 在 [Stack Overflow 的回答](http://stackoverflow.com/questions/28124684/swift-check-if-generic-type-conforms-to-protocol)， Swift 现今已可以在运行期检查泛型约束（除非编译器为一个函数生成的性能优化的副本）. 这意味着泛型约束的信息在运行期是可用的，并且至少在理论上来说动态创建元类型约束是可行的。
 
-For now it is helpful to understand the limitations of mixing static and dynamic type checking and to be aware of the possible workarounds.
+现在，我们就更好理解结合动态与静态类型检查的局限性和可行的解决方法。
 
-I cannot finish this post without a fabulous quote from [@AirspeedSwift](https://twitter.com/AirspeedSwift):
-
+没有 [@AirspeedSwift](https://twitter.com/AirspeedSwift) 的优秀引文我难以完成这篇文章。
