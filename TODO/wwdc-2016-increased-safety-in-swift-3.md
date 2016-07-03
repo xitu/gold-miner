@@ -24,7 +24,7 @@ Matt Mathias](https://www.bignerdranch.com/about-us/nerds/matt-mathias/)
 
 ~~~
 
-在 **Swift3.0** 中，苹果改进了 **ImplicitlyUnwrappedOptional** ，使其相对于以前变得更为安全。这里我们不禁想问，苹果到底在 **Swift3.0** 对 **ImplicitlyUnwrappedOptional** 做了哪些改进，从而使 **Swift** 变得更为安全了呢。答案在于，苹果在编译器对于 **ImplicitlyUnwrappedOptional** 进行类型推导的过程中进行了优化。
+在 **Swift 3.0** 中，苹果改进了 **ImplicitlyUnwrappedOptional** ，使其相对于以前变得更为安全。这里我们不禁想问，苹果到底在 **Swift 3.0** 对 **ImplicitlyUnwrappedOptional** 做了哪些改进，从而使 **Swift** 变得更为安全了呢。答案在于，苹果在编译器对于 **ImplicitlyUnwrappedOptional** 进行类型推导的过程中进行了优化。
 
 ## 在 **Swift 2.x** 中的使用方式
 
@@ -47,13 +47,13 @@ Matt Mathias](https://www.bignerdranch.com/about-us/nerds/matt-mathias/)
 ~~~
 
 
-这里我们创建了一个初始化过程有缺陷的结构体 **Person**。如果我们在初始化中不给实例提供 **first name** 和 **last name** 的值的话，那么初始化将会失败。
+这里我们创建了一个初始化方法有缺陷的结构体 **Person**。如果我们在初始化中不给实例提供 **first name** 和 **last name** 的值的话，那么初始化将会失败。
 
-The initializer is declared with a `!` and not a `?`: `init!(firstName: String, lastName: String)`. We use `init!` here simply to make a point of how `ImplicitlyUnwrappedOptional`s work in Swift 2.x vs. Swift 3.0\. `init!` should be used sparingly regardless of the version of Swift you are using. Generally speaking, you’ll want to use `init!` when you want accesses to the resulting instance to lead to a crash if the instance is nil.
+在这里 **init!(firstName: String, lastName: String)**，开发者通过使用 **!** 而不是 **?** 来进行初始化的。不同于 **Swift 3.0**,在 **Swift 2.X** 中，我们用过利用 **init!** 来使用 **ImplicitlyUnwrappedOptional** 。不管我们所使用的 **Swift** 版本如何，我们应该谨慎的使用 **init!**。一般而言，如果你能允许在引用生成的为nil的实例时所产生的异常，那么你可以使用 **init!**。为如果对应的实例为 **nil** 的时候，你使用 **init!** 会导致程序的崩溃。
 
-In Swift 2.x, this initializer would yield an `ImplicitlyUnwrappedOptional<Person>`. If the initializer failed, then accessing the underlying `Person` instance would generate a crash.
+在 **Swift 2.X** 中，这个初始化方法将会生成一个 **ImplicitlyUnwrappedOptional<Person>** 。如果初始化失败，所有基于 **Person** 的实例将会产生异常。
 
-For example, in Swift 2.x the following would crash:
+比如，在 **Swift 2.x** 里，下面这段代码在运行时将崩溃。
 
 
 ~~~Swift
@@ -64,11 +64,11 @@ For example, in Swift 2.x the following would crash:
 
 ~~~
 
-Notice that we don’t have to use optional binding or chaining to try to access a value on `nilPerson` because it was implicitly unwrapped by the initializer.
+请注意，由于在初始化器中存在着隐式解包，因此我们没有必要使用类型绑定（译者注1： **optional binding** ）或者是自判断链接（译者注2： **optional chaining** ）来保证 **nilPerson** 能被正常的使用。
 
-## The New Way: Swift 3.0
+## 在 **Swift 3.0** 里的新姿势
 
-Things are different with Swift 3.0\. The `!` in `init!` indicates that the initialization process can fail, and if it doesn’t, that the resulting instance may be forced (i.e., implicitly unwrapped). Unlike in Swift 2.x, instances resulting from `init!` are `Optional`s and not `ImplicitlyUnwrappedOptional`s. That means you will have to employ optional binding or chaining to access the underlying value.
+在 **Swift 3.0** 中事情发生了一点微小的变化。The `!` in `init!` indicates that the initialization process can fail, and if it doesn’t, that the resulting instance may be forced (i.e., implicitly unwrapped). Unlike in Swift 2.x, instances resulting from `init!` are `Optional`s and not `ImplicitlyUnwrappedOptional`s. That means you will have to employ optional binding or chaining to access the underlying value.
 
 ~~~Swift
 
