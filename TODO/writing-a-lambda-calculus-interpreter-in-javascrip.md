@@ -23,6 +23,7 @@
 
 ## 1\. 语法
 
+
 在介绍 Parser 之前，我们要做的第一件事情是了解一下所要 Parser 的语言的语法，这里是 [BNF](https://en.wikipedia.org/wiki/Backus–Naur_Form) ：
 
     Term ::= Application
