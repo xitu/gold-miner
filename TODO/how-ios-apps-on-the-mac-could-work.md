@@ -1,3 +1,11 @@
+---
+layout: post
+title: 假如 Mac 上也有 iOS 应用？
+author: Taffy
+category: tech
+description: ”Back to the mac“ 是苹果在2010年的一项活动，那次发布了Mac OS X Lion，并且介绍了苹果如何期望把 Mac 平台和 iOS 平台统一起来。本文在图片里的标题也是 “Back to the mac”，这篇文章暗示了苹果要统一 watchOS, iOS, tvOS 和 macOS
+---
+
 >* 原文链接 : [How iOS Apps on the Mac Could Work](https://medium.com/@sandofsky/how-ios-apps-on-the-mac-could-work-13aa32a2647b)
 * 原文作者 : [Ben Sandofsky](https://medium.com/@sandofsky)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
@@ -16,13 +24,15 @@ Basecamp 是这么做的，Wordpress 是这么做的，甚至连 Mac App Store �
 
 如果说，还要什么别的原因的话，那就是：这也不仅仅是一个“编译到OS X”的简单工作，你需要雇佣专门的 OS X 开发者，且维护一个新的代码库。
 
-这并不是说大公司抠门。比如 Sketch ，他们也一直没有开发 iOS 的版本，见 [citing risk](https://www.designernews.co/comments/173706。
+这并不是说大公司抠门。比如 Sketch ，他们也一直没有开发 iOS 的版本，见 [引用](https://www.designernews.co/comments/173706)。
+
+> We cannot port Sketch to the iPad if we have no reasonable expectation of earning back on our investment. Maintaining an application on two different platforms and provide one of them for a 10th of it’s value won’t work, and iPad volumes are low enough to disqualify the “make it up in volume” argument.
 
 > 我们不会把 Sketch 移植到 iPad 上面，除非我们有合理期望去赢回我们的投资。去维护一个两个不同的平台，并在其中一个上面付出超过其价值10倍的投入是不值得的，而 iPad 上面的流量少到我们根本不必参与到“尽可能扩大用户”的争论里。
 
 他们认为一个很有效的规避风险的办法就是从试用开始，而我认为还有一个选择就是使得支持 iPad 变成一件简单的事情。你也许会问，“为什么不呢？”
 
-我就直说了：直接把 iOS 应用移植到 OS X 的体验是超级差的，你需要重新设计触摸屏的交互来适应键盘和鼠标的交互。当然也有一些例外，一部分领域的应用是不需要这么做的：假设你请 Pinterest 重新设计他们图标式的界面，他们只需要耸耸肩，然后把整个网站放在一个 webview 里就行了。
+我就直说了：直接把 iOS 应用移植到 OS X 的体验是超级差的，你需要重新设计触摸屏的交互来适应键盘和鼠标的交互。当然也有一些例外，一部分领域的应用是不需要这么做的：假设你请 Pinterest 重新设计他们全是图的界面，他们只需要耸耸肩，然后把整个网站放在一个 webview 里就行了。
 
 ### iOS 和 OS X 的不同之处
 
@@ -32,9 +42,9 @@ Basecamp 是这么做的，Wordpress 是这么做的，甚至连 Mac App Store �
 
 ![](https://cdn-images-1.medium.com/max/800/1*SJU8WmP-aHgrwlT92oCRAw.jpeg)
 
-不仅是这样，UIKit 专门为 GPU 设计了渲染加速，每一个_UIView_ 都有一个核心的动画层（layer）作支持，与 GPU 一同提供了流畅的滑动体验。
+不仅是这样，UIKit 专门为 GPU 设计了渲染加速，每一个 _UIView_ 都有一个核心的动画层（layer）作支持，与 GPU 一同提供了流畅的滑动体验。
 
-但大概是为了支持比较早的版本，这层 layer 到了 Mac 上就变成非必须的了，甚至就算你启用了这个动画层，你也会感觉到他们也是建立在_NSView_上面的。
+但大概是为了支持比较早的版本，这层 layer 到了 Mac 上就变成非必须的了，甚至就算你启用了这个动画层，你也会感觉到他们也是建立在 _NSView_ 上面的。
 
 当然也存在一些重新实现 UIKit 的的库，比如 [TwUI](https://github.com/twitter/twui) 和 [Chameleon](http://chameleonproject.org)，后者意在寻求相同的 API。理论上，你可以在不同的平台上共享 100% 的 UI 代码。但实际上，这些框架是往往是费力不讨好的，因为他们都是第三方的。
 
@@ -49,7 +59,7 @@ Basecamp 是这么做的，Wordpress 是这么做的，甚至连 Mac App Store �
 
 > tvOS 是 iOS 的一个衍生版本，包含了很多只能在 tvOS 上使用的框架。
 
-那上面也运行 UIKit，刚刚好能够_让你_重写一遍适合 TV 上的交互。
+那上面也运行 UIKit，刚刚好能够 _让你_ 重写一遍适合 TV 上的交互。
 
 #### 只用写一个包 (Bundle) 就可以了？
 
@@ -73,13 +83,13 @@ TV 上应用的交互方式和触摸屏上的方式差太多了，极有可能�
 
 在 iOS8里，苹果加上了“trait collection”和一些别的属性，允许你查看平台的细节。现在的[Interface Idiom](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIDevice_Class/index.html#//apple_ref/c/tdef/UIUserInterfaceIdiom) 属性包括了 **iPhone**, **iPad**, **TV**, or **CarPlay**。你可以查看这些惯例，看那些视图是可用的，比方说 popover 就只在 iPad 上有。
 
-理论上，你可以限制一些 Mac 的特性，比方说悬浮调色盘，到一个**Mac**惯例上。
+理论上，你可以限制一些 Mac 的特性，使其符合 **Mac** 惯例，比如浮动调色盘。
 
 #### 沙箱
 
 2011年苹果添加了 [sandboxing](https://developer.apple.com/library/mac/documentation/Security/Conceptual/AppSandboxDesignGuide/AboutAppSandbox/AboutAppSandbox.html) 到 OS X 里。理论上，你“可以”通过这个功能移植 iOS 应用到 OS X上面。
 
-#### 解决更大的屏幕和页面问题
+#### 解决更大的屏幕和页面
 
 那坐标系统呢？—— 如果你使用自动布局，就不用担心了。别的情况，你可以用相对布局来取代那些写死的坐标，就好比是 CSS 一样，其实并不是很复杂。
 
@@ -115,4 +125,4 @@ Mac 也可以做类似的事情，当窗口小于一定阙值以后，就可以�
 
 他们说，在 WWDC2016 上 OS X 会被重命名为 macOS，今年会是时候了吧。
 
-译注: "Back to the mac" 是苹果在2010年的一项活动，那次发布了Mac OS X Lion，并且介绍了苹果如何期望把 Mac 平台和 iOS 平台统一起来。本文在图片里的标题也是“Back to the mac”
+**译注: "Back to the mac" 是苹果在2010年的一项活动，那次发布了Mac OS X Lion，并且介绍了苹果如何期望把 Mac 平台和 iOS 平台统一起来。本文在图片里的标题也是“Back to the mac”**
