@@ -1,8 +1,8 @@
 >* 原文链接 : [Notifications in Android N](https://android-developers.blogspot.hk/2016/06/notifications-in-android-n.html)
 * 原文作者 : Ian Lake
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 :
-* 校对者:
+* 译者 :[DeadLion](https://github.com/DeadLion)
+* 校对者:[danke77](https://github.com/danke77)、[xcc3641](https://github.com/xcc3641)
 
 
 Android 通知往往是应用和用户之间至关重要的交互形式。为了提供更好的用户体验，Android N 在通知上做出了诸多改进：收到消息后的视觉刷新，改进对自定义视图的支持，扩展了更加实用的直接回复消息的形式，新的 `MessagingStyle`，捆绑的通知。
