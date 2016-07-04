@@ -1,11 +1,3 @@
----
-layout: post
-title: 假如 Mac 上也有 iOS 应用？
-author: Taffy
-category: tech
-description: ”Back to the mac“ 是苹果在2010年的一项活动，那次发布了Mac OS X Lion，并且介绍了苹果如何期望把 Mac 平台和 iOS 平台统一起来。本文在图片里的标题也是 “Back to the mac”，这篇文章暗示了苹果要统一 watchOS, iOS, tvOS 和 macOS
----
-
 >* 原文链接 : [How iOS Apps on the Mac Could Work](https://medium.com/@sandofsky/how-ios-apps-on-the-mac-could-work-13aa32a2647b)
 * 原文作者 : [Ben Sandofsky](https://medium.com/@sandofsky)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
