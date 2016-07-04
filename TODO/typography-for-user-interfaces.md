@@ -13,7 +13,7 @@ In 2008, browsers started eventually supporting the new CSS3 [@font-face rule](h
 
 Since my early days in the industry, I’ve grown to love type and all the little nuances that go into setting it. In this article, I want to share some of the fundamentals that I’ve learned, and hopefully help you get better at setting type for user interfaces.
 
-## The first GUIs[#](https://viljamis.com/2016/typography-for-user-interfaces/#the-first-guis "Right click to copy a link to #the-first-guis")[#](https://viljamis.com/2016/typography-for-user-interfaces/#the-first-guis "Right click to copy a link to #the-first-guis")
+## The first GUIs[#](https://viljamis.com/2016/typography-for-user-interfaces/#the-first-guis "Right click to copy a link to #the-first-guis")[#]
 
 While the history of typography dates back about [five thousand years](https://viljamis.com/2013/prototyping-responsive-typography/), we’ve had graphical user interfaces for mere four decades. One of the key turning points was in 1973, when [Xerox](https://en.wikipedia.org/wiki/Xerox) introduced [Alto](https://en.wikipedia.org/wiki/Xerox_Alto), which in essence created the foundation for today’s graphical UIs. _Alto_ was born a decade before any other GUI hit the mass market, and was seen as the future of computing.
 
