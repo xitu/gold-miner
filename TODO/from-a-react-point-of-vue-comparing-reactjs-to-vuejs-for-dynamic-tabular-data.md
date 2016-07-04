@@ -2,7 +2,7 @@
 * 原文作者 : [Max Willmott](https://engineering.footballradar.com/author/max-willmott/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [circlelove](http://github.com/circlelove)
-* 校对者:[liangbijie](http://github.com/liangbijie); [jamweak](http://github.com/jamweak)
+* 校对者:[liangbijie](http://github.com/liangbijie) , [jamweak](http://github.com/jamweak)
 
 
 
