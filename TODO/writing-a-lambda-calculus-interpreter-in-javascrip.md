@@ -43,12 +43,12 @@
 
     LPAREN: '('
     RPAREN: ')'
-    LAMBDA: 'λ' // we'll also allow using '\' for convenience
+    LAMBDA: 'λ' // 为了方便我们也可以使用 '\'
     DOT: '.'
-    LCID: /[a-z][a-zA-Z]*/ // LCID stands for LowerCase IDentifier
-                         // i.e. any string starting with a lowercase letter
+    LCID: /[a-z][a-zA-Z]*/ // LCID 代表了小写字母的标识符
+                         // 例如：任何以小写字母开头的字符串
 
-我们会有一个 `Token` 类，包含一个 `type` 属性（上面中的一个），和一个可选的 `type` 属性（例如，`LCID` 中的字符串）：.
+我们会有一个 `Token` 类，包含一个 `type` 属性（上面中的一个），和一个可选的 `value` 属性（例如，`LCID` 中的字符串）：.
 
       class Token {
       constructor(type, value) {
@@ -89,16 +89,15 @@ Lexer 中 Token 的构造部分不是很有趣：只是一个很大的 switch �
 *   `match(Token)`：断言 `next` 是 true, 并且 `skip`；
 *   `token(Token)`：断言 `next` 是 true, 并且将其返回。
 
-好了，现在继续进行 `Parser`！
+好了，现在继续进行 `Parser` ！
 
 ## 4\. Parser
 
-Parser 是。我们
-The parser is basically a copy of the grammar. We create one method for each production rule, based on its name (in the left-hand side of the `::=`) and follow the right-hand side: If it’s an all caps word, it means it’s a _terminal_ (i.e. a token), and we consume it from the lexer. If it’s a capitalised word, it’s another production, so we call the method for it. When we find an `|` (reads `or`) we have to decide which side to use, we’ll do that based which of the sides match the tokens we have.
+Parser 基本上是语法的拷贝。我们基于产生式规则的名字（ `::=` 左边的部分）给每个产生式规则创建了一个方法， `::=` 右边则遵循以下规则：如果字母都是大写的，那么就是一个_终结符_（例如：一个 Token ），并且我们可以使用 Lexer 处理它；如果右边是一个（首字母）大写的单词，那么则是另一个产生式，因此我们可以给它调用方法。当我们看到一个 `|` （读作 `or`）时，我们需要决定去使用哪边，具体取决于哪边匹配 Token 。
 
-There’s only one tricky bit about this grammar: hand written parsers are usually [recursive descent](https://en.wikipedia.org/wiki/Recursive_descent_parser) (ours will be), and they can’t handle left recursion. You might have noticed that the right-hand side of the `Application` production, contains `Application` itself in the first position, so if we just follow the procedure described in the previous paragraph, where we call all the productions we find, we’ll have an infinite recursion.
+语法中只有一个棘手的部分，手写的 Parser 通常是[递归下降](https://en.wikipedia.org/wiki/Recursive_descent_parser)（我们的经常是），并且它们无法处理左递归。你可能注意到 `Application` 产生式的右边，在第一个位置包含了 `Application` 本身，所以我们只是遵循上一段提到的产生规则的话，当我们调用看到的所有产生式时将会导致无限递归。
 
-Luckily left recursions can be removed with one simple trick:
+幸运的是左递归可以用以下技巧去掉：
 
     Application ::= Atom Application'
 
@@ -109,7 +108,7 @@ Luckily left recursions can be removed with one simple trick:
 
 在 Parser 之后，我们需要以某种方式存储信息，因此我们将创造一个 [抽象语法树(AST)](https://en.wikipedia.org/wiki/Abstract_syntax_tree)。λ演算的语法树非常简单，只需要三种节点：Abstraction 、 Application 和 Identifier 。
 
-_Abstraction_ 包含 param 和 body 属性， _Application_ holds the left- and right-hand side of the application and the _Identifier_ is a leaf node, that only holds the string representation of the identifier itself.
+_Abstraction_ 包含 param 和 body 属性， _Application_ 包含 左右两个部分， _Identifier_ 是一个左节点，仅仅包含它本身的字符串形式。
 
 这里是 AST 简单的一个简单的程序：
 
@@ -173,16 +172,15 @@ _Abstraction_ 包含 param 和 body 属性， _Application_ holds the left- and 
       }
     }
 
-## 5\. 评估
+## 5\. 求值
 
-现在我们可以使用 AST 来评估程序，但是为了知道解释器长什么样子，我们首先许需要关注一下λ演算的评估规则。
+现在我们可以使用 AST 来求值了，但是为了知道解释器的具体细节，我们首先许需要关注一下λ演算的求值规则。
 
-### 5.1\. 评估规则
+### 5.1\. 求值规则
 
-首先我们需要定义
-First we need to define what are our terms (which can be inferred from the grammar) and what are our values.
+首先我们需要定义什么是 Term （这可以从语法中猜测出来）以及什么是 Value 。
 
-Our terms are:
+Term 就是:
 
     t1 t2   # Application
 
@@ -190,11 +188,11 @@ Our terms are:
 
     x       # Identifier
 
-是的，这些跟 AST 中的节点很像，但是这些中的哪些是值？
+是的，这些跟 AST 中的节点很像，但是这些中的哪些是 Value ？
 
-Values are terms that are in its final form, i.e. they can’t be evaluated any further. In this case, the only terms that are also values are abstractions (you can’t evaluated a function unless it’s called).
+Value 就是有着最终形态的 Term ，例如：它们不能再被求值了。这种情况下，唯一的 Term 同时也是 Value 是 Abstraction （除非它被调用，否则不会求值）。
 
-实际的评估规则如下：
+实际的求值规则如下：
 
 
 
@@ -212,17 +210,17 @@ Values are terms that are in its final form, i.e. they can’t be evaluated any 
 
 
 
-Here’s how we can read each rule:
+这里是每条规则的介绍：
 
-1.  If `t1` is a term that evaluates to `t1'`, `t1 t2` will evaluate to `t1' t2`. i.e. the left-hand side of an application is evaluated first.
-2.  If `t2` is a term that evaluates to `t2'`, `v1 t2` will evaluate to `v1 t2'`. Notice that here the left-hand side is `v1` instead of `t1`, that means that it’s a value, and can’t be evaluated any further, i.e. only when we’re done with the left-hand side we’ll evaluate the right one.
-3.  The result of application `(λx. t12) v2` is the same as effectively replacing all occurrences of `x` in `t12` with `v2`. Notice that both sides have to be values before evaluating an application.
+1.  如果 `t1` 是一个求 `t1'` 值的 Term ，`t1 t2` 就是求 `t1' t2` 的值，例如：Application 的左边会先求值。
+2.  如果 `t2` 是一个求 `t2'` 值的 Term ，`v1 t2` 就是求 `v1 t2'` 的值，注意这里左边是 `v1` 而不是 `t1` 意味着它是一个 Value ，不能再被求值了，例如：只有左边求值完之后才能给右边求值。
+3.  Application `(λx. t12) v2` 的结果，和把 `t12` 中所有出现 `x` 的地方替换为 `v2` 的结果是等效的。注意在 Application 求值前两边都变成了 Value 。
 
 ### 5.2\. 解释器
 
-解释器是遵循评估规则把程序分解成值的部分。现在我们需要做的是把上面的规则翻译成 JavaScript ：
+解释器是遵循求值规则把程序分解成 Value 的部分。现在我们需要做的是把上面的规则翻译成 JavaScript ：
 
-首先，我们将定义简单的助手方法来告诉我们什么时候 node 是一个值：
+首先，我们将定义简单的助手方法来告诉我们什么时候节点是一个 Value ：
 
 <figure>
 
@@ -230,10 +228,9 @@ Here’s how we can read each rule:
 
 </figure>
 
-规则就是：如果是一个 Abstraction ，它就是一个值，否则就不是。
+规则就是：如果是一个 Abstraction ，它就是一个 Value ，否则就不是。
 
-这里是解释器的一个片段
-And here’s the bit of the interpreter that matters:
+这里是解释器的一个片段 ：
 
     const eval = (ast, context={}) => {
       while (true) {
@@ -254,14 +251,14 @@ And here’s the bit of the interpreter that matters:
       }
     };
 
-It’s a little bit dense, but if you squeeze your eyes really hard, you can see the encoded evaluation rules:
+这有一些复杂，但是如果你凝神细看的话，你能看到编码后的求值规则：
 
-*   First we check if it’s an application: if it is, we can evaluate it.
-    *   If both sides of the abstraction are values, we can simple replace all the ocurrences of `x` with the value being applied; (3)
-    *   Otherwise, if the left-hand side is value, we evaluate right-hand side of the application; (2)
-    *   If none of the above applies, we just evaluate the left-hand side of the application. (1)
-*   Now, if the next node is an identifier, we simply replace it with the value bound to the variable it represents.
-*   Lastly, if no rules applies to the AST, that means that it’s already a value, and then we return it.
+*   首先，我们检查它是否是 Application ，如果是，就可以求值。
+    *   如果 Abstraction 两边都是 Value ，我们可以简单地把所有出现 `x` 的地方替换为将要被使用的 Value ；(3)
+    *   另外，如果左边是 Value ， 我们给 Application 的右边求值；(2)
+    *   如果以上都没用到，那么我们给 Application 的左边求值；(1)
+*   现在，如果下一个节点是 Identifier ，我们可以简单地用 Value 来替代。
+*   最后，如果没有规则适用 AST ，意味着它已经是一个 Value 了，仅仅返回就行。
 
 The other thing worth noting is the context. The context holds the bindings from names to values (AST nodes), e.g. when you call a function, you’re binding the argument you’re passing to the variable that the function expects, and then evaluating the function’s body.
 
@@ -283,7 +280,7 @@ At this point we’re finished with the right-hand side, as it’s a value, and 
 
 ## 6\. 输出
 
-现在我们基本做完了：我们已经可以把程序拆解为值，现在我们需要做的事用一种方式来表现值。
+现在我们基本做完了：我们已经可以把程序拆解为 Value ，现在我们需要做的事用一种方式来表现 Value 。
 
 一种简单的方式是在每个 AST 节点上都加上 `toString` 方法：
 
@@ -323,5 +320,5 @@ At this point we’re finished with the right-hand side, as it’s a value, and 
 
 #### 结束语
 
-非常感谢阅读，并且期待反馈 😊
+非常感谢阅读，并且期待反馈:D
 
