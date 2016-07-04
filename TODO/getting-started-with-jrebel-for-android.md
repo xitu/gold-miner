@@ -1,45 +1,44 @@
 >* 原文链接 : [Getting started with JRebel for Android](https://medium.com/@shelajev/getting-started-with-jrebel-for-android-426633cde736#.dtldka9ua)
 * 原文作者 : [Oleg Šelajev](https://medium.com/@shelajev)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者:
+* 译者 : [edvardhua](https://github.com/edvardHua)
+* 校对者: [DeadLion](https://github.com/DeadLion), [circlelove](https://github.com/circlelove)
 
+只要你的项目相对较小，开发Android应用的用户体验还是很棒的。然而随着项目功能的增加，你会发现构建项目的时间也会随着增长。这种情况会导致你的大部分时间都花在如何更快的构建项目，而不是为应用增加更多的价值。
 
-Android development is great so long as your project stays relatively small. As the functionality of your project grows you’ll find that your build times follow suit. This puts you in the position where you spend most of your time figuring how to make your build run faster rather than adding more value to your actual app.
+网上有很多教你如何加快Gradle构建速度的教程。有一些很好的文章，譬如“[Making Gradle builds faster](http://zeroturnaround.com/rebellabs/making-gradle-builds-faster/)”。 通过这些方法我们可以节省几秒甚至几分钟的构建时间，但是仍然存在一些构建上的瓶颈。举个例子，基于注释的依赖注入使得项目架构清晰，但是这对项目构建时间是有很大影响的。
 
-The internet is packed full with suggestions of how to squeeze the most out of your Gradle builds. There are some great posts on this, including, “[Making Gradle builds faster](http://zeroturnaround.com/rebellabs/making-gradle-builds-faster/)”. Although you can win back seconds and maybe even minutes, yet some bottlenecks will still remain in your build. For example having annotation based dependency injections are nice to have for a cleaner architecture, but it has an impact on your build time.
+但是你可以尝试一下使用[JRebel for Android](https://zeroturnaround.com/software/jrebel-for-android/?utm_source=medium&utm_medium=getting-started-jra-post&utm_campaign=medium)。每次改动代码后不需要重新安装新的 apk。而是在安装完一次应用后，通过增量包传递到设备或者模拟器上，并且能够在应用运行时进行更新。这个想法（热部署）已经在JRebel的java开发工具上面使用超过8年的时间。
 
-One thing you can try is [JRebel for Android](https://zeroturnaround.com/software/jrebel-for-android/?utm_source=medium&utm_medium=getting-started-jra-post&utm_campaign=medium). It takes a different approach by not introducing a new apk after each change. Instead apk gets installed once and delta packages are shipped over to the device or emulator and are applied during runtime. This logic is nothing new and has been present in the Java EE/SE with JRebel for more than 8 years.
+拿Google IO 2015 app来看看如何使用JRebel for Android，以及它能为我们节省多少宝贵的时间。
 
-Let’s take the Google IO 2015 app and see how the JRebel for Android setup works as well as how it can save you valuable time.
+### 安装 JRebel for Android
 
-### Installing JRebel for Android
-
-[JRebel for Android](https://zeroturnaround.com/software/jrebel-for-android/?utm_source=medium&utm_medium=getting-started-jra-post&utm_campaign=medium) is available as a plugin for Android Studio. You can download it directly from the IDE by navigating to _Plugins > Browse Repositories_ and searching for “JRebel for Android”.
+[JRebel for Android](https://zeroturnaround.com/software/jrebel-for-android/?utm_source=medium&utm_medium=getting-started-jra-post&utm_campaign=medium) 是一个Android Studio的插件，你可以直接点击IDE的 _Plugins > Browse Repositories_ 键入“JRebel for Android”来搜索和安装插件。
 
 ![](http://ww4.sinaimg.cn/large/a490147fgw1f3y7px3ajhj20hs0fzmzm.jpg)
 
-If for some reason you can’t access the public maven repositories you can download it directly from the JetBrains homepage. After which you need to install via the _Plugins > Install plugin from disk…_ route.
+如果因为某些原因你无法访问 maven 的公有仓库，你可以直接在 JetBrians 官网下载，然后通过 _Plugins > Install plugin from disk…_ 来安装插件。
 
-Once the plugin is installed, you’ll need to restart Android Studio, as usual after a plugin installation. After restart, you need to provide your name and email to get your free 21 day trial of JRebel for Android.
+当你安装完插件后，你需要重启Android Studio，在重启之后，你需要提供你的姓名和邮箱来得到JRebel for Android的21天免费使用。
 
-### Running my application with JRebel for Android
+### 用 JRebel for Android 来运行你的应用程序
 
-Now the plugin is installed, you just need to click the _Run with JRebel for Android_ button, which will always build a new apk if changes are detected between the previous installation. _Run with JRebel for Android_ is the same as the _Run_ action in Android Studio. So you’ll be faced with the same run flow, where you first need to pick a device and then apk is built and installed on that device etc.
+安装完插件后，只需要点击 _Run with JRebel for Android_ 按钮，它会检测这次代码与上次是否有改动，然后决定是否构建一个新的apk。_Run with JRebel for Android_ 其实和Android Studio中的 _Run_ 操作是一样的。所以有同样的运行流程，首先需要你选择一个设备，然后再构建apk安装到那台设备上去。
 
-To update your code and resources, JRebel for Android needs to process the project’s classes and embed an agent to the application. JRebel for Android will only run with a debuggable flavor, so your release apk is never affected. In addition no changes are required to your project. For a detailed overview of how JRebel for Android works, read this [under the hood post](http://zeroturnaround.com/rebellabs/under-the-hood-of-jrebel-for-android/).
+为了更新代码和资源，JRebel for Android 需要处理项目 classes，并嵌入一个代理应用。JRebel for Android只会运行在调试模式下，所以对于正式发布的版本来说是没有影响的。另外，使用该插件也不需要你在项目中做任何改动。想要知道更多JRebel for Android的细节，请看[under the hood post](http://zeroturnaround.com/rebellabs/under-the-hood-of-jrebel-for-android/)。（译者注：InfoQ的一篇介绍JRebel for Android的[文章](http://www.infoq.com/cn/news/2016/01/jrebel-for-android-stable?appinstall=0)写的不错。）
 
-So pressing _Run with JRebel for Android_ on the Google IO 2015 application would result in the following:
+所以在Google IO 2015应用上点击 _Run with JRebel for Android_ 将会得到如下的结果：
 
 ![](http://ww1.sinaimg.cn/large/a490147fgw1f3y7qkkn2jj20hs0b60ud.jpg)
 
-### Applying changes with JRebel for Android
+### 在JRebel for Android应用代码修改
 
-The _Apply changes_ button is the key when using JRebel for Android, it will do the least amount of work possible to make your changes and updates visible on your device. If you didn’t use _Run with JRebel for Android_ to install the application yet, _Apply changes_ will take care of the installation on your behalf.
+ _Apply changes_ 按钮是使用 JRebel for Android的关键，它将会做最少的工作来将你代码的改动更新到你的设备上去。如果你没有使用 _Run with JRebel for Android_ 来部署应用的话，_Apply changes_ 将会帮你做这部分的工作。
 
-Now let’s make a simple functional change to the application. For each session taking present in GoogleIO you can send feedback. We’ll add one additional element to the question, an input for your name and we’ll use the value from that input in a Toast thanking you for providing feedback.
+现在让我们在应用上做一个简单的功能改动。针对于GoogleIO中每一个举行的子会场你都可以发送反馈问卷，我们给这个问卷添加多一个输入框输入你的姓名，当你完成反馈的时候会弹出Toast来感谢你的反馈。
 
-**Step 1:** Add an EditText component to the _session_feedback_fragment.xml_
+**步骤一：** 在  _session_feedback_fragment.xml_ 中添加一个EditTex组件。
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -52,7 +51,7 @@ Now let’s make a simple functional change to the application. For each session
 
 ![](http://ww3.sinaimg.cn/large/a490147fgw1f3y7qzqpp4j20ja0zaq5o.jpg)
 
-**Step 2:** Fix the paddings
+**步骤2：** 调整间距
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -66,7 +65,7 @@ Now let’s make a simple functional change to the application. For each session
 
 ![](http://ww1.sinaimg.cn/large/a490147fgw1f3y7rcrfolj20jk0ziacq.jpg)
 
-**Step 3:** Add a hint
+**步骤3：** 添加提示
 
     <EditText
         android:id="@+id/name_input"
@@ -76,11 +75,11 @@ Now let’s make a simple functional change to the application. For each session
 
 ![](http://ww1.sinaimg.cn/large/a490147fgw1f3y7romijnj20j80zgdij.jpg)
 
-During all of these changes we have remained on the same screen on our device throughout. After each _Apply change_ [Activity.recreate()](https://developer.android.com/reference/android/app/Activity.html#recreate%28%29) is invoked by JRebel for Android. So your top most activity will go through the same callbacks as you would if you rotated your device from portrait to landscape, for example.
+这些改动现在都是在同一个页面上，每一次按下 _Apply change_  按钮后，JRebel for Android都会调用[Activity.recreate()](https://developer.android.com/reference/android/app/Activity.html#recreate%28%29)。在最顶部的activity将会同样的回调方法，就像设备从纵向切换到横向那样。
 
-So far we’ve only performed resource changes, so let’s change some Java code as well.
+到目前为止我们都还只是改动resource文件，下面我们来改动Java代码。
 
-**Step 4:** Show a toast in _SessionFeedbackFragment.sumbitFeedback()_
+**步骤4：** 在 _SessionFeedbackFragment.sumbitFeedback()_ 方法中弹出Toast
 
     EditText nameInput = (EditText) 
 
@@ -92,18 +91,17 @@ So far we’ve only performed resource changes, so let’s change some Java code
 
 ![](http://ww4.sinaimg.cn/large/a490147fgw1f3y7s07qioj20je0zi0wr.jpg)
 
-### Application restart vs Activity restart
+### 应用重启动 vs Activity重启动
 
-Not all changes will trigger an [Activity.recreate()](https://developer.android.com/reference/android/app/Activity.html#recreate%28%29) invocation. Should you change something in the AndroidManifest, a new apk has to be built and an incremental install will be performed. In this case the application will be restarted. Application restart will also be done if you replace a superclass or change interfaces that the class is implementing. Here is a full breakdown of activity vs application restart:
+并不是所有的改动都会触发调用[Activity.recreate()](https://developer.android.com/reference/android/app/Activity.html#recreate%28%29)的。如果你在AndroidManifest改动了一些内容，一个新的 apk 将会被构建并增加安装。在这种情况下，应用将会重新启动。或者你替换或改动了已经被实现的superclass或者interfaces的时候也会导致应用重启动。下面有一份完整的对照表：
 
 ![](http://ww1.sinaimg.cn/large/a490147fgw1f3y7sb4pmdj20gq07kabk.jpg)
 
-### Why should I try JRebel for Android?
+### 为什么我要尝试使用JRebel for Android
 
-There are loads of reasons! Here are some of the most persuasive reasons as to why you should give it a go:
+下面我列出了最有说服力的理由，来让你使用它。
 
-*   Reduce the time it takes to see your changes on the device
-*   Polishing UI and getting that pixel perfect result no longer takes hours because of long build times
-*   No need to change anything in your project to make JRebel for Android work
-*   Use debugger and update code and resources at the same time! That’s right [JRebel for Android](https://zeroturnaround.com/software/jrebel-for-android/?utm_source=medium&utm_medium=getting-started-jra-post&utm_campaign=medium) comes with full debugger support!
-
+*   可以快速看到自己代码改动的效果。
+*   可以有时间打磨素完美的UI，而不用浪费时间在构建上。
+*   不需要在项目中做任何改动来支持 JRebel for Android。
+*   在调试程序的同时还能更新代码和资源文件。没错，[JRebel for Android](https://zeroturnaround.com/software/jrebel-for-android/?utm_source=medium&utm_medium=getting-started-jra-post&utm_campaign=medium)支持调试器的全部特性。
