@@ -178,7 +178,7 @@ _Abstraction_ 包含 param 和 body 属性， _Application_ 包含 左右两个�
 
 ### 5.1\. 求值规则
 
-首先我们需要定义什么是 Term （这可以从语法中猜测出来）以及什么是 Value 。
+首先我们需要定义什么是 Term （这可以从语法中猜测出来）以及什么是值。
 
 Term 就是:
 
@@ -188,9 +188,9 @@ Term 就是:
 
     x       # Identifier
 
-是的，这些跟 AST 中的节点很像，但是这些中的哪些是 Value ？
+是的，这些跟 AST 中的节点很像，但是这些中的哪些是值？
 
-Value 就是有着最终形态的 Term ，例如：它们不能再被求值了。这种情况下，唯一的 Term 同时也是 Value 是 Abstraction （除非它被调用，否则不会求值）。
+值就是有着最终形态的 Term ，例如：它们不能再被求值了。这种情况下，唯一的 Term 同时也是值的是 Abstraction （除非它被调用，否则不会求值）。
 
 实际的求值规则如下：
 
@@ -213,14 +213,14 @@ Value 就是有着最终形态的 Term ，例如：它们不能再被求值了�
 这里是每条规则的介绍：
 
 1.  如果 `t1` 是一个求 `t1'` 值的 Term ，`t1 t2` 就是求 `t1' t2` 的值，例如：Application 的左边会先求值。
-2.  如果 `t2` 是一个求 `t2'` 值的 Term ，`v1 t2` 就是求 `v1 t2'` 的值，注意这里左边是 `v1` 而不是 `t1` 意味着它是一个 Value ，不能再被求值了，例如：只有左边求值完之后才能给右边求值。
-3.  Application `(λx. t12) v2` 的结果，和把 `t12` 中所有出现 `x` 的地方替换为 `v2` 的结果是等效的。注意在 Application 求值前两边都变成了 Value 。
+2.  如果 `t2` 是一个求 `t2'` 值的 Term ，`v1 t2` 就是求 `v1 t2'` 的值，注意这里左边是 `v1` 而不是 `t1` 意味着它是一个值，不能再被求值了，例如：只有左边求值完之后才能给右边求值。
+3.  Application `(λx. t12) v2` 的结果，和把 `t12` 中所有出现 `x` 的地方替换为 `v2` 的结果是等效的。注意在 Application 求值前两边都变成了值。
 
 ### 5.2\. 解释器
 
-解释器是遵循求值规则把程序分解成 Value 的部分。现在我们需要做的是把上面的规则翻译成 JavaScript ：
+解释器是遵循求值规则把程序分解成值的部分。现在我们需要做的是把上面的规则翻译成 JavaScript ：
 
-首先，我们将定义简单的助手方法来告诉我们什么时候节点是一个 Value ：
+首先，我们将定义简单的助手方法来告诉我们什么时候节点是一个值：
 
 <figure>
 
@@ -228,7 +228,7 @@ Value 就是有着最终形态的 Term ，例如：它们不能再被求值了�
 
 </figure>
 
-规则就是：如果是一个 Abstraction ，它就是一个 Value ，否则就不是。
+规则就是：如果是一个 Abstraction ，它就是一个值，否则就不是。
 
 这里是解释器的一个片段 ：
 
@@ -254,33 +254,32 @@ Value 就是有着最终形态的 Term ，例如：它们不能再被求值了�
 这有一些复杂，但是如果你凝神细看的话，你能看到编码后的求值规则：
 
 *   首先，我们检查它是否是 Application ，如果是，就可以求值。
-    *   如果 Abstraction 两边都是 Value ，我们可以简单地把所有出现 `x` 的地方替换为将要被使用的 Value ；(3)
-    *   另外，如果左边是 Value ， 我们给 Application 的右边求值；(2)
+    *   如果 Abstraction 两边都是值，我们可以简单地把所有出现 `x` 的地方替换为将要被使用的值；(3)
+    *   另外，如果左边是值， 我们给 Application 的右边求值；(2)
     *   如果以上都没用到，那么我们给 Application 的左边求值；(1)
-*   现在，如果下一个节点是 Identifier ，我们可以简单地用 Value 来替代。
-*   最后，如果没有规则适用 AST ，意味着它已经是一个 Value 了，仅仅返回就行。
+*   现在，如果下一个节点是 Identifier ，我们可以简单地用值来替代。
+*   最后，如果没有规则适用 AST ，意味着它已经是一个值了，仅仅返回就行。
 
-The other thing worth noting is the context. The context holds the bindings from names to values (AST nodes), e.g. when you call a function, you’re binding the argument you’re passing to the variable that the function expects, and then evaluating the function’s body.
+另一件值得注意的是 Context ， Context 包含了名称和值之间的绑定关系（ AST 节点），例如，当你调用一个方法时，你传入了方法所期望的变量，并且用方法的主体进行了求值。
 
-Cloning the context ensures that once we have finished evaluating the right-hand side, and the variables that were bound will go out of scope, since we’re still holding onto the original context.
+克隆 Context 来确保一旦我们完成了右边的求值，限定的变量就会超出范围，因为我仍然持有着原始的 Context 。
 
-If we didn’t clone the context a binding introduced in the right-hand side of an application could leak, and be accessible in the left-hand side, which it shouldn’t. Consider the following:
-
+如果我们不克隆 Context 的话，Application 的右边绑定就会泄漏，并且可以被左边获取，这本来是不应该的。考虑下面场景：
 
 
     (λx. y) ((λy. y) (λx. x))
 
 
 
-This is clearly an invalid program: the identifier `y`, used in the body of the left-most abstraction, is unbound. But let’s look at what the evaluation would look like if we didn’t clone the context:
+这很明显是一个非法的程序：在 Abstraction 最左边使用的 Identifier `y` 没有限制。但是让我们来看看如果我们不克隆 Context 的话求得的值是什么样的：
 
-The left-hand side is already a value, so we evaluate the right-hand side. It’s an application, so it’ll bind `(λx .x)` to `y`, and evaluate the body of `(λy. y)`, which is `y` itself, so it’ll just evaluate to `(λx. x)`.
+左边已经是值了，所以我们给右边求值。它是一个 Application ，所以会绑定 `(λx .x)` 到 `y` ，并且给 `(λy. y)` 求值，其实就是 `y` 本身，所以也等价于 `(λx. x)` 。
 
-At this point we’re finished with the right-hand side, as it’s a value, and `y` has now gone out of scope, since we exited `(λy. y)`, but if we didn’t clone the context when evaluating it, we’d have mutated the original context, and the binding would leak, and `y` would have value `(λx. x)`, which would end up being, erroneously, the result of the program.
+这样就完成了右边，把它变成了值，并且 `y` 现在超出了范围，因为我们退出了 `(λy. y)` ，但是我们在求值的时候没有克隆 Context，并且绑定泄漏了，同时 `y` 将有值 `(λx. x)` ，这最终导致了错误的程序结果。
 
 ## 6\. 输出
 
-现在我们基本做完了：我们已经可以把程序拆解为 Value ，现在我们需要做的事用一种方式来表现 Value 。
+现在我们基本做完了：我们已经可以把程序拆解为值，现在我们需要做的事用一种方式来表现值。
 
 一种简单的方式是在每个 AST 节点上都加上 `toString` 方法：
 
