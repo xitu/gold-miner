@@ -16,7 +16,7 @@
 
 
 
-##第一个 GUI [#](https://viljamis.com/2016/typography-for-user-interfaces/#the-first-guis "右键来复制链接到#第一个GUIs"
+##第一个 GUI [#](https://viljamis.com/2016/typography-for-user-interfaces/#the-first-guis "右键来复制链接到#第一个GUIs"）
 
 
 当排版的历史可以追溯到大概[五千多年](https://viljamis.com/2013/prototyping-responsive-typography/)，我们的图形用户界面也有四十年的发展。一个关键转折点在1973年，当 [Xerox](https://en.wikipedia.org/wiki/Xerox) 引入了 [Alto](https://en.wikipedia.org/wiki/Xerox_Alto)，它从本质上创建了我们现代图形用户界面的基础。_Alto_ 比其他 GUI 早十年踏入市场，被视为计算机的未来。
@@ -38,7 +38,7 @@ Macintosh 的发布意味着用户排版第一次变成可以实现的事情了�
 
 更细致地检查早期的图形用户界面，我们意识到它们多数的元素是书面语。这些 GUIs 是彻底的纯文本 ——— 独立词组的罗列集合。
 
-We can make a similar observation by inspecting almost any modern interface too. Our interfaces are written, text being the interface, and typography being our main discipline.
+
 我们也可以对现代的界面进行一个类似的调查。编辑代码写我们的界面，文本界面和排版布局是我们主要的要求对象
 
 ## 文本即界面[#](https://viljamis.com/2016/typography-for-user-interfaces/#text-is-interface "右键复制链接#text-is-interface")[#]
@@ -74,11 +74,11 @@ We can make a similar observation by inspecting almost any modern interface too
 
 
 
-This results from the fact that our eyes don’t move smoothly across the text when we read longer sentences. Instead, they make discrete jumps between words, which are called [saccades](https://en.wikipedia.org/wiki/Saccade).
+
 事实上，当我们阅读长句子的时候，眼睛扫过的地方并不是以一种光滑的路线走的。相反，它们会跳跃，这称作
 ![跳视](https://viljamis.com/type-for-ui/img/saccades.svg)
 
-Saccades improve our reading capabilities and make it possible for us to skip shorter functional words completely. This is a key factor to keep in mind since our interfaces tend to have mostly isolated words. In essence, it means that we cannot rely on the effects of saccades at all.
+
 跳视提高我们的阅读能力让我们完全跳过少量意义不大的词语。这是要注意的一个关键因素，因为我们的界面大部分含有独立的词语。本质上讲，我们根本无法依赖跳视。
 
 
@@ -100,14 +100,14 @@ Saccades improve our reading capabilities and make it possible for us to skip sh
 该研究解释了不少有意思的东西。首先，它说明了线端是确认字母极为重要的部分。
 ![](http://ac-Myg6wSTV.clouddn.com/38e3c405a7cc17950e30.jpg)
 
-The image above shows which areas we pay most attention to when recognizing letters. These areas of a typeface should be designed both in a generic and familiar way and also in a way that stresses letter differentiation.
+
 上面的图表示认知字母的时候那些区域关注度最高。这些字体的这些部分应该做的既普通又能强调字母的区分度。
 
 2010年 [Sofie Beier](https://www.researchgate.net/profile/Sofie_Beier/publications) 和 [Kevin Larson](http://www.typecon.com/speakers/kevin-larson),[另一项研究](http://www.ingentaconnect.com/content/jbp/idj/2010/00000018/00000002/art00004),关注的是字母被误认的变化和频率。
 
 ![](http://ac-Myg6wSTV.clouddn.com/3f1d105d8753dc2a3b46.jpg)
 
-This study found that some variations were more legible than others, despite the letters within a font having similar size, weight and personality. The results showed that narrow letters benefit from being widened, and that [x-height characters](https://en.wikipedia.org/wiki/X-height) benefit from using more of the [ascending](https://en.wikipedia.org/wiki/Ascender_%28typography%29) and [descending area](http://www.typographydeconstructed.com/descender/).
+
 研究发现一些变种比其他的更易读，尽管字体里面带有类似的大小、高度和个性化。结果显示较窄的字母更容易被接受，[ x -字高](https://en.wikipedia.org/wiki/X-height) 的 [向上](https://en.wikipedia.org/wiki/Ascender_%28typography%29) 比 [下方区域](http://www.typographydeconstructed.com/descender/)更容易辨识。
 
 ![](http://ac-Myg6wSTV.clouddn.com/d8a68ba28736039ee717.jpg)](http://legibilityapp.com/)
@@ -116,7 +116,7 @@ This study found that some variations were more legible than others, despite the
 
 ## 在 UI 界面找什么?[#](https://viljamis.com/2016/typography-for-user-interfaces/#what-to-look-for-in-a-nbsp-ui-typeface "Right click to copy a link to #what-to-look-for-in-a-nbsp-ui-typeface")
 
-Understanding how we read and what features make letters legible gives us a better overall view on what we should look for when choosing a UI typeface. I’ve gathered 10 key things below.
+
 理解了我们的阅读方式和字母易读的特征使我们对于选择合适的 UI 界面有了一个整体的了解。下面是我收集的10点建议。
 
 ### 1\. 易读性[#](https://viljamis.com/2016/typography-for-user-interfaces/#1-legibility "Right click to copy a link to #1-legibility")
@@ -147,8 +147,8 @@ Understanding how we read and what features make letters legible gives us a bet
 
 一个 UI 字体需要有灵活性.我们为媒介设计体验,不可能控制用户的能力、内容、浏览器、屏幕尺寸、链接速度甚至输入法。
 
-The typeface we choose should support these vast contexts and work well in different sizes, devices, and on a small screen in particular. Sans serifs that are made to work at small sizes on low resolution are preferred.<sup>[[5](https://prowebtype.com/picking-ui-type/)]</sup>
-我们选择的字体应该适应相当多的语境，在不同尺寸、设备中运行良好，尤其是小屏幕的状态下。无衬线字体的设计就是为了小尺寸解决方案。
+
+我们选择的字体应该适应相当多的语境，在不同尺寸、设备中运行良好，尤其是小屏幕的状态下。无衬线字体的设计就是为了小尺寸解决方案被引用了<sup>[[5](https://prowebtype.com/picking-ui-type/)]</sup>。
 
 ![](https://viljamis.com/type-for-ui/img/flexibility3.svg)
 
@@ -160,7 +160,7 @@ X-height 意思是小写字母 “x” 的高度。你想看看大字体 [x-heig
 
 ### 5\.宽比例[#](https://viljamis.com/2016/typography-for-user-interfaces/#5-wide-proportions "Right click to copy a link to #5-wide-proportions")
 
-Proportions refer to the width of a character in relation to its height. You want to look out for a typeface with wide proportions since it helps with legibility and is easier to read in small sizes on a screen.
+
 比例指的是字符的宽高比。你想要找到较宽比例的字体，因为它的易读性好，适合屏幕上的小字阅读。
 
 ![](https://viljamis.com/type-for-ui/img/proportions.svg)<span class="desc">图片来源: [Adobe Acumin](http://acumin.typekit.com/design/)</span>
@@ -179,7 +179,7 @@ Proportions refer to the width of a character in relation to its height. You wa
 
 好的 UI 字体笔画对比较小。高对比的字体，在字号较大的时候看起来不错，可是对于屏幕上的小字来说，细笔画就容易消失了。另一方面，我们有[Arial](https://en.wikipedia.org/wiki/Arial) 还有[Helvetica](https://en.wikipedia.org/wiki/Helvetica)的字体，相当小的笔画对比让字母辨析变得困难。
 
-It’s all about finding a balance between the two. Imagine the example below as a horizontal scale. You want to aim for something that is more towards the example on the right side.
+
 一些都是为了寻找二者平衡。想像你在地平线上，你想找些更多的东西。
 
 ![](https://viljamis.com/type-for-ui/img/contrast.svg)
@@ -188,7 +188,7 @@ It’s all about finding a balance between the two. Imagine the example below a
 
 确认你选定字体支持[OpenType 特征](https://typofonderie.com/font-support/opentype-features/) 是非常重要的，因为它提供了更多的灵活性。通常包括对不同语言和 [特殊字符](https://en.wikipedia.org/wiki/List_of_Unicode_characters)的支持。
 
-For me, one of the most useful OpenType Features has been [tabular figures](https://www.fonts.com/content/learning/fontology/level-3/numbers/proportional-vs-tabular-figures), which are numerals that share a common width. You might want to use them for example when working with timers or counters, or when you have a table displaying information like IP numbers.
+
 对我而言，最有用的 Opentype 字体特征是[tabular figures](https://www.fonts.com/content/learning/fontology/level-3/numbers/proportional-vs-tabular-figures)，它是数字的，带有相同的宽度。或许做计时器的时候你会想要用到它，或者做 IP 显示表盘的时候用用会不错。
 
 ![](http://ac-Myg6wSTV.clouddn.com/4d4aaafae8af043b335e.png) <span class="desc">
