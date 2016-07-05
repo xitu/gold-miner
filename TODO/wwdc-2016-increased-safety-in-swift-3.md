@@ -68,8 +68,7 @@ Matt Mathias](https://www.bignerdranch.com/about-us/nerds/matt-mathias/)
 
 ## 在 **Swift 3.0** 里的新姿势
 
-在 **Swift 3.0** 中事情发生了一点微小的变化。The `!` in `init!` indicates that the initialization process can fail, and if it doesn’t, that the resulting instance may be forced (i.e., implicitly unwrapped). Unlike in Swift 2.x, instances resulting from `init!` are `Optional`s and not `ImplicitlyUnwrappedOptional`s. That means you will have to employ optional binding or chaining to access the underlying value.
-
+在 **Swift 3.0** 中事情发生了一点微小的变化。在 **init!** 中的 **!** 表示在在初始化过程可能会失败，如果成功初始化的话，那么这个实例将会进行隐式拆包（译者注3：implicitly unwrapped）。不同于 **Swift 2.X** ，从 **init!** 中所获得的实例是 **Optional** 而不是 **ImplicitlyUnwrappedOptional** 。这意味着你需要针对可能出现的不同的值进行绑定或链接。
 ~~~Swift
 
     // Swift 3.0
