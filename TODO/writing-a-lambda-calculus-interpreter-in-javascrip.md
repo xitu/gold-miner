@@ -2,7 +2,7 @@
 * 原文作者 : [tadeuzagallo](http://tadeuzagallo.com/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [zhangzhaoqi](https://github.com/joddiy)
-* 校对者:
+* 校对者: [jamweak](https://github.com/jamweak)
 
 
 最近，[我在推特上对λ演算非常着迷](https://twitter.com/tadeuzagallo/status/742836038264098817)，它是如此简单和强大。
@@ -13,7 +13,7 @@
 
 首先，什么是λ演算？这里是一个 [Wikipedia](https://en.wikipedia.org/wiki/Lambda_calculus) 的描述：
 
-> λ演算（英语：lambda calculus，λ-calculus）是一套在数学逻辑上针对表达式计算的形式系统，主要使用可变绑定和替换来研究函数定义、函数应用。它是一种计算的统一模型，可以被用来模拟任何单步图灵机。数学家 Alonzo Church 在20世纪30年代首次提出了这个概念作为基础数学的一个研究。
+> λ演算（英语：lambda calculus，λ-calculus）是一套在数学逻辑上针对表达式计算的形式系统，主要使用变量绑定和替换来研究函数定义、函数应用。它是一种计算的统一模型，可以被用来模拟任何单步图灵机。数学家 Alonzo Church 在20世纪30年代首次提出了这个概念作为基础数学的一个研究。
 
 一个简单的λ演算程序如下：
 
@@ -57,7 +57,7 @@
       }
     };
 
-## 3\. Lexer
+## 3\. Lexer（词法分析器）
 
 现在我们可以使用上面定义的 Token 来写一个 `Lexer` ，以此为 Parser 处理程序提供一个良好的 _API_ 。
 
@@ -108,9 +108,9 @@ Parser 基本上是语法的拷贝。我们基于产生式规则的名字（ `::
 
 在 Parser 之后，我们需要以某种方式存储信息，因此我们将创造一个 [抽象语法树(AST)](https://en.wikipedia.org/wiki/Abstract_syntax_tree)。λ演算的语法树非常简单，只需要三种节点：Abstraction 、 Application 和 Identifier 。
 
-_Abstraction_ 包含 param 和 body 属性， _Application_ 包含 左右两个部分， _Identifier_ 是一个左节点，仅仅包含它本身的字符串形式。
+_Abstraction_ 包含 param 和 body 属性， _Application_ 包含左右两个部分， _Identifier_ 是一个左节点，仅仅包含它本身的字符串形式。
 
-这里是 AST 简单的一个简单的程序：
+这里是 AST 的一个简单的程序：
 
     (λx. x) (λy. y)
 
@@ -125,7 +125,7 @@ _Abstraction_ 包含 param 和 body 属性， _Application_ 包含 左右两个�
       }
     } 
 
-### 4.2\. Parser implementation
+### 4.2\. Parser 实现
 
 现在我们有了 AST 节点，我们可以用它们去构建实际的树。这里是语法中基于产品规则的 Parser 方法。
 
@@ -262,7 +262,7 @@ Term 就是:
 
 另一件值得注意的是 Context ， Context 包含了名称和值之间的绑定关系（ AST 节点），例如，当你调用一个方法时，你传入了方法所期望的变量，并且用方法的主体进行了求值。
 
-克隆 Context 来确保一旦我们完成了右边的求值，限定的变量就会超出范围，因为我仍然持有着原始的 Context 。
+克隆 Context 来确保一旦我们完成了右边的求值，限定的变量就会超出范围，因为我们仍然持有原始的 Context 。
 
 如果我们不克隆 Context 的话，Application 的右边绑定就会泄漏，并且可以被左边获取，这本来是不应该的。考虑下面场景：
 
@@ -279,7 +279,7 @@ Term 就是:
 
 ## 6\. 输出
 
-现在我们基本做完了：我们已经可以把程序拆解为值，现在我们需要做的事用一种方式来表现值。
+现在我们基本做完了：我们已经可以把程序拆解为值，现在我们需要做的是用一种方式来表现值。
 
 一种简单的方式是在每个 AST 节点上都加上 `toString` 方法：
 
