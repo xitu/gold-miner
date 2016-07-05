@@ -14,7 +14,7 @@
 
 
 
-对于第二部分的这些测试，请访问： [https://engineering.footballradar.com/a-fairer-vue-of-react-comparing-react-to-vue-for-dynamic-tabular-data-part-2/](https://engineering.footballradar.com/a-fairer-vue-of-react-comparing-react-to-vue-for-dynamic-tabular-data-part-2/)
+对于第二部分的这些测试，请访问： [part 2 译文](https://gold.xitu.io/entry/57691d5d6be3ff006a438e09)
 
 ##### 介绍
 plish this, although we are much more experienced with React than we are with Vue.
