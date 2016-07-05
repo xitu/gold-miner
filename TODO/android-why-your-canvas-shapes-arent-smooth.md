@@ -1,50 +1,50 @@
 >* 原文链接 : [Android: Why your Canvas shapes aren’t smooth](https://medium.com/@ali.muzaffar/android-why-your-canvas-shapes-arent-smooth-aa2a3f450eb5#.p3w0sj7cf)
 * 原文作者 : [Ali Muzaffar](https://medium.com/@ali.muzaffar)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者:
+* 译者 : [Sausure](https://github.com/Sausure)
+* 校对者:[zhangzhaoqi](https://github.com/joddiy), [lovexiaov](https://github.com/lovexiaov)
 
 
-A quick Google search will show that this question has been asked on StackOverflow several times and often results in the same answer; you need to set the ANTI_ALIAS_FLAG on your Paint object. For a lot of users this does not solve their problem. Here’s why.
+通过 Google 搜索我们很快就能找到这个在 StackOverflow 中被问了很多次的问题，同时答案也经常是相同的：你需要给你的 Paint 对象设置 ANTI_ALIAS_FLAG 属性。但对于大多数人来说这并不能解决问题。下面我讲讲原因。
 
-#### Drawing shapes on Canvas
+#### 在 Canvas 上绘制
 
-When you draw on Canvas, you have two options.
+若你需要在 Canvas 上绘制，你有两种选择。
 
-*   Draw your shapes directly on canvas;
-*   Draw your shapes on a bitmap and draw the bitmap on Canvas.
+*   直接在 Canvas 上绘制。
+*   先在 Bitmap 上绘制再将 Bitmap 绘制到 Canvas 上。
 
-#### Draw your shapes directly on Canvas
+#### 直接在 Canvas 上绘制
 
-When you draw your shapes, setting the ANTI_ALIAS_FLAG on the Paint object should result in smooth shapes.
+在你绘制前，先设置 Paint 对象的 ANTI_ALIAS_FLAG 属性可以得到平滑的图形。
 
-You can set the anti-alias flag in two ways:
-
+你有两种设置 ANTI_ALIAS_FLAG 属性的方式：
+```java
     Paint p = new Paint(Paint.ANTI_ALIAS_FLAG);
-    //or
+    //或者
     Paint p = new Paint();
     p.setAntiAlias(true);
-
-I have used the code below to draw directly on Canvas.
-
+```
+然后通过下面代码直接在 Canvas 上绘制。
+```java
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         canvas.drawCircle(mLeftX + 100, mTopY + 100, 100, p);
     }
-
+```
 ![](https://cdn-images-1.medium.com/max/800/1*n4VKxX92KrpuSOmzm1LDVg.png)
 
-<figcaption>Draw directly on Canvas</figcaption>
+<figcaption>直接在 Canvas 上绘制</figcaption>
 
-As you can see, anti-alias produces a smooth edge. **This works because each time onDraw is called, the canvas is cleared and everything has to be redrawn.** When I discuss how anti-aliasing works below, you’ll see why this bit of information is important.
+正如你看到的，设置 ANTI_ALIAS_FLAG 属性可以产生平滑的边缘。**这里它能起作用是因为默认下每当 onDraw 被调用时系统先将 Canvas 清空然后重绘所有东西。**当我在下文详细讨论 ANTI_ALIAS_FLAG 的工作原理时， 你会意识到这段信息的重要性。
 
-#### Drawing a shape on a Bitmap, then draw the bitmap on Canvas
+#### 先在 Bitmap 上绘制再将 Bitmap 绘制到 Canvas 上
 
-If we need to persist the drawn image; or you need to draw transparent pixels, it is a good idea to draw your shape on a Bitmap first and then draw that Bitmap on Canvas. We can do this with the code below.
+如果你需要保存这张被绘制的图形，或者你需要绘制透明的像素，有个很好的办法是先将图形绘制到 Bitmap 上然后再将 Bitmap 绘制到 Canvas 上。下面我们通过代码来实现它。
 
-**Note:** I've initialized the Bitmap in the onDraw method which is not a great idea, however it makes reading the code snippets easier.
-
+**注意：** 在 onDraw 方法中初始化 Bitmap 并不是一个好主意，但在这里可以增加代码可读性。
+```java
     Paint p = new Paint();
     Bitmap bitmap = null;
     Canvas bitmapCanvas = null;
@@ -52,12 +52,12 @@ If we need to persist the drawn image; or you need to draw transparent pixels, i
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         if (bitmap == null) {
-            bitmap = Bitmap.createBitmap(200, 
-                                         200, 
+            bitmap = Bitmap.createBitmap(200,
+                                         200,
                                          Bitmap.Config.ARGB_8888);
             bitmapCanvas = new Canvas(bitmap);
             bitmapCanvas.drawColor(
-                           Color.TRANSPARENT, 
+                           Color.TRANSPARENT,
                            PorterDuff.Mode.CLEAR);
         }
         drawOnCanvas(bitmapCanvas);
@@ -68,45 +68,45 @@ If we need to persist the drawn image; or you need to draw transparent pixels, i
     protected void drawOnCanvas(Canvas canvas) {
         canvas.drawCircle(mLeftX + 100, mTopY + 100, 100, p);
     }
-
-The result of this approach can be seen below, the image without anti-alias is not smooth, the one with anti-alias is better, however you can still make out that the edges are rough.
+```
+此方式实现效果如下，没有设置 ANTI_ALIAS_FLAG 的图像不够平滑，而设置了该属性的更好一点，但你还是能发现它的边缘是粗糙的。
 
 ![](http://ww1.sinaimg.cn/large/a490147fgw1f3pd1icuf5j209j0i5dgd.jpg)
 
-<figcaption>Draw on a bitmap and then draw on Canvas</figcaption>
+<figcaption>先在 Bitmap 上绘制再将 Bitmap 绘制到 Canvas 上</figcaption>
 
-#### What’s wrong with the code?
+#### 上面的代码有什么错误？
 
-It’s easy to not notice the problem with the snipped of code above. You draw a circle on a bitmap and the circle is updated each time onDraw is called. In theory, you are just redrawing over the previous image. However, the answer to the problem is in how anti-aliasing works.
+我们很容易会忽视上面代码片段出现的问题。即虽然每次 onDraw 被调用时都会更新你在 Bitmap 上绘制的圆形，但理论上说，你只是在上一个图片上重绘。所以这个问题的答案是 ANTI_ALIAS_FLAG 到底是怎么工作的？
 
-#### How does anti-aliasing work?
+#### ANTI_ALIAS_FLAG 是怎么工作的？
 
-To keep the story simple, anti-aliasing works by blending the foreground and background colors to create a smoother edge. In our example, since the background color is transparent and the foreground color is red, anti aliasing essentially makes the pixels on the edge go from solid to transparent gradually. This makes the edge look smooth to the eye.
+简单来说，ANTI_ALIAS_FLAG 通过混合前景色与背景色来产生平滑的边缘。在我们的例子中，背景色是透明的而前景色是红色的，ANTI_ALIAS_FLAG 通过将边缘处像素由纯色逐步转化为透明来让边缘看起来是平滑的。
 
-So when we redraw on a bitmap, pixels will become increasingly solid and the edges become rougher. In the image below, I show what happens when the color red with 50% opacity is redraw repeatedly. As you can see, after about 3 redraws, the color is almost solid. **This is what causes the edges of your shapes to appear rough even though you have anti-alias set.**
+而当我们在 Bitmap 上**重绘**时，像素的颜色会越来越纯粹导致边缘越来越粗糙。在下面这张图片中，我们看下不断重绘 50% 透明度的红色会出现什么状况。正如你看到的，只需三次重绘，颜色就十分接近纯色了。**这就是为什么设置了 ANTI_ALIAS_FLAG 后你们图形的边缘还是十分粗糙。**
 
 ![](http://ww4.sinaimg.cn/large/a490147fgw1f3pd1zamtjj20b405ka9v.jpg)
 
-#### How do I fix this?
+#### 我该如何解决这问题？
 
-There are 2 main options.
+这里有两个选择。
 
-*   Avoid redraw.
-*   Clear your bitmap before redrawing.
+*   避免重绘。
+*   在重绘前清空你的 Bitmap。
 
-I’ve modified the code above by modifying one line to clear the bitmap before each redraw. You don’t have to clear the bitmap each time, you can draw a solid color on the bitmap if that suits your need better.
-
+下面我修改了上文的代码，添加一行代码让它在每次重绘前先清空 Bitmap。当然，如果你觉得纯色更加符合你的需求的话，你也可以不用每次都清空 Bitmap。
+```java
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         if (bitmap == null) {
-            bitmap = Bitmap.createBitmap(200, 
-                                         200, 
+            bitmap = Bitmap.createBitmap(200,
+                                         200,
                                          Bitmap.Config.ARGB_8888);
             bitmapCanvas = new Canvas(bitmap);
         }
         bitmapCanvas.drawColor(
-                  Color.TRANSPARENT, 
+                  Color.TRANSPARENT,
                   PorterDuff.Mode.CLEAR); //this line moved outside if
         drawOnCanvas(bitmapCanvas);
         canvas.drawBitmap(bitmap, mLeftX, mTopY, p);
@@ -115,19 +115,18 @@ I’ve modified the code above by modifying one line to clear the bitmap before 
     protected void drawOnCanvas(Canvas canvas) {
         canvas.drawCircle(mLeftX + 100, mTopY + 100, 100, p);
     }
-
-Now, the bitmap is cleared before we draw on it again. This results in the sharp image shown below.
+```
+现在， Bitmap 会在每次重绘前先清空。下面的图片就是代码更改后的效果。
 
 ![](http://ww4.sinaimg.cn/large/a490147fgw1f3pd2chefej208c0hmq3g.jpg)
 
-**Note:** If we don’t have to modify out bitmap often, we can simply initialize the bitmap and draw it once (in the if condition) and then in onDraw, simply draw the bitmap on Canvas. This would make our code perform better, as it would mean expensive operations like clearing all pixels and drawing the circle do not need to be performed again and again.
+**注意：** 如果不需要经常修改 Bitmap，你可以只（在 if 条件语句中）初始化并绘制 Bitmap 一次，然后在 onDraw 方法中将其绘制到 Canvas 上，这样能保证更好的性能。也意味着频繁地清空像素并绘制圆形的操作是没有必要的。
 
-#### In conclusion
+#### 总结
 
-*   Draw a bitmap first if:  
-    - You need to persist the image.  
-    - You need to draw transparent pixels.  
-    - Your shapes don’t change often and/or require time consuming operations.
-*   Use anti-aliasing to draw smooth edges.
-*   Avoid redraws on the bitmap if possible or else, clear a bitmap before redrawing.
-
+*   如需要先绘制到 Bitmap 上：  
+    - 你想保存图像。  
+    - 你想绘制透明的像素。  
+    - 你的图像不需要经常改变并且/或者需要耗时操作。
+*   通过设置 ANTI_ALIAS_FLAG 属性绘制平滑的边缘。
+*   避免在 Bitmap 上重绘，或者在重绘前先清空 Bitmap。
