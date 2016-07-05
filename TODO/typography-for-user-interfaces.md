@@ -16,7 +16,7 @@
 
 
 
-##第一个 GUI [#](https://viljamis.com/2016/typography-for-user-interfaces/#the-first-guis "右键来复制链接到#第一个GUIs"）
+##第一个 GUI [#](https://viljamis.com/2016/typography-for-user-interfaces/#the-first-guis "右键来复制链接到#第一个GUIs")
 
 
 当排版的历史可以追溯到大概[五千多年](https://viljamis.com/2013/prototyping-responsive-typography/)，我们的图形用户界面也有四十年的发展。一个关键转折点在1973年，当 [Xerox](https://en.wikipedia.org/wiki/Xerox) 引入了 [Alto](https://en.wikipedia.org/wiki/Xerox_Alto)，它从本质上创建了我们现代图形用户界面的基础。_Alto_ 比其他 GUI 早十年踏入市场，被视为计算机的未来。
