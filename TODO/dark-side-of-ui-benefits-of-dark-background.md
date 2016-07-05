@@ -2,7 +2,7 @@
 * 原文作者 : [Tubik Studio](https://medium.com/@tubikstudio)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [yangzj1992](http://qcyoung.com)
-* 校对者: [David Lin](https://github.com/wild-flame)、[Ruixi](https://github.com/Ruixi)
+* 校对者: [David Lin](https://github.com/wild-flame), [Ruixi](https://github.com/Ruixi)
 
 ![](http://ac-Myg6wSTV.clouddn.com/18dcdce02f167c38bd04.jpeg)
 
