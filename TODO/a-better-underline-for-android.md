@@ -6,7 +6,7 @@
 
 
 
-Over the past two years, I have regularly come across [articles](https://medium.com/design/crafting-link-underlines-on-medium-7c03a9274f9) and [libraries](https://eager.io/blog/smarter-link-underlines/) that attempt to improve how underline text decorations are rendered on the web. The same problem exist on Android: underline text decorations cross descenders. Compare how Android draws underlined text (top) and how it could be drawn instead (bottom):
+在过去两年里，我经常遇到一些文章Over the past two years, I have regularly come across [articles](https://medium.com/design/crafting-link-underlines-on-medium-7c03a9274f9) and [libraries](https://eager.io/blog/smarter-link-underlines/) that attempt to improve how underline text decorations are rendered on the web. The same problem exist on Android: underline text decorations cross descenders. Compare how Android draws underlined text (top) and how it could be drawn instead (bottom):
 
 ![](http://ww3.sinaimg.cn/large/a490147fgw1f5j2xgczirj20d506qmxg.jpg)
 
