@@ -144,6 +144,7 @@
 
 ## 设计
 
+* [【译】UI 的黑暗面！暗色背景的优势](https://gold.xitu.io/entry/577c9385a633bd005be7fe7a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([yangzj1992](http://www.qcyoung.com/) 翻译)
 * [如何在移动 APP 中设计输入框](http://gold.xitu.io/entry/5745af0a2e958a002db75980?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zhangjd](https://github.com/zhangjd) 翻译)
 *  [使用 Sketch 和 Pixate 构建 Material Design 原型 - 第三部分](https://gold.xitu.io/entry/576cc25f2e958a00571dfb5f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Hugo](https://github.com/xcc3641) 翻译)
 * [使用 Sketch 和 Pixate 构建 Material Design 原型 - 第二部分](http://gold.xitu.io/entry/574eb491d342d300434cec1c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([zhangzhaoqi](https://github.com/joddiy) 翻译)
