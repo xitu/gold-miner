@@ -17,7 +17,7 @@
 对于第二部分的这些测试，请访问： [较为完整的 React.js / Vue.js 的性能比较](https://gold.xitu.io/entry/57691d5d6be3ff006a438e09)
 
 ##### 介绍
-plish this, although we are much more experienced with React than we are with Vue.
+
 
 这个发布的目的是研究 [React](https://facebook.github.io/react/) 和 [Vue](https://vuejs.org/) 作为视图层的区别。选定一个带有频繁更新的数据与固定行数的嵌套表视图作为问题的场景。这很好地表现了我们在 Footbal Radar 面临的前端问题。我们不需要对 React 和 Vue 了解太多来解决这个问题，尽管相比 Vue 来说对于 React 我们已经身经百战了。
 
