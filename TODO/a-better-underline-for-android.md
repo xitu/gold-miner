@@ -1,79 +1,78 @@
 >* 原文链接 : [A better underline for Android](https://medium.com/google-developers/a-better-underline-for-android-90ba3a2e4fb)
 * 原文作者 : [Romain Guy](https://medium.com/@romainguy)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
+* 译者 : [jamweak](https://github.com/jamweak)
 * 校对者:
 
 
-
-在过去两年里，我经常遇到一些文章Over the past two years, I have regularly come across [articles](https://medium.com/design/crafting-link-underlines-on-medium-7c03a9274f9) and [libraries](https://eager.io/blog/smarter-link-underlines/) that attempt to improve how underline text decorations are rendered on the web. The same problem exist on Android: underline text decorations cross descenders. Compare how Android draws underlined text (top) and how it could be drawn instead (bottom):
+在过去两年里，我常常会遇到一些涉及下划线文本的[文章](https://medium.com/design/crafting-link-underlines-on-medium-7c03a9274f9)和[库](https://eager.io/blog/smarter-link-underlines/)，这些作品的意图就是为了改善在网页中具有装饰性下划线文本的渲染。在Android平台上也存在着同样的问题：文本的下划线遇到了下行字母。比较下Android当前如何绘制下划线文本(上图)以及它的替代方案(下图)：
 
 ![](http://ww3.sinaimg.cn/large/a490147fgw1f5j2xgczirj20d506qmxg.jpg)
 
-<figcaption class="imageCaption">Which do you prefer?</figcaption>
+<figcaption class="imageCaption">你更喜欢哪一种?</figcaption>
 
-While I wholeheartedly approve of these efforts, I have never been fond of the solutions made publicly available. The current state of the art — admittedly forced upon developers by the limitations of CSS — seems to rely on drawing linear gradients and multiple shadows (I have seen up to 12!). These solutions have the undeniable quality of working but the idea of drawing so many shadows, even without blurring them, makes the graphics programmer in me cringe. They also only work on solid color backgrounds.
+尽管我百分百支持这种努力，但我却不喜欢这种解决方案被广泛使用。这种艺术般的状态—毫无疑问地会强迫开发者们受限于CSS—似乎是通过绘制线性渐变以及多重阴影（我见过多达12层的！）来实现的。这些解决方案都具有无法否认的成效，但这种绘制如此多阴影的做法，即使没有增加模糊效果，也会使得图形开发者们足够头疼了。还有一点，这种方法仅仅在实色的背景下有效。
 
-On a whim, I set out to find other solutions this afternoon that would satisfy the following requirements:
+这个下午，我突发奇想地想寻找其它的解决方案，来满足如下需求：
 
-*   Work on older versions of Android
-*   Use only standard View and Canvas APIs
-*   Do not require overdraw or expensive shadows
-*   Work on any background, not just solid colors
-*   Do not rely on the ordering of operations in the rendering pipeline (text drawn before/after the underline should not matter)
+*   兼容旧版本的Android系统
+*   仅使用标准的View和Canvas APIs
+*   不需要过度重绘或者大量的阴影开销
+*   在任何背景下都有效，而不是只支持实色背景
+*   不依赖绘制流水线的操作顺序(文本先于/晚于下划线的绘制是无关紧要的)
 
-I do have two solutions to offer and that I have made [available on GitHub](https://github.com/romainguy/elegant-underline). One solution works on [API level 19](https://www.android.com/versions/kit-kat-4-4/) and up and the other one works on [API level 1](http://arstechnica.com/gadgets/2014/06/building-android-a-40000-word-history-of-googles-mobile-os/6/) and up. Or at least it _should_ work on API level 1 and up, I have not exactly tried. I trust the documentation.
+我在这里提供了两种解决方案，你可以在[GitHub](https://github.com/romainguy/elegant-underline)获取。其中一种方法适用于[API level 19](https://www.android.com/versions/kit-kat-4-4/)及以上，另外一种适用于[API level 1](http://arstechnica.com/gadgets/2014/06/building-android-a-40000-word-history-of-googles-mobile-os/6/)及以上，或者说它 _应该_ 至少支持API level 1以上，我没有完全地测试，但我相信API文档。
 
-You can observe and compare the two methods, called _path_ and _region_, in the following screenshot:
+你可以在下面的截图中观察比较下这两种方法，被称作 _路径_ 和 _区域_ ：
 
 ![](http://ww3.sinaimg.cn/large/a490147fgw1f5j2y5a88nj20j10xz0vv.jpg)
 
-<figcaption class="imageCaption">Two possible implementations for better underline text decorations on Android</figcaption>
+<figcaption class="imageCaption">在Android中更好展示下划线文本的两种可能的实现方式</figcaption>
 
-### How does it work?
+### 如何实现的?
 
-The idea behind these implementations is eerily similar to the CSS approach mentioned earlier. We have an underline represented by a single straight line and all we need to do is make room for the descenders…
+这些实现背后的思想与之前提到的CSS方法出奇地类似。我们获取了一整条直线段表示的下划线之后，剩下所需要做的就是为下行的字母挪出空间...
 
-#### Using paths
+#### 使用 paths
 
-API level 19 (better known as KitKat) introduced a fantastic new API for paths manipulation call [path ops](https://developer.android.com/reference/android/graphics/Path.html#op%28android.graphics.Path,%20android.graphics.Path.Op%29). This API allows you for instance to build the intersection of two paths or to subtract one path from another.
+API level 19 (叫KitKat更耳熟) 中引入了一个操作路径的新API叫做[path ops](https://developer.android.com/reference/android/graphics/Path.html#op%28android.graphics.Path,%20android.graphics.Path.Op%29)。这个API允许你为实例建立两个路径的交叉点，或是从一条路径中减去其它的路径。
 
-Using this API, crafting our underlines becomes trivial. The first step is to [get the outline](https://developer.android.com/reference/android/graphics/Paint.html#getTextPath%28java.lang.String,%20int,%20int,%20float,%20float,%20android.graphics.Path%29) of our text:
+使用这个API，制作我们想要的下划线就非常简单了。第一步就是为我们的文本[获取轮廓](https://developer.android.com/reference/android/graphics/Paint.html#getTextPath%28java.lang.String,%20int,%20int,%20float,%20float,%20android.graphics.Path%29)：
 
     mPaint.getTextPath(mText, 0, mText.length(), 0.0f, 0.0f, mOutline);
 
-Note that the resulting path can be used to render the original text using a fill style. We are instead going to use it for further operations.
+注意返回的path可以通过一种填充的样式来渲染原始文本，我们在这里要使用它来进行后续操作。
 
 ![](http://ww1.sinaimg.cn/large/a490147fgw1f5j2z6baigj20m8057aaj.jpg)
 
-<figcaption class="imageCaption">Text outline</figcaption>
+<figcaption class="imageCaption">文本轮廓</figcaption>
 
-The next step is to clip the outline with the rectangle representing the underline. This step is not entirely necessary but avoids artifacts and other approximations that could arise in the next step. To do so, we simply use an intersection path operation:
+下一步就是剪切表示下划线的矩形轮廓。这一步不完全是必要的，但是这样可以避免下一步引起的人工的或其它偏差的增加。我们只需使用intersection path操作就能方便的实现这一功能：
 
     mOutline.op(mUnderline, Path.Op.INTERSECT);
 
-The outline path now only contains the descender bits that cross the underline:
+现在轮廓路径仅仅包含几位下行字母与下划线的交叉部分。
 
 ![](http://ww1.sinaimg.cn/large/a490147fgw1f5j2zor2ptj20m804lwet.jpg)
 
-<figcaption class="imageCaption">Only the black regions are part of the path, the rest is drawn for visualization purpose only</figcaption>
+<figcaption class="imageCaption">只有黑色区域表示是路径的一部分，其它部分将要以视觉目的而绘制出来。</figcaption>
 
-All that is left to do is subtract the descender bits from the underline. Before doing so, we must expand the size of the original text to create gaps between the descenders and the underline. This can be achieved by stroking our clipped outline and creating a new fill path:
+剩下要做的就是从下划线中减去那些下行字母位置的部分。在做这个之前，我们必须扩大原始文本的尺寸来为下行字母与下划线间创造出间隙。这个功能可以通过划除我们剪切的轮廓然后建立一个新的填充路径实现：
 
     mStroke.setStyle(Paint.Style.FILL_AND_STROKE);        mStroke.setStrokeWidth(UNDERLINE_CLEAR_GAP);
     mStroke.getFillPath(mOutline, strokedOutline);
 
-The stroke width determines how much space you want to leave between a descender and the underline.
+划掉的宽带代表着你想为下行字母和下划线之间留下多大的空间。
 
 ![](http://ww2.sinaimg.cn/large/a490147fgw1f5j3076zuvj20m804gq3a.jpg)
 
-<figcaption class="imageCaption">Stroking the clipped outline</figcaption>
+<figcaption class="imageCaption">划除剪切掉的轮廓</figcaption>
 
-The last step is to subtract the stroked, clipped outline from the underline rectangle using another path operation:
+最后一步就是使用另外一个path操作从下划线矩形轮廓中减去划除部分和剪切掉的部分：
 
     mUnderline.op(strokedOutline, Path.Op.DIFFERENCE);
 
-The final underline path can be drawn using a fill paint:
+最后的下划线可以使用一个填充画笔绘制：
 
     canvas.drawPath(mUnderline, mPaint);
 
