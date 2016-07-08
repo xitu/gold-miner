@@ -14,9 +14,9 @@
 
 不行吗？
 
-当然不行。因为你们深知，这样做将只能带来失败的结果。
+当然不行。众所周知，这些做法只会导致失败。
 
-因此，不要试想着通过接触 React，就能一次性学习好 ES6 + Webpack + Babel + React + Routing + AJAX。不然，带给你们的就真的只有失败的结果。
+因此，不要想着通过接触 React 来将 ES6 + Webpack + Babel + React + Routing + AJAX 这些知识一次性学好。因为想一下，就能明白这难道不正是导致学习失败的原因吗？
 
 既然我把该文章称作是一条学习路线，那么每一次都应该走好每一步。既不要尝试去跨越，也不要贪步。
 
@@ -41,7 +41,7 @@ NPM 在 JavaScript 世界中，可谓是软件管理方的王者。然而，在�
 
 学习一个新的编程技术，我们往往会从熟悉的 [Hello World](https://daveceddia.com/test-drive-react) 教程开始。首先，我们可以通过使用 React 官方教程所展示的原生 HTML 文件来实现，而该文件包含有一些 `script` 标签。其次，我们还可以通过使用像 React Heatpack 这样的工具来快速上手。
 
-既然是这样，不妨请尝试一下该仅需[三分钟就能上手的 Hello World 教程](https://daveceddia.com/test-drive-react)。
+尝试一下该[三分钟运行起 Hello World 的教程](https://daveceddia.com/test-drive-react)。
 
 ## 第二步：构建后摒弃
 
