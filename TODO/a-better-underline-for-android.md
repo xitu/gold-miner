@@ -23,7 +23,7 @@
 
 我在这里提供了两种解决方案，你可以在[GitHub](https://github.com/romainguy/elegant-underline)获取。其中一种方法适用于[API level 19](https://www.android.com/versions/kit-kat-4-4/)及以上，另外一种适用于[API level 1](http://arstechnica.com/gadgets/2014/06/building-android-a-40000-word-history-of-googles-mobile-os/6/)及以上，或者说它 _应该_ 至少支持API level 1以上，我没有完全地测试，但我相信API文档。
 
-你可以在下面的截图中观察比较下这两种方法，被称作 _路径_ 和 _区域_ ：
+你可以在下面的截图中观察比较下这两种被称作 _Path_ 和 _Region_ 的方法：
 
 ![](http://ww3.sinaimg.cn/large/a490147fgw1f5j2y5a88nj20j10xz0vv.jpg)
 
@@ -33,7 +33,7 @@
 
 这些实现背后的思想与之前提到的CSS方法出奇地类似。我们获取了一整条直线段表示的下划线之后，剩下所需要做的就是为下行的字母挪出空间...
 
-#### 使用 paths
+#### 使用Path类
 
 API level 19 (叫KitKat更耳熟) 中引入了一个操作路径的新API叫做[path ops](https://developer.android.com/reference/android/graphics/Path.html#op%28android.graphics.Path,%20android.graphics.Path.Op%29)。这个API允许你为实例建立两个路径的交叉点，或是从一条路径中减去其它的路径。
 
@@ -76,59 +76,57 @@ API level 19 (叫KitKat更耳熟) 中引入了一个操作路径的新API叫做[
 
     canvas.drawPath(mUnderline, mPaint);
 
-#### Using regions
+#### 使用Region类
 
-[Regions](https://developer.android.com/reference/android/graphics/Region.html) are an efficient way to represent non-rectangular areas of the screen. You can imagine a region as a collection of rectangles aligned with the pixel boundaries of the render buffer. Regions can be used as a _rasterized_ representation of a path. This means that if we transform a path into a region, we obtain the collection of pixels coordinates that would be affected by the path if it was drawn.
+[Region](https://developer.android.com/reference/android/graphics/Region.html)是一种在屏幕上高效展示非矩形形状的方法。你可以想象一块区域是由若干对齐到渲染缓冲区的矩形集合组成的。Regions可以被看作是_栅格化_的Path。这意味着如果我们将Path转换成Region后，我们获得的是一系列像素坐标点的集合，一旦Path被绘制，它将影响到这些获得的坐标集合。
 
-What makes regions particularly interesting, is that they [offer operations similar to path operations](https://developer.android.com/reference/android/graphics/Region.html#op%28android.graphics.Region,%20android.graphics.Region.Op%29). Two regions can be intersected, subtracted, etc. More importantly, regions have been part of the Android API since the very first version.
+Region有趣的地方在于它[提供了与Path相同的操作](https://developer.android.com/reference/android/graphics/Region.html#op%28android.graphics.Region,%20android.graphics.Region.Op%29)。两块Regions能够互相交错、扣除重叠的部分等等。更重要的是，Region从最早的Android API中就已经存在了。
 
-The region implementation is almost identical to the path implementation. The major difference lies in when and how the outline path is clipped.
+用Region实现下划线的方法几乎与用Path完全相同，主要的区别存在于轮廓何时怎样被剪切的：
 
     Region underlineRegion = new Region(underlineRect);
 
-    // Create a region for the text outline and clip
-    // it with the underline
+    // 为文本建立一个Region并且剪切掉下划线部分
     Region outlineRegion = new Region();
     outlineRegion.setPath(mOutline, underlineRegion);
 
-    // Extract the resulting region's path, we now have a clipped
-    // copy of the text outline
+    // 提取返回的Region的Path，从而获得一份剪切后的文本轮廓的拷贝
     mOutline.rewind();
     outlineRegion.getBoundaryPath(mOutline);
 
-    // Stroke the clipped text and get the result as a fill path
+    // 划掉剪切掉的文本，将其结果转为一个填充样式的Path
     mStroke.getFillPath(mOutline, strokedOutline);
 
-    // Create a region from the clipped stroked outline
+    // 使用划掉文本的轮廓建立一个Region对象
     outlineRegion = new Region();
     outlineRegion.setPath(strokedOutline, new Region(mBounds));
 
-    // Subtracts the clipped, stroked outline region from the underline
+    // 在下划线轮廓中扣除剪切掉的，划掉的文本轮廓
     underlineRegion.op(outlineRegion, Region.Op.DIFFERENCE);
 
-    // Create a path from the underline region
+    // 使用下划线Region建立一个Path
     underlineRegion.getBoundaryPath(mUnderline);
 
-#### Differences between the two approaches
+#### 两种方法的区别
 
-Due to the nature of paths and regions, there is a subtle difference between the two implementations. Because path operations work only on curves, they preserve the slant of the descenders when we subtract them from the underline. This creates gaps that run parallel to the curve slopes. This may or may not be the desired effect.
+由于Path类和Region类的本质不同，两种实现间有着不易察觉的区别。因为Path类仅仅在曲线上操作，因此在我们从下划线轮廓中扣除下行字母时，就保留了下行字母轮廓的斜度，这就造成下划线空隙的边缘与下行字母的曲线斜度平行。这种效果或许是又或许不是所期望的。
 
-Regions on the other hand operate on whole pixels and will create clean vertical cuts through the underline (as long as your underline is thin enough). Here is a comparison between the two implementations:
+另一方面，Region类操作的是整个像素点，它会清除下划线竖向的切割（你的下划线足够细的话）。下图是两种实现的比较：
 
 ![](http://ww4.sinaimg.cn/large/a490147fgw1f5j315r9vej20670bm0sx.jpg)
 
-<figcaption class="imageCaption">Top: paths. Bottom: regions. Notice the slant? If not, you should. Look harder.</figcaption>
+<figcaption class="imageCaption">上图: Path类. 下图: Region类. 注意到上面的斜度没？如果没有,你需要仔细看。</figcaption>
 
-### Should I use this in production?
+### 应当在产品中使用吗?
 
-Before you try to use these techniques in your application, be aware that I have not done any performance measures at this time. Please remember that this exercise was mostly a fun programming challenge. The code provided does not try to position the underline text decoration properly depending on the font size. It also does not vary the width of the gaps based on the font size. There might also be issues that are font dependent as I have only tried the effect with some of Android’s default typefaces. Let’s call these issues exercises left to the readers.
+在你尝试将这些技术运用到你的应用之前，需要了解到我这次没有做任何的性能测试。请记住这些尝试很大程度上只是一种编程乐趣的挑战。所提供的代码没有根据文本的大小来适配下划线的位置，也没有适配间隙的宽度。可能在字体的适配上也有问题，我只尝试了几种Android默认的字型。就让我们将这些问题留给读者当做练习来解决吧。
 
-If you were to try and use this code in your application, and I must admit I’d love to see an implementation for [spans](http://flavienlaurent.com/blog/2014/01/31/spans/), I would encourage you to at least cache the final fill path. Since they depend only on the typeface, font size and string, a cache should be fairly trivial to implement.
+如果你在你的应用里尝试使用这些代码(这里是一般将来时的虚拟语气，校对可以给些翻译意见)，那么我必须承认我将很乐于看到关于[spans](http://flavienlaurent.com/blog/2014/01/31/spans/)的实现，我会鼓励你至少缓存一下最后的填充Path。由于它仅仅依赖于字型，字体和字符串，缓存还是比较容易实现的。
 
-In addition, the two implementations described in this article are understandably restricted by the public SDK APIs. I have a few ideas on how this effect could be achieved more efficiently if it were to be implemented directly into the Android framework.
+另外，文章中描述的这两种实现方法完全严格遵循开放的SDK API。如果在Android framework层直接实现的话，我有一些想法能使得这个功能变得更有效率。
 
-The _region_ variant could for instance be optimized by rendering the region itself, without going back to a _path_ (which can cause software rasterization and GPU texture updates). Regions are internally represented as collections of rectangles and it would be trivial for the rendering pipeline to draw a series of lines or rectangles instead of rasterizing a path.
+比如 _Region_ 的转换能够通过渲染自身来获得优化，而不用转换回 _Path_ 了（这会造成软件的碎片化以及GPU结构化更新）。Region类本身就是一系列矩形的集合，对于渲染流水线来说，与绘制碎片化的Path相比，绘制一系列的直线或矩形变得容易多了。
 
-Do you want to know more about text on Android? Learn [how Android’s hardware accelerated font renderer works](https://medium.com/@romainguy/androids-font-renderer-c368bbde87d9#.493idqqrm).
+你想了解更多关于Android文本的东西？学习[Android的硬件是如何加速字体渲染的？](https://medium.com/@romainguy/androids-font-renderer-c368bbde87d9#.493idqqrm)。
 
-Get the [source of the demo](https://github.com/romainguy/elegant-underline) on GitHub.
+在GitHub上获取[演示源码](https://github.com/romainguy/elegant-underline)。
