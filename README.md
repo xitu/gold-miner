@@ -6,8 +6,8 @@
 
 # 如何参与翻译
 
-1. **先发issue申请成为我们的译者**，只有掘金翻译计划的译者才可以参与校对和翻译，issue内容可以介绍自己的英语水平、有无翻译英文技术文章的相关经历、工作等等，可参照[往期译者申请](https://github.com/xitu/gold-miner/issues/282)格式；
-2. 每一位新译者都要从校对文章开始，每篇译文需要**一位译者**和**两位校对者**（label具体内容及其含义：校对认领=此文章需要两位校对者；校对认领+正在校对=此文章已经有一位校对者在校对了，现在还需要第二位校对者；正在校对=此文章已经有两位校对者在校对了），校对文章只需在有**校对认领**label的issue下留言即可；
+1. **发issue申请成为译者**，只有掘金翻译计划的译者才可以参与校对和翻译，issue内容包括：公司/学校、工作内容/专业、英语水平、常浏览的国外网站、英语水平、有无翻译经验、个人博客，[往期译者申请格式](https://github.com/xitu/gold-miner/issues/249)；
+2. 新译者从校对文章开始，每篇译文需要**一位译者**和**两位校对者**（label具体内容及其含义：校对认领=此文章需要两位校对者；校对认领+正在校对=此文章已经有一位校对者在校对了，现在还需要第二位校对者；正在校对=此文章已经有两位校对者在校对了），校对文章只需在有**校对认领**label的issue下留言即可；
 3. 翻译文章，在 [待认领文章列表](https://github.com/xitu/gold-miner/issues?q=is%3Aissue+is%3Aopen+label%3A%E6%96%87%E7%AB%A0%E8%AE%A4%E9%A2%86) 中认领翻译文章；
 4. 认领通过后，Fork 此仓库开始翻译，**注意：Fork 此仓库后，请先从 master 分支上 `git checkout -b translate` 一个新的 translate 分支来翻译文章，翻译完成后再把 translate 分支发 PR**；
 5. 翻译完成，发送 [Pull Request](https://github.com/xitu/gold-miner/pull/new/master)，**注意：发PR的时候请注意检查，一个PR只能有一篇文章，切勿两篇或多篇合并到一个PR**；
@@ -19,6 +19,7 @@
 
 ## Android
 
+* [[译]来瞧瞧 Android N 中的通知长成啥样了](https://gold.xitu.io/entry/577a27e76be3ff006a1ef870?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([DeadLion](https://github.com/DeadLion) 翻译)
 * [[译] 深度讲解 Android 主题层级](https://gold.xitu.io/entry/576b9f912e958a005715c7a0?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([aidistan](https://github.com/aidistan) 翻译)
 * [八个造成 Android 应用内存泄露的原因](https://gold.xitu.io/entry/5768b8da6be3ff006a3fcbc8?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([zhangzhaoqi](https://github.com/joddiy) 翻译)
 * [[译] 怎样在 5 分钟内使 Drawer 在状态栏下可见？](http://gold.xitu.io/entry/5760c75e207703006bf2792a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Dwight](https://github.com/ldhlfzysys) 翻译)
@@ -53,6 +54,7 @@
 
 ## iOS
 
+* [假如 Mac 上也有 iOS 应用？](http://gold.xitu.io/entry/577b87d27db2a20054e47ecc?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([wildflame](https://github.com/wildflame) 翻译)
 * [[译] iOS 开发者在 Swift 中应避免过度使用 @objc](https://gold.xitu.io/entry/57712f605bbb50005970dc0e?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Dwight](https://github.com/ldhlfzysys) 翻译)
 * [深度剖析 Swift 编译与运行时的类型检查](http://gold.xitu.io/entry/5767a62a80dda4005f9e97ca?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Jack](https://github.com/Jack-Kingdom) 翻译)
 * [利用 Swift 在 APP 中实现撤销操作的功能](http://gold.xitu.io/entry/575fab19207703006bea9d27?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zheaoli](https://github.com/Zheaoli) 翻译)
@@ -122,6 +124,7 @@
 
 ## 后端
 
+*  [Java 不可变类的整洁之道](https://gold.xitu.io/entry/5774fe212e958a22d884a49c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([buccoji](https://github.com/buccoji) 翻译)
 *  [如何应用最新版的谷歌表格 API](https://gold.xitu.io/entry/5773acce0a2b58006a3fd7fe?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Goshin](https://github.com/Goshin) 翻译)
 *  [[译] 教程：使用 Passport.js 来做后台用户验证](http://gold.xitu.io/entry/57638f286be3ff006a171870?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([circlelove](https://github.com/circlelove) 翻译)
 *  [探索 Python 3 加密技术](http://gold.xitu.io/entry/575fae92df0eea0062c5a1dc?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Yushneng](https://github.com/rainyear) 翻译)
@@ -141,6 +144,7 @@
 
 ## 设计
 
+* [【译】UI 的黑暗面！暗色背景的优势](https://gold.xitu.io/entry/577c9385a633bd005be7fe7a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([yangzj1992](http://www.qcyoung.com/) 翻译)
 * [如何在移动 APP 中设计输入框](http://gold.xitu.io/entry/5745af0a2e958a002db75980?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zhangjd](https://github.com/zhangjd) 翻译)
 *  [使用 Sketch 和 Pixate 构建 Material Design 原型 - 第三部分](https://gold.xitu.io/entry/576cc25f2e958a00571dfb5f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Hugo](https://github.com/xcc3641) 翻译)
 * [使用 Sketch 和 Pixate 构建 Material Design 原型 - 第二部分](http://gold.xitu.io/entry/574eb491d342d300434cec1c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([zhangzhaoqi](https://github.com/joddiy) 翻译)
