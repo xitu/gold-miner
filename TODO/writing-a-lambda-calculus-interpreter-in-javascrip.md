@@ -2,7 +2,7 @@
 * 原文作者 : [tadeuzagallo](http://tadeuzagallo.com/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [zhangzhaoqi](https://github.com/joddiy)
-* 校对者: [jamweak](https://github.com/jamweak)
+* 校对者: [jamweak](https://github.com/jamweak), [Zheaoli](https://github.com/Zheaoli)
 
 
 最近，[我在推特上对λ演算非常着迷](https://twitter.com/tadeuzagallo/status/742836038264098817)，它是如此简单和强大。
