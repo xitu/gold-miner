@@ -1,39 +1,38 @@
 >* 原文链接 : [Lazy Loading Images? Don’t Rely On JavaScript!](http://robinosborne.co.uk/2016/05/16/lazy-loading-images-dont-rely-on-javascript/)
 * 原文作者 : Robin Osborne
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
+* 译者 : [jk77](http://github.com/jk77me)
 * 校对者:
 
 
 
-So much of the internet is now made up of pages containing loads of images; just visit your favourite shopping site and scroll through a product listing page for an example of this.
+现在许多网页都包含加载图片, 例如:只需访问你最喜欢的购物网站，并通过产品列表页滚动。
 
-As you can probably imagine, bringing in all of these images when the page loads can add unnecessary bloat, causing the user to download lots of data they may not see. It can also make the page slow to interact with, due to the page layout constantly changing as new images load in, causing the browser to reprocess the page.
+正如你想象, 加载页面时引入所有的图片会带来不必要的臃肿, 使用户下载大量他们可能无法看到的数据, 也让页面交互变得很慢, 由于页面布局经常发生变化,如新图片载入, 导致浏览器重新加载页面.
 
-One popular method to deal with this is to “Lazy Load” the images; that is, to only load the images just before the user will need to see them.
+一个流行的解决办法是"懒加载"这些图片，就是说, 在用户需要看到图片之前才去加载它们。
 
-If this technique is applied to the “above the fold” content – i.e., the first average viewport-sized section of the page – then the user can get a significantly faster first view experience.
+如果这项技术应用到首屏内容，换句话说，即页面的第一视图部分，用户能得到明显更快的视觉体验。
 
-## So everyone should always do this, right?
+## 因此每个人都应该这样做吗？
 
-Before we get on to that, let’s look at how this is usually achieved. It’s so easy to find a suitable jQuery plugin or angularjs module that a simple install command later and you’re almost done; just add a new attribute to image tags or JavaScript method to process the images you want to delay loading for.
+在回答这个问题之前，来看看通常是如何实现的。很容易就能找到一个合适的jQuery插件/angularjs模块，然后运行一条简单的安装命令，接下来的你都会做了，只需给image标签添增加一个新属性，或者是用JavaScript函数来处理延迟加载的图片。
 
-So surely this is a no-brainer?
+综上所述，是不是特别容易？
 
-Let’s look at what we’re actually trying to achieve here; display some images on a web page (achievable with html alone), but delay when they appear (needs more than just html).
+来看看实际上的实现，在web页面显示一些图片(只用html实现)，但是当显示时会延迟。 jquery/angularjs的解决方案都对JavaScript、jquery和angularjs有依赖，如果浏览器不支持JavaScript呢？ 当你视图实现所有图片延迟加载时，如果用户不想下载这些臃肿的类库呢？
 
-The jquery or angularjs solutions have a dependency on JavaScript, jquery, and angularjs; what if the browser doesn’t support JavaScript? What if the user doesn’t want to download a bloating library or two or three when all you’re trying to achieve is an image load delay?
+如果有一些浏览器工具、扩展、插件、广告等等有JavaScript错误时，你的用户就不能看到网页上的图片了，似乎不太机智吧？
 
-What if any number of browser toolbars, extensions, plugins, adverts, etc has a JavaScript error; now your user can’t see more than a page of images! Seems pretty daft, right?
+## 逐步替换为懒加载图片
 
-## Progressively Enhanced Lazy Loading Images
+鉴于潜在的局限性，让我们搞一个能解决我全部的问题的方案：
 
-Given the potential limitations, let’s work on a solution that can handle all my concerns:  
-a. works without JavaScript (i.e., lazy loading is an enhancement)  
-b. vanilla js – no dependencies on jquery or angularjs  
-c. works with _broken_ JavaScript (i.e., the browser supports JavaScript, but there’s a js error somewhere which causes your script to break; might not even be your fault!)
+a. 去JavaScript化（即：懒加载是一种增强手段)
+b. vanilla js - 不依赖jquery/angularjs
+c. 用broken JavaScript(即：浏览器是支持JavaScript的，但有一个地方出现了JavaScript错误，让你的脚本损坏了，甚至可能不是你的错！)
 
-Approaching this logically, it makes sense to use a data attribute on an image element, and swap that for the src attribute when the element is getting close to the viewport. Something like:
+顺着这个逻辑，用一个数据属性在一个图片元素上是有道理的，并且当元素越来越接近视图时，交换其src属性，就像这样：
 
     <img
     src="1x1.gif" 
@@ -42,7 +41,7 @@ Approaching this logically, it makes sense to use a data attribute on an image e
     alt="Laziness"
     width="300px" />
 
-and then some JavaScript like:
+然后JavaScript代码是这样的：
 
     var lazy = document.getElementsByClassName('lazy');
 
@@ -50,9 +49,9 @@ and then some JavaScript like:
      lazy[i].src = lazy[i].getAttribute('data-src');
     }
 
-### a) No JavaScript
+### a) 去JavaScript化
 
-Seems like a logical first step. So how could we change this to support no JavaScript? With a bit of html repetition perhaps:
+似乎是这个逻辑的第一步，接着我们怎么才能修改到支持去JavaScript化？ 随着一些html的重复，将成为可能：
 
     <img
     src="1x1.gif" 
@@ -68,11 +67,11 @@ Seems like a logical first step. So how could we change this to support no JavaS
         width="300px" />
     </noscript>
 
-That would mean that the lazy loading would be ignored if JavaScript is disabled. I did a quick check on the network usage for code like this and can confirm that a basic `noscript` `img` check using the code above does not cause multiple requests! You’d assume not, but it’s worth checking!
+这意味着如果JavaScript被禁用，懒加载将被忽略。我在网络使用情况中，对上述代码做了快速检查。可以确认使用这些基本的 `noscript` `img` 代码不会导致多个请求！
+你不得不承认，这值得一试！
 
-### b) no jQuery/angularjs
-
-Using the html above, we can write the following JavaScript method to do the `data-src` to `src` switching:
+### b) 	去jQuery/angularjs化
+依靠上面的HTML代码，我们可以写出下面的JavaScript函数，去做 `data-src` 到 `src` 的切换：
 
     function lazyLoad(){
         var lazy =
@@ -84,7 +83,7 @@ Using the html above, we can write the following JavaScript method to do the `da
         }
     }
 
-Then let’s create a simple event wiring up helper for cross-browser support (since we’re not using jQuery):
+然后，让我们创建一个简单的事件连接起来做跨浏览器支持（因为我们没有使用jQuery）:
 
     function registerListener(event, func) {
         if (window.addEventListener) {
@@ -94,13 +93,13 @@ Then let’s create a simple event wiring up helper for cross-browser support (s
         }
     }
 
-And the register the `lazyload` method to execute when the page loads.
+接着当页面加载时，注册 `lazyload` 函数去执行.
 
     registerListener('load', lazyLoad);
+    
+现在当页面加载时我们从 `lazy` 类获取到所有图片，并且用JavaScript去加载，这当然会延迟加载，但不够聪明。
 
-Now when the page loads we’re getting all images with the `lazy` class and loading them using JavaScript; this certainly delays the loading, but it’s not intelligent.
-
-Sounds like I need a bit of viewport logic. Something like this (as nicked from StackOverflow):
+听起来像是我需要一些视图逻辑，像这样(片段来自于StackOverflow)：
 
     function isInViewport(el){
         var rect = el.getBoundingClientRect();
@@ -119,7 +118,7 @@ Sounds like I need a bit of viewport logic. Something like this (as nicked from 
      );
     }
 
-I’ll also need to add the viewport check:
+还需要增加视图检查:
 
     function lazyLoad(){
         var lazy = 
@@ -133,23 +132,23 @@ I’ll also need to add the viewport check:
         }
      }
 
-and register the `scroll` event:
+同时注册 `scroll` 事件:
 
     registerListener('scroll', lazyLoad);
 
-> This is _bad_, mkay? You shouldn’t be changing the page whilst the user is scrolling. This is meant to be an example implementation of lazy loading; please feel free to improve it!
+> 这是 _不好的_, mkay? 你不应该当用户在滚动时改变页面。这是为了懒加载的示例实现，请有空时来改善它！
 
-Now we’ve got a page that will only load the images within the viewport, and will load all images normally if JavaScript is disabled.
+现在我们有了一个只会在视图内加载图片的页面，如果JavaScript被禁用，也会正常加载所有图片
 
-You can check it out here: [http://codepen.io/rposbo/pen/xVddNr](http://codepen.io/rposbo/pen/xVddNr)
+相关文档: [http://codepen.io/rposbo/pen/xVddNr](http://codepen.io/rposbo/pen/xVddNr)
 
-### Quick bit of refactoring
+### 重构技巧
 
-Before moving on to the “broken JavaScript” requirement, I want to tidy up the code a bit; right now it will check all `lazy` images on every scroll event, _even if they’ve already been loaded_.
+在移除“broken JavaScript”之前, 我想整理一下代码。会在每个滚动事件中检查所有懒加载图片, _即使这些图片已经被加载出来_ 。
 
-This isn’t a big deal for my demo, but it may be suboptimal for pages with more images. Plus it just feels messy! I want to remove images that have already been loaded from the `lazy` array.
+这在我的demo里不是个大问题，但它应该是一个页面包含很多图片的最好例子，加上之后感觉更乱了！我想从 `lazy` 数组中移除已经加载完毕的图片。
 
-Firstly, let’s move the `lazy` array to a shared variable and set it in a function that’s called on load:
+首先，移动 `lazy` 数组到一个共享变量中，并在set函数中设置：
 
     var lazy = [];
 
@@ -159,7 +158,7 @@ Firstly, let’s move the `lazy` array to a shared variable and set it in a func
 
     registerListener('load', setLazy);
 
-Ok, now we have all lazy images in that shared array but I need to keep it up to date. I’m going to remove the `data-src` attribute once I’ve used it, then filter all lazy images:
+Ok, 现在我们有包含全部懒加载图片的数组了，但是我需要保持数据是最新的，然后移除使用过的 `data-src` 属性，接着过滤所有图片:
 
     function lazyLoad(){
         for(var i=0; i<lazy.length; i++){
@@ -187,44 +186,45 @@ Ok, now we have all lazy images in that shared array but I need to keep it up to
             );
     }
 
-That feels better. Now the `lazy` array will always contain only those images that have not been loaded yet. However it’s doing quite a lot during an `onscroll` event, as mentioned before.
+这样感觉好多了，现在 `lazy` 数组将永远只包含那些尚未加载的图像。但是正如前面提到的， `onscroll` 事件中做了大量工作。
 
-This version can be found at: [http://codepen.io/rposbo/pen/ONmgVG](http://codepen.io/rposbo/pen/ONmgVG)
+这个版本在这里: [http://codepen.io/rposbo/pen/ONmgVG](http://codepen.io/rposbo/pen/ONmgVG)
 
 ### c) Broken JavaScript
 
-I love this requirement; it’s a tricky one to solve. If the browser says it supports JavaScript, then the `noscript` tags will be ignored. However, the browser may still fail to execute JavaScript for any of the reasons I mentioned at the start, or more.
+我喜欢这样做，以一种棘手的方式解决问题。如果浏览器支持JavaScript， `noscript` 标签会被忽略掉，可是，如我开始提到的, 浏览器可能因为某些原因不会执行JavaScript代码。
 
-#### How about this?
 
-1.  Load enough images to fill the viewport un-lazily; i.e., just regular `img` tags with their `src` attributes set
-2.  Under those images have a link to a new page that is _completely_ un-lazy – i.e., a whole page full of plain old `<img>` tags
-3.  Hide all `lazy` images using css
-4.  Use JavaScript to remove the link and remove the css that hides the lazy images
+#### 下面的怎么样？
+1.  在窗口中添加足够多的图片填满视图，即只用 `img`的 `src` 属性设置。
+2.  在这些图像有链接到一个新页面，是 _未懒加载_ 的 - 整个界面用 `<img>` 标签填充。
+3.  用css隐藏所有 `lazy` 图片。
+4。 使用JavaScript移除链接，并且移除css隐藏的 `lazy` 图片。
 
-Let’s follow this through: if the page loads and JavaScript breaks, the user will see one screen of images (1) and a link to “view more” (2) which will take them to a full page (anchored to where they left off).
+这样想想：如果界面加载和JavaScript中断了，用户会看到满屏图片（1）并且有一个链接去“查看更多”（2），点击后会进入整个界面（从那他们离开的地方）。
 
-If the page loads and JavaScript is ok, the link will not be there (4) and the lazy load images will flow into view as intended (3).
+如果界面加载和JavaScript都是OK的，这个链接就不会在那（4），懒加载图片会随之进入视图。
 
-Let’s try it out. You can use your own site’s analytics to see what the average user’s resolution is, and calculate how many items would fit in their initial viewport in order to decide where to put this “under the fold” link (2):
+让我们来尝试一下。您可以使用自己网站的分析，看看普通用户的分辨率是什么，以及计算有多少子元素都适合在其初始视图，以决定把这个“查看更多”链接放在哪里（2）：
 
     <div id="viewMore">
         <a href="flatpage.html#more">View more</a>
     </div>
 
-> Assume `flatpage.html` is just a non-lazy version of the same page, with an anchor element at the same point in the list of items.
+> 假如 `flatpage.html` 只是一个非懒加载版本的同一页，用在项目列表中的相同点的元素。
 
-Now let’s initially hide the lazy load images too (3). I’m surrounding them with a new element:
+现在开始隐藏懒加载图片（3），在周围增加了一个新元素:
 
     <span id="nextPage" class="hidden">
         // all lazy load items go here
     </span>
 
-and the css for that class:
+这个类的css代码:
 
      .hidden {display:none;}
 
-This will capture those users with broken JavaScript by showing an initial viewport and a link to the full page. To re-enable the lazy load for users with working JavaScript, I’m just doing this in my `setLazy` function (4):
+下面代码会捕获损坏JavaScript代码的用户，并显示一个初始视图，还有一个到整个界面的链接。
+JavaScript代码正常的用户将会重新启用懒加载，我在 `setLazy` 函数做这些逻辑（4）：
 
     // delete the view more link
     document.getElementById('listing')
@@ -236,7 +236,7 @@ This will capture those users with broken JavaScript by showing an initial viewp
     document.getElementById('nextPage')
         .removeAttribute('class');
 
-The resulting code looks like this:
+最终代码:
 
 
 ```
@@ -465,13 +465,15 @@ function registerListener(event, func) {
 
 ```
 
-Or play in the pen: [http://codepen.io/rposbo/pen/EKmXvo](http://codepen.io/rposbo/pen/EKmXvo)
+实时预览代码: [http://codepen.io/rposbo/pen/EKmXvo](http://codepen.io/rposbo/pen/EKmXvo)
 
-## Summary
+## 总结
 
-As you can see, it is certainly possible to achieve lazy loading images (and other content, should you want to) whilst still allowing for both broken JavaScript and a complete lack of JavaScript support.
+正如你看到的，的确实现了懒加载图片（包括你想了解的其他内容），同时对损坏的JavaScript和不支持JavaScript的条件下进行了兼容。
 
-There’s a github repo to show the difference between the main listing page and the “flat” listing page as a more “realistic” implementation: [https://github.com/rposbo/lazyloadimages](https://github.com/rposbo/lazyloadimages)
 
-This repo shows how you might implement the solution in .Net, passing the same dynamically generated collection of items to both listing pages.
+这有一个GitHub仓库作为实践，展示了主页面和“flat”列表页的区别：[https://github.com/rposbo/lazyloadimages](https://github.com/rposbo/lazyloadimages)
+
+此仓库还展示了在.NET中实现的解决方案，通过相同的动态生成items到两个列表页。
+
 
