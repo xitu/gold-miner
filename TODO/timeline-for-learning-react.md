@@ -2,7 +2,7 @@
 * 原文作者 : [DAVE CEDDIA](https://daveceddia.com/timeline-for-learning-react/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [aleen42](http://aleen42.github.io/)
-* 校对者:
+* 校对者: [llp0574](https://github.com/llp0574), [jiaowoyongqi](https://github.com/jiaowoyongqi)
 
 以下所谈及的，就是为你定制的 React 学习路线。
 
@@ -103,7 +103,7 @@ Dan Abramov，作为 Redux 的创造人，他[会告诉你们](https://github.co
 
 若仅通过挑选大量模板项目中的其中一个，去深入学习 React。那么，后面将只会带来大量的疑惑。虽然这些项目会含有一切可能的库，且规定要求一定的目录结构 —— 但对于小型的应用程序，或开始入门的我们来说，并不需要。
 
-也许你会说，”Dave，我可并不是在构建一个小应用。我所构建的，是一个服务于上万用户级别的复杂应用！“……那么，请你重新阅读一下关于原型的理解
+也许你会说，“Dave，我可并不是在构建一个小应用。我所构建的，是一个服务于上万用户级别的复杂应用！”……那么，请你重新阅读一下关于原型的理解
 
 ## 该如何应对
 
