@@ -2,7 +2,7 @@
 
 [掘金翻译计划](http://gold.xitu.io/#/tag/%E6%8E%98%E9%87%91%E7%BF%BB%E8%AF%91%E8%AE%A1%E5%88%92)是一个翻译优质互联网技术文章的社区，文章来源为[掘金](http://gold.xitu.io)上的英文分享文章。内容覆盖 [Android](#android)、[iOS](#ios)、[React](#react)、[前端](#前端)、[后端](#后端)、[产品](#产品)、[设计](#设计)等领域，读者为热爱新技术的新锐开发者。
 
-掘金翻译计划目前翻译完成 [108](#android) 余篇文章，共有 [120](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 名译者贡献翻译。
+掘金翻译计划目前翻译完成 [108](#android) 篇文章，共有 [120](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 名译者贡献翻译。
 
 # 如何参与翻译
 
@@ -42,7 +42,7 @@
 *  [世界级的 Android 测试流程（二）](http://gold.xitu.io/entry/56cd87ba7db2a26229196d01?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([markzhai](https://github.com/markzhai) 翻译)
 * [2015 年度 Android 开发者必备的 5 个开源库](http://gold.xitu.io/entry/56cbde8ea3413100540bb7ef?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([kassadin](https://github.com/kassadin) 翻译)
 * [如何提高安卓代码的质量和语法](http://gold.xitu.io/entry/56cd6ebb99a6ce005a2887e3?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([yinshudi](https://github.com/yinshudi) 翻译)
-* [如何更高效的使用 okhttp](http://gold.xitu.io/entry/56ca8873d342d300544bdbf8?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Brucezz](https://github.com/brucezz) 翻译)
+* [如何更高效地使用 okhttp](http://gold.xitu.io/entry/56ca8873d342d300544bdbf8?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Brucezz](https://github.com/brucezz) 翻译)
 * [每个 Android 开发者都应该读的 Android Studio Tips](http://gold.xitu.io/entry/56c1556179bc440054fd4e6b?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Jaeger](https://github.com/laobie) 翻译)
 * [MVVM模式介绍](http://gold.xitu.io/entry/56cbf38771cfe40054eb3a34?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Sausure](https://github.com/Sausure) 翻译)
 * [Android 的一个 MVP 基础项目模板](http://gold.xitu.io/entry/56cd79c12e958a69f944984c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([foolishgao](https://github.com/foolishgao) 翻译)
@@ -60,7 +60,7 @@
 * [利用 Swift 在 APP 中实现撤销操作的功能](http://gold.xitu.io/entry/575fab19207703006bea9d27?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zheaoli](https://github.com/Zheaoli) 翻译)
 * [关于 Swift 编译时性能优化的一些思考](http://gold.xitu.io/entry/5757f29279bc440061f5822c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([杨龙龙](https://github.com/yllziv) 翻译)
 * [抢先看 Swift 3.0](http://gold.xitu.io/entry/57558db97db2a2006995ed53?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Tuccuay](https://github.com/Tuccuay)翻译）
-* [如何检测 iPhone 处于低电量模式](http://gold.xitu.io/entry/574ff27d7db2a20055c7aec3?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zheaoli](https://github.com/Zheaoli) 翻译)
+* [如何检测 iPhone 是否处于低电量模式](http://gold.xitu.io/entry/574ff27d7db2a20055c7aec3?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zheaoli](https://github.com/Zheaoli) 翻译)
 * [给 iOS 开发者的 GCD 用户手册](http://gold.xitu.io/entry/574e544971cfe4006bffa552?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([LoneyIsError](https://github.com/LoneyIsError) 翻译)
 * [使用 webP 减少图片的大小](http://gold.xitu.io/entry/57383657c4c97100601212d5?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([circlelove](https://github.com/circlelove) 翻译)
 * [打破 Swift 结构体中的循环引用](http://gold.xitu.io/entry/572acc852e958a0069518605?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Tuccuay](https://github.com/Tuccuay)翻译）
@@ -140,7 +140,7 @@
 ## 教程
 
 * [Chrome Devtools Tips & Tricks](http://gold.xitu.io/entry/56d56f4dc4c971005193ecec?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([chemzqm](https://github.com/chemzqm) 翻译)
-* [通过 Electron 开发一个简单地桌面应用](http://gold.xitu.io/entry/56aae5e4a633bd0257ae4ab8?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zhangdroid](https://github.com/Zhangdroid) 翻译)
+* [通过 Electron 开发一个简单的桌面应用](http://gold.xitu.io/entry/56aae5e4a633bd0257ae4ab8?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zhangdroid](https://github.com/Zhangdroid) 翻译)
 * [Retrofit 入门教程](http://gold.xitu.io/entry/56cc4085128fe100580dd0ca?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([kevin xiu](https://github.com/xiuweikang) 翻译)
 * [Pokedex.org 给宠物小精灵爱好者的 web app 的技术选型](http://gold.xitu.io/entry/56cebb8edf0eea79dc7c1ff0?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([RobertWang](https://github.com/RobertWang) 翻译)
 * [选择使用正确的 Markdown Parser](http://gold.xitu.io/entry/56ce79db1532bc0053728c2f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lfkdsk](https://github.com/lfkdsk) 翻译)
