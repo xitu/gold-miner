@@ -1,44 +1,48 @@
 >* 原文链接 : [Notifications in Android N](https://android-developers.blogspot.hk/2016/06/notifications-in-android-n.html)
 * 原文作者 : Ian Lake
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者:
+* 译者 :[DeadLion](https://github.com/DeadLion)
+* 校对者:[danke77](https://github.com/danke77), [xcc3641](https://github.com/xcc3641)
 
-Android notifications are often a make-or-break interaction between your Android app and users. To provide a better user experience, notifications on Android N have received a visual refresh, improved support for custom views, and expanded functionality in the forms of Direct Reply, a new `MessagingStyle`, and bundled notifications.
 
-### Same notification, new look
+Android 通知往往是应用和用户之间至关重要的交互形式。为了提供更好的用户体验，Android N 在通知上做出了诸多改进：收到消息后的视觉刷新，改进对自定义视图的支持，扩展了更加实用的直接回复消息的形式，新的 `MessagingStyle`，捆绑的通知。
 
-The first and most obvious change is that the default look and feel of notifications has significantly changed. Many of the fields that were spread around the notifications have been collapsed into a new header row with your app’s icon and name anchoring the notification. This change ensured that the title, text, and large icon are given the most amount of space possible and, as a result, notifications are generally slightly larger now and easier to read.
+### 同样的通知，不一样的“面貌”
+
+首先，最明显的变化是通知的默认外观已经显著改变。除了应用程序的图标和名称会固定在通知内，很多分散在通知周围的字段也被折叠进新的标题行内。这一改变是为了确保尽可能腾出更多空间给标题、文本和大图标，这样一来通知就比现在的稍大些，更加易读。
 
 ![](http://ww3.sinaimg.cn/large/a490147fgw1f4w3pakcdrj20hs0853zv.jpg)
 
-Given the single header row, it is more important than ever that the information there is useful. **When you target Android N, by default the time will be hidden** - if you have a time critical notification such as a messaging app, you can re-enable it with `setShowWhen(true)`. In addition, the subtext now supersedes the role of content info and number: number is never shown on Android N devices and only if you target a previous version of Android and don’t include a subtext will content info appear. In all cases, ensure that the subtext is relevant and useful - don’t add an account email address as your subtext if the user only has one account, for example.
+给出单标题行，这就比以往的信息更加重要且更有用。**当指定 Android N 时，默认情况下，时间会被隐藏** - 对时间敏感的通知（比如消息类应用），可以 `setShowWhen(true)` 设置重新启用显示时间。此外，现在 subtext 会取代内容消息和数量的作用：数量是绝不会在 Android N 设备上出现的，除非指定之前的 Android 版本，而且不包含任何 subtext，内容消息将会显示。在所有情况下，都要确保 subtext 是相关且有意义的。例如，如果用户只有一个账号，就不要再添加邮箱账户作为 subtext 了。
 
-Notification actions have also received a redesign and are now in a visually separate bar below the notification.
+通知收到后的操作也重新设计了，现在视觉上是在通知下方单独的一栏中。
 
 ![](http://ww4.sinaimg.cn/large/a490147fgw1f4w3pwyytkj20b203vdfw.jpg)
 
-You’ll note that the icons are not present in the new notifications; instead more room is provided for the labels themselves in the constrained space of the notification shade. However, the notification action icons are still required and continue to be used on older versions of Android and on devices such as Android Wear.
+你会注意到，图标都没有出现在新的通知中；取而代之的是，将通知内有限的空间提供给了标签本身。然而，在旧版本的 Android 和设备上，通知操作图标仍然需要且被继续使用，如 Android Wear 。
 
-If you’ve been building your notification with [NotificationCompat.Builder](https://developer.android.com/reference/android/support/v4/app/NotificationCompat.Builder.html?utm_campaign=android_series_notificationsandroidnblog_060816&utm_source=anddev&utm_medium=blog) and the standard styles available to you there, you’ll get the new look and feel by default with no code changes required.
+如果你使用 [NotificationCompat.Builder](https://developer.android.com/reference/android/support/v4/app/NotificationCompat.Builder.html?utm_campaign=android_series_notificationsandroidnblog_060816&utm_source=anddev&utm_medium=blog) 创建了自己的通知，那么可以使用标准样式，无需修改任何代码就能变成默认的新样子。
 
-### Better Support for Custom Views
+### 更好的支持自定义视图
 
-If you’re instead building your notification from custom `RemoteViews`, adapting to any new style has been challenging. With the new header, expanding behavior, actions, and large icon positioning as separate elements from the main text+title of the notification, we’ve introduced a new `DecoratedCustomViewStyle` and `DecoratedMediaCustomViewStyle` to provide all of these elements, allowing you to focus only on the content portion with the new `setCustomContentView()` method.
+
+如果要从自定义 `RemoteViews` 创建自己的通知，以适应任何新的样式一直以来都很具有挑战性。随着新的 header，扩展行为，操作，和大图标位置都作为元素从通知的主要内容标题中分离出来，我们已经介绍一种新的 `DecoratedCustomViewStyle` 和 `DecoratedMediaCustomViewStyle` 提供所有这些元素使用， 这样就能使用新的 `setCustomContentView()` 方法，专注于内容部分。
 
 ![](http://ww4.sinaimg.cn/large/a490147fjw1f4w3qquphlj209p03hglr.jpg)
 
-This also ensures that future look and feel changes should be significantly easier to adapt to as these styles will be updated alongside the platform with no code changes needed on the app side.
 
-### Direct Reply
+这也确保未来外观改变了，也能轻易的随着平台更新，适配这些样式，还无需修改 app 端的代码。
 
-While notification actions have already been able to launch an `Activity` or do background work with a `Service` or `BroadcastReceiver`, **Direct Reply** allows you to build an action that directly receives text input **inline** with the notification actions.
+### 直接回复
+
+
+虽然通知是可以用来启动一个 `Activity`，或以一个 `Service` 、`BroadcastReceiver` 的方式在后台工作，**直接回复** 允许你使用通知操作直接在内嵌输入框中回复。
 
 ![](http://ww2.sinaimg.cn/large/a490147fjw1f4w3r9gdt2j207l02pt8n.jpg)
 
-Direct Reply uses the same [RemoteInput](https://developer.android.com/reference/android/support/v4/app/RemoteInput.html?utm_campaign=android_series_notificationsandroidnblog_060816&utm_source=anddev&utm_medium=blog) API - originally introduced for Android Wear - to mark an [Action](https://developer.android.com/reference/android/support/v4/app/NotificationCompat.Action.html?utm_campaign=android_series_notificationsandroidnblog_060816&utm_source=anddev&utm_medium=blog) as being able to directly receive input from the user.
+直接回复使用相同的 [RemoteInput](https://developer.android.com/reference/android/support/v4/app/RemoteInput.html?utm_campaign=android_series_notificationsandroidnblog_060816&utm_source=anddev&utm_medium=blog) API，最初是为 Android Wear 某个 [Action](https://developer.android.com/reference/android/support/v4/app/NotificationCompat.Action.html?utm_campaign=android_series_notificationsandroidnblog_060816&utm_source=anddev&utm_medium=blog)用的，为了能直接接收用户的输入。
 
-The `RemoteInput` itself contains information like the key which will be used to later retrieve the input and the hint text which is displayed before the user starts typing.
+`RemoteInput` 本身包含信息，如将用于以后恢复输入的秘钥，在用户开始输入之前的提示信息。
 
 <pre>// Where should direct replies be put in the intent bundle (can be any string)
 private static final String KEY_TEXT_REPLY = "key_text_reply";
@@ -51,7 +55,7 @@ RemoteInput remoteInput = new RemoteInput.Builder(KEY_TEXT_REPLY)
 
 </pre>
 
-Once you’ve constructed the `RemoteInput`, it can be attached to your Action via the aptly named [addRemoteInput()](https://developer.android.com/reference/android/support/v4/app/NotificationCompat.Action.Builder.html?utm_campaign=android_series_notificationsandroidnblog_060816&utm_source=anddev&utm_medium=blog#addRemoteInput(android.support.v4.app.RemoteInput)) method. You might consider also calling `setAllowGeneratedReplies(true)` to enable [Android Wear 2.0](https://developer.android.com/wear/preview/index.html?utm_campaign=android_series_notificationsandroidnblog_060816&utm_source=anddev&utm_medium=blog) to generate [Smart Reply](https://developer.android.com/wear/preview/api-overview.html?utm_campaign=android_series_notificationsandroidnblog_060816&utm_source=anddev&utm_medium=blog#smart-replies) choices when available and make it easier for users to quickly respond.
+一旦已经构造好 `RemoteInput` ，可以通过恰当命名的 [addRemoteInput()](https://developer.android.com/reference/android/support/v4/app/NotificationCompat.Action.Builder.html?utm_campaign=android_series_notificationsandroidnblog_060816&utm_source=anddev&utm_medium=blog#addRemoteInput(android.support.v4.app.RemoteInput)) 方法附加到 Action 上。也可以考虑调用 `setAllowGeneratedReplies(true)` 方法允许 [Android Wear 2.0](https://developer.android.com/wear/preview/index.html?utm_campaign=android_series_notificationsandroidnblog_060816&utm_source=anddev&utm_medium=blog) 生成[智能回复](https://developer.android.com/wear/preview/api-overview.html?utm_campaign=android_series_notificationsandroidnblog_060816&utm_source=anddev&utm_medium=blog#smart-replies)，方便用户快速回应。
 
 <pre>// Add to your action, enabling Direct Reply for it
 NotificationCompat.Action action =
@@ -62,9 +66,9 @@ NotificationCompat.Action action =
 
 </pre>
 
-Keep in mind that the `pendingIntent` being passed into your `Action` should be an `Activity` on Marshmallow and lower devices that don’t support Direct Reply (as you’ll want to dismiss the lock screen, start an `Activity`, and focus the input field to have the user type their reply) and should be a `Service` (if you need to do work on a separate thread) or `BroadcastReceiver` (which runs on the UI thread) on Android N devices so as the process the text input in the background even from the lock screen. (There is a separate user control to enable/disable Direct Reply from a locked device in the system settings.)
+请记住，在 Marshmallow 中，被传入 `Action` 的 `pendingIntent` 应该是一个 `Activity`。更低版本的设备不支持直接回复（你可能会想解锁屏幕，启动一个 `Activity`，然后聚焦到用户回复的输入框中），Android N 设备上 `Service`（如果你想要在一个单独的线程中运行） 或 `BroadcastReceiver`（运行在 UI 线程中） 即便处于锁频状态，后台也能处理文本输入。（在系统设置中有一个独立的用户选项，可以启用/禁用锁定设备的直接回复功能。）
 
-Extracting the text input in your `Service`/`BroadcastReceiver` is then possible with the help of the [RemoteInput.getResultsFromIntent()](https://developer.android.com/reference/android/support/v4/app/RemoteInput.html#getResultsFromIntent(android.content.Intent)) method:
+在 `Service`/`BroadcastReceiver` 中提取输入的文本，可能需要 [RemoteInput.getResultsFromIntent()](https://developer.android.com/reference/android/support/v4/app/RemoteInput.html#getResultsFromIntent(android.content.Intent)) 的帮助。
 
 <pre>private CharSequence getMessageText(Intent intent) {
     Bundle remoteInput = RemoteInput.getResultsFromIntent(intent);
@@ -76,21 +80,22 @@ Extracting the text input in your `Service`/`BroadcastReceiver` is then possible
 
 </pre>
 
-After you’ve processed the text, **you must update the notification**. This is the trigger which hides the Direct Reply UI and should be used as a technique to confirm to the user that their reply was received and processed correctly.
+处理文本后，**必须更新通知**。这将触发隐藏直接回复 UI，这可以作为一种技巧来确认用户是否收到回复并正确处理。
 
-For most templates, this should involve using the new `setRemoteInputHistory()` method which appends the reply to the bottom of the notification. Additional replies should be appended to the history until the main content is updated (such as the other person replying).
+对于大多数模板，这将涉及使用新的 `setRemoteInputHistory()` 方法，将答复追加到通知底部。更多回复应该追到历史记录下，直到主要内容更新（比如别人的回复）。
 
 ![](http://ww1.sinaimg.cn/large/a490147fjw1f4w3rp4glij20b408qt9x.jpg)
 
-However, if you’re building a messaging app and expect back and forth conversations, you should use `MessagingStyle` and append the additional message to it.
+不过，如果你是在做一个消息应用，期待着“你来我往”的对话，那就应该用 `MessagingStyle`，将额外消息追加上去。
+
 
 ### MessagingStyle
 
-We’ve optimized the experience for displaying an ongoing conversation and using Direct Reply with the new `MessagingStyle`.
+我们已经优化过正在对话状态中消息的显示，用新的 `MessagingStyle` 直接回复。
 
 ![](http://ww2.sinaimg.cn/large/a490147fgw1f4w3s4fxm7j20b405iglr.jpg)
 
-This style provides built-in formatting for multiple messages added via the `addMessage()` method. Each message supports passing in the text itself, a timestamp, and the sender of the message (making it easy to support group conversations).
+对于通过多 `addMessage()` 方法增加多条消息，这种风格提供内置的格式化。每个消息支持通过文本本身、 一个时间戳，以及消息的发送人来增加（使它易于支持组对话）。
 
 <pre>builder.setStyle(new NotificationCompat.MessagingStyle("Me")
     .setConversationTitle("Team lunch")
@@ -101,26 +106,26 @@ This style provides built-in formatting for multiple messages added via the `add
 
 </pre>
 
-You’ll note that this style has first-class support for specifically denoting messages from the user and filling in their name (in this case with “Me”) and setting an optional conversation title. While this can be done manually with a `BigTextStyle`, by using this style Android Wear 2.0 users will get immediate inline responses without kicking them out of the expanded notification view, making for a seamless experience without needing to build a full Wear app.
+你可能会注意到，这种风格能很好的支持特殊用户消息的展示，填写它们的名字（上例中的“Me”），设置一个可选的对话标题。
+虽然可以手动通过 “BigTextStyle” 来完成，使用这种风格的 Android Wear 2.0 用户能立即得到内置响应，不会被“踢出”扩展通知视图，无需创建完整的穿戴（Android Wear）应用就能达到无缝体验。
 
-### Bundled Notifications
+### 捆绑通知
 
-Once you’ve built a great notification by using the new visual designs, Direct Reply, `MessagingStyle`, and [all of our previous best practices](https://www.youtube.com/watch?v=-iog_fmm6mE), it is important to think about the overall notification experience, particularly if you post multiple notifications (say, one per ongoing conversation or per new email thread).
+一旦你想建立了一个“巨牛逼”的通知，通过使用新的视觉设计，直接回复，`MessagingStyle`还有[所有之前最佳实践](https://www.youtube.com/watch?v=-iog_fmm6mE),但考虑通知的整体体验也很重要，尤其是发送多条通知的情况（每个正在进行的谈话或每个新的电子邮件线程）。
+
 
 ![](http://ww3.sinaimg.cn/large/a490147fgw1f4w3suh75sj20hs05ujrp.jpg)
 
-**Bundled notifications** offer the best of both worlds: a single summary notification for when users are looking at other notifications or want to act on all notifications simultaneously and the ability to expand the group to act on individual notifications (including using actions and Direct Reply).
+**捆绑通知** 提供两全其美的办法: 一个单独的概要通知，当用户在看其他通知或者想要同时操作所有通知时在个别通知上扩展了组操作能力（包括使用操作和直接回复）。
 
-If you’ve built [stacking notifications for Android Wear](https://developer.android.com/training/wearables/notifications/stacks.html?utm_campaign=android_series_notificationsandroidnblog_060816&utm_source=anddev&utm_medium=blog), the API used here is exactly the same. Simply add [setGroup()](https://developer.android.com/reference/android/support/v4/app/NotificationCompat.Builder.html?utm_campaign=android_series_notificationsandroidnblog_060816&utm_source=anddev&utm_medium=blog#setGroup(java.lang.String)) to each individual notification to bundle those notifications together. You’re not limited to one group, so bundle notifications appropriately. For an email app, you might consider one bundle per account for instance.
+如果你为 Android Wear 创建了 [堆通知](https://developer.android.com/training/wearables/notifications/stacks.html?utm_campaign=android_series_notificationsandroidnblog_060816&utm_source=anddev&utm_medium=blog)，这里使用的 API 是完全一样的。只需将 [setGroup()](https://developer.android.com/reference/android/support/v4/app/NotificationCompat.Builder.html?utm_campaign=android_series_notificationsandroidnblog_060816&utm_source=anddev&utm_medium=blog#setGroup(java.lang.String)) 添加到每个单独通知中，将那些通知“绑定”到一起。不仅限于绑定成一组，所有捆绑通知是十分灵活的。对于邮件应用，可能考虑每个账户的邮件“捆”成一组。
 
-It is important to also create a **summary notification**. This summary notification, denoted by [setGroupSummary(true)](https://developer.android.com/reference/android/support/v4/app/NotificationCompat.Builder.html?utm_campaign=android_series_notificationsandroidnblog_060816&utm_source=anddev&utm_medium=blog#setGroupSummary(boolean)), is the **only** notification that appears on Marshmallow and lower devices and should (you guessed it) summarize all of the individual notifications. This is an opportune time to use the [InboxStyle](https://developer.android.com/reference/android/support/v4/app/NotificationCompat.InboxStyle.html?utm_campaign=android_series_notificationsandroidnblog_060816&utm_source=anddev&utm_medium=blog), although using it is not a requirement. On Android N and higher devices, some information (such as the subtext, content intent, and delete intent) is extracted from the summary notification to produce the collapsed notification for the bundled notifications so you should continue to generate a summary notification on all API levels.
+创建概要通知也是很重要的。这个概要通知，通过 [setGroupSummary(true)](https://developer.android.com/reference/android/support/v4/app/NotificationCompat.Builder.html?utm_campaign=android_series_notificationsandroidnblog_060816&utm_source=anddev&utm_medium=blog#setGroupSummary(boolean)) 展示通知，这也是唯一支持 Marshmallow 和更低版本的设备的通知，会归纳所有个人通知（你猜对了）。这是使用 InboxStyle 的最佳时机，虽然没有要求用它。在 Android N 或更高版本设备上，从概要通知上提取的某些信息（如 subtext、content intent 和 delete intent），来为捆绑通知生成 collapsed 通知，所以你应该继续在所有 API级别上生成概要通知。
 
-To improve the overall user experience on Android N devices, **posting 4 or more notifications without a group will cause those notifications to be automatically bundled**.
+为了提升所有 Android N 设备的用户体验，**发送 4 个或者更多通知时没有以组的方式，这些通知将自动合并成一组**
 
-### N is for Notifications
+### 为通知而生的 Android N
 
-Notifications on Android have been a constant area of progressive enhancement. From the single tap targets of the Gingerbread era to expandable notifications, actions, MediaStyle, and now features such as Direct Reply and bundled notifications, notifications play an important part of the overall user experience on Android.
+通知在 Android 上是一直不断改进的功能。从 Gingerbread 时代的单击目标，到可扩展通知，操作，MediaStyle 以及现在的直接回复，绑定通知。通知在 Android 用户体验上扮演着不可或缺的一部分。
 
-With many new tools to use (and [NotificationCompat](https://developer.android.com/reference/android/support/v4/app/NotificationCompat.html?utm_campaign=android_series_notificationsandroidnblog_060816&utm_source=anddev&utm_medium=blog) to help with backward compatibility), I’m excited to see how you use them to #BuildBetterApps
-
-
+随着许多新工具可使用（[NotificationCompat](https://developer.android.com/reference/android/support/v4/app/NotificationCompat.html?utm_campaign=android_series_notificationsandroidnblog_060816&utm_source=anddev&utm_medium=blog) 能帮助保持向后兼容），我已经迫不及待的想看看如何用这些工具创建更好的应用。

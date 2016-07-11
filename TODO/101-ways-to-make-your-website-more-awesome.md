@@ -1,185 +1,186 @@
 >* 原文链接 : [101 Ways to Make Your Website More Awesome](https://medium.freecodecamp.com/101-ways-to-make-your-website-more-awesome-79c934dd2a11#.enfq945da)
 * 原文作者 : [Nicholas Tart](https://medium.freecodecamp.com/@wntart)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者:
+* 译者 : [达仔](https://github.com/zhangjd)
+* 校对者: [jamweak](https://github.com/jamweak)、[cyseria](https://github.com/cyseria)
 
 
 
-I was talking to an old client last week and she said, “Nick, I know I need help with the site, but I’m not sure what I need.”
+上周，我和一位老客户聊天，她说：“尼克，我觉得我的网站需要改进，但我不能确定我具体需要做什么。”
 
-So I asked around. Friends, family, other non-internet-y business folk. They all said the same thing:
-
-> “I need a checklist. I don’t know how to build a website. That’s why I need to hire someone. But I still want to know what’s involved.”
-
-So I started making a list of everything we’ve done at [AwesomeWeb](https://awesomeweb.com/) (and some things we haven’t).
-
-Here’s my promise…
-
-…If you fix everything on this list, you’ll have one of if not the best site in your industry.
-
-_How do you know?_
-
-At AwesomeWeb, I’ve reviewed 1,000+ of the world’s best freelancers. As far as I know, I’ve never seen a site that can check every box.
-
-As a business owner, use this list to know what needs to be done. Send it to your designer or developer. You’ll even be able to fix a few of them yourself.
-
-As a freelancer, use this list to make everything you create more awesome. Go back to old clients and say:
-
-“I was reviewing what we built and noticed that we can fix this, this, and this. I can do it for $500, $1000, $5000 and you can expect these results…”
-
-The point is…
-
-…I want to help you make the web more awesome. It starts here, with this list.
+然后我就去问了一圈，包括朋友、家人和其他非互联网行业的商务人士，他们都提到了相同的观点：
 
 
-### Awesome Branding
+> “我需要一个检查清单，因为我不知道怎样建站，这也是我要雇人来做这件事情的原因。但是我依然需要知道这个过程涉及到哪些方面。”
 
-1.  Get a   `professional logo  `. It’s rare to find a website or a blog with a great logo. So it’s a good way to build instant credibility.
-2.  Upload a   `retina-ready favicon  ` (the square icon on your browser tab). Most sites have 16×16 pixel favicons. On retina screens, they’re blurry. Use [X-Icon Editor](http://www.xiconeditor.com/) to generate a 64×64 pixel favicon.
-3.  Always use   `retina-ready images  `. Simply make sure the image is twice as large as it’s container, then scale it down.
-4.  Use   `2–3 colors max  `. You should have a background color, a call-to-action color, and an accent color.
-5.  When choosing a color palette, start with   `complementary or triad colors  `. Adjust from there. Good color combos give you a design that tells a story.
-6.    `Never use true black  ` (#000000). Pure black doesn’t exist so it looks out-of-place online. Black, in reality, is always a dark shade of another color.
-7.    `Never use a neutral grey  ` (e.g. #cccccc) if you want your design to have a personality. Add a tint of yellow to provide warmth, red to give energy, or blue to create trust.
+因此，我列了一个我们在 [AwesomeWeb](https://awesomeweb.com/) 上完成的优化清单（以及一些我们还没完成的）。
 
-### Awesome Typography
+我敢保证:
 
-1.  Pick a   `premium font  `. Use a service like [Typekit](https://typekit.com/). It’s been said that 95% of the web is typography. Going with a premium font is the easiest and most inexpensive way to make a good impression.
-2.  Use   `2–3 fonts max  `. More is messy and slows load time. Choose a heading font and a paragraph font. One more if you want a font for special cases.
-3.  Set a body font size at   `16px minimum  `. Anything smaller is difficult to read on large displays. Scale down to 12px on mobile devices.
-4.  Choose a   `typographical scale  ` like the augmented fourth, perfect fifth, or golden ratio. Use the scale to set font sizes for your paragraph text, H4, H3, H2, and H1\. Base your line-heights and text margins on this scale.
-5.  Design other   `typographical elements  ` like blockquotes, bulleted lists, numbered lists, captions, help text, alerts, highlighted text, code samples, abbreviations, and even addresses.
-6.  Install a   `custom icon font  ` like [Font Awesome](https://fortawesome.github.io/Font-Awesome/) instead of using images for common elements like social media logos, navigation buttons, and interactive graphics. An icon font loads faster, scales endlessly, and gives you the freedom to change it’s color as you wish.
+如果你能把列表的每一项问题都改好，你将会拥有业界里最好的网站之一。
 
-### Awesome Layouts
+_你是怎么知道的？_
 
-1.  Use the   `rule of thirds  ` for a base layout. Divide your layout into thirds horizontally and vertically, then align key focus points where the lines intersect.
-2.  Maintain a   `vertical grid  ` with a grid system. Break your interface into 8-, 12-, 16-column layouts with generous gutters between columns.
-3.  Keep a consistent vertical rhythm with a   `baseline grid  `. The space between lines of text is just as important as the space between content blocks. Every line of text should have a margin bottom that sits on the baseline.
-4.    `White space  ` is luxurious. It’s there to create breathing room and balance. Draw your readers’ eye to what’s most important.
-5.    `Balance the visual elements  ` of your site like the buttons, inputs, forms, headlines, etc. You should be able to blur your eyes and track the path that you want your users to take.
+在 AwesomeWeb 里，我已经评估过 1,000 多个自由职业者。据我所了解的情况，我从没见过一个网站可以把所有选框都打上勾的。
 
-### Awesome User Interfaces
+对于企业老板，根据这个列表，你可以了解到接下来可以做哪些改进工作，然后把它发给你的设计或者开发去修改。你甚至还可以自己去修复其中的一部分问题。
 
-1.  Use big, bold   `call-to-action buttons  `. Every page should have one goal. It’s almost always to click a button. Make sure that button can’t be missed.
-2.  Add   `hover and active states  ` to your links, buttons, inputs, and textareas. If you choose to lighten your buttons on hover, you should also lighten the links and the borders on your inputs.
-3.  Be consistent with   `form styling  `. All textareas and input fields should be styled the same. Same border colors, background colors, on hover, on active, placeholder text, active text, etc. Make sure the tabindex’s are set up correctly so you can tab through them in the right order.
-4.  Change the color of   `visited links  `, to let the user know that they’ve been to that page before.
-5.  Once you have your logo, colors, typography, layout, and image sizes, establish a   `style guide  `. Good user interfaces are built with consistent components that are always styled the same.
+对于自由职业者，使用这个列表可以让你做出更加酷炫的内容，然后回去找你的老客户们，对他们说：
 
-### Awesome User Experience
+“我重新回顾了之前的项目，我们可以修复这里、这里和这里，给我 $500, $1000, $5000 然后你可以期待得到以下的改进结果……”
 
-1.  Add   `microinteractions  ` to buttons and other fields. For instance, an “Upload” button should change to “Uploading” or “Processing” after it’s clicked.
-2.  <span class="markup--quote markup--li-quote is-other" data-creator-ids="anon">  `No scroll jacking  `! Never mess with the default behavior of the browser. You might think it’s nice to scroll twice as fast as normal, but it’s not.</span>
-3.    `Get rid of your homepage slider  `. They decrease conversions and there are better ways to display more information in a small space.
-4.    `Never use a welcome gate  `. When visiting your homepage for the first time, the user expects to see your homepage.
-5.  Use   `headlines, subheadlines, lead paragraphs, lists, and captions  ` to make your content easily scannable. Most people who visit a webpage will scan it before they decide to read it.
-6.  Add   `descriptive placeholder text  ` to all of your forms, inputs, and dropdowns. If you want someone to fill out a field in a certain way, tell them. For dropdown or select fields, make the first option descriptive. “Select Year” is better than “2016”.
-7.  Add   `HTML5 validation  ` on your forms to make it clear when there’s an error in the form after a user tries to submit it.
-8.  Make your websites   `accessible for the visually impaired  ` by avoiding vague link names, reducing clutter, using punctuation, keeping a simple layout, adding alt text to images, using larger text, and maintaining high contrast between text and background colors.
-9.  Check your site for   `broken links  ` with [BrokenLinkCheck.com](http://brokenlinkcheck.com/). Fix broken links so people don’t get mad when they click them.
+重点是…
 
-### Awesome Development
-
-1.  Make sure your site is   `mobile-optimized  ` to display responsively on any device. Properly mobile-optimized sites load faster, rank higher, and give your users a better experience.
-2.  Generate and   `display the optimal image size  `. If you upload a large image, like a blog post feature image, and you want to display it in other places across the site, like the sidebar, make sure you display the thumbnail version of the image instead of the full-size image.
-3.  Add   `alt and title tags to all images and links  `. If for some reason an image isn’t loading, your site will display the alt text in its place. Also, when you hover over links, the browser displays the title tag for that link.
-4.  Use`<strong>`and`<em>`instead of `<b>` and `<i>` to bold and italicize text. They have the same effect, but they have a fundamental difference. `<b>` is a style. `<strong>` is an indication of how something should be understood.
-5.    `Fix sloppy HTML  `. When you copy paste content into a WYSIWYG editor (like the visual view in WordPress), it adds lots of unnecessary spans and inline styles. Overtime, your site will become un-readable.
-6.  Speaking of which,   `remove inline styles  ` from your HTML. 99% of the time, your styling rules should go into a CSS file so you can update all instances of a component at the same time instead of page-by-page, line-by-line.
-7.  Use   `Sass variables  ` instead of CSS to keep colors and other components consistent across your site. Want to change a color and every shade of that color? Update one line instead of hundreds.
-8.    `Link to permalinks not URLs  ` in case you switch domains. For example, when linking to a certain page, your HTML should read, <a href=“/slug-goes-here”> instead of <a href=“http://domain.com/slug-goes-here”>. Same for image sources and CSS backgrounds. If you don’t do this and put the site on a new domain, all of your sources will link to pages and files that no longer exist.
-9.  Develop a   `custom plugin  ` or tool to provide unique functionality to your site. Custom software is difficult to maintain but will give you a competitive advantage over similar sites.
-10.  Test for   `cross-browser compatibility  ` by making sure your site displays properly in Chrome, Firefox, Safari, Internet Explorer, and other browsers. Older versions of IE are notoriously bad at displaying websites. Use [BrowserStack](https://www.browserstack.com/screenshots) and check manually.
-11.  Use [W3C’s](https://validator.w3.org/)   `Markup Validation Service  ` to find glaring errors in your HTML. Keep in mind, most sites don’t have perfectly valid HTML. It’s not the top priority but will give you a good sense if there are any errors.
-12.  Set up a   `staging environment  ` to make changes to your current website. Ideally you should have a production site, which everyone sees, and a staging site, where your developer makes changes. Once the changes are ready to go live, push the staging site to production.
-13.  Show   `current year in copyright footer  `. When you see a site with an old copyright, you assume that it’s no longer active. Use a PHP or similar script to display the current year instead of static text (e.g. © <established year> — <current year>).
-
-### Awesome Search Engine Optimization
-
-1.  Choose   `one keyword phrase per page  ` that you want that page to rank for. Focus on optimizing every aspect of that page for that keyword. Not in the put-this-keyword-in-every-sentence sense. Just be smart about how you want it to rank.
-2.  Set keyword-rich   `title tags  ` on every page. The title displays as the blue link in Google search results. Limit to 55-characters.
-3.  Include one and   `only one H1 tag  ` per page. In most cases, this will be the same as your title tag.
-4.  Include plenty of   `H2’s, H3’s, and H4’s  ` within the content of your page to create subheadlines and visual hierarchy.
-5.  Optimize your page for a   `specific keyword  ` by including it in the title, H1, subheadlines and in the first 1/3 of the content.
-6.  Your   `meta description  ` displays in search results as the description under the link. Make sure you include it on every page and include the keyword phrase.
-7.  Your   `permalink  `, which is the URL after the domain (i.e. domain.com/permalink-here/), should include the keyword phrase separated by dashes.
-8.  Google considers   `domain age  ` in it’s algorithm because a domain that’s registered for many years is likely to be a higher-quality resource. Register your domain for several years in advance. If you registered your domain for 10 years, then you’re serious about your business.
-9.  On average, the first result on the SERP (search engine results page) for any given keyword leads to a page with more than   `2000 words per page  `. When writing a blog post or creating a page that you want to rank well, try to hit at least 2000 words.
-10.  Always   `create a sitemap  ` as a sitemap.xml file and put it in your root directory so it displays on domain.com/sitemap.xml. It tells Google where all of your pages sit and should automatically update when you add new content. Submit it to Google through [Webmaster Tools](https://www.google.com/webmasters/tools/home?hl=en).
-11.  Add your website   `Google Webmaster Tools  ` so you can see how Google indexes your site and stay updated if there are any critical issues.
-12.  To help your images rank, always   `rename your images  ` and other files before uploading to your website (e.g. rank_for_this_keyword_phrase.png).
-13.  Include a   `robots.txt  ` file on your site to tell web crawlers which pages they should and should not index.
-14.  Add a   `canonical redirect  ` to point the non-www to the www version of your website, or vice versa.
-15.  Research and integrate   `LSI keywords  ` (latent semantic indexing) on every page to help the page rank for the main keyword phrase. Find the LSI keywords by Googling your keyword phrase and searching for the “Searches related to…” links.
-16.  Make sure to actively   `interlink your content  `. Every page on your site should be accessible through three or fewer clicks from the homepage.
-17.  Add   `structured data  ` on relevant pages to help Google properly index your content. Page types that need custom structured data include people, products, events, organizations, movies, books, and reviews. Use [Schema Creator](http://schema-creator.org/) to generate structured data.
-18.  Check [Google’s](https://developers.google.com/speed/pagespeed/insights/)   `PageSpeed Insights  ` to make sure you’ve fixed all of the common problems that slow down your page speed. The faster your site loads, the higher it’ll rank.
-
-### Awesome Page Speed
-
-1.  Keep   `page weight under 2MB  `. Use [tools.pingdom.com](http://tools.pingdom.com/) to check the page weight for your primary landing pages. Anything more than 2MB is too heavy.
-2.  Keep   `page requests under 50  `. Every file and image on any given page is a HTTP request. The fewer the number of requests, the faster it’ll load. The average webpage has 70 requests. Use [GTmetrix](https://gtmetrix.com/) to see your requests.
-3.  Design page elements with   `CSS instead of background images  `. Never use an image to show a button, form, or other common component on your site. CSS loads faster and is more flexible in responsive layouts.
-4.    `Optimize images  ` before uploading them to your site. Tools like [TinyPNG](https://tinypng.com/) can reduce your image file sizes by 80–95% without losing resolution or image quality.
-5.  Set up a   `Content Delivery Network  ` to host your images and other larger files in several locations around the world. CDNs store and deliver your files from strategically located servers to maximize loading speed depending on your visitor’s physical location.
-6.    `Minify JavaScript, HTML, and CSS  ` by using compiling and compression tools prior to uploading files to your website. For JavaScript, use [Closure Compiler](https://developers.google.com/closure/compiler/). For HTML, use [HTML Minifier](http://www.willpeavy.com/minifier/). For CSS, use [YUI Compressor](http://yui.github.io/yuicompressor/).
-7.  Move   `render-blocking JavaScript to the footer  `. The only scripts that should be placed in the header are the scripts that immediately affect the design of the page (e.g. custom fonts).
-8.    `Avoid landing page redirects  `. Redirects trigger an additional HTTP request which delays page rendering.
-9.  Leverage   `browser caching  ` by setting expiry dates for pages and page types that aren’t updated often. Browser caching instructs the browser to load previously downloaded pages from the local disk rather than through the network.
-10.  Enable   `gzip compression  ` in your server configuration. Compression can reduce the transferred response time by 90% which improves the time to first render for your pages.
-11.  Enable   `Keep-Alive  ` on your server settings to allow the same TCP connection to send and receive multiple HTTP requests, thus reducing the latency for subsequent requests.
-12.  Upgrade to a   `dedicated server  ` or premium hosting service to improve server response time. When you use a shared hosting environment, your site is typically one of hundreds on the same server. If any one of those hundred sites is experiencing a lot of traffic, it’ll slow down your page speed.
-
-### Awesome Graphic Design
-
-1.  Get a   `custom ebook cover  ` for your opt-in bonus. They’re not difficult to create and can make a huge difference in your conversion rate.
-2.  Design a   `custom graphic or illustration  ` for your homepage or sales pages. A nice illustration that’s done specifically for your site is an easy way to make your site more memorable.
-3.  Create a custom or series of custom   `blog post feature image designs  `. That’s the image that spreads on Facebook, Twitter, Pinterest, etc. When a user sees a certain type of image associated with a blog post, they should know that it was written by you.
-4.  Display custom   `avatar illustrations or caricatures  ` for yourself and each member of your team. Custom caricatures can be less expensive than hiring a professional photographer each time you add someone to your team. Plus, it’s a nice gift to a new team member.
-5.    `Custom infographics  ` that display data and other content in a visual way tend to get more traffic than the blog post equivalent. People like to share infographics on sites like Pinterest or re-post them on their own sites with a backlink back to your site.
-6.  If you produce a video or series of videos, you should have a   `custom video intro and/or outro  ` to give it a professional touch. Not to mention other video graphics or animations that’ll help your brand stick out.
-
-### Awesome Web Security
-
-1.  Install an   `SSL Certificate  ` to allow a secure connection from a web server to a browser. Most checkout software requires an SSL Certificate if you’re accepting credit cards. Google has said that an SSL Certificate will improve your search rankings.
-2.  Keep your   `software and plugins updated  `. When WordPress and other CMS software releases a update, it’s typically to patch up a vulnerability. If you don’t, it’s only a matter of time before your site will be hacked.
-3.  Set up a   `double authentication login gate  ` for your admin pages. Most hacks start with the login page.
-4.  Check for and   `remove malware  `. If your site has been hacked before, they likely added corrupt files that aren’t easy to find. If you don’t remove it promptly, your site might be blacklisted by Google which tanks your rankings and warns users to leave when they visit.
-5.  Never leave your   `admin username  ` as “admin”. Delete the default admin account and create a new one with a different username.
-6.  Regularly   `back up your database and website files  `. Most backup software and plugins only back up your database, which includes the data and content. But if you lose your site, you’ll need to have a backup of the files to restore it.
-
-### Awesome Content
-
-1.  Create a custom   `error 404 page  ` that’ll display anytime a user tries to visit a page that doesn’t exist. Use the 404 page to direct them back to the homepage or help them find what they’re looking for.
-2.  Other than your homepage, your   `about page  ` is likely the most visited page on your site. Make sure it represents you and your company well.
-3.  A   `contact page  ` will help people contact you, but it’ll also build trust between you, your visitors, and even Google. When determining how to rank your site, the bots will find your contact page and look for an email, phone number, and address. Contact info tells Google that the site is slightly more trustworthy.
-4.  It’s good to have opt-in forms strategically sprinkled throughout your site, but it’s also smart to have a   `squeeze page  ` with nothing but a high-converting opt-in. When you want someone to subscribe, link to that page.
-5.  When someone subscribes to your list, make sure you send them to a   `confirmation page  ` asking them to confirm their email. If they don’t confirm their email right away, they might forget about it and never come back.
-6.  After they click the confirmation link in the email, send them to a   `thank you page  ` where they can see what’s next. It’s a page every subscriber will see and they’ll only see once, so it’s a perfect opportunity to give them a deal or encourage them to make a purchase.
-7.  Your website or theme should have a   `landing page  ` template that you can use when you need your users to take a specific action.
-8.  If you sell something, make sure you have a nice-looking   `sales page  `. Start with a headline. Make room for your pitch. Maybe add a sales video. And direct people to purchase at the bottom of the page.
-
-### Awesome Social Media
-
-1.  Limit the   `number of social media buttons  ` on your posts and pages because each button runs a script that adds extra load time to the page. Only include the 1–5 buttons, e.g. Facebook, Twitter, LinkedIn, Pinterest, Google+, etc. where your content most often gets shared.
-2.  Create   `social media graphics  ` for your Facebook page, Twitter account, and YouTube channel. Custom graphics make an immediately positive impression that’ll encourage first-time visitors to like, follow, and subscribe to your page, profile, or channel.
-3.  Set up   `Facebook Open Graph META tags  ` to make sure your content is shared correctly on Facebook. Use the [Facebook Debugger](https://developers.facebook.com/tools/debug/) to check your homepage, posts, and other pages to see how they display when someone shares that URL.
-4.  Set up   `Twitter Cards  ` to automatically attach rich photos and videos to your tweets when a URL on your site is shared. Get started with [Twitter Cards here](https://dev.twitter.com/cards/getting-started).
-5.  Set up   `Google+ Snippets  ` to customize what people see when your site is shared on Google+. Use the [Snippet guide](https://developers.google.com/+/web/snippet/) to generate the code. Even if your site doesn’t get a lot of Google+ love, Google will know if you add the meta data correctly and that should carry some weight.
-6.    `Tuck away the social media icons  ` on your site that link back to your profiles. Make them small or only show them in the footer. The purpose of social media marketing is to get people back to your site, not the other way around.
+…我希望可以帮你构造出更加酷炫的网站。事不宜迟，现在进入正题，开始介绍这个列表：
 
 
-Alright, what am I missing? Is there anything you do as a freelancer or business owner to make your sites more awesome?
+### 酷炫的品牌
 
-I’d love to hear your feedback. Leave a comment or tweet [  `@wntart  `](https://twitter.com/wntart).
+1. 挑选一个 `专业的 logo`，现在很难找到一个带有很棒的 logo 的网站或者博客，因此这是一个瞬间获取信任感的好方法。
+2. 上传一个 `支持 retina 屏幕的 favicon` (在浏览器标签上显示的正方形小图标)。大部分网站的 favicon 都是 16x16 像素的，在 retina 屏幕会显得模糊。使用 [X-Icon Editor](http://www.xiconeditor.com/) 生成 64x64 像素大小的 favicon。
+3. 使用 `支持 retina 屏幕的图片`。这很简单，只需要确保图片宽高是容器的两倍，然后显示时缩放就可以了。
+4. `最多使用 2-3 种颜色`。包括背景色、文字-动作颜色和强调色。
+5. 选择调色板时，从 `互补色或者三色组`（complementary or triad colors）开始选择，然后再进行调整。好的颜色组合会给你带来充满故事感的设计。
+6. `不要使用纯黑色` (#000000)。纯黑色是不存在的，所以在网上使用纯黑色看起来不合适。实际上，黑色应该总是作为其它颜色的深色阴影。
+7. `不要使用浅灰色` (比如 #cccccc)。如果你希望设计更显个性化，可以试着添加一点黄色显得温暖，添加红色给予能量，而蓝色产生信任。
 
-If you think more people should see this list, please recommend it. Let’s make the web more awesome!
+### 酷炫的排版
 
-Cheers, Nick
+1. 挑选一种 `优质的字体`。使用 [Typekit](https://typekit.com/) 之类的服务吧。据说多达 95% 的网站都是有排版的，想要产生良好的第一印象，使用优质字体是最简单、成本最低的方法。
+2. `最多使用 2-3 种字体`。使用更多字体会显得杂乱，并且减慢加载时间。挑选一种字体用在头部，一种用在段落中，如果有需要的话，还可以挑选一种用在其它特殊情况里。
+3. 设置 body 的字体大小为 `最小 16px`，更小的字体在大屏幕中不方便阅读，如果是移动端页面可以考虑的最小值为 12px。
+4. 设置 `排版缩放比例`，就像（乐理中有）增四度，纯五度音程或者（在绘画使用）黄金比例。根据比例来设置段落文本大小，以及 H4, H3, H2 和 H1 标签。当然，文本的行高和间距也要基于这个比例。
+5. 设计其它的 `排版元素`，包括引用、符号列表、数字编号列表、表格标题、帮助文本、警告框、高亮文本、代码示例、缩写甚至地址。
+6. 选择一种 `自定义图标字体`，比如 [Font Awesome](https://fortawesome.github.io/Font-Awesome/)，来代替图片和其它一些元素，比如社交媒体 logo、导航按钮、交互图形等。图标字体的加载速度更快，可以任意缩放，并且可以随意更改图标颜色。
 
-  `P.S.  ` If you need help with anything on this list, [hire designers here](https://www.awesomeweb.com/skill/web-design), [developers here](https://www.awesomeweb.com/skill/web-development), or [post a job here](https://www.awesomeweb.com/why-post-a-job). We have the world’s best freelancers and they’re happy to help!
+### 酷炫的布局
 
-If you want to join AwesomeWeb as a freelancer to get more clients, [sign up here](https://www.awesomeweb.com/signup).
+1. 使用 `三分法` 来设计基本布局。水平垂直把布局划成三等分，然后当线段横穿时，设法对齐关键的焦点。
+2. 使用一个网格系统来维护 `垂直方向的网格`。把你的布局分隔成 8 列、12 列或者 16 列的布局，列与列之间带有足够空白。
+3. 使用 `基线网格` 保持垂直方向的调和感。文本行之间的空间，和内容块之间的空间都同样重要。每行文本应该都拥有一定的底部外边距，也就是位于基线的地方。
+4. `空白` 是奢侈的。空格的存在是为了创造呼吸空间和平衡，你应该把读者的眼球吸引到重要的地方去。
+5. `均衡摆放视觉元素`，比如按钮、输入框、表单和大标题等。你应该把眼睛眯起来，试着跟踪那些你想让用户关注到的路径点。
+
+### 酷炫的用户界面
+
+1. 使用大大的加粗的 `行为按钮`。每个页面应该只有一个目标，而且几乎都是点击一个按钮而已。所以确保这个按钮不会被用户忽略。
+2. 添加 `鼠标悬停 (hover) 和鼠标点击 (active) 状态` 的样式给链接、按钮、输入框和文字区域。如果你选择在鼠标悬停时让按钮颜色变亮，那你也应该对于链接和输入框边框给出同样的样式。
+3. 保持 `表单样式` 的一致性。所有的文本区域和输入框都应该有相同的样式。包括相同的边框颜色、背景颜色、悬停状态、点击状态、占位符文字、点击状态文字等。确保 tabindex 属性的正确设置，以便用户可以使用 tab 键在表单项之间用正确的顺序切换。
+4. 改变 `已经点击过的链接` 的颜色，让用户知道他们已经去过那个页面了。
+5. 一旦你拥有了自己的 logo、颜色、排版、布局和图像大小，你要建立一个 `风格指南`。好的用户界面应该使用风格一致的组件，其样式应该总是相同的。
+
+### 酷炫的用户体验
+
+1. 在按钮和其它表单域元素使用 `微交互（microinteractions）`。比如，点击上传按钮之后，提示文字可以变为 “正在上传” 或者 “处理中”。
+2. `不要使用 scroll jacking` （译注：通过重新定义鼠标滚动速度、幅度达到控制可视区域视觉效果的方式）！不要打乱浏览器的默认行为，虽然你可能会觉得让滚动速度变成原来的两倍很不错，但事实并非如此。
+3. `放弃使用首页轮播`。轮播会减少转化率，可以考虑使用更佳的方法来在有限空间显示更多信息。
+4. `不要使用欢迎界面`。当用户第一次打开首页时，用户希望能直接看到首页内容。
+5. 使用 `标题、副标题、头段落、列表、表格标题` 让你的内容更容易被检索。大部分人在浏览网页前，都会先检索一遍全文，再决定是否阅读。
+6. 添加 `描述性的占位符文字` 到你的表单、输入框和下拉菜单。如果你想要让浏览者用某种特定方式来填写表单，你应该指引他怎么做。对于下拉菜单和选择框来说，可以让第一个选项变成描述，比如 “选择年份” 就比 “2016” 更合适。
+7. 往表单添加 `HTML5 验证`，让用户在提交表单时可以清楚地知道哪些部分出现填写错误。
+8. 通过避免含糊链接名字、减少杂乱排版、使用标点符号、保持简洁布局、添加图片提示（alt text）、使用大字号、保持文本和背景色的高对比度，可以让你的网站 `适用于视觉障碍人群`。
+9. 通过 [BrokenLinkCheck.com](http://brokenlinkcheck.com/) 检查你的网站是否有 `损坏的链接`。修复这些坏链，避免让用户因为点击到它们而抓狂。
+
+### 酷炫的开发
+
+1. 确保你的站点是经过 `移动端优化` 的，也就是在任何设备上都可以响应式地显示。合理优化移动端的站点，加载速度更快，排行更高，并且可以提供更佳的用户体验。
+2. 生成并 `显示经过优化的图像`。假设你上传了一张大图片，比如博文的特征图像，如果你想在站点的其他地方显示（比如侧边栏），应确保你在侧边栏显示的是图像的缩略图而非原图。
+3. `所有图片和超链接都要添加 alt 和 title 属性`。当遇到某种异常情况，图片没有正常加载出来的时候，网站应该在图片位置显示替换文字（alt text）。并且，当鼠标悬停在链接时，浏览器应该显示该链接的 title 属性的值。
+4. 使用 `<strong>` 和 `<em>` 标签代替 `<b>` and `<i>`，以输出加粗和斜体字符。虽然他们的作用相同，但是有着根本区别。`<b>` 标签对应着一种样式，而 `<strong>` 标签则是一种语义化的表示，指明了应该如何理解这个标签的含义。
+5. `去除多余的 HTML`。当你复制粘贴内容到 WYSIWYG 编辑器（类似于 WordPress 的编辑器）的时候，它会添加许多不必要的 span 标签与内联样式。时间长了，你的网站代码就会变得不可读了。
+6. 说到这里，需要给你的 HTML `移除内联样式`。99% 的样式规则都应该写进 CSS 文件，以便你可以在同一时间更新一个组件在所有页面的样式。
+7. 使用 `Sass 变量` 代替原生 CSS，以保持颜色和其他组件可以在整个网站之间共用。这样，当你想要改变这个颜色时，只需改变一行代码而不是上百行。
+8. `链接使用永久链接（permalinks）代替完整 URL`。当你打算切换域名时，你的链接最好使用 <a href=“/slug-goes-here”> 代替完整路径 <a href=“http://domain.com/slug-goes-here”>。对于一些图片资源和 CSS 背景，如果你不这么做，当域名变化的时候，你的所有资源都将会失效。
+9. 开发一个 `自定义插件` 或者工具，为你的网站提供独特的功能。虽然自定义软件难以维护，但是这样做可以让你的网站在众多类似网站中脱颖而出。
+10. 测试 `跨浏览器兼容性`，确保你的网站可以在 Chrome, Firefox, Safari, Internet Explorer 和其它浏览器正常显示。虽然旧版 IE 在兼容性方面臭名昭著，但是可以通过 [BrowserStack](https://www.browserstack.com/screenshots) 进行人工检查。
+11. 使用 [W3C 的](https://validator.w3.org/) `Markup Validation Service（标记语言验证服务）` 来检查 HTML 的明显错误。要记住，大部分网站的 HTML 都不是十分完善的。虽然这项检查并非最高优先级，但是如果你的 HTML 没有错误，你会感到更开心。
+12. 设定一个 `模拟环境` 用来改变你的当前网站。理想情况下，你应该有一个生产环境，是用户能看见的；以及一个模拟环境，供开发者作出更改。一旦更改已经准备好发布，就可以把模拟环境的代码部署到生产环境。
+13. `在页面显示当前年份`。当你看见一个站点的 copyright 年份不是最新的时候，你就会觉得这个网站应该很久没维护了。可以使用 PHP 或者类似的脚本语言，动态地显示当前年份，而不仅仅是显示静态文本。（比如 © <established year> — <current year>）。
+
+### 酷炫的搜索引擎优化
+
+1. `为每个页面选择一个关键词`，这个关键词关系到你的页面排名。围绕这个关键词，优化这个页面的方方面面。当然，并不是让你在每句话都提到这个词，可以动脑筋想想你想让它排到第几位去。
+2. 给每个页面设定一个充满关键词的 `title 标签`。标题会显示在谷歌搜索结果的蓝色链接文字上，有 55 个字符的长度限制。
+3. 每个页面`有且仅有一个 H1 标签`。在大多数情况下，这个标签的文字应该和 title 标签相同。
+4. 在页面内容中包含很多 `H2、H3 和 H4 标签` ，以创建小标题和显出视觉层次感。
+5. 用一个 `特定的关键词` 优化页面，可以通过把它包含在标题、H1、副标题和内容的前 1/3 部分。
+6. 你的 `meta 标签的描述（description）` 会显示在搜索引擎的链接下方。所以确保你的每个页面都包含 meta description，并确保在描述里包含关键词。
+7. 你的 `永久链接（permalink）`，也就是 URL 里紧随域名的部分（比如 domain.com/permalink-here/），应该包含破折号分隔开的关键词内容。
+8. Google 把 `域名的注册时长` 考虑到算法中，他们认为，注册时间长的域名更有可能提供高质量的资源。提前注册你的域名吧，如果你的域名注册时间超过 10 年，相信你对你的事业是认真的。
+9. 平均起来，SERP (搜索引擎结果页面) 的第一个结果，不管是任何关键词，打开的页面都不少于 `2000 字/页`。当你写文章或者创建页面时，如果你希望页面的排名更高，试着至少写 2000 字吧。
+10. 总是 `创建站点地图` 并命名为 sitemap.xml 文件，然后把它放进根目录，并让文件可以通过 domain.com/sitemap.xml 访问。这个文件可以告诉谷歌，你的所有页面的位置，并应该在添加新内容时更新地图。可以通过 [Webmaster Tools](https://www.google.com/webmasters/tools/home?hl=en) 提交给谷歌。
+11. 添加你的网站的 `Google Webmaster Tools`，然后你可以知道 Google 如何索引你的站点，并在遇到关键问题时保持更新。
+12. 为了提高图片的排行，上传之前应该总是 `重命名你的图片` 和其它文件。（比如：rank_for_this_keyword_phrase.png）
+13. 在站点中包含 `robots.txt` 文件，告诉爬虫哪些页面应该/不应该被索引。
+14. 添加 `canonical 重定向` 把不带 www 的页面访问指向网站的 www 版本，或者反过来也可以。
+15. 研究并整合每个页面的 `LSI 关键词`（LSI: 潜在语义索引），以帮助提高页面在主关键词的排行。通过 Google 搜索一些关键词短语并寻找 “相关搜索” 链接，可以帮你找出 LSI 关键词。
+16. 经常确保 `你的内容之间可以互相连接`。你的站点的每个页面，都应该可以通过从首页开始的不多于三次点击访问到。
+17. 添加 `结构化的数据` 到相关页面，以帮助 Google 合理索引你的内容。以下这些页面类型需要结构化的数据，包括：人物、产品、事件、公司、电影、书本、报刊评论等。使用 [Schema Creator](http://schema-creator.org/) 可以帮你生成结构化的数据。
+18. 使用 [Google 的](https://developers.google.com/speed/pagespeed/insights/) `PageSpeed Insights` 工具，以确保你修复了所有可能降低页面速度的普遍问题。页面加载速度越快，排名越高。
+
+### 酷炫的网页速度
+
+1. 保持 `页面流量低于 2MB`。使用 [tools.pingdom.com](http://tools.pingdom.com/) 检查主页面的加载流量，如果多于 2MB 说明内容太多了。
+2. 保持 `页面请求低于 50 个`。页面中的每个文件和图片都是一个 HTTP 请求，请求数越少，加载速度越快。平均每个网页的请求数是 70 个。使用 [GTmetrix](https://gtmetrix.com/) 可以检查你的网页请求数。
+3. 设计页面元素时，使用 `CSS 代替背景图片`。不要使用图片来显示按钮、表单或者其它通用的元素。CSS 的加载速度更快，并且在响应式布局中更加灵活。
+4. 在图片上传之前 `优化图像`。比如 [TinyPNG](https://tinypng.com/) 这样的工具，可以帮助你在不降低分辨率或者图像质量的情况下，减少图片文件大小。
+5. 使用 `内容分发网络（Content Delivery Network）` 来存储你的图片和其它大文件，并放在世界上的不同区域中。CDN 通过策略定位好的服务器，存储分发你的文件，可以最大化加速页面速度，当然加载速度也根据访客的所在地区而有所差别。
+6. 在上传你的代码文件到服务器之前，通过编译和压缩工具，`最小化 JavaScript, HTML 和 CSS`。对于 JavaScript，可以使用 [Closure Compiler](https://developers.google.com/closure/compiler/)。对于 HTML，可以使用 [HTML Minifier](http://www.willpeavy.com/minifier/)。对于 CSS，可以使用 [YUI Compressor](http://yui.github.io/yuicompressor/)。
+7. 把 `阻塞渲染的 JavaScript 移动到底部`。唯一应该放在头部的脚本是那些会立刻影响页面设计的内容（比如：自定义字体）。
+8. `避免目标网页重定向`。重定向触发额外的 HTTP 请求，会延迟页面渲染。
+9. 借助 `浏览器缓存`，可以通过为页面和不经常更新的资源设置过期时间来实现。浏览器缓存会通知浏览器，从本地磁盘加载之前下载过的页面，以减少不必要的网络请求。
+10. 在服务器配置中启用 `gzip 压缩`。压缩可以减少多达 90% 的传输响应时间，大大减少了首次渲染页面的时间。
+11. 在服务器配置中启用 `Keep-Alive`，以允许同一个 TCP 链接可以发送和接收多个 HTTP 请求，因而可以减少后来请求的延迟。
+12. 升级为 `专用服务器` 或者更优质的主机服务，以降低服务器响应时间。当你使用共享的服务器环境时，你的站点通常放在一台需要同时响应至少上百个网站的服务器里，如果其它网站的流量很大，你的网站速度自然就会降低。
+
+### 酷炫的平面设计
+
+1. 作为可选的加分项，使用 `自定义 ebook 封面`。它不难创建，但是可以让你的转化率大大提高。
+2. 为你的主页和销售页面设计一个 `自定义的平面图形或者插图`。一个专门为站点设计的好插图，可以让你的站点更加容易让人记住。
+3. 创建一个或者一系列的自定义 `博客特征图像设计`。也就是你在 Facebook, Twitter, Pinterest 等社交网站传播时使用的图片。当用户看到和博客有所关联的某类型的图片时，他们会联想到文章可能是你写的。
+4. 给你自己和你的团队的每个成员显示一张自定义的 `头像插图或者漫画`。相比于聘请专业的摄影师，自定义的漫画成本较低，特别是当你的团队增加新成员的时候。此外，对于新成员来说这也是一份不错的礼物。
+5. `自定义图表` 以可视化的方式显示数据和其他内容，相比于同类的博客文章，更容易获取更多流量。人们更喜欢在 Pinterest 这样的网站上分享图表，或者是带着你的站点的反向链接并转发到他们自己的网站上。
+6. 如果你创作了一个甚至一系列的视频，你应该拥有一个 `定制的视频开场部分和/或结尾部分`，让大家感受到视频是专业的。不要提及其它的视频画面或者动画，可以帮助你的品牌更加突出。
+
+### 酷炫的 Web 安全性
+
+1. 安装 `SSL 证书`，以允许服务器端和浏览器之间建立安全连接。如果网站用到银行卡支付功能，大部分的检测软件都要求使用 SSL 证书。Google 称，用上 SSL 证书可以帮助提高网站的搜索排行。
+2. 你用到的软件和插件要 `保持最新版本`。Wordpress 和其它 CMS 软件都会释放更新，通常是为了修复漏洞。如果你没有及时更新，你的网站被攻击也就是迟早的事情了。
+3. 为管理员页面设置 `双认证登录`。大部分的黑客入侵都是从登录页开始的。
+4. 检查并 `删除恶意软件`。如果你的网站曾经被入侵，黑客很可能会留下一些不容易发现的后门。如果你没有及时删除，你的网站可能会被谷歌列入黑名单，大大降低你的网站排行，并在用户打开网站时，警告用户离开。
+5. 不要把 `管理员账号` 称为 “admin”。删除默认的管理员账号，并创建一个使用其他名字的新账号。
+6. 定期 `备份数据库和网站文件`。大部分备份软件和插件都只备份你的数据库，里面包括了数据和内容。但如果你把整个网站都丢了，你还需要文件内容的备份来还原网站。
+
+### 酷炫的内容
+
+1. 创建一个自定义 `错误 404` 页面，当用户尝试访问不存在的地址时，这个页面就会显示出来。可以使用 404 页面把他们引导到首页，并帮助他们寻找他们想要的页面。
+2. 除了主页之外，`关于页面` 可能是用户最常访问的页面了。要确保这个页面能够很好地代表你和你的公司。
+3. `联系方式页` 帮助用户找到你，而且还能够建立你和访客甚至 Google 之间的信赖。当决定站点排名时，机器会寻找你的联系方式，然后找到邮箱地址、电话号码和地址。联系信息告诉 Google，这个站点更加值得信赖一点。
+4. 在战略上，站点里拥有选填的表单是正确的，然而建立一个 `准顾客收集页面` 的想法也不错，除了一个高转化率的选填表格什么也不用放。当你希望用户提交信息时，链接到该页面就行了。
+5. 当用户订阅你的列表时，确保你可以给他们一个 `确认页面`，让他们可以确认邮箱地址。假如用户不能确认邮箱是否正确，他们可能就会把事情给忘了，然后再也不会回来你的站点了。
+6. 在点击邮箱里的确认链接后，给用户发送一个 `感谢页面` 让他们知道下一步可以做什么。这个页面是每个订阅者都能看见而且只能看见一次的，因此这是一个绝佳机会鼓励用户去掏腰包购买内容。
+7. 你的网站或者主题应该有一个 `着陆页` 模板，当你需要用户进行特定操作时，可以用上。
+8. 如果你在网站上买东西，确保你有一个漂亮的 `销售页面`。从大字标题开始；为你的卖场留出足够空间；有可能的话做一个介绍视频；在页面底部指引用户如何购买。
+
+### 酷炫的社交媒体
+
+1. 在你的文章和页面上，限制 `社交媒体按钮的数量`，因为每个按钮都会运行相关的脚本，额外增加页面加载时间。通常包含 1-5 个按钮比较合适，比如 Facebook、Twitter、LinkedIn、Pinterest、Google+ 等，这些网站是你的内容最容易被分享的地方。
+2. 在你的 Facebook 页面、Twitter 账号、YouTube 频道上创建 `社交媒体的图片`。对于第一次访问的用户，自定义的图片可以给予他们良好的第一印象，并鼓励他们点赞、关注、订阅你的页面、个人档和频道。
+3. 设置 `Facebook Open Graph META 标签` 以确保你的内容被分享到 Facebook 时可以正常显示内容。可以使用 [Facebook Debugger](https://developers.facebook.com/tools/debug/) 检查你的主页、文章和其它页面，并看到当别人把 URL 分享出去的时候是什么样子的。
+4. 设置 `Twitter Cards`，目的是当你的站点 URL 被分享到 Twitter 时，丰富的图片和视频资源可以显示到卡片上。要开始使用 `Twitter Cards` 可以 [点击这里](https://dev.twitter.com/cards/getting-started)
+5. 设置 `Google+ Snippets`，以自定义用户分享站点到 Google+ 时看见的内容。你可以使用 [Snippet 指南](https://developers.google.com/+/web/snippet/) 生成相关代码。即使你的网站在 Google+ 没那么受欢迎，Google 也可以知道你正确地添加了 meta 信息，从而带来一定的权重加成。
+6. `弱化那些链接到个人档的社交媒体图标`，可以让图标变小或者放在页面底部。其实社交媒体营销的目的就是把用户导流到你的网站来，而不是反过来作用。
+
+
+好了，我还有什么遗漏的吗？作为自由职业者或者老板，你有没有尝试过使用上述方法让网站变得酷炫呢？
+
+期待你的回复，可以在原文留言或者在推特上联系 [@wntart](https://twitter.com/wntart)。
+
+如果你希望更多人看见这个列表，不妨推荐这篇文章给大家。让我们一起把网站变得更加酷炫！
+
+加油！尼克
+
+  P.S. 如果你需要有人帮忙完成列表上的事情，可以在这里寻找[设计师](https://www.awesomeweb.com/skill/web-design)、[开发者](https://www.awesomeweb.com/skill/web-development)，或者[发布你的招聘广告](https://www.awesomeweb.com/why-post-a-job)。我们拥有世界上最好的自由职业者，他们非常乐意帮助你！
+
+如果你也希望加入 AwesomeWeb 成为一名自由职业者，并认识更多客户，可以[点击这里注册](https://www.awesomeweb.com/signup)。
 
