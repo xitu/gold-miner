@@ -6,7 +6,7 @@
 
 
 
-回想2004年，在我刚入行的时候，[sIFR](http://mikeindustries.com/blog/archive/2004/08/sifr) 是最火的东西。它是由[Shaun Inman](http://shauninman.com/pendium/)公司开发的，其自定义字体嵌入在一个小小的 flash 动画里，它可以用在一些 JavaScript 和 CSS 中。那时候，它基本上就是[Firefox](https://www.mozilla.org/en-US/firefox/new/) 或 [Safari](http://www.apple.com/safari/)浏览器自定义字体的唯一选择。事实上，随着不支持 Flash 的iPhone 在2007年的发布，该技术对于 Flash 的使它很快就变得过时了。
+回想2004年，在我刚入行的时候，[sIFR](http://mikeindustries.com/blog/archive/2004/08/sifr) 是最火的东西。它是由[Shaun Inman](http://shauninman.com/pendium/)公司开发的，其自定义字体嵌入在一个小小的 flash 动画里，它可以用在一些 JavaScript 和 CSS 中。那时候，它基本上就是[Firefox](https://www.mozilla.org/en-US/firefox/new/) 或 [Safari](http://www.apple.com/safari/)浏览器自定义字体的唯一选择。事实上，随着 iPhone （不支持 Flash ）的发布，该技术对于 Flash 的依赖使它很快就过时了。
 
 > 编辑代码写我们的界面，文本界面和排版布局是我们主要的要求对象。
 
@@ -19,7 +19,7 @@
 ##第一个 GUI [#](https://viljamis.com/2016/typography-for-user-interfaces/#the-first-guis "右键来复制链接到#第一个GUIs")
 
 
-当排版的历史可以追溯到大概[五千多年](https://viljamis.com/2013/prototyping-responsive-typography/)，我们的图形用户界面也有四十年的发展。一个关键转折点在1973年，当 [Xerox](https://en.wikipedia.org/wiki/Xerox) 引入了 [Alto](https://en.wikipedia.org/wiki/Xerox_Alto)，它从本质上创建了我们现代图形用户界面的基础。_Alto_ 比其他 GUI 早十年踏入市场，被视为计算机的未来。
+尽管排版的历史可以追溯到大概[五千多年](https://viljamis.com/2013/prototyping-responsive-typography/)，我们的图形用户界面只有四十年的发展。一个关键转折点在1973年，当 [Xerox](https://en.wikipedia.org/wiki/Xerox) 引入了 [Alto](https://en.wikipedia.org/wiki/Xerox_Alto)，它从本质上创建了我们现代图形用户界面的基础。_Alto_ 比其他 GUI 早十年踏入市场，被视为计算机的未来。
 
 
 ![](http://ac-Myg6wSTV.clouddn.com/f8a8eab03c083c011ef2.png)
@@ -32,7 +32,7 @@
 
 ![](http://ac-Myg6wSTV.clouddn.com/9172afe82db3c54f6e84.gif)
 
-Macintosh 的发布意味着用户排版第一次变成可以实现的事情了。[初代Mac](https://en.wikipedia.org/wiki/Macintosh_128K)预装了很多 [图标字体](https://en.wikipedia.org/wiki/Fonts_on_Macintosh)，在接下来几年里面，许多字体工厂开始设计发行他们的数字版本的流行字体。
+Macintosh 的发布意味着用户排版对于大众来说有史以来第一次变得触手可及。[初代Mac](https://en.wikipedia.org/wiki/Macintosh_128K)预装了很多 [图标字体](https://en.wikipedia.org/wiki/Fonts_on_Macintosh)，在接下来几年里面，许多字体工厂开始设计发行他们的数字版本的流行字体。
 
 ![](http://ac-Myg6wSTV.clouddn.com/7f17f13d792c5b467d6a.gif)
 
@@ -51,9 +51,9 @@ Macintosh 的发布意味着用户排版第一次变成可以实现的事情了�
 
 我们的工作不是把屏幕上杂乱无章的东西让它们看起来可心，而是从最重要的[复制和内容](https://viljamis.com/2013/prototyping-responsive-typography/)开始，再从中绘制细节。那是我们草图的核心所在。
 
-字形的清晰也十分关键。开始可能感觉它没那么重要，尤其是我们的大脑需要停顿来解析习题形状的时候。但是复杂情况下，出现各种字母组合的时候，排版的重要性就体现出来了。
+字形的清晰也十分关键。开始可能感觉它没那么重要，尤其是在我们的大脑只需要稍微楞个神来辨认字形的时候。但是复杂情况下，出现各种字母组合的时候，排版的重要性就体现出来了。
 
-当然，还有更多的界面设计细节需要注意；例如平衡、定位、草次和结构，但良好的文案和排版
+当然，还有更多的界面设计细节需要注意；例如平衡，布局，层次和结构.，但良好的文案和排版
  [的重要性占95%](https://ia.net/know-how/the-web-is-all-about-typography-period).
 
 > "伟大的设计师知道如何用文本而不是内容工作，他将文本视作用户界面."
@@ -70,23 +70,22 @@ Macintosh 的发布意味着用户排版第一次变成可以实现的事情了�
 > 
 > 少于20字的单词读起来比小单词组成的长句子更慢
 
-一个重要的发现让我回归的就是阅读_Billy Whited’s_ 文章 [为用户界面设置书写](http://blog.typekit.com/2013/03/28/setting-type-for-user-interfaces/), 我们这样阅读是否是最高效的。这意味着单个单词
-
+一个重要的发现让我回归的就是阅读_Billy Whited’s_ 文章 [为用户界面设置书写](http://blog.typekit.com/2013/03/28/setting-type-for-user-interfaces/), 我们这样阅读是否是最高效的。这意味着单个单词少于20字的单词读起来比小单词组成的长句子更慢
 
 
 
 事实上，当我们阅读长句子的时候，眼睛扫过的地方并不是以一种光滑的路线走的。相反，它们会跳跃，这称作
-![跳视](https://viljamis.com/type-for-ui/img/saccades.svg)
+![扫视](https://viljamis.com/type-for-ui/img/saccades.svg)
 
 
-跳视提高我们的阅读能力让我们完全跳过少量意义不大的词语。这是要注意的一个关键因素，因为我们的界面大部分含有独立的词语。本质上讲，我们根本无法依赖跳视。
+扫视提高我们的阅读能力让我们完全跳过少量意义不大的词语。这是要注意的一个关键因素，因为我们的界面大部分含有独立的词语。本质上讲，我们根本无法依赖扫视。
 
 
 最后，[理解](http://researchonline.rca.ac.uk/957/1/Sofie_Beier_Typeface_Legibility_2009.pdf) 确定了独立单词在阅读过程中的最重要的地位，我们的字体选择如何重要就显而易见了。
 ![](https://viljamis.com/type-for-ui/img/bouma.svg)
 
 
-过去，许多人认为我们通过所谓的[Bouma shape](https://en.wikipedia.org/wiki/Bouma)理解词语意思，或者词语的外形。[在](http://blog.typekit.com/2013/03/28/setting-type-for-user-interfaces/) [后来](http://www.microsoft.com/typography/ctfonts/wordrecognition.aspx) [研究](https://typography.guru/journal/how-do-we-read-words-and-how-should-we-set-them-r19/) [这](http://researchonline.rca.ac.uk/957/1/Sofie_Beier_Typeface_Legibility_2009.pdf) 被证明是有错误的，可读性和字体的易读性不应该仅仅通过生成好的bouma形来判定。想法，我们要更多地关注字体形式。
+过去，许多人认为我们通过所谓的[Bouma shape](https://en.wikipedia.org/wiki/Bouma)理解词语意思，或者词语的外形。[在](http://blog.typekit.com/2013/03/28/setting-type-for-user-interfaces/) [后来](http://www.microsoft.com/typography/ctfonts/wordrecognition.aspx) [研究](https://typography.guru/journal/how-do-we-read-words-and-how-should-we-set-them-r19/) [这](http://researchonline.rca.ac.uk/957/1/Sofie_Beier_Typeface_Legibility_2009.pdf) 被证明是有错误的，可读性和字体的易读性不应该仅仅通过生成好的 Bouma shape 来判定。想法，我们要更多地关注字体形式。
 
 ## 字母的可读性来自什么?[#](https://viljamis.com/2016/typography-for-user-interfaces/#what-makes-letters-legible "Right click to copy a link to #what-makes-letters-legible")
 
@@ -97,7 +96,7 @@ Macintosh 的发布意味着用户排版第一次变成可以实现的事情了�
 
 ![](http://ac-Myg6wSTV.clouddn.com/11c589fd7d99f3b411e5.jpg)
 
-该研究解释了不少有意思的东西。首先，它说明了线端是确认字母极为重要的部分。
+该研究解释了不少有意思的东西。首先，它说明了线条端点是确认字母极为重要的部分。
 ![](http://ac-Myg6wSTV.clouddn.com/38e3c405a7cc17950e30.jpg)
 
 
@@ -127,7 +126,7 @@ Macintosh 的发布意味着用户排版第一次变成可以实现的事情了�
 [Source Sans Pro](https://github.com/adobe-fonts/source-sans-pro)字体 在左，Helvetica 字体在右。Helvetica 字体的前三个字母几乎无法辨认。Source Sans Pro 字体就显得相当不错。有些人认为 Helvetica在任何的 UI 作字体都糟透了，因为它不是为了屏幕而设计的。
 
 
-> Helvetica 糟透了.它不是为了屏幕上的小字设计的. 像 ‘milliliter’就很难破译.”
+> Helvetica 糟透了.它不是为了屏幕上的小字设计的. 像 ‘milliliter’就很难辨认.”
 > 
 > – Erik Spiekermann
 
@@ -154,7 +153,7 @@ Macintosh 的发布意味着用户排版第一次变成可以实现的事情了�
 
 ### 4\. 大 x-height[#](https://viljamis.com/2016/typography-for-user-interfaces/#4-large-x-height "Right click to copy a link to #4-large-x-height")
 
-X-height 意思是小写字母 “x” 的高度。你想看看大字体 [x-height](https://en.wikipedia.org/wiki/X-height) 因为读起来比小写的更加舒服。不过别走太远，因为太大的 x-height 下，字母 _n_ and _h_ 就难以区分了 
+X-height 意思是小写字母 “x” 的高度。你想看大号字体 [x-height](https://en.wikipedia.org/wiki/X-height) 因为读起来比小写的更加舒服。不过别走太远，因为太大的 x-height 下，字母 _n_ and _h_ 就难以区分了 
 
 ![](https://viljamis.com/type-for-ui/img/x-height.svg)
 
@@ -197,7 +196,7 @@ X-height 意思是小写字母 “x” 的高度。你想看看大字体 [x-heig
 
 ### 9\. 备用字体[#](https://viljamis.com/2016/typography-for-user-interfaces/#9-fallback-fonts "Right click to copy a link to #9-fallback-fonts")
 
-下面是一种大家都非常熟悉的场景。在实际内容下载显示完全之前，[web 字体](https://en.wikipedia.org/wiki/Web_typography) 阻碍了这个过程，会发生的事情。
+下面是一种大家都非常熟悉的场景。在实际内容下载显示完全之前，[web 字体](https://en.wikipedia.org/wiki/Web_typography) 阻碍了这个过程。
 
 ![](http://ac-Myg6wSTV.clouddn.com/c78ea12592cc07fdc519.png) <span class="desc">
 图片来源: [Filament Group](https://www.filamentgroup.com/lab/weight-wait.html)</span>
@@ -237,7 +236,7 @@ X-height 意思是小写字母 “x” 的高度。你想看看大字体 [x-heig
 
 ![](http://ac-Myg6wSTV.clouddn.com/80d9d0e3f6fc41bfbe05.jpg) <span class="desc">图片来源: [Luke Wroblewski](https://www.flickr.com/photos/lukew/10430507184/in/photostream/)</span>
 
-为了减轻工作……
+为了减少工作……
 ![](http://ac-Myg6wSTV.clouddn.com/22b56fb16d9a52e6a0fb.jpg) <span class="desc">
 
 图片来源: [Samsung GearVR](http://www.samsung.com/us/explore/gear-vr/)</span>
@@ -259,7 +258,7 @@ X-height 意思是小写字母 “x” 的高度。你想看看大字体 [x-heig
 
 图片来源: [Microsoft Hololens](https://www.microsoft.com/microsoft-hololens/en-us)</span>
 
-…因为本质上讲，好的排版是为了方便人们的，他甚至可以 [救命](https://www.propublica.org/article/how-typography-can-save-your-life).<span title="Made with love by @viljamis" class="fleuron"> ❦</span>
+…因为本质上讲，好的排版是为了方便人们的，他甚至可以 [拯救你的人生](https://www.propublica.org/article/how-typography-can-save-your-life).<span title="Made with love by @viljamis" class="fleuron"> ❦</span>
 
 **这篇文章大体上是基于我在一帕洛阿尔托个内部的设计研讨会 [Idean](http://www.idean.com/) 的内容,[可以查看幻灯片](https://viljamis.com/type-for-ui/).**
 [](https://twitter.com/intent/tweet?text=Typography+for+User%C2%A0Interfaces&url=http://viljamis.com/2016/typography-for-user-interfaces/&via=viljamis)
