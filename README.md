@@ -76,6 +76,7 @@
 
 ## 前端
 
+* [[译] 为你定制的 React 学习路线](https://gold.xitu.io/entry/578375b85bbb5000610cc247?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([aleen42](http://aleen42.github.io/pc.html) 翻译)
 * [用 Javascript 编写λ演算解释器](http://gold.xitu.io/entry/57834783d342d30057db3f93?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([zhangzhaoqi](https://github.com/joddiy) 翻译)
 * [【译】让你的网站更炫酷的一些小 tips](https://gold.xitu.io/entry/577f402b79bc4400329db962?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([达仔](https://github.com/zhangjd) 翻译)
 * [[译] jQuery 终于发布了](https://gold.xitu.io/entry/576917c0d342d30058097229?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Dwight](https://github.com/ldhlfzysys) 翻译)
