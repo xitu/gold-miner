@@ -2,7 +2,7 @@
 * 原文作者 : [Viljami Salminen](https://viljamis.com/about/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [circlelove](https://github.com/circlelove)
-* 校对者:
+* 校对者:[ruixi](https://github.com/ruixi)，[wild-flame](https://github.com/wild-flame)
 
 
 
@@ -107,7 +107,7 @@ Macintosh 的发布意味着用户排版对于大众来说有史以来第一次�
 ![](http://ac-Myg6wSTV.clouddn.com/3f1d105d8753dc2a3b46.jpg)
 
 
-研究发现一些变种比其他的更易读，尽管字体里面带有类似的大小、高度和个性化。结果显示较窄的字母更容易被接受，[ x -字高](https://en.wikipedia.org/wiki/X-height) 的 [向上](https://en.wikipedia.org/wiki/Ascender_%28typography%29) 比 [下方区域](http://www.typographydeconstructed.com/descender/)更容易辨识。
+研究发现一些衍生版本比其他的更易读，尽管字体里面带有类似的大小、高度和个性化。结果显示较窄的字母稍宽一些更容易被接受，[ x -字高](https://en.wikipedia.org/wiki/X-height) 有了 [升部](https://en.wikipedia.org/wiki/Ascender_%28typography%29) 比 [降部](http://www.typographydeconstructed.com/descender/)更容易辨识。
 
 ![](http://ac-Myg6wSTV.clouddn.com/d8a68ba28736039ee717.jpg)](http://legibilityapp.com/)
 
@@ -126,7 +126,7 @@ Macintosh 的发布意味着用户排版对于大众来说有史以来第一次�
 [Source Sans Pro](https://github.com/adobe-fonts/source-sans-pro)字体 在左，Helvetica 字体在右。Helvetica 字体的前三个字母几乎无法辨认。Source Sans Pro 字体就显得相当不错。有些人认为 Helvetica在任何的 UI 作字体都糟透了，因为它不是为了屏幕而设计的。
 
 
-> Helvetica 糟透了.它不是为了屏幕上的小字设计的. 像 ‘milliliter’就很难辨认.”
+> Helvetica 糟透了。它不是为了屏幕上的小字设计的. 像 ‘milliliter’就很难辨认.”
 > 
 > – Erik Spiekermann
 
