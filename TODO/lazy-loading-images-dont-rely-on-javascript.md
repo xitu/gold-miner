@@ -2,8 +2,8 @@
 * 原文作者 : Robin Osborne
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [jk77](http://github.com/jk77me)
-* 校对者: [mypchas6fans](http://github.com/mypchas6fans)
-          [hpoenixf](http://github.com/hpoenixf)
+* 校对者: [mypchas6fans](http://github.com/mypchas6fans), [hpoenixf](http://github.com/hpoenixf)
+          
 
 
 
@@ -149,7 +149,7 @@ c. 可以在JavaScript失效的情况下运作(即：浏览器是支持JavaScrip
 
 在下一个需求（支持损坏的JavaScript）之前, 我想整理一下代码。会在每个滚动事件中检查所有懒加载图片, _即使这些图片已经被加载出来_ 。
 
-这在我的demo里不是个大问题，对于包含很多图片的页面来说，这不是最好的解决方案，加上之后感觉更乱了！我想从 `lazy` 数组中移除已经加载完毕的图片。
+这在我的demo里不是个大问题，但在图片更多的时候不是最好的办法，而且感觉很乱！我想从 `lazy` 数组中移除已经加载完毕的图片。
 
 首先，移动 `lazy` 数组到一个共享变量中，在一个载入时就被调用的函数中设置：
 
@@ -204,7 +204,7 @@ Ok, 现在我们有包含全部懒加载图片的数组了，但是我需要保�
 3.  用css隐藏所有 `lazy` 图片。
 4。 使用JavaScript移除链接，并且移除css隐藏的 `lazy` 图片。
 
-这样想想：如果界面加载和JavaScript中断了，用户会看到满屏图片（1）并且有一个链接去“查看更多”（2），点击后会进入完整的页面（从那他们离开的地方）。
+这样想想：如果界面加载和JavaScript中断了，用户会看到满屏图片（1）并且有一个链接去“查看更多”（2），点击后会进入完整的页面（从他们离开的地方）。
 
 如果界面加载和JavaScript都是OK的，这个链接就不会在那（4），懒加载图片会随之进入视图。
 
