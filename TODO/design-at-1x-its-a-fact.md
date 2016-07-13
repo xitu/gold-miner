@@ -6,9 +6,7 @@
 
 ## 移动开发中用 1x 视觉稿设计的好处
 
-那我就开门见山了：我确信你们很多人都已经知道 1x 设计的好处了。但是呢，也有言语和风声总不会那么一致。在移动设备上，到底是使用 1x 设计稿更好，还是 2x 设计稿，一直没有达成共识。 
-
-（译注：文中 1x 可读作“一倍”，2x 读作 “两倍”，依次类推）
+那我就开门见山了：我确信你们很多人都已经知道 1x 设计的好处了。但是呢，言语和风声总不会那么一致。在移动设备上，到底是使用 1x 设计稿更好，还是 2x 设计稿，一直没有达成共识。
 
 #### 背景简述
 
@@ -16,7 +14,7 @@
 
 1.  进行低像素，非 retina 的设计是反直觉的。实际上，我已经有很长时间没有见过 iPhone 3GS 了。
 2.  那时，1：1 比例的设计使我们可以很方便的在设备上预览我们的草稿，我们使用 iPhone 5 和 Nexus 5 来做测试，那些低于 2x 和 3x 的设计稿，在屏幕上都是模糊不清的。
-3.  不打算改变 — 正因为我们所有的设计都是 2x，重新设计他们是一份费力的事情。（后来我们把它们全部重新设计成 1x 了）
+3.  抗拒改变 — 正因为我们所有的设计都是 2x，重新设计他们是一份费力的事情。（后来我们把它们全部重新设计成 1x 了）
 
 这些理由真令人伤感，但却都不能和 1x 设计的好处相媲美。
 
@@ -32,7 +30,7 @@
 
 你觉得这一切很有趣吗？
 
-并不，我也一样。而且如果像素还不是偶数的话，那简直是一场灾难。“那啥，请在那上面加上 16.66pt 的缩进。
+并不，我也一样。而且如果像素还不是偶数的话，那简直是一场灾难。“那啥，请在那上面加上 16.66pt 的缩进。”
 
 ### 2\. IOS 与 Android 保持一比一的比例
 
@@ -52,7 +50,7 @@
 
 <span class="markup--quote markup--p-quote is-other" data-creator-ids="anon">你的设计难道不应该和写代码实现它的人在相同的次元么？是的，当然应该。工程师们都用 point，不用 pixel。</span>
 
-老王 —— [Jiashu Wang](https://twitter.com/jiashuw)，Shyp 的一个 iOS 工程师对这个问题是这样回复的：
+[Jiashu Wang](https://twitter.com/jiashuw)，Shyp 的一个 iOS 工程师对这个问题是这样回复的：
 
 > 工程师用 point（不用 pixel），所以 1x 的 Sketch 设计对我们来说刚刚好，我们可以直接在 Sketch 里面找到需要的值而不需使用比例系数（scale factors）。
 
@@ -63,7 +61,7 @@
 
 > 现在，我们用 `1x` ，我们看到 25 ，就是 25。
 
-_（旁注：是的，我们的工程师直接用 Sketch，酷毙了！）_
+_（作者注：是的，我们的工程师直接用 Sketch，酷毙了！）_
 
 不仅工程师会爱上你，实际上还使得设计中犯得错误更少了。那些关于像素调整的不必要的品控都可以避免掉了。
 
@@ -75,21 +73,25 @@ _（旁注：是的，我们的工程师直接用 Sketch，酷毙了！）_
 
 ### 6\. 文件更小，性能更棒
 
-这样你的设计文件会更小，特别是当你还使用了位图（bitmap）的时候。在Sketch 里，如果一个页面 (page) 里包含了过多的画板 (artboard) ，延迟就是一个很头疼的事情了，而更小的画板意味着更好的表现。
+这样你的设计文件会更小，特别是当你还使用了位图（bitmap）的时候。在 Sketch 里，如果一个页面 (page) 里包含了过多的画板 (artboard) ，延迟就是一个很头疼的事情了，而更小的画板意味着更好的表现。
 
 ### 7\. 保证未来
 
-按照 1x 来设计避免了以后 Apple 和 Google 推出新的分辨率又要再做一次转换的问题。还记得苹果发布 iPhone 6 Plus 的时候，大家每天念叨着该如何为这个屏幕做设计么？这个困惑导致了后来一系列关于如何做转换的[资源](http://www.paintcodeapp.com/news/iphone-6-screens-demystified).
+按照 1x 来设计避免了以后 Apple 和 Google 推出新的分辨率又要再做一次转换的问题。还记得苹果发布 iPhone 6 Plus 的时候，大家每天念叨着该如何为这个屏幕做设计么？这个困惑导致了后来出现来一系列关于如何做转换的[资源](http://www.paintcodeapp.com/news/iphone-6-screens-demystified)。
 
 按照非 1x 下设计总给人一种随意的感觉，总有更多新的屏幕分辨率会出现。只有 1x 的设计才是恒久远的。
 
+-
+
 更新 1：[Dave Bedingfield](https://twitter.com/dbedingfield)，推特的一名设计师，指出了按照 1x 另一个重要的优点。
 
-**理由8 — 过多空白带来的假象**
+### **理由8 — 过多空白带来的假象**
 
 在 2x 和 3x 设计时往往会给人一种错觉，那就是“我还有很多的空间”。特别是对于那些刚入行的设计师来说，他们会在高像素的空间里放入更多的内容，容易造成点击区域过小或者显示不清晰的问题。而按照 1x 设计则避免了这样的影响。
 
-> Designing for 2x can also cause designers to experience a placebo effect: designing at 2x is quite appealing, visually, and can mask. However, a baseline of 1x is still the optimal “starting point” in and I actually think our designs benefit from this constraint (a design that “works” at 1x will also “work” 2x; we avoid fooling ourselves into thinking that 2x provides more space to “cram” elements). The temptation to design for higher resolutions can cause tap targets to shrink, type sizes to decrease, legibility to suffer, etc.. Designing at 1x can help protect from that.（译注：引用）
+> Designing for 2x can also cause designers to experience a placebo effect: designing at 2x is quite appealing, visually, and can mask. However, a baseline of 1x is still the optimal “starting point” in and I actually think our designs benefit from this constraint (a design that “works” at 1x will also “work” 2x; we avoid fooling ourselves into thinking that 2x provides more space to “cram” elements). The temptation to design for higher resolutions can cause tap targets to shrink, type sizes to decrease, legibility to suffer, etc.. Designing at 1x can help protect from that.
+
+本段引用，译文如下：
 
 > 按照 2x 的设计也容易给人造成一种假象：在视觉上，2x 的设计的确更具诱惑。但是， 1x 设计仍然是设计的“出发点”，我甚至认为，1x 的设计正是受益于它的限制（ 1x 的设计在 2x 下仍然是可用的；避免了让自己误以为还有更多空间可以“塞下”更过的元素）。在更高的分辨率下做设计会导致可以点击的空间缩水，可以输入的空间变少，内容的辨认度下降等等...按照 1x 设计则帮助我们规避了这些问题。
 
@@ -97,4 +99,8 @@ Dave 是我认识的最了解在不同平台设计这一学问的人了，这也
 
 以上。客官，您请随便用。如果我有漏掉的，还请客官补充。
 
-特别鸣谢 [Jeremy Goldberg](https://twitter.com/jeremygoldbrg) ，将我带入正途并说服我使用 1x 设计的第一人，
+特别鸣谢 [Jeremy Goldberg](https://twitter.com/jeremygoldbrg) ，将我带入正途并说服我使用 1x 设计的第一人。
+
+译注：
+
+1. 文中 1x 可读作“一倍”，2x 读作 “两倍”，依次类推
