@@ -6,23 +6,13 @@
 * 校对者:
 
 
-## Intro
-
 ## 简介
-
-In a [previous post](https://blog.garage-coding.com/2015/12/24/out-on-the-streets.html) I wrote about [PostGIS](http://postgis.net/) and ways of querying geographical data. This post will focus on building a system that queries free geolocation services <sup>[1](https://blog.garage-coding.com/2016/07/06/geolocation-using-multiple-services.html#fn.1)</sup> and aggregates their results.
 
 我的[这篇](https://blog.garage-coding.com/2015/12/24/out-on-the-streets.html)文章讨论了[PostGIS](http://postgis.net/)以及查询地理数据的几种方法。这篇文章将集中讨论构建一个免费的地理服务系统，并且聚合呈现结果。
 
-## Overview
-
 ## 概述
 
-In summary, we're making requests to different web services (or APIs), we're doing [reverse geocoding](https://en.wikipedia.org/wiki/Reverse_geocoding)on the results and then we'll aggregate them. ![](http://ac-Myg6wSTV.clouddn.com/2442a3bd132f453eb9eb.png)
-
-总的来说，我们将会向不同的网络服务(或APIs)发起请求，对响应结果做[反向地理编码](https://blog.garage-coding.com/2016/07/06/geolocation-using-multiple-services.html)后再聚合展示。
-
-## Comparing geonames and openstreetmap
+总的来说，我们将会向不同的网络服务(或APIs)发起请求，对响应结果做[反向地理编码](https://blog.garage-coding.com/2016/07/06/geolocation-using-multiple-services.html)后再聚合展示。![](http://ac-Myg6wSTV.clouddn.com/2442a3bd132f453eb9eb.png)
 
 ## 比较 [Geonames](http://www.geonames.org/) 和 [OpenStreetMap](https://www.openstreetmap.org/#map=5/51.500/-0.100)
 
@@ -32,15 +22,9 @@ To relate to the [previous post](https://blog.garage-coding.com/2015/12/24/out-o
 
 ![](http://ww1.sinaimg.cn/large/a490147fgw1f5raumu7jtj20gw09ujt1.jpg)
 
-They are meant for different purposes. Geonames is meant for city/administrative area/country data and can be used for [geocoding](http://www.geonames.org/export/geonames-search.html). Openstreetmap has much more detailed data (one could probably extract the geonames data using openstreetmap) and can be used for geocoding, route planning [and](http://wiki.openstreetmap.org/wiki/Applications_of_OpenStreetMap) [more](http://wiki.openstreetmap.org/wiki/List_of_OSM-based_services) .
-
 二者用途不同。Geonomes 用于城市/行政区/国家数据，可被用于[地理编码](http://www.geonames.org/export/geonames-search.html)。OpenStreetMap 拥有更加详尽的数据(使用者基本上都可以从OpenStreetMap中提取出Geonames数据)，这些数据可被用作地理编码，路线规划以及 [这些](http://wiki.openstreetmap.org/wiki/Applications_of_OpenStreetMap) 和 [基于OpenStreetMap的服务](http://wiki.openstreetmap.org/wiki/List_of_OSM-based_services)。
 
-## Asynchronous requests to geolocation services
-
 ## 发送给地理位置服务的异步请求
-
-We're using the [gevent](http://www.gevent.org/) library to make asynchronous requests to the geolocation services.
 
 我们使用 [gevent](http://www.gevent.org/) 库来向地理位置服务发起异步请求。
 
@@ -106,15 +90,9 @@ We're using the [gevent](http://www.gevent.org/) library to make asynchronous re
         answer = process_service_answers(results)
         return answer
 
-## City name ambiguity
-
 ## 引发歧义的城市名
 
-### Cities with the same name within the same country
-
 ### 同一国家中具有相同名字的城市
-
-There are many cities with the same name within a country, in different states/administrative regions. There's also cities with the same name in different countries. For example, according to Geonames, [there are](https://www.google.com/webhp?#q=%22united+states%22+(%22city%22+OR+%22town%22)+inurl:clinton+site:wikipedia.org) 24 cities named _Clinton_ in the US (in 23 different states, with two cities named _Clinton_ in the same state of Michigan).
 
 同个国家里，有非常多的分属于不同州或行政区的同名城市。也有很多同名不同国的城市。例如，根据Geonames的数据显示，美国一共有24个名叫Clinton的城市(这24个城市共分布在23个州，其中有两个是在密歇根州)
 
@@ -139,19 +117,7 @@ There are many cities with the same name within a country, in different states/a
 
 ![](http://ww2.sinaimg.cn/large/a490147fgw1f5rawd6ei2j20in06n0uy.jpg)
 
-### Cities with the same name in the same country and region
-
 ### 同一国家，同一行政区的同名城市
-
-Worldwide, even in the same region of a country, there can be multiple cities with the exact same name. Take for example Georgetown, in Indiana. Geonames says there are 3 towns with that name in Indiana. Wikipedia says there are even more:
-
-* [Georgetown, Floyd County, Indiana](https://en.wikipedia.org/wiki/Georgetown,_Floyd_County,_Indiana)
-
-* [Georgetown Township, Floyd County, Indiana](https://en.wikipedia.org/wiki/Georgetown_Township,_Floyd_County,_Indiana)
-
-* [Georgetown, Cass County, Indiana](https://en.wikipedia.org/wiki/Georgetown,_Cass_County,_Indiana)
-
-* [Georgetown, Randolph County, Indiana](https://en.wikipedia.org/wiki/Georgetown,_Randolph_County,_Indiana)
 
 从全世界范围来看，即便是在同个国家的同个行政区，都会出现多个名字完全相同的城市。就拿位于美国印第安纳州(Indiana)的乔治城(Georgetown)来说，Geonames 表明该州共有3个同名城镇。维基百科则显示了更多:
 
@@ -184,25 +150,12 @@ Worldwide, even in the same region of a country, there can be multiple cities wi
 
 ![](http://ww2.sinaimg.cn/large/a490147fgw1f5raxacpo0j20d505rmy4.jpg)
 
-## Reverse geocoding
 ## 反向地理编码
-
-Both `(city_name, country_code)` and `(city_name, country_code, region_name)` tuples have failed as candidates to uniquely identify a location. We would have the option of using [zip codes](https://en.wikipedia.org/wiki/ZIP_code) or [postal codes](https://en.wikipedia.org/wiki/Postal_code) except we can't use those since most geolocation services don't offer that. But most geolocation services do offer longitude and latitude, and we can use those to eliminate ambiguity.
 
 
 (city_name, country_code),(city_name, country_code, region_name) 这两个元组都不能唯一确定一个位置。我们可以使用邮政编码 ([zip codes](https://en.wikipedia.org/wiki/ZIP_code) 或 [postal codes](https://en.wikipedia.org/wiki/Postal_code))，除非地理位置服务不提供他们。但是大部分的地理位置服务却提供经纬度，可以使用这两者来消除歧义。
 
-### Geometric data types in PostgreSQL
 ### PostgreSQL 数据库中的图形数据类型
-
-I looked further into the PostgreSQL docs and found that it also has geometric [data types](https://www.postgresql.org/docs/9.4/static/datatype-geometric.html) and [functions](https://www.postgresql.org/docs/9.4/static/functions-geometry.html)for 2D geometry. Out of the box you can model points, boxes, paths, polygons, circles, you can store them and query them. PostgreSQL has [some additional extensions](https://www.postgresql.org/docs/9.1/static/contrib.html) in the contrib directory. They are available out of the box with most Postgres installs. In this situation we're interested in the [cube](https://www.postgresql.org/docs/9.4/static/cube.html) and [earthdistance](https://www.postgresql.org/docs/9.4/static/earthdistance.html) extensions <sup>[2](https://blog.garage-coding.com/2016/07/06/geolocation-using-multiple-services.html#fn.2)</sup>. The cube extension allows you to model [n-dimensional](https://en.wikipedia.org/wiki/Real_coordinate_space#Vector_space) vectors, and the earthdistance extension uses [3-cubes](https://en.wikipedia.org/wiki/Hypercube) to store vectors and represent points on the surface of the Earth. We'll be using the following:
-
-*   the `earth_distance` function is available, and it allows you to compute the [great-circle distance](https://en.wikipedia.org/wiki/Great-circle_distance)between two points
-*   the `earth_box` function to check if a point is within a certain distance of a reference point
-*   a [gist](https://www.postgresql.org/docs/9.1/static/sql-createindex.html) [expression index](https://www.postgresql.org/docs/9.4/static/indexes-expressional.html) on the expression `ll_to_earth(lat, long)` to make fast [spatial queries](https://en.wikipedia.org/wiki/Spatial_query) and find nearby points
-
-
-
 
 我深入研究了 PostgreSQL 数据库的文档，发现它也拥有几何[数据类型](https://www.postgresql.org/docs/9.4/static/datatype-geometric.html)和用于2D 几何(平面几何)的 [函数](https://www.postgresql.org/docs/9.4/static/functions-geometry.html)。你可以使用这些现成的数据类型和函数来模拟点，框，路径，多边形和圆并且可以将他们存储，之后还可以查询。PostgreSQL 还有一些存在于普通发布目录的 [额外扩展](https://www.postgresql.org/docs/9.1/static/contrib.html)。这些扩展需要大部分Postgres安装后才可以使用。当下的情况，我们对[cube 类型](https://www.postgresql.org/docs/9.4/static/cube.html) 和 [earthdistance](https://www.postgresql.org/docs/9.4/static/earthdistance.html)扩展感兴趣，earthdistance 扩展使用[3-cubes](https://en.wikipedia.org/wiki/Hypercube) 来存储向量和表示地球上的点。我们要用到的东西如下所示:
 
@@ -210,17 +163,7 @@ I looked further into the PostgreSQL docs and found that it also has geometric [
 * `earth_box` 函数用于检查对于给定的参考点，和给定的距离，该点是否位于该距离以内
 * 一个[gist](https://www.postgresql.org/docs/9.1/static/sql-createindex.html) [位于表达式上的索引(expression index)](https://www.postgresql.org/docs/9.4/static/indexes-expressional.html)，表达式`ll_to_earth(lat,long)` 执行快速的空间查询以及寻找附近点。
 
-### Designing a view for city & region data
-
 ## 为城市 & 行政区数据设计一个视图
-
-Geonames data was imported into 3 tables:
-
-*   `geo_geoname` (data from [cities1000.zip](http://download.geonames.org/export/dump/cities1000.zip) )
-*   `geo_admin1` (data from [admin1CodesASCII.txt](http://download.geonames.org/export/dump/admin1CodesASCII.txt) )
-*   `geo_countryinfo` (data from [countryInfo.txt](http://download.geonames.org/export/dump/countryInfo.txt) )
-
-Then we create a view that pulls everything together <sup>[3](https://blog.garage-coding.com/2016/07/06/geolocation-using-multiple-services.html#fn.3)</sup>. We now have population data, city/region/country data, and lat/long data, all in one place.
 
 Geonames 数据被导入到3个表中:
 
@@ -249,11 +192,7 @@ Geonames 数据被导入到3个表中:
         JOIN geo_countryinfo c ON b.country = c.iso_alpha2
     );
 
-### Designing a nearby-city query and function
-
 ## 设计一个 城市周边 查询函数
-
-In the most nested `SELECT`, we're only keeping the cities in a 23km radius around the reference point, then we're applying a country filter and city pattern filter (these two filters are optional), and we're only getting the closest 50 results to the reference point. Next, we're reordering by population because geonames sometimes has districts and neighbourhoods around bigger cities <sup>[4](https://blog.garage-coding.com/2016/07/06/geolocation-using-multiple-services.html#fn.4)</sup>, and it does not mark them in a specific way, so we just want to select the larger city and not a district (for example let's say the geolocation service returned a lat/long that would resolve to one distrct of a larger metropolitan area. In my case, I'd like to resolve this to the larger city it's associated with) We're also creating a gist index (the `@>` operator will make use of the gist index) which we're using to find points within a radius of a reference point. This function takes a point (using latitude and longitude) and returns the city, region and country that is associated with that point.
 
 在大多数嵌套`SELECT`语句中，我们都确保城市是在以参考点为圆心，以大约23km为半径的区域内，再对结果应用国家过滤器和城市模式过滤器(这两个过滤器均为可选)，最后仅得到接近50个结果。下一步，我们用人口数据对结果重新排序，因为有时候会在较大城市附近有一些区和邻域 <sup>[4](https://blog.garage-coding.com/2016/07/06/geolocation-using-multiple-services.html#fn.4)</sup>，而Geonames 不会用特定的方式标记他们，我们只是想选出较大的城市而不是一个区域(比如说地理位置服务返回了经纬度信息，该信息可被解析为一个较大城市的地区。于我而言，我比较愿意去把它解析成经纬度相对应的大城市)。我们也创建了一个 gist 索引(`@>` 该符号将会使用gist 索引 )，用于寻找以参照点为圆心，特定半径范围内的点。这个查询函数接受一个点(以纬度和经度表示)作为输入，返回该输入点相关联的城市，地区和国家。
 
@@ -301,25 +240,13 @@ In the most nested `SELECT`, we're only keeping the cities in a 23km radius arou
     $
     LANGUAGE plpgsql;
 
-## Conclusion
-
 ## 总结
 
-We've started from the design of a system that would query multiple geoip services, would gather the data and would then [aggregate](https://en.wikipedia.org/wiki/Aggregate_data) it to get a more reliable result. We first looked at some ways of uniquely identifying locations. We've then picked a way that would eliminate ambiguity in identifying them. In the second half, we've looked at different ways of structuring, storing and querying geographical data in PostgreSQL. Then we've built a view and a function to find cities near a reference point which allowed us to do reverse geocoding.
-
 我们从系统设计着手，让这个系统可以查询多个Geoip 服务，可以收集这些服务返回的数据对其 [聚合](https://en.wikipedia.org/wiki/Aggregate_data) 后得到一个更加可靠的结果。我们首先考虑了唯一确定位置的几种方式。随后选取了一种可以在确认位置时消除歧义的方法。第二部分中，我们着眼于构建，存储以及查询PostgreSQL中地理数据的不同方法。然后我们建立了一个视图和函数，用来找出参考点附近的允许我们用来进行逆向编码的城市。
-
-## Footnotes:
 
 ## 附注:
 
 <sup>[1](https://blog.garage-coding.com/2016/07/06/geolocation-using-multiple-services.html#fnr.1)</sup>
-
-By using multiple services (and assuming they use different data sources internally) after aggregation, we can have a more reliable answer than if we were using just one.
-
-Another advantage here is that we're using free services, no setup is required, we don't have to take care of updates, since these services are maintained by their owners.
-
-However, querying all these web services will be slower than querying a local geoip data structures. But, there are city/country/region geolocation database out there such as [geoip2](https://www.maxmind.com/en/geoip2-databases) from maxmind,[ip2location](http://www.ip2location.com/databases/db3-ip-country-region-city) or [db-ip](https://db-ip.com/db/#downloads).
 
 通过使用多种服务(并且假定这些服务内部使用了不同的数据源)聚合后的结果，将会比我们只使用其中某一种服务得到的答案更为可靠。
 
@@ -329,23 +256,12 @@ However, querying all these web services will be slower than querying a local ge
 
 <sup>[2](https://blog.garage-coding.com/2016/07/06/geolocation-using-multiple-services.html#fnr.2)</sup>
 
-There's a nice [post here](http://tapoueh.org/blog/2013/08/05-earthdistance) using the `earthdistance` module to compute distances to nearby or far away pubs.
-
 介绍一篇[好文章](http://tapoueh.org/blog/2013/08/05-earthdistance),讲述了使用 `earthdistance` 模块来计算附近或更远处酒吧的距离。
 
 <sup>[3](https://blog.garage-coding.com/2016/07/06/geolocation-using-multiple-services.html#fnr.3)</sup>
-
-Geonames has geonameIds as well, which are geonames-specific ids we can use to accurately refer to locations.
 
 Genomes 也有 geonamelds，我们可以使用这些 genomes-specific ids来精确匹配其位置。
 
 <sup>[4](https://blog.garage-coding.com/2016/07/06/geolocation-using-multiple-services.html#fnr.4)</sup>
 
-geonames does not have polygonal data about cities/neighbourhoods or metadata about the type of urban area (like openstreetmap does) so you can't query all city polygons (not districts/neighbourhoods) that contain that point.
-
 Geonames 没有关于 城市/邻域的多边形数据，或者城市地区类型的元数数据(参考概述中Geonames 和 OpenStreetMap差异对照表中criteria一列的数据)，所以你无法查询包含那个点的所有的城市多边形(不是指区域/邻域)。
-
-
-
-
-
