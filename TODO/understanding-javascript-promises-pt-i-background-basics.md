@@ -5,72 +5,79 @@
 * 校对者:
 
 
-## The Promised Land
+## Promise 的世界
 
-[Native Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) are amongst the biggest changes ES2015 make to the JavaScript landscape. They eliminate some of the more substantial problems with callbacks, and allow us to write asynchronous code that more nearly abides by synchronous logic.
+[原生 Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) 是 ES2015 中最大的改变，它极大的美化了 JavaScript。它的出现消除了采用 callback 机制的很多潜在问题，并允许我们采用近乎同步的逻辑去写异步代码。
 
-It's probably safe to say that promises, together with [generators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*), represent the New Normal™ of asyc. Whether you use them or not, you've _got_ to understand them.
+可以说 promises 和 [generators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*) ，代表了异步编程的新标准。不论你是否用它，你都得 _必须_ 明白它们究竟是什么。
 
-Promises feature a fairly simple API, but come with a bit of a learning curve. They can be conceptually exotic if you've never seen them before, but all it takes to wrap your head around them is a gentle introduction and ample practice.
+Promise 提供了相当简单的 API ，但也增加了一点学习曲线。如果你以前从没见过它们，你会觉得这个概念很奇特，然而让你的大脑习惯它。你只需要一个平缓的介绍和大量的练习。
+
+读完这篇文章后，你将会得到：
 
 By the end of this article, you'll be able to:
 
-*   Articulate _why_ we have promises, and what problems they solve;
-*   Explain _what_ promises are, from the perspective both of their _implementation_ and their _usage_; and
-*   Reimplement common callback patterns using promises.
+*   清晰的知道 _为什么_ 要有 promises，以及它解决了什么问题；
+*   通过它们的 _实现_ 和 _使用_ ，解释 _什么是_ promises；
+*   使用 promises 重写常见的 callback 模式。
 
-Oh, one note. The examples assume you're running Node. You can copy/paste the scripts manually, or [clone my repo](https://github.com/Peleke/promises/) to save the trouble.
+对了，有一点要注意。示例代码是跑在 Node 上的。你可以手动复制粘贴，或者直接[克隆我的仓库](https://github.com/Peleke/promises/)。
 
-Just clone it down and checkout the `Part_1` branch:
+只需要 clone 到本地，然后 checkout `Part_1` 分支：
 
     git clone https://github.com/Peleke/promises/
     git checkout Part_1-Basics
 
+. . . 现在可以开始了。下面是我们学习 promises 的大纲路径。
+
 . . . And you're good to go. The following is our outline for this path of promises:
 
-*   The Problem with Callbacks
-*   Promises: Definitions w/ Notes from the A+ Spec
-*   Promises & Un-inversion of Control
-*   Control Flow with Promises
-*   Grokking `then`, `reject`, & `resolve`
+*   使用 Callbacks 的问题
+*   Promises: 通过异步来说明定义  
+*   Promises & 不颠倒的管理
+*   使用 Promises 的控制流
+*   运用 `then`， `reject`， 和 `resolve`
 
-## Asynchronicity
+这几句不太好翻译了 求校对者支招
 
-If you've spent any time at all with JavaScript, you've probably heard that it's [fundamentally _non-blocking_](https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop), or _asynchronous_. But what doe that mean, exactly?
+## 异步机制
 
-### Sync & Async
+如果你用过 JavaScript 的话，你可能知道它的基础是 [ _非阻塞_ ](https://developer.mozilla.org/en-US/docs/Web/JavaScript/EventLoop)， or _异步_ 。但这究竟是什么意思？
 
-**Synchronous code** runs _before_ any code that follows it. You'll also see the term **blocking** as a synonym for synchronous, since it _block_ the rest of the program from running until it finishes.
+### 同步 & 异步
+
+** 同步代码 ** 将会在任何跟在它后面的代码 _之前_ 运行。你也可以吧**阻塞**作为同步的同义词，因为它  _阻塞_ 了程序接下来的执行，直到这部分代码结束。
 
     // readfile_sync.js
 
     "use strict";
 
-    // This example uses Node, and so won't run in the browser. 
+    //这个例子用的是 Node ，因此不能运行在浏览器中。
     const filename = 'text.txt', 
            fs        = require('fs');
 
     console.log('Reading file . . . ');
 
-    // readFileSync BLOCKS execution until it returns. 
-    //   The program will wait to execute anything else until this operation finishes. 
-    const file = fs.readFileSync(`${__dirname}/${filename}`); 
+    // readFileSync 操作阻塞后面代码的执行，直到它返回才能继续运行。
+    //  程序将会等到这个操作结束后才会执行其它的操作。 
 
-    // This will ALWAYS print after readFileSync returns. . . 
+    const file = fs.readFileSync(`${__dirname}/${filename}`); 
+    
+    //这段代永远是在 readFileSync 返回后才会执行 。。。
     console.log('Done reading file.');
 
-    // . . . And this will ALWAYS print the contents of 'file'.
+    //而这段永远打印的是 `file` 的内容。
     console.log(`Contents: ${file.toString()}`); 
 
 ![Predictable results from readFileSync.](https://cdn.scotch.io/1/YFAlIhhTpyghE3mzYSXw_6203660244.png)
 
-**Asynchronous code** is just the opposite: It allows the rest of the program to execute while it handles long-running operations, such as I/O or network operations. This is also called **non-blocking code**. Here's the asynchronous analogue of the above snippet:
+**异步代码** 则恰恰相反：它允许程序执行剩余的部分的同时处理一些耗时的操作，比如 I/O 或者网络操作。异步又叫**非阻塞代码**。下面是一段用异步实现上面功能的例子：
 
     // readfile_async.js
 
     "use strict";
 
-    // This example uses Node, so it won't run in the browser.
+    //例子用的是 Node ，因此不能运行在浏览器中。
     const filename      = 'text.txt', 
             fs            = require('fs'),
             getContents = function printContent (file) {
@@ -84,43 +91,45 @@ If you've spent any time at all with JavaScript, you've probably heard that it's
     console.log('Reading file . . . ');
     console.log("=".repeat(76));
 
-    // readFile executes ASYNCHRONOUSLY. 
-    //   The program will continue to execute past LINE A while 
-    //   readFile does its business. We'll talk about callbacks in detail
-    //   soon -- for now, just pay mind to the the order of the log
-    //   statements.
+    // readFile 异步执行。 
+    //   程序会继续执行 LINE A 后面的代码，
+    //   与此同时 readFile 也会做自己该做到事情。接下来将深入讨论 callback (回调)  
+    //   现在把注意力放在日志输出的顺序上。
     let file;
     fs.readFile(`${__dirname}/${filename}`, function (err, contents) {
       file = contents;
       console.log( `Uh, actually, now I'm done. Contents are: ${ getContents(file) }`);
     }); // LINE A
 
-    // These will ALWAYS print BEFORE the file read is complete.
+    // 下面这些日志总会在文件读取完成之前打印  
 
-    // Well, that's both misleading and useless.
+    // 好吧，这似乎有点误导和糟糕。
     console.log(`Done reading file. Contents are: ${getContents(file)}`); 
     console.log("=".repeat(76));
 
 ![Async I/O can make for confusing results.](https://cdn.scotch.io/1/eSFXleTTiVtdfMn2RFng_61ff5d552e.png)
 
-The major advantage to synchronous code is that it's easy to read and reason about: Synchronous programs execute from top to bottom, and line _n_ finishes before line _n + 1_. Period.
+同步代码的主要优势在于可读性强，很好理解：同步程序会自顶向下逐行执行。
 
-The major disadvantage is that synchronous code is slow—often debilitatingly so. Freezing the browser for two seconds every time your user needs to hit the server makes for a lousy user experience.
+同步代码的主要劣势在于经常很慢。每次你的用户点击服务时总会让浏览器卡顿两秒是多么糟糕的用户体验啊。
 
-And this, _mes amis_, is why JavaScript is non-blocking at the core.
+这就是为什么 JavaScript 内核要采用非阻塞的原因
 
-### The Challenge of Asynchronicity
+### 异步编程的挑战
 
-Going async buys us speed, but costs us linearity. Even the trivial script above demonstrates this. Note that:
+采用异步可以加快速度，但也给我们带来麻烦。即使上面这段并没有什么卵用的代码也说明了这个问题，注意：
 
-1.  There's no way to know when `file` will be available, other than handing control to `readFile` and letting _it_ notify us when it's ready; and
-2.  Our program no longer executes the way it reads, which makes it harder to reason about.
+1. 无法知道什么时候 `file` 是可用的，除非接管 `readFile` 的控制，让 _它_ 在准备好时通知我们；
+2. 而且我们的程序不会像它读起来那样执行，导致我们很那理解它。
 
-These problems alone are enough to occupy us for the rest of this article.
 
-## Callbacks & Fallbacks
+说明这些问题的篇幅足够占用我们这篇文章的剩余部分了。
 
-Let's strip our async `readFile` example down a bit.
+
+## 回调(Callback) & 回退(Fallback)
+
+接下来我们梳理一下异步 `readFile` 例子。
+
 
     "use strict";
 
@@ -137,40 +146,41 @@ Let's strip our async `readFile` example down a bit.
 
     console.log(`File is ${undefined}, but that'll change soon.`);
 
-Since `readFile` is non-blocking, it must return immediately for the program to continue to execute. Since _Immediately_ isn't enough time to perform I/O, it returns `undefined`, and we execute as much as we can until `readFile` finishes . . . Well, reading the file.
+因为 `readFile` 是非阻塞的，它会立即返回让程序继续执行。 而 _立即_这点时间 对 I/O 操作来说远远不够，它会返回 `undefined` ，我们可以在 `readFile` 结束之前尽可能的向后执行。。。当然了，文件还在读。
 
-The question is, _how do we know when the read is complete_?
+问题是 _我们怎么知道读操作什么时候完成_ ？
 
-Unfortunately, _we_ can't. But `readFile` can. In the snippet above, we've passed `readFile` two arguments: A filename, and a function, called a **callback**, which we want to execute as soon as the read is finished.
+不幸的是，我们无法知道。但 `readFile` 可以。在上面的代码片段中，我们给 `readFile` 传递了两个参数：文件名，以及名为 **callback** 的函数，这个函数会在读操作之后立即执行。
 
-In English, this reads something like: "`readFile`; see what's inside of `${__dirname}/${filename}`, and take your time. Once you know, run this `callback` with the `contents`, and let me know if there was an `error`."
+用自然语言描述就是：“ `readFile` 看看 `${__dirname}/${filename}` 里都有些什么，别着急。等你读完了把 `contents` 传给 `callback` 运行，并让我们知道是否有 `error`”
 
-The important thing to take away is that _we_ can't know when the file contents are ready: Only `readFile` can. That's why we hand it our callback, and trust _it_ to do the right thing with it.
+需要解决的最重要的问题是_我们_不能知道什么时候读完文件内容：只有 `readFile` 可以。这就是为什么我们要把它交给回调函数 callback，并相信_它_可以正确处理。
 
-This is the pattern for dealing with asynchronous functions in general: Call it with parameters, and pass it a callback to run with the result.
+这就是异步函数通常的处理模式：通过多个参数调用，并传递一个回调函数来处理结果。
 
-Callbacks are _a_ solution, but they're not perfect. Two bigger problems are:
 
-1.  Inversion of control; and
-2.  Complicated error handling.
+回调函数是 _一个_ 解决方案，但它并不完美。两个很大的问题是：
 
-#### Inversion of Control
+1.  颠倒的控制；
+2.  不明确的错误处理。
 
-The first problem is one of trust.
+#### 颠倒的控制
 
-When we pass `readFile` our callback, we _trust_ it will call it. There is absolutely no guarantee it actually will. Nor is there any guarantee that, if it does call, that it will be with the right parameters, in the right order, the right number of times.
+首先这是一个信任问题。
 
-In practice, this obviously hasn't been fatal: We've written callbacks for twenty years without breaking the Internet. And, in this case, we know that it's probably safe to hand control to core Node code.
+当我们给 `readFile` 传递回调函数时，我们_相信_它会调用这个回调函数的。但并没有绝对的保证这件事。关于是否会调用，是否会传递正确的参数，是否是正确的顺序，执行次数是否正确都没有绝对的保证。
 
-But handing control over mission-critical aspects of your application to a third party should feel risky, and has been the source of many a hard-to-squash [heisenbug](https://en.wikipedia.org/wiki/Heisenbug) in the past.
+在现实中，这显然不是致命的错误：我们已经写了20多年的的回调函数也没有搞坏互联网。当然，在这种情况下，我们基本可以放心的把控制权交给 Node 内核代码了。
 
-#### Implicit Error Handling
+但把你应用的关键任务表现交个第三方是很冒险的行为，在过去这是产生大量难以解决的 [heisenbug](https://en.wikipedia.org/wiki/Heisenbug) 。
 
-In synchronous code, we can use `try`/`catch`/`finally` to handle errors.
+#### 不明确的错误处理
+
+在同步代码中我们用 `try`/`catch`/`finally` 处理错误。
 
     "use strict";
 
-    // This example uses Node, and so won't run in the browser. 
+    //例子用的是 Node ，因此不能运行在浏览器中。
     const filename = 'text.txt', 
            fs        = require('fs');
 
@@ -187,11 +197,12 @@ In synchronous code, we can use `try`/`catch`/`finally` to handle errors.
 
     console.log( 'Catching errors, like a bo$.' );
 
+异步代码会很有爱的把错误仍出窗外。
 Async code lovingly tosses that out the window.
 
     "use strict";
 
-    // This example uses Node, and so won't run in the browser. 
+    //例子用的是 Node ，因此不能运行在浏览器中。
     const filename = 'throwaway.txt', 
             fs       = require('fs');
 
@@ -204,18 +215,18 @@ Async code lovingly tosses that out the window.
         file = contents;
       });
 
-      // This shouldn't run if file is undefined
+      // 如果文件未定义这句不会执行
       console.log( `Got it. Contents are: '${file}'` );
     } catch (err) {
-      // In this case, catch should run, but it never will.
-      //   This is because readFile passes errors to the callback -- it does /not/
-      //   throw them.
+      // 这种情形中 catch 应该运行，但它并不会。
+      //   这是因为 readFile 把错误传给回调函数了，而不是抛出错误。
       console.log( `There was a/n ${err}: file is ${file}` );
     }
 
-This doesn't work as expected. This is because the `try` block wraps `readFile`, _which will always return successfully with `undefined`_ . This means that `try` will _always_ complete without incident.
+运行过程并不是我们所预想的。这是因为 `try` 语句块包裹的 `readFile`， _总会成功返回 `undefined`_ 。也就意味着 `try`  _总是_ 捕获不到异常。
 
-The only way for `readFile` to notify you of errors is to pass them to your callback, where we handle them ourselves.
+让 `readFile` 通知你有错误的唯一方法就是把它传递给你的回调函数，在哪里再自行处理。
+
 
     "use strict";
 
@@ -233,57 +244,61 @@ The only way for `readFile` to notify you of errors is to pass them to your call
       }
     });
 
-This example isn't so bad, but propagating information about the error through large programs quickly beomes unwieldly.
+这个例子还凑合，但在大型程序中会增长出大量的错误信息并且很快会变得笨重不堪。
 
-Promises address both of these problems, and several others, by _un_inverting control, and "synchronizing" our asynchronous code so as to enable more familiar error handling.
+Promises 着重解决了这两个问题，以及一些其它的问题，通过不那么颠倒的控制，以及“同步化”我们的异步代码以便我们用更加属性的方式做错误处理。
+
 
 ## Promises
 
-Imagine you just ordered the entire [You Don't Know JS](https://github.com/getify/You-Dont-Know-JS/blob/master/README.md#you-dont-know-js-book-series) catalog from O'Reilly. In exchange for your hard-earned cash, they send a receipt acknowledging that you'll receive a shiny new stack of books next Monday. Until then, you don't _have_ that new stack of books. But you can trust that you _will_, because they _promised_ to send it.
+想象一下你刚刚订阅了 O'Reilly [You Don't Know JS](https://github.com/getify/You-Dont-Know-JS/blob/master/README.md#you-dont-know-js-book-series) 的目录。为了换取你"血汗钱"，他们会在给你发一个承诺收据，然后你下周一会收到一堆新书。直至这之前你并不会收到这些新书。但你相信它们会发，因为它们承诺(promise)会发的。
 
-That promise is enough that, before they even arrive, you can plan to set aside time to read every day; agree to loan a few of the titles out to friends; and give your boss notice that you'll be too busy reading for a full week to come to the office. You don't need the books to make those plans—you just need to know you'll get them.
+这个 promise 已经足够了，你可以计划每天腾出一些时间来读它，答应给你朋友看，告诉你的老板你这周将要忙于读书没时间去他办公室报告工作。你制定计划时并不需要这些书，你只需要知道将你会收到它们。
 
-Of course, O'Reilly might tell you a few days later that they can't fill the order for whatever reason. At that point, you'll erase that block of daily reading time; let your friends <del>down</del> know the you won't receive the books, after all; and tell your boss you actually _will_ be reporting to work next week.
+当然，O'Reilly 可能会在几天后告诉你他们不能履行订单，或者其它什么原因，这时你会取消你每天安排的读书时间，告诉你朋友你无法收到图书了，告诉你的老板你下周可以去给他汇报工作了。
 
-A **promise** is like that receipt. It's an object that stands in for a value that _is not ready yet_, but _will be ready later_—in other words, a _future value_. You treat the promise as if it were the value you're waiting for, and write your code as if you already had it.
 
-In the event there's a hiccup, Promises handle the interrupted control flow internally, and allow you to use a special `catch` keyword to handle errors. It's a little different from the synchronous version, but nonetheless more familiar than coordinating multiple error handlers across otherwise uncoordinated callbacks.
+**promise** 就像一个收据。它代表着还没有准备好的值，但等它准备好了才可以用，换句话说它是一个 _未来值_ 。你把 promises 当做你等待的值，并在写代码时假设它是可用的。
 
-And, since a promise _hands you_ the value when it's ready, _you_ decide what to do with it. This fixes the inversion of control problem: _You_ handle your application logic directly, without having to hand control to third parties.
+在这里有个个小问题，Promises 会立即处理打断控制流，并允许你使用 `catch` 关键字处理错误。它和同步版本有些小小的不同，但不管怎么说在处理协调多个错误处理上要比回调机制更方便。
 
-### The Promise Life Cycle: A Brief Look at States
+因为 promises 会在值准备好时把它交给你，由你来决定怎么用它。这修复了颠倒控制的问题：你可以不用手动去处理第三方的控制流，而是直接在你应用的逻辑中自己控制。
 
-Imagine you've used a Promise to make an API call.
 
-Since the server can't respond instantaneously, the Promise doesn't immediately contain its final value, nor will it be able to immediately report an error. Such a Promise is said to be **pending**. This is the case where you're waiting for your stack of books.
+### Promise 生命周期：状态的简单结束
 
-Once the server _does_ respond, there are two possible outcomes.
+想象一下你用 Promises 实习 API 调用。
 
-1.  The Promise gets the value it expected, in which case it is **fulfilled**. This is receiving your book order.
-2.  In the event there's an error somewhere along the pipeline, the Promise is said to be **rejected**. This is the notification that you won't get your order.
+因为服务器不能即刻响应，Promises 不会立即包含最终值，当然也不能立即报告错误。这种状态对 Promises 来说叫做 **pending**。这就相当于你在等你的新书的状态。
 
-Together, these are the three possible **states** a Promise can be in. Once a Promise is either fulfilled or rejected, it _cannot_ transition to any other state.
+一旦服务器响应了，将可能有两种可能的输出。
 
-Now that the jargon is out of the way, let's see how we actually use these things.
+1.  Promise 获得了它想要的值，这是 **fulfilled** 状态。这就相当于你收到你书的订单。
+2.  在这次事件处理中某处有个错误会被定向到管道中，这是 **rejected** 状态。这相当于你收到你订单的通知。
 
-## Fundamental Methods on Promises
+总之，在 Promise 有三种可能的**状态**。一旦 Promise 处于 fulfilled 或者 rejected 状态， 就再_不能_转换为其它任何状态。
 
-To quote the [Promises/A+ spec](https://promisesaplus.com/):
+现在术语介绍完了，现在看看我们怎么用它。
 
-> A promise represents the eventual result of an asynchronous operation. The primary way of interacting with a promise is through its `then` method, which registers callbacks to receive either a promise’s eventual value or the reason why the promise cannot be fulfilled.
 
-This section will take a closer look at the basic usage of Promises:
+## Promises 的基本方法
 
-1.  Creating Promises with the constructor;
-2.  Handling success with `resolve`;
-3.  Handling errors with `reject`; and
-4.  Setting up control flow with `then` and `catch`.
+引用自[Promises/A+ spec](https://promisesaplus.com/):
 
-In this example, we'll use Promises to clean up the `fs.readFile` code from above.
+> Promise 代表着异步操作的最终结果。与 promise 交互的最主要方式就是使用 `then` 方法，注册回调函数可以接收 promises 的最终值，或者失败原因。
 
-## Creating Promises
+这节将会详细了解 Promises 的基本用法：
 
-The most basic way to create a Promise is to use the constructor directly.
+1.  用构造器创建 Promises；
+2.  用 `resolve` 处理成功；
+3.  用 `reject` 处理失败；
+4.  以及用 `then` 和 `catch` 设置控制流。
+
+在这个例子中，我们会用 Promises 优化上面的 `fs.readFile` 代码。
+
+## 创建 Promises
+
+创建 Promise 的最基本方法就是直接使用构造器。
 
     'use strict';
 
@@ -294,29 +309,29 @@ The most basic way to create a Promise is to use the constructor directly.
           // Does nothing
       })
 
-Note that we pass the Promise constructor a function as an argument. This is where we tell the Promise _how_ to execute the asynchronous operation; what to do when we get the value we expect; and what to do if we get an error. In particular:
+注意我们给 Promise 构造器传递了一个函数作为参数。这是我们告诉 Promise _怎么_ 执行异步操作，得到我们想要的值之后做什么，以及如果发生错误怎么处理。细节:
 
-1.  The `resolve` argument is _also_ a function, and encapsulates what we want to do when we receive the **expected value**. When we get that expected value (`val`), we call `resolve` with it: `resolve(val)`.
-2.  The `reject` argument is _also_ a function, and represents what we want to do when we receive an **error**. If we get an error (`err`), we call `reject` with it: `reject(err)`.
-3.  Finally, the function we pass to the Promise constructor handles the asynchronous code itself. If it returns as expected, we call `resolve` with the value we get back. If it throws an error, we call `reject` with the error.
+1.  `resolve` 参数是一个函数，包括我们收到**期待值**时做什么。当我们得到期待的值 (`val`)时 用 `resolve(val)` 调用 `resolve`。
+2.  `reject` 参数也是一个函数代表着我们接到错误是做什么。如果接到错误 (`err`)，通过 `reject(err)` 调用 `reject` 。
+3.  最后我们传给 Promise 构造器的函数自己处理异步代码。如果返回时预期的，用接受到的值调用 `resolve`，用错误调用 `reject` 。
 
-Our running example is to wrap `fs.readFile` in a Promise. What should our `resolve` and `reject` look like?
+我们运行的例子是把 `fs.readFile` 包裹在 Promise 中。那么 `resolve` 和 `reject` 长什么样呢?
 
-1.  In the event of success, we want to `console.log` the file contents.
-2.  In the event of error, we'll do the same thing: `console.log` the error.
+1.  事件成功时，我们用 `console.log` 打印内容。
+2.  事件错误时，也用 `console.log` 打印错误。
 
-That nets us something like this.
+像下面这样。
 
     // constructor.js
 
     const resolve = console.log, 
           reject = console.log;
 
-Next, we need to fill out the function that we pass to the constructor. Remember, our task is to:
+接下来，我们需要完成给构造器传递的函数。记着，我们的任务是：
 
-1.  Read a file, and
-2.  If successful, `resolve` the contents;
-3.  Else, `reject` with an error.
+1.  读文件
+2.  当成功时 `resolve` 内容；
+3.  否则， `reject` 。
 
 Thus:
 
@@ -324,25 +339,26 @@ Thus:
 
     const text = 
       new Promise(function (resolve, reject) {
-        // Normal fs.readFile call, but inside Promise constructor . . . 
+        // 普通的 fs.readFile 调用，但是在 Promise constructor 内部 . . . 
         fs.readFile('text.txt', function (err, text) {
-          // . . . Call reject if there's an error . . . 
+          // . . . 如果有错误调用 reject . . . 
           if (err) 
             reject(err);
-          // . . . And call resolve otherwise.
+          // . . . 否则调用 resolve 。
           else
-        // We need toString() because fs.readFile returns a buffer.
+        //  fs.readFile 返回的是 buffer ，我们需要 toString() 转为 String。
             resolve(text.toString());
         })
       })
+      
+到这，技术部分结束了：这段代码代码创建了一个 Promises 它会严格按照我们的意愿执行。但如果你执行这段代码，你会发现它既没有打印结果也没有打印错误。
 
-With that, we're technically done: This code creates a Promise that does exactly what we want it to. But, if you run the code, you'll notice that it executes without printing a result or an error.
 
-## She made a Promise, and then . . .
+## 她做出了承诺(Promise)，然后(then) . . .
 
-The problem is that we _wrote_ our `resolve` and `reject` methods, but didn't actually pass them to the Promise! For that, we need to introduce the basic function for setting up Promise-based control-flow: `then`.
+问题是我们写了 `resolve` 和 `reject` 方法，但没有传递给 Promise！接下来我们介绍设置 Promise 的流程控制： `then`。
 
-Every Promise has a method, called `then`, which accepts two functions as arguments: `resolve`, and `reject`, _in that order_. Calling `then` on a Promise and passing it these functions allows the function you passed to the constructor to access them.
+每个 Promise 都有个叫 `then` 的方法，它接受两个函数做参数：`resolve` 和 `reject`， _按照顺序传递_。 调用 Promise 的 `then` 并把这些函数传给构造器，构造器将能够调用这些传入的函数。
 
     // constructor.js
 
@@ -357,17 +373,19 @@ Every Promise has a method, called `then`, which accepts two functions as argume
       })
       .then(resolve, reject);
 
-With that, our Promise reads the file, and calls the `resolve` method we wrote before upon success.
+这样我们的 Promise 就可以读文件并调用 `resolve` 方法。
 
-It's also crucial to remember that `then` **always returns a Promise object**. That means you can chain several `then` calls to create complex and synchronous-looking control flows over asynchronous operations. We'll dig into this in much more detail in the next installment, but the `catch` example in the next subsection gives a taste as to what this looks like.
+一定要记得调用 `then` **返回的一定是一个 Promise 对象**。这意味着你可以把实现 `then` 的链式调用，从而为异步操作创建复杂，类似同步那样的控制流。再下一篇文章时我们会就这点更深入一些细节，下一个小节我们将会深入讲解 `catch` 的例子。
 
-## Syntactical Sugar for Catching Errors
+## 捕获异常的语法糖。
 
-We passed `then` two functions: `resolve`, which we call in the event of success; and `reject`, which we call in the event of error.
+我们需要传递两个函数给 `then`： `resolve`，用于事件成功时调用， `reject`用于错误产生时调用。
 
-Promises also expose a function similar to `then`, called `catch`. It accepts a reject handler as its single argument.
 
-Since `then` always returns a Promise, in the example above, we could have _only_ passed `then` a resolve handler, and chained a `catch` with our reject handler afterwards.
+
+Promises 还提供了类似 `then`的函数， `catch`。它接受单个 reject 作为处理器(handler)。
+
+因为 `then` 总是返回一个 Promise，所以在上面的例子中，我们可以只给 `then` 传递一个 resolve 处理器(handler),然后链式调用 `catch` 并传一个 reject  处理器(handler)。
 
     const text = 
       new Promise(function (resolve, reject) {
@@ -381,7 +399,7 @@ Since `then` always returns a Promise, in the example above, we could have _only
       .then(resolve)
       .catch(reject);
 
-Finally, it's worth pointing out that `catch(reject)` is just syntactic sugar for `then(undefined, reject)`. So, we could also write:
+最后值得一提的是 `catch(reject)`  只是 `then(undefined, reject)` 形式的一个语法糖。因此也可以这样写：
 
     const text = 
       new Promise(function (resolve, reject) {
@@ -395,15 +413,17 @@ Finally, it's worth pointing out that `catch(reject)` is just syntactic sugar fo
       .then(resolve)
       .then(undefined, reject);
 
-. . . But that's much less readable.
+. . . 但这样可读性就下降了好多。
 
-## Wrapping Up
+## 结束语
 
-Promises are an indispensable tool in the async programming toolkit. They can be intimidating at first, but that's only because they're unfamiliar: Use them a few times, and they'll be as natural as `if`/`else`.
 
-Next time, we'll get some practice by converting callback-based code to use Promises, and take a look at [Q](https://github.com/kriskowal/q), a popular Promises library.
+Promises 在异步编程中不可缺少的编程工具。起初看起来挺吓人，但这仅仅是因为你不熟悉而已：用过一段时间，你就会觉得它们像 `if`/`else` 一样自然了。
 
-Until then, read Domenic Denicola's [States and Fates](https://github.com/domenic/promises-unwrapping/blob/master/docs/states-and-fates.md) to master the terminology, and read Kyle Simpson's chapter on [Promises](https://github.com/getify/You-Dont-Know-JS/blob/master/async%20%26%20performance/ch3.md) from the book series we ordered earlier.
+下一次，我们将会把回调模式的代码转换为用 Promises 实现，并学习一下 and take a look at [Q](https://github.com/kriskowal/q)，一个很流行的 Promises 库。
 
-As always, drop questions in the comments below, or shoot them to me on Twitter ([@PelekeS](http://www.twitter.com/PelekeS)). I promise to respond!
+现在可以读读我们开头订阅的系列书中 Domenic Denicola 的[States and Fates](https://github.com/domenic/promises-unwrapping/blob/master/docs/states-and-fates.md) 来掌握术语，读 Kyle Simpson 关于 [Promises](https://github.com/getify/You-Dont-Know-JS/blob/master/async%20%26%20performance/ch3.md) 章节。
+
+像往常一样，你可以在文章下面评论，或者在 Twitter 上([@PelekeS](http://www.twitter.com/PelekeS))。我一定会回复的！
+
 
