@@ -2,7 +2,8 @@
 * 原文作者 : Robin Osborne
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [jk77](http://github.com/jk77me)
-* 校对者:
+* 校对者: [mypchas6fans](http://github.com/mypchas6fans)
+          [hpoenixf](http://github.com/hpoenixf)
 
 
 
