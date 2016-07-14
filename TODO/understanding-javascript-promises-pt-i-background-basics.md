@@ -1,13 +1,13 @@
 >* 原文链接 : [Understanding JavaScript Promises, Pt. I: Background & Basics](https://scotch.io/tutorials/understanding-javascript-promises-pt-i-background-basics)
 * 原文作者 : [Peleke Sengstacke](https://pub.scotch.io/@pelekes)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者:
+* 译者 : [huanglizhuo](https://github.com/huanglizhuo)
+* 校对者: [hpoenixf](https://github.com/hpoenixf) [MAYDAY1993](https://github.com/MAYDAY1993)
 
 
 ## Promise 的世界
 
-[原生 Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) 是在ES2015对JavaScript做出的的最大的改变。它的出现消除了采用 callback 机制的很多潜在问题，并允许我们采用近乎同步的逻辑去写异步代码。
+[原生 Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) 是在ES2015对JavaScript做出最大的改变。它的出现消除了采用 callback 机制的很多潜在问题，并允许我们采用近乎同步的逻辑去写异步代码。
 
 可以说 promises 和 [generators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*) ，代表了异步编程的新标准。不论你是否用它，你都得 _必须_ 明白它们究竟是什么。
 
@@ -119,7 +119,7 @@ By the end of this article, you'll be able to:
 采用异步可以加快速度，但也给我们带来麻烦。即使上面这段并没有什么卵用的代码也说明了这个问题，注意：
 
 1. 无法知道什么时候 `file` 是可用的，除非接管 `readFile` 的控制，让 _它_ 在准备好时通知我们；
-2. 而且我们的程序不会像它读起来那样执行，导致我们很那理解它。
+2. 而且我们的程序不会像它读起来那样执行，导致我们很难理解它。
 
 
 说明这些问题的篇幅足够占用我们这篇文章的剩余部分了。
@@ -224,7 +224,7 @@ Async code lovingly tosses that out the window.
 
 运行过程并不是我们所预想的。这是因为 `try` 语句块包裹的 `readFile`， _总会成功返回 `undefined`_ 。也就意味着 `try`  _总是_ 捕获不到异常。
 
-让 `readFile` 通知你有错误的唯一方法就是把它传递给你的回调函数，在哪里再自行处理。
+让 `readFile` 通知你有错误的唯一方法就是把它传递给你的回调函数，在那里再自行处理。
 
 
     "use strict";
@@ -245,7 +245,7 @@ Async code lovingly tosses that out the window.
 
 这个例子还凑合，但在大型程序中会增长出大量的错误信息并且很快会变得笨重不堪。
 
-Promises 着重解决了这两个问题，以及一些其它的问题，通过不那么颠倒的控制，以及“同步化”我们的异步代码以便我们用更加属性的方式做错误处理。
+Promises 着重解决了这两个问题，以及一些其它的问题，通过不那么颠倒的控制，以及“同步化”我们的异步代码以便我们用更加熟悉的方式做错误处理。
 
 
 ## Promises
@@ -261,10 +261,9 @@ Promises 着重解决了这两个问题，以及一些其它的问题，通过�
 
 在这里有个个小问题，Promises 会立即处理打断控制流，并允许你使用 `catch` 关键字处理错误。它和同步版本有些小小的不同，但不管怎么说在处理协调多个错误处理上要比回调机制更方便。
 
-因为 promises 会在值准备好时把它交给你，由你来决定怎么用它。这修复了颠倒控制的问题：你可以不用手动去处理第三方的控制流，而是直接在你应用的逻辑中自己控制。
+因为 promises 会在值准备好时把它交给你，由你来决定怎么用它。这修复了颠倒控制的问题：你可以直接处理你的应用逻辑，没必要把控制权给第三方。
 
-
-### Promise 生命周期：状态的简单结束
+### Promise 生命周期：关于状态的简单介绍
 
 想象一下你用 Promises 实现 API 调用。
 
@@ -273,7 +272,7 @@ Promises 着重解决了这两个问题，以及一些其它的问题，通过�
 一旦服务器响应了，将可能有两种可能的输出。
 
 1.  Promise 获得了它想要的值，这是 **fulfilled** 状态。这就相当于你收到你书的订单。
-2.  在这次事件处理中某处有个错误会被定向到管道中，这是 **rejected** 状态。这相当于你收到你不能得到书的通知。
+2.  在事件中传递路径的某个地方出了错，这是 **rejected** 状态。这相当于你收到你不能得到书的通知。
 
 总之，在 Promise 有三种可能的**状态**。一旦 Promise 处于 fulfilled 或者 rejected 状态， 就再_不能_转换为其它任何状态。
 
@@ -308,11 +307,11 @@ Promises 着重解决了这两个问题，以及一些其它的问题，通过�
           // Does nothing
       })
 
-注意我们给 Promise 构造器传递了一个函数作为参数。这是我们告诉 Promise _怎么_ 执行异步操作，得到我们想要的值之后做什么，以及如果发生错误怎么处理。细节:
+注意我们给 Promise 构造器传递了一个函数作为参数。在这里我们告诉 Promise _怎么_ 执行异步操作，得到我们想要的值之后做什么，以及如果发生错误怎么处理。细节:
 
 1.  `resolve` 参数是一个函数，包括我们收到**期待值**时做什么。当我们得到期待的值 (`val`)时 用 `resolve(val)` 调用 `resolve`。
-2.  `reject` 参数也是一个函数代表着我们接到错误是做什么。如果接到错误 (`err`)，通过 `reject(err)` 调用 `reject` 。
-3.  最后我们传给 Promise 构造器的函数自己处理异步代码。如果返回时预期的，用接受到的值调用 `resolve`，用错误调用 `reject` 。
+2.  `reject` 参数也是一个函数，代表着我们接到错误之后怎么处理。如果接到错误 (`err`)，通过 `reject(err)` 调用 `reject` 。
+3.  最后我们传给 Promise 构造器的函数自己处理异步代码。如果返回值和预期一样，用接收到的值调用 `resolve`；如果抛出异常，用错误调用 `reject`。
 
 我们运行的例子是把 `fs.readFile` 包裹在 Promise 中。那么 `resolve` 和 `reject` 长什么样呢?
 
@@ -374,7 +373,7 @@ Thus:
 
 这样我们的 Promise 就可以读文件并调用 `resolve` 方法。
 
-一定要记得调用 `then` **返回的一定是一个 Promise 对象**。这意味着你可以把实现 `then` 的链式调用，从而为异步操作创建复杂，类似同步那样的控制流。再下一篇文章时我们会就这点更深入一些细节，下一个小节我们将会深入讲解 `catch` 的例子。
+一定要记得调用 `then` **返回的一定是一个 Promise 对象**。这意味着你可以链式调用 `then` 方法，从而为异步操作创建复杂，类似同步那样的控制流。再下一篇文章时我们会就这点更深入一些细节，下一个小节我们将会深入讲解 `catch` 的例子。
 
 ## 捕获异常的语法糖。
 
@@ -382,7 +381,7 @@ Thus:
 
 
 
-Promises 还提供了类似 `then`的函数， `catch`。它接受单个 reject 作为处理器(handler)。
+Promises 还提供了类似 `then`的函数， `catch`。它接受一个 reject 作为处理器(handler)。
 
 因为 `then` 总是返回一个 Promise，所以在上面的例子中，我们可以只给 `then` 传递一个 resolve 处理器(handler),然后链式调用 `catch` 并传一个 reject  处理器(handler)。
 
@@ -419,7 +418,7 @@ Promises 还提供了类似 `then`的函数， `catch`。它接受单个 reject 
 
 Promises 在异步编程中不可缺少的编程工具。起初看起来挺吓人，但这仅仅是因为你不熟悉而已：用过一段时间，你就会觉得它们像 `if`/`else` 一样自然了。
 
-下一次，我们将会把回调模式的代码转换为用 Promises 实现，并学习一下 and take a look at [Q](https://github.com/kriskowal/q)，一个很流行的 Promises 库。
+下一次，我们将会把回调模式的代码转换为用 Promises 实现，并学习一下 [Q](https://github.com/kriskowal/q)，一个很流行的 Promises 库。
 
 现在可以读读我们开头订阅的系列书中 Domenic Denicola 的[States and Fates](https://github.com/domenic/promises-unwrapping/blob/master/docs/states-and-fates.md) 来掌握术语，读 Kyle Simpson 关于 [Promises](https://github.com/getify/You-Dont-Know-JS/blob/master/async%20%26%20performance/ch3.md) 章节。
 
