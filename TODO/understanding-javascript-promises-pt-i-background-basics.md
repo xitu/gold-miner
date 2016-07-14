@@ -7,7 +7,7 @@
 
 ## Promise 的世界
 
-[原生 Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) 是 ES2015 中最大的改变，它极大的美化了 JavaScript。它的出现消除了采用 callback 机制的很多潜在问题，并允许我们采用近乎同步的逻辑去写异步代码。
+[原生 Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) 是在ES2015对JavaScript做出的的最大的改变。它的出现消除了采用 callback 机制的很多潜在问题，并允许我们采用近乎同步的逻辑去写异步代码。
 
 可以说 promises 和 [generators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*) ，代表了异步编程的新标准。不论你是否用它，你都得 _必须_ 明白它们究竟是什么。
 
@@ -30,7 +30,6 @@ By the end of this article, you'll be able to:
 
 . . . 现在可以开始了。下面是我们学习 promises 的大纲路径。
 
-. . . And you're good to go. The following is our outline for this path of promises:
 
 *   使用 Callbacks 的问题
 *   Promises: 通过异步来说明定义  
@@ -38,7 +37,7 @@ By the end of this article, you'll be able to:
 *   使用 Promises 的控制流
 *   运用 `then`， `reject`， 和 `resolve`
 
-这几句不太好翻译了 求校对者支招
+这几句不太好翻译 求校对者支招
 
 ## 异步机制
 
@@ -63,7 +62,7 @@ By the end of this article, you'll be able to:
 
     const file = fs.readFileSync(`${__dirname}/${filename}`); 
     
-    //这段代永远是在 readFileSync 返回后才会执行 。。。
+    //这段代码只会在readFileSync返回结果后才执行 。。。
     console.log('Done reading file.');
 
     //而这段永远打印的是 `file` 的内容。
@@ -162,7 +161,7 @@ By the end of this article, you'll be able to:
 回调函数是 _一个_ 解决方案，但它并不完美。两个很大的问题是：
 
 1.  颠倒的控制；
-2.  不明确的错误处理。
+2.  糟糕的错误处理。
 
 #### 颠倒的控制
 
@@ -174,7 +173,7 @@ By the end of this article, you'll be able to:
 
 但把你应用的关键任务表现交个第三方是很冒险的行为，在过去这是产生大量难以解决的 [heisenbug](https://en.wikipedia.org/wiki/Heisenbug) 。
 
-#### 不明确的错误处理
+#### 糟糕的错误处理
 
 在同步代码中我们用 `try`/`catch`/`finally` 处理错误。
 
@@ -267,14 +266,14 @@ Promises 着重解决了这两个问题，以及一些其它的问题，通过�
 
 ### Promise 生命周期：状态的简单结束
 
-想象一下你用 Promises 实习 API 调用。
+想象一下你用 Promises 实现 API 调用。
 
 因为服务器不能即刻响应，Promises 不会立即包含最终值，当然也不能立即报告错误。这种状态对 Promises 来说叫做 **pending**。这就相当于你在等你的新书的状态。
 
 一旦服务器响应了，将可能有两种可能的输出。
 
 1.  Promise 获得了它想要的值，这是 **fulfilled** 状态。这就相当于你收到你书的订单。
-2.  在这次事件处理中某处有个错误会被定向到管道中，这是 **rejected** 状态。这相当于你收到你订单的通知。
+2.  在这次事件处理中某处有个错误会被定向到管道中，这是 **rejected** 状态。这相当于你收到你不能得到书的通知。
 
 总之，在 Promise 有三种可能的**状态**。一旦 Promise 处于 fulfilled 或者 rejected 状态， 就再_不能_转换为其它任何状态。
 
