@@ -2,7 +2,7 @@
 * 原文作者 : [Romain Guy](https://medium.com/@romainguy)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [jamweak](https://github.com/jamweak)
-* 校对者: [yifili09](https://github.com/yifili09) [whyalwaysmea](https://github.com/whyalwaysmea)
+* 校对者: [yifili09](https://github.com/yifili09)，[whyalwaysmea](https://github.com/whyalwaysmea)
 
 
 在过去两年里，我经常发现一些尝试去如何提高有关在网页中渲染下划线文本修饰的[文章](https://medium.com/design/crafting-link-underlines-on-medium-7c03a9274f9)和[库](https://eager.io/blog/smarter-link-underlines/)。此类问题也同样发生在Android（平台）：下划线的文本修饰与[降部](http://www.fontke.com/article/712)相交。比较下Android当前如何绘制下划线文本(上图)以及它的替代方案(下图)：
