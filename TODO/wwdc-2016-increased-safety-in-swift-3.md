@@ -6,14 +6,14 @@ Matt Mathias](https://www.bignerdranch.com/about-us/nerds/matt-mathias/)
 * 校对者: [llp0574](https://github.com/llp0574),
 
 
-在 **Swift** 发布之后，**Swift** 的开发者一直在强调，安全性与可选择类型是 **Swift** 最为重要的特性之一。他们提供了一种 `nil` 的代理机制，要求在将 `nil` 和已经明确实例化的对象共同使用。
+在 **Swift** 发布之后，**Swift** 的开发者一直在强调，安全性与可选择类型是 **Swift** 最为重要的特性之一。他们提供了一种'nil'的表示机制，并要求有一个明确的语法在可能为'nil'的实例上使用。
 
 可选择类型主要以下两种:
 
 1.  `Optional`
 2.  `ImplicitlyUnwrappedOptional`
 
-第一种做法是一种安全的做法：它要求我们在访问可选择类型变量的底层值之前先将其拆解。第二种做法是一种不安全的做法：我们可在不拆解可选择类型变量的情况下直接访问其底层值。比如，如果在变量值为 `nil` 的时候，使用 `ImplicitlyUnwrappedOptional` 可能会导致一些异常。
+第一种做法是一种安全的做法：它要求我们去拆解可选类型变量是为了访问基础值。第二种做法是一种不安全的做法：我们可在不拆解可选择类型变量的情况下直接访问其底层值。比如，如果在变量值为 `nil` 的时候，使用 `ImplicitlyUnwrappedOptional` 可能会导致一些异常。
 
 下面将展示一个关于这个问题的例子：
 
@@ -25,7 +25,7 @@ Matt Mathias](https://www.bignerdranch.com/about-us/nerds/matt-mathias/)
 
 ~~~
 
-在 **Swift 3.0** 中，苹果改进了 `ImplicitlyUnwrappedOptional` ，使其相对于以前变得更为安全。这里我们不禁想问，苹果到底在 **Swift 3.0** 对 `ImplicitlyUnwrappedOptional` 做了哪些改进，从而使 **Swift** 变得更为安全了呢。答案在于，苹果在编译器对于 `ImplicitlyUnwrappedOptional` 进行类型推导的过程中进行了优化。
+在 **Swift 3.0** 中，苹果改进了 `ImplicitlyUnwrappedOptional` 的实现，使其相对于以前变得更为安全。这里我们不禁想问，苹果到底在 **Swift 3.0** 对 `ImplicitlyUnwrappedOptional` 做了哪些改进，从而使 **Swift** 变得更为安全了呢。答案在于，苹果在编译器对于 `ImplicitlyUnwrappedOptional` 进行类型推导的过程中进行了优化。
 
 ## 在 **Swift 2.x** 中的使用方式
 
@@ -50,7 +50,7 @@ Matt Mathias](https://www.bignerdranch.com/about-us/nerds/matt-mathias/)
 
 这里我们创建了一个初始化方法有缺陷的结构体 `Person` 。如果我们在初始化中不给实例提供 `first name` 和 `last name` 的值的话，那么初始化将会失败。
 
-在这里 `init!(firstName: String, lastName: String)` ，我们通过使用 `!` 而不是 `?` 来进行初始化的。不同于 **Swift 3.0**,在 **Swift 2.x** 中，我们用过利用 `init!` 来使用 `ImplicitlyUnwrappedOptional` 。不管我们所使用的 `Swift` 版本如何，我们应该谨慎的使用 `init!`。一般而言，如果你能允许在引用生成的为nil的实例时所产生的异常，那么你可以使用 `init!` 。为如果对应的实例为 `nil` 的时候，你使用 `init!` 会导致程序的崩溃。
+在这里 `init!(firstName: String, lastName: String)` ，我们通过使用 `!` 而不是 `?` 来进行初始化的。不同于 **Swift 3.0**,在 **Swift 2.x** 中，我们用过利用 `init!` 来使用 `ImplicitlyUnwrappedOptional` 。不管我们所使用的 `Swift` 版本如何，我们应该谨慎的使用 `init!`。一般而言，如果你能允许在引用生成的为nil的实例时所产生的异常，那么你可以使用 `init!` 。因为如果对应的实例为 `nil` 的时候，你使用 `init!` 会导致程序的崩溃。
 
 在 '.*' 中，这个初始化方法将会生成一个 **ImplicitlyUnwrappedOptional<Person>** 。如果初始化失败，所有基于 **Person** 的实例将会产生异常。
 
@@ -69,7 +69,7 @@ Matt Mathias](https://www.bignerdranch.com/about-us/nerds/matt-mathias/)
 
 ## 在 **Swift 3.0** 里的新姿势
 
-在 **Swift 3.0** 中事情发生了一点微小的变化。在 `init!` 中的 `!` 表示初始化可能会失败，如果成功进行了初始化，那么生成的实例将被强制隐式拆包。不同于 **Swift 2.x** ，`init!` 所生成的实例是 `optional` 而不是 `ImplicitlyUnwrappedOptional` 。这意味着你需要针对不同的情况对实例进行类型绑定或者是自判断链接处理。
+在 **Swift 3.0** 中事情发生了一点微小的变化。在 `init!` 中的 `!` 表示初始化可能会失败，如果成功进行了初始化，那么生成的实例将被强制隐式拆包。不同于 **Swift 2.x** ，`init!` 所生成的实例是 `optional` 而不是 `ImplicitlyUnwrappedOptional` 。这意味着你需要针对不同的基础值对实例进行类型绑定或者是自判断链接处理。
 
 ~~~Swift
 
@@ -123,7 +123,7 @@ Matt Mathias](https://www.bignerdranch.com/about-us/nerds/matt-mathias/)
 
 ~~~
 
-在上面这个例子中，`anotherMatt` 是一个值为 `nil` 的实例，这意味着我们在访问这个实例的时候，代码会产生异常。这是 `ImplicitlyUnwrappedOptional` 里的一种缺陷，那么我们如果把`anotherMatt` 换成 `Optional<Person>` ，情况会不会好一些呢？
+在上面这个例子中，`anotherMatt` 是一个值为 `nil` 的实例，这意味着任何直接访问他基础值的操作，都会导致崩溃。这种类型的访问确切来说是 'ImplicitlyUnwrappedOptional' 所推荐的方式。那么我们如果把`anotherMatt` 换成 `Optional<Person>` ，情况会不会好一些呢？
 
 让我们在 **Swift 3.0** 中试试同样的代码会怎样。
 
