@@ -3,7 +3,6 @@
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[认领地址](https://github.com/xitu/gold-miner/issues/539)
 * 校对者：
-* 状态：认领中
 
 We all know how important it is to test our code in multiple browsers. And I think for the most part, we in the web development community do a pretty good job at this—at least when first releasing a project.
 
@@ -51,24 +50,32 @@ The nice thing about module bundlers like browserify or webpack is they combine 
 
 A typical test file using Mocha looks something like this:
 
-    <html></html>
-    <head></head>
+    <!DOCTYPE html>
+    <html>
+    <head>
       <meta charset="utf-8">
-      <title></title>Tests
-      <link href="../node_modules/mocha/mocha.css" rel="stylesheet">
+      <title>Tests</title>
+      <link href="../node_modules/mocha/mocha.css" rel="stylesheet" />
       <script src="../node_modules/mocha/mocha.js"></script>
-
-    <body></body>
-
+    </head>
+    <body>
+    
+      <!-- A container element for the visual Mocha results -->
       <div id="mocha"></div>
-
-      <script></script>
+    
+      <!-- Mocha setup and initiation code -->
+      <script>
       mocha.setup('bdd');
       window.onload = function() {
         mocha.run();
       };
-
+      </script>
+    
+      <!-- The script under test -->
       <script src="index.js"></script>
+    
+    </body>
+    </html>
 
 If you’re not using Node.js, then your starting point likely already looks like this HTML file, the only difference is your dependencies are probably listed individually as `<script>` tags.
 
@@ -89,7 +96,7 @@ It’s as simple as this:
         it('accepts thing A and transforms it into thing B', () => {
           const sc = new SomeClass();
 
-          <mark>debugger;</mark>
+          debugger;
           assert.equal(sc.someMethod('A'), 'B');
         });
       });
@@ -195,27 +202,28 @@ Even though you told Sauce Labs in the initial request that you were using Mocha
 
 To add Mocha support you change these lines in your HTML page:
 
-    <script></script>
+    <script>
     mocha.setup('bdd');
     window.onload = function() {
       mocha.run();
     };
+    </script>
 
 To something like this:
 
-    <script></script>
+    <script>
     mocha.setup('bdd');
     window.onload = function() {
       var runner = mocha.run();
       var failedTests = [];
-
+    
       runner.on('end', function() {
         window.mochaResults = runner.stats;
         window.mochaResults.reports = failedTests;
       });
-
+    
       runner.on('fail', logFailure);
-
+    
       function logFailure(test, err){
         var flattenTitles = function(test){
           var titles = [];
@@ -225,7 +233,7 @@ To something like this:
           }
           return titles.reverse();
         };
-
+    
         failedTests.push({
           name: test.title,
           result: false,
@@ -235,6 +243,7 @@ To something like this:
         });
       };
     };
+    </script>
 
 The only difference between the above code and the default Mocha boilerplate is this logic assigns the results of the tests to a variable called `window.mochaResults` in a format that Sauce Labs is expecting. And since this new code doesn’t interfere with running the tests manually in your browser, you may as well just start using it as the default Mocha boilerplate.
 
@@ -280,7 +289,7 @@ The idea is you call this method periodically until all the jobs have completed.
 The response will look something like this:
 
     {
-      <mark>"completed": false,</mark>
+      "completed": false,
       "js tests": [
         {
           "url": "https://saucelabs.com/jobs/75ac4cadb85e415fae957f7811d778b8",
@@ -303,7 +312,7 @@ The response will look something like this:
           "id": "1f74a237d5ba4a47b5a42570ae1e7999",
           "job_id": "75ac4cadb85e415fae957f7811d778b8"
         },
-
+        // ... the rest of the jobs
       ]
     }
 
