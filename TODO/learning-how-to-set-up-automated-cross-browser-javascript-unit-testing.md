@@ -1,7 +1,7 @@
 * 原文链接：[Learning How to Set Up Automated, Cross-browser JavaScript Unit Testing](https://philipwalton.com/articles/learning-how-to-set-up-automated-cross-browser-javascript-unit-testing)
 * 原文作者：[PHILIP WALTON](https://philipwalton.com/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：[认领地址]()
+* 译者：[认领地址](https://github.com/xitu/gold-miner/issues/539)
 * 校对者：
 * 状态：认领中
 
