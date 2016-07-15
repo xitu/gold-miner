@@ -2,12 +2,12 @@
 * 原文作者 : [Peleke Sengstacke](https://pub.scotch.io/@pelekes)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [huanglizhuo](https://github.com/huanglizhuo)
-* 校对者: [hpoenixf](https://github.com/hpoenixf) [MAYDAY1993](https://github.com/MAYDAY1993)
+* 校对者: [hpoenixf](https://github.com/hpoenixf)，[MAYDAY1993](https://github.com/MAYDAY1993)
 
 
 ## Promise 的世界
 
-[原生 Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) 是在ES2015对JavaScript做出最大的改变。它的出现消除了采用 callback 机制的很多潜在问题，并允许我们采用近乎同步的逻辑去写异步代码。
+[原生 Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) 是在 ES2015 对 JavaScript 做出最大的改变。它的出现消除了采用 callback 机制的很多潜在问题，并允许我们采用近乎同步的逻辑去写异步代码。
 
 可以说 promises 和 [generators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*) ，代表了异步编程的新标准。不论你是否用它，你都得 _必须_ 明白它们究竟是什么。
 
@@ -37,7 +37,6 @@ By the end of this article, you'll be able to:
 *   使用 Promises 的控制流
 *   运用 `then`， `reject`， 和 `resolve`
 
-这几句不太好翻译 求校对者支招
 
 ## 异步机制
 
@@ -45,7 +44,7 @@ By the end of this article, you'll be able to:
 
 ### 同步 & 异步
 
-** 同步代码 ** 将会在任何跟在它后面的代码 _之前_ 运行。你也可以吧**阻塞**作为同步的同义词，因为它  _阻塞_ 了程序接下来的执行，直到这部分代码结束。
+**同步代码** 将会在任何跟在它后面的代码 _之前_ 运行。你也可以吧**阻塞**作为同步的同义词，因为它  _阻塞_ 了程序接下来的执行，直到这部分代码结束。
 
     // readfile_sync.js
 
