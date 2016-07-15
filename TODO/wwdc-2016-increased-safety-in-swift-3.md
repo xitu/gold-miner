@@ -3,7 +3,7 @@
 Matt Mathias](https://www.bignerdranch.com/about-us/nerds/matt-mathias/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [Zheaoli](https://github.com/Zheaoli)
-* 校对者: [llp0574](https://github.com/llp0574),
+* 校对者: [llp0574](https://github.com/llp0574), [thanksdanny](https://github.com/thanksdanny)
 
 
 在 **Swift** 发布之后，**Swift** 的开发者一直在强调，安全性与可选择类型是 **Swift** 最为重要的特性之一。他们提供了一种'nil'的表示机制，并要求有一个明确的语法在可能为'nil'的实例上使用。
@@ -50,9 +50,9 @@ Matt Mathias](https://www.bignerdranch.com/about-us/nerds/matt-mathias/)
 
 这里我们创建了一个初始化方法有缺陷的结构体 `Person` 。如果我们在初始化中不给实例提供 `first name` 和 `last name` 的值的话，那么初始化将会失败。
 
-在这里 `init!(firstName: String, lastName: String)` ，我们通过使用 `!` 而不是 `?` 来进行初始化的。不同于 **Swift 3.0**,在 **Swift 2.x** 中，我们用过利用 `init!` 来使用 `ImplicitlyUnwrappedOptional` 。不管我们所使用的 `Swift` 版本如何，我们应该谨慎的使用 `init!`。一般而言，如果你能允许在引用生成的为nil的实例时所产生的异常，那么你可以使用 `init!` 。因为如果对应的实例为 `nil` 的时候，你使用 `init!` 会导致程序的崩溃。
+在这里 `init!(firstName: String, lastName: String)` ，我们通过使用 `!` 而不是 `?` 来进行初始化的。不同于 **Swift 3.0**，在 **Swift 2.x** 中，我们用过利用 `init!` 来使用 `ImplicitlyUnwrappedOptional` 。不管我们所使用的 `Swift` 版本如何，我们应该谨慎的使用 `init!`。一般而言，如果你能允许在引用生成的为nil的实例时所产生的异常，那么你可以使用 `init!` 。因为如果对应的实例为 `nil` 的时候，你使用 `init!` 会导致程序的崩溃。
 
-在 '.*' 中，这个初始化方法将会生成一个 **ImplicitlyUnwrappedOptional<Person>** 。如果初始化失败，所有基于 **Person** 的实例将会产生异常。
+在 '.*' 中，这个初始化方法将会生成一个 `ImplicitlyUnwrappedOptional<Person>` 。如果初始化失败，所有基于 `Person` 的实例将会产生异常。
 
 比如，在 **Swift 2.x** 里，下面这段代码在运行时将崩溃。
 
