@@ -150,6 +150,7 @@
 
 ## 设计
 
+* [［译］移动开发中用 1x 视觉稿设计的好处](http://gold.xitu.io/entry/578840f9d342d30058a29968?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([wildflame](https://github.com/wild-flame/) 翻译)
 * [[译] 用户界面中的字体](http://gold.xitu.io/entry/57859bb9d342d300578b1ebf?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([circlelove](https://github.com/circlelove) 翻译)
 * [从产品设计到虚拟现实](https://gold.xitu.io/entry/5783aa752e958a0054dad3bc?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([cdpath](https://github.com/cdpath) 翻译)
 * [【译】UI 的黑暗面！暗色背景的优势](https://gold.xitu.io/entry/577c9385a633bd005be7fe7a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([yangzj1992](http://www.qcyoung.com/) 翻译)
