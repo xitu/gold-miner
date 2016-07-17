@@ -59,7 +59,7 @@
 
 在开发过程中，我发现将不同的配置过程放在一起非常的重要。在我早期的 **Swift** 编程经历中，我通常会声明一个 `configureView` 函数，然后在初始化时将配置过程放在这里。但是在 **Swift** 中我们可以利用 **属性声明代码块** 来配置 `view` （其实我也不知道这玩意儿怎么称呼啦（逃）。
 
-唔，下面这个例子里，有一个包含两个 `subviews` 、 `bestTitleLabel` 、 和 `otherTitleLabel` 的 `AwesomeView` 视图。两个 `subviews` 都在一个地方进行配置。我们将配置过程都整合在 `configureView` 方法中。如果我想去改变一个 `label` 的 `textColor` 属性，我很清楚的知道到哪里去进行修改。
+唔，下面这个例子里，有一个包含两个 `subviews` 、 `bestTitleLabel` 、 和 `otherTitleLabel` 的 `AwesomeView` 视图。两个 `subviews` 都在一个地方进行配置。我们将配置过程都整合在 `configureView` 方法中。因此，如果我想去改变一个 `label` 的 `textColor` 属性，我很清楚的知道到哪里去进行修改。
 
 ~~~Swift
     cclass AwesomeView: GenericView {
