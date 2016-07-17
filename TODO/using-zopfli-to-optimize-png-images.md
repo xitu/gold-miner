@@ -6,8 +6,7 @@
 
 # 使用使用Zopfli优化PNG图片
 
-[PNG格式](http://www.libpng.org/pub/png/)
-在图片存储中是个很有用的格式，因为他能够保护截图的颜色不失真，能够很好地还原所有图片信息。然而，有许多图像应用并不提供导出较小PNG 格式图片的功能。幸好，我们可以用一个Google发布的扩展工具[Zopfli](https://en.wikipedia.org/wiki/Zopfli)来解决这个问题。
+[PNG格式](http://www.libpng.org/pub/png/)在图片存储中是个很有用的格式，因为他能够保护截图的颜色不失真，能够很好地还原所有图片信息。然而，有许多图像应用并不提供导出较小PNG 格式图片的功能。幸好，我们可以用一个Google发布的扩展工具[Zopfli](https://en.wikipedia.org/wiki/Zopfli)来解决这个问题。
 
 Zopfli是实现DEFLATE的编码器，这是一个PNG格式中常用的压缩方法（当然也有很多其他的方法来压缩png，像ZIP等等），用来输出可能的最小压缩文件。由于他是一种无损转换，用Zopfli做再次压缩的PNG文件仍有预期中的像素。
 
@@ -23,7 +22,7 @@ Zopfli是实现DEFLATE的编码器，这是一个PNG格式中常用的压缩方�
     $ make zopflipng
 ```
 
-之后，我通常会将`zopflipng`复制到`~/bin`中让其成为可直接执行命令
+之后，我通常会将`zopflipng`复制到`~/bin`中
 ```
     $ cp ./zopflipng ~/bin
     $ ./zopflipng
@@ -37,7 +36,7 @@ Zopfli是实现DEFLATE的编码器，这是一个PNG格式中常用的压缩方�
 ```
 $ zopflipng screenshot.png screenshot_small.png
 ```
-注意，由于Zopfli压缩是CPU密集型操作(https://developers.googleblog.com/2013/02/compress-data-more-densely-with-zopfli.html)，过程中往往需要几秒钟。
+注意，由于Zopfli压缩是[CPU密集型操作](https://developers.googleblog.com/2013/02/compress-data-more-densely-with-zopfli.html)，过程中往往需要几秒钟。
 
 对于批量转换，需要一个简单的脚本来做辅助。我写了一个简单的脚本`press.sh`
 ```
