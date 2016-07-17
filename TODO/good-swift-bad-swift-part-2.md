@@ -37,7 +37,7 @@
     }
 ~~~
 
-当 `let` 和 `guard` 配合使用的时候将会有奇效。下面这个例子中，我们将把请求的结果绑定到一个变量(user)，之后通过finishSignUp方法函数使用(这个变量)。如果 `result.okValue` 为空，那么 `guard` 将会产生作用，如果不为空的话，那么这个值将对 `user` 进行赋值。我们通过利用 `where` 来对 `guard` 进行限制。
+当 `let` 和 `guard` 配合使用的时候将会有奇效。下面这个例子中，我们将把请求的结果绑定到一个变量 `user` ，之后通过 `finishSignUp` 方法函数使用(这个变量)。如果 `result.okValue` 为空，那么 `guard` 将会产生作用，如果不为空的话，那么这个值将对 `user` 进行赋值。我们通过利用 `where` 来对 `guard` 进行限制。
 
 ~~~Swift
     currentRequest?.getValue { [weak self] result in
