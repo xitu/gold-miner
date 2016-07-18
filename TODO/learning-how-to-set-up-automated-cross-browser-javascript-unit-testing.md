@@ -5,8 +5,10 @@
 * 校对者：
 
 We all know how important it is to test our code in multiple browsers. And I think for the most part, we in the web development community do a pretty good job at this—at least when first releasing a project.
+我们都知道在各个不同的浏览器环境里测试代码是很重要的， 并且在大多数时候，我们作为Web开发者在这一点上是做的很好的 – 至少在第一次发布的时候是这样。
 
 What we don’t do a good job of is testing our code every time we make a change.
+然而我们在每次更改代码之后的测试方面，却做的不尽人意。
 
 I know I’m personally guilty of this. I’ve had “learn how to set up automated, cross-browser JavaScript unit testing” on my to-do list for years, but every time I sat down to really figure it out, I gave up. While I’m sure this was partially due to my laziness, I think it was also due to the surprising lack of good information available on this topic.
 
