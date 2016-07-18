@@ -2,7 +2,7 @@
 * 原文作者 : [Attila Hegedüs](https://www.raywenderlich.com/u/cynicalme)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [llp0574](https://github.com/llp0574)
-* 校对者:
+* 校对者: [yifili09](https://github.com/yifili09),[cdpath](https://github.com/cdpath)
 
 ![Alt 使用Core Plot绘制饼图，直方图，散点图及更多！](http://ac-Myg6wSTV.clouddn.com/868c57b7dfa6957573cd.png)
 
@@ -15,7 +15,7 @@ _注意_：本篇教程已被Attila Hegedüs更新，可适用于iOS 9和Swift 2
 1.  _自己写。_ 通过使用Core Graphics或者Quartz这样的框架编写全部的绘制代码。然而，这显然要花费大量的功夫。
 2.  _买一个！_ 购买一个像[ShinobiControls](http://www.shinobicontrols.com)这样的商业型框架。这或许可以节省你的时间，但就要花钱啦。
 
-那如果你既不想花费大量时间精力在scratch里写代码，也不想花那么多钱，该怎么办呢？这时候第三个选项就派上用场了：使用开源库[Core Plot](https://github.com/core-plot/core-plot)！
+但是如果你不想花费时间和精力从零开始写(代码)，也不想花那么多钱，该怎么办呢？这时候第三个选项就派上用场了：使用开源库[Core Plot](https://github.com/core-plot/core-plot)！
 
 Core Plot是一个2D绘制库，适用于iOS，Mac OS X和tvOS。它使用了像Quartz和Core Animation这样的苹果应用框架，同时有着全面的测试覆盖，而且是遵照BSD这个比较宽松的许可证进行发布的。
 
@@ -27,7 +27,7 @@ Core Plot是一个2D绘制库，适用于iOS，Mac OS X和tvOS。它使用了像
 
 ## 入门
 
-在本教程中，你将创建一个app去展示给定时间间隔内的货币汇率。从[这里](https://cdn2.raywenderlich.com/wp-content/uploads/2016/05/SwiftRates_Starter-2.zip)下载本教程的入门项目，把它解压缩后打开_SwiftRates.xcworkspace_。
+在本教程中，你将创建一个在一定时间间隔内显示货币汇率(情况)的App。从[这里](https://cdn2.raywenderlich.com/wp-content/uploads/2016/05/SwiftRates_Starter-2.zip)下载本教程的入门项目，把它解压缩后打开_SwiftRates.xcworkspace_。
 
 项目的关键类在_App_这个文件夹和它的子文件夹下，它们包括了：
 
@@ -125,7 +125,7 @@ Core Plot是一个2D绘制库，适用于iOS，Mac OS X和tvOS。它使用了像
 
 对这个视图的每个方向添加约束让撑满父视图，并确认没有设置外边距的约束：
 
-![](http://ac-Myg6wSTV.clouddn.com/39e189c5209210a3c100.png)](https://cdn2.raywenderlich.com/wp-content/uploads/2016/04/swiftrates-05.png)
+![](https://cdn2.raywenderlich.com/wp-content/uploads/2016/04/swiftrates-05.png)
 
 设置一个你喜欢的背景色。我使用了透明度为92%的灰度颜色。
 
@@ -273,7 +273,7 @@ Core Plot是一个2D绘制库，适用于iOS，Mac OS X和tvOS。它使用了像
 
 
 
-这个方法决定了图表的分片数量，它将为每个标记展示一个饼图分片。
+这个方法决定了有多少块(部分)显示在饼状图上，它将为每一个标记显示一块(部分)。
 
 接下来，用下面这段替换掉`numberForPlot(_:field:recordIndex:)`：
 
@@ -287,7 +287,6 @@ Core Plot是一个2D绘制库，适用于iOS，Mac OS X和tvOS。它使用了像
 
 
 
-The pie chart uses this method to get the “gross” value for the currency symbol at the `recordIndex`.
 饼图会使用这个方法得到索引为`recordIndex`的货币符号的“总”值。
 
 你应该注意到这个值并_不是_一个百分比值。取而代之的是，这个方法计算出了相对基准货币的货币汇率：返回的这个`1.0 / currencyRate`的值是"一个单位的基准货币是多少价值的另外的对照货币"的汇率。
@@ -380,7 +379,7 @@ The pie chart uses this method to get the “gross” value for the currency sym
 
 构建并运行，你就会得到一个“带图例的”图表啦。
 
-![Core Plot Tutorial](/images/loading.png)](http://ac-Myg6wSTV.clouddn.com/98244c1f592db447f90a.png)
+![Core Plot Tutorial](http://ac-Myg6wSTV.clouddn.com/98244c1f592db447f90a.png)
 
 ## 创建直方图
 
@@ -712,9 +711,9 @@ _X = 0, Y = 53, Width = 600, Height = 547_
 
 构建并运行就可以看到这些改动的结果了。
 
-![Core Plot Tutorial](/images/loading.png)](https://cdn2.raywenderlich.com/wp-content/uploads/2016/04/swiftrates-09.png)
+![Core Plot Tutorial](https://cdn2.raywenderlich.com/wp-content/uploads/2016/04/swiftrates-09.png)
 
-### 功能化坐标轴（给校对者：Grinding有磨平的意思，我根据下面内容翻成这个标题，希望校对者给点意见）
+### 功能化坐标轴
 
 更棒了对吧？唯一的缺陷在于这个坐标轴太简单了，没办法从这儿得到一个准确的汇率展示。
 
@@ -791,7 +790,7 @@ _X = 0, Y = 53, Width = 600, Height = 547_
 
 棒极了! :]
 
-![Core Plot Tutorial](/images/loading.png)](https://cdn3.raywenderlich.com/wp-content/uploads/2016/04/swiftrates-10.png)
+![Core Plot Tutorial](https://cdn3.raywenderlich.com/wp-content/uploads/2016/04/swiftrates-10.png)
 
 ### 隐藏和查找
 
@@ -853,7 +852,7 @@ _X = 0, Y = 53, Width = 600, Height = 547_
 
 ![](http://ww4.sinaimg.cn/large/a490147fjw1f5tbq390v7g20fj08sgpr.gif)
 
-## 从这里去往哪里？
+## 接下来干点啥？
 
 你可以从[这里](https://cdn1.raywenderlich.com/wp-content/uploads/2016/05/SwiftRates_Final-1.zip)下载一个已完成的项目。
 
