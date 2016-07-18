@@ -58,11 +58,7 @@
 *  [如何应用最新版的谷歌表格 API](https://gold.xitu.io/entry/5773acce0a2b58006a3fd7fe?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Goshin](https://github.com/Goshin) 翻译)
 *  [[译] 教程：使用 Passport.js 来做后台用户验证](http://gold.xitu.io/entry/57638f286be3ff006a171870?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([circlelove](https://github.com/circlelove) 翻译)
 *  [探索 Python 3 加密技术](http://gold.xitu.io/entry/575fae92df0eea0062c5a1dc?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Yushneng](https://github.com/rainyear) 翻译)
-*  [在生产环境中使用 Node.js 一年记](http://gold.xitu.io/entry/573d229ead5b950057645190?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([cdpath](https://github.com/cdpath) 翻译)
-*  [SSH 简化配置](http://gold.xitu.io/entry/5704cf8e71cfe4005dc76f18?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([circlelove](https://github.com/circlelove) 翻译)
-*  [Python3.5 协程原理](http://gold.xitu.io/entry/56ea295ed342d300546e1e22?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)  ([Yushneng](https://github.com/rainyear) 翻译)
-*  [OAuth2 Authentication with Lua](http://gold.xitu.io/entry/56cd222199a6ce005a25b9ef?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([BOBO](https://github.com/CoderBOBO) 翻译)
-*  [HTTP/2 For Web Developers](http://gold.xitu.io/entry/56ce7d1a1532bc005372a7fa?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zhongyi Tong](https://github.com/geeeeeeeeek) 翻译)
+* [所有后端译文>>](https://github.com/xitu/gold-miner/blob/master/backend.md)
 
 ## 教程
 
@@ -78,25 +74,7 @@
 * [[译] 用户界面中的字体](http://gold.xitu.io/entry/57859bb9d342d300578b1ebf?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([circlelove](https://github.com/circlelove) 翻译)
 * [从产品设计到虚拟现实](https://gold.xitu.io/entry/5783aa752e958a0054dad3bc?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([cdpath](https://github.com/cdpath) 翻译)
 * [【译】UI 的黑暗面！暗色背景的优势](https://gold.xitu.io/entry/577c9385a633bd005be7fe7a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([yangzj1992](http://www.qcyoung.com/) 翻译)
-* [如何在移动 APP 中设计输入框](http://gold.xitu.io/entry/5745af0a2e958a002db75980?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zhangjd](https://github.com/zhangjd) 翻译)
-*  [使用 Sketch 和 Pixate 构建 Material Design 原型 - 第三部分](https://gold.xitu.io/entry/576cc25f2e958a00571dfb5f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Hugo](https://github.com/xcc3641) 翻译)
-* [使用 Sketch 和 Pixate 构建 Material Design 原型 - 第二部分](http://gold.xitu.io/entry/574eb491d342d300434cec1c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([zhangzhaoqi](https://github.com/joddiy) 翻译)
-* [使用 Sketch 和 Pixate 构建 Material Design 原型 - 第一部分](http://gold.xitu.io/entry/574d062b2e958a0069335d8e?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Sausure](https://github.com/Sausure) 翻译)
-* [我是如何为 Mac 应用 Flinto 设计 UI 图标的](http://gold.xitu.io/entry/57315d571ea4930064f6bd45?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([edvardHua](https://github.com/edvardHua) 翻译)
-* [下拉菜单为何是一种不好的用户体验？](http://gold.xitu.io/entry/573154c249830c0061bdc180?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([邵辉Vista](https://github.com/shaohui10086) 翻译)
-* [Sketch的过去现在和未来](http://gold.xitu.io/entry/5721e59771cfe40057521079?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lfkdsk](https://github.com/lfkdsk) 翻译)
-* [为什么我们喜欢丑的、一团糟的界面以及你为什么也要这样](http://gold.xitu.io/entry/57172a4f2e958a0054a8ffcf?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([circlelove](https://github.com/circlelove) 翻译)
-* [写给设计师的字偶距调整指南](http://gold.xitu.io/entry/570e5530c4c971005496adc4?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([cdpath](https://github.com/cdpath) 翻译)
-* [设计一款移动应用前你应该知道这些事情](http://gold.xitu.io/entry/57034d617db2a200592a5213?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Adam Shen](https://github.com/shenxn) 翻译)
-* [11 个顶级设计师分享他们的职业建议](http://gold.xitu.io/entry/56ea5b03731956005d025af3?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Adam Shen](https://github.com/shenxn) 翻译)
-* [为什么有些设计初衷很好，结果却很糟糕](http://gold.xitu.io/entry/56e000421532bc005161b4af?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([L9m](https://github.com/L9m) 翻译)
-* [Mastering Sketch 3](http://gold.xitu.io/entry/5659daf9ddb299ad38f9e446?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jabez128](https://github.com/jabez128) 翻译)
-* [Making Learning Easy by Design](http://gold.xitu.io/entry/56cbbf9671cfe40054e91c02?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([s2dongman](https://github.com/s2dongman) 翻译)
-* [An Introduction to Sprite Animation](http://gold.xitu.io/entry/56d7e5207db2a2005122f2a2?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Aaaaaashu](https://github.com/Aaaaaashu?tab=repositories) 翻译)
-* [Animated SVG vs GIF](http://gold.xitu.io/entry/56cb0c95efa631005c3a50f2?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([rainyear](https://github.com/rainyear) 翻译)
-* [探索 Stripe Dashboard 产品设计之道](http://gold.xitu.io/entry/56c7cad1d342d30054334db5?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([CaesarPan](https://github.com/CaesarPan) 翻译)
-* [苹果正在带坏整个设计圈](https://github.com/xitu/gold-miner/blob/master/TODO/how-apple.md)([crackhy](https://github.com/crackhy) 翻译)
-* [Slack如此成功的秘诀](http://gold.xitu.io/entry/56cbd5427db2a20051a7dbb2?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Boyce Chang](https://github.com/boycechang) 翻译)
+* [所有设计译文>>](https://github.com/xitu/gold-miner/blob/master/design.md)
 
 ## 产品
 
@@ -104,10 +82,4 @@
 * [无限下拉，还是分页？](http://gold.xitu.io/entry/573e978171cfe448aa9dd03db?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Ruixi](https://github.com/Ruixi) 翻译)
 * [给产品经理的简易优先级法则](http://gold.xitu.io/entry/572ad1cc1532bc0065d5e36b?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([ZhaofengWu](https://github.com/ZhaofengWu) 翻译)
 * [设计师如何跟开发打好关系？](http://gold.xitu.io/entry/57286f4f2e958a00657d2450?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([L9m](https://github.com/L9m) 翻译)
-* [为什么 Spotify 的付费转化率比 Dropbox 高了 667%](http://gold.xitu.io/entry/57232041f38c8400599ef706?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([SatanWoo](https://github.com/SatanWoo)翻译）
-* [新的 “增长黑客” 实践 —— 构建用户社区](http://gold.xitu.io/entry/5721e80cf38c84005992097e?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zhongyi Tong](https://github.com/geeeeeeeeek)翻译）
-* [互联网公司真的是「看重能力，不看重学历」吗？](http://gold.xitu.io/entry/571d8e4c8ac24700646f30ae?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zhangjd](https://github.com/zhangjd) 翻译)
-* [产品设计实习生面试指南](http://gold.xitu.io/entry/5715b102c4c971005bdc93e9?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([iThreeKing](https://github.com/iThreeKing) 翻译)
-* [你真的懂病毒式营销吗](http://gold.xitu.io/entry/5715d39cdf0eea005c930d80?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([huanglizhuo](https://github.com/huanglizhuo) 翻译)
-* [什么是产品设计?](http://gold.xitu.io/entry/570b6a6a75c4cd3c3b917bd0?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zhangjd](https://github.com/zhangjd) 翻译)
-* [产品文案要说人话](http://gold.xitu.io/entry/56ee4903c4c971005182e017?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([iThreeKing](https://github.com/iThreeKing) 翻译)
+* [所有产品译文>>](https://github.com/xitu/gold-miner/blob/master/product.md)
