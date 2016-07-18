@@ -33,7 +33,8 @@
 * [[译] iOS 开发者在 Swift 中应避免过度使用 @objc](https://gold.xitu.io/entry/57712f605bbb50005970dc0e?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Dwight](https://github.com/ldhlfzysys) 翻译)
 * [深度剖析 Swift 编译与运行时的类型检查](http://gold.xitu.io/entry/5767a62a80dda4005f9e97ca?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Jack](https://github.com/Jack-Kingdom) 翻译)
 * [利用 Swift 在 APP 中实现撤销操作的功能](http://gold.xitu.io/entry/575fab19207703006bea9d27?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zheaoli](https://github.com/Zheaoli) 翻译)
-* * [所有 iOS 译文>>](https://github.com/xitu/gold-miner/blob/master/ios.md)
+* [所有 iOS 译文>>](https://github.com/xitu/gold-miner/blob/master/ios.md)
+
 
 ## 前端
 
@@ -52,6 +53,7 @@
 * [如何发布一个 React components](http://gold.xitu.io/entry/56ce8d1fc24aa800520f94e8?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([aleen42](https://github.com/aleen42) 翻译)
 * [Things I Wish I Were Told About React Native](http://gold.xitu.io/entry/56cbf55cefa631005c441d9b?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([huanglizhuo](https://github.com/huanglizhuo) 翻译)
 
+
 ## 后端
 
 *  [Java 不可变类的整洁之道](https://gold.xitu.io/entry/5774fe212e958a22d884a49c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([buccoji](https://github.com/buccoji) 翻译)
@@ -68,6 +70,7 @@
 * [Pokedex.org 给宠物小精灵爱好者的 web app 的技术选型](http://gold.xitu.io/entry/56cebb8edf0eea79dc7c1ff0?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([RobertWang](https://github.com/RobertWang) 翻译)
 * [选择使用正确的 Markdown Parser](http://gold.xitu.io/entry/56ce79db1532bc0053728c2f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lfkdsk](https://github.com/lfkdsk) 翻译)
 
+
 ## 设计
 
 * [［译］移动开发中用 1x 视觉稿设计的好处](http://gold.xitu.io/entry/578840f9d342d30058a29968?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([wildflame](https://github.com/wild-flame/) 翻译)
@@ -75,6 +78,7 @@
 * [从产品设计到虚拟现实](https://gold.xitu.io/entry/5783aa752e958a0054dad3bc?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([cdpath](https://github.com/cdpath) 翻译)
 * [【译】UI 的黑暗面！暗色背景的优势](https://gold.xitu.io/entry/577c9385a633bd005be7fe7a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([yangzj1992](http://www.qcyoung.com/) 翻译)
 * [所有设计译文>>](https://github.com/xitu/gold-miner/blob/master/design.md)
+
 
 ## 产品
 
