@@ -244,14 +244,14 @@ Geonames 数据被导入到3个表中:
 
 ## 附注:
 
-<sup>[1](https://blog.garage-coding.com/2016/07/06/geolocation-using-multiple-services.html#fnr.1)</sup>通过使用多种服务(并且假定这些服务内部使用了不同的数据源)聚合后的结果，将会比我们只使用其中某一种服务得到的答案更为可靠。
+<sup>[1](https://blog.garage-coding.com/2016/07/06/geolocation-using-multiple-services.html#fnr.1)</sup> 通过使用多种服务(并且假定这些服务内部使用了不同的数据源)聚合后的结果，将会比我们只使用其中某一种服务得到的答案更为可靠。
 
 此处还有一点优势就，我们使用了免费服务，不需要什么设置，也无需关心更新；因为这些服务都是由各自的拥有者在维护。
 
 然而，比起查询一个本地的geoip(基于IP查询的地理位置)数据结构，查询这些网络地理位置服务则会比较缓慢。好在像城市/国家/行政区这种定位数据库已经有了，例如 [MaxMind GeoIP2](https://www.maxmind.com/en/geoip2-databases),[IP2Location](http://www.ip2location.com/databases/db3-ip-country-region-city) 以及 [DB-IP](https://db-ip.com/db/#downloads) 。
 
-<sup>[2](https://blog.garage-coding.com/2016/07/06/geolocation-using-multiple-services.html#fnr.2)</sup>介绍一篇[好文章](http://tapoueh.org/blog/2013/08/05-earthdistance),讲述了使用 `earthdistance` 模块来计算附近或更远处酒吧的距离。
+<sup>[2](https://blog.garage-coding.com/2016/07/06/geolocation-using-multiple-services.html#fnr.2)</sup> 介绍一篇[好文章](http://tapoueh.org/blog/2013/08/05-earthdistance),讲述了使用 `earthdistance` 模块来计算附近或更远处酒吧的距离。
 
-<sup>[3](https://blog.garage-coding.com/2016/07/06/geolocation-using-multiple-services.html#fnr.3)</sup>Genomes 也有 geonamelds，我们可以使用这些 genomes-specific ids来精确匹配其位置。
+<sup>[3](https://blog.garage-coding.com/2016/07/06/geolocation-using-multiple-services.html#fnr.3)</sup> Genomes 也有 geonamelds，我们可以使用这些 genomes-specific ids来精确匹配其位置。
 
-<sup>[4](https://blog.garage-coding.com/2016/07/06/geolocation-using-multiple-services.html#fnr.4)</sup>Geonames 没有关于 城市/邻域的多边形数据，或者城市地区类型的元数据(参考概述中Geonames 和 OpenStreetMap差异对照表中criteria一列的数据)，所以你无法查询包含那个点的所有的城市多边形(不是指区域/邻域)。
+<sup>[4](https://blog.garage-coding.com/2016/07/06/geolocation-using-multiple-services.html#fnr.4)</sup> Geonames 没有关于 城市/邻域的多边形数据，或者城市地区类型的元数据(参考概述中Geonames 和 OpenStreetMap差异对照表中criteria一列的数据)，所以你无法查询包含那个点的所有的城市多边形(不是指区域/邻域)。
