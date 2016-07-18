@@ -8,7 +8,7 @@
 
 **_We have been living in a world of ‘clean and minimal’ for quite some time, so what’s next?_**
 
-**我们生活在一个“干净、简约”的世界有些时候了，接下来会怎么样呢？**
+**我们生活在一个“极简风格”的世界有些时候了，接下来会怎么样呢？**
 
 Over the last several months, some of the leaders of innovative design have taken ‘minimal design’ to the next level. Facebook, Airbnb and Apple have followed a similar blueprint to simplify prominent products in a way that reflects this new trend of ‘Complexion Reduction’ in mobile design.
 
@@ -28,7 +28,7 @@ You’ve never heard of ‘Complexion Reduction’ you say? Well yea, that’s b
 2.  <span class="markup--quote markup--li-quote is-other" data-creator-ids="b0dc62008bd7">**Simpler more universal icons**</span>
 3.  <span class="markup--quote markup--li-quote is-other" data-creator-ids="b0dc62008bd7">**Extraction of color**</span>
 
-<span class="markup--quote markup--p-quote is-other" data-creator-ids="b0dc62008bd7">**风靡硅谷的新趋势有以下特点：**</span>
+**风靡硅谷的新趋势有以下特点：**
 
 1.  <span class="markup--quote markup--li-quote is-other" data-creator-ids="b0dc62008bd7">**标题更大、更粗**</span>
 2.  <span class="markup--quote markup--li-quote is-other" data-creator-ids="b0dc62008bd7">**图标更简单、更常见**</span>
@@ -36,7 +36,7 @@ You’ve never heard of ‘Complexion Reduction’ you say? Well yea, that’s b
 
 The result? The user interfaces of some of our favorite apps are starting to look more and more like they could all be housed under the same brand.
 
-使用这种设计的结果呢？一些受人喜爱的应用的界面越来越像一个品牌下的产品。
+使用这种设计的结果呢？一些受人喜爱的应用的界面越来越像同一个品牌下的产品。
 
 #### THE PROOF
 
@@ -64,7 +64,7 @@ Shortly after the folks over at FB unveiled Instagram’s look, I opened up the 
 
 The mobile redesign introduced larger, bolder headlines, removed unnecessary imagery and color and simplified their icons to make them more universally recognizable. **What was left was a very black and white UI where the content shined and functionality was clear.**
 
-Airbnb 移动端新界面的标题更加显眼，同时去除了不必要的图片和背景色，简化了图标让它们更容易辨认功能。**剩下的是一款内容凸出、功能清晰的黑白主题界面。**
+Airbnb 移动端新界面的标题更大更粗，同时去除了不必要的图片和背景色，简化了图标让它们更容易辨认功能。**剩下的是一款内容突出、功能清晰的黑白主题界面。**
 
 **Apple** is the latest example of designers becoming enamored by the Complexion Reduction movement. Earlier this month, at [Apple’s WWDC](http://www.wired.com/2016/06/heres-everything-apple-announced-wwdc-2016/) the tech giant announced a number of exciting things for consumers to look forward to, including the release of iOS 10, which they are dubbing, “The biggest iOS release ever!” (or at least since iOS 8 which was referred to as… “The biggest iOS release ever!”)
 
@@ -75,7 +75,7 @@ Airbnb 移动端新界面的标题更加显眼，同时去除了不必要的图�
 One announcement in particular caught my eye. That was **the redesign of Apple Music**. While the most important aspects of the redesign are UX updates and additional features, the aesthetic was the first thing I noticed. Caitlin McGarry, a staff writer at Macworld, [described the updated appearance](http://www.macworld.com/article/3082637/ios/every-change-coming-to-apple-music-in-ios-10.html) well, **_“It’s a totally new look, with giant cards, bigger and bolder fonts, and a clean white background that allows the album art to shine.”_**
 
 在 WWDC 上有一个内容吸引了我,**Apple Music 的新版 UI** 。新版 UI 最大的改动是用户体验的变化和一些其他特点，其中最先吸引我的是整体界面的美感。Macword 全职作家 
-Caitlin McGarry [对新版界面描述道](http://www.macworld.com/article/3082637/ios/every-change-coming-to-apple-music-in-ios-10.html)：**“这是一个全新的界面，大号的卡片布局，显眼的字体，白色简洁的背景，使得艺术家们吸引人的眼**
+Caitlin McGarry [对新版界面描述道](http://www.macworld.com/article/3082637/ios/every-change-coming-to-apple-music-in-ios-10.html)：**“这是一个全新的界面，大号的卡片布局，显眼的字体，白色简洁的背景，让专辑封面更加耀眼**
 
 Sound familiar? The design differs slightly from the blueprint used by Instagram and Airbnb (they use solid icons! What the heck Apple?) but the key elements are there: large bold headlines, black and white UI.
 
@@ -91,7 +91,7 @@ As I mentioned earlier, this means more and more of your favorite apps are going
 
 > <span class="markup--quote markup--pullquote-quote is-other" data-creator-ids="b0dc62008bd7">This means your iPhone home screen will soon become nothing more than a colorful mosaic of bright portals transporting you to Pleasantville.</span>
 
-> <span class="markup--quote markup--pullquote-quote is-other" data-creator-ids="b0dc62008bd7">这意味着你的 iPhone 主屏幕将很快被能把你送到一些有趣的地方的五颜六色的图案填满。</span>
+> 这意味着你的iPhone主屏幕上很快只是一片会带给你欢乐的五颜六色的闪耀的马赛克了。
 
 </div>
 
