@@ -38,7 +38,7 @@ $ zopflipng screenshot.png screenshot_small.png
 ```
 注意，由于Zopfli压缩是[CPU密集型操作](https://developers.googleblog.com/2013/02/compress-data-more-densely-with-zopfli.html)，过程中往往需要几秒钟。
 
-对于批量转换，需要一个简单的脚本来做辅助。我写了一个简单的脚本`press.sh`
+对于批量转换，需要一个简单的脚本来做辅助。我写了一个简单的脚本`png-press.sh`
 ```
     #!/usr/bin/env sh
 
