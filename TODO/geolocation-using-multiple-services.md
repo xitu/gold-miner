@@ -190,7 +190,7 @@ Geonames 数据被导入到3个表中:
         JOIN geo_countryinfo c ON b.country = c.iso_alpha2
     );
 
-## 设计一个 城市周边 查询函数
+## 设计一个城市周边查询函数
 
 在大多数嵌套`SELECT`语句中，我们都确保城市是在以参考点为圆心，以大约23km为半径的区域内，再对结果应用国家过滤器和城市模式过滤器(这两个过滤器均为可选)，最后仅得到接近50个结果。下一步，我们用人口数据对结果重新排序，因为有时候会在较大城市附近有一些区和邻域 <sup>[4](https://blog.garage-coding.com/2016/07/06/geolocation-using-multiple-services.html#fn.4)</sup>，而Geonames 不会用特定的方式标记他们，我们只是想选出较大的城市而不是一个区域(比如说地理位置服务返回了经纬度信息，该信息可被解析为一个较大城市的地区。于我而言，我比较愿意去把它解析成经纬度相对应的大城市)。我们也创建了一个 gist 索引(`@>` 该符号将会使用gist 索引 )，用于寻找以参照点为圆心，特定半径范围内的点。这个查询函数接受一个点(以纬度和经度表示)作为输入，返回该输入点相关联的城市，地区和国家。
 
@@ -244,22 +244,14 @@ Geonames 数据被导入到3个表中:
 
 ## 附注:
 
-<sup>[1](https://blog.garage-coding.com/2016/07/06/geolocation-using-multiple-services.html#fnr.1)</sup>
-
-通过使用多种服务(并且假定这些服务内部使用了不同的数据源)聚合后的结果，将会比我们只使用其中某一种服务得到的答案更为可靠。
+<sup>[1](https://blog.garage-coding.com/2016/07/06/geolocation-using-multiple-services.html#fnr.1)</sup>通过使用多种服务(并且假定这些服务内部使用了不同的数据源)聚合后的结果，将会比我们只使用其中某一种服务得到的答案更为可靠。
 
 此处还有一点优势就，我们使用了免费服务，不需要什么设置，也无需关心更新；因为这些服务都是由各自的拥有者在维护。
 
 然而，比起查询一个本地的geoip(基于IP查询的地理位置)数据结构，查询这些网络地理位置服务则会比较缓慢。好在像城市/国家/行政区这种定位数据库已经有了，例如 [MaxMind GeoIP2](https://www.maxmind.com/en/geoip2-databases),[IP2Location](http://www.ip2location.com/databases/db3-ip-country-region-city) 以及 [DB-IP](https://db-ip.com/db/#downloads) 。
 
-<sup>[2](https://blog.garage-coding.com/2016/07/06/geolocation-using-multiple-services.html#fnr.2)</sup>
+<sup>[2](https://blog.garage-coding.com/2016/07/06/geolocation-using-multiple-services.html#fnr.2)</sup>介绍一篇[好文章](http://tapoueh.org/blog/2013/08/05-earthdistance),讲述了使用 `earthdistance` 模块来计算附近或更远处酒吧的距离。
 
-介绍一篇[好文章](http://tapoueh.org/blog/2013/08/05-earthdistance),讲述了使用 `earthdistance` 模块来计算附近或更远处酒吧的距离。
+<sup>[3](https://blog.garage-coding.com/2016/07/06/geolocation-using-multiple-services.html#fnr.3)</sup>Genomes 也有 geonamelds，我们可以使用这些 genomes-specific ids来精确匹配其位置。
 
-<sup>[3](https://blog.garage-coding.com/2016/07/06/geolocation-using-multiple-services.html#fnr.3)</sup>
-
-Genomes 也有 geonamelds，我们可以使用这些 genomes-specific ids来精确匹配其位置。
-
-<sup>[4](https://blog.garage-coding.com/2016/07/06/geolocation-using-multiple-services.html#fnr.4)</sup>
-
-Geonames 没有关于 城市/邻域的多边形数据，或者城市地区类型的元数据(参考概述中Geonames 和 OpenStreetMap差异对照表中criteria一列的数据)，所以你无法查询包含那个点的所有的城市多边形(不是指区域/邻域)。
+<sup>[4](https://blog.garage-coding.com/2016/07/06/geolocation-using-multiple-services.html#fnr.4)</sup>Geonames 没有关于 城市/邻域的多边形数据，或者城市地区类型的元数据(参考概述中Geonames 和 OpenStreetMap差异对照表中criteria一列的数据)，所以你无法查询包含那个点的所有的城市多边形(不是指区域/邻域)。
