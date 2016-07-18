@@ -208,9 +208,9 @@ Things get ugly if we look at the implementation of `operatingSystemVersion` dir
 
 
 
-Swift 使用了 iOS 8 的新 API，但是低于 iOS 8 的版本又回退到糟糕的方法了，开放了  `@"/System/Library/CoreServices/SystemVersion.plist"` 文件。这样结果就会被缓存，版本检测会访问硬盘，但是只访问一次。我的第一反应是发送一个变化的 pull 请求，简单的使用已有的公用 API（`systemVersion`），然而 Xcode 8 设置最小部署目标为 iOS 8，不像我们看到的 Xcode 7.3.x 和一个 Swift 更新版发布，所以代码可能完全消失。
+Swift 使用了 iOS 8 的新 API，但是低于 iOS 8 的版本又回退到糟糕的方法了，开放了  `@"/System/Library/CoreServices/SystemVersion.plist"` 文件。这样结果就会被缓存，版本检测会访问硬盘，但是只访问一次。我的第一反应是发送一个变化的 pull 请求，简单的使用已有的公用 API（`systemVersion`），然而 Xcode 8 设置最小部署目标为 iOS 8，不像我们看到的 Xcode 7.3.x 和一个 Swift 更新版发布，所以代码可能完全消失。（译者注：这里有点不太懂，求修改）
 
-## 关于向后兼容
+## 更多关于向后兼容
 
 值得注意的是，苹果正在努力让这些版本检测成为不必要的。当然还有 [`respondsToSelector:`](https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Protocols/NSObject_Protocol/index.html#//apple_ref/occ/intfm/NSObject/respondsToSelector:) 和 [`instancesRespondToSelector:`](https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSObject_Class/index.html#//apple_ref/occ/clm/NSObject/instancesRespondToSelector:) ，它们是 Objective-C 的一部分。假设你已经了解这些，并能完美的运用，在某些情况下，我们也会使用。然而，还是有些情况不适用的。例如，有时苹果使公共的 API，存在于一些组件或之前的内部组件中，但特性却不同。这就是为什么 [`appStoreReceiptURL` 在 iOS 7 中添加，但是 iOS 6 中也存在的原因](https://openradar.appspot.com/14216650)。在这种情况下，显式的版本是更可靠的。此外，当你希望放弃旧版本的 iOS 时，也更容易清理代码。所有需要你做的就是移除兼容性宏和修复构建错误。
 
