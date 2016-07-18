@@ -38,7 +38,7 @@
 
 Airbnb 移动端新界面的标题更大更粗，同时去除了不必要的图片和背景色，简化了图标让它们更容易辨认功能。**剩下的是一款内容突出、功能清晰的黑白主题界面。**
 
-**Apple** 最近也加入了“界面简化”的设计风潮。这个月初，科技界巨头苹果公司在它们的[WWDC](http://www.wired.com/2016/06/heres-everything-apple-announced-wwdc-2016/)大会上发布了许多用户期待的东西，其中包括所谓的“最最最牛的 iOS 版本”, iOS 10 正式版（或许跟 iOS 8 相比的确牛一些:( ）。
+**Apple** 最近也加入了“界面简化”的设计风潮。这个月初，科技界巨头苹果公司在它们的 [WWDC](http://www.wired.com/2016/06/heres-everything-apple-announced-wwdc-2016/) 大会上发布了许多用户期待的东西，其中包括所谓的“最最最牛的 iOS 版本” iOS 10 正式版（或许跟 iOS 8 相比的确牛一些:( ）。
 
 ![](http://ww2.sinaimg.cn/large/a490147fgw1f5rbv560zij20go0hr415.jpg)
 
