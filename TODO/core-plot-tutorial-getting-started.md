@@ -1,82 +1,82 @@
 >* 原文链接 : [Core Plot Tutorial: Getting Started](https://www.raywenderlich.com/131985/core-plot-tutorial-getting-started)
 * 原文作者 : [Attila Hegedüs](https://www.raywenderlich.com/u/cynicalme)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
+* 译者 : [llp0574](https://github.com/llp0574)
 * 校对者:
 
-![](http://ac-Myg6wSTV.clouddn.com/868c57b7dfa6957573cd.png)
+![Alt 使用Core Plot绘制饼图，直方图，散点图及更多！](http://ac-Myg6wSTV.clouddn.com/868c57b7dfa6957573cd.png)
 
-Use Core Plot to Draw Pie Charts, Bar Graphs, Scatter Plots and More!
+Core Plot入门教程
 
-_Note_: This Core Plot tutorial has been updated for iOS 9 and Swift 2.2 by Attila Hegedüs. The original tutorial was written by tutorial team member Steve Baranski.
+_注意_：本篇教程已被Attila Hegedüs更新，可适用于iOS 9和Swift 2.2。原始教程出自教程组成员Steve Baranski。
 
-If you’ve ever wanted to include charts or graphs in your app, chances are you’ve considered the following two options:
+如果你曾经想在自己的app中引入图表或图形，那么你应该已经考虑过下面两种选项：
 
-1.  _DIY._ Write all of the drawing code yourself using Core Graphics and/or Quartz. However, this can be a lot of work.
-2.  _Buy it!_ Purchase a commercial framework like [ShinobiControls](http://www.shinobicontrols.com). This may save you time, but it will cost you to use it.
+1.  _自己写。_ 通过使用Core Graphics或者Quartz这样的框架编写全部的绘制代码。然而，这显然要花费大量的功夫。
+2.  _买一个！_ 购买一个像[ShinobiControls](http://www.shinobicontrols.com)这样的商业型框架。这或许可以节省你的时间，但就要花钱啦。
 
-But what if you don’t want to the spend time and effort to write something from scratch, yet you also don’t want to shell out a ton of money? That’s where a third option comes in handy: use the open-source [Core Plot](https://github.com/core-plot/core-plot) library!
+那如果你既不想花费大量时间精力在scratch里写代码，也不想花那么多钱，该怎么办呢？这时候第三个选项就派上用场了：使用开源库[Core Plot](https://github.com/core-plot/core-plot)！
 
-Core Plot is a 2D plotting library for iOS, Mac OS X, and tvOS. It uses Apple frameworks like Quartz and Core Animation; it has solid test coverage; and it’s released under a permissive BSD license.
+Core Plot是一个2D绘制库，适用于iOS，Mac OS X和tvOS。它使用了像Quartz和Core Animation这样的苹果应用框架，同时有着全面的测试覆盖，而且是遵照BSD这个比较宽松的许可证进行发布的。
 
-In this Core Plot tutorial, you will learn how to use Core Plot to create pie charts and bar graphs. You’ll also create cool chart interactions!
+在这个教程中，你将学习到如何使用Core Plot来创建饼图和直方图，同时还会实现一些很酷的图表交互！
 
-Before you begin, you need to have _Xcode 7.3_ installed and a basic understanding of _Swift_, _Interface Builder_ and _storyboards_. If you are new to any of these topics, you should go through some of our [other tutorials](https://www.raywenderlich.com/?page_id=2519) first before continuing with this Core Plot tutorial.
+开始之前，你需要安装好_Xcode 7.3_，同时对_Swift_，_Interface Builder_和_storyboards_有所了解。如果你对这些主题知之甚少，那么你应该在继续阅读本教程之前先学习一下我们其他的一些[教程](https://www.raywenderlich.com/?page_id=2519)。
 
-This Core Plot tutorial also uses CocoaPods to install third-party library dependencies. If you’ve never used CocoaPods before, you should read our [tutorial about it](https://www.raywenderlich.com/97014/use-cocoapods-with-swift) first.
+本教程同时还使用了CocoaPods去安装一些第三方的依赖库。如果你从来没使用过CocoaPods的话，那你还应该阅读一下我们关于它的[教程](https://www.raywenderlich.com/97014/use-cocoapods-with-swift)。
 
-## Getting Started
+## 入门
 
-In this Core Plot tutorial, you’ll create an app that displays currency exchange rates for a given time interval. Download the starter project for this Core Plot tutorial from [here](https://cdn2.raywenderlich.com/wp-content/uploads/2016/05/SwiftRates_Starter-2.zip). Unzip the archive, and open _SwiftRates.xcworkspace_.
+在本教程中，你将创建一个app去展示给定时间间隔内的货币汇率。从[这里](https://cdn2.raywenderlich.com/wp-content/uploads/2016/05/SwiftRates_Starter-2.zip)下载本教程的入门项目，把它解压缩后打开_SwiftRates.xcworkspace_。
 
-The key classes for this Core Plot tutorial are located under the _App_ group and its subgroups. These include:
+项目的关键类在_App_这个文件夹和它的子文件夹下，它们包括了：
 
-*   _DataStore.swift_  
-    This is a helper class that requests currency exchange rates from [Fixer.io](http://fixer.io/).
-*   _Rate.swift_  
-    This is a model representing currency exchange rates on a given date.
-*   _Currency.swift_  
-    This is a model for a currency type. The supported currencies are defined in _Resources/Currencies.plist_.
-*   _MenuViewController.swift_  
-    This is the first view controller shown when the app launches. It lets the user select a base currency and two comparisons.
-*   _HostViewController.swift_  
-    This is a container view controller that displays either `PieChartViewController` or `BarGraphViewController` based on its segmented control’s selected index. It also takes care of requesting rates from the `DataStore`, which it sets on its displayed view controller.
-*   _PieChartViewController.swift_  
-    This will show a pie chart for exchange rates on a given day. You’ll implement this chart first!
-*   _BarGraphViewController.swift_  
-    This will show a bar graph for exchange rates over several days. After mastering the pie chart, this will be a piece of cake! (See what I did there? Oh, come on! It was a _little_ funny.) ;]
+*   _DataStore.swift_
+    这是一个从[Fixer.io](http://fixer.io/)请求货币汇率数据的帮助类。
+*   _Rate.swift_
+    这是一个模型，表示给定日期里的货币汇率。
+*   _Currency.swift_
+    这是一个表示货币类型的模型。支持的货币类型定义在_Resources/Currencies.plist_里。
+*   _MenuViewController.swift_
+    这是一个app启动后展示的第一个视图控制器。它让用户选择一个货币作为基准然后再选两个对照。
+*   _HostViewController.swift_
+    这是一个容器视图控制器，基于它的分段选项选中状态去控制展示`PieChartViewController`或者`BarGraphViewController`的内容。它还会去检查从`DataStore`请求来的汇率数据，因为它们也将在这个视图控制器里展现。
+*   _PieChartViewController.swift_
+    这个控制器将用饼图的形式展示一个给定日期里的汇率。当然你首先要实现它！
+*   _BarGraphViewController.swift_
+    这个控制器将以直方图的形式展示几天的汇率。当你掌握绘制饼图的方法后，这个图简直小菜一碟！（看到我做的事情了吗？拜托，这真的有点意思！）;]
 
-Build and run to see the starter project for this Core Plot tutorial in action.
+构建并运行看看这个教程入门项目实际展示。
 
 ![](http://ac-Myg6wSTV.clouddn.com/f9346c33b479bfc2a302.png)
 
-Select _Get Rates_ to navigate to the `HostViewController` and then change the segmented control’s selection. The app really doesn’t do very much… yet. ;]
+点选_Get Rates_导航去到`HostViewController`控制的视图然后可以切换分段选项（译者注：切换展示饼图或直方图）。这个app确实还没有实现太多功能...;]
 
-It’s time in this Core Plot tutorial to get plotting!
+是时候用Core Plot开始真正的绘制了！
 
-### Installing Core Plot
+### 安装Core Plot
 
-First in this Core Plot tutorial, you need to install Core Plot. The easiest way to do this is via [CocoaPods](https://cocoapods.org/).
+首先你需要安装Core Plot，最简单的方式是通过[CocoaPods](https://cocoapods.org/)安装。
 
-Add the following to your _Podfile_, right after the `pod 'SwiftDate'` line:
+把下面这行代码添加进你的_Podfile_文件，`pod 'SwiftDate'`这行的后面：
 
     pod 'CorePlot', '~> 2.1'
 
-Open _Terminal_; `cd` into your project directory; and run `pod install`.
+打开_Terminal_（终端），`cd`进入你的项目根目录，然后运行`pod install`。
 
-After the install completes, build the project.
+安装完成后，构建项目。
 
-No errors, right? Great, you’re all setup to use Core Plot. Thanks, CocoaPods. :]
+没报错吧？很好，现在你可以随便使用Core Plot啦，感谢CocoaPods。:]
 
-If you _do_ get any errors, try updating CocoaPods via `sudo gem install cocoapods` and then `pod install` again.
+如果你遇到了任何报错，可以尝试通过`sudo gem install cocoapods`更新一下CocoaPods然后再次运行`pod install`。
 
-## Creating the Pie Chart
+## 创建饼图
 
-Open _PieChartViewController.swift_ and add the following import:
+打开_PieChartViewController.swift_并添加下面这行引入：
 
     import CorePlot
 
-Next, add the following property:
+接着，添加下面这个属性：
 
 
 
@@ -84,9 +84,9 @@ Next, add the following property:
 
 
 
-`CPTGraphHostingView` is responsible for “hosting” a chart/graph. You can think of it as a “graph container”.
+`CPTGraphHostingView`负责“托管”一个图表或图形。你可以把它想象成一个“图形容器”。
 
-Next, add the following class extension after the ending class curly brace:
+然后，把下面这个类扩展添加到文件结尾的花括号之后：
 
 
 
@@ -110,26 +110,26 @@ Next, add the following class extension after the ending class curly brace:
 
       func legendTitleForPieChart(pieChart: CPTPieChart, recordIndex idx: UInt) -> String? {
         return nil
-      }  
+      }
     }
 
 
 
-You provide data for a Core Plot chart via `CPTPieChartDataSource`, and you get user interaction events via `CPTPieChartDelegate`. You’ll fill in these methods as the Core Plot tutorial progresses.
+你将通过`CPTPieChartDataSource`为一个Core Plot图表提供数据，同时你会通过`CPTPieChartDelegate`得到用户交互的所有事件。随着教程递进，你将填满这些方法。
 
-### Setting Up the Graph Host View
+### 建立图表托管视图
 
-To continue this Core Plot tutorial, open _Main.storyboard_ and select the `PieChartViewController` scene.
+继续往下，打开_Main.storyboard_然后选择`PieChartViewController`窗口。
 
-Drag a new `UIView` onto this view. Change its class to `CPTGraphHostingView`, and connect it to the `hostView` outlet.
+在这个视图上拖出一个新的`UIView`，然后把它的类更改成`CPTGraphHostingView`，并将它连接到`hostView`输出。
 
-Add constraints on each side to pin this view to its parent view, making sure that _Constrain to margins_ is **NOT** set:
+对这个视图的每个方向添加约束让撑满父视图，并确认没有设置外边距的约束：
 
 ![](http://ac-Myg6wSTV.clouddn.com/39e189c5209210a3c100.png)](https://cdn2.raywenderlich.com/wp-content/uploads/2016/04/swiftrates-05.png)
 
-Set the background color to any color you like. I used a gray scale color with an opacity of 92%.
+设置一个你喜欢的背景色。我使用了透明度为92%的灰度颜色。
 
-Back in _PieChartViewController.swift_, add the following methods right after `viewDidLoad()`:
+现在回到_PieChartViewController.swift_，在`viewDidLoad()`后面添加下面的方法：
 
 
 
@@ -159,11 +159,11 @@ Back in _PieChartViewController.swift_, add the following methods right after `v
 
 
 
-This sets up the plot right after the subviews are laid out. This is the earliest that the `frame` size for the view has been set, which you’ll need to configure the plot.
+这样子就正好在子视图渲染好后设置了绘制策略。这里是你最早为视图设置框架大小的地方，接下来你将需要配置绘制策略。
 
-Each method within `initPlot()` represents a stage in setting up the plot. This helps keep the code a bit more organized.
+`initPlot()`里的每个方法都代表了一个设置绘制策略的阶段。这样子可以让代码保持其可维护性。
 
-Add the following to `configureHostView()`:
+把下面这行添加进`configureHostView()`：
 
 
 
@@ -171,9 +171,9 @@ Add the following to `configureHostView()`:
 
 
 
-This disables pinching scaling on the pie chart, which determines whether the host view responds to pinch gestures.
+这行代码将对饼图禁用手势捏合缩放，它决定了托管视图对捏合手势是否会有反应。
 
-You next need to add a graph to the `hostView`. Add the following to `configureGraph()`:
+接下来你需要添加一个图表到`hostView`。添加下面的代码到`configureGraph()`里吧：
 
 
 
@@ -200,26 +200,26 @@ You next need to add a graph to the `hostView`. Add the following to `configureG
 
 
 
-Here’s a breakdown for each section:
+下面对每个部分的代码进行分解：
 
-1.  You first create an instance of `CPTXYGraph` and designate it as the `hostedGraph` of the `hostView`. This associates the graph with the host view.
+1.  首先你创建了一个`CPTXYGraph`的实例并指定它作为`hostView`的`hostedGraph`。这就将图表和托管视图联系起来了。
 
-    The `CPTGraph` encompasses everything you see in a standard chart or graph: the border, the title, the plotted data, axes, and legend.
+    这个`CPTGraph`包括了你所看到的标准图表或图形的全部东西：边，标题，绘制相关数据，轴和图例。
 
-    By default, `CPTXYGraph` has a padding of `20` points per side. This doesn’t look great here, so you explicitly set the padding for each side to `0`.
+    默认情况下，`CPTXYGraph`每个方向都有一个`20`的内边距。从我们这个项目来看这样并不好，所以你可以显示地将每个方向的内边距设置为`0`。
 
-2.  You next set up the text style for the graph’s title by creating and configuring a `CPTMutableTextStyle` instance.
-3.  Lastly, you set the title for the graph and set its style to the one you just created. You also specify the anchoring point to be the top of the view’s bounding rectangle.
+2.  接下来就是通过创建和配置一个`CPTMutableTextStyle`实例来设置该图标标题的文本样式。
+3.  最后，就是给你刚刚创建的图表实例设置标题和其样式。同样你还需要指定标题锚点为该视图的上边界。
 
-Build and run the app, and you should see the chart’s title displayed at the top of the screen:
+构建并运行app，你应该就可以看到这个图表的标题展示在屏幕上了：
 
 ![Core Plot Tutorial](http://ac-Myg6wSTV.clouddn.com/fd0411a63ef0affb512a.png)](http://ac-Myg6wSTV.clouddn.com/fd0411a63ef0affb512a.png)
 
-### Plotting the Pie Chart
+### 绘制饼图
 
-The title looks great, but you know what would be even better in this Core Plot tutorial? Actually seeing the pie chart!
+标题看起来不错，但你知道接下来什么会更棒吗？当然该轮到饼图啦！
 
-Add the following lines of code to `configureChart()`:
+将下面的代码添加进`configureChart()`：
 
 
 
@@ -253,17 +253,17 @@ Add the following lines of code to `configureChart()`:
 
 
 
-Here’s what this does:
+下面看看这段代码做了什么：
 
-1.  You first get a reference to the graph.
-2.  You then instantiate a `CPTPieChart`, set its delegate and data source to be the view controller, and configure its appearance.
-3.  You then configure the chart’s border style.
-4.  And then, configure its text style.
-5.  Lastly, you add the pie chart to the graph.
+1.  首先获取了刚刚创建的图表的引用。
+2.  然后实例化一个`CPTPieChart`，将它的代理和数据源设置成这个视图控制器本身，并配置它的一些外观属性。
+3.  接着配置这个图表的边框样式。
+4.  配置它的文本样式。
+5.  最后，将这个饼图添加进刚刚引用的图表里。
 
-If you build and run the app right now, you’ll see that nothing has changed… This is because you still need to implement the data source and delegate for the pie chart.
+如果现在重新构建并运行app，你将看不到任何变化...因为你还需要实现这个饼图的代理和数据源。
 
-First, replace current `numberOfRecordsForPlot(_:)` with the following:
+首先，用下面这段替代了现在的`numberOfRecordsForPlot(_:)`方法：
 
 
 
@@ -273,13 +273,13 @@ First, replace current `numberOfRecordsForPlot(_:)` with the following:
 
 
 
-This method determines the number of slices to show on the graph; it will display one pie slice for each symbol.
+这个方法决定了图表的分片数量，它将为每个标记展示一个饼图分片。
 
-Next, replace `numberForPlot(_:field:recordIndex:)` with the following:
+接下来，用下面这段替换掉`numberForPlot(_:field:recordIndex:)`：
 
 
 
-    func numberForPlot(plot: CPTPlot, field fieldEnum: UInt, recordIndex idx: UInt) -> AnyObject? {    
+    func numberForPlot(plot: CPTPlot, field fieldEnum: UInt, recordIndex idx: UInt) -> AnyObject? {
       let symbol = symbols[Int(idx)]
       let currencyRate = rate.rates[symbol.name]!.floatValue
       return 1.0 / currencyRate
@@ -288,12 +288,13 @@ Next, replace `numberForPlot(_:field:recordIndex:)` with the following:
 
 
 The pie chart uses this method to get the “gross” value for the currency symbol at the `recordIndex`.
+饼图会使用这个方法得到索引为`recordIndex`的货币符号的“总”值。
 
-You should note that this value is _not_ a percentage. Rather, this method calculates the currency exchange rate relative to the base currency: the return value of `1.0 / currencyRate` is the exchange rate for “1 base currency per value of another comparison currency.”
+你应该注意到这个值并_不是_一个百分比值。取而代之的是，这个方法计算出了相对基准货币的货币汇率：返回的这个`1.0 / currencyRate`的值是"一个单位的基准货币是多少价值的另外的对照货币"的汇率。
 
-`CPTPieChart` will take care of calculating the percentage value for each slice, which ultimately will determine how big each slice is, using these values.
+`CPTPieChart`将查看计算每个分片的百分比值，这个值最终决定了这个分片占多大。
 
-Next, replace `dataLabelForPlot(_:recordIndex:)` with the following:
+下面，用下面这行替代掉`dataLabelForPlot(_:recordIndex:)`：
 
 
 
@@ -306,15 +307,15 @@ Next, replace `dataLabelForPlot(_:recordIndex:)` with the following:
 
 
 
-This method returns a label for the pie slice. The expected return type, `CPTLayer` is similar to a `CALayer`. However, a `CPTLayer` is abstracted to work on both Mac OS X and iOS and provides other drawing niceties used by Core Plot.
+这个方法返回了饼图分片的标签。期望的返回类型`CPTLayer`和`CALayer`有点相似，然而，`CPTLayer`在Mac OS X和iOS中被抽象了出来并提供了另外的细微绘图方法给Core Plot使用。
 
-Here, you create and return a `CPTTextLayer`, which is a subclass of `CPTLayer` designed to display text.
+这里，创建并返回一个`CPTLayer`的子类`CPTTextLayer`去展示文本。
 
-Finally, you’ll add color to the slices by replacing `sliceFillForPieChart(_:, recordIndex:)` with the following:
+最后，将下面这段代码替换掉`sliceFillForPieChart(_:, recordIndex:)`去添加分片的颜色：
 
 
 
-    func sliceFillForPieChart(pieChart: CPTPieChart, recordIndex idx: UInt) -> CPTFill? {    
+    func sliceFillForPieChart(pieChart: CPTPieChart, recordIndex idx: UInt) -> CPTFill? {
       switch idx {
       case 0:   return CPTFill(color: CPTColor(componentRed:0.92, green:0.28, blue:0.25, alpha:1.00))
       case 1:   return CPTFill(color: CPTColor(componentRed:0.06, green:0.80, blue:0.48, alpha:1.00))
@@ -325,15 +326,15 @@ Finally, you’ll add color to the slices by replacing `sliceFillForPieChart(_:,
 
 
 
-Build and run, and you’ll see a nifty-looking pie chart:
+构建并运行，你就将看到一个漂亮的饼图了：
 
 ![Core Plot Tutorial](/images/loading.png)](http://ac-Myg6wSTV.clouddn.com/17097b407bd6dbdcc299.png)
 
-### Legen … Wait For It… dary!
+### 等一下...图例呢！
 
-The chart looks pretty nice, but adding a legend would make it even better. You’ll now add a legend to the graph in this Core Plot tutorial.
+这个图表看上去相当不错，但是添加一个图例应该会让它更棒。接下来你将学习怎么添加一个图例到这个图表里。
 
-First, replace `configureLegend()` with the following:
+首先，用下面这段替换掉`configureLegend()`：
 
 
 
@@ -365,9 +366,9 @@ First, replace `configureLegend()` with the following:
 
 
 
-You also need to provide legend data for each slice.
+同样你也需要为每个分片提供图例的数据。
 
-To do this, replace `legendTitleForPieChart(_:recordIndex:)` with the following:
+要提供数据，就用下面这段替换掉`legendTitleForPieChart(_:recordIndex:)`：
 
 
 
@@ -377,19 +378,20 @@ To do this, replace `legendTitleForPieChart(_:recordIndex:)` with the following:
 
 
 
-Build and run, and you’ll be greeted with a “legendary” graph.
+构建并运行，你就会得到一个“带图例的”图表啦。
 
 ![Core Plot Tutorial](/images/loading.png)](http://ac-Myg6wSTV.clouddn.com/98244c1f592db447f90a.png)
 
-## Raising the Bar (Graph)
+## 创建直方图
 
 You’re plotting pie charts like a pro, but it’s time you raised the bar (graph)!
+看样子你已经是绘制饼图的专家啦，但是时候去搞一个直方图了！
 
-Open `BarGraphViewController` and add the following import:
+打开`BarGraphViewController`并添加下面这行：
 
     import CorePlot
 
-Next, add the following outlet:
+接着，再添加下面这行：
 
 
 
@@ -397,9 +399,9 @@ Next, add the following outlet:
 
 
 
-Just like a pie chart, the host view will contain the bar graph.
+其实就和饼图一样，托管视图将把承载这个直方图的展示。
 
-Next, add the following properties:
+下一步，添加下面这些属性：
 
 
 
@@ -409,11 +411,11 @@ Next, add the following properties:
 
 
 
-Here you declare three `CPTBarPlot` properties, which will correspond to each currency shown on the graph.
+这里声明了三个`CPTBarPlot`类型的属性，它们就相当于展示在图表中的每种货币。
 
-Note there are also three `IBOutlet` labels and three `IBAction` methods already defined, all of which have already been connected for you on the storyboard.
+注意到同样也有三个`IBOutlet`标签和三个`IBAction`方法已经被定义了，你都可以在storyboard上看到它们。
 
-Lastly, add the following extension at the end of the file:
+最后，把下面这个类扩展添加到文件末尾：
 
 
 
@@ -434,33 +436,33 @@ Lastly, add the following extension at the end of the file:
 
 
 
-This too is similar to a pie chart: you provide the data for a bar chart via `CPTBarPlotDataSource`, and you get user interaction events via `CPTBarPlotDelegate`. You’ll write these in a bit.
+这和创建饼图的过程太像了：通过`CPTBarPlotDataSource`为直方图提供数据，通过`CPTBarPlotDelegate`捕捉用户交互事件。你只需要复制粘贴就好了。
 
-### Setting Up the Graph Host View (again!)
+### 再次配置图表托管视图
 
-Again, just like you did for the pie chart in this Core Plot tutorial, you need to add the host view via Interface Builder.
+就像刚刚创建饼图时候一样，再次需要通过界面生成器把托管视图添加进去。
 
-Return to _Main.storyboard_, and select the `BarGraphViewController` scene.
+回到_Main.storyboard_并选择`BarGraphViewController`窗口。
 
-Drag a new `UIView` onto the view; change its class to `CPTGraphHostingView`; and connect its outlet to the `hostView` on the controller.
+在视图上拖拽出一个新的`UIView`，将它的类更改为`CPTGraphHostingView`并将其输出连接到控制器里的`hostView`。
 
-Update its _frame_ to the following via the _Utilities\Size Inspector_ (the _ruler_ tab):
+通过_Utilities\Size Inspector_（那个_刻度尺_选项卡）将它的框架更新到下面那样：
 
 _X = 0, Y = 53, Width = 600, Height = 547_
 
 ![](http://ww1.sinaimg.cn/large/a490147fjw1f5tbltfjfpj20dc07oaam.jpg)
 
-Add constraints to pin it to all of its neighbors, making sure that _Constrain to margins_ is **NOT** set.
+添加它和所有相邻元素的约束，确认没有设置_外边距约束_。
 
 ![](/images/loading.png)](https://cdn5.raywenderlich.com/wp-content/uploads/2016/05/BarGraph_HostView_Constraints.png)
 
-Lastly, set the background color to any color you like. Again, I used a gray scale color with an opacity of 92%.
+最后，设置一个你喜欢的背景颜色。我再次用了92%透明度的灰度颜色。
 
-### Plotting the Bar Graph
+### 绘制直方图
 
-Now that the UI is all hooked up in this Core Plot tutorial, it’s time to plot the bar graph.
+既然UI已经通过上面的学习全部弄好了，是时候去绘制一个直方图了。
 
-First, back in `BarGraphViewController`, you need a couple constant properties. Add the following right below the other properties:
+首先，回到`BarGraphViewController`，你需要一对常量属性。把下面这段添加到其他属性之前：
 
 
 
@@ -469,7 +471,7 @@ First, back in `BarGraphViewController`, you need a couple constant properties. 
 
 
 
-You’re also going to need a helper function to calculate the highest rate value. Add the following function right after `updateLabels()`:
+你还需要一个帮助函数去计算最高的率值。把下面这段添加到`updateLabels()`之后：
 
 
 
@@ -483,7 +485,7 @@ You’re also going to need a helper function to calculate the highest rate valu
 
 
 
-Next, add the following methods, right after `highestRateValue()`:
+接着，把下面的方法添加到`highestRateValue()`之后：
 
 
 
@@ -513,9 +515,9 @@ Next, add the following methods, right after `highestRateValue()`:
 
 
 
-Does this look familiar? Yep, it’s nearly the exact same structure as before.
+是不是看上去很眼熟？是的，这些和之前的结构完全一样。
 
-Add the following to `configureHostView()`:
+下面这行添加到`configureHostView()`里：
 
 
 
@@ -523,9 +525,9 @@ Add the following to `configureHostView()`:
 
 
 
-Again, as you won’t be using pinch scaling, you should disable it.
+因为你不需要捏合缩放，所以你应该再次把它禁用。
 
-Next, add the following lines to `configureGraph()`:
+接着，把下面那么多行代码添加到`configureGraph()`里：
 
 
 
@@ -566,18 +568,18 @@ Next, add the following lines to `configureGraph()`:
 
 
 
-Here’s a break down of what’s happening:
+下面是这段代码逻辑的拆解：
 
-1.  First, you instantiate a `CPTXYGraph`, which is essentially a bar graph, and associate it with the `hostView`.
-2.  You then declare the default theme to be _plain white_ and set the padding on the left and bottom to allow room for axes.
-3.  You next setup the text style, set the chart’s title, and the title’s position.
-4.  Lastly, you configure the `CPTXYPlotSpace`, which is responsible for mapping device coordinates to the coordinates of your graph.
+1.  首先，实例化一个`CPTXYGraph`，实际上就是一个直方图，并将它关联到`hostView`。
+2.  然后声明一个_简约的白色_默认主题并为了展示XY轴去设置左侧和下方的内边距。
+3.  接着设置文本样式，图表标题以及标题位置。
+4.  最后，配置`CPTXYPlotSpace`，它负责将设备的坐标系映射到图表的坐标系。
 
-    For this graph, you’re plotting three exchange rates that use the same plot space. However, it’s also possible to have a _separate_ plot space for each plot.
+    针对这个图表，你正在绘制三个使用了相同坐标系的汇率。然而，也有可能每个条形图的坐标系都是_分离_的。
 
-    You also use an assumed minimum and maximum exchange rate range on the plot space. Later in the Core Plot tutorial, you’ll see how you can auto-size the plot space when you don’t know the range in advance.
+    你还要在坐标系中假定一个最大最小值汇率范围。在后面的教程中，你将学习到怎么样在不提前设定范围的情况下自动调节空间大小。
 
-Now that you have your graph, it’s time to add some plots to it! Add the following code to `configureChart()`:
+既然已经创建好图表了，那是时候增加一些绘制方法进去了！把下面的代码添加到`configureChart()`里：
 
 
 
@@ -610,17 +612,17 @@ Now that you have your graph, it’s time to add some plots to it! Add the follo
 
 
 
-Here’s what the above code does:
+接着来看看上面的代码干了什么：
 
-1.  You instantiate each bar plot and set each one’s fill color.
-2.  You instantiate a `CPTMutableLineStyle` instance that represents the outer border of each bar plot.
-3.  You apply a “common configuration” to each bar plot. This configuration includes setting the data source and delegate, setting the width and relative (left-right) placement of each bar in the plot, setting the line style, and finally, adding the plot to the graph.
+1.  实例化每个条形图并设置它们的填充色。
+2.  实例化一个代表每个条形图的外部边框的`CPTMutableLineStyle`实例。
+3.  给每个条形图提供“共同配置”。该配置包括设置数据源和代理，宽度和每个条形图在坐标系中的相对位置（左右）以及线条样式，最后，添加这个坐标系到图表当中。
 
-While you still won’t be able to see the bar graph in action yet, build the app to verify everything compiles correctly so far.
+虽然还不可以看到直方图展示出来，但通过构建app可以去验证目前为止是否所有代码都可以正确编译通过。
 
-In order to actually display the data on the bar graph, you need to implement the delegate methods that provide the necessary data to the graph.
+为了确切看到直方图展示数据出来，需要去实现代提供图表所需数据的代理方法。
 
-Replace `numberOfRecordsForPlot(:_)` with the following:
+用下面这行替换掉`numberOfRecordsForPlot(:_)`：
 
 
 
@@ -628,9 +630,9 @@ Replace `numberOfRecordsForPlot(:_)` with the following:
 
 
 
-This method returns the number of records that should be displayed.
+该方法返回了应该展示的记录的总数。
 
-Replace `numberForPlot(_:field:recordIndex:)` with the following:
+下面这段替换掉`numberForPlot(_:field:recordIndex:)`：
 
 
 
@@ -649,15 +651,15 @@ Replace `numberForPlot(_:field:recordIndex:)` with the following:
 
 
 
-The `CPTBarPlotField.BarTip` value indicates the relative size of the bar chart. You use the retained properties to figure out the exchange rate for which you need to retrieve the data. The `recordIndex` corresponds to the index of the rate of interest.
+`CPTBarPlotField.BarTip`的值表明了直方图的相对大小。在你需要取回数据的时候可以使用保留属性计算出汇率，`recordIndex`对应了利息率的位置。
 
-Build and run, and you should see something similar to the following:
+构建并运行，你应该可以看到和下面这张图一样的情况：
 
 ![Core Plot Tutorial](/images/loading.png)](http://ac-Myg6wSTV.clouddn.com/4b5878afc9ec6c9b4427.png)
 
-You’re getting there! However, notice isn’t any indication of what each axis represents.
+已经快完成了！但请注意还没有任何东西指明每个坐标轴是代表什么意思。
 
-To fix this, add the following to `configureAxes()`:
+要解决这个问题，把下面这段添加进`configureAxes()`：
 
 
 
@@ -706,17 +708,17 @@ To fix this, add the following to `configureAxes()`:
 
 
 
-Simply put, the above code first defines styles for the axis lines and titles. Then, the code retrieves the axis set for the graph and configures the settings for the x and y axes.
+简单地说，上面的代码首先为轴线和标题定义了样式，然后，为图表添加坐标轴的设置并配置好x轴和y轴的一些属性。
 
-Build and run to see the result of this change.
+构建并运行就可以看到这些改动的结果了。
 
 ![Core Plot Tutorial](/images/loading.png)](https://cdn2.raywenderlich.com/wp-content/uploads/2016/04/swiftrates-09.png)
 
-### Grinding Axes
+### 功能化坐标轴（给校对者：Grinding有磨平的意思，我根据下面内容翻成这个标题，希望校对者给点意见）
 
-Much better, right? The only drawback is that your axes are plain – giving no idea of the exact exchange rate.
+更棒了对吧？唯一的缺陷在于这个坐标轴太简单了，没办法从这儿得到一个准确的汇率展示。
 
-You can fix this so that when a user taps on an individual bar chart, the app will display the price that the bar represents. To do this, add a new property:
+你可以修复这个问题以便当用户点按在一个单独的直方图时，这个app可以展示这个图表示的汇率（_译者注：price在此应该就是指图的值，这个值就是汇率，所以译作了汇率_）。为了实现它，需要增加一个新的属性：
 
 
 
@@ -724,7 +726,7 @@ You can fix this so that when a user taps on an individual bar chart, the app wi
 
 
 
-Then add the following code to `barPlot(_:barWasSelectedAtRecordIndex:)`:
+然后把下面的代码添加到`barPlot(_:barWasSelectedAtRecordIndex:)`：
 
 
 
@@ -774,28 +776,28 @@ Then add the following code to `barPlot(_:barWasSelectedAtRecordIndex:)`:
 
 
 
-This requires a bit of explanation:
+这里需要一些解释：
 
-1.  You don’t display an annotation for a hidden plot. While the plots currently don’t have the ability to be hidden, you’ll be implementing this in the next step when you integrate the switches with the chart.
-2.  Here you create a text style for your annotation.
-3.  You then get the price for the specified plot and then create an annotation object if one doesn’t exist.
-4.  You create a number formatter if one doesn’t exist, since you’ll need to format the price for display.
-5.  You create a text layer using the formatted price, and set the content layer for the annotation to this new text layer.
-6.  You get the plot index for the plot for which you’ll display the annotation.
-7.  You calculate the annotation position based on the plot index, and then set the `anchorPlotPoint` for the annotation using the calculated position.
-8.  Finally, you add the annotation to the graph.
+1.  不要给一个隐藏的直方图展示注解，而当图没有设置隐藏属性的时候，在把切换开关整合到图表之后，你就将实现它了。
+2.  这里还要为你的注解创建一个文本样式。
+3.  得到指定直方图的汇率，然后如果它不存在一个注解对象，就创建一个。
+4.  如果没有数值格式化的方法还需要创建一个，因为在汇率展示的时候需要先格式化它。
+5.  创建一个使用这个格式化汇率的文本层，并将注解的内容层设置到这个新的文本层上。
+6.  获取你将展示的注解需要放置的直方图索引。
+7.  基于这个索引计算注解的位置，并给使用这个计算位置注解设置`anchorPlotPoint`的值。
+8.  最后，将注解添加到图表上。
 
-Build and run. Every time you tap on a bar in your chart, the value for that bar should pop up right above the bar.
+构建并运行。每次当你点按图表中的一个图时，该图所表示的值就应该正好在图的上方弹出来。
 
-Nifty! :]
+棒极了! :]
 
 ![Core Plot Tutorial](/images/loading.png)](https://cdn3.raywenderlich.com/wp-content/uploads/2016/04/swiftrates-10.png)
 
-### Hide and Seek
+### 隐藏和查找
 
-The bar graph looks great, but the switches at the top of the screen do nothing. It’s time in this Core Plot tutorial to rectify that.
+这个直方图看起来很棒，但屏幕最上方的切换开关并没有起什么作用，是时候改动它们了。
 
-First, you’ll need to add a helper method. Add the following right after `switch3Changed(_:)`:
+首先，需要添加一个帮助方法，把下面这段添加到`switch3Changed(_:)`之后：
 
 
 
@@ -811,11 +813,11 @@ First, you’ll need to add a helper method. Add the following right after `swit
 
 
 
-The code simply removes an annotation, if it exists.
+这段代码首先简单地移除了一个如果存在的注解。
 
-Next, you want the user to be able to toggle the display of bar charts for a given currency using the switches.
+下一步，你希望用户通过切换开关展示一个给定的货币汇率直方图。
 
-To do such, replace the implementations for `switch1Changed(_:)`, `switch2Changed(_:)`, and `switch3Changed(_:)` with the following:
+要做到这个功能，用下面这段替换到`switch1Changed(_:)`，`switch2Changed(_:)`和`switch3Changed(_:)`的实现。
 
 
 
@@ -845,21 +847,20 @@ To do such, replace the implementations for `switch1Changed(_:)`, `switch2Change
 
 
 
-The logic is fairly simple. If the switch is set to off, the corresponding plot and any visible annotation is hidden. If the switch is set to on, then the plot is made visible again.
+这个逻辑相当简单。如果开关设置了关闭，相关的图和其可见的注解就将被隐藏，而如果设置为开启，则图就会被设置为可见。
 
-Build and run. You can now toggle each bar chart to your heart’s content. Nice work on this Core Plot tutorial!
+构建并运行。现在你可以在图表中随意切换每个直方图的展示了。教程至此已经完成了很不错的工作！
 
 ![](http://ww4.sinaimg.cn/large/a490147fjw1f5tbq390v7g20fj08sgpr.gif)
 
-## Where to Go From Here?
+## 从这里去往哪里？
 
-You can download the [completed project from here](https://cdn1.raywenderlich.com/wp-content/uploads/2016/05/SwiftRates_Final-1.zip).
+你可以从[这里](https://cdn1.raywenderlich.com/wp-content/uploads/2016/05/SwiftRates_Final-1.zip)下载一个已完成的项目。
 
-Whew- that was fun! Hopefully, this Core Plot tutorial underscores the power of Core Plot and gives you ideas for how it can be used within your own apps.
+哇哦，相当有趣！希望这个教程给你讲清楚了Core Plot的作用并提示了你该怎么在你自己的apps里使用它。
 
-Be sure to refer to the [Core Plot](https://github.com/core-plot/core-plot) repo for more information, including documentation, examples, and tips.
+当然还可以参考[Core Plot](https://github.com/core-plot/core-plot)仓库获取更多的信息，包括文档，例子和一些小贴士。
 
-Also, if you have any questions or comments about this Core Plot tutorial, please join the forum discussion below.
+还有，如果你对这个教程有任何的问题或者评论，欢迎加入下面的论坛进行讨论。
 
-Happy plotting!
-
+祝你有个快乐的绘图过程！
