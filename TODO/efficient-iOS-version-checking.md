@@ -228,7 +228,7 @@ Swift 使用了 iOS 8 的新 API，但是低于 iOS 8 的版本又回退到糟�
 
 
 
-加上在 iOS 4.2 [弱链接类](https://developer.apple.com/library/ios/documentation/DeveloperTools/Conceptual/cross_development/Using/using.html#//apple_ref/doc/uid/20002000-SW3)，现在这要简单得多︰
+随着 iOS 4.2 [弱链接类](https://developer.apple.com/library/ios/documentation/DeveloperTools/Conceptual/cross_development/Using/using.html#//apple_ref/doc/uid/20002000-SW3)的添加，现在这要简单得多︰
 
 
     if ([UIPrintInteractionController class]) {
@@ -241,10 +241,9 @@ Swift 使用了 iOS 8 的新 API，但是低于 iOS 8 的版本又回退到糟�
 
 
 
-[Greg Parker 在他的 Hamster Emporium 文章中分享了更多](http://sealiesoftware.com/blog/archive/2009/09/09/objc_explain_Weak-import_classes.html)，包括这 gem：
+[Greg Parker 在他的 Hamster Emporium 文章中分享了更多](http://sealiesoftware.com/blog/archive/2009/09/09/objc_explain_Weak-import_classes.html)，包括这个梗：
 
-> Weak import for Objective-C did not make Snow Leopard for scheduling reasons. Assuming it ships in Mac OS X 10.7 Cat Name Forthcoming, you won't be able to use it until Mac OS X 10.8 LOLcat.
-
+>为 Objective-C 增加弱导入是 Snow Leopard 没有按时发布的原因。假设在 Mac OS X 10.7（以猫科动物命名）按时发布，到 Mac OS X 10.8 估计也不可能用的上。
 
 弱链接可以扩展到一个整体框架。在 PSPDFKit，我们为 [SafariServices](https://developer.apple.com/library/ios/documentation/SafariServices/Reference/SafariServicesFramework_Ref/) 做了扩展，其中包含 [`SFSafariViewController`](https://developer.apple.com/library/ios/documentation/SafariServices/Reference/SFSafariViewController_Ref/index.html#//apple_ref/occ/cl/SFSafariViewController)（在 iOS 9 中加入）。
 
@@ -258,8 +257,6 @@ Swift 使用了 iOS 8 的新 API，但是低于 iOS 8 的版本又回退到糟�
 对于大多数应用，在 Objective-C 中使用 `isOperatingSystemAtLeastVersion:`，在 Swift 中使用 `#available()` 就足够了。了解底层实现还是很有趣的，一切都比字符串比较要好。如果你喜欢刨根问底，那么 [PSPDFKit 就是你该来的地方。](https://pspdfkit.com/jobs/)
 
 ## 更新
-
-After posting this article, Devin Coughlin, who _wrote_ the `#available` feature replied why `systemVersion` can't be used in the Swift implementation:
 
 发表这篇文章之后，Devin Coughlin ，`#available` 方法的作者回复了为什么在 Swift 中不能使用 `systemVersion`：
 
