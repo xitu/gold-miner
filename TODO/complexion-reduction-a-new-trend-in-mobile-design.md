@@ -20,7 +20,7 @@ Over the last several months, some of the leaders of innovative design have take
 
 You’ve never heard of ‘Complexion Reduction’ you say? Well yea, that’s because I just made the term up. Recently I’ve noticed a new trend that is beyond flat design, beyond minimal design and independent of [progressive reduction](http://www.uxbooth.com/articles/progressive-content/). Some may claim that this is just the next step of minimal design being implemented into the mobile realm but I say it is something more distinct. There are specific similarities and characteristics that define this new trend. So I decided to name it. I’m allowed to do that, right?
 
-什么？你从来没听说过这个概念？好吧，因为它是我命名的:)。最近我留意到一种超越扁平化设计、极简设计的新设计趋势，它并不是[简化设计](http://www.uxbooth.com/articles/progressive-content/)的升级版。有些人可能认为它只是极简设计下一阶段的在移动端的实现，但是我认为这两者完全不同。下面是描述新趋势的一些特点。我决定给它命名为“界面简化”。没人不同意吧？:)
+什么？你从来没听说过这个概念？好吧，因为它是我命名的:)。最近我留意到一种超越扁平化设计、极简设计的新设计趋势，它与[简化设计](http://www.uxbooth.com/articles/progressive-content/)也没有关系。有些人可能认为它只是极简设计下一阶段在移动端的实现，但是我认为这两者完全不同。下面是描述新趋势的一些特点。我决定给它命名为“界面简化”。没人不同意吧？:)
 
 <span class="markup--quote markup--p-quote is-other" data-creator-ids="b0dc62008bd7">**The defining characteristics of this _hot new trend_ sweeping across Silicon Valley are:**</span>
 
@@ -50,7 +50,7 @@ I first started taking notice of this trend back in early May when **Instagram**
 
 Some of the changes they introduced included removing much of the blue and dark grey color used throughout the app, making headlines bolder and simplifying the bottom navigation and icons. **What was left was a black and white UI with bold headlines where the content shined and functionality was clear.** I appreciated the less cluttered interface and was reminded a bit of a platform I have been an admirer of for quite some time; [**Medium**](http://www.medium.com). Medium has been rocking the black and white since launch in 2012, and has reduced clutter with each redesign since; effectively making Medium one of the originators of CR (Complexion Reduction) without even knowing it. Congratulations, Medium!
 
-官方介绍新版界面做了去除整个应用大部分的蓝色、深灰色，加粗标题，简化底部导航栏跟图标等改变。**剩下的是一款标题明显、内容凸出、功能清晰的黑白主色调界面。**我喜欢这种简洁的界面，同时想起了另一款我追随好久的平台[**Medium**](http://www.medium.com)。Medium从2012年开始就使用黑白色基调，每次改版都在简化界面，实际上人们都不知道 Medium 是“界面简化”的发起人之一。恭喜 Medium !
+官方介绍新版界面做了去除整个应用大部分的蓝色、深灰色，加粗标题，简化底部导航栏跟图标等改变。**剩下的是一款标题明显、内容突出、功能清晰的黑白主色调界面。**我喜欢这种简洁的界面，同时想起了另一款我追随好久的平台[**Medium**](http://www.medium.com)。Medium从2012年开始就使用黑白色基调，每次改版都在简化界面，实际上人们都不知道 Medium 是“界面简化”的发起人之一。恭喜 Medium !
 
 Shortly after the folks over at FB unveiled Instagram’s look, I opened up the Airbnb app and was struck by how familiar it looked. This was my first time browsing the app since they [released a redesign in Apri](https://www.airbnb.com/livethere)l, yet I felt like I had seen this all before.
 
@@ -74,7 +74,7 @@ Airbnb 移动端新界面的标题更大更粗，同时去除了不必要的图�
 
 One announcement in particular caught my eye. That was **the redesign of Apple Music**. While the most important aspects of the redesign are UX updates and additional features, the aesthetic was the first thing I noticed. Caitlin McGarry, a staff writer at Macworld, [described the updated appearance](http://www.macworld.com/article/3082637/ios/every-change-coming-to-apple-music-in-ios-10.html) well, **_“It’s a totally new look, with giant cards, bigger and bolder fonts, and a clean white background that allows the album art to shine.”_**
 
-在 WWDC 上有一个内容吸引了我,**Apple Music 的新版 UI** 。新版 UI 最大的改动是用户体验的变化和一些其他特点，其中最先吸引我的是整体界面的美感。Macword 全职作家 
+在 WWDC 上有一个内容吸引了我，**Apple Music 的新版 UI** 。新版 UI 最大的改动是用户体验的变化和一些其他特点，其中最先吸引我的是整体界面的美感。Macword 全职作家 
 Caitlin McGarry [对新版界面描述道](http://www.macworld.com/article/3082637/ios/every-change-coming-to-apple-music-in-ios-10.html)：**“这是一个全新的界面，大号的卡片布局，显眼的字体，白色简洁的背景，让专辑封面更加耀眼**
 
 Sound familiar? The design differs slightly from the blueprint used by Instagram and Airbnb (they use solid icons! What the heck Apple?) but the key elements are there: large bold headlines, black and white UI.
@@ -99,7 +99,7 @@ As I mentioned earlier, this means more and more of your favorite apps are going
 
 <span class="markup--quote markup--p-quote is-other" data-creator-ids="b0dc62008bd7">**Now, whether you are for or against this monochromatic fad, it is undoubtedly a sign of progress.**</span> The product design process is advancing and evolving from the old segmented approach that encouraged superfluous design to a more holistic process that truly is focused on the user. In the old product design process a UI designer may be handed wireframes by a UX or product person with the instructions ‘make it pretty’. That designer would then spend hours or days adding color, removing color, changing color when the best solution may have been right there in front of them all along… the wireframes! <span class="markup--quote markup--p-quote is-other" data-creator-ids="b0dc62008bd7 anon">As the lines between UX and UI designer blur in today’s more integrated design process, designers become less worried about their specific responsibilities (like making it pretty) and focus on the ultimate goal of creating the best product for their user.</span>
 
-<span class="markup--quote markup--p-quote is-other" data-creator-ids="b0dc62008bd7">**现在不论你是否支持这种单色调的设计风格，都要承认它是一种进步。**</span>产品设计是从之前的崇尚不必要设计逐渐变化、进步到更聚焦于用户。在过去的产品设计流程中，用户体验师或者产品经理将原型图交给设计师，然后扔下句：“做的好看点。”设计师花费好多时间填色、去色、改色，却一直没有注意到最好的解决方法就在他们面前，那些原型图！<span class="markup--quote markup--p-quote is-other" data-creator-ids="b0dc62008bd7 anon">在如今更加完整的设计流程中，
+<span class="markup--quote markup--p-quote is-other" data-creator-ids="b0dc62008bd7">**现在不论你是否支持这种单色调的设计风格，都要承认它是一种进步。**</span>产品的设计从之前的崇尚浮夸，开始逐渐演化的更聚焦于用户。在过去的产品设计流程中，用户体验师或者产品经理将原型图交给设计师，然后扔下句：“做的好看点。”设计师花费好多时间填色、去色、改色，却一直没有注意到最好的解决方法就在他们面前，那些原型图！<span class="markup--quote markup--p-quote is-other" data-creator-ids="b0dc62008bd7 anon">在如今更加完整的设计流程中，
 设计师和体验师的界限越来越模糊，设计师不必那么担心没有尽到他们的责任（比如把界面做的好看些），从而可以专注于为他们的用户创造最好的产品。</span>
 
 #### THE ULTIMATE GUIDE TO COMPLEXION REDUCTION
@@ -120,7 +120,7 @@ So you’re sold on CR and ready to hop on the bandwagon? Good, follow these gui
 
 现在你也看好“界面简化”并且准备跟随这种风潮？好的，遵循以下指导,没多久你的应用就能大火特火！
 
-> **1\. 去除颜色。**当然你可以有一种主题色，但是要慎用，尽量只用在指示操作上。剩下的最好都用黑白色，凸显你应用的内容。
+> **1\. 去除颜色。**当然你可以有一种主题色，但是要慎用，尽量只用在指示操作上。剩下的最好都用黑白色，突显你应用的内容。
 
 > **2\. 更大、更粗、颜色更黑的标题。**你看到那个标题了吗？将它增加约20至30像素，让它看起来“重”一些。
 
@@ -128,5 +128,5 @@ So you’re sold on CR and ready to hop on the bandwagon? Good, follow these gui
 
 > **4\. 增加两倍甚至三倍的留白。**甚至四倍留白，多点总没错。
 
-> **5\. 应用图标颜色更亮些。**如果你喜欢设计一些带有闪光和颜色的东西，就做应用图标吧。在这里可以表现你的个性和品牌，让它脱颖而出！
+> **5\. 应用图标颜色更亮些。**如果你喜欢设计一些带有闪光和颜色的东西，就做应用图标吧。它可以表现你的个性和品牌，让它脱颖而出吧！
 
