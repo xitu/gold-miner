@@ -11,7 +11,7 @@
 3. 翻译文章，在 [待认领文章列表](https://github.com/xitu/gold-miner/issues?q=is%3Aissue+is%3Aopen+label%3A%E6%96%87%E7%AB%A0%E8%AE%A4%E9%A2%86) 中认领翻译文章；
 4. 认领通过后，Fork 此仓库开始翻译，**注意：Fork 此仓库后，请先从 master 分支上 `git checkout -b translate` 一个新的 translate 分支来翻译文章，翻译完成后再把 translate 分支发 PR**；
 5. 翻译完成，发送 [Pull Request](https://github.com/xitu/gold-miner/pull/new/master)，**注意：发PR的时候请注意检查，一个PR只能有一篇文章，切勿两篇或多篇合并到一个PR**；
-6. 两位校对者校对完成后，可以根据校对者意见进行修改，修改完成后at[管理员羊三岁](https://github.com/antonia0912)进行最终检查，merge后分享你的译文到[掘金](http://gold.xitu.io)，让更多的开发者看到好的文章。
+6. 两位校对者校对完成后，可以根据校对者意见进行修改，修改完成后at[管理员羊三岁](https://github.com/antonia0912)或[根号三](https://github.com/sqrthree)进行最终检查，merge后分享你的译文到[掘金](http://gold.xitu.io)，让更多的开发者看到好的文章。
 
 
 
