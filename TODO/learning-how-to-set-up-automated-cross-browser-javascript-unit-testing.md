@@ -95,7 +95,7 @@ A typical test file using Mocha looks something like this:
     </html>
 
 If you’re not using Node.js, then your starting point likely already looks like this HTML file, the only difference is your dependencies are probably listed individually as `<script>` tags.
-如果你不使用Node.js，那么你在一开始就已经有了类似这样的HTML一个文件，唯一的不同就是你的dependencies是单独用<script>标签列出来的。
+如果你不使用Node.js，那么你在一开始就已经有了类似这样的HTML一个文件，唯一的不同就是你的dependencies是单独用`<script>`标签列出来的。
 
 ### Detecting failures
 ### 找到测试没有通过的地方（这副标题怎么翻。。。）
