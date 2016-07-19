@@ -1,3 +1,4 @@
+* [[译] 好的与坏的，Swift 语言面面观（一）](http://gold.xitu.io/entry/578c647a6be3ff006ce49e91?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([达仔](https://github.com/zhangjd) 翻译)
 * [假如 Mac 上也有 iOS 应用？](http://gold.xitu.io/entry/577b87d27db2a20054e47ecc?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([wildflame](https://github.com/wildflame) 翻译)
 * [[译] iOS 开发者在 Swift 中应避免过度使用 @objc](https://gold.xitu.io/entry/57712f605bbb50005970dc0e?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Dwight](https://github.com/ldhlfzysys) 翻译)
 * [深度剖析 Swift 编译与运行时的类型检查](http://gold.xitu.io/entry/5767a62a80dda4005f9e97ca?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Jack](https://github.com/Jack-Kingdom) 翻译)
