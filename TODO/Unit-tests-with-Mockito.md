@@ -2,7 +2,7 @@
 * 原文作者 : [vogella](http://www.vogella.com/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [edvardhua](https://github.com/edvardHua/)
-* 校对者: [hackerkevin](https://github.com/hackerkevin), [futureshine](https://github.com/futureshine) 
+* 校对者: [hackerkevin](https://github.com/hackerkevin), [futureshine](https://github.com/futureshine) 
 
 >这篇教程介绍了如何使用 Mockito 框架来给软件写测试用例
 
@@ -49,11 +49,11 @@ _Mockito_ 是一个流行 mock 框架，可以和JUnit结合起来使用。Mocki
 
 一般使用 Mockito 需要执行下面三步
 
-*   模拟并替换测试代码中外部依赖。
+*   模拟并替换测试代码中外部依赖。
 
-*   执行测试代码
+*   执行测试代码
 
-*   验证测试代码是否被正确的执行
+*   验证测试代码是否被正确的执行
 
 ![mockitousagevisualization](http://ww2.sinaimg.cn/large/72f96cbagw1f5b2j8m2vsj20hh056jrv)
 
@@ -63,8 +63,8 @@ _Mockito_ 是一个流行 mock 框架，可以和JUnit结合起来使用。Mocki
 
 如果你的项目使用 Gradle 构建，将下面代码加入 Gradle 的构建文件中为自己项目添加 Mockito 依赖
 
-    repositories { jcenter() }
-    dependencies { testCompile "org.mockito:mockito-core:2.0.57-beta" }
+    repositories { jcenter() }
+    dependencies { testCompile "org.mockito:mockito-core:2.0.57-beta" }
 
 
 ### 3.2\. 在 Maven 添加 Mockito 依赖
@@ -98,23 +98,23 @@ Orbit 仓库地址 [http://download.eclipse.org/tools/orbit/downloads](http://do
 通过下面的例子我们可以了解到使用`@Mock` 的方法和`MockitoRule`规则。
 
 
-    import static org.mockito.Mockito.*;
+    import static org.mockito.Mockito.*;
 
-    public class MockitoTest  {
+    public class MockitoTest  {
 
-            @Mock
-            MyDatabase databaseMock; (1)
+            @Mock
+            MyDatabase databaseMock; (1)
 
-            @Rule public MockitoRule mockitoRule = MockitoJUnit.rule(); (2)
+            @Rule public MockitoRule mockitoRule = MockitoJUnit.rule(); (2)
 
-            @Test
-            public void testQuery()  {
-                    ClassToTest t  = new ClassToTest(databaseMock); (3)
-                    boolean check = t.query("* from t"); (4)
-                    assertTrue(check); (5)
-                    verify(databaseMock).query("* from t"); (6)
-            }
-    }
+            @Test
+            public void testQuery()  {
+                    ClassToTest t  = new ClassToTest(databaseMock); (3)
+                    boolean check = t.query("* from t"); (4)
+                    assertTrue(check); (5)
+                    verify(databaseMock).query("* from t"); (6)
+            }
+    }
 
 
 1. 告诉 Mockito 模拟 databaseMock 实例
@@ -136,128 +136,128 @@ Orbit 仓库地址 [http://download.eclipse.org/tools/orbit/downloads](http://do
 
 `when(…​.).thenReturn(…​.)`可以被用来定义当条件满足时函数的返回值，如果你需要定义多个返回值，可以多次定义。当你多次调用函数的时候，Mockito 会根据你定义的先后顺序来返回返回值。Mocks 还可以根据传入参数的不同来定义不同的返回值。譬如说你的函数可以将`anyString` 或者 `anyInt`作为输入参数，然后定义其特定的放回值。
 
-    import static org.mockito.Mockito.*;
-    import static org.junit.Assert.*;
+    import static org.mockito.Mockito.*;
+    import static org.junit.Assert.*;
 
-    @Test
-    public void test1()  {
-            //  创建 mock
-            MyClass test = Mockito.mock(MyClass.class);
+    @Test
+    public void test1()  {
+            //  创建 mock
+            MyClass test = Mockito.mock(MyClass.class);
 
-            // 自定义 getUniqueId() 的返回值
-            when(test.getUniqueId()).thenReturn(43);
+            // 自定义 getUniqueId() 的返回值
+            when(test.getUniqueId()).thenReturn(43);
 
-            // 在测试中使用mock对象
-            assertEquals(test.getUniqueId(), 43);
-    }
+            // 在测试中使用mock对象
+            assertEquals(test.getUniqueId(), 43);
+    }
 
-    // 返回多个值
-    @Test
-    public void testMoreThanOneReturnValue()  {
-            Iterator i= mock(Iterator.class);
-            when(i.next()).thenReturn("Mockito").thenReturn("rocks");
-            String result=i.next()+" "+i.next();
-            // 断言
-            assertEquals("Mockito rocks", result);
-    }
+    // 返回多个值
+    @Test
+    public void testMoreThanOneReturnValue()  {
+            Iterator i= mock(Iterator.class);
+            when(i.next()).thenReturn("Mockito").thenReturn("rocks");
+            String result=i.next()+" "+i.next();
+            // 断言
+            assertEquals("Mockito rocks", result);
+    }
 
-    // 如何根据输入来返回值
-    @Test
-    public void testReturnValueDependentOnMethodParameter()  {
-            Comparable c= mock(Comparable.class);
-            when(c.compareTo("Mockito")).thenReturn(1);
-            when(c.compareTo("Eclipse")).thenReturn(2);
-            // 断言
-            assertEquals(1,c.compareTo("Mockito"));
-    }
+    // 如何根据输入来返回值
+    @Test
+    public void testReturnValueDependentOnMethodParameter()  {
+            Comparable c= mock(Comparable.class);
+            when(c.compareTo("Mockito")).thenReturn(1);
+            when(c.compareTo("Eclipse")).thenReturn(2);
+            // 断言
+            assertEquals(1,c.compareTo("Mockito"));
+    }
 
-    // 如何让返回值不依赖于输入
-    @Test
-    public void testReturnValueInDependentOnMethodParameter()  {
-            Comparable c= mock(Comparable.class);
-            when(c.compareTo(anyInt())).thenReturn(-1);
-            // 断言
-            assertEquals(-1 ,c.compareTo(9));
-    }
+    // 如何让返回值不依赖于输入
+    @Test
+    public void testReturnValueInDependentOnMethodParameter()  {
+            Comparable c= mock(Comparable.class);
+            when(c.compareTo(anyInt())).thenReturn(-1);
+            // 断言
+            assertEquals(-1 ,c.compareTo(9));
+    }
 
-    // 根据参数类型来返回值
-    @Test
-    public void testReturnValueInDependentOnMethodParameter()  {
-            Comparable c= mock(Comparable.class);
-            when(c.compareTo(isA(Todo.class))).thenReturn(0);
-            // 断言
-            Todo todo = new Todo(5);
-            assertEquals(todo ,c.compareTo(new Todo(1)));
-    }
+    // 根据参数类型来返回值
+    @Test
+    public void testReturnValueInDependentOnMethodParameter()  {
+            Comparable c= mock(Comparable.class);
+            when(c.compareTo(isA(Todo.class))).thenReturn(0);
+            // 断言
+            Todo todo = new Todo(5);
+            assertEquals(todo ,c.compareTo(new Todo(1)));
+    }
 
 对于无返回值的函数，我们可以使用`doReturn(…​).when(…​).methodCall`来获得类似的效果。例如我们想在调用某些无返回值函数的时候抛出异常，那么可以使用`doThrow` 方法。如下面代码片段所示
 
 
-    import static org.mockito.Mockito.*;
-    import static org.junit.Assert.*;
+    import static org.mockito.Mockito.*;
+    import static org.junit.Assert.*;
 
-    // 下面测试用例描述了如何使用doThrow()方法
+    // 下面测试用例描述了如何使用doThrow()方法
 
-    @Test(expected=IOException.class)
-    public void testForIOException() {
-            // 创建并配置 mock 对象
-            OutputStream mockStream = mock(OutputStream.class);
-            doThrow(new IOException()).when(mockStream).close();
+    @Test(expected=IOException.class)
+    public void testForIOException() {
+            // 创建并配置 mock 对象
+            OutputStream mockStream = mock(OutputStream.class);
+            doThrow(new IOException()).when(mockStream).close();
 
-            // 使用 mock
-            OutputStreamWriter streamWriter= new OutputStreamWriter(mockStream);
-            streamWriter.close();
-    }
+            // 使用 mock
+            OutputStreamWriter streamWriter= new OutputStreamWriter(mockStream);
+            streamWriter.close();
+    }
 
 
 ### 4.4\. 验证 mock 对象方法是否被调用 
 
 Mockito 会跟踪 mock 对象里面所有的方法和变量。所以我们可以用来验证函数在传入特定参数的时候是否被调用。这种方式的测试称行为测试，行为测试并不会检查函数的返回值，而是检查在传入正确参数时候函数是否被调用。
 
-    import static org.mockito.Mockito.*;
+    import static org.mockito.Mockito.*;
 
-    @Test
-    public void testVerify()  {
-            // 创建并配置 mock 对象
-            MyClass test = Mockito.mock(MyClass.class);
-            when(test.getUniqueId()).thenReturn(43);
+    @Test
+    public void testVerify()  {
+            // 创建并配置 mock 对象
+            MyClass test = Mockito.mock(MyClass.class);
+            when(test.getUniqueId()).thenReturn(43);
 
-            // 调用mock对象里面的方法并传入参数为12
-            test.testing(12);
-            test.getUniqueId();
-            test.getUniqueId();
+            // 调用mock对象里面的方法并传入参数为12
+            test.testing(12);
+            test.getUniqueId();
+            test.getUniqueId();
 
-            // 查看在传入参数为12的时候方法是否被调用
-            verify(test).testing(Matchers.eq(12));
+            // 查看在传入参数为12的时候方法是否被调用
+            verify(test).testing(Matchers.eq(12));
 
-            // 方法是否被调用两次
-            verify(test, times(2)).getUniqueId();
+            // 方法是否被调用两次
+            verify(test, times(2)).getUniqueId();
 
-            // 其他用来验证函数是否被调用的方法
-            verify(mock, never()).someMethod("never called");
-            verify(mock, atLeastOnce()).someMethod("called at least once");
-            verify(mock, atLeast(2)).someMethod("called at least twice");
-            verify(mock, times(5)).someMethod("called five times");
-            verify(mock, atMost(3)).someMethod("called at most 3 times");
-    }
+            // 其他用来验证函数是否被调用的方法
+            verify(mock, never()).someMethod("never called");
+            verify(mock, atLeastOnce()).someMethod("called at least once");
+            verify(mock, atLeast(2)).someMethod("called at least twice");
+            verify(mock, times(5)).someMethod("called five times");
+            verify(mock, atMost(3)).someMethod("called at most 3 times");
+    }
 
 ### 4.5\. 使用 Spy 封装 java 对象
 @Spy或者`spy()`方法可以被用来封装 java 对象。被封装后，除非特殊声明（打桩 _stub_），否则都会真正的调用对象里面的每一个方法
 
 
-    import static org.mockito.Mockito.*;
+    import static org.mockito.Mockito.*;
 
-    // Lets mock a LinkedList
-    List list = new LinkedList();
-    List spy = spy(list);
+    // Lets mock a LinkedList
+    List list = new LinkedList();
+    List spy = spy(list);
 
-    // 可用 doReturn() 来打桩
-    doReturn("foo").when(spy).get(0);
+    // 可用 doReturn() 来打桩
+    doReturn("foo").when(spy).get(0);
 
-    // 下面代码不生效
-    // 真正的方法会被调用
-    // 将会抛出 IndexOutOfBoundsException 的异常，因为 List 为空
-    when(spy.get(0)).thenReturn("foo");
+    // 下面代码不生效
+    // 真正的方法会被调用
+    // 将会抛出 IndexOutOfBoundsException 的异常，因为 List 为空
+    when(spy.get(0)).thenReturn("foo");
 
 方法`verifyNoMoreInteractions()`允许你检查没有其他的方法被调用了。
 
@@ -265,39 +265,39 @@ Mockito 会跟踪 mock 对象里面所有的方法和变量。所以我们可以
 
 我们也可以使用`@InjectMocks` 注解来创建对象，它会根据类型来注入对象里面的成员方法和变量。假定我们有 ArticleManager 类
 
-    public class ArticleManager {
-        private User user;
-        private ArticleDatabase database;
+    public class ArticleManager {
+        private User user;
+        private ArticleDatabase database;
 
-        ArticleManager(User user) {
-         this.user = user;
-        }
+        ArticleManager(User user) {
+         this.user = user;
+        }
 
-        void setDatabase(ArticleDatabase database) { }
-    }
+        void setDatabase(ArticleDatabase database) { }
+    }
 
 这个类会被 Mockito 构造，而类的成员方法和变量都会被 mock 对象所代替，正如下面的代码片段所示：
 
-    @RunWith(MockitoJUnitRunner.class)
-    public class ArticleManagerTest  {
+    @RunWith(MockitoJUnitRunner.class)
+    public class ArticleManagerTest  {
 
-           @Mock ArticleCalculator calculator;
-           @Mock ArticleDatabase database;
-           @Most User user;
+           @Mock ArticleCalculator calculator;
+           @Mock ArticleDatabase database;
+           @Most User user;
 
-           @Spy private UserProvider userProvider = new ConsumerUserProvider();
+           @Spy private UserProvider userProvider = new ConsumerUserProvider();
 
-           @InjectMocks private ArticleManager manager; (1)
+           @InjectMocks private ArticleManager manager; (1)
 
-           @Test public void shouldDoSomething() {
-                   // 假定 ArticleManager 有一个叫 initialize() 的方法被调用了
-                   // 使用 ArticleListener 来调用 addListener 方法
-                   manager.initialize();
+           @Test public void shouldDoSomething() {
+                   // 假定 ArticleManager 有一个叫 initialize() 的方法被调用了
+                   // 使用 ArticleListener 来调用 addListener 方法
+                   manager.initialize();
 
-                   // 验证 addListener 方法被调用
-                   verify(database).addListener(any(ArticleListener.class));
-           }
-    }
+                   // 验证 addListener 方法被调用
+                   verify(database).addListener(any(ArticleListener.class));
+           }
+    }
 
 1. 创建ArticleManager实例并注入Mock对象
 
@@ -308,65 +308,65 @@ Mockito 会跟踪 mock 对象里面所有的方法和变量。所以我们可以
 
 `ArgumentCaptor`类允许我们在verification期间访问方法的参数。得到方法的参数后我们可以使用它进行测试。
 
-    import static org.hamcrest.Matchers.hasItem;
-    import static org.junit.Assert.assertThat;
-    import static org.mockito.Mockito.mock;
-    import static org.mockito.Mockito.verify;
+    import static org.hamcrest.Matchers.hasItem;
+    import static org.junit.Assert.assertThat;
+    import static org.mockito.Mockito.mock;
+    import static org.mockito.Mockito.verify;
 
-    import java.util.Arrays;
-    import java.util.List;
+    import java.util.Arrays;
+    import java.util.List;
 
-    import org.junit.Rule;
-    import org.junit.Test;
-    import org.mockito.ArgumentCaptor;
-    import org.mockito.Captor;
-    import org.mockito.junit.MockitoJUnit;
-    import org.mockito.junit.MockitoRule;
+    import org.junit.Rule;
+    import org.junit.Test;
+    import org.mockito.ArgumentCaptor;
+    import org.mockito.Captor;
+    import org.mockito.junit.MockitoJUnit;
+    import org.mockito.junit.MockitoRule;
 
-    public class MockitoTests {
+    public class MockitoTests {
 
-            @Rule public MockitoRule rule = MockitoJUnit.rule();
+            @Rule public MockitoRule rule = MockitoJUnit.rule();
 
-            @Captor
-        private ArgumentCaptor> captor;
+            @Captor
+        private ArgumentCaptor> captor;
 
-            @Test
-        public final void shouldContainCertainListItem() {
-            List asList = Arrays.asList("someElement_test", "someElement");
-            final List mockedList = mock(List.class);
-            mockedList.addAll(asList);
+            @Test
+        public final void shouldContainCertainListItem() {
+            List asList = Arrays.asList("someElement_test", "someElement");
+            final List mockedList = mock(List.class);
+            mockedList.addAll(asList);
 
-            verify(mockedList).addAll(captor.capture());
-            final List capturedArgument = captor.>getValue();
-            assertThat(capturedArgument, hasItem("someElement"));
-        }
-    }
+            verify(mockedList).addAll(captor.capture());
+            final List capturedArgument = captor.>getValue();
+            assertThat(capturedArgument, hasItem("someElement"));
+        }
+    }
 
 
 ### 4.8\. Mockito的限制
 
 Mockito当然也有一定的限制。而下面三种数据类型则不能够被测试
 
-*   final classes
+*   final classes
 
-*   anonymous classes
+*   anonymous classes
 
-*   primitive types
+*   primitive types
 
  
 ## 5\. 在Android中使用Mockito
 
 在 Android 中的 Gradle 构建文件中加入 Mockito 依赖后就可以直接使用 Mockito 了。若想使用 Android Instrumented tests 的话，还需要添加 dexmaker 和 dexmaker-mockito 依赖到 Gradle 的构建文件中。（需要 Mockito 1.9.5版本以上）
 
-    dependencies {
-        testCompile 'junit:junit:4.12'
-        // Mockito unit test 的依赖
-        testCompile 'org.mockito:mockito-core:1.+'
-        // Mockito Android instrumentation tests 的依赖
-        androidTestCompile 'org.mockito:mockito-core:1.+'
-        androidTestCompile "com.google.dexmaker:dexmaker:1.2"
-        androidTestCompile "com.google.dexmaker:dexmaker-mockito:1.2"
-    }
+    dependencies {
+        testCompile 'junit:junit:4.12'
+        // Mockito unit test 的依赖
+        testCompile 'org.mockito:mockito-core:1.+'
+        // Mockito Android instrumentation tests 的依赖
+        androidTestCompile 'org.mockito:mockito-core:1.+'
+        androidTestCompile "com.google.dexmaker:dexmaker:1.2"
+        androidTestCompile "com.google.dexmaker:dexmaker-mockito:1.2"
+    }
 
 
 ## 6\. 实例：使用Mockito写一个Instrumented Unit Test
@@ -376,32 +376,32 @@ Mockito当然也有一定的限制。而下面三种数据类型则不能够被�
 创建一个包名为`com.vogella.android.testing.mockito.contextmock`的Android应用，添加一个静态方法
 ，方法里面创建一个包含参数的Intent，如下代码所示：
 
-    public static Intent createQuery(Context context, String query, String value) {
-        // 简单起见，重用MainActivity
-        Intent i = new Intent(context, MainActivity.class);
-        i.putExtra("QUERY", query);
-        i.putExtra("VALUE", value);
-        return i;
-    }
+    public static Intent createQuery(Context context, String query, String value) {
+        // 简单起见，重用MainActivity
+        Intent i = new Intent(context, MainActivity.class);
+        i.putExtra("QUERY", query);
+        i.putExtra("VALUE", value);
+        return i;
+    }
 
 
 ### 6.2\. 在app/build.gradle文件中添加Mockito依赖
 
-    dependencies {
-        // Mockito 和 JUnit 的依赖
-        // instrumentation unit tests on the JVM
-        androidTestCompile 'junit:junit:4.12'
-        androidTestCompile 'org.mockito:mockito-core:2.0.57-beta'
-        androidTestCompile 'com.android.support.test:runner:0.3'
-        androidTestCompile "com.google.dexmaker:dexmaker:1.2"
-        androidTestCompile "com.google.dexmaker:dexmaker-mockito:1.2"
+    dependencies {
+        // Mockito 和 JUnit 的依赖
+        // instrumentation unit tests on the JVM
+        androidTestCompile 'junit:junit:4.12'
+        androidTestCompile 'org.mockito:mockito-core:2.0.57-beta'
+        androidTestCompile 'com.android.support.test:runner:0.3'
+        androidTestCompile "com.google.dexmaker:dexmaker:1.2"
+        androidTestCompile "com.google.dexmaker:dexmaker-mockito:1.2"
 
-        // Mockito 和 JUnit 的依赖
-        // tests on the JVM
-        testCompile 'junit:junit:4.12'
-        testCompile 'org.mockito:mockito-core:1.+'
+        // Mockito 和 JUnit 的依赖
+        // tests on the JVM
+        testCompile 'junit:junit:4.12'
+        testCompile 'org.mockito:mockito-core:1.+'
 
-    }
+    }
 
  
 ### 6.3\. 创建测试
@@ -410,32 +410,32 @@ Mockito当然也有一定的限制。而下面三种数据类型则不能够被�
 
 因此我们需要使用 Mockito 来 mock 一个`Context`对象，如下代码所示：
 
-    package com.vogella.android.testing.mockitocontextmock;
+    package com.vogella.android.testing.mockitocontextmock;
 
-    import android.content.Context;
-    import android.content.Intent;
-    import android.os.Bundle;
+    import android.content.Context;
+    import android.content.Intent;
+    import android.os.Bundle;
 
-    import org.junit.Test;
-    import org.junit.runner.RunWith;
-    import org.mockito.Mockito;
+    import org.junit.Test;
+    import org.junit.runner.RunWith;
+    import org.mockito.Mockito;
 
-    import static org.junit.Assert.assertEquals;
-    import static org.junit.Assert.assertNotNull;
+    import static org.junit.Assert.assertEquals;
+    import static org.junit.Assert.assertNotNull;
 
-    public class TextIntentCreation {
+    public class TextIntentCreation {
 
-        @Test
-        public void testIntentShouldBeCreated() {
-            Context context = Mockito.mock(Context.class);
-            Intent intent = MainActivity.createQuery(context, "query", "value");
-            assertNotNull(intent);
-            Bundle extras = intent.getExtras();
-            assertNotNull(extras);
-            assertEquals("query", extras.getString("QUERY"));
-            assertEquals("value", extras.getString("VALUE"));
-        }
-    }
+        @Test
+        public void testIntentShouldBeCreated() {
+            Context context = Mockito.mock(Context.class);
+            Intent intent = MainActivity.createQuery(context, "query", "value");
+            assertNotNull(intent);
+            Bundle extras = intent.getExtras();
+            assertNotNull(extras);
+            assertEquals("query", extras.getString("QUERY"));
+            assertEquals("value", extras.getString("VALUE"));
+        }
+    }
 
 
 ## 7\. 实例：使用 Mockito 创建一个 mock 对象
@@ -448,20 +448,20 @@ Mockito当然也有一定的限制。而下面三种数据类型则不能够被�
 
 实现 `TwitterClient`类，它内部使用到了 `ITweet` 的实现。但是`ITweet`实例很难得到，譬如说他需要启动一个很复杂的服务来得到。
 
-    public interface ITweet {
+    public interface ITweet {
 
-            String getMessage();
-    }
+            String getMessage();
+    }
 
 
-    public class TwitterClient {
+    public class TwitterClient {
 
-            public void sendTweet(ITweet tweet) {
-                    String message = tweet.getMessage();
+            public void sendTweet(ITweet tweet) {
+                    String message = tweet.getMessage();
 
-                    // send the message to Twitter
-            }
-    }
+                    // send the message to Twitter
+            }
+    }
 
 
 ### 7.3\. 模拟 ITweet 的实例
@@ -469,16 +469,16 @@ Mockito当然也有一定的限制。而下面三种数据类型则不能够被�
 为了能够不启动复杂的服务来得到 `ITweet`，我们可以使用 Mockito 来模拟得到该实例。
 
 
-    @Test
-    public void testSendingTweet() {
-            TwitterClient twitterClient = new TwitterClient();
+    @Test
+    public void testSendingTweet() {
+            TwitterClient twitterClient = new TwitterClient();
 
-            ITweet iTweet = mock(ITweet.class);
+            ITweet iTweet = mock(ITweet.class);
 
-            when(iTweet.getMessage()).thenReturn("Using mockito is great");
+            when(iTweet.getMessage()).thenReturn("Using mockito is great");
 
-            twitterClient.sendTweet(iTweet);
-    }
+            twitterClient.sendTweet(iTweet);
+    }
 
 
 现在 `TwitterClient` 可以使用 `ITweet` 接口的实现，当调用 `getMessage()` 方法的时候将会打印 "Using Mockito is great" 信息。
@@ -487,18 +487,18 @@ Mockito当然也有一定的限制。而下面三种数据类型则不能够被�
 
 确保 getMessage() 方法至少调用一次。
 
-    @Test
-    public void testSendingTweet() {
-            TwitterClient twitterClient = new TwitterClient();
+    @Test
+    public void testSendingTweet() {
+            TwitterClient twitterClient = new TwitterClient();
 
-            ITweet iTweet = mock(ITweet.class);
+            ITweet iTweet = mock(ITweet.class);
 
-            when(iTweet.getMessage()).thenReturn("Using mockito is great");
+            when(iTweet.getMessage()).thenReturn("Using mockito is great");
 
-            twitterClient.sendTweet(iTweet);
+            twitterClient.sendTweet(iTweet);
 
-            verify(iTweet, atLeastOnce()).getMessage();
-    }
+            verify(iTweet, atLeastOnce()).getMessage();
+    }
 
 
 ### 7.5\. 验证
@@ -511,40 +511,40 @@ Mockito当然也有一定的限制。而下面三种数据类型则不能够被�
 
 因为 Mockito 不能够 mock 静态方法，因此我们可以使用 `Powermock`。
 
-    import java.net.InetAddress;
-    import java.net.UnknownHostException;
+    import java.net.InetAddress;
+    import java.net.UnknownHostException;
 
-    public final class NetworkReader {
-        public static String getLocalHostname() {
-            String hostname = "";
-            try {
-                InetAddress addr = InetAddress.getLocalHost();
-                // Get hostname
-                hostname = addr.getHostName();
-            } catch ( UnknownHostException e ) {
-            }
-            return hostname;
-        }
-    }
+    public final class NetworkReader {
+        public static String getLocalHostname() {
+            String hostname = "";
+            try {
+                InetAddress addr = InetAddress.getLocalHost();
+                // Get hostname
+                hostname = addr.getHostName();
+            } catch ( UnknownHostException e ) {
+            }
+            return hostname;
+        }
+    }
 
 我们模拟了 NetworkReader 的依赖，如下代码所示：
 
-    import org.junit.runner.RunWith;
-    import org.powermock.core.classloader.annotations.PrepareForTest;
+    import org.junit.runner.RunWith;
+    import org.powermock.core.classloader.annotations.PrepareForTest;
 
-    @RunWith( PowerMockRunner.class )
-    @PrepareForTest( NetworkReader.class )
-    public class MyTest {
+    @RunWith( PowerMockRunner.class )
+    @PrepareForTest( NetworkReader.class )
+    public class MyTest {
 
-    // 测试代码
+    // 测试代码
 
-     @Test
-    public void testSomething() {
-        mockStatic( NetworkUtil.class );
-        when( NetworkReader.getLocalHostname() ).andReturn( "localhost" );
+     @Test
+    public void testSomething() {
+        mockStatic( NetworkUtil.class );
+        when( NetworkReader.getLocalHostname() ).andReturn( "localhost" );
 
-        // 与 NetworkReader 协作的测试
-    }
+        // 与 NetworkReader 协作的测试
+    }
 
 
 ### 8.2\.用封装的方法代替Powermock  
