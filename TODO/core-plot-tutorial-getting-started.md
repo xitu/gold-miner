@@ -398,7 +398,7 @@ You’re plotting pie charts like a pro, but it’s time you raised the bar (gra
 
 
 
-其实就和饼图一样，托管视图将把承载这个柱状图的展示。
+其实就和饼图一样，托管视图将承载这个柱状图的展示。
 
 下一步，添加下面这些属性：
 
@@ -619,7 +619,7 @@ _X = 0, Y = 53, Width = 600, Height = 547_
 
 虽然还不可以看到柱状图展示出来，但通过构建app可以去验证目前为止是否所有代码都可以正确编译通过。
 
-为了确切看到柱状图展示数据出来，需要去实现代提供图表所需数据的代理方法。
+为了确切看到柱状图展示数据出来，需要去实现提供图表所需数据的代理方法。
 
 用下面这行替换掉`numberOfRecordsForPlot(:_)`：
 
@@ -856,7 +856,7 @@ _X = 0, Y = 53, Width = 600, Height = 547_
 
 你可以从[这里](https://cdn1.raywenderlich.com/wp-content/uploads/2016/05/SwiftRates_Final-1.zip)下载一个已完成的项目。
 
-哇哦，相当有趣！希望这个教程重点介绍了 Core Plot 的强大功能并提示了你该怎么在你自己的apps里使用它。
+哇哦，相当有趣！这个教程重点介绍了 Core Plot 的强大功能并希望提示了你该怎么在你自己的apps里使用它。
 
 当然还可以参考[Core Plot](https://github.com/core-plot/core-plot)仓库获取更多的信息，包括文档，例子和一些小贴士。
 
