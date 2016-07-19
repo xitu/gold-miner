@@ -462,8 +462,9 @@ Once you understand all the steps, it’s quite simple. Here they are, summarize
 2.  Run the tests locally in one or two browsers to make sure they work.
 
 **一开始的手工过程：**
-1. 把你的单元测试写到一个文件里面，然后把这个文件放进一个HTML页面里。
-2. 在本地的一两个浏览器里运行这些单元测试以确保它们没有bug。
+
+1.  把你的单元测试写到一个文件里面，然后把这个文件放进一个HTML页面里。
+2.  在本地的一两个浏览器里运行这些单元测试以确保它们没有bug。
 
 **Adding automation to the process:**
 
@@ -475,12 +476,13 @@ Once you understand all the steps, it’s quite simple. Here they are, summarize
 6.  Report the results.
 
 **把手工过程自动化：**
-1. 创建一个开源的Sauce Labs账户并记下用户名和密码。
-2. 更新你的HTML页面让Sauce Labs可以从JavaScript的全局变量中读取测试结果。
-3. 用ngrok来创建一个公共URL。
-4. 调用Start JS Unit Tests来运行你的代码。
-5. 调用Get JS Unit Test Status来不停地获取测试状态直到测试结束。
-6. 报告结果。
+
+1.  创建一个开源的Sauce Labs账户并记下用户名和密码。
+2.  更新你的HTML页面让Sauce Labs可以从JavaScript的全局变量中读取测试结果。
+3.  用ngrok来创建一个公共URL。
+4.  调用Start JS Unit Tests来运行你的代码。
+5.  调用Get JS Unit Test Status来不停地获取测试状态直到测试结束。
+6.  报告结果。
 
 ## Making it even easier
 ## 敢不敢再简单一点？！
