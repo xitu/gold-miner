@@ -1,392 +1,407 @@
->* 原文链接 : [Build Tic Tac Toe with AI Using Swift](https://medium.com/swift-programming/build-tic-tac-toe-with-ai-using-swift-25c5cd3085c9)
-* 原文作者 : [Keith Elliott](https://medium.com/@mrkeithelliott)
-* 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者:
+> * 原文链接 : [Build Tic Tac Toe with AI Using Swift](https://medium.com/swift-programming/build-tic-tac-toe-with-ai-using-swift-25c5cd3085c9)
+> * 原文作者 : [Keith Elliott](https://medium.com/@mrkeithelliott)
+> * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 译者 : [Nicolas(Yifei) Li](https://github.com/yifili09) 
+> * 校对者: [cyseria](https://github.com/cyseria), [jamweak](https://github.com/jamweak)
 
 
-### Build Tic Tac Toe with AI Using Swift
+### 用 `Swift` 创建有AI(人工智能)的 `Tic Tac Toe` 游戏
 
-I have a fascination and deep passion for learning. Recently, I developed a hypothesis that I could apply the principles of game making to app development to improve experiences for my users. Lots of people throw around terms like “Gamification” as buzzwords that will cure the ails of your application by delighting your users into wanting to interact and engage more with whatever it is that your app offers. We won’t debate that today (I won’t even bring up the question of if the promoters of adding game-like behaviors to apps even play games). Instead, we’ll build a game using SpriteKit, GameplayKit, and Swift.
+我对（自我）学习有着很强的热情并且非常着迷。最近，我提出了一个利用制作游戏的理论应用到应用程序开发中来提高用户体验的假说。很多人提出“游戏化”这类的流行词，通过应用程序与用户之间的交互，以及让用户主动参与的方式去取悦用户，达到解决应用程序的痛点的难题。无论你的应用程序到底提供了什么内容。我们今天不会讨论这个（我甚至都不会提起增加游戏感行为的倡导者们是否玩游戏这样的问题。） 取而代之，我们会使用 `SpriteKit`，`GameplayKit` 和 `Swift` 来建立一个游戏。
 
-#### Throttling Expectations Now
+#### 抑制下你的期望
 
-Before you get carried away with ambitions of building a chart topping hit, I want to tell you that’s not our objective today. We are going to just skim the surface and build a simple game of Tic Tac Toe. After we get things working, we will add in AI to allow you to play against a computer controlled opponent.
+在你野心勃勃（准备）创建一个高居榜单的应用程序之前，我要告诉你这不是我们今天的目标。我们准备只看冰山一角，创建一个简单的井字游戏 [Tic Tac Toe](http://playtictactoe.org)。在我们着手工作后，我会增加一个由计算机控制的AI（人工智能）　对手（供）允许你对战。
 
-### Part 1 — The Elements
+### 第一部分 - 原理
 
-Apple launched SpriteKit during WWDC 2013 to give developers an approachable way to build games quicker than the “roll-your-own” framework alternatives. Since games are the most downloaded type of app on the Apple ecosystem, it’s no surprise that Apple has a strong commitment to the gaming community and a huge vested interest in making it easy for developers to create new games for iOS, macOS, watchOS, and tvOS.
+Apple 公司在召开 WWDC2013 期间发布了 `SpriteKit`，这给开发者一个比玩转自己（创建的）框架更快建立游戏应用程序的可选方案。由于游戏应用程序这个类别在 Apple 的生态系统中占据了大部分的下载量，这就一点儿都不奇怪 Apple 公司致力于游戏社区的发展并且从让程序开发者们更加简单的创建新的 iOS，macOS，watchOS 和 tvOS 游戏获得巨大的利益。
 
-SpriteKit is a framework that handles rendering and animating graphics and images, which are also commonly referred to as sprites. As a developer, you determine which things change, and SpriteKit handles the work involved with displaying those changes. You can read more about SpriteKit [here](https://developer.apple.com/library/mac/documentation/SpriteKit/Reference/SpriteKitFramework_Ref/index.html). I also encourage you to read the [SpriteKit Programming Guide](https://developer.apple.com/library/mac/documentation/GraphicsAnimation/Conceptual/SpriteKit_PG/Introduction/Introduction.html#//apple_ref/doc/uid/TP40013043-CH1-SW1) to get more details on the many other features the framework offers such as handling audio playback and sprite physics.
+`SpriteKit` 也通常被引用为 `sprites`，是一个处理渲染，图形动画和图片的框架。作为一个程序开发者，你决定了改变什么，`SpriteKit` 就去处理显示这些变化的工作。你能在[这里](https://developer.apple.com/library/mac/documentation/SpriteKit/Reference/SpriteKitFramework_Ref/index.html)读到更多有关SpriteKit的内容。我也强烈推荐你去阅读 [SpriteKit编程指导](https://developer.apple.com/library/mac/documentation/GraphicsAnimation/Conceptual/SpriteKit_PG/Introduction/Introduction.html#//apple_ref/doc/uid/TP40013043-CH1-SW1) 获取更多框架提供的其他特性，例如处理声音的播放和 `Sprite` 物理模型。
 
-SpriteKit handles the run loop for your game and provides several places for you as the developer to update your game on each frame. The following diagram shows what’s happening during each frame from the beginning update through the final render of the frame. Essentially, you have a lot of options to tweak your game during each frame.
+`SpriteKit` 处理你游戏的运行循环并提供多个地方让开发者在每一帧更新游戏内容。下图展示了每一帧从开始更新到最终渲染发生了什么。本质上来说，在每一帧你有很多机会来调整你的游戏。
 
 ![](http://ww3.sinaimg.cn/large/a490147fjw1f5s9ffdorqj20hn0bmt9o.jpg)
 
-The other framework will work with is [GameplayKit](https://developer.apple.com/reference/gameplaykit). GameplayKit was introduced at last year’s WWDC and offers useful API for implementing some of the common elements you find in games like creating random numbers, artificial intelligence for your opponents, or pathfinding around obstacles. They are extremely useful tools that do some serious heavy lifting and allow game developers to focus on the aspects that make their games fun. I highly recommend that you read the [GameplayKit Programming Guide](https://developer.apple.com/library/prerelease/content/documentation/General/Conceptual/GameplayKit_Guide/index.html#//apple_ref/doc/uid/TP40015172) to learn more about how to build your game to take advantage of this framework. For our simple game, we will only incorporate a small part for the framework to give our computer opponent some “smarts”.
+[GameplayKit](https://developer.apple.com/reference/gameplaykit) 是另外一个能使用的框架。 `GameplayKit` 是在去年的 WWDC 被引进的，它提供了很多制作游戏使用的通用方法的实现，例如创建随机数，创建人工智能对手，或者障碍物的寻路系统。他们是非常有用的工具，能做很多繁重的工作并且让游戏应用程序的开发者把精力放在怎么制作更有趣的游戏。我强烈推荐你阅读[GameplayKit编程指导](https://developer.apple.com/library/prerelease/content/documentation/General/Conceptual/GameplayKit_Guide/index.html#//apple_ref/doc/uid/TP40015172)　去学习怎样利用这些框架中的技巧。回到我们这个简单的游戏，我们将只包含框架中的一小部分内容让我们的计算机对手更加“聪明”。
 
-#### Launching Xcode
+#### 启动 Xcode
 
 ![](http://ww3.sinaimg.cn/large/a490147fjw1f5s9ge6xqvg20m80dwdxq.gif)
 
-Launch Xcode and create a Game project from the template for iOS. Name your game TicTacToe and make sure the language is set to Swift. During the project creation, Xcode creates a SKScene file that represents your initial view for your game along with a view controller file that initializes your game scene and handles presenting on screen when you launch the app. If you run the app now, you will see a Hello World label that displays to let you know that everything works out of the box. In addition, if you click the view, a space ship gets added to the location of the click. We don’t need the label or the space ship behavior anymore, so let’s remove that code. Switch to the GameScene.swift file, remove the code in didMoveToView and touchesBegan functions.
+启动 XCode 并且通过为 iOS 设计的模板创建一个游戏项目。 命名游戏为 `TicTacToe` 并且确认编程语言设定为 `Swift`。在项目的创建过程中，　XCode 创建了 `SKScene` 文件，它展示了游戏的初始视图，连同一个视图控制器文件用于初始化你的游戏场景并且处理在应用程序启动的时候展现在屏幕上。如果你现在启动应用程序，你会看到Hello World标签，它让你所有的东西都立即可以使用了。另外，如果你点击了视图，一个宇宙飞船会增加在你点击的位置。我们已经不再需要那个标签和宇宙飞船了，让我们移除那部分代码。切换到 `GameScene.swift` 文件，移除 `didMoveToView` 和 `touchesBegan` 方法中的代码。
 
 ![](http://ww3.sinaimg.cn/large/a490147fjw1f5s9hnffbmj20m80angoe.jpg)
 
-Let’s spend a moment and highlight some of the features of the Scene Editor. The center of the view is the scene display, and the yellow outline around our tic tac toe board represents our view port that is visible for our game. We can can change the size of our view port or even add cameras that allow us to see more of the viewable parts of our game in realtime. In a “platformer”, we might create a large background image with enemy nodes scattered throughout the scene. We would use a camera node to advance across the scene to reveal new portions of the background over time. However, in this game, our view will be static around the board.
+让我们来花点时间并强调一些场景编辑器的特性。视图的中心是显示了场景，黄色的轮廓围绕着我们的　tic tac toe　游戏棋盘展现了我们的视口，它让我们的游戏可见。我们能改变游戏的视口或者增加摄像机，让我们实时得看见更多游戏的内容。在 `platformer` 中，我们也可以创建一个很大的很多敌人点散列在场景终的背景图片。我们也可以使用一个摄像机节点横跨整个场景随着时间去显示更多新的背景部分。然而，对于这个游戏，我们的视图将会时静止在棋盘附近。
 
 ![](http://ww4.sinaimg.cn/large/a490147fjw1f5s9hyl7ocj20m80dvwgg.jpg)
 
-At the bottom of the scene is our node editor. We can use this editor to add actions to the node or to select them more easily in our scene. For our purposes, we add a node to represent the board, labels, and placeholder nodes for each cell of the board. Last, notice that every node in our scene has a name, which we will use to reference in code.
+场景的底部是节点编辑器。我们可以使用这个编辑器为节点增加功能或者在场景中更容易的选择他们。我们用增加一个节点来表示游戏棋盘，标签和每一格游戏棋盘的占位节点。最后，每一个在场景中的节点都有一个名字，它用于在代码中引用回去。
 
-I have provided the entire game on [Github](https://github.com/mrkeithelliott/tictactoe) so that you can follow along and investigate the areas that I am glossing over for the sake of time in this article.
+为了考虑写这篇文章的时间我已经将整个游戏项目提交到了 [Github](https://github.com/mrkeithelliott/tictactoe)，所以你可以追随并且研究我略过的这个区域。
 
-#### Back to the Code
+#### 回到代码
 
-Let’s switch back to GameViewController.swift to see how we setup our scene and get our game going. In our viewDidLoad method we configure and load our scene. We also add debug statements so that we can track our node and frames per second counts. In an action game, we would be interested in monitoring how many nodes are on the screen at one time along with if we are maintaining an ideal 60fps frame rate.
+让我们切换回到 `GameViewController.swift` 去看看怎样建立我们的场景和让我们的游戏干点事情。在 `viewDidLoad` 方法中我们配置并且装载我们的场景。我们也增加了调试语句所以我们能追踪代码和每秒多少帧。在一个动作游戏中，我们对监控每秒钟多少个节点同时出现在屏幕上连同我们是否可以保持理想上的60fps的帧率感兴趣。
 
+```
     override func viewDidLoad() {
-            super.viewDidLoad()
+      super.viewDidLoad()
 
-            if let scene = GameScene(fileNamed:"GameScene") {
-                // Configure the view.
-                let skView = self.view as! SKView
-                skView.showsFPS = true
-                skView.showsNodeCount = true
+      if let scene = GameScene(fileNamed:"GameScene") {
+        // Configure the view.
+        let skView = self.view as! SKView
+        skView.showsFPS = true
+        skView.showsNodeCount = true
 
-                /* Sprite Kit applies additional optimizations to improve rendering performance */
-                skView.ignoresSiblingOrder = true
+        /* Sprite Kit applies additional optimizations to improve rendering performance */
+        skView.ignoresSiblingOrder = true
 
-                /* Set the scale mode to scale to fit the window */
-                scene.scaleMode = .AspectFill
+        /* Set the scale mode to scale to fit the window */
+        scene.scaleMode = .AspectFill
 
-                skView.presentScene(scene)
-            }
+        skView.presentScene(scene)
+      }
     }
+```
 
-Looking at the GameScene.swift file, we need to examine three methods for our game: didMoveToView, touchesBegan, and update. The didMoveToView method gets called when the scene is about to display in our view controller’s view. What’s cool about our GameScene view is that we have many options for accessing the nodes in our scene. In our method, we initialize our scene by removing the background color of the cells of our board. We also do a few other things, but we will hold off on discussing that until a little later in the article.
+再看 `GameScene.swift` 文件，我们需要检查以下三个方法: `didMoveToView`, `tochesBegan` 和 `update`。当场景既要显示在我们的视图控制器的视图内时，`didMoveToView` 方法被调用。我们的 `GameScene` 视图最炫的是我们有好几种选择访问视图里的节点。在我们的方法里，我们通过移除游戏棋盘单元格背景的颜色初始化场景。我们也干了点其他事情，但是我们将在之后的文章里面讨论这些。
 
+```
     override func didMoveToView(view: SKView) {
-            /* Setup your scene here */
-            self.enumerateChildNodesWithName("//grid*") { (node, stop) in
-                if let node = node as? SKSpriteNode{
-                    node.color = UIColor.clearColor()
-                }
-            }
+      /* Setup your scene here */
+      self.enumerateChildNodesWithName("//grid*") { (node, stop) in
+        if let node = node as? SKSpriteNode{
+          node.color = UIColor.clearColor()
+        }
+      }
 
-            let top_left: BoardCell  = BoardCell(value: .None, node: "//*top_left")
-            let top_middle: BoardCell = BoardCell(value: .None, node: "//*top_middle")
-            let top_right: BoardCell = BoardCell(value: .None, node: "//*top_right")
-            let middle_left: BoardCell = BoardCell(value: .None, node: "//*middle_left")
-            let center: BoardCell = BoardCell(value: .None, node: "//*center")
-            let middle_right: BoardCell = BoardCell(value: .None, node: "//*middle_right")
-            let bottom_left: BoardCell = BoardCell(value: .None, node: "//*bottom_left")
-            let bottom_middle: BoardCell = BoardCell(value: .None, node: "//*bottom_middle")
-            let bottom_right: BoardCell = BoardCell(value: .None, node: "//*bottom_right")
+      let top_left: BoardCell  = BoardCell(value: .None, node: "//*top_left")
+      let top_middle: BoardCell = BoardCell(value: .None, node: "//*top_middle")
+      let top_right: BoardCell = BoardCell(value: .None, node: "//*top_right")
+      let middle_left: BoardCell = BoardCell(value: .None, node: "//*middle_left")
+      let center: BoardCell = BoardCell(value: .None, node: "//*center")
+      let middle_right: BoardCell = BoardCell(value: .None, node: "//*middle_right")
+      let bottom_left: BoardCell = BoardCell(value: .None, node: "//*bottom_left")
+      let bottom_middle: BoardCell = BoardCell(value: .None, node: "//*bottom_middle")
+      let bottom_right: BoardCell = BoardCell(value: .None, node: "//*bottom_right")
 
-            let board = [top_left, top_middle, top_right, middle_left, center, middle_right, bottom_left, bottom_middle, bottom_right]
+      let board = [top_left, top_middle, top_right, middle_left, center, middle_right, bottom_left, bottom_middle, bottom_right]
 
-            gameBoard = Board(gameboard: board)
+      gameBoard = Board(gameboard: board)
+  }
+```
+
+下一个我们讨论的方法是 `touchesBegan`。这个方法处理用户选择移动和重置游戏的触摸事件。对场景上的每一个触摸事件，我们决定他们在场景上的位置和哪一个节点被选中。就我们的情况来说，我们要么放置玩家的棋子在一个单元格里，要么重置游戏。我们也更新内部的游戏棋盘状态。
+
+```
+  override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {        
+    for touch in touches {
+      let location = touch.locationInNode(self)
+      let selectedNode = self.nodeAtPoint(location)
+      var node: SKSpriteNode
+
+      if let name = selectedNode.name {
+        if name == "Reset" || name == "reset_label"{
+          self.stateMachine.enterState(StartGameState.self)
+          return
+        }
+      }
+
+      if gameBoard.isPlayerOne(){
+        let cross = SKSpriteNode(imageNamed: "X_symbol")
+        cross.size = CGSize(width: 75, height: 75)
+        cross.zRotation = CGFloat(M_PI / 4.0)
+        node = cross
+      }
+      else{
+        let circle = SKSpriteNode(imageNamed: "O_symbol")
+        circle.size = CGSize(width: 75, height: 75)
+        node = circle
+      }
+
+      for i in 0...8{
+        guard let cellNode: SKSpriteNode = self.childNodeWithName(gameBoard.getElementAtBoardLocation(i).node) as? SKSpriteNode else{
+            return
+        }
+        if selectedNode.name == cellNode.name{
+          cellNode.addChild(node)
+          gameBoard.addPlayerValueAtBoardLocation(i, value: gameBoard.isPlayerOne() ? .X : .O)
+          gameBoard.togglePlayer()
+        }
+      }
     }
+  }
+```
 
-The next method we discuss is the touchesBegan method. This method handles our user touches for selecting our moves and reseting the game. For each touch on the scene, we determine the location on the screen and which node was selected. For our case we either place our player’s piece in a cell or we reset the game. We also update the internal state of our game board.
+最后需要被重写的方法是 `update`。这个方法在游戏中的每一帧都被调用并且是触发我们游戏逻辑处理的地方。我们使用 `GameplayKit` 的状态机(`StateMachine`)处理我们的游戏逻辑。
 
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {        
-            for touch in touches {
-                let location = touch.locationInNode(self)
-                let selectedNode = self.nodeAtPoint(location)
-                var node: SKSpriteNode
+```
+  override func update(currentTime: CFTimeInterval) {
+    /* Called before each frame is rendered */
+    self.stateMachine.updateWithDeltaTime(currentTime)
+  }
+```
 
-                if let name = selectedNode.name {
-                    if name == "Reset" || name == "reset_label"{
-                        self.stateMachine.enterState(StartGameState.self)
-                        return
-                    }
-                }
+### 第二部分 - 游戏逻辑
 
-                if gameBoard.isPlayerOne(){
-                    let cross = SKSpriteNode(imageNamed: "X_symbol")
-                    cross.size = CGSize(width: 75, height: 75)
-                    cross.zRotation = CGFloat(M_PI / 4.0)
-                    node = cross
-                }
-                else{
-                    let circle = SKSpriteNode(imageNamed: "O_symbol")
-                    circle.size = CGSize(width: 75, height: 75)
-                    node = circle
-                }
+到目前为止，我们已经涉及掌握了建立（游戏如何）显示的内容，我们将开始涉及足够你能自己开发一个游戏的游戏逻辑。
 
-                for i in 0...8{
-                    guard let cellNode: SKSpriteNode = self.childNodeWithName(gameBoard.getElementAtBoardLocation(i).node) as? SKSpriteNode else{
-                        return
-                    }
-                    if selectedNode.name == cellNode.name{
-                        cellNode.addChild(node)
-                        gameBoard.addPlayerValueAtBoardLocation(i, value: gameBoard.isPlayerOne() ? .X : .O)
-                        gameBoard.togglePlayer()
-                    }
-                }
-            }
-    }
+#### 状态机(StateMachines)
 
-The last method we need to override is the update function. This method is called for every frame of our game and it is where we trigger our game logic. We are using GameplayKit’s StateMachine to handle our game logic.
-
-    override func update(currentTime: CFTimeInterval) {
-            /* Called before each frame is rendered */
-            self.stateMachine.updateWithDeltaTime(currentTime)
-    }
-
-### Part 2 — GameLogic
-
-Now that we have covered setting up our displays, we will cover enough of the game logic to get you started with a game of your own.
-
-#### StateMachines
-
-Most games have logic that only applies for the current state of the gameplay. As the state changes, so does the required logic. This boils down to dealing with state machines. GameplayKit offers a state machine implementation that we will use with our game. Let’s look at GameStateMachine.swift to see my implementation for controlling the state in our game. I’ve created three states for our game: StartGameState, ActiveGameState, and EndGameState which all inherit from GKState. For our state machine to work, we need to provide valid next states for each along with an update method that our state machine will call with each frame’s update. On each update, our state machine will call the updateWithDeltaTime method for the active state.
+大部分游戏的逻辑仅仅是请求当前游戏设置的状态。随着状态的改变，所以逻辑也需要改变。这也就归结为（怎么）对待状态机。我们将使用 `GameplyKit` 提供的一种状态机的实现在我们的游戏里。让我们看看我实现的 `GameStateMachine.swift` 去控制游戏中的状态。我为我们的游戏创建了三个状态: `StartGameState`，　`ActiveGameState` 和 `EndGameState`，他们都从自 `GKState` 继承来。为了让我们的状态机工作，我们必须为每一个（状态）提供有效的下一个状态连同一个更新（状态）的方法，我们的状态机将同每一个帧更新的同时调用这个方法。在每一个更新时，我们的状态机会为活动的状态调用 `updateWithDeltaTime` 方法。
 
 ![](http://ww2.sinaimg.cn/large/a490147fjw1f5s9j8vludj20l803i0t2.jpg)
 
-The StartGameState is how we begin our game. In this state we reset our game board and then transition to the ActiveGameState. We override the isValidNextState function to make the only valid next state the ActiveGameState. So, when we are in the StartGameState, we can only go here and are prevented from entering any other state. State machines also have a didEnterWithPreviousState function that gets called when the implementing state becomes active. It also provides you with the state you’re coming from. In our case, we call our resetGame function to set up our game.
+ `StartGameState`是我们如何开始游戏（的状态）。在这个状态行下我们重置游戏棋盘并且在之后转换到 `ActiveGameState`。我们重写 `isValidNextState` 函数确保只有 `ActiveGameState` 是下一个有效的状态。所以，当我们在 `StartGameState`（状态下）， 我们只能去那里并且避免进入到其他状态。状态机也有一个 `didEnterWithPreviousState` 的函数被调用当正在执行的状态被激活。它也提供给你这个状态来自哪里。就我们的情况来说，我们调用 `resetGame` 函数去建立我们的游戏。
 
+```
     class StartGameState: GKState{
-        var scene: GameScene?
-        var winningLabel: SKNode!
-        var resetNode: SKNode!
-        var boardNode: SKNode!
+      var scene: GameScene?
+      var winningLabel: SKNode!
+      var resetNode: SKNode!
+      var boardNode: SKNode!
 
-        init(scene: GameScene){
-            self.scene = scene
-            super.init()
+      init(scene: GameScene){
+        self.scene = scene
+        super.init()
+      }
+
+      override func isValidNextState(stateClass: AnyClass) -> Bool {
+        return stateClass == ActiveGameState.self
+      }
+
+      override func updateWithDeltaTime(seconds: NSTimeInterval) {
+        resetGame()
+        self.stateMachine?.enterState(ActiveGameState.self)
+      }
+
+      func resetGame(){
+        let top_left: BoardCell  = BoardCell(value: .None, node: "//*top_left")
+        let top_middle: BoardCell = BoardCell(value: .None, node: "//*top_middle")
+        let top_right: BoardCell = BoardCell(value: .None, node: "//*top_right")
+        let middle_left: BoardCell = BoardCell(value: .None, node: "//*middle_left")
+        let center: BoardCell = BoardCell(value: .None, node: "//*center")
+        let middle_right: BoardCell = BoardCell(value: .None, node: "//*middle_right")
+        let bottom_left: BoardCell = BoardCell(value: .None, node: "//*bottom_left")
+        let bottom_middle: BoardCell = BoardCell(value: .None, node: "//*bottom_middle")
+        let bottom_right: BoardCell = BoardCell(value: .None, node: "//*bottom_right")
+
+        boardNode = self.scene?.childNodeWithName("//Grid") as? SKSpriteNode
+
+        winningLabel = self.scene?.childNodeWithName("winningLabel")
+        winningLabel.hidden = true
+
+        resetNode = self.scene?.childNodeWithName("Reset")
+        resetNode.hidden = true
+
+        let board = [top_left, top_middle, top_right, middle_left, center, middle_right, bottom_left, bottom_middle, bottom_right]
+
+        self.scene?.gameBoard = Board(gameboard: board)
+
+        self.scene?.enumerateChildNodesWithName("//grid*") { (node, stop) in
+          if let node = node as? SKSpriteNode{
+            node.removeAllChildren()
+          }
         }
-
-        override func isValidNextState(stateClass: AnyClass) -> Bool {
-            return stateClass == ActiveGameState.self
-        }
-
-        override func updateWithDeltaTime(seconds: NSTimeInterval) {
-            resetGame()
-            self.stateMachine?.enterState(ActiveGameState.self)
-        }
-
-        func resetGame(){
-            let top_left: BoardCell  = BoardCell(value: .None, node: "//*top_left")
-            let top_middle: BoardCell = BoardCell(value: .None, node: "//*top_middle")
-            let top_right: BoardCell = BoardCell(value: .None, node: "//*top_right")
-            let middle_left: BoardCell = BoardCell(value: .None, node: "//*middle_left")
-            let center: BoardCell = BoardCell(value: .None, node: "//*center")
-            let middle_right: BoardCell = BoardCell(value: .None, node: "//*middle_right")
-            let bottom_left: BoardCell = BoardCell(value: .None, node: "//*bottom_left")
-            let bottom_middle: BoardCell = BoardCell(value: .None, node: "//*bottom_middle")
-            let bottom_right: BoardCell = BoardCell(value: .None, node: "//*bottom_right")
-
-            boardNode = self.scene?.childNodeWithName("//Grid") as? SKSpriteNode
-
-            winningLabel = self.scene?.childNodeWithName("winningLabel")
-            winningLabel.hidden = true
-
-            resetNode = self.scene?.childNodeWithName("Reset")
-            resetNode.hidden = true
-
-            let board = [top_left, top_middle, top_right, middle_left, center, middle_right, bottom_left, bottom_middle, bottom_right]
-
-            self.scene?.gameBoard = Board(gameboard: board)
-
-            self.scene?.enumerateChildNodesWithName("//grid*") { (node, stop) in
-                if let node = node as? SKSpriteNode{
-                    node.removeAllChildren()
-                }
-            }
-        }
+      }
     }
+```
 
-The ActiveGameState is the state we use when we are actively playing our game. We again override the isValidNextState and this time we want to make the only state you can transition to the EndGameState. We also override the didEnterWithPreviousState function but this time we just update one of our instance properties to allow our game to proceed as expected when the our update method is called. Last, we override our updateWithDeltaTime function to determine if there is a winner, the game is a draw, or if the current player’s turn has changed. In addition when its player two’s turn we call our ai routines to determine the best move for the player and then execute that move.
+`ActiveGameState` 是当我们正在玩我们的游戏时候的状态。我们再次重写 `isValidNextState` 这个函数并且这次我们想你只能转换到 `EndGameState` 状态。我们也重写了 `didEnterWithPreviousState` 函数，但是这次我们只是在 `update` 方法被调用的时候更新一个我们的实例属性让我们的游戏如期望的执行。最后，我们重写 `updateWithDeltaTime` 函数去决定是否有一个胜利者，游戏是否被绘制，或者当前玩家游戏回合被改变。此外当玩家二的回合时，我们调用 `AI` 的程序去决定对玩家最好的策略并执行这个策略。
 
+```
     class ActiveGameState: GKState{
-        var scene: GameScene?
-        var waitingOnPlayer: Bool
+      var scene: GameScene?
+      var waitingOnPlayer: Bool
 
-        init(scene: GameScene){
-            self.scene = scene
-            waitingOnPlayer = false
-            super.init()
+      init(scene: GameScene){
+        self.scene = scene
+        waitingOnPlayer = false
+        super.init()
+      }
+
+      override func isValidNextState(stateClass: AnyClass) -> Bool {
+        return stateClass == EndGameState.self
+      }
+
+      override func didEnterWithPreviousState(previousState: GKState?) {
+        waitingOnPlayer = false
+      }
+
+      override func updateWithDeltaTime(seconds: NSTimeInterval) {
+        assert(scene != nil, "Scene must not be nil")
+        assert(scene?.gameBoard != nil, "Gameboard must not be nil")
+
+        if !waitingOnPlayer{
+          waitingOnPlayer = true
+          updateGameState()
         }
+      }
 
-        override func isValidNextState(stateClass: AnyClass) -> Bool {
-            return stateClass == EndGameState.self
-        }
+      func updateGameState(){
+        assert(scene != nil, "Scene must not be nil")
+        assert(scene?.gameBoard != nil, "Gameboard must not be nil")
 
-        override func didEnterWithPreviousState(previousState: GKState?) {
-            waitingOnPlayer = false
-        }
+        let (state, winner) = self.scene!.gameBoard!.determineIfWinner()
+        if state == .Winner{
+          let winningLabel = self.scene?.childNodeWithName("winningLabel")
+          winningLabel?.hidden = true
+          let winningPlayer = self.scene!.gameBoard!.isPlayerOne(winner!) ? "1" : "2"
+          if let winningLabel = winningLabel as? SKLabelNode,
+            let player1_score = self.scene?.childNodeWithName("//player1_score") as? SKLabelNode,
+            let player2_score = self.scene?.childNodeWithName("//player2_score") as? SKLabelNode{
+            winningLabel.text = "Player \(winningPlayer) wins!"
+            winningLabel.hidden = false
 
-        override func updateWithDeltaTime(seconds: NSTimeInterval) {
-            assert(scene != nil, "Scene must not be nil")
-            assert(scene?.gameBoard != nil, "Gameboard must not be nil")
-
-            if !waitingOnPlayer{
-                waitingOnPlayer = true
-                updateGameState()
-            }
-        }
-
-        func updateGameState(){
-            assert(scene != nil, "Scene must not be nil")
-            assert(scene?.gameBoard != nil, "Gameboard must not be nil")
-
-            let (state, winner) = self.scene!.gameBoard!.determineIfWinner()
-            if state == .Winner{
-                let winningLabel = self.scene?.childNodeWithName("winningLabel")
-                winningLabel?.hidden = true
-                let winningPlayer = self.scene!.gameBoard!.isPlayerOne(winner!) ? "1" : "2"
-                if let winningLabel = winningLabel as? SKLabelNode,
-                    let player1_score = self.scene?.childNodeWithName("//player1_score") as? SKLabelNode,
-                    let player2_score = self.scene?.childNodeWithName("//player2_score") as? SKLabelNode{
-                    winningLabel.text = "Player \(winningPlayer) wins!"
-                    winningLabel.hidden = false
-
-                    if winningPlayer == "1"{
-                        player1_score.text = "\(Int(player1_score.text!)! + 1)"
-                    }
-                    else{
-                        player2_score.text = "\(Int(player2_score.text!)! + 1)"
-                    }
-
-                    self.stateMachine?.enterState(EndGameState.self)
-                    waitingOnPlayer = false
-                }
-            }
-            else if state == .Draw{
-                let winningLabel = self.scene?.childNodeWithName("winningLabel")
-                winningLabel?.hidden = true
-
-                if let winningLabel = winningLabel as? SKLabelNode{
-                    winningLabel.text = "It's a draw"
-                    winningLabel.hidden = false
-                }
-                self.stateMachine?.enterState(EndGameState.self)
-                waitingOnPlayer = false
-            }
-
-            else if self.scene!.gameBoard!.isPlayerTwoTurn(){
-                //AI moves
-                self.scene?.userInteractionEnabled = false
-
-                assert(scene != nil, "Scene must not be nil")
-                assert(scene?.gameBoard != nil, "Gameboard must not be nil")
-
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-                    self.scene!.ai.gameModel = self.scene!.gameBoard!
-                    let move = self.scene!.ai.bestMoveForActivePlayer() as? Move
-
-                    assert(move != nil, "AI should be able to find a move")
-
-                    let strategistTime = CFAbsoluteTimeGetCurrent()
-                    let delta = CFAbsoluteTimeGetCurrent() - strategistTime
-                    let  aiTimeCeiling: NSTimeInterval = 1.0
-
-                    let delay = min(aiTimeCeiling - delta, aiTimeCeiling)
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(delay) * Int64(NSEC_PER_SEC)), dispatch_get_main_queue()) {
-
-                        guard let cellNode: SKSpriteNode = self.scene?.childNodeWithName(self.scene!.gameBoard!.getElementAtBoardLocation(move!.cell).node) as? SKSpriteNode else{
-                                return
-                        }
-                        let circle = SKSpriteNode(imageNamed: "O_symbol")
-                        circle.size = CGSize(width: 75, height: 75)
-                        cellNode.addChild(circle)
-                        self.scene!.gameBoard!.addPlayerValueAtBoardLocation(move!.cell, value: .O)
-                        self.scene!.gameBoard!.togglePlayer()
-                        self.waitingOnPlayer = false
-                        self.scene?.userInteractionEnabled = true
-                    }
-                }
+            if winningPlayer == "1"{
+              player1_score.text = "\(Int(player1_score.text!)! + 1)"
             }
             else{
-                self.waitingOnPlayer = false
-                self.scene?.userInteractionEnabled = true
+              player2_score.text = "\(Int(player2_score.text!)! + 1)"
             }
+
+            self.stateMachine?.enterState(EndGameState.self)
+            waitingOnPlayer = false
+          }
         }
+        else if state == .Draw{
+          let winningLabel = self.scene?.childNodeWithName("winningLabel")
+          winningLabel?.hidden = true
+
+          if let winningLabel = winningLabel as? SKLabelNode{
+            winningLabel.text = "It's a draw"
+            winningLabel.hidden = false
+          }
+          self.stateMachine?.enterState(EndGameState.self)
+          waitingOnPlayer = false
+        }
+
+        else if self.scene!.gameBoard!.isPlayerTwoTurn(){
+          //AI moves
+          self.scene?.userInteractionEnabled = false
+
+          assert(scene != nil, "Scene must not be nil")
+          assert(scene?.gameBoard != nil, "Gameboard must not be nil")
+
+          dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+            self.scene!.ai.gameModel = self.scene!.gameBoard!
+            let move = self.scene!.ai.bestMoveForActivePlayer() as? Move
+
+            assert(move != nil, "AI should be able to find a move")
+
+            let strategistTime = CFAbsoluteTimeGetCurrent()
+            let delta = CFAbsoluteTimeGetCurrent() - strategistTime
+            let  aiTimeCeiling: NSTimeInterval = 1.0
+
+            let delay = min(aiTimeCeiling - delta, aiTimeCeiling)
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(delay) * Int64(NSEC_PER_SEC)), dispatch_get_main_queue()) {
+
+              guard let cellNode: SKSpriteNode = self.scene?.childNodeWithName(self.scene!.gameBoard!.getElementAtBoardLocation(move!.cell).node) as? SKSpriteNode else{
+                return
+              }
+              let circle = SKSpriteNode(imageNamed: "O_symbol")
+              circle.size = CGSize(width: 75, height: 75)
+              cellNode.addChild(circle)
+              self.scene!.gameBoard!.addPlayerValueAtBoardLocation(move!.cell, value: .O)
+              self.scene!.gameBoard!.togglePlayer()
+              self.waitingOnPlayer = false
+              self.scene?.userInteractionEnabled = true
+            }
+          }
+        }
+        else{
+          self.waitingOnPlayer = false
+          self.scene?.userInteractionEnabled = true
+        }
+      }
     }
+```
 
-Our last state is the EndGameState for our state machine. The isValidNextState function only allows this state to transition to the StartGameState. The didEnterWithPreviousState function just displays the reset button so that the player can click it and reset the game.
+`EndGameState` 是我们状态机的最后一个状态。`isValidNextState` 函数只允许这个状态被转换到 `StartGameState`。`didEnterWithPreviousState` 函数只显示重置按钮所以玩家可以点击并且重置游戏。
 
+```
     class EndGameState: GKState{
-        var scene: GameScene?
+      var scene: GameScene?
 
-        init(scene: GameScene){
-            self.scene = scene
-            super.init()
-        }
+      init(scene: GameScene){
+        self.scene = scene
+        super.init()
+      }
 
-        override func isValidNextState(stateClass: AnyClass) -> Bool {
-            return stateClass == StartGameState.self
-        }
+      override func isValidNextState(stateClass: AnyClass) -> Bool {
+        return stateClass == StartGameState.self
+      }
 
-        override func didEnterWithPreviousState(previousState: GKState?) {
-            updateGameState()
-        }
+      override func didEnterWithPreviousState(previousState: GKState?) {
+        updateGameState()
+      }
 
-        func updateGameState(){
-            let resetNode = self.scene?.childNodeWithName("Reset")
-            resetNode?.hidden = false
-        }
+      func updateGameState(){
+        let resetNode = self.scene?.childNodeWithName("Reset")
+        resetNode?.hidden = false
+      }
     }
+```
 
-#### MinMax Strategist
+#### 极大极小值策略(MinMax Strategist)
 
-In many board games, winning is based on strategy, and every move counts. In GameplayKit, a strategist is the artificial intelligence that can act as the opponent or determine one or more moves to provide a hint to a player. The [GKMinmaxStrategist](https://developer.apple.com/library/prerelease/content/documentation/General/Conceptual/GameplayKit_Guide/Minmax.html#//apple_ref/doc/uid/TP40015172-CH2-SW1) class provides an implementation to the minmax strategy. The minmax strategy works by building a decision tree of rated choices for all possible remaining moves in a game. We can make the AI stronger or weaker by configuring how many moves to look ahead.
+在很多棋盘类游戏中，胜利基于策略，并且每一步都需要计算。在 `GameplayKit` 中，一个（战略家） `Strategist` 是一个人工智能，可作为一个对手或者确定一步或者多步的策略为玩家给予提示。 [GKMinmaxStrategist](https://developer.apple.com/library/prerelease/content/documentation/General/Conceptual/GameplayKit_Guide/Minmax.html#//apple_ref/doc/uid/TP40015172-CH2-SW1) 类提供一个实现极大极小值策略的方式。极大极小值策略通过在游戏里建立一个对所有剩余可能性策略选择的决策树。我们可以通过配置预测多少步让 AI 变得更强或更弱。 
 
-Let’s look at our final file AIStrategy.swift to see how we can implement the required classes and protocols to make AI work for our game. Ultimately we need to create an instance of the GKMinmaxStrategist class and implement the following protocols: GKGameModel, GKGameModelUpdate, and GKGameModelPlayer.
+让我们关注下最后的文件 `AIStrategy.swift` 去瞧一瞧怎么实现必须的类和协议来完成我们游戏中AI的工作。最终我们需要创建一个 `GKMinmaxStrategist` 类的实例并且实现以下几个协议: `GKGameModel`, `GKGameModelUpdate` 和 `GKGameModelPlayer`。
 
-We need models to represent players, their moves, and to represent the board. We implement the GKGameModelPlayer protocol so that our AI can tell our players apart. There is only one required property that we have to implement, which is playerId. The next thing we need to tackle is to create a move object that implements the GKGameModelUpdate protocol. The protocol requires that we provide a value property that our decision tree logic will use to rate each move. All we have to do is add the value property to our class and let the minmax strategist take care of the rest.
+我们需要模型去展示玩家，他们的步棋策略和展示棋盘。我们实现了 `GKGameModelPlayer` 协议，所以我们的AI（人工智能）可以辨别我们不同的玩家。还有一个必须要实现的属性是 `playerId`。下一个我们需要解决的是创建一个策略对象，该对象实现了 `GKGameModelUpdate` 协议。该协议需要我们提供一个数值属性（可被量化的属性），该属性能被决策树用于评估每一次的策略。我们所做的是把这个数值增加到我们的类中然后让极大极小值策略者来解决余下的问题。
 
-Last, we create our board class and implement the GKGameModel protocol. A big part of this protocol is simulating the possible moves that a player can make. By implementing the gameModelUpdatesForPlayer function, we compile all of the possible moves for a specified player. Each move we store is an instance of our Move class, which implements the GKGameModelUpdate protocol. At some point during the process, the minmax strategist will call our delegate function applyGameModelUpdate to update the internal state of our game. I also implemented a few other protocol methods that I will leave to the reader to investigate: unapplyGameModelUpdate, isWinForPlayer, isLossForPlayer, setGameModel, activePlayer, scoreForPlayer.
+最后，我们创建游戏棋盘的类并且实现 `GKGameModel` 协议。这个协议很大一部分的作用是模拟一个玩家可能使用的策略（步骤走法）。通过实现 `gameModleUpdatesForPlayer` 函数，我们汇总了某一个玩家所有可能使用的走法。每一个我们存储的走法都是 `Move` 类的实例，该函数实现了 `GKGameModelUpdate` 的协议。我也实现了一些其他的协议方法，我会把这些留给读者去研究: `unapplyGameModelUpdate`， `isWinForPlayer`， `isLossForPlayer`， `setGameModel`， `activePlayer`， `scoreForPlayer`。
 
-#### Wiring things up
+#### 汇总
 
-Switch back to the GameScene.swift file and examine the the didMoveToView function. We need to connect our AI and setup our state machine. To connect our AI, we initialize an instance of the GKMinmaxStrategist and then set the maxLookAheadDepth to control how strong our AI component will be during gameplay. We also set the randomSource property to GKARC4RandomSource so that our AI will have a way to randomly choose a move when there are multiple “best” moves to choose from. As for our state machine, we create instances of the Start, Active and End states and pass them to our state machine to get it started. Last, we enter tell our state machine to enter the StartGameState.
+切换回 `GameScene.swift` 文件并且检查 `didMoveToView` 这个功能函数。我们需要连接AI（人工智能）和创建我们的状态机。关于连接AI（人工智能），我们初始化一个 `GKMinmaxStrategist` 的实例并且设置 `maxLookAheadDepth` 来控制AI　对手在游戏种到底有多厉害。我们也会设定 `GKARC4RandomSource` 的随机源属性，所以我们的 AI(人工智能)将会在出现很多个“最好”的走法的时候随机的选择一个。关于我们的状态机，我们创建 `Start` , `Active` 和 `End` 状态的实例并且将他们传给我们的状态机，让他开始运作。最后，我们告诉状态机进入 `StartGameState`。
 
+```
      override func didMoveToView(view: SKView) {
-            /* Setup your scene here */
-            self.enumerateChildNodesWithName("//grid*") { (node, stop) in
-                if let node = node as? SKSpriteNode{
-                    node.color = UIColor.clearColor()
-                }
-            }
+        /* Setup your scene here */
+        self.enumerateChildNodesWithName("//grid*") { (node, stop) in
+          if let node = node as? SKSpriteNode{
+            node.color = UIColor.clearColor()
+          }
+        }
 
-            let top_left: BoardCell  = BoardCell(value: .None, node: "//*top_left")
-            let top_middle: BoardCell = BoardCell(value: .None, node: "//*top_middle")
-            let top_right: BoardCell = BoardCell(value: .None, node: "//*top_right")
-            let middle_left: BoardCell = BoardCell(value: .None, node: "//*middle_left")
-            let center: BoardCell = BoardCell(value: .None, node: "//*center")
-            let middle_right: BoardCell = BoardCell(value: .None, node: "//*middle_right")
-            let bottom_left: BoardCell = BoardCell(value: .None, node: "//*bottom_left")
-            let bottom_middle: BoardCell = BoardCell(value: .None, node: "//*bottom_middle")
-            let bottom_right: BoardCell = BoardCell(value: .None, node: "//*bottom_right")
+        let top_left: BoardCell  = BoardCell(value: .None, node: "//*top_left")
+        let top_middle: BoardCell = BoardCell(value: .None, node: "//*top_middle")
+        let top_right: BoardCell = BoardCell(value: .None, node: "//*top_right")
+        let middle_left: BoardCell = BoardCell(value: .None, node: "//*middle_left")
+        let center: BoardCell = BoardCell(value: .None, node: "//*center")
+        let middle_right: BoardCell = BoardCell(value: .None, node: "//*middle_right")
+        let bottom_left: BoardCell = BoardCell(value: .None, node: "//*bottom_left")
+        let bottom_middle: BoardCell = BoardCell(value: .None, node: "//*bottom_middle")
+        let bottom_right: BoardCell = BoardCell(value: .None, node: "//*bottom_right")
 
-            let board = [top_left, top_middle, top_right, middle_left, center, middle_right, bottom_left, bottom_middle, bottom_right]
+        let board = [top_left, top_middle, top_right, middle_left, center, middle_right, bottom_left, bottom_middle, bottom_right]
 
-            gameBoard = Board(gameboard: board)
+        gameBoard = Board(gameboard: board)
 
-            ai = GKMinmaxStrategist()
-            ai.maxLookAheadDepth = 9
-            ai.randomSource = GKARC4RandomSource()
+        ai = GKMinmaxStrategist()
+        ai.maxLookAheadDepth = 9
+        ai.randomSource = GKARC4RandomSource()
 
-            let beginGameState = StartGameState(scene: self)
-            let activeGameState = ActiveGameState(scene: self)
-            let endGameState = EndGameState(scene: self)
+        let beginGameState = StartGameState(scene: self)
+        let activeGameState = ActiveGameState(scene: self)
+        let endGameState = EndGameState(scene: self)
 
-            stateMachine = GKStateMachine(states: [beginGameState, activeGameState, endGameState])
-            stateMachine.enterState(StartGameState.self)
+        stateMachine = GKStateMachine(states: [beginGameState, activeGameState, endGameState])
+        stateMachine.enterState(StartGameState.self)
 
     }
+```
 
-If you start the iOS Simulator, we can play our game and test out our AI!
+如果你运行了 `iOS` 模拟器，我们可以开始玩游戏并且测试我们的 AI（人工智能）！
 
 ![](http://ww3.sinaimg.cn/large/a490147fjw1f5s9ktn73pg20ae0j8aas.gif)
 
-#### Wrapping Up
+#### 总结
 
-So, we’ve created a quick game and learned a few things about SpriteKit and GameplayKit along the way. I encourage you to make changes to the game and experiment with things to get more comfortable. If you need some suggestions, you might start with implementing a way to alternate which player goes first. Another idea is to give the player a way to tweak the AI level on the game screen or to turn it off completely.
+我们已经创建了一个快速的游戏并且学习了一些关于 `SpriteKit` 和 `GameplayKit` 的内容。我支持你们去改变这个游戏并且尝试些什么让自己更舒服。如果你需要什么建议，你也许可以开始先从实现玩家交替（游戏）开始。另一个想法是可实现提供玩家一个在屏幕上调整 AI（人工智能）的等级或者彻底关闭（的功能）。
 
-On a lighter note, I also wrote an article on why creating native apps is probably the best way to go in most of your mobile development endeavors. Read it and weigh in the discussion!
-
+还有一点要注意的是，我也写了一篇关于为什么创建原生应用程序可能是最好的努力学习移动手机应用程序开发的方式。你可以阅读它并且可以提出自己的观点。
