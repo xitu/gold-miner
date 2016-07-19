@@ -126,24 +126,24 @@
 
 * [乔治城，兰道夫县，印第安纳州](https://en.wikipedia.org/wiki/Georgetown,_Randolph_County,_Indiana)
 ```
-    WITH duplicate_data AS (
-        SELECT
-        city_name,
-        array_agg(ROW(country_code, region_code)) AS dupes
-        FROM city_region_data
-        WHERE country_code = 'US'
-        GROUP BY city_name, region_code, country_code
-        ORDER BY COUNT(ROW(country_code, region_code)) DESC
-    )
+WITH duplicate_data AS (
     SELECT
     city_name,
-    ARRAY_LENGTH(dupes, 1) AS duplicity,
-    ( CASE WHEN ARRAY_LENGTH(dupes,1) > 9 
-      THEN CONCAT(SUBSTRING(ARRAY_TO_STRING(dupes,','), 1, 50), '...')
-      ELSE ARRAY_TO_STRING(dupes,',') END
-    ) AS sample
-    FROM duplicate_data
-    LIMIT 4;
+    array_agg(ROW(country_code, region_code)) AS dupes
+    FROM city_region_data
+    WHERE country_code = 'US'
+    GROUP BY city_name, region_code, country_code
+    ORDER BY COUNT(ROW(country_code, region_code)) DESC
+)
+SELECT
+city_name,
+ARRAY_LENGTH(dupes, 1) AS duplicity,
+( CASE WHEN ARRAY_LENGTH(dupes,1) > 9 
+  THEN CONCAT(SUBSTRING(ARRAY_TO_STRING(dupes,','), 1, 50), '...')
+  ELSE ARRAY_TO_STRING(dupes,',') END
+) AS sample
+FROM duplicate_data
+LIMIT 4;
 ```
 ![](http://ww2.sinaimg.cn/large/a490147fgw1f5raxacpo0j20d505rmy4.jpg)
 
