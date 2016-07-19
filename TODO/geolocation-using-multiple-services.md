@@ -1,5 +1,4 @@
 >* 原文链接 : [Geolocation using multiple services](https://blog.garage-coding.com/2016/07/06/geolocation-using-multiple-services.html)
->* 使用多种服务的地理位置服务
 * 原文作者 : [wsdookadr](https://github.com/wsdookadr)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [emmiter](https://github.com/emmiter/)
