@@ -2,13 +2,13 @@
 * 原文作者 : [vogella](http://www.vogella.com/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [edvardhua](https://github.com/edvardHua/)
-* 校对者:
+* 校对者: [hackerkevin](https://github.com/hackerkevin), [futureshine](https://github.com/futureshine) 
 
 >这篇教程介绍了如何使用 Mockito 框架来给软件写测试用例
 
 ## 1\. 预备知识
 
-阅读这篇教程需要了解 JUnit 框架中的单元测试。
+如果需要往下学习，你需要先理解 Junit 框架中的单元测试。
 
 如果你不熟悉 JUnit，请查看下面的教程：
 [http://www.vogella.com/tutorials/JUnit/article.html](http://www.vogella.com/tutorials/JUnit/article.html)
@@ -19,15 +19,15 @@
 
 单元测试的思路是在不涉及依赖关系的情况下测试代码（隔离性），所以测试代码与其他类或者系统的关系应该尽量被消除。一个可行的消除方法是替换掉依赖类（测试替换），也就是说我们可以使用替身来替换掉真正的依赖对象。
 
-### 2.2\. 几种不同的测试类
+### 2.2\. 测试类的分类
 
-_dummy object_ 做为参数传递给方法但是绝对不会被使用。譬如说，它里面的方法不会被调用。这种对象是为了在方法参数中起到占位的作用。
+_dummy object_ 做为参数传递给方法但是绝对不会被使用。譬如说，这种测试类内部的方法不会被调用，或者是用来填充某个方法的参数。
 
 _Fake_ 是真正接口或抽象类的实现体，但给对象内部实现很简单。譬如说，它存在内存中而不是真正的数据库中。（译者注：_Fake_ 实现了真正的逻辑，但它的存在只是为了测试，而不适合于用在产品中。）
 
 _stub_ 类是依赖类的部分方法实现，而这些方法在你测试类和接口的时候会被用到，也就是说 _stub_ 类在测试中会被实例化。_stub_ 类会回应任何外部测试的调用。_stub_ 类有时候还会记录调用的一些信息。
 
-_mock object_ 是指类或者接口的模拟实现，你可以自定义里面方法被调用后的返回值。
+_mock object_ 是指类或者接口的模拟实现，你可以自定义这个对象中某个方法的输出结果。
 
 测试替代技术能够在测试中模拟测试类以外对象。因此你可以验证测试类是否响应正常。譬如说，你可以验证在 Mock 对象的某一个方法是否被调用。这可以确保隔离了外部依赖的干扰只测试测试类。
 
@@ -35,17 +35,17 @@ _mock object_ 是指类或者接口的模拟实现，你可以自定义里面方
 
 ### 2.3\. Mock 对象的产生
 
-你可以手动创建一个 Mock 对象或者使用 Mock 框架来模拟这些类，Mock 框架允许你在 Runtime 的时候创建 Mock 对象并且定义它的行为。
+你可以手动创建一个 Mock 对象或者使用 Mock 框架来模拟这些类，Mock 框架允许你在运行时创建 Mock 对象并且定义它的行为。
 
 一个典型的例子是把 Mock 对象模拟成数据的提供者。在正式的生产环境中它会被实现用来连接数据源。但是我们在测试的时候 Mock 对象将会模拟成数据提供者来确保我们的测试环境始终是相同的。
 
-Mock 对象可以被提供来进行测试。因此，我们测试的类应该避免任何外部数据的强引用。
+Mock 对象可以被提供来进行测试。因此，我们测试的类应该避免任何外部数据的强依赖。
 
 通过 Mock 对象或者 Mock 框架，我们可以测试代码中期望的行为。譬如说，验证只有某个存在 Mock 对象的方法是否被调用了。
 
 ### 2.4\. 使用 Mockito 生成 Mock 对象
 
-_Mockito_ 是一个流行 mock 框架，并且可以配置 JUnit 一起使用。Mockito 允许你创建和配置 mock 对象。使用 Mockito 可以很简单的为存在外部依赖的代码编写测试脚本。
+_Mockito_ 是一个流行 mock 框架，可以和JUnit结合起来使用。Mockito 允许你创建和配置 mock 对象。使用Mockito可以明显的简化对外部依赖的测试类的开发。
 
 一般使用 Mockito 需要执行下面三步
 
@@ -83,19 +83,19 @@ Orbit 仓库地址 [http://download.eclipse.org/tools/orbit/downloads](http://do
 
 ![orbit p2 mockito](http://ww2.sinaimg.cn/large/72f96cbagw1f5b2jlbr97j20ny0hg77c)
 
-## 4\. Using the Mockito API 使用Mockito API
+## 4\. 使用Mockito API
 
 ### 4.1\. 静态引用
 
-如果你在代码中静态引用了`org.mockito.Mockito.*;`，那你你就可以直接调用静态方法和静态变量而不用创建对象，譬如直接调用 mock() 方法。
+如果在代码中静态引用了`org.mockito.Mockito.*;`，那你你就可以直接调用静态方法和静态变量而不用创建对象，譬如直接调用 mock() 方法。
 
 ### 4.2\. 使用 Mockito 创建和配置 mock 对象
 
 除了上面所说的使用 mock() 静态方法外，Mockito 还支持通过 `@Mock` 注解的方式来创建 mock 对象。
 
-如果你使用注解，那么必须要实例化 mock 对象。Mockito 在遇到使用注解的字段的时候，会调用`MockitoAnnotations.initMocks(this)` 来实例化该 mock 对象。另外也可以通过使用`@RunWith(MockitoJUnitRunner.class)`来达到相同的效果。
+如果你使用注解，那么必须要实例化 mock 对象。Mockito 在遇到使用注解的字段的时候，会调用`MockitoAnnotations.initMocks(this)` 来初始化该 mock 对象。另外也可以通过使用`@RunWith(MockitoJUnitRunner.class)`来达到相同的效果。
 
-通过下面的例子我们可以了解到使用`@Mock` 的方法。
+通过下面的例子我们可以了解到使用`@Mock` 的方法和`MockitoRule`规则。
 
 
     import static org.mockito.Mockito.*;
@@ -121,11 +121,11 @@ Orbit 仓库地址 [http://download.eclipse.org/tools/orbit/downloads](http://do
 
 2. Mockito 通过 @mock 注解创建 mock 对象
 
-3. 在测试环境下实例化对象并创建mock
+3. 使用已经创建的mock初始化这个类
 
-4. 测试类中的 query 方法
+4. 在测试环境下，执行测试类中的代码
 
-5. 使用断言验证函数的返回值是否为 true
+5. 使用断言确保调用的方法返回值为 true
 
 6. 验证 query 方法是否被 `MyDatabase` 的 mock 对象调用
 
@@ -134,7 +134,7 @@ Orbit 仓库地址 [http://download.eclipse.org/tools/orbit/downloads](http://do
 
 当我们需要配置某个方法的返回值的时候，Mockito 提供了链式的 API 供我们方便的调用
 
-`when(…​.).thenReturn(…​.)`可以被用来定义当条件满足时函数的返回值，如果你需要定义多个返回值，可以多次定义。函数会根据你定义的先后顺序来返回返回值。Mocks 还可以根据传入参数的不同来定义不同的返回值。譬如说你的函数可以将`anyString` 或者 `anyInt`作为输入参数，然后定义其特定的放回值。
+`when(…​.).thenReturn(…​.)`可以被用来定义当条件满足时函数的返回值，如果你需要定义多个返回值，可以多次定义。当你多次调用函数的时候，Mockito 会根据你定义的先后顺序来返回返回值。Mocks 还可以根据传入参数的不同来定义不同的返回值。譬如说你的函数可以将`anyString` 或者 `anyInt`作为输入参数，然后定义其特定的放回值。
 
     import static org.mockito.Mockito.*;
     import static org.junit.Assert.*;
@@ -171,7 +171,7 @@ Orbit 仓库地址 [http://download.eclipse.org/tools/orbit/downloads](http://do
             assertEquals(1,c.compareTo("Mockito"));
     }
 
-    // 如何输入任意参数都放回相同的值
+    // 如何让返回值不依赖于输入
     @Test
     public void testReturnValueInDependentOnMethodParameter()  {
             Comparable c= mock(Comparable.class);
@@ -242,7 +242,7 @@ Mockito 会跟踪 mock 对象里面所有的方法和变量。所以我们可以
     }
 
 ### 4.5\. 使用 Spy 封装 java 对象
-@Spy或者`spy()`方法可以被用来封装 java 对象。被封装后，除非我们给某些方法打桩，否则都会真正的调用对象里面的每一个方法
+@Spy或者`spy()`方法可以被用来封装 java 对象。被封装后，除非特殊声明（打桩 _stub_），否则都会真正的调用对象里面的每一个方法
 
 
     import static org.mockito.Mockito.*;
@@ -377,7 +377,7 @@ Mockito当然也有一定的限制。而下面三种数据类型则不能够被�
 ，方法里面创建一个包含参数的Intent，如下代码所示：
 
     public static Intent createQuery(Context context, String query, String value) {
-        // 简单的重用 MainActivity
+        // 简单起见，重用MainActivity
         Intent i = new Intent(context, MainActivity.class);
         i.putExtra("QUERY", query);
         i.putExtra("VALUE", value);
