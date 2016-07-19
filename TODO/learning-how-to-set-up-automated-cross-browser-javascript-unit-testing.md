@@ -5,7 +5,7 @@
 * 校对者：
 
 We all know how important it is to test our code in multiple browsers. And I think for the most part, we in the web development community do a pretty good job at this—at least when first releasing a project. 
-我们都知道在各个不同的浏览器环境里测试代码是很重要的， 并且在大多数时候，我们作为Web开发者在这一点上是做的很好的 – 至少在第一次发布的时候是这样。
+我们都知道在各个不同的浏览器环境里测试代码是很重要的， 并且在大多数时候，我们作为Web开发者在这一点上是做的很好的 —— 至少在第一次发布的时候是这样。
 
 What we don’t do a good job of is testing our code every time we make a change.
 然而我们在每次更改代码之后的测试方面，却做的不尽人意。
@@ -56,8 +56,7 @@ Since Mocha runs in Node.js, you can run this test from your terminal with the f
 
 To run this test in your browser, you’ll need an HTML file with a `<script>` tag that loads the JavaScript, and since browsers don’t understand the `require` statement, you’ll need a module bundler like [browserify](http://browserify.org/) or webpack](https://webpack.github.io/) to resolve the dependencies.
 
-要在浏览器里打开这个测试栗子，你需要一个 `<script>` ta标签的HTML文件来加载JavaScript，并且因为浏览器并不知道 `require` 语句是啥，你还要[browserify](http://browserify.org/) 或 [webpack](https://webpack.github.io/) 这样的软件来帮你解决dependencies（从属关系）的问题。 
-`require` statement, you’ll need a module bundler like [browserify](http://browserify.org/) or [webpack](https://webpack.github.io/) to resolve the dependencies.
+要在浏览器里打开这个测试栗子，你需要一个 `<script>` 标签的HTML文件来加载JavaScript，并且因为浏览器并不知道 `require` 语句是啥，你还要[browserify](http://browserify.org/) 或 [webpack](https://webpack.github.io/) 这样的软件来帮你解决dependencies（从属关系）的问题。 
 
     browserify test/*-test.js > test/index.js
 
@@ -110,7 +109,7 @@ Most testing frameworks (like Mocha) will provide hooks, so you can plug into th
 ### 手工测试的好处
 
 A huge benefit of running your tests manually in a browser is, if one of your tests fails, you can use the browser’s existing developer tools to debug it.
-手工测试 的一个巨大好处就是，万一你某个单元测试出现问题了，你可以很方便的利用浏览器自带的开发者工具debug。
+手工测试的一个巨大好处就是，万一你某个单元测试出现问题了，你可以很方便的利用浏览器自带的开发者工具debug。
 
 It’s as simple as this:
 就像下面这个过程这么简单：
@@ -198,7 +197,7 @@ Here are the steps involved:
 下面是我用到的几个步骤：
 
 1. 你提供给Sauce Labs需要被测试的网页的地址，以及一个包含浏览器/操作系统的列表
-2. Sauce Labs使用selenium webdriver把测试页面加载到每一个你希望测试的浏览器/操作系统组合上（就是你刚刚提供的那个列表）
+2. Sauce Labs使用[selenium webdriver](http://www.seleniumhq.org/projects/webdriver/)把测试页面加载到每一个你希望测试的浏览器/操作系统组合上（就是你刚刚提供的那个列表）
 3. Webdriver会检测哪些单元测试没有通过，并记录测试结果
 4. Sauce Labs把最终结果提供给你
 
@@ -230,7 +229,7 @@ The documentation gives an example using `curl`:
       --data '{"url": "https://example.com/tests.html",  "framework": "mocha", "platforms": [["Windows 7", "firefox", "27"], ["Linux", "chrome", "latest"]]}'
 
 Since this is for JavaScript unit testing, I’ll give an example that uses the [request](https://www.npmjs.com/package/request) node module, which is probably closer to what you’ll end up doing if you’re using Node.js:
-既然这是篇关于JavaScript单元测试的文章，我来给一个用了Node里面request组件的栗子，如果你使用Node.js的话，这个栗子应该跟你做的东西更贴近：
+既然这是篇关于JavaScript单元测试的文章，我来给一个用了Node里面 [request](https://www.npmjs.com/package/request) 组件的栗子，如果你使用Node.js的话，这个栗子应该跟你做的东西更贴近：
 
     request({
       url: `https://saucelabs.com/rest/v1/${username}/js-tests`,
@@ -257,10 +256,10 @@ Since this is for JavaScript unit testing, I’ll give an example that uses the 
     });
 
 Notice in the post body you see `framework: 'mocha'`. Sauce Labs provides support for many of the popular JavaScript unit testing frameworks including Mocha, Jasmine, QUnit, and YUI. And by “support” it just means that Sauce Lab’s webdriver client knows where to look to get the test results (though in most cases you still have to populate those results yourself, more on that later).
-注意到在body里面有framework: ‘mocha’这段代码：Sauce Labs对很多流行的JavaScript单元测试框架都提供支持，包括Mocha，Jasmine, QUnit，以及YUI。当然，这里所谓的“支持”，仅仅是指Sauce Labs的网页驱动知道在哪里找到测试结果（尽管有时候连这一点都做不到，还需要你自己完成，这一点我们待会儿再说）。
+注意到在body里面有 `framework: ‘mocha’` 这段代码：Sauce Labs对很多流行的JavaScript单元测试框架都提供支持，包括Mocha，Jasmine, QUnit，以及YUI。当然，这里所谓的“支持”，仅仅是指Sauce Labs的网页驱动知道在哪里找到测试结果（尽管有时候连这一点都做不到，还需要你自己完成，这一点我们待会儿再说）。
 
 If you’re using a test framework not in that list, you can set `framework: 'custom'`, and Sauce Labs will instead look for a global variable called `window.global_test_results`. The format for the results is listed in the [custom framework](https://wiki.saucelabs.com/display/DOCS/Reporting+JavaScript+Unit+Test+Results+to+Sauce+Labs+Using+a+Custom+Framework) section of the documentation.
-如果你使用了一个不再支持列表内的测试框架，你可以设置 framework: ‘custom’，然后Sauce Labs会去全局变量里找一个叫 window.global_test_result的变量。自定义框架 这部分文档对测试结果的格式进行了说明。
+如果你使用了一个不再支持列表内的测试框架，你可以设置 `framework: ‘custom’`，然后Sauce Labs会去全局变量里找一个叫 `window.global_test_result`的变量。[自定义框架](https://wiki.saucelabs.com/display/DOCS/Reporting+JavaScript+Unit+Test+Results+to+Sauce+Labs+Using+a+Custom+Framework)这部分文档对测试结果的格式进行了说明。
 
 #### Making Mocha test results available to Sauce Lab’s webdriver client
 #### 让Mocha的测试结果显示在Sauce Labs的网页驱动客户端上
@@ -315,7 +314,7 @@ To something like this:
     </script>
 
 The only difference between the above code and the default Mocha boilerplate is this logic assigns the results of the tests to a variable called `window.mochaResults` in a format that Sauce Labs is expecting. And since this new code doesn’t interfere with running the tests manually in your browser, you may as well just start using it as the default Mocha boilerplate.
-以上的改动只是让Mocha默认模板把测试结果变成一个Sauce Labs能理解的格式存到一个叫window.mochaResults的变量里。因为我们新增的这些代码和我们手工在浏览器里测试代码并不冲突，你可以放心的把这段设置成Mocha的默认模板。
+以上的改动只是让Mocha默认模板把测试结果变成一个Sauce Labs能理解的格式存到一个叫 `window.mochaResults` 的变量里。因为我们新增的这些代码和我们手工在浏览器里测试代码并不冲突，你可以放心的把这段设置成Mocha的默认模板。
 
 To re-emphasize a point I made earlier, when Sauce Labs “runs” your tests, it’s not actually running anything, it’s simply visiting a web page and waiting until a value is found on the `window.mochaResults` object. Then it records those results.
 重申一下我之前强调的一点，当 Sauce Labs “运行”你的单元测试的时候，它并不是真的在运行任何东西 —— 他只是访问一个网页，直到一个特定值在 `window.mochaResults` 中被找到，然后它记录下这些值。仅此而已。
@@ -392,7 +391,7 @@ The response will look something like this:
     }
 
 Once the `response.body.complete` property above is `true`, your tests have finished running, and you can loop through each job to report passes and failures.
-当 `response.body.complete` 这个属性的值为true的时候，意味着你所有的任务都已经完成了，你可以遍历每一个任务来看它们是否通过了。
+当 `response.body.complete` 这个属性的值为`true`的时候，意味着你所有的任务都已经完成了，你可以遍历每一个任务来看它们是否通过了。
 
 ### Accessing tests on localhost
 ### 在localhost上进行测试
@@ -401,10 +400,10 @@ I’ve explained that Sauce Labs “runs” your tests by visiting a URL. Of cou
 我已经解释了Sauce Labs通过访问一个网址来运行你的单元测试。当然，这就意味着你提供的网址可以在互联网上被所有人访问的。
 
 This is a problem if you’re serving your tests from `localhost`.
-但如果你使用localhost的话，这又是个麻烦。
+但如果你使用 `localhost` 的话，这又是个麻烦。
 
 There are a number of solutions to this problem, including [Sauce Connect](https://wiki.saucelabs.com/display/DOCS/Sauce+Connect+Proxy) (the officially recommended one), which is a proxy server created by Sauce Labs that opens a secure connection between a Sauce Labs virtual machine and your local host.
-不过你放心，这个问题已经有了一堆解决方案，包括官方推荐的 Sauce Connect——一个由Sauce Labs发布的代理服务器软件，它是用来连接Sauce Labs的虚拟机和你的本地机器的。
+不过你放心，这个问题已经有了一堆解决方案，包括官方推荐的 [Sauce Connect](https://wiki.saucelabs.com/display/DOCS/Sauce+Connect+Proxy) —— 一个由Sauce Labs发布的代理服务器软件，它是用来连接Sauce Labs的虚拟机和你的本地机器的。
 
 Sauce Connect is designed with security in mind, and it makes it virtually impossible for an outsider to gain access to your code. The downside of Sauce Connect is it’s quite complicated to set up and use.
 Sauce Connect在设计的时候就考虑到了安全性，任何一个第三方都几乎不可能获取你的代码。但Sauce Connect不好的一面就是它比较难以设置和使用。
@@ -419,7 +418,7 @@ My solution of choice is [ngrok](https://ngrok.com/).
 #### ngrok
 
 [ngrok](https://ngrok.com/) is a tool for creating secure tunnels to localhost. It gives you a public URL<sup>[[2]](https://philipwalton.com/articles/learning-how-to-set-up-automated-cross-browser-javascript-unit-testing#footnote-2)</sup> to a web server running on your local machine, which is exactly what you need to run tests on Sauce Labs.
-[ngrok](https://ngrok.com/)是一个用来和localhost建立安全连接的小工具。它会为你的localhost创建一个公共URL，而这正是你使用Sauce Labs所需要的。
+[ngrok](https://ngrok.com/)是一个用来和localhost建立安全连接的小工具。它会为你的localhost创建一个公共URL<sup>[[2]](https://philipwalton.com/articles/learning-how-to-set-up-automated-cross-browser-javascript-unit-testing#footnote-2)</sup>，而这正是你使用Sauce Labs所需要的。
 
 If you do any development or manual testing on a VM, you’ve probably already heard of ngrok, and if you haven’t, you should definitely check it out. It’s an extremely useful tool.
 如果你在虚拟机上做过开发或者是手工测试，那你很可能已经听过ngrok，即使没有的话，你也应该去了解一下它，这是一个非常实用的小工具。
@@ -463,8 +462,8 @@ Once you understand all the steps, it’s quite simple. Here they are, summarize
 2.  Run the tests locally in one or two browsers to make sure they work.
 
 **一开始的手工过程：**
-1. 把你的单元测试写到一个文件里面，然后把这个文件放进一个HTML页面里
-2. 在本地的一两个浏览器里运行这些单元测试以确保它们没有bug
+1. 把你的单元测试写到一个文件里面，然后把这个文件放进一个HTML页面里。
+2. 在本地的一两个浏览器里运行这些单元测试以确保它们没有bug。
 
 **Adding automation to the process:**
 
@@ -476,12 +475,12 @@ Once you understand all the steps, it’s quite simple. Here they are, summarize
 6.  Report the results.
 
 **把手工过程自动化：**
-1. 创建一个开源的Sauce Labs账户并记下用户名和密码
-2. 更新你的HTML页面让Sauce Labs可以从JavaScript的全局变量中读取测试结果
-3. 用ngrok来创建一个公共URL
-4. 调用Start JS Unit Tests来运行你的代码
-5. 调用Get JS Unit Test Status来不停地获取测试状态直到测试结束
-6. 报告结果
+1. 创建一个开源的Sauce Labs账户并记下用户名和密码。
+2. 更新你的HTML页面让Sauce Labs可以从JavaScript的全局变量中读取测试结果。
+3. 用ngrok来创建一个公共URL。
+4. 调用Start JS Unit Tests来运行你的代码。
+5. 调用Get JS Unit Test Status来不停地获取测试状态直到测试结束。
+6. 报告结果。
 
 ## Making it even easier
 ## 敢不敢再简单一点？！
@@ -508,7 +507,7 @@ To make it even more convenient for npm packages, `easy-sauce` will by default l
 为了更方便npm包的用户，easy-sauce会在package.json里自动寻找设置选项，这样你甚至不用分开存储他们。这让软件与用户的交流变得更清楚，也让你的用户清楚的知道你的包到底支持哪些浏览器/操作系统。
 
 For complete `easy-sauce` usage instructions, check out the [documentation](https://github.com/philipwalton/easy-sauce) on Github.
-关于完整的easy-sauce[使用手册](https://github.com/philipwalton/easy-sauce)，请看我的Github。
+关于完整的 `easy-sauce` [使用手册](https://github.com/philipwalton/easy-sauce)，请看我的Github。
 
 Finally, I want to stress that I built this project specifically to solve my use-case. While I think the project will likely be quite useful to many other developers, I have no plans to turn it into a full-featured testing solution.
 最后，我想强调一下这个只是针对我的个人需求写的一个项目。虽然我认为这个项目会对一部分人很有帮助，我目前还没有计划把它变为一个全面的测试解决方案。
