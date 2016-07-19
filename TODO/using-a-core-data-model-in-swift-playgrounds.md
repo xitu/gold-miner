@@ -39,7 +39,7 @@ Get started by adding a Data Model to your project. If you’ve got a project al
 ## Add Data Model file (unless you already have one)
 
 File -> New -> File…  
-[![New Data Model](/images/loading.png)](https://www.andrewcbancroft.com/wp-content/uploads/2016/07/new-model.png)
+![New Data Model](https://www.andrewcbancroft.com/wp-content/uploads/2016/07/new-model.png)
 
 For my “smoke test”, just to see if it was possible, I left the default value for the model name as “Model.xcdatamodeld”.
 
@@ -47,32 +47,32 @@ For my “smoke test”, just to see if it was possible, I left the default valu
 
 Once I had the data model added to the project, I went in and added an entity (named “Entity”) with an attribute (named “attribute” of type Integer 16):
 
-[![Add an entity with an attribute.](/images/loading.png)](https://www.andrewcbancroft.com/wp-content/uploads/2016/07/add-entity-and-attributes.png)
+![Add an entity with an attribute.](https://www.andrewcbancroft.com/wp-content/uploads/2016/07/add-entity-and-attributes.png)
 
 ## Add a playground
 
 Next up, I added a new playground to my project:
 
 File -> New -> Playground…  
-[![Add new playground](/images/loading.png)](https://www.andrewcbancroft.com/wp-content/uploads/2016/07/new-playground.png)
+![Add new playground](https://www.andrewcbancroft.com/wp-content/uploads/2016/07/new-playground.png)
 
 ## Build project; Locate “momd” file
 
 With a playground and a data model has some structure to it, I built the project (CMD + B) so that the .xcdatamodeld file would be compiled into an “momd” file. It’s the _momd_ file that needs to be added to the playground as a resource.
 
 To find the “momd” file, expand “Products” in your project navigator, right-click the .app file, and click “Show in Finder”:  
-[![Show product in finder](/images/loading.png)](https://www.andrewcbancroft.com/wp-content/uploads/2016/07/show-product-in-finder.png)
+![Show product in finder](https://www.andrewcbancroft.com/wp-content/uploads/2016/07/show-product-in-finder.png)
 
 ## Show .app package contents
 
 In the finder window, right-click the .app file, and click “Show package contents”:  
-[![Show package contents](/images/loading.png)](https://www.andrewcbancroft.com/wp-content/uploads/2016/07/show-package-contents.png)
+![Show package contents](https://www.andrewcbancroft.com/wp-content/uploads/2016/07/show-package-contents.png)
 
 ## Drag “momd” file from Finder to playground Resources folder
 
-[![Locate ](/images/loading.png)](https://www.andrewcbancroft.com/wp-content/uploads/2016/07/locate-momd-file.png)
+![Locate ](https://www.andrewcbancroft.com/wp-content/uploads/2016/07/locate-momd-file.png)
 
-[![Drag ](/images/loading.png)](https://www.andrewcbancroft.com/wp-content/uploads/2016/07/drag-momd-to-resources.png)
+![Drag ](https://www.andrewcbancroft.com/wp-content/uploads/2016/07/drag-momd-to-resources.png)
 
 ## Write Core Data code to use model
 
@@ -115,7 +115,7 @@ let result = try! context.executeFetchRequest(fr)
 print(result)
 ```
 
-[![Fetch request result](/images/loading.png)](https://www.andrewcbancroft.com/wp-content/uploads/2016/07/printed-result.png)
+![Fetch request result](https://www.andrewcbancroft.com/wp-content/uploads/2016/07/printed-result.png)
 
 Woohoo! I thought this was pretty cool.
 
