@@ -1,56 +1,47 @@
->* 原文链接 : [Core Plot Tutorial: Getting Started](https://www.raywenderlich.com/131985/core-plot-tutorial-getting-started)
-* 原文作者 : [Attila Hegedüs](https://www.raywenderlich.com/u/cynicalme)
-* 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : [llp0574](https://github.com/llp0574)
-* 校对者: [yifili09](https://github.com/yifili09),[cdpath](https://github.com/cdpath)
+> 原文链接 : [Core Plot Tutorial: Getting Started](https://www.raywenderlich.com/131985/core-plot-tutorial-getting-started)
+> 原文作者 : [Attila Hegedüs](https://www.raywenderlich.com/u/cynicalme)
+> 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
+> 译者 : [llp0574](https://github.com/llp0574)
+> 校对者: [yifili09](https://github.com/yifili09),[cdpath](https://github.com/cdpath)
 
 ![Alt 使用Core Plot绘制饼图，柱状图，散点图及更多！](http://ac-Myg6wSTV.clouddn.com/868c57b7dfa6957573cd.png)
 
-Core Plot 入门教程
-
-_注意_：本篇教程已被 Attila Hegedüs 更新，可适用于 iOS 9 和 Swift 2.2。原始教程出自教程组成员 Steve Baranski。
+_注意_ ：本篇教程已被 Attila Hegedüs 更新，可适用于 iOS 9 和 Swift 2.2。原始教程出自教程组成员 Steve Baranski。
 
 如果你曾经想在自己的 app 中引入图表或图形，那么你应该已经考虑过下面两种选项：
 
 1.  _自己写。_ 通过使用 Core Graphics 或者 Quartz 这样的框架编写全部的绘制代码。然而，这显然要花费大量的功夫。
 2.  _买一个！_ 购买一个像 [ShinobiControls](http://www.shinobicontrols.com) 这样的商业型框架。这或许可以节省你的时间，但就要花钱啦。
 
-但是如果你不想花费时间和精力从零开始写(代码)，也不想花那么多钱，该怎么办呢？这时候第三个选项就派上用场了：使用开源库[Core Plot](https://github.com/core-plot/core-plot)！
+但是如果你不想花费时间和精力从零开始写(代码)，也不想花那么多钱，该怎么办呢？这时候第三个选项就派上用场了：使用开源库 [Core Plot](https://github.com/core-plot/core-plot)！
 
 Core Plot 是一个2D绘制库，适用于 iOS，Mac OS X 和 tvOS。它使用了像 Quartz 和 Core Animation 这样的苹果应用框架，同时有着全面的测试覆盖，而且是遵照BSD这个比较宽松的许可证进行发布的。
 
 在这个教程中，你将学习到如何使用 Core Plot 来创建饼图和柱状图，同时还会实现一些很酷的图表交互！
 
-开始之前，你需要安装好 _Xcode 7.3_，同时对 _Swift_， _Interface Builder_ 和 _storyboards_有所了解。如果你对这些主题知之甚少，那么你应该在继续阅读本教程之前先学习一下我们其他的一些[教程](https://www.raywenderlich.com/?page_id=2519)。
+开始之前，你需要安装好 _Xcode 7.3_ ，同时对 _Swift_ ， _Interface Builder_ 和 _storyboards_ 有所了解。如果你对这些主题知之甚少，那么你应该在继续阅读本教程之前先学习一下我们其他的一些[教程](https://www.raywenderlich.com/?page_id=2519)。
 
 本教程同时还使用了 CocoaPods 去安装一些第三方的依赖库。如果你从来没使用过 CocoaPods 的话，那你还应该阅读一下我们关于它的[教程](https://www.raywenderlich.com/97014/use-cocoapods-with-swift)。
 
 ## 入门
 
-在本教程中，你将创建一个在一定时间间隔内显示货币汇率(情况)的 App。从[这里](https://cdn2.raywenderlich.com/wp-content/uploads/2016/05/SwiftRates_Starter-2.zip)下载本教程的入门项目，把它解压缩后打开 _SwiftRates.xcworkspace_。
+在本教程中，你将创建一个在一定时间间隔内显示货币汇率(情况)的 App。从[这里](https://cdn2.raywenderlich.com/wp-content/uploads/2016/05/SwiftRates_Starter-2.zip)下载本教程的入门项目，把它解压缩后打开 _SwiftRates.xcworkspace_ 。
 
 项目的关键类在 _App_ 这个文件夹和它的子文件夹下，它们包括了：
 
-*   _DataStore.swift_
-    这是一个从 [Fixer.io](http://fixer.io/) 请求货币汇率数据的帮助类。
-*   _Rate.swift_
-    这是一个模型，表示给定日期里的货币汇率。
-*   _Currency.swift_
-    这是一个表示货币类型的模型。支持的货币类型定义在 _Resources/Currencies.plist_ 里。
-*   _MenuViewController.swift_
-    这是一个app启动后展示的第一个视图控制器。它让用户选择一个货币作为基准然后再选两个对照。
-*   _HostViewController.swift_
-    这是一个容器视图控制器，基于它的分段选项选中状态去控制展示 `PieChartViewController` 或者 `BarGraphViewController` 的内容。它还会去检查从 `DataStore` 请求来的汇率数据，因为它们也将在这个视图控制器里展现。
-*   _PieChartViewController.swift_
-    这个控制器将用饼图的形式展示一个给定日期里的汇率。当然你首先要实现它！
-*   _BarGraphViewController.swift_
-    这个控制器将以柱状图的形式展示几天的汇率。当你掌握绘制饼图的方法后，这个图简直小菜一碟！（看到我做的事情了吗？拜托，这真的有点意思！）;]
+*   _DataStore.swift_ 这是一个从 [Fixer.io](http://fixer.io/) 请求货币汇率数据的帮助类。
+*   _Rate.swift_ 这是一个模型，表示给定日期里的货币汇率。
+*   _Currency.swift_ 这是一个表示货币类型的模型。支持的货币类型定义在 _Resources/Currencies.plist_ 里。
+*   _MenuViewController.swift_ 这是一个app启动后展示的第一个视图控制器。它让用户选择一个货币作为基准然后再选两个对照。
+*   _HostViewController.swift_ 这是一个容器视图控制器，基于它的分段选项选中状态去控制展示 `PieChartViewController` 或者 `BarGraphViewController` 的内容。它还会去检查从 `DataStore` 请求来的汇率数据，因为它们也将在这个视图控制器里展现。
+*   _PieChartViewController.swift_ 这个控制器将用饼图的形式展示一个给定日期里的汇率。当然你首先要实现它！
+*   _BarGraphViewController.swift_ 这个控制器将以柱状图的形式展示几天的汇率。当你掌握绘制饼图的方法后，这个图简直小菜一碟！（看到我做的事情了吗？拜托，这真的有点意思！）;]
 
 构建并运行看看这个教程入门项目实际展示。
 
 ![](http://ac-Myg6wSTV.clouddn.com/f9346c33b479bfc2a302.png)
 
-点选 _Get Rates_ 导航去到 `HostViewController` 控制的视图然后可以切换分段选项（译者注：切换展示饼图或柱状图）。这个 app 确实还没有实现太多功能...;]
+点选 _Get Rates_ 导航去到 `HostViewController` 控制的视图然后可以切换分段选项。这个 app 确实还没有实现太多功能...;]
 
 是时候用 Core Plot 开始真正的绘制了！
 
@@ -129,7 +120,7 @@ Core Plot 是一个2D绘制库，适用于 iOS，Mac OS X 和 tvOS。它使用�
 
 设置一个你喜欢的背景色。我使用了透明度为92%的灰度颜色。
 
-现在回到 _PieChartViewController.swift_，在 `viewDidLoad()` 后面添加下面的方法：
+现在回到 _PieChartViewController.swift_ ，在 `viewDidLoad()` 后面添加下面的方法：
 
 
 
@@ -289,9 +280,9 @@ Core Plot 是一个2D绘制库，适用于 iOS，Mac OS X 和 tvOS。它使用�
 
 饼图会使用这个方法得到索引为 `recordIndex` 的货币符号的“总”值。
 
-你应该注意到这个值并_不是_一个百分比值。取而代之的是，这个方法计算出了相对基准货币的货币汇率：返回的这个 `1.0 / currencyRate` 的值是"一个单位的基准货币是多少价值的另外的对照货币"的汇率。
+你应该注意到这个值并 _不是_ 一个百分比值。取而代之的是，这个方法计算出了相对基准货币的货币汇率：返回的这个 `1.0 / currencyRate` 的值是"一个单位的基准货币是多少价值的另外的对照货币"的汇率。
 
-`CPTPieChart` 将查看计算每个分片的百分比值，这个值最终决定了这个分片占多大。
+`CPTPieChart` 将查看计算每个分块的百分比值，这个值最终决定了这个分块占多大。
 
 下面，用下面这行替代掉 `dataLabelForPlot(_:recordIndex:)` ：
 
@@ -444,13 +435,13 @@ Core Plot 是一个2D绘制库，适用于 iOS，Mac OS X 和 tvOS。它使用�
 
 在视图上拖拽出一个新的 `UIView`，将它的类更改为 `CPTGraphHostingView` 并将其输出连接到控制器里的 `hostView`。
 
-通过 _Utilities\Size Inspector_ （那个_刻度尺_选项卡）将它的框架更新到下面那样：
+通过 _Utilities\Size Inspector_ （那个 _刻度尺_ 选项卡）将它的框架更新到下面那样：
 
 _X = 0, Y = 53, Width = 600, Height = 547_
 
 ![](http://ww1.sinaimg.cn/large/a490147fjw1f5tbltfjfpj20dc07oaam.jpg)
 
-添加它和所有相邻元素的约束，确认没有设置_外边距约束_。
+添加它和所有相邻元素的约束，确认没有设置 _外边距约束_ 。
 
 ![](https://cdn5.raywenderlich.com/wp-content/uploads/2016/05/BarGraph_HostView_Constraints.png)
 
@@ -569,13 +560,9 @@ _X = 0, Y = 53, Width = 600, Height = 547_
 下面是这段代码逻辑的拆解：
 
 1.  首先，实例化一个 `CPTXYGraph`，实际上就是一个柱状图，并将它关联到 `hostView`。
-2.  然后声明一个_简约的白色_默认主题并为了展示 XY 轴去设置左侧和下方的内边距。
+2.  然后声明一个 _简约的白色_ 默认主题并为了展示 XY 轴去设置左侧和下方的内边距。
 3.  接着设置文本样式，图表标题以及标题位置。
-4.  最后，配置 `CPTXYPlotSpace`，它负责将设备的坐标系映射到图表的坐标系。
-
-    针对这个图表，你正在绘制三个使用了相同坐标系的汇率。然而，也有可能每个条形图的坐标系都是_分离_的。
-
-    你还要在坐标系中假定一个最大最小值汇率范围。在后面的教程中，你将学习到怎么样在不提前设定范围的情况下自动调节空间大小。
+4.  最后，配置 `CPTXYPlotSpace`，它负责将设备的坐标系映射到图表的坐标系。针对这个图表，你正在绘制三个使用了相同坐标系的汇率。然而，也有可能每个条形图的坐标系都是 _分离_ 的。你还要在坐标系中假定一个最大最小值汇率范围。在后面的教程中，你将学习到怎么样在不提前设定范围的情况下自动调节空间大小。
 
 既然已经创建好图表了，那是时候增加一些绘制方法进去了！把下面的代码添加到 `configureChart()`里：
 
