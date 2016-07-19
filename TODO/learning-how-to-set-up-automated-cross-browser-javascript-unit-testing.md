@@ -504,7 +504,7 @@ The `easy-sauce` command takes a path to your HTML test file (defaulting to `/te
 `easy-sauce` 命令行需要你HTML测试文件的路径（默认 `/test/`），一个可以开启本地服务器的端口（默认 `1337`），以及一个含有浏览器/操作系统的列表。`easy-sauce`接下来会在Sauce Labs的selenium云上运行你的代码，把结果写到console里，然后在运行结束的时候自动退出并告诉你哪些测试通过了。
 
 To make it even more convenient for npm packages, `easy-sauce` will by default look for configuration options in `package.json`, so you don’t have to separately store them. This has the added benefit of clearly communicating to users of your package exactly what browsers/platforms you support.
-为了更方便npm包的用户，`easy-sauce` 会在package.json里自动寻找设置选项，这样你甚至不用分开存储他们。这让软件与用户的交流变得更清楚，也让你的用户清楚的知道你的包到底支持哪些浏览器/操作系统。
+为了更方便npm包的用户，`easy-sauce` 会在 `package.json`里自动寻找设置选项，这样你甚至不用分开存储他们。这让软件与用户的交流变得更清楚，也让你的用户清楚的知道你的包到底支持哪些浏览器/操作系统。
 
 For complete `easy-sauce` usage instructions, check out the [documentation](https://github.com/philipwalton/easy-sauce) on Github.
 关于完整的 `easy-sauce` [使用手册](https://github.com/philipwalton/easy-sauce)，请看我的Github。
