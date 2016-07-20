@@ -1,8 +1,8 @@
 >* 原文链接 : [Complexion Reduction: A New Trend In Mobile Design](https://medium.com/swarm-nyc/complexion-reduction-a-new-trend-in-mobile-design-cef033a0b978)
 * 原文作者 : [Michael Horton](https://medium.com/@michaelhorton)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者:
+* 译者 : [shixinzhang](https://github.com/shixinzhang)
+* 校对者:[cyseria ](https://github.com/cyseria ) , [wild-flame](https://github.com/wild-flame)
 
 
 
