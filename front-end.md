@@ -1,3 +1,4 @@
+* [[译] 使用 Zopfli 优化 PNG 图片](http://gold.xitu.io/entry/578e3a34c4c971005e059ee9?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([cyseria](https://github.com/cyseria) 翻译)
 * [如何理解 JavaScript 中的 Promise 机制](http://gold.xitu.io/entry/57890b881532bc0061d5ac52?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([huanglizhuo](https://github.com/huanglizhuo) 翻译)
 * [[译] 懒加载图片？不要依赖 JavaScript ！](http://gold.xitu.io/entry/5787048a165abd0067f7e476?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jk77](https://github.com/jk77me) 翻译)
 * [用 Javascript 编写λ演算解释器](http://gold.xitu.io/entry/57834783d342d30057db3f93?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([zhangzhaoqi](https://github.com/joddiy) 翻译)
