@@ -1,3 +1,4 @@
+* [[译] iOS 开源图形库 Core Plot 使用教程](http://gold.xitu.io/entry/578f393ad342d30058e54bc0?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([llp0574](https://github.com/llp0574) 翻译)
 * [[译] 用 Swift 创建有 AI(人工智能) 的 Tic Tac Toe 游戏](http://gold.xitu.io/entry/578ef0bb8ac2470060b3da76?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Nicolas(Yifei) Li](https://github.com/yifili09) 翻译)
 * [[译] WWDC 2016：更加安全的 Swift 3.0](http://gold.xitu.io/entry/5788f7467db2a2005ce4f4fe?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zheaoli](https://github.com/Zheaoli) 翻译)
 * [[译] 好的与坏的，Swift 语言面面观（二）](http://gold.xitu.io/entry/578dc9db79bc44005ff580d4?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zheaoli](https://github.com/Zheaoli) 翻译)
