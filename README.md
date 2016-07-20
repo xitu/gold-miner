@@ -6,7 +6,7 @@
 
 # 如何参与翻译
 
-1. **发issue申请成为译者**，只有掘金翻译计划的译者才可以参与校对和翻译，issue内容包括：公司/学校、工作内容/专业、英语水平、常浏览的国外网站、英语水平、有无翻译经验、个人博客，[往期译者申请格式](https://github.com/xitu/gold-miner/issues/249)；
+1. **发issue申请成为译者**，只有掘金翻译计划的译者才可以参与校对和翻译，issue内容包括：公司/学校、工作内容/专业、常浏览的国外网站、英语水平、有无翻译经验、个人博客，[往期译者申请格式](https://github.com/xitu/gold-miner/issues/249)；
 2. 新译者从校对文章开始，每篇译文需要**一位译者**和**两位校对者**（label具体内容及其含义：校对认领=此文章需要两位校对者；校对认领+正在校对=此文章已经有一位校对者在校对了，现在还需要第二位校对者；正在校对=此文章已经有两位校对者在校对了），校对文章只需在有**校对认领**label的issue下留言即可；
 3. 翻译文章，在 [待认领文章列表](https://github.com/xitu/gold-miner/issues?q=is%3Aissue+is%3Aopen+label%3A%E6%96%87%E7%AB%A0%E8%AE%A4%E9%A2%86) 中认领翻译文章；
 4. 认领通过后，Fork 此仓库开始翻译，**注意：Fork 此仓库后，请先从 master 分支上 `git checkout -b translate` 一个新的 translate 分支来翻译文章，翻译完成后再把 translate 分支发 PR**；
