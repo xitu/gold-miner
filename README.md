@@ -49,9 +49,9 @@
 
 * [[译] 为你定制的 React 学习路线](https://gold.xitu.io/entry/578375b85bbb5000610cc247?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([aleen42](http://aleen42.github.io/pc.html) 翻译)
 * [[译] 基于 Meteor1.3 和 React 创建简单 App](http://gold.xitu.io/entry/5732a5af79df540060df2e53?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([yangzj1992](http://www.qcyoung.com/) 翻译)
-* [[译] Making React Native apps accessible](http://gold.xitu.io/entry/56cc0ab299a6ce005a1c3b2b?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([void-main](https://github.com/void-main) 翻译)
+* [[译] 构建无障碍 React Native 应用](http://gold.xitu.io/entry/56cc0ab299a6ce005a1c3b2b?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([void-main](https://github.com/void-main) 翻译)
 * [[译] 如何发布一个 React components](http://gold.xitu.io/entry/56ce8d1fc24aa800520f94e8?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([aleen42](https://github.com/aleen42) 翻译)
-* [[译] Things I Wish I Were Told About React Native](http://gold.xitu.io/entry/56cbf55cefa631005c441d9b?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([huanglizhuo](https://github.com/huanglizhuo) 翻译)
+* [[译] 开发 React Native 前必须知道的几件事](http://gold.xitu.io/entry/56cbf55cefa631005c441d9b?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([huanglizhuo](https://github.com/huanglizhuo) 翻译)
 
 
 ## 后端
@@ -64,7 +64,7 @@
 
 ## 教程
 
-* [[译] Chrome Devtools Tips & Tricks](http://gold.xitu.io/entry/56d56f4dc4c971005193ecec?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([chemzqm](https://github.com/chemzqm) 翻译)
+* [[译] Chrome 开发者工具提示和技巧](http://gold.xitu.io/entry/56d56f4dc4c971005193ecec?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([chemzqm](https://github.com/chemzqm) 翻译)
 * [[译] 通过 Electron 开发一个简单的桌面应用](http://gold.xitu.io/entry/56aae5e4a633bd0257ae4ab8?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zhangdroid](https://github.com/Zhangdroid) 翻译)
 * [[译] Retrofit 入门教程](http://gold.xitu.io/entry/56cc4085128fe100580dd0ca?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([kevin xiu](https://github.com/xiuweikang) 翻译)
 * [[译] Pokedex.org 给宠物小精灵爱好者的 web app 的技术选型](http://gold.xitu.io/entry/56cebb8edf0eea79dc7c1ff0?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([RobertWang](https://github.com/RobertWang) 翻译)
