@@ -2,10 +2,10 @@
 * 原文作者 : [Peter Steinberger](https://twitter.com/steipete)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [DeadLion](https://github.com/DeadLion)
-* 校对者:
+* 校对者: [MAYDAY1993](https://github.com/MAYDAY1993), [Siegen](https://github.com/siegeout)
 
 
-一些应用程序很“奢侈”的只支持最新版本的 iOS。 设置一个较低的[部署目标](https://pspdfkit.com/guides/ios/current/announcements/version-support/)，基于特定 iOS 版本的代码分支通常是很有必要的。虽然苹果公司的信息有些矛盾，还是有各种办法来完成这个。最近在[这条 tweet](https://twitter.com/stevemoseley/status/748953473069092864)上看到有人警告说，不要这样做：
+极少数应用程序很“奢侈”的只支持最新版本的 iOS。 设置一个较低的[部署目标](https://pspdfkit.com/guides/ios/current/announcements/version-support/)以及基于特定 iOS 版本的代码分支通常是很有必要的。虽然苹果公司的信息有些矛盾，还是有各种办法来完成这个。最近在[这条 tweet](https://twitter.com/stevemoseley/status/748953473069092864)上看到有人警告说，不要这样做：
 
 
     #define IsIOS7 ([[[[UIDevice currentDevice] systemVersion] substringToIndex:1] intValue]>=7)
@@ -17,7 +17,7 @@
 
 ## 新 API
 
-花了相当长的时间才意识到这个问题，然后提供了更好的 API。iOS 8 中，终于有了一些改进！现在 [`NSProcessInfo`](https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSProcessInfo_Class/) 有一个新的 [`operatingSystemVersion`](https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSProcessInfo_Class/#//apple_ref/occ/instp/NSProcessInfo/operatingSystemVersion) 方法，更重要的是还有 [`- (BOOL)isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion)version`](https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSProcessInfo_Class/#//apple_ref/occ/instm/NSProcessInfo/isOperatingSystemAtLeastVersion:) 方法来检查。
+苹果公司令人惊讶的花了相当长的时间才意识到这个问题并提供了更好的 API。iOS 8 中，终于有了一些改进！现在 [`NSProcessInfo`](https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSProcessInfo_Class/) 有一个新的 [`operatingSystemVersion`](https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSProcessInfo_Class/#//apple_ref/occ/instp/NSProcessInfo/operatingSystemVersion) 方法，更重要的是还有 [`- (BOOL)isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion)version`](https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSProcessInfo_Class/#//apple_ref/occ/instm/NSProcessInfo/isOperatingSystemAtLeastVersion:) 方法来检查。
 
     if ([[NSProcessInfo processInfo] isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion){.majorVersion = 9, .minorVersion = 1, .patchVersion = 0}]) {
         NSLog(@"Hello from > iOS 9.1");
@@ -32,7 +32,7 @@
 
 ## 我们在 PSPDFKit 做了什么
 
-[PSPDFKit 是一个 SDK，可以查看、注释 PDF 文档，还能在上面填写表单](https://pspdfkit.com/why-pspdfkit/)。最开始写的时候还是 iOS 4，一直改进到最新的 iOS 发行版。那个时候还没有专门的 API 来检测版本，许多应用采用类似下面的代码：
+[PSPDFKit](https://pspdfkit.com/why-pspdfkit/)  是一个关于PDF的SDK，我们可以用它在PDF文档上实现查看、注释以及填写表单的功能。最开始写这个 SDK 的时候还是 iOS 4，随着一系列新 iOS 版本的发布，它也不断的在改进。那个时候还没有专门的 API 来检测版本，许多应用采用类似下面的代码：
 
     if ([[[UIDevice currentDevice] systemVersion] isEqualToString:@"7.0"]) {
         //do stuff
@@ -79,7 +79,7 @@
 
 
 
-会有 iOS 9.4 吗？考虑到 iOS 10 将在未来 3 个月内发布，而且 9.3.3 仍然是 beta 版，我估计是不会有了，但是最好还是占个坑吧。在 PSPDFKit 中，我们是使用下面的模式来定义缺少的版本号。如果代码中使用一个更高的最低部署目标，代码自动编译会帮我们自动忽略掉一些 iOS 版本。
+会有 iOS 9.4 吗？考虑到 iOS 10 将在未来 3 个月内发布，而且 9.3.3 仍然是 beta 版，我估计是不会有了，但是最好还是占个坑吧。在 PSPDFKit 中，我们是使用下面的模式来定义缺少的版本号。如果代码以一个更高的最低部署目标构建，代码会自动编译，当我们遗漏了一些 iOS 版本时，这会很有帮助。
 
     // iOS 9 compatibility
     #ifndef kCFCoreFoundationVersionNumber_iOS_9_0
@@ -125,20 +125,18 @@
 
 自从[前段时间我们放弃了 iOS 7](https://pspdfkit.com/guides/ios/current/announcements/version-support/)，我们可以轻易的切换到新的 `isOperatingSystemAtLeastVersion:` 方法上。其内部实现是通过调用 `operatingSystemVersion` ，是相当高效的。但它会产生更多的代码，仍然比我们现在的实现要慢一点。我没看到过基础检测的正面比较，但是可以肯定的说用了这些宏会更好，如果没有用宏的话，赶紧试试吧。
 
-Things get ugly if we look at the implementation of `operatingSystemVersion` directly. It's cached, but it does generate the version via calling `_CFCopySystemVersionDictionary()` and then looking up `kCFSystemVersionProductVersionKey` (which is `ProductVersion`) and then calling `componentsSeparatedByString:` on that string. I somehow expected this to be hardcoded, but reading it from an external dictionary file is probably more flexible.
-
 如果我们直接看 `operatingSystemVersion` 的实现，确实有点丑。它被缓存了，但是它通过调用 `_CFCopySystemVersionDictionary()` 生成版本号，然后查找 `kCFSystemVersionProductVersionKey` （就是 `ProductVersion`），然后对该字符串执行 `componentsSeparatedByString:` 。不知道为啥，我更期望这是硬编码，但是从外部字典文件读取可能更加灵活。
 
 ## Swift
 
-由于 Swift 2.0 是[支持内置版本检查的语言](https://www.hackingwithswift.com/new-syntax-swift-2-availability-checking)，所以应该用：
+由于 Swift 2.0 是[支持内置版本检查的语言](https://www.hackingwithswift.com/new-syntax-swift-2-availability-checking)，以前是这么用的：
 
     if NSProcessInfo().isOperatingSystemAtLeastVersion(NSOperatingSystemVersion(majorVersion: 10, minorVersion: 0, patchVersion: 0)) {
         // modern code
     }
 
 
-你可以用更少的代码完成同样的事：
+现在可以用更少的代码完成同样的事：
 
 
     if #available(iOS 10.0, *) {
@@ -186,7 +184,7 @@ Things get ugly if we look at the implementation of `operatingSystemVersion` dir
 
 
 
-现在，更有趣的是，`_swift_stdlib_operatingSystemVersion()` 是干什么的，它是怎么定义的？想要找到答案的话，我们得离开舒适的 Swift 世界了，然后在 [Objective-C++ 世界中深挖] 。进入   [`Availability.mm`](https://github.com/apple/swift/blob/master/stdlib/public/stubs/Availability.mm#L26):
+现在，更有趣的是，`_swift_stdlib_operatingSystemVersion()` 是干什么的，它是怎么定义的？想要找到答案的话，我们得离开舒适的 Swift 世界了，然后深入探究 [“疯狂”的 Objective-C++] 。进入   [`Availability.mm`](https://github.com/apple/swift/blob/master/stdlib/public/stubs/Availability.mm#L26):
 
     /// Return the version of the operating system currently running for use in
     /// API availability queries.
@@ -208,15 +206,15 @@ Things get ugly if we look at the implementation of `operatingSystemVersion` dir
 
 
 
-Swift 使用了 iOS 8 的新 API，但是低于 iOS 8 的版本又回退到糟糕的方法了，开放了  `@"/System/Library/CoreServices/SystemVersion.plist"` 文件。这样结果就会被缓存，版本检测会访问硬盘，但是只访问一次。我的第一反应是发送一个变化的 pull 请求，简单的使用已有的公用 API（`systemVersion`），然而 Xcode 8 设置最小部署目标为 iOS 8，不像我们看到的 Xcode 7.3.x 和一个 Swift 更新版发布，所以代码可能完全消失。（译者注：这里有点不太懂，求修改）
+Swift 使用了 iOS 8 的新 API，但是低于 iOS 8 的版本又回退到糟糕的方法了，开放了  `@"/System/Library/CoreServices/SystemVersion.plist"` 文件。这样结果就会被缓存，版本检测会访问硬盘，但是只访问一次。我的第一反应是发送一个变化的 pull 请求，简单的使用已有的公用 API（`systemVersion`），然而 [Xcode 8 设置最小部署目标为 iOS 8](https://stackoverflow.com/questions/37817554/xcode-8-recommend-me-to-change-the-min-ios-deployment-target-from-7-1-to-8-0)，我们不可能看到另外一个有着 Swift 更新的 Xcode 7.3.x 发布，所以这段代码在低于 iOS 8 的版本可能是完全无用的。
 
 ## 更多关于向后兼容
 
-值得注意的是，苹果正在努力让这些版本检测成为不必要的。当然还有 [`respondsToSelector:`](https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Protocols/NSObject_Protocol/index.html#//apple_ref/occ/intfm/NSObject/respondsToSelector:) 和 [`instancesRespondToSelector:`](https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSObject_Class/index.html#//apple_ref/occ/clm/NSObject/instancesRespondToSelector:) ，它们是 Objective-C 的一部分。假设你已经了解这些，并能完美的运用，在某些情况下，我们也会使用。然而，还是有些情况不适用的。例如，有时苹果使公共的 API，存在于一些组件或之前的内部组件中，但特性却不同。这就是为什么 [`appStoreReceiptURL` 在 iOS 7 中添加，但是 iOS 6 中也存在的原因](https://openradar.appspot.com/14216650)。在这种情况下，显式的版本是更可靠的。此外，当你希望放弃旧版本的 iOS 时，也更容易清理代码。所有需要你做的就是移除兼容性宏和修复构建错误。
+值得注意的是，苹果正在努力让这些版本检测成为不必要的。当然还有 [`respondsToSelector:`](https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Protocols/NSObject_Protocol/index.html#//apple_ref/occ/intfm/NSObject/respondsToSelector:) 和 [`instancesRespondToSelector:`](https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSObject_Class/index.html#//apple_ref/occ/clm/NSObject/instancesRespondToSelector:) ，它们是 Objective-C 的一部分。假设你已经了解这些，那么使用它们是极好的，在某些情况下，我们也会使用。然而，还是有些情况不适用的。例如，有时苹果会把已经存在于一些组件或者更深层的内部构造中的有着不同特性的 API 公开。这就是为什么 [`appStoreReceiptURL` 在 iOS 7 中添加，但是 iOS 6 中也存在的原因](https://openradar.appspot.com/14216650)。在这种情况下，显式的版本是更可靠的。此外，当你希望放弃旧版本的 iOS 时，也更容易清理代码。所有需要你做的就是移除兼容性宏和修复构建错误。
 
 ### 弱链接
 
-在很早的时候，使用类如果不适用于所有版本的话意味着要使用下面的模式：
+在很早的时候，使用一个不在所有版本中可用的类意味着要使用下面的模式：
 
     Class cls = NSClassFromString (@"NSRegularExpression");
     if (cls) {
@@ -243,7 +241,7 @@ Swift 使用了 iOS 8 的新 API，但是低于 iOS 8 的版本又回退到糟�
 
 [Greg Parker 在他的 Hamster Emporium 文章中分享了更多](http://sealiesoftware.com/blog/archive/2009/09/09/objc_explain_Weak-import_classes.html)，包括这个梗：
 
->为 Objective-C 增加弱导入是 Snow Leopard 没有按时发布的原因。假设在 Mac OS X 10.7（以猫科动物命名）按时发布，到 Mac OS X 10.8 估计也不可能用的上。
+>为 Objective-C 增加弱导入是 Snow Leopard 没有按时发布的原因。假设在 Mac OS X 10.7（以猫科动物命名）按时发布，直到 Mac OS X 10.8 你才能用的上。
 
 弱链接可以扩展到一个整体框架。在 PSPDFKit，我们为 [SafariServices](https://developer.apple.com/library/ios/documentation/SafariServices/Reference/SafariServicesFramework_Ref/) 做了扩展，其中包含 [`SFSafariViewController`](https://developer.apple.com/library/ios/documentation/SafariServices/Reference/SFSafariViewController_Ref/index.html#//apple_ref/occ/cl/SFSafariViewController)（在 iOS 9 中加入）。
 
