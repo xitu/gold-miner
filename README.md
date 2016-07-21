@@ -29,10 +29,10 @@
 
 ## iOS
 
-* [假如 Mac 上也有 iOS 应用？](http://gold.xitu.io/entry/577b87d27db2a20054e47ecc?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([wildflame](https://github.com/wildflame) 翻译)
-* [[译] iOS 开发者在 Swift 中应避免过度使用 @objc](https://gold.xitu.io/entry/57712f605bbb50005970dc0e?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Dwight](https://github.com/ldhlfzysys) 翻译)
-* [深度剖析 Swift 编译与运行时的类型检查](http://gold.xitu.io/entry/5767a62a80dda4005f9e97ca?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Jack](https://github.com/Jack-Kingdom) 翻译)
-* [利用 Swift 在 APP 中实现撤销操作的功能](http://gold.xitu.io/entry/575fab19207703006bea9d27?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zheaoli](https://github.com/Zheaoli) 翻译)
+* [iOS 开源图形库 Core Plot 使用教程](http://gold.xitu.io/entry/578f393ad342d30058e54bc0?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([llp0574](https://github.com/llp0574) 翻译)
+* [用 Swift 语言和 SpriteKit 创建有人工智能的井字游戏](http://gold.xitu.io/entry/578ef0bb8ac2470060b3da76?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Nicolas(Yifei) Li](https://github.com/yifili09) 翻译)
+* [WWDC 2016：更加安全的 Swift 3.0](http://gold.xitu.io/entry/5788f7467db2a2005ce4f4fe?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zheaoli](https://github.com/Zheaoli) 翻译)
+* [好的与坏的，Swift 语言面面观（二）](http://gold.xitu.io/entry/578dc9db79bc44005ff580d4?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zheaoli](https://github.com/Zheaoli) 翻译)
 * [所有 iOS 译文>>](https://github.com/xitu/gold-miner/blob/master/ios.md)
 
 
