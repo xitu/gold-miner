@@ -1,244 +1,259 @@
->* 原文链接 : [A COMPREHENSIVE GUIDE TO FONT LOADING STRATEGIES](https://www.zachleat.com/web/comprehensive-webfonts/)
-* 原文作者 : [Zell](http://zellwk.com/contact/)
-* 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者:
+> * 原文链接 : [A COMPREHENSIVE GUIDE TO FONT LOADING STRATEGIES](https://www.zachleat.com/web/comprehensive-webfonts/)
+> * 原文作者 : [Zell](http://zellwk.com/contact/)
+> * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 译者 : [Nicolas(Yifei) Li](https://github.com/yifili09) 
+> * 校对者: [cyseria](https://github.com/cyseria) , [David Lin (wild-flame)](https://github.com/wild-flame)
 
-_12 July 2016_ _Read this in about 20 minutes._
+_2016 年 7 月 12 日，_ _本文需要 20 分钟的阅读时间。_
 
-_This guide is not intended for use with font icons, which have different loading priorities and use cases. Also, SVG is probably a better long term choice._
+_这份指南并不是教你怎么使用显示图标字体，它有不同的加载优先顺序和使用场景。事实上，此时使用 `SVG` 或许才是一个长久之计。_
 
 [![A diagram describing the relationship between the font loading strategies](https://www.zachleat.com/web/img/posts/comprehensive-webfonts/strategies.svg)](https://www.zachleat.com/web/img/posts/comprehensive-webfonts/strategies.svg)
 
-## Quick Guide
+## 跳转到:
 
-I want an approach that:
+* [随意使用 `@font-face` ](#unceremonious-随意使用-font-face)
+* [`font-display`](#font-display)
+* [预加载 `preload` ](#预加载-preload)
+* [不要使用在线字体](#不要使用在线字体)
+* [内嵌数据 URI](#内嵌数据-uri)
+* [异步数据 URI 样式表](#异步数据-uri-样式表)
+* [有分类的 FOUT](#有分类的-fout)
+* [两个阶段渲染的 FOFT，或 FOUT](#两个阶段渲染的-foft-或-fout)
+* [严格的 FOFT](#严格的-foft)
+* [有数据 URI 的严格 FOFT](#有数据-uri-的严格-foft)
+* [有预加载 `preload` 的严格FOFT](#有预加载-preload-的严格foft)
 
-*   _is the most well rounded approach that will be *good enough* for most use cases_: [FOUT with a Class](https://www.zachleat.com/web/comprehensive-webfonts/#fout-class).
 
-*   _is the easiest possible thing to implement_: I’ve learned a lot about web fonts and at time of writing this article the current browser support is lacking for the easiest methods for effective/robust web font implementation. It is with that in mind that I will admit—if you’re looking for the easy way out already, you should consider [not using web fonts](https://www.zachleat.com/web/comprehensive-webfonts/#abstain). If you don’t know what web fonts are doing to improve your design, they may not be right for you. Don’t get me wrong, web fonts are **great**. But educate yourself on the benefit first. ([In Defense of Web Fonts, _The Value of a Web Font_ by Robin Rendle](https://robinrendle.com/notes/in-defense-of-webfonts/#the-value-of-a-webfont) is a good start. If you have others, please leave a comment below!)
+## 快速指南
 
-*   _is the best performance-oriented approach_: Use one of the Critical FOFT approaches. Personally, at time of writing my preference is [Critical FOFT with Data URI](https://www.zachleat.com/web/comprehensive-webfonts/#critical-foft-data-uri) but will shift toward [Critical FOFT with `preload`](https://www.zachleat.com/web/comprehensive-webfonts/#critical-foft-preload) as browser support for `preload` increases.
+我想要一个这样的实现途径:
 
-*   _will work well with a large number of web fonts_: If you’re web font obsessed (anything more than 4 or 5 web fonts or a total file size of more than 100KB) this one is kind of tricky. I’d first recommend trying to pare your web font usage down, but if that isn’t possible stick with a standard [FOFT, or FOUT with Two Stage Render](https://www.zachleat.com/web/comprehensive-webfonts/#foft) approach. Use separate FOFT approaches for each typeface (grouping of Roman, Bold, Italic, et cetera).
+*  _是一个对大多数使用场景来说*足够好*且全面的实现方式_: (例如) [有分类的 FOUT](#有分类的-fout)
 
-*   _will work with my existing cloud/web font hosting solution_: FOFT approaches generally require self hosting, so stick with the tried and true [FOUT with a Class](https://www.zachleat.com/web/comprehensive-webfonts/#fout-class) approach.
+* _是尽可能最容易实现的方式_: 我已经学习了很多有关 [在线字体](http://www.webhek.com/tag/web-font/) (的知识)，在我写这篇文章的时候，目前的浏览器还缺少对在线字体高效，稳定和最容易的实现方案。不得不承认，如果你正在寻找现存的可行方案，请考虑 [不要使用在线字体](#不要使用在线字体)。如果你都不清楚在线字体能为你的设计带来什么提升的话，他们确实一点儿都不适合你。别误会，在线字体是一个**伟大发明**。但是你得让自己明白什么是它能带来的好处。( [由Robin Rendel创作的，为在线字体辩护，论_在线字体的价值_](https://robinrendle.com/notes/in-defense-of-webfonts/#the-value-of-a-webfont) 是一个让你初步了解在线字体的好文章. 如果你还知道其他的, 请留言告诉我.)
 
-## Criteria
+* _是一个有最佳性能的实现方式_: 使用 `严格的 FOFT` 实现方式其中的一个。就个人而言，在我写作的时候，我个人偏爱 [有数据 URI 的严格 FOFT](#有数据-uri-的严格-foft), 但是仍转向了 [有预加载 `preload` 的严格FOFT](#有预加载-preload-的严格foft)，因为越来越多的浏览器支持`preload（预加载）`功能。 
 
-1.  **Ease of Implementation**: sometimes, simple is what makes the deadline.
-2.  **Rendering Performance**: FOUT is a feature that will allow you to render fallback fonts immediately and render the web font when it loads. We can take additional steps to reduce amount of time a fallback font is shown and reduce the impact of FOUT or even eliminate it altogether.
-3.  **Scalability**: some font loading approaches encourage serial loading of web fonts. We want the requests to happen in parallel. We’ll evaluate how well each approach works with a growing web font budget.
-4.  **Future Friendly**: will it require additional research and maintenance if a new font format comes out or will it be easily adaptable?
-5.  **Browser Support**: is it sufficient to work with a wide enough base to meet most projects’ browser support requirements?
-6.  **Flexibility**: does the approach easily facilitate grouping web font requests and their repaints and reflows? We want control over which fonts load and when.
-7.  **Robustness**: What happens if a web font request hangs? Will the text be readable or will the web font be a single point of failure (SPOF)?
-8.  **Hosting**: does the approach require self hosting or is it adaptable to work with various web font loaders provided by cloud providers/font foundries?
-9.  **Subsetting**: some font licenses don’t allow subsetting. Some approaches below require subsetting for optimal performance.
+* _能和大量的在线字体(库)很好的配合工作_: 如果你痴迷于在线字体（任何多过 4 或 5 个的在线字体或者总共文件大小多于 100KB）这有点复杂。我先推荐你尝试削减你的在线字体的使用量，但如果这不可能保持标准 [两个阶段渲染的 FOFT，或 FOUT](#两个阶段渲染的-foft-或-fout) 的实现方式。为每一个字型使用不同的 `FOFT` 实现方式(`Roman`，`Bold`，`Italic` 等等分类)。
 
-## Unceremonious @font-face
+* _将能和我现存的云/在线字体的托管服务解决方案配合使用_: `FOFT` 的实现方式一般来说需要亲自托管服务, 所以保持可靠和真的 [有分类的 FOUT](#有分类的-fout) 的实现方式. 
 
-Throw a naked @font-face block on your page and hope for the best. This is the default approach recommended by [Google Fonts](https://fonts.google.com/).
+### 标准
 
-*   **[Demo: Unceremonious `@font-face`](https://www.zachleat.com/web-fonts/demos/unceremonious-font-face.html)**
+1. **简化实现**: 有时候, 简单才能赶上最后的时间期限。
+2. **渲染性能**: `FOUT` 的特性是允许立刻渲染回退方案的字体也可以渲染在线字体,当它完成加载时。我们可以采用额外的步骤减少大量的显示回退方案字体的时间并且减少了对 `FOUT` 的影响, 更有甚者能将他们一起消除。
+3. **可扩展性**: 一些加载字体的实现方式支持连续的加载在线字体。我们想并行的执行这些请求。我们将评估每一个实现和扩张，发展中的在线字体配合度有多好。
+4. **拥抱未来**: 如果有一个新的字体出现它将需要额外的研发和维护么, 或者它将能方便的适配么？
+5. **浏览器支持**: 它是否能成功支持足够多的浏览器满足项目上的需要？
+6. **灵活性**: 这个实现方式是否容易地促进整合在线字体的请求，重新绘制和（页面）回流? 我们想（完全）控制哪个字体何时（何地）被加载。
+7. **稳定性**: 如果一个在线字体的请求被挂起了会发生什么呢？（需要被渲染的）文本将依旧被（显示）可读或者这个在线字体将是一个单点故障（`SPOF`）(导致整个字体渲染失败)?
+8. **托管服务**: 这个实现方式是否需要亲自（虚拟主机）托管服务或者它是否能自适应配合多种多样的字体加载器（由其他云服务商/字体创始人提供）。 
+9. **阉割版(裁剪版)**: 一些字体的（使用）许可证不允许（内容被）裁剪（需要保证完整性），然而有些实现方式不得不为了性能需要对字体（库）进行裁剪。 
 
-#### Pros
+## (Unceremonious) 随意使用 @font-face
 
-*   Very simple: add a CSS `@font-face` block with WOFF and WOFF2 formats (maybe even an OpenType format too, if you want better Android < 4.4 support—Compare [WOFF](http://caniuse.com/#feat=woff) with [TTF/OTF](http://caniuse.com/#feat=ttf) on Can I Use).
-*   Very future friendly: this is the default web font behavior. You’re in the web font mainstream here. Adding additional font formats is as simple as including another URL in your `@font-face` comma separated `src` attribute.
-*   Good rendering performance in Internet Explorer and Edge: no FOIT, no hidden or invisible text. I fully support this by-design decision made my Microsoft.
-*   Does not require modification of the fonts (through subsetting or otherwise). Very license friendly.
+随意把`@font-face`代码块放置在你的网页中并且希望这是最好的办法. 这是 [Google Fonts](https://fonts.google.com/) 推荐的默认方式.
 
-#### Cons
+* **[演示程序: (Unceremonious)随意使用 @font-face](https://www.zachleat.com/web-fonts/demos/unceremonious-font-face.html)**
 
-*   Bad rendering performance everywhere else: Maximum three second FOIT in most modern browsers, switches to FOUT if load takes longer. While requests may finish earlier, we know how unreliable the network can be—three seconds is a long time for invisible unreadable content.
-*   Not very robust, yet: Some WebKits have no maximum FOIT timout (although WebKit has very recently fixed this and I believe it will be included with Safari version 10), which means web font requests may be a single point of failure for your content (if the request hangs, content will never display).
-*   No easy way to group requests or repaints together. Each web font will incur a separate repaint/reflow step and its own FOIT/FOUT timeouts. This can create undesirable situations like the [Mitt Romney Web Font Problem](https://www.zachleat.com/web/mitt-romney-webfont-problem/).
+#### 优点
 
-#### Verdict: Do not use.
+* 非常简单: 增加一个有 `WOFF` 和 `WOFF2` 格式的 CSS `@font-face` 代码块(也可以是 `OpenType` 格式, 如果你想要 `Android 4.4` 以下支持 - 比较下 [WOFF](http://caniuse.com/#feat=woff) 和 [TTF/OTF](http://caniuse.com/#feat=ttf))。
+* 拥抱未来: 这是浏览器默认的作法。这就是在线字体的主流形式。只需要在你的 `@font-face` 中, 在 `src` 属性中用逗号分割开其他需要包含的 `URL` , 就能增加额外的字体样式。
+* 在 `IE` 和 `Edge` (微软浏览器)上都有上佳的渲染性能: 没有 `FOIT`，没有被隐藏和不可见的文本。我完全支持微软这个英明的决定。
+* 不需要修改字体（通过裁剪或者其他形式）。 无需担心许可。 
+
+#### 缺点
+
+* 在其他浏览器的渲染性能差强人意: 在多数其他流行的浏览器上最多有 3 秒时间的 `FOIT`, 切换到 `FOUT` 加载时间更长. 当然这些请求可能被更早完成, 尽管我们知道互联网（的响应时间）是会变得多么不可靠-但是对于内容至少 3 秒无法阅读, 这个时间还是太长了。
+* 目前来说, 不是很稳定: 一些基于 `WebKit` 内核实现的浏览器没有一个最大 `FOIT` 超时时间(虽然 `WebKit` 最近修复了这个问题并且我相信这个修复会被 `Safari Version 10` 采用。)，这也意味着在线字体的请求会成为一个单点失败(如果这个请求被挂起, 那么内容将永远不会被显示)。
+* 将请求或重绘整合在一起一点都不容易。每一个在线字体都会引发一个单独的重绘/回流步骤和自己的 `FOIT` / `FOUT` 超时时间. 这会带来不良的情况, 例如 [Mitt Romney 的在线字体问题](https://www.zachleat.com/web/mitt-romney-webfont-problem/) ).
+
+#### 结论： 不要使用。
 
 ## font-display
 
-Add a new `font-display: swap` descriptor to your `@font-face` block to opt-in to FOUT on browsers that support it. Optionally, `font-display: fallback` or `font-display: optional` can be used if you consider web fonts to be unnecessary to the design. At time of writing, this feature is not available in any stable web browsers.
+在你的 `@font-face` 代码块中增加一个新的 `font-display: swap` 描述符选择性加入支持 `FOUT` 的浏览器。另外, 如果考虑到在线字体不是你设计一定需要的, 可以使用 `font-display: fallback` `font-display: optional`。在我写这篇文章时, 这个特性还没法在任何稳定的浏览器上使用。
 
-#### Pros
+#### 优点
 
-*   Very Simple: Only a single CSS descriptor added to your your `@font-face` block.
-*   Good rendering performance: if this approach had ubiquitous browser support, this would give us FOUT without any JavaScript. A CSS-only approach would be ideal.
-*   Super future friendly: is orthogonal to web font formats. No other changes are required if you add new formats to your stack.
-*   Very robust: a FOUT approach will show your fallback text in supported browsers even if the web font request hangs. Even better—you’re web fonts are not dependent on a JavaScript polyfill—which means if the JavaScript fails, users are still eligible for the web fonts.
-*   Does not require modification of the fonts (through subsetting or otherwise). Very license friendly.
+* 非常简单: 只需要在你的 `@font-face` 代码块中增加一条 CSS 描述符号。
+* 上佳的渲染性能: 如果这个实现方式能被大部分的浏览器支持, 这将给我们一个没有任何`JavaScript`的 `FOUT`。 一个只有 CSS 的实现方式会更理想。
+* 超棒的拥抱(面向)未来: 与子线字体样式成正交状态。不需要改变什么, 你就可以在栈上增加新的字体。
+* 非常稳定: 即使在线字体的请求被挂起, 一种 `FOUT` 实现方式也将在浏览器中显示支持回退方案的文本。更好的是-你的在线字体并不依赖 `JavaScript ployfill`, 这意味着如果 `JavaScript` 方法失败, 用户依旧还能看到在线字体。
+* 不需要修改字体(通过裁剪或者其他形式)。无需担心许可. 
 
-#### Cons
+#### 缺点
 
-*   No stable browser support. Only [Chrome Platform Status](https://www.chromestatus.com/feature/4799947908055040) has a status page for it. It isn’t documented on [Firefox Platform Status](https://platform-status.mozilla.org/) or [Edge Platform Status](https://developer.microsoft.com/en-us/microsoft-edge/platform/status/). Until support is ubiquitous across A-grade browsers, developers will likely still need to pair this with a JavaScript approach.
-*   Limited flexibility: No way to group requests or repaints. This isn’t as bad as it sounds—if you FOUT everything you’ll avoid the Mitt Romney Web Font problem but grouping can be useful for other reasons—we’ll go into that later.
-*   Hosting: No control of this property on any known web font host. It’s not included in the Google Fonts CSS, for example. This will probably change when browser support improves.
+* 没有稳定的浏览器支持。只有 [`Chrome`平台有一个更新状态](https://www.chromestatus.com/feature/4799947908055040)。它没有被录入 [`Firefox`](https://platform-status.mozilla.org/) 或者 [`Edge`](https://developer.microsoft.com/en-us/microsoft-edge/platform/status/) 平台。开发者门将可能需要匹配 `JavcScript` 实现方式, 直到一流的浏览器能支持。
+* 有限的灵活性: 没法整合请求和重绘。这也并没有听上去那么糟-如果你FOUT所有的东西你将避免发生 *Mitt Romney的在线字体问题*, 但是整合在其他方面会很有用-我们将在之后讨论。
+* 托管服务: 没法在任何已知的在线字体托管服务中控制这个属性。这不在谷歌字体 CSS 中, 举例来说. 当浏览器支持以后, 这将会被改变。
 
-#### Verdict: No harm in adding now, but not sufficient.
+#### 结论: 但加无妨，但还是不够。
 
-## Preload
+## 预加载 `preload`
 
-Add `<link rel="preload" href="font.woff2" as="font" type="font/woff2" crossorigin>` to fetch your font sooner. Pairs nicely with an unceremonious `@font-face` block and feel free to also through in the `font-display` descriptor as well for bonus points.
+增加 `<link rel="preload" href="font.woff2" as="font" type="font/woff2" crossorigin>` 更快的获取到你的字体。配合 `@font-face` 代码块使用并且也可以和 `font-display` 描述符号一起锦上添花。
 
-Keep in mind: The pros and cons for this approach are heavily dependent on the font loading strategy you pair it with, whether it be [Unceremonious `@font-face`](https://www.zachleat.com/web/comprehensive-webfonts/#font-face) or [`font-display`](https://www.zachleat.com/web/comprehensive-webfonts/#font-display).
+切记: 这个实现方式的利弊完全取决于配合使用的加载策略, 无论是 [随意使用 `@font-face`](#unceremonious-随意使用-font-face) 或者 [`font-display`](#font-display)。
 
-### Pros
+### 优点
 
-*   Super easy to implement, one `<link>` and you’re off.
-*   Better rendering performance than a `@font-face` block. Web fonts are requested higher up in the waterfall.
-*   Future friendly if you use the `type` attribute to specify the font format. At this point it’s still possible (although it looks unlikely) that a web browser will implement [preload](http://caniuse.com/#feat=link-rel-preload) before [WOFF2](http://caniuse.com/#feat=woff2) for example, and without this attribute you could be looking at a wasted request. So, make sure you include `type`.
-*   Does not require modification of the fonts (through subsetting or otherwise). Very license friendly.
+* 一键实现, 只需要一个 `<link>`。
+* 比 `@font-face` 代码块更好的渲染性能，在线字体的请求优先级很高。
+* 拥抱未来, 如果你使用 `type` 属性去指定字体样式。在 [WOFF2](http://caniuse.com/#feat=woff2) 之前, 一个网页浏览器扔可能执行 [preload](http://caniuse.com/#feat=link-rel-preload) (虽然听上去不太会), 并且如果没有这个属性, 你可能会看到一个多余的请求。所以, 清确保包含了 `type`。
+* 不需要修改字体(通过裁剪或者其他形式)。无需担心许可。
 
-### Cons
+### 缺点
 
-*   Scalability: The more you preload, the more you can block initial render (note data for this comparison was gathered on a site that was using Critical CSS). Try to limit usage to the most important one or two web fonts.
-*   Limited browser support—only Blink support right now, but more coming soon.
-*   Flexibility: no way to group repaints/reflows.
-*   You probably wouldn’t be able to use this with a third party host. You’d need to know at markup render the URL of the web font you’re requesting. Google Fonts, for example, generates these in the CSS request you make to their CDN.
+* 可扩展性: 预加载的内容越多, 初始化渲染的内容就越容易被阻塞（注意, 从网站上获取的比对数据都使用了严格的 CSS）。 尝试仅仅使用 1 到 2 个重要的在线字体。
+* 有限的游览器支持 - 目前只有 `Blink` 支持, 但会越来越多。
+* 灵活性: 没法整合重绘/回流。
+* 这个实现方式你没法使用第三方的托管服务. 你需要在标记阶段提交你所请求的在线字体的 URL。 [Google Fonts](https://www.google.com/fonts) , 在 CSS 向他们的 CDN 请求的时候生成这些。
 
-#### Verdict: Not sufficient by itself.
+#### 结论: 没有使用的必要。
 
-## Don’t use Web Fonts
+## 不要使用在线字体
 
-I won’t go into this approach too much because, well, it isn’t technically a font loading strategy. _But I will say that it’s better than using web fonts incorrectly._ You are missing out on many new typographic features and improvements in readability that a web font can give you, but it is your option to opt-out.
+好吧， 其实我并不想讨论太多这个, 实际上这根本就不是一个技术上的加载策略。_但我必须说这比起滥用在线字体要好的多。_你正在错过很多在线字体能带给你新的字体特性和提升阅读性（的机会）, 但这是你的选择。
 
-#### Pros
+#### 优点
 
-*   Not sure it could be simpler: just use `font-family` without `@font-face`.
-*   Near instant rendering performance: No worries about FOUT or FOIT.
+* 不太确定哪个更加容易: 仅使用没有 `@font-face` 的 `font-family`。
+* 几乎是即刻渲染: 不用担心 `FOUT` 或 `FOIT`。
 
-#### Cons
+#### 缺点
 
-*   Limited availability. Very few system fonts are available cross platform. Check [fontfamily.io](http://fontfamily.io/) to see if a system font has acceptable browser support for your needs.
+* 可适用性很少。仅仅有少部分的字体支持跨平台。可查看 [fontfamily.io](http://fontfamily.io/) 确认某个满足你需求的系统字体是否能被浏览器接受(支持)。
 
-#### Verdict: Sure, I guess, but I wouldn’t be excited about it.
+#### 结论： 当然，可以使用。但我一点儿都不意外。
 
-## Inline Data URI
+## 内嵌数据 URI
 
-There are typically two kinds of inlining covered by this method: in a blocking `<link rel="stylesheet">` request or in a `<style>` element in the server rendered markup. Both [alibaba.com](http://www.alibaba.com/) (two web fonts embedded in a blocking CSS request) and [medium.com](https://medium.com/) (seven web fonts) use this approach.
+这个方法有两种嵌入式(的代码块): 一个是 `<link rel="stylesheet">` 请求或在 `<style>` 在服务器渲染标记语言中。[alibaba.com](http://www.alibaba.com) (在 CSS 请求中有两个在线字体)和 [medium.com](https://medium.com) (7个在线字体)都使用了这个实现方式。
 
-#### Pros
+#### 优点
 
-*   Seemingly great rendering performance: this approach has _no FOUT or FOIT_. This is a big deal.
-*   Flexibility: Don’t need to worry about grouping repaints/reflows—this approach has no FOUT or FOIT.
-*   Robustness: inlining puts all your eggs into your initial server request basket.
+* 超棒的渲染性能: _没有 `FOUT` 或者 `FOIT`_。 太了不起了!
+* 灵活性: 因为没有 `FOUT` 或 `FOIT` , 所以也就不必担心重绘和回流了。
+* 稳定性: 那些内嵌的代码将所有的事情放在了服务器初始化的请求中。
 
-#### Cons
+#### 缺点
 
-*   A catch with rendering performance: while this approach doesn’t FOUT, it can significantly delay initial render time. On the other hand it will render “finished.” But keep in mind that even a single WOFF2 web font is probably going to be around 10KB—15KB and inlining just one as a Data URI will likely take you over the HTTP/1 recommendation of only having 14KB or less in the critical rendering path.
-*   Browser support: Doesn’t take advantage of the comma separated format list in `@font-face` blocks: this approach only embeds one format type. Usually in this wild this has meant WOFF, so using this method forces you to choose between ubiquity (WOFF) and much narrower user agent support but smaller file sizes (WOFF2).
-*   Bad scalability: Requests don’t happen in parallel. They load serially.
-*   Self hosting: Required, of course.
+* 一些渲染性能的缺陷: 虽然这个实现方式没有 `FOUT` ,但它将大大延迟初始化渲染的时间, 另一方面, 它将会"完成"渲染。但牢记即使是一个单独的 `WOFF2` 在线字体都差不多10KB-15KB, 内嵌式只是一个数据 URI , 它将在严格的渲染过程中花费( HTTP/1 推荐值) 14KB 左右。
+* 浏览器支持: 没有利用在 `@font-face` 代码块中使用的以逗号分隔样式的列表: 这个实现方式仅内嵌一个样式类型。通常来说这就是 `WOFF` , 所以使用这个方法迫使你选择更有普遍性的 `WOFF` 或者更加少的支持但是更小的文件 `WOFF2`。
+* 可扩展性差: 请求无法并行执行。只能逐条加载。
+* 亲自托管服务: 当然是必需!
 
-#### Verdict: Only use this method if you really despise FOUT—I wouldn’t recommend it.
+#### 结论: 仅在你无法容忍 `FOUT` 时使用该方法. 我个人不推荐用这个.
 
-## Asynchronous Data URI Stylesheet
+## 异步数据 URI 样式表
 
-Use a tool like [`loadCSS`](https://github.com/filamentgroup/loadCSS/) to fetch a stylesheet with all of the fonts embedded as Data URIs. Often you’ll see this coupled with a localStorage method of storing the stylesheet on the user agent for repeat views.
+使用类似 [`loadCSS`](https://github.com/filamentgroup/loadCSS/) 的工具获取样式表, 所有的字体都嵌入在数据 URI 中。你也将竟然看到这个配合一个本地存储方法来把这个样式表存储在用户本地供其他视图重复使用。
 
-#### Pros
+#### 优点
 
-*   Rendering performance: _Mostly eliminates FOIT_ (see note in the Cons)
-*   Flexibility: Easy to group requests into a single repaint (put multiple Data URIs in one stylesheet).
-*   Ease: Does not require any additional CSS changes to use. This is a big benefit. However, implementation isn’t all candy and roses.
-*   Robust: If the asynchronous request fails, fallback text continues to be shown.
+* 渲染性能: _几乎可以消除`FOIT`_ (详见`缺点`)。
+* 灵活性: 方便的将请求整合到一个单独的重绘中(将多个数据 URI 放入到一个样式表)。
+* 容易性: 不需要其他额外的 CSS 的修改. 这是一个大大的好处, 然而, 实现的过程并不只有好处。
+* 稳定性: 如果异步请求失败了, 回退策略文本也将会被显示。
 
-#### Cons
+#### 缺点
 
-*   Rendering performance: Has a very noticeable, but short FOIT while the stylesheet and Data URIs are being parsed. It’s quite distracting. I see this method often enough that I can recognize the approach without looking into the source code.
-*   Flexibility and Scalability: Grouped requests and repaints are coupled together. If you group multiple Data URIs together (which will cause loading to occur in serial and not in parallel), they will repaint together. With this method, you can’t load in parallel and group your repaints.
-*   Not maintenance friendly. Requires you to have your own method to determine font format support. Your JavaScript loader will need to determine which font format is supported (WOFF2 or WOFF) before fetching the Data URI stylesheet. This means if a new font format comes out, you’ll need to develop a feature test for it.
-*   Browser support: You can bypass the maintenance of the loader step and hard-code to WOFF2 or WOFF but this will either incur larger than necessary or potentially throwaway requests (the same drawback we talked about for Inline Data URIs).
-*   Self Hosting: Required.
+* 渲染性能: 能被注意到, 但是非常短的 `FOIT` , 当样式表和数据 URI 被解析的时候。这有点碍事, 我都不用看源码都知道这个实现方式被使用了。
+* 灵活性和可扩展性: 整合的请求和重绘被结合在一起了。如果你也整合了多个数据 URI 到一起(这样造成都是顺序加载而非平行), 他们也将一起被重绘。通过这个方法, 你不可能再并行加载并且整合重绘。
+* 不太好维护. 你必须决定你支持哪些样式的字体。在获取数据 URI 数据样式表之前, 你的 `JavaScripter` 加载器将需要决定那种字体样式被支持(`WOFF2` / `WOFF`). 如果有一个新的字体样式出现, 你将必须再为这个特性测试是否可行。
+* 浏览器支持(情况): 你可以采用硬编码 `WOFF2`/`WOFF` 去绕开加载器的持续维护工作, 但这势必引发更多的不需要的请求(相同的缺点我们已经在`嵌入式数据 URI`讨论过)。
+* 亲自托管服务: 必须。
 
-#### Verdict: It’s OK but we can do better.
+#### 结论: 这个可以，但是我们能做的更好。
 
-## FOUT with a Class
+## 有分类的 FOUT
 
-Use the CSS Font Loading API with a polyfill to detect when a specific font has loaded and only apply that web font in your CSS after it has loaded successfully. Usually this means toggling a class on your `<span><html></span>` element. Use with SASS or LESS mixins for easier maintenance.
+使用 CSS 字体库中的加载API函数(`polyfill`)去检测当有某一个字体被加载时, 只将这个成功加载的在线字体应用到你的 CSS 中。同行这意味着放置一个开关类在你的 `<span><html></span>` 元素上。使用 `SASS`/`LESS` 进行更简单的维护操作。
 
-### Pros
+### 优点
 
-*   Rendering performance: Eliminates FOIT. This method is tried and tested. It’s [one of the approaches recommended by TypeKit](https://helpx.adobe.com/typekit/using/embed-codes.html#Advancedembedcode).
-*   Flexibility: Easy to group requests into a single repaint (use one class for multiple web font loads)
-*   Scalability: Requests happen in parallel
-*   Robust: if the request fails, fallback text is still shown.
-*   Hosting: Works independent of font loader (easy to implement with third party hosts or with existing `@font-face` blocks)
-*   Great browser support, polyfills typically work everywhere that web fonts are supported.
-*   Future friendly: polyfills aren’t coupled to font formats and should work with existing `@font-face` blocks. That means when a new format comes out, you can just change your `@font-face` as normal.
-*   Does not require modification of the fonts (through subsetting or otherwise). Very license friendly.
+* 渲染性能: 消除 `FOIT`。这个方法已经经过尝试和测试了。它也是 [TypeKit推荐的一个实现方式](https://helpx.adobe.com/typekit/using/embed-codes.html#Advancedembedcode).
+* 灵活性: 方便整个请求到一个重绘(可使用一个类处理多个在线字体的加载)。
+* 可扩展性: 并行执行请求。
+* 稳定性: 如果请求失败, 回退策略的文本也能被显示。
+* 托管服务: 可独立字体加载器功能(方便实现第三方的托管服务或现存的 `@font-face` 代码块)。
+* 最多的浏览器支持, `polyfills` 几乎能被所有的在线字体支持。
+* 拥抱未来: `polyfills` 并不一定和字体样式耦合, 它也能和现存的 `@font-face` 代码块工作。也就是当有一个心的样式出现, 你只需要一如既往的改变你的 `@font-face` 就可。
+* 不需要修改字体(通过裁剪或者其他形式). 无需担心许可。
 
-### Cons
+### 缺点
 
-*   Requires strict maintenance/control of your CSS. A single use of a web font font-family in your CSS without the guarding `loaded` class will likely trigger a FOIT.
-*   Typically requires you to hard code which web fonts you want to load on the page. This can mean that you end up loading more web font content than a page needs. Remember that with unceremonious `@font-face` usage, newer browsers only download web fonts that are actually used on your page. This is given to you for free. This is why the [New York Times can get away with 100 different `@font-face` blocks on their home page](https://twitter.com/zachleat/status/746732627319623689)—the browser only downloads a fraction of those. With this approach, you must tell the browser which fonts to download independent of usage.
+* 需要严格的维护和控制你的 CSS (代码). 单独使用在线字体集,且没有受保护的加载类, 可能会触发 `FOIT`。
+* 一般都需要你硬编码(选择)哪个在线字体是你想要加载在网页上的。你需要加载多过一个网页需要的在线字体. 新的浏览器只会现在当前页面所需要的在线字体 `@font-face` 的实现方式。这就是为什么 [纽约时报在他们的主页上侥幸逃过 100 个不同的 `@font-face` 代码块](https://twitter.com/zachleat/status/746732627319623689) - 浏览器只会下载一小部分。 通过这个方法, 你必须告诉浏览器哪个字体需要被下载, 与使用无关。
 
-### Verdict: This is the baseline standard. This will work for most use cases.
+### 结论: 这是标准线. 被大部分情况使用。
 
-## FOFT, or FOUT with Two Stage Render
+## 两个阶段渲染的 FOFT, 或 FOUT
 
-This approach builds on the [FOUT with a Class](https://www.zachleat.com/web/comprehensive-webfonts/#fout-class) method and is useful when you’re loading multiple weights or styles o f the same typeface, _e.g._ Roman, Bold, Italic, Bold Italic, Book, Heavy, and others. We split those web fonts into two stages: the Roman first, which will then also immediately render faux-bold and faux-italic content (using [font synthesis](https://www.igvita.com/2014/09/16/optimizing-webfont-selection-and-synthesis/)) while the real web fonts for heavier weights and alternative styles are loading.
+该实现基于 [有分类的 FOUT](#有分类的-fout) 方法, 当你要对同一个字型加载不同的字体粗细和样的时候是非常有用的, 比如, `Roman` , `Bold` , `Italic` , `Bold Italic` , `Book`, `Heavy` 等等。 我们可以将在线字体分为两个阶段: `Roman` 优先, 之后将立即渲染`faux-bold`和`faux-italic`的内容( [使用字体合成](https://www.igvita.com/2014/09/16/optimizing-webfont-selection-and-synthesis/)), 然后真实的在线字体, 大权重和加载其他样式。
 
-### Pros
+### 优点
 
-*   _All the existing Pros of the [FOUT with a Class](https://www.zachleat.com/web/comprehensive-webfonts/#fout-class) approach._
-*   Rendering performance: Greatly reduces the amount of content jumping that occurs when the web font has loaded. Given that we divide our web font loads into two stages, this allows the first stage (the Roman font—the one that will incur the most reflow) much quicker than if we had grouped all our fonts together into a single repaint.
+* _所有 [有分类的 FOUT](#有分类的-fout) 方式的优点。_
+* 渲染性能: 极大减少了当在线字体加载完成后内容发生的跳跃。考虑到我们把在线字体的加载分成两个阶段,  这允许第一步(`Roman` 字体 - 引发回流最多的)比我们把所有的字体整合到一个重绘更快。
 
-### Cons
+### 缺点
 
-*   _All the existing Cons of the [FOUT with a Class](https://www.zachleat.com/web/comprehensive-webfonts/#fout-class) approach._
-*   Some designers are highly allergic to font synthesis. Objectively, synthesized variations are less useful than their real counterparts but that isn’t a fair comparison. Keeping in mind that the synthesized versions are only a temporary placeholder, the question we need to ask is: are they more or less useful than the fallback font? More. The answer is more.
+* _所有 [有分类的 FOUT](#有分类的-fout) 存在的缺点。_
+* 一些设计者讨厌字体合成. 客观来说, 合成的变化没有他们对应的有作用. 但这不是一个公平的比较. 牢记合成的版本知识一个临时性的替代物, 我们要问的是, 或多或少比回退策略的字体来的有用么? 答案是更多!
 
-## Critical FOFT
+## 严格的 FOFT
 
-The only difference between this method and standard FOFT approach is that instead of the full Roman web font in the first stage, we use a subset Roman web font (usually only containing A-Z and optionally 0-9 and/or punctuation). The full Roman web font is instead loaded in the second stage with the other weights and styles.
+这个方法和标准的 `FOFT` 实现方式不同的是, 在第一阶段不是完全的 `Roman` 在线字体, 我们使用 `Roman` 在线字体的一个子集(通常只会包含 A - Z 和 0 - 9 或标点符号)。 完全的 `Roman` 在线字体在第二阶段加载不同的权重和样式。
 
-### Pros
+### 优点
 
-*   _All the existing Pros of the [FOFT](https://www.zachleat.com/web/comprehensive-webfonts/#foft) approach_
-*   Rendering performance: The first stage loads even faster (more noticeable on slower connections) further minimizing the time to first stage web font repaint, making your most used web font reflow occur sooner rather than later.
+* _所有 [FOFT](#两个阶段渲染的-foft-或-fout) 现存的优点。_
+* 渲染性能: 第一阶段甚至加载的更快(特别在更慢的网络上更显著)更减少了第一阶段在线字体重绘的时间, 让你使用最多的在线字体更快的产生。
 
-### Cons
+### 缺点
 
-*   _All the existing Cons of the [FOFT](https://www.zachleat.com/web/comprehensive-webfonts/#foft) approach._
-*   Introduces a small amount overhead in that the subset Roman font loaded in the first stage is duplicated by the full Roman web font loaded in the second stage. This is the price we’re paying to minimize reflow.
-*   License restriction: Requires subsetting.
+* _所有 [FOFT](#两个阶段渲染的-foft-或-fout) 现存的缺点。_
+* 会引入少量的开支, 在第一阶段加载的 `Roman` 字体的子集会被重复在第二阶段完整的 `Roman` 字体时再加载一次. 这就是为了最小化回流的代价。
+* 许可证限制: 需要裁剪。
 
-### Verdict: Use one of the improved Critical FOFT variations below.
+### 结论: 可以使用以下加强过的 `严格的 FOFT` 的变种。
 
-## Critical FOFT with Data URI
+## 有数据 URI 的严格 FOFT
 
-This variation of the Critical FOFT approach simply changes the mechanism through which we load the first stage. Instead of using our normal font loading JavaScript API to initiate a download, we simply embed the web font as a inline Data URI directly in the markup. As previously discussed, this will block initial render but since we’re only embedding a very small subset Roman web font this is a small price to pay to mostly eliminate FOUT.
+这个不同的 `FOFT` 实现方式可以通过第一阶段加载的内容来改变机制。我们可以简单的以直接嵌入数据 URI 到标记语言的形式, 嵌入在线字体, 而不是使用一般的 `JavaScript API` 来初始化一个下载, 加载字体。就如之前讨论的, 这样会阻塞初始化渲染, 但是由于我们仅嵌入一小部分的子 `Roman` 在线字体, 对于完全消除`FOUT`, 这点代价还是值得的。
 
-### Pros
+### 优点
 
-*   _All the existing Pros of the [Critical FOFT](https://www.zachleat.com/web/comprehensive-webfonts/#critical-foft) approach._
-*   Eliminates FOIT and greatly reduces FOUT for the Roman font. A small reflow will occur for additional characters loaded in the second stage and when the other weights and styles are loaded, but it will have a much smaller impact.
+* _所有 [严格的 FOFT](#严格的-foft) 现存的优点._
+* 消除了 `FOIT` 并且对 `Roman` 字体极大地减少 `FOUT`。对在第二阶段加载的额外字体会发生一个小的回流并且当其他权重和样式被加载时, 但这个影响很小。
 
-### Cons
+### 缺点
 
-*   _All the existing Cons of the [Critical FOFT](https://www.zachleat.com/web/comprehensive-webfonts/#critical-foft) approach._
-*   The small inlined Data URI will marginally block initial render. We’re trading this for highly reduced FOUT.
-*   Self hosting: Required.
+* _所有 [严格的 FOFT](#严格的-foft) 现存的缺点。_
+* 这个小的内联数据 URI 将少量的阻塞初始渲染. 我们用它交换 `FOUT` 大大的减少。
+* 亲自服务托管: 必须。
 
-### Verdict: This is the current gold standard, in my opinion.
+### 结论: 就我来看， 这就是目前的黄金标准。
 
-## Critical FOFT with `preload`
+## 有预加载 `preload` 的 `严格 FOFT`
 
-This variation of the Critical FOFT approach simply changes the mechanism through which we load the first stage. Instead of using our normal font loading JavaScript API to initiate a download, we use the new `preload` web standard as described above in the [`preload` method](https://www.zachleat.com/web/comprehensive-webfonts/#preload). This should trigger the download sooner than previously possible.
+这个不同的 `FOFT` 实现方式可以通过第一阶段加载的内容来改变机制。我们使用新的 `preload` 在线标准, 而不是使用一般的 `JavaScript API` 来初始化一个下载, 加载字体。在之前已经介绍过 [`preload`方法](#预加载-preload), 这会比之前更快的触发下载。
 
-### Pros
+### 优点
 
-*   _All the existing Pros of the [Critical FOFT](https://www.zachleat.com/web/comprehensive-webfonts/#critical-foft) approach._
-*   Rendering performance: Downloads should trigger higher up in the waterfall than with previous methods. I’d guess this is even more dramatic with HTTP headers but haven’t yet confirmed this hunch. This method is better than [Critical FOFT with Data URI](https://www.zachleat.com/web/comprehensive-webfonts/#critical-foft-data-uri) in that it can use the browser cache for repeat requests, rather than re-requesting the same web font data with every server markup request.
+* _所有 [严格的 FOFT](#严格的-foft) 现存的优点。_
+* 渲染性能: 下载应该比之前的方法早被触发。 我猜测这个甚至比HTTP的报头更戏剧性, 但还并没有证实我的预感. 这个方法比 [有数据 URI 的严格 FOFT](#有数据-uri-的严格-foft) 更好, 他能使用浏览器的缓存重复(发送)请求, 而不是重复发送一样的在线字体, 与每一个服务器标记(语言)请求。
 
-### Cons
+### 缺点
 
-*   _All the existing Cons of the [Critical FOFT](https://www.zachleat.com/web/comprehensive-webfonts/#critical-foft) approach._
-*   Use only with a single web font format.
-*   As stated above, [browser support is limited](http://caniuse.com/#feat=link-rel-preload)—only Blink at time of writing.
-*   `preload` can marginally delay initial render (note data for this comparison was gathered on a site that was using Critical CSS)
-*   Self hosting: Probably required.
+* _所有 [严格的 FOFT](#严格的-foft) 现存的缺点。_
+* 只使用一个在线字体样式。
+* 如上述所陈述的， [浏览器的支持有限](http://caniuse.com/#feat=link-rel-preload) 在我写这篇文章时， 只有 `Blink` 支持。
+* `preload` 会少量的增加初始化渲染的延迟(注意对比的数据由严格 CSS 的网站生成)。
+* 亲自托管: 可能需要。
 
-### Verdict: This will be the new gold standard when browser support improves.
+### 结论: 当浏览器能更好的支持的时候，这会是新的黄金标准。
