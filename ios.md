@@ -15,10 +15,10 @@
 * [打破 Swift 结构体中的循环引用](http://gold.xitu.io/entry/572acc852e958a0069518605?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Tuccuay](https://github.com/Tuccuay)翻译）
 * [使用 Xcode 的 Scheme 来跑不同的测试集合](http://gold.xitu.io/entry/5723223f71cfe400575f4528?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Tuccuay](https://github.com/Tuccuay)翻译）
 * [UIScrollView 新手教程](http://gold.xitu.io/entry/570c71a81ea4930068dcbc5e?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zhongyi Tong](https://github.com/geeeeeeeeek)翻译）
-* [RxSwift at first sight](http://gold.xitu.io/entry/56d5528a1532bc004c6e913a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([SatanWoo](https://github.com/SatanWoo)翻译）
+* [RxSwift 的第一印象](http://gold.xitu.io/entry/56d5528a1532bc004c6e913a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([SatanWoo](https://github.com/SatanWoo)翻译）
 * [Facebook iOS 应用是如何加速图片显示的？](http://gold.xitu.io/entry/56de9bc7731956005e1b5b2e?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([bobmayuze](https://github.com/bobmayuze) 翻译)
 * [编写高质量的 Swift 代码](http://gold.xitu.io/entry/56b60c97816dfa005ae0c0d4?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([iThreeKing](https://github.com/iThreeKing) 翻译)
 * [Artsy 工程师总结的一些 Cocoa 开发设计误区](http://gold.xitu.io/entry/56cbd1338ac2470053b55ce5?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([nathanwhy](https://github.com/nathanwhy) 翻译)
 * [UIKit 里如何面向协议编程](https://github.com/xitu/gold-miner/blob/master/TODO/ios-9-tutorial-series-protocol-oriented-programming-with-uikit.md) ([walkingway](https://github.com/walkingway) 翻译)
 * [3D Force Touch 的新玩儿法](http://gold.xitu.io/entry/56cbd3ec1532bc00535cb0e9?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([shiguol](https://github.com/shiguol) 翻译)
-* [Absolute Beginner's Guide to Swift](http://gold.xitu.io/entry/56cbd7e3128fe10058092760?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([cdpath](https://github.com/cdpath) 翻译)
+* [Swift 新手指南](http://gold.xitu.io/entry/56cbd7e3128fe10058092760?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([cdpath](https://github.com/cdpath) 翻译)
