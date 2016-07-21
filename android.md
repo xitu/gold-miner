@@ -29,5 +29,5 @@
 * [Android 的一个 MVP 基础项目模板](http://gold.xitu.io/entry/56cd79c12e958a69f944984c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([foolishgao](https://github.com/foolishgao) 翻译)
 * [让 Toolbar 随着 RecyclerView 的滚动而显示/隐藏](http://gold.xitu.io/entry/56cd9c9dd342d30054ca35b8?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([MiJack](https://github.com/MiJack) 翻译)
 * [Android Guides - Github](http://gold.xitu.io/entry/5584f8e9e4b09e372efeca9a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([SeniorZhai](https://github.com/SeniorZhai) 翻译)
-* [6 Things I wish I Knew before I Wrote my first Android App](http://gold.xitu.io/entry/56cee30e8ac247004c599446?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([404neko](https://github.com/404neko) 翻译)
+* [我希望在我写第一个安卓 APP 前知道的 6 件事情](http://gold.xitu.io/entry/56cee30e8ac247004c599446?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([404neko](https://github.com/404neko) 翻译)
 * [Android 上的数据格式 FlatBuffers 介绍](http://gold.xitu.io/entry/56cd8fff75c4cd339a03d1a4?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lihb](https://github.com/lihb) 翻译)
