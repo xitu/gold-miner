@@ -1,7 +1,7 @@
 > * 原文链接: [JavaScript ES6+: var, let, or const?](https://medium.com/javascript-scene/javascript-es6-var-let-or-const-ba58b8dcde75#.twa6gzmfp)
 * 原文作者: [Eric Elliott](https://medium.com/@_ericelliott)
 * 译文出自: [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者: 
+* 译者: [Gran](https://github.com/Graning)
 * 校对者:
 
 
