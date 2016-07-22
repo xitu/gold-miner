@@ -38,10 +38,10 @@
 
 ## 前端
 
+*  [[译] 字体加载策略全面指南](https://gold.xitu.io/entry/5790d1aa5bbb500063b8a747?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Nicolas(Yifei) Li](https://github.com/yifili09) 翻译)
 * [[译] 懒加载图片？不要依赖 JavaScript ！](http://gold.xitu.io/entry/5787048a165abd0067f7e476?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jk77](https://github.com/jk77me) 翻译)
 * [[译] 用 Javascript 编写λ演算解释器](http://gold.xitu.io/entry/57834783d342d30057db3f93?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([zhangzhaoqi](https://github.com/joddiy) 翻译)
 * [[译] 让你的网站更炫酷的一些小 tips](https://gold.xitu.io/entry/577f402b79bc4400329db962?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([达仔](https://github.com/zhangjd) 翻译)
-* [[译] jQuery 终于发布了](https://gold.xitu.io/entry/576917c0d342d30058097229?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Dwight](https://github.com/ldhlfzysys) 翻译)
 * [所有前端译文>>](https://github.com/xitu/gold-miner/blob/master/front-end.md)
 
 
