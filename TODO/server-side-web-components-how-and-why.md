@@ -1,4 +1,4 @@
-> * 原文链接: [server-side-web-components-how-and-why](https://scotch.io/tutorials/server-side-web-components-how-and-why)
+> * 原文链接: [Server-side Web Components: How and Why?](https://scotch.io/tutorials/server-side-web-components-how-and-why)
 * 原文作者: [Jordan Last](https://pub.scotch.io/@lastmjs)
 * 译文出自: [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者: 
