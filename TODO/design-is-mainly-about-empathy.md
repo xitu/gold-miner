@@ -6,4 +6,4 @@
 
 Sorry, but I'm still writing this doc.
 
-Stay tuned, it will appear in a hour or two.
+Stay tuned, it will appear in an hour or two.
