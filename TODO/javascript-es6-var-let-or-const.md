@@ -15,7 +15,7 @@
 
 如果你对URL、query string、GET参数的值分别使用不同的标识符，是很容易理解的。
 
-这就是为什么在 ES6 上我喜欢 _`const`_ 胜过 _`let`_ 。在JavaScript中，**_`const`_ 意味着该标识符不能被重新赋值**。不要被 _immutable values_ 弄糊涂了。不像那些诸如Immutable.js 与 Mori 产生的真正不可变的数据类型，const事实上可以有属性变化。
+这就是为什么在 ES6 上我喜欢 _`const`_ 胜过 _`let`_ 。在JavaScript中，**_`const`_ 意味着该标识符不能被重新赋值**。不要被 _immutable values_ 弄糊涂了。不像那些诸如Immutable.js 与 Mori 产生的真正不可变的数据类型，_`const`_声明的对象可以有属性变化。
 
 如果我不需要重新赋值，**_`const`_ 就是我的默认选择** 相比 _`let`_ 要常用的多，因为我想让它在代码中的使用尽可能的清晰。
 
