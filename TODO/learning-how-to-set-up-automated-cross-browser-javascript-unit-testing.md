@@ -2,7 +2,7 @@
 * 原文作者：[PHILIP WALTON](https://philipwalton.com/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：owenlyn
-* 校对者：[Yaowenjie]https://github.com/Yaowenjie [MAYDAY1993](https://github.com/MAYDAY1993)
+* 校对者：[Yaowenjie](https://github.com/Yaowenjie) [MAYDAY1993](https://github.com/MAYDAY1993)
 
 我们都知道在各个不同的浏览器环境里测试代码是很重要的，并且在大多数时候，我们这些Web开发者在这一点上还是做的不错的 —— 至少在第一次发布项目的时候是这样。
 
