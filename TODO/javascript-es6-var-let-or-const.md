@@ -2,7 +2,7 @@
 * 原文作者: [Eric Elliott](https://medium.com/@_ericelliott)
 * 译文出自: [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者: [Gran](https://github.com/Graning)
-* 校对者:
+* 校对者:[Yaowenjie](https://github.com/Yaowenjie),[zhangchen](https://github.com/zhangchen91)
 
 
 ### ES6 中 的 var、let 和 const 应该如何选择？
