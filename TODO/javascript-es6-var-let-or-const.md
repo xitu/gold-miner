@@ -11,11 +11,11 @@
 
 有时候为了表示一些数据就很容易创建一个标识符，然后使用该标识符作为一个临时的空间去存储一些值作为一个过渡。
 
-举个例子，你可能只为了得到 URL 中的 query string 的某个值，而先创建了一个标识符存储完整URL，然后是query string，最后才是该值。这种做法应该尽量避免。
+举个例子，你可能只为了得到 URL 中的 query string 的某个值，而先创建了一个标识符存储完整 URL ，然后是 query string ，最后才是该值。这种做法应该尽量避免。
 
-如果你对URL、query string、GET参数的值分别使用不同的标识符，是很容易理解的。
+如果你对 URL、 query string、 GET 参数的值分别使用不同的标识符，是很容易理解的。
 
-这就是为什么在 ES6 上我喜欢 _`const`_ 胜过 _`let`_ 。在JavaScript中，**_`const`_ 意味着该标识符不能被重新赋值**。不要被 _immutable values_ 弄糊涂了。不像那些诸如Immutable.js 与 Mori 产生的真正不可变的数据类型，_`const`_声明的对象可以有属性变化。
+这就是为什么在 ES6 上我喜欢 _`const`_ 胜过 _`let`_ 。在JavaScript中，**_`const`_ 意味着该标识符不能被重新赋值**。不要被 _immutable values_ 弄糊涂了。不像那些诸如 Immutable.js 与 Mori 产生的真正不可变的数据类型，_`const`_声明的对象可以有属性变化。
 
 如果我不需要重新赋值，**_`const`_ 就是我的默认选择** 相比 _`let`_ 要常用的多，因为我想让它在代码中的使用尽可能的清晰。
 
@@ -33,7 +33,7 @@
 
 现在在 ES6 中，因为 _`let`_ 和 _`const`_ 的暂时性死区效应，使用 _`typeof`:_ 来检测标识符已经不再安全了。 
 
-译者注：在声明之前对标识符使用 _`typeof`:_ ，会抛出ReferenceError。
+译者注：在声明之前对标识符使用 _`typeof`:_ ，会抛出 ReferenceError。
 
 ```
 function foo () {
@@ -49,4 +49,4 @@ foo(); // ReferenceError: can't access lexical declaration
 
 #### P.S.
 
-如果你需要通过清除它释放一个值，你可以考虑使用 _`let`_ 而不是 _`const`_。如果你需要对垃圾回收进行微管理，你应该去看“Slay’n the Waste Monster”, 视频链接: [https://medium.com/media/6f512d3acc928ffcb80ac4f5586c2e87?maxWidth=700](https://medium.com/media/6f512d3acc928ffcb80ac4f5586c2e87?maxWidth=700)
+如果你需要通过清除它释放一个值，你可以考虑使用 _`let`_ 而不是 _`const`_。如果你需要对垃圾回收进行微管理，你应该去看“Slay’n the Waste Monster”, 视频链接:[![](https://i.ytimg.com/vi/RWmzxyMf2cE/sddefault.jpg)](https://medium.com/media/6f512d3acc928ffcb80ac4f5586c2e87?maxWidth=700)
