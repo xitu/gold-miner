@@ -49,4 +49,9 @@ foo(); // ReferenceError: can't access lexical declaration
 
 #### P.S.
 
+<<<<<<< HEAD
 如果你需要通过清除它释放一个值，你可以考虑使用 _`let`_ 而不是 _`const`_。如果你需要对垃圾回收进行微管理，你应该去看“Slay’n the Waste Monster”, 视频链接:[![](https://i.ytimg.com/vi/RWmzxyMf2cE/sddefault.jpg)](https://medium.com/media/6f512d3acc928ffcb80ac4f5586c2e87?maxWidth=700)
+=======
+If you need to deallocate a value by unsetting it, you may consider _`let`_ over _`const`,_ but if you really need to micro-manage the garbage collector, you should probably watch “Slay’n the Waste Monster”, instead: 
+[![](https://i.ytimg.com/vi/RWmzxyMf2cE/sddefault.jpg)](https://medium.com/media/6f512d3acc928ffcb80ac4f5586c2e87?maxWidth=700)
+>>>>>>> 9380d395d62debdb99aa90b9f7809ffe3e32e3cb
