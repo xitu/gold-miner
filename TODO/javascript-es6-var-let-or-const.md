@@ -47,4 +47,5 @@ But you’ll be fine because you took my advice from [“Programming JavaScript 
 
 #### P.S.
 
-If you need to deallocate a value by unsetting it, you may consider _`let`_ over _`const`,_ but if you really need to micro-manage the garbage collector, you should probably watch “Slay’n the Waste Monster”, instead: [https://medium.com/media/6f512d3acc928ffcb80ac4f5586c2e87?maxWidth=700](https://medium.com/media/6f512d3acc928ffcb80ac4f5586c2e87?maxWidth=700)
+If you need to deallocate a value by unsetting it, you may consider _`let`_ over _`const`,_ but if you really need to micro-manage the garbage collector, you should probably watch “Slay’n the Waste Monster”, instead: 
+[![](https://i.ytimg.com/vi/RWmzxyMf2cE/sddefault.jpg)](https://medium.com/media/6f512d3acc928ffcb80ac4f5586c2e87?maxWidth=700)
