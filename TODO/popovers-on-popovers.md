@@ -3,10 +3,10 @@
 * 原文作者: [Douglas Hill](https://twitter.com/qdoug)
 * 译文出自: [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者:  [llp0574](https://github.com/llp0574)
-* 校对者:
+* 校对者: [yifili09](https://github.com/yifili09),[Graning](https://github.com/Graning)
 
 
-iOS 9 的页面用了一种我们不能复制的方式去展示一个活动视图控制器，并且当从内部表单和弹窗呈现操作列表和活动视图控制器时 UIKit 的行为一开始看起来不那么连贯。我们提交了两份 Radars 给苹果：[rdar://27448912 Can’t show activity view controller filling a form sheet](http://openradar.appspot.com/27448912) 和 [rdar://27448488 Reading an alert controller’s popoverPresentationController property changes behavior](http://openradar.appspot.com/27448488)。
+iOS 9 的页面用了一种我们不能复现的方式去展示一个活动视图控制器，并且当从内部表单和弹窗呈现操作列表和活动视图控制器时 UIKit 的行为一开始看起来不那么连贯。我们提交了两份 Radars 给苹果：[rdar://27448912 Can’t show activity view controller filling a form sheet](http://openradar.appspot.com/27448912) 和 [rdar://27448488 Reading an alert controller’s popoverPresentationController property changes behavior](http://openradar.appspot.com/27448488)。
 
 [iOS 的人机交互指南](https://developer.apple.com/ios/human-interface-guidelines/interaction/modality/)声明：
 
@@ -58,6 +58,6 @@ iOS 9 的页面用了一种我们不能复制的方式去展示一个活动视�
 
 我们发现当 UIKit 的视图控制器是从一个展示在常规宽度环境的紧凑宽度的环境中展示时行为会变得很混乱。弹窗展现的一般规则是在常规宽度下展示为弹窗，在紧凑宽度下为全屏（尽管结合当前上下环境更有意义）。操作列表和活动视图控制器的展示有点像弹窗的展示，但不要完全按照一般的规则来展示。
 
-实际的行为看起来像是和人机交互指南说的一样，并很大程度上忽略了特征集合的大小类。UIKit 不会在操作列表的异常警告上展现一个弹窗。大小类并不控制所有的东西。
+实际的行为看起来像是和人机交互指南说的一样，并很大程度上忽略了特征集合的 Size 类。UIKit 不会在操作列表的异常警告上展现一个弹窗。Size 类并不能控制所有的东西。
 
-我们不能复制页面的表现行为。对于我们来说，当一个表单展示一个活动视图控制器时，它将展示为弹窗。我把这个问题报告给了 Apple ：[rdar://27448912 Can’t show activity view controller filling a form sheet](http://openradar.appspot.com/27448912)。如果你知道解决这个问题的方法，[麻烦在我的 Twitter 留言](https://twitter.com/qdoug)。
+我们不能重现页面(Pages)的行为。对于我们来说，当一个表单展示一个活动视图控制器时，它将展示为弹窗。我把这个问题报告给了 Apple ：[rdar://27448912 Can’t show activity view controller filling a form sheet](http://openradar.appspot.com/27448912)。如果你知道解决这个问题的方法，[麻烦在我的 Twitter 留言](https://twitter.com/qdoug)。
