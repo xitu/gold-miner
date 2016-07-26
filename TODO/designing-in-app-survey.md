@@ -1,7 +1,7 @@
 > * 原文链接: [Designing an in-app Survey](https://medium.com/budi-brain/designing-in-app-survey-6163304e88dd)
 * 原文作者: [Budi Harto Tanrim](https://medium.com/@buditanrim)
 * 译文出自: [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者: 
+* 译者: [Gran](https://github.com/graning)
 * 校对者:
 
 
