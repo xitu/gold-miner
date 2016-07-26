@@ -29,10 +29,10 @@
 
 ## iOS
 
+* [[译] iOS 开发中的 Flux 架构模式](http://gold.xitu.io/entry/57972cdcc4c97100542c2ed4?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Nicolas(Yifei) Li](https://github.com/yifili09) 翻译)
 * [[译] 高效的 iOS 应用版本支持方法](https://gold.xitu.io/entry/57957d892e958a006514bdbb?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([DeadLion](https://github.com/DeadLion) 翻译)
 * [[译] iOS 开源图形库 Core Plot 使用教程](http://gold.xitu.io/entry/578f393ad342d30058e54bc0?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([llp0574](https://github.com/llp0574) 翻译)
-* [[译] 用 Swift 语言和 SpriteKit 创建有人工智能的井字游戏](http://gold.xitu.io/entry/578ef0bb8ac2470060b3da76?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Nicolas(Yifei) Li](https://github.com/yifili09) 翻译)
-* [[译] WWDC 2016：更加安全的 Swift 3.0](http://gold.xitu.io/entry/5788f7467db2a2005ce4f4fe?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zheaoli](https://github.com/Zheaoli) 翻译)
+* [[译] 用 Swift 语言和 SpriteKit 创建有人工智能的井字游戏](http://gold.xitu.io/entry/578ef0bb8ac2470060b3da76?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Nicolas(Yifei) Li](https://github.com/yifili09) 翻译) ([Zheaoli](https://github.com/Zheaoli) 翻译)
 * [所有 iOS 译文>>](https://github.com/xitu/gold-miner/blob/master/ios.md)
 
 
