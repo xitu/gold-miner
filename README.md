@@ -73,7 +73,7 @@
 
 ## 设计
 
-* [移动应用设计新趋势](http://gold.xitu.io/entry/5796ee065bbb500063ef3535) ([shixinzhang](https://github.com/shixinzhang) 翻译)
+* [[译] 移动应用设计新趋势](http://gold.xitu.io/entry/5796ee065bbb500063ef3535) ([shixinzhang](https://github.com/shixinzhang) 翻译)
 * [[译] 移动开发中用 1x 视觉稿设计的好处](http://gold.xitu.io/entry/578840f9d342d30058a29968?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([wildflame](https://github.com/wild-flame/) 翻译)
 * [[译] 用户界面中的字体](http://gold.xitu.io/entry/57859bb9d342d300578b1ebf?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([circlelove](https://github.com/circlelove) 翻译)
 * [[译] 从产品设计到虚拟现实](https://gold.xitu.io/entry/5783aa752e958a0054dad3bc?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([cdpath](https://github.com/cdpath) 翻译)
