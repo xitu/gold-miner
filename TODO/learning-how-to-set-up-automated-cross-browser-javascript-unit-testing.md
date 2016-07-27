@@ -1,7 +1,7 @@
 * 原文链接：[Learning How to Set Up Automated, Cross-browser JavaScript Unit Testing](https://philipwalton.com/articles/learning-how-to-set-up-automated-cross-browser-javascript-unit-testing)
 * 原文作者：[PHILIP WALTON](https://philipwalton.com/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：owenlyn
+* 译者：[owenlyn](https://github.com/owenlyn)
 * 校对者：[Yaowenjie](https://github.com/Yaowenjie) [MAYDAY1993](https://github.com/MAYDAY1993)
 
 我们都知道在各个不同的浏览器环境里测试代码是很重要的，并且在大多数时候，我们这些Web开发者在这一点上还是做的不错的 —— 至少在第一次发布项目的时候是这样。
@@ -45,7 +45,7 @@
 
     browserify test/*-test.js > test/index.js
 
-使用像 browserify 或 webpack 这样的bundlers（连接器？）的好处是它们会把你所写的所有测试以及这些测试需要的资源都放进一个文件里，这样你就可以很方便的把这个文件加载到测试页面里了。<sup>[[1]](https://philipwalton.com/articles/learning-how-to-set-up-automated-cross-browser-javascript-unit-testing#footnote-1)</sup>
+使用像 browserify 或 webpack 这样的bundlers的好处是它们会把你所写的所有测试以及这些测试需要的资源都放进一个文件里，这样你就可以很方便的把这个文件加载到测试页面里了。<sup>[[1]](https://philipwalton.com/articles/learning-how-to-set-up-automated-cross-browser-javascript-unit-testing#footnote-1)</sup>
 
 一个典型的使用Mocha的测试文件看起来像这样：
 
