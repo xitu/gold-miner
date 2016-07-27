@@ -8,176 +8,176 @@
 ![](http://ac-Myg6wSTV.clouddn.com/1df377425299748db94f.gif)
 
 
-Last week, one of my favorite apps sent me an email to take a survey. So, I thought why not helping them to improve their app? I tried to fill the survey out, but I just couldn’t finish the survey — it was too painful. One of the main problems is they asked 2–3 questions on one page that required me to move my screen a lot vertically or horizontally.
+上周，一个我最喜欢的应用发调查邮件给我。何乐而不为呢？但是我几乎无法完成调查，因为它太麻烦了。在一个主题下面同一页他们提问了23个问题，这导致我要上下左右移动我的屏幕才能看见完整问题。
 
-Horrible, horrible experience.
+糟糕的体验。😰
 
-Later that evening, some ideas mixed up in my head about the possibility to make mobile-survey’s experience better. In this article, I’ll share my ideas, thoughts and processes on how I designed an in-app mobile surveyto get product feedbackfrom users.
+那天晚上，一些主意在我脑海生成有关让移动端调查体验更好的可能性。在这篇文章中，我将分享一些我的观点，思想以及流程关于我如何在应用内设计一份调查以获取用户的产品反馈。
 
-There are a lot of elements to make a survey successful. But at the end of the day, all that matters is how to make a user willing to **take** the survey and committed to **complete** it. The survey has to be enjoyable in order to capture the optimal result that can be used for making a better business decision.
+许多因素可以造就一个调查的成功。但是在调查的时候，重要的是让用户愿意**接受**调查以及**完成**调查。调查是为了得到可用于帮助我们做出更好的业务决策的最佳结果。
 
-### The goals
+### 目标
 
-So I decided to design an app that would:
+所以我决定设计一个 app 可以做到：
 
-*   Catch a user’s emotion and feedback quickly
-*   Make a user complete the survey with minimum effort & pain
-*   Design the least annoying approach to ask user to take the survey
-*   Design a custom format and mixed it with the traditional survey knowledge.
+*   快速获取用户情感以及反馈
+*   使用户轻松的完成调查
+*   设计出贴心的方式要求用户采取调查
+*   设计出一个自定义格式与传统调查方法相结合的调查。
 
-This led me to achieve 2 main goals.
+这将带领我实现两个主要目标。
 
-> **1st goal: Make the user willing to take the survey.
-> 2nd goal: Design the survey for user so they can fill it out with minimum effort.**
+> **1st : 让用户乐意接受调查.
+> 2nd : 设计出一个让他们能以最简便的方式填写的调查**
 
 ![](http://ac-Myg6wSTV.clouddn.com/2bfba656090d9f59d0bb.jpeg)
 
-### Understanding the user
+### 理解用户
 
-Okay, everyone know that no one is really interested in “helping” the company to be better — matter of fact, no one give a sh*t. People are busy and are getting bombarded with a lot of notifications and emails. So, it is important to play this nicely and gently.
+每个人都知道不是每一个人都“乐意”帮助公司变得更好，事实上，人们都很忙，成天的通知和电子邮件轰炸。所以，要让用户轻松乐意的参与进来这是很重要的。
 
-#### Know the timing
+#### 掌握好时间⌚️
 
-The first thing that I stressed on is to finding the best time to send out the survey. I have to find a sweet spot when the user is happy and excited, therefore they have more willingness to at least take the survey.
+我强调的第一件事就是发送调查的最佳时机。必须要找出一个用户高兴和激动的时间点，因此他们有更高的参与意愿进来至少愿意接受调查。
 
-People called this a “post-event-survey”. Here is an example, let’s say.. today you have received a 27" monitor or backpack from Amazon you bought while ago. You are happy, excited to use it and the smile is still on your face. Chances are this is the moment it’s most likely for you to take the survey.
+人们称这个是一个“事后调查”。下面是一个例子，让我们说，你今天收到了来自亚马逊的快递，你前段时间买的一个27"的显示器或者背包。你很开心，兴奋的使用它，脸上露出微笑:)。可能那一刻是你最愿意接受调查的时间。
 
-It‘s important not to sending out the survey to a new user that never experienced the product at all. From my point of view, a user who has been using our app for 2–4 times would have thoughts on what they were wish to improve. And hopefully, users are experiencing a positive experience which will build more willingness to take a survey. Make sense?
+还有一点很重要，不要对从未使用过产品的用户发出调查。依我来看，一个从开始就使用我们的应用直到2-4次之后的用户将会有一些新想法，有关他们对我们所期望的一些功能或者改变。如果顺利的话，用户发现了一个有用的经验，这将使用户更加乐意接受调查。很实用吧~。
 
-#### Ask gently
+友好的询问
 
-As you may have experienced before, pop-up are total crap. So, my next question would be what is the least annoying approach to ask user for take our survey?
+就像你曾经经历过的调查一样，弹出的总是废话。所以，我的下一个问题是：哪一种方式是使用户参与调查最讨厌的方式？
 
-> No matter what you ended up doing, some of your user will still get annoyed.
+> 不管你最后做了什么，一些用户仍然很恼火。
 
-I explored many approaches, but I ended up with one winner at the time being. I would call it the “chameleon” method — basically the _request UI_ has to blended within the interface naturally. Unlike the pop-up method, this won’t require user any immediate action from the user. It’s there, and user will apparently take or reject it whenever they are ready.
+我探讨了很多方法，最终确定了一个比较好的方法。我管这种方法叫做“变色龙”，它基于 _request UI_ 在自然界面内混合。不同于弹出的方法，这将不需要来自用户的任何直接操作。它的存在，使用户在已经采取或拒绝之前它已经准备好了。
 
 ![](http://ac-Myg6wSTV.clouddn.com/ba951989a233aaf03fbf.jpeg)
 
-#### The exit scenario
+#### 退出方案
 
-Everyone makes mistakes, and there are a times where we mess up and we have to apologize to our users. If this is happens, instead of throwing the survey to an angry customer we can just ask for a simple feedback on what’s happening.
+每个人都会犯错，有时当我们陷入困境，我们必须给我们的用户道歉。如果这情况发生，而不是抛出调查，对愤怒的客户我们只期待对以上发生的事情有一个简单的反馈。
 
 ![](http://ac-Myg6wSTV.clouddn.com/dbbfad5e6ed8e082225a.jpeg)
 
-It’s either get the feedback or get the survey; or get lost!
+它要么得到反馈或者调查，抑或失去客户！
 
-#### Incentivise the user
+#### 用物质鼓励用户填写问卷
 
-An additional point to encourage user is to give them a reward simply because they spare their time to answer the survey which will give us great data to work with. In my case, we will give a 50% discount for the next transaction.
+另外一点，为了鼓励用户给他们一些补偿仅仅是因为他们花费他们的空闲时间来回答问题，而我们会获得大数据以便做出更好的决策。对于物质奖励，我一般是给予用户下一次交易的50%折扣。
 
-I think this is the most debatable topic — whether or not we should give the user an incentive. The risk is that users might not be honest with their answers and are just aiming for the reward. Either way, I still think a reward is important, but to reduce this risk, I wouldn’t give a huge reward — on the other hand we cannot give a small reward, so we have to find a happy medium amount to keep things balanced, remember that we want users to feel appreciated.
+我觉得这是最有争议的话题 — 我们是否应该给用户一个填写问卷的奖励。这样做的风险在于，用户可能无法诚实的回答问题，只是在乎奖励。无论哪种方式，我始终认为奖励很重要，但是为了减少这种风险，我不会给予丰厚的奖励，但是在另一方面，我们很难给出一个小小的奖励，所以我们必须找到一个折中的奖励量使事情平衡，我们希望此种方式获得用户赏识。
 
-_Great, we got this! At least we have one idea on how to make a user willing to take the survey._
+_太好了，我们至少有了一个让用户乐意接受调查的方法。_
 
 ![](http://ac-Myg6wSTV.clouddn.com/8a38c6f72e28fbed1a88.png)
 
-Still hanging around here? Cool, here it comes for the fun part!
+仍然讲这些吗，不，最有趣的东西来了！
 
-### The design process
+### 设计过程
 
-What I aim for in the design is to creat a delightful experience for the user.
+我的目标是通过设计创造出一个可以让用户有愉快体验的调查。
 
-#### Creating low-fi prototype
+#### 建立低保真模型
 
-This time, I borrowed a traditional animation technique. I drew a quick interaction in Photoshop to get the general feeling. With this, I can eliminate some concepts that I don’t like and focus on getting the optimal result. My main focus is finding the best layout for each question type such as Multiple choice, Rate scale and Rating order.
+这一次，我使用了传统的动画技术，我在 Photoshop 中画了一个快速互动。有了这个，我可以消除一些我不喜欢的，专注于获得最佳效果的概念，我的主要重点是要找到每个类型问题的最佳布局，例如选择，量表和评级。
 
 ![](http://ac-Myg6wSTV.clouddn.com/accbc610aa69259bb97c.gif)
 
-CAUTION: You might be disoriented and dizzy if you stare at this image too long because it’s not looped well.
+注意：如果你盯着这个图像太久，你可能会感到头晕因为他的循环做的不是很好。
 
-#### Developing the look and tone
+#### 开发外观和色调
 
-If you followed me on [Dribbble](http://dribbble.com/buditanrim), I have been designing for this concept project called [Shipp](https://dribbble.com/buditanrim/projects/375567-Shipp). By using the established design language I have, this allows me to quickly turned the wireframe into a higher fidelity design.
+如果你跟着我上 [Dribbble](http://dribbble.com/buditanrim)，我一直在设计这个叫做 [Shipp](https://dribbble.com/buditanrim/projects/375567-Shipp)的概念项目。通过使用我的既定的设计语言，这让我很快做出立体透视图进入高保真度的设计。
 
 ![](http://ac-Myg6wSTV.clouddn.com/5a026bd73925c9915206.jpeg)
 
-#### Interaction design
+#### 交互设计
 
-I jumped into After Effects just to provide informations about page transitions and all interactions. _Usually this will help the developer and to help pitch the idea to the client._
+我跳进 After Effects 中，这只需提供有关页面过度和所以交互的信息。_通常这将帮助开发人员，以及帮助推销这个想法给客户端。_
 
 ![](http://ac-Myg6wSTV.clouddn.com/b0c23a662c7528572b9d.gif)
 
-Opening — Rating Scale interaction
+开幕 — 量表互动
 
 ![](http://ac-Myg6wSTV.clouddn.com/b68f97712ac7f52c6cac.gif)
 
-Checkboxes & Radios Interaction
+复选框和单选互动
 
-#### Designing the emotion
+#### 情感图标设计
 
-As I mentioned in the title, I’m trying to capture user’s emotion. The idea is to ask user how do they feel about our main feature and let them express it with a simple answer. I was i**nspired by Facebook’s Reaction** on how do they capture expressions easily through emoticons.
+正如我在标题中提到的，我试图捕捉用户的情感。我们在想让用户怎么做，让他们觉得我们的主要特征可以通过一个简单的答案表达出来。我**被 Facebook 启发**关于他们如何轻松获得用户表达通过情感图标来实现。
 
-At the beginning, I thought it would be best to have 5 emotions to mimic the “Likert scale” with an answer : _Extremely Happy, Happy, Neutral, Unhappy, Extremely Unhappy._
+起初，我认为最好有五种情绪表达模仿“李克特量表”，一个问题有五种回答：_非常开心，快乐，中立，不快乐，极为不满。_
 
-I could be wrong, but when I put myself as the user with these options — it’s a little bit overwhelming, I mean.. how can I tell the difference between extremely happy versus happy? In order to make this simple and straightforward, I decided to just have three obvious options such as:
+我可能是错的，但是当我把自己当成用户—这有一点压倒性，我的意思是我怎么能说出无比快乐与幸福之间的区别呢？为了使这个简单明了，我决定只采用3个明显的选项，如：
 
-*   Unhappy (Angry face)
-*   Neutral (Flat face)
-*   Happy (Happy face)
+*   不开心（愤怒的表情）
+*   中立 (平坦的表情)
+*   开心 (高兴的表情)
 
 ![](http://ac-Myg6wSTV.clouddn.com/cd4f0c0e3a802651ace6.jpeg)
 
-Exploration for the emotion feedback icon
+探索情感图标的反馈
 
-The happy face with hearts might be too much, but I just wanna having fun with this project. That being said, in the real world project — I might reconsider that one. But anyway…
+快乐的表情，可能是太多。但是我仅仅是想让这个项目变得有趣一些。话虽这么说，在现实中的项目我可能会重新考虑那一个。
 
-#### Bring the emotion to life
+#### 将情感图标带进生活
 
-After many exploration stages, I wanted to ask about important features such as our customer support relationship. I created this subtle animated emoticons to help user easily choose how they feel about our Support line. On top of that — I want to understand why do they feel that way. The first thing that crossed my mind was to provide a text-field where the user could type their reason. However, I don’t think that will be convenient for the user.
+在许多的探索阶段之后，我想请教一下重要功能，比如我们的客户支持关系。我创造了这个微妙的动画表情，以帮助用户更容易的选择他们如何看待我们的支撑线，最重要的是 — 我想知道为什么他们有这样的感觉。略过我脑海的第一件事就是提供一个文本框，用户可以键入他们的理由。不过，我并不认为这将是方便用户。
 
 ![](http://ac-Myg6wSTV.clouddn.com/2d141a6501cddb5996bc.gif)
 
-Unhappy, Neutral, Satisfied.
+愤怒，中立，满意。
 
-So.. I came up with this solution.
+所以，我想出了这样的解决方法。
 
 ![](http://ac-Myg6wSTV.clouddn.com/fe809b8ef108ec3be5a9.jpeg)
 
-First, ask how do they feel.. then why.
+首先，询问用户的感受，然后才是为什么。
 
 ![](http://ac-Myg6wSTV.clouddn.com/c79b4fc141d870c14b0b.gif)
 
-I did some research and collect some data that make sense for me, I come up with some rule of thumbs. Below are the dos & don’ts and my assumptions.
+我做了一些研究，并收集了一些数据这对我很有意义，我想出了一些有关浏览的规则。下面是一些该做的和不该做的和我的假设。
 
-#### Do(s):
+#### 应该做的：
 
-*   **One question per page** — Don’t make your user scroll up and down, that’s just annoying.
-*   **Consider the touch-space** — Optimize the space, don’t annoy your user by having them perform taps that accidentally miss the answer. It’s all about making a delightful experience.
-*   **Keep it under 8 questions** — Most of the expert recommends say to keep things short. I think under 8 questions would be ideal. It’s better to optimize a small number of questions and make them really count.
+*   **一个页面一个问题** — 不要让你的用户上下滚动页面，这很烦。
+*   **考虑触控空间** — 优化空间，不要让用户因为按错而错过了答案而纠缠。这是关于制作愉快的经验。
+*   **问题总数保持在8个以内** — 大多数专家建议说让事情变短。我认为，8个问题将是最理想的状态，这将更好的优化问题，使他们更有价值，
 
-### Don’t(s):
+### 最好别做:
 
-*   **Avoid drop-down** — Drop down is never a good idea; displaying the options on the screen right away is much better.
-*   **Avoid use matrix table** — Don’t even think about it.
-*   **Avoid use close-ended question **— Don’t give your user with yes/no questions. Let your user express themselves as openly as possible.
-*   **Avoid typing action** — If possible, don’t make user type on mobile. It’s not a big deal, but I believe it might give you higher responses.
+*   **避免下拉** — 下拉永远不是一个好主意，在屏幕上立刻显示要好得多。
+*   **避免使用矩阵表** — 想也别想。
+*   **避免使用封闭式的问题** — 不要给用户是或不是这种问题。让你的用户表达自己越坦白越好。
+*   **避免输入动作** — 如果可以，不要让用户在手机上输入。这不是什么大不了的事，但我相信它可能给你更高的回应。
 
-#### Things to consider:
+#### 需要考虑的事项:
 
-*   **Incentive **— Many people agree that incentive is great and trigger user’s willingness. However, this is not always true. You have to figure out your customer and look at the context before deciding to give rewards or not.
-*   **Progress bar **— It is true progress bar will let your respondent know how far done they are. However, if you have too many questions (which you should avoid anyway), consider not using progress bar since it might overwhelm your respondent.
-*   **Use 3rd party surveys app** — Many services out there provide a service to make in-app surveys. However, you might not be able to tweak the design too much.
-*   **Find industry benchmark** — Each industries’ response rate is different, try to find the ideal response rate in your industry for benchmarking.
+*   **鼓励** — 很多人认为，奖励很有用，触发用户的意愿。然而，事实并非总是如此。你必须搞清楚你的客户有没有看上下文，并决定给予奖励。
+*   **进度条** — 进度条让受调查的用户知道他们离做完还有多远。不过，如果你有太多问题，你应该避免使用进度条，因为它可能会压倒你的用户。
+*   **使用第三方调查程序** — 提供应用内调查服务的应用有很多，但是他们可能不能够调整太多的设计。
+*   **寻找行业标准** — 每个行业的反应速度是不同的，尝试找到你所在行业理想的响应速度为标准。
 
-#### Related links
+#### 推荐链接
 
-*   [**Shipp**](https://dribbble.com/buditanrim/projects/375567-Shipp)_Project I used in this article_
+*   [**Shipp**](https://dribbble.com/buditanrim/projects/375567-Shipp)_我在文章中提到的项目_
 *   [**chromaicon.com**](http://www.chromaicon.com)
-    _Icon set I used in this project (still WIP)_
-*   [**apptentive.com**](http://apptentive.com)[**converser.io**](http://converser.io)_Third party app for building in-app survey._
+    _我在项目中用到的图标 (依旧是半成品)_
+*   [**apptentive.com**](http://apptentive.com)[**converser.io**](http://converser.io)_第三方应用内调查服务_
 
-### What’s next?
+### 下一步呢？
 
-#### So far, what I have is an assumption and concept.
+#### 目前为止，我有了一个假设和一个概念。
 
-I’m looking for an opportunity to use this concept in my future projects with great clients, and to see how effective these concepts are in real world projects.
+我在寻找在我未来大客户的项目中使用这个概念的机会，并且看看这个概念会如何影响真正的项目。
 
-If I get that chance, I will definitely share my process and talk more about how I process all the data to make a better design decision. Hopefully this concept somewhat helped and inspired you.
+如果我得到这样的机会，我一定会分享我的过程，多谈谈我是如何处理所有数据，以及做出更好的设计决策。希望这个概念对你能有所帮助和启发。
 
-**Like this article will support me in writing and sharing more design ideas.**
+**点击喜欢收藏这篇文章将会支持我的写作以及分享更多的设计思路。**
 
-**_Warmest_**_,
+**_最热情的你_**_,
 _[_Budi_](http://dribbble.com/buditanrim/)💐
 
-_Special thanks to_ [_Adam Winn_](https://twitter.com/ajwinn) _for proof-reading this article._
+_特别感谢_ [_Adam Winn_](https://twitter.com/ajwinn) _对这篇文章英文版的校对工作。_
