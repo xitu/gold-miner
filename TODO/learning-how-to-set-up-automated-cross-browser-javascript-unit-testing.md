@@ -409,7 +409,7 @@ Sauce Connect在设计的时候就考虑到了安全性，任何一个第三方�
 
 希望你享受测试的过程！
 
-****
+**脚注**
 
 1.  使用连接器的另一个不足之处就是，目前为止内存追踪和source map兼容的还不是很好。Chrome浏览器下的一个解决方案是使用[node-source-map-support](https://github.com/evanw/node-source-map-support#browser-support)。
 
