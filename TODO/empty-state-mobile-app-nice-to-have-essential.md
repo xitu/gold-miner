@@ -2,7 +2,7 @@
 * 原文作者 : [Nick Babich](http://babich.biz/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 :[MAYDAY1993](https://github.com/MAYDAY1993)
-* 校对者:
+* 校对者:[jiaowoyongqi](https://github.com/jiaowoyongqi) [shixinzhang](https://github.com/shixinzhang)
 
 普通应用在安装后的前三天会失去77%的日活跃用户。更为严重的是：三十天内，大约[80%的日活跃用户会流失](https://www.linkedin.com/pulse/losing-80-mobile-users-normal-why-best-apps-do-better-andrew-chen).
 
