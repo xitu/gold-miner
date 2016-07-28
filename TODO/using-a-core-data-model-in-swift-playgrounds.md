@@ -2,18 +2,19 @@
 * 原文作者 : [Andrew Bancroft](https://www.andrewcbancroft.com/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [MAYDAY1993](https://github.com/MAYDAY1993)
-* 校对者:
+* 校对者:[siegeout](https://github.com/siegeout) [owenlyn] (https://github.com/owenlyn)
 
 你能在Xcode的Swift Playgrounds 中使用 Core Data 模型么？当然可以！
 
-在2015年，[http://www.learncoredata.com](http://www.learncoredata.com)的作者[Jeremiah Jessel](https://twitter.com/JCubedApps)，写了篇文章[detailing how you can use the Core Data framework inside a playground](http://www.learncoredata.com/core-data-and-playgrounds/)。他展示了我们能如何从建立Core Data堆栈到在代码中创建NSManagedObjects来做任何事。多么好的资料啊！
+在2015年，[http://www.learncoredata.com](http://www.learncoredata.com)的作者[Jeremiah Jessel](https://twitter.com/JCubedApps)，写了篇文章[detailing how you can use the Core Data framework inside a playground](http://www.learncoredata.com/core-data-and-playgrounds/)。从建立Core Data堆栈到在代码中创建NSManagedObjects，他向我们展示了如何处理这一过程中的所有事情。多么好的资料啊！
 读完他的指南后，我开始思考：我很好奇你是否能拿到一个由Xcode的数据模型设计创建的.xcdatamodeld文件，并在某个背景使用这个文件...
-简短的答案是**kinda**。（译者问：这个要咋翻译？）你不能使用.xcdatamodeld文件（至少，我找不到方法），但是你能用当你构建应用就创建的编译好的“momd”文件。
+简短的答案是不可以。你不能使用.xcdatamodeld文件（至少，我找不到可行的方法），但是你能用当你构建应用就生成的“momd”文件。
 ##局限性
-当我了解这个概念的时候我遇到了至少两个局限性／注意事项。
+当我了解这个概念的时候我遇到了至少两个局限性／或者说是需要注意的地方。
+
 
  ##没有NSManagedObject子类
-尽管你能在模型中创建实体的例子，如果你已经为实体创建了`NSManagedObject`的子类，在Swift Playgrounds中你还不能使用这些实体。你得用`setValue(_: forKey:)`在 `NSManagedObject`例子中设置属性来解决这一问题。
+尽管你能在模型中创建实体的实例，如果你已经为实体创建了`NSManagedObject`的子类，在Swift Playgrounds中你还不能使用这些实体。你得用`setValue(_: forKey:)`在 `NSManagedObject`实例中设置属性来解决这一问题。
 但是这只是一个很小的缺陷，尤其是如果你只想稍微了解。
 ##更新模型
 你读过[walkthrough](https://www.andrewcbancroft.com/2016/07/10/using-a-core-data-model-in-swift-playgrounds/#walkthrough)之后，将会知道如何在背景中引入模型。
@@ -51,7 +52,7 @@ File -> New -> Playground…
 ![Drag ](https://www.andrewcbancroft.com/wp-content/uploads/2016/07/drag-momd-to-resources.png)
 
 ##写Core Data代码来使用模型
-既然“momd”文件在playground的资源文件夹里，你能写代码了。你能插入`NSManagedObject`例子，运行fetch requests等等。下面是我写的一个例子：
+既然“momd”文件在playground的资源文件夹里，你能写代码了。你能插入`NSManagedObject`实例，运行fetch requests等等。下面是我写的一个例子：
 
 Core Data Playground
 ```
@@ -97,4 +98,4 @@ print(result)
 除了“我想知道这是否可能”，另一个问的重要问题是“它是多么有用？”
 *学习。Playgrounds本身作为一个学习工具有意义。能够搭建你在Xcode设计中思考的模块，把它导入一个Playground，并且把它当作一个学习练习来研究它，是多么酷啊！
 *当你需要测试你的数据模块但是不想把它连到一个实际的用户交互的时候，也是有用的。在playground中抛掉所有用户交互复杂性，只研究数据模型！这似乎是一个比在控制台输出更优雅的解决方法
-*有可能你需要为一个fetch request构建半复杂性的`NSPredicate`例子－－为何不首先在playground中得到这个例子，然后把例子迁移到你的应用中呢？仅仅是个想法哦！
+*有可能你需要为一个fetch request构建半复杂性的`NSPredicate`实例－－为何不首先在playground中得到这个实例，然后把实例迁移到你的应用中呢？仅仅是个想法哦！
