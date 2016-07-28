@@ -2,20 +2,20 @@
 > * 原文作者 : [Bill Morefield](https://www.raywenderlich.com/u/bmorefield)
 > * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者 : [Nicolas(Yifei) Li](https://github.com/yifili09) 
-> * 校对者:
+> * 校对者: [Gran](https://github.com/Graning), [Jasper Zhong (DeadLion)](https://github.com/DeadLion)
 
 
 ![](https://cdn4.raywenderlich.com/wp-content/uploads/2016/07/VisualStudioXamarin-Feature-250x250.png)
 
-当创见一个 `iOS` 的应用程序的时候，开发者们一贯倾向于使用那些由 `Apple` 公司提供的编程语言和 `IDE`: `Objective-C` / `Swift` 和 `Xcode`。然而，这并不是唯一的选择 - 你还可以通过使用很多其他的编程语言和框架去创见一个 `iOS` 应用程序。
+当创见一个 `iOS` 的应用程序的时候，开发者们一贯倾向于使用那些由 `Apple` 公司提供的编程语言和 `IDE`: `Objective-C` / `Swift` 和 `Xcode`。然而，这并不是唯一的选择 - 你还可以通过使用很多其他的编程语言和框架去创建一个 `iOS` 应用程序。
 
-[Xamarin](https://xamarin.com) 是一个最广泛使用的方式，一个跨平台的框架，它允许你开发 `iOS`, `Andoird`, `OS X` 和 `Windows` 应用程序，配合 `C#` 和 `Visual Stuido` 使用。`Xamarin` 最主要的好处是，它能让你在 `iOS` 和 `Android` 应用程序（平台）共享你的代码。
+[Xamarin](https://xamarin.com) 是最热门的选择方式之一，它是一个跨平台的开发框架，允许你使用 `C#` 和 `Visual Studio` 开发 `iOS`, `Android`, `OS X` 和 `Windows` 应用程序。`Xamarin` 最主要的好处是，它能让你在 `iOS` 和 `Android` 应用程序（平台）共享你的代码。
 
-`Xamarin` 相比其他跨平台的框架还有一个很大的优势: （若）使用 `Xamarin`，你的项目最终编译成了原生代码，并且在底层使用原生的 `APIs`。这意味着用 `Xamarin` 框架写的应用程序和用 `Xcode` 创建出的应用程序几乎无差别。查看 [Xamarin 与 Native 应用程序开发](http://willowtreeapps.com/blog/xamarin-vs-native-app-development/)了解更多细节。 
+`Xamarin` 相比其他跨平台的框架还有一个很大的优势: （若）使用 `Xamarin`，你的项目会编译成原生代码，并且在底层使用原生的 `APIs`。这意味着用 `Xamarin` 框架写的应用程序和用 `Xcode` 创建出的应用程序几乎无差别。查看 [Xamarin 与 Native 应用程序开发](http://willowtreeapps.com/blog/xamarin-vs-native-app-development/) 了解更多细节。 
 
-`Xamarin` 也有一个很大的缺点: 它的价格。因为每个平台每年的起步价格是 `$ 1,000（美元）`，你只能放弃你每天一杯的拿铁咖啡或者卡布奇诺，甚至_考虑_你能否承受这个价格......并且在编程的时候没有咖啡会是危险的。因为这个起步价格，直到最近 `Xamarin` 对很多企业级应用程序来说也算一笔大的开支。 
+过去，`Xamarin` 也有一个很大的缺点: 它的价格。因为每个平台每年的起步价格是 `$ 1,000（美元）`，你只能放弃你每天一杯的拿铁咖啡或者卡布奇诺，甚至_考虑_你能否承受这个价格......并且在编程的时候没有咖啡会是很危险的。因为这个（高昂的）起步价格，`Xamarin` 吸引的主要是那些有着很多预算的企业级项目。
 
-然而，最近这个情况已经改变了，当 `微软` 购买了 `Xamarin` 并且发表声明，它将被包含进全新的 `Visual Studio` 中，包含进 [免费的社区版本](https://www.visualstudio.com/en-us/products/visual-studio-community-vs.aspx)，它能被个人开发者和小团体获得。
+然而，最近这个情况已经改变了，当 `微软` 收购了 `Xamarin` 并且发表声明，它将被包含进全新的 `Visual Studio` 中，包含进 [免费的社区版本](https://www.visualstudio.com/en-us/products/visual-studio-community-vs.aspx)，它能被个人开发者和小团体(免费)获取。
 
 免费？这个价格值得我们去庆祝一下了！
 
@@ -25,7 +25,7 @@
 
 
 
-除了价格（或者缺少约束），`Xamarin` 还有其他优点，包括允许程序员:
+除了价格（或者漏掉的其他原因），`Xamarin` 还有其他优点，包括允许程序员:
 
 * 利用现存的 `C#` 库和工具去创建移动应用程序。
 * 在不同平台上复用代码。
@@ -33,30 +33,30 @@
 
 `Xamarin` 也提供了一系列的工具，取决与你的需求。为了最大化的跨平台代码复用，使用 [Xamarin 表单](https://www.xamarin.com/forms)。它对那些不需要平台特定的功能或者特别的用户自定义的接口的应用程序特别好用。
 
-如果你的用用程序需要平台特定的功能或者设计，使用 [`Xamarin.iOS`](https://developer.xamarin.com/guides/ios/), [`Xamarin.Android`](https://developer.xamarin.com/guides/android) 和其他的平台特定的模块，去直接与原生 `APIs` 和框架进行交互。这些工具能提供最大限度的灵活度，来创建高用户自定义化的接口，当然仍旧允许跨平台地共享通用的代码。
+如果你的应用程序（依赖于）需要平台特定的功能或者设计，使用 [`Xamarin.iOS`](https://developer.xamarin.com/guides/ios/), [`Xamarin.Android`](https://developer.xamarin.com/guides/android) 和其他的平台特定的模块，去直接与原生 `APIs` 和框架进行交互。这些工具能提供最大限度的灵活度，来创建高度定制的用户接口，当然仍旧允许跨平台地共享通用的代码。
 
-在这份辅导指南中，你会使用 `_Xamarin.iOS_` 去创建一个 `iPhone` 应用程序，它展示了一个用户的照片库。
+在这份指南中，你将使用 `_Xamarin.iOS_` 去创建一个 `iPhone` 应用程序，它展示了一个用户的照片库。
 
-这份辅导指南不需要任何有关 `iOS` 或者 `Xamarin` 开发的经验，但是为了明白其中的大部分内容，你将需要对 `C#` 有一个基本的认识。
+这份指南不需要任何有关 `iOS` 或者 `Xamarin` 开发的经验，但是为了明白其中的大部分内容，你将需要对 `C#` 有一个基本的认识。
 
 ## 开始
 
 为了开发一个使用 `Xamarin` 和 `Visual Studio` 的 `iOS` 应用程序，理论上你需要两台计算机:
 
 1. 使用_一台 `Windows` 计算机_去运行 `Visual Stuido` 并且编写你的工程代码 
-2. 使用_一台 装有 `Xcode` 的 `Mac` 计算机_作为一个构建代码的主机。 
+2. 使用_一台 装有 `Xcode` 的 `Mac` 计算机_作为一个构建代码的主机。这台计算机不必专门用来构建，但是开发和测试期间，需要和你的 `Windows` 计算机网络互通。
 
 如果你那两个计算机互相之间离得很近是很棒的，因为当你构建代码并且在 `Windows` 上运行， `iOS` 模拟器将在你的 `Mac` 上加载。
 
 你们可能会说，"如果我没有同时拥有两个计算机怎么办？"
 
-* _对于只有 `Mac` 的用户_，`Xamarin` 确实提供了一个给 `OS X` 用的 `IDE`，但是我们今天的辅导指南将只关注这个崭新的 `Visual Studio` 支持。所以如果你还想继续的话，你可以在运行在 `Mac` 上的虚拟机运行 `Windows`。很多工具，例如 [VMWare Fusion](https://www.vmware.com/products/fusion) 或者免费的，开源软件 [VirtualBox](https://www.virtualbox.org/) 对于使用一个单独计算机的用户来说都是有效的方法。
+* _对于只有 `Mac` 的用户_，`Xamarin` 确实提供了一个给 `OS X` 用的 `IDE`，但是我们今天的指南将只关注这个崭新的 `Visual Studio` 支持。所以如果你还想继续的话，你可以在运行在 `Mac` 上的虚拟机运行 `Windows`。很多工具，例如 [VMWare Fusion](https://www.vmware.com/products/fusion) 或者免费的，开源软件 [VirtualBox](https://www.virtualbox.org/) 对于一个只使用单独一个计算机的用户来说都是有效的方法。
 
     如果你使用了 `Windows` 的虚拟机，你需要确认 `Windows` 有网络连接能访问到你的 `Mac`。总之，如果你能从 `Windows` 上 `ping` 到你的 `Mac` 的 `IP` 地址，那么你一点问题都没有。
 
 * _对于只有 `Windows` 的用户_，请速度购买一台 `Mac`。我会等你！ :] 如果不行，虚拟主机服务，例如 [MacinCloud](http://www.macincloud.com/) 或者 [Macminicolo](https://macminicolo.net) 提供了远程 `Mac` 访问和构建代码。
 
-这个辅导指南假设你正在使用一个单独的 `Mac` 和 `Windows` 计算机，但是不用担心 - 这些说明几乎与如果你在你的 `Mac` 上使用 `Windows` 的虚拟机一样。
+这个指南假设你正在使用一个单独的 `Mac` 和 `Windows` 计算机，但是不用担心 - 这些说明几乎与如果你在你的 `Mac` 上使用 `Windows` 的虚拟机一样。
 
 ### 安装 `Xcode` 和 `Xamarin`
 
@@ -79,7 +79,7 @@
 
 ### 安装 `Visual Studio` 和 `Xamarin`
 
-对于这份辅导指南，你能使用任何版本的 `Visual Studio`，包括 [免费的社区版本](https://www.visualstudio.com/en-us/products/visual-studio-community-vs.aspx)。有些特性在社区版本里是 [没有的](https://www.visualstudio.com/products/compare-visual-studio-2015-products-vs)，但是任何都没法阻止你开发复杂的应用程序。
+对于这份指南，你能使用任何版本的 `Visual Studio`，包括 [免费的社区版本](https://www.visualstudio.com/en-us/products/visual-studio-community-vs.aspx)。有些特性在社区版本里是 [没有的](https://www.visualstudio.com/products/compare-visual-studio-2015-products-vs)，但是任何都没法阻止你开发复杂的应用程序。
 
 你的 `Windows` 计算机应当满足 [`Visual Studio` 最低需求](https://www.visualstudio.com/en-us/downloads/visual-studio-2015-system-requirements-vs.aspx#1)。为了享受一个流畅的开发环境，你需要至少 `3 GB` 的内存空间。
 
@@ -89,9 +89,9 @@
 
 ![vs-installer](https://cdn5.raywenderlich.com/wp-content/uploads/2016/05/vs-installer-354x500.png)
 
-点击_下一步_并等待安装完成。将会需要等待一段时间；当安装 `Xcode` 的时候，你可以把饼干都吃掉。：]
+点击_下一步_并等待安装完成。将会需要等待一段时间；当安装 `Xcode` 的时候，你可以去散个步，把你吃掉的曲奇饼干的热量燃烧掉。：]
 
-如果你已经安装了 `Visual Studio` 但是没有 `Xamarin` 工具，移动到你的 `Windows` 计算机上的_项目和特性_并且找到 _`Visual Studio 2015`_。选择他，点击_改变_去访问它的设置，之后选择_修改_。
+如果你已经安装了 `Visual Studio` 但是没有 `Xamarin` 工具，移动到你的 `Windows` 计算机上的_项目和特性_并且找到 _`Visual Studio 2015`_。选择它，点击_更改_去访问它的设置，之后选择_修改_。
 
 你将会发现 `Xamarin` 在_跨平台移动程序开发_作为_`C#/.NET (Xamarin v4.0.3)`_。选择他并且点击_更新_来安装。
 
@@ -105,7 +105,7 @@
 
 ![NewProject](https://cdn1.raywenderlich.com/wp-content/uploads/2016/06/NewProject-461x320.png)
 
-为_`项目名字`_和_`解决方案名字`_，都输入_`ImageLocation`_。选择一个存储你应用程序文件的地址，并且点击 _`OK`_ 去创建这个项目工程。 
+为_`项目名字`_和_`解决方案名字`_，都输入 _`ImageLocation`_ 。选择一个存储你应用程序文件的地址，并且点击 _`OK`_ 去创建这个项目工程。 
 
 `Visual Studio` 会提示你，去把你的 `Mac` 计算机设定成 `Xamarin` 的构建主机:
 
@@ -121,7 +121,7 @@
 
 [![Connected_Indicator](https://cdn1.raywenderlich.com/wp-content/uploads/2016/06/Connected_Indicator-480x68.png)](https://cdn3.raywenderlich.com/wp-content/uploads/2016/06/Connected_Indicator.png)
 
-从平台解决方案下拉框中选择_`iPhone 模拟器`_ - 这将自动从构建主机中选择一个模拟器。你也能通过点击目前模拟器设备熵的小箭头改变设备模拟器。 
+从平台解决方案下拉框中选择 _`iPhone 模拟器`_ - 这将自动从构建主机中选择一个模拟器。你也能通过点击目前模拟器设备上的小箭头改变设备模拟器。 
 
 [![Change_Simulator](https://cdn2.raywenderlich.com/wp-content/uploads/2016/06/Change_Simulator-1.png)](https://cdn2.raywenderlich.com/wp-content/uploads/2016/06/Change_Simulator-1.png)
 
@@ -129,9 +129,9 @@
 
 [![Build_and_Run](https://cdn4.raywenderlich.com/wp-content/uploads/2016/06/Build_and_Run.png)](https://cdn1.raywenderlich.com/wp-content/uploads/2016/06/Build_and_Run.png)
 
-你的应用程序将被编译和执行，但是你不会看到它运行在 `Windows` 上。
+你的应用程序将被编译和执行，但是你看不到它在 `Windows` 上运行。反而，在 `Mac` 上会看到它在运行。这就是为什么需要两台计算机在一起的原因了。
 
-在最近的 [发展例会](https://evolve.xamarin.com) 上，`Xamarin` 已揭晓了（新特性） [iOS 模拟器的远程控制](https://blog.xamarin.com/live-from-evolve-new-xamarin-previews/)，它能让你通过运行在 `Windows` 计算机上的模拟器与运行在 `Apple` 计算机中的模拟器的应用程序进行交互。然而，就目前来说，你需要使用你 `Mac` 计算机上的模拟器。
+在最近的 [发展例会](https://evolve.xamarin.com) 上，`Xamarin` 已揭晓了（新特性） [iOS 模拟器的远程控制](https://blog.xamarin.com/live-from-evolve-new-xamarin-previews/)，它能让你和运行在 `Apple`　计算机中模拟器的应用进行远程交互，就好像模拟器是安装在你的 `Windows` 计算机上一样。然而，就目前来说，你需要使用你 `Mac` 计算机上的模拟器。
 
 你将看到一个启动画面出现在模拟器上，之后一个出现一个空的视图。恭喜！你的 `Xamarin` 配置完毕了！
 
@@ -163,7 +163,7 @@
 
 这个创建的限制条件几乎都是正确的，但是你将需要修改其中的一些。在 _`Properties`_ 窗口，切换到 _`Layout`_ 页面并且下滑到 _`Constraints`_ 选项。
 
-两个来自于边界的限制条件都是正确的，但是高度和宽度的限制条件是不正确的。通过点击 _`X`_ 来删除_`宽度`_和_`高度`_的显示条件。
+两个来自于边界的限制条件都是正确的，但是高度和宽度的限制条件是不正确的。通过点击 _`X`_ 来删除_`宽度`_和_`高度`_的限制条件。
 
 [![Delete Constraints](https://cdn1.raywenderlich.com/wp-content/uploads/2016/06/Delete_Constraints-304x500.png)](https://cdn3.raywenderlich.com/wp-content/uploads/2016/06/Delete_Constraints.png)
 
@@ -189,7 +189,7 @@
 
 [![Set_Reuse_Identifier](https://cdn2.raywenderlich.com/wp-content/uploads/2016/06/Set_Reuse_Identifier-480x202.png)](https://cdn5.raywenderlich.com/wp-content/uploads/2016/06/Set_Reuse_Identifier.png)
 
-继续滑动到 _`Interaction Section`_。通过选择 _`Predefined`_ 和 _`蓝色`_ 设置 _`Background Color`_。
+继续滑动到 _`Interaction Section`_。通过选择 _`Predefined`_ 将 _`Background Color`_ 设置成_`蓝色`_。
 
 [![Set Cell Background Color](https://cdn5.raywenderlich.com/wp-content/uploads/2016/06/Set_Cell_Background_Color-427x320.png)](https://cdn2.raywenderlich.com/wp-content/uploads/2016/06/Set_Cell_Background_Color.png)
 
@@ -201,7 +201,7 @@
 
 [![Set Cell Class](https://cdn4.raywenderlich.com/wp-content/uploads/2016/06/Set_Cell_Class.png)](https://cdn4.raywenderlich.com/wp-content/uploads/2016/06/Set_Cell_Class.png)
 
-`Visual Studio` 将自动创建以这个名字命名的类，继承自 `UICollectionViewCell`，并且创建 `PhotoCollectionImageCell.cs`。太好了，我希望 `Xcode` 为我们效劳了。
+`Visual Studio` 将自动创建以这个名字命名的类，继承自 `UICollectionViewCell`，并且创建 `PhotoCollectionImageCell.cs`。太好了，我希望 `Xcode` 也能做到。
 
 ## 创建集合视图的数据源
 
@@ -213,7 +213,7 @@
 
     using UIKit;
 
-这给予了你访问 `iOS` `UIKit` 框架的能力。
+这给予了你访问 `iOS` `UIKit` 框架的权限。
 
 改变这个类的定义:
 
@@ -257,7 +257,7 @@
 
 [![Set Collection View Name](https://cdn4.raywenderlich.com/wp-content/uploads/2016/06/Set_CollectionView_Name-480x160.png)](https://cdn1.raywenderlich.com/wp-content/uploads/2016/06/Set_CollectionView_Name.png)
 
-`Visual Studio` 将自动创建一个与 `ViewController` 类上命名的例变量。
+`Visual Studio` 将自动创建一个实例变量，使用这个名称在 `ViewController` 类上。
 
 _注意_: 你不会在 _`ViewController.cs`_ 内看到这个实例变量。为了看见这个实例变量，点击在 _`ViewController.cs`_ 左边的扩展标识符，去显示 _`ViewController.designer.cs`_。这个包含了由 `Visual Studio` 自动创建的 `collctionView` 的实例变量。
 
@@ -282,7 +282,7 @@ _注意_: 你不会在 _`ViewController.cs`_ 内看到这个实例变量。为�
 
 ![App Running with collection view](https://cdn3.raywenderlich.com/wp-content/uploads/2016/05/cells-no-photo-app-272x500.png)
 
-太棒了 - 这个应用程序真的旧快要完成了！
+太棒了 - 这个应用程序真的就快要完成了！
 
 ![Blue Squares!](https://cdn5.raywenderlich.com/wp-content/uploads/2016/06/Blue_Squares-230x320.png)
 
@@ -310,17 +310,17 @@ _注意_: 你不会在 _`ViewController.cs`_ 内看到这个实例变量。为�
 
 [![Set Image View Mode](https://cdn5.raywenderlich.com/wp-content/uploads/2016/06/Set_Image_View_Mode-480x147.png)](https://cdn4.raywenderlich.com/wp-content/uploads/2016/06/Set_Image_View_Mode.png)
 
-_注意_: 再次，如果你打开 _`PhotoCollectionImageCell.cs`_，你无法看见新的块。相反，这个类被声明为 `partial`，它意味着这个块在另外一个文件里。
+_注意_: 如果你打开 _`PhotoCollectionImageCell.cs`_，你无法看见新的字段。相反，这个类被声明为 `partial`，它意味着这个字段在另外一个文件里。
 
 在 _Solution Explorer_，选择 `PhotoCollectionImageCell.cs` 左边的箭头去扩展文件。打开 `PhotoCollectionImageCell.desinger.cs` 就能看见 `celImageView` 在这里被声明。
 
 [![](https://cdn1.raywenderlich.com/wp-content/uploads/2016/06/Expand_PhotoCollectionImageCell-480x248.png)](https://cdn3.raywenderlich.com/wp-content/uploads/2016/06/Expand_PhotoCollectionImageCell.png)
 
-这个文件被自动生成; **不要改变** 这个文件。如果你改变了，他们必须没有任何警告语句或者在类和 `storyboard` 之间的换行符，造成了运行时的错误。
+这个文件被自动生成; **不要改变** 这个文件。如果你改变了，他们必须没有任何警告语句或者断开类类和 `storyboard` 之间的链接，它们可能就被覆盖了，造成了运行时的错误。
 
 
 
-由于这一块不是公有的，其他类无法访问它。相反，你需要为设定图片提供一个公有函数。
+由于这一字段不是公有的，其他类无法访问它。相反，你需要为设定图片提供一个公有函数。
 
 打开 `PhotoCollectionImageCell.cs` 并且为这个类增加以下几个方法:
 
@@ -350,7 +350,7 @@ _注意_: 再次，如果你打开 _`PhotoCollectionImageCell.cs`_，你无法�
 ```
 
 
-`imageFetchResult` 块会保留有序的保存照片库的对象，并且你能从 `imageManager` 中获得这些照片列表。 
+`imageFetchResult` 字段会保留有序的保存照片库的对象，并且你能从 `imageManager` 中获得这些照片列表。 
 
 在 `GetCell()` 中增加以下构造器:
 
@@ -363,7 +363,7 @@ _注意_: 再次，如果你打开 _`PhotoCollectionImageCell.cs`_，你无法�
 ```
 
 
-这个构造器获取在 `Photo` 应用程序中所有照片资源的列表并且把结果保存在 `imageFetchResult` 块。它之后设置 `imageManager`，之后应用程序会通过它查询更多有关每一个照片的详细信息。
+这个构造器获取在 `Photo` 应用程序中所有照片资源的列表并且把结果保存在 `imageFetchResult` 字段。它之后设置 `imageManager`，之后应用程序会通过它查询更多有关每一个照片的详细信息。
 
 当这个类完成了任务后，通过增加析构函数来销毁 `imageManager`。
 
@@ -376,7 +376,7 @@ _注意_: 再次，如果你打开 _`PhotoCollectionImageCell.cs`_，你无法�
 
 
 
-为了让 `GetItemsCount` 和 `GetCell` 方法使用这些资源，并且返回图片，而非空的单元格，改变 `GetItemsCOunt()` 成以下内容:
+为了让 `GetItemsCount` 和 `GetCell` 方法使用这些资源，并且返回图片，而非空的单元格，将 `GetItemsCOunt()` 改成以下内容:
 
 
 ```
@@ -420,7 +420,7 @@ _注意_: 再次，如果你打开 _`PhotoCollectionImageCell.cs`_，你无法�
 
 1. `indexPath` 包括了一个引用，它会返回哪一个集合视图。`Item` 属性是一个简单的索引。你通过这个索引获得了一个资源并且把它转换为 `PHAsset`。
 2. 你可以使用 `imageManager` 为一个资源去请求符合尺寸和填充模式的图片。
-3. 许多 `iOS` 框架使用延迟执行的方法，因为求需要消耗时间去完成，例如，`RequestImageForAsset`，并且当完成的时候通过代理模式来通知。当请求完成的时候，代理方法会被调用，它包含了图片和相关的信息。
+3. 许多 `iOS` 框架使用延迟执行的方法，因为需要消耗时间去完成请求，例如，`RequestImageForAsset`，并且当完成的时候通过代理模式来通知。当请求完成的时候，代理方法会被调用，它包含了图片和相关的信息。
 4. 最后，图片会被设置在单元格上。
 
 构建并且运行。你会看到请求访问许可的提示。
@@ -500,10 +500,10 @@ _注意_: 再次，如果你打开 _`PhotoCollectionImageCell.cs`_，你无法�
 
 你们可以通过 [这里](https://cdn1.raywenderlich.com/wp-content/uploads/2016/07/ImageLocation.zip) 下载完整的 `Visual Studio` 工程。
 
-在这篇辅导指南中，你可以学习一些有关 `Xamarin` 是如何工作和使用来创建 `iOS` 应用程序的。 
+在这篇指南中，你可以学习一些有关 `Xamarin` 是如何工作和使用来创建 `iOS` 应用程序的。 
 
-[`Xamarin` 指南网站](https://developer.xamarin.com/guides/) 提供了很多非常好的资源用于学习更多有关 `Xamarin` 平台的内容。为了更好的理解怎么构建跨平台的应用程序，查看 `Xamarin` 有关构建为 [`iOS`](https://www.xamarin.com/getting-started/ios) 和 ['Android'](https://www.xamarin.com/getting-started/android) 构建相同应用程序的指南。
+[`Xamarin` 指南网站](https://developer.xamarin.com/guides/) 提供了很多非常好的资源用于学习更多有关 `Xamarin` 平台的内容。为了更好的理解怎么构建跨平台的应用程序，查看 `Xamarin` 有关构建为 [`iOS`](https://www.xamarin.com/getting-started/ios) 和 [`Android`](https://www.xamarin.com/getting-started/android) 构建相同应用程序的指南。
 
-`微软` 购买了 `Xamarin` 引入了很多存在的改变。`微软` 构建会议上的公告和 [`Xamarin` 发展会议](https://blog.xamarin.com/xamarin-evolve-2016-recap/) 上的指导能给你有关 `Xamarin` 新的发展方向。`Xamarin` 也提供了来自于最新发展例会上的 [视频](https://evolve.xamarin.com/#sessions)，它提供了更多有关将 `Xamarin` 使用在产品上的未来方向。 
+`微软` 购买了 `Xamarin` 引入了很多令人激动的改变。`微软` 构建会议上的公告和 [`Xamarin` 发展会议](https://blog.xamarin.com/xamarin-evolve-2016-recap/) 上的指导能给你有关 `Xamarin` 新的发展方向。`Xamarin` 也提供了来自于最新发展例会上的 [视频](https://evolve.xamarin.com/#sessions)，它提供了更多有关将 `Xamarin` 使用在产品上的未来方向。 
 
-你认为你会尝试用 `Xamarin` 来构建应用程序么？如果你有任何有关这个指导指南的问题或者建议，请在下方留言。
+你会考虑尝试用 `Xamarin` 来构建应用程序么？如果你有任何有关这个指导指南的问题或者建议，请在下方留言。
