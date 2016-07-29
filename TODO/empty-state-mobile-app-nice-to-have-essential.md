@@ -2,9 +2,9 @@
 * 原文作者 : [ Nick Babich ](http://babich.biz/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 :[ MAYDAY1993 ](https://github.com/MAYDAY1993)
-* 校对者:[ jiaowoyongqi ](https://github.com/jiaowoyongqi) [ shixinzhang ](https://github.com/shixinzhang)
+* 校对者:[jiaowoyongqi](https://github.com/jiaowoyongqi) [shixinzhang](https://github.com/shixinzhang)
 
-普通应用在安装后的前三天会失去 77%的日活跃用户。更为严重的是：三十天内，大约[ 80%的日活跃用户会流失](https://www.linkedin.com/pulse/losing-80-mobile-users-normal-why-best-apps-do-better-andrew-chen).
+普通应用在安装后的前三天会失去 77% 的日活跃用户。更为严重的是：三十天内，大约[ 80% 的日活跃用户会流失](https://www.linkedin.com/pulse/losing-80-mobile-users-normal-why-best-apps-do-better-andrew-chen).
 
 这些低留存率是因为应用做的很烂么？并不总是这个原因。
 
@@ -48,7 +48,7 @@
 ![](https://cdn-images-1.medium.com/max/800/1*flCJh0D4pHW_MvN4WRwRxw.png)
 
 
-[** Spotify’s **](https://itunes.apple.com/us/app/spotify-music/id324684580?mt=8)的错误提示并不像它本该的那样有用。
+** [Spotify’s](https://itunes.apple.com/us/app/spotify-music/id324684580?mt=8)**的错误提示并不像它本该的那样有用。
 
 **好的例子:** Azendoo .感到迷茫和失连啦，像你在一个废弃的小岛上？听从建议，保持冷静，点把火，持续刷新就好啦。
 
@@ -75,7 +75,7 @@
 ![](https://cdn-images-1.medium.com/max/800/1*JBp1Gfz0tEyjkMsnncv-WA.png)
 
 
-[** Cognito Brain Training **](https://itunes.apple.com/us/app/cognito-brain-training-games/id872808619?mt=8)—你会吃惊于看到一只鲨鱼，不管内容。
+**[Cognito Brain Training](https://itunes.apple.com/us/app/cognito-brain-training-games/id872808619?mt=8) **—你会吃惊于看到一只鲨鱼，不管内容。
 
 [ Aaron Walter ](https://twitter.com/aarron?lang=en)用人类需求的等级作为一个应用有成功的用户体验的一个[解释](https://speakerdeck.com/aarron/learning-to-love-humans-emotional-interface-design)；应用除了应该是有用的，可靠的、能用的，也应该是使人欢快的。所以设计下面的页面同理：
 
@@ -96,14 +96,14 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*vPq7xB-7dPR0lbm0yrXokg.png)
 
-[** Dropbox **](https://itunes.apple.com/us/app/dropbox/id327630330?mt=8) iOS 应用
+**[Dropbox](https://itunes.apple.com/us/app/dropbox/id327630330?mt=8) ** iOS 应用
 
 * 说服用户：提醒他们当他们使用产品后将会获取的好处
 
 ![](https://cdn-images-1.medium.com/max/800/0*NJntJk_zESA2Wh9r.)
 
 
-[** Flipboard **](https://flipboard.com/) 移动端应用
+**[Flipboard](https://flipboard.com/) ** 移动端应用
 
 * 引导用户：向他们推荐并展示开始使用应用最好的方法。提供一个提示（或箭头）的按钮来引导用户采取必要的操作来关闭 empty state ，然后得到一个更有意义的页面“
 
