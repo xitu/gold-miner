@@ -10,7 +10,7 @@
 ![](https://cdn-images-1.medium.com/max/1200/1*pwlSr2Qq5rcVVTU7SxEAqQ.png)
 
 
-当一个老司机试图解释他们复杂的工作给外行人听是非常的因崔斯丁的。举一个不错的栗子————看理论物理学家 理查德·费曼(Richard Feynman 美国物理学家，加州理工学院物理学教授，1965年诺贝尔物理奖得主)讨论磁铁。
+当一个老司机试图解释他们复杂的工作给外行人听是非常有意思的。举一个不错的栗子————看理论物理学家 理查德·费曼(Richard Feynman 美国物理学家，加州理工学院物理学教授，1965年诺贝尔物理奖得主)讨论磁铁。
 [![video](https://i.ytimg.com/vi/wMFPe-DwULM/hqdefault.jpg)](https://trackchanges.postlight.com/media/d812c608ece9992d49752bfeafece892?maxWidth=640)
 
 Feynman: F*****’ magnets, how do they work? FUN TO IMAGINE 4 [https://www.youtube.com/watch?v=wMFPe-DwULM](https://www.youtube.com/watch?v=wMFPe-DwULM)
@@ -33,23 +33,24 @@ MAGNETS: How Do They Work? [https://www.youtube.com/watch?v=hFAOXdXZ5TM](https:/
 
 > 在磁性材料中，原子的磁场排列在一起，很可能会出现有些磁性材料的所有原子排列在一起指向一个方向，有些磁性材料的所有原子指向另一个方向，还有很多情况，就不一一细说了。
 
-> [这时响起了不祥的中世纪BGM] 如果所有的磁场都是一样的，那么久可能不会出现足够的力量来迫使它们对齐了。通过两个栗子，一块金属可能根本没有磁性，因为它内部的所有磁性都打在了一起了。
+> [这时响起了不祥的中世纪BGM] 如果所有的磁场都是一样的，那么就可能不会出现足够的力量来迫使它们对齐了。通过两个栗子，一块金属可能根本没有磁性，因为它内部的所有磁性都打在了一起了。
 
 > 甚至，如果你从材料外面提供一个足够强的磁场，你就能让这条磁感线对它的邻居的作用力扩大，等等。直到所有的磁感线都统一指向同一个地方，同一个方向。这时，你终于可以得出一个关于金属的结论！我想，就是磁体。
 
 > [...]最了不起的地方是，磁场可以从量子属性引申到日常物体的大学，每一个永久磁体都在提醒着人们量子力学是我们宇宙的基础
 > [Read the full transcript](https://gist.github.com/tinystride/eab1d627fdc568922ed8461d5b7861a4)
 
+这篇文章回答了很多问题，现在我们都会因为这领域的思想而起鸡皮疙瘩。它不是很专业，但管理沟通着复杂的信息。这不是自高自大或者妄自菲薄。
 
 ![](https://cdn-images-1.medium.com/max/800/1*0AtAl5KKHf37g8gcC1Acsg.gif)
+在这样的剑斗场面也不会有人受伤。
 
-
-
+这是教育者在制造共鸣。磁体视频的作者想让他们的观众能够了解到磁体的信息。
 
 * * *
 
 
-通过两组处理过的信息，软件产品设计师门可以从伟大的教育者们身上获得灵感。我们可以想象一下，一个用户寻找关于jousting（马上枪术）的信息。我可可以想到三件事：
+通过两组处理过的信息，软件产品设计师门可以从伟大的教育者们身上获得灵感。我们可以想象一下，一个用户寻找关于"jousting"（马上枪术）的信息。我可可以想到三件事：
 
 1.  **这个用户已经想到了什么信息是他想要的。**例如，我听说有jousting这样东西，听起来怪怪的，那么我就想看一些关于jousting的视频。
 
@@ -60,14 +61,14 @@ MAGNETS: How Do They Work? [https://www.youtube.com/watch?v=hFAOXdXZ5TM](https:/
 ![](https://cdn-images-1.medium.com/max/800/1*HvaeY2L1mF_NPbviSwdq7g.png)
 
 
-顺便说一下 jousting 是很因崔斯丁的。
+顺便说一下 "jousting"是很有趣的。
 
-磁化合金和在沙发上看jousting视频的用户是一堆抽象的东西。因此，将三种模型的信息记在脑海里，并建立它们之间的桥梁，是一个很好的产品设计师的工作。她蕴含了她的用户和机器之间的差距。所以她的用户不必麻烦。 As [Alan Cooper](https://medium.com/u/b1fa02015e7f) puts it:
+磁化合金和在沙发上看"jousting"视频的用户是一堆抽象的东西。因此，将三种模型的信息记在脑海里，并建立它们之间的桥梁，是一个很好的产品设计师的工作。她蕴含了她的用户和机器之间的差距。所以她的用户不必麻烦。 As [Alan Cooper](https://medium.com/u/b1fa02015e7f) puts it:
 
 
 > 计算机素养是一种能迫使人类延伸思维，用以了解应用程序逻辑的内部运作，而不是以满足人们通常思维的软件功能产品的延伸。
 
- 让我们更深入去看看三种模式。阿兰·库珀(Alan Cooper 交互设计之父)[_About Face: The Essentials of Interaction Design_](https://www.amazon.com/dp/1118766571/ref=pd_lpo_sbs_dp_ss_1?pf_rd_p=1944687702&pf_rd_s=lpo-top-stripe-1&pf_rd_t=201&pf_rd_i=0470084111&pf_rd_m=ATVPDKIKX0DER&pf_rd_r=04TSA54WA44Z7YC4QTSX).
+ 让我们更深入去看看三种模式。阿兰·库珀(Alan Cooper 交互设计的提倡者)[_About Face: The Essentials of Interaction Design_](https://www.amazon.com/dp/1118766571/ref=pd_lpo_sbs_dp_ss_1?pf_rd_p=1944687702&pf_rd_s=lpo-top-stripe-1&pf_rd_t=201&pf_rd_i=0470084111&pf_rd_m=ATVPDKIKX0DER&pf_rd_r=04TSA54WA44Z7YC4QTSX).
 
 第一点是用户的_心智模型_。 库珀写到，很多人在他们给电器或计算机插电的时候会认为“电像水一样从墙上黑色小管的电绳里流入电器。”
 
@@ -91,4 +92,4 @@ Blinds image courtesy [IKEA](http://www.ikea.com/gb/en/catalog/categories/depart
 
 库珀帮助我看到关于表现模型的特殊部分，这一部分也是设计师唯一能够控制的部分。我们不能控制它的实现模型，因为一个好的工程师讲在代码库中使用抽象模型，使其易于维护和安全。我们不能控制我们用户的心智模型，因为它是由他们的文化和其他不可知的很多因素形成的。
 
-作为设计师，我们有权利去陈述【想不出更好的说法了】。设计是通过软件的体验效果来满足我们的用户。
+作为设计师，我们掌控着整个表现层的生杀大权。而设计，就是将软件按照用户所想把它呈现给他们，然后让用户为之惊叹的过程。
