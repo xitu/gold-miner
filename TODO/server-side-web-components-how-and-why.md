@@ -2,7 +2,7 @@
 * 原文作者: [Jordan Last](https://pub.scotch.io/@lastmjs)
 * 译文出自: [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者: [达仔](https://github.com/zhangjd)
-* 校对者:
+* 校对者: [Shangbin Yang](https://github.com/rccoder), [Gran](https://github.com/Graning)
 
 Web components（网页组件）用在服务器端渲染早已被大家所了解，在本文中，我想谈及的是：你还可以用 web components 构建服务器端应用。
 
@@ -380,7 +380,7 @@ app/
 
 这两种结构应该都可以很好地工作，现在我们成功减少了从客户端到服务端切换的上下文数量，反之亦然。
 
-## 可能问题
+## 可能存在的问题
 
 Electron 在服务器生产环境中的性能和稳定性，是最有可能导致应用崩溃的原因。话虽这么说，我并不觉得性能在将来是一个大问题，因为 Electron 只是通过一个渲染进程运行 Node.js 代码，我猜想和原生 Node.js 的运行状况差不多。最大问题是，Chromium 的运行时能否足够稳定，坚持运行足够长时间（而不发生内存泄露）。
 
