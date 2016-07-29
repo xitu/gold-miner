@@ -1,179 +1,179 @@
 >* 原文链接 : [From product design to virtual reality](https://medium.com/google-design/from-product-design-to-virtual-reality-be46fa793e9b#.mq9cnov35)
 * 原文作者 : [Jean-Marc Denis](https://medium.com/@jmdenis)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者:
+* 译者 : [cdpath](https://github.com/cdpath)
+* 校对者: [emmiter](https://github.com/emmiter) && [Dwight](https://github.com/ldhlfzysys)
 
 ![](https://cdn-images-1.medium.com/max/2000/1*5NcDgUuWYNH3iBojzPfM3A.jpeg)
 
-### product design to virtual reality
+### 从产品设计到虚拟现实
 
-#### Personal experience and intro to VR.
+#### 个人经历和 VR 简介
 
-#### Backstory
+#### 背景故事
 
-I am a product designer at Google, and I joined the company through Sparrow, a French startup that got acquired on July 20, 2012\. Since then, I worked with the Gmail team to build from scratch a flagship product that became [Inbox by Gmail](http://www.google.com/inbox/). It shipped on October 22, 2014.
+我曾在法国的初创公司 Sparrow 工作，2012 年 7 月 20 日被谷歌收购后，我进入谷歌担任产品设计师。随后我同 Gmail 团队从零打造了一款旗舰产品，也就是后来在 2014 年 10 月 22 日推出的 [Inbox by Gmail](http://www.google.com/inbox/)。
 
-I designed productive applications for a few years, and I felt like I reached a tipping point. I wanted to expand my skill set, learn new things every day and get better at something I’ve never touched. I needed new challenges to reboot myself by leaving my comfort zone.
+我设计了数年的生产力软件，觉得好像碰到[临界点](https://zh.wikipedia.org/zh-cn/%E5%80%BE%E8%A6%86%E7%82%B9)了。我想要拓展自己的技术面，每天学习新事物，更多了解自己从未涉及的领域。我需要新的挑战，逃离[舒适区](https://zh.wikipedia.org/zh-cn/%E8%88%92%E9%80%82%E5%8C%BA)来重启人生。
 
-I got interested in virtual reality around the Oculus Kickstarter period because of the immersiveness and endless possibilities that came with it. There is nothing more exciting than building for a new medium and exploring an uncharted territory.
+我在 Oculus 还处于 Kickstarter 众筹阶段时就因其沉浸式的体验和随之而来的无限可能性对虚拟现实感兴趣了。没有什么比创造全新的媒介和探索陌生的领域更令人感到兴奋了。
 
-I joined the Google Cardboard and Virtual Reality team on April 17, 2015\. Thanks to [Clay Bavor](https://twitter.com/claybavor) and [Jon Wiley](https://twitter.com/jonwiley) for this great opportunity.
+我在 2015 年 4 月 17 日加入谷歌 Cardboard 和虚拟现实团队。感谢 [Clay Bavor](https://twitter.com/claybavor) 和 [Jon Wiley](https://twitter.com/jonwiley) 提供的机会。
 
-#### Another dimension
+#### 另一维度
 
-My first weeks in the team were as scary as it can get. People used words I had no idea of and asked me questions I didn’t know how to answer.
+我在新团队的前几周简直提心吊胆。大家讲着我听不懂的话，问我不知道从何答起的问题。
 
 ![](https://cdn-images-1.medium.com/max/1200/1*y-X1O-mZzjNqiOv2pZw3pg.png)
 
-I am not going to lie, ramping up on the jargon was not easy but I was expecting that. Virtual reality is a deep field (pun intended) grouping together a variety of job titles each requiring a very specialized skill set. The first weeks were intense and day after day I had a better vision of the big picture. Slowly, the pieces came together. I found out which roles would be the best fit, what I wanted to do and what was required to get there. Regardless of the mission, I knew I would have to learn a lot, but I was prepared for this challenge. My feelings varied from one day to another. From super excited to create and learn something new, to super scared because of the colossal knowledge I still had to learn. Working with smart and knowledgeable people around me reinforced these mixed feelings.
+我不想说谎，快速学习专业术语并不容易，这并不意外。虚拟现实是一个有「深度」的领域（双关意，既表示有难度也表示空间上的深度），汇聚了很多具备专业技能的人才。度过了最初几周的紧张之后，我日渐有了更佳的全局观。慢慢地，碎片化的知识变得完整。我发现了我最适合的角色是什么，我想做什么以及如何达到这个目的。无论从事哪个工作，我要学习的都有很多，但是我已做好准备。我的心情每天都在变化，从对创造并学习新事物的极度兴奋到对有待学习的庞大知识的极度恐惧。和周围聪明又知识渊博的人一起工作让我的心情更加复杂。
 
-#### Everything is going to be alright
+#### 都会好起来的
 
-I told myself and firmly believed that the dots would connect eventually. I am a passionate person, and I knew that I didn’t mind spending hours learning and experimenting.
+我告诉自己并且坚信生命中的点终会连接起来。我是狂热分子，我知道自己乐意花数小时来学习和实验。
 
-During my product designer career, I got better at understanding, identifying and resolving user problems. Making things easy to use and delight users is not that different, no matter the medium.
+在我的产品设计师生涯中，我得以更好地理解、发现并解决用户问题。不管媒介如何，让东西易于使用和取悦用户的差别并不大。
 
-The core of the mission is the same, but to get you from point A to B there are some interesting things to know.
+任务的核心是相同的，但是要从A到B，还要了解一些有趣的东西。
 
-*   Sketching, is, again, at the core of everything. During any brain dump or design phase, sketching is as fast as it can get. I’ve sketched more in the time I’ve joined this team than I have in my entire career.
-*   Any design skills as diverse as they are will be a huge benefit.
-*   Photography knowledge will help you because you will interact with concepts such as field of view, depth of field, caustics, exposure and so on. Being able to use light to your advantage has been much valuable to me already.
-*   The more you know 3D and tools, the less you will have to learn. It’s pretty obvious but be aware that at some point, you might do architecture, character, props modeling, rigging, UV mapping, texturing, dynamics, particles and so on.
-*   Motion design is important. As designers, we know how to work with devices with physical boundaries. VR has none, so it’s a different way of thinking. “_How does this element appear and disappear?_” will be a redundant question.
-*   Python, C#, C++ or any previous coding skills will help you ramp up faster. Prototyping has a big place because of the fundamental need of iterating. This area is so new that you might be one of the first to design a unique kind of interaction. Any recent game engine such as Unity or Unreal engine largely integrates code. There is a large active community in game and VR development with a huge amount of training and resources already.
-*   Be prepared to be scared and get ready to embrace the unknown. It’s a new world that evolves every day. Even the biggest industry-leading companies are still trying to figure things out. That’s how it is.
+- 打草稿依然是一切的核心。在任何清空大脑或设计的阶段，打草稿都非常的快。我在加入这个团队之后打的草稿比我整个职业生涯打的还多。
+- 多种多样的设计技能大有裨益。
+- 摄影知识也会有用，因为你要和诸如视野、景深、焦散曲面、曝光等概念打交道。能够充分利用光，对我而言非常有价值。
+- 对 3D 和相关工具了解的越多，需要学习的就越少。显而易见，但也要在某些时刻留心，可能要处理结构、特征、道具建模、操作、UV 映射、纹理、动力、粒子等等。
+- 动作设计十分重要。作为设计师，我们了解如何用有物理边界的设备来工作。VR没有这些边界，所以要用完全不同的思路。*「这个元素如何产生？如何消失？」*就会是个多余的问题。
+- Python，C#，C++或任何编程技能会让你进步更快。由于迭代的基础需求，原型制作非常重要。这个领域如此之新，你甚至有机会抢先设计出独一无二的交互方式。现有的游戏引擎，比如Unity或者Unreal，一般都整合了代码。游戏和VR开发拥有庞大的活跃社区，已有大量的培训资料和资源。
+- 做好心灵被震撼的准备并拥抱未知吧。这是一个日新月异的全新世界。哪怕是最大的行业领导者也在摸着石头过河。就是这样。
 
-#### Roles
+#### 角色
 
-Design teams will evolve because this new medium opens a lot of possibilities for creation. Think about the video game or the film industry for instance.
+新媒介引入了许多创造的可能性，设计团队因此会与时俱进。想想主机游戏或电影产业这些例子吧。
 
-I think there will be two big design buckets.
+我想会有两个设计大户。
 
-The first one will be about the core user experience, interface, and interaction design. This is very close to how product design team are structured today (Visual, UI, UX, motion designers, researchers, and prototypers).
+第一个将会关注核心用户体验、界面以及交互设计。这和当今产品设计团队的结构差不多（视觉设计师、用户界面师、用户体验师、动作设计师、研究员以及原型师）。
 
-Each role will have to adapt to the rules of this new medium and keep a tight relationship with engineers. The goal will always remain the same; create a fast iteration cycle to explore a wide range of interactive designs.
+每一个角色都必须适应这个新媒介的规则并且和工程师密切配合。目标应保持不变；构建快速迭代周期去探索交互设计的广阔领域。
 
-On the other hand, content teams will replicate indie and game design studio structure to create everything from unique experiences to AAA games. The entertainment industry as we know it in other mediums will likely be very similar in VR.
+另一方面，内容团队会复制独立以及游戏设计工作室的结构来构建一切，从独家体验到 [AAA](https://zh.wikipedia.org/wiki/AAA_(%E7%94%B5%E5%AD%90%E6%B8%B8%E6%88%8F%E4%BA%A7%E4%B8%9A)) 游戏。我们所知其他媒介中的娱乐产业将很可能和VR中的很接近。
 
-Ultimately, both will have a close relationship to create a premium end to end experience. Both industries have a great opportunity to learn from each other.
+最后，这两者都和创造优质端对端体验紧密相关。这两个产业都有很好的机会相互学习。
 
 * * *
 
-To wrap up on my personal experience, I think being a product designer in VR is not that different but requires a lot of dedication to understand and learn a vast field of knowledge.
+快速将我的个人经历讲完吧，我觉得要成为 VR 产品设计师并没有那么难，但是需要献出极大的精力去学习理解跨度极广的知识。
 
-### First step and fundamentals of VR design
+### 迈出第一步并介绍 VR 设计基础
 
-#### First step
+#### 第一步
 
-In this second part of the article, I will try to cover the basics you need to know regarding this medium. It’s meant to be designer oriented and simplified as much as possible.
+在本文的第二部分，我会讨论关于这一新兴媒体需要知道的基础知识。我会使用面向设计师的视角，而且尽量简单。
 
-#### Let’s get (a little bit) technical
+#### 稍微来点技术元素
 
-The new dimension and immersiveness is a game changer. There is a set of intrinsic rules you need to know to be able to respect physiologically and treat your users carefully. We regrouped some of these principles in an app so you can learn through this great immersive experience.
+新的维度和沉浸式体验是颠覆性的。你需要了解一些内在规律才能更深入地理解生理学，才能更加慎重地对待用户。我们在下面这个 app 中重新整编了这些原则好让你能够在身临其境般的体验中学习。
 
 ![](https://cdn-images-1.medium.com/max/800/1*n3brb9zrABUe8_WjsskFlQ.png)
 
-[Download Cardboard Design Lab](https://play.google.com/store/apps/details?id=com.google.vr.cardboard.apps.designlab)
+[下载 Cardboard 设计实验室](https://play.google.com/store/apps/details?id=com.google.vr.cardboard.apps.designlab)
 
-_You can watch_ [_Alex’s presentation_](https://youtu.be/Qwh1LBzz3AU?t=18m12s) _at I/O this year which goes more in-depth. The following is a small summary._
+_想要进一步了解，还可以观看_ Alex 在今年（2015 年） I/O 大会上的[_演讲_](https://youtu.be/Qwh1LBzz3AU?t=18m12s) 。下面是简要的总结。_
 
-If you have to remember just two rules:
+如果要记的话，就两个要点：
 
-*   Do not drop frames.
-*   Maintain head tracking.
+*   避免丢帧
+*   维持头部追踪
 
-People instinctively react to external events you might not be aware of, and you should be designing accordingly.
+人会本能地对外界事件作出反应，你甚至都没有意识到这些事件，所以需要做针对性的设计。
 
-**Physiological comfort**. It regroups notions like motion sickness. Be careful when using acceleration and deceleration. Maintain a stable horizon line to avoid the “sea sickness” effect.
+**生理舒适度**。这重新组合了诸如运动眩晕的概念。小心使用加速和减速。维护稳定的地平线来避免「晕船」效应。
 
-**Environment comfort**. People can experience various discomforts in certain situation like heights, small spaces (_claustrophobia_), big spaces (_agoraphobia_) and so on. Be careful with the scale and colliding objects. For example, if someone throws an object at you, you will instinctively try to grab it, dodge or protect yourself. Use it to your advantage and not to user’s disadvantage.
+**环境舒适度**。人处在高空、狭小空间（*幽闭恐惧症*）或空旷空间（*广场恐惧症*）等特定场景下会感到各种不适。小心处理比例尺和物体间的碰撞。举个例子，如果有人朝你扔东西，你会本能的想要抓住它，规避它或者保护好你自己。充分利用这一本能，但不要让用户感到不适。
 
-You can also use user senses to help you create more immersive products and cues. You can find inspiration in the game industry. They use all sorts of tricks to guide users during their journey. Here’s a couple:
+你还可以利用用户感官创造更具沉浸感的产品和线索。 你还可以在游戏产业中得到灵感。他们利用各种技巧在游戏过程中引导用户。比如这些：
 
-*   Audio for spatial positioning.
-*   Light to show a path and help the player.
+*   声音：用于空间定位
+*   光线：指示路径来引导玩家
 
 * * *
 
-Do not hurt or over-fatigue your users. It’s a classic mistake when you start to design for this medium. As cool as it looks, Hollywood sci-fi movies fed us with interactions that goes against simple ergonomic rules and can create major discomfort over time. Minority Report gestures are not suitable for a long period of activity.
+不要伤害用户亦不要让他们过度劳累。当你开始为这个新媒介做设计时，常常会犯这个错误。好莱坞的科幻电影尽管看上去很酷，但是充满了违背简单人体工程学规律的相互作用，而且会随着时间的推移造成极大的不适。少数派报告手势并不适合长时间的活动。
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/PJqbivkm0Ms" frameborder="0" allowfullscreen></iframe>
 
-I made a very simplified illustration of XY head movement safe zones. Green is good, yellow is ok and avoid red. There are a some user studies made public (_links at the bottom of the page_) that will give you more in-depth information about that topic.
+我做了一个头部在二维平面运动时的安全区的简化图示。绿色为佳，黄色可以接受但要避免红色。有一些已公开的用户研究会进一步深入讨论这一课题「链接在文章底部」。
 
 ![](https://cdn-images-1.medium.com/max/800/1*XJwTciYJOXlJMu62D1vDNw.jpeg)
 
-Bad design can lead to more serious conditions.
+糟糕的设计会导致更加严重的健康问题。
 
-As an example, have you heard about **Text Neck?** A study, published in [Neuro and Spine Surgery](https://cbsminnesota.files.wordpress.com/2014/11/spine-study.pdf) measured varying pressures in our neck as our head moves to different positions. Moving from a neutral head position looking straight ahead to looking down increase the pressure by 440%. The muscles and ligaments get tired and sore; the nerves are stretched, and discs get compressed. All of this misbehavior can lead to serious long-term issues such as permanent nerves damages.
+举个例子，你听说过“短信颈”吗？[《神经和脊柱手术》]((https://cbsminnesota.files.wordpress.com/2014/11/spine-study.pdf))的一篇研究报告测量了头部处于不同位置时颈部受到的压力。 头部位置从直视前方到头往下看时颈部压力增加了 440%。肌肉和韧带会有疲惫酸痛感，神经紧绷， 背脊骨间的软骨层受到压迫。所有不规范动作将导致诸如永久性神经损伤等长期严重的问题。
 
-**TLDR;** **Avoid** **extended** **look down interactions.**
+**长话短说: 避免需要长时间向下看的交互动作。**
 
 ![](https://cdn-images-1.medium.com/max/800/1*TxrR4g5d6HZVhBN0nyRwcA.jpeg)
 
-#### Degrees of freedom
+#### 自由度
 
-The body has six different ways of moving in space. It can rotate and translate in XYZ.
+身体在空间中移动方向有六种。可以在 XYZ 坐标中旋转和平移。
 
-**3 Degrees of freedom (Orientation tracking)**
+**自由度为 3（方向追踪）**
 
-Phone based head mounted device such as Cardboard, Gear VR are tracking the orientation via an embedded gyroscope (3DOF). Rotations on all three axes are tracked.
+需要绑定手机的头戴设备，比如 Cardboard 和 Gear VR 通过内置的陀螺仪（3DOF）来追踪方向。所有三个轴上的转动都会被记录下来。
 
 ![](https://cdn-images-1.medium.com/max/800/1*bJQluIkWyg3HX2XSCS98CA.jpeg)
 
-**6 Degrees of freedom (Orientation + Position tracking)**
+**自由度为 6（方向和位置追踪）**
 
-To achieve six degrees of freedom, the sensor(s) will track positions in space (+X, -X, +Y, -Y, +Z, -Z). High-end devices like HTC Vive or Oculus Rift are 6DOF.
+要达到 6 个自由度，传感器需要追踪空间位置（+X, -X, +Y, -Y, +Z, -Z）。HTC Vive 和 Oculus Rift 这类高端设备自由度为 6（6DOF）。
 
 ![](https://cdn-images-1.medium.com/max/800/1*sNTxX9iMJnE0oWybyTHNBw.jpeg)
 
-**Tracking  
-**Making 6DOF possible frequently involves optical tracking of infrared emitters by one or more sensors. In Oculus’s case, the tracking sensor is on a stationary camera, while in Vive’s case the tracking sensors are on the actual HMD.
+**追踪**
+**要实现 6 个自由度需要频繁地光学追踪一个或多个传感器发出的红外线。Oculus 的追踪传感器在固定的摄像头上，而 Vive 的传感器在真正的 HMD （头戴显示器）上。
 
 ![](https://cdn-images-1.medium.com/max/600/1*v-ClTzahcgH9IMJtZR3BAQ.jpeg)
 
 ![](https://cdn-images-1.medium.com/max/600/1*q_mrMtR0g8KGhedW6bzNKw.jpeg)
 
-#### Inputs
+#### 输入
 
-Depending on the system you are designing for, the input method will vary and affect your decisions. For example Google Cardboard has a single button, that’s why the interaction model is a simple gaze and tap. HTC Vive uses two, six degrees of freedom controllers and Oculus will ship with an Xbox One controller but will eventually use a 6DOF dual controller “Oculus Touch”. All of them allow you to use more advanced and immersive interaction patterns.
+为不同的系统设计，需要不同的输入方式，并影响你的决定。比如Google Cardboard只有一个按钮，这导致交互模型就是简单的注释和轻点。HTC Vive 有两个自由度为 6 的控制器Oculus会附带 Xbox One 的控制器 ，不过最终会有一个自由度为 6 的二元控制器，Oculus Touch。所有这些都可以让你使用更先进的沉浸式交互模式。
 
 ![](https://cdn-images-1.medium.com/max/800/1*QvXJZuU4HRKVzWaEBzNjvQ.jpeg)
 
 ![](https://cdn-images-1.medium.com/max/800/1*b5tx1pcxOkKfhEGQjuEqWQ.jpeg)
 
-There are also other kinds of inputs such as hand tracking. The most famous being Leap Motion. You can mount it to your Head Mounted Display (HMD).
+还有其他的输入方式，比如手部追踪。最著名的莫过于 Leap Motion。可以把它装在头戴显示器（HMD）。
 
 ![](https://cdn-images-1.medium.com/max/800/1*j3oXBLEpGpCqmFj_LE6KaA.jpeg)
 
-This area constantly evolves as technology catches up but as of today, hand tracking is not reliable enough to be used as the main input. The principal issues are related to hands and fingers, collisions, and subtle movements tracking.
+随着技术进步，这一领域在持续演进，但时至今日，手部追踪还不是特别靠谱，还不能用作主要输入方式。主要问题在于手和指头，碰撞以及细节动作追踪。
 
-Even though it’s very familiar, using a game controller is a disappointing experience. It physically removes some of the freedom VR is creating. In FPS, strafing and moving might usually cause some discomfort because of the accelerations.
+尽管大家都熟悉游戏手柄，它在 VR 中的体验却很糟糕。他从物理上限制了 VR 引入的自由度。在第一人称射击游戏中，扫射和移动会因为加速经常带来不适感。
 
-On the other hand, the HTC Vive controllers reinforce the VR experience thanks to the 6 degrees of freedom, and [Tilt Brush](http://www.tiltbrush.com/#video) is a really good example. As I am writing theses lines, I haven’t tried the Oculus touch but every demo I have seen looks very promising. [Check out Oculus Toybox demo.](https://www.youtube.com/watch?v=dbYP4bhKr2M)
+另一方面，HTC Vive 控制器因为有 6 个自由度增强了 VR 的体验，[Tilt Brush](http://www.tiltbrush.com/#video) 就是个绝佳的例子。我在写这段话的时候，还没试过 Oculus touch，但是我看过的所有的演示都相当不错。[这里有几个 Oculus Toybox 演示视频。](https://www.youtube.com/watch?v=dbYP4bhKr2M)
 
-While designing user interfaces and interactions, inputs are the keystone that will drive some decisions differently depending on which method you are using. You should be familiar with all of them and aware of their limitations.
+设计用户界面和交互细节时，输入是关键因素，不同的输入方式将会推动不同设计决策。你应该熟悉所有的输入方式，并认识到它们的局限。
 
-#### Tools
+#### 工具
 
-This is a big piece and might require a more in-depth article. I will focus on the most popular tools used in this industry.
+这是一个大的话题，可能需要一篇深入的文章才能讲清楚。我会重点介绍这行业中最流行的工具。
 
-**Pen and paper**
+**纸笔**
 
 ![](https://cdn-images-1.medium.com/max/800/1*lw9mPIe6HtZeafnSaAt2bQ.jpeg)
 
-You just can’t beat them. It’s the first tool we use because it’s always around and does not require too many skills. It’s a proven way to express your ideas and iterate at a fast and cheap pace. Theses factors are important because, in VR, the cost of moving from wireframes to hi-fi is higher than 2D.
+我们就是离不开纸笔。它们是我们用到的第一个工具，因为它们常伴左右而且不需要太多的技能。它是公认的表达想法的好工具，可以快速经济的迭代。速度和成本是重要的考量因素，因为对 VR 而言，将线框图转化成 hi-fi 的成本比 2D 更高。
 
 **Sketch**
 
-I still use it every day. Because of its ease of use, it’s the perfect tool that allows me to create a lot of explorations before moving to a VR prototype. It’s also handy for its export tools and plugins that are a huge time saver. If you are not familiar with that program, I wrote articles [here](https://medium.com/sketch-app/discovering-sketch-25545f6cb161#.bnhmmx6ld) and [there](https://medium.com/sketch-app/what-is-new-in-sketch-3-4b92d8b25f3#.o7ruj49a8).
+我仍然每天都在用 Sketch。它易于使用，是在创作 VR 原型之前进行探索的完美工具。它的专业工具和插件用起来非常方便，可以省不少时间。如果你不熟悉这个软件，可以读一下我的 [这篇](https://medium.com/sketch-app/discovering-sketch-25545f6cb161#.bnhmmx6ld) 和 [这篇](https://medium.com/sketch-app/what-is-new-in-sketch-3-4b92d8b25f3#.o7ruj49a8)文章。
 
 ![](https://cdn-images-1.medium.com/max/1200/1*_qHJY0GowKCu4jejHLvRCw.png)
 
 **Cinema 4D**
 
-I don’t see C4D as a competitor of Maya. Both are great tools, and each excels in its own way. When you don’t have a 3D background, the learning curve can be very steep. I like C4D because the interface, the parametric and non-destructive approach make sense for me. It helps me create more iterations quickly. I love the MoGraph modules, and a lot of great plugins are available. The community is very active, and you can find a lot of high-quality learning materials.
+我并不把 C4D 当作 Maya 的竞争者。他们都很出色，各有千秋。如果没有 3D 背景，学习曲线会非常陡峭。我喜欢 C4D ，是因为我可以搞懂它的界面以及参数式无损方法。它可以帮助我快速的创建更多的迭代。我喜欢 MoGragh 模块，还有很多插件可以使用。社区活跃，可以找到很多高质量的学习材料。
 
 ![](https://cdn-images-1.medium.com/max/1200/1*plFuA2zJQ4bO2xfE5B1N6w.png)
 
@@ -185,46 +185,47 @@ I don’t see C4D as a competitor of Maya. Both are great tools, and each excels
 
 **Maya**
 
-Maya is colossal in a good and a bad way. It does anything and everything a 3D artist needs. Most of the games and movies are designed with it. It’s a robust piece of software which can handle massive simulations and very heavy scenes with ease. From rendering, modeling, animation, rigging, it’s simply the best tool out there. Maya is highly customizable, and that is one reason why it’s the industry standard. Studios need to create their own set of tools, and Maya is the perfect candidate to integrate any pipeline.
+Maya 的优点和缺点都很突出。一个 3D 艺术家要做的所有东西它都可以完成。大多数游戏和电影都是用它设计的。它稳定性出色，可以胜任海量仿真和复杂场景的构建。不管是渲染、建模、动画、纹理还是绑定，它就是最好的工具。Maya 可以高度定制，这也是它成为工业标准的一个原因。工作室需要创建自己的工具集，而 Maya 则是整合工作流程的完美工具。
 
-On the other hand, learning all the tools will require your full and unconditional dedication for quite some time. I mean weeks of explorations, months of learning and years of practice on a daily basis.
+另外一方面，学习所有这些工具需要全心无保留地献身其中，花费大量时间。我的意思是数周的尝试，数月的学习和数年的日复一日的基础练习。
 
 <iframe width="420" height="315" src="https://www.youtube.com/embed/BT2W4z_KZzc" frameborder="0" allowfullscreen></iframe>
 
 **Unity**
 
-It’s most certainly THE prototyping tool where everything will happen. You can easily create and move things around with a direct VR preview of your project. It’s a powerful game engine with a great community and a ton of resources available in their store (the asset author determines the pricing). In the assets library, you can find simple 3D models, complete projects, audio, analytics tools, shaders, scripts, materials, textures and so on.
+Unity 基本上就是个什么事情都会发生的原型工具。借助项目的直接 VR 预览可以轻松创建并移动东西。他还是一个强大的游戏引擎，有出色的社区，在线商店中有海量的资源（资源作者来定价）。在资源库中可以找到简单的 3D 模型，完整项目，音频，分析工具，着色器，脚本，材料，纹理等等资源。
 
-Their documentation and learning platform are stellar. They have a wide range of high-quality tutorials.
+Unity 的文档和学习平台非常出色，有着各种各样的高质量教程。
 
-Unity3d uses mainly C# or JavaScript and comes with Microsoft Visual Studio but doesn’t come with a built-in visual editor even though, you can find good ones in the assets store.
+Unity3d 主要使用 C# 或者 JavaScript，有微软 Visual Studio 支持，但是没有内置的视觉编辑器，不过可以在资源库中找到相当不错的视觉编辑器。
 
-It support all major HMD and is the best to build for cross-platform: _Windows PC, Mac OS X, Linux, Web Player, WebGL, VR(including Hololens), SteamOS, iOS, Android, Windows Phone 8, Tizen, Android TV and Samsung SMART TV, as well as Xbox One & 360, PS4, Playstation Vita, and Wii U_
+Unity 支持所有主流的头戴显示器，是跨平台支持最好的，支持的平台有：_Windows PC, Mac OS X, Linux, Web Player, WebGL, VR(包括 Hololens), SteamOS, iOS, Android, Windows Phone 8, Tizen, Android TV 和 Samsung SMART TV, 以及 Xbox One 和 Xbox 360, PS4, Playstation Vita 和 Wii U_。
 
-It supports all major 3D formats and has the best in 2D game creation. The in-app 3D editor is weak, but people have built great plugins to correct that. The software is licensed based, but you can also use the free version to a certain extent. You can check the details on [their pricing page](http://unity3d.com/get-unity). It’s the most popular game engine out there with ~47% of market share.
+Unity 支持所有主流的 3D 格式而且支持创作 2D 游戏需要的最好的格式。内置的 3D 编辑器并不强大，但是有很棒的插件可以进行增强。软件本身需要授权，但是在某种程度上可以使用免费版本制作一些东西的。具体细节可以看 Unity 的[价格说明](http://unity3d.com/get-unity)。Unity 是最流行的游戏引擎，市场占有率高达 47%。
 
 ![](https://cdn-images-1.medium.com/max/1200/1*-wg4HHoxsiwY_qJQyJg8xw.png)
 
 **Unreal Engine**
 
-The direct competitor of Unity3D. Unreal also has great [documentation](https://docs.unrealengine.com/latest/INT/) and [videos tutorials](https://wiki.unrealengine.com/Videos). Their store is smaller because it’s much newer.
+Unreal 是 Unity3D 的直接竞争者。Unreal 同样有着出色的[文档](https://docs.unrealengine.com/latest/INT/)和[视频教程](https://wiki.unrealengine.com/Videos)。不过在线商店规模较小，毕竟是一个新兴引擎。
 
-One of the big advantages over the competition are the graphic capabilities; Unreal is one step ahead in nearly every area: terrain, particles, post processing effects, shadows & lighting, and shaders. Everything looks amazing.
+Unreal 之于其他竞争对手的一大优势是图形能力；Unreal 在几乎每个领域都更进一步：地形，粒子，后期处理效果，光影和着色器。所有这一切看上去都非常出色。
 
-Unreal Engine 4 uses C++ and comes with [Blueprint](https://www.unrealengine.com/blog/animation-blueprints), a visual script editor.
+Unreal 引擎 4 使用 C++ 并内置视觉脚本编辑器 [Blueprint](https://www.unrealengine.com/blog/animation-blueprints)。
 
-I haven’t worked with it too much yet, so I can’t elaborate more.
+我没有怎么用过 Unreal，所以不能做更细节的介绍。
 
-Less cross-platform compatibility: _Windows PC, Mac OS X, iOS, Android, VR, Linux, SteamOS, HTML5, Xbox One, and PS4._
+Unreal 的跨平台支持不如 Unity，支持的平台有：_Windows PC, Mac OS X, iOS, Android, VR, Linux, SteamOS, HTML5, Xbox One 和 PS4._
 
 ![](https://cdn-images-1.medium.com/max/1200/1*5Ny7-MsDrtL83zdsvE5QGQ.png)
 
 * * *
 
-#### Closing notes
+#### 结语
 
-Virtual reality is a very young medium. As pioneers, we still have a lot to learn and discover. That’s why I am very excited about it and why I joined this team. We have the opportunity to explore and we should, as much as we can. Understand, identify, build and iterate. Over and over.  
-And over again…
+虚拟现实是新兴的媒介。作为先驱者，我们要学习探索的东西仍有很多。这正是我对此感到激动并加入谷歌虚拟现实团队的原因。我们有机会去探索并应该去探索并竭尽所能。理解，认同，构建然后迭代。一遍又一遍。
+
+不断重复这个循环。
 
 ![](https://cdn-images-1.medium.com/max/800/1*VJbKu4_pDXrTONwLA4JpPg.png)
 
@@ -232,9 +233,9 @@ And over again…
 
 ![](https://cdn-images-1.medium.com/max/800/1*yIMdhFHxaoLOBcNLoovrRg.png)
 
-#### Resources
+#### 资源
 
-Videos
+视频
 
 *   [Google I/O 2015 — Designing for Virtual Reality](https://youtu.be/Qwh1LBzz3AU)
 *   [Oculus Connect keynotes](http://www.twitch.tv/oculus)
@@ -242,13 +243,13 @@ Videos
 *   [VR Interface Design Pre-Visualisation Methods](https://youtu.be/id86HeV-Vb8)
 *   [2014 Oculus Connect — Introduction to Audio in VR](https://youtu.be/X6wSEMh8nR8)
 
-Tutorials
+教程
 
 *   [Cinema 4D tutorials](http://greyscalegorilla.com/tutorials/)
 *   [Unity 3D tutorials](https://unity3d.com/learn/tutorials/modules)
 *   [Maya and 3D tools tutorials](http://www.digitaltutors.com/)
 
-Articles
+文章
 
 *   [LeapMotion — VR Best Practices Guidelines](https://developer.leapmotion.com/assets/Leap%20Motion%20VR%20Best%20Practices%20Guidelines.pdf)
 *   [The fundamentals of user experience in virtual reality](http://www.blockinterval.com/project-updates/2015/10/15/user-experience-in-virtual-reality)
@@ -256,5 +257,5 @@ Articles
 
 * * *
 
-_Thanks everyone who helped me with the rereading and improvements_
+_感谢所有阅读全文并提出改进意见的人。_
 
