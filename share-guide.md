@@ -8,7 +8,7 @@
 
 4. 点击右上角的头像，进入到个人主页。
 
-   ![](http://7xl8me.com1.z0.glb.clouddn.com/xitu_glod%2F4.jpg)
+   ![](http://7xl8me.com1.z0.glb.clouddn.com/xitu_glod/4.jpg)
 
 5. 然后就会看到 **申请成为 Co-Editor** 这一项，完善完信息就可以提交申请了，然后坐等申请通过。
 
