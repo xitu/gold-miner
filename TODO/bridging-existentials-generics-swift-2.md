@@ -2,18 +2,18 @@
 > * 原文作者 : [Benjamin Encz](http://blog.benjamin-encz.de/about)
 > * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者 : [Nicolas(Yifei) Li](https://github.com/yifili09) 
-> * 校对者:
+> * 校对者: [Gran](https://github.com/Graning), [MAYDAY1993](https://github.com/MAYDAY1993)
 
 
-我们从另外的章节回到这里，来讨论泛型，有其他类型的协议和在 `Swift 2` 中的其他类型的系统限制。这次我们会深入讨论一个有趣的变通方法，它是那个声名狼藉的 [jckarter](https://twitter.com/jckarter) 教会我的。我们也会讨论在未来的 `Swift` 版本中，这个变通方法通过增强型的实存类型就变得不重要了。
+我们又回到了讨论泛型的另一个章节，来讨论泛型，有其他类型的协议和在 `Swift 2` 中的其他类型的系统限制。这次我们会深入讨论一个有趣的变通方法，它是那个声名狼藉的 [jckarter](https://twitter.com/jckarter) 教会我的。我们也会讨论在未来的 `Swift` 版本中，这个变通方法通过增强型的实存类型就变得不必要了。
 
 ## `Swift` 中的实存类型
 
 一般而言，实存类型允许我们去使用类型的需求来定义类型变量。我们可以在整个项目中使用这些类型变量，它可以不需要被知道背后是具体的哪个类型实现这些需求的。
 
-在 `Swift 2` 中，只有使用 `protocol<>` 语法 ([在 `Swift 3` 中会被 `&` 语法替换](https://github.com/apple/swift-evolution/blob/master/proposals/0095-any-as-existential.md)) 才能定义一个实存类型。
+在 `Swift 2` 中，只有使用 `protocol<>` 语法 ( [在 `Swift 3` 中会被 `&` 语法替换](https://github.com/apple/swift-evolution/blob/master/proposals/0095-any-as-existential.md) ) 才能定义一个实存类型。
 
-通过定义一个方法函数，它需要使用一个实存类型参数，我们能使用任何不知道具体类型的实存类型的参数，并将他们在方法函数中使用:
+通过定义一个方法函数，它需要使用一个实存类型参数，我们能在不知道参数的具体类型的情况下，使用实存类型中任意的一个:
 
 
 ```
@@ -32,15 +32,15 @@
 ```
 
 
-在许多实存类型的实现方式上，他们与泛型都很想象。为什么我们选择这个而不是其他？我的一个朋友 `Russ Bishop` 在他的博客上发布过一个文章，详细的讨论了实存类型和泛型 - [if you’re curious about the details you should go read it](http://www.russbishop.net/swift-associated-types-cont)!
+在许多实存类型的实现方式上，他们与泛型都很想象。为什么我们选择这个而不是其他？我的一个朋友 `Russ Bishop` 在他的博客上发布过一个文章，详细的讨论了实存类型和泛型 - [如果你对其中的细节好奇，你应该去读一读它](http://www.russbishop.net/swift-associated-types-cont) !
 
 ## 为实存类型和泛型搭桥牵线
 
 在一个 [之前的博客文章中](http://blog.benjamin-encz.de/post/compile-time-vs-runtime-type-checking-swift/) 我指出了一些类型信息上的不一致性，泛型是静态的，它在编译的时候类型就确定了，实存类型在运行时候才能确定，这意味着类型的信息是动态的。
 
-今天，我想把注意力都放在一个例子上（虽然会很简单），我们在 `PlanGrid` 应用程序中遇到过。
+今天，我想把注意力都放在一个具体的例子上（虽然会很简单），我们在 `PlanGrid` 应用程序中遇到过。
 
-作为我们的 `客户端-服务端` 同步过程的一部分，我们把从 `JSON` 解析出的内容持久化存储在我们的数据库中。我们通过泛型类数据访问这些对象。数据访问对象有一个泛型类参数，它指定了这个将要被持久化保存的对象的类型。
+作为我们的 `客户端-服务端` 同步过程的一部分，我们把从 `JSON` 解析出的内容持久化存储在我们的数据库中。我们通过泛型类数据访问这些对象来实现。数据访问对象有一个泛型类参数，它指定了这个将要被持久化保存的对象的类型。
 
 在我们简单的例子中，我们需要去持久化保存 `Cat`, `Dog` 和 `Cow` 实例。
 
@@ -64,7 +64,7 @@
 
 在 `PlanGrid` 应用程序中，我们有一个协调点，它对我们泛型 `DAO(数据访问对象)` 所有特殊的实例都有一个引用。在同步过程中，我们遇到了一系列不同的类型，它们需要被准确的存储进泛型 `DAO(数据访问对象)` 类型。(比如，`cows` 应该被通过 `GenericDAO<Cow>` 来存储。)
 
-考虑到一个不同实例的异构列表，我们想自动的查询，基于我们遇到的对象类型，调用 `DAO(数据访问对象)` 进行持久化存储。
+考虑到一个不同实例的异构列表，基于我们遇到的对象类型，我们想自动的查询，调用 `DAO(数据访问对象)` 进行持久化存储。
 
 
 ```
@@ -126,7 +126,7 @@
 
 ## 前途是光明的
 
-在许多其他重要的改进之间，[增强型的实存类型方案 **草稿**](https://github.com/austinzheng/swift-evolution/blob/az-existentials/proposals/XXXX-enhanced-existentials.md)) 将会替代这个变通方法，通过允许通过 `.Self` 对底层的一个实存类型进行引用，并且让这个类型作为一个泛型类参数变得可能。
+在许多其他重要的改进之间，[增强型的实存类型方案 **草稿**](https://github.com/austinzheng/swift-evolution/blob/az-existentials/proposals/XXXX-enhanced-existentials.md)  将会替代这个变通方法，通过允许通过 `.Self` 对底层的一个实存类型进行引用，并且让这个类型作为一个泛型类参数变得可能。
 
 虽然这个增强型实存类型的方案仍然处于紧锣密鼓的开发中，但它仍旧值得一读。如果这是最后一个我们今天将讨论的方案，我们会缩小实存类型和泛型之间的隔阂。更重要的是，配合其他类型的协议一起工作将再也不是难事 - 可能这是自从 `Swift` 面世以来最重要的改进了。
 
@@ -134,6 +134,6 @@
 
 **参考文献**:
 
-*   [增强型实存类型 草稿(Enhanced Existentials Proposal Draft)](https://github.com/austinzheng/swift-evolution/blob/az-existentials/proposals/XXXX-enhanced-existentials.md) - 草稿方案，它正在被精雕细琢并且展示出很多对 `Swift` 的实存类型的巨大改进。
-*   [泛型的声明 (Generics Manifesto)](https://github.com/apple/swift/blob/c39da37525255d3bc141038ff567b4aca57d316e/docs/GenericsManifesto.md) - `Doug Gregor` 的最初的 `Swift` 实现 - 发展/演进 邮件中展示出了很多对 `Swift` 的泛型的潜在的改进(包括增强型实存类型)。
-*   [有实存类型的抽象类型 (Abstract Types Have Existential Type)](http://theory.stanford.edu/~jcm/papers/mitch-plotkin-88.pdf) - 这片文章是有关总结了在各种编程语言中，实现实存类型的想法。对我理解什么是实存类型最有关系的句子是: “实存类型提供了足够多的信息用于验证匹配条件 [...]，没有提供任何有关显示载体的信息或者实现如何操作的算法。”
+*   [增强型实存类型 草稿 ( Enhanced Existentials Proposal Draft )](https://github.com/austinzheng/swift-evolution/blob/az-existentials/proposals/XXXX-enhanced-existentials.md) - 草稿方案，它正在被精雕细琢并且展示出很多对 `Swift` 的实存类型的巨大改进。
+*   [泛型的声明 ( Generics Manifesto )](https://github.com/apple/swift/blob/c39da37525255d3bc141038ff567b4aca57d316e/docs/GenericsManifesto.md) - `Doug Gregor` 的最初的 `Swift` 实现 - 发展/演进 邮件中展示出了很多对 `Swift` 的泛型的潜在的改进(包括增强型实存类型)。
+*   [有实存类型的抽象类型 ( Abstract Types Have Existential Type )](http://theory.stanford.edu/~jcm/papers/mitch-plotkin-88.pdf) - 这片文章是有关总结了在各种编程语言中，实现实存类型的想法。对我理解什么是实存类型最有关系的句子是: “实存类型提供了足够多的信息用于验证匹配条件 [...]，没有提供任何有关显示载体的信息或者实现如何操作的算法。”
