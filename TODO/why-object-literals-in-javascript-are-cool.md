@@ -7,10 +7,10 @@
 
 在 [ECMAScript 2015](https://rainsoft.io/why-object-literals-in-javascript-are-cool/www.ecma-international.org/ecma-262/6.0/) 之前，Javascript中的对象字面量(又叫做对象初始化器)是相当简单的，它可以定义2种属性：
 
-*   一一对应的静态属性名称和值 `{ name1: value1 }`
+*   成对的静态属性名和值 `{ name1: value1 }`
 *   通过 [getters](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/get) `{ get name(){..} }` 和 [setters](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/set) `{ set name(val){..} }` 定义的动态计算属性值
 
-说来遗憾，一个简单的例子可以表示对象字面量的大部分可能性：
+说来遗憾，一个简单的例子就可以表示对象字面量的所有可能性：
 
     var myObject = {  
       myString: 'value 1',
@@ -27,7 +27,7 @@
 
 JavaScript 是一种[基于原型继承](https://en.wikipedia.org/wiki/Prototype-based_programming)的语言，所以啥都是个对象。 所以当处理对象的创建、原型的设置与访问时，它必须提供简单的构造方法。
 
-定义一个对象然后设置它的原型是非常普遍的编码任务。我常常觉得设置原型的行为应该能直接在字面量里用一条语句实现。
+定义一个对象然后设置它的原型是普遍流程。我常常觉得原型的设置应该能直接在字面量里用一条语句实现。
 
 很不幸，字面量的限制不允许这样简单直接的实现方案。你不得不使用 `Object.create()` 配合字面量来设置原型:
 
@@ -120,7 +120,7 @@ JavaScript 是一种[基于原型继承](https://en.wikipedia.org/wiki/Prototype
 
 例子中的对象字面量声明了两个 `__proto__` 属性，这是不允许的。这种情况会抛出 `SyntaxError: Duplicate __proto__ fields are not allowed in object literals` 的语法错误。
 
-JavaScript 有只能使用对象或者 `null` 作为 `__proto__` 属性值的约束。任何尝试使用原始类型们 (字符串，数字，布尔值) 乃至 `undefined` 会被忽略掉，不能改变对象的原型。
+JavaScript 有只能使用对象或 `null` 作为 `__proto__` 属性值的约束。任何尝试使用原始类型们 (字符串，数字，布尔值) 乃至 `undefined` 会被忽略掉，不能改变对象的原型。
 让我们看看这个限制的例子：
 
     var objUndefined = {  
@@ -157,9 +157,8 @@ JavaScript 有只能使用对象或者 `null` 作为 `__proto__` 属性值的约
 
 `add()` 和 `get()` 是 `collection` 里用这个短模式定义的方法。
 
-这个方法声明的方式还一个好处是它们都是指名函数，这在要调试的时候会很方便。 上个例子执行 `collection.add.name` 返回函数名 `'add'`。
-译者注：指名函数与 JavaScript大量的匿名函数对应。
-译者注：好像非速写式声明的函数名字也是一样，这里不太明白。
+这个方法声明的方式还一个好处是它们都是非匿名函数，这在要调试的时候会很方便。 上个例子执行 `collection.add.name` 返回函数名 `'add'`。
+译者注：好像非速写式声明的函数名字也是一样，调用堆栈的表现也都一样，这里不太明白。
 
 ### 3\. 进行 `super` 调用
 
@@ -181,7 +180,7 @@ JavaScript 有只能使用对象或者 `null` 作为 `__proto__` 属性值的约
     };
     numbers.sumElements(); // => 17  
 
-`calc` 是 `numbers` 对象的原型。在 `numbers` 的 `sumElements` 方法中可以通过 `super` 关键字调用 `super.sumArray()` 方法。
+`calc` 是 `numbers` 对象的原型。在 `numbers` 的 `sumElements` 方法中可以通过 `super` 关键字调用原型的 `super.sumArray()` 方法。
 
 最终， `super` 是调用对象原型链里父类属性的快捷方式。
 
@@ -210,13 +209,13 @@ JavaScript 有只能使用对象或者 `null` 作为 `__proto__` 属性值的约
     // Throws SyntaxError: 'super' keyword unexpected here
     numbers.sumElements();  
 
-这个 `sumElements` 方法是通过属性： `sumElements: function() {...}` 定义的。 因为 `super` 有只能在速写式方法声明中调用的依赖，这种情况下调用会抛出 `SyntaxError: 'super' keyword unexpected here` 的语法错误。
+这个 `sumElements` 方法是通过属性： `sumElements: function() {...}` 定义的。 因为 `super` 只能在速写式方法声明中使用，这种情况下调用会抛出 `SyntaxError: 'super' keyword unexpected here` 的语法错误。
 
 这个约束不太影响对象字面量的声明方式，多数情况下因为语法更简洁，使用速写式方法声明会更好。
 
 ### 4\. 可计算的属性名
 
-在 ES2015 之前, 在对象字面量初始化中，对象的属性名大部分是静态的字符串。为了创建一个经过运算的属性名，你不得不使用函数创建属性。
+在 ES2015 之前, 在对象字面量初始化中，对象的属性名大部分是静态的字符串。为了创建一个经过运算的属性名，你不得不使用访问器函数创建属性。
 
     function prefix(prefStr, name) {  
        return prefStr + '_' + name;
