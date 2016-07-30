@@ -29,7 +29,7 @@
 
 用冒烟测试来看以上方法是否可行，我将模型名字设置为默认的值 “Model.xcdatamodeld”。
 ##添加带属性的实体
-将数据模型添加到项目之后，我继续添加了一个带（ 16 进制名字是 “attribute” ）属性的（名字叫 “Entity” ）实体：
+将数据模型添加到项目之后，我继续添加了一个带（ 16 位的整数类型名字是 “attribute” ）属性的（名字叫 “Entity” ）实体：
 ![Add an entity with an attribute.](https://www.andrewcbancroft.com/wp-content/uploads/2016/07/add-entity-and-attributes.png)
 
 ##添加 playground
@@ -93,7 +93,7 @@ print(result)
 ![Fetch request result](https://www.andrewcbancroft.com/wp-content/uploads/2016/07/printed-result.png)
 
 哇哦！这很酷啊。
-**别忘了**:如果你更新了模块，你需要重新构建你的应用，从 playground 的资源中删掉 “momd” 文件夹，再一次重新把新编译好的 “momd”  文件拖拽到 playground 中来运行最新版本的模型。
+**别忘了** :如果你更新了模块，你需要重新构建你的应用，从 playground 的资源中删掉 “momd” 文件夹，再一次重新把新编译好的 “momd”  文件拖拽到 playground 中来运行最新版本的模型。
 ##潜在的用处
 除了“我想知道这是否可能”，另一个问的重要问题是“它是多么有用？”
 *学习。 Playgrounds 本身作为一个学习工具有意义。能够搭建你在 Xcode 设计中思考的模块，把它导入一个 Playground ，并且把它当作一个学习练习来研究它，是多么酷啊！
