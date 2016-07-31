@@ -29,6 +29,7 @@
 
 ## iOS
 
+* [[译] Swift 2 中为实存类型和泛型搭桥牵线](http://gold.xitu.io/entry/579cba75165abd006104d65c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([yifili09](https://github.com/yifili09) 翻译)
 * [[译] iOS 开发，该如何解决弹窗的设计问题？](http://gold.xitu.io/entry/5798724da633bd006a6c8652?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([llp0574](https://github.com/llp0574) 翻译)
 * [[译] iOS 开发中的 Flux 架构模式](http://gold.xitu.io/entry/57972cdcc4c97100542c2ed4?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Nicolas(Yifei) Li](https://github.com/yifili09) 翻译)
 * [[译] 高效的 iOS 应用版本支持方法](https://gold.xitu.io/entry/57957d892e958a006514bdbb?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([DeadLion](https://github.com/DeadLion) 翻译)
