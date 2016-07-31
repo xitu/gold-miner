@@ -23,7 +23,6 @@
 * [[译] Android 中美腻的下划线](http://gold.xitu.io/entry/578705faa34131005b46e9c2?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jamweak](https://github.com/jamweak) 翻译)
 * [[译] 来瞧瞧 Android N 中的通知长成啥样了](https://gold.xitu.io/entry/577a27e76be3ff006a1ef870?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([DeadLion](https://github.com/DeadLion) 翻译)
 * [[译] 深度讲解 Android 主题层级](https://gold.xitu.io/entry/576b9f912e958a005715c7a0?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([aidistan](https://github.com/aidistan) 翻译)
-* [[译] 八个造成 Android 应用内存泄露的原因](https://gold.xitu.io/entry/5768b8da6be3ff006a3fcbc8?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([zhangzhaoqi](https://github.com/joddiy) 翻译)
 * [所有 Android 译文>>](https://github.com/xitu/gold-miner/blob/master/android.md)
 
 
@@ -33,7 +32,6 @@
 * [[译] iOS 开发，该如何解决弹窗的设计问题？](http://gold.xitu.io/entry/5798724da633bd006a6c8652?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([llp0574](https://github.com/llp0574) 翻译)
 * [[译] iOS 开发中的 Flux 架构模式](http://gold.xitu.io/entry/57972cdcc4c97100542c2ed4?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Nicolas(Yifei) Li](https://github.com/yifili09) 翻译)
 * [[译] 高效的 iOS 应用版本支持方法](https://gold.xitu.io/entry/57957d892e958a006514bdbb?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([DeadLion](https://github.com/DeadLion) 翻译)
-* [[译] iOS 开源图形库 Core Plot 使用教程](http://gold.xitu.io/entry/578f393ad342d30058e54bc0?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([llp0574](https://github.com/llp0574) 翻译)
 * [所有 iOS 译文>>](https://github.com/xitu/gold-miner/blob/master/ios.md)
 
 
