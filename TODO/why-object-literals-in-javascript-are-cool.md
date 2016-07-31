@@ -1,11 +1,11 @@
 >* 原文链接 : [Why object literals in JavaScript are cool](https://rainsoft.io/why-object-literals-in-javascript-are-cool/)
 * 原文作者 : [Dmitri Pavlutin](https://rainsoft.io/author/dmitri-pavlutin/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : [章辰 (zhangchen91) ](https://github.com/zhangchen91)
-* 校对者: 
+* 译者 : [章辰(zhangchen91)](https://github.com/zhangchen91)
+* 校对者: [rccoder](https://github.com/rccoder), [Graning](https://github.com/Graning)
 
 
-在 [ECMAScript 2015](https://rainsoft.io/why-object-literals-in-javascript-are-cool/www.ecma-international.org/ecma-262/6.0/) 之前，Javascript中的对象字面量(又叫做对象初始化器)是相当简单的，它可以定义2种属性：
+在 [ECMAScript 2015](https://rainsoft.io/why-object-literals-in-javascript-are-cool/www.ecma-international.org/ecma-262/6.0/) 之前，Javascript 中的对象字面量(又叫做对象初始化器)是相当简单的，它可以定义2种属性：
 
 *   成对的静态属性名和值 `{ name1: value1 }`
 *   通过 [getters](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/get) `{ get name(){..} }` 和 [setters](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/set) `{ set name(val){..} }` 定义的动态计算属性值
