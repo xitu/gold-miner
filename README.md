@@ -56,10 +56,10 @@
 
 ## 后端
 
+*  [[译] 为什么我们要用网页端组件去构建服务器？该怎么做？](http://gold.xitu.io/entry/579ad925c4c971005abfc7a6?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)] ([Zhangjd](https://github.com/zhangjd) 翻译)
 *  [[译] 基于多种服务的地理位置查询系统](https://gold.xitu.io/entry/578f80196be3ff006c0657a9?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([emmiter](https://github.com/emmiter/) 翻译)
 *  [[译] Java 不可变类的整洁之道](https://gold.xitu.io/entry/5774fe212e958a22d884a49c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([buccoji](https://github.com/buccoji) 翻译)
 *  [[译] 如何应用最新版的谷歌表格 API](https://gold.xitu.io/entry/5773acce0a2b58006a3fd7fe?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Goshin](https://github.com/Goshin) 翻译)
-*  [[译] 教程：使用 Passport.js 来做后台用户验证](http://gold.xitu.io/entry/57638f286be3ff006a171870?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([circlelove](https://github.com/circlelove) 翻译)
 * [所有后端译文>>](https://github.com/xitu/gold-miner/blob/master/backend.md)
 
 ## 教程
