@@ -2,14 +2,14 @@
 * 原文作者: [Neil Renicker](https://trackchanges.postlight.com/@tinystride)
 * 译文出自: [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者: [Rottenpen](https://github.com/Rottenpen)
-* 校对者:
+* 校对者:[geeeeeeeeek](https://github.com/geeeeeeeeek) [wild-flame](https://github.com/wild-flame) 
 
 ### Design Is Mainly About Empathy
 
 
 ![](https://cdn-images-1.medium.com/max/1200/1*pwlSr2Qq5rcVVTU7SxEAqQ.png)
 
-当一个老司机试图解释他们复杂的工作给外行人听是非常有意思的。举一个不错的栗子————看理论物理学家 理查德·费曼(Richard Feynman 美国物理学家，加州理工学院物理学教授，1965年诺贝尔物理奖得主)讨论磁铁。
+当一个老司机试图解释他们复杂的工作给外行人听是非常有意思的。举一个不错的栗子————看理论物理学家 理查德·费曼(Richard Feynman 美国物理学家，加州理工学院物理学教授，1965 年诺贝尔物理奖得主)讨论磁铁。
 
 [![video](https://i.ytimg.com/vi/wMFPe-DwULM/hqdefault.jpg)](https://trackchanges.postlight.com/media/d812c608ece9992d49752bfeafece892?maxWidth=640)
 
@@ -29,7 +29,7 @@ Feynman: F*****’ magnets, how do they work? FUN TO IMAGINE 4 [https://www.yout
 
 [![video](https://i.ytimg.com/vi/hFAOXdXZ5TM/sddefault.jpg)](https://www.youtube.com/embed/hFAOXdXZ5TM?wmode=opaque&widget_referrer=https%3A%2F%2Ftrackchanges.postlight.com%2Fmedia%2Fb94633e7912577c9c43a7a0535435925%3FmaxWidth%3D700&enablejsapi=1&origin=https%3A%2F%2Fcdn.embedly.com&widgetid=1)
 
-MAGNETS: How Do They Work? [https://www.youtube.com/watch?v=hFAOXdXZ5TM](https://www.youtube.com/watch?v=hFAOXdXZ5TM)
+磁体是是如何工作的呢？[https://www.youtube.com/watch?v=hFAOXdXZ5TM](https://www.youtube.com/watch?v=hFAOXdXZ5TM)
 
 > 即使在磁性材料中，原子的磁场排列在一起，也有可能会出现有些磁性材料的所有原子排列在一起指向一个方向，有些磁性材料的所有原子指向另一个方向，等等。
 
@@ -39,7 +39,7 @@ MAGNETS: How Do They Work? [https://www.youtube.com/watch?v=hFAOXdXZ5TM](https:/
 
 > [...]最了不起的地方是，磁场可以从量子属性引申到日常物体的大小，每一个永久磁体都在提醒着人们量子力学是我们宇宙的基础。
 
-> [Read the full transcript](https://gist.github.com/tinystride/eab1d627fdc568922ed8461d5b7861a4)
+> [阅读完整原文](https://gist.github.com/tinystride/eab1d627fdc568922ed8461d5b7861a4)
 
 这篇文章回答了很多问题，现在我们都会因为这领域的思想而起鸡皮疙瘩。它不是琐碎的技术文章，但成功讲明白了复杂的信息。它没有表现出高傲或是不屑。
 
@@ -61,7 +61,7 @@ MAGNETS: How Do They Work? [https://www.youtube.com/watch?v=hFAOXdXZ5TM](https:/
 
 顺便说一下 "jousting" 是很有趣的。
 
-磁化合金和在沙发上看 "jousting" 视频的用户是一堆抽象的东西。因此，将三种模型的信息记在脑海里，并建立它们之间的桥梁，是一个很好的产品设计师的工作。她填补了用户使用机器时的鸿沟，这样用户就不必费事自己去了解。 As [Alan Cooper](https://medium.com/u/b1fa02015e7f) puts it:
+磁化合金和在沙发上看 "jousting" 视频的用户是一堆抽象的东西。因此，将三种模型的信息记在脑海里，并建立它们之间的桥梁，是一个很好的产品设计师的工作。她填补了用户使用机器时的鸿沟，这样用户就不必费事自己去了解。 [Alan Cooper](https://medium.com/u/b1fa02015e7f)是这么说:
 
 > 计算机素养是一种能迫使人类延伸思维，用以了解应用程序逻辑的内部运作，而不是以满足人们通常思维的软件功能产品的延伸。
 
@@ -86,7 +86,7 @@ MAGNETS: How Do They Work? [https://www.youtube.com/watch?v=hFAOXdXZ5TM](https:/
 ![](https://cdn-images-1.medium.com/max/800/1*YybkuqDoXWgLTn8fjp2G4Q.gif)
 ![](https://cdn-images-1.medium.com/max/400/1*wP7Nzgk19-A7Ez6DUjXsLQ.gif)
 
-Blinds image courtesy [IKEA](http://www.ikea.com/gb/en/catalog/categories/departments/living_room/10701/)
+ 图片借用于[IKEA](http://www.ikea.com/gb/en/catalog/categories/departments/living_room/10701/)
 
 库珀帮助我看到关于表现模型的特殊部分，这一部分也是设计师唯一能够控制的部分。我们不能控制它的实现模型，因为一个好的工程师讲在代码库中使用抽象模型，使其易于维护和安全。我们不能控制我们用户的心智模型，因为它是由他们的文化和其他不可知的很多因素形成的。
 
