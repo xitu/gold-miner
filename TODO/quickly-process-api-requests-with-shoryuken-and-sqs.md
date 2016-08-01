@@ -8,7 +8,6 @@
 
 Rail 为后台工作提供了相当多的解决方案。其中一个就是被称为 Sidkiq 的智能 Gem， [我们之前在 Sitepoint 上提到过](https://www.sitepoint.com/comparing-background-processing-libraries-sidekiq/)。
 
-Sidekiq is great and can solve most developer needs. It is especially useful as it takes over the heavy lifting from Rails. However, it has a few shortfalls:
 
 Sidekiq 相当棒，能解决大多数开发中的问题。尤其是 Rails 繁重问题上相当有用。然而，它也有一些不足。
 
@@ -32,14 +31,12 @@ Sidekiq 相当棒，能解决大多数开发中的问题。尤其是 Rails 繁�
 
 为了开始这个教程，我们将用 Flickr API 来创建一个简单的搜索框，这样就可以根据 id 输入来生成照片。
 
-1.  First up, we have to [set up a Yahoo account](https://help.yahoo.com/kb/SLN2056.html), as this is the only way we can access the Flickr API. Once we have a Yahoo account, simply visit the [Flickr Docs page](https://www.flickr.com/services/api/)
 1.首先。我们需要[设置雅虎账户](https://help.yahoo.com/kb/SLN2056.html)，因为这是我们可以访问 Flickr API 唯一的方式。配好雅虎账户之后，简单地查看一下[Flickr 文档页面](https://www.flickr.com/services/api/)。
 2.   在[Flickr docs](https://www.flickr.com/services/api/) 页面单击[创建一个应用](https://www.flickr.com/services/apps/create/) 链接。
 3.  在[Flickr.com](https://www.flickr.com/services/apps/create/noncommercial/)申请一个非商业密钥。
 4.  下一个页面当中，你会被要求输入项目的具体信息，简单地填入项目名称和事项等即可。
 5.  你会收到应用的密钥和密码。把他们写在某个地方，因为这个教程当中需要用到。
 
-Next, set up the Rails app with a single controller action. To set up a new Rails app, generate one like so from the command line:
 接下来，配置一个单控制器行为的 Rails app 。要生成新的 Rails app，利用如下命令行生成：
 
 ```
