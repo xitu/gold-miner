@@ -80,6 +80,7 @@
 
 ## 产品
 
+* [[译] 在开发移动应用时你应该考虑的 「Empty State」](http://gold.xitu.io/entry/579f19956be3ff0065f59a90?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([MAYDAY1993](https://github.com/MAYDAY1993) 翻译)
 * [[译] 电商列表信息展示，你真的懂吗？](http://gold.xitu.io/entry/575cd2f31532bc00608d241c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([godofchina](https://github.com/godofchina) 翻译)
 * [[译] 无限下拉，还是分页？](http://gold.xitu.io/entry/573e978171cfe448aa9dd03db?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Ruixi](https://github.com/Ruixi) 翻译)
 * [[译] 给产品经理的简易优先级法则](http://gold.xitu.io/entry/572ad1cc1532bc0065d5e36b?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([ZhaofengWu](https://github.com/ZhaofengWu) 翻译)
