@@ -84,5 +84,4 @@
 * [[译] 电商列表信息展示，你真的懂吗？](http://gold.xitu.io/entry/575cd2f31532bc00608d241c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([godofchina](https://github.com/godofchina) 翻译)
 * [[译] 无限下拉，还是分页？](http://gold.xitu.io/entry/573e978171cfe448aa9dd03db?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Ruixi](https://github.com/Ruixi) 翻译)
 * [[译] 给产品经理的简易优先级法则](http://gold.xitu.io/entry/572ad1cc1532bc0065d5e36b?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([ZhaofengWu](https://github.com/ZhaofengWu) 翻译)
-* [[译] 设计师如何跟开发打好关系？](http://gold.xitu.io/entry/57286f4f2e958a00657d2450?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([L9m](https://github.com/L9m) 翻译)
 * [所有产品译文>>](https://github.com/xitu/gold-miner/blob/master/product.md)
