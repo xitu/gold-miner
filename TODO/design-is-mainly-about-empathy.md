@@ -2,7 +2,7 @@
 * 原文作者: [Neil Renicker](https://trackchanges.postlight.com/@tinystride)
 * 译文出自: [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者: [Rottenpen](https://github.com/Rottenpen)
-* 校对者:[geeeeeeeeek](https://github.com/geeeeeeeeek) [wild-flame](https://github.com/wild-flame) 
+* 校对者:[geeeeeeeeek](https://github.com/geeeeeeeeek)，[wild-flame](https://github.com/wild-flame) 
 
 ### Design Is Mainly About Empathy
 
@@ -39,7 +39,7 @@ Feynman: F*****’ magnets, how do they work? FUN TO IMAGINE 4 [https://www.yout
 
 > [...]最了不起的地方是，磁场可以从量子属性引申到日常物体的大小，每一个永久磁体都在提醒着人们量子力学是我们宇宙的基础。
 
-> [阅读完整原文](https://gist.github.com/tinystride/eab1d627fdc568922ed8461d5b7861a4)
+> [阅读原文](https://gist.github.com/tinystride/eab1d627fdc568922ed8461d5b7861a4)
 
 这篇文章回答了很多问题，现在我们都会因为这领域的思想而起鸡皮疙瘩。它不是琐碎的技术文章，但成功讲明白了复杂的信息。它没有表现出高傲或是不屑。
 
