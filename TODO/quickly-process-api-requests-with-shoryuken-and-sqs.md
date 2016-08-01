@@ -1,61 +1,67 @@
-> * 原文链接: [Quickly Process API Requests with Shoryuken and SQS](https://www.sitepoint.com/quickly-process-api-requests-with-shoryuken-and-sqs/)
+> * 原文链接: [利用 Shoryuken and SQS 快速处理 API 请求](https://www.sitepoint.com/quickly-process-api-requests-with-shoryuken-and-sqs/)
 * 原文作者: [William Kennedy](https://www.sitepoint.com/author/wkennedy/)
 * 译文出自: [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者: 
+* 译者: [circlelove](https://github.com/circlelove)
 * 校对者:
 
 ![](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2016/07/1468165009amazon-sqs_512-300x300.png)
 
-Rail’s has lots of solutions for background jobs. One of these is a brilliant Gem called Sidekiq, [which we have written about before on Sitepoint](https://www.sitepoint.com/comparing-background-processing-libraries-sidekiq/).
+Rail 为后台工作提供了相当多的解决方案。其中一个就是被称为 Sidkiq 的智能 Gem， [我们之前在 Sitepoint 上提到过](https://www.sitepoint.com/comparing-background-processing-libraries-sidekiq/)。
 
 Sidekiq is great and can solve most developer needs. It is especially useful as it takes over the heavy lifting from Rails. However, it has a few shortfalls:
 
-*   If you are not a Pro user ($750 per year) and your process crashes, you will lose your jobs.
-*   If your job load increases, you will need a more powerful version of Redis which costs more money and resources.
-*   You need to host its dashboard in order to monitor what is happening with your jobs.
+Sidekiq 相当棒，能解决大多数开发中的问题。尤其是 Rails 繁重问题上相当有用。然而，它也有一些不足。
 
-Another approach you may want to consider for processing queued jobs is [Shoryuken](https://github.com/phstc/shoryuken), which works in conjunction with Amazon’s SQS (Simple Queue Service). This is a basic store of messages that you can process later via Shoryuken workers. These workers then work outside of the main Rails processes. With SQS and Shoryuken, you create a queue for your workers to use and these workers cycle through the jobs until the queue is empty.
 
-A few benefits of using Shoryuken:
 
-*   It is built with Amazon SQS in mind, which is incredibly cheap ($0.50 per 1 million Amazon SQS Requests).
-*   SQS is built to scale. You are taking advantage of Amazon’s amazing infrastructure so it’s easy to scale your workers.
-*   Amazon provides a simple console to watch your queues as well as configure what happens to dead messages.
-*   Amazon’s Ruby SDK is very flexible when it comes to creating queues. You can create as many as you want.
+*   如果你不是专业版用户（每年支付750美元），而你的进程崩溃的话，将会丢失你的工作 
+*   如果你的工作量增加，你需要更强大版本的 Redis，而它耗费更多的成本和资源。
+*   为了监控你工作上发生的一切，你需要把握它的控制面板）。
 
-In this article, I am going to guide you through setting up Shoryuken for use with the Flickr API. You will see how Shoryuken processes jobs in the background at lighting speed.
 
-To begin this tutorial, we are going to use the Flickr API to create a simple search bar where we can generate photos based on whatever id is entered.
+想要解决排队任务的你需要考虑的另一种方法是 [Shoryuken](https://github.com/phstc/shoryuken)，它和亚马逊的 SQS (Simple Queue Service)协同工作。这是一个基本消息存储，之后你可以通过 Shoryukeσn worker 进行处理。这些workers之后在主 Rails 进程外部工作。有了 SQS 和 Shoryuken，你可以为 workers 创建队列利用 workers循环任务直到队列空闲。
+
+使用Shoryuken有以下好处：
+
+*   他是以 Amazon SQS 构建的，难以置信的便宜（每一百万次 Amazon SQS Requests 只要0.5美元）。
+*   SQS 是用来规模化作业的。利用亚马逊这个令人惊喜的基础配置，你可以轻松地统计你的workers
+*   亚马逊提供了一个简单的控制台来查看队列以及配置死消息的情况。
+*   亚马逊的 Ruby SDK 在创建队列的时候十分灵活。如果你愿意可以创建很多队列。
+
+本文档中，我会带你来配置带有 Flickr API 的 Shoryuken 。你将见证 Shoryuken 如何在后台光速处理任务。
+
+为了开始这个教程，我们将用 Flickr API 来创建一个简单的搜索框，这样就可以根据 id 输入来生成照片。
 
 1.  First up, we have to [set up a Yahoo account](https://help.yahoo.com/kb/SLN2056.html), as this is the only way we can access the Flickr API. Once we have a Yahoo account, simply visit the [Flickr Docs page](https://www.flickr.com/services/api/)
-2.  Click the [Create an App](https://www.flickr.com/services/apps/create/) link on the [Flickr docs](https://www.flickr.com/services/api/) page.
-3.  Apply for a non-commercial key at [Flickr.com](https://www.flickr.com/services/apps/create/noncommercial/).
-4.  On the next page, you will be asked to enter some details about your project. Simply fill in the name and other bits about your project.
-5.  You’ll receive a Key and Secret for your application. Write these down somewhere because we will need them for this tutorial.
+1.首先。我们需要[设置雅虎账户](https://help.yahoo.com/kb/SLN2056.html)，因为这是我们可以访问 Flickr API 唯一的方式。配好雅虎账户之后，简单地查看一下[Flickr 文档页面](https://www.flickr.com/services/api/)。
+2.   在[Flickr docs](https://www.flickr.com/services/api/) 页面单击[创建一个应用](https://www.flickr.com/services/apps/create/) 链接。
+3.  在[Flickr.com](https://www.flickr.com/services/apps/create/noncommercial/)申请一个非商业密钥。
+4.  下一个页面当中，你会被要求输入项目的具体信息，简单地填入项目名称和事项等即可。
+5.  你会收到应用的密钥和密码。把他们写在某个地方，因为这个教程当中需要用到。
 
 Next, set up the Rails app with a single controller action. To set up a new Rails app, generate one like so from the command line:
+接下来，配置一个单控制器行为的 Rails app 。要生成新的 Rails app，利用如下命令行生成：
 
 ```
 rails new shoryuken_flickr
 
 ```
 
-Next, set up the controller. A standard controller action with an `index` action is perfect:
+下一步，配置控制器。带有`index`行为的控制器行为是完美的：
 
 ```
 rails g controller Search index
 
 ```
 
-Add a root route that to this action in **config/routes.rb**:
+在**config/routes.rb** 里添加一个根路径到这个操作上：
 
 ```
 root  'search#index'
 
 ```
 
-On the index page, set up a simple search form:
-
+在索引页，设置一个简单的搜索框：
 ```
 <%= form_tag("/", method: "get") do %>
   <%= text_field_tag(:flickr_id) %>
@@ -64,10 +70,10 @@ On the index page, set up a simple search form:
 
 ```
 
-We must set up a Flickr module to return photos of the user ID being submitted:
+我们必须配置 Flickr 模块来返回用户 id 提交的照片：
 
-1.  First, we install the [flickr_fu](https://github.com/commonthread/flickr_fu) which makes it easy to grab the data we want.
-2.  Set up the **flickr.yml** file with our relevant credentials. This file lives in the **config** folder and looks like:
+1.  首先，我们得安装[flickr_fu](https://github.com/commonthread/flickr_fu)，这样更容易抓取我们需要的数据。
+2.  利用相关凭证配置**flickr.yml** 文件。这个文件在**config** 文件夹里作业，看起来是这样的：
 
     ```
     key: <%= ENV["flickr<em>key"] %>
@@ -76,7 +82,7 @@ We must set up a Flickr module to return photos of the user ID being submitted:
 
     ```
 
-3.  Now we create a helper method to return the photos for the index page. In **app/helpers/search_helper.rb**, add the following:
+3.  现在我们可以为目录页创建一个 helper 方法来返回照片。在**app/helpers/search_helper.rb** 添加如下内容：
 
     ```
     module SearchHelper
@@ -88,7 +94,7 @@ We must set up a Flickr module to return photos of the user ID being submitted:
 
     ```
 
-This method returns the photos based on the provided Flickr user ID. In **app/controllers/search_controller.rb**, we need to put in an action to grab that data:
+基于提供的用户 id 这种方法可以返回照片。在**app/controllers/search_controller.rb** ，需要一个操作来抓取数据：
 
 ```
   class SearchController < ApplicationController
@@ -102,7 +108,7 @@ This method returns the photos based on the provided Flickr user ID. In **app/co
 
 ```
 
-Now, just create a little partial to generate the photos. In **app/views/search**, add a **photos.html.erb** file with the following:
+现在，只要创建一个小的片段来生成照片。在**app/views/search**里通过如下代码添加一个 **photos.html.erb** 文件：
 
 ```
   <ul>
@@ -116,11 +122,12 @@ Now, just create a little partial to generate the photos. In **app/views/search*
 
 ```
 
-Flickr ids are present on user profiles in the URL. An example ID is `138578671@N04` and if you submit that value in the form, a bunch of photos are returned.
+Flickr id 就呈现在 URL 的用户配置里。以 `138578671@N04` 这个 ID 为例，如果你在表单里提交了有效值，就会返回一系列照片。
 
-Now we have a functioning application that gets new photos from Flickr. This is awesome, but it is very slow for the user and it refreshes the whole page each time.
+现在我们有了一个从 Flickr 获取新照片的应用。这很棒，但是对用户来说这还很慢，而且每次搜需要刷新整个页面。
 
-I think this app would be better with a bit of AJAX. First, create an **index.js.erb** view in **app/views/search** and put in some simple Javascript:
+
+我认为加上一点 AJAX 这个应用会更完善，在**app/views/search** 创建**index.js.erb** 视图，并添加一些 Javascript 的内容：
 
 ```
 $('ul').remove();
@@ -128,8 +135,7 @@ $('#flickr').append("<%= j render 'photos'%>").html_safe();
 
 ```
 
-In the controller, make sure we have a `respond_to` block for our code:
-
+控制器当中，要保证我们对代码阻塞有  `响应 `
 ```
 class SearchController < ApplicationController
   def index
@@ -146,8 +152,7 @@ end
 
 ```
 
-Finally, in the search form, set `remote` to `true`:
-
+最后，每个搜索表单中，设置 `remote` 为 `ture`:
 ```
 <br/>
   <%= form_tag("/", method: "get", :remote => true) do %>
@@ -157,35 +162,36 @@ Finally, in the search form, set `remote` to `true`:
 
 ```
 
-Okay, so it’s cool, but we still have not used Shoryuken. The process is still single threaded.
+好，这很酷，但是我们还没有用到 Shroyuken 。进程还是单线程的。
 
-## Setting Up Shoryuken
+##配置 Shoryuken
 
-If you don’t already have an [Amazon Web Services (AWS)](https://aws.amazon.com) account, you’ll need to set one up. Follow
+如果你还没有[Amazon Web Services (AWS)](https://aws.amazon.com)账户，你需要创建一个。按照：
 
-1.  Click on the “My Account” dropdown menu and then click “AWS Management Console”.
-2.  Sign in and then you’ll be taken to the AWS Management Console.
-3.  In the top right, click on your user name in the menu bar and then click on “Security Credentials”.
-4.  Now you will be taken to a page where you can get access to your AWS Access Keys (Access Key ID and Secret Access Key)
-5.  Click “Create New Access Key” and take down your Access Key ID and Secret Access Key. You need these to run Shoryuken and SQS.
+1.  点击“我的账户”下拉菜单，然后单击“AWS 控制台”。
+2.  登录之后就进入了控制台。
+3.  在右上方，单击菜单栏中的用户名，然后单击“安全验证”。
+4.  现在你被带到一个页面里，你可以获取访问密钥的 id 和密码。  
+5.  点击“创建新的访问密钥”得到你的访问密钥 ID 和密码。你需要这些来运行 Shoryuken 和 SQS。
 
-Once we have the AWS access keys, the next step is to install and configure the relevant gems. First, install the AWS SDK with the relevant details by adding the following to your Gemfile:
+这样我们有了 AWS 的访问密钥，下一步就是安装和配置相关的 gem 。添加如下代码到你的 Gemfile里来安装带有相关细节的 AWS SDK 。
 
 ```
 gem 'aws-sdk', '~> 2'
 
 ```
 
-Then, `bundle install`.
 
-We need to configure the AWS SDK with the relevant credentials. I usually create a file called **aws.rb** which I put in in the **config/initializers** folder
+之后，`bundle install`。
+
+我们需要利用相关证书配置 AWS SDK。完成通常创建一个叫**aws.rb** 的文件，放在**config/initializers**文件夹里面。
 
 ```
 touch config/initializers/aws.rb
 
 ```
 
-Add the following code to the file:
+在文件中添加以下代码：
 
 ```
 Aws.config.update({ 
@@ -201,20 +207,22 @@ sqs.create_queue({queue_name: 'default'})
 
 ```
 
-Make sure to replace the credentials with your actual credentials.
+确保用你的实际证书替代原证书
 
-If we go to the SQS console, we will see a new queue created if you restart your Rails server.
+如果我们查看 SQS 控制台，会发现重启 Rails 服务器之后会出现新的队列。
 
 ![SQS QUEUE](http://i.imgur.com/qG23zqp.png?2)
 
-Finally, time to install the Shoryuken gem. In our Gemfile:
+
+最后，到了安装 Shoryuken gem 的时候了。在我们的 Gemfile 里：
 
 ```
 gem 'shoryuken'
 
 ```
 
-Create the Shoryuken worker and some middleware. I just create a new directory under **apps** called **workers**:
+
+创建 Shoryuken worker 和其他中间件。我只是创建了在**apps** 下创建了一个新的名叫**workers**的目录：
 
 ```
 mkdir app/workers
@@ -224,8 +232,8 @@ touch config/shoryuken.yml
 
 ```
 
-Configure our Flickr middleware:
 
+配置 Flickr 中间件：
 ```
 class FlickrMiddleware
   def call(worker_instance, queue, sqs_msg, body)
@@ -237,7 +245,8 @@ end
 
 ```
 
-Set up the worker:
+
+配置 worker：
 
 ```
 class MyWorker
@@ -257,9 +266,11 @@ class MyWorker
 
 ```
 
-As well as configuring our **config/shoryuken.yml** file to the following:
+
+同时也需要按如下方式配置我们的**config/shoryuken.yml** 文件：
 
 ```
+
 aws:
   access_key_id: 'AWS_KEY'
   receive_message:
@@ -275,7 +286,8 @@ aws:
 
 ```
 
-Excellent! We nearly have everything setup and ready to go. All that’s left is to send messages to our queue. In the search controller, put in the following:
+
+完美! 我们差不多配置好了所有的东西准备开始了。只剩下了给队列发送消息了。在搜索控制器长，写入如下代码：
 
 ```
   class SearchController < ApplicationController
@@ -297,24 +309,26 @@ Excellent! We nearly have everything setup and ready to go. All that’s left is
 
 ```
 
-Now we just submit another message. This time, you should see it appear on the SQS console. You may need to refresh the SQS console using the refresh button which is in the top right of the screen.
 
-You should see a message in your queue but for some reason, it is not being processed. Better sort that out. Open up another terminal window and navigate to your project. When you are there, you must run the following command:
+现在我们刚刚提交了另一个消息。这时候，你应该看到它显示在 SQS 控制台上。你也许需要单击刷新 SQS 控制台，按钮在屏幕右上方。
+
+你应该可以看到队列的一条消息，不过由于某种原因还没有被处理。最好梳理一下。打开另一个终端窗口浏览你的项目。当你进入的时候，必须运行如下命令：
 
 ```
 bundle exec shoryuken -R -C config/shoryuken.yml
 
 ```
 
-Now you should see you worker cleaning out the queue. When you go back to your app, you will probably see an error. Remember, Shoryuken runs in the background so it cannot create instance variables for your current process. You could save the photos to a database and then poll the table when the results arrive.
+
+现在你应该能看到 worker 在清理队列了。当你返回 app 的时候，你或许可以看到一个报错。记住， Shoryuken 在后台运行所以无法为当前进程创建实例变量。你可以把照片保存在数据库中，得到结果之后再提交表单。
 
 ```
 rails g model Photo user_id:string photos:string
 
 ```
 
-Now we just check our migrate file and make sure the correct fields are being added. Open up the migration file (in **db/migrate**) and make sure it looks like:
 
+现在我们检查一下迁移文件并确认添加了正确的字段。在**db/migrate**打开迁移文件
 ```
 class CreatePhotos < ActiveRecord::Migration
   def change
@@ -329,14 +343,16 @@ end
 
 ```
 
-If everything looks OK, we need to migrate the database.
+
+如果一切都没有问题的话，我们就可以迁移数据库了。
 
 ```
 rake db:migrate
 
 ```
 
-Make sure to serialize the array that is returned in our database. In **app/models/photos.rb**:
+
+确认数组序列化数据库返回的数组。在**app/models/photos.rb**当中：
 
 ```
 class Photo < ActiveRecord::Base
@@ -345,7 +361,8 @@ end
 
 ```
 
-Then update our table every time the worker is run. At the bottom of the `SearchHelper#user_photos` method add a line to write the photos to the database:
+
+之后每次 worker 工作的时候就更新一次表单。在`SearchHelper#user_photos`方法下方添加一行将照片写入数据库：
 
 ```
 photos = flickr.photos.search(:user_id => id).values_at(0..(5 - 1))
@@ -353,11 +370,16 @@ Photo.create(:user_id => id, :photos => [photos])
 
 ```
 
-To see it working in action, add a delay to your search controller action to give your database a chance to update. In the real world, I suggest a more elegant solution using AJAX.
+
+为了查看它工作的情况，给控制器操作添加一个延迟让数据库得以更新。现实当中，我建议使用 AJAX 这个更优雅的方案。
 
 ```
 sleep 1.5
 
 ```
 
-There you have it. You now know how to take advantage of some awesome libraries for processing queued tasks with Shoryuken. While this example is very contrived, I used it to demonstrate how to use Shoryuken with SQS. No doubt, you probably have at least one use case that would benefit from queued messages.
+
+那么你就完成了。你现在了解了如何利用一些很赞的库来处理带有 Shoryuken 的工作。尽管这个例子还不太自然，用它演示了如何使用带有 SQS 的 Shoryuken。 相信至少你有了一个利用队列消息的案例。
+
+
+
