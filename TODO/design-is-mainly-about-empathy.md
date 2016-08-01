@@ -13,7 +13,7 @@
 
 [![video](https://i.ytimg.com/vi/wMFPe-DwULM/hqdefault.jpg)](https://trackchanges.postlight.com/media/d812c608ece9992d49752bfeafece892?maxWidth=640)
 
-Feynman: F*****’ magnets, how do they work? FUN TO IMAGINE 4 [https://www.youtube.com/watch?v=wMFPe-DwULM](https://www.youtube.com/watch?v=wMFPe-DwULM)
+[看看视频FUN TO IMAGINE 4里，费曼是怎么解释磁体是如何工作的](https://www.youtube.com/watch?v=wMFPe-DwULM)
 
 这个记者问到费曼，能不能解释一下两块磁铁之间无形的吸引力。我猜想他会用知识分子风格的愤怒来回应：
   
@@ -29,7 +29,7 @@ Feynman: F*****’ magnets, how do they work? FUN TO IMAGINE 4 [https://www.yout
 
 [![video](https://i.ytimg.com/vi/hFAOXdXZ5TM/sddefault.jpg)](https://www.youtube.com/embed/hFAOXdXZ5TM?wmode=opaque&widget_referrer=https%3A%2F%2Ftrackchanges.postlight.com%2Fmedia%2Fb94633e7912577c9c43a7a0535435925%3FmaxWidth%3D700&enablejsapi=1&origin=https%3A%2F%2Fcdn.embedly.com&widgetid=1)
 
-磁体是是如何工作的呢？[https://www.youtube.com/watch?v=hFAOXdXZ5TM](https://www.youtube.com/watch?v=hFAOXdXZ5TM)
+磁体是如何工作的呢？[https://www.youtube.com/watch?v=hFAOXdXZ5TM](https://www.youtube.com/watch?v=hFAOXdXZ5TM)
 
 > 即使在磁性材料中，原子的磁场排列在一起，也有可能会出现有些磁性材料的所有原子排列在一起指向一个方向，有些磁性材料的所有原子指向另一个方向，等等。
 
