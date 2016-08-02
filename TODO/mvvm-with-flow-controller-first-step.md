@@ -5,17 +5,16 @@
 * 校对者: [yifili09](https://github.com/yifili09) , [rccoder](https://github.com/rccoder)
 
 
-
 > 我看了好久 Krzysztof Zablocki 关于 MVVM 的视频，最后发现理解新东西只有一种方法：动手建个项目！
 
-在阅读许多关于软件架构的知识后，我最近6个月一直在学习 MVVM 协议模型。为了理解这个协议需要引用[**Natasha The Robot**](https://www.natashatherobot.com/swift-2-0-protocol-oriented-mvvm/)的一篇文章，这篇文章里介绍了关于编程协议的所有知识。如果你听不到我说的是什么鬼，建议你最好去读一下[**Natasha The Robot**](https://www.natashatherobot.com/)。
+在阅读许多关于软件架构的知识后，我最近6个月一直在学习 MVVM 协议模型。为了理解这个协议需要引用 [**Natasha The Robot**](https://www.natashatherobot.com/swift-2-0-protocol-oriented-mvvm/) 的一篇文章，这篇文章里介绍了关于编程协议的所有知识。如果你听不到我说的是什么鬼，建议你最好去读一下 [**Natasha The Robot**](https://www.natashatherobot.com/)。
 
-一个月前我看完了[**Steve “Scotty” Scott**](https://twitter.com/macdevnet) 关于 MVVM-C的课程。在这个我今年看过最佳视频之一的视频中，阐述了最重要的不是代码量减少，而是这个架构能让我们的软件有什么提升。我不反对人们把某个技术称作“银弹”(译者注：“银弹”有“狂拽炫酷吊炸天”一样浮夸的意思)，但是我更喜欢追求极致、找到最好的解决方案。
+一个月前我看完了 [**Steve “Scotty” Scott**](https://twitter.com/macdevnet)  关于 MVVM-C 的课程。在这个我今年看过最佳视频之一的视频中，阐述了最重要的不是代码量减少，而是这个架构能让我们的软件有什么提升。我不反对人们把某个技术称作“银弹”(译者注：“银弹”有“狂拽炫酷吊炸天”一样浮夸的意思)，但是我更喜欢追求极致、找到最好的解决方案。
 
 [![](https://i.ytimg.com/vi_webp/9VojuJpUuE8/sddefault.webp)](https://www.youtube.com/embed/9VojuJpUuE8)
 
 最近几周，我想了很多有关如何提高我对 MVVM 架构的理解，并且创建一个可维护的开发框架。所以我看了 [**Krzysztof Zabłocki**](https://twitter.com/merowing_) 关于软件架构的视频，
-这个视频太赞了。如果你想看讲了什么可以点这里看[视频]((http://slideslive.com/38897361/good-ios-application-architecture-en))或者点这里看[博客]((http://merowing.info/2016/01/improve-your-ios-architecture-with-flowcontrollers/))。
+这个视频太赞了。如果你想看讲了什么可以点这里看[视频](http://slideslive.com/38897361/good-ios-application-architecture-en)或者点这里看[博客](http://merowing.info/2016/01/improve-your-ios-architecture-with-flowcontrollers/)。
 
 看完 Krzysztof Zablocki 的视频后我决定建个项目来实现一种更好的架构。所以，我为（实现）这个架构制定了清晰的目标。
 
@@ -32,7 +31,7 @@
 
 单元测试和用户界面测试，这个就不用解释了吧。但我关注的是有关架构的分层，它为了（更好的部署）自动测试，让 QA 分析员想出新的测试机制来保证应用程序的（高）质量。
 
-#### A/B测试（简单来说，就是为同一个目标制定两个方案，让一部分用户使用 A 方案，另一部分用户使用 B 方案，记录下用户的使用情况，看哪个方案更符合设计）
+#### A/B 测试（简单来说，就是为同一个目标制定两个方案，让一部分用户使用 A 方案，另一部分用户使用 B 方案，记录下用户的使用情况，看哪个方案更符合设计）
 
 应用市场上基于不同的界面和功能的应用日益复杂，界定应用优劣与否的方案有很多。在这里我重点研究应用是否有自定义和模拟用户体验的能力。
 
@@ -42,7 +41,7 @@
 
 #### 流控制器
 
-流控制器是一个控制用户路径的小型类和结构的集合。这使我们能够为A / B测试创建不同的数据流，例如，权限管理。
+流控制器是一个控制用户路径的小型类和结构的集合。这使我们能够为 A / B 测试创建不同的数据流，例如，权限管理。
 流之间的通信是通过一个共同的、可以传递窗口引用或导航控制器的对象，那可以让你创造出不同流的导航。
 
 该模型的另一个重要的功能就是它可以负责为 ViewController 实例化并注入 ViewModel + Model。
@@ -50,7 +49,7 @@
 
 #### MVVM
 
-这种架构和我之前项目的架构很像，唯一不同的是 VC(ViewController) 必须接受一个兼容的 ViewModel（通过既定协议）。
+这种架构和我之前项目的架构很像，唯一不同的是 VC (ViewController) 必须接受一个兼容的 ViewModel（通过既定协议）。
 因此 VC 是独立的、封装完整的，重要的是要方便测试和提高代码的重用性。
 
 这种独立意味着在我想要让界面灵活可变的时候可以用这种控制器来实现。另一个例子是抽象相似界面，如网格和列表使用相同的 ViewModel 。抽象必然会更复杂些，但当你的应用程序的增长或者随着时间的变化，你的收益也会越来越多。
@@ -251,4 +250,4 @@
 
 我努力把我引用的代码都标记出处，如果我遗漏了谁请原谅我。
 
-我不能忘记感谢[Mikail Freitas](https://github.com/mikailcf) 帮助我识别泛型协议初始化时的错误。我们永远不明白为什么在一个案例中运行好好地，而另一个则不起作用。
+我不能忘记感谢 [Mikail Freitas](https://github.com/mikailcf)  帮助我识别泛型协议初始化时的错误。我们永远不明白为什么在一个案例中运行好好地，而另一个则不起作用。
