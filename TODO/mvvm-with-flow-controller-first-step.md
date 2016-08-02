@@ -5,6 +5,7 @@
 * 校对者: [yifili09](https://github.com/yifili09) , [rccoder](https://github.com/rccoder)
 
 
+
 > 我看了好久 Krzysztof Zablocki 关于 MVVM 的视频，最后发现理解新东西只有一种方法：动手建个项目！
 
 在阅读许多关于软件架构的知识后，我最近6个月一直在学习 MVVM 协议模型。为了理解这个协议需要引用[**Natasha The Robot**](https://www.natashatherobot.com/swift-2-0-protocol-oriented-mvvm/)的一篇文章，这篇文章里介绍了关于编程协议的所有知识。如果你听不到我说的是什么鬼，建议你最好去读一下[**Natasha The Robot**](https://www.natashatherobot.com/)。
