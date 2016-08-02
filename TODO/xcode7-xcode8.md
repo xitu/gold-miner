@@ -30,7 +30,7 @@ But that much is likely obvious to you. Now let me show you how to actually conf
 
 ### Swift version
 
-![https://github.com/xitu/gold-miner/blob/master/TODO/xcode7-xcode8.md](insert screenshot here)
+![http://radex.io/assets/2016/xcode7-xcode8/BuildSettings.png](insert screenshot here)
 
 To begin, open your project in Xcode 7\. Go to project settings, open the Build settings tab, and click the “+” to add a User-Defined Setting:
 
