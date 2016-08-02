@@ -2,11 +2,11 @@
 * 原文作者: [William Kennedy](https://www.sitepoint.com/author/wkennedy/)
 * 译文出自: [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者: [circlelove](https://github.com/circlelove)
-* 校对者:
+* 校对者: [rccoder](https://github.com/rccoder), [MAYDAY1993](https://github.com/MAYDAY1993)
 
 ![](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2016/07/1468165009amazon-sqs_512-300x300.png)
 
-Rail 为后台工作提供了相当多的解决方案。其中一个就是被称为 Sidkiq 的智能 Gem， [我们之前在 Sitepoint 上提到过](https://www.sitepoint.com/comparing-background-processing-libraries-sidekiq/)。
+Rails 为后台工作提供了相当多的解决方案。其中一个就是被称为 Sidkiq 的智能 Gem， [我们之前在 Sitepoint 上提到过](https://www.sitepoint.com/comparing-background-processing-libraries-sidekiq/)。
 
 
 Sidekiq 相当棒，能解决大多数开发中的问题。尤其是 Rails 繁重问题上相当有用。然而，它也有一些不足。
@@ -14,16 +14,16 @@ Sidekiq 相当棒，能解决大多数开发中的问题。尤其是 Rails 繁�
 
 
 *   如果你不是专业版用户（每年支付750美元），而你的进程崩溃的话，将会丢失你的工作 
-*   如果你的工作量增加，你需要更强大版本的 Redis，而它耗费更多的成本和资源。
-*   为了监控你工作上发生的一切，你需要把握它的控制面板）。
+*   如果你的工作量增加，你需要更强大版本的 Redis ，而它耗费更多的成本和资源。
+*   为了监控你工作上发生的一切，你需要把握它的控制面板。
 
 
-想要解决排队任务的你需要考虑的另一种方法是 [Shoryuken](https://github.com/phstc/shoryuken)，它和亚马逊的 SQS (Simple Queue Service)协同工作。这是一个基本消息存储，之后你可以通过 Shoryukeσn worker 进行处理。这些workers之后在主 Rails 进程外部工作。有了 SQS 和 Shoryuken，你可以为 workers 创建队列利用 workers循环任务直到队列空闲。
+想要解决排队任务的你需要考虑的另一种方法是 [Shoryuken](https://github.com/phstc/shoryuken)，它和亚马逊的 SQS (Simple Queue Service)协同工作。这是一个基本消息存储，之后你可以通过 Shoryukeσn workers 进行处理。这些 workers 之后在主 Rails 进程外部工作。有了 SQS 和 Shoryuken，你可以为 workers 创建队列利用 workers 循环任务直到队列空闲。
 
-使用Shoryuken有以下好处：
+使用 Shoryuken 有以下好处：
 
 *   他是以 Amazon SQS 构建的，难以置信的便宜（每一百万次 Amazon SQS Requests 只要0.5美元）。
-*   SQS 是用来规模化作业的。利用亚马逊这个令人惊喜的基础配置，你可以轻松地统计你的workers
+*   SQS 是用来规模化作业的。利用亚马逊这个令人惊喜的基础配置，你可以轻松地简化你的 workers 。
 *   亚马逊提供了一个简单的控制台来查看队列以及配置死消息的情况。
 *   亚马逊的 Ruby SDK 在创建队列的时候十分灵活。如果你愿意可以创建很多队列。
 
@@ -32,12 +32,12 @@ Sidekiq 相当棒，能解决大多数开发中的问题。尤其是 Rails 繁�
 为了开始这个教程，我们将用 Flickr API 来创建一个简单的搜索框，这样就可以根据 id 输入来生成照片。
 
 1.首先。我们需要[设置雅虎账户](https://help.yahoo.com/kb/SLN2056.html)，因为这是我们可以访问 Flickr API 唯一的方式。配好雅虎账户之后，简单地查看一下[Flickr 文档页面](https://www.flickr.com/services/api/)。
-2.   在[Flickr docs](https://www.flickr.com/services/api/) 页面单击[创建一个应用](https://www.flickr.com/services/apps/create/) 链接。
+2.   在[Flickr 文档](https://www.flickr.com/services/api/) 页面单击[创建一个应用](https://www.flickr.com/services/apps/create/) 链接。
 3.  在[Flickr.com](https://www.flickr.com/services/apps/create/noncommercial/)申请一个非商业密钥。
 4.  下一个页面当中，你会被要求输入项目的具体信息，简单地填入项目名称和事项等即可。
 5.  你会收到应用的密钥和密码。把他们写在某个地方，因为这个教程当中需要用到。
 
-接下来，配置一个单控制器行为的 Rails app 。要生成新的 Rails app，利用如下命令行生成：
+接下来，搭建一个单控制器行为的 Rails app 。要生成新的 Rails app，利用如下命令行生成：
 
 ```
 rails new shoryuken_flickr
@@ -67,7 +67,7 @@ root  'search#index'
 
 ```
 
-我们必须配置 Flickr 模块来返回用户 id 提交的照片：
+我们必须配置 Flickr 模块来返回用户提交 id 的照片：
 
 1.  首先，我们得安装[flickr_fu](https://github.com/commonthread/flickr_fu)，这样更容易抓取我们需要的数据。
 2.  利用相关凭证配置**flickr.yml** 文件。这个文件在**config** 文件夹里作业，看起来是这样的：
@@ -243,7 +243,7 @@ end
 ```
 
 
-配置 worker：
+配置 worker ：
 
 ```
 class MyWorker
@@ -284,7 +284,7 @@ aws:
 ```
 
 
-完美! 我们差不多配置好了所有的东西准备开始了。只剩下了给队列发送消息了。在搜索控制器长，写入如下代码：
+完美! 我们差不多配置好了所有的东西准备开始了。只剩下了给队列发送消息了。在搜索控制器上，写入如下代码：
 
 ```
   class SearchController < ApplicationController
@@ -349,7 +349,7 @@ rake db:migrate
 ```
 
 
-确认数组序列化数据库返回的数组。在**app/models/photos.rb**当中：
+确认序列化数据库返回的数组。在**app/models/photos.rb**当中：
 
 ```
 class Photo < ActiveRecord::Base
