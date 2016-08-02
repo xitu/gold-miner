@@ -30,11 +30,11 @@ But that much is likely obvious to you. Now let me show you how to actually conf
 
 ### Swift version
 
-(insert screenshot here)
+![https://github.com/xitu/gold-miner/blob/master/TODO/xcode7-xcode8.md](insert screenshot here)
 
 To begin, open your project in Xcode 7\. Go to project settings, open the Build settings tab, and click the “+” to add a User-Defined Setting:
 
-> “SWIFT_VERSION” = “2.3”
+    “SWIFT_VERSION” = “2.3”
 
 This option is new to Xcode 8, so while it will cause it to use Swift 2.3, Xcode 7 (which doesn’t _actually_ have Swift 2.3) just ignores it completely and keeps building with Swift 2.2.
 
@@ -44,7 +44,7 @@ Xcode 8 makes some changes in how Framework provisioning works — they will con
 
 To fix this, go through Build Settings for all your Framework targets and add this option, like we did with `SWIFT_VERSION`:
 
-> “PROVISIONING_PROFILE_SPECIFIER” = “ABCDEFGHIJ/“
+    “PROVISIONING_PROFILE_SPECIFIER” = “ABCDEFGHIJ/“
 
 Be sure to replace “ABCDEFGHIJ” with your Team ID (you can find it in [Apple Developer Portal](https://developer.apple.com/account/#/membership/)), and keep the forward slash at the end.
 
