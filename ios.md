@@ -1,3 +1,4 @@
+* [使用流动控制器（Flow Controller ）实现 MVVM 协议模型](http://gold.xitu.io/entry/57a037902e958a0066667ff4?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([shixinzhang](https://github.com/shixinzhang) 翻译)
 * [在 Swift Playgrounds 中使用 Core Data 模型](http://gold.xitu.io/entry/579f1d9a5bbb500064ea3b20?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([MAYDAY1993](https://github.com/MAYDAY1993) 翻译)
 * [用 Xamarin 和 Visual Studio 构建 iOS 应用](http://gold.xitu.io/entry/579cb8f58ac247005fdb2a8c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([yifili09](https://github.com/yifili09) 翻译)
 * [Swift 2 中为实存类型和泛型搭桥牵线](http://gold.xitu.io/entry/579cba75165abd006104d65c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([yifili09](https://github.com/yifili09) 翻译)
