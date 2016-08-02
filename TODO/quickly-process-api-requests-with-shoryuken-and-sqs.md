@@ -31,10 +31,14 @@ Sidekiq 相当棒，能解决大多数开发中的问题。尤其是 Rails 繁�
 
 为了开始这个教程，我们将用 Flickr API 来创建一个简单的搜索框，这样就可以根据 id 输入来生成照片。
 
-1.首先。我们需要[设置雅虎账户](https://help.yahoo.com/kb/SLN2056.html)，因为这是我们可以访问 Flickr API 唯一的方式。配好雅虎账户之后，简单地查看一下[Flickr 文档页面](https://www.flickr.com/services/api/)。
-2.   在[Flickr 文档](https://www.flickr.com/services/api/) 页面单击[创建一个应用](https://www.flickr.com/services/apps/create/) 链接。
+1.  首先，我们需要[设置雅虎账户](https://help.yahoo.com/kb/SLN2056.html)，因为这是我们可以访问 Flickr API 唯一的方式。配好雅虎账户之后，简单地查看一下[Flickr 文档页面](https://www.flickr.com/services/api/)。
+
+2.  在[Flickr 文档](https://www.flickr.com/services/api/) 页面单击[创建一个应用](https://www.flickr.com/services/apps/create/) 链接。
+ 
 3.  在[Flickr.com](https://www.flickr.com/services/apps/create/noncommercial/)申请一个非商业密钥。
+
 4.  下一个页面当中，你会被要求输入项目的具体信息，简单地填入项目名称和事项等即可。
+
 5.  你会收到应用的密钥和密码。把他们写在某个地方，因为这个教程当中需要用到。
 
 接下来，搭建一个单控制器行为的 Rails app 。要生成新的 Rails app，利用如下命令行生成：
