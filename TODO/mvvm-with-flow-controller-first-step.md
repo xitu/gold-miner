@@ -16,7 +16,7 @@
 最近几周，我想了很多有关如何提高我对 MVVM 架构的理解，并且创建一个可维护的开发框架。所以我看了 [**Krzysztof Zabłocki**](https://twitter.com/merowing_) 关于软件架构的视频，
 这个视频太赞了。如果你想看讲了什么可以点这里看[视频]((http://slideslive.com/38897361/good-ios-application-architecture-en))或者点这里看[博客]((http://merowing.info/2016/01/improve-your-ios-architecture-with-flowcontrollers/))。
 
-看完 Krzysztof Zab?ocki 的视频后我决定建个项目来实现一种更好的架构。所以，我为（实现）这个架构制定了清晰的目标。
+看完 Krzysztof Zablocki 的视频后我决定建个项目来实现一种更好的架构。所以，我为（实现）这个架构制定了清晰的目标。
 
 ### 总目标
 
