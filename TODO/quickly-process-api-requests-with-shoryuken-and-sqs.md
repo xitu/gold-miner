@@ -18,7 +18,7 @@ Sidekiq 相当棒，能解决大多数开发中的问题。尤其是 Rails 繁�
 *   为了监控你工作上发生的一切，你需要把握它的控制面板。
 
 
-想要解决排队任务的你需要考虑的另一种方法是 [Shoryuken](https://github.com/phstc/shoryuken)，它和亚马逊的 SQS (Simple Queue Service)协同工作。这是一个基本消息存储，之后你可以通过 Shoryukeσn workers 进行处理。这些 workers 之后在主 Rails 进程外部工作。有了 SQS 和 Shoryuken，你可以为 workers 创建队列利用 workers 循环任务直到队列空闲。
+想要解决排队任务的你需要考虑的另一种方法是 [Shoryuken](https://github.com/phstc/shoryuken) ，它和亚马逊的 SQS (Simple Queue Service)协同工作。这是一个基本消息存储，之后你可以通过 Shoryukeσn workers 进行处理。这些 workers 之后在主 Rails 进程外部工作。有了 SQS 和 Shoryuken，你可以为 workers 创建队列利用 workers 循环任务直到队列空闲。
 
 使用 Shoryuken 有以下好处：
 
@@ -33,9 +33,9 @@ Sidekiq 相当棒，能解决大多数开发中的问题。尤其是 Rails 繁�
 
 1.  首先，我们需要[设置雅虎账户](https://help.yahoo.com/kb/SLN2056.html)，因为这是我们可以访问 Flickr API 唯一的方式。配好雅虎账户之后，简单地查看一下[Flickr 文档页面](https://www.flickr.com/services/api/)。
 
-2.  在[Flickr 文档](https://www.flickr.com/services/api/) 页面单击[创建一个应用](https://www.flickr.com/services/apps/create/) 链接。
+2.  在 [Flickr 文档](https://www.flickr.com/services/api/) 页面单击[创建一个应用](https://www.flickr.com/services/apps/create/) 链接。
  
-3.  在[Flickr.com](https://www.flickr.com/services/apps/create/noncommercial/)申请一个非商业密钥。
+3.  在 [Flickr.com](https://www.flickr.com/services/apps/create/noncommercial/) 申请一个非商业密钥。
 
 4.  下一个页面当中，你会被要求输入项目的具体信息，简单地填入项目名称和事项等即可。
 
@@ -74,7 +74,7 @@ root  'search#index'
 我们必须配置 Flickr 模块来返回用户提交 id 的照片：
 
 1.  首先，我们得安装[ flickr_fu ] (https://github.com/commonthread/flickr_fu)，这样更容易抓取我们需要的数据。
-2.  利用相关凭证配置**flickr.yml** 文件。这个文件在**config** 文件夹里作业，看起来是这样的：
+2.  利用相关凭证配置 **flickr.yml** 文件。这个文件在 **config** 文件夹里作业，看起来是这样的：
 
     ```
     key: <%= ENV["flickr<em>key"] %>
@@ -128,7 +128,7 @@ Flickr id 就呈现在 URL 的用户配置里。以 `138578671@N04` 这个 ID �
 现在我们有了一个从 Flickr 获取新照片的应用。这很棒，但是对用户来说这还很慢，而且每次搜需要刷新整个页面。
 
 
-我认为加上一点 AJAX 这个应用会更完善，在 **app/views/search**  创建**index.js.erb** 视图，并添加一些 Javascript 的内容：
+我认为加上一点 AJAX 这个应用会更完善，在 **app/views/search**  创建 **index.js.erb** 视图，并添加一些 Javascript 的内容：
 
 ```
 $('ul').remove();
@@ -167,7 +167,7 @@ end
 
 ##配置 Shoryuken
 
-如果你还没有[Amazon Web Services (AWS)](https://aws.amazon.com)账户，你需要创建一个。按照：
+如果你还没有 [Amazon Web Services (AWS)](https://aws.amazon.com) 账户，你需要创建一个。按照：
 
 1.  点击“我的账户”下拉菜单，然后单击“AWS 控制台”。
 2.  登录之后就进入了控制台。
@@ -223,7 +223,7 @@ gem 'shoryuken'
 ```
 
 
-创建 Shoryuken worker 和其他中间件。我只是创建了在 **apps**  下创建了一个新的名叫**workers**的目录：
+创建 Shoryuken worker 和其他中间件。我只是创建了在 **apps**  下创建了一个新的名叫 **workers** 的目录：
 
 ```
 mkdir app/workers
