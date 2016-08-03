@@ -73,7 +73,7 @@ root  'search#index'
 
 我们必须配置 Flickr 模块来返回用户提交 id 的照片：
 
-1.  首先，我们得安装[flickr_fu](https://github.com/commonthread/flickr_fu)，这样更容易抓取我们需要的数据。
+1.  首先，我们得安装[ flickr_fu ] (https://github.com/commonthread/flickr_fu)，这样更容易抓取我们需要的数据。
 2.  利用相关凭证配置**flickr.yml** 文件。这个文件在**config** 文件夹里作业，看起来是这样的：
 
     ```
@@ -83,7 +83,7 @@ root  'search#index'
 
     ```
 
-3.  现在我们可以为目录页创建一个 helper 方法来返回照片。在**app/helpers/search_helper.rb** 添加如下内容：
+3.  现在我们可以为目录页创建一个 helper 方法来返回照片。在 **app/helpers/search_helper.rb** 添加如下内容：
 
     ```
     module SearchHelper
@@ -95,7 +95,7 @@ root  'search#index'
 
     ```
 
-基于提供的用户 id 这种方法可以返回照片。在**app/controllers/search_controller.rb** ，需要一个操作来抓取数据：
+基于提供的用户 id 这种方法可以返回照片。在 **app/controllers/search_controller.rb** ，需要一个操作来抓取数据：
 
 ```
   class SearchController < ApplicationController
@@ -109,7 +109,7 @@ root  'search#index'
 
 ```
 
-现在，只要创建一个小的片段来生成照片。在**app/views/search**里通过如下代码添加一个 **photos.html.erb** 文件：
+现在，只要创建一个小的片段来生成照片。在 **app/views/search** 里通过如下代码添加一个 **photos.html.erb** 文件：
 
 ```
   <ul>
@@ -128,7 +128,7 @@ Flickr id 就呈现在 URL 的用户配置里。以 `138578671@N04` 这个 ID �
 现在我们有了一个从 Flickr 获取新照片的应用。这很棒，但是对用户来说这还很慢，而且每次搜需要刷新整个页面。
 
 
-我认为加上一点 AJAX 这个应用会更完善，在**app/views/search** 创建**index.js.erb** 视图，并添加一些 Javascript 的内容：
+我认为加上一点 AJAX 这个应用会更完善，在 **app/views/search**  创建**index.js.erb** 视图，并添加一些 Javascript 的内容：
 
 ```
 $('ul').remove();
@@ -185,7 +185,7 @@ gem 'aws-sdk', '~> 2'
 
 之后，`bundle install`。
 
-我们需要利用相关证书配置 AWS SDK。完成通常创建一个叫**aws.rb** 的文件，放在**config/initializers**文件夹里面。
+我们需要利用相关证书配置 AWS SDK。完成通常创建一个叫**aws.rb** 的文件，放在 **config/initializers** 文件夹里面。
 
 ```
 touch config/initializers/aws.rb
@@ -223,7 +223,7 @@ gem 'shoryuken'
 ```
 
 
-创建 Shoryuken worker 和其他中间件。我只是创建了在**apps** 下创建了一个新的名叫**workers**的目录：
+创建 Shoryuken worker 和其他中间件。我只是创建了在 **apps**  下创建了一个新的名叫**workers**的目录：
 
 ```
 mkdir app/workers
@@ -268,7 +268,7 @@ class MyWorker
 ```
 
 
-同时也需要按如下方式配置我们的**config/shoryuken.yml** 文件：
+同时也需要按如下方式配置我们的 **config/shoryuken.yml**  文件：
 
 ```
 
@@ -329,7 +329,7 @@ rails g model Photo user_id:string photos:string
 ```
 
 
-现在我们检查一下迁移文件并确认添加了正确的字段。在**db/migrate**打开迁移文件
+现在我们检查一下迁移文件并确认添加了正确的字段。在 **db/migrate** 中打开迁移文件
 ```
 class CreatePhotos < ActiveRecord::Migration
   def change
@@ -353,7 +353,7 @@ rake db:migrate
 ```
 
 
-确认序列化数据库返回的数组。在**app/models/photos.rb**当中：
+确认序列化数据库返回的数组。在 **app/models/photos.rb** 当中：
 
 ```
 class Photo < ActiveRecord::Base
@@ -363,7 +363,7 @@ end
 ```
 
 
-之后每次 worker 工作的时候就更新一次表单。在`SearchHelper#user_photos`方法下方添加一行将照片写入数据库：
+之后每次 worker 工作的时候就更新一次表单。在 `SearchHelper#user_photos` 方法下方添加一行将照片写入数据库：
 
 ```
 photos = flickr.photos.search(:user_id => id).values_at(0..(5 - 1))
