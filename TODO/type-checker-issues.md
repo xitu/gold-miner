@@ -1,36 +1,36 @@
 > * 原文链接: [Exponential time complexity in the Swift type checker](http://www.cocoawithlove.com/blog/2016/07/12/type-checker-issues.html)
 * 原文作者: [Matt Gallagher](http://www.cocoawithlove.com/about/)
 * 译文出自: [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者: 
+* 译者: [Zheaoli](https://github.com/Zheaoli)
 * 校对者:
 
 
-This article will look issues surrounding a Swift compiler error that repeatedly forces me to rewrite my code:
+这篇文章将围绕曾不断使我重写代码的一些 **Swift** 编译器的报错信息展开：
 
-> error: expression was too complex to be solved in reasonable time; consider breaking up the expression into distinct sub-expressions
+> 错误：你的表达式太过于复杂，请将其分解为一些更为简单的表达式。（译者注：原文是 `error: expression was too complex to be solved in reasonable time; consider breaking up the expression into distinct sub-expressions`）
 
-I’ll look at examples that trigger this error and talk about negative effects beyond compiler errors that are caused by the same underlying issue. I’ll look at why this occurs in the compiler and how you can work around the problem in the short term.
+我将会用一些具体的例子，然后会分析编译器保存信息下的不为人知的细节（请校者注意这一句，我实在拿捏不准该怎么翻译）。我将会带领你看看在编译过程中发生了什么，然后告诉你，怎样在短时间内去解决这些报错。
 
-I’ll also present a theoretical change to the compiler that would eliminate all this problem permanently by altering the algorithm involved to be linear time complexity instead of exponential time complexity, without otherwise changing the external behavior.
+我将为编译器设计一种时间复杂度为线性算法来代替原本的指数算法来彻底的解决这个问题，而不需要采用其余更复杂的方法。
 
-## [](http://www.cocoawithlove.com/blog/2016/07/12/type-checker-issues.html#errors-compiling-otherwise-valid-code)Errors compiling otherwise valid code
+## [](http://www.cocoawithlove.com/blog/2016/07/12/type-checker-issues.html#errors-compiling-otherwise-valid-code)正确代码的编译错误
 
-The following line will give an error if you try to compile it in Swift 3:
+如果你尝试在 **Swift 3** 中编译这段代码，那么将会产生报错信息：
 
-```
+```Swift
 let a: Double = -(1 + 2) + -(3 + 4) + 5
 ```
 
-This line is valid, unambiguous Swift syntax. This line _should_ compile and ultimately optimize to a constant value.
+这段代码唔论从哪方面来讲都是合法且正确的代码，从理论上讲，在编译过程中，这段代码将会被优化成一个固定的值。
 
-But the line doesn’t get past the Swift type checker. Instead, it emits an error that the expression is too complex to solve. It doesn’t _look_ complex, does it? It’s 5 integer literals, 4 addition operators, two negation operators and a binding to a `Double` type.
+但是这段代码在编译过程中没有办法通过 **Swift** 的类型检查。编译器会告诉你这段代码太复杂了，你另请高明吧。但是，等等，这段代码看起来一点都不复杂不是么。里面包含5个变量，4次加法操作，2次取负值操作和一次强制转换为 `Double` 类型的操作。
 
-How can an expression containing just 12 entities be “too complex”?
+讲道理，编译器你怎么能说这段仅包含12个元素的语句相当复杂呢？
 
-There are many other expressions that will cause the same problem. Most include some literals, some of the basic arithmetic operators and possibly some heavily overloaded constructors. Each of the following expressions will fail with the same error:
+这里有非常多的表达式在编译的时候会出现同样的问题。大多数表达式包含一些变量，基础的数据操作，可能还有一些重载之类的操作。接下来的表达式在编译时会面对同样的错误信息：
 
 
-```
+```Swift
 let b = String(1) + String(2) + String(3) + String(4)
 
 let c = 1 * sqrt(2.0) * 3 * 4 * 5 * 6 * 7
@@ -44,45 +44,45 @@ let e: [(Double) -> String] = [
 ]
 ```
 
-All of these are completely valid Swift syntax and the expected types for every term in every expression should be obvious to any Swift programmer but in each case, the Swift type checker fails.
+上面的代码都是符合 **Swift** 语法及编程规则的，但是在编译过程中，它们都没有办法通过类型检查。
 
-## [](http://www.cocoawithlove.com/blog/2016/07/12/type-checker-issues.html#needlessly-long-compile-times)Needlessly long compile times
+## [](http://www.cocoawithlove.com/blog/2016/07/12/type-checker-issues.html#needlessly-long-compile-times)需要较长的编译时间
 
-Errors aren’t the only consequence of this problem. Try compiling the following line:
+编译报错只是 **Swift** 类型检查器缺陷带来的副作用之一，比如，你可以试试下面这个例子：
 
 ```
 let x = { String("\($0)" + "") + String("\($0)" + "") }(0)
 ```
 
-This single line does compile without error but it takes around 4 seconds to compile in Swift 2.3 and a whopping 15 seconds to compile in Swift 3 on my computer. The compiler spends almost all of this time in the Swift type checker.
+这段代码编译时不会报错，但是在我的电脑上，使用 **Swift 2.3** 将花费 **4s** 的时间，如果是使用 **Swift 3** 将会花费 **15s** 时间。编译过程中，将会花费大量的时间在类型检查上。
 
-Now, you probably don’t have many lines that take _this_ long to compile but it’s virtually guaranteed that any non-trivial Swift project is taking at least a little longer than necessarily to compile due to the same complexity problem that causes the “expression was too complex to be solved in reasonable time” error.
+现在，你可能不会遇到太多需要耗费太多时间的问题，但是在一个完整的 **Swift** 中，你将会遇到很多 `expression was too complex to be solved in reasonable time` 这样的报错信息。
 
-## [](http://www.cocoawithlove.com/blog/2016/07/12/type-checker-issues.html#unexpected-behaviors)Unexpected behaviors
+## [](http://www.cocoawithlove.com/blog/2016/07/12/type-checker-issues.html#unexpected-behaviors)不可预知的操作
 
-I want to highlight a quirk in the Swift type checker: the type checker will choose to resolve overloaded operators to non-generic overloads whenever possible. The code comments for the path that handles this specific behavior in the compiler note that this behavior exists as an optimization to avoid performance issues – the same performance issues responsible for the “expression was too complex” error.
+接下来，我将讲一点 **Swift** 类型检查器的特性：类型检查器选择尽可能的解决非泛型重载的问题。 The code comments for the path that handles this specific behavior in the compiler note that this behavior exists as an optimization to avoid performance issues – the same performance issues responsible for the “expression was too complex” error.（译者注：这里请校者一起帮忙参考下怎么处理比较好）
 
-To see what effects this has, let’s look at the following code:
+接下来是一些具体的例子：
 
-```
+```Swfit
 let x = -(1)
 ```
 
-This code doesn’t compile. Instead, we get an error “Ambiguous use of operator ‘-‘”.
+这段代码将会编译失败，我们会得到一个 `Ambiguous use of operator ‘-‘` 的报错信息。
 
-This shouldn’t really be ambiguous; the compiler should realize we’re using a integer literal, treat the `1` as an `Int` and select the following overload from the standard library:
+这段代码并不算很模糊，编译器将会明白我们想要使用一个整数类型的变量，它将会把 `1` 作为一个 `Int` 进行处理，同时从标准库中选择如下的重载方式：
 
 <figure>
 
-```
+```Swfit
 prefix public func -<T : SignedNumber>(x: T) -> T
 ```
 
-However, Swift considers only the non-generic overloads; in this case, the `Float`, `Double` and `Float80` implementations, all of which are equally imperfect (non-preferred creation from an integer literal). The compiler can’t choose one so it bails out with the error.
+然而，**Swift** 只能进行非泛型重载。在这个例子中，`Float` 、 `Double` 、 `Float80` 类型的实现并不完善，编译器无法根据上下文选择使用哪种实现，从而导致了这个报错信息。
 
-This particular optimization is applied _only_ to operators, leading to the following inconsistency:
+某些特定的优化可以对操作符进行优化，但是可能导致如下的一些问题：
 
-```
+```Swift
 func f(_ x: Float) -> Float { return x }
 func f<I: Integer>(_ x: I) -> I { return x }
 
@@ -95,175 +95,103 @@ prefix func %%<I: Integer>(_ x: I) -> I { return x }
 let y = %%1
 ```
 
-This code defines two function names (`f` and a custom operator `prefix %%`). Each of these function names has two overloads, `(Float) -> Float` and `<I: Integer>(I) -> I`.
+在这段代码里，我们定义了两个函数（ `f ` 和一个自定的操作 `prefix %%` ）。每个函数都进行了两次重载，一个参数为 `(Float) -> Float` ，另一个是 `<I: Integer>(I) -> I`。
 
-Calling `f(1)` selects the `<I: Integer>(I) -> I` implementation and `x` is an `Int`. This is exactly what you’d expect.
+当调用 `f(1)` 的时候，将会选择使用 `<I: Integer>(I) -> If(1)` 的实现，然后 `x` 将会作为 `Int` 类型进行处理。这应该是你所期待的方式。
 
-Calling `%%1` selects the `(Float) -> Float` implementation and `y` is a `Float`, contrary to expectations. The code has chosen to convert `1` to a `Float`, against the preference for `Int` – despite the fact that `Int` would also work – because the compiler bails out before it considers the generic overload of the function. It’s not really a semantically consistent choice, it’s the result of a compromise in the compiler to avoid the “expression was too complex to be solved” error and its associated performance problems.
+当调用 `%%1` 时，将会使用 `(Float) -> Float` 的实现，同时会将 `y` 作为 `Float` 类型处理，这和我们所期望的恰恰相反。在编译过程中，编译器选择将 `1` 作为 `Float` 处理，而不是作为 `Int` 处理，虽然作为 `Int` 处理也同样能正常工作。造成这样情况的原因是，编译器在对方法的进行泛型重载之前就已经先行确定变量的类型。这不是基于前后文一致性的做法，这是编译器对于避免类似于 `expression was too complex to be solved` 等报错信息以及性能优化上的一种妥协。
 
-## [](http://www.cocoawithlove.com/blog/2016/07/12/type-checker-issues.html#working-around-the-problem-in-our-code)Working around the problem in our code
+## [](http://www.cocoawithlove.com/blog/2016/07/12/type-checker-issues.html#working-around-the-problem-in-our-code)在代码中解决上诉问题
 
-In general, Swift’s complexity problem won’t be an issue unless you’re using two or more of the following features in a single expression:
+通常来讲，**Swift** 里的显示代码太过复杂的缺陷并不是一个太大的问题，当然前提是你不会在单个表达式里使用两个或两个以上的下面列出的特性：
 
-*   overloaded functions (including operators)
-*   literals
-*   closures without explicit types
-*   expressions where Swift’s default “every integer literal is an `Int` and every float literal is a `Double`” choice is wrong
+*   方法重载（包括操作符重载）
+*   常量
+*   不明确类型的闭包    
+*   会引导 **Swift** 进行错误类型转换的表达式
 
-If you don’t typically combine these features in your code, then you’re unlikely to see the “expression was too complex” error. However, if you _are_ using these features, it isn’t always straightforward to suddenly stop. Mathematics code, large “function”-style expressions and declarative code are easier to write with these features and often require a complete rethink to avoid them.
+一般而言，如果你不使用如上面所述的特性，那么你一般不会遇到类似于 `expression was too complex` 的报错信息。然而，如果选择是用了上面所诉的特性，那么你可能会面临一些让你感到困惑的问题。通常，在编写一个足够大小的方法和其余常规代码的时候，将会很容易用到上面这些特性，这意味着有些时候我们可能要仔细考虑怎样避免大量使用上面这些特性。
 
-You may prefer to give the compiler a little nudge so that it will accept your code without major changes. There are a few different approaches that can help.
+你肯定是想只通过一点细微的修改来通过编译，而不是大幅度修改你的代码。接下来的一点小建议可能帮得上一些忙。
 
-The compiler error suggests “breaking up the expression into distinct sub-expressions”:
+当上面所诉的编译报错信息出现时，编译器可能建议你将原表达式分割成不同的子表达式：
 
-```
+```Swift
 let x_1: Double = -(1 + 2)
 let x_2: Double = -(3 + 4)
 let x: Double = x_1 + x_2 + 5
 ```
 
-Okay, technically that works but it’s really annoying – especially on small expressions where it only hurts legibility.
+好了，从结果上来看，这样的修改是有效的，但是却让人有点蛋疼，特别是在分解成子表达式的时候会明显破坏代码可读性的时候。
 
-Another option is to reduce the number of function and operator overloads that the compiler must consider, by adding typecasts.
+另一个建议是通过显示类型转换，减少编译器在编译过程中对方法和操作符重载的选取次数。
 
-```
+```Swift
 let x: Double = -(1 + 2) as Double + -(3 + 4) as Double + 5
 ```
 
-This will prevent `(Float) -> Float` or `(Float80) -> Float80` being explored as one of the possible overloads for the negation operator, effectively reducing a system with 6 unknown functions to a system with just 4.
+上面这种做法避免了在使用 `(Float) -> Float` 或者是 `(Float80) -> Float80` 编译器需要去查找相对应的负号重载。这样的做法很有效的将编译过程中编译器的6次查找相对应的方法重载过程降至4次。
 
-A note about this approach though: unlike other languages, `Double(x)` is not equivalent to `x as Double` in Swift. The constructor works more like another function and since it has multiple overloads on its parameter, it actually introduces another overloaded function into the search space (albeit at a different location in the expression). While the previous example will solve if you introduce `Double` around the parentheses (since the way the graph is rearranged favors the type checker), there are some cases where a similar approach can actually make things worse (see the `String` examples near the top of the article). Ultimately, the `as` operator is the only way to cast without inserting further complexity. Fortunately, `as` binds tighter than most binary operators so it can be used without parentheses in most cases.
+在上面的处理方式中有一个点要注意一下：不同于其余语言，在 **Swift** 中 `Double(x)` 并不等同于 ` x as Double `。构造函数通常会如同普通方法一样，当有不同参数的重载需求时，编译器还是会将构造函数的各种重载加入到搜索空间中（尽管这些重载可能在代码中的不同的位置）。在前面所举的例子里，通过在括号前用 `Double` 进行显示类型转换会解决一部分问题（这种方法有利于编译器进行类型检查），同时在一些情况下，采用这种方法会导致出现一些其余的问题（请参见本文开始所举的关于 `String` 的例子）。最终， 使用`as` 操作符是在不增加复杂度的情况下解决这类的问题的最好方式。幸运的是，`as` 操作符的优先级比大多数二元运算符更高，这样我们可以在大多数的情况下使用它。
 
-Another approach is to use a uniquely named custom function:
+另一个解决方式是使用方法名唯一的自定义方法：
 
 
-```
+```Swift
 let x: Double = myCustomDoubleNegation(1 + 2) + myCustomDoubleNegation(3 + 4) + 5
 ```
 
 
-This eliminates any need to resolve function overloads entirely since it has no overloads. However, it’s pretty ugly in this case where it presents a large amount of visual weight in an otherwise lightweight expression.
+这种方法可以解决之前方法重载所带来的一系列问题。然而，在一系列轻量级的代码里使用这种方式会让我们的代码显得格外的丑陋。
 
-A final approach, is that in many cases you can replace free functions and operators with methods:
+好了，让我们来说说最后的方法，在很多情况下，你可以根据情况自行替换方法和操作符：
 
 
-```
+```Swift
 let x: Double = (1 + 2).negated() + (3 + 4).negated() + 5
 ```
 
 
-This works because methods normally have fewer overloads than the common arithmetic operators and type inference with the `.` operator is often narrower than via free functions.
+因为在使用对应方法时，和使用常见算数运算符相比，会有效的减少重载次数，同时使用 `.` 操作符时其效率相较于直接调用方法更高，因此，这种方法能有效解决我们前面所提到的问题。
 
-## [](http://www.cocoawithlove.com/blog/2016/07/12/type-checker-issues.html#swifts-constraints-system-solver)Swift’s constraints system solver
+## [](http://www.cocoawithlove.com/blog/2016/07/12/type-checker-issues.html#swifts-constraints-system-solver)**Swift**类型约束系统简析
 
-The “expression was too complex” error is emitted by the “Sema” (semantic analysis) stage in the Swift compiler. Semantic analysis is responsible for resolving types in a system, ensuring that they all agree with each other and building a well-typed expression where all types are explicit.
+编译时出现的 `expression was too complex` 错误是由 **Swift** 编译器的语义分析系统所抛出的。语义分析系统的意义在于解决整个代码里的类型问题，从而确保输入表达式的类型是正确且安全的。
 
-More specifically, the error is triggered by [the constraints system solver (CSSolver.cpp)](https://github.com/apple/swift/blob/master/lib/Sema/CSSolver.cpp) within the semantic analysis stage. The constraints system is a graph of types and functions from a Swift expression and the edges in this graph are constraints between nodes. The constraints system solver processes the constraints from the constraints system graph until an explicit type or function is determined for each node.
-
-All of that is really abstract so let’s look at a concrete example.
+最重要的是，整个报错信息是由[the constraints system solver (CSSolver.cpp)](https://github.com/apple/swift/blob/master/lib/Sema/CSSolver.cpp)里所编写的语义分析系统所定义的。类型约束系统将从 **Swift** 的表达式里构建一个由类型和方法组成的图，并根据节点之间的关系来对代码进行约束。约束系统将对每个节点进行推算直至每个节点都已获得明确的类型约束。
 
 
-```
+讲真，上面的东西可能太抽象了，让我们看点具体的例子吧。
+
+
+```Swift
 let a = 1 + 2
 ```
 
 
-The constraints system representation of this expression looks something like this:
+类型约束系统将表达式解析成下面这个样子：
 
 ![a simple constraints graph](http://www.cocoawithlove.com/assets/blog/constraints_graph1.svg)
 
-The labels starting with “T” (for “type”) in the diagram come from the constraints system debug logging and they are used to represent types or function overloads that need to be resolved. In this graph, the nodes have the following constraints:
+每个节点的名字都以 `T` 开头（意味着需要待确定明确的类型），然后它们用来代表需要解决的类型约束或者方法重载。在这个图里，这些节点被如下的规则所约束：
 
-1.  T1 conforms to `ExpressibleByIntegerLiteral`
-2.  T2 conforms to `ExpressibleByIntegerLiteral`
-3.  T0 is a function that takes (T1, T2) and returns T3
-4.  T0 is one of 28 implementations in the Swift standard library named `infix +`
-5.  T3 is convertible to T4
+1.  `T1` 是 `ExpressibleByIntegerLiteral` 类型
+2.  `T2` 是 `ExpressibleByIntegerLiteral` 类型
+3.  `T0` 是一个传入 `(T1,T2)` 返回 `T3` 的方法
+4.  `T0` 是 `infix +` ，其在 **Swift** 里有28种实现
+5.  `T3` 与 `T4` 之间可以进行交换
 
-> NOTE: If you’re more familiar with Swift 2 terminology, `ExpressibleByIntegerLiteral` was previously named `IntegerLiteralConvertible`.
+> 小贴士: 在 **Swift 2.X** 中，`ExpressibleByIntegerLiteral` 的替代者是 `IntegerLiteralConvertible`
 
-To resolve this system, the constraints system solver starts with the “smallest disjunction”. Disjunctions are constraints that constrain a value to be “one of” a set (essentially, a logical OR). In this case, there’s exactly one disjunction: the T0 function overload in constraint 4\. The solver picks the first implementation of `infix +` in its list: the `infix +` implementation with type signature `(Int, Int) -> Int`.
+在这个系统中，类型约束系统遵循着 **最小分离** 原则。（译者注：原文是smallest disjunction，此处将disjunction擅自翻译成分离之意）。分割出来的单元被这样一个规则所约束着，即，每个单元都是一个拥有一套独立值的个体。在上面的这个例子里，实际上只有一个最小单元：在上述的过程4里，`T0` 发生了重载。在重载之时，编译器选择了 `infix +` 实现列表里第一种实现：即签名是 `(Int, Int) -> Int` 的实现。
 
-Since this is the only disjunction in the graph, the solver then resolves type constraints. Types T1, T2 and T3 are `Int` due to constraint 3\. T4 is also `Int` due to constraint 5.
+通过上述这个最小的单元，类型约束系统开始对元素进行类型约束：根据约束3 `T1`、 `T2` 、 `T3` 被确定为 `Int` 类型，根据约束4， `T4` 同样被确认为 `Int` 类型。
 
-Since T1 and T2 are `Int` (which is the “preferred” match for an `ExpressibleByIntegerLiteral`), no other overloads to the `infix +` function are considered; the constraints system solver can ignore all other possibilities and use this as the solution. We have explicit types for all nodes and we know the selected overload for each function.
+在 `T1` 、 `T2` 被确定为 `Int` 之后（最开始它们被认为是 `ExpressibleByIntegerLiteral`）， `infix +` 的重载方式便已经确定，这个时候编译器便不需要再考虑其余可行性，并把其当做最终的解决方案。我们在确定每个节点对应的类型后，我们便可以选择我们所需要的重载方法了。
 
-## [](http://www.cocoawithlove.com/blog/2016/07/12/type-checker-issues.html#getting-more-complex-quickly)Getting more complex, quickly
+## [](http://www.cocoawithlove.com/blog/2016/07/12/type-checker-issues.html#getting-more-complex-quickly)让我们看点复杂的例子吧！
 
-Thus far, there’s nothing strange and you might not expect that Swift would start failing with expressions just a few times bigger. But let’s make just two changes: wrap the `2` in parentheses and apply a negation operator (`prefix -`) and add a type of `Double` for the result.
-
-
-```
-let a: Double = 1 + -(2)
-```
-
-
-This gives a constraints system graph that looks like this:
-
-![a slightly more complex constraints graph](http://www.cocoawithlove.com/assets/blog/constraints_graph2.svg)
-
-with the constraints:
-
-1.  T1 conforms to `ExpressibleByIntegerLiteral`
-2.  T3 conforms to `ExpressibleByIntegerLiteral`
-3.  T2 is a function that takes (T3) and returns T4
-4.  T2 is one of 6 implementations in the Swift standard library named `prefix -`
-5.  T0 is a function that takes (T1, T4) and returns T5
-6.  T0 is one of 28 implementations in the Swift standard library named `infix +`
-7.  T5 is convertible to `Double`
-
-Just 2 more constraints in the system. Let’s look at how the constraints system solver handles this example.
-
-The first step to resolve this system is: choose the smallest disjunction. This time that’s constraint 4: “T2 is one of 6 implementations in the Swift standard library named `prefix -`”. The solver sets T2 to the overload with signature `(Float) -> Float`.
-
-The next step is to apply the first step again: choose the next smallest disjunction. That’s constraint 6: “T0 is one of 28 implementations in the Swift standard library named `infix +`”. The solver sets T0 to the overload with signature `(Int, Int) -> Int`.
-
-The final step is to use the type constraints to resolve all types.
-
-However, there’s a problem: the first choice of `(Float) -> Float` for T2 and the choice of `(Int, Int) -> Int` for T0 don’t agree with each other so constraint 5 (“T0 is a function that takes (T1, T4) and returns T5”) fails. This solution is invalid and the solver must backtrack and try the next choice for T0.
-
-Ultimately, the solver will go through _all_ of the implementations of `infix +` and _none_ will satisfy both constraint 5 and constraint 7 (“T5 is convertible to `Double`”).
-
-So the constraints system solver will need to backtrack further and try the next overload for T2, `(Double) -> Double`. Eventually, this _will_ find a solution in the overloads for T0.
-
-However, since `Double` is not the _preferred_ match for an `ExpressibleByIntegerLiteral`, the constraints system solver will need to backtrack and choose the next overload for T2 and run another full search through the possible values for T0.
-
-There are 6 total possibilities for T2 but the final 3 implementations are rejected as an optimization (since they are generic implementations and will therefore never be preferred over the explicit `Double` solution).
-
-> This specific “optimization” in the constraints solver is the cause of the quirky overload selection behaviors I showed in the [Unexpected behaviors](http://www.cocoawithlove.com/blog/2016/07/12/type-checker-issues.html#unexpected-behaviors) section, above.
-
-Despite this optimization, we’ve already gone from solving the constraints system with our first guess to needing 76 different guesses before reaching a solution. If we had another overloaded function to resolve, the number of guesses would get much, much bigger. For example, if we had another `infix +` operator in the expression, e.g. `let a: Double = 0 + 1 + -(2)`, the search space would require 1,190 guesses.
-
-Searching for the solution in this way is a clear case of exponential time complexity. The search space between the disjunction sets here is called a [“Cartesian product”](https://en.wikipedia.org/wiki/Cartesian_product) and for <math><mi>n</mi></math> disjunctions in the graph, this algorithm will search an n-dimensional Cartesian product (an exponential space).
-
-In my testing, 6 disjunctions in a single expression is usually enough to exceed Swift’s “expression was too complex” limits.
-
-## [](http://www.cocoawithlove.com/blog/2016/07/12/type-checker-issues.html#linearizing-the-constraints-solver)Linearizing the constraints solver
-
-A better solution, in the long term, is to fix the problem in the compiler.
-
-The reason why the constraints system solver has an exponential time complexity for resolving function overloads is because (unless it can shortcut around the problem) Swift searches the entire <math><mi>n</mi></math>-dimensional [“Cartesian product”](https://en.wikipedia.org/wiki/Cartesian_product) of all <math><mi>n</mi></math> disjunction sets caused by function overloads in the graph to determine if one of the values is a solution.
-
-To avoid the <math><mi>n</mi></math>-dimensional Cartesian product, we need an approach where disjunctions are solved independently, rather than dependently.
-
-Here is where I need to include a big warning:
-
-> **UNPROVEN CLAIMS WARNING**: The following is a _theoretical discussion_ about how I would improve the resolution of function overloads in the Swift constraint system solver. I have not written a prototype to prove my claims. It remains possible that I’ve overlooked something that invalidates my reasoning.
-
-### Premise
-
-We want to satisfy the following two goals:
-
-1.  Constraints on a node should not depend upon, or reference, the result from other nodes.
-2.  The disjunction from a preceeding function overload should be intersected with the disjunction from a succeeding function, flattening the two constraints to a single disjunction.
-
-The first goal can be achieved by propagating constraints along the full path from their origins. Since Swift constraints are bidirectional, the constraint path for each node starts at all of the leaves of the expression, traverses via the trunk and then traverses back along a linear path to the node. By following this path, we can compose constraints that – instead referencing or depending upon types from other nodes – simply incorporate the same constraint logic as other nodes.
-
-The second goal supports the first by reducing the propagated accumulation of constraints down to a single simple constraint. The most important intersection type for function overloads is an intersection of possible outputs from one overloaded function with possible input parameters of another overloaded function. This operation should be calculable by a type check of the intersecting parameter over a 2-dimensional Cartesian product. For other combinations of constraint intersection, a true mathematical intersection might be difficult but it’s not necessary to follow strict type rules, we need only reproduce the behavior of Swift’s type interference which often resorts to greedy type selection in complicated scenarios.
-
-### Re-solving the previous example
-
-To see how these goals would be used in the constraints system solver, lets revisit the previous constraints graph:
+到目前为止，并没有什么超出我们意料之中的异常出现，你可能想象不到当表达式开始变得复杂之时， **Swift** 的编译系统将会开始不断的出现错误信息。来让我们修改下上面的例子：第一·将 `2` 放在括号里，第二·添加负号操作符，第三·规定返回值为 `Double` 类型。
 
 
 ```
@@ -271,58 +199,131 @@ let a: Double = 1 + -(2)
 ```
 
 
+整个节点结构如下图所述：
+
 ![a slightly more complex constraints graph](http://www.cocoawithlove.com/assets/blog/constraints_graph2.svg)
 
-and begin with the same set of constraints:
+节点约束如下：
 
-1.  T1 conforms to `ExpressibleByIntegerLiteral`
-2.  T3 conforms to `ExpressibleByIntegerLiteral`
-3.  T2 is a function that takes (T3) and returns T4
-4.  T2 is one of 6 implementations in the Swift standard library named `prefix -`
-5.  T0 is a function that takes (T1, T4) and returns T5
-6.  T0 is one of 28 implementations in the Swift standard library named `infix +`
-7.  T5 is convertible to `Double`
+1.  `T1` 是 `ExpressibleByIntegerLiteral` 类型
+2.  `T3` 是 `ExpressibleByIntegerLiteral` 类型
+3.  `T2` 是一个传入 `T3` 返回 `T4` 的方法
+4.  `T2` 是 `prefix -`，其在 **Swift** 里有6种实现
+5.  `T0` 是一个传入 `T1`、`T4`，返回 `T5` 的方法
+6.  `T0` 是 `infix +` ，其在 **Swift** 里有28种实现
+7.  `T5` 是 `Double` 类型
 
-### Propagating constraints from right to left
+相较于上面的例子，这里多了两个约束，让我们看看类型约束系统会怎样处理这个例子。
 
-We start by traversing from right to left (from the leaves of the expression tree down to the trunk).
+第一步：选择最小分离单元。这次是约束4：“ `T2` 是 `prefix -`，在 **Swift** 里有6种实现”。最后系统选择了签名为 `(Float) -> Float` 的实现。
 
-Propagating the constraint on T3 to T2 adds the constraint “T2’s input must be convertible from a type that is `ExpressibleByIntegerLiteral` with `Int` preferred due to literal rules”. Intersecting this new constraint with the existing T2 constraints, discards the new constraint since all input parameters in T2’s existing possibility space already fulfill this new constraint and the preference of `ExpressibleByIntegerLiteral` for `Int` type on the input is overruled by the preference for specific operator overloads over generic operator overloads (which makes `Double`, `Float` or `Float80` overloads of the `prefix -` function preferred). Propagating T2 to T4 adds the constraint “T4 must be one of the 6 types output from `prefix -`, with `Double`, `Float` or `Float80` preferred”. Propagating T4 to T0 adds the constraint “T0’s second parameter must be convertible from one of the 6 types output from `prefix -`, with `Double`, `Float` or `Float80` preferred”. Intersecting this with the constraints already on T0 leaves the constraint “T0 is one of 6 implementations in the Swift standard library named `infix +` where the right input is one of the types output from `prefix -`, with `Double`, `Float` or `Float80` preferred”. Propagating T1 to T0 has no additional effect (since all choices in the existing constraint on T0 already fulfill this new constraint and the preference of `ExpressibleByIntegerLiteral` for `Int` type is cancelled out by the preference for `Double`, `Float` or `Float80`). Propagating T0 to T5 add the constraint “T5 is one of 6 values returned from the `infix +` operator where the second parameter is one of the types output from `prefix -`, with `Double`, `Float` or `Float80` preferred”. Intersecting this with the constraint already on T5 leaves “T5 is `Double`”.
+第二步：和第一步一样，选择最小分离单元，这次是约束6：“`T0` 是 `infix +` ，其在 **Swift** 里有28种实现”。系统选择了签名为 `(Int, Int) -> Int` 的实现。
 
-The half-propagated constraints are now:
+最后一步是：利用上述的类型约束确定所有节点的类型。
 
-1.  T1 conforms to `ExpressibleByIntegerLiteral` with `Int` preferred due to literal rules
-2.  T3 conforms to `ExpressibleByIntegerLiteral` with `Int` preferred due to literal rules
-3.  T2 is a function that takes (T3) and returns T4
-4.  T2 is one of 6 implementations in the Swift standard library named `prefix -` with `Double`, `Float` or `Float80` preferred due to the preference for specific operator overloads over generic operator overloads
-5.  T4 must be one of the 6 types output from `prefix -`, with `Double`, `Float` or `Float80` preferred due to the preference for specific operator overloads over generic operator overloads
-6.  T0 is a function that takes (T1, T4) and returns T5
-7.  T0 is one of the 6 implementations in the Swift standard library named `infix +` where the second parameter is one of the 6 types output from `prefix -`, with `Double`, `Float` and `Float80` preferred due to the preference for specific operator overloads over generic operator overloads
-8.  T5 is `Double`
+然而，这里出现了点问题：在第一步里我们选择的签名为 `(Float) -> Float` 的 `prefix -` 实现和第二步里我们选择的签名为 `(Int, Int) -> Int` 的 `infix +` 实现和我们的约束5（`T0` 是一个传入 `T1`、`T4`，返回 `T5` 的方法）发生了冲突。解决方法是放弃当前的选择，然后重新回滚至第二步，为 `T0`
 
-### Propagating constraints from left to right
+最终，系统将遍历所有的 `infix +` 实现，然后发现没有一种实现同时满足约束5和约束7（`T5` 是 `Double` 类型）。
 
-Now we go left to right (from the trunk, up to the leaves).
+所以，类型约束系统将回滚至第一步，为 `T2` 选取了签名为 `(Double, Double) -> Double` 的实现。最后，这种实现也满足了 `T0` 的约束。
 
-Starting at the constraints on T5\. Constraint 5 is “T5 is `Double`”. Propagating this to T0 creates a new constraint on T0 that its result must be convertible to `Double`. The intersection of this new constraint and the result of T0 immediately eliminates all possible overloads for the `infix +` operator except `(Double, Double) -> Double`. Propagating from T0 to T1, via the first parameter of this overload, creates a new constraint for T1 that it must convertible to `Double`. Intersecting this new constraint with the previous “T1 conforms to `ExpressibleByIntegerLiteral`” results in “T1 is `Double`”. Propagating from T0 to T4, via the second parameter of the selected `infix +` overload creates a new constraint for T4 that it must be convertible to `Double`. Intersecting this new constraint with the existing constraint on T4 results in “T4 is `Double`”. Propagating from T4 to T2 creates a new constraint on T2 that it must return a type that is convertible to `Double`. Intersecting this new constraint with the previous constraints on T2 immediately eliminates all overloads except `(Double) -> Double`. Propagating from T2 to T3 creates a new constraint for T3 that it must convertible to `Double`. Intersecting this new constraint with the previous “T3 conforms to `ExpressibleByIntegerLiteral`” results in “T3 is `Double`”.
+然而，在发现 `Double` 类型和 `ExpressibleByIntegerLiteral` 相互不匹配后，类型约束系统将继续回滚，寻找合适的重载方法。
 
-The fully-propagated constraints are now:
+`T2` 总共有6种实现，但是最后3种实现不能被优化(因为它们是通用的实现，因此优先级高于显示声明参数为 `Double` 的实现）。
 
-1.  T1 is `Double`
-2.  T3 is `Double`
-3.  T2 is the `(Double) -> Double` overload of `prefix -`
-4.  T0 is the `(Double, Double) -> Double` overload of `infix +`
-5.  T5 is `Double`
+> 在类型约束系统里，这种特殊优化是我曾经在[Unexpected behaviors](http://www.cocoawithlove.com/blog/2016/07/12/type-checker-issues.html#unexpected-behaviors)一文中提到的快速重载的一些特性。
 
-And the constraints system is solved.
+拜这种特殊的“优化”所赐，类型约束系统需要76次查询才能找到一个合理的解决方案。如果我们添加了其余的一些新的重载，那么这个数字会变得超出我们的想象。例如，我们我们在例子里添加另外一个 `infix +` 操作符，比如： `let a: Double = 0 + 1 + -(2)` ，那么将需要1190次查询才能找到合理的解决方案。
 
-The purpose of my suggested algorithm is to improve the resolution of function overloads, so I’ll call the number of function overloads <math><mi>n</mi></math>. I’ll use <math><mi>m</mi></math> for the average number of overloads per function (the “disjunction” size).
+查询解决方案的这个过程是一个典型的具有指数时间复杂度的操作。在分离单元里进行搜索的范围称为[“笛卡尔积”](https://zh.wikipedia.org/wiki/%E7%AC%9B%E5%8D%A1%E5%84%BF%E7%A7%AF)，然后，对于图中的 <math><mi>n</mi></math> 个分离单元，算法将会在 n 维笛卡尔乘积的范围内进行查找（这是一个空间复杂度同样为指数的操作）。
 
-As I previously stated, Swift’s algorithm solves this by searching an <math><mi>n</mi></math>-dimensional Cartesian product of rank <math><mi>m</mi></math>. This gives is a time complexity of <math><mi>O</mi><mo>(</mo><msup><mi>m</mi><mrow><mi>n</mi></mrow></msup><mo>)</mo></math>, an exponential.
+根据我的测试，单语句内拥有6个分离单元，便足以触发 **Swift** 中的 `expression was too complex` 的错误。
 
-My suggested algorithm resolves <math><mi>n</mi></math> function overloads by searching <math><mo>(</mo><mi>n</mi><mo>-</mo><mn>1</mn><mo>)</mo></math> separate 2-dimensional Cartesian products of rank <math><mi>m</mi></math>. This gives is a time complexity proportional to <math><msup><mi>m</mi><mrow><mn>2</mn></mrow></msup><mi>n</mi></math>. Assuming <math><mi>m</mi></math> is independent of <math><mi>n</mi></math> (true when we can calculate the intersection between constraints, false otherwise), this makes the upper bound <math><mi>O</mi><mo>(</mo><mi>n</mi><mo>)</mo></math>, linear complexity.
+## [](http://www.cocoawithlove.com/blog/2016/07/12/type-checker-issues.html#linearizing-the-constraints-solver)线性化的类型约束系统
 
-Linear complexity will always beat exponential complexity for large values of <math><mi>n</mi></math> but it’s important to know what constitutes “large” and what effect other factors might have for smaller values. In this case, 3 is already a “large” value. As I previously stated, Swift’s constraint system solver would require 1,190 guesses to solve the expression `let a: Double = 0 + 1 + -(2)`. My suggested algorithm would require a search of just 336 possibilities and would have significantly lower overheads per possibility than Swift’s current approach.
+针对本文所反复提到的这个问题，最好的解决方法就是在编译器中进行修复。
+
+类型约束系统之所以采用时间复杂度为指数算法来解决方法重载的问题，是因为 **Swift** 需要对方法重载所生成的 n 维[“笛卡尔乘积”](https://en.wikipedia.org/wiki/Cartesian_product)空间里的元素进行遍历并搜索从而确定一个合适的选项（在没有更好方案之前，这应该是最好的方案）。
+
+为了避免生成 n 维笛卡尔乘积空间，我们需要设计一个方法来实现相关逻辑实现的独立性，而不让它们彼此依赖。
+
+唔，开始下面的内容之前我需要提醒你们一些很重的事儿：
+
+> **友情提醒，这些东西仅代表我的个人观点**：接下来的一些讨论，都是我从理论的角度上来分析怎样在 **Swift** 的类型约束系统中怎样去解决函数重载的问题。我并没有写一些东西来证明我提出的解决方案，这可能意味着我会忽略某些非常重要的东西。
+
+### 前提
+
+我们想实现如下两个目标：
+
+1.  限制一个节点不应该与其余节点相互依赖或引用
+2.  从前一个方法分析出来的分离单元应该与后一个方法分离出来的存在着交集，并进一步简化分离单元的两个约束条件。
+
+第一个目标，可以通过限制节点的约束路径实现。在 **Swift** 中，每个节点的约束是双向的，每个节点的约束都从表达式的每一个分支开始，然后依照着遍历主干->线性遍历子节点的方式不断传播。在这个过程中，我们可以有选择性的简单地合并相同的约束逻辑来组合这些约束，而不是从其余节点引用相对应的类型约束。
+
+第二个目标里，支持前面通过减少类型约束的传播复杂度来进一步简化相关越是条件。每个重载方法的分离单元之间最重要的交叉点是一个重载函数的输出，可能会作为另一个重载函数的输入。这个操作应该根据参数相互交叉的两个重载方法所产生的2维笛卡尔积来进行计算。对于其余的可能存在的交叉点来说，给出一个真正意义上的数学上的严格交叉证明是非常困难的，同时这样的证明是没有必要的，我们只需要复制 **Swift** 里在复杂情况下的对于类型选择的时所采用的贪婪策略即可。
+
+### 让我们重新看看之前的例子
+
+让我们看看如果我们实现了前文所讲的两个目标后，类型约束系统将会变成什么样子。首先让我们复习下之前所生成的节点图：
+
+
+```Swift
+let a: Double = 1 + -(2)
+```
+
+
+![a slightly more complex constraints graph](http://www.cocoawithlove.com/assets/blog/constraints_graph2.svg)
+
+然后让我们也复习下以下节点约束：
+
+1.  `T1` 是 `ExpressibleByIntegerLiteral` 类型
+2.  `T3` 是 `ExpressibleByIntegerLiteral` 类型
+3.  `T2` 是一个传入 `T3` 返回 `T4` 的方法
+4.  `T2` 是 `prefix -`，其在 **Swift** 里有6种实现
+5.  `T0` 是一个传入 `T1`、`T4`，返回 `T5` 的方法
+6.  `T0` 是 `infix +` ，其在 **Swift** 里有28种实现
+7.  `T5` 是 `Double` 类型
+
+### 将节点约束从右至左传递
+
+我们从右至左进行遍历（从叶子节点向主干遍历）。
+
+在节点约束从 `T3` 向 `T2` 传播时，添加了这样一个新的约束：“ `T2` 节点的输入值必须是一个由 `ExpressibleByIntegerLiteral` 转化而来的值”。现在在新的约束规则和原有规则同时发生作用后，一旦我们确认所有拥有 `T2` 的节点都被新规则约束成功之后，或者是与“特定操作重载优先于通用操作重载（比如在 `prefix -` 中 `Double`、 `Float` 或者是 `Float80` 会被优先重载）”这条规则冲突之时，便可以丢弃我们新建立的节点约束规则。在节点约束从 `T2` 向 `T4` 中传播的过程中，添加新约束为：“ `T4` 必须是 `prefix -` 所返回的6中类型的值之一，其中 `Double`、`Float` 或 `Float80` 优先被考虑）。在节点约束从 `T4` 朝 `T0` 传播的过程中，添加新约束为：“ `T0` 的第二个参数必须是从 `prefix -` 返回的6种参数里的任意一种演变而来，其中 `Double`、 `Float` 或 `Float80` 类型优先）。在结合 `T0` 已有的节点约束后，`T0` 的节点约束变为：“ `T0` 是 `infix +` 的6种实现之一，同时从右侧传入的参数是来自 `prefix -` 返回参数中的任意一种，在这个过程中类型是 `Double`、 `Float` 或者 `Float80` 的参数优先被考虑）。在节点约束从 `T1` 朝 `T0` 传递之时，没有新的约束条件需要添加（在这里，`T0` 已经被我们所增加的约束条件严格约束了，同时，原本所使用的 `ExpressibleByIntegerLiteral` 类型已经被 `Double`、 `Float` 或者 `Float80` 中的任意一种类型所替代了）。在节点约束从 `T0` 向 `T5` 传播时，需新增加约束为：“ `T5` 是 `infix +` 的6种返回值中的一种，且 `infix +` 的第二个参数是来自 `prefix -` 的返回值，在这个过程中，`Double`、 `Float` 或者 `Float80` 类型优先被考虑）。在上述约束的共同作用下，我们可以最终确认 `T5` 的类型为 `Double`。
+
+经过上述过程的变动之后，整个节点约束集迭代成下面这个样子：
+
+1.  `T1` 是 `ExpressibleByIntegerLiteral` 类型
+2.  `T3` 是 `ExpressibleByIntegerLiteral` 类型
+3.  `T2` 是一个传入 `T3` 返回 `T4` 的方法
+4.  `T2` 是 `prefix -` 的6种实现之一，同时为了满足在 **Swift** 中特殊操作重载优先级高于通用运算重载的原则，类型为 `Double`、 `Float` 或者 `Float80` 的 `prefix -` 重载优先被考虑。
+5.  `T4` 是 `prefix -` 的六种返回值之一，同样为了满足在 **Swift** 中特殊操作重载优先级高于通用运算重载的原则，类型为 `Double`、 `Float` 或者 `Float80` 的 `prefix -` 重载优先被考虑。
+6.  `T0` 是一个传入 `T1`、`T4`，返回 `T5` 的方法
+7.  `T0` 是 `infix +` 的6种实现之一，同时从右侧传入的参数是来自 `prefix -` 返回参数中的任意一种，在这个过程中为了满足在 **Swift** 中特殊操作重载优先级高于通用运算重载的原则，类型是 `Double`、 `Float` 或者 `Float80` 的参数优先被考虑
+8.  `T5` 是 `Double` 类型
+
+### 将节点约束从左至右传递
+
+现在我们开始从左至右进行遍历（先遍历主干，后遍历叶子节点）。
+
+首先从 `T5` 开始遍历，约束5是：“ `T5` 是 `Double` 类型的节点”。这时我们为 `T0` 添加新的约束：“ `T0` 的返回值类型一定要是 `Double` 类型的”。在这个约束生效后，我们就可以排除除 `(Double, Double) -> Double` 之外的 `infix +` 的重载了。节点约束继续从 `T0` 朝 `T1` 传递，根据 `infix +` 的`(Double, Double) -> Double` 重载的参数要求，我们为 `T1` 创建一个新的约束： `T1` 一定是 `Double` 类型的。在多种约束的作用下，之前所提到的“`T1` 是 `ExpressibleByIntegerLiteral` 类型”变为“`T1` 是 `Double` 类型”。在节点约束从 `T0` 朝 `T4` ，根据 `infix +` 的第二个参数的要求，我们确定 `T4` 的类型为 `Double`。节点约束从 `T4` 朝 `T2` 传播的过程中，我们新增加一个约束：“ `T2` 的返回值一定为 `Double` 类型”。在以上规则共同作用下，我们可以确定 `T2` 为 `prefix -` 的参数类型为 `(Double) -> Double` 重载。最后根据以上的约束，我们可以得知 'T3' 的类型为 'Double'。
+
+最后整个类型约束系统编程下面这个样子：
+
+1.  `T1` 为 `Double` 类型。
+2.  `T3` 为 `Double` 类型。`
+3.  `T2` 是 `prefix -` 的参数为 `(Double) -> Double` 类型的重载
+4.  `T0` 是 `infix +` 的参数为 `(Double, Double) -> Double` 类型的重载
+5.  `T5` 为 `Double` 类型。
+
+好了，现在整个类型约束操作便已经告一段落了。
+
+唔，我提出这算法的目的是改善方法重载的相关操作，因此，我将方法重载的次数用 n 表示。然后我将平均每个函数重载次数用 m 表示。
+
+如我前面所述，在 **Swift** 中，编译器是通过在一个 n 维的笛卡尔积空间内进行搜索来确定最终的结果。它的时间复杂度是 **O(m^n)** 。
+
+而我所提出的算法，是在一个2维的空间内去搜索 **n-1** 个分离单元来实现的。其执行时间是 **m^2*n**.因为 m 是和 n 相关联的，我们可以得到其最终的时间复杂度为 **O(n)** 。
+
+通常来讲，在 n 为很大的时候，线性复杂度的算法比指数时间复杂度的算法更能适应当前的状况，不过我们得搞清楚什么样的情况才能被称之为 n 为很大的数。在这个例子中，3 已经是一个非常 “大” 的数了。As I previously stated, Swift’s constraint system solver would require 1,190 guesses to solve the expression `let a: Double = 0 + 1 + -(2)`. My suggested algorithm would require a search of just 336 possibilities and would have significantly lower overheads per possibility than Swift’s current approach.
 
 I’m making an interesting assertion there: I’m claiming that my suggested algorithm would have lower overheads per possible solution. Let’s look at that in more detail for <math><mi>n</mi><mo>=</mo><mn>2</mn></math> with our previous `let a: Double = 1 + -(2)` example. Theoretically, both Swift’s algorithm and my suggested algorithm will search the same 2-dimensional Cartesian product between `prefix -` and `infix +` – a space that contains 168 possible solutions.
 
