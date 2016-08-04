@@ -323,38 +323,37 @@ let a: Double = 1 + -(2)
 
 而我所提出的算法，是在一个2维的空间内去搜索 **n-1** 个分离单元来实现的。其执行时间是 **m^2*n**.因为 m 是和 n 相关联的，我们可以得到其最终的时间复杂度为 **O(n)** 。
 
-通常来讲，在 n 为很大的时候，线性复杂度的算法比指数时间复杂度的算法更能适应当前的状况，不过我们得搞清楚什么样的情况才能被称之为 n 为很大的数。在这个例子中，3 已经是一个非常 “大” 的数了。As I previously stated, Swift’s constraint system solver would require 1,190 guesses to solve the expression `let a: Double = 0 + 1 + -(2)`. My suggested algorithm would require a search of just 336 possibilities and would have significantly lower overheads per possibility than Swift’s current approach.
+通常来讲，在 n 为很大的时候，线性复杂度的算法比指数时间复杂度的算法更能适应当前的状况，不过我们得搞清楚什么样的情况才能被称之为 n 为很大的数。在这个例子中，3 已经是一个非常 “大” 的数了。正如我前面所提到的一样，**Swift** 自带的类型约束系统将进行1190次搜索来确认最后的结果。而我设计的算法只需要336次搜索。这可以说很明显的降低了最后的耗时。
 
-I’m making an interesting assertion there: I’m claiming that my suggested algorithm would have lower overheads per possible solution. Let’s look at that in more detail for <math><mi>n</mi><mo>=</mo><mn>2</mn></math> with our previous `let a: Double = 1 + -(2)` example. Theoretically, both Swift’s algorithm and my suggested algorithm will search the same 2-dimensional Cartesian product between `prefix -` and `infix +` – a space that contains 168 possible solutions.
+我做了一个很有趣的实验：在之前所提到的 `let a: Double = 1 + -(2)` 这个例子里，不管是 **Swift** 里的类型约束系统，还是我所设计的算法，它们都是在一个2维的笛卡尔积空间内进行搜索，里面都包含了168中可能性。
 
-Swift’s current algorithm searches just 76 possible entries out of a total possible 168 in the 2-dimensional Cartesian product space between the overloads of `prefix -` and `infix +`. But in doing so, Swift’s algorithm performs 567 calls to `ConstraintSystem::matchTypes`, of which 546 are related solely to function overload guesses. Swift performs a large number of type checks per guess.
+**Swift** 里现在所采用的类型约束算法选取了在 `prefix -` 和 `infix +` 重载生成的2维笛卡尔积空间内的168种可能性的76种。但是这样做的话，整个过程里会产生567次对 `ConstraintSystem::matchTypes`的调用，其中546次是用于搜索相适应的重载函数。
 
-My suggested algorithm would search the entire 168 possible entries in the 2-dimensional Cartesian product space (I haven’t included any shortcuts or optimizations at this point) but since it only checks the _intersecting_ parameters at each search location (it doesn’t check unrelated type constraints), I estimate that it would require just 222 total calls to `ConstraintSystem::matchTypes` for the entire solution.
+我所设计的算法，搜索了全部168种可能性，但是根据我的分析，其最后只产生了22次对 `ConstraintSystem::matchTypes` 的调用。
 
-Determining exact performance for an unwritten algorithm involves a lot of guesswork, so it’s difficult to know with any degree of certainty, but it’s possible that my algorithm would perform equal or better for _any_ value of <math><mi>n</mi></math>.
+去确定一个非公开的算法，需要进行很多次的猜测，所以知道某一种算法的的具体细节是一件非常困难的事儿。但是我想，我的算法在任意数量级的情况下，其表现优于或与现在已有的算法持平并不是一件不可能的事儿。
 
-## [](http://www.cocoawithlove.com/blog/2016/07/12/type-checker-issues.html#is-this-type-of-improvement-coming-soon-to-swift)Is this type of improvement coming soon to Swift?
+## [](http://www.cocoawithlove.com/blog/2016/07/12/type-checker-issues.html#is-this-type-of-improvement-coming-soon-to-swift)**Swfit** 很快会改进他的类型系统么？
 
-I’d love to be able to say: “I’ve done all the work, surprise! Here it is and it works great!” But that’s simply not possible. Due to the scale of the problem (the constraints system is 10s of thousands of lines and the solver logic alone is a couple thousand lines) this is not a practical problem for an outsider to tackle.
+虽然我很想说：“你们这群辣鸡，我一个人就把所有工作做完了，看看这些代码运行的多么完美啊”，但是这也只能是想想罢了。一个整个系统由成千上万个逻辑和单元组成，并不能单独抽出某一个节点来进行讨论。
 
-Is the Swift development team working to linearize the constraint system solver for overloaded functions? I don’t think so.
+你觉得 **Swift** 开发团队是不是在尝试把类型约束系统进行线性化处理呢？我对此持否定看法。
 
-Posts like this: [“[swift-dev] A type-checking performance case study”](https://lists.swift.org/pipermail/swift-dev/Week-of-Mon-20160404/001650.html), indicate that the Swift developers believe resolving function overloads in the type checker is inherently exponential. Rather than redesigning the type checker to eliminate exponential complexity, they are redesigning the standard library to try and skirt around the issue.
+在这篇文章里[“[swift-dev] A type-checking performance case study”](https://lists.swift.org/pipermail/swift-dev/Week-of-Mon-20160404/001650.html)表明官方开发者认为类型约束系统采用时间复杂度为指数的算法是一件很正常的事儿。与其将时间放在优化算法上，还不如去重构标准库，使其更为合理。
 
-Either:
+一点吐槽：
 
-*   I’ve made an embarassing error and I should quietly delete the previous 2 sections from this article like they never happened.
+*   现在看来本文的前面两章简直就是在做无用功，我应该静静的将其删除。
+*   我觉得我想法是正确的，类型约束系统应该进行大幅度改进，这样我们次啊不会被上面所提到的问题所困扰。
 
-*   I’m correct and the constraints system solver should be quickly improved so we can stop hiding in fear from the Exponential Boogeyman.
+友情提醒: 理论上将类型约束系统并不是整个语言最主要的一部分，因此如果其进行了改进，应该是在一个小版本迭代中进行发布，而不是一个大版本更新。
 
-On the plus side: the constraints system solver (theoretically) isn’t an exposed part of the language so a major change to the constraints system solver – if it occurred – could be rolled out on a minor release of Swift, rather than waiting for a major release.
+## [](http://www.cocoawithlove.com/blog/2016/07/12/type-checker-issues.html#conclusion)结论
 
-## [](http://www.cocoawithlove.com/blog/2016/07/12/type-checker-issues.html#conclusion)Conclusion
+在我使用 **Swift** 的经历里, `expression was too complex to be solved in reasonable time` 是一个经常出线的错误，而且我并不认为这是一个简单的错误。如果你在单个例子中是用了大量的方法或者是数学操作的时候，你应该定期看看这篇文章。
 
-In my usage of Swift, the “expression was too complex to be solved in reasonable time” error is the most common error I see that isn’t a simple programmer error. If you write a lot of large functional-style expressions or mathematics code, you’ll likely see it on a regular basis.
+**Swift** 里所采用的时间复杂度为指数的算法也可能导致编译时间较长的问题。 尽管我没有确切的统计整个编译里的时间分配，但是不出意外的话，系统应该将大部分时间放在了类型约束器的相关计算上。
 
-The exponential time complexity in the Swift compiler’s constraints system solver can also lead to significant compilation time overhead. While I don’t have numbers on what percentage of typical Swift compilation times are spent in this part of the compiler, there are certainly degenerate cases where the _majority_ of a long compilation time is spent in the constraints system solver.
+这个问题可以在我们编写的代码的时候予以避免，但是讲真，没有必要这么做。如果编译器能采用我所提出的线性时间的算法的话，我敢肯定，这些问题都不在是问题。
 
-The problem can be worked around in our own code but we shouldn’t need to do this. The problem should be fixed in the compiler by improving the constraints system solver to run with a linear time complexity with respect to the size of the system. I’m fairly sure it’s possible and I’ve laid out a way I think it could be done.
-
-Until any change occurs in this area, the continued existence of this error will be a bothersome reminder that the Swift compiler remains a work in progress.
+在编译器做出具体的改变之前，本文所提到的问题会一直困扰着我们，与编译器的斗争还要持续下去。
