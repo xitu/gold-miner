@@ -1,17 +1,17 @@
->* 原文链接 : [Closures Capture Semantics, Part 1: Catch them all!](http://alisoftware.github.io/swift/closures/2016/07/25/closure-capture-1/)
+> * 原文链接 : [Closures Capture Semantics, Part 1: Catch them all!](http://alisoftware.github.io/swift/closures/2016/07/25/closure-capture-1/)
 * 原文作者 : [Olivier Halligon](http://alisoftware.github.io/about/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
+* 译者 : [Nicolas(Yifei) Li](https://github.com/yifili09) 
 * 校对者:
 
 
-Even with ARC nowadays, it’s still important to understand memory management and objects life-cycles. A special case is when using closures, which are more and more present in Swift and have different capture semantics than ObjC’s block capture rules. Let’s see how they work.
+即使是有 `ARC` 的今天，理解内存管理和对象的生命周期仍旧是非常重要的。当使用闭包的时候是一个特例，它在 `Swift` 中出现的场景越来越多，比起 `Objective` 的代码块的捕获规则有很多不同的捕获语法。让我们看看它们是如果工作的吧。
 
-## Introduction
+## 概述
 
-In Swift, closures capture the variables they reference: variables declared outside of the closure but that you use inside the closure are retained by the closure by default, to ensure they are still alive when the closure is executed.
+在 `Swift` 中，闭包捕获了他们引用到的变量: 默认情况下，在闭包外申明的变量会被使用这些变量的闭包在内部保留，为了确保他们在闭包被执行的时候仍旧存在。
 
-For the rest of this article, let’s define a simplistic `Pokemon` example class:
+对于这篇文章的来说，让我们定义一个简单的 `Pokemon` 类作为一个例子:
 
 
 
@@ -26,7 +26,7 @@ For the rest of this article, let’s define a simplistic `Pokemon` example clas
 
 
 
-Let also declare a simple function that takes a closure as parameter, and executes that closure some seconds later (using GCD). This way we’ll use it in below examples to see how that closure captures the outer variables.
+让我们声明一个简单的方法，它用闭包作为参数，并且过几秒后（使用 `GCD`）执行这个闭包。通过这个方法，我们用下面的这个例子来看看闭包是如何捕捉外部变量的。
 
 
 
@@ -38,7 +38,7 @@ Let also declare a simple function that takes a closure as parameter, and execut
       }
     }
 
-ℹ️️ In Swift 3, the above function would be written something like this instead:
+ℹ️️ 在 `Swift 3` 中，上面的方法将会被这样的形式替换改写:
 
 
     func delay(seconds: Int, closure: ()->()) {
@@ -49,9 +49,9 @@ Let also declare a simple function that takes a closure as parameter, and execut
       }
     }
 
-## Default capture semantics
+## 默认捕捉的语法
 
-Now, let’s start with a simple example:
+现在，让我们开始一个简单的例子:
 
 
     func demo1() {
@@ -65,8 +65,7 @@ Now, let’s start with a simple example:
 
 
 
-This might seem like a simple one, but it’s interesting to note that the closure gets executed 1 second after the code from the `demo1()` function has finished executed and we exited the function’s scope… yet the `Pokemon` is still alive when the block is executed that one second later!
-
+这看上去很简单，但是有趣的是，这个闭包会在 `demo1()` 方法函数执行完成后 1 秒后被执行，并且我们已退出了方法函数的作用域... 当然 `Pokemon` 仍然是存在的，当这个代码块在下一个 1 秒后再次被执行的时候！ 
 
 
     before closure: <Pokemon Mewtwo>
@@ -77,20 +76,21 @@ This might seem like a simple one, but it’s interesting to note that the closu
 
 
 
-That’s because the closure strongly captures the variable `pokemon`: as the Swift compiler sees that the closure references that `pokemon` variable inside the closure, it automatically captures it (strongly by default), so that this `pokemon` is alive as long as the closure itself is alive.
 
-So yes, closures are a little like Pokeballs 😆 as long as you keep the <del>pokeball</del> closure around, the `pokemon` variable will be there too, but when that <del>pokeball</del> closure is released, so is the `pokemon` it referenced.
+这是因为这个闭包坚定地捕获了这个 `pokemon` 变量: 因为 `Swfit` 的编译器看见了这个被闭包内部引用的 `pokemon` 变量，它便自动的捕获了这个（默认情况下坚定地），所以这个 `pokemon` 是会一直存在的，只要这个闭包也存在。
 
-In this example, the closure itself gets released once it has been executed by GCD, so that’s when the `pokemon`’s `deinit` method gets called too.
+所以，闭包很像 `精灵球` 😆  只要你保留~~精灵球~~在闭包周围, `pokemon` 变量也会同样在这里，但是当那个~~精灵球~~被释放了，那个被引用的 `pokemon` 变量也会被释放。
 
-ℹ️ If Swift didn’t capture that `pokemon` variable automatically, that would mean that the `pokemon` variable would have had time to go out of scope when we reach the end of the `demo1` function, and that pokemon would no longer exist when the closure would execute one second later… leading to a probable crash.  
-Thankfully, Swift is smarter than that and captures that pokemon for us. We’ll see in a later article how we can weakly capture those variables instead when we need to.
+在这个例子中，一旦这个闭包被 `GCD` 执行，它本身也会被释放，但是当这个 `pokemon` 的 `deinit` 方法也被调用的时候。
 
-## Captured variables are evaluated on execution
+ℹ️ 如果 `Swift` 并没有自动捕获到这个 `pokemon` 变量，这意味着这个 `pokemon` 必将有时间跳出这个作用域，当调用到 `demo1` 方法的尾端的时候，并且当这个闭包被下一个后 1 秒再次执行的时候，这个 `pokemon` 将不会再存在... 可能会导致一个崩溃。  
+谢天谢地，`Swift` 聪明多了，并且它能为我们捕获到这个 `pokemon`。在之后的文章里，我们能看到，当我们需要他们的时候，怎么去弱引用这些变量。
 
-One important thing to note though is that **in Swift the captured variables are evaluated at the closure execution’s time**<sup>[1](http://alisoftware.github.io/swift/closures/2016/07/25/closure-capture-1/#fn:block-modifier)</sup>. We could say that it captures the _reference_ (or _pointer_) to the variable.
+## 被捕获到的变量都被执行的时候定值
 
-So here’s an interesting example:
+一个需要注意的至关重要的是，尽管**在 `Swift` 中，被捕获的变量在闭包被执行的时候才被定值**<sup>[1](http://alisoftware.github.io/swift/closures/2016/07/25/closure-capture-1/#fn:block-modifier)</sup>. 我们能说它捕获到了这个变量的_引用_(或者 _指针_)。
+
+所以，这里有一个有趣的例子:
 
 
 
@@ -106,8 +106,7 @@ So here’s an interesting example:
 
 
 
-Could you guess what gets printed? Here’s the answer:
-
+你能猜到什么会被打印出来么？这里是答案:
 
 
     before closure: <Pokemon Pikachu>
@@ -119,13 +118,14 @@ Could you guess what gets printed? Here’s the answer:
 
 
 
-Note that we change the `pokemon` object _after_ creating the closure, still when the closure executes 1 second later (while we already exited the scope of the `demo2()` function), we print the new `pokemon`, not the old one! That’s because Swift captures variables by reference by default.
 
-So here, we initialize `pokemon` to Pikachu, then we change its value to Mewtwo, so that Pikachu gets released — as no more variable retains it. Then one second later the closure gets executed and it prints the content of the variable `pokemon` that the closure captured by reference.
+注意，在创建了闭包_之后_，我们改变了 `pokemon` 对象，当这个闭包在 1 秒之后执行（当我们已经从 `demo2()` 函数方法作用域退出了），我们打印出了一个新的 `pokemon`，并不是先前旧的那个！这是因为，`Swift` 捕获到了默认通过引用来的变量。
 
-The closure didn’t capture “Pikachu” (the pokemon we got at the time the closure was created), but more a reference to the `pokemon` variable — that now evaluates to “Mewtwo” at the time the closure gets executed.
+所以在这里，我们把 `pokemon` 初始化成 `Pikachu`，之后，我们把它的值改成 `Mewtwo`，所以 `Pikachu` （的引用）被释放了 - 因为再没有其他变量保留它了。1 秒钟之后，这个闭包被执行，并且它打印出了变量 `pokemon` 的内容，它是由闭包通过引用捕获的。
 
-What might seems odd is that this works for value types too, like `Int` for example:
+这个闭包并没有捕获 `Pikachu`（这个 `pokemon` 是在闭包创建的时候我们获得的），但更是对 `pokemon` 变量的引用 - 当这个闭包被执行的时候，它现在被定值为`Mewtwo`。
+
+令人奇怪的是，这个在`值类型`中也行得通，例如 `Int`:
 
 
 
@@ -141,7 +141,7 @@ What might seems odd is that this works for value types too, like `Int` for exam
 
 
 
-This prints:
+结果是:
 
 
 
@@ -152,11 +152,11 @@ This prints:
 
 
 
-Yes, the closure prints the _new_ value of the `Int` — even if `Int` is a value type! — because it captures a reference to the variable, not the variable content itself.
+是的，这个闭包打印出了_新_的 `Int` 的值 - 即使 `Int` 是一个`值类型`! - 因为它捕获了变量的引用，不是变量本身的内容。
 
-## You can modify captured values in closures
+## 你能修改在闭包内捕获的值
 
-Note that if the captured value is a `var` (and not a `let`), you can also modify the value **from within the closure**<sup>[2](http://alisoftware.github.io/swift/closures/2016/07/25/closure-capture-1/#fn:objc_block_modify)</sup>.
+注意，如果捕获的值是一个 `var` （并不是一个 `let`），你还是可以修改这个值 **在闭包内部**<sup>[2](http://alisoftware.github.io/swift/closures/2016/07/25/closure-capture-1/#fn:objc_block_modify)</sup>.
 
 
 
@@ -175,8 +175,7 @@ Note that if the captured value is a `var` (and not a `let`), you can also modif
 
 
 
-This code prints the following:
-
+这个代码运行的结果是:
 
 
     before closure: 42
@@ -188,15 +187,16 @@ This code prints the following:
 
 
 
-So here, the `value` variable has been changed from inside the block (even if it has been captured, it was not captured as a constant copy, but still refers to the same variable). And the second block sees that new value even if it executes later — and at a time when the first block was already released and the value variable already been out of the `demo4()` function’s scope!
 
-## Capturing a variable as a constant copy
+所以在这里，这个 `value` 变量已经从代码块的内部被改变了（即使他被捕获了，他也并不是以一个静态拷贝捕获的，但是仍然引用了同一个变量）。并且第二个代码块看到新的值，即使它在之后被执行 - 并且当第一个代码块已经被释放的时候，它已经离开  `demo4()` 方法函数的作用域了!
 
-If you want to capture the value of a variable at the point of the closure **creation**, instead of having it evaluate only when the closure executes, you can use a **capture list**.
+## 捕获一个作为一个静态拷贝的变量
 
-Capture lists are written between square brackets right after the closure’s opening bracket (and before the closure’s arguments / return type if any)<sup>[3](http://alisoftware.github.io/swift/closures/2016/07/25/closure-capture-1/#fn:in-keyword)</sup>.
+如果你想要在闭包**创建**的时候捕获变量的值，而不是仅仅当闭包执行的时候去获取它的定值，你能使用一个**捕获列表**。
 
-To capture the value of a variable at the point of the closure’s creation (instead of a reference to the variable itself), you can use the `[localVar = varToCapture]` capture list. Here’s what it looks like:
+**捕获列表**可以被编码在方括号的中间，在闭包开括弧的右边（并且在闭包的参数 / 或者有返回值 之前）<sup>[3](http://alisoftware.github.io/swift/closures/2016/07/25/closure-capture-1/#fn:in-keyword)</sup>。
+
+为了在闭包创建的时候，捕获变量的值（而不是这个变量本身的引用），你能使用 `[localVar = varToCapture]` 捕获列表。以下是它大概的样子:
 
 
 
@@ -212,8 +212,7 @@ To capture the value of a variable at the point of the closure’s creation (ins
 
 
 
-This will print:
-
+结果会是:
 
 
     before closure: 42
@@ -223,13 +222,14 @@ This will print:
 
 
 
-Compare this with `demo3()` code above, and notice that this time the value printed by the closure… is the content of the `value` variable **at the time of creation** — before it got assigned its new `1337` value — even if the block is executed _after_ this new value.
 
-That’s what `[constValue = value]` is doing in this closure: capturng the _value_ of the `value` variable at the time of the closure’s creation — and not a reference to the variable itself to evaluate it later.
+与之前的 `demo3()` 的代码对比，（我们会）发现这个值可以被闭包打印出了... 是 `value` 变量的内容，在闭包被**创建的时候** - 在它被赋值为新的 `1337` 之前 - 即使这个代码块在这个新的赋值_之后_被执行。
 
-## Back to Pokemons
+这就是 `[constValue = value]` 在闭包里的作用: 当闭包被创建的时候，捕获 `value` 的_值_ - 并且不是这个变量本身被定值之后的引用。
 
-What we saw just above also means that if that value is a reference type — like our `Pokemon` class — the closure does not really strongly capture the variable reference, but rather somehow capture a copy of the original instance contained in the `pokemon` variable being captured.:
+## 回到 `Pokemons`
+
+我们在上面看到的，也意味着，如果这个值是一个引用类型 - 就好像我们的 `Pokemon` 类 - 这个闭包并没有强获取这个变量的引用，而是获取到了一个原始实例的副本，在被获取的时候，包含在 `pokemon` 变量中的。
 
 
 
@@ -244,8 +244,7 @@ What we saw just above also means that if that value is a reference type — lik
     }
 
 
-It’s a bit like if we create an intermediate variable to point to the same pokemon, and captured this variable instead:
-
+这就好像，如果我们创建一个中间变量去指向同一个 `pokemon`，并且捕获这个变量:
 
 
     func demo6_equivalent() {
@@ -263,9 +262,10 @@ It’s a bit like if we create an intermediate variable to point to the same pok
 
 
 
-_In fact, using the capture list is exactly equivalent in behavior to that code above… except that this `pokemonCopy` intermediate variable is local to the closure and will only be accessible from within the closure body._
 
-Compare this `demo6()` — that uses `[pokemonCopy = pokemon] in …` — and `demo2()` — which doesn’t, and use `pokemon` direclty instead. `demo6()` outputs this:
+_事实上，使用这个捕获列表和上面的代码一样... 除了这个 `pokemonCopy` 的中间变量是闭包的本地变量，并且将智能在闭包内被访问。_
+
+和这个 `demo6()` 对比 - 它使用 `[pokemonCopy = pokemon] in ...` - 并且 `demo2()` - 它并没有，相反直接使用 `pokemon`。`demo6()` 输出了这个: 
 
 
 
@@ -278,29 +278,29 @@ Compare this `demo6()` — that uses `[pokemonCopy = pokemon] in …` — and `d
 
 
 
-Here’s what happens:
+以下解释了发生了什么:
 
-*   Pikachu is created;
-*   then it is captured as a copy (capturing the **value** of the `pokemon` variable here) by the closure.
-*   So when a few lines below we assign `pokemon` to a new Pokemon “Mewtwo”, then “Pikachu” is not released _just yet_, as it’s still retained by the closure.
-*   When we exit the `demo6` function’s scope, Mewtwo is released, as the `pokemon` variable itself — which was the only one strongly referencing it — is going out of scope.
-*   Then later, when the closure executes, it prints `"Pikachu"` because that was the Pokemon being captured at the closure creation’s time by the capture list.
-*   Then the closure is released by GCD, and so is the Pikachu pokemon which it was retaining.
+* `Pikachu` 被创建了；
+* 之后它通过闭包被以一个副本形式捕获（捕获了 `pokemon` 的值）
+* 所以，在后面的几行代码中，我们对 `pokemon` 赋熵一个新的 `Pokemon Mewtwo`，之后`Pikachu` _恰好_没有被释放，因为它还被闭包保留着。
+* 当我们从 `demo6` 方法函数作用域中退出，`Mewtwo` 被释放了，因为 `pokemon` 变量本身 - 它是唯一被强引用的 - 离开了作用域。
+* 之后，当这个闭包被执行的时候，它打印出 `“Pikachu”`，因为，它是 `Pokemon` 在闭包被创建时候通过捕获列表捕获到的。
+* 之后这个闭包被 `GCD` 释放，所以这个 `Pikachu Pokemon` 被保留着。
 
-On the contrary, back in the `demo2` code above:
+相反，回到上面 `demo2` 的代码: 
 
-*   Pickachu was created;
-*   then the closure only captured a **reference** to the `pokemon` variable, not the actual Pickachu pokemon/value the variable contained.
-*   So when `pokemon` was assigned a new value `"Mewtwo"` later, Pikachu was not strongly referenced by anyone anymore and got released right away.
-*   But the `pokemon` _variable_ (holding the `"Mewtwo"` pokemon at that time) was still strongly referenced by the closure
-*   So that’s the pokemon that was printed when the closure was executed one second later
-*   And that Mewtwo pokemon was only released once the closure was executed then released by GCD.
+* `Pikachu` 被创建了；
+* 之后，闭包只是捕获了对 `pokemon` 变量的**引用**，并不是真正的`Pikachu pokemon `变量包含的值。
+* 所以，当 `pokemon` 之后被赋值为一个新的值 `Mewtwo`，`Pikachu`，并且立即被释放了。
+* 但是这个 `pokemon` _变量_ （在那时候，保留了`Mewtwo pokemon `）仍然被闭包强引用着。
+* 所以，这就是 `pokemon` 被打印出的，当闭包在 1 秒之后被执行的时候。
+* 并且那个 `Mewtwo` 仅仅被释放一次，这个闭包之后被 `GCD` 释放了。
 
-## Mixing it all
+## 结合我们之前所有讨论的
 
-So… did you catch it all? I know, there’s a lot to get there…
+所以...... 你全都掌握了么？我知道，我们到此为止已经讨论了很多了......
 
-Here is a more contrieved example mixing both the value evaluated and captured at closure creation — thanks to a capture list — and the variable reference captured and evaluated at closure evaluation:
+这是一个更加人为的例子，同时混合了执行时定值和在闭包创建时捕获的值 - 多谢捕获列表 - 和捕获变量的引用，和在闭包执行时定值:
 
 
 
@@ -327,11 +327,11 @@ Here is a more contrieved example mixing both the value evaluated and captured a
     }
 
 
-Can you guess the output on this one? It might be a bit hard to guess, but it’s a good execise to try to determine the output yourself to check if you understood all of today’s lesson…
+你还能猜到这个的输出结果么？可能会比较难猜，但是这对你自己尝试去确认输出的内容来说是个非常好的练习，去检查你是否掌握了今天所有的课程......
 
 ![drumroll](http://ac-Myg6wSTV.clouddn.com/0c59ce77448794cf9dcc.gif)
 
-Ok, here’s the output from that code. Did you guess it right?
+好吧，这里就是代码的输出。你是不是正确理解了？
 
 
     ➡️ Initial pokemon is <Pokemon Mew>
@@ -349,41 +349,41 @@ Ok, here’s the output from that code. Did you guess it right?
     <Pokemon Mewtwo> escaped!
     <Pokemon Charizard> escaped!
 
-So, what did happen here? Being a bit complicated, let’s explain each step in details:
+所以，这里发生了什么？变得更加复杂了，让我们一步一步详细道来:
 
-1.  ➡️ `pokemon` is initially set to `Mew`
-2.  Then the closure 1 is created and the _value_ (`Mew` at that time) of `pokemon` is captured into a new `capturedPokemon` variable — which is local to that closure (and the reference to the `pokemon` variable is captured too, as both `capturedPokemon` and `pokemeon` are used in the closure’s code)
-3.  🔄 Then `pokemon` is changed to `Mewtwo`
-4.  Then the closure 2 is created and the _value_ (`Mewtwo` at that time) of `pokemon` is captured into a new `capturedPokemon` variable — which is local to that closure (and the reference to the `pokemon` variable is captured too, as both are used in that closure’s code)
-5.  Now, the function `demo8()` has ended.
-6.  🕑 One second later, GCD executes the first closure.
-    *   In prints the _value_ `Mew` that it captured in `capturedPokemon` at the time that closure was created on step 2.
-    *   It also evalutes the current value of the `pokemon` variable that it captured by reference, which is still `Mewtwo` (as of when we left it before exiting the `demo8()` function on step 5)
-    *   Then it sets the `pokemon` variable to value `Pikachu` (again, the closure captured a _reference_ to the variable `pokemon` so that’s the same variable as the one used in `demo8()`’s body as well as in the other closure that it assigns a value to)
-    *   When the closure finished executing and is released by GCD, nobody retains `Mew` anymore, so it’s deallocated. But `Mewtwo` is still captured by the 2nd closure’s `capturedPokemon` and `Pikachu` is still stored in the `pokemon` variable which is captured by reference by the 2nd closure too.
-7.  🕑 Another second later, GCD executes the second closure.
-    *   In prints the _value_ `Mewtwo` that it captured in `capturedPokemon` at the time that second closure was created on step 4.
-    *   It also evalutes the current value of the `pokemon` variable that it captured by reference, which is `Pikachu` (as it has been modified by the first closure since then)
-    *   Lastly, it sets the `pokemon` variable to `Charizard`, and the `Pikachu` pokemon that was only referenced by that `pokemon` variable isn’t retained anymore and is deallocated.
-    *   When the closure finished executing and is released by GCD, the `capturedPokemon` local variable goes out of scope so `Mewtwo` is released, and nobody retains a reference to the `pokemon` variable anymore either so the `Charizard` pokemon it retained is released too.
+1.  ➡️ `pokemon` 在初始化的时候被设值为 `Mew`
+2. 之后，1 号闭包被创建，并且 `pokemon` 的_值_被捕获成一个新的 `capturedPokemon` 变量 - 它对于闭包来说是一个本地变量（并且 `pokemon` 变量的引用也被捕获了，因为 `capturedPokemon` 和 `pokemon` 同时被闭包的代码使用）
+3.  🔄  之后， `pokemon` 的值被修改为 `Mewtwo`
+4. 之后，2 号闭包被创建，并且 `pokemon`的_值_（那时候还是 `Mewtwo`）被捕获成一个新的 `capturedPokemon` 变量 - 它对于闭包来说是一个本地变量（并且 `pokemon` 变量的引用也被捕获了，因为他们同时被闭包的代码使用）
+5. 现在，`demo8()` 方法函数结束了。
+6.  🕑  1 秒之后, GCD 开始执行第一个闭包(1 号闭包)。
+    * 打印出了这个_值_ `Mew`，它在第 2 步创建闭包的时候被 `capturePokemon` 捕获
+    * 它也会对当前的 `pokemon` 变量定值，通过引用捕获，它仍然是 `Mewtwo`（就和我们在第 5 步退出 `demo8()` 方法函数退出之前一样）
+    * 之后，它把 `pokemon` 变量的值设定为 `Pikachu`（再一次，这个闭包捕获了一个对变量 `pokemon` 的_引用_，所以这个和 `demo8()` 中使用的变量一样，也和其他闭包一样，它为这个变量赋值。）
+    * 当这个闭包完成了执行，并且被 `GCD` 释放，`Mew` 已不再被任何地方保留，所以他需要被释放。但是 `Mewtwo` 仍然被第二个闭包的 `capturedPokemon` 捕获着，并且 `Pikachu` 仍然保存在 `pokemon` 变量中，它也被第二个闭包引用着。
+7.  🕑  另一个 1 秒之后，`GCD` 执行了第二个闭包（2 号闭包）。
+    * 打印除了这个_值_ `Mewtwo`，它在第 4 步创建闭包的时候被 `capturedPokemon` 捕获。
+    * 它也对当前的 `pokemon` 变量定值，通过引用捕获，是 `Pikachu`（因为它已经被 1 号闭包修改过了。）
+    * 最后，它把 `pokemon` 变量的值设定为 `CHarizard`，并且这个 `Pikachu pokemon` 只被那个 `pokemon` 变量引用，并且不在被任何人保留，所以它被释放了。
+    * 当这个闭包完成了执行，并且被 `GCD` 释放，这个 `capturedPokemon` 离开了本地的作用域，所以 `Mewtwo` 也被释放了，并且 `pokemon` 变量已经不在被任何人引用，`Charizard pokemon` 也是，所以它也被释放了。
 
-## Conclusion
+## 总结
 
-Still confused by all that gymnastics? That’s normal. Closure capture semantics can sometimes be tricky, especially with that last contrieved example. Just remember these key points:
+仍然对所有的技巧感到困惑么？那很正常。闭包的捕捉语义在某种成都上说是复杂的，特别是上面的人为建立的例子。但是请记住下面这几点:
 
-*   Swift closures capture a _reference_ to the outer variables that you happen to use inside the closure.
-*   That reference gets **evaluated at the time the closure itself gets executed**.
-*   Being a capture of the reference to the variable (and not the variable’s value itself), **you can modify the variable’s value from wthin the closure** (if that variable is declared as `var` and not `let`, of course)
-*   **You can instead tell Swift to evaluate a variable at the point of the closure creation** and store that _value_ in a local constant, instead of capturing the variable itself. You do that using **capture lists** expressed inside brackets.
+* `Swift` 闭包捕获了一个对外部变量需要在闭包内部使用的一个_引用_。
+* 那个引用在**闭包被执行的时候获得定值**。
+* 作为对这个变量的引用的捕捉（并且不是这个变量自身），**你能从闭包内部修改这个变量的值**（当然，如果这个变量被声明为 `var` 并且不是 `let`）
+* **相反，你能告诉 `Swfit` 在闭包创建的时候对这个变量定值** 并且把这个_值_保存在本地的一个静态变量中，而不是捕获变量本身。你可以通过使用**捕获列表**，在括号内表达。
 
-I will let today’s lesson sink it for now, as it might be sometimes hard to grasp. Don’t hesitate to try and test this code and variations of it in a Playground to clearly understand how all of this works on your own.
+我会让今天的课程结束，因为它可能很难理解。请不要犹豫去尝试使用和测试这个代码，或者在代码编辑器里修改他们，让自己了清晰的理解所有的东西是怎么运作的。
 
-Once you’ve understood this more clearly, it will be time for the next part of this blog post, on which we’ll talk about capturing variables _weakly_ to avoid reference cycles, and what `[weak self]` and `[unowned self]` all means in closures.
+一旦你更加清晰的理解这些内容，那就是时候开始这个博客的下一部分了，我们将讨论有关_弱_捕获变量，为了防止循环引用，和在闭包中，到底什么是 `[weak self]`，什么是 `[unowned self]`。
 
-_Thanks to [@merowing](https://twitter.com/merowing_) for the discussion about all those capture semantics we had in Slack and some revelations about captured variables being evaluated at closure execution time! You can visit [his blog here](http://merowing.info) 😉_
+_感谢 [@merowing](https://twitter.com/merowing_)，因为和他讨论了在 `Slack` 中所有的这些捕获语义和一些有关闭包被执行时捕获变量并且为它定值的内容！ 你可以访问 [他的博客](http://merowing.info) 😉_
 
-1.  For those of you who know Objective-C, you can notice that the Swift behavior is unlike Objective-C’s default block semantics but instead somewhat like if the variable had the `__block` modifier in Objective-C. [↩](#fnref:block-modifier)
+1. 对于知道 `Objective-C` 的读者来说，你们能注意到，`Swift` 表现得和 `Objective-C` 的默认 `block` 语法不同，但是相反，它和在 `Objective-C` 中有 `__block` 修饰符的变量很像。[↩](#fnref:block-modifier)
 
-2.  unlike in ObjC’s default behavior… and more like when you’re using `__block` in Objective-C [↩](#fnref:objc_block_modify)
+2. 不像 `ObjC` 默认的表现...，更像是当你正在 `Objective-C` 中使用 `__block` [↩](#fnref:objc_block_modify)
 
-3.  Note that even if in our examples we only capture one variable, you can list more than just one variable capture in a capture list, that’s why they are called _lists_. Also, if you don’t list the closure arguments list, you’ll still have to put the `in` keyword after the capture list to separate it from the closure’s body. [↩](#fnref:in-keyword)
+3. 请注意，即使在我们的例子中，我们仅捕获了一个变量，你还是可以在捕获列表中增加多个捕获的变量，这就是为什么它被叫做_列表_。当然，如果你没有列出闭包参数列表，你讲仍就能放置 `in` 这个关键字，在捕获列表去从闭包体内分离他们之后。[↩](#fnref:in-keyword)
