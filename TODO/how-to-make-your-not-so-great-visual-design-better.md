@@ -36,8 +36,12 @@ Nearspace app design concept by Jon Lee
 
 We often refer to visual design as craft and execution at Facebook. In order to evaluate the current state of Jon’s work and encourage him towards well-crafted design, I need to ask questions. Inquiry should come before judgement, because it broadens the understanding of someone’s intentionality.
 
+### What is your type hierarchy?
+
 - Have you audited your type styles? I see two casings (Title Case and UPPERCASE), at least three different type sizes, two colors of type, centered and left aligned type.
 - What styles belong with headers? Which ones for buttons? Which ones for body copy? For metadata?
+
+### What patterns are you using?
 
 - I see text buttons of two sizes, two button heights, two casings, and three colors, and I also see buttons with icons.
 
@@ -45,6 +49,8 @@ We often refer to visual design as craft and execution at Facebook. In order to 
 
 - I see two different list styles. One more clearly relates to existing discovery patterns (photo with business name, categories, and star rating) and one that looks like a wireframe (Recent Posts).
 - What is the difference between buttons and lists? On the Profile page, cards, buttons and lists are using the same white background with grey outline pattern. Should they be different?
+
+### How does this compare to existing or established patterns?
 
 - If the selections are toggles, could they automatically toggle on? Are Cancel and Apply necessary?
 - Is Back the same as Cancel? Would an X in the top right corner suffice?
@@ -54,13 +60,19 @@ We often refer to visual design as craft and execution at Facebook. In order to 
 
 ![](http://ac-Myg6wSTV.clouddn.com/01f5de79ae872536f138.jpeg)
 
+### What are your margins and padding rules?
+
 - I see minimal margins on the Nearby and Profile screens; Filter has much more generous margins.
 - The “y” in Nearby in the bottom nav nearly touches the edge of the screen.
 - What is your grid?
 
+### Are your icons clear?
+
 - I see a single seat icon and clusters of 3 and of 6. Is that a count of seats or an approximation or a range? Would there be a better way to represent this? Is this the equivalent of “good for groups”? Is there another way to show this?
 - Why is there no iconic equivalent to the opposite of outlet? If something is not important, why would you have to indicate that lack of importance; wouldn’t initial results include all available options?
 - Does pie mean pie? Or desserts? Or food? Does the cup mean drinks? Could you assume that every food place serves drinks as well? Are there better groupings here?
+
+### How consistent are your design choices?
 
 - I see distance using a dropdown while other filtering choices are buttons.
 - Some buttons contain icons and other contain text.
@@ -70,13 +82,19 @@ We often refer to visual design as craft and execution at Facebook. In order to 
 
 - Most of the cards and buttons are using the same pattern: corner radius, outline, color fill, type. Are they *too *consistent?
 
+### Does everything on the screen need to be there?
+
 - I see a divider above the search field and dividers under each Availability choice.
 - I see one use of the color green.
 - I see both icons and text in the nav. Are both necessary?
 
+### How would you define your color palette?
+
 - The palette is pretty muted. It’s warm in tone, excepting a brighter green button. Do you have rules around what to use where?
 
 ![](http://ac-Myg6wSTV.clouddn.com/eabacd8b944dffa24c68.jpeg)
+
+### Is your spelling, grammar, and punctuation correct? Have you considered content strategy?
 
 - I’m familiar with Nearby and Profile in the bottom nav; what does Add mean? Add what?
 - “Availability” is misspelled.
@@ -84,6 +102,8 @@ We often refer to visual design as craft and execution at Facebook. In order to 
 - How does the flow of the page “read” (be it through words or visuals)? Your page title is Filter, and your section headers are Distance, Seating Availability, Wifi Availability, Outlet Availability, and Food/Beverage Availability. How would you describe what you can do on this page to a friend? Are these constructed in the right hierarchy? Are they named correctly?
 
 ![](http://ac-Myg6wSTV.clouddn.com/26652ca0f75030a68f5e.jpeg)
+
+### How would this translate to another platform?
 
 - If you designed this for an Android device or for desktop, would you make the same above decisions? What design decisions would you make differently?
 
