@@ -5,13 +5,13 @@
 * 校对者: [Jasper Zhong](https://github.com/DeadLion)，[江湖迈杰](https://github.com/MiJack)
 
 
-诸如 Java 这样的 GC （垃圾回收）语言的一个好处就是免去了开发者管理内存分配的必要。这样降低了段错误导致应用崩溃或者未释放的内存挤爆了堆的可能性，因此也能编写更安全的代码。不幸的是，Java 里仍有一些其他的方式会导致内存“合理”地泄露。最终，这意味着你的 Android 应用可能会浪费一些非必要内存，甚至导致出现 out-of-memory (OOM) 错误。
+诸如 Java 这样的 GC （垃圾回收）语言的一个好处就是免去了开发者管理内存分配的必要。这样降低了段错误导致应用崩溃或者未释放的内存挤爆了堆的可能性，因此也能编写更安全的代码。不幸的是，Java 里仍有一些其他的方式会导致内存“合理”地泄露。最终，这意味着你的 Android 应用可能会浪费一些非必要内存，甚至出现 out-of-memory (OOM) 错误。
 
-传统的内存泄露发生的时机是：所有的相关引用已不在域范围内，你忘记释放内存了。另一方面，逻辑内存的泄漏，是忘记去释放在应用中不再使用的对象引用的结果。如果对象仍然存在强引用（译者注：这里可以去关注下 Android 的弱引用），GC 就无法从内存中回收对象。这在 Android 开发中尤其是个大问题：如果你碰巧泄露了 [Context](http://developer.android.com/reference/android/content/Context.html)。这是因为像 [Activity](http://developer.android.com/reference/android/app/Activity.html) 一样的 Context 持有大量的内存引用，例如：view 层级和其他资源。如果你泄漏了 Context，就意味着你泄漏了它引用的所有东西。Android 应用通常运行在内存受限的手机设备中，如果你的应用泄漏太多内存的话就会导致 out-of-memory (OOM) 错误。
+传统的内存泄露发生的时机是：所有的相关引用已不在域范围内，你忘记释放内存了。另一方面，逻辑内存的泄漏，是忘记去释放在应用中不再使用的对象引用的结果。如果对象仍然存在强引用（译者注：这里可以去关注下 Java 的弱引用），GC 就无法从内存中回收对象。这在 Android 开发中尤其是个大问题：如果你碰巧泄露了 [Context](http://developer.android.com/reference/android/content/Context.html)。这是因为像 [Activity](http://developer.android.com/reference/android/app/Activity.html) 一样的 Context 持有大量的内存引用，例如：view 层级和其他资源。如果你泄漏了 Context，就意味着你泄漏了它引用的所有东西。Android 应用通常运行在内存受限的手机设备中，如果你的应用泄漏太多内存的话就会导致 out-of-memory (OOM) 错误。
 
-如果对象的有用存在期没有被明确定义的话，探查逻辑内存泄漏将会变成一件很主观的事情。幸好，Activity 明确定义了 [生命周期](http://developer.android.com/reference/android/app/Activity.html#ActivityLifecycle)，使得我们可以简单地知道一个 Activity 对象是否被泄漏了。在 Activity 的生命末期，[onDestroy()](http://developer.android.com/reference/android/app/Activity.html#onDestroy()) 方法被调用来销毁 Activity ，这样做的原因可能是因为程序本身的意愿或者是因为 Android 需要回收一些内存。如果这个方法完成了，但是因为 Activity 的实例被堆根的一个强引用链持有着，那么 GC 就无法标记它为可回收 —— 尽管原本是想删掉它。因此，我们可以将一个泄露的 Activity 对象定义为一个超过其自然生命周期的对象。
+如果对象的有用存在期没有被明确定义的话，探查逻辑内存泄漏将会变成一件很主观的事情。幸好，Activity 明确定义了 [生命周期](http://developer.android.com/reference/android/app/Activity.html#ActivityLifecycle)，使得我们可以简单地知道一个 Activity 对象是否被泄漏了。在 Activity 的生命末期，[onDestroy()](http://developer.android.com/reference/android/app/Activity.html#onDestroy()) 方法被调用来销毁 Activity ，这样做的原因可能是程序本身的意愿或者是 Android 需要回收一些内存。如果这个方法完成了，但是 Activity 的实例被堆根的一个强引用链持有着，那么 GC 就无法标记它为可回收 —— 尽管原本是想删掉它。因此，我们可以将一个泄露的 Activity 对象定义为一个超过其自然生命周期的对象。
 
-Activity 是非常重的对象，所以你从来就不应该选择无视 Android 框架对它们的处理。然而，Activity 实例也有一些泄漏是非意愿造成的。在 Android 中，所有的可能导致内存泄漏的陷阱都围绕着两个基本场景：第一个内存泄漏种类是由独立于应用状态存在的全局静态对象对 Activity 的链式引用造成的；另一个种类是由独立于 Activity 生命周期的一个线程持有 Activity 的引用链造成。下面我们来解释一些你可能遇到这些场景的方式。
+Activity 是非常重的对象，所以你从来就不应该选择无视 Android 框架对它们的处理。然而，Activity 实例也有一些泄漏是非意愿造成的。在 Android 中，所有的可能导致内存泄漏的陷阱都围绕着两个基本场景：第一个是由独立于应用状态存在的全局静态对象对 Activity 的链式引用造成的；另一个是由独立于 Activity 生命周期的一个线程持有 Activity 的引用链造成。下面我们来解释一些你可能遇到这些场景的方式。
 
 ### 1\. 静态 Activity
 
@@ -127,7 +127,7 @@ Activity 是非常重的对象，所以你从来就不应该选择无视 Android
 
 ### 5\. Handler
 
-相同的情况同样适用于这样的[后台任务](https://github.com/NimbleDroid/Memory-Leaks/blob/master/app/src/main/java/com/nimbledroid/memoryleaks/MainActivity.java#L114)：被一个 Runnable 对象定义并被一个 Handler 对象加入执行队列。这个 Runnable 对象将会含蓄地引用定义它的 Activity 然后会作为 Message 提交到 Handler 的 MessageQueue（消息队列）。只要 Activity 销毁前消息还没有被处理，那么引用链就会使 Activity 保留在内存里并导致泄漏。
+相同的情况同样适用于这样的[后台任务](https://github.com/NimbleDroid/Memory-Leaks/blob/master/app/src/main/java/com/nimbledroid/memoryleaks/MainActivity.java#L114)：被一个 Runnable 对象定义并被一个 Handler 对象加入执行队列。这个 Runnable 对象将会隐式地引用定义它的 Activity 然后会作为 Message 提交到 Handler 的 MessageQueue（消息队列）。只要 Activity 销毁前消息还没有被处理，那么引用链就会使 Activity 保留在内存里并导致泄漏。
 
 
 
@@ -159,7 +159,7 @@ Activity 是非常重的对象，所以你从来就不应该选择无视 Android
 
 ### 6\. Thread
 
-我们可以用 [Thread](https://github.com/NimbleDroid/Memory-Leaks/blob/master/app/src/main/java/com/nimbledroid/memoryleaks/MainActivity.java#L142) 和 [TimerTask](https://github.com/NimbleDroid/Memory-Leaks/blob/master/app/src/main/java/com/nimbledroid/memoryleaks/MainActivity.java#L150) 复现错误。
+我们在使用 [Thread](https://github.com/NimbleDroid/Memory-Leaks/blob/master/app/src/main/java/com/nimbledroid/memoryleaks/MainActivity.java#L142) 和 [TimerTask](https://github.com/NimbleDroid/Memory-Leaks/blob/master/app/src/main/java/com/nimbledroid/memoryleaks/MainActivity.java#L150) 时，可能会犯同样的错误。
 
 
 
@@ -187,7 +187,7 @@ Activity 是非常重的对象，所以你从来就不应该选择无视 Android
 
 ### 7\. TimerTask
 
-只要 TimerTask 被定义并且匿名实例化，即使任务执行在独立的线程里，它们都会在 Activity 销毁后保持对其的引用链，从而导致泄漏。
+只要 TimerTask 被定义并且匿名实例化，即使任务执行在独立的线程里，它们也会在 Activity 销毁后保持对其的引用链，从而导致泄漏。
 
 
 
@@ -216,7 +216,7 @@ Activity 是非常重的对象，所以你从来就不应该选择无视 Android
 
 ### 8\. SensorManager
 
-最后，有一些 Context 可以通过调用 [getSystemService](http://developer.android.com/reference/android/content/Context.html#getSystemService(java.lang.String)) 来检索的系统服务。这些服务运行在它们独立的线程，辅助应用去做一些后台排序的工作或者负责与硬件设备进行接口通讯。如果 Context 想要时刻监听到 Service 中发生的事件时，它就需要注册自己为 [Listener](https://github.com/NimbleDroid/Memory-Leaks/blob/master/app/src/main/java/com/nimbledroid/memoryleaks/MainActivity.java#L136)。然而，这将会造成 Service 持有 Activity 的引用，如果在 Activity 销毁前忘记注销作为 Listener 的 Activity 的话，GC 就无法回收从而导致泄漏。
+最后，有一些 Context 可以通过调用 [getSystemService](http://developer.android.com/reference/android/content/Context.html#getSystemService(java.lang.String)) 来检索的系统服务。这些服务运行在它们独立的线程，辅助应用去与硬件设备进行接口通讯。如果 Context 想要时刻监听到 Service 中发生的事件，它就需要注册自己为 [Listener](https://github.com/NimbleDroid/Memory-Leaks/blob/master/app/src/main/java/com/nimbledroid/memoryleaks/MainActivity.java#L136)。然而，这将会造成 Service 持有 Activity 的引用，如果在 Activity 销毁前忘记注销作为 Listener 的 Activity 的话，GC 就无法回收从而导致泄漏。
 
 
 
