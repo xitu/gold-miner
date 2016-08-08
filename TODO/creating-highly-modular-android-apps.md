@@ -150,6 +150,6 @@ While we built this for Android, the pattern is open to any use case. The librar
 
 Enough said- [add it](https://www.github.com/eyeem/decorator) to your build.gradle and start building modular apps.
 
-*At *[*EyeEm*](https://www.eyeem.com)*, we are exploring the intersection of photography and technology. In addition to building cutting edge computer vision tech, our iOS, Android and web apps are used by 18 million photographers around the world to get inspired, learn, share their work, discover amazing talent, get published and exhibited and even earn money through our marketplace.*
+*At [*EyeEm*](https://www.eyeem.com)*, we are exploring the intersection of photography and technology. In addition to building cutting edge computer vision tech, our iOS, Android and web apps are used by 18 million photographers around the world to get inspired, learn, share their work, discover amazing talent, get published and exhibited and even earn money through our marketplace.*
 
 We are always looking for passionate, driven engineers to join us in our mission to code the future of photography! [Get in touch!](https://www.eyeem.com/jobs)
