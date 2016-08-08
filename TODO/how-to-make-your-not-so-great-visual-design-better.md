@@ -1,17 +1,21 @@
 >* 原文链接 : [How To Make Your Not-So-Great Visual Design Better](https://medium.com/facebook-design/how-to-make-your-not-so-great-visual-design-better-67972eee3825#.4e6hpsbkz)
 * 原文作者 : [Jasmine Friedl](https://medium.com/@jazzy33ca?source=post_header_lockup)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
+* 译者 : [lizwangying](https://github.com/lizwangying)
 * 校对者: 
 
 ![](https://cdn-images-1.medium.com/max/2000/1*nN4SgP1q4iEmRfoW9NTMyg.png)
 Photo by William Iven
+图片来自 William Iven
 
-*“How do I get better at visual design?”*
+*“How do I get better at visual design?”*   
+产品视觉设计怎样才能提高呢？
 
-This question comes up a lot. I coach and mentor a lot of students on product design: tutoring for the Academy of Art in San Francisco, reviewing for AIGA Portfolio Day, hosting interns at Facebook and so on.
+This question comes up a lot. I coach and mentor a lot of students on product design: tutoring for the Academy of Art in San Francisco, reviewing for AIGA Portfolio Day, hosting interns at Facebook and so on.  
+这个问题有很多人困惑。我产品设计方面是一位导师，并且辅导了很多学生，比如在圣弗朗西斯科艺术学院担任导师，在AIGA Portfolio Day作为产品复审，Facebook的实习生辅导等。
 
 There’s a bridge from a student’s perspective to a professional’s perspective. For most it’s guaranteed to be a blend of fear and excitement and curiosity, peppered with a lot of questions.
+在学生的角度
 
 *“What’s going to happen when I get out?”*
 
