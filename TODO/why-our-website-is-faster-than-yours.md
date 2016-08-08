@@ -6,6 +6,8 @@
 
 We recently updated our site. Yes, it has a complete design overhaul, but as real software developers we focused a lot on the technical bits and pieces as well. Our goal was to take control, focus on performance, be flexible for the future and make it fun to write content for the site. Here’s how we made our website faster than yours (Yup, sorry!)
 
+## Design for performance
+
 In our projects we have daily discussions with designers and product owners about balancing aesthetics and performance. For our own site, this was easy. Simply said: we believe that a good user experience starts with delivering content as fast as possible. That means **performance > aesthetics**.
 
 Good content, layout, images, and interactivity are essential for engaging your audience, but each of these elements have impact on page load time and the end-user experience. In every step we looked at how we could get a nice user experience and design while having minimum impact on performance.
@@ -43,7 +45,10 @@ And the markdown file:
 ## Image delivery
 
 The [average webpage is a whopping 2406kb of which 1535kb are images](http://httparchive.org/interesting.php). With images taking up such a big part of the average website, it is also one of the best targets for performance wins.
-![Average bytes per page by content type chart](https://www.voorhoede.nl/assets/images/average-bytes-per-page-chart-l.jpg)Average bytes per page by content type for July 2016 from httparchive.org
+![Average bytes per page by content type chart](https://www.voorhoede.nl/assets/images/average-bytes-per-page-chart-l.jpg)
+
+Average bytes per page by content type for July 2016 from httparchive.org
+
 ### WebP
 
 WebP is a modern image format that provides superior lossless and lossy compression for images on the web. WebP images can be substantially smaller than images of other formats: sometimes they are up to 25% smaller than their JPEG counterpart. WebP is overlooked a lot and not often used. At the time of writing, WebP support is limited to [Chrome, Opera and Android](http://caniuse.com/#feat=webp) (still over 50% of our users), but we can degrade gracefully to JPG/PNG.
@@ -52,7 +57,15 @@ WebP is a modern image format that provides superior lossless and lossy compress
 
 Using the picture element we can degrade gracefully from WebP to a more widely supported format like JPEG:
 
-    <picture><sourcetype="image/webp"srcset="image-l.webp"media="(min-width: 640px)"><sourcetype="image/webp"srcset="image-m.webp"media="(min-width: 320px)"><sourcetype="image/webp"srcset="image-s.webp"><sourcesrcset="image-l.jpg"media="(min-width: 640px)"><sourcesrcset="image-m.jpg"media="(min-width: 320px)"><sourcesrcset="image-s.jpg"><imgalt="Description of the image"src="image-l.jpg"></picture>
+    <picture>
+        <source type="image/webp" srcset="image-l.webp" media="(min-width: 640px)">
+        <source type="image/webp" srcset="image-m.webp" media="(min-width: 320px)">
+        <source type="image/webp" srcset="image-s.webp">
+        <source srcset="image-l.jpg" media="(min-width: 640px)">
+        <source srcset="image-m.jpg" media="(min-width: 320px)">
+        <source srcset="image-s.jpg">
+        <img alt="Description of the image" src="image-l.jpg">
+    </picture>
 
 We use [picturefill by Scott Jehl](https://github.com/scottjehl/picturefill) to polyfill browsers not supporting the `<picture>` element and to get consistent behaviour across all browsers.
 
@@ -77,7 +90,7 @@ We chose a distinct graphic style for our site, in which SVG illustrations play 
 
 Check out this animation and how we can alter it with CSS.
 
-.svg-line-drawing{width:100%}.svg-line-drawing .stroke-background{stroke:#eddd3e}.svg-line-drawing .stroke{stroke:#12353C}.svg-line-drawing .stroke-alt{stroke:#fff}.svg-line-drawing .stroke-width{stroke-width:2}.svg-line-drawing .stroke-overlay{stroke-width:3}.svg-line-drawing .linecap{stroke-linecap:round;stroke-linejoin:round}.rtl-magazine-animation .ani-fade-button,.rtl-magazine-animation .ani-move-menu,.rtl-magazine-animation .ani-move-page{-webkit-animation-duration:5.5s;animation-duration:5.5s;-webkit-animation-timing-function:ease;animation-timing-function:ease;-webkit-animation-delay:.1s;animation-delay:.1s;-webkit-animation-iteration-count:infinite;animation-iteration-count:infinite}.rtl-magazine-animation .ani-fade-button{-webkit-animation-name:fade-button;animation-name:fade-button}.rtl-magazine-animation .ani-move-page{-webkit-animation-name:move-page;animation-name:move-page}.rtl-magazine-animation .ani-move-menu{-webkit-animation-name:move-menu;animation-name:move-menu}@-webkit-keyframes fade-button{0%,100%,12%{opacity:0}11%,9%{opacity:1}}@keyframes fade-button{0%,100%,12%{opacity:0}11%,9%{opacity:1}}@-webkit-keyframes move-page{0%,100%,14%{-webkit-transform:translateY(0);-webkit-animation-timing-function:ease-in}28%{-webkit-transform:translateY(-220px);-webkit-animation-timing-function:linear}80%,99.9999%{-webkit-transform:translateY(-680px);-webkit-animation-timing-function:linear}}@keyframes move-page{0%,100%,14%{transform:translateY(0);animation-timing-function:ease-in}28%{transform:translateY(-220px);animation-timing-function:linear}80%,99.9999%{transform:translateY(-680px);animation-timing-function:linear}}@-webkit-keyframes move-menu{0%,100%,14%{-webkit-transform:translateY(0);-webkit-animation-timing-function:ease-in}28%,68.6957%{-webkit-transform:translateY(-220px);-webkit-animation-timing-function:linear}80%{-webkit-transform:translateY(-320px);-webkit-animation-timing-function:linear}99.9999%{-webkit-transform:translateY(-680px);-webkit-animation-timing-function:linear}}@keyframes move-menu{0%,100%,14%{transform:translateY(0);animation-timing-function:ease-in}28%,68.6957%{transform:translateY(-220px);animation-timing-function:linear}80%{transform:translateY(-320px);animation-timing-function:linear}99.9999%{transform:translateY(-680px);animation-timing-function:linear}}&lt;p style="text-align:left"&gt;Sorry, JavaScript needs to be enabled to change the svg styling with this button.&lt;/p&gt;Change style
+
 
 ## Custom web fonts
 
@@ -123,10 +136,11 @@ An alternative could be to add the script to the head and defer the script execu
 
 There is just one thing left, we don't use libraries like jQuery and thus our JavaScript depends on vanilla JavaScript features. We only want to load JavaScript in browsers supporting these features. The end result looks like this:
 
-    <script>if ('querySelector'indocument && 'addEventListener'inwindow) {
+    <script>
+    if ('querySelector'indocument && 'addEventListener'inwindow) {
       document.write('<script src="index.js" defer><\/script>');
     }
-    </script>Declan
+    </script>
 
 We place this little inline script in the head of our page detecting whether the vanilla JavaScript `document.querySelector` and `window.addEventListener` features are supported. If so, we load the script by writing the `script` tag directly to the page, and use the `defer` attribute to make it non-blocking.
 
@@ -174,7 +188,8 @@ I sound like a dev ops engineer, but I’m not. I just read some things and watc
 
 We don't have a server side language, just a static Apache web server. But an Apache web server can still do server side includes (SSI) and read out cookies. By making smart use of cookies and serving HTML that is partially rewritten by Apache, we can boost front-end performance. Take this example below (our actual code is a little more complex, but boils down to the same ideas):
 
-    <!-- #if expr="($HTTP_COOKIE!=/css-loaded/) || ($HTTP_COOKIE=/.*css-loaded=([^;]+);?.*/ && ${1} != '0d82f.css' )"--><noscript><linkrel="stylesheet"href="0d82f.css"></noscript><script>
+    <!-- #if expr="($HTTP_COOKIE!=/css-loaded/) || ($HTTP_COOKIE=/.*css-loaded=([^;]+);?.*/ && ${1} != '0d82f.css' )"-->
+    <noscript><link rel="stylesheet" href="0d82f.css"></noscript><script>
     (function() {
         functionloadCSS(url) {...}
         functiononloadCSS(stylesheet, callback) {...}
@@ -185,7 +200,11 @@ We don't have a server side language, just a static Apache web server. But an Ap
             setCookie('css-loaded', '0d82f', 100);
         });
     }());
-    </script><style>/* Critical CSS here */</style><!-- #else --><linkrel="stylesheet"href="0d82f.css"><!-- #endif --><style></style><linkrel="stylesheet"href="0d82f.css">
+    </script>
+    <style>/* Critical CSS here */</style>
+    <!-- #else -->
+    <link rel="stylesheet" href="0d82f.css">
+    <!-- #endif -->
 
 The Apache server side logic are the comment looking lines starting with `<!-- #`. Let's look at this step by step:
 
@@ -242,4 +261,4 @@ We are not done yet and are constantly iterating on our approach. We will focus 
 - 
 **CDN**: So, we wanted control and hosted the site ourselves. Yes, yes, and now we want to move to a CDN to get rid of network latency caused by the physical distance between client and server. Although our clients are mostly based in the Netherlands, we want to reach the worldwide front-end community in a way that reflects what we do best: quality, performance, and moving the web forward.
 
-Thanks for reading! Did you enjoy reading this post? Do you have comments or questions? Let us know!
+Thanks for reading! Did you enjoy reading this post? Do you have comments or questions? Let us know [via Twitter](https://twitter.com/devoorhoede). And if you enjoy building fast websites, [why not join us](https://www.voorhoede.nl/en/team/)?
