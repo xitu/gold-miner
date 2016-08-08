@@ -191,9 +191,9 @@ We don't have a server side language, just a static Apache web server. But an Ap
     <!-- #if expr="($HTTP_COOKIE!=/css-loaded/) || ($HTTP_COOKIE=/.*css-loaded=([^;]+);?.*/ && ${1} != '0d82f.css' )"-->
     <noscript><link rel="stylesheet" href="0d82f.css"></noscript><script>
     (function() {
-        functionloadCSS(url) {...}
-        functiononloadCSS(stylesheet, callback) {...}
-        functionsetCookie(name, value, expInDays) {...}
+        function loadCSS(url) {...}
+        function onloadCSS(stylesheet, callback) {...}
+        function setCookie(name, value, expInDays) {...}
     
         var stylesheet = loadCSS('0d82f.css');
         onloadCSS(stylesheet, function() {
