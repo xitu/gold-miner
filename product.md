@@ -1,0 +1,12 @@
+* [在开发移动应用时你应该考虑的 「Empty State」](http://gold.xitu.io/entry/579f19956be3ff0065f59a90?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([MAYDAY1993](https://github.com/MAYDAY1993) 翻译)
+* [电商列表信息展示，你真的懂吗？](http://gold.xitu.io/entry/575cd2f31532bc00608d241c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([godofchina](https://github.com/godofchina) 翻译)
+* [无限下拉，还是分页？](http://gold.xitu.io/entry/573e978171cfe448aa9dd03db?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Ruixi](https://github.com/Ruixi) 翻译)
+* [给产品经理的简易优先级法则](http://gold.xitu.io/entry/572ad1cc1532bc0065d5e36b?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([ZhaofengWu](https://github.com/ZhaofengWu) 翻译)
+* [设计师如何跟开发打好关系？](http://gold.xitu.io/entry/57286f4f2e958a00657d2450?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([L9m](https://github.com/L9m) 翻译)
+* [为什么 Spotify 的付费转化率比 Dropbox 高了 667%](http://gold.xitu.io/entry/57232041f38c8400599ef706?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([SatanWoo](https://github.com/SatanWoo)翻译）
+* [新的 “增长黑客” 实践 —— 构建用户社区](http://gold.xitu.io/entry/5721e80cf38c84005992097e?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zhongyi Tong](https://github.com/geeeeeeeeek)翻译）
+* [互联网公司真的是「看重能力，不看重学历」吗？](http://gold.xitu.io/entry/571d8e4c8ac24700646f30ae?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zhangjd](https://github.com/zhangjd) 翻译)
+* [产品设计实习生面试指南](http://gold.xitu.io/entry/5715b102c4c971005bdc93e9?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([iThreeKing](https://github.com/iThreeKing) 翻译)
+* [你真的懂病毒式营销吗](http://gold.xitu.io/entry/5715d39cdf0eea005c930d80?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([huanglizhuo](https://github.com/huanglizhuo) 翻译)
+* [什么是产品设计?](http://gold.xitu.io/entry/570b6a6a75c4cd3c3b917bd0?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zhangjd](https://github.com/zhangjd) 翻译)
+* [产品文案要说人话](http://gold.xitu.io/entry/56ee4903c4c971005182e017?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([iThreeKing](https://github.com/iThreeKing) 翻译)

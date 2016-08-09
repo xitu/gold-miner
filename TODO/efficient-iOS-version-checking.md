@@ -32,7 +32,7 @@
 
 ## 我们在 PSPDFKit 做了什么
 
-[PSPDFKit](https://pspdfkit.com/why-pspdfkit/)  是一个关于PDF的SDK，我们可以用它在PDF文档上实现查看、注释以及填写表单的功能。最开始写这个 SDK 的时候还是 iOS 4，随着一系列新 iOS 版本的发布，它也不断的在改进。那个时候还没有专门的 API 来检测版本，许多应用采用类似下面的代码：
+[PSPDFKit](https://pspdfkit.com/why-pspdfkit/)  是一个关于 PDF 的 SDK，我们可以用它在PDF文档上实现查看、注释以及填写表单的功能。最开始写这个 SDK 的时候还是 iOS 4，随着一系列新 iOS 版本的发布，它也不断的在改进。那个时候还没有专门的 API 来检测版本，许多应用采用类似下面的代码：
 
     if ([[[UIDevice currentDevice] systemVersion] isEqualToString:@"7.0"]) {
         //do stuff
