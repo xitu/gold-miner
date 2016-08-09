@@ -1,18 +1,18 @@
 >* 原文链接 : [LESS Coding Guidelines](https://gist.github.com/fat/a47b882eb5f84293c4ed)
 * 原文作者 : [fat](https://gist.github.com/fat)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
+* 译者 : [Gran](https://github.com/Graning)
 * 校对者: 
 
 
-# LESS Coding Guidelines
+# Medium 内部使用 css/less 的代码风格指南
 
-Medium uses a strict subset of [LESS](http://lesscss.org/) for style generation. This subset includes variables and mixins, but nothing else (no nesting, etc.).
+Medium 对代码风格使用严格的子集 [LESS](http://lesscss.org/) 。这个子集包含变量和混合类型，但是没有别的（没有嵌套等等）。
 
-Medium's naming conventions are adapted from the work being done in the SUIT CSS framework. Which is to say, it relies on _structured class names_ and _meaningful hyphens_ (i.e., not using hyphens merely to separate words). This is to help work around the current limits of applying CSS to the DOM (i.e., the lack of style encapsulation) and to better communicate the relationships between classes.
+Medium 的常规命名改编自正在进行适配工作的 CSS 框架。这就是说，它依赖于_结构化类名_和_有意义的连字符_（即不使用连字符只为了把单词分开）。这是为了帮助 CSS 应用到 DOM 围绕当前的限制（即缺乏风格封装）更好的进行类关系之间的通讯。
 
 
-**Table of contents**
+**目录**
 
 * [JavaScript](#javascript)
 * [Utilities](#utilities)
@@ -39,9 +39,9 @@ Medium's naming conventions are adapted from the work being done in the SUIT CSS
 <a name="javascript"></a>
 ## JavaScript
 
-syntax: `js-<targetName>`
+语法: `js-<targetName>`
 
-JavaScript-specific classes reduce the risk that changing the structure or theme of components will inadvertently affect any required JavaScript behaviour and complex functionality. It is not neccesarry to use them in every case, just think of them as a tool in your utility belt. If you are creating a class, which you dont intend to use for styling, but instead only as a selector in JavaScript, you should probably be adding the `js-` prefix. In practice this looks like this:
+JavaScript 具体类减少了更改构件的结构或主题不经意间影响到任何需要 JavaScript 特性以及复杂功能的风险。没必要在所有情况下使用它们，只是把它们当做你工具带的工具。如果你要创建一个类，而不打算使用样式，而只是在 JavaScript 中选择，你可能应该加上 `js-` 前缀。在具体的实践中它看起来这样：
 
 ```html
 <a href="/login" class="btn btn-primary js-login"></a>
@@ -50,11 +50,12 @@ JavaScript-specific classes reduce the risk that changing the structure or theme
 **Again, JavaScript-specific classes should not, under any circumstances, be styled.**
 
 <a name="utilities"></a>
-## Utilities
+## 工具（感觉好别扭，校对者看看有没有其他译法）
 
-Medium's utility classes are low-level structural and positional traits. Utilities can be applied directly to any element; multiple utilities can be used together; and utilities can be used alongside component classes.
+Medium 的工具类采用低层次的结构和位置特征。实用程序可直接应用于任何元件；可多工具同时应用；同时可以横靠在组件类中使用。
 
-Utilities exist because certain CSS properties and patterns are used frequently. For example: floats, containing floats, vertical alignment, text truncation. Relying on utilities can help to reduce repetition and provide consistent implementations. They also act as a philosophical alternative to functional (i.e. non-polyfill) mixins.
+Utilities 存在是因为某些 CSS 属性和模式经常使用。例如： floats, containing floats, vertical alignment, text truncation.依靠实用程序可以帮助减少重复和提供一致的实现，它们同时还充当哲学的替代功能（即非填充工具）的混入。
+
 
 
 ```html
