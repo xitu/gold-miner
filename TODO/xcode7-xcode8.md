@@ -1,72 +1,75 @@
+等不及集成 iOS 10 新特性？如何在应用维护与新特性集成之间找到平衡点
 > * 原文链接: [Simultaneous Xcode 7 and Xcode 8 compatibility](http://radex.io/xcode7-xcode8/)
 * 原文作者 : [Radek](http://radex.io/about/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
+* 译者 : [circlelove](http://github.com/circlelove)
 * 校对者 : 
 
-You’re an iOS developer. You’re excited about all the great new features iOS 10 brings, and you’re eager to implement them in your app. You want to start working on it _right now_ so that you’re ready to ship on day one. But that’s still a few months away, and until then, you have to keep shipping new versions of your app every few weeks. Does that sound like you?
+你是一位 iOS 开发者。你对于 iOS 10 带来的强大的新特性感到无比兴奋，想把这些在你的应用上实现。想要 _立刻_ 就上手，这样就可以在第一天就转移过去了。但是那是几个月开外的事情了，到时候你需要每隔几周装配正式版本到你的 app 上。这听起来像你吗？
 
-Of course, you can’t use Xcode 8 to compile your shipping app — it wouldn’t pass App Store validation. So you split your project into two branches, one stable, another for iOS 10 development…
+当然，你不能受损 Xcode 8 来编译你的正式——它不可能通过 App Store 审核。所以你将工程分成两个分支，一个是稳定版，另一个是为  iOS 10 开发……
 
-And inevitably, it will suck. Branching works beautifully when merely working on a feature for a while. But try maintaining a huge branch for many months, with changes spread across the whole codebase, while the main branch also evolves, and you can brace yourself for some serious merging pains. I mean, have you ever tried to resolve `.xcodeproj` merge conflicts?
+当然这很坑。分支在一段时间内一个特性下的工作是没有压力的。但是要在长达数月的时间里面维持巨大分支，版本变化遍布整个代码仓库，尽管主分支也进行演化，你还是能挺住合并时候出现的惨痛的。我的意思是，你有没有尝试过解决 `.xcodeproj` 的合并冲突?
 
-In this article, I will show you how to avoid branching altogether. For most apps, it should be possible to have a single project file that will compile for both iOS 9 (Xcode 7) and iOS 10 (Xcode 8). And even if you do end up branching, these tips will help you minimize the difference between your two branches, and make syncing them less painful.
+本文当中，我会给你展示如何避免将分支全部合并在一起。对多数应用来说，可能有单个工程文件能够同时在 iOS 9 (Xcode 7) 和 iOS 10 (Xcode 8) 上编译。甚至说如果你结束了分支，这些技巧也能够帮你尽量减少两个分支的区别，并实现无痛同步。
 
-## Swift 2.3 and you
+## Swift 2.3 和你
 
-Let me get this straight:
+让我们直奔主题：
 
-We’re all excited about Swift 3\. It’s awesome, and if you’re reading this article, _you shouldn’t be using it_ (yet). As great as it might be, it’s a huge source-incompatible change, much bigger than Swift 2 was a year ago. And if you have any Swift dependencies, they too need to upgrade to Swift 3 before your app can.
+我们对 Swift 3 感到十分兴奋，那太棒了，如果你在读这篇文章，_你不该还没有使用过它_。它可能就是那么伟大，进行了较大的源代码不兼容更改，比一年前的 Swift 2 大很多。如果你有任何的 Swift 依赖，他也需要在你的 app 完成前更新到 Swift 3 。
 
 The great news is that, for the first time ever, Xcode 8 comes with _two_ versions of Swift: 2.3 and 3.0.
+有个好消息就是， Xcode8 第一次带有_两个_ Swift 版本：2.0 和3.0 。
 
-In case you missed the announcement, Swift 2.3 is the same language as Swift 2.2 in Xcode 7, but with some _minor_ API changes (more on those later).
+为了避免你错过通知， Swift 2.3 在 Xcode 7 里面和 Swift 2.2 是一样的语言，但是有些_小的_ API (之后会有更多)变化。
+ 
+所以！为了保证同步兼容，我们将使用 Swift 2.3 。
 
-So! To maintain simultaneous compatibility, we’ll be using Swift 2.3.
+## Xcode 配置
 
-## Xcode settings
+但是那样对你来说太明显了。现在让我给你展示如何实际地配置你的 Xcode 项目使得它可以在两个版本下正常运行。
 
-But that much is likely obvious to you. Now let me show you how to actually configure your Xcode project so that it runs on both versions.
-
-### Swift version
+### Swift 版本
 
 ![](http://radex.io/assets/2016/xcode7-xcode8/BuildSettings.png)
 
-To begin, open your project in Xcode 7\. Go to project settings, open the Build settings tab, and click the “+” to add a User-Defined Setting:
+要开始了，在 Xcode 7 中打开你的项目。进入项目设置，打开创建设置标签，点击 “+” 添加一个 自定义设置：
 
     “SWIFT_VERSION” = “2.3”
 
-This option is new to Xcode 8, so while it will cause it to use Swift 2.3, Xcode 7 (which doesn’t _actually_ have Swift 2.3) just ignores it completely and keeps building with Swift 2.2.
+这个选项是 Xcode 8 新添加的，所以尽管这会致使它使用 Swift 2.3 ， Xcode 7 （没有_真正_带有 Swift 2.3 ），就会完全略过它而继续利用 Swift 2.3 构建项目。
 
-### Framework provisioning
+###框架资源调配
 
-Xcode 8 makes some changes in how Framework provisioning works — they will continue to compile as-is for the simulator, but will fail to build for a device.
+在框架资源调配方面 Xcode 8 做出了一些调整————他们可以继续为模拟器编译，但是无法构建设备。
 
-To fix this, go through Build Settings for all your Framework targets and add this option, like we did with `SWIFT_VERSION`:
+为了修复它，检查所有框架目标的创建设置，添加这个选项，就像我们对 `SWIFT_VERSION` 操作的那样：
 
     “PROVISIONING_PROFILE_SPECIFIER” = “ABCDEFGHIJ/“
 
-Be sure to replace “ABCDEFGHIJ” with your Team ID (you can find it in [Apple Developer Portal](https://developer.apple.com/account/#/membership/)), and keep the forward slash at the end.
+确保用你的团队 ID （你可以在 [苹果开发者门户](https://developer.apple.com/account/#/membership/) 里面找到）替代“ABCDEFGHIJ”。
 
-This essentially tells Xcode 8 “hey, I’m from this team, you take care of codesign, okay?”. And again, Xcode 7 will just ignore it, so you’re safe.
+这基本上就是告诉 Xcode 8 “嘿，我来自这个团队，你照应下代码设计，好吗？” 。同样地， Xcode 7 也会忽略它，所以你是安全的。
 
-### Interface Builder
+### 界面生成器
 
-Go through all of your `.xib` and `.storyboard` files, open the right sidebar, go to the first (File inspector) tab, and find the “Opens in” setting.
+浏览你所有的 `.xib` 和 `.storyboard` 文件，打开右侧边栏，找到第一个（文件检索）标签，找到“打开” 设置。
 
-It will most likely say “Default (7.0)”. Change it to “Xcode 7.0”. This will ensure that even if you touch the file in Xcode 8, it will only make changes that are backwards-compatible with Xcode 7.
+多数情况下说是“默认（7.0）”。将它改为 “Xcode 7.0” 。这可以确保如果你建立了 Xcode 8 的文件，他只是改变那些和 Xcode 7 向后兼容的部分。
 
-I still suggest to be very careful about changing XIBs with Xcode 8\. It will add metadata about the Xcode version (I can’t guarantee that this is stripped when you upload to App Store), and will sometimes try to revert the file to Xcode 8-only format (this is a bug). When possible, avoid touching interface files from Xcode 8, and when you have to, carefully review the diff, and only commit the lines you need.
+我还是建议你谨慎使用 Xcode 8 改变 XIBs 。它会添加 Xcode version 版本的元数据（我不能保证当你上传到 App Store 的时候会不会脱去），有时也会尝试恢复文件为只适用 Xcode 8 的格式（这是个 bug ）。尽可能地从 Xcode 8 创建文件， 当你没法选择的时候，谨慎地审核 diff ，只提交你需要的代码行。
 
-### SDK version
+### SDK 版本
 
-Make sure that your project and all its targets have the “Base SDK” build setting set to “Latest iOS”. (This will almost surely be true, but worth double-checking.) This way, Xcode 7 will compile for iOS 9, but you can open the same project in Xcode 8 and work on iOS 10 features.
+确定你的项目和所有目标都有为 “最新 iOS” 构建配置的“基础 SDK ”
+（这几乎是肯定的，但还应该再次检查一下）。这样， Xcode 7 可以为 iOS 9 进行编译，但是你也可以在 Xcode 8 下运行  iOS 10 的特性。
 
-### CocoaPods settings
+###  CocoaPods 设置
 
-If you’re using CocoaPods, you also have to update the Pods project to have the right Swift and provisioning settings.
+如果你使用 CocoaPods ，你也不得不更新 Pods 工程使其有正确的 Swift 来进行供应配置。
 
-But instead of doing this manually, add this post-install hook to your `Podfile`:
+不过不要手工操作，只要把后期安装的钩子加的你的 `Podfile` 上即可：
 
 
 ```
@@ -81,25 +84,27 @@ end
 ```
 
 
-Again, be sure to replace `ABCDEFGHIJ` with your Team ID. And then run `pod install` to regenerate the Pods project.
+再次确认使用了你的团队 ID 替代  `ABCDEFGHIJ` 。之后运行 `pod install` 重新生成新的 Pods 工程。
 
-### Open in Xcode 8
+### 在 Xcode 8 之中打开。
 
-Alright, it’s time: open the project with Xcode 8\. The first time you do so, you will be bombarded with a lot of requests.
+好的，时候差不多了：用  Xcode 8 打开你的工程。第一次操作的时候会被众多请求轰炸。
 
-Xcode will urge you to upgrade to the new Swift. Decline.
+Xcode 会催促你更新到最新的  Swift 。拒绝。
 
-Xcode will also suggest to update the project to “recommended settings”. Ignore this as well.
+Xcode 也会要求你按“推荐设置”更新工程。同样拒绝。
 
-Remember, we already set up the project so it compiles on both versions. For now, it’s best to change as little as possible to keep simultaneous compatibility. And more importantly, we don’t want the `.xcodeproj` to contain any metadata about Xcode 8 while we use the same file to ship to the App Store.
+记住，我们已经设置好了可以在两个版本上编译的工程。现在来说，为了保持同时兼容，最好的事情就是减少变化。更重要的是，我们不想让 `.xcodeproj` 包含任何有关 Xcode 8 的源数据，尽管我们用了同样的文件发往应用商店。
 
-## Dealing with Swift 2.3 differences
+## 处理 Swift 2.3 差异
 
-Like I said before, Swift 2.3 is the same _language_ as Swift 2.2\. However, the iOS 10 SDK _frameworks_ have updated their Swift annotations. I’m not talking about the [Grand Renaming](https://developer.apple.com/videos/play/wwdc2016/403/) (that only applies to Swift 3) — still, the names, types, and optionality of many APIs are slightly different.
+正像我上面提到的那样， Swift 2.3 和 Swift 2.2 是同种_语言_。然而， iOS 10 SDK _框架_ 更新了他们的 Swift 解释。我并不是在讨论 [Grand Renaming](https://developer.apple.com/videos/play/wwdc2016/403/)（只能用于 Swift 3 ）————不过，名称、类型和许多可选的 API 都有少量的调整。
 
-### Conditional compilation
+### 条件式编辑
 
 In case you missed it, Swift 2.2 [introduced](https://github.com/apple/swift-evolution/blob/master/proposals/0020-if-swift-version.md) conditional compilation preprocessor macro. It’s straightforward to use:
+
+为了防止你忽略它， Swift 2.2 [介绍了](https://github.com/apple/swift-evolution/blob/master/proposals/0020-if-swift-version.md) 条件编辑预处理宏。很容易使用：
 
 
 
@@ -113,19 +118,20 @@ In case you missed it, Swift 2.2 [introduced](https://github.com/apple/swift-evo
 
 
 
-Awesome! One file, no branching, simultaneous compatibility on two versions of Xcode.
+漂亮！一个文件，没有分支，实现在两个版本的 Xcode 同时兼容。
 
-Two caveats you need to be aware of:
+有两条你需要知道的警告：
 
-*   There’s no `#if swift(<2.3)` or anything like that, you can only use `>=` (but you can use `#elseif`, if needed)
+*   这里没有 `#if swift(<2.3)` 或类似的东西，你只能使用 `>=` （不过如果需要的话可以用 `#elseif` ）。
 *   Unlike with the C pre-processor, the code between `#if` and `#else` must be valid Swift. You can’t, for example, just change a function signature, but not its body (see the examples later for solutions)
+*   与带有 C 预处理器不同， `#if` 和 `#else` 间必须是实在的 Swift 代码。比如，你不能只改变函数签名而不触动本体(见之后的解决案例）。
+*
 
-### Optionality changes
+### 可选变化
 
-In Swift 2.3, many signatures lost their unnecessary optionality, and some (such as many properties of `NSURL`) now _became_ optional.
+在 Swift 2.3 当中，许多特征舍去了不必要的选项，有些（比如许多 `NSURL` 属性）现在_变成_可选的。
 
-You could, of course, just use conditional compilation to deal with it, like:
-
+当然，你应该使用可选编译来处理，就像这样：
 
 
 ```
@@ -138,8 +144,7 @@ let specifier = url.resourceSpecifier
 
 
 
-But here’s a little helper you might find useful:
-
+不过这里有条小帮助你可能会对你有用：
 
 
 ```
@@ -154,8 +159,7 @@ func optionalize<T>(nonoptional: T) -> T? {
 
 
 
-I know, it’s a little weird. Perhaps it will be easier to explain if you first see the result:
-
+我知道，它有点奇怪。或许你初次看到结果的时候会比较容易解释：
 
 
 ```
@@ -165,25 +169,22 @@ let specifier = optionalize(url.resourceSpecifier) ?? "" // works on both versio
 
 
 We’re taking advantage of function overloading to get rid of ugly conditional compilation at call site. See, what the `optionalize()` function does is it turns whatever you pass in into an Optional, unless it’s already an Optional, in which case, it just returns the argument as-is. This way, regardless if the `url.resourceSpecifier` is optional (Xcode 8) or not (Xcode 7), the “optionalized” version is always the same.
-
-(A note about the implementation, if you’re curious: the way the overloading rules work in Swift is, the more specific variant of a function will always be selected above a less specific variant. So, even though `String?` matches both variants — `T?` for `T = String` and `T` for `T = String?`, the argument is more closely matched with the first variant.)
-
-### Typealiasing out signature changes
-
-In Swift 2.3, a numer of functions (especially in the macOS SDK) have changed their argument types.
-
-For example, the `NSWindow` initializer used to look like this:
+我们利用函数过载来摆脱丑陋的条件编译。看，`optionalize()` 函数把你传过去的一切都变成可选的，除非它早就是可选的，这么一来，它只原样返回意见。这下不论 `url.resourceSpecifier` 是可选的（ Xcode 8 ）还是不可选（ Xcode 7 ），“选项化” 之后的版本都是一样。。
 
 
+（如果你有兴趣的话，有一条关于实例的要点：过载规则在 Swift 中运行的规则，更具体的函数的变量始终会选择在一个不太特定的变体以上。所有，即使 `String?` 匹配两个变种 `T?` 的 `T = String` 和 `T` 的 `T = String?` ，观点还是更接近匹配第一个变种。
+
+类型别名签名变化
+
+在 Swift 2.3 当中，一些函数（尤其是在 macOS SDK ）的自变量类型会发生变化。
+
+例如， `NSWindow` 初始程序曾经看起来像这样：
 
 ```
 init(contentRect: NSRect, styleMask: Int, backing: NSBackingStoreType, defer: Bool)
 ```
 
-
-
-And now looks like this:
-
+现在是这样：
 
 
 ```
@@ -193,8 +194,10 @@ init(contentRect: NSRect, styleMask: NSWindowStyleMask, backing: NSBackingStoreT
 
 
 Notice the type of `styleMask`. It used to be a loosely-typed Int (with the options imported as global constants), but in Xcode 8, it’s imported as a proper `OptionSetType`.
+注意 `styleMask` 的类型。它过去是泛整型（选项作为全局常量导入），但是在 Xcode 8 当中，它被当作合适的 `OptionSetType` 导入。
 
-Unfortunately you can’t conditionally compile two versions of the signature with the same body block. But don’t worry, conditionaly-compiled type aliases come to rescue!
+不幸地，你无法有条件地用同个主体块编译两个版本的签名。但是，不用担心，条件编译类的别名会来助你一臂之力的！
+
 
 
 
@@ -204,18 +207,19 @@ Unfortunately you can’t conditionally compile two versions of the signature wi
 typealias NSWindowStyleMask = Int
 #endif
 ```
-
+ 
 
 Now you can use `NSWindowStyleMask` in the signature, as you would with Swift 2.3\. And on Swift 2.2, where the type doesn’t exist, `NSWindowStyleMask` is just an alias for `Int`, so the type checker stays happy.
+现在你可以在签名中使用 `NSWindowStyleMask` 了，正如在 Swift 2.3 当中的那样。在 Swift 2.2 中，不存在该类型， `NSWindowStyleMask` 只是
+`Int` 的别名，所以类型检查没什么问题。
 
-### Informal vs formal protocols
+### 非正式和正式协议对比
 
-Swift 2.3 changed some previously [informal protocols](https://developer.apple.com/library/ios/documentation/General/Conceptual/DevPedia-CocoaCore/Protocol.html) to formal protocols.
+Swift 2.3 将过去的一些[非正式协议](https://developer.apple.com/library/ios/documentation/General/Conceptual/DevPedia-CocoaCore/Protocol.html)改为了正式协议。
 
-For example, to be a `CALayer` delegate, you just had to descend from `NSObject`, no need to declare conformance to `CALayerDelegate`. Indeed, the protocol didn’t even exist in Xcode 7\. But it does now.
+例如，为了做一个 `CALayer` 授权，你只要从 `NSObject` 提取即可，无需宣称遵守 `CALayerDelegate` 。事实上， Xcode 7 上甚至不存在什么协议。不过现在有了。
 
-Again, the intuitive solution of conditionally compiling the class declaration line won’t work. But you can solve this by declaring your own dummy protocol on Swift 2.2, like so:
-
+那么，可选编译类的直观解决方案声明行不起作用。但是你可以在你的Swift 2.2当中的虚拟协议中声明，就像这样：
 
 
 ```
@@ -229,72 +233,85 @@ class MyView: NSView, CALayerDelegate { . . . }
 
 
 
-## Building iOS 10 features
+## 构建 iOS 10 特性
 
-By this point, your project should be able to compile on both Xcode 7 and Xcode 8 without any branching necessary. Awesome!
+这么一来，你的工程可以同时在 Xcode 7 和 Xcode 8 进行编译而无需分支。漂亮！
 
-It’s time to actually build iOS 10 features now, and with all of the tips and tricks described above, this should be fairly straightforward. Still, here are some things you need to be aware of:
+那么现在是时候真正创建 iOS 10 特性了，根据上述的建议和技巧，这完全应该是水到渠成的事情。不过，这里还有一些你需要了解的东西：
 
-1.  Just using `@available(iOS 10, *)` and `if #available(iOS 10, *)` is not enough. First of all, it’s safer not to compile any iOS 10 code in your shipping app. But more crucially, while the compiler requires these checks to ensure safe API usage, it still needs to be aware that an API exists. If you mention any method or type that doesn’t exist in iOS 9 SDK, the code won’t compile on Xcode 7.
-2.  Therefore, you need to wrap all of your iOS 10-specific code in `#if swift(>=2.3)` (You can safely assume Swift 2.3 and iOS 10 are equivalent for now).
-3.  Often times, you’ll need _both_ conditional compilation (so that you don’t compile unavailable code on Xcode 7) and `@available`/`#available` (to pass safety checks on Xcode 8).
-4.  When you’re working on an iOS 10-specific feature, it’s easiest to extract all the relevant code into separate files — this way you can just wrap the whole contents of a file in a `#if swift…` check. (The file might still touch the compiler on Xcode 7, but all of its contents will be ignored.)
+1.   仅仅使用 `@available(iOS 10, *)` 和 `if #available(iOS 10, *)` 是不够的。首先，不在正式版应用当中编译任何  iOS 10 代码会更加安全。但是更关键地，当编译器需要这些检查来保证安全 API 的时候，还是需要了解存在的 API 。如果你提到任何 iOS 9 SDK 中不存在的方法或类，代码就无法在 Xcode 7 中编译。
 
-## App extensions
+2.  因此，你需要在 `#if swift(>=2.3)` 中封装所有你的 iOS 10 特有代码（你可以安全地认为Swift 2.3 和 iOS 10 现在是等价的）
 
-But the thing is, if you’re working on iOS 10, you probably want to make one of those new extensions for your app, not merely add more code to the app itself.
+3.  通常，你需要_两种_条件编译（就不会出现 Xcode 7 上无效编译的情况）以及 `@available`/`#available` 。
 
-That’s tricky. We can conditionally compile our code, but there’s no such thing as a “conditional target”.
+4.   当你在 iOS 10 特有特性下工作时，提取所有相关代码为零散的文件最简单了————如此你就可以只在 `#if swift…` 检查封装完整的文件了。（文件可能触及 Xcode 7编译器，但是所有的内容都会被忽略）
 
-The good news is that Xcode 7 won’t complain about those targets as long as it doesn’t have to actually compile them. (Yes, it might issue a warning that the project contains a target configured to deploy on a higher version of iOS than the base SDK, but that’s not a big deal.)
+## App 扩展
 
-So here’s the idea: keep the target and its code everywhere, but conditionally remove it from the “Target Dependencies” and “Embed App Extensions” build phases of the app target.
+但是事实是，如果你在 iOS 10 上工作，你也许想要为你的 app 添这些新的扩展，而不是仅仅给 app 添加更多代码。
 
-How to do this? The best approach I came up with is to have the app extension disabled from build by default for Xcode 7 compatibility. And only while you’re working with Xcode 8, re-add the extensions temporarily, but never actually commit the change.
+这很难办。我们可以条件编译我们的代码，但是没有这种“条件化目标”。
 
-If doing this manually sounds fickle (not to mention incompatible with CI and automated builds), don’t worry, I made a script for you!
 
-To install it:
+有个好消息就是，只要 Xcode 7 不用真正编译那些目标，它是不会抱怨的。（似的，它也许会发出提醒工程包含比基本 SDK 高版本 iOS 编译的目标，但是这不是什么大事）。
 
+
+因此有这样的想法：保留所有的目标和代码，但是选择性地从“目标依赖关系”和“嵌入应用扩展”构建项目当中有条件地移除。
+
+该怎么做呢？我能想到的最好的办法就是为了 Xcode 7 的兼容性，将应用扩展默认禁用创建。只有当你使用 Xcode 8 工作的时候，临时添加扩展，但是永远无法真正提交改变。
+
+
+如果手动操作这些听起来反复（更不用说和 CI 不兼容以及自动创建了），别担心，我给你做了一个脚本！
+
+
+打算安装它需要：
 ```
 sudo gem install configure_extensions
 
 ```
 
-Before comitting any changes in the Xcode project, remove iOS 10-only app extensions from the app target:
+在 Xcode 工程提交任何改变之前，从应用目标当中移除只适用 iOS 10 的应用扩展：
+
 
 ```
 configure_extensions remove MyApp.xcodeproj MyAppTarget NotificationsUI Intents
 
 ```
 
-And to work with Xcode 8, add them back:
-
+如果在 Xcode8 上工作的时候，把他们添加回来：
 ```
 configure_extensions add MyApp.xcodeproj MyAppTarget NotificationsUI Intents
 
 ```
 
-You can put this your `script/`, use it with Xcode build pre-actions, with Git pre-commit hooks, or integrate it with your CI or automated build system. (More info about the tool on [GitHub](https://github.com/radex/configure_extensions))
+你可以配置你的 `script/` ，在利用 Xcode 构建预启动， Git 预提交钩子，或者与 CI 整合或者自动构建系统（更多工具信息见 [GitHub](https://github.com/radex/configure_extensions) ）。
 
-One final note about iOS 10 app extensions: Xcode templates for those will generate Swift 3, not Swift 2.3 code. This won’t actually work, so make sure to set the app extension’s “Use Legacy Swift Language Version” build setting to “Yes”, and rewrite the code to Swift 2.3.
+最后一个关于 iOS 10 app 扩展的建议：Xcode 模板生成的是 Swift 3 而不是 Swift 2.3 的代码。这不会时间工作，所以确保设置应用的扩展“使用了传统 Swift 语言版本”构建为“ yes” ，然后重新在 Swift 2.3 上重写代码。
 
-## In September
+## 在九月
 
-Once September hits and iOS 10 is out, it’s time to drop Xcode 7 support and clean up your project!
+一旦九月伴着 iOS 10 的发布来临，是时候撤掉对 Xcode 7 的支持而清理一下你的工程了。
 
-I made a little checklist for you (be sure to bookmark it for future reference):
+我为你们做了一个小的清单（请留个书签以便日后参考）：
 
-*   Remove any Swift 2.2 code left over and the unnecessary `#if swift(>=2.3)` checks
-*   Remove any transition hacks, such as uses of `optionalize()`, temporary typealiases, or dummy protocols
-*   Remove uses of the `configure_extensions` script, and commit the project settings with new app extensions enabled
-*   Update CocoaPods, if you use it, and remove the `post_install` hook we’ve added from your `Podfile` (it will almost surely not be necessary by September)
-*   Update to recommended Xcode project settings (select project in the sidebar, then in the menu: Editor → Validate Settings…)
-*   Consider upgrading your provisioning settings to use the new `PROVISIONING_PROFILE_SPECIFIER`
-*   Make sure all of the Swift libraries you depend on have updated to Swift 3\. If not, consider contributing the Swift 3 port yourself.
-*   When all of the above is ready, you can upgrade your app to Swift 3! Go to Edit → Convert → To Current Swift Syntax…, select all of your targets (remember, you need to convert everything at once), review the diff, test, and commit!
-*   If you haven’t done so already, consider removing support for iOS 8 — this way you can get rid of more `@available` checks and other conditional code.
+*   移除所有残留的 Swift 2.2 代码和不必要的 `#if swift(>=2.3)` 检查。
 
-Good luck!
+*   移除所有的 例如对 `optionalize()` 的使用，临时的类型别名和假协议
+*   移除 `configure_extensions` 脚本的使用，并通过启用新的应用扩展来提交工程设置。
+*   更新 CocodaPods ，如果你用到它，从我们添加的  `Podfile`  上移除 `post_install` 钩子（它九月份基本就没什么用了）。
+*   更新到 Xcode 工程推荐设置（在侧边栏选择工程，进入菜单，编辑→确认设置……）
+*   考虑升级你的供应设置以使用新的  `PROVISIONING_PROFILE_SPECIFIER`
+*   确认你依赖所有的 Swift 库都更新到 Swift 3。如果没有，考虑下为 Swift 3 端口出力。
+*   当上述所有都已就绪，你就能升级应用到 Swift 3 了！进入 编辑→转换→到最新 Swift 语法……，选择所有你的目标（记住，你需要一次性转换所有内容），查看 diff 并提交！
+*   如果你还没有完成，考虑一下移除对 iOS 8 的支持————这样你就可以移除更多的 `@available` 检查和其他条件代码
 
-Published July 28, 2016. [Send feedback](http://radex.io/xcode7-xcode8/).
+
+祝你好运！
+
+
+发布于July 28, 2016。[反馈](http://radex.io/xcode7-xcode8/)。
+
+
+
+
