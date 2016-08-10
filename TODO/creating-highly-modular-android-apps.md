@@ -1,12 +1,16 @@
 > * 原文链接: [Creating Highly Modular Android Apps](https://medium.com/stories-from-eyeem/creating-highly-modular-android-apps-933271fbdb7d#.oez87prl8)
 * 原文作者 : [Ronaldo Pace](https://medium.com/@ronaldo.pace?source=post_header_lockup)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者 :
+* 译者 :
+* 校对者 :  
 
 > “The single responsibility principle states that every (…) class should have responsibility over a single part of the functionality provided by the software.” ([en.wikipedia.org/wiki/Single_responsibility_principle](https://en.wikipedia.org/wiki/Single_responsibility_principle))
 
+>“单一职责原则规定，每个模块或类应该对软件提供的某单一功能负责。”([en.wikipedia.org/wiki/Single_responsibility_principle](https://en.wikipedia.org/wiki/Single_responsibility_principle))
+
 UI building in Android is usually delegated to one class (named Activity, Fragment, or View/Presenter). This usually entails the following tasks:
+
+Android 中构建 UI 通常委派给一个类（叫 Activity、Fragment 或 View/Presenter）。这通常涉及到以下任务：
 
 - View inflation (xml layout)
 - View configuration (runtime parameters, layout manager, adapter)
@@ -15,26 +19,49 @@ UI building in Android is usually delegated to one class (named Activity, Fragme
 - Dispatch on-demand requests for new data
 - Listening to user events (tap, scroll) and responding to them
 
+- 填充 View（xml 布局）
+- View 配置（运行时参数、布局管理、适配）
+- 数据源连接（DB 或者 数据存储的监听/订阅）
+- 加载缓存数据
+- 新数据的按需请求分派
+- 监听用户事件（tap、scroll）然后响应事件
+
 On top of that, Activity and Fragment are usually delegated extra responsibilities such as:
+
+除此之外，Activity 和 Fragment 通常还会委派一些额外的职责：
 
 - App navigation
 - Activity Results handling
 - Google Play Services connection and interaction
 - Transitions configuration
 
+- App 导航
+- Activity 结果处理
+- Google Play 服务连接和交互
+- 过渡动画配置
+
 That’s not a single responsibility, and current ways of handling with such complexity includes inheritance or composition.
+
+这不是单一职责，当前的处理方式包括了继承或组合，这太复杂了。
 
 ![](https://cdn-images-1.medium.com/max/800/1*PYTSQy1jyMgZdKzKAK-ImA.gif)
 
 ### Inheritance Hell
+### 继承地狱
 
-> “Inheritance is when an object or class is based on another object (…) or class (…). It is a mechanism for code reuse and to allow independent extensions of the original software via public classes and interfaces. The relationships of objects or classes through inheritance give rise to a hierarchy.” ([en.wikipedia.org/wiki/Inheritance_(object-oriented_programming)](https://en.wikipedia.org/wiki/Inheritance_%28object-oriented_programming%29))
+> “Inheritance is when an object or class is based on another object (…) or class (…). It is a mechanism for code reuse and to allow independent extensions of the original software via public classes and interfaces. The relationships of objects or classes through inheritance give rise to a hierarchy.”  
+>“当一个对象或类是基于另一个对象或类，这就是继承。它是为了代码重用，并允许原始软件通过公共类和接口单独扩展。这些对象或类的关系，通过继承形成一种层级。”
+ ([en.wikipedia.org/wiki/Inheritance_(object-oriented_programming)](https://en.wikipedia.org/wiki/Inheritance_%28object-oriented_programming%29))
 
 For such complex structures, such as in UI building, inheritance can quickly become a hell. Check the following mock-case:
+
+对于这种复杂的结构，如 UI 构建，继承能让它很快变成一坨 x。看看下面的模拟案例：
 
 ![](https://cdn-images-1.medium.com/max/800/1*TItgXrS7WEDGeu5pZNjNzw.png)
 
 Code built along this inheritance tree quickly becomes unmanageable (“inheritance hell”). To circumvent that, developers often follow the principle of “Composition over inheritance”.
+
+据此继承树构建代码会很快变得难于管理 （"继承地狱"）。要避免这种情况，开发人员往往遵循"组合而非继承"的原则。
 
 ### Composition over inheritance
 
@@ -70,22 +97,22 @@ To implement decorators first create a blueprint of the code that should be gene
 
     @Decorate
     public class ActivityBlueprint extends AppCompatActivity {
-    
+
         @Override protected void onCreate(@Nullable Bundle savedInstanceState) {super.onCreate(savedInstanceState);}
         @Override protected void onStart() {super.onStart();}
         @Override protected void onStop() {super.onStop();}
         @Override protected void onDestroy() {super.onDestroy();}
-        
+
         public int getLayoutId() {return R.layout.recycler_view;}
         public RecyclerView.LayoutManager getLayoutManager() {return new LinearLayoutManager(this);}
         public RecyclerView.Adapter getAdapter() {return null;}
         public void setupRecyclerView(RecyclerView recyclerView, WrapAdapter wrapAdapter, RecyclerView.Adapter adapter) { /**/ }
-    
+
         public interface DataInstigator {
             RealmList getList();
             RealmObject getData();
         }
-    
+
         public interface RequestInstigator {
             void reload();
             void loadMore();
@@ -95,7 +122,7 @@ To implement decorators first create a blueprint of the code that should be gene
 This simple blueprint annotated with [[email protected]](https://medium.com/cdn-cgi/l/email-protection)` will generate the complete implementation of the decorators pattern and a `Serializable` builder class that can be passed as parameter. To complete the Activity implementation we extend the generated class and bind the received builder to it.
 
     public classRecyclerViewActivityextendsDecoratedAppCompatActivity{
-        
+
         @Overrideprotected void onCreate(Bundle savedInstanceState) {
             bind(getBuilder(getIntent().getSerializableExtra(KEY.BUILDER)));
             super.onCreate(savedInstanceState);
@@ -107,7 +134,7 @@ This simple blueprint annotated with [[email protected]](https://medium.com/cdn-
             rv.setAdapter(wrapAdapter);
             setupRecyclerView(rv, wrapAdapter, adapter);
         }
-    
+
         @Overrideprotected void onDestroy() {
             super.onDestroy();
             unbind();
