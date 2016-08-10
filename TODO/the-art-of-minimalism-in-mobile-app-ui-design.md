@@ -2,7 +2,7 @@
 * 原文作者 : [Nick Babich](http://babich.biz/about/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [edvardhua](https://github.com/edvardHua)
-* 校对者 : 
+* 校对者 : [owenlyn](https://github.com/owenlyn), [jiaowoyongqi](https://github.com/jiaowoyongqi), [Graning](https://github.com/Graning)
 
 设计是一件用户驱动很强的工作。随着用户越来越偏好更简洁的交互界面，如何剔除多余的元素，保留最基础最重要的元素是极简设计的关键。极简设计形式和功能完美结合。它最大的优点是极简的表现形式，简洁的线条，大方的留白，简约的图形化元素，就算是很复杂的内容，在这样的设计下也会显得很简洁和干练。当然，如果能有效的利用这些元素。
 
