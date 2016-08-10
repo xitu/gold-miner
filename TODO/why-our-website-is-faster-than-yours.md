@@ -1,61 +1,63 @@
 >* 原文链接 : [Why our website is faster than yours](https://www.voorhoede.nl/en/blog/why-our-website-is-faster-than-yours/)
 * 原文作者 : [by Declan](https://www.voorhoede.nl/en/contact/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
+* 译者 : hpoenixf
 * 校对者: 
 
-We recently updated our site. Yes, it has a complete design overhaul, but as real software developers we focused a lot on the technical bits and pieces as well. Our goal was to take control, focus on performance, be flexible for the future and make it fun to write content for the site. Here’s how we made our website faster than yours (Yup, sorry!)
+我们最近升级了我们的网站。虽然这主要是界面方面的大调整，但作为一个软件开发者，我们更关注在技术细节上面。我们的目标是加强控制，关注性能，在未来可以灵活地调整和让在网站上撰写内容变得有趣。下面讲述了我们是如何让我们的网站比你的快的（呀，不好意思！）
 
-## Design for performance
+## 为了性能而设计
 
-In our projects we have daily discussions with designers and product owners about balancing aesthetics and performance. For our own site, this was easy. Simply said: we believe that a good user experience starts with delivering content as fast as possible. That means **performance > aesthetics**.
+开发项目的时候，我们每天都会跟设计师和产品经理讨论性能和美观的平衡。对于我们的网站来说，这是简单的。简单来说：我们相信尽快的展现内容是良好用户体验的开始。这意味着**性能 > 美观**
 
-Good content, layout, images, and interactivity are essential for engaging your audience, but each of these elements have impact on page load time and the end-user experience. In every step we looked at how we could get a nice user experience and design while having minimum impact on performance.
+好的内容，布局，图片和交互对吸引你的用户是必要的，但这些元素都影响着页面的加载时间和用户体验。在每一步我们都在想办法在提升用户体验和设计时的同时给性能带来尽可能小的影响。
 
-## Content first
+## 内容优先
 
-We want to serve the core content — meaning copy with the essential HTML and CSS — to our visitors as fast as possible. Every page should support the primary purpose of the content: get the message across. Enhancements, meaning JavaScript, complete CSS, web fonts, images and analytics are inferior to the core content.
+我们想要把核心内容-也就是基本的HTML和CSS-尽可能快的展现给用户。每一个页面都应该支持内容展现的目标：传达信息。增强的功能，也就是JavaScript，完整的CSS文件，网络字体，图片和分析相对于核心内容来说都是次要的
 
-## Take control
+## 获取控制
 
-After defining the standards we set for our ideal site, we concluded that we needed full control over every aspect of the site. We chose to build our own static site generator, including asset pipeline, and host it ourselves.
+在定义了我们对理想网站的标准后，我们总结出我们需要对网站的每一点都需要有完全的控制。我们选择构建我们自己的静态页面生成器，包括资源管道，并且自己搭建它。
 
-### Static site generator
+### 静态页面生成器
 
-We’ve written our own static site generator in Node.js. It takes Markdown files with short JSON page meta descriptions to generate the complete site structure with all of its assets. It can also be accompanied by a HTML file for including page-specific JavaScript.
+我们使用Node.js写了我们自己的静态页面生成器。它可以利用带有简单的JSON页面描述的Markdown文件来生成具有全部资源和完整结构的页面。它也可以使用包含有页面特征的JavaScript代码的HTML文件。
 
-See below a simplified meta description and markdown file for this blog post, used to generate the actual HTML.
+下面是一个关于这篇博客的简略的元描述和markdown文件，可以用来生成实际的HTML文件。
 
-The JSON meta description:
+JSON元描述：
+
 
     {
       "keywords": ["performance", "critical rendering path", "static site", "..."],
       "publishDate": "2016-07-13",
       "authors": ["Declan"]
     }
+markdown文件：
 
-And the markdown file:
 
     # Why our website is faster than yours
     We've recently updated our site. Yes, it has a complete...
     
     ## Design for performance
     In our projects we have daily discussions...
-
+## 图片分发
 ## Image delivery
+[页面的平均大小有2406kb，其中1535kb是图片](http://httparchive.org/interesting.php)。
+因为对于普通的网站来说，图片占据了如此大的一部分，图片也成了改善性能的最好的目标之一。
 
-The [average webpage is a whopping 2406kb of which 1535kb are images](http://httparchive.org/interesting.php). With images taking up such a big part of the average website, it is also one of the best targets for performance wins.
 ![Average bytes per page by content type chart](https://www.voorhoede.nl/assets/images/average-bytes-per-page-chart-l.jpg)
 
 Average bytes per page by content type for July 2016 from httparchive.org
-
 ### WebP
 
-WebP is a modern image format that provides superior lossless and lossy compression for images on the web. WebP images can be substantially smaller than images of other formats: sometimes they are up to 25% smaller than their JPEG counterpart. WebP is overlooked a lot and not often used. At the time of writing, WebP support is limited to [Chrome, Opera and Android](http://caniuse.com/#feat=webp) (still over 50% of our users), but we can degrade gracefully to JPG/PNG.
+WebP是一个现代的图片格式，可以对网络图片进行优秀的无损或有损压缩。比起其他的格式WebP的体积大幅度的减小，有时可以比JPEG对照图片体积要小25%。WebP总是被忽视和很少被使用。在写这篇文章的时候，WebP只有[Chrome, Opera and Android](http://caniuse.com/#feat=webp)支持（对于用户来说仍然超过了50%的份额），但我们可以优雅降级到JPG/PNG。
 
-### `<picture>` element
+### `<picture>` 元素
 
-Using the picture element we can degrade gracefully from WebP to a more widely supported format like JPEG:
+通过使用图片元素，我们可以从WebP优雅降级到更广泛支持的格式如JPEG：
+
 
     <picture>
         <source type="image/webp" srcset="image-l.webp" media="(min-width: 640px)">
@@ -66,47 +68,48 @@ Using the picture element we can degrade gracefully from WebP to a more widely s
         <source srcset="image-s.jpg">
         <img alt="Description of the image" src="image-l.jpg">
     </picture>
+我们使用 [ Scott Jehl的 picturefill ](https://github.com/scottjehl/picturefill)去给不支持 `<picture>`元素的浏览器加上兼容补丁使其可以在所有浏览器都能有一样的表现。
 
-We use [picturefill by Scott Jehl](https://github.com/scottjehl/picturefill) to polyfill browsers not supporting the `<picture>` element and to get consistent behaviour across all browsers.
+我们使用`<img>`格式来防止浏览器不支持`picture`元素或者JavaScript。
 
-We use the `<img>` as a fallback for browsers not supporting the `<picture>` element and/or JavaScript. Using the image’s largest instance makes sure it still looks good in the fallback scenario.
+### 生产
 
-### Generate
+尽管已经确定了合适的图片分发方法，我们仍然需要寻找一个代价较小的方法来应用它。因为它的强大，我喜欢picture元素，但我讨厌写上面的哪些片段。特别是在我写内容的时候不得不这样引入它们。我们不想为了给markdown文件的每张图片引入六个实例，优化图片和写`<picture>`元素而烦恼，所以我们：
 
-While the image delivery approach was in place, we still had to figure out how to painlessly implement it. I love the picture element for what it can do, but I hate writing the snippet above. Especially if I have to include it while writing content. We don't want to bother with generating 6 instances of every image, optimising the images and writing `<picture>` elements in our markdown. So we:
+- 在构建的过程**产生**原始图片的多重实例，包括输入格式（JPG，PNG）和WebP。我们使用了 [gulp responsive](https://github.com/mahnunchik/gulp-responsive)来完成这步。
+- **最小化** 生成的图片
+- 在mardown文件中**编写** 图片的描述
+- 在构建的过程使用自定义的Markdown渲染器把普通的markdown图片引用**编译**成完整的 `<picture>`元素。
 
-- **generate** multiple instances of the original images in our build process, both in the input format (JPG, PNG) as in WebP. We use [gulp responsive](https://github.com/mahnunchik/gulp-responsive) to do so.
-- **minify** the generated images
-- **write**`![Description of the image](image.jpg)` in our markdown files.
-- use custom written Markdown renderers during the build process to **compile** conventional markdown image declarations to full blown `<picture>` elements.
+##SVG 动画
 
-## SVG animations
-
-We chose a distinct graphic style for our site, in which SVG illustrations play a major role. We did this for several reasons.
-
-- Firstly, SVG's (vector images) tend to be smaller than bitmap images;
-- Secondly SVG's are responsive by nature and scale perfectly while always staying super crisp. So no need for image generation and `<picture>` elements;
-- Last but not least we can animate and alter them by CSS! A perfect example of designing for performance. [All our portfolio pages](https://www.voorhoede.nl/en/portfolio/) have a custom made animated SVG that is reused on the overview page. It serves as a recurring style for all our portfolio items making the design consistent, while having very little impact on performance.
-
-Check out this animation and how we can alter it with CSS.
+我们为我们的网站挑选了一种独特的图片风格，在这里SVG图片扮演了主要的角色。我们处于一些原因这样做。
 
 
+- 首先，SVG（矢量图片）比点阵图片要小。
+- 第二，SVG本质就是响应式的，可以完美的保持清晰。因此不需要图片转换和`<picture>`元素;
+- 最后一点我们可以让它运动并通过CSS来变化！这是为了性能而设计的完美例子。 [我们的页面作品集](https://www.voorhoede.nl/en/portfolio/)有可以被综述页重新使用的一个自定义的动态SVG。它在我们的作品集中呈现了一个循环的风格，让我们的设计连贯一致，对性能的只有很小的影响。
 
-## Custom web fonts
+来看下我们的动画和我们是怎样通过CSS来调整它的
 
-Before diving in, here’s a short primer on browser behaviour regarding custom web fonts. When the browser comes across a `@font-face` definition in CSS that points to a font not available on the user’s computer, it will try to download this font file. While the download happens, most browsers don’t display the text using this font. At all. This phenomenon is called the “Flash of Invisible Text” or FOIT. If you know what to look for, you will find it almost everywhere on the web. And if you ask me, it is bad for the end-user experience. It delays the user in reaching their core goal: reading the content.
 
-We can however force the browser to change its behaviour into a “Flash of Unstyled Content” or FOUT. We tell the browser to use an ubiquitous font at first, like Arial or Georgia. Once the custom web font is downloaded it will replace the standard font and re-render all text. If the custom font fails to load, the content is still perfectly readable. While some might consider this a fallback, we see custom fonts as an enhancement. Even without it, the site looks fine and works 100%. Just toggle our custom fonts by checking/unchecking the checkbox and see for yourself:
 
-Toggle fonts-loaded class
+## 自定义网络字体
 
-Using custom web fonts can benefit the user experience, as long as you optimise and serve them responsibly.
+在深入讲述之前，先初步介绍一下浏览器处理自定义网络字体的过程。当浏览器在CSS中发现`@font-face`的指向字体文件的声明而在用户的电脑中找不到的时候，它会尝试下载这个字体文件。在下载的时候，大部分浏览器不会展现使用该字体的文字。这种现象被称为"隐藏文件的闪烁"或是FOIT。如果你知道该怎么找，你会发现它几乎存在于网络的每一个地方。在我看来，这给用户体验带来不好的影响。它延迟了用户获取内容的意图。
 
-Subsetting is by far the quickest win in improving webfont performance. I would recommend it to every web developer using custom fonts. You can go all out with subsetting if you have complete control over the content and know which characters will be displayed. But even just subsetting your font to "Western languages" will have a huge impact on file size. For example, our Noto Regular `WOFF` font, which is 246KB by default, drops to 31KB when subsetted to Western languages. We used the [Font squirrel webfont generator](https://www.fontsquirrel.com/tools/webfont-generator) which is really easy to use.
+我们可以使浏览器把这行为改为“无样式内容的闪烁”或是FOUT。我们先告诉浏览器使用普通的字体，像是Arial或Grorgia。一旦自定义网络字体下载完成，浏览器会替换标准字体并重新渲染全部文本。如果自定义字体加载失败，内容依然可以完美的被阅读。有些人可能把这看成一种回调，我们把这看成一种增强。如果没有它，网站看起来良好并100%工作。只需要通过勾选勾选框来切换我们的自定义字体和观察。
 
-### Font face observer
+使用自定义字体文件会给我们的用户体验带来好处，只要你优化和可靠的分发它们。
 
-[Font face observer by Bram Stein](https://github.com/bramstein/fontfaceobserver) is an awesome helper script for checking whether fonts are loaded. It is agnostic as to how you load your fonts, be it via a webfont service or hosting them yourself. After the font face observer script notifies us that all custom web fonts are loaded, we add a `fonts-loaded` class to the `<html>` element. We style our pages accordingly:
+构建子集是提升网络字体性能最快的方法。我想把它推荐给每一个使用网络字体的开发者。如果你已经完成你的内容和知道需要用到什么文字，你可以构建你的子集。即使仅仅把你的字体构建成“西方语言”也会对你的文件的尺寸有很大的作用。举个例子，我们的Noto标准`WOFF`字体，默认有246KB大小，一个构建一个西方语言的子集，仅有31KB大。我们用这个比较容易使用的[Font squirrel webfont generator](https://www.fontsquirrel.com/tools/webfont-generator)
+
+###  Font face observer
+
+
+[Bram Stein的Font face observer](https://github.com/bramstein/fontfaceobserver)是一个了不起的用于判断字体是否加载的辅助脚本。你的字体是怎么被加载的是很难确定的，或许是通过网络字体服务，或许是你自己提供。在 font face observer脚本通知我们所有自定义脚本文件加载完成后，我们给`<html>`元素增加一个`fonts-loaded`class。我们以此给页面加入样式：
+
+
 
     html {
        font-family: Georgia, serif;
@@ -116,25 +119,27 @@ Subsetting is by far the quickest win in improving webfont performance. I would 
        font-family: Noto, Georgia, serif;
     }
 
-*Note: For brevity, I did not include the `@font-face` declaration for Noto in the CSS above.*
+*注意:为了简洁，我没有在上面的css中加入Noto的`@font-face`的声明。
 
-We also set a cookie to remember that all fonts are loaded, and therefore live in the browser’s cache. We use this cookie for repeating views, which I will explain a bit later.
+我们还设置了cookie来记忆加载过的字体，并保存在浏览器的缓存中。我们为了重复浏览使用cookie，着我会在后面解释。
 
-In the near future we probably do not need Bram Stein’s JavaScript to get this behaviour. The CSS Working Group has proposed a new `@font-face` descriptor (called `font-display`), where the property value controls how a downloadable font renders before it is fully loaded. The css statement `font-display: swap` would give us the same behaviour as the approach above. [Read more on the `font-display` property](https://developers.google.com/web/updates/2016/02/font-display).
+在不远的将来，我们可能会不再需要 Bram Stein的JavaScript代码。CSS工作组提出了新的`@font-face`描述符（叫做`font-display`），这个属性值可以控制可以下载的字体在加载完成之前是怎么渲染的。这个css语句 `font-display: swap`会给我们跟上面方法一样的效果。 [阅读更多关于 `font-display` property](https://developers.google.com/web/updates/2016/02/font-display).
 
-## Lazy load JS and CSS
 
-Generally speaking we have an approach of loading in assets as soon as possible. We eliminate render blocking requests and optimise for the first view, leveraging the browser cache for repeated views.
+## 懒加载JS和CSS
 
-### Lazy load JS
+通常来说，我们有一个尽可能快加载资源的方法。我们排除了阻塞渲染的请求并对首页浏览做了优化，为了重复浏览用到了浏览器缓存。
 
-By design, we do not have a lot of JavaScript in our site. For what we do have, and what we intend to use in the future, we developed a JavaScript workflow.
+### 懒加载JS
 
-JavaScript in the `<head>` blocks rendering, and we don't want that. JavaScript should only enhance the user experience; it is not critical for our visitors. The easy way to fix the render blocking JavaScript is to place the script in the tail of your webpage. The downside is that it will only start downloading the script after the complete HTML is downloaded.
+在设计上，我们的网站没有大量的JavaScript文件。为了我们已有或是将来打算使用的js文件，我们研发了一种JavaScript工作流。
 
-An alternative could be to add the script to the head and defer the script execution by adding the `defer` attribute to the `<script>` tag. This makes the script non-blocking as the browser downloads it almost immediately, without executing the code until the page is loaded.
+JavaScript放在`<head>`的话会阻塞渲染，然而我们不希望这样。JavaScript只应该用来提升用户体验。它对用户来说并不是必要的。一个简单的避免JavaScript阻塞渲染的方式是把它放到你的页面的尾部。缺点是只有整个HTML都下载完成后才会开始下载脚本。
 
-There is just one thing left, we don't use libraries like jQuery and thus our JavaScript depends on vanilla JavaScript features. We only want to load JavaScript in browsers supporting these features. The end result looks like this:
+一个替代方案是把脚本放到头部并通过在`<script>`标签上增加`defer`属性来延缓它的执行。这让脚本不会阻塞并几乎可以立刻被下载，不用在整个页面被加载后才执行代码。
+
+还有一件事情，我们不用像jQuery之类的库文件因此我们的JavaScript使用原生的JavaScript特性。我们只想在支持这些特性的浏览器中加载JavaScript。最后结果像这样：
+
 
     <script>
     if ('querySelector'indocument && 'addEventListener'inwindow) {
@@ -142,51 +147,53 @@ There is just one thing left, we don't use libraries like jQuery and thus our Ja
     }
     </script>
 
-We place this little inline script in the head of our page detecting whether the vanilla JavaScript `document.querySelector` and `window.addEventListener` features are supported. If so, we load the script by writing the `script` tag directly to the page, and use the `defer` attribute to make it non-blocking.
+我们把这个小巧的内嵌脚本放到页面的头部来侦测是否 原生的`document.querySelector` 和 `window.addEventListener`JavaScript是否被支持。如果是这样的话，我们通过在页面直接写`script`标签来加载脚本，然后使用`defer`属性让它不阻塞。
 
-### Lazy load CSS
 
-For the first view the biggest render blocking resource for our site is CSS. Browsers delay page rendering until the full CSS file referenced in the `<head>` is downloaded and parsed. This behaviour is deliberate, otherwise the browser would need to recalculate layouts and repaint all the time during rendering.
+### 懒加载CSS
 
-To prevent CSS from render blocking, we need to asynchronously load the CSS file. We use the awesome [loadCSS function by the Filament Group](https://github.com/filamentgroup/loadCSS). It will give you a callback when the CSS file is loaded, where we set a cookie stating that the CSS is loaded. We use this cookie for repeating views, which I will explain a bit later.
+对我们的网站来说，在首屏浏览中最大的阻塞资源是CSS。浏览器会延迟页面的渲染，直到`<head>`中的CSS引用全部被下载和解析。这个行为是经过考虑的，否则浏览器会在渲染页面的时候不断重新计算布局和重新绘制页面。
 
-There is one ‘problem’ with loading in CSS asynchronously, in that while the HTML is being rendered really fast it will look like plain HTML with no CSS applied, until the full CSS is downloaded and parsed. This is where critical CSS comes in.
+为了避免CSS阻塞渲染，我们需要异步加载CSS文件。我们使用了Filament Group的神奇的[loadCSS function](https://github.com/filamentgroup/loadCSS).它会在你的CSS文件加载后给你一个回调，接着我们设置cookie来说明CSS已经加载了。我们是为了重复浏览来使用cookie，这我会在等一下解释。
 
-### Critical CSS
+异步加载CSS会有一个小`问题`，在这时候HTML会很快的渲染完成展现成只有HTML而没有应用到CSS的样子，直到全部CSS被下载和解析。这就是使用关键CSS的原因。
 
-Critical CSS can be described as *the minimum amount of blocking CSS to make a page appear recognisable for the user*. We focus on ‘above the fold’ content. Obviously the location of the fold differs greatly between devices, so we make a best guess.
+### 关键CSS
 
-Manually determining this critical CSS is a time consuming process, especially during future style changes. There are several nifty scripts for generating critical CSS in your build process. We used the magnificent [critical by Addy Osmani](https://github.com/addyosmani/critical).
+关键CSS的定义就是*让页面可以被用户辨识的最小体积的阻塞CSS*。我们关注`首屏`的内容。显然这个位置会根据1设备不同而变化，所以我们做了最好的预测。
 
-See below our homepage rendered with critical CSS and rendered with the full CSS. Notice the fold where below the fold the page is still sort of unstyled.
-![Fold illustration](https://www.voorhoede.nl/assets/images/voorhoede-fold-l.jpg)On the left the homepage rendered with only critical CSS, on the right the homepage rendered with the full CSS. The red line representing the fold.
-## The server
+人工决定关键CSS是一个很消耗时间的过程，特别是特征样式改变的时候。这里有一个可以在你的构建过程中生成关键CSS的一个很棒的脚本。我们使用了来自Addy Osmani的强大的 [critical](https://github.com/addyosmani/critical)。
 
-We host de Voorhoede site ourselves, because we wanted to have control over the server environment. We also wanted to experiment how we could boost performance by changing server configuration. At this time we have an Apache web server and we serve our site over HTTPS.
 
-### Configuration
+看下面的分别使用关键CSS和完整CSS渲染的我们的主页。注意看在边缘下面的页面是仍然没有样式的。![Fold illustration](https://www.voorhoede.nl/assets/images/voorhoede-fold-l.jpg)左边的页面是只用关键CSS渲染的主页，而右边的页面使用完整的CSS，红线代表边缘线。
 
-To boost performance and security we did a little research on how to configure the server.
+## 服务器
 
-We use [H5BP boilerplate apache configuration](https://github.com/h5bp/server-configs-apache), which is a great start for improving performance and security for your Apache web server. They have configurations for other server environments as well.
+我们自己架构了 de Voorhoede站点，因为我们想要控制服务器的环境。我们想实验一下我们可以怎样通过改变服务器配置来提升标签。在这个时候我们有一个Apache 网站服务器并且我们把我们站点设置为HTTPS服务。
 
-We turned on GZIP for most of our HTML, CSS and JavaScript. We set caching headers neatly for all our resources. Read about that below in [the file level caching section](https://www.voorhoede.nl/en/blog/why-our-website-is-faster-than-yours/#file-level-caching).
+### 配置
+
+为了增强表现和安全，我们需要研究一下怎么配置服务器。
+
+我们使用[H5BP boilerplate apache configuration](https://github.com/h5bp/server-configs-apache)，这是提升你的Apache网络服务器表现跟安全性的好的开始。他们也有提供别的服务器环境的配置。
+
+我们使用GZIP来压缩大部分的HTML，CSS和JavaScript。我们为我们全部的资源设置一致的缓存头。可以阅读[the file level caching section](https://www.voorhoede.nl/en/blog/why-our-website-is-faster-than-yours/#file-level-caching).
 
 ### HTTPS
 
-Serving your site over HTTPS can have a performance impact for your site. The performance penalty is mainly from setting up the SSL handshake, introducing a lot of latency. But — as always — we can do something about that!
+在你的网站使用HTTPS服务会对性能有影响。这个不良影响主要来自于设置SSL握手，导致大量的等待时间。但是，跟其他地方一样，我们可以在这方面做些工作！
 
-**HTTP Strict Transport Security** is a HTTP header that lets the server tell the browser that it should only be communicated with using HTTPS. This way it prevents HTTP requests from being redirected to HTTPS. All attempts to access the site using HTTP should automatically be converted. That saves us a roundtrip!
+**HTTP严格传输协议**是一个HTTP头，可以eh服务器高速浏览器它只允许使用HTTPS通讯。这个方法避免了HTTP请求被重定向为HTTPS。所有试图连接到这个网站的HTTP应该自动被转换。它节省了一个来回。
 
-**TLS false start** allows the client to start sending encrypted data immediately after the first TLS roundtrip. This optimization reduces handshake overhead for new TLS connections to one roundtrip. Once the client knows the encryption key it can begin transmitting application data. The rest of the handshake is spent confirming that nobody has tampered with the handshake records, and can be done in parallel.
+**TLS 错误开端** 允许客户端在第一个TLS来回之后立刻发送加密数据。这个优化把新的TLS链接握手减少到了一个来回。一旦客户端知道密钥便可以开始传输应用数据。剩下的握手用于确认没人在干扰握手记录，并可以并行执行。
 
-**TLS session resumption** saves us another roudtrip by making sure that if the browser and the server have communicated over TLS in the past, the browser can remember the session identifier and the next time it sets up a connection, that identifier can be reused, saving a round trip.
+**TLS session 恢复** 节约了我们用于确认浏览器和服务器在过去是否在TLS上通信过的另一个来回，浏览器可以记忆session标识符，在下一次设置连接时，标识符可以重新使用并节约一个来回。
 
-I sound like a dev ops engineer, but I’m not. I just read some things and watched some videos. I loved [Mythbusting HTTPS: Squashing security’s urban legends by Emily Stark](https://www.youtube.com/watch?v=YMfW1bfyGSY) from Google I/O 2016.
+我听起来像一个DevOps工程师，但我不是。我只是读了一些东西并看了一些视频。我喜欢来自 Google I/O 2016的[Mythbusting HTTPS: Squashing security’s urban legends by Emily Stark](https://www.youtube.com/watch?v=YMfW1bfyGSY)
+### cookies的使用
 
-### Use of cookies
+我们没有服务器端的语言，只有静态的Apache网络服务器。但一个Apache网络服务器仍然可以执行server side includes（SSI）和阅读cookies。通过聪明的使用cookies和分发部分被Apache重写的HTML，我们可以加速前端的性能。看下面的例子（我们实际的代码要复杂一点，但可以归纳为一样的想法）：
 
-We don't have a server side language, just a static Apache web server. But an Apache web server can still do server side includes (SSI) and read out cookies. By making smart use of cookies and serving HTML that is partially rewritten by Apache, we can boost front-end performance. Take this example below (our actual code is a little more complex, but boils down to the same ideas):
 
     <!-- #if expr="($HTTP_COOKIE!=/css-loaded/) || ($HTTP_COOKIE=/.*css-loaded=([^;]+);?.*/ && ${1} != '0d82f.css' )"-->
     <noscript><link rel="stylesheet" href="0d82f.css"></noscript><script>
@@ -205,60 +212,59 @@ We don't have a server side language, just a static Apache web server. But an Ap
     <!-- #else -->
     <link rel="stylesheet" href="0d82f.css">
     <!-- #endif -->
+Apache服务器端的逻辑是以 `<!-- #`开始的像备注一样的地方。我们一步一步的开始：
 
-The Apache server side logic are the comment looking lines starting with `<!-- #`. Let's look at this step by step:
 
-- `$HTTP_COOKIE!=/css-loaded/` checks if no CSS cache cookie exists yet.
-- `$HTTP_COOKIE=/.*css-loaded=([^;]+);?.*/ && ${1} != '0d82f.css'` checks if the cached CSS version is not the current version.
-- If `<!-- #if expr="..." -->` evaluates to `true` we assume this is the visitor’s first view.
-- For the first view we add a `<noscript>` tag with a render blocking `<link rel="stylesheet">`. We do this, because we will load in the full CSS asynchronously with JavaScript. If JavaScript would be disabled, this would not be possible. This means that as a fallback, we load CSS ‘by the numbers’, ie. in a blocking manner.
-- We add an inline script with functions for lazy loading the CSS, an `onloadCSS` callback and set cookies.
-- In the same script we load in the full CSS asynchronously.
-- In the `onloadCSS` callback we set a cookie with the version hash as cookie value.
-- After the script we add an inline stylesheet with the critical CSS. This will be render blocking, but it will be very small and prevent the page from being displayed as plain unstyled HTML.
-- The `<!-- #else -->` statement (meaning the `css-loaded` cookie **is** present) represents the visitor’s repeating views. Because we can assume to some degree that the CSS file is loaded previously we can leverage browser cache and server the stylesheet in a blocking manner. It will be served from the cache and load almost instantly.
+- `$HTTP_COOKIE!=/css-loaded/` 检查是否没有CSS缓存cookie存在
+- `$HTTP_COOKIE=/.*css-loaded=([^;]+);?.*/ && ${1} != '0d82f.css'` 检查CSS缓存的版本是否最新的版本
+- If `<!-- #if expr="..." -->` 如果这是访问者的第一次浏览，我们赋值为`true`
+- 对于第一次浏览，我们增加一个`<noscript>`标签带有阻塞的`<link rel="stylesheet">`。我们为了可以通过JavaScript来异步加载完整CSS而这样做。如果JavaScript被禁止了，这是不可能完成的。这代表这一种后备方案，我们`按照常规`用阻塞方式加载CSS.。
+- 我们增加一个带有懒加载CSS和`onloadCSS`回调及设置cookies的函数的嵌入脚本
+- 在同一个脚本我们异步载入完整CSS。
+- 在`onloadCSS`回调我们设置带有版本哈希和cookie值的cookie。
+- 在脚本之后我们增加关键CSS的嵌入样式表。这会阻塞，但阻塞很小并避免页面展示无样式的HTML。
+- 这个`<!-- #else -->` 语句(意味着`css-loaded`的cookie**存在**)说明访问者是再次浏览。因为我们可以预测CSS文件之前加载过因此我们可以借助浏览器缓存来使用阻塞的方式来加载样式表。它会从缓存中读取并即时加载。
 
-The same approach is used for loading in fonts asynchronously for the first view, assuming we can serve them from browser cache for repeating views.
-![Cookie overview screenshot](https://www.voorhoede.nl/assets/images/voorhoede-cookies-l.jpg)See here our cookies used to differentiate between first and repeated views.
-## File level caching
+同样的方法可以用于为了首屏浏览而异步加载字体，估算我们可以在再次浏览中从浏览器缓存中读取他们。
+![Cookie overview screenshot](https://www.voorhoede.nl/assets/images/voorhoede-cookies-l.jpg)看我们的cookies是如何被用于区分第一次浏览和重复浏览。
+## 文件级别缓存
 
-Since we depend heavily on browser caching for repeating views, we need to make sure we cache properly. Ideally we want to cache assets (css, js, fonts, images) forever, only invalidating the cache when a file actually changes. Cache is invalidated if the request URL is unique. We `git tag` our site when we release a new version, so the easiest way would be to add a query parameter to request URLs with the code base version, like `https://www.voorhoede.nl/assets/css/main-dddd3f52a5.css?v=1.0.4`. But.
+因为我们在重复浏览中很依赖于浏览器缓存，我们需要确认我们的缓存是正确的。我们在理想情况下想永久缓存资源（css,js,fonts,images），仅在文件改变的时候让缓存无效。如果URL是独特的话，缓存是无效的。当我们释放新版本时，我们`git tag`我们的网站，最简单的方式是查询参数去请求带有版本号的URLs。像`https://www.voorhoede.nl/assets/css/main-dddd3f52a5.css?v=1.0.4`。但是，这个方法的缺点是当我们需要写一个新的博客推送（这是我们的代码库的一部分，不是存放在外部的CMS），我们所有的资源的缓存会无效化，尽管这些资源没有变化。
 
-The disadvantage of this approach is that when we would write a new blog post (which is part of our code base, not externally stored in a CMS), cache for all of our assets would be invalidated, while no changes have been made to those assets.
+当尝试升级我们的方法时，我们偶然发现 [gulp-rev](https://github.com/sindresorhus/gulp-rev) 和 [gulp-rev-replace](https://github.com/jamesknelson/gulp-rev-replace)。这些脚本通过在文件名加上内容哈希来帮助我们修订文件版本。这代表着只有文件实际变化时URL请求才会变化。现在我们有了基于每个文件的缓存无效化处理。这让我的心跳变得猛烈了！
 
-While trying to level up our approach, we stumbled upon [gulp-rev](https://github.com/sindresorhus/gulp-rev) and [gulp-rev-replace](https://github.com/jamesknelson/gulp-rev-replace). These scripts helped us to add revisioning per file by appending a content hash to our filenames. This means the request URL only changes when the actual file has changed. Now we have per-file cache invalidation. This makes my heart go boom boom!
+## 结果
 
-## Result
+如果尼来到这里（了不起！）你可能想要知道结果。测试你的网站性能可以通过带有比较可行的提示的[PageSpeed Insights](https://developers.google.com/speed/pagespeed/insights/)和带有大量网络分析的[PageSpeed Insights](https://developers.google.com/speed/pagespeed/insights/)这些工具来完成。我想最好的展现你的网站渲染性能的方法是在极端限制你的网络链接的情况下观察你的页面的变化。这代表着：限制网络到基本不现实的地步。在Google 你可以限制你的链接（通过 inspector > Network tab）并看请求是怎么慢慢的在你的页面构建的情况下加载。
 
-If you’ve come this far (awesome!) you probably want to know the result. Testing how performant your site is can be done with tooling like [PageSpeed Insights](https://developers.google.com/speed/pagespeed/insights/) for very practical tips and [WebPagetest](http://www.webpagetest.org/) for extensive network analysis. I think the best way to test your site rendering performance is by watching your page evolve while throttling your connection insanely. That means: throttle in a probably unrealistic manner. In Google Chrome you can throttle your connection (via the inspector > Network tab) and see how requests are slowly being loaded in while your page builds up.
+看一下我们的主页是怎么在被限制的50KB/S的GPRS连接下加载。![Network analysis for de Voorhoede site for the first page view](https://www.voorhoede.nl/assets/images/voorhoede-network-analysis-l.jpg)在50KB/S的GPRS网络下首次访问我们的网站的第2.27秒，我们的首屏渲染的情况可以在幻灯片的第一张图片和与黄线对应的瀑布流上观察。黄线在HTML被加载后的右侧绘制。HTML包括关键CSS，保证了页面是可用的。所有其他的阻塞资源被设置为懒加载的，因此我们可以在别的部分被下载后再跟页面进行交互。这就是我们想要的！
 
-So see here how our homepage loads on a throttled 50KB/s GPRS connection.
-![Network analysis for de Voorhoede site for the first page view](https://www.voorhoede.nl/assets/images/voorhoede-network-analysis-l.jpg)An overview of how the page evolves for the first visit
-Notice how we get the first render at 2.27s on a 50KB/s GPRS network, represented by the first image from the filmstrip and the corresponding yellow line on the waterfall view. The yellow line is drawn right after the HTML has been downloaded. The HTML contains the critical CSS, making sure the page looks usable. All other blocking recources are being lazily loaded, so we can interact with the page while the rest is being downloaded. This is exactly what we wanted!
+另一个需要注意的是自定义字体在这样的慢连接下是不会被加载的。font face observer会关注这一点，如果我们不异步加载字体，在大多数浏览器你会在FOIT等待一段时间。
 
-Another thing to notice is that custom fonts are never loaded on connections this slow. The font face observer automatically takes care of this, but if we wouldn't load in fonts asynchronously you would be staring at FOIT for a while in most browsers.
+完整的CSS文件在8秒后才被加载。相反，如果我们使用阻塞方式加载完整CSS而不是嵌入关键CSS，我们可能会盯着白屏页面8秒。
 
-The full CSS file is only loaded in after 8 seconds. Conversely, if we’d loaded the full CSS in a blocking manner instead of having critical CSS inline, we would have been staring at a white page for 8 seconds.
+如果你好奇这些时间跟不那么关注性能的页面相比是怎样的结果，就去试试吧。加载时间会涨破屋顶！
 
-If you’re curious how these times compare to other websites with less of a focus on performance, go for it. Load times will go through the roof!
+利用前面介绍的工具来测试我们的网站也会得到一些好的结果。PageSpeed insights 给我们在移动端的表现100/100分数，多么了不起！
 
-Testing our site against the tools mentioned earlier shows some nice results as well. PageSpeed insights gives us a 100/100 score for mobile performance, how awesome is that!
 ![PageSpeed insights results for voorhoede.nl](https://www.voorhoede.nl/assets/images/pagespeed-insights-voorhoede-l.jpg)Woohoo! 100/100 on speed
-When we look at WebPagetest we get the following result:
+当我们看WebPagetest我们得到下面的结果：
 ![WebPagetest results for voorhoede.nl](https://www.voorhoede.nl/assets/images/webpagetest-voorhoede-l.jpg)WebPagetest results for voorhoede.nl
-We can see that our server performs well and that the SpeedIndex for the first view is 693. This means our page is usable after 693ms on a cable connection. Looking good!
+我们可以看到我们的服务端性能很好并且首次浏览性能指数是693.这代表我们的页面在网线连接的情况下693毫秒后便可以使用。看起来很好！
 
-## Roadmap
+##发展路线
 
-We are not done yet and are constantly iterating on our approach. We will focus in the near future on:
+我们还没完成并在不断的迭代改进我们的方法。在最近我们会关注：
 
-- 
-**HTTP/2**: It's here and we are currently experimenting with it. A lot of things described in this article are best practices based on the limitations of HTTP/1.1. In short: HTTP/1.1 dates from 1999 when table layouts and inline styles were super awesome. HTTP/1.1 was never designed for 2.6MB webpages with 200 requests. To alleviate our poor old protocol’s pains we concatenate JS and CSS, inline critical CSS, use data URI's for small images, et cetera. Everything to save requests. Since HTTP/2 can run multiple requests in parallel over the same TCP connection, all this concatenation and reducing of requests might even prove to be an antipattern. We will move to HTTP/2 when we are done with running experiments.
+-
+**HTTP/2**: 我们最近正在实验使用它。这篇文章描述的很多东西是基于HTTP/1.1的限制下的最佳实践。简单来说：HTTP/1.1诞生在表格布局和内嵌样式都让人觉得惊奇的1999年。HTTP/1.1完全没有为了带有200个请求的2.6MB的页面而设计。为了减轻我们可怜的旧协议的压力，我们链接JS，CSS和内嵌关键CSS，使用给予数据URL的小图片等等。每一个都是用来减少请求的。但是HTTP/2可以在同一个TCP链接上并行运行多重请求，这些串联和减少请求的方法可能会被证实为反模式。我们会在完成实验后迁移到HTTP/2。
 
-- 
-**Service Workers**: This is a modern browser JavaScript API that is run in the background. It enables a lot of features that were not available for websites before, like offline support, push notifications, background sync and more. We are playing around with Service Workers, but we still need to implement it in our own site. I guarantee you, we will!
 
-- 
-**CDN**: So, we wanted control and hosted the site ourselves. Yes, yes, and now we want to move to a CDN to get rid of network latency caused by the physical distance between client and server. Although our clients are mostly based in the Netherlands, we want to reach the worldwide front-end community in a way that reflects what we do best: quality, performance, and moving the web forward.
+-
+**服务器端Workers**:这是一个可以运行在后台的现代浏览器的JavaScript API。它让很多之前网站不支持的特性如离线支持，推送通知，后台同步等等变得可以使用。我们正在研究服务器端Workers，但我们仍然需要把它引入到我们的网站。我向你保证，我们会！
 
-Thanks for reading! Did you enjoy reading this post? Do you have comments or questions? Let us know [via Twitter](https://twitter.com/devoorhoede). And if you enjoy building fast websites, [why not join us](https://www.voorhoede.nl/en/team/)?
+-
+**CDN**:因此，我们想要控制和自己架构我们的网站。是的，是的，现在我们想要迁移到CDN来避免由于客户端和服务器的物理距离的延迟。尽管我们的客户大部分在荷兰，我们想要通过展现我们的最好一面来跟前端开发社区接触：质量，性能，推动网络向前发展。
+
+谢谢阅读！你享受阅读这篇文章吗？你有评论或者问题吗？让我们知道通过 [Twitter](https://twitter.com/devoorhoede)。如果你享受构建快的网站，为什么不[加入我们](https://www.voorhoede.nl/en/team/)?
+
