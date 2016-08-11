@@ -1,7 +1,7 @@
 >* 原文链接 : [Why our website is faster than yours](https://www.voorhoede.nl/en/blog/why-our-website-is-faster-than-yours/)
 * 原文作者 : [by Declan](https://www.voorhoede.nl/en/contact/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : hpoenixf
+* 译者 : [hpoenixf](https://github.com/hpoenixf)
 * 校对者: 
 
 我们最近升级了我们的网站。虽然这主要是界面方面的大调整，但作为一个软件开发者，我们更关注在技术细节上面。我们的目标是加强控制，关注性能，在未来可以灵活地调整和让在网站上撰写内容变得有趣。下面讲述了我们是如何让我们的网站比你的快的（呀，不好意思！）
