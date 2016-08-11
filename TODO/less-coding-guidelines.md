@@ -7,32 +7,32 @@
 
 # Medium 内部使用 css/less 的代码风格指南
 
-Medium 对代码风格使用严格的子集 [LESS](http://lesscss.org/) 。这个子集包含变量和混合类型，但是没有别的（没有嵌套等等）。
+Medium 对代码风格使用严格的子集 [LESS](http://lesscss.org/) 。这个子集包含变量和混合指令，但是没有别的（嵌套等等）。
 
-Medium 的常规命名改编自正在进行适配工作的 CSS 框架。这就是说，它依赖于_结构化类名_和_有意义的连字符_（即不使用连字符只为了把单词分开）。这是为了帮助 CSS 应用到 DOM 围绕当前的限制（即缺乏风格封装）更好的进行类关系之间的通讯。
+Medium 的常规命名改编自正在进行适配工作的 CSS 框架。这就是说，它依赖于 _结构化类名_ 和 _有意义的连字符_ （即不使用连字符只为了把单词分开）。这是为了帮助 CSS 应用到 DOM 围绕当前的限制（即缺乏风格封装）更好的进行类关系之间的通讯。
 
 
 **目录**
 
 * [JavaScript](#javascript)
-* [Utilities](#utilities)
+* [Utilities（工具）](#utilities)
   * [u-utilityName](#u-utilityName)
-* [Components](#components)
+* [Components（组件）](#components)
   * [componentName](#componentName)
   * [componentName--modifierName](#componentName--modifierName)
   * [componentName-descendantName](#componentName-descendantName)
   * [componentName.is-stateOfComponent](#is-stateOfComponent)
-* [Variables](#variables)
+* [Variables（变量）](#variables)
   * [colors](#colors)
   * [z-index](#zindex)
   * [font-weight](#fontweight)
   * [line-height](#lineheight)
   * [letter-spacing](#letterspacing)
 * [Polyfills](#polyfills)
-* [Formatting](#formatting)
+* [Formatting（格式）](#formatting)
   * [Spacing](#spacing)
   * [Quotes](#quotes)
-* [Performance](#performance)
+* [Performance（性能）](#performance)
   * [Specificity](#specificity)
 
 
@@ -47,15 +47,14 @@ JavaScript 具体类减少了更改构件的结构或主题不经意间影响到
 <a href="/login" class="btn btn-primary js-login"></a>
 ```
 
-**Again, JavaScript-specific classes should not, under any circumstances, be styled.**
+**同样，JavaScript 的特定的类不应该在任何情况下设置样式。**
 
 <a name="utilities"></a>
-## 工具（感觉好别扭，校对者看看有没有其他译法）
+## Utilities 工具（感觉好别扭，校对者看看有没有其他译法，或者可以不译吗？）
 
-Medium 的工具类采用低层次的结构和位置特征。实用程序可直接应用于任何元件；可多工具同时应用；同时可以横靠在组件类中使用。
+Medium 的工具类采用低层次的结构和位置特征。实用程序可直接应用于任何元件；可多工具同时应用；同时也可以横靠在组件类中使用。
 
-Utilities 存在是因为某些 CSS 属性和模式经常使用。例如： floats, containing floats, vertical alignment, text truncation.依靠实用程序可以帮助减少重复和提供一致的实现，它们同时还充当哲学的替代功能（即非填充工具）的混入。
-
+Utilities 存在是因为某些 CSS 属性和模式经常使用。例如： floats, containing floats, vertical alignment, text truncation .依靠实用程序可以帮助减少重复和提供一致的实现，它们同时还充当哲学『这里该如何翻译』的替代功能（即非填充工具）的混合指令。
 
 
 ```html
@@ -70,9 +69,9 @@ Utilities 存在是因为某些 CSS 属性和模式经常使用。例如： floa
 <a name="u-utilityName"></a>
 ### u-utilityName
 
-Syntax: `u-<utilityName>`
+语法: `u-<utilityName>`
 
-Utilities must use a camel case name, prefixed with a `u` namespace. What follows is an example of how various utilities can be used to create a simple structure within a component.
+Utilities 必须使用驼峰命名, 前缀带有 `u` 的命名空间。 以下是对如何不同的实用程序可用于组件内建立一个简单的结构的例子。
 
 ```html
 <div class="u-clearfix">
@@ -86,23 +85,23 @@ Utilities must use a camel case name, prefixed with a `u` namespace. What follow
 ```
 
 <a name="components"></a>
-## Components
+## components 组件
 
-Syntax: `<componentName>[--modifierName|-descendantName]`
+语法: `<componentName>[--modifierName|-descendantName]`
 
-Component driven development offers several benefits when reading and writing HTML and CSS:
+读取和写入 HTML 和 CSS 当组件驱动的开发有几个好处：
 
-* It helps to distinguish between the classes for the root of the component, descendant elements, and modifications.
-* It keeps the specificity of selectors low.
-* It helps to decouple presentation semantics from document semantics.
+* 它有助于在不同的类之间区分根组件，子元素和修改。
+* 它保持低选择器的特异性。
+* 它有助于从文档语义去耦呈现语义。
 
-You can think of components as custom elements that enclose specific semantics, styling, and behaviour.
+你可以将组件当做该封装的特定语义，样式和行为的自定义元素。
 
 
 <a name="componentName"></a>
-### ComponentName
+### componentName
 
-The component's name must be written in camel case.
+组件名必须使用驼峰命名法。
 
 ```css
 .myComponent { /* … */ }
@@ -117,7 +116,7 @@ The component's name must be written in camel case.
 <a name="componentName--modifierName"></a>
 ### componentName--modifierName
 
-A component modifier is a class that modifies the presentation of the base component in some form. Modifier names must be written in camel case and be separated from the component name by two hyphens. The class should be included in the HTML _in addition_ to the base component class.
+一个组件修饰符修改该基础构件以某种形式的类呈现。 修改名称必须用驼峰式命名以及两个连字符应从组件名称分开。类应该包括在 _除了_ 基础构件类的 HTML 。
 
 ```css
 /* Core button */
@@ -132,7 +131,7 @@ A component modifier is a class that modifies the presentation of the base compo
 <a name="componentName-descendantName"></a>
 ### componentName-descendantName
 
-A component descendant is a class that is attached to a descendant node of a component. It's responsible for applying presentation directly to the descendant on behalf of a particular component. Descendant names must be written in camel case.
+子组件是附加到一个组件的子节点的类。它负责代表特定组件直接应用呈现给子代。子代命名也要使用驼峰式命名。 
 
 ```html
 <article class="tweet">
@@ -149,9 +148,9 @@ A component descendant is a class that is attached to a descendant node of a com
 <a name="is-stateOfComponent"></a>
 ### componentName.is-stateOfComponent
 
-Use `is-stateName` for state-based modifications of components. The state name must be Camel case. **Never style these classes directly; they should always be used as an adjoining class.**
+使用 `is-stateName` 对部件进行基于状态的修改。状态名命名也要使用驼峰式。 **不要把这些样式当做类；它们应该被常用作相邻的类。**
 
-JS can add/remove these classes. This means that the same state names can be used in multiple contexts, but every component must define its own styles for the state (as they are scoped to the component).
+JS 可以添加或删除这些类。这意味着相同的状态名称可以在上下文中多次使用，但每一组件必须定义它自己的样式的状态（因为它们被限定在组件）。
 
 ```css
 .tweet { /* … */ }
@@ -166,13 +165,13 @@ JS can add/remove these classes. This means that the same state names can be use
 
 
 <a name="variables"></a>
-## Variables
+## Variables 变量
 
-Syntax: `<property>-<value>[--componentName]`
+语法: `<property>-<value>[--componentName]`
 
-Variable names in our CSS are also strictly structured. This syntax provides strong associations between property, use, and component.
+在我们的 CSS 中变量名也有严格的结构。此语法提供属性，使用和组件之间的强关联。
 
-The following variable defintion is a color property, with the value grayLight, for use with the highlightMenu component.
+以下变量为指标确定颜色属性，其值为grayLight，使用highlightMenu组件。
 
 ```CSS
 @color-grayLight--highlightMenu: rgb(51, 51, 50);
@@ -181,17 +180,17 @@ The following variable defintion is a color property, with the value grayLight, 
 <a name="colors"></a>
 ### Colors
 
-When implementing feature styles, you should only be using color variables provided by colors.less.
+在实现特性的样式时，你只应使用由 colors.less 提供的颜色变量。
 
-When adding a color variable to colors.less, using RGB and RGBA color units are preferred over hex, named, HSL, or HSLA values.
+当添加一个颜色变量 colors.less ，使用 RGB 和 RGBA 颜色单位优先于十六进制，命名， HSL 和 HSLA 值。
 
-**Right:**
+**正确的做法:**
 ```css
 rgb(50, 50, 50);
 rgba(50, 50, 50, 0.2);
 ```
 
-**Wrong:**
+**错误的做法:**
 ```css
 #FFF;
 #FFFFFF;
@@ -203,19 +202,19 @@ hsla(120, 100%, 50%, 1);
 <a name="zindex"></a>
 ### z-index scale
 
-Please use the z-index scale defined in z-index.less.
+请使用 Z-index.less 定义 z-index 的比例。
 
-`@zIndex-1 - @zIndex-9` are provided. Nothing should be higher then `@zIndex-9`.
+`@zIndex-1 - @zIndex-9` 提供了。 没什么应该比 `@zIndex-9` 高。
 
 
 <a name="fontweight"></a>
 ### Font Weight
 
-With the additional support of web fonts `font-weight` plays a more important role than it once did. Different font weights will render typefaces specifically created for that weight, unlike the old days where `bold` could be just an algorithm to fatten a typeface. Obvious uses the numerical value of `font-weight` to enable the best representation of a typeface. The following table is a guide:
+随着网页字体的额外支持 `font-weight` 起着不如从前重要的作用。不同的字体粗细将专门渲染重建。不像曾经的 `bold` 只是通过一个算法来增粗字体。
 
-Raw font weights should be avoided. Instead, use the appropriate font mixin: `.font-sansI7, .font-sansN7, etc.`
+原始定义字体粗细应尽量避免。相反，使用合适的字体混合指令: `.font-sansI7, .font-sansN7, 等等.`
 
-The suffix defines the weight and style:
+后缀定义粗细和样式：
 
 ```CSS
 N = normal
@@ -224,7 +223,7 @@ I = italic
 7 = bold font-weight
 ```
 
-Refer to type.less for type size, letter-spacing, and line height. Raw sizes, spaces, and line heights should be avoided outside of type.less.
+请参考 type.less 类型的大小，字母间距和行高。原尺寸，空格和线的高度应避免在 type.less 之外。
 
 
 ```CSS
@@ -241,13 +240,13 @@ ex:
 @fontSize-jumbo
 ```
 
-See [Mozilla Developer Network — font-weight](https://developer.mozilla.org/en/CSS/font-weight) for further reading.
+参见 [Mozilla Developer Network — font-weight](https://developer.mozilla.org/en/CSS/font-weight) 进一步阅读。
 
 
 <a name="lineheight"></a>
 ### Line Height
 
-Type.less also provides a line height scale. This should be used for blocks of text.
+Type.less 还提供了一个行高比例。这本应该用于文本块。
 
 
 ```CSS
@@ -262,7 +261,7 @@ ex:
 @lineHeight-looser
 ```
 
-Alternatively, when using line height to vertically center a single line of text, be sure to set the line height to the height of the container - 1.
+另外，使用行高垂直居中单行文本的时候，一定要将行高设置为容器的高度 -1 。
 
 ```CSS
 .btn {
@@ -274,7 +273,7 @@ Alternatively, when using line height to vertically center a single line of text
 <a name="letterspacing"></a>
 ### Letter spacing
 
-Letter spacing should also be controlled with the following var scale.
+字母间隔同样也应该跟随 var 进行比例控制。
 
 ```CSS
 @letterSpacing-tightest
@@ -288,12 +287,12 @@ Letter spacing should also be controlled with the following var scale.
 <a name="polyfills"></a>
 ## Polyfills
 
-mixin syntax: `m-<propertyName>`
+混合指令语法: `m-<propertyName>`
 
-At Medium we only use mixins to generate polyfills for browser prefixed properties.
+在 Medium 我们只用混合指令生成浏览前缀属性 polyfills 。
 
 
-An example of a border radius mixin:
+边框半径混合指令的例子：
 
 ```css
 .m-borderRadius(@radius) {
@@ -307,14 +306,14 @@ An example of a border radius mixin:
 <a name="formatting"></a>
 ## Formatting
 
-The following are some high level page formatting style rules.
+以下是一些高水平的网页格式样式规则。
 
 <a name="spacing"></a>
 ### Spacing
 
-CSS rules should be comma seperated but live on new lines:
+CSS 规则在新的一行应该用逗号分开：
 
-**Right:**
+**正确的写法:**
 ```css
 .content,
 .content-edit {
@@ -322,16 +321,16 @@ CSS rules should be comma seperated but live on new lines:
 }
 ```
 
-**Wrong:**
+**错误的写法:**
 ```css
 .content, .content-edit {
   …
 }
 ```
 
-CSS blocks should be seperated by a single new line. not two. not 0.
+CSS 块应由一个新行分开，而不是两个并且不为 0 。
 
-**Right:**
+**正确的写法:**
 ```css
 .content {
   …
@@ -341,7 +340,7 @@ CSS blocks should be seperated by a single new line. not two. not 0.
 }
 ```
 
-**Wrong:**
+**错误的写法:**
 ```css
 .content {
   …
@@ -356,35 +355,35 @@ CSS blocks should be seperated by a single new line. not two. not 0.
 <a name="quotes"></a>
 ### Quotes
 
-Quotes are optional in CSS and LESS. We use double quotes as it is visually clearer that the string is not a selector or a style property.
+引号在 CSS 和 LESS 可选。我们使用双引号，因为它视觉上更加简洁，而且该字符串不是选择或样式属性。
 
-**Right:**
+**正确的写法:**
 ```css
 background-image: url("/img/you.jpg");
 font-family: "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial;
 ```
 
-**Wrong:**
+**错误的写法:**
 ```css
 background-image: url(/img/you.jpg);
 font-family: Helvetica Neue Light, Helvetica Neue, Helvetica, Arial;
 ```
 
 <a name="performance"></a>
-## Performance
+## Performance 性能
 
 <a name="specificity"></a>
 ### Specificity
 
-Although in the name (cascading style sheets) cascading can introduce unnecessary performance overhead for applying styles. Take the following example:
+虽然在名称（层叠样式表）层叠会增加不必要的性能支出在应用样式上。看看下面的例子：
 
 ```css
 ul.user-list li span a:hover { color: red; }
 ```
 
-Styles are resolved during the renderer's layout pass. The selectors are resolved right to left, exiting when it has been detected the selector does not match. Therefore, in this example every a tag has to be inspected to see if it resides inside a span and a list. As you can imagine this requires a lot of DOM walking and and for large documents can cause a significant increase in the layout time. For further reading checkout: https://developers.google.com/speed/docs/best-practices/rendering#UseEfficientCSSSelectors
+样式渲染在布局处理过程中解决。该选择器从右到左进行，当它不匹配时退出。因此，本例中的每个标记有待检查，看它是否驻留在 span 和 list 内。你可以想象，这需要大量的 DOM 操作，大型文档的话可能导致布局时间增多。进一步阅读： https://developers.google.com/speed/docs/best-practices/rendering#UseEfficientCSSSelectors
 
-If we know we want to give all `a` elements inside the `.user-list` red on hover we can simplify this style to:
+如果我们知道给所有 `a` 元素在 `.user-list` 悬停时变红，我们可以简化这种样式：
 
 ```css
 .user-list > a:hover {
@@ -392,7 +391,7 @@ If we know we want to give all `a` elements inside the `.user-list` red on hover
 }
 ```
 
-If we want to only style specific `a` elements inside `.user-list` we can give them a specific class:
+如果我们仅仅想在特定样式在 `.user-list` 中的 `a` 元素，我们可以给他们一个特定的类。
 
 ```css
 .user-list > .link-primary:hover {
