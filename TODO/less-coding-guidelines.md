@@ -2,12 +2,12 @@
 * 原文作者 : [fat](https://gist.github.com/fat)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [Gran](https://github.com/Graning)
-* 校对者: 
+* 校对者: [hpf](https://github.com/hpoenixf) ,[MAYDAY1993](https://github.com/MAYDAY1993)
 
 
 # Medium 内部使用 css/less 的代码风格指南
 
-Medium 对代码风格使用严格的子集 [LESS](http://lesscss.org/) 。这个子集包含变量和混合指令，但是没有别的（嵌套等等）。
+Medium 对代码风格使用了  [LESS](http://lesscss.org/)  的一种严格子集。这个子集包含变量和混合指令，但是没有别的（嵌套等等）。
 
 Medium 的常规命名改编自正在进行适配工作的 CSS 框架。这就是说，它依赖于 _结构化类名_ 和 _有意义的连字符_ （即不使用连字符只为了把单词分开）。这是为了帮助 CSS 应用到 DOM 围绕当前的限制（即缺乏风格封装）更好的进行类关系之间的通讯。
 
@@ -52,9 +52,9 @@ JavaScript 具体类减少了更改构件的结构或主题不经意间影响到
 <a name="utilities"></a>
 ## Utilities 工具
 
-Medium 的工具类采用低层次的结构和位置特征。实用程序可直接应用于任何元件；可多工具同时应用；同时也可以横靠在组件类中使用。
+Medium 的工具类采用低层次的结构和位置特征。工具们可直接应用于任何元素；可多工具同时应用；跟组件类一起被使用。
 
-Utilities 存在是因为某些 CSS 属性和模式经常使用。例如： floats, containing floats, vertical alignment, text truncation .依靠实用程序可以帮助减少重复和提供一致的实现，它们同时还充当哲学『这里该如何翻译』的替代功能（即非填充工具）的混合指令。
+Utilities 存在是因为某些 CSS 属性和模式经常使用。例如： floats, containing floats, vertical alignment, text truncation .依靠实用程序可以帮助减少重复和提供一致的实现，它们同时还充当了功能性混合指令的替代功能（即非填充工具）。
 
 
 ```html
@@ -116,7 +116,7 @@ Utilities 必须使用驼峰命名, 前缀带有 `u` 的命名空间。 以下�
 <a name="componentName--modifierName"></a>
 ### componentName--modifierName
 
-一个组件修饰符修改该基础构件以某种形式的类呈现。 修改名称必须用驼峰式命名以及两个连字符应从组件名称分开。类应该包括在 _除了_ 基础构件类的 HTML 。
+组件修饰器是一种可以在某种形式改变基础组件的样式的类。修饰器的名字必须为驼峰式并通过两个连字符与组件的名字分开。类应该包括在 _除了_ 基础构件类的 HTML 。
 
 ```css
 /* Core button */
@@ -171,7 +171,7 @@ JS 可以添加或删除这些类。这意味着相同的状态名称可以在�
 
 在我们的 CSS 中变量名也有严格的结构。此语法提供属性，使用和组件之间的强关联。
 
-以下变量为指标确定颜色属性，其值为grayLight，使用highlightMenu组件。
+以下变量为指标确定颜色属性，其值为grayLight，与highlightMenu组件一起使用2。
 
 ```CSS
 @color-grayLight--highlightMenu: rgb(51, 51, 50);
@@ -202,7 +202,7 @@ hsla(120, 100%, 50%, 1);
 <a name="zindex"></a>
 ### z-index scale
 
-请使用 Z-index.less 定义 z-index 的比例。
+请使用 Z-index.less 定义 z-index 的范围。
 
 `@zIndex-1 - @zIndex-9` 提供了。 没什么应该比 `@zIndex-9` 高。
 
@@ -210,7 +210,7 @@ hsla(120, 100%, 50%, 1);
 <a name="fontweight"></a>
 ### Font Weight
 
-随着网页字体的额外支持 `font-weight` 起着不如从前重要的作用。不同的字体粗细将专门渲染重建。不像曾经的 `bold` 只是通过一个算法来增粗字体。
+随着网页字体的额外支持 `font-weight` 起着比从前重要的作用。不同的字体粗细将专门渲染重建。不像曾经的 `bold` 只是通过一个算法来增粗字体。明显的使用 `font-weight` 的值，以使字体的最佳展示。下面是一个指导：
 
 原始定义字体粗细应尽量避免。相反，使用合适的字体混合指令: `.font-sansI7, .font-sansN7, 等等.`
 
@@ -391,7 +391,7 @@ ul.user-list li span a:hover { color: red; }
 }
 ```
 
-如果我们仅仅想在特定样式在 `.user-list` 中的 `a` 元素，我们可以给他们一个特定的类。
+如果我们仅仅想给 `.user-list` 中的 a 元素设置特别的样式，我们可以给他们设定一个特定的类。
 
 ```css
 .user-list > .link-primary:hover {
