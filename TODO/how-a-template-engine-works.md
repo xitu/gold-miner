@@ -50,6 +50,9 @@ So basically a template engine is just one Python function:
 
 During the processing procedure, the template engine has two phases:
 
+* parsing
+* rendering
+
 The parsing stage takes the template string and produces something that could be
 rendered.  Consider the template string as source code, the parsing tool could be
 either a programming language interpreter or a programming language compiler.  If
@@ -65,14 +68,21 @@ As said above, we now need to parse the template string, and the parsing tool in
 tornado template module compiles templates to Python code.  Our parsing tool is
 simply one Python function that does Python code generation:
 
-    defparse_template(template_string):# compilationreturn python_source_code
+    def parse_template(template_string):
+      # compilation
+      return python_source_code
 
 Before we get to the implementation of `parse_template`, let's see the code it
 produces, here is an example template source string:
 
     <html>
       Hello, {{ username }}!
-      <ul>{% for job in jobs %}<li>{{ job.name }}</li>{% end %}</ul></html>
+      <ul>
+        {% for job in jobs %}
+          <li>{{ job.name }}</li>
+        {% end %}
+      </ul>
+    </html>
 
 Our `parse_template` function will compile this template to Python code, which is
 just one function, the simplified version is:
@@ -128,58 +138,76 @@ consume the template file.  We need to start from the begining and keep going ah
 to find some special notations, the `_TemplateReader` will keep the current position
 and give us ways to do it:
 
-    class_TemplateReader(object):def__init__(self, text):
-            self.text = text
-            self.pos = 0deffind(self, needle, start=0, end=None):
-            pos = self.pos
-            start += pos
-            if end isNone:
-                index = self.text.find(needle, start)
-            else:
-                end += pos
-                index = self.text.find(needle, start, end)
-            if index != -1:
-                index -= pos
-            return index
-    
-        defconsume(self, count=None):if count isNone:
-                count = len(self.text) - self.pos
-            newpos = self.pos + count
-            s = self.text[self.pos:newpos]
-            self.pos = newpos
-            return s
-    
-        defremaining(self):return len(self.text) - self.pos
-    
-        def__len__(self):return self.remaining()
-    
-        def__getitem__(self, key):if key < 0:
-                return self.text[key]
-            else:
-                return self.text[self.pos + key]
-    
-        def__str__(self):return self.text[self.pos:]
+    class _TemplateReader(object):
+      def __init__(self, text):
+          self.text = text
+          self.pos = 0
+  
+      def find(self, needle, start=0, end=None):
+          pos = self.pos
+          start += pos
+          if end is None:
+              index = self.text.find(needle, start)
+          else:
+              end += pos
+              index = self.text.find(needle, start, end)
+          if index != -1:
+              index -= pos
+          return index
+  
+      def consume(self, count=None):
+          if count is None:
+              count = len(self.text) - self.pos
+          newpos = self.pos + count
+          s = self.text[self.pos:newpos]
+          self.pos = newpos
+          return s
+  
+      def remaining(self):
+          return len(self.text) - self.pos
+  
+      def __len__(self):
+          return self.remaining()
+  
+      def __getitem__(self, key):
+          if key < 0:
+              return self.text[key]
+          else:
+              return self.text[self.pos + key]
+  
+      def __str__(self):
+          return self.text[self.pos:]
 
 To help with generating the Python code, we need the `_CodeWriter` class, this class
 writes lines of codes and manages indentation, also it is one Python context manager:
 
-    class_CodeWriter(object):def__init__(self):
-            self.buffer = cStringIO.StringIO()
-            self._indent = 0defindent(self):return self
-    
-        defindent_size(self):return self._indent
-    
-        def__enter__(self):
-            self._indent += 1return self
-    
-        def__exit__(self, *args):
-            self._indent -= 1defwrite_line(self, line, indent=None):if indent == None:
-                indent = self._indent
-            for i in xrange(indent):
-                self.buffer.write("    ")
-            print self.buffer, line
-    
-        def__str__(self):return self.buffer.getvalue()
+    class _CodeWriter(object):
+      def __init__(self):
+          self.buffer = cStringIO.StringIO()
+          self._indent = 0
+  
+      def indent(self):
+          return self
+  
+      def indent_size(self):
+          return self._indent
+  
+      def __enter__(self):
+          self._indent += 1
+          return self
+  
+      def __exit__(self, *args):
+          self._indent -= 1
+  
+      def write_line(self, line, indent=None):
+          if indent == None:
+              indent = self._indent
+          for i in xrange(indent):
+              self.buffer.write("    ")
+          print self.buffer, line
+  
+      def __str__(self):
+          return self.buffer.getvalue()
 
 In the begining of the `parse_template`, we create one template reader first:
 
@@ -197,29 +225,41 @@ and we return the generated Python code.  The `_Node` class would handle the Pyt
 code generation for a specific case, we will see it later.  Now let's go back to our
 `_parse` function:
 
-    def_parse(reader, in_block=None):
-        body = _ChunkList([])
-        whileTrue:
-            # Find next template directive
-            curly = 0whileTrue:
-                curly = reader.find("{", curly)
-                if curly == -1or curly + 1 == reader.remaining():
-                    # EOFif in_block:
-                        raise ParseError("Missing {%% end %%} block for %s" %
-                                         in_block)
-                    body.chunks.append(_Text(reader.consume()))
-                    return body
-                # If the first curly brace is not the start of a special token,# start searching from the character after itif reader[curly + 1] notin ("{", "%"):
-                    curly += 1continue# When there are more than 2 curlies in a row, use the# innermost ones.  This is useful when generating languages# like latex where curlies are also meaningfulif (curly + 2 < reader.remaining() and
-                    reader[curly + 1] == '{'and reader[curly + 2] == '{'):
-                    curly += 1continuebreak
+    def _parse(reader, in_block=None):
+      body = _ChunkList([])
+      while True:
+          # Find next template directive
+          curly = 0
+          while True:
+              curly = reader.find("{", curly)
+              if curly == -1 or curly + 1 == reader.remaining():
+                  # EOF
+                  if in_block:
+                      raise ParseError("Missing {%% end %%} block for %s" %
+                                       in_block)
+                  body.chunks.append(_Text(reader.consume()))
+                  return body
+              # If the first curly brace is not the start of a special token,
+              # start searching from the character after it
+              if reader[curly + 1] not in ("{", "%"):
+                  curly += 1
+                  continue
+              # When there are more than 2 curlies in a row, use the
+              # innermost ones.  This is useful when generating languages
+              # like latex where curlies are also meaningful
+              if (curly + 2 < reader.remaining() and
+                  reader[curly + 1] == '{' and reader[curly + 2] == '{'):
+                  curly += 1
+                  continue
+              break
 
 We loop forever to find a template directive in the remaining file, if we reach
 the end of the file, we append the text node and exit, otherwise, we have found
 one template directive.
 
-    # Append any text before the special tokenif curly > 0:
-                body.chunks.append(_Text(reader.consume(curly)))
+    # Append any text before the special token
+    if curly > 0:
+      body.chunks.append(_Text(reader.consume(curly)))
 
 Before we handle the special token, we append the text node if there is static part.
 
@@ -227,40 +267,44 @@ Before we handle the special token, we append the text node if there is static p
 
 Get our start brace, if should be `'{{'` or `'{%'`.
 
-    # Expressionif start_brace == "{{":
-                end = reader.find("}}")
-                ifend == -1or reader.find("\n", 0, end) != -1:
-                    raise ParseError("Missing end expression }}")
-                contents = reader.consume(end).strip()
-                reader.consume(2)
-                ifnotcontents:
-                    raise ParseError("Empty expression")
-                body.chunks.append(_Expression(contents))
-                continue
+    # Expression
+    if start_brace == "{{":
+        end = reader.find("}}")
+        if end == -1 or reader.find("\n", 0, end) != -1:
+            raise ParseError("Missing end expression }}")
+        contents = reader.consume(end).strip()
+        reader.consume(2)
+        if not contents:
+            raise ParseError("Empty expression")
+        body.chunks.append(_Expression(contents))
+        continue
 
 The start brace is `'{{'` and we have an expression here, just get the contents
 of the expression and append one `_Expression` node.
 
-    # Blockassert start_brace == "{%", start_brace
-            end = reader.find("%}")
-            if end == -1or reader.find("\n", 0, end) != -1:
-                raise ParseError("Missing end block %}")
-            contents = reader.consume(end).strip()
-            reader.consume(2)
-            ifnot contents:
-                raise ParseError("Empty block tag ({% %})")
-            operator, space, suffix = contents.partition(" ")
-            # End tagif operator == "end":
-                ifnot in_block:
-                    raise ParseError("Extra {% end %} block")
-                return body
-            elif operator in ("try", "if", "for", "while"):
-                # parse inner body recursively
-                block_body = _parse(reader, operator)
-                block = _ControlBlock(contents, block_body)
-                body.chunks.append(block)
-                continueelse:
-                raise ParseError("unknown operator: %r" % operator)
+      # Block
+      assert start_brace == "{%", start_brace
+      end = reader.find("%}")
+      if end == -1 or reader.find("\n", 0, end) != -1:
+          raise ParseError("Missing end block %}")
+      contents = reader.consume(end).strip()
+      reader.consume(2)
+      if not contents:
+          raise ParseError("Empty block tag ({% %})")
+      operator, space, suffix = contents.partition(" ")
+      # End tag
+      if operator == "end":
+          if not in_block:
+              raise ParseError("Extra {% end %} block")
+          return body
+      elif operator in ("try", "if", "for", "while"):
+          # parse inner body recursively
+          block_body = _parse(reader, operator)
+          block = _ControlBlock(contents, block_body)
+          body.chunks.append(block)
+          continue
+      else:
+          raise ParseError("unknown operator: %r" % operator)
 
 We have a block here, normally we would get the block body recursively and append
 a `_ControlBlock` node, the block body should be a list of nodes.  If we encounter
@@ -268,40 +312,48 @@ an `{% end %}`, the block ends and we exit the function.
 
 It is time to find out the secrets of `_Node` class, it is quite simple:
 
-    class_Node(object):defgenerate(self, writer):raise NotImplementedError()
-
-    class_ChunkList(_Node):def__init__(self, chunks):
-            self.chunks = chunks
+    class _Node(object):
+      def generate(self, writer):
+          raise NotImplementedError()
     
-        defgenerate(self, writer):for chunk in self.chunks:
-                chunk.generate(writer)
+    
+    class _ChunkList(_Node):
+      def __init__(self, chunks):
+          self.chunks = chunks
+  
+      def generate(self, writer):
+          for chunk in self.chunks:
+              chunk.generate(writer)
 
 A `_ChunkList` is just a list of nodes.
 
-    class_File(_Node):def__init__(self, body):
-            self.body = body
-    
-        defgenerate(self, writer):
-            writer.write_line("def _execute():")
-            with writer.indent():
-                writer.write_line("_buffer = []")
-                self.body.generate(writer)
-                writer.write_line("return ''.join(_buffer)")
+    class _File(_Node):
+      def __init__(self, body):
+          self.body = body
+  
+      def generate(self, writer):
+          writer.write_line("def _execute():")
+          with writer.indent():
+              writer.write_line("_buffer = []")
+              self.body.generate(writer)
+              writer.write_line("return ''.join(_buffer)")
 
 A `_File` node write the `_execute` function to the CodeWriter.
 
-    class_Expression(_Node):def__init__(self, expression):
+    class _Expression(_Node):
+        def __init__(self, expression):
             self.expression = expression
     
-        defgenerate(self, writer):
+        def generate(self, writer):
             writer.write_line("_tmp = %s" % self.expression)
             writer.write_line("_buffer.append(str(_tmp))")
     
     
-    class_Text(_Node):def__init__(self, value):
+    class _Text(_Node):
+        def __init__(self, value):
             self.value = value
     
-        defgenerate(self, writer):
+        def generate(self, writer):
             value = self.value
             if value:
                 writer.write_line('_buffer.append(%r)' % value)
@@ -309,11 +361,12 @@ A `_File` node write the `_execute` function to the CodeWriter.
 The `_Text` and `_Expression` node are also really simple, just append what you
 get from the template source.
 
-    class_ControlBlock(_Node):def__init__(self, statement, body=None):
+    class _ControlBlock(_Node):
+        def __init__(self, statement, body=None):
             self.statement = statement
             self.body = body
     
-        defgenerate(self, writer):
+        def generate(self, writer):
             writer.write_line("%s:" % self.statement)
             with writer.indent():
                 self.body.generate(writer)
