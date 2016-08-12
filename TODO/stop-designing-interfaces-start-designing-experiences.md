@@ -1,3 +1,9 @@
+> * 原文地址：[Stop designing interfaces, Start designing experiences](https://medium.com/blablacar-design/stop-designing-interfaces-start-designing-experiences-d82def0b802c#.tm2nitn97)
+* 原文作者：[DUVAL Nicolas](https://medium.com/@nicolaseek?source=post_header_lockup)
+* 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+* 译者： 
+* 校对者： 
+
 > This article is part of a series on our new Interface Guidelines.
 
 #### Messy process, messy results
