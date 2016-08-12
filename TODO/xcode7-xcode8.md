@@ -40,7 +40,7 @@
 
 ###框架资源调配
 
-在框架资源调配方面 Xcode 8 做出了一些调整————他们可以继续为模拟器编译，但是无法构建设备。
+在框架资源调配方面 Xcode 8 做出了一些调整————他们可以继续为模拟器编译，但是无法为设备进行构建。
 
 为了修复它，检查所有框架目标的创建设置，添加这个选项，就像我们对 `SWIFT_VERSION` 操作的那样：
 
@@ -56,7 +56,7 @@
 
 多数情况下说是“默认（7.0）”。将它改为 “Xcode 7.0” 。这可以确保如果你建立了 Xcode 8 的文件，他只是改变那些和 Xcode 7 向后兼容的部分。
 
-我还是建议你谨慎使用 Xcode 8 改变 XIBs 。它会添加 Xcode version 版本的元数据（我不能保证当你上传到 App Store 的时候会不会脱去），有时也会尝试恢复文件为只适用 Xcode 8 的格式（这是个 bug ）。尽可能地从 Xcode 8 创建文件， 当你没法选择的时候，谨慎地审核 diff ，只提交你需要的代码行。
+我还是建议你谨慎使用 Xcode 8 改变 XIBs 。它会添加 Xcode version 版本的元数据（我不能保证当你上传到 App Store 的时候会不会去掉），有时也会尝试恢复文件为只适用 Xcode 8 的格式（这是个 bug ）。尽可能地从 Xcode 8 创建文件， 当你没法选择的时候，谨慎地审核 diff ，只提交你需要的代码行。
 
 ### SDK 版本
 
@@ -92,15 +92,15 @@ Xcode 会催促你更新到最新的  Swift 。拒绝。
 
 Xcode 也会要求你按“推荐设置”更新工程。同样拒绝。
 
-记住，我们已经设置好了可以在两个版本上编译的工程。现在来说，为了保持同时兼容，最好的事情就是减少变化。更重要的是，我们不想让 `.xcodeproj` 包含任何有关 Xcode 8 的源数据，尽管我们用了同样的文件发往应用商店。
+记住，我们已经设置好了可以在两个版本上编译的工程。现在来说，为了保持同时兼容，最好的事情就是减少变化。更重要的是，我们不想让 `.xcodeproj` 包含任何有关 Xcode 8 的源数据，当我们用了同样的文件发往应用商店的时候。
 
 ## 处理 Swift 2.3 差异
 
 正像我上面提到的那样， Swift 2.3 和 Swift 2.2 是同种_语言_。然而， iOS 10 SDK _框架_ 更新了他们的 Swift 解释。我并不是在讨论 [Grand Renaming](https://developer.apple.com/videos/play/wwdc2016/403/)（只能用于 Swift 3 ）————不过，名称、类型和许多可选的 API 都有少量的调整。
 
-### 条件式编辑
+### 条件式编译
 
-为了防止你忽略它， Swift 2.2 [介绍了](https://github.com/apple/swift-evolution/blob/master/proposals/0020-if-swift-version.md) 条件编辑预处理宏。很容易使用：
+为了防止你忽略它， Swift 2.2 [介绍了](https://github.com/apple/swift-evolution/blob/master/proposals/0020-if-swift-version.md) 条件编译预处理宏。很容易使用：
 
 
 
@@ -162,10 +162,10 @@ let specifier = optionalize(url.resourceSpecifier) ?? "" // works on both versio
 
 
 
-我们利用函数过载来摆脱丑陋的条件编译。看，`optionalize()` 函数把你传过去的一切都变成可选的，除非它早就是可选的，这么一来，它只原样返回意见。这下不论 `url.resourceSpecifier` 是可选的（ Xcode 8 ）还是不可选（ Xcode 7 ），“选项化” 之后的版本都是一样。。
+我们利用函数过载来摆脱丑陋的条件编译。看，`optionalize()` 函数把你传过去的一切都变成可选的，除非它早就是可选的，这么一来，它只原样返回参数。这下不论 `url.resourceSpecifier` 是可选的（ Xcode 8 ）还是不可选（ Xcode 7 ），“选项化” 之后的版本都是一样。。
 
 
-（如果你有兴趣的话，有一条关于实例的要点：过载规则在 Swift 中运行的规则，更具体的函数的变量始终会选择在一个不太特定的变体以上。所有，即使 `String?` 匹配两个变种 `T?` 的 `T = String` 和 `T` 的 `T = String?` ，观点还是更接近匹配第一个变种。
+（如果你有兴趣的话，有一条关于实例的要点：过载规则在 Swift 中运行的方式是，一个函数中更具体的变量始终会比一个不太特定的变量更优先选择 。所以，即使 `String?` 匹配两个变量 `T?` 的 `T = String` 和 `T` 的 `T = String?` ，参数还是更接近匹配第一个变量。
 
 类型别名签名变化
 
@@ -230,11 +230,11 @@ class MyView: NSView, CALayerDelegate { . . . }
 
 那么现在是时候真正创建 iOS 10 特性了，根据上述的建议和技巧，这完全应该是水到渠成的事情。不过，这里还有一些你需要了解的东西：
 
-1.   仅仅使用 `@available(iOS 10, *)` 和 `if #available(iOS 10, *)` 是不够的。首先，不在正式版应用当中编译任何  iOS 10 代码会更加安全。但是更关键地，当编译器需要这些检查来保证安全 API 的时候，还是需要了解存在的 API 。如果你提到任何 iOS 9 SDK 中不存在的方法或类，代码就无法在 Xcode 7 中编译。
+1.   仅仅使用 `@available(iOS 10, *)` 和 `if #available(iOS 10, *)` 是不够的。首先，不在正式版应用当中编译任何  iOS 10 代码会更加安全。但是更关键地，当编译器需要这些检查来保证安全 API 使用，还是需要了解这个 API 是否存在 。如果你提到任何 iOS 9 SDK 中不存在的方法或类，代码就无法在 Xcode 7 中编译。
 
 2.  因此，你需要在 `#if swift(>=2.3)` 中封装所有你的 iOS 10 特有代码（你可以安全地认为Swift 2.3 和 iOS 10 现在是等价的）
 
-3.  通常，你需要_两种_条件编译（就不会出现 Xcode 7 上无效编译的情况）以及 `@available`/`#available` 。
+3.  通常，你需要两个都条件编译（就不会出现 Xcode 7 上无效编译的情况）以及` @available/#available `（来在Xcode 8上通过安全检查）。
 
 4.   当你在 iOS 10 特有特性下工作时，提取所有相关代码为零散的文件最简单了————如此你就可以只在 `#if swift…` 检查封装完整的文件了。（文件可能触及 Xcode 7编译器，但是所有的内容都会被忽略）
 
@@ -278,7 +278,7 @@ configure_extensions add MyApp.xcodeproj MyAppTarget NotificationsUI Intents
 
 你可以配置你的 `script/` ，在利用 Xcode 构建预启动， Git 预提交钩子，或者与 CI 整合或者自动构建系统（更多工具信息见 [GitHub](https://github.com/radex/configure_extensions) ）。
 
-最后一个关于 iOS 10 app 扩展的建议：Xcode 模板生成的是 Swift 3 而不是 Swift 2.3 的代码。这不会时间工作，所以确保设置应用的扩展“使用了传统 Swift 语言版本”构建为“ yes” ，然后重新在 Swift 2.3 上重写代码。
+最后一个关于 iOS 10 app 扩展的建议：Xcode 模板生成的是 Swift 3 而不是 Swift 2.3 的代码。这不会实际工作，所以确保设置应用的扩展“使用了传统 Swift 语言版本”构建为“ yes” ，然后重新在 Swift 2.3 上重写代码。
 
 ## 在九月
 
@@ -288,13 +288,13 @@ configure_extensions add MyApp.xcodeproj MyAppTarget NotificationsUI Intents
 
 *   移除所有残留的 Swift 2.2 代码和不必要的 `#if swift(>=2.3)` 检查。
 
-*   移除所有的 例如对 `optionalize()` 的使用，临时的类型别名和假协议
+*   移除所有的过渡代码，例如对 `optionalize()` 的使用，临时的类型别名和假协议
 *   移除 `configure_extensions` 脚本的使用，并通过启用新的应用扩展来提交工程设置。
 *   更新 CocodaPods ，如果你用到它，从我们添加的  `Podfile`  上移除 `post_install` 钩子（它九月份基本就没什么用了）。
 *   更新到 Xcode 工程推荐设置（在侧边栏选择工程，进入菜单，编辑→确认设置……）
 *   考虑升级你的供应设置以使用新的  `PROVISIONING_PROFILE_SPECIFIER`
 *   确认你依赖所有的 Swift 库都更新到 Swift 3。如果没有，考虑下为 Swift 3 端口出力。
-*   当上述所有都已就绪，你就能升级应用到 Swift 3 了！进入 编辑→转换→到最新 Swift 语法……，选择所有你的目标（记住，你需要一次性转换所有内容），查看 diff 并提交！
+*   当上述所有都已就绪，你就能升级应用到 Swift 3 了！进入 编辑→转换→到最新 Swift  语法……，选择所有你的目标（记住，你需要一次性转换所有内容），查看 diff 并提交！
 *   如果你还没有完成，考虑一下移除对 iOS 8 的支持————这样你就可以移除更多的 `@available` 检查和其他条件代码
 
 
