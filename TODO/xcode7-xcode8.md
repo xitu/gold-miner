@@ -2,7 +2,7 @@
 * 原文作者 : [Radek](http://radex.io/about/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [circlelove](http://github.com/circlelove)
-* 校对者 : 
+* 校对者 :  [yifili09](https://github.com/yifili09),  [MAYDAY1993](https://github.com/MAYDAY1993)
 
 你是一位 iOS 开发者。你对于 iOS 10 带来的强大的新特性感到无比兴奋，想把这些在你的应用上实现。想要 _立刻_ 就上手，这样就可以在第一天就转移过去了。但是那是几个月开外的事情了，到时候你需要每隔几周装配正式版本到你的 app 上。这听起来像你吗？
 
