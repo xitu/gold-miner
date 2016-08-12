@@ -14,7 +14,7 @@
 
 
 
-对于第二部分的这些测试，请访问： [part 2 译文](https://gold.xitu.io/entry/57691d5d6be3ff006a438e09)
+对于第二部分的这些测试，请访问： [较为完整的 React.js / Vue.js 的性能比较](https://gold.xitu.io/entry/57691d5d6be3ff006a438e09)
 
 ##### 介绍
 plish this, although we are much more experienced with React than we are with Vue.
