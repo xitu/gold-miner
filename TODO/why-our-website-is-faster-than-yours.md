@@ -220,26 +220,28 @@ Apache服务器端的逻辑是以 `<!-- #`开始的像备注一样的地方。�
 - `$HTTP_COOKIE!=/css-loaded/` 检查是否没有CSS缓存cookie存在
 - `$HTTP_COOKIE=/.*css-loaded=([^;]+);?.*/ && ${1} != '0d82f.css'` 检查CSS缓存的版本是否最新的版本
 - If `<!-- #if expr="..." -->` 如果这是访问者的第一次浏览，我们赋值为`true`
-- 对于第一次浏览，我们增加一个`<noscript>`标签带有阻塞的`<link rel="stylesheet">`。我们为了可以通过JavaScript来异步加载完整CSS而这样做。如果JavaScript被禁止了，这是不可能完成的。这代表这一种后备方案，我们`按照常规`用阻塞方式加载CSS.。
+- 对于第一次浏览，我们增加一个`<noscript>`标签带有阻塞的`<link rel="stylesheet">`。我们为了可以通过JavaScript来异步加载完整CSS而这样做。如果JavaScript被禁止了，这是不可能完成的。这代表着一种后备方案，我们`按照常规`用阻塞方式加载CSS.。
 - 我们增加一个带有懒加载CSS和`onloadCSS`回调及设置cookies的函数的嵌入脚本
 - 在同一个脚本我们异步载入完整CSS。
-- 在`onloadCSS`回调我们设置带有版本哈希和cookie值的cookie。
+- 在`onloadCSS`回调我们把带有版本哈希的cookie值设置成cookie。
 - 在脚本之后我们增加关键CSS的嵌入样式表。这会阻塞，但阻塞很小并避免页面展示无样式的HTML。
 - 这个`<!-- #else -->` 语句(意味着`css-loaded`的cookie**存在**)说明访问者是再次浏览。因为我们可以预测CSS文件之前加载过因此我们可以借助浏览器缓存来使用阻塞的方式来加载样式表。它会从缓存中读取并即时加载。
 
-同样的方法可以用于为了首屏浏览而异步加载字体，估算我们可以在再次浏览中从浏览器缓存中读取他们。
+同样的方法可以用于为了首屏浏览而异步加载字体，假设我们可以在再次浏览中从浏览器缓存中读取他们。
 ![Cookie overview screenshot](https://www.voorhoede.nl/assets/images/voorhoede-cookies-l.jpg)看我们的cookies是如何被用于区分第一次浏览和重复浏览。
 ## 文件级别缓存
 
-因为我们在重复浏览中很依赖于浏览器缓存，我们需要确认我们的缓存是正确的。我们在理想情况下想永久缓存资源（css,js,fonts,images），仅在文件改变的时候让缓存无效。如果URL是独特的话，缓存是无效的。当我们释放新版本时，我们`git tag`我们的网站，最简单的方式是查询参数去请求带有版本号的URLs。像`https://www.voorhoede.nl/assets/css/main-dddd3f52a5.css?v=1.0.4`。但是，这个方法的缺点是当我们需要写一个新的博客推送（这是我们的代码库的一部分，不是存放在外部的CMS），我们所有的资源的缓存会无效化，尽管这些资源没有变化。
+因为我们在重复浏览中很依赖于浏览器缓存，我们需要确认我们的缓存是正确的。我们在理想情况下想永久缓存资源（css,js,fonts,images），仅在文件改变的时候让缓存无效。如果URL是独特的话，缓存是无效的。当我们发布新版本时，我们`git tag`我们的网站，最简单的方式是增加一个带版本号的查询参数来请URLs。像`https://www.voorhoede.nl/assets/css/main-dddd3f52a5.css?v=1.0.4`。但是，这个方法的缺点是当我们需要写一个新的博客推送（这是我们的代码库的一部分，不是存放在外部的CMS），我们所有的资源的缓存会无效化，尽管这些资源没有变化。
 
-当尝试升级我们的方法时，我们偶然发现 [gulp-rev](https://github.com/sindresorhus/gulp-rev) 和 [gulp-rev-replace](https://github.com/jamesknelson/gulp-rev-replace)。这些脚本通过在文件名加上内容哈希来帮助我们修订文件版本。这代表着只有文件实际变化时URL请求才会变化。现在我们有了基于每个文件的缓存无效化处理。这让我的心跳变得猛烈了！
+当尝试升级我们的方法时，我们偶然发现 [gulp-rev](https://github.com/sindresorhus/gulp-rev) 和 [gulp-rev-replace](https://github.com/jamesknelson/gulp-rev-replace)。这些脚本通过在文件名加上内容哈希来帮助我们修订文件版本。这意味着只有文件实际变化时URL请求才会变化。现在我们有了基于每个文件的缓存无效化处理。这让我的心跳变得猛烈了！
 
 ## 结果
 
-如果尼来到这里（了不起！）你可能想要知道结果。测试你的网站性能可以通过带有比较可行的提示的[PageSpeed Insights](https://developers.google.com/speed/pagespeed/insights/)和带有大量网络分析的[PageSpeed Insights](https://developers.google.com/speed/pagespeed/insights/)这些工具来完成。我想最好的展现你的网站渲染性能的方法是在极端限制你的网络链接的情况下观察你的页面的变化。这代表着：限制网络到基本不现实的地步。在Google 你可以限制你的链接（通过 inspector > Network tab）并看请求是怎么慢慢的在你的页面构建的情况下加载。
+如果你来到这里（了不起！）你可能想要知道结果。测试你的网站性能可以通过带有比较可行的提示的[PageSpeed Insights](https://developers.google.com/speed/pagespeed/insights/)和带有大量网络分析的[PageSpeed Insights](https://developers.google.com/speed/pagespeed/insights/)这些工具来完成。我想最好的展现你的网站渲染性能的方法是在极端限制你的网络链接的情况下观察你的页面的变化。这代表着：限制网络到基本不现实的地步。在Google 你可以限制你的链接（通过 inspector > Network tab）并看请求是怎么慢慢的在你的页面构建的情况下加载。
 
-看一下我们的主页是怎么在被限制的50KB/S的GPRS连接下加载。![Network analysis for de Voorhoede site for the first page view](https://www.voorhoede.nl/assets/images/voorhoede-network-analysis-l.jpg)在50KB/S的GPRS网络下首次访问我们的网站的第2.27秒，我们的首屏渲染的情况可以在幻灯片的第一张图片和与黄线对应的瀑布流上观察。黄线在HTML被加载后的右侧绘制。HTML包括关键CSS，保证了页面是可用的。所有其他的阻塞资源被设置为懒加载的，因此我们可以在别的部分被下载后再跟页面进行交互。这就是我们想要的！
+看一下我们的主页是怎么在被限制的50KB/S的GPRS连接下加载。
+![Network analysis for de Voorhoede site for the first page view](https://www.voorhoede.nl/assets/images/voorhoede-network-analysis-l.jpg)一个关于页面第一次浏览时演化的总览。
+在50KB/S的GPRS网络下首次访问我们的网站的第2.27秒，我们的首屏渲染的情况可以在幻灯片的第一张图片和与黄线对应的瀑布流上观察。黄线在HTML被加载后的右侧绘制。HTML包括关键CSS，保证了页面是可用的。所有其他的阻塞资源被设置为懒加载的，因此我们可以在别的部分被下载后再跟页面进行交互。这就是我们想要的！
 
 另一个需要注意的是自定义字体在这样的慢连接下是不会被加载的。font face observer会关注这一点，如果我们不异步加载字体，在大多数浏览器你会在FOIT等待一段时间。
 
@@ -259,11 +261,11 @@ Apache服务器端的逻辑是以 `<!-- #`开始的像备注一样的地方。�
 我们还没完成并在不断的迭代改进我们的方法。在最近我们会关注：
 
 -
-**HTTP/2**: 我们最近正在实验使用它。这篇文章描述的很多东西是基于HTTP/1.1的限制下的最佳实践。简单来说：HTTP/1.1诞生在表格布局和内嵌样式都让人觉得惊奇的1999年。HTTP/1.1完全没有为了带有200个请求的2.6MB的页面而设计。为了减轻我们可怜的旧协议的压力，我们链接JS，CSS和内嵌关键CSS，使用给予数据URL的小图片等等。每一个都是用来减少请求的。但是HTTP/2可以在同一个TCP链接上并行运行多重请求，这些串联和减少请求的方法可能会被证实为反模式。我们会在完成实验后迁移到HTTP/2。
+**HTTP/2**: 我们最近正在实验使用它。这篇文章描述的很多东西是基于HTTP/1.1的限制下的最佳实践。简单来说：HTTP/1.1诞生在表格布局和内嵌样式都让人觉得惊奇的1999年。HTTP/1.1完全没有为了带有200个请求的2.6MB的页面而设计。为了减轻我们可怜的旧协议的压力，我们链接JS，CSS和内嵌关键CSS，为小图片使用URI等等。每一个都是用来减少请求的。但是HTTP/2可以在同一个TCP链接上并行运行多重请求，这些串联和减少请求的方法可能会被证实为反模式。我们会在完成实验后迁移到HTTP/2。
 
 
 -
-**服务器端Workers**:这是一个可以运行在后台的现代浏览器的JavaScript API。它让很多之前网站不支持的特性如离线支持，推送通知，后台同步等等变得可以使用。我们正在研究服务器端Workers，但我们仍然需要把它引入到我们的网站。我向你保证，我们会！
+**Service Workers**:这是一个可以运行在后台的现代浏览器的JavaScript API。它让很多之前网站不支持的特性如离线支持，推送通知，后台同步等等变得可以使用。我们正在研究Service Workers，但我们仍然需要把它引入到我们的网站。我向你保证，我们会！
 
 -
 **CDN**:因此，我们想要控制和自己架构我们的网站。是的，是的，现在我们想要迁移到CDN来避免由于客户端和服务器的物理距离的延迟。尽管我们的客户大部分在荷兰，我们想要通过展现我们的最好一面来跟前端开发社区接触：质量，性能，推动网络向前发展。
