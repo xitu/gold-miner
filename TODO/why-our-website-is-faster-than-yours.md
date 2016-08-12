@@ -2,7 +2,7 @@
 * 原文作者 : [by Declan](https://www.voorhoede.nl/en/contact/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [hpoenixf](https://github.com/hpoenixf)
-* 校对者: 
+* 校对者: [MAYDAY1993](https://github.com/MAYDAY1993),[https://github.com/circlelove](https://github.com/circlelove)
 
 我们最近升级了我们的网站。虽然这主要是界面方面的大调整，但作为一个软件开发者，我们更关注在技术细节上面。我们的目标是加强控制，关注性能，在未来可以灵活地调整和让在网站上撰写内容变得有趣。下面讲述了我们是如何让我们的网站比你的快的（呀，不好意思！）
 
@@ -14,11 +14,11 @@
 
 ## 内容优先
 
-我们想要把核心内容-也就是基本的HTML和CSS-尽可能快的展现给用户。每一个页面都应该支持内容展现的目标：传达信息。增强的功能，也就是JavaScript，完整的CSS文件，网络字体，图片和分析相对于核心内容来说都是次要的
+我们想要把核心内容-也就是基本的HTML和CSS-尽可能快的展现给用户。每一个页面都应该支持内容最主要的目标：传达信息。增强的功能，也就是JavaScript，完整的CSS文件，网络字体，图片和分析相对于核心内容来说都是次要的
 
 ## 获取控制
 
-在定义了我们对理想网站的标准后，我们总结出我们需要对网站的每一点都需要有完全的控制。我们选择构建我们自己的静态页面生成器，包括资源管道，并且自己搭建它。
+在定义了我们为理想网站设定的标准后，我们总结出我们需要对网站的每一点都需要有完全的控制。我们选择构建我们自己的静态页面生成器，包括资源管道，并且自己搭建它。
 
 ### 静态页面生成器
 
@@ -42,17 +42,17 @@ markdown文件：
     
     ## Design for performance
     In our projects we have daily discussions...
+    
 ## 图片分发
-## Image delivery
 [页面的平均大小有2406kb，其中1535kb是图片](http://httparchive.org/interesting.php)。
 因为对于普通的网站来说，图片占据了如此大的一部分，图片也成了改善性能的最好的目标之一。
 
 ![Average bytes per page by content type chart](https://www.voorhoede.nl/assets/images/average-bytes-per-page-chart-l.jpg)
 
-Average bytes per page by content type for July 2016 from httparchive.org
+来自httparchive.org对2016年7月不同种类内容在页面的平均大小的统计
 ### WebP
 
-WebP是一个现代的图片格式，可以对网络图片进行优秀的无损或有损压缩。比起其他的格式WebP的体积大幅度的减小，有时可以比JPEG对照图片体积要小25%。WebP总是被忽视和很少被使用。在写这篇文章的时候，WebP只有[Chrome, Opera and Android](http://caniuse.com/#feat=webp)支持（对于用户来说仍然超过了50%的份额），但我们可以优雅降级到JPG/PNG。
+WebP是一个现代的图片格式，可以对网络图片进行优秀的无损或有损压缩。比起其他的格式WebP的体积大幅度的减小，有时可以比JPEG对照图片体积要小25%。WebP经常被忽视和很少被使用。在写这篇文章的时候，WebP只有[Chrome, Opera and Android](http://caniuse.com/#feat=webp)支持（对于用户来说仍然超过了50%的份额），但我们可以优雅降级到JPG/PNG。
 
 ### `<picture>` 元素
 
@@ -72,9 +72,9 @@ WebP是一个现代的图片格式，可以对网络图片进行优秀的无损�
 
 我们使用`<img>`格式来防止浏览器不支持`picture`元素或者JavaScript。
 
-### 生产
+### 生成
 
-尽管已经确定了合适的图片分发方法，我们仍然需要寻找一个代价较小的方法来应用它。因为它的强大，我喜欢picture元素，但我讨厌写上面的哪些片段。特别是在我写内容的时候不得不这样引入它们。我们不想为了给markdown文件的每张图片引入六个实例，优化图片和写`<picture>`元素而烦恼，所以我们：
+尽管已经确定了合适的图片分发方法，我们仍然需要寻找一个代价较小的方法来应用它。因为它的强大，我喜欢picture元素，但我讨厌写上面的那些片段。特别是在我写内容的时候不得不这样引入它们。我们不想为了给markdown文件的每张图片引入六个实例，优化图片和写`<picture>`元素而烦恼，所以我们：
 
 - 在构建的过程**产生**原始图片的多重实例，包括输入格式（JPG，PNG）和WebP。我们使用了 [gulp responsive](https://github.com/mahnunchik/gulp-responsive)来完成这步。
 - **最小化** 生成的图片
@@ -83,12 +83,12 @@ WebP是一个现代的图片格式，可以对网络图片进行优秀的无损�
 
 ##SVG 动画
 
-我们为我们的网站挑选了一种独特的图片风格，在这里SVG图片扮演了主要的角色。我们处于一些原因这样做。
+我们为我们的网站挑选了一种独特的图片风格，在这里SVG图片扮演了主要的角色。我们出于一些原因这样做。
 
 
 - 首先，SVG（矢量图片）比点阵图片要小。
 - 第二，SVG本质就是响应式的，可以完美的保持清晰。因此不需要图片转换和`<picture>`元素;
-- 最后一点我们可以让它运动并通过CSS来变化！这是为了性能而设计的完美例子。 [我们的页面作品集](https://www.voorhoede.nl/en/portfolio/)有可以被综述页重新使用的一个自定义的动态SVG。它在我们的作品集中呈现了一个循环的风格，让我们的设计连贯一致，对性能的只有很小的影响。
+- 最后一点我们可以通过CSS让他运动和变化！这是为了性能而设计的完美例子。 [我们的页面作品集](https://www.voorhoede.nl/en/portfolio/)有可以被综述页重新使用的一个自定义的动态SVG。它在我们的作品集中呈现了一个反复出现的风格，让我们的设计连贯一致，对性能的只有很小的影响。
 
 来看下我们的动画和我们是怎样通过CSS来调整它的
 
@@ -96,18 +96,20 @@ WebP是一个现代的图片格式，可以对网络图片进行优秀的无损�
 
 ## 自定义网络字体
 
-在深入讲述之前，先初步介绍一下浏览器处理自定义网络字体的过程。当浏览器在CSS中发现`@font-face`的指向字体文件的声明而在用户的电脑中找不到的时候，它会尝试下载这个字体文件。在下载的时候，大部分浏览器不会展现使用该字体的文字。这种现象被称为"隐藏文件的闪烁"或是FOIT。如果你知道该怎么找，你会发现它几乎存在于网络的每一个地方。在我看来，这给用户体验带来不好的影响。它延迟了用户获取内容的意图。
+在深入讲述之前，先初步介绍一下浏览器处理自定义网络字体的过程。当浏览器在CSS中发现`@font-face`的指向字体文件的声明而在用户的电脑中找不到的时候，它会尝试下载这个字体文件。在下载的时候，大部分浏览器不会展现使用该字体的文字。这种现象被称为"隐藏文件的闪烁"或是FOIT。如果你知道该怎么找，你会发现它几乎存在于网络的每一个地方。在我看来，这给用户体验带来不好的影响。它延迟了用户实现核心目标：阅读内容
 
 我们可以使浏览器把这行为改为“无样式内容的闪烁”或是FOUT。我们先告诉浏览器使用普通的字体，像是Arial或Grorgia。一旦自定义网络字体下载完成，浏览器会替换标准字体并重新渲染全部文本。如果自定义字体加载失败，内容依然可以完美的被阅读。有些人可能把这看成一种回调，我们把这看成一种增强。如果没有它，网站看起来良好并100%工作。只需要通过勾选勾选框来切换我们的自定义字体和观察。
 
+切换字体加载的类
+
 使用自定义字体文件会给我们的用户体验带来好处，只要你优化和可靠的分发它们。
 
-构建子集是提升网络字体性能最快的方法。我想把它推荐给每一个使用网络字体的开发者。如果你已经完成你的内容和知道需要用到什么文字，你可以构建你的子集。即使仅仅把你的字体构建成“西方语言”也会对你的文件的尺寸有很大的作用。举个例子，我们的Noto标准`WOFF`字体，默认有246KB大小，一个构建一个西方语言的子集，仅有31KB大。我们用这个比较容易使用的[Font squirrel webfont generator](https://www.fontsquirrel.com/tools/webfont-generator)
+构建子集是提升网络字体性能最快的方法。我想把它推荐给每一个使用网络字体的开发者。如果你对内容有完全的控制并知道需要展示哪些字符，你可以构建你的子集。即使仅仅把你的字体构建成“西方语言”也会对你的文件的尺寸有很大的作用。举个例子，我们的Noto标准`WOFF`字体，默认有246KB大小，一个构建一个西方语言的子集，仅有31KB大。我们用这个比较容易使用的[Font squirrel webfont generator](https://www.fontsquirrel.com/tools/webfont-generator)
 
 ###  Font face observer
 
 
-[Bram Stein的Font face observer](https://github.com/bramstein/fontfaceobserver)是一个了不起的用于判断字体是否加载的辅助脚本。你的字体是怎么被加载的是很难确定的，或许是通过网络字体服务，或许是你自己提供。在 font face observer脚本通知我们所有自定义脚本文件加载完成后，我们给`<html>`元素增加一个`fonts-loaded`class。我们以此给页面加入样式：
+[Bram Stein的Font face observer](https://github.com/bramstein/fontfaceobserver)是一个了不起的用于判断字体是否加载的辅助脚本。你的字体是怎么被加载的是很难确定的，或许是通过网络字体服务，或许是你自己提供。在 font face observer脚本通知我们所有自定义脚本文件加载完成后，我们给`<html>`元素增加一个`fonts-loaded`类。我们以此给页面加入样式：
 
 
 
@@ -119,11 +121,11 @@ WebP是一个现代的图片格式，可以对网络图片进行优秀的无损�
        font-family: Noto, Georgia, serif;
     }
 
-*注意:为了简洁，我没有在上面的css中加入Noto的`@font-face`的声明。
+*注意:为了简洁，我没有在上面的css中加入Noto的`@font-face`的声明*。
 
 我们还设置了cookie来记忆加载过的字体，并保存在浏览器的缓存中。我们为了重复浏览使用cookie，着我会在后面解释。
 
-在不远的将来，我们可能会不再需要 Bram Stein的JavaScript代码。CSS工作组提出了新的`@font-face`描述符（叫做`font-display`），这个属性值可以控制可以下载的字体在加载完成之前是怎么渲染的。这个css语句 `font-display: swap`会给我们跟上面方法一样的效果。 [阅读更多关于 `font-display` property](https://developers.google.com/web/updates/2016/02/font-display).
+在不远的将来，我们可能会不再需要 Bram Stein的JavaScript代码。CSS工作组提出了新的`@font-face`描述符（叫做`font-display`），这个属性值可以控制可以下载的字体在加载完成之前是怎么渲染的。这个css语句 `font-display: swap`会给我们跟上面方法一样的效果。 [阅读更多关于 `font-display` 属性](https://developers.google.com/web/updates/2016/02/font-display).
 
 
 ## 懒加载JS和CSS
@@ -147,35 +149,35 @@ JavaScript放在`<head>`的话会阻塞渲染，然而我们不希望这样。Ja
     }
     </script>
 
-我们把这个小巧的内嵌脚本放到页面的头部来侦测是否 原生的`document.querySelector` 和 `window.addEventListener`JavaScript是否被支持。如果是这样的话，我们通过在页面直接写`script`标签来加载脚本，然后使用`defer`属性让它不阻塞。
+我们把这个小巧的内嵌脚本放到页面的头部来侦测原生的`document.querySelector` 和 `window.addEventListener`JavaScript是否被支持。如果是这样的话，我们通过在页面直接写`script`标签来加载脚本，然后使用`defer`属性让它不阻塞。
 
 
 ### 懒加载CSS
 
 对我们的网站来说，在首屏浏览中最大的阻塞资源是CSS。浏览器会延迟页面的渲染，直到`<head>`中的CSS引用全部被下载和解析。这个行为是经过考虑的，否则浏览器会在渲染页面的时候不断重新计算布局和重新绘制页面。
 
-为了避免CSS阻塞渲染，我们需要异步加载CSS文件。我们使用了Filament Group的神奇的[loadCSS function](https://github.com/filamentgroup/loadCSS).它会在你的CSS文件加载后给你一个回调，接着我们设置cookie来说明CSS已经加载了。我们是为了重复浏览来使用cookie，这我会在等一下解释。
+为了避免CSS阻塞渲染，我们需要异步加载CSS文件。我们使用了神奇的Filament Group的[loadCSS function](https://github.com/filamentgroup/loadCSS).它会在你的CSS文件加载后给你一个回调，在回调函数里我们设置cookie来说明CSS已经加载了。我们是为了重复浏览来使用cookie，这我会在等一下解释。
 
-异步加载CSS会有一个小`问题`，在这时候HTML会很快的渲染完成展现成只有HTML而没有应用到CSS的样子，直到全部CSS被下载和解析。这就是使用关键CSS的原因。
+异步加载CSS会有一个小`问题`，因为在这时候HTML会很快的渲染完成展现成只有HTML而没有应用到CSS的样子，直到全部CSS被下载和解析。这就是使用关键CSS的原因。
 
 ### 关键CSS
 
-关键CSS的定义就是*让页面可以被用户辨识的最小体积的阻塞CSS*。我们关注`首屏`的内容。显然这个位置会根据1设备不同而变化，所以我们做了最好的预测。
+关键CSS的定义就是*让页面可以被用户辨识的最小体积的阻塞CSS*。我们关注`首屏`的内容。显然这个位置会根据设备不同而变化，所以我们做了最好的预测。
 
-人工决定关键CSS是一个很消耗时间的过程，特别是特征样式改变的时候。这里有一个可以在你的构建过程中生成关键CSS的一个很棒的脚本。我们使用了来自Addy Osmani的强大的 [critical](https://github.com/addyosmani/critical)。
+人工决定关键CSS是一个很消耗时间的过程，特别是未来样式改变的时候。这里有一个可以在你的构建过程中生成关键CSS的一个很棒的脚本。我们使用了强大的[Addy Osmani的critical](https://github.com/addyosmani/critical)。
 
 
 看下面的分别使用关键CSS和完整CSS渲染的我们的主页。注意看在边缘下面的页面是仍然没有样式的。![Fold illustration](https://www.voorhoede.nl/assets/images/voorhoede-fold-l.jpg)左边的页面是只用关键CSS渲染的主页，而右边的页面使用完整的CSS，红线代表边缘线。
 
 ## 服务器
 
-我们自己架构了 de Voorhoede站点，因为我们想要控制服务器的环境。我们想实验一下我们可以怎样通过改变服务器配置来提升标签。在这个时候我们有一个Apache 网站服务器并且我们把我们站点设置为HTTPS服务。
+我们自己架构了 de Voorhoede站点，因为我们想要控制服务器的环境。我们想实验一下我们可以怎样通过改变服务器配置来提升性能。在这个时候我们有一个Apache 网站服务器并且我们把我们站点设置为HTTPS服务。
 
 ### 配置
 
-为了增强表现和安全，我们需要研究一下怎么配置服务器。
+为了增强性能和安全，我们需要研究一下怎么配置服务器。
 
-我们使用[H5BP boilerplate apache configuration](https://github.com/h5bp/server-configs-apache)，这是提升你的Apache网络服务器表现跟安全性的好的开始。他们也有提供别的服务器环境的配置。
+我们使用[H5BP boilerplate apache configuration](https://github.com/h5bp/server-configs-apache)，这是提升你的Apache网络服务器性能跟安全性的好的开始。他们也有提供别的服务器环境的配置。
 
 我们使用GZIP来压缩大部分的HTML，CSS和JavaScript。我们为我们全部的资源设置一致的缓存头。可以阅读[the file level caching section](https://www.voorhoede.nl/en/blog/why-our-website-is-faster-than-yours/#file-level-caching).
 
@@ -183,16 +185,16 @@ JavaScript放在`<head>`的话会阻塞渲染，然而我们不希望这样。Ja
 
 在你的网站使用HTTPS服务会对性能有影响。这个不良影响主要来自于设置SSL握手，导致大量的等待时间。但是，跟其他地方一样，我们可以在这方面做些工作！
 
-**HTTP严格传输协议**是一个HTTP头，可以eh服务器高速浏览器它只允许使用HTTPS通讯。这个方法避免了HTTP请求被重定向为HTTPS。所有试图连接到这个网站的HTTP应该自动被转换。它节省了一个来回。
+**HTTP严格传输安全**是一个HTTP头，可以让服务器告诉浏览器它只允许使用HTTPS通讯。这个方法避免了HTTP请求被重定向为HTTPS。所有试图连接到这个网站的HTTP应该自动被转换。它节省了一个来回。
 
-**TLS 错误开端** 允许客户端在第一个TLS来回之后立刻发送加密数据。这个优化把新的TLS链接握手减少到了一个来回。一旦客户端知道密钥便可以开始传输应用数据。剩下的握手用于确认没人在干扰握手记录，并可以并行执行。
+**TLS 错误开端** 允许客户端在第一个TLS来回之后立刻发送加密数据。这个优化对于新的TLS链接把握手减少到了一个来回。一旦客户端知道密钥便可以开始传输应用数据。剩下的握手用于确认没人在篡改握手记录，并可以并行执行。
 
-**TLS session 恢复** 节约了我们用于确认浏览器和服务器在过去是否在TLS上通信过的另一个来回，浏览器可以记忆session标识符，在下一次设置连接时，标识符可以重新使用并节约一个来回。
+**TLS会话恢复** 通过确认浏览器和服务器在过去是否在TLS上通信过的节约了另一个来回，浏览器可以记忆session标识符，在下一次建立连接时，标识符可以重新使用并节约一个来回。
 
-我听起来像一个DevOps工程师，但我不是。我只是读了一些东西并看了一些视频。我喜欢来自 Google I/O 2016的[Mythbusting HTTPS: Squashing security’s urban legends by Emily Stark](https://www.youtube.com/watch?v=YMfW1bfyGSY)
+我听起来像一个开发运营工程师，但我不是。我只是读了一些东西并看了一些视频。我喜欢来自 Google I/O 2016的[Mythbusting HTTPS: Squashing security’s urban legends by Emily Stark](https://www.youtube.com/watch?v=YMfW1bfyGSY)
 ### cookies的使用
 
-我们没有服务器端的语言，只有静态的Apache网络服务器。但一个Apache网络服务器仍然可以执行server side includes（SSI）和阅读cookies。通过聪明的使用cookies和分发部分被Apache重写的HTML，我们可以加速前端的性能。看下面的例子（我们实际的代码要复杂一点，但可以归纳为一样的想法）：
+我们没有服务器端的语言，只有静态的Apache网络服务器。但一个Apache网络服务器仍然可以执行server side includes（SSI）和阅读cookies。通过巧妙的使用cookies和分发部分被Apache重写的HTML，我们可以加速前端的性能。看下面的例子（我们实际的代码要复杂一点，但可以归纳为一样的想法）：
 
 
     <!-- #if expr="($HTTP_COOKIE!=/css-loaded/) || ($HTTP_COOKIE=/.*css-loaded=([^;]+);?.*/ && ${1} != '0d82f.css' )"-->
