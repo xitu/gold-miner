@@ -1,4 +1,3 @@
-等不及集成 iOS 10 新特性？如何在应用维护与新特性集成之间找到平衡点
 > * 原文链接: [Simultaneous Xcode 7 and Xcode 8 compatibility](http://radex.io/xcode7-xcode8/)
 * 原文作者 : [Radek](http://radex.io/about/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
@@ -7,11 +6,11 @@
 
 你是一位 iOS 开发者。你对于 iOS 10 带来的强大的新特性感到无比兴奋，想把这些在你的应用上实现。想要 _立刻_ 就上手，这样就可以在第一天就转移过去了。但是那是几个月开外的事情了，到时候你需要每隔几周装配正式版本到你的 app 上。这听起来像你吗？
 
-当然，你不能受损 Xcode 8 来编译你的正式——它不可能通过 App Store 审核。所以你将工程分成两个分支，一个是稳定版，另一个是为  iOS 10 开发……
+当然，你不能使用 Xcode 8 来编译你的正式——它不可能通过 App Store 审核。所以你将工程分成两个分支，一个是稳定版，另一个是为  iOS 10 开发……
 
-当然这很坑。分支在一段时间内一个特性下的工作是没有压力的。但是要在长达数月的时间里面维持巨大分支，版本变化遍布整个代码仓库，尽管主分支也进行演化，你还是能挺住合并时候出现的惨痛的。我的意思是，你有没有尝试过解决 `.xcodeproj` 的合并冲突?
+当然这很坑。分支在一段时间内一个特性下的工作是没有压力的。但是要在长达数月的时间里面维持巨大分支，版本变化遍布整个代码仓库，尽管主分支也在演进，你还是能挺住合并时候出现的惨痛的。我的意思是，你有没有尝试过解决 `.xcodeproj` 的合并冲突?
 
-本文当中，我会给你展示如何避免将分支全部合并在一起。对多数应用来说，可能有单个工程文件能够同时在 iOS 9 (Xcode 7) 和 iOS 10 (Xcode 8) 上编译。甚至说如果你结束了分支，这些技巧也能够帮你尽量减少两个分支的区别，并实现无痛同步。
+本文当中，我会给你展示如何避免将分支全部合并在一起。对多数应用来说，可能有单个工程文件能够同时在 iOS 9 (Xcode 7) 和 iOS 10 (Xcode 8) 上编译。甚至说如果你结束了分支，这些技巧也能够帮你尽量减少两个分支的区别，同步起来就没那么费力了。
 
 ## Swift 2.3 和你
 
@@ -19,7 +18,6 @@
 
 我们对 Swift 3 感到十分兴奋，那太棒了，如果你在读这篇文章，_你不该还没有使用过它_。它可能就是那么伟大，进行了较大的源代码不兼容更改，比一年前的 Swift 2 大很多。如果你有任何的 Swift 依赖，他也需要在你的 app 完成前更新到 Swift 3 。
 
-The great news is that, for the first time ever, Xcode 8 comes with _two_ versions of Swift: 2.3 and 3.0.
 有个好消息就是， Xcode8 第一次带有_两个_ Swift 版本：2.0 和3.0 。
 
 为了避免你错过通知， Swift 2.3 在 Xcode 7 里面和 Swift 2.2 是一样的语言，但是有些_小的_ API (之后会有更多)变化。
@@ -50,7 +48,7 @@ The great news is that, for the first time ever, Xcode 8 comes with _two_ versio
 
 确保用你的团队 ID （你可以在 [苹果开发者门户](https://developer.apple.com/account/#/membership/) 里面找到）替代“ABCDEFGHIJ”。
 
-这基本上就是告诉 Xcode 8 “嘿，我来自这个团队，你照应下代码设计，好吗？” 。同样地， Xcode 7 也会忽略它，所以你是安全的。
+这基本上就是告诉 Xcode 8 “嘿，我来自这个团队，你照应下代码签名，好吗？” 。同样地， Xcode 7 也会忽略它，所以你是安全的。
 
 ### 界面生成器
 
@@ -102,8 +100,6 @@ Xcode 也会要求你按“推荐设置”更新工程。同样拒绝。
 
 ### 条件式编辑
 
-In case you missed it, Swift 2.2 [introduced](https://github.com/apple/swift-evolution/blob/master/proposals/0020-if-swift-version.md) conditional compilation preprocessor macro. It’s straightforward to use:
-
 为了防止你忽略它， Swift 2.2 [介绍了](https://github.com/apple/swift-evolution/blob/master/proposals/0020-if-swift-version.md) 条件编辑预处理宏。很容易使用：
 
 
@@ -123,9 +119,7 @@ In case you missed it, Swift 2.2 [introduced](https://github.com/apple/swift-evo
 有两条你需要知道的警告：
 
 *   这里没有 `#if swift(<2.3)` 或类似的东西，你只能使用 `>=` （不过如果需要的话可以用 `#elseif` ）。
-*   Unlike with the C pre-processor, the code between `#if` and `#else` must be valid Swift. You can’t, for example, just change a function signature, but not its body (see the examples later for solutions)
 *   与带有 C 预处理器不同， `#if` 和 `#else` 间必须是实在的 Swift 代码。比如，你不能只改变函数签名而不触动本体(见之后的解决案例）。
-*
 
 ### 可选变化
 
@@ -168,7 +162,6 @@ let specifier = optionalize(url.resourceSpecifier) ?? "" // works on both versio
 
 
 
-We’re taking advantage of function overloading to get rid of ugly conditional compilation at call site. See, what the `optionalize()` function does is it turns whatever you pass in into an Optional, unless it’s already an Optional, in which case, it just returns the argument as-is. This way, regardless if the `url.resourceSpecifier` is optional (Xcode 8) or not (Xcode 7), the “optionalized” version is always the same.
 我们利用函数过载来摆脱丑陋的条件编译。看，`optionalize()` 函数把你传过去的一切都变成可选的，除非它早就是可选的，这么一来，它只原样返回意见。这下不论 `url.resourceSpecifier` 是可选的（ Xcode 8 ）还是不可选（ Xcode 7 ），“选项化” 之后的版本都是一样。。
 
 
@@ -193,7 +186,6 @@ init(contentRect: NSRect, styleMask: NSWindowStyleMask, backing: NSBackingStoreT
 
 
 
-Notice the type of `styleMask`. It used to be a loosely-typed Int (with the options imported as global constants), but in Xcode 8, it’s imported as a proper `OptionSetType`.
 注意 `styleMask` 的类型。它过去是泛整型（选项作为全局常量导入），但是在 Xcode 8 当中，它被当作合适的 `OptionSetType` 导入。
 
 不幸地，你无法有条件地用同个主体块编译两个版本的签名。但是，不用担心，条件编译类的别名会来助你一臂之力的！
@@ -209,7 +201,6 @@ typealias NSWindowStyleMask = Int
 ```
  
 
-Now you can use `NSWindowStyleMask` in the signature, as you would with Swift 2.3\. And on Swift 2.2, where the type doesn’t exist, `NSWindowStyleMask` is just an alias for `Int`, so the type checker stays happy.
 现在你可以在签名中使用 `NSWindowStyleMask` 了，正如在 Swift 2.3 当中的那样。在 Swift 2.2 中，不存在该类型， `NSWindowStyleMask` 只是
 `Int` 的别名，所以类型检查没什么问题。
 
