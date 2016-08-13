@@ -91,7 +91,7 @@
 
 ## 浏览器支持
 
-有约 84.65% 的支持这一属性相当不错了。你可以方向的使用它的便利了。
+情况不错，有84.65%的浏览器支持这个属性。现在起你就可以使用这个属性来获得便利了（就如同在我们的例子中）。
 
 看看下面这一片绿吧 ! :)
 
@@ -103,7 +103,7 @@
 - [Floated title with writing-mode](http://codepen.io/julianlengfelder/pen/VjBjoj) by Julian Lengfelder.
 - [Clever Idea to center content horizontally and vertically](http://codepen.io/sleithart/pen/kXjLLk) By Sheffield.
 
-## 进一步阅读
+## 延伸阅读
 
 - 
 [CSS Writing Mode](https://developer.mozilla.org/en/docs/Web/CSS/writing-mode)
