@@ -4,25 +4,30 @@
 * 译者： 
 * 校对者： 
 
-Recently, while editing some CSS in Opera inspector, I noticed a CSS property called `writing-mode`, this was the first time that I know of it. After some research, I learned that its purpose is for vertical language scripts, like Chinese or Japanese. However, the interesting thing is that when using it with English, we can create a vertical text very easily.
+最近在 Opera inspector 中编辑 CSS 时，我第一次注意到有一个名为 `writing-mode` 的 css 属性。经过一番搜索，发现它是用于垂直排版的语言，比如中文或者日文。然而，有趣的是如果我们把它用在英语中，可以很方便的创建垂直文本。
 
-> The writing-mode property defines whether lines of text are laid out horizontally or vertically and the direction in which blocks progress. As of [MDN](https://developer.mozilla.org/en/docs/Web/CSS/writing-mode)
+>  writing-mode 属性定义了文字在文文字块中垂直或者水平方向，参考[MDN](https://developer.mozilla.org/en/docs/Web/CSS/writing-mode)的定义。
 
-## The default writing mode
+## 默认的书写模式
 
-Browser agents that support this propery will have `horizontal-tb` as the default value. This work for horizontal language scripts like: English, French, Arabic.. etc
+支持这一属性的浏览器默认将这一属性设置为 `horizontal-tb` 。这将作用于水平的语言比如英语，法语，阿拉伯语等等。
 
-We will explore the value of `vertical-lr`, lr stands for (Left to right).
+接下来我们将尝试 ` vertical-lr` 效果，lr 代表 从左到右 (Left to right)。
 
-## Example 1
-![](https://ishadeed.com/assets/writing-mode/example1.png)Example 1 - CSS Writing Mode
-In the above design, we have a section title that is rotated 90deg around the top left of it’s origin. If you want to this without CSS `writing-mode`, we need to do the following: 
+## 例子1
+![](https://ishadeed.com/assets/writing-mode/example1.png)
 
-1. Create a positioning context for the wrapper element by adding `position:relative`.
-2. Position the title absolutely by adding `position: absolute`. 
-3. Change the transform origin based on how we want to rotate it. In our case we want to change it to the top left corner, so we add `transform-origin: left top`.
-4. Rotate the title by adding `transform: rotate(90deg)`.
-5. Finally, we need to add some padding on the left side of the wrapper element in order to prevent the overlap between the section title and grid items.
+在上面的设计中，我们在左上角有个段落标题旋转了90度。如果不用 CSS `writing-mode` 来实现的话，我们需要做如下的事：
+
+1. 添加 `position:relative` 给要包裹的元素创建位置上下文。
+
+2. `position:absolute` 给标题添加绝对位置。
+
+3. 根据我们想要的旋转给它添加 transform-orgin 属性。在这个例子中我们想要把它放在左上角，因此我们添加 `transform-origin: left top` 。
+
+4. 添加 `transform: rotate(90deg)` 旋转标题。
+
+5. 最后，需要给包裹的元素添加些 padding 以防标题和网格内容重叠。
 
 ```
 <section class="wrapper">
@@ -48,54 +53,57 @@ In the above design, we have a section title that is rotated 90deg around the to
         transform: rotate(90deg);
     }
 
-A lot of work to do for such design, right? Lets explore how this could be done using CSS `writing-mode`:
+做这样一个设计就需要这么多代码，好烦。现在看看用 CSS `writing-mode` 怎么 写吧：
 
     .section-title {
         writing-mode: vertical-lr;
     }
 
-We’re done! :D As you see, there is no need to position anything or add padding as we did. Checkout the demo below:
-[See the Pen](http://codepen.io/shadeed/pen/13edb031a3d18f30ce22360562039b5e/)
+完成，就这么简单！:D 正如你所看到的，并不需要像之前那样，设置什么位置或者添加 padding 。看看下面这个 [Demo ](http://codepen.io/shadeed/pen/13edb031a3d18f30ce22360562039b5e/)
 
-## Example 2
-![](https://ishadeed.com/assets/writing-mode/example2.png)Example 2 - CSS Writing Mode
-With the above design, we have a sharing widget that is placed vertically beside the content. It’s true that we can make this easily without CSS `writing-mode`, but the interseting thing is that when using it with the social widget, we will get the ability to vertically center it (left, center or right). 
+## 例子2
+![](https://ishadeed.com/assets/writing-mode/example2.png)
 
-As in the example, the social widget is vertically aligned to the top of it’s parent. By changing CSS `text-align` propery, we can change the position of it. For example:
+在这次的设计中，我们在内容旁边垂直摆放着一个分享控件。我们确实可以不用 CSS `writing-mode` 就可以简单实现，但有意思的是当我们用 `writing-mdoe` 时社交分享控件时，我们可以让它水平居中(居左，居中，或者居右)。
+
+正如例子中那样，社交分享按钮垂直靠在它的父元素顶部。通过改写 CSS `text-align` 属性就可以做到这样，比如：
+
 
     .social-widget {
         writing-mode: vertical-lr;
         text-align: right;
     }
 
-![](https://ishadeed.com/assets/writing-mode/example2-2.png)Example 2 - CSS Writing Mode
-This will align it to the bottom of it’s parent! Easy, right? In the next example, it will be centered vertically.
+![](https://ishadeed.com/assets/writing-mode/example2-2.png)
+
+这次是靠着父元素的底部。很简单，对吧！ 下个例子中，将会垂直居中。
 
     .social-widget {
         writing-mode: vertical-lr;
         text-align: center;
     }
 
-![](https://ishadeed.com/assets/writing-mode/example2-3.png)Example 2 - CSS Writing Mode
-And here is the demo for the social widget:
-[See the Pen](http://codepen.io/shadeed/pen/8a7e787c90e25ca3b03fa4c688aab303/)
+![](https://ishadeed.com/assets/writing-mode/example2-3.png)
 
-Disclaimer: I stopped using icon fonts and [switched](https://ishadeed.com/article/using-svg-icons/) to SVG, I’m using the icon fonts for the sake of the demo only.
+参看 这个 [Demo](http://codepen.io/shadeed/pen/8a7e787c90e25ca3b03fa4c688aab303/)
 
-## Browsers Support
+说明一下：我已近不再用 icon font 而是[切换到](https://ishadeed.com/article/using-svg-icons/) SVG ，我用 icon font 只是为了演示。
 
-The global support is 84.65% and this is really good. You can use the property today in order to get benefit like we did in our examples.
+## 浏览器支持
 
-Look at that green! :)
+有约 84.65% 的支持这一属性相当不错了。你可以方向的使用它的便利了。
+
+看看下面这一片绿吧 ! :)
+
 
 ![](https://ishadeed.com/assets/writing-mode/caniuse-support.jpg)CSS Writing Mode support from caniuse.com
 
-## Demos from our awesome Front-End Community
+## awesome 前端社区的 Demos 
 
 - [Floated title with writing-mode](http://codepen.io/julianlengfelder/pen/VjBjoj) by Julian Lengfelder.
 - [Clever Idea to center content horizontally and vertically](http://codepen.io/sleithart/pen/kXjLLk) By Sheffield.
 
-## Further reading
+## 进一步阅读
 
 - 
 [CSS Writing Mode](https://developer.mozilla.org/en/docs/Web/CSS/writing-mode)
@@ -103,7 +111,6 @@ Look at that green! :)
 - 
 [Vertical text with CSS 3 Writing Modes](http://generatedcontent.org/post/45384206019/writing-modes)
 
-Liked my article and think others might find it useful?
-  [Share it on Twitter](http://twitter.com/share?text=CSS%20Writing%20Mode&amp;url=https://ishadeed.com/article/css-writing-mode/)
+喜欢我的文章，觉得可能帮助其它人 ？ 那么赶快在 [Twitter](http://twitter.com/share?text=CSS%20Writing%20Mode&amp;url=https://ishadeed.com/article/css-writing-mode/) 上分享它吧。
 
-Thank you for reading.
+感谢你的阅读
