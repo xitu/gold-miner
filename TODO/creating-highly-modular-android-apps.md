@@ -1,12 +1,12 @@
 > * 原文链接: [Creating Highly Modular Android Apps](https://medium.com/stories-from-eyeem/creating-highly-modular-android-apps-933271fbdb7d#.oez87prl8)
 * 原文作者 : [Ronaldo Pace](https://medium.com/@ronaldo.pace?source=post_header_lockup)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 :
-* 校对者 :  
+* 译者 :[DeadLion](https://github.com/DeadLion)
+* 校对者 :[Graning](https://github.com/Graning), [Kulbear](https://github.com/Kulbear)
 
 >“单一职责原则规定，每个模块或类应该对软件提供的某单一功能负责。”([en.wikipedia.org/wiki/Single_responsibility_principle](https://en.wikipedia.org/wiki/Single_responsibility_principle))
 
-Android 中构建 UI 通常委派给一个类（叫 Activity、Fragment 或 View/Presenter）。这通常涉及到以下任务：
+Android 中构建 UI 的职责通常委派给一个类（比如 Activity、Fragment 或 View/Presenter）。这通常涉及到以下任务：
 
 - 填充 View（xml 布局）
 - View 配置（运行时参数、布局管理、适配）
@@ -63,7 +63,7 @@ Android 中构建 UI 通常委派给一个类（叫 Activity、Fragment 或 View
 - 功能动态运行置换
 - 并行开发
 
-为了让开发者能毫无障碍的实现上述模式，创建了一个编译时代码生成工具，接下来我们会看到，将之前提交的那些职责分解成单一职责类是多么简单。
+为了让开发者能毫无障碍的实现上述模式，一个在编译时生成代码的工具被创造了出来，接下来我们会看到，将之前提交的那些职责分解成单一职责类是多么简单。
 
 ### Decorator 库
 
@@ -121,7 +121,7 @@ Android 中构建 UI 通常委派给一个类（叫 Activity、Fragment 或 View
     }
 ```
 
-现在可以方便的将职责分发到可绑定的修饰类上。每个修饰器包含所有生命周期的回调，可惜实现任何可选接口。最后，可以组合得到一个简单的建造者模式：
+现在可以方便的将职责分发到可绑定的修饰类上。每个修饰器包含所有生命周期的回调，可以实现任何可选接口。最后，可以组合得到一个简单的建造者模式：
 
 ```
       Intent i = new Intent(context, RecyclerViewActivity.class);
