@@ -171,7 +171,7 @@ JS 可以添加或删除这些类。这意味着相同的状态名称可以在�
 
 在我们的 CSS 中变量名也有严格的结构。此语法提供属性，使用和组件之间的强关联。
 
-下面的变量定义是一个颜色属性，其值为 grayLight ，与 highlightMenu 组件一起使用2。
+下面的变量定义是一个颜色属性，其值为 grayLight ，与 highlightMenu 组件一起使用。
 
 ```CSS
 @color-grayLight--highlightMenu: rgb(51, 51, 50);
@@ -182,7 +182,7 @@ JS 可以添加或删除这些类。这意味着相同的状态名称可以在�
 
 在实现特性的样式时，你只应使用由 colors.less 提供的颜色变量。
 
-当添加一个颜色变量到 colors.less ，使用 RGB 和 RGBA 颜色单位优先于十六进制， named ， HSL 和 HSLA 值。
+当添加一个颜色名称到 colors.less ，使用 RGB 和 RGBA 颜色单位优先于十六进制， named ， HSL 和 HSLA 值。
 
 **正确的做法:**
 ```css
@@ -204,7 +204,7 @@ hsla(120, 100%, 50%, 1);
 
 请使用 Z-index.less 定义 z-index 的范围。
 
-`@zIndex-1 - @zIndex-9` 已经提供了。 没什么应该比 `@zIndex-9` 高。
+提供的 `@zIndex-1 - @zIndex-9` 范围的值完全够用。
 
 
 <a name="fontweight"></a>
