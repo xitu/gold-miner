@@ -1,16 +1,16 @@
 > * 原文地址：[CSS Writing Mode](https://ishadeed.com/article/css-writing-mode/)
 * 原文作者：[Ahmad Shadeed](https://www.twitter.com/shadeed9)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者： 
-* 校对者： 
+* 译者： [huanglizhuo](https://github.com/huanglizhuo)
+* 校对者：[Kulbear](https://github.com/Kulbear) , [shixinzhang](https://github.com/shixinzhang)
 
 最近在 Opera inspector 中编辑 CSS 时，我第一次注意到有一个名为 `writing-mode` 的 css 属性。经过一番搜索，发现它是用于垂直排版的语言，比如中文或者日文。然而，有趣的是如果我们把它用在英语中，可以很方便的创建垂直文本。
 
->  writing-mode 属性定义了文字在文文字块中垂直或者水平方向，参考[MDN](https://developer.mozilla.org/en/docs/Web/CSS/writing-mode)的定义。
+>  writing-mode 属性定义了文字在文文字块中垂直或者水平方向，参考[MDN](https://developer.mozilla.org/en/docs/Web/CSS/writing-mode)。
 
 ## 默认的书写模式
 
-支持这一属性的浏览器默认将这一属性设置为 `horizontal-tb` 。这将作用于水平的语言比如英语，法语，阿拉伯语等等。
+支持这一属性的浏览器默认将这一属性设置为 `horizontal-tb` 。这将作用于水平排版的语言比如英语，法语，阿拉伯语等等。
 
 接下来我们将尝试 ` vertical-lr` 效果，lr 代表 从左到右 (Left to right)。
 
@@ -27,7 +27,7 @@
 
 4. 添加 `transform: rotate(90deg)` 旋转标题。
 
-5. 最后，需要给包裹的元素添加些 padding 以防标题和网格内容重叠。
+5. 最后，需要给包裹的左边元素添加些 padding 以防标题和网格内容重叠。
 
 ```
 <section class="wrapper">
@@ -64,7 +64,7 @@
 ## 例子2
 ![](https://ishadeed.com/assets/writing-mode/example2.png)
 
-在这次的设计中，我们在内容旁边垂直摆放着一个分享控件。我们确实可以不用 CSS `writing-mode` 就可以简单实现，但有意思的是当我们用 `writing-mdoe` 时社交分享控件时，我们可以让它水平居中(居左，居中，或者居右)。
+在这次的设计中，我们在内容旁边垂直摆放着一个分享控件。我们确实可以不用 CSS `writing-mode` 就可以简单实现，但有意思的是当我们用 `writing-mdoe` 实现社交分享控件时，我们可以让它垂直居中(居左，居中，或者居右)。
 
 正如例子中那样，社交分享按钮垂直靠在它的父元素顶部。通过改写 CSS `text-align` 属性就可以做到这样，比如：
 
@@ -87,7 +87,7 @@
 
 参看 这个 [Demo](http://codepen.io/shadeed/pen/8a7e787c90e25ca3b03fa4c688aab303/)
 
-说明一下：我已近不再用 icon font 而是[切换到](https://ishadeed.com/article/using-svg-icons/) SVG ，我用 icon font 只是为了演示。
+说明一下：我已经不再用 icon font 而是[切换到](https://ishadeed.com/article/using-svg-icons/) SVG ，我用 icon font 只是为了演示。
 
 ## 浏览器支持
 
@@ -98,7 +98,7 @@
 
 ![](https://ishadeed.com/assets/writing-mode/caniuse-support.jpg)CSS Writing Mode support from caniuse.com
 
-## awesome 前端社区的 Demos 
+## 酷炫的前端社区 Demos 
 
 - [Floated title with writing-mode](http://codepen.io/julianlengfelder/pen/VjBjoj) by Julian Lengfelder.
 - [Clever Idea to center content horizontally and vertically](http://codepen.io/sleithart/pen/kXjLLk) By Sheffield.
