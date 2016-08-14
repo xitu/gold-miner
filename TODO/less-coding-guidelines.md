@@ -171,7 +171,7 @@ JS 可以添加或删除这些类。这意味着相同的状态名称可以在�
 
 在我们的 CSS 中变量名也有严格的结构。此语法提供属性，使用和组件之间的强关联。
 
-下面的变量定义是一个颜色属性，其值为grayLight，与highlightMenu组件一起使用2。
+下面的变量定义是一个颜色属性，其值为 grayLight ，与 highlightMenu 组件一起使用2。
 
 ```CSS
 @color-grayLight--highlightMenu: rgb(51, 51, 50);
@@ -182,7 +182,7 @@ JS 可以添加或删除这些类。这意味着相同的状态名称可以在�
 
 在实现特性的样式时，你只应使用由 colors.less 提供的颜色变量。
 
-当添加一个颜色变量到 colors.less ，使用 RGB 和 RGBA 颜色单位优先于十六进制，命名， HSL 和 HSLA 值。
+当添加一个颜色变量到 colors.less ，使用 RGB 和 RGBA 颜色单位优先于十六进制， named ， HSL 和 HSLA 值。
 
 **正确的做法:**
 ```css
@@ -204,15 +204,15 @@ hsla(120, 100%, 50%, 1);
 
 请使用 Z-index.less 定义 z-index 的范围。
 
-`@zIndex-1 - @zIndex-9` 提供了。 没什么应该比 `@zIndex-9` 高。
+`@zIndex-1 - @zIndex-9` 已经提供了。 没什么应该比 `@zIndex-9` 高。
 
 
 <a name="fontweight"></a>
 ### Font Weight
 
-随着网页字体的额外支持 `font-weight` 起着比从前重要的作用。不同的字体粗细将专门渲染重建。不像曾经的 `bold` 只是通过一个算法来增粗字体。明显的使用 `font-weight` 的数值，以使字体的最佳展示。下面是一个指导：
+随着网页字体的额外支持， `font-weight` 起着比从前重要的作用。不同的字体粗细将专门渲染重建。不像曾经的 `bold` 只是通过一个算法来增粗字体。明显的使用 `font-weight` 的数值，以达到字体的最佳展示。下面是一个指导：
 
-原始定义字体粗细应尽量避免。相反，使用合适的字体混合指令: `.font-sansI7, .font-sansN7, 等等.`
+应尽量避免原始定义字体粗细。相反，使用合适的字体混合指令: `.font-sansI7, .font-sansN7, 等等.`
 
 后缀定义粗细和样式：
 
@@ -223,7 +223,7 @@ I = italic
 7 = bold font-weight
 ```
 
-请参考 type.less 类型的大小，字母间距和行高。原尺寸，空格和线的高度应避免在 type.less 之外。
+请参考 type.less 类型的大小，字母间距和行高。原尺寸，空格和线的高度应避免出现在 type.less 之外。
 
 
 ```CSS
@@ -246,7 +246,7 @@ ex:
 <a name="lineheight"></a>
 ### Line Height
 
-Type.less 还提供了一个行高比例。这应该用于文本块
+Type.less 还提供了一个行高比例。这应该用于文本块。
 
 
 ```CSS
@@ -261,7 +261,7 @@ ex:
 @lineHeight-looser
 ```
 
-另外，使用行高垂直居中单行文本的时候，一定要将行高设置为容器的高度 -1 。
+另外，使用行高垂直居中单行文本的时候，一定要将行高设置为容器的高度减 1 。
 
 ```CSS
 .btn {
@@ -381,9 +381,9 @@ font-family: Helvetica Neue Light, Helvetica Neue, Helvetica, Arial;
 ul.user-list li span a:hover { color: red; }
 ```
 
-样式渲染在布局处理过程中解决。选择器从右到左进行，当它不匹配时退出。因此，本例中的每个标签有待检查，看它是否驻留在 span 和 list 内。你可以想象，这需要大量的 DOM 操作，大型文档的话可能导致布局时间增多。进一步阅读： https://developers.google.com/speed/docs/best-practices/rendering#UseEfficientCSSSelectors
+样式渲染在布局处理过程中解决。选择器从右到左进行，当它不匹配时退出。因此，本例中的每个 a 标签都会被检查，看它是否属于 span 和 list 。你可以想象，这需要大量的 DOM 遍历操作，对于大型文档来说的话可能导致布局时间增多。进一步阅读： https://developers.google.com/speed/docs/best-practices/rendering#UseEfficientCSSSelectors
 
-如果我们知道给所有 `a` 元素在 `.user-list` 悬停时变红，我们可以简化这种样式：
+如果我们想让 .user-list 中所有的 a 元素悬停时变红，我们可以简化这种样式：
 
 ```css
 .user-list > a:hover {
@@ -391,7 +391,7 @@ ul.user-list li span a:hover { color: red; }
 }
 ```
 
-如果我们仅仅想给 `.user-list` 中的 a 元素设置特别的样式，我们可以给他们设定一个特定的类。
+如果我们仅仅想给 `.user-list` 中某些具体的 a 元素设置特别的样式，我们可以给他们设定一个特定的类。
 
 ```css
 .user-list > .link-primary:hover {
