@@ -1,50 +1,41 @@
 > * 原文地址：[Bootstrap considered harmful](https://hiddedevries.nl/en/blog/2016-08-09-bootstrap-considered-harmful)
 * 原文作者：[Hidde de Vries](https://hiddedevries.nl/en/about-me/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者： 
+* 译者： [MAYDAY1993](https://github.com/MAYDAY1993)
 * 校对者： 
 
-Bootstrap has become a very popular tool in front-end projects over the years, and it can have huge benefits. However, if your team has a front-end developer on board, I would argue you may be better off without Bootstrap. In some instances, it can do more harm than good.
+这些年来在前端项目中Bootstrap已经成了一个非常受欢迎的工具，而且它有很多优点。然而，如果你的团队恰好有一个前端开发者，我认为你最好不用Bootstrap。在某些情况下，它缺点多于优点。
 
-## What Bootstrap is great for
+## Bootstrap对什么有好处
 
-Bootstrap comes with a grid, but also with styles and scripts for many components, including tables, navigation bars, progress bars, paginations, form styling, modals and tooltips. In this article, by ‘Bootstrap’, I mean the practice to include all of it (as opposed to choosing to include part(s) only, i.e. _just_ its grid).
+Bootstrap带有栅格系统，也有针对很多组件的样式和脚本，包括表格，导航栏，进度条，分页，表单样式，模态框和提示框。在这篇文章中，谈论‘Bootstrap’，我的意思是包含所有组件的实践（与只选择包括一部分相反，例如， _只是_栅格）。
+对于需要把项目输出成标记语言并且不想操心将结果样式化的后端开发工程师来讲Bootstrap是一个好的工具。如果因为某些原因，预算或其他，在一个团队里没有前端开发者或设计师，Bootstrap适合用来填坑。
 
-Bootstrap is a great tool for back-end developers who need markup to output their program into, and don’t want to worry about styling the result. If for some reason, budget or otherwise, there are no front-end developers or designers in a team, Bootstrap is great to fill that gap.
+对于设计师来讲，Bootstrap也有一席之地：它是一个很有价值的工具，用来从设计软件快速移动到浏览器，而不需要过度担心前端代码策略。
+甚至对于主要和数据打交道很少关注UI和布局的前端开发者，让一个开发者关注于搭建应用本身，Bootstrap在这一方面也很好。
 
-For designers, Bootstrap has its place too: it can be a valuable tool to move quickly from design software into the browser, without worrying too much about front-end coding strategies.
+## 什么时候你最好别用它
 
-Even for front-end developers that mostly work with data and less with UI and layout, Bootstrap can be fantastic at letting a developer focus on building the application itself.
-
-## When you’re better off without it
-
-However, if you have a front-end developer on your team, using Bootstrap could potentially waste their dear time, and shift their focus away from solving real problems. Bootstrap does the very thing front-end developers have expertise in, but it does them in a very generalised way. Your website or web app is very specific, so if you use a generalised system it is likely not going to fit. This means that your code will contain a whole lot of exceptions, to make all the specific possible.
-
-### When lots of exceptions are required to unset Bootstrap’s styles
-
-Bootstrap was once made by developers at Twitter to systemise the style of _their_ web app. When your web app is not styled like theirs, this means you will have to unset what they do.
-
-Most websites are not styled like Twitter. Therefore, if they load Bootstrap, they will need to unset a lot.
-
-In some websites I worked on, I saw as many as 9 out of 10 Bootstrap styles being unset by the site’s own styles. To put it quite frankly, that’s ridiculous.
-
-### When it makes simple things complex
-
-CSS is made to add _simple_ sets of style rules to web pages, which can be conditionally overridden. When Bootstrap’s CSS is in your site, almost all the things are already set using a _complex_ set of style rules. Any exceptions go on top of that. The issue with most sites is that most of their styles will be exceptions to Bootstrap styles.
-
-Bootstrap’s styles are complex: you can have a grid that has 12 columns which can be used in any combination you want, with special classes taking care of skipping columns and setting column structures differently based on the user’s viewport. Many websites are simple: they only have no columns on small screens and one or two on larger screens.
-
-### When it creates technical debt
-
-The longer a front-end code base relies on Bootstrap, the more it gets entangled with it, and the more rules it contains that exist just to unset Bootstrap stuff. This, more often than not, leaves the codebase in huge technical debt, especially if front-end code is implemented in the back-end in a way that requires manual updating (which is often the case). Removing Bootstrap will be harder over time, as too much relies on it.
-
-### When it introduces naming conventions that may not be your app’s
-
-Naming things is hard, and it takes time to come up with sensible naming conventions that work for your team and app. Using proper nouns for component names doesn’t mix well with classnames like ‘btn’ that are abbreviations of proper nouns.
-
-## Conclusion
-
-Bootstrap and friends can be beneficial for all kinds of stages in the process of making websites. They are however not a magic bullet that will make everything easier: on the contrary, there are many downsides that can be avoided by having a front-end developer focus on coding the UI by hand.
+然而，如果你的团队里有一个前端开发工程师，使用Bootstrap会潜在地浪费他们宝贵的时间，并且将他们的注意力从解决实际的问题转移。Bootstrap恰恰做的是前端开发者擅长的，但是它以一种很普遍的方式来实现。你的网站或应用是很具体的，所以如果你用一个普遍的系统，它有可能不会起作用。这意味着你的代码将包含全部的可能性才有可能实现具体的需求。
+### 当需要很多代码来覆盖Bootstrap的样式
+Bootstrap是由Twitter的开发者开发来系统化他们网站应用的样式。当你的网站应用的样式和他们不一样，这意味着你不得不覆盖掉他们的样式来。
+大多数网站的样式并不像Twitter那样。因此，如果他们安装Bootstrap，他们会覆盖掉很多样式。
+在一些我参与的网站中，我发现多达十分之九的Bootstrap样式会被网站自己的样式覆盖掉。很坦率的讲，这是荒谬的。
+### 当它让简单的事情复杂化
+CSS用来为网页增加一系列简单的在某些条件下会被代码覆盖的样式规则。当你的网站中有Bootstrap的样式，几乎网站内所有的东西都已经被一系列复杂的代码规则设置好了。任何例外都超出了（译者注：貌似不通顺 求校对者出招儿）。对于大部分网站面临的问题是，他们的大多数样式对于Bootstrap的样式都是例外。
+Bootstrap的样式是复杂的：你会有一个带有12列的栅格系统，这12列能以你想要的任何方式组合使用，有特殊的类来基于用户的视图尺寸设置不同的偏移量和列结构。很多网站是简单的：在小屏幕上没有列，在更大的屏幕会有一到两列。
+### 当它产生了技术债务
+一个前端代码库依赖Bootstrap的时间越长，纠缠的越多，并且它包含了更多只是用来覆盖掉Bootstrap代码的规则。这常常导致代码库陷于巨大的技术债务，尤其当前端代码以经常需要手动更新的方式整合在后端的时候。
+### 当它引入可能不是你的应用的命名习惯
+命名很难，而且想出有意义的属于你的团队和应用的命名习惯很花时间。对于组件名使用合适的名词，不要和一些名词的缩写像’btn’的类名混淆。
+## 结论
+在开发网站的过程中Bootstrap和朋友在各种各样的阶段是有好处的。然而它们不是一个能使任何事都简单的魔法：相反，会有很多能够通过让前端开发者关注于亲自开发UI来避免的缺点。
 
 
-</div>
+
+
+
+
+
+
+
