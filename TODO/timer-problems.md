@@ -1,16 +1,16 @@
 >* 原文链接：[Design patterns for safe timer usage](http://www.cocoawithlove.com/blog/2016/07/30/timer-problems.html)
 * 原文作者：[Matt Gallagher](http://www.cocoawithlove.com/about/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：mypchas6fans (https://github.com/mypchas6fans)
-* 校对者：Graning (https://github.com/Graning) lizwangying (https://github.com/lizwangying)
+* 译者：[mypchas6fans] (https://github.com/mypchas6fans)
+* 校对者：[Graning] (https://github.com/Graning) [lizwangying] (https://github.com/lizwangying)
 
 计时器是一个非常难以正确使用的工具。
 
 延迟调用和单次计时器使用非常简单，但它们有时会陷入无法维护的反模式，有时很容易在控制和 handler 上下文之间出现序列问题。
 
-和我一起看看有关计时器的bug和潜在维护问题吧。
+和我一起看看有关计时器的 bug 和潜在维护问题吧。
 
-> **注意**：本文的代码会使用 Swift 3 版本的 Dispatch API 演示单次计时器。但许多共通原则适用于其他各种周期计时器和异步计时器API。
+> **注意**：本文的代码会使用 Swift 3 版本的 Dispatch API 演示单次计时器。但许多共通原则适用于其他各种周期计时器和异步计时器 API。
 
 ## 计时器的目的
 
@@ -18,7 +18,7 @@
 
 有一个概念上的问题：计时器的*接口*看起来是要让某个功能延迟一定时间。严格来说，延迟是它们所做的事情，但绝不是其*目的*所在。
 
-单次计时器的目的是为某个临时资源执行生存期结束后的操作。比如 Session 计时器到期删除 Session，超时会关闭闲置的连接，UI计时器会删除视图元素或重置视图状态，日历事件计时器把事件从待完成变为已完成。
+单次计时器的目的是为某个临时资源执行生存期结束后的操作。比如 Session 计时器到期删除 Session，超时会关闭闲置的连接，UI 计时器会删除视图元素或重置视图状态，日历事件计时器把事件从待完成变为已完成。
 
 有时，你会发现计时器*看起来*只是一段延时，没有底层的临时资源。最糟的情况是期望被延时的功能可能会在一些先决条件满足*之后*调用。期望独立的代码在一定时间内完成是最糟糕的[耦合](https://en.wikipedia.org/wiki/Coupling_(computer_programming))(并且几乎总是会忽略应该触发其执行的通知)。
 
@@ -327,7 +327,7 @@
 现在代码比原来简洁清晰很多，而且同样线程安全.
 
 这样的计时器使用模式并不是*永远*可行的 - 在某些情况下，需要使用前面的“世代计数”方法。比如你选择使用不同的互斥锁(更快的互斥锁，比如我在之前文章中提到的[Mutexes and closure capture in Swift](http://www.cocoawithlove.com/blog/2016/06/02/threads-and-mutexes.html))。
-在其他API中，还有可能无法用调度队列作为同步互斥锁（比如 C++ 中的 `boost::asio`，用于序列化的 `io_service::strand` 类不能以确保同步的方式调用）。
+在其他 API 中，还有可能无法用调度队列作为同步互斥锁（比如 C++ 中的 `boost::asio`，用于序列化的 `io_service::strand` 类不能以确保同步的方式调用）。
 
 ## 外部需求
 
@@ -386,7 +386,7 @@
 
 有一个著名的设计准则： [“你不需要它”](https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it), 指的是你应该只关注当前的需求，只要现在的代码可以工作，就别担心将来的问题. 这话有一定的道理，但是如果要处理难以测试的问题，多加小心，未雨绸缪总是必要的。
 
-计时器有一个讨厌的倾向，看起来工作正常，但是不太相关（甚至*毫不相干*）的代码稍微变化，就会出问题了。由于自动化测试通常只会用一些固定的时间模式，可能时间相关的bug不会被发现，任何测试都通过了，但结果程序中有严重的问题。最好能有一些简单的步骤，从一开始就保证计时器在不同的使用模式下工作正常，哪怕你不需要取消或者重设计时器。
+计时器有一个讨厌的倾向，看起来工作正常，但是不太相关（甚至*毫不相干*）的代码稍微变化，就会出问题了。由于自动化测试通常只会用一些固定的时间模式，可能时间相关的 bug 不会被发现，任何测试都通过了，但结果程序中有严重的问题。最好能有一些简单的步骤，从一开始就保证计时器在不同的使用模式下工作正常，哪怕你不需要取消或者重设计时器。
 
 对每一个计时器:
 
