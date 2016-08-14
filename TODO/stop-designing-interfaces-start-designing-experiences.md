@@ -1,8 +1,8 @@
 > * 原文地址：[Stop designing interfaces, Start designing experiences](https://medium.com/blablacar-design/stop-designing-interfaces-start-designing-experiences-d82def0b802c#.tm2nitn97)
 * 原文作者：[DUVAL Nicolas](https://medium.com/@nicolaseek?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：[Kulbear](https://github.com/Kulbear)
-* 校对者：
+* 译者：[Kulbear](https://kulbear.github.com/)
+* 校对者：[owenlyn](https://github.com/owenlyn), [bobmayuze(Yuze Ma)](https://github.com/bobmayuze)
 
 > 这篇文章是我们新发布的界面指南的一部分
 
