@@ -375,7 +375,7 @@ font-family: Helvetica Neue Light, Helvetica Neue, Helvetica, Arial;
 <a name="specificity"></a>
 ### Specificity
 
-虽然在名称（层叠样式表）层叠会增加不必要的性能支出在应用样式上。看看下面的例子：
+在名称（层叠样式表）层叠会在应用样式上增加不必要的性能支出。看看下面的例子：
 
 ```css
 ul.user-list li span a:hover { color: red; }
