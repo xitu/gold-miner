@@ -93,7 +93,7 @@ LEGOS! 你也许已经听说过仿照乐高风格的设计。是的，给我一�
 
 #### 我们遵循的准则
 
-我们从 Brad Frost 提出的 [Atomic Design](http://bradfrost.com/blog/post/atomic-web-design/)的方法中获得了灵感。Brad Frost 是被化学所启发的——复杂的有机物由分子组成，而分子又是由原子组成的。如果你还不了解这个方法，我推荐你去读一读他的博客。[点这里](http://bradfrost.com/blog/post/atomic-web-design/)
+我们从 Brad Frost 提出的 [Atomic Design](http://bradfrost.com/blog/post/atomic-web-design/) 的方法中获得了灵感。Brad Frost 是被化学所启发的——复杂的有机物由分子组成，而分子又是由原子组成的。如果你还不了解这个方法，我推荐你去读一读他的博客。[点这里](http://bradfrost.com/blog/post/atomic-web-design/)
 
 我们把这个方法完美紧密的套用在了前面提及的乐高砖块模式上，这帮助我们有效的沟通。大家都可以很快的理解并交流我们的意见。公司里任意一个领域的人都无需我们的讲解就能很容易的分享自己的见解。
 
