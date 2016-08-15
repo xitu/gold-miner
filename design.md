@@ -1,3 +1,4 @@
+* [移动开发中的极简设计](http://gold.xitu.io/entry/57abf8735bbb500062b1becb?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([edvardhua](https://github.com/edvardhua) 翻译)
 * [设计，其实是一种产生共鸣的过程](http://gold.xitu.io/entry/57a41ffca341310063262054?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Rottenpen](https://github.com/Rottenpen) 翻译)
 * [如何在应用内设计一份调查？](https://gold.xitu.io/entry/579ae2a85bbb500064c9233e?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Gran](https://github.com/graning) 翻译)
 * [移动应用设计新趋势](http://gold.xitu.io/entry/5796ee065bbb500063ef3535?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([shixinzhang](https://github.com/shixinzhang) 翻译)

@@ -5,7 +5,7 @@
 * 校对者: [owenlyn](https://github.com/owenlyn), [yifili09](https://github.com/yifili09)
 
 
-不久之前，在我写的[好与坏，Swift面面观 Part1](https://medium.com/@ksmandersen/good-swift-bad-swift-part-1-f58f71da3575)一文中，我介绍了一些关于在 **Swift** 里怎样去写出优秀代码的小技巧。在 **Swift** 发布到现在的两年里，我花费了很长时间去牢牢掌握最佳的实践方法。欲知详情，请看这篇文章：[好与坏，Swift面面观 Part1](https://medium.com/@ksmandersen/good-swift-bad-swift-part-1-f58f71da3575).
+不久之前，在我写的[好与坏，Swift面面观 Part1](http://gold.xitu.io/entry/578c647a6be3ff006ce49e91)一文中，我介绍了一些关于在 **Swift** 里怎样去写出优秀代码的小技巧。在 **Swift** 发布到现在的两年里，我花费了很长时间去牢牢掌握最佳的实践方法。欲知详情，请看这篇文章：[好与坏，Swift面面观 Part1](https://medium.com/@ksmandersen/good-swift-bad-swift-part-1-f58f71da3575).
 
 在这个系列的文章中，我将尝试提炼出我认为的 **Swift** 语言中好与不好的部分。唔，我也希望在未来有优秀的 **Swift** 来帮助我征服 **Swift** （唔，小伙子，别看了，中央已经决定是你了，快念两句诗吧）。如果你有什么想法，或者想告诉我一点作为开发者的人生经验什么的话，请在 Twitter 上联系我，我的账号是 [ksmandersen](http://twitter.com/ksmandersen)。
 
