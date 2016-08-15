@@ -45,10 +45,10 @@
 
 
 ## 前端
+* [[译] CSS writing-mode 的特别技巧](http://gold.xitu.io/entry/57b08227165abd005426657b?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([huanglizhuo](https://github.com/huanglizhuo) 翻译)
 * [[译] 如何搭建自动化、跨浏览器的 JavaScript 单元测试](http://gold.xitu.io/entry/579b2d6ea633bd0060eb965f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([owenlyn](https://github.com/owenlyn) 翻译)
 * [[译] ES6 中 的 var、let 和 const 应该如何选择？](http://gold.xitu.io/entry/57962ef22e958a00651f7387?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Graning](https://github.com/Graning) 翻译)
 * [[译] 字体加载策略全面指南](https://gold.xitu.io/entry/5790d1aa5bbb500063b8a747?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Nicolas(Yifei) Li](https://github.com/yifili09) 翻译)
-* [[译] 懒加载图片？不要依赖 JavaScript ！](http://gold.xitu.io/entry/5787048a165abd0067f7e476?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jk77](https://github.com/jk77me) 翻译)
 * [所有前端译文>>](https://github.com/xitu/gold-miner/blob/master/front-end.md)
 
 
