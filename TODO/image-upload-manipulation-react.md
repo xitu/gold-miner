@@ -1,13 +1,15 @@
 > * 原文地址：[Image Upload and Manipulation with React](https://css-tricks.com/image-upload-manipulation-react/)
 * 原文作者：[Damon Bauer](http://damonbauer.me/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者： 
-* 校对者： 
+* 译者：
+* 校对者：
 
 
-_The following is a guest post by [Damon Bauer](http://damonbauer.me/), who tackles a pretty common web developer job: offering user image uploads. I'd hesitate to call it _easy_, but with the help of some powerful tools that do a lot of the heavy lifting, this job has gotten a heck of a lot easier than it used to be. Damon even [does it](https://github.com/damonbauer/react-cloudinary) entirely in the browser!_
+_下面这篇特邀文章是由 [Damon Bauer](http://damonbauer.me/) 完成的，主题是关于一个 web 开发人员非常常见的工作：为用户提供图片上传功能。毫无疑问，我会认为这很简单，不过还是需要一些功能强大的工具来帮忙做一些比较“重”的工作，看完这篇文章，再做这任务会觉得比以前轻松的多。Damon 甚至全程在浏览器中完成了[这项任务](https://github.com/damonbauer/react-cloudinary)!_
 
 A common thing web developers need to do is give users the ability to upload images. At first it might seem trivial, but there are things to think about when building an image upload component. Here are just some of the considerations:
+
+
 
 *   What image types will you allow?
 *   What size do the images need to be? How will that impact performance?
@@ -227,4 +229,3 @@ This is just the groundwork for an image upload component. There are plenty of a
 So far, this set up has worked well for my needs. Having to hardcode the upload preset isn't perfect, but I've yet to experience any issues with it.
 
 Hopefully you've gotten an understanding of how you can upload, store and manipulate images using React without a server-side language. If you have any questions or comments, I'd love to hear them! I've created a repository where you can [see this code in action](https://github.com/damonbauer/react-cloudinary).
-
