@@ -1,525 +1,525 @@
 > * 原文链接 : [real-world-flux-ios](http://blog.benjamin-encz.de/post/real-world-flux-ios/)
-* 原文作者 : [Benjamin Encz](http://blog.benjamin-encz.de/about)
-* 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者:
+> * 原文作者 : [Benjamin Encz](http://blog.benjamin-encz.de/about)
+> * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 译者 : [Nicolas(Yifei) Li](https://github.com/yifili09) 
+> * 校对者: [rccoder](https://github.com/rccoder), [Gran](https://github.com/Graning)
 
-About half a year ago we started adopting the Flux architecture in the PlanGrid iOS app. This post will discuss our motivation for transitioning from traditional MVC to Flux and will share the experience we have gathered so far.
+在半年前，我开始在 `PlanGrid` iOS 应用程序中采用 `Flux` 架构（开发）。这篇文章将会讨论我们从传统的 `MVC` 转换到 `Flux`的动机，同时分享我们目前积累到的经验。
 
-I’m attempting to describe large parts of our Flux implementation by discussing code that is in production today. If you’re only interested in the high level conclusion you can skip the middle part of this post.
+我尝试通过讨论代码来描述我们大部分的 `Flux` 实现， 它用于我们今天的产品中。 如果你只对综合结果感兴趣， 请跳过这篇文章的中间部分。
 
-## Why We Transitioned Away from MVC
+## 为什么从 `MVC` 转移
 
-To put our decision into context I want to describe some of the challenges the PlanGrid app faces. Some of them are unique to enterprise software, others should apply to most iOS apps.
+为了引入我们的决定， 我想要先谈一谈 `PlanGrid` 这个应用遇到的一些挑战。一些问题仅针对企业级应用程序，其他应该适用于大部分的 `iOS` 应用程序。
 
-### We Have All the State
+### 我们有所有的状态
 
-PlanGrid is a fairly complex iOS app. It allows users to view blueprints and to collaborate on them using different types of annotations, issues and attachments (and a lot of other stuff that requires industry specific knowledge).
+`PlanGrid` 是一个相当复杂的 `iOS` 应用程序。它允许用户能看到（设计）蓝图并且可以使用不同类型的（标记) 注释，问题和附件（和很多其他特定工业需要的知识）。
 
-An important aspect of the app is that it is offline first. Users can interact with all features in the app, whether they have an internet connection or not. This means that we need to store a lot of data & state on the client. We also need to enforce a subset of the business rules locally (e.g. which annotation can a user delete?).
+一个重要的方面是， 这个应用程序（可以）先离线使用。无论是否有英特网连接，用户可以使用所有应用程序提供的特性。这意味着我们需要在客户端存储许多数据和状态。我们也需要实施一些本地的业务规则（例如，一个注释是否可以被用户删除？）。 
 
-The PlanGrid app runs on both iPad and iPhone, but its UI is optimized to make use of the larger available space on tablets. This means that unlike many iPhone apps we often present multiple view controllers at a time. These view controllers tend to share a decent amount of state.
+`PlanGrid` 可以在 `iPad` 和 `iPhone` 平台上运行，但他的 `UI` 被优化过，可以充分使用平板的屏幕。这意味着不像其他 `iPhone` 应用程序，我们常常同时展现多个视图控制器。这些视图控制器常常（互相）共享着相当多的状态。
 
-### The State of State Management
+### 状态管理器
 
-All of this means that our app puts a lot of effort into managing state. Any mutation within the app results in more or less the following steps:
+所有的这些意味着，我们的应用程序花在状态管理上费了很多努力。任何应用程序结果的变化或多或少都和以下几点相关：
 
-1.  Update state in local object.
-2.  Update UI.
-3.  Update database.
-4.  Enqueue change that will be sent to server upon available network connection.
-5.  **Notify other objects about state change.**
+1. 更新本地对象的状态。
+2. 更新 `UI`。
+3. 更新数据库。
+4. 用队列保存变化，它将在有网络连接的情况下发送给服务器。
+5. **当状态改变时，通知其他对象**
 
-Though I plan on covering other aspects of our new architecture in future blog posts, I want to focus on the 5\. step today. _How should we populate state updates within our app?_
+尽管我计划在之后的文章中（更新）包含我们新架构中其他的部分，我今天想把精力集中在第5个\. _我们怎么在应用程序中构成状态更新（机制）？_ 
 
-This is the billion dollar question of app development.
+这是我们应用程序开发中至关重要的问题（价值十亿美元 :moneybag:）。
 
-Most iOS engineers, including early developers of the PlanGrid app, come up with the following answers:
+大多数 `iOS` 的工程师，包括 `PlanGrid` 应用程序早些时候的开发者们，想出了以下答案： 
 
-*   Delegation
-*   KVO
-*   NSNotificationCenter
-*   Callback Blocks
-*   Using the DB as source of truth
+* 代理机制 (`Delegation`)
+* 键值观察策略 （`KVO`）
+* 通知中心 （`NSNotificationCenter`）
+* 回调代码块 （`Callback Blocks`）
+* 使用数据库作为来源 （`Using the DB as source of truth`）
 
-All of these approaches can be valid in different scenarios. However, this menu of different options is a big source of inconsistencies in a large codebase that has grown over multiple years.
+所有这些实现都在不同的情况下有效。然而，这些不同的操作是来源于很多在由发展多年以来的很大的代码库中的不一致。
 
-### Freedom is Dangerous
+### 自由是危险的
 
-Classic MVC only advocates the separation of data and its representation. With the lack of other architectural guidance, everything else is left up to individual developers.
+经典的 `MVC` 只提倡分离数据和它的展示层。在缺少其他结构性的指导下，剩下的东西都由个别开发者们决定。
 
-For the longest time the PlanGrid app (like most iOS apps) didn’t have a defined pattern for state management.
+很长一段时间 `PlanGrid` 应用程序（像其他 `iOS` 应用程序）都没有一个定义好的模式去管理状态。
 
-Many of the existing state management tools such as delegation and blocks tend to create strong dependencies between components that might not be desirable - two view controllers quickly become tightly coupled in an attempt to share state updates with each other.
+很多现存的状态管理工具，例如 `delegation` 和 `blocks` 常常去在组件中创建强连接（依赖），这并不令人满意 - 两个视图控制器迅速变得强耦合，在尝试互相分享更新的状态时。
 
-Other tools, such as KVO and Notifications, create invisible dependencies. Using them in a large codebase can quickly lead to code changes that cause unexpected side effects. It is far to easy for a controller to observe details of the model layer which it shouldn’t be interested in.
+其他工具，例如，`KVO` 和 `通知`， 创建无形的（程序）依赖。将他们使用在大型的代码库中，会迅速导致代码的变化，引起不可预期的副作用。对于一个控制器来说，想观察到那些本不需要关心的数据模型层的细节实在是太容易了。
 
-Thorough code reviews & style guides can only do so much, many of these architectural issues start with small inconsistencies and take a long time to evolve into serious problems. With well defined patterns in place it is a lot easier to detect deviations early.
+完整的代码审阅和样式指导的作用有限，许多架构上的问题都从很小的不一致性开始并且花很长的时间扩展到许多严重的问题。使用意义清晰明确的模式替换，这将会很容易尽早发现差异。
 
-### An Architectural Pattern for State Management
+### 状态管理的一种架构的模式
 
-One of our most important goals during refactoring the PlanGrid app was putting clear patterns & best practices in place. This would allow future features to be written in a more consistent way and make onboarding of new engineers a lot more efficient.
+在重构 `PlanGrid` 应用程序期间，我们最重要的目标是，采用一个清晰的模式和（创造）最佳实现方式。这样允许未来的新特性能以更加一致的方式写入代码库，也让更多新进的工程师提高工作效率。
 
-State management was one of the largest sources of complexity in our app, so we decided to define a pattern that all new features could use going forward.
+在我们的应用程序中，状态管理是复杂度比较大的代码源之一，所以我们决定去定义一个模式，所有新的特性都会按照这个模式更好的前进。
 
-A lot of the pain we felt in our existing codebase reminded us strongly of the issues that Facebook brought up when they first presented the Flux pattern:
+在遭遇了很多我们代码中的痛苦后，更加让我们相信，那些 `Facebook` (脸书) 在第一次提出 `Flux` 模式是偶提出的问题：
 
-*   Unexpected, Cascading State Updates
-*   Hard to Understand Dependencies Between Components
-*   Tangled Flow of Information
-*   Unclear Source of Truth
+* 不可预见性，联级状态更新
+* 很难在（多个）组件中明白（互相）依赖关系
+* 复杂的信息流程
+* 不清晰的真实来源
 
-It seemed that Flux would be a great fit for solving many of the issues we were experiencing.
+看上去 `Flux` 将会非常适合解决很多我们现在遇到的问题。
 
-## A Brief Intro to Flux
+## `Flux` 的简单概要
 
-Flux is a very lightweight architectural pattern that Facebook uses for client-side web applications. Even though there is a [reference implementation](https://github.com/facebook/flux), Facebook emphasizes that the ideas of the Flux pattern are a lot more relevant than this particular implementation.
+`Flux` 是一个轻量级的架构的模式，它被 `Facebook` (脸书) 用在客户端的网页应用程序中。虽然有一个 [参考的演示程序](https://github.com/facebook/flux)，`Facebook` (脸书) 强调说，`Flux` 模式的想法有比这个单独实现更多的想法（内容）。
 
-The pattern can be described best alongside a diagram that shows the different flux components:
+这个模式能被下图很好的诠释，它展示了不同的 `Flux` 组件：
 
 ![](https://raw.githubusercontent.com/Ben-G/Website/master/static/assets/flux-post/Flux_Original.png)
 
-In the Flux architecture a **store** is the single source of truth for a certain part of the app. Whenever the state in the store updates, it will send a change event to all views that subscribed to the store. The **view** receives changes only through this one interface that is called by the store.
+在 `Flux` 架构中，`store` 是应用程序某一个部分的单一真实来源。无论 `store` 中的状态何时更新，它都将发送一个变更事件给所有订阅这个 `store` （通知/消息）的视图。
 
-State updates can only occur via **actions**.
+状态更新（事件）只会通过 `actions` 产生。
 
-An **action** describes an intended state change, but it doesn’t implement the state change itself. All components that want to change any state send an **action** to the global **dispatcher**. The stores register with the dispatcher and let it know which actions they are interested in. Whenever an action is dispatched, all interested stores will receive it.
+一个 `action` 描述了一个预期的状态的变化，但它不自己实现状态的改变。所有想要改变状态的组件，都要发送一个 `action` 给全局的 `dispatcher`。每当一个 `action` 被分发，所有有关系的 `store` 都会收到它。
 
-In response to actions some stores will update their state and notify the views about that new state.
+作为对 `actions` 的响应，`stores` 会更新他们的状态并且通知和这些视图有关这个新的状态。
 
-The Flux architecture enforces a unidirectional data flow as shown in the diagram above. It also enforces a strict separation of concerns:
+在上图显示了，`Flux` 架构实施的一个单向的数据流。它对以下几个点严格区分：
 
-*   Views will only receive data from stores. Whenever a store updates, the handler method on the view is invoked.
-*   Views can only change state by dispatching actions. Because actions are only descriptions of intents, the business logic is hidden from the view.
-*   A store only updates its state when it receives an action.
+* 视图只会从 `stores` 接收数据。每当 `store` 更新的时候，在视图上的处理方法会被调用。
+* 视图只会通过分发的 `actions` 改变状态。 因为 `actions` 只描述意图，业务逻辑从视图里隐去了。
+* `store` 只会更新它的状态，当它接收到 `action`的时候。
 
-These constraints make designing, developing and debugging new features a lot easier.
+这些限制使得设计，开发和调试一些新的特性变得更加容易。
 
-## Flux in PlanGrid for iOS
+## `Flux` 在 `PlanGrid iOS` 中的使用
 
-For the PlanGrid iOS app we have deviated slightly from the Flux reference implementation. We enforce that each store has an observable `state` property. Unlike in the original Flux implementation we don’t emit a change event when a store updates. Instead views observe the `state` property of the store. Whenever the views observe a state change, they update themselves in response:
+我们在 `PlanGrid iOS` 应用程序上的实现和 `Flux` （官方提供的）参考程序有些不同。我们为每一个 `store` 实施了一个看得见的 `state` 属性。不像原生的 `Flux` 实现方式，当 `store` 有更新的时候，我们不发送变更通知。而是视图观察 `store` 中的 `state` 属性。每当视图观察到 `state` 属性有变化，他们按照下图响应（变化）:
 
 ![](https://raw.githubusercontent.com/Ben-G/Website/master/static/assets/flux-post/Flux.png)
 
-This is a very subtle deviation from the Flux reference implementation, but covering it is helpful for the upcoming sections.
+对于 `Flux` 参考程序仅有细微的差别，但是提到这个有助于下来部分（的理解）。
 
-With an understanding of the basics of the Flux architecture, let’s dive into some of the implementation details and questions we needed to answer while implementing Flux in the PlanGrid app.
+有了对 `Flux` 架构的基本认识，让我们看看更多实现的细节，和一些当在 `PlanGrid` 应用程序中实现 `Flux` 架构，我们需要去回答的问题。
 
-### What is the Scope of a Store?
+### 什么是 `Store` 的作用域？
 
-The scope of each individual store is a very interesting question that quickly comes up when using the Flux pattern.
+（去定义）每一个 `store` 的作用域是一个非常又去的问题，每当使用 `Flux` 模式的时候会经常发生。
 
-Since Facebook published the Flux pattern, different variations have been developed by the community. One of them, called Redux, iterates on the Flux pattern by enforcing that each application should only have a single store. This store stores the state for the entire application (there are many other, subtler, differences that are outside of the scope of this post).
+由于 `Facebook` (脸书) 发布了 `Flux` 模式，不同的社区开发出了不同的版本。有一个叫做 `Redux`，通过迭代 `Flux` 实施了每一个应用程序应该只有一个 `store`。这个 `store` 存储了整个应用程序的状态（有很多其他，细微，不同的其他作用域的文章。）
 
-Redux gained a lot of popularity as the idea of a single store further simplifies the architecture of many applications. In traditional Flux, with multiple stores, apps can run into cases where they need to combine state that is stored in separate stores in order to render a certain view. That approach can quickly re-introduce problems that the Flux pattern tried to solve, such as complicated dependencies between different components in an app.
+`Redux` 很受大众欢迎，因为这个单个 `store` 的实现方式将大大简化很多应用程序的架构。在传统的　`Flux`，有多个 `stores`，应用程序将会遭遇这个情况，当他们需要结合的状态，它被存储在了一个其他的 `store`中，为了去渲染某一个视图。这个实现常常重现 `Flux` 模式尝试去解决的问题，例如在应用程序中多个组件的复杂依赖。
 
-For the PlanGrid app we still decided to go with traditional Flux instead of using Redux. We were unsure how the approach with a single store that stores the entire app state would scale with such a huge app. Further, we identified that we would have very few inter-store dependencies which made it less important to consider Redux as an alternative.
+对　`PlanGird`　来说，我们决定使用传统 `Flux`　而非使用 `Redux`。我们不确定怎么将单个 `store`　存储整个应用程序的状态实现到这个庞大的应用程序中。未来，我们认为，我们将使用非常少的内部存储依赖，让 `Redux` 作为一个可选项来说变得不那么重要了。　　
 
-**We have yet to identify a hard rule on the scope of each individual store**.
+**我们已经总结出一个硬性规定有关单独 `store` 的作用域。**
 
-So far I can identify two patterns in our codebase:
+目前，在我们的代码库中，我能识别出的两个模式:
 
-*   **Feature/View Specific Stores:** Each view controller (or each group of closely related view controllers) receives its own store. This store models the view specific state.
-*   **Shared State Stores:** We have stores that store & manage state that is shared between many views. We try to keep the amount of these stores minimal. An example of such a store is the `IssueStore`. It is responsible for managing the state of all issues that are visible on the currently selected blueprint. Many views that display and interact with issues derive information from this store. These types of stores essentially act like a live-updating database query.
+* **特性／视图特定的存储:** 每一个视图控制器（或者每一个相关联的视图控制器）收到它自己的 `store`。这个 `store`　模仿了视图独特的状态。　
+* **共享状态的 `stores`:** 我们有 `stores`　存储和管理状态，被很多视图共享。我们尝试保持这些 `stores`　很小的数量。`IssueStore`　就是一个这样的一个 `store`。它负责管理所有问题，在当前选中的设计蓝图中可见的状态。这些形式的 `stores` 本质上来说一个实时更新的数据库查询。
 
-We are currently in the process of implementing our first _shared state stores_ and are still deciding the best way to model the multiple dependencies of different views onto these types of stores.
+我们目前在实现我们第一个_共享形状态 stores_ 的过程中，并且正在决定基于这些 `stores` 类型，模拟不同视图依赖最好的方式。
 
-### Implementing a Feature Using the Flux Pattern
+### 使用 `Flux` 模式实现一个特性
 
-Let’s dive a little bit deeper into some of the implementation details of features that are built with the Flux pattern.
+让我们深入观察下构成 `Flux`　模式特性的细节。
 
-As an example throughout the next couple of sections we’ll use a feature that’s used in production within the PlanGrid app. The feature allows users to filter annotations on a blueprint:
+作为贯穿下几个部分的例子，我们将使用 `PlanGrid`　应用程序产品中的一个特性。这个特性允许用户过滤设计蓝图中的注释: 
 
 ![](https://raw.githubusercontent.com/Ben-G/Website/master/static/assets/flux-post/filter_screenshot.png)
 
-The feature we’ll discuss lives in the popover that’s presented on the left hand side of the screenshot.
+我们讨论的特性是截图上左边展示出的弹出框。
 
-#### Step 1: Defining the State
+#### 第一步：　定义状态
 
-Usually I begin implementing a new feature by determining the relevant state for it. The state represents everything the UI needs to know in order to render the representation of a certain feature.
+一般来说，我实现一个特性，都由通过决定与其相关的状态开始。这个状态展示了 `UI` 需要了解的所有东西，为了渲染某一个特性。
 
-Let’s dive right into our example by taking a look at the state for the annotation filter feature shown above:
+让我们深入我们的例子，看看过滤注释特性的状态
 
 
-
+```
     struct AnnotationFilterState {
-        let hideEverythingFilter: RepresentableAnnotationFilter
-        let shareStatusFilters: [RepresentableAnnotationFilter]
-        let issueFilters: [RepresentableAnnotationFilter]
-        let generalFilters: [RepresentableAnnotationFilter]
+      let hideEverythingFilter: RepresentableAnnotationFilter
+      let shareStatusFilters: [RepresentableAnnotationFilter]
+      let issueFilters: [RepresentableAnnotationFilter]
+      let generalFilters: [RepresentableAnnotationFilter]
 
-        var selectedFilterGroup: AnnotationFilterGroupType? = nil
-        /// Indicates whether any filter is active right now
-        var isFiltering: Bool = false
+      var selectedFilterGroup: AnnotationFilterGroupType? = nil
+      /// Indicates whether any filter is active right now
+      var isFiltering: Bool = false
     }
+```
 
 
+这个状态有一揽子的过滤器, 一个当前选择的过滤器组和一个布尔值标记，显示了过滤器是否是活动的。
 
-The state consists of a list of different filters, a currently selected filter group and a boolean flag that indicates whether any of the filters are active.
+这个状态为 `UI` 需求定做。这一揽子过滤器用表视图渲染。这个被选择的过滤器组用于显示／隐藏每一个单独的过滤器组的细节。`isFiltering`标记被用于决定去消除所有过滤器的按钮是否被在 `UI` 中启用和关闭。
 
-This state is exactly tailored to the needs of the UI. The list of filters is rendered in a table view. The selected filter group is used to present/hide the details of an individually selected filter group. And the `isFiltering` flag is used to determine whether or not a button to clear all filters should be enabled or disabled in the UI.
+#### 第二步: 定义 `Actions`
 
-#### Step 2: Defining the Actions
-
-After defining the shape of the state for a certain feature I usually think about the different state mutations in the next step. In the Flux architecture state mutations are modeled in the form of actions that describe which state change is intended. For the annotation filter feature the list of actions is fairly short:
-
+在决定了某一个特性状态的模型之后，我常常在下一步考虑不同的状态变换。在 `Flux` 架构中，状态的变换以 `actions` 形式模拟，描述了什么样的改变是预期的。对于注释过滤器特性，这一揽子 `actions` 很段:
 
 
+```
     struct AnnotationFilteringActions {
 
-        /// Enables/disables a filter.
-        struct ToggleFilterAction: AnyAction {
-            let filter: AnnotationFilterType
-        }
+      /// Enables/disables a filter.
+      struct ToggleFilterAction: AnyAction {
+        let filter: AnnotationFilterType
+      }
 
-        /// Navigates to details of a filter group.
-        struct EnterFilterGroup: AnyAction {
-            let filterGroup: AnnotationFilterGroupType
-        }
+      /// Navigates to details of a filter group.
+      struct EnterFilterGroup: AnyAction {
+        let filterGroup: AnnotationFilterGroupType
+      }
 
-        /// Leaves detail view of a filter group.
-        struct LeaveFilterGroup: AnyAction { }
+      /// Leaves detail view of a filter group.
+      struct LeaveFilterGroup: AnyAction { }
 
-        /// Disables all filters.
-        struct ResetFilters: AnyAction { }
+      /// Disables all filters.
+      struct ResetFilters: AnyAction { }
 
-        /// Disables all filters within a filter group.
-        struct ResetFiltersInGroup: AnyAction {
-            let filterGroup: AnnotationFilterGroupType
-        }
+      /// Disables all filters within a filter group.
+      struct ResetFiltersInGroup: AnyAction {
+        let filterGroup: AnnotationFilterGroupType
+      }
     }
+```
 
 
+甚至没有一个对这个特性深入认识，它也是能被理解的，状态由 `action` 来转换。众多 `Flux` 架构中的一个好处是，这个 `actions` 的列表是一个所有状态改变的全方位的概述，它能被触发用于这个特别的特性。
 
-Even without an in-depth understanding of the feature it should be somewhat understandable which state transitions these actions initiate. One of the many benefits of the Flux architecture is that this list of actions is an exhaustive overview of all state changes that can be triggered for this particular feature.
+#### 第三步: 在 `store` 中实现对 `Actions` 的响应
 
-#### Step 3: Implement the Response to Actions in the Store
+我们在这一步中实现这个特性的核心业务逻辑。我个人想使用 `TDD` 开发方式，我将在之后讨论。这个 `store` 能用以下内容总结:
 
-In this step we implement the core business logic of a feature. I personally tend to implement this step using TDD, which I’ll discuss a little later. The implementation of a store can be summarized as following:
+1. 用 `dispatcher` 注册对所有 `actions`　感兴趣的 `store`。当前的例子中，它是所有的 `AnnotationFilteringActions`。
+2. 实现一个处理函数，它将被每一个单独的 `actions` 调用。
+3. 在这个处理函数中，执行必要的业务逻辑和在完成后更新状态。
 
-1.  Register store with dispatcher for all actions it is interested in. In the current example that would be all `AnnotationFilteringActions`.
-2.  Implement a handler that will be called for each of the individual actions.
-3.  Within the handler, perform the necessary business logic and update the state upon completion.
+最为一个例子，我们能看一下 `AnnotationFilterStore`　怎么处理 `toggleFilterAction`。
 
-As a concrete example we can take a look at how the `AnnotationFilterStore` handles the `toggleFilterAction`:
-
-
+```
     func handleToggleFilterAction(toggleFilterAction: AnnotationFilteringActions.ToggleFilterAction) {
-        var filter = toggleFilterAction.filter
-        filter.enabled = !filter.enabled
+      var filter = toggleFilterAction.filter
+      filter.enabled = !filter.enabled
 
-        // Check for issue specific filters
-        if filter is IssueAssignedToFilter ||
-            filter is IssueStatusAnnotationFilter ||
-            filter is IssueAssignedToFilter ||
-            filter is IssueUnassignedFilter {
-                // if no annotation types are filtered, activate the issue/punchItem type
-                var issueTypeFilter = self._annotationFilterService.annotationTypeFilterGroup.issueTypeFilter
-                if self._annotationFilterService.annotationTypeFilterGroup.activeFilterCount() == 0 ||
-                    issueTypeFilter?.enabled == false {
-                        issueTypeFilter?.enabled = true
-                }
-        }
+      // Check for issue specific filters
+      if filter is IssueAssignedToFilter ||
+        filter is IssueStatusAnnotationFilter ||
+        filter is IssueAssignedToFilter ||
+        filter is IssueUnassignedFilter {
+          // if no annotation types are filtered, activate the issue/punchItem type
+          var issueTypeFilter = self._annotationFilterService.annotationTypeFilterGroup.issueTypeFilter
+          if self._annotationFilterService.annotationTypeFilterGroup.activeFilterCount() == 0 ||
+              issueTypeFilter?.enabled == false {
+                issueTypeFilter?.enabled = true
+          }
+      }
 
-        self._applyFilter()
+      self._applyFilter()
     }
+```
 
+这个例子并不是那么简单。所以让我们一点一点分解。每当 `ToggleFilterAction` 被分发的时候，`handleToggleFilterAction` 就被调用。`ToggleFilterAction`　携带了哪个具体的过滤器需要被切换的消息。
 
-This example is purposefully not simplified. So let’s break it down a little. The `handleToggleFilterAction` is invoked whenever a `ToggleFilterAction` is dispatched. The `ToggleFilterAction` carries information about which specific filter should be toggled.
+作为一个实现这个业务逻辑的开端，这个方法简单地通过切换 `filter.enabled`　这个值来切换过滤器。
 
-As a very first step of implementing this business logic, the method simply toggles the filter by toggling the value of the `filter.enabled`.
+之后，我们对这个特性，实现了一些定制化的业务逻辑。当配合使用那些过滤有问题的注释的过滤器的时候，我们需要去激活 `issueTypeFilter`。没有必要深入讨论这个 `PlanGrid` 特有的特性，但是这个方法封装了一些和开关触发器有关的业务逻辑。
 
-Then we implement some custom business logic for this feature. When working with filters that are intended to filter issue annotations we have some cases in which we need to activate the `issueTypeFilter`. It wouldn’t make sense to dive into the specifics of this PlanGrid feature, but the idea is that this method encapsulates any business logic related to toggling filters.
+在这个方法的结尾，我们调用 `_applyFilter()` 方法。这是一个共享方法，它被很多 `action`　处理函数中使用:
 
-At the end of the method we’re calling the `_applyFilter()` method. This is a shared method that is used by multiple action handlers:
+```
+  func _applyFilter() {
+    self._annotationFilterService.applyFilter()
 
-
-    func _applyFilter() {
-        self._annotationFilterService.applyFilter()
-
-        self._state.value?.isFiltering = self._annotationFilterService.allFilterGroups.reduce(false) { isFiltering, filterGroup in
-            isFiltering || (filterGroup.activeFilterCount() > 0)
-        }
-
-        // Phantom state update to refresh the cell state, technically not needed since filters are reference types
-        // and previous statement already triggers a state update.
-        self._state.value = self._state.value
+    self._state.value?.isFiltering = self._annotationFilterService.allFilterGroups.reduce(false) { isFiltering, filterGroup in
+      isFiltering || (filterGroup.activeFilterCount() > 0)
     }
-
-
-The call to `self._annotationFilterService.applyFilter()` is the one that actually triggers the filtering of annotations that are displayed on a sheet. The filtering logic itself is somewhat complex, so it makes sense to move this into a separate, dedicated type.
-
-The role of each store is to provide the state information that is relevant for the UI and to be the coordination point for state updates. This doesn’t mean that the entire business logic needs to be implemented in the store itself.
-
-The very last step of each action handler is to update the state. Within the `_applyFilter()` method, we’re updating the `isFiltering` state value by checking if any of the filters are now activated.
-
-There’s one important thing to note about this particular store: you might expect to see an additional state update that updates the values of the filters that are stored in the `AnnotationFilterState`. Generally that is how we implement our stores, but this implementation is a little special.
-
-Since the filters that are stored in the `AnnotationFilterState` need to interact with much of our existing Objective-C code, we decided to model them as classes. This means they are reference types and the store and the annotation filter UI share a reference to the same instances. This in turn means that all mutations that happen to filters within the store are implicitly visible to the UI. Generally we try to avoid this by exclusively using value types in our state structs - but this is a blog post about real world Flux and in this particular case the compromise for making Objective-C interop easier was acceptable.
-
-If the filters were value types, we would need to assign the updated filter values to our state property in order for the UI to observe the changes. Since we’re using reference types here, we perform a phantom state update instead:
-
-
 
     // Phantom state update to refresh the cell state, technically not needed since filters are reference types
     // and previous statement already triggers a state update.
     self._state.value = self._state.value
+  }
+```
+
+调用 `self._annotationFilterService.applyFilter()` 真正触发了注释过滤器在页面上显示。过滤器的逻辑本身是有点复杂的，所以把它移动一个独立的，专门的类型中。 
+
+每一个 `store`　的角色是提供状态信息，它与相关的 `UI` 和成为关联点为了状态的更新。这并不意味着整个业务逻辑需要被实现在 `store` 本身。
+
+每一个 `action` 处理函数最后一步是更新状态。在 `_applyFilter()` 方法中，我们正在更新 `isFiltering` 状态值通过检查是否任何过滤器正在被激活。
+ 
+还有一个需要注意的事情是有关这个特别的 `store`: 你可能期望看到一个外部的状态更新，去更新过滤器的值，它存储在 `AnnotationFilterState`。一般来说，这是我们如何去实现我们的 `stores`的方式，但是这个实现方式有一点特别。
+
+由于存在 `AnnotationFilterState` 中的过滤器需要与很多现存的 `Objective-C` 代码交互，我们决定将他们模型成类。这意味着他们是引用类型并且 `store` 和注释过滤器 `UI` 共享一个对同一个实例的引用。反过来意味着在`store`内所有发生在过滤器上的变化，也对 `UI` 是可见的。一般来说，我们尝试避免这个，通过只在我们的状态结构中使用值类型 - 但是这篇文章是有关真实世界的 `Flux`　并且在这个特别的例子中，为了让 `Objective-C`　交互更容易被接受而妥协。
+
+如果过滤器是值类型，我们需要对更新过的过滤器的值赋值到我们的状态属性，为了让 `UI` 观察到这个变化。由于我们在这里使用了引用类型，我们执行一个幽灵状态更新：
+
+
+```
+  // Phantom state update to refresh the cell state, technically not needed since filters are reference types
+  // and previous statement already triggers a state update.
+  self._state.value = self._state.value
+```
+
+
+这个对 `_state`　属性赋值的任务将会开启更新 `UI` 的策略 - 一会我们将讨论这个过程的细节。
+
+我们已经深入足够了解实现的细节了，所以我想暂告这一个部分，并提醒有关高层次 `store`　的责任:
+
+1. 用 `dispatcher` 注册 `store`，对所有 `actions` 感兴趣的。在当前的例子中，它就是 `AnnotationFilterActions`。
+2. 实现一个处理函数，它将会被每个单独的 `actions` 调用。
+3. 在这个处理函数中，执行必要的业务逻辑并且在完成后更新状态。
+
+让我们移步到讨论 `UI`　怎么接收到来自　`store`　的状态更新。
+
+#### 第四步: 将 `UI` 绑定到 `Store` 
+
+每当一个状态更新（的事件）发生， 自动更新 `UI` 的机制就被触发, 这是 `Flux` 的一个核心理念。它保证了 `UI` 始终显示最新的状态，并且可以摆脱一直需要（手动地）维护这些代码的工作。这一步类似于在 `MVVM` 架构中，将一个视图绑定到 `ViewModel`。
+
+有很多中方式实现这个 - 我们决定在 `PlanGrid`中，使用 `ReactiveCocoa` 使得 `store` 提供一个可见的 `state` 属性。下面就是 `AnnotationFilterStore`　怎么去实现这个模式的方法:
+
+
+```
+  /// The current `AnnotationFilterState`, this should be observed within the view layer.
+  let state: SignalProducer<AnnotationFilterState?, NoError>
+  /// Internal state.
+  let _state: MutableProperty<AnnotationFilterState?> = MutableProperty(nil)
+```
+
+`_state` 属性被用于在 `store` 内改变状态。`state`　属性被客户端使用于订阅 `store` 的消息。这允许 `store`　信息的订阅者们接收到状态的更新，但是并不允许他们直接改变状态。(状态的改变只能通过 `actions` 发生!)。
+
+在初始化中，内部可被观察的属性仅仅简单的绑定到外部信号发生器:
 
 
 
-The assignment to the `_state` property will now kick off the mechanism that updates the UI - we’ll discuss the details of that process in a second.
-
-We dived pretty deep into the implementation details so I want to end this section with a reminder of the high level store responsibilities:
-
-1.  Register store with dispatcher for all actions it is interested in. In the current example that would be all `AnnotationFilteringActions`.
-2.  Implement a handler that will be called for each of the individual actions.
-3.  Within the handler, perform the necessary business logic and update the state upon completion.
-
-Let’s move on to discussing how the UI receives state updates from the store.
-
-#### Step 4: Binding the UI to the Store
-
-One of the core Flux concepts is that an automatic UI update is triggered whenever a state update occurs. This ensures that the UI always represents the latest state and makes away with any code that is required to maintain these updates manually. This step is very similar to the bindings of a View to the ViewModel in the MVVM architecture.
-
-There are many ways to implement this - in PlanGrid we decided to use ReactiveCocoa to allow the store to provide an observable state property. Here’s how the `AnnotationFilterStore` implements this pattern:
+```
+  self.state = self._state.producer
+```
 
 
+现在，任何 `_state` 的更新将会自动将最新的状态值通过信号发生器发送给并且存储在 `state`　中。
 
-    /// The current `AnnotationFilterState`, this should be observed within the view layer.
-    let state: SignalProducer<AnnotationFilterState?, NoError>
-    /// Internal state.
-    let _state: MutableProperty<AnnotationFilterState?> = MutableProperty(nil)
+仅剩下的就是通过代码确认，每当一个新的 `state`　值被发出，`UI` 都更新了。这算得上当开始在 `iOS` 上使用 `Flux` 模式最复杂的部分之一了。在网页上，`Flux` 能很好的和 `Facebook` (脸书) 的 `React` 框架配合。`Recat`　是为处理以下特性场景而设计的:
 
+当配合 `UIKit` 时，我们没有这个至宝，相反我们需要自己手工实现 `UI` 的更新。我不能在这篇文章里深入讨论这个实现的细节，否则这篇文章将会太冗长。我们的底线是为 `UITableView` 和 `UICollectionView`　创建一些类似于 `React API` 提供的调用接口，我们将在之后的文章里提到他们。
 
+如果你想要学习更多这些组件的内容，你可以去看 [我最近提到的](https://skillsmatter.com/skillscasts/8179-turning-uikit-inside-out)，也可以看看这两个 `GitHub` 代码库( [`AutoTable`](https://github.com/Ben-G/AutoTable), [`UILib`](https://github.com/Ben-G/UILib))。
 
-The `_state` property is used within the store to mutate the state. The `state` property is used by clients that want to subscribe to the store. This allows store subscribers to receive state updates but doesn’t allow them to mutate state directly (state mutation should only happen through actions!).
-
-In the initializer the internal observable property is simply bound to the external signal producer:
+让我们再看看实际的代码 (我们摘选了部分代码)，从注释过滤器这个特性中。这段代码存在于 `AnnotationFilterViewController` 中:
 
 
+```
+  func _bind(compositeDisposable: CompositeDisposable) {
+    // On every state update, recalculate the cells for this table view and provide them to
+    // the data source.
+    compositeDisposable += self.tableViewDataSource.tableViewModel  self.store.state
+      .ignoreNil()
+      .map { [weak self] in
+        self?.annotationFilterViewProvider.tableViewModelForState($0)
+      }
+      .on(event: { [weak self] _ in
+        self?.tableViewDataSource.refreshViews()
+      })
 
-    self.state = self._state.producer
+  compositeDisposable += self.store.state
+      .ignoreNil()
+      .take(1)
+      .startWithNext { [weak self] _ in
+        self?.tableView.reloadData()
+      }
 
-
-
-Now any update to `_state` will automatically send the latest state value through the signal producer stored in `state`.
-
-All that is left, is the code that makes sure that the UI updates whenever a new `state` value is emitted. This can be one of the trickiest parts when getting started with the Flux pattern on iOS. On the web Flux plays extremely well with Facebook’s React framework. React was designed for this specific scenario: _re-render the UI upon state updates without requiring any additional code_.
-
-When working with UIKit we don’t have this luxury, instead we need to implement UI updates manually. I cannot dive into this in detail within this post, otherwise the length of it would explode. The bottom line is that we have built some components that provide a React like API for `UITableView` and `UICollectionView`, we’ll take a brief look at them later on.
-
-If you want to learn more about these components, you can check out a [talk I gave recently](https://skillsmatter.com/skillscasts/8179-turning-uikit-inside-out), as well as the two GitHub repositories that go along with it ([AutoTable](https://github.com/Ben-G/AutoTable), [UILib](https://github.com/Ben-G/UILib)).
-
-Let’s again take a look at some real world code (in this case it is slightly shortened) from the annotation filter feature. This code lives in the `AnnotationFilterViewController`:
-
-
-
-    func _bind(compositeDisposable: CompositeDisposable) {
-    	// On every state update, recalculate the cells for this table view and provide them to
-    	// the data source.
-    	compositeDisposable += self.tableViewDataSource.tableViewModel  self.store.state
-    	    .ignoreNil()
-    	    .map { [weak self] in
-    	        self?.annotationFilterViewProvider.tableViewModelForState($0)
-    	    }
-    	    .on(event: { [weak self] _ in
-    	        self?.tableViewDataSource.refreshViews()
-    	    })
-
-    	compositeDisposable += self.store.state
-    	    .ignoreNil()
-    	    .take(1)
-    	    .startWithNext { [weak self] _ in
-    	        self?.tableView.reloadData()
-    	    }
-
-    	 compositeDisposable += self.navigationItem.rightBarButtonItem!.racEnabled  self.store.state
-                .map { $0?.isFiltering ?? false }
-    }
+   compositeDisposable += self.navigationItem.rightBarButtonItem!.racEnabled  self.store.state
+      .map { $0?.isFiltering ?? false }
+  }
+```
 
 
+我们在代码库中遵循着一个准则，每一个视图控制器都有一个 `_bind`　方法，它被 `viewWillAppear` 调用。这个 `_bind` 方法负责订阅 `store` 的状态并且提供当状态变化发生时候，提供更新 `UI` 的代码。
 
-In our codebase we follow a convention where each view controller has a `_bind` method that is called from within `viewWillAppear`. This `_bind` method is responsible for subscribing to the store’s state and providing code that updates the UI when state changes occur.
+由于我们需要我们自己实现部分 `UI` 更新的代码并且不能依靠类似 `React` 的框架，这个方法，一般来说，需要包含描述一个特定的状态更新如何映射到 `UI` 更新的代码。`ReactiveCocoa` 是非常便利的，因为它提供了很多操作 (`skipUntil`，`take`，`map`，其他。)，很容易就能创建这些关系。如果你之前没有使用过 `Reactive` 的库，这些代码可能会让你感到困惑 - 这一小部分的 `ReactiveCocoa` 代码学起来很快。
 
-Since we need to implement partial UI updates ourselves and cannot rely on a React-like framework, this method usually contains code that describes how a certain state update maps to a UI update. Here ReactiveCocoa comes in very handy as it provides many different operators (`skipUntil`, `take`, `map`, etc.) that make it easier to set up these relationships. If you haven’t used a Reactive library before this code might look a little confusing - but the small subset of ReactiveCocoa that we use can be learnt pretty quickly.
+在例子中的第一行 `_bind` 方法确保了，每当一个状态发生更新的时候，表视图能获得这个更新。我们使用 `ReactiveCocoa` 中 `ignoreNil()` 操作符，来确保我们不会为一个空状态启动了更新。之后，我们使用 `map` 操作符将最新的状态从 `store` 中映射到表述图应该变成什么样的描述符。
 
-The first line in the example `_bind` method above ensures that the table view gets updated whenever a state update occurs. We use the ReactiveCocoa `ignoreNil()` operator to ensure that we don’t kick off updates for an empty state. We then use the `map` operator to map the latest state from the store into a description of how the table view should look like.
+这个映射通过 `annotationFilterViewProvider.tableViewModelForState` 方法发生。这也是我们自定义的类似 `React` 的 `UIKit` 包装器参与作用的地方。
 
-This mapping occurs via the `annotationFilterViewProvider.tableViewModelForState` method. This is where our custom React-like UIKit wrapper comes into play.
-
-I won’t dive into all implementation details, but here is what the `tableViewModelForState` method looks like:
-
+我不会深入讨论所有的实现细节，但是 `tableViewModelForState` 方法看上去是这样的:
 
 
+```
     func tableViewModelForState(state: AnnotationFilterState) -> FluxTableViewModel {
 
-        let hideEverythingSection = FluxTableViewModel.SectionModel(
-            headerTitle: nil,
-            headerHeight: nil,
-            cellViewModels: AnnotationFilterViewProvider.cellViewModelsForGroup([state.hideEverythingFilter])
-        )
+      let hideEverythingSection = FluxTableViewModel.SectionModel(
+        headerTitle: nil,
+        headerHeight: nil,
+        cellViewModels: AnnotationFilterViewProvider.cellViewModelsForGroup([state.hideEverythingFilter])
+      )
 
-        let shareStatusSection = FluxTableViewModel.SectionModel(
-            headerTitle: "annotation_filters.share_status_section.title".translate(),
-            headerHeight: 28,o
-            cellViewModels: AnnotationFilterViewProvider.cellViewModelsForGroup(state.shareStatusFilters)
-        )
+      let shareStatusSection = FluxTableViewModel.SectionModel(
+        headerTitle: "annotation_filters.share_status_section.title".translate(),
+        headerHeight: 28,o
+        cellViewModels: AnnotationFilterViewProvider.cellViewModelsForGroup(state.shareStatusFilters)
+      )
 
-        let issueFilterSection = FluxTableViewModel.SectionModel(
-            headerTitle: "annotation_filters.issues_section.title".translate(),
-            headerHeight: 28,
-            cellViewModels: AnnotationFilterViewProvider.cellViewModelsForGroup(state.issueFilters)
-        )
+      let issueFilterSection = FluxTableViewModel.SectionModel(
+        headerTitle: "annotation_filters.issues_section.title".translate(),
+        headerHeight: 28,
+        cellViewModels: AnnotationFilterViewProvider.cellViewModelsForGroup(state.issueFilters)
+      )
 
-        let generalFilterSection = FluxTableViewModel.SectionModel(
-            headerTitle: "annotation_filters.general_section.title".translate(),
-            headerHeight: 28,
-            cellViewModels: AnnotationFilterViewProvider.cellViewModelsForGroup(state.generalFilters)
-        )
+      let generalFilterSection = FluxTableViewModel.SectionModel(
+        headerTitle: "annotation_filters.general_section.title".translate(),
+        headerHeight: 28,
+        cellViewModels: AnnotationFilterViewProvider.cellViewModelsForGroup(state.generalFilters)
+      )
 
-        return FluxTableViewModel(sectionModels: [
-            hideEverythingSection,
-            shareStatusSection,
-            issueFilterSection,
-            generalFilterSection
-        ])
+      return FluxTableViewModel(sectionModels: [
+        hideEverythingSection,
+        shareStatusSection,
+        issueFilterSection,
+        generalFilterSection
+      ])
     }
+```
 
 
+`tableViewModelForState` 是一个接收最新状态作为它的输入并且返回一个表视图的描述符，以 `FluxTableViewModel` 的形式。这个方法的实现想法类似于 `React` 的渲染方法。`FluxTableViewModel` 完全独立于 `UIKit`，它也是描述表格内容的一个简单的结构。你能在开源的 [AutoTable 代码库](https://github.com/Ben-G/AutoTable/blob/master/AutoTable/AutoTable/TableViewModel.swift) 中发现这个实现。
 
-`tableViewModelForState` is a pure function that receives the latest state as its input and returns a description of table view in the form of a `FluxTableViewModel`. The idea of this method is similar to React’s render function. The `FluxTableViewModel` is entirely independent of UIKit and is a simple struct that describes the content of the table. You can find an open source example implementation of this in the [AutoTable repository](https://github.com/Ben-G/AutoTable/blob/master/AutoTable/AutoTable/TableViewModel.swift).
+这个方法的结果，之后绑定到视图控制器的 `tableViewDataSource` 属性。存储在这个属性中的组件，会负责基于 `FluxTableViewModel` 提供的信息来更新 `UITableView`。
 
-The result of this method is then bound to the `tableViewDataSource` property of the view controller. The component stored in that property is responsible for updating the `UITableView` based on the information provided in the `FluxTableViewModel`.
-
-Other binding code is a lot simpler, e.g. the code that enables/disables the “Clear Filter” button based on the `isFiltering` state:
-
+其他的绑定代码会比较容易，比如，负责基于 `isFiltering` 状态来开启/关闭 `Clear Filter` 的按钮。
 
 
+```
     compositeDisposable += self.navigationItem.rightBarButtonItem!.racEnabled  self.store.state
-                .map { $0?.isFiltering ?? false }
+      .map { $0?.isFiltering ?? false }
+```
 
 
+实现 `UI` 绑定的过程是比较复杂的部分之一，由于它不能与 `UIKit` 的编程模型完美配合。但它只需要花一点精力写出一些自定义的组件，就能简单些。从我们的经验来看，我们通过实现这些自定义组件节省了很多研发时间，而不是一定要保持经典的 `MVC` 实现方式，在那些在多个视图控制器需要重复实现 `UI` 更新的地方。 
 
-Implementing the UI bindings is definitely one of the trickier parts, since it doesn’t fit perfectly well together with UIKit’s programming model. But it only takes little effort to write custom components to make this easier. In our experience we’ve saved multiples of our invested time by implementing these components instead of sticking with the classical MVC approach in which these UI updates are redundantly implemented across many, many view controllers.
+有了这些 `UI` 的绑定方法，我们讨论实现 `Flux` 特性的最后一个部分。由于我们已经掌握了很多内容，我想要快速回顾下之前的内容，在我们继续讨论如何测试这些 `Flux` 特性之前。
 
-With these UI bindings in place, we’ve discussed the last part of implementing a Flux feature. Since I covered a lot I want to give a quick recap before moving on to discussing the testing approach for Flux features.
+#### 回顾
 
-#### Implementation Recap
+当实现一个 `Flux` 模式特性的时候，我们需要将工作分为以下几个部分:
 
-When implementing a Flux feature I will typically split the work into the following segments:
+1. 定义状态类型的形状。
+2. 定义 `actions`。
+3. 实现业务逻辑和针对每个 `action` 状态的转变 - 这个实现在 `store` 中。
+4. 实现 `UI` 绑定方法，将状态映射到视图展示层。
 
-1.  Define the shape of the state type.
-2.  Define the actions.
-3.  Implement business logic and state transitions for each of the actions - this implementation lives in the store.
-4.  Implement UI bindings that map the state to a view representation.
+这些已经包括了所有我们讨论过的有关实现的细节。
 
-This wraps up all of the implementation details we discussed.
+让我们继续讨论如何测试 `Flux` 特性。
 
-Let’s move on to discuss how to test Flux features.
+### 撰写测试
 
-### Writing Tests
+有一个 `Flux` 主要的好处是，它把有关的内容严格的区分开。这让测试业务逻辑和大块的 `UI` 代码变得非常容易。
 
-One of the main benefits of the Flux architecture is that it separates concerns strictly. This makes it really easy to test the business logic and large parts of the UI code.
+每一个 `Flux` 特性都有两个重要的区域需要被测试:
 
-Each Flux feature has two main areas that need to be tested:
+1. 在 `store` 中的业务逻辑
+2. 视图模型的提供者 （就是那些我们实现的类似 `React` 的方法，他们基于输入的状态描述了 `UI`。）
 
-1.  The business logic in the store.
-2.  The view model providers (these are our React-like functions that produce a description of the UI based on an input state).
+#### 测试 `stores`
 
-#### Testing Stores
+测试 `stores` 很简单。我们能通过插入 `actions` 到 `stores` 驱动交互，并且我们能通过订阅 `store` 或者观察在我们测试用的内部 `_state` 属性来观察状态的变化。 
 
-Testing stores is typically very simple. We can drive interactions with the store by passing in actions and we can observe the state changes by either subscribing to the store or by observing the internal `_state` property in our tests.
+另外，我们能模拟其他外部的类型，那些,`store` 可能需要去交互的内容，为了实现某一个特性(可能是一个 `API` 的客户端或者数据对象)并且在 `store` 的初始化器中注入这些。这允许我们去验证，那些类型是否被如期调用。 
 
-Additionally, we can mock any outside types that the store might need to communicate with in order to implement a certain feature (this could be an API client or a data access object) and inject these in the store’s initializer. This allows us to validate that these types are called as expected.
-
-Within PlanGrid we write our tests in a behavioral style using Quick and Nimble. Here is a simple example of a test from our annotation filter store specification:
-
+在 `PlanGrid`中，我们使用 `Quick` 和 `Nimble` 以反应样式来写测试代码。以下是一个简单的例子，来自于注释过滤器，保存某一个 `action`:
 
 
+```
     describe("toggling a filter") {
 
-        var hideAllFilter: AnnotationFilterType!
+      var hideAllFilter: AnnotationFilterType!
+
+      beforeEach {
+        hideAllFilter = annotationFilterService.hideAllFilterGroup.filters[0]
+        let toggleFilterAction = AnnotationFilteringActions.ToggleFilterAction(filter: hideAllFilter)
+        annotationFilterStore._handleActions(toggleFilterAction)
+      }
+
+      it("toggles the selected filter") {
+        expect(hideAllFilter.enabled).to(beTrue())
+      }
+
+      it("enables filtering mode") {
+        expect(annotationFilterStore._state.value?.isFiltering).to(beTrue())
+      }
+
+      context("when subsequently resetting filters") {
 
         beforeEach {
-            hideAllFilter = annotationFilterService.hideAllFilterGroup.filters[0]
-            let toggleFilterAction = AnnotationFilteringActions.ToggleFilterAction(filter: hideAllFilter)
-            annotationFilterStore._handleActions(toggleFilterAction)
+          annotationFilterStore._handleActions(AnnotationFilteringActions.ResetFilters())
         }
 
-        it("toggles the selected filter") {
-            expect(hideAllFilter.enabled).to(beTrue())
+        it("deactivates previously active filters and stops filter mode") {
+          expect(hideAllFilter.enabled).to(beFalse())
+          expect(annotationFilterStore._state.value?.isFiltering).to(beFalse())
         }
 
-        it("enables filtering mode") {
-            expect(annotationFilterStore._state.value?.isFiltering).to(beTrue())
-        }
+      }
+  }
+```
 
-        context("when subsequently resetting filters") {
+再一次强调，有关测试 `stores` 将会被放在其他文章里，所以我们也不会深入讨论过多细节。然而，测试的方式已经很清楚了。我们把 `actions` 发送给 `store`并且验证响应，以改变状态或者模拟注入代码的形式。
 
-            beforeEach {
-                annotationFilterStore._handleActions(AnnotationFilteringActions.ResetFilters())
-            }
+（你会对为什么我们在 `store` 中调用 `_handleActions`，而非使用 `dispatcher` 来分配感到好奇。起初，我们使用异步 `dispatcher`，当有 `actions` 需要被分配时，这也意味着我们的测试方法也需要是异步调用的。因此，我们直接在 `store` 中直接调用处理函数。因此，这个 `dispatcher` 的实现方式也变了，所以我们在我们的测试中使用 `dispatcher`。 ）
 
-            it("deactivates previously active filters and stops filter mode") {
-                expect(hideAllFilter.enabled).to(beFalse())
-                expect(annotationFilterStore._state.value?.isFiltering).to(beFalse())
-            }
+当实现 `store` 中的业务逻辑的时候，我总会先写我的测试代码。我们的代码结构能很好的配合 `TDD` 开发过程。
 
-        }
-    }
+#### 测试视图
 
+`Flux` 架构结合我们申明的 `UI` 层能让测试视图变得非常容易。我们也一直在内部讨论有关我们想要覆盖(测试)多少的视图的话题。
 
-Once again, testing stores would merit it’s own blog post, so I won’t dive into the details of this particular test. However, the testing philosophy should be clear. We send actions to the store and validate the response in form of state changes or calls to injected mocks.
+实际上，所有我们的视图代码都是相当清晰的。它绑定了在 `store` 中的状态到我们不同 `UI` 层的属性上。对于我们的应用程序，我们决定通过 `UI` 自动测试机制来覆盖我大部分的代码。
 
-(You might wonder why we’re calling the `_handleActions` method on the store instead of dispatching an action using the dispatcher. Originally our dispatcher used asynchronous dispatch when delivering actions, which would have meant our tests needed to be asynchronous as well. Therefore we called the handler on the store directly. The implementation of the dispatcher has since changed, so we could be using the dispatcher in our tests going forward.)
+然而，也有很多其他选择。由于视图层被设定去渲染一个注入的状态，快照测试也工作得非常好。有很多快照测试的讨论和文章，[包括一个非常好的在 `objc.io` 上的文章](https://www.objc.io/issues/15-testing/snapshot-testing/)。
 
-When implementing the business logic in a store I now mostly write my tests first. The structure of the our store code along with the behavioral Quick specs lends itself extremely well to a test driven development process.
+对于我们的应用程序，我们的 `UI` 自动测试已经足够了，所以我们不需要其他的快照测试。
 
-#### Testing Views
+我们也尝试使用单元测试在我们的视图方法上（例如，早些时候我们看到的 `tableViewModelForState` 方法）。这些视图提供者，映射一个状态到 `UI` 描述符，所以他们能基于输入和返回值被很容易的测试，我发现，这些测试并不能增加很多价值，因为他们仅仅是复制了申明过的实现了的描述符。）
 
-The Flux architecture combined with our declarative UI layer makes testing views pretty simple. Internally we are still debating the amount of coverage we should aim for on the view layer.
+使用 `Flux` 架构在视图测试熵变得非常简单，因为视图的代码独立于其他的应用程序的实现。你只需要注入一些状态，他们应该被反映在你的测试中，并且他们处理的很好。
 
-Practically all of our view code is fairly straightforward. It binds the state in the store to different properties of our UI layer. For our app we have decided to cover most of this code through UI automation tests.
+就如我们所见，的确有很多其他的方法可以测试 `UI`,我对我们（其他开发者），从长远来看，会选择哪一个很感兴趣。
 
-However, there are many alternatives. Since the view layer is set up to render an injected state, snapshot tests work really well, too. Artsy has covered the idea of snapshot testing in various talks and blog posts, [including a great article on objc.io](https://www.objc.io/issues/15-testing/snapshot-testing/).
+## 总结
 
-For our app we have decided that our UI automation coverage is sufficient, so that we don’t need additional snapshot tests.
+在我们深入讨论了那么多的实现细节之后，我想总结下目前我们的经验和教训。
 
-I have also experimented with unit testing the view provider functions (e.g. the `tableViewModelForState` function we’ve seen earlier). These view providers are pure functions that map a state to a UI description, so they are very easy to test based on an input and a return value. However, I found that these tests don’t add too much value as they mirror the declarative description of the implementation very closely.
+我们只使用了 `Flux` 架构 6 个月左右，但是我们已经能看到很多给我们代码库带来的好处:
 
-Using the Flux architecture view testing becomes fairly simple because the view code is well isolated from the rest of the app. You only need to inject a state that should be rendered in your tests and you are good to go.
+* 新的特性能被一致性的实现。贯穿于多个特性间的，`stores` , 视图提供者和视图控制器的结构几乎保持一致（完全相同）。
+* 通过监视状态，`actions` 和 `TDD` 的测试框架，几分钟之内，就能很容易的理解，某一个特性是怎么工作得。
+* 我们很好的分离了 `stores` 和视图之间的关系。对于某个代码是否应该存在没有模糊的界定。
+* 我们的代码阅读起来很简单。状态和视图之间的以来关系总是非常明确。这也让调试工作轻松愉快。
+* 所有以上的优点，都让新来的开发者门更容易上手工做。
 
-As we’ve seen there are may alternatives for testing the UI, I’m interested to see which one we (and other developers) will pick in the long term.
+显而易见，我们也遇到了一些**痛点**:
 
-## Conclusion
+* 首先，集成 `UIKit` 组件有一点麻烦。不像 `React` 组件， `UIKit` 视图不提供 `API` 基于一个新的状态容易的更新自己。这部分的工作完全依赖与我们自己，我们需要实现手动绑定视图的工作或者自定义的组件，对 `UIKit` 二次开发。
+* 并不是所有我们的新代码都严格遵守了 `Flux` 模式。例如，我们还没有解决实现能与 `Flux` 配合工作的导航/路由系统。我们需要集成一个 [坐标模式](http://khanluo.com/2015/10/coordinators-redux/) 进入我们的 `Flux` 架构，或者使用一个与 [ReSwift 路由器](https://github.com/ReSwift/ReSwift-Router) 相似的。
+* 我们需要想出一个在大型应用程序中共享状态的好的模式，(如文章一开始讨论的，"什么是 `Store` 的作用域？")。我们需要在原版的 `Flux` 架构中，增加 `stores` 之间的依赖关系么？ 我们还有其他选择么？
 
-After diving into many implementation details I’d like to close with high level summary of our experience so far.
+还有很多，很多的实现细节，优点和缺点，我想我会在之后的文章里深入讨论他们。
 
-We’ve only been using the Flux architecture for about 6 months, but we are already seeing many benefits in our code base:
+至此，我对目前的选择很满意，并且我希望这篇文章能给你们一些参考，是否 `Flux` 架构也对你适合。
 
-*   New features are implemented consistently. The structure of stores, view providers and view. controllers across features is almost identical.
-*   By inspecting the state, the actions and the BDD-style tests it is very easy to understand how a feature works within a matter of minutes.
-*   We have a strong separation of concerns between stores and views. There’s seldom ambiguity about where certain code should live.
-*   Our code reads a lot simpler. The state upon which a view depends is always explicit. This makes debugging really easy, too.
-*   All of the above points make onboarding new developers a lot easier.
+最后，如果你对 `Flux` 在 `Swift` 上的实现感兴趣，或只想为我们的产品贡献一份你的力量共同成就一个巨大的产业。**[我们正在招聘](http://grnh.se/8fcutd)**。
 
-Obviously there are also some **pain points**:
+非常感谢 [@zats](https://twitter.com/zats), [@kubanekl](https://twitter.com/kubanekl) 和 [@pixelpartner](https://twitter.com/pixelpartner)，感谢他们为这个文章进行校对。
 
-*   First and foremost the integration with UIKit components can be a little painful. Unlike React components, UIKit views don’t provide an API to simply update themselves based on a new state. This burden lies on us and we either need to implement it manually in our view bindings or need to write custom components that wrap UIKit components.
-*   Not all of our new code strictly follows the Flux pattern yet. E.g. we haven’t yet tackled a navigation/routing system that works with Flux. We need to either integrate a [coordinator pattern](http://khanlou.com/2015/10/coordinators-redux/) into our Flux architecture or use an actual router similar to [ReSwift Router](https://github.com/ReSwift/ReSwift-Router).
-*   We need to come up with a good pattern for state that is shared across large portions of the app (as discussed very early in this post: “What is the Scope of a Store?”). Should we have dependencies between stores as in the original Flux pattern? What are the alternatives?
+**参考文献**:
 
-There are many, many more implementation details, advantages and disadvantages that I would like to dive into so I hope to cover some aspects in more detail in future blog posts.
-
-So far I’m very happy with our choice and I hope this blog posts gives you some insight into whether the Flux architecture is suitable for you as well.
-
-And finally, if you’re interested in working with Flux in Swift, or simply want to help deliver an important product to a huge industry, **[we’re hiring](http://grnh.se/8fcutd)**.
-
-Thanks a lot to [@zats](https://twitter.com/zats), [@kubanekl](https://twitter.com/kubanekl) and [@pixelpartner](https://twitter.com/pixelpartner) for reading drafts of this post!
-
-**References**:
-
-*   [Flux](https://facebook.github.io/flux/) - Facebook’s official Flux website including the original talk introducing it
-*   [Unidirectional Data Flow in Swift](https://realm.io/news/benji-encz-unidirectional-data-flow-swift/) - a talk I gave at Swift about Redux concepts and the original ReSwift implementation
-*   [ReSwift](https://github.com/reswift/reswift) - an implementation of Redux in Swift
-*   [ReSwift Router](https://github.com/ReSwift/ReSwift-Router) - a declarative router for ReSwift apps
+*   [Flux](https://facebook.github.io/flux/) - `Facebook` (脸书) 的官方讨论 `Flux` 的网站
+*   [Unidirectional Data Flow in Swift](https://realm.io/news/benji-encz-unidirectional-data-flow-swift/) - 有关 `Swift` @ `Redux` 概念和 `ReSwift` 的实现方式
+*   [ReSwift](https://github.com/reswift/reswift) - 一个以 `Swift` 实现的 `Redux`
+*   [ReSwift Router](https://github.com/ReSwift/ReSwift-Router) - 一个给 `ReSwift` 用的路由应用程序
