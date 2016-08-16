@@ -4,6 +4,10 @@
 * 译者：[mypchas6fans] (https://github.com/mypchas6fans)
 * 校对者：[Graning] (https://github.com/Graning) [lizwangying] (https://github.com/lizwangying)
 
+
+本文版权所有者为 [Matt Gallagher](http://www.cocoawithlove.com)，原文链接在 [Design patterns for safe timer usage](http://www.cocoawithlove.com/blog/2016/07/30/timer-problems.html)。 译文的翻译和发表得到了原作者的许可。
+
+
 计时器是一个非常难以正确使用的工具。
 
 延迟调用和单次计时器使用非常简单，但它们有时会陷入无法维护的反模式，有时很容易在控制和 handler 上下文之间出现序列问题。
