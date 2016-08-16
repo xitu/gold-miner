@@ -23,12 +23,12 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="im-not-a-ux-designer-and-neither-are-you.md" pinned="false" current-in-tab="true">
+      <file leaf-file-name="im-not-a-ux-designer-and-neither-are-you.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/TODO/im-not-a-ux-designer-and-neither-are-you.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
             <state split_layout="FIRST">
-              <first_editor vertical-scroll-proportion="0.7723577">
-                <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+              <first_editor vertical-scroll-proportion="0.52845526">
+                <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
                 <folding />
               </first_editor>
               <second_editor />
@@ -36,6 +36,16 @@
           </provider>
           <provider editor-type-id="MarkdownFxPreviewEditor">
             <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.106132075">
+              <caret line="3" column="5" selection-start-line="3" selection-start-column="5" selection-end-line="3" selection-end-column="5" />
+              <folding />
+            </state>
           </provider>
         </entry>
       </file>
@@ -155,7 +165,13 @@
       <option name="project" value="LOCAL" />
       <updated>1471358309082</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="delete idea&#10;">
+      <created>1471358455419</created>
+      <option name="number" value="00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1471358455419</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -188,7 +204,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="change translate" />
     <MESSAGE value="change" />
-    <option name="LAST_COMMIT_MESSAGE" value="change" />
+    <MESSAGE value="delete idea&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="delete idea&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -212,8 +229,8 @@
     <entry file="file://$PROJECT_DIR$/TODO/im-not-a-ux-designer-and-neither-are-you.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
         <state split_layout="FIRST">
-          <first_editor vertical-scroll-proportion="0.7723577">
-            <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <first_editor vertical-scroll-proportion="0.52845526">
+            <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
             <folding />
           </first_editor>
           <second_editor />
@@ -221,6 +238,14 @@
       </provider>
       <provider editor-type-id="MarkdownFxPreviewEditor">
         <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.106132075">
+          <caret line="3" column="5" selection-start-line="3" selection-start-column="5" selection-end-line="3" selection-end-column="5" />
+          <folding />
+        </state>
       </provider>
     </entry>
   </component>
