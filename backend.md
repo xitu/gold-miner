@@ -1,3 +1,5 @@
+*  [这样做才能设计出更好的数据表](http://gold.xitu.io/entry/57af3cbc5bbb500062cb38a5?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Nicolas(Yifei) Li](https://github.com/yifili09) 翻译)
+*  [利用 Shoryuken and SQS 快速处理 API 请求](http://gold.xitu.io/entry/57a14ac879bc44005497b433?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([circlelove](https://github.com/circlelove) 翻译)
 *  [为什么我们要用网页端组件去构建服务器？该怎么做？](http://gold.xitu.io/entry/579ad925c4c971005abfc7a6?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zhangjd](https://github.com/zhangjd) 翻译)
 *  [字体加载策略全面指南](https://gold.xitu.io/entry/5790d1aa5bbb500063b8a747?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Nicolas(Yifei) Li](https://github.com/yifili09) 翻译)
 *  [基于多种服务的地理位置查询系统](https://gold.xitu.io/entry/578f80196be3ff006c0657a9?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([emmiter](https://github.com/emmiter/) 翻译)
