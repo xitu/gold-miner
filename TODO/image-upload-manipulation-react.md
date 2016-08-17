@@ -7,35 +7,37 @@
 
 _下面这篇特邀文章是由 [Damon Bauer](http://damonbauer.me/) 完成的，主题是关于一个 web 开发人员非常常见的工作：为用户提供图片上传功能。毫无疑问，我会认为这很简单，不过还是需要一些功能强大的工具来帮忙做一些比较“重”的工作，看完这篇文章，再做这任务会觉得比以前轻松的多。Damon 甚至全程在浏览器中完成了[这项任务](https://github.com/damonbauer/react-cloudinary)!_
 
-A common thing web developers need to do is give users the ability to upload images. At first it might seem trivial, but there are things to think about when building an image upload component. Here are just some of the considerations:
+
+对于 web 开发者来说，让用户拥有上传图片的能力是一件很常见的事情。一开始可能看起来微不足道，但是当创建一个图片上传组件的时候，还是有些事情需要去考虑的。这里有一些注意事项：
+
+*   允许什么类型的图片上传?
+*   需要多大的图片? 这对性能有何影响?
+*   图片长宽比例应该是多少?
+*   如何管理图片? 能扑捉到不良图片吗?
+*   图片存储在哪? 如何运维?
 
 
+诸如 [Paperclip](https://github.com/thoughtbot/paperclip) 和 [ImageProcessor](http://github.com/JimBobSquarePants/ImageProcessor) 这样的服务器端工具，能解决上面大部分的问题。不幸的是，目前还没有一个能用在单页应用上的现成的工具。我将向你们展示我是如何在一个 [React](https://facebook.github.io/react/) 应用中解决这个问题的，完全没有用到服务器端语言。
 
-*   What image types will you allow?
-*   What size do the images need to be? How will that impact performance?
-*   What aspect ratio should the images be?
-*   How will the images be moderated? Inappropriate images be caught?
-*   Where will the images be hosted? How will that be administered?
-
-Server-side tools such as [Paperclip](https://github.com/thoughtbot/paperclip) and [ImageProcessor](http://github.com/JimBobSquarePants/ImageProcessor) provide a solution for most of these concerns. Unfortunately, there isn't an off-the-shelf tool to use in a single page app (that I've found). I'll show you how I solved this inside a [React](https://facebook.github.io/react/) application that doesn't use a server-side language at all.
-
-Here's a little demo of what we'll be building:
+这是我们将要构建的应用的一个小样品。
 
 ![](http://ac-Myg6wSTV.clouddn.com/35688e25409731fdba7b.gif)
 
-### Toolkit
+### 工具包
 
-The three tools I used include:
+我用到了下面三个工具:
 
-*   [react-dropzone](https://github.com/okonet/react-dropzone) to accept an image from a user
-*   [superagent](https://github.com/visionmedia/superagent) to transfer the uploaded image
-*   [Cloudinary](https://cloudinary.com) to store and manipulate the images
+*   [react-dropzone](https://github.com/okonet/react-dropzone) 来接受用户的图片
+*   [superagent](https://github.com/visionmedia/superagent) 转换上传的图片
+*   [Cloudinary](https://cloudinary.com) 存储图片和编辑图片。
 
-### Setting Up Cloudinary
+### 设置 Cloudinary
 
-[Cloudinary](http://cloudinary.com/) is a cloud-based service where you can store, manipulate, manage and serve images. I chose to use Cloudinary because it has a free tier that includes all the features I need. You'll need at least a free account to get started.
+Cloudinary 是一个基于云的服务，可以为图片提供存储、操作、管理等服务。我选择使用 Cloudinary 因为它有一定免费的额度，而且包括所有我需要的功能。你至少需要一个免费帐户才能开始。
 
 Let's say you want to crop, resize, and add a filter to uploaded images. Cloudinary has the concept of _transformations_, which are chained together to modify images however you need. Once uploaded, the transformations occur, modifying and storing the new image.
+
+假如说你想裁剪，调整大小并增加过滤器到上传的图片。
 
 In the Cloudinary dashboard, go to **Settings > Upload** and select "Add upload preset" under Upload presets.
 
