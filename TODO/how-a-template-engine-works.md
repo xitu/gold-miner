@@ -8,7 +8,7 @@
 
 ### 简介
 
-简单的说，模版引擎是一种可以用来完成涉及大量文本数据的编程任务的工具。一般而言，我们经常在一个 **web** 应用中利用模板引擎来生成 **HTML** 。在 **Python** 中，当你想使用模板引擎的时候，你会发现你有不少的选择，比如[jinja](http://jinja.pocoo.org/) 或者是[mako](http://www.makotemplates.org/)。从现在开始，我们将利用 [**tornado**](https://github.com/tornadoweb/tornado) 中的模板引擎来讲解模板引擎的工作原理，在 **tornado** 中，自带的模板引擎相对的简单，能方便我们去深入的剖析其原理。
+简单的说，模版引擎是一种可以用来完成涉及大量文本数据的编程任务的工具。一般而言，我们经常在一个 **web** 应用中利用模板引擎来生成 **HTML** 。在 **Python** 中，当你想使用模板引擎的时候，你会发现你有不少的选择，比如 [jinja](http://jinja.pocoo.org/) 或者是 [mako](http://www.makotemplates.org/) 。从现在开始，我们将利用 [**tornado**](https://github.com/tornadoweb/tornado) 中的模板引擎来讲解模板引擎的工作原理，在 **tornado** 中，自带的模板引擎相对的简单，能方便我们去深入的剖析其原理。
 
 在我们研究（模版引擎）的实现原理之前，先让我们来看一个简单的接口调用例子。
 
