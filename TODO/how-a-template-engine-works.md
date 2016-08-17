@@ -2,7 +2,7 @@
 * 原文作者：[Shipeng Feng](https://twitter.com/_fengsp)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者： [Zheaoli](https://github.com/Zheaoli)
-* 校对者：
+* 校对者：[Kulbear](https://github.com/Kulbear), [hpoenixf](https://github.com/hpoenixf)
 
 我已经使用各种模版引擎很久了，现在终于有时间研究一下模版引擎到底是如何工作的了。
 
