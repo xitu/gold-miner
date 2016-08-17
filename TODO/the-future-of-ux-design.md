@@ -54,4 +54,4 @@ Instead of moving from one physical location to another location for different n
 
 The gap between humanity and technology narrows as we have constant access to the internet at higher speeds and better connections regardless of where we are or whether or not we are actively using a device.
 
-*Thanks for making it this far *— ***check out more of my work on ***[***my blog***](http://design-unicorn.blogspot.com/)***!***
+*Thanks for making it this far * —  **check out more of my work on [my blog](http://design-unicorn.blogspot.com/)!**
