@@ -1,10 +1,10 @@
 > * 原文地址：[Backend API Documentation in Swift](https://medium.com/ios-os-x-development/backend-api-documentation-in-swift-92b4874e4f78#.g2ofuey9d)
 * 原文作者：[Christopher Truman](https://medium.com/@iamchristruman?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者： 
+* 译者：[Nicolas(Yifei) Li](https://github.com/yifili09) 
 * 校对者： 
 
-I have recently started development on a completely new project and am trying to establish some new design patterns as I jump into Swift 3\. One pattern that I am starting to use is Request & Response Models. That is the fancy name I came up with for Structs that document the backend API. Lets look at an example:
+我最近开始开发一个全新的项目，并且我正尝试建立一些新的设计模式，因为我开始投身于 `Swift 3`。我正使用的一个模式是“请求和响应模型”。这是我为记录这个后台 `API` 的结构想到的一个好听的名字。让我们来看一个例子：
 
 ```
 import Alamofire
@@ -30,15 +30,15 @@ struct AuthRequest : Request {
 }
 ```
 
-We have a protocol Request that specifies basically everything you want to know about making a request to an API.
+我们有一个请求协议，它指定了基本上你需要知道的发起一个 `API` 请求的所有内容。
 
-*   The path to append to the base URL (“auth” in this case)
-*   The HTTP Method (GET, POST, PUT, DELETE, etc.)
-*   The parameters the endpoint expects
+* 需要添加进基本地址的路径（就这个例子来说是 `auth`）
+* `HTTP` 方法（`GET`, `POST`, `PUT`, `DELETE` etc.）
+* 端点所要求的参数
 
-You could extend this Protocol to require information like a specific ContentType or other HTTP Header. You could imagine adding validation rules, completion handlers, or anything else associated with a network request to this protocol.
+你可以扩展这个协议，为了需要例如某个指定的 `ContentType` 或者其他 `HTTP` 报头的信息。你能想象到增加一些验证规则，（请求）完成处理方法，或者与这个协议网络请求有关的任何东西。
 
-Each of these Structs should now look like a succinct API documentation and provide some structure and type safety to your networking. You can pass these Request structs to your network client of choice. My example uses [Alamofire](https://github.com/Alamofire/Alamofire/tree/swift3):
+所有这些结构现在应该看上去像一个简明扼要的 `API` 文档，并且提供了对你的计算机网络一些框架结构和类型安全。你可以把这个请求结构转变成你最喜欢的网络客户端。我有一个例子 [Alamofire](https://github.com/Alamofire/Alamofilre/tree/swift3)
 
 ```
 class Client {
@@ -55,9 +55,9 @@ class Client {
 Client().execute(request: AuthRequest(/*Insert parameters here*/), completionHandler: { response in } )
 ```
 
-We pass the AuthRequest object to Alamofire which expects a generic object that confirms to the Request protocol. It uses the properties/functions from the protocol to construct and execute a network call.
+我们把 `AuthRequest` 对象传递给 `Alamofire`，它需要一个通用的对象去确认请求协议。它使用来自协议中的属性/方法来组成和执行一个网络请求。
 
-Now we have defined the structure of the request and used it to simply hit the server. We now need to handle the response. Our AuthRequest returns a small User JSON object that we need to serialize into a Swift object.
+现在我们已经定义了这个请求的结构，并且使用它简单的访问服务器。我们现在需要处理响应。我们的 `AuthRequest` 返回一个不太大的用户 `JSON` 对象，我们需要把他序列化成一个 `Swift` 对象。
 
 ```
 struct UserResponse {
@@ -77,6 +77,6 @@ var user = UserResponse(JSON: response.result.value as! [String : AnyObject])
 
 ```
 
-This approach isn’t very fancy, but still documents the properties of the response object. You could create a protocol to define an initializer that expects JSON, but just using simple Structs is working for me so far.
+这个实现不太花哨，但是仍然记录了响应对象的属性。你能创建一个协议，用来定义一个初始器来等待 `JSON`，但是使用简单的结构目前对我来说已经足够了。
 
-Do you see any issues with this approach? Is there a way I can use Protocols/Extensions to structure my networking code in a more effective way? Let me know! [@iAmChrisTruman](https://twitter.com/iAmChrisTruman)
+你发现这个实现有任何问题么？我能更高效地使用协议/扩展来组成我的网络请求代码么？请让我知道！[@iAmChrisTruman](https://twitter.com/iAmChrisTruman)
