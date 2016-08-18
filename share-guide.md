@@ -8,16 +8,16 @@
 
 4. 点击右上角的头像，进入到个人主页。
 
-   ![](http://7xl8me.com1.z0.glb.clouddn.com/xitu_glod/4.jpg)
+   ![](http://i4.buimg.com/567571/2f51c7b3095d42c7.jpg)
 
 5. 然后就会看到 **申请成为 Co-Editor** 这一项，完善完信息就可以提交申请了，然后坐等申请通过。
 
-   ![](http://7xl8me.com1.z0.glb.clouddn.com/xitu_glod%2F5.jpg)
+   ![](http://i4.buimg.com/567571/756ed83e05f6033f.jpg)
 
 6. 待申请通过之后，再点击右上角的加号，分享你的文章。
 
 7. 已经可以看到当前页面显示的是分享文章了，注意在分享的时候一定要在标签一栏加上 **掘金翻译计划** 的标签。
 
-   ![](http://7xl8me.com1.z0.glb.clouddn.com/xitu_glod%2F7.jpg)
+   ![](http://i4.buimg.com/567571/ac7f59255b89e3d9.jpg)
 
 8. 分享完成之后，将分享后的文章地址告知掘金翻译计划的管理员，进行添加积分等后续操作。
