@@ -1,20 +1,20 @@
 > * 原文地址：[Explain Activity Launch Mode With Examples](http://www.songzhw.com/2016/08/09/explain-activity-launch-mode-with-examples/)
 * 原文作者：[songzhw](http://www.songzhw.com/author/songzhw2012gmail-com/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者： 
+* 译者： [Liz](http://lizwangying.github.io/)
 * 校对者： 
 
 ## adb shell dumpsys activity
 
-This command can give you a clear view of each task, like how many tasks do you have, which activities are in which task.
+输入这个命令可以得到一个清晰的 Task 视图，比如你有多少个 Task ，哪些 activity 在其对应的 Task 等相关信息。
 
-Now I have one picture of this command’s output.
+下图是一张运行这个命令的输出截图。
 
 ![](http://i2.wp.com/www.songzhw.com/wp-content/uploads/2016/08/20160214_01.png?w=644)
 
-From this output, we can see, now ,we have two Task (#103, #102).
+从图中可以看出，有两个 Task (#103, #102) 。
 
-Task #103 : affinity = “cn.six.task2”, size = 3 (it has three activities in it)
+Task #103 : affinity = “cn.six.task2”, size = 3 (它里面有三个activity)
 
 — Activity One    
 — Activity Three    
@@ -24,29 +24,29 @@ Task #102 : affinity = “cn.six.adv”, size = 1
 
 — Activity One
 
-With this “adb shell dumpsys activity” command, we can explor the LaunchMode easier….
+拥有了这个神奇的命令——“adb shell dumpsys activity”，我们就可以更好地探索Activity的启动模式啦…
 
 ## Default
 
-The Default system always creates a new instance of the activity in the target task and routes the intent to it.
+系统会默认地在目标Task中为activity创建一个实例和 intent 。
 
-“Default” is also the default mode when you assign no launch mode to an Activity, which means if you do not assign any launch mode to a Activity, then that Activity will be the “default” launch mode.
+“Default” 是 activity 的默认启动模式，也就是说当你未给 activity 指定启动模式的时候，系统默认会给一个 “Default” 作为它的启动模式。
 
 ## SingleTop
 
-If an instance of the “SingleTop” activity already exists at the top of the target task, the system routes the intent to that instance through a call to itsonNewIntent() method, rather than creating a new instance of the activity.
+如果一个 SingleTop 的 activity 实例在目标栈顶，intent 启动该 activity 时系统将会通过调用它的 onNewIntent() 方法重用该实例而不会新创建一个的实例。
 
-p.s. It’s **NOT** clear_top !!!
+注意：并不是清除栈顶的activity！！！（也就是说只要栈顶不是本activity，都会创建新的实例，是本 activity 则重用不新建）。
 
 ## SingleTask
 
-This is the most tricky one, and I have to spend much more time to explain it. And examples are a good way to explain this complex launch mode.
+这个是最难理解的，下文中我会搭配几个例子来细细讲解这个复杂的启动模式。
 
 ## 1\. A(Default) -> B(singleTask)
 
-We have two Activity, A and B, and A is default mode, B is singleTask mode. Now A jump to B.
+我们有两个 Activity ，A 和 B ，其中 B 是 SingleTask 模式，现在让 A 跳转到 B 。
 
-The manifest is like this:
+首先在 Manifest 中写入启动模式，如下：
 
 ```
 
@@ -57,24 +57,24 @@ The manifest is like this:
 
 ```
 
-Android documents says, “The system(SingleTask) creates the activity at the root of a new task and routes the intent to it”. So it must be like this, right?
+Android 官方文档中提到“ intent 启动一个（SingleTask） 的 Activity ，系统会将这个 Activity 创建在一个新的 Task 根部”。 SO ,听起来会是这个样子？
 
 | Task 1 | Task 2 |
 | :-: | :-: |
 | A | B |
 
-But actually, when we run the “adb shell dumpsys activity”, we found out that B is strangely in the same task with A.
+但实际上，当我们运行命令 “adb shell dumpsys activity” 时，发现 B 这货诡异地和 A 出现在一个 Task 中。
 
 | Task 1 | Task 2 |
 | :-: | :-: |
 | B
 A | (null) |
 
-This is a little complex to explain, because it involves the `android:taskAffinity` attribute. I will explain this attribute later.
+这个问题有一点小难表达，因为这里面包含了 `android:taskAffinity` 属性。 后文中会有详解。
 
 ## 2\. A(Default) -> B(singleTask) : B has a taskAffinity attribute
 
-The manifest is like this:
+在 manifest 中这样写:
 
 ```
 
@@ -85,34 +85,34 @@ The manifest is like this:
 
 ```
 
-I have to tell you, the result of A starting B is different. The tasks are like this:
+在这里,  A 启动 B is 的效果就不一样啦。如下:
 
 | Task 1 | Task 2 |
 | :-: | :-: |
 | A | B |
 
-The only difference between this and the previous example is the “android:taskAffinity”. When you announced no affinity, then activity has a default affinity value : their package name. In this case, the default affinity value is “cn.six.adv”.
+这个和上一个例子的唯一不同就是属性 “android:taskAffinity” 。 当你不声明 affinity, 那么 activity 会有一个默认的 affinity 值 : 就是包名。在这个例子中, 默认的 affinity 值就是 “cn.six.adv” 。
 
-When A starts B, and B’s launch mode is singleTask. So B **intents to** to create a new task. But it will create a new task as long as B’s taskAffinity is different from A’s taskAffinity.
+当 A 跳转 B, 并且 B 的启动模式是 singleTask 。 所以 B **目的是** 创建一个新的 Task 。 这只会当 B 的 taskAffinity 属性和 A 不同时，才会创建。
 
-So this explains the previous examle: why A and B are in the same task. Because their have a same taskAffinity.
+看到这里，第一个例子是不是就顿时豁然开朗？ 为什么 A 和 B 在同一个 Task 中呢？因为它们的 taskAffinity 属性值是一样滴。
 
-The logic is like this:
+用逻辑来标的，就像是这样:
 
 ```
 
 A --> B
 
-  if(taskAffinity is the same) { 
-    A and B are in the same Task
+  if(taskAffinity 属性相同) { 
+    A 和 B 在同一个 Task 中
   }
   else { 
-    B is in other new task, whose affinity is B's affinity
+    B 在新的 Task 中，并且此 Task 的 affinity 属性值就是 B 的
   }
 
 ```
 
-And Coming to this example, A starts B, and B’s launchMode is “singleTask”, and B’s taskAffinity is not “cn.six.adv”. So B will really create a new task, and B is in this new task.
+那么这个例子中, A 跳转 B, B 的启动模式是 “singleTask” , 并且 B 的 taskAffinity 不是 “cn.six.adv” 。 所以 B 会在一个新建的 Task 中。
 
 | Task 1 (affinity=”cn.six.adv”) | Task 2 (affinity=”task2″) |
 | --- | --- |
@@ -120,7 +120,7 @@ And Coming to this example, A starts B, and B’s launchMode is “singleTask”
 
 ## 3\. A(default) -> B(singleTask) -> C(singleTask) -> B(singleTask)
 
-The manifest is like this:
+manifest 如下:
 
 ```
 
@@ -140,7 +140,7 @@ The manifest is like this:
 
 (2) A -> B -> C
 
-Since C’s affinity is “task2”, which is already the affinity of one task, so C will be put in the Task 2.
+因为 C 的 affinity 是 “task2” ，而 Task 中已经有一个和它一样属性值的 B ，所以 C 会被放在 Task 2 中。
 
 | Task 1 (affinity=”cn.six.adv”) | Task 2 (affinity=”task2″) |
 | --- | --- |
@@ -148,40 +148,40 @@ Since C’s affinity is “task2”, which is already the affinity of one task, 
 
 (3) A -> B -> C -> B
 
-Firstly, I want to show you the result
+首先看一下实际结果
 
 | Task 1 (affinity=”cn.six.adv”) | Task 2 (affinity=”task2″) |
 | --- | --- |
 | A | B |
 
-Weird, right? Where is C?
+好奇怪啊！ C 去哪里啦？
 
-Let me explain it. C->B. B is singleTask and its affinity is “task2”, then the system find a task whose affinity is task2 and will put B in this Task 2\. However, an instance of B is already existing in the Task 2\. So the system will invoke the existing instance of B by give it a flag **CLEAR_TOP**. This is why C is not existing anymore.
+事情呢，是这个样子滴。 C->B ， B 的启动模式是 singleTask 而且它的 affinity 属性值是 “task2”, 当系统发现有一个 affinity 属性值为 task2 的 Task 2 所以就把 B 放进去了。但是, 其中已经有一个 B 的实例在 Task 2 之中。 所以系统会将已有的 B 的实例赋予一个 **CLEAR_TOP** （清除顶部）表示。所以 C 是这么没的。
 
-## 4\. Conclusion of SingleTask
+## 4\. SingleTask 小结
 
 ```
 
-    if( found a task whose affinity == Activity's affinity){
-        if(an instance of this Activity already exists in this task){
-            start this activity with a CLEAR_TOP flag
+    if( 发现一个 Task 的 affinity == Activity 的 affinity ){
+        if(此 Activity 的实例已经在这个 Task 中){
+            这个Activity启动并且清除顶部的 Acitivity ，通过标识 CLEAR_TOP 
         } else {
-            create a new instance of this activity in this task
+            在这个 Task 中新建这个 Activity 实例
         }
-    } else { // do not find a proper task
-        create a new task, whose affinity is this activity's affinity
-        create a new instance of this activity in this new task
+    } else { // Task 的 affinity属性值与 Activity 不一样
+        新建一个 affinity 属性值与之相等的 Task
+        新建一个Activity的实例并且将其放入这个 Task 之中
     }
 
 ```
 
 ## SingleInstance
 
-SingleInstance is much easier than SingleTask.
+SingleInstance 要比 SingleTask 好理解很多。
 
-Once one Activity is SingleInstance, this Activity will definitly in one new task, and this task can only hold this one Activity and no other Activities any more.
+如果一个 Activity 的启动模式为 SingleInstance, 那么这个Activity必定会在一个新的 Task 之中, 并且这个 Task 之中有且只能有一个 Activity。
 
-Let me show some examples.
+再来一波栗子。
 
 ### 1\. A(default) –> B(singleInstance) –> C(default)
 
@@ -193,27 +193,27 @@ Let me show some examples.
 
 (2). A -> B -> C
 
-A “singleInstance” activity permits no other activities to be part of its task. It’s the only activity in the task. If it starts another activity, that activity is assigned to a different task — as if **FLAG_ACTIVITY_NEW_TASK** was in the intent.
+拥有 “singleInstance” 启动模式的 activity 不予许其他任何Activity在它的 Task 之中。所以它是这个 Task 之中的独苗啊。当它跳转另外一个 activity 时, 那个Activity 将会被分配到另外一个 Task 之中——就像是 intent 中含有 **FLAG_ACTIVITY_NEW_TASK** 一样。
 
-Since B requires a quiet task which can only take him, so C will be added a FLAG_ACTIVITY_NEW_TASK flag. So C(default) becomes C(singleTask).
+由于 B 需要一个只能容纳它的 Task , 所以 C 会被加上一个 FLAG_ACTIVITY_NEW_TASK 标识。所以 C(default) 变成了 C(singleTask) 。
 
-So the result is like this:
+然后结果变成了这样:
 
 | Task 1 | Task 2 |
 | :-: | :-: |
 | c A | B |
 
-p.s, if the process is “A(default) –> B(singleTask) –> C(default)”, then the result is like this.
+注：如果跳转的流程是 “A(default) –> B(singleTask) –> C(default)”, 那么结果会是这样：
 
 | Task 1 | Task 2 |
 | :-: | :-: |
 | A | C B |
 
-## how to use these launch mode
+## 如何去运用启动模式呢？
 
-For example, you need to do some time-consuming job in the background service. And when you are done, you need to jump to a Activity from this Service. How can you do this?
+假如, 你需要在 service 在后台中做一些耗时操作，当它完成时, 你需要从此 service 中跳转进入一个 Activity 中，你会怎样做？
 
-Yes, Service is an extension of **Context**, and it has `startActivity(intent)` method. But if you really call `service.startActivity(intent)`, you will definitely get a crash. The crash info is :
+Service 是 **Context** 一种扩展, 它含有 `startActivity(intent)` 方法。但是当你调用 `service.startActivity(intent)`时，你的程序必然会崩。报错如下：
 
 ```
 
@@ -224,9 +224,9 @@ Yes, Service is an extension of **Context**, and it has `startActivity(intent)` 
 
 ```
 
-The reason is actually what I just mentioned above. Activity A jumps to Activity B (default launch mode), so the B will in the same task with A. Now you want service jump to Activity B, but service is not an Activity, so service has no information about its task. Service is not in the Activity Task Stack. In this case, Activity B will have no idea which task stack it should be.
+这就是上文中提到的。当一个 Activity A 跳转进入另一个 Activity B (它们的启动模式都为默认的 default ), 所以这个 B 会和 A 在一个 Task 之中。但是当你想让 service 跳转到 Activity B, 由于 service 并不是一个 Activity, 所以它没有相关的 task 信息。所以 Service 不会出现在 Activity 的任务栈之中。这种情况下，Activity B 就不知道自己的 Task 在哪里了。
 
-So the way to fix it is to tell Activity B that it should be in a new task :
+为了解决上述问题，我们可以告诉 Activity B 它应该在一个新的 Task 之中:
 
 ```
 
@@ -237,4 +237,4 @@ this.startActivity(it);
 
 ```
 
-See, this is an example of how to use launch mode in your real development life.
+瞅见没？这才是 Activity 的启动模式的正确打开方式。
