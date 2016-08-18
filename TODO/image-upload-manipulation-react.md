@@ -35,31 +35,31 @@ _下面这篇特邀文章是由 [Damon Bauer](http://damonbauer.me/) 完成的�
 
 Cloudinary 是一个基于云的服务，可以为图片提供存储、操作、管理等服务。我选择使用 Cloudinary 因为它有一定免费的额度，而且包括所有我需要的功能。你至少需要一个免费帐户才能开始。
 
-Let's say you want to crop, resize, and add a filter to uploaded images. Cloudinary has the concept of _transformations_, which are chained together to modify images however you need. Once uploaded, the transformations occur, modifying and storing the new image.
+假如说你想裁剪，调整大小并增加过滤器到上传的图片。Cloudinary 有个_转换_的概念，和修改图片功能链接在一块的，不管你需不需要。一旦上传，就会转换、修改然后存储新的图片。
 
-假如说你想裁剪，调整大小并增加过滤器到上传的图片。
-
-In the Cloudinary dashboard, go to **Settings > Upload** and select "Add upload preset" under Upload presets.
+在 Cloudinary 控制面板中，找到 **Settings > Upload**，然后选择 “Add upload preset”， 该选项在 Upload presets 下方。
 
 ![](https://cdn.css-tricks.com/wp-content/uploads/2016/08/AddPreset.png)
 
-On the following screen, change "Mode" to "Unsigned". This is necessary so you can upload right to Cloudinary without negotiating a private key using a server-side language.
+
+根据下面的截图上，将 “Mode” 改成 “Unsigned”。这是必须的，然后你就可以不需要使用服务器端语言来处理私有 key 也能正确上传到 Cloudinary 了。
 
 ![](https://cdn.css-tricks.com/wp-content/uploads/2016/08/Unsigned.png)
 
-Add any transformations by selecting "Edit" in the "Incoming Transformations" section. This is where you can crop, resize, change quality, rotate, filter, etc. Save the preset, and that's it! You now have a place to upload, manipulate, store, and serve images for your app. Take note of the _preset name_, as we'll use it later on. Let's move on to the code.
 
-### Accepting User Input
+在 “Incoming Transformations” 部分选择 “Edit” 可以添加任何转换。 你可以裁剪、调整大小、改变质量、旋转、滤镜等等。保存预设，这就行了！你现在有地方上传、处理、存储图片了，能够为你的应用程序提供图片服务了。注意预设名称，我们稍后将用到它。让我们进入代码部分吧。
 
-To handle the image upload, I used [react-dropzone](https://github.com/okonet/react-dropzone). It includes features such as drag and drop, file type restriction, and multiple file uploading.
+### 接受用户输入
 
-To begin, install the dependencies. In your command line, run:
+为了处理图片上传，我用了 [react-dropzone](https://github.com/okonet/react-dropzone) 插件。它包含了一些功能，如拖放文件、文件类型限制和多文件上传。
+
+首先，安装依赖。在命令行中输入下面的命令，运行：
 
 ```
 npm install react react-dropzone superagent --save
 ```
 
-Then import `React`, `react-dropzone`, and `superagent` into your component. I'm using the ES6 `import` syntax:
+然后在你的组件中导入 `React`、 `react-dropzone` 和 `superagent`。我使用 ES6 `import` 语法。
 
 ```
 import React from 'react';
@@ -67,7 +67,7 @@ import Dropzone from 'react-dropzone';
 import request from 'superagent';
 ```
 
-We'll use `superagent` later on. For now, in your component's render method, include a `react-dropzone` instance:
+我们稍后会用到 `superagent`。现在，在你的组件 render 方法中包含一个 `react-dropzone` 实例。
 
 ```
 export default class ContactForm extends React.Component {
@@ -82,22 +82,23 @@ export default class ContactForm extends React.Component {
   }
 ```
 
-Here's a rundown of what this component is doing:
+以下是这个组件的一些概要:
 
-*   `multiple={false}` allows only one image to be uploaded at a time.
-*   `accept="image/*"` allows any image type. You can be more explicit to limit only certain file types, e.g. `accept="image/jpg,image/png"`.
-*   `onDrop` is a method that is fired when an image is uploaded.
+*   `multiple={false}` 同一时间只允许一个图片上传。
+*   `accept="image/*"` 允许任何类型的图片。你可以明确的限制文件类型，只允许某些类型可以上传， 例如 `accept="image/jpg,image/png"`。
+*   `onDrop` 是一个方法，当图片被上传的时候触发。
 
-When using the React ES5 class syntax (`React.createClass`), all methods are "autobound" to the class instance. The code in this post uses the ES6 class syntax (`extends React.Component`), which does not provide autobinding. That's why we use `.bind(this)` in the `onDrop` prop. (If you aren't familiar with `.bind`, you can [read about it here](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind).
+当使用 React ES5 类语法（`React.createClass`），所有方法是 “autobound（自动绑定）” 到类实例上。这篇文章中的代码使用 ES6 类语法（`extends React.Component`），不提供自动绑定的。所以我们在 `onDrop` 属性中用了 `.bind(this)` 。（如果你不熟悉 `.bind`，你可以看看[这篇文章](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind)了解下。）
 
-### Handling the Image Drop
+### 处理拖拽图片
 
-Now, let's set up the method to do something when an image is uploaded.
+现在，让我们设置当上传一个图像时，做某些事情的方法。
 
-First, set up a `const` for two pieces of important upload information:
 
-1.  The upload preset ID (created automatically for you when you created your upload preset)
-2.  Your Cloudinary upload URL
+首先，为两条重要的上传信息设置一个 `const` 。
+
+1.  上传预设 ID (当你创建了上传预设时自动生成)
+2.  你的 Cloudinary 上传 URL
 
 ```
 // import statements
@@ -109,7 +110,7 @@ export default class ContactForm extends React.Component {
 // render()
 ```
 
-Next, add an entry to the component's initial state (using `this.setState`); I've called this `uploadedFileCloudinaryUrl`. Eventually, this will hold an uploaded image URL created by Cloudinary. We'll use this piece of state a little bit later.
+然后，增加一条记录到组件初始化 state （使用 `this.setState`）；我给这个属性起了个名字 `uploadedFileCloudinaryUrl`。最终，这将存放一个上传成功后由 Cloudinary 生成的图片 URL。我们稍后会用到这条 state。
 
 ```
 export default class ContactForm extends React.Component {
@@ -123,9 +124,10 @@ export default class ContactForm extends React.Component {
   }
 ```
 
-The `react-dropzone` documentation states that it will always return an array of the uploaded file(s), so we'll pass that array to the `files` parameter of the `onImageDrop` method. As we only allow one image at a time, we know that the image will always be in the first position of the array.
+`react-dropzone` 文档说它总是返回一个上传文件的数组，所以我们将该数组传递给 `onImageDrop` 方法的 `files` 参数。我们设置了一次只能传一张图片，所以图片总是在数组的第一个位置。
 
-Call `handleImageUpload`, passing the image (`files[0]`) to this method. I broke this into a separate method, following the [Single responsibility principle](https://en.wikipedia.org/wiki/Single_responsibility_principle). Essentially, this principle teaches you to keep methods compact and only do one thing.
+调用 `handleImageUpload` ，将图片（`files[0]`）传入该方法。我将这个方法分离出一个单独的方法，遵循[单一职责原则](https://en.wikipedia.org/wiki/Single_responsibility_principle)。从本质上讲，这一原则方法教你保持方法紧凑，只做一件事。
+
 
 ```
 export default class ContactForm extends React.Component {
@@ -145,9 +147,9 @@ export default class ContactForm extends React.Component {
 }
 ```
 
-### Handling the Image Upload and Transfer
+### 处理图片上传和转换
 
-First, use `superagent` to POST to Cloudinary using the two `const` we set up earlier. Using the [`.field` method](https://visionmedia.github.io/superagent/#field-values) gives us the ability to attach data to the POST request. These pieces of data contain all the information Cloudinary needs to handle the uploaded image. By calling `.end`, the request is performed and a callback is provided.
+首先，用 `superagent` 将我们之前设置的两个 `const` POST 到 Cloudinary 。 [`.field` 方法](https://visionmedia.github.io/superagent/#field-values) 能让我们将数据附加到 POST 请求中。这些数据包含了 Cloudinary 处理上传图片的所有信息。通过调用 `.end`，执行请求并提供回调。
 
 ```
 export default class ContactForm extends React.Component {
@@ -179,15 +181,15 @@ export default class ContactForm extends React.Component {
 }
 ```
 
-Inside of the `.end` callback, I'm logging any errors that are returned. It's probably best to tell the user that an error occurred as well.
+在 `.end` 回调中，打印返回任何错误。最好是告诉用户，出现了一个错误。
 
-Next, we check if the response we received contains a URL that is not an empty string. This means that the image was uploaded and manipulated and Cloudinary generated a URL. For example, if a user was editing their profile and uploaded an image, you could store the new image URL from Cloudinary in your database.
+接下来，我们接收到的响应中包含一个 URL，检查下它是不是一个空字符串。这就是图片被上传，处理后 Cloudinary 生成的一个 URL。举个例子，如果一个用户正在编辑他的资料，上传了一张图片，你可以将 Cloudinary 返回的新的图片 URL 保存到你的数据库中。
 
-With the code we've written thus far, a user can drop an image and the component will send it to Cloudinary and receives a transformed image URL for us to use.
+我们目前写的代码，支持用户拖拽一张图片，组件将图片发送到 Cloudinary，然后收到一个给我们用的转换后的图片 URL。
 
-### Render, continued
+### 最后的展示
 
-The last part of the component is a `div` that holds a preview of the uploaded image.
+组件最后一部分是一个 `div`，可以预览上传后的图片。
 
 ```
 export default class ContactForm extends React.Component {
@@ -215,19 +217,21 @@ export default class ContactForm extends React.Component {
   }
 ```
 
-The ternary operator outputs `null` (nothing) if the `uploadedFileCloudinaryUrl` state is an empty string. Recall that by default, we set the component's `uploadedFileCloudinaryUrl` state to an empty string; this means that when the component is rendered, this `div` will be empty.
+如果 `uploadedFileCloudinaryUrl` state 是一个空字符串，三元运算符将输出 `null` （什么都没有）。回想下，组件的 `uploadedFileCloudinaryUrl` state 默认是一个空字符串；这就意味着组件渲染时，这个 `div` 将是空的。
 
-However, When Cloudinary responds with a URL, the state is no longer an empty string because we updated the state in `handleImageUpload`. At this point, the component will re-render, displaying the name of the uploaded file and a preview of the transformed image.
+然而，当 Cloudinary 返回一个 URL，state 不再是空字符串，因为我们在 `handleImageUpload` 更新了 state。此时，该组件将重新渲染，显示上传的文件名称和变换后的图像的预览。
 
-### Wrap Up
+### 结束
 
 This is just the groundwork for an image upload component. There are plenty of additional features you could add, like:
 
-*   Allowing uploading multiple images
-*   Removal of uploaded images
-*   Displaying errors if uploading fails for any reason
-*   Using a mobile device's camera as the upload source
+这只是为图片上传组件做的准备工作。有很多可以添加的附加功能，比如：
 
-So far, this set up has worked well for my needs. Having to hardcode the upload preset isn't perfect, but I've yet to experience any issues with it.
+*   允许多图片上传
+*   清除上传的图片
+*   如果因为某些原因上传失败，展示错误
+*   使用移动设备相机作为上传源
 
-Hopefully you've gotten an understanding of how you can upload, store and manipulate images using React without a server-side language. If you have any questions or comments, I'd love to hear them! I've created a repository where you can [see this code in action](https://github.com/damonbauer/react-cloudinary).
+目前为止，这些设置已经满足我工作的需求了。硬编码上传预设不是完美的，但我还没有碰到任何问题。
+
+希望你们已经理解了如何不用服务器端语言，使用 React 就能上传，存储和操作图片。如果你们有任何问题或者点评，我很乐意听到你们的反馈！我已经建好了一个仓库，你们可以[点击链接](https://github.com/damonbauer/react-cloudinary)查看代码.
