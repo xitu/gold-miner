@@ -1,92 +1,93 @@
 > * 原文地址：[Is this my interface or yours?](https://medium.com/@jsaito/is-this-my-interface-or-yours-b09a7a795256?ref=uxdesignweekly#.8o975gug5)
 * 原文作者：[John Saito](https://medium.com/@jsaito)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者： 
+* 译者： jiaowoyongqi
 * 校对者： 
 
 
 ![](http://ac-Myg6wSTV.clouddn.com/e7eaa2962041cea90b7d.png)
 
-### The evolution of My Computer
+### “我的电脑”的变化历程
 
-Remember back in the day when Windows had a **My Computer** icon? It was a glorious little icon that represented all the stuff you had on your computer—all your programs, all your work, all the digital pieces of you.
+还记得以前使用Windows系统时**我的电脑**的图标吗？这个经典的小图标表示你在这台电脑上拥有的所有文件，所有的项目、工作资料以及各种数据等等。
 
-In later versions of Windows, Microsoft changed the label of this icon to **Computer**, then changed it again to **This PC**. Did they change it because “my” was misleading? Inconsistent? Unnecessary?
+而微软将最新Windows系统中的这个图标更名为**”电脑“（Computer）**，然后又将之改成**”本机“（This PC）**。这样的修改是否因为“我的”这个用法给人带来了理解的误导、语义的不协调或者是根本没有必要存在？
 
 ![](http://ac-Myg6wSTV.clouddn.com/9f40f8dab57be150e24d.png)
 
-This little change got me thinking about a bigger question: Why do products sometimes label things as *my* stuff, and sometimes label things as *your* stuff?
+这样小小的修改使我思考这样一个问题：为什么在称呼用户所属数据信息的时候，有些产品使用**第一人称**用法，而有些产品使用**第二人称**用法？
 
-### What do you call your stuff?
+### 你如何称呼自己的数据信息？
 
-As you tap around from app to app, you’ll see that there’s no standard way to refer to the things that belong to you within an interface. Some say it’s *my* stuff. Some say it’s *your* stuff.
+打开不同的App，发现对于称呼用户所属的数据信息时，并没有一个统一的用法，有些称之为**“我的”第一人称**用法，有些称之为**“你的”第二人称**用法。
 
 ![](http://ac-Myg6wSTV.clouddn.com/84f0c5fff22419f007be.png)
-YouTube and Google Drive call it “my” stuff. Spotify and Amazon call it “your” stuff.
-If you’re designing an interface, does it matter whether the words are written from the user’s point of view or the product’s point of view? I think there’s a subtle difference, and it all depends on how you want your users to feel while using your product.
+YouTube和Google硬盘使用第一人称用法，而Spotify和亚马逊则用第二人称用法。
+那当你在做设计考虑到这个问题的时候，是该基于用户的立场还是基于产品的立场呢？我认为两者有细微的区别，如何使用都取决于你打算让用户在使用产品时得到什么样的体验。
 
-### “My” point of view
+### 第一人称用法
 
-By using “my” in an interface, it implies that the product is an extension of the user. It’s as if the product is labeling things on behalf of the user. “My” feels personal. It feels like you can customize and control it.
+当你在界面上使用第一人称时，这就暗示着产品是用户的延展。就好像这个产品是用户行为的一部分。第一人称用法更为私人，就像用户可以自定义，自由掌控的感觉。
 
-By that logic, “my” might be more appropriate when you want to emphasize privacy, personalization, or ownership. And maybe that’s why **My Computer** worked well years ago. Back then, a computer was almost always a single-player experience. People usually didn’t share files, and all their stuff felt safe inside that one little icon.
+但通常来说，第一人称用法更适合那些强调隐私化、个人化以及拥有感的产品。也许这就是**”我的电脑“**这个称呼使用多年的原因。在过去，电脑是用户独自使用的，通常不会共享文件，用户所有的私人资料都十分安全的保存在这个小小图标里。
 
 ![](http://ac-Myg6wSTV.clouddn.com/5691db77eef2145c2945.png)
-Mine. All mine.
+我的，全是我的！
 
-### “Your” point of view
+### 第二人称用法
 
-By using “your” in an interface, it implies that the product is talking with you. It’s almost as if the product is your personal assistant, helping you get something done. “Here’s your music. Here are your orders.”
+而在界面上使用第二人称，这暗示着产品在跟用户交流。就好像产品是用户的私人助手，帮助完成任务一样。“这是您想听的音乐，这是您的命令。”
 
-By that logic, “your” might be more appropriate when you want your product to sound conversational—like it’s walking you through some task. Whether it’s paying bills, scheduling an appointment, or filling out tax forms, many products help people do things faster, smarter, and more easily.
+但是通常来说，第二人称更适合那些希望给用户带来悉心指导的产品，可以指引帮助用户完成任务。是不是该交账单了?该赴约了？该填写税单表格了？许多产品都在帮助用户更高效、更聪明、更简单地完成任务。
 
-Nowadays, computers and apps are even taking on the persona of a personal assistant. They have names like Siri, Alexa, and Cortana. They help you take notes, remind you to buy milk, and read emails out loud to you.
+现在许多产品还会以私人助手的身份与你交流。他们还有自己的名字，比如siri、Alexa和cortana。他们帮你记备忘、提醒你买牛奶甚至大声帮你念出邮件的内容。
 
 ![](http://ac-Myg6wSTV.clouddn.com/184c47d0c20f90331d4d.png)
-Hey Siri, can you change my baby’s dirty diaper?
-Many different apps, including Medium, give you recommendations. In my mind, I think of this like a personal assistant hand-picking stories for me to read today. I think this trend will only become more widespread, and we’ll probably see more and more apps using “your” instead of “my.”
+嘿，Siri，你能帮我换宝宝的尿布吗？
 
-### No point of view
+许多其他的App，包括Medium，会推荐给你许多精选的内容。在我看来，就好像一个私人助手双手抵上今天精心挑选的故事供我阅读一样。我认为未来这个范围将会变得越来越广，我们也将会看到越来越多的产品使用第一人称用法。
 
-As with most things in design, there’s no one-size-fits-all solution that works for every situation. But one thing that many products do nowadays is to just cut out words like “my” or “your” whenever labeling things that belong to the user.
+### 不使用以上两者的用法
+
+正如设计的其他方面一样，这里没有一劳永逸的解决办法。但是还有一种设计方案，就是现在许多产品会在称呼属于用户的数据信息的时候，都会省去“我的”或“你的”。
 
 ![](http://ac-Myg6wSTV.clouddn.com/89120ffe78da8e1218fb.png)
-No mention of “my” or “your” here.
-And maybe this dropping of the “my” is the exact same approach that Windows took when it decided to change **My Computer** to **Computer**.
+这里没有使用第一人称或者第二人称。
+也许把“我的”给去掉的原因，就跟Windows把**“我的电脑”**改为**“电脑”**一样。
 
-Unfortunately, cutting out “my” or “your” doesn’t work 100% of the time. Sometimes you really do need to differentiate the user’s stuff from someone else’s stuff. For example, in YouTube, you can’t just say “Channel,” because it’s not clear whether that’s referring to your channel, channels that you’ve subscribed to, or channels that YouTube is recommending to you.
+但很可惜，不使用第一第二人称并不是100%适用于所以的设计。有时候确实需要将用户的内容和其他的内容作出区分。例如YouTube，你不能只是称之为“频道”，因为这样就不指导这是用户自己的频道，还是订阅的频道，还是YouTube推荐的频道。
 
 ![](http://ac-Myg6wSTV.clouddn.com/a5df4efc05ea9c479222.png)
-Just using “Channel” won’t work in this context.
-And maybe, just maybe, this is why Windows eventually changed **Computer** to **This PC**. It was because **Computer** was too ambiguous on its own, and they needed to clarify that they were referring to *this* computer.
+所以在这个情况下，只将其称为“频道”是不合理的。
+也许，这也是Windows将**“电脑（Computer）”**改为**“本机（This PC）”**的原因吧。因为单单称之为**“电脑”**很容易造成误解，所以需要明确这里指的是**“本机”**。
 
-### Putting it all into perspective
+### 举一反三
 
-Up until now, I’ve mainly been talking about the things that belong to you in an interface. That’s just a small fraction of the words that you’ll come across as a user. What about things like button labels, instructions, settings screens, and so on?
+直到现在，我们主要讨论的都是界面上属于用户的数据信息该如何称呼。但这只是用户在使用产品时遇到的文案中很小一部分内容。那按钮名称、指示语还有设置页面等其他情况该怎么做呢？
 
-There are widely differing opinions on this, but here are the general guidelines I like to follow:
+对此众说纷纭，而以下是我认为比较适用的设计指南：
 
-- **When to use *me*: **Use *I*, *me*, *my*, or *mine* when the user is interacting with the product, like clicking a button or selecting a checkbox. But only add these words if you absolutely need to for clarity.
-- **When to use *you*:** Use *you* or *your* when your product is asking questions, giving instructions, or describing things to the user. Just imagine what a personal assistant might say.
+- **什么时候使用*第一人称*：**在用户进行操作的时候，比如点击按钮或者勾选复选框的时候，只有当你觉得必须要清晰地说明关系的时候才可使用。
+- **什么时候使用*第二人称*：**当产品向用户提问、指导或者描述事情的时候应该使用第二人称。就想象一下一个私人助手应该会怎么说。
 
 ![](http://ac-Myg6wSTV.clouddn.com/419a7460534cb2ace4d2.png)
 
-### “Our” point of view
+### 使用“我们的”用法
 
-Before I wrap up, I have to mention one more point of view that‘s pretty common out there: *our* point of view. This is when products use “we,” “our,” or “us” within the interface.
+在文章结束之前，我必须要说一个很常见的用法。有些产品喜欢在界面上使用“我们的”、“我们”。
 
 ![](http://ac-Myg6wSTV.clouddn.com/27b1ab1405835f5bdc9e.png)
-From Chase Bank’s homepage
-By using “we,” “our,” or “us,” they’re actually adding a third participant into the mix — the people behind the product. It suggests that there are real human beings doing the work, not just some mindless machine.
+美国大通银行的主页上
+使用了“我们”和“我们的”，这确实增加了第三方参与者的概念，那些在产品背后的工作人员。这表明确实有工作人员为用户工作，而不是冰冷的机器。
 
-If your product is selling people-powered services like cooking, designing, or cleaning, “we” adds a human touch. “We’re here to help.” “See our services.” Knowing that real humans are there, behind all those windows and boxes, can help the user feel a little more at ease.
+如果你的产品是在向用户带来人工服务，比如烹饪、设计或者清洁服务，使用“我们”的说法将会增加可信度。“我们将会为您提供帮助”，“请使用我们的服务”。让用户知道在这些冰冷的屏幕背后，有工作人员在服务，将让用户感到更踏实。
 
-On the other hand, if your product is an automated tool like Google’s search engine, “we” can feel misleading because there aren’t human beings processing your search. In fact, Google’s UI writing guidelines recommend not saying “we” for most things in their interface.
+另一方面，如果你的产品跟谷歌搜索一样是一个自动化的产品，“我们的”用法将会误导用户，因为搜索引擎背后并没有实实在在的服务人员。事实上，谷歌的界面规范手册上也提及他们大部分产品都不会出现“我们的”字样。
 
-### What’s your point of view?
+### 那么你的观点呢？
 
-I wrote this story because I’ve seen this question come up time and time again from designers, developers, and writers. Why do we use “my” here? Why do we use “your” there? And yet, I’ve seen very little of this documented externally in style guides.
+我之所以写这篇文章，是因为我看到这个问题无数次被设计师、程序员及其他作者提起讨论。为什么这里我们要用第一人称？而那里又用第二人称？但至今为止，我没有看到几篇文章把这件事讲清楚。
 
-Do you have your own guidelines for dealing with perspective in an interface? If so, I’d love to hear your point of view.
+对此你是否有自己的见解？我很乐意听到你的声音。
 
 ![](http://ac-Myg6wSTV.clouddn.com/1a1ff00440e74f4a5fa7.jpeg)
