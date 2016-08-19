@@ -28,13 +28,13 @@ Task #102 : affinity = “cn.six.adv”, size = 1
 
 ## Default
 
-系统会默认地在目标Task中为activity创建一个实例和 intent 。
+到达此 activity 的 Intent ，系统会默认地在目标Task中创建一个新的实例并将默认的启动模式属性设置为 "default" 。
 
 “Default” 是 activity 的默认启动模式，也就是说当你未给 activity 指定启动模式的时候，系统默认会给一个 “Default” 作为它的启动模式。
 
 ## SingleTop
 
-如果一个 SingleTop 的 activity 实例在目标栈顶，intent 启动该 activity 时系统将会通过调用它的 onNewIntent() 方法重用该实例而不会新创建一个的实例。
+如果一个启动模式为 SingleTop 的 activity 实例在目标栈顶，intent 启动该 activity 时系统将通过 onNewIntent 的方法将 intent 传递给已有的那个实例而不会新创建一个的实例。
 
 注意：并不是清除栈顶的activity！！！（也就是说只要栈顶不是本activity，都会创建新的实例，是本 activity 则重用不新建）。
 
@@ -44,7 +44,7 @@ Task #102 : affinity = “cn.six.adv”, size = 1
 
 ## 1\. A(Default) -> B(singleTask)
 
-我们有两个 Activity ，A 和 B ，其中 B 是 SingleTask 模式，现在让 A 跳转到 B 。
+我们有两个 Activity ，A 和 B ，其中 B 是 SingleTask 模式，现在从 A 跳转到 B 。
 
 首先在 Manifest 中写入启动模式，如下：
 
@@ -70,7 +70,7 @@ Android 官方文档中提到“ intent 启动一个（SingleTask） 的 Activit
 | B
 A | (null) |
 
-这个问题有一点小难表达，因为这里面包含了 `android:taskAffinity` 属性。 后文中会有详解。
+这个问题有一点小难表达，因为这里面 B 使用了 `android:taskAffinity` 属性。 后文中会有详解。
 
 ## 2\. A(Default) -> B(singleTask) : B has a taskAffinity attribute
 
@@ -85,19 +85,19 @@ A | (null) |
 
 ```
 
-在这里,  A 启动 B is 的效果就不一样啦。如下:
+在这里,  A 启动 B 的效果就不一样啦。如下:
 
 | Task 1 | Task 2 |
 | :-: | :-: |
 | A | B |
 
-这个和上一个例子的唯一不同就是属性 “android:taskAffinity” 。 当你不声明 affinity, 那么 activity 会有一个默认的 affinity 值 : 就是包名。在这个例子中, 默认的 affinity 值就是 “cn.six.adv” 。
+这个和上一个例子的唯一不同就是属性 “android:taskAffinity” 。 当你不声明 affinity 属性, 那么 activity 就会以包名作为其默认值。在这个例子中, 默认的 affinity 值就是 “cn.six.adv” 。
 
-当 A 跳转 B, 并且 B 的启动模式是 singleTask 。 所以 B **目的是** 创建一个新的 Task 。 这只会当 B 的 taskAffinity 属性和 A 不同时，才会创建。
+当 A 启动 B ，即使 B 的启动模式是 singleTask ，但也只有当 `android:taskAffinity` 属性和 A 不同时才会创建新的 task 。
 
 看到这里，第一个例子是不是就顿时豁然开朗？ 为什么 A 和 B 在同一个 Task 中呢？因为它们的 taskAffinity 属性值是一样滴。
 
-用逻辑来标的，就像是这样:
+用逻辑来表达，就像是这样:
 
 ```
 
@@ -156,7 +156,7 @@ manifest 如下:
 
 好奇怪啊！ C 去哪里啦？
 
-事情呢，是这个样子滴。 C->B ， B 的启动模式是 singleTask 而且它的 affinity 属性值是 “task2”, 当系统发现有一个 affinity 属性值为 task2 的 Task 2 所以就把 B 放进去了。但是, 其中已经有一个 B 的实例在 Task 2 之中。 所以系统会将已有的 B 的实例赋予一个 **CLEAR_TOP** （清除顶部）表示。所以 C 是这么没的。
+事情呢，是这个样子滴。 C->B ， B 的启动模式是 singleTask 而且它的 affinity 属性值是 “task2”, 当系统发现有一个 affinity 属性值为 task2 的 Task 2 所以就把 B 放进去了。但是, 其中已经有一个 B 的实例在 Task 2 之中。 所以系统会将已有的 B 的实例赋予一个 **CLEAR_TOP** （清除顶部）标志。所以 C 是这么没的。
 
 ## 4\. SingleTask 小结
 
@@ -193,7 +193,7 @@ SingleInstance 要比 SingleTask 好理解很多。
 
 (2). A -> B -> C
 
-拥有 “singleInstance” 启动模式的 activity 不予许其他任何Activity在它的 Task 之中。所以它是这个 Task 之中的独苗啊。当它跳转另外一个 activity 时, 那个Activity 将会被分配到另外一个 Task 之中——就像是 intent 中含有 **FLAG_ACTIVITY_NEW_TASK** 一样。
+拥有 “singleInstance” 启动模式的 activity 不予许其他任何Activity在它的 Task 之中。所以它是这个 Task 之中的独苗啊。当它跳转另外一个 activity 时, 那个Activity 将会被分配到另外一个 Task 之中——就像是 intent 被赋予了 **FLAG_ACTIVITY_NEW_TASK** 标志一样。
 
 由于 B 需要一个只能容纳它的 Task , 所以 C 会被加上一个 FLAG_ACTIVITY_NEW_TASK 标识。所以 C(default) 变成了 C(singleTask) 。
 
