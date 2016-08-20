@@ -5,7 +5,6 @@
 * 校对者:
 
 
-Closures F.T.W.
 闭包 FTW
 
 
@@ -136,16 +135,12 @@ let helloWorldLbl = Init(UILabel()) {
 }
 ```
 
-Fancy though it may seem, it does indeed kill off the need for the instance variable from within the closure, and it gets rid of the “()” requirement. Very nice 👏.
 尽管似乎挺精致，它还是取消了闭包中换得实例，它也用烦了 “()” 。很棒 👏.。
 
-### Final Thoughts
 ### 最后的想法
 
-It could be said that using such a technique is six in one hand, and a half dozen in the other. While it’s true the lines of code authored by the programmer remain largely the same, I’d argue that its placement and flexibility makes it ideal for many scenarios.
 有人说用这种技术是多此一举。尽管程序员处理的代码行数还是那么庞大，我需要强调的是场景和灵活性使之成为理想的环境。
 
-It’s a fun way to get things done, and there are even a few ways to do the same thing in our old friend Objective-C. But hey, the more you know, amirite?
 这是搞定项目的一个有意思的办法，还有许多可以用我们的老朋友 Objective-C 处理同样事情的办法。不过你看，你懂的越来越多了，我说的对吧？
 
 Until nextWeek = { let week = Week() week.advancedBy(days: 7) }()
