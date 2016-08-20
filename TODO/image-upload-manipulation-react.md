@@ -1,14 +1,14 @@
 > * 原文地址：[Image Upload and Manipulation with React](https://css-tricks.com/image-upload-manipulation-react/)
 * 原文作者：[Damon Bauer](http://damonbauer.me/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
-* 校对者：
+* 译者：[DeadLion](https://github.com/DeadLion)
+* 校对者：[mypchas6fans](https://github.com/mypchas6fans), [Kulbear](https://github.com/Kulbear)
 
 
-_下面这篇特邀文章是由 [Damon Bauer](http://damonbauer.me/) 完成的，主题是关于一个 web 开发人员非常常见的工作：为用户提供图片上传功能。毫无疑问，我会认为这很简单，不过还是需要一些功能强大的工具来帮忙做一些比较“重”的工作，看完这篇文章，再做这任务会觉得比以前轻松的多。Damon 甚至全程在浏览器中完成了[这项任务](https://github.com/damonbauer/react-cloudinary)!_
+_下面这篇特邀文章是由 [Damon Bauer](http://damonbauer.me/) 完成的，主题是关于一个 web 开发人员非常常见的工作：为用户提供图片上传功能。我想说这并不容易，但是有了一些功能强大的工具来帮忙做一些比较“重”的工作，这个任务会觉得比以前轻松许多。Damon 甚至全程在浏览器中完成了[这项任务](https://github.com/damonbauer/react-cloudinary)!_
 
 
-对于 web 开发者来说，让用户拥有上传图片的能力是一件很常见的事情。一开始可能看起来微不足道，但是当创建一个图片上传组件的时候，还是有些事情需要去考虑的。这里有一些注意事项：
+对于 web 开发者来说，让用户能够上传图片是一件很常见的事情。一开始可能看起来小菜一碟，但是当真正创建一个图片上传组件的时候，还是有些问题需要去考虑的。这里有一些注意事项：
 
 *   允许什么类型的图片上传?
 *   需要多大的图片? 这对性能有何影响?
@@ -33,16 +33,16 @@ _下面这篇特邀文章是由 [Damon Bauer](http://damonbauer.me/) 完成的�
 
 ### 设置 Cloudinary
 
-Cloudinary 是一个基于云的服务，可以为图片提供存储、操作、管理等服务。我选择使用 Cloudinary 因为它有一定免费的额度，而且包括所有我需要的功能。你至少需要一个免费帐户才能开始。
+Cloudinary 是一个可以为图片提供存储、操作、管理、提供功能的云服务。我选择使用 Cloudinary 是因为它提供的免费账户包含了所有我所需要的功能。你至少需要一个免费帐户才能开始。
 
-假如说你想裁剪，调整大小并增加过滤器到上传的图片。Cloudinary 有个_转换_的概念，和修改图片功能链接在一块的，不管你需不需要。一旦上传，就会转换、修改然后存储新的图片。
+假如说你想裁剪，调整大小并给上传的图片增加滤镜。Cloudinary 有个_转换_的概念，和修改图片功能链接在一块的，不管你需不需要。一旦上传，就会转换、修改然后存储新的图片。
 
-在 Cloudinary 控制面板中，找到 **Settings > Upload**，然后选择 “Add upload preset”， 该选项在 Upload presets 下方。
+在 Cloudinary 控制面板中，找到 **Settings > Upload**，然后选择 “Upload presets” 下方 的 “Add upload preset”。
 
 ![](https://cdn.css-tricks.com/wp-content/uploads/2016/08/AddPreset.png)
 
 
-根据下面的截图上，将 “Mode” 改成 “Unsigned”。这是必须的，然后你就可以不需要使用服务器端语言来处理私有 key 也能正确上传到 Cloudinary 了。
+下一步，将 “Mode” 改成 “Unsigned”。这是必须的，然后你就可以不需要使用服务器端语言来处理私钥也能直接上传到 Cloudinary 了。
 
 ![](https://cdn.css-tricks.com/wp-content/uploads/2016/08/Unsigned.png)
 
@@ -181,13 +181,13 @@ export default class ContactForm extends React.Component {
 }
 ```
 
-在 `.end` 回调中，打印返回任何错误。最好是告诉用户，出现了一个错误。
+在 `.end` 回调中，打印所有返回错误的同时，最好也告诉用户出现了一个错误。
 
 接下来，我们接收到的响应中包含一个 URL，检查下它是不是一个空字符串。这就是图片被上传，处理后 Cloudinary 生成的一个 URL。举个例子，如果一个用户正在编辑他的资料，上传了一张图片，你可以将 Cloudinary 返回的新的图片 URL 保存到你的数据库中。
 
 我们目前写的代码，支持用户拖拽一张图片，组件将图片发送到 Cloudinary，然后收到一个给我们用的转换后的图片 URL。
 
-### 最后的展示
+### 渲染阶段
 
 组件最后一部分是一个 `div`，可以预览上传后的图片。
 
