@@ -179,7 +179,7 @@ manifest 如下:
 
 SingleInstance 要比 SingleTask 好理解很多。
 
-如果一个 Activity 的启动模式为 SingleInstance, 那么这个Activity必定会在一个新的 Task 之中, 并且这个 Task 之中有且只能有一个 Activity 。
+如果一个 Activity 的启动模式为 SingleInstance, 那么这个 Activity 必定会在一个新的 Task 之中, 并且这个 Task 之中有且只能有一个 Activity 。
 
 再来一波栗子。
 
