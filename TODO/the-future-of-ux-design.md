@@ -2,7 +2,7 @@
 * 原文作者：[Joanna Ngai](https://uxdesign.cc/@ngai.yt)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Kulbear](https://kulbear.github.io/)
-* 校对者： 
+* 校对者：[yifili09](https://github.com/yifili09)，[rottenpen](https://github.com/rottenpen)
 
 ![](http://ac-Myg6wSTV.clouddn.com/e3d684fd9164f58e7f03.png)
 
@@ -49,8 +49,8 @@
 
 > 未来城市的生活体验将会更加温和和具有流动性，正如我们的工作生态系统。
 
-便利性将会全面碾压传统的去一个地方只能办一两件事的状况。正如医疗服务一样，多面性的建筑设计会解决大量的人流，运输多种不同的货物，提供不同的服务和娱乐。
+便利性将会成为主导，而非为了不同的需求往返于不同的地点。正如医疗服务一样，多方位的建筑设计会为广大群众服务，运输多种不同的货物，提供不同的服务和娱乐，以及便利的医疗设施。
 
 高速的网络和稳定的链接使我们身在何处或者是否在直接使用电子设备变得不再重要了，我们（人类）和科技的间隔会越来越小。
 
-*Thanks for making it this far * —  **更多我的作品请参见这里 [my blog](http://design-unicorn.blogspot.com/)!**
+*感谢您读完了这篇文章。* —  **更多我的作品请参见这里 [my blog](http://design-unicorn.blogspot.com/)!**
