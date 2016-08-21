@@ -1,3 +1,4 @@
+* [[译] 如何用 React 完成图片上传功能？](https://gold.xitu.io/entry/57b923225bbb50005b794943?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([DeadLion](https://github.com/DeadLion) 翻译)
 * [你考虑清楚了吗就决定用 Bootstrap ？](http://gold.xitu.io/entry/57b67315a34131005f82d244?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([MAYDAY1993](https://github.com/MAYDAY1993) 翻译)
 * [如何运用最新的技术提升网页速度和性能](http://gold.xitu.io/entry/57b3f7928d2a3b0069605c2c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([hpoenixf](https://github.com/hpoenixf) 翻译)
 * [Medium 内部使用 css/less 的代码风格指南](http://gold.xitu.io/entry/57b06a1b6be3ff006bab2030?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Gran](https://github.com/Graning) 翻译)
