@@ -2,7 +2,7 @@
 
 [掘金翻译计划](http://gold.xitu.io/#/tag/%E6%8E%98%E9%87%91%E7%BF%BB%E8%AF%91%E8%AE%A1%E5%88%92)是一个翻译优质互联网技术文章的社区，文章来源为[掘金](http://gold.xitu.io)上的英文分享文章。内容覆盖 [Android](#android)、[iOS](#ios)、[React](#react)、[前端](#前端)、[后端](#后端)、[产品](#产品)、[设计](#设计)等领域，读者为热爱新技术的新锐开发者。
 
-掘金翻译计划目前翻译完成 [175](#android) 篇文章，共有 [180](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
+掘金翻译计划目前翻译完成 [176](#android) 篇文章，共有 [180](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
 
 # 如何参与翻译
 
@@ -88,6 +88,7 @@
 
 ## 产品
 
+* [[译] 用户体验设计的未来](http://gold.xitu.io/entry/57b875ae79bc44005b9c53d5?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Kulbear](https://github.com/Kulbear) 翻译)
 * [[译] 我不是用户体验设计师，你呢？](http://gold.xitu.io/entry/57b680250a2b58005c8217f7?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([MAYDAY1993](https://github.com/MAYDAY1993) 翻译)
 * [[译] 产品设计怎样做才最优雅](http://gold.xitu.io/entry/57b14ce45bbb500062d9a51f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lizwangying](https://github.com/lizwangying) 翻译)
 * [[译] 在开发移动应用时你应该考虑的 「Empty State」](http://gold.xitu.io/entry/579f19956be3ff0065f59a90?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([MAYDAY1993](https://github.com/MAYDAY1993) 翻译)
