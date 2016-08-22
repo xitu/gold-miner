@@ -1,8 +1,8 @@
 > * 原文地址：[Is this my interface or yours?](https://medium.com/@jsaito/is-this-my-interface-or-yours-b09a7a795256?ref=uxdesignweekly#.8o975gug5)
 * 原文作者：[John Saito](https://medium.com/@jsaito)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者： jiaowoyongqi
-* 校对者：siegeout,rottenpen 
+* 译者： [jiaowoyongqi](https://github.com/jiaowoyongqi)
+* 校对者：[siegeout](https://github.com/siegeout),[rottenpen](https://github.com/rottenpen) 
 
 
 ![](http://ac-Myg6wSTV.clouddn.com/e7eaa2962041cea90b7d.png)
