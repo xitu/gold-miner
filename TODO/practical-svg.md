@@ -95,9 +95,10 @@ Fig 6.5: 带 `slice` 值的 `preserveAspectRatio` 的例子。
 
 
 就算是对齐部分也有一个对应的 CSS 属性： `background-position`。默认的 `background-position`值是`0 0`，意思是 “top left”。就像 `xMinYMin` 一样。如果你把它改成 `50% 100%`，那就像 `xMidYMax`！
+
 **Fig 6.6** 这些例子让联系更清晰。
 
-`preserveAspectRatio` 值 and CSS 属性
+`preserveAspectRatio` 值 和 CSS 属性
 
 
 | | |
