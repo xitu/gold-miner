@@ -1,3 +1,4 @@
+* [该叫「我的电脑」还是「你的电脑」？](http://gold.xitu.io/entry/57bbc0212e958a00694055a9?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jiaowoyongqi](https://github.com/jiaowoyongqi) 翻译)
 * [用户体验设计的未来](http://gold.xitu.io/entry/57b875ae79bc44005b9c53d5?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Kulbear](https://github.com/Kulbear) 翻译)
 * [我不是用户体验设计师，你呢？](http://gold.xitu.io/entry/57b680250a2b58005c8217f7?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([MAYDAY1993](https://github.com/MAYDAY1993) 翻译)
 * [产品设计怎样做才最优雅](http://gold.xitu.io/entry/57b14ce45bbb500062d9a51f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lizwangying](https://github.com/lizwangying) 翻译)
