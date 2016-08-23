@@ -1,14 +1,14 @@
 > * 原文地址：[How to design a mobile app across OS platforms?](https://medium.com/@ooceanzou/designers-problem-d7f70d4f4d6c#.8mr6hednc)
 * 原文作者：[Ocean Zou](https://medium.com/@ooceanzou)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者： [Kulbear](https://kulbear.github.io/)
-* 校对者：
+* 译者：[Kulbear](https://kulbear.github.io/)
+* 校对者：[siegeout](https://github.com/siegeout), [jiaowoyongqi](https://github.com/jiaowoyongqi)
 
 ### 设计师们的难题
 
-***Android 和 iOS***[ 是市场上的两个主流操作系统](http://www.idc.com/prodserv/smartphone-os-market-share.jsp)。多数公司都会要求开发者开发对应的移动端应用。对于这些需要在两个平台上同时设计的应用，其中一个挑战就是维持品牌一致性和不同平台的功能一致性之间的平衡。
+***Android 和 iOS***[ 是市场上的两个主流操作系统](http://www.idc.com/prodserv/smartphone-os-market-share.jsp)。多数公司都会要求开发者开发对应的移动端应用。对于这些需要在两个平台上同时设计的应用，其中一个挑战就是在品牌一致性和平台的不同功能特性之间进行平衡。
 
-作为一名设计师，了解不同平台的设计惯例和行为才能更好的和开发者及股东们在开始设计前交流。这样，你的团队可以基于适配各个平台的优缺点来讨论决定开发计划（先开始 iOS 的开发，或者先开始 Android 的开发，或者同时进行两个平台的开发）。
+作为一名设计师，了解不同平台的设计惯例和行为才能在开始设计前更好的和开发者及股东们进行交流。这样，你的团队可以基于适配各个平台的优缺点来讨论决定开发计划（先开始 iOS 的开发，或者先开始 Android 的开发，或者同时进行两个平台的开发）。
 
 > 因此，在这里我将会比对苹果和谷歌这两个操作系统设计风格上的相似之处和不同之处。我将会挑选部分应用，分析其在这两个平台上设计的相似和不同。
 
@@ -36,11 +36,11 @@
 
 **深度 & 表面：** 你将会发现在 Android 中使用的效果是深经考究的，尤其是浮起的元素及其投影，都是为了表现不同界面元素之间的层级关系。
 
-**栅格 and dpi（每英寸所打印的点数）：** Material Design 严格使用了独立于密度的像素栅格系统（dp）。 根据 [google’s definition](https://www.google.com/design/spec/layout/units-measurements.html#units-measurements-density-independent-pixels-dp-)，dp 是一种灵活的像素单位，它可以自动按比例显示在任意屏幕上。在设计 Android 应用的时候，设计师们对不同密度（像素？）的屏幕可以用 dp 来显示同样比例的元素。在 Material Design 中，所有元素都依附在一个 8dp 宽的框架上, 这可以使不同应用间的视觉效果很有规律。比如，按钮一般都是高 48dp 的，[应用栏](https://www.google.com/design/spec/layout/structure.html#structure-app-bar)默认为 56dp，不同元素的间距总是 8dp 的倍数。
+**网格 and dpi（每英寸所打印的点数）：** Material Design 严格使用了独立于密度的像素网格系统（dp）。 根据 [google’s definition](https://www.google.com/design/spec/layout/units-measurements.html#units-measurements-density-independent-pixels-dp-)，dp 是一种灵活的像素单位，它可以自动按比例显示在任意屏幕上。在设计 Android 应用的时候，设计师们可以通过使用 dp 在不同像素密度的屏幕上显示同样比例的元素。在 Material Design 中，所有元素都依附在网格 8dp 宽的框架上, 这可以使不同应用间的视觉效果很有规律。比如，按钮一般都是高 48dp 的，[应用栏](https://www.google.com/design/spec/layout/structure.html#structure-app-bar)默认为 56dp，不同元素的间距总是 8dp 的倍数。
 
 **字体：** [Roboto](https://www.google.com/fonts/specimen/Roboto) 是 Android 的默认字体集，它包括了不同尺寸和[字重](https://www.google.com/fonts/specimen/Roboto+Condensed)的字体。此外，你还可以在你的应用中导入你自己的排版字体。
 
-**交互 & 动作：** Material Design 参考了很多用户使用动机和接触反应。根据图 1.3 中我们可以看出，当你点击某个元素时，接触点的四周将会扩散出波纹，如果你点击的是按钮，则按钮将会升起“靠近”你的手指，并在按钮底部出现投影效果。
+**交互 & 运动：** Material Design 参考了很多用户使用动机和接触反应。根据图 1.3 中我们可以看出，当你点击某个元素时，接触点的四周将会扩散出波纹，如果你点击的是按钮，则按钮将会升起（一般通过加深阴影实现）来“靠近”你的手指。
 
 ![](http://ac-Myg6wSTV.clouddn.com/ef8991f36a50b6877541.gif)
 
@@ -72,15 +72,15 @@
 
 图表 1.5 用户界面的比较
 
-iOS 和 Android 平台在用户界面上有着明显的分别。根据图 1.4 不难看出，第一，iOS（左）和Android（右）的主要操作栏位于不同的位置。苹果系统将其放置于界面下方，而 Android 系统将其放置在上方导航条的下方。第二，两个平台都为回退功能设计了在左上的按钮，但在 Android 平台下这个是可选的，因为 Android 手机上自带了回退导航的按钮。第三，Material Design 常用一种类似“汉堡”的菜单栏，而 Apple 不常使用这种导航方式。第四，Material Design 允许浮动按钮作为快捷方式出现在界面上，并用卡片作为一个用户界面上重要的组件儿。
+iOS 和 Android 平台在用户界面上有着明显的分别。根据图 1.4 不难看出，第一，iOS（左）和Android（右）的主要操作栏位于不同的位置。苹果系统将其放置于界面下方，而 Android 系统将其放置在上方导航条的下方。第二，两个平台都为回退功能设计了在左上的按钮，但在 Android 平台下这个是可选的，因为 Android 手机上自带了回退导航的按钮。第三，Material Design 常用一种类似“汉堡”的图标表示菜单栏，而 Apple 不常使用这种导航方式。第四，Material Design 允许浮动按钮作为快捷方式出现在界面上，并把卡片视图作为一个用户界面上重要的组件。
 
-**交互 & 动作**
+**交互 & 运动**
 
 ![](http://ac-Myg6wSTV.clouddn.com/3bbd8617f851fdb1ac5e.png)
 
 图表 1.6 交互设计上的比对
 
-Android 和 iOS 在交互设计上也很不一样。根据图 1.5 我们可以看出，第一，当 iOS 使用颜色变化或淡出来给交互提供反馈，Android 使用从你的手指扩散出的浮动的波纹*（表面和光线的反应）*，以及点击后会上升“靠近”你手指并出现投影的按钮*（材料性反应）* 。第二，Apple 谨慎的设计了动画，而 Material Design 对动画的设计更抓人眼球。在 Google 来看，丰富清晰的动态设计可以有效的引导用户的关注度。他们相信对于动态效果的应用可以更平滑的在不同导航界面间引导用户，解释屏幕上组件的改变，以及强调元素的优先级*（过渡）*。
+Android 和 iOS 在交互设计上也很不一样。根据图 1.5 我们可以看出，第一，当 iOS 使用颜色变化或淡出来给交互提供反馈，Android 使用从你的手指扩散出的浮动的波纹（水面和光线的反馈）以及点击后会通过加深阴影上升“靠近”你手指的按钮（材质反馈） 。第二，Apple 谨慎的设计了动画，而 Material Design 对动画的设计更抓人眼球。在 Google 来看，丰富清晰的动态设计可以有效的引导用户的关注度。他们相信对于动态效果的应用可以更平滑的在不同导航界面间引导用户，解释屏幕上组件的改变，以及强调元素的优先级*（过渡）*。
 
 **视觉语言**
 
@@ -238,7 +238,7 @@ Spotify 是一个流行的音乐播放应用，它有着针对品牌很鲜明的
 
 **推荐：**在我看来，如果设计师可以根据反馈和评估增加／改进产品的设计而没有太多的限制，这个方法是近乎完美的。
 
-### “如何下决定”的方针
+### “如何下决定”的指导
 
 尽管多方面结合（上文所提的多种）的方法看起来是应选的路线，我还是要说文中所提的方法没有一种是完美的。有时，倾向于品牌效应而忽视的平台标准会造成一些“特别的”用户体验问题。而针对平台开发的方法，有时候看起来太刻板太标准化，对品牌提升没什么效果。我举例的这个使用混合方法开发的应用显然是一个多平台适应的成功案例。然而，这样的例子少之又少，因为它需要很多时间和投资的支持。
 
