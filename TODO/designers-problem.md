@@ -14,11 +14,11 @@
 
 通过这样的比对，我们可以更好的理解在这两个平台上约定俗成的设计形式。同时还可以给予设计者／开发者们一些建议，帮他们决定将来的设计和开发策略——不论他们想要先开发某一平台或者并行开发。
 
-### 设计参考（方针）
+### 设计参考（指南）
 
 这一部分我们将会研究和探讨来自 [ Apple ](https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/MobileHIG/)和[ Google ](https://www.google.com/design/spec/material-design/introduction.html)的设计方针中的相似与不同。
 
-#### 谷歌的设计方针
+#### 谷歌的设计指南
 
 [Material Design](https://www.google.com/design/spec/material-design/introduction.html) 在 2014 年被谷歌提出并作为 5.0 版本及以上的 Android 系统中跨产品，跨平台设计的默认“视觉语言”。
 
@@ -34,13 +34,13 @@
 
 谷歌很好的定义了 Material Design。从图表 1.2 中我们能看出，如果你不熟悉材料设计，共有四个方面你需要特别注意。
 
-**深度 & 表面：** 你将会发现在 Android 中使用的效果是深经考究的，尤其是 UI 元素的深度和阴影方面。
+**深度 & 表面：** 你将会发现在 Android 中使用的效果是深经考究的，尤其是浮起的元素及其投影，都是为了表现不同界面元素之间的层级关系。
 
 **栅格 and dpi（每英寸所打印的点数）：** Material Design 严格使用了独立于密度的像素栅格系统（dp）。 根据 [google’s definition](https://www.google.com/design/spec/layout/units-measurements.html#units-measurements-density-independent-pixels-dp-)，dp 是一种灵活的像素单位，它可以自动按比例显示在任意屏幕上。在设计 Android 应用的时候，设计师们对不同密度（像素？）的屏幕可以用 dp 来显示同样比例的元素。在 Material Design 中，所有元素都依附在一个 8dp 宽的框架上, 这可以使不同应用间的视觉效果很有规律。比如，按钮一般都是高 48dp 的，[应用栏](https://www.google.com/design/spec/layout/structure.html#structure-app-bar)默认为 56dp，不同元素的间距总是 8dp 的倍数。
 
-**字体：** [Roboto](https://www.google.com/fonts/specimen/Roboto) 是 Android 的默认字体集，它包括了不同尺寸和[粗度](https://www.google.com/fonts/specimen/Roboto+Condensed)的字体。此外，你还可以在你的应用中导入你自己的排版字体。
+**字体：** [Roboto](https://www.google.com/fonts/specimen/Roboto) 是 Android 的默认字体集，它包括了不同尺寸和[字重](https://www.google.com/fonts/specimen/Roboto+Condensed)的字体。此外，你还可以在你的应用中导入你自己的排版字体。
 
-**交互 & 动作：** Material Design 参考了很多用户使用动机和接触反应。根据图 1.3 中我们可以看出，当你触摸某个元素时，随着你的指纹操作，按钮会生出一些波动来和你的手指呼应（减少阴影的效果）。
+**交互 & 动作：** Material Design 参考了很多用户使用动机和接触反应。根据图 1.3 中我们可以看出，当你点击某个元素时，接触点的四周将会扩散出波纹，如果你点击的是按钮，则按钮将会升起“靠近”你的手指，并在按钮底部出现投影效果。
 
 ![](http://ac-Myg6wSTV.clouddn.com/ef8991f36a50b6877541.gif)
 
@@ -50,13 +50,13 @@
 
 图表 1.4, 各版本 iOS 的普及率
 
-#### Apple 设计方针
+#### Apple 设计指南
 
 和 Material Design 不同的是，Apple 很早就建立了自己的 iOS 设计框架。从图 1.3 中不难看出 iOS8 和 iOS9 占据了大多数用户。由于 iOS9 数月前刚刚发布，多数 iOS 应用还停留在 iOS8 的版本下。因此，此次我谈论的 iOS 设计将主要围绕 iOS8 和它的特性。
 
 参考阅读 [iOS 界面设计](https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/MobileHIG/)后，我针对 iOS 设计总结出如下几点：
 
-**平滑设计：**它移除了任何给予组件 3D 效果的选择，比如阴影，纹理等。它专注于排版，颜色和组件之间的关系。
+**扁平化设计：**它移除了任何给予组件 3D 效果的选择，比如阴影，纹理等。它专注于排版，颜色和组件之间的关系。
 
 **极简设计 & 功能：** iOS 的设计更专注于原始功能而非外观。简易的图标和布局最大程度上减少了用户使用手机时的认知成本。
 
@@ -72,7 +72,7 @@
 
 图表 1.5 用户界面的比较
 
-iOS 和 Android 平台在用户界面上有着明显的分别。根据图 1.4 不难看出，第一，iOS（左）和Android（右）的动作条位于不同的位置。苹果系统将其放置于界面下方，而 Android 系统将其放置在导航条的上方。第二，两个平台都为回退功能设计了在左上的按钮，但在 Android 平台下这个是可选的，因为 Android 手机上自带了回退导航的按钮。第三，Material Design 常用一种类似“汉堡”的菜单栏，而 Apple 完全不使用这种。第四，Material Design 允许浮动按钮作为快捷方式出现在界面上，并用卡片作为一个用户界面上重要的组件儿。
+iOS 和 Android 平台在用户界面上有着明显的分别。根据图 1.4 不难看出，第一，iOS（左）和Android（右）的主要操作栏位于不同的位置。苹果系统将其放置于界面下方，而 Android 系统将其放置在上方导航条的下方。第二，两个平台都为回退功能设计了在左上的按钮，但在 Android 平台下这个是可选的，因为 Android 手机上自带了回退导航的按钮。第三，Material Design 常用一种类似“汉堡”的菜单栏，而 Apple 不常使用这种导航方式。第四，Material Design 允许浮动按钮作为快捷方式出现在界面上，并用卡片作为一个用户界面上重要的组件儿。
 
 **交互 & 动作**
 
@@ -80,7 +80,7 @@ iOS 和 Android 平台在用户界面上有着明显的分别。根据图 1.4 �
 
 图表 1.6 交互设计上的比对
 
-Android 和 iOS 在交互设计上也很不一样。根据图 1.5 我们可以看出，第一，当 iOS 使用颜色变化或淡出来给交互提供反馈，Android 使用从你的手指扩散出的浮动的波纹*（表面和光线的反应）*，或是按钮会改变阴影来适应你的触碰*（材料性反应）* 。第二，Apple 谨慎的设计了动画，而 Material Design 对动画的设计更抓人眼球。在 Google 来看，丰富清晰的动态设计可以有效的引导用户的关注度。他们相信对于动态效果的应用可以更平滑的在不同导航界面间引导用户，解释屏幕上组件的改变，以及强调元素的优先级*（过渡）*。
+Android 和 iOS 在交互设计上也很不一样。根据图 1.5 我们可以看出，第一，当 iOS 使用颜色变化或淡出来给交互提供反馈，Android 使用从你的手指扩散出的浮动的波纹*（表面和光线的反应）*，以及点击后会上升“靠近”你手指并出现投影的按钮*（材料性反应）* 。第二，Apple 谨慎的设计了动画，而 Material Design 对动画的设计更抓人眼球。在 Google 来看，丰富清晰的动态设计可以有效的引导用户的关注度。他们相信对于动态效果的应用可以更平滑的在不同导航界面间引导用户，解释屏幕上组件的改变，以及强调元素的优先级*（过渡）*。
 
 **视觉语言**
 
@@ -186,7 +186,7 @@ Facebook 由于其品牌在多平台网络下大量的用户有着巨大的影�
 
 图表 3.1 Facebook 布局（左 iOS vs 右 Android）
 
-第一眼看去，品牌的特点通过在不同平台使用同样的图标和颜色得以体现。Facebook 在这两个平台上的区别主要在于导航栏的位置。如你在图 3.1 中所见到的，iOS 版本使用的是标准的 iOS风格地步导航栏和标准搜索栏。在 Android 平台下则是和多数应用一样，通过位于顶部的选择栏完成的。
+第一眼看去，品牌的特点通过在不同平台使用同样的图标和颜色得以体现。Facebook 在这两个平台上的区别主要在于导航栏的位置。如你在图 3.1 中所见到的，iOS 版本使用的是标准的 iOS风格的导航栏和标准搜索栏。在 Android 平台下则是和多数应用一样，通过位于顶部的选择栏完成的。
 
 ![](http://ac-Myg6wSTV.clouddn.com/6c7deac5dc7e72ba6495.gif)
 
