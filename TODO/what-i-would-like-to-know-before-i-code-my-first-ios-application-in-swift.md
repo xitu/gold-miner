@@ -18,6 +18,7 @@ For example, during the last WWDC, they announced the renaming of the larger par
 ![](https://cdn-images-1.medium.com/max/1600/1*j4lJm5Dtpb4jLpGKlInOVA.png)
 
 Swift vs DHH ;)
+
 Does this mean that Objective-C is dead and you don’t need to know it? Kind of. I’m pretty sure most of the external libraries and code examples you’ll find on the Internet are written in Objective-C. What is interesting though, is that when I do more in Swift I have fewer problems with understanding Objective-C code. I can read it almost naturally.
 
 Another fact you need to know is the size of the internal API, it’s huge and you may be scared when you start browsing it. You can build basically anything and access to all the mobile specific features like camera, microphone, geolocation, accelerometer, touch screen etc., is a lot easier than on the web.
@@ -39,6 +40,7 @@ Always test your interface on real devices. The feeling of clicking in a simulat
 ![](https://cdn-images-1.medium.com/max/1600/1*oiYF-MoPLhP-4TzkFdYggQ.png)
 
 Draw attention on the X button — may look better on the mockup but swipe-down gesture is more intuitive on the device
+
 The official dependencies manager isn’t released yet but you can choose between two community-driven alternatives: CocoaPods or Carthage. I’m using the first one and haven’t faced too many problems.
 
 Last small tip: don’t rely on the undo option too much. XCode doesn’t jump between files when you press *cmd+z* so you can’t visually track changes. Remember to use Git and do commits often.
@@ -50,6 +52,7 @@ Once you create a new project you will quickly notice that nothing forces you to
 ![](https://cdn-images-1.medium.com/max/1600/1*iLaegkpeKax7WTn7wJNC-g.png)
 
 So where should I save new classes?
+
 My next observation is that things which are easy to do in web applications are hard to do in mobile applications, and things which are hard to do in web applications are easy to do in mobile applications. For example, a vertical alignment of an element is a no-brainer, however, changing the font leading of labels isn’t so straightforward.
 
 All the fancy UI features like animations, transitions or gestures are so much easier to do using iOS API than JavaScript/CSS for me.
