@@ -113,6 +113,7 @@ enum IncomingShortcutItem : String
         enumValueString.removeRange(bundleStringRange)
         self.init(rawValue: enumValueString)
     }
+}
 ```
 
 
