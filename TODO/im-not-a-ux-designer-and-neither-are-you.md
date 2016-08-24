@@ -1,73 +1,70 @@
 > * 原文地址：[I’m not a UX Designer, and neither are you?](http://www.webdesignerdepot.com/2016/08/im-not-a-ux-designer-and-neither-are-you/)
 * 原文作者：[Ben Moss](http://www.webdesignerdepot.com/author/Ben-Moss/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者： 
-* 校对者： 
+* 译者： [MAYDAY1993](https://github.com/MAYDAY1993)
+* 校对者：[Kulbear](https://github.com/Kulbear)  [hpoenixf](https://github.com/hpoenixf) 
 
-In the last few years the term *User Experience* has come to the fore, and with it we’ve seen the rise of the *UX Designer.*
+最近几年*用户体验*这个术语脱颖而出，随之而来的我们已经看到了*UX 设计师*的崛起。
 
-Every few months someone tweets a pair of images, one will be a biscuit (labeled ‘UI’), and the other will be a smug face eating said biscuit (labeled ‘UX’). A few weeks later a heartfelt post will appear on Medium refuting the tweet by arguing that the correct definition of ‘UI’ is the mug of tea into which the biscuit was dunked.
+每隔几个月有人会发一对图片的状态，一个会是一块饼干（标签是 ‘UI’），另一个将会是一张正在吃饼干沾沾自喜的脸（标签是 'UX'）。几周后，一个诚意满满的文章将会出现在媒体上，通过争辩说 ‘UI’ 正确的定义是泡着饼干的一杯茶来反驳之前的推文。
 
-These metaphors are seized upon, because “UX Design” has become a catch-all term for a process we’re still trying to define.
+这些比喻借题发挥，因为 “UI 设计”已经成为了一个涵盖面很广的，描述一个我们还正在试图定义的过程的术语。
 
-## UX can’t be designed
+## UX 不能被设计
 
-Well, it can…in some fringe cases…
+好吧，它能...在一些边缘情况下...
 
-A roller coaster designer for example, could be said to be designing experiences. A roller coaster is a sensorily overwhelming experience; with the extreme changes in gravity, balance, sound, air pressure, on a thrill ride you barely notice that all you usually see is the back of the seat in front of you. A roller coaster is an experience that can be designed because the variation of experience is limited. But even then, we can’t control the length of the queue, the weather, or the amount of strawberry milkshake the kid sat beside you sucked up before riding.
+例如一个过山车设计师可以说在设计体验。过山车是一个感官主导的体验；具有重力、平衡、声音、空气压力方面的极端变化,在一个惊悚之旅中，你很少注意到通常你看到的全部就是你前方座椅的后面。过山车是一个能被设计的体验，因为体验的变化是有限的。但是即便如此，我们不能控制排队的时间，天气，或是坐上去前在你旁边的孩子吃的草莓奶昔的数量。
 
-You might also say that a movie director is a UX designer. Sitting in a movie theater watching a film we’re engrossed in a single linear narrative. Provided the spell isn’t broken by someone’s mobile, the entire audience will experience the same emotional highs and lows for two hours plus.
+你也许会说一个电影导演是一个 UX 设计师，坐在电影院里看一部电影，我们全神贯注于一个单一的线性的叙述。假如其间没被某人的电话打断，在两个多小时内所有观众将会体验相同的情感高潮和低潮。
 
-One of the first analogies for UX vs. UI that I remember hearing was the bicycle metaphor: UI is the bicycle, the frame, handlebars, tires, etc.; UX is the experience of freewheeling down a hill. However unless I’m planning a route for Le Tour, or working as a city planner designing cycle lanes, I have no way to design a cyclist’s experience; I can’t control traffic, I can’t control geography, and I can’t control other road users.
+对于 UI vs.UX 我记得听过的最初的一个类比是自行车： UI 是自行车，车架，车把，轮胎等；UX 是下山时惯性滑行的体验。然而除非我计划一条环形自行车道，或作为一个城市规划者设计自行车道，我没办法设计一个骑车人的体验；我不能控制交通，不能控制地形，也不能控制路上的其他人。
 
-I can design a UI (a bicycle) that will function in as many diverse situations as possible, but I don’t design the UX (the act of cycling), that is left to the user.
+我能设计一个在尽可能多样化的情境中起作用的 UI （一辆自行车），但我不能设计 UX (骑自行车的行为)，那是留给用户的。
 
-## UX is never singular
+## UX 从不是单一的
 
-UX is not an illusion, it plays a role in every site and app. The mistake is in believing that there’s a singular user experience that can be designed.
+ UX 不是一个幻想，它在每一个站点和应用都不可或缺。人们的一个误区便是相信存在着一个单一的可设计的用户体验。
 
-We can design *for* user experiences. We can create clear, and functional UIs, engaging micro-interaction, empathic content.We can create a framework within which user experiences can occur, but we cannot *design* them.
-
+我们能为了用户体验来设计。我们能创造明确的、功能性的UI来实现微－交互和引起共鸣的内容。我们能创造一个能产生用户体验的框架，但我们不能设计用户体验。
 > We can create a framework within which user experiences can occur, but we cannot *design* them
 
-At school we learn that there are five senses: sight, hearing, touch, taste, and smell. As we get older we learn that the definition of sense is a little fuzzier; hunger, balance, temperature can all be considered non-traditional senses. Some psychologists argue that there are more than 20 senses.
+上学时我们学到有五种感官：视觉，听觉，触觉，味觉和嗅觉。随着我们长大，我们了解到感觉的定义有点儿模糊；饥饿，平衡和温度都能被认为是非传统意义上的感觉。一些心理学家认为有超过 20 种的感觉。
 
-A print design might involve several traditional senses: sight, touch, perhaps smell. A website typically involves one or two: sight and hearing. And so we are, at best, designing two fifths of a user’s experience. If we take non-traditional senses into account it may be as little as 5% of the user’s actual experience that we affect.
+一个印刷版的设计可能涉及几种传统的感觉：视觉，触觉，可能还有嗅觉。一个网站一般包含一到两种：视觉和听觉。所以我们最多可以设计五分之二的用户体验。如果我们把非传统意义的感觉考虑在内，我们能影响的用户的实际体验可能低至 5% 。
 
-I cannot know what soundtrack will be playing when someone visits my site, I cannot know where they were before, or where they will be after, I have no control over the duration of the experience, or on the users’ degree of focus. UX is a deeply personal thing, not only unique to each user, but unique each time that user’s context changes.
+我不知道当有人访问我的网站将会播放什么背景乐，我不知道之前他们在哪儿，或之后他们将会在哪儿，我不能控制体验的长短，或用户的关注程度。 UX 是一个及其个人的事，不仅对于每个用户是独特的，而且每一次用户背景变化也会不同。
 
-Responsive design often focuses on different viewport sizes, but it’s much more than that: connection speed, screen resolution, environmental influences (such as light levels), are all factors beyond our control. The core principle of responsive design is to embrace that variation, not as a limitation, but as an inherent quality of the medium.
+响应式设计经常关注不同的视图尺寸，但是远不止这些：连接速度，屏幕分辨率，环境的影响（例如光照强度），都是超出我们控制的因素。响应式设计最核心的原则是将变化视为媒体的一个内在的特性，而不是限制。
 
-The natural extension of responsive web design, is a responsive user experience in which UX is not designed, but rather a framework is created within which a UX can occur. By designing *for* UX, rather than designing UX itself, we’re building tools for the user to develop their own experience. By relinquishing that process to the user we enable them to become fully engaged, defining their own relationship with a product or service on their own terms.
+响应式网站设计的自然延伸是一个响应式的并没有设计 UX 的用户体验，更是创造了一个能够产生 UX 的框架。通过*为了* UX 来设计，而不是设计 UX 自身，我们为用户设计工具来开发自己的体验。通过将过程交给用户，让他们全身心投入，以他们自己的方式定义他们与一个产品或服务的关系。
 
-By refraining from designing a UX, we create a more open, egalitarian, and engaging web.
+通过避免设计一个 UX ,我们创造了一个更加开放，平均，有吸引力的网站。
 
-## UX vs. Ergonomics
+## UX vs.人体工程学
+排版与易读性和可读性有很大关系。换句话说，与汲取信息的行为有很大关系。读一本书的用户体验远不止排版，它延伸到了每一丝一毫的重量，纸张的感觉，绑带的味道，它包含了使用一本书的所有方面。
 
-Typography is largely concerned with legibility and readability. In other words, the act of absorbing information. The UX of reading a book goes far beyond typography, it extends to the weight of the tome, the feel of the paper, the smell of the binding, it encompasses all aspects of using a book.
+我们不用 2pt 打印一本书，因为字太小而不能读。我们不用 200pt 打印一本书，因为一页上没几个字。为人类而设计，找到一个以人为本的并由此开展的关键点的行为，就叫人体工程学。它总是设计的一部分。
 
-We don’t print a book at 2pt, because that’s too small to read. We don’t print a book at 200pt, because there would be too few words on a page. The act of designing for humans, of finding a human-orientated point from which to embark, is called ergonomics. It’s something that has always been part of design.
+为了人类设计，并不意味着设计人类的行为。UX是设计的结果；一个最终的结果，不是一个过程。
 
-Designing for humans, does not mean designing the act of being human. UX is the result of a design; an end result, not a process.
+## 远离草
 
-## Keep off the grass
+关于 UX 最有名的一个梗是有一片草的小路。有时候有个门，有时候这条小路简单地在一个直角转弯了。在所有情况下，这条小路被标记叫 ’Design’，穿过草地的被很多脚印踩出来的泥泞的路被标记为 ’UX’ 。
 
-One of the most famous memes on UX is a pathway with a patch of grass. In some variations there’s a gate, in others the path is simply turns at a right-angle. In all cases, the pathway is labeled ‘Design’ and the muddy track across the grass created by hundreds of feet is labeled ‘UX’.
-
-Like the biscuit metaphor, the path meme perpetuates the myth that UI is about restricting users, whereas UX is about freedom and enjoyment.
-
+像饼干的比喻，小路这个梗延续了这一传说， UI 是来限制用户，而 UX 是关乎自由和享受。
 > Designing for humans, does not mean designing the act of being human
 
-What the meme conveniently ignores, is that whilst walking on grass may leave a trail, walking on concrete does not. For every person who walks across the grass, there may be ten thousand who do not.
+这个梗顺便忽略了这一点，虽然走在草地上可能留下足迹，但走在水泥上不会。对于每一个走在草地上的人，可能存在上万个没走在草地上的人。
 
-The false narrative on UX is that there’s a definitive user experience, and that by crowd-sourcing our design decisions, a single ‘correct’ path will emerge.
+关于 UX 的错误观点是存在着一个确定的用户体验，通过大量用户的探索，一个单一的’正确的’道路会出现。
 
-We don’t control a user’s context, and we shouldn’t try. Sites, and apps, aren’t films, or events. Truly successful UX isn’t designed, it occurs when users are given a framework to interact with on their own terms.
+我们不控制一个用户的背景，而且我们也不应该尝试。网站和应用并不是电影，或事件。真正成功的 UX 不是被设计的，它发生在用户以他们自己的方式来和给定的框架交互的时候。
 
-One of the most successful film franchises of all time is *Star Wars,* not due to the films themselves, but thanks to the accompanying toys. What *Star Wars* delivers well isn’t a couple of hours of linear narrative, but rather an expansive world in which fans play out their own stories. Without that expandability, George Lucas might as well have made *The Last Starfighter.*
+史上最成功的电影系列之一是 *Star Wars*， 并不是因为电影本身，而是由于周边玩具。 *Star Wars* 展现的并不是几个小时的线性叙述，而是一个粉丝可以在其中演绎自己故事的延伸世界。没有该延伸性， George Lucas 也可能成了 *The Last Starfighter.*
 
-Good design is about achieving engagement. As a designer you can ask for that engagement, but you can’t enforce it. UX is a personal thing, created by the user’s mind in response to stimulation.
+好的设计与实现参与有关。作为一个设计师你能寻求那种参与度，但你不能强制它。 UX 是一个私人的事，由用户受刺激产生的想法创造。
 
-We’re not film directors, or roller coaster designers, or even novelists; We’re facilitators: we clean up popcorn; we press the ‘launch’ button; we set the type. It may not be glamorous, but it’s good honest work.
+我们不是电影导演，也不是过山车设计师，也不是小说家；我们是促进者：我们清理爆米花；我们按 ’launch’ 键；我们设置类型。这可能不惊艳，但这是善良的工作。
 
-I’m not a *UX Designer,* I’m a *Designer,* and you are too.
+我不是一个*用户体验设计师,*我是个*设计师,*你也是。

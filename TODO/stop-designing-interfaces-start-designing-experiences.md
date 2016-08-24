@@ -1,96 +1,108 @@
 > * 原文地址：[Stop designing interfaces, Start designing experiences](https://medium.com/blablacar-design/stop-designing-interfaces-start-designing-experiences-d82def0b802c#.tm2nitn97)
 * 原文作者：[DUVAL Nicolas](https://medium.com/@nicolaseek?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者： 
-* 校对者： 
+* 译者：[Kulbear](https://kulbear.github.com/)
+* 校对者：[owenlyn](https://github.com/owenlyn), [bobmayuze(Yuze Ma)](https://github.com/bobmayuze)
 
-> This article is part of a series on our new Interface Guidelines.
+> 这篇文章是我们新发布的界面指南的一部分
 
-#### Messy process, messy results
+#### 混乱的过程往往导致混乱的结果
 
-8 months ago, after spending some time in agencies, I decided to take on a new challenge and I proudly joined the design team of BlaBlaCar.
+八个月前，在一个机构工作一段时间后，我终于决定给自己一个新的挑战。现在可以很自豪地说，我加入 BlaBlaCar 的设计团队。
 
-In my first few weeks I remember being struck by the way they worked... Their tools more or less consisted of an empty Sketch file with empty art boards and two testing phones to make screenshots of the application.
+在刚到这家公司的前几周时，我是真的对他们的工作方式有些无语。 他们的工具仅仅是一个空空的 Sketch 文件，一块儿白板和两部用来给应用做测试截屏的手机。
 
 ![](https://cdn-images-1.medium.com/max/800/1*o4z8igVxDHWdYsH2gyxytg.png)
-Tools designers used to use at BlaBlaCar: an empty Sketch file and 2 testing phones.
-To work on a page or a flow they would import their screenshots to Sketch, crop them, work directly on them, mask some elements, create some new ones, open old sketch files to get components they would have had created before… And all the while asking themselves questions like “what are the right margins?”, “what’s the right size for a button?”, “what’s the right color?”, etc. I found myself constantly asking my fellow designers which file I could open to get a button or a top bar… just to end up creating a new one… and finishing with a totally inconsistent result.
+
+BlaBlaCar 的设计师们所使用的工具: 一个空的 Sketch 文件和两部测试机。
+
+他们通过直接向 Sketch 里导入截屏的方式来设计一个页面或流程——裁剪截图，直接在截图上编辑，遮盖或是创建一些新的元素，也有时候从之前完成的文件中拿点儿什么之前完成的组件...从始至终都能听到他们的自言自语，比如，“边距多少是合适的？”，“这个按钮要设计成什么尺寸？”，“哪个颜色最好看？”等等。 我发现，我自己为了避免重新创建一些已经有了的组件，总是在问我的同事诸如去哪个文件里找到我需要的按钮或者导航栏这样的问题...
 
 ![](https://cdn-images-1.medium.com/max/800/1*oBE_ubLfATsMbN2F7mNaAg.png)
-This is actually what the same private profile page looks like on Android, iOS, MWeb and Web. Why is it so different?
 
-#### Mess to harmony
 
-I remember asking myself: “How are they managing, for a same page, different designs with different logics on different platforms?”. The answer is relatively simple: **they weren’t managing.**
+这分别是同一个私人资料界面在 Android, iOS, MWeb 和 Web 上的样式。为什么要差的这么多呢？
 
-Their way of working was OK for a team of 3, but we saw already that it could be challenging to maintain consistency with a rapidly growing team. We all agreed that we didn’t want to spend too much time on interfaces anymore, but focus essentially on the experience.
+#### 从杂乱无章到井然有序
 
-We decided to solve our problem and the solution we came up with is really simple:
+我总会记得问自己：“他们是如何管理这么多不同平台，不同逻辑甚至不同设计的同一个界面的呢？”其实答案很简单：**他们根本没有花心思管理这件事儿。**。
+
+这种工作方式可能仅仅适用于两三人的团队。其实，我们都知道这样的工作方式对于维持一个快速扩张的团队是非常有挑战性的。我们都认为应该将工作重心放到用户体验上而不是继续在界面设计上浪费时间。
+
+我们决定用一个简单的方法来解决这个问题：
 
 ![](https://cdn-images-1.medium.com/max/800/1*l9TGf5aMciH_R_0QXq_0rA.jpeg)
-Lego metaphor in design: lego bricks are the equivalent of our bricks of UI components.
-LEGOS! You‘ve probably heard of the metaphor of Lego in design already, lego bricks are the equivalent of our bricks of components. If I take a box of the same Legos I can build all this…
+
+
+采用乐高的设计模式，将我们用户界面的组件模块化。
+
+LEGOS! 你也许已经听说过仿照乐高风格的设计。是的，给我一箱乐高的砖块，我就能做出所有东西！
+
 
 ![](https://cdn-images-1.medium.com/max/800/1*rOkcMUYTg-GuqdKf1UrEeQ.jpeg)
 
-…a seaplane, a muscle car and even a fucking T-Rex!
+一架水上飞机, 一辆肌肉车（译者注：常见于北美的一种车型，国人最熟悉的应该是大黄蜂）甚至一条恐龙。
 
-So we created a library of UI Lego Bricks to allow our designers to do the same! Now with our UI Lego Bricks…
+所以我们建立了一个”乐高砖块“风格的组件库，这样我们的设计师就可以用一样的素材了！那么来看看我们的“乐高砖块”（译者注：这里作者想要表达的是可复用等方面的乐高模式，而并不是模仿乐高外观上的设计）
 
 ![](https://cdn-images-1.medium.com/max/800/1*8zglU_HkFzdWwV7wO2M45Q.png)
-Sample of UI bricks designers use at BlaBlaCar.
-…they can quickly build a page or even a flow, and so iterate and test faster.
+
+这是一些 BlaBlaCar 设计师使用的用户界面组件的样本
 
 ![](https://cdn-images-1.medium.com/max/1200/1*9spx7jXBRpSrHquOVdnP7A.png)
-Designers can now build, iterate and test faster.
 
-#### How much time does this really save?
+他们可以很快完成一个页面或流程的设计，并加速迭代和测试的过程。
 
-You probably wonder how much time we can actually save by using this method. We had some doubts about it too, so we decided to do a simple test. We took the private profile page, and asked our designers to rebuild it, some with our UI Lego Bricks, some without.
+#### 这到底帮我们节省了多少时间？
+
+你也许好奇我们通过这种方法究竟能省下多少时间。我们其实也好奇这点，于是就做了一个样本测试。我们删掉个人资料的页面，然后让我们的设计师分成两组重新设计它，一组用我们的“乐高组件库”，另一组不用。
 
 ![](https://cdn-images-1.medium.com/max/1200/1*rkFKD6Y69_YqG3NqCEJmEA.png)
-This is the page we asked our designers to build with and without lego bricks.
 
-We timed them while they did the work, and the results were really positive: on average they would spend 24 minutes building the page without Lego Bricks while they would only spend 13 minutes with the Lego Bricks. We’re not saying that we’re trying to focus on productivity, that’s not the point, but our designers actually **spent 50% less time thinking about pixels and 50% more time thinking about the experience **and that’s exactly what we want.
+这是被重新设计的界面。
 
-#### No more repetitive work
+我们对他们的设计过程计时了，结果是肯定的: 在不使用我们的“乐高库”的时候他们要花费 24 分钟去完成它，而使用的话就只需要 13 分钟了！我不是想表达我们有多专注于高效，这不是重点，重点是我们的设计师现在可以**少在样式设计上花费 50% 的时间，而在用户体验上多花费这 50% 的时间**，这正是我们期待的结果。
 
-At BlaBlaCar we’re never satisfied and after using our UI Bricks for a while, and improving them with a few small iterations, we thought “Surely we can save even more time!”
+#### 不再有重复的工作
 
-We kept looking at their most repetitive and time-consuming tasks. There is actually one that all designers face on a daily basis: multiple platforms!
+在 BlaBlaCar，我们从未如此满足于此，我们相信通过不断的迭代改善这些界面库，我们可以省下更多的时间。
+
+尝到甜头之后，我们试图继续找出一些重复性又消耗了大量时间的任务。在不断的探索下，我们发现了一个巨大的问题，也是每个设计师每天都会遇到的问题，那就是多平台处理。
 
 ![](https://cdn-images-1.medium.com/max/800/1*WlvXE-kPz2foWIVHfGbzPQ.png)
-One component = Multiple platforms
-We all know how annoying it is to build a page for iOS to then build it again for Android and Mobile Web. We worked hard to create a library of components that would be identical for every platform while remaining platform-compliant. Now, our designers can design for just one platform, safe in the knowledge that, for example, a front-end developer can use an iOS or Android design to build the same page for mobile web.
 
-#### Take shortcuts
+一个组件 = 多个平台
 
-We managed to make our designers save 50% time on building interfaces, we’re trying to reduce the number of platforms they’re designing for, but we still want to save a lot more than that. If we take a look at the process of creating interfaces today at BlaBlaCar, this is what it looks like:
+所有人都知道，先给 iOS 设计一个界面以后还要再重新给 Android 和移动端网页设计同样界面是多么烦人的一件事。我们致力于建立一个组件库，使我们能够在每个平台上使用同样的组件的同时保持兼容性。现在我们的设计师只需要设计一个平台的就够了，因为他知道兼容性完全没有问题。比如，一个前端开发者可以用 iOS 或是 Android 的设计去设计一个同样的移动端网页。
 
-**Designers are sketching → they next move to wireframes → then prototypes → and then finalised designs → that would then go to development.**
+#### 找寻捷径
 
-As you’ve already understood, we don’t want our designers to spend time on pixels! So the next step is for our designers to go directly from sketches to development phase.
+我们通过这样的管理使设计师们省去了 50% 用于设计界面的时间，也让他们不再需要设计多个平台的界面。不过我们还不满足，我们想要节省更多的时间。现在我们在 BlaBlaCar 所使用的流程如下所示：
+
+**设计略图 → 设计框架 → 设计原型 → 最终设计 → 投入开发**
+
+你应该已经明白了，我们并不想让设计师花费时间在这么几个像素点上! 所以接下来我们要做的就是让我们的设计师直接从设计略图这一步跳到开发这一步。
 
 ![](https://cdn-images-1.medium.com/max/800/1*EbgfUlo0iolc4tfllCTruA.png)
 
-This might seem a little too much but we’re so confident in our design system that we believe a designer could give a sketch to a developer and get a production version totally aligned with our library of components.
+我们很自信，通过我们的组件库，设计师将一个设计略图交给开发人员以后，开发人员可以轻松的开发出一个完全符合略图的生产版本。
 
 ![](https://cdn-images-1.medium.com/max/800/1*fxjoQN3wIGeFIuKOfyUfYg.png)
 
-> We don’t want our designers to spend any more time on interfaces, we want them to focus on the experience only.
+> 我们不希望让设计师再花费任何时间在设计样式上了，他们需要专注于用户体验
 
-#### The rules we followed
+#### 我们遵循的准则
 
-We took our inspiration from the [Atomic Design](http://bradfrost.com/blog/post/atomic-web-design/) methodology created by Brad Frost who was inspired by chemistry and the way that complex organisms are made of molecules which are in turn made of atoms. If you don’t already know this methodology I strongly advise you to read his article [here](http://bradfrost.com/blog/post/atomic-web-design/).
+我们从 Brad Frost 提出的 [Atomic Design](http://bradfrost.com/blog/post/atomic-web-design/) 的方法中获得了灵感。Brad Frost 是被化学所启发的——复杂的有机物由分子组成，而分子又是由原子组成的。如果你还不了解这个方法，我推荐你去读一读他的博客。[点这里](http://bradfrost.com/blog/post/atomic-web-design/)
 
-We applied this methodology to a powerful metaphor (LEGO) that was deep and dense in meaning and that helped us communicate so people would understand it quickly and connect with the idea. People from every field in the company would easily share the idea without having us explaining it.
+我们把这个方法完美紧密的套用在了前面提及的乐高砖块模式上，这帮助我们有效的沟通。大家都可以很快的理解并交流我们的意见。公司里任意一个领域的人都无需我们的讲解就能很容易的分享自己的见解。
 
-After several months working on our design system I was able to pull out some big rules about how to approach it. It’s not rocket science but it really helped us to not get lost:
+在实行了这个设计模式几个月后，我总结了一些关于如何使用它的重要准则。这不是什么激动人心的科学成果，不过它确实可以让我们少走些弯路：
 
-- **Metaphor**: choose a strong metaphor to help people understand quickly what you’re talking about without even explaining it. We chose the LEGOS but there are other ideas you can use (chemistry, fordism, ecology…)
-- **Communication**: this is one important rule about how not to make your project fail. Communicate as early as possible with everyone in the company: developers, PMs, data scientists, designers, the CEO… Let them be part of the project.
-- **Common language**: anything that has no name doesn’t exist. Make sure that everybody is aligned with the names you give to the components. You don’t need it to be too technical, the important thing is that everybody calls a component the same way.
-- **Rules**: for every UI choice you need to make a clear rule. If you can’t explain a choice, find a rule. (I will talk more about this in another article)
-- **No exceptions**: Exception is what can quickly lead you to total inconsistency. Keep to your rules and component designs and even if it looks weird at first, don’t make any exceptions. Exceptions are taken care of when your product is fully aligned with your guidelines.
+- **比喻**： 一定要找到一个有力的比喻，来使别人毫不费力的理解你的观点（甚至你无需解释）。 我们选择了乐高，但你也可以选择一些别的 (化学，福特主义，生态学等等)
+- **沟通**：这是使你的项目不致失败的最重要的一点。 尽可能早的和公司里所有的人沟通好：开发人员, 产品经理, 数据工程师, 设计师, 甚至首席执行官——让他们参与其中。
+- **共同的语言**： 没名字的东西是不存在的。确保每个人都知道（并习惯）你在组件上使用的词汇。你不需要太专业，只要确保每个人用同样的方法去叫它就可以了。
+- **准则**： 对于选用每一个界面组件都要有准则。如果你不能很好的解释为什么要使用一个组件，那就规定要使用他。 (我会在另一篇文章里谈论这点)
+- **没有例外**：任何例外都很容易让你们不在保持一致性。即使成品看起来很奇怪，在一开始也要遵守那些准则和组件的设计，千万别搞例外。例外情况往往在你严格遵守准则后都能不攻自破。
 
-I’m not saying that my method is the right one, I would even say that what we’re trying to achieve fits our product vision but probably wouldn’t fit in an agency environment. I’ve met many people who were interested in working on a design system and I’m totally open to discussion, feedback and debates so please share your thoughts. I’ll soon be writing a more precise article on the way we created our design system, but in the meantime, please contact me if you want more information! ;)
+我并不是想说我们的方法就一定是正确的。我可能更倾向于说我们的方法更适用于我们的产品视觉设计，而不一定适用于所有公司。我见过许多感兴趣设计系统的人，我很乐于跟他们讨论，获取他们的反馈，和他们辩论，当然也包括你。不久的将来我会继续写一些文章来更精细的描述我们是如何创建现有的这套系统的，在这期间，如果你想了解更多，请联系我。
