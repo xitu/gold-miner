@@ -35,10 +35,10 @@
 
 ## iOS
 
+* [[译] 等不及集成 iOS 10 新特性？如何在应用维护与新特性集成之间找到平衡点](http://gold.xitu.io/entry/57ad9e0e7db2a200540fe491?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([circlelove](https://github.com/circlelove) 翻译)
 * [[译] 详解 Swift 的类型检查器](http://gold.xitu.io/entry/57a86c25d342d30057701fe1?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zheaoli](https://github.com/Zheaoli) 翻译)
 * [[译] 深入理解 Swift 中闭包的捕捉语义（一）](http://gold.xitu.io/entry/57a4b3d37db2a2005a992f67?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Nicolas(Yifei) Li](https://github.com/yifili09) 翻译)
 * [[译] 使用流动控制器（Flow Controller ）实现 MVVM 协议模型](http://gold.xitu.io/entry/57a037902e958a0066667ff4?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([shixinzhang](https://github.com/shixinzhang) 翻译)
-* [[译] 在 Swift Playgrounds 中使用 Core Data 模型](http://gold.xitu.io/entry/579f1d9a5bbb500064ea3b20?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([MAYDAY1993](https://github.com/MAYDAY1993) 翻译)
 * [所有 iOS 译文>>](https://github.com/xitu/gold-miner/blob/master/ios.md)
 
 
