@@ -41,7 +41,7 @@ How could something so basic and expected be occurring?
 #### 一些解释和解决措施。
 A quick Google search yielded a bunch of answers. One in particular provided a detailed explanation of [how things played out with the_NSFetchedResultsController_](http://stackoverflow.com/questions/16296364/nsfetchedresultscontroller-is-not-showing-all-results-after-merging-an-nsmanage?lq=1). Here is the explanation that was given (Note: FRC = _NSFetchedResultsController_):
 
-一次快速的谷歌搜索获得一些答案。一个特别的答案对[_NSFetchedResultsController_是怎么出错的](http://stackoverflow.com/questions/16296364/nsfetchedresultscontroller-is-not-showing-all-results-after-merging-an-nsmanage?lq=1)提供一份详细的解释.这里是给出的解释（提示:FRC = _NSFetchedResultsController_）
+一次快速的谷歌搜索获得一些答案。一个特别的答案对[_NSFetchedResultsController_是怎么出错的](http://stackoverflow.com/questions/16296364/nsfetchedresultscontroller-is-not-showing-all-results-after-merging-an-nsmanage?lq=1)提供一份详细的解释.这里是给出的解释（备注:FRC = _NSFetchedResultsController_）
 
 
 > 1\. An FRC is set up with a predicate that doesn’t match all objects (thus preventing the objects that do not match the predicate from being registered in the FRCs context).
@@ -77,54 +77,83 @@ The idea is to call _refreshObject(_:mergeChanges:)_ on every updated object tha
 
 Another set of explanations (for example, articles “[Core Data Gotcha](http://www.mlsite.net/blog/?p=518)” and “[NSFetchedResultsController with predicate ignores changes merged from different NSManagedObjectContext](http://stackoverflow.com/questions/3923826/nsfetchedresultscontroller-with-predicate-ignores-changes-merged-from-different?lq=1)”) mention that when the_NSManagedContextDidSaveNotification_ is fired, some objects may be faults in the main context and these faults need to be fired before calling_mergeChangesFromContextDidSaveNotification()_.
 
+The idea here is to call _willAccessValueForKey(nil)_ on every updated object that is part of the _NSManagedContextDidSaveNotification_ _userInfo_ payload. And then call _mergeChangesFromContextDidSaveNotification()_.
+
 下面是提出的解决措施：
 
 > 这个解决措施就是当合并消息通知的时候抓取所有的更新对象。
 
 这个措施是在 _NSManagedContextDidSaveNotification_ _userInfo_ 包含的每一个更新对象上调用 _refreshObject(_:mergeChanges:)_ 方法。
 
-另外一些解释（举个例子，[Core Data Gotcha](http://www.mlsite.net/blog/?p=518)” 和“[NSFetchedResultsController with predicate ignores changes merged from different NSManagedObjectContext](http://stackoverflow.com/questions/3923826/nsfetchedresultscontroller-with-predicate-ignores-changes-merged-from-different?lq=1)”两篇文章提到当_NSManagedContextDidSaveNotification_ )）
+另外一些解释（举个例子，[Core Data Gotcha](http://www.mlsite.net/blog/?p=518)” 和“[NSFetchedResultsController with predicate ignores changes merged from different NSManagedObjectContext](http://stackoverflow.com/questions/3923826/nsfetchedresultscontroller-with-predicate-ignores-changes-merged-from-different?lq=1)”两篇文章提到当_NSManagedContextDidSaveNotification_解注册？时，一些对象可能在主要的上下文变成默认值，这些默认值需要在调用_mergeChangesFromContextDidSaveNotification()_方法前被去除。）
 
-The idea is to call _refreshObject(_:mergeChanges:)_ on every updated object that is part of the _NSManagedContextDidSaveNotification_ _userInfo_ payload.
-
-Another set of explanations (for example, articles “[Core Data Gotcha](http://www.mlsite.net/blog/?p=518)” and “[NSFetchedResultsController with predicate ignores changes merged from different NSManagedObjectContext](http://stackoverflow.com/questions/3923826/nsfetchedresultscontroller-with-predicate-ignores-changes-merged-from-different?lq=1)”) mention that when the_NSManagedContextDidSaveNotification_ is fired, some objects may be faults in the main context and these faults need to be fired before calling_mergeChangesFromContextDidSaveNotification()_.
-
-The idea here is to call _willAccessValueForKey(nil)_ on every updated object that is part of the _NSManagedContextDidSaveNotification_ _userInfo_ payload. And then call _mergeChangesFromContextDidSaveNotification()_.
+这里的解决方法是在 _NSManagedContextDidSaveNotification_ _userInfo_ 包含的每一个更新对象上调用_willAccessValueForKey(nil)_ 方法，然后调用_mergeChangesFromContextDidSaveNotification()_方法。
 
 #### Time for In-Depth Investigations
 
+#### 深度调查的时间
+
 While in the heat of the project, I settled on the first solution, which introduced a new set of issues that were solved but not always to my satisfaction. I wanted to understand what was going on and verify some of the claims I had been reading that I found disturbing.
+当这个项目进行到关键时候，我采用了第一个解决方案，它解决了一系列的新问题，但是始终没有让我满意。我想要理解究竟是什么地方出了问题并且验证一些我正在阅读的另我烦恼的主张。
 
 The goals of these investigations are to:
+这些研究的目的是：
 
 *   Figure out what is really going on when changes are merged from one context to another: What is in the target context, and what is in the notification payload?
 *   Figure out under which conditions is the _NSFetchedResultsController_ fail to behave as one would expect.
 *   Evaluate the various proposed solutions.
 
+*   指出当变化从一个上下文被合并到另一个上下文的时候正在发生些什么：在目标上下文里的是什么？在通知集合里的是什么？
+*   指出在什么情况下_NSFetchedResultsController_ 会表现的与预期不符。
+*   改善提出的各种解决方法。
+
+
 ### Investigation Setup
+### 研究设置
+
 
 The investigations are performed using a stand-alone iOS application, which is set up as follows:
+这个研究使用一个单机的iOS应用进行，它按照如下内容进行设置：
 
 #### Core Data Stack
+#### 核心数据堆栈
 
 The Core Data stack is a very basic _“sibling”_ stack with:
 
 *   A main context (_MainQueueConcurrencyType_) that is used as a read-only context.
 *   A background context (_PrivateQueueConcurrencyType_) that is read-write.
 
+这个核心数据堆栈是一个非常基础的_“sibling”_堆栈，它有着以下内容：
+
+*   一个主要的上下文（_MainQueueConcurrencyType_）被用作只读的上下文。
+*   一个后台上下文 (_PrivateQueueConcurrencyType_) 可以读写.
+
+
 The main context and background context are siblings and both are connected directly to the _NSPersistentStoreCoordinator_. When changes are saved on the background context, they are automatically merged in the main context using the _mergeChangesFromContextDidSaveNotification()_method.
 
+主要上下文和后台上下文是同级关系并且都直接连接到 _NSPersistentStoreCoordinator_上。当在后台存储变化的时候，这些变化通过调用_mergeChangesFromContextDidSaveNotification()方法被自动合并到主要上下文。
+
 #### Core Data Model
+#### 核心数据模型
+
 
 We use a very simple model containing a single entity _TestDummy_ with three properties: _id: Int_, _name: String_, _isEven: Bool_.
+我们使用一个包含一个单独实体 _TestDummy_的简单模型，它有三个属性：_id: Int_, _name: String_, _isEven: Bool_.
 
 #### UI and Main View Controller
+#### UI和主要视图控制器
 
 We have a single view controller that has access to both contexts in the Core Data stack and allows one to:
+我们有一个单独的视图控制器，它有在核心数据堆栈获得两个上下文的权限并且允许其中的一个有以下的功能：
 
 *   Insert, update, and delete objects in the background context.
 *   Save both the main and background contexts.
 *   Display information about objects present in both contexts as fetched by two instances of _NSFetchedResultsController_.
+
+*   在后台上下文中插入，更新，删除对象。
+*   保存主要上下文和后台上下文。
+*   展示被 _NSFetchedResultsController_的两个实例获取的两个上下文的对象信息.
+
 
 The controller also allows for controlling how the_NSManagedObjectContextDidSaveNotification_ notifications received on the main context are to be processed. Nothing other than_mergeChangesFromContextDidSaveNotification()_ occurs by default.
 
