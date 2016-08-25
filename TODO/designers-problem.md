@@ -26,7 +26,7 @@
 
 图表 1.1 各版本 Android 操作系统普及率
 
-基于来自 [android developer dashboard site](http://developer.android.com/about/dashboards/index.html) 的上图我们可以看出，Material Design 的普及率在 2015 年 10 月 5 日时仅仅有 24%。在 2014 年 11 月发布的时候, 它的用户有过一段迅猛增长。基于新的 Android 设备的普及率，Material Design 的普及率应该和未来[新增长的 Android 设备数]量(http://www.idc.com/prodserv/smartphone-os-market-share.jsp)相似。因此，由于 Material Design 是 Google 为 Android 设备发布的最新设计框架，本文中对 Android 系统的设计研究将基于此。
+基于来自 [android developer dashboard site](http://developer.android.com/about/dashboards/index.html) 的上图我们可以看出，Material Design 的普及率在 2015 年 10 月 5 日时仅仅有 24%。在 2014 年 11 月发布的时候, 它的用户有过一段迅猛增长。基于新的 Android 设备的普及率，Material Design 的普及率应该和未来[新增长的 Android 设备数量](http://www.idc.com/prodserv/smartphone-os-market-share.jsp)相似。因此，由于 Material Design 是 Google 为 Android 设备发布的最新设计框架，本文中对 Android 系统的设计研究将基于此。
 
 ![](http://ac-Myg6wSTV.clouddn.com/53102f018f484dde50cf.png)
 
