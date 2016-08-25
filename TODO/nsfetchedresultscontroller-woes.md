@@ -1,7 +1,7 @@
 > * 原文地址：[NSFetchedResultsController Woes](https://medium.com/bpxl-craft/nsfetchedresultscontroller-woes-3a9b485058#.5gva2sils)
 * 原文作者：[Michael Gachet](https://medium.com/@6Be)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[siegen](https://github.com/siegeout)
 * 校对者：
 
 
@@ -156,37 +156,65 @@ We have a single view controller that has access to both contexts in the Core Da
 
 
 The controller also allows for controlling how the_NSManagedObjectContextDidSaveNotification_ notifications received on the main context are to be processed. Nothing other than_mergeChangesFromContextDidSaveNotification()_ occurs by default.
+这个控制器也负责控制在主要上下文里_NSManagedObjectContextDidSaveNotification_ 消息是如何被接收的。默认设置是除了_mergeChangesFromContextDidSaveNotification()_方法调用以外什么都不会发生。
 
+#### NSFetchedResultsController
 #### NSFetchedResultsController
 
 Two instances of FRC are managed by the main view controller:
+两个FRC的实例被主要视图控制器管理：
 
 *   One instance fetches all _TestDummy_ objects in the main UI context. This instance is referred to the “main FRC.”
 *   One instance fetches all _TestDummy_ objects in the background context. This instance is referred to the “background FRC.”
 
+*   一个实例在主要UI上下文中获取所有的_TestDummy_对象。这个实例被称为“主要FRC”。
+*   一个实例在后台上下文中获取所有的_TestDummy_对象。这个实例被称为“后台FRC”。
+
+
 The main context FRC can use two predicates to either fetch all _TestDummy_entities or only those marked as _isEven_ == _true_.
+主要上下文FRC可以使用两个断言：要么获取所有_TestDummy_实体要么只是把那些实体标记 _isEven_ == _true_。
 
 ### Let’s Fetch Them All!
+### 让我们把他们全部拿到！
 
 We start by setting up the main FRC to fetch all _TestDummy_ entities, and we look at three different scenarios taking place in the background context: inserting, updating, and deleting.
 
+我们开始设置主要FRC来获取所有的_TestDummy_实体，然后我们观察在后台上下文发生的三个不同场景：插入，更新，和删除。
+
 #### Inserting Objects
+#### 插入对象
 
 We performed the following simple test:
+我们进行了下面的简单测试：
 
 1.  Inserting four entities in the background context.
 2.  Saving the background context.
 
+1.  在后台上下文中插入4个实体。
+2.  保存后台上下文。
+
+
 The _insertion_ leads to the following:
+插入操作导致了下面的情况：
 
 1.  The content of the _insertedObjects_ property on the background context before _save_ matches the content of the _registeredObjects_ property.
 2.  The objects fetched by the background FRC match the _registeredObjects_set.
 
+1.  后台的 _insertedObjects_属性内容在保存操作之前与_registeredObjects_的属性内容是匹配的。
+2.  后台FRC获取的对象与 _registeredObjects_集合是匹配的。
+
+
 As expected, s_aving_ changes made in the background context pushes all those changes to the main context:
+正如预期的那样，在后台上下文保存的所有变化被推送到主要上下文：
 
 1.  The content of the _registeredObjects_ on both the main and background contexts should be identical.
 2.  The objects fetched by the main FRC match the _registeredObjects_ set in the main context.
 3.  The main FRC informs its _delegate_ that insertions took place.
+
+1.  主要上下文与后台上下文中的 _registeredObjects_ 内容应该是完全一样的.
+2.  主要FRC获取到的对象应该与主要上下文中的 _registeredObjects_ 集合相匹配。
+3.  主要FRC通知它的 _delegate_ 插入操作已经发生了。
+
 
 As a side note, saving the background context also resets the _insertedObjects_set to _nil_ on that context.
 
