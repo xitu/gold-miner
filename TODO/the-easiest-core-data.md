@@ -44,17 +44,15 @@ In other words, writings are always consistent in the main managed object contex
 To use this component, you could create a property of type `Skiathos` and instantiate it like so:
 
     self.skiathos = [Skiathos setupInMemoryStackWithDataModelFileName:@"<#datamodelfilename>"];
-    </#datamodelfilename>// or
+    // or
     self.skiathos = [Skiathos setupSqliteStackWithDataModelFileName:@"<#datamodelfilename>"];
-    </#datamodelfilename>
 
 
 the Skopelos version is:
 
     self.skopelos = SkopelosClient(inMemoryStack: "<#datamodelfilename>")
-    </#datamodelfilename>// or
+    // or
     self.skopelos = SkopelosClient(sqliteStack: "<#datamodelfilename>")
-    </#datamodelfilename>
 
 
 You could then pass around the objects to other parts of the app via dependency injection. It has to be said that it’s perfectly acceptable to use a singleton for the Core Data stack. Also, allocating instances over and over is expensive. Generally speaking, we don’t like singletons. They are not testable by nature, clients don’t have control over the lifecycle of the object and they break some principles. For these reasons, the library comes free of singletons.
@@ -87,6 +85,10 @@ To create a singleton, you should inherit from `Skiathos`/`Skopelos` like so:
         NSLog(@"%@", error.description);
     }
     @end
+
+
+or
+
 
     class SkopelosClient: Skopelos {
         static let sharedInstance = Skopelos(sqliteStack: "DataModel")
@@ -235,6 +237,7 @@ Skopelos supports chaining too:
 
 The `NSManagedObject` category provides CRUD methods always explicit on the context. The context passed as parameter should be the one received in the read or write block. You should always use these methods from within read/write blocks. Main methods are:
 
+  
     + (instancetype)SK_createInContext:(NSManagedObjectContext *)context;
     + (NSUInteger)SK_numberOfEntitiesInContext:(NSManagedObjectContext *)context;
     - (void)SK_deleteInContext:(NSManagedObjectContext *)context;
@@ -242,6 +245,8 @@ The `NSManagedObject` category provides CRUD methods always explicit on the cont
     + (NSArray *)SK_allInContext:(NSManagedObjectContext *)context;
     + (NSArray *)SK_allWithPredicate:(NSPredicate *)pred inContext:(NSManagedObjectContext *)context;
     + (instancetype)SK_firstInContext:(NSManagedObjectContext *)context;
+
+    
 
     static func SK_create(context: NSManagedObjectContext) -> Self
     static func SK_numberOfEntities(context: NSManagedObjectContext) -> Int
