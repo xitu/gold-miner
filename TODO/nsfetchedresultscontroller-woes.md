@@ -7,21 +7,42 @@
 
 ### NSFetchedResultsController Woes
 
+### NSFetchedResultsController 困境
 _NSFetchedResultsController_ is a staple of iOS Core Data development. Introduced in iOS 3, this class is responsible for efficiently managing collections of Core Data entities.
 
+
+_NSFetchedResultsController_ 是iOS核心数据开发的一个主要工具。从iOS 3系统面世以来，这个类就负责高效的管理核心数据实体的集合。
+
+
 Over the last six years, I have used this controller in all my projects with[various types of Core Data stack configurations](https://medium.com/bpxl-craft/thoughts-on-core-data-stack-configurations-b24b0ea275f3). On a recent project for one of Black Pixel’s top clients, we decided to use a standard “sibling” Core Data stack configuration:
+
+在过去的六年里，？我使用这个控制器，并为它设置了[各种类型的核心数据堆栈配置](https://medium.com/bpxl-craft/thoughts-on-core-data-stack-configurations-b24b0ea275f3)来管理我所有的项目。最近，在为一个Black Pixel顶尖客户制作的项目上，我们决定使用一个标准的“sibling”（同级）核心数据堆栈配置：
 
 *   An _NSFetchedResultsController_ was used to fetch objects from the store on the main UI context. This main context was only used for reading from the store.
 *   The background context, used to retrieve entities from a server, was connected to the persistent store coordinator as a sibling to the main UI context.
 *   The main context was set up to merge changes from the background context automatically whenever the background context saved its changes to the store.
 
+
+*   一个_NSFetchedResultsController_ 被用来从主要UI上下文的存储器里获取对象。这个主要的上下文过去只被用来从存储器里读取内容。
+*   后台上下文，它被用来从服务器端获取实体，被连接到跟主要UI上下文同级的持久化存储协调者上。
+*   主要上下文被设置成这样的状态————每当后台上下文存储变化到存储器的时候，主要上下文都会自动合并来自后台上下文的变化。
+
 Much to my surprise I ended up facing strange issues whereby the_NSFetchedResultsController_ would sometimes be out of sync with the content of the store: Some existing entities matching the _NSFetchedResultsController_’s predicate would never get fetched.
+
+出乎我的意料，我最终遇到了一些奇怪的问题即 the_NSFetchedResultsController_ 有时和存储器里的内容不同步，这导致了一些存在的符合_NSFetchedResultsController_断言的实体却永远无法获取到。
 
 How could something so basic and expected be occurring?
 
+这么基础的问题是怎么发生的呢？
+
+
 #### A Few Explanations and Fixes
 
+#### 一些解释和解决措施。
 A quick Google search yielded a bunch of answers. One in particular provided a detailed explanation of [how things played out with the_NSFetchedResultsController_](http://stackoverflow.com/questions/16296364/nsfetchedresultscontroller-is-not-showing-all-results-after-merging-an-nsmanage?lq=1). Here is the explanation that was given (Note: FRC = _NSFetchedResultsController_):
+
+一次快速的谷歌搜索获得一些答案。一个特别的答案对[_NSFetchedResultsController_是怎么出错的](http://stackoverflow.com/questions/16296364/nsfetchedresultscontroller-is-not-showing-all-results-after-merging-an-nsmanage?lq=1)提供一份详细的解释.这里是给出的解释（提示:FRC = _NSFetchedResultsController_）
+
 
 > 1\. An FRC is set up with a predicate that doesn’t match all objects (thus preventing the objects that do not match the predicate from being registered in the FRCs context).
 
@@ -31,11 +52,38 @@ A quick Google search yielded a bunch of answers. One in particular provided a d
 
 > 4\. The FRC does not perform another fetch when there’s a save, therefore it isn’t aware that the updated object should be included.
 
+
+
+> 1\. 一个FRC设置的断言并不能匹配所有的对象（这样可以避免不符合断言的对象被注册到FRCs上下文里）
+
+> 2\.第二个上下文使一个对象做产生了一个变化，这意味着它现在符合FRC的断言。第二个上下文被保存下来。
+
+> 3\. FRC上下文处理_NSManagedObjectContextDidSaveNotification_ 的方法只是更新它已经注册过的对象。所以，FRC无法更新现在符合FRC断言的对象。
+
+> 4\. 当有一个保存发生时，FRC不进行再一次的抓取，所以它意识不到更新了的对象应该被包括在内。
+
+
+
+
 I was bothered by the statement made in the third point.
+
+我被上面的第三点陈述所困扰。
 
 Here is the proposed fix:
 
 > The solution is to fetch all updated objects when merging the notification.
+
+The idea is to call _refreshObject(_:mergeChanges:)_ on every updated object that is part of the _NSManagedContextDidSaveNotification_ _userInfo_ payload.
+
+Another set of explanations (for example, articles “[Core Data Gotcha](http://www.mlsite.net/blog/?p=518)” and “[NSFetchedResultsController with predicate ignores changes merged from different NSManagedObjectContext](http://stackoverflow.com/questions/3923826/nsfetchedresultscontroller-with-predicate-ignores-changes-merged-from-different?lq=1)”) mention that when the_NSManagedContextDidSaveNotification_ is fired, some objects may be faults in the main context and these faults need to be fired before calling_mergeChangesFromContextDidSaveNotification()_.
+
+下面是提出的解决措施：
+
+> 这个解决措施就是当合并消息通知的时候抓取所有的更新对象。
+
+这个措施是在 _NSManagedContextDidSaveNotification_ _userInfo_ 包含的每一个更新对象上调用 _refreshObject(_:mergeChanges:)_ 方法。
+
+另外一些解释（举个例子，[Core Data Gotcha](http://www.mlsite.net/blog/?p=518)” 和“[NSFetchedResultsController with predicate ignores changes merged from different NSManagedObjectContext](http://stackoverflow.com/questions/3923826/nsfetchedresultscontroller-with-predicate-ignores-changes-merged-from-different?lq=1)”两篇文章提到当_NSManagedContextDidSaveNotification_ )）
 
 The idea is to call _refreshObject(_:mergeChanges:)_ on every updated object that is part of the _NSManagedContextDidSaveNotification_ _userInfo_ payload.
 
