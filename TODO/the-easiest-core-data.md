@@ -238,23 +238,25 @@ Skopelos supports chaining too:
 The `NSManagedObject` category provides CRUD methods always explicit on the context. The context passed as parameter should be the one received in the read or write block. You should always use these methods from within read/write blocks. Main methods are:
 
   
-    + (instancetype)SK_createInContext:(NSManagedObjectContext *)context;
-    + (NSUInteger)SK_numberOfEntitiesInContext:(NSManagedObjectContext *)context;
-    - (void)SK_deleteInContext:(NSManagedObjectContext *)context;
-    + (void)SK_deleteAllInContext:(NSManagedObjectContext *)context;
-    + (NSArray *)SK_allInContext:(NSManagedObjectContext *)context;
-    + (NSArray *)SK_allWithPredicate:(NSPredicate *)pred inContext:(NSManagedObjectContext *)context;
-    + (instancetype)SK_firstInContext:(NSManagedObjectContext *)context;
-
+```
++ (instancetype)SK_createInContext:(NSManagedObjectContext *)context;
++ (NSUInteger)SK_numberOfEntitiesInContext:(NSManagedObjectContext *)context;
+- (void)SK_deleteInContext:(NSManagedObjectContext *)context;
++ (void)SK_deleteAllInContext:(NSManagedObjectContext *)context;
++ (NSArray *)SK_allInContext:(NSManagedObjectContext *)context;
++ (NSArray *)SK_allWithPredicate:(NSPredicate *)pred inContext:(NSManagedObjectContext *)context;
++ (instancetype)SK_firstInContext:(NSManagedObjectContext *)context;
+```
     
-
-    static func SK_create(context: NSManagedObjectContext) -> Self
-    static func SK_numberOfEntities(context: NSManagedObjectContext) -> Int
-    func SK_remove(context: NSManagedObjectContext) -> Void
-    static func SK_removeAll(context: NSManagedObjectContext) -> Void
-    static func SK_all(context: NSManagedObjectContext) -> [Self]
-    static func SK_all(predicate: NSPredicate, context:NSManagedObjectContext) -> [Self]
-    static func SK_first(context: NSManagedObjectContext) -> Self?
+```
+static func SK_create(context: NSManagedObjectContext) -> Self
+static func SK_numberOfEntities(context: NSManagedObjectContext) -> Int
+func SK_remove(context: NSManagedObjectContext) -> Void
+static func SK_removeAll(context: NSManagedObjectContext) -> Void
+static func SK_all(context: NSManagedObjectContext) -> [Self]
+static func SK_all(predicate: NSPredicate, context:NSManagedObjectContext) -> [Self]
+static func SK_first(context: NSManagedObjectContext) -> Self?
+```
 
 Mind the usage of `SK_inContext(context: NSManagerObjectContext)` to retrieve an object in different read/write blocks (same read blocks are safe).
 
