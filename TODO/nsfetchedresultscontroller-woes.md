@@ -334,20 +334,37 @@ When entities are inserted in the background context the _isEven_ property is se
 
 When entities inserted in the background context are such that they match the main FRC, they will be properly fetched by this FRC when the background context is saved.
 
+当匹配主要FRC的实体在后台上下文里被被插入的时候，在后台上下文保存的时候他们将会被主要FRC正确的获取到。
+
 #### Updating Entities to Match the Main _FRC’s Predicate_
+#### 更新实体来匹配主要的FRC断言
 
 This case is more troublesome. As we stated previously, updating an entity will behave differently depending on whether this entity has already been saved or not:
 
 *   If the entities are inserted in the background context, updated to match the main FRC’s _predicat_e, and then saved, the main FRC will fetch those entities. All behave as if those entities had been inserted to match the predicate in the first place.
 *   On the other hand, if entities are inserted, saved, and then updated to match the main FRC’s _predicate_, **they will never be fetched by the main FRC**.
 
+这个方法有些麻烦。在我们之前的陈述中，更新一个实体会有不同的表现，这取决于这个实体是否已经保存了。
+
+*  如果这些实体在后台上下文中被插入，更新了来匹配主要FRC的断言，然后被保存，这个主要FRC将会获取到这些实体。所有的都表现的仿佛那些实体已经被插入来匹配最开始的断言。
+*   另一方面，如果实体被插入了，保存了，然后被更新来匹配主要FRC断言， **他们将无法被主要FRC获得**。
+
+
 #### Looking at Potential Solutions
+#### 看看潜在的解决方案
+
 
 We can think of four different ways of addressing this issue and will discuss each separately in this section.
+我们能想到四种方法来应对这个问题，在这一节我们将一一讨论。
+
 
 #### Changing the Stack Configuration
+#### 改变堆栈配置
+
 
 Remember that this issue applies to configuration where changes made in the background context are pushed to the persistent store coordinator and subsequently merged into the main context.
+
+记住这个方案是应用于这样的配置环境：当后台上下文中发生变化后，这些变化会被推送到持久化存储协调者中，然后被合并到主要上下文。
 
 Switching to a configuration where the background context writes its changes to the main context instead will eradicate this issue with the FRC. This would be a radical approach to solving this issue. Indeed, reconfiguring the stack to a “parent-child” configuration is a radically different architectural approach to change management and comes with a few caveats:
 
@@ -355,19 +372,40 @@ Switching to a configuration where the background context writes its changes to 
 *   You need to deal with temporary object IDs until objects are saved to the persistent store. Alternatively, you may request permanent object IDs when inserting objects in the background context. But again, this comes at the price of some performance.
 *   You have less control over merging in case of conflicts between what is in the background context and what is in the main context.
 
+
+
+切换到另一种配置，后台上下文把它的变化写入主要上下文来替代上面的操作，这可以根除FRC的这个问题。这是这个问题的一个彻底解决方法。确实，把堆重新配置成“父子”模式是一种改变管理的完全不同的架构方法，这也带来一些问题：
+
+*   “父子”模式的配置导致大量的数据流通需要通过主要上下文进行。当获取和保存的操作发生时，他们将会堵塞主要上下文线程。
+*   你需要处理那些缓存的对象ID直到这些对象被存入持久化存储器。或者，当在后台上下文插入对象ID时，你需要请求获取持久化对象ID。但是，这会带来一些性能上的损耗。
+
+*   对于合并后台上下文和主要上下文的冲突你控制的权限变得更少了。
+
 #### Refreshing Objects in the Main Context
+#### 刷新主要上下文中的对象
 
 **Typical Implementation** The idea is to call _refreshObjects(mergeChanges:)_ for updated objects when processing the _NSManagedObjectContextDidSaveNotification_ notification payload on the main context.
 
 Implementations usually refresh all updated objects in the notification payload.
 
-**Benefits**
+**典型实现**这个方法是：当在主要上下文中处理_NSManagedObjectContextDidSaveNotification_通知队列时，调用 _refreshObjects(mergeChanges:)_ 方法来更新对象。
 
+这些实现方式通常是刷新所有消息队列中的已经更新的对象。
+
+**Benefits**
+**优势**
 *   Simple to implement.
 *   Centralized implementation in an _NSManagedContext_ extension is possible.
 *   We can choose to fault (_mergeChanges = false_) or merge (_mergeChanges = true_).
 
+*  实现简单
+*   在一个_NSManagedContext_ 扩展里集中的管理实现是可能的。
+*   我们可以选择缺页设置(_mergeChanges = false_) 或者合并设置 (_mergeChanges = true_)。
+
+
+
 **Drawbacks**
+**缺陷**
 
 *   We need to call this method on each individual object, with each call resulting in an update of the FRC. This could easily create a performance bottleneck. Any updated objects that were previously registered with the FRC will be updated twice.
 *   With _mergeChanges = false_, we fault all refreshed objects in the main context. If those objects are referenced by the FRC, the faults will immediately fire. This results in at least three updates of the complete set of objects fetched by the FRC that have been updated: once as part of the default FRC update mechanism, once due to the forced refresh, and once when faults are immediately fired.
@@ -375,7 +413,17 @@ Implementations usually refresh all updated objects in the notification payload.
 *   With _mergeChanges = true_, you will keep existing objects in memory but override any changes with values from the persistent store (i.e., the background context in that case). If you take the strong approach of making your main context read-only, by enforcing that all changes be applied to the background context exclusively, this may work.
 *   We need to choose whether to set _mergeChanges = false_ or _mergeChanges = true_.
 
+*   我们需要子每个独立的对象中调用这个方法，每一个都会造成FRC的更新。这很容易造成一个性能瓶颈。任何之前已经用FRC注册过的更新对象都需要被更新两次。
+*  我们使用故障设置 _mergeChanges = false来设置所有的主要上下文中的对象. 如果那些对象被FRC提及到，那么对象的默认设置将立刻失效。这导致被已经更新的FRC获取的完整对象集合会有三次更新: 一次是默认的FRC更新机制中的一部分，一次是由于强制的刷新，一次是当默认设置失效的时候。
+*   还是故障设置_mergeChanges = false_的问题,在上下文中对象的故障设置会造成负面的影响。所有的关系都是缺失的，这意味着任何指向故障设置的对象的引用和那些故障设置的对象关联的引用都变得无效。这在很大程度上增加了管理的难度。你想要获取的最后一个对象是一个无法管理的对象，当你尝试去控制它的时候，你的应用就会崩溃。
+*  选择合并设置 _mergeChanges = true_, 你把存在的对象保存在内存中，但是这样却把持久化存储器里值的变化全部覆盖掉了。(即那个情况下的后台上下文). 如果你采取强硬的方法让你的主要上下文只读，强制性的把所有的变化唯一的应用到后台上下文中，这可能是起作用的。 
+*  我们需要选择是设置成_mergeChanges = false_ 或者是 _mergeChanges = true_。
+
+
+
+
 **Typical Example of _NSManagedObjectContext_ Extension and Usage**
+** _NSManagedObjectContext_ 拓展和应用的典型例子**
 
 ```
 public extension NSManagedObjectContext {
@@ -435,13 +483,20 @@ class CoreDataStack {
 ```
 
 #### Improving on refreshObject(_, mergeChanges:)
+#### 改善 refreshObject(_, mergeChanges:)方法
 
 The main drawback of a global implementation that indiscriminately refreshes all updated objects on the main context is that it will refresh objects that are perfectly well managed by the main FRC.
+一个在主要上下文中无差别刷新所有更新对象的全局实现，它的主要缺点是它会刷新那些被主要FRC完美管理的对象。
 
 One obvious way to use the same mechanism in a more refined manner is to have the FRC register for the _NSManagedObjectDidSaveNotification_ directly. By doing so, we are able to limit our refresh call to objects that:
 
 *   Are not already registered with the main context.
 *   Match the FRC’s _fetchRequest_ properties (i.e., its _entity_ and _predicate_, if defined).
+
+直接拥有_NSManagedObjectDidSaveNotification_ 的FRC注册是一个明显的更优雅的方式，它使用与之前相同的机制。通过这样做，我们可以限制我们对以下对象的刷新调用：
+
+*   还没有在主要上下文注册的。
+*   与FRC_fetchRequest_ 属性相符的。(即它的实体和断言，如果定义了的话).
 
 **Benefits**
 
@@ -450,11 +505,26 @@ One obvious way to use the same mechanism in a more refined manner is to have th
 *   Better performance for refreshing.
 *   No faulting of objects that are not related to the FRC and that are already registered in the main context.
 
+**优势**
+
+*    _NSFetchedResultsController_ 拓展的一个简单实现。
+*   指定没有注册过的和只对FRC透露细节的对象作为刷新对象的能力。
+*   更好的刷新性能。
+*   没有关联FRC的对象和已经在主要上下文中注册的对象都不会缺失。
+
+
+
+
 **Drawback**
 
 At the point where the main FRC registers for saves on the background context, knowledge of the background context is required. If you want to hide this context from your application, it may be an option to vend FRC from your core data stack directly or whichever class has access to both contexts.
 
+**缺点**
+
+主要FRC在后台上下文注册保存的位置，后台上下文的引用是需要的。如果你想要在你的应用中隐藏掉这个上下文，可能的一个选项就是从你的核心数据堆栈或者其他的拥有两个上下文权限的类中直接去掉FRC。
+
 **Sample NSFetchedResultsController Extension**
+**SNSFetchedResultsController扩展范例**
 
 ```
 extension NSFetchedResultsController {
@@ -526,15 +596,33 @@ The idea behind this extension is:
 4.  From this set of objects, remove all objects that are already registered with the FRC’s context. Being registered, these objects will be managed properly by default.
 5.  Each remaining object is newly inserted in the monitored context and not yet registered in the FRC: call _refreshObject(_, mergeChanges:false)_. Setting _mergeChanges:false_ works perfectly: The object is non-existent in the FRC’s context and the faulting will have no side effects.
 
+在这个扩展背后的想法是:
+
+1.  告知每一个FRC去监控一个特定上下文的保过程存。 (尤其是后台上下文).
+2.  当收到监控的上下文的_NSManagedObjectContextDidSaveNotification_ 时, 检查FRC的断言是否过滤出实体。如果没有, 不做任何事. FRC将像预想的那样工作。
+3.  从消息通知队列中取回所有的插入和更新过的实体,只保存符合FRC实体和断言对象的 _objectID_ 。
+4.  从这个对象集合中，删除掉所有已经在FRC上下文注册过的对象。被注册过的这些对象将按照默认设置进行正确的管理。
+5.  每一个保留的对象都是在被监控的上下文中新插入的并且没有在FRC中注册过: 调用 _refreshObject(_, mergeChanges:false)_ 方法。  _mergeChanges:false_ 的设置工作的很完美: 对象不存在与FRC的上下文，这样的情况下内存缺页也不会带来负面的影响。
+
 #### Calling willAccessValueForKey(nil)
+#### 调用willAccessValueForKey(nil)方法
 
 Another typical solution seen on Stack Overflow is to replace the call to_refreshObjects(_, mergeChanges:)_ by a call to _willAccessValueForKey(nil)_ to fault all new objects in the context, and then call_mergeChangesFromContextDidSaveNotification()_ if required.
 
+在 Stack Overflow上的另外一个典型解决方法是通过调用_willAccessValueForKey(nil)_来替代_refreshObjects(_, mergeChanges:)_ 方法查询所有的新对象是否在上下文中，然后如果有必要还会调用_mergeChangesFromContextDidSaveNotification()_方法。
+
 Once again, this method is called for all _updatedObjects_ that are part of the notification payload received by the main context while processing the_NSManagedObjectContextDidSaveNotification_ notification. As per Apple documentation:
+
 
 > You can invoke this method with the key value of nil to ensure that a fault has been fired.
 
 Implemented globally, this method will suffer from the same drawback as the previous method. Implemented for only targeted objects, using an_NSFetchedResultsController_ extension works fine. Here is an example of such an extension implementation:
+
+再一次，当处理_NSManagedObjectContextDidSaveNotification_消息通知时，这个方法被主要上下文调用，来通知属于消息通知队列一部分的所有更新对象。正如每一个苹果文档所说的：
+
+> 你可以用一个nil键值对调用这个方法来确保内存缺页失效。
+
+
 
 ```
 extension NSFetchedResultsController {
@@ -562,18 +650,29 @@ extension NSFetchedResultsController {
 
 You could call this method instead of the previously defined_processChangesWithRefreshObject(_, mergeChanges:)_. Once again, there should be no side effects to calling this method. We only fault objects that are brand new to the main context and matching the main FRC’s _predicate_.
 
+你可以调用这个方法取代之前定义的_processChangesWithRefreshObject(_, mergeChanges:)_方法。再一次的说明，调用这个方法没有负面影响。
+
 #### Refetching Objects When Changes occur
+#### 当变化发生时重新获取对象。
 
 This is an idea that you may be tempted to implement. It consists of monitoring changes to the background context using the same_NSManagedObjectContextDidSaveNotification_ notification and call_performFetch()_ whenever required.
 
+这是一个你可能回去尝试实现的一个主意。它包括两个部分：使用相同的_NSManagedObjectContextDidSaveNotification_消息通知检测后台上下文的变化和当有需要时调用_performFetch()_方法。
+
 We implemented this method to see whether it worked or not, because we identified refreshing all objects at once as more preferable than one at a time.
+
+我们实现了这个方法想看看它是否能工作，因为我们证实了一次刷新所有的对象比一次刷新一个更合理。
 
 However, we discovered a huge drawback to using this method: The FRC’s_delegate_ is **never** notified of the changes. The new objects are being fetched and registered in the main context, but no one knows about them.
 
+但是，我们发现了使用这个方法的一个巨大缺陷：FRC的_delegate_“从来没有”收到变化的通知。新的对象被获取并注册在主要上下文，但是没有对象了解它们。
+
 One way to work around this issue is to call the delegate methods ourselves after the call to _performFetch_. This is easy enough as long as changes do not affect the FRC’s _sections_. At that point, the work required starts to look a lot like a reimplementation of the FRC’s main feature of change tracking, which is not a wise thing to do.
 
-### To Conclude
+解决这个问题的一个办法是在调用 _performFetch_方法之后调用代理方法它们本身。这个方法足够的简单并且不会影响都FRC的_sections_。在这一点上，系统运作的时候需要观测许多东西，就像是FRC的追踪变化这个主要特性的重新实现，这样做并不明智。
 
+### To Conclude
+### 总结
 For a sibling stack configuration (main context and private queue context connected to the _persistentStoreCoordinator_):
 
 *   An _NSFetchedResultsController_ fetching objects in the main context will only be able to fetch objects inserted in the background context if, at the time of saving the background context, the inserted objects match that_NSFetchedResultsController_’s predicate_._
@@ -584,6 +683,19 @@ For a sibling stack configuration (main context and private queue context connec
 *   Calling _refreshObject(_:mergeChanges:)_ on all updated objects when processing _NSManagedObjectDidSaveNotification_ notification payload coming from the background context, the solution most often proposed on Stack Overflow, is both inefficient and rife with issues related to faulting.
 *   By contrast, calling this same method on an _NSFetchedResultsController_extension that allows an _NSFetchedResultsController_’s instance to monitor changes made to the background context works extremely well and results in no undesirable side effects that we could identify.
 
+作为一个同级的堆栈配置（主要上下文和连接到_persistentStoreCoordinator_的私有队列上下文）：
+
+*  在主要上下文获取对象的_NSFetchedResultsController_ 将只能在后台上下文中获取到插入的对象，在保存后台上下文的时候，被插入的对象符合_NSFetchedResultsController_的断言。
+*  如果没有断言，_NSFetchedResultsController_将表现的像预想的那样，获取到所有在后台上下文插入的所有相关的实体。
+*  如果有断言，_NSFetchedResultsController_ 只能获取到后台插入的对象, 并且这些对象在第一次在后台上下文中保存的时候必须要符合这个断言才可以。
+*  如果变化是在第一次保存之后发生的，并且更新的对象没有在主要上下文注册过，那么它们将**永远不会**被获取到。
+*  在后台上下文保存对象，在主要上下文中合并变化，在当前线程循环的末尾像文档上记录的那样运作。
+*   当处理来自后台上下文的_NSManagedObjectDidSaveNotification_消息通知时，在所有的更新对象上调用 _refreshObject(_:mergeChanges:)方法， 这个解决方案总是在Stack Overflow网站上被提出来，但是这不仅是无效的，还会普遍带来关于内存缺页的问题
+*   对比一下，通过在_NSFetchedResultsController_扩展上调用同样的方法不仅运行的非常好，还不会产生我们已经验证过的负面影响，这个扩展允许_NSFetchedResultsController_实例监测后台上下文发生的变化。
+
 ### The Way Forward
+### 之后的打算
 
 Apple announced [several changes to Core Data](https://medium.com/bpxl-craft/wwdc-2016-spotlight-core-data-2699e94d35f7) during WWDC. The_NSPersistentContainer_ will make it a lot easier to keep several contexts in sync. We will be performing the tests in this article with iOS 10 to see whether the issue persists. We’ll keep you updated on our findings.
+
+苹果公司在WWDC期间声明了[核心数据的几个变化]](https://medium.com/bpxl-craft/wwdc-2016-spotlight-core-data-2699e94d35f7)。_NSPersistentContainer_ 将会使得在几个不同上下文保持同步变得更简单。我们将在这篇文章中使用iOS 10系统进行测试，看看是否问题还存在。我们将持续更新我们的发现。
