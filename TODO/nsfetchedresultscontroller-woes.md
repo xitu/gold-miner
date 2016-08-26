@@ -1,7 +1,7 @@
 > * 原文地址：[NSFetchedResultsController Woes](https://medium.com/bpxl-craft/nsfetchedresultscontroller-woes-3a9b485058#.5gva2sils)
 * 原文作者：[Michael Gachet](https://medium.com/@6Be)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：[siegen](https://github.com/siegeout)
+* 译者：[Siegen](https://github.com/siegeout)
 * 校对者：
 
 
@@ -217,34 +217,57 @@ As expected, s_aving_ changes made in the background context pushes all those ch
 
 
 As a side note, saving the background context also resets the _insertedObjects_set to _nil_ on that context.
+顺便需要注意的是：保存后台上下文会把后台上下文的_insertedObjects_集合重置为 _nil_。
 
 #### Updating Objects
+#### 更新对象
 
 Understanding what happens when updating objects required digging a bit deeper and looking at two alternate scenarios:
+想要理解更新对象的时候发生了什么需要我们更深入的研究，看下面两个交替的场景。
 
 **Scenario #1**
 
+**场景 #1**
 1.  Inserting four entities in the background context.
 2.  Updating entities 0 and 2 by changing their _isEven_ (from _false_ to _true_) and _title_ properties.
 3.  Saving the background context.
 
+1.  在后台上下文中插入四个实体。
+2.  改变实体0和实体2的 _isEven_（从_false_ 改为 _true_）和_title_属性参数，然后更新它们。
+3.  保存后台上下文。
+
+
 **Scenario #2**
+**场景 #2**
 
 1.  Inserting four entities in the background context.
 2.  Saving the background context.
 3.  Updating entities 0 and 2 as before.
 
+1.  在后台上下文插入4个实体。
+2.  保存后台上下文。
+3.  像以前一样更新实体0和实体2。
+
 **Results**
+**结果**
 
 As far as Core Data is concerned, objects that have been _inserted_ and then_updated_ before saving the background context are considered as _inserted_. This means that if you inspect the background context’s _updatedObjects_ set, it will be empty by the time you are notified of the changes (it will _not_ be empty right after the update). This may be expected, but it surprised us nonetheless.
 
+考虑到核心数据，在保存后台上下文之前已经被插入并更新的对象被视作已插入。这意味着如果你检查后台上下文的 _updatedObjects_集合，在收到变化通知之前它都是空的（在更新之后，它不会是空的）。这是我们预料到的结果，但是它还是让我们有些惊讶。
+
 The second scenario was much more straightforward. Since the objects have been saved _before_ being updated, they will appear in the _updatedObjects_ set of the background context. This is in line with what one would expect.
 
+第二个场景更加直接。由于对象在被更新之前已经被保存下来，它们将在后台的_updatedObjects_ 集合中出现。这是和我们预期相一致的。
+
 Once again the main FRC behaves as expected: It fetches all entities and properly notifies its _delegate_.
+主要的FRC再次表现的跟预期的相一致：它获取到所有的实体并且正确的通知了它的_delegate_。
 
 #### Deleting Objects
+#### 删除对象
 
 For deletion we also needed to look into two different scenarios. However, the case of deletion is not as interesting as insertion and updating, as far as the main FRC is concerned. Indeed if an object is registered in the main context, the FRC will always react to this object being deleted.
+
+删除操作我们也需要看两个不同的场景。但是，这个删除操作的例子不像插入和更新那么有趣，直到涉及到主要FRC。确实如果一个对象被注册到主要上下文，FRC将会与这个将被删除的对象进行交互。
 
 The most interesting findings are:
 
@@ -254,30 +277,60 @@ The most interesting findings are:
 *   The main context will contain all changes made to the background context (i.e., the _registeredObjects_ set will contain all objects before deletion, and the _deletedObjects_ set will contain the deleted objects).
 *   Once again, the main FRC reacts properly to all changes.
 
+最有趣的一些发现是：
+
+*   在保存后台上下文之前，进行删除后台上下文对象的操作会把_deletedObjects_集合中的对象删除，
+*   在保存变化之后，像我们预料的一样，进行删除对象的操作会把这些对象放入_deletedObjects_ 集合。
+*   后台上下文 _registeredObjects_ 和 _deletedObjects_集合的内容在保存期间可能会有一个短暂的反射状态，所以需要小心使用。
+*   主要上下文将包含所有后台上下文产生的变化。 (换言之,  _registeredObjects_ 集合在删除操作之前会包含所有的对象， _deletedObjects_ 集合 将包含被删除的对象)。
+*   再一次的，主要FRC正确的应对了所有变化。
+
+
 #### Conclusions and Insights
+#### 结论和领悟
 
 If the _delegate_ of the an FRC is not set:
+如果一个FRC的 _delegate_没有被设置：
 
 *   The _fetchedObjects_ array will only contain the objects resulting from the initial fetch.
 *   The FRC does not receive notifications when objects change or when the context it initialized with is saved.
 
+*    _fetchedObjects_ 队列将只包含初始化时获取到的对象。
+*    当对象变化时或者FRC初始化的上下文被保存时，FRC收不到通知。
+
 If the _delegate_ is set for the main FRC, it behaves exactly as expected for entities matching the FRC’s fetch request:
+如果主要FRC的_delegate_ 被设置了，它将表现的像预期的那样：实体和FRC的获取请求相一致。
 
 *   Objects inserted, updated, or deleted in the background context are properly fetched (deleted) when the background context merges its changes into the main context.
 *   Deletions of permanent objects (i.e., saved to the store and with a permanent objectID) in the background context are carried over to the main context for objects registered in the main context.
 
+*   当后台上下文把它的变化合并到主要上下文的时候，在后台上下文 中插入、更新或者删除的对象都会被正确的获取（删除）。
+*   在后台上下文删除一个持久化对象 (即拥有一个持久化ID并保存到存储器的对象)会影响到主要上下文，因为这些对象在主页上下文中注册过。
+
 However, these tests are very specific: The main FRC is set up to fetch all_TestDummy_ entities, which is rarely the case in a real application.
 
+但是，这些测试是非常特殊的：主要FRC被设置获取所有的_TestDummy_ 实体，这在一个真正的应用中是很少见的。
+
 ### Let’s Only Fetch a Subset!
+### 让我们只获取一个子集!
 
 In order to reflect something more realistic, we perform the same tests as before with one slight change. The main FRC is now set up to only fetch_TestDummy_ entities that are marked as _isEven == true_. Let’s see what happens.
 
+为了让测试变得更加真实，我们进行和之前同样的测试，只是做一些细小的改变。主要FRC现在被设置成只获取属性为_isEven == true__的TestDummy_ 实体。让我们看看发生了什么。
+
 When entities are inserted in the background context the _isEven_ property is set to _false_. Therefore, after inserting objects in the background context and saving them, no entities will be fetched by the main FRC. But what happens if:
+
+当实体在后台上下文被插入时，_isEven_属性被设置成了 _false_。所以，在后台插入对象并保存他们之后，没有实体将被主要FRC获取到。但是如果我们按照下面的做法去做会发生什么呢？
 
 *   We insert entities that match the main FRC’s _predicate_?
 *   We update some entities to match the main FRC’s _predicate?_
 
+*   我们插入符合主要FRC的断言的实体？
+*   我们更新实体来符合主要FRC的断言？
+
+
 #### Inserting Matching Entities
+#### 插入匹配的实体
 
 When entities inserted in the background context are such that they match the main FRC, they will be properly fetched by this FRC when the background context is saved.
 
