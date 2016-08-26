@@ -51,7 +51,6 @@ The benefit of using native elements is that you often don’t have to script yo
 
 <input type="checkbox" id="checkbox1" name="checkbox1">
 <label for="checkbox1">My checkbox label</label>
-</input>
 ```
 
 ## Grids
