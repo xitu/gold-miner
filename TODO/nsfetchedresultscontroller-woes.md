@@ -698,4 +698,4 @@ For a sibling stack configuration (main context and private queue context connec
 
 Apple announced [several changes to Core Data](https://medium.com/bpxl-craft/wwdc-2016-spotlight-core-data-2699e94d35f7) during WWDC. The_NSPersistentContainer_ will make it a lot easier to keep several contexts in sync. We will be performing the tests in this article with iOS 10 to see whether the issue persists. We’ll keep you updated on our findings.
 
-苹果公司在WWDC期间声明了[核心数据的几个变化]](https://medium.com/bpxl-craft/wwdc-2016-spotlight-core-data-2699e94d35f7)。_NSPersistentContainer_ 将会使得在几个不同上下文保持同步变得更简单。我们将在这篇文章中使用iOS 10系统进行测试，看看是否问题还存在。我们将持续更新我们的发现。
+苹果公司在WWDC期间声明了[核心数据的几个变化](https://medium.com/bpxl-craft/wwdc-2016-spotlight-core-data-2699e94d35f7)。_NSPersistentContainer_ 将会使得在几个不同上下文保持同步变得更简单。我们将在这篇文章中使用iOS 10系统进行测试，看看是否问题还存在。我们将持续更新我们的发现。
