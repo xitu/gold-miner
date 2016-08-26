@@ -25,6 +25,10 @@ Another place you probably should be defining an object is when you have a bag o
 
 This raises the question: _is_ it tedious to make a class in Python? Let’s look at a simple data structure: a 3-dimensional cartesian coordinate. It starts off simply enough:
 
+```
+class Point3D(object):
+```
+
 So far so good. We’ve got a 3 dimensional point. What next?
 
 
@@ -218,6 +222,11 @@ So, `namedtuple` can be an improvement if it’s all you’ve got, but only in s
 So here’s where my favorite mandatory Python library comes in.
 
 Let’s re-examine the problem above. How do I make `Point3D` with `attrs`?
+
+```
+import attr
+@attr.s
+```
 
 Since this isn’t built into the language, we do have to have 2 lines of boilerplate to get us started: the import and the decorator saying we’re about to use it.
 
