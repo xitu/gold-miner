@@ -11,12 +11,12 @@
 _NSFetchedResultsController_ is a staple of iOS Core Data development. Introduced in iOS 3, this class is responsible for efficiently managing collections of Core Data entities.
 
 
-_NSFetchedResultsController_ 是iOS核心数据开发的一个主要工具。从iOS 3系统面世以来，这个类就负责高效的管理核心数据实体的集合。
+_NSFetchedResultsController_ 是iOS核心数据开发的一个主要工具。自iOS 3系统面世以来，这个类就负责高效的管理核心数据实体的集合。
 
 
 Over the last six years, I have used this controller in all my projects with[various types of Core Data stack configurations](https://medium.com/bpxl-craft/thoughts-on-core-data-stack-configurations-b24b0ea275f3). On a recent project for one of Black Pixel’s top clients, we decided to use a standard “sibling” Core Data stack configuration:
 
-在过去的六年里，？我使用这个控制器，并为它设置了[各种类型的核心数据堆栈配置](https://medium.com/bpxl-craft/thoughts-on-core-data-stack-configurations-b24b0ea275f3)来管理我所有的项目。最近，在为一个Black Pixel顶尖客户制作的项目上，我们决定使用一个标准的“sibling”（同级）核心数据堆栈配置：
+在过去的六年里，我使用这个控制器，并为它设置了[各种类型的核心数据堆栈配置](https://medium.com/bpxl-craft/thoughts-on-core-data-stack-configurations-b24b0ea275f3)来管理我所有的项目。最近，在为Black Pixel的一个大客户制作的项目上，我们决定使用一个标准的“sibling”（同级）核心数据堆栈配置：
 
 *   An _NSFetchedResultsController_ was used to fetch objects from the store on the main UI context. This main context was only used for reading from the store.
 *   The background context, used to retrieve entities from a server, was connected to the persistent store coordinator as a sibling to the main UI context.
