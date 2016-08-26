@@ -9,6 +9,8 @@
 
 I’m not sure if Swift’s forefathers could’ve estimated the passion and fervor its future developers would hold for the very language they were crafting. Suffice to say, the community has grown and the language has stabilized(ish) to a point where we even have a term now to bestow upon code that displays Swift in all of its intended glory:
 
+不知道发明 Swift 的人是否会料到他们正在编写的语言，未来会深受开发者的青睐。 我只想说，Swift 社区已经成长且语言已经稳定（ISH）到一个地步，我们甚至有一个专门的词语赐予 Swift 代
+
 _Swifty._
 
 > “That code isn’t Swifty”. “This should be more Swifty”. “This is a Swifty pattern”. “We can make this Swifty”.
@@ -133,7 +135,7 @@ static func handleShortcutItem(shortcutItem:UIApplicationShortcutItem) -&gt; Boo
     {
         return false
     }
-    
+
     //Now we've got a valid shortcut, and can use a switch
     switch shortCutAction
     {
@@ -155,7 +157,7 @@ static func handleShortcutItem(shortcutItem:UIApplicationShortcutItem) -&gt; Boo
 {
     //Initialize our enum instance to check for a shortcut
     let shortcutAction = NSBundle.mainBundle().bundleIdentifier! + "." + shortcutItem.type
-    
+
     if shortCutAction == "com.aCoolCompany.aCoolApp.shortCutOne"
     {
         return ShortcutItemHelper.showFavorites()
@@ -178,4 +180,3 @@ When I first started reading about enums in Swift way back when, I found them to
 When I saw Apple implement this pattern, I indeed got 😍. I think this is a great way to solve a small problem, as its a very “team friendly” approach to the implementation details of short cut actions. I would assume they tend to agree, as its included in two of their sample projects showcasing 3D touch.
 
 Until .NextTime 👋
-
