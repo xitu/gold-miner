@@ -414,8 +414,8 @@ Implementations usually refresh all updated objects in the notification payload.
 *   We need to choose whether to set _mergeChanges = false_ or _mergeChanges = true_.
 
 *   我们需要子每个独立的对象中调用这个方法，每一个都会造成FRC的更新。这很容易造成一个性能瓶颈。任何之前已经用FRC注册过的更新对象都需要被更新两次。
-*  我们使用故障设置 _mergeChanges = false来设置所有的主要上下文中的对象. 如果那些对象被FRC提及到，那么对象的默认设置将立刻失效。这导致被已经更新的FRC获取的完整对象集合会有三次更新: 一次是默认的FRC更新机制中的一部分，一次是由于强制的刷新，一次是当默认设置失效的时候。
-*   还是故障设置_mergeChanges = false_的问题,在上下文中对象的故障设置会造成负面的影响。所有的关系都是缺失的，这意味着任何指向故障设置的对象的引用和那些故障设置的对象关联的引用都变得无效。这在很大程度上增加了管理的难度。你想要获取的最后一个对象是一个无法管理的对象，当你尝试去控制它的时候，你的应用就会崩溃。
+*  我们使用故障设置 _mergeChanges = false来设置所有的主要上下文中的对象. 如果那些对象被FRC提及到，那么内存缺页将立刻失效。这导致被已经更新的FRC获取的完整对象集合会有三次更新: 一次是默认的FRC更新机制中的一部分，一次是由于强制的刷新，一次是当默认设置失效的时候。
+*   还是故障设置_mergeChanges = false_的问题,在上下文中不在内存中的对象会造成负面的影响。所有的关系都是缺失的，这意味着任何指向那些不在内存中的对象的引用和那些不在内存中的对象关联的引用都变得无效。这在很大程度上增加了管理的难度。你想要获取的最后一个对象是一个无法管理的对象，当你尝试去控制它的时候，你的应用就会崩溃。
 *  选择合并设置 _mergeChanges = true_, 你把存在的对象保存在内存中，但是这样却把持久化存储器里值的变化全部覆盖掉了。(即那个情况下的后台上下文). 如果你采取强硬的方法让你的主要上下文只读，强制性的把所有的变化唯一的应用到后台上下文中，这可能是起作用的。 
 *  我们需要选择是设置成_mergeChanges = false_ 或者是 _mergeChanges = true_。
 
@@ -602,7 +602,7 @@ The idea behind this extension is:
 2.  当收到监控的上下文的_NSManagedObjectContextDidSaveNotification_ 时, 检查FRC的断言是否过滤出实体。如果没有, 不做任何事. FRC将像预想的那样工作。
 3.  从消息通知队列中取回所有的插入和更新过的实体,只保存符合FRC实体和断言对象的 _objectID_ 。
 4.  从这个对象集合中，删除掉所有已经在FRC上下文注册过的对象。被注册过的这些对象将按照默认设置进行正确的管理。
-5.  每一个保留的对象都是在被监控的上下文中新插入的并且没有在FRC中注册过: 调用 _refreshObject(_, mergeChanges:false)_ 方法。  _mergeChanges:false_ 的设置工作的很完美: 对象不存在与FRC的上下文，这样的情况下内存缺页也不会带来负面的影响。
+5.  每一个保留的对象都是在被监控的上下文中新插入的并且没有在FRC中注册过: 调用 _refreshObject(_, mergeChanges:false)_ 方法。  _mergeChanges:false_ 的设置工作的很完美: 对象不存在与FRC的上下文，这样的情况下不在内存中的对象也不会带来负面的影响。
 
 #### Calling willAccessValueForKey(nil)
 #### 调用willAccessValueForKey(nil)方法
