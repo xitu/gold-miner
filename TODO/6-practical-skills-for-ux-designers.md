@@ -1,8 +1,8 @@
 > * 原文地址：[6 Practical Skills for UX Designers](https://uxdesign.cc/6-practical-skills-for-ux-designers-22c852d6c576#.vjeb02dwq)
 * 原文作者：[Joanna Ngai](https://uxdesign.cc/@ngai.yt)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者： [Kulbear](https://kulbear.github.io/)
-* 校对者： 
+* 译者：[Kulbear](https://kulbear.github.io/)
+* 校对者：[owenlyn](https://github.com/owenlyn), [shixinzhang](https://github.com/shixinzhang)
 
 ![](http://ac-Myg6wSTV.clouddn.com/2cc6a114bae9326ef2b0.png)
 
@@ -38,7 +38,7 @@
 
 ### 3. 以人为本
 
-及时对用户关注点的反馈提问。Ask questions during critique that are user focused.
+及时对用户关注点的反馈提问。
 
 世界那么大，你得去看看。走到外面去多观察，理解并明确的将以用户为中心的设计理念应用到设计中，这是对于设计师是十分重要的。
 
@@ -92,7 +92,7 @@ Ji lee — Words As Image
 
 Ji lee — Words As Image
 
-对于设计师们来说，这看起来像是习惯或是一些[辅助项目](http://pleaseenjoy.com/projects/personal/bubble-project/)，或是需求之后的设计探索。这是对未来前景的乐观思考。
+对于设计师们来说，这看起来像是习惯或是一些[辅助项目](http://pleaseenjoy.com/projects/personal/bubble-project/)，或是超越基本要求的探索。这是对未来前景的乐观思考。
 
 #### 对我来说，最有价值的技能就是从失败中学习。
 
