@@ -1,40 +1,38 @@
 * 原文链接 : [Debugging Node.js in Chrome DevTools](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools)
 * 原文作者 : [MATT DESLAURIERS](http://mattdesl.svbtle.com/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : [认领地址](https://github.com/xitu/gold-miner/issues/128)
-* 校对者: 
-* 状态 : 认领中
+* 译者 : [sqrthree (根号三)](https://github.com/sqrthree)
+* 校对者: [shenxn](https://github.com/shenxn)、[CoderBOBO](https://github.com/CoderBOBO)
 
-
-This post introduces a novel approach to developing, debugging, and profiling Node.js applications within Chrome DevTools.
+这篇文章介绍了一种在 Chrome 开发者工具里面开发、调试和分析 Node.js 应用程序的新方法。
 
 ## [ ](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#devtool)devtool
 
-Recently I’ve been working on a command-line tool, [devtool](https://github.com/Jam3/devtool), which runs Node.js programs inside Chrome DevTools.
+最近我一直在开发一个命令行工具 [devtool](https://github.com/Jam3/devtool)，它可以在 Chrome 的开发者工具中运行 Node.js 程序。
 
-The recording below shows setting breakpoints within an HTTP server.
+下面的记录显示了在一个 HTTP 服务器中设置断点的情况。
 
 ![movie](http://i.imgur.com/V4RQSZ2.gif)
 
-This tool builds on [Electron](https://github.com/atom/electron/) to blend Node.js and Chromium features. It aims to provide a simple interface for debugging, profiling, and developing Node.js applications.
+该工具基于 [Electron](https://github.com/atom/electron/) 将 Node.js 和 Chromium 的功能融合在了一起。它的目的在于为调试、分析和开发 Node.js 应用程序提供一个简单的界面。
 
-You can install it with [npm](http://npmjs.com/):
+你可以使用 [npm](http://npmjs.com/) 来安装它:
 
     npm install -g devtool
 
 ## [ ](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#repl)REPL
 
-In some ways, we can use it as a replacement to the `node` shell command. For example, we can open a REPL like so:
+在某种程度上，我们可以用它来作为 `node` shell 命令的替代品。例如，我们可以这样打开一个 REPL (译者注: REPL 全称为"Read-Eval-Print Loop"，是一个简单的、交互式的编程环境)。
 
     devtool
 
-This will launch a new Chrome DevTools instance with Node.js support:
+这将启动一个带有 Node.js 特性支持的 Chrome 开发者工具实例。
 
 ![console](http://i.imgur.com/bnInBHA.png)
 
-We can require Node modules, local npm modules, and built-ins like `process.cwd()`. We also have access to Chrome DevTools functions like `copy()` and `table()`.
+我们可以引用 Node 模块、本地 npm 模块和像 `process.cwd()` 这样的内置模块。也可以获取像 `copy()` 和 `table()` 这样的 Chrome 开发者工具中的函数。
 
-Other examples at a glance:
+其他的例子就一目了然了:
 
     # run a Node script
     devtool app.js
@@ -45,48 +43,49 @@ Other examples at a glance:
     # pipe in JavaScript to eval it
     browserify index.js | devtool
 
-## [ ](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#development)Development
+## [ ](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#development) 开发
 
-We can use `devtool` for general purpose module and application development, instead of existing tools like [nodemon](https://www.npmjs.com/package/nodemon).
+我们可以在通用模块和应用程序的开发中使用 `devtool`，来代替像 [nodemon](https://www.npmjs.com/package/nodemon) 这样目前已经存在的工具。
 
     devtool app.js --watch
 
-This will launch our `app.js` in a Chrome DevTools console. With `--watch`, saving the file will reload the console.
+这行命令将会在 Chrome 开发者工具中的控制台中启动我们的 `app.js`， 通过 `--watch` 参数，我们保存的文件将(自动)重新载入到控制台。
 
 ![console](http://i.imgur.com/NuoYkJK.png)
 
-Clicking on the [`app.js:1`](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools) link will take us to the relevant line in the `Sources` tab:
+点击 [`app.js:1`](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools) 链接，程序将会在 `Sources` 标签中把我们带到与之相关的那一行。
 
 ![line](http://i.imgur.com/mH5jWT9.png)
 
-While in the `Sources` tab, you can also hit `Cmd/Ctrl + P` to quickly search across required modules. You can even inspect and debug internal modules, such as those of Node.js. You can also use the left-hand panel to browse modules.
+在 `Sources` 标签中，你也可以敲击 `Cmd/Ctrl + P` 按键在所有依赖的模块中进行快速搜索。你甚至可以审查和调试内置模块，比如 Node.js 中的那些。你也可以使用左手边的面板来浏览模块。
 
 ![Sources](http://i.imgur.com/jn3RmnV.png)
 
-## [ ](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#debugging)Debugging
+## [ ](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#debugging) 调试
 
-Since we have access to the `Sources` tab, we can use it for debugging our applications. You can set break points and then reload the debugger (`Cmd/Ctrl + R`), or you can set an initial breakpoint with the `--break` flag.
+因为我们能够访问 `Sources` 标签，所以我们可以用它来调试我们的应用程序。你可以设置一个断点，然后重新加载调试器(`Cmd/Ctrl + R`)，或者你也可以通过 `--break` 标记来设置一个初始断点。
 
     devtool app.js --break
 
 ![break](http://i.imgur.com/hJ2pLW1.png)
 
-Below are a few features that may not be immediately obvious to those learning Chrome DevTools:
+下面是一些对于那些学习 Chrome 开发者工具的人来说可能不是特别常用的功能:
 
-*   [Conditional Breakpoints](http://blittle.github.io/chrome-dev-tools/sources/conditional-breakpoints.html)
-*   [Pause on Uncaught Exception](http://blittle.github.io/chrome-dev-tools/sources/uncaught-exceptions.html)
-*   [Restart Frame](http://blittle.github.io/chrome-dev-tools/sources/restart-frame.html)
-*   [Watch Expressions](http://albertlee.azurewebsites.net/using-watch-tools-in-chrome-dev-tools-to-improve-your-debugging/)
+*   [条件断点](http://blittle.github.io/chrome-dev-tools/sources/conditional-breakpoints.html)
+*   [有未捕获的异常时暂停](http://blittle.github.io/chrome-dev-tools/sources/uncaught-exceptions.html)
+*   [重启帧](http://blittle.github.io/chrome-dev-tools/sources/restart-frame.html)
+*   [监听表达式](http://albertlee.azurewebsites.net/using-watch-tools-in-chrome-dev-tools-to-improve-your-debugging/)
 
-> _tip_ – While the debugger is paused, you can hit the `Escape` key to open a console that executes within the current scope. You can change variables and then continue execution.
+> 提示 - 当调试器暂停时，你可以敲击 `Escape` 按键打开一个执行在当前作用域内的控制台。你可以修改一些变量然后继续执行。
+
 
 ![Imgur](http://i.imgur.com/nG9ellE.gif)
 
-## [ ](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#profiling)Profiling
+## [ ](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#profiling) 分析
 
-Another use for `devtool` is profiling applications like [browserify](https://github.com/substack/node-browserify), [gulp](https://github.com/gulpjs/gulp), and [babel](https://github.com/babel/babel).
+`devtool` 的另一个功能是分析像 [browserify](https://github.com/substack/node-browserify), [gulp](https://github.com/gulpjs/gulp) 和 [babel](https://github.com/babel/babel) 这样的程序。
 
-Here we use [`console.profile()`](https://developer.chrome.com/devtools/docs/console-api), a feature of Chrome, to profile CPU usage of a browser bundler.
+这里我们使用 [`console.profile()`](https://developer.chrome.com/devtools/docs/console-api) (Chrome 的一个功能)来分析一个打包工具的 CPU 使用情况。
 
     var browserify = require('browserify');
 
@@ -101,68 +100,69 @@ Here we use [`console.profile()`](https://developer.chrome.com/devtools/docs/con
       console.profileEnd('build');
     });
 
-Now we can run `devtool` on our file:
+现在我们在这个文件上运行 `devtool` :
 
     devtool app.js
 
-After execution, we can see the results in the `Profiles` tab.
+执行之后，我们可以在 `Profiles` 标签中看到结果。
 
 ![profile](http://i.imgur.com/vSu7Lcz.png)
 
-We can use the links on the right side to view and debug the hot code paths:
+我们可以使用右边的链接来查看和调试执行频率较高的代码路径。
 
 ![debug](http://i.imgur.com/O4DZHyv.png)
 
-## [ ](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#advanced-options)Advanced Options
+## [ ](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#advanced-options) 高级选项
 
-#### [ ](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#experiments)Experiments
+#### [ ](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#experiments) 实验
 
-Chrome is constantly pushing new features and experiments into their DevTools, like the **Promise Inspector**. You can enable it by clicking the three dots in the top right corner, and selecting `Settings -> Experiments`.
+Chrome 会不断的向他们的开发者工具中推送新功能和实验，例如 **Promise Inspector**。你可以通过点击右上角的三个点，然后选择 `Settings -> Experiments` 来开启他们。
 
 ![experiments](http://i.imgur.com/dNuIMw0.png)
 
-Once enabled, hit the `Escape` key to bring up a panel with the _Promises_ inspector.
+一旦启用，你就可以通过敲击 `Escape` 按键来调出一个带有 _Promises_ 监视器的面板。
 
 ![](https://i.imgur.com/xKkTEeg.png)
 
-> _tip_ – In the _Experiments_ page, if you hit `Shift` 6 times, you will be exposed to some even more experimental (and unstable) features.
+> 提示: 在 _Experiments_ 界面，如果你敲击 `Shift` 键 6 次，你会接触到一些甚至更多的实验性（不稳定）的功能。
+
 
 #### [ ](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#codeconsolecode)`--console`
 
-You can redirect console output back to terminal (`process.stdout` and `process.stderr`), which allows you to pipe it into other processes such as TAP prettifiers.
+你可以重定向控制台输出到终端中(`process.stdout` 和 `process.stderr`)。也允许你通过使用管道将它导入到其他进程中，例如 TAP prettifiers。
 
     devtool test.js --console | tap-spec
 
-#### [ ](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#codecode-and-codeprocessargvcode)`--` and `process.argv`
+#### [ ](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#codecode-and-codeprocessargvcode)`--` 和 `process.argv`
 
-Your scripts can parse `process.argv` like in a regular Node.js application. If you pass a full stop (`--`) to the `devtool` command, anything after it will be used as the new `process.argv`. For example:
+你的脚本可以像一个普通的 Node.js 应用那样解析 `process.argv`。如果你在 `devtool` 命令中传递一个句号(`--`)，它后面的所有内容都会被当做一个新的 `process.argv` 。例如:
 
     devtool script.js --console -- input.txt
 
-Now, your script can look like this:
+现在，你的脚本看起来像这样:
 
     var file = process.argv[2];
     console.log('File: %s', file);
 
-Output:
+输出:
 
     File: input.txt
 
-#### [ ](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#codequitcode-and-codeheadlesscode)`--quit` and `--headless`
+#### [ ](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#codequitcode-and-codeheadlesscode)`--quit` 和 `--headless`
 
-With `--quit`, the process will quit with exit code `1` when it reaches an error (such as a syntax error or uncaught exception).
+使用 `--quit`，当遇到了一个错误(如语法错误或者未捕获的异常)时，进程将会安静的退出，并返回结束码`1` 。
 
-With `--headless`, the DevTools will not be opened.
+使用 `--headless`，开发工具将不会被打开。
 
-This can be used for command-line scripts:
+这可以用于命令行脚本：
 
     devtool render.js --quit --headless > result.png
 
 #### [ ](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#codebrowserfieldcode)`--browser-field`
 
-Some modules may provide an entry point that is better to run in a browser. You can use `--browser-field` to support the [package.json flag](https://github.com/defunctzombie/package-browser-field-spec) when requiring modules.
+一些模块为了更好的在浏览器中运行或许会提供一个入口点。当你需要这些模块时，你可以使用 `--browser-field` 来支持 [package.json flag](https://github.com/defunctzombie/package-browser-field-spec)
 
-For example, we can use [xhr-request](https://github.com/Jam3/xhr-request) which will use XHR when required with the `"browser"` field.
+例如，我们可以使用 [xhr-request](https://github.com/Jam3/xhr-request) ，当带有 `"browser"` 字段被引用时，这个模块会使用 XHR。
 
     const request = require('xhr-request');
 
@@ -173,20 +173,20 @@ For example, we can use [xhr-request](https://github.com/Jam3/xhr-request) which
       console.log(data);
     });
 
-And in shell:
+在 shell 中执行:
 
     npm install xhr-request --save
     devtool app.js --browser-field
 
-Now, we can inspect requests `Network` tab:
+现在，我们可以在 `Network` 选项卡中审查请求:
 
 ![requests](http://i.imgur.com/BWciXuh.png)
 
 #### [ ](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#codenonodetimerscode)`--no-node-timers`
 
-By default, we shim the global `setTimeout` and `setInterval` so they behave like Node.js (returning an object with `unref()` and `ref()` functions).
+默认情况下，我们提供全局的 `setTimeout` and `setInterval`，因此他们表现的像 Node.js 一样(返回一个带有 `unref()` and `ref()` 函数的对象)。
 
-However, you can disable this to improve support for Async stack traces.
+但是，你可以禁用这个方法来改善对异步堆栈跟踪的支持。
 
     devtool app.js --no-node-timers
 
@@ -194,7 +194,7 @@ However, you can disable this to improve support for Async stack traces.
 
 #### [ ](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#v8-flags)V8 Flags
 
-In your current directory, you can add a `.devtoolrc` file that includes advanced settings, such as V8 flags.
+在当前目录，你可以创建一个 `.devtoolrc` 文件来进行诸如 V8 flags 这样的高级设置。
 
     {
       "v8": {
@@ -204,50 +204,50 @@ In your current directory, you can add a `.devtoolrc` file that includes advance
       }
     }
 
-See [here](https://github.com/Jam3/devtool/blob/master/docs/rc-config.md) for more details.
+访问[这里](https://github.com/Jam3/devtool/blob/master/docs/rc-config.md)获取更多细节
 
-## [ ](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#gotchas)Gotchas
+## [ ](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#gotchas)陷阱
 
-Since this is running in a Browser/Electron environment, and not a true Node.js environment, there are [some gotchas](https://github.com/Jam3/devtool#gotchas) to be aware of.
+由于程序是在一个 Browser/Electron 环境中运行，而不是在一个真正的 Node.js 环境中。因此这里有[一些陷阱](https://github.com/Jam3/devtool#gotchas)你需要注意。
 
-## [ ](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#comparisons)Comparisons
+## [ ](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#comparisons)对比
 
-There are already some existing debuggers for Node.js, so you may be wondering where the differences lie.
+目前已经存在了一些 Node.js 调试器，所以你或许想知道他们之间的区别在哪。
 
-### [ ](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#webstorm-debugger)WebStorm Debugger
+### [ ](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#webstorm-debugger)WebStorm 调试器
 
-The [WebStorm](https://www.jetbrains.com/webstorm/) editor includes a very powerful Node.js debugger. This is great if you are already using WebStorm as your code editor.
+[WebStorm](https://www.jetbrains.com/webstorm/) 编辑器里面包含了一个非常强大的 Node.js 调试器。如果你已经使用 WebStorm 作为你的代码编辑器，那对你来说很棒。
 
 > ![](https://i.imgur.com/cfwG6qY.png)
 
-However, it lacks some features and polish of Chrome DevTools, such as:
+但是，它缺少一些 Chrome 开发者工具中的功能，例如:
 
-*   A rich and interactive console
-*   Pause on Exception
-*   Async Stack Traces
-*   Promise Inspection
-*   Profiles
+*   一个丰富的互动的控制台
+*   异常时暂停
+*   异步堆栈跟踪
+*   Promise 检查
+*   分析
 
-But since it integrates with your WebStorm workspace, you can make modifications and edit your files while debugging. It also runs in a true Node/V8 environment, unlike `devtool`, so it is more robust for a wide range of Node.js applications.
+但因为你和你的 WebStorm 工作空间集成，所以你可以在调试时修改和编辑你的文件。它也是运行在一个真正的 Node/V8 环境中，而不像 `devtool` 一样。因此对于大部分的 Node.js 应用程序来说它更稳健。
 
 ### [ ](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#ironnode)iron-node
 
 ![](https://i.imgur.com/fkbLvoS.png)
 
-A similar Electron-based debugger is [iron-node](https://github.com/s-a/iron-node). `iron-node` includes a built-in command to recompile native addons and a complex graphical interface that shows your `package.json` and `README.md`.
+一个同样基于 Electron 的调试器是[iron-node](https://github.com/s-a/iron-node)。`iron-node` 包含了一个内置的命令来重新编译原生插件，还有一个复杂的图形界面显示您的`package.json` 和 `README.md`。
 
-Whereas `devtool` is more focused on the command-line, Unix-style piping/redirection, and Electron/Browser APIs for interesting use-cases.
+而 `devtool` 更侧重于把命令行、Unix 风格的管道和重定向和 Electron/Browser 的 API 当作有趣的用例。
 
-`devtool` shims various features to behave more like Node.js (like `require.main`, `setTimeout` and `process.exit`) and overrides the internal `require` mechanism for source maps, improved error handling, breakpoint injection, and `"browser"` field resolution.
+`devtool` 提供各种各样的功能来表现的更像 Node.js (例如 `require.main`, `setTimeout` 和 `process.exit`)，并且覆盖了内部的 `require` 机制作为 source maps，还有改进过的错误处理、断点注入、以及 `"browser"` 字段的解决方案。
 
 ### [ ](http://mattdesl.svbtle.com/debugging-nodejs-in-chrome-devtools#nodeinspector)node-inspector
 
 ![](https://i.imgur.com/T4fpxjU.png)
 
-You may also like [node-inspector](https://github.com/node-inspector/node-inspector), which uses remote debugging instead of building on top of Electron.
+你或许也喜欢 [node-inspector](https://github.com/node-inspector/node-inspector)，一个使用远程调试而不是构建在 Electron 之上的工具。
 
-This means your code will run in a true Node environment, without any `window` or other Browser/Electron APIs that may pollute scope and cause problems with certain modules. It has stronger support for large Node.js applications (i.e. native addons) and more control over the DevTools instance (i.e. can inject breakpoints and support Network requests).
+这意味着你的代码将运行在一个真正的 Node 环境中，没有任何 `window` 或其他的 Browser/Electron API 来污染作用域并导致某些模块出现问题。对于大型 Node.js 应用(即本地插件)来说它有一个强有力的支持，并且在开发者工具实例中拥有更多的控制权(即可以注入断点和支持网络请求)。
 
-However, since it re-implements much of the debugging experience, it may feel slow, clunky and fragile compared to developing inside the latest Chrome DevTools. It has a tendency to crash often and often leads to frustration among Node.js developers.
+然而，由于它重新实现了大量的调试技巧，因此对于开发来说感觉可能比最新版的 Chrome 开发者工具要慢、笨拙和脆弱。它经常会崩溃，往往导致 Node.js 开发人员很无奈。
 
-Whereas `devtool` aims to make the experience feel more familiar to those coming from Chrome DevTools, and also promotes other features like Browser/Electron APIs.
+而 `devtool` 的目的是让那些从 Chrome 开发者工具中转过来的人觉得比较亲切，而且也增加了像 Browser/Electron APIs 这样的功能。
