@@ -2,7 +2,7 @@
 * 原文作者：[Michael Gachet](https://medium.com/@6Be)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Siegen](https://github.com/siegeout)
-* 校对者：[Gran](https://github.com/Graning)， [cbangchen](https://github.com/cbangchen)
+* 校对者：[Gran](https://github.com/Graning) ，[cbangchen](https://github.com/cbangchen)
 
 
 ### NSFetchedResultsController Woes
@@ -97,11 +97,12 @@ While in the heat of the project, I settled on the first solution, which introdu
 当这个项目进行到关键时候，我采用了第一个解决方案，它解决了一系列的新问题，但是始终没有让我满意。我想要理解究竟是什么地方出了问题并且验证一些我正在阅读的令我烦恼的主张。
 
 The goals of these investigations are to:
-这些研究的目的是：
 
 *   Figure out what is really going on when changes are merged from one context to another: What is in the target context, and what is in the notification payload?
 *   Figure out under which conditions is the _NSFetchedResultsController_ fail to behave as one would expect.
 *   Evaluate the various proposed solutions.
+
+这些研究的目的是：
 
 *   指出当变化从一个 context 被合并到另一个 context 的时候正在发生些什么：在目标 context 里的是什么？在通知集合里的是什么？
 *   指出在什么情况下 _NSFetchedResultsController_ 会表现的与预期不符。
