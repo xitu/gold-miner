@@ -1,19 +1,19 @@
 > * 原文地址：[The Easiest Core Data](http://albertodebortoli.com/blog/2016/08/05/the-easiest-core-data/)
 * 原文作者：[Alberto De Bortoli](http://albertodebortoli.com/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[Zheaoli](https://github.com/Zheaoli)
 * 校对者：
 
 
-Over the past months I spent a lot of time on Core Data, I had to deal with a project with a lot of legacy code, Core Data horros and multithreading violations. Core Data is hard, at times it can be frustrating and confusing. For this reasons, I decided to come up with a refined solution for a super simple design. The aim was to write a minimalistic, thread-safe, non-boilerplate and super easy to use version of Active Record on Core Data, that is actually all you need for doing Core Data in the 95% of the cases. The iterations were a few and I reconsidered my solution multiple times until I finally got where I wanted.
+在过去的几个月里，我花费了大量的时间在研究 Core Data 之上，我得去在一个项目里使用一些原来积累下的代码、Core Data 的操作以及一些多线程操作。讲真，Core Data 学习起来非常的困难，在学习 Core Data 的时候，你肯定会感到迷惑和一种深深的挫败感。正是因为这些原因，我决定给出一种超级简单的解决方案。这个方案的特点就是简洁，线程安全，非常易于使用，这个方案能满足你大部分对于 Core Data 的需求。在经过若干次的迭代后，我所设计的方案最终成为一个成熟的方案。
 
-So… here it is. Let me introduce [Skiathos](https://github.com/albertodebortoli/Skiathos) and [Skopelos](https://github.com/albertodebortoli/Skopelos). Skiathos is the Objective-C version, while Skopelos is the Swifty one. They are available as CocoaPods. The names come from 2 islands in Greece where I spent my 2016 summer holidays and found the inspiration to refine the final versions.
+OK，女士们，先生们，现在请允许我隆重向您介绍 [Skiathos](https://github.com/albertodebortoli/Skiathos) 和 [Skopelos](https://github.com/albertodebortoli/Skopelos)。其中 **Skiathos** 是基于 **Objective-C** 所开发的，而 **Skopelos** 则基于 **Swift** 所开发的。这两个框架的名字来源于希腊的两个岛，在这里，我渡过了2016年的夏天，同时，在这里完成了两个框架的编写工作。
 
-## General notes
+## 写在前面的话
 
-This component aims to have an extremely easy interface to introduce Core Data into your app with almost zero effort.
+整个项目的目的就是能够让您以及其简便的方式在您的 App 中引入 Core Data。
 
-The design introduced here involves a few main components:
+我们将从如下几个方面来进行一个介绍:
 
 *   CoreDataStack
 *   AppStateReactor
@@ -21,51 +21,55 @@ The design introduced here involves a few main components:
 
 ### CoreDataStack
 
-If you have experience with Core Data, you might know that creating a stack is an annoying process full of pitfalls. This component is responsible for the creation of the stack (in terms of chain of managed object contexts) using the design described [here](http://martiancraft.com/blog/2015/03/core-data-stack/) by Marcus Zarra.
+如果你有过使用 Core Data 的经验，那么你应该知道创建一个堆栈是一个充满陷阱的过程。这个组件是用于创建堆栈（用于管理对象上下文），具体的设计说明可以参看 Marcus Zarra 所写的这篇[文章](http://martiancraft.com/blog/2015/03/core-data-stack/)。
 
 ![](https://s3.amazonaws.com/albertodebortoli.github.com/images/coredata/coredatastack.png)
 
-An important difference from Magical Record, or other third-party libraries, is that the savings always go in one direction, from slaves down (or up?) to the persistent store. Other components allow you to create slaves that have the private context as parent and this causes the main context not to be updated or to be updated via notifications to merge the context. The main context should be the source of truth and it is tied the UI: having a much simpler approach helps to create a system easier to reason about.
+其中一个和 Magical Record 或者其余第三方插件不同的是，整个存储过程都是在一个方向上发起的，可能是从某个子节点向下或者向上传递来进行持久化储存。其余的组件允许你创建以私有上下文作为父节点的子节点，这将会导致主体上下文不能被更新，同时只能通过通知的方式来进行合并更新。主体上下文是相对固定的并与 **UI** 进行了绑定。
 
 ### AppStateReactor
 
-You should ignore this one. It sits in the CoreDataStack and takes care of saving the in-flight changes back to disk if the app goes to background, loses focus or is about to be terminated. It’s a silent friend who takes care of us.
+唔，其实你可以忽略这一段。这个组件基于 CoreDataStack ，在 App 切换至后台，失去节点，或者即将退出时，它负责监视相对应的修改，并把其保存。
 
 ### DALService (Data Access Layer) / (Skiathos/Skopelos)
 
-If you have experience with Core Data, you might also know that most of the operations are repetitive and that we usually call `performBlock:`/`performBlockAndWait:` on a context providing a block that eventually will call `save:` on that context as last statement. Databases are all about readings and writings and for this reason our APIs are in the form of `read:` and `write:`: 2 protocols providing a CQRS (Command and Query Responsibility Segregation) approach. Read blocks will be executed on the main context (as it’s considered to be the single source of truth). Write blocks are executed on a slave context which is saved synchronously at the end; changes are eventually saved asynchronously back to the persistent store without blocking the main thread. The method `write:completion:` calls the completion handler when the changes are saved back to the persistent store.
+如果你拥有使用 Core Data 的经验，那么你也应该知道，我们大部分操作都是重复的，我们经常在一个结尾调用 `save:` 代码块里中调用 `performBlock:`/`performBlockAndWait:` 。数据库的所有操作都是基于 API 中所提供的 `read:` 和 `write:` ：这两个协议提供了 CQRS （命令和查询分离） 的实现。用于读取的代码块将在主体中进行运行（因为这被认为是一个已确定的单个资源）。用于写入的代码块将会在一个子线程中运行，这样可以保证实时的进行数据储存，变化的数据将会在不会阻塞主线程的情况下通过异步的方式进行储存。`write:completion:` 方法将会程序运行完后来对数据的更改进行持久化储存。
 
-In other words, writings are always consistent in the main managed object context and eventual consistent in the persistent store. Data are always available in the main managed object context.
+换句话说，写入的数据在 `main managed object context` 和最后持久化过程中都会保证其一致性。在 `main managed object context` 中，相应的数据也能保证其可用性。
 
-`Skiathos`/`Skopelos` are just subclasses of `DALService`, to give a nice name to the component.
+`Skiathos`/`Skopelos` 是 `DALService` 的子类, 这样可以给这个组件一个比较好听的名字。
 
-## How to use
+## 使用介绍
 
-To use this component, you could create a property of type `Skiathos` and instantiate it like so:
+在使用这一系列组件之前，你首先需要创建一个类型为 `Skiathos` 的属性，然后以下面这种方式去初始化它：
 
+~~~OC
     self.skiathos = [Skiathos setupInMemoryStackWithDataModelFileName:@"<#datamodelfilename>"];
     // or
     self.skiathos = [Skiathos setupSqliteStackWithDataModelFileName:@"<#datamodelfilename>"];
+~~~
 
+在使用 `Skopelos` 时，代码如下所示：
 
-the Skopelos version is:
-
+~~~Swift
     self.skopelos = SkopelosClient(inMemoryStack: "<#datamodelfilename>")
     // or
     self.skopelos = SkopelosClient(sqliteStack: "<#datamodelfilename>")
+~~~
 
 
-You could then pass around the objects to other parts of the app via dependency injection. It has to be said that it’s perfectly acceptable to use a singleton for the Core Data stack. Also, allocating instances over and over is expensive. Generally speaking, we don’t like singletons. They are not testable by nature, clients don’t have control over the lifecycle of the object and they break some principles. For these reasons, the library comes free of singletons.
+你可以通过使用依赖注入的方式来在应用的其余地方使用这些对象。不得不说，为 Core Data 栈上的不同对象创建单例是一种很不错的做法。当然，不断的创建实例的开销是十分巨大的。通常来讲，我们不是很推荐使用单例模式。单例模式的测试性不强，在使用过程中，使用者无法有效的控制其声明周期，这样可能会违背一些最佳实践的编程原则。正是因为如此，在这个库里，我们不推荐使用单例。
 
-There are 2 reasons why you should inherit from `Skiathos`/`Skopelos`:
+由于下面几个原因，你在使用时需要从 `Skiathos`/`Skopelos` 进行继承：
 
-*   to create a shared instance for global access
-*   to override `handleError(error: NSError)` to perform specific actions when an error is encountered and this method is called
+*   创建一个全局可共享的实例。
+*   重载 `handleError(error: NSError)` 方法，以便在你的程序里出现一些错误时，这个方法能够正常的被调用。
 
-To create a singleton, you should inherit from `Skiathos`/`Skopelos` like so:
+为了创建单例，你应该如下面的示例一样去从 `Skiathos`/`Skopelos` 进行继承：
 
-### Singleton
+### 单例
 
+~~~Swift
     @interface SkiathosClient : Skiathos
     + (SkiathosClient *)sharedInstance;
     @end
@@ -85,11 +89,11 @@ To create a singleton, you should inherit from `Skiathos`/`Skopelos` like so:
         NSLog(@"%@", error.description);
     }
     @end
+~~~
 
+或者是
 
-or
-
-
+~~~Swift
     class SkopelosClient: Skopelos {
         static let sharedInstance = Skopelos(sqliteStack: "DataModel")
         override func handleError(error: NSError) {
@@ -97,13 +101,15 @@ or
             print(error.description)
         }
     }
+~~~
 
-### Readings and writings
+### 读写操作
 
-Speaking of readings and writings, let’s do now a comparison between some standard Core Data code and code written with these components.
+写到这里，让我们同时看看在一个标准 Core Data 的操作方式和我们组件所提供的方式吧。
 
-Standard Core Data readings:
+标准的读取姿势:
 
+~~~OC
     __block NSArray *results = nil;
     NSManagedObjectContext *context = ...;
     [context performBlockAndWait:^{
@@ -115,9 +121,11 @@ Standard Core Data readings:
         results = [context executeFetchRequest:request error:&error];
     }];
     return results;
+~~~
 
-Standard Core Data writings:
+标准的写入姿势:
 
+~~~OC
     NSManagedObjectContext *context = ...;
     [context performBlockAndWait:^{
         User *user = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass(User)
@@ -131,16 +139,20 @@ Standard Core Data writings:
             // continue to save back to the store
         }
     }];
+~~~
 
-Skiathos readings:
+`Skiathos` 中的读取姿势：
 
+~~~OC
     [[SkiathosClient sharedInstance] read:^(NSManagedObjectContext *context) {
         NSArray *allUsers = [User allInContext:context];
         NSLog(@"All users: %@", allUsers);
     }];
+~~~
 
-Skiathos writings:
+`Skiathos` 中的写入姿势：
 
+~~~OC
     // Sync
     [[SkiathosClient sharedInstance] writeSync:^(NSManagedObjectContext *context) {
         User *user = [User createInContext:context];
@@ -167,9 +179,11 @@ Skiathos writings:
     } completion:^(NSError *error) {
         // changes are saved to the persistent store
     }];
+~~~
 
-Skiathos also supports dot notation and chaining:
+`Skiathos` 当然也支持链式调用：
 
+~~~OC
     __block User *user = nil;
     [SkiathosClient sharedInstance].write(^(NSManagedObjectContext *context) {
         user = [User createInContext:context];
@@ -181,18 +195,22 @@ Skiathos also supports dot notation and chaining:
     }).read(^(NSManagedObjectContext *context) {
         NSArray *users = [User allInContext:context];
     });
+~~~
 
-or in Swift,
+如果是在 Swift中，代码将会变成下面这个样子
 
-Skopelos readings:
+读取：
 
+~~~Swift
     SkopelosClient.sharedInstance.read { context in
         let users = User.SK_all(context)
         print(users)
     }
+~~~
 
-Skopelos writings:
+写入：
 
+~~~Swift
     // Sync
     SkopelosClient.sharedInstance.writeSync { context in
         let user = User.SK_create(context)
@@ -219,9 +237,11 @@ Skopelos writings:
     }, completion: { (error: NSError?) in
         // changes are saved to the persistent store
     })
+~~~
 
-Skopelos supports chaining too:
+链式调用：
 
+~~~Swift
     SkopelosClient.sharedInstance.write { context in
         user = User.SK_create(context)
         user.firstname = "John"
@@ -234,37 +254,37 @@ Skopelos supports chaining too:
         let users = User.SK_all(context)
         print(users)
     }
+~~~
 
-The `NSManagedObject` category provides CRUD methods always explicit on the context. The context passed as parameter should be the one received in the read or write block. You should always use these methods from within read/write blocks. Main methods are:
+`NSManagedObject` 类所提供了非常清楚的 **CRUD** 方法。在作为读/写代码块的参数传递之时，对象应该被作为一个整体进行处理。你应该优先使用这些内建的方法。主要的方法有下面这些：
 
-  
-```
-+ (instancetype)SK_createInContext:(NSManagedObjectContext *)context;
-+ (NSUInteger)SK_numberOfEntitiesInContext:(NSManagedObjectContext *)context;
-- (void)SK_deleteInContext:(NSManagedObjectContext *)context;
-+ (void)SK_deleteAllInContext:(NSManagedObjectContext *)context;
-+ (NSArray *)SK_allInContext:(NSManagedObjectContext *)context;
-+ (NSArray *)SK_allWithPredicate:(NSPredicate *)pred inContext:(NSManagedObjectContext *)context;
-+ (instancetype)SK_firstInContext:(NSManagedObjectContext *)context;
-```
-    
-```
-static func SK_create(context: NSManagedObjectContext) -> Self
-static func SK_numberOfEntities(context: NSManagedObjectContext) -> Int
-func SK_remove(context: NSManagedObjectContext) -> Void
-static func SK_removeAll(context: NSManagedObjectContext) -> Void
-static func SK_all(context: NSManagedObjectContext) -> [Self]
-static func SK_all(predicate: NSPredicate, context:NSManagedObjectContext) -> [Self]
-static func SK_first(context: NSManagedObjectContext) -> Self?
-```
 
-Mind the usage of `SK_inContext(context: NSManagerObjectContext)` to retrieve an object in different read/write blocks (same read blocks are safe).
+~~~OC
+    + (instancetype)SK_createInContext:(NSManagedObjectContext *)context;
+    + (NSUInteger)SK_numberOfEntitiesInContext:(NSManagedObjectContext *)context;
+    - (void)SK_deleteInContext:(NSManagedObjectContext *)context;
+    + (void)SK_deleteAllInContext:(NSManagedObjectContext *)context;
+    + (NSArray *)SK_allInContext:(NSManagedObjectContext *)context;
+    + (NSArray *)SK_allWithPredicate:(NSPredicate *)pred inContext:(NSManagedObjectContext *)context;
+    + (instancetype)SK_firstInContext:(NSManagedObjectContext *)context;
+~~~
 
-## Thread-safety notes
+~~~Swift
+    static func SK_create(context: NSManagedObjectContext) -> Self
+    static func SK_numberOfEntities(context: NSManagedObjectContext) -> Int
+    func SK_remove(context: NSManagedObjectContext) -> Void
+    static func SK_removeAll(context: NSManagedObjectContext) -> Void
+    static func SK_all(context: NSManagedObjectContext) -> [Self]
+    static func SK_all(predicate: NSPredicate, context:NSManagedObjectContext) -> [Self]
+    static func SK_first(context: NSManagedObjectContext) -> Self?
+~~~
 
-All the accesses to the persistence layer done via a DALService instance are guaranteed to be thread-safe.
+注意，在使用 `SK_inContext(context: NSManagerObjectContext)` 时，不同的读写代码块可能会得到同一个对象。
 
-It is highly suggested to enable the flag `-com.apple.CoreData.ConcurrencyDebug 1` in your project to make sure that you don’t misuse Core Data in terms of threading and concurrency (by accessing managed objects from different threads and similar errors).
+## 线程安全
 
-This component doesn’t aim to introduce interfaces with the goal of hiding the concept of `ManagedObjectContext`: it would open up the doors to threading issues in clients' code as developers should be responsible to check for the type of the calling thread at some level (that would be ignoring the benefits that Core Data gives to us). Therefore, our design forces to make all the readings and writings via the `DALService` and the `ManagedObject` category methods are intended to always be explicit on the context (e.g. `SK_createInContext(context: NSManagedObjectContext)`).
+所有 DALService 所产生的实例都可以认为是线程安全的。
 
+我们特别建议你在项目中进行这样的设置 `-com.apple.CoreData.ConcurrencyDebug 1` ，这可以确保你不会在多线程和并发的情况下滥用Core Data。
+
+This component doesn’t aim to introduce interfaces with the goal of hiding the concept of `ManagedObjectContext`: it would open up the doors to threading issues in clients' code as developers should be responsible to check for the type of the calling thread at some level (that would be ignoring the benefits that Core Data gives to us). Therefore, our design forces to make all the readings and writings via the `DALService` and the `ManagedObject` category methods are intended to always be explicit on the context (e.g. `SK_createInContext(context: NSManagedObjectContext)`).（最后一整段，是在拿捏不好怎么翻译，请校者一起帮忙斟酌一二）
