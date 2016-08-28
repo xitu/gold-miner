@@ -9,21 +9,21 @@
 
 I’m not sure if Swift’s forefathers could’ve estimated the passion and fervor its future developers would hold for the very language they were crafting. Suffice to say, the community has grown and the language has stabilized(ish) to a point where we even have a term now to bestow upon code that displays Swift in all of its intended glory:
 
-不知道发明 Swift 的人是否会料到他们正在编写的语言，未来会深受开发者的青睐。 我只想说，Swift 社区已经成长且语言已经稳定（ISH）到一个地步，我们甚至有一个专门的词语赐予 Swift 代
+不知道发明 Swift 的人是否会料到他们正在编写的语言，未来会深受开发者的青睐。 我只想说，Swift 社区已经成长且语言已经稳定（ISH）到一个地步，现在甚至有个专有名词赞美 Swift 编程的美好未来。
 
 _Swifty._
 
 > “That code isn’t Swifty”. “This should be more Swifty”. “This is a Swifty pattern”. “We can make this Swifty”.
 
-And the list goes.on(). While I’m not much of an advocate of the phrase, I can’t really think of a better alternative to describe an idiomatic way to code for 3D touch quick actions.
+这些赞扬的话还会越来越多。虽然我不太提倡说这些赞赏的话语，但是我真的找不到其它可以替代的话来夸赞，用 Swift 为 3D touch 编写快捷操作的那种“美感”。
 
-This week, let’s see how Swift can make us good citizens when it comes to the implementation details of [UIApplicationShortcutItem](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIApplicationShortcutItem_class/).
+这周，让我们来看看 在 [UIApplicationShortcutItem](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIApplicationShortcutItem_class/) 实现细节中，Swift 是如何让我们成为 “一等公民” 的。
 
-#### The Scenario
+#### 实现方案
 
-When a user initiates a short cut action from the home screen, one of two things happens. The app either invokes a designated function to handle the shortcut, or it’s fast asleep and gets booted up — which means execution will eventually funnel through to the familiar didFinishLaunchingWithOptions.
+当一个用户在主屏开始一个快捷操作时，会发生下面两件事中的一个。应用程序可以调用指定的函数来处理该快捷方式，或快速休眠再启动 — — 这意味着最终还是通过熟悉的 didFinishLaunchingWithOptions 来执行。
 
-Either way, the developer will decide which action to take by typically looking at the UIApplicationShortcutItem’s type property.
+无论哪种方式，开发人员通常根据  UIApplicationShortcutItem 类型属性来决定用哪种操作。
 
 ```
 if shortcutItem.type == "bundleid.shortcutType"
@@ -32,9 +32,9 @@ if shortcutItem.type == "bundleid.shortcutType"
 }
 ```
 
-It works, and for one off side projects it may float your 🚣 just as well.
+上面代码是正确的，项目中只是用一次的话还是可以的。
 
-Alas, this route quickly becomes cumbersome as more short cuts are added, even with the added bonus of being able to use a switch case on String instances within the Swiftosphere**™**. It’s also widely documented that using String literals for such situations can be a foolhardy endeavor:
+可惜的是，随着增加越来越多的快捷操作，即便在 Swiftosphere**™** 中，switch 条件用字符串实例有额外好处的情况下，这种方法很快就会变得十分繁琐。它也被大量证明，对于这种情况使用字符串字面值可能是白费功夫：
 
 ```
 if shortcutItem.type == "bundleid.shortcutType"
@@ -48,24 +48,24 @@ else if shortcutItem.type == "bundleid.shortcutTypeXYZ"
 //and on and on
 ```
 
-Handling these short cut actions is likely a small part of your codebase, but none the less — Swift can make it that much better and a bit more safe. So, let’s have Swift unleash its magic to provide us a better alternative.
+处理这些快捷操作就想你代码库的一小部分，尽管如此——Swift 能处理的更好而且更安全些。所以，让我们看看 Swift 如何发挥它的“魔法”，给我们提供一个更好的选择。
 
 #### Enum .Fun
 
-Let’s just say it, Swift’s enumerations are crazy. I never would’ve thought they could use properties, initializers and functions when Swift was announced back in dub dub 14 — but here we are.
+恕我直言， Swift 的枚举很“疯狂”。当 Swift 在 14 年发布的时候，我从来没想过它们能用属性、初始化程序和功能，但是我们现在已经在用了。
 
-Regardless, we can put them to work here. When one considers the implementation details of supporting UIApplicationShortcutItem, a few key points stick out:
+不管怎么说，我们可以在工作中用上它们。当你考虑支持 UIApplicationShortcutItem 的实现细节时，几个关键点应该注意：
 
-*   One must assign a name to the short cut, via the _type_ property
-*   By virtue of Apple’s guidance, we should prefix these actions with our bundle identifier
-*   There will likely be multiple short cuts
-*   We’ll likely take a given action based off of the type in more than one place in our application
+*  必须通过 _type_ 属性给快捷方式指定一个名称
+*  根据苹果官方指南，必须给这些操作绑定标示符前缀
+*  可能会有多个快捷方式
+*  可能会在应用程序多个位置采取基于类型的特定操作
 
-Our game plan is simple. We’ll stray from hard coding a String literal, and instead initialize an enum instance to represent the short cut that’s been invoked.
+我们的游戏计划很简单。我们不采用硬编码字符串字面量，而是初始化一个枚举实例来表示这就是被调用的快捷方式。
 
-#### The Implementation
+#### 具体实现
 
-Consider our two fictional short cuts. Each one, and every additional one hereafter, is now represented by a enum case.
+我们虚构两个快捷方式，每个都额外附加一个之后，现在就是由一个枚举表示。
 
 ```
 enum IncomingShortcutItem : String
@@ -76,6 +76,8 @@ enum IncomingShortcutItem : String
 ```
 
 With Objective-C, we may have stopped there. I’d submit it’s widely accepted that just having the enum cases is far superior to the String literals we had before. However, some String interpolation would still come in to play as its also best practice to prefix your app’s bundle identifier to each action’s type property (i.e. com.dreaminginbinary.myApp.MyApp).
+
+如果是用 Objective-C，我们可能到这就结束了。我认为，使用枚举远远优于之前使用字符串文字的观点，已经被大家所接受。然而，为应用每个操作类型属性绑定标识符前缀（例如，com.dreaminginbinary.myApp.MyApp）来说，使用一些字符串插值仍是最佳解决办法。
 
 But — since Swift’s enums have superpowers, we can implement this in a very tidy fashion:
 
