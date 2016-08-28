@@ -2,7 +2,7 @@
 * 原文作者：[Michael Gachet](https://medium.com/@6Be)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Siegen](https://github.com/siegeout)
-* 校对者：[Gran](https://github.com/Graning) [cbangchen](https://github.com/cbangchen)
+* 校对者：[Gran](https://github.com/Graning)， [cbangchen](https://github.com/cbangchen)
 
 
 ### NSFetchedResultsController Woes
