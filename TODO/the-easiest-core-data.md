@@ -21,11 +21,11 @@ OK，女士们，先生们，现在请允许我隆重向您介绍 [Skiathos](htt
 
 ### CoreDataStack
 
-如果你有过使用 Core Data 的经验，那么你应该知道创建一个堆栈是一个充满陷阱的过程。这个组件是用于创建堆栈（用于管理对象上下文），具体的设计说明可以参看 Marcus Zarra 所写的这篇[文章](http://martiancraft.com/blog/2015/03/core-data-stack/)。
+如果你有过使用 Core Data 的经验，那么你应该知道创建一个堆栈是一个充满陷阱的过程。这个组件是用于创建堆栈（用于管理 **Obejct Context** ），具体的设计说明可以参看 Marcus Zarra 所写的这篇[文章](http://martiancraft.com/blog/2015/03/core-data-stack/)。
 
 ![](https://s3.amazonaws.com/albertodebortoli.github.com/images/coredata/coredatastack.png)
 
-其中一个和 Magical Record 或者其余第三方插件不同的是，整个存储过程都是在一个方向上发起的，可能是从某个子节点向下或者向上传递来进行持久化储存。其余的组件允许你创建以私有上下文作为父节点的子节点，这将会导致主体上下文不能被更新，同时只能通过通知的方式来进行合并更新。主体上下文是相对固定的并与 **UI** 进行了绑定。
+其中一个和 Magical Record 或者其余第三方插件不同的是，整个存储过程都是在一个方向上发起的，可能是从某个子节点向下或者向上传递来进行持久化储存。其余的组件允许你创建以 **private context** 作为父节点的子节点，这将会导致 **main context** 不能被更新，同时只能通过通知的方式来进行合并更新。**main context** 是相对固定的并与 **UI** 进行了绑定。
 
 ### AppStateReactor
 
