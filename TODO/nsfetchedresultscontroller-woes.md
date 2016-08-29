@@ -7,7 +7,7 @@
 
 ### NSFetchedResultsController 困境
 
-_NSFetchedResultsController_ 是是关于 iOS 的 Core Data 开发的一个主要部分。自 iOS 3系统开始引入这个类之后，这个类就负责高效的管理 Core Data 实体的集合。
+_NSFetchedResultsController_ 是关于 iOS 的 Core Data 开发的一个主要部分。自 iOS 3系统开始引入这个类之后，这个类就负责高效的管理 Core Data 实体的集合。
 
 
 在过去的六年里，我使用这个控制器，并为它设置了[各种类型的 Core Data 栈配置](https://medium.com/bpxl-craft/thoughts-on-core-data-stack-configurations-b24b0ea275f3)来管理我所有的项目。最近，在为 Black Pixel 的一个大客户制作的项目上，我们决定使用一个标准的 “sibling”（同级）Core Data 栈配置：
