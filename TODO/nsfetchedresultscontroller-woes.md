@@ -240,7 +240,7 @@ _NSFetchedResultsController_ 是关于 iOS 的 Core Data 开发的一个主要�
 *  我们需要选择是设置成 _mergeChanges = false_ 或者是 _mergeChanges = true_。
 
 
-** _NSManagedObjectContext_ 拓展和应用的典型例子 **
+**_NSManagedObjectContext_ 拓展和应用的典型例子**
 
 ```
 public extension NSManagedObjectContext {
