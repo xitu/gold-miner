@@ -1,26 +1,28 @@
-> * 原文地址：[Writing Less Damn Code](http://www.heydonworks.com/article/on-writing-less-damn-code)
+> * 原文地址：[如何使用更少的代码](http://www.heydonworks.com/article/on-writing-less-damn-code)
 * 原文作者：[Heydon Pickering](http://www.heydonworks.com/about)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[circlelove](https://github.com/circlelove)
 * 校对者：
 
-I’m not the most talented coder in the world. No, it’s true. So I try to write as little code as possible. The less I write, the less there is to break, justify, or maintain.
+我不是世界上最有天赋的码神。是的，这是事实。所以我尽可能地减少代码量。我写的越少，就需要破坏、解释和维护的地方就越少。
 
-I’m also lazy, so it’s all gravy. (_ed: maybe run with a food analogy?_)
+我也挺懒的，所以懒人有懒福（原文为it’s all gravy）。(_作者: 或许这里用了个关于食物的比喻?_)
 
-But it turns out the only surefire way to make _performant_ Web Stuff is also to just write less. Minify? Okay. Compress? Well, yeah. Cache? Sounds technical. Flat out refuse to code something or include someone else’s code in the first place? **Now you’re talking.** What goes in one end has to come out the other in some form, whether it’s broken down and liquified in the gastric juices of your task runner or not. (_ed: I’ve changed my mind about the food analogy_)
+但是结果是唯一可靠的方法来实现 Web 事项的性能优化也还是缩减代码量。削减？好。压缩？行吧。缓存？听起来有技术含量。完全拒绝写代码或者把别人的代码放在首位？ **你说的？//你现在才说。** 输入的东西要以某种方式输出，不论他是否被破坏还是被你的任务运行的胃液消化成水了。(_作者: 我对这个食物的比喻改变了想法。_)
 
-And that’s not all. Unlike aiming for ‘perceived’ performance gains — where you still send the same quantity of code but you chew it up first (_ed: seriously_) — you can actually make your Web Stuff _cheaper_ to use. My data contract doesn’t care whether you send small chunks or one large chunk; it all adds up the same.
 
-My _favorite_ thing about aiming to have less stuff is this: you finish up with only the stuff you really need — only the stuff your _user_ actually wants. Massive hero image of some dude drinking a latte? Lose it. Social media buttons which pull in a bunch of third-party code while simultaneously wrecking your page design? Give them the boot. That JavaScript thingy that hijacks the user’s right mouse button to reveal a custom modal? Ice moon prison.
 
-It’s not just about what you pull in to destroy your UX or not, though. The _way_ you write your (own) code is also a big part of having less of it. Here are a few tips and ideas that might help. I’ve written about some of them before, but in terms of accessibility and responsive design. It just happens that a flexible, accessible Web is one we try to exert little of our own control over; one we do less to break.
+而且这还不是全部。不像那些为了‘看得见’的性能提升——你还是得发送相同质量的代码，不过要先尝一口( _作者:严肃脸_ )————你可以实实在在地让你的 Web 事项 _方便_ 使用。我的数据协定不管你是发送多个小代码块还是一个大块；它都一律添加。
 
-## WAI-ARIA
+我_最喜欢的_削减事项的事情就是：你利用那些真正需要的唯一性的事项来做你的_用户_真正想要的东西。大口喝拿铁的大块头硬汉影响？别那样！让那些挂了一堆第三方代码的社交媒体按钮，同步地破坏你的页面设计？打发他们滚蛋。谁见过 JavaScript 的东西会劫持用户的右键按钮来显示一些自定义的模式？冰月亮监狱？？？？？
 
-First off, WAI-ARIA != web accessibility. It’s just a tool to enhance compatibility with certain assistive technologies, like screen readers, where it’s needed. Hence, the [first rule of ARIA use](https://www.w3.org/TR/aria-in-html/#first-rule-of-aria-use) is to _not_ use WAI-ARIA if you don’t have to.
+这并不只是有关你加上的东西会不会破坏你的 UX 的问题。你写（自己）代码的_方法_也是简化它的一个重要组成。这里有几个小建议和想法或许能帮上忙。我过去曾经写过一些，但那是有关可访问性和响应设计的。碰巧一个灵活的可访问的 Web 是我们努力发挥自己对代码量的控制，也是为了减少破坏。
 
-LOL, no:
+## 辅助应用程序
+
+首先，辅助应用程序不等于 Web 的可访问性。它只是一个在需要的时候利用特定辅助技术（例如屏幕阅读）提升性能的工具。因此[ ARIA 使用第一守则](https://www.w3.org/TR/aria-in-html/#first-rule-of-aria-use) 就是 _不要_在不需要的使用使用 WAI-ARIA 。
+
+LOL, 不要这样：
 
 ```
 
@@ -28,7 +30,7 @@ LOL, no:
 
 ```
 
-Yes:
+要这样:
 
 ```
 
@@ -36,8 +38,7 @@ Yes:
 
 ```
 
-The benefit of using native elements is that you often don’t have to script your own behaviors either. Not only is the following checkbox implementation verbose HTML, but it needs a JavaScript dependency to control state changes and to [follyfill](https://twitter.com/heydonworks/status/765444886099288064) standard, basic behavior regarding the `name` attribute and `GET` method. It’s more code, and it’s less robust. Joy!
-
+使用原生元素的好处就是你不用为本地的操作编写脚本了。不仅是下面的复选框执行冗长的HTML，需要一个 JavaScript 的依赖来控制状态改变和 [follyfill](https://twitter.com/heydonworks/status/765444886099288064) 标准，有关 `name` 属性的基本行为和 `GET` 的方法。代码一多就不稳定。开心！
 ```
 
 <div role="checkbox" aria-checked="false" tabindex="0" id="checkbox1" aria-labelledby="label-for-checkbox1"/>
@@ -45,7 +46,7 @@ The benefit of using native elements is that you often don’t have to script yo
 
 ```
 
-[Styling? Don’t worry, you’re covered](http://wtfforms.com/). That’s if you really need custom styles, anyway.
+[样式？不用担心，有人罩你](http://wtfforms.com/)。你真的需要自定义样式的话，随你。
 
 ```
 
@@ -53,11 +54,11 @@ The benefit of using native elements is that you often don’t have to script yo
 <label for="checkbox1">My checkbox label</label>
 ```
 
-## Grids
+## 网格
+你还记得曾经使用/阅读一个多于两栏的网站表示享受的体验吗？我可没有。一次性给出太多的东西，渴望我的关注。“我想知道这一坨看起来像
+是导航的东西到底哪个才是我要的导航？” 这是个反问：我的执行工作已经停滞，然后离开了网站。
 
-Do you remember ever enjoying using/reading a website with more than two columns? I don’t. Too much stuff all at once, begging for my attention. “I wonder which thing that looks like navigation is the navigation I want?” It’s a rhetorical question: my executive functioning has seized up and I’ve left the site.
-
-Sometimes we want to put things next to things, sure. Like search results or whatever. But why pull in a whole tonne of grid framework boilerplate just for that? Flexbox can do it with no more than a couple of declaration blocks.
+当然有时候我想把一个东西和另一个合起来。比如搜索结果之类的。但是为什么要为了这么个东西拖了整个臃肿的样板框架呢？ Flexbox 用不了几个声明块就能解决。
 
 ```
 
@@ -73,9 +74,9 @@ Sometimes we want to put things next to things, sure. Like search results or wha
 
 ```
 
-Now everything ‘flexes’ to be approximately `10em` wide. The number of columns depends on how many approx’ `10em` cells you can fit into the viewport. Job done. Move on.
+现在一切都“ flex ”到了 10 em 宽。行数取决于你能在视口里面放多少 `10em` 的单元格。搞定。继续。
 
-Oh and, while we’re here, we need to talk about this kind of thing:
+哦还有，这时候我们需要谈谈下面这个东西：
 
 ```
 
@@ -83,11 +84,11 @@ width: 57.98363527356473782736464546373337373737%;
 
 ```
 
-Did you know that precise measurement is calculated according to a mystical ratio? A ratio which purports to induce a state of calm and awe? No, I wasn’t aware and I’m not interested. Just make the porn button big enough that I can find it.
+你知道这个精确的测量结果是从一个神秘的比例里面算出来的吗？是一种使你达到平静和敬畏状态的比例？不，我不知道也不感兴趣。把那个色情的按钮弄得大到我能找到就行。
 
 ## Margins
 
-[We’ve done this](http://alistapart.com/article/axiomatic-css-and-lobotomized-owls). Share your margin definition across elements using the universal selector. Add overrides only where you need them. You won’t need many.
+[我们完成这些了](http://alistapart.com/article/axiomatic-css-and-lobotomized-owls)。使用通配选择器分享你的 margin 元素定义。只在需要的时候添加重写。你不需要太多的。
 
 ```
 
@@ -97,11 +98,11 @@ body * + * {
 
 ```
 
-No, the universal selector will not kill your performance. That’s bunkum.
+不，通配选择器不会破坏你的性能。那是废话。
 
-## Views
+## 视图
 
-You don’t need the whole of Angular or Meteor or whatever to divide a simple web page into ‘views’. Views are just bits of the page you see while other bits are unseen. CSS can do this:
+你也不需要整个的 Angular 或者 Meteor 或者什么的来把简单的 web 页面分成一个个“视图”。视图只是其他部分不可见时也没的一部分而已。 CSS 可以做到这些：
 
 ```
 
@@ -115,11 +116,11 @@ You don’t need the whole of Angular or Meteor or whatever to divide a simple w
 
 ```
 
-“But single-page apps run stuff when they load views!” I hear you say. That’s what the `onhashchange` event is for. No library needed, and you’re using links in a standard, bookmark-able way. Which is nice. [There’s more on this technique, if you’re interested](https://www.smashingmagazine.com/2015/12/reimagining-single-page-applications-progressive-enhancement/).
+“但是单页 app 加载了视图才运行项目！”我听到你会说这个。“那就是 `onhashchange` 的用处了。不需要库，就正常的用一个链接，使用标准的、可添加书签的方法。那就挺好。[如果你很感兴趣的话，关于这个技术还有更多介绍](https://www.smashingmagazine.com/2015/12/reimagining-single-page-applications-progressive-enhancement/).
 
-## Font sizes
+## 字体大小
 
-Tweaking font sizes can really bloat out your `@media` blocks. That’s why you should let CSS take care of it for you. With a single line of code.
+改变字号真的可以打消你的 `@media` 块。那就是你需要让 CSS 帮你关照一下的原因。只需一行代码：
 
 ```
 
@@ -127,9 +128,11 @@ font-size: calc(1em + 1vw);
 
 ```
 
-Err… that’s it. You even have a minimum font size in place, so no tiny fonts on handsets. Thanks to [Vasilis](https://twitter.com/vasilis) for showing me this.
+额。。。就是这样。你甚至有一个最小的字体的地方，所以手机上也没这么小的字。感谢 [Vasilis](https://twitter.com/vasilis) 的分享。
 
 ## [10k Apart](https://a-k-apart.com/)
 
-Like I said, I’m not the best coder. I just know some tricks. But it is possible to do a hell of a lot, with only a little. That’s the premise of the [10k Apart competition](https://a-k-apart.com/) — to find out what can be made with just 10k or less. There are big prizes to be won and, as a judge, I look forward to kicking myself looking at all the amazing entries; ideas and implementations I wish I’d come up with myself. What will you make?
+就像我说过的，我不是最好的码农。我只是懂得一些小技巧。但是这些小技巧真的可以办到很多大事情。这就是 [10k Apart competition](https://a-k-apart.com/) 的前提————发现我们可以用 10k 或者更少代码完成的事情。还有很多的大奖需要我们去赢取，作为一个内行，我期待鞭策自己看完所有的神奇的条目；我希望我能有这样的想法和执行。你要做些什么呢？
+
+
 
