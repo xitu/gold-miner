@@ -1,3 +1,4 @@
+* [安全的计时器设计模式](http://gold.xitu.io/entry/57b279f0128fe10055cda9fd?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([mypchas6fans](https://github.com/mypchas6fans) 翻译)
 * [Swift + 闭包初始化](http://gold.xitu.io/entry/57bd72a3a633bd005d49fa32?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([circlelove](https://github.com/circlelove) 翻译)
 * [有关用 Swift 访问后端服务器的 API 文档](http://gold.xitu.io/entry/57bd2d42efa631005a8ea10a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Nicolas(Yifei) Li](https://github.com/yifili09) 翻译)
 * [等不及集成 iOS 10 新特性？如何在应用维护与新特性集成之间找到平衡点](http://gold.xitu.io/entry/57ad9e0e7db2a200540fe491?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([circlelove](https://github.com/circlelove) 翻译)
