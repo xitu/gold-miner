@@ -7,8 +7,6 @@
 
 #### Makin’ 3D Touch All “Swifty” Up In Here
 
-I’m not sure if Swift’s forefathers could’ve estimated the passion and fervor its future developers would hold for the very language they were crafting. Suffice to say, the community has grown and the language has stabilized(ish) to a point where we even have a term now to bestow upon code that displays Swift in all of its intended glory:
-
 不知道发明 Swift 的人是否会料到他们正在编写的语言，未来会深受开发者的青睐。 我只想说，Swift 社区已经成长且语言已经稳定（ISH）到一个地步，现在甚至有个专有名词赞美 Swift 编程的美好未来。
 
 _Swifty._
@@ -50,14 +48,14 @@ else if shortcutItem.type == "bundleid.shortcutTypeXYZ"
 
 处理这些快捷操作就想你代码库的一小部分，尽管如此——Swift 能处理的更好而且更安全些。所以，让我们看看 Swift 如何发挥它的“魔法”，给我们提供一个更好的选择。
 
-#### Enum .Fun
+#### Enum .Fun
 
-恕我直言， Swift 的枚举很“疯狂”。当 Swift 在 14 年发布的时候，我从来没想过它们能用属性、初始化程序和功能，但是我们现在已经在用了。
+讲真， Swift 的枚举很“疯狂”。当 Swift 在 14 年发布的时候，我从来没想过它们能用属性、初始化程序和功能，但是我们现在已经在用了。
 
 不管怎么说，我们可以在工作中用上它们。当你考虑支持 UIApplicationShortcutItem 的实现细节时，几个关键点应该注意：
 
 *  必须通过 _type_ 属性给快捷方式指定一个名称
-*  根据苹果官方指南，必须给这些操作绑定标示符前缀
+*  根据苹果官方指南，必须以包路径作为这些操作的前缀
 *  可能会有多个快捷方式
 *  可能会在应用程序多个位置采取基于类型的特定操作
 
@@ -75,11 +73,9 @@ enum IncomingShortcutItem : String
 }
 ```
 
-With Objective-C, we may have stopped there. I’d submit it’s widely accepted that just having the enum cases is far superior to the String literals we had before. However, some String interpolation would still come in to play as its also best practice to prefix your app’s bundle identifier to each action’s type property (i.e. com.dreaminginbinary.myApp.MyApp).
+如果是用 Objective-C，我们可能到这就结束了。我认为，使用枚举远远优于之前使用字符串文字的观点，已经被大家所接受。然而，为应用每个操作类型属性指定包路径为前缀（例如，com.dreaminginbinary.myApp.MyApp）来说，使用一些字符串插值仍是最佳解决办法。
 
-如果是用 Objective-C，我们可能到这就结束了。我认为，使用枚举远远优于之前使用字符串文字的观点，已经被大家所接受。然而，为应用每个操作类型属性绑定标识符前缀（例如，com.dreaminginbinary.myApp.MyApp）来说，使用一些字符串插值仍是最佳解决办法。
-
-But — since Swift’s enums have superpowers, we can implement this in a very tidy fashion:
+但是，因为 Swift 枚举超级厉害，我们可以用它以一种非常简洁的方法来实现：
 
 ```
 enum IncomingShortcutItem : String
@@ -92,11 +88,12 @@ enum IncomingShortcutItem : String
 }
 ```
 
-Ah — nice! We’ve got our app’s bundle identifier tucked away safely in a computed property. [Recall from last week](https://medium.com/the-traveled-ios-developers-guide/swift-initialization-with-closures-5ea177f65a5#.ar2zxzrfc) that including the parenthesis at the end of the closure signifies that we wish to assign _prefix_ to the closure’s return statement, and not the closure itself.
+看！厉害吧！我们能安全的从计算属性中获取应用的包路径。回忆起上个星期的[一篇文章](https://medium.com/the-traveled-ios-developers-guide/swift-initialization-with-closures-5ea177f65a5#.ar2zxzrfc)，在介绍闭包的最后提到了插入值，我们希望将_前缀_分配给闭包的返回语句，并不是闭包本身。
 
 #### The Cherry on Top
 
-To finalize the pattern, we’ll make use of two of my dearest Swift features. That is, creating a failable initializer for an enumeration, and using a guard statement to enforce safety and promote clear intent.
+
+最终方案，将用上两个我们最喜爱的 Swift 功能。那就是为一个枚举创建一个可失败的初始化程序，使用 guard 语句来确保安全，使得意图明确。
 
 ```
 enum IncomingShortcutItem : String
@@ -123,11 +120,15 @@ enum IncomingShortcutItem : String
 
 The failable initializer is important. If there isn’t a matching short cut action corresponding to the given String, we should bail out. It also tells me, if I was the maintainer, that it might lend itself well to a guard statement when the time comes to use it.
 
-The part I especially adore, though, is how we’re able to take advantage of the enum’s _rawValue_ and easily tack it on to our bundle identifier. It’s all housed right where it needs to be, inside of an initializer.
+这个允许失败的初始化是很重要的。如果没有匹配到快捷操作对应的字符串，我们应该跳出。它还能告诉我，如果我是维护者，当该使用它的时候，它可能将本身借给 guard 语句。
 
-Lest we forget, once its initialized we can also use it for what it is — a enum. That means we’ll have a very readable switch statement with which to reason against later on.
 
-Here is what the final product might look like when it all comes together, slightly abbreviated from a production app:
+我特别喜欢这部分，这也是我们如何能够利用枚举 _rawValue_ 的优势，且很容易把它拼接到包路径上。这一切都在正确的地方，一个初始化函数的内部。
+
+
+别忘了，一旦其初始化，我们还可以当枚举来用的。这意味着我们会有一个可读很高的 switch 语句，稍后还有些反对的理由。
+
+下面可能是最终产品的样子，所有的东西都集成进来了，与线上应用相比略有删节：
 
 ```
 static func handleShortcutItem(shortcutItem:UIApplicationShortcutItem) -&gt; Bool
@@ -181,4 +182,4 @@ When I first started reading about enums in Swift way back when, I found them to
 
 When I saw Apple implement this pattern, I indeed got 😍. I think this is a great way to solve a small problem, as its a very “team friendly” approach to the implementation details of short cut actions. I would assume they tend to agree, as its included in two of their sample projects showcasing 3D touch.
 
-Until .NextTime 👋
+Until .NextTime 👋
