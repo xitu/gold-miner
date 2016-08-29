@@ -1,17 +1,17 @@
 > * 原文地址：[Using Swift’s Enums for Quick Actions](https://medium.com/the-traveled-ios-developers-guide/using-swifts-enums-for-quick-actions-a08c0f6d5b8b#.lbt8itrxd)
 * 原文作者：[Jordan Morgan](https://medium.com/@JordanMorgan10?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[DeadLion](https://github.com/DeadLion)
 * 校对者：
 
 
-#### Makin’ 3D Touch All “Swifty” Up In Here
+#### 完美实现 3D Touch 
 
 不知道发明 Swift 的人是否会料到他们正在编写的语言，未来会深受开发者的青睐。 我只想说，Swift 社区已经成长且语言已经稳定（ISH）到一个地步，现在甚至有个专有名词赞美 Swift 编程的美好未来。
 
 _Swifty._
 
-> “That code isn’t Swifty”. “This should be more Swifty”. “This is a Swifty pattern”. “We can make this Swifty”.
+> “That code isn’t Swifty”. “This should be more Swifty”. “This is a Swifty pattern”. “We can make this Swifty”.（反正就是漂亮，美得让人窒息之类的话）
 
 这些赞扬的话还会越来越多。虽然我不太提倡说这些赞赏的话语，但是我真的找不到其它可以替代的话来夸赞，用 Swift 为 3D touch 编写快捷操作的那种“美感”。
 
@@ -90,7 +90,7 @@ enum IncomingShortcutItem : String
 
 看！厉害吧！我们能安全的从计算属性中获取应用的包路径。回忆起上个星期的[一篇文章](https://medium.com/the-traveled-ios-developers-guide/swift-initialization-with-closures-5ea177f65a5#.ar2zxzrfc)，在介绍闭包的最后提到了插入值，我们希望将_前缀_分配给闭包的返回语句，并不是闭包本身。
 
-#### The Cherry on Top
+#### 最佳模式
 
 
 最终方案，将用上两个我们最喜爱的 Swift 功能。那就是为一个枚举创建一个可失败的初始化程序，使用 guard 语句来确保安全，使得意图明确。
@@ -117,28 +117,22 @@ enum IncomingShortcutItem : String
 }
 ```
 
-
-The failable initializer is important. If there isn’t a matching short cut action corresponding to the given String, we should bail out. It also tells me, if I was the maintainer, that it might lend itself well to a guard statement when the time comes to use it.
-
-这个允许失败的初始化是很重要的。如果没有匹配到快捷操作对应的字符串，我们应该跳出。它还能告诉我，如果我是维护者，当该使用它的时候，它可能将本身借给 guard 语句。
-
+这个允许失败的初始化是很重要的。如果没有匹配到快捷操作对应的字符串，应该跳出。它还能告诉我，如果我是维护者，当该使用它的时候，它可能更适合使用 guard 语句。
 
 我特别喜欢这部分，这也是我们如何能够利用枚举 _rawValue_ 的优势，且很容易把它拼接到包路径上。这一切都在正确的地方，一个初始化函数的内部。
 
+别忘了，一旦其初始化，我们还可以当枚举来用的。这意味着我们会有一个可读很高的 switch 语句，后面有些反对的理由。
 
-别忘了，一旦其初始化，我们还可以当枚举来用的。这意味着我们会有一个可读很高的 switch 语句，稍后还有些反对的理由。
-
-下面可能是最终产品的样子，所有的东西都集成进来了，与线上应用相比略有删节：
+下面可能是最终产品的样子，所有的东西都集成进来了，与线上应用相比略有删减：
 
 ```
-static func handleShortcutItem(shortcutItem:UIApplicationShortcutItem) -&gt; Bool
+static func handleShortcutItem(shortcutItem:UIApplicationShortcutItem) -> Bool
 {
     //Initialize our enum instance to check for a shortcut
     guard let shortCutAction = IncomingShortcutItem(shortCutType: shortcutItem.type) else
     {
         return false
     }
-
     //Now we've got a valid shortcut, and can use a switch
     switch shortCutAction
     {
@@ -151,9 +145,9 @@ static func handleShortcutItem(shortcutItem:UIApplicationShortcutItem) -&gt; Boo
 ```
 
 
-Here, our short cut actions become typed and we promote clear intent using this pattern, which is why I quite like it. It’s also unnecessary to provide a final “return false” statement at the end of the method (or even a _default_within the switch statement to boot) since we’re already exhaustive, which is an added culling of the proverbial code fat.
+这里，我们的快捷操作成为类型，使用这种模式可以明确我们的意图，这是我非常喜欢它的原因。在方法的末尾提供一个最终的 “return false” 语句其实没什么必要（甚至在 switch 语句中是默认启动），因为我们已经十分了解了，最后给代码精简一下。
 
-Contrast this from before:
+和之前的代码比较一下：
 
 ```
 static func handleShortcutItem(shortcutItem:UIApplicationShortcutItem) -&gt; Bool
@@ -174,12 +168,13 @@ static func handleShortcutItem(shortcutItem:UIApplicationShortcutItem) -&gt; Boo
 ```
 
 
-True, this could be made a little easier on the eyes with a switch. But I’ve seen similar code abundant before (I’ve certainly written it 🙈), and while it works — I think it illustrates how we can leverage Swift’s features to our advantage. To make our code _that_ much better.
+真的，这看起来比用 switch 简单点。但我之前见过很多类似的代码（当然是我自己写的啦），虽然能很好的运行，但我认为可以利用 Swift 特性的优势，写出更好的代码。
 
-#### Final Thoughts
+#### 最后的感想
 
-When I first started reading about enums in Swift way back when, I found them to be a bit heavy handed. Why do I need enums to be able to conform to protocols, have first class inits(), etc. It just seemed a bit much. Years later, though, I believe patterns like this really show why that is.
 
-When I saw Apple implement this pattern, I indeed got 😍. I think this is a great way to solve a small problem, as its a very “team friendly” approach to the implementation details of short cut actions. I would assume they tend to agree, as its included in two of their sample projects showcasing 3D touch.
+当我刚开始阅读 Swift 枚举的返回时，发现它们有点“重”。有类的 init（），为什么我还要枚举符合协议，这看起来有点多余。多年以后，我想这种模式已经充分展示了为什么就是这样的原因。
 
-Until .NextTime 👋
+当我看到苹果实现了这种模式，确实很开心。我觉得这是个非常好的方式来解决一个小问题，同时对于快捷操作的实现细节来说也是个“团队友好”的方法。我认为他们也会同意我的观点，毕竟这种方式也在他们两个 3D touch 示例项目中。
+
+下次再见👋
