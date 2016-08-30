@@ -391,5 +391,5 @@ class Bag:
 
 1.  在这里缺乏引用是因为属性没有有意义的暴露在 _caller_ ，他们只是自己公开。这种模式，完全摆脱具有唯一的私有属性私有方法，可能值得自己的职务... ↩
 
-2.  And we hadn’t even gotten to the really exciting stuff yet: type validation on construction, default mutable values我们尚未得到真正令人兴奋的东西：键入建设，默认值可变... ↩
+2.  我们尚未得到真正令人兴奋的东西：键入建设，默认值可变... ↩
 
