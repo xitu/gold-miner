@@ -13,7 +13,7 @@
 
 但是 Python 也不是完美的。某些情况下，它鼓励你做了错误的事情。特别是在类的继承和 God-object 在很多库的反模式下不幸的深深扩散开来。
 
-One cause for this might be that Python is a highly accessible language, so less experienced programmers make mistakes that they then have to [live with forever](https://twistedmatrix.com/documents/current/core/development/policy/compatibility-policy.html).其中一个原因是 Python 是一个非常容易的语言，所以不太有经验的程序员犯的错误他们接下来要[永远存在](https://twistedmatrix.com/documents/current/core/development/policy/compatibility-policy.html)。
+其中一个原因是 Python 是一个非常容易的语言，所以不太有经验的程序员犯的错误他们接下来要[永远存在](https://twistedmatrix.com/documents/current/core/development/policy/compatibility-policy.html)。
 
 但是我想也许更显著的原因是 Python 惩罚你努力做正确的事。
 
@@ -23,7 +23,7 @@ One cause for this might be that Python is a highly accessible language, so less
 
 * * *
 
-This raises the question: _is_ it tedious to make a class in Python? Let’s look at a simple data structure: a 3-dimensional cartesian coordinate. It starts off simply enough:这就提出了一个问题：_is_ 乏味使一个类在 Python ？让我们看一个简单的数据结构：一个三维直角坐标。开始仅仅够用。
+这就提出了一个问题：_is_ 乏味使一个类在 Python ？让我们看一个简单的数据结构：一个三维直角坐标。开始仅仅够用。
 
 ```
 class Point3D(object):
@@ -31,6 +31,10 @@ class Point3D(object):
 
 到现在为止还挺好。我们已经有了一个三维点，接下来是什么？
 
+
+```
+class Point3D(object):
+    def __init__(self, x, y, z):
 
 ```
 
@@ -98,7 +102,7 @@ class Point3D(object):
 
 ```
 
-Oh come _on_. So I have to type every attribute name _5_ times, if I want to be able to see what the heck this thing is when I’m debugging, which a tuple would have given me for free?!?!?拜托。之所以必须键入每个属性名 _5_ 次，如果我希望能够看到这个东西当我调试时，其中一个元组就会给我自由吗？
+拜托。之所以必须键入每个属性名 _5_ 次，如果我希望能够看到这个东西当我调试时，其中一个元组就会给我自由吗?!?!?
 
 
 ```
@@ -140,7 +144,7 @@ class Point3D(object):
 
 ```
 
-_9_ 词?!?!?!?!?
+_9_ 次?!?!?!?!?
 
 
 ```
@@ -165,7 +169,7 @@ class Point3D(object):
 
 ```
 
-好了，噢 - 2 行多代码不是很大，但至少现在我们还没有定义其他所有的比较方法。但 _现在_ 我们就大功告成了，对不对？
+好了，噢 ~ 2 行多代码不是很多，但至少现在我们还没有定义其他所有的比较方法。但 _现在_ 我们就大功告成了，对不对？
 
 
 ```
@@ -209,7 +213,7 @@ class Point3D(namedtuple('_Point3DBase', 'x y z'.split()])):
 
 还没提到的是科学已经证明 [你不应该使用继承](https://www.youtube.com/watch?v=3MNVP9-hglc)
 
-因此， `namedtuple` 可以改善如果它是你要做的，只是在某些情况下，它有自己一些奇怪的包。https://www.google.com/search?q=وزاره%20التربيه%20والتعليم
+因此， `namedtuple` 可以改善如果它是你要做的，只是在某些情况下，它有自己一些奇怪的包。
 
 * * *
 
@@ -246,6 +250,7 @@ class Point3D(object):
 ```
 
 他有一个名为 `x` 的属性。
+
 
 ```
 import attr
@@ -386,7 +391,5 @@ Now that it’s so easy to have structured types that clearly point in the direc
 
 1.  在这里缺乏引用是因为属性没有有意义的暴露在 _caller_ ，他们只是自己公开。这种模式，完全摆脱具有唯一的私有属性私有方法，可能值得自己的职务... ↩
 
-2.  And we hadn’t even gotten to the really exciting stuff yet: type validation on construction, default mutable values我们尚未得到真正令人兴奋的东西：键入建设... ↩
-
-
+2.  And we hadn’t even gotten to the really exciting stuff yet: type validation on construction, default mutable values我们尚未得到真正令人兴奋的东西：键入建设，默认值可变... ↩
 
