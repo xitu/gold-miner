@@ -1,72 +1,72 @@
 > * 原文地址：[What You See is What You Use](https://medium.com/the-year-of-the-looking-glass/what-you-see-is-what-you-use-5a97677a8c71?ref=uxdesignweekly#.8n33go9m6)
 * 原文作者：[Julie Zhuo](https://medium.com/@joulee)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
-* 校对者：
+* 译者：[jiaowoyongqi](https://github.com/jiaowoyongqi)
+* 校对者：[cbangchen](https://github.com/cbangchen), [siegeout](https://github.com/siegeout)
 
 
-A few summers ago, I had the opportunity to live in two separate units of a loft building in San Francisco.
+几年前的一个夏天，我有机会住在旧金山里同一栋楼不同单元的两个 Loft 公寓中。
 
-Given this was the same building, you’d expect the units to be quite similar, and they were. Both were about 1000 square feet, with a wall of large lattice windows that let in tons of light (and heat —we joked this place was like my native Texas: 90 degrees every afternoon). Both had the same corner kitchen, industrial stairs that led to an open bedroom, and annoyingly hollow doors.
+由于这是同一栋楼，所以你可能会想这两个单元应该是相似的。的确，它们都有1000平方英尺的面积，墙壁上全是巨大的格子窗户，使得阳光和温度能倾泻到屋子里（住在屋子里就像我的故乡德克萨斯州一样，正午阳光与地面的角度有90度）。它们的屋子一角都有厨房，还有金属楼梯延伸到二楼的开放式卧室，以及那个烦人的中空门。
 
-The main difference was that the first place we stayed in was on the upper floor, and the second was on the ground floor. Why was this significant? Well, the upper floor apartment had a better view. And while both came with outdoor space, the ground floor apartment had an attached backyard patio, and the upper floor apartment had private space on the building’s roof.
+最大的不同就是我们待的第一个公寓是在高层，而第二个公寓是在底层。为何这会差别这么大呢？高层的公寓有更棒的视野。而两个公寓都有户外空间，底层公寓的户外空间是后院，而高层公寓的户外空间更为隐私，是楼顶的天台。
 
-The first place we stayed in had the roof deck. And while it wasn’t nearly as posh as this stock image below, we were thrilled when we ventured upstairs to check it out. There was a small table with some chairs and an excellent view of the city, perfect for 4:00pm wine with friends, a round of Settlers of Catan, or a good book when the fog spared us.
-
+我们待的第一个公寓有一个露天的天台。可能并没有下图那么奢华，但是当我们第一次看到露台的时候大家都兴奋不已。露台上几张椅子围着一张小桌子，而且可以看到很棒的城市的景色，最棒的就是下午四点跟朋友小酌一杯，来一盘卡坦岛拓荒者，或者在浓雾中读一本很棒的书。
 
 ![](https://cdn-images-1.medium.com/max/800/1*krgFBDdD83SMH6eVcb7q5A.jpeg)
 
-This is a pretty sick roof deck.
+这真是一个超棒的露台。
 
-When we moved, we said goodbye to the roof deck and hello to a small private patio. Again, the fancy stock image below is just for illustrative purposes. Our actual patio featured no grass, but it was large enough for a couch and umbrella, some potted plants, and a grill.
+当我们要搬走的时候，我们告别了天顶露台，迎接我们的是一个小巧的后院。下面的效果图只是为了简单示意，实际上我们的后院并没有草地，但有足够大的长沙发和遮阳伞，一些盆栽还有一个烤架。
 
 ![](https://cdn-images-1.medium.com/max/800/1*VCIac-3nw683O8EwhkEqvQ.jpeg)
 
-This is a pretty sick patio.
+这真是一个超棒的后院。
 
 
-You’d think on paper, trading the roof deck for a patio would be pretty fair. I mean, one comes with a great view, the other comes with easier access. You win some, you lose some. It evens out.
+你可能会想到，这两个公共空间是各有优缺点的。我的意思是，一个拥有极佳的视野，而另一个又很方便进出。有得必有所失。
 
-The thing is, having experienced both, I can count on one hand the number of times we used the roof deck.
+事实上，在两个不同的公寓生活后，我们在露台上享受的时光屈指可数。
 
-In that same length of time, we were out on the patio pretty much _every (sunny) afternoon_.
+在同样长的时间内，_每一个阳光午后_我们都会待在露台上。
 
-I think about this all the time.
+我很怀念当时的时光。
 
-> The truth is, no roof deck, no matter how lovely or well-appointed, will get as much usage as an equivalent patio or yard.
+> 而事实上，无论天台多么可爱、装潢得多么漂亮，它的使用次数也不会跟后院的使用次数差不多。
 
-When we lived on the ground floor apartment, we saw the patio every time we glimpsed out the window. Twenty, fifty, a hundred times a day, our eyes took in the cozy couch and the shady umbrella. _It was right there_. Without even consciously registering it, we found ourselves making excuses to go outside and enjoy the nice weather, whether we were working on our laptops, hanging out with friends, or BBQ-ing.
+当我们搬到了底层的公寓，我们可以时刻透过窗户看到外面的院子。一天20次、50次，甚至上百次，我们会看到院子里舒服的躺椅还有阴凉的遮阳伞，_就在我们眼前_。我们会在天气很棒的时候不自觉地走进后院，在院子里办公，与朋友闲谈或者串着烧烤。
 
-When we lived in the upper apartment, we could not see the roof deck in our day-to-day. It wasn’t hard to get to by any means — it took about 30 seconds to take the stairs up. _But it wasn’t in sight_. We had to remember that it existed, and then decide to go up there. The level of intentionality needed was similar to visiting the neighborhood store or park. Certainly, if we invited guests over and wanted to impress them, we’d take them to the roof deck. But we never serendipitously stumbled across the table and chairs and stunning view. It was easy to forget we had it. And so, alas, it remained largely unused.
+当我们住在顶层公寓的时候，我们并不会天天看到露天天台。但实际上走上天台只需要大概30秒的时间，这并不困难。_但天台并不在我们的视野内_，我们必须想到天台的时候才会走上去。这样的想法就跟决定出发去楼下小卖部或者公园一样。同样的，如果我们有访客，我们才会想到带他上楼，让他赞叹一下我们的天台。我们并不会在屋里闲逛的时候被窗外的景色吸引而跑上天台。我们很容易忘记它的存在，所以我们很少使用露天天台。
 
 
-I am often reminded of the patio and the roof deck when it comes to designing user interfaces.
+我在设计界面的时候，常常会想到天台和后院的例子。
 
-We designers love our minimalism, our white space, our house stark. We love the elegant nooks and crannies where we can hide all our numerous features and options. Behind menus. In drawers. After a long-press or a swipe.
+我们设计师很喜欢极简的界面，留白及静谧。我们钟情于将大量的功能和操作以优雅地方式隐藏于视野之外。藏在菜单之后、抽屉列表之内，亦或长按或者轻扫之后。
 
-We reason, “Once people learn it once, they’ll know it forever.” We say, “People have the same choices no matter where we put them in the UI.”
+我们的理由就是，“人们学过一次的操作，他们下次就会知道怎么使用了。”还会说，“无论我们把操作放在界面的哪里，用户都会有相同的选择。”
 
-It is incredibly easy to underestimate the power of visibility and of defaults.
+我们可以很容易地证明可见性和初始状态的重要性。
 
-Once, a long time ago, Facebook used a three-horizontal-line icon (deemed the “hamburger”) at the top left of the mobile app to reveal the app navigation panel. It was a clean and elegant way to access the different features of our site. (As a bonus, this navigation menu was consistent between our mobile apps and desktop site.) We popularized the notion of a sliding drawer navigation, and it is still a pattern you can find in many apps today.
-
+很久以前，Facebook 在移动客户端的左上角使用面包屑导航来组织信息。这是一个很简洁很优雅、用于区分不同功能模块的方式。（而且这个导航菜单可以保证手机客户端的信息跟网站相一致）这个滑动展开的侧导航也渐渐成为主流，目前市面上依旧有很多应用使用这样的导航。
 
 ![](https://cdn-images-1.medium.com/max/800/1*ArDcJETUpnajuHlnLwH3fg.png)
 
-The hamburger icon navigation pane
+汉堡包图标导航窗格
 
+但很可惜，汉堡包导航菜单就像露天天台。当你想到“我想前往 X”的时候才会点击。这是典型的_看不到就想不到_。
 
-Unfortunately, the hamburger menu is a roof deck. You tap it when you think to yourself, “I want to navigate to X.” It’s a classic example of o_ut of sight, out of mind_.
+我们改回了标准的底部标签导航方式，就像从天台到了后院。屏幕上多了更多的元素，但这是个十分常见而且很高效的方式，帮助我们的用户更好地看到我们主要的功能模块，并方便其点击跳转前往。
 
-We changed the roof deck to a patio by adopting the standard tab bar. While it added more elements to the screen, it was a familiar pattern that was was far more effective at helping people see and navigate to our top features.
+我找到了一些界面设计中关于_天台_和_后院_的讨论观点：
 
-I find there are many other examples of the _roof deck_ versus _patio_ dynamic at play in discussions about UI:
-
-*   **On entry points**: A common first step when designing a new feature is to dive straight into creating mocks that show how this feature will work. That’s like designing the layout and configuration of your outdoor space before first asking “Is it behind the house? Is it on the roof?” Start by asking “_How will people discover this feature?_” Nailing the entry point tends to be harder and more important to the success of what you’re building than debating the finer points of how that feature will work once people get there.
-*   **On menus**: It’s tempting to hide a bunch of options behind menus or gestures with the assumption that people who want to find them will. Most will not unless you actively promote those options. Even if you are successful in getting people to learn the affordance, it takes a long time before it’s common knowledge. If it is important that a majority of your users know about the option, explicitly show it. If it is not important, consider getting rid of it altogether to reduce cognitive overhead.
-*   **On giving people options**: When faced with a hard product decision without an obvious answer, sometimes teams will settle for “We’ll just give users a choice here.” When you do this, know that the vast majority (80 or 90%) will pick whatever you default to, so you can’t actually get away from making the hard product decision. (Not providing a default is even worse: you’ll lose a bunch of people who just won’t make a decision at all.)
-*   **On contextual actions**: When people are already doing or looking at something, suggest similar things they could be doing or looking at. Reading an article about the Olympics? You may be interested in other Olympics coverage by the same publisher. Inspired by this photo of a midcentury bathroom? Check out other stunning bathroom photos for your home remodel project. Triaging your flagged e-mail? Here’s other stuff you’ve marked for follow-up that you might want to take care of right now. This remains one of the most effective paradigms in experience design.
-*   **On leveraging existing channels:** The power of existing distribution channels is that they’re already where people are. Writing an article and posting it on my personal website is a roof deck play. Writing an article and sharing it on Medium, Facebook, Twitter, is the patio maneuver that will yield more traffic. This applies to the creation of any standalone space, page, app, tab, or bookmark. Ask yourself: do I need to create my own channel, or are there other channels that will more quickly help me accomplish my goal?
-
-
-If you want something to be seen and used, don’t make people look for it. Put it where they’re already looking.
+*   **入口处**：当我们设计一个新功能的时候，通常第一步就是直接展示一个理想的原型给用户，同时将新功能的特性以及该如何使用都告诉用户。这个设计思路就跟你在思考你家户外空间的布局和构造一样，首先需要问自己“这公共空间是在房子后面还是在楼顶？”设计界面的时候应该问自己“_用户是如何发现这些功能的？_”合理规划入口的位置是一件十分困难而且对于你产品的成功与否至关重要的事情，相较而言，争论用户点击之后呈现的功能则没这么重要。
+    
+*   **菜单栏**：我们试图将大量的功能藏在菜单和手势之后，并且假想用户每次的操作都有明确的点击目标。可是大部分用户却不是这样的，除非设计的时候把某些功能特殊提及。即使你成功地通过隐喻等手法让用户知道如何操作，但是让用户养成操作习惯也需要很长的时间。如果这个功能对于大部分用户而言是十分重要的，那么你就需要强调它。如果这个功能并不重要，则需要考虑要不要去掉这个功能以便减少用户的认知负担。
+      
+*   **让用户做选择**：当设计时遇到如何安排并组织功能的时候，有时候没有明确的答案，设计团队常常会说，“我们把选择权交给用户吧。”当你这样做的时候，大部分的用户（80%到90%）都会选择有初始内容的方案，所以合理地规划功能内容是设计团队无法避免的工作。（完全不展示初始内容的思路是十分错误的，你很有可能丧失很大一部分不愿意做操作选择的用户）
+      
+*   **相关的操作**：当用户已经在做某件事或看某物的时候，向他推荐相似的内容，他更容易受之吸引。正在看关于奥运会的文章？那么你可能会对这个作者的其他奥运文章感兴趣。被这张中世纪风格的卧室所吸引？那么为了你的重新装潢计划来看看其他令人惊艳的卧室照片吧。正在给你的邮件事件进行标星分类？那么还有这些事件也是你现在应该需要考虑的。这些都是在体验设计中十分高效的典型例子。
+     
+*   **使用具有号召力的平台**：有号召力的平台的优势就是他们已经拥有大量的用户。写一篇文章并且放在我的个人网站上就像“天台”一样。写一篇文章并且分享到 Medium, Facebook, Twitter 上，就好像“后院”一样，可以获得更多的流量。这个策略可以应用于所有其他独立的设计中，比如网站空间、网页、App、页签导航或者书签。问问自己，我是否真的需要创建我自己的平台？是否有更方便的平台帮助我完成我的目标？
+    
+如果你想要产品的功能被用户发现并使用，把它放在用户看得见的地方吧。
