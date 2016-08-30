@@ -1,46 +1,42 @@
 > * 原文地址：[The One Python Library Everyone Needs](https://glyph.twistedmatrix.com/2016/08/attrs.html)
 * 原文作者：[glyph](https://twitter.com/glyph)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[Gran](https://github.com/Graning)
 * 校对者：
 
 
-Why, you ask? Don’t ask. Just use it.
+你想问为什么？不用问，用就好了。
 
-Okay, fine. Let me back up.
+好的，让我回顾一下。
 
-I love Python; it’s been my primary programming language for 10+ years and despite a number of [interesting](https://www.haskell.org) [developments](https://www.rust-lang.org) in the interim I have no plans to switch to anything else.
+我爱 Python ；它作为我的主要编程语言已经超过十年了尽管在此期间有一些 [有趣](https://www.haskell.org) [成长](https://www.rust-lang.org) 的语言出现，但是我并没有计划切换到别的上面去。
 
-But Python is not without its problems. In some cases it encourages you to do the wrong thing. Particularly, there is a deeply unfortunate proliferation of class inheritance and the [God-object](https://en.wikipedia.org/wiki/God_object) anti-pattern in many libraries.
+但是 Python 也不是完美的。某些情况下，它鼓励你做了错误的事情。特别是在类的继承和 God-object 在很多库的反模式下不幸的深深扩散开来。
 
-One cause for this might be that Python is a highly accessible language, so less experienced programmers make mistakes that they then have to [live with forever](https://twistedmatrix.com/documents/current/core/development/policy/compatibility-policy.html).
+One cause for this might be that Python is a highly accessible language, so less experienced programmers make mistakes that they then have to [live with forever](https://twistedmatrix.com/documents/current/core/development/policy/compatibility-policy.html).其中一个原因是 Python 是一个非常容易的语言，所以不太有经验的程序员犯的错误他们接下来要[永远存在](https://twistedmatrix.com/documents/current/core/development/policy/compatibility-policy.html)。
 
-But I think that perhaps a more significant reason is the fact that Python sometimes punishes you for trying to do the right thing.
+但是我想也许更显著的原因是 Python 惩罚你努力做正确的事。
 
-The “right thing” in the context of object design is to make lots of small, self-contained classes that do [one thing](https://en.wikipedia.org/wiki/Single_responsibility_principle) and do it [well](https://www.destroyallsoftware.com/talks/boundaries). For example, if you notice your object is starting to accrue a lot of private methods, perhaps you should be making those “public” methods of a private attribute. But if it’s tedious to do that, you probably won’t bother.
+在目标设计的背景下做“正确的事”是让许多小的，独立的类，做 [一件事](https://en.wikipedia.org/wiki/Single_responsibility_principle) 并 [做好](https://www.destroyallsoftware.com/talks/boundaries)。例如，如果你发现你的对象开始累积了大量的私有方法，也许你应该让私有属性的方法公开。但是如果他是乏味做到这一点，你可能不会理会。
 
-Another place you probably should be defining an object is when you have a bag of related data that needs its relationships, invariants, and behavior explained. Python makes it soooo easy to just define a tuple or a list. The first couple of times you type `host, port = ...` instead of `address = ...` it doesn’t seem like a big deal, but then soon enough you’re typing `[(family, socktype, proto, canonname, sockaddr)] = ...` everywhere and your life is filled with regret. That is, if you’re lucky. If you’re _not_ lucky, you’re just maintaining code that does something like `values[0][7][4][HOSTNAME][“canonical”]` and your life is filled with garden-variety _pain_ rather than the more complex and nuanced emotion of regret.
+你可能要定义对象当你在另一处有相关数据包，需要的关系，常量和行为解释。 Python 使得它很容易只定义一个元组或列表。你第一次键入 `host, port = ...` 代替 `address = ...` ，它似乎并不像一个大问题。但很快你到处输入 `[(family, socktype, proto, canonname, sockaddr)] = ...` 你的人生将充满着遗憾。就是这样，如果你幸运的话。但如果你 _不够_ 幸运，你只是维护代码，做一些诸如 `values[0][7][4][HOSTNAME][“canonical”]` 你的生活将充满各种花式的 _痛苦_ 而不是复杂而微妙的遗憾。
 
 * * *
 
-This raises the question: _is_ it tedious to make a class in Python? Let’s look at a simple data structure: a 3-dimensional cartesian coordinate. It starts off simply enough:
+This raises the question: _is_ it tedious to make a class in Python? Let’s look at a simple data structure: a 3-dimensional cartesian coordinate. It starts off simply enough:这就提出了一个问题：_is_ 乏味使一个类在 Python ？让我们看一个简单的数据结构：一个三维直角坐标。开始仅仅够用。
 
 ```
 class Point3D(object):
 ```
 
-So far so good. We’ve got a 3 dimensional point. What next?
+到现在为止还挺好。我们已经有了一个三维点，接下来是什么？
 
 
 ```
-class Point3D(object):
-    def __init__(self, x, y, z):
 
-```
+嗯，这是有点可惜。我只想要一个少量数据保持器，而我已经有了一个从 Python 覆盖运行的一个特殊方法，其内部的命名约定？不是 _特别_ 坏，我想；_所有_ 编程是一种流行后奇怪的符号。
 
-Well, that’s a bit unfortunate. I just want a holder for a little bit of data, and I’ve already had to override a special method from the Python runtime with an internal naming convention? Not _too_ bad, I suppose; _all_ programming is weird symbols after a fashion.
-
-At least I see my attribute names in there, that makes sense.
+至少我看到有我的属性名，这是有道理的。
 
 
 ```
@@ -50,7 +46,7 @@ class Point3D(object):
 
 ```
 
-I already said I wanted an `x`, but now I have to assign it as an attribute...
+我已经说过我想要一个 `x` ，但现在我必须把它指定为一个属性...
 
 
 ```
@@ -60,7 +56,7 @@ class Point3D(object):
 
 ```
 
-... to `x`? Uh, _obviously_ ...
+... 为 `x` ？嗯，_很明显_ ...
 
 
 ```
@@ -72,9 +68,9 @@ class Point3D(object):
 
 ```
 
-... and now I have to do that once for every attribute, so this actually _scales_ poorly? I have to type every attribute name 3 times?!?
+... 现在我必须为每个属性做一次，所以实际上这 _尺度_ 不好？我有三次输入每个属性的名字吗！？
 
-Oh well. At least I’m done now.
+好吧。至少我现在正在做的。
 
 
 ```
@@ -87,7 +83,7 @@ class Point3D(object):
 
 ```
 
-Wait what do you mean I’m not done.
+等待你的意思是，我没有这样做。
 
 
 ```
@@ -102,7 +98,7 @@ class Point3D(object):
 
 ```
 
-Oh come _on_. So I have to type every attribute name _5_ times, if I want to be able to see what the heck this thing is when I’m debugging, which a tuple would have given me for free?!?!?
+Oh come _on_. So I have to type every attribute name _5_ times, if I want to be able to see what the heck this thing is when I’m debugging, which a tuple would have given me for free?!?!?拜托。之所以必须键入每个属性名 _5_ 次，如果我希望能够看到这个东西当我调试时，其中一个元组就会给我自由吗？
 
 
 ```
@@ -121,7 +117,7 @@ class Point3D(object):
 
 ```
 
-_7_ times?!?!?!?
+_7_ 次?!?!?!?
 
 
 ```
@@ -144,7 +140,7 @@ class Point3D(object):
 
 ```
 
-_9_ times?!?!?!?!?
+_9_ 词?!?!?!?!?
 
 
 ```
@@ -169,7 +165,7 @@ class Point3D(object):
 
 ```
 
-Okay, whew - 2 more lines of code isn’t great, but now at least we don’t have to define all the other comparison methods. But _now_ we’re done, right?
+好了，噢 - 2 行多代码不是很大，但至少现在我们还没有定义其他所有的比较方法。但 _现在_ 我们就大功告成了，对不对？
 
 
 ```
@@ -178,19 +174,19 @@ class Point3DTests(TestCase):
 
 ```
 
-You know what? I’m done. 20 lines of code so far and we don’t even have a class that _does_ anything; the hard part of this problem was supposed to be the quaternion solver, not “make a data structure which can be printed and compared”. I’m _all in_ on piles of undocumented garbage tuples, lists, and dictionaries it is; defining proper data structures well is way too hard in Python.
+你知道吗？我受够了。到现在写了 20 行代码，甚至没有一个类做任何事情；这个问题最困难的部分应该是四元求解器，而不是“做可以打印和比较的数据结构”。我所有的无证垃圾元组，列表和字典成堆的；用 Python 定义好合适的数据结构实在太辛苦了。
 
 * * *
 
-## `namedtuple` to the (not really) rescue
+## `namedtuple` （不是真的）救援。
 
-The standard library’s answer to this conundrum is [`namedtuple`](https://docs.python.org/2.7/library/collections.html#collections.namedtuple). While a valiant first draft (it bears many similarities to [my own](https://github.com/twisted/epsilon/blob/master/epsilon/structlike.py) somewhat embarrassing and antiquated entry in this genre) `namedtuple` is unfortunately unsalvageable. It exports a huge amount of undesirable public functionality which would be a huge compatibility nightmare to maintain, and it doesn’t address half the problems that one runs into. A full enumeration of its shortcomings would be tedious, but a few of the highlights:
+标准库对这个难题的回答是 [`namedtuple`](https://docs.python.org/2.7/library/collections.html#collections.namedtuple)。虽然勇敢的初稿（他有许多相似之处在这流派 [我自己](https://github.com/twisted/epsilon/blob/master/epsilon/structlike.py) 有些尴尬和过时的条目） `namedtuple` 的不幸是无法挽救的。它导出了巨大的不良公共功能量这将是兼容性维护的巨大噩梦，并且它没有解决一半，一个跑入的问题。它的缺点完整枚举是单调乏味的，但也有一些亮点。
 
-*   Its fields are accessable as numbered indexes whether you want them to be or not. Among other things, this means you can’t have private attributes, because they’re exposed via the apparently public `__getitem__` interface.
-*   It compares equal to a raw `tuple` of the same values, so it’s easy to get into bizarre type confusion, especially if you’re trying to use it to migrate _away_ from using `tuple`s and `list`s.
-*   It’s a tuple, so it’s _always_ immutable. Sort of.
 
-As to that last point, either you can use it like this:
+*   他们通过编号指标进行访问无论您是否希望这样做。除此之外，这意味着你不能有私有属性，因为他们通过明显的公共接口 `__getitem__` 暴露出来。
+*   它比较相等的值相同的原始 `tuple` ，所以很容易陷入离奇的类型混乱，特别是如果你想用它来使用 `tuple` 和 `list` 迁移出来。
+*   这是一个元组，所以它 _总是_ 一成不变的。
+至于最后一点，你可以像它这样使用：
 
 
 ```
@@ -198,9 +194,9 @@ Point3D = namedtuple('Point3D', ['x', 'y', 'z'])
 
 ```
 
-in which case it doesn’t _look_ like a type in your code; simple syntax-analysis tools without special cases won’t recognize it as one. You can’t give it any other behaviors this way, since there’s nowhere to put a method. Not to mention the fact that you had to type the class’s name twice.
+这种情况下，它看起来并不 _像_ 代码中的类型；无特殊情况下，简单的语法分析工具不能将它识别为一体。你不能给其他任何行为这种方式，因为这种方式无处可放。更何况事实是，你必须输入类的名字两次。
 
-Alternately you can use inheritance and do this:
+或者您可以使用继承这样做：
 
 
 ```
@@ -209,26 +205,26 @@ class Point3D(namedtuple('_Point3DBase', 'x y z'.split()])):
 
 ```
 
-This gives you a place you can put methods, and a docstring, and generally have it look like a class, which it is... but in return you now have a weird internal name (which, by the way, is what shows up in the `repr`, not the class’s actual name). However, you’ve also silently made the attributes not listed here mutable, a strange side-effect of adding the `class` declaration; that is, unless you add `__slots__ = 'x y z'.split()` to the class body, and then we’re just back to typing every attribute name twice.
+给你一个可以放置方法以及文档字符串的地方，一般有它看起来像一个类，它是...但是现在返回了一个奇怪的内部名称（其中，顺便说一句，是显示的内容在 `repr` ，而不是类的实际名称）。不过你也可以默默制作此处未列出的可变属性，添加 `class` 声明的一个奇怪的副作用；也就是说，除非你给类体加上 `__slots__ = 'x y z'.split()` ，然后我们只是回到每个属性名称打两次。
 
-And this doesn’t even mention the fact that science has proven that [you shouldn’t use inheritance](https://www.youtube.com/watch?v=3MNVP9-hglc).
+还没提到的是科学已经证明 [你不应该使用继承](https://www.youtube.com/watch?v=3MNVP9-hglc)
 
-So, `namedtuple` can be an improvement if it’s all you’ve got, but only in some cases, and it has its own weird baggage.
+因此， `namedtuple` 可以改善如果它是你要做的，只是在某些情况下，它有自己一些奇怪的包。https://www.google.com/search?q=وزاره%20التربيه%20والتعليم
 
 * * *
 
-## Enter The `attr`
+## 键入 `attr`
 
-So here’s where my favorite mandatory Python library comes in.
+因此，这里就是我最喜欢的强制 Python 库的用武之地。
 
-Let’s re-examine the problem above. How do I make `Point3D` with `attrs`?
+让我们重新审视上述问题。如何使 `Point3D` 用 `attrs` ?
 
 ```
 import attr
 @attr.s
 ```
 
-Since this isn’t built into the language, we do have to have 2 lines of boilerplate to get us started: the import and the decorator saying we’re about to use it.
+由于这种语言没有内置，我们必须有两行样本让我们开始：使用它进行导入和装饰。
 
 
 ```
@@ -238,7 +234,7 @@ class Point3D(object):
 
 ```
 
-Look, no inheritance! By using a class decorator, `Point3D` remains a Plain Old Python Class (albeit with some helpful double-underscore methods tacked on, as we’ll see momentarily).
+你看，没有继承！通过使用类装饰， `Point3D` 仍然是一个普通的 Python 类（尽管有附加，我们会短暂的看到一些有用的双下划线方法）。
 
 
 ```
@@ -249,8 +245,7 @@ class Point3D(object):
 
 ```
 
-It has an attribute called `x`.
-
+他有一个名为 `x` 的属性。
 
 ```
 import attr
@@ -262,9 +257,9 @@ class Point3D(object):
 
 ```
 
-And one called `y` and one called `z` and we’re done.
+一个叫 `y` 一个叫 `z` 我们就大功告成了。
 
-We’re done? Wait. What about a nice string representation?
+我们做了什么？等待。一个不错的字符串表示？
 
 
 ```
@@ -273,7 +268,7 @@ Point3D(x=1, y=2, z=3)
 
 ```
 
-Comparison?
+比较？
 
 
 ```
@@ -286,7 +281,7 @@ True
 
 ```
 
-Okay sure but what if I want to extract the data defined in explicit attributes in a format appropriate for JSON serialization?
+好了，但如果我想提取一个适合 JSON 序列化格式明确属性定义的数据该怎么做？
 
 
 ```
@@ -295,7 +290,7 @@ Okay sure but what if I want to extract the data defined in explicit attributes 
 
 ```
 
-Maybe that last one was a little on the nose. But nevertheless, it’s one of many things that becomes easier because `attrs` lets you _declare the fields on your class_, along with lots of potentially interesting metadata about them, and then get that metadata back out.
+也许这最后一次是鼻子上的一点点。但尽管如此，他应该变得更容易，因为 `attrs` 让你 _声明域的类_ ，有很多关于他们可能感兴趣的元数据以及其他，然后获取元数据退出。
 
 ```
 >>> import pprint
@@ -306,20 +301,20 @@ Maybe that last one was a little on the nose. But nevertheless, it’s one of ma
 
 ```
 
-I am not going to dive into _every_ interesting feature of `attrs` here; you can read the documentation for that. Plus, it’s well-maintained, so new goodies show up every so often and I might miss something important. But `attrs` does a few key things that, once you have them, you realize that Python was sorely missing before:
+我不打算深入到 `attrs`  _每个_ 有趣的功能；你可以阅读该文档。另外，它有良好的维护，因此新的东西出现，每隔一段时间我可能会错过一些重要的事情。但是 `attrs` 这样做，一旦你用他们，你就会意识到 Python 之前非常缺少。 
 
-1.  It lets you define types _concisely_, as opposed to the normally quite verbose manual `def __init__...`. Types without typing.
-2.  It lets you say _what you mean directly_ with a declaration rather than expressing it in a roundabout imperative recipe. Instead of “I have a type, it’s called MyType, it has a constructor, in the constructor I assign the property ‘A’ to the parameter ‘A’ (and so on)”, you say “I have a type, it’s called MyType, it has an attribute called `a`”, and behavior is derived from that fact, rather than having to later _guess_ about the fact by reverse engineering it from behavior (for example, running `dir` on an instance, or looking at `self.__class__.__dict__`).
-3.  It _provides useful default behavior_, as opposed to Python’s sometimes-useful but often-backwards defaults.
-4.  It adds a place for you to put _a more rigorous implementation later_, while starting out simple.
+1.  它允许您定义简洁的类型，而不是相当冗长的 `def __init__...` 。类型无需键入。
+2.  它可以让你说你 _直接声明的意思_ ，而不是拐弯抹角的表达它。用“我有一个类型，他被称为 MyType ，它具有 `a` 的属性和行为，从事实得到,而不必通过逆向工程猜测它的行为（例如，运行 `dir` 的实例，或寻找`self.__class__.__dict__`）。”来代替“我有一个类型，它被称为 MyType ，它有一个构造函数，我分配属性 ‘A’ 到参数 ‘A’ 。”
+3.  它 _提供了有用的默认行为_ ，而不是 Python 的有时有用但是经常向后的默认值。
+4.  It adds a place for you to put _a more rigorous implementation later_, while starting out simple.它增添了一个让你 _稍后更严格的执行_ ，简单的开始。
 
-Let’s explore that last point.
+让我们来探讨最后一点。
 
-## Progressive Enhancement
+## 逐步增强
 
-While I’m not going to talk about _every_ feature, I’d be remiss if I didn’t mention a few of them. As you can see from those mile-long `repr()`s for `Attribute` above, there are a number of interesting ones.
+目前我不打算谈论 _每个_ 功能，如果我没提到其中几个是我的失职。你可以在那些 `repr()` 对于 `Attribute` 的再版中看到，还有许多有趣的东西。 
 
-For example: you can validate attributes when they are passed into an `@attr.s`-ified class. Our Point3D, for example, should probably contain numbers. For simplicity’s sake, we could say that that means instances of `float`, like so:
+例如：你可以验证被传递到  `@attr.s` 类验证属性，我们的三维点，例如，可能应该包含数字。为了简单起见，我们可以说，在 `float` 情况下，像这样：
 
 <div style="">
 
@@ -334,7 +329,7 @@ class Point3D(object):
 
 ```
 
-The fact that we were using `attrs` means we have a place to _put_ this extra validation: we can just add type information to each attribute as we need it. Some of these facilities let us avoid other common mistakes. For example, this is a popular “spot the bug” Python interview question:
+我们使用 `attrs` 意味着我们要有一个额外验证每个属性的地方；我们可以只添加类型信息的每个属性，因为我们需要它。其中的一些东西让我们避免其他常见的错误。例如，这是一种流行的 “点缺陷” 的 Python 面试问题。
 
 
 ```
@@ -345,10 +340,10 @@ class Bag:
         self._contents.append(something)
     def get(self):
         return self._contents[:]
-
+a
 ```
 
-Fixing it, of course, becomes this:
+解决它，当然，变成这样了。
 
 
 ```
@@ -360,9 +355,9 @@ class Bag:
 
 ```
 
-adding two extra lines of code.
+添加两行额外的代码。
 
-`contents` inadvertently becomes a global varible here, making all `Bag` objects not provided with a different list share the same list. With `attrs` this instead becomes:
+`contents` 不经意间成为这里的一个全局变量，使所有的 `Bag` 对象没有设置不同的列表共享相同的列表。有了 `attrs` 这个代替变为：
 
 
 ```
@@ -376,20 +371,22 @@ class Bag:
 
 ```
 
-There are several other features that `attrs` provides you with opportunities to make your classes both more convenient and more correct. Another great example? If you want to be strict about extraneous attributes on your objects (or more memory-efficient on CPython), you can just pass `slots=True` at the class level - e.g. `@attr.s(slots=True)` - to automatically turn your existing `attrs` declarations a matching [`__slots__` attribute](https://docs.python.org/3.5/reference/datamodel.html#object.__slots__). All of these handy features allow you to make better and more powerful use of your `attr.ib()` declarations.
+还有一些其他的功能， `attrs` 提供了让你的类更加方便准确的机会。另一个例子？如果你想让与对象无关的属性更严格（或更高的内存效率在 CPython 上），你可以通过 `slots=True` 在类的级别上，例如 `@attr.s(slots=True)` 自动开启 `attrs` 的声明匹配 [`__slots__` 属性](https://docs.python.org/3.5/reference/datamodel.html#object.__slots__)。所有的这些方便的功能让你做出更好，更强大的使用你的 `attr.ib()` 声明。
 
 * * *
 
-## The Python Of The Future
+## Python 的未来
 
-Some people are excited about eventually being able to program in Python 3 everywhere. What _I’m_ looking forward to is being able to program in Python-with-`attrs` everywhere. It exerts a subtle, but positive, design influence in all the codebases I’ve seen it used in.
+有些人很高兴 Python 3 编程终于能无处不在。_我_ 期待的是 Python 与 `attrs` 编程能无处不在。它是我用过的所有代码库里敏锐但是设计影响很积极。
 
-Give it a try: you may find yourself surprised at places where you’ll now use a tidily explained class, where previously you might have used a sparsely-documented tuple, list, or a dict, and endure the occasional confusion from co-maintainers. Now that it’s so easy to have structured types that clearly point in the direction of their purpose (in their `__repr__`, in their `__doc__`, or even just in the names of their attributes), you might find you’ll use a lot more of them. Your code will be better for it; I know mine has been.
+Now that it’s so easy to have structured types that clearly point in the direction of their purpose (in their `__repr__`, in their `__doc__`, or even just in the names of their attributes), you might find you’ll use a lot more of them. Your code will be better for it; I know mine has been.试试看：某个地方可能让你惊讶一番，你现在将使用一个整齐的解释类，而在以前，你可能使用文档不足的元组，列表或字典，忍受共同维护的混乱。现在，它是如此容易有结构类型清晰明确的指出目的方向（在他们 `__repr__` 和 `__doc__` 中，甚至只是在其属性中的名称），你可能会发现你会更多的使用它。你的代码将会更好，我知道我一直是。
 
 
 * * *
 
-1.  Scare quotes here because the attributes aren’t meaningfully exposed to the _caller_, they’re just named publicly. This pattern, getting rid of private methods entirely and having only private attributes, probably deserves its own post... ↩
+1.  在这里缺乏引用是因为属性没有有意义的暴露在 _caller_ ，他们只是自己公开。这种模式，完全摆脱具有唯一的私有属性私有方法，可能值得自己的职务... ↩
 
-2.  And we hadn’t even gotten to the really exciting stuff yet: type validation on construction, default mutable values... ↩
+2.  And we hadn’t even gotten to the really exciting stuff yet: type validation on construction, default mutable values我们尚未得到真正令人兴奋的东西：键入建设... ↩
+
+
 
