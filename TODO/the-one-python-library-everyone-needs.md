@@ -384,7 +384,7 @@ class Bag:
 
 有些人很高兴 Python 3 编程终于能无处不在。_我_ 期待的是 Python 与 `attrs` 编程能无处不在。它是我用过的所有代码库里敏锐但是设计影响很积极。
 
-Now that it’s so easy to have structured types that clearly point in the direction of their purpose (in their `__repr__`, in their `__doc__`, or even just in the names of their attributes), you might find you’ll use a lot more of them. Your code will be better for it; I know mine has been.试试看：某个地方可能让你惊讶一番，你现在将使用一个整齐的解释类，而在以前，你可能使用文档不足的元组，列表或字典，忍受共同维护的混乱。现在，它是如此容易有结构类型清晰明确的指出目的方向（在他们 `__repr__` 和 `__doc__` 中，甚至只是在其属性中的名称），你可能会发现你会更多的使用它。你的代码将会更好，我知道我一直是。
+试试看：某个地方可能让你惊讶一番，你现在将使用一个整齐的解释类，而在以前，你可能使用文档不足的元组，列表或字典，忍受共同维护的混乱。现在，它是如此容易有结构类型清晰明确的指出目的方向（在他们 `__repr__` 和 `__doc__` 中，甚至只是在其属性中的名称），你可能会发现你会更多的使用它。你的代码将会更好，我知道我一直是。
 
 
 * * *
