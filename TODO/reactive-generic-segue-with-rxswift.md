@@ -5,10 +5,6 @@
 * 校对者：
 
 
-
-
-
-
 Personaly I like the idea behind [UIStoryboardSegue](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIStoryboardSegue_Class/) of decomposition navigation logic from your business logic routine.
 
 But I’m not a fun of using it with storyboard and I’ve never created them programmatically.
@@ -80,7 +76,7 @@ So lets implement these observers
 
 Note: If you don’t want to pass the context within segue just create it with Void type
 
-lazy var segue:Segue 
+    lazy var segue:Segue 
 
 And now we can user our Segue some thing like this:
 

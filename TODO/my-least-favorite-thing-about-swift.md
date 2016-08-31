@@ -120,7 +120,7 @@ Functions and methods marked with `throws` can `return` a value or `throw` an `E
     func doThing(with: Property) throws -> Value
 
 
-
+as
 
 
     func doThing(withProperty) -> _Result
@@ -179,6 +179,8 @@ Perhaps this is the best of all worlds. Start with a feature that’s hard-coded
 If Swift’s error model followed that same path, Swift’s standard library might expose a `Result` type, and any function returning a `Result` would be able to use the `do`/`try`/`catch` syntax when it is most useful (like for many parallel, synchronous actions that can each fail). For error needs that don’t fit in to the currently available syntax, like async errors, users would have a common `Result` type that they can use. If the `Result` requires lots of chaining, users can `flatMap`.
 
 Async/await could work the same way. Define a `Promise` or `Task` protocol, and things that conform to that would be `await`-able. `then` or `flatMap` would be available on that type, and depending on user’s needs, they could use the language feature at as high or as low of a level as needed.
+
+### Metaprogramming
 
 I’d like to close with a note on metaprogramming. I’ve written extensively [about metaprogramming in Objective-C](http://genius.com/Soroush-khanlou-metaprogramming-isnt-a-scary-word-not-even-in-objective-c-annotated), but it’s similar to what we’re working with here. The lines between code and metacode are blurry. The code in the Swift compiler is the meta code, and Swift itself is the code. If defining an implementation of an operator (as you do in Ruby) is just code, then defining a whole new operator seems like it has to be metacode.
 
