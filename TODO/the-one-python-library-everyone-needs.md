@@ -7,17 +7,17 @@
 
 你想问为什么？不用问，用就好了。
 
-好的，让我回顾一下。
+好吧好吧，让我来回顾一下吧。
 
-我爱 Python ；它作为我的主要编程语言已经超过十年了尽管在此期间有一些 [有趣](https://www.haskell.org) [成长](https://www.rust-lang.org) 的语言出现，但是我并没有计划切换到别的上面去。
+我爱 Python ；它作为我的主要编程语言已经超过十年了，尽管在此期间有一些 [有趣](https://www.haskell.org)且 [不断成长](https://www.rust-lang.org) 的语言出现，但是我并没有计划切换到别的上面去。
 
-但是 Python 也不是完美的。某些情况下，它鼓励你做了错误的事情。特别是在类的继承和 God-object 在很多库的反模式下不幸的深深扩散开来。
+但是 Python 也不是完美的。某些情况下，它促使你做了错误的事情。由于类的继承以及许多库使用 God-object  这个反面模式的原因，这种情况不断扩散。
 
-其中一个原因是 Python 是一个非常容易的语言，所以不太有经验的程序员犯的错误他们接下来要[永远存在](https://twistedmatrix.com/documents/current/core/development/policy/compatibility-policy.html)。
+其中一个可能的原因是，Python 是一门非常容易上手的语言，所以经验较少的程序员会犯下错误，而那些错误也会 [一直存在](https://twistedmatrix.com/documents/current/core/development/policy/compatibility-policy.html)。
 
-但是我想也许更显著的原因是 Python 惩罚你努力做正确的事。
+但是我认为也许更重要的原因是，Python有时会惩罚你，因为你试图去做“正确的事情“。
 
-在目标设计的背景下做“正确的事”是让许多小的，独立的类，做 [一件事](https://en.wikipedia.org/wiki/Single_responsibility_principle) 并 [做好](https://www.destroyallsoftware.com/talks/boundaries)。例如，如果你发现你的对象开始累积了大量的私有方法，也许你应该让私有属性的方法公开。但是如果他是乏味做到这一点，你可能不会理会。
+在对象设计的背景下做“正确的事”是让许多小的，独立的类，做 [只做一件事](https://en.wikipedia.org/wiki/Single_responsibility_principle) 并 [做好](https://www.destroyallsoftware.com/talks/boundaries)。例如，如果你发现你的对象开始累积了大量的私有方法，也许你应该让私有属性的方法公开。但是如果这样做很麻烦，你可能就不想费事了。
 
 你可能要定义对象当你在另一处有相关数据包，需要的关系，常量和行为解释。 Python 使得它很容易只定义一个元组或列表。你第一次键入 `host, port = ...` 代替 `address = ...` ，它似乎并不像一个大问题。但很快你到处输入 `[(family, socktype, proto, canonname, sockaddr)] = ...` 你的人生将充满着遗憾。就是这样，如果你幸运的话。但如果你 _不够_ 幸运，你只是维护代码，做一些诸如 `values[0][7][4][HOSTNAME][“canonical”]` 你的生活将充满各种花式的 _痛苦_ 而不是复杂而微妙的遗憾。
 
