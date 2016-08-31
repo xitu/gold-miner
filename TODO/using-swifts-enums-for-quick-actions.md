@@ -7,7 +7,7 @@
 
 #### 完美实现 3D Touch 
 
-不知道发明 Swift 的人是否会料到他们正在编写的语言，未来会深受开发者的青睐。 我只想说，Swift 社区已经成长且语言已经稳定（ISH）到一个地步，现在甚至有个专有名词赞美 Swift 编程的美好未来。
+我不确定是否一开始 Swift 的创造者们能够估计到他们创造的这一门极其优美的语言，将带给开发者们如此激昂的热情。 我只想说，Swift 社区已经成长且语言已经稳定（ISH）到一个地步，现在甚至有个专有名词赞美 Swift 编程的美好未来。
 
 _Swifty._
 
@@ -15,7 +15,7 @@ _Swifty._
 
 这些赞扬的话还会越来越多。虽然我不太提倡说这些赞赏的话语，但是我真的找不到其它可以替代的话来夸赞，用 Swift 为 3D touch 编写快捷操作的那种“美感”。
 
-这周，让我们来看看 在 [UIApplicationShortcutItem](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIApplicationShortcutItem_class/) 实现细节中，Swift 是如何让我们成为 “一等公民” 的。
+这周，让我们来看看在 [UIApplicationShortcutItem](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIApplicationShortcutItem_class/) 实现细节中，Swift 是如何让我们成为 “一等公民” 的。
 
 #### 实现方案
 
@@ -32,7 +32,7 @@ if shortcutItem.type == "bundleid.shortcutType"
 
 上面代码是正确的，项目中只是用一次的话还是可以的。
 
-可惜的是，随着增加越来越多的快捷操作，即便在 Swiftosphere**™** 中，switch 条件用字符串实例有额外好处的情况下，这种方法很快就会变得十分繁琐。它也被大量证明，对于这种情况使用字符串字面值可能是白费功夫：
+可惜的是，即便在 Swiftosphere**™** 中，switch 条件用字符串实例有额外好处的情况下，随着增加越来越多的快捷操作，这种方法还是很快令人觉得十分繁琐。同时它也被大量证明，对于这种情况使用字符串字面值可能是白费功夫：
 
 ```
 if shortcutItem.type == "bundleid.shortcutType"
@@ -46,16 +46,16 @@ else if shortcutItem.type == "bundleid.shortcutTypeXYZ"
 //and on and on
 ```
 
-处理这些快捷操作就想你代码库的一小部分，尽管如此——Swift 能处理的更好而且更安全些。所以，让我们看看 Swift 如何发挥它的“魔法”，给我们提供一个更好的选择。
+处理这些快捷操作就像你代码库的一小部分，尽管如此—— Swift 能处理的更好而且更安全些。所以，让我们看看 Swift 如何发挥它的“魔法”，给我们提供一个更好的选择。
 
 #### Enum .Fun
 
-讲真， Swift 的枚举很“疯狂”。当 Swift 在 14 年发布的时候，我从来没想过它们能用属性、初始化程序和功能，但是我们现在已经在用了。
+讲真， Swift 的枚举很“疯狂”。当 Swift 在 14 年发布的时候，我从来没有想过在枚举中可以使用属性，进行初始化和调用函数，但现在我们已经在这样子做了。
 
 不管怎么说，我们可以在工作中用上它们。当你考虑支持 UIApplicationShortcutItem 的实现细节时，几个关键点应该注意：
 
 *  必须通过 _type_ 属性给快捷方式指定一个名称
-*  根据苹果官方指南，必须以包路径作为这些操作的前缀
+*  根据苹果官方指南，必须以 bundle id 作为这些操作的前缀
 *  可能会有多个快捷方式
 *  可能会在应用程序多个位置采取基于类型的特定操作
 
@@ -73,7 +73,7 @@ enum IncomingShortcutItem : String
 }
 ```
 
-如果是用 Objective-C，我们可能到这就结束了。我认为，使用枚举远远优于之前使用字符串文字的观点，已经被大家所接受。然而，为应用每个操作类型属性指定包路径为前缀（例如，com.dreaminginbinary.myApp.MyApp）来说，使用一些字符串插值仍是最佳解决办法。
+如果是用 Objective-C，我们可能到这就结束了。我认为，使用枚举远远优于之前使用字符串字面量的观点，已经被大家所接受。然而，对于为应用每个操作类型属性指定 bundle id 为前缀（例如，com.dreaminginbinary.myApp.MyApp）来说，使用一些字符串插值仍是最佳解决办法。
 
 但是，因为 Swift 枚举超级厉害，我们可以用它以一种非常简洁的方法来实现：
 
@@ -93,7 +93,7 @@ enum IncomingShortcutItem : String
 #### 最佳模式
 
 
-最终方案，将用上两个我们最喜爱的 Swift 功能。那就是为一个枚举创建一个可失败的初始化程序，使用 guard 语句来确保安全，使得意图明确。
+最终方案，将用上两个我们最喜爱的 Swift 功能。那就是为枚举创建一个可能会失败的初始化函数的时候，使用 guard 语句清除空值以确保安全。
 
 ```
 enum IncomingShortcutItem : String
@@ -145,7 +145,7 @@ static func handleShortcutItem(shortcutItem:UIApplicationShortcutItem) -> Bool
 ```
 
 
-这里，我们的快捷操作成为类型，使用这种模式可以明确我们的意图，这是我非常喜欢它的原因。在方法的末尾提供一个最终的 “return false” 语句其实没什么必要（甚至在 switch 语句中是默认启动），因为我们已经十分了解了，最后给代码精简一下。
+至此，通过使用这种模式，我们的快捷操作变的可分类和内容安全，这也是我为什么这么喜欢它的原因。在方法的末尾提供一个最终的 “return false” 语句其实没什么必要（甚至在 switch 语句中是默认启动），因为我们已经十分了解，最后给代码精简一下。
 
 和之前的代码比较一下：
 
