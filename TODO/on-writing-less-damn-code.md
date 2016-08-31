@@ -1,4 +1,4 @@
-> * 原文地址：[如何使用更少的代码](http://www.heydonworks.com/article/on-writing-less-damn-code)
+> * 原文地址：[如何编写更少的代码](http://www.heydonworks.com/article/on-writing-less-damn-code)
 * 原文作者：[Heydon Pickering](http://www.heydonworks.com/about)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[circlelove](https://github.com/circlelove)
