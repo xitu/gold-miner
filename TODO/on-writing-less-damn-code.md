@@ -38,7 +38,7 @@ LOL, 不要这样：
 
 ```
 
-使用原生元素的好处就是你不用为自己的操作编写脚本了。不仅是下面的复选框执行冗长的HTML，还需要一个 JavaScript 的依赖来控制状态改变和 [特别填充](https://twitter.com/heydonworks/status/765444886099288064) 标准，有关 `name` 属性和 `GET` 的方法的基本行为。代码一多就不稳定。开心！
+使用原生元素的好处就是你不用为自己的操作编写脚本了。不仅是下面的复选框执行冗长的HTML，还需要一个 JavaScript 的依赖来控制状态改变和 [follyfill](https://twitter.com/heydonworks/status/765444886099288064) 标准，有关 `name` 属性和 `GET` 的方法的基本行为。代码一多就不稳定。开心！
 ```
 
 <div role="checkbox" aria-checked="false" tabindex="0" id="checkbox1" aria-labelledby="label-for-checkbox1"/>
