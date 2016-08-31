@@ -2,7 +2,7 @@
 * 原文作者：[Jordan Morgan](https://medium.com/@JordanMorgan10?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[DeadLion](https://github.com/DeadLion)
-* 校对者：
+* 校对者：[Graning](https://github.com/Graning), [cbangchen](https://github.com/cbangchen)
 
 
 #### 完美实现 3D Touch 
