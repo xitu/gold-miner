@@ -4,16 +4,7 @@
 * 译者：
 * 校对者：
 
-
-
-
-
-
-
-
 ![](https://cdn-images-1.medium.com/max/800/1*baslR_nGORHYX4STOjhhpg.png)
-
-
 
 In this post you’ll learn the **most important** concepts of the flexbox layout in CSS, which will make your life easier if you find yourself struggling with CSS layouts from time to time.
 
@@ -23,19 +14,17 @@ We’ll only focus on core principles, while leaving out stuff you **shouldn’t
 
 The two main components of a flexbox layout is the **container** (blue) and the **items** (red). In the example we’ll be looking at in this tutorial, both the **container** and **item** are _div’s._ Check out the [boilerplate code here](https://github.com/perborgen/FlexboxTutorial) if you’re interested.
 
+#### Horizontal layout
+
 To create a flex layout, simply give the **container** the following CSS property.
 
     .container {
         display: flex;
-        }
+    }
 
 Which will result in this layout:
 
-
-
 ![](https://cdn-images-1.medium.com/max/800/1*3zzvOetr1fjDrZKEEmo9dA.png)
-
-
 
 Notice that you don’t need to do anything with the **items** yet. They’ll be nicely positioned along the horizontal axis automatically.
 
@@ -48,12 +37,11 @@ You can swap the two axes by adding _flex-direction_: _column._
     .container {
         display: flex;
         flex-direction: column;
-        }
+    }
 
 
 
 ![](https://cdn-images-1.medium.com/max/800/1*yPT-82-JPYk8b2Rh_3K6sQ.png)
-
 
 
 Now the **main axis** is vertical and the **cross axis** horizontal, resulting in the **items** being stacked vertically.
@@ -70,13 +58,9 @@ Let’s center all the items along the **main axis** by using **justify-content:
         display: flex;
         flex-direction: row;
         justify-content: center;
-        }
-
-
+    }
 
 ![](https://cdn-images-1.medium.com/max/800/1*KAFfHDFWCd12qI3TqSS8DQ.png)
-
-
 
 And let’s adjust them along the **cross axis,** using _align-items._
 
@@ -85,7 +69,7 @@ And let’s adjust them along the **cross axis,** using _align-items._
         flex-direction: row;
         justify-content: center;
         align-items: center;
-        }
+    }
 
 
 
@@ -121,21 +105,13 @@ Let’s say we wanna adjust the position of the first item. We do this by giving
 
     .item1 {
       align-self: flex-end;
-      }
+    }
 
 Resulting in the following layout:
 
-
-
 ![](https://cdn-images-1.medium.com/max/800/1*-NBG56jX-QKYaga6qiF0eg.png)
-
-
 
 And that’s it!
 
 There is of course a whole lot more to learn about flexbox, but the concepts above are the once I use the most often, and thus most important to understand properly.
-
-
-
-
 
