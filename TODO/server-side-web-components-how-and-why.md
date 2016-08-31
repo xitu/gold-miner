@@ -1,24 +1,24 @@
 > * 原文链接: [Server-side Web Components: How and Why?](https://scotch.io/tutorials/server-side-web-components-how-and-why)
 * 原文作者: [Jordan Last](https://pub.scotch.io/@lastmjs)
 * 译文出自: [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者: 
-* 校对者:
+* 译者: [达仔](https://github.com/zhangjd)
+* 校对者: [Shangbin Yang](https://github.com/rccoder), [Gran](https://github.com/Graning)
 
-No, I’m not just talking about server-side rendered web components. I’m talking about web components that you can use to build servers.
+Web components（网页组件）用在服务器端渲染早已被大家所了解，在本文中，我想谈及的是：你还可以用 web components 构建服务器端应用。
 
-As a refresher, web components are a set of [proposed standards](https://github.com/w3c/webcomponents) that offer a way to modularize and package UI and functionality into reusable and declarative components that can be easily shared and composed to create entire applications. Currently their greatest use has been in front-end web development. What about the back-end? It turns out that web components are not only useful for UI, as the [Polymer project](https://elements.polymer-project.org) has shown us, but they are also useful for raw functionality. We'll look at how these can be used, and talk about the key benefits:
+先来回顾一下，web components 是一组 [新提出的标准](https://github.com/w3c/webcomponents)，提供了模块化打包 UI 组件的能力，这些组件具有可重用、声明式的特点，因此具有方便分享、容易组合到应用的优势。现在 web components 已经开始应用到前端开发当中了，但服务器端呢？[Polymer 项目](https://elements.polymer-project.org) 给了我们启发，web components 不仅对于 UI 组件很有用，而且还可以用在原始功能中。接下来我们会看看 web components 如何应用到服务器端，并分析其优势。
 
-*   Declarative
-*   Modular
-*   Universal
-*   Shareable
-*   Debuggable
-*   Smaller Learning Curve
-*   Client-side Structure
+* 声明式
+* 模块化
+* 通用化
+* 可共享
+* 可调试
+* 更平缓的学习曲线
+* 客户端结构
 
-## Declarative
+## 声明式
 
-First off, you get declarative servers. Here’s a quick sample of an Express.js application, written with [Express Web Components](https://github.com/scramjs/express-web-components):
+首先，web components 让你得到了声明式的服务器。以下是一个使用 [Express Web Components](https://github.com/scramjs/express-web-components) 编写 Express.js 应用程序的简单示例：
 
 ```
 <link rel="import" href="bower_components/polymer/polymer.html">
@@ -57,11 +57,11 @@ First off, you get declarative servers. Here’s a quick sample of an Express.js
 </dom-module>
 ```
 
-Instead of writing routes purely in JavaScript imperatively, you can write them declaratively in HTML. You can actually build a visual hierarchy of your routes, which is easier to visualize and understand than the equivalent in pure JavaScript. Taking a look at the example above, all endpoints/middleware pertaining to the Express application are nested in an `<express-app>` element, and middleware is hooked up to the app in the order that it is written in the HTML with `<express-middleware>` elements. Routes can be nested easily as well. Every middleware inside of an `<express-router>` is hooked up to that router, and you can even have `<express-route>` elements inside of `<express-router>` elements.
+现在你可以使用 HTML 语法来声明路由了。比起纯 JavaScript 语法，现在的路由可以体现出视觉层次感，看起来更加形象和易于理解。拿上面的例子来说，所有和 Express 框架有关的 endpoints(路由) / middleware(中间件) 都嵌套在 `<express-app>` 元素，连接 app 的中间件按顺序放在 `<express-middleware>` 元素中。而路由也可以很容易地嵌套，`<express-router>` 中包含的每个中间件都会连接到 router，你还可以把 `<express-route>` 放在 `<express-router>` 元素中。
 
-## Modular
+## 模块化
 
-We already have modularity with vanilla Express and Node.js, but I feel like modular web components are even easier to reason about. Let’s take a look at a [good example](https://github.com/scramjs/node-api) of modular custom elements with Express Web Components:
+使用 Express 和 Node.js 已经让我们实现了模块化，但我觉得模块化 web components 更加简单。以下 [这个例子](https://github.com/scramjs/node-api) 把模块化的自定义元素和 Express Web Components 结合起来使用：
 
 ```
 <!--index.html-->
@@ -81,7 +81,7 @@ We already have modularity with vanilla Express and Node.js, but I feel like mod
 </html>
 ```
 
-Everything starts out in the `index.html` file. There is really only one place to go, `<na-app></na-app>`:
+`index.html` 是入口文件，实际上我们需要关心的地方只有一个，就是 `<na-app></na-app>` ：
 
 ```
 <!--components/app/app.component.html-->
@@ -111,16 +111,16 @@ Everything starts out in the `index.html` file. There is really only one place t
                 const bodyParser = require('body-parser');
                 const morgan = require('morgan');
 
-                this.morganMW = morgan('dev'); // log requests to the console
+                this.morganMW = morgan('dev'); // 把请求记录在控制台
 
-                // configure body parser
+                // 配置 body parser
                 this.bodyParserURLMW = bodyParser.urlencoded({ extended: true });
                 this.bodyParserJSONMW = bodyParser.json();
 
-                this.port = process.env.PORT || 8080; //set our port
+                this.port = process.env.PORT || 8080; // 设置端口
 
                 const mongoose = require('mongoose');
-                mongoose.connect('mongodb://@localhost:27017/test'); // connect to our database
+                mongoose.connect('mongodb://@localhost:27017/test'); // 连接数据库
 
                 this.appListen = () => {
                     console.log(`Magic happens on port ${this.port}`);
@@ -133,7 +133,7 @@ Everything starts out in the `index.html` file. There is really only one place t
 </dom-module>
 ```
 
-We start up an Express app listening on port `8080` or `process.env.PORT`, and then we declare three middleware, and one custom element. I'm hoping that intuition leads you to believe that those three middleware will be run before anything inside of `<na-api></na-api>`, because that's exactly how it works:
+我们启动 Express 应用，监听 port `8080` 或者 `process.env.PORT` 端口，然后定义了三个中间件和一个自定义元素。希望你直觉上就能理解那三个中间件会在`<na-api></na-api>` 之前运行的工作原理：
 
 ```
 <!--components/api/api.component.html-->
@@ -161,14 +161,14 @@ We start up an Express app listening on port `8080` or `process.env.PORT`, and t
             }
 
             ready() {
-                // middleware to use for all requests with /api prefix
+                // 这个中间件应用在 /api 前缀开头的所有请求
                 this.allMW = (req, res, next) => {
-                    // do logging
+                    // 输出日志
                     console.log('Something is happening.');
                     next();
                 };
 
-                // test route to make sure everything is working (accessed at GET http://localhost:8080/api)
+                // 测试路由，目的是确保功能正常 (通过 GET http://localhost:8080/api 访问)
                 this.indexHandler = (req, res) => {
                     res.json({ message: 'hooray! welcome to our api!' });
                 };
@@ -180,7 +180,7 @@ We start up an Express app listening on port `8080` or `process.env.PORT`, and t
 </dom-module>
 ```
 
-Everything inside of `<na-api></na-api>` is wrapped inside of an `<express-router></express-router>`. All middleware in this component are available at `/api`. Let's continue following to `<na-bears></na-bears>` and `<na-bears-id></na-bears-id>`:
+所有 `<na-api></na-api>` 的内容都包裹在 `<express-router></express-router>` 当中。组件里的所有中间件都在访问 `/api` 时生效。接下来再看看 `<na-bears></na-bears>` 和 `<na-bears-id></na-bears-id>`：
 
 ```
 <!--components/bears/bears.component.html-->
@@ -206,7 +206,7 @@ Everything inside of `<na-api></na-api>` is wrapped inside of an `<express-route
             ready() {
                 var Bear = require('./models/bear');
 
-                // create a bear (accessed at POST http://localhost:8080/bears)
+                // 创建一只熊 (调用 POST http://localhost:8080/bears)
                 this.createHandler = (req, res) => {
                     var bear = new Bear();      // create a new instance of the Bear model
                     bear.name = req.body.name;  // set the bears name (comes from the request)
@@ -218,7 +218,7 @@ Everything inside of `<na-api></na-api>` is wrapped inside of an `<express-route
                     });
                 };
 
-                // get all the bears (accessed at GET http://localhost:8080/api/bears)
+                // 获取所有熊 (调用 GET http://localhost:8080/api/bears)
                 this.getAllHandler = (req, res) => {
                     Bear.find(function(err, bears) {
                         if (err)
@@ -259,7 +259,7 @@ Everything inside of `<na-api></na-api>` is wrapped inside of an `<express-route
             ready() {
                 var Bear = require('./models/bear');
 
-                // get the bear with that id
+                // 根据 id 获取某只熊
                 this.getHandler = (req, res) => {
                     console.log(req.params);
                     Bear.findById(req.params.bear_id, function(err, bear) {
@@ -269,7 +269,7 @@ Everything inside of `<na-api></na-api>` is wrapped inside of an `<express-route
                     });
                 };
 
-                // update the bear with this id
+                // 根据 id 修改某只熊
                 this.updateHandler = (req, res) => {
                     Bear.findById(req.params.bear_id, function(err, bear) {
                         if (err)
@@ -283,7 +283,7 @@ Everything inside of `<na-api></na-api>` is wrapped inside of an `<express-route
                     });
                 };
 
-                // delete the bear with this id
+                // 根据 id 删除某只熊
                 this.deleteHandler = (req, res) => {
                     Bear.remove({
                         _id: req.params.bear_id
@@ -301,51 +301,52 @@ Everything inside of `<na-api></na-api>` is wrapped inside of an `<express-route
 </dom-module>
 ```
 
-As you can see, all of the routers are split into their own components, and are easily included into the main app. The `index.html` file is the beginning of an easy-to-follow series of imports that lead you through the flow of routes.
+如你所见，所有路由都被分离到各自的组件中，并且要包含在 app 中也很容易。在 `index.html` 文件中的 import 引入方法非常浅显易懂，
 
-## Universal
+## 通用性
 
-One of the reasons I love JavaScript is the possibility of sharing code across client and server. To some extent that is possible today, but there are still client-side libraries that don't work server-side because of missing APIs, and vice-versa from the server to the client. Basically, Node.js and browsers are still different platforms offering different APIs. What if you could combine both? That’s what Electron is for. Electron combines Node.js and the Chromium project into a single runtime, allowing us to use client-side and server-side code together.
+我喜欢 JavaScript 的原因之一，就是可以在客户端和服务器端共享代码。虽然现在某种程度上可以说这是可行的，但实际上，由于某些 API 的缺失，依然有一部分客户端的库不能在服务器端工作，反之亦然。从根本上说，Node.js 和浏览器依然是提供不同 API 的两套环境。那有什么办法可以结合呢？我们想到了 Electron，Electron 把 Node.js 和 Chromium 项目结合成为一个单独的运行环境，使得客户端代码和服务端代码结合运行成为了可能。
 
-> [Scram.js](https://github.com/scramjs/scram-engine) is a small project that helps run Electron in a headless state, making it possible to run your server-side web components just like you would run any other Node.js application.
+> [Scram.js](https://github.com/scramjs/scram-engine) 这个小项目可以帮你轻松运行 Electron，使得运行服务端 web components 和其它 Node.js 应用一样容易。
 
-I already have some basic apps working in a production environment using Dokku. If you’re curious, check out the [Dokku Example](http://scramjs.org).
+我已经做出了一些小应用，并放上了生产环境。如果你感兴趣，可以看看 [Dokku Example](http://scramjs.org) 。
 
-Now let me explain one of the neatest things that I've seen while developing with server-side web components. I was using [this client-side JavaScript library](https://github.com/adlnet/xAPIWrapper) to make some specific API requests. It became apparent that the library was compromising the credentials to our database by providing them client-side. That wasn't going to work for us. We needed to keep those credentials secure, which meant that we needed to perform the requests server-side. It could have taken a significant amount of effort to rewrite the functionality of the library to work in Node.js, but with Electron and Scram.js, I just popped the library in and was able to use it server-side without modification!
+现在，我来告诉你在开发服务端 Web components 过程中一件有意思的事情。我使用一个 [客户端的 JavaScript 库](https://github.com/adlnet/xAPIWrapper) 进行某些特定的 API 请求。然而，假如请求放在客户端，就必须把我们数据库的凭证泄露给客户端。为了保证凭证安全，我们需要把请求放在服务端进行。假如要在 Node.js 运行这个库，需要对代码进行大幅重构，幸亏我们用上了 Electron 和 Scram.js，我只需要导入这个库，无需任何代码改动，就顺利在服务端运行起来了！
 
-> I just popped the library in and was able to use it server-side without modification!
+> 我只需要导入这个库，无需任何代码改动，就顺利在服务端运行起来了！
 
-Also, I had been working on some mobile apps built with JavaScript. We were using [localForage](https://github.com/mozilla/localForage) as our client-side database. The apps were being designed to communicate with each other without any central authority, using a distributed database design. I wanted to be able to use localForage in Node.js so that we could reuse our models and have things work without major modifications. We couldn’t before, but now we can.
+另外，我曾经使用 JavaScript 构建一些移动端应用。我们使用 [localForage](https://github.com/mozilla/localForage) 作为客户端数据库。这个应用是基于分布式数据库设计的，可以在没有中心服务器的情况下进行互相通信。我希望可以在 Node.js 环境下使用 localForage，使得模型可以重用，以及不需要太多修改就能把功能跑起来。过去我们不能做到这点，但现在我们可以做到了。
 
-> Electron with Scram.js offers access to LocalStorage, Web SQL, and IndexedDB, which makes localForage possible. Simple server-side databases!
+> Electron 和 Scram.js 提供了 LocalStorage, Web SQL 和 IndexedDB，使得 localForage 成为了可能。我们就这样搭建起了一个简单的服务器端数据库！
 
-I'm not sure how the performance will scale, but at least it’s a possibility.
+虽然我不确定怎样测量其性能，但至少这个方法是可行的。
 
-Also, now you should be able to use components like [iron-ajax](https://elements.polymer-project.org/elements/iron-ajax) and my [redux-store-element](https://github.com/lastmjs/redux-store-element) server-side, just like you would client-side. I’m hoping this will allow reuse of paradigms that work well on the client, and close the gap between the context-shifting that inevitably occurs when going from the client to the server.
+而且，现在你可以在服务端使用像 [iron-ajax](https://elements.polymer-project.org/elements/iron-ajax) 和我的 [redux-store-element](https://github.com/lastmjs/redux-store-element) 组件了，使用方法和客户端一样。我希望这么做可以让客户端的范式可重用，并减少从客户端到服务端之间因环境切换而产生的不可避免的差异性。
 
-## Shareable
+## 可共享
 
-This benefit just comes with web components. One of the major hopes of web components is that we will be able to share them easily, use them across browsers, and stop reimplementing the same solutions over and over again, just because frameworks and libraries change. This sharing is possible because web components are based on current or proposed standards that all major browser vendors are working to implement.
+这点完全得益于 web components，因为 web components 的其中一个主要目标就是使得组件易于共享，实现跨浏览器通用，并停止在同一个问题上因为框架或者库的改变而不断重复实现。共享之所以变得可能，是因为 web components 基于现有的或者提出的标准，所有主流浏览器的厂商都会想办法去实现。
 
-> That means web components don’t rely on any one framework or library, but will work universally on the platform of the web.
+> 这意味着 web components 不依赖于任何框架或者库，就可以在任何 web 平台上通用。
 
-I'm hoping many people will create server-side web components that package functionality just like front-end components. I’ve started with Express components, but imagine components for Koa, Hapi.js, Socket.io, MongoDB, etc.
+我希望有更多人能参与到创建服务器端 web components 的创建当中，并把各种功能打包成组件，就像前端组件那样。我从 Express components 开始了这项工作，但我还期待看到 Koa, Hapi.js, Socket.io, MongoDB 等组件的出现。
 
-## Debuggable
+## 可调试
 
-Scram.js has an option `-d` allowing you to open up an Electron window when you are debugging. Now you have all of the Chrome dev tools available to you to help debug your server. Breakpoints, console logging, network info...it’s all there. Server-side debugging in Node.js has always seemed second-class to me. Now it’s built right into the platform:
+Scram.js 有一个 `-d` 选项，让你可以在调试时打开 Electron 窗口。现在你可以使用 Chrome 开发者工具的所有功能来帮助你调试服务器了。断点、控制台日志、网络信息等都可以在里面看到。Node.js 的服务端调试似乎总是我的第二选择，但现在它的确已经集成到了平台中：
+
 
 ![](https://cdn.scotch.io/1614/CILiuE9kThuL1iqBuEij_Screenshot%20from%202016-06-07%2013:17:24.png)
 
-## Smaller Learning Curve
+## 更平缓的学习曲线
 
-Server-side web components could help level the playing field of back-end programming. There are a lot of people, web designers, UX people, and others who might not know "programming" but do understand HTML and CSS. Server-side code as it is today probably seems untouchable to some of them. But if it's written partly in the familiar language of HTML, and especially the semantic language of custom elements, they might be able to work with server-side code more easily. At the least we can lower the learning curve.
+服务端 web components 对降低后端编程学习难度有帮助。要知道有很多 web 设计师、交互设计和其他一些只懂 HTML 和 CSS 的人希望学习服务端开发，但现有的服务器端代码对于他们而言很难理解。然而，如果使用他们熟悉的 HTML 来编写，特别是用上语义化的自定义元素，他们就能更容易地上手服务器端编程了。至少我们可以降低他们的学习曲线吧。
 
-## Client-side Structure
+## 客户端架构
 
-The structure of client-side and server-side apps can now mirror each other more closely. Each app can start with an `index.html` file, and then use components from there. This is just one more way to unify things. In the past I’ve found it somewhat difficult to find where things start in server-side apps, but `index.html` seems to have become the standard starting place for front-end apps, so why not for the back-end?
+客户端和服务端 app 的架构正变得越来越像了。每个 app 以 `index.html` 文件开始，然后引入相关组件。这只是一种新的统一前后端的方法。在过去，我觉得想要找到服务器端应用的入口多少有点困难，如果后端能像前端应用一样，以 `index.html` 作为标准的入口，不是挺好的吗？
 
-Here's an example of a generic structure for a client-side application built with web components:
+以下是使用 web components 构建的客户端应用的一般结构：
 
 ```
 app/
@@ -361,7 +362,7 @@ app/
 ----index.html
 ```
 
-Here's an example of a generic structure for a server-side application built with web components:
+以下是使用 web components 构建的服务端应用的一般结构：
 
 ```
 app/
@@ -377,35 +378,35 @@ app/
 ----index.html
 ```
 
-Both structures potentially work equally well, and now we've reduced the amount of context switching necessary to go from the client to the server and vice-versa.
+这两种结构应该都可以很好地工作，现在我们成功减少了从客户端到服务端切换的上下文数量，反之亦然。
 
-## Possible Problems
+## 可能存在的问题
 
-The biggest thing that could bring this crashing down is the performance and stability of Electron in a production server environment. That being said, I don’t foresee performance being much of a problem, because Electron just spins up a renderer process to run the Node.js code, and I assume that process will run Node.js code more or less just like a vanilla Node.js process would. The bigger question is if the Chromium runtime is stable enough to run without stopping for months at a time (memory leaks).
+Electron 在服务器生产环境中的性能和稳定性，是最有可能导致应用崩溃的原因。话虽这么说，我并不觉得性能在将来是一个大问题，因为 Electron 只是通过一个渲染进程运行 Node.js 代码，我猜想和原生 Node.js 的运行状况差不多。最大问题是，Chromium 的运行时能否足够稳定，坚持运行足够长时间（而不发生内存泄露）。
 
-Another possible problem is verbosity. It will take more lines of code to accomplish the same task using server-side web components versus vanilla JavaScript because of all the markup. That being said, my hope is that the cost of verbose code will be made up by that code being easier to understand.
+另一个潜在问题是冗余性，相比原生 JavaScript 逻辑，使用服务端 web components 完成相同任务会花费更多时间，因为标记语言需要解析。话虽这么说，我依然希望付出冗余的代价，能换来更容易理解的代码。
 
-## Benchmarks
+## 性能测试
 
-For the curious, I’ve done some basic benchmarks to compare the performance of [this basic app](https://github.com/azat-co/rest-api-express) written for and running on vanilla Node.js with Express, versus the same app written with Express Web Components and running on Electron with Scram.js. The graphs below show the results of some simple stress tests on the main route using [this library](https://github.com/doubaokun/node-ab). Here are the parameters of the tests:
+基于好奇心，我进行了一系列基础测试，对比同一个 [应用](https://github.com/azat-co/rest-api-express) 在原生 Node.js + Express 框架，和 Electron + Scram.js 的 Express Web Components 运行性能对比。下面的图标展示出对于主路由使用 [node-ab](https://github.com/doubaokun/node-ab) 库进行压力测试的结果。以下是测试用到的一些参数：
 
-*   Run on my local machine
-*   100 GET request increase per second
-*   Run until 1% of requests return unsuccessfully
-*   Run 10 times for the Node.js app and the Electron/Scram.js app
+*   在本地机器上运行
+*   每秒递增 100 次 GET 请求
+*   运行直到有 1% 的请求返回不成功
+*   对于 Node.js app 和 Electron/Scram.js app 版本，分别运行 10 次测试
 *   Node.js app
-    *   Using Node.js v6.0.0
-    *   Using Express v4.10.1
+    *   使用 Node.js v6.0.0 版本
+    *   使用 Express v4.10.1 版本
 *   Electron/Scram.js app
-    *   Using Scram.js v0.2.2
-        *   Default settings (loading starting html file from local server)
-        *   Debug window closed
-    *   Using Express v4.10.1
-    *   Using electron-prebuilt v1.2.1
-*   Run with this library: [https://github.com/doubaokun/node-ab](https://github.com/doubaokun/node-ab)
-*   Run with this command: `nab http://localhost:3000 --increase 100 --verbose`
+    *   使用 Scram.js v0.2.2 版本
+        *   默认设置（从本地服务器加载起始 html 文件）
+        *   调试窗口关闭
+    *   使用 Express v4.10.1 版本
+    *   使用 electron-prebuilt v1.2.1 版本
+*   运行库: [https://github.com/doubaokun/node-ab](https://github.com/doubaokun/node-ab)
+*   运行命令: `nab http://localhost:3000 --increase 100 --verbose`
 
-Here are the results (QPS stands for "Queries Per Second"):
+以下是结果 （QPS: Queries Per Second 每秒查询数）：
 
 ![](https://cdn.scotch.io/1614/THvMpsJNTtmW14Mlad0D_electron-and-node.png)
 
@@ -413,21 +414,22 @@ Here are the results (QPS stands for "Queries Per Second"):
 
 ![](https://cdn.scotch.io/1614/yVMSAsmTnCaT9HbjOknQ_node.png)
 
-Surprisingly, Electron/Scram.js outperformed Node.js...we should probably take these results with a grain of salt, but I will conclude from these results that using Electron as a server is not drastically worse than using Node.js as a server, at least as far as short spurts of raw request performance are concerned. These results add validity to my statement earlier when I said that "I don’t foresee performance being much of a problem".
+出乎意料，Electron/Scram.js 比 Node.js 性能更佳。我们对这个结果持保留意见，但起码还是能反映出使用 Electron 作为服务器的性能不会比 Node.js 差很远，至少在短期内处理原始请求的效果是如此。还记得我之前说过“我并不觉得性能在将来是一个大问题”吗？结果证实了我的描述。
 
-## Wrap Up
+## 总结
 
-Web components are awesome. They are bringing a standard declarative component model to the web platform. It’s easy to see the benefits on the client, and there are so many benefits to be gained on the server. The gap between the client and server is narrowing, and I believe that server-side web components are a huge step in the right direction. So, go build something with them!
+Web components 很好很强大，给 Web 平台带来了标准化、声明式的组件模型。Web components 不仅能给客户端带来便利，而且在服务端也获益良多。客户端和服务端之间的差距正在缩小，我相信服务器端 web components 是正确方向上的一大迈进。因此，一起来使用它们构建我们的应用吧！
 
-*   Running Electron on the server: [Scram.js](https://github.com/scramjs/scram-engine)
-*   Basic server-side web components: [Express Web Components](https://github.com/scramjs/express-web-components)
-*   Live demo: [Dokku Example](http://scramjs.org/)
-*   Example 1: [Simple Express API](https://github.com/scramjs/rest-api-express)
-*   Example 2: [Modular Express API example](https://github.com/scramjs/node-api)
-*   Example 3: [Todo App](https://github.com/scramjs/node-todo)
-*   Example 4: [Simple REST SPA](https://github.com/scramjs/node-tutorial-2-restful-app)
-*   Example 5: [Basic App for Frontend Devs](https://github.com/scramjs/node-tutorial-for-frontend-devs)
 
-## Credits
+*   在服务器上运行 Electron: [Scram.js](https://github.com/scramjs/scram-engine)
+*   基础服务端 web components: [Express Web Components](https://github.com/scramjs/express-web-components)
+*   线上 demo: [Dokku Example](http://scramjs.org/)
+*   示例 1: [Simple Express API](https://github.com/scramjs/rest-api-express)
+*   示例 2: [Modular Express API example](https://github.com/scramjs/node-api)
+*   示例 3: [Todo App](https://github.com/scramjs/node-todo)
+*   示例 4: [Simple REST SPA](https://github.com/scramjs/node-tutorial-2-restful-app)
+*   示例 5: [Basic App for Frontend Devs](https://github.com/scramjs/node-tutorial-for-frontend-devs)
 
-Node.js is a trademark of Joyent, Inc. and is used with its permission. We are not endorsed by or affiliated with Joyent.
+## 信用
+
+Node.js 是 Joyent, Inc 的商标，使用需要经过他们允许。我们并非被 Joyent 认可，也非隶属关系。

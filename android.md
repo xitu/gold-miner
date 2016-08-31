@@ -1,3 +1,5 @@
+* [Activity 的正确打开方式](https://gold.xitu.io/entry/57b9bfc3c4c9710061481310?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Liz](https://github.com/lizwangying/) 翻译)
+* [如何创建高度模块化的 Android 应用](https://gold.xitu.io/entry/57b12cf4165abd00542a3ee1?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([DeadLion](https://github.com/DeadLion/) 翻译)
 * [使用强大的 Mockito 测试框架来测试你的代码](https://gold.xitu.io/entry/578f11aec4c971005e0caf82?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([edvardhua](https://github.com/edvardHua/) 翻译)
 * [Android 中美腻的下划线](http://gold.xitu.io/entry/578705faa34131005b46e9c2?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jamweak](https://github.com/jamweak) 翻译)
 * [来瞧瞧 Android N 中的通知长成啥样了](https://gold.xitu.io/entry/577a27e76be3ff006a1ef870?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([DeadLion](https://github.com/DeadLion) 翻译)
