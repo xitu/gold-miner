@@ -1,3 +1,4 @@
+* [用 Swift 开发我的第一个 iOS 应用前，我想要知道这些内容](http://gold.xitu.io/entry/57c66667c4c9710061a57b3f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jiaowoyongqi](https://github.com/jiaowoyongqi) 翻译)
 * [安全的计时器设计模式](http://gold.xitu.io/entry/57b279f0128fe10055cda9fd?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([mypchas6fans](https://github.com/mypchas6fans) 翻译)
 * [Swift + 闭包初始化](http://gold.xitu.io/entry/57bd72a3a633bd005d49fa32?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([circlelove](https://github.com/circlelove) 翻译)
 * [有关用 Swift 访问后端服务器的 API 文档](http://gold.xitu.io/entry/57bd2d42efa631005a8ea10a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Nicolas(Yifei) Li](https://github.com/yifili09) 翻译)
