@@ -7,7 +7,7 @@
 
 上周，我和我[哥哥](http://medium.com/@_mac)使用 Swift 语言开发了第一款[iOS 应用](http://echotags.io/appstore)。通过这篇文章，我想分享在此过程中所收获的心得体会。
 
-*我是一位有六年网站应用开发经验，并且掌握 Ruby 和 JavaScript 的工程师，而最近3个月致力于学习Swift编程语言。*
+*我是一位有六年网站应用开发经验，并且掌握 Ruby 和 JavaScript 的工程师，而最近3个月致力于学习 Swift 编程语言。*
 
 ### Objective-C 已亡？
 
