@@ -38,7 +38,7 @@ LOL, 不要这样：
 
 ```
 
-使用原生元素的好处就是你不用为自己的操作编写脚本了。不仅是下面的复选框执行冗长的HTML，还需要一个 JavaScript 的依赖来控制状态改变和 [follyfill](https://twitter.com/heydonworks/status/765444886099288064) 标准，有关 `name` 属性和 `GET` 的方法的基本行为。代码一多就不稳定。开心！
+使用原生元素的好处就是你不用为自己的操作编写脚本了。不仅是下面的复选框执行冗长的 HTML ，还需要一个 JavaScript 的依赖来控制状态改变和 [follyfill](https://twitter.com/heydonworks/status/765444886099288064) 标准，有关 `name` 属性和 `GET` 的方法的基本行为。代码一多就不稳定。开心！
 ```
 
 <div role="checkbox" aria-checked="false" tabindex="0" id="checkbox1" aria-labelledby="label-for-checkbox1"/>
@@ -74,7 +74,7 @@ LOL, 不要这样：
 
 ```
 
-现在一切都“ flex ”到了 10 em 宽。列数取决于你能在视口里面放多少 `10em` 的单元格。搞定。继续。
+现在一切都 “flex” 到了 10 em 宽。列数取决于你能在视口里面放多少 `10em` 的单元格。搞定。继续。
 
 哦还有，这时候我们需要谈谈下面这个东西：
 
