@@ -261,11 +261,7 @@ Recently I listened to a Podcast by [Julie Zhuo](https://medium.com/u/b8a4e5ae74
 
 To listen to the full podcast, click the video blow.
 
-Looking&#xA0;Forward Design principles might not work for every company. Though for us, it&#x2019;s helpful to have a set of principles that an entire design team agrees on and design toward to. We need principles that force clarity and reduce ambiguity. Good principles are solid. There is a weightiness, a certainty behind them. What looks right, what feels good&#x200A;&#x2014;&#x200A;these are superficial things. A great designer defends her work based on principles that last, past one decision, past a thousand, that aren&#x2019;t carried by whichever way the wind blows.&#x200A;&#x2014;&#x200A;Julie Zhuo We look forward to applying our principles in practice. Moving forward, I hope to share some personal insights in the near future.
-
-
-
-
+[![](https://i1.sndcdn.com/artworks-000166652068-8clzcy-t500x500.jpg)](https://w.soundcloud.com/player/?referrer=https%3A%2F%2Fuxdesign.cc%2Fmedia%2Fd1a2603d7df6acc2f23c9b9f9c7cf402%3FmaxWidth%3D500&show_artwork=true&url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F268298285)
 
 ### Looking Forward
 
