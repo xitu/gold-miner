@@ -5,7 +5,7 @@
 * 校对者：
 
 
-在过去的几个月里，我花费了大量的时间在研究 Core Data 之上，我得去在一个项目里使用一些原来积累下的代码、Core Data 的操作以及一些多线程操作。讲真，Core Data 学习起来非常的困难，在学习 Core Data 的时候，你肯定会感到迷惑和一种深深的挫败感。正是因为这些原因，我决定给出一种超级简单的解决方案。这个方案的特点就是简洁，线程安全，非常易于使用，这个方案能满足你大部分对于 Core Data 的需求。在经过若干次的迭代后，我所设计的方案最终成为一个成熟的方案。
+在过去的几个月里，我花费了大量的时间在研究 Core Data 之上，我得去处理一个使用了很多陈旧的代码，糟糕的 Core Data 以及违反了多线程安全的项目。讲真，Core Data 学习起来非常的困难，在学习 Core Data 的时候，你肯定会感到迷惑和一种深深的挫败感。正是因为这些原因，我决定给出一种超级简单的解决方案。这个方案的特点就是简洁，线程安全，非常易于使用，这个方案能满足你大部分对于 Core Data 的需求。在经过若干次的迭代后，我所设计的方案最终成为一个成熟的方案。
 
 OK，女士们，先生们，现在请允许我隆重向您介绍 [Skiathos](https://github.com/albertodebortoli/Skiathos) 和 [Skopelos](https://github.com/albertodebortoli/Skopelos)。其中 **Skiathos** 是基于 **Objective-C** 所开发的，而 **Skopelos** 则基于 **Swift** 所开发的。这两个框架的名字来源于希腊的两个岛，在这里，我渡过了2016年的夏天，同时，在这里完成了两个框架的编写工作。
 
@@ -25,17 +25,17 @@ OK，女士们，先生们，现在请允许我隆重向您介绍 [Skiathos](htt
 
 ![](https://s3.amazonaws.com/albertodebortoli.github.com/images/coredata/coredatastack.png)
 
-其中一个和 Magical Record 或者其余第三方插件不同的是，整个存储过程都是在一个方向上发起的，可能是从某个子节点向下或者向上传递来进行持久化储存。其余的组件允许你创建以 **private context** 作为父节点的子节点，这将会导致 **main context** 不能被更新，同时只能通过通知的方式来进行合并更新。**main context** 是相对固定的并与 **UI** 进行了绑定。
+其中一个和 Magical Record 或者其余第三方插件不同的是，整个存储过程都是在一个方向上发起的，可能是从某个子节点向下或者向上传递来进行持久化储存。其余的组件允许你创建以 **private context** 作为父节点的子节点，这将会导致 **main context** 不能被更新，同时只能通过通知的方式来进行合并更新。**main context** 是相对固定的并与 **UI** 进行了绑定：这样较为简单的方式可以帮助开发者更好的去完成一个 APP 的开发。
 
 ### AppStateReactor
 
-唔，其实你可以忽略这一段。这个组件基于 CoreDataStack ，在 App 切换至后台，失去节点，或者即将退出时，它负责监视相对应的修改，并把其保存。
+唔，其实你可以忽略这一段。这个组件属于 CoreDataStack ，在 App 切换至后台，失去节点，或者即将退出时，它负责监视相对应的修改，并把其保存。
 
 ### DALService (Data Access Layer) / (Skiathos/Skopelos)
 
-如果你拥有使用 Core Data 的经验，那么你也应该知道，我们大部分操作都是重复的，我们经常在一个结尾调用 `save:` 代码块里中调用 `performBlock:`/`performBlockAndWait:` 。数据库的所有操作都是基于 API 中所提供的 `read:` 和 `write:` ：这两个协议提供了 CQRS （命令和查询分离） 的实现。用于读取的代码块将在主体中进行运行（因为这被认为是一个已确定的单个资源）。用于写入的代码块将会在一个子线程中运行，这样可以保证实时的进行数据储存，变化的数据将会在不会阻塞主线程的情况下通过异步的方式进行储存。`write:completion:` 方法将会程序运行完后来对数据的更改进行持久化储存。
+如果你拥有使用 Core Data 的经验，那么你也应该知道，我们大部分操作都是重复的，我们经常在一个 context 中调用 `performBlock:/performBlockAndWait:` 函数，而这个 Context 提供了一个最终会调用 `save:` 作为最终语句的 block 。数据库的所有操作都是基于 API 中所提供的 `read:` 和 `write:` ：这两个协议提供了 CQRS （命令和查询分离） 的实现。用于读取的代码块将在主体中进行运行（因为这被认为是一个已确定的单个资源）。用于写入的代码块将会在一个子线程中运行，这样可以保证实时的进行数据储存，变化的数据将会在不会阻塞主线程的情况下通过异步的方式进行储存。`write:completion:` 方法将会程序运行完后来对数据的更改进行持久化储存。
 
-换句话说，写入的数据在 `main managed object context` 和最后持久化过程中都会保证其一致性。在 `main managed object context` 中，相应的数据也能保证其可用性。
+换句话说，写入的数据在 `main managed object context` 和最后持久化过程中都会保证其一致性。在 主要管理对象的 `context` 中，相应的数据也能保证其可用性。
 
 `Skiathos`/`Skopelos` 是 `DALService` 的子类, 这样可以给这个组件一个比较好听的名字。
 
@@ -287,4 +287,4 @@ OK，女士们，先生们，现在请允许我隆重向您介绍 [Skiathos](htt
 
 我们特别建议你在项目中进行这样的设置 `-com.apple.CoreData.ConcurrencyDebug 1` ，这可以确保你不会在多线程和并发的情况下滥用Core Data。
 
-This component doesn’t aim to introduce interfaces with the goal of hiding the concept of `ManagedObjectContext`: it would open up the doors to threading issues in clients' code as developers should be responsible to check for the type of the calling thread at some level (that would be ignoring the benefits that Core Data gives to us). Therefore, our design forces to make all the readings and writings via the `DALService` and the `ManagedObject` category methods are intended to always be explicit on the context (e.g. `SK_createInContext(context: NSManagedObjectContext)`).（最后一整段，是在拿捏不好怎么翻译，请校者一起帮忙斟酌一二）
+这个组件不是为了通过隐藏 `ManagedObjectContext:` 的概念来达到接口引入的目的：它将会在客户端中引入更多的线程问题，因为开发者有责任去检查所调用线程的类型（而那将会是在忽视 Core Data 所带给我们的好处）。
