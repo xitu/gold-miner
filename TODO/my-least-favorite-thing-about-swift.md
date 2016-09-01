@@ -130,7 +130,7 @@ You could argue that types conforming to `SequenceType` are more useful than typ
 
 Being able to conform my own types `SequenceType` shows that the language trusts me to make my own useful abstractions (with no loss of safety or strictness!) on the same level as its own standard library.
 
-能够自己去定义符合 `SequenceType` 的类型值意味着这门语言相信我可以像它自己的标准库一样，在相同的水平上，去自行创建有用的抽象概念值。（没有值丢失，安全，严格！）。
+能够自己去定义符合 `SequenceType` 的类型值意味着，这门语言相信我可以像它自己的标准库一样，在相同的水平上，去自行创建有用的抽象概念值。（没有值丢失，安全，严格！）。
 
 ### Operations
 
@@ -235,7 +235,7 @@ Judging from this example, `Task` objects in C# seem a lot like [promises](http:
 
 It also has the same flaws as the error model. Rather than being mere syntactic sugar over a more useful tool, a brand new construct and a bunch of keywords are added. This construct is partially dependent on types within defined in the standard library and partially dependent on syntax baked into the compiler.
 
-它也像错误模型一样有着缺陷。一个全新的构造和一些关键词的添加之后变的更像是一种纯粹的语法糖而不是一个更有用的工具。这种构造部分依赖类型内定义标准库和部分依赖于编译器的语法。（这一段不确定，请帮忙多考虑）
+它也像错误模型一样有着缺陷。一个全新的构造和一些关键词的添加之后使它变的更像是一种纯粹的语法糖而不是一个更有用的工具。这这种构造一部分依赖于在标准库中定义的类型，一部分依赖于编译器定义的语法。
 
 ### Properties
 
