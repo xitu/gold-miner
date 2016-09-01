@@ -126,7 +126,7 @@ These are two fundamentally different approaches to a language feature, and they
 
 You could argue that types conforming to `SequenceType` are more useful than types conforming to `BooleanType`. Swift 3 fully removes this feature, though, so you have to fully commit: you have to argue that `BooleanType` is so useless that it should be completely disallowed.
 
-你可以对于符合 `SequenceType` 的类型值比符合 `BooleanType` 的类型值更加有用这个观点提出异议。但是，Swift 3 已经完全的移除了这个特性，所以，你不得不承认：你不得不去认为 `BooleanType` 是如此没有用处以至于会被完全禁止。
+你可以对于符合 `SequenceType` 的类型值比符合 `BooleanType` 的类型值更加有用这个观点提出异议。但是，Swift 3 已经完全的移除了这个特性，所以，你只能承认：你不得不去认为 `BooleanType` 是如此没有用处以至于会被完全禁止。
 
 Being able to conform my own types `SequenceType` shows that the language trusts me to make my own useful abstractions (with no loss of safety or strictness!) on the same level as its own standard library.
 
@@ -226,16 +226,16 @@ Async/await is my leading theory for what asynchronicity in Swift will look like
 
 The first function, `GetIntAsync` returns a tasks that waits for some amount of time, and then returns a value. Because it returns a `Task`, it is marked as `async`. The second function, `MyMethodAsync`, calls the first, using the keyword `await`. This signals to the system that it can do other work until the `Task` from `GetIntAsync` completes. Once it completes, control is restored to the function, and it can write to the console.
 
-第一个函数方法，`GetIntAsync` 返回了一个任务，该任务等待一段时间后返回了一个值。因为这个函数返回了一个 `Task`，所以被标记为 `async`。第二个函数方法，首先调用 `MyMethodAsync`，使用关键词 `await`。这个信号监测了这个信号系统，在 `Task` 完成并执行 `GetIntAsync`
+第一个函数方法，`GetIntAsync` 返回了一个任务，该任务等待一段时间后返回了一个值。因为这个函数返回了一个 `Task`，所以被标记为 `async`。第二个函数方法，首先调用 `MyMethodAsync`，使用关键词 `await`。这通知了整个系统，在 `Task` 完成并执行 `GetIntAsync`
 之前，这个系统可以做其他的事情。而一旦这个任务完成了，这个函数就会恢复控制功能，重新获得编写控制台输出的能力。
 
 Judging from this example, `Task` objects in C# seem a lot like [promises](http://khanlou.com/2016/08/promises-in-swift/). Also, any function that uses the `await` keyword must itself be declared as `async`. The compiler can enforce this guarantee. This solution mirrors Swift’s error model: functions that throw must be caught, and if they don’t, they must be marked with `throws` as well.
 
-从这个例子看来，C# 的 `Task` 对象看起来很像 [Promise (承诺)](http://khanlou.com/2016/08/promises-in-swift/)。此外，任何使用 `await` 的函数都必须被定义为 `async`。编译器可以确保这点。这个解决方案映射出了 Swift 的错误模型：被抛出的函数方法必须被捕捉到，而如果没有，那这些函数方法一定也是被标记了 `throws` 。
+从这个例子看来，C# 的 `Task` 对象看起来很像 [Promise (承诺)](http://khanlou.com/2016/08/promises-in-swift/)。此外，任何使用 `await` 的函数都必须被定义为 `async`。编译器可以确保这点。这个解决方案体现了出了 Swift 的错误模型：被抛出的函数方法必须被捕捉到，而如果没有，那这些函数方法一定也是被标记了 `throws` 。
 
 It also has the same flaws as the error model. Rather than being mere syntactic sugar over a more useful tool, a brand new construct and a bunch of keywords are added. This construct is partially dependent on types within defined in the standard library and partially dependent on syntax baked into the compiler.
 
-它也像错误模型一样有着缺陷。一个全新的构造和一些关键词的添加之后使它变的更像是一种纯粹的语法糖而不是一个更有用的工具。这这种构造一部分依赖于在标准库中定义的类型，一部分依赖于编译器定义的语法。
+它也像错误模型一样有着缺陷。一个全新的构造和一些关键词的添加之后使它变的更像是一种纯粹的语法糖而不是一个更有用的工具。这种构造一部分依赖于在标准库中定义的类型，一部分依赖于编译器定义的语法。
 
 ### Properties
 
@@ -247,11 +247,11 @@ Property behaviors are another big feature that might come in Swift 4\. There is
 
 Property behaviors let you attach a behavior like `lazy` to a property. The `lazy` property, for example, would only set up a value the first time it’s accessed. While you currently can use this particular behavior, it’s hard-coded into the Swift compiler. Property behaviors as proposed would allow the facility for the standard library to implement some behaviors and for users to define others entirely.
 
-属性行为让你可以对一个属性附加上一个类似 `lazy` 的行为。这个 `lazy` 属性，举个例子，将只在第一次访问时设置一个值。但你已经可以使用这个特定的行为，这是直接硬编码进 Swift 的编译器的。按照计划，属性行为将允许标准库设施来实现一些行为和允许用户去对其他进行完全的定义。
+属性行为让你可以对一个属性附加上一个类似 `lazy` 的行为。这个 `lazy` 属性，举个例子，将只在第一次访问时设置一个值。但你现在已经可以使用这个特定的行为，这是直接硬编码进 Swift 的编译器的。提出的属性行为将允许标准库设施来实现一些行为和允许用户进行完全的自定义。
 
 Perhaps this is the best of all worlds. Start with a feature that’s hard-coded in the compiler, and after the feature has gained some prominence, create a more generic framework which lets you define that feature through the language itself. At that point, any writer of Swift can create similar functionality, tweaked precisely to suit their own requirements.
 
-可能这对整个世界来说是最好的。从一个已经被硬编码进编译器的一个特性开始，然后在这个特性取得一定声望之后，创建一个更通用的框架来允许你通过语言本身定义这个特性。在这一点上,任何 Swift 的作者都可以创建类似的功能,精确调整来满足自己的需求。
+可能这已经是全世界最好的特性了。从一个已经被硬编码进编译器的一个特性开始，然后在这个特性取得一定声望之后，创建一个更通用的框架来允许你通过语言本身定义这个特性。在这一点上,任何 Swift 的作者都可以创建类似的功能，精确调整来满足自己的需求。
 
 If Swift’s error model followed that same path, Swift’s standard library might expose a `Result` type, and any function returning a `Result` would be able to use the `do`/`try`/`catch` syntax when it is most useful (like for many parallel, synchronous actions that can each fail). For error needs that don’t fit in to the currently available syntax, like async errors, users would have a common `Result` type that they can use. If the `Result` requires lots of chaining, users can `flatMap`.
 
