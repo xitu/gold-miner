@@ -2,7 +2,7 @@
 * 原文作者：[Alberto De Bortoli](http://albertodebortoli.com/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Zheaoli](https://github.com/Zheaoli)
-* 校对者：
+* 校对者：[Kulbear](https://github.com/Kulbear), [cbangchen](https://github.com/cbangchen)
 
 
 在过去的几个月里，我花费了大量的时间在研究 Core Data 之上，我得去处理一个使用了很多陈旧的代码，糟糕的 Core Data 以及违反了多线程安全的项目。讲真，Core Data 学习起来非常的困难，在学习 Core Data 的时候，你肯定会感到迷惑和一种深深的挫败感。正是因为这些原因，我决定给出一种超级简单的解决方案。这个方案的特点就是简洁，线程安全，非常易于使用，这个方案能满足你大部分对于 Core Data 的需求。在经过若干次的迭代后，我所设计的方案最终成为一个成熟的方案。
