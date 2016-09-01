@@ -44,11 +44,11 @@ At first blush, this looks like a language feature, like Swift’s `let` and `va
 
 If you can’t read Ruby, that’s okay. It uses a function called `define_method` to create a getter and setter for the keys that you pass in. In Ruby, `@first_name` means the instance variable named `first_name`.
 
-如果你不能读懂 Ruby ，没有关系。它使用了一个名为 `define_method` 的函数来为你所传递的 keys 创建一个 getter 和 setter。在 Ruby ，`@first_name` 意味着一个名为 `first_name` 的实例变量。
+如果你不能读懂 Ruby ，没有关系。它使用了一个名为 `define_method` 的函数来为你所传递的 keys 创建一个 getter 和 setter。在 Ruby 中，`@first_name` 意味着一个名为 `first_name` 的实例变量。
 
 This is one of the reasons I love Ruby’s language design — they first create the meta-tools to create useful language features, and then they use those tools to implement the language features that they want. [Yehuda Katz explores](http://yehudakatz.com/2010/02/07/the-building-blocks-of-ruby/) how Ruby applies this idea to its blocks. Because Ruby’s language features are written with the same tools and in the same language that users have access to, users can also write features similar in style and scope to the ones that define the language.
 
-这是我爱上 Ruby 这门语言的设计的其中一个原因 - 它们首先创建一个可创建有用语言特性的元数据工具集，然后它们使用这些工具来实现它们所需要的语言特性。[Yehuda Katz explores](http://yehudakatz.com/2010/02/07/the-building-blocks-of-ruby/) 讲述了 Ruby 是怎样在它的 blocks 中实现这个想法的。因为编写 Ruby 语言特性的工具和在同一门语言中用户可以访问的工具是相同的，这意味着用户也可以使用相同的风格和范围来编写定义语言的特性。
+这是我爱上 Ruby 这门语言的设计的其中一个原因 - 他们首先设计了一个能够创建有用的语言特性的元数据工具集，然后他们使用这些工具来实现他们所需要的语言特性。[Yehuda Katz explores](http://yehudakatz.com/2010/02/07/the-building-blocks-of-ruby/) 讲述了 Ruby 是怎样在它的 blocks 中实现这个想法的。因为 Ruby 的语言特性是通过相同的工具以及相同的用户可使用的语言编写而成，所以用户也可以使用定义这门语言所相似的风格和范畴来编写语言特性。
 
 ### Optionals
 
@@ -195,7 +195,7 @@ Still other code might rely on asynchronicity and want to pass a `Result` type t
 
 Swift 4 promises language features for asynchronous work soon. It’s not clear how these features will be implemented yet, but Chris Lattner has written about the road to the Swift 4:
 
-Swift 4 承诺很快异步的语言特性就会可以使用。目前还不清楚将如何实现这些功能，但是 Chris Lattner 曾经写过关于 Swift 4 的道路：
+Swift 4 承诺很快异步的语言特性就会可以使用。目前还不清楚将如何实现这些功能，但是 Chris Lattner 已经写了关于如何使用 Swift 4 的书籍：
 
 > First class concurrency: Actors, async/await, atomicity, memory model, and related topics.
 
