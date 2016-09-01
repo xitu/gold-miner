@@ -1,40 +1,40 @@
 > * 原文地址：[Immutable models and data consistency in our iOS App](https://engineering.pinterest.com/blog/immutable-models-and-data-consistency-our-ios-app)
 * 原文作者：[Wendy Lu](https://twitter.com/wendyluwho)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[Kulbear](https://github.com/kulbear)
 * 校对者：
 
-Earlier this year, we re-architected our [iOS app](https://engineering.pinterest.com/blog/re-architecting-pinterests-ios-app) for a faster, cleaner experience, especially for the majority of Pinners using the app outside the U.S. One of the goals of the re-architecture was to move our app to a completely immutable model layer. In this post, I'll discuss the motivation behind this, and explore how our new system handles updating models, loading new information from the API and data consistency.
+今年早些时候，为了更快更清晰的体验，尤其是为了美国海外的用户，我们全面重构了我们的 [iOS 应用](https://engineering.pinterest.com/blog/re-architecting-pinterests-ios-app)。这次结构重构的主要目的是将我们的应用迁移到一个不可变模型的层面上。在这篇博客中，我们将会讨论这样做的动机，并探索我们的新系统如何处理模型的更新，从 API 读取新信息，以及数据持久性。
 
-## Why immutable models?
+## 为什么选择不可变模型？
 
-“Immutable models” is a term we hear a lot about these days since many apps have converted to immutability. Immutability means that models can't be modified after initialization. Why should we use them? Well, the main problem of mutability lies in shared state.
+“不可变模型”由于现今有很多应用都转向了不可变设计而成为了一个让人耳熟能详的术语。不可变性意味着再初始化后模型将不再可更改。但为何我们要使用他们呢？嗯，主要问题在于可变性在状态共享方面有一些问题。
 
-Think about it this way: In a mutable model system, A and B both keep a reference to C.
+想象这样一个情景，在一个模型可变的系统中，A 和 B 都保持引用指向 C。
 
 ![](https://engineering.pinterest.com/sites/engineering/files/Screen%20Shot%202016-08-19%20at%209.37.26%20AM_0.png)
 
-If A modifies C, both A and B will see a changed value. This can be fine, but if B doesn't expect this, very bad things can happen.
+如果 A 编辑了 C，那么 A 和 B 都将会看到这个变更。这似乎毫无问题，但如果 B 并（如：没有在设计中）未预期这个改变，可能会发生很糟糕的事情。
 
-For example, say I'm on a message thread with two other users. I have a message object with a ‘users’ property.
+比如，我在和其他两个用户共享一个消息线程。我有一个带有一个叫 ‘users’ 属性的消息对象。
 
 ![](https://engineering.pinterest.com/sites/engineering/files/Screen%20Shot%202016-08-19%20at%209.38.32%20AM_0.png)
 
-While I'm on this view, another part of the app decides to remove Devin from the conversation (perhaps it gets an updated server response and proceeds to change the model). When the second row is tapped, I look in my message.users array to retrieve the second object. This now returns Stephanie instead of Devin and I end up blocking the wrong person.
+如果我正处于这个界面的同时，应用的另一部分决定将 Devin 从 对话中移除（也许应用收到了服务器更新的响应并在接下来更改这个模型）。当我点击第二行的时候，我在 message.user 这个数组中读取第二个对象。此时返回给我的对象将是 Stephanie 而非 Devin，从而使我错误的屏蔽了他人。
 
-Immutable models are also inherently thread safe. Before, we had to worry that one thread may be writing to the model while another is trying to read it. In our new system, the object can't be changed after initialization, so we can safely have multiple threads reading concurrently without worrying about reading an unsafe value. This made our lives easier as our iOS app became increasingly concurrent and multithreaded.
+不可变模型是线程安全的。之前，我们总会担心一个线程变更一个对象的同时，另一个线程想要读取它。在我们的新系统里，一个对象在初始化后无法被更改，所以我们可以很安全的拥有多个线程同时读取对象而不用担心读取到了不安全的值。这给我们减负的同时也使我们的应用变得更适应并发与多线程。
 
-## Updating models
+## 更新模型
 
-Since our models are completely immutable after creation, the only way to update or change a model is to create an entirely new model object. We have two ways to do this:
+因为我们的模型在创建后不可更改，唯一的更新／变更方法就是重新创建一个全新的模型对象。我们有两种方法来做这件事：
 
-*   Initialize a model using a dictionary (usually from a JSON response)
+* 通过一个字典来初始化模型（通常是来自于一个 JSON 类型的响应）
 
 ```
 User *user = [[User alloc] initWithDictionary:dictionary];
 ```
 
-*   Use a “builder” object, which is basically just a mutable representation of a model that takes on all of the model's properties. You can create a builder from an existing model, modify the properties you want, then call initWithBuilder to return the new model (more on this in a future post).
+* 使用一个 “builder” 对象，基本上它就是一个可变的对模型的表述方法，它包含模型需要的所有属性。你可以通过现存的模型创建一个 builder，编辑你需要更改的属性，然后调用 initWithBuilder 来返回新的模型（以后的博客中会探讨这个）。
 
 ```
 // Change the current user's username to “taylorswift”
@@ -43,27 +43,27 @@ userBuilder.username = @"taylorswift";
 self.currentUser = [[User alloc] initWithBuilder:userBuilder];
 ```
 
-## Loading and caching API data
+## 读取和缓存 API 的数据
 
-Our API allows us to request partial JSON models from the server, with a subset of the model's fields. For example, in the Pin feed view, we need fields such as the image URL and description, but we don't need to request full information, such as recipe ingredients, until the user navigates into the Pin close up view. This helps us cut down on the amount of data we send over the wire, as well as backend processing time.
+我们的 API 允许我们通过模型属性的子集从服务器请求部分的 JSON 模型。比如，在 Pin 这个界面上，我们需要一些诸如图片 URI 和详细描述这样的属性，但我们在用户点进去之前都不需要全部的信息（比如配料表）。这样的设计帮我们削减了需要传输的数据量和后端处理的时间。
 
 ![](https://engineering.pinterest.com/sites/engineering/files/Screen%20Shot%202016-08-19%20at%209.45.23%20AM_0.png)
 
-We keep a central model cache built on [PINCache](https://github.com/pinterest/PINCache), an object cache we built and [open-sourced](https://engineering.pinterest.com/tags/pincache) for iOS. The keys of this cache are the unique, server-specified IDs of models. When we get a new server response, we check the cache for an existing model. If an existing model is found, we'll merge the fields of the server response and the properties of the existing model into a brand new model object. This new model replaces the existing one in the cache. This way, the cached model always contains the most recent superset of all fields that we've received.
+我们用 [PINCache](https://github.com/pinterest/PINCache) 来保持我们核心模型的缓存。[PINCache](https://github.com/pinterest/PINCache) 是一个在 iOS 上处理缓存对象并被我们[开源](https://engineering.pinterest.com/tags/pincache)的库。缓存的键是由服务端提供的模型唯一 ID。当我们收到一个新的服务器响应时，我们检查现有模型的缓存。如果找到了已存在的模型，我们将会将现有模型和从服务器响应中返回的变更属性合并后创建一个新的模型。新的模型将会替换掉缓存中现有的这一个模型。这样，缓存中的模型将会始终为最新的超集（基于我们收到的所有属性变更）。
 
 ![](https://engineering.pinterest.com/sites/engineering/files/Screen%20Shot%202016-08-19%20at%209.47.14%20AM_0.png)
 
-## Data consistency
+## 数据一致性
 
-After a model is updated (i.e. a new model object is created), the changes should be reflected in the views that display the model. We previously used [Key-Value Observing](https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/KeyValueObserving/KeyValueObserving.html) for this, but KVO doesn't work with immutable objects–it only observes for changes on one instance of a model. We now use a NSNotificationCenter-based system to notify objects that a model they care about has been updated.
+当一个模型被更新后（即，一个新的模型被创建了），变更的内容应该即时反应在需要这个模型的界面上。我们之前使用了 [Key-Value 监视](https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/KeyValueObserving/KeyValueObserving.html) 来处理这个情况，但这种方法由于只监视一个模型的实例而不可应用于不可变模型上。我们现在使用一个基于 NSNotificationCenter 的系统来告知对象们——你们需要用的模型刚刚被更新了。
 
-## Observing for changes
+## 监视变更
 
-A view or view controller can register for update notifications on a model. In this example, the message view controller registers for updates on its message model. It would like to know when a new message model is created, because this new model may have updated properties.
+一个视图或视图容器可以注册在一个模型的更新通知中。在这个例子中，消息视图容器注册于消息模型的变更上。任何新的消息模型被创建和更新，它都会第一时间知道。
 
 ![](https://engineering.pinterest.com/sites/engineering/files/Screen%20Shot%202016-08-19%20at%209.48.46%20AM_0.png)
 
-The following code creates an observer that listens for updated models with the name + unique identifier of the message model. Under the hood of this method, we use the [block-based NSNotificationCenter API](https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSNotificationCenter_Class/#//apple_ref/occ/instm/NSNotificationCenter/addObserverForName:object:queue:usingBlock:) so that we can better control observer lifetime.
+下面的代码创建了一个通过名字和独一辨识监听更新后的模型的观察者。在这个方法背后，我们使用了 [block-based NSNotificationCenter API](https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSNotificationCenter_Class/#//apple_ref/occ/instm/NSNotificationCenter/addObserverForName:object:queue:usingBlock:)，这样我们可以更好的控制观察者的生命周期。
 
 ```
 [self.notificationManager addObserverForUpdatedModel:self.message block:^(NSNotification *notification) {
@@ -71,22 +71,22 @@ The following code creates an observer that listens for updated models with the 
 }];
 ```
 
-The notificationManager is just an NSObject that holds a strong reference to registered observers. Since it’s a property of our view controller, its dealloc should be called right after our view controller's dealloc, and we can make sure all observers are unregistered there.
+这个 notificationManager 是一个 NSObject 的子类，他保持了对注册的观察者的强引用。因为它是我们视图容器的一个属性，他的 dealloc 将会在视图容器的 dealloc 之后被立即调用，从而使我们能保证所有的观察者这时都被注销了。
 
-## Posting changes
+## 发布变更
 
-When the message model is updated, an update notification will be posted:
+当消息模型变更时，将会发送一个通知。
 
 ```
 Message *newMessage = [[Message alloc] initWithBuilder:newBuilder];
 [NotificationManager postModelUpdatedNotificationWithObject:newMessage];
 ```
 
-postModelUpdatedNotificationWithObject will check the model cache for the most recent model of the same class + server identifier, and post the cached instance of the model.
+postModelUpdatedNotificationWithObject 将会通过最近的同类模型和服务端的辨识标记检查模型的缓存，然后根据模型实例的缓存发布更新。
 
-## Making UI updates
+## 更新用户界面
 
-When a notification is fired, the new model is passed in the “object” field of the NSNotification. The view controller can then make whatever updates it needs using the updated model!
+一个通知发布以后，新的模型会作为 NSNotification 的一个 ‘object’ 属性传递。视图容器可以随时随地的更新它需要的模型。
 
 ```
 __weak __typeof__(self) weakSelf = self;
@@ -98,9 +98,8 @@ __weak __typeof__(self) weakSelf = self;
 }];
 ```
 
-## Coming up
+## 后记
 
-Switching out the entire model layer of a sizable app is no easy task, and we created some pretty cool tools to help us along the way. Look out for our next post, where we'll explain how we auto-generate all our model classes and more.
+将一个具有规模的应用迁移到新的模型层面上是一个具有挑战的任务，在这个过程中我们创建了许多辅助工具。请参见我们下一篇博客，我们会在当中解释我们如何自动生成所有的模型类等等。
 
-_Acknowledgements: Thank you to all our iOS developers for using and giving feedback on the new model layer, especially my teammates Rahul Malik, Chris Danford, Garrett Moon, Ricky Cancro, and Scott Goodson, as well as Bella You, Rocir Santiago and Andrew Chun for feedback on this post._
-
+_感谢：感谢所有使用我们的新模型并反馈问题的 iOS 开发人员们，尤其需要提到的是我的队友 Rahul Malik， Chris Danford，Garrett Moon，Ricky Cancro，and Scott Goodson，以及 Bella You，Rocir Santiago 和 Andrew Chun 对于本文提供的反馈。_
