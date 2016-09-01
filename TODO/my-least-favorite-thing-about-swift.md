@@ -130,7 +130,7 @@ You could argue that types conforming to `SequenceType` are more useful than typ
 
 Being able to conform my own types `SequenceType` shows that the language trusts me to make my own useful abstractions (with no loss of safety or strictness!) on the same level as its own standard library.
 
-能够自己去定义符合 `SequenceType` 的类型值意味着，这门语言相信我可以像它自己的标准库一样，在相同的水平上，去自行创建有用的抽象概念值。（没有值丢失，安全，严格！）。
+能够自己去定义符合 `SequenceType` 的类型值意味着，这门语言相信我可以像它自己的标准库一样，在相同的水平上，能够自行定义有用的抽象概念值。（没有值丢失，安全，严格！）。
 
 ### Operations
 
@@ -142,7 +142,7 @@ Operators in Swift are also worth examining. Syntax exists within the language t
 
 While the `+` operator is defined within the language, the ternary operator `?:` isn’t. Command-clicking on the `+` operator jumps you to its definition. Command-clicking on either the `?` or the `:` of the ternary operator yields nothing. If you want to use a sole question mark or colon as an operator for your code, you can’t. Note that I’m _not_ saying that it would be a good idea to use a colon operator in your code; all I’m saying is that this operator has been special-cased, hard-coded into the compiler, to add familiarity to those weaned on C.
 
-然而 `+` 运算符在语言中被定义，三元运算符 `?:` 却没有。当你点击 `+` 时，命令跳转到这个运算符的声明处。当你点击三元运算符中的 `?` 和 `:` 的时候，却没有任何反应。如果你想要在你的代码中使用单个的问号和感叹号作为操作符的话，你做不到。注意我这里 _不是_ 说在你的代码中使用一个感叹号操作符不是一个好主意。我只是想说，这个操作符已经被特殊对待，硬编码到了编译器，与其他 C 中定义的操作符一般无二。
+然而 `+` 运算符在语言中被定义，三元运算符 `?:` 却没有。当你点击 `+` 时，命令跳转到这个运算符的声明处。当你点击三元运算符中的 `?` 和 `:` 的时候，却没有任何反应。如果你想要在你的代码中使用单个的问号和感叹号作为操作符的话，这是做不到的。注意我这里 _不是_ 说在你的代码中使用一个感叹号操作符不是一个好主意。我只是想说，这个操作符已经被特殊对待，硬编码到了编译器，与其他 C 中定义的操作符一般无二。
  
 In each of these three cases, we’ve compared two things: the first, a useful language syntax which the standard library uses to implement features; and the second, a special-case which privileges standard library code over consumer code.
 
@@ -150,11 +150,11 @@ In each of these three cases, we’ve compared two things: the first, a useful l
 
 The best kinds of syntax and syntactic sugar can be tapped into by the writers of the language, with their own types and their own systems. Swift sometimes handles this with protocols like `NilLiteralConvertible`, `SequenceType`, and the soon-defunct `BooleanType`. The way that `var name: String?` can infer its own default (`.None`) crucially _isn’t_ like this, and therefore is a less powerful form of syntactic sugar.
 
-最好的语法和语法糖是可以被一门语言的作者利用自己的类型和系统不断深入挖掘的。Swift 有时候使用类似 `NilLiteralConvertible`, `SequenceType`, 和易僵化的 `BooleanType` 等协议来处理这些事情。这种 `var name: String?` 能够推测出自己的默认属性值（`.None`）的方式很明显不是这样子的，因此这是一种不那么给力的语法糖。
+最好的语法和语法糖是可以被一门语言的作者利用自己的类型和系统不断深入挖掘的。Swift 有时候使用类似 `NilLiteralConvertible`, `SequenceType`, 和易僵化的 `BooleanType` 等协议来处理这些事情。这种 `var name: String?` 能够推测出自己的默认属性值（`.None`）的方式很明显不符合这个条件，因此这是一种不那么给力的语法糖。
 
 I think it’s also worth noting that even though I love Ruby’s syntax, two places where it doesn’t have very much flexibility are operators and falsiness. You can define your own implementations for the Ruby’s existing operators, but you can’t add new ones, and the precedences are fixed. Swift is _more_ flexible in this regard. And, of course, it was more flexible with respect to defining falsiness as well, until Swift 3.
 
-我认为值得注意的是，即使我爱 Ruby 的语法，但是 Ruby 在运算符和 falsiness 这两个地方却不是很灵活。你可以自行定义已存在运算符的实现方式，但是不能添加一个新的运算符，这部分优先级是固定的。Swift 在这个方面 _更_ 灵活。而且，当然，在 Swift 3 之前，Swift 在定义 falsiness 方面同样具有更强的灵活性。
+我认为另一个值得注意的点是，即使我爱 Ruby 的语法，但是 Ruby 在运算符和 falsiness 这两个地方却不是很灵活。你可以自行定义已存在运算符的实现方式，但是不能添加一个新的运算符，而且运算符的优先级也是固定的。Swift 在这个方面 _更_ 灵活。而且，当然，在 Swift 3 之前，Swift 在定义 falsiness 方面同样具有更强的灵活性。
 
 ### Errors
 
@@ -166,7 +166,7 @@ In the same way that Swift’s Optional type is a shade of C’s nullability, Sw
 
 Functions and methods marked with `throws` can `return` a value or `throw` an `ErrorType`. Thrown errors are land in `catch` blocks. Under the hood, you can imagine Swift rewriting the return type for the function
 
-使用 `throws` 标记的函数和方法可以 `return` 一个值或者 `throw` 一个 `ErrorType`。抛出错误后将执行 `catch` blocks函数。在这种机制下，你可以想象 Swift 是通过内部潜在代表成功或者失败的 `_Result` 类型 （就像 [`antitypical/Result`](https://github.com/antitypical/Result)）来重写一个函数的返回值的。
+使用 `throws` 标记的函数和方法可以 `return` 一个值或者 `throw` 一个 `ErrorType`。被抛出的错误将会在 `catch` blocks函数中被捕捉到。在这种机制下，你可以想象 Swift 是通过内部隐含的代表成功或者失败的 `_Result` 类型 （就像 [`antitypical/Result`](https://github.com/antitypical/Result)）来重写一个函数的返回值的。
 
     func doThing(with: Property) throws -> Value
 
@@ -176,7 +176,7 @@ Functions and methods marked with `throws` can `return` a value or `throw` an `E
 
 with some internal `_Result` type (like [`antitypical/Result`](https://github.com/antitypical/Result)) that represents potential success or failure. (The reality is this `_Result` type isn’t explicitly defined, but rather [implicitly handled in the bowels of the compiler](https://marc.ttias.be/swift-evolution/2016-08/msg00322.php). It doesn’t make much of a difference for our example.) At the call site, this is unpacked into its successful value, which is passed through the `try` statement, and the error, which jumps execution to the `catch` block.
 
-（事实上，这种 `_Result` 类型并没有被显式定义，而是[在编译器中被隐式的处理了]((https://marc.ttias.be/swift-evolution/2016-08/msg00322.php))。这对于我们的例子并没有造成太多的不同。）在调用函数的内部，传入成功的值的时候将会执行 `try` 语句，而发生错误的时候，则会跳入并执行 `catch` block函数。
+（事实上，这种 `_Result` 类型并没有被显式定义，而是[在编译器中被隐式的处理了]((https://marc.ttias.be/swift-evolution/2016-08/msg00322.php))。这对于我们的例子并没有造成太多的不同。）在调用函数的内部，传入成功的值的时候将会通过 `try` 语句，而发生错误的时候，则会跳入并执行 `catch` block函数。
 
 Compare this to the previous examples, where useful features are defined within the language, and then syntax (in the case of operators or `SequenceType`) and syntactic sugar (in the case of `Optional`) are added _on top_ of them to make the code look the way we expect it. In contrast, the Swift’s error handling doesn’t expose its internal `_Result` model, so users can’t use it or build on it.
 
@@ -184,7 +184,7 @@ Compare this to the previous examples, where useful features are defined within 
 
 Some cases for error handling works great with Swift’s model, like [Brad Larson’s code for moving a robot arm](http://www.sunsetlakesoftware.com/2015/06/12/swift-2-error-handling-practice) or [my JSON parsing code](http://khanlou.com/2016/04/decoding-json/). Other code might work better with a `Result` type and `flatMap`.
 
-一些例子使用 Swift 模型来进行错误处理非常合适，例如[Brad Larson 用来移动机器人手臂的代码](http://www.sunsetlakesoftware.com/2015/06/12/swift-2-error-handling-practice)和[我的 JSON 解析代码](http://khanlou.com/2016/04/decoding-json/)。其他情况的话，使用 `Result` 类型和 `flatMap` 会更合适。
+一些情况下使用 Swift 模型来进行错误处理非常合适，例如[Brad Larson 用来移动机器人手臂的代码](http://www.sunsetlakesoftware.com/2015/06/12/swift-2-error-handling-practice)和[我的 JSON 解析代码](http://khanlou.com/2016/04/decoding-json/)。其他情况的话，使用 `Result` 类型和 `flatMap` 会更合适。
 
 Still other code might rely on asynchronicity and want to pass a `Result` type to a completion block. Apple’s solution only works in certain cases, and giving users of the language more flexibility in the error model would help cover this distance. `Result` is great, because it’s flexible enough to build multiple things on top of it. The `try`/`catch` syntax is weak, because it’s very rigid and can only be used in one way.
 
