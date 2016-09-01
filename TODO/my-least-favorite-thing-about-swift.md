@@ -145,10 +145,6 @@ While the `+` operator is defined within the language, the ternary operator `?:`
  
 In each of these three cases, we’ve compared two things: the first, a useful language syntax which the standard library uses to implement features; and the second, a special-case which privileges standard library code over consumer code.
 
-<<<<<<< HEAD
-这三个例子中的每一个，我们都比较了两个东西：第一个是一种被标准类库用来实现特性的有用语法；第二个是特权标准库超越消费者代码的特殊例子。（这一句
-不确定，请帮忙多考虑一下）
-=======
 这三个例子中的每一个，我们都比较了两个东西：第一个是一种被标准类库用来实现特性的有用语法；第二个是特权标准库超越消费者代码的特殊例子。（这一句不确定，请帮忙多考虑一下）
 >>>>>>> bd423d827789bbc56134004963c8e85675bce15c
 
@@ -203,11 +199,7 @@ Swift 4 promises language features for asynchronous work soon. It’s not clear 
 Swift 4 承诺很快异步的语言特性就会可以使用。目前还不清楚将如何实现这些功能，但是 Chris Lattner 曾经写过关于 Swift 4 的道路：
 
 > First class concurrency: Actors, async/await, atomicity, memory model, and related topics.
-<<<<<<< HEAD
-> 
-=======
 
->>>>>>> bd423d827789bbc56134004963c8e85675bce15c
 > 一流的并发，包括：Actors、同步/等待、原子性、内存模型及其它一些相关主题。
 
 Async/await is my leading theory for what asynchronicity in Swift will look like. For the uninitiated, async/await involves declaring when functions are `async`, and using the `await` keyword to wait for them to finish. Take this simple example from C#:
@@ -234,12 +226,8 @@ Async/await is my leading theory for what asynchronicity in Swift will look like
 
 The first function, `GetIntAsync` returns a tasks that waits for some amount of time, and then returns a value. Because it returns a `Task`, it is marked as `async`. The second function, `MyMethodAsync`, calls the first, using the keyword `await`. This signals to the system that it can do other work until the `Task` from `GetIntAsync` completes. Once it completes, control is restored to the function, and it can write to the console.
 
-<<<<<<< HEAD
-第一个函数方法，`GetIntAsync` 返回了一个任务，该任务等待一段时间后返回了一个值。因为这个函数返回了一个 `Task`，所以被标记为 `async`。第二个函数方法，首先调用 `MyMethodAsync`，使用关键词 `await`。这个信号监测了这个信号系统，在 `Task` 完成并执行 `GetIntAsync` 之前，这个系统可以做其他的事情。而一旦这个任务完成了，这个函数就会恢复控制功能，重新获得编写控制台输出的能力。
-=======
 第一个函数方法，`GetIntAsync` 返回了一个任务，该任务等待一段时间后返回了一个值。因为这个函数返回了一个 `Task`，所以被标记为 `async`。第二个函数方法，首先调用 `MyMethodAsync`，使用关键词 `await`。这个信号监测了这个信号系统，在 `Task` 完成并执行 `GetIntAsync`
 之前，这个系统可以做其他的事情。而一旦这个任务完成了，这个函数就会恢复控制功能，重新获得编写控制台输出的能力。
->>>>>>> bd423d827789bbc56134004963c8e85675bce15c
 
 Judging from this example, `Task` objects in C# seem a lot like [promises](http://khanlou.com/2016/08/promises-in-swift/). Also, any function that uses the `await` keyword must itself be declared as `async`. The compiler can enforce this guarantee. This solution mirrors Swift’s error model: functions that throw must be caught, and if they don’t, they must be marked with `throws` as well.
 
