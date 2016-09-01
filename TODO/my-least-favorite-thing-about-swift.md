@@ -44,6 +44,7 @@ At first blush, this looks like a language feature, like Swift’s `let` and `va
 
 If you can’t read Ruby, that’s okay. It uses a function called `define_method` to create a getter and setter for the keys that you pass in. In Ruby, `@first_name` means the instance variable named `first_name`.
 
+
 如果你不能读懂 Ruby ，没有关系。它使用了一个名为 `define_method` 的函数来为你所传递的 keys 创建一个 getter 和 setter。在 Ruby 中，`@first_name` 意味着一个名为 `first_name` 的实例变量。
 
 This is one of the reasons I love Ruby’s language design — they first create the meta-tools to create useful language features, and then they use those tools to implement the language features that they want. [Yehuda Katz explores](http://yehudakatz.com/2010/02/07/the-building-blocks-of-ruby/) how Ruby applies this idea to its blocks. Because Ruby’s language features are written with the same tools and in the same language that users have access to, users can also write features similar in style and scope to the ones that define the language.
@@ -67,7 +68,7 @@ This brings us to Swift. One of Swift’s core features is its `Optional` type. 
 
 Like `attr_accessor`, this feature uses a Swift language construct to define itself. This is good, because it means users can create similar things with different semantic meanings, such as this fictional `RemoteLoading` type:
 
-就像 `attr_accessor` ，这个特性使用了一个 Swift 的语言结构来定义自身。这是很好的，因为这也意味着用户可以使用不同的语义来创建相同的事物，就像这个虚构的 `RemoteLoading` 类型:
+就像 `attr_accessor` ，这个特性使用了一个 Swift 的语言结构来定义自身。这是很好的，因为这也意味着用户可以使用不同的语义来创建相似的事物，就像这个虚构的 `RemoteLoading` 类型:
 
     enum RemoteLoading {
     	case Loaded(WrappedType)
@@ -145,7 +146,7 @@ While the `+` operator is defined within the language, the ternary operator `?:`
  
 In each of these three cases, we’ve compared two things: the first, a useful language syntax which the standard library uses to implement features; and the second, a special-case which privileges standard library code over consumer code.
 
-这三个例子中的每一个，我们都比较了两个东西：第一个是一种被标准类库用来实现特性的有用语法；第二个是特权标准库超越消费者代码的特殊例子。（这一句不确定，请帮忙多考虑一下）
+这三个例子中的每一个，我们都比较了两个东西：第一个是一种被标准类库用来实现特性的有用语法；一种特权标准库超越使用者代码的特殊情况。
 
 The best kinds of syntax and syntactic sugar can be tapped into by the writers of the language, with their own types and their own systems. Swift sometimes handles this with protocols like `NilLiteralConvertible`, `SequenceType`, and the soon-defunct `BooleanType`. The way that `var name: String?` can infer its own default (`.None`) crucially _isn’t_ like this, and therefore is a less powerful form of syntactic sugar.
 
@@ -230,7 +231,7 @@ The first function, `GetIntAsync` returns a tasks that waits for some amount of 
 
 Judging from this example, `Task` objects in C# seem a lot like [promises](http://khanlou.com/2016/08/promises-in-swift/). Also, any function that uses the `await` keyword must itself be declared as `async`. The compiler can enforce this guarantee. This solution mirrors Swift’s error model: functions that throw must be caught, and if they don’t, they must be marked with `throws` as well.
 
-从这个例子看来，C# 的 `Task` 对象看起来很像 [Promise (承诺)](http://khanlou.com/2016/08/promises-in-swift/)。此外，任何函数，使用 `await` 关键词都必须被定义为 `async`。编译器可以确保这点。这个解决方案映射出了 Swift 的错误模型：被抛出的函数方法必须被捕捉到，而如果没有，那这些函数方法一定也是被标记了 `throws` 。
+从这个例子看来，C# 的 `Task` 对象看起来很像 [Promise (承诺)](http://khanlou.com/2016/08/promises-in-swift/)。此外，任何使用 `await` 的函数都必须被定义为 `async`。编译器可以确保这点。这个解决方案映射出了 Swift 的错误模型：被抛出的函数方法必须被捕捉到，而如果没有，那这些函数方法一定也是被标记了 `throws` 。
 
 It also has the same flaws as the error model. Rather than being mere syntactic sugar over a more useful tool, a brand new construct and a bunch of keywords are added. This construct is partially dependent on types within defined in the standard library and partially dependent on syntax baked into the compiler.
 
