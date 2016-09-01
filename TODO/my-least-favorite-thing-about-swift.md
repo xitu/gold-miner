@@ -10,7 +10,7 @@
 There’s a lot to love about Swift, which I’ve written about [before](http://khanlou.com/2016/05/six-months-of-swift/). Today, however, I want to write about where the language falls short. This is a complicated issue with lots of nuance, so I’ll go into a couple of examples of where I think the language gets it right, where it gets it wrong, and what the future holds.
 
 关于喜欢 Swift 的理由，可以有很多，[之前](http://khanlou.com/2016/05/six-months-of-swift/)我已经写到了。
-但是今天，我想要写的是这门语言不足的地方。这是一个有着很多细微差别且具有很强争议性的问题，所以我将举出几个例子，这几个例子是关于我所认为的这门语言做的好的地方，做的不好的地方和这门语言未来所会有的模样。
+但是今天，我想要写的是这门语言不足的地方。这是一个有着很多细微差别且具有很强争议性的问题，所以我将举出几个例子，这几个例子是关于我所认为的这门语言做的好的地方，做的不好的地方和这门语言未来的前途如何。
 
 ### Defining within the language vs without
 
@@ -146,7 +146,6 @@ While the `+` operator is defined within the language, the ternary operator `?:`
 In each of these three cases, we’ve compared two things: the first, a useful language syntax which the standard library uses to implement features; and the second, a special-case which privileges standard library code over consumer code.
 
 这三个例子中的每一个，我们都比较了两个东西：第一个是一种被标准类库用来实现特性的有用语法；第二个是特权标准库超越消费者代码的特殊例子。（这一句不确定，请帮忙多考虑一下）
->>>>>>> bd423d827789bbc56134004963c8e85675bce15c
 
 The best kinds of syntax and syntactic sugar can be tapped into by the writers of the language, with their own types and their own systems. Swift sometimes handles this with protocols like `NilLiteralConvertible`, `SequenceType`, and the soon-defunct `BooleanType`. The way that `var name: String?` can infer its own default (`.None`) crucially _isn’t_ like this, and therefore is a less powerful form of syntactic sugar.
 
