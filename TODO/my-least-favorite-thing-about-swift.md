@@ -245,7 +245,7 @@ Property behaviors are another big feature that might come in Swift 4\. There is
 
 属性行为是 Swift 4 可能引入的另一个重大特性。这里是关于属性行为的[被拒绝的提案](https://github.com/apple/swift-evolution/blob/master/proposals/0030-property-behavior-decls.md)，被用来对 Swift 4 进行更加仔细地检查。
 
-Property behaviors let you attach a behavior like `lazy` to a property. The `lazy` property, for example, would only set up a value the first time it’s accessed. While you currently can use this particular behavior, it’s hard-coded into the Swift compiler. Property behaviors as proposed would allow the facility for the standard library to implement some behaviors and for users to define others entirely.
+Property behaviors let you attach a behavior like `lazy` to a property. The `lazy` property, for example, would only set up a value the first time it’s accessed. While you currently can use this particular behavior, it’s hard-coded into the Swift compiler. Property behaviors as proposed would allow the facility for the standard library to implement some behaviors and for users to define others entirely. 
 
 属性行为让你可以对一个属性附加上一个类似 `lazy` 的行为。这个 `lazy` 属性，举个例子，将只在第一次访问时设置一个值。但你现在已经可以使用这个特定的行为，这是直接硬编码进 Swift 的编译器的。提出的属性行为将允许标准库设施来实现一些行为和允许用户进行完全的自定义。
 
@@ -267,7 +267,7 @@ I’d like to close with a note on metaprogramming. I’ve written extensively [
 
 As a protocol-oriented language, Swift is uniquely set up to let us tap into the syntax of the language, as we do with `BooleanType` and `SequenceType`. I’d love to see these capacities expanded.
 
-作为一种面向协议的语言，Swift 很独特的被专门设置来让我们挖掘这门语言的语法魅力，就像我们用 `BooleanType` 和 `SequenceType` 所做的一样。我很乐意去看一下这些被扩展的能力。
+作为一种面向协议的语言，Swift 很独特的被专门设置来让我们挖掘这门语言的语法魅力，就像我们用 `BooleanType` 和 `SequenceType` 所做的一样。我很乐意去看一下这些被扩展的能力。 
 
 The line where keywords stop and syntax starts, or where syntax stops and syntactic sugar starts, isn’t very well defined, but the engineers who write code in the language should have the ability to work with the same tools as those who develop the standard library.
 
