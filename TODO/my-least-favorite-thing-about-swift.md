@@ -271,5 +271,5 @@ As a protocol-oriented language, Swift is uniquely set up to let us tap into the
 
 The line where keywords stop and syntax starts, or where syntax stops and syntactic sugar starts, isn’t very well defined, but the engineers who write code in the language should have the ability to work with the same tools as those who develop the standard library.
 
-关键词停止和语法开始或者语法停止和语法糖开始的界限，不是很明确，但是使用这门语言编写代码的工程师应该有能力去使用那些同样被用来开发标准库的工具。
+关键词停止和语法开始或者语法停止和语法糖开始的界限，不是很明确，但是使用这门语言编写代码的工程师应该有能力去使用那些同样被用来开发标准库的工具。  
 
