@@ -2,7 +2,7 @@
 * 原文作者：[glyph](https://twitter.com/glyph)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Gran](https://github.com/Graning)
-* 校对者：
+* 校对者：[Siegen](https://github.com/siegeout),[陈超邦](https://github.com/cbangchen)
 
 
 你想问为什么？不用问，使用就好了。
@@ -389,7 +389,7 @@ class Bag:
 
 * * *
 
-1.  在这里缺乏引用是因为属性没有有意义的暴露在 _caller_ ，他们只是自己公开。这种模式，完全摆脱具有唯一的私有属性私有方法，可能值得自己的职务... ↩
+1.  在这里缺乏引用是因为属性没有有意义的暴露在 `__caller__` ，他们只是自己公开。这种模式，完全摆脱具有唯一的私有属性私有方法，可能值得自己的职务... ↩
 
 2.  我们尚未得到真正令人兴奋的东西：构造时的类型认证，可变的默认值... ↩
 
