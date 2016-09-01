@@ -22,36 +22,34 @@ Aside from storing and distributing the data the most expensive part of any job 
 
 The entire process consists of four easy steps. First, the client requests to join the cluster by making a request to the job-server which tracks the progress of the computation. Next, the job-server allocates a unit of work and redirects ([301 HTTP Redirect](http://en.wikipedia.org/wiki/URL_redirection#HTTP_status_codes_3xx), for example) the client to a URL which contains the data and the Javascript map/reduce functions. Here is a sample for a simple distributed word-count:
 
+```
+<html>
+  <head>
+    <script type="text/javascript">
 
+      function map() {
+        /* count the number of words in the body of document */
+        var words = document.body.innerHTML.split(/\n|\s/).length;
+        emit('reduce', {'count': words});
+      }
 
-    
-      
-        
+      function reduce() {
+        /* sum up all the word counts */
+        var sum = 0;
+        var docs = document.body.innerHTML.split(/\n/);
+        for each (num in docs) { sum+= parseInt(num) > 0 ? parseInt(num) : 0 }
+        emit('finalize', {'sum': sum});
+      }
 
-          function map() {
-            /* count the number of words in the body of document */
-            var words = document.body.innerHTML.split(/\n|\s/).length;
-            emit('reduce', {'count': words});
-          }
+      function emit(phase, data) { ... }
+    </script>
+  </head>
 
-          function reduce() {
-            /* sum up all the word counts */
-            var sum = 0;
-            var docs = document.body.innerHTML.split(/\n/);
-            for each (num in docs) { sum+= parseInt(num) > 0 ? parseInt(num) : 0 }
-            emit('finalize', {'sum': sum});
-          }
-
-          function emit(phase, data) { ... }
-        
-      
-
-      
-        ... DATA ...
-      
-    
-
-
+  <body onload="map();">
+    ... DATA ...
+  </body>
+</html>
+```
 
 Once the page is loaded and the Javascript is executed (which is getting faster and faster with the [Javascript VM](http://ejohn.org/blog/javascript-performance-rundown/) [wars](http://code.google.com/p/nativeclient/)), the results are sent back (POST) to the job-server, and the cycle repeats until all jobs (_map_ and _reduce_) are done. Hence joining the cluster is as simple as opening a URL and distribution is handled by our battle-tested HTTP protocol.
 
