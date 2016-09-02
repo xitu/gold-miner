@@ -1,14 +1,16 @@
 > * 原文地址：[Collaborative Map-Reduce in the Browser](https://www.igvita.com/2009/03/03/collaborative-map-reduce-in-the-browser/)
 * 原文作者：[Ilya Grigorik](https://www.igvita.com/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[mypchas6fans] (https://github.com/mypchas6fans)
 * 校对者：
 
 After immersing yourself into the field of distributed computing and large data sets you inevitably come to appreciate the elegance of [Google's Map-Reduce framework](http://en.wikipedia.org/wiki/MapReduce). Both the generality and the simplicity of its _map_, _emit_, and _reduce_ phases is what makes it such a powerful tool. However, while Google has made the theory public, the underlying software implementation remains closed source and is arguably one of their biggest competitive advantages ([GFS](http://labs.google.com/papers/gfs.html), [BigTable](http://labs.google.com/papers/bigtable.html), etc). Of course, there is a multitude of the open source variants ([Apache Hadoop](http://hadoop.apache.org/core/), [Disco](http://discoproject.org/), [Skynet](http://skynet.rubyforge.org/), amongst many others), but one can't help but to notice the disconnect between the elegance and simplicity of the theory and the painful implementation: custom protocols, custom servers, file systems, redundancy, and the list goes on! Which begs the question, how do we lower the barrier?
+在分布式计算和海量数据中摸爬滚打了很久之后，你一定会感谢优雅的 [Google's Map-Reduce framework](http://en.wikipedia.org/wiki/MapReduce)。它的 _map_ ，_emit_ 和 _reduce_ 模块既通用又简洁，使它成为了一个强有力的工具。但是虽然 Google 公开了论文，底层的软件实现仍然是闭源的，而且可以说是他们最大的竞争力之一（[GFS](http://labs.google.com/papers/gfs.html)，[BigTable](http://labs.google.com/papers/bigtable.html)，等等）。当然，现在有很多开源的分支（[Apache Hadoop](http://hadoop.apache.org/core/)，[Disco](http://discoproject.org/)，[Skynet](http://skynet.rubyforge.org/)，以及其他），但是人们难免会注意到，理论的优美简洁和实现之间存在的断层：诸如自定义协议，自定义服务器，文件系统，荣誉，等等等等。问题来了，我们怎样能把这个差距缩短一点？
 
-## Massively Collaborative Computation
+## 大规模并行计算
 
 After several iterations, false starts, and great conversations with [Michael Nielsen](http://michaelnielsen.org/blog/?page_id=181), a flash of the obvious came: **HTTP + Javascript**! What if you could contribute to a computational (Map-Reduce) job by simply pointing your browser to a URL? Surely your social network wouldn't mind opening a background tab to help you crunch a dataset or two!
+在我和 [Michael Nielsen](http://michaelnielsen.org/blog/?page_id=181) 进行了多次对话、迭代、抢跑之后，一个念头突然闪现出来: **HTTP + Javascript**！如果简单的通过浏览器打开一个 URL 就能为计算任务（ Map-Reduce ）做贡献会怎样？你的社交网络肯定不会介意多开一个后台 tab 帮你压缩一两个数据集！
 
 ![](https://www.igvita.com/posts/09/xbrowsers.png.pagespeed.ic.gtlyz9PZB7.jpg)Instead of focusing on high-throughput proprietary protocols and high-efficiency data planes to distribute and deliver the data, we could use battle tested solutions: HTTP and your favorite browser. It just so happens that there are more [Javascript processors](http://en.wikipedia.org/wiki/JavaScript) around the world (every browser can run it) than for any other language out there - a perfect data processing platform.
 
