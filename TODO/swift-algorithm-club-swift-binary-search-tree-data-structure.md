@@ -69,7 +69,7 @@ Like other trees, a binary tree composed of nodes. One way to represent a node i
 
 
 
-    class Node {
+    class Node<T> {
       var value: T
       var leftChild: Node?
       var rightChild: Node?
@@ -105,7 +105,7 @@ Update your enum accordingly:
 
 
 
-    enum BinaryTree {
+    enum BinaryTree<T> {
       case empty
       case node(BinaryTree, T, BinaryTree)
     }
@@ -128,7 +128,7 @@ Xcode should make an offer to fix this for you. Accept it, and your enum should 
 
 
 
-    indirect enum BinaryTree {
+    indirect enum BinaryTree<T> {
       case empty
       case node(BinaryTree, T, BinaryTree)
     }
@@ -153,7 +153,7 @@ While the code now compiles, you can be a little bit more concise. Update `Binar
 
 
 
-    enum BinaryTree {
+    enum BinaryTree<T> {
       case empty
       indirect case node(BinaryTree, T, BinaryTree)
     }
@@ -216,6 +216,8 @@ Verifying a tree structure can be hard without any console logging. Swift has a 
 
 
 Print the tree by writing the following at the end of the file:
+
+    tree.count
 
 You should see something like this:
 
@@ -353,7 +355,7 @@ But before you do, you need to make a change to the `BinaryTree` signature. In s
 
 
 
-    enum BinaryTree {
+    enum BinaryTree<T: Comparable> {}
       // stuff inside unchanged
     }
 
@@ -537,7 +539,7 @@ To see this in action, you'll create the binary tree shown above. Delete all the
 
 
 
-    var tree: BinaryTree = .empty
+    var tree: BinaryTree<Int> = .empty
     tree.insert(newValue: 7)
     tree.insert(newValue: 10)
     tree.insert(newValue: 2)
