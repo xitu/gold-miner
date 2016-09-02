@@ -4,7 +4,7 @@
 * 译者：[Gran](https://github.com/Graning)
 * 校对者：
 
-![]()(https://cdn-images-1.medium.com/max/800/1\*baslR\_nGORHYX4STOjhhpg.png)
+![](https://cdn-images-1.medium.com/max/800/1*baslR_nGORHYX4STOjhhpg.png)
 
 在这篇文章中你将学到关于 CSS 中 flexbox 布局 **最重要** 的概念。如果你发现你经常在 CSS 布局上纠结，这篇文章将帮你解脱出来。
 
