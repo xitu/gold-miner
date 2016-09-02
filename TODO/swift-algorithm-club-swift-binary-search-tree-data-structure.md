@@ -4,7 +4,7 @@
 * 译者：[cbangchen](https://github.com/cbangchen)
 * 校对者：
 
-[![SwiftAlgClub-BinarySearch-feature](https://cdn1.raywenderlich.com/wp-content/uploads/2016/08/SwiftAlgClub-BinarySearch-feature-250x250.png%20250w,%20https://cdn1.raywenderlich.com/wp-content/uploads/2016/08/SwiftAlgClub-BinarySearch-feature-320x320.png%20320w,%20https://cdn1.raywenderlich.com/wp-content/uploads/2016/08/SwiftAlgClub-BinarySearch-feature.png%20500w,%20https://cdn1.raywenderlich.com/wp-content/uploads/2016/08/SwiftAlgClub-BinarySearch-feature-32x32.png%2032w,%20https://cdn1.raywenderlich.com/wp-content/uploads/2016/08/SwiftAlgClub-BinarySearch-feature-50x50.png%2050w,%20https://cdn1.raywenderlich.com/wp-content/uploads/2016/08/SwiftAlgClub-BinarySearch-feature-64x64.png%2064w,%20https://cdn1.raywenderlich.com/wp-content/uploads/2016/08/SwiftAlgClub-BinarySearch-feature-96x96.png%2096w,%20https://cdn1.raywenderlich.com/wp-content/uploads/2016/08/SwiftAlgClub-BinarySearch-feature-128x128.png%20128w)](https://cdn3.raywenderlich.com/wp-content/uploads/2016/08/SwiftAlgClub-BinarySearch-feature.png)
+![](http://ww1.sinaimg.cn/large/7853084cgw1f7fm5z89h4j20dw0dwgm4.jpg)
 
 The [Swift Algorithm Club](https://github.com/raywenderlich/swift-algorithm-club) is an open source project on implementing data structures and algorithms in Swift.
 
@@ -113,7 +113,7 @@ Like other trees, a binary tree composed of nodes. One way to represent a node i
 就像其它树一样，一颗二叉树由结点组成。代表一个结点的方法就是使用一个类（暂时不要进入 Playground，这只是一个例子）：
 
 
-    class Node {
+    class Node<T> {
       var value: T
       var leftChild: Node?
       var rightChild: Node?
@@ -146,11 +146,9 @@ Create a new Swift playground (this tutorial uses Xcode 8 beta 5) and add the fo
 
 创建一个新的 Swift playground（这个教程使用 Xcode 8 beta 5）然后加上下面的枚举声明：
 
-```
-enum BinaryTree<T> {
- 
-}
-```
+    enum BinaryTree<T> {
+
+    }
 
 You’ve declared a enum named `BinaryTree`. The `` syntax declares this to be a _generic_ enum that allows it to infer it’s own type information at the call site.
 
@@ -168,7 +166,7 @@ Update your enum accordingly:
 
 相应的更新你的枚举：
 
-    enum BinaryTree {
+    enum BinaryTree<T> {
       case empty
       case node(BinaryTree, T, BinaryTree)
     }
@@ -193,7 +191,7 @@ Xcode should make an offer to fix this for you. Accept it, and your enum should 
 
 Xcode 应该提供了一种解决这个错误的方法。接受它，然后你的枚举应该看起来像这样：
 
-    indirect enum BinaryTree {
+    indirect enum BinaryTree<T> {
       case empty
       case node(BinaryTree, T, BinaryTree)
     }
@@ -212,7 +210,7 @@ The enumeration you’ve defined is a _recursive_ enum. That’s an enum that ha
 
 你所定义的枚举是一种 _recursive_ （递归）枚举。那是一种有着一个指向自身的相关值（associated value）的一种枚举。递归类型的类型值无法被确定大小。
 
-![Screen Shot 2016-08-01 at 1.27.40 AM](https://cdn3.raywenderlich.com/wp-content/uploads/2016/08/Screen-Shot-2016-08-01-at-1.27.40-AM-439x320.png%20439w,%20https://cdn3.raywenderlich.com/wp-content/uploads/2016/08/Screen-Shot-2016-08-01-at-1.27.40-AM-650x474.png%20650w,%20https://cdn3.raywenderlich.com/wp-content/uploads/2016/08/Screen-Shot-2016-08-01-at-1.27.40-AM.png%20804w)
+![Screen Shot 2016-08-01 at 1.27.40 AM](http://ww4.sinaimg.cn/large/7853084cgw1f7fm49qv5oj20mc0gagng.jpg)
 
 So you’ve got a problem here. Swift expects to know exactly how big the enum is, but the recursive enum you’ve created doesn’t expose that information.
 
@@ -230,7 +228,7 @@ While the code now compiles, you can be a little bit more concise. Update `Binar
 
 在代码编译的过程中，你能够更加的简洁。将 `BinaryTree`（二叉树）更新到下面的样子：
 
-    enum BinaryTree {
+    enum BinaryTree<T> {
       case empty
       indirect case node(BinaryTree, T, BinaryTree)
     }
@@ -306,9 +304,7 @@ Print the tree by writing the following at the end of the file:
 
 通过在文件的最后编写下面的语句来打印这棵树：
 
-```
-print(tree)
-```
+    tree.count
 
 You should see something like this:
 
@@ -476,16 +472,16 @@ Now that you’ve got an idea of how insertion works, it’s implementation time
 
 现在你已经知道了应该在哪里插入数值了，是时候来实现这个过程了。在你的 `BinaryTree`（二叉树）枚举中加入下面的方法：
 
-    // 1\. 
+    // 1. 
     mutating func naiveInsert(newValue: T) {
       // 2.
       guard case .node(var left, let value, var right) = self else {
-        // 3\. 
+        // 3. 
         self = .node(.empty, newValue, .empty)
         return 
       }
 
-      // 4\. TODO: Implement rest of algorithm!
+      // 4. TODO: Implement rest of algorithm!
 
     }
 
@@ -513,7 +509,7 @@ But before you do, you need to make a change to the `BinaryTree` signature. In s
 
 但在你开始做之前，你需要对 `BinaryTree` 的签名做一点修改。在第四个段落处，你需要对比新值和旧值，但在目前的二叉树实现机制中你无法做到这一点。为了修复这一个问题，把你的 `BinaryTree`（二叉树）枚举更新成下面的样子：
 
-    enum BinaryTree {
+    enum BinaryTree<T: Comparable> {}
       // stuff inside unchanged
     }
 
@@ -563,7 +559,7 @@ Though this is a great implementation, it won't work. Test this by writing the f
 
 
 
-![Screen Shot 2016-08-10 at 8.55.46 PM](https://cdn2.raywenderlich.com/wp-content/uploads/2016/08/Screen-Shot-2016-08-10-at-8.55.46-PM-328x320.png%20328w,%20https://cdn2.raywenderlich.com/wp-content/uploads/2016/08/Screen-Shot-2016-08-10-at-8.55.46-PM-513x500.png%20513w,%20https://cdn2.raywenderlich.com/wp-content/uploads/2016/08/Screen-Shot-2016-08-10-at-8.55.46-PM-32x32.png%2032w,%20https://cdn2.raywenderlich.com/wp-content/uploads/2016/08/Screen-Shot-2016-08-10-at-8.55.46-PM-50x50.png%2050w,%20https://cdn2.raywenderlich.com/wp-content/uploads/2016/08/Screen-Shot-2016-08-10-at-8.55.46-PM.png%20628w)
+![Screen Shot 2016-08-10 at 8.55.46 PM](http://ww2.sinaimg.cn/large/7853084cgw1f7fm570bnhj20hg0h0gmr.jpg)
 
 Copy-on-write is the culprit here. Every time you try to mutate the tree, a new copy of the child is created. This new copy is not linked with your old copy, so your initial binary tree will never be updated with the new value.
 
@@ -703,11 +699,10 @@ This code is fairly straightforward:
 
 To see this in action, you'll create the binary tree shown above. Delete all the test code at the bottom of your playground and replace it with the following:
 
-
-
 看到这里，你将会创建上面提到的二叉树。删除你的 playground 程序最底下所有的测试代码并更换成下面的语句：
 
-    var tree: BinaryTree = .empty
+    var tree: BinaryTree<Int> = .empty
+
     tree.insert(newValue: 7)
     tree.insert(newValue: 10)
     tree.insert(newValue: 2)
