@@ -2,16 +2,16 @@
 * 原文作者：[Serg Dort](https://medium.com/@SergDort)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[mypchas6fans] (https://github.com/mypchas6fans)
-* 校对者：
+* 校对者：[yifili09] (https://github.com/yifili09) [siegeout] (https://github.com/siegeout)
 
 
-个人而言，我喜欢 [UIStoryboardSegue](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIStoryboardSegue_Class/) 文中的思路，把浏览逻辑和业务逻辑分离开来。
+个人而言，我喜欢 [UIStoryboardSegue](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIStoryboardSegue_Class/) 这个类背后的思路，把导航逻辑从业务逻辑程序中分离出来。
 
-但是我并不推崇在 storyboard 中使用这个方法，并且我也从来没有在代码中这么用过。
+但是我并不推崇通过 storyboard 来实现这个方法，并且我也从来没有在代码中实现过。
 
 所以我决定吸取上文的思想，自己做一个类似的东西。
 
-但是这个类型应该有哪些 field 呢？
+但是这个类型应该有哪些域呢？
 
 当然必须要有
 
@@ -116,8 +116,7 @@ let toViewControllerFactory:(context:T) -> UIViewController
 
     }
 
-What it gives? It separate your navigation logic, and also this class could be easily covered with unit test.
-结果如何？ 浏览逻辑被分离出来了，而且这个类很容易进行单元测试。
+结果如何？导航逻辑被分离出来了，而且这个类很容易进行单元测试。
 
 大家有什么想法评论，欢迎留言讨论 ;)
 
