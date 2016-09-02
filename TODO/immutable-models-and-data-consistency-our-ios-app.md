@@ -2,27 +2,27 @@
 * 原文作者：[Wendy Lu](https://twitter.com/wendyluwho)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Kulbear](https://github.com/kulbear)
-* 校对者：
+* 校对者：[steinliber](https://github.com/steinliber), [MAYDAY1993](https://github.com/MAYDAY1993)
 
-今年早些时候，为了更快更清晰的体验，尤其是为了美国海外的用户，我们全面重构了我们的 [iOS 应用](https://engineering.pinterest.com/blog/re-architecting-pinterests-ios-app)。这次结构重构的主要目的是将我们的应用迁移到一个不可变模型的层面上。在这篇博客中，我们将会讨论这样做的动机，并探索我们的新系统如何处理模型的更新，从 API 读取新信息，以及数据持久性。
+今年早些时候，为了给用户，尤其是大部分海外的用户更快更清晰的体验，我们全面重构了我们的 [iOS 应用](https://engineering.pinterest.com/blog/re-architecting-pinterests-ios-app)。这次重构的其中一个目的是将我们的应用迁移到一个不可变模型的层面上。在这篇博客中，我将会讨论这样做的动机，并探索我们的新系统是如何处理模型的更新，从 API 读取新信息，以及保持数据持久性的。
 
 ## 为什么选择不可变模型？
 
-“不可变模型”由于现今有很多应用都转向了不可变设计而成为了一个让人耳熟能详的术语。不可变性意味着再初始化后模型将不再可更改。但为何我们要使用他们呢？嗯，主要问题在于可变性在状态共享方面有一些问题。
+因为现今许多应用都转而使用了不可变设计， ‘不可变模型’已经成为了一个耳熟能详的术语。不可变性意味着再初始化后模型将不再可更改。但为何我们要使用他们呢？嗯，主要问题在于可变性在状态共享方面有一些问题。
 
 想象这样一个情景，在一个模型可变的系统中，A 和 B 都保持引用指向 C。
 
 ![](https://engineering.pinterest.com/sites/engineering/files/Screen%20Shot%202016-08-19%20at%209.37.26%20AM_0.png)
 
-如果 A 编辑了 C，那么 A 和 B 都将会看到这个变更。这似乎毫无问题，但如果 B 并（如：没有在设计中）未预期这个改变，可能会发生很糟糕的事情。
+如果 A 编辑了 C，那么 A 和 B 都将会看到这个变更。这似乎并没有什么问题，但如果 B 并（如：没有在设计中）未预期这个改变，可能会发生很糟糕的事情。
 
 比如，我在和其他两个用户共享一个消息线程。我有一个带有一个叫 ‘users’ 属性的消息对象。
 
 ![](https://engineering.pinterest.com/sites/engineering/files/Screen%20Shot%202016-08-19%20at%209.38.32%20AM_0.png)
 
-如果我正处于这个界面的同时，应用的另一部分决定将 Devin 从 对话中移除（也许应用收到了服务器更新的响应并在接下来更改这个模型）。当我点击第二行的时候，我在 message.user 这个数组中读取第二个对象。此时返回给我的对象将是 Stephanie 而非 Devin，从而使我错误的屏蔽了他人。
+如果我正处于这个界面的同时，应用的另一部分决定将 Devin 从 对话中移除（也许应用收到了服务器更新的响应之后更改了这个模型）。当我点击第二行的时候，我在 message.user 这个数组中读取第二个对象。此时返回给我的对象将是 Stephanie 而非 Devin，从而使我错误的屏蔽了他人。
 
-不可变模型是线程安全的。之前，我们总会担心一个线程变更一个对象的同时，另一个线程想要读取它。在我们的新系统里，一个对象在初始化后无法被更改，所以我们可以很安全的拥有多个线程同时读取对象而不用担心读取到了不安全的值。这给我们减负的同时也使我们的应用变得更适应并发与多线程。
+不可变模型是线程安全的。之前，我们总会担心一个线程变更一个对象的同时，另一个线程想要读取它。在我们的新系统里，一个对象在初始化后无法被更改，所以我们可以很安全的拥有多个线程同时读取对象而不用担心读取到了不安全的值。这使得我们的生活更加简单，因为我们的iOS应用程序变得越来越容易处理并发和多线。
 
 ## 更新模型
 
@@ -55,7 +55,7 @@ self.currentUser = [[User alloc] initWithBuilder:userBuilder];
 
 ## 数据一致性
 
-当一个模型被更新后（即，一个新的模型被创建了），变更的内容应该即时反应在需要这个模型的界面上。我们之前使用了 [Key-Value 监视](https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/KeyValueObserving/KeyValueObserving.html) 来处理这个情况，但这种方法由于只监视一个模型的实例而不可应用于不可变模型上。我们现在使用一个基于 NSNotificationCenter 的系统来告知对象们——你们需要用的模型刚刚被更新了。
+当一个模型被更新后（即，一个新的模型被创建了），变更的内容应该即时反应在需要这个模型的界面上。我们之前使用了 [Key-Value 监视](https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/KeyValueObserving/KeyValueObserving.html) 来处理这个情况，但这种方法由于只监视一个模型的实例而不可应用于不可变对象上。我们现在使用一个基于 NSNotificationCenter 的系统来告知对象们——你们需要用的模型刚刚被更新了。
 
 ## 监视变更
 
