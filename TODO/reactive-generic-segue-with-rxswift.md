@@ -118,7 +118,7 @@ let toViewControllerFactory:(context:T) -> UIViewController
 
 结果如何？导航逻辑被分离出来了，而且这个类很容易进行单元测试。
 
-大家有什么想法评论，欢迎留言讨论 ;)
+大家有什么想法评论，欢迎留言讨论 :)
 
 
 
