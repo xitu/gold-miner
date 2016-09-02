@@ -1,83 +1,83 @@
-> * 原文地址：[Learn CSS Flexbox in 3 Minutes](https://medium.com/learning-new-stuff/learn-css-flexbox-in-3-minutes-c616c7070672)
-* 原文作者：[Per Harald Borgen](https://medium.com/@perborgen)
-* 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+> * 原文地址：[Learn CSS Flexbox in 3 Minutes]()(https://medium.com/learning-new-stuff/learn-css-flexbox-in-3-minutes-c616c7070672)
+* 原文作者：[Per Harald Borgen]()(https://medium.com/@perborgen)
+* 译文出自：[掘金翻译计划]()(https://github.com/xitu/gold-miner)
+* 译者：[Gran](https://github.com/Graning)
 * 校对者：
 
-![](https://cdn-images-1.medium.com/max/800/1*baslR_nGORHYX4STOjhhpg.png)
+![]()(https://cdn-images-1.medium.com/max/800/1\*baslR\_nGORHYX4STOjhhpg.png)
 
-In this post you’ll learn the **most important** concepts of the flexbox layout in CSS, which will make your life easier if you find yourself struggling with CSS layouts from time to time.
+在这篇文章中你将学到关于 CSS 中 flexbox 布局 **最重要** 的概念。如果你发现你经常在 CSS 布局上纠结，这篇文章将帮你解脱出来。
 
-We’ll only focus on core principles, while leaving out stuff you **shouldn’t care about** until you’ve understood the basics.
+我们将只专注那些核心要素，暂时抛弃那些你现在 **不应该注意** 东西直到你掌握基础之后。
 
-**1\. The container and the item**
+**1\. 容器和 item**
 
-The two main components of a flexbox layout is the **container** (blue) and the **items** (red). In the example we’ll be looking at in this tutorial, both the **container** and **item** are _div’s._ Check out the [boilerplate code here](https://github.com/perborgen/FlexboxTutorial) if you’re interested.
+Flexbox 布局中两个主要的组件是 **容器** （蓝色）和 **item** （红色）。我们将在本教程的在这个示例中看到，无论是 **容器** 还是 **item** 都是  **div’s**。查看 [示例代码](https://github.com/perborgen/FlexboxTutorial)。
 
-#### Horizontal layout
+#### 横向布局
 
-To create a flex layout, simply give the **container** the following CSS property.
+要创建一个弹性布局，只需要给 **容器** 设置以下的 CSS 属性。
 
-    .container {
-        display: flex;
-    }
+.container {
+display: flex;
+}
 
-Which will result in this layout:
+布局的结果如下：
 
-![](https://cdn-images-1.medium.com/max/800/1*3zzvOetr1fjDrZKEEmo9dA.png)
+![](https://cdn-images-1.medium.com/max/800/1\*3zzvOetr1fjDrZKEEmo9dA.png)
 
-Notice that you don’t need to do anything with the **items** yet. They’ll be nicely positioned along the horizontal axis automatically.
+注意你目前不需要对 **item** 做任何事，他们将沿水平轴自动定位。
 
-#### Vertical layout
+#### 垂直布局
 
-In the layout above, the **main axis** is the horizontal one, and the **cross axis** is the vertical one. The concept of **axes** are important to understand in order to use flex properly.
+在上述布局中，**主轴线** 是水平的，**横轴** 是垂直的。**轴** 的概念对理解弹性布局有帮助。
 
-You can swap the two axes by adding _flex-direction_: _column._
+当你添加 **flex-direction**: **column** 时可以交换这两个轴。
 
-    .container {
-        display: flex;
-        flex-direction: column;
-    }
-
-
-
-![](https://cdn-images-1.medium.com/max/800/1*yPT-82-JPYk8b2Rh_3K6sQ.png)
-
-
-Now the **main axis** is vertical and the **cross axis** horizontal, resulting in the **items** being stacked vertically.
-
-### 2\. Justify content and Align items
-
-To make list horizontal again, we can switch the _flex-direction_ from **column** to **row,** as thisflips the flex layout’s axes back again.
-
-The reason the axes are important to understand is because the attributes _justify-content_ and _align-items_ control how the items are positioned along the **main axis** and **cross axis** respectively.
-
-Let’s center all the items along the **main axis** by using **justify-content:**
-
-    .container {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-    }
-
-![](https://cdn-images-1.medium.com/max/800/1*KAFfHDFWCd12qI3TqSS8DQ.png)
-
-And let’s adjust them along the **cross axis,** using _align-items._
-
-    .container {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-    }
+.container {
+display: flex;
+flex-direction: column;
+}
 
 
 
-![](https://cdn-images-1.medium.com/max/800/1*S666Y69uJUWgQ0rz8tzjOQ.png)
+![](https://cdn-images-1.medium.com/max/800/1\*yPT-82-JPYk8b2Rh\_3K6sQ.png)
+
+
+则现在 **主轴线** 是垂直的，而 **横轴** 是水平的，导致 **items** 被垂直堆叠。
+
+### 2\. 两端对齐内容和 item 对准
+
+为了使列表再次水平，我们可以从 **列** 到 **行** 交换 **弹性方向** 因为这将再次翻转弹性布局的轴。
+
+轴的概念必须理解是因为 **justify-content** 和 **align-items** 的属性控制如何使 item 沿 **主轴线** 和 **横轴** 分别定位。
+
+让我们沿着中央 **主轴线** 的所有 item 使用 **justify-content:**
+
+.container {
+display: flex;
+flex-direction: row;
+justify-content: center;
+}
+
+![](https://cdn-images-1.medium.com/max/800/1\*KAFfHDFWCd12qI3TqSS8DQ.png)
+
+使用 **align-items** 沿着 **横轴** 进行调整。
+
+.container {
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+}
 
 
 
-Below are the other values you can set for _justify-content_ and _align-items:._
+![](https://cdn-images-1.medium.com/max/800/1\*S666Y69uJUWgQ0rz8tzjOQ.png)
+
+
+
+以下是你可以为 **justify-content** 和 **align-items** 设置的其他值：
 
 **justify-content:**
 
@@ -95,23 +95,23 @@ Below are the other values you can set for _justify-content_ and _align-items:._
 *   baseline
 *   stretch
 
-I’d recommend you to play around with the _justify-content_ and _align-items_ properties in combination with the _flex-direction_ being both column & row. That should give you a proper understanding of the concept.
+我建议你将 **justify-content** 和 **align-items** 的属性组合使用，还有 **flex-direction** 是同时属于行和列的。这将让你更好的理解这个概念。
 
 ### 3\. The items
 
-The last thing we’ll learn about is the **items** themselves, and how to add specific styles to each of them.
+我们将了解的最后一件事就是 **items** 本身，以及如何将具体的样式单独设置。
 
-Let’s say we wanna adjust the position of the first item. We do this by giving it a CSS attribute of _align-self_, which accepts the exact same values as _align-items_:
+比方说，我们想调整第一个 item 的位置，我们给它一个 **align-self** 以及同时接受相同值的 **align-items**  CSS 属性，这样做：
 
-    .item1 {
-      align-self: flex-end;
-    }
+.item1 {
+  align-self: flex-end;
+}
 
-Resulting in the following layout:
+将形成以下的布局：
 
-![](https://cdn-images-1.medium.com/max/800/1*-NBG56jX-QKYaga6qiF0eg.png)
+![](https://cdn-images-1.medium.com/max/800/1\*-NBG56jX-QKYaga6qiF0eg.png)
 
-And that’s it!
+就是这样！
 
-There is of course a whole lot more to learn about flexbox, but the concepts above are the once I use the most often, and thus most important to understand properly.
+当然还有更多可以了解 flexbox 相关知识的课程，但是上面的概念是我最常用的，最重要的还是正确理解基础概念。
 
