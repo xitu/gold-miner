@@ -285,6 +285,6 @@ OK，女士们，先生们，现在请允许我隆重向您介绍 [Skiathos](htt
 
 所有 DALService 所产生的实例都可以认为是线程安全的。
 
-我们特别建议你在项目中进行这样的设置 `-com.apple.CoreData.ConcurrencyDebug 1` ，这可以确保你不会在多线程和并发的情况下滥用Core Data。
+我们特别建议你在项目中进行这样的设置 `-com.apple.CoreData.ConcurrencyDebug 1` ，这可以确保你不会在多线程和并发的情况下滥用 Core Data。
 
 这个组件不是为了通过隐藏 `ManagedObjectContext:` 的概念来达到接口引入的目的：它将会在客户端中引入更多的线程问题，因为开发者有责任去检查所调用线程的类型（而那将会是在忽视 Core Data 所带给我们的好处）。
