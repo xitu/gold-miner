@@ -1,39 +1,39 @@
 > * 原文地址：[iOS: Let’s create Reactive Generic Segue with RxSwift](https://medium.com/@SergDort/reactive-generic-segue-with-rxswift-e20a5219aeea)
 * 原文作者：[Serg Dort](https://medium.com/@SergDort)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
-* 校对者：
+* 译者：[mypchas6fans] (https://github.com/mypchas6fans)
+* 校对者：[yifili09] (https://github.com/yifili09) [siegeout] (https://github.com/siegeout)
 
 
-Personaly I like the idea behind [UIStoryboardSegue](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIStoryboardSegue_Class/) of decomposition navigation logic from your business logic routine.
+个人而言，我喜欢 [UIStoryboardSegue](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIStoryboardSegue_Class/) 这个类背后的思路，把导航逻辑从业务逻辑程序中分离出来。
 
-But I’m not a fun of using it with storyboard and I’ve never created them programmatically.
+但是我并不推崇通过 storyboard 来实现这个方法，并且我也从来没有在代码中实现过。
 
-So decided to adopt it feature and create something similar.
+所以我决定吸取上文的思想，自己做一个类似的东西。
 
-But what fields this type should have?
+但是这个类型应该有哪些域呢？
 
-It definitely should have
+当然必须要有
 
      let fromViewController:UIViewController 
 
-Most of us passing some context (or not) which we want to display on the next ViewController.
+很多人会把想要显示的 context 传递给下一个 ViewController。
 
-Because swift have such a cool feature called Generics lets take advantage of this and make our context to be a generic type _T_
+因为 Swift 有一个很酷的功能叫泛型，我们可以利用它把 context 变成通用类型 _T_
 
-Also, we some how need to create _toViewController_ object. I decided to do this with block, lets call it
+同时，我们还需要创建 _toViewController_ 对象，我决定用 block 来做
 
 let toViewControllerFactory:(context:T) -> UIViewController
 
-And now we ready to implement “reactive” part of our segues =)
+现在我们可以实现转场的“响应式”部分了 =)
 
-There are two things that segue could do — it could push new viewController or present it modally.
+转场可以做两件事—— push 新的 viewController ，或者以模式方式显示。
 
     private(set) lazy var pushObserver:AnyObserver
 
     private(set) lazy var presentObserver:AnyObserver
 
-So lets implement these observers
+我们来实现这些 observers
 
     import UIKit
     import RxSwift
@@ -74,11 +74,11 @@ So lets implement these observers
 
     }
 
-Note: If you don’t want to pass the context within segue just create it with Void type
+注意：如果你不想在转场中传递 context ，需要把它创建成 Void 类型
 
     lazy var segue:Segue 
 
-And now we can user our Segue some thing like this:
+现在我们可以这样使用转场了：
 
     import RxSwift
     import RxCocoa
@@ -116,9 +116,9 @@ And now we can user our Segue some thing like this:
 
     }
 
-What it gives? It separate your navigation logic, and also this class could be easily covered with unit test.
+结果如何？导航逻辑被分离出来了，而且这个类很容易进行单元测试。
 
-Ideas, remarks? Will be happy to discuss in comments ;)
+大家有什么想法评论，欢迎留言讨论 ;)
 
 
 
