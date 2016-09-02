@@ -91,6 +91,10 @@ One of the core ideas of Swift is using value types (like `struct` and `enum`) i
 
 Create a new Swift playground (this tutorial uses Xcode 8 beta 5) and add the following enum declaration:
 
+    enum BinaryTree<T> {
+
+    }
+
 You’ve declared a enum named `BinaryTree`. The `` syntax declares this to be a _generic_ enum that allows it to infer it’s own type information at the call site.
 
 ### States
@@ -321,16 +325,16 @@ Now that you’ve got an idea of how insertion works, it’s implementation time
 
 
 
-    // 1\. 
+    // 1. 
     mutating func naiveInsert(newValue: T) {
       // 2.
       guard case .node(var left, let value, var right) = self else {
-        // 3\. 
+        // 3. 
         self = .node(.empty, newValue, .empty)
         return 
       }
 
-      // 4\. TODO: Implement rest of algorithm!
+      // 4. TODO: Implement rest of algorithm!
 
     }
 
@@ -595,39 +599,9 @@ These 3 traversal algorithms serve as a basis for many complex programming probl
 
 What is the time complexity of the traversal algorithms?
 
-
-
-
-
-
-
-
-
 Solution Inside: Solution
 
-[Select](https://www.raywenderlich.com/139821/swift-algorithm-club-swift-binary-search-tree-data-structure)[Show>](https://www.raywenderlich.com/139821/swift-algorithm-club-swift-binary-search-tree-data-structure)
-
-
-
-
-
-
-
-  
-The time complexity is _O(n)_, where n is the number of nodes in the tree.
-
-This should be obvious, since the idea of traversing a tree is to go through all the nodes!  
-
-
-
-
-
-
-
-
-
-
-
+The time complexity is O(n), where n is the number of nodes in the tree. This should be obvious, since the idea of traversing a tree is to go through all the nodes!
 
 
 ## Searching
