@@ -44,15 +44,15 @@ _Hunter Walk grew YouTube by 40x. Here’s his advice to startups_
 
 But by analyzing the open rate by characters in the subject line across our massive data set, it became obvious that the 40-60 character “standard” is a bit dated.
 
-[![](https://blog.mixpanel.com/wp-content/uploads/2016/07/subject-length-ctt-228x300.pn)](https://twitter.com/intent/tweet?text=Why%20do%20people%20open%20emails%3F%20%20https%3A%2F%2Fblog.mixpanel.com%2F2016%2F07%2F12%2Fwhy-do-people-open-emails%2F%3Futm_campaign%3D%26utm_source%3Dtwitter%26utm_medium%3Dsocial%26utm_content%3D%20pic.twitter.com%2FnY6uBYBnKd)  
+[![](https://blog.mixpanel.com/wp-content/uploads/2016/07/subject-length-ctt-228x300.png)](https://twitter.com/intent/tweet?text=Why%20do%20people%20open%20emails%3F%20%20https%3A%2F%2Fblog.mixpanel.com%2F2016%2F07%2F12%2Fwhy-do-people-open-emails%2F%3Futm_campaign%3D%26utm_source%3Dtwitter%26utm_medium%3Dsocial%26utm_content%3D%20pic.twitter.com%2FnY6uBYBnKd)  
 
 
 
 While you might not want to read an 80 character subject line, desktop clients still do a great job displaying them. But more and more, we read our email on mobile. And in apps like Google’s Inbox, the subject line gets truncated and an ellipsis is added after 27 characters. So our example subject lines from above become: 
 
-_How will you help your comp…  
+_How will you help your comp…_
 
-Hunter Walk grew YouTube by…_
+_Hunter Walk grew YouTube by…_
 
 The sweet spot is definitely under 40 characters. When you think about how we read email today, that shouldn’t be that surprising. 
 
@@ -180,7 +180,7 @@ Apparently not. In fact, it’s slightly lower than the average. Creating a sens
 
 As long as it’s appropriate, you’re fine using words like “now” and “today,” but don’t just shoehorn them in because you think it’ll result in a boost in your opens.
 
-## Making that $
+## Making that $$$
 
 Then there are those emails that promote a big sale and are trying to drive some revenue. They might not always be your favorite emails to receive, but they’re sent for a reason: they make money.
 
