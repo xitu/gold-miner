@@ -2,7 +2,7 @@
 * 原文作者：[Kelvin Lau](https://www.raywenderlich.com/u/kelvin_lau)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[cbangchen](https://github.com/cbangchen)
-* 校对者：
+* 校对者：[mypchas6fans](https://github.com/mypchas6fans) [Zheaoli](https://github.com/Zheaoli)
 
 ![](http://ww1.sinaimg.cn/large/7853084cgw1f7fm5z89h4j20dw0dwgm4.jpg)
 
@@ -12,7 +12,7 @@ The [Swift Algorithm Club](https://github.com/raywenderlich/swift-algorithm-club
 
 Every month, Chris Pilcher and I feature a cool data structure or algorithm from the club in a tutorial on this site. If you want to learn more about algorithms and data structures, follow along with us!
 
-每个月，我和 Chris Pilcher 会在俱乐部网站上开建一个教程，来实现一个炫酷的数据结构或者算法。
+每个月，我和 Chris Pilcher 会在俱乐部网站上开建一个教程，来实现一个炫酷的数据结构或者算法。如果你想要去学习更多关于算法和数据结构的知识，请跟随我们的脚步吧。
 
 In this tutorial, you’ll learn how about binary trees and binary search trees. The binary tree implementation was first implemented by [Matthijs Hollemans](https://www.raywenderlich.com/u/hollance), and the binary search tree was first implemented by [Nico Ameghino](https://github.com/nameghino).
 
@@ -28,7 +28,7 @@ _提示:_ 你是 Swift 算法俱乐部的新成员吗？如果是的话，来看
 
 The _Binary Tree_ is one of the most prevalent data structures in computer science. More advanced trees like the [Red Black Tree](https://github.com/raywenderlich/swift-algorithm-club/tree/master/Red-Black%20Tree) and the [AVL Tree](https://github.com/raywenderlich/swift-algorithm-club/tree/master/AVL%20Tree) evolved from the binary tree.
 
-在计算机科学中，_二叉树_ 是一种最普遍的数据结构。更先进的像 [红黑树](https://github.com/raywenderlich/swift-algorithm-club/tree/master/Red-Black%20Tree) 和 [AVL 树](https://github.com/raywenderlich/swift-algorithm-club/tree/master/AVL%20Tree) 都是从二叉树中演技过来的。
+在计算机科学中，_二叉树_ 是一种最普遍的数据结构。更先进的像 [红黑树](https://github.com/raywenderlich/swift-algorithm-club/tree/master/Red-Black%20Tree) 和 [AVL 树](https://github.com/raywenderlich/swift-algorithm-club/tree/master/AVL%20Tree) 都是从二叉树中演进过来的。
 
 Binary trees themselves evolved from the general purpose tree. If you don’t know what that is, check out last month’s tutorial on [Swift Tree Data Structure](https://www.raywenderlich.com/138190/swift-algorithm-club-swift-tree-data-structure).
 
@@ -218,7 +218,7 @@ So you’ve got a problem here. Swift expects to know exactly how big the enum i
 
 Here’s where the `indirect` keyword comes in. `indirect` applies a layer of _indirection_ between two value types. This introduces a thin layer of reference semantics to the value type.
 
-这就是 `indirect`（间接）这个关键字的由来。`indirect`（间接）实现了一个两个类型值之间的 _indirection（间接层）_。这引出了语义与类型值之间的一层薄膜。
+这就是 `indirect`（间接）这个关键字的由来。`indirect`（间接）实现了一个两个类型值之间的 _indirection（间接层）_。这引出了语义与类型值之间的一层中间层。
 
 The enum now holds references to it’s associated values, rather than their value. References have a constant size, so you no longer have the previous problem.
 
@@ -226,7 +226,7 @@ The enum now holds references to it’s associated values, rather than their val
 
 While the code now compiles, you can be a little bit more concise. Update `BinaryTree` to the following:
 
-在代码编译的过程中，你能够更加的简洁。将 `BinaryTree`（二叉树）更新到下面的样子：
+代码现在可以通过编译了，但是你能够更加的简洁。将 `BinaryTree`（二叉树）更新到下面的样子：
 
     enum BinaryTree<T> {
       case empty
@@ -251,7 +251,7 @@ An interesting exercise to check out is to model a series of calculations using 
 
 Write the following at the end of your playground file:
 
-在你的 playground 文件里写下下面的语句：
+在你的 playground 文件的最后写下下面的语句：
 
     // leaf nodes
     let node5 = BinaryTree.node(.empty, "5", .empty)
@@ -388,7 +388,7 @@ Here is an example of a valid binary search tree:
 
 Notice how each left child is smaller than its parent node, and each right child is greater than its parent node. This is the key feature of a binary search tree.
 
-可以注意到每个子树的数值小于它的父结点的数值，每个右子树的数值大于父结点的数值。这就是二叉搜索树的主要特性。
+可以注意到每个左子树的数值小于它的父结点的数值，每个右子树的数值大于父结点的数值。这就是二叉搜索树的主要特性。
 
 For example, 2 is smaller than 7 so it goes on the left; 5 is greater than 2 so it goes on the right.
 
@@ -448,7 +448,7 @@ Here’s another example. Imagine you want to insert 3 to the above tree:
 1.	从树的根结点开始（根结点数值为 7），并与新的值 3 进行比较。
 2. 	3 小于 7，所以你沿着左边向下。
 3.	比较 3 和 2，因为 3 大于 2，所以你沿着右边向下。
-4. 	这个右分支是空的，因此你要插入一个新的结点然后放置这个 3 的数值。
+4. 	这个左分支是空的，因此你要插入一个新的结点然后放置这个 3 的数值。
 
 The new tree now looks like this:
 
