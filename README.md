@@ -1,8 +1,8 @@
 # 掘金翻译计划
 
-[掘金翻译计划](http://gold.xitu.io/#/tag/%E6%8E%98%E9%87%91%E7%BF%BB%E8%AF%91%E8%AE%A1%E5%88%92)是一个翻译优质互联网技术文章的社区，文章来源为[掘金](http://gold.xitu.io)上的英文分享文章。内容覆盖 [Android](#android)、[iOS](#ios)、[React](#react)、[前端](#前端)、[后端](#后端)、[产品](#产品)、[设计](#设计)等领域，读者为热爱新技术的新锐开发者。
+[掘金翻译计划](http://gold.xitu.io/#/tag/%E6%8E%98%E9%87%91%E7%BF%BB%E8%AF%91%E8%AE%A1%E5%88%92) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](http://gold.xitu.io) 上的英文分享文章。内容覆盖 [Android](#android)、[iOS](#ios)、[React](#react)、[前端](#前端)、[后端](#后端)、[产品](#产品)、[设计](#设计) 等领域，读者为热爱新技术的新锐开发者。
 
-掘金翻译计划目前翻译完成 [179](#android) 篇文章，共有 [180](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
+掘金翻译计划目前翻译完成 [188](#android) 篇文章，共有 [181](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
 
 # 如何参与翻译
 
@@ -18,10 +18,15 @@
 
 3. 翻译文章，在 [待认领文章列表](https://github.com/xitu/gold-miner/issues?q=is%3Aissue+is%3Aopen+label%3A%E6%96%87%E7%AB%A0%E8%AE%A4%E9%A2%86) 中认领翻译文章；
 
-4. 认领通过后，Fork 此仓库开始翻译，**注意：Fork 此仓库后，请先从 master 分支上 `git checkout -b translate` 一个新的 translate 分支来翻译文章，翻译完成后再把 translate 分支发 PR**；
-5. 翻译完成，发送 [Pull Request](https://github.com/xitu/gold-miner/pull/new/master)，**注意：发 PR 的时候请注意检查，一个 PR 只能有一篇文章，切勿两篇或多篇合并到一个 PR**；
-6. 两位校对者校对完成后，可以根据校对者意见进行修改，修改完成后 @[管理员羊三岁](https://github.com/antonia0912)或[根号三](https://github.com/sqrthree)进行最终检查，merge 后分享你的译文到[掘金](http://gold.xitu.io)，让更多的开发者看到好的文章。
-7. 如果你是第一次参与翻译计划，分享文章到掘金的时候请参考[分享指南](share-guide.md)。
+4. 认领通过后，Fork 此仓库开始翻译，**注意：Fork 此仓库后，请先从 master 分支上 `git checkout -b translate` 一个新的 translate 分支来翻译文章，翻译完成后再把 translate 分支发 PR**。
+
+5. 翻译为中文时排版请参考 **[中文文案排版指北](https://github.com/mzlogin/chinese-copywriting-guidelines)**;
+
+6. 翻译完成，发送 [Pull Request](https://github.com/xitu/gold-miner/pull/new/master)，**注意：发 PR 的时候请注意检查，一个 PR 只能有一篇文章，切勿两篇或多篇合并到一个 PR**；
+
+7. 两位校对者校对完成后，可以根据校对者意见进行修改，修改完成后 @[管理员羊三岁](https://github.com/antonia0912) 或 [根号三](https://github.com/sqrthree) 进行最终检查，merge 后分享你的译文到 [掘金](http://gold.xitu.io)，让更多的开发者看到好的文章。
+
+8. 如果你是第一次参与翻译计划，分享文章到掘金的时候请参考 [分享指南](share-guide.md)。
 
 
 ## Android
@@ -35,14 +40,14 @@
 
 ## iOS
 
-* [[译] 等不及集成 iOS 10 新特性？如何在应用维护与新特性集成之间找到平衡点](http://gold.xitu.io/entry/57ad9e0e7db2a200540fe491?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([circlelove](https://github.com/circlelove) 翻译)
-* [[译] 详解 Swift 的类型检查器](http://gold.xitu.io/entry/57a86c25d342d30057701fe1?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zheaoli](https://github.com/Zheaoli) 翻译)
-* [[译] 深入理解 Swift 中闭包的捕捉语义（一）](http://gold.xitu.io/entry/57a4b3d37db2a2005a992f67?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Nicolas(Yifei) Li](https://github.com/yifili09) 翻译)
-* [[译] 使用流动控制器（Flow Controller ）实现 MVVM 协议模型](http://gold.xitu.io/entry/57a037902e958a0066667ff4?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([shixinzhang](https://github.com/shixinzhang) 翻译)
+* [[译] 用 RxSwift 实现通用的响应式转场](http://gold.xitu.io/entry/57c91b355bbb500074df6d19?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([mypchas6fans](https://github.com/mypchas6fans) 翻译)
+* [[译] 一些 NSFetchedResultsController 使用报错解决方案](http://gold.xitu.io/entry/57c796a6128fe1006958becc?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Siegen](https://github.com/siegeout) 翻译)
+* [[译] 用 Swift 枚举完美实现 3D touch 快捷操作](http://gold.xitu.io/entry/57c6b223efa631005ad6e7d1?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([DeadLion](https://github.com/DeadLion) 翻译)
+* [[译] 用 Swift 开发我的第一个 iOS 应用前，我想要知道这些内容](http://gold.xitu.io/entry/57c66667c4c9710061a57b3f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jiaowoyongqi](https://github.com/jiaowoyongqi) 翻译)
 * [所有 iOS 译文>>](https://github.com/xitu/gold-miner/blob/master/ios.md)
 
-
 ## 前端
+
 * [[译] 你考虑清楚了吗就决定用 Bootstrap ？](http://gold.xitu.io/entry/57b67315a34131005f82d244?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([MAYDAY1993](https://github.com/MAYDAY1993) 翻译)
 * [[译] 如何运用最新的技术提升网页速度和性能](http://gold.xitu.io/entry/57b3f7928d2a3b0069605c2c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([hpoenixf](https://github.com/hpoenixf) 翻译)
 * [[译] Medium 内部使用 css/less 的代码风格指南](http://gold.xitu.io/entry/57b06a1b6be3ff006bab2030?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Gran](https://github.com/Graning) 翻译)
@@ -79,17 +84,17 @@
 
 ## 设计
 
+* [[译] 你的设计应该「所见即所得」](http://gold.xitu.io/entry/57c5978f128fe1005fdf4858?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jiaowoyongqi](https://github.com/jiaowoyongqi) 翻译)
+* [[译] 根据 OS 设计你的应用](http://gold.xitu.io/entry/57bebe962e958a006958e73b?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Kulbear](https://github.com/Kulbear) 翻译)
 * [[译] 嘿，Logo，你应该是这个尺寸的！](http://gold.xitu.io/entry/57bb183279bc440063a6f290?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([MAYDAY1993](https://github.com/MAYDAY1993) 翻译)
 * [[译] 别再设计你的应用界面了，在用户体验上下点功夫吧](http://gold.xitu.io/entry/57b1e47ac4c97100548c964e?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Kulbear](https://github.com/Kulbear) 翻译)
-* [[译] 移动开发中的极简设计](http://gold.xitu.io/entry/57abf8735bbb500062b1becb?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([edvardhua](https://github.com/edvardhua) 翻译)
-* [[译] 设计，其实是一种产生共鸣的过程](http://gold.xitu.io/entry/57a41ffca341310063262054?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Rottenpen](https://github.com/Rottenpen) 翻译)
 * [所有设计译文>>](https://github.com/xitu/gold-miner/blob/master/design.md)
 
 
 ## 产品
 
+* [[译] 给 UX 设计师的 6 个超实用技巧指南](http://gold.xitu.io/entry/57c6e4bb128fe1005fe80c95?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Kulbear](https://github.com/Kulbear) 翻译)
 * [[译] 该叫「我的电脑」还是「你的电脑」？](http://gold.xitu.io/entry/57bbc0212e958a00694055a9?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jiaowoyongqi](https://github.com/jiaowoyongqi) 翻译)
 * [[译] 用户体验设计的未来](http://gold.xitu.io/entry/57b875ae79bc44005b9c53d5?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Kulbear](https://github.com/Kulbear) 翻译)
 * [[译] 我不是用户体验设计师，你呢？](http://gold.xitu.io/entry/57b680250a2b58005c8217f7?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([MAYDAY1993](https://github.com/MAYDAY1993) 翻译)
-* [[译] 产品设计怎样做才最优雅](http://gold.xitu.io/entry/57b14ce45bbb500062d9a51f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lizwangying](https://github.com/lizwangying) 翻译)
 * [所有产品译文>>](https://github.com/xitu/gold-miner/blob/master/product.md)

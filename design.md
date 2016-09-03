@@ -1,3 +1,5 @@
+* [你的设计应该「所见即所得」](http://gold.xitu.io/entry/57c5978f128fe1005fdf4858?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jiaowoyongqi](https://github.com/jiaowoyongqi) 翻译)
+* [根据 OS 设计你的应用](http://gold.xitu.io/entry/57bebe962e958a006958e73b?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Kulbear](https://github.com/Kulbear) 翻译)
 * [嘿，Logo，你应该是这个尺寸的！](http://gold.xitu.io/entry/57bb183279bc440063a6f290?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([MAYDAY1993](https://github.com/MAYDAY1993) 翻译)
 * [别再设计你的应用界面了，在用户体验上下点功夫吧](http://gold.xitu.io/entry/57b1e47ac4c97100548c964e?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Kulbear](https://github.com/Kulbear) 翻译)
 * [移动开发中的极简设计](http://gold.xitu.io/entry/57abf8735bbb500062b1becb?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([edvardhua](https://github.com/edvardhua) 翻译)
