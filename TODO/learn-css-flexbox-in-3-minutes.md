@@ -2,7 +2,7 @@
 * 原文作者：[Per Harald Borgen]()(https://medium.com/@perborgen)
 * 译文出自：[掘金翻译计划]()(https://github.com/xitu/gold-miner)
 * 译者：[Gran](https://github.com/Graning)
-* 校对者：
+* 校对者：[mypchas6fans](https://github.com/mypchas6fans), [MAYDAY1993](https://github.com/MAYDAY1993)
 
 ![](https://cdn-images-1.medium.com/max/800/1*baslR_nGORHYX4STOjhhpg.png)
 
@@ -12,7 +12,7 @@
 
 **1\. 容器和 item**
 
-Flexbox 布局中两个主要的组件是 **容器** （蓝色）和 **item** （红色）。我们将在本教程的在这个示例中看到，无论是 **容器** 还是 **item** 都是  **div’s**。查看 [示例代码](https://github.com/perborgen/FlexboxTutorial)。
+Flexbox 布局中两个主要的组件是 **容器** （蓝色）和 **item** （红色）。我们将在本教程的这个示例中看到，无论是 **容器** 还是 **item** 都是  **div’s**。查看 [示例代码](https://github.com/perborgen/FlexboxTutorial)。
 
 #### 横向布局
 
@@ -30,7 +30,7 @@ display: flex;
 
 #### 垂直布局
 
-在上述布局中，**主轴线** 是水平的，**横轴** 是垂直的。**轴** 的概念对理解弹性布局有帮助。
+在上述布局中，**主轴线** 是水平的，**辅轴** 是垂直的。**轴** 的概念对理解弹性布局有帮助。
 
 当你添加 **flex-direction**: **column** 时可以交换这两个轴。
 
@@ -44,13 +44,13 @@ flex-direction: column;
 ![](https://cdn-images-1.medium.com/max/800/1\*yPT-82-JPYk8b2Rh\_3K6sQ.png)
 
 
-则现在 **主轴线** 是垂直的，而 **横轴** 是水平的，导致 **items** 被垂直堆叠。
+则现在 **主轴线** 是垂直的，而 **辅轴** 是水平的，导致 **items** 被垂直堆叠。
 
 ### 2\. 两端对齐内容和 item 对准
 
 为了使列表再次水平，我们可以从 **列** 到 **行** 交换 **弹性方向** 因为这将再次翻转弹性布局的轴。
 
-轴的概念必须理解是因为 **justify-content** 和 **align-items** 的属性控制如何使 item 沿 **主轴线** 和 **横轴** 分别定位。
+轴的概念必须理解是因为 **justify-content** 和 **align-items** 的属性控制如何使 item 沿 **主轴线** 和 **辅轴** 分别定位。
 
 让我们沿着中央 **主轴线** 的所有 item 使用 **justify-content:**
 
@@ -62,7 +62,7 @@ justify-content: center;
 
 ![](https://cdn-images-1.medium.com/max/800/1\*KAFfHDFWCd12qI3TqSS8DQ.png)
 
-使用 **align-items** 沿着 **横轴** 进行调整。
+使用 **align-items** 沿着 **辅轴** 进行调整。
 
 .container {
 display: flex;
