@@ -20,7 +20,7 @@ In this tutorial, you’ll learn how about binary trees and binary search trees.
 
 _Note:_ New to the Swift Algorithm Club? Check out our [getting started](https://www.raywenderlich.com/135533/join-swift-algorithm-club) post first.
 
-_提示:_ 你是 Swift 算法俱乐部的新成员吗？如果是的话，来看看我们的 [指引文章](https://www.raywenderlich.com/135533/join-swift-algorithm-club) 吧。
+**提示：** 你是 Swift 算法俱乐部的新成员吗？如果是的话，来看看我们的 [指引文章](https://www.raywenderlich.com/135533/join-swift-algorithm-club) 吧。
 
 ## Getting Started
 
@@ -28,7 +28,7 @@ _提示:_ 你是 Swift 算法俱乐部的新成员吗？如果是的话，来看
 
 The _Binary Tree_ is one of the most prevalent data structures in computer science. More advanced trees like the [Red Black Tree](https://github.com/raywenderlich/swift-algorithm-club/tree/master/Red-Black%20Tree) and the [AVL Tree](https://github.com/raywenderlich/swift-algorithm-club/tree/master/AVL%20Tree) evolved from the binary tree.
 
-在计算机科学中，_二叉树_ 是一种最普遍的数据结构。更先进的像 [红黑树](https://github.com/raywenderlich/swift-algorithm-club/tree/master/Red-Black%20Tree) 和 [AVL 树](https://github.com/raywenderlich/swift-algorithm-club/tree/master/AVL%20Tree) 都是从二叉树中演进过来的。
+在计算机科学中，**二叉树** 是一种最普遍的数据结构。更先进的像 [红黑树](https://github.com/raywenderlich/swift-algorithm-club/tree/master/Red-Black%20Tree) 和 [AVL 树](https://github.com/raywenderlich/swift-algorithm-club/tree/master/AVL%20Tree) 都是从二叉树中演进过来的。
 
 Binary trees themselves evolved from the general purpose tree. If you don’t know what that is, check out last month’s tutorial on [Swift Tree Data Structure](https://www.raywenderlich.com/138190/swift-algorithm-club-swift-tree-data-structure).
 
@@ -62,7 +62,7 @@ Before we dive into the code, it’s important that you understand some importan
 
 On top of all the terms related to a general purpose tree, a binary tree adds the notion of left and right children.
 
-上面所提到的关于通用树的情况，二叉树增加了左右子树的概念。
+在上面提到的通用树的基础上，二叉树增加了左右子树的概念。
 
 ### Left Child
 
@@ -70,7 +70,7 @@ On top of all the terms related to a general purpose tree, a binary tree adds th
 
 The _left_ child descends from the left side:
 
-_左_ 子树从左边开始延伸：
+**左** 子树从左边开始延伸：
 
 ![BinaryTree-2](https://cdn4.raywenderlich.com/wp-content/uploads/2016/08/BinaryTree-2.png)
 
@@ -80,7 +80,7 @@ _左_ 子树从左边开始延伸：
 
 Surprisingly, the right side is the _right_ child:
 
-令人惊讶的是，右边是 _右_ 子树：
+令人惊讶的是，右边是 **右** 子树：
 
 ![BinaryTree-2](https://cdn3.raywenderlich.com/wp-content/uploads/2016/08/BinaryTree-2-1.png)
 
@@ -100,7 +100,7 @@ If a node doesn’t have any children, it’s called a leaf node:
 
 The _root_ is the node at the top of the tree (programmers like their trees upside down):
 
-_根_ 一棵树的最顶端的结点（程序员喜欢倒立的树）：
+**根** 是一棵树的最顶端的结点（程序员喜欢倒立的树）：
 
 ![BinaryTree-2](https://cdn5.raywenderlich.com/wp-content/uploads/2016/08/BinaryTree-2-3.png)
 
@@ -152,7 +152,7 @@ Create a new Swift playground (this tutorial uses Xcode 8 beta 5) and add the fo
 
 You’ve declared a enum named `BinaryTree`. The `` syntax declares this to be a _generic_ enum that allows it to infer it’s own type information at the call site.
 
-你已经声明了一个名为 `BinaryTree`（二叉树） 的枚举。`` 语法声明了这是一个 _通用_ 的且允许推断调用站点类型信息的枚举。
+你已经声明了一个名为 `BinaryTree`（二叉树） 的枚举。`` 语法声明了这是一个 **用** 的且允许推断调用站点类型信息的枚举。
 
 ### States
 
@@ -406,9 +406,9 @@ When performing an insertion, starting with the root node as the current node:
 *   _If the new value is smaller_, you go down the left branch.
 *   _If the new value is greater_, you go down the right branch.
 
-* 	_如果当前结点为空_ ，你在这里插入一个新的结点。
-* 	_如果新的值更小_ ，你沿着左边的分支向下。
-* 	_如果新的值更大_ ，你沿着右边的分支向下。
+* 	**如果当前结点为空** ，你在这里插入一个新的结点。
+* 	**如果新的值更小** ，你沿着左边的分支向下。
+* 	**如果新的值更大** ，你沿着右边的分支向下。
 
 You traverse your way down the tree until you find an empty spot where you can insert the new value.
 
@@ -462,7 +462,7 @@ There is always only one possible place where the new element can be inserted in
 
 _Note:_ If you’re not familiar with the height of a tree, check out the previous article on [Swift Trees.](https://www.raywenderlich.com/138190/swift-algorithm-club-swift-tree-data-structure)
 
-_注意：_ 如果你对于树的高度不熟悉，来看一下之前发的 [Swift Trees（Swift 的树）](https://www.raywenderlich.com/138190/swift-algorithm-club-swift-tree-data-structure) 这篇文章吧。
+**注意：** 如果你对于树的高度不熟悉，来看一下之前发的 [Swift Trees（Swift 的树）](https://www.raywenderlich.com/138190/swift-algorithm-club-swift-tree-data-structure) 这篇文章吧。
 
 ### Challenge: Implementing Insertion
 
@@ -527,9 +527,9 @@ Now, go ahead and try to implement section #4 based on the algorithm above. Here
 *   _If the new value is smaller_, you go down the left branch. You need to do this.
 *   _If the new value is greater_, you go down the right branch. You need to do this.
 
-* 	_如果当前结点为空_ ，你在这里插入一个新的结点，搞定。
-* 	_如果新的值更小_ ，你沿着左边的分支向下，你需要这样做。
-* 	_如果新的值更大_ ，你沿着右边的分支向下，你需要这样做。
+* 	**如果当前结点为空** ，你在这里插入一个新的结点，搞定。
+* 	**如果新的值更小** ，你沿着左边的分支向下，你需要这样做。
+* 	**如果新的值更大** ，你沿着右边的分支向下，你需要这样做。
 
 If you get stuck, you can check the solution below.
 
@@ -644,7 +644,7 @@ As discussed in the spoiler section, you need to create a new copy of the tree e
 
 _Note:_ Average time complexity for a binary search tree for the traditional implementation using classes is _O(log n)_, which is considerably faster. Using classes (reference semantics) won't have the copy-on-write behaviour, so you'll be able to insert without making a complete copy of the tree.
 
-_提示：_ 一颗使用传统类实现的二叉搜索树的平均时间复杂度是 _O(log n)_，这是相当快的。使用类（引用语义）是不会有写时拷贝的行为的，所以你将不去做树的复杂拷贝也能实现插入操作。
+**提示：** 一颗使用传统类实现的二叉搜索树的平均时间复杂度是 _O(log n)_，这是相当快的。使用类（引用语义）是不会有写时拷贝的行为的，所以你将不去做树的复杂拷贝也能实现插入操作。
 
 ## Traversal Algorithms
 
@@ -656,11 +656,11 @@ Traversal algorithms are fundamental to tree related operations. A traversal alg
 
 ### In-order Traversal
 
-### 顺序遍历
+### 中序遍历
 
 In-order traversal of a binary search tree is to go through the nodes in ascending order. Here's what it looks like to perform an in-order traversal:
 
-顺序遍历是按照升序来遍历一颗二叉搜索树的。下面是一个顺序遍历看起来的样子：
+中序遍历是按照升序来遍历一颗二叉搜索树的。下面是一个中序遍历看起来的样子：
 
 ![Traversing](https://cdn2.raywenderlich.com/wp-content/uploads/2016/08/Traversing.png)
 
@@ -695,7 +695,7 @@ This code is fairly straightforward:
 2.  If the current node is non empty, then you can go down further. The definition of in-order traversal is to go down the left side, visit the node, and then the right side.
 
 1.	如果这个结点是空的，就没有方法继续前进下去。你将会在这里简单的返回。
-2. 	如果这个结点不会空，那你将可以前进的更深一点。顺序遍历的定义是首先走左子树，然后是结点，最后是右子树。
+2. 	如果这个结点不会空，那你将可以前进的更深一点。中序遍历的定义是首先走左子树，然后是结点，最后是右子树。
 
 To see this in action, you'll create the binary tree shown above. Delete all the test code at the bottom of your playground and replace it with the following:
 
@@ -737,11 +737,11 @@ You should see the following output in your console:
 
 ### Pre-order Traversal
 
-### 前序遍历
+### 先序遍历
 
 Pre-order traversal of a binary search tree is to go through the nodes whilst visiting the current node first. The key here is calling `process` before traversing through the children. Write the following inside your `BinaryTree` enum:
 
-二叉搜索树的前序遍历是一种在遍历过程中首先遍历节点的遍历方法。这里的关键是在遍历子树之前首先调用  `process` 方法。在你的 `BinaryTree`（二叉树）枚举中写入下面的语句：
+二叉搜索树的先序遍历是一种在遍历过程中首先遍历节点的遍历方法。这里的关键是在遍历子树之前首先调用  `process` 方法。在你的 `BinaryTree`（二叉树）枚举中写入下面的语句：
 
     func traversePreOrder( process: @noescape (T) -> ()) {
       switch self {
@@ -854,7 +854,7 @@ You can test this by adding the following to the end of your playground:
 
 ## Where To Go From Here?
 
-## 从这里开始去哪里？
+## 下一站是哪里？
 
 I hope you enjoyed this tutorial on making a Swift Binary Tree data structure!
 
@@ -878,5 +878,5 @@ So stay tuned for many more tutorials from the Swift Algorithm club in the futur
 
 _Note:_ The [Swift Algorithm Club](https://github.com/raywenderlich/swift-algorithm-club) is always looking for more contributors. If you've got an interesting data structure, algorithm, or even an interview question to share, don't hesitate to contribute! To learn more about the contribution process, check out our [Join the Swift Algorithm Club](https://www.raywenderlich.com/135533/join-swift-algorithm-club) article.
 
-_注意：_ [Swift 算法俱乐部](https://github.com/raywenderlich/swift-algorithm-club) 一直在寻找更多的贡献者。如果你对于数据结构，算法有兴趣，或者甚至是有一个面试问题想要分享，不要犹豫，来贡献给大家！了解更多贡献流程，请查看 [加入算法俱乐部](https://www.raywenderlich.com/135533/join-swift-algorithm-club) 这篇文章。
+**注意：** [Swift 算法俱乐部](https://github.com/raywenderlich/swift-algorithm-club) 一直在寻找更多的贡献者。如果你对于数据结构，算法有兴趣，或者甚至是有一个面试问题想要分享，不要犹豫，来贡献给大家！了解更多贡献流程，请查看 [加入算法俱乐部](https://www.raywenderlich.com/135533/join-swift-algorithm-club) 这篇文章。
 
