@@ -24,7 +24,7 @@ display: flex;
 
 布局的结果如下：
 
-![](https://cdn-images-1.medium.com/max/800/1\*3zzvOetr1fjDrZKEEmo9dA.png)
+![](https://cdn-images-1.medium.com/max/800/1*3zzvOetr1fjDrZKEEmo9dA.png)
 
 注意你目前不需要对 **项目** 做任何事，他们将沿水平轴自动定位。
 
