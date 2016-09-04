@@ -4,36 +4,36 @@
 * 译者：
 * 校对者：
 
-When I told my friends I design a sports media platform for a living, I got the response “but what do you know about sports?” In my defence, I’ve watched some games on TV and I know the basics, but I’m definitely not a fan, far from it.
+当我告诉朋友说我的工作是设计一款主打运动新闻的产品，他们往往会说，“你了解运动吗？”。作为回应，我会常常在电视上观看比赛，同时也知道一些基本的运动常识，但是我绝对不是运动迷，离运动迷还差远了。
 
-I will admit I had my concerns when I started working at MinuteMedia, the parent company of 90min and 12up, because after all I’m an ex-ballerina designing products for sports fans. Sounds like the perfect match, right? Well actually it is.
+必须承认，当我开始在 90min 和 12up 的母公司 MinuteMedia 工作的时候是有所考虑的。因为毕竟我也设计过面向运动爱好者的产品，并且自己之前还是一位芭蕾舞者。听起来很适合这份新的工作，不是吗？事实也的确如此。
 
-When I started working at 90min, I knew from the first moment that the product is a great one. Not because of the way it looked at the time, but because of it’s core idea. It’s not just another platform with articles about football, but a place for the fans to be heard. That authenticity won me over in a flash. When I was asked to design our new product, 12up, I knew it was going to be quite the challenge. I had to come up with an upgraded and updated version of 90min. And if that’s not enough, 12up is all about American sports, about which I have zero knowledge. How can I take our good product and mercilessly tear it to pieces to understand what works and what does not? And how do I present my conclusions to those who put their heart and soul into building 90min, driving home on those painful points? If I told you that this process was easy, it would be a big fat lie. It took a lot of hard work, a ton of sketches and a few design blocks to be a part of this rewarding and truly amazing process.
+当我开始参与 90min 的设计时，就相信这是款很棒的产品。不仅是因为当时其广受好评，而是因为其核心理念。这不仅是一个发表足球文章的平台，而是一个足球迷值得关注的平台。它的信息的可靠性立马打动了我。当我得知需要设计一款新产品 12up 的时候，我知道这将会是个不小的挑战。当时我想到的是做一个 90min 的进化版。但这还不够，12up 涉及美国所有的运动，而对此我一无所知。我该如何将这些运动都逐个拆分并了解透彻，以便打造出一个优质的产品呢？而我又如何向其他工作人员表达自己对于新产品的看法呢？他们为 90min 倾注了心血，并彻夜赶工只为了解决用户的某一痛点。如果我告诉你这个过程十分的简单，那这肯定是一个弥天大谎。实际上整个过程花费了巨大的精力，其中就包含了成千上万的草图以及许多设计方案的尝试。
 
-I’m sure some of you have had your own concerns about taking on projects like this, so I’d like to share some tips from my experience.
+我相信你们肯定也有同样的项目经历，所以我就自己的经历提出一些心得总结。
 
-#### If you don’t know something just ask
+#### 不懂就问
 
-There’s no shame in not knowing something, we can’t be experts about everything. Yeah I know, asking questions is important in any design process, but when you’re not the user type for the product, it’s important to speak up. Asking questions is the first step to understanding the problem you’re trying to solve. If you don’t know everything about the problem how are you going to try and solve it? So be a pain in the ass and ask about anything, even if people will raise an eyebrow when you ask ‘how long is a baseball game?’ (true story)
+不懂就问没啥好丢脸的，我们不可能什么都了解。是的我明白，提问题在任何一个设计项目中都十分重要，但是当你不是这个产品的目标用户，那么向相关的人进行提问就十分重要。提问是你试图解决问题的第一步。如果你对这个问题毫无所知那么你该如何解决它？所以勇于不耻下问吧，即使当别人听到“一场足球赛要多长时间”这种问题后一脸懵逼也不要紧。（真事儿）
 
 ![](https://cdn-images-1.medium.com/max/1600/1*EmWQVu_aNLk3qPpCPJJ0YA.jpeg)
 
-Image by [Sam Bunny](https://dribbble.com/sambunny)
+图 [Sam Bunny](https://dribbble.com/sambunny)
 
-#### There is no ‘I’ in USER
+#### “我”永远不是用户
 
-We all do it sometimes; “I wouldn’t click that”, “I understand it perfectly”, we only think how _we_ would interact with the interface . There’s you and there’s the user, and you are designing for the USER. I’m not perfect, I’ve done it also. I had debates with our VP of Product about certain features that ended with him telling me “but you are not the user”. Sometimes it’s hard to let go of something you created (especially if you’ve fallen in love with it already), but it’s giving it up for the greater good. Sometimes we just need to get this one idea out of our system, so do it and then just let it go. After you’re done with that, try to think about your personas, they exist for a reason. You’ll be amazed how liberating it is to design for someone not as perfectionist and stubborn as you. I design for Kevin, Jon and Chris, not for myself and when I’m having a hard time solving a problem, I turn to them.
+我们总是会说：“我不会点击这个的”，“这个很好理解呀”，我们只知道_自己_如何在界面上进行操作。这里有两个概念，一个是你自己，另一个是用户，你是在为用户而设计。我也不完美，也时常会犯这样的错误。当我在和产品经理争论某个功能的时候，他总是会跟我说“可你并不是用户呀”。有时候你很难割舍那些你创造出来的东西（特别是当你已经深深爱上它的时候），但有时候确实需要为了更好的产品而牺牲掉某些东西。有时候我们只是需要一个想法，提出来然后该放手时就放手。当你在实践你的想法时，试着想想用户模型，是否这想法值得保留。你会惊奇地发现时刻考虑着目标用户将会帮你走出设计的困境，而不是纠结着自认为的完美主义。我为小明、王二和花花他们设计，而不是为自己而设计，当我无法解决问题的时候，都会向他们求助。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*-UcyNbvC7CnUXX29iHmyaw.jpeg)
 
-Image by [Willian Matiola](https://dribbble.com/willianmatiola)
+图 [Willian Matiola](https://dribbble.com/willianmatiola)
 
-#### Your intuition vs Pro/Con lists
+#### 你的直觉 vs A/B 测试
 
-You all know that feeling in your gut when you’re just so sure about something. Our intuition is a tricky thing, it can lead you to amazing things or make you crash so hard. It’s important to learn how to control that feeling of storming blindly onwards.
+当你对某事胸有成竹的时候，总是会满腔热血。我们的直觉很奇妙，有时候能给我们带来意想不到，但有时候又会带来灾难。学会控制这股不能名状的洪荒之力十分重要。
 
-I get this feeling often and when I do, I go with the solution that my gut tells me to, but before I go and show it excitedly to my teammates, I create a second solution. Then I compare them and write the pros and the cons of each solution. If you do it honestly, which of course you do (because we don’t play favourites in our designs) you will see clearly which is the best option. After you pick your winning option, it’s time to sell it, but this can be hard sometimes. So here’s a little advice I got from my father, “If you’re absolutely sure about it, say it until they hear you”. And I do that in my own subtle and delicate way…my boss can attest to that :)
+在设计的时候，我总会有这样的感受，在做决定的时候，心里总会出现一个声音告诉我该如何做，但在把想法告诉团队里其他的小伙伴前，我会再想出另一套方案。然后我将会进行仔细的对比，并且测试每一个解决方案的可行度。如果如实操作了，你就会清晰地发现哪一个才是更佳的方案。在你知道最佳的方案之后，就应该准备说服其他人了，但这并不是一件简单的事情。这里提一下来自我父亲的一个小小的建议，“如果你坚信某些东西，那就坚持说服其他人直到他们相信你为止”。我总是会以自己的方式来履行这一点。我的上司可以证明：）
 
-#### Final Thoughts
+#### 最后的建议
 
-We design experiences (hopefully good ones), so it really doesn’t matter what is the subject of the experience. Don’t be intimidated if you lack knowledge in certain areas or if you don’t fit the persona that a product is geared towards. Think if the project interests you, if it challenges you, because if an ex-ballerina can design a sports media platform, then there really are no limits :).
+我们在为更好的体验而设计，而具体是什么领域真的不重要。不要因为你缺少某方面的知识，或者你不是产品的目标用户而担心。而是应该考虑这个项目是不是你感兴趣的，是否对你而言有所挑战，想想一个前芭蕾舞者都能设计一款运动新闻产品，还有什么不可以的呢？
