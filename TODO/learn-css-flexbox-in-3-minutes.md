@@ -17,11 +17,11 @@
 #### 横向布局
 
 要创建一个弹性布局，只需要给 **容器** 设置以下的 CSS 属性。
-```
+
     .container {
         display: flex;
     }
-```
+
 布局的结果如下：
 
 ![](https://cdn-images-1.medium.com/max/800/1*3zzvOetr1fjDrZKEEmo9dA.png)
