@@ -18,9 +18,9 @@
 
 要创建一个弹性布局，只需要给 **容器** 设置以下的 CSS 属性。
 
-.container {
-display: flex;
-}
+    .container {
+        display: flex;
+    }
 
 布局的结果如下：
 
@@ -34,10 +34,11 @@ display: flex;
 
 当你添加 **flex-direction**: **column** 时可以交换这两个轴。
 
-.container {
-display: flex;
-flex-direction: column;
-}
+    .container {
+        display: flex;
+        flex-direction: column;
+    }
+
 
 
 
@@ -54,23 +55,22 @@ flex-direction: column;
 
 让我们通过使用 **justify-content** 来沿 **主轴** 居中所有的项目：
 
-.container {
-display: flex;
-flex-direction: row;
-justify-content: center;
-}
+    .container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
 
 ![](https://cdn-images-1.medium.com/max/800/1\*KAFfHDFWCd12qI3TqSS8DQ.png)
 
 使用 **align-items** 沿着 **交叉轴** 进行调整。
 
-.container {
-display: flex;
-flex-direction: row;
-justify-content: center;
-align-items: center;
-}
-
+    .container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
 
  
 ![](https://cdn-images-1.medium.com/max/800/1\*S666Y69uJUWgQ0rz8tzjOQ.png)
@@ -103,9 +103,10 @@ align-items: center;
 
 比方说，我们想调整第一个 item 的位置，我们通过给她一个与 **align-items** 接收同样的值的 **align-self** CSS 属性来实现：
 
-.item1 {
-  align-self: flex-end;
-}
+    .item1 {
+      align-self: flex-end;
+    }
+
 
 将形成以下的布局：
 
