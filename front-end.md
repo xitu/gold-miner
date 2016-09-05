@@ -1,3 +1,4 @@
+* [基于浏览器的 MapReduce](https://gold.xitu.io/entry/57cd7b9c8ac24700645b052b?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([mypchas6fans](https://github.com/mypchas6fans) 翻译)
 * [如何编写更少的代码](https://gold.xitu.io/entry/57c6adc7a633bd005d8f2584?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([circlelove](https://github.com/circlelove) 翻译)
 * [如何用 React 完成图片上传功能？](https://gold.xitu.io/entry/57b923225bbb50005b794943?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([DeadLion](https://github.com/DeadLion) 翻译)
 * [你考虑清楚了吗就决定用 Bootstrap ？](http://gold.xitu.io/entry/57b67315a34131005f82d244?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([MAYDAY1993](https://github.com/MAYDAY1993) 翻译)
