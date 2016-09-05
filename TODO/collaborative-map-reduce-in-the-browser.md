@@ -4,7 +4,7 @@
 * 译者：[mypchas6fans] (https://github.com/mypchas6fans)
 * 校对者：[siegeout] (https://github.com/siegeout) [MAYDAY1993] (https://github.com/MAYDAY1993)
 
-在分布式计算和海量数据中摸爬滚打了很久之后，你一定会感谢优雅的 [Google Map-Reduce 框架](http://en.wikipedia.org/wiki/MapReduce)。它的 _map_ ，_emit_ 和 _reduce_ 模块既通用又简洁，使它成为了一个强有力的工具。但是虽然 Google 公开了理论，底层的软件实现仍然是闭源的，而且可以说是他们最大的竞争力之一（[GFS](http://labs.google.com/papers/gfs.html)，[BigTable](http://labs.google.com/papers/bigtable.html)，等等）。当然，现在有很多开源的分支（[Apache Hadoop](http://hadoop.apache.org/core/)，[Disco](http://discoproject.org/)，[Skynet](http://skynet.rubyforge.org/)，以及其他），但是人们总会发现，优美简洁的理论和惨痛的实现之间存在的断层：诸如自定义协议，自定义服务器，文件系统，冗余，等等等等。问题来了，我们怎样能把这个差距缩短一点？
+在分布式计算和海量数据中摸爬滚打了很久之后，你一定会感谢优雅的 [Google Map-Reduce 框架](http://en.wikipedia.org/wiki/MapReduce)。它的 _map_ ，_emit_ 和 _reduce_ 模块既通用又简洁，这使它成为了一个强有力的工具。虽然 Google 公开了理论，但是底层的软件实现仍然是闭源的，而这可以说是他们最大的竞争优势之一（[GFS](http://labs.google.com/papers/gfs.html)，[BigTable](http://labs.google.com/papers/bigtable.html)，等等）。当然，现在有很多开源的分支（[Apache Hadoop](http://hadoop.apache.org/core/)，[Disco](http://discoproject.org/)，[Skynet](http://skynet.rubyforge.org/)，以及其他），但是人们总会发现，优美简洁的理论和惨痛的实现之间存在的断层：诸如自定义协议，自定义服务器，文件系统，冗余，等等等等。问题来了，我们怎样能把这个差距缩短一点？
 
 ## 大规模并行计算
 
@@ -12,7 +12,7 @@
 
 ![](https://www.igvita.com/posts/09/xbrowsers.png.pagespeed.ic.gtlyz9PZB7.jpg) 与其关注高吞吐率的专有协议和高效的数据通道来分发和传递数据，我们可以用实战检验过的方法： HTTP 和你喜欢的浏览器。而且全世界还有无数的 [Javascript 处理器](http://en.wikipedia.org/wiki/JavaScript) ——每个浏览器都可以执行。比起其他语言，它是一个完美的数据处理平台。
 
-Google 据说有[数以百万计的服务器](http://www.youtube.com/watch?v=6x0cAzQ7PVs)（而且还在猛增），这是一个惊人的数量。那想要组织一百万人，把他们的零碎计算时间贡献到其中该有多难？我不认为这不可能实现，毕竟开始的门槛很低。如果能做到，计算的效率会很低，不过我们会得到一个超大的集群，可以让我们解决一些以前完全做不到的问题。
+Google 据说有[数以百万计的服务器](http://www.youtube.com/watch?v=6x0cAzQ7PVs)（而且还在猛增），这是一个惊人的数量。那想要组织一百万人，把他们的零碎计算时间贡献到其中该有多难？我认为这并不是难以实现的，毕竟开始的门槛很低。如果能做到，计算的效率会很低，不过我们会得到一个超大的集群，可以让我们解决一些以前完全做不到的问题。
 
 ## 浏览器中的客户端计算
 
