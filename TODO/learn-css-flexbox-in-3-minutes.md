@@ -26,7 +26,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*3zzvOetr1fjDrZKEEmo9dA.png)
 
-注意你目前不需要对 **项目** 做任何事，他们将沿水平轴自动定位。
+注意你目前不需要对 **项目** 做任何事，它们将沿水平轴自动定位。
 
 #### 垂直布局
 
@@ -101,7 +101,7 @@
 
 我们将了解的最后一件事就是 **items** 本身，以及如何将具体的样式单独设置。
 
-比方说，我们想调整第一个 item 的位置，我们通过给她一个与 **align-items** 接收同样的值的 **align-self** CSS 属性来实现：
+比方说，我们想调整第一个 item 的位置，我们通过给它一个与 **align-items** 接收同样的值的 **align-self** CSS 属性来实现：
 
     .item1 {
       align-self: flex-end;
