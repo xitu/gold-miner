@@ -1,3 +1,5 @@
+* [iOS APP 中的不可变模型以及一致性数据](http://gold.xitu.io/entry/57caeb8a79bc440063fb7ef0?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Kulbear](https://github.com/kulbear) 翻译)
+* [「最简单」的 Core Data 上手指南](http://gold.xitu.io/entry/57c8f62f67f3560057aea07f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zheaoli](https://github.com/Zheaoli) 翻译)
 * [用 RxSwift 实现通用的响应式转场](http://gold.xitu.io/entry/57c91b355bbb500074df6d19?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([mypchas6fans](https://github.com/mypchas6fans) 翻译)
 * [一些 NSFetchedResultsController 使用报错解决方案](http://gold.xitu.io/entry/57c796a6128fe1006958becc?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Siegen](https://github.com/siegeout) 翻译)
 * [用 Swift 枚举完美实现 3D touch 快捷操作](http://gold.xitu.io/entry/57c6b223efa631005ad6e7d1?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([DeadLion](https://github.com/DeadLion) 翻译)
