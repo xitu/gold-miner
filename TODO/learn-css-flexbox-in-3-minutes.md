@@ -1,6 +1,6 @@
-> * 原文地址：[Learn CSS Flexbox in 3 Minutes]()(https://medium.com/learning-new-stuff/learn-css-flexbox-in-3-minutes-c616c7070672)
-* 原文作者：[Per Harald Borgen]()(https://medium.com/@perborgen)
-* 译文出自：[掘金翻译计划]()(https://github.com/xitu/gold-miner)
+> * 原文地址：[Learn CSS Flexbox in 3 Minutes](https://medium.com/learning-new-stuff/learn-css-flexbox-in-3-minutes-c616c7070672)
+* 原文作者：[Per Harald Borgen](https://medium.com/@perborgen)
+* 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Gran](https://github.com/Graning)
 * 校对者：[mypchas6fans](https://github.com/mypchas6fans), [MAYDAY1993](https://github.com/MAYDAY1993)
 
