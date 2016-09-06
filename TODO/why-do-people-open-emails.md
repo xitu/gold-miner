@@ -4,159 +4,166 @@
 * 译者：
 * 校对者：
 
-Why do people open emails? It’s something I think about every time I send an article out to _The Signal_ subscribers. When the article hits your inbox between a shared Google doc and yet another newsletter, what is it that’s going to get you to open and read it?
 
-I’ve heard the best practices, and I try my best to adhere to them, but I can’t help but wonder if they actually make any difference. But to know that, I’m going to need data, and a lot of it.
+人们为什么打开电子邮件？每次将文章推送给 _The Signal_ 的订阅者我都会思考这个问题。当文章到达你的收件箱，还有共享谷歌文档和其他简讯可以选择，是什么让你打开邮件然后阅读它呢？
 
-So, **armed with 85,637 subject lines from Mixpanel campaigns – totaling 1.7 billion emails sent and 232 million opens**, over a span from June 2012 to May 2016 – I looked to answer the eternal question: **What makes people open an email?**
+我听说过最佳做法，我努力坚持下去，但是我忍不住想它们是否真的有区别。但是要搞清楚这些的话，我需要数据，很多很多的数据。
 
-One thing worth calling out right away is that Mixpanel campaigns aren’t necessarily one-time email blasts out to an entire list. They _can_ be, but more often they are event-driven emails, meaning the user took some action to trigger the email notification. For example, a campaign might target users who have created an account in the last 30 days, but haven’t returned in the last seven days. Then, for as long as that campaign is active, whenever a user qualifies, they receive the email.
+所以，**分析了来自 Mixpanel 活动的 85,637 行主题 - 总共发送 17 亿封电子邮件，其中 2.32 亿封被打开**，时间跨度从 2012 年 6 月到 2016 年 5 月，我期待着这个一直困扰我的问题——究竟是什么让人们打开一封电子邮件，能找到答案。
 
-Okay, now here’s what I learned.
+有件事情值得一提的是，Mixpanel 活动不一定是一次性群发给整个邮件列表的。它们可以这么做，但更多的时候它们是事件驱动的电子邮件，意味着用户的某些动作触发了邮件通知。举个例子，一个活动可能针对最近 30 天内创建过账号的用户，但是最近 7 天没有登录过的。然后该活动是激活状态的，只要用户符合要求，他们就会收到电子邮件。
 
-## Most emails aren’t opened
+好吧，下面就是我所学到的东西。
 
-Right out of the gate, let’s level set. It’s a hard reality, and we all know it, but most emails aren’t opened. The emails that I looked at spanned industries and intention. They included everything from very targeted emails for when a user completes a specific task, or very broad “Welcome” or e-commerce sale emails. **And the overall open rate for all sends was 13.53%**.
+## 大多数邮件是没人看的
 
-#### All campaigns
+出门右拐，不管其他的数据。我们都知道，这是个残酷的现实，就是大多数邮件不会被打开。我关注的那些邮件跨行业，有着不同的目的。它们包含了一切东西，当用户完成某项特定任务而发送非常有针对性的邮件，或非常广泛的"欢迎"或电子商务销售电子邮件。**所有这些发送的邮件打开率为 13.53% **
 
-85,637 campaigns  
+#### 所有活动
 
-232,706,223 opens  
+85,637 活动数  
 
-1,720,490,613 sends  
+232,706,223 打开数  
 
-**13.53% open rate**
+1,720,490,613 发送数  
 
-But some campaigns did disproportionately better than others. Of the 49k campaigns that had more than 100 recipients, **one in five had an open rate over 50%**. At the same time, **two out of five campaigns had open rates under 10%**.
+**13.53% 打开率**
 
-So, there is quite a bit of disparity, and obviously there are many factors at play here. Controlling for subject lines only, how do different subjects affect overall open rate?
+但有些活动确实不符合平均比例，而是比别人更好，超过 100 位接收人的 49k 个活动中，**五分之一打开率超过 50%**。同时，**超过五分之二打开率低于 10%**。
 
-## Don’t make your subject too long
+所以，差异还是蛮大的，显然这里有很多因素在影响着结果。只控制主题行，不同主题对整体打开率有怎样的影响呢？
 
-For a long time, I’ve heard that subject lines should be [somewhere between 40 and 60 characters long](http://www.universalwilde.com/blog-0/bid/140949/5-Tips-That-Will-Get-Your-Email-Campaigns-Read). For context, here’s an email subject line we recently sent out for our “[Survival Metrics](https://blog.mixpanel.com/2016/06/23/survival-metrics-will-help-company-survive)” post. It’s 42 characters long:
+## 主题行不能太长
+
+很长一段时间，我听说主题行字符长应该是[在 40 和 60 之间](http://www.universalwilde.com/blog-0/bid/140949/5-Tips-That-Will-Get-Your-Email-Campaigns-Read)。比如，我们最近发出的一篇文章[“Survival Metrics”](https://blog.mixpanel.com/2016/06/23/survival-metrics-will-help-company-survive)，它的电子邮件主题行长 42 个字符：
 
 _How will you help your company survive?_
 
-And here’s one from [our profile of Hunter Walk](https://blog.mixpanel.com/2016/07/06/hunter-walk-early-stage-venture-capital/?discovery=homepage%20feature) that is just on the other side of that window, at 65 characters:
+这儿还有另外一个典型 [our profile of Hunter Walk](https://blog.mixpanel.com/2016/07/06/hunter-walk-early-stage-venture-capital/?discovery=homepage%20feature)，这篇就超过了范围, 65 个字符:
 
 _Hunter Walk grew YouTube by 40x. Here’s his advice to startups_
 
-But by analyzing the open rate by characters in the subject line across our massive data set, it became obvious that the 40-60 character “standard” is a bit dated.
+但是通过分析大数据中的打开率和主题行字符数的相关性发现，40-60 字符数的“标准”很明显有点过时了。
 
 [![](https://blog.mixpanel.com/wp-content/uploads/2016/07/subject-length-ctt-228x300.png)](https://twitter.com/intent/tweet?text=Why%20do%20people%20open%20emails%3F%20%20https%3A%2F%2Fblog.mixpanel.com%2F2016%2F07%2F12%2Fwhy-do-people-open-emails%2F%3Futm_campaign%3D%26utm_source%3Dtwitter%26utm_medium%3Dsocial%26utm_content%3D%20pic.twitter.com%2FnY6uBYBnKd)  
 
 
-
-While you might not want to read an 80 character subject line, desktop clients still do a great job displaying them. But more and more, we read our email on mobile. And in apps like Google’s Inbox, the subject line gets truncated and an ellipsis is added after 27 characters. So our example subject lines from above become: 
+虽然你可能不想再读 80 字符的主题行，桌面客户端仍然做了大量的工作全部显示它们。但是越来越多的时候，我们是在移动设备上阅读邮件。在 app 里，像 Google 的 Inbox，主题行被截断成 27 个字符，后面加上一个神略号。所以我们上面例子的主题行会变成这样：
 
 _How will you help your comp…_
 
 _Hunter Walk grew YouTube by…_
 
-The sweet spot is definitely under 40 characters. When you think about how we read email today, that shouldn’t be that surprising. 
+最佳做法绝对是少于 40 字符。想想我们现在是如何阅读邮件的，就不会觉得惊讶了。
 
-When we look at the open rate of subject lines at that breakpoint, **subjects with less than 30 characters long have a 15.05% open rate, while those with more than 30 characters have a 12.92% open rate. **
+让我们来看看截断的主题行的打开率，**主题少于 30 字符的有 15.05% 的打开率，那些主题超过 30 字符的打开率为 12.92% **。
 
 ![IMG_0394](https://blog.mixpanel.com/wp-content/uploads/2016/07/IMG_0394-300x154.png)
 
-#### Takeaway
+#### 小结
 
-Keep it short. Ultra-short. And when you go longer, at least make sure that the first 30 characters are enticing and informative enough on their own to get mobile readers to open.
+尽量简短。超短。而当主题行超长了，至少要确保前 30 个字符是诱人且有足够的信息让用户在移动阅读器上有欲望打开它。
 
-## Does personalizing actually help?
+## 个性化有实质性的帮助吗?
 
-Another standard recommendation is to personalize emails. You can do so using any piece of information you’ve collected with an email address, but most often it’s the recipient’s name. The thought is that by using something personalized, the subject line appears more catered to the recipient and she’ll be more likely to open it.
+另一项标准的建议是个性化的电子邮件。你可以使用任何一项你收集到的和邮件地址相关的信息，但最常见的还是收件人的姓名。个性化的核心思想就是通过使用个性化的东西，主题行显示给收件人更多的照顾，她就更有可能将其打开。
 
-But again, when actually I looked at the data, personalization didn’t seem to have that effect at all.
+但是，当实际上我看到数据的时候，并不是所有个性化都有这种效果。
 
-#### Includes variable
+#### 统计数据
 
-6,117 campaigns  
+6,117 活动数  
 
-14,361,034 opens  
+14,361,034 打开数  
 
-153,694,066 sends  
+153,694,066 发送数  
 
-**9.34% open rate**
+**9.34% 打开率**
 
-7% of all campaigns I analyzed include a variable, but the open rate is a very lackluster 9.34%, well below the 13.53% overall open rate.
 
-But when I look at my personal Gmail, this low open rate isn’t all that surprising. I see a slew of “personalized” emails. A few I’ll open, but many I won’t.
+我分析了 包含变量的 7% 的活动，但是打开率非常低，只有 9.34 %，远低于 13.53% 的整体打开率。
 
-And more importantly, it’s not noteworthy that my name is in a subject line anymore. MailMerge isn’t anything new, and like Andrew Chen talked about in “[The State of Growth Hacking](https://blog.mixpanel.com/2016/03/16/andrew-chen-and-the-state-of-growth-hacking/),” tactics decay. I’m sure there is still power in customizing an email for each user, but it needs to be more substantive than a name.
+但是当我审视自己的个人 Gmail 时，这么低的打开率也就不足为奇了。我看到大量 “personalized(个性化)” 邮件。很少一分部我会打开，但是大多数我都不会。
 
-#### Takeaway
+更重要的是，我的名字在主题行不再值得关注了。邮件合并并不是什么新东西，像 Andrew Chen 在[增长骇客](https://blog.mixpanel.com/2016/03/16/andrew-chen-and-the-state-of-growth-hacking/)中提到的战术衰减。我敢肯定为每个用户定制电子邮件仍然有增长的空间，但是需要比名字更个性点。
 
-If it genuinely makes an subject line more compelling, include a name variable. But don’t put a first name in there just because you can. Five years ago, it might have been novel to see your name in a subject line, but at this point it’s old hat.
+#### 小结
 
-## Don’t shout. Be nice.
+如果你真的想让主题行更加引人注目，包括一个名称变量。但是不要因为你可以放就一定要放一个名字在那。五年前，可能在主题行看到自己的名字会觉得与众不同，但是现在真的过时了。
+
+## 别嚷嚷，矜持点。
 
 The old best practices for what to do weren’t performing well, so I decided to take a look at something convention says you should avoid: exclamation points. For a long time the consensus has been that exclamation points appear spammy and should be used with extreme caution or else your email risks getting caught in spam filters. Nevertheless, I found that a lot of subject lines still had them. Here’s how the data broke out:
 
-#### Includes ‘!’
+之前的最佳实践现在都有些过时了，那来看看有哪些习惯是应该避免的：惊叹号。很长一段时间里，大家都形成一个共识，带感叹号的都是垃圾邮件，应谨慎使用，否则你的邮件有被垃圾邮件过滤器过滤的风险。然而，我发现很多主题行仍然使用感叹号。看看下面的数据：
 
-22,844 campaigns  
+#### 包含 ‘!’
 
-62,989,308 opens  
+22,844 活动数  
 
-576,772,852 sends  
+62,989,308 打开数  
 
-**10.92 % open rate**
+576,772,852 发送数  
+
+**10.92 % 打开率**
 
 It looks like this one still holds true although, honestly, the open rate didn’t take as big of a hit as I expected. That said, when I started to look at subject lines with multiple exclamation points, the open rates plummeted. Subject lines with three exclamation points (“!!!”) took the biggest hit, with open rates falling to a dismal 7.59%.
 
-So, if one exclamation point is spammy, then three are downright rude. For contrast, I looked at polite words, like “thank you”, “please”, and “sorry,” to see how being a little more courteous affected open rates.
+看起来像是这么回事，老实说，打开率并没有我预期的打击那么大。当我开始看到有多个感叹号的主题行，打开率骤降。带三个感叹号的主题行遭受的打击最大，打开率下降到凄惨的 7.59%。
 
-#### Includes ‘thanks’, ‘thank you’, ‘please’, ‘sorry’
+那么，如果一个感叹号是垃圾，那三个感叹号简直就是粗鲁。那么来对比下礼貌的词语，如“谢谢你”、“请” 和“对不起”，来看看礼貌对打开率的影响。
 
-1,478 campaigns  
+#### 包含 ‘谢谢’, ‘谢谢你’, ‘请’, ‘对不起’
 
-3,911,452 opens  
+1,478 活动数  
 
-17,022,299 sends  
+3,911,452 打开数  
 
-**22.98% open rate**
+17,022,299 发送数  
 
-#### 
+**22.98% 打开率**
 
-As you can see, it was a pretty sizable increase. It turns out a little common courtesy goes a long way.
+####
 
-#### Takeaway
+正如你所看到的，它是一个相当可观的增加。原来礼貌点很有帮助。
 
-Take some data-driven motherly advice: don’t yell and always mind your manners. Use “please” and “thank you,” and say “sorry” when you mean it.
+#### 小结
 
-## Inquiring minds want to know
+采取一些数据驱动的建议：不要叫喊，始终注意自己的礼貌。真诚的使用“请”、“谢谢”和“抱歉”等礼貌用语。
 
-In the age of Buzzfeed, you’re never too far from clickbait headlines about how “you’ll never believe what happened next.” But there’s a reason why they work, even if there is little substance behind them: they’re enticing, they get you wondering, and, before you know it, you’re clicking through.
+## 好奇心，想知道
+
+在 Buzzfeed 的时代，你会经常看到“你永远不知道接下来会发生什么”这样的标题党。但是他们总能吸引人的眼球是有原因的，虽然其背后缺乏有价值的东西：它们很诱人，它们捕获了你的好奇心，想知道吗？快来点击吧。
 
 I took a look at subject lines that had a question mark or the phrase “How to” to tease the reader about an answer that is behind the open.
 
-#### Includes ‘?’
+看看那些带个问号或"如何"的主题行，挑逗着读者打开后面的答案。
 
-10,724 campaigns  
+#### 包含 ‘?’
 
-27,387,349 opens  
+10,724 活动数  
 
-180,003,478 sends  
+27,387,349 打开数  
 
-**15.21% open rate**
+180,003,478 发送数  
 
-#### Includes ‘How to’
+**15.21% 打开率**
 
-701 campaigns  
+#### 包含 ‘如何’
 
-2,747,926 opens  
+701 活动数  
 
-13,302,419 sends  
+2,747,926 打开数  
 
-**20.66% open rate**
+13,302,419 发送数  
 
-A question mark added a little bump to the open rate, but a phrase like ‘How to’ entices a click by letting the reader know what they’re going to get if they click through. And they did at a much higher rate.
+**20.66% 打开率**
 
-#### Takeaway
+一个问号能提升一些打开率，但是一个像“如何”这样的短词通过引诱点击让读者知道点击后的内容。它们能有更高的打开率。
 
-Luring your reader with what they’ll get in return for opening, like the answer to a question, entices them to open.
+#### 小结
+
+许诺读者们会得到什么作为诱饵，比如回答一个问题，诱使他们打开它。
 
 ## Does creating urgency matter?
 
@@ -241,6 +248,3 @@ _Is there a best practice I didn’t test that you’d like to have answers on? 
 [![](https://blog.mixpanel.com/wp-content/uploads/2016/07/why-do-people-open-emails-ctt-300x150.png)](https://twitter.com/intent/tweet?text=Why%20do%20people%20open%20emails%3F%20%20https%3A%2F%2Fblog.mixpanel.com%2F2016%2F07%2F12%2Fwhy-do-people-open-emails%2F%3Futm_campaign%3D%26utm_source%3Dtwitter%26utm_medium%3Dsocial%26utm_content%3D%20pic.twitter.com%2FoRptlv49gp)
 
 _Photograph by [Andrew Taylor](https://www.flickr.com/photos/profilerehab/5707316547/in/photolist-9Gkunr-7bfPS1-KzGwZ-oxMAXY-hRmQD-J2dst-bBavHS-jWUyA-2q6n8-8F2iz9-6cdZ7H-FDFThy-3KMTAm-4kC7Ca-ouAjEm-7ZNTFh-5Qmfb6-5pw1mA-wUdon-6B817j-Bddh5-4gEfk-e3G5f-83bVCz-6k1NHD-4BSCA-bEGXg2-4qwMSH-bkbnqV-4kXzr5-kVsR6-48G2hm-4SKBZG-8iq4Go-vJs7G-cHDRcC-FF1gsD-daVFYT-33wxA-59sbz3-FCPKt-6HknLQ-2keEL6-4kTxdr-MGo5-fdVi2-afBt81-284GwD-oFg5-LLPYr), made available under an [Attribution 2.0 Generic license](https://creativecommons.org/licenses/by/2.0/)_
-
-
-
