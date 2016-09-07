@@ -1,7 +1,7 @@
 > * 原文地址：[Why do people open emails?](https://blog.mixpanel.com/2016/07/12/why-do-people-open-emails/)
 * 原文作者：[Justin Megahan](https://blog.mixpanel.com/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[Deadlion](https://github.com/Deadlion)
 * 校对者：
 
 
@@ -93,9 +93,7 @@ _Hunter Walk grew YouTube by…_
 
 ## 别嚷嚷，矜持点。
 
-The old best practices for what to do weren’t performing well, so I decided to take a look at something convention says you should avoid: exclamation points. For a long time the consensus has been that exclamation points appear spammy and should be used with extreme caution or else your email risks getting caught in spam filters. Nevertheless, I found that a lot of subject lines still had them. Here’s how the data broke out:
-
-之前的最佳实践现在都有些过时了，那来看看有哪些习惯是应该避免的：惊叹号。很长一段时间里，大家都形成一个共识，带感叹号的都是垃圾邮件，应谨慎使用，否则你的邮件有被垃圾邮件过滤器过滤的风险。然而，我发现很多主题行仍然使用感叹号。看看下面的数据：
+之前的最佳实践现在都有些过时了，那来看看有哪些习惯是应该避免的：惊叹号。很长一段时间里，大家都形成一个共识，带感叹号的都是垃圾邮件，应谨慎使用，否则你的邮件有被垃圾邮件过滤器拦截的风险。然而，我发现很多主题行仍然使用感叹号。看看下面的数据：
 
 #### 包含 ‘!’
 
@@ -106,8 +104,6 @@ The old best practices for what to do weren’t performing well, so I decided to
 576,772,852 发送数  
 
 **10.92 % 打开率**
-
-It looks like this one still holds true although, honestly, the open rate didn’t take as big of a hit as I expected. That said, when I started to look at subject lines with multiple exclamation points, the open rates plummeted. Subject lines with three exclamation points (“!!!”) took the biggest hit, with open rates falling to a dismal 7.59%.
 
 看起来像是这么回事，老实说，打开率并没有我预期的打击那么大。当我开始看到有多个感叹号的主题行，打开率骤降。带三个感叹号的主题行遭受的打击最大，打开率下降到凄惨的 7.59%。
 
@@ -135,8 +131,6 @@ It looks like this one still holds true although, honestly, the open rate didn�
 
 在 Buzzfeed 的时代，你会经常看到“你永远不知道接下来会发生什么”这样的标题党。但是他们总能吸引人的眼球是有原因的，虽然其背后缺乏有价值的东西：它们很诱人，它们捕获了你的好奇心，想知道吗？快来点击吧。
 
-I took a look at subject lines that had a question mark or the phrase “How to” to tease the reader about an answer that is behind the open.
-
 看看那些带个问号或"如何"的主题行，挑逗着读者打开后面的答案。
 
 #### 包含 ‘?’
@@ -163,88 +157,89 @@ I took a look at subject lines that had a question mark or the phrase “How to�
 
 #### 小结
 
-许诺读者们会得到什么作为诱饵，比如回答一个问题，诱使他们打开它。
+让读者们知道打开后能得到什么，比如回答一个问题，引诱他们打开它。
 
-## Does creating urgency matter?
+## 表现事情的紧迫性?
 
-Another suggested best practice is to create urgency using words like “today” and “now.” In our daily struggle against the ever-rising tide of email, it’s not that we consciously decide against opening an email; usually we just don’t have a reason to immediately open it. Then, of course, the old emails get buried under new ones, and many are never opened.
+另一个最佳实践的建议是使用“今天”和“现在”这类词，创造紧迫感。在与日渐高涨的电子邮件浪潮抗争的今天，已经不是我们有意识的决定不打开某封电子邮件，通常我们只是没有理由立即打开它。然后老的邮件就被新的邮件所淹没，所以很多邮件从来没打开过。
 
-Creating urgency in a subject line is supposed to put a little pressure on a reader to open it when they first see the email. But does it work?
+在主题行中创造些紧迫感来制造点压力，当用户第一次看到电子邮件的时候可能回打开它。但是实际上真的有用吗？
 
-#### Includes ‘today’, ‘tomorrow’, ‘tonight’, or ‘now’
+#### 包含 ‘今天’, ‘明天’, ‘今晚’, 或者 ‘现在’
 
-4,669 campaigns  
+4,669 活动数  
 
-11,979,604 opens  
+11,979,604 打开数  
 
-94,559,225 sends  
+94,559,225 发送数  
 
-**12.67% open rate**
+**12.67% 打开率**
 
-Apparently not. In fact, it’s slightly lower than the average. Creating a sense of urgency doesn’t seem to hurt the open rate enough to avoid it, but it certainly doesn’t get people rushing to open that email either.
+显然没有。事实上，它比平均水平略低。创造一种紧迫感似乎并不足以伤害到开放率，但它肯定也不会让人们急于打开电子邮件。
 
-#### Takeaway
+#### 小结
 
-As long as it’s appropriate, you’re fine using words like “now” and “today,” but don’t just shoehorn them in because you think it’ll result in a boost in your opens.
+只要适当的使用“现在”和“今天”之类的词是没问题的，但是不要仅仅因为你觉得这些词会让人们打开你的邮件而硬塞这些词。
 
-## Making that $$$
+## 用上 $$$
 
-Then there are those emails that promote a big sale and are trying to drive some revenue. They might not always be your favorite emails to receive, but they’re sent for a reason: they make money.
+还有些大促销的电子邮件，试图带动收入增长。这些邮件不可能总是你喜欢接受的，但是他们发送的理由只有一个：挣你的钱。
 
-#### Includes ‘offer’, ‘code’, ‘coupon’, ‘sale’, ‘$’, ‘discount’
+#### 包含 ‘优惠’, ‘优惠码’, ‘优惠券’, ‘大减价’, ‘$’, ‘折扣’
 
-9,370 campaigns  
+9,370 活动数  
 
-21,900,339 opens  
+21,900,339 打开数  
 
-211,747,667 sends  
+211,747,667 发送数  
 
-**10.34% open rate**
+**10.34% 打开率**
 
-That’s honestly higher than I had expected. But I suppose it’s only spam when you don’t want to see the deal. So, depending on the sale or the sender, many might be excited to see a subject with these words in their inbox. And, you know what, at least it’s transparent about the purpose of the email. Maybe that honesty pays off.
+说实话，比我预期的要高。当你不想看到这些促销的时候这些就是垃圾邮件。所以，根据促销活动或者发件人，很多人可能还愿意在收件箱中看到包含这些词语的主题的邮件。至少直接表明了邮件的目的。也许诚实不负有心人。
 
-But the outlier of sales-y words is the word “free.” Convention says to avoid it, that it will just get caught in spam filters. That made complete sense to me. But when I looked more closely, the data didn’t back up that convention at all.
+但最烂的推销词是“免费”。一般要避免用它，它会被垃圾邮件过滤器屏蔽。我完全理解。但我仔细查看后发现这一惯例在数据面前站不住脚。
 
-#### Includes ‘free’
+#### 包含 ‘免费’
 
-2,017 campaigns  
+2,017 活动数  
 
-6,272,514 opens  
+6,272,514 打开数  
 
-36,312,363 sends  
+36,312,363 发送数  
 
-**17.27% open rate**
+**17.27% 打开率**
 
-I have a hard time making sense of this. I can see how some of the old best practices might be dated, but this result throws me for a loop. Maybe we’ve all preached against using “free” for so long that we’ve overcorrected and those who dare to use it reap the benefits. Your guess is as good as mine, but whatever it is, it looks like “free” is working – so let’s all go ruin it again.
+这很难理解啊。前面我们可能看到一些老的最佳实践已经过时，但这个结果让我大吃一惊。也许我们反对使用“免费”这么久，可能有些矫枉过正了，那些敢用的人受益了。我也搞不懂为什么，但不管怎样，“免费”这个词还是有用的，所以我们再推翻一遍之前的说话。
 
-#### Takeaway
+#### 小结
 
-The important thing to remember here is that when it comes to sales emails, open rate isn’t the most important metric – revenue generated is. But surprisingly, promotional emails with words like “sale” and “offer” maintain a respectable open rate, and “free” sees a noticeable increase.
+这里要记住重要的一点，对于促销邮件来说，打开速度并不能代表什么，还是得看结果——收入的增长。不过出乎意料的是，带“大减价”和“优惠”这类词的促销邮件维持着不俗的打开率，而带“免费”的邮件打开率却大幅的增加。
 
-## Maybe avoid those mass blasts?
+## 尽量避免广撒网?
 
-The last thing I looked at was how many recipients each campaign sent to. Was the open rate on sends to 500,000 people different from campaigns that targeted 5,000 people?
+我研究的最后一件事是关于每个活动发送给多少接收人。有针对性的发送给 5,000 人，和发送给 500,000 人打开率会有什么不同？
 
-It turns out the answer is yes, and much more than I had expected.
+原来答案是肯定的，比我预期的多。
 
 [![number-of-sends-ctt](https://blog.mixpanel.com/wp-content/uploads/2016/07/number-of-sends-ctt-223x300.png)](https://twitter.com/intent/tweet?text=Why%20do%20people%20open%20emails%3F%20%20https%3A%2F%2Fblog.mixpanel.com%2F2016%2F07%2F12%2Fwhy-do-people-open-emails%2F%3Futm_campaign%3D%26utm_source%3Dtwitter%26utm_medium%3Dsocial%26utm_content%3D%20pic.twitter.com%2FDXV10CD4w7)
 
-You can see that as the sends get larger, the open rate declines. It turns out that with email marketing, one size doesn’t fit all. Those large email blasts are less targeted, and that means a diverse group of readers will find them less compelling. On the other hand, smaller sends – perhaps one that gets sent after a user takes a specific action to qualify for a more targeted send – have a much higher open rate. Campaigns that go out to 5,000 people have double the open rate of those that go out to 500,000 people.
 
-#### Takeaway
+你可以看到，发送的越多，打开率越低。这说明，使用电子邮件营销，一种尺寸并不适合所有人。那些大型群发电子邮件毫无针对性，这意味着一个多元化的读者群并不太引人关注。另一方面，小部分发送后，能获取到一些用户的反馈行为，这些数据帮助发送一些更有针对性的邮件，以达到更高的打开率。给 5,000 人发送的活动打开率是给 500,000 发送的两倍。
 
-Don’t send fewer emails; create more specific email campaigns that are targeted and are crafted for a smaller subset of your users.
+#### 小结
 
-## Don’t build tomorrow’s emails with yesterday’s best practices
+不是要少发邮件，而是有针对性的创建一些更有特点的邮件活动，精心维护每一个小用户群体。
 
-After running all these numbers – and scores more that didn’t yield as significant or noteworthy results – my overall takeaway is that we all need to to question more of yesterday’s best practices. Question what you learned six years ago when you first started sending out emails. Question the practices your company has put into place. Things change too quickly to carve email marketing commandments in stone.
+## 别用过去的最佳实践来创建未来的电子邮件
 
-Learn from the numbers and the lessons of this article, but question them too. Conventions change. How people are reading their emails changes and what was once a compelling subject line in 2011 might not be one in 2016\. Tactics, like including a name in a subject line, quickly wear out their use. Words that were toxic in the past might not be today.
+分析完这些数据，数据再好看也不能代表什么，我想表达的是，我们需要去质疑曾经的最佳实践。想想六年前你开始发送邮件，学到了什么。看看你们公司还在用的方法。事物变化的太快，不要把营销戒律当成箴言刻在石头上。
 
-It seems so simple. We’re all just trying to get someone to click (or tap) on our subject lines and take a quick look at an email. But so is everyone else. Take the time to craft good subject lines, find what works, and send out emails that your users will want to open.
+从数字和这篇文章中所学到的，同样也需要去质疑。惯例也会变。人们阅读邮件的偏好也会变，2011 年觉得这个主题行很吸引人，2016 年可能就不感兴趣了。像在主题行中包含用户的名字，这种策略也很快过时了。曾经“有毒”的一些词，可能今天就“没毒”了。
 
-_Is there a best practice I didn’t test that you’d like to have answers on? Let us know. Email [blog@mixpanel.com](mailto:blog@mixpanel.com) or tweet [@mixpanel](http://twitter.com/mixpanel) and I’ll take a look._
+看起来很简单。我们都只是在想尽办法让大家点主题行，瞄一眼我们的邮件。但大家都一样。花时间来构思好的主题行，找出有效的方法，然后发出让用户想要打开的邮件。
+
+_还有你想知道，但我们没有测试到的好办法? 快告诉我们吧。 邮件 [blog@mixpanel.com](mailto:blog@mixpanel.com) 或 tweet [@mixpanel](http://twitter.com/mixpanel) 我们会看的._
 
 [![](https://blog.mixpanel.com/wp-content/uploads/2016/07/why-do-people-open-emails-ctt-300x150.png)](https://twitter.com/intent/tweet?text=Why%20do%20people%20open%20emails%3F%20%20https%3A%2F%2Fblog.mixpanel.com%2F2016%2F07%2F12%2Fwhy-do-people-open-emails%2F%3Futm_campaign%3D%26utm_source%3Dtwitter%26utm_medium%3Dsocial%26utm_content%3D%20pic.twitter.com%2FoRptlv49gp)
 
-_Photograph by [Andrew Taylor](https://www.flickr.com/photos/profilerehab/5707316547/in/photolist-9Gkunr-7bfPS1-KzGwZ-oxMAXY-hRmQD-J2dst-bBavHS-jWUyA-2q6n8-8F2iz9-6cdZ7H-FDFThy-3KMTAm-4kC7Ca-ouAjEm-7ZNTFh-5Qmfb6-5pw1mA-wUdon-6B817j-Bddh5-4gEfk-e3G5f-83bVCz-6k1NHD-4BSCA-bEGXg2-4qwMSH-bkbnqV-4kXzr5-kVsR6-48G2hm-4SKBZG-8iq4Go-vJs7G-cHDRcC-FF1gsD-daVFYT-33wxA-59sbz3-FCPKt-6HknLQ-2keEL6-4kTxdr-MGo5-fdVi2-afBt81-284GwD-oFg5-LLPYr), made available under an [Attribution 2.0 Generic license](https://creativecommons.org/licenses/by/2.0/)_
+_图片来自 [Andrew Taylor](https://www.flickr.com/photos/profilerehab/5707316547/in/photolist-9Gkunr-7bfPS1-KzGwZ-oxMAXY-hRmQD-J2dst-bBavHS-jWUyA-2q6n8-8F2iz9-6cdZ7H-FDFThy-3KMTAm-4kC7Ca-ouAjEm-7ZNTFh-5Qmfb6-5pw1mA-wUdon-6B817j-Bddh5-4gEfk-e3G5f-83bVCz-6k1NHD-4BSCA-bEGXg2-4qwMSH-bkbnqV-4kXzr5-kVsR6-48G2hm-4SKBZG-8iq4Go-vJs7G-cHDRcC-FF1gsD-daVFYT-33wxA-59sbz3-FCPKt-6HknLQ-2keEL6-4kTxdr-MGo5-fdVi2-afBt81-284GwD-oFg5-LLPYr), 遵守版权 [Attribution 2.0 Generic license](https://creativecommons.org/licenses/by/2.0/) 下可用_
