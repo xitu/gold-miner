@@ -1,27 +1,26 @@
 > * 原文地址：[Collaborative Map-Reduce in the Browser](https://www.igvita.com/2009/03/03/collaborative-map-reduce-in-the-browser/)
 * 原文作者：[Ilya Grigorik](https://www.igvita.com/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
-* 校对者：
+* 译者：[mypchas6fans] (https://github.com/mypchas6fans)
+* 校对者：[siegeout] (https://github.com/siegeout) [MAYDAY1993] (https://github.com/MAYDAY1993)
 
-After immersing yourself into the field of distributed computing and large data sets you inevitably come to appreciate the elegance of [Google's Map-Reduce framework](http://en.wikipedia.org/wiki/MapReduce). Both the generality and the simplicity of its _map_, _emit_, and _reduce_ phases is what makes it such a powerful tool. However, while Google has made the theory public, the underlying software implementation remains closed source and is arguably one of their biggest competitive advantages ([GFS](http://labs.google.com/papers/gfs.html), [BigTable](http://labs.google.com/papers/bigtable.html), etc). Of course, there is a multitude of the open source variants ([Apache Hadoop](http://hadoop.apache.org/core/), [Disco](http://discoproject.org/), [Skynet](http://skynet.rubyforge.org/), amongst many others), but one can't help but to notice the disconnect between the elegance and simplicity of the theory and the painful implementation: custom protocols, custom servers, file systems, redundancy, and the list goes on! Which begs the question, how do we lower the barrier?
+在分布式计算和海量数据中摸爬滚打了很久之后，你一定会感谢优雅的 [Google Map-Reduce 框架](http://en.wikipedia.org/wiki/MapReduce)。它的 _map_ ，_emit_ 和 _reduce_ 模块既通用又简洁，这使它成为了一个强有力的工具。虽然 Google 公开了理论，但是底层的软件实现仍然是闭源的，而这可以说是他们最大的竞争优势之一（[GFS](http://labs.google.com/papers/gfs.html)，[BigTable](http://labs.google.com/papers/bigtable.html)，等等）。当然，现在有很多开源的分支（[Apache Hadoop](http://hadoop.apache.org/core/)，[Disco](http://discoproject.org/)，[Skynet](http://skynet.rubyforge.org/)，以及其他），但是人们总会发现，优美简洁的理论和惨痛的实现之间存在的断层：诸如自定义协议，自定义服务器，文件系统，冗余，等等等等。问题来了，我们怎样能把这个差距缩短一点？
 
-## Massively Collaborative Computation
+## 大规模并行计算
 
-After several iterations, false starts, and great conversations with [Michael Nielsen](http://michaelnielsen.org/blog/?page_id=181), a flash of the obvious came: **HTTP + Javascript**! What if you could contribute to a computational (Map-Reduce) job by simply pointing your browser to a URL? Surely your social network wouldn't mind opening a background tab to help you crunch a dataset or two!
+在我和 [Michael Nielsen](http://michaelnielsen.org/blog/?page_id=181) 进行了多次迭代、试错、深入的对话之后，一个念头突然闪现出来: **HTTP + Javascript**！如果简单的通过浏览器打开一个 URL 就能为计算任务（ Map-Reduce ）做贡献会怎样？你的社交网络肯定不会介意多开一个后台 tab 帮你压缩一两个数据集！
 
-![](https://www.igvita.com/posts/09/xbrowsers.png.pagespeed.ic.gtlyz9PZB7.jpg)Instead of focusing on high-throughput proprietary protocols and high-efficiency data planes to distribute and deliver the data, we could use battle tested solutions: HTTP and your favorite browser. It just so happens that there are more [Javascript processors](http://en.wikipedia.org/wiki/JavaScript) around the world (every browser can run it) than for any other language out there - a perfect data processing platform.
+![](https://www.igvita.com/posts/09/xbrowsers.png.pagespeed.ic.gtlyz9PZB7.jpg) 与其关注高吞吐率的专有协议和高效的数据通道来分发和传递数据，我们可以用实战检验过的方法： HTTP 和你喜欢的浏览器。而且全世界还有无数的 [Javascript 处理器](http://en.wikipedia.org/wiki/JavaScript) ——每个浏览器都可以执行。比起其他语言，它是一个完美的数据处理平台。
 
-Google's server farm is [rumored to be over six digits](http://www.youtube.com/watch?v=6x0cAzQ7PVs) (and growing fast), which is an astounding number of machines, but how hard would it be to assemble a million people to contribute a fraction of their compute time? I don't think it's far-fetched at all as long as the barrier to entry is low. Granted, the efficiency of the computation would be much lower, but we would have a much larger potential cluster, and this could enable us to solve a whole class of problems previously unachievable.
+Google 据说有[数以百万计的服务器](http://www.youtube.com/watch?v=6x0cAzQ7PVs)（而且还在猛增），这是一个惊人的数量。那想要组织一百万人，把他们的零碎计算时间贡献到其中该有多难？我认为这并不是难以实现的，毕竟开始的门槛很低。如果能做到，虽然计算的效率会很低，不过我们会得到一个超大的集群，可以让我们解决一些以前完全做不到的问题。
 
-## Client-Side Computation in the Browser
+## 浏览器中的客户端计算
 
-Aside from storing and distributing the data the most expensive part of any job is the CPU time. However, by splitting the data into small and manageable chunks, we could easily construct an HTTP-based workflow to let the user's browser handle this for us:
+除了数据的存储和分发，计算任务中最重要的一块就是 CPU 时间。但是，通过把数据分割成可管理的小块，我们可以很容易构造一个基于 HTTP 的工作流，让用户的浏览器为我们处理这些事：
 
 ![](https://www.igvita.com/posts/09/xbrowser-mr.png.pagespeed.ic.1SaJmT926Y.png)
 
-The entire process consists of four easy steps. First, the client requests to join the cluster by making a request to the job-server which tracks the progress of the computation. Next, the job-server allocates a unit of work and redirects ([301 HTTP Redirect](http://en.wikipedia.org/wiki/URL_redirection#HTTP_status_codes_3xx), for example) the client to a URL which contains the data and the Javascript map/reduce functions. Here is a sample for a simple distributed word-count:
-
+整个过程包括简单的 4 步。首先，客户端向追踪计算进度的 job 服务器申请加入集群。然后服务器分配一个工作单元，把客户端重定向（例如 [301 HTTP Redirect](http://en.wikipedia.org/wiki/URL_redirection#HTTP_status_codes_3xx)）到一个包含数据和 Javascript map/reduce 方法的 URL。下面是一个简单的分布式 word-count 示例：
 ```
 <html>
   <head>
@@ -51,12 +50,11 @@ The entire process consists of four easy steps. First, the client requests to jo
 </html>
 ```
 
-Once the page is loaded and the Javascript is executed (which is getting faster and faster with the [Javascript VM](http://ejohn.org/blog/javascript-performance-rundown/) [wars](http://code.google.com/p/nativeclient/)), the results are sent back (POST) to the job-server, and the cycle repeats until all jobs (_map_ and _reduce_) are done. Hence joining the cluster is as simple as opening a URL and distribution is handled by our battle-tested HTTP protocol.
+一旦页面加载和 Javascript 被执行之后（因为有了 [Javascript VM](http://ejohn.org/blog/javascript-performance-rundown/) [wars](http://code.google.com/p/nativeclient/)，这个过程越来越快了），结果被发回（ POST ）job 服务器，上述过程不断重复，直到所有任务（ _map_ 和 _reduce_ ）完成。所以加入集群只需要简单的打开一个 URL，而分发由 HTTP 协议完成。
 
-## Simple Job-Server in Ruby
+## 用 Ruby 写一个简单的 job 服务器
 
-The last missing piece of the puzzle is the job server to coordinate the distributed workflow. Which, as it turns out, takes just thirty lines of Ruby with the help of the [Sinatra web framework](http://www.sinatrarb.com/):
-
+最后的一块拼图是 job 服务器，用来协调分发的工作流。借助 [Sinatra web framework](http://www.sinatrarb.com/) ，只需要如下 30 行 Ruby 代码：
 
 
     require "rubygems"
@@ -95,8 +93,8 @@ The last missing piece of the puzzle is the job server to coordinate the distrib
 
 
 
-[bmr-wordcount](http://www.github.com/igrigorik/bmr-wordcount/) - Browser Map-Reduce: word-count example
+[bmr-wordcount](http://www.github.com/igrigorik/bmr-wordcount/) - 浏览器 Map-Reduce: word-count 示例
 
-That's it. Start up the server and type in the URL in your browser. The rest is both completely automated and easily parallelizable - just point more browsers at it! Add some load balancing, a database, and it may be just crazy enough that it might actually work.
+就这些。启动服务器然后在浏览器里打开 URL 。剩下的完全自动化，并且很容易并行 —— 打开更多的浏览器就好了。加上一些负载均衡，数据库，它就真的可以干活了，很酷吧。
 
-Part II, with notes and commentary from the community: [Collaborative / Swarm Computing Notes](http://www.igvita.com/2009/03/07/collaborative-swarm-computing-notes/)
+第二部分，包含来自社区的一些笔记和评论: [Collaborative / Swarm Computing Notes](http://www.igvita.com/2009/03/07/collaborative-swarm-computing-notes/)
