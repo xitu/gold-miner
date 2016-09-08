@@ -71,23 +71,28 @@ There are some subtle differences to note between the Server-Side Swift Framewor
 *   Zewo is using the 05–09-a Swift snapshot, which means that it has trouble building in release mode and has to be run in debug mode. All Zewo tests were performed with Zewo built and running in debug mode (without release optimizations) for this reason.
 *   Static file handling is a point of debate amongst Server-Side Swift Frameworks. Vapor and Zewo both recommend using Nginx as a proxy for static file handling, then putting the framework behind that as the processing power for the backend. Perfect suggests using their built in handler, and I have not seen any comments on IBM regarding their own views on the subject. As this study was not about how well frameworks work with established server applications like Nginx, static file handling was used natively with each framework. You may be able to achieve better performance in both Vapor and Zewo if you choose to build with this in mind. This is also a secondary reason that I included JSON testing.
 *   [Added September 1st with updated results] Zewo is a single threaded application. You can get extra performance out of it by running one instance of the application per available CPU, as they follow a concurrent, rather than multi-threaded model. For the purposes of this study, only one instance of each application was run.
-*   Toolchains. Each framework is building off a different development snapshot toolchain from Apple. At the time of final testing they were/are: _- DEVELOPMENT-SNAPSHOT-2016-08–24-a for Perfect - DEVELOPMENT-SNAPSHOT-2016-07–25-a for Vapor & Kitura - DEVELOPMENT-SNAPSHOT-2016-05–09-a for Zewo_
+*   Toolchains. Each framework is building off a different development snapshot toolchain from Apple. At the time of final testing they were/are: 
+    ```
+    _- DEVELOPMENT-SNAPSHOT-2016-08–24-a for Perfect
+    - DEVELOPMENT-SNAPSHOT-2016-07–25-a for Vapor & Kitura
+    - DEVELOPMENT-SNAPSHOT-2016-05–09-a for Zewo_
+    ```
 *   Vapor has a special syntax for running releases. If you simply execute the binary, you’re going to get some extra console logging that is meant to help with the development and debugging process. That has a little overhead. To run Vapor in release mode you need to add
 
-    --env=production
+    `--env=production`
 
 to the executable. i.e.
 
-    .build/release/App --env=production
+    `.build/release/App --env=production`
 
 *   [Added September 1st with updated results] When working with Zewo, even though you cannot build with swift in release mode on the 05–09-a toolchain, you can add some release mode optimizations by passing these arguments:
 
-    swift build -Xswiftc -O
+    `swift build -Xswiftc -O`
 
 *   Node.js/Express does not build, nor does it differentiate between debug/release
 *   Static file handling is included in Vapor’s default middleware. If you are not using static files and want to optimize for speed, you must include (as I did in VaporJSON):
 
-    drop.middleware = []
+    `drop.middleware = []`
 
 #### Why Node.js/Express?
 
