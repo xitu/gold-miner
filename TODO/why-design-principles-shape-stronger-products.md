@@ -2,7 +2,7 @@
 * 原文作者：[Jessie Chen](https://uxdesign.cc/@lovejessiecat)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[rottenpen](https://github.com/rottenpen)
-* 校对者：
+* 校对者：[mypchas6fans](https://github.com/mypchas6fans) [Graning](https://github.com/Graning)
 
 
 
