@@ -1,7 +1,7 @@
 > * 原文地址：[Benchmarks for the Top Server-Side Swift Frameworks vs. Node.js](https://medium.com/@rymcol/benchmarks-for-the-top-server-side-swift-frameworks-vs-node-js-24460cfe0beb)
 * 原文作者：[Ryan Collins](https://medium.com/@rymcol?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：[mypchas6fans] (https://github.com/mypchas6fans)
+* 译者：
 * 校对者：
 
 
@@ -10,15 +10,15 @@
 
 
 
-### 引言
+### Introduction
 
-最近我在弄服务端的 Swift，有人问我：
+Recently I was working in Server-Side Swift, and I was asked the question:
 
-> “服务端的 Swift 能胜过 Node.js吗？”
+> “Can Server-Side Swift beat Node.js?”
 
-Swift 从开源并移植到 Linux 开始，其野心就是作为一门包打天下的主要语言，包括服务端。很多人肯定会像我一样好奇，所以我很乐意在此给大家分享我的学习成果。
+Swift as a primary language for everything, including the server, has been intriguing since it was first open sourced and ported to Linux. Many of you are assuredly as curious as I am, so I’m very pleased to share the results of my study here.
 
-#### 顶级的服务端 Swift 框架
+#### The Top Server-Side Swift Frameworks
 
 At the time of writing, the top Server-Side Swift Frameworks (Listed in order of Stars on GitHub) are:
 
