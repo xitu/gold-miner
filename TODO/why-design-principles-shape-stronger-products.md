@@ -1,36 +1,35 @@
 > * 原文地址：[Why design principles shape stronger products](https://uxdesign.cc/why-design-principles-shape-stronger-products-ae677bdd831b#.20fz1utbj)
 * 原文作者：[Jessie Chen](https://uxdesign.cc/@lovejessiecat)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
-* 校对者：
+* 译者：[rottenpen](https://github.com/rottenpen)
+* 校对者：[mypchas6fans](https://github.com/mypchas6fans) [Graning](https://github.com/Graning)
 
 
 
 
 
 
-Our design team didn’t have any design principles and it was difficult to determine design success.
+我们设计团队没有任何设计原则，这导致我们很难评判设计。
 
-My job is to design and improve/redesign a legacy CRM system for real estate professionals. We often ran into design limitations because we didn’t have any principles to refer to. Our users have a love/hate relationship with the product. Some users think it’s a great lead generation tool that booststheir business and helps to manage their contacts. Some of them think it’s cumbersome, time-consuming to complete tasks, buggy and not user-friendly. There is so much to improve, but what are the restrictions?
+我的工作是为房地产专业人士设计/改善一个旧的 CRM 系统。我们常常会碰到设计的瓶颈，因为我们没有任何设计原则可做参考。我们的用户有着自己对产品喜好的标准。有的用户觉得这个系统是一个能创造销售机会，推进业务和管理联系人的好工具。但有些人会认为这系统奇怪且不易操作，会使完成任务变得繁琐费时。是什么限制了它，让它需要改进那么多东西呢？
 
-#### New features vs. existing problems
+#### 新功能 vs. 存在的问题
 
-We collaborate with our user research team to conduct user testing/interviews. It varies from testing existing features to redesigning a prototype. We gather user feedback and categorize them to define or confirm usability issues. We go through the cycle of user testing, design, and iterate. Yet, while we working hard improving the product, new features are often requested. This can be frustrating, especially on a page that already has usability issues. The more functions you add, the more complex it becomes.
+我们与我们的研究团队合作，对用户进行测试与访谈。包括测试已有功能和重新设计原型。我们收集用户的反馈，并进行分类，以明确或确认适用性问题。我们进行了一次又一次的用户测试，设计和迭代。然而，当我们努力提高产品的同时，新的需求往往会被提出。这可能是令人沮丧的，尤其是在已经出现适用性问题的页面上。你添加的函数越多，它就会变得越复杂。
 
-#### Legacy design patterns
+#### 传统的设计模式
 
-At work, we have our legacy design patterns. Thus, new designs are always tied into consistency. In theory, consistency is necessary because we don’t want to detract from what users are doing. Though at the same time, we want to move fast and reduce task clicks. But then we would have to sacrifice consistency. What should we do? How should we rank consistency and efficiency? Which is more important?
+在工作中，我们有我们的传统设计模式。因此，新的设计往往都有着一致性。从理论上说，一致性是必要的，因为我们不想阻碍用户流畅地使用我们的界面。与此同时，我们希望页面跳转更快，任务点击更少。但是这样就必须牺牲一致性。那我们该怎么办呢？一致性与效率哪个更重要呢？
 
-#### User needs vs. Design needs
+#### 用户需求 vs. 设计需求
 
-Through user testing, we learned that user needs often don’t match design needs. Admit it, don’t we all have the tendency to design based on our hypothesis? We think we understand the user flow without further user research. The truth is that we aren’t always right. The lessons impart a human-oriented sense of “why?”. Why don’t users just get it? Why can’t they find such an obvious button? Why wouldn’t they want to use a function that we think is useful? Why don’t they like the existing features? So many why that confuses us.
+通过用户测试，我们了解到用户的需求往往和设计的需要不一致。承认吧，我们经常会基于假设进行设计。我们认为，我们清楚用户流程而无需进一步进行研究。实际上我们并不总是对的。事实教会了我们要有以人为本地思考“为什么”的意识。为什么用户就是不明白呢？为什么他们找不到这样一个明显的按钮呢？为什么他们不想使用我们认为有用的功能呢？为什么他们不喜欢现有的功能？那么多的为什么一直困扰着我们。
 
-We learned that the company built the CRM over years. It was developed from version 1 to 2, and now version 3\. The legacy patterns worked for the previous versions, why won’t they do the same on the current one? We started to realize that the users are different. When you are dealing with diverse users, it’s important to first understand their needs. Learn who they are, what we need to design for. Make sure you know what their user stories are, and what their journey map is like.
+我们了解到，该公司建立了多年的 CRM 客户关系管理。它从版本 1 开发到了如今的版本 3 。为什么现在版本的工作模式没有做成跟过去版本一样呢？我们从这里开始意识到，用户是不同的。当你对待不同的用户，先去了解他们的需求是很重要的。我们需要了解我们为谁设计。确保你知道他们的用户背景，以及他们背后的故事等。
 
-### Inspirations
+### 启示
 
-We came to the conclusion that we need to create a set of design principles. I set up a design team meeting and required everyone to present their ideas. I recommended a website called [Design Principles FTW](http://www.designprinciplesftw.com/) for inspirations. You can look up design principles from a list of companies, such as Google, Facebook, Apple.
-
+我们得出的结论是，我们需要建立一套设计原则。我成立了一个设计团队会议，并要求每个人都提出自己的想法。我推荐了一个网站叫 [ Design Principles FTW ](http://www.designprinciplesftw.com/)来获取灵感。你可以在列表上查看到诸如谷歌， Facebook ，苹果等公司的设计原则。
 
 
 
@@ -43,10 +42,9 @@ We came to the conclusion that we need to create a set of design principles. I s
 
 
 
-### Define Design Principles
+### 明确设计原则
 
-We generated solid design principle ideas from the presentation. We needed to go deeper and define what they are. I set up a second meeting and asked everyone to write down their principles on sticky notes. Then we all put them up on the wall to group them and rank the importance.
-
+通过报告，我们想到了很多关于设计原则实实在在的理念。我们需要更深一层地去明确它们是什么。我设置了第二次会议，并要求每个人都在便签上写下自己的原则。然后，我们都将它挂在墙上将他们分组和按重要性排名。
 
 
 
@@ -59,13 +57,11 @@ We generated solid design principle ideas from the presentation. We needed to go
 
 
 
-#### Maslow’s hierarchy of needs
+#### 马斯洛的需求层次结构理论
 
-As we started to figure out what the design principles should be, we needed a better way to visualize them. Back in June, I wrote a [Lyft redesign article](https://uxdesign.cc/lyft-re-design-case-study-3df099c0ce45#.x9kc0h6om)and talked about their design principles. They used a pyramid shape ([Maslow’s hierarchy of needs](http://www.simplypsychology.org/maslow.html)) define the importance of order. It inspired me and I decided to give that a try.
+当我们开始找到设计原则应该是什么。我们需要找到更好的方法来将它们可视化。 在六月的时候, 我写了一篇 [关于 Lyft 重新设计的文章](https://uxdesign.cc/lyft-re-design-case-study-3df099c0ce45#.x9kc0h6om) 并且讨论了他们的设计原则。 他们使用了一个金字塔模型 ([马斯洛的需求层次理论](http://www.simplypsychology.org/maslow.html)) 来明确重要性的排名。 我从中受到了启发，也想这样试试看。
 
-I printed out the design principles we created and cut them into pieces. I drew a giant pyramid on the white board and put a sample of Maslow’s hierarchy of needs next to it. Each of us got a set of principles and put them into the pyramid based on the way we wanted to rank them.
-
-
+我打印出我们创建的设计原则并剪裁成一张张纸片。我在白板上画出了一个巨大的金字塔，并把需求层次理论放在它的旁边。我们每个人都得到了一套设计原则，将他们作为金字塔的基础以我们需要的方式进行排名。
 
 
 
@@ -73,13 +69,13 @@ I printed out the design principles we created and cut them into pieces. I drew 
 
 
 
-Prioritize design principles (round 2)
+设计原则的优先级 (round 2)
 
 
 
-#### Oops, conflicts occur
+#### 哎呀，发生冲突了
 
-We realized there were a few conflicts. We can’t decide which is more important, consistency or efficiency? We had a long discussion. At the end, we decided to group consistency and efficiency together. The reason is that it often differs depending on what project you work on and where you are during the process. For example, our engineers prefer consistency because they already built an style library. As designers, we have empathy for our users because of the extra number of clicks they have to go through. We want retention! We want to attract existing users of competitor’s product to our product! We know some legacy patterns are stopping us from accomplish it. Why not explore options that can actually help them run their business more efficiently? What if there is a need to prioritize efficiency over consistency for a specific case?
+我们意识到有一些冲突。我们不能决定哪个更重要，一致性或效率？我们讨论了很长一段时间。最后我们决定将一致性和效率组合在一起。因为根据你的项目，你的工作往往不同。例如，我们的工程师喜欢一致性，因为他们已经建立好了一个风格库。但作为设计师，我们能理解我们的用户，因为他们（被迫）得多点鼠标。我们需要用户留存，必须吸引竞争对手的用户使用我们的产品。我们知道一些旧的模式阻止我们完成它，所以为什么不探索实际上可以帮助他们更有效运行他们业务的选项呢？如果有一个需要优先考虑效率而不是一致性的情况呢？
 
 
 
@@ -89,15 +85,15 @@ We realized there were a few conflicts. We can’t decide which is more importan
 
 
 
-[Image credit](http://ccwatraining.org/avoiding-conflict-is-not-the-goal-resolving-conflict-is/)
+[图片来源](http://ccwatraining.org/avoiding-conflict-is-not-the-goal-resolving-conflict-is/)
 
 
 
-**Here is something I learned from design events:** Don’t be afraid of creating new patterns if specific legacy patterns aren’t working well. Communicate with the engineers and product managers, help them understand the special needs. Hopefully, that way you can get your new design patterns into the next sprint.
+**这是我从设计活动中所学到的东西:** 如果特定的传统模式无法正常工作，请不要害怕创建新的模式。请与工程师和产品经理沟通，帮助他们了解特殊的需求。如果顺利的话，你可以再下一个迭代中得到新的设计模式。
 
-### Finalize Design Principles
+### 确定设计原则
 
-We were so excited! Then, we paused. “Collaboration” exists in every step, we should take it from the pyramid. Beauty is an effective word, but why don’t we make it sound more artistic and fancier?
+我们是如此兴奋！然后，我们停了下来。“合作”存在于每一步中，我们应该把它从金字塔中取下来。美是一种有效的形容词，但是我们为什么不让它听起来更文艺一些呢？
 
 
 
@@ -107,17 +103,17 @@ We were so excited! Then, we paused. “Collaboration” exists in every step, w
 
 
 
-Prioritize design principles (round 2)
+优先的设计原则(round 2)
 
 
 
-We had an idea to visualize the pyramid with pictures of examples next to it. I thought about how burgers are made, with bread, meat and sauce. I tried a few ideas and decided that meat is too specific. I replace “Meat” with “Ingredients”, as it’s more broad and presents psychological needs better.
+我们有一个想法，将可视化的金字塔放在图片例子的旁边。我想到了汉堡包的组成，面包，肉和酱。我尝试了一些想法，觉得肉太具体了。我用“馅料”替代“肉”，因为它更广泛，能更好表达心理需求。
 
-**Here is what we ended up with:**
+**最后：**
 
-*   Know your user = **Bread** (Basic needs)
-*   Clarity + Consistency & Efficiency= **Ingredients** (Psychological needs)
-*   Aesthetics = **Sauce** (Self-fulfillment needs)
+*   了解你的用户= **面包** (基础需求)
+*   清晰 + 一致 & 效率= **馅料** (心理需求)
+*   美学 = **酱料** (自我实现的需求)
 
 
 
@@ -133,9 +129,9 @@ We had an idea to visualize the pyramid with pictures of examples next to it. I 
 
 
 
-#### Design Principles
+#### 设计原则
 
-Here is a diagram I created. The concept should be self-explanatory and visualizes the importance of each principle.
+如图，设计原则这个概念应该是不言自明的，同时每个原则的重要性都是可视化的。
 
 
 
@@ -149,35 +145,14 @@ Here is a diagram I created. The concept should be self-explanatory and visualiz
 
 
 
-### Definition:
+### 定义:
 
-#### Know your users
-
-*   **Understand user needs.** Understand what their needs are before being able to deliver the right solution. Know your users by understanding their goals and frustrations through interviews.
-*   **Show empathy by adapting to user needs.** Be aware of user needs and actual behavior. Manage your user’s expectations and understand that you are not your user.
+#### 清楚你的用户
 
 
+*   **明白用户的需求 ** 在能够提供正确的解决方案之前了解他们的需求。通过采访了解到用户的目标和遇到的困难。
 
-
-
-
-
-
-
-* * *
-
-
-
-
-
-
-
-#### Clarity
-
-*   **Clarity is all about the relationships between elements.** Consider the relationships between items on the page and structure the page based on importance.
-*   **Create structure and hierarchy.** Provide timely feedback that engenders confidence in the system. Users should know the consequence of each action they take.
-
-
+*   **通过契合用户需求来表达对用户的理解 **了解用户的需求和实际行为。处理好用户的期待，同时理解你不是你的用户。
 
 
 
@@ -195,11 +170,10 @@ Here is a diagram I created. The concept should be self-explanatory and visualiz
 
 
 
-#### Consistency
+#### 清晰
 
-*   **Consistent** **interfaces.** Allow users to develop usage patterns. Use standard controls and gestures consistently so that they behave the way people expect.
-*   **Consistent language.** Use the same term when referring to a particular action or object, and communication pieces to avoid confusion.
-*   **Consistent use of established patterns.** Users look for patterns they already know to shorten the learning curve and understand new experiences across programs.
+*   **清晰是连接所有元素的桥梁 ** 要考虑到页面上项目之间的关系和基于重要程度来布局页面。
+*   **创建结构和等级系统 ** 提供及时的反馈，从而形成对制度的信心。用户应该知道他们采取的每一个行为的结果。
 
 
 
@@ -219,11 +193,11 @@ Here is a diagram I created. The concept should be self-explanatory and visualiz
 
 
 
-#### Efficiency
+#### 一致
 
-*   **User experience is seamless.** It works across various screen sizes, platforms, and products. Efficiency matters when people are likely to use the app a lot and they are prepared to spend time learning it.
-*   **Efficient systems respect your time.** Efficiency reflects the drive to get users to their goal by designing the shortest amount of time/number of clicks on task.
-*   **Leverage technology to drive efficiency.** Use technology to adapt to existing behavior instead of making users adapt to computers.
+*   **一致的****界面 **  允许用户形成使用模式。使用标准的控制和手势，使他们的行为如预期一致。
+*   **一致的语言 ** 当制定一个特定的行为或对象和通信部件时，使用相同的术语以避免混乱。
+*   **一致使用既定的模式 ** 用户寻找他们已经知道的模式，以缩短学习曲线，并了解整个程序。 
 
 
 
@@ -243,30 +217,50 @@ Here is a diagram I created. The concept should be self-explanatory and visualiz
 
 
 
-#### Aesthetics
+#### 高效
 
-*   **First impressions matter.** A system that looks beautiful can further engender confidence and trust in the system
-*   **Aesthetics is a quality that people recognize, want and need.** It’s seenin design also in life, it makes the use of that interface enjoyable.
-*   **Delightful.** Your customers will look forward to using your product when it is pleasant to use.
+*   **用户体验是无缝的 ** 它工作在不同尺寸的屏幕，不同的平台，不同的产品中。当人们想去使用这个应用程序，准备花时间去学习使用它时，效率就显得格外重要了。
+*   **高效的系统能节省你的时间 ** 效率反应了系统通过设计任务的最短时间，最少次数的点击来达成用户目的的能力。
+*   **利用技术驱动效率 ** 使用技术来适应现需的功能，而不是让用户适应电脑。
 
-### Importance
 
-Recently I listened to a Podcast by [Julie Zhuo](https://medium.com/u/b8a4e5ae7490), the VP of product design at Facebook. She talked about how crucial is it for a startup to establish a clear set of design principles early. Her insights boost my confidence believing our principles will make our products better.
 
-> A lot of the purpose of having design principles is to really align people around what matters.
 
-> A good set of principles encodes that so everyone can have this shared sense of what’s important for us and what’s true to us. When new people join or when your company’s scaling, then it becomes easier for them to understand those things that are so unique and so important about the way that you do things and what you value.
 
-> We care about simplicity, and we care about people. When push comes to shove and you have to make a trade off, how are you, in those moments, as a team or a company going to prioritize? What are you going to care about the most?
 
-To listen to the full podcast, click the video blow.
+
+
+
+
+
+* * *
+
+
+
+
+
+
+
+#### 美学
+
+
+*   **第一印象 ** 一个好看的系统可以增进人们对这个系统的信心与信任。
+*   **美学是一种人们意识到的，想要的和需要的品质 ** 它使得无论在生活中还是设计中，都因美学充满乐趣。
+*   **令人愉悦 ** 当你的产品好用，你的用户会期待用到你的产品。
+
+### 重要性
+
+最近，我收听了一个播客[ Julie Zhuo ](https://medium.com/u/b8a4e5ae7490)，她是脸书网的产品设计副总裁。她谈到及早启动建立一套清晰的设计原则是多么重要。她的见解增强了我的信心，相信我们的原则会使我们的产品更好。
+> 设计原则的目的是让员工统一认识，什么是重要的。
+> 一套好的原则是这样的，所以每个人都能够感同身受，什么对我们来说是重要的，什么对我们来说是真实的，当新的人加入，或当你的公司扩张，设计原则可以让新人们更容易了解公司里独有和重要的理念，也是人们做事的方式和价值观所在
+
+>  我们的关注点很简单。我们关心的是人。在必须做出决定的时候，你必须做出权衡，作为一个团队或一个公司需要优先考虑到什么？该怎么做？你最关心的是什么？
+
+要收听完整的播客，请单击下图。
 
 [![](https://i1.sndcdn.com/artworks-000166652068-8clzcy-t500x500.jpg)](https://w.soundcloud.com/player/?referrer=https%3A%2F%2Fuxdesign.cc%2Fmedia%2Fd1a2603d7df6acc2f23c9b9f9c7cf402%3FmaxWidth%3D500&show_artwork=true&url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F268298285)
 
-### Looking Forward
-
-Design principles might not work for every company. Though for us, it’s helpful to have a set of principles that an entire design team agrees on and design toward to. We need principles that force clarity and reduce ambiguity.
-
-> Good principles are solid. There is a weightiness, a certainty behind them. What looks right, what feels good — these are superficial things. A great designer defends her work based on principles that last, past one decision, past a thousand, that aren’t carried by whichever way the wind blows. — Julie Zhuo
-
-We look forward to applying our principles in practice. Moving forward, I hope to share some personal insights in the near future.
+### 展望
+设计原则可能并不适用于每个公司工作。虽然对我们来说，有一套完整的设计的原则是有助于我们团队确立一致的设计方向。我们需要原则来明确方向和减少歧义。
+>有着分量和确定性的设计原则往往是靠谱的。外观和感觉不过是些肤浅的东西一个伟大的设计师会把工作建立在持久的原则之上，不管做一个决定，还是一千个决定，都不会像墙头草一样随风倒。
+我们期待着在实践中能应用到我们的原则。我希望能够在不久的将来分享一些个人的见解。
