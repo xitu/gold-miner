@@ -1,146 +1,40 @@
 > * 原文地址：[The Art of Designing With Heart](https://m.signalvnoise.com/the-art-of-designing-with-heart-f5dc4df21697?swoff=true#.bwkktzgf7)
 * 原文作者：[Jonas Downey](https://m.signalvnoise.com/@jonasdowney)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[llp0574](https://github.com/llp0574)
 * 校对者：
 
 
-One of the things I love about making software is that it’s a deeply mental exercise, chock full of heady processes, abstractions, and interconnected pathways.
+我喜爱软件开发的其中一个原因在于，它是一种深入的脑力锻炼，充满了令人兴奋的过程、抽象化以及相互关联的途径。
 
-You can fill your brain with the practical nuts and bolts side of it—research, strategy, prototyping, programming, UI, operations, and more. Lots more.
+你可以用诸如 IT 研究、策略、原型、编程、UI、运营等更多这些实际性的基本要素来填充你的大脑。
 
-And if that’s not enough? Indulge yourself in metrics and performance. Every last detail can be tested, quantified and optimized to the fullest. Get high on KPIs and keep your eyes on your ROI!
+如果这些都还不够呢？那就让自己尽情追求各项指标和性能吧。每一个最后的细节都可以被测试、量化以及优化，从而达到最完整的状态。努力提高各项 KPI（业务关键指标）并紧盯你的 ROI（投资回报率）吧！
 
-The problem is…with so much to think about, and so many logistics to obsess over, it’s easy to forget the reason you’re doing any of this in the first place:
+问题在于：有这么多事情去考虑，以及这么多逻辑去操心，那么就很容易忘记你开发这个软件的初心：
 
-### 🚨️ YOUR SOFTWARE EXISTS TO HELP PEOPLE! 🚨
+### 🚨️ 你的软件的存在是为了帮助人们！🚨
 
-Designers usually call this notion _User Experience_ or _Empathy._ I think those names stink. They’re buzzwordy and vague enough to mean different things in different contexts.
+设计师们通常把这个概念称为**用户体验**或者**用户心理**。我认为这些称谓很糟糕，它们都足够流行和模糊，可以在不同的层面上用作不同的解释。
 
-I think we should call it what it really is: **_Designing With Heart._**
+但我认为它真正是什么我们就应该称作什么：**用心设计**。
 
-This isn’t something that’s the responsibility of one specific team in your company, or one step in a process that you can check off. It’s a core value that informs every decision you make.
-
-
-* * *
-
-Here’s what that means in practice.
-
-At the other end of all your strategy and metrics and tech, there are **real people**. Living, breathing people — who are busy dealing with their weird life, arguing with their kids, trying to figure out what’s for dinner.
-
-When you build software, you’re painstakingly inventing a machine that stands in your place, feigns sentience, and interacts with these people on your behalf so they can accomplish something meaningful.
-
-Your software is not just a bunch of code and UI you smushed together. It’s also a compilation of your best ideas, your best intentions, your desire to help others, your compassion, your feelings, your soul.
-
-Your software is YOU.
-
-(That is, if you believe in the art of it. And you should, if you give a damn about doing it right.)
-
-
-
-
-
-
-
-
-
+这并不是某个在你的公司里一个特定小组的职责，或者在一个过程当中你可以检查的某一步骤，它是一个会告诉你做每一个决策的核心价值。
 
 
 * * *
 
+下面将说明它在实践中意味着什么。
 
+在所有的策略、指标和技术的另外一端面临的是**真实的人**，这些人生存、呼吸，忙于处理他们各自稀奇古怪的生活琐事，和他们的小孩争论，试图弄清晚饭要吃什么。
 
+当开发软件的时候，不免你会站在自己的角度发明一种机器，假设用户的感受，并以自己为代表用户模拟人机交互好让它们能有意义地实现某些功能。
 
+你的软件不仅仅只是杂糅在一起的一堆代码和 UI。它还是你的最佳想法、最佳意图、能帮助其他人的渴望、你的爱、感受和灵魂的一个编译结果。
 
+你的软件就是你自己。
 
-
-When you see things in this light, you’ll notice that a lot of software is dull and lifeless.
-
-Consider your bank’s website, or your insurance company’s billing system. They’re probably cold and impersonal. That’s because the designers treated their job as a mechanical sequence: they took a set of requirements, invented imaginary personas, wrote user stories, and sprinted their way through the work until the requirements were met. All head, no heart.
-
-
-
-
-
-![](http://ac-Myg6wSTV.clouddn.com/609b0b4489cc00c13ed7.png)
-
-
-
-Capital One’s “sign in” page.
-
-
-
-
-
-Now, you might think it’s fine for a bank site to be plain and transactional. After all, banking is _literally a set of transactions._
-
-But compare that to the experience you’d have with a nice bank teller (if you can still remember what that was like.) The teller smiles at you, asks how your day is going, double-checks that your math is right, offers to help with something you might have forgotten, and gives you a lollipop! 🍭
-
-That’s a transaction with a bit of heart.
-
-
-
-
-
-
-
-
-
-* * *
-
-
-
-
-
-
-
-OK, so let’s say we want our software to take the place of the bank teller. That means it should ideally provide the same humane, helpful service that they did. But how?
-
-One option is to anthropomorphize the interface and stick some [personality](http://alistapart.com/article/personality-in-design)into it, which results in UI that’s funny, folksy, clever, sarcastic, or cartoonish.
-
-
-
-
-
-![](http://ac-Myg6wSTV.clouddn.com/dbff6848bb76ed648c8a.png)
-
-
-
-Poncho the sassy weathercat sends you messages that say “Zzz Zzzzzzz” and “Purrrrrrrrrrrrr.”
-
-
-
-
-
-I think this only works in small doses, because humans have a low tolerance for bullshit. Unless you’re _really_ good at it, jokey and cutesy stuff gets irritating quickly. That’s even worse than just being mechanical, because it’s a waste of time. It’s usually better to cut to the chase.
-
-So if mechanical is bad, and excess personality is also bad…Then what’s good?
-
-The sweet spot is right in the middle. Good software is friendly, casual, approachable — but also serious, gracious, and respectful. Just like a pleasant real-life experience you’d have at a local business.
-
-
-
-
-
-
-
-
-
-* * *
-
-
-
-
-
-
-
-Achieving this sounds difficult (it is) but there’s an easy trick that helps a lot.
-
-**When you’re designing something, imagine you’re sitting in a room, helping a real person with the task at hand.** What would you say to them? How would you explain this screen or feature? What advice would you give? What would you tell them to do next?
-
-Say the answers out loud, and then write down what you said. Now you’re 80% of the way there!
-
-If you were helping someone in person, you wouldn’t be austere or formal. You wouldn’t use buzzwords or jargon or business-speak. You also wouldn’t drop HOT SARCASTIC JOKE BOMBS on them and distract them with goofy asides. You’d watch what they do, see where they get stuck, and walk them through it. **You’d speak from the heart.**
+（如果你相信它的艺术，那它就是，并且如果你做的是对的话那就更应该是了。）
 
 
 
@@ -160,19 +54,92 @@ If you were helping someone in person, you wouldn’t be austere or formal. You 
 
 
 
-This common sense technique helps you see the forest for the trees. If you struggle to explain something out loud, it’s probably not clear enough. That insight leads you to ask questions like…
+当你从这个角度看待软件的时候，就将注意到大量的软件其实是无聊且缺乏生命力的。
 
-*   Can we make this interface simpler or more direct?
-*   Can we reduce or eliminate the choices someone has to make?
-*   Are we using natural, casual language to explain things fully?
-*   Is this design respectful of a person’s time and attention?
-*   Is this something I would personally enjoy using?
-*   Did we take any shortcuts that benefit US instead of THEM?
-*   Did we make any incorrect assumptions?
+仔细想想你经常登录的银行网站，或者你的保险公司的账单系统，它们大概都是冰冷且没有生命力的。那是因为这些设计师都把他们的工作当作了一种机械操作：接受一组需求、创造想象的人物、写用户故事以及在需求到来前混混他们的工作。这些都是纯脑力活，没有用心。
 
-Now your design will inevitably end up clearer and friendlier. That makes your customers happier and more efficient, so they can stop fiddling with software and get back to dinner with their argumentative kids.
 
-**That should be the underlying motivation for your work.** Not tech, not styling, not stats, and not money. Helping people comes first. The rest follows.
+
+
+
+![](http://ac-Myg6wSTV.clouddn.com/609b0b4489cc00c13ed7.png "Capital One 的登录页面")
+
+
+
+
+
+
+
+
+现在，你可能会认为对于一个银行网站来说，看起来简单朴素且属于交易型并没什么问题。毕竟，银行业不夸张地说就是**一组组交易的集合**。
+
+但相比起你可能曾经遇到过很体贴的银行柜员带来的体验（如果你仍然记得那是怎么样的一种体验），柜员对你微笑，询问你今天过得怎么样，仔细检查你的账目是正确的，为你可能忘记的事情提供帮助以及送你一根棒棒糖！🍭
+
+这就是用了一点心思的交易过程。
+
+
+
+
+
+
+
+
+
+* * *
+
+
+
+
+
+
+
+好了，接下来讲一下我们的软件如何来替代银行柜员。这意味着软件在理想情况下，应该提供同样的人性化和真正有帮助的服务。但怎么做呢？
+
+选项之一是将对外接口拟人化并为软件赋予一些[个性](http://alistapart.com/article/personality-in-design)，这么做就可以让 UI 变得有趣、友好、智能、带有批判性或者卡通化。
+
+
+
+
+
+![](http://ac-Myg6wSTV.clouddn.com/dbff6848bb76ed648c8a.png "Poncho生动的天气猫给你发送 “Zzz Zzzzzzz” 和 “Purrrrrrrrrrrrr.” 的信息")
+
+
+
+
+
+
+
+
+我认为这只是其中一小部分，因为人们对胡说八道的忍耐力很低。除非你能**真正**起到好的作用，否则好玩和有趣的东西将会很快变得让人恼火不已，甚至比机械化还要糟糕，因为它很浪费时间，开门见山往往会更好。
+
+
+所以如果机械化不好，做得个性化也不好，那么什么是好的呢？
+
+最佳选择则是两者适中。好的软件是友好、随性以及容易上手的，但同时也是严格、亲切以及有礼貌的。就像你曾经在本地交易中体验过的的一次舒适的真实生活经验。
+
+
+
+
+
+
+
+
+
+* * *
+
+
+
+
+
+
+
+要实现这样听起来很困难（确实也是），但有一个简单的技巧可以帮上很多忙。
+
+**当你设计某样东西的时候，想象你坐在一个房间里，正手把手地帮助真实的人解决问题。**你将会对他们说些什么？你会怎么解释这个页面或特性？你会给出什么建议？你将告诉他们什么去进行下一步操作？
+
+大声说出这些答案来，然后写下你所说的。现在你就已经完成80%了！
+
+如果你正在亲自帮助某人，你肯定不会很严格或者拘谨，不会使用流行语、术语或一些商业辞令，你也不会向他们丢什么开玩笑的炸弹或者用旁边的高飞狗来让他们分心。你肯定会观察他们在做什么，看看他们哪里遇到了困难，并帮助他们解决。**你将用心和他们交流。**
 
 
 
@@ -192,35 +159,21 @@ Now your design will inevitably end up clearer and friendlier. That makes your c
 
 
 
-_Designing With Heart_ doesn’t just apply to making a product, either. It can also guide your marketing, advertising, and sales work.
+这个常识性的技巧可以让你不会只见树木不见森林。如果你费尽心思解释某样事情，那么可能往往还解释得不清楚。这个观点会让你问出类似下面的这些问题：
 
-For example, let’s say you want to increase the number of paying customers for your product. (Who doesn’t?) That’s a business-first problem, not a people-first problem.
+*   我们可以让这个接口变得更简单或者更直接吗？
+*   我们可以减少或者去掉这些用户必要的选择吗？
+*   我们有没有用自然、随性的语言来充分解释这些操作？
+*   这个设计有没有充分利用用户的时间和注意力？
+*   这是一个我个人来说会很享受使用过程的东西吗？
+*   我们有没有采取一些捷径让我们而不是他们受益？
+*   我们有没有作出一些不正确的假设？
 
-If you only think business-first, you might blast out canned promotional emails, or show “BUY NOW” callouts all over the place, or interrupt key workflows with interstitial popup ads.
+现在你的设计完成后肯定更加清楚和友好。这就会让你的消费者更加开心并且更高效率，那么他们就可以停止摆弄软件，然后回去和他们那好争论的小孩继续吃晚饭了。
 
-
-
-
-
-![](http://ac-Myg6wSTV.clouddn.com/ca97682bbc36bfdccc4f.png)
-
-
-
-The Wall Street Journal asks you to buy before you’ve even arrived.
+**这应该成为你工作的潜在动力。**不是技术，不是样式，不是数据，也不是金钱。帮助人们是首要的，其他的都是次要的。
 
 
-
-
-
-These techniques may well be useful for increasing raw business performance, but they can be annoying and smarmy to customers. That’s the opposite of what we want. So how do we reconcile the difference?
-
-Easy: think about people again!
-
-There’s nothing inherently bad about clearly communicating the value of your product, making it easier to buy it, spreading your message to new audiences, or even asking for referrals or reviews — as long as you do so in a way that’s considerate, honest, and at the right moment.
-
-Don’t interrupt people when they’re in the middle of something, nag them incessantly, or hard-sell them into doing what you want. If you ask for a favor, make it worth their time by thoughtfully explaining why you need their help, and perhaps offering an incentive in trade.
-
-Follow this approach and your promotional efforts won’t just benefit you, they’ll benefit people too.
 
 
 
@@ -238,29 +191,74 @@ Follow this approach and your promotional efforts won’t just benefit you, they
 
 
 
-There’s one more thing you can do to Design With Heart: **don’t be afraid to reveal yourself.**
+**用心设计**不仅仅只是创造一个产品。它同样可以指导你去营销、做广告以及销售。
 
-People develop emotional connections to other people—not machines.
+比如说，你想要为你的产品增加付费用户。（谁不想？）这是一个商业为先的问题，不是一个用户为先的问题。
 
-When your customers can see who’s behind the curtain, and when you speak to them with honesty and authenticity, they’ll be more likely to identify with your message and approach.
-
-
-
-
-
-![](http://ac-Myg6wSTV.clouddn.com/5231e87d2a52db32e720.png)
-
-
-
-Nate Kontny’s Highrise updates always have a personal touch.
+如果你仅仅考虑商业为先，你可能会发出一大堆促销邮件，或者在页面上到处展示 “BUY NOW” 入口，或者用弹窗广告去打断他们的关键工作流。
 
 
 
 
 
-If you built something because you fundamentally care about helping people, and you intend to have their back…say it! Put your name on it, tell your story, show your face, and stand behind your work. Share your _real_personality rather than trying to graft a fake one onto an inanimate program.
+![](http://ac-Myg6wSTV.clouddn.com/ca97682bbc36bfdccc4f.png "Wall Street Journal深圳在你进入页面之前就弹窗询问你是否购买")
 
-Your customers will respond in kind — and that’s the most rewarding thing of all. 💞
+
+
+
+
+
+
+
+这些技巧或许对增加业务指标有所帮助，但它们对消费者来说却是恼人和讨厌的。这并不是我们想要的结果。所以我们该怎样来调和差异呢？
+
+简单：再次考虑用户！
+
+清楚地传达产品的价格、让其变得更容易购买、给新用户传播你的信息甚至寻求推荐或点评，这些本来就不是一件坏事情 --- 只要你这么做的方式考虑周全、诚实并且在对的时间去做，就没问题了。
+
+不要在用户处理事情的中途去打断他们，不间断地去骚扰他们，或者强行去推销你想的主意。如果想要得到青睐，那么就该考虑清楚去解释为什么你需要他们的帮助，从而让他们的时间变得值得，同时或许应该在交易过程中提出激励。
+
+跟随这些方法，你的促销手段就将使你受益，当然也可以让用户受益。
+
+
+
+
+
+
+
+
+
+* * *
+
+
+
+
+
+
+
+还有一件事情可以让你做到用心设计：**不要害怕去展现自己。**
+
+人们会和其他非人类机器建立起情绪化的连接。
+
+当你的消费者可以看到是谁在背后和其交流，并且当你诚实并可靠地和他们交流时，他们就将更加可能确认你的信息和入口。
+
+
+
+
+
+![](http://ac-Myg6wSTV.clouddn.com/5231e87d2a52db32e720.png "Nate Kontny’s Highrise更新总会有一个人性化提示。")
+
+
+
+
+
+
+
+
+如果你创造某个东西是因为你从根本上在意如何帮助用户，并且想要留住他们，那么就更应该说出来了！把你的名字放上去、讲述你的故事、展示你的形象并站出来为你的工作负责。分享你**真实的**个性肯定比捏造一个虚假的形象放在一个死气沉沉的应用上要好得多。
+
+
+你的消费者将会以同样的方式作出回应，并且这就是所有回报里最有价值的东西。💞
 
 
 * * *
