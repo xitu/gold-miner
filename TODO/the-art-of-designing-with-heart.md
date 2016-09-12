@@ -2,7 +2,7 @@
 * 原文作者：[Jonas Downey](https://m.signalvnoise.com/@jonasdowney)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[llp0574](https://github.com/llp0574)
-* 校对者：
+* 校对者：[Graning](https://github.com/Graning),[cyseria](https://github.com/cyseria)
 
 
 我喜爱软件开发的其中一个原因在于，它是一种深入的脑力锻炼，充满了令人兴奋的过程、抽象化以及相互关联的途径。
