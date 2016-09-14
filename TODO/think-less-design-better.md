@@ -9,7 +9,7 @@
 
 
 
-美国心理学家 Barry Schwartz 在 [The Paradox Of Choice](https://en.wikipedia.org/wiki/The_Paradox_of_Choice)这本书中写到，排除一些选择可以大幅度的减少焦虑。
+美国心理学家 Barry Schwartz 在 [The Paradox Of Choice](https://en.wikipedia.org/wiki/The_Paradox_of_Choice) 这本书中写到，排除一些选择可以大幅度的减少焦虑。
 > **最优解不是成为一个完美主义者，而是让最为人所赞同的决定变得可行，这可以让我们共同创造出最佳体验。**
 
 
@@ -36,7 +36,7 @@
 
 
 
-UI 设计的每个方面都需要围绕一个系统进行，以此来改善节奏感并在一个项目成长的时候帮助保持尺寸与间距的一致性。一个我爱用的像这样的系统是  [modular scale](http://www.modularscale.com/),它可以使制定尺寸变得便利它可以通过任意指定比列来测量、设定某个元素或者某个整体中负空间的尺寸。
+UI 设计的每个方面都需要围绕一个系统进行，以此来改善节奏感并在一个项目成长的时候帮助保持尺寸与间距的一致性。一个我爱用的像这样的系统是   [modular scale](http://www.modularscale.com/),它可以使制定尺寸变得便利它可以通过任意指定比列来测量、设定某个元素或者某个整体中负空间的尺寸。
 
 
 
@@ -59,12 +59,11 @@ UI 设计的每个方面都需要围绕一个系统进行，以此来改善节�
 
 
 
-####  Grids
 ####  栅格
 
 
 
-[栅格系统](https://en.wikipedia.org/wiki/Grid_%28graphic_design%29) 是一个绝佳的设计方法，当把内容实现成具体的 UI 界面的时候，它不仅可以对页面内容组织的方式加以限制，还可以简化实现方式。但是，栅格经常被不加思考的采用，变成了一个被当作万金油的方案。大多数设计师都没有意识到，相对于使用万金油方案，专门设计一款[适用于你产品](http://www.iamtomnewton.com/blog/grid-guide/)的栅格系统会是更好的一个方案。
+[栅格系统](https://en.wikipedia.org/wiki/Grid_%28graphic_design%29)是一个绝佳的设计方法，当把内容实现成具体的 UI 界面的时候，它不仅可以对页面内容组织的方式加以限制，还可以简化实现方式。但是，栅格经常被不加思考的采用，变成了一个被当作万金油的方案。大多数设计师都没有意识到，相对于使用万金油方案，专门设计一款[适用于你产品](http://www.iamtomnewton.com/blog/grid-guide/)的栅格系统会是更好的一个方案。
 
 
 ![](http://ac-Myg6wSTV.clouddn.com/013c2d0de9ed5e3a9947.jpeg)
@@ -80,7 +79,7 @@ UI 设计的每个方面都需要围绕一个系统进行，以此来改善节�
 
 
 
-内容的类型也是一个因素。设计时还需要考虑到内容的不同类型，如商品包装、新闻出版物、博客或者是简单的引导页，它们之间的差异十分之大。要考虑到布局是以图片为主还是以文字为主。要理解 [eye-scanning patterns](http://www.webdesignerdepot.com/2015/03/how-eye-scanning-impacts-visual-hierarchy-in-ux-design/) 和它们是如何对一个视觉层次产生作用，这会对设计很有帮助，
+内容的类型也是一个因素。设计时还需要考虑到内容的不同类型，如商品包装、新闻出版物、博客或者是简单的引导页，它们之间的差异十分之大。要考虑到布局是以图片为主还是以文字为主。要理解 [eye-scanning patterns](http://www.webdesignerdepot.com/2015/03/how-eye-scanning-impacts-visual-hierarchy-in-ux-design/)  和它们是如何对一个视觉层次产生作用，这会对设计很有帮助，
 
 
 
@@ -90,7 +89,7 @@ UI 设计的每个方面都需要围绕一个系统进行，以此来改善节�
 
 #### 字体
 
-我觉得字体是 UI 设计最重要的方面，因为它[占据了网页的95%](https://ia.net/know-how/the-web-is-all-about-typography-period)，是信息交流的驱动力量。
+我觉得字体是 UI 设计最重要的方面，因为它[占据了网页的 95%](https://ia.net/know-how/the-web-is-all-about-typography-period)，是信息交流的驱动力量。
 
 
 
@@ -104,7 +103,7 @@ UI 设计的每个方面都需要围绕一个系统进行，以此来改善节�
 
 
 
-使用调色板很容易过度用心。几种色调就可以产生一个充足并且一致的视觉效果。通常在一开始我们有 [5 种色卡](http://www.colourlovers.com/palette/15/tech_light) 就够了。
+使用调色板很容易过度用心。几种色调就可以产生一个充足并且一致的视觉效果。通常在一开始我们有 [5  种色卡](http://www.colourlovers.com/palette/15/tech_light) 就够了。
 
 
 
@@ -179,7 +178,7 @@ UI 设计的每个方面都需要围绕一个系统进行，以此来改善节�
 作为一个概念上的 UI 项目，创建和维护一个风格指南或者模式库变得越来越重要。这将建立设计准则来帮助项目扩展，维护节奏感和一致性。如果我们正在事先定义变量，为它们写文档是一个好的方法。相比于没有文档来说，拥有一份文档在未来进行决策的时候会更加容易。
 
 
-根据项目的情况，有时候创建一个风格指南是一件奢侈的事，经常需要依据未来的计划进行改动。这也是为什么大部分风格指南都在最后一分钟或者是在项目完成后才准备好，当然这仍然是个好习惯。但是对于风格指南来说有着大量致力于预期设计和发展的 [主张和论证](https://www.smashingmagazine.com/2010/07/designing-style-guidelines-for-brands-and-websites/#why-create-a-style-guide)，它可以为早期概念化打好坚实基础提供帮助。
+根据项目的情况，有时候创建一个风格指南是一件奢侈的事，经常需要依据未来的计划进行改动。这也是为什么大部分风格指南都在最后一分钟或者是在项目完成后才准备好，当然这仍然是个好习惯。但是对于风格指南来说有着大量致力于预期设计和发展的[主张和论证](https://www.smashingmagazine.com/2010/07/designing-style-guidelines-for-brands-and-websites/#why-create-a-style-guide)，它可以为早期概念化打好坚实基础提供帮助。
 
 
 
