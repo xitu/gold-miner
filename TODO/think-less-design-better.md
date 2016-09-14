@@ -103,7 +103,7 @@ UI 设计的每个方面都需要围绕一个系统进行，以此来改善节�
 
 
 
-使用调色板很容易过度用心。几种色调就可以产生一个充足并且一致的视觉效果。通常在一开始我们有 [5  种色卡](http://www.colourlovers.com/palette/15/tech_light) 就够了。
+使用调色板很容易过度用心。几种色调就可以产生一个充足并且一致的视觉效果。通常在一开始我们有 [5  种色卡](http://www.colourlovers.com/palette/15/tech_light)就够了。
 
 
 
