@@ -2,10 +2,9 @@
 * 原文作者：[Christian Miller](https://medium.com/@xtianmiller)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Siegen](https://github.com/siegeout)
-* 校对者：[jiaowoyongqi](https://github.com/jiaowoyongqi),[Newton](https://github.com/Newt0n)
+* 校对者：[jiaowoyongqi](https://github.com/jiaowoyongqi),[Newton](https://github.com/Newt0n)                                           
 
-
-> 在设计过程中，存在的可能性越多，需要进行的思考就越多。
+<blockquote>在设计过程中，存在的可能性越多，需要进行的思考就越多。</blockquote>
 
 
 
