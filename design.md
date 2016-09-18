@@ -1,3 +1,7 @@
+* [用心设计的艺术](http://gold.xitu.io/entry/57d6bd1bd20309006a08e25e?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([llp0574](https://github.com/llp0574) 翻译)
+* [设计一个你自己不会去用的产品](http://gold.xitu.io/entry/57ce923c816dfa00541bf9a2?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jiaowoyongqi](https://github.com/jiaowoyongqi) 翻译)
+* [视觉设计本地化的重要性](http://gold.xitu.io/entry/57ce9d4c7db2a200680f6fc4?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([cbangchen](https://github.com/cbangchen) 翻译)
+* [你的设计应该「所见即所得」](http://gold.xitu.io/entry/57c5978f128fe1005fdf4858?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jiaowoyongqi](https://github.com/jiaowoyongqi) 翻译)
 * [根据 OS 设计你的应用](http://gold.xitu.io/entry/57bebe962e958a006958e73b?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Kulbear](https://github.com/Kulbear) 翻译)
 * [嘿，Logo，你应该是这个尺寸的！](http://gold.xitu.io/entry/57bb183279bc440063a6f290?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([MAYDAY1993](https://github.com/MAYDAY1993) 翻译)
 * [别再设计你的应用界面了，在用户体验上下点功夫吧](http://gold.xitu.io/entry/57b1e47ac4c97100548c964e?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Kulbear](https://github.com/Kulbear) 翻译)
