@@ -1,3 +1,4 @@
+* [好的设计准则是如何塑造更强大的产品形态的](http://gold.xitu.io/entry/57db572ed203090069d2e201?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([rottenpen](https://github.com/rottenpen) 翻译)
 * [用心设计的艺术](http://gold.xitu.io/entry/57d6bd1bd20309006a08e25e?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([llp0574](https://github.com/llp0574) 翻译)
 * [设计一个你自己不会去用的产品](http://gold.xitu.io/entry/57ce923c816dfa00541bf9a2?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jiaowoyongqi](https://github.com/jiaowoyongqi) 翻译)
 * [视觉设计本地化的重要性](http://gold.xitu.io/entry/57ce9d4c7db2a200680f6fc4?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([cbangchen](https://github.com/cbangchen) 翻译)
