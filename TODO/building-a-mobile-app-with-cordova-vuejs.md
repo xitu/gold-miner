@@ -27,7 +27,7 @@ Create a Cordova project called RandomWord:
 
 This will create the directory structure of a Cordova project:
 
-![Cordova Vue.js Directory Structure](directory-structure.png)
+![Cordova Vue.js Directory Structure](https://coligo.io/building-a-mobile-app-with-cordova-vuejs/directory-structure.png)
 
 *   **config.xml** - contains info about the app, plugins it uses and platforms it targets
 *   **platforms** - contains the Cordova libraries for the targeted platforms like Android and iOS that the app will run on
@@ -46,6 +46,8 @@ It will also add the whitelist plugin which is used to specify which URLs the ap
 The `--save` flag adds the platform engine to config.xml which is used by the [cordova prepare](https://cordova.apache.org/docs/en/latest/reference/cordova-cli/#cordova-prepare-command) command when initializing a Cordova project from a **config.xml** file.
 
     ...
+        <engine name="android" spec="~5.2.1" />
+    </widget>
         
 
 Check if you have the requirements for building/running Android apps through Cordova:
@@ -66,7 +68,7 @@ If there is no Android phone connected to the computer, Cordova will run the app
 
 The sample app is very simple and all it does is change the background colour of a label.
 
-![Cordova Sample Screen](cordova-sample-app.png)
+![Cordova Sample Screen](https://coligo.io/building-a-mobile-app-with-cordova-vuejs/cordova-sample-app.png)
 
 To use iOS instead of Android, do the same steps as above but replace `android` with `ios`. If missing requirements, see [Cordova Docs for iOS](https://cordova.apache.org/docs/en/latest/guide/platforms/ios/) and the Help section at the bottom of the tutorial. If running Cordova on a Windows computer, you can NOT build/run the app on iOS since the iOS Cordova platform needs Apple OS X.
 
@@ -76,22 +78,27 @@ Modify the app info in **config.xml** to be about our random word generator:
 
     
     
-        RandomWord
-        
-            A mobile app for generating a random word.
-        
-        
-            Michael Viveros
-        
-        ...
+        <?xml version='1.0' encoding='utf-8'?>
+        <widget id="io.coligo.randomword" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+            <name>RandomWord</name>
+            <description>
+                A mobile app for generating a random word.
+            </description>
+            <author email="michaelviveros@gmail.com" href="http://www.michaelviveros.com/">
+                Michael Viveros
+            </author>
+            ...
 
 # Adding Vue.js
 
 Like in any HTML file, add the Vue.js CDN to the bottom of **www/index.html**:
 
     ...
-            
-            
+            <script type="text/javascript" src="cordova.js"></script>
+            <script src="http://cdn.jsdelivr.net/vue/1.0.16/vue.js"></script>
+            <script type="text/javascript" src="js/index.js"></script>
+        </body>
+    </html>
             
 
 To allow the app to access the Vue.js library, we also need to add the following to the end of the Content Security Policy (CSP) `meta` tag in www/index.html:
@@ -108,32 +115,37 @@ The `script-src` part of the CSP `meta` tag defines which scripts can be execute
 
 The CSP meta tag should look like this:
 
-    
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; script-src 'self' http://cdn.jsdelivr.net/vue/1.0.16/vue.js 'unsafe-eval'">
+
 
 For more info about CSP, see [html5rocks](http://www.html5rocks.com/en/tutorials/security/content-security-policy/) and the [Cordova Docs](https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy).
 
 After replacing the code in the `body` of **www/index.html** with some Vue.js code to show a random word and removing some comments, **wwww/index.html** will look like:
-
-    
-    
-        
+                
             
-            
-            
-            
-            
-            Random Word
-        
-        
-            
-                Random Word
-                Get Random Word
-                {{ randomWord }}
-            
-            
-            
-            
-        
+```           
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; script-src 'self' http://cdn.jsdelivr.net/vue/1.0.16/vue.js 'unsafe-eval'">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <title>Random Word</title>
+    </head>
+    <body>
+        <div id="vue-instance" class="app">
+            <h1>Random Word</h1>
+            <button id="btn-get-random-word" @click="getRandomWord">Get Random Word</button>
+            <p>{{ randomWord }}</p>
+        </div>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script src="http://cdn.jsdelivr.net/vue/1.0.16/vue.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+    </body>
+</html>
+```            
     
 
 Now we will add some Javascript to generate the random word that gets shown.
@@ -221,7 +233,7 @@ Build it, plug-in your phone and run it:
 
 The app should look like this:
 
-![Random Word App Cordova Vue.js](random-word-cordova-vuejs.png)
+![Random Word App Cordova Vue.js](https://coligo.io/building-a-mobile-app-with-cordova-vuejs/random-word-cordova-vuejs.png)
 
 # Making HTTP Requests with vue-resource
 
@@ -237,14 +249,17 @@ The app will use the [vue-resource library](https://github.com/vuejs/vue-resourc
 
 **index.html** will look like:
 
-    
-    ...
-            
-    ...
-            
-            
-            
-        
+```
+<!DOCTYPE html>
+...
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; script-src 'self' http://cdn.jsdelivr.net/vue/1.0.16/vue.js https://cdn.jsdelivr.net/vue.resource/0.7.0/vue-resource.min.js 'unsafe-eval'; connect-src http://api.wordnik.com:80/v4/words.json/randomWord">
+...
+        <script src="http://cdn.jsdelivr.net/vue/1.0.16/vue.js"></script>
+        <script src="https://cdn.jsdelivr.net/vue.resource/0.7.0/vue-resource.min.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+    </body>
+</html>
+```    
     
 
 To make the HTTP request to the random word API, we can use the [http service](https://github.com/vuejs/vue-resource/blob/master/docs/http.md) of the vue-resource library in the `getRandomWord` method of the Vue instance in **www/js/index.js**:
@@ -289,38 +304,41 @@ Using Vue components will add an additional step to your build system to bundle 
 
 This is what your directory will look like after adding the Vue Component:
 
-![Cordova Vue.js Directory Structure](directory-structure-2.png)
+![Cordova Vue.js Directory Structure](https://coligo.io/building-a-mobile-app-with-cordova-vuejs/directory-structure-2.png)
 
 Create a component with all the code for the random word generator called **www/js/random-word.vue**:
 
-    
-            
-        Random Word
-        Get Random Word
-        {{randomWord}}
-      
-    
+```
+<template>
+  <div class="app">      
+    <h1>Random Word</h1>
+    <button id="btn-get-random-word" @click="getRandomWord">Get Random Word</button>
+    <p>{{randomWord}}</p>
+  </div>
+</template>
 
-    
-    export default {
-      data () {
-        return {
-          randomWord: ''
-        }
-      },
-      methods: {
-        getRandomWord: function() {
-            this.randomWord = '...';
-            this.$http.get(
-                'http://api.wordnik.com:80/v4/words.json/randomWord?api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5'
-            ).then(function (response) {
-                this.randomWord = response.data.word;
-            }, function (error) {
-                alert(error.data);
-            });
-        }
-      }
+<script>
+export default {
+  data () {
+    return {
+      randomWord: ''
     }
+  },
+  methods: {
+    getRandomWord: function() {
+        this.randomWord = '...';
+        this.$http.get(
+            'http://api.wordnik.com:80/v4/words.json/randomWord?api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5'
+        ).then(function (response) {
+            this.randomWord = response.data.word;
+        }, function (error) {
+            alert(error.data);
+        });
+    }
+  }
+}
+</script>
+```
     
 
 The HTML from **www/index.html** goes in the `template` tag and the Javascript from **www/js/index.js** goes in the `script` tag of **random-word.vue**.
@@ -385,24 +403,30 @@ Get all the node modules for the dependencies defined in **package.json**:
 
 Add a hook to the bottom of **config.xml** to tell Cordova to bundle the random word component before building the rest of the app:
 
+
     ...
+        <hook type="before_compile" src="scripts/vueify-build.js" />
+    </widget>
         
 
 Recall that scripts/vueify-build.js will generate the bundled component and put it into www/js/bundle.js
 
 Add the random word component to the body of **www/index.html** by adding a `random-word` tag and a `script` tag pointing to the bundled component.
 
-    ...
-            
-            Random Word
-        
-        
-            
-            
+```
+...
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <title>Random Word</title>
+    </head>
+    <body>
+        <random-word></random-word>
+        <script src="js/bundle.js"></script>
 
-            
-            
-        
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="cordova.js"></script>
+    </body>
+</html>
+```
     
 
 Note that the link tag in **www/index.html** defines the CSS for the app and the `div` in **www/js/random-word.vue** uses the "app" class defined in the CSS.
