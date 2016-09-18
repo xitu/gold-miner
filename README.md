@@ -16,7 +16,7 @@
    > * 校对认领+正在校对：此文章已经有一位校对者在校对了，现在还需要第二位校对者
    > * 正在校对：此文章已经有两位校对者在校对了，校对文章只需在有**校对认领** label 的 issue 下留言即可；
 
-3. 翻译文章，在 [待认领文章列表](https://github.com/xitu/gold-miner/issues?q=is%3Aissue+is%3Aopen+label%3A%E6%96%87%E7%AB%A0%E8%AE%A4%E9%A2%86) 中认领翻译文章；
+3. 翻译文章，在 [待认领文章列表](https://github.com/xitu/gold-miner/issues?q=is%3Aissue+is%3Aopen+label%3A%E6%96%87%E7%AB%A0%E8%AE%A4%E9%A2%86) 中认领翻译文章。（认领文章前请先到 [wiki](https://github.com/xitu/gold-miner/wiki/译者擅长领域表) 中修改下自己擅长的分类撒，为了保证翻译质量，建议认领自己擅长的领域内的译文进行翻译啦，校对文章就随便了哈~）
 
 4. 认领通过后，Fork 此仓库开始翻译，**注意：Fork 此仓库后，请先从 master 分支上 `git checkout -b translate` 一个新的 translate 分支来翻译文章，翻译完成后再把 translate 分支发 PR**。
 
