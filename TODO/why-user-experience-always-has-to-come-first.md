@@ -1,35 +1,35 @@
 > * 原文地址：[Why User Experience Always Has to Come First](https://hbr.org/2016/09/why-user-experience-always-has-to-come-first)
 * 原文作者：[Michael Schrage](https://hbr.org/search?term=michael+schrage)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[Nicolas(Yifei) Li](https://github.com/yifili09)
 * 校对者：
 
-Actions speak louder than mission statements. If a UX feels more like “User Exploitation” than “User Experience,” business becomes ripe for disruption. Profitability predicated on customer friction, intrusion, and irritation simply isn’t sustainable. Privileging easy money over better user experience is the antithesis of customer centricity.
+事实胜于雄辩。如果一个 `UX` (用户体验) 感觉上更像是“用户开发”而不是“用户体验”，那这笔生意离失败不远了。为了盈利而简单的断定用户的不快，干扰是不可持续性的。只顾挣快钱而无法提供更好的用户体验，这有悖于以用户为中心的理念。  
 
-That’s why digital services in general, and mobile advertising in particular, make superior templates for evaluating business model design. Entwining real-time data and predictive analytics lets serious organizations quickly calculate and calibrate trade-offs between experiential and exploitive UXs. Those trade-offs become explicit. Most everyone in the enterprise can now see where customers are respected partners in value creation, and where they’re data-herded sheep to be sheared.
+这就是为什么一般而言数字服务，尤其是移动手机广告为了评估商业模型设计要制作最好的模板。将实时数据和预测分析紧密结合，让严格的企业能快速的计算和调整权衡经验上和实际上的用户体验。这些利弊已经变得相当明确了。几乎企业中的每个人都能看到那些客户，他们是受尊重的合作伙伴，在哪里创造价值，并且他们的数据在哪里被收割。
 
-For example, Facebook makes great money from mobile advertisers, but it’s now refusing to subsidize technical inefficiencies that undermine overall UX. Roughly 40% of Facebook mobile users abandon sites that [take even three seconds to load](https://www.facebook.com/business/news/improving-mobile-site-performance?__mref=message_bubble). Delays frequently lead to abandoning the Facebook visit as well. Unsurprisingly, the company informed advertisers to speed up their load times or else.
+举例来说，`Facebook` 从移动广告客户那里赚到了大笔的钱，但是它目前拒绝资助技术上的低效率，它破坏了整体的用户体验。大概 40 % 的用户会放弃（继续浏览）网站因为[需要三秒来加载页面内容](https://www.facebook.com/business/news/improving-mobile-site-performance?__mref=message_bubble)。延迟问题常常导致了用户的离开，对 `Facebook` 也一样。毫不意外，这些公司都会告知广告客户加快他们的加载速度，否则就会终止生意。
 
-“Our goal is to give people the best ad experience possible on mobile. By considering website performance and a person’s network connection, we can improve that experience and help drive the outcomes advertisers are looking for,” a [Facebook spokesman said](http://www.wsj.com/articles/facebook-pushes-advertisers-to-speed-up-their-mobile-sites-1472673181).
+“我们的目标是在移动设备上带给客户最好的广告体验。通过考虑网站的性能和一个客户的人脉，我们能提高这些体验并且带来广告商期待的结果。” 一位 [Facebook 的发言人如是说道。](http://www.wsj.com/articles/facebook-pushes-advertisers-to-speed-up-their-mobile-sites-1472673181)
 
-Crudely put, when advertising latencies undermine perceived UX quality, Facebook optimizes UX at the tardy advertisers’ expense. Abandonment in any form is an increasingly measurable outcome. Facebook has effectively declared that it prioritizes superior UX over inferior advertising.
+大致来说，当加载广告的延迟明显破坏了用户体验的质量，`Facebook` 在那些拖节的广告客户的花销上对用户体验进行了优化。任何形式的放弃是一个日益显著的结果。`Facebook` 曾有力地宣称，比起劣质的广告，他们更看重优秀的用户体验。
 
-This highlights a fundamental dynamic that’s transforming digital product and services worldwide: Dynamic pricing is being superceded by dynamic opportunism. That is, platform providers and innovation ecosystems are rethinking how they really make money from, and with, their customers and partners. That means they must constantly (re)calculate whether, and when, degrading their UX in exchange for easy or instant money is worth it.
+这凸显出了一个根本的动力，她就是把数字产品和服务转变成全球化: 动态定价被动态投机主义取代。这就是，平台的提供商和创新生态圈开始重新思考，和他们的客户和合作伙伴一起，从哪里怎样赚钱。这意味着他们必须一直计算在什么时候通过降低他们的用户体验来换取热钱或者块钱是否值得。
 
-The ongoing networked fusion of data and analytics basically forces organizations to reveal how much they value their customer relationships as relationships, as opposed to as a series of transactions aggregated over time. The former perspective inspires and incents a different investment in UX than the latter.
+持续网络融合数据和分析基本上迫使企业透露他们如何看待客户关系的价值，作为合作伙伴，或作为对手经过一系列事件的积累。比起后一种看法，前一种看法激励了一个不同的用户体验上的投入。
 
-Reducing UX frictions and irritations that have nothing to do with money or value creation is a no-brainer. But technology makes it easier and simpler for more organizations to try to get away with [profitable but irritating](https://www.sitepoint.com/why-i-love-interstitials-2/) little nicks and customer scrapes. In other words, temptations and opportunities for “nickel and diming” one’s customers and partners are digitally rising.
+减少用户体验的烦恼和干扰是毫无疑问的，它与钱和创造价值无关。对于很多企业尝试摆脱[有效益但是带来干扰和损害客户](https://www.sitepoint.com/why-i-love-interstitials-2/)，但是技术让这个变得更加方便和简单。换句话说，对每个客户和合作伙伴们微不足道的诱惑和机会都成倍增长。
 
-Google’s policies [curtailing mobile interstitial adverts](http://www.theverge.com/2016/8/23/12610890/google-search-punish-pop-ups-interstitial-ads) — pop-ups that spread, fungus-like, across your mobile screen — underscore this intensifying theme.
+`Google` 的政策[缩短广告的间隙](http://www.theverge.com/2016/8/23/12610890/google-search-punish-pop-ups-interstitial-ads) - 展开的弹出框，菌丝状的广告，充满了你的手机屏幕 - 强调了这个主题。 
 
-“Google’s intention is to not just direct people to more informative results, but to results that work better for them — e.g., don’t annoy them with a pop-up — too,” The Verge observed. “This is something Google has increasingly been doing with its search algorithm. Last year it began [boosting the rank of ‘mobile friendly’ websites](http://www.theverge.com/2015/4/21/8463401/google-now-boosting-mobile-friendly-websites-in-search), and in 2014, it began boosting the rank of [sites with encryption](http://www.theverge.com/2014/8/7/5979609/google-is-nudging-us-towards-a-more-encrypted-web) as well.”
+“`Google` 的目的不仅仅指导人们获得更多的信息结果，为了更好的为他们工作 - 例如，也不要因为一个弹出框惹恼他们，” 弗奇观察到。“这也是 `Google` 用他们的搜索算法正在干的事情。” 去年他们开始[增加 ‘移动友好’ 网站的排名等级](http://www.theverge.com/2015/4/21/8463401/google-now-boosting-mobile-friendly-websites-in-search)，在 2014年，它也开始增加[加密网站的排名等级](http://www.theverge.com/2014/8/7/5979609/google-is-nudging-us-towards-a-more-encrypted-web)。”
 
-Note that a pop-up’s IQ — Irritation Quotient — is but one of hundreds of elements that Google uses to weight its mobile search algorithm. That said, Google tracks user abandonment rates as assiduously as Facebook does. The essential tension doesn’t go away: When does user experience feel like, or become, user exploitation?
+注意这个弹出框的 `IQ` - 刺激商 - 它是上百个 `Google` 用来权衡它的移动搜索算法的其中一个元素。这意味着，`Google` 追踪用户放弃率和 `Facebook` 一样严格。这个必要的张力并没有离开: 当用户体验开始变得像用户开发的时候？ 
 
-Advertisements that genuinely interest or intrigue users will obviously be welcome no matter how intrusively or invasively they materialize. The receptivity/abandonment ratios can now be tracked and analyzed with increasing rigor.
+那些用户真正感兴趣或者强行推送的广告显然会被客户欢迎，无论它的出现会怎么干扰到了用户。接纳率和放弃率现在被越来越严格地追踪和分析。
 
-But the most important takeaway should revolve not around advertising efficacy but around how — individually and collectively — advertising defines and determines the UX. The death-by-a-thousand-cuts, or pop-ups, phenomenon remains a real threat to sustainable platforms and ecosystem growth.
+但是最重要的收获不应该反复掂量有关广告的效率，而应该是怎样 - 从个人和整体上 - 去定义广告和决定用户体验。这些现象，例如细琐的错误（灭顶之灾），或者弹出框，对可持续性的平台和生态圈的增长来说都是一个实实在在的威胁。
 
-So these UX themes transcend digital advertising trends. An Amazon developer, for example, told me that her company takes great pains to avoid digitally irritating customers. Entire KPI dashboards have apparently been built around receptivity/abandonment behaviors. Tests explicitly examining how “best” customers or “typical/average” customers respond to intrusive offers are hotly debated. Enhancing Amazon’s overall UX is paramount, she insists. Optimizing the overall relationship, not the individual transaction, is the core value.
+所以这些用户体验的主题超越了数字广告的趋势。例如一位亚马逊的开发工程师告诉我，她的公司花费了很大的力气去避免对用户的数字干扰。整个 `KPI` 的评价标准都是围绕着接纳/放弃率的表现来创建的。明确地检查“最优质”的客户或者“普通”客户是如何响应数字带来的干扰的测试正被激烈的争论着。提高亚马逊整体的用户体验是首要任务，她坚持到。优化整体的关系，而不是个体事务，是核心价值。
 
-The leadership challenge around customer centricity will become sharper and starker both inside the enterprise and outside. Will business discipline revolve around optimizing UX for customer value? Or does “dynamic opportunism” devolve into user exploitation? How your organization defines and manages its receptivity/abandonment ratios will tell you the answers.
+有关以客户中心的领导力将对企业内部和外部变得越来越鲜明和严酷。商业规则是否会围绕为客户价值优化用户体验而重新考量？或者“动态投机”是否转交到用户开发？你的企业是如何定义和管理它的接纳/放弃率将会告诉你这个答案。
