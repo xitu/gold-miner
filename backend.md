@@ -1,3 +1,4 @@
+*  [人人都应该用的 Python 开源库](http://gold.xitu.io/entry/57ca8aab165abd0068e5097a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Graning](https://github.com/Graning) 翻译)
 *  [详解 Python 模板引擎工作机制](http://gold.xitu.io/entry/57b4609f6be3ff006a0c8ad3?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zheaoli](https://github.com/Zheaoli) 翻译)
 *  [这样做才能设计出更好的数据表](http://gold.xitu.io/entry/57af3cbc5bbb500062cb38a5?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Nicolas(Yifei) Li](https://github.com/yifili09) 翻译)
 *  [利用 Shoryuken and SQS 快速处理 API 请求](http://gold.xitu.io/entry/57a14ac879bc44005497b433?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([circlelove](https://github.com/circlelove) 翻译)
