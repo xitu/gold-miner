@@ -82,6 +82,8 @@ This code will compile, but you still need to go a step further in order to stic
 
 Observe how repetitive this line of code is:
 
+    handleError(error)
+
 In order to make it less repetitive and more concise, you can [**prune**](https://github.com/apple/swift-evolution/blob/master/proposals/0005-objective-c-name-translation.md#prune-redundant-type-names) the redundant type name from the function signature:
 
 
