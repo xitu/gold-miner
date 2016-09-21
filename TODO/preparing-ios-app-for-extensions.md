@@ -56,11 +56,11 @@ Here’s a short example of an umbrella header for a framework called “Service
 
     FOUNDATION_EXPORT const unsignedcharServicesVersionString[];
 
-    #import
+    #import <Services/Utilities.h>
 
-    #import
+    #import <Services/DataService.h>
 
-    #import
+    #import <Services/WorkoutService.h>
 
 
 
@@ -114,7 +114,7 @@ This can be done by obtaining the root directory for the shared container (Note:
 
 
 
-    letrootURL=FileManager.default().containerURLForSecurityApplicationGroupIdentifier("group.com.mycompany.AwesomeWorkouts")
+    let rootURL=FileManager.default().containerURLForSecurityApplicationGroupIdentifier("group.com.mycompany.AwesomeWorkouts")
 
 
 
@@ -140,7 +140,7 @@ Trusty old app groups to the rescue again. Just as you can write file data to a 
 
 
 
-    letdefaults=UserDefaults(suiteName:"group.com.mycompany.MyApp")
+    let defaults=UserDefaults(suiteName:"group.com.mycompany.MyApp")
 
 
 

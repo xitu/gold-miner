@@ -34,7 +34,8 @@ Consider this valid Swift 2 example:
         }
     }
 
-    doSomething(with: 0..<10) doSomething(with:="" 0...10)="" 
+    doSomething(with: 0..<10) 
+    doSomething(with:="" 0...10)="" 
 
 
 
@@ -51,7 +52,8 @@ Here is a Swift 3 version that works:
         }
     }
 
-    doSomething(with: 0..<10) doSomething(with:="" 0...10)="" 
+    doSomething(with: 0..<10) 
+    doSomething(with:="" 0...10)="" 
 
 
 
