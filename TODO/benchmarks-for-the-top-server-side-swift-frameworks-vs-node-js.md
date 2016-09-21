@@ -43,7 +43,7 @@ Swift 是一个可以被用来做包括服务端在内的任何事情，从他�
 
 #### 为什么使用博客和 JSON？
 
-搭博客比打印 "Hello, World!" 到屏幕上有常见的用途，JSON也是一种很常见的用例。良好的基准测试需要考虑每个框架在相似负载下的表现，它需要比简单的打印两个单词到屏幕上承载更多的压力。
+搭博客比打印 "Hello, World!" 到屏幕上有常见的用途，JSON 也是一种很常见的用例。良好的基准测试需要考虑每个框架在相似负载下的表现，它需要比简单的打印两个单词到屏幕上承载更多的压力。
 
 #### 保持做相同的事情
 
@@ -289,8 +289,8 @@ wrk -d 10m -t 4 -c 20 http://169.254.237.101:(PORT)/json
 
 #### 保持联系
 
-如果你有任何问题，可以在 Twitter 上和我取得联系 [@rymcol]（http://twitter.ryanmcollins.com/）。
+如果你有任何问题，可以在 Twitter 上和我取得联系 [@rymcol](http://twitter.ryanmcollins.com/)。
 
->需要额外说明的信息：这段内容增加于 2016 年 9 月 1 日，为 Zewo 使用 `swift build -c release` 方法构建而优化并修正了一些数据。PerfectlySoft 公司提供的经费为我进行这项研究提供了动力。我同时也在 Github 上 Perfect & Vapor 的团队中，我不是其中任何一个的雇员，我的意见也不代表他们的观点。我尽力保持绝对的公平公正，因为我同时在所有的四个平台上开发，我是真的想看到结果 [用于研究的所有代码都是公开]（https://github.com/rymcol/Server-Side-Swift-Benchmarking），你可以随时检查测试方式或者自己重复一些测试。
+>需要额外说明的信息：这段内容增加于 2016 年 9 月 1 日，为 Zewo 使用 `swift build -c release` 方法构建而优化并修正了一些数据。PerfectlySoft 公司提供的经费为我进行这项研究提供了动力。我同时也在 Github 上 Perfect & Vapor 的团队中，我不是其中任何一个的雇员，我的意见也不代表他们的观点。我尽力保持绝对的公平公正，因为我同时在所有的四个平台上开发，我是真的想看到结果 [用于研究的所有代码都是公开](https://github.com/rymcol/Server-Side-Swift-Benchmarking)，你可以随时检查测试方式或者自己重复一些测试。
 
 
