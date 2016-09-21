@@ -20,7 +20,7 @@ But of all professions working at IBM—scientists, engineers, business professi
 
 “Designers bring this intuitive sense for what it [the assignment] means. They understand the power of delivering a great experience and how to treat a user as if they were guests in their own home,” says Gilbert, who’s also the company’s designated chief design evangelist.
 
-![](http://ac-Myg6wSTV.clouddn.com/e185834f43fd88d662a8.jpg?w=4184)
+![](https://qzprod.files.wordpress.com/2016/08/14707263174_4882bddcb7_o.jpg?w=4184)
 
 Employee design orientation. (IBM)
 
@@ -32,7 +32,7 @@ In a recent project, an airline approached IBM to improve its kiosks to speed up
 
 Gilbert explains that training staff to think like a designer helps them tune in to “emotional connections” and develop a keen interest in clients’ struggles, pressures, and insecurities. “That doesn’t come naturally to other disciplines, but it comes naturally to designers—it’s the way designers approach a problem.” Design, Gilbert explains, has become a kind of overlay to IBM’s business and engineering practices. “If you don’t have all three [departments] you won’t have a good outcome reliably, at least not at scale.”
 
-![IBM Thomas J. Watson Memo 123](http://ac-Myg6wSTV.clouddn.com/71f64fda0b06768c3b30.jpg?w=364)
+![IBM Thomas J. Watson Memo 123](https://qzprod.files.wordpress.com/2016/08/us__en_us__letter__thomas__364x505.jpg?w=940)
 
 Memo 123: IBM’s design directive. (IBM)
 
@@ -44,11 +44,11 @@ In IBM’s [design bootcamps](http://www.ibm.com/blogs/think/2016/01/21/ibm-desi
 
 In three years, IBM has also more than tripled its design staff, with 1,300 formally trained designers working in 31 studios from Boston to Böblingen, Germany. It acquired four digital and branding agencies, and built the largest studio network in the world. IBM is quickly assembling a kind of Noah’s Ark of designers working on product, graphics, interface, branding, and even a in-house typographer.
 
-![](http://ac-Myg6wSTV.clouddn.com/d046e20a1598158042f1.jpg)![](https://qzprod.files.wordpress.com/2016/08/15398319451_86f84a9784_o.jpg)
+![](https://qzprod.files.wordpress.com/2016/08/15398319451_86f84a9784_o.jpg?w=7120)
 
 IBM Design studios in Austin, Texas. (IBM)
 
-![](http://ac-Myg6wSTV.clouddn.com/a11d303edaf7ad67e87f.jpg?w=768)
+![](https://qzprod.files.wordpress.com/2016/08/lemniscate_wired_invert-1-768x481.jpg?w=1600)
 
 IBM Design Thinking (IBM)
 
@@ -56,9 +56,11 @@ IBM Design Thinking (IBM)
 
 Among this new tribe of creative people at IBM are design researchers—formally trained ethnographers with MFA degrees to probe how their solutions are working in the real world. Working in project teams, they conduct interviews and collect data to better understand the nuances of an assignment. Gilbert says having researchers with “open minds and open hearts” allows developers to validate their ideas and better anticipate the needs of their clients. “The design researcher has been the most disruptive of the design disciplines we’ve brought in—and by far the most transformative,” he says.
 
- “The design researcher has been the most disruptive of the all design disciplines we’ve brought in—and by far the most transformative.” With $100 million earmarked for the initiative, IBM is aggressively pushing the design enculturation campaign in all its internal systems, from hiring, to training, employee review processes, to the layout of office spaces and even the way office supplies are ordered. “When we started the program it wasn’t easy to get Post-It’s,” says Gilbert, of the requisite office supply and symbol of design thinking powwows. “Today, they’re in our system—just push a button and you can get Post-Its. That’s a profound change.”
+ “The design researcher has been the most disruptive of the all design disciplines we’ve brought in—and by far the most transformative.” 
 
-![](http://ac-Myg6wSTV.clouddn.com/e79be9da5763dee01c4a.jpg?w=50)![](http://ac-Myg6wSTV.clouddn.com/39338add28b24eb0fad2.jpg?w=3888)
+With $100 million earmarked for the initiative, IBM is aggressively pushing the design enculturation campaign in all its internal systems, from hiring, to training, employee review processes, to the layout of office spaces and even the way office supplies are ordered. “When we started the program it wasn’t easy to get Post-It’s,” says Gilbert, of the requisite office supply and symbol of design thinking powwows. “Today, they’re in our system—just push a button and you can get Post-Its. That’s a profound change.”
+
+![](https://qzprod.files.wordpress.com/2016/08/14729427223_8a61afca23_o.jpg?w=3888)
 
 Post-it process. (IBM)
 

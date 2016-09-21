@@ -29,7 +29,6 @@
 
 将会创建一个 Cordova 工程的目录结构：
 
-
 ![Cordova Vue.js Directory Structure](https://coligo.io/building-a-mobile-app-with-cordova-vuejs/directory-structure.png)
 
 
@@ -49,10 +48,9 @@
 
 `--save` flag 将平台引擎添加到 config.xml ，是[cordova prepare](https://cordova.apache.org/docs/en/latest/reference/cordova-cli/#cordova-prepare-command) 从一个 **config.xml** 文件初始化 Cordova 工程需要的命令。
   
-      
-   ...
-    <engine name="android" spec="~5.2.1" />
-</widget>   
+    ...
+        <engine name="android" spec="~5.2.1" />
+    </widget>
 
 检查你是否具备利用 Cordova 开发/运行 Android 应用的条件：
 
@@ -83,16 +81,16 @@ If missing requirements, see the [Cordova Docs for Android](https://cordova.apac
 在 **config.xml** 文件中更改有关随机单词生成器应用的信息：
     
     
-    <?xml version='1.0' encoding='utf-8'?>
-    <widget id="io.coligo.randomword" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>RandomWord</name>
-    <description>
-        A mobile app for generating a random word.
-    </description>
-    <author email="michaelviveros@gmail.com" href="http://www.michaelviveros.com/">
-        Michael Viveros
-    </author>
-    ...
+        <?xml version='1.0' encoding='utf-8'?>
+        <widget id="io.coligo.randomword" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+            <name>RandomWord</name>
+            <description>
+                A mobile app for generating a random word.
+            </description>
+            <author email="michaelviveros@gmail.com" href="http://www.michaelviveros.com/">
+                Michael Viveros
+            </author>
+            ...
 
 # 添加 Vue.js
 
@@ -104,9 +102,6 @@ If missing requirements, see the [Cordova Docs for Android](https://cordova.apac
             <script type="text/javascript" src="js/index.js"></script>
         </body>
     </html>
-
-
-
 
 
 
@@ -142,7 +137,7 @@ CSP meta 标签看起来应该像这样
         <title>Random Word</title>
     </head>
     <body>
-        <div id="Vue-instance" class="app">
+        <div id="vue-instance" class="app">
             <h1>Random Word</h1>
             <button id="btn-get-random-word" @click="getRandomWord">Get Random Word</button>
             <p>{{ randomWord }}</p>
@@ -153,11 +148,6 @@ CSP meta 标签看起来应该像这样
     </body>
     </html>
     ```        
-            
-            
-            
-        
-    
 
 现在我们将添加一些 Javascript 来生成随机单词进行展示。
 
@@ -356,8 +346,6 @@ CSP 元标签的 `connect-src` 部分定义了应用发起 HTTP 请求的来源�
     </script>
 
 
-
-
 **www/index.html**的 HTML 放入 `template` 标签，而 Javascript 放入 **random-word.Vue**的 `script` 标签
 
 创建一个新的包含随机单词组件的 Vue 实例文件，命名 **www/js/main.js**：
@@ -420,6 +408,7 @@ CSP 元标签的 `connect-src` 部分定义了应用发起 HTTP 请求的来源�
 
 开发应用其他部分之前，在 **config.xml** 底部添加一个 hook 来告知 Cordova 绑定随机单词组件：
 
+
     ...
         <hook type="before_compile" src="scripts/Vueify-build.js" />
     </widget>
@@ -437,13 +426,11 @@ CSP 元标签的 `connect-src` 部分定义了应用发起 HTTP 请求的来源�
     <body>
         <random-word></random-word>
         <script src="js/bundle.js"></script>
-
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript" src="cordova.js"></script>
     </body>
 </html>
 ```
-  
 
 注意到 **www/index.html** 中链接标签定义了应用的 CSS 和 **www/js/random-word.Vue** 中的 `div` 。在 CSS 中使用了 "app" 类定义。
 
