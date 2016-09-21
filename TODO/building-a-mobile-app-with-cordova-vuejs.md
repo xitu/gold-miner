@@ -30,7 +30,7 @@
 将会创建一个 Cordova 工程的目录结构：
 
 
-![Cordova Vue.js Directory Structure](https://coligo.io/building-a-mobile-app-with-cordova-Vuejs/directory-structure.png)
+![Cordova Vue.js Directory Structure](https://coligo.io/building-a-mobile-app-with-cordova-vuejs/directory-structure.png)
 
 
 *   **config.xml** -包含有关应用的信息，需要的插件和面向的平台
@@ -73,7 +73,7 @@ If missing requirements, see the [Cordova Docs for Android](https://cordova.apac
 
 实例应用相当简单，它做的一切只是更改标签的背景色。
 
-![Cordova Sample Screen](https://coligo.io/building-a-mobile-app-with-cordova-Vuejs/cordova-sample-app.png)
+![Cordova Sample Screen](https://coligo.io/building-a-mobile-app-with-cordova-vuejs/cordova-sample-app.png)
 
 要用 iOS 替代 Android ，按上述步骤进行操作，只需把 `android` 换成 `ios` 。如果不满足条件，查看[iOS 版 Cordova 文档](https://cordova.apache.org/docs/en/latest/guide/platforms/ios/)  以及 Help 底部的教程。如果在 Windows 系统的电脑上运行 Cordova ，你*无法*运行 iOS 应用，因为 iOS Cordova 需要苹果系统。
 
@@ -248,7 +248,8 @@ CSP meta 标签看起来应该像这样
 
 该应用长这个样子：
 
-![Random Word App Cordova Vue.js](https://coligo.io/building-a-mobile-app-with-cordova-Vuejs/random-word-cordova-Vuejs.png)
+![Random Word App Cordova Vue.js](https://coligo.io/building-a-mobile-app-with-cordova-vuejs/random-word-cordova-vuejs.png)
+
 
 #  vue-resource 发起 HTTP 请求
 
@@ -318,7 +319,8 @@ CSP 元标签的 `connect-src` 部分定义了应用发起 HTTP 请求的来源�
 
 这就是添加 Vue 组件之后目录的样子：
 
-![Cordova Vue.js Directory Structure](https://coligo.io/building-a-mobile-app-with-cordova-Vuejs/directory-structure-2.png)
+![Cordova Vue.js Directory Structure](https://coligo.io/building-a-mobile-app-with-cordova-vuejs/directory-structure-2.png)
+
 
 创建一个带有随机单词生成器所有代码的组件，命名为**www/js/random-word.Vue**：
     
@@ -473,7 +475,7 @@ CSP 元标签的 `connect-src` 部分定义了应用发起 HTTP 请求的来源�
 
 # 总结
 
-一切都完成了。
+一切都结束了。
 
 Cordova 令利用 web 技术开发移动应用变得超简单。 连接 Cordova 和 Vue.js 也很方便就能让你利用Vue.js 之类很酷的东西
 
@@ -482,7 +484,7 @@ Cordova 令利用 web 技术开发移动应用变得超简单。 连接 Cordova 
 
 *   开发一个 Cordova 工程
 *   链接 Cordova 和 Vue.js
-*   Cordova app 通过更新内容安全策略来发出 http 申请  by updating it's Content Security Policy
+*   Cordova app 通过更新内容安全策略来发出 http 申请  
 *   添加 Hooks 在 Cordova 应用中使用 Vue 组件
 
 
