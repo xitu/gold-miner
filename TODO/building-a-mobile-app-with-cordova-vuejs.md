@@ -526,7 +526,7 @@ Cordova 令利用 web 技术开发移动应用变得超简单。 连接 Cordova 
 # 关于作者
 
 
-我叫 Michael Viveros 。今年是我学习软件工程的第五年。我是个充满热情的程序员，难得一见的没准的高尔夫球手和会挖苦人的机智的说笑话的家伙。我正在开发一个高尔夫球跟踪网站，还有个用到 Cordova 和 Vue.js 的移动应用。  你可以在下面的网站看到更多 [michaelviveros.com](http://www.michaelviveros.com/) 。
+我的名字叫 Michael Viveros 。今年是我学习软件工程的第五年。我是个充满热情的程序员，难得一见的没准的高尔夫球手和会挖苦人的机智的说笑话的家伙。我正在开发一个高尔夫球跟踪网站，还有个用到 Cordova 和 Vue.js 的移动应用。  你可以在下面的网站看到更多 [michaelviveros.com](http://www.michaelviveros.com/) 。
 
 
 
