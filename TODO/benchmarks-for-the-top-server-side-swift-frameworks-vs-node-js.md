@@ -2,7 +2,7 @@
 * 原文作者：[Ryan Collins](https://medium.com/@rymcol)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Tuccuay](https://github.com/Tuccuay)
-* 校对者：
+* 校对者：[鳗鱼鱼](https://github.com/cyseria), [Nicolas(Yifei) Li](https://github.com/yifili09)
 
 ### 前言
 
