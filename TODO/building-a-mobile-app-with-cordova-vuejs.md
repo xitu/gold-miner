@@ -473,7 +473,7 @@ CSP 元标签的 `connect-src` 部分定义了应用发起 HTTP 请求的来源�
 
 # 总结
 
-一切都结束了。
+一切都完成了。
 
 Cordova 令利用 web 技术开发移动应用变得超简单。 连接 Cordova 和 Vue.js 也很方便就能让你利用Vue.js 之类很酷的东西
 
