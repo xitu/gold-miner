@@ -281,7 +281,6 @@ wrk -d 10m -t 4 -c 20 http://169.254.237.101:(PORT)/json
 
 ### 参与其中
 
-如果你有兴趣在服务器端斯威夫特，现在是参与的时候了！还有大量的工作要在框架完成，它们的文档，并得到了一些非常酷的应用程序在那里为例，开或闭源。您可以详细了解每个框架，并在这里参与：
 如果你对服务端 Swift 感兴趣，现在是时候参与其中了！这些框架还有大量的工作需要完成，比如说他们的文档。并且有一些非常炫酷的应用程序作为示例（有开源也有闭源）。你可以在这里了解更多信息：
 
  - Perfect: [Website](http://perfect.org/) | [Github](https://github.com/PerfectlySoft/Perfect/) | [Slack](http://perfect.ly/) | [Gitter](https://gitter.im/PerfectlySoft/Perfect?utm_source=rymcol) 
