@@ -20,7 +20,7 @@
 
 4. 认领通过后，Fork 此仓库开始翻译，**注意：Fork 此仓库后，请先从 master 分支上 `git checkout -b translate` 一个新的 translate 分支来翻译文章，翻译完成后再把 translate 分支发 PR**。
 
-5. 翻译为中文时排版请参考 **[中文文案排版指北](https://github.com/mzlogin/chinese-copywriting-guidelines)**;
+5. 翻译为中文时排版请参考 **[中文文案排版指北](https://github.com/xitu/gold-miner/wiki/译文排版规则指北)**;
 
 6. 翻译完成，发送 [Pull Request](https://github.com/xitu/gold-miner/pull/new/master)，**注意：发 PR 的时候请注意检查，一个 PR 只能有一篇文章，切勿两篇或多篇合并到一个 PR**；
 
