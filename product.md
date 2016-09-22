@@ -1,3 +1,4 @@
+* [为什么用户体验最重要！最重要！最重要！](http://gold.xitu.io/entry/57e388ef5bbb50005d3c97d9?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Nicolas(Yifei) Li](https://github.com/yifili09) 翻译)
 * [如何给你的产品写文案？](http://gold.xitu.io/entry/57d3a12067f3560057d58eba?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jiaowoyongqi](https://github.com/jiaowoyongqi) 翻译)
 * [开发移动应用，你应该注意这些小细节](http://gold.xitu.io/entry/57d2d60667f3560057d0cd85?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([mypchas6fans](https://github.com/mypchas6fans) 翻译)
 * [人们为什么会打开你的营销电子邮件？](http://gold.xitu.io/entry/57d170f82e958a00544ebf7c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Deadlion](https://github.com/Deadlion) 翻译)
