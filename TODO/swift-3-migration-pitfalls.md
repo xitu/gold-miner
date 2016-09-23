@@ -1,14 +1,14 @@
 > * 原文地址：[Swift 3 migration pitfalls](http://codelle.com/blog/2016/9/swift-3-migration-pitfalls/)
 * 原文作者：[ Emil Loer](http://codelle.com/contact/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：shliujing
 * 校对者：
 
 
 
 [](http://codelle.com/blog/2016/9/swift-3-migration-pitfalls/)
 
-Hooray! Swift 3 got released, so let's migrate! In this post I will tell you about my experiences of migrating a 20K lines Swift project to version 3 of the language. In case you're curious, the project is my own implementation of the Cassowary linear constraint solving algorithm most famous for it's use in Auto Layout, but I'm using it for something totally different which I will write about in a future article.
+万岁! Swift 3 got released, so let's migrate! In this post I will tell you about my experiences of migrating a 20K lines Swift project to version 3 of the language. In case you're curious, the project is my own implementation of the Cassowary linear constraint solving algorithm most famous for it's use in Auto Layout, but I'm using it for something totally different which I will write about in a future article.
 
 ### The Swift Migrator
 
