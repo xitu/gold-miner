@@ -4,74 +4,74 @@
 * 译者：
 * 校对者：
 
-_In this series, [Perfect Company](http://qz.com/se/perfect-company/), we are examining pockets of excellence in the corporate world. No single company is perfect, but together they show what the corporate ideal could look like._
+_在这本书 [完美的公司](http://qz.com/se/perfect-company/) 中我们研究了世界上各个小而美的公司，发现没有任何一个公司可以称之为完美，但是如果把他们整合在一起那么就会出现符合理想型公司的特点。_
 
-## The platonic ideal
+## 最终理想
 
-“Design is _not_ style. It’s _not_ about giving shape to the shell and not giving a damn about the guts. Good design is a renaissance attitude that combines technology, cognitive science, human need, and beauty to produce something that the world didn’t know it was missing.”—_Paola Antonelli, senior curator of the Museum of Modern Art_
+“设计**不是**套路。也**不是**简单的搭建外壳不管里面的内容。优秀的设计应该具备文艺复兴时代的精神，并且结合技术、认知科学、人类需求和美学来创造出使世界为之惊喜的事物。”_ **现代美术馆馆长 Paola Antonelli 说道**。
 
-## The practice
+## 行动
 
-In 2012, IBM, the 105-year old information technology company, set out a bold vision: To flood its ranks with hundreds of designers and train its entire workforce—some 377,000 employees worldwide—to think, work,_feel_ like designers. Like it did 60 years ago, IBM is looking to bolster its bottom line through a design-minded culture, but this time at a more ambitious scale involving the entire company.
+2012 年，IBM 这个 105 岁的科技公司立下了一个满怀雄心的誓言：提高公司上百位设计师的水平，并训练所有的员工**像**设计师那样思考与工作（全球员工共 377,00 多位）。就好像 60 年前 IBM 打算通过设计思维来提高基准水平一样，不过这次的决心更大，打算将其贯穿于公司上下。
 
-The ethos of IBM’s design renaissance is radically different from its storied [Corporate Design program](http://www-03.ibm.com/ibm/history/ibm100/us/en/icons/gooddesign/team/) that it maintained for 20 years. In 1956, IBM founder and president Thomas J. Watson looked to the “imaginative use of design” to boost sales with the now famous call-to-arms “good design is good business.” But today, instead of hiring big name geniuses like Eliot Noyes, Eero Saarinen, Paul Rand, and Charles and Ray Eames as it famously did in the 1960s, IBM is aggressively hiring new graduates and mid-career designers with an aptitude for collaboration. “The challenges are just too great for one designer,” explains Phil Gilbert, general manager of design for IBM software, of their new team-based design philosophy.
+这次 IBM 的设计文艺复兴态度与 [企业设计化项目](http://www-03.ibm.com/ibm/history/ibm100/us/en/icons/gooddesign/team/) 这篇 20 年前发表的文章有很大不同。在 1956 年，IBM 的创始人兼总裁 Thomas J. Watson 喊出了十分著名的行动口号“优秀的设计就是优秀的商业”来达到“看得见的设计目标”，并以此提高公司的影响力。但是现在 IBM 不再像 1960 年那样高调地雇佣设计巨匠比如 Eliot Noyes，Eero Saarinen，Paul Rand，Charles 和 Ray Eames。而是开始雇佣那些具有合作能力的应届毕业生以及中级设计师。“我们面临的挑战对于设计师一人而言太过于困难” IBM 的设计经理这样说道，这也是现在他们这个全新的团队所秉持的设计哲学。
 
-But of all professions working at IBM—scientists, engineers, business professionals—why make designers the ideal?
+但是相对于 IBM 其他的职位，例如科学家、工程师、商业人士而言，为什么只将设计师置于如此之高的地位？
 
-“Designers bring this intuitive sense for what it [the assignment] means. They understand the power of delivering a great experience and how to treat a user as if they were guests in their own home,” says Gilbert, who’s also the company’s designated chief design evangelist.
+“设计师对于产品的正确方向有着敏锐的直觉。他们深知绝佳的用户体验所带来的力量，也明白如何让用户在使用产品的时候感受到如在自家之中一样自在。”Gilbert 说道，他是公司中的主要的设计思维传教士。
 
 ![](https://qzprod.files.wordpress.com/2016/08/14707263174_4882bddcb7_o.jpg?w=4184)
 
-Employee design orientation. (IBM)
+IBM 的设计指示牌。
 
 
 
- “Design is everyone’s job. Not everyone is a designer, but everybody has to have the user as their north star.” Gilbert explains that the design program allows the $143 billion company to be more strategic and shift away from the engineering-driven “features-first” ethos towards a more “user first” mentality. “It allows us to solve real problems for real people instead of building a few features here and there,” he says.
+“设计是每个人的工作。但并非人人都是设计师，而是每个人都该将设计作为他们工作的指向标。”Gilbert 说这个设计化项目让这个市值 143 亿美元的公司变得更具远见，并且从之前以技术驱动的“功能至上”的公司宗旨转变成“用户至上”。“这让我们开始真正地为用户解决问题，而不是像以前那样这里添加一个功能那里又添加一个功能。”他补充到。
 
-In a recent project, an airline approached IBM to improve its kiosks to speed up passenger gate check-ins. While the engineers started by improving the kiosk’s software, designers went straight to gate agents to ask why the check-in kiosks weren’t used more effectively. Designers found out that female gate agents struggled to keep kiosks charged because their constricting uniforms prevented them from reaching electrical plugs behind the machines. By finding the root of the problem, IBM delivered a mobile app that significantly eased the boarding process and reduced airline costs.
+在最近的一个项目中，一家航空公司请求 IBM 帮助他们提高售票窗口的速度以缩短乘客的检票时间。当工程师接到需求后就开始思考如何提高收票窗口的软件性能，而设计师则直接去询问工作人员为何检票的效率如此之低。最后他们发现女性工作人员在给检票机充电的时候遇到了困难，因为她们的特殊制服使得她们很难够到机器后面的充电孔。当发现了问题的关键后，IBM 开发了一款手机应用替代了传统的登机流程，并且减少了航空公司的成本。
 
-Gilbert explains that training staff to think like a designer helps them tune in to “emotional connections” and develop a keen interest in clients’ struggles, pressures, and insecurities. “That doesn’t come naturally to other disciplines, but it comes naturally to designers—it’s the way designers approach a problem.” Design, Gilbert explains, has become a kind of overlay to IBM’s business and engineering practices. “If you don’t have all three [departments] you won’t have a good outcome reliably, at least not at scale.”
+Gilbert 说通过让员工像设计师一样思考可以帮助他们产生“情感联系”，并且开始关心用户遇到的困难、压力以及不安全感。“这对于其他职位并不熟悉，但这对于设计师来说十分熟悉，因为这是他们解决问题的方式。” Gilbert 解释道，设计已经成为逐步覆盖到了 IBM 的商业部门及工程部门。“如果一个项目没有三个部门的协同参与，至少在一定的范围内你将无法得到可靠、优质的成果。”
 
 ![IBM Thomas J. Watson Memo 123](https://qzprod.files.wordpress.com/2016/08/us__en_us__letter__thomas__364x505.jpg?w=940)
 
-Memo 123: IBM’s design directive. (IBM)
+IBM 的设计化通知。
 
 
 
-In IBM’s [design bootcamps](http://www.ibm.com/blogs/think/2016/01/21/ibm-design-thinking-a-framework-for-teams-to-continuously-understand-and-deliver/), empathy—the ability to understand another’s feelings—has been a mantra for groups trying to better connect with colleagues and clients. They learn about rapid prototyping, team dynamics, problem solving, and how to tap into their customers’ and colleagues’ feelings and concerns to come up with better tech solutions.
+在IBM [设计训练营](http://www.ibm.com/blogs/think/2016/01/21/ibm-design-thinking-a-framework-for-teams-to-continuously-understand-and-deliver/) 这篇文章中说道，同理心（理解他人感受的能力）成为了训练营中的关键词，以此更好地与同事和顾客建立起联系。他们还练就了如何快速制作原型、增加团队活力、提高解决问题的能力、更好地理解客户与同事，并且借此来得出更佳的科技解决方案。
 
-“Design is everyone’s job. Not everyone is a designer, but everybody has to have the user as their north star,” writes Gilbert in the company [blog.](http://www.ibm.com/smarterplanet/us/en/innovation_explanations/article/phil_gilbert.html) By the end of 2016, 100,000 IBM staffers will have gone through some sort of design training.
+“设计是每个人的工作。但并非人人都是设计师，而是每个人都该将设计作为他们工作的指向标。”Gilbert 在公司的 [博客](http://www.ibm.com/smarterplanet/us/en/innovation_explanations/article/phil_gilbert.html) 中这样写道。在2016年底，100,000 位 IBM 员工必须要进行各类的设计训练。
 
-In three years, IBM has also more than tripled its design staff, with 1,300 formally trained designers working in 31 studios from Boston to Böblingen, Germany. It acquired four digital and branding agencies, and built the largest studio network in the world. IBM is quickly assembling a kind of Noah’s Ark of designers working on product, graphics, interface, branding, and even a in-house typographer.
+三年后，IBM 的员工数量将会增加三倍，其中将会有 1,300 位受过正式训练的设计师，分布在美国波士顿到德国伯布林根近 31 个工作室中。还需要 4 个数字化品牌机构就可以相互连接并成为世界上最大的工作室网络。IBM 还在快速地部署设计师的诺亚方舟，其中包括产品设计师、图形设计师、界面设计师、品牌设计师甚至还有字体排印设计师。
 
 ![](https://qzprod.files.wordpress.com/2016/08/15398319451_86f84a9784_o.jpg?w=7120)
 
-IBM Design studios in Austin, Texas. (IBM)
+IBM 位于德克萨斯州奥斯汀的设计工作室。
 
 ![](https://qzprod.files.wordpress.com/2016/08/lemniscate_wired_invert-1-768x481.jpg?w=1600)
 
-IBM Design Thinking (IBM)
+IBM 的设计思维。
 
 
 
-Among this new tribe of creative people at IBM are design researchers—formally trained ethnographers with MFA degrees to probe how their solutions are working in the real world. Working in project teams, they conduct interviews and collect data to better understand the nuances of an assignment. Gilbert says having researchers with “open minds and open hearts” allows developers to validate their ideas and better anticipate the needs of their clients. “The design researcher has been the most disruptive of the design disciplines we’ve brought in—and by far the most transformative,” he says.
+IBM 还将会有新的一批人加入这个设计部落中，那就是设计研究员，他们受过正式的人种学的教育并且获得了艺术硕士的学位，他们将会探索如何将他们的方法应用在实际工作中。在实际工作中，他们将会开展访谈并收集数据以了解不同功能组件对于用户而言的细微差别。Gilbert 说研究人员所具有的“开放精神”使得工程师能够更好地实现他们的想法，并且更好地满足客户的要求。“设计研究员的加入在设计团队中掀起了轩然大波，但长远来说这是十分具有革命性的。”他这样说道。
 
- “The design researcher has been the most disruptive of the all design disciplines we’ve brought in—and by far the most transformative.” 
+“设计研究员的加入在设计团队中掀起了轩然大波，但长远来说这是十分具有革命性的。”
 
-With $100 million earmarked for the initiative, IBM is aggressively pushing the design enculturation campaign in all its internal systems, from hiring, to training, employee review processes, to the layout of office spaces and even the way office supplies are ordered. “When we started the program it wasn’t easy to get Post-It’s,” says Gilbert, of the requisite office supply and symbol of design thinking powwows. “Today, they’re in our system—just push a button and you can get Post-Its. That’s a profound change.”
+1 亿美金的专项支出，IBM 霸气地把设计化项目推行于公司的所有系统之中，其中包括招聘、培训、评审环节、办公室的布局甚至办公产品的供给。“当我们在开始这个项目的时候，我们在办公室中很难用到便利贴。但现在只需要点一个按钮就可以得到便利贴，这是一个令人惊喜的改变。” Gilbert 说道，便利贴是办公室的必需品也是这个设计项目令人惊喜的标识之一。
 
 ![](https://qzprod.files.wordpress.com/2016/08/14729427223_8a61afca23_o.jpg?w=3888)
 
-Post-it process. (IBM)
+便利贴项目。
 
 
 
-## The takeaways
+## 收获
 
-To stretch its investment, IBM is intentionally filling two-thirds of its design ranks with new graduates. Gilbert says this strategy helps invigorate established processes. “We’re building this [design] program for the long term and we wanted people with very fresh perspectives on the world, on the profession, on what a design culture should be,” he explains.
+为了增加投资的附加价值，IBM 有意地将二分之三的设计团队换为应届毕业生。Gilbert 说这个策略可以给公司加入新鲜的血液。“我们构建这个设计项目是为了长远考虑，我们也希望员工来自世界各地有着各不相同的观点、想法、专业以及不同的设计文化背景。”
 
-The focus on design thinking has instilled a more collaborative, group meeting-based culture that may not be immediately embraced by all employees. “It’s not just radical collaboration but radical transparency,” explains Gilbert. “It’s a sharing of intentions, motivations, and information.” He says that IBM had to revamp its internal systems to introduce collaboration and brainstorming platforms like GitHub, Slack, and MURAL.
+专注于设计思维就是逐渐推行协作性，基于小组讨论的公司文化，但这可能并不会立即被所有员工所接受。“这不是彻底的协同工作，而是彻底透明性” Gilbert 说道。“这是相互分享想法、热情以及信息。”他说 IBM 必须重组其内在的系统，转向至更具协作性、更有利于灵感激发的平台例如 GitHub、Slack、和 MURAL。
 
-Introducing design researchers—specialists with science and humanities backgrounds—has brought the most profound change to the company’s operations. Gilbert explains that some IBM engineering and business teams are startled to encounter designers who speak in terms of sociological data rather than pretty prototypes. “Design used to be form and color, but understanding a user … in that sense it could appear to be threatening,” he says. “It’s hard and messy, but you get much richer outcomes.”
+引入设计研究员（以科学和人类学为专业背景）将会给公司的运作带来最为深远的影响。Gilbert 说道许多 IBM 的工程师和商业团队希望与数据型设计师合作，他们会有数据作为设计理由而不是简单原型图。“过去的设计师专注于形式和色彩，但对于理解用户而言做得并不好，这十分的棘手，但接下来将会变得越来越好。”他补充道。
 
-IBM’s aggressive and zealous design-minded approach can help promote a more nuanced definition of design’s purview. Just by the scale of its presence in 170 countries, IBM can re-contextualize roles and careers for the design profession around the world. Expanding design’s influence beyond finessing shapes, beautifying screen interfaces, and tidying up presentations, IBM’s trained employees can demonstrate how design thinking can improve and humanize solutions for the world’s most urgent matters, from detecting cancer and fighting the Zika virus to providing drone operators with real-time weather data.
+IBM 霸气而又彻底的设计思维化项目还会把设计影响力扩散得更广。就在 IBM 所在的 170 个国家中，IBM 会重新进行定位并调整提高设计的专业性。扩散设计的影响力以创造出更适合的形状、更美丽的界面还有更简洁的解决方案。经过精心训练的 IBM 员工可以在工作中体现出设计的价值，并且以此解决世界上各类棘手的问题，包括检测癌症、与兹卡病毒作斗争还有通过实时的天气数据操控无人机等。
