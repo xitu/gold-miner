@@ -1,48 +1,47 @@
 > * 原文地址：[Preparing Your iOS App for Extensions](https://www.raizlabs.com/dev/2016/09/preparing-ios-app-for-extensions/)
 * 原文作者：[NICK BONATSAKIS](https://www.raizlabs.com/dev/author/nbonatsakis/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[jk77me](https://github.com/jiakeqi)
 * 校对者：
 
 
 
 
+iOS 10 和 watchOS 3 给开发者们带来许多令人激动的新系统扩展点. 送 Siri 到 Messages, 应用与系统的方法不断增加
 
-iOS 10 and watchOS 3 are bringing a number of exciting new system extension points to developers. From Siri to Messages, the number of ways an app can integrate with the system is ever increasing.
+这些新的集成方式, 和大量先有的集成, 通常以应用扩展的方式加入进来. 苹果的[应用扩展编程指南](https://developer.apple.com/library/ios/documentation/General/Conceptual/ExtensibilityPG/):
+> “当用户于其他应用或系统交互时. 一个应用扩展可以让你给用户提供超出本应用的自定义功能和内容”
 
-These new integrations, as well as the large number of existing integrations, typically come in the form of app extensions. From Apple’s [App Extension Programming Guide](https://developer.apple.com/library/ios/documentation/General/Conceptual/ExtensibilityPG/):
+因为一个应用扩展是一个完全分离的实体(从你的应用进程彻底独立出来的进程), 它需要一个途径去和父应用分享功能和数据. 考虑到一个健身应用允许用户用 Siri 扩展来开始锻炼, 而应用和 Siri 扩展都需要访问用户创建的锻炼, 锻炼搜索功能 和附加的用户偏好设置.
 
-> “An app extension lets you extend custom functionality and content beyond your app and make it available to users while they’re interacting with other apps or the system.”
+好消息是，苹果提供了一些机制，使得这种数据和功能共享成为可能的. 坏消息是, 迁移一个古老而复杂的项目去使用这些机制的过程并不简单。这个帖子的目的是指引你通过一些细节把的旧 iOS 项目整理好,并为应用扩展做准备.
 
-Because an app extension is an entirely separate entity (completely independent process from your app process), it needs a way to share both functionality and data with its parent app. Consider a workout app that allows a user to initiate a workout via a Siri extension. Both the app and the Siri extension need to have access to the user-created workouts, functionality for searching through workouts, and any additional user preferences.
+## 扩展的共享代码
 
-Fortunately, Apple provides a number of mechanisms that make this sort of data and functionality sharing possible. Unfortunately, the process of migrating an old and crufty project to use these mechanisms is not always straightforward. This post aims to guide you through some of the finer points of getting your old and busted iOS project nice and ready for app extensions.
+在你的项目中. 你想在应用和应用扩展中实现共享,首先和最重要的方面是代码本身.最简单的方法实现是添加你想在应用和应用扩展工程中共享的任何代码. 如果你这样做了.不仅会导致重复编译全部代码,还会受到我的轻视和嘲讽.
+共享代码另一个更好的方法是动态库,下面是如何进行的一些高级步骤,在对现有项目改动时还有一些特殊注意事项：
 
-## Sharing Code with the Extension
 
-The first and most important aspect of your project that you’ll want to share between your app and app extension is the code itself. The naive way to achieve this is to add whatever code you want to share to both app and app extension targets. If you do this, not only will you incur the cost of compiling all of this code twice, but you will also be the recipient of my unending scorn and ridicule.
+## 创建动态库
 
-A much better  way to share code is via embedded dynamic frameworks. Below are some high-level steps on how to proceed, along with some special considerations for doing this on existing projects:
-
-## Creating the Framework
-
-Create a new Dynamic Framework target (**File** → **New** → **Target**; Choose **Framework & Library** → **Cocoa Touch Framework**). This will create a new target as well as a new directory on disk within your project structure.
+ 创建一个新的动态库 (**File** → **New** → **Target**; 选择 **Framework & Library** → **Cocoa Touch Framework**).
+ 会在你的项目结构中和硬盘的目录下创建一个新的工程.
 
 [![Choosing Cocoa Touch Framework from File → New → Target → Framework & Library](https://www.raizlabs.com/dev/wp-content/uploads/sites/10/2016/08/Cocoa-Touch-Framework.png)](http://www.raizlabs.com/dev/wp-content/uploads/sites/10/2016/08/Cocoa-Touch-Framework.png)
 
-Since we’re doing this for an existing project, I’m going to assume that you’ll be mostly migrating Objective-C code. If this is the case, be sure to choose **Objective-C** as the language when you create the target. Be aware that this won’t preclude you from adding Swift code later; there are just a few things you’ll want to consider once you do so (covered below).
+在现有的项目中, 我会假定你迁移了 Objective-C 代码. 如果是这种情况, 当你创建工程时请确认选择了 **Objective-C** . 请注意这不会阻止你以后添加 Swift 代码, 如果你决定这么做只需要考虑一点点事情(下面介绍)
 
-You’ll also want to enable the **Allow app extension API only** checkbox on the **General** tab of your app extension [target configuration](https://developer.apple.com/library/ios/featuredarticles/XcodeConcepts/Concept-Targets.html). This will ensure that you do not access any system API that is not available to app extensions, thus ensuring that your framework can be consumed by both your app and extension.
+在你的应用扩展[工程配置](https://developer.apple.com/library/ios/featuredarticles/XcodeConcepts/Concept-Targets.html)中. 你可以在 **General** 标签中开启 **Allow app extension API only** 选项, 这将确保你不访问任何系统 API 的话应用扩展就不可用, 从而确保你的库可以在应用和扩展中使用
 
-## Move Code
+## 移动代码
 
-Add the source and resource files you’d like to share to this new target and remove them from your app target. It’s a good idea to start with the fewest files you can and work your way up to sharing more and more code as you work through the various issues of extracting functionality. It’s also strongly recommended that you move the files on disk (not just within the project groups), in order to avoid any future confusion around target file ownership.
+添加你想要共享的资源文件到新的动态库工程,并且从应用工程中删除掉. 当你完成提取功能的各种问题, 开始时保留最少的代码, 并共享越来越多的代码.也强烈建议您在移动磁盘上的文件（而不仅仅是项目内的文件），以避免工程文件所有权出现冲突。
 
-## Configure Umbrella Header
+## 配置主头文件
 
-When you create a new framework target, Xcode will automatically create an umbrella header for you as well. This header is where you specify the headers for the Objective-C code you want to be publicly available to consumers of your framework, e.g. your main app and extension.
+当你创建一个新的库工程, Xcode会自动为你创建一个主头文件, 这个头文件是你想成为公开提供给库使用者的Objective-C代码指定头文件，例如你的主要应用和扩展
+这有一个简短的示例, "Services" 的类库中的一个主头文件:
 
-Here’s a short example of an umbrella header for a framework called “Services”:
 
 
 
@@ -65,16 +64,17 @@ Here’s a short example of an umbrella header for a framework called “Service
 
 
 
-
-Note also, that specifying a header here is not enough: you must also select that header file and change the visibility to **Public** in the Attributes Inspector (right panel in Xcode).
+还要注意的是, 指定一个头文件的不够的: 又必须要选中这个头文件,并在属性检查器( Xcode 右边面板)中更改可见度为 **Public** 
 
 [![Setting the umbrella header's visibility to Public](https://www.raizlabs.com/dev/wp-content/uploads/sites/10/2016/08/Public-Visibility.png)](http://www.raizlabs.com/dev/wp-content/uploads/sites/10/2016/08/Public-Visibility.png)
 
-Finally, keep in mind that the behavior for Swift code is slightly different in that you don’t need to configure visibility via inclusion in the umbrella header or target configuration. Rather, visibility for all Swift code is controlled directly by the language [access control features](https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/AccessControl.html) (`private`, `internal`, and `public`).
+最后, 请记住, 对于 Swift 代码稍有不同, 在工程配置中或主头文件引用时不再需要配置可见度, 对比, 所有 Swift 代码的可见度是由语言直接控制的 [访问控制特性](https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/AccessControl.html) (`private`, `internal`, 和 `public`).
 
-## Other Considerations
+## 其他注意事项
 
-A few more minor gotchas to consider when creating your new framework. As mentioned before, you can in fact include Swift code in your Objective-C framework, and in general, things will bridge just as you would expect.
+创建新动态库时要考虑的一些较轻微的陷阱, 正如前面提到的，你其实可以在 Objective-C 库中引用 Swift 代码，并在一般情况下，事情会像你所期望的那样。
+
+在写代码时, 似乎不用为 Objective-C 代码创建桥接头文件, 如果你想在 Objective-C 代码中 使用Swift(动态库内), 它将是公开头文件的一部分(例如. 引用主头文件), 当使用桥接头文件时, 以这种方式公开暴露的Objective-C代码在你的静态库 Swift 代码中是自动可用的,
 
 As of this writing, it doesn’t seem like there is a way to create a bridging header for your Objective-C code, so if you want to access any of your Objective-C code from Swift (within the framework), it will have to be part of the public headers (i.e. included in the umbrella header). Any Objective-C code exposed publicly in this way is automatically available to your framework Swift code just as if you were using a bridging header.
 
