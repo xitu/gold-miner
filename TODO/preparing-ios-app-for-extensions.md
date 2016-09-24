@@ -76,39 +76,39 @@ iOS 10 和 watchOS 3 给开发者们带来许多令人激动的新系统扩展�
 
 在写代码时, 似乎不用为 Objective-C 代码创建桥接头文件, 如果你想在 Objective-C 代码中 使用Swift(动态库内), 它将是公开头文件的一部分(例如. 引用主头文件), 当使用桥接头文件时, 以这种方式公开暴露的Objective-C代码在你的静态库 Swift 代码中是自动可用的,
 
-As of this writing, it doesn’t seem like there is a way to create a bridging header for your Objective-C code, so if you want to access any of your Objective-C code from Swift (within the framework), it will have to be part of the public headers (i.e. included in the umbrella header). Any Objective-C code exposed publicly in this way is automatically available to your framework Swift code just as if you were using a bridging header.
+相反(从 Objective-C 内访问 Swift库), 你只需要引入自动生成的 Swift 头 (例如 `#import &lt;MyServices/MyServices-Swift.h&gt;`). 这样做会根据你指定的访问控制暴露 Swift 代码
 
-For the reverse situation (accessing Swift framework code from within Objective-C), you simply have to import the auto-generated Swift header (e.g. `#import &lt;MyServices/MyServices-Swift.h&gt;`). This will expose your Swift code according to the access control you’ve specified.
 
-## Consuming the Framework
+## 使用动态库
 
-Once you’ve created and configured your new framework, it’s time to consume it from your app and app extension. The first task is to include it as a dependency by adding it under **Embedded Binaries** in the target configuration for both app and extension:
+一旦你创建和配置您的新动态库,  即可在应用和应用扩展中使用. 第一个任务是在应用和扩展中的工程的 **Embedded Binaries** 引入依赖项:
 
 [![Add your framework under Embedded Binaries for both app and extension](https://www.raizlabs.com/dev/wp-content/uploads/sites/10/2016/08/Embedded-Binaries.png)](http://www.raizlabs.com/dev/wp-content/uploads/sites/10/2016/08/Embedded-Binaries.png)
 
-Caption: Find the embedded binaries configuration on the **General** tab of the Xcode target configuration for each target in your project.
+注: 在每个工程的 Xcode 工程设置中的 **General** 面板
 
-Once you’ve included the framework, it’s simply a matter of including the module using `@import Services;` for Objective-C and `import Services` for Swift.
+一旦你引入了这个动态库, 接下来就简单多了, 在 Swift 中  `import Services` 和在 Objective-C中  `@import Services;` 都能引入这个模块
 
-## Sharing Data
+## 共享数据
 
-If your app writes any user data to disk, and that same data must be accessible to both your app and app extension, simply moving your code to an embedded framework is not enough. This is because app extensions do not have access to the same files as your main app, and therefore cannot access data you’ve written to places such as the Documents directory.
+如果你的应用在磁盘中写入一些用户数据, 并且这些数据必须在应用和应用扩展中访问, 只移动代码到动态库内是不够的. 因为应用扩展不能像主应用那样访问这些文件, 所以不能访问你写到沙盒空间的数据
 
-## Creating an App Group
+## 创建一个应用组
 
-The solution to this problem is to create and configure an App Group for your app and read/write to a shared location for that group, rather than the main app’s file hierarchy. This is true for any file I/O you perform via code in your shared framework, whether that be interacting with files directly, or using an abstraction layer like Core Data that is backed by files on disk.
+解决这个问题的办法是,为你的应用和在一个共享位置读写创建并配置一个App组, 而非主应用的文件层级. 这适用于任何文件 I / O 去执行代码的共享库, 不管是与文件直接交互, 还是使用一个像磁盘文件支持核心数据的抽象层
 
-To create a new app group, the first thing you’ll need to do is create the group itself on the [Apple Developer Portal](https://developer.apple.com/account/) under **App Groups**. Name your app group using the same reverse domain naming scheme as your app identifier (e.g. `com.mycompany.AwesomeWorkouts`). Once you’ve created the app group, you’ll need to enable it for both your app and app extension via the **Capabilities** section of each respective target configuration.
+创建一个新的应用组, 首先你需要按照[苹果开发者入门](https://developer.apple.com/account/) 下的 **App Groups** 创建应用组. 使用像应用 identifier 相同的反转域名方式命名(例如: `com.mycompany.AwesomeWorkouts` ). 一旦你创建应用组之后, 你需要每个工程的应用和应用扩展中打开  **Capabilities** 选项
 
 [![Click this switch to enable the app group](https://www.raizlabs.com/dev/wp-content/uploads/sites/10/2016/08/App-Groups.png)](http://www.raizlabs.com/dev/wp-content/uploads/sites/10/2016/08/App-Groups.png)
 
-Make sure your project is configured for the appropriate team and then click the switch on the right to enable the App Groups. Xcode will work some magic and you’ll be presented with a list of App Groups for your account. Enable the one you just created for this app and rinse/repeat for each extension that requires access to shared data.
+请确认你的项目小组是配置好的, 然后点击右边的开启应用组. Xcode 会使用一些黑魔法后, 你会在个人账户中看到应用组的列表,  为每个创建的应用和扩展开启允许访问共享数据
 
-## Access Shared Container
+## 访问共享容器
 
-Now that your app and app extension have access to an app group, it’s time to change all of your file I/O code to point to the group’s shared container, rather than to app-specific locations.
+现在你的应用和应用扩展可以访问应用组了, 是时候更改所有文件 I/O 代码去指向应用组的共享容器, 而不是 app-specific 的位置.
 
-This can be done by obtaining the root directory for the shared container (Note: at the time of this writing, Swift 3 is the latest language version):
+这可以为共享容器获取根目录 (注: )
+This can be done by obtaining the root directory for the shared container (Note: 在写本文的时候, Swift 3 是最新语言版本):
 
 
 
@@ -119,8 +119,7 @@ This can be done by obtaining the root directory for the shared container (Note:
 
 
 
-
-This will give you a root location to which you can read from and write to in both your app and its extensions. Note that when dealing with the group identifier, you must prefix it with “group.”, or else the lookup will fail.
+这将给你一个根位置, 用来读写应用和扩展, 请注意在操作应用组标识符时, 你必须以 “group.” 开头, 否则会查询失败
 
 ## The Great Migration
 
@@ -159,6 +158,8 @@ If you’re already using iCloud Key-value storage for your configuration data, 
 And that’s it! Once you’ve gone through the above steps, [your old and busted project will shine with new hotness](https://www.youtube.com/watch?v=ha-uagjJQ9k). Taking the time to abstract your shared data and services into embedded frameworks may seem like a daunting amount of work, but given the direction in which Apple are moving (common code running in many different contexts), it will allow you to more easily adopt new app extensions as they are introduced. The future of iOS is rooted in system integration points over direct app usage. Set your app up for continuing success by ensuring it adheres to the latest Apple architecture best practices.
 
 If this post didn’t strike you as rambling nonsense (or even if it did), you’re welcome to follow me on Twitter [@nickbona](https://twitter.com/nickbona), where I intentionally ramble about software development and technology.
+
+
 
 
 
