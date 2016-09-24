@@ -7,10 +7,10 @@
 
 
 
-iOS 10 和 watchOS 3 给开发者们带来许多令人激动的新系统扩展点. 送 Siri 到 Messages, 应用与系统的方法不断增加
+iOS 10 和 watchOS 3 给开发者们带来许多令人激动的新系统扩展点. 从 Siri 到 Messages, 应用与系统交互的方法不断增加.
 
 这些新的集成方式, 和大量先有的集成, 通常以应用扩展的方式加入进来. 苹果的[应用扩展编程指南](https://developer.apple.com/library/ios/documentation/General/Conceptual/ExtensibilityPG/):
-> “当用户于其他应用或系统交互时. 一个应用扩展可以让你给用户提供超出本应用的自定义功能和内容”
+> “当用户其他应用或系统交互时. 一个应用扩展可以让你给用户提供超出本应用的自定义功能和内容”
 
 因为一个应用扩展是一个完全分离的实体(从你的应用进程彻底独立出来的进程), 它需要一个途径去和父应用分享功能和数据. 考虑到一个健身应用允许用户用 Siri 扩展来开始锻炼, 而应用和 Siri 扩展都需要访问用户创建的锻炼, 锻炼搜索功能 和附加的用户偏好设置.
 
@@ -121,19 +121,19 @@ This can be done by obtaining the root directory for the shared container (Note:
 
 这将给你一个根位置, 用来读写应用和扩展, 请注意在操作应用组标识符时, 你必须以 “group.” 开头, 否则会查询失败
 
-## The Great Migration
+## 迁移
 
-Now that you’ve configured your app with an app extension to access data from a shared location, new users of your app will have no problem getting started (yay!). However, users with existing data will suddenly lose all of their data. Boo!. This is of course, because you’ve changed all of your code to point to the new shared location, thus leaving all existing data stranded in the now abandoned app.
+现在你已经配置了应用和应用扩展从一个共享位置访问数据. 你的应用的新用户开始是没有问题的. 可是.用户使用现有数据时将会突然失去他们所有的数据. 嘘. 这是当然的! 因为你更改了所有代码去指向新的共享位置. 因此所有当前数据都被留在废弃的应用里.
 
-You can address this in a number of ways, but the most straightforward option is to perform a one-time migration the first time a user opens this new version of your app. Write some code that runs only if there is data present in the “old” location (Documents directory) and no data present in the “new” location (shared container). If both conditions are met, copy the requisite data over to the shared container and merrily move on to happier things. Be sure to perform this migration _before_ any code attempts to read from the file system. This includes Core Data initialization.
+你可以在很多方面解决这个问题. 但是最直接的选择是当第一次打开新版本应用时, 执行一次性迁移。编写一些只在旧的位置有数据（沙盒）运行的代码，并不在新的位置（共享容器）没数据时运行, 如果这两个条件都满足. 复制必要的数据到共享容器中, 则是件愉快的事情. 要确保任何代码试图读取文件系统之前执行此迁移。这还包括核心数据的初始化。
 
-## Sharing Configuration
+## 共享配置
 
-After dealing with code and data sharing, you have the issue of app settings to address. The most common way to persist this data is via `NSUserDefaults`. Unfortunately, this method suffers from the same issue as traditional file I/O on iOS in that by default, user defaults are stored in a location accessible only to the main app. Luckily, there are two very easy methods for exposing this data to your app and extension.
+处理代码和数据共享之后，你有一个应用设置的问题还没解决. 最常见保存这些数据的方法是通过 `NSUserDefaults`. 不幸的时, 像默认的 iOS 的传统文件 I/O 一样, 这个方法有同样的问题, 用户默认都储存在只有主应用才能访问的位置. 幸运的是, 这里有两个非常容易的方法去给应用和扩展暴露这些数据.
 
-## App Groups
+## 应用组
 
-Trusty old app groups to the rescue again. Just as you can write file data to a shared container, you can also read and write user defaults via app groups. Instead of accessing the standard defaults, access shared container defaults like this:
+让我们再次完善下旧应用组. 正如你可以写文件数据到共享容器. 你也可以通过应用组去读写用户默认值. 而不是访问标准默认值.访问共享容器默认值像下面这样:
 
 
 
@@ -144,20 +144,21 @@ Trusty old app groups to the rescue again. Just as you can write file data to a 
 
 
 
-
-You’ll also have to go through a similar migration process, copying all of your “old” user defaults to your “new” user defaults, prior to accessing any item, as you did for file migration.
+你还要通过一个类似的迁移进程. 复制所有旧用户默认值到新的用户默认值. 文件迁移时. 优先访问任何项目.
 
 ## iCloud Key-Value Storage
 
-The second approach for sharing user preferences is by taking advantage of [iCloud Key-Value storage](https://developer.apple.com/library/mac/documentation/General/Conceptual/iCloudDesignGuide/Chapters/DesigningForKey-ValueDataIniCloud.html). There’s a good deal of existing documentation on how to use this system, but suffice it to say, you can access key-value storage in app extensions as well as apps, so it’s a suitable way to share configuration data.
+第二个共享用户设置的方法是利用[iCloud Key-Value storage](https://developer.apple.com/library/mac/documentation/General/Conceptual/iCloudDesignGuide/Chapters/DesigningForKey-ValueDataIniCloud.html). 
+有一个关于如何使用这个系统的不错的现有文档. 你可以在应用扩展和以及应用中访问 key-value 存储, 因为这是用来共享配置数据很合适的方法
 
-If you’re already using iCloud Key-value storage for your configuration data, you’re done. Simply start accessing it via your shared framework. If you’re on the fence over which method to use, consider that this method has the added bonus that your user’s configuration data will be synced across devices and will survive app deletion.
+如果你已经为配置数据使用了 iCloud Key-value storage . 就完成了! 只需通过共享库访问它. 如果你在纠结使用哪个方法. 我认为这种方法更好, 因为即使应用被删除了, 你的用户配置数据也会同步到多设备
 
-## Wrapping Up
 
-And that’s it! Once you’ve gone through the above steps, [your old and busted project will shine with new hotness](https://www.youtube.com/watch?v=ha-uagjJQ9k). Taking the time to abstract your shared data and services into embedded frameworks may seem like a daunting amount of work, but given the direction in which Apple are moving (common code running in many different contexts), it will allow you to more easily adopt new app extensions as they are introduced. The future of iOS is rooted in system integration points over direct app usage. Set your app up for continuing success by ensuring it adheres to the latest Apple architecture best practices.
+## 总结
 
-If this post didn’t strike you as rambling nonsense (or even if it did), you’re welcome to follow me on Twitter [@nickbona](https://twitter.com/nickbona), where I intentionally ramble about software development and technology.
+就是这样! 一旦你完成了上面的步骤. [你的旧项目将会大放异彩](https://www.youtube.com/watch?v=ha-uagjJQ9k). 抽出抽象共享数据和服务到嵌入式框架可能看起来工作量艰巨, 但鉴于苹果公司的移动方向(在许多不同的环境中运行通用代码). 它可以让你像介绍的那样更方便地采用新的应用扩展. iOS 的未来是系统底层指引着应用. 确保符合苹果最新的架构的最佳实践, 会让的应用会不断取得成功.
+
+如果本文没有让你觉得不着边际的废话(或者有), 欢迎到 Twitter [@nickbona](https://twitter.com/nickbona) 上关注我, 我会在这里聊聊软件开发和技术.
 
 
 
