@@ -2,12 +2,12 @@
 * 原文作者：[Michael Viveros](https://coligo.io/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[circlelove](https://github.com/circlelove)
-* 校对者：
+* 校对者：[llp0574](https://github.com/llp0574), [zhouzihanntu](https://github.com/zhouzihanntu)
 
 [获取代码](https://github.com/coligo-io/random-word-generator-cordova-vuejs)
 
 
-[Cordova](https://cordova.apache.org/) 是一个你可以使用HTML, JavaScript 和 CSS 等 web 技术开发移动应用的框架。它支持使用一套基本代码面向多平台，如 Android 和 iOS 。尽管你在开发中仍然需要用到该平台特定的技术，例如Android SDK或Xcode，你也无需再编写任何Android或iOS代码就能完成应用开发。
+[Cordova](https://cordova.apache.org/) 是一个你可以使用HTML, JavaScript 和 CSS 等 web 技术开发移动应用的框架。它支持使用一套基本代码面向多平台，如 Android 和 iOS 。尽管你在开发中仍然需要用到该平台特定的技术，例如 Android SDK 或 Xcode ，你也无需再编写任何 Android 或 iOS 代码就能完成应用开发。
 
 既然你能够掌握 HTML 和 JavaScript 代码的编写，使用[Vue.js](https://vuejs.org/) 这样配有 Cordova 的  JavaScript 库就是小菜一碟了。
 
@@ -60,7 +60,7 @@
 
 如果有条件缺失，查看[ Android 版 Cordova 文档](https://cordova.apache.org/docs/en/latest/guide/platforms/android/) 以及以及以及教程底部的 Help。这的确是教程当中最难的部分。耐心一点，参考链接提到的部分。一旦所有需求都满足了，教程剩下的部分就是小意思了。
 
-构建一个 Android 应用：
+创建一个 Android 应用：
 
     cordova build android
 
@@ -74,7 +74,7 @@
 
 ![Cordova Sample Screen](https://coligo.io/building-a-mobile-app-with-cordova-vuejs/cordova-sample-app.png)
 
-要用 iOS 替代 Android ，按上述步骤进行操作，只需把 `android` 换成 `ios` 。如果不满足条件，查看[iOS 版 Cordova 文档](https://cordova.apache.org/docs/en/latest/guide/platforms/ios/)  以及 Help 底部的教程。如果在 Windows 系统的电脑上运行 Cordova ，你*无法*创建/运行 iOS 应用，因为 iOS Cordova 需要苹果系统。
+要用 iOS 替代 Android ，按上述步骤进行操作，只需把 `android` 换成 `ios` 。如果不满足条件，查看[iOS 版 Cordova 文档](https://cordova.apache.org/docs/en/latest/guide/platforms/ios/)  以及教程底部的 Help 。如果在 Windows 系统的电脑上运行 Cordova ，你*无法*创建/运行 iOS 应用，因为 iOS Cordova 需要苹果系统。
 
 
 或者，你可以使用你的浏览器替代手机设备，只需使用 `browser` 平台。同样按上述步骤，只需把 `android` 换成 `browser`。
@@ -363,7 +363,7 @@ CSP 元标签的 `connect-src` 部分定义了应用发起 HTTP 请求的来源�
       }
     });
 
-为了合并组件，我们需要使用 [browserify](http://browserify.org/) 和 vueify 以创建一个 名为 bundle.js 的文件。创建一个新的名为 scripts 的目录，新建 **vueify-build.js** 文件，其中包含了需要合并的随机单词组件的代码。
+为了合并组件，我们需要使用 [browserify](http://browserify.org/) 和 vueify 来创建一个 名为 bundle.js 的文件。创建一个新的名为 scripts 的目录，新建 **vueify-build.js** 文件，其中包含了需要合并的随机单词组件的代码。
 
 以前的版本，vueify-build.js 这样的脚本是放在 hooks 目录里的，而 hooks 目录则从 cordova create 这个命令中创建，但是后来这种方式被[废弃了](https://cordova.apache.org/docs/en/latest/guide/appdev/hooks/index.html#via-hooks-directory-deprecated)。所以你可以删除了 hooks 目录并用 scipts 目录代替。
 
@@ -401,7 +401,7 @@ CSP 元标签的 `connect-src` 部分定义了应用发起 HTTP 请求的来源�
       "license": "Apache version 2.0"
     }
 
-所有的标签模块，browserify 和 vue-hot-reload-api 由 vueify 使用，参考 [vueify 文档](https://github.com/vuejs/vueify#usage)。
+所有的 label 相关模块，以及 browserify 和 vue-hot-reload-api 由 vueify 使用，参考 [vueify 文档](https://github.com/vuejs/vueify#usage)。
 
 获取定义在 **package.json** 里的所有 node 模块依赖：
 
