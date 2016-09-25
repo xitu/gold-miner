@@ -2,7 +2,7 @@
 * 原文作者：[Tom Alter](https://hashnode.com/@tomasp)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[cyseria](https://github.com/cyseria)
-* 校对者：
+* 校对者：[Zheaoli](https://github.com/Zheaoli),[Grace-xhw](https://github.com/Grace-xhw)
 
 
 我正在探索一些基于 React 的，可以很好的和 React 组件结合起来，并且能直接在你的 React 项目中插入使用的功能丰富的 UI 框架。
