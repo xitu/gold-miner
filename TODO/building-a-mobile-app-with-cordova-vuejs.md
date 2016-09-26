@@ -1,4 +1,4 @@
-> * 原文地址：[使用 Cordova 和 Vue.js 构建移动应用](https://coligo.io/building-a-mobile-app-with-cordova-vuejs/)
+> * 原文地址：[使用 Cordova 和 Vue.js 创建移动应用](https://coligo.io/building-a-mobile-app-with-cordova-vuejs/)
 * 原文作者：[Michael Viveros](https://coligo.io/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[circlelove](https://github.com/circlelove)
@@ -127,6 +127,7 @@ CSP meta 标签看起来应该像这样
 
 使用 Vue.js 替换 **www/index.html** 中 `body` 部分代码显示随机单词并移除一些注释后，**wwww/index.html** 就会像这样
 
+```
 <!DOCTYPE html>
     <html>
     <head>
