@@ -149,7 +149,6 @@ CSP meta 标签看起来应该像这样
         <script type="text/javascript" src="js/index.js"></script>
     </body>
     </html>
-     
 
 现在我们将添加一些 JavaScript 来生成随机单词进行展示。
 
@@ -270,7 +269,7 @@ CSP 元标签的 `connect-src` 部分定义了应用发起 HTTP 请求的来源�
     </html>
 
 
-为了向随机单词 API 发起 http 请求，我们可使用 vue-resource 当中的 [http service](https://github.com/vuejs/vue-resource/blob/master/docs/http.md) ，这是来自 **www/js/index.js**里 Vue 实例中的 `getRandomWord` 方法。
+为了向随机单词 API 发起 http 请求，我们可使用 vue-resource 当中的 [http service](https://github.com/vuejs/vue-resource/blob/master/docs/http.md) ，这是来自 **www/js/index.js** 里 Vue 实例中的 `getRandomWord` 方法。
 
     ... 
         setupVue: function() {
@@ -314,7 +313,7 @@ CSP 元标签的 `connect-src` 部分定义了应用发起 HTTP 请求的来源�
 ![Cordova Vue.js Directory Structure](https://coligo.io/building-a-mobile-app-with-cordova-vuejs/directory-structure-2.png)
 
 
-创建一个带有随机单词生成器所有代码的组件，命名为**www/js/random-word.vue**：
+创建一个带有随机单词生成器所有代码的组件，命名为 **www/js/random-word.vue** ：
     
 ```
 <template>
