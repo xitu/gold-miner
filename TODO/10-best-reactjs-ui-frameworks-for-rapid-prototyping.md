@@ -7,7 +7,7 @@
 
 我正在探索一些基于 React 的，可以很好的和 React 组件结合起来，并且能直接在你的 React 项目中插入使用的功能丰富的 UI 框架。
 
-下面列举了一些基于 ReactJS 编译的 UI 框架（排名不分先后），希望以下内容的能帮助你快速用 reactJS 原型实现你的想法：
+下面列举了一些基于 ReactJS 编译的 UI 框架（排名不分先后），希望以下内容的能帮助你快速用 ReactJS 原型实现你的想法：
 
 * * *
 
@@ -58,9 +58,9 @@ Essence 是一个用 ReactJS 实现了谷歌的 Material Design 规范的 css �
 
 ## React-MDL
 
-React-MDL 是用 React 实现的已经火了很久的谷歌的 [轻质感设计(Material Design Light)](https://www.getmdl.io/components/index.html)框架。
+React-MDL 是用 React 实现的已经火了很久的谷歌的 [轻质感设计(Material Design Light)](https://www.getmdl.io/components/index.html) 框架。
 
-MDL 作为一个轻质感设计的 css 框架，致力于在保持 UI 的小巧轻便的同时保留质感设计的概念。
+MDL 作为一个轻质感设计的 CSS 框架，致力于在保持 UI 的小巧轻便的同时保留质感设计的概念。
 
 ![React-MDL](http://ac-Myg6wSTV.clouddn.com/586b70dd05495a6b1d6e.jpg)
 
@@ -70,7 +70,7 @@ MDL 作为一个轻质感设计的 css 框架，致力于在保持 UI 的小巧�
 
 ## Belle
 
-Belle 给你提供了一个的 React 组件的集合，像开关，下拉列表，等级评定，文本框，按钮，卡片，选择框等等。
+Belle 给你提供了一个的 React 组件的集合，像开关、下拉列表、等级评定、文本框、按钮、卡片、选择框等等。
 
 所有的组件都能在移动端和桌面上极优的运行。他有两个级别给你来做高度的自定义，你可以配置所有组件的基本样式或者随意修改其中的某一个。
 
@@ -83,9 +83,9 @@ Belle 给你提供了一个的 React 组件的集合，像开关，下拉列表�
 ## Elemental-UI
 
 
-Elemental-UI 是一个高质量的模块化的，能够用React来控制并且从一开始就被定义为能自然实现React模式的UI脚手架组件
+Elemental-UI 是一个高质量的模块化的，能够用 React 来控制并且从一开始就被定义为能自然实现 React 模式的 UI 脚手架组件
 
-Elemental-UI 借鉴了很多UI组件库的灵感，看起来就像是一个增强版的 Bootstrap。如果你是他的粉丝你一定要去试试。
+Elemental-UI 借鉴了很多 UI 组件库的灵感，看起来就像是一个增强版的 Bootstrap。如果你是他的粉丝你一定要去试试。
 
 ![Elemental-UI](https://res.cloudinary.com/hashnode/image/upload/v1473939642/a2jwc8adyvu8poz7tdkf.jpg)
 
@@ -96,21 +96,21 @@ Elemental-UI 借鉴了很多UI组件库的灵感，看起来就像是一个增�
 ## MUI
 
 
-MUI 是一个借鉴 Material Design 规范的一个轻量级 CSS 框架。MUI 只提供 css 和 js，有 React 和 Angular 这两个版本。
+MUI 是一个借鉴 Material Design 规范的一个轻量级 CSS 框架。MUI 只提供 CSS 和 JS，有 React 和 Angular 这两个版本。
 ![MUI](http://ac-Myg6wSTV.clouddn.com/b6be8f80db46838e9757.jpg)
 
 [主页](https://www.muicss.com/) | [GitHub](https://github.com/muicss/mui)
 
 * * *
 
-## grommet
+## Grommet
 
 
-grommet是一个基于ReactJS 用javascript 提供了的一个很好的构造用户界面的例子。
+Grommet 是一个基于 ReactJS 用 JavaScript 提供了的一个很好的构造用户界面的例子。
 
-Grommet是开发者HP开发的，他们宣称这是在企业应用中有最好的用户体验的框架。
+Grommet 是开发者 HP 开发的，他们宣称这是在企业应用中有最好的用户体验的框架。
 
-![grommet](https://res.cloudinary.com/hashnode/image/upload/v1473939674/xmnvbzrenzzik5qwaomb.jpg)
+![Grommet](https://res.cloudinary.com/hashnode/image/upload/v1473939674/xmnvbzrenzzik5qwaomb.jpg)
 
 [主页](https://grommet.github.io/) | [Demo](https://grommet.github.io/docs/get-started) | [GitHub](https://github.com/grommet/grommet)
 
@@ -118,7 +118,7 @@ Grommet是开发者HP开发的，他们宣称这是在企业应用中有最好�
 
 ## React Toolbox
 
-React Toolbox 又是一个采用 Google 的 Material Design 的 UI 库，并且采用了一些最新的构建方法，像 CSS 模块化（用 sass 编写），Webpack 和 ES6。这个库完美的结合了 Webpack 工作流，并且拥有非常容易的个性化配置以及非常灵活。
+React Toolbox 又是一个采用 Google 的 Material Design 的 UI 库，并且采用了一些最新的构建方法，像 CSS 模块化（用 SASS 编写），Webpack 和 ES6。这个库完美的结合了 Webpack 工作流，并且拥有非常容易的个性化配置以及非常灵活。
 
 ![React Toolbox](https://res.cloudinary.com/hashnode/image/upload/v1473939692/o7lv8dqddvutdyxtca7f.jpg)
 
@@ -128,16 +128,16 @@ React Toolbox 又是一个采用 Google 的 Material Design 的 UI 库，并且�
 
 ## Ant Design of React
 
-Ant Design 是一个中国公司（蚂蚁金服）设计的的 React 库，基于他们自己项目的设计规范。是一套由 react 构建的漂亮的完整 UI 组件,采用 Material Design 设计原则。
+Ant Design 是一个中国公司（蚂蚁金服）设计的的 React 库，基于他们自己项目的设计规范。是一套由 React 构建的漂亮的完整 UI 组件，采用 Material Design 设计原则。
 
-他们正在寻找志愿者来完善他们的英文翻译（例如，时间选择器组件需要翻译），如果你有兴趣，请查看[这个issue](https://github.com/ant-design/ant-design/issues/1471)。
+他们正在寻找志愿者来完善他们的英文翻译（例如，时间选择器组件需要翻译），如果你有兴趣，请查看 [这个issue](https://github.com/ant-design/ant-design/issues/1471)。
 
 
 ![Ant Design of React](https://res.cloudinary.com/hashnode/image/upload/v1473940606/usrcytdcrzdnhi71ijlj.jpg)
 
 [主页](http://beta.ant.design/docs/react/introduce) | [GitHub](https://github.com/ant-design/ant-design)
 
-##　总结
+## 总结
 这里只是一个我收集到的框架的一个简单列表，希望他能帮到大家。
 如果有漏掉什么其他框架，欢迎评论。😊
 
