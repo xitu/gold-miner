@@ -7,7 +7,7 @@
 
 我正在探索一些基于 React 的，可以很好的和 React 组件结合起来，并且能直接在你的 React 项目中插入使用的功能丰富的 UI 框架。
 
-下面列举了一些基于 ReactJS 编译的 UI 框架（排名不分先后），希望以下内容的能帮助你快速用“reactJS”原型实现你的想法：
+下面列举了一些基于 ReactJS 编译的 UI 框架（排名不分先后），希望以下内容的能帮助你快速用 reactJS 原型实现你的想法：
 
 * * *
 
@@ -37,13 +37,13 @@ Bootstrap 是最先进的 UI 框架之一并且能帮我们做大部分的事情
 
 ## React-Foundation
 
-来自 Zurb 的 [Foundation](http://foundation.zurb.com/) 是一个功能丰富且很容易自定义的库，也是目前最受欢迎的UI框架之一。
+来自 Zurb 的 [Foundation](http://foundation.zurb.com/) 是一个功能丰富且很容易自定义的库，也是目前最受欢迎的 UI 框架之一。
 
 React-Foundation 是在形式上用 Foundation UI 实现的 react 组件。
 
 ![React-Foundation](http://ac-Myg6wSTV.clouddn.com/d2242b9051b0459ca781.jpg)
 
-[主页](https://react.foundation) |[GitHub](https://github.com/nordsoftware/react-foundation)
+[主页](https://react.foundation) | [GitHub](https://github.com/nordsoftware/react-foundation)
 
 * * *
 
@@ -130,14 +130,12 @@ React Toolbox 又是一个采用 Google 的 Material Design 的 UI 库，并且�
 
 Ant Design 是一个中国公司（蚂蚁金服）设计的的 React 库，基于他们自己项目的设计规范。是一套由 react 构建的漂亮的完整 UI 组件,采用 Material Design 设计原则。
 
-他们正在寻找志愿者来完善他们的英文翻译（例如，时间选择器组件需要翻译），如果你有兴趣，请查看 [这个issue](https://github.com/ant-design/ant-design/issues/1471)。
+他们正在寻找志愿者来完善他们的英文翻译（例如，时间选择器组件需要翻译），如果你有兴趣，请查看[这个issue](https://github.com/ant-design/ant-design/issues/1471)。
 
 
 ![Ant Design of React](https://res.cloudinary.com/hashnode/image/upload/v1473940606/usrcytdcrzdnhi71ijlj.jpg)
 
 [主页](http://beta.ant.design/docs/react/introduce) | [GitHub](https://github.com/ant-design/ant-design)
-
-## Conclusion
 
 ##　总结
 这里只是一个我收集到的框架的一个简单列表，希望他能帮到大家。
