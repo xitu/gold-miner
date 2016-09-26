@@ -29,7 +29,7 @@
 
 将会创建一个 Cordova 工程的目录结构：
 
-![Cordova vue.js Directory Structure](https://coligo.io/building-a-mobile-app-with-cordova-vuejs/directory-structure.png)
+![Cordova Vue.js Directory Structure](https://coligo.io/building-a-mobile-app-with-cordova-vuejs/directory-structure.png)
 
 
 *   **config.xml** -包含应用相关信息，使用到的插件以及面向的平台
@@ -127,7 +127,7 @@ CSP meta 标签看起来应该像这样
 
 使用 Vue.js 替换 **www/index.html** 中 `body` 部分代码显示随机单词并移除一些注释后，**wwww/index.html** 就会像这样
 
-    <!DOCTYPE html>
+<!DOCTYPE html>
     <html>
     <head>
         <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; script-src 'self' http://cdn.jsdelivr.net/vue/1.0.16/vue.js 'unsafe-eval'">
@@ -157,16 +157,16 @@ CSP meta 标签看起来应该像这样
 
 
 
-我们将在 **www/js/index.js** 添加一个名叫 `setupvue` 方法，它可以创建一个新的 vue 实例，并装载到随机单词 `div` 。新的 vue 实例会使用 `getRandomWord` 方法，单击 Get Random Word  按键即可从列表中随机提取单词。我么也需要从 `initialize` 方法中调用 `setupvue`。
+我们将在 **www/js/index.js** 添加一个名叫 `setupVue` 方法，它可以创建一个新的 Vue 实例，并装载到随机单词 `div` 。新的 Vue 实例会使用 `getRandomWord` 方法，单击 Get Random Word  按键即可从列表中随机提取单词。我么也需要从 `initialize` 方法中调用 `setupVue`。
 
     var app = {
         initialize: function() {
             this.bindEvents();
-            this.setupvue();
+            this.setupVue();
         },
         ...
-        setupvue: function() {
-            var vm = new vue({
+        setupVue: function() {
+            var vm = new Vue({
                 el: "#vue-instance",
                 data: {
                     randomWord: '',
@@ -196,7 +196,7 @@ CSP meta 标签看起来应该像这样
     var app = {
         initialize: function() {
             this.bindEvents();
-            this.setupvue();
+            this.setupVue();
         },
         bindEvents: function() {
             document.addEventListener('deviceready', this.onDeviceReady, false);
@@ -207,8 +207,8 @@ CSP meta 标签看起来应该像这样
         receivedEvent: function(id) {
             console.log('Received Event: ' + id);
         },
-        setupvue: function() {
-            var vm = new vue({
+        setupVue: function() {
+            var vm = new Vue({
                 el: "#vue-instance",
                 data: {
                     randomWord: '',
@@ -239,7 +239,7 @@ CSP meta 标签看起来应该像这样
 
 该应用看上去应该像下面这样：
 
-![Random Word App Cordova vue.js](https://coligo.io/building-a-mobile-app-with-cordova-vuejs/random-word-cordova-vuejs.png)
+![Random Word App Cordova Vue.js](https://coligo.io/building-a-mobile-app-with-cordova-vuejs/random-word-cordova-vuejs.png)
 
 
 #  vue-resource 发起 HTTP 请求
@@ -268,11 +268,11 @@ CSP 元标签的 `connect-src` 部分定义了应用发起 HTTP 请求的来源�
     </html>
 
 
-为了向随机单词 API 发起 http 请求，我们可使用 vue-resource 当中的 [http service](https://github.com/vuejs/vue-resource/blob/master/docs/http.md) ，这是来自 **www/js/index.js**里 vue 实例中的 `getRandomWord` 方法。
+为了向随机单词 API 发起 http 请求，我们可使用 vue-resource 当中的 [http service](https://github.com/vuejs/vue-resource/blob/master/docs/http.md) ，这是来自 **www/js/index.js**里 Vue 实例中的 `getRandomWord` 方法。
 
     ... 
-        setupvue: function() {
-            var vm = new vue({
+        setupVue: function() {
+            var vm = new Vue({
                 el: "#vue-instance",
                 data: {
                     randomWord: ''
@@ -302,14 +302,14 @@ CSP 元标签的 `connect-src` 部分定义了应用发起 HTTP 请求的来源�
 
 应用和之前看起来一样，但是现在它可以从 API 当中获取随机单词了。
 
-# 使用 vue 组件
+# 使用 Vue 组件
 
-[vueify](https://github.com/vuejs/vueify)  是一个 Vue.js 库，他可以帮你将 UI 变成独立的带有各自 HTML, JavaScript 和 CSS 的组件。这令你的应用更加的模块化，也方便你使用层级方式定义组件。
+[Vueify](https://github.com/vuejs/vueify)  是一个 Vue.js 库，他可以帮你将 UI 变成独立的带有各自 HTML, JavaScript 和 CSS 的组件。这令你的应用更加的模块化，也方便你使用层级方式定义组件。
 
-使用 vue 组件需要在你的编译系统中添加额外的步骤以合并所有组件。Cordova 通过 [hooks](https://cordova.apache.org/docs/en/latest/guide/appdev/hooks/) 来指定额外的脚本在编译系统的各个部分运行，从而让该过程变得相当简单
-这就是添加 vue 组件之后目录的样子：
+使用 Vue 组件需要在你的编译系统中添加额外的步骤以合并所有组件。Cordova 通过 [hooks](https://cordova.apache.org/docs/en/latest/guide/appdev/hooks/) 来指定额外的脚本在编译系统的各个部分运行，从而让该过程变得相当简单
+这就是添加 Vue 组件之后目录的样子：
 
-![Cordova vue.js Directory Structure](https://coligo.io/building-a-mobile-app-with-cordova-vuejs/directory-structure-2.png)
+![Cordova Vue.js Directory Structure](https://coligo.io/building-a-mobile-app-with-cordova-vuejs/directory-structure-2.png)
 
 
 创建一个带有随机单词生成器所有代码的组件，命名为**www/js/random-word.vue**：
@@ -348,15 +348,15 @@ CSP 元标签的 `connect-src` 部分定义了应用发起 HTTP 请求的来源�
 
 **www/index.html**的 HTML 放入 `template` 标签，而 JavaScript 放入 **random-word.vue**的 `script` 标签
 
-创建一个新的包含随机单词组件的 vue 实例文件，命名 **www/js/main.js**：
+创建一个新的包含随机单词组件的 Vue 实例文件，命名 **www/js/main.js**：
 
-    var vue = require('vue');
-    var vueResource = require('vue-resource');
+    var Vue = require('vue');
+    var VueResource = require('vue-resource');
     var RandomWord = require('./random-word.vue');
 
-    vue.use(vueResource);
+    Vue.use(VueResource);
 
-    var vm = new vue({
+    var vm = new Vue({
       el: 'body',
       components: {
         'random-word': RandomWord
@@ -379,7 +379,7 @@ CSP 元标签的 `connect-src` 部分定义了应用发起 HTTP 请求的来源�
       .bundle()
       .pipe(fs.createWriteStream('www/js/bundle.js'))
 
-从前，我们在 **www/index.html** 使用 CDN 来引用 Vue.js 库，但是现在 **www/js/main.js** 用的是 JavaScript 来做。所以我们需要添加一个 **package.json** 文件为 vue.js 库来定义所有需要的依赖。
+从前，我们在 **www/index.html** 使用 CDN 来引用 Vue.js 库，但是现在 **www/js/main.js** 用的是 JavaScript 来做。所以我们需要添加一个 **package.json** 文件为 Vue.js 库来定义所有需要的依赖。
 
     {
       "name": "random-word",
@@ -435,7 +435,7 @@ CSP 元标签的 `connect-src` 部分定义了应用发起 HTTP 请求的来源�
 
 注意到 **www/index.html** 中链接标签定义了应用的 CSS 和 **www/js/random-word.vue** 中的 `div` 。在 CSS 中使用了 "app" 类定义。
 
-由于随机单词组件包含生成随机单词的所有代码，我们可以从 **www/js/index.js** 中删除 `setupvue` 方法，就会像这样：
+由于随机单词组件包含生成随机单词的所有代码，我们可以从 **www/js/index.js** 中删除 `setupVue` 方法，就会像这样：
 
     var app = {
         initialize: function() {
@@ -459,21 +459,20 @@ CSP 元标签的 `connect-src` 部分定义了应用发起 HTTP 请求的来源�
     cordova build android
     cordova run android
 
-应用外观和功能和先前一样，但是我们现在有使用 vue 组件。
+应用外观和功能和先前一样，但是我们现在有使用 Vue 组件。
 
 # 总结
 
 全部完成了。
 
-Cordova 令使用 web 技术开发移动应用变得超简单。 连接 Cordova 和 Vue.js 也很方便就能让你使用 Vue.js 之类很酷的东西
-
+Cordova 令使用 web 技术开发移动应用变得超简单。 连接 Cordova 和 Vue.js 也很容易，而且让你充分利用手机应用上 Vue.js 相关的很酷的东西（2套数据绑定，组件……）现在你可以以一套代码使用 HTML, JavaScript 和 CSS 面向多个平台进行开发了。
 
 本教程涵盖：
 
 *   开发一个 Cordova 工程
 *   链接 Cordova 和 Vue.js
-*   Cordova app 通过更新内容安全策略来发出 http 申请  
-*   添加 Hooks 在 Cordova 应用中使用 vue 组件
+*   Cordova app 通过更新内容安全策略来发出 HTTP 申请  
+*   添加 Hooks 在 Cordova 应用中使用 Vue 组件
 
 
 # 帮助
