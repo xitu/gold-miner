@@ -103,7 +103,7 @@
             <script type="text/javascript" src="js/index.js"></script>
         </body>
     </html>
-
+    ```
 
 
 为了使应用可以访问 Vue.js 库，我们还需要在 www/index.html 文件中把下面代码添加到内容安全协议（CSP） meta 标签的最后：
@@ -149,7 +149,7 @@ CSP meta 标签看起来应该像这样
         <script type="text/javascript" src="js/index.js"></script>
     </body>
     </html>
-
+    ```
 现在我们将添加一些 JavaScript 来生成随机单词进行展示。
 
 当应用接收到 `deviceready` 事件时，**www/js/index.js** 即可生成改变标签背景色的代码。接收我们简单的随机单词生成器的 `deviceready` 事件后，我们无需做其他多余的事情，不过最好知道你可以用 `bindEvents` 方法在应用运行周期的不同阶段做不同的事情。查看  [Cordova Events](https://cordova.apache.org/docs/en/latest/cordova/events/events.html) 获得更多信息。
@@ -267,7 +267,7 @@ CSP 元标签的 `connect-src` 部分定义了应用发起 HTTP 请求的来源�
             <script type="text/javascript" src="js/index.js"></script>
         </body>
     </html>
-
+    ```    
 
 为了向随机单词 API 发起 http 请求，我们可使用 vue-resource 当中的 [http service](https://github.com/vuejs/vue-resource/blob/master/docs/http.md) ，这是来自 **www/js/index.js** 里 Vue 实例中的 `getRandomWord` 方法。
 
@@ -436,7 +436,7 @@ export default {
         <script type="text/javascript" src="cordova.js"></script>
     </body>
 </html>
-
+···   
 
 
 注意到 **www/index.html** 中链接标签定义了应用的 CSS 和 **www/js/random-word.vue** 中的 `div` 。在 CSS 中使用了 "app" 类定义。
