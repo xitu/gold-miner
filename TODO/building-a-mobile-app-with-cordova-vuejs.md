@@ -419,13 +419,13 @@ export default {
     ...
         <hook type="before_compile" src="scripts/vueify-build.js" />
     </widget>
-    
+    ```
 调用 scripts/vueify-build.js 将产生合并的组件并放入 www/js/bundle.js 中。
   
 
 通过向 `random-word` 和 `script` 标签添加指向合并组件的方式向 **www/index.html** 主体添加随机单词组件。
 
-```
+
 ...
         <link rel="stylesheet" type="text/css" href="css/index.css">
         <title>Random Word</title>
@@ -437,7 +437,8 @@ export default {
         <script type="text/javascript" src="cordova.js"></script>
     </body>
 </html>
-```
+
+
 
 注意到 **www/index.html** 中链接标签定义了应用的 CSS 和 **www/js/random-word.vue** 中的 `div` 。在 CSS 中使用了 "app" 类定义。
 
