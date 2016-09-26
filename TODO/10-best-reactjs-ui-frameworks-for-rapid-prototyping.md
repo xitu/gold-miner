@@ -39,7 +39,7 @@ Bootstrap 是最先进的 UI 框架之一并且能帮我们做大部分的事情
 
 来自 Zurb 的 [Foundation](http://foundation.zurb.com/) 是一个功能丰富且很容易自定义的库，也是目前最受欢迎的 UI 框架之一。
 
-React-Foundation 是在形式上用 Foundation UI 实现的 react 组件。
+React-Foundation 是在形式上用 Foundation UI 实现的 React 组件。
 
 ![React-Foundation](http://ac-Myg6wSTV.clouddn.com/d2242b9051b0459ca781.jpg)
 
@@ -49,7 +49,7 @@ React-Foundation 是在形式上用 Foundation UI 实现的 react 组件。
 
 ## Essence
 
-Essence 是一个用 ReactJS 实现了谷歌的 Material Design 规范的 css 框架。使用 Essence 你可以快速构建一个很好看的很棒的响应式网站（ web 端和移动端）。
+Essence 是一个用 ReactJS 实现了谷歌的 Material Design 规范的 CSS 框架。使用 Essence 你可以快速构建一个很好看的很棒的响应式网站（ web 端和移动端）。
 ![Essence](http://ac-Myg6wSTV.clouddn.com/0804b37102c26cba94ae.jpg)
 
 [主页](http://getessence.io/home) | [案例](http://getessence.io/core)
