@@ -149,7 +149,7 @@ CSP meta 标签看起来应该像这样
         <script type="text/javascript" src="js/index.js"></script>
     </body>
     </html>
-    ```
+
 现在我们将添加一些 JavaScript 来生成随机单词进行展示。
 
 当应用接收到 `deviceready` 事件时，**www/js/index.js** 即可生成改变标签背景色的代码。接收我们简单的随机单词生成器的 `deviceready` 事件后，我们无需做其他多余的事情，不过最好知道你可以用 `bindEvents` 方法在应用运行周期的不同阶段做不同的事情。查看  [Cordova Events](https://cordova.apache.org/docs/en/latest/cordova/events/events.html) 获得更多信息。
