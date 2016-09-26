@@ -103,7 +103,7 @@
             <script type="text/javascript" src="js/index.js"></script>
         </body>
     </html>
-    ```
+
 
 
 为了使应用可以访问 Vue.js 库，我们还需要在 www/index.html 文件中把下面代码添加到内容安全协议（CSP） meta 标签的最后：
