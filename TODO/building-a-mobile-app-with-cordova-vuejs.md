@@ -127,11 +127,10 @@ CSP meta 标签看起来应该像这样
 
 使用 Vue.js 替换 **www/index.html** 中 `body` 部分代码显示随机单词并移除一些注释后，**wwww/index.html** 就会像这样
 
-```
-<!DOCTYPE html>
+    <!DOCTYPE html>
     <html>
     <head>
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; script-src 'self' http://cdn.jsdelivr.net/vue/1.0.16/vue.js 'unsafe-eval'">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; script-src 'self' http://cdn.jsdelivr.net/Vue/1.0.16/Vue.js 'unsafe-eval'">
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
@@ -139,17 +138,18 @@ CSP meta 标签看起来应该像这样
         <title>Random Word</title>
     </head>
     <body>
-        <div id="vue-instance" class="app">
+        <div id="Vue-instance" class="app">
             <h1>Random Word</h1>
             <button id="btn-get-random-word" @click="getRandomWord">Get Random Word</button>
             <p>{{ randomWord }}</p>
         </div>
         <script type="text/javascript" src="cordova.js"></script>
-        <script src="http://cdn.jsdelivr.net/vue/1.0.16/vue.js"></script>
+        <script src="http://cdn.jsdelivr.net/Vue/1.0.16/Vue.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
     </body>
     </html>
-
+    ```        
+            
 现在我们将添加一些 JavaScript 来生成随机单词进行展示。
 
 当应用接收到 `deviceready` 事件时，**www/js/index.js** 即可生成改变标签背景色的代码。接收我们简单的随机单词生成器的 `deviceready` 事件后，我们无需做其他多余的事情，不过最好知道你可以用 `bindEvents` 方法在应用运行周期的不同阶段做不同的事情。查看  [Cordova Events](https://cordova.apache.org/docs/en/latest/cordova/events/events.html) 获得更多信息。
