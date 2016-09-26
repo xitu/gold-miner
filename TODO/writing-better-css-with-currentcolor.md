@@ -5,11 +5,11 @@
 * 校对者：
 
 
-总有一些极其强大的 CSS 属性在目前已经有了很好的浏览器支持但却很少被开发者使用。 `currentColor` 就是这样的属性之一。
+总有一些极其强大的 CSS 属性在目前已经有了很好的浏览器支持，但却很少被开发者使用。 `currentColor` 就是这样的属性之一。
 
 MDN 把 currentColor [定义为](https://developer.mozilla.org/en/docs/Web/CSS/color_value#currentColor_keyword):
 
-> `currentColor` 关键字代表了原始的 color 属性的计算值。它允许让继承自属性或子元素属性的 color 属性为默认值而不再继承。
+> `currentColor` 代表了当前元素被应用上的 color 颜色值。它允许让继承自属性或子元素属性的 color 属性为默认值而不再继承。
 
 在本文中，我们将通过一些有趣的方式来概述如何使用 CSS `currentColor` 这一关键字。
 
@@ -19,7 +19,7 @@ MDN 把 currentColor [定义为](https://developer.mozilla.org/en/docs/Web/CSS/c
 
 `currentColor` 关键字按某种规则获取了 color 属性的值并赋值给了自身。
 
-当你想要默认继承 `color` 属性值时你可以在你的代码任意位置使用 `currentColor` 关键字。这样当你改变 `color` 关键字的属性值时，它会自动的通过规则反映在所有 `currentColor` 关键字使用的地方。这难道不是很棒吗？😀
+在任何你想要默认继承 `color` 属性值的地方都可以使用 `currentColor` 这一关键字。这样当你改变 `color` 关键字的属性值时，它会自动的通过规则反映在所有 `currentColor` 关键字使用的地方。这难道不是很棒吗？😀
 
     .box {
         color: red;
@@ -33,7 +33,7 @@ MDN 把 currentColor [定义为](https://developer.mozilla.org/en/docs/Web/CSS/c
 
 ## 各种用法
 
-让我们检查一些 `currentColor` 可能的用例和例子:
+来看一下 `currentColor` 可能的用例和例子:
 
 **简化 color 定义**
 
@@ -52,7 +52,7 @@ MDN 把 currentColor [定义为](https://developer.mozilla.org/en/docs/Web/CSS/c
         border 1px solid currentColor;
     }
 
-在上面的代码片段中，你可以看到我们不是在边框、阴影上指定一个颜色，而是在这些属性上使用了 `currentColor`，这将自动使它们变为 `red`。
+在上面的代码片段中，你可以看到我们不是在边框、阴影上指定一个颜色，而是在这些属性上使用了 `currentColor`，这将使它们自动变为 `red`。
 
 **简化过渡和动画**
 
@@ -64,11 +64,11 @@ currentColor 可以使 transitions 和 animations 变得更加简单。
         color: purple;
     }
 
-这里，我们不需要写三个不同的 `:hover` 属性，我们只需改变 `color` 值；所有使用`currentColor` 的属性会自动在 hover 时发生改变。
+这里，我们不需要再在 `:hover` 里写三个不同的属性，我们只需改变 `color` 值；所有使用`currentColor` 的属性会自动在 hover 时发生改变。
 
 **在伪元素上使用**
 
-像是`:before` 和 `:after` 这样的伪元素也同样可以通过用 currentColor 来获取它的父元素的值。这可以用于创建像是带有动态颜色的"工具提示"或是具有主体颜色的"覆盖图"，并给它一个半透明的效果。
+像是`:before` 和 `:after` 这样的伪元素也同样可以通过用 currentColor 来获取它的父元素的值。这就可以用于创建带有动态颜色的"提示框"，或是使用 body 颜色的"覆盖层"，并给它一个半透明的效果。
 
     .box {
         color: red;
@@ -78,7 +78,7 @@ currentColor 可以使 transitions 和 animations 变得更加简单。
         border: 1px solid currentColor;
     }
 
-这里，`:before` 伪元素的 `color` 和 `border-color` 会从父元素 div 中获得并可以被组建成类似工具提示的东西。
+这里，`:before` 伪元素的 `color` 和 `border-color` 会从父元素 div 中获得并可以被组建成类似提示框的东西。
 
 **在 SVG 中使用**
 
@@ -98,7 +98,7 @@ SVG 中 `currentColor` 的值同样可以从父元素中获取。当你在不同
         background: linear-gradient(top bottom right, currentColor, #FFFFFF);
     }
 
-在这里，_顶部_的渐变颜色将会总是与父元素保持一致。虽然在这种情况下只会有一个动态颜色的限制，但仍然是一个简洁的方法去基于父元素颜色来生成动态的渐变。
+在这里，**顶部**的渐变颜色将会总是与父元素保持一致。虽然在这种情况下只会有一个动态颜色的限制，但对基于父元素颜色来生成动态的渐变来说，这仍然是一个简洁的方法。
 
 这儿有一个 [Codepen 示例](http://codepen.io/alkshendra/pen/xEVrJJ?editors=1100#0)来演示上述的所有例子。
 
@@ -108,7 +108,7 @@ SVG 中 `currentColor` 的值同样可以从父元素中获取。当你在不同
 
 CSS `currentColor` 是从 CSS3 引入 SVG 规范时产生的，自 2003 年以来一直存在。因此 `currentColor` 的浏览器支持程度很可靠，除了 IE8 和一些更低版本的浏览器。
 
-这里是一个图表展示了目前的浏览器支持信息，信息来自 [caniuse.com](http://caniuse.com/#feat=currentcolor):
+这里是一个展示了目前浏览器支持信息的图表，信息来自 [caniuse.com](http://caniuse.com/#feat=currentcolor):
 
 ![currentColor Support](https://res.cloudinary.com/hashnode/image/upload/v1474021764/g03f4hx1ftb0frtoonfw.png)
 
