@@ -1,26 +1,25 @@
 > * 原文地址：[Writing better CSS with currentColor](https://hashnode.com/post/writing-better-css-with-currentcolor-cit5mgva31co79c53ia20vetq)
 * 原文作者：[Alkshendra Maurya](https://hashnode.com/@alkshendra)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[yangzj1992](http://qcyoung.com)
 * 校对者：
 
 
+总有一些极其强大的 CSS 属性在目前已经有了很好的浏览器支持但却很少被开发者使用。 `currentColor` 就是这样的属性之一。
 
-There are some extremely powerful CSS properties that have good browser support but are rarely used by the developers. `currentColor` is one of such properties.
+MDN 把 currentColor [定义为](https://developer.mozilla.org/en/docs/Web/CSS/color_value#currentColor_keyword):
 
-MDN [defines](https://developer.mozilla.org/en/docs/Web/CSS/color_value#currentColor_keyword) currentColor as
+> `currentColor` 关键字代表了原始的 color 属性的计算值。它允许让继承自属性或子元素属性的 color 属性为默认值而不再继承。
 
-> The `currentColor` keyword represents the calculated value of the element's color property. It allows to make the color properties inherited by properties or child's element properties that do not inherit it by default.
-
-In this article, let's get an overview on how to use CSS `currentColor` keyword in some interesting ways.
+在本文中，我们将通过一些有趣的方式来概述如何使用 CSS `currentColor` 这一关键字。
 
 * * *
 
-## Introduction
+## 介绍
 
-The `currentColor` keyword takes up the value of the color property in a rule and assigns it to itself.
+`currentColor` 关键字按某种规则获取了 color 属性的值并赋值给了自身。
 
-You can use this `currentColor` keyword in your code wherever you want the value of the `color` property to be inherited by default. So when you change the value of the `color` keyword, it is automatically reflected at all the places where `currentColor` keyword is used as a rule. Isn't it awesome? 😀
+当你想要默认继承 `color` 属性值时你可以在你的代码任意位置使用 `currentColor` 关键字。这样当你改变 `color` 关键字的属性值时，它会自动的通过规则反映在所有 `currentColor` 关键字使用的地方。这难道不是很棒吗？😀
 
     .box {
         color: red;
@@ -28,19 +27,19 @@ You can use this `currentColor` keyword in your code wherever you want the value
         box-shadow: 0 0 2px 2px currentColor;
     }
 
-In the above code snippet, you can see that instead of repeating the same color value everywhere, we have replaced it with currentColor. This makes the CSS much more manageable as you don't have to keep track of color values at different places.
+在上面的代码片段里，你可以看到我们不是在所有的地方都重复相同的 color 值，而是用 currentColor 来代替。这使得 CSS 变得更加容易管理，你将不再需要在不同的地方来追踪 color 值
 
 * * *
 
-## Possible Usage
+## 各种用法
 
-Lets checkout some possible use cases and examples for `currentColor`:
+让我们检查一些 `currentColor` 可能的用例和例子:
 
-**Simplifying the color definitions**
+**简化 color 定义**
 
-Things like like links, borders, icons and box-shadow that usually follow the same color as their parent can be simplified by giving the currentColor value instead of mentioning the same specific color value again, and again; thus making the code more manageable.
+像链接，边框，图标以及阴影的值总是随着它们的父元素 color 值保持一致，这可以通过简化的 currentColor 来替换一遍又一遍的特定 color 值；从而使代码更加易于管理。
 
-Example:
+例如:
 
     .box {
         color: red;
@@ -53,23 +52,23 @@ Example:
         border 1px solid currentColor;
     }
 
-In the above code snippet, you can see that instead of specifying a color for the border, and box-shadow, we have used `currentColor` in these properties, which is automatically chabged to "red".
+在上面的代码片段中，你可以看到我们不是在边框、阴影上指定一个颜色，而是在这些属性上使用了 `currentColor`，这将自动使它们变为 `red`。
 
-**Simplifying transitions and animations**
+**简化过渡和动画**
 
-currentColor can be used to make the transitions and animations much simpler.
+currentColor 可以使 transitions 和 animations 变得更加简单。
 
-Let's consider the example code from the earlier use-case, and change the `color` on hover.
+让我们考虑一下最早的代码示例，并且改变一下 hover 时的 `color` 值
 
     .box:hover {
         color: purple;
     }
 
-Here, instead of writing three different properties in the `:hover`, we just changed the `color` value; and all the properties using `currentColor` would automatically reflect the change on hover.
+这里，我们不需要写三个不同的 `:hover` 属性，我们只需改变 `color` 值；所有使用`currentColor` 的属性会自动在 hover 时发生改变。
 
-**Use with psuedo elements**
+**在伪元素上使用**
 
-Psuedo elements like `:before` and `:after` can also take up the currentColor value from its parent element. This can be used to create things like "tooltips" with dynamic colors or "overlays" with the body color, and an opacity to give it a translucent effect.
+像是`:before` 和 `:after` 这样的伪元素也同样可以通过用 currentColor 来获取它的父元素的值。这可以用于创建像是带有动态颜色的"工具提示"或是具有主体颜色的"覆盖图"，并给它一个半透明的效果。
 
     .box {
         color: red;
@@ -79,47 +78,47 @@ Psuedo elements like `:before` and `:after` can also take up the currentColor va
         border: 1px solid currentColor;
     }
 
-Here, the `:before` psuedo element will have the `color` and the `border-color` from the parent div and can be manipulated in building something like a tooltip.
+这里，`:before` 伪元素的 `color` 和 `border-color` 会从父元素 div 中获得并可以被组建成类似工具提示的东西。
 
-**Use with SVGs**
+**在 SVG 中使用**
 
-SVGs can also take the `currentColor` value from the parent elements. This can be really useful when you're using the SVGs in different places and want to inherit the color from the parent without explicitly mentioning it every time.
+SVG 中 `currentColor` 的值同样可以从父元素中获取。当你在不同地方应用 SVG 并想从父元素中继承 color 值而又不想每次明确提及时，使用它是相当有帮助的。
 
     svg {
         fill: currentColor;
     }
 
-Here, the svg would have the same fill color as its parent element and will change dynamically depending on the parent element's color.
+在这里，svg 将会使用与它父元素相同的填充颜色，并且会动态的随着父元素颜色的修改而发生变化。
 
-**Use with Gradients**
+**在渐变中使用**
 
-`currentColor` can also be used for creating CSS gradients where one part of the gradient could be set to have the `currentColor` of the parent.
+`currentColor` 可以同样用于创建 CSS 渐变，其中渐变属性的一部分可以被设置成父元素的 `currentColor` 。
 
     .box {
         background: linear-gradient(top bottom right, currentColor, #FFFFFF);
     }
 
-Here, the _top_ part of the gradient would always have the color that the parent element has. Though there's a limitation of having just one dynamic color in this case, this still is a neat trick for generating dynamic gradients based on parent element's color.
+在这里，_顶部_的渐变颜色将会总是与父元素保持一致。虽然在这种情况下只会有一个动态颜色的限制，但仍然是一个简洁的方法去基于父元素颜色来生成动态的渐变。
 
-Here is a [Codepen example](http://codepen.io/alkshendra/pen/xEVrJJ?editors=1100#0) demonstrating all the above use cases.
+这儿有一个 [Codepen 示例](http://codepen.io/alkshendra/pen/xEVrJJ?editors=1100#0)来演示上述的所有例子。
 
 * * *
 
-## Brower Support
+## 浏览器支持
 
-The CSS `currentColor` was derived from the SVG spec into CSS3, and has been there since 2003\. Thus, the support for `currentColor` is pretty solid, with the exception of IE8 and lower versions.
+CSS `currentColor` 是从 CSS3 引入 SVG 规范时产生的，自 2003 年以来一直存在。因此 `currentColor` 的浏览器支持程度很可靠，除了 IE8 和一些更低版本的浏览器。
 
-Here's a chart showing the current browser support information as mentioned on [caniuse.com](http://caniuse.com/#feat=currentcolor):
+这里是一个图表展示了目前的浏览器支持信息，信息来自 [caniuse.com](http://caniuse.com/#feat=currentcolor):
 
 ![currentColor Support](https://res.cloudinary.com/hashnode/image/upload/v1474021764/g03f4hx1ftb0frtoonfw.png)
 
 * * *
 
-## Conclusion
+## 结论
 
-CSS `currentColor` is an under-used, albeit great feature. It has great support and brings a lot of possibilities onto the table aiding you to keep your code much cleaner.
+CSS `currentColor` 尽管是一个很好的特性，但还尚未得到充分运用。它提供了很棒的支持并带来了相当的可能性来使你保持你的代码更加的整洁。
 
-While the CSS variables are on their way, making the use of `currentColor` a habit, would definitely be rad.
+尽管 CSS 变量有它自己的方式，但是养成使用 `currentColor` 的习惯还是很酷的。
 
-This was just a short take on a topic I found interesting, and thought a few others would too. Let me know of your thoughts in the comments below! 😊
+这只是一个我发现的很有趣的简单的主题，如果有人也对此主题感兴趣。请让我知道你的想法并在下面留言！😊
 
