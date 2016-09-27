@@ -126,11 +126,12 @@ CSP meta 标签看起来应该像这样
 获得有关 CSP 的更多内容, 查看 [html5rocks](http://www.html5rocks.com/en/tutorials/security/content-security-policy/) 和 [Cordova 文档](https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy).
 
 使用 Vue.js 替换 **www/index.html** 中 `body` 部分代码显示随机单词并移除一些注释后，**wwww/index.html** 就会像这样
-
-    <!DOCTYPE html>
-    <html>
+            
+```           
+<!DOCTYPE html>
+<html>
     <head>
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; script-src 'self' http://cdn.jsdelivr.net/Vue/1.0.16/Vue.js 'unsafe-eval'">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; script-src 'self' http://cdn.jsdelivr.net/vue/1.0.16/vue.js 'unsafe-eval'">
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
@@ -138,17 +139,17 @@ CSP meta 标签看起来应该像这样
         <title>Random Word</title>
     </head>
     <body>
-        <div id="Vue-instance" class="app">
+        <div id="vue-instance" class="app">
             <h1>Random Word</h1>
             <button id="btn-get-random-word" @click="getRandomWord">Get Random Word</button>
             <p>{{ randomWord }}</p>
         </div>
         <script type="text/javascript" src="cordova.js"></script>
-        <script src="http://cdn.jsdelivr.net/Vue/1.0.16/Vue.js"></script>
+        <script src="http://cdn.jsdelivr.net/vue/1.0.16/vue.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
     </body>
-    </html>
-    ```        
+</html>
+```              
             
 现在我们将添加一些 JavaScript 来生成随机单词进行展示。
 
@@ -257,17 +258,18 @@ CSP 元标签的 `connect-src` 部分定义了应用发起 HTTP 请求的来源�
 
 **index.html** 将变成:
 
+
 ```
 <!DOCTYPE html>
-        ...
-            <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; script-src 'self' http://cdn.jsdelivr.net/vue/1.0.16/vue.js https://cdn.jsdelivr.net/vue.resource/0.7.0/vue-resource.min.js 'unsafe-eval'; connect-src http://api.wordnik.com:80/v4/words.json/randomWord">
-    ...
-            <script src="http://cdn.jsdelivr.net/vue/1.0.16/vue.js"></script>
-            <script src="https://cdn.jsdelivr.net/vue.resource/0.7.0/vue-resource.min.js"></script>
-            <script type="text/javascript" src="js/index.js"></script>
-        </body>
-    </html>
-    ```    
+...
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; script-src 'self' http://cdn.jsdelivr.net/vue/1.0.16/vue.js https://cdn.jsdelivr.net/vue.resource/0.7.0/vue-resource.min.js 'unsafe-eval'; connect-src http://api.wordnik.com:80/v4/words.json/randomWord">
+...
+        <script src="http://cdn.jsdelivr.net/vue/1.0.16/vue.js"></script>
+        <script src="https://cdn.jsdelivr.net/vue.resource/0.7.0/vue-resource.min.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+    </body>
+</html>
+```     
 
 为了向随机单词 API 发起 http 请求，我们可使用 vue-resource 当中的 [http service](https://github.com/vuejs/vue-resource/blob/master/docs/http.md) ，这是来自 **www/js/index.js** 里 Vue 实例中的 `getRandomWord` 方法。
 
@@ -345,7 +347,6 @@ export default {
   }
 }
 </script>
-
 ```
     
 
@@ -425,6 +426,7 @@ export default {
 通过向 `random-word` 和 `script` 标签添加指向合并组件的方式向 **www/index.html** 主体添加随机单词组件。
 
 
+```
 ...
         <link rel="stylesheet" type="text/css" href="css/index.css">
         <title>Random Word</title>
@@ -432,11 +434,12 @@ export default {
     <body>
         <random-word></random-word>
         <script src="js/bundle.js"></script>
+
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript" src="cordova.js"></script>
     </body>
 </html>
-···   
+```
 
 
 注意到 **www/index.html** 中链接标签定义了应用的 CSS 和 **www/js/random-word.vue** 中的 `div` 。在 CSS 中使用了 "app" 类定义。
