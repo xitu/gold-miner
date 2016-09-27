@@ -2,7 +2,7 @@
 * 原文作者：[Alkshendra Maurya](https://hashnode.com/@alkshendra)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[yangzj1992](http://qcyoung.com)
-* 校对者：
+* 校对者： [linpu.li](https://github.com/llp0574), [Nicolas(Yifei) Li](https://github.com/yifili09)
 
 
 总有一些极其强大的 CSS 属性在目前已经有了很好的浏览器支持，但却很少被开发者使用。 `currentColor` 就是这样的属性之一。
@@ -64,11 +64,11 @@ currentColor 可以使 transitions 和 animations 变得更加简单。
         color: purple;
     }
 
-这里，我们不需要再在 `:hover` 里写三个不同的属性，我们只需改变 `color` 值；所有使用`currentColor` 的属性会自动在 hover 时发生改变。
+这里，我们不需要再在 `:hover` 里写三个不同的属性，我们只需改变 `color` 值；所有使用 `currentColor` 的属性会自动在 hover 时发生改变。
 
 **在伪元素上使用**
 
-像是`:before` 和 `:after` 这样的伪元素也同样可以通过用 currentColor 来获取它的父元素的值。这就可以用于创建带有动态颜色的"提示框"，或是使用 body 颜色的"覆盖层"，并给它一个半透明的效果。
+像是`:before` 和 `:after` 这样的伪元素也同样可以通过用 currentColor 来获取它的父元素的值。这就可以用于创建带有动态颜色的『提示框』，或是使用 body 颜色的『覆盖层』，并给它一个半透明的效果。
 
     .box {
         color: red;
@@ -106,9 +106,9 @@ SVG 中 `currentColor` 的值同样可以从父元素中获取。当你在不同
 
 ## 浏览器支持
 
-CSS `currentColor` 是从 CSS3 引入 SVG 规范时产生的，自 2003 年以来一直存在。因此 `currentColor` 的浏览器支持程度很可靠，除了 IE8 和一些更低版本的浏览器。
+CSS `currentColor` 是从 CSS3 引入 SVG 规范时产生的，自 2003 年以来一直存在。因此浏览器对 `currentColor` 的支持是很可靠的，除了 IE8 和一些更低版本的浏览器。
 
-这里是一个展示了目前浏览器支持信息的图表，信息来自 [caniuse.com](http://caniuse.com/#feat=currentcolor):
+下面这张图展示了目前有关浏览器支持情况的信息，信息来自 [caniuse.com](http://caniuse.com/#feat=currentcolor):
 
 ![currentColor Support](https://res.cloudinary.com/hashnode/image/upload/v1474021764/g03f4hx1ftb0frtoonfw.png)
 
@@ -120,5 +120,5 @@ CSS `currentColor` 尽管是一个很好的特性，但还尚未得到充分运�
 
 尽管 CSS 变量有它自己的方式，但是养成使用 `currentColor` 的习惯还是很酷的。
 
-这只是一个我发现的很有趣的简单的主题，如果有人也对此主题感兴趣。请让我知道你的想法并在下面留言！😊
+这只是一个我发现的很有趣的简单的话题，如果有人也对此话题感兴趣。请让我知道你的想法并在下面留言！😊
 
