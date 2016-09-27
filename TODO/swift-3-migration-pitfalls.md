@@ -1,7 +1,7 @@
 > * 原文地址：[Swift 3 migration pitfalls](http://codelle.com/blog/2016/9/swift-3-migration-pitfalls/)
 * 原文作者：[ Emil Loer](http://codelle.com/contact/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：[shliujing](https://github.com/shliujing) 
+* 译者：[shliujing](https://github.com/shliujing)
 * 校对者：
 
 [](http://codelle.com/blog/2016/9/swift-3-migration-pitfalls/)
