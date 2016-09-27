@@ -38,7 +38,7 @@ iOS 10 和 watchOS 3 给开发者们带来许多令人激动的新系统扩展�
 ## 配置主头文件
 
 当你创建一个新的库工程，Xcode会自动为你创建一个主文件头，如果你想把这个库给其他人使用，这个就是为 Objective-C 代码指定的头文件，例如你的主要应用和扩展
-这是一个名为“Services”的库的主头文件的简单示例：
+这是一个名为 “Services” 的库的主头文件的简单示例：
 
 
 
@@ -93,7 +93,7 @@ iOS 10 和 watchOS 3 给开发者们带来许多令人激动的新系统扩展�
 
 解决这个问题的办法是,为你的应用和在一个共享位置读写创建并配置一个应用组，而非主应用的文件层级。这适用于任何文件 I/O 去执行代码的共享库，不管是与文件直接交互，还是使用一个像磁盘文件支持核心数据的抽象层。
 
-创建一个新的应用组，首先你需要按照[苹果开发者入门](https://developer.apple.com/account/) 下的 **App Groups** 创建应用组。使用像应用标识符相同的方式，以反转域名命名(例如: `com.mycompany.AwesomeWorkouts` )。一旦你创建应用组之后，你需要每个工程的应用和应用扩展中打开  **Capabilities** 选项
+创建一个新的应用组，首先你需要按照 [苹果开发者入门](https://developer.apple.com/account/) 下的 **App Groups** 创建应用组。使用像应用标识符相同的方式，以反转域名命名(例如: `com.mycompany.AwesomeWorkouts` )。一旦你创建应用组之后，你需要每个工程的应用和应用扩展中打开  **Capabilities** 选项
 
 [![Click this switch to enable the app group](https://www.raizlabs.com/dev/wp-content/uploads/sites/10/2016/08/App-Groups.png)](http://www.raizlabs.com/dev/wp-content/uploads/sites/10/2016/08/App-Groups.png)
 
@@ -137,11 +137,11 @@ iOS 10 和 watchOS 3 给开发者们带来许多令人激动的新系统扩展�
 
 
 
-你还要通过一个类似的迁移进程。复制所有旧用户默认值到新的用户默认值。文件迁移时。优先访问任何项目.
+你还要通过一个类似的迁移进程，复制所有旧用户默认值到新的用户默认值。文件迁移时，优先访问任何项目。
 
 ## iCloud Key-Value 存储
 
-第二个共享用户设置的方法是利用[iCloud Key-Value 存储](https://developer.apple.com/library/mac/documentation/General/Conceptual/iCloudDesignGuide/Chapters/DesigningForKey-ValueDataIniCloud.html)。
+第二个共享用户设置的方法是利用 [iCloud Key-Value 存储](https://developer.apple.com/library/mac/documentation/General/Conceptual/iCloudDesignGuide/Chapters/DesigningForKey-ValueDataIniCloud.html) 。
 有一个关于如何使用这个系统的不错的现有文档。你可以在应用扩展和以及应用中访问 key-value 存储，因为这是用来共享配置数据很合适的方法。如果你已经为配置数据使用了 iCloud Key-value 存储。就完成了! 只需通过共享库访问它。如果你在纠结使用哪个方法。我认为这种方法更好，因为即使应用被删除了，你的用户配置数据也会同步到多设备。
 
 
