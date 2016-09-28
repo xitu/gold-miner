@@ -56,11 +56,21 @@ Output for launching an example application:
         onCreate()  1101ms 
         onStart() <-- 1131ms, execution = 30ms
       Main Activity Launch <-- 1182ms, execution = 139ms
-      App Start  0ms
-      Load --> avg = 1.80ms, min = 1ms, max = 3ms, for 5 runs
-      Load  avg = 261.00ms, min = 245ms, max = 280ms, for 5 runs
-      Process <-- avg = 114.20ms, min = 99ms, max = 129ms, for 5 runs
-      Get Next Page <-- avg = 378.80ms, min = 353ms, max = 411ms, for 5 runs
+    App Start <-- 1182ms
+      
+
+As you can see, Pury measured time for launching the application, including intermediate stages, like loading data on splash screen and activity’s lifecycle methods. For each stage start and stop timestamps are displayed and so as execution time. Apart from the normal profiling, it could be useful for performance monitoring, to be sure that some changes don’t introduce an unexpected latency.
+
+Output for a screen with pagination:
+
+```
+Get Next Page --> 0ms
+  Load --> avg = 1.80ms, min = 1ms, max = 3ms, for 5 runs
+  Load <-- avg = 258.40ms, min = 244ms, max = 278ms, for 5 runs
+  Process --> avg = 261.00ms, min = 245ms, max = 280ms, for 5 runs
+  Process <-- avg = 114.20ms, min = 99ms, max = 129ms, for 5 runs
+Get Next Page <-- avg = 378.80ms, min = 353ms, max = 411ms, for 5 runs
+```
 
 In this example, as you can see, _Pury_ collected information about loading next page 5 times and then took the average. For each stage start timestamp and execution time are displayed.
 
@@ -144,7 +154,7 @@ By default _Pury_ uses default logger, but it also allows you to set your own on
     public interface Logger {
         void result(String tag, String message);
         void warning(String tag, String message);
-    void error(String tag, String message);
+        void error(String tag, String message);
     }
 
 By default _result_ goes to _Log.d_, _warning_ to _Log.w_ and _error_ to _Log.e_.
@@ -160,22 +170,22 @@ To start using _Pury_, you need to do two simple steps. First, apply AspectJ wea
         dependencies {
             classpath 'com.nikitakozlov:weaverlite:1.0.0'
         }
-        }
-        apply plugin: 'com.nikitakozlov.weaverlite'
+    }
+    apply plugin: 'com.nikitakozlov.weaverlite'
 
 You can enable/disable it on a debug and/or release build. Default configuration looks like this.
 
     weaverLite {
         enabledForDebug = true
         enabledForRelease = false
-        }
+    }
 
 Second, include following dependencies:
 
     dependencies {
        compile 'com.nikitakozlov.pury:annotations:1.0.1'
        debugCompile 'com.nikitakozlov.pury:pury:1.0.2'
-       }
+    }
 
 If you want to profile on release, then use _compile_ instead of _compileDebug_ for a second dependency.
 
@@ -193,7 +203,7 @@ Managing more then 5 stages without a usage of constants could be time-wasting, 
         public static final int MAIN_ACTIVITY_LAUNCH_ORDER = SPLASH_SCREEN_ORDER + 1;
         public static final String MAIN_ACTIVITY_CREATE = "onCreate()";
         public static final int MAIN_ACTIVITY_CREATE_ORDER = MAIN_ACTIVITY_LAUNCH_ORDER + 1;
-        }
+    }
 
 As you can see, every _ORDER_ constant depends on the parent’s stage, it is very handy. You can also add a constant for _runsCounter_ to be sure that you are always using the same one. If you add here an _enabled_ flag then you can easily disable one particular scenario from a single place.
 
