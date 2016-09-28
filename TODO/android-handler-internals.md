@@ -12,7 +12,68 @@ Though Handlers are used frequently, it’s easy to overlook how they work. This
 
 Let’s start with an example of how we might use a Handler in an application. Consider an activity that needs to display an image fetched from the network. There’s several approaches to do this. In this example, we’ll start a new worker thread to perform the network call and retrieve the image payload.
 
+```
+public class ImageFetcherActivity extends AppCompactActivity {
+    class WorkerThread extends Thread {
+        void fetchImage(String url) {
+            // network logic to create and execute request
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    imageView.setImageBitmap(image);
+                }
+            });
+        }
+    }
+    
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        // prepare the view, maybe setContentView, etc
+        new WorkerThread().fetchImage(imageUrl);
+    }
+}
+```
+
 An alternative is to use Handler Messages instead of Runnables.
+
+```
+public class ImageFetcherAltActivity extends AppCompactActivity {
+    class WorkerThread extends Thread {
+        void fetchImage(String url) {
+            handler.sendEmptyMessage(MSG_SHOW_LOADER);
+            // network call to load image
+            handler.obtainMessage(MSG_SHOW_IMAGE, imageBitmap).sendToTarget();
+        }
+    }
+    
+    class UIHandler extends Handler {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case MSG_SHOW_LOADER: {
+                    progressIndicator.setVisibility(View.VISIBLE);
+                    break;
+                }
+                case MSG_HIDE_LOADER: {
+                    progressIndicator.setVisibility(View.GONE);
+                    break;
+                }
+                case MSG_SHOW_IMAGE: {
+                    progressIndicator.setVisibility(View.GONE);
+                    imageView.setImageBitmap((Bitmap) msg.obj);
+                    break;
+                }
+            }
+        }
+    }
+    
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        // prepare the view, maybe setContentView, etc
+        new WorkerThread().fetchImage(imageUrl);
+    }
+}
+```
 
 In this second example, a worker thread fetches an image from the network. Once the image downloads, we need to update the ImageView with the bitmap. We know we can’t touch UI components from a non-UI thread, so we use a Handler. The Handler acts as a mediator between the worker thread and the UI thread. The message is enqueued by the Handler on the worker thread and processed by the Handler on the UI thread.
 
@@ -34,23 +95,9 @@ The [Handler[2]](https://developer.android.com/reference/android/os/Handler.html
 *   creating, inserting, or removing Messages from the Message Queue
 *   processing Messages on the consumer thread
 
-
-
-
-
-![](https://cdn-images-1.medium.com/freeze/max/60/1*Xiqug6cw7eXJQpimg5Hnnw.png?q=20)
-
-![](https://cdn-images-1.medium.com/max/1600/1*Xiqug6cw7eXJQpimg5Hnnw.png)
-
 ![](https://cdn-images-1.medium.com/max/2000/1*Xiqug6cw7eXJQpimg5Hnnw.png)
 
-
-
-
-
 The android.os.Handler component
-
-
 
 Each Handler is associated with a Looper and a Message Queue. There’s two ways to create a Handler:
 
@@ -68,7 +115,7 @@ A Handler can’t function without a Looper because it can’t put messages in t
         mQueue = mLooper.mQueue;
         mCallback = callback;
         mAsynchronous = async;
-        }
+    }
 
 The snippet from [Android Source](https://github.com/android/platform_frameworks_base/blob/master/core/java/android/os/Handler.java#L188) (above) demonstrates the logic of constructing a new Handler. The handler checks if the current thread has a valid Looper. If not, it throws a Runtime exception. The Handler then receives a reference to the Looper’s Message Queue.
 
@@ -85,20 +132,9 @@ The [Message[3]](https://developer.android.com/reference/android/os/Message.html
 *   _target_ — indicates which Handler should process the Message
 
 
-
-
-
-![](https://cdn-images-1.medium.com/freeze/max/60/1*odjf27TxzW3gC7-tbF-bPQ.png?q=20)
-
 ![](https://cdn-images-1.medium.com/max/1600/1*odjf27TxzW3gC7-tbF-bPQ.png)
 
-
-
-
-
 The android.os.Message component
-
-
 
 Message creation typically uses of one of the following Handler methods:
 
@@ -120,22 +156,10 @@ When posting a Runnable to the Handler via post(Runnable r), the Handler implici
     m.callback = r;
 
 
-
-
-
-![](https://cdn-images-1.medium.com/freeze/max/60/1*g3PR2PWaPmD0q5DfAQxpsA.png?q=20)
-
-![](https://cdn-images-1.medium.com/max/1600/1*g3PR2PWaPmD0q5DfAQxpsA.png)
-
 ![](https://cdn-images-1.medium.com/max/2000/1*g3PR2PWaPmD0q5DfAQxpsA.png)
 
 
-
-
-
 Interaction of Producer Thread sending message to a Handler
-
-
 
 At this point we can see the interaction between a producer thread and a Handler. The producer creates a Message and sends it to the Handler. The Handler then enqueues the Message into the Message Queue. The Handler processes the Message on the consumer thread sometime in the future.
 
@@ -144,20 +168,9 @@ At this point we can see the interaction between a producer thread and a Handler
 The [Message Queue[4]](https://developer.android.com/reference/android/os/MessageQueue.html) is an unbounded LinkedList of Message objects. It inserts Messages in time order, where the lowest timestamp dispatches first.
 
 
-
-
-
-![](https://cdn-images-1.medium.com/freeze/max/60/1*ogdWmXRs5md-KmiBnb61eg.png?q=20)
-
 ![](https://cdn-images-1.medium.com/max/1600/1*ogdWmXRs5md-KmiBnb61eg.png)
 
-
-
-
-
 The android.os.MessageQueue component
-
-
 
 The MessageQueue also maintains a dispatch barrier that represents the current time according to SystemClock.uptimeMillis. When a Message timestamp is less than this value, the message is dispatched and processed by the Handler.
 
@@ -173,11 +186,117 @@ Messages sent with a delay have the time field set to SystemClock.uptimeMillis()
 
 Handlers are often associated with UI components, which reference an Activity. The reference from the Handler back to these components can potentially leak the Activity. Consider the following scenario:
 
+```
+public class MainActivity extends AppCompatActivity {
+    private static final String IMAGE_URL = "https://www.android.com/static/img/android.png";
+
+    private static final int MSG_SHOW_PROGRESS = 1;
+    private static final int MSG_SHOW_IMAGE = 2;
+
+    private ProgressBar progressIndicator;
+    private ImageView imageView;
+    private Handler handler;
+
+    class ImageFetcher implements Runnable {
+        final String imageUrl;
+
+        ImageFetcher(String imageUrl) {
+            this.imageUrl = imageUrl;
+        }
+
+        @Override
+        public void run() {
+            handler.obtainMessage(MSG_SHOW_PROGRESS).sendToTarget();
+            InputStream is = null;
+            try {
+                // Download image over the network
+                URL url = new URL(imageUrl);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+                conn.setRequestMethod("GET");
+                conn.setDoInput(true);
+                conn.connect();
+                is = conn.getInputStream();
+
+                // Decode the byte payload into a bitmap
+                final Bitmap bitmap = BitmapFactory.decodeStream(is);
+                handler.obtainMessage(MSG_SHOW_IMAGE, bitmap).sendToTarget();
+            } catch (IOException ignore) {
+            } finally {
+                if (is != null) {
+                    try {
+                        is.close();
+                    } catch (IOException ignore) {
+                    }
+                }
+            }
+        }
+    }
+
+    class UIHandler extends Handler {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case MSG_SHOW_PROGRESS: {
+                    imageView.setVisibility(View.GONE);
+                    progressIndicator.setVisibility(View.VISIBLE);
+                    break;
+                }
+                case MSG_SHOW_IMAGE: {
+                    progressIndicator.setVisibility(View.GONE);
+                    imageView.setVisibility(View.VISIBLE);
+                    imageView.setImageBitmap((Bitmap) msg.obj);
+                    break;
+                }
+            }
+        }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        progressIndicator = (ProgressBar) findViewById(R.id.progress);
+        imageView = (ImageView) findViewById(R.id.image);
+
+        handler = new UIHandler();
+
+        final Thread workerThread = new Thread(new ImageFetcher(IMAGE_URL));
+        workerThread.start();
+    }
+}
+```
+
 In this example, the Activity starts a new worker thread to download and display an image in an ImageView. The worker thread communicates UI updates via the UIHandler, which retains references to Views and updates their state (toggle visibility, set the bitmap).
 
 Let’s assume the worker thread is taking long to download the image due to slow network. Destroying the Activity before the worker thread completes results in an Activity leak. There are two strong references in this example. One between the worker thread and UIHandler, and another between the UIHandler and the views. This prevents the Garbage Collector from reclaiming the Activity reference.
 
 Now, let’s look at another example:
+
+```
+public class MainActivity extends AppCompatActivity {
+    private static final String TAG = "Ping";
+
+    private Handler handler;
+
+    class PingHandler extends Handler {
+        @Override
+        public void handleMessage(Message msg) {
+            Log.d(TAG, "Ping message received");
+        }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        handler = new PingHandler();
+        
+        final Message msg = handler.obtainMessage();
+        handler.sendEmptyMessageDelayed(0, TimeUnit.MINUTES.toMillis(1));
+    }
+}
+```
 
 In this example, the following sequence of events occur:
 
@@ -196,7 +315,7 @@ After destroying the Activity, the Handler reference should be available for Gar
             msg.setAsynchronous(true);
         }
         return queue.enqueueMessage(msg, uptimeMillis);
-        }
+    }
 
 The Android Source snippet (above) shows that all Messages sent to a Handler eventually invoke enqueueMessage. Notice that the Handler reference is explicitly assigned to msg.target. This tells the Looper which Handler should process the message when it’s retrieved from the MessageQueue.
 
@@ -208,31 +327,87 @@ Using a combination of a WeakReference and a static class modifier prevents the 
 
 Let’s modify our UIHandler from this example to address this concern:
 
+```
+static class UIHandler extends Handler {
+    private final WeakReference<ImageFetcherActivity> mActivityRef;
+    
+    UIHandler(ImageFetcherActivity activity) {
+        mActivityRef = new WeakReference(activity);
+    }
+    
+    @Override
+    public void handleMessage(Message msg) {
+        final ImageFetcherActivity activity = mActivityRef.get();
+        if (activity == null) {
+            return
+        }
+        
+        switch (msg.what) {
+            case MSG_SHOW_LOADER: {
+                activity.progressIndicator.setVisibility(View.VISIBLE);
+                break;
+            }
+            case MSG_HIDE_LOADER: {
+                activity.progressIndicator.setVisibility(View.GONE);
+                break;
+            }
+            case MSG_SHOW_IMAGE: {
+                activity.progressIndicator.setVisibility(View.GONE);
+                activity.imageView.setImageBitmap((Bitmap) msg.obj);
+                break;
+            }
+        }
+    }
+}
+```
+
 Now, the UIHandler constructor takes in the Activity, which is wrapped in a WeakReference. This allows the Garbage Collector to reclaim the activity reference when the activity is destroyed. To interact with UI components of the Activity, we need a strong reference to the Activity from mActivityRef. Since we’re using a WeakReference, we must exercise caution when accessing the Activity. If the only path to an Activity reference is through a WeakReference, the Garbage Collector may have already reclaimed it. We need to check if that’s happened. If it has, the Handler is effectively irrelevant and the messages should be ignored.
 
 Though this logic addresses leaking memory, there’s still a problem with it. The activity is already destroyed, yet the Garbage Collector hasn’t reclaimed the reference. Depending on the operation being performed, this can potentially crash your application. To work around this, we need to detect what state the activity is in.
 
 Let’s update the UIHandler logic to account for these scenarios:
 
+```
+static class UIHandler extends Handler {
+    private final WeakReference<ImageFetcherActivity> mActivityRef;
+    
+    UIHandler(ImageFetcherActivity activity) {
+        mActivityRef = new WeakReference(activity);
+    }
+    
+    @Override
+    public void handleMessage(Message msg) {
+        final ImageFetcherActivity activity = mActivityRef.get();
+        if (activity == null || activity.isFinishing() || activity.isDestroyed()) {
+            removeCallbacksAndMessages(null);
+            return
+        }
+        
+        switch (msg.what) {
+            case MSG_SHOW_LOADER: {
+                activity.progressIndicator.setVisibility(View.VISIBLE);
+                break;
+            }
+            case MSG_HIDE_LOADER: {
+                activity.progressIndicator.setVisibility(View.GONE);
+                break;
+            }
+            case MSG_SHOW_IMAGE: {
+                activity.progressIndicator.setVisibility(View.GONE);
+                activity.imageView.setImageBitmap((Bitmap) msg.obj);
+                break;
+            }
+        }
+    }
+}
+```
+
 Now, we can generalize the interaction between a MessageQueue, the Handler, and Producer Threads:
 
 
-
-
-
-![](https://cdn-images-1.medium.com/freeze/max/60/1*_2pw5528rfoTpPBE7l9NmA.png?q=20)
-
-![](https://cdn-images-1.medium.com/max/1600/1*_2pw5528rfoTpPBE7l9NmA.png)
-
 ![](https://cdn-images-1.medium.com/max/2000/1*_2pw5528rfoTpPBE7l9NmA.png)
 
-
-
-
-
 Interaction between MessageQueue, Handlers, and Producer Threads
-
-
 
 In the figure (above), multiple producer threads submit Messages to different Handlers. However, each Handler is associated with the same Looper, so all Messages publish to the same MessageQueue. This is important because Android creates several Handlers associated with the Main Looper:
 
@@ -243,17 +418,7 @@ In the figure (above), multiple producer threads submit Messages to different Ha
 
 **Tip:** _Ensure that producer threads aren’t spawning several Messages, as they may starve processing system generated Messages._
 
-
-
-
-
-![](https://cdn-images-1.medium.com/freeze/max/60/1*rvIs3RCqJw1WFwuHwMtgaQ.png?q=20)
-
-![](https://cdn-images-1.medium.com/max/1600/1*rvIs3RCqJw1WFwuHwMtgaQ.png)
-
 ![](https://cdn-images-1.medium.com/max/2000/1*rvIs3RCqJw1WFwuHwMtgaQ.png)
-
-
 
 
 
@@ -264,7 +429,7 @@ A small sample of events dispatched by the Main Looper
 **Debugging Tips:** You can debug/dump all Messages dispatched by a Looper by attaching a LogPrinter:
 
     final Looper looper = getMainLooper();
-        looper.setMessageLogging(new LogPrinter(Log.DEBUG, "Looper"));
+    looper.setMessageLogging(new LogPrinter(Log.DEBUG, "Looper"));
 
 Similarly, you can debug/dump all pending Messages in a MessageQueue associated with your Handler by attaching a LogPrinter to your Handler:
 
@@ -279,19 +444,10 @@ Only one Looper can be associated with a Thread. Attaching another Looper to a T
 Calling Looper.quit terminates the Looper immediately. It also discards any Messages in the Message Queue that passed the dispatch barrier. Calling Looper.quitSafely ensures all Messages ready for dispatch are processed before pending messages are discarded.
 
 
-
-
-
-![](https://cdn-images-1.medium.com/freeze/max/60/1*sNJrg-3mVc54jZfVevWoDg.png?q=20)
-
 ![](https://cdn-images-1.medium.com/max/1600/1*sNJrg-3mVc54jZfVevWoDg.png)
 
 
-
-
-
 Overall flow of Handler interacting with MessageQueue and Looper
-
 
 
 The Looper is setup in the run() method of a Thread. A call to the static method Looper.prepare() checks if a preexisting Looper is associated with this Thread. It does this by using the Looper’s ThreadLocal to check if a Looper object already exists. If it doesn’t, a new Looper object and a new MessageQueue are created. The [Android Source](https://github.com/android/platform_frameworks_base/blob/e71ecb2c4df15f727f51a0e1b65459f071853e35/core/java/android/os/Looper.java#L83) snippet (below) demonstrates this.
@@ -303,7 +459,7 @@ The Looper is setup in the run() method of a Thread. A call to the static method
             throw new RuntimeException(“Only one Looper may be created per thread”);
         }
         sThreadLocal.set(new Looper(quitAllowed));
-        }
+    }
 
 The Handler can now receive Messages and add them to the Message Queue. Executing the static Looper.loop () method will start reading the Messages off the queue. Each loop iteration retrieves the next message, dispatches it to the target Handler, and recycles it back to the Message pool. Looper.loop will continue this process until the Looper is terminated. The [Android Source](https://github.com/android/platform_frameworks_base/blob/e71ecb2c4df15f727f51a0e1b65459f071853e35/core/java/android/os/Looper.java#L123) snippet (below) demonstrates this:
 
@@ -321,12 +477,12 @@ The Handler can now receive Messages and add them to the Message Queue. Executin
             msg.target.dispatchMessage(msg);
             msg.recycleUnchecked();
         }
-        }
+    }
 
 It’s not necessary to create your own thread that has a Looper attached to it. Android provides a convenience class for this — HandlerThread. It extends the Thread class and manages the creation of a Looper. The snippet below describes a typical usage pattern:
 
     private final Handler handler;
-        private final HandlerThread handlerThread;
+    private final HandlerThread handlerThread;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -334,13 +490,13 @@ It’s not necessary to create your own thread that has a Looper attached to it.
         handlerThread = new HandlerThread("HandlerDemo");
         handlerThread.start();
         handler = new CustomHandler(handlerThread.getLooper());
-        }
+    }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         handlerThread.quit();
-        }
+    }
 
 The onCreate() method constructs a new HandlerThread. When the HandlerThread starts, it prepared the Looper and attaches it to the thread. The Looper now begins processing messages off the MessageQueue on the HandlerThread.
 
