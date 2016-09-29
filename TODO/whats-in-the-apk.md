@@ -1,85 +1,86 @@
 > * 原文地址：[Whats in the APK?](http://crushingcode.co/whats-in-the-apk/)
 * 原文作者：[Nishant Srivastava](http://crushingcode.co/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[Newt0n](https://github.com/newt0n)
 * 校对者：
 
 
 
 
 
-# Whats in the APK?
+# APK 里有什么?
 
 ![header](http://crushingcode.github.io/images/posts/whatsintheapk/header.jpg)
 
-If I give you the code of an android app and ask you to provide me information regarding the android **app** like `minSdkVersion`, `targetSdkVersion`, permissions, configurations, almost anyone who knows how to code an android app would provide it to me in a few minutes. But what if I gave you an android **apk** file and then ask you to answer for the same 🤔 Its tricky if you try to think at the very first instance.
+如果我给你一份 Android 应用的源码然后请你给我提供关于 `minSdkVersion`, `targetSdkVersion`, permissions, configurations 等 Android 应用相关的信息，相信几乎每个有 Android 开发经验的人都能在短时间内给出答案。但如果我给你一个 Android 应用的 **apk** 文件然后让你给出同样的信息呢？🤔乍一想可能会有一点点棘手。
 
-I actually ran into such a situation and even though I had known `aapt` tool for a long time, it didnot hit my head the very first instance when I had to get the permissions declared inside the `apk`. It was clear I needed to brush up the concepts and follow an efficient approach. This blog post will explain how to do so. Also helpful when you are trying to reverse lookup contents of any other app 🤓
+事实上我就遇到了这样的情况，尽管我很早就知道 `aapt` 这类工具的存在，但当我需要获取 `apk` 里的权限声明时也不能在第一时间想到方案。很显然我需要复习下相关概念然后找到个有效的方案来解决这个问题。这篇文章将会解释我是怎么做得，在大家想对任何别的 App 做这种反向内容查找的时候也会有帮助。🤓
 
-_**Ok, the most common way to approach this problem has to be this one**_
+_**最常见的解决方案一定是下面这种**_
 
-Going with the definition of an **[APK[1]](https://en.wikipedia.org/wiki/Android_application_package)**
+从 **[APK[1]](https://en.wikipedia.org/wiki/Android_application_package)** 的定义开始
 
-> **Android application package (APK)** is the package file format used by the Android operating system for distribution and installation of mobile apps and middleware.
+> **Android application package (APK)** 是一种 Android 操作系统里为了应用程序、中间件的分发和安装而生的包文件格式。
 > 
-> …**APK** files are a type of archive file, specifically in **zip** format packages based on the JAR file format, with .apk as the filename extension.
+> …**APK** 是一种存档文件, 具体的说是基于 JAR 文件格式的 **zip** 格式包，以 `.apk` 作为文件扩展名。
 
 ![header](http://crushingcode.github.io/images/posts/whatsintheapk/apk.jpg)
 
-..hmm so its basically a _**ZIP**_ format, so what I can do is rename the extension from **.apk** to **.zip** and I should be able extract the contents.
+..嗯，所以它是基于 **ZIP** 格式的，我能做的就是把它的扩展名从 **.apk** 改为 **.zip**，然后 ZIP 解压工具应该能解压出它的内容。
 
 ![header](http://crushingcode.github.io/images/posts/whatsintheapk/rename.jpg)
 
 ![header](http://crushingcode.github.io/images/posts/whatsintheapk/zip.jpg)
 
-Cool, so we now see what the zip file contain and they are all available for inspection.
+这就厉害了, 所以现在我们能看到并检查 zip 文件里的内容
 
 ![header](http://crushingcode.github.io/images/posts/whatsintheapk/contents.jpg)
 
-Well at this point you would think that you have got access to all files so you can give me all the information right away. Well not so quick Mr.AndroidDev 😬
+现在你可能会想我们已经能访问到所有的文件，马上就能提供所有文章开头要求的那些信息了。不过，并没有这么简单的，亲😬。
 
-Go ahead try and open up the `AndroidManifest.xml` in some text editor to check out its content. This is what you would get
+可以试试随便用一个文本编辑器打开 `AndroidManifest.xml` 文件看看它的内容。你应该会看到这样的文本
 
 ![header](http://crushingcode.github.io/images/posts/whatsintheapk/androidmanifest.jpg)
 
-..what it basically means is that the `AndroidManifest.xml` isn’t in human readable format anymore. So your chances of reading basic information regarding the apk from the `AndroidManifest.xml` goes down the drain 😞
+..这意味着这个披着 `xml` 格式外衣的 `AndroidManifest.xml` 文件不再是我们人类可读的格式了。所以你已经没有机会直接查看记载着 apk 文件基本信息的 `AndroidManifest.xml` 文件了。
 
-..Not really 😋 There are tools to analyze the Android APK and there is one which has been there since the very beginning.
+..其实还是有办法的 😋 有一些工具可以分析 Android APK 文件，而且有一款从 Android 系统诞生开始就有了。
 
-> I think its known to all the experinced devs but I am pretty sure a lot of budding as well as seasoned Android Devs have not even heard about it.
+> 我想所有经验丰富的开发者都知道这款工具，但我确信还是有很多的新手和富有经验的开发者从来没听过。
 
-The tool thats available as part of the Android Build Tool is
+这个作为 Android 构建工具的组件的小工具就是
 
 #### **`aapt`** - Android Asset Packaging Tool
 
-> This tool can be used to list, add and remove files in an APK file, package resources, crunching PNG files, etc.
+> 这个工具可以用来列举、添加、移除 APK 包里的文件，打包资源或者压缩 PNG 文件等等。
 
-First of all, where exactly is this located 🤔
+首先，这玩意到底在哪？🤔
 
-Good question, its available as part of build tools in your android sdk.
+这个问题问得好，在你 Android SDK 的构建工具里可以找到它。
 
     &lt;path_to_android_sdk&gt;/build-tools/&lt;build_tool_version_such_as_24.0.2&gt;/aapt
 
-..ok so what can it actually do ? From the `man` pages of the tool itself
+..它到底能做些什么 ? 我们用 `man` 命令看一下，输出如下：
 
-*   `aapt list` - Listing contents of a ZIP, JAR or APK file.
-*   `aapt dump` - Dumping specific information from an APK file.
-*   `aapt package` - Packaging Android resources.
-*   `aapt remove` - Removing files from a ZIP, JAR or APK file.
-*   `aapt add` - Adding files to a ZIP, JAR or APK file.
-*   `aapt crunch` - Crunching PNG files.
 
-We are interested in `aapt list` and `aapt dump` specifically as these are what will help us provide `apk` information.
+*   `aapt list` - 列举 ZIP, JAR 或者 APK 文件里的内容。
+*   `aapt dump` - 从 APK 文件里导出指定的信息。
+*   `aapt package` - 打包 Android 资源。
+*   `aapt remove` - 删除 ZIP、JAR 或者 APK 文件里的内容。
+*   `aapt add` - 把文件添加到 ZIP、JAR 或者 APK 文件里。
+*   `aapt crunch` - 压缩 PNG 文件。
 
-Lets find information that we are looking for directly from the `apk` by running the `aapt` tool on it.
+我们感兴趣的是 `aapt list` 和 `aapt dump` 命令，尤其是有什么可以帮助我们得到 `apk` 信息的东西。
+
+让我们直接对 `apk` 文件运行下 `aapt` 工具来找找我们想要的信息。
 
 * * *
 
-##### Get base information of the apk
+##### 从 APK 获取基础信息
 
     aapt dump badging app-debug.apk 
 
-##### > Result
+##### > 输出
 
     package: name='com.example.application' versionCode='1' versionName='1.0' platformBuildVersionName=''
     sdkVersion:'16'
@@ -119,11 +120,11 @@ Lets find information that we are looking for directly from the `apk` by running
 
 * * *
 
-##### Get list of permissions declared in the AndroidManifest of the apk
+##### 从 APK 的 AndroidManifest 中获取权限声明列表
 
     aapt dump permissions app-debug.apk
 
-##### > Result
+##### > 输出
 
     package: com.example.application
     uses-permission: name='android.permission.WRITE_EXTERNAL_STORAGE'
@@ -135,11 +136,11 @@ Lets find information that we are looking for directly from the `apk` by running
 
 * * *
 
-##### Get list of configurations for the apk
+##### 获取 APK 的配置列表
 
     aapt dump configurations app-debug.apk
 
-##### > Result
+##### > 输出
 
     large-v4
     xlarge-v4
@@ -185,44 +186,42 @@ Lets find information that we are looking for directly from the `apk` by running
     kk-rKZ
     uz-rUZ
 
-..also try out these
+..也可以试试这些
 
-    # Print the resource table from the APK.
+    # 打印出 APK 里的资源清单
     aapt dump resources app-debug.apk
 
-    # Print the compiled xmls in the given assets.
+    # 打印出指定 APK 里编译过的 xml
     aapt dump xmltree app-debug.apk
 
-    # Print the strings of the given compiled xml assets.
+    # 打印出编译过的 xml 里的字段
     aapt dump xmlstrings app-debug.apk
 
-    # List contents of Zip-compatible archive.
+    # 列出 ZIP 存档里的内容
     aapt list -v -a  app-debug.apk    
 
-.. as you can see you can easily get the information without even going through the process of unzipping the `apk`, but by using the `aapt` tool directly on the `apk`.
+.. 就像你看到的，你可以轻松的通过 `aapt` 工具直接从 `apk` 获取信息甚至都不用尝试解压 `apk` 文件。
 
-There is more that you can do , taking more info from the `man` pages of the `aapt` tool
+还有更多可以做的，可以对 `aapt` 使用 `man` 命令获取详细说明。
 
     aapt r[emove] [-v] file.{zip,jar,apk} file1 [file2 ...]
-      Delete specified files from Zip-compatible archive.
+      从 ZIP 归档中删除指定文件
 
     aapt a[dd] [-v] file.{zip,jar,apk} file1 [file2 ...]
-      Add specified files to Zip-compatible archive.
+      添加指定文件到 ZIP 归档中
 
     aapt c[runch] [-v] -S resource-sources ... -C output-folder ...
-      Do PNG preprocessing and store the results in output folder.
+      执行 PNG 预处理操作并把结果存储到输出文件夹中
 
-..I will let you explore these on your own 🙂
+..有兴趣的话可以自己探索一下，这里就不赘述了 🙂
 
-Comment/Suggestions always welcome.
+欢迎评论和建议。
 
 [Reference Link[2]](http://elinux.org/Android_aapt)
 
 > Got featured in [AndroidWeekly Issue 224[3]](http://androidweekly.net/issues/issue-224), thank you for the love
 
 If you would like to get more of such android tips and tricks, just hop onto my **[Android Tips & Tricks[4]](https://github.com/nisrulz/android-tips-tricks)** github repository. I keep updating it constantly.
-
-Keep on crushing code!🤓 😁
 
 
 
