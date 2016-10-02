@@ -1,12 +1,14 @@
-> * 原文地址：[Pury — 一个新的 Android App 分析工具](https://medium.com/@nikita.kozlov/pury-new-way-to-profile-your-android-application-7e248b5f615e)
+> * 原文地址：[Pury — New Way to Profile Your Android Application](https://medium.com/@nikita.kozlov/pury-new-way-to-profile-your-android-application-7e248b5f615e)
 * 原文作者：[Nikita Kozlov](https://medium.com/@nikita.kozlov)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：[欧文](https://github.com/owenlyn)
+* 译者：
 * 校对者：
 
-手机应用存在的目的，就是在帮助用户做他们想做的事情的同时，提供最好的用户体验 —— 而用户体验的重中之重是应用的性能。 但有时候开发者们却以性能为借口，既没有达到既定目标，写出的代码质量低并难以维护。 在这里我想引用 Michael A. Jackson 的一句话：
+Applications are all about helping users to do what they need to, while providing best User Experience possible. Significant part of it is performance. Sometimes in the name of efficiency developers are writing low quality code that is difficult to support and maintain, without necessarily achieving positive results. In this regards I would like to quote Michael A. Jackson:
 
-> “程序优化守则第一条：别去做它。 程序优化守则第二条（仅限于专业人员）：别去做它，现在还不是时候。”
+> “The First Rule of Program Optimisation: Don’t do it. The Second Rule of Program Optimisation (for experts only!): Don’t do it yet.”
+
+
 
 
 
@@ -16,35 +18,34 @@
 
 
 
-在开始任何优化之前，我们要先认清问题的症结所在。 第一步，我们先收集和App性能表现的常规数据。比如，从调用 _startActivity()_ 到数据显示在屏幕上的时间。 又比如，加载下一页 _RecyclerView_ 的内容所需要的时间。 我们把这个时间和一个可以接受的阀值进行比较就可以发现有没有什么问题需要改进了。当应用程序使用的时间比预计的要长的时候，我们就需要深入的查看并找出是哪些方法（函数）或者API（应用程序接口）出了问题。
+Before starting any optimisation we need to identify the problem. As a first step we should collect general data about application performance. For example, time from _startActivity()_ call until data is displayed on the new screen. Or time it takes to load next page of content for a _RecyclerView._ Comparing this information with acceptable thresholds can tell us if there is a problem. In case something takes longer then expected, we can check more deeply and identify method or API call that caused the issue.
 
-幸运的是，我们有一些工具来分析安卓应用程序（的性能）：
+Luckily for us, there are some tools for profiling Android applications:
 
-1. [Hugo[1]](https://github.com/JakeWharton/hugo) 是一个库，它提供注释驱动的方法调用日志。你只需要在你的方法上用 _@DebugLog_ 注释，然后它就会记录参数，返回值以及运行所需的时间。我很喜欢这个库，但是这个库仅仅适用于单个方法的调用，所以并不能用来测量从调用 _startActivity()_ 到数据显示在屏幕上的时间。
-2. Android Stutio 工具包，比如 System Trace，就是一个非常精确且提供很多信息的工具。但你需要花很多时间来收集、分析数据。
-3. 后端解决方案，比如 [JMeter[2]](https://jmeter.apache.org/)。 这些工具有很多功能，但需要很多时间来学习怎么使用它们。不过话说回来，你经常需要在大量并发负载下分析一个应用程序吗？这看起来并不像一个常见的情况。
+1.  [Hugo[1]](https://github.com/JakeWharton/hugo) — library that provides annotation-triggered method call logging. You need to annotate your method with _@DebugLog_, and it will log arguments, return values, and the time it took to execute. I like it, but it is limited to a single method call, so you can’t measure time it takes from opening Activity till displaying content.
+2.  Android Studio toolset, for example System Trace, is very precise and provides a lot of information. But you need to spend a significant amount of time to collect and analyze the data.
+3.  Backend solutions, for example [JMeter[2]](https://jmeter.apache.org/). They have a lot of functionality, but it takes lots of efforts and time, first, to learn and, second, to use them. And after all, how often do you need to profile an application under heavy concurrent load? It doesn’t look like a common case in Android Development.
 
-#### 缺少的工具
+#### Missing tool
 
-如果你深入思考一下关于应用程序速度的问题，可以发现其中的一大部分可以被分成两类：
+If you take a closer look into questions we are asking about speed of our applications, most of them can be separated into two blocks:
 
+1.  Execution time for a particular method or API call. This can be covered by Hugo, for example.
+2.  Time between two different events, that could happened in independent pieces of the code, but connected in terms of logic. Android Studio toolset can cover this topic, but, as already mentioned, you need to spend significant amount of time to profile.
 
-1. 某个特定方法或者 API 的调用。这个可以用，比如 Hugo, 来解决。
-2. 两个不同事件之间的时间。这可能发生在独立的、但逻辑上关联的两段代码之间。 Android Studio 工具包可以解决这个问题，但就像前面说过的，你需要在这上面花很多时间。 
+While I was checking available profiling tools and trying to imagine all the possible cases, I realised that at least one tool is missing. So I came up with following requirements for it:
 
-当我在搜寻可用的分析工具并思考所有的可能性的时候，我意识到至少一样工具是没有的，所以我列出了一下需求：
+1.  Start and stop profiling should be triggered with two independent events, that will allow us to be as flexible as it needs.
+2.  If we want to monitor application performance, then having just start and stop events is not enough. Sometimes we want to know more about what happens in between. Information about all intermediate stages should be united into one big report. That will allow us to easier understand and share the data.
+3.  Sometimes we have scenarios that repeats frequently, for example, loading next page of content for a _RecyclerView._ Then one round of profiling is not enough, having statistical data, like average, minimal and maximal times, can give us more insights.
 
-1. 分析程序的开始和结束应该是两个看一看独立触发的事件，这样我们就可以按照需求来灵活使用它了。
-2.  如果我们想要监视应用的性能表现，仅仅有开始和结束是不够的。有些时候我们想要知道中间到底发生了什么。所有关于中间过程的信息应该被汇总在一个大的报告中。这让分析和分享数据变得更加简单。
-3.  有时候，有些脚本是经常被重复调用的，比如，为 _RecycylerView_ 加在下一页的内容。这时候，仅仅对这段脚本进行一次分析是不够的 —— 我们需要一些统计数据，比如平均，最快和最慢的时间，可以给我们提供更多思考（insights：思考/见解？）。
+That is why I created _Pury_.
 
-这就是为什么我开发了 _Pury_ 。
+#### Introduction to Pury
 
-#### 介绍 Pury
+_Pury_ is a profiling library for measuring time between multiple independent events. Events can be triggered with one of the annotations or with a method call. All events for a single scenario are united into one report.
 
-_Pury_ 是一个用来分析多个独立事件之间的时间的库。事件可以用注释或者调用方法来出发。一个脚本的所有事件都被汇总到一个报告中。
-
-用 _Pury_ 打开一个示例应用的输出:
+Output for launching an example application:
 
     App Start --> 0ms
       Splash Screen --> 5ms
@@ -91,13 +92,13 @@ Performance measurements are done by _Profilers._ Each _Profiler_ contains a lis
 
 
 
-Two _Profilers_ running in parallel. First has a single _Run_ with an active stage. Second has one stopped _Run_ and one active, each of Runs contains a root Stage with two nested Stages. Active stages are green, stopped stages are red.
+Two _Profilers_ running in parallel. First has a single _Run_ with an active stage. Second has one stopped _Run_ and one active, each of Runs contains a root Stage with two nested Stages. Active stages are green, stopped stages are red.
 
 
 
 _Run_ has a root _Stage_ inside. Each _Stage_ has a name, an order number and an arbitrary amount of nested _Stages_. _Stage_ can have only one active nested _Stage_. If you stop a parent _Stage,_ then all nested _Stages_ are also stopped.
 
-#### Profiling with Pury
+#### Profiling with Pury
 
 As already mentioned, _Pury_ measures time between multiple independent events. Events can be triggered with one of the annotations or with a method call. There are three base annotations:
 
@@ -146,7 +147,7 @@ As already mentioned, you can call start or stop profiling with a direct call:
 
 Arguments are exactly the same as in corresponding annotations, except _enabled,_ of course.
 
-#### Logging Results
+#### Logging Results
 
 By default _Pury_ uses default logger, but it also allows you to set your own one. All you need to do is to implement _Logger_ interface and set it via _Pury.setLogger()._
 
@@ -158,7 +159,7 @@ By default _Pury_ uses default logger, but it also allows you to set your own on
 
 By default _result_ goes to _Log.d_, _warning_ to _Log.w_ and _error_ to _Log.e_.
 
-#### How to start using Pury?
+#### How to start using Pury?
 
 To start using _Pury_, you need to do two simple steps. First, apply AspectJ weaving plugin, there are more than one such a plugin out there. I’m using [_WeaverLite_[3]](https://github.com/NikitaKozlov/WeaverLite), _Pury_ itself uses it as well. It is small and easy to configure.
 
@@ -211,6 +212,3 @@ As you can see, every _ORDER_ constant depends on the parent’s stage, it is ve
 _Pury_ is a concise profiling tool, that has only three annotations to work with and a bit of logic behind it. I hope you don’t find it unreasonably complex. In case of problems you can always take a look into an example on [GitHub[4]](https://github.com/NikitaKozlov/Pury).
 
 I would like to hear your opinion about this solution. If you have any suggestions please feel free to rise an issue on [GitHub[5]](https://github.com/NikitaKozlov/Pury). You can also contact me via [Gitter[6]](https://gitter.im/NikitaKozlov/Pury).
-
-
-
