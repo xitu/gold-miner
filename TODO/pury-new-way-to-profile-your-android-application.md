@@ -58,9 +58,9 @@ _Pury_ 是一个用来分析多个独立事件之间的时间的库。事件可�
     App Start <-- 1182ms
       
 
-As you can see, Pury measured time for launching the application, including intermediate stages, like loading data on splash screen and activity’s lifecycle methods. For each stage start and stop timestamps are displayed and so as execution time. Apart from the normal profiling, it could be useful for performance monitoring, to be sure that some changes don’t introduce an unexpected latency.
+就像你看到的， Pury 测量应用启动的时间，包括中间阶段，比如在等待屏幕时加载数据和活动生命周期内的方法。每个阶段的开始和结束时间以及执行所需的时间。除了常规的分析，它也可以用来监视程序的性能，来确保一些改动不会带来意外的延迟。
 
-Output for a screen with pagination:
+某次运行结果的一个分页:
 
 ```
 Get Next Page --> 0ms
@@ -71,13 +71,13 @@ Get Next Page --> 0ms
 Get Next Page <-- avg = 378.80ms, min = 353ms, max = 411ms, for 5 runs
 ```
 
-In this example, as you can see, _Pury_ collected information about loading next page 5 times and then took the average. For each stage start timestamp and execution time are displayed.
+在这个例子中，你可以看到， _Pury_ 收集了加载下一页 5 次的信息，并输出了平均值。 _Pury_ 记录并显示了每次开始和结束的时间，以及运行的时间。
 
-#### Inner structure and limitations
+#### 内部结构及不足
 
-Before diving into the documentation, I would like to make a small introduction to Pury’s inner structure and limitations. It will help to understand methods’ arguments and error messages.
+在深入介绍文档事前，我想简单介绍一下 Pury 的内部结构以及它的不足。这会帮助（你们）了解方法的参数以及报错的信息。
 
-Performance measurements are done by _Profilers._ Each _Profiler_ contains a list of _Runs_. Multiple _Profilers_ can work in parallel, but only a single _Run_ per each _Profiler_ can be active. Once all _Runs_ in a single _Profiler_ are finished, result is reported. Amount of runs defines by _runsCounter_ parameter.
+性能测试都是由 _Profiler_ 来完成的。 每个 _Profiler_ 都包含了一个 _Runs_ 列表。多个 _Profilers_ 可以并行运行，但每个 _Profiler_ 只能同时运行一个 _Run_ 。 当一个 _Profiler_ 内所有的 _Run_ 都运行完成时，就会有一个报告自动生成。_Runs_ 的数量由 _runsCounter_ 这个参数来决定。
 
 
 
@@ -91,15 +91,15 @@ Performance measurements are done by _Profilers._ Each _Profiler_ contains a lis
 
 
 
-Two _Profilers_ running in parallel. First has a single _Run_ with an active stage. Second has one stopped _Run_ and one active, each of Runs contains a root Stage with two nested Stages. Active stages are green, stopped stages are red.
+两个并列运行的 _Profilers_。第一个只有一个 _Run_ 并且处于活跃状态中。第二个有一个停止的 _Run_ 和一个活跃的 _Run_，每个 _Run_ 都包含了一个包含两个子状态的根状态。活跃状态是绿色的，停止状态是红色的。
 
 
 
-_Run_ has a root _Stage_ inside. Each _Stage_ has a name, an order number and an arbitrary amount of nested _Stages_. _Stage_ can have only one active nested _Stage_. If you stop a parent _Stage,_ then all nested _Stages_ are also stopped.
+_Run_ 内部有一个 _根状态_ 。每个状态都有一个名字，一个序列号和一个不限定数量的、嵌套的 _子状态_ 。每个 _状态_只能有一个活跃的、嵌套的 _子状态_ 。 如果你停止了一个 _母状态_ ，那么所有这个状态的 _子状态_ 也会停止。（这里把 “Stage” 翻译成“状态”合适吗，有没有更好的翻译？或者不翻译？）
 
-#### Profiling with Pury
+#### 使用 Pury 
 
-As already mentioned, _Pury_ measures time between multiple independent events. Events can be triggered with one of the annotations or with a method call. There are three base annotations:
+就想之前提到的， _Pury_ 测量多个独立事件之间的时间。事件可以由注释或调用方法来触发。以下是三个基本的注释：
 
 1\. _StartProfiling_ — triggers an event to start S_tage_ or _Run_. Profiling will start before method execution.
 
