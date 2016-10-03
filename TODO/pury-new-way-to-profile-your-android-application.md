@@ -101,12 +101,12 @@ _Run_ 内部有一个 _根状态_ 。每个状态都有一个名字，一个序�
 
 就想之前提到的， _Pury_ 测量多个独立事件之间的时间。事件可以由注释或调用方法来触发。以下是三个基本的注释：
 
-1\. _StartProfiling_ — triggers an event to start S_tage_ or _Run_. Profiling will start before method execution.
+1\. _StartProfiling_ — 触发一个事件来启动 _Stage_ 或者 _Run_. 分析会在方法运行之前就开始。
 
     @StartProfiling(profilerName = "List pagination", runsCounter = 3, stageName = "Loading", stageOrder = 0)
       private void loadNextPage() { }
 
-_StartProfiling_ can accept up to 5 arguments:
+_StartProfiling_ 可以接受最多5个参数:
 
 *   _profilerName — _name of the profiler is displayed in the result. Along with _runsCounter_ identifies the _Profiler._
 *   _runsCounter — _amount of runs for _Profiler_ to wait for. Result is available only after all runs are stopped.
@@ -114,23 +114,23 @@ _StartProfiling_ can accept up to 5 arguments:
 *   _stageOrder — _stage order reflects the hierarchy of stages. In order to start a new stage, it must be bigger then order of current most nested active stage. Stage order is a subject to one more limitation: first start event must have order number equal zero.
 *   _enabled — _if set to false, an annotation is skipped.
 
-I want to emphasise one fact. _Profiler_ is identified by combination of _profilerName_ and _runsCounter._ So if you are using same _profilerName_, but different _runsCounter,_ then you will get two separate results, instead of a combined one.
+我想强调一点。 _Profiler_ 是由 _profilerName_ 和 _runsCounter_ 组合在一起进行识别的。如果你使用了相同的 _profilerName_ ， 但是不同的 _runsCounter_ ，你将会得到两份独立的、不同的报告， 而不是一个。
 
-2\. _StopProfiling_ — triggers an event to stop S_tage_ or _Run_. Profiling is stopped after method execution. Once S_tage_ or _Run_ is stopped, all nested stages are also stopped.
+2\. _StopProfiling_ — 触发一个事件来停止 _Stage_ 或 _Run_. 分析会在方法运行结束后停止。当 _Stage_ 或 _Run_ 停止了，所有嵌套的 _stage_ 都会停止。
 
     @StopProfiling(profilerName = "List pagination", runsCounter = 3, stageName = "Loading")
       private void displayNextPage() { }
 
-It has the same arguments as _StartProfiling,_ except _stageOrder._
+它有和 _StartProfiling 相同的参数，出来 _stageOrder_ 。
 
-3\. _MethodProfiling_ — combination of _StartProfiling_ and _StopProfiling._
+3\. _MethodProfiling_ — _StartProfiling_ 和 _StopProfiling_ 的结合。
 
     @MethodProfiling(profilerName = "List pagination", runsCounter = 3, stageName = "Process", stageOrder = 1)
       private List processNextPage() { }
 
-It has exact same arguments as _StartProfiling_ with one small remark. If _stageName_ is empty then it will be generated from method’s name and class. This is made in order to be able to use _MethodProfiling_ without any arguments and get a meaningful result.
+除了一个小地方需要注意之外，它有和 _StartProfiling_ 相同的参数。 如果 _stageName_ 是空的，那么它将会有方法的名字和类中产生。 这么做是为了没有争议的使用 _MethodProfiling_ 并得到一个有意义的结果。
 
-Since Java 7 doesn’t support repeatable annotations, I made group annotations for each of annotation above:
+因为 Java 7 并不支持可重复的注释，我为以上的注释写了一个注释集：
 
     @StartProfilings(StartProfiling[] value)
 
@@ -138,17 +138,17 @@ Since Java 7 doesn’t support repeatable annotations, I made group annotations 
 
     @MethodProfilings(MethodProfiling[] value)
 
-As already mentioned, you can call start or stop profiling with a direct call:
+就想之前提到的，你可以直接调用一个方法来开始或结束分析：
 
     Pury.startProfiling();
 
     Pury.stopProfiling();
 
-Arguments are exactly the same as in corresponding annotations, except _enabled,_ of course.
+参数和对应的注释是完全相同的 —— 当然，除了 _enabled_ 。
 
-#### Logging Results
+#### 记录结果
 
-By default _Pury_ uses default logger, but it also allows you to set your own one. All you need to do is to implement _Logger_ interface and set it via _Pury.setLogger()._
+_Pury_ 使用默认的记录器，但同时也允许你设置你自己喜欢的记录器。 你要做的就是实现 _Logger_ 端口并在 _Pury.setLogger()_ 中进行设置。
 
     public interface Logger {
         void result(String tag, String message);
@@ -156,11 +156,11 @@ By default _Pury_ uses default logger, but it also allows you to set your own on
         void error(String tag, String message);
     }
 
-By default _result_ goes to _Log.d_, _warning_ to _Log.w_ and _error_ to _Log.e_.
+在默认情况下， _result_ 被记录在 _Log.d_ 中， _warning_ 被记录在 _Log.w_ 中， _error_ 被记录在 _Log.e_ 中。
 
-#### How to start using Pury?
+#### 怎样开始使用 Pury？
 
-To start using _Pury_, you need to do two simple steps. First, apply AspectJ weaving plugin, there are more than one such a plugin out there. I’m using [_WeaverLite_[3]](https://github.com/NikitaKozlov/WeaverLite), _Pury_ itself uses it as well. It is small and easy to configure.
+要开始使用 _Pury_, 你需要做两个步骤。 第一，使用 AspectJ 编制插件, 市面上有不止一种这样的插件。 我使用的是 [_WeaverLite_[3]](https://github.com/NikitaKozlov/WeaverLite)， _Pury_ 也使用它。 它非常请便有易于使用。
 
     buildscript {
         repositories {
@@ -172,25 +172,25 @@ To start using _Pury_, you need to do two simple steps. First, apply AspectJ wea
     }
     apply plugin: 'com.nikitakozlov.weaverlite'
 
-You can enable/disable it on a debug and/or release build. Default configuration looks like this.
+你可以在调试或发布版本中使用/禁用它。默认设置如下：
 
     weaverLite {
         enabledForDebug = true
         enabledForRelease = false
     }
 
-Second, include following dependencies:
+第二，包括以下依赖:
 
     dependencies {
        compile 'com.nikitakozlov.pury:annotations:1.0.1'
        debugCompile 'com.nikitakozlov.pury:pury:1.0.2'
     }
 
-If you want to profile on release, then use _compile_ instead of _compileDebug_ for a second dependency.
+如果你想在发布的时候分析, 在第二个依赖中使用 _compile_ 来代替 _compileDebug_ 。
 
-#### Small recommendation
+#### 小建议
 
-Managing more then 5 stages without a usage of constants could be time-wasting, so I always create a class where everything about one profiling scenario is centralised. It looks like this:
+在没有设置一些常数的时候，管理多于5个状态是非常浪费时间的，所有我总是创建一个类，将某个分析情境需要用到的所有东西都集中在这个类里。看起来像这样：
 
     public final class StartApp {
         public static final String PROFILER_NAME = "App Start";
@@ -204,13 +204,13 @@ Managing more then 5 stages without a usage of constants could be time-wasting, 
         public static final int MAIN_ACTIVITY_CREATE_ORDER = MAIN_ACTIVITY_LAUNCH_ORDER + 1;
     }
 
-As you can see, every _ORDER_ constant depends on the parent’s stage, it is very handy. You can also add a constant for _runsCounter_ to be sure that you are always using the same one. If you add here an _enabled_ flag then you can easily disable one particular scenario from a single place.
+就像你所看到的，每个 _ORDER_ 常数都是基于母状态，这样非常的方便。你还可以给 _runsCounter_ 添加一个常数来保证你每次用的都一样。你可以添加一个 _enabled_ 标记来轻松的禁用某个特定情境。
 
-#### Conclusion
+#### 结论
 
-_Pury_ is a concise profiling tool, that has only three annotations to work with and a bit of logic behind it. I hope you don’t find it unreasonably complex. In case of problems you can always take a look into an example on [GitHub[4]](https://github.com/NikitaKozlov/Pury).
+_Pury_ 是一个简洁的分析工具，它仅有三个注释需以及一点它们背后逻辑要学习。我希望你们不要把它想象的过分复杂。如果有什么问题的话，你们可以在这里我的 [GitHub[4]](https://github.com/NikitaKozlov/Pury) 里找到例子。
 
-I would like to hear your opinion about this solution. If you have any suggestions please feel free to rise an issue on [GitHub[5]](https://github.com/NikitaKozlov/Pury). You can also contact me via [Gitter[6]](https://gitter.im/NikitaKozlov/Pury).
+我很希望收到你们关于这个解决方案的看法。如果你们有任何的建议，欢迎在 [GitHub[5]](https://github.com/NikitaKozlov/Pury) 上创建一个 issue。你也可以通过 [Gitter[6]](https://gitter.im/NikitaKozlov/Pury) 来联系我。
 
 
 
