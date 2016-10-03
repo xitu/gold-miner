@@ -1,4 +1,4 @@
-> * 原文地址：[Pury — 一个新的 Android App 分析工具](https://medium.com/@nikita.kozlov/pury-new-way-to-profile-your-android-application-7e248b5f615e)
+> * 原文地址：[Pury — 一个新的 Android App 性能分析工具](https://medium.com/@nikita.kozlov/pury-new-way-to-profile-your-android-application-7e248b5f615e)
 * 原文作者：[Nikita Kozlov](https://medium.com/@nikita.kozlov)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[欧文](https://github.com/owenlyn)
