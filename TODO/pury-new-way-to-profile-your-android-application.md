@@ -4,7 +4,7 @@
 * 译者：[欧文](https://github.com/owenlyn)
 * 校对者：[Gran](https://github.com/Graning),
 
-手机应用存在的目的，就是在帮助用户做他们想做的事情的同时，提供最好的用户体验 —— 而用户体验的重中之重是应用的性能。但有时候开发者们却以性能为借口，既没有达到既定目标，写出的代码质量低并难以维护。在这里我想引用 Michael A. Jackson 的一句话：
+手机应用存在的目的，就是在帮助用户做他们想做的事情的同时，提供最好的用户体验 —— 而用户体验的重中之重是应用的性能。但有时候开发者们却以性能为借口，既没有达到既定目标，又写着低质量并难以维护的代码。在这里我想引用 Michael A. Jackson 的一句话：
 
 > “程序优化守则第一条：别去做它。程序优化守则第二条（仅限于专业人员）：别去做它，现在还不是时候。”
 
@@ -84,7 +84,7 @@ Get Next Page <-- avg = 378.80ms, min = 353ms, max = 411ms, for 5 runs
 
 
 
-![](https://cdn-images-1.medium.com/freeze/max/60/1*tYB7kEVojU-s0pRcNApIwQ.jpeg?q=20)
+[//]:<>![](https://cdn-images-1.medium.com/freeze/max/60/1*tYB7kEVojU-s0pRcNApIwQ.jpeg?q=20)
 
 ![](http://ww3.sinaimg.cn/large/006y8lVagw1f89jd8r2l8j30z50ltq5z.jpg)
 
@@ -109,11 +109,11 @@ _Run_ 内部有一个 _根状态_ 。每个状态都有一个名字，一个序�
 
 _StartProfiling_ 可以接受最多5个参数:
 
-*   _profilerName — _name of the profiler is displayed in the result. Along with _runsCounter_ identifies the _Profiler._
-*   _runsCounter — _amount of runs for _Profiler_ to wait for. Result is available only after all runs are stopped.
-*   _stageName_ — identifies a stage to start. Name is displayed in the result.
-*   _stageOrder — _stage order reflects the hierarchy of stages. In order to start a new stage, it must be bigger then order of current most nested active stage. Stage order is a subject to one more limitation: first start event must have order number equal zero.
-*   _enabled — _if set to false, an annotation is skipped.
+*   _profilerName_ — 分析者的名字将和 标识 _Profiler_ 的 _runsCounter_ 一起显示在结果中。
+*   _runsCounter_ — _Profiler_ 等待执行的任务的数量。结果只会在所有任务都完成只会才会显示。
+*   _stageName_ — 用来标记一个即将执行的状态。名字会显示在结果中。
+*   _stageOrder_ — 显示状态顺序。新开始的状态的序号必须大于嵌套最内层活跃状态的序号。同时，第一个状态的序号必须是0。
+*   _enabled_ — 当这个变量的值为“否”时，注释将被略过。
 
 我想强调一点。 _Profiler_ 是由 _profilerName_ 和 _runsCounter_ 组合在一起进行识别的。如果你使用了相同的 _profilerName_ ， 但是不同的 _runsCounter_ ，你将会得到两份独立的、不同的报告， 而不是一个。
 
