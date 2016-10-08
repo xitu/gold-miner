@@ -1,3 +1,4 @@
+* [迁移到 Swift 3，这些陷阱在等你](http://gold.xitu.io/entry/57f6fa03816dfa0056a4d782?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([shliujing](https://github.com/shliujing) 翻译)
 * [让你的应用支持 iOS 10 系统扩展](http://gold.xitu.io/entry/57eb20592e958a005457e038?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jiakeqi](https://github.com/jiakeqi) 翻译)
 * [顶级 Swift 服务端框架对决 Node.js](http://gold.xitu.io/entry/57e296af0bd1d000570ee3b4?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Tuccuay](https://github.com/Tuccuay) 翻译)
 * [实现二叉树以及二叉树遍历数据结构](http://gold.xitu.io/entry/57cd6b028ac24700645a789c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([cbangchen](https://github.com/cbangchen) 翻译)
