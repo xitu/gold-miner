@@ -2,7 +2,7 @@
 * 原文作者：[Nishant Srivastava](http://crushingcode.co/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Newt0n](https://github.com/newt0n)
-* 校对者：
+* 校对者：[shliujing](https://github.com/shliujing), [siegeout](https://github.com/siegeout)
 
 
 
@@ -50,7 +50,7 @@
 
 这个作为 Android 构建工具的组件的小工具就是
 
-#### **`aapt`** - Android Asset Packaging Tool(http://elinux.org/Android_aapt)
+#### **`aapt`** - Android Asset Packaging Tool[2](http://elinux.org/Android_aapt)
 
 > 这个工具可以用来列举、添加、移除 APK 包里的文件，打包资源或者压缩 PNG 文件等等。
 
@@ -217,6 +217,6 @@
 
 欢迎评论和建议。
 
-> Got featured in [AndroidWeekly Issue 224[3]](http://androidweekly.net/issues/issue-224), thank you for the love
+> 从 [AndroidWeekly Issue 224[3]](http://androidweekly.net/issues/issue-224) 获取更多文章和教程, 谢谢你们的厚爱。
 
-If you would like to get more of such android tips and tricks, just hop onto my **[Android Tips & Tricks[4]](https://github.com/nisrulz/android-tips-tricks)** github repository. I keep updating it constantly.
+如果想获得更多类似的 Android 开发技巧，敬请关注我的 **[Android Tips & Tricks[4]](https://github.com/nisrulz/android-tips-tricks)** Github 仓库。我会不断的更新内容。
