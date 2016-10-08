@@ -16,11 +16,11 @@
 
 事实上我就遇到了这样的情况，尽管我很早就知道 `aapt` 这类工具的存在，但当我需要获取 `apk` 里的权限声明时也不能在第一时间想到方案。很显然我需要复习下相关概念然后找到个有效的方案来解决这个问题。这篇文章将会解释我是怎么做的，在大家想对任何别的 App 做这种反向内容查找的时候也会有帮助。🤓
 
-_**最常见的解决方案一定是下面这种**_
+**最常见的解决方案一定是下面这种**
 
 从 **[APK[1]](https://en.wikipedia.org/wiki/Android_application_package)** 的定义开始
 
-> **Android application package (APK)** 是一种包文件格式，在 Android 操作系统里它被用来进行应用程序、中间件的分发和安装。
+> **Android application package (APK)** 是一种包文件格式，在 Android 操作系统里它被用来进行应用程序的分发和安装。
 > 
 > …**APK** 是一种存档文件, 具体的说是基于 JAR 文件格式的 **zip** 格式包，以 `.apk` 作为文件扩展名。
 
@@ -54,11 +54,11 @@ _**最常见的解决方案一定是下面这种**_
 
 > 这个工具可以用来列举、添加、移除 APK 包里的文件，打包资源或者压缩 PNG 文件等等。
 
-首先，这玩意到底在哪？🤔
+首先，这个工具到底安装在哪？🤔
 
 这个问题问得好，在你 Android SDK 的构建工具里可以找到它。
 
-    &lt;path_to_android_sdk&gt;/build-tools/&lt;build_tool_version_such_as_24.0.2&gt;/aapt
+    <path_to_android_sdk>/build-tools/<build_tool_version_such_as_24.0.2>/aapt
 
 它到底能做些什么 ? 我们用 `man` 命令看一下，输出如下：
 
@@ -202,7 +202,7 @@ _**最常见的解决方案一定是下面这种**_
 
 就像你看到的，你可以轻松的通过 `aapt` 工具直接从 `apk` 获取信息甚至都不用尝试解压 `apk` 文件。
 
-还有更多可以做的，可以对 `aapt` 使用 `man` 命令获取详细说明。
+`appt` 还可以完成很多操作，你可以对 `aapt` 使用 `man` 命令获取详细说明。
 
     aapt r[emove] [-v] file.{zip,jar,apk} file1 [file2 ...]
       从 ZIP 归档中删除指定文件
