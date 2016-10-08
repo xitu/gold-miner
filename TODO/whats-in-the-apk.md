@@ -50,7 +50,7 @@
 
 这个作为 Android 构建工具的组件的小工具就是
 
-#### **`aapt`** - Android Asset Packaging Tool[2](http://elinux.org/Android_aapt)
+#### **`aapt`** - [Android Asset Packaging Tool[2]](http://elinux.org/Android_aapt)
 
 > 这个工具可以用来列举、添加、移除 APK 包里的文件，打包资源或者压缩 PNG 文件等等。
 
