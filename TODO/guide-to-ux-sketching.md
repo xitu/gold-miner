@@ -12,7 +12,7 @@
 
 对于设计师们来说，这种感觉再熟悉不过了。然而，任何复杂的问题都没有那么容易解决，但一个聪明的工作流程就可以让这一切都变得不同。这就是为什么我们需要为用户体验设计绘制草图。
 
-绘制草图是一个关键点，但它却常常在用户体验设计中被忽视。手绘是一种表达设计的非常有效率的方式，设计师们可以通过手绘来尝试许多不同的点子，而避免沉沦于其中的某一个。
+绘制草图是一个关键点，但它却常常在用户体验设计中被忽视。草图是一种表达设计的非常有效率的方式，设计师们可以通过草图来尝试许多不同的点子，而避免沉沦于其中的某一个。
 
 在这篇文章中，我想要介绍为用户体验设计绘制草图时你所需要知道的一切，包括了下面这几点：
 
@@ -22,31 +22,31 @@
 *   为用户体验设计绘制草图时的小提示
 *   用简单的设计方法来提高质量和效率
 *   关于线框流程图你所需要知道的一切
-*   为体验流程绘制草图的一个快速指南
+*   为用户体验流程绘制草图的快速指南
 
-## UX Sketching is a Two-step Process
+## 绘制草图是一个需要两步走的过程
 
-Many options must be considered in design, which results in the choice and the execution of _the best one._ Designers consider their options, and then proceed to work out the details, thus making UX design a two-step process:
+在设计中你必须考虑许多不同的方案，确保最终选择和确定的结果是_最好的那一个。_ 设计师们在设计时应该先思考他们的不同方案，之后再着手于细节，因此用户体验设计应该是一个两步走的过程：
 
 ![Ux sketching](https://assets.toptal.io/uploads/blog/image/121222/toptal-blog-image-1474991007791-230ca06cc9fe1490e78fb46953ffbcb0.jpg)
 
-In the initial step, multiple ideas are generated, but since they cannot be fully shaped, it is not uncommon for some of the elements to be incomplete or missing. The main thing is to consider different approaches and to decide which is the most efficient in the context of your task and the various constraints of the project.
+在最初的设计过程中，你会产生许多不同的想法，但这些想法都很难成形，甚至有一些元素的残缺或丢失也不奇怪。最重要的事是你应该用不同的方法去思考，并判断哪一种在你的任务环境中最有效率，以及你的项目会遇到的各种限制。
 
-*   **Detailization and Refinement**
+*   **细节与精炼**
 
-Step by step, you settle on a few promising variants and proceed to work out the specifics, thus rendering some ideas unsuitable.
+一步一步来。选定一些看上去不错的想法并且开始着手于优化他们的细节，以此来填补这些点子中不合适的部分。
 
-## UX Sketches and Wireframes: Introduction and Classification
+## 用户体验设计中的草图和线框图：介绍与分类
 
-Your wireframes may differ depending on factors such as the desired level of detail, colors and style, whether you are going to show them to someone, and so on.
+你绘制的线框图很可能依据你的产品而有所不同，比如所需要的细节程度，颜色或风格的不同，或是你是否需要展示给某人，等等。
 
 ![](https://assets.toptal.io/uploads/blog/image/121204/toptal-blog-image-1474890673236-d74ae4998dab921752d271212847a991.png)
 
-Good sketches will help you think clearer, find better solutions and save time.
+好的草图会让你的想法更清晰，找到最佳解决方案，并节省你的时间。
 
-I singled out the following sketch types:
+我列出了下面这些草图的不同特点:
 
-* Sketch: Idea Generation
+* 手绘图：提出构思
 
 These are initial sketches. Lower level details are simply noted. A limited number of colors is employed.
 
@@ -54,7 +54,7 @@ I draw a lot of basic sketches to consider the problem from different angles and
 
 At this particular step incompleteness frees my mind, which is why it is so important to avoid getting bogged down in minutiae at this stage. My goal is to generate as many ideas as possible and choose the most promising ones.
 
-* **Wireframe: Specification, Detailed Phase**
+* **线框图：规范的细化阶段**
 
 I usually pick promising sketches and go over the details, after which I choose the best variant and work it out in greater detail.
 
@@ -64,11 +64,11 @@ At this step, I draw all the _important details_, but I do not yet draw wirefram
 
 > Digital tools provide a lot more creative freedom than paper and you can easily shift attention to minor things. For example, you can focus on "pixel polishing" instead of design.
 
-* Visual Design Draft
+* 视觉设计稿
 
 This is a rarely used approach, but sometimes it can be helpful. Various visual solutions are considered at an early stage of the project, but it may take a long time to create digital sketches for all of them. That is why I draw design sketches on paper first, to consider different options and choose a visual design direction.
 
-* **Components/Elements Breakdown**
+* **部件/元素分解**
 
 I find this technique useful when I have already have a general idea and I am thinking about a particular page functionality, or of the integral parts of interface components. I draw different page elements, going into detail, and then draw different possible positions of the page elements.
 
