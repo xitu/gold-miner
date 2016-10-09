@@ -2,7 +2,7 @@
 * 原文作者：[songzhw](http://github.com/songzhw)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Newt0n](https://github.com/newt0n)
-* 校对者：[Graning](https://github.com/Graning)
+* 校对者：[Graning](https://github.com/Graning), [hackerkevin](https://github.com/hackerkevin)
 
 
 
@@ -42,7 +42,7 @@
 
 ### 第二次尝试: 结合 PowerMock 和 Robolectric (2)
 
-我尝试着 Google 可行的解决方案，谢天谢地竟然让我找到了一个。这个方案由 Robolectric 发布在 [https://github.com/robolectric/robolectric/wiki/Using-PowerMock](https://github.com/robolectric/robolectric/wiki/Using-PowerMock)
+我尝试着 Google 可行的解决方案，谢天谢地竟然让我找到了一个。这个方案由 Robolectric 发布在：[https://github.com/robolectric/robolectric/wiki/Using-PowerMock](https://github.com/robolectric/robolectric/wiki/Using-PowerMock)
 
 这篇文章建议我们添加如下语句:
 
@@ -93,7 +93,7 @@
         }
     }
 
-在这个例子里，`FooManager` 在服务的外层被创建，这样就有了注入或者模拟我们自己的实例的机会。这样一来我们的测试代码可以这样写：
+在这个例子里，`FooManager` 在服务的外层被创建，这样就有了注入或模拟我们自己的实例的机会。这样一来我们的测试代码可以这样写：
 
     @RunWith(RobolectricTestRunner.class)  // Use Robolectric to test Service with JUnit
     @Config(constants = BuildConfig.class, sdk = 21) 
@@ -111,7 +111,7 @@
 
 ## 结论 02
 
-单例模式，由于提供了一个全局的静态方法来创建和获取类的实例，天然的阻止了解耦。而我们上面所做的，就是通过把实例化和业务逻辑分开，从而实现了一个单例模式的测试方案。
+单例模式，由于提供了一个全局的静态方法来创建和获取类的实例，自然阻止了解耦。而我们上面所做的，就是通过把实例化和业务逻辑分开，从而实现了一个单例模式的测试方案。
 
 
 
