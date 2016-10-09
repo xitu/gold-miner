@@ -5,12 +5,11 @@
 * 校对者：
 
 
-
-
-
 I learned how to write testable code in C++ and Objective-C. But what about Swift?
 
 The features and the overall “feel” of a language can have a big impact on how we express our code. Many of you know this well, because you started Swift early, and are miles ahead of me. I’m delighted to play catch-up. Swift’s features are like new toys! …But how do they affect testability?
+
+![](http://qualitycoding.org/jrwp/wp-content/uploads/2016/09/tool-contrast@2x.jpg)
 
 ## Writing testable code
 
@@ -33,6 +32,9 @@ I first learned unit testing and TDD when writing C++. When I moved to Objective
 Now I’m redoing my (woefully incomplete) [TDD sample app](http://qualitycoding.org/tdd-sample-archives/), this time in Swift. The Marvel Browser will be a simple app for exploring comic characters in the Marvel universe.
 
 A big part of it has been learning how to communicate with the Marvel API. It started with a [spike solution in Objective-C](http://qualitycoding.org/spike-solution-techniques/). To turn the spike into TDD’d code, I had to tame two things in particular that can make unit testing difficult:
+
+* a timestamp
+* MD5 hashing
 
 Rather than try to figure it all out in advance, I went ahead with Subclass and Override Method. That is, I scoped those two things into methods. Then a special subclass just for testing overrode those two methods.
 
@@ -57,12 +59,18 @@ In Objective-C, this can be done by having cascading methods. This interface sho
     - (NSString *)URLParameters;
     - (NSString *)URLParametersWithTimestamp:(NSString *)timestamp;
 
-    The first method calls the second, providing the timestamp value:
+The first method calls the second, providing the timestamp value:
 
     - (NSString *)URLParameters
     {
         return [self URLParametersWithTimestamp:[self timestamp]];
     }
+
+Swift makes this easier. Instead of having cascading methods, we can simply use a default parameter value.
+
+		func urlParameters(
+        timestamp: String = MarvelAuthentication.timestamp(),
+        /* more to come here */) -> String
 
 One complication: Swift doesn’t allow us to call another instance method to get the default value. So if you can, make it a type method instead. (If not, we can always fall back on cascading methods.)
 
@@ -83,21 +91,27 @@ Here’s how I did this for the block property that calculates the MD5 hash:
         return _calculateMD5;
     }
 
+But Swift lets us set default property values, right at the definition of the property. Here’s a closure property with a default:
+
+		var md5: (String) -> String = { str in
+        /* Actual body goes here */
+    }
+
 Wow, that’s so much simpler!
 
 ## Experimenting with closures
 
 Here’s what my main test looked like at this point. It’s not bad:
 
-     func testUrlParameters_ShouldHaveTimestampPublicKeyAndHashedConcatenation() {
-            sut.privateKey = "Private"
-            sut.publicKey = "Public"
-            sut.md5 = { str in return "MD5" + str + "MD5" }
+    func testUrlParameters_ShouldHaveTimestampPublicKeyAndHashedConcatenation() {
+				sut.privateKey = "Private"
+				sut.publicKey = "Public"
+				sut.md5 = { str in return "MD5" + str + "MD5" }
 
-            let params = sut.urlParameters(timestamp: "Timestamp")
+				let params = sut.urlParameters(timestamp: "Timestamp")
 
-            XCTAssertEqual(params, "&ts=Timestamp&apikey=Public&hash=MD5TimestampPrivatePublicMD5")
-        }
+				XCTAssertEqual(params, "&ts=Timestamp&apikey=Public&hash=MD5TimestampPrivatePublicMD5")
+		}
 
 As you can see, I override the MD5 closure to keep the test understandable. The test demonstrates that the generated URL parameters are correct. You can see how the hashing is supposed to work.
 
@@ -140,8 +154,4 @@ I don’t want to abuse closures. Chances are, there’s often an abstraction wa
 I’m still scratching the surface of Swift. I know from Joe Masilotti’s article [Better Unit Testing with Swift](http://masilotti.com/better-swift-unit-testing/) that protocols provide excellent Seams. But how do other language features affect testability? What about enums, or generics? To keep up with my ongoing adventures exploring Clean, Test-Driven Swift, [subscribe today](http://qualitycoding.org/subscribe/)!
 
 **_What features of Swift have you used for greater testability? What features should I explore? Let me know in the comments below._**
-
-### _Related_
-
-
 
