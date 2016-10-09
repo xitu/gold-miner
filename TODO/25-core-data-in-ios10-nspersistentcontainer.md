@@ -14,126 +14,88 @@ Xcode 8 is here if you have not peeked at any of betas yet, you will find all ki
 
 Over years, after trying many Core Data stacks we have settled on simple two context stack with a merge on save. Let's have a look at key components and wiring up. Link to the full version on GitHub is available in references. Code has been adjusted to Swift 3 and Xcode 8.
 
-
-
-
-
-
-
-    finalclassCoreDataStack{
-
-    staticletsharedStack=CoreDataStack()
-
-    varerrorHandler:(Error)->Void={_in}
-
-    private init(){
-
-    NotificationCenter.default.addObserver(self,
-
-    selector:#selector(CoreDataStack.mainContextChanged(notification:)),
-
-    name:.NSManagedObjectContextDidSave,
-
-    object:self.managedObjectContext)
-
-    NotificationCenter.default.addObserver(self,
-
-    selector:#selector(CoreDataStack.bgContextChanged(notification:)),
-
-    name:.NSManagedObjectContextDidSave,
-
-    object:self.backgroundManagedObjectContext)
-
-    deinit{
-
-    NotificationCenter.default.removeObserver(self)
-
-    lazy varapplicationDocumentsDirectory:NSURL={
-
-    leturls=FileManager.default.urls(for:.documentDirectory,in:.userDomainMask)
-
-    returnurls[urls.count-1]asNSURL
-
+```
+final class CoreDataStack {
+    static let sharedStack = CoreDataStack()
+    var errorHandler: (Error) -> Void = {_ in }
+    
+    private init() {
+    #1
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(CoreDataStack.mainContextChanged(notification:)),
+                                               name: .NSManagedObjectContextDidSave,
+                                               object: self.managedObjectContext)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(CoreDataStack.bgContextChanged(notification:)),
+                                               name: .NSManagedObjectContextDidSave,
+                                               object: self.backgroundManagedObjectContext)
+ 
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    #2
+    lazy var applicationDocumentsDirectory: NSURL = {
+        let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return urls[urls.count-1] as NSURL
     }()
-
-    lazy varmanagedObjectModel:NSManagedObjectModel={
-
-    letmodelURL=Bundle.main.url(forResource:"DataModel",withExtension:"momd")!
-
-    returnNSManagedObjectModel(contentsOf:modelURL)!
-
+    
+    #3
+    lazy var managedObjectModel: NSManagedObjectModel = {
+        let modelURL = Bundle.main.url(forResource: "DataModel", withExtension: "momd")!
+        return NSManagedObjectModel(contentsOf: modelURL)!
     }()
-
-    lazy varpersistentStoreCoordinator:NSPersistentStoreCoordinator={
-
-    letcoordinator=NSPersistentStoreCoordinator(managedObjectModel:self.managedObjectModel)
-
-    leturl=self.applicationDocumentsDirectory.appendingPathComponent("DataModel.sqlite")
-
-    do{
-
-    trycoordinator.addPersistentStore(ofType:NSSQLiteStoreType,
-
-    configurationName:nil,
-
-    at:url,
-
-    options:[NSMigratePersistentStoresAutomaticallyOption:true,
-
-    NSInferMappingModelAutomaticallyOption:true])
-
-    }catch{
-
-    // Report any error we got.
-
-    NSLog("CoreData error \(error), \(error._userInfo)")
-
-    self.errorHandler(error)
-
-    returncoordinator
-
+    
+    #4
+    lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
+        let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
+        let url = self.applicationDocumentsDirectory.appendingPathComponent("DataModel.sqlite")
+        do {
+            try coordinator.addPersistentStore(ofType: NSSQLiteStoreType,
+                                               configurationName: nil,
+                                               at: url,
+                                               options: [NSMigratePersistentStoresAutomaticallyOption: true,
+                                                         NSInferMappingModelAutomaticallyOption: true])
+            } catch {
+                // Report any error we got.
+                NSLog("CoreData error \(error), \(error._userInfo)")
+                self.errorHandler(error)
+            }
+        return coordinator
     }()
-
-    lazy varbackgroundManagedObjectContext:NSManagedObjectContext={
-
-    letcoordinator=self.persistentStoreCoordinator
-
-    varprivateManagedObjectContext=NSManagedObjectContext(concurrencyType:.privateQueueConcurrencyType)
-
-    privateManagedObjectContext.persistentStoreCoordinator=coordinator
-
-    returnprivateManagedObjectContext
-
+    
+    #5
+    lazy var backgroundManagedObjectContext: NSManagedObjectContext = {
+        let coordinator = self.persistentStoreCoordinator
+        var privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        privateManagedObjectContext.persistentStoreCoordinator = coordinator
+        return privateManagedObjectContext
     }()
-
-    lazy varmanagedObjectContext:NSManagedObjectContext={
-
-    letcoordinator=self.persistentStoreCoordinator
-
-    varmainManagedObjectContext=NSManagedObjectContext(concurrencyType:.mainQueueConcurrencyType)
-
-    mainManagedObjectContext.persistentStoreCoordinator=coordinator
-
-    returnmainManagedObjectContext
-
+    
+    #6
+    lazy var managedObjectContext: NSManagedObjectContext = {
+        let coordinator = self.persistentStoreCoordinator
+        var mainManagedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+        mainManagedObjectContext.persistentStoreCoordinator = coordinator
+        return mainManagedObjectContext
     }()
-
-    @objc funcmainContextChanged(notification:NSNotification){
-
-    backgroundManagedObjectContext.perform{[unownedself]in
-
-    self.backgroundManagedObjectContext.mergeChanges(fromContextDidSave:notification asNotification)
-
-    @objc funcbgContextChanged(notification:NSNotification){
-
-    managedObjectContext.perform{[unownedself]in
-
-    self.managedObjectContext.mergeChanges(fromContextDidSave:notification asNotification)
-
-
-
-
-
+    
+    #7
+    @objc func mainContextChanged(notification: NSNotification) {
+        backgroundManagedObjectContext.perform { [unowned self] in
+            self.backgroundManagedObjectContext.mergeChanges(fromContextDidSave: notification as Notification)
+        }
+    }
+    
+    @objc func bgContextChanged(notification: NSNotification) {
+        managedObjectContext.perform{ [unowned self] in
+            self.managedObjectContext.mergeChanges(fromContextDidSave: notification as Notification)
+        }
+    }
+}
+```
 
 
 What's up there? Let's break it down to pieces.
@@ -170,62 +132,48 @@ This stack uses good old merging contexts triggered on save notifications. In th
 
 iOS 10 provides us `NSPersistentContainer`. It is supposed to simplify code and do heavy lifing for us. Does it? Let me show you our rebuilt CoreDataStack based on `NSPersistentContainer`. A **_complete_** one:
 
-
-
-
-
-    finalclassCoreDataStack{
-
-    staticletshared=CoreDataStack()
-
-    varerrorHandler:(Error)->Void={_in}
-
-    lazy varpersistentContainer:NSPersistentContainer={
-
-    letcontainer=NSPersistentContainer(name:"DataModel")
-
-    container.loadPersistentStores(completionHandler:{[weakself](storeDescription,error)in
-
-    ifleterror=error{
-
-    NSLog("CoreData error \(error), \(error._userInfo)")
-
-    self?.errorHandler(error)
-
-    returncontainer
-
+```
+final class CoreDataStack {
+ 
+    static let shared = CoreDataStack()
+    var errorHandler: (Error) -> Void = {_ in }
+    
+    #1
+    lazy var persistentContainer: NSPersistentContainer = {
+        let container = NSPersistentContainer(name: "DataModel")
+        container.loadPersistentStores(completionHandler: { [weak self](storeDescription, error) in
+            if let error = error {
+                NSLog("CoreData error \(error), \(error._userInfo)")
+                self?.errorHandler(error)
+            }
+            })
+        return container
     }()
-
-    lazy varviewContext:NSManagedObjectContext={
-
-    returnself.persistentContainer.viewContext
-
+    
+    #2
+    lazy var viewContext: NSManagedObjectContext = {
+        return self.persistentContainer.viewContext
     }()
-
+    
+    #3
     // Optional
-
-    lazy varbackgroundContext:NSManagedObjectContext={
-
-    returnself.persistentContainer.newBackgroundContext()
-
+    lazy var backgroundContext: NSManagedObjectContext = {
+        return self.persistentContainer.newBackgroundContext()
     }()
-
-    funcperformForegroundTask(_block:@escaping(NSManagedObjectContext)->Void){
-
-    self.viewContext.perform{
-
-    block(self.viewContext)
-
-    funcperformBackgroundTask(_block:@escaping(NSManagedObjectContext)->Void){
-
-    self.persistentContainer.performBackgroundTask(block)
-
-
-
-
-
-
-
+    
+    #4
+    func performForegroundTask(_ block: @escaping (NSManagedObjectContext) -> Void) {
+        self.viewContext.perform {
+            block(self.viewContext)
+        }
+    }
+    
+    #5
+    func performBackgroundTask(_ block: @escaping (NSManagedObjectContext) -> Void) {
+        self.persistentContainer.performBackgroundTask(block)
+    }
+}
+```
 It is much shorter indeed. But what happened to all that code from the earlier version?
 
 Simple answer is that `NSPersistentContainer` does all that for us. That is not good enough for a blog post explanation 😆. We will break it down to pieces as well.
@@ -239,15 +187,7 @@ How?
 First, it is initialised with a name that is used to find a model with that name in documents directory and creates a store with the same name. This is convenience initialiser. You can use a full version and pass your model manually.
 
 
-
-
-
-
-
     public init(name:String,managedObjectModel model:NSManagedObjectModel)
-
-
-
 
 
 Then, before calling `loadPersistentStores` method you have time to further configure your container with `NSPersistentStoreDescription` for example. We went for a default SQLite database so we have just loaded our persistent store and ensured error handling.
@@ -283,35 +223,23 @@ Then, you can go into extensions or subclassing. Let me give you example. In one
 
 Luckily, with a small subclass of `NSPersistentContainer` we were back in the game and could use all goodies given by container.
 
-
-
-
-
-    structCoreDataServiceConsts{
-
-    staticletapplicationGroupIdentifier="group.com.identifier.app-name"
-
-    final classPersistentContainer: NSPersistentContainer{
-
-    internal overrideclassfuncdefaultDirectoryURL()->URL{
-
-    varurl=super.defaultDirectoryURL()
-
-    ifletnewURL=
-
-    FileManager.default.containerURL(
-
-    forSecurityApplicationGroupIdentifier:CoreDataServiceConsts.applicationGroupIdentifier){
-
-    url=newURL
-
-    returnurl
-
-
-
-
-
-
+```
+struct CoreDataServiceConsts {
+    static let applicationGroupIdentifier = "group.com.identifier.app-name"
+}
+ 
+final class PersistentContainer: NSPersistentContainer {
+    internal override class func defaultDirectoryURL() -> URL {
+        var url = super.defaultDirectoryURL()
+        if let newURL =
+            FileManager.default.containerURL(
+                forSecurityApplicationGroupIdentifier: CoreDataServiceConsts.applicationGroupIdentifier) {
+            url = newURL
+        }
+        return url
+    }
+}
+```
 
 #### Summary & References
 
