@@ -2,7 +2,7 @@
 * 原文作者：[songzhw](http://github.com/songzhw)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Newt0n](https://github.com/newt0n)
-* 校对者：
+* 校对者：[Graning](https://github.com/Graning)
 
 
 
@@ -61,18 +61,14 @@
 
 然后我接着 Google，这一次我找到了一个 Github 上的 Issue [github.com/Robolectric](https://github.com/robolectric/robolectric/pull/2390)。在这个 Issue 里有人提到：
 
-    welcome contributions if you want to take a stab at fixing it yourself.
     很遗憾我们在 10 月以前都没法实现整合 Powermock，但如果有人愿意帮忙修复这个问题我们也非常欢迎。
 
-    need to mock statics
     最好的解决当务之急的办法就是让你的代码变得可测试，这样就不用去模拟静态方法了。
 
 现在我意识到目前还没有能够同时使用 PowerMock 和 Robolectric 的方案。可能在 10 月（2016年）的时候会有，但现在（2016 年 9 月）我必须测试服务里的单例，怎么才能做到？
 
-### try 03: decouple Singleton
 ### 第三次尝试: 解耦单例
 
-Now we know the PowerMock + Robolectric solution is a dead-end. So can we test the singleton in Service or not?
 现在我们知道 PowerMock + Robolectric 的方案已经没有希望了，那我们还能不能测试服务里的单例？
 
 还是有办法的，就像前面说的『单例模式被认为是不够好的，因为它使得单元测试和调试变得困难。它需要明确的指定单例对象的类型以至于耦合度过高。』。所以我们希望能创造个实现依赖注入的机会，而不是紧耦合的用具体的单例对象来初始化。
