@@ -2,7 +2,7 @@
 * 原文作者：[songzhw](http://github.com/songzhw)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Newt0n](http://github.com/newt0n)
-* 校对者：[Graning](https://github.com/Graning)
+* 校对者：[Graning](https://github.com/Graning), [DeadLion](https://github.com/DeadLion)
 
 
 
