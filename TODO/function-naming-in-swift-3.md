@@ -2,7 +2,7 @@
 * 原文作者：[Pablo Villar](https://twitter.com/volbap)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Zheaoli](https://github.com/Zheaoli)
-* 校对者：
+* 校对者：[Kulbear](https://github.com/Kulbear), [Tuccuay](https://github.com/Tuccuay)
 
 昨天，我开始将这个 [Jayme](http://inaka.net/blog/2016/05/09/meet-jayme/) 迁移到 Swift 3。这是我第一次将一个项目从 Swift 2.2 迁移至 Swift 3。说实话这个过程十分的繁琐，由于 Swift 3 在老版本基础上发生了很多比较大的改变，我不得不承认眼前这样一个事实，除了花费较多的时间以外，没有其余的捷径可走。不过这样的经历也带来一点好处：我对 Swift 3 的理解变得更为深入，对我来讲，这可能是最好的消息了。😃
 
