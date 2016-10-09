@@ -46,13 +46,15 @@ Good sketches will help you think clearer, find better solutions and save time.
 
 I singled out the following sketch types:
 
+* Sketch: Idea Generation
+
 These are initial sketches. Lower level details are simply noted. A limited number of colors is employed.
 
 I draw a lot of basic sketches to consider the problem from different angles and to consider different solutions. While drawing such sketches, I am also striving to generate as many solution variants as possible.
 
 At this particular step incompleteness frees my mind, which is why it is so important to avoid getting bogged down in minutiae at this stage. My goal is to generate as many ideas as possible and choose the most promising ones.
 
-*   **Wireframe: Specification, Detailed Phase**
+* **Wireframe: Specification, Detailed Phase**
 
 I usually pick promising sketches and go over the details, after which I choose the best variant and work it out in greater detail.
 
@@ -60,11 +62,13 @@ However, this does _not mean every single detail_. Obvious things may just be no
 
 At this step, I draw all the _important details_, but I do not yet draw wireframes in [Balsamiq](https://balsamiq.com/). After everything is done on the paper, I start drawing in Sketch.
 
-Digital tools provide a lot more creative freedom than paper and you can easily shift attention to minor things. For example, you can focus on "pixel polishing" instead of design.
+> Digital tools provide a lot more creative freedom than paper and you can easily shift attention to minor things. For example, you can focus on "pixel polishing" instead of design.
+
+* Visual Design Draft
 
 This is a rarely used approach, but sometimes it can be helpful. Various visual solutions are considered at an early stage of the project, but it may take a long time to create digital sketches for all of them. That is why I draw design sketches on paper first, to consider different options and choose a visual design direction.
 
-*   **Components/Elements Breakdown**
+* **Components/Elements Breakdown**
 
 I find this technique useful when I have already have a general idea and I am thinking about a particular page functionality, or of the integral parts of interface components. I draw different page elements, going into detail, and then draw different possible positions of the page elements.
 
@@ -107,7 +111,7 @@ Now, you are all set and you can get started:
 
 ![](https://assets.toptal.io/uploads/blog/image/121216/toptal-blog-image-1474978448447-40701c83cf93e9be6339d4f0af43109c.png)
 
-If you as the designer can’t understand something you have in your sketch, then the solution won’t be successful. Either the sketch doesn’t allow you to visualize your ideas well, or the ideas are too complex.
+> If you as the designer can’t understand something you have in your sketch, then the solution won’t be successful. Either the sketch doesn’t allow you to visualize your ideas well, or the ideas are too complex.
 
 ## Clarifying Sketches with Additional Elements
 
@@ -173,7 +177,7 @@ These aren’t necessarily tips and tricks, but they’re a collection of method
 
 7.  **Tracing Real World** - If you need to create a storyboard, illustrate an experience in a specific context (e.g. a person using a smartphone at a bus station), you need to include depictions of people, places, and various real-life objects. These can be difficut to draw, especially if you haven’t mastered drawing skills, but here’s simple tip:
 
-Take a photo of the object or the situation, and then obtain the key objects contour using an image editor. You can use the resulting contour in your sketches afterward.
+> Take a photo of the object or the situation, and then obtain the key objects contour using an image editor. You can use the resulting contour in your sketches afterward.
 
 Of course, if you have a _tablet and stylus_ it will be even easier.
 
@@ -221,7 +225,7 @@ The wireflow design process is similar to the wireframe one. Many steps are simi
 
 ![](https://assets.toptal.io/uploads/blog/image/121219/toptal-blog-image-1474978685103-a4d5fcf8c50aa59c80b738780c115757.png)
 
-Define your approach and make a general paper sketch.
+> Define your approach and make a general paper sketch.
 
 **Decide what comes next** - After drawing the starting steps, decide what goes next by answering the following questions:
 
@@ -269,7 +273,7 @@ Define your approach and make a general paper sketch.
 
 **Drawing components** - An objection like _“I can’t draw that well”_ may stifle your initiative. It is actually easier than it sounds. Even the most complex sketches are generally composed of a number of basic blocks, like in [this example](https://www.toptal.com/uploads/blog/image/121200/toptal-blog-image-1474541374928-3041b386060c7e598ac8ed9e07e47ace.JPG).
 
-If you can draw a point, a line, a triangle, a square and a circle, then you have the essential building blocks you need to draw anything for your sketch.
+> If you can draw a point, a line, a triangle, a square and a circle, then you have the essential building blocks you need to draw anything for your sketch.
 
 **Putting it all together** - The basic elements, buttons, radio buttons, and dropdowns are composed of basic elements. After learning to draw these elements, you can [combine them](https://www.toptal.com/uploads/blog/image/121201/toptal-blog-image-1474541497592-c88cfa0ae9df1bbd3229b7280cfd05c0.JPG) and draw complex blocks and components.
 
@@ -279,7 +283,7 @@ The goal of this post was not to create the ultimate, one-size-fits-all guide to
 
 As you can see, this is _a lot_ to cover. Designers use a myriad of tools, techniques, and approaches to produce UX sketches, and it’s rather subjective. Certain techniques may or may not work for different people working on different projects. If you’re just getting started, you should definitely experiment.
 
-Constant practice and experimentation will help you find what works for you.
+> Constant practice and experimentation will help you find what works for you.
 
 It’s up to you to choose tips and techniques that will be the best fit for your project and your approach to design. Do you have any additional sketching tips for fellow [UXers](https://www.toptal.com/ux)? Feel free to share them in the comment section.
 
