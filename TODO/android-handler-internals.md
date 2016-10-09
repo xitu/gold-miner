@@ -1,16 +1,16 @@
 > * 原文地址：[Android Handler Internals](https://medium.com/@jagsaund/android-handler-internals-b5d49eba6977)
 * 原文作者：[Jag Saund](https://medium.com/@jagsaund)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[Jamweak] (https://github.com/jamweak)
 * 校对者：
 
-For an Android application to be responsive, you need to prevent the UI thread from blocking. Responsiveness also increases when blocking or computationally intensive tasks are offloaded to worker threads. The results of these operations often need to update UI components, which must be performed on the UI thread. Mechanisms like blocking queues, shared memory, and pipes impose blocking problems for the UI thread. To prevent this issue, Android provides its own message passing mechanism — the [Handler[1]](https://developer.android.com/reference/android/os/Handler.html). The Handler is a fundamental component in the Android framework. It offers a non-blocking message passing mechanism. Neither the producer nor the consumer block during message hand-offs.
+如果你想要让一个Android应用程序反应灵敏，那么你必须防止它的UI线程被阻塞。同样地，将这些阻塞的或是计算密集型的任务转到工作线程去执行也会提高程序的响应灵敏性。然而，这些任务的执行结果通常需要更新UI组件的显示，但这只能在UI线程中去完成。有一些方法解决了UI线程的消息传递问题，例如blocking queue，共享内存以及管道技术。在Android中，为解决这个问题，提供了一种自有的消息传递机制——[Handler](https://developer.android.com/reference/android/os/Handler.html)。Handler是Android Framework架构中的一个基础组件，它实现了一种非阻塞的消息传递机制，在消息转换的过程中，消息的生产者和消费者都不会阻塞。
 
-Though Handlers are used frequently, it’s easy to overlook how they work. This articles takes a deeper look into the various components of the Handler. It explains why the Handler is a powerful component that goes beyond worker threads and UI thread communication.
+虽然Handler被使用的频率非常高，它的工作原理却很容易被忽视。本篇文章深入地剖析Handler众多内部组件的实现，它将会向您揭示Handler的强大之处，而不仅仅作为一个工作线程和UI线程通信的工具。
 
-### Image Viewer Example
+### 图片浏览示例
 
-Let’s start with an example of how we might use a Handler in an application. Consider an activity that needs to display an image fetched from the network. There’s several approaches to do this. In this example, we’ll start a new worker thread to perform the network call and retrieve the image payload.
+让我们从一个例子开始了解如何在应用中使用Handler。设想一个Activity需要从网络上获取图片并显示。有几种方式来做这件事，在下面的例子中，我们创建了一个新的工作线程去执行网络请求以获取图片。
 
 ```
 public class ImageFetcherActivity extends AppCompactActivity {
@@ -34,7 +34,7 @@ public class ImageFetcherActivity extends AppCompactActivity {
 }
 ```
 
-An alternative is to use Handler Messages instead of Runnables.
+另一种方法则是使用Handler Messages来代替Runnables。
 
 ```
 public class ImageFetcherAltActivity extends AppCompactActivity {
@@ -74,37 +74,36 @@ public class ImageFetcherAltActivity extends AppCompactActivity {
     }
 }
 ```
+在第二个例子中，工作线程从网络获取到一张图片，一旦下载完成，我们需用使用下载好的bitmap去更新ImageView显示内容。我们知道我们不能从非UI线程中更新UI组件，因此我们使用Handler。Handler扮演了工作线程和UI线程的中间人的角色。消息在工作线程中被Handler加入队列，随后在UI线程中被Handler处理。
 
-In this second example, a worker thread fetches an image from the network. Once the image downloads, we need to update the ImageView with the bitmap. We know we can’t touch UI components from a non-UI thread, so we use a Handler. The Handler acts as a mediator between the worker thread and the UI thread. The message is enqueued by the Handler on the worker thread and processed by the Handler on the UI thread.
+### 深入了解Handler
 
-### A Deeper Look Inside the Handler
-
-The components of a Handler are:
+Handler由以下部分组成:
 
 *   Handler
 *   Message
 *   Message Queue
 *   Looper
 
-We’ll look at each component and see how they interact with one another.
+我们接下来将学习各个组件以及他们之间的交互。
 
 #### Handler
 
-The [Handler[2]](https://developer.android.com/reference/android/os/Handler.html) is the immediate interface for message passing between threads. Both the consumer and producer threads interact with the Handler by invoking the following operations:
+[Handler[2]](https://developer.android.com/reference/android/os/Handler.html)是线程间传递即时消息的接口，生产线程和消费线程调用以下操作来使用Handler:
 
-*   creating, inserting, or removing Messages from the Message Queue
-*   processing Messages on the consumer thread
+*   在消息队列中创建、插入或移除消息
+*   在消费线程中处理消息
 
 ![](https://cdn-images-1.medium.com/max/2000/1*Xiqug6cw7eXJQpimg5Hnnw.png)
 
-The android.os.Handler component
+android.os.Handler组件
 
-Each Handler is associated with a Looper and a Message Queue. There’s two ways to create a Handler:
+每个Handler都有一个与之关联的Looper和消息队列。有两种创建Handler的方式：
 
-*   through the default constructor, which uses the Looper associated with the current thread
-*   by explicitly specifying which Looper to use
+*   通过默认的构造方法，使用当前线程中关联的Looper
+*   显式地指定使用的Looper
 
-A Handler can’t function without a Looper because it can’t put messages in the Message Queue. Thus, it won’t receive any messages to process.
+没有指定Looper的Handler是无法工作的，因为它无法将消息放到消息队列中。因此，它无法获取要处理的消息。
 
     public Handler(Callback callback, boolean async) {
         // code removed for simplicity
@@ -117,26 +116,26 @@ A Handler can’t function without a Looper because it can’t put messages in t
         mAsynchronous = async;
     }
 
-The snippet from [Android Source](https://github.com/android/platform_frameworks_base/blob/master/core/java/android/os/Handler.java#L188) (above) demonstrates the logic of constructing a new Handler. The handler checks if the current thread has a valid Looper. If not, it throws a Runtime exception. The Handler then receives a reference to the Looper’s Message Queue.
+上面的[代码段](https://github.com/android/platform_frameworks_base/blob/master/core/java/android/os/Handler.java#L188)展示了创建一个新的Handler的逻辑。Handler在创建时检查了当前的线程有没有可用的Looper对象，如果没有，它会抛出一个运行时的异常。如果正常的话，Handler则会持有Looper中消息队列对象的引用。
 
-**Note:** _Multiple Handlers associated with the same thread share the same Message Queue because they share the same Looper._
+**注意:** _同一线程中的多个Handler分享一个同样的消息队列，因为他们分享的是同一个Looper对象。_
 
-The Callback is an optional argument. If provided, it processes messages dispatched by the Looper.
+Callback参数是一个可选参数，如果提供的话，它将会处理由Looper分发过来的消息。
 
 #### Message
 
-The [Message[3]](https://developer.android.com/reference/android/os/Message.html) acts as a container for arbitrary data. The producer thread sends Messages to the Handler, which enqueues to the Message Queue. The Message provides three pieces of extra information, required by the Handler and Message Queue to process the message:
+[Message[3]](https://developer.android.com/reference/android/os/Message.html)是容纳任意数据的容器。生产线程发送消息给Handler，将其加入消息队列中。消息提供了三种额外的信息，以供Handler和消息队列处理时使用：
 
-*   _what_ — an identifier the Handler can use to distinguish messages and process them differently
-*   _time_ — informs the Message Queue when to process a Message
-*   _target_ — indicates which Handler should process the Message
+*   _what_ — 一种标识符，Handler能使用它来区分不同消息，从而采取不同的处理方法
+*   _time_ — 告知消息队列何时处理消息
+*   _target_ — 表示哪一个Handler应当处理消息
 
 
 ![](https://cdn-images-1.medium.com/max/1600/1*odjf27TxzW3gC7-tbF-bPQ.png)
 
-The android.os.Message component
+The android.os.Message组件
 
-Message creation typically uses of one of the following Handler methods:
+消息的创建一般是通过使用Handler的以下方法实现：
 
     public final Message obtainMessage()
     public final Message obtainMessage(int what)
@@ -144,13 +143,13 @@ Message creation typically uses of one of the following Handler methods:
     public final Message obtainMessage(int what, int arg1, int arg2)
     public final Message obtainMessage(int what, int arg1, int arg2, Object obj)
 
-The Message is obtained from the message pool. The supplied arguments populate the fields of the Message. The Handler also sets the Message’s target to itself. This allows us to chain the call as such:
+消息从消息池中获取得到，方法中提供的参数会放到消息体的对应字段中。Handler同样可以设置消息的目标为其自身，这允许我们可以进行循环调用，比如：
 
     mHandler.obtainMessage(MSG_SHOW_IMAGE, mBitmap).sendToTarget();
 
-The Message pool is a LinkedList of Message objects with a maximum pool size of 50\. After the Handler processes the Message, the Message Queue returns the object to the pool and resets all fields.
+消息池是一个消息体对象的LinkedList，它的最大长度是50。在Handler处理完这条消息之后，消息队列返回这个对象到消息池中，并且重置其所有字段。
 
-When posting a Runnable to the Handler via post(Runnable r), the Handler implicitly constructs a new Message. It also sets the callback field to hold the Runnable.
+当使用Handler调用post方法来执行一个Runnable时，Handler隐式地创建了一个新的消息，并且设置callback参数来存储这个Runnable。
 
     Message m = Message.obtain();
     m.callback = r;
@@ -158,33 +157,31 @@ When posting a Runnable to the Handler via post(Runnable r), the Handler implici
 
 ![](https://cdn-images-1.medium.com/max/2000/1*g3PR2PWaPmD0q5DfAQxpsA.png)
 
+生产线程发送消息给Handler的交互
 
-Interaction of Producer Thread sending message to a Handler
-
-At this point we can see the interaction between a producer thread and a Handler. The producer creates a Message and sends it to the Handler. The Handler then enqueues the Message into the Message Queue. The Handler processes the Message on the consumer thread sometime in the future.
+在上图中，我们能看到生产线程和Handler的交互。生产者创建了一个消息，并且发送给了Handler，随后Handler将这个消息加入消息队列中，在未来的某个时间，Handler会在消费线程中处理这个消息。
 
 #### Message Queue
 
-The [Message Queue[4]](https://developer.android.com/reference/android/os/MessageQueue.html) is an unbounded LinkedList of Message objects. It inserts Messages in time order, where the lowest timestamp dispatches first.
-
+[Message Queue[4]](https://developer.android.com/reference/android/os/MessageQueue.html) 是一个消息体对象的无限LinkedList集合。 它按时序将消息插入队列，最小的时间戳将会被首先处理。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*ogdWmXRs5md-KmiBnb61eg.png)
 
-The android.os.MessageQueue component
+The android.os.MessageQueue组件
 
-The MessageQueue also maintains a dispatch barrier that represents the current time according to SystemClock.uptimeMillis. When a Message timestamp is less than this value, the message is dispatched and processed by the Handler.
+消息队列同样也维护着一个阻塞阈值(dispatch barrier)，根据SystemClock.uptimeMillis来表示当前的时间。当一个消息体的时间戳低于这个值的时候，消息就会被分发给Handler进行处理。
 
-The Handler offers three variations for sending a Message:
+Handler提供了三种方式来发送消息：
 
     public final boolean sendMessageDelayed(Message msg, long delayMillis)
     public final boolean sendMessageAtFrontOfQueue(Message msg)
     public boolean sendMessageAtTime(Message msg, long uptimeMillis)
 
-Sending a message with a delay sets the Message’s _time_ field as _SystemClock.uptimeMillis()_ + _delayMillis_.
+以延迟的方式发送消息，是设置了消息体的 _time_ 字段为 _SystemClock.uptimeMillis()_ + _delayMillis_ 。
 
-Messages sent with a delay have the time field set to SystemClock.uptimeMillis() + delayMillis. Whereas, Messages sent to the front of the queue have the time field set to 0, and process on the next Message loop iteration. Use this method with care as it can starve the message queue, cause ordering problems, or have other unexpected side-effects.
+延迟发送的消息设置了其时间字段为SystemClock.uptimeMillis() + delayMillis。然而，通过sendMessageAtFrontOfQueue()方法发送消息到队列头部，会将其时间字段设置为0，消息会在下一次轮询时被处理。需要谨慎使用这个方法，因为它可能会影响消息队列，造成顺序问题，或是其它不可预料的副作用。
 
-Handlers are often associated with UI components, which reference an Activity. The reference from the Handler back to these components can potentially leak the Activity. Consider the following scenario:
+Handler常与一些UI组件相关联，而这些UI组件通常持有对Activity的引用。Handler持有的对这些组件的引用可能会导致潜在的Activity泄露。考虑如下场景：
 
 ```
 public class MainActivity extends AppCompatActivity {
@@ -268,11 +265,11 @@ public class MainActivity extends AppCompatActivity {
 }
 ```
 
-In this example, the Activity starts a new worker thread to download and display an image in an ImageView. The worker thread communicates UI updates via the UIHandler, which retains references to Views and updates their state (toggle visibility, set the bitmap).
+在这个例子中，Activity开启了一个新的工作线程去下载并且在ImageView中展示图片。工作线程通过UIHandler去通知UI更新，这样就会持有了对View的引用，以便更新这些View的状态（切换可见性、设置图片等）。
 
-Let’s assume the worker thread is taking long to download the image due to slow network. Destroying the Activity before the worker thread completes results in an Activity leak. There are two strong references in this example. One between the worker thread and UIHandler, and another between the UIHandler and the views. This prevents the Garbage Collector from reclaiming the Activity reference.
+让我们假设工作线程由于网络差，需要很长的时间去下载图片。在工作线程下载完成之前销毁这个Activity会导致Activity泄露。在本例中，有两个强引用关系，一个在工作线程和UIHandler之间，另一个在UIHandler和View之间。这就阻止了垃圾回收机制回收Activity的引用。
 
-Now, let’s look at another example:
+现在，让我们来看看另一个例子：
 
 ```
 public class MainActivity extends AppCompatActivity {
@@ -298,16 +295,16 @@ public class MainActivity extends AppCompatActivity {
 }
 ```
 
-In this example, the following sequence of events occur:
+在这个例子中ing，将按顺序发生如下事件：
 
-*   A PingHandler is created
-*   The Activity sends a delayed Message to the Handler, which enqueues into the MessageQueue
-*   The Activity is destroyed before the Message dispatches
-*   The Message is dispatched and processed by the UIHandler, and a log statement is output
+*   PingHandler被创建
+*   Activity发送了一个带延迟的消息给Handler，随后消息加入到消息队列中
+*   Activity在消息到达之前被销毁
+*   消息被分发，并被UIHandler处理，输出一条日志
 
-Though it may not be apparent at first, the Activity leaks in this example as well.
+虽然起初看起来不那么明显，但本例中的Activity也存在着泄露。
 
-After destroying the Activity, the Handler reference should be available for Garbage Collection. However, when we create a Message object, it retains a reference to the Handler:
+在销毁Activity之后，Handler应当可以被垃圾回收，然而当创建了一个消息对象之后，它也会持有对Handler的引用：
 
     private boolean enqueueMessage(MessageQueue queue, Message msg, long uptimeMillis) {
         msg.target = this;
@@ -317,15 +314,15 @@ After destroying the Activity, the Handler reference should be available for Gar
         return queue.enqueueMessage(msg, uptimeMillis);
     }
 
-The Android Source snippet (above) shows that all Messages sent to a Handler eventually invoke enqueueMessage. Notice that the Handler reference is explicitly assigned to msg.target. This tells the Looper which Handler should process the message when it’s retrieved from the MessageQueue.
+上面的Android代码段表明，所有被发送到Handler的消息最终都会触发enqueueMessage方法。注意到Handler的引用被显示地赋给了msg.target，以此来告诉Looper对象当消息从消息队列出队时，选择哪一个Handler来对其进行处理。
 
-The Message is added to the MessageQueue, which now holds a reference to the Message. The MessageQueue also has a Looper associated with it. An explicit Looper lives until it’s terminated, whereas the Main Looper lives as long as the application does. The Handler reference lives as long as the Message isn’t recycled by the MessageQueue. Once it’s recycled, it’s fields, including the target reference, are cleared.
+消息加入消息队列后，消息队列就获得了对消息的引用。它同样有一个与之关联的Looper。一个自定义的Looper对象的生命周期一直持续到它被结束，然而主线程中的Looper对象在程序的生命周期内一直存在。因此，消息中持有的对Handler的引用会一直维持到该消息被消息队列回收之前，一旦消息被回收，它内部的各字段，包括目标target的引用都会被清空。
 
-Though there is a long living reference to the Handler, it isn’t clear if the Activity leaks. To check for a leak, we must determine if the Handler also references the Activity within the class. In this example, it does. There’s an implicit reference retained by a non-static class member to its enclosing class. Specifically, the PingHandler wasn’t declared as a static class, so it has an implicit reference to the Activity.
+虽然Handler能存活很长时间，但是当Activity发生泄露时，Handler不会被清空。为了检查是否发生泄露，我们必须检查Handler是否在本类范围内持有Activity的引用。在本例中，它确实持有：非静态内部类持有一个对其外部类的隐式引用。明确一点来说，PingHandler没有定义成一个静态类，所以它持有一个隐式的Activity引用。
 
-Using a combination of a WeakReference and a static class modifier prevents the Handler from leaking the Activity. When the Activity is destroyed, the WeakReference allows the Garbage Collector to reclaim the object you want to retain (typically an Activity). The static modifier on the inner Handler class prevents an implicit reference to the parent class.
+通过结合使用弱引用和静态类修饰符可以阻止Handler导致的Activity泄露。当Activity被销毁时，弱引用允许垃圾回收器去回收你想要留存的对象（通常来说是Activity）。在Handler内部类前加入静态修饰符可以阻止对外部类持有隐式引用。
 
-Let’s modify our UIHandler from this example to address this concern:
+让我们来修改上例中的UIHandler来解决这个烦恼：
 
 ```
 static class UIHandler extends Handler {
@@ -361,11 +358,11 @@ static class UIHandler extends Handler {
 }
 ```
 
-Now, the UIHandler constructor takes in the Activity, which is wrapped in a WeakReference. This allows the Garbage Collector to reclaim the activity reference when the activity is destroyed. To interact with UI components of the Activity, we need a strong reference to the Activity from mActivityRef. Since we’re using a WeakReference, we must exercise caution when accessing the Activity. If the only path to an Activity reference is through a WeakReference, the Garbage Collector may have already reclaimed it. We need to check if that’s happened. If it has, the Handler is effectively irrelevant and the messages should be ignored.
+现在，UIHandler的构造方法中需要传入Activity，而这个引用会被弱引用包装。这样就允许垃圾回收器在Activity销毁时回收这个引用。当与Activity中的UI组件交互时，我们需要从mActivityRef中获得一个Activity的强引用。由于我们正在使用一个弱引用，我们必须小心翼翼地去访问Activity。如果仅仅能通过弱引用的方式去访问Activity，垃圾回收器也许已经将其回收了，因此我们需要检查回收是否发生。如果确实被回收，Handler实际上已经与Activity无关了，那么这条消息就应该被丢弃。
 
-Though this logic addresses leaking memory, there’s still a problem with it. The activity is already destroyed, yet the Garbage Collector hasn’t reclaimed the reference. Depending on the operation being performed, this can potentially crash your application. To work around this, we need to detect what state the activity is in.
+虽然这个逻辑解决了内存泄露问题，但仍旧存在一个问题。Activity已经被销毁，但垃圾回收器还没来得及回收引用，依赖于操作系统运行时的状况，这可能会使你的程序导致潜在的崩溃。为解决这个问题，我们需要获取Activity当前的状态。
 
-Let’s update the UIHandler logic to account for these scenarios:
+让我们更新UIHandler的逻辑来解决如上场景的问题：
 
 ```
 static class UIHandler extends Handler {
@@ -402,57 +399,56 @@ static class UIHandler extends Handler {
 }
 ```
 
-Now, we can generalize the interaction between a MessageQueue, the Handler, and Producer Threads:
+现在，我们可以概括消息队列、Handler、生产线程的交互：
 
 
 ![](https://cdn-images-1.medium.com/max/2000/1*_2pw5528rfoTpPBE7l9NmA.png)
 
-Interaction between MessageQueue, Handlers, and Producer Threads
+消息队列、Handler、生产线程的交互
 
-In the figure (above), multiple producer threads submit Messages to different Handlers. However, each Handler is associated with the same Looper, so all Messages publish to the same MessageQueue. This is important because Android creates several Handlers associated with the Main Looper:
+在上图中，多个生产线程提交消息到不同的Handler中。然而，不同的Handler都与相同的Looper对象关联，因此所有的消息都加入到同一个消息队列中。这一点非常重要，Android中创建的许多不同Handler都关联到主线程的Looper：
 
-*   _The Choreographer:_ handles vsync and frame updates
-*   _The ViewRoot:_ handles input and window events, configuration changes, etc.
-*   _The InputMethodManager:_ handles keyboard touch events
-*   And several others
+*   _The Choreographer:_ 处理垂直同步与帧更新
+*   _The ViewRoot:_ 处理输入和窗口事件，配置修改等等
+*   _The InputMethodManager:_ 处理键盘触摸事件及其它
 
-**Tip:** _Ensure that producer threads aren’t spawning several Messages, as they may starve processing system generated Messages._
+**小贴士:** _确保生产线程不会大量生成消息，因为这可能会抑制处理系统生成消息。_
 
 ![](https://cdn-images-1.medium.com/max/2000/1*rvIs3RCqJw1WFwuHwMtgaQ.png)
 
 
 
-A small sample of events dispatched by the Main Looper
+主线程Looper分发消息的小示例
 
 
 
-**Debugging Tips:** You can debug/dump all Messages dispatched by a Looper by attaching a LogPrinter:
+**调试帮助:** 你可以通过附加一个LogPrinter到Looper上来debug/dump被Looper分发的消息:
 
     final Looper looper = getMainLooper();
     looper.setMessageLogging(new LogPrinter(Log.DEBUG, "Looper"));
 
-Similarly, you can debug/dump all pending Messages in a MessageQueue associated with your Handler by attaching a LogPrinter to your Handler:
+同样地，你可以debug/dump所有在消息队列中等待的消息，通过在与消息队列相关联的Handler上附加一个LogPrinter:
 
     handler.dump(new LogPrinter(Log.DEBUG, "Handler"), "");
 
 #### Looper
 
-The [Looper[5]](https://developer.android.com/reference/android/os/Looper.html) reads messages from the Message Queue and dispatches execution to the target Handler. Once a Message passes the dispatch barrier, it’s eligible for the Looper to read it in the next message loop. The Looper blocks when no messages are eligible for dispatch. It resumes when a Message is available.
+[Looper[5]](https://developer.android.com/reference/android/os/Looper.html) 从消息队列中读取消息，然后分发给对应的Handler处理。一旦消息超过阻塞阈，那么Looper就会在下一轮读取过程中读取到它。Looper在没有消息分发的时候会变为阻塞状态，当有消息可用时会继续开始轮询。
 
-Only one Looper can be associated with a Thread. Attaching another Looper to a Thread results in a RuntimeException. The use of a static ThreadLocal object in the Looper class ensures that only one Looper is attached to the Thread.
+每个线程只能关联一个Looper，给线程附加另外的Looper会导致运行时的异常。通过使用Looper类中的ThreadLocal对象可以保证每个线程只关联一个Looper对象。
 
-Calling Looper.quit terminates the Looper immediately. It also discards any Messages in the Message Queue that passed the dispatch barrier. Calling Looper.quitSafely ensures all Messages ready for dispatch are processed before pending messages are discarded.
+调用Looper.quit()方法会立即终止Looper，并且会丢弃消息队列中已经通过阻塞阈的所有消息。调用Looper.quitSafely()方法能够保证所有待分发的消息在列队中等待的消息被丢弃前得到处理。
 
 
 ![](https://cdn-images-1.medium.com/max/1600/1*sNJrg-3mVc54jZfVevWoDg.png)
 
 
-Overall flow of Handler interacting with MessageQueue and Looper
+Handler与消息队列和Looper直接交互的整体流程
 
 
-The Looper is setup in the run() method of a Thread. A call to the static method Looper.prepare() checks if a preexisting Looper is associated with this Thread. It does this by using the Looper’s ThreadLocal to check if a Looper object already exists. If it doesn’t, a new Looper object and a new MessageQueue are created. The [Android Source](https://github.com/android/platform_frameworks_base/blob/e71ecb2c4df15f727f51a0e1b65459f071853e35/core/java/android/os/Looper.java#L83) snippet (below) demonstrates this.
+Looper应在线程的run方法中初始化。调用静态方法Looper.prepare()会检查线程是否与一个已存在的Looper关联。这个过程的实现是通过Looper类中的ThreadLocal对象来检查Looper对象是否存在。如果Looper不存在，将会创建一个新的Looper对象和一个新的消息队列。[Android代码](https://github.com/android/platform_frameworks_base/blob/e71ecb2c4df15f727f51a0e1b65459f071853e35/core/java/android/os/Looper.java#L83) 中的如下片段展示了这个过程。
 
-**Note:** _The public prepare Looper method invokes prepare(true) internally._
+**注意:** _公有的prepare方法会默认会调用prepare(true)。_
 
     private static void prepare(boolean quitAllowed) {
         if (sThreadLocal.get() != null) {
@@ -461,7 +457,7 @@ The Looper is setup in the run() method of a Thread. A call to the static method
         sThreadLocal.set(new Looper(quitAllowed));
     }
 
-The Handler can now receive Messages and add them to the Message Queue. Executing the static Looper.loop () method will start reading the Messages off the queue. Each loop iteration retrieves the next message, dispatches it to the target Handler, and recycles it back to the Message pool. Looper.loop will continue this process until the Looper is terminated. The [Android Source](https://github.com/android/platform_frameworks_base/blob/e71ecb2c4df15f727f51a0e1b65459f071853e35/core/java/android/os/Looper.java#L123) snippet (below) demonstrates this:
+Handler现在能接收到消息并加入消息队列中，执行静态方法Looper.loop()方法会开始将消息从队列中出队。每个轮询迭代器指向下一条消息，接着分发消息到对应目标的Handler，然后回收消息到消息池中。Looper.loop方法会死循环执行这个过程，直到Looper终止。 [Android代码](https://github.com/android/platform_frameworks_base/blob/e71ecb2c4df15f727f51a0e1b65459f071853e35/core/java/android/os/Looper.java#L123) 中的如下片段展示了这个过程：
 
     public static void loop() {
         if (me == null) {
@@ -479,7 +475,7 @@ The Handler can now receive Messages and add them to the Message Queue. Executin
         }
     }
 
-It’s not necessary to create your own thread that has a Looper attached to it. Android provides a convenience class for this — HandlerThread. It extends the Thread class and manages the creation of a Looper. The snippet below describes a typical usage pattern:
+并没有必要自己去创建关联Looper的线程。Android提供了一个简便的类做这件事——HandlerThread。它继承Thread类，并且提供对Looper创建的管理。下面的代码描述了它的一般使用过程：
 
     private final Handler handler;
     private final HandlerThread handlerThread;
@@ -498,14 +494,14 @@ It’s not necessary to create your own thread that has a Looper attached to it.
         handlerThread.quit();
     }
 
-The onCreate() method constructs a new HandlerThread. When the HandlerThread starts, it prepared the Looper and attaches it to the thread. The Looper now begins processing messages off the MessageQueue on the HandlerThread.
+onCreate()方法构造了一个HandlerThread，当HandlerThread启动后，它准备创建Loopper与它的线程关联，随后Looper开始处理HandlerThread的消息队列中的消息。
 
-**Note:** _When the activity is destroyed, it’s important to terminate the HandlerThread. This also terminates the Looper._
+**注意:** _当Activity被销毁时，结束HandlerThread是很重要的，这个动作也会终止关联的Looper。_
 
-#### Summary
+#### 总结
 
-The Android Handler plays an integral role in an Application’s lifecycle. It sets the foundation of the Half-Sync/Half-Async architectural pattern. Various internal and external sources rely on the Handler for asynchronous event dispatching, as it minimizes overhead and maintains thread safety.
+Android中的Handler在应用的生命周期中扮演着不可缺少的角色。它是构成半同步/半异步模式架构的基础。许多内部和外部的代码都依赖Handler去异步地分发事件，它能以最小的代价去维持线程安全。
 
-A deeper understanding of how a component works helps resolve hard problems. It also allows us to use the component’s APIs optimally. We often use the Handler as a mechanism for worker to UI thread communication, but it’s more than that. The Handler appears in the [IntentService[6]](https://developer.android.com/reference/android/app/IntentService.html), the [Camera2[7]](https://developer.android.com/reference/android/hardware/camera2/CameraCaptureSession.html) APIs, and many others. In these APIs, it’s used more generally to focus on communicating between arbitrary threads.
+更深入的理解组件的工作方式能够帮助解决困难问题。这也能让我们以最佳的方法使用组件的API。我们通常将Handler作为工作线程和UI线程间的通信机制，但Handler并不仅限于次。它出现在[IntentService[6]](https://developer.android.com/reference/android/app/IntentService.html), 和 [Camera2[7]](https://developer.android.com/reference/android/hardware/camera2/CameraCaptureSession.html)和许多其它的API中。在这些API调用中，Handler更多情形下是被用作任意线程间的通信工具。
 
-We can apply this deeper understanding of the Handler to building more efficient, simple, and robust applications.
+在深入理解了Handler的原理后，我们能运用其构建更有效率、更简洁、更健壮的应用程序。
