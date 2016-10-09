@@ -1,17 +1,17 @@
 >* 原文链接 : [Vectors For All (finally)](https://blog.stylingandroid.com/vectors-for-all-finally/)
 * 原文作者 : [stylingandroid](https://blog.stylingandroid.com)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者:
+* 译者 : [Jaeger](https://github.com/laobie)
+* 校对者: [zhangzhaoqi](https://github.com/joddiy), [SatanWoo](https://github.com/SatanWoo)
 
 
-This is the third post in an occasional series looking at the state of _VectorDrawable_ support for Android. The previous articles are [Vectors For All (almost)](https://blog.stylingandroid.com/vectors-for-all-almost/) which was followed by [Vectors For All (slight return)](https://blog.stylingandroid.com/vectors-for-all-slight-return/). While these posts show that there has been a big improvement in the VectorDrawable tools available to us, but the eagerly awaited _VectorDrawableCompat_ was still missing. Until now. On 24th February 2016 Google released Android Support Library 23.2 which, among other things contains the eagerly anticipated _VectorDrawableCompat_.  
+这是关注 Android 的 __VectorDrawable__ 系列博文中的第三篇，之前的文章是[Vectors For All (almost)](http://gold.xitu.io/entry/574e8b192b51e900560074f8)，在此之前的另外一篇是[Vectors For All (slight return)](http://gold.xitu.io/entry/5756697ea341310063dd532c)。这两篇文章向我们展示了 VectorDrawable 的可用性有了很大的提升，但是对 _VectorDrawableCompat_ 的热切等待一直落空。直到2016年2月24号，Google 发布了 Android Support Library 23.2 版本，其中就包含了一直期待的 _VectorDrawableCompat_ 。
 
-I’m not going to give a lengthy howto of the ins and outs of using _VectorDrawableCompat_ because [Chris Banes](https://chris.banes.me/) has already done that in a fairly in-depth [blog post](https://medium.com/@chrisbanes/appcompat-v23-2-age-of-the-vectors-91cbafa87c88#.kf57cowuy). Chris has already done an excellent job of explaining how to use _VectorDrawableCompat_ so it would serve little useful purpose to simply repeat that here.
+我不会给你长篇大论地讲解 _VectorDrawableCompat_ 的使用细节，因为 [Chris Banes](https://chris.banes.me/) 已经写了一篇很有深度的 [博文](https://medium.com/@chrisbanes/appcompat-v23-2-age-of-the-vectors-91cbafa87c88#.kf57cowuy) ，解释了如何使用 _VectorDrawableCompat_ ，因此在这就做重复性工作了。
 
-So let’s take a look at the changes that we need to make to the project that we’ve used in the previous articles in order to use _VectorDrawableCompat_. The first thing that we need to do is make the modifications to our _build.gradle_ file that Chris explains in his post.
+因此，让我们看一下，我们需要对之前文章中使用的项目做些什么样的改动，以便可以使用 _VectorDrawableCompat_ 。首先要做的事就是修改我们的 _build.gradle_ 文件，正如 Chris 在他的文章中介绍的那样。
 
-For the sample code I’m using Android Gradle plugin 1.5.0 and not the newer 2.0.0 beta one. The reason for this is that the beta plugin has built in expiry, and I prefer to publish sample code that should compile in weeks and months time – I’ll happily move to 2.0.0 once a stable version is released. That said, we need to make the following changes (it’s different for 2.0.0 – see Chris’ post for details – but I’ve tested that method as well and it works perfectly):
+在示例代码中我使用的 Android Gradle 插件是 1.5.0 版本，而不是比较新的 2.0.0 beta 版本。因为 beta 版本插件容易失效，而我希望发布的代码在未来的几周或几个月内仍然可以成功编译——如果 2.0.0 发布了正式版，我将很乐意立即升级到 2.0.0 版本。即便如此，我们需要做以下几处修改（对于 2.0.0 版本，这些修改是不同的——可以去看 Chris 的文章了解更多细节——我也测试了 Chris 文中提到的方法，同样也是有效的）：
 
     apply plugin: 'com.android.application'
 
@@ -46,9 +46,9 @@ For the sample code I’m using Android Gradle plugin 1.5.0 and not the newer 2.
 
     apply from: '../config/static_analysis.gradle'
 
-What this does it essentially turn off the auto-generation of PNG assets from our _VectorDrawable_ ones which was a previous way of doing things.
+这样做的实质是关闭了过去从 _VectorDrawable_ 自动生成 PNG 资源的方式。
 
-The next thing that we need to do is switch to `app:srcCompat` instead of `android:src` for the _ImageView_ in our layout:
+接下来我们需要做的是使用 `app:srcCompat` 代替 `android:src` 为我们的布局中的 _ImageView_ 设置图片资源：
 
     <?xml version="1.0" encoding="utf-8"?>
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -70,51 +70,51 @@ The next thing that we need to do is switch to `app:srcCompat` instead of `andro
 
     </RelativeLayout>
 
-That’s all there is to it! Our _Activity_ already extends _AppCompatActivity_ which is the other prerequisite.
+这样就可以啦！当然确保我们的 _Activity_ 已经继承自 _AppCompatActivity_ ，这是使用 _VectorDrawableCompat_ 的前提。
 
-the only minor niggle here is that Android Studio (I’m using 2.0 beta 6 at the time of writing) doesn’t recognise the `app:srcCompat` attribute and so gives an error. But everything compiles correctly. We also get a few false lint warnings but these can be suppressed, if necessary. I expect these false errors & warnings will be fixed fairly soon.
+唯一一点让我发牢骚的是 Android Studio （当我写这篇文章时，我正在使用 2.0 beat 6 版本）不识别 `app:srcCompat` 属性，因此报错了。但一切都可以正常编译。 我们也收到了一些错误的 Lint（译者注：静态代码检查工具）警告，但是如果你觉得有必要的话，这些警告是可以被关闭的。我希望这些错误的报错和警告问题能够尽快修复。
 
-So if we run that on a Marshmallow device all looks good, as we’d expect:
+如果我们在一台 6.0 的设备上运行，一切看起来都不错，正如我们所预期的那样：
 
 [![compat-m](https://i1.wp.com/blog.stylingandroid.com/wp-content/uploads/2016/02/compat-m.png?resize=300%2C225&ssl=1%20300w,%20https://i1.wp.com/blog.stylingandroid.com/wp-content/uploads/2016/02/compat-m.png?resize=768%2C576&ssl=1%20768w,%20https://i1.wp.com/blog.stylingandroid.com/wp-content/uploads/2016/02/compat-m.png?resize=1024%2C768&ssl=1%201024w,%20https://i1.wp.com/blog.stylingandroid.com/wp-content/uploads/2016/02/compat-m.png?resize=624%2C468&ssl=1%20624w)](https://blog.stylingandroid.com/?attachment_id=3696)
 
-And if we run it on a Jelly Bean emulator it looks pretty much identical:
+如果我们在一个 4.4 的模拟器上运行这个程序，看起来几乎一致。
 
 [![compat-jb](https://i0.wp.com/blog.stylingandroid.com/wp-content/uploads/2016/02/compat-jb.png?resize=180%2C300&ssl=1%20180w,%20https://i0.wp.com/blog.stylingandroid.com/wp-content/uploads/2016/02/compat-jb.png?w=480&ssl=1%20480w)](https://blog.stylingandroid.com/?attachment_id=3697)
 
-So what about _AnimatedVectorDrawableCompat_? Let’s re-visit the samples from the [Styling Android series on VectorDrawable](https://blog.stylingandroid.com/vectordrawables-part-1/) to see how they work.
+_AnimatedVectorDrawableCompat_ 又是怎样的呢？让我们再次看看 [Styling Android series on VectorDrawable](https://blog.stylingandroid.com/vectordrawables-part-1/) 中的例子是如何做的。
 
-We modify the project in much the same way as we did before – one difference is that we need to change our Activity to extend AppCompatActivity this time. So let’s step through our examples:
+我们和前面一样修改这个示例项目，唯一不同的是这次我们需要修改 Activity 继承自 AppCompatActivity 。让我们来一步步调试我们的例子：
 
-First there is the static Android logo:
+首先这是一个静态的 Android 标志：
 
 [![screenshot-2016-02-27_11.03.32.637](https://i0.wp.com/blog.stylingandroid.com/wp-content/uploads/2016/03/screenshot-2016-02-27_11.03.32.637.png?resize=300%2C180&ssl=1%20300w,%20https://i0.wp.com/blog.stylingandroid.com/wp-content/uploads/2016/03/screenshot-2016-02-27_11.03.32.637.png?resize=768%2C461&ssl=1%20768w,%20https://i0.wp.com/blog.stylingandroid.com/wp-content/uploads/2016/03/screenshot-2016-02-27_11.03.32.637.png?resize=1024%2C614&ssl=1%201024w,%20https://i0.wp.com/blog.stylingandroid.com/wp-content/uploads/2016/03/screenshot-2016-02-27_11.03.32.637.png?resize=624%2C374&ssl=1%20624w,%20https://i0.wp.com/blog.stylingandroid.com/wp-content/uploads/2016/03/screenshot-2016-02-27_11.03.32.637.png?w=1280&ssl=1%201280w)](https://blog.stylingandroid.com/?attachment_id=3699)
 
-As this is a static _VectorDrawable_ we’d expect it to work, and it looks great. What happens when we animate it (these examples are all from a GenyMotion JellyBean emulator):
+正如我们所期待的那样，由于它是一个静态的_vectorDrawable，所以它的效果看起来很棒。当我们给它添加动画之后会发生什么呢？（这些例子全运行在 Android 4.4 的 GenyMotion 模拟器上）：
 
 ![](http://ww4.sinaimg.cn/large/a490147fgw1f3qiw99kzeg20qo0g01es.gif)
 
-The frame-rate is pretty good – and this is on an emulator rather than a real device! Obviously frame-rates will be worse on lower powered devices, and we’re likely to encounter many more of them when targeting earlier versions of Android, but the results are pretty impressive, nonetheless.
+要知道这可是在模拟器上而不是真机上运行。显然，低配置的机器上帧率会差一些，同样，当我们适配更早的 Android 版本时，也会遇到许多类似的情况，但不管怎么说，这个结果是令人振奋的。
 
-So how about the `trimPath` animation?:
+`trimPath` 动画表现的怎么样呢？
 
 ![](http://ww2.sinaimg.cn/large/a490147fgw1f3qizfsrzjg20qo0g04ly.gif)
 
-Once again, this is pretty impressive – it works as it should and is very smooth.
+再一次，`trimPath` 的效果也是令人叹服的——它达到了预期的效果，并且相当流畅。
 
-The final example from the previous series does not work, sadly. This is because it directly animates `pathData` and, as Chris mentions, this is not currently supported by _AnimatedVectorDrawableCompat_. However Chris does use the word “currently” – so perhaps a future version of the library will support this extremely powerful feature.
+不幸的是，上一系列的最后一个例子没生效。这是因为它是直接根据 `pathData` 来执行动画的，正如 Chris 提到的，目前 _AnimatedVectorDrawableCompat_ 并不支持这种方式。然而 Chris 使用了 “目前” 这个词——因此在这个库将来的某个版本中，可能会支持这种非常强大的特性。
 
-So that’s it for the Compat library – it really does perform well and is pretty easy to integrate in to your current app. A massive hat tip to Chris and the rest of the team who have worked on bringing this functionality to the masses.
+这是对该兼容库的总结：该兼容库的表现相当棒，且集成到你当前的应用中也非常容易。感谢 Chris 和其他为此工作的团队成员，为我们带来了如此实用的功能。
 
-So, let’s now turn our attention to the other aspect of using vectors in our apps – actually converting SVG assets in to _VectorDrawable_. Previously we saw how there were some omissions in the SVG support which meant that we were unable to import the official SVG logo (which should be considered a benchmark for basic SVG support) using both Android Studio import and the [third party SVG to VectorDrawable tool](http://inloop.github.io/svg2android/). There’s good news and there’s bad news.
+因此，让我们关注下在我们的应用中使用矢量图需要注意的其他部分——将 SVG 资源转换成 _VectorDrawable_ 。据我们了解，过去 SVG 支持是有一些疏漏的，这意味着我们无法通过 Android Studio 的导入功能或者  [第三方 SVG 转 VectorDrawable 工具](http://inloop.github.io/svg2android/) 来导入官方的SVG Logo （这本应被认为是对基础 SVG 支持的一个基准）。现在这有好消息也有坏消息。
 
-First the bad news: Sadly Android Studio still does not import the logo without errors – I’ve tested on Android Studio 2.0 beta 6, and it’s still not supported.
+第一个坏消息是：Android Studio 仍然不能正确导入这个官方 SVG 标志——我已经测试了 Android Studio 2.0 beat 6 版本，仍然不支持。
 
-However the good news is that shortly after I published the last article in this series I was contacted by Juraj Novák (the creator of the third party tool) to say that the missing missing support for local IRI references (see my earlier articles for a explanation of this) had been added. There is one small caveat: You **must** select the “`Bake transforms into path (experimental)`” option when converting the SVG logo asset but, provided you do, it is converted faithfully in to a _VectorDrawable_ xml which you can drop in to your project.
+但是也有个好消息，在我发布了该系列的上一篇文章之后不久，Juraj Novák （第三方转换工具的作者）联系了我，告知对本地 IRI 引用的支持遗漏（我早期的文章提到了这个）已经加上去了。不过有个小提示：当你转换这个 SVG 标志资源的时候，你**必须**勾选上提供给你的 “`Bake transforms into path (experimental)`” 选项，这个将会如实转换成一个你可以直接放到你项目中使用的 _VectorDrawable_ xml 文件。
 
-There is still no support for SVG gradients and patterns, but this is because they are not supported in _VectorDrawable_ itself – only SVG path data is actually supported.
+第三方转换工具目前还不支持 SVG 的渐变和图样，但是这个是因为 _VectorDrawable_ 本身就不支持——只有 SVG 的 path data 是确切支持的。
 
-With Juraj’s conversion tool, and the new _VectorDrawableCompat_ library this stuff really now is ready for the mainstream. So get out there and Vector, people!
+使用 Juraj 的转换工具和最新的 _VectorDrawableCompat_ 库，这一切都为使用矢量图作为主流方式作好了准备，伙计们，让我们进入矢量图时代吧！（这段原文实在不好翻译= =）
 
-There is updated code supporting the Compat library for both the previous [Vectors For All](https://github.com/StylingAndroid/Vectors4All/tree/finally) posts and [VectorDrawable](https://bitbucket.org/StylingAndroid/vectordrawables/src/a27f80278eac093b68161ec52a29ffd480e937c1/?at=Part3).
+这里是更新后支持兼容库的 [Vectors For All](https://github.com/StylingAndroid/Vectors4All/tree/finally) 文章和 [VectorDrawable](https://bitbucket.org/StylingAndroid/vectordrawables/src/a27f80278eac093b68161ec52a29ffd480e937c1/?at=Part3) 代码。
 

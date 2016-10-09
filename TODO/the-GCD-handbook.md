@@ -1,20 +1,22 @@
 >* 原文链接 : [The GCD Handbook](http://khanlou.com/2016/04/the-GCD-handbook/)
 * 原文作者 : [Soroush](soroush@khanlou.com.)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者:
+* 译者 : [LoneyIsError](https://github.com/LoneyIsError)
+* 校对者:[woopqww111](https://github.com/woopqww111), [hsinshufan](https://github.com/hsinshufan)
 
 
-Grand Central Dispatch, or GCD, is an extremely powerful tool. It gives you low level constructs, like queues and semaphores, that you can combine in interesting ways to get useful multithreaded effects. Unfortunately, the C-based API is a bit arcane, and it isn’t immediately obvious how to combine the low-level components into higher level behaviors. In this post, I hope to describe the behaviors that you can create with the low-level components that GCD gives you.
 
-### Work In The Background
+Grand Central Dispatch,或者GCD，是一个极其强大的工具。它给你一些底层的组件，像队列和信号量，让你可以通过一些有趣的方式来获得有用的多线程效果。可惜的是，这个基于C的API是一个有点神秘，它不会明显的告诉你如何使用这个底层组件来实现更高层次的方法。在这篇文章中，我希望描述那些你可以通过GCD提供给你的底层组件来实现的一些用法。
 
-Perhaps the simplest of behaviors, this one lets you do do some work on a background thread, and then come back to the main thread to continue processing, since components like those from `UIKit` can (mostly) be used only with the main thread.
 
-In this guide, I’ll use functions like `doSomeExpensiveWork()` to represent some long running task that returns a value.
+### 后台工作
 
-This pattern can be set up like so:
 
+也许最简单的用法，GCD让你在后台线程上做一些工作，然后回到主线程继续处理，因为像那些属于 `UIKit` 的组件只能（主要）在主线程中使用。
+
+在本指南中，我将使用 `doSomeExpensiveWork()` 方法来表示一些长时间运行的有返回值的任务。
+
+这种模式可以像这样建立起来：
 
 
     let defaultPriority = DISPATCH_QUEUE_PRIORITY_DEFAULT
@@ -28,15 +30,15 @@ This pattern can be set up like so:
 
 
 
-In practice, I never use any queue priority other `DISPATCH_QUEUE_PRIORITY_DEFAULT`. This returns a queue, which can be backed by hundreds of threads of execution. If you need the expensive work to always happen on the a specific background queue, you can create your own with `dispatch_queue_create`. `dispatch_queue_create` accepts a name for the queue and whether the queue should be concurrent or serial.
 
-Note that each call uses `dispatch_async`, not `dispatch_sync`. `dispatch_async` returns _before_ the block is executed, and `dispatch_sync` waits until the block is finished executing before returning. The inner call can use `dispatch_sync` (because it doesn’t matter when it returns), but the outer call must be `dispatch_async` (otherwise the main thread will be blocked).
+在实践中，我从不使用任何队列优先级除了 `DISPATCH_QUEUE_PRIORITY_DEFAULT` 。这返回一个队列，它可以支持数百个线程的执行。如果你的耗性能的工作总是在一个特定的后台队列中发生，你也可用通过 `dispatch_queue_create` 方法来创建自己的队列。 `dispatch_queue_create` 可以创建一个任意名称的队列，无论它是串行的还是并行的。
 
-### Creating singletons
+注意每一个调用使用 `dispatch_async` ，不使用 `dispatch_sync` 。`dispatch_async` 在 block 执行前返回，而 `dispatch_sync` 会等到 block 执行完毕才返回。内部的调用可以使用 `dispatch_sync`（因为不管它什么时候返回），但外部必须调用 `dispatch_async` （否则，主线程会被阻塞）。
 
-`dispatch_once` is an API that can be used to create singletons. It’s no longer necessary in Swift, since there is a simpler way to create singletons. For posterity, however, I’ve included it here (in Objective-C).
+### 创建单例
 
-
+ 
+`dispatch_once` 是一个可以被用来创建单例的API。在 Swift 中它不再是必要的，因为 Swift 中有一个更简单的方法来创建单例。为了以后，当然，我把它写在这里（用 Objective-C ）。
 
     + (instancetype) sharedInstance {  
     	static dispatch_once_t onceToken;  
@@ -49,12 +51,11 @@ Note that each call uses `dispatch_async`, not `dispatch_sync`. `dispatch_async`
 
 
 
-### Flatten a completion block
+### 扁平化一个完整的block
 
-This is where GCD starts to get interesting. Using a _semaphore_, we can block a thread for an arbitrary amount of time, until a signal from another thread is sent. Semaphores, like the rest of GCD, are thread-safe, and they can be triggered from anywhere.
+现在 GCD 开始变得有趣了。使用一个信号量，我们可以让一个线程暂停任意时间，直到另一个线程向它发送一个信号。这个信号量，就像 GCD 其余部分一样，是线程安全的，并且他们可以从任何地方被触发。
 
-Semaphroes can be used when there’s an asynchronous API that you need to make synchronous, but you can’t modify it.
-
+当你需要去同步一个你不能修改的异步API时，你可以使用信号量解决问题。
 
 
     // on a background queue
@@ -67,13 +68,12 @@ Semaphroes can be used when there’s an asynchronous API that you need to make 
 
 
 
-Calling `dispatch_semaphore_wait` will block the thread until `dispatch_semaphore_signal` is called. This means that `signal` **must** be called from a different thread, since the current thread is totally blocked. Further, you should never call `wait` from the main thread, only from background threads.
+`dispatch_semaphore_wait` 会阻塞线程直到 `dispatch_semaphore_signal` 被调用。这就意味着 `signal` 一定要在另外一个线程中被调用，因为当前线程被完全阻塞。此外，你不应该在在主线程中调用 `wait` ，只能在后台线程。
 
-You can choose any timeout when calling `dispatch_semaphore_wait`, but I tend to always pass `DISPATCH_TIME_FOREVER`.
-
-It might not be totally obvious why would you want to flatten code that already has a completion block, but it does come in handy. One case where I’ve used it recently is for performing a bunch of asynchronous tasks that must happen serially. A simple abstraction for that use case could be called `AsyncSerialWorker`:
+在调用 `dispatch_semaphore_wait` 时你可以选择任意的超时时间，但是我倾向于一直使用 `DISPATCH_TIME_FOREVER` 。
 
 
+这可能不是完全显而易见的，为什么你要把已有的一个完整的 block 代码变为扁平化，但它确实很方便。我最近使用的一种情况是，执行一系列必须连续发生的异步任务。这个使用这种方式的简单抽象被称作 `AsyncSerialWorker` :
 
     typealias DoneBlock = () -> ()
     typealias WorkBlock = (DoneBlock) -> ()
@@ -94,13 +94,11 @@ It might not be totally obvious why would you want to flatten code that already 
 
 
 
-This small class creates a serial queue, and then allows you enqueue work onto the block. The `WorkBlock` gives you a `DoneBlock` to call when your work is finished, which will trip the semaphore, and allow the serial queue to continue.
+这一小类可以创建一个串行队列，并允许你将工作添加到 block 中。当你的工作完成后， `WorkBlock` 会调用 `DoneBlock` ，开启信号量，并允许串行队列继续。
 
-### Limiting the number of concurrent blocks
+### 限制并发 block 的数量。
 
-In the previous example, the semaphore is used as a simple flag, but it can also be used as a counter for finite resources. If you want to only open a certain number of connections to a specific resource, you can use something like the code below:
-
-
+在前面的例子中，信号量作为一个简单的标志，但它也可以被用来作为一种有限的资源计数器。如果你想在一个特定资源上打开特定数量的连接，你可以使用下面的代码：
 
     class LimitedWorker {
         private let concurrentQueue = dispatch_queue_create("com.khanlou.concurrent.queue", DISPATCH_QUEUE_CONCURRENT)
@@ -121,18 +119,17 @@ In the previous example, the semaphore is used as a simple flag, but it can also
 
 
 
-This example is pulled from Apple’s [Concurrency Programming Guide](https://developer.apple.com/library/ios/documentation/General/Conceptual/ConcurrencyProgrammingGuide/OperationQueues/OperationQueues.html#//apple_ref/doc/uid/TP40008091-CH102-SW24). They can explain what’s happening here better than me:
+这个例子从苹果的[Concurrency Programming Guide](https://developer.apple.com/library/ios/documentation/General/Conceptual/ConcurrencyProgrammingGuide/OperationQueues/OperationQueues.html#//apple_ref/doc/uid/TP40008091-CH102-SW24)拿来的。他们可以更好的解释在这里发生了什么：
 
-> When you create the semaphore, you specify the number of available resources. This value becomes the initial count variable for the semaphore. Each time you wait on the semaphore, the `dispatch_semaphore_wait` function decrements that count variable by 1\. If the resulting value is negative, the function tells the kernel to block your thread. On the other end, the `dispatch_semaphore_signal` function increments the count variable by 1 to indicate that a resource has been freed up. If there are tasks blocked and waiting for a resource, one of them is subsequently unblocked and allowed to do its work.
+> 当你创建一个信号量时，你可以指定你的可用资源的数量。这个值是信号量的初始计数变量。你每一次等待信号量发送信号时，这个  `dispatch_semaphore_wait` 方法使计数变量递减1。如果产生的值是负的，则函数告诉内核来阻止你的线程。在另一端，这个 `dispatch_semaphore_signal` 函数递增count变量用1表示资源已被释放。如果有任务阻塞和等待资源，其中一个随即被放行并进行它的工作。
 
-The effect is similar to `maxConcurrentOperationCount` on `NSOperationQueue`. If you’re using raw GCD queues instead of `NSOperationQueue`, you can use semaphores to limit the number of blocks that execute simultaneously.
+其效果类似于 `maxConcurrentOperationCount` 在 `NSOperationQueue` 。如果你使用原 GCD队 列而不是 `NSOperationQueue`，你可以使用信号庄主来限制同时执行的 block 数量。
 
-One notable caveat is that each time you call `enqueueWork`, if you have hit the semaphore’s limit, it will spin up a new thread. If you have a low limit and lots of work to enqueue, you can create hundreds of threads. As always, profile first, and change the code second.
+一个值得注意的就是，每次你调用 `enqueueWork` ，如果你打开信号量的限制，就会启动一个新线程。如果你有一个低限并且大量工作的队列，您可以创建数百个线程。一如既往，先配置文件，然后更改代码。
 
-### Wait for many concurrent tasks to finish
+### 等待许多并发任务来完成
 
-If you have many blocks of work to execute, and you need to be notified about their collective completion, you can use a _group_. `dispatch_group_async` lets you add work onto a queue (the work in the block should be synchronous), and it keeps track of how many items have been added. Note that the same dispatch group can add work to multiple different queues and can keep track of them all. When all of the tracked work is complete, the block passed to `dispatch_group_notify` is fired, kind of like a completion block.
-
+如果你有多 block 工作来执行，并且在他们集体完成时你需要发一个通知，你可以使用 group 。`dispatch_group_async` 允许你在队列中添加工作（在 block 里面的工作应该是同步的），并且记录添加了多少了项目。注意，在同一个 dispatch group 中可以将工作添加到不同的队列中，并且可以跟踪它们。当所有跟踪的工作完成，这个 block 开始运行 `dispatch_group_notify` ，就像是一个完整的 block 。
 
 
     dispatch_group_t group = dispatch_group_create()
@@ -147,10 +144,9 @@ If you have many blocks of work to execute, and you need to be notified about th
 
 
 
-This is a great case for flattening a function that has a completion block. The dispatch group considers the block to be completed when it returns, so you need the block to wait until the work is complete.
+拥有一个完整的block，对于扁平化一个功能来说是一个很好的案例。 dispatch group 认为，当它返回时，这个 block 应该完成了，所以你需要这个 block 等待直到其他工作已经完成。
 
-There’s a more manual way to use dispatch groups, especially if your expensive work is already async:
-
+有更多的手动方式来使用 dispatch groups ，特别是如果你耗性能的工作已经是异步的：
 
 
     // must be on a background thread
@@ -168,20 +164,18 @@ There’s a more manual way to use dispatch groups, especially if your expensive
 
 
 
-This snippet is more complex, but stepping through it line-by-line can help in understanding it. Like the semaphore, groups also maintain a thread-safe, internal counter that you can manipulate. You can use this counter to make sure multiple long running tasks are all completed before executing a completion block. Using “enter” increments the counter, and using “leave” decrements the counter. `dispatch_group_async` handles all these details for you, so I prefer to use it where possible.
+这段代码是比较复杂的，但通过一行一行的阅读可以帮助理解它。就像信号量，groups 也还保持线程安全，是一个你可以操作的内部计数器。您可以使用此计数器来确保在执行完成 block 之前，多个长的运行任务都已完成。使用 “enter” 递增计数器，并用 “leave” 递减计数器。 `dispatch_group_async` 为你处理所有的这些细节，所以我愿意尽可能的使用它。
 
-The last thing in this snippet is the `wait` call: it blocks the thread and waits for the counter to reach 0 before continuing. Note that you can queue a block with `dispatch_group_notify` even if you use the `enter`/`leave` APIs. The reverse is also true: you can use the `dispatch_group_wait` if you use the `dispatch_group_async` API.
+在这段代码的最后一点是 `wait` 方法：它会阻塞线程，并等待计数器为0后，继续执行。注意，即使你使用了`enter`/`leave` API，你也可以在在队列中添加一个 `dispatch_group_notify` block.反过来也是对的：当你使用 `dispatch_group_async` API时你也可以使用 `dispatch_group_wait` 。
 
-`dispatch_group_wait`, like `dispatch_semaphore_wait`, accepts a timeout. Again, I’ve never had a need for anything other than `DISPATCH_TIME_FOREVER`. Also similar to `dispatch_semaphore_wait`, _never_ call `dispatch_group_wait` on the main thread.
+`dispatch_group_wait`，就像`dispatch_semaphore_wait`一样，可以设置超时。再一次声明，`DISPATCH_TIME_FOREVER` 已非常足够使用, 我从未觉得需要使用其他的来设置超时。当然就像 `dispatch_semaphore_wait` 一样，永远不要在主线程使用 `dispatch_group_wait` 。
 
-The biggest difference between the two styles is that the example using `notify` can be called entirely from the main thread, whereas the example using `wait` must happen on a background queue (at least the `wait` part, because it will fully block the current queue).
+两者之间最大的区别是，使用 `notify` 可以完全从主线程调用，而使用 `wait`，必须发生在后台队列（至少 `wait` 的部分，因为它会完全阻塞当前队列）。
 
-### Isolation Queues
+### 隔离队列
 
-Swift’s `Dictionary` (and `Array`) types are value types. When they’re modified, their reference is fully replaced with a new copy of the structure. However, because updating instance variables on Swift objects is not atomic, they are _not_ thread-safe. Two threads can update a dictionary (for example by adding a value) at the same time, and both attempt to write at the same block of memory, which can cause memory corruption. We can use isolation queues to achieve thread-safety.
-
-Let’s build an [identity map](http://martinfowler.com/eaaCatalog/identityMap.html). An identity map is a dictionary that maps items from their `ID` property to the model object.
-
+ Swift 语言的 `Dictionary` （和  `Array` ）类型都是值类型。 当他们被改变时, 他们的引用会完全被新的结构给替代。当然，因为更新实例变量的 Swift 对象不是原子性的，它们不是线程安全的。双线程可以在同一时间更新一个字典（例如，增加一个值），并且两个尝试写在同一块内存，这可能导致内存损坏。我们可以使用隔离队列来实现线程安全。
+让我们创建一个 [identity map] (http://martinfowler.com/eaaCatalog/identityMap.html)。 identity map 是一个字典，将项目从其`ID` 属性映射到模型对象。
 
 
     class IdentityMap<T: Identifiable> {
@@ -198,17 +192,15 @@ Let’s build an [identity map](http://martinfowler.com/eaaCatalog/identityMap.h
 
 
 
-This object basically acts as a wrapper around a dictionary. If our function `addObject` is called from multiple threads at the same time, it could corrupt the memory, since the threads would be acting on the same reference. This is known as the [readers-writers problem](https://en.wikipedia.org/wiki/Readers–writers_problem). In short, we can have multiple readers reading at the same time, and only one thread can be writing at any given time.
-
-Fortunately, GCD gives us great tools for this exact scenario. We have four APIs at our disposal:
+这个对象基本上是一个字典的包装器。如果我们的方法 `addObject` 同一时间被多个线程所调用，它可能会损害内存，因为这些线程对对同一个引用进行处理。这被称之为 [readers-writers problem](https://en.wikipedia.org/wiki/Readers–writers_problem)。总之，我们可以同时有多个读者阅读，但是只有一个线程可以在任何给定的时间写。
+幸运的是，GCD 给了我们很好的工具去处理这样的情况。我们可以使用以下四种 API ：
 
 *   `dispatch_sync`
 *   `dispatch_async`
 *   `dispatch_barrier_sync`
 *   `dispatch_barrier_async`
 
-Our ideal case is that reads happen synchronously and concurrently, whereas writes can be asynchronous and must be the only thing happening to the reference. GCD’s `barrier` set of APIs do something special: they will wait until the queue is totally empty before executing the block. Using the `barrier` APIs for our writes will limit access to the dictionary and make sure that we can never have any writes happening at the same time as a read or another write.
-
+我们理想的情况是，读同步，同时，而写可以异步，当引用该对象时必须是唯一的。 GCD 的 `barrier` API集可以做一些特别的事情：他们执行 block 之前必须等到队列完全空了。使用 `barrier` API去进行字典写入的操作将会被限制，这样确保我们永远不会有任何写入发生在同一时间，无论是读取或是写入。
 
 
     class IdentityMap<T: Identifiable> {
@@ -232,13 +224,9 @@ Our ideal case is that reads happen synchronously and concurrently, whereas writ
 
 
 
-`dispatch_sync` will dispatch the block to our isolation queue and wait for it to be executed before returning. This way, we will have the result of our read synchronously. (If we didn’t make it synchronous, our getter would need a completion block.) Because `accessQueue` is concurrent, these synchronous reads will be able to occur simultaneously.
+`dispatch_sync` 将 block 添加到我们的隔离队列，然后等待它在返回之前执行。这样，我们就会有我们的同步阅读的结果。（如果我们没有做到同步，我们的 getter 方法可能需要一个完成的 block 。）因为 `accessQueue` 是并发的，这些同步读取就能同时发生。
+`dispatch_barrier_async` 将 block 添加到隔离队列。这个 `async` 部分意味着它将实际执行的 block 之前返回（执行写入操作）。这对我们的表现有好处，但也有一个缺点是，在 “write” 操作后立即执行 “read” 操作可能会导致获取改变之前的旧数据。
+这个 `dispatch_barrier_async` 的 `barrier` 部分，意味着它将等待直到当前运行队列中的每个 block 执行完毕后才执行。其他 block 将在它后面排队，当barrier调度完成时执行。
 
-`dispatch_barrier_async` will dispatch the block to the isolation queue. The `async` part means it will return before actually executing the block (which performs the write). This is good for our performance, but does have the drawback that performing a “read” immediately after a “write” may result in stale date.
-
-The `barrier` part of `dispatch_barrier_async` means that it will wait until every currently running block in the queue is finished executing before it executes. Other blocks will queue up behind it and be executed when the barrier dispatch is done.
-
-### Wrap Up
-
-Grand Central Dispatch is a framework with a lot of low-level primitives. Using them, these are the higher-level behaviors I’ve been able to build. If there are any higher-level things you’ve used GCD to build that I’ve left out here, I’d love to hear about them and add them to the list.
-
+### 总结
+Grand Central Dispatch 是一个有很多底层语言的框架。使用它们，这个是我能建立的比较高级的技术。如果有其他一些你使用的GCD的高级用法而我没有罗列在这里，我喜欢听到它们并将它们添加到列表中。
