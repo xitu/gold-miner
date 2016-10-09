@@ -8,21 +8,21 @@
 
 
 
-If you’ve done any sort of serious creative work, you are all too familiar with creative block. It feels like hitting a brick wall: _None of the ideas you’re able to visualize are good enough, or can’t work in real life._
+如果你曾经做过一些非常需要创造性的工作，那你应该很清楚在创作中遇到阻碍的感觉。这种感觉就像撞上南墙: _你想不到一个足够好的点子，或是你想到的点子根本无法在实际中应用。_
 
-For designers, the feeling is all too familiar. However, like any complicated problem with no clear solution, a smart process can make all the differences. This is where UX sketching comes in.
+对于设计师们来说，这种感觉再熟悉不过了。然而，任何复杂的问题都没有那么容易解决，但一个聪明的工作流程就可以让这一切都变得不同。这就是为什么我们需要为用户体验设计绘制草图。
 
-UX sketching is a crucial, yet often overlooked, aspect of user-experience design. Sketching is a very efficient way of communicating design while allowing designers to try out a multitude of ideas and iterate them before settling on one.
+绘制草图是一个关键点，但它却常常在用户体验设计中被忽视。手绘是一种表达设计的非常有效率的方式，设计师们可以通过手绘来尝试许多不同的点子，而避免沉沦于其中的某一个。
 
-In this post, I intend to cover everything you need to know about UX sketching, including the following points:
+在这篇文章中，我想要介绍为用户体验设计绘制草图时你所需要知道的一切，包括了下面这几点：
 
-*   Introduction to UX sketches and wireframes
-*   UX sketching basics, tools and techniques
-*   Clarifying sketches with notes, annotations, numbers
-*   UX sketching tips and tricks
-*   Mini-methods designed to boost quality and productivity
-*   All you need to know about Wireflows
-*   A quick guide to UX flow sketching
+*   介绍用户体验设计中的草图与线框图
+*   绘制草图的基本要点、工具以及技巧
+*   用笔记、注释和数字来阐明你的草图
+*   为用户体验设计绘制草图时的小提示
+*   用简单的设计方法来提高质量和效率
+*   关于线框流程图你所需要知道的一切
+*   为体验流程绘制草图的一个快速指南
 
 ## UX Sketching is a Two-step Process
 
