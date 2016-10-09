@@ -1,14 +1,14 @@
 > * 原文地址：[How to test a singleton in an Android Service (1)?](http://www.songzhw.com/2016/09/30/how-to-test-a-singleton-in-an-android-service-one/)
 * 原文作者：[songzhw](http://github.com/songzhw)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：[newt0n](http://github.com/newt0n)
-* 校对者：
+* 译者：[Newt0n](http://github.com/newt0n)
+* 校对者：[Graning](https://github.com/Graning)
 
 
 
 
 
-最近我遇到个大麻烦：如何测试服务里的单例模式？最终我解决了这个问题。但我觉得整个解决问题的过程是一个绝好的向读者清楚的解释单元测试的机会。
+最近我遇到个大麻烦：如何测试服务里的单例模式？最终我解决了这个问题。而且我觉得整个解决问题的过程是一个绝好的向读者清楚的解释单元测试的机会。限于篇幅，本文是第一篇文章，后面我会再写一篇。
 
 ## 我们的服务
 
@@ -123,9 +123,9 @@ FooManager 是一个实例:
 
 之所以会报 `NoClassDefFoundError` 错误是因为 JUnit 运行在 JVM 环境，也就是说 JUnit 没有 Android 运行环境。
 
-其实有一个官方的 Android 环境下的测试方案：[仪器测试 \(Instrumentation Test\)](https://developer.android.com/training/testing/unit-testing/instrumented-unit-tests.html)。
+其实有一个官方的 Android 环境下的测试方案：[Instrumentation 测试](https://developer.android.com/training/testing/unit-testing/instrumented-unit-tests.html)。
 
-但这并不是我们真正想要的。每次运行仪器测试，都必须构建整个项目并把 APK 文件推送到手机设备或者模拟器里。所以，这样测试会很慢。并不像 JUnit 那样可以直接在电脑上运行（PC/Mac/Linux）而且并不需要 Android 运行环境。结果就是在电脑上运行 JUnit 测试会比仪器测试快得多。
+但这并不是我们真正想要的。每次运行 Instrumentation 测试，都必须构建整个项目并把 APK 文件推送到手机设备或者模拟器里。所以，这样测试会很慢。并不像 JUnit 那样可以直接在电脑上运行（PC/Mac/Linux）而且并不需要 Android 运行环境。结果就是在电脑上运行 JUnit 测试会比 Instrumentation 测试快得多。
 
 有没有一个方案既包含 Android 环境又能在电脑上运行还能快速的执行测试？当然有，不然我写这篇文章干嘛，答案就是 **Robolectric**！
 
@@ -160,6 +160,8 @@ FooManager 是一个实例:
 
 我介绍了如何使用 Robolectric 来快速的测试 Android 代码，以及如何在 Java 环境里模拟单例模式。
 
-但我必须得提醒一下，你仍然无法在 Android 环境里成功的模拟单例模式。我将在下一篇文章里讨论如何解决这个问题。
+但我必须得提醒一下，你、目前我们仍然无法在 Android 环境里成功的模拟单例模式。我将在下一篇文章里讨论如何解决这个问题。
+
+[如何测试 Android 服务里的单例模式（2）](https://github.com/xitu/gold-miner/blob/master/TODO/how-to-test-a-singleton-in-an-android-service-2.md)
 
 
