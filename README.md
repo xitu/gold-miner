@@ -24,7 +24,9 @@
 
 7. 两位校对者校对完成后，可以根据校对者意见进行修改，修改完成后 @[管理员羊三岁](https://github.com/antonia0912) 或 [根号三](https://github.com/sqrthree) 进行最终检查，merge 后分享你的译文到 [掘金](http://gold.xitu.io)，让更多的开发者看到好的文章。
 
-8. 如果你是第一次参与翻译计划，分享文章到掘金的时候请参考 [分享指南](share-guide.md)。
+8. 如果你是第一次参与翻译计划，分享文章到掘金的时候请参考 [分享指南](https://github.com/xitu/gold-miner/wiki/分享到掘金指南)。
+
+9. 更多问题请参考其实并没有十万个的 [十万个为什么](https://github.com/xitu/gold-miner/wiki/十万个为什么)。
 
 # 近期文章列表
 
