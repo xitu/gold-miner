@@ -1,7 +1,7 @@
 > * 原文地址：[Reducing Cognitive Overload For A Better User Experience](https://www.smashingmagazine.com/2016/09/reducing-cognitive-overload-for-a-better-user-experience/)
 * 原文作者：[Danny Halarewich](https://www.smashingmagazine.com/author/dannyhalarewich/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[Ruixi](https://github.com/Ruixi)
 * 校对者：
 
 最棒的用户体验是不会让用户察觉到的。它使得界面流畅易用，但成百上千的重要设计决策都是出于引导（用户），引起（用户）兴趣以及规避风险的目的。
