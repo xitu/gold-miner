@@ -5,13 +5,6 @@
 * 校对者：
 
 
-
-
-
-
-
-
-
 Object Oriented programming (OOP) has been there in use for decades now and has become the de facto standard to build large software projects. It is at the heart of iOS programming and it is almost impossible to write an iOS application with following the OOP paradigm. Although OOP offers a lot of advantages like encapsulation, access control and abstractions but it comes with its own set of problems.
 
 1.  You mostly start with single class inheritance but then you realize that you need some more functionality in your class from some different class. This makes you lean towards multiple inheritance which is not supported by most programming languages and leads to undesired complexity.
@@ -27,6 +20,8 @@ There are rants all over the web about OOP .
 
 
 Swift tries to fight the inherent OOP problems by introducing a new paradigm called Protocol Oriented Programming. This WWDC 2015 talk gives an amazing introduction to Protocol Oriented Programming. I cannot recommend it enough.
+
+[![](https://i.ytimg.com/vi_webp/g2LwFZatfTI/hqdefault.webp)](https://www.youtube.com/embed/g2LwFZatfTI?wmode=opaque&widget_referrer=https%3A%2F%2Fmedium.com%2Fmedia%2Ff137712b1f42988c4a0a99675aa7c26d%3FmaxWidth%3D700&enablejsapi=1&origin=https%3A%2F%2Fcdn.embedly.com&widgetid=1)
 
 Swift from the very beginning has embraced the idea of value types. Structs and Enums are first class citizens in Swift and come packed with a lot of features like properties, methods and extensions which are only find in Classes in most languages. Although value types do not support inheritance in Swift, they can conform to protocols which allows them to enjoy the benefits of Protocol Oriented Programming.
 
@@ -48,6 +43,7 @@ The app relies on Websockets to communicate with a server. The server can send a
 
 The first thing that came to my mind was to include this logout functionality in the base view controller and call it from the required view controller when the event occurs.
 
+    // BaseViewController.swift
     class BaseViewController {
       func logout() {
         //Perform Logout
@@ -59,10 +55,12 @@ The problem with this approach is that though every view controller in the does 
 
 Luckily Protocol Oriented Programming came to my rescue. I declared a protocol Logoutable and the View Controllers that needed the logout functionality conformed to Logoutable protocol.
 
+    // Logoutable.swift
     protocol Logoutable {
       func logout()
     }
 
+    // ViewController.swift
     class ViewController : Logoutable {
       func logout() {
         //Perform Logout
@@ -74,6 +72,7 @@ The problem with this approach was that I had to repeat the same implementation 
 
 This is where Protocol Oriented Programming shines in Swift as it provides us with Protocol Extensions that can be used to define a default behavior of the functions in a protocol. So all I had to do was to write an extension on Logoutable protocol with the default logout implementation and the function became available to every view controller that conformed to Logoutable protocol.
 
+    //LogoutableExtension.swift
     extension Logoutable where Self : BaseViewController {
       func logout() {
         //Perform Logout
@@ -87,21 +86,5 @@ Protocol Oriented Programming really saved my day. Now whenever I have to use in
 
 
 
-
-
-
-
-
-
-
-
-
-
 _If you liked this article please recommend it, so that others can enjoy it as well._
-
-
-
-
-
-
 

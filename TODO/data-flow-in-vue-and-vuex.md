@@ -4,10 +4,6 @@
 * 译者：
 * 校对者：
 
-
-
-
-
 It seems like one of the things that trips people up in [Vue](https://vuejs.org) is how to share state across components. For those new to reactive programming, something like [vuex](https://github.com/vuejs/vuex/) can seem daunting with loads of new jargon and the way it separates concerns. It can also seem like overkill when all you want is to share one or two pieces of data.
 
 With that in mind, I thought I’d pull together a couple of quick demos. The first implements shared state by using a simple javascript object that is referenced by each new component. The second does the same with vuex. There’s also an example of something that, while it works, you should _never_ do. (We’ll look at why at the end.)
@@ -28,14 +24,14 @@ The demos are all the same, just implemented differently. The app consists of tw
 
 To start off, let’s take a look at how the data will flow in our example app.
 
-![](http://ww4.sinaimg.cn/large/65e4f1e6gw1f8n994g79xj203z0463yk.jpg)
+![](https://benjaminlistwon.com/postimg/data-flow-in-vue-and-vuex/shared-state-01.svg)
 
 In this demo we’ll use a simple javascript object, `var store = {...}`, to share our state between the instances of the `Client.vue` component. Here’s the important bits of the key files.
 
 ##### index.html
 
-    
-    
+    <div id="app"></div>
+    <script>
       var store = {
         state: {
           messages: []
@@ -44,7 +40,7 @@ In this demo we’ll use a simple javascript object, `var store = {...}`, to sha
           this.state.messages.push(msg)
         }
       }
-    
+    </script>
 
 There’s two key things here.
 
@@ -53,52 +49,52 @@ There’s two key things here.
 
 ##### App.vue
 
-    
-      
-        
-          
-            
-          
-          
-            
-          
-        
-      
-    
+		<template>
+			<div id="app">
+				<div class="row">
+					<div class="col">
+						<client clientid="Client A"></client>
+					</div>
+					<div class="col">
+						<client clientid="Client B"></client>
+					</div>
+				</div>
+			</div>
+		</template>
 
-    
-    import Client from './components/Client.vue'
+		<script>
+		import Client from './components/Client.vue'
 
-    export default {
-      components: {
-        Client
-      }
-    }
+		export default {
+			components: {
+				Client
+			}
+		}
+		</script>
+          
     
-
 Here we import our client componet, and create two instances of it. We use a prop, `clientid`, to uniquely identify each client. In reality, you’d do this more dynamically, but remember, quick and easy for now.
 
 One thing to note, we don’t even pull in any state here at all.
 
 ##### Client.vue
 
-    
-      
-        {{ clientid }}
-        
-          
-              
-                {{ message.sender }}: {{ message.text }}
-              
-          
-          
-            
-          
-        
-      
-    
-
-    
+		<template>
+			<div>
+				<h1>{{ clientid }}</h1>
+				<div class="client">
+					<ul>
+							<li v-for="message in messages">
+								<label>{{ message.sender }}:</label> {{ message.text }}
+							</li>
+					</ul>
+					<div class="msgbox">
+						<input v-model="msg" placeholder="Enter a message, then hit [enter]" @keyup.enter="trySendMessage">
+					</div>
+				</div>
+			</div>
+		</template>
+    <script> 
     export default {
       data() {
         return {
@@ -120,6 +116,7 @@ One thing to note, we don’t even pull in any state here at all.
         }
       }
     }
+		</script>
     
 
 Here’s the meat of the app.
@@ -138,7 +135,7 @@ That’s it! Go [give it a try](https://benjaminlistwon.com/demo/dataflow/shared
 
 Okay, so now let’s try it with vuex. Again, a diagram, so we can map vuex’s terminology (actions, mutations, etc) to the example we just went through.
 
-![](http://ww2.sinaimg.cn/large/65e4f1e6gw1f8n99fc7hrj208b046dg1.jpg)
+![](https://benjaminlistwon.com/postimg/data-flow-in-vue-and-vuex/vuex-01.svg)
 
 As you can see, vuex simply formalizes the process we just went through. When you use it, you do the very same things we did above:
 
@@ -190,19 +187,20 @@ Very similar to the object we made ourselves, but with the addition of the `muta
 ##### Client.vue
 
     
-      
+    <div class="row">
+			<div class="col">
+				<client clientid="Client A"></client>
+			</div>
+			<div class="col">
+				<client clientid="Client B"></client>
+			</div>
+		</div>
         
-      
-      
-        
-      
-    
-
 Same deal as last time. (Amazing how similar it is, right?)
 
 ##### Client.vue
 
-    
+    <script>
     import { mapState, mapActions } from 'vuex'
 
     export default {
@@ -231,6 +229,7 @@ Same deal as last time. (Amazing how similar it is, right?)
         ...mapActions(['newMessage'])
       }
     }
+		</script>
     
 
 The template remains exactly the same, so I didn’t even bother to include it. The big differences here are:
@@ -261,20 +260,21 @@ I know, I promised the “evil” way. Once again, the demo is [exactly the same
 
 ##### App.vue
 
-    
+    <div class="row">
+			<div class="col">
+				<client clientid="Client A" :messages="messages" :callback="newMessage"></client>
+			</div>
+			<div class="col">
+				<client clientid="Client B" :messages="messages" :callback="newMessage"></client>
+			</div>
+		</div>
       
-        
-      
-      
-        
-      
-    
 
 Here, I use a dynamic binding to pass in the `messages` collection using a prop on the component. _But_, I also pass in the action function so I can call it from the child component.
 
 ##### Client.vue
 
-    
+    <script>
     export default {
       data() {
         return {
@@ -295,6 +295,7 @@ Here, I use a dynamic binding to pass in the `messages` collection using a prop 
         }
       }
     }
+		</script>
     
 
 Here’s the evil in action.
