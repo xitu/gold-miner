@@ -44,6 +44,7 @@ FooManager 是一个实例:
 只要是了解 Mockito 的开发者都知道，当我们调用 `verify(fooManager)` 时必须使 `fooManager` 先成为一个模拟对象；否则，程序会抛出异常：`org.mockito.exception.misusing.NotAMockException`
 
 所以我们得先模拟一个 FooManager 的实例。现在我把测试步骤分解成两个小的测试：
+
 1. 模拟一个单例
 2. 在服务里模拟一个单例
 
