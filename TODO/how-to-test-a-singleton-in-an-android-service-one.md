@@ -160,7 +160,7 @@ FooManager 是一个实例:
 
 我介绍了如何使用 Robolectric 来快速的测试 Android 代码，以及如何在 Java 环境里模拟单例模式。
 
-但我必须得提醒一下，你、目前我们仍然无法在 Android 环境里成功的模拟单例模式。我将在下一篇文章里讨论如何解决这个问题。
+但我必须得提醒一下，目前我们仍然无法在 Android 环境里成功的模拟单例模式。我将在下一篇文章里讨论如何解决这个问题。
 
 [如何测试 Android 服务里的单例模式（2）](https://github.com/xitu/gold-miner/blob/master/TODO/how-to-test-a-singleton-in-an-android-service-2.md)
 
