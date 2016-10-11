@@ -8,7 +8,7 @@
 
 
 
-上一篇文章介绍了如何测试单例模式（**PowerMock**!），还有如何对 Android 代码做单元测试（**Robolectric**!）。现在我们在一个服务类里用到了单例模式，然后想要测试一下，这应该很简单，对吧？
+上一篇文章介绍了如何测试单例模式（**PowerMock**!），还有如何对 Android 代码做单元测试（**Robolectric**!）。现在我们想要测试一个 Service 中的单例应该会很容易了吧？
 
 ### 第一次尝试: 结合 PowerMock 和 Robolectric (1)
 
