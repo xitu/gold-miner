@@ -1,3 +1,4 @@
+* [探索Android大杀器——Handler](https://gold.xitu.io/entry/57fc9e937db2a20059628aa6?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jamweak](https://github.com/jamweak) 翻译)
 * [如何测试 Android Service 里的 Singleton (2)](https://gold.xitu.io/entry/57fcb8f68ac2470058c9f621?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([newt0n](https://github.com/newt0n) 翻译)
 * [如何测试 Android Service 里的 Singleton (1)](https://gold.xitu.io/entry/57fb306da341310060135cbb?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([newt0n](https://github.com/newt0n) 翻译)
 * [APK 里有什么?](https://gold.xitu.io/entry/57f9de43a22b9d005bf7fab0?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([newt0n](https://github.com/newt0n) 翻译)
