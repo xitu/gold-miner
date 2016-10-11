@@ -1,4 +1,3 @@
-# Google Interview University - 一套完整的学习手册帮助自己准备 Google 的面试
 
 > * 原文地址：[Google Interview University](https://github.com/jwasham/google-interview-university)
 * 原文作者：[John Washam](https://github.com/jwasham)
@@ -49,35 +48,35 @@
     - [字典树（Tries）](#字典树tries)
     - [平衡查找树（Balanced search trees）](#平衡查找树balanced-search-trees)
     - [N 叉树（K 叉树、M 叉树）](#n-叉树k-叉树m-叉树)
-- [Sorting](#sorting)
-- [Graphs](#graphs)
-- [Even More Knowledge](#even-more-knowledge)
-    - [Recursion](#recursion)
-    - [动态规划](#dynamic-programming)
-    - [Combinatorics (n choose k) & Probability](#combinatorics-n-choose-k--probability)
-    - [NP, NP-Complete and Approximation Algorithms](#np-np-complete-and-approximation-algorithms)
-    - [Caches](#caches)
-    - [Processes and Threads](#processes-and-threads)
-    - [System Design, Scalability, Data Handling](#system-design-scalability-data-handling)
-    - [Papers](#papers)
-    - [Testing](#testing)
-    - [Scheduling](#scheduling)
-    - [Implement system routines](#implement-system-routines)
-    - [String searching & manipulations](#string-searching--manipulations)
-- [Final Review](#final-review)
-- [Books](#books)
-- [Coding exercises/challenges](#coding-exerciseschallenges)
-- [Once you're closer to the interview](#once-youre-closer-to-the-interview)
-- [Your Resume](#your-resume)
-- [Be thinking of for when the interview comes](#be-thinking-of-for-when-the-interview-comes)
-- [Have questions for the interviewer](#have-questions-for-the-interviewer)
-- [Once You've Got The Job](#once-youve-got-the-job)
+- [排序](#排序sorting)
+- [图（Graphs）](#图graphs)
+- [更多知识](#更多知识)
+    - [递归](#递归recursion)
+    - [动态规划](#动态规划dynamic-programming)
+    - [组合 & 概率](#组合combinatorics-n-中选-k-个--概率probability)
+    - [NP, NP-完全和近似算法](#np-np-完全和近似算法)
+    - [缓存](#缓存cache)
+    - [进程和线程](#进程processe和线程thread)
+    - [系统设计、可伸缩性、数据处理](#系统设计可伸缩性数据处理)
+    - [论文](#论文)
+    - [测试](#测试)
+    - [调度](#调度)
+    - [实现系统例程](#实现系统例程)
+    - [字符串搜索和操作](#字符串搜索和操作)
+- [终面](#终面)
+- [书籍](#书籍)
+- [编码练习和挑战](#编码练习和挑战)
+- [当你临近面试时](#当你临近面试时)
+- [你的简历](#你的简历)
+- [当面试来临的时候](#当面试来临的时候)
+- [问面试官的问题](#问面试官的问题)
+- [当你获得了梦想的职位](#当你获得了梦想的职位)
 
----------------- Everything below this point is optional ----------------
+---------------- 下面的内容是可选的 ----------------
 
-- [Additional Learning](#additional-learning)
+- [附加的学习](#附加的学习)
     - [Unicode](#unicode)
-    - [Endianness](#endianness)
+    - [字节顺序](#字节顺序)
     - [Emacs and vi(m)](#emacs-and-vim)
     - [Unix 命令行工具](#unix-命令行工具)
     - [信息资源 (视频)](#信息资源-视频)
@@ -88,7 +87,7 @@
     - [网络 (视频)](#网络-视频)
     - [计算机安全](#计算机安全)
     - [释放缓存](#释放缓存)
-    - [平行化(多线程)编程](#平行化多线程编程)
+    - [并行/并发编程](#并行并发编程)
     - [设计模式](#设计模式)
     - [信息传输, 序列化, 和队列化的系统](#信息传输-序列化和队列化的系统)
     - [快速傅里叶变换](#快速傅里叶变换)
@@ -98,14 +97,14 @@
     - [跳表](#跳表)
     - [网络流](#网络流)
     - [不相交集 & 联合查找](#不相交集--联合查找)
-    - [Math for Fast Processing](#math-for-fast-processing)
-    - [Treap](#treap)
-    - [Linear Programming](#linear-programming)
-    - [Geometry, Convex hull](#geometry-convex-hull)
-    - [Discrete math](#discrete-math)
-    - [Machine Learning](#machine-learning)
-    - [Go](#go)
-- [Additional Detail on Some Subjects](#additional-detail-on-some-subjects)
+    - [快速处理数学](#math-for-fast-processing)
+    - [树堆 (Treap)](#树堆-treap)
+    - [线性规划](#线性规划linear-programming视频)
+    - [几何：凸包（Geometry, Convex hull）](#几何凸包geometry-convex-hull视频)
+    - [离散数学](#离散数学)
+    - [机器学习](#机器学习machine-learning)
+    - [Go 语言](#go-语言)
+- [一些主题的额外内容](#一些主题的额外内容)
 - [视频系列](#视频系列)
 - [计算机科学课程](#计算机科学课程)
 
@@ -689,8 +688,8 @@
 - [ ] [选择排序 (video)](https://www.youtube.com/watch?v=6nDMgr0-Yyo&index=8&list=PL89B61F78B552C1AB)
 
 - [ ] 斯坦福大学关于排序算法的视频:
-    - [ ] [Lecture 15 | Programming Abstractions (video)](https://www.youtube.com/watch?v=ENp00xylP7c&index=15&list=PLFE6E58F856038C69)
-    - [ ] [Lecture 16 | Programming Abstractions (video)](https://www.youtube.com/watch?v=y4M9IVgrVKo&index=16&list=PLFE6E58F856038C69)
+    - [ ] [课程 15 | 编程抽象 (video)](https://www.youtube.com/watch?v=ENp00xylP7c&index=15&list=PLFE6E58F856038C69)
+    - [ ] [课程 16 | 编程抽象 (video)](https://www.youtube.com/watch?v=y4M9IVgrVKo&index=16&list=PLFE6E58F856038C69)
 
 - [ ] Shai Simonson 视频, [Aduni.org](http://www.aduni.org/):
     - [ ] [算法 - 排序 - 第二讲 (video)](https://www.youtube.com/watch?v=odNJmw5TOEE&list=PLFDnELG9dpVxQCxuD-9BSy2E7BWY3t5Sm&index=2)
@@ -703,10 +702,10 @@
     - [ ] [课程从 23:50 开始 (video)](https://www.youtube.com/watch?v=TvqIGu9Iupw&list=PLOtl7M3yp-DV69F32zdK7YJcNXpTunF2b&index=10)
 
 - [ ] 加州大学伯克利分校（UC Berkeley） 大学课程:
-    - [ ] [CS 61B Lecture 29: Sorting I (video)](https://www.youtube.com/watch?v=EiUvYS2DT6I&list=PL4BBB74C7D2A1049C&index=29)
-    - [ ] [CS 61B Lecture 30: Sorting II (video)](https://www.youtube.com/watch?v=2hTY3t80Qsk&list=PL4BBB74C7D2A1049C&index=30)
-    - [ ] [CS 61B Lecture 32: Sorting III (video)](https://www.youtube.com/watch?v=Y6LOLpxg6Dc&index=32&list=PL4BBB74C7D2A1049C)
-    - [ ] [CS 61B Lecture 33: Sorting V (video)](https://www.youtube.com/watch?v=qNMQ4ly43p4&index=33&list=PL4BBB74C7D2A1049C)
+    - [ ] [CS 61B 课程 29: 排序 I (video)](https://www.youtube.com/watch?v=EiUvYS2DT6I&list=PL4BBB74C7D2A1049C&index=29)
+    - [ ] [CS 61B 课程 30: 排序 II (video)](https://www.youtube.com/watch?v=2hTY3t80Qsk&list=PL4BBB74C7D2A1049C&index=30)
+    - [ ] [CS 61B 课程 32: 排序 III (video)](https://www.youtube.com/watch?v=Y6LOLpxg6Dc&index=32&list=PL4BBB74C7D2A1049C)
+    - [ ] [CS 61B 课程 33: 排序 V (video)](https://www.youtube.com/watch?v=qNMQ4ly43p4&index=33&list=PL4BBB74C7D2A1049C)
 
 - [ ] - 归并排序:
     - [ ] [使用外部数组](http://www.cs.yale.edu/homes/aspnes/classes/223/examples/sorting/mergesort.c)
@@ -804,7 +803,7 @@
     - 尾递归会更好么?
         - [ ] [什么是尾递归以及为什么它如此糟糕?](https://www.quora.com/What-is-tail-recursion-Why-is-it-so-bad)
         - [ ] [尾递归 (video)](https://www.youtube.com/watch?v=L1jjXGfxozc)
- 
+
 - ### 动态规划（Dynamic Programming）
     - This subject can be pretty difficult, as each DP soluble problem must be defined as a recursion relation, and coming up with it can be tricky.
     - 这一部分会有点困难，每个可以用动态规划解决的问题都必须先定义出递推关系，要推导出来可能会有点棘手。
@@ -821,7 +820,7 @@
         - [ ] [Simonson: 动态规划 II - 课程 12 (video)](https://www.youtube.com/watch?v=v1qiRwuJU7g&list=PLFDnELG9dpVxQCxuD-9BSy2E7BWY3t5Sm&index=12)
         - [ ] 单独的 DP 问题 (每一个视频都很短):
             [动态规划 (video)](https://www.youtube.com/playlist?list=PLrmLmBdmIlpsHaNTPP_jHHDx_os9ItYXr)
-    - [ ] Yale 课程笔记: 
+    - [ ] Yale 课程笔记:
         - [ ] [动态规划](http://www.cs.yale.edu/homes/aspnes/classes/223/notes.html#dynamicProgramming)
     - [ ] Coursera 课程:
         - [ ] [RNA 二级结构问题 (video)](https://www.coursera.org/learn/algorithmic-thinking-2/lecture/80RrW/the-rna-secondary-structure-problem)
@@ -853,9 +852,9 @@
         - [ ] [NP-完全性 III (Video)](https://www.youtube.com/watch?v=fCX1BGT3wjE&index=17&list=PLFDnELG9dpVxQCxuD-9BSy2E7BWY3t5Sm)
         - [ ] [NP-完全性 IV (video)](https://www.youtube.com/watch?v=NKLDp3Rch3M&list=PLFDnELG9dpVxQCxuD-9BSy2E7BWY3t5Sm&index=18)
     - [ ] Skiena:
-        - [ ] [CSE373 2012 - Lecture 23 - 介绍 NP-完全性 IV (video)](https://youtu.be/KiK5TVgXbFg?list=PLOtl7M3yp-DV69F32zdK7YJcNXpTunF2b&t=1508)
-        - [ ] [CSE373 2012 - Lecture 24 - NP-完全性证明 (video)](https://www.youtube.com/watch?v=27Al52X3hd4&index=24&list=PLOtl7M3yp-DV69F32zdK7YJcNXpTunF2b)
-        - [ ] [CSE373 2012 - Lecture 25 - NP-完全性挑战 (video)](https://www.youtube.com/watch?v=xCPH4gwIIXM&index=25&list=PLOtl7M3yp-DV69F32zdK7YJcNXpTunF2b)
+        - [ ] [CSE373 2012 - 课程 23 - 介绍 NP-完全性 IV (video)](https://youtu.be/KiK5TVgXbFg?list=PLOtl7M3yp-DV69F32zdK7YJcNXpTunF2b&t=1508)
+        - [ ] [CSE373 2012 - 课程 24 - NP-完全性证明 (video)](https://www.youtube.com/watch?v=27Al52X3hd4&index=24&list=PLOtl7M3yp-DV69F32zdK7YJcNXpTunF2b)
+        - [ ] [CSE373 2012 - 课程 25 - NP-完全性挑战 (video)](https://www.youtube.com/watch?v=xCPH4gwIIXM&index=25&list=PLOtl7M3yp-DV69F32zdK7YJcNXpTunF2b)
     - [ ] [复杂度: P, NP, NP-完全性, 规约 (video)](https://www.youtube.com/watch?v=eHZifpgyH_4&list=PLUl4u3cNGP6317WaSNfmCvGym2ucw3oGp&index=22)
     - [ ] [复杂度: 近视算法 Algorithms (video)](https://www.youtube.com/watch?v=MEz1J9wY2iM&list=PLUl4u3cNGP6317WaSNfmCvGym2ucw3oGp&index=24)
     - [ ] [复杂度: 固定参数算法 (video)](https://www.youtube.com/watch?v=4q-jmGrmxKs&index=25&list=PLUl4u3cNGP6317WaSNfmCvGym2ucw3oGp)
@@ -934,14 +933,14 @@
     - [ ] [上下文切换操作会耗费多少时间?](http://blog.tsunanet.net/2010/11/how-long-does-it-take-to-make-context.html)
     - [ ] [跨数据中心的事务 (video)](https://www.youtube.com/watch?v=srOgpXECblk)
     - [ ] [简明 CAP 理论介绍](http://ksat.me/a-plain-english-introduction-to-cap-theorem/)
-    - [ ] Paxos 一致性算法: 
+    - [ ] Paxos 一致性算法:
         - [时间很短](https://www.youtube.com/watch?v=s8JqcZtvnsM)
         - [用例 和 multi-paxos](https://www.youtube.com/watch?v=JEpsBg0AO6o)
         - [论文](http://research.microsoft.com/en-us/um/people/lamport/pubs/paxos-simple.pdf)
     - [ ] [一致性哈希](http://www.tom-e-white.com/2007/11/consistent-hashing.html)
     - [ ] [NoSQL 模式](http://horicky.blogspot.com/2009/11/nosql-patterns.html)
     - [ ] [OOSE: UML 2.0 系列 (video)](https://www.youtube.com/watch?v=OkC7HKtiZC0&list=PLGLfVvz_LVvQ5G-LdJ8RLqe-ndo7QITYc)
-    - [ ] OOSE: 使用 UML 和 Java 开发软件 (21 videos): 
+    - [ ] OOSE: 使用 UML 和 Java 开发软件 (21 videos):
         - 如果你对 OO 都深刻的理解和实践，可以跳过这部分。
         - [OOSE: 使用 UML 和 Java 开发软件](https://www.youtube.com/playlist?list=PLJ9pm_Rc9HesnkwKlal_buSIHA-jTZMpO)
     - [ ] 面向对象编程的 SOLID 原则:
@@ -962,7 +961,7 @@
             - [更多](http://docs.google.com/a/cleancoder.com/viewer?a=v&pid=explorer&chrome=true&srcid=0BwhCYaYDn8EgMjdlMWIzNGUtZTQ0NC00ZjQ5LTkwYzQtZjRhMDRlNTQ3ZGMz&hl=en)
     - [ ] 可伸缩性:
         - [ ] [很棒的概述 (video)](https://www.youtube.com/watch?v=-W9F__D3oY4)
-        - [ ] 简短系列: 
+        - [ ] 简短系列:
             - [克隆](http://www.lecloud.net/post/7295452622/scalability-for-dummies-part-1-clones)
             - [数据库](http://www.lecloud.net/post/7994751381/scalability-for-dummies-part-2-database)
             - [缓存](http://www.lecloud.net/post/9246290032/scalability-for-dummies-part-3-cache)
@@ -1086,7 +1085,7 @@
     - [ ] [James Bach 软件测试公开课 (video)](https://www.youtube.com/watch?v=ILkT_HV9DVU)
     - [ ] [Steve Freeman - 测试驱动的开发 (video)](https://vimeo.com/83960706)
         - [slides](http://gotocon.com/dl/goto-berlin-2013/slides/SteveFreeman_TestDrivenDevelopmentThatsNotWhatWeMeant.pdf)
-    - [ ] [测试驱动的开发已死. 测试不朽。](http://david.heinemeierhansson.com/2014/tdd-is-dead-long-live-testing.html)
+    - [ ] [测试驱动的开发已死。测试不朽。](http://david.heinemeierhansson.com/2014/tdd-is-dead-long-live-testing.html)
     - [ ] [测试驱动的开发已死? (video)](https://www.youtube.com/watch?v=z9quxZsLcfo)
     - [ ] [视频系列 (152 个) - 并不都是必须 (video)](https://www.youtube.com/watch?v=nzJapzxH_rE&list=PLAwxTw4SYaPkWVHeC_8aSIbSxE_NXI76g)
     - [ ] [Python：测试驱动的 Web 开发](http://www.obeythetestinggoat.com/pages/book.html#toc)
@@ -1121,7 +1120,7 @@
 
 ---
 
-## 终面 
+## 终面
 
     这一部分有一些短视频，你可以快速的观看和复习大多数重要概念。
     这对经常性的巩固很有帮助。
@@ -1136,7 +1135,7 @@
 #### 排序:
 
 - [ ] 归并排序: https://www.youtube.com/watch?v=GCae1WNvnZM
-   
+
 
 ## 书籍
 
@@ -1163,7 +1162,7 @@
 - [ ] [Cracking the Coding Interview, 6th Edition](http://www.amazon.com/Cracking-Coding-Interview-6th-Programming/dp/0984782850/)
     - 如果你看到有人在看 "The Google Resume", 实际上它和 "Cracking the Coding Interview" 是同一个作者写的，而且后者是升级版。
 
-### 附加书单 
+### 附加书单
 
 这些没有被 Google 推荐阅读，不过我因为需要这些背景知识所以也把它们列在了这里。
 
@@ -1181,7 +1180,7 @@
 ### 如果你有时间
 
 - [ ] [Introduction to Algorithms](https://www.amazon.com/Introduction-Algorithms-3rd-MIT-Press/dp/0262033844)
-    
+
 - [ ] [Elements of Programming Interviews](https://www.amazon.com/Elements-Programming-Interviews-Insiders-Guide/dp/1479274836)
     - 如果你希望在面试里用 C++ 写代码，这本书的代码全都是 C++ 写的
     - 通常情况下能找到解决方案的好书.
@@ -1234,7 +1233,7 @@
     随着下面列举的问题思考下你可能会遇到的 20 个面试问题
     每个问题准备 2-3 种回答
     准备点故事，不要只是摆一些你完成的事情的数据，相信我，人人都喜欢听故事
-    
+
 - 你为什么想得到这份工作？
 - 你解决过的最有难度的问题是什么？
 - 面对过的最大挑战是什么?
@@ -1276,49 +1275,48 @@
 
     *****************************************************************************************************
     *****************************************************************************************************
-    
-    Everything below this point is optional. These are my recommendations, not Google's. 
-    By studying these, you'll get greater exposure to more CS concepts, and will be better prepared for 
-    any software engineering job.
+
+    下面的内容都是可选的。这些是我的推荐，不是 Google 的。
+    通过学习这些内容，你将会得到更多的有关 CS 的概念，并将为所有的软件工程工作做更好的准备。
 
     *****************************************************************************************************
     *****************************************************************************************************
 
 ---
 
-## Additional Learning
+## 附加的学习
 
 - ### Unicode
-    - [ ] [The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Unicode and Character Sets]( http://www.joelonsoftware.com/articles/Unicode.html)
-    - [ ] [What Every Programmer Absolutely, Positively Needs To Know About Encodings And Character Sets To Work With Text](http://kunststube.net/encoding/)
+    - [ ] [每一个软件开发者的绝对最低限度，必须要知道的关于 Unicode 和字符集知识]( http://www.joelonsoftware.com/articles/Unicode.html)
+    - [ ] [关于处理文本需要的编码和字符集, 每个程序员绝对需要知道的知识](http://kunststube.net/encoding/)
 
-- ### Endianness
-    - [ ] [Big And Little Endian](https://www.cs.umd.edu/class/sum2003/cmsc311/Notes/Data/endian.html)
-    - [ ] [Big Endian Vs Little Endian (video)](https://www.youtube.com/watch?v=JrNF0KRAlyo)
-    - [ ] [Big And Little Endian Inside/Out (video)](https://www.youtube.com/watch?v=oBSuXP-1Tc0)
-        - Very technical talk for kernel devs. Don't worry if most is over your head.
-        - The first half is enough.
+- ### 字节顺序
+    - [ ] [大、小端字节序](https://www.cs.umd.edu/class/sum2003/cmsc311/Notes/Data/endian.html)
+    - [ ] [大端字节 Vs 小端字节(视频)](https://www.youtube.com/watch?v=JrNF0KRAlyo)
+    - [ ] [大、小端字节序的里里外外(Big And Little Endian Inside/Out) (视频)](https://www.youtube.com/watch?v=oBSuXP-1Tc0)
+        - 内核开发者的讨论非常技术性，如果大多数都超出了你的理解范围，不要太担心。
+        - 前半段已经足够了。
 
 - ### Emacs and vi(m)
-    - suggested by Yegge, from an old Amazon recruiting post: Familiarize yourself with a unix-based code editor
+    - Yegge 的建议，从一个很早以前的亚马逊招聘信息中而来：熟悉基于 unix 的代码编辑器
     - vi(m):
-        - [Editing With vim 01 - Installation, Setup, and The Modes (video)](https://www.youtube.com/watch?v=5givLEMcINQ&index=1&list=PL13bz4SHGmRxlZVmWQ9DvXo1fEg4UdGkr)
-        - [VIM Adventures](http://vim-adventures.com/)
-        - set of 4 videos:
-            - [The vi/vim editor - Lesson 1](https://www.youtube.com/watch?v=SI8TeVMX8pk)
-            - [The vi/vim editor - Lesson 2](https://www.youtube.com/watch?v=F3OO7ZIOaJE)
-            - [The vi/vim editor - Lesson 3](https://www.youtube.com/watch?v=ZYEccA_nMaI)
-            - [The vi/vim editor - Lesson 4](https://www.youtube.com/watch?v=1lYD5gwgZIA)
-        - [Using Vi Instead of Emacs](http://www.cs.yale.edu/homes/aspnes/classes/223/notes.html#Using_Vi_instead_of_Emacs)
+        - [使用 vim 进行编辑 01 - 安装, 设置和模式 (视频)](https://www.youtube.com/watch?v=5givLEMcINQ&index=1&list=PL13bz4SHGmRxlZVmWQ9DvXo1fEg4UdGkr)
+        - [VIM 的冒险之旅](http://vim-adventures.com/)
+        - 4 个视频集:
+            - [vi/vim 编辑器 - 课程 1](https://www.youtube.com/watch?v=SI8TeVMX8pk)
+            - [vi/vim 编辑器 - 课程 2](https://www.youtube.com/watch?v=F3OO7ZIOaJE)
+            - [vi/vim 编辑器 - 课程 4](https://www.youtube.com/watch?v=1lYD5gwgZIA)
+            - [vi/vim 编辑器 - 课程 3](https://www.youtube.com/watch?v=ZYEccA_nMaI)
+        - [使用 Vi 而不是 Emacs](http://www.cs.yale.edu/homes/aspnes/classes/223/notes.html#Using_Vi_instead_of_Emacs)
     - emacs:
-        - [Basics Emacs Tutorial (video)](https://www.youtube.com/watch?v=hbmV1bnQ-i0)
-        - set of 3 (videos):
-            - [Emacs Tutorial (Beginners) -Part 1- File commands, cut/copy/paste, cursor commands](https://www.youtube.com/watch?v=ujODL7MD04Q)
-            - [Emacs Tutorial (Beginners) -Part 2- Buffer management, search, M-x grep and rgrep modes](https://www.youtube.com/watch?v=XWpsRupJ4II)
-            - [Emacs Tutorial (Beginners) -Part 3- Expressions, Statements, ~/.emacs file and packages](https://www.youtube.com/watch?v=paSgzPso-yc)
-        - [Evil Mode: Or, How I Learned to Stop Worrying and Love Emacs (video)](https://www.youtube.com/watch?v=JWD1Fpdd4Pc)
-        - [Writing C Programs With Emacs](http://www.cs.yale.edu/homes/aspnes/classes/223/notes.html#Writing_C_programs_with_Emacs)
-        - [(maybe) Org Mode In Depth: Managing Structure (video)](https://www.youtube.com/watch?v=nsGYet02bEk)
+        - [基础 Emacs 教程 (视频)](https://www.youtube.com/watch?v=hbmV1bnQ-i0)
+        - 3 个视频集:
+            - [Emacs 教程 (初学者) -第 1 部分- 文件命令, 剪切/复制/粘贴,  自定义命令](https://www.youtube.com/watch?v=ujODL7MD04Q)
+            - [Emacs 教程 (初学者 -第 2 部分- Buffer 管理, 搜索, M-x grep 和 rgrep 模式](https://www.youtube.com/watch?v=XWpsRupJ4II)
+            - [Emacs 教程 (初学者 -第 3 部分- 表达式, 声明, ~/.emacs 文件和包机制](https://www.youtube.com/watch?v=paSgzPso-yc)
+        - [Evil 模式: 或许, 我是怎样对 Emacs 路人转粉的 (视频)](https://www.youtube.com/watch?v=JWD1Fpdd4Pc)
+        - [使用 Emacs 开发 C 程序](http://www.cs.yale.edu/homes/aspnes/classes/223/notes.html#Writing_C_programs_with_Emacs)
+        - [(或许) 深度组织模式:管理结构 (视频)](https://www.youtube.com/watch?v=nsGYet02bEk)
 
 - ### Unix 命令行工具
     - 下列内容中的优秀工具由的 Yegge 推荐，Yegge 目前致力于 Amazon 人事招聘处。
@@ -1408,9 +1406,9 @@
     - [ ] [深度解析：论释放缓存在 JAVA 中的重要性](https://www.infoq.com/presentations/garbage-collection-benefits)
     - [ ] [深度解析：论释放缓存在 Python 中的重要性(视频)](https://www.youtube.com/watch?v=P-8Z0-MhdQs&list=PLdzf4Clw0VbOEWOS_sLhT_9zaiQDrS5AR&index=3)
 
-- ### 平行化(多线程)编程
+- ### 并行/并发编程
     - [ ] [Coursera (Scala)](https://www.coursera.org/learn/parprog1/home/week/1)
-    - [ ] [论平行化编程如何提高 Python 执行效率 (视频)](https://www.youtube.com/watch?v=uY85GkaYzBk)
+    - [ ] [论并行/并发编程如何提高 Python 执行效率 (视频)](https://www.youtube.com/watch?v=uY85GkaYzBk)
 
 - ### 设计模式
     - [ ] [UML统一建模语言概览 (视频)](https://www.youtube.com/watch?v=3cmzqZzwNDM&list=PLGLfVvz_LVvQ5G-LdJ8RLqe-ndo7QITYc&index=3)
@@ -1503,15 +1501,15 @@
         - [ ] [路径压缩](https://www.coursera.org/learn/data-structures/lecture/Q9CVI/path-compression)
         - [ ] [分析选项](https://www.coursera.org/learn/data-structures/lecture/GQQLN/analysis-optional)
 
-- ### Math for Fast Processing
-    - [ ] [Integer Arithmetic, Karatsuba Multiplication (video)](https://www.youtube.com/watch?v=eCaXlAaN2uE&index=11&list=PLUl4u3cNGP61Oq3tWYp6V_F-5jb5L2iHb)
-    - [ ] [The Chinese Remainder Theorem (used in cryptography) (video)](https://www.youtube.com/watch?v=ru7mWZJlRQg)
-    
-- ### Treap
-    - Combination of a binary search tree and a heap
-    - [ ] [Treap](https://en.wikipedia.org/wiki/Treap)
-    - [ ] [Data Structures: Treaps explained (video)](https://www.youtube.com/watch?v=6podLUYinH8)
-    - [ ] [Applications in set operations](https://www.cs.cmu.edu/~scandal/papers/treaps-spaa98.pdf)
+- ### 快速处理数学
+    - [ ] [整数运算, Karatsuba 乘法 (视频)](https://www.youtube.com/watch?v=eCaXlAaN2uE&index=11&list=PLUl4u3cNGP61Oq3tWYp6V_F-5jb5L2iHb)
+    - [ ] [中国剩余定理 (在密码学中的使用) (视频)](https://www.youtube.com/watch?v=ru7mWZJlRQg)
+
+- ### 树堆 (Treap)
+    - 一个二叉搜索树和一个堆的组合
+    - [ ] [树堆](https://en.wikipedia.org/wiki/Treap)
+    - [ ] [数据结构：树堆的讲解(video)](https://www.youtube.com/watch?v=6podLUYinH8)
+    - [ ] [集合操作的应用(Applications in set operations)](https://www.cs.cmu.edu/~scandal/papers/treaps-spaa98.pdf)
 
 - ### 线性规划（Linear Programming）（视频）
     - [ ] [线性规划](https://www.youtube.com/watch?v=M4K6HYLHREQ)
@@ -1563,93 +1561,4 @@
 
 ## 一些主题的额外内容
 
-    我为前面提到的某些主题增加了一些额外的内容，之所以没有直接添加到前面，是因为这样很容易导致某个主题内容过多。毕竟你想在本世纪找到一份工作，对吧？
-
-- [ ] **动态规划的更多内容** (视频)
-    - [ ] [6.006: 动态规划 I: 斐波那契数列, 最短路径](https://www.youtube.com/watch?v=OQ5jsbhAv_M&list=PLUl4u3cNGP61Oq3tWYp6V_F-5jb5L2iHb&index=19)
-    - [ ] [6.006: 动态规划 II: 文本匹配, 二十一点/黑杰克](https://www.youtube.com/watch?v=ENyox7kNKeY&list=PLUl4u3cNGP61Oq3tWYp6V_F-5jb5L2iHb&index=20)
-    - [ ] [6.006: 动态规划 III: 最优加括号方式, 最小编辑距离, 背包问题](https://www.youtube.com/watch?v=ocZMDMZwhCY&list=PLUl4u3cNGP61Oq3tWYp6V_F-5jb5L2iHb&index=21)
-    - [ ] [6.006: 动态规划 IV: 吉他指法，拓扑，超级马里奥.](https://www.youtube.com/watch?v=tp4_UXaVyx8&index=22&list=PLUl4u3cNGP61Oq3tWYp6V_F-5jb5L2iHb)
-    - [ ] [6.046: 动态规划: 动态规划进阶](https://www.youtube.com/watch?v=Tw1k46ywN6E&index=14&list=PLUl4u3cNGP6317WaSNfmCvGym2ucw3oGp)
-    - [ ] [6.046: 动态规划: 所有点对最短路径](https://www.youtube.com/watch?v=NzgFUwOaoIw&list=PLUl4u3cNGP6317WaSNfmCvGym2ucw3oGp&index=15)
-    - [ ] [6.046: 动态规划: 更多示例](https://www.youtube.com/watch?v=krZI60lKPek&list=PLUl4u3cNGP6317WaSNfmCvGym2ucw3oGp&index=12)
-
-- [ ] **图形处理进阶** (视频)
-    - [ ] [异步分布式算法: 对称性破缺，最小生成树](https://www.youtube.com/watch?v=mUBmcbbJNf4&list=PLUl4u3cNGP6317WaSNfmCvGym2ucw3oGp&index=27)
-    - [ ] [异步分布式算法: 最小生成树](https://www.youtube.com/watch?v=kQ-UQAzcnzA&list=PLUl4u3cNGP6317WaSNfmCvGym2ucw3oGp&index=28)
-
-- [ ] MIT **概率论** (mathy, and go slowly, which is good for mathy things) (视频):
-    - [ ] [MIT 6.042J - 概率论概述](https://www.youtube.com/watch?v=SmFwFdESMHI&index=18&list=PLB7540DEDD482705B)
-    - [ ] [MIT 6.042J - 条件概率 Probability](https://www.youtube.com/watch?v=E6FbvM-FGZ8&index=19&list=PLB7540DEDD482705B)
-    - [ ] [MIT 6.042J - 独立](https://www.youtube.com/watch?v=l1BCv3qqW4A&index=20&list=PLB7540DEDD482705B)
-    - [ ] [MIT 6.042J - 随机变量](https://www.youtube.com/watch?v=MOfhhFaQdjw&list=PLB7540DEDD482705B&index=21)
-    - [ ] [MIT 6.042J - 期望 I](https://www.youtube.com/watch?v=gGlMSe7uEkA&index=22&list=PLB7540DEDD482705B)
-    - [ ] [MIT 6.042J - 期望 II](https://www.youtube.com/watch?v=oI9fMUqgfxY&index=23&list=PLB7540DEDD482705B)
-    - [ ] [MIT 6.042J - 大偏差](https://www.youtube.com/watch?v=q4mwO2qS2z4&index=24&list=PLB7540DEDD482705B)
-    - [ ] [MIT 6.042J - 随机游走](https://www.youtube.com/watch?v=56iFMY8QW2k&list=PLB7540DEDD482705B&index=25)
-
-- [ ] [Simonson: 近似算法 (视频)](https://www.youtube.com/watch?v=oDniZCmNmNw&list=PLFDnELG9dpVxQCxuD-9BSy2E7BWY3t5Sm&index=19)
-
-## 视频系列
-
- 坐下来享受一下吧。"netflix and skill" :P
-
-- [ ] [个人的动态规划问题列表 (都是短视频哟)](https://www.youtube.com/playlist?list=PLrmLmBdmIlpsHaNTPP_jHHDx_os9ItYXr)
-
-- [ ] [x86 架构，汇编，应用程序 (11 个视频)](https://www.youtube.com/playlist?list=PL038BE01D3BAEFDB0)
-
-- [ ] [MIT 18.06 线性代数，2005 年春季 (35 个视频)](https://www.youtube.com/playlist?list=PLE7DDD91010BC51F8)
-
-- [ ] [绝妙的 MIT 微积分：单变量微积分](https://www.youtube.com/playlist?list=PL3B08AE665AB9002A)
-
-- [ ] [计算机科学 70, 001 - 2015 年春季 - 离散数学和概率理论](https://www.youtube.com/playlist?list=PL-XXv-cvA_iD8wQm8U0gG_Z1uHjImKXFy)
-
-- [ ] [离散数学 (19 个视频)](https://www.youtube.com/playlist?list=PL3o9D4Dl2FJ9q0_gtFXPh_H4POI5dK0yG)
-
-- [ ] CSE373 - 算法分析 (25 个视频)
-    - [Skiena 的算法设计手册讲座](https://www.youtube.com/watch?v=ZFjhkohHdAA&list=PLOtl7M3yp-DV69F32zdK7YJcNXpTunF2b&index=1)
-
-- [ ] [UC Berkeley 61B (2014 年春季): 数据结构 (25 个视频)](https://www.youtube.com/watch?v=mFPmKGIrQs4&list=PL-XXv-cvA_iAlnI-BQr9hjqADPBtujFJd)
-
-- [ ] [UC Berkeley 61B (2006 年秋季): 数据结构 (39 个视频)]( https://www.youtube.com/playlist?list=PL4BBB74C7D2A1049C)
-
-- [ ] [UC Berkeley 61C: 计算机结构 (26 个视频)](https://www.youtube.com/watch?v=gJJeUFyuvvg&list=PL-XXv-cvA_iCl2-D-FS5mk0jFF6cYSJs_)
-
-- [ ] [OOSE: 使用 UML 和 Java 进行软件开发 (21 个视频)](https://www.youtube.com/playlist?list=PLJ9pm_Rc9HesnkwKlal_buSIHA-jTZMpO)
-
-- [ ] [UC Berkeley CS 152: 计算机结构和工程 (20 个视频)](https://www.youtube.com/watch?v=UH0QYvtP7Rk&index=20&list=PLkFD6_40KJIwEiwQx1dACXwh-2Fuo32qr)
-
-- [ ] [MIT 6.004: 计算结构 (49 视频)](https://www.youtube.com/playlist?list=PLrRW1w6CGAcXbMtDFj205vALOGmiRc82-)
-
-- [ ] [卡內基梅隆大学 - 计算机架构讲座 (39 个视频)](https://www.youtube.com/playlist?list=PL5PHm2jkkXmi5CxxI7b3JCL1TWybTDtKq)
-
-- [ ] [MIT 6.006: 算法介绍 (47 个视频)](https://www.youtube.com/watch?v=HtSuA80QTyo&list=PLUl4u3cNGP61Oq3tWYp6V_F-5jb5L2iHb&nohtml5=False)
-
-- [ ] [MIT 6.033: 计算机系统工程 (22 个视频)](https://www.youtube.com/watch?v=zm2VP0kHl1M&list=PL6535748F59DCA484)
-
-- [ ] [MIT 6.034 人工智能, 2010 年秋季 (30 个视频)](https://www.youtube.com/playlist?list=PLUl4u3cNGP63gFHB6xb-kVBiQHYe_4hSi)
-
-- [ ] [MIT 6.042J: 计算机科学数学, 2010 年秋季 (25 个视频)](https://www.youtube.com/watch?v=L3LMbpZIKhQ&list=PLB7540DEDD482705B)
-
-- [ ] [MIT 6.046: 算法设计与分析 (34 个视频)](https://www.youtube.com/watch?v=2P-yW7LQr08&list=PLUl4u3cNGP6317WaSNfmCvGym2ucw3oGp)
-
-- [ ] [MIT 6.050J: 信息和熵, 2008 年春季 (19 个视频)](https://www.youtube.com/watch?v=phxsQrZQupo&list=PL_2Bwul6T-A7OldmhGODImZL8KEVE38X7)
-
-- [ ] [MIT 6.851: 高等数据结构 (22 个视频)](https://www.youtube.com/watch?v=T0yzrZL1py0&list=PLUl4u3cNGP61hsJNdULdudlRL493b-XZf&index=1)
-
-- [ ] [MIT 6.854: 高等算法, 2016 年春季 (24 个视频)](https://www.youtube.com/playlist?list=PL6ogFv-ieghdoGKGg2Bik3Gl1glBTEu8c)
-
-- [ ] [MIT 6.858计算机系统安全, 2014 年秋季](https://www.youtube.com/watch?v=GqmQg-cszw4&index=1&list=PLUl4u3cNGP62K2DjQLRxDNRi0z2IRWnNh)
-
-- [ ] 斯坦福: 编程范例 (17 个视频)
-    - [C 和 C++ 课程](https://www.youtube.com/watch?v=jTSvthW34GU&list=PLC0B8B318B7394B6F&nohtml5=False)
-
-- [ ] [密码学导论](https://www.youtube.com/watch?v=2aHkqB2-46k&feature=youtu.be)
-    - [本系列更多内容 (不分先后顺序)](https://www.youtube.com/channel/UC1usFRN4LCMcfIV7UjHNuQg)
-
-- [ ] [大数据 - 斯坦福大学 (94 个视频)](https://www.youtube.com/playlist?list=PLLssT5z_DsK9JDLcT8T62VtzwyW9LNepV)
-
-## 计算机科学课程
-
-- [ 在线 CS 课程目录 ](https://github.com/open-source-society/computer-science)
-- [CS 课程目录 (一些是在线讲座)](https://github.com/prakhar1989/awesome-courses)
+    我为前面提到的某些主题增加了一些额外的内容，之所以没有直接添加到前面，是因为这样很
