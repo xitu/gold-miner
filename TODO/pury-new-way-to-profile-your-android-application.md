@@ -92,11 +92,11 @@ Get Next Page <-- avg = 378.80ms, min = 353ms, max = 411ms, for 5 runs
 
 
 
-两个并列运行的 _Profilers_。第一个只有一个 _Run_ 并且处于活跃的_stage_ 中。第二个有一个停止的 _Run_ 和一个活跃的 _Run_，每个 _Run_ 都包含了一个含有两个 _nested stage_ 的 _root stage_。活跃的 _stage_ 是绿色的，停止 _stage_ 是红色的。
+两个并列运行的 _Profilers_。第一个只有一个 _Run_ 并且处于活跃的 _stage_ 中。第二个有一个停止的 _Run_ 和一个活跃的 _Run_，每个 _Run_ 都包含了一个含有两个 _nested stage_ 的 _root stage_。活跃的 _stage_ 是绿色的，停止 _stage_ 是红色的。
 
 
 
-_Run_ 内部有一个 _root state_ （**跟状态**）。每个状态都有一个名字，一个序列号和一个不限定数量的、嵌套的 _nested stage_ (**子状态**)。每个 _stage_ 只能有一个活跃的 _nested stage_ 。如果你停止了一个 _parent stage_ （**父状态**），那么所有这个状态的 _nested stage_ 也会停止。
+_Run_ 内部有一个 _root state_ （**根状态**）。每个状态都有一个名字，一个序列号和一个不限定数量的、嵌套的 _nested stage_ (**子状态**)。每个 _stage_ 只能有一个活跃的 _nested stage_ 。如果你停止了一个 _parent stage_ （**父状态**），那么所有这个状态的 _nested stage_ 也会停止。
 
 #### 使用 Pury 
 
