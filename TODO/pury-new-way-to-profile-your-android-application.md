@@ -107,7 +107,7 @@ _Run_ 内部有一个 _根状态_ 。每个状态都有一个名字，一个序�
     @StartProfiling(profilerName = "List pagination", runsCounter = 3, stageName = "Loading", stageOrder = 0)
       private void loadNextPage() { }
 
-_StartProfiling_ 可以接受最多5个参数:
+_StartProfiling_ 可以接受最多 5 个参数:
 
 *   _profilerName_ — 分析者的名字将和 标识 _Profiler_ 的 _runsCounter_ 一起显示在结果中。
 *   _runsCounter_ — _Profiler_ 等待执行的任务的数量。结果只会在所有任务都完成只会才会显示。
@@ -122,7 +122,7 @@ _StartProfiling_ 可以接受最多5个参数:
     @StopProfiling(profilerName = "List pagination", runsCounter = 3, stageName = "Loading")
       private void displayNextPage() { }
 
-它有和 _StartProfiling 相同的参数，除了 _stageOrder_ 。
+它有和 _StartProfiling_ 相同的参数，除了 _stageOrder_ 。
 
 3\. _MethodProfiling_ — _StartProfiling_ 和 _StopProfiling_ 的结合。
 
