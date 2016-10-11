@@ -92,7 +92,7 @@ Get Next Page <-- avg = 378.80ms, min = 353ms, max = 411ms, for 5 runs
 
 
 
-两个并列运行的 _Profilers_。第一个只有一个 _Run_ 并且处于活跃状态中。第二个有一个停止的 _Run_ 和一个活跃的 _Run_，每个 _Run_ 都包含了一个包含两个子状态的根状态。活跃状态是绿色的，停止状态是红色的。
+两个并列运行的 _Profilers_。第一个只有一个 _Run_ 并且处于活跃的_stage_ 中。第二个有一个停止的 _Run_ 和一个活跃的 _Run_，每个 _Run_ 都包含了一个含有两个 _nested stage_ 的 _root stage_。活跃的 _stage_ 是绿色的，停止 _stage_ 是红色的。
 
 
 
