@@ -6,7 +6,7 @@
 
 如果你想要让一个 Android 应用程序反应灵敏，那么你必须防止它的 UI 线程被阻塞。同样地，将这些阻塞的或者计算密集型的任务转到工作线程去执行也会提高程序的响应灵敏性。然而，这些任务的执行结果通常需要更新UI组件的显示，但该操作只能在UI线程中去执行。有一些方法解决了 UI 线程的阻塞问题，例如阻塞队列，共享内存以及管道技术。在 Android 中，为解决这个问题，提供了一种自有的消息传递机制——[Handler](https://developer.android.com/reference/android/os/Handler.html)。Handler 是 Android Framework 架构中的一个基础组件，它实现了一种非阻塞的消息传递机制，在消息转换的过程中，消息的生产者和消费者都不会阻塞。
 
-虽然 Handler 被使用的频率非常高，它的工作原理却很容易被忽视。本篇文章深入地剖析Handler 众多内部组件的实现，它将会向您揭示 Handler 的强大之处，而不仅仅作为一个工作线程和 UI 线程通信的工具。
+虽然 Handler 被使用的频率非常高，它的工作原理却很容易被忽视。本篇文章深入地剖析 Handler 众多内部组件的实现，它将会向您揭示 Handler 的强大之处，而不仅仅作为一个工作线程和 UI 线程通信的工具。
 
 ### 图片浏览示例
 
@@ -74,7 +74,7 @@ public class ImageFetcherAltActivity extends AppCompactActivity {
     }
 }
 ```
-在第二个例子中，工作线程从网络获取到一张图片，一旦下载完成，我们需用使用下载好的 bitmap 去更新 ImageView 显示内容。我们知道不能在非 UI 线程中更新 UI 组件，因此我们使用Handler。Handler 扮演了工作线程和UI线程的中间人的角色。消息在工作线程中被 Handler 加入队列，随后在 UI 线程中被 Handler 处理。
+在第二个例子中，工作线程从网络获取到一张图片，一旦下载完成，我们需用使用下载好的 bitmap 去更新 ImageView 显示内容。我们知道不能在非 UI 线程中更新 UI 组件，因此我们使用 Handler。Handler 扮演了工作线程和 UI 线程的中间人的角色。消息在工作线程中被 Handler 加入队列，随后在 UI 线程中被 Handler 处理。
 
 ### 深入了解 Handler
 
@@ -89,7 +89,7 @@ Handler 由以下部分组成:
 
 #### Handler
 
-[Handler[2]](https://developer.android.com/reference/android/os/Handler.html) 是线程间传递消息的即时接口，生产线程和消费线程调用以下操作来使用 Handler:
+[Handler[2]](https://developer.android.com/reference/android/os/Handler.html) 是线程间传递消息的即时接口，生产线程和消费线程调用以下操作来使用 Handler：
 
 *   在消息队列中创建、插入或移除消息
 *   在消费线程中处理消息
@@ -126,9 +126,9 @@ Callback 参数是一个可选参数，如果提供的话，它将会处理由 L
 
 [Message[3]](https://developer.android.com/reference/android/os/Message.html) 是容纳任意数据的容器。生产线程发送消息给 Handler，Handler 将消息加入到消息队列中。消息提供了三种额外的信息，以供 Handler 和消息队列处理时使用：
 
-*   _what_ — 一种标识符，Handler 能使用它来区分不同消息，从而采取不同的处理方法
-*   _time_ — 告知消息队列何时处理消息
-*   _target_ — 表示哪一个 Handler 应当处理消息
+*   _what_ ——一种标识符，Handler 能使用它来区分不同消息，从而采取不同的处理方法
+*   _time_ ——告知消息队列何时处理消息
+*   _target_ —— 表示哪一个 Handler 应当处理消息
 
 
 ![](https://cdn-images-1.medium.com/max/1600/1*odjf27TxzW3gC7-tbF-bPQ.png)
@@ -147,7 +147,7 @@ android.os.Message 组件
 
     mHandler.obtainMessage(MSG_SHOW_IMAGE, mBitmap).sendToTarget();
 
-消息池是一个消息体对象的 LinkedList 集合，它的最大长度是50。在 Handler 处理完这条消息之后，消息队列把这个对象返回到消息池中，并且重置其所有字段。
+消息池是一个消息体对象的 LinkedList 集合，它的最大长度是 50。在 Handler 处理完这条消息之后，消息队列把这个对象返回到消息池中，并且重置其所有字段。
 
 当使用 Handler 调用 post 方法来执行一个 Runnable 时，Handler 隐式地创建了一个新的消息，并且设置 callback 参数来存储这个 Runnable。
 
@@ -161,7 +161,7 @@ android.os.Message 组件
 
 在上图中，我们能看到生产线程和 Handler 的交互。生产者创建了一个消息，并且发送给了 Handler，随后 Handler 将这个消息加入消息队列中，在未来的某个时间，Handler 会在消费线程中处理这个消息。
 
-#### Message Queue
+#### Message Queue
 
 [Message Queue[4]](https://developer.android.com/reference/android/os/MessageQueue.html) 是一个消息体对象的无界的 LinkedList 集合。它按时序将消息插入队列，最小的时间戳将会被首先处理。
 
@@ -179,7 +179,7 @@ Handler 提供了三种方式来发送消息：
 
 以延迟的方式发送消息，是设置了消息体的 _time_ 字段为 _SystemClock.uptimeMillis()_ + _delayMillis_ 。
 
-延迟发送的消息设置了其时间字段为 SystemClock.uptimeMillis() + delayMillis。然而，通过 sendMessageAtFrontOfQueue() 方法把消息插入到队首，会将其时间字段设置为0，消息会在下一次轮询时被处理。需要谨慎使用这个方法，因为它可能会影响消息队列，造成顺序问题，或是其它不可预料的副作用。
+延迟发送的消息设置了其时间字段为 SystemClock.uptimeMillis() + delayMillis。然而，通过 sendMessageAtFrontOfQueue() 方法把消息插入到队首，会将其时间字段设置为 0，消息会在下一次轮询时被处理。需要谨慎使用这个方法，因为它可能会影响消息队列，造成顺序问题，或是其它不可预料的副作用。
 
 Handler 常与一些 UI 组件相关联，而这些 UI 组件通常持有对 Activity 的引用。Handler 持有的对这些组件的引用可能会导致潜在的 Activity 泄露。考虑如下场景：
 
@@ -412,7 +412,7 @@ static class UIHandler extends Handler {
 *   _The ViewRoot:_ 处理输入和窗口事件，配置修改等等
 *   _The InputMethodManager:_ 处理键盘触摸事件及其它
 
-**小贴士:** _确保生产线程不会大量生成消息，因为这可能会抑制处理系统生成消息。_
+**小贴士：确保生产线程不会大量生成消息，因为这可能会抑制处理系统生成消息。**
 
 ![](https://cdn-images-1.medium.com/max/2000/1*rvIs3RCqJw1WFwuHwMtgaQ.png)
 
@@ -422,7 +422,7 @@ static class UIHandler extends Handler {
 
 
 
-**调试帮助:** 你可以通过附加一个 LogPrinter 到 Looper 上来 debug/dump 被 Looper 分发的消息:
+**调试帮助：** 你可以通过附加一个 LogPrinter 到 Looper 上来 debug/dump 被 Looper 分发的消息:
 
     final Looper looper = getMainLooper();
     looper.setMessageLogging(new LogPrinter(Log.DEBUG, "Looper"));
@@ -448,7 +448,7 @@ Handler 与消息队列和 Looper 直接交互的整体流程
 
 Looper 应在线程的 run 方法中初始化。调用静态方法 Looper.prepare() 会检查线程是否与一个已存在的 Looper 关联。这个过程的实现是通过 Looper 类中的 ThreadLocal 对象来检查 Looper 对象是否存在。如果 Looper 不存在，将会创建一个新的 Looper 对象和一个新的消息队列。[Android 代码](https://github.com/android/platform_frameworks_base/blob/e71ecb2c4df15f727f51a0e1b65459f071853e35/core/java/android/os/Looper.java#L83) 中的如下片段展示了这个过程。
 
-**注意:** _公有的 prepare 方法会默认会调用 prepare(true)。_
+**注意：公有的 prepare 方法会默认会调用 prepare(true)。**
 
     private static void prepare(boolean quitAllowed) {
         if (sThreadLocal.get() != null) {
@@ -496,7 +496,7 @@ Handler 现在能接收到消息并加入消息队列中，执行静态方法 Lo
 
 onCreate() 方法构造了一个 HandlerThread，当 HandlerThread 启动后，它准备创建 Looper 与它的线程关联，随后 Looper 开始处理 HandlerThread 的消息队列中的消息。
 
-**注意:** _当 Activity 被销毁时，结束 HandlerThread 是很重要的，这个动作也会终止关联的 Looper。_
+**注意：当 Activity 被销毁时，结束 HandlerThread 是很重要的，这个动作也会终止关联的 Looper。**
 
 #### 总结
 
