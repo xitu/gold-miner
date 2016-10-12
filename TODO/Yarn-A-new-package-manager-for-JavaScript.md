@@ -86,9 +86,9 @@
 *   `npm install` → `yarn`
 
     不需要带参数，`yarn` 命令会读取 `package.json` 文件，然后从 npm 仓库中抓取软件包，并放置到 `node_modules` 目录中。等价于运行 `npm install`。
-*   `npm install --save <name></name>` → `yarn add <name></name>`
+*   `npm install --save <name>` → `yarn add <name>`
 
-    我们避免了 `npm install <code><name></name>` 命令中安装“不可见的依赖”的行为，并分离出一个新命令。运行 `yarn add <code><name></name>` 等价于运行 `npm install --save <code><name></name>`。
+    我们避免了 `npm install <name>` 命令中安装“不可见的依赖”的行为，并分离出一个新命令。运行 `yarn add <name>` 等价于运行 `npm install --save <name>`。
 
 ### 未来
 
