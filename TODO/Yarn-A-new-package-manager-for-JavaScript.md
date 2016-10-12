@@ -99,15 +99,3 @@ Many of us came together to build Yarn to solve common problems, and we knew tha
 
 
 
-## More to Read
-
-[
-
-## Lessons from building social experiences in VR
-
-](https://code.facebook.com/posts/1749617585290346/lessons-from-building-social-experiences-in-vr/)
-
-
-
-
-
