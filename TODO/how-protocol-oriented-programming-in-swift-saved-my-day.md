@@ -24,7 +24,7 @@ Swift 通过一种新的叫做面向协议的编程规范来与解决传统的�
 
 [![](https://i.ytimg.com/vi_webp/g2LwFZatfTI/hqdefault.webp)](https://www.youtube.com/embed/g2LwFZatfTI?wmode=opaque&widget_referrer=https%3A%2F%2Fmedium.com%2Fmedia%2Ff137712b1f42988c4a0a99675aa7c26d%3FmaxWidth%3D700&enablejsapi=1&origin=https%3A%2F%2Fcdn.embedly.com&widgetid=1)
 
-Swift 在最初的时候是包含值类型的概念。结构体和枚举都是 Swift 中的[一等公民](https://en.wikipedia.org/wiki/First-class_citizen),还拥有很多像 propertites, methods 和 extensions 等在大多数语言只有类才有的特点。虽然在Swift中值类型不支持继承，但是通过遵循接口的方式一样能够享受到面向协议的好处。
+Swift 在最初的时候是包含值类型的概念。结构体和枚举都是 Swift 中的[一等公民](https://en.wikipedia.org/wiki/First-class_citizen),还拥有很多像 propertites, methods 和 extensions 等在大多数语言只有类才有的特点。虽然在Swift中值类型不支持继承，但是通过遵循协议的方式一样能够享受到面向协议的好处。
 
 Ray Wunderlich 的面向协议编程的教程展示了它的能力。
 
