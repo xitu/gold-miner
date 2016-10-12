@@ -1,11 +1,8 @@
 > * 原文地址：[Yarn: A new package manager for JavaScript](https://code.facebook.com/posts/1840075619545360)
-* 原文作者：[Sebastian McKenzie](https://www.facebook.com/sebmck)
+* 原文作者 : [SEBASTIAN MCKENZIE](https://www.facebook.com/sebmck)，[CHRISTOPH POJER](https://www.facebook.com/cpojer)，[JAMES KYLE](https://www.facebook.com/thejameskyle)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：
 * 校对者：
-
-
-
 
 
 In the JavaScript community, engineers share hundreds of thousands of pieces of code so we can avoid rewriting basic components, libraries, or frameworks of our own. Each piece of code may in turn depend on other pieces of code, and these dependencies are managed by package managers. The most popular JavaScript package manager is the npm client, which provides access to more than 300,000 packages in the npm registry. More than 5 million engineers use the npm registry, which sees up to 5 billion downloads every month.
