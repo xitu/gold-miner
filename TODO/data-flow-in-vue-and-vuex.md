@@ -1,3 +1,5 @@
+# VUE 和 VUEX 中的数据流
+
 > * 原文地址：[DATA FLOW IN VUE AND VUEX](https://benjaminlistwon.com/blog/data-flow-in-vue-and-vuex/)
 * 原文作者：[Benjamin Listwon](https://benjaminlistwon.com/about/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
