@@ -1,35 +1,33 @@
 > * 原文地址：[4 must-know tips for building cross platform Electron apps](https://blog.avocode.com/blog/4-must-know-tips-for-building-cross-platform-electron-apps)
 * 原文作者：[Kilian Valkhof](https://blog.avocode.com/authors/kilian-valkhof)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
-* 校对者：
+* 译者：[huanglizhuo](https://github.com/huanglizhuo/)
+* 校对者：[DeadLion](https://github.com/DeadLion) , [zhouzihanntu](https://github.com/zhouzihanntu)
 
 
-[Electron](https://electron.atom.io) ，被包括 Avocode 在内的众多 app 采用的技术，允许你很快的实现并运行你跨平台桌面应用。如果你不注意的话你的 app 就会变得很怪异，你的 app 并不能像其它应用那样有序。
+[Electron](https://electron.atom.io) ，是包括 Avocode 在内的众多 app 采用的技术，能让你快速实现并运行一个跨平台桌面应用。。有些问题不注意的话，你的 app 很快就会掉到“坑”里。无法从其它 app 中脱颖而出。
 
 
 
-这是我 2016 年 5月 在 Amsterdam Electron Meetup 上演讲的手抄版，考虑到 api 的改变。注意，这些会很深入细节，并且假设你很熟悉 Electron。
+这是我 2016 年 5月 在 Amsterdam 的 Electron Meetup 上演讲的手抄版，加入了对 api 变化的考虑。注意，以下内容会很深入细节，并假设你对 Electron有一定了解。
 
 **首先，我是谁**
 
 
 
-我是 Kilian Valkhof ，一个前端工程师，UX 设计师，app 开发者，主要取决于你问谁。我有过10年丰富的互联网从业经验，用过各种环境去构建桌面应用，比如 GTK 和 QT ，当然也包括 Electron。
+我是 Kilian Valkhof ，一个前端工程师，UX 设计师，app 开发者，取决于你的提问对象是谁。我有超过10年的互联网从业经验，在各种环境下构建过桌面应用，比如 GTK 和 QT ，当然也包括 Electron。
 
 
 
-我最近在开发的一个应用是 [Fromscratch](https://fromscratch)，一个免费的跨平台的自动保存笔记的应用，你应该尝试一下。
+你或许应该试试我最近开发的一个自动保存笔记的免费跨平台应用 [Fromscratch](https://fromscratch/) 。
 
 
 
-在开发 Fromscratch 期间，我花了大量的时间确保 app 在所有平台上都能够用起来很好，并在 Electron 中找到了如何实现它。这些都是我挖坑填坑过程中积累起来的。
+在 Fromscratch 的开发过程中，我花了大量时间确保应用在三大平台上都能保持良好运行，并找到了在 Electron 中的实现方法。这些都是我挖坑填坑过程中积累起来的。
 
 
 
-在 Electron 让 app 使用起来很舒服并且很一致并不难，你只需要注意些细节。
-
-
+使用 Electron 让 app 使用感和一致性良好并不难，你只需要注意以下细节。
 
 ## **1\. 在 macOS 上复制粘贴**
 
@@ -128,7 +126,7 @@
 
 如果你已经有了菜单，你需要参数去包含上面的 剪切/复制/粘贴命令。
 
-### 1.1 添加icon
+### 1.1 添加 icon
 
 ...否则你的应用在 ubuntu 上就是这样的:
 
@@ -201,7 +199,7 @@ CSS 在这里可以帮助我们；对于任何按钮，菜单，或者其它任�
 electron-packager 不需要额外的 icon 来为给定的平台选择正确的图标：
 
     $ electron-packager . MyApp *--icon=img/icon* --platform=all --arch=all --version=0.36.0 --out=../dist/ --asar
-好吧，我是写完构建针对不同版本选用不同 icon 脚本之后才反现的 :(
+好吧，我是写完构建针对不同版本选用不同 icon 脚本之后才发现的 :(
 
 
 
@@ -213,7 +211,7 @@ electron-packager 不需要额外的 icon 来为给定的平台选择正确的�
 
 ### 2.1 指定 BrowserWindow 背景颜色
 
-如果你的应用没有白色背景，那么一定要在 BrowserWindow 选项中明确声明。这并不会阻止应用加载时的纯色方块，但至少它不会半路该变颜色：
+如果你的应用没有白色背景，那么一定要在 BrowserWindow 选项中明确声明。这并不会阻止应用加载时的纯色方块，但至少它不会半路改变颜色：
 
 
 
@@ -251,7 +249,7 @@ electron-packager 不需要额外的 icon 来为给定的平台选择正确的�
 
 这个问题对在  "native" apps 中也存在，这也是我发现最令人头疼的事情之一。本来一个位置处理很好的 app 在重启时所有的位置又变为默认的了，虽然这对于开发者来说是很合理的，但这会让人有种想撞墙的冲动。千万不要这样做。
 
-相反，保存窗口的大小和位置，并在每次重启时恢复，你的用户会很感激你的。
+相反，保存窗口的大小和位置，并在每次重启时恢复，你的用户会很感激的。
 
 ### 3.1预编译方案
 
@@ -261,7 +259,7 @@ electron-packager 不需要额外的 icon 来为给定的平台选择正确的�
 
 ### 3.2 自己处理滚动
 
-你可可以自己处理滚动，这也正是我用的方案，主要是基于我前几年给  [Trimage](https://trimage.org) 写的代码的基础上实现的。并不需要写很多的代码，而且可以给你很多控制权。下面是演示：
+你可以自己处理滚动，这也正是我用的方案，主要是基于我前几年给  [Trimage](https://trimage.org) 写的代码的基础上实现的。并不需要写很多的代码，而且可以给你很多控制权。下面是演示：
 
 #### 3.2.1 把状态保存起来
 
@@ -289,7 +287,7 @@ electron-packager 不需要额外的 icon 来为给定的平台选择正确的�
 
          }
 
-当然了这在第一次打开是并不行，你的处理这种情况。可以提供默认设置，一旦你的在 JavaScript 对象中获取到了前一次的状态，就采用保存的状态去设置 BrowserWindow 的大小：
+当然了，第一次启动的时是不可行，你得处理这种情况。可以提供默认设置，一旦你的在 JavaScript 对象中获取到了前一次的状态，就采用保存的状态去设置 BrowserWindow 的大小：
 
     var mainWindow = new BrowserWindow({
 
@@ -304,7 +302,7 @@ electron-packager 不需要额外的 icon 来为给定的平台选择正确的�
          height: windowState.bounds && windowState.bounds.height || 450,
 
        });
-正如你看到的那样，我通过提供 回退值来添加默认设置。
+正如你看到的那样，我通过提供回退值来添加默认设置。
 
 现在在 Electron 中，在开启应用时并不能以最大化状态启动应用，因此我们得在创建好 BrowserWindow 之后再最大化窗口。
 
@@ -384,10 +382,10 @@ CSS 是个相当强大个布局方式，尤其是把  `calc()` 和 flexbox 结�
 
 ## **感谢!**
 
-在 Electron 中构建应用是一件很有趣的事情并且会让你有很的收获感 : 你可以在很短的时间内实现并运行一个跨平台的应用。如果你之前从没有用过 Electron 我希望这篇文章可以引起你足够的兴趣去尝试它。[Electron](http://electron.atom.io) 的网站有很全的文档以及很多很酷的 Demo 可以让你尝试它的 API 
+在 Electron 中构建应用是一件很有趣的事情并且会让你有很的收获 : 你可以在很短的时间内实现并运行一个跨平台的应用。如果你之前从没有用过 Electron 我希望这篇文章可以引起你足够的兴趣去尝试它。很多的收获[Electron](http://electron.atom.io) 的网站有很全的文档以及很多很酷的 Demo 可以让你尝试它的 API 
 
 如果你已经在写 Electron 应用了，我希望上面的可以鼓励你更多的考虑你的 app 在所有平台上究竟运行的怎么样。
 
-最后，如果你有什么附件的小贴士，请把它写在评论区。
+最后，有什么其他的小贴士，请把它写在评论区。
 
 
