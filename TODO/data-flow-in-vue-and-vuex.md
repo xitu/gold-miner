@@ -30,17 +30,19 @@
 
 ##### index.html
 
-    <div id="app"></div>
-    <script>
-      var store = {
-        state: {
-          messages: []
-        },
-        newMessage (msg) {
-          this.state.messages.push(msg)
-        }
-      }
-    </script>
+```
+<div id="app"></div>
+<script>
+  var store = {
+    state: {
+      messages: []
+    },
+    newMessage (msg) {
+      this.state.messages.push(msg)
+    }
+  }
+</script>
+```
 
 这里有两个关键的地方：
 
@@ -49,28 +51,30 @@
 
 ##### App.vue
 
-		<template>
-			<div id="app">
-				<div class="row">
-					<div class="col">
-						<client clientid="Client A"></client>
-					</div>
-					<div class="col">
-						<client clientid="Client B"></client>
-					</div>
-				</div>
-			</div>
-		</template>
+```
+<template>
+  <div id="app">
+    <div class="row">
+      <div class="col">
+        <client clientid="Client A"></client>
+      </div>
+      <div class="col">
+        <client clientid="Client B"></client>
+      </div>
+    </div>
+  </div>
+</template>
 
-		<script>
-		import Client from './components/Client.vue'
+<script>
+import Client from './components/Client.vue'
 
-		export default {
-			components: {
-				Client
-			}
-		}
-		</script>
+export default {
+  components: {
+    Client
+  }
+}
+</script>
+```
 
 
 这里我们引入了 Client 组件，并创建了两个它的实例，使用一个属性：`clientid`，来对每个实例进行区分。事实上，你应该更动态地去实现这些，但别忘了，目前快捷简单更重要。
@@ -79,44 +83,47 @@
 
 ##### Client.vue
 
-		<template>
-			<div>
-				<h1>{{ clientid }}</h1>
-				<div class="client">
-					<ul>
-							<li v-for="message in messages">
-								<label>{{ message.sender }}:</label> {{ message.text }}
-							</li>
-					</ul>
-					<div class="msgbox">
-						<input v-model="msg" placeholder="Enter a message, then hit [enter]" @keyup.enter="trySendMessage">
-					</div>
-				</div>
-			</div>
-		</template>
-    <script>
-    export default {
-      data() {
-        return {
-          msg: '',
-          messages: store.state.messages
-        }
-      },
-      props: ['clientid'],
-      methods: {
-        trySendMessage() {
-          store.newMessage({
-            text: this.msg,
-            sender: this.clientid
-          })
-          this.resetMessage()
-        },
-        resetMessage() {
-          this.msg = ''
-        }
-      }
+```
+<template>
+  <div>
+    <h1>{{ clientid }}</h1>
+    <div class="client">
+      <ul>
+        <li v-for="message in messages">
+          <label>{{ message.sender }}:</label> {{ message.text }}
+        </li>
+      </ul>
+      <div class="msgbox">
+        <input v-model="msg" placeholder="Enter a message, then hit [enter]" @keyup.enter="trySendMessage">
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      msg: '',
+      messages: store.state.messages
     }
-		</script>
+  },
+  props: ['clientid'],
+  methods: {
+    trySendMessage() {
+      store.newMessage({
+        text: this.msg,
+        sender: this.clientid
+      })
+      this.resetMessage()
+    },
+    resetMessage() {
+      this.msg = ''
+    }
+  }
+}
+</script>
+```
 
 
 下面是应用程序的主要内容：
@@ -148,88 +155,95 @@
 
 ##### main.js
 
-    import store from './vuex/store'
+```
+import store from './vuex/store'
 
-    new Vue({ // eslint-disable-line no-new
-      el: '#app',
-      render: (h) => h(App),
-      store: store
-    })
+new Vue({ // eslint-disable-line no-new
+  el: '#app',
+  render: (h) => h(App),
+  store: store
+})
+```
 
 这次，我们用 Vuex 创建了一个存储并将其直接传入应用程序当中，替代掉了之前`index.html`中的 `store` 对象。在继续之前，先来看一下这个存储：
 
 ##### store.js
 
-    export default new Vuex.Store({
+```
+export default new Vuex.Store({
 
-      state: {
-        messages: []
-      },
+  state: {
+    messages: []
+  },
 
-      actions: {
-        newMessage ({commit}, msg) {
-          commit('NEW_MESSAGE', msg)
-        }
-      },
+  actions: {
+    newMessage ({commit}, msg) {
+      commit('NEW_MESSAGE', msg)
+    }
+  },
 
-      mutations: {
-        NEW_MESSAGE (state, msg) {
-          state.messages.push(msg)
-        }
-      },
+  mutations: {
+    NEW_MESSAGE (state, msg) {
+      state.messages.push(msg)
+    }
+  },
 
-      strict: debug
+  strict: debug
 
-    })
+})
+```
 
 和我们自己创建的对象非常相似，但是多了一个`mutations`对象。
 
 ##### Client.vue
 
-
-    <div class="row">
-			<div class="col">
-				<client clientid="Client A"></client>
-			</div>
-			<div class="col">
-				<client clientid="Client B"></client>
-			</div>
-		</div>
+```
+<div class="row">
+  <div class="col">
+    <client clientid="Client A"></client>
+  </div>
+  <div class="col">
+    <client clientid="Client B"></client>
+  </div>
+</div>
+```
 
 和上次一样的配方。（惊人的相似，对吧？）
 
 ##### Client.vue
 
-    <script>
-    import { mapState, mapActions } from 'vuex'
+```
+<script>
+import { mapState, mapActions } from 'vuex'
 
-    export default {
-      data() {
-        return {
-          msg: ''
-        }
-      },
-      props: ['clientid'],
-      computed: {
-        ...mapState({
-          messages: state => state.messages
-        })
-      },
-      methods: {
-        trySendMessage() {
-          this.newMessage({
-            text: this.msg,
-            sender: this.clientid
-          })
-          this.resetMessage()
-        },
-        resetMessage() {
-          this.msg = ''
-        },
-        ...mapActions(['newMessage'])
-      }
+export default {
+  data() {
+    return {
+      msg: ''
     }
-		</script>
+  },
+  props: ['clientid'],
+  computed: {
+    ...mapState({
+      messages: state => state.messages
+    })
+  },
+  methods: {
+    trySendMessage() {
+      this.newMessage({
+        text: this.msg,
+        sender: this.clientid
+      })
+      this.resetMessage()
+    },
+    resetMessage() {
+      this.msg = ''
+    },
+    ...mapActions(['newMessage'])
+  }
+}
+</script>
+```
 
 
 模板仍然刚好一样，所以我甚至不需要费心怎么去引入它。最大的不同在于：
@@ -249,10 +263,12 @@
 
 不要着急，慢慢来，一步一个台阶。当然也可以使用[vue-cli](https://github.com/vuejs/vue-cli)从创建一个模板开始，我使用[browserify](https://github.com/vuejs-templates/browserify)模板，并把下面的代码添加进我的`package.json`文件。
 
-    "dependencies": {
-        "vue": "^2.0.0-rc.6",
-        "vuex": "^2.0.0-rc.5"
-    }
+```
+"dependencies": {
+    "vue": "^2.0.0-rc.6",
+    "vuex": "^2.0.0-rc.5"
+}
+```
 
 ## 还在看吗？
 
@@ -260,43 +276,46 @@
 
 ##### App.vue
 
-    <div class="row">
-			<div class="col">
-				<client clientid="Client A" :messages="messages" :callback="newMessage"></client>
-			</div>
-			<div class="col">
-				<client clientid="Client B" :messages="messages" :callback="newMessage"></client>
-			</div>
-		</div>
+```
+<div class="row">
+  <div class="col">
+    <client clientid="Client A" :messages="messages" :callback="newMessage"></client>
+  </div>
+  <div class="col">
+    <client clientid="Client B" :messages="messages" :callback="newMessage"></client>
+  </div>
+</div>
+```
 
 
 这里，我在组件上使用了一个属性将一个动态绑定传递到`messages`集合里。**但是**，我同时还传递了一个动作函数，所以可以在子组件里调用它。
 
 ##### Client.vue
 
-    <script>
-    export default {
-      data() {
-        return {
-          msg: ''
-        }
-      },
-      props: ['clientid', 'messages', 'callback'],
-      methods: {
-        trySendMessage() {
-          this.callback({
-            text: this.msg,
-            sender: this.clientid
-          })
-          this.resetMessage()
-        },
-        resetMessage() {
-          this.msg = ''
-        }
-      }
+```
+<script>
+export default {
+  data() {
+    return {
+      msg: ''
     }
-		</script>
-
+  },
+  props: ['clientid', 'messages', 'callback'],
+  methods: {
+    trySendMessage() {
+      this.callback({
+        text: this.msg,
+        sender: this.clientid
+      })
+      this.resetMessage()
+    },
+    resetMessage() {
+      this.msg = ''
+    }
+  }
+}
+</script>
+```
 
 这里就是不好的做法。
 
