@@ -107,7 +107,6 @@
     *   拍一张照片并上传到 [InVision](https://www.invisionapp.com/)。
     *   上传并把图片关联到 [Realtimeboard](https://realtimeboard.com/hello/)。
     *   或者仅仅是用_电子邮件_发送图片。
-
 10.  **回顾草图并添加笔记** - 稍微休息一下然后再回过头来看看你的草图。这些草图对你来说是否仍然是易于理解的？一个好的草图必然是让人易于理解的。
 
 ![](https://assets.toptal.io/uploads/blog/image/121216/toptal-blog-image-1474978448447-40701c83cf93e9be6339d4f0af43109c.png)
