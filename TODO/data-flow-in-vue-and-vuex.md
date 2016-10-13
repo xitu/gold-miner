@@ -1,32 +1,32 @@
 > * 原文地址：[DATA FLOW IN VUE AND VUEX](https://benjaminlistwon.com/blog/data-flow-in-vue-and-vuex/)
 * 原文作者：[Benjamin Listwon](https://benjaminlistwon.com/about/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[linpu.li](https://github.com/llp0574)
 * 校对者：
 
-It seems like one of the things that trips people up in [Vue](https://vuejs.org) is how to share state across components. For those new to reactive programming, something like [vuex](https://github.com/vuejs/vuex/) can seem daunting with loads of new jargon and the way it separates concerns. It can also seem like overkill when all you want is to share one or two pieces of data.
+看起来在 [Vue](https://vuejs.org) 里面困扰开发者的事情之一是如何在组件之间共享状态。对于刚刚接触响应式编程的开发者来说，学习 [Vuex](https://github.com/vuejs/vuex/) 这种库，伴随着许多新名词及其分离关注点的方式，似乎是件非常难的事情。
 
-With that in mind, I thought I’d pull together a couple of quick demos. The first implements shared state by using a simple javascript object that is referenced by each new component. The second does the same with vuex. There’s also an example of something that, while it works, you should _never_ do. (We’ll look at why at the end.)
+考虑到这一点的话，我想我应该把两个简短的演示放到一起展示出来。第一个通过使用一个简单的 JavaScript 对象，在每个新组件当中引用来实现共享状态。第二个做了和 Vuex 一样的事情，当它运行成功的时候，也是一个你绝对不应该做的事情的示例（我们将在最后看看为什么）。
 
-You can start by checking out the demos:
+你可以通过查看下面这些演示来开始：
 
 *   [Using shared object](https://benjaminlistwon.com/demo/dataflow/shared/index.html)
 *   [Using vuex](https://benjaminlistwon.com/demo/dataflow/vuex/index.html)
 *   [Using evil bindings](https://benjaminlistwon.com/demo/dataflow/evil/index.html)
 
-Or [grab the repo](https://github.com/BenjaminListwon/vue-data-flow) and try it out locally! The code is 2.0 specific at a couple points, but the data flow theory is relevant in any version and is easily ported down to 1.0 with a couple changes that I try to note below.
+或者获取[这个仓库](https://github.com/BenjaminListwon/vue-data-flow)并在本地运行试试看！代码里很多地方是2.0版本的特性，但我接下来想讲的数据流概念在任何版本里都是相关的，并且它可以通过一些改变很轻易地向下兼容到1.0。
 
-The demos are all the same, just implemented differently. The app consists of two instance of a single chat component. Whena user posts a message in one instance, it should appear in both chat windows because the message state is what is shared. Here’s a screenshot:
+这些演示都是一样的功能，只是实现的方法不同。应用程序由两个独立的聊天组件实例组成。当用户在一个实例里提交一个消息的时候，它应该在两个聊天窗口都出现，因为消息状态是共享的，下面是一个截图：
 
 ![](http://ac-Myg6wSTV.clouddn.com/db8486b182725e0a482f.png)
 
-## Sharing State With An Object
+## 用一个对象共享状态
 
-To start off, let’s take a look at how the data will flow in our example app.
+开始前，让我们先来看看数据是如何在示例的应用程序当中流转的。
 
 ![](https://benjaminlistwon.com/postimg/data-flow-in-vue-and-vuex/shared-state-01.svg)
 
-In this demo we’ll use a simple javascript object, `var store = {...}`, to share our state between the instances of the `Client.vue` component. Here’s the important bits of the key files.
+在这个演示里，我们将使用一个简单的 JavaScript 对象：`var store = {...}`，在`Client.vue`组件的实例之间共享状态。下面是关键文件的重要代码部分：
 
 ##### index.html
 
@@ -42,10 +42,10 @@ In this demo we’ll use a simple javascript object, `var store = {...}`, to sha
       }
     </script>
 
-There’s two key things here.
+这里有两个关键的地方：
 
-1.  We make the object available to our entire app by just adding it to `index.html`. We could inject it into the app further down the chain, but this is quick and easy for now.
-2.  We store our state here, but we also provide a function to act on that data. Rather than scatter unctions all over our components, we want to keep them all in one place, and simple use them whereever we need them.
+1.  我们通过把这个对象直接添加到`index.html`里来让其对整个应用程序可用，也可以将它注入到应用程序里更下一层的作用链，但目前直接添加显然更快捷简单。
+2.  我们在这里保存状态，但同时也提供了一个函数来调用它。相比起分散在组件各处的函数，我们更倾向于让它们保持在一个地方（便于维护），并在任何需要它们的地方简单使用。
 
 ##### App.vue
 
@@ -71,11 +71,11 @@ There’s two key things here.
 			}
 		}
 		</script>
-          
-    
-Here we import our client componet, and create two instances of it. We use a prop, `clientid`, to uniquely identify each client. In reality, you’d do this more dynamically, but remember, quick and easy for now.
 
-One thing to note, we don’t even pull in any state here at all.
+
+这里我们引入了 Client 组件，并创建了两个它的实例，使用一个属性：`clientid`，来对每个实例进行区分。事实上，你应该更动态地去实现这些，但别忘了，目前快捷简单更重要。
+
+注意一点，到这里我们还完全没有同步任何状态。
 
 ##### Client.vue
 
@@ -94,7 +94,7 @@ One thing to note, we don’t even pull in any state here at all.
 				</div>
 			</div>
 		</template>
-    <script> 
+    <script>
     export default {
       data() {
         return {
@@ -106,7 +106,7 @@ One thing to note, we don’t even pull in any state here at all.
       methods: {
         trySendMessage() {
           store.newMessage({
-            text: this.msg, 
+            text: this.msg,
             sender: this.clientid
           })
           this.resetMessage()
@@ -117,34 +117,34 @@ One thing to note, we don’t even pull in any state here at all.
       }
     }
 		</script>
-    
 
-Here’s the meat of the app.
 
-1.  In the template, we set up our `v-for` loop to iterate over the `messages` collection.
-2.  The `v-model` binding on our text input simply stores the message the component’s local data object at `msg`.
-3.  Also in the data object, we establish a reference to `store.state.messages`. This is what will trigger the update of our component.
-4.  Lastly, we bind the enter key to the `trySendMessage` function. That function is a wrapper that
-    1.  Prepares the data to be stored (a dictionary of sender and message).
-    2.  Invokes the `newMessage` function we defined on our shared store.
-    3.  Calls a cleanup function, `resetMessage`, that resets the input box. Typically you’d call that after a promise is fulfilled.
+下面是应用程序的主要内容：
 
-That’s it! Go [give it a try](https://benjaminlistwon.com/demo/dataflow/shared/index.html).
+1.  在该模板里，设置一个`v-for`循环去遍历`messages`集合。
+2.  绑定在文本输入框上的`v-model`简单地存储了组件的本地数据对象`msg`。
+3.  同样在数据对象里，我们创建了一个`store.state.messages`的引用，它将触发组件的更新。
+4.  最后，将 enter 键绑定到`trySendMessage`函数，这是一个装饰器函数，它将会：
+    1.  准备好需要存储的数据（发送者和消息的一个字典对象）。
+    2.  调用定义在共享存储里的`newMessage`函数。
+    3.  调用一个清理函数：`resetMessage`，重置输入框。通常你更应该在一个`promise`完成之后再调用它。
 
-## Sharing State With Vuex
+这就是使用对象的方法，来[试一试](https://benjaminlistwon.com/demo/dataflow/shared/index.html)。
 
-Okay, so now let’s try it with vuex. Again, a diagram, so we can map vuex’s terminology (actions, mutations, etc) to the example we just went through.
+## 用 Vuex 共享状态
+
+好了，现在来试试看用 Vuex 实现。同样的，先上图，也便于我们将 Vuex 的术语（actions，mutations等等）对应到我们刚刚完成的示例中。
 
 ![](https://benjaminlistwon.com/postimg/data-flow-in-vue-and-vuex/vuex-01.svg)
 
-As you can see, vuex simply formalizes the process we just went through. When you use it, you do the very same things we did above:
+正如你所看到的，Vuex 简单地形式化了我们刚刚完成的过程。使用它的时候，所做的事情其实和我们上面做过的非常像：
 
-1.  Create a store that is shared, in this case injected into components for you by vue/vuex.
-2.  Define actions that components can call, so they remain centralized.
-3.  Define mutations which actually touch the store’s state. We do this so actions can compose more than one mutation, or perform logic todetermine which mutation to call. That means you never have to worry about that business logic in the components. Win!
-4.  When the state is updated, any component with a getter, computed property, or other mapping to the store will be instantly up-to-date.
+1.  创建一个用来共享的存储，在这个例子中它将通过 vue/vuex 注入到组件当中。
+2.  定义组件可以调用的 actions，它们仍然是集中定义的。
+3.  定义实际接触存储状态的 mutations。我们这么做，actions 就可以形成不止一个 mutation，或者执行逻辑去决定调用哪一个 mutation。这以为着你再也不用担心组件当中的业务逻辑了，成功！
+4.  当状态更新时，任何有着获取器（getter），计算出的属性或者其他映射到存储的变量的组件将会立即更新。
 
-Again, the code.
+同样再来看看代码：
 
 ##### main.js
 
@@ -156,7 +156,7 @@ Again, the code.
       store: store
     })
 
-This time, instead of a `store` object in the index, we create it with vuex and pass it into our app directly. Let’s take a look at the store, before we continue.
+这次，我们用 Vuex 创建了一个存储并将其直接传入应用程序当中，替代掉了之前`index.html`中的 `store` 对象。在继续之前，先来看一下这个存储：
 
 ##### store.js
 
@@ -182,11 +182,11 @@ This time, instead of a `store` object in the index, we create it with vuex and 
 
     })
 
-Very similar to the object we made ourselves, but with the addition of the `mutations` object.
+和我们自己创建的对象非常相似，但是多了一个`mutations`对象。
 
 ##### Client.vue
 
-    
+
     <div class="row">
 			<div class="col">
 				<client clientid="Client A"></client>
@@ -195,8 +195,8 @@ Very similar to the object we made ourselves, but with the addition of the `muta
 				<client clientid="Client B"></client>
 			</div>
 		</div>
-        
-Same deal as last time. (Amazing how similar it is, right?)
+
+和上次一样的配方。（惊人的相似，对吧？）
 
 ##### Client.vue
 
@@ -216,9 +216,9 @@ Same deal as last time. (Amazing how similar it is, right?)
         })
       },
       methods: {
-        trySendMessage() { 
+        trySendMessage() {
           this.newMessage({
-            text: this.msg, 
+            text: this.msg,
             sender: this.clientid
           })
           this.resetMessage()
@@ -230,33 +230,33 @@ Same deal as last time. (Amazing how similar it is, right?)
       }
     }
 		</script>
-    
 
-The template remains exactly the same, so I didn’t even bother to include it. The big differences here are:
 
-1.  We use `mapState` to bring in the reference to our shared messages collection.
-2.  we use `mapActions` to bring in the action that will create a new message.
+模板仍然刚好一样，所以我甚至不需要费心怎么去引入它。最大的不同在于：
 
-(**Note**: These are vuex 2.0 features.)
+1.  使用`mapState`来生成对共享消息集合的引用。
+2.  使用`mapActions`来生成创建一个新消息的动作（action）。
 
-And bingo, we are done! Feel free to [go give this one a look too](https://benjaminlistwon.com/demo/dataflow/vuex/index.html).
+(**注意**：这些都是 Vuex 2.0特性。)
 
-## Conclusions
+好的，做完啦！也来看一下[这个演示](https://benjaminlistwon.com/demo/dataflow/vuex/index.html)吧。
 
-So, as you can hopefully see, there is not a huge gulf between simply sharing state on your own, and using vuex. The **huge** advantage to vuex is that it formalizes the process of centralizing your data store for you, and providing all the machinery to work wirth that data.
+## 结论
 
-At first, when you read the vuex docs or examples, it can seem daunting with the individual files for mutations, actions and modules. But if you are just starting out, simply write all of those in the single `store.js` file to begin. As your file size grows, you’ll find the right time to move the actions into `actions.js` or to split them out even further.
+所以，正如你所希望看到的，使用 Vuex 简单地共享状态并不是一件非常困难的事情。而 Vuex **最大的**优点在于它为你形式化了集中处理数据存储的过程，并提供了所有功能方法去处理那些数据。
 
-Don’t fret, take it slow, and you’ll be up in no time. And definitely start off with a template used with [vue-cli](https://github.com/vuejs/vue-cli). I use the [browserify](https://github.com/vuejs-templates/browserify) template, and add the following to my `package.json`.
+最初，当你阅读 Vuex 的文档和示例的时候，它那些针对 mutations，actions 和 modules 的单独文档很容易让人感觉困扰。但是如果你敢于跨出那一步，简单地在`store.js`文件里写一些关于它们的代码来开始学习。随着这个文件变大，你就将找到正确的时间移步到`actions.js`里，或者把它们分离开来。
+
+不要着急，慢慢来，一步一个台阶。当然也可以使用[vue-cli](https://github.com/vuejs/vue-cli)来从创建一个模板开始，我使用[browserify](https://github.com/vuejs-templates/browserify)模板，并把下面的代码添加进我的`package.json`文件。
 
     "dependencies": {
         "vue": "^2.0.0-rc.6",
         "vuex": "^2.0.0-rc.5"
     }
 
-## Still Here?
+## 还在看吗？
 
-I know, I promised the “evil” way. Once again, the demo is [exactly the same](https://benjaminlistwon.com/demo/dataflow/evil/index.html). What is evil is that I am exploiting the one-way binding nature of Vue 2.0 to inject the callback function, thus allowing a two-way binding of sorts between the parent and child templates. First, check out [this portion of the 2.0 docs](http://rc.vuejs.org/guide/components.html#One-Way-Data-Flow), then take a look at my evil.
+我知道，还要再讲一个“不好的”方式。这个演示再次恰好也是[一样](https://benjaminlistwon.com/demo/dataflow/evil/index.html)。不好的地方在于我利用了 Vue 2.0里单向绑定的特性来注入回调函数，从而允许了父子模板之间顺序的双向绑定。首先，来看一下[2.0文档中的这个部分](http://rc.vuejs.org/guide/components.html#One-Way-Data-Flow)，然后再来看看我这个不好的方法。
 
 ##### App.vue
 
@@ -268,9 +268,9 @@ I know, I promised the “evil” way. Once again, the demo is [exactly the same
 				<client clientid="Client B" :messages="messages" :callback="newMessage"></client>
 			</div>
 		</div>
-      
 
-Here, I use a dynamic binding to pass in the `messages` collection using a prop on the component. _But_, I also pass in the action function so I can call it from the child component.
+
+这里，我在组件上使用了一个属性将一个动态绑定传递到`messages`集合里。**但是**，我同时还传递了一个动作函数，所以我可以在子组件里调用它。
 
 ##### Client.vue
 
@@ -283,9 +283,9 @@ Here, I use a dynamic binding to pass in the `messages` collection using a prop 
       },
       props: ['clientid', 'messages', 'callback'],
       methods: {
-        trySendMessage() { 
+        trySendMessage() {
           this.callback({
-            text: this.msg, 
+            text: this.msg,
             sender: this.clientid
           })
           this.resetMessage()
@@ -296,17 +296,16 @@ Here, I use a dynamic binding to pass in the `messages` collection using a prop 
       }
     }
 		</script>
-    
 
-Here’s the evil in action.
 
-Why so bad you ask?
+这里就是不好的做法。
 
-1.  We are defeting the one-way loop found in the diagrams above.
-2.  We create a ridculously tight coupling between the component and it’s parent.
-3.  This would be _impossible_ to maintain. If you needed twenty functions in the component, you’d have to add twenty props, manage their names, etc, etc. Then, if anything ever changed, ugh!
+要问为什么这么不好吗？
 
-So why bother showing this at all? Because I am lazy just like everyone else. Sometimes I do something like this only to discover how horrible it is down the road. Then I curse my lazy self because I have hours, or days, of cleanup to do. In this case, I hope I can help you avoid costly decisions or mistakes early by advocating for _never_ passing around anything you don’t need to. In 99% of the cases I’ve run into, a single shared state is more than perfect. (More on that 1% case soon).
+1.  我们正在破坏之前图中所展示的单向循环。
+2.  我们创建了一个在组件及其父组件之间的紧密耦合。
+3.  这将变得**不可**维护。如果你在组件里需要20个函数，你就将添加20个属性，管理它们的命名等等，然后，如果任何东西发生改变，呃！
 
+所以为什么还要再展示这段？因为我和其他人一样很懒。有时我就会做这样的事情，仅仅想知道再往下走到底会有多么糟糕，然后我就会咒骂自己的懒惰，因为我要花上一小时或者一天的时间去清理它们。鉴于这种情况，我希望我可以帮助你尽早避免无谓的决定和错误，**千万不要**传递任何你不需要的东西。我遇到过99%的情况下，一个单独的共享状态已经足够完美。（不久再详细讲讲1%的情况）
 
 
