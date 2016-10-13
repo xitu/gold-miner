@@ -1,7 +1,7 @@
 > * 原文地址：[Everything You Need to Know about UX Sketching](https://www.toptal.com/designers/ux/guide-to-ux-sketching)
 * 原文作者：[NICK VYHOUSKI](https://www.toptal.com/designers/resume/nick-vyhouski)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：Funtrip
 * 校对者：
 
 
@@ -60,7 +60,7 @@
 
 但是，这么做_并不意味着要添加上每一个细节_。很显然，有些事只要标记一下就可以了。此外，有些东西也很难在纸上被详细描述。
 
-在这一步中，我会画出所有_重要的细节_，但我还并不打算在[Balsamiq](https://balsamiq.com/)中绘制线框图。等我在纸上把所有事都做好之后，我再开始使用 Sketch 来绘制线框图。
+在这一步中，我会画出所有_重要的细节_，但我还并不打算在 [Balsamiq](https://balsamiq.com/) 中绘制线框图。等我在纸上把所有事都做好之后，我再开始使用 Sketch 来绘制线框图。
 
 > 数字化的工具相比于传统纸张，为创作提供了更广阔的自由空间。并且，你可以很轻易地把注意力放到微小的细节上。比如说，相比于设计，你可以把注意力集中于「像素级的改进」。
 
@@ -287,7 +287,7 @@
 就像你看到的那样，这涉及到了_许多东西_。设计师可以用很多的工具，技巧和方法去创作草图，而且最好是主观的。当然每个人的工作不同，这些技巧可能有用，但也可能并不是对每个人都有用。如果你准备好开始这么做，你一定要先做一些试验。
 
 > 经常练习和试验可以帮助你找到适合你的工作方法。
-想要怎么选择最适合你工作方法的提示和技巧，取决于你自己。你对[UXers](https://www.toptal.com/ux)有任何关于草图的技巧要补充吗？在评论区随意分享吧。
+想要怎么选择最适合你工作方法的提示和技巧，取决于你自己。你对 [UXers](https://www.toptal.com/ux) 有任何关于草图的技巧要补充吗？在评论区随意分享吧。
 
 **相关链接：** [The Art Of Meaningful UX Design](https://www.toptal.com/designers/marketing/delight-meaningful-ux-design)
 
