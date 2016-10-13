@@ -284,6 +284,7 @@
 就像你看到的那样，这涉及到了_许多东西_。设计师可以用很多的工具，技巧和方法去创作草图，而且最好是主观的。当然每个人的工作不同，这些技巧可能有用，但也可能并不是对每个人都有用。如果你准备好开始这么做，你一定要先做一些试验。
 
 > 经常练习和试验可以帮助你找到适合你的工作方法。
+
 想要怎么选择最适合你工作方法的提示和技巧，取决于你自己。你对 [UXers](https://www.toptal.com/ux) 有任何关于草图的技巧要补充吗？在评论区随意分享吧。
 
 **相关链接：** [The Art Of Meaningful UX Design](https://www.toptal.com/designers/marketing/delight-meaningful-ux-design)
