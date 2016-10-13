@@ -46,43 +46,43 @@
 
 我列出了下面这些不同类型的草图:
 
-* 手绘图：提出构思
+* 草稿：提出构思
 
-These are initial sketches. Lower level details are simply noted. A limited number of colors is employed.
+这些是最初的草图版本，用于指出较低程度的细节，色彩的使用范围也有限。
 
-I draw a lot of basic sketches to consider the problem from different angles and to consider different solutions. While drawing such sketches, I am also striving to generate as many solution variants as possible.
+我会绘制大量简单的手绘图来以不同的角度思考问题和解决方案。当我绘制了足够多的手绘图，我也尽可能地去让这些解决方案发散开来。
 
-At this particular step incompleteness frees my mind, which is why it is so important to avoid getting bogged down in minutiae at this stage. My goal is to generate as many ideas as possible and choose the most promising ones.
+在这个特别的步骤里，低完成度的要求使我放开了思想，因为要避免在这个阶段陷入一些细枝末节是非常重要的。我的目标是尽可能地想出许多的点子，并选择出最合适的哪一个。
 
 * **线框图：规范的细化阶段**
 
-I usually pick promising sketches and go over the details, after which I choose the best variant and work it out in greater detail.
+在我选出一个最好的想法并有了大体的细节之后，我通常会挑选出合适的草图来继续细化。
 
-However, this does _not mean every single detail_. Obvious things may just be noted. Moreover, some aspects will be difficult to describe on paper.
+但是，这么做_并不意味着要添加上每一个细节_。很显然，有些事只要标记一下就可以了。此外，有些东西也很难在纸上被详细描述。
 
-At this step, I draw all the _important details_, but I do not yet draw wireframes in [Balsamiq](https://balsamiq.com/). After everything is done on the paper, I start drawing in Sketch.
+在这一步中，我会画出所有_重要的细节_，但我还并不打算在[Balsamiq](https://balsamiq.com/)中绘制线框图。等我在纸上把所有事都做好之后，我再开始使用 Sketch 来绘制线框图。
 
-> Digital tools provide a lot more creative freedom than paper and you can easily shift attention to minor things. For example, you can focus on "pixel polishing" instead of design.
+> 数字化的工具相比于传统纸张，为创作提供了更广阔的自由空间。并且，你可以很轻易地把注意力放到微小的细节上。比如说，相比于设计，你可以把注意力集中于「像素级的改进」。
 
 * 视觉设计稿
 
-This is a rarely used approach, but sometimes it can be helpful. Various visual solutions are considered at an early stage of the project, but it may take a long time to create digital sketches for all of them. That is why I draw design sketches on paper first, to consider different options and choose a visual design direction.
+这看起来和上一步很接近，但许多时候它依然是很有帮助的。视觉设计稿解决的是帮助你在初期阶段来思考你的项目，但这也许会耗费你相当多的时间来把它们都在电脑上绘制出来。这也是为什么我首先在纸上绘制手绘稿，在思考了不同的方案之后再选择一个合适的视觉设计方向。
 
 * **部件/元素分解**
 
-I find this technique useful when I have already have a general idea and I am thinking about a particular page functionality, or of the integral parts of interface components. I draw different page elements, going into detail, and then draw different possible positions of the page elements.
+我发现当我有了一个大体的想法，而我需要考虑某一个特定页面的功能或是界面中的必要组成部分时，这个技巧就是非常有用处的了。我会画出不同的页面元素，去深入它们的细节，然后在不同位置画出这些页面元素。
 
-Elements, even the most simple ones, must have a state; a button can be pressed and it has a hover text block that may or may not be empty. The more complex it is, the more states it has.
+即便是最简单的一个元素，也一定会有它特定的状态；一个按钮可以被按下，一个文字框可以是空的也可以被填满。它的组成越复杂，那么它的状态也越多样。
 
 ![](https://assets.toptal.io/uploads/blog/image/121220/toptal-blog-image-1474978796798-825431fd42dbca2c9a78a5046003b9d7.png)
 
-## Getting Started with the Basics
+## 从最基础的开始
 
-*   **Prepare your tools** - Find the most convenient place possible, a large table with plenty of space. Take a lot of paper and prepare some pens and markers.
-*   **Warm up** - In order to get ready I recommend drawing some lines, circles, basic templates and icons.
-*   **Define your goals** - Decide what you want to draw. Set your aim and decide what story you have to tell. Determine the desired level of detailing. Decide whether you are ready to draw a lot.
-*   **Define your target audience** - If you are doing this for yourself, you don’t need to worry about the way your sketch looks. However, if you intend to show your drawings to a client, make sure you allow some extra time to add more details to your sketch.
-*   **Set a time frame** - Having decided on the amount of time you are ready to allocate for sketching, let’s say 30 minutes, will help you focus on your work.
+*   **准备好你的工具** - 尽可能找一个最方便你工作的地方，要有一张空间足够大的大桌子。多带上一些纸，再准备一些水笔和记号笔。
+*   **热身** - 为了让你准备好开始我建议你画一些线条，圆形，基本模板和图标。
+*   **明确你的目标** - 明确你想要画的是什么。 设定好你的目标并决定你想要讲一个什么样的故事。告诉自己是否已经做好准备大施拳脚。
+*   **明确你的目标群体** - 如果你的草图是画给自己看，那你不需要介意你怎么去画这些图。但是如果你打算把你画的图给客户看，那你应该确保用一些额外的时间为你的草图添加更多细节。
+*   **设定一个时间范围** - 决定一个时间段用来分配给绘图，让我们定个 30 分钟吧，这能帮助你专注于工作。
 
 Now, you are all set and you can get started:
 
