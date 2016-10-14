@@ -1,3 +1,4 @@
+* [VUE 和 VUEX 中的数据流](https://gold.xitu.io/entry/58007bcf0bd1d00058eefe69?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([llp0574](https://github.com/llp0574) 翻译)
 * [使用 Cordova 和 Vue.js 创建移动应用](https://gold.xitu.io/entry/57ea26f5da2f600060e59c5e?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([circlelove](https://github.com/circlelove) 翻译)
 * [使用 currentColor 属性写出更好的 CSS 代码](https://gold.xitu.io/entry/57eb30bebf22ec0058898ee7?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([yangzj1992](http://qcyoung.com) 翻译)
 * [快速构建原型最好用的 10 个 ReactJS UI 框架](https://gold.xitu.io/entry/57ea0bc2a3413100624e62ff?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([cyseria](https://github.com/cyseria) 翻译)
