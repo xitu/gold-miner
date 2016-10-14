@@ -1,3 +1,4 @@
+* [Pury — 一个新的 Android App 性能分析工具](https://gold.xitu.io/entry/57fe4b92a22b9d005b1a8a2a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([owenlyn](https://github.com/owenlyn) 翻译)
 * [关于 Android Adapter，你的实现方式可能一直都有问题](https://gold.xitu.io/entry/57fda1fe5bbb50005b3fef76?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([siegeout](https://github.com/siegeout) 翻译)
 * [探索Android大杀器——Handler](https://gold.xitu.io/entry/57fc9e937db2a20059628aa6?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jamweak](https://github.com/jamweak) 翻译)
 * [如何测试 Android Service 里的 Singleton (2)](https://gold.xitu.io/entry/57fcb8f68ac2470058c9f621?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([newt0n](https://github.com/newt0n) 翻译)
