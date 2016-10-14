@@ -6,7 +6,7 @@
 * 译者：[linpu.li](https://github.com/llp0574)
 * 校对者：[malcolmyu](https://github.com/malcolmyu)，[XatMassacrE](https://github.com/XatMassacrE)
 
-看起来在 [Vue](https://vuejs.org) 里面困扰开发者的事情之一是如何在组件之间共享状态。对于刚刚接触响应式编程的开发者来说，像[Vuex](https://github.com/vuejs/vuex/) 这种库，有着繁多的新名词及其关注点分离的方式，往往令人望而生畏。特别是当你只希望分享一两个数据片段时，（这一套逻辑的复杂性）就显得有点过分了。
+看起来在 [Vue](https://vuejs.org) 里面困扰开发者的事情之一是如何在组件之间共享状态。对于刚刚接触响应式编程的开发者来说，像 [Vuex](https://github.com/vuejs/vuex/) 这种库，有着繁多的新名词及其关注点分离的方式，往往令人望而生畏。特别是当你只希望分享一两个数据片段时，（这一套逻辑的复杂性）就显得有点过分了。
 
 考虑到这一点的话，我想我应该把两个简短的演示放到一起展示出来。第一个通过使用一个简单的 JavaScript 对象，在每个新组件当中引用来实现共享状态。第二个做了和 Vuex 一样的事情，当它运行成功的时候，也是一个你绝对不应该做的事情的示例（我们将在最后看看为什么）。
 
@@ -16,7 +16,7 @@
 *   [Using vuex](https://benjaminlistwon.com/demo/dataflow/vuex/index.html)
 *   [Using evil bindings](https://benjaminlistwon.com/demo/dataflow/evil/index.html)
 
-或者获取[这个仓库](https://github.com/BenjaminListwon/vue-data-flow)并在本地运行试试看！代码里很多地方是2.0版本的特性，但我接下来想讲的数据流概念在任何版本里都是相关的，并且它可以通过一些改变很轻易地向下兼容到1.0。
+或者获取[这个仓库](https://github.com/BenjaminListwon/vue-data-flow)并在本地运行试试看！代码里很多地方是 2.0 版本的特性，但我接下来想讲的数据流概念在任何版本里都是相关的，并且它可以通过一些改变很轻易地向下兼容到 1.0。
 
 这些演示都是一样的功能，只是实现的方法不同。应用程序由两个独立的聊天组件实例组成。当用户在一个实例里提交一个消息的时候，它应该在两个聊天窗口都出现，因为消息状态是共享的，下面是一个截图：
 
@@ -142,7 +142,7 @@ export default {
 
 ## 用 Vuex 共享状态
 
-好了，现在来试试看用 Vuex 实现。同样的，先上图，也便于我们将 Vuex 的术语（actions，mutations等等）对应到我们刚刚完成的示例中。
+好了，现在来试试看用 Vuex 实现。同样的，先上图，也便于我们将 Vuex 的术语（actions，mutations 等等）对应到我们刚刚完成的示例中。
 
 ![](https://benjaminlistwon.com/postimg/data-flow-in-vue-and-vuex/vuex-01.svg)
 
@@ -167,7 +167,7 @@ new Vue({ // eslint-disable-line no-new
 })
 ```
 
-这次，我们用 Vuex 创建了一个存储并将其直接传入应用程序当中，替代掉了之前`index.html`中的 `store` 对象。在继续之前，先来看一下这个存储：
+这次，我们用 Vuex 创建了一个存储并将其直接传入应用程序当中，替代掉了之前 `index.html`中的 `store` 对象。在继续之前，先来看一下这个存储：
 
 ##### store.js
 
@@ -195,7 +195,7 @@ export default new Vuex.Store({
 })
 ```
 
-和我们自己创建的对象非常相似，但是多了一个`mutations`对象。
+和我们自己创建的对象非常相似，但是多了一个 `mutations` 对象。
 
 ##### Client.vue
 
@@ -253,7 +253,7 @@ export default {
 1.  使用`mapState`来生成对共享消息集合的引用。
 2.  使用`mapActions`来生成创建一个新消息的动作（action）。
 
-(**注意**：这些都是 Vuex 2.0特性。)
+(**注意**：这些都是 Vuex 2.0 特性。)
 
 好的，做完啦！也来看一下[这个演示](https://benjaminlistwon.com/demo/dataflow/vuex/index.html)吧。
 
@@ -263,7 +263,7 @@ export default {
 
 最初，当你阅读 Vuex 的文档和示例的时候，它那些针对 mutations，actions 和 modules 的单独文档很容易让人感觉困扰。但是如果你敢于跨出那一步，简单地在`store.js`文件里写一些关于它们的代码来开始学习。随着这个文件的大小增加，你就将找到正确的时间移步到`actions.js`里，或者是把它们更进一步地分离开来。
 
-不要着急，慢慢来，一步一个台阶。当然也可以使用[vue-cli](https://github.com/vuejs/vue-cli)从创建一个模板开始，我使用[browserify](https://github.com/vuejs-templates/browserify)模板，并把下面的代码添加进我的`package.json`文件。
+不要着急，慢慢来，一步一个台阶。当然也可以使用 [vue-cli](https://github.com/vuejs/vue-cli) 从创建一个模板开始，我使用 [browserify](https://github.com/vuejs-templates/browserify) 模板，并把下面的代码添加进我的 `package.json` 文件。
 
 ```
 "dependencies": {
@@ -274,7 +274,7 @@ export default {
 
 ## 还在看吗？
 
-我知道我还说过要再讲一个“不好的”方式。再次，这个演示恰好也是[一样](https://benjaminlistwon.com/demo/dataflow/evil/index.html)的。不好的地方在于我利用了 Vue 2.0 里单向绑定的特性来注入回调函数，从而允许了父子模板之间顺序的双向绑定。首先，来看一下[2.0文档中的这个部分](http://rc.vuejs.org/guide/components.html#One-Way-Data-Flow)，然后再来看看我这个不好的方法。
+我知道我还说过要再讲一个“不好的”方式。再次，这个演示恰好也是[一样](https://benjaminlistwon.com/demo/dataflow/evil/index.html)的。不好的地方在于我利用了 Vue 2.0 里单向绑定的特性来注入回调函数，从而允许了父子模板之间顺序的双向绑定。首先，来看一下 [2.0 文档中的这个部分](http://rc.vuejs.org/guide/components.html#One-Way-Data-Flow)，然后再来看看我这个不好的方法。
 
 ##### App.vue
 
@@ -290,7 +290,7 @@ export default {
 ```
 
 
-这里，我在组件上使用了一个属性将一个动态绑定传递到`messages`集合里。**但是**，我同时还传递了一个动作函数，所以可以在子组件里调用它。
+这里，我在组件上使用了一个属性将一个动态绑定传递到 `messages` 集合里。**但是**，我同时还传递了一个动作函数，所以可以在子组件里调用它。
 
 ##### Client.vue
 
@@ -325,8 +325,8 @@ export default {
 
 1.  我们正在破坏之前图中所展示的单向循环。
 2.  我们创建了一个在组件及其父组件之间的紧密耦合。
-3.  这将变得**不可**维护。如果你在组件里需要20个函数，你就将添加20个属性，管理它们的命名等等，然后，如果任何东西发生改变，呃！
+3.  这将变得**不可**维护。如果你在组件里需要 20 个函数，你就将添加 20 个属性，管理它们的命名等等，然后，如果任何东西发生改变，呃！
 
-所以为什么还要再展示这段？因为我和其他人一样很懒。有时我就会做这样的事情，仅仅想知道再继续做下去会有多么糟糕，然后我就会咒骂自己的懒惰，因为我可能要花上一小时或者一天的时间去清理它们。鉴于这种情况，我希望我可以帮助你尽早避免无谓的决定和错误，**千万不要**传递任何你不需要的东西。99%的情况下，一个单独的共享状态已经足够完美。（不久再详细讲讲那1%的情况）
+所以为什么还要再展示这段？因为我和其他人一样很懒。有时我就会做这样的事情，仅仅想知道再继续做下去会有多么糟糕，然后我就会咒骂自己的懒惰，因为我可能要花上一小时或者一天的时间去清理它们。鉴于这种情况，我希望我可以帮助你尽早避免无谓的决定和错误，**千万不要**传递任何你不需要的东西。99% 的情况下，一个单独的共享状态已经足够完美。（不久再详细讲讲那 1% 的情况）
 
 
