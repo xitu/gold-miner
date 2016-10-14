@@ -33,7 +33,7 @@
 
 
 
-想象一下，你发布了一款 app。比如是一款记笔记的应用。你在 Linux 机器上测试并重度使用了很久。然后你在 ProductHunt 上收到了一个友善的消息：
+想象一下，你发布了一款记笔记的应用。你在 Linux 机器上进行了多次使用和测试,然而你在 ProductHunt 上收到了一个友善的消息：
 
 
 
@@ -124,7 +124,7 @@
        }
 
 
-如果你已经有了菜单，你需要参数去包含上面的 剪切/复制/粘贴命令。
+如果你已经有了菜单，你需要将以上 剪切/复制/粘贴命令添加到你的已有菜单中。
 
 ### 1.1 添加 icon
 
@@ -136,7 +136,7 @@
 
 
 
-许多的应用都有这样的问题，因为在 windows 和 macOS 上，icon 显示在 task bar 或者 dock 的图标就是应用 icon(an .ico or .icns)，而在 ubuntu 上显示的是你的 window icon 。添加这个很简单。在  `BrowserWindow`  选项中，申明 icon：
+许多应用都有这样的问题，因为在 Windows 和 macOS 系统上，任务栏 或 dock 中显示的图标就是应用图标(一个 .ico or .icns)，而在 Ubuntu 系统上显示的却是你的窗口图标。 。添加这个很简单。在  `BrowserWindow`  选项中，申明 icon：
 
     mainWindow = new BrowserWindow({
 
@@ -153,7 +153,7 @@
 
 
 
-CSS 在这里可以帮助我们；对于任何按钮，菜单，或者其它任何 UI 文字，添加下面的代码：
+CSS 在这里可以帮助我们；向所有按钮，菜单，或者其它任何 UI 元素，添加下面的代码：
 
      .my-ui-text {
 
@@ -162,9 +162,9 @@ CSS 在这里可以帮助我们；对于任何按钮，菜单，或者其它任�
        }
 
 
-这样文字就不可选了。它更像原生应用了。一个最简单的测试方法就是  ctrl/cmd + A  选择你 app 中所有可选的文字，可以有助于你快速识别哪些还需要添加这个效果。
+这样文字就不可选了。它更像原生应用了。一个最简单的测试方法就是  ctrl/cmd + A  选中你的应用中所有可选的文字，可以有助于你快速识别哪些还需要添加这个效果。
 
-### 1.3 对于三个平台，你需要三个 icon
+### 1.3 你需要在三大平台上分别使用三种图标
 
 
 
@@ -223,9 +223,9 @@ electron-packager 不需要额外的 icon 来为给定的平台选择正确的�
 
        };
 
-### 2.2 在你应用加载成功前隐藏它:
+### 2.2 在你应用加载完成前隐藏它:
 
-因为应用实际上是在浏览器中，我们可以选择在所有资源加载完成前隐藏窗口。在开始前，确保隐藏掉浏览器窗口：
+因为应用实际上是在浏览器中运行的，我们可以选择在所有资源加载完成前隐藏窗口。在开始前，确保隐藏掉浏览器窗口：
 
      var mainWindow = new BrowserWindow({
 
@@ -243,11 +243,13 @@ electron-packager 不需要额外的 icon 来为给定的平台选择正确的�
            mainWindow.focus();
 
        });
+
+
 这里记得要调用 foucs ，提醒用户你的应用已经加载完成了。
 
 ## **3\. 保持窗口的大小和位置**
 
-这个问题对在  "native" apps 中也存在，这也是我发现最令人头疼的事情之一。本来一个位置处理很好的 app 在重启时所有的位置又变为默认的了，虽然这对于开发者来说是很合理的，但这会让人有种想撞墙的冲动。千万不要这样做。
+这个问题在很多原生应用中也存在，我发现这是最令人头疼的事情之一。本来一个位置处理很好的 app 在重启时所有的位置又变为默认的了，虽然这对于开发者来说是很合理的，但这会让人有种想撞墙的冲动。千万不要这样做。
 
 相反，保存窗口的大小和位置，并在每次重启时恢复，你的用户会很感激的。
 
@@ -255,7 +257,7 @@ electron-packager 不需要额外的 icon 来为给定的平台选择正确的�
 
 
 
-有 [electron-window-state](https://www.npmjs.com/package/electron-window-state) 和 [electron-window-state-manager](https://www.npmjs.com/package/electron-window-state-manager) 两中预编译方案。两种都能用，好好读文档并且小心边界情况，比如最大化你的应用。如果你很想快一点编译完成并看到成品，你可以采用这两种方案。
+有 [electron-window-state](https://www.npmjs.com/package/electron-window-state) 和 [electron-window-state-manager](https://www.npmjs.com/package/electron-window-state-manager) 两种预编译方案。两种都能用，好好读文档并且小心边界情况，比如最大化你的应用。如果你很想快一点编译完成并看到成品，你可以采用这两种方案。
 
 ### 3.2 自己处理滚动
 
@@ -287,7 +289,7 @@ electron-packager 不需要额外的 icon 来为给定的平台选择正确的�
 
          }
 
-当然了，第一次启动的时是不可行，你得处理这种情况。可以提供默认设置，一旦你的在 JavaScript 对象中获取到了前一次的状态，就采用保存的状态去设置 BrowserWindow 的大小：
+当然了，第一次启动的时是不可行，你得处理这种情况。可以提供默认设置，一旦你在 JavaScript 对象中获取到了前一次的状态，就使用保存的状态信息去设置 BrowserWindow 的大小：
 
     var mainWindow = new BrowserWindow({
 
@@ -318,7 +320,7 @@ electron-packager 不需要额外的 icon 来为给定的平台选择正确的�
 
 #### 3.2.3 在 move resize 和 close 时保存状态:
 
-在理想世界中你只需要在关闭应用时保存你的窗口状态，但事实上它错过了很多未知原因导致的应用终止，比如断电之类的。
+在理想世界中你只需要在关闭应用时保存你的窗口状态，但事实上它错过了很多未知原因导致的应用终止事件，比如断电之类的。
 
 在每次 move resize 事件时获取和保存状态可以让我们可以恢复上次已知状态的位置和大小。
 
@@ -378,7 +380,7 @@ storeWindowState 函数有个小小的问题：如果你最小化一个最大化
 
 ### 4.4 布局
 
-CSS 是个相当强大个布局方式，尤其是把  `calc()` 和 flexbox 结合到一起时，但这并不会减少之前在老旧的 GUI 框架比如 GTK, Qt 或者 Apple Autolayout 时代需要做的工作。你可以用  [Grid Stylesheets](https://gridstylesheets.org/)（这是一个基于约束的布局系统）  采用类似的方式实现你 app 的 GUI 。
+CSS 是个相当强大的布局方式，尤其是把  `calc()` 和 flexbox 结合到一起时，但但这并不会减少在像 GTK, Qt 或者 Apple Autolayout 这类老旧的 GUI 框架中需要做的工作。你可以用  [Grid Stylesheets](https://gridstylesheets.org/)（这是一个基于约束的布局系统）  采用类似的方式实现你 app 的 GUI 。
 
 ## **感谢!**
 
