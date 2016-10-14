@@ -4,6 +4,7 @@
 * 译者：chemzqm@gmail.com
 * 校对者：
 
+Flux implementations like Redux encourage us to think explicitly about our app state and spend time modeling it. It turns out that this isn’t a trivial task. It’s a classic example of chaos theory, where a seemingly harmless flutter of wings in the wrong direction can cause a hurricane of accidental complexity later on. Provided below is a list of practical tips of how to model app state in order to keep your business-logic and yourself as sane as possible.
 
 _Redux 做为一个 Flux 模型的实现需要我们明确思考应用程序内部的整体状态，然后花费时间建模。事实证明，这未必是一项简单的任务。它是混沌理论的一个典型例子，一个看似无害的蝴蝶翅膀飘动在错误的方向可能导致飓风等一系列复杂的连锁效应（译注：蝴蝶效应）。下面提供了一个如何对应用程序状态建模的实用提示列表，它们在保证可用性的同时，也能让你的业务逻辑更加合理。_
 
@@ -29,7 +30,6 @@ _Redux 做为一个 Flux 模型的实现需要我们明确思考应用程序内�
 考虑一个电子商务网店管理应用的示例，商家使用此应用来管理商店库存，因此显示产品列表是一个关键功能。产品列表源自服务器，但需要将应用程序做为状态保存在本地，以便在视图内展现。让我们假设从服务器获取产品列表的主 API 返回以下 JSON 结果：
 
 ``` javascript
-
 {
   "total": 117,
   "offset": 0,
@@ -174,7 +174,6 @@ function outOfStockProductIds(state) {
 删除数组的另一个可行的替代方法是从映射中的每个产品里删除库存属性。使用这种替代方法，我们可以将数组作为单一真理来源。实际上 .. 根据提示＃2 它可能会更好，将此数组更改为映射：
 
 ```
-
 {
   "productsById": {
     "88cd7621-d3e1-42b7-b2b8-8ca82cdac2f0": {
@@ -268,7 +267,6 @@ function filteredProductIds(state, filter) {
 在这种情况下，一种好的方法是使数据标准化，并保持两个单独的映射 - 一个用于产品，一个用于订单。由于这两种类型的对象都基于唯一的ID，因此我们可以使用 ID 属性来指定关联。生成后的应用程序状态结构为：
 
 ``` js
-
 {
   "productsById": {
     "88cd7621-d3e1-42b7-b2b8-8ca82cdac2f0": {
