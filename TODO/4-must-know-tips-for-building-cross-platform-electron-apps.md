@@ -5,7 +5,7 @@
 * 校对者：[DeadLion](https://github.com/DeadLion) , [zhouzihanntu](https://github.com/zhouzihanntu)
 
 
-[Electron](https://electron.atom.io) ，是包括 Avocode 在内的众多 app 采用的技术，能让你快速实现并运行一个跨平台桌面应用。。有些问题不注意的话，你的 app 很快就会掉到“坑”里。无法从其它 app 中脱颖而出。
+[Electron](https://electron.atom.io) ，是包括 Avocode 在内的众多 app 采用的技术，能让你快速实现并运行一个跨平台桌面应用。有些问题不注意的话，你的 app 很快就会掉到“坑”里。无法从其它 app 中脱颖而出。
 
 
 
@@ -124,7 +124,7 @@
        }
 
 
-如果你已经有了菜单，你需要将以上 剪切/复制/粘贴命令添加到你的已有菜单中。
+如果你已经有了菜单，你需要将以上 剪切/复制/粘贴 命令添加到你的已有菜单中。
 
 ### 1.1 添加 icon
 
@@ -136,7 +136,7 @@
 
 
 
-许多应用都有这样的问题，因为在 Windows 和 macOS 系统上，任务栏 或 dock 中显示的图标就是应用图标(一个 .ico or .icns)，而在 Ubuntu 系统上显示的却是你的窗口图标。 。添加这个很简单。在  `BrowserWindow`  选项中，申明 icon：
+许多应用都有这样的问题，因为在 Windows 和 macOS 系统上，任务栏或 dock 中显示的图标就是应用图标(一个 .ico 或者 .icns)，而在 Ubuntu 系统上显示的却是你的窗口图标。 。添加这个很简单。在  `BrowserWindow`  选项中，申明 icon：
 
     mainWindow = new BrowserWindow({
 
@@ -153,7 +153,7 @@
 
 
 
-CSS 在这里可以帮助我们；向所有按钮，菜单，或者其它任何 UI 元素，添加下面的代码：
+CSS 在这里可以帮助我们：向所有按钮，菜单，或者其它任何 UI 元素，添加下面的代码：
 
      .my-ui-text {
 
@@ -253,7 +253,7 @@ electron-packager 不需要额外的 icon 来为给定的平台选择正确的�
 
 相反，保存窗口的大小和位置，并在每次重启时恢复，你的用户会很感激的。
 
-### 3.1预编译方案
+### 3.1 预编译方案
 
 
 
@@ -374,17 +374,17 @@ storeWindowState 函数有个小小的问题：如果你最小化一个最大化
 
 "caption" 是 CSS 中关键字，它会连接到系统指定字体。
 
-### 4.3系统颜色
+### 4.3 系统颜色
 
 和系统字体一样，你也可以用  [System colors](http://www.sitepoint.com/css-system-styles/) 让系统决定你应用的颜色。这其实是一个在 CSS3 中已经弃用的未完全实现的属性，但在可见的未来中它并不会被很快废弃。
 
 ### 4.4 布局
 
-CSS 是个相当强大的布局方式，尤其是把  `calc()` 和 flexbox 结合到一起时，但但这并不会减少在像 GTK, Qt 或者 Apple Autolayout 这类老旧的 GUI 框架中需要做的工作。你可以用  [Grid Stylesheets](https://gridstylesheets.org/)（这是一个基于约束的布局系统）  采用类似的方式实现你 app 的 GUI 。
+CSS 是个相当强大的布局方式，尤其是把  `calc()` 和 flexbox 结合到一起时，但这并不会减少在像 GTK, Qt 或者 Apple Autolayout 这类老旧的 GUI 框架中需要做的工作。你可以用  [Grid Stylesheets](https://gridstylesheets.org/)（这是一个基于约束的布局系统）  采用类似的方式实现你 app 的 GUI 。
 
 ## **感谢!**
 
-在 Electron 中构建应用是一件很有趣的事情并且会让你有很的收获 : 你可以在很短的时间内实现并运行一个跨平台的应用。如果你之前从没有用过 Electron 我希望这篇文章可以引起你足够的兴趣去尝试它。很多的收获[Electron](http://electron.atom.io) 的网站有很全的文档以及很多很酷的 Demo 可以让你尝试它的 API 
+在 Electron 中构建应用是一件很有趣的事情并且会让你有很多的收获 : 你可以在很短的时间内实现并运行一个跨平台的应用。如果你之前从没有用过 Electron 我希望这篇文章可以引起你足够的兴趣去尝试它。很多的收获[Electron](http://electron.atom.io) 的网站有很全的文档以及很多很酷的 Demo 可以让你尝试它的 API 
 
 如果你已经在写 Electron 应用了，我希望上面的可以鼓励你更多的考虑你的 app 在所有平台上究竟运行的怎么样。
 
