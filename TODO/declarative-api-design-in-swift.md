@@ -4,10 +4,6 @@
 * 译者：
 * 校对者：
 
-
-
-
-
 In my first real job as an iOS developer I built an XML parser and a simple layout engine - both had in common that they had a declarative interface. The parsers was driven by a `.plist` file that mapped XML elements to Objective-C classes. The layout engine allowed you to describe layouts in an HTML-like language (this was before AutoLayout & CollectionViews existed).
 
 Though neither of these libraries were even close to perfect, they showed me four main advantages of declarative code:
@@ -43,26 +39,24 @@ The following type captures the essence of our control flow: we have a sequences
 
 _Note: Some types names might seem a little odd, but they mostly follow an app-specific ontology (e.g. Operation). Others should simply be renamed; still waiting for that refactor capabilities for Swift code…_
 
-
-
+~~~Swift
     public typealias PreviousRequestTuple = (
-    	request: PushRequest, 
-    	response: NSURLResponse, 
+    	request: PushRequest,
+    	response: NSURLResponse,
     	responseBody: JsonValue?
     )
 
     /// A sequence of push requests required to sync this operation with the server.
-    /// As soon as a request of this sequence completes, 
+    /// As soon as a request of this sequence completes,
     /// `PushSyncQueueManager` will poll the sequence for the next request.
-    /// If `nil` is returned for the `nextRequest` then 
+    /// If `nil` is returned for the `nextRequest` then
     /// this sequence is considered complete.
     public protocol OperationRequestSequence: class {
-        /// When this method returns `nil` the entire `OperationRequestSequence` 
+        /// When this method returns `nil` the entire `OperationRequestSequence`
         /// is considered completed.
         func nextRequest(previousRequest: PreviousRequestTuple?) throws -> PushRequest?
     }
-
-
+~~~
 
 When asking the request sequence to generate a request, by calling the `nextRequest:` method, we provide a reference to previous request, a `NSURLResponse` and if available the JSON response body. Each request might result in a subsequent request (returns a new `PushRequest`), no subsequent request (returns `nil`) or an in an error in case the previous request didn’t provide the response that is necessary to continue (in which case the request sequence `throws`).
 
@@ -72,8 +66,7 @@ You might also have noticed that the protocol comes with a `class` requirement. 
 
 After implementing the first request sequence based on the `OperationRequestSequence` protocol, we noticed that it often would be more convenient to simply provide an array of chained requests instead of implementing the `nextRequest` method. We added an `ArrayRequestSequence` protocol that provides a default implementation based on an array of requests:
 
-
-
+~~~Swift
     public typealias RequestContinuation = (previous: PreviousRequestTuple?) throws -> PushRequest?
 
     public protocol ArrayRequestSequence: OperationRequestSequence {
@@ -88,8 +81,7 @@ After implementing the first request sequence based on the `OperationRequestSequ
             return nextRequest
         }
     }
-
-
+~~~
 
 At this point it became almost trivial to define a new upload sequence.
 
@@ -97,12 +89,11 @@ At this point it became almost trivial to define a new upload sequence.
 
 As an example, let’s take a look at the upload sequence for uploading snapshots (snapshots in PlanGrid capture a blueprint + annotations in an image that can be exported):
 
-
-
+~~~Swift
     /// Describes a sequence of requests for uploading a snapshot.
     final class SnapshotUploadRequestSequence: ArrayRequestSequence {
 
-        // Removed boilerplate initializer & 
+        // Removed boilerplate initializer &
         // instance variable definition code...
 
         // This is the definition of the request sequence
@@ -184,7 +175,7 @@ As an example, let’s take a look at the upload sequence for uploading snapshot
         }
 
     }
-
+~~~
 
 
 A few things should stand out in this implementation:
@@ -228,6 +219,3 @@ Secondly, and more importantly, declarative programming isn’t always applicabl
 **Declarative APIs place more burden onto the API developer and less onto the API consumer**. In order to provide a declarative API a developer needs to be able to isolate the interface strictly from the implementation details; this is a lot less true for imperative APIs. React and GraphQL have demonstrated that the simplicity of declarative APIs can enable a great developer experience while making it easier for development teams to write coherent code at scale.
 
 I think this is just a first step into a future where we’ll see sophisticated libraries hide their complexity by providing simple, declarative, interfaces. And hopefully, some day, we’ll get a declarative UI library for building iOS apps.
-
-
-
