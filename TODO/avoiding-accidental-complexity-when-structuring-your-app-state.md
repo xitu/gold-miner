@@ -2,7 +2,7 @@
 * 原文作者：[Tal Kol](https://hackernoon.com/@talkol)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：chemzqm@gmail.com
-* 校对者：@yifili09 @DeadLion
+* 校对者：[yifili09](https://github.com/yifili09) [DeadLion](https://github.com/DeadLion)
 
 __Redux 做为一个 Flux 模型的实现需要我们明确思考应用程序内部的整体状态，然后花费时间建模。事实证明，这未必是一项简单的任务。它是混沌理论的一个典型例子，一个看似无害的蝴蝶翅膀振动在错误的方向可能导致飓风等一系列复杂的连锁效应（译注：蝴蝶效应）。下面提供了一个如何对应用程序状态建模的实用提示列表，它们在保证可用性的同时，也能让你的业务逻辑更加合理。__
 
