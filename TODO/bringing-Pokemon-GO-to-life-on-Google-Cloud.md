@@ -1,39 +1,39 @@
 > * 原文地址：[Bringing Pokémon GO to life on Google Cloud](https://cloudplatform.googleblog.com/2016/09/bringing-Pokemon-GO-to-life-on-Google-Cloud.html)
 * 原文作者：[Luke Stone](https://cloudplatform.googleblog.com/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[cdpath](https://github.com/cdpath)
 * 校对者：
 
-# Bringing Pokémon GO to life on Google Cloud
-Posted by Luke Stone, Director of Customer Reliability Engineering  
+# 让 Pokémon GO 运行在谷歌云服务上
+作者 Luke Stone，客户可靠性工程主管。
 
-Throughout my career as an engineer, I’ve had a hand in numerous product launches that grew to millions of users. User adoption typically happens gradually over several months, with new features and architectural changes scheduled over relatively long periods of time. Never have I taken part in anything close to the growth that [Google Cloud](https://cloud.google.com/) customer [Niantic](https://www.nianticlabs.com/) experienced with the launch of Pokémon GO.  
+在我的工程师生涯中，我曾参与发布了多个后来拥有数百万用户的产品。用户采用度通常是在数月内逐步提升，而新功能和架构调整的计划时间会相对更久。我曾参与过的任何产品的增长速度都无法和[谷歌云服务](https://cloud.google.com/)的客户 [Niantic](https://www.nianticlabs.com/) 所发布的 Pokémon GO 相提并论。
 
-As a teaser, I’ll start with a picture worth a thousand words:  
+先放一张胜过千言万语的图表作为预告吧：
 
 [![](https://3.bp.blogspot.com/-QNgvo5Ec03Q/V-2XAaD0GQI/AAAAAAAADJA/g2M6VTRGUiktueNG6gGFxBjSLXRQDeNZQCLcB/s640/google-cloud-pokemon-go-1.png)](https://3.bp.blogspot.com/-QNgvo5Ec03Q/V-2XAaD0GQI/AAAAAAAADJA/g2M6VTRGUiktueNG6gGFxBjSLXRQDeNZQCLcB/s1600/google-cloud-pokemon-go-1.png)
 
-Our peers in the technical community have asked about the infrastructure that helped bring Pokémon GO to life for millions of players. Niantic and the Google Cloud teams put together this post to highlight some of the key components powering one of the most popular mobile games to date.  
+有同行在技术社区问过我们用什么基础架构来支撑数百万玩家使用 Pokémon GO。 Niantic 和谷歌云服务团队一起写了这篇文章来着重说明支撑着目前最流行的手机游戏的一些关键组件。
 
-### A shared fate
+### 共同的命运
 
-At our [Horizon](https://atmosphere.withgoogle.com/live/horizon) event today, we’ll be introducing Google Customer Reliability Engineering (CRE), a new engagement model in which technical staff from Google integrates with customer teams, creating a shared responsibility for the reliability and success of critical cloud applications. Google CRE’s first customer was Niantic, and its first assignment the launch of Pokémon GO — a true test if there ever was one!  
+在今天的 [Horizon](https://atmosphere.withgoogle.com/live/horizon)  活动上，我们会介绍谷歌客户可靠性工程（CRE），一种谷歌技术人员和客户小组相结合的全新参与模式，双方分担责任帮助关键的云端应用实现高可靠性并获得成功。谷歌 CRE 的第一个客户就是 Niantic，其第一个任务就是发布 Pokémon GO，这是个真正的测试，如果真有的话。
 
-Within 15 minutes of launching in Australia and New Zealand, player traffic surged well past Niantic’s expectations. This was the first indication to Niantic’s product and engineering teams that they had something truly special on their hands. Niantic phoned in to Google CRE for reinforcements, in anticipation of the US launch planned the next day. Niantic and Google Cloud — spanning CRE, SRE, development, product, support and executive teams — braced for a flood of new Pokémon Trainers, as Pokémon GO would go on to shatter all prior estimates of player traffic.  
+在澳大利亚和新西兰首发的 15 分钟内，玩家流量的激增已经超出了 Niantic 的预期。这时 Niantic 的产品和工程团队才意识到他们手上的东西真的不一般。为应对第二天在美国区的发布，Niantic 打电话给谷歌 CRE 请求增援。Niantic 和谷歌云服务团队 —— 包括 CRE，SRE，开发，产品，技术支持和执行团队 —— 已经做好准备迎接蜂涌而至的新 Pokémon 训练师（游戏玩家）了，而 Pokémon GO 的玩家流量还会持续超出预期。
 
-### Creating the Pokémon game world
+### 创造 Pokémon 游戏世界
 
-Pokémon GO is a mobile application that uses many services across Google Cloud, but [Cloud Datastore](https://cloud.google.com/datastore/) became a direct proxy for the game’s overall popularity given its role as the game’s primary database for capturing the Pokémon game world. The graph opening this blog post tells the story: the teams targeted 1X player traffic, with a worst-case estimate of roughly 5X this target. Pokémon GO’s popularity quickly surged player traffic to 50X the initial target, ten times the worst-case estimate. In response, Google CRE seamlessly provisioned extra capacity on behalf of Niantic to stay well ahead of their record-setting growth.  
+Pokémon GO 这个手机应用使用了多个谷歌云服务，而[云存储](https://cloud.google.com/datastore/)成了这个游戏全面流行的直接原因，因为它是游戏的主要数据库，用来获得 Pokémon 游戏世界。这篇博客开篇的图表讲了这样一个故事：团队定下的目标是一倍的玩家流量，而最坏情况预计是这个目标的五倍。Pokémon GO 的流行迅速带来了超过预期目标五十倍的流量，十倍于预计的最坏情况。为了应对这一情况，谷歌 CRE 代表 Niantic 无缝地提供了额外的处理能力，成功应对了破纪录的流量增长。
 
-Not everything was smooth sailing at launch! When issues emerged around the game’s stability, Niantic and Google engineers braved each problem in sequence, working quickly to create and deploy solutions. Google CRE worked hand-in-hand with Niantic to review every part of their architecture, tapping the expertise of core Google Cloud engineers and product managers — all against a backdrop of millions of new players pouring into the game.  
+不是所有东西在发布时都是一帆风顺的！当游戏的稳定性出现问题时，Niantic 和谷歌工程师们勇敢的面对一个又一个的问题，动作迅速地解决问题。谷歌 CRE 和 Niantic 携手审查了架构的每一部分，充分利用谷歌云服务团队的核心工程师和产品经理的专业知识，共同应对涌入的数以百万的新玩家。
 
-### Pokémon powered by containers
+### 容器支撑的 Pokémon
 
-Beyond being a global phenomenon, Pokémon GO is one of the most exciting examples of container-based development in the wild. The application logic for the game runs on [Google Container Engine (GKE)](https://cloud.google.com/container-engine/) powered by the open source [Kubernetes project](http://kubernetes.io/). Niantic chose GKE for its ability to orchestrate their container cluster at planetary-scale, freeing its team to focus on deploying live changes for their players. In this way, Niantic used Google Cloud to turn Pokémon GO into a service for millions of players, continuously adapting and improving.  
+Pokémon GO 不只是一个全球性现象，它还是最令人激动的自然环境下基于容器的开发的例子之一。游戏的应用逻辑运行在[谷歌容器引擎 (GKE)](https://cloud.google.com/container-engine/)上，它是基于开源的 [Kubernetes project](http://kubernetes.io/) 开发的。Niantic 选择 GKE 是因为能够极大规模地编排容器集群，小组可以集中精力为玩家部署实时更新。通过这种方式，Niantic 利用谷歌云服务将 Pokémon GO 变成了服务数百万玩家的服务，可以持续调整并改进。
 
-One of the more daring technical feats accomplished by Niantic and the Google CRE team was to upgrade to a newer version of GKE that would allow for more than a thousand additional nodes to be added to its container cluster, in preparation for the highly anticipated launch in Japan. Akin to swapping out the plane’s engine in-flight, careful measures were taken to avoid disrupting existing players, cutting over to the new version while millions of new players signed up and joined the Pokémon game world. On top of this upgrade, Niantic and Google engineers worked in concert to replace the [Network Load Balancer](https://cloud.google.com/compute/docs/load-balancing/network/), deploying the newer and more sophisticated HTTP/S Load Balancer in its place. The [HTTP/S Load Balancer](https://cloud.google.com/load-balancing/) is a global system tailored for HTTPS traffic, offering far more control, faster connections to users and higher throughput overall — a better fit for the amount and types of traffic Pokémon GO was seeing.  
+Niantic 和谷歌 CRE 小组完成的另一个更激进的技术是升级到新版的 GKE，从而在容器集群中多加一千个节点。这都是为了应对游戏在日本区众所期待的发布。如同给飞行的飞机换发动机一样，需要采取谨慎的操作来保证已有玩家不受影响，切换的新版 GKE 的同时还有数百万的新玩家注册并加入 Pokémon 游戏世界。除了这次升级之外，Niantic 和谷歌工程师们还同心协力将[网络负载均衡](https://cloud.google.com/compute/docs/load-balancing/network/)替换为更新更复杂的 HTTP/S 负载均衡。[HTTP/S 负载均衡](https://cloud.google.com/load-balancing/)是专为 HTTPS 流量设计的全球系统，提供了更多的控制能力，更快的用户连接以及总体上更高的吞吐量，更适合 Pokémon GO 所经历的流量的量级和类型。
 
-The lessons-learned from the US launch — generous capacity provisioning, the architectural swap to the latest version of Container Engine, along with the upgrade to the HTTP/S Load Balancer — paid off when the game launched without incident in Japan, where the number of new users signing up to play _tripled_ the US launch two weeks earlier.  
+从美国区发布吸取的教训 —— 提供海量处理能力，架构调整到最新的容器引擎，以及升级到 HTTP/S 负载均衡 —— 都在日本区发布时收到了回报，没有发生故障的同时新增玩家达到了两周前美国区发布时的三倍。
 
 
 
@@ -47,7 +47,7 @@ The lessons-learned from the US launch — generous capacity provisioning, the a
 
 
 
-The Google Cloud GKE/Kubernetes team that supports many of our customers like Niantic
+谷歌云服务 GKE/Kubernetes 团队为包括 Niantic 在内的多个客户提供支持
 
 
 
@@ -55,11 +55,11 @@ The Google Cloud GKE/Kubernetes team that supports many of our customers like Ni
 
 
 
-Other fun facts  
+其他有趣的事实
 
-*   The Pokémon GO game world was brought to life using over a dozen services across Google Cloud.
-*   Pokémon GO was the largest [Kubernetes](http://kubernetes.io/) deployment on [Google Container Engine](https://cloud.google.com/container-engine/) ever. Due to the scale of the cluster and accompanying throughput, a multitude of bugs were identified, fixed and merged into the [open source project](https://github.com/kubernetes/kubernetes).
-*   To support Pokémon GO’s massive player base, Google provisioned many tens of thousands of cores for Niantic’s Container Engine cluster.
-*   [Google’s global network](https://peering.google.com/#/infrastructure) helped reduce the overall latency for Pokémon Trainers inhabiting the game’s shared world. Game traffic travels Google’s private fiber network through most of its transit, delivering reliable, low-latency experiences for players worldwide. [Even under the sea](https://cloudplatform.googleblog.com/2016/06/Google-Cloud-customers-run-at-the-speed-of-light-with-new-FASTER-undersea-pipe.html)!
+*   Pokémon GO 游戏世界使用了超过 12 个 Google Cloud 服务。
+*   Pokémon GO 是有史以来 [Google Container Engine](https://cloud.google.com/container-engine/) 上最大的 [Kubernetes](http://kubernetes.io/)。得益于集群的规模和相应的吞吐量，大量的 bug 被发现、修正并合并回[开源项目](https://github.com/kubernetes/kubernetes)。
+*   为支持 Pokémon GO 的海量玩家数据库，谷歌为 Niantic 的容器引擎集群提供了成千上万的 CPU 核心。
+*   [谷歌的全球网络](https://peering.google.com/#/infrastructure)帮助减少 Pokémon 训练师（游戏玩家）在游戏世界中总体的延迟。游戏流量通过谷歌专用光纤网络走过大多数中转，为软球玩家提供可靠、低延迟的体验。[甚至在海下](https://cloudplatform.googleblog.com/2016/06/Google-Cloud-customers-run-at-the-speed-of-light-with-new-FASTER-undersea-pipe.html)!
 
-Niantic’s Pokémon GO was an all-hands-on-deck launch that required quick and highly informed decisions across more than a half-dozen teams. The sheer scale and ambition of the game required Niantic to tap architectural and operational best-practices directly from the engineering teams who designed the underlying products. On behalf of the Google CRE team, I can say it was a rare pleasure to be part of such a memorable product launch that created joy for so many people around the world.  
+Niantic 的 Pokémon GO 是一次齐心协力地发布，需要在超过六个小组间迅速、高效地传递决策。游戏的规模和目标要求 Niantic 直接从设计了低层产品的工程团队中挖掘架构和运营的最佳实践。我在这里代表谷歌 CRE 团队表示能够参与到如此令人难忘的产品发布已是难得的乐趣，更何况游戏已为世界各地的人们带来乐趣。
