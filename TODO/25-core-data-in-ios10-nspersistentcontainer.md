@@ -245,9 +245,9 @@ final class PersistentContainer: NSPersistentContainer {
 
 我希望你们喜欢这篇有关 `NSPersistentContainer` 的简短精干的文章，并且我们也希望看到你们是如何通过这些在 `Core Data` 框架上的改进来演进你们的 `Core Data stack`。
 
-稍等以下... 啊？还有其他的改变么？
+稍等一下... 啊？还有其他的改变么？
 
-是的，当然有。最佳的方法是通过 `Apple` 公司的官方推文 'Core Data 在 iOS 10 上的新特性'。这些改变从并发，`context` 版本，请求获取，自动融合来自父 `context` 变化和结束开始.... `NSFetchResultsController` 在 `macOS 10.12`.
+是的，当然有。最佳的方法是通过 `Apple` 公司的官方推文 'Core Data 在 iOS 10 上的新特性'。这些改变从并发、`context` 版本、请求获取、自动融合来自父 `context` 变化等开始，以在 `macOS 10.12` 中的 `NSFetchResultsController` 结束。
 
 作者: Michał Wojtysiak
 
