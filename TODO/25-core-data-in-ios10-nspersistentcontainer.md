@@ -2,17 +2,17 @@
 * 原文作者：[Michał Wojtysiak](https://swifting.io/about/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Nicolas(Yifei) Li](https://github.com/yifili09)
-* 校对者：
+* 校对者： [Gran](https://github.com/Graning), [Wenlin Ou(owenlyn)](https://github.com/owenlyn)
 
 
 
 
 
-Xcode 8 已经面世了，如果你还没有尝试过这个抢鲜测试版本，你会发现所有新的东西。这里有 Swift 4 [主要的更新](https://swifting.io/blog/2016/08/17/22-swift-3-access-control-beta-6?utm_source=swifting.io&utm_medium=web&utm_campaign=blog%20post)，有新的框架，比如 [SiriKit](https://swifting.io/blog/2016/07/18/20-sirikit-can-you-outsmart-provided-intents?utm_source=swifting.io&utm_medium=web&utm_campaign=blog%20post) 和一些对现存特性的增强改进，比如 [notifications](https://swifting.io/blog/2016/08/22/23-notifications-in-ios-10?utm_source=swifting.io&utm_medium=web&utm_campaign=blog%20post). 我们也接收以 `NSPersistentContainer` 形式的简化版的 `Core Data` 堆，它为我们做了大部分的准备工作。它值得我们去尝试么？让我们开始深入挖掘这些新特性吧。
+Xcode 8 已经面世了，如果你还没有尝试过这个测试版本，你将会发现各种新东西。这里有 Swift 3 [主要的更新](https://swifting.io/blog/2016/08/17/22-swift-3-access-control-beta-6?utm_source=swifting.io&utm_medium=web&utm_campaign=blog%20post)，有新的框架，比如 [SiriKit](https://swifting.io/blog/2016/07/18/20-sirikit-can-you-outsmart-provided-intents?utm_source=swifting.io&utm_medium=web&utm_campaign=blog%20post) 和一些对现存特性的增强改进，比如 [notifications](https://swifting.io/blog/2016/08/22/23-notifications-in-ios-10?utm_source=swifting.io&utm_medium=web&utm_campaign=blog%20post)。 我们也接收以 `NSPersistentContainer` 形式的简化版的 `Core Data stack`，它为我们做了大部分的准备工作。它值得我们去尝试么？让我们开始深入挖掘这些新特性吧。
 
-#### `iOS 10` 之前的 `Core Data` 堆
+#### `iOS 10` 之前的 `Core Data stack` 
 
-多年来，在尝试了很多种 `Core Data` 堆之后，我们选定了两个简单的堆，融合成一个使用。让我们仔细看一下这些关键组件并开始连接使用他们。完整版本的 `Github` 连接在引用中能找到。代码已经适配到 `Swift 3` 和 `Xcode 8`。 
+多年来，在尝试了很多种 `Core Data stack` 之后，我们选定了两个简单的 `stack`，融合成一个使用。让我们仔细看一下这些关键组件并开始连接使用他们。完整版本的 `Github` 链接在引用中能找到。代码已经适配到 `Swift 3` 和 `Xcode 8`。 
 
 ```
 final class CoreDataStack {
@@ -106,11 +106,11 @@ final class CoreDataStack {
 
 ##### #2
 
-从 `NSURL` 文档中获得 `getter` 方法。`NSPersistentStoreCoordinator` 使用它在给定的位置创建 `NSPersistentStore`。  
+获取文档路径 `NSURL` 的 `getter`。`NSPersistentStoreCoordinator` 使用它在给定的位置创建 `NSPersistentStore`。  
 
 ##### #3
 
-和文件目录相似，他获得 `NSManagedObjectModel` 的 `getter` 方法，用它来初始化 有我们模型的 `NSPersistentStoreCoordinator`。
+和文件目录相似，他获得 `NSManagedObjectModel` 的 `getter` 方法，用它来初始化有我们模型的 `NSPersistentStoreCoordinator`。
 
 ##### #4
 
@@ -126,11 +126,11 @@ final class CoreDataStack {
 
 ##### #7
 
-这个堆使用了稳定、成熟的融合过的 `contexts`，它被保存的 `notifications` 驱动。在这些方法中，我们执行这个融合。
+这个 `stack` 使用了稳定、成熟的融合过的 `contexts`，它被保存的 `notifications` 驱动。在这些方法中，我们执行这个融合。
 
-#### 遇见 NSPersistentContainer
+#### `NSPersistentContainer` 简介
 
-iOS 10 给我们提供了 `NSPersistentContainer`。它意图简化代码并且为我们解决负担。它能做到么？让我展示给你我们基于 `NSPersistentContainer` 重建 `CoreData` 堆。 一个**完整**的例子:
+iOS 10 给我们提供了 `NSPersistentContainer`。它意图简化代码并且为我们解决负担。它能做到么？让我展示给你我们基于 `NSPersistentContainer` 重建 `CoreData stack` 。 一个**完整**的例子:
 
 ```
 final class CoreDataStack {
@@ -180,7 +180,7 @@ final class CoreDataStack {
 
 ##### #1
 
-这里，我们能看到 `NSPersistentContainer` 的能力。它包括了整个 #2, #3, #4, #5, #6 的工作，从之前的堆到一些额外的扩展，把我们从 #1 和 #7 中解放出来。 
+这里，我们能看到 `NSPersistentContainer` 的能力。它完成了之前 `stack` 内#2, #3, #4, #5, #6 的工作，并一定程度上把我们从 #1 和 #7 中的工作中解放出来。 
 
 怎么做到的？
 
@@ -205,7 +205,7 @@ final class CoreDataStack {
 
 ##### #4
 
-`NSPersistentContainer` 在后台（详情可见 #5）为运行 `Core Data` 堆暴露了一个方法。我们非常喜欢这个 `API` 的命名，所以我们也为 `viewContext` 创建了类似的封装器。
+`NSPersistentContainer` 在后台（详情可见 #5）为运行 `Core Data stack` 暴露了一个方法。我们非常喜欢这个 `API` 的命名，所以我们也为 `viewContext` 创建了类似的封装器。
 
 ##### #5
 
@@ -217,11 +217,11 @@ final class CoreDataStack {
 
 有一些可选项。
 
-首先，确保查阅了完整的参考资料，并且在寻找你所需要的属性或者方法。我们有概括道，有两个初始化器，一个快捷方法，它仅需要一个字符串名字和一个完整的，它也需要 `NSManagedObjectModel`。
+首先，确保查阅了完整的参考资料，并且在寻找你所需要的属性或者方法。我们已经涵盖了两个初始化器，一个仅需要字符串名和完整采用 `NSManagedObjectModel` 的快捷方法。
 
-之后，你可以调查扩展或者子类。举个例子，在我们其中一个项目中，我们在核心程序和扩展程序之间共享了一个 `Core Data` 堆。它不得不落地在一个 App 共享组群空间中，并且 `NSPersistentContainer` 默认的文档目录已经不再为我们所用。
+之后，你可以调查扩展或者子类。举个例子，在我们其中一个项目中，我们在核心程序和扩展程序之间共享了一个 `Core Data stack`。它不得不落地在一个 App 共享组群空间中，并且 `NSPersistentContainer` 默认的文档目录已经不再为我们所用。
 
-幸运的是，通过一个轻量的子类 `NSPersistentContainer`，我们又满血复活了，并且能使用那些容器类带来的好处。
+幸运的是，通过一个轻量的子类 `NSPersistentContainer`，我们又满血复活了，并且能继续使用那些容器类带来的好处。
 
 ```
 struct CoreDataServiceConsts {
@@ -243,11 +243,11 @@ final class PersistentContainer: NSPersistentContainer {
 
 #### 总结 & 参考文献
 
-我希望你们喜欢这篇有关 `NSPersistentContainer` 的简短精干的文章，并且我们也希望看到你们是如何通过这些在 `Core Data` 框架上的改进来演进你们的 `Core Data` 堆的。
+我希望你们喜欢这篇有关 `NSPersistentContainer` 的简短精干的文章，并且我们也希望看到你们是如何通过这些在 `Core Data` 框架上的改进来演进你们的 `Core Data stack`。
 
 稍等以下... 啊？还有其他的改变么？
 
-是的，当然有。最佳的方法是通过 `Apple` 公司的官方推文 'Core Data 在 iOS 10 上的新特性'（链接如下）。这些改变从并发，`context` 版本，请求获取，自动融合来自父 `context` 变化和结束开始.... `NSFetchResultsController` 在 `macOS 10.12`.
+是的，当然有。最佳的方法是通过 `Apple` 公司的官方推文 'Core Data 在 iOS 10 上的新特性'。这些改变从并发，`context` 版本，请求获取，自动融合来自父 `context` 变化和结束开始.... `NSFetchResultsController` 在 `macOS 10.12`.
 
 作者: Michał Wojtysiak
 
