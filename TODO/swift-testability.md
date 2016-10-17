@@ -1,84 +1,84 @@
 > * 原文地址：[How Can Swift Language Features Improve Testability?](http://qualitycoding.org/swift-testability/)
 * 原文作者：[Jon Reid](http://qualitycoding.org/contact/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：steinliber
 * 校对者：
 
 
-I learned how to write testable code in C++ and Objective-C. But what about Swift?
+我知道如何编写具有可测试性的 C++ 和 Objective-C ，但是 Swift 在这方面又是怎么做的呢？
 
-The features and the overall “feel” of a language can have a big impact on how we express our code. Many of you know this well, because you started Swift early, and are miles ahead of me. I’m delighted to play catch-up. Swift’s features are like new toys! …But how do they affect testability?
+一种编程语言的特性和整体感觉可以对我们如何表述代码产生巨大的影响。相信你们中的大多数人都已经知道这一点，因为你们学习 Swift 很早，并且已经领先于我，我非常乐于去追赶你们。Swift 的特性就像新的玩具一样！但是这些特性又是如何影响可测试性的呢
 
 ![](http://qualitycoding.org/jrwp/wp-content/uploads/2016/09/tool-contrast@2x.jpg)
 
-## Writing testable code
+## 编写可测试的代码
 
-_Disclosure: The book link below is an affiliate link. If you buy anything, I earn a commission, at no extra cost to you._
+**透露一个秘密：下面的书本链接是个附带链接，如果你买了其中的任何东西，我可以赚取一定的提成，之后就再没有额外的花费。**
 
-The greatest challenge of unit testing is writing testable code. This usually means relearning how to write code in the first place! The book [Working Effectively with Legacy Code](http://www.amazon.com/gp/product/0131177052/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=0131177052&linkCode=as2&tag=qualitycoding-20&linkId=CMFUKIQWYHGBBOSN) offers great tricks for taming code not written with testability in mind. Techniques like “Subclass and Override Method” work well with legacy code, so I initially used them for TDD as well.
+单元测试最大的挑战就是编写可测试的代码。这通常就意味这第一次重新学习如何编写代码！这本书[Working Effectively with Legacy Code](http://www.amazon.com/gp/product/0131177052/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=0131177052&linkCode=as2&tag=qualitycoding-20&linkId=CMFUKIQWYHGBBOSN)提供了许多技巧来帮助在编写代码时不用考虑其可测试性。这些技术比如说‘子类和方法重载’在处理遗留代码时可以做的很好，所以我也开始在实施 TDD 的过程中使用它们。
 
-But one day I asked myself, “Why am I _writing_ legacy code?”
+但是有一天，我问自己，‘为什么我一直在写遗留代码’
 
-In other words, the legacy code techniques are workarounds. Aren’t there ways to tame testability without resorting to workarounds?
+换句话说，这些处理遗留代码的技术是一种权宜之计。难道没有办法来实现可测试性而不用诉诸于前面所描述的这些方法吗？
 
-That’s how I found my way to [Dependency Injection](http://qualitycoding.org/dependency-injection/). One purpose of Dependency Injection is to give a test complete control over the thing it’s testing.
+于是我找到了[Dependency Injection](http://qualitycoding.org/dependency-injection/)。依赖注射的其中一个目的就是提供对它正在测试的代码提供一个测试完整的控制。
 
-Different language features can make dependency injection easier. _Constructor Injection_ is the preferred form of DI. It turns out Swift’s default parameter values can simplify Constructor Injection. (But what if you have a Swift closure property? And a default closure for it? Read on!)
+基于不同的语言特性可以使依赖注射变得更加简单。构造器注射在 DI 中是一种更好的形式。Swift 默认的参数值可以使构造器注射更加简单。（但是如果你的代码中有Swift的闭包特性该怎么办？如果有默认的闭包呢？请看下文！）
 
-## Review: Marvel API authentication using Objective-C
+## 回顾：在 Objective-C 下 Marvel API 的验证
 
-I first learned unit testing and TDD when writing C++. When I moved to Objective-C, it was a breath of fresh air! Both production code and test code were so much easier to write, and read.
+我第一次学习单元测试和 TDD 是在写 C++ 的时候。而当我开始转而使用 Objective-C，这是一缕多么清新的空气啊！生产代码和测试代码都变得更加易读和易写。
 
-Now I’m redoing my (woefully incomplete) [TDD sample app](http://qualitycoding.org/tdd-sample-archives/), this time in Swift. The Marvel Browser will be a simple app for exploring comic characters in the Marvel universe.
+现在我再重新做我的（令人可悲的是还没完成）[TDD sample app](http://qualitycoding.org/tdd-sample-archives/)，这一次是用 Swift 语言。奇迹浏览器将会成为一个简单的 app 在奇迹宇宙中探索动漫角色。
 
-A big part of it has been learning how to communicate with the Marvel API. It started with a [spike solution in Objective-C](http://qualitycoding.org/spike-solution-techniques/). To turn the spike into TDD’d code, I had to tame two things in particular that can make unit testing difficult:
+这其中的一大部分已经知道如何与 Marvel API 交换信息。这开始于[spike solution in Objective-C](http://qualitycoding.org/spike-solution-techniques/)。为了把 spike 变为符合 TDD的代码，我必须处理两个会使单元测试变得棘手的东西。
 
-* a timestamp
-* MD5 hashing
+* 时间戳
+* MD5哈希
 
-Rather than try to figure it all out in advance, I went ahead with Subclass and Override Method. That is, I scoped those two things into methods. Then a special subclass just for testing overrode those two methods.
+相比于把所有问题都事先解决，我首先尝试了子类和方法重载这个方法。也就是说我把这两个东西的作用域绑定在方法上，然后创建了一个特殊的子类，这个子类只用于重载这两个方法。
 
-It’s a legacy code technique, but it’s still not a bad way to get started. The trick is not to stay there.
+这是一种处理遗留代码的技术，但是在开始时这任然是一个不错的方法。所谓的诀窍不是在这个方面。
 
-How can we design things to be replaceable? I thought about using the [Strategy design pattern](https://en.wikipedia.org/wiki/Strategy_pattern), but decided to go with blocks instead. I turned those blocks into properties. This opened the door to Property Injection.
+我们如何设计可以被替代的东西？我想到了使用[策略模式](https://en.wikipedia.org/wiki/Strategy_pattern)，但是我决定使用代码块来代替。我把这些块变做属性。就是这个想法打开了属性注入的大门。
 
-How can we provide the default block? I could have done this in the initializer, of course. But this would leave the initializer cluttered. Instead, I used lazy properties — not to defer their initialization, but just to move them out of init.
+我们如何可以提供一个默认的代码块？当然，我可以在初始化程序中做到这点。但是这会使初始化程序变得到处都是，我使用了惰性属性－没有推迟它们的初始化，而是把它们移出了初始化程序。
 
-## Testing time-dependent code
+## 测试依赖于时间的代码
 
-As I started the Swift version, something about my initial Objective-C implementation bothered me. To keep things simple, the timestamp was a lazy property that froze the time when it was first accessed. Multiple calls to the same instance would yield the same result. I tried to hide this by using a convenience factory method.
+在开始使用Swift时，一些原先在 Objective-C 的代码实现一直困扰着我。为了保持代码简单，时间戳是作为一个惰性属性实现的，它记录了第一次获取时候的时间。多个对这个实例的调用都会得到相同的结果。我尝试使用工厂模式来隐藏这个。
 
-J. B. Rainsberger has a great article on this very problem. Actually it’s about a more general problem: getting your abstractions right. But the case study is about time-dependent code. In [Beyond Mock Objects](http://blog.thecodewhisperer.com/permalink/beyond-mock-objects), he describes the example at a stage when it requires separate instances:
+J. B. Rainsberger 对于这个问题有篇很好的文章。这篇文章实际上是关于一个更笼统的问题：使你的抽象层级正确，但是这次的案例是依赖于时间的代码。在[Beyond Mock Objects](http://blog.thecodewhisperer.com/permalink/beyond-mock-objects)中，他描述了一个例子，这个例子在一个阶段会需要单独的实例：
 
-> I find it strange, too. I’ve simplified the dependency in one respect, and complicated it in another: clients have to instantiate a new controller on each request, or said differently, the controller has request scope. This sounds wrong.
+> 我也发现这有点奇怪。我在一个方面简化了依赖，而在另一个方面使依赖变得更加复杂：客户端对于每个请求都必须初始化一个新的控制器，或者换句话说，控制器有请求上下文。这听起来是错误的。
 
-I encourage you to study the article. Basically, instead of having the method in question _determine_ the timestamp, we can simply _pass_ the timestamp as a parameter. This is a classic use of Method Injection.
+我鼓励你去研究下这篇文章。基本上，与其在问题中有一个方法来决定时间戳，我们可以简单地把时间戳作为参数传递。这是方法注入的一个经典用法。
 
-In Objective-C, this can be done by having cascading methods. This interface should be pretty clear:
+在 Objective-C 中可以使用级联方法来实现方法注入。接口应该十分清晰：
 
     - (NSString *)URLParameters;
     - (NSString *)URLParametersWithTimestamp:(NSString *)timestamp;
 
-The first method calls the second, providing the timestamp value:
+第一个方法调用了第二个方法，提供了一个默认值:
 
     - (NSString *)URLParameters
     {
         return [self URLParametersWithTimestamp:[self timestamp]];
     }
 
-Swift makes this easier. Instead of having cascading methods, we can simply use a default parameter value.
+Swift 使它变得更简单.我们可以简单的使用默认参数值而不是使用级联方法。
 
 		func urlParameters(
-        timestamp: String = MarvelAuthentication.timestamp(),
-        /* more to come here */) -> String
+	    timestamp: String = MarvelAuthentication.timestamp(),
+	    /* more to come here */) -> String
 
-One complication: Swift doesn’t allow us to call another instance method to get the default value. So if you can, make it a type method instead. (If not, we can always fall back on cascading methods.)
+其中一个复杂的地方是：Swift 并不允许我们调用另一个实例方法来获取默认的值。所以如果你可以，使它作为一个类型方法实现。（如果不行，我们总是可以依靠级联方法）
 
-## Swift default property values
+## Swift 默认的属性值
 
-When I use Property Injection in Objective-C, I usually set up a default value for that property. We can establish small properties in the initializer. But sometimes you don’t want code in your initializer that is otherwise unrelated. Or sometimes it’s not small — it’s a block. At such times, I tend to use the lazy property idiom in Objective-C.
+当我在 Objective-C 中使用属性注入，我通常会为属性设定默认的值。我们可以在初始化程序中建立小的属性。但是有时候你并不想在初始化程序中的代码是和程序无关的。或者有的时候它并不小－它是一个代码块。在这些时候，我会使用 Objective-C 中的惰性属性用法。
 
-Here’s how I did this for the block property that calculates the MD5 hash:
+这是我如何实现计算 MD5 哈希值的代码块：
 
     - (NSString *(^)(NSString *))calculateMD5
     {
@@ -91,67 +91,67 @@ Here’s how I did this for the block property that calculates the MD5 hash:
         return _calculateMD5;
     }
 
-But Swift lets us set default property values, right at the definition of the property. Here’s a closure property with a default:
+但是 Swift 允许我们在属性定义的地方设置默认的属性值。这是一个有默认值的闭包属性：
 
 		var md5: (String) -> String = { str in
-        /* Actual body goes here */
-    }
+	    /* Actual body goes here */
+	}
 
-Wow, that’s so much simpler!
+哇，这也简单太多了吧！
 
-## Experimenting with closures
+## 闭包实验
 
-Here’s what my main test looked like at this point. It’s not bad:
+这是我主要测试现在看起来的样子，这还是不错的：
 
     func testUrlParameters_ShouldHaveTimestampPublicKeyAndHashedConcatenation() {
-				sut.privateKey = "Private"
-				sut.publicKey = "Public"
-				sut.md5 = { str in return "MD5" + str + "MD5" }
+    			sut.privateKey = "Private"
+    			sut.publicKey = "Public"
+    			sut.md5 = { str in return "MD5" + str + "MD5" }
+    
+    			let params = sut.urlParameters(timestamp: "Timestamp")
+    
+    			XCTAssertEqual(params, "&ts=Timestamp&apikey=Public&hash=MD5TimestampPrivatePublicMD5")
+    	}
 
-				let params = sut.urlParameters(timestamp: "Timestamp")
+正如你可以看到的，我覆盖了 MD5 的闭包用于保持测试的可理解性。这个测试表明产生的 URL 参数是对的。你可以看到如何使用哈希工作的。
 
-				XCTAssertEqual(params, "&ts=Timestamp&apikey=Public&hash=MD5TimestampPrivatePublicMD5")
-		}
-
-As you can see, I override the MD5 closure to keep the test understandable. The test demonstrates that the generated URL parameters are correct. You can see how the hashing is supposed to work.
-
-But then I thought, why override a closure property? Why not pass the MD5 algorithm as a parameter instead? And if we make it the last parameter, then we can use _trailing closure_ syntax:
+但是随后我想到，为什么要覆盖一个闭包属性呢？为什么不把 MD5 算法当作一个参数传进去呢？如果我们把它作为最后一个参数，那么我们就可以使用尾部闭包语法：
 
     func testUrlParameters_ShouldHaveTimestampPublicKeyAndHashedConcatenation() {
             sut.privateKey = "Private"
             sut.publicKey = "Public"
-
+    
             let params = sut.urlParameters(timestamp: "Timestamp") { str in
                 return "MD5" + str + "MD5"
             }
-
+    
             XCTAssertEqual(params, "&ts=Timestamp&apikey=Public&hash=MD5TimestampPrivatePublicMD5")
         }
 
-Is this easier to read? Honestly, I think it’s a little worse. I use blank lines to separate my tests into the “Three A’s” (Arrange, Act, Assert). I feel like this particular closure muddies the Act section. Also it no longer has a name, which makes it harder to tell what it’s faking.
+这代码的可读性更强吗？老实说，我认为它甚至变得有点更糟糕了。我使用空行把我的测试分成了 ‘Three A's’ （Arrange（安排）, Act（执行）, Assert（断言））。我认为这个特定的闭包弄乱了我的执行部分，同时它也没有名字，这使人更难理解它代表的是什么。
 
-But I had to try to find out!
+但是我不得不设法找出来！
 
-## Testable Swift
+## 可测试的 Swift
 
-Here’s what I’ve learned so far about how Swift makes it easier to write code that’s both testable and clean…
+以下使我至今为止学到的 Swift 是如何使我们可以简单写出写兼顾可测试性和清晰的代码
 
-**Defaults:** Swift’s default values simplify a number of Dependency Injection techniques:
+**默认:**Swfit 的默认值简化了许多依赖注射技术：
 
-*   Constructor Injection: use default parameter values in initializer.
-*   Property Injection: use default property values.
-*   Method Injection: use default parameters values in any method.
+*   构造注射：在初始化器中使用默认参数
+*   属性注射：使用默认的属性值
+*   方法注射：在任何方法中使用默认的参数值
 
-**Closures:** The consistent syntax of Swift’s closures provides various places to introduce Seams.
+**闭包:** Swift 闭包的一致的语法可以在多种地方引进接缝.
 
-*   Closure properties
-*   Closure parameters
-*   Refactoring is easier because the syntax doesn’t change wildly.
-*   Because functions are closures, you can extract many closures to wherever you want. Why do everything in-line?
+*   闭包属性
+*   闭包参数
+*   因为语法并没有大范围的改动，重构比较简单
+*   因为函数是闭包的，你可以在任何想要的地方抽取想要的闭包。为什么要在一行里做所有事呢？
 
-I don’t want to abuse closures. Chances are, there’s often an abstraction waiting to be discovered and pulled into a Strategy pattern. But every Seam is an opportunity for enhancing testability.
+我并不想滥用闭包。选择是，总会有一个合适的抽象层级等待被发现然后使用于策略模式。但是每一个缝隙都是一个提高可测试性的机会
 
-I’m still scratching the surface of Swift. I know from Joe Masilotti’s article [Better Unit Testing with Swift](http://masilotti.com/better-swift-unit-testing/) that protocols provide excellent Seams. But how do other language features affect testability? What about enums, or generics? To keep up with my ongoing adventures exploring Clean, Test-Driven Swift, [subscribe today](http://qualitycoding.org/subscribe/)!
+我仍然只学了 Swift 的皮毛。我从 Joe Masilotti 的文章[Better Unit Testing with Swift](http://masilotti.com/better-swift-unit-testing/) 了解到协议提供了极大的机会。但是其它语言特性是如何影响可测试性的？比如说枚举或者泛型？跟着我来把它们探索清楚，测试驱动的 Swift，[subscribe today](http://qualitycoding.org/subscribe/)！
 
-**_What features of Swift have you used for greater testability? What features should I explore? Let me know in the comments below._**
+**_你使用了哪些 Swift 的特性来提高可测试性？我应该探索哪些特性？可以在下面的评论中留言让我知道_**
 
