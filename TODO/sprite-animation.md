@@ -5,7 +5,7 @@
 * 校对者: [iThreeKing](https://github.com/iThreeKing)
 * 状态 :  完成
 
-#关于 Sprite 动画简介
+# 关于 Sprite 动画简介
 
 #### 我们总是希望添加运动的元素到我们的网站上，并认为流畅的动画可以让乏味的模板化网站设计得到改善。
 

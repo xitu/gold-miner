@@ -4,8 +4,7 @@
 * 译者 : [wildflame](https://github.com/wild-flame/)
 * 校对者: [tanglie1993](https://github.com/tanglie1993/),[llp0574](https://github.com/llp0574)
 
-
-#### 移动开发中用 1x 视觉稿设计的好处
+# 移动开发中用 1x 视觉稿设计的好处
 
 那我就开门见山了：我确信你们很多人都已经知道 1x 设计的好处了。但是呢，言语和风声总不会那么一致。在移动设备上，到底是使用 1x 设计稿更好，还是 2x 设计稿，一直没有达成共识。
 

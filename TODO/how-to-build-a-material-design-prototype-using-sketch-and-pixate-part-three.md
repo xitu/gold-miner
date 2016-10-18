@@ -4,6 +4,7 @@
 * 译者 : [Hugo](https://github.com/xcc3641)
 * 校对者: [Zheaoli](https://github.com/Zheaoli),[阿宅](https://github.com/rockzhai)
 
+# 使用 Sketch 和 Pixate 构建 Material Design 原型 - 第三部分
 
 <span>在本系列的 [Part 2](https://gold.xitu.io/entry/574eb491d342d300434cec1c) 我们已经将在 Sketch 中完成的作品导入到了 Pixate ，并且新建了一个简单的登陆原型。 </span>
 
