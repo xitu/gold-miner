@@ -1,8 +1,8 @@
 > * 原文地址：[How Can Swift Language Features Improve Testability?](http://qualitycoding.org/swift-testability/)
 * 原文作者：[Jon Reid](http://qualitycoding.org/contact/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：steinliber
-* 校对者：Edison-Hsu  Graning
+* 译者：[steinliber](https://github.com/steinliber)
+* 校对者：[Edison-Hsu](https://github.com/Edison-Hsu)  [Graning](https://github.com/Edison-Hsu)
 
 
 我知道如何编写具有可测试性的 C++ 和 Objective-C ，但是 Swift 在这方面又是怎么做的呢？
@@ -153,5 +153,5 @@ Swift 使它变得更简单。我们可以简单的使用默认参数值而不�
 
 我仍然只学了 Swift 的皮毛。我从 Joe Masilotti 的文章 [Better Unit Testing with Swift](http://masilotti.com/better-swift-unit-testing/) 了解到协议提供了极大的机会。但是其它语言特性是如何影响可测试性的？比如说枚举或者泛型？跟着我来把它们探索清楚，测试驱动的 Swift，[subscribe today](http://qualitycoding.org/subscribe/) ！
 
-**_你使用了哪些 Swift 的特性来提高可测试性？我应该探索哪些特性？可以在下面的评论中留言让我知道_**
+**你使用了哪些 Swift 的特性来提高可测试性？我应该探索哪些特性？可以在下面的评论中留言让我知道**
 
