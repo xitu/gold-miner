@@ -4,7 +4,7 @@
 * 译者：[Jamweak] (https://github.com/jamweak)
 * 校对者：[Newt0n] (https://github.com/Newt0n), [写代码的猴子] (https://github.com/laobie)
 
-# [译] 探索 Android 大杀器——Handler
+# 探索 Android 大杀器—— Handler
 
 如果你想要让一个 Android 应用程序反应灵敏，那么你必须防止它的 UI 线程被阻塞。同样地，将这些阻塞的或者计算密集型的任务转到工作线程去执行也会提高程序的响应灵敏性。然而，这些任务的执行结果通常需要更新UI组件的显示，但该操作只能在UI线程中去执行。有一些方法解决了 UI 线程的阻塞问题，例如阻塞队列，共享内存以及管道技术。在 Android 中，为解决这个问题，提供了一种自有的消息传递机制——[Handler](https://developer.android.com/reference/android/os/Handler.html)。Handler 是 Android Framework 架构中的一个基础组件，它实现了一种非阻塞的消息传递机制，在消息转换的过程中，消息的生产者和消费者都不会阻塞。
 

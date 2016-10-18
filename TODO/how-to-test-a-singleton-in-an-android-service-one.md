@@ -4,9 +4,7 @@
 * 译者：[Newt0n](http://github.com/newt0n)
 * 校对者：[Graning](https://github.com/Graning), [DeadLion](https://github.com/DeadLion)
 
-
-
-
+# 如何测试 Android Service 里的 Singleton (1)
 
 最近我遇到个大麻烦：如何测试服务里的单例模式？最终我解决了这个问题。而且我觉得整个解决问题的过程是一个绝好的向读者清楚的解释单元测试的机会。限于篇幅，本文是第一篇文章，后面我会再写一篇。
 

@@ -4,6 +4,8 @@
 * 译者 : [aidistan](https://github.com/aidistan)
 * 校对者: [shixinzhang](https://github.com/shixinzhang), [a-voyager](https://github.com/a-voyager)
 
+# 深度讲解 Android 主题层级
+
 Theme.AppCompat, Theme.Base.AppCompat, Base.V7.Theme.AppCompat, Base.v11.Theme.AppCompat, Base.v21.Theme.AppCompat, ThemeOverlay, Platform.AppCompat, DeviceDefault, Material, Holo, Classic 等等……
 
 当使用安卓主题和支持库时，你可能会遇见以上这些名字，并且好奇：

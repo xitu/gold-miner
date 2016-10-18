@@ -4,16 +4,14 @@
 * 译者：[欧文](https://github.com/owenlyn)
 * 校对者：[Graning](https://github.com/Graning), [lizwangying](https://github.com/lizwangying)
 
+# Pury — 一个新的 Android App 性能分析工具
+
 手机应用存在的目的，就是在帮助用户做他们想做的事情的同时，提供最好的用户体验 —— 而用户体验的重中之重是应用的性能。但有时候开发者们却以性能为借口，既没有达到既定目标，又写着低质量并难以维护的代码。在这里我想引用 Michael A. Jackson 的一句话：
 
 > “程序优化守则第一条：别去做它。程序优化守则第二条（仅限于专业人员）：别去做它，现在还不是时候。”
 
 
-
 ![](https://cdn-images-1.medium.com/max/1600/1*YVKsfvtGMavBcYOo_tTHbA.jpeg)
-
-
-
 
 
 在开始任何优化之前，我们要先认清问题的症结所在。
