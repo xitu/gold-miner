@@ -2,7 +2,7 @@
 * 原文作者：[Jon Reid](http://qualitycoding.org/contact/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：steinliber
-* 校对者：
+* 校对者：Edison-Hsu  Graning
 
 
 我知道如何编写具有可测试性的 C++ 和 Objective-C ，但是 Swift 在这方面又是怎么做的呢？
@@ -13,7 +13,7 @@
 
 ## 编写可测试的代码
 
-*透露一个秘密：下面的书本链接是个附带链接，如果你买了其中的任何东西，我可以赚取一定的提成，对你来说不造成任何额外费用。*
+**透露一个秘密：下面的书本链接是个附带链接，如果你买了其中的任何东西，我可以赚取一定的提成，对你来说不造成任何额外费用。**
 
 单元测试最大的挑战就是编写可测试的代码。这通常就意味这第一次重新学习如何编写代码！这本书 [Working Effectively with Legacy Code](http://www.amazon.com/gp/product/0131177052/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=0131177052&linkCode=as2&tag=qualitycoding-20&linkId=CMFUKIQWYHGBBOSN) 提供了许多技巧来帮助在编写代码时不用考虑其可测试性。这些技术比如说‘子类和方法重载’在处理遗留代码时可以做的很好，所以我也开始在实施 TDD 的过程中使用它们。
 
@@ -46,7 +46,7 @@
 
 ## 测试依赖于时间的代码
 
-在开始使用Swift时，一些原先在 Objective-C 的代码实现一直困扰着我。为了保持代码简单，时间戳是作为一个惰性属性实现的，它记录了第一次访问的时间。多个对这个实例的调用都会得到相同的结果。我尝试使用工厂模式来隐藏这个。
+在开始使用 Swift 时，一些原先在 Objective-C 的代码实现一直困扰着我。为了保持代码简单，时间戳是作为一个惰性属性实现的，它记录了第一次访问的时间。多个对这个实例的调用都会得到相同的结果。我尝试使用工厂模式来隐藏这个。
 
 J. B. Rainsberger 对于这个问题有篇很好的文章。这篇文章实际上是关于一个更笼统的问题：使你的抽象层级正确，但是这次的案例是依赖于时间的代码。在[Beyond Mock Objects](http://blog.thecodewhisperer.com/permalink/beyond-mock-objects)中，他描述了一个例子，这个例子在一个阶段会需要不同的实例：
 
@@ -66,7 +66,7 @@ J. B. Rainsberger 对于这个问题有篇很好的文章。这篇文章实际�
         return [self URLParametersWithTimestamp:[self timestamp]];
     }
 
-Swift 使它变得更简单.我们可以简单的使用默认参数值而不是使用级联方法。
+Swift 使它变得更简单。我们可以简单的使用默认参数值而不是使用级联方法。
 
 		func urlParameters(
 	    timestamp: String = MarvelAuthentication.timestamp(),
@@ -128,7 +128,7 @@ Swift 使它变得更简单.我们可以简单的使用默认参数值而不是�
             XCTAssertEqual(params, "&ts=Timestamp&apikey=Public&hash=MD5TimestampPrivatePublicMD5")
         }
 
-这代码的可读性更强吗？老实说，我认为它甚至变得有点更糟糕了。我使用空行把我的测试分成了 ‘Three A's’ （Arrange（安排）, Act（执行）, Assert（断言））。我认为这个特定的闭包弄乱了我的执行部分，同时它也没有名字，这使人更难理解它代表的是什么。
+这代码的可读性更强吗？老实说，我认为它甚至变得有点更糟糕了。我使用空行把我的测试分成了 ‘Three A's’ （ Arrange（安排）, Act（执行）, Assert（断言））。我认为这个特定的闭包弄乱了我的执行部分，同时它也没有名字，这使人更难理解它代表的是什么。
 
 但是我不得不设法找出来！
 
@@ -136,7 +136,7 @@ Swift 使它变得更简单.我们可以简单的使用默认参数值而不是�
 
 以下使我至今为止学到的 Swift 是如何使我们可以简单写出写兼顾可测试性和清晰的代码
 
-**默认:**Swfit 的默认值简化了许多依赖注入技术：
+**默认:** Swfit 的默认值简化了许多依赖注入技术：
 
 *   构造注入：在初始化器中使用默认参数
 *   属性注入：使用默认的属性值
@@ -151,7 +151,7 @@ Swift 使它变得更简单.我们可以简单的使用默认参数值而不是�
 
 我并不想滥用闭包。选择是，总会有一个合适的抽象层级等待被发现然后使用于策略模式。但是每一个缝隙都是一个提高可测试性的机会
 
-我仍然只学了 Swift 的皮毛。我从 Joe Masilotti 的文章[Better Unit Testing with Swift](http://masilotti.com/better-swift-unit-testing/) 了解到协议提供了极大的机会。但是其它语言特性是如何影响可测试性的？比如说枚举或者泛型？跟着我来把它们探索清楚，测试驱动的 Swift，[subscribe today](http://qualitycoding.org/subscribe/)！
+我仍然只学了 Swift 的皮毛。我从 Joe Masilotti 的文章 [Better Unit Testing with Swift](http://masilotti.com/better-swift-unit-testing/) 了解到协议提供了极大的机会。但是其它语言特性是如何影响可测试性的？比如说枚举或者泛型？跟着我来把它们探索清楚，测试驱动的 Swift，[subscribe today](http://qualitycoding.org/subscribe/) ！
 
 **_你使用了哪些 Swift 的特性来提高可测试性？我应该探索哪些特性？可以在下面的评论中留言让我知道_**
 
