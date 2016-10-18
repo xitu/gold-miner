@@ -4,6 +4,8 @@
 * 译者 : [SatanWoo](https://github.com/satanwoo)
 * 校对者: [iThreeKing](https://github.com/iThreeKing), [DeadLion](https://github.com/DeadLion)
 
+# 为什么 Spotify 的付费转化率比 Dropbox 高了 667%
+
 在 2015 年的时候，The Fader [报道](http://www.thefader.com/2015/06/10/new-spotify-statistics)了一则关于 Spotify 的重磅新闻：在其 7500 万月活跃用户中，有 2000 万左右是付费用户。
 
 26.6% 的转化率对于免费增值产品来说是令人难以置信的。正如 Jason Chen [所说](http://blog.asmartbear.com/freemium.html)
