@@ -1,3 +1,4 @@
+* [构建应用状态时，你应该避免不必要的复杂性](https://gold.xitu.io/entry/58044c2a0e3dd900571475fa?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([chemzqm](https://github.com/chemzqm) 翻译)
 * [开发 Electron app 必知的 4 个 tips](https://gold.xitu.io/entry/58025536bf22ec0064d5f3d9?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([huanglizhuo](https://github.com/huanglizhuo) 翻译)
 * [VUE 和 VUEX 中的数据流](https://gold.xitu.io/entry/58007bcf0bd1d00058eefe69?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([llp0574](https://github.com/llp0574) 翻译)
 * [使用 Cordova 和 Vue.js 创建移动应用](https://gold.xitu.io/entry/57ea26f5da2f600060e59c5e?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([circlelove](https://github.com/circlelove) 翻译)
