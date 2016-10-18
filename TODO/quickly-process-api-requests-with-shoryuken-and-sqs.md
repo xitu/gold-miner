@@ -4,6 +4,8 @@
 * 译者: [circlelove](https://github.com/circlelove)
 * 校对者: [rccoder](https://github.com/rccoder), [MAYDAY1993](https://github.com/MAYDAY1993)
 
+# 利用 Shoryuken and SQS 快速处理 API 请求
+
 ![](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2016/07/1468165009amazon-sqs_512-300x300.png)
 
 Rails 为后台工作提供了相当多的解决方案。其中一个就是被称为 Sidkiq 的智能 Gem， [我们之前在 Sitepoint 上提到过](https://www.sitepoint.com/comparing-background-processing-libraries-sidekiq/)。
