@@ -4,6 +4,7 @@
 * 译者：[Siegen](https://github.com/siegeout)
 * 校对者：[Liz](https://github.com/lizwangying),[张拭心](https://github.com/shixinzhang)
 
+# 关于 Android Adapter，你的实现方式可能一直都有问题
 
 对Android 开发者来说实现 adapter 是最常见的任务之一。它是每一个列表的基础。看看市面上的应用，列表是大部分应用的基础。
 

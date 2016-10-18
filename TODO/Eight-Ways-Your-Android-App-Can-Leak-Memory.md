@@ -4,6 +4,7 @@
 * 译者 : [zhangzhaoqi](https://github.com/joddiy)
 * 校对者: [Jasper Zhong](https://github.com/DeadLion)，[江湖迈杰](https://github.com/MiJack)
 
+# 八个造成 Android 应用内存泄露的原因
 
 诸如 Java 这样的 GC （垃圾回收）语言的一个好处就是免去了开发者管理内存分配的必要。这样降低了段错误导致应用崩溃或者未释放的内存挤爆了堆的可能性，因此也能编写更安全的代码。不幸的是，Java 里仍有一些其他的方式会导致内存“合理”地泄露。最终，这意味着你的 Android 应用可能会浪费一些非必要内存，甚至出现 out-of-memory (OOM) 错误。
 
