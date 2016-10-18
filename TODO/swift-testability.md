@@ -2,7 +2,7 @@
 * 原文作者：[Jon Reid](http://qualitycoding.org/contact/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[steinliber](https://github.com/steinliber)
-* 校对者：[Edison-Hsu](https://github.com/Edison-Hsu)  [Graning](https://github.com/Edison-Hsu)
+* 校对者：[Edison-Hsu](https://github.com/Edison-Hsu)  [Graning](https://github.com/Graning)
 
 
 我知道如何编写具有可测试性的 C++ 和 Objective-C ，但是 Swift 在这方面又是怎么做的呢？
