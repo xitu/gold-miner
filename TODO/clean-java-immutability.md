@@ -4,6 +4,7 @@
 * 译者 : [buccoji] (https://github.com/buccoji)
 * 校对者: [WuHaojie] (https://github.com/a-voyager), [jamweak] (https://github.com/jamweak)
 
+# Java 不可变类的整洁之道
 
 当一个普通类 (class) 的实例不能被修改时，我们便称之为「不可变类」(immutable class)。这样的类在实例化时便需要提供其所有的值，而在之后的运行中便绝不可更改。比如大家可能都知道的 Java 中已有的一些**不可变**类型，_String_ (string 的字符串联很没效率，对吧), _BigInteger_, 和 BigDecimal_。
 

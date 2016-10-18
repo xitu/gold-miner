@@ -4,7 +4,7 @@
 * 译者 : [Goshin](https://github.com/Goshin)
 * 校对者: [warcryDoggie](https://github.com/warcryDoggie), [jkjk77](https://github.com/jkjk77)
 
-
+# 如何应用最新版的谷歌表格 API
 
 ## 引言
 
