@@ -4,6 +4,7 @@
 * 译者：[Danny Lau](https://github.com/Danny1451)
 * 校对者：[Jing Liu](https://github.com/shliujing),[lm](https://github.com/DeepMissea)
 
+# [译] Swift 中的面向协议编程是如何点亮我的人生的
 
 面向对象编程至今已经使用了数十年了，并且成为了构建大型软件约定俗成的标准。作为iOS编程的中心思想，遵循面向对象规范来编写一个 iOS 的应用几乎不可能实现。虽然面向对象有很多优点比如封装性，访问控制和抽象性，但是它也自带有固有的缺点。
 
