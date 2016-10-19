@@ -12,37 +12,14 @@ Remote config is a feature of Firebase suite that allows us to alter both the lo
 This powerful feature gives us a range of new abilities when it comes to immediate updates, temporary changes or testing new features amongst users. Let’s take a dive and learn the what, why and how of Remote Config so we can learn how to use it to benefit both ourselves and our users 🚀
 
 
-
-
-
-
-
 Don’t forget to check out the previous article in this series:
 
 *   [**Exploring Firebase on Android & iOS: Analytics**](https://medium.com/exploring-android/exploring-firebase-on-android-ios-analytics-8484b61a21ba#.dgyq5cpoq)
 
-
-
-
-
-
-
-
-
 I’m also releasing a full eBook that will act as a practical guide to integrating firebase features, which will feature more detailed guides on each section of the Firebase suite. For Remote Config, in the book we’ll be taking a deeper look into the firebase console, integration of Remote Config and use of it in real-world application. Click the image below to be alerted when it’s out! 🙂
 
 
-
-
-
-
-
 ![](https://cdn-images-1.medium.com/max/2000/1*adPhI66a3h5h3uX8G0eA1A.png)
-
-
-
-
-
 
 
 ### What can we do with Firebase Remote Config?
@@ -167,21 +144,24 @@ We next need to set some in-app configuration defaults for our configuration val
 
 We can set our default values in the form of key-value pairs using either a [Map](https://developer.android.com/reference/java/util/Map.html) instance or an XML file (located inside res/xml). In this example, we’ve setup an xml file to represent our default values:
 
-    
-    
-        
-            some_text
-            Here is some text
-        
-        
-            has_discount
-            false
-        
-        
-            main_color
-            red
-        
-    
+
+```
+<?xml version="1.0" encoding="utf-8"?>
+<defaultsMap>
+    <entry>
+        <key>some_text</key>
+        <value>Here is some text</value>
+    </entry>
+    <entry>
+        <key>has_discount</key>
+        <value>false</value>
+    </entry>
+    <entry>
+        <key>main_color</key>
+        <value>red</value>
+    </entry>
+</defaultsMap>
+```
 
 We can then set the defaults using the Remote Config setDefaults() method:
 
@@ -193,24 +173,34 @@ Now we’ve set our configuration defaults, we can start using them within our a
 
 *   [getBoolean()](https://firebase.google.com/docs/reference/android/com/google/firebase/remoteconfig/FirebaseRemoteConfig.html#getBoolean%28java.lang.String%29) — Allows us to retrieve **boolean** configuration values
 
-    boolean someBoolean =     
+    ```
+		boolean someBoolean =     
                 firebaseRemoteConfig.getBoolean("some_boolean");
+		```
 
 *   [getByteArray()](https://firebase.google.com/docs/reference/android/com/google/firebase/remoteconfig/FirebaseRemoteConfig.html#getByteArray%28java.lang.String%29) — Allows us to retrieve **byte[]** configuration values
 
-    byte[] someArray = firebaseRemoteConfig.getByteArray("some_array");
+    ```
+		byte[] someArray = firebaseRemoteConfig.getByteArray("some_array");
+		```
 
 *   [getDouble()](https://firebase.google.com/docs/reference/android/com/google/firebase/remoteconfig/FirebaseRemoteConfig.html#getDouble%28java.lang.String%29) — Allows us to retrieve **double** configuration values
 
-    double someDouble = firebaseRemoteConfig.getDouble("some_double");
+    ```
+		double someDouble = firebaseRemoteConfig.getDouble("some_double");
+		```
 
 *   [getLong()](https://firebase.google.com/docs/reference/android/com/google/firebase/remoteconfig/FirebaseRemoteConfig.html#getLong%28java.lang.String%29) — Allows us to retrieve **long** configuration values
 
-    long someLong = firebaseRemoteConfig.getLong("some_long");
+    ```
+		long someLong = firebaseRemoteConfig.getLong("some_long");
+		```
 
 *   [getString()](https://firebase.google.com/docs/reference/android/com/google/firebase/remoteconfig/FirebaseRemoteConfig.html#getString%28java.lang.String%29) — Allows us to retrieve **String** configuration values
 
-    String someText = firebaseRemoteConfig.getString("some_text");
+    ```
+		String someText = firebaseRemoteConfig.getString("some_text");
+		```
 
 #### Fetch Server-Side values
 
