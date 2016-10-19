@@ -69,7 +69,7 @@ Like other trees, a binary tree composed of nodes. One way to represent a node i
 
 
 
-    class Node {
+    class Node<T> {
       var value: T
       var leftChild: Node?
       var rightChild: Node?
@@ -91,6 +91,10 @@ One of the core ideas of Swift is using value types (like `struct` and `enum`) i
 
 Create a new Swift playground (this tutorial uses Xcode 8 beta 5) and add the following enum declaration:
 
+    enum BinaryTree<T> {
+
+    }
+
 You’ve declared a enum named `BinaryTree`. The `` syntax declares this to be a _generic_ enum that allows it to infer it’s own type information at the call site.
 
 ### States
@@ -101,7 +105,7 @@ Update your enum accordingly:
 
 
 
-    enum BinaryTree {
+    enum BinaryTree<T> {
       case empty
       case node(BinaryTree, T, BinaryTree)
     }
@@ -124,7 +128,7 @@ Xcode should make an offer to fix this for you. Accept it, and your enum should 
 
 
 
-    indirect enum BinaryTree {
+    indirect enum BinaryTree<T> {
       case empty
       case node(BinaryTree, T, BinaryTree)
     }
@@ -149,7 +153,7 @@ While the code now compiles, you can be a little bit more concise. Update `Binar
 
 
 
-    enum BinaryTree {
+    enum BinaryTree<T> {
       case empty
       indirect case node(BinaryTree, T, BinaryTree)
     }
@@ -212,6 +216,8 @@ Verifying a tree structure can be hard without any console logging. Swift has a 
 
 
 Print the tree by writing the following at the end of the file:
+
+    tree.count
 
 You should see something like this:
 
@@ -321,16 +327,16 @@ Now that you’ve got an idea of how insertion works, it’s implementation time
 
 
 
-    // 1\. 
+    // 1. 
     mutating func naiveInsert(newValue: T) {
       // 2.
       guard case .node(var left, let value, var right) = self else {
-        // 3\. 
+        // 3. 
         self = .node(.empty, newValue, .empty)
         return 
       }
 
-      // 4\. TODO: Implement rest of algorithm!
+      // 4. TODO: Implement rest of algorithm!
 
     }
 
@@ -349,7 +355,7 @@ But before you do, you need to make a change to the `BinaryTree` signature. In s
 
 
 
-    enum BinaryTree {
+    enum BinaryTree<T: Comparable> {}
       // stuff inside unchanged
     }
 
@@ -533,7 +539,7 @@ To see this in action, you'll create the binary tree shown above. Delete all the
 
 
 
-    var tree: BinaryTree = .empty
+    var tree: BinaryTree<Int> = .empty
     tree.insert(newValue: 7)
     tree.insert(newValue: 10)
     tree.insert(newValue: 2)
@@ -595,39 +601,9 @@ These 3 traversal algorithms serve as a basis for many complex programming probl
 
 What is the time complexity of the traversal algorithms?
 
-
-
-
-
-
-
-
-
 Solution Inside: Solution
 
-[Select](https://www.raywenderlich.com/139821/swift-algorithm-club-swift-binary-search-tree-data-structure)[Show>](https://www.raywenderlich.com/139821/swift-algorithm-club-swift-binary-search-tree-data-structure)
-
-
-
-
-
-
-
-  
-The time complexity is _O(n)_, where n is the number of nodes in the tree.
-
-This should be obvious, since the idea of traversing a tree is to go through all the nodes!  
-
-
-
-
-
-
-
-
-
-
-
+The time complexity is O(n), where n is the number of nodes in the tree. This should be obvious, since the idea of traversing a tree is to go through all the nodes!
 
 
 ## Searching
