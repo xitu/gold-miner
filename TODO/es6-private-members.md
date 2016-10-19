@@ -4,6 +4,7 @@
 * 译者 : [XRene](https://github.com/CommanderXL)
 * 校对者:[narcotics726](https://github.com/narcotics726), [jingkecn](https://github.com/jingkecn)
 
+# ECMAScript 6 里面的私有变量
 
 “...让我们创建一个ES6的类吧，”你说。“再给它一个私有变量”
 

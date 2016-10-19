@@ -4,6 +4,7 @@
 * 译者：[yangzj1992](http://qcyoung.com)
 * 校对者： [linpu.li](https://github.com/llp0574), [Nicolas(Yifei) Li](https://github.com/yifili09)
 
+# 使用 currentColor 属性写出更好的 CSS 代码
 
 总有一些极其强大的 CSS 属性在目前已经有了很好的浏览器支持，但却很少被开发者使用。 `currentColor` 就是这样的属性之一。
 

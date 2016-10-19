@@ -1,10 +1,10 @@
-#网络字体加载优化
-
 >* 原文链接 : [Web Font Loading Patterns](https://www.bramstein.com/writing/web-font-loading-patterns.html)
 * 原文作者 : [Bram Stein](https://www.bramstein.com/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [SHENXN](https://github.com/shenxn)
 * 校对者: [hikerpig](https://github.com/hikerpig), [L9m](https://github.com/L9m)
+
+# 网页端字体加载优化
 
 网络字体加载看起来也许非常复杂，但如果你使用本文的字体加载模式的话，这也并不是一件复杂的事情。你可以将这些模式组合起来，创建一个兼容所有浏览器的字体加载方式。
 

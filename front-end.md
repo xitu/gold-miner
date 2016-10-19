@@ -21,7 +21,6 @@
 * [懒加载图片？不要依赖 JavaScript ！](http://gold.xitu.io/entry/5787048a165abd0067f7e476?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jk77](https://github.com/jk77me) 翻译)
 * [用 Javascript 编写λ演算解释器](http://gold.xitu.io/entry/57834783d342d30057db3f93?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([zhangzhaoqi](https://github.com/joddiy) 翻译)
 * [让你的网站更炫酷的一些小 tips](https://gold.xitu.io/entry/577f402b79bc4400329db962?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([达仔](https://github.com/zhangjd) 翻译)
-* [jQuery 终于发布了](https://gold.xitu.io/entry/576917c0d342d30058097229?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Dwight](https://github.com/ldhlfzysys) 翻译)
 * [较为完整的 React.js / Vue.js 的性能比较 Part 1](https://gold.xitu.io/entry/577bacc92e958a00549106dc?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([circlelove](https://github.com/circlelove) 翻译)
 * [较为完整的 React.js / Vue.js 的性能比较 Part 2](https://gold.xitu.io/entry/57691d5d6be3ff006a438e09?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([wild-flame](https://github.com/wild-flame) 翻译)
 * [让 Webpack 来帮你打包吧](https://gold.xitu.io/entry/5767a975df0eea0062ffe193?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([达仔](https://github.com/Zhangjd) 翻译)

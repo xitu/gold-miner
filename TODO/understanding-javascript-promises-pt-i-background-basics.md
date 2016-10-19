@@ -4,6 +4,7 @@
 * 译者 : [huanglizhuo](https://github.com/huanglizhuo)
 * 校对者: [hpoenixf](https://github.com/hpoenixf)，[MAYDAY1993](https://github.com/MAYDAY1993)
 
+# 如何理解 JavaScript 中的 Promise 机制
 
 ## Promise 的世界
 

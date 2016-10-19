@@ -1,10 +1,10 @@
-# VUE 和 VUEX 中的数据流
-
 > * 原文地址：[DATA FLOW IN VUE AND VUEX](https://benjaminlistwon.com/blog/data-flow-in-vue-and-vuex/)
 * 原文作者：[Benjamin Listwon](https://benjaminlistwon.com/about/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[linpu.li](https://github.com/llp0574)
 * 校对者：[malcolmyu](https://github.com/malcolmyu)，[XatMassacrE](https://github.com/XatMassacrE)
+
+# VUE 和 VUEX 中的数据流
 
 看起来在 [Vue](https://vuejs.org) 里面困扰开发者的事情之一是如何在组件之间共享状态。对于刚刚接触响应式编程的开发者来说，像 [Vuex](https://github.com/vuejs/vuex/) 这种库，有着繁多的新名词及其关注点分离的方式，往往令人望而生畏。特别是当你只希望分享一两个数据片段时，（这一套逻辑的复杂性）就显得有点过分了。
 
