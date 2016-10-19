@@ -4,6 +4,7 @@
 * 译者 : [Tuccuay](https://github.com/Tuccuay)
 * 校对者 : [Wilson Yuan](https://github.com/devSC), [Jasper Zhong](https://github.com/DeadLion)
 
+# 抢先看 Swift 3.0
 
 这篇文章介绍了 Swift 3.0 的目标、发布进程和预计的时间表。
 

@@ -5,6 +5,8 @@
 * 校对者 : [cdpath (cdpath)](https://github.com/cdpath) [nathanwhy (nathan)](https://github.com/nathanwhy)
 * 状态 : 完成
 
+# 3D Force Touch 的新玩儿法 
+
 几天前我买了部 iPhone 6S，接着我被 **3D touch** 功能深深地吸引住了，于是迫不及待地体验了一番。
 
 <iframe width="382" height="214" src="https://www.youtube.com/embed/d-hlQISXj8M" frameborder="0" allowfullscreen=""></iframe>

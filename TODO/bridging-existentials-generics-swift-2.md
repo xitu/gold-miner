@@ -4,6 +4,7 @@
 > * 译者 : [Nicolas(Yifei) Li](https://github.com/yifili09) 
 > * 校对者: [Gran](https://github.com/Graning), [MAYDAY1993](https://github.com/MAYDAY1993)
 
+# Swift 2 中为实存类型和泛型搭桥牵线
 
 我们又回到了讨论泛型的另一个章节，来讨论泛型，有其他类型的协议和在 `Swift 2` 中的其他类型的系统限制。这次我们会深入讨论一个有趣的变通方法，它是那个声名狼藉的 [jckarter](https://twitter.com/jckarter) 教会我的。我们也会讨论在未来的 `Swift` 版本中，这个变通方法通过增强型的实存类型就变得不必要了。
 
