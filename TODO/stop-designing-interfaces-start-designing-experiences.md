@@ -4,6 +4,8 @@
 * 译者：[Kulbear](https://kulbear.github.com/)
 * 校对者：[owenlyn](https://github.com/owenlyn), [bobmayuze(Yuze Ma)](https://github.com/bobmayuze)
 
+# 别再设计你的应用界面了，在用户体验上下点功夫吧
+
 > 这篇文章是我们新发布的界面指南的一部分
 
 #### 混乱的过程往往导致混乱的结果

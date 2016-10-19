@@ -5,8 +5,7 @@
 * 校对者 : [@laobie](https://github.com/laobie)
 * 状态 :  翻译完成
 
-
-让 Toolbar 随着 RecyclerView 的滚动而显示/隐藏
+# 让 Toolbar 随着 RecyclerView 的滚动而显示/隐藏
 
 这篇文章是过时的，你应该跳到[第三部分 3](https://mzgreen.github.io/2015/06/23/How-to-hideshow-Toolbar-when-list-is-scrolling%28part3%29/)。
 

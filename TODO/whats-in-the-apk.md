@@ -4,10 +4,6 @@
 * 译者：[Newt0n](https://github.com/newt0n)
 * 校对者：[shliujing](https://github.com/shliujing), [siegeout](https://github.com/siegeout)
 
-
-
-
-
 # APK 里有什么?
 
 ![header](http://crushingcode.github.io/images/posts/whatsintheapk/header.jpg)

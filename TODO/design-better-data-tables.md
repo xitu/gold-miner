@@ -4,7 +4,7 @@
 * 译者：[Nicolas(Yifei) Li](https://github.com/yifili09)
 * 校对者：[Kulbear](https://github.com/Kulbear), [Gran](https://github.com/Graning)
 
-### 设计更好的数据表格
+# 这样做才能设计出更好的数据表
 
 **差强人意的表格。**他们哪里没有做对？
 

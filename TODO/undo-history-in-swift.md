@@ -4,7 +4,7 @@
 * 译者 : [Zheaoli](https://github.com/Zheaoli)
 * 校对者: [xcc3641](https://github.com/xcc3641), [Jaeger](https://github.com/laobie)
 
-
+# 利用 Swift 在 APP 中实现撤销操作的功能
 
 在过去的一段时间里，有很多的Blog推出了关于他们想在**Swift**中所添加的动态特性的文章。事实上**Swift** 已经成为了一门具有相当多动态特性的语言：它拥有泛型，协议， 头等函数（译者注1：first-class function指函数可以向类一样作为参数传递），和包含很多可以的动态操作的函数的标准库，比如**map**和**filter**等（这意味着我们可以利用更安全更灵活的函数来代替 KVC 来使用 字符串）（译者注2：KVC指Key-Value-Coding一个非正式的 Protocol，提供一种机制来间接访问对象的属性）。对于大多数人而言，特别希望介绍[反射](http://inessential.com/2016/05/26/a_definition_of_dynamic_programming_in_t)这一特性，这意味着他们可以在程序运行时进行观察和修改。
 

@@ -4,6 +4,7 @@
 * 译者 : [godofchina](https://github.com/godofchina)
 * 校对者: [Jack-Kingdom](https://github.com/Jack-Kingdom)， [malcolmyu](https://github.com/malcolmyu)
 
+# 使用 ES6 写更好的 JavaScript part III：好用的集合和反引号
 
 ## 简介
 

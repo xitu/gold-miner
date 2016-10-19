@@ -4,6 +4,8 @@
 * 译者: [达仔](https://github.com/zhangjd)
 * 校对者: [Shangbin Yang](https://github.com/rccoder), [Gran](https://github.com/Graning)
 
+# 为什么我们要用网页端组件去构建服务器？该怎么做
+
 Web components（网页组件）用在服务器端渲染早已被大家所了解，在本文中，我想谈及的是：你还可以用 web components 构建服务器端应用。
 
 先来回顾一下，web components 是一组 [新提出的标准](https://github.com/w3c/webcomponents)，提供了模块化打包 UI 组件的能力，这些组件具有可重用、声明式的特点，因此具有方便分享、容易组合到应用的优势。现在 web components 已经开始应用到前端开发当中了，但服务器端呢？[Polymer 项目](https://elements.polymer-project.org) 给了我们启发，web components 不仅对于 UI 组件很有用，而且还可以用在原始功能中。接下来我们会看看 web components 如何应用到服务器端，并分析其优势。

@@ -4,9 +4,9 @@
 * 译者：[Kulbear](https://kulbear.github.io/)
 * 校对者：[owenlyn](https://github.com/owenlyn), [shixinzhang](https://github.com/shixinzhang)
 
-![](http://ac-Myg6wSTV.clouddn.com/2cc6a114bae9326ef2b0.png)
+# 给 UX 设计师的 6 个超实用技巧指南
 
-### 用户体验设计师的 6 个实用技能
+![](http://ac-Myg6wSTV.clouddn.com/2cc6a114bae9326ef2b0.png)
 
 #### 一些关于怎么变革产品、服务和流程的开发方式的想法
 

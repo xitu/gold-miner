@@ -4,6 +4,8 @@
 * 译者 : [godofchina](https://github.com/godofchina)
 * 校对者:[joddiy](https://github.com/joddiy), [Ruixi](https://github.com/Ruixi)
 
+# 电商列表信息展示，你真的懂吗？
+
 ![](http://assets.baymard.com/research/media_files/attachments/17301/original/research-media-file-f6c7249aa471651b567e784d21ca6238.jpg)</div>
 
 _“我想有一种可以比较的方式，因此我可以不用点这个，再点返回，点那个，再点返回，点点点..”_ 一个顾客解释道，他想给自己的笔记本电脑找个包, _“除了价格和商品名称我在这找不到一点有用的信息。”_ 注意 Zappos 的多半电脑包描述里根本没有或只有模糊的有效尺寸描述，像 “大”。
