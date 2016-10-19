@@ -1,43 +1,43 @@
 > * 原文地址：[Declarative API Design in Swift](http://blog.benjamin-encz.de/post/declarative-api-design-in-swift/)
 * 原文作者：[Benjamin Encz](http://blog.benjamin-encz.de/about)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[Zheaoli](https://github.com/Zheaoli)
 * 校对者：
 
-In my first real job as an iOS developer I built an XML parser and a simple layout engine - both had in common that they had a declarative interface. The parsers was driven by a `.plist` file that mapped XML elements to Objective-C classes. The layout engine allowed you to describe layouts in an HTML-like language (this was before AutoLayout & CollectionViews existed).
+在我第一份 iOS 开发工程师的工作中，我编写了一个 XML 解析器和一个简单的布局工具，两个东西都是基于声明式接口。XML 解析器是基于 `.plist` 文件来实现 Objective-C 类关系映射。而布局工具则允许你利用类似 HTML 一样标签化的语法来实现界面布局（不过这个工具使用的前提是已经正确使用 `AutoLayout` & `CollectionViews`）。
 
-Though neither of these libraries were even close to perfect, they showed me four main advantages of declarative code:
+虽然这两个库都不能算作是一个非常优秀的库，但是在编写过程中，我有了这样几点收获：
 
-*   **Separation of concerns**: The parts of the code that are written in a declarative style only declare an intent, without having any understanding of the underlying implementation. Separation of concerns happens naturally.
-*   **Less repeated code**: A declarative system shares a common implementation. Most of the code is configuration. No risk of repeating implementation details.
-*   **Exceptional API design**: Declarative APIs allow consumers to configure an existing implementation instead of providing their own one. The API surface can be kept minimal.
-*   **Readability**: Signal to noise ratio of declarative code is great!
+*   **焦点分离**: 我们在编写具体的样式代码时，无需关注具体的底层实现，可以说这样的分离是自然发生的。
+*   **减少重复的代码**: 所有声明式代码都共用一套样式实现，这里面很多属于配置文件，这样可以减少重复代码所带来的风险。
+*   **优秀的 API 设计**: 声明式 API 可以让用户自行定制已有实现，而不是将已有实现做一种固定的存在看待。这样可以保证修改程度降至最小。
+*   **可读性**: 讲真，按照声明式 API 所写出来的代码简直优美无比。
 
-These days I write most of my code in Swift which lends itself well for a declarative programming style.
+这段时间我所编写的 Swift 代码，都是按照声明式 API 编程规范来实现的。
 
-The majority of types I define are simple structs that either describe a piece of data or an intent. Separate types, typically generic classes, are then responsible for consuming these intents and implementing the necessary work. We also use this approach throughout all new Swift code we’re writing in the PlanGrid app. It has had a huge impact on code readability and developer efficiency.
+不管是对于某一种数据结构的描述，或者是对某个功能的实现，在编写过程中，我最常使用的类型还是一些简单的结构体。声明不同的类型，主要是基于泛型类，然后这些东西负责实现具体的功能或者完成必要的工作。我们在 PlanGrid 开发过程中采用这种方法来编写我们得 Swift 代码。这种开发方式已经对对代码可读性的提升还有开发人员的效率提升上产生了巨大的影响。
 
-Today I want to discuss an API from the PlanGrid app, that used to be implemented using `NSOperationQueue` and since has been moved to a more declarative approach - discussing this API should demonstrate the various benefits of a declarative programming style.
+现在，我想讨论下 PlanGrid 中的 API 设计，that used to be implemented using `NSOperationQueue` and since has been moved to a more declarative approach - discussing this API should demonstrate the various benefits of a declarative programming style.（这段话请校者帮忙参考一二）
 
-## Building a Declarative Request Sequence in Swift
+## 在 Swift 中构建一个声明式请求序列
 
-The API that we’ve re-written is responsible for syncing local changes (that might have occurred offline) with our API server. I won’t go into details of the change tracking approach, but will instead only discuss the generation & execution of network requests.
+我们需要设计一个 API 服务器来同步本地的更改（当然这种情况也可能是在离线的情况下产生的）。我并不会去过多的讨论这里面的细节，而是将精力放在网络请求的执行上。
 
-For this post I want to focus on one particular request type: uploading locally generated images. Due to various reasons (outside of the scope of this blog post) three separate requests are involved in uploading an image:
+在这篇文章里，我想专注于一个特定的请求类型上：上传本地生存的图片。处于多种因素的考虑，我们将上传图片的操作分为三部进行：
 
-1.  Request to API Server. API Server responds with information for an image upload to AWS.
-2.  Image Upload to AWS (using information from previous request).
-3.  Request to API Server to confirm completed upload.
+1.  向 API 服务器发起请求，API 服务器将会响应一个包含 AWS 服务器上传的方式的信息。
+2.  上传图片至 AWS 。
+3.  向 API 服务器发起请求以确认图片上传成功。
 
-Since we have a few upload tasks that involve such request sequences, we decided to model this as a type and support in our upload infrastructure.
+既然我们有依赖于请求序列的上传任务，我们决定将其抽象成一个特殊的类型。
 
-### Defining the Request Sequence Protocol
+### 定义请求序列协议
 
-We decided to introduce a separate type that is only responsible for describing a sequence of network requests. That type is consumed by our uploader class which turns the descriptions into actual network requests (the uploader itself won’t be discussed as part of this post).
+我们决定一个单独的类型来对网络请求序列进行描述。这个类型将由我们的上传类根据网络实际情况来进行消费。(要提醒你们的是我们不会在本篇文章中讨论上传者类的实现）。
 
-The following type captures the essence of our control flow: we have a sequences of requests. Each request might depend on the result of the previous request.
+接下来这个类型是我们控制流的精髓：我们有一个请求序列。队列中的每个请求都可能依赖于前一个请求的状态。
 
-_Note: Some types names might seem a little odd, but they mostly follow an app-specific ontology (e.g. Operation). Others should simply be renamed; still waiting for that refactor capabilities for Swift code…_
+小贴士: 接下来的代码里的一些类型的命名方式看起来有点奇怪，但是他们大多数是根据具体的操作来命名的。因此他们都能很轻易的按照 Swift 编程风格进行重命名。
 
 ~~~Swift
     public typealias PreviousRequestTuple = (
@@ -58,13 +58,13 @@ _Note: Some types names might seem a little odd, but they mostly follow an app-s
     }
 ~~~
 
-When asking the request sequence to generate a request, by calling the `nextRequest:` method, we provide a reference to previous request, a `NSURLResponse` and if available the JSON response body. Each request might result in a subsequent request (returns a new `PushRequest`), no subsequent request (returns `nil`) or an in an error in case the previous request didn’t provide the response that is necessary to continue (in which case the request sequence `throws`).
+我们通过 `nextRequest:` 方法来让请求序列生成一个请求，每一个请求中的 `NSURLResponse` 都是前一个请求所产生的。每一个请求的结果都可能在下一次请求时产生（（将会返回一个 `PushRequest` 对象），除了没有下一次请求或者在请求过程中发生了一些以外的情况导致没有返回必要的响应以外。
 
-It’s worth noting that `PushRequest` isn’t an ideal name for the return type of this method. The type is only a description of a request (endpoint, HTTP method, etc.), it doesn’t perform any work on its own. That’s an important aspect of this declarative design.
+`PushRequest` 并不是这个返回值类型的理想名。这个类型只是描述一个请求的详情（结束符，HTTP 方法等等），其并不参与任何实质性的工作。这是声明式设计中很重要的一个方面。
 
-You might also have noticed that the protocol comes with a `class` requirement. We made this decision after realizing that the `OperationRequestSequence` is a stateful type. It needs to be able to capture and use results from previous requests (the third request might need to access the response from the first request). While this could have been modeled with a struct with `mutating` methods, that approach made the code in the uploader a fair bit more complex (correctly re-assigning mutated struct values isn’t always trivial).
+你可能已经注意到了这个协议依赖于一个特定 `class` ，我们这样做是因为我们意识到 `OperationRequestSequence` 其是一个状态描述类型。它可能需要捕获并使用前面的请求所产生的结果（比如：在第三个请求里可能需要获取第一个请求的响应结果）。这个做法参考了 `mutating` 方法的结构，不得不说这样的行为貌似让上传操作变得更为复杂了一(所以说改变代码结构并不是一件那么简单的事儿)。
 
-After implementing the first request sequence based on the `OperationRequestSequence` protocol, we noticed that it often would be more convenient to simply provide an array of chained requests instead of implementing the `nextRequest` method. We added an `ArrayRequestSequence` protocol that provides a default implementation based on an array of requests:
+在基于 `OperationRequestSequence` 协议实现了我们第一个请求序列后，我们发现相比实现 `nextRequest` 方法来说，可能提供一个数组来保存请求链更显简单。于是我们便添加了 `ArrayRequestSequence` 协议来提供了一个请求数组的实现：
 
 ~~~Swift
     public typealias RequestContinuation = (previous: PreviousRequestTuple?) throws -> PushRequest?
@@ -79,7 +79,7 @@ After implementing the first request sequence based on the `OperationRequestSequ
             let nextRequest = try self.requests[self.currentRequestIndex](previous: previous)
             self.currentRequestIndex += 1
             return nextRequest
-        }
+        }huo
     }
 ~~~
 
