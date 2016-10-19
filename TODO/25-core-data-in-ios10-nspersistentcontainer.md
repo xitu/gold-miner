@@ -4,9 +4,7 @@
 * 译者：[Nicolas(Yifei) Li](https://github.com/yifili09)
 * 校对者： [Gran](https://github.com/Graning), [Wenlin Ou(owenlyn)](https://github.com/owenlyn)
 
-
-
-
+# iOS 10 中的 NSPersistentContainer
 
 Xcode 8 已经面世了，如果你还没有尝试过这个测试版本，你将会发现各种新东西。这里有 Swift 3 [主要的更新](https://swifting.io/blog/2016/08/17/22-swift-3-access-control-beta-6?utm_source=swifting.io&utm_medium=web&utm_campaign=blog%20post)，有新的框架，比如 [SiriKit](https://swifting.io/blog/2016/07/18/20-sirikit-can-you-outsmart-provided-intents?utm_source=swifting.io&utm_medium=web&utm_campaign=blog%20post) 和一些对现存特性的增强改进，比如 [notifications](https://swifting.io/blog/2016/08/22/23-notifications-in-ios-10?utm_source=swifting.io&utm_medium=web&utm_campaign=blog%20post)。 我们也接收以 `NSPersistentContainer` 形式的简化版的 `Core Data stack`，它为我们做了大部分的准备工作。它值得我们去尝试么？让我们开始深入挖掘这些新特性吧。
 

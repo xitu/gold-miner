@@ -4,8 +4,7 @@
 * 译者：[jiakeqi](https://github.com/jiakeqi)
 * 校对者：[Newt0n](https://github.com/Newt0n) [zhouzihanntu](https://github.com/zhouzihanntu)
 
-
-
+# 让你的应用支持 iOS 10 系统扩展
 
 iOS 10 和 watchOS 3 给开发者们带来许多令人激动的新系统扩展点。从 Siri 到 Messages，应用与系统交互的方法不断增加。
 

@@ -4,6 +4,7 @@
 * 译者：[DeadLion](https://github.com/DeadLion)
 * 校对者：[Graning](https://github.com/Graning), [cbangchen](https://github.com/cbangchen)
 
+# 用 Swift 枚举完美实现 3D touch 快捷操作
 
 #### 完美实现 3D Touch 
 
