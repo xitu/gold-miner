@@ -5,7 +5,7 @@
 * 校对者: [mypchas6fans](http://github.com/mypchas6fans), [hpoenixf](http://github.com/hpoenixf)
           
 
-
+# 懒加载图片？不要依赖 JavaScript ！
 
 现在许多网页都包含加载图片, 例如:只需访问你最喜欢的购物网站，并通过产品列表页滚动。
 

@@ -4,6 +4,7 @@
 * 译者：[huanglizhuo](https://github.com/huanglizhuo/)
 * 校对者：[DeadLion](https://github.com/DeadLion) , [zhouzihanntu](https://github.com/zhouzihanntu)
 
+# 开发 Electron app 必知的 4 个 tips 
 
 [Electron](https://electron.atom.io) ，是包括 Avocode 在内的众多 app 采用的技术，能让你快速实现并运行一个跨平台桌面应用。有些问题不注意的话，你的 app 很快就会掉到“坑”里。无法从其它 app 中脱颖而出。
 

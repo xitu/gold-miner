@@ -4,6 +4,8 @@
 * 译者：[mypchas6fans] (https://github.com/mypchas6fans)
 * 校对者：[siegeout] (https://github.com/siegeout) [MAYDAY1993] (https://github.com/MAYDAY1993)
 
+# 基于浏览器的 MapReduce
+
 在分布式计算和海量数据中摸爬滚打了很久之后，你一定会感谢优雅的 [Google Map-Reduce 框架](http://en.wikipedia.org/wiki/MapReduce)。它的 _map_ ，_emit_ 和 _reduce_ 模块既通用又简洁，这使它成为了一个强有力的工具。虽然 Google 公开了理论，但是底层的软件实现仍然是闭源的，而这可以说是他们最大的竞争优势之一（[GFS](http://labs.google.com/papers/gfs.html)，[BigTable](http://labs.google.com/papers/bigtable.html)，等等）。当然，现在有很多开源的分支（[Apache Hadoop](http://hadoop.apache.org/core/)，[Disco](http://discoproject.org/)，[Skynet](http://skynet.rubyforge.org/)，以及其他），但是人们总会发现，优美简洁的理论和惨痛的实现之间存在的断层：诸如自定义协议，自定义服务器，文件系统，冗余，等等等等。问题来了，我们怎样能把这个差距缩短一点？
 
 ## 大规模并行计算

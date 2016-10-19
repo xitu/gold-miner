@@ -1,10 +1,10 @@
-# 响应式设计的真正挑战：RSS
 > * 原文地址：[The real responsive design challenge? RSS.](https://begriffs.com/posts/2016-05-28-rss-responsive-design.html)
 * 原文作者：[Joe "begriffs" Nelson](https://github.com/begriffs)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[cdpath](https://github.com/cdpath)
 * 校对者：[shliujing (Jing Liu)](https://github.com/shliujing), [Airmacho (Will Wu)](https://github.com/Airmacho)
 
+# 响应式设计的真正挑战：RSS
 
 web 世界丰富多彩，去看看服务器日志吧。那里充斥着爬虫机器人以及运行着各种操作系统，有着各种屏幕尺寸的移动设备和用户代理。你很容易会因为自己使用 web 的习惯而忽略了大多数普通用户的体验。
 
