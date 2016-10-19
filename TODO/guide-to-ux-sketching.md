@@ -1,8 +1,8 @@
 > * 原文地址：[Everything You Need to Know about UX Sketching](https://www.toptal.com/designers/ux/guide-to-ux-sketching)
 * 原文作者：[NICK VYHOUSKI](https://www.toptal.com/designers/resume/nick-vyhouski)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：Funtrip
-* 校对者：
+* 译者：[特伦](https://twitter.com/SyncTrip)
+* 校对者：[jiaowoyongqi](https://github.com/jiaowoyongqi)、[jamweak](https://github.com/jamweak)
 
 
 
@@ -123,7 +123,7 @@
 
 3.  **编号** - 为你的界面元素或是草图编好序号。你可以决定如何来为他们排序（比如，以交互流程排序，以创作顺序排序，等等）。这样做在讨论过程中可能会很有用（尤其是远程的讨论），你的同事和客户们很容易在他们的反馈中指出你草图中的序号，这样你就可以知道他们在评论哪一个草图了。
 
-4.  **箭头** - 你可以用箭头来指出屏幕的转换。他们也可以用来连接草图中的不同部分，或是指出交互的顺序，等等。由于一个箭头可以有多种不同的理解，因此你可以在箭头上加上一个描述或者注释来解释这个箭头的含义。这里有一个[例子](https://www.toptal.com/uploads/blog/image/121197/toptal-blog-image-1474540322164-e4037ec1b56c685056935e3deaaaa8d7.png) 展示了一个基本的草图如何展现界面转换和一些不同的状态。
+4.  **箭头** - 你可以用箭头来指出屏幕的转换。他们也可以用来连接草图中的不同部分，或是指出交互的顺序，等等。由于一个箭头可以有多种不同的理解，因此你可以在箭头上加上一个描述或者注释来解释这个箭头的含义。这里有一个[例子](https://www.toptal.com/uploads/blog/image/121197/toptal-blog-image-1474540322164-e4037ec1b56c685056935e3deaaaa8d7.png)展示了一个基本的草图如何展现界面转换和一些不同的状态。
 
 5.  **笔记** - 就像注释一样，笔记也用来解释你的意图。然而，笔记使用的场合不同于注释。它们不是用来附在一个界面元素旁，也不位于元素旁，[就像这个例子中一样](https://www.toptal.com/uploads/blog/image/121198/toptal-blog-image-1474540426961-bb0363f81ef0d15fbffd1fa7f1872e98.png)。笔记可以位于页面中的顶部或底部。笔记甚至可以用来描述你的设计中没有出现的元素，你的问题，全局的说明，没有绘制出来的想法等等。
 
