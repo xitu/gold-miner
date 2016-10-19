@@ -11,7 +11,7 @@
 *   **焦点分离**: 我们在编写具体的样式代码时，无需关注具体的底层实现，可以说这样的分离是自然发生的。
 *   **减少重复的代码**: 所有声明式代码都共用一套样式实现，这里面很多属于配置文件，这样可以减少重复代码所带来的风险。
 *   **优秀的 API 设计**: 声明式 API 可以让用户自行定制已有实现，而不是将已有实现做一种固定的存在看待。这样可以保证修改程度降至最小。
-*   **可读性**: 讲真，按照声明式 API 所写出来的代码简直优美无比。
+*   **良好的可读性**: 讲真，按照声明式 API 所写出来的代码简直优美无比。
 
 这段时间我所编写的 Swift 代码，都是按照声明式 API 编程规范来实现的。
 
@@ -83,11 +83,11 @@
     }
 ~~~
 
-At this point it became almost trivial to define a new upload sequence.
+这个时候，我们完成了上传序列工作中的很小一部分。
 
-### Implementing the Request Sequence Protocol
+### 实现请求序列协议
 
-As an example, let’s take a look at the upload sequence for uploading snapshots (snapshots in PlanGrid capture a blueprint + annotations in an image that can be exported):
+作为一个小例子，让我们看看用来上传快照的上传序列吧（在 PlanGrid 中，快照指的是在图片中绘制的可导出的蓝图或者注释）：
 
 ~~~Swift
     /// Describes a sequence of requests for uploading a snapshot.
@@ -178,44 +178,44 @@ As an example, let’s take a look at the upload sequence for uploading snapshot
 ~~~
 
 
-A few things should stand out in this implementation:
+在实现的过程中你应该注意这样几件事情：
 
-*   It has almost no imperative code. Most code describes network request based on instance variables and previous requests.
-*   It doesn’t call the networking layer, nor does it have any knowledge of the type that actually performs the upload. It just describes the intent of each request. In fact, the code has no observable side effects at all, it only mutates internal state.
-*   There is almost no error handling code here. The responsibility of this type is only to handle errors specific to this request sequence (e.g. missing required data from a previous request). All other errors are generically handled in the networking layer.
-*   We are using separate types (`PushInMemoryRequestDescription`/`AWSMultipartRequestDescription`) to model requests to our API vs. requests to AWS. Our uploader switches over these types and uses a different URL session configuration for each. This way we don’t send our API auth token to AWS.
+*   这里面没有什么实质性代码。大多数的代码都通过实例变量和前次请求的结果来描述网络请求。
+*   这些东西并不是网络层，也不代表着上传的类型信息。它们只是对每个请求的详情进行了描述。事实上而言，这段代码对其余功能有实质上的影响，它们的修改都发生在其内部。
+*   这段代码里可以说没有任何的错误处理代码。这个类型的功能之一是只处理针对于请求序列中发生的特定错误(比如前次请求并未返回任何结果等)。而其余的错误通常都在网络层予以处理了。
+*   我们使用 `PushInMemoryRequestDescription`/`AWSMultipartRequestDescription` 来对我们对自己的 API 服务器或者是对 AWS 服务器发起请求的行为进行抽象。我们的上传代码将会根据情况在两者之前进行切换，以免将我们自有 API 服务器的信息发送至 AWS 。
 
-I won’t discuss the entire code in detail, but I hope this sample shows the various advantages of a declarative approach that I mentioned earlier:
+我不会详细讨论整个代码，但是我希望这个例子能充分展现我之前提到过的声明式设计方法的一系列优点：
 
-*   **Separation of concerns**: this type has the single responsibility of describing a sequence of requests.
-*   **Less repeated code**: this type only contains code for describing a request sequence; we’re not at risk of repeating any network communication / error handling code.
-*   **Exceptional API design**: this API places as little burden as possible onto the developer. They only need to implement a simple protocol that produces a subsequent request description based on the result of a previous request.
-*   **Readability**: once again, the code listing above is extremely focused; there’s no need to skim over boilerplate code to find the intention. That said, to understand this code quickly, some familiarity with our abstractions is required.
+*   **焦点分离**: 上面编写的类型只用于描述一个请求，并不参与其余实质性的工作。
+*   **减少重复的代码**: 上面编写的类型里面值包含对请求进行描述的代码，并不包含网络请求及错误处理的代码。
+*   **优秀的 API 设计**: 这样的 API 设计能有效的减轻开发者的负担，他们只需要实现一个简单的协议以确保后续产生的请求是基于前一个请求结果的即可。
+*   **良好的可读性**: once again, the code listing above is extremely focused; there’s no need to skim over boilerplate code to find the intention. That said, to understand this code quickly, some familiarity with our abstractions is required.（请校者帮忙参考=，=第二次了貌似？？）
 
-How does this compare to our previous solution that was using `NSOperationQueue`?
+现在可以想想如果利用 `NSOperationQueue` 来替代我们的方案会怎么样？
 
-### What About NSOperationQueue?
+### 什么是 `NSOperationQueue` ？
 
-The solution using an `NSOperationQueue` was a lot less concise, so there’s no good way to present its code in this blog post. We can still discuss the issues that the approach had on a high level.
+采用 `NSOperationQueue` 的方案复杂了很多，所以在这篇文章里给出相对应的代码并不是一个很好的选择。不过我们还是可以讨论下这种方案。
 
-**Separation of concerns** was a lot harder to come by. Instead of simply describing a request sequence, the NSOperations in the NSOperationQueue themselves were responsible for kicking off a network request. This promptly introduced a bunch of other responsibilities such as request cancellation and error handling. While similar code had been implemented in other places that dealt with creating upload requests there was no good way of sharing that implementation. Subclassing wasn’t an option since most upload requests were modeled as a single `NSOperation`, while this upload request sequence was modeled as an `NSOperation` that wrapped an `NSOperationQueue`.
+**焦点分离**在这种方案中难以实现。和对请求序列进行简单抽象不同的是，`NSOperationQueue` 中的 `NSOperations` 对象将负责网络请求的开关操作。这里面包含请求取消和错误处理等特性。在不同的位置都有相似的上传代码，同时这些代码很难进行复用。在大多数上传请求被抽象成一个` NSOperation` 的情况下，使用子类并不是一个好选择，虽然说我们得上传请求队列被抽象成为一个被 `NSOperationQueue` 所装饰的 `NSOperation` 。
 
-The **signal/noise ratio** of the NSOperationQueue based solution was a lot worse. The code was littered with references to the network layer and with `NSOperation` specific code, such as the `main` and `finish` methods. Without knowing about the sequence of requests required by the API it would have been hard to understand what exactly the operation was responsible for.
+`NSOperationQueue` 的信噪比是相当大的。代码中随处可见对网络层的操作和调用 `NSOperation` 中的特定方法，比如 `main` 和 `finish` 方法。在没有深入了解具体的 API 调用规则前，是没办法将代码的各个部分理解透彻的。
 
-The **API was a lot worse to deal with for developers**. Instead of simply implementing a protocol, as in the new Swift solution, one needed to understand a set of conventions. While most conventions were documented there was no way of enforcing them programmatically.
+**这种处理方式将会显著增加开发者的负担。**与实现一个简单协议不同的是，在新版本的 Swift 中实现这样的代码的话，我们需要去理解一些特有的约定。尽管很多被记载下来的约定并不是与编程相关的。
 
-Among other issues, this resulted in some bugs around error reporting for network requests. In order to avoid each operation implementing its own error reporting code, it was handled in a central location. The error handling code would run whenever a operation finished. The error handling code would check for the presence of a value in the `error` property of the operation. In order to report an error a developer needed to set the `error` property on the `NSOperation` subclass before the operation completed. Since this was a non-obvious convention (that wasn’t well documented) a bunch of new code forgot to set that property. This resulted in a decent amount of unreported errors.
+鉴于一些特定情况，网络请求所产生的错误可能会导致一些 Bug 。为了避免每个请求操作都执行自己的错误处理代码，我们将其同意在一个地方进行处理。错误处理代码将会在请求结束之后开始执行。然后代码将会检查请求类型中的 `error` 属性的值。为了及时的反馈错误信息，开发者需要及时在操作完成之前设置 `NSOperation` 中的 `error` 属性的值。由于这是一个非强制性约定导致一堆新代码忘记设置其属性的值，可能会导致诸多错误信息的遗失。
 
-TL;DR: we’re glad we’re able to provide a more explicit API & easier to understand code to developers that will change the upload code in future.
+所以啊，我们很期待我们介绍的这样一种新的方式能帮助开发者们在未来编写上传及其余功能的代码。
 
-## Conclusion
+## 总结
 
-Using a declarative programming approach has had a huge impact on our codebase and our productivity. We can provide constrained APIs that can be only used in one way and don’t leave a lot of room for error. We can avoid subclassing as a means of polymorphism and instead implement generic types that are controlled by declarative code. We can write code with excellent signal to noise ratio. The declarative code we write is extremely easy to test (to the point where even testing enthusiasts might deem tests unnecessary). So what are the downsides, if any?
+声明式的编程方法已经对我们的编程技能和思想产生了巨大的影响。我们提供了一种受限的 API ，这种 API 用途单一且不会留下一堆迷之 Bug 。我们可以避免使用子类及多态等一系列手段，转而使用基于泛型类型的声明式风格代码来替代它。我们可以写出低信噪比的代码。我们所编写的代码都是能很方便的进行测试的（The declarative code we write is extremely easy to test (关于这点，编程爱好者们可能觉得在声明式风格代码中测试可能不是必要的。所以你可能想问：“别告诉我这是一种完美无瑕的编程方式？”
 
-Firstly, there’s some cost associated with understanding our custom abstraction. However, the cost can be mitigated by careful API design, and by providing tests that serve as example implementations.
+首先，在具体的抽象过程中，我们可能会花费一些时间与精力。不过，这种花费可以通过仔细设计 API 来减轻，并通过提供足够的测试实现来减轻。
 
-Secondly, and more importantly, declarative programming isn’t always applicable. You need a problem that is solved multiple times throughout your codebase in a very similar way. If you try to apply declarative programming principles to code that needs a high degree of customization, you’ve built the wrong abstraction and will end up with convoluted semi-declarative code. As with any abstraction, introducing it too early can cause a lot of harm.
+其次，请注意，声明式编程并不是适用于任何时间任何业务的。要想适用声明式编程，你去要确定你代码面临的最大问题是大量出现重复的代码。如果你尝试在一个需要高度可定制化的应用里使用声明式编程， 然后你又对整个代码进行了错误的抽象，那么最后你会得到如同乱麻一般的**半**声明式代码。对于任何的抽象过程而言，过早的进行抽象都会造成一大堆令人费解的问题。
 
-**Declarative APIs place more burden onto the API developer and less onto the API consumer**. In order to provide a declarative API a developer needs to be able to isolate the interface strictly from the implementation details; this is a lot less true for imperative APIs. React and GraphQL have demonstrated that the simplicity of declarative APIs can enable a great developer experience while making it easier for development teams to write coherent code at scale.
+**声明式 API 有效的将 API 使用者身上的压力转移至 API 开发者身上**。为了提供一组优秀的声明式 API ，API 的开发者必须确保接口的使用与接口的实现细节进行严格的隔离。不过严格遵循这样要求的 API 是很少的。React 和 GraphQL 证明了声明式 API 能有效提升团队编码的体验。
 
-I think this is just a first step into a future where we’ll see sophisticated libraries hide their complexity by providing simple, declarative, interfaces. And hopefully, some day, we’ll get a declarative UI library for building iOS apps.
+其实我觉得，这只是一个开端，我们会慢慢发现在复杂的库中所隐藏复杂的细节和对外提供的简单易用的接口。期待有一天，我们能利用一个基于声明式编程的 UI 库来构建我们得 iOS 程序。
