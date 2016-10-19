@@ -4,6 +4,7 @@
 * 译者 : [Yushneng](https://github.com/rainyear)
 * 校对者: [Zheaoli](https://github.com/Zheaoli), [iThreeKing](https://github.com/iThreeKing)
 
+# 探索 Python 3 加密技术
 
 Python 3 没有太多用于处理加密的标准库，通常以哈希库作为替代。在本章节中我们将简单了解一下 `hashlib`，但重点还是集中在两个第三方库：PyCrypto 和 cryptography。我们将会学习如何使用这些库对字符串进行加密和解密。
 

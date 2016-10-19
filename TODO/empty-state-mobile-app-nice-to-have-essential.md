@@ -4,6 +4,8 @@
 * 译者 :[ MAYDAY1993 ](https://github.com/MAYDAY1993)
 * 校对者: [jiaowoyongqi](https://github.com/jiaowoyongqi) [shixinzhang](https://github.com/shixinzhang)
 
+# 在开发移动应用时你应该考虑的 「Empty State」
+
 普通应用在安装后的前三天会失去 77% 的日活跃用户。更为严重的是：三十天内，大约[ 80% 的日活跃用户会流失](https://www.linkedin.com/pulse/losing-80-mobile-users-normal-why-best-apps-do-better-andrew-chen).
 
 这些低留存率是因为应用做的很烂么？并不总是这个原因。

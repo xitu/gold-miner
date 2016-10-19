@@ -4,6 +4,8 @@
 * 译者 : [edvardhua](https://github.com/edvardHua)
 * 校对者 : [Ruixi](https://github.com/Ruixi), [CoderBOBO](https://github.com/CoderBOBO)
 
+# 我是如何为 Mac 应用 Flinto 设计 UI 图标的
+
 [Flinto 团队](https://www.flinto.com/mac) 最近采访了我关于Flinto用户界面图标背后的设计流程。
 
 #### 你是怎么为Mac版本的Flinto贡献自己的设计？

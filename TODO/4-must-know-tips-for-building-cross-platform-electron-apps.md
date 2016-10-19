@@ -1,30 +1,40 @@
 > * 原文地址：[4 must-know tips for building cross platform Electron apps](https://blog.avocode.com/blog/4-must-know-tips-for-building-cross-platform-electron-apps)
 * 原文作者：[Kilian Valkhof](https://blog.avocode.com/authors/kilian-valkhof)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
-* 校对者：
+* 译者：[huanglizhuo](https://github.com/huanglizhuo/)
+* 校对者：[DeadLion](https://github.com/DeadLion) , [zhouzihanntu](https://github.com/zhouzihanntu)
+
+# 开发 Electron app 必知的 4 个 tips 
+
+[Electron](https://electron.atom.io) ，是包括 Avocode 在内的众多 app 采用的技术，能让你快速实现并运行一个跨平台桌面应用。有些问题不注意的话，你的 app 很快就会掉到“坑”里。无法从其它 app 中脱颖而出。
 
 
 
+这是我 2016 年 5月 在 Amsterdam 的 Electron Meetup 上演讲的手抄版，加入了对 api 变化的考虑。注意，以下内容会很深入细节，并假设你对 Electron有一定了解。
+
+**首先，我是谁**
 
 
-[Electron](https://electron.atom.io), the technology that powers Avocode among many other apps, allows you to get a cross-platform desktop application up and running very quickly. If you don't pay attention you will quickly end up in the uncanny valley of apps, though. Apps that don't feel _quite_ in place among your other apps.
 
-This is a transcript of presentation I gave in May 2016 at the Electron Meetup in Amsterdam, updated to take into account API changes. Mind you, this goes into great detail and assumes some familiarity with Electron.
+我是 Kilian Valkhof ，一个前端工程师，UX 设计师，app 开发者，取决于你的提问对象是谁。我有超过10年的互联网从业经验，在各种环境下构建过桌面应用，比如 GTK 和 QT ，当然也包括 Electron。
 
-## **First off, who am I?**
 
-I'm Kilian Valkhof, a front-end developer/UX designer/app developer, depending on who you ask. I have over 10 years of experience creating things for the internet, and built a number of desktop apps in various environments such as GTK and Qt, and of course, in Electron.
 
-The most recent application I built is [Fromscratch](https://fromscratch), a free cross-platform auto-saving note taking application you should try.
+你或许应该试试我最近开发的一个自动保存笔记的免费跨平台应用 [Fromscratch](https://fromscratch/) 。
 
-During the development of Fromscratch, I spent a lot of time making sure the app feels great on all three platforms, and finding out how to make that happen in Electron. These are the gotcha's I encountered and how-to's I've come up with.
 
-Getting an app to feel nice and consistent in Electron is not difficult, you just have to make sure you pay attention to the details.
 
-## **1\. Copy and paste on macOS**
+在 Fromscratch 的开发过程中，我花了大量时间确保应用在三大平台上都能保持良好运行，并找到了在 Electron 中的实现方法。这些都是我挖坑填坑过程中积累起来的。
 
-Imagine, for a moment, you release an app. Say, a note taking app. That you tested and used heavily on your Linux machine. And then you get this friendly message on ProductHunt:
+
+
+使用 Electron 让 app 使用感和一致性良好并不难，你只需要注意以下细节。
+
+## **1\. 在 macOS 上复制粘贴**
+
+
+
+想象一下，你发布了一款记笔记的应用。你在 Linux 机器上进行了多次使用和测试,然而你在 ProductHunt 上收到了一个友善的消息：
 
 
 
@@ -114,11 +124,12 @@ Imagine, for a moment, you release an app. Say, a note taking app. That you test
 
        }
 
-If you already have a menu, you need to augment it to inlude the above cut/copy/paste commands.
 
-### 1.1 Specify an icon
+如果你已经有了菜单，你需要将以上 剪切/复制/粘贴 命令添加到你的已有菜单中。
 
-...or your app will look like this on Ubuntu:
+### 1.1 添加 icon
+
+...否则你的应用在 ubuntu 上就是这样的:
 
 
 
@@ -126,7 +137,7 @@ If you already have a menu, you need to augment it to inlude the above cut/copy/
 
 
 
-Many, _many_ applications get this wrong unfortunately, because on Windows and on macOS, the icon shown in the task bar or dock is the _application icon_ (an .ico or .icns) and on Ubuntu, it's your _window icon_ that is shown. Adding it is super simple. in your `BrowserWindow` options, just specify an icon:
+许多应用都有这样的问题，因为在 Windows 和 macOS 系统上，任务栏或 dock 中显示的图标就是应用图标(一个 .ico 或者 .icns)，而在 Ubuntu 系统上显示的却是你的窗口图标。 。添加这个很简单。在  `BrowserWindow`  选项中，申明 icon：
 
     mainWindow = new BrowserWindow({
 
@@ -135,14 +146,15 @@ Many, _many_ applications get this wrong unfortunately, because on Windows and o
          *icon: __dirname + '/app/assets/img/icon.png',*
 
        };
+这也会让你的 Windows app 左上角显示一个小图标。
 
-This will also give you a small icon in the top left of your Windows app.
+### 1.2 UI Text 不可选
 
-### 1.2 UI Text is not selectable
+当使用浏览器，文字编辑工具，或者其它原生应用时，你应该注意到你不可以选择菜单上的文字，比如 chrome。在 Electron 中让 app 变的怪异的一个方法就是无意中触发了文字选择，或者高亮了 UI 组件。
 
-When you use your browser, word processing software, or any other native application, you will notice that you can't select the text in your menus and other applications like Chrome. One of the ways an Electron app quickly jumps into the uncanny valley is by accidentally triggering a text selection or highlight on what are supposed to be UI elements.
 
-CSS has our back here, though; for any button, menu, or other item of UI text, just add the following:
+
+CSS 在这里可以帮助我们：向所有按钮，菜单，或者其它任何 UI 元素，添加下面的代码：
 
      .my-ui-text {
 
@@ -150,11 +162,14 @@ CSS has our back here, though; for any button, menu, or other item of UI text, j
 
        }
 
-And the text will simply not be selectable anymore. It will feel much more like a native application. A little tip to check this: simply press ctrl/cmd + A to select all selectable text in your app. Then you can quickly spot the items you still need to disallow selection on.
 
-### 1.3 You need three icons for three platforms
+这样文字就不可选了。它更像原生应用了。一个最简单的测试方法就是  ctrl/cmd + A  选中你的应用中所有可选的文字，可以有助于你快速识别哪些还需要添加这个效果。
 
-Really, this is just super inconvenient. On Windows, you need an .ico file, on macOS you need a .icns file and on Linux you need a .png file.
+### 1.3 你需要在三大平台上分别使用三种图标
+
+
+
+说实在的，这真是太不方便了，在 Windows 上你需要 .ico 文件，在 macOS 上你需要 .icns 文件，而在 Linux 上你需要 .png 文件。
 
 
 
@@ -162,37 +177,44 @@ Really, this is just super inconvenient. On Windows, you need an .ico file, on m
 
 
 
-Luckily, the same, normal png can be used to generate the other two icons. Here's the most convenient way:
+幸运的是普通的 png 图可以生成另俩个 icon。下面这是最方便的做法：
 
-1\.  Start with a 1024x1024 pixel PNG. That means we're already 1/3rd of the way done. (Linux, check!)
 
-2\.  For Windows, run it through [icotools](http://www.nongnu.org/icoutils/) to get an .ico:
+
+1\. 制作一张 1024x1024 像素的 PNG，这意味着你已近完成 1/3 的工作了。 (Linux, check!)
+
+2\.  对于 Windows，用 [icotools](http://www.nongnu.org/icoutils/) 生成 .ico:
 
    `icontool -c icon.png > icon.ico`
 
-3\.  For macOS, run it through png2icns to get an icns:
+3\.  对于 macOS，用 png2icns 生成 icns:
 
    `png2icns icon.icns icon.png`
 
-4\. You're done!
+4\. 完成了!
 
-There are GUI tools available such as [img2icns](http://www.img2icnsapp.com/) on macOS and [iconverticons](https://iconverticons.com/online/) on Web, Windows and macOS but I have not used them.
+在 macOS 上也有像 [img2icns](http://www.img2icnsapp.com/) 这样的 GUI 工具，或者 [iconverticons](https://iconverticons.com/online/) 这样的 web 工具，但我并没有用过。
 
-### 1.4 Bonus!
+### 1.4 意外之喜!
 
-electron-packager doesn't need the extension of the icon to pick the correct one for a given platform:
+electron-packager 不需要额外的 icon 来为给定的平台选择正确的图标：
 
     $ electron-packager . MyApp *--icon=img/icon* --platform=all --arch=all --version=0.36.0 --out=../dist/ --asar
+好吧，我是写完构建针对不同版本选用不同 icon 脚本之后才发现的 :(
 
-Of course, I only figured that one out after writing my own build script that selected the correct version of the icon. Oh well.
 
-## **2\. White loading screens belong in browsers**
 
-Nothing gives away the inherent __browseriness__ of an Electron app more than a white loading screen. Luckily there are two things we can do to combat that:
+## **2\. 白色 loading 状态是属于浏览器行为**
 
-### 2.1 Specify a BrowserWindow background color
 
-If your application has a non-white background color, make sure to specify it in your BrowserWindow options. This won't prevent the square-of-solid-color while your application loads, but at least it doesn't also change color halfway through:
+
+没有什么比白色的 loading 更能代表 Electron app 只是个内嵌浏览器的本质了。不过我们可以通过两种手段来避免 loading 状态：
+
+### 2.1 指定 BrowserWindow 背景颜色
+
+如果你的应用没有白色背景，那么一定要在 BrowserWindow 选项中明确声明。这并不会阻止应用加载时的纯色方块，但至少它不会半路改变颜色：
+
+
 
      mainWindow = new BrowserWindow({
 
@@ -202,9 +224,9 @@ If your application has a non-white background color, make sure to specify it in
 
        };
 
-### 2.2 Hide your application until your page has loaded:
+### 2.2 在你应用加载完成前隐藏它:
 
-Because we're actually in the browser, we can choose to hide the windows until we know all our resources have been loaded in. Upon starting, make sure to hide your browser window:
+因为应用实际上是在浏览器中运行的，我们可以选择在所有资源加载完成前隐藏窗口。在开始前，确保隐藏掉浏览器窗口：
 
      var mainWindow = new BrowserWindow({
 
@@ -213,8 +235,7 @@ Because we're actually in the browser, we can choose to hide the windows until w
            *show: false,*
 
        };
-
-Then, when everything is loaded, show the window and focus it so it pops up for the user. You can do this with the "ready-to-show" event on your `BrowserWindow`, which is recommended, or the 'did-finish-load' event on your webContents.
+然后在所有东西都加载完成时，显示窗口并聚焦在上面提醒用户。这里推荐使用  `BrowserWindow` 的 "ready-to-show" 事件实现，或者用 webContents 的 'did-finish-load' 事件。
 
      mainWindow.on('ready-to-show', function() {
 
@@ -224,25 +245,28 @@ Then, when everything is loaded, show the window and focus it so it pops up for 
 
        });
 
-You want to focus it to make the user aware that your application has loaded.
 
-## **3\. Preserve your window dimensions and position**
+这里记得要调用 foucs ，提醒用户你的应用已经加载完成了。
 
-Now, this is one that a lot of "native" apps get wrong as well, and I find it one of the most annoying things ever. It drives me up the wall when a carefully positioned app, upon a next launch, simply resets it position and dimensions back to whatever default the app developer thought would be reasonable. Don't do that.
+## **3\. 保持窗口的大小和位置**
 
-Instead, save the window’s position and dimensions and restore them on each launch. Your users will thank you.
+这个问题在很多原生应用中也存在，我发现这是最令人头疼的事情之一。本来一个位置处理很好的 app 在重启时所有的位置又变为默认的了，虽然这对于开发者来说是很合理的，但这会让人有种想撞墙的冲动。千万不要这样做。
 
-### 3.1 Prebuilt solutions
+相反，保存窗口的大小和位置，并在每次重启时恢复，你的用户会很感激的。
 
-There are two prebuilt solutions that solve this for you, called [electron-window-state](https://www.npmjs.com/package/electron-window-state) and [electron-window-state-manager](https://www.npmjs.com/package/electron-window-state-manager). Both of them work, have good documentation and take care of edge cases such as maximised applications. If you're in a hurry, use these.
+### 3.1 预编译方案
 
-### 3.2 Roll your own
 
-You can also roll your own, and that's what I did, based on code I had already made for [Trimage](https://trimage.org) a few years ago. It's not a lot of work and it gives you a lot of control. I'll show you:
 
-#### 3.2.1 Get something to save your state to
+有 [electron-window-state](https://www.npmjs.com/package/electron-window-state) 和 [electron-window-state-manager](https://www.npmjs.com/package/electron-window-state-manager) 两种预编译方案。两种都能用，好好读文档并且小心边界情况，比如最大化你的应用。如果你很想快一点编译完成并看到成品，你可以采用这两种方案。
 
-First off, we need to be able to store the position and dimensions of our application somewhere. You can use [Electron-settings](https://github.com/nathanbuchar/electron-settings) which does it very well, but I chose to use [node-localstorage](https://www.npmjs.com/package/node-localstorage) because of its simplicity.
+### 3.2 自己处理滚动
+
+你可以自己处理滚动，这也正是我用的方案，主要是基于我前几年给  [Trimage](https://trimage.org) 写的代码的基础上实现的。并不需要写很多的代码，而且可以给你很多控制权。下面是演示：
+
+#### 3.2.1 把状态保存起来
+
+首先我们得把应用的位置和大小保存在某个地方。用 [Electron-settings](https://github.com/nathanbuchar/electron-settings) 可以轻松做到这一点，但我选择用 [node-localstorage](https://www.npmjs.com/package/node-localstorage) 因为它更简单。
 
     var JSONStorage = require('node-localstorage').JSONStorage;
 
@@ -250,9 +274,9 @@ First off, we need to be able to store the position and dimensions of our applic
 
        global.nodeStorage = new JSONStorage(storageLocation);
 
-If you save your data to _`getPath('userData');`_ electron will store it alongside it's own application settings, in _`~/.config/YOURAPPNAME`_, or on Windows, in the appdata folder under your user.
+如果你把数据保存到  _`getPath('userData')`_ ， electron 将会把它保存到自己的应用设置里，在 _`~/.config/YOURAPPNAME`_ 位置，在 Windows 上就是你的用户文件夹下的 appdata 文件夹中。
 
-#### 3.2.2 When opening your app, try to load in your state
+#### 3.2.2 打开应用时恢复你的状态
 
     var windowState = {};
 
@@ -266,7 +290,7 @@ If you save your data to _`getPath('userData');`_ electron will store it alongsi
 
          }
 
-Of course this will not work on first launch so you need to deal with that. Probably by providing sensible defaults. Once you have your previous state in a javascript object, just use that information to set your BrowserWindow dimensions:
+当然了，第一次启动的时是不可行，你得处理这种情况。可以提供默认设置，一旦你在 JavaScript 对象中获取到了前一次的状态，就使用保存的状态信息去设置 BrowserWindow 的大小：
 
     var mainWindow = new BrowserWindow({
 
@@ -281,10 +305,9 @@ Of course this will not work on first launch so you need to deal with that. Prob
          height: windowState.bounds && windowState.bounds.height || 450,
 
        });
+正如你看到的那样，我通过提供回退值来添加默认设置。
 
-As you can see, I add the sensible default in here by providing a fallback value.
-
-Now in Electron, it's not possible to start a window in its maximised state, so we need to do that straight after creating our BrowserWindow.
+现在在 Electron 中，在开启应用时并不能以最大化状态启动应用，因此我们得在创建好 BrowserWindow 之后再最大化窗口。
 
     // Restore maximised state if it is set.
 
@@ -296,11 +319,11 @@ Now in Electron, it's not possible to start a window in its maximised state, so 
 
        }
 
-#### 3.2.3 Save your current state on move, resize and close:
+#### 3.2.3 在 move resize 和 close 时保存状态:
 
-In a perfect world you will only have to save your window state when closing the application, but that will miss all the times the application is terminated for some unknown reason (such as when the power cuts out).
+在理想世界中你只需要在关闭应用时保存你的窗口状态，但事实上它错过了很多未知原因导致的应用终止事件，比如断电之类的。
 
-Getting and saving the state on every move or resize event makes sure we always restore the last known position and dimensions.
+在每次 move resize 事件时获取和保存状态可以让我们可以恢复上次已知状态的位置和大小。
 
      ['resize', 'move', 'close'].forEach(function(e) {
 
@@ -330,19 +353,19 @@ Getting and saving the state on every move or resize event makes sure we always 
 
        };
 
-The storeWindowState function has a little gotcha: If you minimise a native maximised window, it will revert to its _previous_ position. This means that when the window state is maximised we want to save that fact, but we don't then want to overwrite the previous (unmaximised) window dimensions so that if you maximise, close, re-open, and unmaximise, you will end up with the position your window had before maximising.
+storeWindowState 函数有个小小的问题：如果你最小化一个最大化状态的原生窗口时，它会恢复到前一个状态，这意味着本来我们想要保存的是最大化的状态，但我们并不想覆盖掉前一个窗口的大小（没有最大化的窗口），因此如果你最大化，关闭，重新打开，取消最大化，这时应用的位置是你最大化之前的位置。
 
-## **4\. Some quick fire tips**
+## **4\. 一些小贴士**
 
-Below are a couple of small, quick tips and tricks.
+下面是一些很小很简短有用的小技巧。
 
-### 4.1 Shortcuts
+### 4.1 快捷键
 
-In general, Windows and Linux users use Ctrl, while macOS users use Cmd for shortcuts. Instead of adding each shortcut (called an _Accelerator_ in Electron) twice, use "CmdOrCtrl" to target all platforms at once.
+通常来讲 Windows 和 Linux 使用 Ctrl，而 macOS 用 Cmd 。为了避免给每个快捷键（在 Electron 这叫做加速器 _Accelerator_ ）添加两次，你可以用  "CmdOrCtrl" 一次性给所有的平台进行设置。
 
-### 4.2 Use the ~~system font~~ San Francisco
+### 4.2 使用系统字体 San Francisco
 
-Using the default system font means that your application can blend in with the rest of the OS. Instead of hardcoding it for each system separately, you can use the following CSS to automatically pick whatever font is the UI font on a system:
+用系统默认的字体意味着你的应用可以和操作系统看起来很和谐。为了避免给每个系统都单独设置字体，你可以用下面的 CSS 代码块速实现更随系统字体：
 
      body {
 
@@ -350,23 +373,22 @@ Using the default system font means that your application can blend in with the 
 
        }
 
-"caption" is a keyword in CSS that links to a platform-specified font.
+"caption" 是 CSS 中关键字，它会连接到系统指定字体。
 
-### 4.3 System colors
+### 4.3 系统颜色
 
-Just like the system font, you can also choose to let the platform determine the colors of your application by using [System colors](http://www.sitepoint.com/css-system-styles/). These are actually deprecated in favor of not-yet-implemented Appearance value type in CSS3, but they're not going anywhere for the foreseeable future.
+和系统字体一样，你也可以用  [System colors](http://www.sitepoint.com/css-system-styles/) 让系统决定你应用的颜色。这其实是一个在 CSS3 中已经弃用的未完全实现的属性，但在可见的未来中它并不会被很快废弃。
 
-### 4.4 Layouting
+### 4.4 布局
 
-CSS is an immensely powerful way to lay out applications, especially when you combine flexbox with `calc()`, but don't discount the work done in older GUI frameworks such as GTK, Qt or Apple Autolayout. You can create your app GUI in a similar way by using [Grid Stylesheets](https://gridstylesheets.org/) which is a constraint-based layout system.
+CSS 是个相当强大的布局方式，尤其是把  `calc()` 和 flexbox 结合到一起时，但这并不会减少在像 GTK, Qt 或者 Apple Autolayout 这类老旧的 GUI 框架中需要做的工作。你可以用  [Grid Stylesheets](https://gridstylesheets.org/)（这是一个基于约束的布局系统）  采用类似的方式实现你 app 的 GUI 。
 
-## **Thanks!**
+## **感谢!**
 
-Building applications in Electron is a lot of fun and very rewarding: you can get something up and running on multiple platforms in a matter of minutes. If you've never looked into Electron I hope this article intrigued you enough to take a look. Their [website](http://electron.atom.io) has excellent documentation as well as a very cool demo app that lets you try out all the API’s on offer.
+在 Electron 中构建应用是一件很有趣的事情并且会让你有很多的收获 : 你可以在很短的时间内实现并运行一个跨平台的应用。如果你之前从没有用过 Electron 我希望这篇文章可以引起你足够的兴趣去尝试它。很多的收获[Electron](http://electron.atom.io) 的网站有很全的文档以及很多很酷的 Demo 可以让你尝试它的 API 
 
-If you're already writing Electron applications, I hope the above encourages you to think about how your app runs on all platforms.
+如果你已经在写 Electron 应用了，我希望上面的可以鼓励你更多的考虑你的 app 在所有平台上究竟运行的怎么样。
 
-Lastly, If you have any additional tips, please share them in the comments!
-
+最后，有什么其他的小贴士，请把它写在评论区。
 
 

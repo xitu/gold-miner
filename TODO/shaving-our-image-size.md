@@ -4,7 +4,7 @@
 * 译者 : [circlelove](https://github.com/circlelove)
 * 校对者: [rockzhai](https://github.com/rockzhai) ，  [ldhlfzysys](https://github.com/ldhlfzysys)
 
-使用 webP 减少图片的大小
+# 使用 webP 减少图片的大小
 
 图片是我们给用户展示产品的利器。老话说的好，“一图胜千言”！图像往往能表达出语言所不能及的含义。当然，由于移动设备带宽和资源限制，图片也带来了一系列突出的技术挑战。
 

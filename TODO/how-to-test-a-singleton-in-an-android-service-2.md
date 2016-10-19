@@ -4,9 +4,7 @@
 * 译者：[Newt0n](https://github.com/newt0n)
 * 校对者：[Graning](https://github.com/Graning), [hackerkevin](https://github.com/hackerkevin)
 
-
-
-
+# 如何测试 Android Service 里的 Singleton (2)
 
 上一篇文章介绍了如何测试单例模式（**PowerMock**!），还有如何对 Android 代码做单元测试（**Robolectric**!）。现在我们想要测试一个 Service 中的单例应该会很容易了吧？
 

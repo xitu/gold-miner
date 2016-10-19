@@ -4,6 +4,7 @@
 * 译者：[cbangchen](https://github.com/cbangchen)
 * 校对者：[siegeout](https://github.com/siegeout) [mypchas6fans](https://github.com/mypchas6fans)
 
+# 视觉设计本地化的重要性
 
 与最新发布的德国网站 carwow 对比，我们不可避免的发现自已需要去为国外市场的网站内容作出适配。有些人觉得这件事情并不是很复杂，只是简单的将已有的网站内容翻译成另一种语言而已。
 
