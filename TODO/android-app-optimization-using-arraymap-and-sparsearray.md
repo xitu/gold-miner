@@ -15,6 +15,9 @@ Android provides you the ArrayMap which you should consider over HashMap.
 
 Now, lets explore when and why you should consider using ArrayMap by understanding how it works internally.
 
+#### HashMap vs ArrayMap
+
+
 HashMap comes in the package : _java.util.HashMap_
 
 ArrayMap comes in the package : _android.util.ArrayMap_ and _android.support.v4.util.ArrayMap_
@@ -26,6 +29,8 @@ It comes with support.v4 to provide support for the lower android versions.
 ArrayMap is a generic key->value mapping data structure that is designed to be more memory efficient than a traditional HashMap. It keeps its mappings in an array data structure — an integer array of hash codes for each item, and an Object array of the key/value pairs. This allows it to avoid having to create an extra object for every entry put in to the map, and it also tries to control the growth of the size of these arrays more aggressively (since growing them only requires copying the entries in the array, not rebuilding a hash map).
 
 Note that this implementation is not intended to be appropriate for data structures that may contain large numbers of items. It is generally slower than a traditional HashMap, since lookups require a binary search and adds and removes require inserting and deleting entries in the array. For containers holding up to hundreds of items, the performance difference is not significant, less than 50%.
+
+#### HashMap
 
 HashMap is basically an Array of HashMap.Entry objects (Entry is an inner class of HashMap). On a high-level, the instance variables in Entry class are :
 
@@ -56,6 +61,8 @@ _Garbage Collection is a tax on performance of an application._
 
 When garbage collection is taking place, your application in not running. Ultimately, your application lags.
 
+#### ArrayMap
+
 ArrayMap uses 2 arrays. The instance variables used internally are Object[ ] mArray to store the objects and the int[] mHashes to store hashCodes. When an key/value is inserted :
 
 *   Key/Value is autoboxed.
@@ -70,6 +77,8 @@ For searching a key :
 *   Once we get the index of hash, we know that key is at 2*index position in mArray and value is at 2*index+1 position.
 *   Here the time complexity increases from O(1) to O(logN), but it is memory efficient. Whenever we play on dataset of around 100,   
     there will no problem of time complexity, it will be non-noticeable. As we have advantage of memory efficient application.
+
+#### Recommended data-structure:
 
 *   **ArrayMap in place of HashMap**
 *   **ArraySet in place of HashSet**

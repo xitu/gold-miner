@@ -91,4 +91,4 @@ However, this basically breaks your extension in iOS 9, so you’ll actually nee
         self.extensionContext.widgetLargestAvailableDisplayMode = NCWidgetDisplayModeExpanded;
     }
 
-Probably the most important thing to consider with expanded mode is that anything that only shows in expanded mode is NOT shown in iOS 9 or below. That means anything beyond 110 px on your today widget is cut off. That leaves two options, either you can create a different interface for your iOS 9 and below widgets, or you can just let your users miss out on some functionality in your today widget. The choice is up to you. For QuickBooks Self-Employed, we ended up leaving only the top portion of our widget available to users in iOS 9, giving them even more of a reason to upgrade 😉
+One more thing to consider with expanded mode is that anything that only shows in expanded mode (beyond 110 px) is cut off in iOS 9 or below if you don’t set the height of your widget properly. To do this, you’ll need to make sure you set the height for the preferredContentSize of the widget so that it includes any content you have beyond 110 px. Thanks to Greg Gardner for pointing this out!
