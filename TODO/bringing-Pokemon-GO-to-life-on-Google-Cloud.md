@@ -2,7 +2,7 @@
 * 原文作者：[Luke Stone](https://cloudplatform.googleblog.com/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[cdpath](https://github.com/cdpath)
-* 校对者：
+* 校对者：[DeadLion (Jasper Zhong)](https://github.com/DeadLion), [yifili09 (Nicolas(Yifei) Li)](https://github.com/yifili09)
 
 # 让 Pokémon GO 运行在谷歌云服务上
 作者 Luke Stone，客户可靠性工程主管。
