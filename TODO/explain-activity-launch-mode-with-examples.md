@@ -4,6 +4,8 @@
 * 译者： [Liz](http://lizwangying.github.io/)
 * 校对者： [mypchas6fans](https://github.com/mypchas6fans),[hackerkevin](https://github.com/hackerkevin)
 
+# Activity 的正确打开方式
+
 ## adb shell dumpsys activity
 
 输入这个命令可以得到一个清晰的 Task 视图，比如你有多少个 Task ，哪些 activity 在其对应的 Task 等相关信息。

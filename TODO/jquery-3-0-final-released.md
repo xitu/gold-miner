@@ -4,6 +4,7 @@
 * 译者 : [Dwight](https://github.com/ldhlfzysys)
 * 校对者: [buccoji](https://github.com/buccoji), [thanksdanny](https://github.com/thanksdanny)
 
+# jQuery 终于发布了
 
 从2014年10月开发到现在，jQuery 3.0终于发布了！我们的目的是创造一个更苗条、更快的jQuery版本（并且考虑到了向后兼容性）。我们已经删除了旧的IE浏览器的解决方案支持并且采用了一些更现代化的 web API。它是2.x分支的延续，并且加入了几项我们认为早该加入的重大改变。虽然 1.12 和 2.2 分支在短时间内会继续收到关键的补丁，但不会有新的功能和重大更改。jQuery 3.0是jQuery的未来。如果你需要支持IE6-8，你可以继续使用1.12的最新版本。
 

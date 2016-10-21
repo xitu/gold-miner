@@ -4,6 +4,8 @@
 * 译者 : [yangzj1992](http://qcyoung.com)
 * 校对者: [David Lin](https://github.com/wild-flame), [Ruixi](https://github.com/Ruixi)
 
+# UI 的黑暗面！暗色背景的优势
+
 ![](http://ac-Myg6wSTV.clouddn.com/18dcdce02f167c38bd04.jpeg)
 
 在用户界面的背景中选择是否使用暗色调仍然是一个具有高度争议的问题。毋庸置疑，这个问题是很实际的：选择一个合适的背景在所有的产品功效上都起着至关重要的作用，因为它可能会是改善或是反而毁掉设计方案中布局和功能的关键因素。在今天，我们的文章将致力于讨论在 UI 设计中使用暗色背景的好处和缺陷，所以让我们前往 UI 的黑暗面吧。

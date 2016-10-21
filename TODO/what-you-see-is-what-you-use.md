@@ -4,6 +4,7 @@
 * 译者：[jiaowoyongqi](https://github.com/jiaowoyongqi)
 * 校对者：[cbangchen](https://github.com/cbangchen), [siegeout](https://github.com/siegeout)
 
+# 你的设计应该「所见即所得」
 
 几年前的一个夏天，我有机会住在旧金山里同一栋楼不同单元的两个 Loft 公寓中。
 

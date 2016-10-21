@@ -4,6 +4,8 @@
 * 译者 : [Zhangjd](https://github.com/zhangjd)
 * 校对者: [Jasper Zhong](https://github.com/DeadLion), [Velacielad](https://github.com/Velacielad)
 
+# 如何在移动 APP 中设计输入框
+
 ![](https://cdn-images-1.medium.com/max/800/1*Mv1Jk8roDxeLZ8j1DoYNfQ.png)
 
 <figcaption>图片来源: Material Design</figcaption>

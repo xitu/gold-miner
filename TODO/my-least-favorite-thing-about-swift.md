@@ -4,6 +4,8 @@
 * 译者：[cbangchen](https://github.com/cbangchen)
 * 校对者：[zhangliukun](https://github.com/zhangliukun) [mengsir](https://github.com/steinliber)
 
+# 关于 Swift，我不喜欢的几点
+
 关于喜欢 Swift 的理由，可以有很多，[之前](http://khanlou.com/2016/05/six-months-of-swift/)我已经写到了。
 但是今天，我想要写的是这门语言不足的地方。这是一个有着很多细微差别且具有很强争议性的问题，所以我将举出几个例子，这几个例子是关于我所认为的这门语言做的好的地方，做的不好的地方和这门语言未来的前途如何。
 

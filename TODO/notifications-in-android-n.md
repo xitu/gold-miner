@@ -4,6 +4,7 @@
 * 译者 :[DeadLion](https://github.com/DeadLion)
 * 校对者:[danke77](https://github.com/danke77), [xcc3641](https://github.com/xcc3641)
 
+# 来瞧瞧 Android N 中的通知长成啥样了 
 
 Android 通知往往是应用和用户之间至关重要的交互形式。为了提供更好的用户体验，Android N 在通知上做出了诸多改进：收到消息后的视觉刷新，改进对自定义视图的支持，扩展了更加实用的直接回复消息的形式，新的 `MessagingStyle`，捆绑的通知。
 

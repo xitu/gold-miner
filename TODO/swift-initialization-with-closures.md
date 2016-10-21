@@ -4,6 +4,7 @@
 * 译者: [circlelove](https://github.com/circlelove)
 * 校对者:[Kulbear](https://github.com/Kulbear), [siegeout](https://github.com/siegeout)
 
+# Swift + 闭包初始化
 
 闭包 FTW
 

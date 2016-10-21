@@ -4,7 +4,7 @@
 * 译者 : [Hikerpig](https://github.com/hikerpig)
 * 校对者: [Jack-Kingdom](https://github.com/Jack-Kingdom)，[godofchina](https://github.com/godofchina)
 
-
+# 使用重构件（Codemod）加速 JavaScript 开发和重构
 
 ![](http://ww2.sinaimg.cn/large/005SiNxygw1f3j86n6dapj30m80gk43b.jpg)
 

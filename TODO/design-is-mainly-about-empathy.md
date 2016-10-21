@@ -4,8 +4,7 @@
 * 译者: [Rottenpen](https://github.com/Rottenpen)
 * 校对者:[geeeeeeeeek](https://github.com/geeeeeeeeek)，[wild-flame](https://github.com/wild-flame) 
 
-### Design Is Mainly About Empathy
-
+# 设计，其实是一种产生共鸣的过程
 
 ![](https://cdn-images-1.medium.com/max/1200/1*pwlSr2Qq5rcVVTU7SxEAqQ.png)
 

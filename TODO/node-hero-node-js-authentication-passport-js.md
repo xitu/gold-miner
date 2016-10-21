@@ -4,6 +4,7 @@
 * 译者 : [circlelove](https://github.com/circlelove)
 * 校对者:[wild-flame](https://github.com/wild-flame); [godofchina](https://github.com/godofchina)
 
+# 教程：使用 Passport.js 来做后台用户验证
 
 这是称为 Node Hero 系列教程的第八部分——在这些章节里面，你将学到如何开始 Node.js 的旅程以及如何用它来交付软件产品。
 
