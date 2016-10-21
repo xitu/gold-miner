@@ -4,7 +4,7 @@
 * 译者 : [shixinzhang](https://github.com/shixinzhang)
 * 校对者 : [cyseria ](https://github.com/cyseria ) , [wild-flame](https://github.com/wild-flame)
 
-
+# 移动应用设计新趋势
 
 **我们生活在一个“极简风格”的世界有些时候了，接下来会怎么样呢？**
 

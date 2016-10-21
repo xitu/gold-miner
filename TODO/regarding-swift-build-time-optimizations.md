@@ -4,9 +4,9 @@
 * 译者 : [杨龙龙](http://www.yanglonglong.com)
 * 校对者: [申冠华](https://github.com/shenAlexy), [Jack King](https://github.com/Jack-Kingdom)
 
-![](http://ww3.sinaimg.cn/large/005SiNxygw1f3p3jimjllj31jk0dwqft.jpg)
+# 关于 Swift 编译时性能优化的一些思考
 
-### 关于 Swift 编译时性能优化的一些思考
+![](http://ww3.sinaimg.cn/large/005SiNxygw1f3p3jimjllj31jk0dwqft.jpg)
 
 上周，我读了 [@nickoneill](https://medium.com/@nickoneill) 一篇优秀的帖子 [Speeding Up Slow Swift Build Times](https://medium.com/swift-programming/speeding-up-slow-swift-build-times-922feeba5780#.k0pngnkns) 之后，我发现用一个略不同以往的角度去读Swift代码，并不是很难。
 

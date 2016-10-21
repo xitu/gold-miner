@@ -4,6 +4,8 @@
 * 译者 : [zhangzhaoqi](https://github.com/joddiy)
 * 校对者: [Galen](https://github.com/galenyuan)，[Jasper Zhong](https://github.com/DeadLion)
 
+# 如何用 Flexbox 构建一个新闻网站布局
+
 ![最终产品效果图](https://cms-assets.tutsplus.com/uploads/users/30/posts/26611/final_image/preview.png)
 
 <figcaption>你将要创建的东西</figcaption>

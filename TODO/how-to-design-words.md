@@ -1,17 +1,14 @@
 > * 原文地址：[How to design words](https://medium.com/@jsaito/how-to-design-words-63d6965051e9?ref=uxdesignweekly#.97vnoptue)
 * 原文作者：[John Saito](https://medium.com/@jsaito)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
-* 校对者：
+* 译者：[jiaowoyongqi](https://github.com/jiaowoyongqi)
+* 校对者：[cbangchen](https://github.com/cbangchen), [funtrip](https://github.com/funtrip)
 
+# 如何给你的产品写文案？
 
+严格来说，我是一名文字工作者，我靠文字赚钱。但我有一件事大部分人都不知道：**我讨厌阅读。**
 
-
-
-
-Technically speaking, I’m a writer. I get paid to write words. But here’s something most people don’t know about me: **I hate to read.**
-
-Now don’t get me wrong—I still read quite a bit. I wade my way through books and blogs, news feeds and magazines. But when writers get wordy, my eyes get glossy. My brain gets bored.
+别理解错了我的意思，我现在依旧保持着阅读的习惯。我会定期浏览书籍、博客、新闻以及杂志。但当作者们把文章写得越来越拖拉，我就不知道我的眼睛到底在看哪里，脑子也越来越迟钝。
 
 
 
@@ -21,19 +18,19 @@ Now don’t get me wrong—I still read quite a bit. I wade my way through books
 
 
 
-All I see is a wall of words.
+这样的文章就像一面文字堆砌成的墙。
 
 
 
 
 
-As a kid, I always thought my aversion to reading was a weakness. It wasn’t until years later that I realized this weakness helped me become a better writer.
+当我还小的时候，我总认为对于阅读的反感是我自身的一个缺点。但直到近几年我才意识到，这个弱点帮助我成为了一个更好的文字工作者。
 
-You see, I mostly write interface text for apps and websites. It’s a style of writing where brevity beats brilliance, and every character counts. Writing interface text is actually a lot like design—designing words for people who hate to read.
+正如你们所知，我常常为应用和网站中的界面写文案。这是需要字字斟酌的。为界面写文案也是一种设计——为那些讨厌阅读的人群而设计。
 
-### People don’t read your interface
+### 用户根本不会仔细阅读界面上的文字
 
-Numerous studies have shown how [people don’t read on the web](https://www.nngroup.com/articles/how-users-read-on-the-web/). The same goes for apps, games, or any other screens you interact with. Most people just scan around, picking up words here and there.
+大量的研究表明[用户不会仔细阅读网页上的文字](https://www.nngroup.com/articles/how-users-read-on-the-web/)。这道理同样适用于手机应用、游戏以及其他交互界面上。大部分用户习惯于粗略地浏览并且摘取只言片语的信息。
 
 
 
@@ -43,25 +40,25 @@ Numerous studies have shown how [people don’t read on the web](https://www.nng
 
 
 
-You’d be surprised how many people would tap “Continue.”
+你一定会感到惊讶，因为相当多的用户都会选择直接点击“下一步”的按钮。
 
 
 
 
 
-Are people lazy? Careless? Or do they just hate to read? Whatever theory you go with, the results are always the same. People don’t read most of your interface—no matter how great your words are.
+是因为人们的懒惰？心不在焉？还是他们真的讨厌阅读？无论你同意哪一个观点，结果都是一样的。那就是用户不会阅读界面上大部分的文字，无论文字多么的优美。
 
-Because of that, you shouldn’t just write words and paste them into your design. As you write your words, you might find that your design needs to change. If you can’t explain an action in a few words, it’s a sign that your design is probably too complex.
+因为这个原因，你不能在界面上简单地堆砌文字。在编写文案的时候，你可能会发现原有的设计方案需要进行调整。如果你无法用简单的语言概况一个行为，那么这就表明你的设计过于复杂。
 
-To put it another way: You shouldn’t design with lorem ipsum. You should design with words.
+换句话说：设计的时候不应该使用无意义的占位符，而是换用真实的文案。
 
-### 7 tips for designing with words
+### 7个文案设计的小贴士
 
-As an interface writer, I’ve learned a few things that can make your words a little easier to read. Hopefully these tips can come in handy as you write and design your own words.
+作为界面文案编写者，我学到了一些能让你的文案变得更易于阅读的方法。希望这些心得能帮助你更好地设计界面的文案。
 
-#### 1\. Trim it down
+#### 1\. 精简用语
 
-The most important thing you can do to help people read is to shorten your text. After writing your first draft, trim it down, again and again. Cut out details, use simpler words, and just get to the point. Be ruthless.
+要帮助用户阅读，最重要的事就是要精简你的用词。当你写完你的草稿后，你应该一遍遍地精简它。删去不必要的细节，使用更简洁的词语，直击要点。记住要狠点儿。
 
 
 
@@ -71,15 +68,15 @@ The most important thing you can do to help people read is to shorten your text.
 
 
 
-The shorter your text, the more likely it’ll be read.
+你的文字越精悍，那它就越可能被用户阅读。
 
 
 
-As a writer, I know how tempting it is to stretch your ideas and flex those writing muscles, but an interface isn’t the right place for that. That’s what Medium is for 😀
+作为一个文字工作者，我深知发散的想法和丰富的辞藻对作家的诱惑力，但是在为界面设计文案的时候这并不是是个正确的方向。这也是 Medium 兴起的重要原因。😀
 
-#### 2\. Add headings
+#### 2\. 加上标题
 
-Sometimes, you just won’t be able to shorten your text any further. When that happens, see if you can add a heading that sums up your text in a few words. Use keywords that your user might look for. They can always read on if they want to learn more.
+有时候，你可能无法再精简你的文字了。这时候，你可以试着增加一个具有概括性的简短标题，并使用一些用户可能会关心的关键词。当他们需要进一步了解的时候就会深入阅读了。
 
 
 
@@ -89,15 +86,16 @@ Sometimes, you just won’t be able to shorten your text any further. When that 
 
 
 
-Headings make your content more scannable.
+标题会让你的内容更有可读性。
 
 
 
-#### 3\. Make lists
+#### 3\. 分点论述
 
-When viewing webpages, [our eyes tend to scan up and down](http://www.eyegaze.com/eye-tracking-study-reveals-how-users-scan-google-search-results/). Because of this, lists are usually easier to read than paragraphs.
 
-If you find yourself using words like “and” or “also” multiple times throughout a paragraph, try rewriting that paragraph as a list.
+当我读完这篇文章[我们的视线趋向于从上至下地浏览](http://www.eyegaze.com/eye-tracking-study-reveals-how-users-scan-google-search-results/)之后得出了一个结论，那就是以分点论述为形式的段落更易于阅读。
+
+当你在一个段落中大量地使用“和”、“或者”的时候，可以试试分点论述的方法。
 
 
 
@@ -107,17 +105,17 @@ If you find yourself using words like “and” or “also” multiple times thr
 
 
 
-I love making lists.
+我爱分点论述。
 
 
 
-#### 4\. Give them a break
+#### 4\. 让读者歇会儿
 
-Some products, like Medium, are inherently heavy on content—and there’s nothing wrong with that. But sometimes it can be hard to read paragraph after paragraph after paragraph.
+许多产品，比如 Medium，本身就很注重内容的呈现，这是没有问题的。但是有时候文字一大段接着一大段连续的出现，会对阅读造成较大的困难。
 
-When I need to write a lot of content, I try to add a lot of _visual relief—_line breaks, images, headings, examples—anything that breaks up the walls of words. It gives people a breather. It lets them think and skip around if they need to.
+当我需要写下大段文字的时候，我会试着使用许多**缓解阅读疲劳的元素**比如破折号、图片、标题、例子等，以及其他可以打破文字墙的元素。这可以为读者提供一个休息的间隙。而且这也为读者提供了思考的时间，同样如果他们愿意也可以选择跳过并继续阅读。
 
-For example, in my Medium posts, I try to keep my paragraphs to just a few lines, and I sprinkle in lots of visual relief.
+例如，在我的 Medium 博文中，我会让段落之间以分割线来进行区分，尽可能多地撒上缓解阅读疲劳的调味品。
 
 
 
@@ -127,17 +125,17 @@ For example, in my Medium posts, I try to keep my paragraphs to just a few lines
 
 
 
-Sprinkling in some visual relief.
+撒上一些缓解阅读疲劳的调味品吧。
 
 
 
-#### 5\. Prioritize your words
+#### 5\. 优化你的文字
 
-Some writers tend to focus too much on the choice of words. Word choice is important, but I think the _presentation_ of those words is just as important.
+很多作家都会把关注点放在挑选合适的词语。使用合适的词语固然重要，但是我认为词语正确的**展示**也是同样重要。
 
-As you design your words, think about how to prioritize the most important words on the screen and how to de-emphasize the less important stuff. In design, this is referred to as _visual hierarchy_.
+当你在设计文案的时候，应该考虑如何强调界面上最为重要的文字，然后如何弱化那些非重点的文字或其他元素。在设计当中，这也被称为**视觉层次**。
 
-Think about font weights, size, colors, contrast, typography, capitalization, spacing, proximity, alignment, movement — all these things affect whether or not people read your words. Dial some attributes up, and dial other attributes down until you find the right balance.
+时刻考虑字重、字号、字体颜色、对比度、字体类型、是否大小写、间距、空间感，对齐方式以及韵律等，所有的这些都会对读者的阅读造成或多或少的影响。仔细调整每一个特性直到找到最平衡的状态。
 
 
 
@@ -147,15 +145,15 @@ Think about font weights, size, colors, contrast, typography, capitalization, sp
 
 
 
-Which is easier to read?
+哪一个更易于阅读？
 
 
 
-#### 6\. The slow reveal
+#### 6\. 慢慢地展示
 
-When you’re trying to educate users how to do something, it’s tempting to just throw all that info into a single screen and hope they’ll get it. But chances are, if your text is longer than a couple of lines, many people won’t read it. So what do you do?
+当你试着教会用户如何使用某个功能时，你很可能会把所有信息都一股脑地堆在界面上，并且祈祷用户能够读懂并理解。但事实上，如果你的文字超过了两三行，很多用户可能不会去读它。那么你该怎么办？
 
-Sometimes you can show the user a little bit of info at a time. In textbook-speak, this is called _progressive disclosure_, but I like to call it _the slow reveal_. (Sounds more dramatic, doesn’t it?) Try breaking up your info into small chunks and presenting it step-by-step.
+有时候你可以每次只给用户展现一小部分的信息。这个方法的学名叫做**渐进式揭露**，但是我却偏向称之为**慢慢展示**。（这听起来更有意思不是吗？）试着把你的信息拆分成许多小块儿，并且一点点地进行展示。
 
 
 
@@ -165,19 +163,19 @@ Sometimes you can show the user a little bit of info at a time. In textbook-spea
 
 
 
-Too much text? Try revealing it a little by little.
+字数太多了？试着拆分开来一点点展示。
 
 
 
-Another thing you can do is remove some of the more detailed info and link out to help docs. Many products do this by adding “Learn more” links. Clicking those links can take you to a help page with the nitty-gritty details.
+另一件事就是你可以删去界面上大部分细节信息的文字，并且加上一个跳转至帮助中心的链接。许多产品都会使用“查看更多”的链接，点击后跳转到帮助中心页，那里包含产品的所有细节信息。
 
-#### 7\. Write in mocks, not docs
+#### 7\. 写在原型界面上，而不是文档中
 
-Have you ever written something that looked good on paper, but ended up looking too long when it went live? That’s what happens when you do your writing in Google Docs, Dropbox Paper, or any other writing app.
+你是否有遇到过这种情况，有些文案写在文档上看起来很好，但当放在界面上却发现字数太长而得重新再写？当你在使用谷歌文档、Dropbox Pape 或者其他写作软件来编写文案的时候这种情况会经常发生。
 
-When you write words for an interface, seeing the full context is so crucial. You need to know how your words are going to look next to everything else around it.
+当你为界面编写文案的时候，了解界面实际的情况是至关重要的。你需要知道你写出的文案与界面上其他的元素是否和谐。
 
-That’s why I prefer to write in Sketch mocks, not in docs. I find that writing in mocks helps inform my writing decisions, because I can see how my words will look in context.
+这就是为什么我更偏向于在 Sketch 的原型上写文案而不是在文档上。我发现在原型上也可以帮助我更好地写出合适的文案，因为我可以实时地看到我的文案在实际界面上是如何呈现的。
 
 
 
@@ -189,13 +187,13 @@ That’s why I prefer to write in Sketch mocks, not in docs. I find that writing
 
 
 
-### Parting words
+### 最后的话
 
-Words fill our world with meaning. They help us make sense of the world around us. But the sad thing is that a lot of people just don’t like to read. If you work with words like I do, our goal should be to make reading as easy as possible. Help people make sense of the world around them.
+世上的文字承载着信息。它们帮助我们了解周围的世界。但是可惜的是，大部分的人都不喜欢阅读。如果你跟我一样是一位文字工作者，我们的共同目标应该是让阅读变得尽可能的简单。帮助人们更好地了解并感受这个世界。
 
-The tips above are just a few of the things I try to do when designing words. Got any tips of your own? Feel free to share your ideas, stories, and comments below.
+以上的观点只是我在设计文案时总结的一点心得。你是否有自己的观点？如果有请把你的想法和故事写在下面的评论栏里吧。
 
-And to all of you who hate to read—thanks for reading.
+感谢文字的力量，以此献给那些讨厌阅读的你。
 
 
 
@@ -211,8 +209,7 @@ And to all of you who hate to read—thanks for reading.
 
 
 
-_Much ❤️ to_ [_Brandon Land_](https://medium.com/u/496222766919) _for the sprinkling illustration!_
-
+**大爱❤** [_Brandon Land_](https://medium.com/u/496222766919) **所提供的撒调味料的插画**
 
 
 

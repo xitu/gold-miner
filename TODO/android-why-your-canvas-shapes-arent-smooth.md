@@ -4,6 +4,7 @@
 * 译者 : [Sausure](https://github.com/Sausure)
 * 校对者:[zhangzhaoqi](https://github.com/joddiy), [lovexiaov](https://github.com/lovexiaov)
 
+# 为什么 Android 上 Canvas 画出的图形不够平滑
 
 通过 Google 搜索我们很快就能找到这个在 StackOverflow 中被问了很多次的问题，同时答案也经常是相同的：你需要给你的 Paint 对象设置 ANTI_ALIAS_FLAG 属性。但对于大多数人来说这并不能解决问题。下面我讲讲原因。
 

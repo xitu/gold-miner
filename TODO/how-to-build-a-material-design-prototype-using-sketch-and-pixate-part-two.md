@@ -4,6 +4,8 @@
 * 译者 : [zhangzhaoqi](https://github.com/joddiy)
 * 校对者: [Velacielad](https://github.com/Velacielad)，[Zheaoli](https://github.com/Zheaoli)
 
+# 使用 Sketch 和 Pixate 构建 Material Design 原型 - 第二部分
+
 在教程的 [第一部分](http://gold.xitu.io/entry/574d062b2e958a0069335d8e "如何使用 Sketch 和 Pixate 来构建一个 Material Design 原型 —— 第一部分") 我们制作了一个简单的登录界面并导出了所有资源。
 
 在第二部分，我们打算继续在 Pixate 里创建一个原型。对于这一部分，你需要：

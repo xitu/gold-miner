@@ -4,6 +4,8 @@
 * 译者 : [Zheaoli](https://github.com/Zheaoli)
 * 校对者: [owenlyn](https://github.com/owenlyn), [yifili09](https://github.com/yifili09)
 
+# 好的与坏的，Swift 语言面面观（二）
+
 
 不久之前，在我写的[好与坏，Swift面面观 Part1](http://gold.xitu.io/entry/578c647a6be3ff006ce49e91)一文中，我介绍了一些关于在 **Swift** 里怎样去写出优秀代码的小技巧。在 **Swift** 发布到现在的两年里，我花费了很长时间去牢牢掌握最佳的实践方法。欲知详情，请看这篇文章：[好与坏，Swift面面观 Part1](https://medium.com/@ksmandersen/good-swift-bad-swift-part-1-f58f71da3575).
 

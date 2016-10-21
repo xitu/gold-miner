@@ -1,8 +1,10 @@
-* 原文链接 : [World-Class Testing Development Pipeline for Android - Part 2.](http://blog.karumi.com/world-class-testing-development-pipeline-for-android-part-2/)
+> * 原文链接 : [World-Class Testing Development Pipeline for Android - Part 2.](http://blog.karumi.com/world-class-testing-development-pipeline-for-android-part-2/)
 * 原文作者 : [Karumi](hello@karumi.com)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [markzhai](https://github.com/markzhai)
 * 校对者: [JustWe](https://github.com/lfkdsk), [Hugo Xie](https://github.com/xcc3641)
+
+# 世界级的 Android 测试流程（二）
 
 在我们的上一篇博客文章，[“世界级的Android测试开发流程（一）”，我们开始讨论一个Android的测试开发流程](http://blog.karumi.com/world-class-testing-development-pipeline-for-android/)。我们讨论了一个软件工程师从开始写测试到找到测试开发的一些问题的演化过程。我们获得了以下结论，概括如下：
 

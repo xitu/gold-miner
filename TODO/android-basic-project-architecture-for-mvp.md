@@ -5,6 +5,8 @@
 * 校对者 : [kassadin](https://github.com/kassadin)、[Sausure](https://github.com/Sausure)
 * 状态 : 完成
 
+# Android 的一个 MVP 基础项目模板
+
 迄今为止，我阅读了很多有关Android软件开发中结构设计的文章。以我对他们的认识，比较好的方法是实现**MVP(Model View Presenter)**模式，这对Android开发者也是非常重要的。
 
 我在其他开发者的技术博客和项目中学到了一些有用的东西，现在我决定开发一个基本的项目架构来用于实现我们的客户端软件[mobiwise](https://medium.com/u/8d64c93a5e63). 我选择了MVP模式作为项目架构，让我们开始了解一下。

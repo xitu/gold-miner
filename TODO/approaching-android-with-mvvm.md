@@ -5,6 +5,8 @@
 * 校对者: [EthanWu (ethan-wu)](https://github.com/EthanWu)、[dodocat (Quanqi)](https://github.com/dodocat)、[foolishgao](https://github.com/foolishgao)
 * 状态 :  完成
 
+# MVVM 模式介绍
+
 我考察了一段时间安卓的数据绑定类库，决定尝试下它的“Model-View-ViewModel”模式。因为我曾经和 [@matto1990](https://twitter.com/matto1990) 合作开发过一款应用 [HackerNews Reader](https://github.com/hitherejoe/HackerNewsReader)，所以我决定利用这种模式重新实现它。
 
 ![](https://cdn-images-1.medium.com/max/800/1*jI0Qc7-8vYy7UpKuTLWrKg.png)

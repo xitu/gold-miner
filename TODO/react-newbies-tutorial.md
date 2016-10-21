@@ -4,7 +4,7 @@
 * 译者 : [markzhai](https://github.com/markzhai)
 * 校对者: [JasinYip](https://github.com/JasinYip), [malcolmyu](https://github.com/malcolmyu), [羊羊羊](https://github.com/antonia0912)
 
-
+# React.js 新手村教程
 
 正如你能从标题猜到的，这篇文章的目标是给那些有很少编程经验的读者的。比如，像我这样的人：因为迄今为止，我才探索了编程世界6个月。**所以，这将是一篇新手村教程！** 你只需要拥有对 HTML 和 CSS 的理解，以及基本的 JavaScript（JS）知识就能看懂本文。
 
