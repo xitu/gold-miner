@@ -23,7 +23,6 @@ iOS 10 的今日控件
 
 
 
-Let’s start with the obvious one. You’ll either need to build two different interfaces for versions lower than iOS 10 as well as iOS 10+, or make sure that a single interface is compatible with both dark and light backgrounds. We ended up solving this by building one interface, but displaying light and dark text and background colors for our view elements depending on which version of iOS we were on. We also made sure that any image assets or colored text looked good on both backgrounds. Modifying the image tint color proved to be useful here.
 让我们从明显的开始。你可以构造两个不同的界面，一个用在小于 iOS 10 的版本另一个用于iOS 10+ 的版本，或者确认一个单独的界面能够同时兼容深色和亮色背景。最后，我们通过构建一个界面来解决这个问题，但是对于我们视图的元素最终显示亮色还是深色的本文和背景色，这取决于在什么版本的 iOS 上运行。我们也确认任何图片资源或者有颜色的文本在两种背景下看起来都不错。修改图片的着色（tint color）在这被证明是有效的。
 
     //Swift
