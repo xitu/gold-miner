@@ -1,7 +1,7 @@
 > * 原文地址：[How to generate haptic feedback with UIFeedbackGenerator](https://www.hackingwithswift.com/example-code/uikit/how-to-generate-haptic-feedback-with-uifeedbackgenerator)
 * 原文作者：[twostraws](https://twitter.com/twostraws)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[owenlyn](https://github.com/owenlyn)
 * 校对者：
 
 # 如何使用 UIFeedbackGenerator 让应用支持 iOS 10 的触觉反馈
