@@ -4,20 +4,20 @@
 * 译者：
 * 校对者：
 
-# How to generate haptic feedback with UIFeedbackGenerator
+# 如何使用 UIFeedbackGenerator 让应用支持 iOS 10 的触觉反馈
 
 
 
 
-## Available from iOS 10.0
+## 始于 iOS 10.0
 
-iOS 10 introduces new ways of generating haptic feedback using predefined vibration patterns shared by all apps, thus helping users understand that various types of feedback carry special significance. The core of this functionality is provided by `UIFeedbackGenerator`, but that's just an abstract class – the three classes you really care about are `UINotificationFeedbackGenerator`, `UIImpactFeedbackGenerator`, and `UISelectionFeedbackGenerator`.
+iOS 10 引入了一种新的、产生触觉反馈的方式，它通过使用所有应用共享的预定义震动模式，来帮助用户认识到不同的震动反馈有不同的含义。这个功能的核心由 `UIFeedbackGenerator` 提供，不过这只是一个 abstract class （翻译成“抽象类”？） —— 你真正需要关注的三个类是 `UINotificationFeedbackGenerator`，`UIImpactFeedbackGenerator`，和 `UISelectionFeedbackGenerator`。
 
-The first of these, `UINotificationFeedbackGenerator`, lets you generate feedback based on three system events: error, success, and warning. The second, `UIImpactFeedbackGenerator`, lets you generate light, medium, and heavy effects that Apple says provide a "physical metaphor that complements the visual experience." Finally, `UISelectionFeedbackGenerator` generates feedback that should be triggered when the user is changing their selection on screen, e.g. moving through a picker wheel.
+其中的第一个，`UINotificationFeedbackGenerator` 让你可以根据三种系统事件：error，success，和 warning （这里翻译成 错误，成功和警告好吗？）来产生反馈。第二个，`UIImpactFeedbackGenerator`，它可以产生三种不同程度的、苹果公司所说的“物理与视觉相得益彰的体验”。最后， `UISelectionFeedbackGenerator` 可以在用户改变他们在屏幕上的选择（例如滑动一个转盘选择器）的时候，产生一个对应的反馈。（最后一句翻译的不好，校对有没有什么建议？）
 
-**At this time, only the new Taptic Engine found in the iPhone 7 and iPhone 7 Plus support these APIs. Other devices silently ignore the haptic requests.**
+**这时候，只有 iPhone 7 和 iPhone 7 Plus 内置的新 Taptic 引擎支持这些应用程序接口（API）。其他设备只能静静的忽略这些触觉反馈的请求。**
 
-To start trying these APIs yourself, create a Single View Application template in Xcode, then replace the built-in `ViewController` class with this test harness:
+想要试试这些新的 API，你需要在 Xcode 里新建一个 Single View Application 的模板，然后用这个模板替换默认的 `ViewController` 类:
 
     import UIKit
 
@@ -79,17 +79,17 @@ To start trying these APIs yourself, create a Single View Application template i
     	}
     }
 
-When you run that on your phone, pressing the "Tap here!" button cycles through all the vibration options in order.
+当你在手机上运行它的时候，按下 "Tap here!" 按钮可以轮流按顺序体验各种震动选项。
 
-One tip: because it can take a small amount of time for the system to prepare haptic feedback, Apple recommends you call the `prepare()` method on your generator before triggering the haptic effect. If you don't do this, and there _is_ a slight delay between the visual effect and the matching haptic, it might confuse users more than it helps.
+一个小贴士：因为系统准备触觉反馈需要一段时间，苹果公司建议，触发触觉效果之前，在你的生成器（generator这么翻译可以吗？）内调用 `prepare()` 方法。如果你不这么做的话，在视觉效果和对应的震动之间确实会有一个小小的延迟，这给用户造成的迷惑可能会大过它的用处。
 
-Although you can technically use a success notification feedback for whatever you want, doing so inappropriately may confuse users, particularly those who are heavily reliant on haptic feedback for device interaction. Apple specifically requests that you use them judiciously, that you avoid using the wrong haptic for a given situation, and that you remember not all devices support this new haptic feedback – you need to consider older iPhones too.
+尽管从技术上来说，你可以给任何东西都加一个“操作成功”的反馈，但如果这么做而又做的不恰当的话，反而会给用户带来困惑，尤其是那些在人机交互上严重依赖触觉反馈的用户。苹果公司特别要求开发者们要“恰如其分”的使用它们（judiciously在这里翻译成“恰如其分”合适嘛？），尤其不要在给定的情境下使用错误的触觉反馈，而且记住，并不是所有的设备都支持这个新的触觉反馈 —— 毕竟你还要考虑那些旧 iPhone 的用户呐~
 
-Did this solution work for you? Please pass it on!
+这个方案对你有帮助吗？请把它分享给更多人吧！
 
-[Tweet](https://twitter.com/share)
+[Tweet](https://twitter.com/share)（Tweeter 不是被墙了吗？）
 
-**Other people are reading…**
+**Other people are reading…** （广告？）
 
 **About the Swift Knowledge Base**
 
@@ -99,11 +99,11 @@ This is part of the [Swift Knowledge Base](https://www.hackingwithswift.com/exam
 
 **Want to learn Swift faster?**
 
-Get 38 Swift projects in PDF and HTML: buy the Hacking with Swift book! It contains over 1200 pages of hands-on Swift tutorials, and will really help boost your iOS career
+Get 38 Swift projects in PDF and HTML: buy the Hacking with Swift book! It contains over 1200 pages of hands-on Swift tutorials, and will really help boost your iOS career （广告？）
 
 
 
-Copyright ©2016 Paul Hudson. [Follow me: @twostraws](http://twitter.com/twostraws).
+广告的版权所有？ Copyright ©2016 Paul Hudson. [Follow me: @twostraws](http://twitter.com/twostraws).
 
 
 
