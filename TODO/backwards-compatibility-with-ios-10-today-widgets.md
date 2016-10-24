@@ -5,9 +5,9 @@
 * 校对者：[肘子涵](https://github.com/zhouzihanntu) [Luoyaqifei](https://github.com/luoyaqifei)
 
 # iOS 10 今日控件向后兼容的几个技巧
-回顾今日控件在过去几年中重要性如何得到提升是一件很有趣的事。今日控件首次在 iOS 8，出现时并没有受到高度欢迎，并且在通知中心与错过的通知结合在一起。然而，在 iOS 10，今日控件彻底的改变了，完全接管主屏幕的左滑项，这过去常常被用作「滑动解锁」。在外观方面也从一个深色主题转变为一个珍珠白。
+回顾今日控件在过去几年中重要性如何得到提升是一件很有趣的事。今日控件首次在 iOS 8 出现，当时并没有受到高度欢迎，并且在通知中心与错过的通知结合在一起。然而，在 iOS 10，今日控件彻底的改变了，完全接管主屏幕的左滑项，这过去常常被用作「滑动解锁」。在外观方面也从一个深色主题转变为一个珍珠白主题。
 
-不幸的是，对于开发者，如果你和我的团队一样还不能完全放弃对 iOS 10 以下的支持，那么你不得不解决完美支持两种外观风格，和一些其他在初看时不明显的东西。我最近参加了这个 [QuickBooks Self-Employed](https://quickbooks.intuit.com/self-employed/) 今日控件的改造－以下是一些注意事项：
+不幸的是，对于开发者，如果你和我的团队一样还不能完全放弃对 iOS 10 以下的支持，那么你不得不解决完美支持两种外观风格，和一些其他在初看时不明显的问题。我最近参加了这个 [QuickBooks Self-Employed](https://quickbooks.intuit.com/self-employed/) 今日控件的改造－以下是一些注意事项：
 
 ### 支持两种主题
 
@@ -54,7 +54,7 @@ iOS 10 的今日控件
         return UIEdgeInsetsMake(0,0,0,0);
     }
 
-注意：`widgetMarginInsetsForProposedMarginInsets` 是技术弃用的并且在 iOS 10　及以上的版本不会被调用。
+注意：`widgetMarginInsetsForProposedMarginInsets` 是技术弃用的并且在 iOS 10 及以上的版本不会被调用。
 
 ### 在扩展模式中功能失效
 
@@ -70,7 +70,7 @@ iOS 10 的今日控件
 
 
 
-iOS 10 增加了一个可选的扩展模式，这可以用来增加额外的功能和控件的使用面积。这是超级有用的，比如高级用户功能在用户有一些不想一直显示在主屏幕的东西（例如私人或财产信息）的情况下。你可以在 ViewDidLoad 中通过一行代码开启扩展模式：
+iOS 10 增加了一个可选的扩展模式，这可以用来增加额外的功能和控件的使用面积。这是超级有用的，比如高级用户功能或是在用户有一些不想一直显示在主屏幕的东西（例如私人或财产信息）的情况下。你可以在 ViewDidLoad 中通过一行代码开启扩展模式：
 
     //Swift
     self.extensionContext?.widgetLargestAvailableDisplayMode = NCWidgetDisplayMode.expanded
@@ -78,7 +78,7 @@ iOS 10 增加了一个可选的扩展模式，这可以用来增加额外的功�
     //Objective-C
     self.extensionContext.widgetLargestAvailableDisplayMode = NCWidgetDisplayModeExpanded;
 
-然而，在 iOS 9 上这基本会破坏你的扩展，所以你实际上需要封装一下来确保仅在支持的显示模式下被设置。
+然而，在 iOS 9 上这基本会破坏你的扩展，所以你实际上需要封装一下来确保仅在支持扩展模式时被设置。
 
     //Swift
     let extensionContext = NSExtensionContext()
