@@ -2,7 +2,7 @@
 * 原文作者：[twostraws](https://twitter.com/twostraws)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[owenlyn](https://github.com/owenlyn)
-* 校对者：[luoyaqifei](https://github.com/luoyaqifei)
+* 校对者：[luoyaqifei](http://www.zengmingxia.com/)
 
 # 如何使用 UIFeedbackGenerator 让应用支持 iOS 10 的触觉反馈
 
