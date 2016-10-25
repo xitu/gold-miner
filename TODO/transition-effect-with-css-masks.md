@@ -6,15 +6,9 @@
 
 # Transition Effect with CSS Masks
 
-
-
-
 A tutorial on how to use CSS Masks to create some interesting looking slide transitions. Highly experimental!
 
-
-
-![](http://codropspz.tympanus.netdna-cdn.com/codrops/wp-content/themes/codropstheme03/images/advertisement.jpg)
-
+![](http://codropspz.tympanus.netdna-cdn.com/codrops/wp-content/uploads/2016/09/CSSMaskTransition_800x600.jpg)
 
 
 [View demo](http://tympanus.net/Tutorials/CSSMaskTransition/) [Download source](http://tympanus.net/Tutorials/CSSMaskTransition/CSSMaskTransition.zip)
@@ -22,6 +16,8 @@ A tutorial on how to use CSS Masks to create some interesting looking slide tran
 Today we’d like to show you how to create an intriguingly simple, yet eye-catching transition effect using [CSS Masks](http://tympanus.net/codrops/css_reference/mask/). Together with clipping, masking is another way of defining visibility and composite with an element. In the following tutorial we’ll show you how to apply the new properties for a modern transition effect on a simple slideshow. We’ll be applying animations utilizing the steps() timing function and move a mask PNG over an image to achieve an interesting transition effect.
 
 **Attention:** Please keep in mind that this effect is **highly experimental** and only supported by some modern browsers (Chrome, Safari and Opera for now).
+
+![](http://7xl8me.com1.z0.glb.clouddn.com/CSS%20Masks.png)
 
 Keep in mind that Firefox has only partial support (it only supports inline SVG mask elements) so we’ll have a fallback for now. Hopefully, we can welcome support in all modern browsers very soon. Note that we’re adding [Modernizr](https://modernizr.com/download?cssmask-setclasses&q=css%20mask) to check for support.
 
@@ -59,46 +55,48 @@ Now, that we’ve created the mask image, let’s dive into the HTML structure f
 
 For our demo, we’ll create a simple slideshow to show the mask effect. Our slideshow will fill the entire screen and we’ll add some arrows that will trigger the slide transitions. The idea is to superpose the slides and then change the z-index of the incoming slide when the animation is over. The structure for our slideshow looks as follows:
 
-    
-    	
-    		
-    			“All good things are  wild & free”
-    			Photo by Andreas Rønningen
-    		
-    	
-    	
-    		
-    			“Into the wild”
-    			Photo by John Price
-    		
-    	
-    	
-    		
-    			“Is spring coming?”
-    			Photo by Thomas Lefebvre
-    		
-    	
-    	
-    		
-    			“Stay curious”
-    			Photo by Maria
-    		
-    	
-    	
-    		
-    			
-    				
-    			
-    		
-    		
-    			
-    				
-    			
-    		
-    	
-    
+```
+<div class="page-view">
+	<div class="project">
+		<div class="text">
+			<h1>“All good things are <br> wild & free”</h1>
+			<p>Photo by Andreas Rønningen</p>
+		</div>
+	</div>
+	<div class="project">
+		<div class="text">
+			<h1>“Into the wild”</h1>
+			<p>Photo by John Price</p>
+		</div>
+	</div>
+	<div class="project">
+		<div class="text">
+			<h1>“Is spring coming?”</h1>
+			<p>Photo by Thomas Lefebvre</p>
+		</div>
+	</div>
+	<div class="project">
+		<div class="text">
+			<h1>“Stay curious”</h1>
+			<p>Photo by Maria</p>
+		</div>
+	</div>
+	<nav class="arrows">
+		<div class="arrow previous">
+			<svg viewBox="208.3 352 4.2 6.4">
+				<polygon class="st0" points="212.1,357.3 211.5,358 208.7,355.1 211.5,352.3 212.1,353 209.9,355.1"/>
+			</svg>
+		</div>
+		<div class="arrow next">
+			<svg viewBox="208.3 352 4.2 6.4">
+				<polygon class="st0" points="212.1,357.3 211.5,358 208.7,355.1 211.5,352.3 212.1,353 209.9,355.1"/>
+			</svg>
+		</div>
+	</nav>
+</div>
+```
 
-The division _page-view_ is our global container, it will contain all our slides. The _project_ divisions are the slides of our slideshow; each one contains a title and a legend. Additionally, we’ll set an individual background image for each slide.
+The division page-view is our global container, it will contain all our slides. The project divisions are the slides of our slideshow; each one contains a title and a legend. Additionally, we’ll set an individual background image for each slide.
 
 The arrows will serve as our trigger for the next or previous animation, and to navigate through the slides.
 
