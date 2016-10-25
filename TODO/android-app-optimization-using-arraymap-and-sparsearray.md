@@ -2,12 +2,12 @@
 * 原文作者：[Amit Shekhar](https://medium.com/@amitshekhar)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Jamweak](https://github.com/jamweak)
-* 校对者：
+* 校对者：[Jacksonke](https://github.com/jacksonke), [Siegeout](https://github.com/siegeout)
 
 # 如何通过 ArrayMap 和 SparseArray 优化 Android App
 
 
-这篇文章会讲述为何以及如何使用 **ArrayMap** 和 **SparseArray** 来优化 Android 应用。
+这篇文章会讲述为何要使用 **ArrayMap** 和 **SparseArray** 来优化 Android 应用，以及什么情形下适用。
 
 当你需要存储**键 -> 值**这样的数据类型时，你脑海里想到的第一个数据类型应该是 **HashMap**。然后你开始肆无忌惮的到处使用它，而从不考虑它所带来的副作用。
 
@@ -15,7 +15,7 @@
 
 Android 给你提供了 ArrayMap，你应该优先考虑使用它而不是 HashMap。
 
-现在，让我们来理解 ArrayMap 的内部实现，以便探求在哪种场景以及为什么要使用它。
+现在，让我们来理解 ArrayMap 的内部实现，以便探求在哪种场景下使用它，以及为什么这样做。
 
 #### HashMap vs ArrayMap
 
@@ -47,21 +47,21 @@ HashMap 基本上就是一个 HashMap.Entry 的数组（Entry 是 HashMap 的一
 *   然后，使用这个哈希值找到它将要被存入的数组中“桶”的索引。
 *   如果该位置的“桶”中已经有一个元素，那么新的元素会被插入到“桶”的头部，next 指向上一个元素——“桶”在本质上形成为链表。
 
-现在，当你用 key 去查询值时，复杂度是 O(1)。
+现在，当你用 key 去查询值时，时间复杂度是 O(1)。
 
-但最重要的是它花费了更多的空间（内存）。
+虽然时间上 HashMap 更快，但同时它也花费了更多的内存空间。
 
 缺点:
 
-*   自动装箱的存在意味着每一次插入都会有额外的对象创建。这会影响内存的利用，还有垃圾回收机制。
+*   自动装箱的存在意味着每一次插入都会有额外的对象创建。这跟垃圾回收机制一样也会影响到内存的利用。
 *   HashMap.Entry 对象本身是一层额外需要被创建以及被垃圾回收的对象。
 *   “桶” 在 HashMap 每次被压缩或扩容的时候都会被重新安排。这个操作会随着对象数量的增长而变得开销极大。
 
 在Android中，当涉及到快速响应的应用时，内存至关重要，因为持续地分发和释放内存会出发垃圾回收机制，这会拖慢应用运行。
 
-**垃圾回收机制会成为影响系统表现的负担**
+**垃圾回收机制会影响应用性能表现**
 
-当垃圾回收开始，你的程序基本上就会变得极慢。
+垃圾回收时间段内，应用程序是不会运行的，最终应用使用上就显得卡顿。
 
 #### ArrayMap
 
@@ -76,7 +76,7 @@ ArrayMap 使用2个数组。它的对象实例内部有用来存储对象的 Obj
 
 *   键的哈希值先被计算出来
 *   在 mHashes[] 数组中二分查找此哈希值。这表明查找的时间复杂度增加到了 O(logN)。
-*   一旦得到了哈希值所对应的索引 index，我们就得出键在 mArray[] 中的位置为 2*index，值的位置为 2*index+1。
+*   一旦得到了哈希值所对应的索引 index，键值对中的键就存储在 mArray[2*index] ，值存储在  mArray[2*index+1]。
 *   这里的时间复杂度从 O(1) 上升到 O(logN)，但是内存效率提升了。当我们在 100 左右的数据量范围内尝试时，没有耗时的问题，察觉不到时间上的差异，但我们应用的内存效率获得了提高。
    
 #### 推荐的数据结构:
@@ -88,8 +88,3 @@ ArrayMap 使用2个数组。它的对象实例内部有用来存储对象的 Obj
 *   **SparseIntArray 替代 HashMap&lt;Integer,Integer>**
 *   **SparseLongArray 替代 HashMap&lt;Integer,Long>**
 *   **LongSparseArray&lt;V> 替代 HashMap&lt;Long,V>**
-
-
-----------
-
-
