@@ -26,21 +26,31 @@ Here we go…
 *   Create a new project in Android Studio.
 *   Import Google Play Services SDK for the Mobile Vision API into your app level build.gradle file. As at the time of writing this article, the latest version is 9.6.1\. Take extreme caution here as you are bound to hit the 65k method limit if you import the whole SDK instead of the specific one (play-services-vision) you need.
 
-    compile 'com.google.android.gms:play-services-vision:9.6.1'
+```
+compile 'com.google.android.gms:play-services-vision:9.6.1'
+```
 
 *   To enable that the available libraries are present for face detection, add this meta-data to your manifest file.
-
     
+```
+<meta-data
+    android:name="com.google.android.gms.vision.DEPENDENCIES"
+    android:value="face"/>
+```
 
 *   Next, you’ll need to add an _ImageView_ and a _Button_ to your layout. The button starts the processing of the image by selecting an image, processing it and then displaying it in the _ImageView_. The image can be loaded from the device either via the camera or the gallery. To save time, I just saved an image to my drawable folder and used that.
 *   In the click action for your button, create a new _BitmapFactory.Options_object and set _inmutable_ to true. This is to ensure that the bitmap is mutable so that we are able to programmatically apply effects to it.
 
-    BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
-    bitmapOptions.inMutable = true;
+```
+BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
+bitmapOptions.inMutable = true;
+```
 
 *   Next, create a new Bitmap with the _decodeResource_ method from the BitmapFactory class. You’ll use both the image from your drawable folder and the _BitmapOptions_ object created in the previous step as parameters for this method.
 
-    Bitmap defaultBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.image, bitmapOptions);
+```
+Bitmap defaultBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.image, bitmapOptions);
+```
 
 *   Create a _Paint_ object and set the style to stroke. This ensures that the shape is not filled in because we want to see the parts of the head that make it into the rectangle.
 
@@ -53,21 +63,25 @@ _Note_: If you were building a game called _!(Recognize Me)_ where you need to 
 
 *   We need a canvas to display our bitmap. We are going to create the canvas with a temporary bitmap first. This temporary bitmap will have the same dimensions as the original bitmap but that’s where the similarities end. We would later draw the original bitmap on the same canvas.
 
+```
     Bitmap temporaryBitmap = Bitmap.createBitmap(defaultBitmap.getWidth(), defaultBitmap
             .getHeight(), Bitmap.Config.RGB_565);
 
     Canvas canvas = new Canvas(temporaryBitmap);
     canvas.drawBitmap(defaultBitmap, 0, 0, null);
+```
 
 *   Finally, we get to point where we use the _FaceDectector_ API. Tracking is disabled because we are using a static image. It should be enabled for videos.
 
+```
     FaceDetector faceDetector = new FaceDetector.Builder(this)
             .setTrackingEnabled(false)
             .setLandmarkType(FaceDetector.ALL_LANDMARKS)
             .build();
-
+```
 *   Check if the face detector is operational already. There’s a possibility that it won’t work the first time because a library needs to be downloaded to the device and it might not have been completed in time when you need to use it.
 
+```
     if (!faceDetector.isOperational()) {
                 new AlertDialog.Builder(this)
                 .setMessage("Face Detector could not be set up on your device :(")
@@ -75,14 +89,18 @@ _Note_: If you were building a game called _!(Recognize Me)_ where you need to 
 
         return;
     }
+```
 
 *   Next, we create a frame using the default bitmap and call on the face detector to get the face objects.
 
+```
     Frame frame = new Frame.Builder().setBitmap(defaultBitmap).build();
     SparseArray sparseArray = faceDetector.detect(frame);
+```
 
 *   The rectangle is drawn over the faces in this step. We can only get the left and top position from each of the faces but we also need the right and bottom dimensions to draw the rectangle. To resolve this, we add the width and height to the left and top positions respectively.
 
+```
     for (int i = 0; i < sparseArray.size(); i++) {
         Face face = sparseArray.valueAt(i);
 
@@ -96,15 +114,19 @@ _Note_: If you were building a game called _!(Recognize Me)_ where you need to 
 
         canvas.drawRoundRect(rectF, cornerRadius, cornerRadius, rectPaint);
     }
+```
 
 *   We then create a new _BitmapDrawable_ with the temporary bitmap and set that on the ImageView from our layout after which we release the face detector.
 
+```
     imageView.setImageDrawable(new BitmapDrawable(getResources(), temporaryBitmap));
 
     faceDetector.release();
+```
 
 These steps are just enough to draw the rectangle on each face. If you want to highlight the landmarks on each face, all you need to do is modify the loop from the last two steps. You’ll now loop through the landmark for each face, get the landmark x and y positions and draw a circle on each of them like so.
 
+```
     for (int i = 0; i < sparseArray.size(); i++) {
         Face face = sparseArray.valueAt(i);
 
@@ -125,6 +147,7 @@ These steps are just enough to draw the rectangle on each face. If you want to h
             canvas.drawCircle(x, y, radius, rectPaint);
         }
     }
+```
 
 
 
@@ -132,6 +155,7 @@ Picture with facial landmarks highlighted
 
 I was curious to know how the landmarks were represented so I used _landmark.getType();_ to find that out. It turns out each of the landmarks have specific numbers attached to them.
 
+```
     for (Landmark landmark : face.getLandmarks()) {
 
         int cx = (int) (landmark.getPosition().x);
@@ -143,25 +167,16 @@ I was curious to know how the landmarks were represented so I used _landmark.get
         rectPaint.setTextSize(50);    
         canvas.drawText(type, cx, cy, rectPaint);
     }
-
-
-
-
-
-
-
+```
 
 
 ![](http://ac-Myg6wSTV.clouddn.com/9c2c504ae6c38fe051bc.png)
-
-
-
-
 
 This knowledge is useful when we want to position objects on the screen relative to a particular facial landmark. If we were going to build our printf(“%s Story”, yourName) app, all we have to do is position an image relative to one of the landmark’s position since we now know what number it is represented as. Let’s proceed to do that below…
 
 Say we were pirates at sea and we wanted to depict that through one of our really cool printf(“%s Story”, yourName) app filters, we’ll need an eye-patch over our left eye. The position of the eyePatchBitmap is drawn relative to the left eye.
 
+```
     for (Landmark landmark : face.getLandmarks()) {
 
         int cx = (int) (landmark.getPosition().x);
@@ -178,7 +193,7 @@ Say we were pirates at sea and we wanted to depict that through one of our reall
             canvas.drawBitmap(eyePatchBitmap, cx - 270, cy - 250, null);
         }
     }
-
+```
 
 
 
