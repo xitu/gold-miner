@@ -4,6 +4,8 @@
 * 译者：[Zheaoli](https://github.com/Zheaoli)
 * 校对者：[luoyaqifei](https://github.com/luoyaqifei), [Edison-Hsu](https://github.com/Edison-Hsu)
 
+# Swift 声明式程序设计
+
 在我第一份 iOS 开发工程师的工作中，我编写了一个 XML 解析器和一个简单的布局工具，两个东西都是基于声明式接口。XML 解析器是基于 `.plist` 文件来实现 Objective-C 类关系映射。而布局工具则允许你利用类似 HTML 一样标签化的语法来实现界面布局（不过这个工具使用的前提是已经正确使用 `AutoLayout` & `CollectionViews`）。
 
 尽管这两个库都不完美，它们还是展现了声明式代码的四大优点：
