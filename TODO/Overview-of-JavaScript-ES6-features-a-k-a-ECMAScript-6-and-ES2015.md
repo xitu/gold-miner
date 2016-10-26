@@ -15,7 +15,7 @@ The new additions to the language are called ECMAScript 6\. It is also referred 
 
 Since JavaScript conception on 1995, it has been evolving slowly. New additions happened every few years. ECMAScript came to be in 1997 to guide the path of JavaScript. It has been releasing versions such as ES3, ES5, ES6 and so on.
 
-![](/images/history-javascript-evolution-es6.png "History of JavaScript Evolution")
+![](http://adrianmejia.com/images/history-javascript-evolution-es6.png "History of JavaScript Evolution")
 
 As you can see, there are gaps of 10 and 6 years between the ES3, ES5, and ES6\. The new model is to make small incremental changes every year. Instead of doing massive changes at once like happened with ES6.
 
@@ -23,7 +23,7 @@ As you can see, there are gaps of 10 and 6 years between the ES3, ES5, and ES6\.
 
 All modern browser and environments support ES6 already!
 
-![](/images/es6-javascript-support.png "ES6 Support")
+![](http://adrianmejia.com/images/es6-javascript-support.png "ES6 Support")
 
 source: [https://kangax.github.io/compat-table/es6/](https://kangax.github.io/compat-table/es6/)
 
@@ -35,7 +35,7 @@ Let’s get started with ECMAScript 6!
 
 You can test all these code snippets on your browser console!
 
-![](/images/javascript-es6-classes-on-browser-console.png "Testing Javascript ES6 classes on browser console")
+![](http://adrianmejia.com/images/javascript-es6-classes-on-browser-console.png "Testing Javascript ES6 classes on browser console")
 
 So don’t take my word and test every ES5 and ES6 example. Let’s dig in 💪
 
@@ -269,7 +269,7 @@ ES6
 
 You can also use `const` if you don’t want a variable to change at all.
 
-![](/images/javascript-es6-const-variables-example.png "const variable example")
+![](http://adrianmejia.com/images/javascript-es6-const-variables-example.png "const variable example")
 
 > Bottom line: ditch `var` for `let` and `const`.
 > 
@@ -924,7 +924,7 @@ I won’t go over all details but notice:
 *   Line 7-8, we assigned the `Lion` prototype to `Animal`‘s prototype.
 *   Line 11, we call the `speak` method from the parent class `Animal`.
 
-In ES6, we have a new keywords `extends` and `super` ![superman shield](/images/superman_shield.svg).
+In ES6, we have a new keywords `extends` and `super` ![superman shield](http://adrianmejia.com/images/superman_shield.svg).
 
 
 
@@ -1347,7 +1347,7 @@ We went from `apply()` to the spread operator. Again we have `...` to the rescue
 
 > Reminder: we use `apply()` to convert an array into a list of arguments. For instance, `Math.max()` takes a list of parameters, but if we have an array we can use `apply` to make it work.
 
-![](/images/javascript-math-apply-arrays.png "JavaScript Math apply for arrays")
+![](http://adrianmejia.com/images/javascript-math-apply-arrays.png "JavaScript Math apply for arrays")
 
 As we saw in earlier, we can use `apply` to pass arrays as list of arguments:
 
