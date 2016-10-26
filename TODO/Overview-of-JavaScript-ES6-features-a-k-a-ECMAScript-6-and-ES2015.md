@@ -47,35 +47,19 @@ What was wrong with `var`?
 
 The issue with `var` is the variable leaks into other code block such as `for` loops or `if` blocks.
 
-
-
-ES5
-
-
-
-
-
-
-
-
-
-1234567891011
-
-
-
-
-
-var x = 'outer';function test(inner) {  if (inner) {    var x = 'inner'; // scope whole function    return x;  }  return x; // gets redefined because line 4 declaration is hoisted}test(false); // undefined 😱test(true); // inner
-
-
-
-
-
-
-
-
-
-
+```
+// ES5
+var x = 'outer';
+function test(inner) {
+  if (inner) {
+    var x = 'inner'; // scope whole function
+    return x;
+  }
+  return x; // gets redefined because line 4 declaration is hoisted
+}
+test(false); // undefined 😱
+test(true); // inner
+```
 
 For `test(false)` you would expect to return `outer`, BUT NO, you get `undefined`.
 
@@ -90,71 +74,37 @@ Because even though the if-block is not executed, the expression `var x` in line
 > *   Initializations are NOT hoisted. If you are using `var` ALWAYS declare your variables at the top.
 > *   After applying the rules of hoisting we can understand better what’s happening:
 >     
->     
->     
->     ES5
->     
->     
->     
->     
->     
->     
->     
->     
->     
->     
->     
->     123456789
->     
->     
->     
->     
->     
->     
->     
->     var x = 'outer';function test(inner) {  var x; // HOISTED DECLARATION  if (inner) {    x = 'inner'; // INITIALIZATION NOT HOISTED    return x;  }  return x;}
->     
->     
->     
->     
->     
->     
->     
->     
->     
->     
+>    
+			```
+			// ES5
+			var x = 'outer';
+			function test(inner) {
+				var x; // HOISTED DECLARATION
+				if (inner) {
+					x = 'inner'; // INITIALIZATION NOT HOISTED
+					return x;
+				}
+				return x;
+			}
+			```
 
 ECMAScript 2015 comes to the rescue:
 
 
 
-ES6
-
-
-
-
-
-
-
-
-
-1234567891011
-
-
-
-
-
-let x = 'outer';function test(inner) {  if (inner) {    let x = 'inner';    return x;  }  return x; // gets result from line 1 as expected}test(false); // outertest(true); // inner
-
-
-
-
-
-
-
-
-
-
+```
+// ES6
+let x = 'outer';
+function test(inner) {
+  if (inner) {
+    let x = 'inner';
+    return x;
+  }
+  return x; // gets result from line 1 as expected
+}
+test(false); // outer
+test(true); // inner
+```
 
 Changing `var` for `let` makes things work as expected. If the `if` block is not called the variable `x` doesn’t get hoisted out of the block.
 
@@ -169,101 +119,35 @@ Changing `var` for `let` makes things work as expected. If the `if` block is not
 
 Let’s show an example before explaining IIFE. Take a look here:
 
-
-
-ES5
-
-
-
-
-
-
-
-
-
-12345
-
-
-
-
-
-{  var private = 1;}console.log(private); // 1
-
-
-
-
-
-
-
-
-
-
+```
+// ES5
+{
+  var private = 1;
+}
+console.log(private); // 1
+```
 
 As you can see, `private` leaks out. You need to use IIFE (immediately-invoked function expression) to contain it:
 
-
-
-ES5
-
-
-
-
-
-
-
-
-
-12345
-
-
-
-
-
-(function(){  var private2 = 1;})();console.log(private2); // Uncaught ReferenceError
-
-
-
-
-
-
-
-
-
-
+```
+// ES5
+(function(){
+  var private2 = 1;
+})();
+console.log(private2); // Uncaught ReferenceError
+```
 
 If you take a look at jQuery/lodash or other open source projects you will notice they have IIFE to avoid polluting the global environment and just defining on global such as `_`, `<div class="post-content  toc-content " or `jQuery`.
 
 On ES6 is much cleaner, We also don’t need to use IIFE anymore when we can just use blocks and `let`:
 
-
-
-ES6
-
-
-
-
-
-
-
-
-
-12345
-
-
-
-
-
-{  let private3 = 1;}console.log(private3); // Uncaught ReferenceError
-
-
-
-
-
-
-
-
-
-
+```
+// ES6
+{
+  let private3 = 1;
+}
+console.log(private3); // Uncaught ReferenceError
+```
 
 **Const**
 
@@ -280,133 +164,53 @@ You can also use `const` if you don’t want a variable to change at all.
 
 We don’t have to do more nesting concatenations when we have template literals. Take a look:
 
-
-
-ES5
-
-
-
-
-
-
-
-
-
-123
-
-
-
-
-
-var first = 'Adrian';var last = 'Mejia';console.log('Your name is ' + first + ' ' + last + '.');
-
-
-
-
-
-
-
-
-
-
+```
+// ES5
+var first = 'Adrian';
+var last = 'Mejia';
+console.log('Your name is ' + first + ' ' + last + '.');
+```
 
 Now you can use backtick (`) and string interpolation `${}`:
 
-
-
-ES6
-
-
-
-
-
-
-
-
-
-123
-
-
-
-
-
-const first = 'Adrian';const last = 'Mejia';console.log(`Your name is ${first} ${last}.`);
-
-
-
-
-
-
-
-
-
-
+```
+// ES6
+const first = 'Adrian';
+const last = 'Mejia';
+console.log(`Your name is ${first} ${last}.`);
+```
 
 ## Multi-line strings[](#Multi-line-strings "Multi-line strings")
 
 We don’t have to concatenate strings + `\n` anymore like this:
 
-
-
-ES5
-
-
-
-
-
-
-
-
-
-123456789
-
-
-
-
-
-var template = '&lt;li *ngFor="let todo of todos" [ngClass]="{completed: todo.isDone}" &gt;\n' +'  &lt;div class="view"&gt;\n' +'    &lt;input class="toggle" type="checkbox" [checked]="todo.isDone"&gt;\n' +'    &lt;label&gt;&lt;/label&gt;\n' +'    &lt;button class="destroy"&gt;&lt;/button&gt;\n' +'  &lt;/div&gt;\n' +'  &lt;input class="edit" value=""&gt;\n' +'&lt;/li&gt;';console.log(template);
-
-
-
-
-
-
-
-
-
-
+```
+// ES5
+var template = '<li *ngFor="let todo of todos" [ngClass]="{completed: todo.isDone}" >\n' +
+'  <div class="view">\n' +
+'    <input class="toggle" type="checkbox" [checked]="todo.isDone">\n' +
+'    <label></label>\n' +
+'    <button class="destroy"></button>\n' +
+'  </div>\n' +
+'  <input class="edit" value="">\n' +
+'</li>';
+console.log(template);
+```
 
 On ES6 we can use the backtick again to solve this:
 
-
-
-ES6
-
-
-
-
-
-
-
-
-
-123456789
-
-
-
-
-
-const template = `&lt;li *ngFor="let todo of todos" [ngClass]="{completed: todo.isDone}" &gt;  &lt;div class="view"&gt;    &lt;input class="toggle" type="checkbox" [checked]="todo.isDone"&gt;    &lt;label&gt;&lt;/label&gt;    &lt;button class="destroy"&gt;&lt;/button&gt;  &lt;/div&gt;  &lt;input class="edit" value=""&gt;&lt;/li&gt;`;console.log(template);
-
-
-
-
-
-
-
-
-
-
+```
+// ES6
+const template = `<li *ngFor="let todo of todos" [ngClass]="{completed: todo.isDone}" >
+  <div class="view">
+    <input class="toggle" type="checkbox" [checked]="todo.isDone">
+    <label></label>
+    <button class="destroy"></button>
+  </div>
+  <input class="edit" value="">
+</li>`;
+console.log(template);
+```
 
 Both pieces of code will have exactly the same result.
 
@@ -417,384 +221,136 @@ ES6 desctructing is very useful and consise. Follow this examples:
 **Getting elements from an arrays**
 
 
-
-ES5
-
-
-
-
-
-
-
-
-
-123456
-
-
-
-
-
-var array = [1, 2, 3, 4];var first = array[0];var third = array[2];console.log(first, third); // 1 3
-
-
-
-
-
-
-
-
-
-
+```
+// ES5
+var array = [1, 2, 3, 4];
+var first = array[0];
+var third = array[2];
+console.log(first, third); // 1 3
+```
 
 Same as:
 
-
-
-ES6
-
-
-
-
-
-
-
-
-
-12345
-
-
-
-
-
-const array = [1, 2, 3, 4];const [first, ,third] = array;console.log(first, third); // 1 3
-
-
-
-
-
-
-
-
-
-
+```
+const array = [1, 2, 3, 4];
+const [first, ,third] = array;
+console.log(first, third); // 1 3
+```
 
 **Swapping values**
 
-
-
-ES5
-
-
-
-
-
-
-
-
-
-12345678
-
-
-
-
-
-var a = 1;var b = 2;var tmp = a;a = b;b = tmp;console.log(a, b); // 2 1
-
-
-
-
-
-
-
-
-
-
+```
+// ES5
+var a = 1;
+var b = 2;
+var tmp = a;
+a = b;
+b = tmp;
+console.log(a, b); // 2 1
+```
 
 same as
 
-
-
-ES6
-
-
-
-
-
-
-
-
-
-123456
-
-
-
-
-
-let a = 1;let b = 2;[a, b] = [b, a];console.log(a, b); // 2 1
-
-
-
-
-
-
-
-
-
-
+```
+// ES6
+let a = 1;
+let b = 2;
+[a, b] = [b, a];
+console.log(a, b); // 2 1
+```
 
 **Destructuring for multiple return values**
 
-
-
-ES5
-
-
-
-
-
-
-
-
-
-12345678910
-
-
-
-
-
-function margin() {  var left=1, right=2, top=3, bottom=4;  return { left: left, right: right, top: top, bottom: bottom };}var data = margin();var left = data.left;var bottom = data.bottom;console.log(left, bottom); // 1 4
-
-
-
-
-
-
-
-
-
+```
+// ES5
+function margin() {
+  var left=1, right=2, top=3, bottom=4;
+  return { left: left, right: right, top: top, bottom: bottom };
+}
+var data = margin();
+var left = data.left;
+var bottom = data.bottom;
+console.log(left, bottom); // 1 4
+```
 
 
 In line 3, you could also return it in an array like this (and save some typing):
 
-
-
-
-
-
-
-
-
-
-
-1
-
-
-
-
-
+```
 return [left, right, top, bottom];
-
-
-
-
-
-
-
-
-
-
+```
 
 but then, the caller needs to think about the order of return data.
 
-
-
-
-
-
-
-
-
-
-
-12
-
-
-
-
-
-var left = data[0];var bottom = data[3];
-
-
-
-
-
-
-
-
-
+```
+var left = data[0];
+var bottom = data[3];
+```
 
 
 With ES6, the caller selects only the data they need (line 6):
 
+```
+// ES6
 
-
-ES6
-
-
-
-
-
-
-
-
-
-12345678
-
-
-
-
-
-function margin() {  const left=1, right=2, top=3, bottom=4;  return { left, right, top, bottom };}const { left, bottom } = margin();console.log(left, bottom); // 1 4
-
-
-
-
-
-
-
-
-
-
+function margin() {
+  const left=1, right=2, top=3, bottom=4;
+  return { left, right, top, bottom };
+}
+const { left, bottom } = margin();
+console.log(left, bottom); // 1 4
+```
 
 _Notice:_ Line 3, we have some other ES6 features going on. We can compact `{ left: left }` to just `{ left }`. Look how much concise it is compare to the ES5 version. Isn’t that cool?
 
 **Destructuring for parameters matching**
 
 
-
-ES5
-
-
-
-
-
-
-
-
-
-12345678910
-
-
-
-
-
-var user = {firstName: 'Adrian', lastName: 'Mejia'};function getFullName(user) {  var firstName = user.firstName;  var lastName = user.lastName;  return firstName + ' ' + lastName;}console.log(getFullName(user)); // Adrian Mejia
-
-
-
-
-
-
-
-
-
-
+```
+// ES5
+var user = {firstName: 'Adrian', lastName: 'Mejia'};
+function getFullName(user) {
+  var firstName = user.firstName;
+  var lastName = user.lastName;
+  return firstName + ' ' + lastName;
+}
+console.log(getFullName(user)); // Adrian Mejia
+```
 
 Same as (but more concise):
 
-
-
-ES6
-
-
-
-
-
-
-
-
-
-1234567
-
-
-
-
-
-const user = {firstName: 'Adrian', lastName: 'Mejia'};function getFullName({ firstName, lastName }) {  return `${firstName} ${lastName}`;}console.log(getFullName(user)); // Adrian Mejia
-
-
-
-
-
-
-
-
-
-
+```
+// ES6
+const user = {firstName: 'Adrian', lastName: 'Mejia'};
+function getFullName({ firstName, lastName }) {
+  return `${firstName} ${lastName}`;
+}
+console.log(getFullName(user)); // Adrian Mejia
+```
 
 **Deep Matching**
 
-
-
-ES5
-
-
-
-
-
-
-
-
-
-123456789
-
-
-
-
-
-function settings() {  return { display: { color: 'red' }, keyboard: { layout: 'querty'} };}var tmp = settings();var displayColor = tmp.display.color;var keyboardLayout = tmp.keyboard.layout;console.log(displayColor, keyboardLayout); // red querty
-
-
-
-
-
-
-
-
-
-
+```
+// ES5
+function settings() {
+  return { display: { color: 'red' }, keyboard: { layout: 'querty'} };
+}
+var tmp = settings();
+var displayColor = tmp.display.color;
+var keyboardLayout = tmp.keyboard.layout;
+console.log(displayColor, keyboardLayout); // red querty
+```
 
 Same as (but more concise):
 
-
-
-ES6
-
-
-
-
-
-
-
-
-
-1234567
-
-
-
-
-
-function settings() {  return { display: { color: 'red' }, keyboard: { layout: 'querty'} };}const { display: { color: displayColor }, keyboard: { layout: keyboardLayout }} = settings();console.log(displayColor, keyboardLayout); // red querty
-
-
-
-
-
-
-
-
-
-
+```
+// ES6
+function settings() {
+  return { display: { color: 'red' }, keyboard: { layout: 'querty'} };
+}
+const { display: { color: displayColor }, keyboard: { layout: keyboardLayout }} = settings();
+console.log(displayColor, keyboardLayout); // red querty
+```
 
 This is also called object destructing.
 
@@ -813,67 +369,36 @@ With ECMAScript 6, We went from “constructor functions” 🔨 to “classes�
 
 In ES5, we did Object Oriented programming (OOP) using constructor functions to create objects as follows:
 
-
-
-ES5
-
-
-
-
-
-
-
-
-
-123456789101112
-
-
-
-
-
-var Animal = (function () {  function MyConstructor(name) {    this.name = name;  }  MyConstructor.prototype.speak = function speak() {    console.log(this.name + ' makes a noise.');  };  return MyConstructor;})();var animal = new Animal('animal');animal.speak(); // animal makes a noise.
-
-
-
-
-
-
-
-
-
-
+```
+// ES5
+var Animal = (function () {
+  function MyConstructor(name) {
+    this.name = name;
+  }
+  MyConstructor.prototype.speak = function speak() {
+    console.log(this.name + ' makes a noise.');
+  };
+  return MyConstructor;
+})();
+var animal = new Animal('animal');
+animal.speak(); // animal makes a noise.
+```
 
 In ES6, we have some syntax sugar. We can do the same with less boiler plate and new keywords such as `class` and `constructor`. Also, notice how clearly we define methods `constructor.prototype.speak = function ()` vs `speak()`:
 
-
-
-ES6
-
-
-
-
-
-
-
-
-
-1234567891011
-
-
-
-
-
-class Animal {  constructor(name) {    this.name = name;  }  speak() {    console.log(this.name + ' makes a noise.');  }}const animal = new Animal('animal');animal.speak(); // animal makes a noise.
-
-
-
-
-
-
-
-
-
-
+```
+// ES6
+class Animal {
+  constructor(name) {
+    this.name = name;
+  }
+  speak() {
+    console.log(this.name + ' makes a noise.');
+  }
+}
+const animal = new Animal('animal');
+animal.speak(); // animal makes a noise.
+```
 
 As we saw, both styles (ES5/6) produces the same results behind the scenes and are used in the same way.
 
@@ -888,35 +413,25 @@ Building on the previous `Animal` class. Let’s say we want to extend it and de
 
 In ES5, It’s a little more involved with prototypal inheritance.
 
-
-
-ES5
-
-
-
-
-
-
-
-
-
-12345678910111213141516171819
-
-
-
-
-
-var Lion = (function () {  function MyConstructor(name){    Animal.call(this, name);  }  // prototypal inheritance  MyConstructor.prototype = Object.create(Animal.prototype);  MyConstructor.prototype.constructor = Animal;  MyConstructor.prototype.speak = function speak() {    Animal.prototype.speak.call(this);    console.log(this.name + ' roars 🦁');  };  return MyConstructor;})();var lion = new Lion('Simba');lion.speak(); // Simba makes a noise.// Simba roars.
-
-
-
-
-
-
-
-
-
-
+```
+// ES5
+var Lion = (function () {
+  function MyConstructor(name){
+    Animal.call(this, name);
+  }
+  // prototypal inheritance
+  MyConstructor.prototype = Object.create(Animal.prototype);
+  MyConstructor.prototype.constructor = Animal;
+  MyConstructor.prototype.speak = function speak() {
+    Animal.prototype.speak.call(this);
+    console.log(this.name + ' roars 🦁');
+  };
+  return MyConstructor;
+})();
+var lion = new Lion('Simba');
+lion.speak(); // Simba makes a noise.
+// Simba roars.
+```
 
 I won’t go over all details but notice:
 
@@ -926,35 +441,18 @@ I won’t go over all details but notice:
 
 In ES6, we have a new keywords `extends` and `super` ![superman shield](http://adrianmejia.com/images/superman_shield.svg).
 
-
-
-ES6
-
-
-
-
-
-
-
-
-
-12345678910
-
-
-
-
-
-class Lion extends Animal {  speak() {    super.speak();    console.log(this.name + ' roars 🦁');  }}const lion = new Lion('Simba');lion.speak(); // Simba makes a noise.// Simba roars.
-
-
-
-
-
-
-
-
-
-
+```
+// ES6
+class Lion extends Animal {
+  speak() {
+    super.speak();
+    console.log(this.name + ' roars 🦁');
+  }
+}
+const lion = new Lion('Simba');
+lion.speak(); // Simba makes a noise.
+// Simba roars.
+```
 
 Looks how legible this ES6 code looks compared with ES5 and they do exactly the same. Win!
 
@@ -966,69 +464,42 @@ Looks how legible this ES6 code looks compared with ES5 and they do exactly the 
 
 We went from callback hell 👹 to promises 🙏
 
-
-
-ES5
-
-
-
-
-
-
-
-
-
-1234567891011121314
-
-
-
-
-
-function printAfterTimeout(string, timeout, done){  setTimeout(function(){    done(string);  }, timeout);}printAfterTimeout('Hello ', 2e3, function(result){  console.log(result);  // nested callback  printAfterTimeout(result + 'Reader', 2e3, function(result){    console.log(result);  });});
-
-
-
-
-
-
-
-
-
-
+```
+// ES5
+function printAfterTimeout(string, timeout, done){
+  setTimeout(function(){
+    done(string);
+  }, timeout);
+}
+printAfterTimeout('Hello ', 2e3, function(result){
+  console.log(result);
+  // nested callback
+  printAfterTimeout(result + 'Reader', 2e3, function(result){
+    console.log(result);
+  });
+});
+```
 
 We have one function that receives a callback to execute when is `done`. We have to execute it twice one after another. That’s why we called the 2nd time `printAfterTimeout` in the callback.
 
 This can get messy pretty quickly if you need a 3rd or 4th callback. Let’s see how we can do it with promises:
 
-
-
-ES6
-
-
-
-
-
-
-
-
-
-123456789101112131415
-
-
-
-
-
-function printAfterTimeout(string, timeout){  return new Promise((resolve, reject) =&gt; {    setTimeout(function(){      resolve(string);    }, timeout);  });}printAfterTimeout('Hello ', 2e3).then((result) =&gt; {  console.log(result);  return printAfterTimeout(result + 'Reader', 2e3);}).then((result) =&gt; {  console.log(result);});
-
-
-
-
-
-
-
-
-
-
+```
+// ES6
+function printAfterTimeout(string, timeout){
+  return new Promise((resolve, reject) => {
+    setTimeout(function(){
+      resolve(string);
+    }, timeout);
+  });
+}
+printAfterTimeout('Hello ', 2e3).then((result) => {
+  console.log(result);
+  return printAfterTimeout(result + 'Reader', 2e3);
+}).then((result) => {
+  console.log(result);
+});
+```
 
 As you can see, with promises we can use `then` to do something after another function is done. No more need to keep nesting functions.
 
@@ -1038,167 +509,74 @@ ES5 didn’t remove the function expressions but it added a new one called arrow
 
 In ES5, we have some issues with `this`:
 
-
-
-ES5
-
-
-
-
-
-
-
-
-
-123456789
-
-
-
-
-
-var _this = this; // need to hold a reference$('.btn').click(function(event){  _this.sendData(); // reference outer this});$('.input').on('change',function(event){  this.sendData(); // reference outer this}.bind(this)); // bind to outer this
-
-
-
-
-
-
-
-
-
-
+```
+// ES5
+var _this = this; // need to hold a reference
+$('.btn').click(function(event){
+  _this.sendData(); // reference outer this
+});
+$('.input').on('change',function(event){
+  this.sendData(); // reference outer this
+}.bind(this)); // bind to outer this
+```
 
 You need to use a temporary `this` to reference inside a function or use `bind`. In ES6, you can use the arrow function!
 
-
-
-ES6
-
-
-
-
-
-
-
-
-
-123456
-
-
-
-
-
-// this will reference the outer one$('.btn').click((event) =&gt;  this.sendData());// implicit returnsconst ids = [291, 288, 984];const messages = ids.map(value =&gt; `ID is ${value}`);
-
-
-
-
-
-
-
-
-
-
+```
+// ES6
+// this will reference the outer one
+$('.btn').click((event) =>  this.sendData());
+// implicit returns
+const ids = [291, 288, 984];
+const messages = ids.map(value => `ID is ${value}`);
+```
 
 ## For…of[](#For…of "For…of")
 
 We went from `for` to `forEach` and then to `for...of`:
 
-
-
-ES5
-
-
-
-
-
-
-
-
-
-1234567891011
-
-
-
-
-
-// forvar array = ['a', 'b', 'c', 'd'];for (var i = 0; i &lt; array.length; i++) {  var element = array[i];  console.log(element);}// forEacharray.forEach(function (element) {  console.log(element);});
-
-
-
-
-
-
-
-
-
-
+```
+// ES5
+// for
+var array = ['a', 'b', 'c', 'd'];
+for (var i = 0; i < array.length; i++) {
+  var element = array[i];
+  console.log(element);
+}
+// forEach
+array.forEach(function (element) {
+  console.log(element);
+});
+```
 
 The ES6 for…of also allow us to do iterations.
 
-
-
-ES6
-
-
-
-
-
-
-
-
-
-12345
-
-
-
-
-
-// for ...ofconst array = ['a', 'b', 'c', 'd'];for (const element of array) {    console.log(element);}
-
-
-
-
-
-
-
-
-
-
+```
+// ES6
+// for ...of
+const array = ['a', 'b', 'c', 'd'];
+for (const element of array) {
+    console.log(element);
+}
+```
 
 ## Default parameters[](#Default-parameters "Default parameters")
 
 We went from checking if the variable was defined to assign a value to `default parameters`. Have you done something like this before?
 
-
-
-ES5
-
-
-
-
-
-
-
-
-
-1234567891011
-
-
-
-
-
-function point(x, y, isFlag){  x = x || 0;  y = y || -1;  isFlag = isFlag || true;  console.log(x,y, isFlag);}point(0, 0) // 0 -1 true 😱point(0, 0, false) // 0 -1 true 😱😱point(1) // 1 -1 truepoint() // 0 -1 true
-
-
-
-
-
-
-
-
-
-
+```
+// ES5
+function point(x, y, isFlag){
+  x = x || 0;
+  y = y || -1;
+  isFlag = isFlag || true;
+  console.log(x,y, isFlag);
+}
+point(0, 0) // 0 -1 true 😱
+point(0, 0, false) // 0 -1 true 😱😱
+point(1) // 1 -1 true
+point() // 0 -1 true
+```
 
 Probably yes, it’s a common pattern to check is the variable has a value or assign a default. Yet, notice there are some issues:
 
@@ -1209,67 +587,32 @@ If you have a boolean as a default parameter or set the value to zero, it doesn�
 
 With ES6, Now you can do better with less code!
 
-
-
-ES6
-
-
-
-
-
-
-
-
-
-12345678
-
-
-
-
-
-function point(x = 0, y = -1, isFlag = true){  console.log(x,y, isFlag);}point(0, 0) // 0 0 truepoint(0, 0, false) // 0 0 falsepoint(1) // 1 -1 truepoint() // 0 -1 true
-
-
-
-
-
-
-
-
-
-
+```
+// ES6
+function point(x = 0, y = -1, isFlag = true){
+  console.log(x,y, isFlag);
+}
+point(0, 0) // 0 0 true
+point(0, 0, false) // 0 0 false
+point(1) // 1 -1 true
+point() // 0 -1 true
+```
 
 Notice line 5 and 6 we get the expected results. The ES5 example didn’t work. We have to check for `undefined` first since `false`, `null`, `undefined` and `0` are falsy values. We can get away with numbers:
 
-
-
-ES5
-
-
-
-
-
-
-
-
-
-1234567891011
-
-
-
-
-
-function point(x, y, isFlag){  x = x || 0;  y = typeof(y) === 'undefined' ? -1 : y;  isFlag = typeof(isFlag) === 'undefined' ? true : isFlag;  console.log(x,y, isFlag);}point(0, 0) // 0 0 truepoint(0, 0, false) // 0 0 falsepoint(1) // 1 -1 truepoint() // 0 -1 true
-
-
-
-
-
-
-
-
-
-
+```
+// ES5
+function point(x, y, isFlag){
+  x = x || 0;
+  y = typeof(y) === 'undefined' ? -1 : y;
+  isFlag = typeof(isFlag) === 'undefined' ? true : isFlag;
+  console.log(x,y, isFlag);
+}
+point(0, 0) // 0 0 true
+point(0, 0, false) // 0 0 false
+point(1) // 1 -1 true
+point() // 0 -1 true
+```
 
 Now it works as expected when we check for `undefined`.
 
@@ -1280,66 +623,27 @@ We went from arguments to rest parameters and spread operator.
 On ES5, it’s clumpsy to get an arbitrary number of arguments:
 
 
-
-ES5
-
-
-
-
-
-
-
-
-
-1234567
-
-
-
-
-
-function printf(format) {  var params = [].slice.call(arguments, 1);  console.log('params: ', params);  console.log('format: ', format);}printf('%s %d %.2f', 'adrian', 321, Math.PI);
-
-
-
-
-
-
-
-
-
-
+```
+// ES5
+function printf(format) {
+  var params = [].slice.call(arguments, 1);
+  console.log('params: ', params);
+  console.log('format: ', format);
+}
+printf('%s %d %.2f', 'adrian', 321, Math.PI);
+```
 
 We can do the same using the rest operator `...`.
 
+```
+// ES6
 
-
-ES6
-
-
-
-
-
-
-
-
-
-123456
-
-
-
-
-
-function printf(format, ...params) {  console.log('params: ', params);  console.log('format: ', format);}printf('%s %d %.2f', 'adrian', 321, Math.PI);
-
-
-
-
-
-
-
-
-
-
+function printf(format, ...params) {
+  console.log('params: ', params);
+  console.log('format: ', format);
+}
+printf('%s %d %.2f', 'adrian', 321, Math.PI);
+```
 
 ## Spread operator[](#Spread-operator "Spread operator")
 
@@ -1352,130 +656,38 @@ We went from `apply()` to the spread operator. Again we have `...` to the rescue
 As we saw in earlier, we can use `apply` to pass arrays as list of arguments:
 
 
-
-ES5
-
-
-
-
-
-
-
-
-
-1
-
-
-
-
-
+```
+// ES5
 Math.max.apply(Math, [2,100,1,6,43]) // 100
-
-
-
-
-
-
-
-
-
-
+```
 
 In ES6, you can use the spread operator:
 
-
-
-ES6
-
-
-
-
-
-
-
-
-
-1
-
-
-
-
-
+```
+// ES6
 Math.max(...[2,100,1,6,43]) // 100
-
-
-
-
-
-
-
-
-
-
+```
 
 Also, we went from `concat` arrays to use spread operator:
 
 
-
-ES5
-
-
-
-
-
-
-
-
-
-12345
-
-
-
-
-
-var array1 = [2,100,1,6,43];var array2 = ['a', 'b', 'c', 'd'];var array3 = [false, true, null, undefined];console.log(array1.concat(array2, array3));
-
-
-
-
-
-
-
-
-
-
+```
+// ES5
+var array1 = [2,100,1,6,43];
+var array2 = ['a', 'b', 'c', 'd'];
+var array3 = [false, true, null, undefined];
+console.log(array1.concat(array2, array3));
+```
 
 In ES6, you can flatten nested arrays using the spread operator:
 
-
-
-ES6
-
-
-
-
-
-
-
-
-
-12345
-
-
-
-
-
-const array1 = [2,100,1,6,43];const array2 = ['a', 'b', 'c', 'd'];const array3 = [false, true, null, undefined];console.log([...array1, ...array2, ...array3]);
-
-
-
-
-
-
-
-
-
-
+```
+// ES6
+const array1 = [2,100,1,6,43];
+const array2 = ['a', 'b', 'c', 'd'];
+const array3 = [false, true, null, undefined];
+console.log([...array1, ...array2, ...array3]);
+```
 
 # Conclusion[](#Conclusion "Conclusion")
 
