@@ -1,7 +1,7 @@
 > * 原文地址：[Timing is Everything](https://medium.com/google-developers/timing-is-everything-8218b8df5485#.tlp6t4pxv)
 * 原文作者：[Chet Haase](https://medium.com/@chethaase)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[Siegen](https://github.com/siegeout)
 * 校对者：
 
 # Timing is Everything
@@ -13,34 +13,60 @@
 
 ## Improve your animations with custom, non-linear timing curves
 
+
+## 用定制的非线性定时曲线改善你的动画
+
 Motion in the real world (you know, the one outside of your phone that you glance at just often enough to make sure you don’t get smacked by a car while crossing the street) is non-linear. When we walk, we accelerate up to speed. When we stop, we decelerate down to zero (unless we got smacked by a car, in which case we experience very sudden acceleration in a different direction). When we fall, gravity accelerates us downward, and when we jump it slows down our upward trajectory. No matter what, we definitely don’t move at a constant pace through the entire motion.
+
+在现实世界中的运动是非线性的。（你知道的，当你穿过街道的时候，你刚刚瞥了一眼手机外的东西通常可以保证你不会被车撞到）当我们走路的时候，我们在加速。当我们停止的时候，我们慢慢减速到0（除非我们被车撞了，这样我们会体验到我们朝着另一个方向突然加速）。当我们下落的时候，重力使我们加速下落，当我们跳起的时候，它又会降低我们的上升速度。无论如何，我们无法在整个运动中保持一个恒定的移动速度。
 
 So when we, as humans, see motion on the screen (the one we’re looking at when we’re not watching out for approaching cars), we expect it to be similarly non-linear, because it feels more _natural_. And natural interaction is, in general, what we’re trying to achieve in applications to help users better understand what’s happening in the virtual world of these applications. Don’t try to awe them by your amazing animation skills; give them animations that feel natural so that they can use your application more easily and get to the business of actually doing what they’re trying to do.
 
+所以作为人类，当我们看到屏幕上的运动时（当我们没有留意行进的车辆的时候我们看的东西），我们期望它也是同样的非线性，因为这样会让人感觉更自然。通常来说，我们在应用里尝试实现的自然交互，它是用来帮助用户更好的理解这些应用里的虚拟世界究竟在发生什么。不要尝试用你奇特的动画技巧让他们惊奇；给他们感受起来很自然的动画，以便于他们可以更容易的使用你的应用然后完成他们需要做的事情。
+
 #### Android Interpolation
+
+#### Android Interpolation
+
+
 
 Android has, since the beginning, provided the ability to animate objects in a non-linear fashion, through the use of its [Interpolator](https://developer.android.com/reference/android/view/animation/Interpolator.html) implementations. In fact, the default animation has always been one of [accelerating into and decelerating out of](https://developer.android.com/reference/android/view/animation/AccelerateDecelerateInterpolator.html) the motion. More importantly, Android also offers the ability for a developer to change that default motion, to provide other kinds of timing entirely. For example, you can have your animation start quickly and decelerate out. Or start slowly and steadily accelerate. Or, since the Lollipop release (API 21), to provide a [path-based timing curve](https://developer.android.com/reference/android/view/animation/PathInterpolator.html) for more complex and flexible control. Or even, if you really want to be ornery, to use [linear interpolation](https://developer.android.com/reference/android/view/animation/LinearInterpolator.html) (but please don’t).
 
+从一开始， Android 就已经提供了通过它的 [Interpolator](https://developer.android.com/reference/android/view/animation/Interpolator.html) 实现来制作非线性动画对象的能力。事实上，默认的动画通常是[加速进入和减速退出运动](https://developer.android.com/reference/android/view/animation/AccelerateDecelerateInterpolator.html)中的一个。更加重要的是，Android 也为开发者提供了改变默认运动的能力，以此来提供其他类型的速度变化。举个例子，你可以使你的动画快速的开始然后减速退出。或者，慢慢的开始然后逐渐加速。自从  Lollipop 版本 (API 21)发布了以后，Android 又提供了[基于路径的定时曲线](https://developer.android.com/reference/android/view/animation/PathInterpolator.html)来完成更加复杂和灵活的控制。甚至于，如果你想要凸显你的奇特，你可以使用[线性 interpolation](https://developer.android.com/reference/android/view/animation/LinearInterpolator.html) (但是请不要这样做)。
+
+
 With so many options, the question might then arise: which one should you use for your animation needs?
 
+有了这么多的选项，那么问题来了：你应该为你的动画使用哪一个呢？
+
 #### So Many to Choose From!
+#### 如此多的选择！
 
 A developer approached me at Google I/O this year and asked, “What kind of interpolation should I use to slide a text element in from the side?”
 
+在今年的 Google I/O 大会上，一个开发者靠近我问道：“我应该使用什么类型的 interpolation 来让一个 text 元素从边上滑入？”
+
 It’s a good question, and one which I’d encourage more developers to ask for their own applications.
+
+这是一个好问题，我建议更多的开发者应该为他们自己的应用问一下这个问题。
 
 Unfortunately, it’s also a question with an unsatisfyingly vague answer, “It depends.” In particular, it depends on you, your application, the context of that animation, your users, and many other factors that nobody can easily determine for you. There are certainly better and worse approaches to use (such as: don’t use LinearInterpolator for moving things around, and make your animations as quick as possible). But there is no “right” answer that you can apply generically.
 
+不幸的是，这个问题的答案是一个令人并不满意的模糊答案，“看情况”。这取决于你，你的应用，这个动画的上下文，你的用户，以及许多其他的因素，没人可以简单的为你做决定。确实是有某种程度上较好与较坏方式的判定（例如：不要为移动的物体使用 LinearInterpolator ，让你的动画尽可能的快）。但是并没有可以通用的“正确”答案。
+
 My recommendation (admittedly a pale substitute for an actual answer) was to play with different interpolators and decide which felt best for his specific situation. Or, more generally, to write a simple test application that allowed him to play with various interpolators and compare them easily.
+
+我的推荐（确切答案的一个微不足道的替代品）是使用不同的 interpolators，然后在他具体的情况下试验下，选择感觉最好的那个。或者，更一般的说，写一个简单的测试应用，允许他使用不同 interpolator，然后简单的比较下。
 
 Then I realized that this is probably something that we could provide for him (and for everyone). It’s not a difficult application to write, but is one that should be useful for comparing built-in interpolators and it should simply be available for developers to use and to modify for any custom needs they have.
 
+我意识到这是我们能为他（也是为每个人）提供的东西。这不是一个难写的应用，但是用来比较内置的interpolator还是很有用的，对开发者来说它应该是很方便的，无论是使用或者是修改他们任意的定制需求。
+
 So here it is:
 
+所以下面的就是：
+
 #### [InterpolatorPlayground](https://github.com/google/android-ui-toolkit-demos/tree/master/Animations/InterpolatorPlayground)
-
-
-
 
 
 
@@ -53,25 +79,41 @@ So here it is:
 
 InterpolatorPlayground, in action
 
-
+InterpolatorPlayground, 在运转
 
 Introducing [InterpolatorPlayground](https://github.com/google/android-ui-toolkit-demos/tree/master/Animations/InterpolatorPlayground), a simple Android application that you can use to select one of several standard interpolators and experiment with how they impact an animation. You can change the animation duration and the constructor parameters for the interpolators. You can also visualize the interpolation curve and the resulting impact of that interpolation animation on various objects in the UI. Finally, you can drag around the control point(s) for the two PathInterpolator options (quadratic and cubic) to see how to use this specific class to create very custom and flexible timing.
 
+介绍下[InterpolatorPlayground](https://github.com/google/android-ui-toolkit-demos/tree/master/Animations/InterpolatorPlayground),这是一个简单的 Android 应用，你可以使用它来选择几个标准 interpolator 中的一个，然后实验看看它们是如何影响一个动画的。你可以改变动画的持续时间以及 interpolator 的构造参数。通过给 UI 中各种对象添加 interpolation 动画，你可以使 interpolation 曲线和产生的影响可视化。最后，你可以为两个 PathInterpolator 选项（平方和立方）拖动控制点来看看如何使用这个具体的类创建非常个性和灵活的定时曲线。
+
 You can also play around with some of the more playful (though arguably less useful) interpolators, such as Bounce and Overshoot (mostly because they’re fun to see in action).
+
+你也可以运行一些有趣的(尽管用处不大) interpolator，例如反弹和冲出（主要是因为他们在运行的时候看起来很有趣）。
 
 Once you have decided on an animation you like for your situation, simply note the parameter values in the UI and create the appropriate Interpolator using those values in your code.
 
-#### How It All Works
+一旦你决定为你的应用使用一个你喜欢的动画，简单的记下 UI 中的参数，然后在你的代码里使用那些参数创建适当的 Interpolator。
 
+#### How It All Works
+#### 它是怎样的运行
 You could just plug in an Interpolator into your code and call it a day. You don’t actually need to understand the details; what you really need is the motion effect you’re looking for.
+
+你可以在你的代码里插入一个 Interpolator 之后你就可以调用它。你可以不用理解其中的细节；你真正需要的是你正在寻找的运动效果。
 
 But if you didn’t care about how it works, why did you choose to be a programmer, anyway? The details are where the fun is.
 
-The way that interpolators work, or more specifically, the way that they affect the timing curve of animations, is by altering the _fraction_ of the elapsed duration. Every animation in Android has a set duration (by default, 300 milliseconds). At any time during an animation, the system figures out how much time has elapsed and calls into the animation to have it calculate the new animated value given the elapsed time. That elapsed time can be expressed as a fraction (where 0 is the start fraction and 1 is the end). For example, an animation that is half-way through has an elapsed fraction of .5, and its calculated values will be half way between its start and end values.
+但是如果你不关心它是如何运行的，那为什么你还要选择成为一名程序员呢？细节才是真正有趣的地方。
+
+The way that interpolators work, or more specifically, the way that they affect the timing curve of animations, is by altering the _fraction_ of the elapsed duration. Every animation in Android has a set duration (by default, 300 milliseconds). At any time during an animation, the system figures out how much time has elapsed and calls into the animation to have it calculate the new animated value given the elapsed time. That elapsed time can be expressed as a fraction (where 0 is the start fraction and 1 is the end). For example, an animation that is half-way through has an elapsed fraction of .5, and its calculated values will be half way between its start and end values. 
+
+interpolator 运行的方式，或者更具体的说，interpolator 影响动画定时曲线的方式，是通过改变当前完成时间的百分比来进行的。在 Android 中的每个动画都设置了一个持续时间（默认的时长是300毫秒）。在动画持续时间内的任意一个时间点，系统计算出已经运行了多长时间，然后调用 animation 让它根据之前得到的时间来计算新的 animated 值。运行时间可以被表达成一个比例因子（0是开始，1是结束）。举个例子，一个 animation 正进行到中间时刻，那么它当前完成的比例因子就是0.5，它的计算值就处于它的起始值和结束值的中间。
 
 But instead of passing in that fraction directly, we can (and do, it turns out) send the fraction through an Interpolator, which takes that elapsed fraction as an input and returns another fraction as output. That _interpolated_ fraction is the one that we actually pass into the animation calculation.
 
+但是我们没有直接传递那个比例因子,替代的我们通过一个 Interpolator 传递比例因子，这个 Interpolator 把当前完成的比例因子作为输入然后返回另一个比例因子作为输出。被插入的比例因子被我们传递给 animation 对象进行计算。
+
 So to change the timing curve for an animation, we simply need to provide a function that will transform the elapsed fraction into another fraction, and then use that new one to calculate the animation value.
+
+所以为了改变一个 animation 对象的定时曲线，我们只需要提供一个功能，它把一个当前已完成的比例因子转换成另一个比例因子，然后使用这个新的比例因子来计算  animation 值。
 
 For a very simple example, suppose we created an Interpolator that simply reversed the animation, by returning the inverse of the fraction. It would look something like this:
 
@@ -81,14 +123,27 @@ For a very simple example, suppose we created an Interpolator that simply revers
             return 1 - fraction;
         }
     }
+    
+举个非常简单的例子，假设我们创建了一个 Interpolator 通过返回比例因子的相反值来反转 animation，它看起来是这样的：
+
+     public class ReverseInterpolator implements Interpolator {
+        @Override 
+        public float getInterpolation(float fraction) {
+            return 1 - fraction;
+        }
+    }
+
 
 This interpolator will cause the animation to calculate its end values at the beginning (when the input fraction is 0 and the interpolated fraction is therefore 1) and start values at the end (when the input fraction is 1 and the interpolated fraction is therefore 0). It will animate the values in-between to vary between those end values and start values, appropriately.
 
+这个 interpolator 会使 animation 在开始的时候计算它的结束值（当输入的比例因子为0的时候，被插入的比例因子则是1）然后在结束的时候计算开始值（当输入比例因子为1的时候，被插入的比例因子则是0）.它会适当的改变那些位于结束值和起始值中间的比例因子。
+
 The built-in Interpolator classes in Android use similar (if more useful) functions, both simple (such as LinearInterpolator, which simply returns the input fraction) and more complex (such as PathInterpolator, which uses the values determined by quadratic or cubic bezier curves) to calculate fractions that result in all kinds of rich timing curves to suit most purposes. And if you can’t find what you want, it’s easy to implement your own.
+
+Android 中内置的 Interpolator 类使用类似的功能，简单的（例如 LinearInterpolator，它只是简单的返回输入值）和更加复杂的（例如 PathInterpolator，它使用平方、立方或者贝塞尔曲线决定返回值）都被用来计算比例因子，这样使得丰富多彩的各种定时曲线都能符合大部分期望。如果你没有找到你想要的，实现你自己的 Interpolator 也是很容易的。
 
 In the meantime, look up from your screen. There’s a car coming.
 
-
-
+在此同时，把视线从你的屏幕上移开。有辆车正在开过来。
 
 
