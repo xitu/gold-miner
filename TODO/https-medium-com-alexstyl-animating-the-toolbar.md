@@ -5,9 +5,6 @@
 * 校对者：
 
 # Exposing the Searchbar Implementing a Dialer-like Search transition
-A **tl;dr** version of pure code can be found [here](https://github.com/alexstyl/Material-SearchTransition)
-
-### The problem
 
 I have been receiving some user feedback for my app that the feature they are missing the most is _search_. For an app that contains information from different sources such as contact’s events, name days or bank holidays, such as Memento Calendar, I would have to agree that Search is one of the most important features the app could have. The problem is that the feature is already implemented. A search icon in the Toolbar navigates the user to a dedicated search screen.
 
