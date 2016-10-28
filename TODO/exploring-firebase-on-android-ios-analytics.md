@@ -2,7 +2,7 @@
 * 原文作者：[Joe Birch](https://medium.com/@hitherejoe)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Nicolas(Yifei) Li](https://github.com/yifili09)
-* 校对者：
+* 校对者：[Danny1451](https://github.com/Danny1451), [owenlyn](https://github.com/owenlyn)
 
 # 探索 `Firebase` 在 `Android` 和 `iOS` 的使用: 分析
 
@@ -32,9 +32,9 @@
 
 
 
-`Analytics` 对能更多地了解有关你的应用程序和用户来说是至关重要的。追踪一些事件能让你了解，例如，你的应用程序做了什么，用户可能不知道怎么退出，用户是怎么探索你的应用程序的，或者当面对需要选择时，用户是怎么做出决定的。从这些数据中学习不仅能帮助你提高应用程序带来的用户体验度，也能帮助你提高应用程序的收入，并且能让你了解什么是需要改进提高的和为未来布局什么新特性。
+`Analytics` 对能更多地了解有关你的应用程序和用户来说是至关重要的。追踪一些事件能让你了解，例如，你的应用程序做了什么，有些用户可能未必知道的功能，用户是怎么探索你的应用程序的，或者当面对需要选择时，用户是怎么做出决定的。从这些数据中学习不仅能帮助你提高应用程序带来的用户体验度，也能帮助你提高应用程序的收入，并且能让你了解什么是需要改进提高的和为未来布局什么新特性。
 
-`Firebase Analytics` 是一个工具，它能真真正正的帮助你了解我们的 `Android` 和 `iOS` 的用户是如何使用我们的应用程序。从启动开始，它会自动开始追踪一些预先设定好的事件 - 这意味着从第一步开始我们就能了解一些事件。如果这还不够，之后我们能增加一些我们需要追踪的自定义事件。所有这些事件都能从 `Firebase` 控制台中观察到 - 它是我们一个集中的入口，包括访问分析报告和其他的 `Firebase` 服务。
+`Firebase Analytics` 是一个工具，它能真真正正的帮助你了解我们的 `Android` 和 `iOS` 的用户是如何使用我们的应用程序。从启动开始，它会自动开始追踪一些预先设定好的事件 - 这意味着从第一步开始我们就能了解一些事件。如果这还不够，之后我们能增加一些我们需要追踪的自定义事件。所有这些事件都能从 `Firebase` 的仪表板中的控制台中观察到 - 它是我们一个集中的入口，包括访问分析报告和其他的 `Firebase` 服务。
 
 一旦我们已经追踪和分析了这些数据，我们可以决定未来对我们的应用程序做出什么修改能带来更好的用户体验。如果你还需要更多，**`Firebase Crash Reporting / Firebase 奔溃报告系统`** 也已经整合进了 `Firebase Analytics / Firebase 分析系统`，它能为观察者创建用户使用中应用程序奔溃的日志报告， **`Firebase Notifications / Firebase 通知系统`** 将为观察者发送通知并且追踪基于有交互通知的事件， **`Firebase Remote Config / Firebase 远程配置系统** 可以帮助观察者远程改变应用程序的外观感受和我们的应用程序的表现， **BigQuery** 用于针对我们一些追踪的事件执行更高级的数据分析,并且 **`Google Tag Manager / 谷歌标记管理器`** 可以让我们通过其他网页应用软件来远程建立我们的 `Firebase Analytics / Firebase 分析系统`。  
 
@@ -197,7 +197,7 @@
 
 ### 开始使用
 
-开始使用 `Firebase` 是非常简单的。首先，我们需要开始把应用程序增加到 [`Firebase 终端`](https://console.firebase.google.com/)。一旦我们完成了这步，我们就能把 `Firebase` 的核心依赖增加到我们的项目工程中，开始自动从我们的应用程序的使用中追踪这些事件。让我们开始吧！
+开始使用 `Firebase` 是非常简单的。首先，我们需要开始把应用程序增加到 [`Firebase 控制台`](https://console.firebase.google.com/)。一旦我们完成了这步，我们就能把 `Firebase` 的核心依赖增加到我们的项目工程中，开始自动从我们的应用程序的使用中追踪这些事件。让我们开始吧！
 
 ### 开始在 `Android` 上使用
 
@@ -213,13 +213,13 @@
 
     private FirebaseAnalytics firebaseAnalytics;
 
-现在我们已经增加了依赖，我们就可以继续并且使用这些类，我们会使用 `FirebaseAnalytics` 这个类来追踪需要分析的事件。我们需要从申明这个类中我们想使用的那些对象开始（举个例子来说，这个可能是一个 `activity` 或者 `fragment`）。
+现在我们已经增加了依赖，我们就可以继续并且使用这些类，我们会使用 `FirebaseAnalytics` 这个类来追踪需要分析的事件。我们需要从在这个类中申明我们想使用的那些对象开始（举个例子来说，这个可能是一个 `activity` 或者 `fragment`）。
 
     firebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
 一旦这个被申明过了，我们就能从 `Activity / Fragment` 中的 `onCreate()` 方法获取到 `FirebaseAnalytics` 的实例。 
 
-每当你想发送事件到 `Firebase`，你将需要取得这个实例。如果你正在使用依赖注入，你能简化这个 - 比如使用 `Dagger 2`:
+在任何你想发送事件到 `Firebase` 的地方，你都需要取得这个实例。如果你正在使用依赖注入，你能简化这个 - 比如使用 `Dagger 2`:
 
     @Provides
     FirebaseAnalytics providesFirebaseAnalytics() {
@@ -260,7 +260,7 @@
 
     pod install
 
-几乎都完成了！之后，我们需要导入这个依赖，所以我们能在这个应用程序中使用它。为了这个，我们需要增加这个导入的申明到我们的 `.scworkspace` 文件。
+几乎都完成了！之后，我们需要导入这个依赖，所以我们能在这个应用程序中使用它。为了这个，我们需要增加这个导入的申明到我们的 `.xcworkspace` 文件。
 
 在 `Objective-C` 中:
 
@@ -446,7 +446,7 @@
 
 **增加一个新的用户属性**
 
-然而，我们并不仅限制单独使用这些属性 - 我们能自定义用户属性在 `firebase` 控制台中。我们能通过导航到 **User Properties** 的标签页，并且选择 **New User Property** 按钮。
+然而，我们并不仅限制单独使用这些属性 - 我们能在 `firebase` 控制台中自定义用户属性。我们能通过导航到 **User Properties** 的标签页，并且选择 **New User Property** 按钮。
 
 
 
