@@ -4,9 +4,7 @@
 * 译者：[Liz](http://lizwangying.github.io/)
 * 校对者：[llp0574](https://github.com/llp0574)，[luoyaqifei](https://github.com/luoyaqifei)
 
-
-
-
+# 与时俱进的 Reactivity
 
 近十年来，响应式编程的兴起给 JavaScript 带来了暴风雨式的进化改革，前端开发极大地从其简洁性中获益，用户界面随着数据变化实时响应，淘汰掉更新UI时大量易出错的代码。然而，在它变得更加流行的同时，已有的工具和技术并不总是跟上当代浏览器功能，比如 Web API、语言能力以及性能优化算法、可扩展能力、简化的语法和持续稳定性。在本文中，让我们以一个新库—— [Alkali](http://kriszyp.github.io/alkali/) 为背景，展示一些已有的新技术、方法和功能。
 
