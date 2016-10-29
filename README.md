@@ -1,5 +1,7 @@
 # 掘金翻译计划
 
+[![xitu](https://camo.githubusercontent.com/c9c9db0a39b56738a62332f0791d58b1522fdf82/68747470733a2f2f7261776769742e636f6d2f616c65656e34322f6261646765732f6d61737465722f7372632f786974752e737667)](https://github.com/xitu/gold-miner)
+
 [掘金翻译计划](http://gold.xitu.io/#/tag/%E6%8E%98%E9%87%91%E7%BF%BB%E8%AF%91%E8%AE%A1%E5%88%92) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](http://gold.xitu.io) 上的英文分享文章。内容覆盖 [Android](#android)、[iOS](#ios)、[React](#react)、[前端](#前端)、[后端](#后端)、[产品](#产品)、[设计](#设计) 等领域，读者为热爱新技术的新锐开发者。
 
 掘金翻译计划目前翻译完成 [235](#近期文章列表) 篇文章，共有 [200](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
@@ -9,7 +11,7 @@
 1. **发 issue 申请成为译者**，只有掘金翻译计划的译者才可以参与校对和翻译，issue 内容包括：公司/学校、工作内容/专业、常浏览的国外网站、英语水平、有无翻译经验、个人博客，[往期译者申请格式](https://github.com/xitu/gold-miner/issues/249)。
 
 2. 每篇译文需要**一位译者和两位校对者**。新译者从校对文章开始，校对完至少一篇文章之后才能开始领取翻译任务。label 具体内容及其含义：
-   
+
    * 校对认领：此文章需要两位校对者。
    * 校对认领 + 正在校对：此文章已经有一位校对者在校对了，现在还需要第二位校对者。
    * 正在校对：此文章已经有两位校对者在校对了，校对文章只需在有**校对认领** label 的 Pull requests 下留言即可。
@@ -84,7 +86,7 @@
 
 
 ## 设计
-  
+
 * [[译] 为用户体验设计绘制草图，你所需要知道的一切](http://gold.xitu.io/entry/580cd2c5a22b9d006382cba8?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([funtrip](https://github.com/funtrip) 翻译)
 * [[译] 奋起的 IBM 凭什么成为世界上最大最精致的设计公司？](http://gold.xitu.io/entry/57e8c99b8ac247005bd929a6?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jiaowoyongqi](https://github.com/jiaowoyongqi) 翻译)
 * [[译] 顾虑越少，设计越好](http://gold.xitu.io/entry/57df4d04a0bb9f0058a4429d?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Siegen](https://github.com/siegeout) 翻译)
