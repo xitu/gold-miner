@@ -4,19 +4,19 @@
 * 译者：[Danny Lau](https://github.com/Danny1451)
 * 校对者：[Nicolas(Yifei) Li](https://github.com/yifili09), [肘子涵](https://github.com/zhouzihanntu)
 
-# An Introduction to the UserNotifications Framework
-UserNotifications Framework 入门介绍
+
+# UserNotifications Framework 入门介绍
 
 
 
 ## 简介
 
 
-随着iOS 10, tvOS 10, 和 watchOS 3 的发布， 苹果正在引入一个新的叫做 UserNotifications 的 framework。这个全新的 API 集合提供了一种统一的面向对象的
+随着 iOS 10, tvOS 10, 和 watchOS 3 的发布， 苹果正在引入一个新的叫做 UserNotifications 的 framework。这个全新的 API 集合提供了一种统一的面向对象的
 
 方式在这些平台上使用本地和远程的通知。相比目前的 API 会格外好用，本地和远程通知的处理方式很相似，并且访问通知内容不再仅通过字典型数据类型。
 
-。在这个教程中，我将遍历一遍这个新的 framework 的基础并且展示如何便捷的它的优点来为你的应用增加通知功能。
+在这个教程中，我将遍历一遍这个新的 framework 的基础并且展示如何便捷的它的优点来为你的应用增加通知功能。
 
 这个教程要求使用包含最新 iOS, tvOS, 和 watchOS 的 SDK 的 Xcode8 。
 
@@ -28,7 +28,7 @@ UserNotifications Framework 入门介绍
 
     import UserNotifications
 
-接下来，为了给你的app注册通知，你需要在你的  `AppDelegate`'s  中的 `application(_:didFinishLaunchingWithOptions:)` 方法中增加如下代码：
+接下来，为了给你的 app 注册通知，你需要在你的 `AppDelegate` 中的 `application(_:didFinishLaunchingWithOptions:)` 方法中增加如下代码：
 
     let center = UNUserNotificationCenter.current()
     let options: UNAuthorizationOptions = [.alert, .badge, .sound]
@@ -38,7 +38,7 @@ UserNotifications Framework 入门介绍
         }
     }
 
-通过这个代码，我们得到了当前 `UNUserNotificationCenter` 的对象的引用。下一步，我们根据我们应用需要的通知能力来配置 `UNAuthorizationOptions` 。请注意在这里可以任意组合以上的选项，比如只有`alert` ，或者同时有 `badge` 和 `sound` 。
+通过这个代码，我们得到了当前 `UNUserNotificationCenter` 的对象的引用。下一步，我们根据我们应用需要的通知能力来配置 `UNAuthorizationOptions` 。请注意在这里可以任意组合以上的选项，比如只有 `alert` ，或者同时有 `badge` 和 `sound` 。
 
 通过使用这些对象，我们接下来通过调用 `UNUserNotificationCenter` 实例中的 `requestAuthorization(options:completionHandler:)` 方法向我们的 app 申请展示通知的认证。这个 handler 的 block 会回传两个参数
 
@@ -57,7 +57,7 @@ UserNotifications Framework 入门介绍
 
 ## 2. 发送通知
 
-在这一节的教程里，我们主要集中在通过使用 UserNotifications framwork 来实现发送本地推送。在这个framework的介绍中，发送远程推送通知的方法并没有改变。
+在这一节的教程里，我们主要集中在通过使用 UserNotifications framwork 来实现发送本地推送。在这个 framework 的介绍中，发送远程推送通知的方法并没有改变。
 
 一个本地推送在发送之前，通常是由一个 `UNNotificationRequest` 实例来代表的。这种类型的对象通常由下面几个元素组成：
 *   Identifier（识别符）：一个唯一让你去区分不同通知的 `String` 字符串。
@@ -88,7 +88,7 @@ UserNotifications Framework 入门介绍
 
 *   `timeTrigger` 会在通知发送后的一个小时之后触发。 `timeInterval` 参数在 `UNTimeIntervalNotificationTrigger` 构造的时候以秒级别传入。
 *   `calendarTrigger`  将会在每天 10:00PM 触发。预定的日期和时间可以在 `UNCalendarNotificationTrigger` 构造函数里通过改变传入的 `DateComponents`  这个对象的配置来轻松的改变。
-*   `locationTrigger` 在用户到达指定坐标的500米内会触发，在这个例子里面是 40°N 120°E。从代码中可以看到，这类触发器可以使用任何坐标，或者任何区域大小，而且可以同时在进入和离开指定区域时触发通知。
+*   `locationTrigger` 在用户到达指定坐标的 500 米内会触发，在这个例子里面是 40°N 120°E。从代码中可以看到，这类触发器可以使用任何坐标，或者任何区域大小，而且可以同时在进入和离开指定区域时触发通知。
 
 下一步，我们需要创建通知的内容。这个通过创造一个 `UNMutableNotificationContent`类的对象实例来实现。这个类必须像常用的 `UNNotificationContent` 类一样使用，对大量的通知内容只有可读的权限。
 
@@ -118,7 +118,7 @@ UserNotifications Framework 入门介绍
 
 ## 3. 接收通知
 
-当使用 UserNotifications framework的时候，处理收到消息的是一个实现了 `UNUserNotificationCenterDelegate`协议的对象。这个对象可以是你想要的任何对象，并不是像之前的 iOS 版本，一定要是应用的代理。另一个需要注意的是，你必须在你的应用完全启动之后才能设置代理。对一个 iOS 应用来说，这个意味着你必须在你的应用的代理中除了 `application(_:willFinishLaunchingWithOptions:)` 和 `application(_:didFinishLaunchingWithOptions:)` 这两个方法中来给代理赋值。通过下面的代码可以非常容易的实现给用户通知设置代理：
+当使用 UserNotifications framework 的时候，处理收到消息的是一个实现了 `UNUserNotificationCenterDelegate` 协议的对象。这个对象可以是你想要的任何对象，并不是像之前的 iOS 版本，一定要是应用的代理。另一个需要注意的是，你必须在你的应用完全启动之后才能设置代理。对一个 iOS 应用来说，这个意味着你必须在你的应用的代理中除了 `application(_:willFinishLaunchingWithOptions:)` 和 `application(_:didFinishLaunchingWithOptions:)` 这两个方法中来给代理赋值。通过下面的代码可以非常容易的实现给用户通知设置代理：
 
     UNUserNotificationCenter.current().delegate = delegateObject
 
@@ -166,7 +166,7 @@ UserNotifications Framework 入门介绍
 
 时候，你的应用的一个用户会在应用不在运行的时候收到很多条通知。他们可能也会在主页直接打开你的应用，而不是通过一个通知。在上述任何一个情况下，没有一个 `UNUserNotificationCenterDelegate` 协议的方法会被调用。当使用本地通知的时候，你有时也会想在展示给用户之前移除一个通知。
 
-因此， UserNotifications framework 在当前 `UNUserNotificationCenter`的实例中提供了以下的方法来操作待定的本地通知和收到却还未处理的通知。
+因此， UserNotifications framework 在当前 `UNUserNotificationCenter` 的实例中提供了以下的方法来操作待定的本地通知和收到却还未处理的通知。
 
 *   `getPendingNotificationRequests(completionHandler:)` 在处理器里提供了一个 `UNNotificationRequest` 对象的数组。这个数组包含了所有你计划了却还没触发的本地通知。
 *   `removePendingNotificationRequests(withIdentifiers:)` 移除所有包含你传进去的`String`数组中对象的标示的本地通知。
@@ -177,7 +177,7 @@ UserNotifications Framework 入门介绍
 
 ## 5. 自定义动作通知
 
-UserNotifications framework 也让你可以更好的使用在iOS8中引入的自定义通知拓展和动作。
+UserNotifications framework 也让你可以更好的使用在 iOS8 中引入的自定义通知拓展和动作。
 
 首先，你需要分别定义你应用支持 `unnotificationaction` 和 `unnotificationcategory` 类的自定义的动作和拓展。比如你想让用户可以输入文字的动作，你可以使用 `UNTextInputNotificationAction` 类，它是 `UNNotificationAction` 的子类。一旦你的动作和拓展定义好了，你只需要在当前的 `UNUserNotificationCenter` 的实例中调用 `setNotificationCategories(_:)` 方法。下面的代码展示了，如何简单地在你应用中为消息类型注册回复和删除动作：
 
@@ -215,11 +215,11 @@ UserNotifications framework 也让你可以更好的使用在iOS8中引入的自
             completionHandler()
         }
     }
-另外，如果你想好好利用本地通知的优点的话，你可以简单的在创建通知的时候在你的 `UNMutableNotificationContent` 对象上设置`categoryIdentifier` 属性。
+另外，如果你想好好利用本地通知的优点的话，你可以简单的在创建通知的时候在你的 `UNMutableNotificationContent` 对象上设置 `categoryIdentifier` 属性。
 
 ## 结论
 
-新的UserNotifications framework 提供了全面并且使用简单的 面向对象的 API 来操作在iOS，watchOS 和 tvOS 中本地和远程通知。这使得它可以简洁的安排不同情境下的本地通知，同时也简化了处理通知和自定义动作的整个工作流程。
+新的 UserNotifications framework 提供了全面并且使用简单的 面向对象的 API 来操作在 iOS，watchOS 和 tvOS 中本地和远程通知。这使得它可以简洁的安排不同情境下的本地通知，同时也简化了处理通知和自定义动作的整个工作流程。
 
 与往常一样，请务必在下面留下你的评论和反馈，并看下我们的其他关于 iOS 10 和 watchOS3 新特点的文章和教程。 
-UserNotifications framework 也让你可以更好的使用在iOS8中引入的自定义通知拓展和动作。
+UserNotifications framework 也让你可以更好的使用在 iOS8 中引入的自定义通知拓展和动作。
