@@ -4,16 +4,16 @@
 * 译者：
 * 校对者：
 
-# Whole-Module Optimization in Swift 3
+# Swift 3 语言中的全模块优化
 
 
 
 
-Whole-module optimization is an optimization mode of the Swift compiler. The performance win of whole-module optimization heavily depends on the project, but it can be up to two or even five times.
+全模块优化是一种 Swfit 编译器的优化模式。全模块优化性能的提升很大程度上取决于这个项目，但是它能达到 2 倍甚至 5 倍的提升。 
 
-Whole-module optimization can be enabled with the `-whole-module-optimization` (or `-wmo`) compiler flag, and in Xcode 8 it is turned on by default for new projects. Also the Swift Package Manager compiles with whole-module optimizations in release builds.
+开启全模块优化可以使用 `-whole-module-optimization` （或者 `-wmo`）标识，并且在 Xcode 8 中默认在新项目中被打开。另外 Swfit 的包管理器在发布构建中使用全模块优化编译。 
 
-So what is it about? Let’s first look at how the compiler works without whole-module optimizations.
+那么它是关于什么的？让我们先看看没有全模块优化编译器是如何工作的。
 
 ### Modules and how to compile them
 
