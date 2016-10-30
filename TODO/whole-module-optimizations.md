@@ -111,7 +111,6 @@ utils.swift:
 
 ### 结论
 
-Whole-module optimization is a great way to get maximum performance without having to worry about how to distribute Swift code across files in a module. If optimizations, like described above, kick in at a critical code section, performance can be up to five times better than with single-file compilation. And you get this high performance with much better compile times than typical to monolithic whole-program optimization approaches.
 全模块编译时一个不用担心如何分配模块中的 Swift 代码也能够得到极大的性能提升。如果优化像上面描述的一样，生效在关键的代码段中，性能能够比单文件编译提高 5 倍。并且相比于传统的庞大的全程序优化方法，你能够得到高快的编译时间。
 
 
