@@ -1,17 +1,17 @@
 > * 原文地址：[So You Want to be a Functional Programmer (Part 4)](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-4-18fbe3ea9e49#.1p212lwov)
 * 原文作者：[Charles Scalfani](https://medium.com/@cscalfani)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[linpu.li](https://github.com/llp0574)
 * 校对者：
 
-# So You Want to be a Functional Programmer (Part 4)
+# 准备充分了嘛就想学函数式编程？(Part 4)
 
 
-Taking that first step to understanding Functional Programming concepts is the most important and sometimes the most difficult step. But it doesn’t have to be. Not with the right perspective.
+采取理解函数式编程概念作为学习的第一步是最重要的，而且有时也是最困难的一步。但其实不必如此，这并非正确的做法。
 
-Previous parts: [Part 1](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-1-1f15e387e536), [Part 2](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-2-7005682cec4a), [Part 3](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-3-1b0fd14eb1a7)
+之前的部分: [Part 1](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-1-1f15e387e536), [Part 2](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-2-7005682cec4a), [Part 3](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-3-1b0fd14eb1a7)
 
-#### Currying
+#### 柯里化
 
 
 
@@ -27,50 +27,50 @@ Previous parts: [Part 1](https://medium.com/@cscalfani/so-you-want-to-be-a-funct
 
 
 
-If you remember from [Part 3](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-3-1b0fd14eb1a7), the reason that we were having problems composing **_mult5_** and **_add_** (in ) is because **_mult5_** takes 1 parameter and **_add_**takes 2.
+如果你还记得[Part 3](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-3-1b0fd14eb1a7)内容的话，就会知道我们在复合 **_mult5_** 和 **_add_** 这两个函数时遇到问题的原因是：**_mult5_** 接收一个参数而 **_add_** 却接收两个。
 
-We can solve this easily by just restricting all functions to take only 1 parameter.
+其实只需要通过限制所有函数都只接收一个参数，就可以轻易地解决这个问题。
 
-Trust me. It’s not as bad as it sounds.
+相信我，这并没有听起来那么糟糕。
 
-We simply write an add function that uses 2 parameters but only takes 1 parameter at a time. **_Curried_** functions allow us to do this.
+我们简单地来写一个需要使用两个参数，但一次只接收一个参数的 add 函数。**柯里**函数允许我们这样做。
 
-> A Curried Function is a function that only takes a single parameter at a time.
+> 柯里函数是一种一次只接收单个参数的函数。
 
-This will let us give **_add_** its first parameter before we compose it with **_mult5_**. Then when **_mult5AfterAdd10_** is called, **_add_** will get its second parameter.
+这就可以让我们在将 **_add_** 和 **_mult5_** 复合之前只传递第一个参数给 **_add_**。然后当调用（复合后的） **_mult5AfterAdd10_** 函数时，**_add_** 函数就将得到第二个参数。
 
-In Javascript, we can accomplish this by rewriting **_add_**:
+在 JavaScript 里，可以通过重写 **_add_** 函数来实现这个功能：
 
     var add = x => y => x + y
 
-This version of **_add_** is a function that takes one parameter now and then another one later.
+这个版本的 **_add_** 函数就是一个现在只接收一个参数，之后再接收另外一个参数的函数。
 
-In detail, the **_add_** function takes a single parameter, **_x_**, and returns a **_function_** that takes a single parameter, **_y_**, which will ultimately return the **_result of adding x and y_**.
+详细来讲，这个 **_add_** 函数接收单参数 **_x_**，然后返回一个接收单参数 **_y_** 的函数，而这个函数最终就会返回 **x + y** 的结果。
 
-Now we can use this version of **_add_** to build a working version of **_mult5AfterAdd10_**:
+现在我们就可以使用这个版本的 **_add_** 函数来构建一个可运行版本的 **_mult5AfterAdd10_** 函数：
 
     var compose = (f, g) => x => f(g(x));
     var mult5AfterAdd10 = compose(mult5, add(10));
 
-The compose function takes 2 parameters, **_f_** and **_g_**. Then it returns a function that takes 1 parameter, **_x_**, which when called will apply **_f after g_** to **_x_**.
+这个复合函数接收两个参数，**_f_** 和 **_g_**，然后它返回一个接收单参数 **_x_** 的函数，这个函数在调用的时候就会返回一个 **_g(x)_** 的结果作为参数的 **_f_** 函数。
 
-So what did we do exactly? Well, we converted our plain old **_add_** function into a curried version. This made **_add_** more flexible since the first parameter, 10, can be passed to it up front and the final parameter will be passed when **_mult5AfterAdd10_** is called.
+所以实际上我们到底做了什么？好吧，我们其实是将旧的 **_add_** 函数进行了柯里化。这么做就让 **_add_** 函数变得更加灵活，因为 10 可以作为第一个参数在前面传入，而最后的参数则可以在 **_mult5AfterAdd10_** 被调用的时候传入。
 
-At this point, you may be wondering how to rewrite the add function in Elm. Turns out, you don’t have to. In Elm and other Functional Languages, all functions are curried automatically.
+看到这里，你可能会想知道在 Elm 里怎么来重写这个 **_add_** 函数。答案是，不需要重写。在 Elm 和其他函数式（编程）语言里，所有的函数都会自动柯里化。
 
-So the **_add_** function looks the same:
+所以这个 **_add_** 函数看起来和之前是一样的：
 
     add x y =
         x + y
 
-This is how **_mult5AfterAdd10_** should have been written back in [Part 3](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-3-1b0fd14eb1a7):
+**_mult5AfterAdd10_** 函数曾经在 [Part 3](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-3-1b0fd14eb1a7) 怎么写，也还是一样：
 
     mult5AfterAdd10 =
         (mult5 << add 10)
 
-Syntactically speaking, Elm beats Imperative Languages like Javascript because it’s been optimized for Functional things like currying and composition.
+语法上讲，Elm 其实打败了像 JavaScript 这样的命令式（编程）语言，因为它在函数式方面是做了优化的，就像柯里化和复合函数。
 
-#### Currying and Refactoring
+#### 柯里化和重构
 
 
 
@@ -86,9 +86,9 @@ Syntactically speaking, Elm beats Imperative Languages like Javascript because i
 
 
 
-Another time currying shines is during refactoring when you create a generalized version of a function with lots of parameters and then use it to create specialized versions with fewer parameters.
+下次在重构期间当创建一个多参数通用版本的函数时就可以使用柯里化方法，然后再使用它来创建更少参数的特定版本函数。
 
-For example, when we have the following functions that put brackets and double brackets around strings:
+举个例子，当我们有下面两个方法，在一个字符串前后分别添加一对大括号和两对大括号。
 
     bracket str =
         "{" ++ str ++ "}"
@@ -96,7 +96,7 @@ For example, when we have the following functions that put brackets and double b
     doubleBracket str =
         "{{" ++ str ++ "}}"
 
-Here’s how we’d use it:
+下面是如何使用它们：
 
     bracketedJoe =
         bracket "Joe"
@@ -104,12 +104,12 @@ Here’s how we’d use it:
     doubleBracketedJoe =
         doubleBracket "Joe"
 
-We can generalize **_bracket_** and **_doubleBracket_**:
+我们可以通用化 **_bracket_** 和 **_doubleBracket_** 函数：
 
     generalBracket prefix str suffix =
         prefix ++ str ++ suffix
 
-But now every time we use **_generalBracket_** we have to pass in the brackets:
+但现在每当我们使用 **_generalBracket_** 时，都必须在大括号里传参数（此处为 **"Joe"**）：
 
     bracketedJoe =
         generalBracket "{" "Joe" "}"
@@ -117,9 +117,9 @@ But now every time we use **_generalBracket_** we have to pass in the brackets:
     doubleBracketedJoe =
         generalBracket "{{" "Joe" "}}"
 
-What we really want is the best of both worlds.
+我们实际上想要的是两全其美（译者注：既通用化又可以不传字符串）。
 
-If we reorder the parameters of **_generalBracket_**, we can create **_bracket_** and **_doubleBracket_** by leveraging the fact that functions are curried:
+如果我们重新对 **_generalBracket_** 函数的参数进行排序，就可以创建柯里化后的 **_bracket_** 和 **_doubleBracket_** 函数了。
 
     generalBracket prefix suffix str =
         prefix ++ str ++ suffix
@@ -130,13 +130,13 @@ If we reorder the parameters of **_generalBracket_**, we can create **_bracket_*
     doubleBracket =
         generalBracket "{{" "}}"
 
-Notice that by putting the parameters that were most likely to be static first, i.e. **_prefix_** and **_suffix,_** and putting the parameters that were most likely to change last, i.e. **_str_**, we can easily create specialized versions of **_generalBracket_**.
+注意到通常将静态参数放到前面，如 **_prefix_** 和 **_suffix_**，而可变参数尽量放到最后，如 **_str_**，这样，就可以简单地创建出 **_generalBracket_** 函数的特定版本了。
 
-> Parameter order is important to fully leverage currying.
+> 参数顺序对全面柯里化来说非常重要。
 
-Also, notice that **_bracket_** and **_doubleBracket_** are written in point-free notation, i.e. the **_str_** parameter is implied. Both **_bracket_** and **_doubleBracket_**are functions waiting for their final parameter.
+还注意到 **_bracket_** 和 **_doubleBracket_** 函数都是免参数写法（译者注：**point-free notation** 译法不确定，等待参考 Part 3 译法和校对者意见），如 **_str_** 参数是隐式表明的。**_bracket_** 和 **_doubleBracket_** 函数都在等待最后参数的传入。
 
-Now we can use it just like before:
+现在就可以像之前那样使用了：
 
     bracketedJoe =
         bracket "Joe"
@@ -144,9 +144,9 @@ Now we can use it just like before:
     doubleBracketedJoe =
         doubleBracket "Joe"
 
-But this time we’re using a generalized curried function, **_generalBracket_**.
+但这次我们使用的是通用化的柯里函数：**_generalBracket_**。
 
-#### Common Functional Functions
+#### 常用的功能函数
 
 
 
@@ -162,23 +162,23 @@ But this time we’re using a generalized curried function, **_generalBracket_**
 
 
 
-Let’s look at 3 common functions that are used in Functional Languages.
+让我们来看三个函数式（编程）语言里的常用函数。
 
-But first, let’s look at the following Javascript code:
+但首先，来看看下面的 JavaScript 代码：
 
     for (var i = 0; i < something.length; ++i) {
         // do stuff
     }
 
-There’s one major thing wrong with this code. It’s not a bug. The problem is that this code is boilerplate code, i.e. code that is written over and over again.
+这段代码有一个主要的错误，但并不是 bug。问题在于这个代码是一个模板代码，就是那些一遍又一遍重复写的代码。
 
-If you code in Imperative Languages like Java, C#, Javascript, PHP, Python, etc., you’ll find yourself writing this boilerplate code more than any other.
+如果你是使用像 Java、C#、JavaScript、PHP 和 Python 等这样的命令式（编程）语言。你就会发现相比其他语言你会写更多这样的模板代码。
 
-That’s what’s wrong with it.
+这就是这段代码的错误。
 
-So let’s kill it. Let’s put it in a function (or a couple of functions) and never write a for-loop again. Well, almost never; at least until we move to a Functional Language.
+所以让我们来解决它。将它放到一个函数里（或者几个函数），然后再也不写 for 循环了。好吧，几乎不写，至少直到我们移步使用一个函数式（编程）语言。
 
-Let’s start with modifying an array called **_things_**:
+首先从修改一个 **_things_** 数组来开始：
 
     var things = [1, 2, 3, 4];
     for (var i = 0; i < things.length; ++i) {
@@ -186,9 +186,9 @@ Let’s start with modifying an array called **_things_**:
     }
     console.log(things); // [10, 20, 30, 40]
 
-UGH!! Mutability!
+呃！！（**_things_**）变化好大！
 
-Let’s try that again. This time we won’t mutate **_things_**:
+再试一次，这次不再去更改 **_things_** 数组了：
 
     var things = [1, 2, 3, 4];
     var newThings = [];
@@ -198,11 +198,11 @@ Let’s try that again. This time we won’t mutate **_things_**:
     }
     console.log(newThings); // [10, 20, 30, 40]
 
-Okay, so we didn’t mutate **_things_** but technically we mutated **_newThings_**. For now, we’re going to overlook this. We are in Javascript after all. Once we move to a Functional Language, we won’t be able to mutate.
+好了，我们没有更改 **_things_** 数组但技术上来说我们更改了 **_newThings_** 数组。目前为止，我们将忽略这个问题。毕竟我们在使用 JavaScript，一旦我们移步使用一个函数式语言，就不可以更改了。
 
-The point here is to understand how these functions work and help us to reduce noise in our code.
+这里的重点是弄明白这些函数是怎么工作的，以及它们怎么来帮助我们减少代码噪音（冗余等）。
 
-Let’s take this code and put it in a function. We’re going to call our first common function **_map_** since it maps each value in the old array to new values in the new array:
+来把这段代码放到一个函数里。接下来将调用我们第一个常用函数 **_map_**，它会将旧数组里的每个值映射成新值放到一个新的数组里。
 
     var map = (f, array) => {
         var newArray = [];
@@ -213,18 +213,18 @@ Let’s take this code and put it in a function. We’re going to call our first
         return newArray;
     };
 
-Notice the function, **_f_**, is passed in so that our **_map_** function can do anything we want to each item of the **_array_**.
+注意到 **_f_** 函数，它作为参数传入，这样就可以让 **_map_** 函数对**数组**里的每一项进行任何我们想要的操作。
 
-Now we can call rewrite our previous code to use **_map_**:
+现在我们就可以使用 **_map_** 来重写之前的代码了：
 
     var things = [1, 2, 3, 4];
     var newThings = map(v => v * 10, things);
 
-Look ma. No for-loops. And much easier to read and therefore reason about.
+看看，没有 for 循环，而且更简单易读，这就是（关于之前的代码错误）原因。
 
-Well, technically, there are for-loops in the **_map_** function. But at least we don’t have to write that boilerplate code anymore.
+好吧，技术上来说，**_map_** 函数里是有 for 循环的，但至少我们不必再写一大堆模板代码了。
 
-Now let’s write another common function to **_filter_** things from an array:
+现在来写另外一个常用函数，从一个数组当中**过滤**一些数据：
 
     var filter = (pred, array) => {
         var newArray = [];
@@ -234,11 +234,11 @@ Now let’s write another common function to **_filter_** things from an array:
     var oddNumbers = filter(isOdd, numbers);
     console.log(oddNumbers); // [1, 3, 5]
 
-Using our new **_filter_** function is so much simpler than hand-coding it with a for-loop.
+使用新的 **_filter_** 函数比用 for 循环来手写实现简单太多了。
 
-The final common function is called **_reduce_**. Typically, it’s used to take a list and reduce it to a single value but it can actually do so much more.
+最后一个常用函数叫做 **_reduce_**。一般来说，它用来接收一个列表并将其减少到一个值，但实际上可以用它做更多的事情。
 
-This function is usually called **_fold_** in Functional Languages.
+在函数式（编程）语言里这个函数通常叫做 **_fold_**。
 
     var reduce = (f, start, array) => {
         var acc = start;
@@ -247,26 +247,26 @@ This function is usually called **_fold_** in Functional Languages.
         return acc;
     });
 
-The **_reduce_** function takes a reduction function, **_f_**, an initial **_start_** value and an **_array_**.
+这个 **_reduce_** 函数接收一个（自定义）减少函数 **_f_**、一个初始 **_start_** 开始值和一个 **_array_** 数组。
 
-Notice that the reduction function, **_f_**, takes 2 parameters, the current item of the **_array_**, and the accumulator, **_acc_**. It will use these parameters to produce a new accumulator each iteration. The accumulator from the final iteration is returned.
+注意到这个减少函数 **_f_**，接收两个参数，**_array_** 数组的当前项，以及累计器 **_acc_**。每次迭代，它都将使用这两个参数产生一个新的累计器，最后一次迭代得到的累计器将会被返回。
 
-An example will help us understand how it works:
+一个例子将帮助我们更好地来理解它如果工作：
 
     var add = (x, y) => x + y;
     var values = [1, 2, 3, 4, 5];
     var sumOfValues = reduce(add, 0, values);
     console.log(sumOfValues); // 15
 
-Notice that the **_add_** function takes 2 parameters and adds them. Our **_reduce_**function expects a function that takes 2 parameters so they work well together.
+注意到 **_add_** 函数接收两个参数并把它们相加。而  **_reduce_** 函数正是期望一个接收两个参数的函数，所以它们可以一起正常运行。
 
-We start with a **_start_** value of zero and pass in our array, **_values_**, to be summed. Inside the **_reduce_** function, the sum is accumulated as it iterates over **_values_**. The final accumulated value is returned as **_sumOfValues_**.
+我们将初始 **_start_** 值设为0，并将 **_values_** 数组传入进行计算。**_reduce_** 函数内部，**_values_** 数组各项的总值作为累计器循环计算。最后的累计值返回为 **_sumOfValues_**。
 
-Each of these functions, **_map_**, **_filter_** and **_reduce_** let us do common manipulation operations on arrays without having to write boilerplate for-loops.
+每个这些函数，**_map_**、**_filter_** 和 **_reduce_**，都让我们可以在不必写 for 循环的情况下对数组进行常用操作。
 
-But in Functional Languages, they are even more useful since there are no loop constructs just recursion. Iteration functions aren’t just extremely helpful. They’re necessary.
+但是在函数式（编程）语言里，它们甚至更有用，因为没有循环体只有递归。迭代函数不只是非常有用，它们是必要的。
 
-#### My Brain!!!!
+#### 我的脑子！！！
 
 
 
@@ -282,13 +282,13 @@ But in Functional Languages, they are even more useful since there are no loop c
 
 
 
-Enough for now.
+目前为止足够了.
 
-In subsequent parts of this article, I’ll talk about Referential Integrity, Execution Order, Types, and more.
+在这个系列文章的随后部分，我将谈到有关引用完整性、执行顺序、类型以及其他更多的东西。
 
-Up Next: [Part 5](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-5-c70adc9cf56a)
+下一篇: [Part 5](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-5-c70adc9cf56a)
 
-_If you liked this, click the![💚](https://linmi.cc/wp-content/themes/bokeh/images/emoji/1f49a.png) below so other people will see this here on Medium._
+_如果你喜欢这篇文章，点击下面的![💚](https://linmi.cc/wp-content/themes/bokeh/images/emoji/1f49a.png)，其他人就可以在这里看到了哦。_
 
-If you want to join a community of web developers learning and helping each other to develop web apps using Functional Programming in Elm please check out my Facebook Group, **_Learn Elm Programming_**[https://www.facebook.com/groups/learnelm/](https://www.facebook.com/groups/learnelm/)
+如果你想加入 Web 开发者学习社区并帮助其他人在 Elm 里用函数式编程开发 Web 应用，请看我的 Facebook Group，**_Learn Elm Programming_** [https://www.facebook.com/groups/learnelm/](https://www.facebook.com/groups/learnelm/)。
 
