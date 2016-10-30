@@ -4,6 +4,8 @@
 * 译者 : [edvardhua](https://github.com/edvardHua)
 * 校对者: [DeadLion](https://github.com/DeadLion), [circlelove](https://github.com/circlelove)
 
+# 怎样用 JRebel 启动 Android
+
 只要你的项目相对较小，开发Android应用的用户体验还是很棒的。然而随着项目功能的增加，你会发现构建项目的时间也会随着增长。这种情况会导致你的大部分时间都花在如何更快的构建项目，而不是为应用增加更多的价值。
 
 网上有很多教你如何加快Gradle构建速度的教程。有一些很好的文章，譬如“[Making Gradle builds faster](http://zeroturnaround.com/rebellabs/making-gradle-builds-faster/)”。 通过这些方法我们可以节省几秒甚至几分钟的构建时间，但是仍然存在一些构建上的瓶颈。举个例子，基于注释的依赖注入使得项目架构清晰，但是这对项目构建时间是有很大影响的。

@@ -4,6 +4,7 @@
 * 译者 : [Yves X](https://github.com/Yves-X)
 * 校对者: [Malcolm](https://github.com/malcolmyu), [circlelove](https://github.com/circlelove)
 
+# 10 步带你做一个棒棒的 Hybrid 应用
 
 **随着 Hybrid 应用人气渐涨，人们创造了越来越多的工具帮助开发者高效创建跨平台应用。** [**James Miller**](https://twitter.com/jimhunty) **介绍了 10 条建议以助你得到最佳成果。** 
 

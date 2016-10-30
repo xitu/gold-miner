@@ -4,10 +4,7 @@
 * 译者：[jiaowoyongqi](https://github.com/jiaowoyongqi)
 * 校对者：[cbangchen](https://github.com/cbangchen), [funtrip](https://github.com/funtrip)
 
-
-
-
-
+# 如何给你的产品写文案？
 
 严格来说，我是一名文字工作者，我靠文字赚钱。但我有一件事大部分人都不知道：**我讨厌阅读。**
 

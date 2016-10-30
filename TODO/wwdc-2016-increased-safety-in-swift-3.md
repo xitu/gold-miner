@@ -5,6 +5,7 @@ Matt Mathias](https://www.bignerdranch.com/about-us/nerds/matt-mathias/)
 * 译者 : [Zheaoli](https://github.com/Zheaoli)
 * 校对者: [llp0574](https://github.com/llp0574), [thanksdanny](https://github.com/thanksdanny)
 
+# WWDC 2016：更加安全的 Swift 3.0 
 
 在 **Swift** 发布之后，**Swift** 的开发者一直在强调，安全性与可选择类型是 **Swift** 最为重要的特性之一。他们提供了一种'nil'的表示机制，并要求有一个明确的语法在可能为'nil'的实例上使用。
 

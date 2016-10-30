@@ -4,6 +4,7 @@
 * 译者 : [Zheaoli](https://github.com/Zheaoli)
 * 校对者 : [LoneyIsError](https://github.com/LoneyIsError), [wild-flame](https://github.com/wild-flame)
 
+# 如何检测 iPhone 是否处于低电量模式
 
 这个星期，我阅读了一篇关于Uber怎样检测手机处于省电模式的文章。（注：文章连接是[Uber found people more likely to pay](http://www.npr.org/2016/05/17/478266839/this-is-your-brain-on-uber)） 在人们手机快要关机时，使用Uber可能会面临更高的价格。 这家公司（注：指Uber）宣称他们不会利用手机是否处于节能模式这一数据来进行定价， 但是这里我想知道 **我们怎么知道用户的iPhone处于低电量模式**
 

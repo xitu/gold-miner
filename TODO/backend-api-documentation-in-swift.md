@@ -4,6 +4,8 @@
 * 译者：[Nicolas(Yifei) Li](https://github.com/yifili09) 
 * 校对者：[Siegen](https://github.com/siegeout), [DeadLion](https://github.com/DeadLion) 
 
+# 有关用 Swift 访问后端服务器的 API 文档中
+
 我最近开始开发一个全新的项目，并且我正尝试一些新的设计模式，因为我开始投身于 `Swift 3`。我正使用的一个模式是“请求和响应模型”。这个“酷炫”的名字是我为记录这个后台 `API` 文档中的 `Struct` (结构体)。让我们来看一个例子：
 
 ```

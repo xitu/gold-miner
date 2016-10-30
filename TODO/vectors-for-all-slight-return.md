@@ -4,6 +4,7 @@
 * 译者 : [huanglizhuo](https://github.com/huanglizhuo)
 * 校对者: [circlelove](https://github.com/circlelove) , [edvardHua](https://github.com/edvardHua)
 
+# Vector For All (slight return)
 
 大多数 Styling Android 的读者都知道我特别喜欢 _VectorDrawable_ 和 _AnimatedVectorDrawable_。 然而（在我写这篇文章时）我们仍然在期待 _VectorDrawableCompat_ 发布，现在我们现在只能在 API 21 (Lollipop) 以及更高的版本上使用。 然而，Android Studio 添加了一些向后兼容的构建工具，这样我们就能在 Lolipop 之前的版本中使用 _VectorDrawable_ 。这篇文章中会讲它是怎么工作的。
 

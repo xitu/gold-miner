@@ -4,6 +4,8 @@
 * 译者：[Kulbear](https://kulbear.github.io/)
 * 校对者：[siegeout](https://github.com/siegeout), [jiaowoyongqi](https://github.com/jiaowoyongqi)
 
+# 根据 OS 设计你的应用
+
 ### 设计师们的难题
 
 ***Android 和 iOS***[ 是市场上的两个主流操作系统](http://www.idc.com/prodserv/smartphone-os-market-share.jsp)。多数公司都会要求开发者开发对应的移动端应用。对于这些需要在两个平台上同时设计的应用，其中一个挑战就是在品牌一致性和平台的不同功能特性之间进行平衡。

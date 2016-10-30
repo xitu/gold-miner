@@ -4,6 +4,8 @@
 * 译者：[cbangchen](https://github.com/cbangchen)
 * 校对者：[mypchas6fans](https://github.com/mypchas6fans) [Zheaoli](https://github.com/Zheaoli)
 
+# 实现二叉树以及二叉树遍历数据结构
+
 ![](http://ww1.sinaimg.cn/large/7853084cgw1f7fm5z89h4j20dw0dwgm4.jpg)
 
 [Swift 算法俱乐部](https://github.com/raywenderlich/swift-algorithm-club) 是一个致力于使用 Swift 来实现数据结构和算法的一个开源项目。
@@ -546,7 +548,7 @@ if newValue < value {
 1.	如果你的当前值与你想要搜索的值相同，停止搜索。返回当前子树。
 2. 	如果你继续执行到这个点，说明你还没有找到你的值。你将会需要去决定往左子树的方向前进或者往右子树的方向前进。你会使用二叉搜索树的规则来决定。
 
-与遍历算法不同，每一个递归步骤搜索算法只会遍历一次。平均而言,这会导致时间复杂度为 _O(o(log n))_ ,远远大于 _O(n)_ 时间复杂度的遍历操作。
+与遍历算法不同，搜索算法在每一个递归步骤只会遍历其中一边。平均而言,这会导致时间复杂度为 _O(log n)_ ,速度远远快于 _O(n)_ 时间复杂度的遍历操作。
 
 在你的 playground 文件里写下下面的语句来进行测试：
 

@@ -5,6 +5,7 @@
 * 校对者: [iThreeKing](https://github.com/iThreeKing), [sqrthree](https://github.com/sqrthree)
 
 # JavaScript 生态之乱象
+
 ####（原标题：作为一名 web 开发者，我已经被一个极度简单的 app 卡了 10 天）
 
 我是一名全职开发者。我大部分工作的内容是网站的全栈开发。偶尔，我也用 **Python** 或 **Ruby** 写写后端的服务器，有时写点儿 **C#** 。我还用 **C++** 或 **Node.js** 开发一些命令行工具，我发现 Clojure 很有意思，我接触 web 开发是在多年以前，那时用的是 **Perl** 和 **PHP** ，而在我首次进入职业开发道路的时候，我写了几年 **Java** 。

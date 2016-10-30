@@ -4,6 +4,7 @@
 * 译者 : [达仔](https://github.com/Zhangjd)
 * 校对者: [Malcolm](https://github.com/malcolmyu)、[L9m](https://github.com/L9m)
 
+# 让 Webpack 来帮你打包吧
 
 ![](https://webpack.github.io/assets/what-is-webpack.png)
 

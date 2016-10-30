@@ -4,8 +4,7 @@
 * 译者: [Gran](https://github.com/Graning)
 * 校对者:[Yaowenjie](https://github.com/Yaowenjie),[zhangchen](https://github.com/zhangchen91)
 
-
-### ES6 中 的 var、let 和 const 应该如何选择？
+# ES6 中 的 var、let 和 const 应该如何选择？
 
 通过学习**让事情变得简单**这个原则也许是成为更好的开发者途径中最重要的事。这意味着在标识符的上下文中**单个标识符应该只被用来表示单一的概念**。
 
