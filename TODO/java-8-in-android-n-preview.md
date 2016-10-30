@@ -4,6 +4,7 @@
 * 译者 : [markzhai](https://github.com/markzhai)
 * 校对者: [narcotics726](https://github.com/narcotics726), [MiJack](https://github.com/MiJack)
 
+# 在 Android N 预览版中使用 Java 8 的新特性
 
 Android团队最近发布了Android N Preview，带来了很多提升，包括由Jack编译器提供的Java 8支持。在这篇文章中，我们将来看看它究竟对Android开发者意味着什么，以及如何尝试新的语言特性。
 

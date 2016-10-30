@@ -4,6 +4,7 @@
 * 译者：[mypchas6fans] (https://github.com/mypchas6fans)
 * 校对者：[DeadLion] (https://github.com/DeadLion) [siegeout] (https://github.com/siegeout)
 
+# 开发移动应用，你应该注意这些小细节
 
 你的 app 的成功涉及很多因素，但最重要的是总体用户体验。市场上脱颖而出的 app 都提供了很棒的 UX。具体到设计移动 UX，遵从最佳实践是一个好方法，但是构建蓝图的时候，往往容易忽略一些锦上添花的设计元素。而“不错的体验”和“非凡的体验”之间，通常取决于我们设计这些小细节的用心程度。
 

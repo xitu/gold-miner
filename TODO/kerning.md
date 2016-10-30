@@ -4,6 +4,7 @@
 * 译者 : [cdpath](https://github.com/cdpath)
 * 校对者 : [L9m](https://github.com/L9m), [shenxn](https://github.com/shenxn)
 
+# 写给设计师的字偶距调整指南
 
 _你可曾盯着刚排版的单词或词组却觉得看上去间距有点远？_
 

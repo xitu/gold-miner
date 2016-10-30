@@ -4,6 +4,8 @@
 * 译者 : [edvardhua](https://github.com/edvardHua)
 * 校对者: [SatanWoo](https://github.com/SatanWoo), [zhangzhaoqi](https://github.com/joddiy)
 
+# Vectors For All (almost)
+
 经常阅读 Styling Android 的读者会知道我有多么喜欢用 _VectorDrawable_ 和 _AnimatedVectorDrawable_ 。直到我在写这篇文章之前我还在等待 _VectorDrawableCompat_ （译者注：之前大家以为官方会出兼容 Support ，后来官方使用了另外一种方案，详细内容可戳该[链接](http://blog.chengyunfeng.com/?p=836&utm_source=tuicool&utm_medium=referral)），所以目前矢量图只能够在 API 21+ (Lollipop) 上面使用。然而，Android Studio 1.4 增加了对旧 android 的兼容，所以，实际上可以在低于 Lollipop 版本的机器上面使用 _VectorDrawable_ 。
 
 在使用之前先来快速回顾一下什么是 _VectorDrawable_ 。 本质上来说它其实就是安卓对 SVG path data 的一层封装。而 SVG paths 是一种以 xml 方式描述复杂图形元素的东西。(译者注：感兴趣的可以阅读 W3C 的[官方文档](http://www.w3school.com.cn/svg/svg_reference.asp)) SVG 很适合用来储存线条和矢量图像，但不适合用来储存摄影图像。通常在Android中 _ShapeDrawable_ 可以实现一些线条和形状的[绘画](https://blog.stylingandroid.com/more-vector-drawables-part-2/)。 但大多数情况我们会将这些矢量图转换成不同像素密度位图来使用。在这篇文章中，我们将会一起来探索如何使用它。

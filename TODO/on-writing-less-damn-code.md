@@ -4,6 +4,8 @@
 * 译者：[circlelove](https://github.com/circlelove)
 * 校对者：[MAYDAY1993](https://github.com/MAYDAY1993)，[cbangchen](https://github.com/cbangchen)
 
+# 如何编写更少的代码
+
 我不是世界上最有天赋的码神。是的，这是事实。所以我尽可能地减少代码量。我写的越少，需要破坏、解释和维护的地方就越少。
 
 我也挺懒的，所以懒人有懒福（原文为it’s all gravy）。(_作者: 或许这里用了个关于食物的比喻?_)

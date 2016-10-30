@@ -4,6 +4,8 @@
 * 译者 : [woota](https://github.com/woota)
 * 校对者: [malcolmyu](https://github.com/malcolmyu), [Zheaoli](https://github.com/Zheaoli)
 
+# React 应用的性能优化之路
+
 ![](http://ww2.sinaimg.cn/large/0060lm7Tgw1f47ucaolgzj31jk0lmtcc.jpg)
 
 #### 要点梗概
