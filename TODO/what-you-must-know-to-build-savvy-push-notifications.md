@@ -6,18 +6,7 @@
 
 # What You Must Know To Build Savvy Push Notifications
 
-
 Smartphones have been around for nearly a decade and yet founders still declare mobile the most underhyped technology, according to [First Round's State of Startups Survey](http://stateofstartups.firstround.com/#highlights). And, within mobile, the potential of push notifications reigns supreme. Entrepreneur [Ariel Seidman](https://www.linkedin.com/in/aseidman) [captures this well](http://arielseidman.com/post/62564939335/fixing-mobile-push-notifications): “It’s hard to over-hype the power of mobile push notifications. For the first time in human history, you can tap almost two billion people on the shoulder.” That’s why [**Slack**](https://slack.com/)'s [**Noah Weiss**](https://www.linkedin.com/in/noahw) is a true believer in a world coming closer together through smarter pings.
-
-
-
-
-
-Recommended Article
-
-
-
-
 
 Before Slack, Weiss worked at Foursquare when it [monetized the service with native ads](http://techcrunch.com/2013/10/14/with-an-eye-to-more-revenue-foursquare-opens-its-ads-platform-to-all-small-businesses/) and [boldly split into two apps in 2014](https://medium.com/foursquare-direct/the-lego-block-exercise-4c7d60eeb38f#.tmyz2j5o0). During that time, monthly active users more than quintupled. Weiss was also Google’s lead product manager on structured data-related search projects. Recently, Weiss joined Slack [to build out its New York office and lead its new Search, Learning and Intelligence Group](https://medium.com/@noah_weiss/starting-up-slack-s-search-learning-intelligence-group-in-the-new-nyc-office-af6523090789#.sqly156er) with a [mandate to develop features](http://www.recode.net/2016/6/6/11863534/slack-artificial-intelligence-AI-noah-weiss) that make companies more productive the more they use Slack.
 
@@ -37,29 +26,11 @@ Before sharing tactics, Weiss summarizes the evolution of push notifications as 
 
 **Cutting through all the apps.** When people first adopted smartphones, their apps could fit in a 4x4 grid on their home screen. Now, the average person in the U.S. has around 55 apps on their phone. “You get to the point where there’s no way one can actually use all those apps on a regular basis. It’s so hard today to develop a cadence where an app becomes a daily habit,” says Weiss. “The reality for developers is you’re probably not going to be on someone’s home screen and users likely aren’t going to be in the habit of using it multiple times a day. That's where notifications become increasingly important. For most apps, a push notification can be perfect for delivering urgent information: an Uber is arriving, your flight’s gate has changed or you’re mentioned in Slack. If users are inundated with 50+ apps, you can’t rely on them to remember to use you at the right time and place. You need to proactively pull them in.”
 
-
-
-
-
 Noah Weiss
-
-
-
-
 
 ## Build Your Notification Strategy Around These Tenets
 
 An in-depth notification strategy can weigh and weave together several factors, such as nearby wifi, personalization, social factors and real-time snapping to places to power its push notifications. But for startups that are just embarking on their push notification technology, there are fundamentals to consider. From the basics to more advanced tips, Weiss outlines the essential lessons he’s learned while developing push notification systems.
-
-
-
-
-
-Recommended Article
-
-
-
-
 
 **Boost retention _outside_ the app.**
 
@@ -92,16 +63,6 @@ To assess your notification strategy, nail down three metrics: **1) the rate of 
 “To evaluate a great notification, you have to balance positive engagement with the downside of setting opt-outs. It’s a tricky balance, because you may be comparing a short-term engagement boost versus a longer-term downside of users who’ve uninstalled and can no longer be re-engaged,” says Weiss. “Start by pinning your assessment to uninstall and notification disable rates. If you’re a consumer app and your uninstall rate is below 2% you’re in a safe zone. So if your weekly churn is 1% and you have a 2% rate increase to 1.02%, that’s not devastating. Monitor any drastic fluctuation though, as a compounding effect week-on-week can become damaging.”
 
 To capture the reward of the notification strategy, look beyond open rates to measure specific actions taken. “One tack that I recommend is to monitor a window of time post ping for the number of actions that can be tied back to the original notification. For example, if the notification encouraged users to rate places they’ve visited recently, analyze how many ratings users made per hundred pings within a 2-6 hour window,” says Weiss. “There are always questions of attribution, but if you define a fixed window of time to evaluate after a notification is shipped, you can accept the results with a higher degree of confidence.”
-
-
-
-
-
-Recommended Article
-
-
-
-
 
 **...but calibrate them to compare performance on iOS and Android.**
 
