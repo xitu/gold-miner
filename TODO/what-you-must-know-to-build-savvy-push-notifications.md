@@ -4,117 +4,114 @@
 * 译者：
 * 校对者：
 
-# What You Must Know To Build Savvy Push Notifications
+# 如何设计精准的推送通知？
 
-Smartphones have been around for nearly a decade and yet founders still declare mobile the most underhyped technology, according to [First Round's State of Startups Survey](http://stateofstartups.firstround.com/#highlights). And, within mobile, the potential of push notifications reigns supreme. Entrepreneur [Ariel Seidman](https://www.linkedin.com/in/aseidman) [captures this well](http://arielseidman.com/post/62564939335/fixing-mobile-push-notifications): “It’s hard to over-hype the power of mobile push notifications. For the first time in human history, you can tap almost two billion people on the shoulder.” That’s why [**Slack**](https://slack.com/)'s [**Noah Weiss**](https://www.linkedin.com/in/noahw) is a true believer in a world coming closer together through smarter pings.
+智能手机面世已经近十年时间，但根据 [First Round 对初创公司的调查报告](http://stateofstartups.firstround.com/#highlights)来看，创始人们仍然宣称移动端是最被低估的技术。在移动设备上，推送通知的潜力是至高无上的。企业家 [Ariel Seidman](https://www.linkedin.com/in/aseidman) 在 [Fixing mobile push notifications](http://arielseidman.com/post/62564939335/fixing-mobile-push-notifications) 这篇文章中提到：“去夸大移动端推送通知的潜力是一件很困难的事。第一次在人类历史上，你可以同时拍着近 200 万人的肩膀，说‘嘿!注意这个！’” 这也是为什么 [**Slack**](https://slack.com/) 的 [**Noah Weiss**](https://www.linkedin.com/in/noahw) 一直笃信通过智能设备世界会变得越来越亲近。
 
-Before Slack, Weiss worked at Foursquare when it [monetized the service with native ads](http://techcrunch.com/2013/10/14/with-an-eye-to-more-revenue-foursquare-opens-its-ads-platform-to-all-small-businesses/) and [boldly split into two apps in 2014](https://medium.com/foursquare-direct/the-lego-block-exercise-4c7d60eeb38f#.tmyz2j5o0). During that time, monthly active users more than quintupled. Weiss was also Google’s lead product manager on structured data-related search projects. Recently, Weiss joined Slack [to build out its New York office and lead its new Search, Learning and Intelligence Group](https://medium.com/@noah_weiss/starting-up-slack-s-search-learning-intelligence-group-in-the-new-nyc-office-af6523090789#.sqly156er) with a [mandate to develop features](http://www.recode.net/2016/6/6/11863534/slack-artificial-intelligence-AI-noah-weiss) that make companies more productive the more they use Slack.
+供职 Slack 之前，Weiss 在 Foursquare 工作，当时[其靠原生广告服务获利](http://techcrunch.com/2013/10/14/with-an-eye-to-more-revenue-foursquare-opens-its-ads-platform-to-all-small-businesses/)，并[在 2014 年大胆地分成两个应用](https://medium.com/foursquare-direct/the-lego-block-exercise-4c7d60eeb38f#.tmyz2j5o0)。那时候，每月活跃用户增长五倍之多。 Weiss 还是 Google 结构化数据搜索项目的首席产品经理。最近，Weiss 加入 Slack [建立其纽约办事处，领导新的搜索、学习和智能项目组](https://medium.com/@noah_weiss/starting-up-slack-s-search-learning-intelligence-group-in-the-new-nyc-office-af6523090789#.sqly156er)，其任务是开发新的功能，使其他公司在使用 Slack 时更加高效。
 
-In this interview, Weiss maps out the dynamic evolution of push notifications — revealing critical paradigm shifts in the era of smartwatches and app-filled homescreens. Here, he also shares tips for startups seeking to build out their push notification strategy and the inputs, metrics and guidelines to instate. Any startup that wants to command this high-risk, high-reward channel will benefit from Weiss’ wisdom.
+在这次采访中，Weiss 描绘了推送通知的动态演变 —— 揭示了智能手表和应用布满屏幕主屏时代关键的范式转变。在此，他还分享了一些关于初创公司寻求制定推送通知策略、投入、指标和指南的小秘诀。任何想要控制这种高风险、高回报渠道的创业公司都将从 Weiss 这里受益。
 
-> A great push notification is three things: timely, personal and actionable.
+> 一个好的推送通知有三个特性：及时性，个性化和可行性。
 
-## Evolution of Push Notifications
+## 推送通知的演进
 
-Before sharing tactics, Weiss summarizes the evolution of push notifications as it relates to **the three qualities that make pings powerful: being timely, personal and actionable.** He sees their history and progression as fundamental context to consider as you build your future strategy. Here’s an abridged four-stage history:
+在分享他的策略之前，Weiss 总结了推送通知的演变，因为它涉及到**强大的三个特质：及时性，个性化和可行性。**他将他们的历史和进展看作是建立未来时的基础。以下是简化的推送通知演变历史的四个阶段：
 
-**Email As the Push Notification Predecessor.** The push notification of the early web era was email. “There are a lot of similar analogs between email and push,” says Weiss, “Back in the day, you gave permission for an open line of communication with a website by giving your email address. Email became the primary, reliable way to bring a person back to a website; it wasn’t through a portal or bookmarks. Lastly, there’s an unsubscribe option in email. The equivalent for notifications is adjusting the push settings or, more frequently, uninstalling the app.”
+**电子邮件是推送通知的前身。** 早期网络时代的推送通知是电子邮件。“在电子邮件和推送通知之间有很多类似的地方。” Weiss 说，“在过去，你通过提供电子邮件地址，允许与网站进行开放式沟通。电子邮件成为将人带回网站的可靠的主要方式，它不是通过门户或书签。并且，电子邮件中有一个取消订阅选项。通知的等效选项是调整推送设置，或者更常见的是卸载应用程序。
 
-**Migration to Mobile.** Email started to falter as users engaged more on their mobile phones. “It may be hard to recall a time before smartphones, but people didn’t used to live in their inboxes. They checked email a few times a day from a computer,” says Weiss. “Even companies with very successful email marketing strategies hit walls with mobile. Remember Groupon offers of laser hair removal deals? Why did you receive it when you did? When did you show interest in hair removal or indicate you’d make this type of purchase decision on your phone? When tied to a user, location and time of day, push notifications became more effective. While they feel abrasive if done poorly, they had the potential to be timely, personal and actionable.”
+**进化到移动时代。** 当用户在手机上投入更多时，电子邮件开始衰退。“可能很难回想起智能手机之前的时代，人们并不习惯在他们的收件箱里生活。他们每天在电脑上检查电子邮件好几次。“ Weiss 说。 “即使是那些拥有非常成功的电子邮件营销策略的公司也会使用移动设备。还记得 Groupon 提供激光脱毛服务吗？你为什么收到它？你什么时候对脱毛表现出兴趣，或者表示你在手机上做出这种类似的购买决定时？绑定到用户，位置和一天中的某个时间，推送通知变得更有效。他们有着及时性、个性化和可行性的潜力，当然如果做的不好，用户也会感到厌烦。
 
-**Competing with SMS, not Email.** On mobile, push notifications are more akin to texts than emails. “Push is about what is relevant to this moment. You can send an email that you may not expect to be read for a couple of days; that’s okay for newsletters or digests,” says Weiss. “However, the timeliness or the attention required in real time with a push notification is completely different. With pings, you’re effectively competing with SMS and other very personal forms of communication. How personal do you have to be if the rest of the notifications come from someone’s spouse, best friend or mom? It has to be at that same level.”
+**与短信竞争，而不是电子邮件。** 在移动设备上，推送通知更像是短信，而不是电子邮件。“推送是关于与这一刻紧密相关的。当你可能不指望你的内容在几天内被阅读，你可以发送一封电子邮件，这对于业内通讯或文摘来说是可以的。” Weiss 说，“然而，实时推送通知所需的及时性或注意力是完全不同的。通过推送通知，你可以有效地与短信和其他个性化的沟通方式竞争。如果别的通知来自某人的配偶、最好的朋友或妈妈，你如何做到个性化？它们必须在同一水平竞争。
 
-**Cutting through all the apps.** When people first adopted smartphones, their apps could fit in a 4x4 grid on their home screen. Now, the average person in the U.S. has around 55 apps on their phone. “You get to the point where there’s no way one can actually use all those apps on a regular basis. It’s so hard today to develop a cadence where an app becomes a daily habit,” says Weiss. “The reality for developers is you’re probably not going to be on someone’s home screen and users likely aren’t going to be in the habit of using it multiple times a day. That's where notifications become increasingly important. For most apps, a push notification can be perfect for delivering urgent information: an Uber is arriving, your flight’s gate has changed or you’re mentioned in Slack. If users are inundated with 50+ apps, you can’t rely on them to remember to use you at the right time and place. You need to proactively pull them in.”
+**切割所有应用程序。** 当人们首次使用智能手机时，他们的应用可以摆放在 4x4 网格的主屏幕上。而现在，美国用户的手机上大约平均有 55 个应用。“你需要知道的是，无法让这些应用都被定期使用。如今也很难开发一个应用，让该应用的使用变成日常习惯。” Weiss 说，“开发者的现实是，你的应用可能不会在某人的主屏上，用户也可能不会有一天使用它多次的习惯。这就是通知变得越来越重要的原因。对于大多数应用，推送通知可以完美地提供紧急信息：Uber 到达，你的航班的大门已更改或你在 Slack 中被提及。如果用户被 50 多个应用程序淹没，你不能指望他们记住在正确的时间和地点使用你的应用，你需要主动引导他们打开。
 
-Noah Weiss
+-Noah Weiss
 
-## Build Your Notification Strategy Around These Tenets
+## 围绕以下原则构建你的推送通知策略
 
-An in-depth notification strategy can weigh and weave together several factors, such as nearby wifi, personalization, social factors and real-time snapping to places to power its push notifications. But for startups that are just embarking on their push notification technology, there are fundamentals to consider. From the basics to more advanced tips, Weiss outlines the essential lessons he’s learned while developing push notification systems.
+深度通知策略可以权衡和组织多个因素，例如附近的 WiFi，个性化，社交因素和实时捕捉到的位置等等，都可以用来驱动推送通知。但对于刚刚开始接触推送通知技术的初创公司来说，有一些基本因素需要考虑。从基本到更高级的诀窍，Weiss 讲述了他在开发推送通知系统时学到的基本经验。
 
-**Boost retention _outside_ the app.**
+**在应用程序之外促进用户留存**
 
-From a user retention standpoint, there are diminishing returns after your app crosses a threshold of functionality. There’s only so many features you can jam into a single app and expect new users to discover them in their first few sessions. “The biggest challenge in mobile is retaining new users. There are proven tactics to get them through the door: efficient app install marketing, social channels, SEM and SEO. However, what’s really hard is getting new users to develop a habit,” says Weiss. “There comes a time when improvements to your app won’t dramatically affect top line retention anywhere close to an investment in the surface area outside of your app, namely push notifications. That’s because once someone closes your app, it doesn’t matter if there’s a magical experience they missed on the fourth tab of the app. If they never open it up again, they’ll never know what they missed out on.”
+从用户保留角度来看，当你的应用超越了功能下限后，用户返回你的应用的次数会减少。你只能在你的应用中塞入那么多功能，并期望新用户在一开始的几个会话中发现这些功能。“移动领域最大的挑战是留住新用户，已经有得到证明的战术来引进新用户：高效的应用安装营销、社交渠道、SEM 和 SEO。然而，真正困难的是让新用户养成一种习惯。” Weiss 说，“有时候，你的应用的改进不会显著影响用户留存的顶峰值，但是在应用之外的投资却可以做到，这里即推送通知的投资。因为一旦有人关闭了你的应用，他们错过了第四个 Tab 下的神奇体验就变得无关紧要了。因为如果他们再也没有打开你的应用，他们永远不会知道他们错过了什么。
 
-In your quest to build the best user experience for your app, don’t forget that that experience only happens if users open the app in the first place — and keep returning to it. “It always amazes — and pains — me when I see the incredible time and effort put into an app with no hint of a strategy to re-engage me,” says Weiss. “Of course most young developers aren’t thinking about notifications. Don’t make that mistake. It’s the single biggest oversight in mobile product development today.”
+在为你的应用设计最佳用户体验的过程中，请不要忘记，只有在用户打开应用时，才会享受到这种体验 —— 才会继续回到你的应用。“这总是让我感到惊讶和痛苦：当我看到对一个应用投入令人难以置信的时间和精力，却没有一个策略重新吸引我。” Weiss 说，“当然，大多数年轻的开发人员都不考虑通知。不要犯这个错误。这也是目前移动产品开发中最大的疏忽。”
 
-> Customer acquisition propels an app. User retention builds a business.
+> 客户需求推进了一个应用，用户留存创造了一个业务。
 
-**Don’t mistake a download with permission.**
+**不要在有权限的情况下错误下载。**
 
-Asking for the authority to send notifications is not only good form, but technologically necessary. “If you’re building on iOS, sending notifications is a permission the user must authorize. Unlike on Android, downloading the app does not give you that authority. You have to prompt users for it,” says Weiss. “This is the pivotal moment. If users decline permission, there’s no way for the app to reach out to pull them back in, which drastically decreases the likelihood that they’ll be active users down the line. Even if they accept, it is not a binding contract."
+请求获取发送通知的权限不仅是良好的形式，而且在技术上也是必要的。“如果你在 iOS 平台上开发，发送通知是用户必须授权的权限。与 Android 不同，下载应用默认授予权限，你必须提示用户。” Weiss说，“这是一个很关键的时刻，如果用户拒绝授权，应用无法引导用户重新进入授权页面，这极大地降低了他们变成活跃用户的可能性。即使他们接受，这也不是个有约束力的合同。”
 
-If users get tired of your push notifications, the best case is that they select which notifications to keep active in app, but it’s more likely that they’ll navigate to their phone settings to turn off all notifications or simply uninstall the app. This is effectively irreversible. The takeaway: Deliver on users’ first notification experiences or they’ll shut down the channel for good.”
+如果用户厌倦了你的推送通知，最好的情况是他们可以选择在应用中保留哪些通知是活动的，但更可能的是导致他们到手机设置中关闭所有通知或者卸载应用。这实际上是不可逆的。注：提升给用户的第一个通知体验，否则他们会关闭通知渠道。
 
-So the first step is to prompt users to agree to notifications at the start — if they say no, the rest of this advice doesn’t matter. It involves user education, placing prompts after actions users find valuable or doing pre-prompts to get the green light to ask permission at later dates to increase the rate of conversion. Then it’s about maintaining trust and keeping an open line of communication. There’s strong literature that’s been written on both steps, so Weiss recommends this syllabus:
+因此，第一步是提示用户在一开始同意接收通知 —— 如果他们说不，其余的建议将变得不再重要。它涉及用户教育，在用户发现有价值的内容之后再弹出提示，或者得到授权绿灯时再要求授权许可，可以提升转化率。然后是关于保持信任和保持开放的沟通，这两个步骤有一些不错的文献可以参考，Weiss 推荐了以下的文章：
 
-*   [The Right Way to Ask Users for Mobile Permissions](https://library.launchkit.io/the-right-way-to-ask-users-for-ios-permissions-96fa4eb54f2c#.3u7waqk3w) by [Brenden Mulligan](https://twitter.com/mulligan)
+*   [移动端请求用户权限的正确方式](https://library.launchkit.io/the-right-way-to-ask-users-for-ios-permissions-96fa4eb54f2c#.3u7waqk3w) —— [Brenden Mulligan](https://twitter.com/mulligan)
 
-*   [Why 60% of your users opt-out of push notifications, and what to do about it](http://andrewchen.co/why-people-are-turning-off-push/) by [Andrew Chen](https://twitter.com/andrewchen)
+*   [为什么 60％ 的用户选择停用推送通知，如何应对这种状况](http://andrewchen.co/why-people-are-turning-off-push/) ——[Andrew Chen](https://twitter.com/andrewchen)
 
-*   [The right way to ask your users to review your app](https://medium.com/circa/the-right-way-to-ask-users-to-review-your-app-9a32fd604fca#.iz4jrwiin) by [Matt Galligan](https://twitter.com/mg)
+*   [让用户再次回到你的应用的正确方式](https://medium.com/circa/the-right-way-to-ask-users-to-review-your-app-9a32fd604fca#.iz4jrwiin) ——[Matt Galligan](https://twitter.com/mg)
 
-Given the high stakes of getting permission to notify, the thrust of these articles is to default to being risk-averse. “If you’re smart, you’re actually very cautious when it comes to notifications. Build safety nets into all experiments, because any misfire can burn for a long time,” says Weiss. “For example, if I were to launch a weekly ping that all users would receive, I’d start it as a 5 or 10 percent experiment to cap any potential downside of people opting out of notifications.”
+考虑到获取通知权限的高风险，这些文章的重点默认是如何规避风险。“如果你足够聪明，那么实际上涉及到通知你会变得非常谨慎。在所有实验中建立安全网，因为任何失误都会产生很大的影响。” Weiss 说，“例如，如果我每周发布一次推送，所有用户都会收到，我会将它作为一个 5％ 或 10％ 的实验，以覆盖任何导致用户选择退出通知的潜在缺陷。”
 
-**Nail down three metrics to measure notifications...**
+**指定三个指标来衡量通知**
 
-To assess your notification strategy, nail down three metrics: **1) the rate of users opting out of your notification permissions, 2) the uninstall rate and 3) actions per hundred pings**.
+为了评估你的通知策略，需要给出以下三个指标：**1）选择取消通知权限的用户比率 2）卸载率 和 3）每百次推送的操作次数**。
 
-“To evaluate a great notification, you have to balance positive engagement with the downside of setting opt-outs. It’s a tricky balance, because you may be comparing a short-term engagement boost versus a longer-term downside of users who’ve uninstalled and can no longer be re-engaged,” says Weiss. “Start by pinning your assessment to uninstall and notification disable rates. If you’re a consumer app and your uninstall rate is below 2% you’re in a safe zone. So if your weekly churn is 1% and you have a 2% rate increase to 1.02%, that’s not devastating. Monitor any drastic fluctuation though, as a compounding effect week-on-week can become damaging.”
+“要评估一个好的通知，你必须在用户主动参与和取消通知之间达到平衡。这是一个棘手的平衡，因为你可能会比较一个短期的主动参与用户数的提升与长期下来的卸载用户数，不能再重新参与。” Weiss 说。 “从设定卸载率和通知禁用率开始，如果你的应用程序是面向消费者的，而且卸载率低于 2％，则表示你处于安全区。所以如果你的每周流失率为 1％，你的增长率为 1.02％ 到 2％，这不是毁灭性的。监测所有剧烈的波动，因为一周一周的叠加效应可能会造成损失。”
 
-To capture the reward of the notification strategy, look beyond open rates to measure specific actions taken. “One tack that I recommend is to monitor a window of time post ping for the number of actions that can be tied back to the original notification. For example, if the notification encouraged users to rate places they’ve visited recently, analyze how many ratings users made per hundred pings within a 2-6 hour window,” says Weiss. “There are always questions of attribution, but if you define a fixed window of time to evaluate after a notification is shipped, you can accept the results with a higher degree of confidence.”
+为了评估通知策略的回报，不要考虑打开率而是衡量具体操作。“我建议的一个方法是监控推送通知的时间窗口，统计到达绑定到原始通知的操作的数目。例如，如果通知鼓励用户评价他们最近访问过的地方，分析用户在 2-6 小时的窗口内每百次推送通知的评分数。” Weiss 说，“总是有归属的问题，但如果你在发送通知后定义一个固定的时间窗口进行评估，结果会让你更能接受。
 
-**...but calibrate them to compare performance on iOS and Android.**
+**...校准指标以用来比较 iOS 和 Android 上的表现。**
 
-For those that want to track open rates as a metric, Weiss has a few observations about the nature of notifications on different operating systems. “It’s as easy to track open rates from pings as it is with email, but know that iOS open rates are much, much lower than Android; they can show up to five times more open rates for identical pings on iOS,” says Weiss. “Users tend to process the notifications on Android, as there’s an inbox that only clears as you manually open each ping, whereas on iOS, once you open up one notification from your lock screen, the others all clear.”
+对于那些想要将打开率作为指标进行追踪的人，Weiss 对不同操作系统上的通知的性质有几点看法。“通过电子邮件跟踪打开率是很容易的，但是你要知道 iOS 的打开率远远低于 Android;进行相同的推送，Android 可以显示多达 iOS 平台五倍的打开率。” Weiss 说，“在 Android 用户倾向于处理通知，因为只有在你手动打开每个通知时，通知才会清除，而在 iOS 上，一旦你从锁定屏幕打开一个通知，其他通知就会清除。
 
-As with other functionalities, operating systems have different capabilities when it comes notifications. “For example, notifications on Android can display inline photos, which can get a free 15-20% boost of engagement. Since most developers are most often working in iOS, they don’t think to send Android push notifications with photos,” says Weiss. “There’s also inline action buttons so users can take steps from notifications. Those also get higher engagement rates. Basically everything about Android is better for notification development, and I say that as an iPhone user.”
+与其他功能一样，不同的操作系统在收到通知时表现也不同。“例如，Android 上的通知可以内置图片，这样可以提高 15-20％ 的互动概率。由于大多数开发人员通常在 iOS 平台上工作，他们认为发送 Android 推送通知也不可以附带图片。” Weiss 说，“还有内置操作按钮，让用户可以直接从通知进行操作。这些也提升了更高的互动概率。即使作为一个 iPhone 用户，我也不得不说，从根本上来说，Android 的通知开发都是更好的。
 
-> Fill your notifications with personalized tidbits, so they sound like they came from a close friend.
+> 用个性化的内容填充推送通知，让他们听起来像来自一个亲密的朋友。
 
-**Counteract the novelty effect.**
+**抵制新奇性效应**
 
-Run experiments with notifications for a minimum of six weeks but 12 weeks is a good sweet spot. Weiss has learned that conducting tests for a longer period of time is necessary to surface any negative effects. “The average user will ignore unwanted pings for about a month without taking action, such as altering settings or uninstalling the app. There’s a threshold that’s passed where annoyance surprasses the ease of quick dismissal,” says Weiss.
+运行推送通知的实验至少六周，12 周是一个不错的选择。 Weiss 明白，进行更长时间的测试是必要的，以表现出所有负面影响。“一般用户将忽略不必要的推送大约一个月，而不采取任何操作，如更改设置或卸载应用。一旦超过这个阈值，烦人的通知很快被清除。” Weiss 说。
 
-Notifications have strong novelty biases, which delay the true impact on users. Once Weiss launched an experiment to test emoji-heavy pings to users. “We cut down the length of text by half and added relevant emoji. In the first couple weeks of the experiment, our metrics shot through the roof. Users and ping opens were up significantly. WAUs [weekly active users] were up. It was tempting to announce that the future was here and it was emojis,” says Weiss. “Well, we monitored it over time and the growth slowed and then flatlined. In the end, the impact was neutral. That’s not bad, but it would have been if we allocated resources based off of initial results. It’s best to test in months rather than weeks with notifications.”
+通知具有强烈的新奇性倾向，这延迟了用户的真实反应。Weiss 曾发起了一个实验来测试用户对表情符号的反应。“我们将文本的长度减半，并添加了相关的表情符号。在实验的前两个星期，我们统计指标达到了顶峰。用户打开应用的操作明显。每周活跃用户数( WAUs )上升。它迷惑性地宣称未来是表情符号的。” Weiss 说，“随着时间的推移，我们继续监控它，增长放缓，然后变平。最后，影响是中性的。这并不是一件坏事，但如果我们基于初步结果就分配资源，那就会导致问题。因此最好花几个月时间而不是几个星期来测试推送通知。
 
-**Experiment with how, when and where.**
+**如何测试？何时测试？在哪测试？**
 
-The “why” and “who” behind push notifications is often more straightforward — the goal is to increase engagement among all users. However, there’s a diversity of thought on the way in which pings should be released. Through his career, Weiss has helped launch over 100 notification experiments — testing everything from time of day to triggering based on arriving back at home. [As with shipping software, there's no "right" way](http://firstround.com/review/the-right-way-to-ship-software/), but here he shares some non-negotiables:
+推送通知的“为什么”和“谁”是比较直接的 —— 目标是提升所有用户的参与。然而，在推送通知的方式上却有各种各样的想法。Weiss 在他的职业生涯中，帮助启动了 100 多个通知实验 —— 测试了从一天时间内到触发，到回到首屏。[与运输软件一样，没有“正确的方式”](http://firstround.com/review/the-right-way-to-ship-software/)，但在这里他分享一些无可争议的点：
 
-*   **Resort to vibration for only the most urgent of pings**. “With push, you can control the default of whether the phone vibrates or is silent. From all my user research, I’ve learned this is one of the most high-risk decisions. If a notification vibrates a user and she doesn’t find it urgent, the likelihood of the app being uninstalled immediately skyrockets,” says Weiss. “If it’s urgent — like you are about to miss your plane or an urgent, direct message from a coworker — a buzz can be a very powerful and appreciated tool. If not, it’s dangerous and will backfire, so don’t use it for events like favorites or likes from a friend. On average, people check their phone between 70 to 100 times a day, so they’re likely see your message anyway within the next 15 minutes.”
+* **只有最紧急的通知才需要开启振动。** “通过推送，你可以控制默认设置是手机振动还是静音。从我所有的用户研究中我发现这是最高风险的决策之一。如果一个通知振动了用户，她发现并不紧急，那么应用程序被卸载的可能性立即暴增。” Weiss 说，“如果它是紧急的 —— 就像你即将错过你的飞机或直接来自同事的紧急消息 —— 一个嗡嗡声可以是一个非常强大和值得称赞的工具。如果没有，这将会产生危险、发生意外，因此，对于从朋友那得到一个赞或者喜欢，不要使用振动。用户平均每天查看手机的时间为 70 到 100 次，他们很可能在接下来的15分钟内看到你的消息。”
 
-*   **Match users’ biorhythms**. “The timing of your ping matters, but there’s not one rule declaring the absolute best window. But take a moment to think about how to mirror the progression of your users’ days. Avoid sending notification when your user is asleep because you’ll wake them or they’ll find a queue of messages on top of yours in the morning,” says Weiss. “Consider the nature of your content, too. Sending news in the morning works well, as does sending content as they commute to or from work. Refine your cadence by monitoring their engagement.”
+*   **匹配用户的生物节律。** “推送的时间很重要，但没有一个规则来规定绝对最好的窗口时间。但请花一点时间思考下如何监控用户作息进度，避免在用户睡着时发送通知，因为这样你将吵醒他们，或者他们会在早上发现一堆来自你的应用的推送消息。” Weiss 说，“也要考虑你的内容的性质，在上午发送新闻效果不错，以及在上下班路上时发送通知也不错。通过监控用户的参与来提升你的策略。”
 
-*   **Use variety of personalization in your copy**. “It makes a huge difference. Inserting the user’s first name doesn’t count, like ‘Noah, here are your daily deals for Tuesday!’ Showcase what you know about your users in the ping copy — otherwise they’ll activate their natural filter against marketing blasts,” says Weiss. “Twitter has a good practice for users catching up on their timeline. The service prompts you to check out tweets from the last day from Evelyn, Marcos and Lydia. These are all people you follow, called out by name. Spotify does the same with new songs from artists you listen to frequently.”
+*   **在你的通知副本中使用各种个性化。** “它产生了巨大的差异。插入用户的名字不算在内，例如' Noah，这里是你星期二的每日交易！'在你的通知副本中显示你知道的有关用户的信息 —— 否则他们将激活他们天生的过滤器来应对爆炸营销。” Weiss 说到，“ 当用户查看他们的时间线时，Twitter 有一个好的做法，该服务提示你查看 Evelyn，Marcos 和Lydia 的最近一天的推文。这些都是你关注的、可以叫出名字的人。Spotify 对于你经常听的艺术家的新歌也一样处理。
 
-*   **Think of your ping as an Uber**. “Would you be happy if your Uber dropped you off on any block in Manhattan if you requested a specific one in the Lower East Side? Well, it seems obvious, but may startups forget to route their users to the screen in the app _exactly_ where the ping promised,” says Weiss. “People will click on the notifications if it gets them to where they were expecting. If not, they’ll ignore it the next time. A lot of e-commerce apps screw this up by sending customers to the generic home screen, rather than a specific item or page.”
+*   **像 Uber 一样思考你的推送。** “如果你的 Uber 在曼哈顿的任一个街区上放下了你，当你要求在下东区一个特定的街区下车，你会高兴吗？这很显然，但初创公司可能忘记将他们的用户指引到在通知中提示的**准确**界面上。” Weiss 说，“如果通知引导用户进到他们期望的界面，人们就会点击它。如果没有，他们下一次就会忽略它。许多电子商务应用通过将用户引导到通用界面而不是特定项目或页面来解决这个问题。
 
-> Magicians bring your card to the top of a deck. Apps with smart notifications will have this sleight of hand, lifting their service to the front of people’s phones at the right time.
+> 魔术师把你的卡带到甲板的顶部。拥有智能通知的应用将拥有更多的手法，在适当的时间将他们的服务呈现到人们的手机上。
 
-## The Future of Notifications
+## 通知的未来
 
-Smartphone and smartwatch screens will keep changing, but the real estate of home screens will always be finite regardless of the size. Given the ballooning number of apps kept on phones, this limitation is a constraint. Here is how he sees mobile operating systems evolving and food for thought on the future of notifications:
+智能手机和智能手表的屏幕不断变化，但主屏幕的实际空间始终是有限的，无论大小。考虑到手机上保存的应用程序数量激增，此限制是一个约束。以下是 Weiss 从移动操作系统的演变得到对未来通知的想法：
 
-**Make the lockscreen the new home screen**. The truth is that the only place people see more than their phone’s home screen is their lockscreen. “Your home screen houses the apps you want at your fingertips, limited to less than 20\. Your lockscreen lists your recent notifications from the hundreds of apps you have on your phone,” says Weiss. “I think that the lock screen is going to wind up replacing the home screen. There’ll be one home experience, which will have a stream of apps reaching out to you. Eventually ranking will matter more than just recency and frequency. The OS notifications will evolve from feeling like Twitter’s real-time, noisy stream to feeling like Facebook’s ranked feed.”
+**让锁屏成为新的主屏幕。** 事实上，人们看到的比手机主屏幕更多的唯一地方就是手机锁屏界面。“你的主屏幕上放置的你想要触手可及的应用，通常限制在不到 20 个。你的锁屏则列出了手机上的数百个应用最近的通知。” Weiss 说，“我认为锁屏将取代主屏幕，将会有一个全新的主屏体验，将应用以流的方式呈现给你。最终排名将不仅仅是取决于最近使用和使用频率。系统通知将感觉像 Twitter 的实时动态，嘈杂的信息流让人感觉像 Facebook 的热门动态。
 
-> You’ll always be able to navigate to an app, but notifications will be your steadfast sherpa.
+> 你可以随时切换到某个应用，但通知将是你坚定不移的 sherpa。
 
-[There's a natural phenomenon with the bundling and unbundling of apps](http://ben-evans.com/benedictevans/2014/8/1/app-unbundling-search-and-discovery), and Weiss sees a tide shift where the lockscreen will rebundle them once more. “Over the last three years, there’s been a gradual, giant unbundling in the app ecosystem. Apps have become more specialized for single purpose use cases,” says Weiss. “But as users amass dozens and dozens of apps, it’s increasingly hard to navigate to the right service at the right time. Notifications are apps signaling to people they have something timely and useful to offer. There will be a new navigation paradigm, where apps control — hopefully intelligently — when users are thinking about using them.”
+[应用绑定和解绑的自然现象](http://ben-evans.com/benedictevans/2014/8/1/app-unbundling-search-and-discovery)，Weiss 看到一个潮汐般的转变：锁屏将再次重新绑定它们。“在过去三年中，应用生态系统中出现了一个渐进的、巨大的分裂。应用程序已变得针对单一使用场景更加专业化。” Weiss 说，“但随着用户聚集了一堆应用，在正确的时间选择正确的服务变得越来越困难。通知给用户提供及时有用的信号。将会有一个新的导航范例，当用户正在考虑使用某些应用时，智能地控制这些应用。
 
-**Enrich contextual awareness**. If users increasingly interact with apps through a stream of pings sent to a lockscreen, it’ll be because they inherently trust that they’re being sent the most timely, relevant alerts. That only happens with a robust contextual awareness. “The sensors on your phone allow you to build a level of contextual awareness into your mobile services that you could never do on desktop or email. How do you take that awareness and translate it into really actionable timely relevant notifications?” asks Weiss. “That’s kind of the exciting new frontier. Imagine a service that can distinguish if someone stops at a specific business, whether it’s a café or an airport or a gym. The unique understanding of context creates a ton of new opportunities for sending relevant pings.”
+**丰富的上下文感知。** 如果用户越来越多地通过发送到锁屏界面的通知流来与应用交互，这将是因为他们确信他们被发送了最及时、最相关的警报。这只会发生在一个强大的的上下文感知中。“手机上的传感器使你能够在移动设备上建立一个感知上下文级别的服务，你永远不可能在桌面或电子邮件上进行这样的感知。你如何把这种感知翻译成真正可行的、及时的、相关的通知？”魏斯问，“这是一个令人振奋的新领域，想象一个服务，可以区分是否有人一个特定的场所停驻，无论是咖啡馆，机场还是健身房。对上下文的独特感知创造了大量发送相关推送通知的新机会。”
 
-> The best apps will be the ones you don’t have to remember to use. They’ll remind you. Soon that’ll be the only type of app.
+> 最好的应用将是那些你不必记住他们的应用，他们会主动提醒你。很快，这将是唯一的应用类型。
 
-“One of my favorite push notifications from Foursquare is for new and trending venues in a city. It can crosslist that with the places you’ve actually visited just based on where your phone has been,” says Weiss. “It'll send you a notification usually once a week which is ‘Hey, here are three places that are hot and trending in your city that you haven't tried yet.’ It's this magical moment when you realize you’ve just been walking around with the phone in your pocket, maybe you haven’t even used the app all week. You haven’t had to do a single bit of work. It not only pulls you back into the app, but it also delights you.”
+“我最喜欢 Foursquare 在一个城市新的或热门的场所的推送通知。根据你的手机的定位，它可以将你与实际访问的地方关联起来。” Weiss 说，“它给你一个通知，通常每周一次，'嘿，这里有三个城市热门地方，你还没有去过。’这是一个神奇的时刻，当你意识到你仅仅是带着口袋里的手机在周围走了走，也许你甚至整整一个星期都没使用过这个应用。你不需要做任何事，它就将你拉回这个应用，并给你惊喜。”
 
-A comprehensive approach to leveraging sensors on mobile can be challenging, but there are basic ways to get started. “While most developers cannot easily build this type of location understanding, it's fairly trivial to build a model for understanding when a person is at home or work based on background location. Those are two very rich contexts for triggering relevant pings," says Weiss.
+完整利用移动设备上的传感器具有挑战性，但可以从一些基本的方向开始。“虽然大多数开发人员无法简单地建立这种类型的位置解析，但是基于后台定位构建一个模型用来解析一个人在家还是在工作是很容易的。这是两个用来触发相关的推送非常丰富的上下文。” Weiss 说。
 
-## Bringing it All Together
+## 总结
 
-While notifications are great for boosting retention and engagement rates, don’t start off by looking at them as a growth hacking tool. They have the potential to be the most intuitive and intimate way to interact with your users. In order to build that trustworthy relationship, they must be timely, personal and actionable. A notification strategy must ask permission from users and be measured by their opt-outs, uninstalls and actions per 100 pings. The more that notifications can be customized actively via user input and passively through contextual awareness, the better.
+虽然通知可以提高留存率和互动率，但不要将其视为增长的黑客工具。他们有潜力成为与用户互动的最直观、最亲密的方式。为了建立这种可靠的关系，他们必须是及时的、个性化的、可操作的。通知策略必须请求用户的授权，并根据其停用、卸载和每100次通知点击次数来权衡。更好地方式是根据用户主动输入和被动地感知上下文来定制通知。
 
-“We are still in early days with mobile. Devices continue to shapeshift to have bigger screens, longer battery life or become wearable,” says Weiss. “Yet no matter how the hardware develops, notifications will be the most intimate feature of your mobile device. Like a close friend or family member, smart notifications remember your preferences and history. They’ll guide you the right direction, keep you connected with loved ones and remind you of what’s important at the best time. That’s about as powerful as technology gets.”
-
-_Photographs courtesy of Slack._
-
+“我们还在移动时代的早期。设备继续改版，将会拥有更大的屏幕，更长的电池寿命或者变成可穿戴的。” Weiss 说，“然而无论硬件如何发展，通知将是你的移动设备最亲密的功能。像亲密的朋友或家人一样，智能通知会记住你的偏好和历史。他们会准确地指引你，让你与亲人保持联系，并在最合适的时间提醒你重要的事情。这将和技术一样强大。”
