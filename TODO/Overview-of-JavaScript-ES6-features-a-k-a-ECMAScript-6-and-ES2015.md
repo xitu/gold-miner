@@ -1,94 +1,93 @@
 > * 原文地址：[Overview of JavaScript ES6 features (a.k.a ECMAScript 6 and ES2015+)](http://adrianmejia.com/blog/2016/10/19/Overview-of-JavaScript-ES6-features-a-k-a-ECMAScript-6-and-ES2015/)
 * 原文作者：[Adrian Mejia](http://adrianmejia.com/#about)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[L9m](https://github.com/L9m)
 * 校对者：
 
-# Overview of JavaScript ES6 features (a.k.a ECMAScript 6 and ES2015+)
+# JavaScript ES6 核心功能一览
 
+JavaScript 在过去几年里发生了很大的变化。这里介绍 12 个你马上就能用的新特性。
 
-JavaScript has changed quite a bit in the last years. These are 12 new features that you can start using today!
+# JavaScript 历史
 
-# JavaScript History[](#JavaScript-History "JavaScript History")
+新增这些特性后的语言被称作 ECMAScipt 6 。也称为 ES6 或 ES2015+ 。
 
-The new additions to the language are called ECMAScript 6\. It is also referred as ES6 or ES2015+.
+自从 1995 年 JavaScript 诞生以来，它一直在缓慢地发展。每隔几年就会增加一些新内容。1997 年，ECMAScript 成为 JavaScript 语言实现的规范。它已经有了好几个版本，比如 ES3 , ES5 , ES6 等等。
 
-Since JavaScript conception on 1995, it has been evolving slowly. New additions happened every few years. ECMAScript came to be in 1997 to guide the path of JavaScript. It has been releasing versions such as ES3, ES5, ES6 and so on.
+![](http://adrianmejia.com/images/history-javascript-evolution-es6.png "JavaScript 发展史")
 
-![](http://adrianmejia.com/images/history-javascript-evolution-es6.png "History of JavaScript Evolution")
+如你所见，ES3，ES5 和 ES6 之间分别存在着 10 年和 6 年的间隔。ES6 那样每次进行大幅修改被逐年渐进式增加的新模式所替代。
 
-As you can see, there are gaps of 10 and 6 years between the ES3, ES5, and ES6\. The new model is to make small incremental changes every year. Instead of doing massive changes at once like happened with ES6.
+# 浏览器支持[](#Browsers-Support "浏览器支持")
 
-# Browsers Support[](#Browsers-Support "Browsers Support")
-
-All modern browser and environments support ES6 already!
+所有现代浏览器和环境都已支持 ES6.
 
 ![](http://adrianmejia.com/images/es6-javascript-support.png "ES6 Support")
 
-source: [https://kangax.github.io/compat-table/es6/](https://kangax.github.io/compat-table/es6/)
+来源: [https://kangax.github.io/compat-table/es6/](https://kangax.github.io/compat-table/es6/)
 
-Chrome, MS Edge, Firefox, Safari, Node and many others have already built-in support for most of the features of JavaScript ES6\. So, everything that you are going to learn in this tutorial you can start using it right now.
+Chrome，MS Edge，Firefox，Safari，Node 和许多其他的环境都已内置支持大多数的 JavaScript ES6 特性。所以，在本教程中你学到的每个知识，你都可以马上开始应用。
 
-Let’s get started with ECMAScript 6!
+让我们开始学习 ECMAScript 6 吧！
 
-# Core ES6 Features[](#Core-ES6-Features "Core ES6 Features")
+# 核心 ES6 特性
 
-You can test all these code snippets on your browser console!
+你可以在浏览器的控制台中测试所有的代码片段。
 
 ![](http://adrianmejia.com/images/javascript-es6-classes-on-browser-console.png "Testing Javascript ES6 classes on browser console")
 
-So don’t take my word and test every ES5 and ES6 example. Let’s dig in 💪
+不要笃信我的话，而是要亲自去测试每一个 ES5 和 ES6 示例。让我们开始动手吧 💪
 
-## Block scope variables[](#Block-scope-variables "Block scope variables")
+## 变量的块级作用域
 
-With ES6, we went from declaring variables with `var` to use `let`/`const`.
+使用 ES6，声明变量我们可以用 `var` 也可以用 `let` 或 `const`。
 
-What was wrong with `var`?
+`var` 有什么不足？
 
-The issue with `var` is the variable leaks into other code block such as `for` loops or `if` blocks.
+使用 `var` 的问题是变量会漏入其他代码块中，诸如 `for` 循环或 `if` 。
 
 ```
 // ES5
 var x = 'outer';
 function test(inner) {
   if (inner) {
-    var x = 'inner'; // scope whole function
+    var x = 'inner'; // 作用于整个 function
     return x;
   }
-  return x; // gets redefined because line 4 declaration is hoisted
+  return x; // 因为第四行的声明提升，被重新定义
 }
 test(false); // undefined 😱
 test(true); // inner
 ```
 
-For `test(false)` you would expect to return `outer`, BUT NO, you get `undefined`.
+对于 `test(fasle)` ，你期望返回 `outer`，**但是没有**，返回的是 `undefined`。
 
-Why?
+为什么？
 
-Because even though the if-block is not executed, the expression `var x` in line 4 is hoisted.
+因为尽管没有执行 `if` 代码块，第四行中的表达式 `var x` 也会被提升。
 
-> var **hoisting**:
+> var**提升**:
 > 
-> *   `var` is function scoped. It is availble in the whole function even before being declared.
-> *   Declarations are Hoisted. So you can use a variable before it has been declared.
-> *   Initializations are NOT hoisted. If you are using `var` ALWAYS declare your variables at the top.
-> *   After applying the rules of hoisting we can understand better what’s happening:
+> *   `var` 是函数作用域。在整个函数中甚至是声明语句之前都是可用的。
+> *   声明被提升。所以你能在声明之前使用一个变量。
+> *   初始化是不被提升的。如果你使用 `var` 声明变量，请总是将它放在顶部。
+> *   在应用了声明提升规则之后，我们就能更好地理解发生了什么:
 >     
 >    
-			```
-			// ES5
-			var x = 'outer';
-			function test(inner) {
-				var x; // HOISTED DECLARATION
-				if (inner) {
-					x = 'inner'; // INITIALIZATION NOT HOISTED
-					return x;
-				}
-				return x;
-			}
-			```
+            ```
+            // ES5
+            var x = 'outer';
+            function test(inner) {
+                var x; // 声明提升
+                if (inner) {
+                    x = 'inner'; // 初始化不被提升
+                    return x;
+                }
+                return x;
+            }
+            ```
 
-ECMAScript 2015 comes to the rescue:
+ECMAScript 2015 找到了解决的办法：
 
 
 
@@ -100,24 +99,24 @@ function test(inner) {
     let x = 'inner';
     return x;
   }
-  return x; // gets result from line 1 as expected
+  return x; // 从第一行获取到预期结果
 }
 test(false); // outer
 test(true); // inner
 ```
 
-Changing `var` for `let` makes things work as expected. If the `if` block is not called the variable `x` doesn’t get hoisted out of the block.
+将 `var` 改为 `let`，代码将像期望的那样运行。如果 `if` 代码块没有被调用，`x` 变量也就不会在代码块外被提升。
 
-> Let **hoisting** and “temporal dead zone”
+> let **提升** 和“暂存死区（temporal dead zone）”
 > 
-> *   In ES6, `let` will hoist the variable to the top of the block (NOT at the top of function like ES5).
-> *   However, referencing the variable in the block before the variable declaration results in a `ReferenceError`.
-> *   `let` is blocked scoped. You cannot use it before it is declared.
-> *   “Temporal dead zone” is the zone from the start of the block until the variable is declared.
+> *   在 ES6 中，`let` 将变量提升到代码块的顶部（不是像 ES5 那样的函数顶部）。
+> *   然而，代码块中，在变量声明之前引用它会导致 `ReferenceError` 错误。
+> *   `let` 是块级作用域。你不能在它被声明之前引用它。
+> *   “暂存死区（Temporal dead zone）”是指从代码块开始直到变量被声明之间的区域。
 
 **IIFE**
 
-Let’s show an example before explaining IIFE. Take a look here:
+在解释 IIFE 之前让我们看一个例子。来看一下：
 
 ```
 // ES5
@@ -127,7 +126,7 @@ Let’s show an example before explaining IIFE. Take a look here:
 console.log(private); // 1
 ```
 
-As you can see, `private` leaks out. You need to use IIFE (immediately-invoked function expression) to contain it:
+如你所见，`private` 漏出(代码块)。你需要使用 IIFE（immediately-invoked function expression，立即执行函数表达式）来包含它：
 
 ```
 // ES5
@@ -137,9 +136,9 @@ As you can see, `private` leaks out. You need to use IIFE (immediately-invoked f
 console.log(private2); // Uncaught ReferenceError
 ```
 
-If you take a look at jQuery/lodash or other open source projects you will notice they have IIFE to avoid polluting the global environment and just defining on global such as `_`, `<div class="post-content  toc-content " or `jQuery`.
+如果你看一看 jQuery/loadsh 或其他开源项目，你会注意到他们用 IIFE 来避免污染全局环境而且只在全局中定义了诸如 `_`，`$`和`jQuery`。 
 
-On ES6 is much cleaner, We also don’t need to use IIFE anymore when we can just use blocks and `let`:
+在 ES6 上一目了然，我们能可以只用代码块和 `let`，也不再需要使用 IIFE了。
 
 ```
 // ES6
@@ -151,18 +150,18 @@ console.log(private3); // Uncaught ReferenceError
 
 **Const**
 
-You can also use `const` if you don’t want a variable to change at all.
+如果你想要一个变量保持不变（常量），你也可以使用 `const`。
 
 ![](http://adrianmejia.com/images/javascript-es6-const-variables-example.png "const variable example")
 
-> Bottom line: ditch `var` for `let` and `const`.
+> 总之：用 `let`，`const` 而不是 `var`
 > 
-> *   Use `const` for all your references; avoid using `var`.
-> *   If you must reassign references, use `let` instead of `const`.
+> *   对所有引用使用 `const`；避免使用 `var`。
+> *   如果你必须重新指定引用，用 `let` 替代 `const`。
 
-## Template Literals[](#Template-Literals "Template Literals")
+## 模板字面量
 
-We don’t have to do more nesting concatenations when we have template literals. Take a look:
+有了模板字面量，我们就不用做多余的嵌套拼接了。来看一下:
 
 ```
 // ES5
@@ -171,7 +170,7 @@ var last = 'Mejia';
 console.log('Your name is ' + first + ' ' + last + '.');
 ```
 
-Now you can use backtick (`) and string interpolation `${}`:
+现在你可以使用重音符 (\`) 和字符串插值 `${}`：
 
 ```
 // ES6
@@ -180,9 +179,9 @@ const last = 'Mejia';
 console.log(`Your name is ${first} ${last}.`);
 ```
 
-## Multi-line strings[](#Multi-line-strings "Multi-line strings")
+## 多行字符串
 
-We don’t have to concatenate strings + `\n` anymore like this:
+我们不再需要像这样在拼接字符串时添加 + `\n` 了:
 
 ```
 // ES5
@@ -197,7 +196,7 @@ var template = '<li *ngFor="let todo of todos" [ngClass]="{completed: todo.isDon
 console.log(template);
 ```
 
-On ES6 we can use the backtick again to solve this:
+在 ES6 上， 我们可以同样使用重音符来解决这个问题:
 
 ```
 // ES6
@@ -212,13 +211,13 @@ const template = `<li *ngFor="let todo of todos" [ngClass]="{completed: todo.isD
 console.log(template);
 ```
 
-Both pieces of code will have exactly the same result.
+两段代码的结果是完全一样的。
 
-## Destructuring Assignment[](#Destructuring-Assignment "Destructuring Assignment")
+## 解构赋值
 
-ES6 desctructing is very useful and consise. Follow this examples:
+ES6 的解构是非常有用和简洁的。如下例所示:
 
-**Getting elements from an arrays**
+**从数组中获取元素**
 
 
 ```
@@ -229,7 +228,7 @@ var third = array[2];
 console.log(first, third); // 1 3
 ```
 
-Same as:
+等同于:
 
 ```
 const array = [1, 2, 3, 4];
@@ -237,7 +236,7 @@ const [first, ,third] = array;
 console.log(first, third); // 1 3
 ```
 
-**Swapping values**
+**交换值**
 
 ```
 // ES5
@@ -249,7 +248,7 @@ b = tmp;
 console.log(a, b); // 2 1
 ```
 
-same as
+等同于:
 
 ```
 // ES6
@@ -259,7 +258,7 @@ let b = 2;
 console.log(a, b); // 2 1
 ```
 
-**Destructuring for multiple return values**
+**多个返回值的解构**
 
 ```
 // ES5
@@ -274,13 +273,13 @@ console.log(left, bottom); // 1 4
 ```
 
 
-In line 3, you could also return it in an array like this (and save some typing):
+在第 3 行中，你也可以用一个像这样的数组返回(而且省去了一些编码):
 
 ```
 return [left, right, top, bottom];
 ```
 
-but then, the caller needs to think about the order of return data.
+但另一方面，调用者需要考虑返回数据的顺序。
 
 ```
 var left = data[0];
@@ -288,7 +287,7 @@ var bottom = data[3];
 ```
 
 
-With ES6, the caller selects only the data they need (line 6):
+用 ES6，调用者只需选择他们需要的数据即可(第 6 行):
 
 ```
 // ES6
@@ -301,9 +300,9 @@ const { left, bottom } = margin();
 console.log(left, bottom); // 1 4
 ```
 
-_Notice:_ Line 3, we have some other ES6 features going on. We can compact `{ left: left }` to just `{ left }`. Look how much concise it is compare to the ES5 version. Isn’t that cool?
+*注意:* 在第 3 行中，我们使用了一些其他的 ES6 特性。我们将 `{ left: left }` 简化到只有 `{ left }`。与 ES5 版本相比，它变得如此简洁。酷不酷？
 
-**Destructuring for parameters matching**
+**参数匹配的解构**
 
 
 ```
@@ -317,7 +316,7 @@ function getFullName(user) {
 console.log(getFullName(user)); // Adrian Mejia
 ```
 
-Same as (but more concise):
+等同于(但更简洁):
 
 ```
 // ES6
@@ -328,7 +327,7 @@ function getFullName({ firstName, lastName }) {
 console.log(getFullName(user)); // Adrian Mejia
 ```
 
-**Deep Matching**
+**深度匹配**
 
 ```
 // ES5
@@ -341,7 +340,7 @@ var keyboardLayout = tmp.keyboard.layout;
 console.log(displayColor, keyboardLayout); // red querty
 ```
 
-Same as (but more concise):
+等同于(但更简洁):
 
 ```
 // ES6
@@ -352,23 +351,23 @@ const { display: { color: displayColor }, keyboard: { layout: keyboardLayout }} 
 console.log(displayColor, keyboardLayout); // red querty
 ```
 
-This is also called object destructing.
+这也称作对象的解构。
 
-As you can see, destructing is very useful and encourages good coding styles.
 
-> Best practices:
+如你所见，解构是非常实用的而且有利于促进良好的编码风格。
+
+> 最佳实践:
 > 
-> *   Use array destructing to get elements out or swap variables. It saves you from creating temporary references.
-> *   Don’t use array destructuring for multiple return values, instead use object destructuring
+> *   使用数组解构去获取元素或交换值。它可以避免创建临时引用。
+> *   不要对多个返回值使用数组解构，而是要用对象解构。
 
-## Classes and Objects[](#Classes-and-Objects "Classes and Objects")
+## 类和对象
 
-With ECMAScript 6, We went from “constructor functions” 🔨 to “classes” 🍸.
+用 ECMAScript 6，我们从“构造函数”🔨 来到了“类”🍸。
 
-> In JavaScript every single object has a prototype, which is another object. All JavaScript objects inherit their methods and properties from their prototype.
+> 在 JavaScript 中，每个对象都有一个原型对象。所有的 JavaScript 对象都从它们的原型对象那里继承方法和属性。
 
-In ES5, we did Object Oriented programming (OOP) using constructor functions to create objects as follows:
-
+在 ES5 中，为了实现面向对象编程(OOP)，我们使用构造函数来创建对象，如下:
 ```
 // ES5
 var Animal = (function () {
@@ -384,7 +383,7 @@ var animal = new Animal('animal');
 animal.speak(); // animal makes a noise.
 ```
 
-In ES6, we have some syntax sugar. We can do the same with less boiler plate and new keywords such as `class` and `constructor`. Also, notice how clearly we define methods `constructor.prototype.speak = function ()` vs `speak()`:
+ES6 中有了一些语法糖。通过像 `class` 和 `constructor` 这样的关键字和减少样板代码，我们可以做到同样的事情。另外，要注意我们定义方法 `constructor.prototype.speak = function ()` 相对照 `speak()` 的清晰程度 :
 
 ```
 // ES6
@@ -400,18 +399,18 @@ const animal = new Animal('animal');
 animal.speak(); // animal makes a noise.
 ```
 
-As we saw, both styles (ES5/6) produces the same results behind the scenes and are used in the same way.
+正如你所见，两种式样(ES5/6)在幕后产生相同的结果而且用法一致。
 
-> Best practices:
+> 最佳实践:
 > 
-> *   Always use `class` syntax and avoid manipulating the `prototype` directly. Why? because it makes the code more concise and easier to understand.
-> *   Avoid having an empty constructor. Classes have a default constructor if one is not specified.
+> *   总是使用 `class` 语法并避免直接直接操纵 `prototype`。为什么？因为它让代码更加简洁和易于理解。
+> *   避免使用空的构造函数。如果没有指定，类有一个默认的构造函数。
 
-## Inheritance[](#Inheritance "Inheritance")
+## 继承
 
-Building on the previous `Animal` class. Let’s say we want to extend it and define a `Lion` class
+基于前面的 `Animal` 类。 让我们扩展它并定义一个 `Lion` 类。
 
-In ES5, It’s a little more involved with prototypal inheritance.
+在 ES5 中，它更多的与原型继承有关。
 
 ```
 // ES5
@@ -419,7 +418,7 @@ var Lion = (function () {
   function MyConstructor(name){
     Animal.call(this, name);
   }
-  // prototypal inheritance
+  // 原型继承
   MyConstructor.prototype = Object.create(Animal.prototype);
   MyConstructor.prototype.constructor = Animal;
   MyConstructor.prototype.speak = function speak() {
@@ -433,13 +432,13 @@ lion.speak(); // Simba makes a noise.
 // Simba roars.
 ```
 
-I won’t go over all details but notice:
+我不会重复所有的细节，但请注意:
 
-*   Line 3, we explicitly call `Animal` constructor with the parameters.
-*   Line 7-8, we assigned the `Lion` prototype to `Animal`‘s prototype.
-*   Line 11, we call the `speak` method from the parent class `Animal`.
+*   第 3 行中，我们添加参数显式调用了 `Animal` 构造函数。
+*   第 7-8 行，我们将 `Lion` 原型指派给 `Animal` 原型。
+*   第 11行中，我们调用了父类 `Animal` 的 `speak` 方法。
 
-In ES6, we have a new keywords `extends` and `super` ![superman shield](http://adrianmejia.com/images/superman_shield.svg).
+在 ES6 中，我们有了新关键词 `extends` 和 `super` <img src="http://adrianmejia.com/images/superman_shield.svg" width="25" height="25" alt="superman shield" style="display:inline-block;" data-pin-nopin="true">。
 
 ```
 // ES6
@@ -454,15 +453,15 @@ lion.speak(); // Simba makes a noise.
 // Simba roars.
 ```
 
-Looks how legible this ES6 code looks compared with ES5 and they do exactly the same. Win!
+虽然 ES6 和 ES5 的代码作用一致，但是 ES6 的代码显得更易读。更胜一筹!
 
-> Best practices:
+> 最佳实践:
 > 
-> *   Use the built-in way for inherintance with `extends`.
+> *   使用  `extends` 内置方法实现继承。
 
-## Native Promises[](#Native-Promises "Native Promises")
+## 原生 Promises
 
-We went from callback hell 👹 to promises 🙏
+从回调的地狱 👹 到 promises 🙏。
 
 ```
 // ES5
@@ -473,16 +472,16 @@ function printAfterTimeout(string, timeout, done){
 }
 printAfterTimeout('Hello ', 2e3, function(result){
   console.log(result);
-  // nested callback
+  // 嵌套回调
   printAfterTimeout(result + 'Reader', 2e3, function(result){
     console.log(result);
   });
 });
 ```
 
-We have one function that receives a callback to execute when is `done`. We have to execute it twice one after another. That’s why we called the 2nd time `printAfterTimeout` in the callback.
+我们有一个接收一个回调的函数，当 `done` 时执行。我们必须一个接一个地执行它两次。这也是为什么我们在回调中第二次调用  `printAfterTimeout` 的原因。
 
-This can get messy pretty quickly if you need a 3rd or 4th callback. Let’s see how we can do it with promises:
+如果你需要第 3 次或第 4 次回调，可能很快就会变得混乱。来看看我们用 promises 的写法:
 
 ```
 // ES6
@@ -501,39 +500,39 @@ printAfterTimeout('Hello ', 2e3).then((result) => {
 });
 ```
 
-As you can see, with promises we can use `then` to do something after another function is done. No more need to keep nesting functions.
+如你所见，使用 promises 我们能在函数完成后进行一些操作。不再需要嵌套函数。
 
-## Arrow functions[](#Arrow-functions "Arrow functions")
+## 箭头函数
 
-ES5 didn’t remove the function expressions but it added a new one called arrow functions.
+ES6 没有移除函数表达式，但是新增了一种，叫做箭头函数。
 
-In ES5, we have some issues with `this`:
+在 ES5 中，对于 `this` 我们有一些问题:
 
 ```
 // ES5
-var _this = this; // need to hold a reference
+var _this = this; // 保持一个引用
 $('.btn').click(function(event){
-  _this.sendData(); // reference outer this
+  _this.sendData(); // 引用的是外层的 this
 });
 $('.input').on('change',function(event){
-  this.sendData(); // reference outer this
-}.bind(this)); // bind to outer this
+  this.sendData(); // 引用的是外层的 this
+}.bind(this)); // 绑定到外层的 this
 ```
 
-You need to use a temporary `this` to reference inside a function or use `bind`. In ES6, you can use the arrow function!
+你需要使用一个临时的 `this` 在函数内部进行引用或用 `bind` 绑定。在 ES6 中，你可以用箭头函数。
 
 ```
 // ES6
-// this will reference the outer one
+// 引用的是外部的那个 this
 $('.btn').click((event) =>  this.sendData());
 // implicit returns
 const ids = [291, 288, 984];
 const messages = ids.map(value => `ID is ${value}`);
 ```
 
-## For…of[](#For…of "For…of")
+## For…of
 
-We went from `for` to `forEach` and then to `for...of`:
+从 `for` 到 `forEach` 再到 `for...of`:
 
 ```
 // ES5
@@ -549,8 +548,7 @@ array.forEach(function (element) {
 });
 ```
 
-The ES6 for…of also allow us to do iterations.
-
+ES6 的 for…of 同样可以实现迭代。
 ```
 // ES6
 // for ...of
@@ -560,9 +558,10 @@ for (const element of array) {
 }
 ```
 
-## Default parameters[](#Default-parameters "Default parameters")
+## 默认参数
 
-We went from checking if the variable was defined to assign a value to `default parameters`. Have you done something like this before?
+从检查一个变量是否被定义到重新指定一个值再到 `default parameters`。
+你以前写过类似这样的代码吗？
 
 ```
 // ES5
@@ -578,14 +577,14 @@ point(1) // 1 -1 true
 point() // 0 -1 true
 ```
 
-Probably yes, it’s a common pattern to check is the variable has a value or assign a default. Yet, notice there are some issues:
+可能有过，这是一种检查变量是否赋值的常见模式，不然则分配一个默认值。然而，这里有一些问题:
 
-*   Line 8, we pass `0, 0` and get `0, -1`
-*   Line 9, we pass `false` but get `true`.
+*   第 8 行中，我们传入 `0, 0` 返回了 `0, -1`。
+*  第 9 行中， 我们传入 `false` 但是返回了 `true`。
 
-If you have a boolean as a default parameter or set the value to zero, it doesn’t work. Do you know why??? I’ll tell you after the ES6 example ;)
+如果你传入一个布尔值作为默认参数或将值设置为 0，它不能正常起作用。你知道为什么吗？在讲完 ES6 示例后我会告诉你。
 
-With ES6, Now you can do better with less code!
+用 ES6, 现在你可以用更少的代码做到更好!
 
 ```
 // ES6
@@ -598,7 +597,8 @@ point(1) // 1 -1 true
 point() // 0 -1 true
 ```
 
-Notice line 5 and 6 we get the expected results. The ES5 example didn’t work. We have to check for `undefined` first since `false`, `null`, `undefined` and `0` are falsy values. We can get away with numbers:
+请注意第 5 行和第 6 行，我们得到了预期的结果。ES5 示例则无效。首先检查是否等于 `undefined`，因为 `false`，`null`，`undefined` 和 `0` 都是假值，我们可以避开这些数字，
+
 
 ```
 // ES5
@@ -614,13 +614,13 @@ point(1) // 1 -1 true
 point() // 0 -1 true
 ```
 
-Now it works as expected when we check for `undefined`.
+当我们检查是否为 `undefined` 后，获得了期望的结果。
 
-## Rest parameters[](#Rest-parameters "Rest parameters")
+## 剩余参数
 
-We went from arguments to rest parameters and spread operator.
+从参数到剩余参数和扩展操作符。
 
-On ES5, it’s clumpsy to get an arbitrary number of arguments:
+在 ES5 中，获取任意数量的参数是非常麻烦的:
 
 
 ```
@@ -633,7 +633,7 @@ function printf(format) {
 printf('%s %d %.2f', 'adrian', 321, Math.PI);
 ```
 
-We can do the same using the rest operator `...`.
+我们可以用 rest 操作符 `...` 做到同样的事情。
 
 ```
 // ES6
@@ -645,15 +645,15 @@ function printf(format, ...params) {
 printf('%s %d %.2f', 'adrian', 321, Math.PI);
 ```
 
-## Spread operator[](#Spread-operator "Spread operator")
+## 展开运算符
 
-We went from `apply()` to the spread operator. Again we have `...` to the rescue:
+从 `apply()` 到展开运算符。我们同样用 `...` 来解决:
 
-> Reminder: we use `apply()` to convert an array into a list of arguments. For instance, `Math.max()` takes a list of parameters, but if we have an array we can use `apply` to make it work.
+> 提醒: 我们使用 `apply()` 将数组转换为一列参数。例如，`Math.max()` 作用于一列参数，但是如果我们有一个数组，我们就能用 `apply` 让它生效。
 
 ![](http://adrianmejia.com/images/javascript-math-apply-arrays.png "JavaScript Math apply for arrays")
 
-As we saw in earlier, we can use `apply` to pass arrays as list of arguments:
+正如我们较早之前看过的，我们可以使用 `apply` 将数组作为参数列表传递:
 
 
 ```
@@ -661,14 +661,14 @@ As we saw in earlier, we can use `apply` to pass arrays as list of arguments:
 Math.max.apply(Math, [2,100,1,6,43]) // 100
 ```
 
-In ES6, you can use the spread operator:
+在 ES6 中，你可以用展开运算符:
 
 ```
 // ES6
 Math.max(...[2,100,1,6,43]) // 100
 ```
 
-Also, we went from `concat` arrays to use spread operator:
+同样，从 `concat` 数组到使用展开运算符:
 
 
 ```
@@ -679,7 +679,7 @@ var array3 = [false, true, null, undefined];
 console.log(array1.concat(array2, array3));
 ```
 
-In ES6, you can flatten nested arrays using the spread operator:
+在 ES6 中，你可以用展开运算符来压平嵌套:
 
 ```
 // ES6
@@ -689,9 +689,9 @@ const array3 = [false, true, null, undefined];
 console.log([...array1, ...array2, ...array3]);
 ```
 
-# Conclusion[](#Conclusion "Conclusion")
+# 总结
 
-JavaScript has gone through a lot of changes. This article covers most of the core features that every JavaScript developer should know. Also, we cover some best practices to make your code more concise and easier to reason about.
+JavaScript 经历了相当多的修改。这篇文章涵盖了每个 JavaScript 开发者都应该了解的大多数核心特性。同样，我们也介绍了一些让你的代码更加简洁，易于理解的最佳实践。
 
-If you think there are some other MUST KNOW feature let me know in the comments below and I will update this article.
+如果你认为还有一些没有提到的**必知**的特性，请在下方留言，我会更新这篇文章。
 
