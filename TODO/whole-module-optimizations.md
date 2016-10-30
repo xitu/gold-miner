@@ -93,25 +93,26 @@ utils.swift:
 
 全模块优化的第二大好处是，编译器能够推出所有非公有（non-public）函数的使用。非公有函数仅能在模块中被使用，所以编译器确认了解这些函数的所有引用。那么编译器可以用这个信息做什么？
 
-One very basic optimization is the elimination of so called “dead” functions and methods. These are functions and methods which are never called or otherwise used. With whole-module optimizations the compiler knows if a non-public function or method is not used at all, and if that’s the case it can eliminate it. So why would a programmer write a function, which is not used at all? Well, this is not the most important use case for dead function elimination. Often functions become dead as a side-effect of other optimizations.
+一个非常基本的优化是消除所谓的「死」函数和方法。这些函数和方法是从未被调用和使用的。使用全模块优化，编译器知道一个非公有函数或方法是否根本没有被使用，如果是这种情况，那么编译器会除去它。为什么程序员会写一个从未被使用的函数？好吧，这不是死函数消除的最重要用例。常用函数变为死函数是其他优化的一个副作用。
 
-Let’s assume that the `add` function is the only place where `Container.getElement` is called. After inlining `getElement`, this function is not used anymore, so it can be removed. Even if the compiler decides to not inline `getElement`, the compiler can remove the original generic version of `getElement`, because the `add` function only calls the specialized version.
+我们假设 `add` 函数只在 `Container.getElement` 中被调用。在内联 `getElement` 之后，这个函数不在被使用，所以它可以被删除。即使编译器决定不内联 `getElement`，编译器也能删除原始 `getElement` 的泛型版本，因为 `add` 函数只调用特殊化的版本。
 
-### Compile time
+### 编译时间
 
-With single-file compilation the compiler driver starts the compilation for each file in a separate process, which can be done in parallel. Also, files which were not modified since the last compilation don’t need to be recompiled (assuming all dependencies are also unmodified). That’s called incremental compilation. All this saves a lot of compile time, especially if you only make a small change. How does this work in whole-module compilation? Let’s look at how the compiler works in whole-module optimization mode in more detail.
+单文件编译时，编译器驱动在不同的进程中开始编译每个文件，这能被并行地完成。此外，自从上次编译之后没有被修改的文件就不需要重新编译（假设所有依赖也没有修改）。这被称为增式编译。它节省了大量的编译时间，尤其是当你做了一个小改动的时候。在全模块编译中如何使这个成为可能？让我们来看看全模块优化模式更多的细节。
 
 ![whole-module compilation details](https://swift.org/assets/images/wmo-blog/wmo-detail.png)
 
-Internally the compiler runs in multiple phases: parser, type checking, SIL optimizations, LLVM backend.
+编译过程有多个阶段：分析程序，类型检查，SIL 优化，LLVM 后端。
 
-Parsing and type checking is very fast in most cases, and we expect it to get even faster in subsequent Swift releases. The SIL optimizer (SIL stands for “Swift Intermediate Language”) performs all the important Swift-specific optimizations, like generic specialization, function inlining, etc. This phase of the compiler typically takes about one third of the compilation time. Most of the compilation time is consumed by the LLVM backend which runs lower-level optimizations and does the code generation.
+大多数情况下，分析程序和类型检查是非常快的，并且我们希望它们在后续的 Swfit 发行版中变得更快。SIL 优化程序（SIL 代表 「Swift 中间语言」（Swift Intermediate Language））执行所有 Swfit 特定的重要优化，例如泛型特殊化，函数内联等等。编译器的这个阶段通常需要大约三分之一的编译时间。大多数的编译时间花费在 LLVM 后端，它执行更底层的优化和生成代码。
 
-After performing whole-module optimizations in the SIL optimizer the module is split again into multiple parts. The LLVM backend processes the split parts in multiple threads. It also avoids re-processing of a part if that part didn’t change since the previous build. So even with whole-module optimizations, the compiler is able to perform a big part of the compilation work in parallel (multi-threaded) and incrementally.
+执行全模块优化之后，在 SIL 优化程序中模块被分为多个部分。LLVM 后端使用多线程处理被分离的部分。如果这个部分自从上次构建以来未被修改，它也会避免重复处理。所以即使使用全模块优化，编译器也能够并行和增量地执行大型编译工作。
 
-### Conclusion
+### 结论
 
 Whole-module optimization is a great way to get maximum performance without having to worry about how to distribute Swift code across files in a module. If optimizations, like described above, kick in at a critical code section, performance can be up to five times better than with single-file compilation. And you get this high performance with much better compile times than typical to monolithic whole-program optimization approaches.
+全模块编译时一个不用担心如何分配模块中的 Swift 代码也能够得到极大的性能提升。如果优化像上面描述的一样，生效在关键的代码段中，性能能够比单文件编译提高 5 倍。并且相比于传统的庞大的全程序优化方法，你能够得到高快的编译时间。
 
 
 
