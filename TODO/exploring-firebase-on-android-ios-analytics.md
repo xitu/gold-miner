@@ -95,7 +95,7 @@
 
 ### `Firebase Analytics` 和 `Google Analytics` 有什么不同? 
 
-当我开始阅读有关 `Firebase Analytics` 的时候，潜意识里一下子让我想到，"我正在使用的 Google Analytics 是怎么建立的？"。所以，如果你已经在使用 `Google Analytics`，那为什么你想要改变到 `Firebase Analytics` 呢？ 好吧，他们两者当然有很多的不同:
+当我开始阅读有关 `Firebase Analytics` 的时候，潜意识里一下子让我想到，"那我已经设置好的 Google Analytics 怎么办？"。所以，如果你已经在使用 `Google Analytics`，那为什么你想要改变到 `Firebase Analytics` 呢？ 好吧，他们两者当然有很多的不同:
 
 **观察者**
 
@@ -119,7 +119,7 @@
 
 **不需要初始化单例**
 
-当在 `Android` 上创建 `Google Analytics` 的时候，我们被需要初始化一个单例。在我们需要追踪数据的地方，`Firebase Analytics` 可以方便的获得实例。当然这并不是什么大事，但是可以让建立过程更加简单。 
+当在 `Android` 上创建 `Google Analytics` 的时候，我们需要初始化一个单例。`Firebase Analytics` 可以在我们需要追踪数据的地方，方便地获得实例。当然这并不是什么大事，但是可以让建立过程更加简单。 
 
 **单独的控制台**
 
