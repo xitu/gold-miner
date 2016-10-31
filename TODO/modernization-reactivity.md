@@ -1,109 +1,109 @@
 > * 原文地址：[Modernization of Reactivity](https://davidwalsh.name/modernization-reactivity)
 * 原文作者：[ Kris Zyp](https://kriszyp.name/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
-* 校对者：
+* 译者：[Liz](http://lizwangying.github.io/)
+* 校对者：[llp0574](https://github.com/llp0574)，[luoyaqifei](https://github.com/luoyaqifei)
 
+# 与时俱进的 Reactivity
 
+近十年来，响应式编程的兴起给 JavaScript 带来了暴风雨式的进化改革，前端开发极大地从其简洁性中获益，用户界面随着数据变化实时响应，淘汰掉更新UI时大量易出错的代码。然而，在它变得更加流行的同时，已有的工具和技术并不总是跟上当代浏览器功能，比如 Web API、语言能力以及性能优化算法、可扩展能力、简化的语法和持续稳定性。在本文中，让我们以一个新库—— [Alkali](http://kriszyp.github.io/alkali/) 为背景，展示一些已有的新技术、方法和功能。
 
+接下来我们将要介绍的技术，包含了渲染队列、基于 pull 的细粒度响应，ES6 的响应式生成器和表达式，响应式原生 Web 组件，还有双向数据流。这些技术不仅仅只是一时兴起的编程方法，它们是采纳了已有的浏览器技术并结合深入的研究和开发的作用产物，造就了更佳的性能、更简洁的代码、与新组件更好的协调性以及更好的封装。
+[![](https://github.com/kriszyp/todomvc-perf-comparison/raw/master/sampleResults.png)](https://github.com/kriszyp/todomvc-perf-comparison/)   
+那么我们将看几个既简单又具有声明性的例子 （你也可以直接看看这个更完整的例子： [ Alkali todo-mvc application ](https://github.com/kriszyp/alkali-todo) ）。它们使用了标准的原生结构，还有或许能够用到的重要的特性：在资源消耗最低的基础上能够快速展示。这些前沿技术的确带来了可扩展的好处、高效率和可观的效益。在各种库层出不穷的情况下，最具有预见性和稳定性的库结构，就是直接架构在基于标准的浏览器元素（或组件） API 上的。
 
+## Push-Pull Reactivity （响应式 Push-Pull）
 
-Reactive programming has taken JavaScript by storm over the last decade, and for good reason; front-end development greatly benefits from the simplicity of writing user interface code that "reacts" to data changes, eliminating substantial error-prone imperative code tasked with updating UIs. However, while the popularity has increased, tools and techniques have not always kept up with modern browser functionality, web APIs, language capabilities, and optimal algorithms for performance, scalability, syntactic ease, and long-term stability. In this post, let's look at some of the newer technologies, techniques, and capabilities that are now available, and demonstrate these in the context of a new library, [Alkali](http://kriszyp.github.io/alkali/).
+扩展响应式编程的关键是数据流的架构。一种原生的响应式方法就是使用简单的观察者或者监听者模式，将每一次更新以判断流的形式，推送至每个对应的监听器中。这种快速响应会在任何多步状态发生更新的情况下，造成很多不必要的重复的中间判断，从而导致过度计算。一种更具扩展性的方法则是使用基于 pull 的方式，只在下游观察者（ Observable ）请求或者拉取最新值时（懒加载式）计算。订阅者（ Observer ）在被通知依赖数据的改动后，可以采用 de-bouncing 或者 queuing 的方式请求数据。
 
-The techniques we will look at include queued rendering, pull-based granular reactivity, reactive ES6 generators and expressions, reactive native web components, and reversible directional flow. These approaches are more than just fad-driven progamming, they are the result of adopted browser technologies and incremental research and development that produce better performance, cleaner code, inter-operability with future components, and improved encapsulation. [![](https://github.com/kriszyp/todomvc-perf-comparison/raw/master/sampleResults.png)](https://github.com/kriszyp/todomvc-perf-comparison/) Again, we will be looking at Alkali for examples of resulting simple succinct declarative style (you can jump ahead see the [Alkali todo-mvc application](https://github.com/kriszyp/alkali-todo) for a more complete example) with standard native element architecture and perhaps the most important feature we can build: fast performance with minimal resource consumption. These modern techniques really do yield substantial performance, efficiency, and scalability benefits. And with the constant churn of new libraries, the most prescient and stable architecture is building directly on the standards-based browser element/component API.
+基于 pull 的方法也可以结合缓存使用。一旦数据计算完成，结果就可以被缓存，然后上游发生改变发出通知，就会使下游缓存的数据失效，从而保证数据的实时性。这种基于 pull 的响应式缓存失效方案不但遵循和 REST 一样的设计架构以及网络的可扩展设计，而且也遵循现代浏览器渲染流程的架构。
 
-## Push-Pull Reactivitiy
+然而，当场景正在渐进式更新当前状态时，对于某些事件，更推荐使用『 推送 』方式，当逐步增加、删除、更新集合中的元素时，它是个非常有效的方法，并且与其他一起混合搭配使用会更好哦，比如：数据主要是从观察者处拉取的，但增量更新可以通过实时数据流作为优化被推送。
 
-A key to scaling reactive programming is the architectural flow of data. A naive approach to reactivity is to use a simple observable or listener pattern to push every update through a stream with every evaluation to every listener. This quickly can results in excessive computations in any type of multiple-step state update that leads to unnecessarily repeated intermediate evaluations. A more scalable approach is to use "pull"-based approach, where any computed data is calculated lazily when downstream observer requests or "pulls" the latest value. Observers can request data using de-bouncing or queuing after being notified that dependent data has changed.
+## Queued Rendering （渲染队列）
 
-A pull-based approach can also be used in conjunction with caching. As data is computed, results can be cached, and notifications of upstream changes can be used to invalidate downstream caches to ensure freshness. This cache and invalidation scheme of pull-based reactivity follows the same design architecture as REST, the scalable design of the web, as well as the architecture of modern browser rendering processes.
+想要通过基于响应式 Pull 在响应式的 app 中以提高应用效率，关键就是确保渲染的执行消耗最小。通常情况下，应用程序的多个部分可能都在更新状态，如果渲染是同步的，任何状态变化都立即执行，这很容易导致界面抖动，并且执行效率低。通过排队渲染我们可以确保即使多个状态发生变化，渲染依然是最小化的。
 
-There are, however, situations where it is preferable to have certain events be "pushed" where they incrementally update the current state. This is particularly useful for progressive updates to collection where items can be added, removed, or updated without propagating an entire collection state. The most broadly performant approach is a hybrid: data flow is primarily is pulled from the observer, but incremental updates can be pushed through live data flows as an optimization.
+排队行为或消除抖动是一种相对常见并且出名的技术。然而，对于优化排队渲染，浏览器实际上给通用的消除抖动方法提供了一个极好的替代。由于它的名字叫 `requestAnimationFrame` ，所以常被认为是动画相关的库，但实际上这个新的API在渲染队列状态改变方面表现的相当完美。它是宏观事件的 Task ，所以任何微小的 Task ，比如分辨率低的将被允许首先加载完成。考虑到最后的渲染，选项卡/浏览器的可见性，当前负载等等，它还允许浏览器来确定精确的最佳时机来渲染新的变化。它在可见的休眠状态下可以立即执行回调（通常是毫秒级），在适当的帧速率在顺序呈现的情况下，当一个页面/选项卡隐藏的时候甚至可以完全延迟（执行）。事实上，通过 `requestAnimationFrame` 渲染队列状态的改变，当视图需要更新时再渲染，我们实际上和那些当代浏览器使用的优化渲染流、精确时机以及序列/路径相同。这种方法确保了我们和浏览器以一种互补的方式去进行高效、及时的渲染，并避免了额外的布局和重绘。
 
-## Queued Rendering
-
-The key to leveraging pull-based reactive dependencies for efficiency in reactive applications is ensuring that rendering execution is minimized. Frequently, multiple parts of an application may update the state of the application, which can easily lead to thrashing and inefficiency if rendering is synchronously executed immediately on any state change. By queuing the rendering we can ensure that even when multiple state changes occur, rendering is minimized.
-
-Queuing actions or de-bouncing is a relatively common and well-known technique. However, for optimal queuing of rendering, browsers actually provide an excellent alternative to generic de-bouncing functions. Due to its name, `requestAnimationFrame` is often relegated to animation libraries, but this modern API is actually perfect for queuing up rendering of state changes. `requestAnimationFrame` is a macro event task, so any micro tasks, like promise resolutions will be allowed to complete first. It also allows browsers to determine precisely the best timing to render new changes, taking into consideration the last rendering, tab/browser visibility, current load, etc. The callback can be executed without delay (usually sub-millisecond) in resting visible state, at an appropriate frame rate in sequential rendering situations, and even completely deferred when a page/tab is hidden. In fact, by queuing state changes with `requestAnimationFrame`, and rendering them as needed for visual update, we are actually following the same optimized rendering flow, precise timing, and sequence/path that modern browsers themselves use. This approach ensures that we are working in a complementary way with browsers to render efficiently and timely, without incurring extra layouts or repaints.
-
-This can be thought of as a two-phrase rendering approach. The first phase is a response to event handlers where we update canonical data sources, which triggers the invalidation of an derived data or components that rely on that data. All invalidated UI components are queued for rendering. The second phase is the rendering phase where components retrieve their necessary data and render it.
+这可以被认为是两个阶段的渲染方法。第一阶段是对事件处理器的响应，我们更新规范化数据来源，进而使依赖这些数据的衍生数据或者组件失效。无效UI组件都是排队等候渲染。第二阶段是渲染阶段，检索必要的数据并渲染。
 
 ![](https://kriszyp.files.wordpress.com/2015/11/two-phase-rendering.png?w=780)
 
-Alkali leverages this rendered queuing through its [renderer objects](https://github.com/kriszyp/alkali#renderers), that connect reactive data inputs (called "variables" in alkali) to an element, and then queues all state changes for re-rendering through the `requestAnimationFrame` mechanism. This means any data bindings are connected to queued renderings. This can demonstrated by creating a reactive value with the `Variable` constructor, and connecting this to an element (here we create a ``). Let's look at some example code:
+Alkali 通过 [渲染器对象](https://github.com/kriszyp/alkali#renderers) 渲染队列，实时与响应式的数据输入和对应的元素相关联（在 alkali 中称为『变量』），然后通过 `requestAnimationFrame` 机制重新渲染队列状态。这意味着任意数据绑定都与渲染队列相连。这也可以通过实例化一个Variable对象，并将其与一个元素关联（这里我们创建一个greeting）来表明。示例代码如下：
 
     import { Variable, Div } from 'alkali'
 
-    // create a variable
+    // 创建一个变量
     var greeting = new Variable('Hello')
-    // create div with the contents connected to the variable
-    body.appendChild(new Div(greeting)) // note that this is a standard div element
-    // now updates to the variable will be reflected in the div
+    // 创建一个 div ，里面与变量相关联
+    body.appendChild(new Div(greeting)) // 注意，这是一个标准的 div 元素
+    // 现在变量的更新会实时相应到 div 中
     greeting.put('Hi')
-    // this rendering mechanism will be queue the update to the div
+    // 这里的渲染机制会在 div 中排队渲染
     greeting.put('Hi again')
 
-This connection will automatically update the div using the `requestAnimationFrame` mechanism anytime the state changes, and multiple updates will not cause multiple renderings, only the last state will be rendered.
+这里的 div 使用了 `requestAnimationFrame` 机制，将随时自动更新 div 的状态改变，并且多个更新不会导致多个渲染，只有最后一个状态将会被渲染。
 
-## Granular Reactivity
+## Granular Reactivity （细粒度的响应）
 
-Pure functional reactivity programming allows individual signals or variables to be used and propagated through a system. However, in the interest of maintaining the familiarity of imperative programming, diff-based reactive frameworks like ReactJS, that use a virtual DOM, have become very popular. These allow applications to be written in the same way we might write an application with imperative code. When any application state changes, components simply re-render, and once completed the component output is diffed with previous output to determine the changes. Rather than explicit data flows that generate specific changes to the rendered UI, diffing compares the output of re-execution with previous states.
+单纯的响应式编程允许单个信号或变量被使用及通过系统传递。然而，由于有利于维持大家对命令式编程的熟悉状态，一些基于 diff 的响应式框架也变得很受欢迎，如使用虚拟 DOM 的 ReactJS 。这些框架能够让大家继续采用命令式代码编写应用程序的方式编写程序。当应用程序任意的状态改变时，组件只是重新渲染，一旦完成了，则将组件的输出与先前的输出比较不同之处，来确定更改。与显式数据流产生一些特定明确的变化更新到渲染过的 UI 上不同的是， diff 是将重新执行的输出结果与先前的状态进行比较。
 
-While this can produce a very familiar and convenient paradigm for coding, it comes at a significant cost in terms of memory and performance. Diffing reactivity requires a full copy of rendered output and complex diffing algorithms to determine differences and mitigate excessive DOM rewriting. This virtual DOM typically requires 2 to 3 times the memory usage of a DOM alone, and the diffing algorithms add similar overhead compared to direct DOM changes.
+虽然使用这种开发很方便也能够产生我们熟悉的示范代码，但是它牺牲了巨大的内存和性能。响应式对比需要一个完整副本的渲染输出和复杂的对比算法来确定差异来减轻过度 DOM 重写。这个虚拟 DOM 通常需要2到3倍的内存使用和对比算法增加类似的开销相比才能直接确定 DOM 的改变。
 
-On the other hand, true functional reactive programming explicitly defines the "variables" or values that can change, and the continuous output of these values as they change. This does not require any additional overhead or diffing algorithms, as the output is directly specified by the relationships defined in the code.
+另一方面，真正的响应式编程显式地定义了可以改变的变量或值、以及它们变化时对它们的值的连续输出。这并不需要任何额外的开销或对比算法，因为输出是直接被代码里定义好的联系所指定的。
 
-Debuggability also benefits from granular functional reactive code flow. Debugging imperative programming involves recreating conditions and stepping through blocks of code, requiring complex reasoning to evaluate how state changes (and how it is going wrong). Functional reactive flows can be statically inspected, where we always have full visibility to the graph of individual dependent inputs that correspond to UI output, at any point in time.
+程序可调式性得益于细粒度的功能活性代码流。调试命令式编程涉及重构的条件和重建代码块的步骤，需要复杂的推理评估状态值得改变(以及它如何会是错误的)。函数式的响应流可以执行静态检查，在任何时候任何地方我们都可以看到完整的与 UI 输出相对应的各自的不独立的输入图。
 
-Again, using true functionally reactive programming techniques is not merely an esoteric or pedantic computer science endeavor, but an approach with meaningful and significant benefits to the scalability, speed, responsiveness, ease of debugging, and flow of your application.
+还有，使用真正的响应式编程技术不是一个深奥或用来卖弄学问的计算机科学技术，它其实在程序的可扩展性、提升速度、加快响应能力、便于调试应用程序流有着显著的好处。
 
-## Canonical and Reversible Data
+## Canonical and Reversible Data （双向数据流的规范） 
 
-The explicit flow of granular reactivity also makes it possible to reverse data flows to achieve two-way bindings, such that downstream data consumers, like input elements, can request upstream data changes without extra configuration, wiring, or imperative logic. This makes it extremely easy to build and bind the input controls in forms.
+在细粒度的 Reactivity 中甚至可以将明确的数据流的传递方向逆转，也就是达到双向绑定成为可能，这样下载流数据的消费者，如输入元素可以请求上传数据变化，不需要额外的配置连接或必要的逻辑。这使它非常容易与表单的输入控件建立绑定的形式。
 
-An important principle of reactivity is "single source of truth", where there is an explicit distinction between canonical data sources and derived data. The reactive data can be described as a directed graph of data. This is vital for coherent data management. Synchronizing multiple data states without a clear direction of source and derived data, makes data management confusing and leads to various statement management issues.
+响应式编程的一个重要原则是『来源的真实一致性』，有一个明确的规范来区别规范的数据来源和派生数据。响应式的数据可以称为一个的指向性的数据。这对数据管理是至关重要的。如果同步多个数据状态，并没有明确的来源和派生数据，会使数据管理混乱，导致多种声明管理问题。
 
-Single-directional flow with centralized data changes, associated with diffing reactivity, is one form of a proper directed graph of data. Unfortunately, single-directional flow ultimately means that data consumers must may be manually wired to source data, which typically violates the principle of locality and gradually degrades encapsulation, resulting in increasingly entangled state handling between otherwise separable and independent components, and more complicated form development.
+单向型的数据随着集中式的数据改变而改变，它与响应式的数据改变有联系，是一种适当有向型的图形数据。很不幸，单向型的数据流根本上意味着数据的消费者可能必须手动连接到数据源，也就是这是典型的违反了本地化原则还有逐步降低了封装性，这样导致越来越多的独立组件之间纠缠不清，使得开发愈加繁重。
 
-However, a directed graph with canonical source does not necessarily dictate data can only be communicated one way through the graph. With granular reactivity, we can support reversible flow. With reversibility, directionality can still be preserved by defining downstream data changes as a notification of a change that has already been occurred or initiated (in the past), while in contrast, an upstream data change is defined as a request for a change to be initiated (in the future, and revocable). A request for a change to derived data can still be made as long as it has a reverse transform to propagate the request to a source (reversible data traversals or transforms are often called a "lens" in functional terminology). The canonical data change still happens at the data source, even if initiated/requested by a downstream consumer. With this clear distinction of flow, the directed graph of canonical sources and derived data is still preserved, maintaining consistency in state, while still allowing encapsulation in interaction with individual data entities, regardless of whether or not they are derived. In practical terms, this simplifies developing user input and form management, and encourages encapsulation of input components.
+然而，一个有向的规范的数据并不必要只能命令数据改变通过图形联系这一种方法。通过使用细粒度的 Reactivity ，就可以支持双向数据流。通过双向数据性，数据的导向性仍然可以被保留，只需在下游数据发生变更或新增时发出通知即可，而相比曾经，上游数据的变化被定义为数据改变发起的请求(在未来实现中，是可撤销的)。衍生数据的改变请求依然可以实现，只要它含有反向转换传递请求原始资料（双向数据遍历或转换通常被称为一个 `lens` 的功能性术语）。规范化数据的变化仍然发生在数据源上，即使被下游数据消费者初始化过或者请求过。具有了这样的清晰的据流特性，有向型的规范数据和衍生数据都会被保留下来，维护状态的一致性，并同时允许封装的独立数据实体之间交互，不管它们是否是是衍生数据。实际上，这简化了开发用户的输入和表单的管理，还有助于输入组件的封装。
 
-## Modern DOM Extensions ("Web Components")
+## 与时俱进的 DOM 扩展 （『 Web 组件』） 
 
-Foresight is critical for the long-term development and maintainability, and this is challenging in the JavaScript ecosystem where numerous technologies are constantly emerging. What new framework will be exciting three years from now? If the past is any indicator, this is very difficult to predict. How do we develop with this type of churn? The most reliable approach is to minimize our reliance on library specific APIs, and maximize our reliance on standard browser APIs and architecture. And with the emerging component APIs and functionality (aka "web components") this is becoming much more feasible.
+学习编程要具有远见，代码的可维护性是至关重要的，你的代码要在 JavaScript 的生态系统中随着众多新技术的不断涌现还能够做到可维护，这是极具挑战性的。三年后哪家新框架能够闪耀夺目？从过往的历史来看，这是很难预测的。在这种杂乱的情况下我们怎么发展？最可靠的方法是减少依赖特定 API 库，并最大化我们的依赖标准浏览器 API 和架构。使用新兴组件 API 和功能（就是『 Web 组件』）才更加可行。
 
-Well-defined reactive structures should not dictate a specific component architecture, and the flexibility to use native or third-party components maximizes possibilities for future development. However, while we can and should minimize coupling, some level of integration can be useful. In particular, being able to directly use variables as inputs or properties is certainly more convenient than having to create bindings after the fact. And, integration with element/component life-cycle, and notification of when elements are removed or detached, can facilitate automatic cleanup of dependencies and listening mechanisms, to prevent memory leaks, minimize resource consumption, and simplify component usage.
+响应式结构的最佳定义不应该是规定一个特定的组件体系结构，应灵活地使用原生或第三方组件，这样才能在未来的发展中最大化地生存。然而，尽管我们极力降低耦合，某种程度的耦合可能是有用的。特别是当能够直接使用变量作为值或属性的输入，无疑是比创建数据绑定后再获的数据来的方便。与元素或组件生命周期的集成、当元素被删除或分离时通知，便于自动清理的依赖性和监听机制，为了防止内存泄漏，减少资源消耗，简化组件使用。
 
-Again, modern browsers have made this type of integration with native elements completely feasible. It is now possible to extend from existing HTML prototypes for real DOM-based custom classes, with reactive variable-aware constructors, and the `MutationObserver` interface (and potential future web component callbacks) give us the ability to monitor when elements are detached (and attached). The getter/setter functionality introduced in ES5 allows us to properly extend and reproduce native element style properties as well.
+此外，当今的浏览器使得 Web 组件集成与原生元素的集成完全可行。如今可以从现有的 HTML 原型上定义真正基于 dom 的定制类，通过响应式可勘测变量的构造函数，配合 `MutationObserver` 接口（和未来潜在的 Web 组件回调）让我们能够监控元素是什么时候分离的（或者附加上的）。ES5 的 getter / setter 同样很好地表明了允许我们适当地扩展和重定制原生元素的样式属性。
 
-Alkali defines a set of DOM constructors/classes with exactly this functionality. These classes are minimal extensions to native DOM classes with constructors with arguments that support variable inputs that drive properties, and automated cleanup of variables. In conjunction with lazy/pull-based reactivity, this means elements reactively display data while visible, and once detached, will no longer trigger any evaluations through its dependency of inputs. This results in an element creation and extension with automated self-cleanup of listeners. For example:
+Alkali 定义了一系列明确的 DOM 构造函数和类来支持这些功能。这些类是原生 DOM 类的最小扩展，它的构造函数参数支持输入变量控制属性，还支持变量自动清理。结合使用懒加载的或者基于响应式 Pull 的Reactivity，这意味着元素的数据改变动态可见，一旦数据分离，将不再触发任何通过其依赖的输入的判定。这就导致一个元素的创建和扩展会自动自己清除监听器。例如:
 
     let greetingDiv = new Div(greeting)
     body.appendChild(greetingDiv)
-    // a binding will be created that listens for changes to greeting
+    // greeting 的改变会自动创建一个绑定监听
     ...
     body.removeChild(greetingDiv)
-    // binding/listener of greeting will be cleaned up
+    // greeting的绑定/监听会被清理掉
 
-## Reactive Generators
+## Reactive Generators （响应式生成器）
 
-Not only do web APIs provide important improvements in our approach to reactivity, the ECMAScript language itself has exciting new features that can be used to improve syntax and ease of writing reactive code. One of the most powerful new features is generators, which provide an elegant and intuitive syntax for interactive code flow. Perhaps the biggest inconvenience of working with reactive data in JavaScript is the frequent need for callback functions for handling state changes. However, ECMAScript's new generator functions provides the ability to pause, resume, and restart a function such that the function can utilize reactive data inputs with standard sequential syntax, pausing and resuming for any asynchronous inputs. Generator controllers can also auto-subscribe to dependent inputs, and re-execute the function when inputs change. This control of function execution that is made possible by generators can be leveraged to yield (pun intended!) an intuitive and easy-to-follow syntax for complex combinations of variable inputs.
+不光是 Web API 在响应式编程方法中提供了重大的改进，ECMAScript 语言它本身就有着激动人心的新功能，它的语法的优化使得更容易编写响应式代码。其中一个强大的新特性是生成器（ generators ），它提供了一个优雅的和直观的代码流交互的语法。也许处理响应式数据的最大的不便就是 JavaScript 是经常需要回调函数来处理状态改变。然而，ECMAScript 新的生成器函数能够暂停，恢复，并重新启动一个函数，它可以应用响应式数据的输入通过标准的顺序语法，还可暂停和重新开始获取任何的异步输入。生成器的控制器还可以自动订阅依赖输入，当输入变化则重新执行该函数。这种控制函数的执行使得生成器能够利用收益成为可能（ leveraged to yield 双关语！下文中提到的函数 `yield` ），通过直观和浅显易懂的语法就能够控制复杂的变量组合输入。
 
-Generators have been anticipated for how they eliminate callbacks with promises, and enable an intuitive sequential syntax. But generators can be taken even further to not only pause and resume for asynchronous input, but restart when any input value changes. This can be accomplished by using the `yield` operator in front of any variable input, which allows the coordinating code to listen to the variable for changes, and return the current value of the variable to the `yield` expression when it is available.
+Generator 曾被赋予众望，希望能够像承诺中的那样淘汰掉 Callback 回调，并且支持直观的顺序语法。但是 Generator 不仅在暂停或者恢复一个异步输入方面发挥出色，还能够在任何输入值改变的时候立刻重启。这只需在任何输入变量的前面使用操作符 `yield` 就可轻松做到，它还允许相应的代码监听其变量的变化，并返回当前变量的值可获取时的表达式。
 
-Let's take a look at how this is accomplished. In Alkali, generator functions can be used as a transform for input variables, to create a reactive function that outputs a new composite variable with the `react`. The `react` function acts as a generator controller to handle reactive variables. Let's break down an example of this:
+让我们来看看这是如何完成的，在 Alkali 中，生成器函数可以作为输入变量的转换，想要使用 `react` 创建一个想响应式函数能够输出一个新的复合变量。 `react` 函数充当生成器的控制器来控制响应式变量。下面来看一个分步讲解举例：
 
     let a = new Variable(2)
     let aTimesTwo = react(function*() {
       return 2 * yield a
     })
 
-The `react` controller handles executing the provided generator. A generator function returns an iterator that is used to interact with the generator, and `react` starts the iterator. The generator will execute until it evaluates a `yield` operator. Here, the code will immediately encounter the `yield` operator, and return control to the `react` function with the value provided to the `yield` operator returned from the iterator. In this case, the `a` variable will be returned to the `react` function. This gives the `react` function the opportunity to do several things.
+`react` 控制器负责处理所提供的 Generator 的启动。一个 Generator 函数返回一个 iterator 用来交互， `react` 负责启动 iterator。当 Generator 计算到 `yield` 操作符出现时才会执行，这里代码会直接与 `yield` 操作符相遇，然后将 `yield` 操作符从 iterator 得到的返回值交给 `react` 函数处理。在这种情况下， `a ` 变量将被返回给 `react` 函数，这就使得 `react` 函数身兼多职有木有。
 
-First, it can subscribe or listen to the provided reactive variable (if it is one), so it can react to any changes by re-executing. Second, it can get the current state or value of the reactive variable, so it can return that back as the result of `yield` expression, when resuming. Finally, before returning control, `react` function can check if the reactive variable is asynchronous, holding a promise to value, and waiting for the promise to resolve before resuming execution, if necessary. Once the current state is retrieved, the generator function can be resumed with value of `2` returned from the `yield a` expression. If more `yield` expressions are encountered they will be sequentially resolved in the same way. In this case, the generator will then return a value of `4`, which will end the generator sequence (until `a` changes and it is re-executed).
+首先，它可以订阅或监听所提供的响应式变量（如果它是的话），所以它在任何改变发生时都能够通过重新执行的方式立即做出响应。第二，它可以得到当前状态或反应变量的值，当 resume 时它可以返回 `yield` 表达式的结果。最终返回前， `react` 函数可以检查这个响应式变量是否是异步的、是否持有约定值，如果必要还可等待约定值返回之后恢复执行函数。一旦拿到当前的状态，生成器函数就会恢复执行 `2 ` 的值，将它返回给 `yield a ` 表达式。如果有更多的 `yield` 表达式，它们会顺序执行，并以同样的方式解决。在这种情况下，生成器将返回一个 `4 ` ，然后结束生成器序列（直到 a 变化或重复执行）。
 
-With the alkali `react` function, this execution is encapsulated in another composite reactive variable, and any variable changes will not trigger re-execution until downstream data accesses or requests it.
+通过 `react` 函数，这个代码的执行被封装在另一个复合的响应式变量中，任何变量的变化不会触发重新执行操作，直到下游数据访问或请求它执行。
 
-Alkali generator functions can also be used directly in element constructors to define a rendering function that will automatically re-execute whenever an input value changes. In either case, we then use the `yield` in front of any variable. For example:
+Alkali 生成器函数还可以直接使用在元素构造函数中定义一个渲染功能，它在任何输入值发生变化时都会自动重新执行。在这两种情况下，我们在所有变量前面使用前面提到的 `yield`。 
 
     import { Div, Variable } from 'alkali'
     let a = new Variable(2)
@@ -114,48 +114,48 @@ Alkali generator functions can also be used directly in element constructors to 
       }
     })
 
-This creates a `` with a text content of `4` (the maximum of the two input values). We could update either variable, and it will re-execute:
+这创建了一个文本内容为4的textContent（两个输入的最大值），我们可以更新其中任一变量，它将重新执行。
 
     a.put(5)
 
-The `` would now be updated to have a content of `5`.
+`a` 现在的内容将被更新为 `5` .
 
-Generators are not universally available in all browsers (not in IE and Safari), but generators can be transpiled and emulated (with Babel or other tools).
+生成器还不是普遍兼容所有的浏览器（比如 IE 浏览器和 Safari 就不支持），但是生成器可以搭载或者在其他工具模拟下实现（比如 Babel 或其他工具）。
 
-### Properties and Proxies
+### Properties and Proxies （属性和代理）
 
-Reactively binding to properties of object is an important aspect of reactivity. But to encapsulate a property with notification of changes, requires more than just the current property value returned by standard property access. Consequently, reactive property bindings or variables can require verbose syntax.
+Reactivity 响应式地绑定到对象的属性上是很重要的一个方面。但是封装属性的更改通知，需要的不仅仅是当前的标准属性访问返回的值。因此，响应式地绑定属性或变量需要更详细的语法。
 
-However, another exciting new feature in ECMAScript is proxies, which allows us to define an object that can intercept all property access and modifications with custom functionality. This is powerful functionality, that can be used to return reactive property variables through ordinary property access, enabling convenient, idiomatic syntax with reactive objects.
+然而，ECMAScript另一个激动人心的新特性是代理，它允许我们定义一个对象用来拦截所有属性访问和修改自定义功能。这是很强大的特性，可用于通过普通属性访问返回 reactive 属性变量，更方便不说，reactive 对象也是使用惯用的语法。
 
-Unfortunately proxies are not so easily emulated through code compilers like Babel. Emulating proxies would require not only transpiling the proxy constructor itself, but any code that might access the proxy, so emulation without native language support would either be incomplete or unreasonably slow and bloated due to the massive transpilation required of every property access in an app. But more targeted transpilation of reactive code is possible. Let's look at that.
+不幸的是代理不像 Babel 那么容易通过代码编译器模拟。模拟代理不仅需要 transpiling 代理构造函数本身，还需要任何代码访问代理，所以模拟器没有了原生语言的支持是不完整的，它会执行莫名缓慢并且代码臃肿，由于需要大量的执行 transpiration ，过滤应用程序的每个属性。但更有针对性地执行 transpiration 也是可行的。让我们来看看。
 
-## Reactive Expressions
+## Reactive 表达式
 
-While the EcmaScript is constantly advancing, tools like Babel and its plugin capability, give us tremendous opportunities for creating new compiled language features. And while generators are awesome for creating a function with series of steps that can execute asynchronously and re-execute reactively, with a Babel plugin, code can be transformed to actually create fully reactive data flows, with property bindings, using ECMAScript syntax. This goes further than simply re-execution, but the output of expressions can be defined in relation to inputs such that reversible operators, reactive properties, and reactive assignments can be generated using simple, idiomatic expressions.
+ECMAScript不断推进的同时，Babel 及其插件等工具也在与时俱进，这给我们很大机会来创建新的编译语言特性。当生成器可以很酷炫地使用 Babel 插件创建一个函数去执行异步操作和响应式地立即执行的操作，使用 ECMAScript语法将属性绑定，代码可以转化为完全响应式的数据流。这就比简单的执行 re-execution 要复杂很多，比如表达式的输出与输入之间可定义一些操作，比如可逆操作符，响应式的属性，还有使用简单的惯用的表达式可以生成响应式的任务。
 
-[A separate project](https://github.com/kriszyp/babel-plugin-transform-alkali) houses an alkali-based babel plugin for transforming reactive expressions. With this we can write a normal expression as an argument to a `react` call/operator:
+这里有[一个独立的项目](https://github.com/kriszyp/babel-plugin-transform-alkali) ，它使用了基于 Alkali 的插件 Babel 转换响应式表达式。使用这个我们可以编写一个表达式用 `react` 作为参数调用/操作符：
 
     let aTimes2 = react(a * 2)
 
-This `aTimes2` will be bound to the multiplication of the input variable. If we change the value of `a` (using `a.put()`), `aTimes2` will auto-update. But because this is actually two-way binding through a well-defined operator, the data is reversible as well. We can assign a new value to `aTimes2` of `10`, then `a` will be updated to a value of `5`.
+这里的 `aTimes2` 的值与输入的变量 `a` 的乘法运算值相绑定。如果我们改变 `a` 的值（使用 `a.put()` 就可改变它的值），`aTimes2` 将会自动更新值。事实上由于我们使用了完美定制的 `react` 操作符，所以这个数据还是可逆的。我们可以为 `aTimes2` 指定一个新的值，比如 `10` ，那么 `a` 的值将自动更新为 `5`。
 
-As mentioned, proxies are nearly impossible to emulate across a whole code-base, but within our reactive expressions, it is very reasonable to compile property syntax to handle properties as reactive variables. Furthermore, other operators can be transpiled to reversible transformations of variables. For example, we could write complex combinations with fully reactive, language-level code:
+如上所述，代理模拟整个代码库几乎是不可能的，但是在我们响应式表达式中呢，响应式变量编译属性的语法去控制属性的就是洒洒水的小事啦。还有更厉害的，其他的操作符还可以将变量 transpile 成可逆的。例如，我们可以写复杂的纯响应式代码的组合:
 
     let obj, foo
     react(
-      obj = {foo: 10}, // we can create new reactive objects
-      foo = obj.foo, // get a reactive property
-      aTimes2 = foo // assign it to aTimes2 (binding to the expression above)
-      obj.foo = 20 // update the object (will reactively propagate through foo, aTimes2, and to a)
+      obj = {foo: 10}, //我们可以创建新的响应式对象
+      foo = obj.foo, //得到一个响应式对象的属性
+      aTimes2 = foo //将它赋值给 aTimes2 （绑定到上边的表达式中）
+      obj.foo = 20 //更新对象（就会响应式地将值通过 foo ， aTimes2 传递给 a ）
     )
     a.valueOf() // -> 10
 
-## Modernizing
+##技术要与时俱进
 
-Web development is an exciting world of constant change and progress. And reactivity is a powerful programming concept for sound architecture of advance applications. Reactivity can and should grow to use the latest new technologies and capabilities of the modern browser and its language and APIs. Together they can yield another step forward in web development. I am excited for the possibilities, and hope these ideas can advance the ways we can leverage the future with new tools.
+Web 开发一直是在不断变化和进步，它的每一次进步都激动人心。Reactivity 是当今应用程序中先进的编程理念，它随着新技术的发展和现代浏览器功能的不断进化，它的语言和 API 也在与时俱进。他们一起使用过可以使 Web 开发朝前迈进。对于未来的发展中的无限可能我是满满的激动，并希望这些想法能够实现，未来的新工具对于 Web 开发的改进我拭目以待。
 
-Alkali has been developed as our engineering team, at [Doctor Evidence](https://drevidence.com/), has been working to build interactive and responsive tools for exploring, querying, and analyzing large data sets of clinical medical studies. It has been a fascinating challenge to maintain a smooth and interactive UI with complex and vast data, and many of these approaches have been very useful for us, as we adopt newer browser technologies in developing our web software. If nothing else, hopefully Alkali can serve as an example to inspire more steps forward in web development.
+Alkali 已被我们的工程师团队使用， 在 [Doctor Evidence](https://drevidence.com/) 网站中我们用它开发的。我们一直在努力探索构建交互式和响应的工具，它在这个网站中负责查询和分析临床医学研究的大型数据集。这是一个有趣的挑战，要保证流畅的用户界面的同时还要处理复杂和庞大的数据，它其中的许多方法对我们很有用，我们采用新的浏览器技术开发我们的网络软件。没有别的，我们只是希望 Alkali 可以作为一个例子来激励 Web 开发更进一步。
 
 
 
