@@ -1,3 +1,7 @@
+* [UserNotifications Framework 入门介绍](http://gold.xitu.io/entry/5816a28f128fe10055912398?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Danny Lau](https://github.com/Danny1451) 翻译)
+* [Swift 声明式程序设计](http://gold.xitu.io/entry/58105d1e128fe1005feca8dc?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zheaoli](https://github.com/Zheaoli) 翻译)
+* [如何使用 UIFeedbackGenerator 让应用支持 iOS 10 的触觉反馈](http://gold.xitu.io/entry/5810433ac4c9710058a74100?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([owenlyn](https://github.com/owenlyn) 翻译)
+* [让 iOS 10 今日控件向后兼容的几个技巧](http://gold.xitu.io/entry/580eec1b8ac247005b620267?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Edison.Hsu](https://github.com/edison-hsu) 翻译)
 * [Swfit 代码的可测试性](http://gold.xitu.io/entry/58086fe52f301e005c27221f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([steinliber](https://github.com/steinliber) 翻译)
 * [iOS 10 中的 NSPersistentContainer](http://gold.xitu.io/entry/580444efa34131005fe77197?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([yifili09](https://github.com/yifili09) 翻译)
 * [Swift 中的面向协议编程是如何点亮我的人生的](http://gold.xitu.io/entry/58044fc5a22b9d005b4f56b2?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Danny Lau](https://github.com/Danny1451) 翻译)
