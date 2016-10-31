@@ -17,7 +17,7 @@
 
 
 
-从一开始， Android 就已经提供了通过它的 [Interpolator](https://developer.android.com/reference/android/view/animation/Interpolator.html) 实现来制作非线性动画对象的能力。事实上，默认的动画通常是[加速进入和减速退出运动](https://developer.android.com/reference/android/view/animation/AccelerateDecelerateInterpolator.html)中的一个。更加重要的是，Android 也为开发者提供了改变默认运动的能力，以此来提供其他类型的速度变化。举个例子，你可以使你的动画快速的开始然后减速退出。或者，慢慢的开始然后逐渐加速。自从  Lollipop 版本 (API 21)发布了以后，Android 又提供了[基于路径的定时曲线](https://developer.android.com/reference/android/view/animation/PathInterpolator.html)来完成更加复杂和灵活的控制。甚至于，如果你想要凸显你的奇特，你可以使用[线性 interpolation](https://developer.android.com/reference/android/view/animation/LinearInterpolator.html) (但是请不要这样做)。
+从一开始， Android 就已经提供了通过它的  [Interpolator](https://developer.android.com/reference/android/view/animation/Interpolator.html)  实现来制作非线性动画对象的能力。事实上，默认的动画通常是[加速进入和减速退出运动](https://developer.android.com/reference/android/view/animation/AccelerateDecelerateInterpolator.html)中的一个。更加重要的是，Android 也为开发者提供了改变默认运动的能力，以此来提供其他类型的速度变化。举个例子，你可以使你的动画快速的开始然后减速退出。或者，慢慢的开始然后逐渐加速。自从  Lollipop 版本 (API 21)发布了以后，Android 又提供了[基于路径的定时曲线](https://developer.android.com/reference/android/view/animation/PathInterpolator.html)来完成更加复杂和灵活的控制。甚至于，如果你想要凸显你的奇特，你可以使用[线性 interpolation](https://developer.android.com/reference/android/view/animation/LinearInterpolator.html) (但是请不要这样做)。
 
 
 
@@ -61,7 +61,7 @@
 
 
 
-InterpolatorPlayground, 在运转
+InterpolatorPlayground 实战
 
 
 介绍下[InterpolatorPlayground](https://github.com/google/android-ui-toolkit-demos/tree/master/Animations/InterpolatorPlayground),这是一个简单的 Android 应用，你可以使用它来选择几个标准 interpolator 中的一个，然后实验看看它们是如何影响一个动画的。你可以改变动画的持续时间以及 interpolator 的构造参数。通过给 UI 中各种对象添加 interpolation 动画，你可以使 interpolation 曲线和产生的影响可视化。最后，你可以为两个 PathInterpolator 选项（平方和立方）拖动控制点来看看如何使用这个具体的类创建非常个性和灵活的定时曲线。
