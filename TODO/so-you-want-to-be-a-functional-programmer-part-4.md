@@ -290,5 +290,5 @@
 
 _如果你喜欢这篇文章，点击下面的![💚](https://linmi.cc/wp-content/themes/bokeh/images/emoji/1f49a.png)，其他人就可以在这里看到了哦。_
 
-如果你想加入 Web 开发者学习社区并帮助其他人在 Elm 里用函数式编程开发 Web 应用，请看我的 Facebook Group，**_Learn Elm Programming_** [https://www.facebook.com/groups/learnelm/](https://www.facebook.com/groups/learnelm/)。
+如果你想加入 Web 开发者学习社区并帮助其他人在 Elm 里用函数式编程开发 Web 应用，请看我的 Facebook Group，**_学习 Elm 编程_** [https://www.facebook.com/groups/learnelm/](https://www.facebook.com/groups/learnelm/)。
 
