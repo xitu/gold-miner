@@ -15,13 +15,7 @@ But instead of just finding any solution, [P1xt](https://medium.com/u/bf42d244c8
 
 This is a breakdown of every function I tried and tested, including my tests and benchmark scripts. At the end, I’ll show the function that blew all of my own out of the water, and taught me a valuable lesson.
 
-
-
-
-
-
-
-
+![](https://media.giphy.com/media/qhY3EfioLSshO/giphy.gif)
 
 Adding testing to your code rarely hurts…Source: The Simpsons, via [Giphy](http://gph.is/1szb6yu)
 
@@ -151,16 +145,7 @@ If you run this with `node performance.js` you’ll see the following terminal o
 
 
 
-
-
-
-
-
-
-
-
-
-
+![](https://media.giphy.com/media/3oGRFKJ8Ea3hKkLRyE/200_s.gif)
 
 
 Now that’s fast! Source [Giphy](http://gph.is/1UXFu1x)
@@ -246,22 +231,9 @@ I rested on my laurels.
 
 ### Enter Maths
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+![](https://media.giphy.com/media/Tf4pP3z2EqowM/giphy.gif)
 
 Learn to love maths: Source [Giphy](http://gph.is/292GnFR) (Originally, [this music video](https://www.youtube.com/watch?v=vpOau9ZxQNY&t=116s))
-
 
 
 The week passed and the final solutions from everyone were posted, tested, and collated. The function that performed the fastest avoided loops altogether and used an algebraic formula to crunch the numbers:
