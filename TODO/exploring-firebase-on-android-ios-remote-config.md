@@ -1,4 +1,4 @@
-> * 原文地址：[Exploring Firebase on Android & iOS: Remote Config](https://medium.com/@hitherejoe/exploring-firebase-on-android-ios-remote-config-3e1407b088f6#.hb0blxber)
+t> * 原文地址：[Exploring Firebase on Android & iOS: Remote Config](https://medium.com/@hitherejoe/exploring-firebase-on-android-ios-remote-config-3e1407b088f6#.hb0blxber)
 * 原文作者：[Joe Birch](https://medium.com/@hitherejoe)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Jamweak](https://github.com/jamweak)
@@ -172,36 +172,29 @@
 
 现在我们设定了配置的默认值，然后就可以在应用内使用它们了。在远程配置类中，有 5 个可用方法能让我们使用来获取远程的配置值。当前我们只能够获取并存储以下方法返回的数据类型的值：
 
-*   [getBoolean()](https://firebase.google.com/docs/reference/android/com/google/firebase/remoteconfig/FirebaseRemoteConfig.html#getBoolean%28java.lang.String%29) — Allows us to retrieve **boolean** configuration values
+*   [getBoolean()](https://firebase.google.com/docs/reference/android/com/google/firebase/remoteconfig/FirebaseRemoteConfig.html#getBoolean%28java.lang.String%29) — 允许我们获取 **boolean** 类型的配置值
 
-    ```
-		boolean someBoolean =     
+    boolean someBoolean =     
                 firebaseRemoteConfig.getBoolean("some_boolean");
-		```
+   
 
-*   [getByteArray()](https://firebase.google.com/docs/reference/android/com/google/firebase/remoteconfig/FirebaseRemoteConfig.html#getByteArray%28java.lang.String%29) — Allows us to retrieve **byte[]** configuration values
+*   [getByteArray()](https://firebase.google.com/docs/reference/android/com/google/firebase/remoteconfig/FirebaseRemoteConfig.html#getByteArray%28java.lang.String%29) —允许我们获取 **byte[]** 类型的配置值
 
-    ```
-		byte[] someArray = firebaseRemoteConfig.getByteArray("some_array");
-		```
+    byte[] someArray = firebaseRemoteConfig.getByteArray("some_array");
+   
 
-*   [getDouble()](https://firebase.google.com/docs/reference/android/com/google/firebase/remoteconfig/FirebaseRemoteConfig.html#getDouble%28java.lang.String%29) — Allows us to retrieve **double** configuration values
+*   [getDouble()](https://firebase.google.com/docs/reference/android/com/google/firebase/remoteconfig/FirebaseRemoteConfig.html#getDouble%28java.lang.String%29) — 允许我们获取 **double** 类型的配置值
 
-    ```
-		double someDouble = firebaseRemoteConfig.getDouble("some_double");
-		```
+    double someDouble =  firebaseRemoteConfig.getDouble("some_double");
 
-*   [getLong()](https://firebase.google.com/docs/reference/android/com/google/firebase/remoteconfig/FirebaseRemoteConfig.html#getLong%28java.lang.String%29) — Allows us to retrieve **long** configuration values
+*   [getLong()](https://firebase.google.com/docs/reference/android/com/google/firebase/remoteconfig/FirebaseRemoteConfig.html#getLong%28java.lang.String%29) — 允许我们获取 **long** 类型的配置值
 
-    ```
-		long someLong = firebaseRemoteConfig.getLong("some_long");
-		```
+    long someLong = firebaseRemoteConfig.getLong("some_long");
+   
+*   [getString()](https://firebase.google.com/docs/reference/android/com/google/firebase/remoteconfig/FirebaseRemoteConfig.html#getString%28java.lang.String%29) — 允许我们获取 **String** 类型的配置值
 
-*   [getString()](https://firebase.google.com/docs/reference/android/com/google/firebase/remoteconfig/FirebaseRemoteConfig.html#getString%28java.lang.String%29) — Allows us to retrieve **String** configuration values
-
-    ```
-		String someText = firebaseRemoteConfig.getString("some_text");
-		```
+    String someText = firebaseRemoteConfig.getString("some_text");
+    
 
 #### 获取服务端的值
 
@@ -246,7 +239,7 @@
 
     pod install
 
-在这之后，你就可以打开工程中的 .xcworkspace 文件然后开始添加远程配置库的依赖。如果你是使用 objective-C 的话，可以这样写：
+在这之后，你就可以打开工程中的 .xcworkspace 文件然后开始添加远程配置库的依赖。如果你是使用 objective-C 的话，可以这样写：
 
     @import Firebase;
 
