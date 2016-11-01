@@ -2,7 +2,7 @@
 * 原文作者：[Erik Eckstein](https://github.com/eeckstein/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Edison Hsu](https://github.com/Edison-Hsu)
-* 校对者：
+* 校对者：[冯志浩](https://github.com/fengzhihao123) [王子建](https://github.com/Romeo0906)
 
 # Swift 3 语言中的全模块优化
 
