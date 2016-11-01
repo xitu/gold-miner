@@ -6,10 +6,7 @@
 
 # 5 things you can do with Yarn
 
-
-
-
-**TL;DR:** There are several package managers in the JavaScript land: **npm**, **bower**, **component**, and **volo**, to name a few. As of this writing, the most popular JavaScript package manager is **npm**. The npm client provides access to hundreds of thousands of code libraries in the npm registry. Just recently, Facebook launched a new package manager for JavaScript called **Yarn**, which claims to be faster, more reliable, and more secure than the existing npm client. In this article, you will learn five things you can do with Yarn.
+There are several package managers in the JavaScript land: **npm**, **bower**, **component**, and **volo**, to name a few. As of this writing, the most popular JavaScript package manager is **npm**. The npm client provides access to hundreds of thousands of code libraries in the npm registry. Just recently, Facebook launched a new package manager for JavaScript called **Yarn**, which claims to be faster, more reliable, and more secure than the existing npm client. In this article, you will learn five things you can do with Yarn.
 
 **Yarn** is a new package manager for JavaScript created by Facebook. It offers a fast, highly reliable, and secure dependency management for developers using JavaScript in their apps. Here are five things you can do with Yarn.
 
@@ -37,11 +34,11 @@ Yarn offers you the ability to install JavaScript packages from multiple registr
 
 By default, it scans the npm registry for your package as follows:
 
-    yarn add 
+    yarn add <pkg-name>
 
 Install a package from a remote gzipped tarball file as follows:
 
-    yarn add 
+    yarn add <https://thatproject.code/package.tgz>
 
 Install a package from your local file system as follows:
 
@@ -51,7 +48,7 @@ This is particularly helpful for developers who constantly publish JavaScript pa
 
 Install a package from a remote git repository like so:
 
-    yarn add 
+    yarn add <git remote-url>
 
 ![Yarn installs from a Github Repo](https://cdn.auth0.com/blog/blog/yarn-add-gitrepo.png) _Yarn installs from a Github repo_
 
