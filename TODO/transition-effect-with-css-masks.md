@@ -2,7 +2,7 @@
 * 原文作者：[Robin Delaporte](http://tympanus.net/codrops/author/robin/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[luoyaqifei](http://www.zengmingxia.com)
-* 校对者：
+* 校对者：[Graning](https://github.com/Graning), [hyuni](http://hyuni.cn/)
 
 # CSS 遮罩的过渡效果
 
@@ -40,7 +40,7 @@ _ 我们将走进本教程的第一个例子（演示1）。_
 
 ![CSS 遮罩过渡](http://codropspz.tympanus.netdna-cdn.com/codrops/wp-content/uploads/2016/09/time-300x230.jpg)
 
-为了移除白色部分，我们将采用 **Keying -> extract** 并将白点设为0。在以下的截图里，蓝色部分是我们的组合背景，视频的透明部分。
+为了移除白色部分，我们将采用 **Keying -> extract** 并将白点设为 0。在以下的截图里，蓝色部分是我们的组合背景，视频的透明部分。
 
 ![CSS 遮罩过渡](http://codropspz.tympanus.netdna-cdn.com/codrops/wp-content/uploads/2016/09/key.jpg)
 
@@ -149,7 +149,7 @@ _ 我们将走进本教程的第一个例子（演示1）。_
 
 我们定义了一个叫做 **hide** 的类，无论何时我们想隐藏一张幻灯页，我们就将这个类加在幻灯页上。这个类的定义中包括了我们用作遮罩的雪碧图。
 
-已知一帧占据了屏幕的 100% 且我们的动画包含23张图，我们需要将宽度设置成 23 * 100% = 2300%。
+已知一帧占据了屏幕的 100% 且我们的动画包含 23 张图，我们需要将宽度设置成 23 * 100% = 2300%。
 
 现在我们要使用 **steps** 来添加我们的 CSS 动画。我们想要我们的雪碧图在最后一帧的开头停住。因此，为了达到这个目的，我们需要数到 22 步，比总数少了一步。
 
