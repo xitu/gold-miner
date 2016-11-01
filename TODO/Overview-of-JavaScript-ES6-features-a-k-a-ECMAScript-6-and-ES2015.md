@@ -26,11 +26,11 @@ JavaScript 在过去几年里发生了很大的变化。这里介绍 12 个你�
 
 来源: [https://kangax.github.io/compat-table/es6/](https://kangax.github.io/compat-table/es6/)
 
-Chrome，MS Edge，Firefox，Safari，Node 和许多其他的环境都已内置支持大多数的 JavaScript ES6 特性。所以，在本教程中你学到的每个知识，你都可以马上开始应用。
+Chrome，MS Edge，Firefox，Safari，Node 和许多其他的环境都已内置支持大多数的 JavaScript ES6 功能。所以，在本教程中你学到的每个知识，你都可以马上开始应用。
 
 让我们开始学习 ECMAScript 6 吧！
 
-# 核心 ES6 特性
+# 核心 ES6 功能
 
 你可以在浏览器的控制台中测试所有下面的代码片段。
 
@@ -300,7 +300,7 @@ const { left, bottom } = margin();
 console.log(left, bottom); // 1 4
 ```
 
-*注意：* 在第 3 行中，我们使用了一些其他的 ES6 特性。我们将 `{ left: left }` 简化到只有 `{ left }`。与 ES5 版本相比，它变得如此简洁。酷不酷？
+*注意：* 在第 3 行中，我们使用了一些其他的 ES6 功能。我们将 `{ left: left }` 简化到只有 `{ left }`。与 ES5 版本相比，它变得如此简洁。酷不酷？
 
 **参数匹配的解构**
 
@@ -691,7 +691,7 @@ console.log([...array1, ...array2, ...array3]);
 
 # 总结
 
-JavaScript 经历了相当多的修改。这篇文章涵盖了每个 JavaScript 开发者都应该了解的大多数核心特性。同样，我们也介绍了一些让你的代码更加简洁，易于理解的最佳实践。
+JavaScript 经历了相当多的修改。这篇文章涵盖了每个 JavaScript 开发者都应该了解的大多数核心功能。同样，我们也介绍了一些让你的代码更加简洁，易于理解的最佳实践。
 
-如果你认为还有一些没有提到的**必知**的特性，请在下方留言，我会更新这篇文章。
+如果你认为还有一些没有提到的**必知**的功能，请在下方留言，我会更新这篇文章。
 
