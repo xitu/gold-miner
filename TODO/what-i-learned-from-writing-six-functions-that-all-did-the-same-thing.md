@@ -51,11 +51,14 @@ Adding testing to your code rarely hurts…Source: The Simpsons, via [Giphy](htt
 
 For problems like this, my brain defaults to: build an array, then do something to that array.
 
-
+对于这类问题，我的大脑直接闪现：创建一个数组，然后对这个数组进行操作。
 
 This function creates an array and pushes any numbers that meet our condition (divisible by 3 or 5) into it. It then loops through that array, adding all the values together.
 
+这个函数创建了一个数组，并且将符合条件（能够被 3 或者 5 整除）的数字压入数组，之后遍历得到所有单元的和。
+
 ### Setting up testing
+### 开始测试
 
 Here are the automated tests for this function, which use Mocha and Chai, running on NodeJS.
 
