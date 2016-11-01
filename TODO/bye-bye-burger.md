@@ -1,75 +1,76 @@
 > * 原文地址：[Bye, Bye Burger! What we learned from implementing the new Android Bottom Navigation](https://medium.com/startup-grind/bye-bye-burger-5bd963806015#.b1x3w6elg)
 * 原文作者：[Sebastian Lindemann](https://medium.com/@S_Lindemann)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者： [Xiaonan Shen](https://github.com/shenxn)
 * 校对者：
 
-# Bye, Bye Burger! What we learned from implementing the new Android Bottom Navigation
-I exactly remember what I was doing when the news broke on March 15 — we were knee deep in the concept phase for moving towards a visible tab navigation and away from a burger menu in our [Android Job Search App](https://play.google.com/store/apps/details?id=com.xing.mpr.cep&hl=de), when Google announced that a new bottom navigation will be added to the Android Material Design Guidelines. The news spread like wildfire through the Android community, including heated [debates](https://plus.google.com/+LukeWroblewski/posts/ZgNUpC72FVt) on the bottom bar’s visual appeal and functionality.
+# 再见，汉堡菜单，我们有了新的 Android 交互设计方案
+
+3 月 15 日谷歌宣布将底部导航栏添加到 Android Material Design 的指导手册中。这个新闻快速传遍了 Android 社区，并且引发了关于底部栏的视觉效果以及功能性的 [热烈争论](https://plus.google.com/+LukeWroblewski/posts/ZgNUpC72FVt)。我清楚地记得，当时我们深陷于将我们的 [Android 职位搜索应用](https://play.google.com/store/apps/details?id=com.xing.mpr.cep) 中的汉堡菜单抛弃，转而使用一种可见的标签式导航。
 
 
 
 ![](https://cdn-images-1.medium.com/max/600/1*DEsoBD74AHj4Z6U4zdnSpA.png)
 
-The Android Bottom Navigation. Source: [Material Design Guidelines](https://material.google.com/components/bottom-navigation.html#bottom-navigation-specs)
+Android 底部导航栏。来源：[Material Design Guidelines](https://material.google.com/components/bottom-navigation.html#bottom-navigation-specs)
 
 
 
-Like others, our enthusiasm was curbed at first. The thought of throwing away weeks of hard work for the new and unproven navigation that Google dropped in front of us felt intimidating. Still, we decided to pick up the ball and released a new version of our Android app recently, being one of the first to utilize the new navigation. Our journey brought along several insights and remarkable results which I want to share.
+一开始，与其他人一样，我们的热情被完全浇灭了。为了谷歌扔给我们的一个全新的，没有经过验证的导航方式而放弃我们几个月努力的成果听起来十分吓人。然而，我们还是决定在较短时间内为我们的 Android 应用发布一个新版本，并使之成为最先使用新导航栏的应用之一。
 
-Navigations and menus on mobile have always been a hot topic, especially since the introduction of the [hamburger menu](https://blog.placeit.net/history-of-the-hamburger-icon/) and the simultaneous rise of the smartphone as the leading information consumption device. The three-lined menu became the default navigation element in many major apps (e.g. Facebook, Spotify and Youtube) before quickly falling from grace due to its integral characteristic of hiding relevant destinations from the user’s eye. For iOS apps a new kind of visible navigation established with the [bottom tab bar](https://developer.apple.com/ios/human-interface-guidelines/ui-bars/tab-bars/), which quickly became the standard way for implementing a visible top-level navigation on Apple smartphones.
+移动设备上的导航栏和菜单一直都是一个热门话题，尤其是当 [汉堡菜单](https://blog.placeit.net/history-of-the-hamburger-icon/) 被引入，同时智能手机开始变成主要的信息消费设备之后。这种三条线的菜单变成了许多主要应用（如 Facebook、Spotify 以及 Youtube）的默认导航元素。但是因为这种导航方式将相关入口从用户视野中隐藏，使得其变得不那么优雅了。对于 iOS 应用来说，[底部标签栏](https://developer.apple.com/ios/human-interface-guidelines/ui-bars/tab-bars/) 作为一种全新的可视化导航栏，快速成为了苹果智能手机上实现一级导航栏的标准方式。
 
-Unfortunately, Android apps were missing a proper solution for a bottom navigation, leaving apps, such as ours, with a burger menu. To still make navigations visible without breaking the Material Design Guidelines (too much) app developers started using [tabs](https://material.google.com/components/tabs.html) at the top of the screen. While tabs work for simple apps, space problems occur when a second level of navigation needs to be added or there are more than 3 destinations. Considering mobile devices’ [“Thumb Zones”](http://blog.experts-exchange.com/ee-blog/smartphone-thumb-zone/) the top area can also be seen as ergonomically challenging to smartphone users especially compared to a navigation at the bottom.
+不幸的是，Android 应用缺少一种合适的底部导航栏解决方案，只给应用（比如我们的）提供了汉堡菜单。为了在不破坏 Material Design 指导手册的前提下使得导航栏依然可见，（太多的）应用开发者开始在屏幕顶部使用 [标签](https://material.google.com/components/tabs.html)。虽然标签在简单的应用上工作良好，但是当需要使用二级导航或者有三个以上入口的时候，就会出现空间不足的问题。考虑到移动设备的 [“拇指区域（Thumb Zones）”](http://blog.experts-exchange.com/ee-blog/smartphone-thumb-zone/)，顶部空间也被认为是对于智能手机用户来说难以点击的区域，尤其是与在底部的导航栏相比。
 
-With the introduction of the Material Design bottom navigation, Google recognized the challenges app developers were having, providing a way to get the top-level navigation out of the burger into users sight… which we gladly took advantage of.
+随着 Material Design 底部导航栏的引入，谷歌认识到了应用开发者所面临的挑战，并且给他们提供了一种解决方案来从用户的角度出发，实现一种脱离汉堡式的一级导航栏。这使得我们非常乐于使用它。
 
-After making the decision to go with the bottom navigation, we entered one of the most challenging parts on our journey — the design phase. Wandering through the muddy waters of specifications and animations we had to make some important UX & product decisions:
+在决定使用底部导航栏之后，我们进入了最具有挑战性的部分——设计阶段。在大量的规范和动画中，我们不得不做出了一些 UX 和产品的重要决定：
 
 
 
 ![](https://cdn-images-1.medium.com/max/600/1*2HlX9ZSSHnQ5llC_o8dOOA.gif)
 
-Our bottom navigation at work
+我们的底部导航栏
 
 
 
-*   **Hiding on scroll:** We wanted to provide as much content as possible on our user’s screens. Consequently, we decided to make the navigation hide on scroll, thus making more room for the content area. Scrolling up makes the navigation fade back in.
-*   **Shifting navigation :** The Material Design bottom bar comes with a very slick animation, which is referred to as the Shifting navigation — when navigating between destinations the selected section icon is enlarged, moving the unselected element to the back. Flipping through destinations on the nav bar thus feels a bit like browsing through a carousel. We decided to utilize this effect as it adds a playful note to switching sections, which we hoped would nudge our users into navigating to different areas in the app more often. Further, the animation plays a major part in our next point…
+*   **滚动时隐藏：** 我们希望在用户的屏幕上显示尽可能多的内容。因此，我们决定在向下滚动的时候隐藏导航栏，从而给内容区域提供更多的空间。而向上滚动可以使导航栏重新显现。
+*   **变换式导航栏：** Material Design 底部栏有一个非常平滑的动画，它参考了变换式导航栏——在不同目标间切换的时候，被选中的部分会被放大，同时未被选中的元素会被向后移动，从而在导航栏上浏览不同的目标就有点像在浏览一个旋转木马。我们决定要利用这种效果因为它使得切换导航目标变得更加有趣了。我们希望这可以推动我们的用户更多地在应用的不同功能组间切换。同时，该动画在我们的下一个观点中非常重要。
 
 
 
 ![](https://cdn-images-1.medium.com/max/600/1*uMnDyq7fTZ3KDu2BteuIxw.gif)
 
-Android’s Shifting Navigation. Source: [Material Design Guidelines](https://material.google.com/components/bottom-navigation.html#bottom-navigation-specs)
+Android 的变换式导航栏。来源：[Material Design Guidelines](https://material.google.com/components/bottom-navigation.html#bottom-navigation-specs)
 
 
 
-*   **Material Design look & feel:** We wanted the bottom navigation to feel as organic and native to the Android environment as possible. This meant doubling down on animation and visual design. Only by doing so we would be able to achieve a high acceptance with our Android user base — the last thing we wanted was users wondering if they are using a cheap clone of an iOS app when interacting with the navigation.
-*   **Saving state:** With a bottom bar the app needs to remember what a user did in a section, making the behavior very different to a burger menu. As the purpose of the visible section arrangement is to allow a fast and frequent switching between them, the click path in a section needs to be stored so that a user can go back to a task easily. In contrast, for apps with a burger navigation, the state is not stored and it’s a fresh start on the first view hierarchy level whenever a user comes back to a section. Depending on your application’s infrastructure, saving the state in a section can be a major technical challenge and I suggest talking with your development team about this early.
-*   **Compact number of sections:** We had the benefit of only having to switch a manageable number of sections from the burger menu to the bottom bar, which allowed us to go fast in the design and development phase. We still put a strong focus on making sure that only the most important destinations were presented to the user. This lead us to moving the settings section into an overflow menu on the top right instead of placing it next to important features such as search, bookmarks and recommendations. I recommend being as rigorous as possible when deciding about which functionality to place in the navigation. If you have an app with a lot of sections, a bottom bar will be a lot harder to implement and you might need to consider combining or rearranging things — something we luckily did not have to do.
-*   **Keeping it lean:** While it is important to know the full scope of where you want to go with your new navigation, it is equally important to not get lost in the details before verifying that the core concept works. Because of this the MVP of our bottom navigation did not include a lot of bells & whistles. While we would add those additions at a later point eventually, we first wanted to know if we were on the right track. We even went as far as releasing a first version of the new navigation without the ability to save the user’s state (see point above) to a small amount of users and only tackled subsequent tasks after we saw positive indications on our metrics with our testing cohort.
+*   **Material Design 的外观和感觉：** 我们希望这个底部导航栏尽可能地融入原生 Android 环境。这意味着在动画和视觉设计上投入更多。只有这样做我们才能够在我们的 Android 用户群中获得高接受度——我们最不希望看到的就是我们的用户在与导航栏交互时怀疑他们在使用从一个 iOS 简单拷贝过来的应用。
+*   **保存状态：** 使用底部导航栏的应用需要记住用户在每一个视图组都做了什么，这与汉堡菜单非常不同。因为可见的分组安排就是为了更快速和频繁的切换，所以每一个视图组的点击路径都应该被储存起来，这样用户就可以很方便地返回之前的任务。 相反的是，使用汉堡菜单的应用不会储存状态，当应用回到一个分组时，应用都会从视图的最高层级重新开始。基于你应用的基础结构，保存分组中的状态可能会成为一个巨大的技术难题，因此我建议尽早与你的开发团队讨论此事。
+*   **缩减分组的数量：** 当我们从汉堡菜单转换到底部导航栏的时候，我们只需要转换少量分区以便于管理，这样可以让我们更快完成设计和开发，同时也可以确保只有最重要的入口被展示给用户。这使得我们将设置的入口移动到了右上角的三点菜单中，而不是将它放在最重要的特性（如搜索，书签和推荐）旁边。我建议在确定将哪些功能放在导航栏中时应该尽量严格。如果你的应用有大量分组，底部栏可能会相对难以实现，并且你可能需要考虑将其中的一些合并或者重新排列。幸运的是，我们并不需要做这些。
+*   **保持精干** 虽然你需要搞清楚你在新导航栏中想实现哪些特性，但更重要的是，不要在验证核心想法正确与否之前过分沉迷于细节。因此，我们底部导航栏的最小可行产品并没有包含大量的额外修饰。当然，我们最终将会把这些附加物加入我们的产品中，我们只是希望在一开始就能确认我们做的是否正确。我们甚至向一小部分用户发布了一个无法保存用户状态（详见之前的观点）的版本。我们在测试样本中看到了积极的数据后，才开始处理后续任务。
 
-_Note that while Google’s_ [_Material Design Guidelines_](https://material.google.com/components/bottom-navigation.html) _might offer a thorough definition on how to use the new navigation there are still some important decisions to make yourself depending on your goals and how your product works._
+**需要注意的是，虽然谷歌的 [Material Design 指导手册](https://material.google.com/components/bottom-navigation.html) 可能为如何使用这种新导航栏提供了详尽的定义，你依然需要基于你自己的目标以及你应用的工作方式来做一些重要的决定。**
 
-We carefully rolled out the new navigation to our users using [Google Play’s staged rollout](https://support.google.com/googleplay/android-developer/answer/6346149?hl=en) functionality to make sure that the changes had the desired effect — fortunately, we quickly saw that they did:
+我们使用 [Google Play 分阶段发布](https://support.google.com/googleplay/android-developer/answer/6346149) 功能小心地铺开我们的新导航栏，以确保这个改变实现了我们预想的效果。幸运的是，我们很快确认了它确实：
 
-*   **Increasing user engagement:** Our users are more active, creating more pageviews than before (double digit growth in PVs/Monthly Active User). Further, our users come back more often, allowing the conclusion that the new navigation resonates with them, thus improving retention (near double digit growth in Visits/Monthly Active User).
-*   **Increasing visits into app sections:** Important app destinations, like bookmarks and job recommendations are now visible in the bottom nav and are seeing a strong increase in usage (double to tripple digit growth in users who enter the section). This uptick helps us in presenting our unique assets to our users thus also helping to improve the overall product experience.
-*   **No negative user feedback:** So far, neither through direct user feedback nor through app reviews, have we received complaints about the new navigation, underlining the positive adoption which can already be seen in the figures mentioned before.
+*   **增加了用户参与度：** 我们的用户变得更加积极，这使得我们的访问量显著增加了（PV 和 月活跃用户都有两位数的增长）。同时，我们的用户回访更加频繁了，这意味着新导航栏与用户形成了共鸣，从而提高了用户粘性（访客数量和月活用户都有接近两位数的增长）。
+*   **应用各功能组访客数量增长了：** 重要的应用功能，像书签以及工作推荐，现在都在底部栏中可见了，并且从数据中反映出其使用量大大增加（进入这些功能组的用户数量有两到三位数的增长）。这个增长帮助我们更好地向用户展示我们独特的优点，同时也提高了整个产品的体验。
+*   **无负面用户反馈** 到目前为止，无论是通过直接的用户反馈或者是通过应用评价，我们都没有收到过对于新导航栏的抱怨。而通过上述途径，我们可以看到很多正面的反馈。
 
 
 
 ![](https://cdn-images-1.medium.com/max/800/1*NArH9VWRmCHAd67OYR1hrw.png)
 
-Burger vs No Burger: A side-by-side comparison of our app before and after the navigation change
+汉堡菜单 vs 无汉堡菜单：我们应用在导航栏改变前后的对比
 
 
 
-Taking the leap of faith with the new Android bottom navigation paid off and we succeeded in our goal of improving our app experience and KPI performance. I would thus strongly advice exploring the opportunity of switching to a visible navigation, if your app is still relying on a burger navigation. Though, before doubling down on development it is important to establish a thorough understanding of the required design changes first to have a good understanding of the scope of work.
+我们从对新 Android 底部导航栏的冒险尝试中获得了回报，并且我们成功地达成了改善用户体验和 KPI 表现的目标。因此，如果你的应用还依赖于汉堡导航，我会强烈建议你去探索这个转换到可见导航栏的机会。当然，在开发上大量投入之前要先对需要改变的设计有一个初步的认识，从而对工作总量有一个更好地理解。
 
-You can check out the newest version of our app [here](https://play.google.com/store/apps/details?id=com.xing.mpr.cep&hl=de) with some further design tweaks coming to the bottom navigation soon. The app is targeted at the German job market so it might not have a full list of jobs for where you are. I am very happy about any questions and thoughts you might have and do look forward to your comments and DMs.
+你可以 [从这里](https://play.google.com/store/apps/details?id=com.xing.mpr.cep) 查看我们最新版本的永盈，最新版本中会有我们随后对底部导航栏的设计调整。这个应用是针对德国就业市场的，所以它可能不会有你所在地的完整职位列表。我欢迎任何的问题以及想法，并且期待你们的评论和邮件。
 
-Last but not least, I want to say THANKS! to our amazing team of designers and developers (like [Dema](https://twitter.com/demito29), [Miguel](https://twitter.com/miguel_eedl) and [Cristian](https://twitter.com/cmonfortep)) who made crafting and implementing the new navigation a joyful and exciting journey.
+最后但同样重要的是，我想要对我们超棒的设计和开发团队（像 [Dema](https://twitter.com/demito29)，[Miguel](https://twitter.com/miguel_eedl) 和 [Cristian](https://twitter.com/cmonfortep)）说谢谢！他们精巧地实现了这个新的导航方式，并使得整个实现过程令人愉悦并且兴奋。
 
 
 
@@ -88,6 +89,5 @@ Last but not least, I want to say THANKS! to our amazing team of designers and d
 
 
 [![](https://cdn-images-1.medium.com/max/400/1*B3UHAfn5Xm2QNIPW1sYJHA.jpeg)](https://twitter.com/startupgrind)
-
 
 
