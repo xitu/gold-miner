@@ -1,23 +1,35 @@
 > * 原文地址：[What I learned from writing six functions that all did the same thing](https://medium.freecodecamp.com/what-i-learned-from-writing-six-functions-that-all-did-the-same-thing-b38fd48f0d55#.tt79h3s25)
 * 原文作者：[Jackson Bates](https://medium.freecodecamp.com/@JacksonBates)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[Romeo0906](https://github.com/Romeo0906)
 * 校对者：
 
 # What I learned from writing six functions that all did the same thing
 
+# 在我写了六个功能相同的函数之后，我学到了什么
+
 
 A couple weeks ago, a camper started an unofficial algorithm competition on [Free Code Camp’s Forum](http://forum.freecodecamp.com/t/javascript-algorithm-challenge-october-9-through-16/44096?u=jacksonbates).
 
+几周之前，一个社区在 [Free Code Camp’s Forum](http://forum.freecodecamp.com/t/javascript-algorithm-challenge-october-9-through-16/44096?u=jacksonbates) 上发起了非官方的算法大赛。
+
 The challenge seemed simple enough: return the sum of all multiples of 3 or 5 that are below a number N, where N is an input parameter to the function.
+
+这个题目看似很简单：返回小于数字 N 的所有 3 或者 5 的倍数的和，N 是输入的参数。
 
 But instead of just finding any solution, [P1xt](https://medium.com/u/bf42d244c85)’s competition required you to focus on efficiency. It encouraged you to write your own tests, and to benchmark the performance of your solutions.
 
+但不是简单的找到解决办法，[P1xt](https://medium.com/u/bf42d244c85) 的竞赛要求参赛者把重点放在效率上，它鼓励你写出你自己的方法，同时还鼓励自我评估。
+
 This is a breakdown of every function I tried and tested, including my tests and benchmark scripts. At the end, I’ll show the function that blew all of my own out of the water, and taught me a valuable lesson.
+
+以下是我写出并测试过的每个函数的评估，包括我的测试和评估手稿。最后，我将展示最终的赢家，就是那个将我所有的作品杀的片甲不留然后狠狠地给我上了一课的函数。
 
 ![](https://media.giphy.com/media/qhY3EfioLSshO/giphy.gif)
 
 Adding testing to your code rarely hurts…Source: The Simpsons, via [Giphy](http://gph.is/1szb6yu)
+
+给自己的代码做测试，真的是超乎寻常地痛苦啊…… 来自：The Simpsons, 在这里 [Giphy](http://gph.is/1szb6yu)
 
 ### Function #1: Array, push, increment
 
@@ -38,6 +50,8 @@ Adding testing to your code rarely hurts…Source: The Simpsons, via [Giphy](htt
     module.exports = arrayPushAndIncrement; // this is necessary for testing
 
 For problems like this, my brain defaults to: build an array, then do something to that array.
+
+
 
 This function creates an array and pushes any numbers that meet our condition (divisible by 3 or 5) into it. It then loops through that array, adding all the values together.
 
