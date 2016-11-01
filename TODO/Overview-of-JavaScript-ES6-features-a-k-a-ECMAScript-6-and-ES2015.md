@@ -2,25 +2,25 @@
 * 原文作者：[Adrian Mejia](http://adrianmejia.com/#about)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[L9m](https://github.com/L9m)
-* 校对者：
+* 校对者：[Tina92](https://github.com/Tina92)，[luoyaqifei](https://github.com/luoyaqifei)，[theJian](https://github.com/theJian)
 
-# JavaScript ES6 核心功能一览
+# JavaScript ES6 核心功能一览（ES6 亦作 ECMAScript 6 或 ES2015+）
 
-JavaScript 在过去几年里发生了很大的变化。这里介绍 12 个你马上就能用的新特性。
+JavaScript 在过去几年里发生了很大的变化。这里介绍 12 个你马上就能用的新功能。
 
 # JavaScript 历史
 
-新增这些特性后的语言被称作 ECMAScipt 6 。也称为 ES6 或 ES2015+ 。
+新的语言规范被称作 ECMAScript 6。也称为 ES6 或 ES2015+ 。
 
 自从 1995 年 JavaScript 诞生以来，它一直在缓慢地发展。每隔几年就会增加一些新内容。1997 年，ECMAScript 成为 JavaScript 语言实现的规范。它已经有了好几个版本，比如 ES3 , ES5 , ES6 等等。
 
 ![](http://adrianmejia.com/images/history-javascript-evolution-es6.png "JavaScript 发展史")
 
-如你所见，ES3，ES5 和 ES6 之间分别存在着 10 年和 6 年的间隔。ES6 那样每次进行大幅修改被逐年渐进式增加的新模式所替代。
+如你所见，ES3，ES5 和 ES6 之间分别存在着 10 年和 6 年的间隔。像 ES6 那样一次进行大幅修改的模式被逐年渐进式的新模式所替代。
 
-# 浏览器支持[](#Browsers-Support "浏览器支持")
+# 浏览器支持
 
-所有现代浏览器和环境都已支持 ES6.
+所有现代浏览器和环境都已支持 ES6。
 
 ![](http://adrianmejia.com/images/es6-javascript-support.png "ES6 Support")
 
@@ -32,7 +32,7 @@ Chrome，MS Edge，Firefox，Safari，Node 和许多其他的环境都已内置�
 
 # 核心 ES6 特性
 
-你可以在浏览器的控制台中测试所有的代码片段。
+你可以在浏览器的控制台中测试所有下面的代码片段。
 
 ![](http://adrianmejia.com/images/javascript-es6-classes-on-browser-console.png "Testing Javascript ES6 classes on browser console")
 
@@ -40,11 +40,11 @@ Chrome，MS Edge，Firefox，Safari，Node 和许多其他的环境都已内置�
 
 ## 变量的块级作用域
 
-使用 ES6，声明变量我们可以用 `var` 也可以用 `let` 或 `const`。
+使用 ES6，声明变量我们可以用 `var` ，也可以用 `let` 或 `const`。
 
 `var` 有什么不足？
 
-使用 `var` 的问题是变量会漏入其他代码块中，诸如 `for` 循环或 `if` 。
+使用 `var` 的问题是变量会漏入其他代码块中，诸如 `for` 循环或 `if` 代码块。
 
 ```
 // ES5
@@ -60,18 +60,18 @@ test(false); // undefined 😱
 test(true); // inner
 ```
 
-对于 `test(fasle)` ，你期望返回 `outer`，**但是没有**，返回的是 `undefined`。
+对于 `test(fasle)` ，你期望返回 `outer`，**但是**，你得到的是 `undefined`。
 
 为什么？
 
 因为尽管没有执行 `if` 代码块，第四行中的表达式 `var x` 也会被提升。
 
-> var**提升**:
+> var **提升**：
 > 
 > *   `var` 是函数作用域。在整个函数中甚至是声明语句之前都是可用的。
 > *   声明被提升。所以你能在声明之前使用一个变量。
 > *   初始化是不被提升的。如果你使用 `var` 声明变量，请总是将它放在顶部。
-> *   在应用了声明提升规则之后，我们就能更好地理解发生了什么:
+> *   在应用了声明提升规则之后，我们就能更容易地理解发生了什么：
 >     
 >    
             ```
@@ -138,7 +138,7 @@ console.log(private2); // Uncaught ReferenceError
 
 如果你看一看 jQuery/loadsh 或其他开源项目，你会注意到他们用 IIFE 来避免污染全局环境而且只在全局中定义了诸如 `_`，`$`和`jQuery`。 
 
-在 ES6 上一目了然，我们能可以只用代码块和 `let`，也不再需要使用 IIFE了。
+在 ES6 上则一目了然，我们可以只用代码块和 `let`，也不再需要使用 IIFE了。
 
 ```
 // ES6
@@ -161,7 +161,7 @@ console.log(private3); // Uncaught ReferenceError
 
 ## 模板字面量
 
-有了模板字面量，我们就不用做多余的嵌套拼接了。来看一下:
+有了模板字面量，我们就不用做多余的嵌套拼接了。来看一下：
 
 ```
 // ES5
@@ -170,7 +170,7 @@ var last = 'Mejia';
 console.log('Your name is ' + first + ' ' + last + '.');
 ```
 
-现在你可以使用重音符 (\`) 和字符串插值 `${}`：
+现在你可以使用反引号 (\`) 和字符串插值 `${}`：
 
 ```
 // ES6
@@ -181,7 +181,7 @@ console.log(`Your name is ${first} ${last}.`);
 
 ## 多行字符串
 
-我们不再需要像这样在拼接字符串时添加 + `\n` 了:
+我们再也不需要添加 + `\n` 来拼接字符串了：
 
 ```
 // ES5
@@ -196,7 +196,7 @@ var template = '<li *ngFor="let todo of todos" [ngClass]="{completed: todo.isDon
 console.log(template);
 ```
 
-在 ES6 上， 我们可以同样使用重音符来解决这个问题:
+在 ES6 上， 我们可以同样使用反引号来解决这个问题：
 
 ```
 // ES6
@@ -215,7 +215,7 @@ console.log(template);
 
 ## 解构赋值
 
-ES6 的解构是非常有用和简洁的。如下例所示:
+ES6 的解构不仅实用而且很简洁。如下例所示：
 
 **从数组中获取元素**
 
@@ -228,7 +228,7 @@ var third = array[2];
 console.log(first, third); // 1 3
 ```
 
-等同于:
+等同于：
 
 ```
 const array = [1, 2, 3, 4];
@@ -248,7 +248,7 @@ b = tmp;
 console.log(a, b); // 2 1
 ```
 
-等同于:
+等同于：
 
 ```
 // ES6
@@ -273,7 +273,7 @@ console.log(left, bottom); // 1 4
 ```
 
 
-在第 3 行中，你也可以用一个像这样的数组返回(而且省去了一些编码):
+在第 3 行中，你也可以用一个像这样的数组返回（同时省去了一些编码）：
 
 ```
 return [left, right, top, bottom];
@@ -287,7 +287,7 @@ var bottom = data[3];
 ```
 
 
-用 ES6，调用者只需选择他们需要的数据即可(第 6 行):
+用 ES6，调用者只需选择他们需要的数据即可（第 6 行）：
 
 ```
 // ES6
@@ -300,7 +300,7 @@ const { left, bottom } = margin();
 console.log(left, bottom); // 1 4
 ```
 
-*注意:* 在第 3 行中，我们使用了一些其他的 ES6 特性。我们将 `{ left: left }` 简化到只有 `{ left }`。与 ES5 版本相比，它变得如此简洁。酷不酷？
+*注意：* 在第 3 行中，我们使用了一些其他的 ES6 特性。我们将 `{ left: left }` 简化到只有 `{ left }`。与 ES5 版本相比，它变得如此简洁。酷不酷？
 
 **参数匹配的解构**
 
@@ -316,7 +316,7 @@ function getFullName(user) {
 console.log(getFullName(user)); // Adrian Mejia
 ```
 
-等同于(但更简洁):
+等同于（但更简洁）：
 
 ```
 // ES6
@@ -340,7 +340,7 @@ var keyboardLayout = tmp.keyboard.layout;
 console.log(displayColor, keyboardLayout); // red querty
 ```
 
-等同于(但更简洁):
+等同于（但更简洁）：
 
 ```
 // ES6
@@ -367,7 +367,7 @@ console.log(displayColor, keyboardLayout); // red querty
 
 > 在 JavaScript 中，每个对象都有一个原型对象。所有的 JavaScript 对象都从它们的原型对象那里继承方法和属性。
 
-在 ES5 中，为了实现面向对象编程(OOP)，我们使用构造函数来创建对象，如下:
+在 ES5 中，为了实现面向对象编程（OOP），我们使用构造函数来创建对象，如下：
 ```
 // ES5
 var Animal = (function () {
@@ -383,7 +383,7 @@ var animal = new Animal('animal');
 animal.speak(); // animal makes a noise.
 ```
 
-ES6 中有了一些语法糖。通过像 `class` 和 `constructor` 这样的关键字和减少样板代码，我们可以做到同样的事情。另外，要注意我们定义方法 `constructor.prototype.speak = function ()` 相对照 `speak()` 的清晰程度 :
+ES6 中有了一些语法糖。通过像 `class` 和 `constructor` 这样的关键字和减少样板代码，我们可以做到同样的事情。另外，`speak()` 相对照 `constructor.prototype.speak = function ()`  更加清晰：
 
 ```
 // ES6
@@ -399,9 +399,9 @@ const animal = new Animal('animal');
 animal.speak(); // animal makes a noise.
 ```
 
-正如你所见，两种式样(ES5/6)在幕后产生相同的结果而且用法一致。
+正如你所见，两种式样（ES5 与 6）在幕后产生相同的结果而且用法一致。
 
-> 最佳实践:
+> 最佳实践：
 > 
 > *   总是使用 `class` 语法并避免直接直接操纵 `prototype`。为什么？因为它让代码更加简洁和易于理解。
 > *   避免使用空的构造函数。如果没有指定，类有一个默认的构造函数。
@@ -432,7 +432,7 @@ lion.speak(); // Simba makes a noise.
 // Simba roars.
 ```
 
-我不会重复所有的细节，但请注意:
+我不会重复所有的细节，但请注意：
 
 *   第 3 行中，我们添加参数显式调用了 `Animal` 构造函数。
 *   第 7-8 行，我们将 `Lion` 原型指派给 `Animal` 原型。
@@ -453,15 +453,15 @@ lion.speak(); // Simba makes a noise.
 // Simba roars.
 ```
 
-虽然 ES6 和 ES5 的代码作用一致，但是 ES6 的代码显得更易读。更胜一筹!
+虽然 ES6 和 ES5 的代码作用一致，但是 ES6 的代码显得更易读。更胜一筹！
 
-> 最佳实践:
+> 最佳实践：
 > 
 > *   使用  `extends` 内置方法实现继承。
 
 ## 原生 Promises
 
-从回调的地狱 👹 到 promises 🙏。
+从回调地狱 👹 到 promises 🙏。
 
 ```
 // ES5
@@ -481,7 +481,7 @@ printAfterTimeout('Hello ', 2e3, function(result){
 
 我们有一个接收一个回调的函数，当 `done` 时执行。我们必须一个接一个地执行它两次。这也是为什么我们在回调中第二次调用  `printAfterTimeout` 的原因。
 
-如果你需要第 3 次或第 4 次回调，可能很快就会变得混乱。来看看我们用 promises 的写法:
+如果你需要第 3 次或第 4 次回调，可能很快就会变得混乱。来看看我们用 promises 的写法：
 
 ```
 // ES6
@@ -506,7 +506,7 @@ printAfterTimeout('Hello ', 2e3).then((result) => {
 
 ES6 没有移除函数表达式，但是新增了一种，叫做箭头函数。
 
-在 ES5 中，对于 `this` 我们有一些问题:
+在 ES5 中，对于 `this` 我们有一些问题：
 
 ```
 // ES5
@@ -525,14 +525,14 @@ $('.input').on('change',function(event){
 // ES6
 // 引用的是外部的那个 this
 $('.btn').click((event) =>  this.sendData());
-// implicit returns
+// 隐式返回
 const ids = [291, 288, 984];
 const messages = ids.map(value => `ID is ${value}`);
 ```
 
 ## For…of
 
-从 `for` 到 `forEach` 再到 `for...of`:
+从 `for` 到 `forEach` 再到 `for...of`：
 
 ```
 // ES5
@@ -577,14 +577,14 @@ point(1) // 1 -1 true
 point() // 0 -1 true
 ```
 
-可能有过，这是一种检查变量是否赋值的常见模式，不然则分配一个默认值。然而，这里有一些问题:
+可能有过，这是一种检查变量是否赋值的常见模式，不然则分配一个默认值。然而，这里有一些问题：
 
-*   第 8 行中，我们传入 `0, 0` 返回了 `0, -1`。
+*  第 8 行中，我们传入 `0, 0` 返回了 `0, -1`。
 *  第 9 行中， 我们传入 `false` 但是返回了 `true`。
 
 如果你传入一个布尔值作为默认参数或将值设置为 0，它不能正常起作用。你知道为什么吗？在讲完 ES6 示例后我会告诉你。
 
-用 ES6, 现在你可以用更少的代码做到更好!
+用 ES6，现在你可以用更少的代码做到更好！
 
 ```
 // ES6
@@ -620,7 +620,7 @@ point() // 0 -1 true
 
 从参数到剩余参数和扩展操作符。
 
-在 ES5 中，获取任意数量的参数是非常麻烦的:
+在 ES5 中，获取任意数量的参数是非常麻烦的：
 
 
 ```
@@ -647,13 +647,13 @@ printf('%s %d %.2f', 'adrian', 321, Math.PI);
 
 ## 展开运算符
 
-从 `apply()` 到展开运算符。我们同样用 `...` 来解决:
+从 `apply()` 到展开运算符。我们同样用 `...` 来解决：
 
-> 提醒: 我们使用 `apply()` 将数组转换为一列参数。例如，`Math.max()` 作用于一列参数，但是如果我们有一个数组，我们就能用 `apply` 让它生效。
+> 提醒：我们使用 `apply()` 将数组转换为一列参数。例如，`Math.max()` 作用于一列参数，但是如果我们有一个数组，我们就能用 `apply` 让它生效。
 
 ![](http://adrianmejia.com/images/javascript-math-apply-arrays.png "JavaScript Math apply for arrays")
 
-正如我们较早之前看过的，我们可以使用 `apply` 将数组作为参数列表传递:
+正如我们较早之前看过的，我们可以使用 `apply` 将数组作为参数列表传递：
 
 
 ```
@@ -661,14 +661,14 @@ printf('%s %d %.2f', 'adrian', 321, Math.PI);
 Math.max.apply(Math, [2,100,1,6,43]) // 100
 ```
 
-在 ES6 中，你可以用展开运算符:
+在 ES6 中，你可以用展开运算符：
 
 ```
 // ES6
 Math.max(...[2,100,1,6,43]) // 100
 ```
 
-同样，从 `concat` 数组到使用展开运算符:
+同样，从 `concat` 数组到使用展开运算符：
 
 
 ```
@@ -679,7 +679,7 @@ var array3 = [false, true, null, undefined];
 console.log(array1.concat(array2, array3));
 ```
 
-在 ES6 中，你可以用展开运算符来压平嵌套:
+在 ES6 中，你可以用展开运算符来压平嵌套：
 
 ```
 // ES6
