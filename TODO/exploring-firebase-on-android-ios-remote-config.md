@@ -1,4 +1,4 @@
-t> * 原文地址：[Exploring Firebase on Android & iOS: Remote Config](https://medium.com/@hitherejoe/exploring-firebase-on-android-ios-remote-config-3e1407b088f6#.hb0blxber)
+> * 原文地址：[Exploring Firebase on Android & iOS: Remote Config](https://medium.com/@hitherejoe/exploring-firebase-on-android-ios-remote-config-3e1407b088f6#.hb0blxber)
 * 原文作者：[Joe Birch](https://medium.com/@hitherejoe)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Jamweak](https://github.com/jamweak)
