@@ -1,3 +1,4 @@
+* [Android 动画的灵魂—— Interpolator](https://gold.xitu.io/entry/5817117967f356005868b8a8?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([siegeout](https://github.com/siegeout) 翻译)
 * [探索 Firebase 在 Android 和 iOS 的使用: Analytics (分析模块)](https://gold.xitu.io/entry/5816ac62a22b9d00678ee434?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([yifili09](https://github.com/yifili09) 翻译)
 * [如何通过 ArrayMap 和 SparseArray 优化 Android App](https://gold.xitu.io/entry/580f57c52e958a005517c1a0?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jamweak](https://github.com/jamweak) 翻译)
 * [Pury — 一个新的 Android App 性能分析工具](https://gold.xitu.io/entry/57fe4b92a22b9d005b1a8a2a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([owenlyn](https://github.com/owenlyn) 翻译)
