@@ -6,7 +6,7 @@
 
 I have been receiving some user feedback for my app that the feature they are missing the most is _search_. For an app that contains information from different sources such as contact’s events, name days or bank holidays, such as Memento Calendar, I would have to agree that Search is one of the most important features the app could have. The problem is that the feature is already implemented. A search icon in the Toolbar navigates the user to a dedicated search screen.
 
-关于我的应用，我收到了一些用户的反馈，他们反馈缺少*搜索*功能。对于像Memento Calendar这种囊括了诸如社交时间，纪念日，银行休假日，信息来源错综复杂的应用，我很赞同搜索是这个应用最重要的功能之一。问题是这个功能已经被实现了。Toolbar 里的一个搜索图标引导用户到一个搜索界面。
+关于我的应用，我收到了一些用户的反馈，他们反馈最多的是缺少*搜索*功能。对于像Memento Calendar这种囊括了诸如社交时间，纪念日，银行休假日，信息来源错综复杂的应用，我很赞同搜索是这个应用最重要的功能之一。问题是这个功能已经被实现了。Toolbar 里的一个搜索图标引导用户到一个搜索界面。
 
 ![A user can search by tapping the search icon on the Toolbar](https://raw.githubusercontent.com/alexstyl/alexstyl.github.io/master/images/animating-the-toolbar/search_toolbar.png)
 
