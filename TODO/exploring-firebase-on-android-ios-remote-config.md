@@ -1,86 +1,86 @@
 > * 原文地址：[Exploring Firebase on Android & iOS: Remote Config](https://medium.com/@hitherejoe/exploring-firebase-on-android-ios-remote-config-3e1407b088f6#.hb0blxber)
 * 原文作者：[Joe Birch](https://medium.com/@hitherejoe)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
-* 校对者：
+* 译者：[Jamweak](https://github.com/jamweak)
+* 校对者：[Zheaoli](https://github.com/Zheaoli), [Jasper Zhong](https://github.com/DeadLion)
 
-# Exploring Firebase on Android & iOS: Remote Config
-
-
-Remote config is a feature of Firebase suite that allows us to alter both the look and feel of our application without the need to publish any updates to the Google Play or App store. This works by allowing us to define in-app parameters that can be overridden from within the firebase console — these parameters can then be activated for either all or a defined selection of users.
-
-This powerful feature gives us a range of new abilities when it comes to immediate updates, temporary changes or testing new features amongst users. Let’s take a dive and learn the what, why and how of Remote Config so we can learn how to use it to benefit both ourselves and our users 🚀
+# 探索 Firebase 在 Android 和 iOS 的使用: 远程配置
 
 
-Don’t forget to check out the previous article in this series:
+远程配置是 Firebase 套件的一个特性，它允许我们在没有发布任何更新到 Google Play 或 Apple Store 的情况下，改变我们应用的外观及用户体验。 它的工作原理是通过允许我们预先定义一些存于应用内部的参数，然后通过 firebase 的控制台修改这些参数。随后这些参数可以对所有用户激活，或是仅面向某些特定的用户激活。
 
-*   [**Exploring Firebase on Android & iOS: Analytics**](https://medium.com/exploring-android/exploring-firebase-on-android-ios-analytics-8484b61a21ba#.dgyq5cpoq)
 
-I’m also releasing a full eBook that will act as a practical guide to integrating firebase features, which will feature more detailed guides on each section of the Firebase suite. For Remote Config, in the book we’ll be taking a deeper look into the firebase console, integration of Remote Config and use of it in real-world application. Click the image below to be alerted when it’s out! 🙂
+这个强大的特性使得我们有能力进行立即更新、临时更改或是在用户中尝试某些新的特性。让我们来深入学习一下什么是远程配置，为何要使用以及怎样使用它，这不仅给我们带来方便，也使得用户受益。🚀
+
+
+不要忘记查看下我们这个系列的前一篇文章：
+
+*   [**探索 Firebase 在 Android 和 iOS 的使用: 分析**](https://medium.com/exploring-android/exploring-firebase-on-android-ios-analytics-8484b61a21ba#.dgyq5cpoq)
+
+我也正在筹划一本完整的电子书，它可以当做集成 firebase 特性的实际指导教程。这本书将会详细介绍 Firebase 套件相关功能的每个部分。对于远程配置而言，在书中我们将深入分析 firebase 控制台，在应用中集成 firebase 从而真正使用它。点击下面的图片订阅本书的发布消息！🙂
 
 
 ![](https://cdn-images-1.medium.com/max/2000/1*adPhI66a3h5h3uX8G0eA1A.png)
 
 
-### What can we do with Firebase Remote Config?
+### 我们能使用 Firebase 的远程配置做什么?
 
-So in a nutshell, Remote config essentially allows us to publish updates to our users immediately. Whether we wish to change the colour scheme for a screen, the layout for a particular section in our app or show promotional / seasonal options — this is completely doable using the server side parameters without the need to publish a new version.
+简而言之，远程配置的作用大体上就是能使我们面向用户立即发布应用更新。无论是我们想修改应用在某些窗口下的颜色主题、某些特定的布局或是增加广告/运营宣传等——这完全可以通过修改服务器端的参数来做到，而不用发布一个新的版本。
 
-We can even do this for a selected group of users, allowing us to change our chosen parameter for segmented users, application versions, Audience groups from Firebase Analytics, user language and more. This gives us extremely flexible control over who sees these changes. Alongside these, we can also use Remote Config to A/B test our changes with random percent targeting from Firebase Analytics or even feature switch when shipping new components within our application.
+我们甚至能向某部分用户来完成更新，这使得我们能根据用户段、应用版本号、Firebase 分析中的受众群里、用户的语言等等来完成更新。因此，我们的整个开发流程变得更为灵活，我们可以决定对哪些特定的用户来推送特定的更新。除了这些，我们还可以使用远程配置来针对 Firebase 分析中随机指定的目标做 A/B 测试，甚至是在应用加入新组件时，某些特性的替换。
 
-Remote Config gives us the power to:
+远程配置带给我们:
 
-*   Quickly and easily update our applications without the need to publish a new build to the app / play store. For example, we could easily switch out a rebuild of a component in our application for a select set of users based on the conditions that we specify.
-*   We can effortlessly set how a segment behaves or looks in our application based on the user / device that is using it. For example, we may wish to switch out a component for users in Europe than one that may be shown for users in the US.
-*   Following on from the above, we can use Remote Config to A/B test parts of our applications with a defined set of users before you decide to release something to your entire user base.
+*   无需发版，快速简洁地更新我们的应用。例如，我们可以轻松地为那些根据指定条件选定的用户，在应用中切换至新生成的组件。
+*   我们能轻松地对组件进行定制，让其对不同的用户/设备等展现出不同的样式或者交互逻辑。例如，为了适应欧洲和美国用户的需求的差别，我们可能将会根据的确切换至不同的组件。
+*   根据以上，我们能使用远程配置进行 A/B 测试，在决定发布面向全部用户的版本之前，预先面向一部分用户试用我们的新版本应用。
 
-### Remote Config Process Flow
+### 远程配置的工作流程
 
-Remote Config works by primarily using in-app defined values to decide how the it is you’re configuring is to be configured. Then using the Firebase Console we can alter the values of these remotely, which will then cause the configuration to be changed for our defined set of users. Remote Config itself essentially only requires four simple steps in it’s setup and maintenance flow:
+远程配置主要是使用在应用内部定义的一些值来确定你对应用的配置。随后使用 firebease 的控制台来远程改变这些值，这将对定义好的用户群，其应用配置被改变。远程配置只需四步简单的步骤即可使用：
 
 ![](https://cdn-images-1.medium.com/max/1760/1*SXNQ6ctxBmtbjCAMIgkgeg.png) ![](https://cdn-images-1.medium.com/max/1760/1*NCvGAEVq7Pl8qHfs3bX4DQ.png) ![](https://cdn-images-1.medium.com/max/1760/1*m8-3ewgI5cX3NdrJPInd_w.png) ![](https://cdn-images-1.medium.com/max/1760/1*SQAXrF83xkWMCSl0onqRnw.png)
 
-### Parameters, Rules and Conditions
+### 参数, 配置和场景
 
-Within Remote Config we define key-value pairs which are known as **parameters**. These **parameters** are then used to define the configuration values that are to be used within our app — such as the colour of a component, the text to be displayed in a view or even using a property of the user or device to determine what component should be displayed.
+在远程配置中我们定义了叫做**参数**的键值对，这些**参数**被用作定义应用中使用的配置值——例如组件颜色，视图中待显示的图形，甚至是表征用户或设备的属性值，这个属性决定组件是否该被显示出来。
 
-And to cover cases when these parameters may not be set on or available from the server, we also provide default values within our application.
+为了覆盖参数没有设置或者不能从服务器端配置的情形，我们也提供了应用中的默认值。
 
-This key-value pair provides our application of **what** the parameter is for (key, the identifier) and the **how** for what it is which we’re applying the configuration to (value, the configuration).
+这个键值对提供了在应用中可以改变**什么**参数（键, 标识符），以及**怎样**改变我们要更新到应用中的配置（值，配置）。
 
-*   **key** — The key is a String used to define the identify for the parameter
-*   **value** — The value can be of any other data type and is used to represent the value of our defined parameter.
+*   **键** — 键是一个字符串，用来定义参数的标识符
+*   **值** — 值可以是其它任何数据类型，用来表示被定义参数的值
 
-#### Conditions
+#### 场景
 
-Conditions are a collection of rules that we can use to target specific app instances —for example, we may wish to only make configuration changes for users who are female or for users who don’t have a paid-for plan. If all of the rules that are specified for a condition are satisfied, then the configurations are applied to the app instance.
+场景是一系列条件的集合，我们可以通过它来匹配特定的应用实例——例如，我们可能希望仅仅面向女性用户修改配置或是面向不想付费的用户。如果指定的所有条件都被某个场景满足，配置也会为此部分的应用实例改变。
 
-The **conditional value** itself is also represented as a key-value pair, it’s made up of:
+**场景值** 本身也是被一个键值对表示，它由以下组成：
+*   **场景** — 值将要被应用到的待匹配场景
+*   **value** — 如果场景被匹配，将要生效的值
 
-*   **condition** — The condition to be satisfied for the value to be used
-*   **value** — The value to be used if the condition is satisfied
+我们可以在远程配置的设置过程中对每个参数使用多个**场景值**。这允许我们声明多个条件，必须满足这些条件，参数值才会被应用到应用实例中。
 
-We can use multiple **conditional values** for each parameter that we define in our Remote Config setup, this allows us to declare multiple rules which much be satisfied for a parameter value to be applied to an application instance.
 
-#### Priorities
+#### 优先级
 
-If we do have multiple conditional values setup, then how does our application know which value to use? Well, Remote Config uses a collection of rules to specify which value is to be retrieved from the Remote Config Server as well as the actual value to be used within an app instance.
+如果我们确实有多个场景值设置，那么我们的应用该怎样确定该使用哪一个值？其实，远程配置使用一系列条件集合来确定从远程配置服务器取得哪些值，这也适用于确定哪些值该被用于应用实例中。
 
-When we request the value from the server conditional values are applied to determine if the given application instance satisfies any of the conditions that have been defined. If only a single condition is satisfied, then the value for it is returned. On the other hand, if multiple conditions are satisfied then the one with the highest dominance (basically, the one at the top of the list in the Remote Config Console) is returned. However, if there are no conditions values that are satisfied then the default value defined on the server is returned. **Note:** If this default value is not defined then no value is returned when requested.
+当我们从服务器请求场景值时，需要确定应用实例是否满足所有的条件都被满足。如果仅有一个场景被匹配，那么仅仅会返回它的场景值。另一方面，如果多个场景被匹配，那么优先级最高的值（基本上是远程配置清单中最上面的那个）将会被返回。然而，如果没有场景被匹配，那么服务器中定义的默认值会被返回。**注意**如果这个默认值没有被定义，那么将不会有值被返回。
 
-So we have all of these values set within our app and also within the Remote Config console — how does the Remote Config SDK know which one is to be used? Well, this is where the set of priority rules come into play. Both the client and server-side has a defined set of rules — the server needs to decide which value should be returned, and then once the app receives the value from the server it needs to know whether to use that or one of the values defined in the application itself. This definition of these rules looks like so:
+因此我们必须在我们的应用内以及远程配置控制台中定义这些值——远程配置 SDK 怎样知道哪个值将被使用？下面就轮到一系列优先级规则登场了。服务器端和客户端都定义了一系列规则——服务器需要决定哪些值将被返回，之后一旦应用接收到了服务器返回的这些值，它必须知道是否该使用它们或是使用在应用自身定义的一些值。这些定义的规则像是这样的：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*5Gh8GREOVauLT4YWDHbd2w.png)
 
 
+开始时，服务器端需要查看当前的配置值。如果我们有定义的场景值，那么具有最高优先级（在 firebase 控制台的配置清单的最上端）的值将被返回。如果没有匹配的场景值，将返回服务器端配置的默认值——假设这个默认值存在。
 
-So to be begin with, the server needs to look at the current values it has set. If we have Conditional Values that are defined, then the one that has the highest priority (this is the one at the top of the list in the firebase console) is returned. If no Conditional Values are satisfied, then the server-side default value is returned — given that one is present.
+在客户端这边，如果我们接收到来自服务器的一个值，那么这个值就是要被用在应用中的那个。然而，如果没有值返回，这时如果客户端有默认值的话就会使用默认值。如果两个值都不存在，那么客户端将会使用默认数据类型的的负向值（例如 0、false、null 等等）。
 
-On the client side, if we receive a value back from the server then this is the value to be used within the application. However, if no value is returned from the server then if an application default value has been set then this will be used. However, if both no value is returned from the server and there is no in-app default set then the application will uses the default negative value for the data type that is requested (such as 0, false, null etc).
+### 远程配置架构
 
-### Remote Config Architecture
-
-Now we know a little more about the hows and whats of Remote Config, it’s important to understand the flow of communication between our application, the Firebase API and the server-side operations. In graphical form, this communication looks a little like this:
+现在我们知道了一点关于远程配置以及怎样使用它的知识，接下来，理解应用端、Firebase API、以及服务器端的通信操作流程是很重要的。在下面的图表中，展示了整个通信流程：
 
 
 
@@ -88,61 +88,62 @@ Now we know a little more about the hows and whats of Remote Config, it’s impo
 
 
 
-So you can see from this diagram that the Architecture consists of three core sections, being:
+从这个表中你能看到远程配置架构主要包括三个核心部分，分别是：
 
-**Application** — The application instance which is currently running on a device. This communicates directly with the Firebase library using an instance of the FirebaseRemoteConfig class.
+**应用** — 运行在设备中的应用实例。它通过一个 FirebaseRemoteConfig 类的实例直接与 Firebase 库通信。
 
-**Firebase Library** — The firebase library handles all of the hard work for us. It stores the default configuration values, fetches the remote values from the server (and store them for us) and also holds activated values (once we activate fetched values). We don’t have to worry about caching or when the values may be available, we just use the method provided and the rest is done for us!
+**Firebase 库** — Firebase 库为我们处理所有的困难工作。它存储默认值，获取服务器端的远程值（也会为我们存储下来），还持有当前正在使用的值（一旦我们使用获取的值之后）。我们不必担心存储或是哪个值可用，我们只需使用库中提供的方法，其它的事情交给它处理。
 
-**Server** — The server holds all of our remote configuration values, we define these using the firebase console.
+**服务端** — 服务器端持有所有远程配置的值，我们通过 firebase 控制台来定义它们。
 
-And how do all of these tie together?
+所有的这些是怎样联系到一起的？
 
-*   To begin with, our application starts the communication when retrieving the Remote Config instance. If an instance has not been created yet then the Remote Config library will instantiate one. At the initial creation of this instance, all parameter values (Fetched, Active and Default) are empty.
-*   Now our application has fetched the Remote Config instance, it’s able to set some default values for our parameters. If our application tries to fetch these before they’ve been set, then the Remote Config Library will return the set default values.
-*   At this point, our application is now free to perform a range of operations on the Remote Config Library. To begin with, our application can use the Fetch method to retrieve Remote Config parameter values from the server. This call is initiated using the remote Config Library and when retrieved, the values are stored within the Fetched Config instance in the library. When fetching values, the call does not make immediate changes to the look and feel of our app — we have to wait until the values have been retrieved before we can react.
-*   Before we can use the fetched parameters, our application needs to use the Activate method from the Remote Config Library. When we call this, the values from the Fetched Config instance are copied over to the Active Config instance within the Remote Config Library.
-*   Once activated, our application can then use the Get methods to retrieve the values for different types of data from the Remote Config Library.
+*   开始时，我们的应用获取到远程配置类的实例后开始通信，从远程获取配置值。如果还不存在这样的实例，远程配置库会创建它。初始创建实例时，所有的参数（获取的，正在使用的以及默认值）都是空值。
+*   现在我们的应用以及获取到远程配置的实例，它能够为我们的参数设置一些默认值。如果应用试图在这些值被设定之前获取它们，那么远程库将会返回它们的默认值集合。
+*   此时此刻，我们的应用现在能自由地使用一些远程配置库的操作了。在最初，应用可以使用获取方法从服务器端获取远程配置参数。这个调用会被远程配置库初始化，而后当有值返回时，远程配置实例会存储这个值。当有值返回时，这个调用并不会立即改变我们应用的外观和行为——我们必须等待这些值被取出之后才能做出反应。
+*   在我们使用这些获取的参数之前，应用需要使用远程配置库中当前正被使用的值。当调用这个方法时，这些从远程获取的值会被拷贝到库中覆盖那些正在被使用的值。
+*   一旦值被使用，应用就可以使用获取方法去获取远程配置库中的其它类型的值了。
 
-### Implementing Remote Config
+### 远程配置的实现
 
-Now we have a bit of knowledge on how Remote Config works, let’s take a look at how we can get Remote Config implemented into our applications. This section is going to consists of three parts:
+至此我们了解了一些远程配置的工作原理，接下来让我们看一下如何在应用中实现远程控制。下面这个章节包括三个部分：
 
-*   Setting up Remote Config on Android, setting default values as well as fetching Remote Config values
-*   Setting up Remote Config on iOS, setting default values as well as fetching Remote Config values
-*   Finally, setting Remote Config values and conditions server-side from within the Firebase Console
+*   在 Android 中设置远程配置，设置默认值和获取远程配置值。
+*   在 iOS 中设置远程配置，设置默认值和获取远程配置值。
+*   最后，在服务器端通过 firebase 控制台设定远程配置值以及场景值。
 
-### Implementing Remote Config on Android
+### 在 Android 中实现远程配置
 
-In this section we’re going to cover how you can get your Android application all setup and ready to go with remote configuration. Let’s get started!
+在这个部分，我们将会讨论怎样在 Android 应用中完全配置使用远程配置。让我们开始吧！
 
-**Adding the Remote Config dependancy**
 
-To begin with, we need to start by adding the Remote Config dependancy to our **build.gradle** file. Seeing as we’re only using Remote Config from the Firebase Suite, we can use the dependancy as seen below:
+**添加远程配置依赖**
+
+我们需要从在**build.gradle**文件中添加远程配置库的依赖开始。 鉴于我们只用到 Firebase 套件中的远程配置库，我们可以用以下方式添加依赖：
 
     compile 'com.google.firebase:firebase-config:9.6.0'
 
-Once done, we can then access the FirebaseRemoteConfig instance throughout our application where required:
+一旦完成，我们就可以在应用全局使用 FirebaseRemoteConfig 类的实例了：
 
     FirebaseRemoteConfig firebaseRemoteConfig = 
                                      FirebaseRemoteConfig.getInstance();
 
-If you’re using dependency injection, then you could simplify the retrieval of this class. Here’s an example using Dagger 2:
+如果你正在使用依赖注入，那么你可以简化获得这个类的方式，这里有一个使用 Dagger 2 的例子：
 
     @Provides
                                      FirebaseRemoteConfig providesFirebaseRemoteConfig() {
         return FirebaseRemoteConfig.getInstance(activity);
         }
 
-#### Setting in-app defaults
+#### 设置应用中的默认值
 
-We next need to set some in-app configuration defaults for our configuration values, this is because:
+接下来我们需要为应用中的一些配置值设定默认值，这是因为：
 
-*   We may need access to the configuration values before the configuration values can be retrieved from the server.
-*   There may not be any values set server-side
-*   Our device is in a state where we cannot access server-side values. For example, offline.
+*   我们可能需要在还没有从服务器获取到配置值之前访问配置值。
+*   服务器端可能不存在任何配置值
+*   设备可能处于不能访问服务器端的状态——比如，离线状态。
 
-We can set our default values in the form of key-value pairs using either a [Map](https://developer.android.com/reference/java/util/Map.html) instance or an XML file (located inside res/xml). In this example, we’ve setup an xml file to represent our default values:
+可以通过使用 [Map](https://developer.android.com/reference/java/util/Map.html) 或者 XML 文件的方式以键值对的形式设置默认值。在下面的例子中，我们使用 xml 文件来表示默认值：
 
 
 ```
@@ -163,48 +164,41 @@ We can set our default values in the form of key-value pairs using either a [Map
 </defaultsMap>
 ```
 
-We can then set the defaults using the Remote Config setDefaults() method:
+之后我们能通过远程配置类中的 setDefaults() 方法类设定默认值：
 
     firebaseRemoteConfig.setDefaults(R.xml.defaults_remote_config);
 
-#### Retrieving Remote Config values
+#### 获取远程配置值
 
-Now we’ve set our configuration defaults, we can start using them within our app right away. From the Remote Config class we have 5 methods available to us so that we can retrieve our configuration values from it. We can currently only store and retrieve data types corresponding to the types that these methods return, which are:
+现在我们设定了配置的默认值，然后就可以在应用内使用它们了。在远程配置类中，有 5 个可用方法能让我们使用来获取远程的配置值。当前我们只能够获取并存储以下方法返回的数据类型的值：
 
-*   [getBoolean()](https://firebase.google.com/docs/reference/android/com/google/firebase/remoteconfig/FirebaseRemoteConfig.html#getBoolean%28java.lang.String%29) — Allows us to retrieve **boolean** configuration values
+*   [getBoolean()](https://firebase.google.com/docs/reference/android/com/google/firebase/remoteconfig/FirebaseRemoteConfig.html#getBoolean%28java.lang.String%29) — 允许我们获取 **boolean** 类型的配置值
 
-    ```
-		boolean someBoolean =     
+    boolean someBoolean =     
                 firebaseRemoteConfig.getBoolean("some_boolean");
-		```
+   
 
-*   [getByteArray()](https://firebase.google.com/docs/reference/android/com/google/firebase/remoteconfig/FirebaseRemoteConfig.html#getByteArray%28java.lang.String%29) — Allows us to retrieve **byte[]** configuration values
+*   [getByteArray()](https://firebase.google.com/docs/reference/android/com/google/firebase/remoteconfig/FirebaseRemoteConfig.html#getByteArray%28java.lang.String%29) —允许我们获取 **byte[]** 类型的配置值
 
-    ```
-		byte[] someArray = firebaseRemoteConfig.getByteArray("some_array");
-		```
+    byte[] someArray = firebaseRemoteConfig.getByteArray("some_array");
+   
 
-*   [getDouble()](https://firebase.google.com/docs/reference/android/com/google/firebase/remoteconfig/FirebaseRemoteConfig.html#getDouble%28java.lang.String%29) — Allows us to retrieve **double** configuration values
+*   [getDouble()](https://firebase.google.com/docs/reference/android/com/google/firebase/remoteconfig/FirebaseRemoteConfig.html#getDouble%28java.lang.String%29) — 允许我们获取 **double** 类型的配置值
 
-    ```
-		double someDouble = firebaseRemoteConfig.getDouble("some_double");
-		```
+    double someDouble =  firebaseRemoteConfig.getDouble("some_double");
 
-*   [getLong()](https://firebase.google.com/docs/reference/android/com/google/firebase/remoteconfig/FirebaseRemoteConfig.html#getLong%28java.lang.String%29) — Allows us to retrieve **long** configuration values
+*   [getLong()](https://firebase.google.com/docs/reference/android/com/google/firebase/remoteconfig/FirebaseRemoteConfig.html#getLong%28java.lang.String%29) — 允许我们获取 **long** 类型的配置值
 
-    ```
-		long someLong = firebaseRemoteConfig.getLong("some_long");
-		```
+    long someLong = firebaseRemoteConfig.getLong("some_long");
+   
+*   [getString()](https://firebase.google.com/docs/reference/android/com/google/firebase/remoteconfig/FirebaseRemoteConfig.html#getString%28java.lang.String%29) — 允许我们获取 **String** 类型的配置值
 
-*   [getString()](https://firebase.google.com/docs/reference/android/com/google/firebase/remoteconfig/FirebaseRemoteConfig.html#getString%28java.lang.String%29) — Allows us to retrieve **String** configuration values
+    String someText = firebaseRemoteConfig.getString("some_text");
+    
 
-    ```
-		String someText = firebaseRemoteConfig.getString("some_text");
-		```
+#### 获取服务端的值
 
-#### Fetch Server-Side values
-
-Now we have our defaults setup, we can go ahead and implement the retrieval of our values. This is simply done with the use of the **fetch()** method from our Firebase Remote Config instance.
+现在我们已经有了默认的设置，可以进行下一步，来实现获取值的方法。这可以通过使用远程配置实例中的 **fetch()** 方法轻松完成。
 
     firebaseRemoteConfig.fetch(cacheExpiration)
                     .addOnCompleteListener(new OnCompleteListener() {
@@ -219,68 +213,67 @@ Now we have our defaults setup, we can go ahead and implement the retrieval of o
                         }
                     });
 
-When calling, we use the OnCompleteListener to receive callback events from our **fetch()** call. And from here, the flow is fairly simple:
+当调用它的时候，我们使用 OnCompleteListener 来接收来自 **fetch()** 方法的回调事件。至此，这个流程已经相当简单：
 
-*   The onComplete callback receives a [Task](https://firebase.google.com/docs/reference/serverreference/com/google/firebase/tasks/Task) instance. This is essentially an instance of the asynchronous operation that was just executed.
-*   Next we need to check if the request was successful using the **isSuccessful()** method call.
-*   If the request was successful, then we can continue. Here we need begin by activating the fetched results using the **activateFetched()** method. **Note:** You need to activate fetched parameters before you can use them within your app.
-*   Otherwise, you’ll need to handle the failed request accordingly.
+*   onComplete 回调收到一个[任务](https://firebase.google.com/docs/reference/serverreference/com/google/firebase/tasks/Task)实例。 它是一个刚被执行过的异步操作的实例。
+*   接下来需要使用 **isSuccessful()** 方法检查下请求有没有成功。
+*   如果请求成功，则可以继续。这里我们需要将获取到的的值激活，使用 **activateFetched()** 方法。**注意:**你必须激活获取到的参数，才能在应用中使用它们。
+*   如果请求失败，你需要相应地去处理错误请求。
 
-You may have spotted the cacheExpiration parameter passed in when we called **fetch() **— this value declares the time in which the cached data should be classed as not expired. So if the data in the cache was retrieved less than cacheExpiration seconds ago then the cached data is used.
+你可能发现了在调用 **fetch() **时传入的 cacheExpiration 参数——这个值声明了一个时间，当缓存的数据在这个时间内时，它们会被分类成未到期状态。所以如果收到的数据缓存没有超过 cacheExpiration 时间，那么这个缓存数据就会被使用。
 
-We’ll cover this more in depth in the [Exploring Firebase eBook](http://hitherejoe.us14.list-manage.com/subscribe?u=29201953105285dda07c9fdbf&id=5725aeaf1d). After we’ve taken a look at how to achieve the same on iOS we’ll learn how to alter our configured parameters remotely.
+我们将会在 [Exploring Firebase eBook](http://hitherejoe.us14.list-manage.com/subscribe?u=29201953105285dda07c9fdbf&id=5725aeaf1d) 这本书中更深入地去讲述它。在我们了解如何在 iOS 中做同样的事情之后，我们将学会如果远程改变配置参数。
 
-### Implementing Remote Config on iOS
+### 在 iOS 中实现远程配置
 
-In this section we’re going to cover how you can get your iOS application all setup and ready to go with remote configuration. Let’s get started!
+在这个部分，我们将会讨论怎样在 iOS 应用中完全配置使用远程配置。让我们开始吧！
 
-**Adding the Remote Config dependancy**
 
-To begin with, we need to start by adding the Remote Config dependancy to our **Podfile**. Seeing as we’re only using Remote Config from the Firebase Suite, we can use the dependancy as seen below:
+**添加远程配置库依赖**
+
+我们将从添加远程配置依赖到 **Podfile** 文件开始. 鉴于我们只需用到 Firebase 套件中的远程配置库，因此我们可以按如下方式添加依赖：
 
     pod 'Firebase/RemoteConfig'
 
-Following that, you’ll need to run:
+接下来，你需要运行如下命令：
 
     pod install
 
-You’ll then be able to open your .xcworkspace file and import the dependancy for Remote config. If you’re doing this in objective-C then this will look like:
+在这之后，你就可以打开工程中的 .xcworkspace 文件然后开始添加远程配置库的依赖。如果你是使用 objective-C 的话，可以这样写：
 
     @import Firebase;
 
-Otherwise in Swift we can import this like so:
+如果是使用 Swift 的话，可以这样写：
 
     import Firebase
 
-Now that we’ve introduced Firebase Remote Config into our project setup, we need to configure an instance so that it’s ready to start using within our app. To do so, we need to first navigate to the **application:didFinishLaunchingWithOptions:** method and in Objective-C we can put:
+现在，我们已经在工程项目设置中引入了远程配置库，但还需要配置一个它的实例，从而能在我们的应用中使用远程配置。在这之前，我们需要首先找到 **application:didFinishLaunchingWithOptions:** 方法，在 Objective-C 中，我们可以这样写：
 
     [FIRApp configure];
 
-Similarly in Swift:
+同样地，在 Swift 中：
 
     FIRApp.configure()
 
-The final step is just creating a singleton instance of the FIRRemoteCOnfig class that we can then access and use throughout our application. In Objective-C:
+最后一步就是创建一个 FIRRemoteCOnfig 类的单例，以便在全应用范围内使用它。在 Objective-C 中，写法如下：
 
     self.remoteConfig = [FIRRemoteConfig remoteConfig];
 
-and also in Swift:
+在 Swift 中，写法如下:
 
     self.remoteConfig = FIRRemoteConfig.remoteConfig()
 
-And that’s all for getting the dependancy added and setup in our app, we’re now reading to start using it!
+这就是在应用中加入远程配置依赖和设置的所有步骤，接下来我们可以开始准备使用它了！
 
+#### 设定应用中的默认值
 
+接下来我们需要设定一系列应用中配置的默认值，这样做的目的是：
 
-#### Setting in-app defaults
+*   我们可能需要在还没有从服务器获取到配置值之前访问配置值。
+*   服务器端可能不存在任何配置值
+*   设备可能处于不能访问服务器端的状态——比如，离线状态。
 
-We next need to set some in-app configuration defaults for our configuration values, this is because:
-
-*   We may need access to the configuration values before the configuration values can be retrieved from the server.
-*   There may not be any values set server-side
-*   Our device is in a state where we cannot access server-side values. For example, offline.
-
-We can set our default values in the form of key-value pairs using either an NSDictionary instance or define them with a plist file. In this example, we’ve setup an plist file to represent our default values:
+我们可以通过 NSDictionay 实例或者在 plist 文件中定义的方法以键值对的形式定义这些默认值。在本例中，我们配置了一个 plist 文件来表示我们的默认配置值：
 
     
     
@@ -294,44 +287,43 @@ We can set our default values in the form of key-value pairs using either an NSD
         10
     
     
-
-Once we’ve got our default values defined, we can easily declare these values as our defaults by using the **setDefaultsFromPlistFileName** method from the Remote Config instance that we previously defined. IN Objective-C this is done like so:
+一旦我们定义好了默认值，我们可以方便地通过使用 **setDefaultsFromPlistFileName** 方法声明这些值为默认值。该方法存在于之前初始化的远程配置库实例中。如果是使用 Objective-C 的话，可以这样写：
 
     [self.remoteConfig setDefaultsFromPlistFileName:@"DefaultsRemoteConfig"];
 
-Followed by an also-simple setup in Swift:
+下面的是使用 Swift 的写法:
 
     remoteConfig.setDefaultsFromPlistFileName("DefaultsRemoteConfig")
 
-#### Retrieving Remote Config values
+#### 获取远程配置值
 
-Now we’ve set our configuration defaults, we can start using them within our app right away. From the Remote Config class we have 4 methods available to us so that we can retrieve our configuration values from it. We can currently only store and retrieve data types corresponding to the types that these methods return, below we can see some examples of fetching data types from the Remote Config library:
+现在我们已经设置好了配置的默认值，之后就可以在应用中立即使用这些值了。在远程配置库的类中，有 4 个可用方法能让我们使用来获取远程的配置值。当前我们只能够获取并存储以下方法返回的数据类型的值，下面是一些示例：
 
-**Retrieving values using Objective-C**
+**使用 Objective-C 获取值**
 
     someString = self.remoteConfig[kSomeStringConfigKey].stringValue;
     someNumber = self.remoteConfig[kSomeNumberConfigKey].numberValue.longValue;
     someData = self.remoteConfig[kSomeDataConfigKey].dataValue;
     someBoolean = self.remoteConfig[kSomeStringConfigKey].boolValue;
 
-**And again, but this time in Swift**
+**使用 Swift 的版本**
 
     self.remoteConfig[kSomeNumberConfigKey].numberValue.longValue;
     someData = self.remoteConfig[kSomeDataConfigKey].dataValue;
     someBoolean = self.remoteConfig[kSomeStringConfigKey].boolValue;
 
-**And again, but this time in Swift**
+**使用 Swift 的版本**
 
     someNumber = (remoteConfig[someNumberConfigKey].numberValue?.intValue)!
     someString = remoteConfig[someStringConfigKey].stringValue
     someBoolean = remoteConfig[someBooleanConfigKey].boolValue
     someData = remoteConfig[someDataConfigKey].dataValue
 
-#### Fetch Server-Side values
+#### 获取服务器端的值
 
-Now we have our defaults setup, we can go ahead and implement the retrieval of our values. This is simply done with the use of the **fetch** method from our Firebase Remote Config instance.
+现在我们设置好了默认值，接下来我们可以实现从远程获取值的方法。这可以通过远程配置库实例中的 **fetch** 方法轻松实现。
 
-In swift, we can fetch our values likes so:
+在 **Swift** 中，可以这样获取远程值：
 
     remoteConfig.fetch(withExpirationDuration: TimeInterval(expirationDuration)) { (status, error) -> Void in
       if (status == FIRRemoteConfigFetchStatus.success) {
@@ -342,7 +334,7 @@ In swift, we can fetch our values likes so:
       // Now we can react to the result, if activated then the new    value will be used otherwise it will be the default  value
     } 
 
-And the same again, but this time using **Objective-C**:
+同样，使用 **Objective-C** 的写法如下：
 
     [self.remoteConfig fetchWithExpirationDuration:expirationDuration completionHandler:^(FIRRemoteConfigFetchStatus status, NSError *error) {
         if (status == FIRRemoteConfigFetchStatusSuccess) {
@@ -353,46 +345,47 @@ And the same again, but this time using **Objective-C**:
         // Now we can react to the result, if activated then the new    value will be used otherwise it will be the default  value
     }];
 
-When calling, we use the completionHandler to receive callback events from our **fetch()** call. And from here, the flow is fairly simple:
+当调用方法时，我们使用了 completionHandler 来接收 **fetch** 方法的回调事件。至此，整个流程已经相当简单：
 
-*   The completionHandler receives a **FIRRemoteConfigFetchStatus** instance. This is essentially an instance of the asynchronous operation that was just executed.
-*   Next we need to check if the request was successful by checking that the status value receives matches the FIRRemoteConfigFetchStatusSuccessenum.
-*   If the request was successful, then we can continue. Here we need begin by activating the fetched results using the **activateFetched** method. **Note:** You need to activate fetched parameters before you can use them within your app.
-*   Otherwise, you’ll need to handle the failed request accordingly.
+*   completionHandler 接收一个 **FIRRemoteConfigFetchStatus** 实例。它是一个刚被执行过的异步操作的实例。
+*   接下来我们需要检查请求是否成功，需要查看收到的状态值是否与 FIRRemoteConfigFetchStatusSuccessenum 匹配。
+*   如果请求成功，则继续。通过 **activeFetched** 方法将返回值设成配置值。 **注意：** 你必须先激活这些返回值，才能在应用中使用它们。
+*   如果请求失败, 你需要处理相应的错误请求。
 
-You may have spotted the cacheExpiration parameter passed in when we called **fetch**— this value declares the time in which the cached data should be classed as not expired. So if the data in the cache was retrieved less than cacheExpiration seconds ago then the cached data is used.
 
-We’ll cover this more in depth in the [Exploring Firebase eBook](http://hitherejoe.us14.list-manage.com/subscribe?u=29201953105285dda07c9fdbf&id=5725aeaf1d). After we’ve taken a look at how to achieve the same on iOS we’ll learn how to alter our configured parameters remotely.
+你可能发现了在调用 **fetch() **时传入的 cacheExpiration 参数——这个值声明了一个时间，当缓存的数据在这个时间内时，它们会被分类成未到期状态。所以如果收到的数据缓存没有超过 cacheExpiration 时间，那么这个缓存数据就会被使用。
 
-#### Setting up the server-side configuration for Remote Config
+我们将会在 [Exploring Firebase eBook](http://hitherejoe.us14.list-manage.com/subscribe?u=29201953105285dda07c9fdbf&id=5725aeaf1d) 这本书中更深入地去讲述它。在我们了解如何在 iOS 中做同样的事情之后，我们将学会如果远程改变配置参数。
 
-So firebase is all set and ready to go in our application, but we’re not taking advantage of Remote Configuration as we haven’t setup any server-side values yet! Let’s take a look at how we can get going with server-side values and start configuring our application remotely.
+#### 为远程配置设置服务器端的配置值
 
-**Set Server-Side values**
+至此 firebase 已经全部配置好，可以在应用中使用了，但是我们还没有利用到远程配置，因为还未为服务器端配置任何值！让我们一起来看一下如何在远程配置服务器端的配置值。
 
-Now we have our client-side all setup, it’s time to add some values server-side so that we can begin altering our application remotely! First of all, you’ll need to navigate to the Remote Config page within the Firebase Console. You’ll find that here:
+**设定服务器端的值**
+
+因为我们已经配置好了客户端，接下来是时候添加服务器端的值，来远程更新我们的应用了！首先，你必须先找到 Firebase 控制台的远程配置页面，可以在这找到它：
 
 https://console.firebase.google.com/project/{YOUR-PROJECT-ID}/config
 
 https://console.firebase.google.com/project/{YOUR-PROJECT-ID}/config
 
-At this page you’ll be presented with the option to start adding your remote config parameters (if you haven’t done so already!). So go ahead and click that button!
+在这个页面中，你将会看到有一个按钮选项，上面写着“开始添加你的远程配置参数”（如果你还没有点击按钮的话），点击这个按钮继续下一步！
 
 ![](https://cdn-images-1.medium.com/max/1760/1*fCewZn9r7NJwoPB1PKzNLw.png)
 
-After hitting that button you’ll be presented with a pop-up that looks a little something like this:
+在点击按钮之后，你将会看到一个弹窗，截图如下所示：
 
 ![](https://cdn-images-1.medium.com/max/1760/1*FAVU3cQ5sm0UXT_WdAseqQ.png)
 
-This is where you can define the server-side parameters for your remote configuration. So what do we enter here?
+这里就是你定义远程配置参数的地方。我们该在这里输入什么呢？
 
-*   **Parameter key** — This is the key that you’ve defined within your application, these are ones that we would have defined in-app default values for in the previous sections. For example, **has_discount**.
-*   **Default value** — This is the primary value to be used when the parameter is fetched from server-side.
+*   **参数键名** — 这个键名是你之前在应用内部定义过的，像上文配置过程中说的那样。可以举一个例子，比如 **has_discount**。
+*   **默认值** — 这个值是当客户端获取到之后，首先被采用的值。
 
-If we don’t wish to assign a value to the server-side parameter then we can click the “Other empty values” option to be presented with a menu where we can select:
+如果我们不希望在服务器端给参数分配值，我们可以点击菜单中的 “其它空值” 选项：
 
-*   **No Value** — This option will make the client use the pre-defined default value
-*   **Empty string** — This option will return an empty string, meaning that there will be no value and the client-side default value will also be ignored
+*   **没有值** — 这个选项将会让客户端使用已定义的默认值。
+*   **空字符串** — 这个选项会返回一个空字符串，表示没有值，客户端中的默认配置值也会被忽略掉。
 
 
 
@@ -404,7 +397,7 @@ If we don’t wish to assign a value to the server-side parameter then we can cl
 
 
 
-You’ll also notice the **“Add value for condition”** button — this can be used to assign a condition for when the parameter should be used.
+你或许也注意到了**“为场景添加值”**按钮——它可以用作分配一个参数被应用的场景。
 
 
 
@@ -416,40 +409,40 @@ You’ll also notice the **“Add value for condition”** button — this c
 
 
 
-If we decide to **Define a new Condition** then we’ll be presented with a window to enter properties in which will satisfy the condition:
+如果我们点击**定义一个新的场景**按钮，我们将会看到一个新的窗口，在这可以输入匹配场景的属性：
 
 ![](https://cdn-images-1.medium.com/max/1760/1*imvhdLXo6-1ORxjXCMwz-g.png)
 
-Here you can see we’re displayed with several options when creating a new condition:
+在上图可以看到，在创建新场景时的一些设置项：
 
-*   **Name** — The name we wish to use to identify the conditions
-*   **Color** — The color used for the condition name when displayed in the firebase console
-*   **Applies if (property)** — The property that the corresponding arguments should be tested against
-*   **Applies if (arguments)** — The arguments in which should be tested for the given property
+*   **名字** — 该场景的名字
+*   **颜色** — 场景的名字在 firebase 控制台显示时的颜色
+*   **应用条件 (属性)** — 必须满足这些属性值，相应的参数才会被应用
+*   **应用条件 (参数)** — 对于给定的属性，必须应用的配置参数
 
-Currently we have the ability to set one or more (using the **AND** button) conditional property. The properties we can currently set for a condition are:
+当前我们可以设置一条或多条（通过使用**与**按钮）场景属性。目前我们能设置如下场景属性：
 
-*   **App ID** — Select an ID from the selected application that the application instance must match in order for the condition to be satisfied.
-*   **App Version** — Select an app version from the selected application that the application instance must match in order for the condition to be satisfied.
-*   **OS Type** — Select an OS type in which the application instance must be running on, currently this is either Android or iOS.
-*   **User in random percentile** — This is a random percentage which can be used to assign a random count of users that the parameter should be applied to. The value can be assigned to be either **greater than** or **less than OR equal** **to** the given percentage.
-*   **User in audience** — Select an audience from Firebase Analytics that the given parameters should be applied to.
-*   **Device in Region/Country** — Select a region/country that should be selected on the device that the application instance is running on for the condition to be satisfied.
-*   **Device in language** — Select a language that the device he application instance is running on for the condition to be satisfied.
+*   **应用 ID** — 从被选应用中选择一个 ID ，这个 ID 必须能被包括在应用中，以便可以匹配场景。
+*   **应用版本号** — 从被选应用中选择一个版本号，这个版本号必须被包括在应用中，以便可以匹配场景。
+*   **操作系统类型** — 选择一个应用实例运行所在的操作系统，当前只能是 Android 或 iOS。
+*   **随机用户百分比** — 这是一个随机百分比，用来选择一定量的随机用户来应用给定的参数。这个值可以设置为**大于**或**小于或等于**给定的百分比。
+*   **受众用户** — 从 Firebase Analytics 中选择受众来应用给定的参数。
+*   **设备所在的地区/国家** — 选择一个运行所选应用的设备所在的地区/国家来匹配场景。
+*   **设备语言** — 选择一个运行所选应用的设备中的当前语言来匹配场景。
 
-Once we’ve finished creating our condition, we can simply use the **CREATE CONDITION** button to finalise the configuration. At this point we are returned to our list of parameters and any with conditions applied to them will display the condition name in the selected colour above the value field, as shown below.
+一旦我们完成以上步骤，就可以使用**创建场景**按钮来完成配置。这之后我们就会看到我们定义参数的清单以及任何应用这些参数的场景，每种场景的应用值都会在场景名字的下方，场景名是用上一步所选择的颜色来表示的，如下图所示：
 
 ![](https://cdn-images-1.medium.com/max/1760/1*DpCGi-22CtnVMhe-fTMtvA.png)
 
-Remember to click the **UPDATE** button to save your configuration once you’ve finished making changes 😄 From this point, your parameters should be fetch-able from within your application — as per the instructions in the sections above.
+在你每次改动配置之后，记得点击**更新**按钮😄。现在，你的应用就可以获取到这些参数了——如果你按上述的每一个章节指导的方法的话。
 
 
 
-### And that’s it!
+### 写在最后
 
-So we’ve seen what we can do with Firebase Remote Config and how to implement it into our application to begin altering the look, feel and behaviour of our application remotely. I hope from this you’ve been able to see the benefits of Firebase and how super easy it is to get setup!
+我们现在看到了 Firebase 远程配置能做到什么，也知道了怎样在我们的应用中实现远程配置来远程地改变应用的外观，体验以及行为。我希望你能从本文体验到 Firebase 的优势以及简易配置性！
 
-And if you wish to learn more about Firebase Remote Config and other integrations, please do remember to sign-up to be alerted when my Firebase eBook is out!
+如果你想了解更多关于 Firebase 远程配置和其它方面特性的集成，请记得登录之后订阅我的 Firebase 电子书的发布消息！
 
 
 
