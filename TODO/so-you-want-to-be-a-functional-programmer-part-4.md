@@ -117,7 +117,7 @@
     doubleBracketedJoe =
         generalBracket "{{" "Joe" "}}"
 
-我们实际上想要的是两全其美（译者注：既通用化又可以不传字符串）。
+我们实际上想要的是两全其美。
 
 如果我们重新对 **_generalBracket_** 函数的参数进行排序，就可以创建柯里化后的 **_bracket_** 和 **_doubleBracket_** 函数了。
 
