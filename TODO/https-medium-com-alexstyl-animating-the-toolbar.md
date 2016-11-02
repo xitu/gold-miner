@@ -4,7 +4,7 @@
 * 译者：[Siegen](https://github.com/siegeout)
 * 校对者：[XHShirley](https://github.com/XHShirley),[jamweak](https://github.com/jamweak)
 
-关于我的应用，我收到了一些用户的反馈，他们反馈最多的是缺少*搜索*功能。对于像Memento Calendar这种囊括了诸如社交时间，纪念日，银行休假日，信息来源错综复杂的应用，我很赞同搜索是这个应用最重要的功能之一。问题是这个功能已经被实现了。Toolbar 里的一个搜索图标引导用户到一个搜索界面。
+关于我的应用，我收到了一些用户的反馈，他们反馈最多的是缺少**搜索**功能。对于像 Memento Calendar 这种囊括了诸如社交时间，纪念日，银行休假日，信息来源错综复杂的应用，我很赞同搜索是这个应用最重要的功能之一。问题是这个功能已经被实现了。Toolbar 里的一个搜索图标引导用户到一个搜索界面。
 
 
 ![A user can search by tapping the search icon on the Toolbar](https://raw.githubusercontent.com/alexstyl/alexstyl.github.io/master/images/animating-the-toolbar/search_toolbar.png)
@@ -16,14 +16,14 @@
 
 
 
-因为搜索的逻辑已经在应用里实现了，我有充裕的时间来尝试使用Android的动画API为我的应用增添生气。。
+因为搜索的逻辑已经在应用里实现了，我有充裕的时间来尝试使用Android的动画API为我的应用增添生气。
 
 
 ### 试验的进程
 
 
 
-这个点子是利用 transition 来衔接已经包含搜索栏的主界面，以及拥有神奇搜索功能的搜索界面。。
+这个点子是利用 transition 来衔接已经包含搜索栏的主界面，以及拥有神奇搜索功能的搜索界面。
 
 
 
