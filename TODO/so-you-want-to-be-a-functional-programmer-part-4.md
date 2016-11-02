@@ -109,7 +109,7 @@
     generalBracket prefix str suffix =
         prefix ++ str ++ suffix
 
-但现在每当我们使用 **_generalBracket_** 时，都必须在大括号里传参数（此处为 **"Joe"**）：
+但现在每当我们使用 **_generalBracket_** 时，都必须传入大括号：
 
     bracketedJoe =
         generalBracket "{" "Joe" "}"
