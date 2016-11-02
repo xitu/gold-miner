@@ -217,6 +217,7 @@ Now since I always reach for the trusty `for` loop, I figured I would test a `wh
     module.exports = whileLoopArrayReduce;
 
 And the result? A tiny bit slower:
+
 那么结果怎样呢？稍微有一点慢：
 
     whileLoopArrayReduce x 1,504 ops/sec ±0.65% (88 runs sampled)
@@ -323,7 +324,6 @@ Wait for it…
     forSum x 8,256 ops/sec ±0.24% (91 runs sampled)
     maths x 79,998,859 ops/sec ±0.81% (88 runs sampled)
     Fastest is maths
-    最快的还是数学啊
 
 ### Fastest is maths
 ### 数学最快
