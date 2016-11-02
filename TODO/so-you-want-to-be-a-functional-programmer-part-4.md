@@ -4,12 +4,12 @@
 * 译者：[linpu.li](https://github.com/llp0574)
 * 校对者：
 
-# 准备充分了嘛就想学函数式编程？(Part 4)
+# 准备充分了嘛就想学函数式编程？(第四部分)
 
 
-采取理解函数式编程概念作为学习的第一步是最重要的，而且有时也是最困难的一步。但其实不必如此，这并非正确的做法。
+想要理解函数式编程，第一步总是最重要，也是最困难的。但是只要有了正确的思维，其实也不是太难。
 
-之前的部分: [Part 1](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-1-1f15e387e536), [Part 2](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-2-7005682cec4a), [Part 3](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-3-1b0fd14eb1a7)
+之前的部分: [第一部分](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-1-1f15e387e536), [第二部分](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-2-7005682cec4a), [第三部分](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-3-1b0fd14eb1a7)
 
 #### 柯里化
 
@@ -27,48 +27,48 @@
 
 
 
-如果你还记得[Part 3](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-3-1b0fd14eb1a7)内容的话，就会知道我们在复合 **_mult5_** 和 **_add_** 这两个函数时遇到问题的原因是：**_mult5_** 接收一个参数而 **_add_** 却接收两个。
+如果你还记得[第三部分](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-3-1b0fd14eb1a7)内容的话，就会知道我们在组合 **_mult5_** 和 **_add_** 这两个函数时遇到问题的原因是：**_mult5_** 接收一个参数而 **_add_** 却接收两个。
 
 其实只需要通过限制所有函数都只接收一个参数，就可以轻易地解决这个问题。
 
 相信我，这并没有听起来那么糟糕。
 
-我们简单地来写一个需要使用两个参数，但一次只接收一个参数的 add 函数。**柯里**函数允许我们这样做。
+我们只需要来写一个使用两个参数，但一次只接收一个参数的 add 函数。**柯里**函数允许我们这样做。
 
 > 柯里函数是一种一次只接收单个参数的函数。
 
-这就可以让我们在将 **_add_** 和 **_mult5_** 复合之前只传递第一个参数给 **_add_**。然后当调用（复合后的） **_mult5AfterAdd10_** 函数时，**_add_** 函数就将得到第二个参数。
+这就可以让我们在将 **_add_** 和 **_mult5_** 组合之前只传递第一个参数给 **_add_**。然后当调用（组合后的） **_mult5AfterAdd10_** 函数时，**_add_** 函数就将得到第二个参数。
 
-在 JavaScript 里，可以通过重写 **_add_** 函数来实现这个功能：
+在 JavaScript 里，可以通过改写 **_add_** 函数来实现这个功能：
 
     var add = x => y => x + y
 
-这个版本的 **_add_** 函数就是一个现在只接收一个参数，之后再接收另外一个参数的函数。
+这个版本的 **_add_** 函数现在就只接收一个参数，之后再接收另外一个参数。。
 
 详细来讲，这个 **_add_** 函数接收单参数 **_x_**，然后返回一个接收单参数 **_y_** 的函数，而这个函数最终就会返回 **x + y** 的结果。
 
-现在我们就可以使用这个版本的 **_add_** 函数来构建一个可运行版本的 **_mult5AfterAdd10_** 函数：
+现在我们就可以使用这个版本的 **_add_** 函数来构建一个 **_mult5AfterAdd10_** 函数的可运行版本：
 
     var compose = (f, g) => x => f(g(x));
     var mult5AfterAdd10 = compose(mult5, add(10));
 
-这个复合函数接收两个参数，**_f_** 和 **_g_**，然后它返回一个接收单参数 **_x_** 的函数，这个函数在调用的时候就会返回一个 **_g(x)_** 的结果作为参数的 **_f_** 函数。
+这个组合函数接收两个参数，**_f_** 和 **_g_**，然后它返回一个接收单参数 **_x_** 的函数，这个函数在调用的时候就会将 **_g_** 函数作用于 **_x_**，然后再将 **_f_** 函数作用于上一步的结果。
 
-所以实际上我们到底做了什么？好吧，我们其实是将旧的 **_add_** 函数进行了柯里化。这么做就让 **_add_** 函数变得更加灵活，因为 10 可以作为第一个参数在前面传入，而最后的参数则可以在 **_mult5AfterAdd10_** 被调用的时候传入。
+实际上我们到底做了什么呢？好吧，我们其实是将旧的 **_add_** 函数进行了柯里化。这么做就让 **_add_** 函数变得更加灵活，因为我们可以先把10作为第一个参数传入，而最后的参数则可以在 **_mult5AfterAdd10_** 被调用的时候传入。
 
-看到这里，你可能会想知道在 Elm 里怎么来重写这个 **_add_** 函数。答案是，不需要重写。在 Elm 和其他函数式（编程）语言里，所有的函数都会自动柯里化。
+看到这里，你可能会想知道在 Elm 里怎么来改写这个 **_add_** 函数。答案是，不需要改写。在 Elm 和其他函数式（编程）语言里，所有的函数都会自动柯里化。
 
 所以这个 **_add_** 函数看起来和之前是一样的：
 
     add x y =
         x + y
 
-**_mult5AfterAdd10_** 函数曾经在 [Part 3](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-3-1b0fd14eb1a7) 怎么写，也还是一样：
+**_mult5AfterAdd10_** 函数曾经在[第三部分](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-3-1b0fd14eb1a7)怎么写，也还是一样：
 
     mult5AfterAdd10 =
         (mult5 << add 10)
 
-语法上讲，Elm 其实打败了像 JavaScript 这样的命令式（编程）语言，因为它在函数式方面是做了优化的，就像柯里化和复合函数。
+语法上讲，Elm 其实打败了像 JavaScript 这样的命令式（编程）语言，因为它在函数式方面是做了优化的，就像柯里化和组合函数。
 
 #### 柯里化和重构
 
@@ -86,7 +86,7 @@
 
 
 
-下次在重构期间当创建一个多参数通用版本的函数时就可以使用柯里化方法，然后再使用它来创建更少参数的特定版本函数。
+柯里化在重构的的时候也能发挥它闪亮的一面，当我们创建一个多参数通用版本的函数时，我们可以通过柯里化的方法用它来创建接收更少参数的特定版本的函数。
 
 举个例子，当我们有下面两个方法，在一个字符串前后分别添加一对大括号和两对大括号。
 
@@ -134,7 +134,7 @@
 
 > 参数顺序对全面柯里化来说非常重要。
 
-还注意到 **_bracket_** 和 **_doubleBracket_** 函数都是免参数写法（译者注：**point-free notation** 译法不确定，等待参考 Part 3 译法和校对者意见），如 **_str_** 参数是隐式表明的。**_bracket_** 和 **_doubleBracket_** 函数都在等待最后参数的传入。
+还注意到 **_bracket_** 和 **_doubleBracket_** 函数都是免参数（point-free）写法，如 **_str_** 参数是隐式表明的。**_bracket_** 和 **_doubleBracket_** 函数都在等待最后参数的传入。
 
 现在就可以像之前那样使用了：
 
@@ -174,7 +174,7 @@
 
 如果你是使用像 Java、C#、JavaScript、PHP 和 Python 等这样的命令式（编程）语言。你就会发现相比其他语言你会写更多这样的模板代码。
 
-这就是这段代码的错误。
+这就是这段代码的问题所在。
 
 所以让我们来解决它。将它放到一个函数里（或者几个函数），然后再也不写 for 循环了。好吧，几乎不写，至少直到我们移步使用一个函数式（编程）语言。
 
@@ -215,7 +215,7 @@
 
 注意到 **_f_** 函数，它作为参数传入，这样就可以让 **_map_** 函数对**数组**里的每一项进行任何我们想要的操作。
 
-现在我们就可以使用 **_map_** 来重写之前的代码了：
+现在我们就可以使用 **_map_** 来改写之前的代码了：
 
     var things = [1, 2, 3, 4];
     var newThings = map(v => v * 10, things);
@@ -251,7 +251,7 @@
 
 注意到这个减少函数 **_f_**，接收两个参数，**_array_** 数组的当前项，以及累计器 **_acc_**。每次迭代，它都将使用这两个参数产生一个新的累计器，最后一次迭代得到的累计器将会被返回。
 
-一个例子将帮助我们更好地来理解它如果工作：
+一个例子将帮助我们更好地来理解它如何工作：
 
     var add = (x, y) => x + y;
     var values = [1, 2, 3, 4, 5];
@@ -286,7 +286,7 @@
 
 在这个系列文章的随后部分，我将谈到有关引用完整性、执行顺序、类型以及其他更多的东西。
 
-下一篇: [Part 5](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-5-c70adc9cf56a)
+下一篇: [第五部分](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-5-c70adc9cf56a)
 
 _如果你喜欢这篇文章，点击下面的![💚](https://linmi.cc/wp-content/themes/bokeh/images/emoji/1f49a.png)，其他人就可以在这里看到了哦。_
 
