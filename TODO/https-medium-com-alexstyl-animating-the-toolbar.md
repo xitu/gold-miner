@@ -32,7 +32,7 @@
 
 
 因为这是我第一次使用 Transition，我不得不做一些阅读。我觉得 Nick Butcher 和 Nick Weiss 的
-[_有意义运动_的谈话](https://skillsmatter.com/skillscasts/6798-meaningful-motion)视频对我理解新的 API 是怎样工作的很有帮助，并且这个视频里的幻灯片曾经是（现在仍然是）我处理 Transition 相关内容的核心备忘单。
+[**有意义运动**的谈话](https://skillsmatter.com/skillscasts/6798-meaningful-motion)视频对我理解新的 API 是怎样工作的很有帮助，并且这个视频里的幻灯片曾经是（现在仍然是）我处理 Transition 相关内容的核心备忘单。
 
 
 
