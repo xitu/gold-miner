@@ -1,17 +1,17 @@
 > * 原文地址：[So You Want to be a Functional Programmer (Part 5)](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-5-c70adc9cf56a#.ewys56rfy)
 * 原文作者：[Charles Scalfani](https://medium.com/@cscalfani)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[luoyaqifei](http://www.zengmingxia.com)
 * 校对者：
 
 # So You Want to be a Functional Programmer (Part 5)
 
 
-Taking that first step to understanding Functional Programming concepts is the most important and sometimes the most difficult step. But it doesn’t have to be. Not with the right perspective.
+踏出理解函数式编程概念的第一步是最重要的，并且有些时候是最艰难的一步。但是不一定非要这样。不完全客观。
 
-Previous parts: [Part 1](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-1-1f15e387e536), [Part 2](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-2-7005682cec4a), [Part 3](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-3-1b0fd14eb1a7), [Part 4](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-4-18fbe3ea9e49)
+前几部分: [第一部分](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-1-1f15e387e536), [第二部分](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-2-7005682cec4a), [第三部分](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-3-1b0fd14eb1a7), [第四部分](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-4-18fbe3ea9e49)
 
-#### Referential Transparency
+#### 引用透明
 
 
 
@@ -27,44 +27,44 @@ Previous parts: [Part 1](https://medium.com/@cscalfani/so-you-want-to-be-a-funct
 
 
 
-**_Referential Transparency_** is a fancy term to describe that a pure function can safely be replaced by its expression. An example will help illustrate this.
+**_引用透明_** 是一个很酷炫的术语，它用来描述一个纯函数可以被安全地被它的表达式替代。下面用一个例子来解释这个术语。
 
-In Algebra when you had the following formula:
+在代数中当你有以下这个公式时：
 
     y = x + 10
 
-And were told:
+并且已知：
 
     x = 3
 
-You could substituted **_x_** back into the equation to get:
+你可以将 **_x_** 代入方程来得到：
 
     y = 3 + 10
 
-Notice that the equation is still valid. We can do the same kind of substitution with pure functions.
+注意这个方程依旧成立。我们可以对纯函数进行相同类型的代入。
 
-Here’s a function in Elm that puts single quotes around the supplied string:
+这里是一个 Elm 的函数，它将单个引号放在提供的字符串周围：
 
     quote str =
         "'" ++ str ++ "'"
 
-And here’s some code that uses it:
+这里有一些使用了它的代码：
 
     findError key =
         "Unable to find " ++ (quote key)
 
-Here **_findError_** builds an error message when a search for **_key_** is unsuccessful.
+在这里 **_findError_** 创建了一个当搜索 **_key_** 不成功时会产生的错误信息。
 
-Since the **_quote_** function is pure, we can simply replace the function call in **_findError_** with the body of the **_quote_** function (which is just an expression):
+既然 **_quote_** 函数是纯的，我们可以简单地用 **_quote_** 的函数体（只是个表达式）来替代 **_findError_** 中的函数调用：
 
     findError key =
        "Unable to find " ++ ("'" ++ str ++ "'")
 
-This is what I call **_Reverse Refactoring_** (which makes more sense to me), a process that can be used by programmers or programs (e.g. compilers and test programs) to reason about code.
+这就是我称作 **_反向重构_** （对我来说意味着更多）的东西，即一个可以被程序员或程序（例如：编译器和测试程序）用来分析代码的过程。
 
-This can be especially helpful when reasoning about recursive functions.
+这尤其对递归函数的分析有帮助。
 
-#### Execution Order
+#### 执行顺序
 
 
 
@@ -80,55 +80,55 @@ This can be especially helpful when reasoning about recursive functions.
 
 
 
-Most programs are single-threaded, i.e. one and only one piece of code is being executed at a time. Even if you have a multithreaded program, most of the threads are blocked waiting for I/O to complete, e.g. file, network, etc.
+大多数程序是单线程的，也就是说，一次有且只有一段代码被执行。即使你有一个多线程化的程序，其中的多数线程会在等待 I/O 完成时被阻塞，比如说，文件、网络等。
 
-This is one reason why we naturally think in terms of ordered steps when we write code:
+这就是在写代码时，我们自然地使用有序的步骤来思考的一个原因：
 
-    1\. Get out the bread
-    2\. Put 2 slices into the toaster
-    3\. Select darkness
-    4\. Push down the lever
-    5\. Wait for toast to pop up
-    6\. Remove toast
-    7\. Get out the butter
-    8\. Get a butter knife
-    9\. Butter toast
+    1\. 拿出面包
+    2\. 将两片面包放入吐司机
+    3\. 选择焦脆程度
+    4\. 压下控制杆
+    5\. 等待弹出吐司
+    6\. 移走吐司
+    7\. 拿出黄油
+    8\. 拿切黄油的刀
+    9\. 将黄油在吐司上涂匀
 
-In this example, there are two independent operations: getting butter and toasting bread. They only become interdependent at step 9.
+在这个例子里，有两个独立的操作：拿黄油和烤面包。它们只在步骤 9 变成互相依赖的。
 
-We could do steps 7 and 8 concurrently with steps 1 through 6 since they are independent from one another.
+我们可以并发地执行步骤 7 、 8 和 步骤 1 ～ 6 ，因为它们是互相独立的。
 
-But the minute we do this, things get complicated:
+然而一旦我们这么做了，事情就变复杂了：
 
-    Thread 1
+    线程 1
     --------
-    1\. Get out the bread
-    2\. Put 2 slices into the toaster
-    3\. Select darkness
-    4\. Push down the lever
-    5\. Wait for toast to pop up
-    6\. Remove toast
+    1\. 拿出面包
+    2\. 将两片面包放入吐司机
+    3\. 选择焦脆程度
+    4\. 压下控制杆
+    5\. 等待弹出吐司
+    6\. 移走吐司
 
-    Thread 2
+    线程 2
     --------
-    1\. Get out the butter
-    2\. Get a butter knife
-    3\. Wait for Thread 1 to complete
-    4\. Butter toast
+    1\. 拿出黄油
+    2\. 拿切黄油的刀
+    3\. 等待线程 1 完成
+    4\. 将黄油在吐司上涂匀
 
-What happens to Thread 2 if Thread 1 fails? What is the mechanism to coordinate both threads? Who owns the toast: Thread 1, Thread 2 or both?
+如果线程 1 失败了，线程 2 会发生什么？有什么可以协调这两个线程的机制吗？谁拥有吐司：线程 1， 线程 2， 亦或两者？
 
-It’s easier to not think about these complexities and leave our program single threaded.
+不思考这些复杂的东西，让我们的程序继续单线程化，是更简单的举措。
 
-But when it’s worth squeezing out every possible efficiency of our program, then we must take on the monumental effort to write multithreading software.
+但是到了提升我们程序中任何一丁点可能的效率都值得的时候，我们必须使用极大的努力来写多线程软件。
 
-However, there are 2 main problems with multithreading. First, multithreaded programs are difficult to write, read, reason about, test and debug.
+然而对于多线程现在有两个主要的问题。一是多线程化的程序难写、难读、难分析、难测试而且难调试。
 
-Second, some languages, e.g. Javascript, don’t support multithreading and those that do, support it badly.
+二是某些语言，比如 JavaScript ，并不支持多线程，或者有些语言支持但支持得很差。
 
-But what if order didn’t matter and everything was executed in parallel?
+但是，假若顺序并不重要且所有东西都并行地被执行呢？
 
-While this sounds crazy, it’s not as chaotic as it sounds. Let’s look at some Elm code to illustrate this:
+尽管这听起来很疯狂，它并不如它听起来那样混乱。让我们看看一些 Elm 代码，来阐述这个吧：
 
     buildMessage message value =
         let
@@ -141,31 +141,31 @@ While this sounds crazy, it’s not as chaotic as it sounds. Let’s look at som
         in
             upperMessage ++ ": " ++ value
 
-Here **_buildMessage_** takes **_message_** and **_value_** then produces an uppercased **_message,_ **a colon and **_value_** in single quotes.
+这里 **_buildMessage_** 接收 **_message_** 和 **_value_** 两个参数，生成了一个大写的 **_message_** 、一个冒号和在单引号里的 **_value_** 。
 
-Notice how **_upperMessage_** and **_quotedValue_** are independent. How do we know this?
+注意 **_upperMessage_** and **_quotedValue_** 是怎么相互独立的。我们怎么知道这些呢？
 
-There are 2 things that must be true for independence. First, they must be pure functions. This is important because they must not be affected by the execution of the other.
+对于这种独立性而言，有两个条件是必须的。第一个条件是，它们必须是纯函数。这很重要，因为它们必须要不被另一个的执行所影响。
 
-If they were not pure, then we could never know that they’re independent. In that case, we’d have to rely on the order that they were called in the program to determine their execution order. This is how all Imperative Languages work.
+如果它们不纯，我们永远不会知道它们是独立的。这样的话，我们必须依赖于它们在程序内被调用的顺序来确定它们的执行顺序。这就是所有的命令式语言的工作机制。
 
-The second thing that must be true for independence is that the output of one function is not used as the input of the other. If this was the case, then we’d have to wait for one to finish before starting the second.
+第二个独立的条件是，一个函数的输出不被另一个作为输入使用。如果不满足这个条件，我们需要等待一个结束执行来使另一个开始执行。
 
-In this case, **_upperMessage_** and **_quotedValue_** are both pure and neither requires the output of the other.
+当前情况下的 **_upperMessage_** 和 **_quotedValue_** 都是纯的且互不需要对方的输出的。
 
-Therefore, these 2 functions can be executed in ANY ORDER.
+因此，这两个函数可以在 **任意顺序** 下执行。
 
-The compiler can make this determination without any help from the programmer. This is only possible in a Pure Functional Language because it’s very difficult, if not impossible, to determine the ramifications of side-effects.
+编译器能够在不需要程序员的任何帮助的情况下作出决定，只可能在纯函数语言里发生，因为决定副作用的后果这件事不是不可能就是太难。
 
-> The order of execution in a Pure Functional Language can be determined by the compiler.
+> 纯函数语言的执行顺序可以由编译器决定。
 
-This is extremely advantageous considering that CPUs are not getting faster. Instead, manufactures are adding more and more cores. This means that code can execute in parallel at the hardware level.
+考虑到 CPU 并不会变得越来越快，这种特性显得极有优势。制造业正在添加越来越多的内核，这意味着代码可以在硬件层面并行执行。
 
-Unfortunately, with Imperative Languages, we cannot take full advantage of these cores except at a very coarse level. But to do so requires drastically changing the architecture of our programs.
+不幸的是，如果使用命令式语言，我们不能够充分利用内核优势，除非在一个粗糙的层面。但是这么做需要大大地改变我们程序的架构。
 
-With Pure Functional Languages, we have the potential to take advantage of the CPU cores at a fine grained level automatically without changing a single line of code.
+使用纯函数式语言，我们有机会在一个细粒度层面自动地利用 CPU 内核的优势，而不改变任何一行代码。
 
-#### Type Annotations
+#### 类型标注
 
 
 
@@ -181,99 +181,99 @@ With Pure Functional Languages, we have the potential to take advantage of the C
 
 
 
-In Statically Typed Languages, types are defined inline. Here’s some Java code to illustrate:
+在静态类型语言中，类型在行内定义。以下 Java 代码可以说明：
 
     public static String quote(String str) {
         return "'" + str + "'";
     }
 
-Notice how the typing is inline with the function definition. It gets even worse when you have generics:
+请注意类型定义和函数定义发生在同一行。如果你有范型的话，情况会变得更糟：
 
     private final Map getPerson(Map people, Integer personId) {
        // ...
     }
 
-I’ve bolded the types which makes them stand out but they still interfere with the function definition. You have to read it carefully to find the names of the variables.
+我已经加粗了类型，使它们更加明显，但是它们仍旧与函数定义相干扰。你需要仔细阅读它来找到变量名。
 
-With Dynamically Typed Languages, this is not a problem. In Javascript, we can write code like:
+使用动态类型语言的话，这就不是个问题了。在 JavaScript 里，我们像这样写代码：
 
     var getPerson = function(people, personId) {
         // ...
     };
 
-This is so much easier to read without all of that nasty type information getting in the way. The only problem is that we give up the safety of typing. We could easily pass in these parameters backwards, i.e. a _Number_ for **_people_** and an _Object_ for **_personId_**.
+This is so much easier to read without all of that nasty type information getting in the way. The only problem is that we give up the safety of typing. We could easily pass in these parameters backwards, i.e. a _Number_ for **_people_** and an _Object_ for **_personId_**.没有讨厌的类型信息挡路，这显得易读得多。唯一的问题就是我们牺牲了类型安全性。我们可能会很容易地传入相反的参数，即为 **_people_** 传入一个 _Number_ 类型的参数、为 **_personId_** 传入一个 _Object_ 参数。
 
-We wouldn’t find out until the program executed, which could be months after we put it into production. This would not be the case in Java since it wouldn’t compile.
+直到程序执行后，我们才会找出这里面的问题，这可能发生在代码已经进入生产环境好几个月后。这种情况不会在 Java 里发生，因为它没法通过编译。
 
-But what if we could have the best of both worlds. The syntactical simplicity of Javascript with the safety of Java.
+但要是我们可以同时拥有这两个代码世界的精华呢： JavaScript 的简洁性和 Java 的安全性。
 
-It turns out that we can. Here’s a function in Elm with Type Annotations:
+事实证明我们可以。以下是一个带有类型标注的 Elm 函数：
 
     add : Int -> Int -> Int
     add x y =
         x + y
 
-Notice how the type information is on a separate line. This separation makes a world of difference.
+请注意类型信息是怎么放在单独一行的。这种分离创造了一个不同的世界。
 
-Now you may think that the type annotation has a typo. I know I did when I first saw it. I thought that the first **_->_** should be a comma. But there’s no typo.
+现在你可能会觉得类型标注有错字，因为在我初瞥时我也这么以为。我当时认为第一个 **_->_** 应该要是一个逗号，然而其实并没有错字。
 
-When you see it with the implied parentheses it makes a bit more sense:
+当你意识到它带有隐含的括号时，就能感受到它的一点意义了：
 
     add : Int -> (Int -> Int)
 
-This says that **_add_** is a function that takes a _single_ parameter of type **_Int_** and returns a function that takes a _single_ parameter **_Int_** and returns an **_Int_**.
+This says that **_add_** is a function that takes a _single_ parameter of type **_Int_** and returns a function that takes a _single_ parameter **_Int_** and returns an **_Int_**.这条语句是指 **_add_** 是一个函数，它接收 _单个_ **_Int_** 类型的  参数，返回一个接收 _单个_ **_Int_** 类型参数并返回一个 **_Int_** 值的函数。
 
-Here’s another type annotation with the implied parentheses shown:
+以下是另一个将隐含的括号显示出来的类型标注：
 
     doSomething : String -> (Int -> (String -> String))
     doSomething prefix value suffix =
         prefix ++ (toString value) ++ suffix
 
-This says that **_doSomething_** is a function that takes a _single_ parameter of type **_String_** and returns a function that takes a _single_ parameter of type **_Int_**and returns a function that takes a single parameter of type **_String_** and returns a **_String_**.
+这条语句说的是 **_doSomething_** 是一个函数，它接收 _单个_ 类型为 **_String_** 的参数，返回一个接收以 **_Int_** 为类型的 _单个_ 参数和返回一个 **_String_** 的函数。
 
-Notice how everything takes a _single_ parameter. That’s because every function is curried in Elm.
+请注意所有的函数是怎样接收 _单个_ 参数的。这是因为每个 Elm 函数都是柯里化的。
 
-Since parentheses are always implied to the right, they are not necessary. So we can simply write:
+既然括号总是隐含在右边，它们不是必需的。所以我们可以简单地写成：
 
     doSomething : String -> Int -> String -> String
 
-Parentheses are necessary when we pass functions as parameters. Without them, the type annotation would be ambiguous. For example:
+当我们将函数作为参数传入的时候，括号就是必需的了。如果没有括号，类型标注将会显得模棱两可，比如：
 
     takes2Params : Int -> Int -> String
     takes2Params num1 num2 =
         -- do something
 
-is very different from:
+完全不同于：
 
     takes1Param : (Int -> Int) -> String
     takes1Param f =
         -- do something
 
-**_takes2Param_** is a function that requires 2 parameters, an **_Int_** and another **_Int_**. Whereas, **_takes1Param_** requires 1 parameters a function that takes an **_Int_** and another **_Int_**.
+**_takes2Param_** is a function that requires 2 parameters, an **_Int_** and another **_Int_**. Whereas, **_takes1Param_** requires 1 parameters a function that takes an **_Int_** and another **_Int_**.**_takes2Param_** 是一个需要两个参数的函数，一个 **_Int_** 参数和另一个 **_Int_** 参数。然而， **_takes1Param_** 需要一个参数，即一个接收  **_Int_** 和返回 一个 **_Int_** 的函数。
 
-Here’s the type annotation for **_map_**:
+以下是 **_map_** 的类型标注：
 
     map : (a -> b) -> List a -> List b
     map f list =
         // ...
 
-Here parentheses are required because **_f_** is of type **_(a -> b)_**, i.e. a function that takes a single parameter of type **_a_** and returns something of type **_b_**.
+这里括号是必需的，因为 **_f_** 是 **_(a -> b)_** 类型的，也就是说，它是一个接受单个 **_a_** 类型参数并且返回 **_b_** 类型的值的函数。
 
-Here type **_a_** is any type. When a type is uppercased, it’s an explicit type, e.g. **_String_**. When a type is lowercased, it can be any type. Here **_a_** can be **_String_**but it could also be **_Int_**.
+此处类型 **_a_** 是任意类型。当类型是大写的，它就是显式类型，比如 **_String_**。当类型是小写的，它可以是任意类型。此处 **_a_** 可以是 **_String_** 也同样可以是 **_Int_**。
 
-If you see **_(a -> a)_** then that says that the input type and the output type MUST be the same. It doesn’t matter what they are but they must match.
+I如果你看到 **_(a -> a)_**， 那就意味着输入类型和输出类型 **必须** 是一样的。它们是什么不重要，但是它们必须匹配。
 
-But in the case of **_map_**, we have **_(a -> b)_**. That means that it CAN return a different type but it COULD also return the same type.
+但是在 **_map_** 的情况下，我们有 **_(a -> b)_**。这意味着它 **可以** 返回一个不同的类型但它同样 **可以** 返回相同的类型。
 
-But once the type for **_a_** is determined, **_a_** must be that type for the whole signature. For example, if **_a_** is **_Int_** and **_b_** is **_String_** then the signature is equivalent to:
+然而一旦 **_a_** 的类型确定了， **_a_** 在整个签名里都必须是这个类型。例如，如果 **_a_** 是 **_Int_** 并且 **_b_** 是 **_String_** 那么签名等同于：
 
     (Int -> String) -> List Int -> List String
 
-Here all of the **_a_**’s have been replaced with **_Int_** and all of the **_b_**’s have been replaced with **_String_**.
+此处所有的 **_a_** 已经被 **_Int_** 替换了，并且所有的 **_b_** 也被 **_String_** 替换了。
 
-The **_List Int_** type means that a list contains **_Int_**s and **_List String_** means that a list contains **_String_**s. If you’ve used generics in Java or other languages then this concept should be familiar.
+**_List Int_** 类型指的是一个 **_Int_** 列表， **_List String_** 类型指的是一个 **_String_** 列表。如果你用过 Java 或其他语言里的范型，那么这个概念你应该熟悉。
 
-#### My Brain!!!!
+#### 我的大脑！！！！
 
 
 
@@ -289,13 +289,12 @@ The **_List Int_** type means that a list contains **_Int_**s and **_List String
 
 
 
-Enough for now.
+到这里已经很够啦。
 
-In the final part of this article, I’ll talk about how you can use what you’ve learned in your day-to-day job, i.e. Functional Javascript and Elm.
+在这篇文章的最后一部分，我会谈论的是你可以如何将你学到的这些东西应用在你的日常工作中，譬如函数式 JavaScript 和 Elm。
 
-Up Next: [Part 6](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-6-db502830403)
+下一部分： [第六部分](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-6-db502830403)
 
-_If you liked this, click the![💚](https://linmi.cc/wp-content/themes/bokeh/images/emoji/1f49a.png) below so other people will see this here on Medium._
+_如果你喜欢这篇文章，点击下面的[💚](https://linmi.cc/wp-content/themes/bokeh/images/emoji/1f49a.png) 让大家在 Medium 上看到。_
 
-If you want to join a community of web developers learning and helping each other to develop web apps using Functional Programming in Elm please check out my Facebook Group, **_Learn Elm Programming_**[https://www.facebook.com/groups/learnelm/](https://www.facebook.com/groups/learnelm/)
-
+如果你想加入一个 web 开发者社区，学习并互相帮助使用 Elm 语言进行函数式编程，请加入我们的 Facebook 小组， **_Learn Elm Programming_** [https://www.facebook.com/groups/learnelm/](https://www.facebook.com/groups/learnelm/)
