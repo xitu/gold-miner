@@ -1,3 +1,4 @@
+* [Android Material 搜索框实现详细说明](https://gold.xitu.io/entry/581a9b660ce46300586bb8a9?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([siegeout](https://github.com/siegeout) 翻译)
 * [探索 Firebase 在 Android 和 iOS 的使用: 远程配置](https://gold.xitu.io/entry/5818154dc4c97100555a145f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Jamweak](https://github.com/jamweak) 翻译)
 * [Android 动画的灵魂—— Interpolator](https://gold.xitu.io/entry/5817117967f356005868b8a8?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([siegeout](https://github.com/siegeout) 翻译)
 * [探索 Firebase 在 Android 和 iOS 的使用: Analytics (分析模块)](https://gold.xitu.io/entry/5816ac62a22b9d00678ee434?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([yifili09](https://github.com/yifili09) 翻译)
