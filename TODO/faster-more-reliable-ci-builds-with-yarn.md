@@ -197,6 +197,8 @@ In order for the lock file to work for you, **you must check it into git.**
 
 > 不要在 git 中忽略 yran.lock ，它的存在就是为了确保决定性依赖关，从而避免 “works on my machine” 的错误。
 
+为了让锁定文件生效，**你必须在 git 中 check 它**。
+
 ### Setting Up Continuous Integration
 
 ### 搭建持续集成服务
