@@ -4,7 +4,7 @@
 
 [掘金翻译计划](http://gold.xitu.io/#/tag/%E6%8E%98%E9%87%91%E7%BF%BB%E8%AF%91%E8%AE%A1%E5%88%92) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](http://gold.xitu.io) 上的英文分享文章。内容覆盖 [Android](#android)、[iOS](#ios)、[React](#react)、[前端](#前端)、[后端](#后端)、[产品](#产品)、[设计](#设计) 等领域，读者为热爱新技术的新锐开发者。
 
-掘金翻译计划目前翻译完成 [241](#近期文章列表) 篇文章，共有 [200](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
+掘金翻译计划目前翻译完成 [242](#近期文章列表) 篇文章，共有 [200](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
 
 # 如何参与翻译
 
@@ -51,10 +51,10 @@
 
 ## 前端
 
+* [[译] CSS 遮罩的过渡效果](https://gold.xitu.io/entry/5819d6f4a22b9d0067a5b394?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([luoyaqifei](https://github.com/luoyaqifei) 翻译)
 * [[译] JavaScript ES6 核心功能一览](https://gold.xitu.io/entry/58189177128fe100559efd51?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([L9m](https://github.com/L9m) 翻译)
 * [[译] 与时俱进的 Reactivity](https://gold.xitu.io/entry/58130dcbbf22ec0068824bd2?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Liz](https://github.com/lizwangying) 翻译)
 * [[译] 重构，不要积压！](https://gold.xitu.io/entry/581066dc8ac247005b6b3d4f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([rottenpen](https://github.com/rottenpen) 翻译)
-* [[译] Facebook 发布了新的 Node 模块管理器 Yarn，或取代 npm 客户端](https://gold.xitu.io/entry/57fe2f2b128fe1005483131b?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zhangjd](https://github.com/Zhangjd) 翻译)
 * [所有前端译文>>](https://github.com/xitu/gold-miner/blob/master/front-end.md)
 
 
