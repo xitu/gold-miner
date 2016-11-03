@@ -6,7 +6,7 @@
 
 # 再见，汉堡菜单，我们有了新的 Android 交互设计方案
 
-3 月 15 日谷歌宣布将底部导航栏添加到 Android Material Design 指南中。这个新闻快速传遍了 Android 社区，并且引发了关于底部栏的视觉效果以及功能性的 [热烈争论](https://plus.google.com/+LukeWroblewski/posts/ZgNUpC72FVt)。在新闻爆出后，我们的团队试图将我们 [Android 职位搜索应用](https://play.google.com/store/apps/details?id=com.xing.mpr.cep) 中的汉堡菜单抛弃，转而使用一种可见的标签式导航。
+我清楚地记得 3 月 15日当那条新闻传来的时候我正在干什么——当我们正深陷于将我们 [Android 职位搜索应用](https://play.google.com/store/apps/details?id=com.xing.mpr.cep) 中的汉堡菜单抛弃，转而使用一种可见的标签式导航时，谷歌宣布将底部导航栏添加到 Android Material Design 的指导手册中，这个新闻快速传遍了 Android 社区，并且引发了关于底部栏的视觉效果以及功能性的 [热烈争论](https://plus.google.com/+LukeWroblewski/posts/ZgNUpC72FVt)。
 
 
 
