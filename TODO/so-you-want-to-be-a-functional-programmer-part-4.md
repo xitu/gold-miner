@@ -2,14 +2,14 @@
 * 原文作者：[Charles Scalfani](https://medium.com/@cscalfani)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[linpu.li](https://github.com/llp0574)
-* 校对者：
+* 校对者：[luoyaqifei](https://github.com/luoyaqifei)，[supertong](https://github.com/supertong)
 
 # 准备充分了嘛就想学函数式编程？(第四部分)
 
 
 想要理解函数式编程，第一步总是最重要，也是最困难的。但是只要有了正确的思维，其实也不是太难。
 
-之前的部分: [第一部分](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-1-1f15e387e536), [第二部分](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-2-7005682cec4a), [第三部分](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-3-1b0fd14eb1a7)
+之前的部分: [第一部分](https://github.com/xitu/gold-miner/blob/master/TODO/so-you-want-to-be-a-functional-programmer-part-1.md), [第二部分](https://github.com/xitu/gold-miner/blob/master/TODO/so-you-want-to-be-a-functional-programmer-part-2.md), [第三部分](https://github.com/xitu/gold-miner/blob/master/TODO/so-you-want-to-be-a-functional-programmer-part-3.md)
 
 #### 柯里化
 
@@ -286,9 +286,9 @@
 
 在这个系列文章的随后部分，我将谈到有关引用完整性、执行顺序、类型以及其他更多的东西。
 
-下一篇: [第五部分](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-5-c70adc9cf56a)
+下一篇: [第五部分](https://github.com/xitu/gold-miner/blob/master/TODO/so-you-want-to-be-a-functional-programmer-part-5.md)
 
 _如果你喜欢这篇文章，点击下面的![💚](https://linmi.cc/wp-content/themes/bokeh/images/emoji/1f49a.png)，其他人就可以在这里看到了哦。_
 
-如果你想加入 Web 开发者学习社区并帮助其他人在 Elm 里用函数式编程开发 Web 应用，请看我的 Facebook Group，**_学习 Elm 编程_** [https://www.facebook.com/groups/learnelm/](https://www.facebook.com/groups/learnelm/)。
+如果你想加入 Web 开发者学习社区并帮助其他人在 Elm 里用函数式编程开发 Web 应用，请看我的 Facebook Group，**学习 Elm 编程** [https://www.facebook.com/groups/learnelm/](https://www.facebook.com/groups/learnelm/)。
 
