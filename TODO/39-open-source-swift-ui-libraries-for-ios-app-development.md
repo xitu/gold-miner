@@ -4,7 +4,7 @@
 * 译者：
 * 校对者：
 
-# 39 Open Source Swift UI Libraries For iOS App Development
+# 给 iOS APP 开发者的 39 个完全开放的 Swift UI 库
 
 
 
@@ -13,15 +13,15 @@
 
 
 
-Developed by Apple Inc, **Swift** is currently the most popular programming language on [Github](https://github.com/showcases/programming-languages) and it has one of the most active communities that kindly contribute their open source projects.
+由苹果公司创建的 **Swift** 是目前 [Github](https://github.com/showcases/programming-languages) 上最受欢迎的编程语言，并且对于开源项目的贡献 Swift 也是世界上最活跃的社区之一。
 
-Open source libraries can be sweet and they can make your life dramatically easier in building your iOS apps. For those iOS folks spending hours and days hunting for good libraries, you may find this post useful.
+开源库可以十分治愈，因为当你打算开发 iOS 应用时，它们可以让你的工作变得极为简单。 iOS 开发者需要花费几小时甚至几天寻找优质的开源库，这篇文章将会大大节省你的时间。
 
-[Mybridge AI](https://www.mybridge.co/) evaluates the quality of content and ranks the best articles for professionals. In this observation we’ve compared nearly **2,700 open source Swift UI libraries** to select the Top 39\. With only **1.4% chance** to be included in the list, the average number of Github stars was **2,527**.
+[Mybridge AI](https://www.mybridge.co/)评估了内容的质量，并且为专业人士将文章分级排序。在这次调查中，我们对比了近 **2,700 个开源 Swift UI 库** 并选出了前39名，被挑选出来的仅占总数的 **1.4%** ，而且他们在 Github 上的平均 stars 数为 **2,527**。
 
-> This is specific to Swift “UI” (User Interface) libraries —broken down into 12 groups: Animation, Popup, Feed, Onboarding, Color, Image, Graph, Icon, Form, Layout, Message, Search.
+> 这是一个详细的 Swift “UI” (User Interface界面) 库，分为 12 组：动画、弹出框、Feed流、着陆页、色彩、图片、图形、图标、表格、布局、消息、搜索。
 
-> If you’re looking for open source Swift “Apps”, follow [this link](https://goo.gl/5hR1e2).
+> 如果你想寻找开源的  Swift “Apps”，请关注 [这个](https://goo.gl/5hR1e2)。
 
 
 
@@ -45,7 +45,7 @@ Open source libraries can be sweet and they can make your life dramatically easi
 
 #### [**No 1**](https://github.com/MengTo/Spring?utm_source=mybridge&utm_medium=blog&utm_campaign=read_more)
 
-**Spring: A library to simplify iOS animations in Swift. [9164 stars on Github].**
+**Spring: Swift 关于 iOS 简单动效的开源库。[Github 上有 9164 个 stars]。**
 
 
 
@@ -81,7 +81,7 @@ Open source libraries can be sweet and they can make your life dramatically easi
 
 #### [**No 2**](https://github.com/CosmicMind/Material?utm_source=mybridge&utm_medium=blog&utm_campaign=read_more)
 
-**Material: An animation and graphics framework that is used to create beautiful applications [6120 stars on Github].**
+**Material: 用于开发漂酿应用的动效和图形框架。[Github 上有 6120 个 stars]。**
 
 
 
@@ -117,7 +117,7 @@ Open source libraries can be sweet and they can make your life dramatically easi
 
 #### [**No 3**](https://github.com/IFTTT/RazzleDazzle?utm_source=mybridge&utm_medium=blog&utm_campaign=read_more)
 
-**RazzleDazzle: A simple keyframe-based animation framework for iOS, written in Swift. Perfect for scrolling app intros [2291 stars on Github].**
+**RazzleDazzle: Swift 编写的，简单的基于关键帧的并且针对于 iOS 的动效框架。极为适用于滚动介绍的长页面[Github 上有 2291 个 stars]。**
 
 
 
@@ -153,7 +153,7 @@ Open source libraries can be sweet and they can make your life dramatically easi
 
 #### [**No 4**](https://github.com/AugustRush/Stellar?utm_source=mybridge&utm_medium=blog&utm_campaign=read_more)
 
-**Stellar: A fantastic Physical animation library for swift [1881 stars on Github].**
+**Stellar: 牛逼的物理碰撞动效库[Github 上有 1881 个 stars]。**
 
 
 
@@ -189,7 +189,7 @@ Open source libraries can be sweet and they can make your life dramatically easi
 
 #### [**No 5**](https://github.com/exyte/Macaw?utm_source=mybridge&utm_medium=blog&utm_campaign=read_more)
 
-**Macaw: Powerful and easy-to-use vector graphics Swift library with SVG support [594 stars on Github].**
+**Macaw: 强大且易用的矢量图形库，并且支持 SVG[Github 上有 594 个 stars]。**
 
 
 
@@ -223,7 +223,7 @@ Open source libraries can be sweet and they can make your life dramatically easi
 
 #### [**No 6**](https://github.com/kitasuke/PagingMenuController?utm_source=mybridge&utm_medium=blog&utm_campaign=read_more)
 
-**PagingMenuController: Paging view controller with customizable menu in Swift [1305 stars on Github].**
+**PagingMenuController: 页面浏览控制器，并且菜单可以自定义[Github 上有 594 个 stars]。**
 
 
 
@@ -259,7 +259,7 @@ Open source libraries can be sweet and they can make your life dramatically easi
 
 #### [**No 7**](https://github.com/Ramotion/Preview-Transition?utm_source=mybridge&utm_medium=blog&utm_campaign=read_more)
 
-**PreviewTransition: A simple preview gallery controller [1025 stars on Github].**
+**PreviewTransition: 简单的相片预览控制器[Github 上有 1025 个 stars]。**
 
 
 
@@ -295,7 +295,7 @@ Open source libraries can be sweet and they can make your life dramatically easi
 
 #### [**No 8**](https://github.com/demonnico/PinterestSwift?utm_source=mybridge&utm_medium=blog&utm_campaign=read_more)
 
-**PinterestSwift: Transition like Pinterest in Swift [1007 stars on Github].**
+**PinterestSwift: 跟 Pinterest 一样的动效[Github 上有 1007 个 stars]。**
 
 
 
@@ -331,7 +331,7 @@ Open source libraries can be sweet and they can make your life dramatically easi
 
 #### [**No 9**](https://github.com/aslanyanhaik/youtube-iOS?utm_source=mybridge&utm_medium=blog&utm_campaign=read_more)
 
-**YouTube Transition: Watch a video on the right corner like Youtube iOS app, written in Swift 3\. [786 stars on Github].**
+**YouTube Transition: 像 YouTube iOS 应用一样在右侧观看缩略视频，用 Swift 3 编写[Github 上有 786 个 stars]。**
 
 
 
@@ -367,7 +367,7 @@ Open source libraries can be sweet and they can make your life dramatically easi
 
 #### [**No 10**](https://github.com/twicketapp/TwicketSegmentedControl?utm_source=mybridge&utm_medium=blog&utm_campaign=read_more)
 
-**Twicket Segmented Control: Custom UISegmentedControl replacement for iOS, written in Swift [680 stars on Github].**
+**Twicket Segmented Control: 用于替代 iOS 默认组件的自定义 UISegmentedControl [Github 上有 680 个 stars]。**
 
 
 
@@ -401,7 +401,7 @@ Open source libraries can be sweet and they can make your life dramatically easi
 
 #### [**No 11**](https://github.com/vikmeup/SCLAlertView-Swift?utm_source=mybridge&utm_medium=blog&utm_campaign=read_more)
 
-**SCLAlertView-Swift: Beautiful animated Alert View written in Swift [3056 stars on Github].**
+**SCLAlertView-Swift: 漂酿的弹窗动效[Github 上有 3056 个 stars]。**
 
 
 
@@ -437,7 +437,7 @@ Open source libraries can be sweet and they can make your life dramatically easi
 
 #### [**No 12**](https://github.com/SwiftKickMobile/SwiftMessages?utm_source=mybridge&utm_medium=blog&utm_campaign=read_more)
 
-**SwiftMessages: Very flexible alert messages written in Swift. [1356 stars on Github].**
+**SwiftMessages: 各种各样的提示信息[Github 上有 1356 个 stars]。**
 
 
 
@@ -473,7 +473,7 @@ Open source libraries can be sweet and they can make your life dramatically easi
 
 #### [**No 13**](https://github.com/xmartlabs/XLActionController?utm_source=mybridge&utm_medium=blog&utm_campaign=read_more)
 
-**XLActionController: Fully customizable and extensible action sheet controller written in Swift 3 [1346 stars on Github].**
+**XLActionController:完全自定义的并且可扩展的 action sheet controller[Github 上有 1346 个 stars]。**
 
 
 
@@ -509,7 +509,7 @@ Open source libraries can be sweet and they can make your life dramatically easi
 
 #### [**No 14**](https://github.com/corin8823/Popover?utm_source=mybridge&utm_medium=blog&utm_campaign=read_more)
 
-**Popover: Balloon pop up library like Facebook app, written in pure swift. [852 stars on Github].**
+**Popover: 像 Facebook 应用里的气球呼出框，用纯 Swift 语言编写[Github 上有 852 个 stars]。**
 
 
 
@@ -545,7 +545,7 @@ Open source libraries can be sweet and they can make your life dramatically easi
 
 #### [**No 15**](https://github.com/IcaliaLabs/Presentr?utm_source=mybridge&utm_medium=blog&utm_campaign=read_more)
 
-**Presentr: Wrapper for custom ViewController presentations [635 stars on Github].**
+**Presentr: 完全自定义的 ViewController 包[Github 上有 635 个 stars]。**
 
 
 
@@ -579,7 +579,7 @@ Open source libraries can be sweet and they can make your life dramatically easi
 
 #### [**No 16**](https://github.com/Ramotion/folding-cell?utm_source=mybridge&utm_medium=blog&utm_campaign=read_more)
 
-**FoldingCell: An expanding content cell inspired by folding paper material [4285 stars on Github].**
+**FoldingCell: 一种的内容展开样式，灵感来源是现实生活中的文件夹[Github 上有 4285 个 stars]。**
 
 
 
@@ -615,7 +615,7 @@ Open source libraries can be sweet and they can make your life dramatically easi
 
 #### [**No 17**](https://github.com/Ramotion/expanding-collection?utm_source=mybridge&utm_medium=blog&utm_campaign=read_more)
 
-**ExpandingCollection: A card peek/pop controller [2425 stars on Github].**
+**ExpandingCollection: 卡片弹出控制器[Github 上有 2425 个 stars]。**
 
 
 
@@ -651,7 +651,7 @@ Open source libraries can be sweet and they can make your life dramatically easi
 
 #### [**No 18**](https://github.com/gontovnik/DGElasticPullToRefresh?utm_source=mybridge&utm_medium=blog&utm_campaign=read_more)
 
-**DGElasticPullToRefresh: Elastic pull to refresh component written in Swift [2308 stars on Github].**
+**DGElasticPullToRefresh: 富含弹性的下拉刷新[Github 上有 2308 个 stars]。**
 
 
 
@@ -687,7 +687,7 @@ Open source libraries can be sweet and they can make your life dramatically easi
 
 #### [**No 19**](https://github.com/Yalantis/Persei?utm_source=mybridge&utm_medium=blog&utm_campaign=read_more)
 
-**Persei: Animated top menu for UITableView / UICollectionView / UIScrollView written in Swift [2269 stars on Github].**
+**Persei: 顶部菜单的动效，针对于 UITableView 、 UICollectionView 、 UIScrollView[Github 上有 2269 个 stars]。**
 
 
 
@@ -723,7 +723,7 @@ Open source libraries can be sweet and they can make your life dramatically easi
 
 #### [**No 20**](https://github.com/Instagram/IGListKit?utm_source=mybridge&utm_medium=blog&utm_campaign=read_more)
 
-**IGListKit: A data-driven UICollectionView framework for building fast and flexible lists — Instagram Engineering**. **[2443 stars on Github].**
+**IGListKit: 一个以数据驱动的 UICollectionView 框架，旨在组建更快更灵活的列表，Instagram 驱动[Github 上有 2443 个 stars]。**
 
 
 
@@ -759,7 +759,7 @@ Open source libraries can be sweet and they can make your life dramatically easi
 
 #### [**No 21**](https://github.com/Yalantis/PullToMakeSoup?utm_source=mybridge&utm_medium=blog&utm_campaign=read_more)
 
-**PullToMakeSoup: Custom animated pull-to-refresh that can be easily added to UIScrollView [1301 stars on Github].**
+**PullToMakeSoup: 能够被很简单的增加到 UIScrollView 中的自定义下拉刷新动效。**
 
 
 
@@ -793,7 +793,7 @@ Open source libraries can be sweet and they can make your life dramatically easi
 
 #### [**No 22**](https://github.com/dzenbot/DZNEmptyDataSet?utm_source=mybridge&utm_medium=blog&utm_campaign=read_more)
 
-**DZNEmptyDataSet: Empty State UI Library [6552 stars on Github].**
+**DZNEmptyDataSet: 空状态的 UI 库[Github 上有 6552 个 stars]。**
 
 
 
@@ -829,7 +829,7 @@ Open source libraries can be sweet and they can make your life dramatically easi
 
 #### [**No 23**](https://github.com/ephread/Instructions?utm_source=mybridge&utm_medium=blog&utm_campaign=read_more)
 
-**Instructions: Create walkthroughs and guided tours in Swift. [2256 stars on Github].**
+**Instructions: 首次使用的教程指导[Github 上有 2256 个 stars]。**
 
 
 
@@ -865,7 +865,7 @@ Open source libraries can be sweet and they can make your life dramatically easi
 
 #### [**No 24**](https://github.com/hyperoslo/Presentation?utm_source=mybridge&utm_medium=blog&utm_campaign=read_more)
 
-**Presentation: Make tutorials, release notes and animated pages [1680 stars on Github].**
+**Presentation: 新手引导页，欢迎页及其动效[Github 上有 1680 个 stars]。**
 
 
 
@@ -899,7 +899,7 @@ Open source libraries can be sweet and they can make your life dramatically easi
 
 #### [**No 25**](https://github.com/ViccAlexander/Chameleon?utm_source=mybridge&utm_medium=blog&utm_campaign=read_more)
 
-**Chameleon: Flat Color Framework for Swift Developers [7071 stars on Github].**
+**Chameleon: 扁平化风格的颜色[Github 上有 7071 个 stars]。**
 
 
 
@@ -935,7 +935,7 @@ Open source libraries can be sweet and they can make your life dramatically easi
 
 #### [**No 26**](https://github.com/hyperoslo/Hue?utm_source=mybridge&utm_medium=blog&utm_campaign=read_more)
 
-**Hue: All-in-one coloring utility that you’ll ever need to write in Swift [1612 stars on Github].**
+**Hue: 万能的颜色工具，以后再也不用写 Swift 代码啦[Github 上有 1612 个 stars]。**
 
 
 
@@ -971,7 +971,7 @@ Open source libraries can be sweet and they can make your life dramatically easi
 
 #### [**No 27**](https://github.com/yannickl/DynamicColor?utm_source=mybridge&utm_medium=blog&utm_campaign=read_more)
 
-**DynamicColor: Extension to manipulate colors easily in Swift [1310 stars on Github].**
+**DynamicColor: 更简单的控制颜色的 Swift 拓展插件[Github 上有 1310 个 stars]。**
 
 
 
@@ -1005,7 +1005,7 @@ Open source libraries can be sweet and they can make your life dramatically easi
 
 #### [**No 28**](https://github.com/BeauNouvelle/FaceAware?utm_source=mybridge&utm_medium=blog&utm_campaign=read_more)
 
-**FaceAware: An extension that gives UIImageView the ability to focus on faces within an image when using AspectFill [1424 stars on Github].**
+**FaceAware:这个插件帮助 UIImageView 将中心聚焦到照片的脸上，前提是这个照片使用了 AspectFill [Github 上有 1424 个 stars]。**
 
 
 
@@ -1041,7 +1041,7 @@ Open source libraries can be sweet and they can make your life dramatically easi
 
 #### [**No 29**](https://github.com/gkye/ComplimentaryGradientView?utm_source=mybridge&utm_medium=blog&utm_campaign=read_more)
 
-**ComplimentaryGradientView: Create complementary gradients generated from dominant and prominent colors in supplied image [384 stars on Github].**
+**ComplimentaryGradientView: 通过源图片的主要颜色生成颜色渐变[Github 上有 384 个 stars]。**
 
 
 
@@ -1075,7 +1075,7 @@ Open source libraries can be sweet and they can make your life dramatically easi
 
 #### [**No 30**](https://github.com/danielgindi/Charts?utm_source=mybridge&utm_medium=blog&utm_campaign=read_more)
 
-**Charts: Beautiful charts for iOS built in Swift [11433 stars on Github].**
+**Charts: iOS 应用的漂酿图表[Github 上有 11433 个 stars]。**
 
 
 
@@ -1111,7 +1111,7 @@ Open source libraries can be sweet and they can make your life dramatically easi
 
 #### [**No 31**](https://github.com/philackm/Scrollable-GraphView?utm_source=mybridge&utm_medium=blog&utm_campaign=read_more)
 
-**Scrollable-GraphView: An adaptive scrollable graph view for iOS to visualize simple discrete datasets. Written in Swift**. **[3065 stars on Github].**
+**Scrollable-GraphView:针对于 iOS 应用的自适应滚动图形，用户将离散的数据集可视化[Github 上有 3065 个 stars]。**
 
 
 
@@ -1145,7 +1145,7 @@ Open source libraries can be sweet and they can make your life dramatically easi
 
 #### [**No 32**](https://github.com/Ramotion/paper-switch?utm_source=mybridge&utm_medium=blog&utm_campaign=read_more)
 
-**Paper Switch: RAMPaperSwitch is a Swift module which paints over the parent view when the switch is turned on. [1849 stars on Github].**
+**Paper Switch:这是一个 Swift 的模块组件，当页面中的开关打开后该页面填充底色[Github 上有 1849 个 stars]。**
 
 
 
@@ -1181,7 +1181,7 @@ Open source libraries can be sweet and they can make your life dramatically easi
 
 #### [**No 33**](https://github.com/Ramotion/circle-menu?utm_source=mybridge&utm_medium=blog&utm_campaign=read_more)
 
-**Circle Menu: A simple, elegant menu with a circular layout [1768 stars on Github].**
+**Circle Menu:简单优雅的环形布局菜单[Github 上有 1768 个 stars]。**
 
 
 
@@ -1215,7 +1215,7 @@ Open source libraries can be sweet and they can make your life dramatically easi
 
 #### [**No 34**](https://github.com/patchthecode/JTAppleCalendar?utm_source=mybridge&utm_medium=blog&utm_campaign=read_more)
 
-**JTAppleCalendar: The Unofficial Swift Apple Calendar Library. View. Control. for iOS & tvOS [1026 stars on Github].**
+**JTAppleCalendar: 非正式的 Swift Apple 日历库。可查看、操作。适用于 iOS 和 tvOS [Github 上有 1026 个 stars]。**
 
 
 
@@ -1251,7 +1251,7 @@ Open source libraries can be sweet and they can make your life dramatically easi
 
 #### [**No 35**](https://github.com/itsmeichigo/DateTimePicker?utm_source=mybridge&utm_medium=blog&utm_campaign=read_more)
 
-**DateTimePicker: A nicer iOS UI component for picking date and time [455 stars on Github].**
+**DateTimePicker: 用于选择日期和时间的更优质的 iOS UI 组件[Github 上有 455 个 stars]。**
 
 
 
@@ -1285,7 +1285,7 @@ Open source libraries can be sweet and they can make your life dramatically easi
 
 #### [**No 36**](https://github.com/xmartlabs/Eureka?utm_source=mybridge&utm_medium=blog&utm_campaign=read_more)
 
-**Eureka: Elegant iOS form builder in Swift [4117 stars on Github].**
+**Eureka: 优雅的 iOS 表格组件[Github 上有 4117 个 stars]。**
 
 
 
@@ -1319,7 +1319,7 @@ Open source libraries can be sweet and they can make your life dramatically easi
 
 #### [**No 37**](https://github.com/mamaral/Neon?utm_source=mybridge&utm_medium=blog&utm_campaign=read_more)
 
-**Neon: A powerful Swift programmatic UI layout framework for iPhone & iPad [3439 stars on Github].**
+**Neon:适用于 iPhone 和 iPad ，更强大 UI 布局框架[Github 上有 3439 个 stars]。**
 
 
 
@@ -1353,7 +1353,7 @@ Open source libraries can be sweet and they can make your life dramatically easi
 
 #### [**No 38**](https://github.com/eBay/NMessenger?utm_source=mybridge&utm_medium=blog&utm_campaign=read_more)
 
-**NMessenger: A fast, lightweight messenger component built on AsyncDisplaykit and written in Swift [1492 stars on Github].**
+**NMessenger: 更快更轻量级的消息组件，构建于 AsyncDisplaykit 并且由 Swift 编写[Github 上有 1492 个 stars]。**
 
 
 
@@ -1387,7 +1387,7 @@ Open source libraries can be sweet and they can make your life dramatically easi
 
 #### [**No 39**](https://github.com/ramotion/reel-search?utm_source=mybridge&utm_medium=blog&utm_campaign=read_more)
 
-**Reel-search: A search controller that allows you to choose options from a list [1364 stars on Github].**
+**Reel-search:带有模糊搜索的搜索组件[Github 上有 1364 个 stars]。**
 
 
 
@@ -1417,10 +1417,9 @@ Open source libraries can be sweet and they can make your life dramatically easi
 
 
 
-### 
+### 资源
 
-#### [No 1) Learn](https://goo.gl/lhGClQ)
-
+#### [No 1) 学习](https://goo.gl/lhGClQ)
 
 
 
@@ -1435,11 +1434,11 @@ Open source libraries can be sweet and they can make your life dramatically easi
 
 
 
-[The Complete iOS 10 Developer Course: Build 21 Apps including Uber, Instagram & Tinder.](https://goo.gl/lhGClQ)
+[所有的 iOS 10 编程课程: 开发 21 个应用包括Uber、Instagram 和 Tinder](https://goo.gl/lhGClQ)
 
-**[22,575 recommends, 4.7/5 star]**
+**[22,575 次推荐, 4.7/5 评分]**
 
-#### [No 2) Interview](https://goo.gl/xlvQ4y)
+#### [No 2) 面试](https://goo.gl/xlvQ4y)
 
 
 
@@ -1455,12 +1454,11 @@ Open source libraries can be sweet and they can make your life dramatically easi
 
 
 
-[Software Engineer Interview Unleashed: Learn from a former Google interviewer.](https://goo.gl/xlvQ4y)
+[软件工程师面试的答疑解惑: 学习往期的谷歌面试](https://goo.gl/xlvQ4y)
 
-**[210 recommends, 4.8/5 rating]**
+**[210 次推荐, 4.8/5 评分]**
 
-#### [No 3) Hosting](https://goo.gl/zWn3Pw)
-
+#### [No 3) 建立网站](https://goo.gl/zWn3Pw)
 
 
 
@@ -1475,10 +1473,9 @@ Open source libraries can be sweet and they can make your life dramatically easi
 
 
 
-[For those who looking to host a website under 5 minutes](https://goo.gl/zWn3Pw)
+[给那些想在 5 分钟内建立网站的人](https://goo.gl/zWn3Pw)
 
-**[One of the cheapest]**
-
+**[最便宜的一个]**
 
 
 
@@ -1497,8 +1494,7 @@ Open source libraries can be sweet and they can make your life dramatically easi
 
 
 
-That’s it for open source Swift UI libraries. If you like this curation, read daily Top 10 articles based on your programming skills on our [**iOS App.**](https://goo.gl/dJi5H6)
-
+以上就是我说的开源 Swift UI 库。如果你喜欢这篇文章，快来下载我们的  [**iOS App.**](https://goo.gl/dJi5H6) 每天阅读基于你使用的编程语言的 10 篇文章。
 
 
 
