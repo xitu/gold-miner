@@ -2,7 +2,7 @@
 * 原文作者：[Sebastian Lindemann](https://medium.com/@S_Lindemann)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者： [Xiaonan Shen](https://github.com/shenxn)
-* 校对者：
+* 校对者： [Jaeger](https://github.com/laobie), [jamweak](https://github.com/jamweak)
 
 # 再见，汉堡菜单，我们有了新的 Android 交互设计方案
 
