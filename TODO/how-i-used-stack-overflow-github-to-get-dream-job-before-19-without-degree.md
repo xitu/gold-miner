@@ -1,10 +1,10 @@
 > * 原文地址：[How I used Stack Overflow & GitHub to get dream job before 19 without degree](https://medium.com/@danielkmak/how-i-used-stack-overflow-github-to-get-dream-job-before-19-without-degree-8cb5184e2bec#.p4zh8ykfu)
 * 原文作者：[Daniel Kmak](https://medium.com/@danielkmak)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[jiaowoyongqi](https://github.com/jiaowoyongqi)
 * 校对者：
 
-# How I used Stack Overflow & GitHub to get dream job before 19 without degree
+# 19岁的我没有学位，但是通过 Stack Overflow 和 GitHub 找到了梦想的工作
 
 
 
@@ -13,14 +13,14 @@
 
 
 
-Hey, my name’s Daniel, I’m 18\. I have no degree in IT. I’ve just written my mature exams. I have two dream, very well paid jobs. I’m full-time front-end developer and part-time remote Ember.js consultant.
+大家好，我叫丹尼尔，今年18岁。我没有技术专业的学位。我想写一写自己的亲身经历。现在我有两份薪酬丰厚而且是我梦寐以求的工作。全职前端程序员，以及 Ember.js 的远程兼职顾问。
 
-No doubt, I got my two jobs thanks to **Stack Overflow** and **GitHub**. Here’s how I used these great sites to get:
+毫无疑问，这两份工作都要归功于 **Stack Overflow** 和 **GitHub*。通过这两个网站我收获到了：
 
-*   reputation employers would respect
-*   attention necessary to be invited to 10–15 video-call interviews by interested companies, mostly remote oriented
-*   part-time remote Ember.js consultant job
-*   full-time front-end developer job
+*   让招聘者刮目相看的人气值
+*   心仪公司的关注，并获得了10到15个远程视频面试的机会
+*   Ember.js 远程顾问的兼职工作
+*   前端程序员的全职工作
 
 
 
@@ -42,9 +42,8 @@ No doubt, I got my two jobs thanks to **Stack Overflow** and **GitHub**. Here’
 
 ### GitHub
 
-GitHub helped me to get not one, but two jobs! I’ve used GitHub as my advantage when I was on technical interview about my skills for part-time consultant job. Also, when I was considered for full-time front-end position I hold now, I was asked to give link to my GitHub account.
-
-You need something to hold in your hand when you face employer. They require from you knowledge of specific language, framework, but also it’s **very important** for them to see that **the only thing you and spaghetti have in common is your diet.**
+Github 帮助我得到了不只是一份，而是两份工作！我在兼职咨询工作的技术面试中，曾以 Github 作为我的实力优势。同样，当我在向目前这家公司的全职前端程序员职位表示求职意向时，他们要求我提供 Github 地址链接。
+当你在面对招聘者的时候，你手里需要掌握砝码。他们不仅需要了解你对于特定语言和框架的掌握程度，而且对他们来说**很重要**的是看到你的**综合能力**，就像吃意大利面时不仅仅是品尝面条而是品尝整盘佳肴。
 
 
 
@@ -58,18 +57,18 @@ You need something to hold in your hand when you face employer. They require fro
 
 
 
-See [Spaghetti code](https://en.m.wikipedia.org/wiki/Spaghetti_code).
+见 [面条式代码](https://en.m.wikipedia.org/wiki/Spaghetti_code)
 
 
 
-GitHub is a place where you can show your code. For example, when you learn new technology, go create a repository with some small proof of concept how to leverage that technology and upload it to GitHub. This approach has four benefits:
+Github 是一个你可以展示代码的地方。例如，当你学到新的技术后，可以新建一个涉及这个技术的 repository ，然后上传到 Github 上。这样做会有四点好处：
 
-*   You can use it as proof that you know technology, language, framework
-*   People see you write good code, you can structure it, you know [OOP](https://en.wikipedia.org/wiki/Object-oriented_programming), you write [SOLID](https://en.wikipedia.org/wiki/SOLID_%28object-oriented_design%29), clean code. Recruiters can show that to the team and they can decide if they want to interview you (first technical)
-*   You have at least basics of Git — you maintain repositories on GitHub
-*   Recruiters send mails to you, using some automation, based on in which languages you have repositories on GitHub. I have received about 10 mails this way. So, if you have C# repository then it’s possible you will receive offer for C# position. Of course, email from recruiter isn’t anything big, but can get talks going. And you’re in position where they’ve reached out to you, not vice versa. Trust me it’s easier.
+*   你可以证明你了解这项技术，这个语言或框架
+*   人们可以看到你写的优质代码，你可以为代码优化架构让其变得简洁，你知道 [OOP](https://en.wikipedia.org/wiki/Object-oriented_programming)，你还可以写 [SOLID](https://en.wikipedia.org/wiki/SOLID_%28object-oriented_design%29)。招聘者还可以把这些展示给公司团队的其他成员，共同决定是否要对你进行第一轮的技术面试
+*   你至少有基本的 Git 以维护你在 Github 上的 repositories
+*   招聘者会基于你在 Github 的 repository 中所使用的语言来给你发邮件，这整个过程是自动化的。我就收到大概 10 封这样的邮件。所以，如果你的 repository 是用 C# 来写的，那么你很有可能收到关于 C# 职位的面试邀请。当然招聘者发来的邮件并不算什么，但至少这也是一个机会。你现在的情况是招聘者主动找上来，而不是你找他们，相信我，这样的求职更为容易
 
-I’ve done that. I’ve received these offers. I didn’t follow this with all of my projects — some of them were created privately on GitLab. I had hopes for selling them in future, but didn’t manage to finish it. However now I regret it it’s not public. If I will release it as open source with small documentation how it works and screenshots, then it will start to work for me as my portfolio.
+我就这样做过。我收到了类似的面试邀请。但我并没有把所有的项目都这样做，一部分项目创建在 GitLab 中仅我自己可见。我希望在以后能够有机会推销他们，但是我并没有完成它们。然而现在我后悔没有把它们给公开。如果我将它们以开源项目发表后，并且用文档的形式展示它们是如何工作的，长成什么样子的，那么它们就能加到我的简历作品集里面了。
 
 
 
@@ -83,12 +82,11 @@ I’ve done that. I’ve received these offers. I didn’t follow this with all 
 
 
 
-[My repositories on GitHub.](https://github.com/Kuzirashi?tab=repositories)
+[我在 Github 上的 repositories](https://github.com/Kuzirashi?tab=repositories)
 
 
 
-I have also contributed to various, mostly Ember related repositories. Sometimes it was documentation, sometimes it was code. It’s useful to tell that you’ve contributed to something big on interview. But in my case it were minor improvements.
-
+我也在很多 Ember 相关的 repositories 中做了很多贡献。有时候是文档方面的，有时候是代码方面的。你在某些大项目中做出的贡献，这对于求职是很有帮助的。但就这次的求职而言，他们对于我帮助并没有很大。
 
 
 
@@ -101,11 +99,7 @@ I have also contributed to various, mostly Ember related repositories. Sometimes
 
 
 
-[My commits to Ember.js repository.](https://github.com/emberjs/ember.js/commits/master?author=kuzirashi)
-
-
-
-
+[我在 Ember.js 的 repository 上的评论](https://github.com/emberjs/ember.js/commits/master?author=kuzirashi)
 
 
 
@@ -125,9 +119,9 @@ I have also contributed to various, mostly Ember related repositories. Sometimes
 
 ### Stack Overflow
 
-Few years ago I’ve believed that Stack Overflow is the most reliable way to get me job without university. I was right.
+几年前我认为在我没有大学学历的前提下，Stack Overflow 是帮助我找到工作的最可靠的方式。事实证明我是对的。
 
-How did I know? I’m all hype about open source. I’ve read that employers measure your skills by looking at Stack Overflow account. It’s not that easy. But, when I was in talks with my current company, for full-time job, almost 10k reputation (back then in June), combined with my age, was enough for this wow-effect on employer’s face. They’ve decided to try me. Thank you, Stack Overflow!
+我是怎么知道的呢？归功于开源项目的自我宣传。我了解到应聘者会通过浏览你的 Stack Overflow 帐号来评价你的专业技能。但是远没这么简单。当我来到现在这家公司面试全职程序员的时候，大概 1 万的人气值（统计截止至6月份）再加上我的年龄，这两项足以让面试官瞠目结舌。最后他们决定录入我。谢谢你，Stack Overflow！
 
 
 
@@ -141,19 +135,18 @@ How did I know? I’m all hype about open source. I’ve read that employers mea
 
 
 
-[Stack Overflow account overview](http://stackoverflow.com/users/2166409/daniel-kmak?tab=profile), August 2016.
+[Stack Overflow 的帐号](http://stackoverflow.com/users/2166409/daniel-kmak?tab=profile)，2016 年 8 月.
 
 
+我用各种语言和框架写过程序。用 ASP.NET & Mono 开发过游戏服务列表，用XNA、Java 服务、C# WPF 程序等来编写过电脑版的塔防游戏。而唯一让我感兴趣的可能就是使用互联网来获取和发送数据吧。
 
-I’ve created things with all kinds of languages and frameworks. Game server list in ASP.NET & Mono, tower defense desktop game with XNA, Java server, C# WPF client etc. The only thing that links my interests is probably using web to get or send data.
+我的强项就是 Ember.js。我从16岁（2013年）开始学习它，后来我看了 [Yehuda Katz](https://medium.com/u/324797632ca4) 在旧金山 HTML5 大会上的视频 [真正卓越](https://youtu.be/u6RFyVN9sNg)。于是我有了人生理想，那就是学习 Ember，我需要更多的动力及决心。[这个视频](https://youtu.be/rstD4rm3EQ8) 中的这段话，在我第一次听到后，就一直烙印在脑海中。
 
-My best card in the deck is Ember.js. I’ve started learning it when I was 16 (in 2013), after I’ve watched [this truly outstanding video](https://youtu.be/u6RFyVN9sNg) by [Yehuda Katz](https://medium.com/u/324797632ca4)from San Francisco HTML5 conference. So I had my goal, learn Ember, I needed more motivation and determination. Quote from [this video](https://youtu.be/rstD4rm3EQ8) was in my head since I’ve heard it for first time.
+> 无论你做什么，投入热情吧。
 
-> Whatever you do, be passionate about it.
+回到 Stack Overflow。一开始当我处于学习阶段的时候，我在上面提问。然后我开始回答其他人的问题，以此来获得人气值。我打开所有新出现的问题，并趁这个问题成为热门话题之前，试着以最快的速度回答他，这样的话题例如 JavaScript。关于 Ember 的问题对我而言更加简单了。我花费大把的时间写下我的答案并且详细地分析那些复杂的问题。很少有人会回答这类的问题。
 
-True. Back to Stack Overflow. First, when I was learning, I was looking for answers there. Then I started answering them — to get reputation. I had my tab open with new questions appearing and I was trying to be the fastest gun in the west and answer them first — when it comes to more popular topics — such as JavaScript. In Ember it was easier. I had lots of time to write my answers and analyse complex problems. There are less people answering questions in this tag.
-
-After some time I was top 1 in last 30 days. I had attention, I had mails with job opportunities. One of them was part-time remote Ember.js consultant position. I’ve received offer because I helped a person on Stack Overflow in Ember tag. True story. Here’s proof.
+有时候持续 30 天我都是排名第一的回答者，于是我有了关注者，接着我收到了许多面试邀请的邮件。其中一个就是 Ember.js 的远程兼职顾问。我因为回答了一个人在 Stack Overflow 中 Ember 分类下的问题，然后得到了一个面试邀请！真事儿，这就是证据。
 
 
 
@@ -163,16 +156,16 @@ After some time I was top 1 in last 30 days. I had attention, I had mails with j
 
 
 
-Fragment of email.
+邮件的截图。
 
 
 
-Later I had technical interview about my understanding of Ember. I passed. I’m Ember.js consultant for Techolution since November 2015.
+后来我进行了一次技术面试，关于我对于 Ember 的理解。我通过了。于是从 2015 年 11 月开始，我成为了一名 Ember.js 的技术顾问。
 
-It’s also very important that you create Stack Overflow careers profile. Two reasons here:
+创建一个 Stack Overflow 职业资料页也是十分重要的，有两点原因：
 
-*   You get cool CV with your achievements from Stack Overflow included like amount of your answers
-*   Employers can find you and message you there, so far 2 employers have reached out to me on that website, but both were very serious and direct offers
+*   你会得到一个酷炫的简历，包含你在 Stack Overflow 上面回答的所有答案
+*   招聘者会在上面找到你并且给你发送私信，不止两位招聘者在上面联系到我了，而且他们都非常认真并且后来都发来了面试邀请
 
 
 
@@ -186,7 +179,7 @@ It’s also very important that you create Stack Overflow careers profile. Two r
 
 
 
-[My Stack Overflow CV.](http://stackoverflow.com/cv/kuzi)
+[我的 Stack Overflow 简历](http://stackoverflow.com/cv/kuzi)
 
 
 
@@ -208,11 +201,11 @@ It’s also very important that you create Stack Overflow careers profile. Two r
 
 
 
-**Conclusion**
+**结论**
 
-Believe in yourself, work hard. Document your skills on GitHub and Stack Overflow. Contribute to open source repositories, create your own. Get people to know you. Show them you’re living somewhere and you’re capable of doing awesome things. Show them you have passion. In IT, recruiters work hard each day to find people like you. Make their lives easier.
+相信自己，加把劲。并且把你的技能都展示在 Stack Overflow 和 GitHub 上。为公开的开源项目添砖加瓦，并且创建自己的 repositories。让人们知道你。告诉他们你住在哪里，并且你有足够的能力。告诉他们你的热情。在科技行业，招聘者每天都想方设法地找寻像你这样的人才。让他们轻松地找到你吧。
 
-Thanks for reading. Please recommend it if you like it. 😨 If you have different opinions or maybe great stories to share please comment! I’m happy with all the feedback!
+感谢阅读。如果喜欢欢迎分享。如果你有不同的意见或者更好的故事想要分享，欢迎留言！我欢迎任何的反馈！
 
 
 
@@ -232,7 +225,7 @@ Thanks for reading. Please recommend it if you like it. 😨 If you have differ
 
 
 
-Remember to drop me email: **contact@danielkmak.com**, and to [visit my website](http://danielkmak.com/) where you can find more about me and cool projects. 😨
+记得给我写邮件： **contact@danielkmak.com**，或者 [访问我的网站](http://danielkmak.com/) ，在那里你可以了解我更多的信息并且看到更多酷炫的项目。
 
 
 
