@@ -1,3 +1,5 @@
+* [CSS 遮罩的过渡效果](https://gold.xitu.io/entry/5819d6f4a22b9d0067a5b394?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([luoyaqifei](https://github.com/luoyaqifei) 翻译)
+* [JavaScript ES6 核心功能一览](https://gold.xitu.io/entry/58189177128fe100559efd51?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([L9m](https://github.com/L9m) 翻译)
 * [与时俱进的 Reactivity](https://gold.xitu.io/entry/58130dcbbf22ec0068824bd2?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Liz](https://github.com/lizwangying) 翻译)
 * [重构，不要积压！](https://gold.xitu.io/entry/581066dc8ac247005b6b3d4f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([rottenpen](https://github.com/rottenpen) 翻译)
 * [Facebook 发布了新的 Node 模块管理器 Yarn，或取代 npm 客户端](https://gold.xitu.io/entry/57fe2f2b128fe1005483131b?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zhangjd](https://github.com/Zhangjd) 翻译)
