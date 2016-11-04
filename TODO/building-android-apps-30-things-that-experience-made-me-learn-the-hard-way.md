@@ -1,55 +1,56 @@
 > * 原文地址：[Building Android Apps — 30 things that experience made me learn the hard way](https://medium.com/@cesarmcferreira/building-android-apps-30-things-that-experience-made-me-learn-the-hard-way-313680430bf9#.6cszf7t9m)
 * 原文作者：[César Ferreira](https://medium.com/@cesarmcferreira)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者： [Nicolas(Yifei) Li](https://github.com/yifili09)
 * 校对者：
 
-# Building Android Apps — 30 things that experience made me learn the hard way
-Amazing design from [https://ramotion.com](https://ramotion.com)
+# 构建 Android Apps 一定要绕过的 30 个坑
 
-There are two kinds of people — those who learn the hard way and those who learn by taking someone’s advice. Here are some of the things I’ve learned along the way that I want to share with you:
+来自 [https://ramotion.com](https://ramotion.com) 的惊艳设计
 
-
-
+有两类人 - 那些通过艰苦努力学习的人们和那些采纳别人意见学习的人们。在此，我想分享一些自己的经验给大家:
 
 
 
 
-1.  Think twice before adding any third party library, it’s a **really** **serious** commitment;
-2.  If the user can’t see it, [**don’t draw it**](http://riggaroo.co.za/optimizing-layouts-in-android-reducing-overdraw/)!;
-3.  Don’t use a database unless you **really** need to;
-4.  Hitting the 65k method count mark is gonna happen fast, I mean really fast! And [**multidexing** can save you](https://medium.com/@rotxed/dex-skys-the-limit-no-65k-methods-is-28e6cb40cf71);
-5.  [RxJava](https://github.com/ReactiveX/RxJava) is the **best** alternative to [AsyncTasks and so much more](https://medium.com/swlh/party-tricks-with-rxjava-rxandroid-retrolambda-1b06ed7cd29c);
-6.  [Retrofit](http://square.github.io/retrofit/) is the **best** **networking** **library** there is;
-7.  Shorten your code with [**Retrolambda**](https://medium.com/android-news/retrolambda-on-android-191cc8151f85);
-8.  Combine [**RxJava with Retrofit and Retrolambda**](https://medium.com/swlh/party-tricks-with-rxjava-rxandroid-retrolambda-1b06ed7cd29c) for maximum awesomeness!;
-9.  I use [EventBus](https://github.com/greenrobot/EventBus) and it’s great, but I **don’t** use it too much because the codebase would get really messy;
-10.  [Package by Feature, not layers](https://medium.com/the-engineering-team/package-by-features-not-layers-2d076df1964d);
-11.  Move _everything_ off the application thread;
-12.  [lint](http://developer.android.com/tools/help/layoutopt.html) your views to help you optimize the layouts and layout hierarchies so you can identify redundant views that could perhaps be removed;
-13.  If you’re using _gradle_, speed it up anyway you [can](https://medium.com/the-engineering-team/speeding-up-gradle-builds-619c442113cb);
-14.  Do [profile reports](https://medium.com/the-engineering-team/speeding-up-gradle-builds-619c442113cb) of your builds to see what is taking the build time;
-15.  Use a [well known](http://fernandocejas.com/2015/07/18/architecting-android-the-evolution/) architecture;
-16.  [Testing takes time but it’s faster and more robust than coding without tests once you’ve got the hang of it](http://stackoverflow.com/a/67500/794485);
-17.  Use [dependency injection](http://fernandocejas.com/2015/04/11/tasting-dagger-2-on-android/) to make your app more modular and therefore easier to test;
-18.  Listening to [fragmented podcast](http://fragmentedpodcast.com/) will be great for you;
-19.  [**Never** use your personal email for your android market publisher account](https://www.reddit.com/r/Android/comments/2hywu9/google_play_only_one_strike_is_needed_to_ruin_you/);
-20.  **Always** use [appropriate](http://developer.android.com/training/keyboard-input/style.html) input types;
-21.  Use **analytics** to find usage patterns and isolate bugs;
-22.  Stay on top of new [libraries](http://android-arsenal.com/) (use [dryrun](https://github.com/cesarferreira/dryrun) to test them out faster);
-23.  Your services should do what they need to do and **die** as quickly as possible;
-24.  Use the [Account Manager](http://developer.android.com/reference/android/accounts/AccountManager.html) to suggest login usernames and email addresses;
-25.  Use **CI** (Continuous Integration) to build and distribute your beta and production .apk’s;
-26.  Don’t run your own **CI** server, maintaining the server is time consuming because of disk space/security issues/updating the server to protect from SSL attacks, etc. Use circleci, travis or shippable, they’re cheap and it’s one less thing to worry about;
-27.  [Automate your deployments to the playstore;](https://github.com/Triple-T/gradle-play-publisher)
-28.  If a library is massive and you are only using a small subset of its functions you should find an alternative **smaller** option (rely on [proguard](http://developer.android.com/tools/help/proguard.html) for instance);
-29.  Don’t use more modules than you actually need. If _that_ modules are not constantly modified, it’s important to have into consideration that the time needed to compile them from scratch (**CI** builds are a good example), or even to check if the previous individual module build is up-to-date, can be up to almost 4x greater than to simply load that dependency as a binary .jar/.aar.
-30.  Start [thinking about ditching PNGs for SVGs](http://developer.android.com/tools/help/vector-asset-studio.html);
-31.  Make library abstraction classes, it’ll be way easier to switch to a new library if you only need to switch in one place (e.g. **_AppLogger.d(“message”)_** can contain **_Log.d(TAG, message)_** and later realise that [**_Timber.d(message)_**](https://github.com/JakeWharton/timber) is a better option);
-32.  Monitor connectivity and type of connection (**more** **data** **updates** while on **wifi**?);
-33.  Monitor power source and battery (**more data updates** while **charging**? **Suspend updates** when **battery is low**?);
-34.  A user interface is like a joke. If you have to explain it, it’s not that good;
-35.  [Tests are great for performance: Write slow (but correct) implementation then verify optimizations don’t break anything with tests](https://twitter.com/danlew42/status/677151453476032512).
+
+
+
+1. 请再三思考后，在决定是否增加第三方依赖库，它**绝对是一个严肃的**承诺;
+2.  如果用户看不见它, [**请一定不要绘制**](http://riggaroo.co.za/optimizing-layouts-in-android-reducing-overdraw/)!;
+3. 请在**你真的万不得已**的时候才使用数据库;
+4.  突破 65k 方法数的限制会变得很快，我说的是真的很快！[**multidexing** can save you](https://medium.com/@rotxed/dex-skys-the-limit-no-65k-methods-is-28e6cb40cf71);
+5.  [RxJava](https://github.com/ReactiveX/RxJava) 是对 [AsyncTasks and so much more](https://medium.com/swlh/party-tricks-with-rxjava-rxandroid-retrolambda-1b06ed7cd29c) **最好的** 替代方法;
+6.  [Retrofit](http://square.github.io/retrofit/) 是目前**最好的处理网络事务的依赖库** 
+7. 使用 [**Retrolambda**](https://medium.com/android-news/retrolambda-on-android-191cc8151f85) 来精简你的代码;
+8. 结合 [**RxJava with Retrofit and Retrolambda**](https://medium.com/swlh/party-tricks-with-rxjava-rxandroid-retrolambda-1b06ed7cd29c) 获得最大疗效;
+9. [EventBus](https://github.com/greenrobot/EventBus) 非常好用, 但是我**不会**使用太多因为它会让代码库变得更混乱;
+10. [按照特性来封装，而非界面](https://medium.com/the-engineering-team/package-by-features-not-layers-2d076df1964d);
+11. 把_每一个事务_都从应用程序主线程移除;
+12.  [lint](http://developer.android.com/tools/help/layoutopt.html) 帮助优化你的界面和层级，所以你能识别出哪些是可能被移除的重复视图;
+13. 如果你正在用  _gradle_, [你能如何加速它的执行速率](https://medium.com/the-engineering-team/speeding-up-gradle-builds-619c442113cb);
+14. 执行一个 [构建分析报告](https://medium.com/the-engineering-team/speeding-up-gradle-builds-619c442113cb) 来检查下构建的过程中时间都花费在哪里了;
+15. 使用一个 [知名的代码架构](http://fernandocejas.com/2015/07/18/architecting-android-the-evolution/);
+16.  [众所周知，测试会花费很多时间，一旦你被某个问题困住，你就会明白有了测试用例会让你提高开发效率并且增加应用程序的健壮性。](http://stackoverflow.com/a/67500/794485);
+17.  请使用 [依赖注入](http://fernandocejas.com/2015/04/11/tasting-dagger-2-on-android/) 来使你的应用程序更模块化，因此它也更加容易被测试;
+18. 收听 [碎片广播](http://fragmentedpodcast.com/) 会大大帮助你;
+19. [**永远不要** 使用你的个人 email 作为 android 应用发布市场的账号名](https://www.reddit.com/r/Android/comments/2hywu9/google_play_only_one_strike_is_needed_to_ruin_you/);
+20. **请一直** 使用 [合适的](http://developer.android.com/training/keyboard-input/style.html) 输入类型;
+21. 使用 **分析模块** 来查找可用的模式和分离 bugs;
+22. 保持最新的 [依赖库](http://android-arsenal.com/) (使用 [演习](https://github.com/cesarferreira/dryrun) 来更快的测试他们);
+23. 你的服务应该尽快执行所需要的任务并且及时**终止**;
+24. 使用 [Account Manager](http://developer.android.com/reference/android/accounts/AccountManager.html) 来建议登录的用户名和 email 地址;
+25. 使用 **CI** (持续集成) 来构建和分发你的测试和生产环境的 `apks`;
+26. 请不要建立和运行你自己的 **CI** 服务器，维护这个服务器是很耗时的，因为会有磁盘空间问题，磁盘安全性问题 / 升级服务器来避免来自 `SSL` 的攻击，等等。可以使用 `circleci`，`travis`，`shippable`，他们不是很贵并且只需要关注价格九星;
+27.  [使用 `playstore` 来自动化你的发布过程;](https://github.com/Triple-T/gradle-play-publisher)
+28. 如果一个依赖库很庞大并且你只是使用其中一小部分的功能，你应该考虑一些其他的 **精简** 的选择 (比如可以依赖 [proguard](http://developer.android.com/tools/help/proguard.html));
+29. 不要使用你不需要的模块。如果_那个_模块并不需要常常修改，考虑从零开始构建的时间是很重要的(使用 **CI** 构建就是一个很好的例子)，或者检查之前那个单独构建的模型是否是最新的，相比起来只是简单的装载那些二进制的 `.jar/.aar` 依赖库，它能带来 4 倍的提升;
+30. [开始考虑用 SVGs 替换 PNGs](http://developer.android.com/tools/help/vector-asset-studio.html);
+31. 为依赖库制作抽象的类，如果你只需要改变一个地方(例如，**_AppLogger.d(“message”)_** 能包含 **_Log.d(TAG, message)_** 并且之后发现 [**_Timber.d(message)_**](https://github.com/JakeWharton/timber) 会是一个更好的解决方案)，它会让切换到新的依赖库变得很容易;
+32. 监视连接状态和连接的种类 (**在 WIFI 通道上是不是有更多的更新数据**?);
+33. 监视电源和电池 (**在充电的过程中，是不是有更多的更新数据？ 当电池电量低的时候，更新过程会不会被暂缓**);
+34. 用户界面好像一个笑话。如果你不得不去解释，它不会和表现得那么好;
+35.  [测试能带来性能的提升: 慢工出细活（但是正确），之后验证最佳实践并不会因为有了测试而被破坏](https://twitter.com/danlew42/status/677151453476032512)。
 
 
 
