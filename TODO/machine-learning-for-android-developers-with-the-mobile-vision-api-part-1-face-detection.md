@@ -2,24 +2,24 @@
 * 原文作者：[Moyinoluwa Adeyemi](https://hackernoon.com/@moyinoluwa)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者： [Nicolas(Yifei) Li](https://github.com/yifili09)
-* 校对者：
+* 校对者：[jamweak](https://github.com/jamweak)
 
 # Android 开发者如何通过运动视觉 API 进行机器学习 - 第一部 - 人脸检测 
 
 
-在计算机科学中，机器学习是一个非常意思的领域，它已经在我的最想学习的愿望清单中驻留已久。因为有很多来自于 `RxJava`, `Testing`, `Android N`, `Android Studio` 和其他很多 `Android` 相关的技术更新，我已经没有其他单独的时间来学习这个。甚至在 `Udacity` 还专门有一个有关机器学习的课程。:stuck_out_tongue: \吐舌头。
+在计算机科学中，机器学习是一个非常有意思的领域，它已经在我的最想学习的愿望清单中驻留已久。因为有很多来自于 `RxJava`, `Testing`, `Android N`, `Android Studio` 和其他很多 `Android` 相关的技术更新，我已经没有其他单独的时间来学习这个。甚至在 `Udacity` 还专门有一个有关机器学习的课程。:stuck_out_tongue: \吐舌头。
 
 让我非常激动的发现是，目前任意一个开发人员都能基于运动视觉(`Mobile Vision API`) 把机器学习运用在他们自己的应用程序中，这个技术来自于 Google，它让你甚至都不需要有机器学习领域的专业知识。你只需要关心怎么利用这些 `APIs`。
 
-在云服务和移动应用中，有很多运用于机器学习的 `APIs`，但是在这一系列的文章中，我将只关心运动视觉 (`Mobile Vision`) `API`，因为它是专门为 `Android` 开发者门创造的。目前运动视觉 (`Mobile Vision`) API 包含了三种功能: 人脸侦测 API，条形码侦测 API，文本侦测 API。在这篇文章中，我们将涉及人脸侦测的内容，并且会之后的一系列文章里讨论剩下的两种功能。
+在云服务和移动应用中，有很多运用于机器学习的 `APIs`，但是在这一系列的文章中，我将只关心运动视觉 (`Mobile Vision`) `API`，因为它是专门为 `Android` 开发者门创造的。目前运动视觉 (`Mobile Vision`) API 包含了三种功能: 人脸侦测 API，条形码侦测 API，文本侦测 API。在这篇文章中，我们将涉及人脸侦测的内容，并且会在之后的一系列文章里讨论剩下的两种功能。
 
 ### 人脸侦测 API
 
-这个 API 被用于侦测和追踪在图片或视频中的人脸，但是它还不具备人脸识别的能力。它能在脸上进行侦测标定并提供人脸分类的功能。人脸标定是一系列在脸组成的点，例如眼睛，鼻子和嘴巴。人脸分类被用于检查那些标定的点是否符合某个特征，例如微笑的脸或者闭上了眼睛，它们是目前仅支持的分类。这个 API 也能在不同的角度进行人脸侦测，并且记录欧拉 Y 和欧拉 Z 的角度。
+这个 API 被用于侦测和追踪在图片或视频中的人脸，但是它还不具备人脸识别的能力。它能在脸上进行侦测标定并提供人脸分类的功能。人脸标定是一系列在脸组成的点，例如眼睛，鼻子和嘴巴。人脸分类被用于检查那些标定的点是否符合某个特征，例如微笑的脸或者闭上了眼睛，它们是目前仅支持的分类。这个 API 也能在不同的角度进行人脸侦测，并且记录欧式（欧拉）空间中的 Y坐标和 Z 的角度。
 
 ### 入门指南
 
-我们准备创建一个用两个过滤器的应用程序叫做 `printf("%s Story", yourName)`。请注意，本文的目的仅为了显示如何使用这个 API，所以这个初始版本的代码将不会进行测试或者遵循任何设计模式。也请注意，最好把所有的处理过程都从 UI 线程中分离。[托管在 Github 上的源码](https://github.com/moyheen/face-detector) 将会更新。 
+我们准备创建一个具有两个过滤器的应用程序 `printf("%s Story", yourName)`。请注意，本文的目的仅为了显示如何使用这个 API，所以这个初始版本的代码将不会进行测试或者遵循任何设计模式。也请注意，最好把所有的处理过程都从 UI 线程中分离。[托管在 Github 上的源码](https://github.com/moyheen/face-detector) 将会更新。 
 
 让我们开始吧...
 
@@ -39,7 +39,7 @@ compile 'com.google.android.gms:play-services-vision:9.6.1'
 ```
 
 * 下一步，你需要增加一个 _ImageView_ 和 _Button_ 到你的界面布局中。这个按钮通过选择一个图片开始，并处理这个图片，之后把它显示在 _ImageView_。这个图片能从摄像头或者照片库中获得和加载。为了节约时间，我保存并使用了一个在 `drawable` 文件夹内的图片。
-* 在那个按钮的点击事件内，创建一个新的 _BitmapFactory.Options_ 对象并且把 _inmutable_ 属性设定为 `true`。这确保了 `bitmap` 是可变的，所以我们对它动态地增加效果。
+* 在那个按钮的点击事件内，创建一个新的 _BitmapFactory.Options_ 对象并且把 _inmutable_ 属性设定为 `true`。这确保了 `bitmap` 是可变的，以便我们对它动态地增加效果。
 
 ```
 BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
@@ -52,7 +52,7 @@ bitmapOptions.inMutable = true;
 Bitmap defaultBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.image, bitmapOptions);
 ```
 
-* 创建一个 _Paint_ 对象并且把它的风格设定成 `stroke`。这确保了图形不会被完全填充，因为我们需要确保头部在长方形内。
+* 创建一个 _Paint_ 对象并把它的 `style` 属性设定成 `stroke`。这确保了图形不会被完全填充，因为我们需要确保头部在长方形内。
 
 _注意_: 如果你正创建一个名为 _!(Recognize Me)_ 的游戏，你需要在这个游戏内用一个图片挡住你的脸，所以你的对手不得不猜测你是谁，你想要把填充的形式设定成 _Paint.Style.FILL_
 
@@ -201,7 +201,7 @@ _注意_: 如果你正创建一个名为 _!(Recognize Me)_ 的游戏，你需要
 
 这里有更多 `printf("%s Story", yourName)` 应用程序的内容... 
 
-关于这个 `API` 还有很多内容。我们能更新这个应用程序，它可以用来在视频内追踪人脸并且允许过滤器跟随头部移动。文中提到的工程源码[已经提交到了我们的 GitHub 仓库。](https://github.com/moyheen/face-detector)
+关于这个 `API` 还有很多内容。我们能更新这个应用程序，它可以用来在视频内追踪人脸并且允许过滤器跟随头部移动。文中提到的工程源码已经提交到了我们的 [GitHub 仓库。](https://github.com/moyheen/face-detector)
 
 
 
