@@ -19,11 +19,11 @@ The challenge seemed simple enough: return the sum of all multiples of 3 or 5 th
 
 But instead of just finding any solution, [P1xt](https://medium.com/u/bf42d244c85)’s competition required you to focus on efficiency. It encouraged you to write your own tests, and to benchmark the performance of your solutions.
 
-但不是简单的找到解决办法，[P1xt](https://medium.com/u/bf42d244c85) 的竞赛要求参赛者把重点放在效率上，它鼓励你写出你自己的方法，同时还鼓励自我评估。
+但不是简单的找到解决办法，[P1xt](https://medium.com/u/bf42d244c85) 的竞赛要求参赛者把重点放在效率上，它鼓励你自己来写测试用例，并且用它们来评估你方案的性能。
 
 This is a breakdown of every function I tried and tested, including my tests and benchmark scripts. At the end, I’ll show the function that blew all of my own out of the water, and taught me a valuable lesson.
 
-以下是我写出并测试过的每个函数的评估，包括我的测试和评估手稿。最后，我将展示最终的赢家，就是那个将我所有的作品杀的片甲不留然后狠狠地给我上了一课的函数。
+以下是我写出并测试过的每个函数的评估，包括我的测试用例和评估脚本。最后，我将展示最终的赢家，就是那个将我所有的作品杀的片甲不留然后狠狠地给我上了一课的函数。
 
 ![](https://media.giphy.com/media/qhY3EfioLSshO/giphy.gif)
 
@@ -32,6 +32,8 @@ Adding testing to your code rarely hurts…Source: The Simpsons, via [Giphy](htt
 给自己的代码做测试，真的是超乎寻常地痛苦啊…… 来自：The Simpsons, 在这里 [Giphy](http://gph.is/1szb6yu)
 
 ### Function #1: Array, push, increment
+
+### 函数 1 ：数组，Push 方法，累加
 
     function arrayPushAndIncrement(n) {
       var array = [];
@@ -70,7 +72,7 @@ If you want more information about installing Mocha and Chai, I’ve written [a 
 
 I wrote a simple testing script using the values [P1xt](https://medium.com/u/bf42d244c85) provided. Notice that in the script below, the function is included as a module:
 
-我依照 [P1xt](https://medium.com/u/bf42d244c85) 提供的标准写了一份简单的测试手稿，需要注意的是在下面这份手稿中，该函数是被封装在模块中的。
+我依照 [P1xt](https://medium.com/u/bf42d244c85) 提供的标准写了一份简单的测试脚本，需要注意的是在下面这份脚本中，该函数是被封装在模块中的。
 
     // testMult.js
 
@@ -113,9 +115,11 @@ When I ran the test using `mocha testMult.js` it returned the following:
 
 For all future functions in this article, assume they passed all tests. For your own code, add tests for each new function you try.
 
-我们认为本文中所有的函数都已经通过测试，在你的代码中，请给你想要试验的函数添加测试。
+我们认为本文中所有的函数都已经通过测试，在你的代码中，请给你想要试验的函数添加测试用例。
 
 ### Function #2: Array, push, reduce
+
+### 函数 2 ：数组，Push 方法，Reduce 方法
 
     function arrayPushAndReduce(n) {
       var array = [];
@@ -141,7 +145,7 @@ So this function uses a similar approach to my previous one, but instead of usin
 
 Now that we have two functions, we can compare their efficiency. Again, thanks to [P1xt](https://medium.com/u/bf42d244c85) for providing this script in a previous forum thread.
 
-现在我们来比较以上两个函数的效率。再次感谢 [P1xt](https://medium.com/u/bf42d244c85) 在往期主题中提供的这份手稿。
+现在我们来比较以上两个函数的效率。再次感谢 [P1xt](https://medium.com/u/bf42d244c85) 在往期主题中提供的这份脚本。
 
     // performance.js
 
@@ -197,6 +201,8 @@ If that isn’t encouraging enough to continue with more functions and testing, 
 
 ### Function#3: While, Array, Reduce
 
+### 函数 3 ：While 循环，数组，Reduce 方法
+
 Now since I always reach for the trusty `for` loop, I figured I would test a `while` loop alternative:
 
 既然我总是对 `for` 循环情有独钟，所以我觉得我有必要用 `while` 循环试一下：
@@ -223,6 +229,8 @@ And the result? A tiny bit slower:
     whileLoopArrayReduce x 1,504 ops/sec ±0.65% (88 runs sampled)
 
 ### Function#4: While, sum, no arrays
+
+### 函数 4 ：While 循环，求和，没有数组
 
 So, finding that the type of loop didn’t make a huge difference, I wondered what would happen if I used a method that avoided arrays altogether:
 
@@ -252,6 +260,8 @@ Another massive improvement: nearly **5 times faster** again, and **27 times fas
 又一项宏伟的提升：又提速了将近 5 倍，相比第一个函数提速 27 倍！
 
 ### **Function#5: For, sum**
+
+### **函数 5 ：For 循环，求和**
 
 Of course, we already know that a for loop should be a little faster:
 
