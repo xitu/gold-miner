@@ -7,7 +7,7 @@
 # 准备充分了嘛就想学函数式编程？(Part 6)
 
 
-第一步，理解函数式编程概念是最重要的一步，同时也是最难的一步。但这不是必须的。没有正确的理解也没关系。
+第一步，理解函数式编程概念是最重要的一步，同时也是最难的一步。如果你从正确的角度或方法来理解的话，它也未必会有那么难。
 
 回顾之前的部分: [Part 1](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-1-1f15e387e536), [Part 2](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-2-7005682cec4a), [Part 3](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-3-1b0fd14eb1a7), [Part 4](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-4-18fbe3ea9e49), [Part 5](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-5-c70adc9cf56a)
 
