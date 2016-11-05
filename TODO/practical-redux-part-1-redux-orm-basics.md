@@ -40,9 +40,9 @@ Redux-ORM 有出色的文档：主要的 [Redux-ORM README](https://github.com/t
 
 ### 定义模型类 （Model Classes）
 
-首先，你需要确定你的不同数据类型，以及它们是怎样互相关联的（用数据库的术语）。然后，声明 ES6 的类，这些类继承 （extend） 自 Redux-ORM 的 「Model」 类。类似于其它 Redux 应用里的文件类型，对于这些声明的生存地点没有特定的需求，但是你可能想要把它们放入你项目中的某个 「models.js」 文件里，或者是某个 「/models」 文件夹里。
+首先，你需要确定你的不同数据类型，以及它们是怎样互相关联的（用数据库的术语）。然后，声明 ES6 的类，这些类继承 （extend） 自 Redux-ORM 的 「Model」 类。类似于其它 Redux 应用里的文件类型，对于这些声明的生存地点没有特定的需求，但是你可能想要把它们放入你项目中的某个 `models.js` 文件里，或者是某个 `/models` 文件夹里。
 
-作为声明的一部分，在类里添加一个静态的 「field」 区域，该区域使用 Redux-ORM 的关系型操作符来定义这个类拥有的关系：
+作为声明的一部分，在类里添加一个静态的 `field` 区域，该区域使用 Redux-ORM 的关系型操作符来定义这个类拥有的关系：
 
     import {Model, fk, oneToOne, many} from "redux-orm";
 
@@ -71,7 +71,7 @@ Redux-ORM 有出色的文档：主要的 [Redux-ORM README](https://github.com/t
 
 ### 创建Schema Instance（模式实例）
 
-当你定义完你的模型后，你需要创建一个 Reducx-ORM 模式类的实例，并将模型类传入它的 「register」 方法。这个模式实例在你的应用里是单例的：
+当你定义完你的模型后，你需要创建一个 Reducx-ORM 模式类的实例，并将模型类传入它的 `register` 方法。这个模式实例在你的应用里是单例的：
 
     import {Schema} from "redux-orm";
     import {Pilot, Battlemech, Lance} from "./models";
@@ -82,7 +82,7 @@ Redux-ORM 有出色的文档：主要的 [Redux-ORM README](https://github.com/t
 
 ### 设置存储（Store）和 Reducers
 
-然后，你需要决定怎么把 Redux-ORM 整合进你的 reducer 结构里。文档推荐你将 reducer 函数定义在你的模型类里，然后调用 「schema.reducer()」 并使用 「combineReducers」（它的键大概是 「orm」）将返回的函数加到你的根 reducer 里。这种做法看起来很像这样：
+然后，你需要决定怎么把 Redux-ORM 整合进你的 reducer 结构里。文档推荐你将 reducer 函数定义在你的模型类里，然后调用 `schema.reducer()` 并使用 `combineReducers`（它的键大概是 `orm`）将返回的函数加到你的根 reducer 里。这种做法看起来很像这样：
 
     // Pilot.js
     class Pilot extends Model {
