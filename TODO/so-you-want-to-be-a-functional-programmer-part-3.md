@@ -7,7 +7,7 @@
 # 准备充分了嘛就想学函数式编程？(Part 3)
 
 想要理解函数式编程，第一步总是最重要，也是最困难的。但是只要有了正确的思维，其实也不是太难。
-之前部分内容：[第一部分](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-1-1f15e387e536)，[第二部分](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-2-7005682cec4a#.lvg65qyn8)
+之前部分内容：[第一部分](https://github.com/xitu/gold-miner/blob/master/TODO/so-you-want-to-be-a-functional-programmer-part-1.md)，[第二部分](https://github.com/xitu/gold-miner/blob/master/TODO/so-you-want-to-be-a-functional-programmer-part-2.md)
 
 #### 函数组合
 
@@ -166,4 +166,4 @@
 
 在文章接下来的部分里，我会涉及到柯里化，函数式编程中常见的函数（如 map，filter，fold 等），参照透明性等。
 
-接下来 [第四部分](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-4-18fbe3ea9e49)
+接下来 [第四部分](https://github.com/xitu/gold-miner/blob/master/TODO/so-you-want-to-be-a-functional-programmer-part-4.md)
