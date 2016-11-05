@@ -2,7 +2,7 @@
 * 原文作者：[Charles Scalfani](https://medium.com/@cscalfani)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Airmacho](https://github.com/Airmacho)
-* 校对者：
+* 校对者：[cyseria](https://github.com/cyseria) 和 [Tina92](https://github.com/Tina92)
 
 # So You Want to be a Functional Programmer (Part 2)
 
@@ -13,17 +13,13 @@ Taking that first step to understanding Functional Programming concepts is the m
 
 Previous parts: [Part 1](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-1-1f15e387e536)
 
+想要理解函数式编程，第一步总是最重要，也是最困难的。但是只要有了正确的思维，其实也不是太难。
 
+之前的部分: [第一部分](https://github.com/xitu/gold-miner/blob/master/TODO/so-you-want-to-be-a-functional-programmer-part-1.md)
 
 #### Friendly Reminder
 
 #### 友情提示
-
-
-
-
-
-
 
 
 
@@ -73,7 +69,7 @@ In this example, we would parameterize the value, the regular expressionand the 
 
 我们以前都写过这样的代码，经过一段时间我们会发现，上面两个函数实际上除了些许区别，其实是一样的（黑体高亮）。
 
-我们应该创建一个单独的函数，将上面的区别参数化，而不是通过复制，粘贴，修改 validateSsn函数，来创建 validatePhone。
+我们应该创建一个单独的函数，将上面的区别参数化，而不是通过复制，粘贴，修改 validateSsn 函数，来创建 validatePhone。
 
 此例中，我们可以将要验证的参数，验证用的正则表达式，打印的文本抽象成参数传入方法。
 
@@ -100,7 +96,7 @@ For example, if there’s a bug, you only have to fix it in one place versus sea
 
 But what happens when you have the following situation:
 
-旧代码中要验证的参数 ssn，phone 现在用变量 value 来体现。
+旧代码中要验证的参数 ssn，phone，现在都用参数 value 来体现。
 
 正则表达式  /^\d{3}-\d{2}-\d{4}$/ 和 /^\(\d{3}\)\d{3}-\d{4}$/ 用变量 regex 体现。
 
@@ -134,7 +130,7 @@ Well, we can use value for address and name, and type for ‘Address’ and‘Na
 
 If only we could pass a function as a parameter…
 
-这里 parseAddress 和 parseFullName 函数都接受一个字符串，解析符合条件返回 true 。
+这里 parseAddress 和 parseFullName 函数都只接受一个字符串参数，并在符合解析条件时返回 true 。
 
 我们怎样重构这段代码？
 
@@ -244,7 +240,7 @@ However, you can imagine the benefits of making this change if makeRegexParser w
 
 Here’s another example of a higher-order function that returns a function:
 
-这里，makeRegexParser 接受一个正则表达式作为参数，返回一个接受将一个被验证字符串作为参数的 exec 函数。validateValueWithFunc 可以传入字符串，值，给 parse 函数，例如 exec 。
+这里，makeRegexParser 接受一个正则表达式作为参数，返回一个 exec 函数，这个函数接受被验证字符串作为参数。validateValueWithFunc 可以传入字符串，值，给 parse 函数，例如 exec 。
 
 parseSsn 和 parsePhone 和之前用正则表达式的 exec 函数一样可用。
 
@@ -281,11 +277,11 @@ This behavior is very important because without it, functions that return functi
 
 This behavior is called a Closure.
 
-我们通过将 10 作为参数传给 makeAddr，创建了 add10 函数，它接受任意值作为参数，并与10求和返回。
+我们通过将 10 作为参数传给 makeAddr，创建了 add10 函数，它接受任意值作为参数，并与 10 求和返回。
 
 需要注意的是，，即使在 makeAddr 返回后，函数 addr 仍可以获取到 constantValue 参数的值。这是因为 constantValue 在 addr 函数被创建时的作用域中。
 
-这种行为非常重要，因为如果不是这样，将函数作为返回值返回的函数就没有多大用处了。所以我们理解它的机制非常重要。
+这种行为非常重要，因为如果不是这样，将函数作为返回值返回的函数就没有多大用处了。所以我们理解它的工作原理非常重要。
 
 这种行为叫做闭包。
 
@@ -301,7 +297,7 @@ This behavior is called a Closure.
 
 Here’s a contrived example of functions that use closures:
 
-这有一个故意的用到闭包的例子：
+这有一个故意使用闭包的函数：
 
     function grandParent(g1, g2) {
         var g3 = 3;
@@ -353,12 +349,14 @@ Thankfully, variables in Functional Languages are Immutable eliminating this com
 
 类似的，childFunc 可以保持 child 函数的作用域，因为 parentFunc 其实是返回 child 函数的 parent 函数。
 
-当创建一个函数时，创建时所处的作用域的所有变量都是可以读取的。如果函数仍被引用，作用域保持存活状态。例如 child 函数的作用域只要  childFunc 的引用存在，就算存活。
+当创建一个函数时，创建时所处的作用域的所有变量都是可以读取的。如果函数仍被引用，作用域保持存活状态。例如 child 函数的作用域只要 childFunc 的引用存在，就算存活。
 
 > 闭包指函数通过被引用，保持其作用域的存活状态。
 >
 
 注意在 JavaScript 中，因为变量是可变的，所以闭包可能会引入问题。例如这些变量可能从它们被闭包开始到函数返回的周期里被修改。
+
+值得庆幸的是，函数式语言中的变量是不可变的，所以就可以消除这种常见的错误和混乱。
 
 #### My Brain!!!!
 
@@ -388,5 +386,5 @@ Up Next: [Part 3](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-p
 
 在文章接下来的部分里，我会涉及到 函数组合，柯里化，函数式编程中常见的函数（如 map，filter，fold 等）
 
-If you liked this, click the
+接下来：【[第三部分](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-3-1b0fd14eb1a7)】
 
