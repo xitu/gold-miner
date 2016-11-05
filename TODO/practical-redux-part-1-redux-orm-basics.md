@@ -117,7 +117,7 @@ Redux-ORM 有出色的文档：主要的 [Redux-ORM README](https://github.com/t
                 const session = schema.from(state);
                 const {Pilot} = session;
 
-                // 在 Redux-ORM 内部加入 「creation」action 队列
+                // 在 Redux-ORM 内部加入 `creation` action 队列
                 const pilot = Pilot.create(action.payload.pilotDetails);
 
                 // 应用队列中的 actions
@@ -141,7 +141,7 @@ Redux-ORM 有出色的文档：主要的 [Redux-ORM README](https://github.com/t
 
 ### 选择数据
 
-最后，模式 （schema） 可以被用作从选择器和 「mapState」 函数中查找数据和关系：
+最后，模式 （schema） 可以被用作从选择器和 `mapState` 函数中查找数据和关系：
 
     import React, {Component} from "react";
     import schema from "./schema";
