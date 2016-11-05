@@ -2,7 +2,7 @@
 * 原文作者：[Charles Scalfani](https://medium.com/@cscalfani)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Airmacho](https://github.com/Airmacho)
-* 校对者：
+* 校对者：[cyseria](https://github.com/cyseria) 和 [xuxiaokang](https://github.com/xuxiaokang)
 
 # So You Want to be a Functional Programmer (Part 3)
 
@@ -11,6 +11,9 @@
 Taking that first step to understanding Functional Programming concepts is the most important and sometimes the most difficult step. But it doesn’t have to be. Not with the right perspective.
 
 Previous parts: [Part 1](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-1-1f15e387e536), [Part 2](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-2-7005682cec4a)
+
+想要理解函数式编程，第一步总是最重要，也是最困难的。但是只要有了正确的思维，其实也不是太难。
+之前部分内容：[第一部分](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-1-1f15e387e536)，[第二部分](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-2-7005682cec4a#.lvg65qyn8)
 
 #### Function Composition
 
@@ -48,7 +51,7 @@ This is called **_Function Composition_**.
 
 So how does it work? Let’s start with two Javascript functions:
 
-这怎么实现呢，让我们用这两个 JavaScript 函数来说：
+这怎么实现呢，让我们从两个 JavaScript 函数开始：
 
     var add10 = function(value) {
         return value + 10;
@@ -59,14 +62,14 @@ So how does it work? Let’s start with two Javascript functions:
 
 This is too verbose so let’s rewrite it using [**_fat arrow_**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions) notation:
 
-这个写法太冗长，所以我们用箭头函数表达式重写成：
+这个写法太冗长，所以我们用 [**箭头函数**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)表达式重写成：
 
     var add10 = value => value + 10;
     var mult5 = value => value * 5;
 
 That’s better. Now let’s imagine that we also want to have a function that takes a value and adds 10 to it and then multiplies the result by 5\. We _could_write:
 
-好多了，现在设想我们再需要一个函数，它可以接受一个值作为参数，将值与10相加，再把结果乘以5的返回。我们可以写成：
+好多了，现在设想我们再需要一个函数，它可以接受一个值作为参数，将值加 10，再乘以 5，把结果返回。我们可以写成：
 
     var mult5AfterAdd10 = value => 5 * (value + 10)
 
@@ -93,7 +96,7 @@ And that’s exactly what we did. We called **_mult5_** after we called **_add10
 
 Since Javascript doesn’t do Function Composition natively, let’s look at Elm:
 
-我们用现有的函数来创建 **mult5AfterAdd10** 函数，但有更好的办法。
+我们可以用现有的函数来创建 **mult5AfterAdd10** 函数，但其实有更好的办法。
 
 在数学中， **_f ∘ g_** 是函数的组合，所以读作 **“函数 f 与函数 g 的复合函数”**，或者更通用的说法是 **“在 g 之后调用 f”**。所以 **_(f ∘ g)(x)_** 相当于先以 **x** 为自变量调用函数 **g**，再以结果为自变量调用函数 **f**，简写成  **_f(g(x))_**。
 
@@ -169,7 +172,7 @@ Second, it’s easier to read and reason about since it’s less verbose. This e
 
 首先，我们不需要指定多余的参数。因为我们不要明确指定它们，我们可以不用去费心给它们起名字。
 
-其次，因为更简洁，阅读和理解起来也更容易。这个例子就非常简单，但是设想需要更多参数的函数。
+其次，因为更简洁，阅读和理解起来也更容易。这个例子非常简单，但是想象一下如果函数有很多参数的情况。
 
 #### Trouble in Paradise
 
@@ -232,7 +235,7 @@ Let’s try again:
 
 这段代码是错的，为什么？
 
-因为 **add** 函数只接受两个必需参数的一个，然后**错误结果**再被传入 **mult5** 函数，结果也是错的。
+因为在这里 **add** 函数只接受了两个参数中的一个，然后**错误结果**再被传入 **mult5** 函数，结果也是错的。
 
 实际上，在 Elm 中，编译器不会让你写出这种残缺的代码（ Elm 的优点之一）
 
