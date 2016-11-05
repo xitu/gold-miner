@@ -247,5 +247,5 @@ grandParent 只能获取到它自己的变量（为了清晰理解可以参考�
 
 在文章接下来的部分里，我会涉及到 函数组合，柯里化，函数式编程中常见的函数（如 map，filter，fold 等）
 
-接下来：【[第三部分](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-3-1b0fd14eb1a7)】
+接下来：【[第三部分](https://github.com/xitu/gold-miner/blob/master/TODO/so-you-want-to-be-a-functional-programmer-part-3.md)】
 
