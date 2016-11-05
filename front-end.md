@@ -1,3 +1,4 @@
+* [准备充分了嘛就想学函数式编程？(第四部分)](https://gold.xitu.io/entry/581bf0a62e958a0054d783e1?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([llp0574](https://github.com/llp0574) 翻译)
 * [CSS 遮罩的过渡效果](https://gold.xitu.io/entry/5819d6f4a22b9d0067a5b394?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([luoyaqifei](https://github.com/luoyaqifei) 翻译)
 * [JavaScript ES6 核心功能一览](https://gold.xitu.io/entry/58189177128fe100559efd51?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([L9m](https://github.com/L9m) 翻译)
 * [与时俱进的 Reactivity](https://gold.xitu.io/entry/58130dcbbf22ec0068824bd2?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Liz](https://github.com/lizwangying) 翻译)
