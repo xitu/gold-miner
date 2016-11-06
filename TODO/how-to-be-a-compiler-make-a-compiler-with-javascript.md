@@ -1,10 +1,10 @@
 > * 原文地址：[How to be* a compiler — make a compiler with JavaScript](https://medium.com/@kosamari/how-to-be-a-compiler-make-a-compiler-with-javascript-4a8a13d473b4#.r832qh7i8)
 * 原文作者：[Mariko Kosaka](https://medium.com/@kosamari)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：[luoyaqifei](http://www.zengmingxia.com)
+* 译者：
 * 校对者：
 
-# 成为一个编译器之「使用 JavaScript 来制作编译器」
+# How to be* a compiler — make a compiler with JavaScript
 
 
 
@@ -13,19 +13,19 @@
 
 
 
-对的！你应该**成为**一个编译器。这很棒！
+*Yes! you should _be_ a compiler. It’s awesome.
 
-一个很棒的周日，布希维克，布鲁克林。我在我的图书储藏室发现了一本书 [John Maeda 写的 “Design by Numbers” ](https://mitpress.mit.edu/books/design-numbers)。在这本书里有 [DBN 编程语言](http://dbn.media.mit.edu/) 一步步的指令——这是一种 90 年代末期被 MIT 媒体实验室创造出来的语言，它被设计出来，以可视化的方式介绍计算机编程概念。
+One wonderful Sunday in Bushwick, Brooklyn. I found a book [“Design by Numbers” by John Maeda](https://mitpress.mit.edu/books/design-numbers) at my local bookstore. In it was step by step instruction of [DBN programming language](http://dbn.media.mit.edu/) — a language made in late 90s at MIT Media Lab, designed to introduce computer programming concepts in visual way.
 
 ![](https://cdn-images-1.medium.com/max/1600/1*l2yQRbwlojZhNyEJi8uVDA.png)
 
 
 
-这是 DNB 代码示例 [http://dbn.media.mit.edu/introduction.html](http://dbn.media.mit.edu/introduction.html)。
+DNB code sample from [http://dbn.media.mit.edu/introduction.html](http://dbn.media.mit.edu/introduction.html)
 
-我马上想到，用 DBN 制作出 SVG 并将它放在浏览器里执行，在 2016 年这个年头，一定比安装 Java 环境来执行原生的 DBN 源代码要来得有趣。
+I imminently thought making SVG out of DBN and run it in browser would be an interesting project in 2016 rather than installing Java environment to execute original DBN source code.
 
-我意识到我需要写一个 DBN 到 SVG 的编译器，所以写编译器的探索之路开始了。**「制作一个编译器」听起来很计算机科学……但是我从没在代码面试中遍历过节点，我真能造出一个编译器？**
+I figured I would need to write a DBN to SVG compiler, so the quest of writing a compiler has began. **“Making compiler” sounds like a lot of computer science… but I’ve never traversed nodes in coding interview, can I make a compiler?**
 
 
 
@@ -37,7 +37,7 @@
 
 
 
-我想象中的编译器，应该是代码需要被严格对待的。如果代码写得很差，它将永久地陷在错误信息里。
+My imaginary compiler, where code goes to be punished. If the code is bad, it’s captured in error message forever.
 
 
 
@@ -57,19 +57,19 @@
 
 
 
-### 让我们先尝试着成为一个编译器
+### Let’s try to be a compiler first
 
-编译器是一种接收一段代码然后把它转成一些别的什么的机制。让我们编译简单的 DBN 代码到实质的画上。
+Compiler is a mechanism that takes a piece of code and turn it into something else. Let’s compile simple DBN code into a physical drawing.
 
-在这段 DBN 代码中有 3 个指令，「Paper」定义了纸的颜色，「Pen」定义了笔的颜色，「Line」画出来一条线。100 在颜色参数中代表着 100% 的黑色或者 CSS 中的 rgb(0%, 0%, 0%)。DBN 生成的图片总是用灰度表示的。在 DBN 中，一张纸总是 100 × 100，线条宽度总是 1，线段用起点和终点相对于左下角的 x 、y 坐标来定义。
+There are 3 commands in this DBN code, “Paper” defines color of the paper, “Pen” defines color of the pen, and “Line” draw a line. 100 in color parameter means 100% black or rgb(0%, 0%, 0%) in CSS. The image produced in DBN are always in grayscale. In DBN, a paper is always 100×100, line-width is always 1, and Line is defined by x y coordinates of starting point and ending point counting from bottom-left corner.
 
-让我们先尝试着变成一个编译器。停在这里，拿一张纸和一支笔，然后尝试着编译下面的画图代码：
+Let’s try to be a compiler ourself. Stop here, grab a paper and a pen and try compiling following code as drawing.
 
     Paper 0
     Pen 100
     Line 0 50 100 50
 
-你在纸的中间，从左到右地画出来一条黑色的线了吗？恭喜！你刚刚变身成了一个编译器！
+Did you draw a black line in the middle from left side to right side? Congratulations! You just became a compiler.
 
 
 
@@ -81,15 +81,15 @@
 
 
 
-编译结果
+Compiled result
 
-### 编译器是怎么工作的？
+### How does a compiler work ?
 
-让我们看看刚刚在我们作为编译器的脑袋里发生了什么。
+Let’s look at what just happened in our head as a compiler.
 
-#### 1\. 词法分析（标记化）
+#### 1\. Lexical Analysis (tokenization)
 
-首先我们做的就是将每个关键字（称为标记）用空格分开。当我们分割单词时，我们也将原始类型赋给每个标记，比如「单词」或者「数字」。
+First thing we did was to separate each keywords (called tokens) by white space. While we are separating words, we also assigned primitive types to each tokens, like “word” or “number”.
 
 
 
@@ -101,12 +101,12 @@
 
 
 
-词法分析
+lexical analysis
 
-#### 2\. Parsing (语法分析)
+#### 2\. Parsing (Syntactical Analysis)
 
-当一堆文本被分割成标记后，我们遍历这些标记，尝试去找它们之间的关系。
-在这种情况下，我们将数字和与其相联系的命令关键字分为一组。通过这么做，我们开始观察代码的结构。
+Once a blob of text is separated into tokens, we went through each of them and tried to find a relationship between tokens.  
+In this case, we group together numbers associated with command keyword. By doing this, we start seeing a structure of the code.
 
 
 
@@ -118,11 +118,11 @@
 
 
 
-语法分析
+Parsing
 
-#### 3\. 转换
+#### 3\. Transformation
 
-一旦我们完成了语法分析，我们需要将结构转换成更适合于最终结果的。在本文情况下，我们将要画一张图，所以我们要将它转换成对人类的一步步的指令。
+Once we analyzed syntax by parsing, we transformed the structure to something suitable for the final result. In this case, we are going to draw an image, so we are going to transform it to step by step instruction for humans.
 
 
 
@@ -134,11 +134,11 @@
 
 
 
-转换
+Transformation
 
-#### 4\. 代码生成
+#### 4\. Code Generation
 
-最后，我们生成一个编译结果，一幅画。在这个环节，我们只是遵循我们在之前的步骤里生成的指令来画画。
+Lastly, we make a compiled result, a drawing. At this point, we just follow the instructions we made in previous step to draw.
 
 
 
@@ -150,11 +150,11 @@
 
 
 
-代码生成
+Code Generation
 
-这就是编译器做的事情啦！
+And that’s what a compiler does!
 
-我们生成的画就是编译结果（就好像你编译 C 语言时的 .exe 文件）。我们可以将这幅画给任何人或者任何设备（扫描仪、相机等）传阅，来「执行它」，所有人（或设备）将会看到一条居中黑线。
+The drawing we made is the compiled result (like .exe file when you compile C code). We can pass this drawing to anyone or any device (scanner, camera etc) to “run it” and everyone (or device) will see a black line in the middle.
 
 
 
@@ -174,13 +174,13 @@
 
 
 
-### 让我们制作一个编译器
+### Let’s make a compiler
 
-现在既然我们知道了编译器是怎么工作的，让我们用 JavaScript 来制作一个。这个编译器接收 DBN 代码并将它转成 SVG 代码。
+Now that we know how compilers work, let’s make one in JavaScript. This compiler takes DBN code and turn them into SVG code.
 
-#### 1\. 词法分析器函数
+#### 1\. Lexer function
 
-就像我们将英语句子「I have a pen」分割成 [I, have, a, pen] 一样，词法分析器将一段代码字符串分割成小的有意义的块（标记）。在 DBN 里，每个标记都被空格分隔开，并且被分成「单词」或是「数字」。
+Just like we can split English sentence “I have a pen” to [I, have, a, pen], lexical analyzer splits a code string into small meaningful chunks (tokens). In DBN, each token is delimited by white spaces, and classified as either “word” or “number”.
 
 
 
@@ -205,11 +205,11 @@
       { type: "word", value: "Paper" }, { type: "number", value: 100 }
     ]
 
-#### 2\. 语法分析器函数
+#### 2\. Parser function
 
-语法分析器遍历每个标记，寻找语法信息，并且构建一个叫做 AST（Abstract Syntax Tree，抽象语法树）的对象。你可以把 AST 想成一幅代码地图——这是理解一段代码如何架构的方式。
+Parser go through each tokens, find syntactic information, and builds an object called AST (Abstract Syntax Tree). You can think of AST as a map for our code — a way to understand how a piece of code is structured.
 
-在我们的代码里，有 2 个语法类型「NumberLiteral」和「CallExpression」。NumberLiteral 意味着值是个数字，它作为参数被 CallExpression 使用。
+In our code, there are 2 syntax types “NumberLiteral” and “CallExpression”. NumberLiteral means the value is a number. It is used as arguments for CallExpression.
 
 
 
@@ -220,11 +220,11 @@
         type: 'Drawing',
         body: []
       }
-      // 一次提取一个标记，作为 current_token，一直循环，直到我们脱离标记。
+      // extract a token at a time as current_token. Loop until we are out of tokens.
       while (tokens.length > 0){
         var current_token = tokens.shift()
 
-        // 既然数字标记自身并不做任何事情，我们只要在发现一个单词时分析它的语法。
+        // Since number token does not do anything by it self, we only analyze syntax when we find a word.
         if (current_token.type === 'word') {
           switch (current_token.value) {
             case 'Paper' :
@@ -233,14 +233,14 @@
                 name: 'Paper',
                 arguments: []
               }
-              // 如果当前标记是以 Paper 为类型的 CallExpression，下一个标记应该是颜色参数
+              // if current token is CallExpression of type Paper, next token should be color argument
               var argument = tokens.shift()
               if(argument.type === 'number') {
-                expression.arguments.push({  // 在 expression 对象内部加入参数信息
+                expression.arguments.push({  // add argument information to expression object
                   type: 'NumberLiteral',
                   value: argument.value
                 })
-                AST.body.push(expression)    // 将 expression 对象放入我们的 AST 的 body 内
+                AST.body.push(expression)    // push the expression object to body of our AST
               } else {
                 throw 'Paper command must be followed by a number.'
               }
@@ -271,10 +271,10 @@
       }]
     }
 
-#### 3\. 转换器函数
+#### 3\. Transformer function
 
-我们在上一步创建的 AST 很好地描述了代码里发生的事情，但是它对于创建 SVG 文件没有什么用处。
-比方说，「Paper」是一个只存在于 DBN 思维方式里的概念，在 SVG 中，我们可能用元素（element）来表示一个「Paper」。转换器函数将 AST 转换成另一种对 SVG 友好的 AST。
+AST we created in previous step is good at describing what’s happening in the code, but it is not useful to create SVG file out of it.  
+For example. “Paper” is a concept that only exists in DBN paradigm. In SVG, we might use element to represent a Paper. Transformer function converts AST to another AST that is SVG friendly.
 
 
 
@@ -290,15 +290,15 @@
         body:[]
       }
 
-      var pen_color = 100 // 默认钢笔颜色为黑
+      var pen_color = 100 // default pen color is black
 
-      // 一次提取一个调用表达式，作为 `node`。循环直至我们跳出表达式体。
+      // Extract a call expression at a time as `node`. Loop until we are out of expressions in body.
       while (ast.body.length > 0) {
         var node = ast.body.shift()
         switch (node.name) {
           case 'Paper' :
             var paper_color = 100 - node.arguments[0].value
-            svg_ast.body.push({ // 在 svg_ast 的 body 内加入 rect 元素信息
+            svg_ast.body.push({ // add rect element information to svg_ast's body
               tag : 'rect',
               attr : {
                 x: 0, y: 0,
@@ -308,7 +308,7 @@
             })
             break
           case 'Pen':
-            pen_color = 100 - node.arguments[0].value // 把当前的钢笔颜色保存在 `pen_color` 变量内
+            pen_color = 100 - node.arguments[0].value // keep current pen color in `pen_color` variable
             break
           case 'Line':
             ...
@@ -351,9 +351,9 @@
       }]
     }
 
-#### 4\. 生成器函数
+#### 4\. Generator function
 
-作为这个编译器的最后一步，生成器函数基于我们上一步产生的新 AST 生成了 SVG 代码。
+As the final step of this compiler, generator function creates SVG code based on new AST we made in previous step.
 
 
 
@@ -361,23 +361,23 @@
 
     function generator (svg_ast) {
 
-      // 从 attr 对象中创建属性（attribute）字符串
-      // 使得 { "width": 100, "height": 100 } 变成 'width="100" height="100"'
+      // create attributes string out of attr object
+      // { "width": 100, "height": 100 } becomes 'width="100" height="100"'
       function createAttrString (attr) {
         return Object.keys(attr).map(function (key){
           return key + '="' + attr[key] + '"'
         }).join(' ')
       }
 
-      // 顶端节点总是 <svg>。为 svg 标签创建属性字符串
+      // top node is always . Create attributes string for svg tag
       var svg_attr = createAttrString(svg_ast.attr)
 
-      // 为每个 svf_ast body 中的元素，生成 svg 标签
+      // for each elements in the body of svg_ast, generate svg tag
       var elements = svg_ast.body.map(function (node) {
         return ''
       }).join('\n\t')
 
-      // 使用开和关的 svg 标签包装来完成 svg 代码
+      // wrap with open and close svg tag to complete SVG code
       return '\n' + elements + '\n'
     }
 
@@ -408,19 +408,16 @@
 
     output:
     <svg width="100" height="100" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
-      <rect x="0" y="0" width="100" height="100" fill="rgb(0%, 0%, 0%)">
-      </rect>
-    </svg>
+      
+      
+    
 
+#### 5\. Put it all together as a compiler
 
+Let’s call this compiler the “sbn compiler” (SVG by numbers compiler).  
+We create a sbn object with lexer, parser, transformer, and generator methods. Then add a “compile” method to call all 4 methods in a chain.
 
-
-#### 5\. 将它们放在一起，作为一个编译器
-
-让我们把这个编译器称为「sbn 编译器」（SVG by numbers 编译器）。
-我们创建了一个带有词法分析器、语法分析器、转换器和生成器方法的 sbn 对象，然后添加了一个叫做「compile」的方法来链式调用这四个方法。
-
-我们现在可以将代码串传给「compile」方法，得到 SVG。
+We can now pass code string to the compile method and get SVG out.
 
 
 
@@ -437,7 +434,7 @@
       return this.generator(this.transformer(this.parser(this.lexer(code))))
     }
 
-    // 调用 sbn 编译器
+    // call sbn compiler
     var code = 'Paper 0 Pen 100 Line 0 50 100 50'
     var svg = sbn.compile(code)
     document.body.innerHTML = svg
@@ -446,8 +443,7 @@
 
 
 
-我做了一个 [互动演示](https://kosamari.github.io/sbn/)，其中展示了这个编译器里每一步的结果。这个 sbn 编译器的代码放在 [github](https://github.com/kosamari/sbn) 上，我目前正在给它添加更多的特性。如果你想要检查我们在这篇文章中的基本编译器的画，请切换到 [简单分支](https://github.com/kosamari/sbn/tree/simple)。
-
+I’ve made a [interactive demo](https://kosamari.github.io/sbn/) that shows you results of each steps in this compiler. Code for sbn compiler is posted on [github](https://github.com/kosamari/sbn). I’m adding more features into the compiler at the moment. If you want to check the basic compiler we made in this post, please check out [simple branch](https://github.com/kosamari/sbn/tree/simple).
 
 
 
@@ -461,15 +457,15 @@
 
 [https://kosamari.github.io/sbn/](https://kosamari.github.io/sbn/)
 
-### 难道一个编译器不应该使用递归或者遍历之类的吗？
+### Shouldn’t a compiler use recursion and traversal etc ?
 
-是的，那些是制作一个编译器需要的所有棒棒哒技术，然而这并不意味着你需要先使用那些做法。
+Yes, those are all wonderful techniques to build a compiler, but that doesn’t mean you have to take that approach first.
 
-我从为 DBN 编程语言的一个小子集（一个非常有限的小特征集）制作编译器开始，扩展范围，现在正准备向这个编译器上添加一些诸如变量、代码块和循环这样的特性。现在这个时候使用那些技术是一个好的想法，但是那些技术并不是刚开始就要用到的。
+I started by making compiler for a small subset of DBN programming language, a very limited small feature set. Since then, I expanded scope and now planning on adding features like variable, code block, and loops to this compiler. It would be a good idea to use those technique at this point, but it was not the requirement to get started.
 
-### 写编译器超棒的
+### Writing compiler is awesome
 
-你可以通过制作你自己的编译器来做些什么？也许你想要用西班牙语制作一个新的类 JavaScript 语言……
+What can you do by making your own compiler ? Maybe you might want to make new JavaScript-like language in Spanish… how about español script?
 
     // ES (español script)
     función () {
@@ -478,7 +474,7 @@
       }
     }
 
-这里有一些人，他们用 [Emoji (Emojicode)](http://www.emojicode.org/) 和 [有色彩的图片 (Piet 编程语言)](http://www.dangermouse.net/esoteric/piet.html) 制作了编程语言。可能性永无止境！
+There are people who made programming language in [Emoji (Emojicode)](http://www.emojicode.org/)and in [colored image (Piet programming language)](http://www.dangermouse.net/esoteric/piet.html). Possibilities are endless !
 
 
 
@@ -498,9 +494,9 @@
 
 
 
-### 从制作一个编译器中学到的
+### Learnings from making a compiler
 
- 制作编译器很有趣，但最重要的是，它教了我很多软件开发方面的知识。下面是一些我在制作自己的编译器中学到的东西。
+Making a compiler was fun, but most importantly, it taught me a lot about software development. Here are few things I learned while making my compiler.
 
 
 
@@ -512,27 +508,27 @@
 
 
 
-在制作了一个我自己的编译器后我是怎么想象编译器的
+How I imagine compiler after making one myself
 
-#### 1\. 有一些不熟悉的东西很正常。
+#### 1\. It’s okay to have unfamiliar things.
 
-像我们的词法分析器一样，你不必要从刚开始就知道所有的事情。如果你真的不懂一段代码或者技术，只说一句「这有个东西，我只知道这么多了」，然后将它放到下一个步骤去做，也是挺好的。不要对这个事情有压力，你最终会明白它的。
+Much like our lexical analyzer, you don’t need to know everything from the beginning. If you don’t really understand a piece of code or technology, it’s okay to just say “There is a thing, I know that much” and pass it on to next step. Don’t stress about it, you’ll get there eventually.
 
-#### 2\. 不要变成一个只发送坏的错误消息的混蛋。
+#### 2\. Don’t be a jerk with bad error message.
 
-语法分析器的功能是遵循规则、检查代码是不是按照那些规则写的。所以，错误会发生，很多次。当错误发生时，尝试着去发送一些有用的、欢迎式的信息。说「它不是那么工作的」（比如 JavaScript 里的「不合法标记」或者「undefined 不是个函数」错误）当然很简单，但是，请尽量多地告诉用户原本应该发生什么。
+Parser’s role is to follow the rule and check if things are written according to those rules. So, many times, error happens. When it does, try to send helpful and welcoming messages. It’s easy to say “It doesn’t work that way” (like “ILLEGAL Token” or “undefined is not a function” error in JavaScript) but in stead, try to tell users what should happen as much as you can.
 
-这在团队沟通中也有效。当某个人被困在一个问题中的时候，不要说「耶那没有用的」，可能你可以从说「如果是我，我会谷歌关键字 XXX 和 XXX」或「我推荐你读文档上的这一页」开始。你不必为他们做这些工作，但是你可以通过提供一些小的帮助来让他们工作得更好更快。
+This also applies to team communication. When someone is stuck with a question, instead of saying “yeah that doesn’t work”, maybe you can start saying “I would google keywords like ___ and ___ .” or “I recommend reading this page on documentation.” You don’t need to do the work for them, but you can certainly help them do the work better and faster by providing a little more help.
 
-Elm 是一个 [拥抱这种方法](http://elm-lang.org/blog/compiler-errors-for-humans) 的编程语言。它们将「也许你想试试这个？」放在它们的错误信息里。
+Elm is a programming language [that embrace this method](http://elm-lang.org/blog/compiler-errors-for-humans). They put “Maybe you want to try this ?” in their error message.
 
-#### 3\. 背景就是一切
+#### 3\. Context is everything
 
-最后，就像我们的转换器一样，将一种类型的 AST 转换成另一种更加适合的，来用于最终的结果，所有的事情都是指定背景的。
+Finally, just like our transformer transformed one type of AST to another more fitting one for the final result, everything is context specific.
 
-没有一个总是完美的做事方式。所以不要因为某件事情很流行或者你以前做过就只做它，首先想想它的背景。对一个用户可行的事情可能对另一个用户是一场灾难。
+There is no one perfect way to do things. So don’t just do things because it is popular or you have done it before, think about the context first. Things that work for one user may be a disaster for another user.
 
-同时，欣赏转换器做的那些工作。你可能知道你的团队里的那些好的转换器——某个非常擅长为鸿沟搭桥梁的人。转换器做的那些工作不是直接地创建代码，但都是在生产优秀产品时不可或缺的工作。
+Also, appreciate the work those transformers do. You may know good transformers in your team — someone who is really good at bridging gaps. Those work by transformers may not directly create a code, but it is a damn important work in producing quality product.
 
 
 
@@ -552,4 +548,9 @@ Elm 是一个 [拥抱这种方法](http://elm-lang.org/blog/compiler-errors-for-
 
 
 
-希望你享受这篇文章，希望我可以说服你制作 & 成为一个编译器有多么棒！
+Hope you enjoyed this post and hope I convinced you how awesome it is to build & be a compiler!
+
+
+
+
+
