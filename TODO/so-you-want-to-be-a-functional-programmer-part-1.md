@@ -2,7 +2,7 @@
 * 原文作者：[Charles Scalfani](https://medium.com/@cscalfani)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[cdpath](https://github.com/cdpath)
-* 校对者：
+* 校对者：[luoyaqifei](https://github.com/luoyaqifei)， [DeadLion (Jasper Zhong)](https://github.com/DeadLion)
 
 # 准备充分了嘛就想学函数式编程？（第一部分）
 
