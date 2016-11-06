@@ -15,7 +15,7 @@ A couple weeks ago, a camper started an unofficial algorithm competition on [Fre
 
 The challenge seemed simple enough: return the sum of all multiples of 3 or 5 that are below a number N, where N is an input parameter to the function.
 
-这个题目看似很简单：返回小于数字 N 的所有 3 或者 5 的倍数的和，N 是输入的参数。
+这个题目看似很简单：返回小于数字 N 的所有 3 或者 5 的倍数的和，N 是函数的参数。
 
 But instead of just finding any solution, [P1xt](https://medium.com/u/bf42d244c85)’s competition required you to focus on efficiency. It encouraged you to write your own tests, and to benchmark the performance of your solutions.
 
@@ -68,7 +68,7 @@ Here are the automated tests for this function, which use Mocha and Chai, runnin
 
 If you want more information about installing Mocha and Chai, I’ve written [a detailed guide](http://forum.freecodecamp.com/t/testing-your-own-code-using-mocha-and-chai-simple-example/44149?u=jacksonbates) on Free Code Camp’s forum.
 
-如果你想了解更多关于 Mocha 和 Chai 的安装等信息，可以参考我在自由代码营社区（Free Code Camp‘s forum）写的一份 [Mocha 和 Chai 测试入门](http://forum.freecodecamp.com/t/testing-your-own-code-using-mocha-and-chai-simple-example/44149?u=jacksonbates) 
+如果你想了解更多关于 Mocha 和 Chai 的安装等信息，可以参考我在自由代码营社区（Free Code Camp's forum）写的一份 [Mocha 和 Chai 测试入门](http://forum.freecodecamp.com/t/testing-your-own-code-using-mocha-and-chai-simple-example/44149?u=jacksonbates) 
 
 I wrote a simple testing script using the values [P1xt](https://medium.com/u/bf42d244c85) provided. Notice that in the script below, the function is included as a module:
 
@@ -251,13 +251,13 @@ So, finding that the type of loop didn’t make a huge difference, I wondered wh
 
 As soon as I started thinking down this track, it made me realize how wrong I was for _always_ reaching for arrays first…
 
-当我沿着这个思路勇往直前的时候，我意识到了一直以来第一选择使用数组是多么错误的行为……
+当我沿着这个思路勇往直前的时候，我意识到了_一直_以来第一选择使用数组是多么错误的行为……
 
     whileSum x 7,311 ops/sec ±1.26% (91 runs sampled)
 
 Another massive improvement: nearly **5 times faster** again, and **27 times faster** than my original function!
 
-又一项宏伟的提升：又提速了将近 5 倍，相比第一个函数提速 27 倍！
+又一项宏伟的提升：将近是上一个的** 5 倍快**，并且是第一个函数的** 27 倍快**！
 
 ### **Function#5: For, sum**
 
