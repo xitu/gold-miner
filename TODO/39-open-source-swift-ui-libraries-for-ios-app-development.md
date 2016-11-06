@@ -2,7 +2,7 @@
 * 原文作者：[Mybridge](https://medium.mybridge.co/@Mybridge)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[jiaowoyongqi](https://github.com/jiaowoyongqi)
-* 校对者：
+* 校对者：[xiaoheiai4719](https://github.com/xiaoheiai4719), [Tuccuay](https://github.com/Tuccuay)
 
 # 给 iOS App 开发者的 39 个开源的 Swift UI 库
 
