@@ -29,9 +29,9 @@
 
 现在你已经学会了所有这些新东西了，你可能在想，“现在该干什么？我如何在日常编程中使用它？”
 
-这得看情况。如果你会使用纯函数式语言（如Elm 或 Haskell）编程，那么你可以尝试所有这些想法。这些语言能够很容易实现这些想法。
+这得看情况。如果你会使用纯函数式语言（如 Elm 或 Haskell）编程，那么你可以尝试所有这些想法。这些语言能够很容易实现这些想法。
 
-如果你只能使用 Javascript 这样的命令式语言编程（我们中大多数人肯定都是），那么你仍然可以使用很多你学到的知识，但是还需要更多的实践。
+如果你只会使用 Javascript 这样的命令式语言编程（我们中大多数人肯定都是），那么你仍然可以使用很多你学到的知识，但是还需要更多的训练。
 
 
 #### Javascript 函数式
@@ -56,7 +56,7 @@ Javascript 有许多特性能让你以近乎函数式的方式编程。它不是
 
 **不变性**
 
-首先要考虑的是不变性。 在 ES2015，或者也叫 ES6，因为它有一个被称为 **_const_** 的新关键字。这意味着一旦设置了变量，则无法修改该变量：
+首先要考虑的是不变性。 在 ES2015，或者也叫 ES6，因为它有一个被称为 **_常量_** 的新关键字。这意味着一旦设置了变量，则无法修改该变量：
 
     const a = 1;
     a = 2; // this will throw a TypeError in Chrome, Firefox or Node
@@ -64,7 +64,7 @@ Javascript 有许多特性能让你以近乎函数式的方式编程。它不是
 
 这里的 **_a_** 被定义为常量，意味着一旦赋值无法再改变。 这就是为什么 **_a = 2_** 会抛出异常 (除了 Safari)。
 
-Javascript **_const_** 有个问题就是不变性的范围不够远。以下示例说明了其限制：
+Javascript **_常量_** 有个问题就是不变性不够深入。以下示例说明了其限制：
 
     const a = {
         x: 1,
@@ -82,13 +82,13 @@ Javascript **_const_** 有个问题就是不变性的范围不够远。以下示
 很不幸，我们只能通过一个库 [Immutable.js](https://facebook.github.io/immutable-js/) 来实现。
 这可能给我们更好的不变性，但可悲的是，它实现的方式使我们的代码看起来更像 Java。
 
-**扩充和组成**
+**柯里化和组合**
 
-在本系列之前的文章，我们学习了如何编写扩充的功能。这是一个更复杂的例子：
+在本系列之前的文章，我们学习了如何编写柯里化的功能。这是一个更复杂的例子：
 
     const f = a => b => c => d => a + b + c + d
 
-请注意，我们不得不手工编写扩充部分。
+请注意，我们不得不手工编写柯里化部分。
 
 调用 **_f,_** 我们必须写成:
 
@@ -101,11 +101,11 @@ Javascript **_const_** 有个问题就是不变性的范围不够远。以下示
 使用 Ramda 我们可以这样写:
 
     const f = R.curry((a, b, c, d) => a + b + c + d);
-    console.log(f(1, 2, 3, 4)); // prints 10
-    console.log(f(1, 2)(3, 4)); // also prints 10
-    console.log(f(1)(2)(3, 4)); // also prints 10
+    console.log(f(1, 2, 3, 4)); // 打印 10
+    console.log(f(1, 2)(3, 4)); // 也打印 10
+    console.log(f(1)(2)(3, 4)); // 也打印 10
 
-函数定义并没有什么改进，但我们已经排除了所有不必要的括号。请注意，我们可以应用与我们每次调用f时一样多的参数。
+函数定义并没有什么改进，但我们已经消除了对所有括号的需求。请注意，我们可以应用与我们每次调用 **_f_** 时一样多的参数。
 
 
 通过 Ramda, 我们可以重写 [Part 3](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-3-1b0fd14eb1a7)和 [Part 4](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-4-18fbe3ea9e49) **_mult5AfterAdd10_** 功能:
@@ -133,16 +133,16 @@ Ramda 也有它自己的 **_map_**, **_filter_** 和 **_reduce_**。 尽管这�
 
 **_R.modulo_** 用了两个参数. 第一个是 **_dividend_** (被除数) ，第二个参数是 **_divisor_** (除数)。
 
- **_isOdd_** 功能只是除以 2 的余数。 余数为 0 是 **_falsy_**, 不是奇数，余数为 1 则是 **_truthy_**，奇数。
-我们翻转 **_modulo_** 的第一和第二参数，使得我们可以指定2作为除数。
+ **_isOdd_** 函数只是除以 2 的余数。余数为 0 是 **_falsy_**, 不是奇数，余数为 1 则是 **_truthy_**，奇数。
+我们翻转 **_modulo_** 的第一和第二参数，使得我们可以指定 2 作为除数。
 
- **_isEven_** 功能只是 **_isOdd_** 的 **_complement（补充）_**。
+ **_isEven_** 功能只是 **_isOdd_** 的 **_complement（补集）_**。
 
- **_onlyOdd_** 方法通过 **_isOdd_** 来 **_断言（只返回布尔类型的方法）_** 的 **_过滤器_** 。这是等待获取列表的数量，它是执行前最后一个参数。
+ **_onlyOdd_** 函数是通过 **_isOdd_** 来 **_断言（只返回布尔类型的方法）_** 的 **_过滤器_** 。它在等待 numbers 数组，即它在执行前需要的的最后一个参数。
 
 The **_onlyEven_** 是一个使用 **_isEven_** 来断言的 **_过滤器_** 。
 
-当我们将 **_数量_** 传给 **_onlyEven_** 、**_onlyOdd_** 、**_isEven_** 和 **_isOdd_** 方法，获取它们最终的参数，最后执行然后返回我们期望的结果。
+当我们将 **_numbers_** 传给 **_onlyEven_** 、**_onlyOdd_** 、**_isEven_** 和 **_isOdd_** 方法，获取它们最终的参数，最后执行然后返回我们期望的结果。
 
 #### Javascript 缺点
 
@@ -165,7 +165,7 @@ Javascript 已经有很多的库，语言也得到增强，它仍然需要面对
 
 取而代之，他们用不同的语言编写和编译，或者更准确的说，是用其他语言转换成 Javascript。
 
-CoffeeScript 就是这些语言中的第一种。如今，Angular 2 中采用了 Typescript 。 Babel 也是一种 Javascript 转换编译器.
+CoffeeScript 就是这些语言中的第一种。如今，Angular 2 中采用了 Typescript。Babel 也是一种 Javascript 转换编译器。
 
 越来越多的人正在采用这种方法用于生产环境。
 
@@ -190,14 +190,14 @@ CoffeeScript 就是这些语言中的第一种。如今，Angular 2 中采用了
 
 **_但是什么才是 Elm？我又该怎么用它呢？_**
 
-Elm 是一种纯函数式编程语言，最终编译成 Javascript ，所以你可以用它来创建 Web 应用，使用 [The Elm Architecture](https://guide.elm-lang.org/architecture/)，又叫 TEA（这个架构激励了Redux的开发者）。
+Elm 是一种纯函数式编程语言，最终编译成 Javascript ，所以你可以用它来创建 Web 应用，使用 [The Elm Architecture](https://guide.elm-lang.org/architecture/)，又叫 TEA（这个架构激励了 Redux 的开发者）。
 
 
 Elm 程序没有任何运行时错误。
 
-像 [NoRedInk](https://www.noredink.com/) 这样的公司已经在生产环境中使用了 Elm，  Elm 的创造者 Evan Czapliki 现在工作的公司 (他之前在 [Prezi](https://prezi.com/) 公司工作)。
+像 [NoRedInk](https://www.noredink.com/) 这样的公司已经在生产环境中使用了 Elm，Elm 的创造者 Evan Czapliki 现在工作的公司(他之前在 [Prezi](https://prezi.com/) 公司工作)。
 
-看看这个访谈， [6 个月应用 Elm 在生产环境](https://www.youtube.com/watch?v=R2FtMbb-nLs), 由来自 NoRedInk 的 Richard Feldman 和 Elm 的布道者讲解。
+看看这个访谈，[6 个月应用 Elm 在生产环境](https://www.youtube.com/watch?v=R2FtMbb-nLs), 由来自 NoRedInk 的 Richard Feldman 和 Elm 的布道者讲解。
 
 **_我需要用 Elm 替换我所有的 Javascript 吗?_**
 
@@ -205,7 +205,7 @@ Elm 程序没有任何运行时错误。
 
 **_为什么学习 Elm?_**
 
-1.  函数式编程是限制和自由并存的。它限制了你可以做什么（大部分是保证你不会“误伤”自己)，但是同时也让你远离 bug 和错误的设计决策，因为所有的 Elm 程序遵循 Elm Architecture，一个功能上的响应式模型。
+1.  函数式编程是限制和自由并存的。它限制了你可以做什么（大部分是保证你不会“误伤”自己)，但是同时也让你远离 bug 和错误的设计决策，因为所有的 Elm 程序遵循 Elm Architecture，一个函数式响应编程模型。
 2.  函数式编程能让你成为一个更好的程序员。本文中的想法只是冰山一角。 你真的需要在实践中看到，它们是如何让你的程序缩小尺寸，增加稳定性。
 3.  Javascript 最初是在 10 天内构建的，然后在过去的二十年中修补，以成为一种有点功能，有点面向对象和完全命令式的编程语言。
     Elm 的设计吸取了 Haskell 社区过去 30 年工作中的知识，以及数十年的数学和计算机科学经验。
@@ -236,7 +236,7 @@ Elm 程序没有任何运行时错误。
 
 > 硬件的状态，例如千兆字节的便宜内存和快速处理器，将使函数式技术成为可行。
 
-> CPU 不会变得更快，但核心的数量将继续增加。
+> CPU 不会变得更快，但内核的数量将继续增加。
 
 > 可变状态将成为复杂系统中的最大问题之一。
 
