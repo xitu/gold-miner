@@ -52,7 +52,7 @@ Yarn 刚刚发布的时候，我马上意识到它可能会非常有价值，但
 
 Yarn 团队建议像安装原生应用那样安装 Yarn，**而我建议你完全可以不看他们的安装文档**。
 
-Yarn 没有 Mac 的原生安装包，所以他们推荐在 Mac 上使用 Homebrew。除非你已经用 Homebrew 安装了 Node（其实我并不推荐这样做 — 使用[nvm](https://github.com/creationix/nvm)能减少很多麻烦，也能自由地切换版本），**否则不要用 Homebrew 来安装 Yarn**.
+Yarn 没有 Mac 的原生安装包，所以他们推荐在 Mac 上使用 Homebrew。除非你已经用 Homebrew 安装了 Node（其实我并不推荐这样做 — 使用 [nvm](https://github.com/creationix/nvm) 能减少很多麻烦，也能自由地切换版本），**否则不要用 Homebrew 来安装 Yarn**.
 
 Homebrew 安装的同时也会安装 Node，它会将全局的 `node` 和 `npm` 命令添加到 Homebrew 路径中，并且会破坏你原本的 Node 的安装。
 
