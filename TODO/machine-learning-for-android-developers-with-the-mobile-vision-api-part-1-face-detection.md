@@ -1,36 +1,36 @@
 > * 原文地址：[Machine Learning for Android Developers with the Mobile Vision API— Part 1 — Face Detection](https://hackernoon.com/machine-learning-for-android-developers-with-the-mobile-vision-api-part-1-face-detection-e7e24a3e472f#.9ay7ilk9b)
 * 原文作者：[Moyinoluwa Adeyemi](https://hackernoon.com/@moyinoluwa)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
-* 校对者：
+* 译者： [Nicolas(Yifei) Li](https://github.com/yifili09)
+* 校对者：[jamweak](https://github.com/jamweak), [XHShirley](https://github.com/XHShirley)
 
-# Machine Learning for Android Developers with the Mobile Vision API— Part 1 — Face Detection
+# Android 开发者如何通过运动视觉 API 进行机器学习 - 第一部 - 人脸检测 
 
 
-Machine learning is a very interesting field in Computer Science that has ranked really high on my to-learn list for a long while now. With so many updates from RxJava, Testing, Android N, Android Studio and other Android goodies, I haven’t been able to dedicate time to learn it. There’s even a Nanodegree course on Machine Learning by Udacity. Pheew.
+在计算机科学中，机器学习是一个非常有意思的领域，它已经在我的最想学习的愿望清单中驻留已久。因为有太多来自于 `RxJava`, `Testing`, `Android N`, `Android Studio` 以及其他 `Android` 相关的技术更新，所以我都每能花时间来学习这个。甚至在 `Udacity` 还专门有一个有关机器学习的课程。:stuck_out_tongue: 。
 
-I was very excited to discover that Machine Learning can now implemented by anyone in their Android Apps based on the Mobile Vision APIs from Google without needing to have prior knowledge in the field. All you need is to know is how to use APIs.
+让我非常激动的发现是，目前任意一个开发人员都能基于运动视觉(`Mobile Vision API`) 把机器学习运用在他们自己的应用程序中，这个技术来自于 Google，它让你甚至都不需要有机器学习领域的专业知识。你只需要关心怎么利用这些 `APIs`。
 
-There are a lot of APIs for Machine Learning on the cloud and mobile, but in this series I’m going to focus only on the Mobile Vision APIs since those are created specifically for Android developers. The Mobile Vision API currently consists of three kinds; Face Detection API, Barcode Detection API and the Text API. We’ll deal with Face Detection in this article and cover the remaining two kinds in follow-up articles.
+在云服务和移动应用中，有很多运用于机器学习的 `APIs`，但是在这些 `API` 中，我将只关注运动视觉 (`Mobile Vision`) `API`，因为它是专门为 `Android` 开发者们创造的。目前运动视觉 (`Mobile Vision`) API 包含了三种功能: 人脸侦测 API，条形码侦测 API，文本侦测 API。在这篇文章中，我们将涉及人脸侦测的内容，并且会在之后的一系列文章里讨论剩下的两种功能。
 
-### Face Detection API
+### 人脸侦测 API
 
-This API is used to detect and track of human faces in images or videos but it doesn’t offer face recognition capabilities yet. It allows for the detection of landmarks on the face and offers face classification too. Landmarks are points of interest within a face such as the eye, nose and mouth. Face classification is used to check the landmarks for certain characteristics such as smiling faces or closed eyes which are currently the only supported classifications. The API also detects faces at different angles and reports the Euler Y and Euler Z angles.
+这个 API 被用于侦测和追踪在图片或视频中的人脸，但是它还不具备人脸识别的能力。它能在脸上进行侦测标定并提供人脸分类的功能。人脸标定是一系列在脸组成的点，例如眼睛，鼻子和嘴巴。人脸分类被用于检查那些标定的点是否符合某个特征，例如微笑的脸或者闭上了的眼睛，它们是目前仅支持的分类。这个 API 也能在不同的角度进行人脸侦测，并且记录欧式（欧拉）空间中的 Y坐标和 Z 的角度。
 
-### Getting Started
+### 入门指南
 
-We are going to create an app called printf(“%s Story”, yourName) with two filters. Please note that the aim of this post is just to show the use of the API so the initial versions of this code will not have tests or follow any specific architecture. Also note that all the processing is better done off the UI thread. The [code on Github](https://github.com/moyheen/face-detector) will be updated to reflect that.
+我们准备创建一个具有两个过滤器的应用程序 `printf("%s Story", yourName)`。请注意，本文的目的仅为了显示如何使用这个 API，所以这个初始版本的代码将不会进行测试或者遵循任何设计模式。也请注意，最好把所有的处理过程都从 UI 线程中分离。[托管在 Github 上的源码](https://github.com/moyheen/face-detector) 将会更新。 
 
-Here we go…
+让我们开始吧...
 
-*   Create a new project in Android Studio.
-*   Import Google Play Services SDK for the Mobile Vision API into your app level build.gradle file. As at the time of writing this article, the latest version is 9.6.1\. Take extreme caution here as you are bound to hit the 65k method limit if you import the whole SDK instead of the specific one (play-services-vision) you need.
+* 在 `Android Studio` 中创建一个新的项目
+* 将含有 Mobile Vision API 的 Google Play Services SDK 导入到你项目中 `app` 层级下的 `build.gradle` 文件内。在写这篇文章的时候，最新版本是 `9.6.1\`。请一定要小心这里，如果导入了整个 SDK 而不是仅导入你需要的那个 (play-services-vision)，那你一定会达到 65k 方法的限制。   
 
 ```
 compile 'com.google.android.gms:play-services-vision:9.6.1'
 ```
 
-*   To enable that the available libraries are present for face detection, add this meta-data to your manifest file.
+* 为了启用那些具有人脸侦测功能的依赖库，添加这个 `meta-data` 到你的 `manifest` 文件中。
     
 ```
 <meta-data
@@ -38,30 +38,30 @@ compile 'com.google.android.gms:play-services-vision:9.6.1'
     android:value="face"/>
 ```
 
-*   Next, you’ll need to add an _ImageView_ and a _Button_ to your layout. The button starts the processing of the image by selecting an image, processing it and then displaying it in the _ImageView_. The image can be loaded from the device either via the camera or the gallery. To save time, I just saved an image to my drawable folder and used that.
-*   In the click action for your button, create a new _BitmapFactory.Options_object and set _inmutable_ to true. This is to ensure that the bitmap is mutable so that we are able to programmatically apply effects to it.
+* 下一步，你需要增加一个 _ImageView_ 和 _Button_ 到你的界面布局中。这个按钮通过选择一个图片开始，并处理这个图片，之后把它显示在 _ImageView_。这个图片能从摄像头或者照片库中获得和加载。为了节约时间，我保存并使用了一个在 `drawable` 文件夹内的图片。
+* 在那个按钮的点击事件内，创建一个新的 _BitmapFactory.Options_ 对象并且把 _inmutable_ 属性设定为 `true`。这确保了 `bitmap` 是可变的，以便我们对它动态地增加效果。
 
 ```
 BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
 bitmapOptions.inMutable = true;
 ```
 
-*   Next, create a new Bitmap with the _decodeResource_ method from the BitmapFactory class. You’ll use both the image from your drawable folder and the _BitmapOptions_ object created in the previous step as parameters for this method.
+* 下一步，从 `BitmapFactory` 类方法中用 _decodeResource_ 方法创建一个新的 `Bitmap`。你会使用来自你的 `drawable` 文件夹内相同的一个图片并且把 _BitmapOptions_ 这个对象通过和之前一样的参数进行创建。
 
 ```
 Bitmap defaultBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.image, bitmapOptions);
 ```
 
-*   Create a _Paint_ object and set the style to stroke. This ensures that the shape is not filled in because we want to see the parts of the head that make it into the rectangle.
+* 创建一个 _Paint_ 对象并把它的 `style` 属性设定成 `stroke`。这确保了图形不会被完全填充，因为我们需要确保头部在长方形内。
 
-_Note_: If you were building a game called _!(Recognize Me)_ where you need to block out the faces in an image so that your players have to guess who it is, you’ll probably want to set the style to fill like so _Paint.Style.FILL_.
+_注意_: 如果你正创建一个名为 _!(Recognize Me)_ 的游戏，你需要在这个游戏内用一个图片挡住你的脸，所以你的对手不得不猜测你是谁，你想要把填充的形式设定成 _Paint.Style.FILL_
 
     Paint rectPaint = new Paint();
     rectPaint.setStrokeWidth(5);
     rectPaint.setColor(Color.CYAN);
     rectPaint.setStyle(Paint.Style.STROKE);
 
-*   We need a canvas to display our bitmap. We are going to create the canvas with a temporary bitmap first. This temporary bitmap will have the same dimensions as the original bitmap but that’s where the similarities end. We would later draw the original bitmap on the same canvas.
+* 我们需要一个展现这个 `bitmap` 的画布。我们先创建一个有临时 `bitmap` 的画布。这个临时的 `bitmap` 会和之前的有着一样的尺寸，但是仅仅是这个一样的。我们之后要把原始的 `bitmap` 画在同一个画布上。
 
 ```
     Bitmap temporaryBitmap = Bitmap.createBitmap(defaultBitmap.getWidth(), defaultBitmap
@@ -71,7 +71,7 @@ _Note_: If you were building a game called _!(Recognize Me)_ where you need to 
     canvas.drawBitmap(defaultBitmap, 0, 0, null);
 ```
 
-*   Finally, we get to point where we use the _FaceDectector_ API. Tracking is disabled because we are using a static image. It should be enabled for videos.
+* 最后，让我们言归正传，说说看怎么使用 _FaceDectector_ API 。因为我们在使用一个静态的图片，所以追踪功能被禁止了。它应该在视频上被启用。
 
 ```
     FaceDetector faceDetector = new FaceDetector.Builder(this)
@@ -79,7 +79,7 @@ _Note_: If you were building a game called _!(Recognize Me)_ where you need to 
             .setLandmarkType(FaceDetector.ALL_LANDMARKS)
             .build();
 ```
-*   Check if the face detector is operational already. There’s a possibility that it won’t work the first time because a library needs to be downloaded to the device and it might not have been completed in time when you need to use it.
+* 检查是否人脸侦测正常运作了。有可能第一次它不能正常工作，因为有一个依赖库需要被下载到设备上，而当你需要使用它的时候还没有完全下载完毕。
 
 ```
     if (!faceDetector.isOperational()) {
@@ -91,14 +91,14 @@ _Note_: If you were building a game called _!(Recognize Me)_ where you need to 
     }
 ```
 
-*   Next, we create a frame using the default bitmap and call on the face detector to get the face objects.
+* 下一步，我们用默认的 `bitmap` 创建一帧，然后调用人脸侦测功能获取人脸对象。
 
 ```
     Frame frame = new Frame.Builder().setBitmap(defaultBitmap).build();
     SparseArray sparseArray = faceDetector.detect(frame);
 ```
 
-*   The rectangle is drawn over the faces in this step. We can only get the left and top position from each of the faces but we also need the right and bottom dimensions to draw the rectangle. To resolve this, we add the width and height to the left and top positions respectively.
+* 在这一步中矩形框画在这个人脸上。我们能获取每个人脸左边和上部的位置，但是我们还需要右边和底部的尺寸才能画矩形。为了解决这个问题，我们分别为左边和上部增加宽度和高度。
 
 ```
     for (int i = 0; i < sparseArray.size(); i++) {
@@ -116,7 +116,7 @@ _Note_: If you were building a game called _!(Recognize Me)_ where you need to 
     }
 ```
 
-*   We then create a new _BitmapDrawable_ with the temporary bitmap and set that on the ImageView from our layout after which we release the face detector.
+* 我们之后创建一个新的 _BitmapDrawable_，它有一个临时的 `bitmap` 并且把它设定在界面布局中的 `ImageView` 中，之后这个人脸侦测的实例就能被释放了。
 
 ```
     imageView.setImageDrawable(new BitmapDrawable(getResources(), temporaryBitmap));
@@ -124,7 +124,8 @@ _Note_: If you were building a game called _!(Recognize Me)_ where you need to 
     faceDetector.release();
 ```
 
-These steps are just enough to draw the rectangle on each face. If you want to highlight the landmarks on each face, all you need to do is modify the loop from the last two steps. You’ll now loop through the landmark for each face, get the landmark x and y positions and draw a circle on each of them like so.
+通过这些步骤，已经可以在每一张人脸上画出一个矩形框了。如果你想在每一张人脸上突出那些标定点，你只需要修改最后两步中的循环内容。你将为没一张脸依次加上标定点，获取标定点的 `x` 和 `y` 坐标，并且在每一个标定点处画上一个圆圈。
+
 
 ```
     for (int i = 0; i < sparseArray.size(); i++) {
@@ -151,9 +152,9 @@ These steps are just enough to draw the rectangle on each face. If you want to h
 
 
 
-Picture with facial landmarks highlighted
+有标定点的人脸图片
 
-I was curious to know how the landmarks were represented so I used _landmark.getType();_ to find that out. It turns out each of the landmarks have specific numbers attached to them.
+我很好奇这些标定点是什么展现出来的，所以我使用 _landmark.getType()_ 来查明原由。原来每一个标定点都附带了特别的数字。
 
 ```
     for (Landmark landmark : face.getLandmarks()) {
@@ -172,9 +173,9 @@ I was curious to know how the landmarks were represented so I used _landmark.get
 
 ![](http://ac-Myg6wSTV.clouddn.com/9c2c504ae6c38fe051bc.png)
 
-This knowledge is useful when we want to position objects on the screen relative to a particular facial landmark. If we were going to build our printf(“%s Story”, yourName) app, all we have to do is position an image relative to one of the landmark’s position since we now know what number it is represented as. Let’s proceed to do that below…
+当我们想在屏幕上定位跟某个人脸标定点相关的对象的时候，这就非常有用了。如果我们想创建自己的 `printf("%s Story", yourName)` 应用程序，我们要做的就是把一个图像放置到和其中一个标定点有关的位置上，因为我们现在知道了那些数字代表了什么。让我们开始如下的操作...
 
-Say we were pirates at sea and we wanted to depict that through one of our really cool printf(“%s Story”, yourName) app filters, we’ll need an eye-patch over our left eye. The position of the eyePatchBitmap is drawn relative to the left eye.
+假设我们现在是一群海盗，并且我们想通过这个非常棒的 `printf("%s Story", yourName)` 滤镜来展现左眼上的眼罩。所以 `eyePatchBitmap` 会被画在左眼的位置。
 
 ```
     for (Landmark landmark : face.getLandmarks()) {
@@ -198,9 +199,9 @@ Say we were pirates at sea and we wanted to depict that through one of our reall
 
 
 
-Here’s more from the printf(“%s Story”, yourName) app…
+这里有更多 `printf("%s Story", yourName)` 应用程序的内容... 
 
-There’s still a lot more to cover with this API. We can update the app to track faces in videos and allow the filters move along with the head. The code from this article is [on Github here](https://github.com/moyheen/face-detector).
+关于这个 `API` 还有很多内容。我们能更新这个应用程序，它可以用来在视频内追踪人脸并且允许过滤器跟随头部移动。文中提到的工程源码已经提交到了我们的 [GitHub 仓库。](https://github.com/moyheen/face-detector)
 
 
 
