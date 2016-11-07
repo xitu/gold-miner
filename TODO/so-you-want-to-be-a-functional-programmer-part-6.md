@@ -9,7 +9,7 @@
 
 第一步，理解函数式编程概念是最重要的一步，同时也是最难的一步。如果你从正确的角度或方法来理解的话，它也未必会有那么难。
 
-回顾之前的部分: [Part 1](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-1-1f15e387e536), [Part 2](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-2-7005682cec4a), [Part 3](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-3-1b0fd14eb1a7), [Part 4](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-4-18fbe3ea9e49), [Part 5](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-5-c70adc9cf56a)
+回顾之前的部分: [Part 1](http://gold.xitu.io/entry/58105c99a22b9d006396ff26), [Part 2](http://gold.xitu.io/entry/58105d132f301e005c55fd8e), [Part 3](http://gold.xitu.io/entry/58105d84bf22ec0058418989), [Part 4](http://gold.xitu.io/entry/5812f521c4c97100553cb2cb), [Part 5](http://gold.xitu.io/entry/5812f56da22b9d006779e27d)
 
 #### 现在该做什么?
 
