@@ -2,7 +2,7 @@
 * 原文作者：[Mark Erikson](https://twitter.com/acemarke)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[luoyaqifei](http://www.zengmingxia.com)
-* 校对者：
+* 校对者：[xuxiaokang](https://github.com/xuxiaokang)，[richardo2016](https://github.com/richardo2016)
 
 # 实践 Redux，第 0 部分：简介
 
