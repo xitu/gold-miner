@@ -1,8 +1,8 @@
 > * 原文地址：[So You Want to be a Functional Programmer (Part 6)](https://medium.com/@cscalfani/so-you-want-to-be-a-functional-programmer-part-6-db502830403#.2bgj637a5)
 * 原文作者：[Charles Scalfani](https://medium.com/@cscalfani)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
-* 校对者：
+* 译者：[DeadLion](https://github.com/DeadLion)
+* 校对者：[cyseria](https://github.com/cyseria), [luoyaqifei](https://github.com/luoyaqifei)
 
 # 准备充分了嘛就想学函数式编程？(Part 6)
 
@@ -56,7 +56,7 @@ Javascript 有许多特性能让你以近乎函数式的方式编程。它不是
 
 **不变性**
 
-首先要考虑的是不变性。 在 ES2015，或者也叫 ES6，因为它有一个被称为 **_常量_** 的新关键字。这意味着一旦设置了变量，则无法修改该变量：
+首先要考虑的是不变性。 在 ES2015，或者也叫 ES6，因为它有一个被称为 **常量** 的新关键字。这意味着一旦设置了变量，则无法修改该变量：
 
     const a = 1;
     a = 2; // this will throw a TypeError in Chrome, Firefox or Node
@@ -64,7 +64,7 @@ Javascript 有许多特性能让你以近乎函数式的方式编程。它不是
 
 这里的 **_a_** 被定义为常量，意味着一旦赋值无法再改变。 这就是为什么 **_a = 2_** 会抛出异常 (除了 Safari)。
 
-Javascript **_常量_** 有个问题就是不变性不够深入。以下示例说明了其限制：
+Javascript **常量** 有个问题就是不变性不够深入。以下示例说明了其限制：
 
     const a = {
         x: 1,
@@ -138,9 +138,9 @@ Ramda 也有它自己的 **_map_**, **_filter_** 和 **_reduce_**。 尽管这�
 
  **_isEven_** 功能只是 **_isOdd_** 的 **_complement（补集）_**。
 
- **_onlyOdd_** 函数是通过 **_isOdd_** 来 **_断言（只返回布尔类型的方法）_** 的 **_过滤器_** 。它在等待 numbers 数组，即它在执行前需要的的最后一个参数。
+ **_onlyOdd_** 函数是通过 **_isOdd_** 来 **断言（只返回布尔类型的方法）** 的 **过滤器** 。它在等待 numbers 数组，即它在执行前需要的的最后一个参数。
 
-The **_onlyEven_** 是一个使用 **_isEven_** 来断言的 **_过滤器_** 。
+The **_onlyEven_** 是一个使用 **_isEven_** 来断言的 **过滤器** 。
 
 当我们将 **_numbers_** 传给 **_onlyEven_** 、**_onlyOdd_** 、**_isEven_** 和 **_isOdd_** 方法，获取它们最终的参数，最后执行然后返回我们期望的结果。
 
@@ -188,7 +188,7 @@ CoffeeScript 就是这些语言中的第一种。如今，Angular 2 中采用了
 
 在这个系列里，我们了解了 Elm 来帮助理解函数式编程。
 
-**_但是什么才是 Elm？我又该怎么用它呢？_**
+**但是什么才是 Elm？我又该怎么用它呢？**
 
 Elm 是一种纯函数式编程语言，最终编译成 Javascript ，所以你可以用它来创建 Web 应用，使用 [The Elm Architecture](https://guide.elm-lang.org/architecture/)，又叫 TEA（这个架构激励了 Redux 的开发者）。
 
@@ -199,11 +199,11 @@ Elm 程序没有任何运行时错误。
 
 看看这个访谈，[6 个月应用 Elm 在生产环境](https://www.youtube.com/watch?v=R2FtMbb-nLs), 由来自 NoRedInk 的 Richard Feldman 和 Elm 的布道者讲解。
 
-**_我需要用 Elm 替换我所有的 Javascript 吗?_**
+**我需要用 Elm 替换我所有的 Javascript 吗?**
 
 不，你可以逐渐替换。 完整的看看这篇文章 [How to use Elm at Work](http://elm-lang.org/blog/how-to-use-elm-at-work)，来学习更多知识。
 
-**_为什么学习 Elm?_**
+**为什么学习 Elm?**
 
 1.  函数式编程是限制和自由并存的。它限制了你可以做什么（大部分是保证你不会“误伤”自己)，但是同时也让你远离 bug 和错误的设计决策，因为所有的 Elm 程序遵循 Elm Architecture，一个函数式响应编程模型。
 2.  函数式编程能让你成为一个更好的程序员。本文中的想法只是冰山一角。 你真的需要在实践中看到，它们是如何让你的程序缩小尺寸，增加稳定性。
@@ -248,8 +248,7 @@ Elm 程序没有任何运行时错误。
 
 我希望在阅读完本系列以后，你会对你的能力和这些概念的理解感到更加自信。
 
-在今后的工作中，我祝你好运。
+在今后的工作中，祝你好运。
 
-如果你喜欢这篇文章，点击下方的收藏 ![💚](https://linmi.cc/wp-content/themes/bokeh/images/emoji/1f49a.png)，以便更多的人能在 Medium 上看到。
 
 如果你想加入一个 web 开发者社区学习以及相互帮助使用 Elm 函数式编程开发 web 应用的话，来加入我的 Facebook Group， **_Learn Elm Programming_**[https://www.facebook.com/groups/learnelm/](https://www.facebook.com/groups/learnelm/)
