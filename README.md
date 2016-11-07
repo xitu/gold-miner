@@ -4,7 +4,7 @@
 
 [掘金翻译计划](http://gold.xitu.io/#/tag/%E6%8E%98%E9%87%91%E7%BF%BB%E8%AF%91%E8%AE%A1%E5%88%92) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](http://gold.xitu.io) 上的英文分享文章。内容覆盖 [Android](#android)、[iOS](#ios)、[React](#react)、[前端](#前端)、[后端](#后端)、[产品](#产品)、[设计](#设计) 等领域，读者为热爱新技术的新锐开发者。
 
-掘金翻译计划目前翻译完成 [251](#近期文章列表) 篇文章，共有 [200](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
+掘金翻译计划目前翻译完成 [252](#近期文章列表) 篇文章，共有 [200](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
 
 # 如何参与翻译
 
@@ -51,10 +51,10 @@
 
 ## 前端
 
+* [[译] 实践 Redux，第 0 部分：简介](https://gold.xitu.io/entry/5820552eda2f60005d09c33c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([luoyaqifei](https://github.com/luoyaqifei) 翻译)
 * [[译] 写了六个相同功能的函数之后，我学到了什么](https://gold.xitu.io/entry/58200ec367f3560058a6f8fc?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Romeo0906](https://github.com/Romeo0906) 翻译)
 * [[译] 准备充分了嘛就想学函数式编程？（第一部分）](https://gold.xitu.io/entry/581fe399d20309005507371c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([cdpath](https://github.com/cdpath) 翻译)
 * [[译] 你怎么找到好工作，我在 Stack Overflow & GitHub 学电脑](https://gold.xitu.io/entry/581f3bd9da2f60005d02f561?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jiaowoyongqi](https://github.com/jiaowoyongqi) 翻译)
-* [[译] 准备充分了嘛就想学函数式编程？(第四部分)](https://gold.xitu.io/entry/581bf0a62e958a0054d783e1?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([llp0574](https://github.com/llp0574) 翻译)
 * [所有前端译文>>](https://github.com/xitu/gold-miner/blob/master/front-end.md)
 
 
