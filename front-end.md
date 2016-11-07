@@ -1,3 +1,4 @@
+* [写了六个相同功能的函数之后，我学到了什么](https://gold.xitu.io/entry/58200ec367f3560058a6f8fc?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Romeo0906](https://github.com/Romeo0906) 翻译)
 * [准备充分了嘛就想学函数式编程？（第一部分）](https://gold.xitu.io/entry/581fe399d20309005507371c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([cdpath](https://github.com/cdpath) 翻译)
 * [你怎么找到好工作，我在 Stack Overflow & GitHub 学电脑](https://gold.xitu.io/entry/581f3bd9da2f60005d02f561?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jiaowoyongqi](https://github.com/jiaowoyongqi) 翻译)
 * [准备充分了嘛就想学函数式编程？(第四部分)](https://gold.xitu.io/entry/581bf0a62e958a0054d783e1?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([llp0574](https://github.com/llp0574) 翻译)
