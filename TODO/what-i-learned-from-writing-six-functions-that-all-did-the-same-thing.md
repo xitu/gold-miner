@@ -1,7 +1,7 @@
 > * 原文地址：[What I learned from writing six functions that all did the same thing](https://medium.freecodecamp.com/what-i-learned-from-writing-six-functions-that-all-did-the-same-thing-b38fd48f0d55#.tt79h3s25)
 * 原文作者：[Jackson Bates](https://medium.freecodecamp.com/@JacksonBates)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：[Romeo0906](https://github.com/Romeo0906)
+* 译者：[王子建](https://github.com/Romeo0906)
 * 校对者：[Danny Lau](https://github.com/Danny1451)，[luoyaqifei](https://github.com/luoyaqifei)
 
 # 写了六个相同功能的函数之后，我学到了什么
