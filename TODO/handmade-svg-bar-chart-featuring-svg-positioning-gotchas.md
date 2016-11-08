@@ -15,20 +15,28 @@ This is the bar chart we're wanting to build:
 
 ![](https://cdn.css-tricks.com/wp-content/uploads/2016/10/Screenshot-2016-10-20-21.57.49.png)
 
-We could make this in our graphics editor of choice and dump it into our markup as an `` tag (even as an `.svg`), but where would the fun in that be? I also wanted to make this SVG chart by hand because I knew I would learn more about the syntax than if I were to just export a Sketch or Illustrator file.
+We could make this in our graphics editor of choice and dump it into our markup as an `<img>` tag (even as an `.svg`), but where would the fun in that be? I also wanted to make this SVG chart by hand because I knew I would learn more about the syntax than if I were to just export a Sketch or Illustrator file.
 
-To get things moving, let’s make an `` that will house our child elements:
+To get things moving, let’s make an `<svg>` that will house our child elements:
+
+```
+<svg width='100%' height='65px'>
+
+</svg>
+```
 
 Now let’s make the two bars. The first will sit in the background and the second will sit on top of it and it’ll represent the data of our graph:
 
-    
-      
-        ;
-        
-      
-    
+```
+<svg width='100%' height='65px'>
+  <g class='bars'>
+    <rect fill='#3d5599' width='100%' height='25'></rect>;
+    <rect fill='#cb4d3e' width='45%' height='25'></rect>
+  </g>
+</svg>
+```
 
-(Without providing a `x` and `y` attribute for the ``s, they are assumed to be 0.)
+(Without providing a `x` and `y` attribute for the `<rect>`s, they are assumed to be 0.)
 
 In the demo below, I’ve made them animate so you can see the second rect is placed on top of the first (this would be like drawing two rectangles in Sketch, one is layered on top of the other):
 
@@ -36,11 +44,13 @@ See the Pen [Chart stuff: 1](http://codepen.io/robinrendle/pen/43430fd382ab20ff4
 
 Next we can add the lines that act as markers to more easily read the data at 0, 25, 50, 75, and 100%. All we need to do is make a new group and add a rect for each marker, right? Sure, but you'll see we run into a little problem in a second.
 
-Inside the SVG, and beneath the `` where we styled our chart’s data we can write the following:
+Inside the SVG, and beneath the `<g>` where we styled our chart’s data we can write the following:
 
-    
-        
-    
+```
+<g class='markers'>
+    <rect fill='red' x='50%' y='0' width='2' height='35'></rect>
+</g>
+```
 
 That ought to look like this:
 
@@ -48,13 +58,15 @@ See the Pen [Chart stuff: 2](http://codepen.io/robinrendle/pen/e1a7d1e99ada07657
 
 Neat! Let’s add all the other markers and fix the colors whilst we’re at it:
 
-    
-        
-        
-        
-        
-        
-    
+```
+<g class='markers'>
+    <rect fill='#001f3f' x='0%' y='0' width='2' height='35'></rect>
+    <rect fill='#001f3f' x='25%' y='0' width='2' height='35'></rect>
+    <rect fill='#001f3f' x='50%' y='0' width='2' height='35'></rect>
+    <rect fill='#001f3f' x='75%' y='0' width='2' height='35'></rect>
+    <rect fill='#001f3f' x='100%' y='0' width='2' height='35'></rect>
+</g>
+```
 
 We’ve added a `rect` for each marker, added a fill to set the color and positioned them with the `x` attribute. Let’s see what that renders in the browser:
 
@@ -64,7 +76,9 @@ Where the heck did that last one go? Well, we _did_ tell it to be positioned at 
 
 1) We could apply an inline transform to nudge it back over
 
-    
+```
+<rect fill='#001f3f' x='100%' y='0' width='2' height='35' transform="translate(-2, 0)"></rect>
+```
 
 2) We could apply that same transform through CSS:
 
@@ -78,17 +92,21 @@ Where the heck did that last one go? Well, we _did_ tell it to be positioned at 
 
 Say our `viewBox` is...
 
-    
-      
-    
+```
+<svg viewBox='0 0 1000 65'>
+  <!-- the rest of our svg code goes here -->
+</svg>
+```
 
 So it is 1000 units wide. Our marker is 2 units wide. So to place the final marker along the right edge, we'd place it at 998! (1000 - 2). That becomes our x attribute:
 
-    
-      ...
-      
-      ...
-    
+```
+<svg viewBox='0 0 1000 65'>
+  ...
+  <rect fill='#001f3f' x='998' y='0' width='2' height='35'></rect>
+  ...
+</svg>
+```
 
 Which will lead to our marker being positioned on the far right edge of the SVG, even if we resize it:
 
@@ -98,13 +116,15 @@ Yay! We don’t have to add a % or a pixel value here because it’s using the c
 
 With all that finally sorted we can move onto the next issue: adding the % label text beneath each marker to denote 25, 50%, etc. To do that we’ll make a new `` inside the `` and add our `` elements:
 
-    <
-        0%
-        25%
-        50%
-        75%
-        100%
-    
+```
+<g>
+    <text fill='#0074d9' x='0' y='60'>0%</text>
+    <text fill='#0074d9' x='25%' y='60'>25%</text>
+    <text fill='#0074d9' x='50%' y='60'>50%</text>
+    <text fill='#0074d9' x='75%' y='60'>75%</text>
+    <text fill='#0074d9' x='100%' y='60'>100%</text>
+</g>
+```
 
 Because we’re doing this by hand I want to use % for the x value, but unfortunately that will end up looking like this:
 
@@ -114,13 +134,15 @@ Again, we have a problem with the final element not aligning as we might expect 
 
 With this attribute we can manipulate the text sort of like the `text-align` property in CSS. This property is naturally inherited, so we can set it once on the `g` and then target the first and last elements:
 
-    
-      0%
-      25%
-      50%
-      75%
-      100%
-    
+```
+<g text-anchor='middle'>
+  <text text-anchor='start' fill='#0074d9' x='0' y='60'>0%</text>
+  <text fill='#0074d9' x='25%' y='60'>25%</text>
+  <text fill='#0074d9' x='50%' y='60'>50%</text>
+  <text fill='#0074d9' x='75%' y='60'>75%</text>
+  <text text-anchor='end' fill='#0074d9' x='100%' y='60'>100%</text>
+</g>
+```
 
 That will look like:
 
