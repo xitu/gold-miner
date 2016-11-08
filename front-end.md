@@ -1,3 +1,4 @@
+* [用 Yarn 你还能做这 5 件事](https://gold.xitu.io/entry/582185608ac247004f1d63a3?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jiakeqi](https://github.com/jiakeqi) 翻译)
 * [准备充分了嘛就想学函数式编程？(Part 6)](https://gold.xitu.io/entry/58209780570c350060b75a93?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([DeadLion](https://github.com/DeadLion) 翻译)
 * [实践 Redux，第 0 部分：简介](https://gold.xitu.io/entry/5820552eda2f60005d09c33c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([luoyaqifei](https://github.com/luoyaqifei) 翻译)
 * [写了六个相同功能的函数之后，我学到了什么](https://gold.xitu.io/entry/58200ec367f3560058a6f8fc?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Romeo0906](https://github.com/Romeo0906) 翻译)
