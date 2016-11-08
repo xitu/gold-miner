@@ -4,6 +4,8 @@
 * 译者：[jiaowoyongqi](https://github.com/jiaowoyongqi)
 * 校对者：[cbangchen](https://github.com/cbangchen), [mypchas6fans](https://github.com/mypchas6fans)
 
+# 设计一个你自己不会去用的产品
+
 当我告诉朋友说我的工作是设计一款主打运动新闻的产品，他们往往会说，“你了解运动吗？”。作为回应，我常常在电视上观看比赛，同时也知道一些基本的运动常识，但是我绝对不是运动迷，离运动迷还差远了。
 
 必须承认，当我开始为 90min 和 12up 的母公司 MinuteMedia 工作的时候是有所考虑的。毕竟我自己之前还是一位芭蕾舞者，所以现在设计一款面向运动爱好者的产品，听起来也是很适合的，不是吗？事实也的确如此。

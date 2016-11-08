@@ -4,6 +4,7 @@
 * 译者：[mypchas6fans] (https://github.com/mypchas6fans)
 * 校对者：[yifili09] (https://github.com/yifili09) [siegeout] (https://github.com/siegeout)
 
+# 用 RxSwift 实现通用的响应式转场
 
 个人而言，我喜欢 [UIStoryboardSegue](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIStoryboardSegue_Class/) 这个类背后的思路，把导航逻辑从业务逻辑程序中分离出来。
 

@@ -4,6 +4,7 @@
 * 译者 : [DeadLion](https://github.com/DeadLion)
 * 校对者: [MAYDAY1993](https://github.com/MAYDAY1993), [Siegen](https://github.com/siegeout)
 
+# 高效的 iOS 应用版本支持方法
 
 极少数应用程序很“奢侈”的只支持最新版本的 iOS。 设置一个较低的[部署目标](https://pspdfkit.com/guides/ios/current/announcements/version-support/)以及基于特定 iOS 版本的代码分支通常是很有必要的。虽然苹果公司的信息有些矛盾，还是有各种办法来完成这个。最近在[这条 tweet](https://twitter.com/stevemoseley/status/748953473069092864)上看到有人警告说，不要这样做：
 

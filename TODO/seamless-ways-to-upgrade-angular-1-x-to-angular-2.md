@@ -4,7 +4,7 @@
 * 译者 : [CoderBOBO](https://github.com/CoderBOBO)
 * 校对者: [根号三](https://github.com/sqrthree) [Adam Shen](https://github.com/shenxn)
 
-#如何从 Angular 1.x 无缝升级到 Angular 2
+# 如何从 Angular 1.x 无缝升级到 Angular 2
 
 Angular 2 已经发布了数月，两三周前也刚发布了一个新的 beta 版本。相信我，我绝对能猜到各位对此次优化改动的想法。你可能会问自己（或是对着你的计算机屏幕自言自语）：Angular 团队究竟凭借什么实现如此大的飞跃。毕竟，你（或至少你认为你）觉得Angular1 就已经能满足所有个人需求了。
 先暂时停下手上正在使用的代码编辑器吧，一起来讨论下为什么这是一次志在必行的大调整，以及我们通过哪些方法促使我们成功迈出这一大步。

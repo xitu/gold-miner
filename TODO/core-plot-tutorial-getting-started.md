@@ -1,12 +1,10 @@
-> 原文链接 : [Core Plot Tutorial: Getting Started](https://www.raywenderlich.com/131985/core-plot-tutorial-getting-started)
+> * 原文链接 : [Core Plot Tutorial: Getting Started](https://www.raywenderlich.com/131985/core-plot-tutorial-getting-started)
+* 原文作者 : [Attila Hegedüs](https://www.raywenderlich.com/u/cynicalme)
+* 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
+* 译者 : [llp0574](https://github.com/llp0574)
+* 校对者: [yifili09](https://github.com/yifili09),[cdpath](https://github.com/cdpath)
 
-> 原文作者 : [Attila Hegedüs](https://www.raywenderlich.com/u/cynicalme)
-
-> 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-
-> 译者 : [llp0574](https://github.com/llp0574)
-
-> 校对者: [yifili09](https://github.com/yifili09),[cdpath](https://github.com/cdpath)
+# iOS 开源图形库 Core Plot 使用教程 
 
 
 ![Alt 使用Core Plot绘制饼图，柱状图，散点图及更多！](http://ac-Myg6wSTV.clouddn.com/868c57b7dfa6957573cd.png)

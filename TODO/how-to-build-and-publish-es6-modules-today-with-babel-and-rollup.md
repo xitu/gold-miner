@@ -4,6 +4,8 @@
 * 译者 : [L9m](https://github.com/L9m)
 * 校对者: [yangzj1992](https://github.com/yangzj1992), [malcolmyu](https://github.com/malcolmyu)
 
+# 如何用 Babel 和 Rollup 来构建和发布 ES6 模块
+
 ES2015 规范，也称作 ES6，早在2015年六月被 ECMA 国际（ECMA International）批准为正式标准。在2016年四月，Node.js 基金会发布了支持 93% ES6语言特性的 Node.js 框架 v6，这要归功于 V8（引擎）的 v5.0（Node.js）。
 
 很难说用 ES6 及以上的语法和现有语法特性替代第三方库和 polyfills 有明显的好处。比如语法更加简洁，更可读的代码，更少的抽象，更易于代码库的维护和扩展，能让开发你的库更快，在精益创业术语中意味着**市场首入**。

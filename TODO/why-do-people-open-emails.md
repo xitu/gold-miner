@@ -4,6 +4,7 @@
 * 译者：[Deadlion](https://github.com/Deadlion)
 * 校对者：[Aberfield](https://github.com/lk415064460), [mypchas6fans](https://github.com/mypchas6fans)
 
+# 人们为什么会打开你的营销电子邮件？
 
 人们为什么打开电子邮件？每次将文章推送给 _The Signal_ 的订阅者我都会思考这个问题。当文章到达你的收件箱，还有共享谷歌文档和其他简讯可以选择，是什么让你打开邮件然后阅读它呢？
 

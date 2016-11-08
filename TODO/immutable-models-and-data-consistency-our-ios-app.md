@@ -4,6 +4,8 @@
 * 译者：[Kulbear](https://github.com/kulbear)
 * 校对者：[steinliber](https://github.com/steinliber), [MAYDAY1993](https://github.com/MAYDAY1993)
 
+# iOS APP 中的不可变模型以及一致性数据
+
 今年早些时候，为了给用户，尤其是大部分海外的用户更快更清晰的体验，我们全面重构了我们的 [iOS 应用](https://engineering.pinterest.com/blog/re-architecting-pinterests-ios-app)。这次重构的其中一个目的是将我们的应用迁移到一个不可变模型的层面上。在这篇博客中，我将会讨论这样做的动机，并探索我们的新系统是如何处理模型的更新，从 API 读取新信息，以及保持数据持久性的。
 
 ## 为什么选择不可变模型？

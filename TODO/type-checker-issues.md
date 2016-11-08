@@ -4,6 +4,7 @@
 * 译者: [Zheaoli](https://github.com/Zheaoli)
 * 校对者: [geeeeeeeeek](https://github.com/geeeeeeeeek), [Graning](https://github.com/Graning)
 
+# 详解 Swift 的类型检查器 
 
 这篇文章将围绕曾不断使我重写代码的一些 **Swift** 编译器的报错信息展开：
 
