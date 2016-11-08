@@ -44,13 +44,13 @@
 26. 请不要建立和运行你自己的 **CI** 服务器，维护这个服务器是很耗时的，因为会有磁盘空间问题，磁盘安全性问题 / 升级服务器来避免来自 `SSL` 漏洞的攻击，等等。可以使用 `circleci`，`travis`，`shippable`，他们不是很贵并且只需要关注价格就行;
 27.  [使用 `playstore` 来自动化你的发布过程;](https://github.com/Triple-T/gradle-play-publisher)
 28. 如果一个依赖库很庞大并且你只是使用其中一小部分的功能，你应该考虑一些其他**更精简**的选择 (比如可以依赖 [proguard](http://developer.android.com/tools/help/proguard.html));
-29. 不要使用你不需要的模块。如果_那个_模块并不需要常常修改，考虑从零开始构建的时间是很重要的(使用 **CI** 构建就是一个很好的例子)，或者检查之前那个单独构建的模型是否是最新的，相比起来只是简单的装载那些二进制的 `.jar/.aar` 依赖库，它能带来 4 倍的提升;
-30. [开始考虑用 SVGs 替换 PNGs](http://developer.android.com/tools/help/vector-asset-studio.html);
+29. 不要使用你不需要的模块。如果_那个_模块并不需要常常修改，考虑从零开始构建的时间是很重要的(使用 **CI** 构建就是一个很好的例子)，或者检查之前那个单独构建的模块是否是最新的，相比起来只是简单的装载那些二进制的 `.jar/.aar` 依赖库，它能带来 4 倍的提升;
+30. [开始考虑用 SVG 替换 PNG](http://developer.android.com/tools/help/vector-asset-studio.html);
 31. 如果你只需要改变一个地方(例如，**_AppLogger.d(“message”)_** 能包含 **_Log.d(TAG, message)_** 并且之后发现 [**_Timber.d(message)_**](https://github.com/JakeWharton/timber) 会是一个更好的解决方案)，为依赖库制作抽象的类会让切换到新库变得很容易;
-32. 监视连接状态和连接的种类 (**在 WIFI 通道上是不是有更多的更新数据**?);
-33. 监视电源和电池 (**在充电的过程中，是不是有更多的更新数据？ 当电池电量低的时候，更新过程会不会被暂缓**);
+32. 监视连接状态和连接的种类 (**在 WIFI 连接状态下，是不是有更多的数据更新**?);
+33. 监视电源和电池 (**在充电的过程中，是不是有更多的数据更新？ 当电池电量低的时候，更新过程会不会被暂缓**);
 34. 如果一个笑话是需要解释才能明白的话，那肯定是一个失败的笑话，用户界面亦是如此;
-35.  [测试能带来性能的提升: 慢工出细活（并且保证内容的正确性），之后验证优化，这不会影响任何测试内容。](https://twitter.com/danlew42/status/677151453476032512)。
+35.  [测试能带来性能的提升: 慢工出细活（并且保证内容的正确性），之后验证优化，这不会影响任何测试内容。](https://twitter.com/danlew42/status/677151453476032512)
 
 
 
@@ -64,7 +64,7 @@
 
 
 
-如果你对上面的建议有任何问题，请通过 tweet @[cesarmcferreira](https://twitter.com/cesarmcferreira)` 告诉我!
+如果你对上面的建议有任何问题，请通过 tweet @[cesarmcferreira](https://twitter.com/cesarmcferreira) 告诉我!
 
 
 
