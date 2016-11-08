@@ -16,15 +16,15 @@ Yarn 为你提供在离线模式下工作的能力。如果你在之前安装过
 
 当连接到网络时，我用Yarn 安装了两个包，如下:
 
-![Yarn init](https://cdn.auth0.com/blog/blog/yarn-int.png) _使用 yarn init 创建一个 package.json _
+![Yarn init](https://cdn.auth0.com/blog/blog/yarn-int.png) <b>使用 yarn init 创建一个 package.json</b>
 
-![用 yarn 安装 express 和 jsonwebtoken 包](https://cdn.auth0.com/blog/blog/yarn-add-packages.png) _用 yarn 安装 express 和 jsonwebtoken 包_
+![用 yarn 安装 express 和 jsonwebtoken 包](https://cdn.auth0.com/blog/blog/yarn-add-packages.png) <b>用 yarn 安装 express 和 jsonwebtoken 包</b>
 
-![安装完毕](https://cdn.auth0.com/blog/blog/yarn-completed-install.png) _安装完毕_
+![安装完毕](https://cdn.auth0.com/blog/blog/yarn-completed-install.png) <b>安装完毕</b>
 
-安装完毕后。我会删除 _orijin_ 目录下的 _node_modules_ ，并断开网络连接，重新执行 Yarn。如下:
+安装完毕后。我会删除 <b>orijin</b> 目录下的 <b>node_modules</b> ，并断开网络连接，重新执行 Yarn。如下:
 
-![Yarn 离线安装了包](https://cdn.auth0.com/blog/blog/yarn-install-offline.png) _Yarn 离线安装了包_
+![Yarn 离线安装了包](https://cdn.auth0.com/blog/blog/yarn-install-offline.png) <b>Yarn 离线安装了包</b>
 
 这就是 Yarn! 所有包都在不到两秒钟内重新安装。显然，Yarn 缓存了下载的每个包，所以不需要重复下载。它还通过并行化操作来最大化资源利用率，使安装时间比之前更快。
 
@@ -50,9 +50,9 @@ Yarn 为你提供了从多个注册表安装 JavaScript 包的能力，如 [npm]
 
     yarn add <git remote-url>
 
-![从一个 Github 仓库 安装 Yarn](https://cdn.auth0.com/blog/blog/yarn-add-gitrepo.png) _从一个 Github 仓库 安装 Yarn_
+![从一个 Github 仓库 安装 Yarn](https://cdn.auth0.com/blog/blog/yarn-add-gitrepo.png) <b>从一个 Github 仓库 安装 Yarn</b>
 
-![Yarn 检测 git 仓库作为软件包存在于 bower 注册表中](https://cdn.auth0.com/blog/blog/yarn-add-bowercomp.png) _Yarn 还自动检测到 git 仓库作为软件包存在于 bower 注册表中，并将其视为包_
+![Yarn 检测 git 仓库作为软件包存在于 bower 注册表中](https://cdn.auth0.com/blog/blog/yarn-add-bowercomp.png) <b>Yarn 还自动检测到 git 仓库作为软件包存在于 bower 注册表中，并将其视为包</b>
 
 ## 3. 快速获取安装包
 
@@ -60,7 +60,7 @@ Yarn 为你提供了从多个注册表安装 JavaScript 包的能力，如 [npm]
 
 Yarn 有效地对请求进行排队，并避免请求集中以最大化网络利用率。开始创建一个请求到注册表，并递归查找每个依赖，接下来，在全局缓存目录查看是否下载过这些包。如果没有，Yarn 会获取原始包，并将其放入全局缓存，以保证可以离线工作和无需重复安装。
 
-在安装过程中，Yarn 并行化操作，使安装过程更快速。我初次安装三个包，**jsonwebtoken**，**express** 和 **lodash**，使用 **npm** 和 **yarn**。_Yarn_ 已经安装完毕了，_npm_ 仍然在安装。
+在安装过程中，Yarn 并行化操作，使安装过程更快速。我初次安装三个包，**jsonwebtoken**，**express** 和 **lodash**，使用 **npm** 和 **yarn**。<b>Yarn</b> 已经安装完毕了，<b>npm</b> 仍然在安装。
 
 ![Yarn 和 Npm 的 对比](https://cdn.auth0.com/blog/blog/yarn-npm-compare.png)
 
@@ -72,7 +72,7 @@ Npm 有一个名为 **shrinkwrap** 的特性，其目的是在生产环境中使
 
 ## 5. 在不同的机器上以同样的方式安装依赖
 
-**npm client** 安装依赖的方式可能会导致 _开发者 A_ `node_modules` 目录和 _开发者 B_ 不同。它使用非确定性手段来安装这些包依赖。这种方式由于 _在个别的系统下_ 可以工作，而不容易复现问题。
+**npm client** 安装依赖的方式可能会导致 <b>开发者 A</b> `node_modules` 目录和 <b>开发者 B</b> 不同。它使用非确定性手段来安装这些包依赖。这种方式由于 <b>在个别的系统下</b> 可以工作，而不容易复现问题。
 
 Yarn 锁定文件的和安装算法的存在，确保了将应用程序部署到生产环境时，安装的依赖在开发机器之间，产生的文件和文件夹结构完全相同。
 
