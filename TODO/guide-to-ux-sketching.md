@@ -1,293 +1,293 @@
 > * 原文地址：[Everything You Need to Know about UX Sketching](https://www.toptal.com/designers/ux/guide-to-ux-sketching)
 * 原文作者：[NICK VYHOUSKI](https://www.toptal.com/designers/resume/nick-vyhouski)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
-* 校对者：
+* 译者：[特伦](https://twitter.com/SyncTrip)
+* 校对者：[jiaowoyongqi](https://github.com/jiaowoyongqi)、[jamweak](https://github.com/jamweak)
 
 
 
 
 
-If you’ve done any sort of serious creative work, you are all too familiar with creative block. It feels like hitting a brick wall: _None of the ideas you’re able to visualize are good enough, or can’t work in real life._
+如果你曾经做过一些非常需要创造性的工作，那你应该很清楚在创作中遇到阻碍的感觉。这种感觉就像撞上南墙: __你想不到一个足够好的点子，或是你想到的点子根本无法在实际中应用。__
 
-For designers, the feeling is all too familiar. However, like any complicated problem with no clear solution, a smart process can make all the differences. This is where UX sketching comes in.
+对于设计师们来说，这种感觉再熟悉不过了。然而，任何复杂的问题都没有那么容易解决，但一个聪明的工作流程就可以让这一切都变得不同。这就是为什么我们需要为用户体验设计绘制草图。
 
-UX sketching is a crucial, yet often overlooked, aspect of user-experience design. Sketching is a very efficient way of communicating design while allowing designers to try out a multitude of ideas and iterate them before settling on one.
+绘制草图是一个关键点，但它却常常在用户体验设计中被忽视。草图是一种表达设计的非常有效率的方式，设计师们可以通过草图来尝试许多不同的点子，而避免沉沦于其中的某一个。
 
-In this post, I intend to cover everything you need to know about UX sketching, including the following points:
+在这篇文章中，我想要介绍为用户体验设计绘制草图时你所需要知道的一切，包括了下面这几点：
 
-*   Introduction to UX sketches and wireframes
-*   UX sketching basics, tools and techniques
-*   Clarifying sketches with notes, annotations, numbers
-*   UX sketching tips and tricks
-*   Mini-methods designed to boost quality and productivity
-*   All you need to know about Wireflows
-*   A quick guide to UX flow sketching
+*   介绍用户体验设计中的草图与线框图
+*   绘制草图的基本要点、工具以及技巧
+*   用笔记、注释和数字来阐明你的草图
+*   为用户体验设计绘制草图时的小提示
+*   用简单的设计方法来提高质量和效率
+*   关于线框流程图你所需要知道的一切
+*   为用户体验流程绘制草图的快速指南
 
-## UX Sketching is a Two-step Process
+## 绘制草图是一个需要两步走的过程
 
-Many options must be considered in design, which results in the choice and the execution of _the best one._ Designers consider their options, and then proceed to work out the details, thus making UX design a two-step process:
+在设计中你必须考虑许多不同的方案，确保最终选择和确定的结果是__最好的那一个。__ 设计师们在设计时应该先思考他们的不同方案，之后再着手于细节，因此用户体验设计应该是一个两步走的过程：
 
 ![Ux sketching](https://assets.toptal.io/uploads/blog/image/121222/toptal-blog-image-1474991007791-230ca06cc9fe1490e78fb46953ffbcb0.jpg)
 
-In the initial step, multiple ideas are generated, but since they cannot be fully shaped, it is not uncommon for some of the elements to be incomplete or missing. The main thing is to consider different approaches and to decide which is the most efficient in the context of your task and the various constraints of the project.
+在最初的设计过程中，你会产生许多不同的想法，但这些想法都很难成形，甚至有一些元素的残缺或丢失也不奇怪。最重要的事是你应该用不同的方法去思考，并判断哪一种在你的任务环境中最有效率，以及你的项目会遇到的各种限制。
 
-*   **Detailization and Refinement**
+*   **细节与精炼**
 
-Step by step, you settle on a few promising variants and proceed to work out the specifics, thus rendering some ideas unsuitable.
+一步一步来。选定一些看上去不错的想法并且开始着手于优化他们的细节，以此来填补这些点子中不合适的部分。
 
-## UX Sketches and Wireframes: Introduction and Classification
+## 用户体验设计中的草图和线框图：介绍与分类
 
-Your wireframes may differ depending on factors such as the desired level of detail, colors and style, whether you are going to show them to someone, and so on.
+你绘制的线框图很可能依据你的产品而有所不同，比如所需要的细节程度，颜色或风格的不同，或是你是否需要展示给某人，等等。
 
 ![](https://assets.toptal.io/uploads/blog/image/121204/toptal-blog-image-1474890673236-d74ae4998dab921752d271212847a991.png)
 
-Good sketches will help you think clearer, find better solutions and save time.
+好的草图会让你的想法更清晰，找到最佳解决方案，并节省你的时间。
 
-I singled out the following sketch types:
+我列出了下面这些不同类型的草图:
 
-* Sketch: Idea Generation
+* 草稿：提出构思
 
-These are initial sketches. Lower level details are simply noted. A limited number of colors is employed.
+这些是最初的草图版本，用于指出较低程度的细节，色彩的使用范围也有限。
 
-I draw a lot of basic sketches to consider the problem from different angles and to consider different solutions. While drawing such sketches, I am also striving to generate as many solution variants as possible.
+我会绘制大量简单的手绘图来以不同的角度思考问题和解决方案。同时在画这些手绘图的时候，我也尽可能地去让这些解决方案发散开来。
 
-At this particular step incompleteness frees my mind, which is why it is so important to avoid getting bogged down in minutiae at this stage. My goal is to generate as many ideas as possible and choose the most promising ones.
+在这个特别的步骤里，低完成度的要求使我开放了思维，因为要避免在这个阶段陷入一些细枝末节是非常重要的。我的目标是尽可能地想出许多的点子，并选择出最合适的那一个。
 
-* **Wireframe: Specification, Detailed Phase**
+* **线框图：规范的细化阶段**
 
-I usually pick promising sketches and go over the details, after which I choose the best variant and work it out in greater detail.
+在我选出一个最好的想法并有了大体的细节之后，我通常会挑选出合适的草图来继续细化。
 
-However, this does _not mean every single detail_. Obvious things may just be noted. Moreover, some aspects will be difficult to describe on paper.
+但是，这么做__并不意味着要添加上每一个细节__。很显然，有些事只要标记一下就可以了。此外，有些东西也很难在纸上被详细描述。
 
-At this step, I draw all the _important details_, but I do not yet draw wireframes in [Balsamiq](https://balsamiq.com/). After everything is done on the paper, I start drawing in Sketch.
+在这一步中，我会画出所有__重要的细节__，但我还并不打算在 [Balsamiq](https://balsamiq.com/) 中绘制线框图。等我在纸上把所有事都做好之后，我再开始使用 Sketch 来绘制线框图。
 
-> Digital tools provide a lot more creative freedom than paper and you can easily shift attention to minor things. For example, you can focus on "pixel polishing" instead of design.
+> 数字化的工具相比于传统纸张，为创作提供了更广阔的自由空间。并且，你可以很轻易地把注意力放到微小的细节上。比如说，相比于设计，你可以把注意力集中于「像素级的改进」。
 
-* Visual Design Draft
+* 视觉设计稿
 
-This is a rarely used approach, but sometimes it can be helpful. Various visual solutions are considered at an early stage of the project, but it may take a long time to create digital sketches for all of them. That is why I draw design sketches on paper first, to consider different options and choose a visual design direction.
+一般很少会使用这个方法，但许多时候它依然是很有帮助的。在项目初期需要考虑多种视觉设计的方向，但把它们都在电脑上绘制出来也许会耗费你相当多的时间。这也是为什么我首先在纸上绘制手绘稿，在思考了不同的方案之后再选择一个合适的视觉设计方向。
 
-* **Components/Elements Breakdown**
+* **部件/元素分解**
 
-I find this technique useful when I have already have a general idea and I am thinking about a particular page functionality, or of the integral parts of interface components. I draw different page elements, going into detail, and then draw different possible positions of the page elements.
+当已经有了一个大体的想法，而我需要考虑某一个特定页面的功能或是界面中的必要组成部分时，这个技巧就是非常有用处的了。我会画出不同的页面元素，去深入它们的细节，然后在不同位置画出这些页面元素。
 
-Elements, even the most simple ones, must have a state; a button can be pressed and it has a hover text block that may or may not be empty. The more complex it is, the more states it has.
+即便是最简单的一个元素，也一定会有它特定的状态；一个按钮可以被按下，一个文字框可以是空的也可以被填满。它的组成越复杂，那么它的状态也越多样。
 
 ![](https://assets.toptal.io/uploads/blog/image/121220/toptal-blog-image-1474978796798-825431fd42dbca2c9a78a5046003b9d7.png)
 
-## Getting Started with the Basics
+## 从最基础的开始
 
-*   **Prepare your tools** - Find the most convenient place possible, a large table with plenty of space. Take a lot of paper and prepare some pens and markers.
-*   **Warm up** - In order to get ready I recommend drawing some lines, circles, basic templates and icons.
-*   **Define your goals** - Decide what you want to draw. Set your aim and decide what story you have to tell. Determine the desired level of detailing. Decide whether you are ready to draw a lot.
-*   **Define your target audience** - If you are doing this for yourself, you don’t need to worry about the way your sketch looks. However, if you intend to show your drawings to a client, make sure you allow some extra time to add more details to your sketch.
-*   **Set a time frame** - Having decided on the amount of time you are ready to allocate for sketching, let’s say 30 minutes, will help you focus on your work.
+*   **准备好你的工具** - 尽可能找一个最方便你工作的地方，要有一张空间足够大的大桌子。多带上一些纸，再准备一些水笔和记号笔。
+*   **热身** - 为了让你做好准备，我建议你画一些线条，圆形，基本模板和图标。
+*   **明确你的目标** - 明确你想要画的是什么。设定好你的目标并决定好你想要讲的故事。告诉自己是否已经做好准备大施拳脚。
+*   **明确你的目标群体** - 如果你的草图是画给自己看，那你就不必担心这些草图长什么样子。但是如果你打算把你画的图给客户看，那你应该确保用一些额外的时间为你的草图添加更多细节。
+*   **设定一个时间范围** - 决定一个时间段用来分配给绘图，让我们定个 30 分钟吧，这能帮助你专注于工作。
 
-Now, you are all set and you can get started:
+现在，你已经做好了准备，可以开始了：
 
-1.  **Draw the edges** - Draw the frames, a browser or phone window, a part of the interface, and so on.
+1.  **绘制边界** - 先画好边框，一个浏览器或是手机窗口，或是界面的一部分等等。
 
-2.  **Add the biggest or basic elements** - Menu, footer, main content.
+2.  **添加最大的基本元素** - 菜单，页脚，或主要内容。
 
-3.  **Add details** - Add relevant details, but keep them simple at this stage.
+3.  **添加细节** - 添加重要的细节，但在这个阶段仍然要让它们保持简洁。
 
-4.  **Add annotations and notes** - These are required only if you’re planning to share the sketches. However, they can be useful even if you’re doing them for your eyes only.
+4.  **添加注释和说明** - 只有当你准备分享你的草图时你才需要这么做。当然，即使你只为自己做设计，它们一样会很有用。
 
-5.  **Sketch alternatives** - Sketch some quick alternatives to your solution.
+5.  **绘制替代方案** - 为你的方案快速绘制一些替代方案。
 
-6.  **Pick the best solution** - Choose the best options.
+6.  **挑选出最好的解决方案** - 选择一个最优项。
 
-7.  **Add shadow and bevel** - This is particularly important for sharing purposes. Add a shadow to make your sketch visually appealing, which is important if you plan to share it with team members and/or clients.
+7.  **添加阴影和斜面** - 如果你打算跟人分享你的想法，这是一个非常重要的步骤。增加阴影来使你的草图在视觉上更有吸引力，这对于分享给团队成员或客户们来说是很重要的。
 
-8.  **Save the sketch** - Take a photo or put it in a folder. I have a few paper trays on my table for sketches.
+8. **保存好你的草图** - 拍一张照片或者把它们放进文件夹。我桌上有很多文件盒用来保存草图。
 
-9.  **Share** - I usually use one of the following sharing methods:
-    *   Scan sketches via [Evernote](https://evernote.com/?var=c) and provide a permalink to other team members or stakeholders.
-    *   Take a photo and upload to [InVision](https://www.invisionapp.com/).
-    *   Upload and map images to [Realtimeboard](https://realtimeboard.com/hello/).
-    *   Or just _email_ a photo.
-10.  **Review the sketches and add notes** - Take a break and then come back to your sketches a while later. Take a look at them again. Does the sketch still make sense to you? A good sketch must be easy to follow.
+9.  **分享** - 我通常用下面这些方法来分享:
+    *   通过 [Evernote](https://evernote.com/?var=c) 来扫描，并且提供一个永久性的链接给团队的其他成员或相关人员。
+    *   拍一张照片并上传到 [InVision](https://www.invisionapp.com/)。
+    *   上传并把图片关联到 [Realtimeboard](https://realtimeboard.com/hello/)。
+    *   或者仅仅是用_电子邮件_发送图片。
+10.  **回顾草图并添加笔记** - 稍微休息一下然后再回过头来看看你的草图。这些草图对你来说是否仍然是易于理解的？一个好的草图必然是让人易于理解的。
 
 ![](https://assets.toptal.io/uploads/blog/image/121216/toptal-blog-image-1474978448447-40701c83cf93e9be6339d4f0af43109c.png)
 
-> If you as the designer can’t understand something you have in your sketch, then the solution won’t be successful. Either the sketch doesn’t allow you to visualize your ideas well, or the ideas are too complex.
+> 如果连作为设计师的你都不能理解你草图中的某些部分，那这个解决方案必定不是一个成功的方案。同理，如果草图没有很好地用视觉表达出你的想法，或者这个想法过于复杂，那么这些都不是一个好的方案。
 
-## Clarifying Sketches with Additional Elements
+## 用附加元素阐明你的草图
 
-Find or draw a proper sketch, and then add the following details to it:
+找到或者绘制一个合适的草图，然后给它加上下面这些细节：
 
-1.  **Title** - Sometimes adding a title is a good option. Write a description and date, if necessary, at the top of the sketch. The title will help you understand what you are looking at and whether or not the sketch is relevant. This is especially useful if you have a lot of sketches or you are going to show to others.
+1.  **标题** - 有时候添加一个标题会是一个好选择。如果有必要的话，在草图顶上写上一个描述和日期。标题会有助于你理解你正在看的东西，以及这个草图是否正是你要找的。如果你有一大堆草图或是你准备把它们展示给别人，这个方法尤其有用。
 
-2.  **Annotations** - Annotations are names and notes placed close to an element, to explain its content or other attributes. They add details that clarify other elements, and are usually difficult to draw. For example, it could be the name of the block, some interaction details, an explanation of a picture, some ideas for future design variations, and so on. You can [check out one of my examples](https://www.toptal.com/uploads/blog/image/121195/toptal-blog-image-1474538721087-70346acafa1accafd4332e733179d551.JPG) to see what an annotation sketch looks like.
+2.  **注释** - 注释可以在一个界面元素旁命名或者做标记，你可以用它来解释内容或属性。它们用来解释那些通常很难被画出来的细节。举例说，它可能是段落的名字，一些交互上的细节，一张图片的说明，或是一些未来设计上的变化，等等。你可以[看看我的例子](https://www.toptal.com/uploads/blog/image/121195/toptal-blog-image-1474538721087-70346acafa1accafd4332e733179d551.JPG)来理解一个草图中的注释应该是什么样的。
 
-3.  **Numbers** - Number the elements of your sketch, or the sketches themselves. You can decide how to order them (e.g., by interaction flow, the order in which you created them, etc.). It may also be useful during discussions (especially remote discussions), as your colleagues and clients can just point out the sketch number in their feedback and you will understand which one their comments refer to.
+3.  **编号** - 为你的界面元素或是草图编好序号。你可以决定如何来为他们排序（比如，以交互流程排序，以创作顺序排序，等等）。这样做在讨论过程中可能会很有用（尤其是远程的讨论），你的同事和客户们很容易在他们的反馈中指出你草图中的序号，这样你就可以知道他们在评论哪一个草图了。
 
-4.  **Arrows** - You can use arrows to indicate screen transitions. They can also be used to connect different parts of sketches, to indicate a sequence of actions, and so on. Since the meaning of an arrow can vary, just above the arrow you can add a description or explanation of what the arrow is meant to signify. Here is an [example](https://www.toptal.com/uploads/blog/image/121197/toptal-blog-image-1474540322164-e4037ec1b56c685056935e3deaaaa8d7.png) of a basic sketch showing a transition and several difrerent states.
+4.  **箭头** - 你可以用箭头来指出屏幕的转换。他们也可以用来连接草图中的不同部分，或是指出交互的顺序，等等。由于一个箭头可以有多种不同的理解，因此你可以在箭头上加上一个描述或者注释来解释这个箭头的含义。这里有一个[例子](https://www.toptal.com/uploads/blog/image/121197/toptal-blog-image-1474540322164-e4037ec1b56c685056935e3deaaaa8d7.png)展示了一个基本的草图如何展现界面转换和一些不同的状态。
 
-5.  **Notes** - Just like annotations, notes are used to explain concepts. However, notes differ from annotations in their placement. They are not attached to an element or located near the described element, [similar to this example](https://www.toptal.com/uploads/blog/image/121198/toptal-blog-image-1474540426961-bb0363f81ef0d15fbffd1fa7f1872e98.png). Notes can be placed at the top or bottom of the page. They can even describe elements that are not included in the design, questions that you may have, general explanations, unsketched ideas and so on.
+5.  **笔记** - 就像注释一样，笔记也用来解释你的意图。然而，笔记使用的场合不同于注释。它们不是用来附在一个界面元素旁，也不位于元素旁，[就像这个例子中一样](https://www.toptal.com/uploads/blog/image/121198/toptal-blog-image-1474540426961-bb0363f81ef0d15fbffd1fa7f1872e98.png)。笔记可以位于页面中的顶部或底部。笔记甚至可以用来描述你的设计中没有出现的元素，你的问题，全局的说明，没有绘制出来的想法等等。
 
-6.  **Gestures** - Gestures are relevant in the case of touch device design. Drawing a hand gesture may require practice. There are several variants of gestures used to indicate different types of actions, so it is better to decide in advance how you designate a particular action (if it is not obvious, of course) and to practice drawing it.
+6.  **手势** - 如果你在做可触摸设备的设计，那么就一定会接触到手势。画一个手势可能需要练习。有很多种不同的手势用来解释不同的操作，所以你最好提前决定你要怎么用手势来解释一个特定的操作 （如果它并不那么容易理解）然后去练习绘制它。
 
-7.  **Feedback** - You may receive suggestions for fixing or improving the sketch after showing it to others, or after you take another look at it yourself. It is often useful to mark such feedback in a different color so as to help differentiate feedback from the original sketch.
+7.  **反馈** - 当你把草图展示给他人，或者等你自己再多看看它们的之后，你可能需要一些建议来修正或改进你的草图。把你的反馈用不同于草图的颜色标注起来，这可以帮助你从原始的草图中辨别出反馈，这会很管用的。
 
-You can use different colors for different types of elements. Sometimes I use black for drawings, blue for links, dark green for notes, red for titles and feedback. Try to use different colors in your sketches, but make sure your choice of colors is consistent!
+你可以用不同的颜色来对应不同种类的元素。有时我用黑色来绘图，蓝色用来表示链接，深绿色用来做笔记，红色用来作为标题和反馈。尝试在你的草图中使用不同的颜色，但要确保你选择的颜色是固定的。
 
 ![](https://assets.toptal.io/uploads/blog/image/121221/toptal-blog-image-1474979173494-5e70fe3f0f0ddbc3749abe0f468ae0bb.png)
 
-## More Specific Tips and Tricks
+## 一些其他的建议和技巧
 
-1.  **Don’t worry about the quality** - Don’t look at the sketches on Dribble; they are about something _completely different._ Bear in mind that the main purpose of sketches is to help you think clearer, find better solutions and save time.
+1.  **别担心质量** - 别老盯着 Dribbble 上那些华丽的草图；它们和你要做的是__完全不一样__的意图。记住你画这些草图最主要的意图是让你的想法更加清晰，找出最好的解决方案，并节省你的时间。
 
-2.  **Practice** - For a start, you can try to draw a few apps. Open a web or mobile app and try to copy the screen, describing the elements in the notes. Whenever you have some free time, practice drawing basic building blocks of your designs. In general, practice makes perfect. In a while, it will become part of your designer self.
+2.  **练习** - 作为一个新手，你可以尝试绘制一些应用。打开一个网站或者手机应用，尝试临摹它们，在笔记中描述界面中的元素。只要当你有空闲的时间，你就可以练习绘制你的设计中的基本元素。通常来说，练习会让你做得更完美。一段时间后，它会变成你的设计生活中的一部分。
 
-3.  **Buy a folder** - I often don’t work from my office, but rather from a cafe or my home. Paper sketches are very prone to damage, so buy a simple folder to keep them safe and sound.
+3.  **买一个文件夹** - 很多时候我宁愿在咖啡馆或家里工作，也不愿意在办公室工作。纸质的草图很容易被损毁，所以你可以买一个简单的文件夹让它们安全地保持完好。
 
-4.  **Bring tools with you wherever you go** - This helps ensure that you can capture your idea on paper at any time, otherwise you may just lose the thought or not be able to remember it in sufficient detail. I always have a notepad, a few A4 sheets, and pens with me.
+4.  **不管去哪儿都带上你的工具们** - 这可以帮助确保你可以在任何时间在纸上捕捉到你的灵感，除非你刚好没有任何想法，或者你老是记不得这些小事。我总是带着一个笔记本，一些 A4 纸和笔。
 
-5.  **Share with others** - It’s very important to engage other people and communicate with your team. Involving others and getting their feedback, especially early on, helps save time and resources in the long run. You can also encourage others to draw the way they envision the design.
+5.  **与他人分享** - 与其他人交流，与你的团队交流是非常重要的。与他人交流并获得他们的反馈，尤其是在早期就这么做，可以帮助你在长期的工作中节省时间和资源。你也可以鼓励其他人画出他们对这个设计的构想。
 
-6.  **Paper trays** - Think of placing paper trays on your worktable. For example, I have three of them: For incoming tasks, for sketches, and clean sheets of paper.
+6.  **文件盒** - 考虑一下放一个文件盒在你的工作台上。像我就有三个文件盒：一个用来放接到的任务，一个用来放草图，另一个盒子里有许多没有用过的干净纸张。
 
-7.  **Experiment and customize** - My recommendations are based on my experience. In time, you’ll find out what suits you best; which methods, which sequence of steps, what exactly fulfills your creative potential. You will get there only if you constantly try something new, which is why it’s important to experiment with different formats, styles, and try new templates.
+7.  **尝试和习惯** - 我为你推荐的工作流程都基于我自己的经验。在某个适当的时候，你也会发现最适合你的工作流程：用什么样的方法，用什么样的步骤顺序，用什么来正确激发你的创作潜能。要达到这样的底部，你必须不断尝试新的东西，这就是为什么不断实验新的版式，新的风格以及新的模板是非常重要的。
 
-8.  **Use templates** - Templates will save time and implicitly take into account format restrictions, freeing up more time to focus on what is important.
+8.  **套用模板** - 套用模板可以节省时间，而且可以让你的版式受到统一，释放更多时间来专注于更重要的部分。
 
-## Additional Mini-methods to Improve Your Sketches
+## 为你的草图加分的额外小窍门
 
-These aren’t necessarily tips and tricks, but they’re a collection of methods, tools, and suggestions that should boost your productivity or improve the quality of your sketches.
+这些并不是必要的技巧，但它们是一些方法、工具和建议的合集，这些应该可以推进你的生产力和提高你草图的质量。
 
 ![](https://assets.toptal.io/uploads/blog/image/121218/toptal-blog-image-1474978640692-2c88d90d23aeb1b8484677f5fc3d4447.png)
 
-1.  **Create a Sketch Board** - One of the biggest benefits of using pen and paper instead of a digital sketching tool is that you can actually stick it to a wall. Everyone on your team can see it and participate (although I recommend setting up review sessions).
-    *   You will see your sketches yourself, and this will stimulate your thinking and let you see the big picture, not isolated pieces, but the whole system. You will see interactions between parts and the way they fit one another.
-    *   Create the sketch board - attach your whiteboard sketches. If there is no whiteboard in your office, you can use double-sized adhesive tape or post-it note sheets to stick your sketches to the wall. If you don’t want to stick to the wall, you can find a big piece of cardboard paper instead. I strongly recommend using sketch boards, as they’re one of the best design tools.
-2.  **Use a Whiteboard** - A whiteboard is a great drawing tool. It has a number of advantages: It is collaborative; it is easy to involve other team members in the discussion and in the drawing as well. Even if their ideas do not fit well, you will understand their way of thinking and it will help you to be on the same page.
-    *   Markers do not let you focus on details, you have to think about the general things. Sketches are open to interpretation.
-    *   A whiteboard is easy to clean and make corrections on.
-    *   There is a lot of space and you can easily think through the whole system flow.
-    *   You can attach sketches, printouts, and reference materials using magnets.
-3.  **Prototypes** - Make a clickable prototype to evaluate your design. Try to get feedback about some elements. This works particularly well when you are using templates - your sketches are of the same size. Obviously, it will be much easier to draw same size sketches if you are using a template. I will try to make it even easier by providing you with a few templates you can download and use: [Mobile](https://toptal-email-assets.s3.amazonaws.com/71.pdf), [Browser multi-window](https://toptal-email-assets.s3.amazonaws.com/72.pdf), [Browser scroll](https://toptal-email-assets.s3.amazonaws.com/73.pdf), [Personas](https://toptal-email-assets.s3.amazonaws.com/74.pdf).
+1.  **建立一个草图板** - 使用纸和笔来代替数码工具最大的好处之一就是你可以把他们钉在墙上。你团队里的每一个人都可以看到和分享你的草图（虽然我建议还是要设立一个回顾的环节）。
+    *   你可以看到你自己的草图，这会刺激你的思考。而且你可以一眼看到整张图片——不是孤立的部分——而是整个结构。你也可以看到不同部分之间的交互是否相匹配。
+    *   建立一个草图版 - 附到你的白板旁。如果你的办公室里没有白板，你可以用一个双倍的胶带或者即时贴来把你的草图贴到墙上。如果你不想把它们贴到墙上，你可以找一个大一点的硬纸板来代替。我非常推荐建立一个草图版，它是一个最棒的设计工具。
+2.  **使用白板** - 白板是一个绝佳的绘图工具。它有很多优点：它可以供写作；它在涉及到与团队成员的讨论和绘制中非常有用。即是成员们的想法不那么合适，你也可以弄明白他们的思路并帮助你在同样的位置继续工作。
+    *   马克笔没有办法让你注意到细节，你不得不思考整体上的东西。草图则更易于理解。
+    *   白板很容易擦除和修正错误。
+    *   白板的空间很大，所以你可以轻松地思考整个系统的流程。
+    *   你可以附上草图，打印文件和其他相关材料。
+3.  **原型** - 制作一个可以点击的原型来看看你的设计的效果。试着获得一些关于界面元素的反馈。这项工作在你使用模板的时候会很好进行——你的草图都是相同尺寸的。很显然，用一个模板来绘制相同尺寸的草图是更容易的。我给你提供了一些可以下载使用的模板，来让这件事更简单。 [Mobile](https://toptal-email-assets.s3.amazonaws.com/71.pdf), [Browser multi-window](https://toptal-email-assets.s3.amazonaws.com/72.pdf), [Browser scroll](https://toptal-email-assets.s3.amazonaws.com/73.pdf), [Personas](https://toptal-email-assets.s3.amazonaws.com/74.pdf).
 
-4.  **Use your Printer and Scanner** - Draw the framework by hand (you can use ruler to draw more accurately), then just scan it using a scanner or mobile app, and print it. You can edit your template in image redactor before printing. You can remove unnecessary details or duplicate some elements. You can also print a readymade site page, photos, and other descriptive elements. You can paste the cut-outs in your sketch.
+4.  **用上你的打印机和扫描仪** - 在纸上手绘框架（你可以用尺子来画得更准确），然后用一个扫描仪或者手机应用来扫描，并把它打印出来。你可以在打印之前用图片编辑器编辑你的模板。你也可以移除没有必要的细节或者一些重复的元素。你还可以打印现成的网站，照片或者其他具体的元素。你可以把他们剪贴到你的草图上。
 
-5.  **Use Evernote for Scanning** - Evernote is a great design tool. You can keep and share your sketches in it, you can create themes, and use tags to organize your sketches. The abilities of the “Scanner” mode are particularly impressive. You put your sketch in front of it and it “scans” it, so you get the copy of the sketch. Then you can invite your colleagues to Evernote and give them your note link. Since there is a mobile app for tablets and phones, you can always have your sketches at hand.
+5.  **用 Evernote 来扫描** - Evernote 是做设计的一个绝佳的工具。你可以用它来保存和分享你绘制的草图。你可以创建不同的主题，然后用标签来组织你的草图。它的「扫描」模式尤其让人印象深刻。把你的草图放到面前然后扫描，你就可以得到一份你草图的副本了。然后你可以邀请你的同事并给他们一个你的笔记的链接。因为 Evernote 在平板电脑和手机端都有 App，所以你可以总是保证你的草图随时可用。
 
-6.  **Hybrid Sketching** - To put some life and realism into your sketches you can combine them with photos. That means that you have to take a photo and then draw some story with interface elements on it. This can also help you to notice some interaction issues and details.
+6.  **混搭草图** - 把一些生活化的和现实风格的东西加入你的草图中让他们可以和照片结合起来。这表示你需要照一张照片然后画一些故事在界面元素上。这也可以帮助你注意到一些交互问题和细节。
 
-7.  **Tracing Real World** - If you need to create a storyboard, illustrate an experience in a specific context (e.g. a person using a smartphone at a bus station), you need to include depictions of people, places, and various real-life objects. These can be difficut to draw, especially if you haven’t mastered drawing skills, but here’s simple tip:
+7.  **还原现实世界** - 如果你需要创建一个故事版，在具体的背景中说明一个经历（比如一个人在公交车站使用手机），你的故事需要包含人物的描述，地点的描述，以及其他许多现实生活中的东西。这可能很难去画出来，尤其是你可能并没有非常好的绘画技能，但这里有一个简单的小提示：
 
-> Take a photo of the object or the situation, and then obtain the key objects contour using an image editor. You can use the resulting contour in your sketches afterward.
+> 为物体或场合拍一张照片，然后用图片编辑器取得这些物体的轮廓。之后你可以把处理得到的轮廓图用到你的草图中。
 
-Of course, if you have a _tablet and stylus_ it will be even easier.
+当然，如果你有一个__平板电脑和手绘笔__那将会更容易一些。
 
-## Wireflow: Outlining System Flow and Branching
+## 线框流程图: 系统概要的流程和分支
 
-The wireflow is essentially a sequence of the system flow, screen after screen, with branches and decision points. We should consider how a user addresses their task, the way they move from screen to screen, and their overall experience of the product over time.
+线框流程图描述的是一个系统流程的次序，一屏接着一屏，有着很多分支和关键点。我们应该思考一个用户怎样去安排他们的任务，他们怎么从一个屏幕到另一个屏幕，他们的总流程在这个产品上的耗时。
 
 ![](https://assets.toptal.io/uploads/blog/image/121217/toptal-blog-image-1474978519495-3207145b04526cb6add52ae4214d3726.png)
 
-Wireflow, or what you are drawing and the way it is connected, could be organized according to the following approaches:
+线框流程图——或者说把你画的东西像这样连接起来——可以根据下面这些不同的方式来整理：
 
-*   **Sequence** - A sequence is a straight journey, screen after screen. It can also be a story with decision points; you show not only the journey but also decision points and different paths the user can choose. You can show the structure of screen interaction.
-*   **State changes** - Depict different screen states of some element and the conditions or actions that cause the transitions between these states.
-*   **Screen vs. screen elements** - You can draw the whole screens or consider micro-interactions and interactions.
-*   **Platforms** - You can consider a one platform experience or multiple platforms.
-*   **Scope** - Will you depict a part of the user journey or the whole journey? One user interaction with the system, or multiple users’ interactions?
+*   **序列** - 一屏接着一屏，一个序列就是一个不一样的旅程。当然它也可以是一个和关键点有关的故事。你展示的不光是这个旅程，也是用户可以选择的关键点和不同的过程。你可以展示你的交互结构。
+*   **场景变化** - 描绘一下元素，情景以及交互如何在不同的场之间变化。
+*   **屏幕 vs. 屏幕里的元素** - 你可以画出整个场景或者思考交互和微交互。
+*   **平台** - 你可以思考一个平台的流程或多个平台的流程。
+*   **范围** - 你该描绘一部分用户流程还是整个用户流程？描绘系统中单个用户的交互还是多个用户的交互？
 
-I generally try to define the following wireflow types, depending on the organization and practical use:
+我通常会依据组织和实际的使用流程，去试着定义下面这些流程图的类型：
 
 ![](https://assets.toptal.io/uploads/blog/image/121193/toptal-blog-image-1474530411596-b613d988b28bb8a092d6c814c2b22252.png)
 
-1.  **Mapping overall flow and high-level flow** - Promptly sketch the screen shifts and draw the general journey of your product usage. Here you can include some context and you can optionally show some user interaction. For example, an e-commerce shopping service is quite a long journey that may include a lot of steps: How the user found the shop, the steps they went through to order the product, how they paid, and so on.
+1. **反映总体的流程和一个高优先级的流程** - 及时画出这些界面的转换，并画出你的产品的使用流程。在这一步绘制中你可以交代一些背景，也可以有选择地展示一些用户界面。比如说，一个电商购物服务有着一个很长的流程，很可能包含很多步骤：用户怎么找到商品，用户订产品要经过的步骤，他们如何付款等等。
 
-2.  **Screen flow** - This focuses on a specific functional flow through the system. It could be a small straight sequence of screens or a journey with branching. For example, a user uploading some photos or a video.
+2. **界面流程** - 这更专注于展示一个特定的功能。它可以是一个流程中的小分支的单独步骤。比如说，一个用户要上传一些照片或视频。
 
-3.  **Navigation scheme** - Draw your screen and the options it contains. This is not supposed to map the journey. This step includes information that shows the options a user can choose, the directions users have, and various app parts. I usually create a navigation scheme at the beginning of a project. It serves to understand how navigation should be structured (what points should be included, how many levels are necessary).
+3. **界面导航** - 画下你的界面和他们包含的不同选项。这不需要详细规划你的流程。这一步包含的信息展示了一个用户可以选择的不同选项，用户的不同流程线路，以及 App 中的不同部分。我通常在项目开始的时候就创建一个界面导航。这帮助你理解流程应该被如何组织起来（应该包含哪些重点，需要多层级）
 
-4.  **Screen states** - Draw the screen or element states (an example might be a file upload dialogue). In this case, for example, the screen will have the following states:
+4.  **界面状态** - 画下一个界面或者元素的状态（一个例子可能是上传文件的对话框）。既然这样，举个例子，界面会有下面这些状态：
 
-    *   Blank
-    *   A user pulls the file in the active area
-    *   The file is uploading
-    *   The file is uploaded
-    *   There is an error
+    *   空白
+    *   用户在可操作的区域选择了文件
+    *   文件正在上传
+    *   文件上传好了
+    *   出现了一个错误
 
-## Sketching UX Flow: A Quick How-To Guide
+## 绘制用户体验流程图：一个教会你怎么做的快速指南
 
-The wireflow design process is similar to the wireframe one. Many steps are similar or identical, but there are some important differences:
+线框流程图的处理类似于单个的线框图。许多步骤都是相同或相似的，但是它们也有一些地方很不一样：
 
-**Define what you need to draw** - Decide exactly what you want to draw (e.g. the general history or a fragment of your design). Do you want to generate different options or to think through the details of one journey? Decide whether you are going to show your sketches to someone else or not.
+**明确什么是你需要画出来的** - 决定究竟你要画哪些东西（比如，你设计中的一个局部或整个流程）。你是否想要安排不同的选项，或者表现你流程中的细节？并且你应该决定你是否需要把你的草图展示给其他人。
 
-**Define what keyframes and transitions you should include in your drawing** - If you add all the screens and shifts your wireflow will be very long and complex. Consider which key screens you should show to convey the essence of the interaction that helps accomplish your task. The same goes for screen shifts. You need to choose which shifts will be more useful in expressing your idea. Check out [this example](https://www.toptal.com/uploads/blog/image/121199/toptal-blog-image-1474540975778-abea7a31986dfeacfda2e4e0804a2d1a.png) for reference.
+**明确你的草图中应该包含哪些关键框架和转换** - 如果你把所有的界面和界面转换都添加到你的流程图中，那它将会非常长而且非常复杂。思考一下你应该用界面中的哪些关键点来展示交互的传达，这将有助于你完成你的任务。关于界面的转换也是一样，你需要选择哪些转换对你的思路表达是有意义的。看一看[这个例子](https://www.toptal.com/uploads/blog/image/121199/toptal-blog-image-1474540975778-abea7a31986dfeacfda2e4e0804a2d1a.png)来做参考吧。
 
-**Define the starting point** - What will be the starting point of your journey? You can start with the entry point, i.e. the start of the journey, for example, what a user sees when they log into your app. Alternatively, you can start at the midpoint or with the most interesting/difficult/important screens or process steps. Or you can start at the end, with the end-result achieved by a user, and describe the steps the user took to come to this point.
+**定义起点** - 你流程里的起点在哪里？你可以从应用的入口作为起点，换句话说，这是用户登陆你的 App 后所看到的。或者，你可以从一个用户流程的结束点开始，然后描述用户怎么样才能到这一步。
 
 ![](https://assets.toptal.io/uploads/blog/image/121219/toptal-blog-image-1474978685103-a4d5fcf8c50aa59c80b738780c115757.png)
 
-> Define your approach and make a general paper sketch.
+> 明确你的方法并制作一个全面的草图
 
-**Decide what comes next** - After drawing the starting steps, decide what goes next by answering the following questions:
+**判断下一步是什么** - 在画好起点之后，你可以通过回答下面这些问题来判断下一步应该是什么：
 
-*   Which way does this step lead users?
-*   Which way do you want them to go?
-*   What do they have to do to get there?
+*   这一步中的那条流程可以引导用户？
+*   你希望用户走哪一个流程？
+*   他们要怎么做才可以到那里？
 
-**Sketch alternative routes, entries** - Think about alternative ways the user can get to each step:
+**画出可选的路径和入口** - 思考一下每一步用户可能到达的不同流程：
 
-*   What will happen if the user’s Internet connection fails?
-*   What other options do they have?
-*   What can go wrong in the case of user or app error, what will happen?
-*   What will happen if the user closes the app at this step?
-*   Where will the user start the next time he launches the app?
+*   如果用户的网络连接错误会发生什么？
+*   他们有哪些其他的选项？
+*   万一用户或 App 出现了错误，会发生什么？
+*   如果用户在这一步关掉了 App 会发生什么？
+*   用户下一次会从哪里启动这个 App？
 
-**Think about alternative flows** - Analyze the history, design an alternative flow, and sketch it.
+**思考一下可选的流程** - 分析整个流程，设计一个可选的流程，然后把它画出来
 
-**Add annotations, notes, details** - Add the explanatory elements that will clarify non-obvious details.
+**加上注释、笔记和细节** - 加上一些说明可以阐述那些不那么明显的细节。
 
-**Save** - Make a digital copy of the sketch.
+**保存** - 为你的草图做一个电子档的备份
 
-**Share** - Share the sketch (e.g., via Evernote or Invision).
+**分享** - 分享你的草图（比如通过 Evernote 或 Invision）。
 
-## Essential UX Flow Sketching Tips and Tricks
+## 为用户体验绘制流程图的必要小提示：
 
-**Draft a wireflow first** - If you are going to think quite a long journey over, you would better make a quick sketch in order to understand how much space you need and in order not to miss some important steps or details. It would be difficult to add them to the paper sketch afterward.
+**先画个线框流程图** - 如果你要思考一个很长的用户流程，你最好快速画一个简单的草图，好弄明白你需要多大的空间，并且不至于遗落一些重要的步骤和细节。如果你之后想再把遗落的部分加到手绘图里可能会比较麻烦。
 
-**Don’t create a huge map with too many details** - Paper sketches don’t have an _undo_ button, so it will be difficult to make changes. You may draw the details too accurately and this will distract your imagination from the generation of different high-level variants. Instead of creating a huge scheme that would illustrate the entire system, try to focus on the key scripts and try to dedicate an individual page for each script.
+**不要在一大张图里放太多的细节** - 手绘草图可没有_撤销_的按钮，所以想要在上面做改变是很麻烦的。你可能会因为把细节画得太细致，以至于你的注意力被越来越多的层级而转移了。你可以画出整体的系统来替代一个繁复的方案，试着把注意力放到关键的地方，并且给每个关键点一个独立的篇幅。
 
-**Cut unnecessary details and combine various detalization levels** - It is not necessary to draw all the interaction descriptions, so try to use only the key elements of your journey. While drawing a huge interactions map, you have no need to work every single screen out in detail. Some screens could be just represented by several squares, and other, key screens, could be worked out in detail.
+**去掉不必要的细节，把不同程度的细节合并起来** - 你没有必要画出所有交互，所以尝试一下只在你的流程里体现关键的元素。当你在绘制一个复杂的交互流程时，你没有必要把每个界面的细节都画出来。有的界面可以用一些形状来代替，至于其他的关键界面你再为他们添加细节。
 
-**Try different paper sizes** - Try different paper formats, A3 or A5\. Paper sheet size will limit you and will affect your process in different ways. A small paper sheet will not let you add many screens or details, but it can help you to concentrate on the main ideas. Using a big paper sheet you can draw one huge journey, a lot of details and additional notes. Alternatively, you can place a number of small journeys on it.
+**尝试一下不同尺寸的纸张** - 尝试一下不同规格的纸张吧，比如 A3 或者 A5 纸。纸张的尺寸会以不同的方式限制和影响你的工作方式。你无法在一张小尺寸的纸上加入太多的细节，但它可以帮助你聚焦于主要思想。用一张大纸可以画下很长的流程，许多的细节，并添加很多笔记。或者，你可以画下许多的小流程。
 
-**Post-it notes can help too** - You can also try to use Post-it notes. You can draw separate screens or some footnotes on them, or you can draw additional states of your sketch’s elements. Their advantage is that they can be easily replaced, you can also simply move the note somewhere else. For example, in case the flow has changed you can just change the order of your Post-it notes.
+**便利贴也能帮上忙** - 你也可以试着使用便利贴。你可以在上面画一部分的界面或者一些脚注，或者你也可以为你的草图画一些额外的状态。便利贴的好处是它们可以随意更换，你也可以很简单地把他们移动到别的地方。举个例子，如果你的流程有变化，你可以替换掉你的便利贴的顺序就好了。
 
-**Use templates** - Try to use templates. They will save time and will enable you to create more clickable, high-quality prototypes.
+**使用模板** - 试着使用模板。它们可以节省你的时间，而且可以让你创建出更多可点击的、高质量的原型。
 
-**Try using a whiteboard** - A whiteboard has a number of advantages. It is becoming more and more popular because it allows you to draw a huge journey with a lot of branches. You can draw a lot of application components on paper and then just attach them to the whiteboard using magnets, adding them to the journey.
+**试着使用白板** - 白板的好处太多了。它们变得越来越流行，因为你可以在白板上画出一长串流程图和分支。你可以在纸上画出许多应用的原件，然后用磁铁把他们贴到白板上，添加到你的流程图中。
 
-**Sketching a shadow** - Shadows can help you to mark important elements and they add visual attractiveness to your sketch. I use [three different types of shadows](https://www.toptal.com/uploads/blog/image/121196/toptal-blog-image-1474539075108-6a873f9d5c92296581a899fc3e595e83.JPG)
+**画上阴影** - 阴影可以帮助你标记一些重要的元素，并且它们让你的草图更有吸引力。我会用[这三种不同的阴影](https://www.toptal.com/uploads/blog/image/121196/toptal-blog-image-1474539075108-6a873f9d5c92296581a899fc3e595e83.JPG)
 
-*   Lines following the light direction - this does not always look beautiful, but you can use the graduation and pick the objects up to different “heights”
-*   Outlining of some part out with a darker color (only the bottom or the bottom and right side)
-*   Using the Pro-marker (or its equivalent in the app you use for drawing)
+*   光照方向的线条 - 它看上去并不总是那么漂亮，但你可以把它用来分级，把某个元素提升到不同的「高度」。
+*   用深色描绘部分外轮廓。(只能是底面，或者是底面和右面）
+*   使用专业的马克笔（或者类似的绘画应用）
 
-**Drawing components** - An objection like _“I can’t draw that well”_ may stifle your initiative. It is actually easier than it sounds. Even the most complex sketches are generally composed of a number of basic blocks, like in [this example](https://www.toptal.com/uploads/blog/image/121200/toptal-blog-image-1474541374928-3041b386060c7e598ac8ed9e07e47ace.JPG).
+**画出部件** - 一个__「我画不好」__的畏难心理可能会扼杀你的创作欲望。那实际上比听起来更容易。就算是一个最复杂的草图也是由一些基本的图形来构成。就像[这个例子](https://www.toptal.com/uploads/blog/image/121200/toptal-blog-image-1474541374928-3041b386060c7e598ac8ed9e07e47ace.JPG)。
 
-> If you can draw a point, a line, a triangle, a square and a circle, then you have the essential building blocks you need to draw anything for your sketch.
+> 如果你能画出一个点，一条线，一个三角形，一个方形和一个圆形，那你就可以在你的草图中画出你需要的任何图形。
 
-**Putting it all together** - The basic elements, buttons, radio buttons, and dropdowns are composed of basic elements. After learning to draw these elements, you can [combine them](https://www.toptal.com/uploads/blog/image/121201/toptal-blog-image-1474541497592-c88cfa0ae9df1bbd3229b7280cfd05c0.JPG) and draw complex blocks and components.
+**把它们都放在一起** - 这些基本的元素，按键，单选按钮还有下拉菜单都是固定的基本部件。在你学会画好这些部件之后，你可以[把它们组合起来](https://www.toptal.com/uploads/blog/image/121201/toptal-blog-image-1474541497592-c88cfa0ae9df1bbd3229b7280cfd05c0.JPG)然后画出更复杂的图形和部件。
 
-## Wrap Up
+## 总结
 
-The goal of this post was not to create the ultimate, one-size-fits-all guide to UX sketching, or sketching in general, because designers have different needs and personal preferences.
+这篇文章的目的不是教你创作一个最终的，一步到位的草图，或者万能的草图，因为设计师们会有不同的需要和个人的习惯。
 
-As you can see, this is _a lot_ to cover. Designers use a myriad of tools, techniques, and approaches to produce UX sketches, and it’s rather subjective. Certain techniques may or may not work for different people working on different projects. If you’re just getting started, you should definitely experiment.
+就像你看到的那样，这涉及到了__许多东西__。设计师可以用很多的工具，技巧和方法去创作草图，而且最好是主观的。当然每个人的工作不同，这些技巧可能有用，但也可能并不是对每个人都有用。如果你准备好开始这么做，你一定要先做一些试验。
 
-> Constant practice and experimentation will help you find what works for you.
+> 经常练习和试验可以帮助你找到适合你的工作方法。
 
-It’s up to you to choose tips and techniques that will be the best fit for your project and your approach to design. Do you have any additional sketching tips for fellow [UXers](https://www.toptal.com/ux)? Feel free to share them in the comment section.
+想要怎么选择最适合你工作方法的提示和技巧，取决于你自己。你对 [UXers](https://www.toptal.com/ux) 有任何关于草图的技巧要补充吗？在评论区随意分享吧。
 
-**Related:** [The Art Of Meaningful UX Design](https://www.toptal.com/designers/marketing/delight-meaningful-ux-design)
+**相关链接：** [The Art Of Meaningful UX Design](https://www.toptal.com/designers/marketing/delight-meaningful-ux-design)
 
 
 
