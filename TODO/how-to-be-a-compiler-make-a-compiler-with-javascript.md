@@ -2,7 +2,7 @@
 * 原文作者：[Mariko Kosaka](https://medium.com/@kosamari)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[luoyaqifei](http://www.zengmingxia.com)
-* 校对者：
+* 校对者：[rottenpen](https://github.com/rottenpen)，[xiaoheiai4719](https://github.com/xiaoheiai4719)
 
 # 成为一个编译器之「使用 JavaScript 来制作编译器」
 
@@ -15,7 +15,7 @@
 
 对的！你应该**成为**一个编译器。这很棒！
 
-一个很棒的周日，布希维克，布鲁克林。我在我的图书储藏室发现了一本书 [John Maeda 写的 “Design by Numbers” ](https://mitpress.mit.edu/books/design-numbers)。在这本书里有 [DBN 编程语言](http://dbn.media.mit.edu/) 一步步的指令——这是一种 90 年代末期被 MIT 媒体实验室创造出来的语言，它被设计出来，以可视化的方式介绍计算机编程概念。
+布希维克，布鲁克林，一个很棒的周日。我在书店里发现了一本书 [John Maeda 写的 “Design by Numbers” ](https://mitpress.mit.edu/books/design-numbers)。在这本书里有 [DBN 编程语言](http://dbn.media.mit.edu/) 一步步的指令——这是一种 90 年代末期被 MIT 媒体实验室创造出来的语言，它被设计出来，以可视化的方式介绍计算机编程概念。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*l2yQRbwlojZhNyEJi8uVDA.png)
 
@@ -478,7 +478,7 @@
       }
     }
 
-这里有一些人，他们用 [Emoji (Emojicode)](http://www.emojicode.org/) 和 [有色彩的图片 (Piet 编程语言)](http://www.dangermouse.net/esoteric/piet.html) 制作了编程语言。可能性永无止境！
+这里有一些人，他们用 [Emoji (Emojicode)](http://www.emojicode.org/) 和 [色块 (Piet 编程语言)](http://www.dangermouse.net/esoteric/piet.html) 制作了编程语言。可能性永无止境！
 
 
 
