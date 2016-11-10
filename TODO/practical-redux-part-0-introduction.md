@@ -12,8 +12,8 @@
 #### 系列目录
 
 *   **第 0 部分：系列简介**
-*   **[第 1 部分：Redux-ORM 基础](http://blog.isquaredsoftware.com/2016/10/practical-redux-part-1-redux-orm-basics/)**
-*   **[第 2 部分：Redux-ORM 概念和技术](http://blog.isquaredsoftware.com/2016/10/practical-redux-part-2-redux-orm-concepts-and-techniques/)**
+*   **[第 1 部分：Redux-ORM 基础](https://github.com/xitu/gold-miner/blob/master/TODO/practical-redux-part-1-introduction.md)**
+*   **[第 2 部分：Redux-ORM 概念和技术](https://github.com/xitu/gold-miner/blob/master/TODO/practical-redux-part-2-introduction.md)**
 
 我在学习 Redux 上面花了很多时间，参考了很多不同的资料。我早期的学习大多来自读文档、搜寻在线教程以及潜伏在 Reactiflux 聊天频道里。当我更加熟悉 Redux 后，我在回答问题和研究如何帮助 Reactiflux、StackOverflow 和 Reddit 里的其他人上面获得了一些经验。在维护我的 [React/Redux 链接列表](https://github.com/markerikson/react-redux-links) 和 [Redux 插件目录](https://github.com/markerikson/redux-ecosystem-links) 的过程里，我尝试着找寻一些深入探讨在创建实际应用时遇到的复杂性和问题的文章，以及一些可以让大家能更好地编写 Redux 应用的库。最后，我也通过 Redux 仓库里茫茫多的 issue 和讨论来研究它（因此，我甚至成为了 Redux 的官方维护人员）。
 
@@ -25,7 +25,7 @@
 *   有多种不同类型的 Battlemech。每种类型有一个不同的尺寸和一套数据设定，包括它携带的武器和其它装备。
 *   Battlemech 被组织成四个 mech 的小组，每个小组被称为 [“Lance”](http://www.sarna.net/wiki/Inner_Sphere_Military_Structure#Lance)。三个 lance 形成了一个「公司」。
 
-随着系列的推进，我希望能够真正地开始创建一个小应用来展示一些实际工作环境中的例子。暂定计划是创建一个应用，追踪在虚拟的作战部队中服役的飞行员与其 mech，就像已有的[MekHQ 游戏活动跟踪应用](http://megamek.info/mekhq)的微型版本。这些从 MekHQ 的截图展示了一些概念和我想要模仿的 UI：
+随着系列的推进，我希望能够真正地开始创建一个小应用来展示一些实际工作环境中的例子。暂定计划是创建一个应用，追踪在虚拟的作战部队中服役的飞行员与其 mech，就像已有的 [MekHQ 游戏活动跟踪应用](http://megamek.info/mekhq)的微型版本。这些从 MekHQ 的截图展示了一些概念和我想要模仿的 UI：
 
 *   [MekHQ: 可选飞行员清单和选定飞行员详情](https://sourceforge.net/p/mekhq/screenshot/Screen%20Shot%202012-09-25%20at%2012.19.38%20PM.png)
 *   [MekHQ: mech 和飞行员在部队中的组织树](https://sourceforge.net/p/mekhq/screenshot/Screen%20Shot%202012-09-25%20at%2012.16.47%20PM.png)
