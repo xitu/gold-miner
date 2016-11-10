@@ -13,6 +13,9 @@
 Redux-ORM 使用场景以及基础的使用**
 
 #### 系列目录
+*   **[第 0 部分：系列简介](https://github.com/xitu/gold-miner/blob/master/TODO/practical-redux-part-0-introduction.md)**
+*   **第 1 部分：Redux-ORM 基础**
+*   **[第 2 部分：Redux-ORM 概念和技术](https://github.com/xitu/gold-miner/blob/master/TODO/practical-redux-part-0-introduction.md)**
 
 ## 简介
 
