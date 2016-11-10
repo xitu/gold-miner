@@ -15,7 +15,7 @@ Redux-ORM 使用场景以及基础的使用**
 #### 系列目录
 *   **[第 0 部分：系列简介](https://github.com/xitu/gold-miner/blob/master/TODO/practical-redux-part-0-introduction.md)**
 *   **第 1 部分：Redux-ORM 基础**
-*   **[第 2 部分：Redux-ORM 概念和技术](https://github.com/xitu/gold-miner/blob/master/TODO/practical-redux-part-0-introduction.md)**
+*   **[第 2 部分：Redux-ORM 概念和技术](https://github.com/xitu/gold-miner/blob/master/TODO/practical-redux-part-2-introduction.md)**
 
 ## 简介
 
@@ -72,7 +72,7 @@ Redux-ORM 有出色的文档：主要的 [Redux-ORM README](https://github.com/t
 
 这些定义并不需要声明每个类拥有的特定属性——只需要声明它们与其它类的关系。
 
-### 创建Schema Instance（模式实例）
+### 创建 Schema Instance（模式实例）
 
 当你定义完你的模型后，你需要创建一个 Redux-ORM 模式类的实例，并将模型类传入它的 `register` 方法。这个模式实例在你的应用里是单例的：
 
