@@ -12,8 +12,8 @@
 #### 系列目录
 
 *   **第 0 部分：系列简介**
-*   **[第 1 部分：Redux-ORM 基础](https://github.com/xitu/gold-miner/blob/master/TODO/practical-redux-part-1-introduction.md)**
-*   **[第 2 部分：Redux-ORM 概念和技术](https://github.com/xitu/gold-miner/blob/master/TODO/practical-redux-part-2-introduction.md)**
+*   **[第 1 部分：Redux-ORM 基础](https://github.com/xitu/gold-miner/blob/master/TODO/practical-redux-part-1-redux-orm-basics.md)**
+*   **[第 2 部分：Redux-ORM 概念和技术](https://github.com/xitu/gold-miner/blob/master/TODO/practical-redux-part-2-redux-orm-concepts-and-techniques.md)**
 
 我在学习 Redux 上面花了很多时间，参考了很多不同的资料。我早期的学习大多来自读文档、搜寻在线教程以及潜伏在 Reactiflux 聊天频道里。当我更加熟悉 Redux 后，我在回答问题和研究如何帮助 Reactiflux、StackOverflow 和 Reddit 里的其他人上面获得了一些经验。在维护我的 [React/Redux 链接列表](https://github.com/markerikson/react-redux-links) 和 [Redux 插件目录](https://github.com/markerikson/redux-ecosystem-links) 的过程里，我尝试着找寻一些深入探讨在创建实际应用时遇到的复杂性和问题的文章，以及一些可以让大家能更好地编写 Redux 应用的库。最后，我也通过 Redux 仓库里茫茫多的 issue 和讨论来研究它（因此，我甚至成为了 Redux 的官方维护人员）。
 
