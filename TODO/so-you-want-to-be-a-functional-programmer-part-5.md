@@ -2,7 +2,7 @@
 * 原文作者：[Charles Scalfani](https://medium.com/@cscalfani)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[luoyaqifei](http://www.zengmingxia.com)
-* 校对者：
+* 校对者：[cyseria](https://github.com/cyseria)，[malcolmyu](https://github.com/malcolmyu)
 
 # So You Want to be a Functional Programmer (Part 5)
 
@@ -27,7 +27,7 @@
 
 
 
-**_引用透明_** 是一个很酷炫的术语，它用来描述一个纯函数可以被安全地被它的表达式替代。下面用一个例子来解释这个术语。
+**_引用透明_** 是一个很酷炫的术语，它指的是一个纯函数能够安全地被它的表达式所替代。下面用一个例子来解释这个术语。
 
 在代数中当你有以下这个公式时：
 
@@ -41,7 +41,7 @@
 
     y = 3 + 10
 
-注意这个方程依旧成立。我们可以对纯函数进行相同类型的代入。
+此时这个方程依旧成立。我们可以对纯函数进行相同类型的代入。
 
 这里是一个 Elm 的函数，它将单个引号放在提供的字符串周围：
 
@@ -116,7 +116,7 @@
     3\. 等待线程 1 完成
     4\. 将黄油在吐司上涂匀
 
-如果线程 1 失败了，线程 2 会发生什么？有什么可以协调这两个线程的机制吗？谁拥有吐司：线程 1， 线程 2， 亦或两者？
+如果线程 1 失败了，线程 2 会发生什么？有什么可以协调这两个线程的机制吗？谁拥有吐司呢？线程 1， 线程 2， 亦或两者？
 
 不思考这些复杂的东西，让我们的程序继续单线程化，是更简单的举措。
 
@@ -124,7 +124,7 @@
 
 然而对于多线程现在有两个主要的问题。一是多线程化的程序难写、难读、难分析、难测试而且难调试。
 
-二是某些语言，比如 JavaScript ，并不支持多线程，或者有些语言支持但支持得很差。
+二是某些语言并不支持多线程，比如 JavaScript ，又或者有些语言支持但支持得很差。
 
 但是，假若顺序并不重要且所有东西都并行地被执行呢？
 
@@ -155,13 +155,13 @@
 
 因此，这两个函数可以在 **任意顺序** 下执行。
 
-编译器能够在不需要程序员的任何帮助的情况下作出决定，只可能在纯函数语言里发生，因为决定副作用的后果这件事不是不可能就是太难。
+编译器能够在不需要程序员的任何帮助的情况下作出决定，这只可能在纯函数语言里发生。因为确定非纯函数副作用的影响这件事，就算有可能性，也难度太高。
 
 > 纯函数语言的执行顺序可以由编译器决定。
 
-考虑到 CPU 并不会变得越来越快，这种特性显得极有优势。制造业正在添加越来越多的内核，这意味着代码可以在硬件层面并行执行。
+考虑到 CPU 并不会变得越来越快，这种特性显得极有优势。而且，生产厂商正在添加越来越多的内核，这意味着代码可以在硬件层面并行执行。
 
-不幸的是，如果使用命令式语言，我们不能够充分利用内核优势，除非在一个粗糙的层面。但是这么做需要大大地改变我们程序的架构。
+不幸的是，如果使用命令式语言，我们只能用一种粗糙的方式来充分利用内核优势，但是这么做需要大规模地改变我们程序的架构。
 
 使用纯函数式语言，我们有机会在一个细粒度层面自动地利用 CPU 内核的优势，而不改变任何一行代码。
 
@@ -201,7 +201,7 @@
         // ...
     };
 
-This is so much easier to read without all of that nasty type information getting in the way. The only problem is that we give up the safety of typing. We could easily pass in these parameters backwards, i.e. a _Number_ for **_people_** and an _Object_ for **_personId_**.没有讨厌的类型信息挡路，这显得易读得多。唯一的问题就是我们牺牲了类型安全性。我们可能会很容易地传入相反的参数，即为 **_people_** 传入一个 _Number_ 类型的参数、为 **_personId_** 传入一个 _Object_ 参数。
+没有讨厌的类型信息挡路，这显得易读得多。唯一的问题就是我们牺牲了类型安全性。我们可能会很容易地传入相反的参数，即为 **_people_** 传入一个 _Number_ 类型的参数、为 **_personId_** 传入一个 _Object_ 参数。
 
 直到程序执行后，我们才会找出这里面的问题，这可能发生在代码已经进入生产环境好几个月后。这种情况不会在 Java 里发生，因为它没法通过编译。
 
@@ -221,7 +221,7 @@ This is so much easier to read without all of that nasty type information gettin
 
     add : Int -> (Int -> Int)
 
-This says that **_add_** is a function that takes a _single_ parameter of type **_Int_** and returns a function that takes a _single_ parameter **_Int_** and returns an **_Int_**.这条语句是指 **_add_** 是一个函数，它接收 _单个_ **_Int_** 类型的  参数，返回一个接收 _单个_ **_Int_** 类型参数并返回一个 **_Int_** 值的函数。
+这条语句是指 **_add_** 是一个函数，它接收 _单个_ **_Int_** 类型的  参数，返回一个接收 _单个_ **_Int_** 类型参数并返回一个 **_Int_** 值的函数。
 
 以下是另一个将隐含的括号显示出来的类型标注：
 
@@ -248,8 +248,7 @@ This says that **_add_** is a function that takes a _single_ parameter of type *
     takes1Param : (Int -> Int) -> String
     takes1Param f =
         -- do something
-
-**_takes2Param_** is a function that requires 2 parameters, an **_Int_** and another **_Int_**. Whereas, **_takes1Param_** requires 1 parameters a function that takes an **_Int_** and another **_Int_**.**_takes2Param_** 是一个需要两个参数的函数，一个 **_Int_** 参数和另一个 **_Int_** 参数。然而， **_takes1Param_** 需要一个参数，即一个接收  **_Int_** 和返回 一个 **_Int_** 的函数。
+**_takes2Param_** 是一个需要两个参数的函数，一个 **_Int_** 参数和另一个 **_Int_** 参数。然而， **_takes1Param_** 需要一个参数，即一个接收  **_Int_** 和返回 一个 **_Int_** 的函数。
 
 以下是 **_map_** 的类型标注：
 
@@ -289,7 +288,7 @@ I如果你看到 **_(a -> a)_**， 那就意味着输入类型和输出类型 **
 
 
 
-到这里已经很够啦。
+这一部分就到这里吧，相信你已经学到了足够多的东西。
 
 在这篇文章的最后一部分，我会谈论的是你可以如何将你学到的这些东西应用在你的日常工作中，譬如函数式 JavaScript 和 Elm。
 
