@@ -9,9 +9,9 @@
 
 ### 为什么我那台老旧的 Android 手机无法加载图片？
 
-刚开始接触 React Native 应用时，我发现有个现象很奇怪，在 Android 上我无法看到任何图片，只有颜色和文字可以显示。但 iOS 却没有任何问题。
+刚开始接触 React Native 应用时，我发现有个现象很奇怪，在 Android 手机上我无法看到任何图片，只有颜色和文字可以显示。但 iOS 手机却没有任何问题。
 
-我以为是我新找来测试 React Native 工程的 Android 手机有问题。我甚至被这错误的想法牵着刷了 rom （基于 AOSP 5.1.1 的系统）来在更高的 Android 版本上运行 React Native ，当然也有着避免被无用 Samsung 应用影响的原因。然而，除了样例工程的首屏外，其他地方仍看不到图片。于是我将这手机打入冷宫。
+我以为是我新找来测试 React Native 工程的 Android 手机有问题。我甚至被这错误的想法牵着刷了 rom （基于 AOSP 5.1.1 的系统）来在更高的 Android 版本上运行 React Native，当然也有着避免被无用 Samsung 应用影响的原因。然而，除了样例工程的首屏外，其他地方仍看不到图片。于是我将这手机打入冷宫。
 
 几天后，我的朋友指出 React Native 的 Android 应用在一些特定屏幕上无法加载图片。呃……这可真够奇怪的……等等，我好像在哪儿见过这现象……
 
@@ -21,15 +21,15 @@
 
 代码很明了，在显示图片方面并没有用什么黑科技或者第三方库。我开始在不同Android版本的 GenyMotion 和 Android Virtual Device （ AVD ，Android 虚拟机）上运行（React Native应用）。
 
-*   **我的手机**: 只能在第一屏看到图片
-*   **GenyMotion (API 21, API 22)**: 部分节点有问题
-*   **AVD (API 21, API 22, API 23)**: 完全没问题？！
+*   **我的手机**：只能在第一屏看到图片
+*   **GenyMotion (API 21, API 22)**：部分节点有问题
+*   **AVD (API 21, API 22, API 23)**：完全没问题？！
 
 我本以为这是在特定机型或者 API 版本上发生的事情，但显然不是这样的。也就是说我需要考虑一堆其他的可能性。这可真让人头痛。
 
 ### 我的宿敌——内存
 
-这应用有许多作为背景显示的图片，而且这些图片也不算小（400~800kb）。除此之外，还有一个本应被略过，但还是有疑点的可能性，即这些图片都是通过远程 URI 获取的。
+这应用有许多作为背景显示的图片，而且这些图片也不算小（400~800 kb）。除此之外，还有一个本应被略过，但还是有疑点的可能性，即这些图片都是通过远程 URI 获取的。
 
 我开始对内存结构产生了好奇心，尤其是从远程加载图片时动态初始化的堆空间。于是我开始追踪内存使用。
 
@@ -132,7 +132,7 @@
 
     I/art(27035): Background partial concurrent mark sweep GC freed 1584(69KB) AllocSpace objects, 2(30KB) LOS objects, 12% free, 108MB/124MB, paused 3.874ms total 182.718ms
 
-于是问题来了, **_“为什么堆的内存如此小？”_**
+于是问题来了, **“为什么堆的内存如此小？”**
 
 Android 5.0.0 中 **ART Java Heap Parameter** 推荐的 **dalvik.vm.heapsize** 值为 **384MB**:
 
@@ -148,7 +148,7 @@ Android 5.0.0 中 **ART Java Heap Parameter** 推荐的 **dalvik.vm.heapsize** �
 
 source: [https://01.org/android-ia/user-guides/android-memory-tuning-android-5.0-and-5.1](https://01.org/android-ia/user-guides/android-memory-tuning-android-5.0-and-5.1)
 
-我甚至去拉了我手机的 build property 文件 (**_adb -d pull /system/build.prop_**) 然后证实堆内存是 **_256MB_**.
+我甚至去拉了我手机的 build property 文件 (**_adb -d pull /system/build.prop_**) 然后证实堆内存是 **_256 MB_**.
 
 
 
@@ -170,7 +170,7 @@ source: [https://01.org/android-ia/user-guides/android-memory-tuning-android-5.0
           android:theme="@style/AppTheme"
           android:largeHeap="true">
 
-这是我开启largeHeap后的结果：
+这是我开启 largeHeap 后的结果：
 
 
 
@@ -178,7 +178,7 @@ source: [https://01.org/android-ia/user-guides/android-memory-tuning-android-5.0
 
 
 
-就是这样。是的，就这么一行该死的代码。_真是够恶心的！_
+就是这样。是的，就这么一行该死的代码。**真是够恶心的！**
 
 所有 AVD 设备（ API 21 ~ 23）在显示图片时没有这个问题的原因是模拟器更智能。当需要时它会增大堆的大小，虽然设置堆大小（的行为）会产生警告。
 
@@ -260,7 +260,7 @@ source: [https://01.org/android-ia/user-guides/android-memory-tuning-android-5.0
 
 
 
-如图所示， **LetsLeak** 类占用了相当多的内存。注意这只是个_假设_而不是_实际情况_。
+如图所示， **LetsLeak** 类占用了相当多的内存。注意这只是个**假设**而不是**实际情况**。
 
 让我们聚焦于 **Dominator Tree** 。
 
@@ -288,7 +288,7 @@ source: [https://01.org/android-ia/user-guides/android-memory-tuning-android-5.0
 
 在 **Dominator Tree** 界面, Shallow Heap 是内存引用的意思， Retained Heap 则代表所有类实际持有的内存。
 
-在 **Inspector** 界面，你可以看到你创建的超大数组。你也许会想，_“我是在单例里建立了一个 String 数组，但为什么会持有这么大的内存？应该只有一个才对……”_之后你会意识到自己并没有释放内存，这是使用单例时的常见问题。
+在 **Inspector** 界面，你可以看到你创建的超大数组。你也许会想，**“我是在单例里建立了一个 String 数组，但为什么会持有这么大的内存？应该只有一个才对……”**之后你会意识到自己并没有释放内存，这是使用单例时的常见问题。
 
 ### 结论
 
