@@ -1,7 +1,7 @@
 > * 原文地址：[React Native Android App Memory Investigation](https://shift.infinite.red/react-native-android-app-memory-investigation-55695625da9c#.a1m35m6jb)
 * 原文作者：[Leon Kim](https://shift.infinite.red/@blackgoat)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[PhxNirvana](https://github.com/phxnirvana)
 * 校对者：
 
 # React Native Android 应用内存使用探究
@@ -11,7 +11,7 @@
 
 刚开始接触 React Native 应用时，我发现有个现象很奇怪，在 Android 上我无法看到任何图片，只有颜色和文字可以显示。但 iOS 却没有任何问题。
 
-我以为是我新设置用来测试 React Native 工程的 Android 手机有问题。我甚至被这错误的想法引领着刷了 rom （基于 AOSP 5.1.1 的系统）来在更高的 Android 版本上运行 React Native ，当然，也有着避免被无用 Samsung 应用影响的原因。然而，除了样例工程的首屏外，其他地方仍看不到图片。于是我将这手机打入冷宫。
+我以为是我新找来测试 React Native 工程的 Android 手机有问题。我甚至被这错误的想法牵着刷了 rom （基于 AOSP 5.1.1 的系统）来在更高的 Android 版本上运行 React Native ，当然也有着避免被无用 Samsung 应用影响的原因。然而，除了样例工程的首屏外，其他地方仍看不到图片。于是我将这手机打入冷宫。
 
 几天后，我的朋友指出 React Native 的 Android 应用在一些特定屏幕上无法加载图片。呃……这可真够奇怪的……等等，我好像在哪儿见过这现象……
 
@@ -33,7 +33,7 @@
 
 我开始对内存结构产生了好奇心，尤其是从远程加载图片时动态初始化的堆空间。于是我开始追踪内存使用。
 
-### 想要一些炫酷的内存查看器？
+### 想要一些炫酷的内存查看工具？
 
 几年前，我用这个来查看内存：
 
@@ -51,9 +51,9 @@
 
 
 
-你不会想要看到这样的东西，不是么？
+别告诉我你喜欢看这样的内存分享界面。
 
-如果你在一个宿醉的周六清晨用这东西，那绝对是噩梦般的情景。（不不，我绝对没干过这种事！[😉](https://linmi.cc/wp-content/themes/bokeh/images/emoji/1f609.png)） 我需要能让垃圾回收变得更容易的工具。
+如果你在一个宿醉的周六清晨用这东西，那绝对会让你从梦魇中醒来。（不不，我绝对没干过这种事！[😉](https://linmi.cc/wp-content/themes/bokeh/images/emoji/1f609.png)） 我需要能让垃圾回收变得更容易的工具。
 
 最容易获取（并且免费！）的内存查看器就是 **Android Device Monitor**。如果你安装过 Android Studio 的话，你就已经拥有它了。按照如下步骤来打开它： 
 
@@ -128,7 +128,7 @@
 
 
 
-即使第一屏使用的内存已经接近124MB时，**堆大小**也并没有超过124MB的迹象。之后垃圾回收执行：
+即使第一屏使用的内存已经在124MB左右时，**堆大小**也并没有明显超过124MB的迹象。之后执行垃圾回收：
 
     I/art(27035): Background partial concurrent mark sweep GC freed 1584(69KB) AllocSpace objects, 2(30KB) LOS objects, 12% free, 108MB/124MB, paused 3.874ms total 182.718ms
 
@@ -160,7 +160,7 @@ source: [https://01.org/android-ia/user-guides/android-memory-tuning-android-5.0
 
 
 
-后来我知道怎么设置大内存了，只需加这行代码： ****在 **AndroidManifest.xml**
+后来我知道怎么设置大内存了，只需在 **AndroidManifest.xml** 中加这行代码： 
 
     <application
           android:name=".MainApplication"
@@ -218,7 +218,7 @@ source: [https://01.org/android-ia/user-guides/android-memory-tuning-android-5.0
 
     hprof-conv com.leak_sample.hprof com.leak_sample_converted.hprof
 
-4\. 运行 Memory Analyzer 打开转换后的 hprof 文件。然后选择 **Leak Suspects Report** （你可以先点取消，随后执行）。
+4\. 运行 Memory Analyzer 打开转换后的 hprof 文件。然后选择 **Leak Suspects Report** （你可以先点取消，稍后再执行）。
 
 
 
@@ -298,7 +298,7 @@ source: [https://01.org/android-ia/user-guides/android-memory-tuning-android-5.0
 
 ### 关于 Leon
 
-Leon Kim 是 [Infinite Red](http://infinite.red/) 公司的软件工程师，来自远东，韩国。他在研究所发表了 [image processing and pattern recognition](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3222545/) ，研发了作为政府研究计划一部分的 [prison guard robot](http://www.reuters.com/video/2012/04/12/robo-guard-on-patrol-in-south-korean-pri?videoId=233213268) ，并有着不同系统研发经验，and has diverse system development backgrounds across LTE IPsec Security Gateway, Signaling System 7 MTP3 layer and pharmaceutical automation. 他热爱在 [Infinite Red](http://infinite.red/) 和这群酷炫的家伙在 web 和移动端开发的生活，当然，也喜欢和朋友们在每个周五晚来一次韩式烤肉。 (불금!)
+Leon Kim 是 [Infinite Red](http://infinite.red/) 公司的软件工程师，来自远东，韩国。他在研究所发表了 [image processing and pattern recognition](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3222545/) ，研发了作为政府研究计划一部分的 [prison guard robot](http://www.reuters.com/video/2012/04/12/robo-guard-on-patrol-in-south-korean-pri?videoId=233213268) ，并有着从 LTE IPsec 安全网关到七号信令系统的 MTP3 层再到制药自动化的不同系统的研发经验。他热爱在 [Infinite Red](http://infinite.red/) 和这群酷炫的家伙在 web 和移动端开发的生活，当然，也喜欢和朋友们在每个周五晚来一次韩式烤肉。 (불금!)
 
 有什么问题或评论么？ 我的推特是 [@leonskim](https://twitter.com/leonskim) 。或者通过 [**Infinite Red**](http://infinite.red/)联系我们**。**
 
