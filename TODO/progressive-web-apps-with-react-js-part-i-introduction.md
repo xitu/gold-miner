@@ -1,25 +1,25 @@
 > * 原文地址：[Progressive Web Apps with React.js: Part I — Introduction](https://medium.com/@addyosmani/progressive-web-apps-with-react-js-part-i-introduction-50679aef2b12#.g5r0gv9j5)
 * 原文作者：[Addy Osmani](https://medium.com/@addyosmani)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者 : [markzhai](https://github.com/markzhai)
 * 校对者：
 
-# Progressive Web Apps with React.js: Part I — Introduction
+# 使用 React.js 的渐进式 Web 应用程序：第 1 部分 - 介绍
 
 
 
 
-### Progressive Web Apps take advantage of new technologies to bring the best of mobile sites & native apps to users. They’re reliable, fast, and engaging. They originate from a secure origin and load regardless of network state.
+### 渐进式 Web 应用程序利用新技术以带给用户最佳的移动网站和原生应用。它们是可靠的，迅捷的，迷人的。它们来自可靠的源，而且无论网络状态都能加载。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*Ms2muRzG4DHE36YU4kX_ag@2x.png)
 
 
 
-There’s much new in the world of [Progressive Web Apps](https://infrequently.org/2015/06/progressive-apps-escaping-tabs-without-losing-our-soul/) (PWAs) and you might be wondering how compatible they are with existing architectures using libraries like [React](https://facebook.github.io/react/) and JS module bundlers like [Webpack](https://webpack.github.io/). Does a PWA require a wholesale rewrite? What web performance metrics do you need to keep an eye on? In this series of posts I’ll share my experience turning React-based web apps into PWAs. We’ll also cover why shipping _just_ what users need for a route & throwing out all other scripts are good ideas for fast perf.
+在 [渐进式 Web 应用程序](https://infrequently.org/2015/06/progressive-apps-escaping-tabs-without-losing-our-soul/) (PWAs) 的世界中有很多新东西，你可能会想知道它们和现有架构 —— 比如 [React](https://facebook.github.io/react/) 和 JS 模块化打包工具如 [Webpack](https://webpack.github.io/) 之间的兼容性如何。PWA 是否需要大量的重写？你需要关注什么 Web 性能度量工具？在这系列的文章中，我将会分享我将基于 React 的 web apps 转化为 PWAs 的经验。我们还将包括为什么 _仅_ 加载用户路由所需要的，并把其他所有脚本抛开是提高性能的高注意。
 
 ### Lighthouse
 
-Let’s begin with a PWA checklist. For this we’ll be using [**Lighthouse**](https://github.com/GoogleChrome/lighthouse) — a tool for auditing [an app for PWA features](https://infrequently.org/2016/09/what-exactly-makes-something-a-progressive-web-app/) and checking your app meets a respectable bar for web performance under emulated mobile conditions. Lighthouse is available as a [Chrome extension](https://chrome.google.com/webstore/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk) (I use this version of it most often) and a [CLI](https://github.com/GoogleChrome/lighthouse#install-cli), both of which present a report that looks a little like this:
+让我们从一个 PWA 清单开始。为此我们会使用 [**Lighthouse**](https://github.com/GoogleChrome/lighthouse) — 一个评审 [app 面向 PWA 特性](https://infrequently.org/2016/09/what-exactly-makes-something-a-progressive-web-app/) 的工具，并且检查你的 app 是否在模拟移动场景下做的足够好。Lighthouse 可以通过 [Chrome 插件](https://chrome.google.com/webstore/detail/lighthouse/blipmdconlkpinefehnmjammfjpmpbjk) (我大部分时候都用这个) 以及 [CLI](https://github.com/GoogleChrome/lighthouse#install-cli) 来使用，两者都会展示一个类似这样的报告：
 
 
 
@@ -37,7 +37,7 @@ Let’s begin with a PWA checklist. For this we’ll be using [**Lighthouse**](h
 
 
 
-Results from the Lighthouse Chrome extension
+来自 Lighthouse Chrome 插件的结果
 
 
 
@@ -45,27 +45,27 @@ Results from the Lighthouse Chrome extension
 
 
 
-The top-level audits Lighthouse runs effectively a collection of modern web best practices refined for a mobile world:
+顶级评审工具 Lighthouse 会高效地运行一系列为移动世界精炼的现代 web 最佳实践：
 
-*   **Network connection is secure**
-*   **User can be prompted to Add to Homescreen**
-*   **Installed web app will launch with custom splash screen**
-*   **App can load on offline/flaky connections**
-*   **Page load performance is fast**
-*   **Design is mobile-friendly**
-*   **Site is progressively enhanced**
-*   **Address bar matches brand colors**
+*   **网络连接是安全的**
+*   **用户会被提醒将 app 添加到 Homescreen**
+*   **安装了的 web app 启动时会带自定义的闪屏画面**
+*   **App 可以在离线/断断续续的连接下加载**
+*   **页面加载性能快速**
+*   **设计是移动友好的**
+*   **网页是渐进式增强的**
+*   **地址栏符合品牌颜色**
 
-Btw, there’s a [getting started guide](https://developers.google.com/web/tools/lighthouse/) for Lighthouse and it also works over [remote debugging](https://github.com/GoogleChrome/lighthouse#lighthouse-w-mobile-devices). Super cool.
+顺便一提，有一个 Lighthouse 的 [快速上手向导](https://developers.google.com/web/tools/lighthouse/)，而且它还能通过 [远程调试](https://github.com/GoogleChrome/lighthouse#lighthouse-w-mobile-devices) 工作。超级酷炫。
 
-Regardless of what libraries are in your stack, I want to emphasize that everything in the above list can be accomplished today with a little work. There are caveats however.
+无论在你的技术栈中使用了什么库，我想要强调的是在上面列出的一切都能在今天使用一点小小的工作就完成。然而也有一些警告。
 
-**We know the mobile web is** [**_slow_**](https://www.doubleclickbygoogle.com/articles/mobile-speed-matters/)**_._**
+**我们知道移动 web 是** [**_慢的_**](https://www.doubleclickbygoogle.com/articles/mobile-speed-matters/)**_。_**
 
-The web has evolved from a document-centric platform to a first-class application platform. At the same time the bulk of our computing has moved from powerful desktop machines with fast, reliable network connections to relatively underpowered mobile devices with connections that are often _slow, flaky or both._ This is especially true in parts of the world where the next billion users are coming online. To unlock a faster mobile web:
+web 从一个以文档为中心的平台演变为了头等的应用平台。同时我们主要的计算能力也从强大的，拥有快速可靠的网络连接的桌面机器移动到了相对不强大的，连接通常 _慢，断断续续或者两者都存在_ 的移动设备上。这在下一个 10 亿用户即将上网的世界尤其真实。为了解锁更快的移动 web：
 
-*   **We need to collectively shift to testing on real mobile devices under realistic network connections** (e.g [Regular 3G in DevTools](https://developers.google.com/web/tools/chrome-devtools/profile/network-performance/network-conditions?hl=en)). [chrome://inspect](https://developers.google.com/web/tools/chrome-devtools/debug/remote-debugging/remote-debugging?hl=en) and [WebPageTest](https://www.webpagetest.org/) ([video](https://www.youtube.com/watch?v=pOynMwTyRgQ&feature=youtu.be)) are your friend. Lighthouse emulates a Nexus 5X with touch events, viewport emulation and a throttled network connection (150ms latency, 1.6Mbps throughput).
-*   **If the JS libraries you’re using aren’t developed with mobile in mind, you may be running an uphill battle for perf** when it comes to being interactive. We’re ideally aiming for being interactive in under 5 seconds on a representative device so more of that budget for our app code is ❤
+*   **我们需要全体转移到在真实移动设备，现实的网络连接下进行测试** (e.g [在 DevTools 的常规 3G](https://developers.google.com/web/tools/chrome-devtools/profile/network-performance/network-conditions?hl=en))。 [chrome://inspect](https://developers.google.com/web/tools/chrome-devtools/debug/remote-debugging/remote-debugging?hl=en) 和 [WebPageTest](https://www.webpagetest.org/) ([视频](https://www.youtube.com/watch?v=pOynMwTyRgQ&feature=youtu.be)) 是你的朋友。Lighthouse 模拟一台有触摸事件的 Nexus 5X 设备，以及 viewport 仿真 和 被限制的网络连接 （150毫秒延迟，1.6Mbps 吞吐量)。
+*   **如果你使用的 JS 库被开发的时候并没有考虑到移动，你可能会为了可交互性能打一场硬仗**。我们的理想化目标是在一台响应式设备上 5 秒内变得可交互，所以我们应用代码的预算会更多是 ❤
 
 
 
@@ -79,13 +79,13 @@ The web has evolved from a document-centric platform to a first-class applicatio
 
 
 
-With some work, it’s possible to write PWAs with React that _do_ perform well on real devices under limited network conditions [as demonstrated by Housing.com](https://twitter.com/samccone/status/771786445015035904). We’ll talk about how to achieve this in great **detail** later on in the series.
+通过一些工作，可以写出 [如 Housing.com 所展示的](https://twitter.com/samccone/status/771786445015035904) 在有限网络环境下，真机上依然表现良好的使用 React 开发的 PWAs。我们在接下来的系列中讨论如何实现的详尽 **细节**。
 
 
 
-That said, this is an area many libraries are working to improve on and may need to if they’re going to stay viable for performance on physical devices. Just take a look at the A+ job [Preact](https://github.com/developit/preact) is doing on [perf with real-world devices.](https://twitter.com/slightlylate/status/770652362985836544)
+话虽如此，这是一个很多库都在尽力提高的领域，你可能需要知道他们是否会继续提高在物理设备上的性能。只需要看看 [Preact](https://github.com/developit/preact) 所做的超级棒的 [真实世界设备的性能](https://twitter.com/slightlylate/status/770652362985836544)。
 
-**Open-source React Progressive Web App samples**
+**开源 React 渐进式 Web App 示例**
 
 
 
@@ -101,13 +101,13 @@ That said, this is an area many libraries are working to improve on and may need
 
 
 
-_If you’re after relatively non-trivial examples of PWAs built with React and optimized with Lighthouse, you may be interested in:_ [_ReactHN_](https://github.com/insin/react-hn)_— a HackerNews client with server-side rendering & offline support or_ [_iFixit_](https://github.com/GoogleChrome/sw-precache/tree/master/app-shell-demo)_ — a hardware repair guide built with React but which uses Redux for state management._
+_如果你想要看相对更复杂的使用 React 开发，并使用 Lighthouse 优化的 PWAs 例子，你可能会对感兴趣于：_ [_ReactHN_](https://github.com/insin/react-hn)_— 一个使用服务端渲染以及离线支持的 HackerNews 客户端 或者_ [_iFixit_](https://github.com/GoogleChrome/sw-precache/tree/master/app-shell-demo)_ — 一个使用 React 开发，但使用了 Redux 进行状态管理的硬件修复向导。_
 
-Let’s now walk through what we need to do to check off each item in the Lighthouse report, continuing with React.js specific tips throughout the series.
+现在让我们走一遍在 Lighthouse 报告中需要清点的每一项，并且在系列中看看 React.js 具体的小贴士。
 
-### Network connection is secure
+### 网络连接是安全的
 
-#### Tooling and tips for HTTPS
+#### HTTPS 的工具和建议
 
 
 
@@ -123,9 +123,9 @@ Let’s now walk through what we need to do to check off each item in the Lighth
 
 
 
-[HTTPS](https://support.google.com/webmasters/answer/6073543?hl=en) prevents bad-actors from tampering with communications between your app and the browser your users are using and you might have read that Google is pushing to [shame](http://motherboard.vice.com/read/google-will-soon-shame-all-websites-that-are-unencrypted-chrome-https) sites that are unencrypted. Powerful new web platform APIs, like [Service Worker](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API), [require](https://www.chromium.org/Home/chromium-security/prefer-secure-origins-for-powerful-new-features) secure origins via HTTPS but the good news is thanks to services like [LetsEncrypt](https://letsencrypt.org/) providing free [SSL certificates](https://www.globalsign.com/en/ssl-information-center/what-is-an-ssl-certificate/) and low-cost options like [Cloudflare](https://www.cloudflare.com/) enabling end-to-end traffic encryption [for all](https://www.cloudflare.com/ssl/), it’s never been more straight-forward to get this setup.
+[HTTPS](https://support.google.com/webmasters/answer/6073543?hl=en) 防止坏人篡改你的 app 和你的用户使用的浏览器之间的通信，你可能读过 Google 正在推动 [羞辱](http://motherboard.vice.com/read/google-will-soon-shame-all-websites-that-are-unencrypted-chrome-https) 那些没有加密的网站。强大的新型 web 平台 APIs，像是 [Service Worker](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)，[require](https://www.chromium.org/Home/chromium-security/prefer-secure-origins-for-powerful-new-features) 通过 HTTPS 保护来源，但是好消息是像是 [LetsEncrypt](https://letsencrypt.org/) 这样的服务商提供了免费的 [SSL 证书](https://www.globalsign.com/en/ssl-information-center/what-is-an-ssl-certificate/)，便宜的选择像是 [Cloudflare](https://www.cloudflare.com/) 可以使端到端流量 [完全](https://www.cloudflare.com/ssl/) 加密，从来没有如此简单直接地能做到这个。
 
-For my personal projects, I usually deploy to [Google App Engine](https://cloud.google.com/appengine/) which supports serving SSL traffic through an appspot.com domain if you add the [‘secure’](https://cloud.google.com/appengine/docs/python/config/appref) parameter to your app.yaml file. For my React apps that need Node.js support for Universal Rendering, I use [Node on App Engine](https://cloudplatform.googleblog.com/2016/03/Node.js-on-Google-App-Engine-goes-beta.html). [Github Pages](https://github.com/blog/2186-https-for-github-pages) and [Zeit.co](https://zeit.co/blog/now-alias) also now support HTTPS.
+作为我的个人项目，我通常会部署到 [Google App Engine](https://cloud.google.com/appengine/)，它支持通过 appspot.com 域名的 SSL 通信服务，只需要你加上 [‘secure’](https://cloud.google.com/appengine/docs/python/config/appref) 参数到你的 app.yaml 文件。对于需要 Node.js 支持 Universal 渲染的 React apps，我使用 [Node on App Engine](https://cloudplatform.googleblog.com/2016/03/Node.js-on-Google-App-Engine-goes-beta.html)。[Github Pages](https://github.com/blog/2186-https-for-github-pages) 和 [Zeit.co](https://zeit.co/blog/now-alias) 现在也支持 HTTPS。
 
 
 
@@ -141,19 +141,19 @@ For my personal projects, I usually deploy to [Google App Engine](https://cloud.
 
 
 
-_The_ [_Chrome DevTools Security panel_](https://developers.google.com/web/updates/2015/12/security-panel?hl=en) _allows you to validate issues with security certificates and mixed content errors._
+_这个_ [_Chrome DevTools Security 面板_](https://developers.google.com/web/updates/2015/12/security-panel?hl=en) _允许你印证安全证书和混合内容错误的问题。_
 
-Some more tips to get your site more secure:
+一些更多的小贴士可以使你的网站更加安全：
 
-*   Upgrade unsecure requests (“HTTP” connections) to “HTTPS” redirecting users as needed. Take a look at [Content Security Policy](https://content-security-policy.com/) and [upgrade-insecure-requests](https://googlechrome.github.io/samples/csp-upgrade-insecure-requests/).
-*   Update all links referencing “http://” to “https://”. If you rely on third-party scripts or content, talk to them about making their resources available over HTTPS too
-*   Use [HTTP Strict Transport Security](https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security) (HSTS) headers when serving pages. It’s a directive that forces browsers to only talk to your site in HTTPS.
+*   根据需要重定向用户，升级非安全请求（“HTTP” 连接）到 “HTTPS”。Take a look at [Content Security Policy](https://content-security-policy.com/) and [upgrade-insecure-requests](https://googlechrome.github.io/samples/csp-upgrade-insecure-requests/).
+*   更新所有引用 “http://” 的链接到 “https://”。如果你依赖第三方的脚本或者内容，跟他们商量一下让他们也支持一下 HTTPS 资源。
+*   提供页面的时候，使用 [HTTP 严格传输安全](https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security) (HSTS) 头。这是一个强制浏览器只通过 HTTPS 和你的网站交流的指令。
 
-I’d recommend watching [Deploying HTTPS: The Green Lock and Beyond](https://developers.google.com/web/shows/cds/2015/deploying-https-the-green-lock-and-beyond-chrome-dev-summit-2015?hl=en)and [Mythbusting HTTPS: Squashing security’s urban legends](https://developers.google.com/web/shows/google-io/2016/mythbusting-https-squashing-securitys-urban-legends-google-io-2016?hl=en) for more.
+我建议去看看 [Deploying HTTPS: The Green Lock and Beyond](https://developers.google.com/web/shows/cds/2015/deploying-https-the-green-lock-and-beyond-chrome-dev-summit-2015?hl=en) 和 [Mythbusting HTTPS: Squashing security’s urban legends](https://developers.google.com/web/shows/google-io/2016/mythbusting-https-squashing-securitys-urban-legends-google-io-2016?hl=en) 来了解更多。
 
-### User can be prompted to Add to Homescreen
+### 用户会被提醒将 app 添加到 Homescreen
 
-Next up is customizing the “[add to homescreen](https://developer.chrome.com/multidevice/android/installtohomescreen)” experience for your app (favicons, application name displayed, orientation and more). This is achieved by adding a [Web Application Manifest](https://developer.mozilla.org/en-US/docs/Web/Manifest). I usually find customizing cross-browser (and OS) favicons to involve the most work here, but tools like [realfavicongenerator.net](http://realfavicongenerator.net/) take a lot of the pain out of the experience.
+下一个要讲的是自定义你的 app 的 “[添加到主屏幕](https://developer.chrome.com/multidevice/android/installtohomescreen)” 体验（favicons，显示的应用名字，方向和更多）。这是通过添加一个 [Web 应用清单](https://developer.mozilla.org/en-US/docs/Web/Manifest) 来做的。我经常会找自定义的跨浏览器（以及系统）来包含大部分的工作，但是像是 [realfavicongenerator.net](http://realfavicongenerator.net/) 这样的工具来减掉大部分的痛苦。
 
 
 
@@ -168,10 +168,9 @@ Next up is customizing the “[add to homescreen](https://developer.chrome.com/m
 
 
 
+有很多关于一个网站只需要在大部分场合能工作的 “最少” favicons 的讨论。Lighthouse [提议](https://github.com/GoogleChrome/lighthouse/issues/291) 提供一个 192px 的图标给主屏幕，一个 512px 的图标给你的闪屏。我个人坚持从 realfavicongenerator 得到的输出，除了它包含更多的 metatags, 我也更倾向于它能涵盖我的所有基数。
 
-There’s been much discussion on the “minimum” number of favicons a site needs to just work in most places. Lighthouse [have proposed](https://github.com/GoogleChrome/lighthouse/issues/291) shipping a 192px icon for the homescreen icon and a 512px one for your splashscreen. I personally stick with the output from realfavicongenerator as despite it involving more metatags, I prefer the assurance my bases are all covered.
-
-Some sites may prefer to ship a highly customized favicon per platform. I recommend checking out [Designing a Progressive Web App icon](https://medium.com/dev-channel/designing-a-progressive-web-app-icon-b55f63f9ff6e#.voxq5imjg) for more guidance on this topic.
+一些网站可能更倾向于为每个平台提供高度定制化的 favicon。我推荐检查 [设计一个渐进式 Web App 图标](https://medium.com/dev-channel/designing-a-progressive-web-app-icon-b55f63f9ff6e#.voxq5imjg) 已获得更多关于这个主题的指导。
 
 
 
@@ -187,9 +186,9 @@ Some sites may prefer to ship a highly customized favicon per platform. I recomm
 
 
 
-With a Web App manifest setup, you also get access to [app installer banners](https://developers.google.com/web/fundamentals/engage-and-retain/app-install-banners/?hl=en), giving you a way to natively prompt for users to install your PWA if they find themselves engaging with it often. It’s also possible to [defer](https://developers.google.com/web/fundamentals/engage-and-retain/app-install-banners/?hl=en#deferring_or_cancelling_the_prompt)the prompt until a time when a user has a useful interaction with your app. Flipkart [found](https://twitter.com/adityapunjani/status/782426188702633984) the best time to show the prompt was on their order confirmation page.
+通过 Web App 清单安装，你还能获得 [app 安装器横幅](https://developers.google.com/web/fundamentals/engage-and-retain/app-install-banners/?hl=en)，让你有方法可以原生地提示用户来安装你的 PWA，如果他们觉得会经常使用它的话。还可以 [延迟](https://developers.google.com/web/fundamentals/engage-and-retain/app-install-banners/?hl=en#deferring_or_cancelling_the_prompt) 提示，直到用户和你的 app 进行了有意义的交互。Flipkart [找到](https://twitter.com/adityapunjani/status/782426188702633984) 最佳时间来显示这个提示是在他们的订单确认页。
 
-[_The Chrome DevTools Application Panel_](https://developers.google.com/web/tools/chrome-devtools/progressive-web-apps) supports inspecting your Web App Manifest via Application > Manifest:
+[_Chrome DevTools Application 面板_](https://developers.google.com/web/tools/chrome-devtools/progressive-web-apps) 支持通过 Application > Manifest 来查看你的 Web App 清单：
 
 
 
@@ -205,13 +204,13 @@ With a Web App manifest setup, you also get access to [app installer banners](ht
 
 
 
-This parses out the favicons listed in your manifest and previews properties like the start URL and theme colors. Btw, there’s a Totally Tooling Tips [episode](https://www.youtube.com/watch?v=yQhFmPExcbs&index=11&list=PLNYkxOF6rcIB3ci6nwNyLYNU6RDOU3YyL) on Web App Manifests if interested 😉
+它会解析出列在你的 manifest 清单文件的 favicons（网站头像），还能预览像是 start URL 和 theme colors 这样的属性。顺带一提，如果感兴趣的话，这里有一个完整的关于 Web App Manfests 的工具小贴士 [片段](https://www.youtube.com/watch?v=yQhFmPExcbs&index=11&list=PLNYkxOF6rcIB3ci6nwNyLYNU6RDOU3YyL) 😉
 
-### Installed web app will launch with custom splash screen
+### 安装了的 web app 启动时会带自定义的闪屏画面
 
-In older versions of Chrome for Android, tapping on a homescreen icon for an app would often take up to 200ms (or multiple seconds in slow sites) for the first frame of the document to be rendered to the screen.
+在旧版本的 Android Chrome 上，点击主屏幕上的 app 图标通常会花费 200 毫秒（一些慢的网站甚至要数秒）以到达文档的第一帧被渲染到屏幕上。
 
-During this time, the user would see a white screen, decreasing the perceived performance of your site. Chrome 47 and above [support customising a splash screen](https://developers.google.com/web/updates/2015/10/splashscreen?hl=en) (based on a background_color, name and icons from the Web App Manifest) used to color the screen until the browser is ready to paint something. This makes your webapp feel a lot closer to “native”.
+在这段时间内，用户会看到一个白屏，减少对你网站的感知到的性能。Chrome 47 和以上版本 [支持自定义闪屏](https://developers.google.com/web/updates/2015/10/splashscreen?hl=en)（基于来自 Web App 清单的背景颜色，名字和图标）会在浏览器准备绘制一些东西前给屏幕一些颜色。这使得你的 webapp 感受上更接近 “原生”。
 
 
 
@@ -227,17 +226,17 @@ During this time, the user would see a white screen, decreasing the perceived pe
 
 
 
-[Realfavicongenerator.net](http://realfavicongenerator.net/) also now supports previewing and customising the Splashscreen for your manifest, a handy time saver.
+[Realfavicongenerator.net](http://realfavicongenerator.net/) 现在还支持根据你的清单（manifest）预览并自定义闪屏，很方便地节约时间。
 
-_Note: Firefox for Android and Opera for Android also support the Web Application Manifest, Splash screen and an add to homescreen experience. On iOS, Safari still supports customising add to_ [_homescreen icons_](https://developer.apple.com/library/ios/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html) _and used to support a_ [_proprietary splashscreen_](https://gist.github.com/tfausak/2222823) _implementation, however this appears to have broken in iOS9\. I’ve filed a feature request for Webkit to support the Web App Manifest so.. fingers crossed I guess._
+_注意：Firefox for Android 和 Opera for Android 也支持 Web 应用程序清单，闪屏和添加到主屏幕的体验。在 iOS 上，Safari 也支持自定义添加到_ [_主屏幕的图标_](https://developer.apple.com/library/ios/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html) _并曾经支持一个_ [_专有的闪屏_](https://gist.github.com/tfausak/2222823) _实现，然而这个在 iOS9 上显得不能用了。我已经填了一个特性请求给 Webkit，以支持 Web App 清单，所以...希望一切顺利吧。_
 
-### Design is mobile-friendly
+### 设计是移动友好的
 
-Apps optimized for multiple devices should include a [meta-viewport in the of their document](https://developers.google.com/web/fundamentals/design-and-ui/responsive/fundamentals/set-the-viewport?hl=en). This might seem super obvious, but I’ve seen plenty of React projects where folks have neglected to include this. Thankfully [create-react-app](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/public/index.html#L5) does include a valid meta-viewport by default and Lighthouse will flag if it is missing:
+为多种设备所优化的 Apps 必须在他们的 document 里面包括一个  [meta-viewport](https://developers.google.com/web/fundamentals/design-and-ui/responsive/fundamentals/set-the-viewport?hl=en)。这看上去非常明显，但是我看到过很多的 React 项目中，人们忘了加上这个。好在 [create-react-app](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/public/index.html#L5) 有默认加上有效的 meta-viewport，而且如果缺失的话 Lighthouse 会标记上：
 
-    
 
-Although we focus heavily on optimizing the mobile web experience in Progressive Web Apps, this [doesn’t mean desktop should be forgotten](https://www.justinribeiro.com/chronicle/2016/09/10/desktop-pwa-bring-the-goodness/). A well-crafted PWA can work well across a range of viewport sizes, browsers and devices, as demonstrated by Housing.com:
+
+尽管我们非常重视渐进式 Web 应用程序在移动 web 的体验，这 [并不意味着桌面应该被忘记](https://www.justinribeiro.com/chronicle/2016/09/10/desktop-pwa-bring-the-goodness/)。一个精心设计的 PWA 应该可以在各种 viewport 尺寸、浏览器以及设备上良好运作，正如 Housing.com 所展示的：
 
 
 
@@ -261,9 +260,8 @@ Although we focus heavily on optimizing the mobile web experience in Progressive
 
 
 
-In Part 2 of the series, we’ll look at [**page-load performance with React and Webpack**](https://medium.com/@addyosmani/progressive-web-apps-with-react-js-part-2-page-load-performance-33b932d97cf2#.9ebqqaw8k). We’ll dive into code-splitting, route-based chunking and the PRPL pattern for reaching interactivity sooner.
+在系列第 2 部分，我们将会看看那 [**使用 React 和 Webpack 的页面加载性能**](https://medium.com/@addyosmani/progressive-web-apps-with-react-js-part-2-page-load-performance-33b932d97cf2#.9ebqqaw8k)。我们会深入 code-splitting（代码分割），基于路由的 chunking（分块）以及 达到更快交互性 PRPL 模式。
 
-If you’re new to React, I’ve found [React for Beginners](https://goo.gl/G1WGxU) by Wes Bos excellent.
+如果你不熟悉 React，我发现 Wes Bos 写的 [给新手的 React](https://goo.gl/G1WGxU) 很棒。
 
-_With thanks to Gray Norton, Sean Larkin, Sunil Pai, Max Stoiber, Simon Boudrias, Kyle Mathews and Owen Campbell-Moore for their reviews._
-
+_感谢 Gray Norton, Sean Larkin, Sunil Pai, Max Stoiber, Simon Boudrias, Kyle Mathews 和 Owen Campbell-Moore 的校对_
