@@ -300,5 +300,5 @@ source: [https://01.org/android-ia/user-guides/android-memory-tuning-android-5.0
 
 Leon Kim 是 [Infinite Red](http://infinite.red/) 公司的软件工程师，来自远东，韩国。他在研究所发表了 [image processing and pattern recognition](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3222545/) ，研发了作为政府研究计划一部分的 [prison guard robot](http://www.reuters.com/video/2012/04/12/robo-guard-on-patrol-in-south-korean-pri?videoId=233213268) ，并有着从 LTE IPsec 安全网关到七号信令系统的 MTP3 层再到制药自动化的不同系统的研发经验。他热爱在 [Infinite Red](http://infinite.red/) 和这群酷炫的家伙在 web 和移动端开发的生活，当然，也喜欢和朋友们在每个周五晚来一次韩式烤肉。 (불금!)
 
-有什么问题或评论么？ 我的推特是 [@leonskim](https://twitter.com/leonskim) 。或者通过 [**Infinite Red**](http://infinite.red/)联系我们**。**
+有什么问题或评论么？ 我的推特是 [@leonskim](https://twitter.com/leonskim) 。或者通过 [**Infinite Red**](http://infinite.red/) 联系我们**。**
 
