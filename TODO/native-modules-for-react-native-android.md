@@ -1,24 +1,20 @@
 > * 原文地址：[Native Modules for React Native Android](https://shift.infinite.red/native-modules-for-react-native-android-ac05dbda800d#.cdjn1o88w)
 * 原文作者：[Ryan Linton](https://shift.infinite.red/@ryanlntn)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[XHShirley](https://github.com/XHShirley)
 * 校对者：
 
-# Native Modules for React Native Android
+
+# React Native Android 的 native 模块
 
 
 
 
-
-
-When developing an Android application with React Native you may need to access an API that doesn’t yet have a corresponding React Native module. This can easily be done by writing your own native module in Java and selectively exposing its public API to React Native. Let’s give it a try!
 
 当我们使用 React Native 开发一个安卓应用的时候可能需要访问一个还没有对应的 React Native 模块的 API。这可以通过用java编写自己的 native 模块并选择性地开放接口给 React Native. 让我们一起来试一试。
 
-#### What We’ll Be Making
 #### 我们想做的事
 
-At the time of this writing, React Native contains the component ImagePickerIOS but no corresponding ImagePicker component for Android. We’re going to build our own simple ImagePicker component that roughly mirrors the behavior of ImagePickerIOS.
 
 在写这篇文章的时候， React Native 包含 ImagePickerIOS 组件却没有对应的安卓 ImagePicker 组件。 我们打算创建一个功能行为大致跟 ImagePickerIOS 一样的简单的 ImagePicker 组件。
 
@@ -32,17 +28,8 @@ At the time of this writing, React Native contains the component ImagePickerIOS 
 
 
 
-**Writing a native module for Android involves the following steps:**
 
 **通过下面的步骤写一个安卓的 native 模块**
-
-1.  Create a _ReactPackage_, a wrapper object grouping many modules (both native and JavaScript) together, and include it in the _getPackages_ method of _MainActivity_.
-2.  Create a Java class extending _ReactContextBaseJavaModule_ that implements the desired functionality and register it with our _ReactPackage_.
-3.  Override the _getName_ method in the aforementioned class. This will be the name of the native module in JavaScript.
-4.  Expose desired public methods to JavaScript by annotating them with _@ReactMethod_.
-5.  Finally, import the module from _NativeModules_ in your JavaScript code and call the methods.
-
-Let’s see what this looks like in practice.
 
 1. 创建一个 _ReactPackage_ 对象， 这个对象可以把许多模块组合到一起（包括 native 和 JavaScript)。在 _MainActivity_ 中把它写进 _getPackages_ 方法中。
 2. 创建一个继承 _ReactContextBaseJavaModule_ 的 Java 类。 _ReactContextBaseJavaModule_ 实现了我们想要的功能并且与我们的 _ReactPackage_ 绑定。
@@ -53,10 +40,8 @@ Let’s see what this looks like in practice.
 让我们来看看实际中时什么样子。
 
 
-#### Creating a ReactPackage
 #### 创建一个 ReactPackage
 
-Fire up AndroidStudio and navigate to _MyApp/android/app/src/main/java/com/myapp/MainActivity.java_. It should look something like this:
 
 启动 AndroidStudio 并一层层找到 _MyApp/android/app/src/main/java/com/myapp/MainActivity.java_ 文件。它看起来差不多应该是下面这个样子：
 
@@ -91,7 +76,6 @@ Fire up AndroidStudio and navigate to _MyApp/android/app/src/main/java/com/myapp
 
 
 
-We’re going to be optimistic and include the package we haven’t yet defined.
 
 我们准备乐观些直接把我们还未定义的包引进来。
 
@@ -121,7 +105,6 @@ import com.myapp.imagepicker.*; // import the package public class MainActivity 
 
 
 
-Now let’s actually define that package. We’ll create a new directory for it called _imagepicker_ and include the following in _ImagePickerPackage_:
 
 现在，我们才来真正定义这个包。我们会为它创建一个名为 _imagepicker_ 的新目录并把下面的代码添加进 _ImagePickerPackage_ ：
 
@@ -155,14 +138,11 @@ Now let’s actually define that package. We’ll create a new directory for it 
     return Collections.emptyList();}
     }
 
-Now that we’ve created the package and included it in the _MainActivity_we’re ready to start defining our module.
 
 既然我们已经创建了一个包并且也把它放进了 _MainActivity_ 。我们现在可以开始定义自己的模块了。
 
-#### Creating a _ReactContextBaseJavaModule_
 #### 创建一个 _ReactContextBaseJavaModule_ 模块
 
-We’ll start by creating the _ImagePickerModule_ class, and extending _ReactContextBaseJavaModule._
 
 我们将开始创建 _ImagePickerModule_ 类，并将它继承 _ReactContextBaseJavaModule_ .
 
@@ -180,7 +160,6 @@ We’ll start by creating the _ImagePickerModule_ class, and extending _ReactCon
     }
     }
 
-That’s a good start, but in order for React Native to find our module in _NativeModules_ we’ll need to override the _getName_ method.
 
 这是一个好的开端，但为了让 React Native 在 _NativeModules_ 中找到我们的模块，我们需要重写 _getName_ 方法。
 
@@ -188,14 +167,10 @@ That’s a good start, but in order for React Native to find our module in _Nati
 
 @Override public String getName() { return "ImagePicker"; }
 
-We now have a fully functional (if totally useless) native module that we can import in our JavaScript code. Let’s make it do something a bit more interesting.
 
-现在，我们有可以导入到 JavaScript 代码的功能完备的 native 模块了。让我们再让它坐点有趣的事情。
+现在，我们有可以导入到 JavaScript 代码的功能完备的 native 模块了。让我们再让它做点有趣的事情。
 
-#### Exposing Methods
 #### 暴露方法
-
-_ImagePickerIOS_ defines an _openSelectDialog_ method that takes a config object and success and cancel callbacks. Let’s define a similar method in _ImagePickerModule_.
 
 _ImagePickerIOS_ 中定义了一个以 config 对象以及成功和取消两个回调对象为参数的方法。让我们在 _ImagePickerModule_ 中也定义一个类似的方法。
 
@@ -225,7 +200,6 @@ _ImagePickerIOS_ 中定义了一个以 config 对象以及成功和取消两个�
 
 
 
-Here we import _Callback_ and _ReadableMap_ from React Native bridge which correspond to JavaScript _object_ and _function_ respectively. We annotate the method with _@ReactMethod_ exposing it to JavaScript as part of the _ImagePicker_ module. In the body of the method we get the current activity or call the cancel callback if it doesn’t exist. We now have a working method, but it doesn’t do anything interesting yet. Let’s add to it to make it open the image gallery.
 
 这里我们从 React Native 的 bridge 包导入分别对应 JavaScript _object_ 和 _function_ 的 _Callback_ 和 _ReadableMap_ 类。我们给这个方法添加注解 _@ReactMethod，_ 作为 _ImagePicker_ 模块的一部分暴露给 JavaScript. 在这个方法体里， 我们获取当前的 activity ，如果它不存在的话也可以调用取消回调。现在我们就有一个能工作的方法了，但它还没有做任何有趣的事情。让我们给它添加打开画册的功能吧。
 
@@ -245,15 +219,10 @@ Here we import _Callback_ and _ReadableMap_ from React Native bridge which corre
     } catch (Exception e) {
     pickerCancelCallback.invoke("No image data found");
 
-First, we set the callbacks as instance variables for reasons that will become clear later. Then we create our _Intent,_ configure it and pass it to _startActivityForResult_. Finally, we wrap the whole thing in a try/catch block to handle any exceptions we might run into.
 
 首先，我们设置回调作为实例变量，原因之后会阐明。接着创建和配置我们的 _Intent_ 并传入 _startActivityForResult_ 。 最后，我们用 try/catch 语句块把整段代码囊括起来，处理期间可能产生的异常。
 
-You should now see an image gallery when you call _openSelectDialog_ on _ImagePicker_. However when you select an image the gallery will just dismiss itself without doing anything. In order to actually return any image data we’ll need to handle the activity result in our module.
-
 现在当你在 _ImagePicker_ 调用 _openSelectDialog_ 时应该看到一个图片画册。但是当选择一个图片时，画册会不做任何操作并消失。为了能返回图片数据，我们需要在模块中处理 activity 的结果。
-
-First we’ll need to add an activity event listener to our react context:
 
 首先我们需要添加一个 activity 的事件监听到我们的 react 代码里：
 
@@ -261,8 +230,7 @@ First we’ll need to add an activity event listener to our react context:
 
 public class ImagePickerModule extends ReactContextBaseJavaModule implements ActivityEventListener { public ImagePickerModule(ReactApplicationContext reactContext) { super(reactContext); reactContext.addActivityEventListener(this); } }
 
-Now that we can listen to activity events we can handle _onActivityResult_ and return the image data we want.
-既然我们可以监听 activity 事件，我们可以通过处理 _onActivityResult_ 返回我们想要的图片数据。
+既然我们可以监听 activity 事件，我们就可以通过处理 _onActivityResult_ 返回我们想要的图片数据。
 
     @Override
     public void onActivityResult(final int requestCode, final int resultCode, final Intent intent) {
@@ -284,7 +252,6 @@ Now that we can listen to activity events we can handle _onActivityResult_ and r
 
 
 
-With this in place we should now be receiving the image URI in the success callback of our call to _openSelectDialog_.
 
 有了这段代码，当我们调用 _openSelectDialog_ ，应该能持续从成功回调中接收到图片的 URI。
 
@@ -298,9 +265,8 @@ With this in place we should now be receiving the image URI in the success callb
     (error) => { console.log(error) }
     )
 
-To further mirror the behavior of _ImagePickerIOS,_ we could build on the configuration options allowing users to pick images, video, or both as well as support opening the camera directly. As these features would be building on the same concepts already demonstrated, we’ll leave them as an exercise to the reader.
 
-为了进一步模仿 _ImagePickerIOS_ 的功能，我们可以建立设置选项，让用户选择图片，视频或者同时支持直接开启摄像头。因为这些功能运用的事跟上述一样的概念，所以就作为练习留给读者吧。
+为了进一步模仿 _ImagePickerIOS_ 的行为，我们可以建立设置选项，让用户选择图片，视频或者同时支持直接开启摄像头。因为这些功能运用的事跟上述一样的概念，所以就作为练习留给读者吧。
 
 
 
@@ -320,17 +286,11 @@ To further mirror the behavior of _ImagePickerIOS,_ we could build on the config
 
 
 
-### Special Thanks
 ### 特别鸣谢
-
-I could not have done this without the help and support of [Infinite Red](http://infinite.red/)Technical Lead [Gant Laborde](https://medium.com/u/6ca0fe37eac1). His intimate knowledge of toast saved my bacon.
 
 如果没有 [Infinite Red](http://infinite.red/) 的技术主管 [Gant Laborde](https://medium.com/u/6ca0fe37eac1) 的帮助和支持，我才能写出这篇文章。他对 toast 深刻的见解真是救我于水火之中。
 
-### About Ryan Linton
 ### 关于 Ryan Linton
-
-Ryan Linton is a Senior Software Engineer at [Infinite Red](http://infinite.red/) who enjoys working closely with clients while bringing their projects to life. When not tweaking styles and queries he can often be found traveling the world or desperately trying to make a dent in his ever growing reading list.
 
 Ryan Linton 是 [Infinite Red](http://infinite.red/) 的资深软件工程师。他喜欢在把他们的项目带到生活中的同时与客户密切合作。在不折腾前端样式和后台数据库的时候，他会到世界各地去旅行或者阅读书籍，以缩短他不断增加的阅读清单。
 
