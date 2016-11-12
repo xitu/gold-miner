@@ -197,6 +197,8 @@ We now have a fully functional (if totally useless) native module that we can im
 
 _ImagePickerIOS_ defines an _openSelectDialog_ method that takes a config object and success and cancel callbacks. Let’s define a similar method in _ImagePickerModule_.
 
+_ImagePickerIOS_ 中定义了一个以 config 对象以及成功和取消两个回调对象为参数的方法。让我们在 _ImagePickerModule_ 中也定义一个类似的方法。
+
     import com.facebook.react.bridge.Callback;
     import com.facebook.react.bridge.ReadableMap;
 
@@ -225,6 +227,8 @@ _ImagePickerIOS_ defines an _openSelectDialog_ method that takes a config object
 
 Here we import _Callback_ and _ReadableMap_ from React Native bridge which correspond to JavaScript _object_ and _function_ respectively. We annotate the method with _@ReactMethod_ exposing it to JavaScript as part of the _ImagePicker_ module. In the body of the method we get the current activity or call the cancel callback if it doesn’t exist. We now have a working method, but it doesn’t do anything interesting yet. Let’s add to it to make it open the image gallery.
 
+这里我们从 React Native 的 bridge 包导入分别对应 JavaScript _object_ 和 _function_ 的 _Callback_ 和 _ReadableMap_ 类。我们给这个方法添加注解 _@ReactMethod，_ 作为 _ImagePicker_ 模块的一部分暴露给 JavaScript. 在这个方法体里， 我们获取当前的 activity ，如果它不存在的话也可以调用取消回调。现在我们就有一个能工作的方法了，但它还没有做任何有趣的事情。让我们给它添加打开画册的功能吧。
+
     @Override
     public void onActivityResult(final int requestCode, final int resultCode, final Intent intent) {
     if (pickerSuccessCallback != null) {
@@ -243,15 +247,22 @@ Here we import _Callback_ and _ReadableMap_ from React Native bridge which corre
 
 First, we set the callbacks as instance variables for reasons that will become clear later. Then we create our _Intent,_ configure it and pass it to _startActivityForResult_. Finally, we wrap the whole thing in a try/catch block to handle any exceptions we might run into.
 
+首先，我们设置回调作为实例变量，原因之后会阐明。接着创建和配置我们的 _Intent_ 并传入 _startActivityForResult_ 。 最后，我们用 try/catch 语句块把整段代码囊括起来，处理期间可能产生的异常。
+
 You should now see an image gallery when you call _openSelectDialog_ on _ImagePicker_. However when you select an image the gallery will just dismiss itself without doing anything. In order to actually return any image data we’ll need to handle the activity result in our module.
 
+现在当你在 _ImagePicker_ 调用 _openSelectDialog_ 时应该看到一个图片画册。但是当选择一个图片时，画册会不做任何操作并消失。为了能返回图片数据，我们需要在模块中处理 activity 的结果。
+
 First we’ll need to add an activity event listener to our react context:
+
+首先我们需要添加一个 activity 的事件监听到我们的 react 代码里：
 
 
 
 public class ImagePickerModule extends ReactContextBaseJavaModule implements ActivityEventListener { public ImagePickerModule(ReactApplicationContext reactContext) { super(reactContext); reactContext.addActivityEventListener(this); } }
 
 Now that we can listen to activity events we can handle _onActivityResult_ and return the image data we want.
+既然我们可以监听 activity 事件，我们可以通过处理 _onActivityResult_ 返回我们想要的图片数据。
 
     @Override
     public void onActivityResult(final int requestCode, final int resultCode, final Intent intent) {
@@ -275,6 +286,8 @@ Now that we can listen to activity events we can handle _onActivityResult_ and r
 
 With this in place we should now be receiving the image URI in the success callback of our call to _openSelectDialog_.
 
+有了这段代码，当我们调用 _openSelectDialog_ ，应该能持续从成功回调中接收到图片的 URI。
+
 
 
 
@@ -286,6 +299,8 @@ With this in place we should now be receiving the image URI in the success callb
     )
 
 To further mirror the behavior of _ImagePickerIOS,_ we could build on the configuration options allowing users to pick images, video, or both as well as support opening the camera directly. As these features would be building on the same concepts already demonstrated, we’ll leave them as an exercise to the reader.
+
+为了进一步模仿 _ImagePickerIOS_ 的功能，我们可以建立设置选项，让用户选择图片，视频或者同时支持直接开启摄像头。因为这些功能运用的事跟上述一样的概念，所以就作为练习留给读者吧。
 
 
 
@@ -306,12 +321,18 @@ To further mirror the behavior of _ImagePickerIOS,_ we could build on the config
 
 
 ### Special Thanks
+### 特别鸣谢
 
 I could not have done this without the help and support of [Infinite Red](http://infinite.red/)Technical Lead [Gant Laborde](https://medium.com/u/6ca0fe37eac1). His intimate knowledge of toast saved my bacon.
 
+如果没有 [Infinite Red](http://infinite.red/) 的技术主管 [Gant Laborde](https://medium.com/u/6ca0fe37eac1) 的帮助和支持，我才能写出这篇文章。他对 toast 深刻的见解真是救我于水火之中。
+
 ### About Ryan Linton
+### 关于 Ryan Linton
 
 Ryan Linton is a Senior Software Engineer at [Infinite Red](http://infinite.red/) who enjoys working closely with clients while bringing their projects to life. When not tweaking styles and queries he can often be found traveling the world or desperately trying to make a dent in his ever growing reading list.
+
+Ryan Linton 是 [Infinite Red](http://infinite.red/) 的资深软件工程师。他喜欢在把他们的项目带到生活中的同时与客户密切合作。在不折腾前端样式和后台数据库的时候，他会到世界各地去旅行或者阅读书籍，以缩短他不断增加的阅读清单。
 
 
 
