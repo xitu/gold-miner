@@ -5,9 +5,9 @@
 * 校对者：
 
 # 使用 `Google` 抓取方式，测试 `React` 驱动的网站 `SEO`
-我最近在测试，用客户端渲染的网站是否能避免被搜索引擎的机器人爬取内容。就如[我这篇文章展现的](https://medium.freecodecamp.com/seo-vs-react-is-it-neccessary-to-render-react-pages-in-the-backend-74ce5015c0c9#.eg3w0nh17)，`React` 并不会损坏搜索引擎的索引。
+我最近进行了一项测试，有关客户端渲染的网站是否能避免被搜索引擎的机器人爬取内容。就如[我这篇文章展现的](https://medium.freecodecamp.com/seo-vs-react-is-it-neccessary-to-render-react-pages-in-the-backend-74ce5015c0c9#.eg3w0nh17)，`React` 并不会破坏搜索引擎的索引。
 
-现在，我开始实施我的下一个步骤。为了了解 `Google` 到底能爬取和索引哪些内容，我已经建立了一个 `React` 的沙盒项目。
+现在，我开始实施我的下一个步骤。为了了解 `Google` 到底能爬取和索引哪些内容，我建立了一个 `React` 的沙盒项目。
 
 ### 建立一个小型的网页应用程序
 
@@ -23,9 +23,9 @@
     cd seo-sandbox/
     npm start
 
-我更改了默认的文本和 `logo`，修改了一些格式，并且 `voilá` —— 一个 100% 由客户端程序渲染的网页，让 `Googlebot` 好好琢磨一下。
+我更改了默认的文本和 `logo`，修改了一些格式，然后瞧瞧看 —— 一个 100% 由客户端程序渲染的网页完成了，让 `Googlebot` 好好琢磨一下。
 
-你可以访问在 [我 Github](https://github.com/pahund/seo-sandbox) 上的项目。
+你可以访问我 [Github 上的项目工程了解更多](https://github.com/pahund/seo-sandbox)。
 
 ### 部署到 `GitHub Pages`
 
@@ -65,7 +65,7 @@ _create-react-app_ 非常有用。几乎和我神同步。在我执行了 _npm r
 
 ### 配置 `Google` 搜索终端
 
-`Google` 为网页所有人提供了一份免费的套件工具叫做 [Google 搜索终端](https://www.google.com/webmasters/tools)，它可以被用于测试他们的网站。
+`Google` 为网站所有者提供了一份免费的套件工具叫做 [Google 搜索终端](https://www.google.com/webmasters/tools)，它可以被用于测试他们的网站。
 
 为了建立这个服务，我为这个网站增加一个 `property`:
 
@@ -83,11 +83,11 @@ _create-react-app_ 非常有用。几乎和我神同步。在我执行了 _npm r
 
 
 
-为了证明我就是这个网站的所有者，我不得不为 `Google` 上传一个特别的文件来找到这个网站。多谢这个有用的方法 _npm rum deploy_，用不了多少时间就能完成。
+为了证明我就是这个网站的所有者，我不得不向 `Google` 上传一个特别的文件来找到这个网站。多谢这个有用的方法 _npm rum deploy_，用不了多少时间就能完成。
  
 ### `Google` 眼中我们网站长什么样
 
-环境配置完毕以后，我现在能使用 `"Fetch as Google"` 工具来用 `Googlebot` 的方式看看我们的 `SEO` 沙盒页面:
+环境配置完毕以后，我现在能使用 `"Fetch as Google"` 工具，用 `Googlebot` 的方式看看我们的 `SEO` 沙盒页面:
 
 
 
@@ -103,7 +103,7 @@ _create-react-app_ 非常有用。几乎和我神同步。在我执行了 _npm r
 
 
 
-当我点击 `"Fetch and Render"` 按钮，我能检查到由 `React` 驱动的页面上哪一部分能真正被 `Googlebot` 检索到:
+当我点击 `"Fetch and Render"` 按钮，就能检查到由 `React` 驱动的页面上哪一部分能真正被 `Googlebot` 检索到:
 
 
 
@@ -155,7 +155,7 @@ _create-react-app_ 非常有用。几乎和我神同步。在我执行了 _npm r
 
 我使用了 4 种超时时间，10 毫秒， 100 毫秒， 1 秒 和 10 秒。
 
-结果是，`Googlebot` 在 10 秒的超时时间上放弃。但是其他 3 个文本块都会在 `"Fetch as Google"` 创体内显示。
+结果表明，`Googlebot` 只会在 10 秒的超时时间上失败。但是其他 3 个超时时间都成功了，并且对应的文本块都会显示在 `"Fetch as Google"` 窗体内。
 
 
 
@@ -173,7 +173,7 @@ _create-react-app_ 非常有用。几乎和我神同步。在我执行了 _npm r
 
 #### `React Router` 让 `Googlebot` 迷了眼
 
-我把[`React Router`](https://react-router.now.sh/) (version 4.0.0-alpha.5) 添加到我的网页应用程序中，它能创建一个菜单条加载不同的子页面（复制并从他们的文档中直接粘贴）:
+我把 [`React Router`](https://react-router.now.sh/) (version 4.0.0-alpha.5) 添加到网页应用程序中，它能创建一个菜单条加载不同的子页面（复制并从他们的文档中直接粘贴）:
 
 
 
@@ -189,7 +189,7 @@ _create-react-app_ 非常有用。几乎和我神同步。在我执行了 _npm r
 
 
 
-太出乎我意料之外了 - 当我点击了 `“Fecth As Google”`后，我只的到了一片绿色背景的页面:
+太出乎意料了 - 当我点击了 `“Fecth As Google”`后，我只看到了一片绿色背景的页面:
 
 
 
@@ -205,14 +205,14 @@ _create-react-app_ 非常有用。几乎和我神同步。在我执行了 _npm r
 
 
 
-为以客户端渲染的界面使用 `React Router` 对搜索引擎的友好性带来了影响。但这是否只是 `React Router 4` 上的问题仍旧需要观察，或者 `React Router 3` 稳定版本上也存在这样的问题。
+以客户端渲染的界面使用 `React Router` 影响了搜索引擎的友好性。但这是否只是 `React Router 4` 上的问题仍旧需要观察，或者 `React Router 3` 稳定版本上也存在这样的问题。
 
 ### 下一步
 
 以下是我想继续测试的内容:
 
 * `Googlebot` 会沿着异步渲染文本块中的链接继续爬取内容么？
-* 我能在 `React` 应用程序中异步地设定元标签，例如 _description_，并且让 `Googlebot` 能理解它们么？
-* `Googlebot` 爬去一个有很多很多页面并且通过 `React` 渲染的网站来说需要花费多少时间？
+* 我能在 `React` 应用程序中异步地设定元标签，例如 _description_，并且让 `Googlebot` 理解它们么？
+* `Googlebot` 需要花费多少时间才能爬取一个通过 `React` 渲染的网站并且其中包含有很多很多的页面？
 
-你可能会有更多的点子。我非常想在评论里看到它们！
+你可能会有更多的点子。请您不吝赐教！
