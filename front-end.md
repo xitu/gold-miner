@@ -1,3 +1,4 @@
+* [[译] 准备充分了嘛就想学函数式编程？(Part 5)](https://gold.xitu.io/entry/582490c3bf22ec0068f9935e?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([luoyaqifei](https://github.com/luoyaqifei) 翻译)
 * [[译] 实践 Redux，第 1 部分： Redux-ORM 基础](https://gold.xitu.io/entry/58249792a0bb9f0058dd30ab?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([luoyaqifei](https://github.com/luoyaqifei) 翻译)
 * [成为一个编译器之「使用 JavaScript 来制作编译器」](https://gold.xitu.io/entry/582343555bbb500059056d4b?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([luoyaqifei](https://github.com/luoyaqifei) 翻译)
 * [准备充分了嘛就想学函数式编程？(Part 3)](https://gold.xitu.io/entry/581fedca2f301e005c2260a0?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Airmacho](https://github.com/Airmacho) 翻译)
