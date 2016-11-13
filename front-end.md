@@ -1,3 +1,4 @@
+* [[译] 全方位提升网站打开速度：前端、后端、新的技术)](https://gold.xitu.io/entry/582492025bbb5000590ef04d?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([luoyaqifei](https://github.com/luoyaqifei) 翻译)
 * [[译] 准备充分了嘛就想学函数式编程？(Part 5)](https://gold.xitu.io/entry/582490c3bf22ec0068f9935e?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([luoyaqifei](https://github.com/luoyaqifei) 翻译)
 * [[译] 实践 Redux，第 1 部分： Redux-ORM 基础](https://gold.xitu.io/entry/58249792a0bb9f0058dd30ab?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([luoyaqifei](https://github.com/luoyaqifei) 翻译)
 * [成为一个编译器之「使用 JavaScript 来制作编译器」](https://gold.xitu.io/entry/582343555bbb500059056d4b?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([luoyaqifei](https://github.com/luoyaqifei) 翻译)
