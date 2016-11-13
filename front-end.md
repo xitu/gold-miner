@@ -1,3 +1,4 @@
+* [成为一个编译器之「使用 JavaScript 来制作编译器」](https://gold.xitu.io/entry/582343555bbb500059056d4b?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([luoyaqifei](https://github.com/luoyaqifei) 翻译)
 * [准备充分了嘛就想学函数式编程？(Part 3)](https://gold.xitu.io/entry/581fedca2f301e005c2260a0?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Airmacho](https://github.com/Airmacho) 翻译)
 * [准备充分了嘛就想学函数式编程？(Part 2)](https://gold.xitu.io/entry/581fed565bbb500059ec1184?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Airmacho](https://github.com/Airmacho) 翻译)
 * [使用多背景来提高感知性能](https://gold.xitu.io/entry/58217e288ac247004f1d1b02?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([cyseria](https://github.com/cyseria) 翻译)
