@@ -141,7 +141,7 @@ web 从一个以文档为中心的平台演变为了头等的应用平台。同�
 
 
 
-_这个_ [_Chrome DevTools Security 面板_](https://developers.google.com/web/updates/2015/12/security-panel?hl=en) _允许你印证安全证书和混合内容错误的问题。_
+_这个_ [_Chrome DevTools Security 面板_](https://developers.google.com/web/updates/2015/12/security-panel?hl=en) **允许你印证安全证书和混合内容错误的问题。**
 
 一些更多的小贴士可以使你的网站更加安全：
 
@@ -188,7 +188,7 @@ _这个_ [_Chrome DevTools Security 面板_](https://developers.google.com/web/u
 
 通过 Web App manifest 安装，你还能获得 [app 安装器横幅](https://developers.google.com/web/fundamentals/engage-and-retain/app-install-banners/?hl=en)，让你有方法可以原生地提示用户来安装你的 PWA，如果他们觉得会经常使用它的话。还可以 [延迟](https://developers.google.com/web/fundamentals/engage-and-retain/app-install-banners/?hl=en#deferring_or_cancelling_the_prompt) 提示，直到用户和你的 app 进行了有意义的交互。Flipkart [找到](https://twitter.com/adityapunjani/status/782426188702633984) 最佳时间来显示这个提示是在他们的订单确认页。
 
-[_Chrome DevTools Application 面板_](https://developers.google.com/web/tools/chrome-devtools/progressive-web-apps) 支持通过 Application > Manifest 来查看你的 Web App manifest：
+[**Chrome DevTools Application 面板**](https://developers.google.com/web/tools/chrome-devtools/progressive-web-apps) 支持通过 Application > Manifest 来查看你的 Web App manifest：
 
 
 
@@ -228,7 +228,7 @@ _这个_ [_Chrome DevTools Security 面板_](https://developers.google.com/web/u
 
 [Realfavicongenerator.net](http://realfavicongenerator.net/) 现在还支持根据你的清单（manifest）预览并自定义闪屏，很方便地节约时间。
 
-_注意：Firefox for Android 和 Opera for Android 也支持 Web 应用程序清单，闪屏和添加到主屏幕的体验。在 iOS 上，Safari 也支持自定义添加到_ [_主屏幕的图标_](https://developer.apple.com/library/ios/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html) _并曾经支持一个_ [_专有的闪屏_](https://gist.github.com/tfausak/2222823) _实现，然而这个在 iOS9 上显得不能用了。我已经填了一个特性请求给 Webkit，以支持 Web App manifest，所以...希望一切顺利吧。_
+**注意：Firefox for Android 和 Opera for Android 也支持 Web 应用程序清单，闪屏和添加到主屏幕的体验。在 iOS 上，Safari 也支持自定义添加到 [主屏幕的图标](https://developer.apple.com/library/ios/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html) 并曾经支持一个 [专有的闪屏](https://gist.github.com/tfausak/2222823) 实现，然而这个在 iOS9 上显得不能用了。我已经填了一个特性请求给 Webkit，以支持 Web App manifest，所以...希望一切顺利吧。**
 
 ### 设计是移动友好的
 
