@@ -60,7 +60,7 @@
 
 无论在你的技术栈中使用了什么库，我想要强调的是在上面列出的一切，在今天都只需要一点小小的工作量就能完成。然而也有一些警告。
 
-**我们知道移动 web 是** [**_慢的_**](https://www.doubleclickbygoogle.com/articles/mobile-speed-matters/)**_。_**
+**我们知道移动 web 是 [**慢的**](https://www.doubleclickbygoogle.com/articles/mobile-speed-matters/)**。
 
 web 从一个以文档为中心的平台演变为了头等的应用平台。同时我们主要的计算能力也从强大的，拥有快速可靠的网络连接的强大桌面机器移动到了相对不给力的，连接通常**慢，断断续续或者两者都存在**的移动设备上。这在下一个 10 亿用户即将上网的世界尤其真实。为了解锁更快的移动 web：
 
@@ -101,7 +101,7 @@ web 从一个以文档为中心的平台演变为了头等的应用平台。同�
 
 
 
-**如果你想要看更复杂的使用 React 开发，并使用 Lighthouse 优化的 PWAs 例子，你可能会感兴趣于：** [_ReactHN_](https://github.com/insin/react-hn)**— 一个使用服务端渲染并支持离线的 HackerNews 客户端 或者_ [_iFixit_](https://github.com/GoogleChrome/sw-precache/tree/master/app-shell-demo)_ — 一个使用 React 开发，但使用了 Redux 进行状态管理的硬件修复指南 app。**
+**如果你想要看更复杂的使用 React 开发，并使用 Lighthouse 优化的 PWAs 例子，你可能会感兴趣于：** [_ReactHN_](https://github.com/insin/react-hn)**— 一个使用服务端渲染并支持离线的 HackerNews 客户端 或者 [_iFixit_](https://github.com/GoogleChrome/sw-precache/tree/master/app-shell-demo) — 一个使用 React 开发，但使用了 Redux 进行状态管理的硬件修复指南 app。**
 
 现在让我们梳理一遍在 Lighthouse 报告中需要清点的每一项，并在系列中继续 React.js 专用的小贴士。
 
