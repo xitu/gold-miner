@@ -15,25 +15,29 @@ This is the first post of my new blog series called Deconstructions. Showcasing 
 
 Straight to the point here it is. Below you can see my clone and my HTML (I changed a few things to make it easier to see):
 
-    
-        
-            
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-            
-        
-    
+
+```
+<div class="timeline-wrapper">
+    <div class="timeline-item">
+        <div class="animated-background">
+            <div class="background-masker header-top"></div>
+            <div class="background-masker header-left"></div>
+            <div class="background-masker header-right"></div>
+            <div class="background-masker header-bottom"></div>
+            <div class="background-masker subheader-left"></div>
+            <div class="background-masker subheader-right"></div>
+            <div class="background-masker subheader-bottom"></div>
+            <div class="background-masker content-top"></div>
+            <div class="background-masker content-first-end"></div>
+            <div class="background-masker content-second-line"></div>
+            <div class="background-masker content-second-end"></div>
+            <div class="background-masker content-third-line"></div>
+            <div class="background-masker content-third-end"></div>
+        </div>
+    </div>
+</div>
+```
+
 
 As you can see the demo only contains three types on elements:
 
