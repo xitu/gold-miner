@@ -1,5 +1,5 @@
 > * 原文地址：[Create React apps with no build configuration](https://github.com/facebookincubator/create-react-app?utm_source=javascriptweekly&utm_medium=email)
-* 原文作者：[facebookincubator](https://github.com/facebookincubator)
+* 原文作者：[Facebook Incubato](https://github.com/facebookincubator)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：
 * 校对者：
