@@ -1,112 +1,112 @@
 > * 原文地址：[Progressive Web Apps with React.js: Part 2 — Page Load Performance](https://medium.com/@addyosmani/progressive-web-apps-with-react-js-part-2-page-load-performance-33b932d97cf2#.o0f4vf64s)
 * 原文作者：[Addy Osmani](https://medium.com/@addyosmani)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[markzhai](https://github.com/markzhai)
 * 校对者：
 
-# Progressive Web Apps with React.js: Part 2 — Page Load Performance
+# 使用 React.js 的渐进式 Web 应用程序：第 2 部分 - 页面加载性能
 
 
-## Part 2 of a new [series](https://medium.com/@addyosmani/progressive-web-apps-with-react-js-part-i-introduction-50679aef2b12#.ysn8uhvkq) walking through tips for shipping mobile web apps optimized using [Lighthouse.](https://github.com/googlechrome/lighthouse) This issue, we’ll be looking at page load performance.
+## 新 [系列](https://medium.com/@addyosmani/progressive-web-apps-with-react-js-part-i-introduction-50679aef2b12#.ysn8uhvkq) 的第二部分会完整地走一遍怎么使用 [Lighthouse.](https://github.com/googlechrome/lighthouse) 来优化移动 web apps。这篇文章，我们来看看页面加载性能。
 
-### Ensure Page load performance is fast
+### 保证页面加载性能是快的
 
-Mobile web speeds matter. On average, faster experiences lead to [70% longer sessions](https://www.doubleclickbygoogle.com/articles/mobile-speed-matters/) and 2 x more mobile ad revenue. Investments in web perf saw the React-based, Flipkart Lite [triple time-on-site](https://developers.google.com/web/showcase/2016/flipkart), GQ get an [80% increase](http://digiday.com/publishers/gq-com-cut-page-load-time-80-percent/) in traffic, Trainline make an [additional 11M in yearly revenue](https://youtu.be/ai-6qwT6ES8?t=462) and Instagram [increase impressions by 33%](http://engineering.instagram.com/posts/193415561023919/performance-&-usage-at-Instagram).
+移动 Web 的速度很关键。平均地，更快的体验会带来 [70% 更长的会话](https://www.doubleclickbygoogle.com/articles/mobile-speed-matters/) 以及两倍以上更多的移动广告收益。Web 性能的投资像是基于 React 的 Flipkart Lite [获得了三倍网站浏览时间](https://developers.google.com/web/showcase/2016/flipkart)， GQ 在流量上得到了 [80% 增长](http://digiday.com/publishers/gq-com-cut-page-load-time-80-percent/)，Trainline 在 [年收益上增长了 11M](https://youtu.be/ai-6qwT6ES8?t=462) 并且 Instagram [增长了 33% 的印象](http://engineering.instagram.com/posts/193415561023919/performance-&-usage-at-Instagram).
 
-There are a few [key user moments](https://www.youtube.com/watch?v=wFwogd4CdwY&index=4&list=PLNYkxOF6rcIB3ci6nwNyLYNU6RDOU3YyL) in loading up your web app:
+在你的 web app 加载时有一些 [关键的用户时刻](https://www.youtube.com/watch?v=wFwogd4CdwY&index=4&list=PLNYkxOF6rcIB3ci6nwNyLYNU6RDOU3YyL)：
 
 
 ![](https://cdn-images-1.medium.com/max/2000/0*KlJk2hhZl3wyn6E4.)
 
-It’s always important to measure and then optimize. Lighthouse’s load performance audits look at:
+测量然后优化总是关键的。Lighthouse 的页面加载检测会关注：
 
-*   [**First meaningful paint**](https://www.quora.com/What-does-First-Meaningful-Paint-mean-in-Web-Performance) (when is the main content of the page visible)
-*   [**Speed Index**](https://sites.google.com/a/webpagetest.org/docs/using-webpagetest/metrics/speed-index) (visual completeness)
-*   **Estimated Input Latency** (when is the main thread available to immediately handle user input)
-*   and **Time To Interactive** (how soon is the app usable & engagable)
+*   [**第一次有意义的绘制**](https://www.quora.com/What-does-First-Meaningful-Paint-mean-in-Web-Performance)（当页面主内容可见）
+*   [**速度指数（Speed Index）**](https://sites.google.com/a/webpagetest.org/docs/using-webpagetest/metrics/speed-index)（可见区域完整）
+*   **估算的输入延迟**（当主线程可以立即处理用户输入）
+*   以及 **抵达可交互的时间**（app 多快达到可用可参与)
 
-_Btw, Paul Irish has done terrific work summarising_ [_interesting metrics for PWAs_](https://www.youtube.com/watch?v=IxXGMesq_8s)_worth keeping an eye out._
+_顺带一提，Paul Irish 做了很了不起的相关总结 [_PWAs 的有趣指标_](https://www.youtube.com/watch?v=IxXGMesq_8s)_值得一看。_
 
-**Good performance goals:**
+**良好性能的目标：**
 
-*   **Follow L in the** [**RAIL performance model**](https://developers.google.com/web/tools/chrome-devtools/profile/evaluate-performance/rail?hl=en)**.** _A+ performance is something all of us should be striving for even if a browser doesn’t support Service Worker. We can still get something meaningful on the screen quickly & only load what we need_
-*   **Under representative network (3G) & hardware conditions**
-*   Be interactive in < 5s on first visit & < 2s on repeat visits once a Service Worker is active.
-*   First load (network-bound), Speed Index of 3,000 or less
-*   Second load (disk-bound because SW): Speed Index of 1,000 or less.
+*   **遵循** [**RAIL 性能模型**](https://developers.google.com/web/tools/chrome-devtools/profile/evaluate-performance/rail?hl=en) 的 L 部分**。** _A+ 的性能是我们所有人都必须力求达到的，即便有的浏览器不支持 Service Worker。我们仍然可以快速地在屏幕上获得一些有意义的内容，并且仅加载我们所需要的_
+*   **在典型网络（3G）和硬件条件下**
+*   首次访问在 5 秒内可交互，重复访问（Service Worker 可用）则在 2 秒内。
+*   首次加载（网络限制下），速度指数在 3000 或者更少。
+*   第二次加载（磁盘限制，因为 Service Worker 可用）：速度指数 1000 或者更少。
 
-Let’s talk a little more about focusing on interactivity via TTI.
+让我们再说说，关于通过 TTI 关注交互性。
 
-### Focus on Time to interactive (TTI)
+### 关注抵达可交互时间（TTI）
 
-Optimizing for interactivity means making the app usable for users as soon as possible (i.e enabling them to click around and have the app react). This is critical for modern web experiences trying to provide first-class user experiences on mobile.
+为交互性优化，也就是使得 app 尽快能对用户可用（比如让他们可以四处点击，app 可以相应）。这对试图在移动设备上提供一流用户体验的现代 web 体验很关键。
 
 
 ![](https://cdn-images-1.medium.com/max/1600/0*qfZvSxxJxPHhXXgb.)
 
-Lighthouse currently expresses TTI as a measure of when layout has stabilized, web fonts are visible and the main thread is available enough to handle user input. There are many ways of tracking TTI manually and what’s important is optimising for metrics that result in experience improvements for your users.
+Lighthouse 现在将 TTI 测量为布局稳定，web 字体可见，并且主线程可以响应用户输入的时间。有很多方法来手动跟踪 TTI，重要的是根据指标进行优化会提升你用户的体验。
 
-For libraries like React, you should be concerned by the [cost of booting up the library](https://aerotwist.com/blog/the-cost-of-frameworks/) on mobile as this can catch folks out. In [ReactHN](https://github.com/insin/react-hn), we accomplished interactivity in under **1700ms** by keeping the size and execution cost of the overall app relatively small despite having multiple views: 11KB gzipped for our app bundle and 107KB for our vendor/React/libraries bundle which looks a little like this in practice:
+对于像 React 这样的库，你应该关心的是在移动设备上 [启用库的代价](https://aerotwist.com/blog/the-cost-of-frameworks/) 因为这会让人们有感知。在 [ReactHN](https://github.com/insin/react-hn)，我们达到了 **1700毫秒** 内可交互，通过保持整个 app 的大小和执行代价相对小，撇开有多个视图：app bundle gzipped 压缩后 11KB，107KB 用于我们的 vendor/React/库 bundle，实践中有点像这样：
 
 
 ![](https://cdn-images-1.medium.com/max/2000/0*N--j53GygKHn2ViI.)
 
 
-Later, for apps with granular functionality, we’ll look at performance patterns like [PRPL](https://www.polymer-project.org/1.0/toolbox/server) which nail fast time-to-interactivity through granular “route-based chunking” while taking advantage of [HTTP/2 Server Push](https://www.igvita.com/2013/06/12/innovating-with-http-2.0-server-push/) (try the [Shop](https://shop.polymer-project.org/) demo to see what we mean).
+之后，对于功能颗粒状的 apps，我们会看看性能模式像是 [PRPL](https://www.polymer-project.org/1.0/toolbox/server)，通过在 [HTTP/2 服务器 Push](https://www.igvita.com/2013/06/12/innovating-with-http-2.0-server-push/) 下利用颗粒状的 “基于路由的分块” 来得到快速的可交互时间。（可以试试 [Shop](https://shop.polymer-project.org/) demo 来看看我们说的是什么）。
 
-Housing.com recently shipped a React experience using a PRPL-like pattern to much praise:
+Housing.com 最近使用了类 PRPL 模式搭载 React 体验，获得了很多赞扬：
 
 
 ![](https://cdn-images-1.medium.com/max/1600/0*55ArR_Z3qt7Az_FW.)
 
 
-Housing.com took advantage of Webpack route-chunking to defer some of the bootup cost of entry pages (loading only what is needed for a route to render). For more detail see [Sam Saccone’s excellent Housing.com perf audit](https://twitter.com/samccone/status/771786445015035904).
+Housing.com 利用 Webpack 路由分块，来推迟入口页面的部分启动消耗（仅加载 route 渲染所需要的）。更多细节请查看 [Sam Saccone 的优秀 Housing.com 性能检测](https://twitter.com/samccone/status/771786445015035904).
 
 
-As did Flipkart:
+Flipkart 也做了类似的：
 
-Note: There are many differing views on what “time to interactive” might mean and it’s possible Lighthouse’s definition of TTI will evolve. Other ways to track it could be the first point after a navigation where you can see a 5 second window with no long tasks or the first point after a text/content paint with a 5s window with no long tasks. Basically, how soon after the page settles is it likely a user will be able to interact with the app?
+注意：关于什么是 “到可交互时间”，有很多不同的看法，Lighthouse 对 TTI 的定义也可能会演变。其他跟踪的方法有导航后第一个 5 秒内 window 没有长任务的时刻，或者一次文本/内容绘制后第一次 5 秒内 window 没有长任务的时刻。基本上，就是页面稳定后多快，用户可以和 app 交互的。
 
-Note: While not a firm requirement, you may also improve visual completeness (Speed Index) by [optimising the critical-rendering path](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/). [Tooling for critical-path CSS optimisation exists](https://github.com/addyosmani/critical-path-css-tools#node-modules) and this optimisation can still have wins in a world with HTTP/2.
+注意：尽管不是强制的要求，你可能也需要提高视觉完整度（速度指数），通过 [优化关键渲染路径](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/)。[关键路径 CSS 优化工具的存在](https://github.com/addyosmani/critical-path-css-tools#node-modules) 以及其优化在 HTTP/2 的世界中依然有效。
 
-### Improving perf with route-based chunking
+### 基于路由分块以提高性能
 
 ### Webpack
 
-_If you’re new to module bundling tools like Webpack,_ [_JS module bundlers_](https://www.youtube.com/watch?v=OhPUaEuEaXk)_(video) might be a useful watch._
+_如果你第一次接触模块打包工具像是 Webpack，看看_ [_JS 模块化打包器_](https://www.youtube.com/watch?v=OhPUaEuEaXk)_(视频) 可能会有帮助。_
 
-Some of today’s JavaScript tooling makes it easy to bundle all of your scripts into a single bundle.js file that gets included in all pages.This means that a lot of the time, you’re likely loading a lot of code that isn’t required at all for the current route. Why load up 500KB of JS for a route when only 50KB will do? We should be throwing out script that isn’t conducive to shipping a fast experience for booting up a route with interactivity
+一些今天的 JavaScript 工具使得将你的所有脚本打包成一个 bundle.js 文件并包含所有页面变得简单。这意味着很多时候，你可能要加载很多对当前路由来说并不需要的代码。为什么一次路由需要加载 500KB 的 JS，而事实上 50KB 就够了呢？我们应该丢开那些无助于获得更快体验的脚本，来加速获得可交互的路由。
 
 
 ![](https://cdn-images-1.medium.com/max/1600/0*z2tqS124xW0GDmcP.)
 
-_Avoid serving large, monolithic bundles (like above) when just serving the minimum functionally viable code a user actually needs for a route will do._
+_当仅提供用户一次 route 所需要的最小功能可达代码就可以的时候，避免提供庞大整块的 bundles（像上图）。_
 
-Code-splitting is one answer to the problem of monolithic bundles. It’s the idea that by defining split-points in your code, it can be split into different files that are lazy loaded on demand. This improves startup time and help us get to being interactive sooner.
-
+代码分割是解决整块的 bundles 的一个方法。想法大致是在你的代码中定义分割点，然后分割成不同的文件进行按需懒加载。这会提升启动时间，帮助我们更快地可交互。
 
 ![](https://cdn-images-1.medium.com/max/2000/0*c9rmq2rp95BN39qg.)
 
-Imagine using an apartment listings app. If we land on a route listing the properties in our area (route-1) — we don’t need the code for viewing the full details for a property (route-2) or scheduling a tour (route-3), so we can serve users just the JavaScript needed for the listings route and dynamically load the rest.
+想象使用一个公寓列表 app。如果我们登陆的路由是列出我们所在区域的地产（route-1）—— 我们不需要查看完整的地产详情的代码（route-2）或者预约一次看房（route-3），所以我们可以仅提供用户列表路由所需要的 JavaScript，然后动态加载剩下的。
 
-This idea of code-splitting by route been used by many apps over the years, but is currently referred to as “[route-based chunking](https://gist.github.com/addyosmani/44678d476b8843fd981ff8011d389724)”. We can enable this setup for React using the Webpack module bundler.
+这些年来，代码分割的想法已经被很多 apps 使用，但现在用 “[基于路由的分块](https://gist.github.com/addyosmani/44678d476b8843fd981ff8011d389724)” 来称呼它。通过 Webpack 模块打包器，我们可以启用 React 上的安装。
 
-### Code-splitting by routes in practice
+### 实践基于路由的代码分块
 
-Webpack supports code-splitting your app into chunks wherever it notices a [require.ensure()](https://webpack.github.io/docs/code-splitting.html) being used (or in [Webpack 2](https://gist.github.com/sokra/27b24881210b56bbaff7), a [System.import](http://moduscreate.com/code-splitting-for-react-router-with-es6-imports/)). These are called “split-points” and Webpack generates a separate bundle for each of them, resolving dependencies as needed.
+Webpack 支持当它发现一个 [require.ensure()](https://webpack.github.io/docs/code-splitting.html) 被使用的时候将你的 app 代码分割成块（或者在 [Webpack 2](https://gist.github.com/sokra/27b24881210b56bbaff7)，一个 [System.import](http://moduscreate.com/code-splitting-for-react-router-with-es6-imports/))。这些被称为 “分割点”，Webpack 会对它们的每一个都生成一个分开的 bundlea，按需解决依赖。
 
-    // Defines a "split-point"
+    // 定义一个 "split-point"
     require.ensure([], function () {
        const details = require('./Details');
-       // Everything needed by require() goes into a separate bundle
-       // require(deps, cb) is asynchronous. It will async load and evaluate
-       // modules, calling cb with the exports of your deps.
+       // 所有被 require() 需要的都会成为分开的 bundle
+       // require(deps, cb) 是异步的。它会异步加载，并且评估
+       // 模块，通过你的 deps 的 exports 调用 cb。
     });
 
+当你的代码需要某些东西，Webpack 会发起一个 JSONP 请求来从服务器获得它。这个和 React Router 结合工作得很好，我们可以在对用户渲染视图之前在依赖（块）中懒加载一个新的路由。
 When your code needs something, Webpack makes a JSONP call to fetch it from the server. This works well with React Router and we can lazy-load in the dependencies (chunks) a new route needs before rendering the view to a user.
 
-Webpack 2 supports [automatic code-splitting with React Router](https://medium.com/modus-create-front-end-development/automatic-code-splitting-for-react-router-w-es6-imports-a0abdaa491e9#.3ryyedhfc) as it can treat System.import calls for modules as import statements, bundling imported filed and their dependencies together. Dependencies won’t collide with the initial entry in your Webpack configuration.
-
+Webpack 2 支持 [使用 React Router 的自动代码分割](https://medium.com/modus-create-front-end-development/automatic-code-splitting-for-react-router-w-es6-imports-a0abdaa491e9#.3ryyedhfc) 因为它可以处理模块上的 System.import 调用为 import 语句，将导入的文件和它们的依赖一起打包。依赖不会与你在 Webpack 设置中的初始入口冲突。
+```JavaScript
     import App from '../containers/App';
 
     function errorLoading(err) {
@@ -130,10 +130,10 @@ Webpack 2 supports [automatic code-splitting with React Router](https://medium.c
         }
       ]
     };
+```
+### 附录：预加载那些路由！
 
-### Bonus: Preload those routes!
-
-Before we continue, one optional addition to your setup is [](https://www.smashingmagazine.com/2016/02/preload-what-is-it-good-for/) from [Resource Hints](https://twitter.com/addyosmani/status/743571393174872064). This gives us a way to declaratively fetch resources without executing them. Preload can be leveraged for preloading Webpack chunks for routes users _are likely_ to navigate to so the cache is already primed with them and they’re instantly available for instantiation.
+在我们继续之前，除了刚才的方法，另一个可选的是 [](https://www.smashingmagazine.com/2016/02/preload-what-is-it-good-for/) 来自 [Resource Hints](https://twitter.com/addyosmani/status/743571393174872064)。这个提供给我们一个方法来宣告式地获取资源而不执行它们。预加载可以用来预加载用户 _可能_ 要去的路由所需要的 Webpack 块，于是缓存已经为他们准备好了，可以在需要的时候立即可用。
 
 
 
@@ -145,16 +145,16 @@ Before we continue, one optional addition to your setup is [](https://www.smashi
 
 
 
-At the time of writing, preload is only implemented in [Chrome](http://caniuse.com/#feat=link-rel-preload), but can be treated as a progressive enhancement for browsers that do support it.
+在写的时候，预加载只能在 [Chrome](http://caniuse.com/#feat=link-rel-preload) 中进行，但是在支持的浏览器中被处理为渐进式增加。
 
-Note: html-webpack-plugin’s [templating and custom-events](https://github.com/ampedandwired/html-webpack-plugin#events) can make setting this up a trivial process with minimal changes. You should however ensure that resources being preloaded are genuinely going to be useful for your averages users journey.
+注意：html-webpack-plugin 的 [模板和自定义事件](https://github.com/ampedandwired/html-webpack-plugin#events) 可以使用最小的改变来让简化这个过程。然后你应该保证预加载的资源真正会对你大部分的用户浏览过程有用。
 
-### Asynchronously loading routes
+### 异步加载路由
 
-Back to code-splitting — in an app using React and [React Router](https://github.com/reactjs/react-router), we can use require.ensure() to asynchronously load a component as soon as ensure gets called. Btw, this needs to be shimmed in Node using the [node-ensure](https://www.npmjs.com/package/node-ensure)package for anyone exploring server-rendering. Pete Hunt covers async loading in [Webpack How-to](https://github.com/petehunt/webpack-howto#9-async-loading).
+让我们回到代码分割（code-splitting）—— 在一个使用 React 和 [React Router](https://github.com/reactjs/react-router) 的 app 里，我们可以使用 require.ensure() 以在 ensure 被调用的时候异步加载一个组件。顺带一提，如果任何人在探索服务器渲染，这个在 Node 里需要被 [node-ensure](https://www.npmjs.com/package/node-ensure) 包来填充。Pete Hunt 在 [Webpack How-to](https://github.com/petehunt/webpack-howto#9-async-loading) 涵盖了异步加载。
 
-In the below example, require.ensure() enables us to lazy load routes as needed, waiting on a component to be fetched before it is used:
-
+在下面的例子里，require.ensure() 使我们可以按需懒加载路由，在组件被使用前等待拉取：
+```JavaScript
     const rootRoute = {
       component: Layout,
       path: '/',
@@ -184,30 +184,31 @@ In the below example, require.ensure() enables us to lazy load routes as needed,
         }
       ]
     }
+```
+_注意：我经常通过 CommonChunksPlugin（minChunks：
+Infinity）来进行上面的安装，所以在我不同的入口点之间有一个带有通用模块的 chunk。这也_ [_极力降低了_](https://github.com/webpack/webpack/issues/368#issuecomment-247212086) _陷入缺省 Webpack runtime 的可能。_
 
-_Note: I often use the above setup with the CommonChunksPlugin (with minChunks: Infinity) so I have one chunk with common modules between my different entry points. This also_ [_minimized_](https://github.com/webpack/webpack/issues/368#issuecomment-247212086) _running into missing Webpack runtime._
+Brian Holt 在 [React 的完整介绍](https://btholt.github.io/complete-intro-to-react/) 对异步路由加载涵盖得很好。通过异步路由的代码分割在 React Router 的目前版本和 [新的 React Router V4](https://gist.github.com/acdlite/a68433004f9d6b4cbc83b5cc3990c194) 都可以使用。
 
-Brian Holt covers async route loading well in a [Complete Intro to React](https://btholt.github.io/complete-intro-to-react/). Code-splitting with async routing is possible with both the current version of React Router and the [new React Router V4](https://gist.github.com/acdlite/a68433004f9d6b4cbc83b5cc3990c194).
+### 通过异步的 getComponent + require.ensure() 的简单宣告式路由分块
 
-### Easy declarative route chunking with async getComponent + require.ensure()
+这有有一个小贴士，可以使代码分割的安装更快。在 React Router，一个 [宣告式的路由](https://github.com/ReactTraining/react-router/blob/master/docs/API.md#route) 来将路由 “/” 映射到组件 `App` 看上去像 `<Route path=”/” component={App}>`.
 
-Here’s a tip for getting code-splitting setup even faster. In React Router, a [declarative route](https://github.com/ReactTraining/react-router/blob/master/docs/API.md#route) for mapping a route “/” to a component `App` looks like `<Route path=”/” component={App}>`.
-
-React Router also supports a handy `[getComponent](https://github.com/ReactTraining/react-router/blob/master/docs/API.md#getcomponentnextstate-callback)` attribute, which is similar to `component` but is asynchronous and is **super nice** for getting code-splitting setup quickly:
+React Router 也支持一个方便的 `[getComponent](https://github.com/ReactTraining/react-router/blob/master/docs/API.md#getcomponentnextstate-callback)` 属性，类似于 `component` 但却是异步的，对快速安装上代码分割**超级有用**：
 
 ```
 <Route
    path="stories/:storyId"
    getComponent={(nextState, cb) => {
-   // async work to find components
+   // 异步地查找 components
   cb(null, Stories)
 }} />
 ```
 
-`getComponent` takes a function defining the next state (which I set to null) and a callback.
+`getComponent` 函数参数包括下一个状态（我设置为 null）和一个回调。
 
-Let’s add some route-based code-splitting to [ReactHN](https://github.com/insin/react-hn). We’ll start with a snippet from our [routes](https://github.com/insin/react-hn/blob/master/src/routes.js#L36) file — this defines require calls for components and React Router routes for each route (e.g news, item, poll, job, comment permalinks etc):
-
+让我们添加一些基于路由的代码分割到 [ReactHN](https://github.com/insin/react-hn)。我们会从 [routes](https://github.com/insin/react-hn/blob/master/src/routes.js#L36) 文件中的一段开始 —— 它定义了组件的 require 调用和对每个路由的 React Router 路由（比如 news, item, poll, job, comment 永久链接等）：
+```JavaScript
     var IndexRoute = require('react-router/lib/IndexRoute')
     var App = require('./App')
     var Item = require('./Item')
@@ -228,19 +229,18 @@ Let’s add some route-based code-splitting to [ReactHN](https://github.com/insi
       <Route path="user/:id" component={UserProfile}/>
       <Route path="*" component={NotFound}/>
     </Route>
+```
 
+ReactHN 现在提供给用户一个整块包含_所有_路由的 JS bundle。让我们将它转换为路由分块，只提供一次路由真正需要的代码，从 comment 的永久链接开始（comment/:id）：
 
-ReactHN currently serve users a monolithic bundle of JS with code for _all_routes. Let’s switch it up to route-chunking and only serve exactly the code needed for a route, starting with comment permalinks (comment/:id):
-
-So we first delete the implicit require for the permalink component:
+所以我们首先删了对永久链接组件的隐式 require：
 
     var PermalinkedComment = require(‘./PermalinkedComment’)
 
-Then we take our route..
+然后开始我们的路由..
 
 
-
-And update it with some declarative getComponent goodness. We’ve got our require.ensure() call to lazy-load in our route and this is all we need to do for code-splitting:
+然后使用宣告式的 getComponent 来更新它。我们在路由中使用 require.ensure() 调用来懒加载，而这就是我们所需要做的一切了：
 
     <Route
       path="comment/:id"
@@ -251,19 +251,19 @@ And update it with some declarative getComponent goodness. We’ve got our requi
       }}
     />
 
-OMG beautiful. And..that’s it. Seriously. We can apply this to the rest of our routes and run webpack. It will correctly find the require.ensure() calls and split our code as we intended.
+Orz 太美了。这..就搞定了。不骗你。我们可以把这个用到剩下的路由上，然后运行 webpack。它会正确地找到 require.ensure() 调用，然后如我们想要地区分隔代码。
 
 
 ![](https://cdn-images-1.medium.com/max/1600/0*glKcFK9_RLNk9AyR.)
 
-After applying declarative code-splitting to many more of our routes we can see our route-chunking in action, only loading up the code needed for a route (which we can precache in Service Worker) as needed:
+在应用宣告式的代码分割到更多我们的路由后，可以看到路由分块在运作，仅仅会加载一次路由所需要的代码（在 Service Worker 可以预缓存起来）：
 
 
 ![](https://cdn-images-1.medium.com/max/1600/0*tVvolw4FTKjNFAnY.)
 
 
 
-Reminder: A number of drop-in Webpack plugins for Service Worker caching are available:
+提醒：有许多可用于 Service Worker 的简单 Webpack 插件：
 
 *   [sw-precache-webpack-plugin](https://github.com/goldhand/sw-precache-webpack-plugin) which uses sw-precache under the hood
 *   [offline-plugin](https://github.com/NekR/offline-plugin) which is used by react-boilerplate
@@ -273,7 +273,7 @@ Reminder: A number of drop-in Webpack plugins for Service Worker caching are ava
 ![](https://cdn-images-1.medium.com/max/1600/0*QphlrnwHQiOsB06w.)
 
 
-To identify common modules used across different routes and put them in a commons chunk, use the [CommonsChunkPlugin](https://webpack.github.io/docs/list-of-plugins.html#commonschunkplugin). It requires two script tags to be used per page, one for the commons chunk and one for the entry chunk for a route.
+为了识别出在不同路由使用的通用模块并把它们放在一个通用的分块，需要使用 [CommonsChunkPlugin](https://webpack.github.io/docs/list-of-plugins.html#commonschunkplugin)。它需要在每个页面 requires 两个 script 标签，一个用于 commons 分块，另一个用于一次路由的入口分块。
 
     const CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
     module.exports = {
@@ -290,44 +290,44 @@ To identify common modules used across different routes and put them in a common
         ]
     }
 
-The Webpack [— display-chunks flag](https://blog.madewithlove.be/post/webpack-your-bags/) is useful for seeing what modules occur in which chunks. This helps narrow down what dependencies are being duplicated in chunks and can hint at whether or not it’s worth enabling the CommonChunksPlugin in your project. Here’s a project with multiple components that detected a duplicate Mustache.js dependency between different chunks:
+Webpack 的 [— display-chunks 标志](https://blog.madewithlove.be/post/webpack-your-bags/) 对于查看模块在哪个分块中出现很有用。这个帮助我们减少分块中重复的依赖，并且能提示在你的项目中开启 CommonChunksPlugin 是否值得。这是一个带有多个组件的项目，在不同分块间检测到重复的 Mustache.js 依赖：
 
 
 ![](https://cdn-images-1.medium.com/max/1600/0*YMvoz-W2HL3v2MIs.)
 
 
-Webpack 1 also supports deduplication of libraries in your dependency trees using the [DedupePlugin](https://github.com/webpack/docs/wiki/optimization#deduplication). In Webpack 2, tree-shaking should mostly eliminate the need for this.
+Webpack 1 也支持通过 [DedupePlugin](https://github.com/webpack/docs/wiki/optimization#deduplication) 以在你的依赖树中进行依赖库的去重。在 Webpack 2，tree-shaking 应该淘汰了这个的需求。
 
-**More Webpack tips**
+**更多 Webpack 的小贴士**
 
-*   The number of require.ensure() calls in your codebase generally correlates to the number of bundles that will be generated. It’s useful to be aware of this when heavily using ensure across your codebase.
-*   [Tree-shaking in Webpack2](https://medium.com/modus-create-front-end-development/webpack-2-tree-shaking-configuration-9f1de90f3233) will help remove unused exports. This can help keep your bundle sizes smaller.
-*   Also, be careful to avoid require.ensure() calls in common/shared bundles. You might find this creates entry point references which have assumptions about the dependencies that have already been loaded.
-*   In Webpack 2, System.import does not currently work with server-rendering but I’ve shared some notes about how to work around this on [StackOverflow](http://stackoverflow.com/a/39088208).
-*   If optimising for build speed, look at the [Dll plugin](https://github.com/webpack/docs/wiki/list-of-plugins), [parallel-webpack](https://www.npmjs.com/package/parallel-webpack) and targeted builds
-*   If you need to **async** or **defer** scripts with Webpack, see [script-ext-html-webpack-plugin](https://github.com/numical/script-ext-html-webpack-plugin)
+*   你的代码库中 require.ensure() 调用的数目通常会关联到生成的 bundles 的数目。在代码库中大量使用 ensure 的时候意识到这点很有用。
+*   [Webpack2 的 Tree-shaking](https://medium.com/modus-create-front-end-development/webpack-2-tree-shaking-configuration-9f1de90f3233) 会帮助删除没用的 exports，这可以让你的 bundle 尺寸变小。
+*   另外，小心避免在 通用/共享的 bundles 里面调用 require.ensure()。你可能会发现这会创建入口点引用，关于那些已经被加载了的依赖的假设。
+*   在 Webpack 2，System.import 目前不支持服务端渲染，但我已经在 [StackOverflow](http://stackoverflow.com/a/39088208) 分享了怎么去处理这个问题。
+*   如果需要优化编译速度，可以看看 [Dll plugin](https://github.com/webpack/docs/wiki/list-of-plugins)，[parallel-webpack](https://www.npmjs.com/package/parallel-webpack) 以及目标的编译。
+*   如果你希望通过 Webpack **异步** 或者 **延迟** 脚本，看看 [script-ext-html-webpack-plugin](https://github.com/numical/script-ext-html-webpack-plugin)
 
-**Detecting bloat in Webpack builds**
+**在 Webpack 编译中检测臃肿**
 
-The Webpack community have many web-established analysers for builds including [http://webpack.github.io/analyse/](http://webpack.github.io/analyse/),[https://chrisbateman.github.io/webpack-visualizer/](https://chrisbateman.github.io/webpack-visualizer/), a[n](https://chrisbateman.github.io/webpack-visualizer/)d[https://alexkuz.github.io/stellar-webpack/.](https://alexkuz.github.io/stellar-webpack/) These are handy for understanding what your largest modules are.
+Webpack 社区有很多建立在 Web 上的编译分析器包括 [http://webpack.github.io/analyse/](http://webpack.github.io/analyse/)，[https://chrisbateman.github.io/webpack-visualizer/](https://chrisbateman.github.io/webpack-visualizer/)，和 [https://alexkuz.github.io/stellar-webpack/](https://alexkuz.github.io/stellar-webpack/)。这些对于理解你最大的模块是什么很有用。
 
-[**source-map-explorer**](https://github.com/danvk/source-map-explorer) (via Paul Irish) is also _fantastic_ for understanding code bloat through source maps. Look at this tree-map visualisation with per-file LOC and % breakdowns for the ReactHN Webpack bundle:
+[**source-map-explorer**](https://github.com/danvk/source-map-explorer) (来自 Paul Irish) 通过 source maps 来理解代码臃肿，也_超级棒_的。看看这个对 ReactHN Webpack bundle 的 tree-map 可视化，带有每个文件的代码行数，以及百分比的统计分析：
 
 
 ![](https://cdn-images-1.medium.com/max/1600/0*D5j-Jv_FVkMigRyZ.)
 
 
 
-You might also be interested in [**coverage-ext**](https://github.com/samccone/coverage-ext) by Sam Saccone for generating code coverage for any webapp. This is useful for understanding how much code of the code you’re shipping down is actually being executed.
+你可能也会对来自 Sam Saccone 的 [**coverage-ext**](https://github.com/samccone/coverage-ext) 感兴趣，它可以用来对任何 webapp 生成代码覆盖率。这个对于理解你的代码中有多少实际会被执行到很有用。
 
-### Beyond code-splitting: PRPL Pattern
+### 代码分割（code-splitting）之上：PRPL 模式
 
-Polymer discovered an interesting web performance pattern for granularly serving apps called [PRPL](https://www.polymer-project.org/1.0/toolbox/server) (see [Kevin’s I/O talk](https://www.youtube.com/watch?v=J4i0xJnQUzU)). This pattern tries to optimise for interactivity and stands for:
+Polymer 发现了一个有趣的 web 性能模式，用于精细服务的 apps，称为 [PRPL](https://www.polymer-project.org/1.0/toolbox/server)（看看 [Kevin 的 I/O 演讲](https://www.youtube.com/watch?v=J4i0xJnQUzU))。这个模式尝试为交互性优化，并且代表了：
 
-*   (P)ush critical resources for the initial route
-*   (R)ender initial route and get it interactive as soon as possible
-*   (P)re-cache the remaining routes using Service Worker
-*   (L)azy-load and lazily instantiate parts of the app as the user moves through the application
+*   (P)ush，对于初始路由推送关键资源。
+*   (R)ender，渲染初始路由，并使它尽快变得可交互。
+*   (P)re-cache，通过 Service Worker 预缓存剩下的路由。
+*   (L)azy-load，根据用户在应用中的移动懒加载并懒初始化 apps 中对应的部分。
 
 
 ![](https://cdn-images-1.medium.com/max/2000/0*2XxuNsDEp1-4VuoU.)
@@ -352,27 +352,27 @@ PRPL can be applied to any app, as Flipkart recently demonstrated on their React
 
 This builds on some of the thinking we talked about earlier with route-chunking. With PRPL, the server and our Service Worker work together to precache resources for intactive routes. When a user navigates around your app and changes routes, we lazy-load resources for routes not cached yet and create the required views.
 
-### Implementing PRPL
+### 实现 PRPL
 
-**tl;dr: Webpack’s require.ensure() with an async ‘getComponent’ and React Router are the lowest friction paths to a PRPL-style performance pattern**
+**太长了，所以没有看：Webpack 的 require.ensure() 以及异步的 ‘getComponent’，还有 React Router 是到 PRPL 风格性能模式的最小摩擦路径**
 
 ![](https://cdn-images-1.medium.com/max/1600/0*-llrY94drXMjBUW6.)
 
 
-A big part of PRPL is turning the JS bundling mindset upside down and delivering resources as close to the granularity in which they are authored as possible (at least in terms of functionally independent modules). With Webpack, this is all about route-chunking which we’ve already covered.
+PRPL 的一大部分在于将 JS 捆包思维方式放下，并像编写时候那样精细地传输资源（至少从功能独立模块角度上）。通过 Webpack，这就是我们已经说过的路由分块。
 
-Push critical resources for the initial route. Ideally, using [HTTP/2 Server Push](https://www.igvita.com/2013/06/12/innovating-with-http-2.0-server-push/) however don’t let this be a blocker for trying to go down a PRPL-like path. You can achieve substantially similar results to “full” PRPL in many cases without using H/2 Push, but just sending [preload headers](https://www.smashingmagazine.com/2016/02/preload-what-is-it-good-for/) and H/2 alone.
+对于初始路由推送关键资源。理想情况下，使用 [HTTP/2 服务端推送](https://www.igvita.com/2013/06/12/innovating-with-http-2.0-server-push/)，但即便没有它，也不会成为实现类 PRPL 路径的阻碍。即便没有 H/2 推送，你也可以实现一个大致和“完整” PRPL 类似的结果，只需要发送 [预加载头](https://www.smashingmagazine.com/2016/02/preload-what-is-it-good-for/) 而不需要 H/2。
 
-See this production waterfall by Flipkart of their before/after wins:
+看看 Flipkart 他们前后的生产瀑布：
 
 
 ![](https://cdn-images-1.medium.com/max/2000/0*-hLp_Acvig_s4Uop.)
 
 
-Webpack has support for H/2 in the form of [AggressiveSplittingPlugin](https://github.com/webpack/webpack/tree/master/examples/http2-aggressive-splitting).
+Webpack 已经通过 [AggressiveSplittingPlugin](https://github.com/webpack/webpack/tree/master/examples/http2-aggressive-splitting) 的形式支持了 H/2。
 
-AggressiveSplittingPlugin splits every chunk until it reaches the specified maxSize as we can see with a short example below:
-
+AggressiveSplittingPlugin 分割每个块直到它到达了指定的 maxSize，正如我们在下面的例子里可见的：
+```
     module.exports = {
         entry: "./example",
         output: {
@@ -386,42 +386,42 @@ AggressiveSplittingPlugin splits every chunk until it reaches the specified maxS
                 maxSize: 50000
             }),
     // ...
+```
+查看官方 [plugin page](https://github.com/webpack/webpack/tree/master/examples/http2-aggressive-splitting)，以获得关于更多细节的例子。[学习 HTTP/2 推送实验的课程](https://docs.google.com/document/d/1K0NykTXBbbbTlv60t5MyJvXjqKGsCVNYHyLEXIxYMv0/preview?pref=2&pli=1) 和 [真实世界 HTTP/2](https://99designs.com.au/tech-blog/blog/2016/07/14/real-world-http-2-400gb-of-images-per-day/) 也值得一读。
 
-See the official [plugin page](https://github.com/webpack/webpack/tree/master/examples/http2-aggressive-splitting) with examples for more details. [Lessons learned experimenting with HTTP/2 Push](https://docs.google.com/document/d/1K0NykTXBbbbTlv60t5MyJvXjqKGsCVNYHyLEXIxYMv0/preview?pref=2&pli=1) and [Real World HTTP/2](https://99designs.com.au/tech-blog/blog/2016/07/14/real-world-http-2-400gb-of-images-per-day/) are also worth a read.
+*   渲染初始路由：这实在取决于你使用的框架和库。
+*   预缓存剩下的路由。对于缓存，我们依赖于 Service Worker。[sw-precache](https://github.com/GoogleChrome/sw-precache) 对于生成用于静态资源预缓存的 Service Worker 很棒，对于 Webpack 我们可以使用 [SWPrecacheWebpackPlugin](https://www.npmjs.com/package/sw-precache-webpack-plugin)。
+*   按需懒加载并创建剩下的路由 —— 在 Webpack 领域，require.ensure() 和 System.import() 是你的朋友。
 
-*   Rendering initial routes: this is really up to the framework/library you’re using.
-*   Pre-caching remaining routes. For caching, we rely on Service Worker. [sw-precache](https://github.com/GoogleChrome/sw-precache) is great for generating a Service Worker for static asset precaching and for Webpack we can use [SWPrecacheWebpackPlugin](https://www.npmjs.com/package/sw-precache-webpack-plugin).
-*   Lazy-load and create remaining routes on demand — require.ensure() and System.import() are your friend in Webpack land.
+### 通过 Webpack 的 Cache-busting 和长期缓存
 
-### Cache-busting & long-term caching with Webpack
+**为什么关心静态资源版本？**
 
-**Why care about static asset versioning?**
+静态资源指的是我们页面中像是脚本，stylesheets 和图片这样的资源。当用户第一次访问我们页面的时候，他们需要其需要的所有资源。比如说当我们落到一个路由的时候，JavaScript 块和上次访问之际并没有改变 —— 我们不必重新抓取这些脚本因为他们已经在浏览器缓存中存在了。更少的网络请求对 web 性能来说是收益。
 
-Static assets refer to our page’s static resources like scripts, stylesheets and images. When users visit our page for the first time, they need to download all of the resources used by the it. Let’s say we land on a route and the JavaScript chunks needed haven’t changed since the last time the page was visited — we shouldn’t have to re-fetch these scripts because they should already exist in the browser cache. Fewer network requests is a win for web performance.
+通常地，我们使用对每个文件设置 [expires 头](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching?hl=en) 来达到目的。一个 expires 头只意味着我们可以告诉浏览器，避免在指定时间内（比如说1年）发起另一个对该文件的请求到服务器。随着代码演变和重新部署，我们想要确保用户可以获得最新的文件，如果没有改变的话则不需要重新下载资源。
 
-Normally, we accomplish this by setting up an [expires header](https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching?hl=en) for each of our files. An expires header just means that we can tell the browser to avoid making another request to the server for this file for a specific amount of time (e.g 1 year). As codebases evolve and are redeployed we want to make sure users get the freshest files without having to re-download resources if they haven’t changed.
+[Cache-busting](https://css-tricks.com/strategies-for-cache-busting-css/) 通过在文件名后面附加字符串来完成这个 —— 他可以是一个编译版本（比如 src=”chunk.js?v=1.2.0”），一个 timestamp 或者别的什么。我倾向于添加一个文件内容的 hash 到文件名（比如 chunk.d9834554decb6a8j.js）因为这个在文件内容发生改变的时候总是会改变。MD5 hashing 在 Webpack 社区经常被用来做这个来生成 16 字节长的 ‘概要’。
 
-[Cache-busting](https://css-tricks.com/strategies-for-cache-busting-css/) accomplishes this by appending a string to filenames — it could be a build version (e.g src=”chunk.js?v=1.2.0”), a timestamp or something else. I prefer to adding a hash of the file contents to the filename (e.g chunk.d9834554decb6a8j.js) as this should always change when the contents of the file changes. MD5 hashing is commonly used in the Webpack community for this purpose which generates a ‘summary’ value 16 bytes long.
+[_通过 Webpack 的静态资源长期缓存_](https://medium.com/@okonetchnikov/long-term-caching-of-static-assets-with-webpack-1ecb139adb95) _是关于这个主题的优秀读物，你应该去看一看。我试图在下面涵盖其涉及到的主要内容。_
 
-[_Long-term caching of static-assets with Webpack_](https://medium.com/@okonetchnikov/long-term-caching-of-static-assets-with-webpack-1ecb139adb95) _is an excellent read on this topic and you should check it out. I try to cover the main points of what’s involved otherwise below._
+**在 Webpack 中通过内容哈希来做资源版本**
 
-**Asset versioning using content-hashing in Webpack**
-
-In Webpack, asset versioning using content hashing is setup [[chunkhash]](https://webpack.github.io/docs/long-term-caching.html) in our Webpack config as follows:
+在 Webpack 设置中加上如下内容来启用基于内容哈希的资源版本 [[chunkhash]](https://webpack.github.io/docs/long-term-caching.html)：
 
     filename: ‘[name].[chunkhash].js’,
     chunkFilename: ‘[name].[chunkhash].js’
 
-We also want to make sure the normal [name].js and content-hashed ([name].[chunkhash].js) filenames are always correctly referenced in our HTML files. This is the difference between referencing and `<script src=”chunk”.js”> and <script src=”chunk.d9834554decb6a8j.js”>`.
+我们也想要保证常规的 [name].js 和 内容哈希 ([name].[chunkhash].js) 文件名在我们的 HTML 文件被正确引用。不同之处在于引用 `<script src=”chunk”.js”>` 和 `<script src=”chunk.d9834554decb6a8j.js”>`。
 
-Below is a commented Webpack config sample that includes a few other plugins that smooth over getting long-term caching setup.
+下面是一个注释了的 Webpack 设置样例，包括了一些其他的插件来使得长期缓存的安装更优雅。
 
-```
+```JavaScript
 const path = require('path');
 const webpack = require('webpack');
-// Use webpack-manifest-plugin to generate asset manifests with a mapping from source files to their corresponding outputs. Webpack uses IDs instead of module names to keep generated files small in size. IDs get generated and mapped to chunk filenames before being put in the chunk manifest (which goes into our entry chunk). Unfortunately, any changes to our code update the entry chunk including the new manifest, invalidating our caching.
+// 使用 webpack-manifest-plugin 来生成包含了源文件到对应输出的映射的资源清单。Webpack 使用 IDs 而不是模块名来保持生成的文件尽量小。IDs 在它们被放进 chunk 清单之前被生成并映射到 chunk 的文件名（会跑到我们的入口 chunk）。不幸的是，任何对代码的改变都会更新入口 chunk 包括新的清单，并刷新我们的缓存。
 const ManifestPlugin = require('webpack-manifest-plugin');
-// We fix this with chunk-manifest-webpack-plugin, which puts the manifest in a completely separate JSON file of its own.
+// 我们通过 chunk-manifest-webpack-plugin 来修复这个问题，它会将清单放到一个完全独立的 JSON 文件。
 const ChunkManifestPlugin = require('chunk-manifest-webpack-plugin');
 module.exports = {
   entry: {
@@ -443,47 +443,47 @@ module.exports = {
       filename: "chunk-manifest.json",
       manifestVariable: "webpackManifest"
     }),
-    // Work around non-deterministic ordering for modules. Covered more in the long-term caching of static assets with Webpack post.
+    // 对非确定的模块顺序的权宜之计。在通过 Webpack 的静态资源长期缓存文章中有更多介绍
     new webpack.optimize.OccurenceOrderPlugin()
   ]
 };
 ```
 
-Now that we have a build of the chunk-manifest JSON, we need to inline it into our HTML so that Webpack actually has access to it when the page boots up. So include the output of the above in a `<script>` tag.
+现在我们有了这个 chunk-清单 JSON 的编译，我们需要把它内联（inline）到我们的 HTML，那么 Webpack 就能实际在页面启动时真正对其有访问权。所以在 `<script>` 标签中加上上面的输出。
 
-Automatically inlining this script in HTML can be achieved using the [html-webpack-plugin](https://github.com/ampedandwired/html-webpack-plugin).
+通过使用 [html-webpack-plugin](https://github.com/ampedandwired/html-webpack-plugin) 可以实现自动将脚本内联到 HTML 中。
 
-Note: Webpack are hoping to simplify the steps required for this long-term caching setup from ~4–1 by having [no shared ID range](https://jakearchibald.com/2016/caching-best-practices/).
+注意：Webpack 理想上可以通过 [no shared ID range](https://jakearchibald.com/2016/caching-best-practices/) 来简化启用长期缓存的步骤（见~4–1）。
 
-To learn more about HTTP [Caching best practices](https://jakearchibald.com/2016/caching-best-practices/), read Jake Archibald’s excellent write-up.
+如果要学习更多 HTTP 的 [缓存最佳实践](https://jakearchibald.com/2016/caching-best-practices/)，可以阅读 Jake Archibald 的优秀文章。
 
-### Further reading
+### 更多阅读
 
-*   [Webpack’s documentation on code-splitting](https://webpack.github.io/docs/code-splitting.html)
-*   Formidable’s OSS Playbook’s on Webpack [code-splitting](https://formidable.com/open-source/playbook/docs/frontend/webpack-code-splitting/) and [shared libraries](https://formidable.com/open-source/playbook/docs/frontend/webpack-shared-libs/)
-*   [Progressive Web Apps with Webpack](http://michalzalecki.com/progressive-web-apps-with-webpack)
-*   [Advanced Webpack Part 2&#8202;—&#8202;Code Splitting](https://getpocket.com/redirect?url=http%3A%2F%2Fjonathancreamer.com%2Fadvanced-webpack-part-2-code-splitting%2F&amp;formCheck=0b0d10781e025a205b05e2941ffdc845)
-*   [Progressive loading for modern web applications via code splitting](https://medium.com/@lavrton/progressive-loading-for-modern-web-applications-via-code-splitting-fb43999735c6#.1965mrwlr)
-*   [Loading dependencies asynchronously in React components](https://getpocket.com/redirect?url=https%3A%2F%2Ftailordev.fr%2Fblog%2F2016%2F03%2F17%2Floading-dependencies-asynchronously-in-react-components%2F&amp;formCheck=0b0d10781e025a205b05e2941ffdc845)
-*   [Webpack Plugins we been keeping on the DLL](https://medium.com/@soederpop/webpack-plugins-been-we-been-keepin-on-the-dll-cdfdd6cb8cd7)
-*   [Automatic Code Splitting for React Router w/ ES6 Imports&#8202;—&#8202;Modus Create](https://getpocket.com/redirect?url=https%3A%2F%2Fmedium.com%2Fmodus-create-front-end-development%2Fautomatic-code-splitting-for-react-router-w-es6-imports-a0abdaa491e9%23.twoltv57f&amp;formCheck=0b0d10781e025a205b05e2941ffdc845)
-*   [Using webpack and react-router for lazyloading and code-splitting not loading](https://getpocket.com/redirect?url=http%3A%2F%2Fstackoverflow.com%2Fquestions%2F34925717%2Fusing-webpack-and-react-router-for-lazyloading-and-code-splitting-not-loading&amp;formCheck=0b0d10781e025a205b05e2941ffdc845)
-*   [Isomorphic/Universal rendering/routing/data-fetching with React in real life](https://reactjsnews.com/isomorphic-react-in-real-life)
-*   [A Lazy Isomorphic React Experiment](https://getpocket.com/redirect?url=http%3A%2F%2Fblog.scottlogic.com%2F2016%2F02%2F05%2Fa-lazy-isomorphic-react-experiment.html&amp;formCheck=0b0d10781e025a205b05e2941ffdc845)
-*   [Server Rendering Lazy Routes](https://getpocket.com/redirect?url=https%3A%2F%2Fgithub.com%2Fryanflorence%2Fexample-react-router-server-rendering-lazy-routes&amp;formCheck=0b0d10781e025a205b05e2941ffdc845) with React Router and code-splitting
-*   [React on the server for beginners&#8202;—&#8202;building a universal React app](https://scotch.io/tutorials/react-on-the-server-for-beginners-build-a-universal-react-and-node-app)
-*   [React.js Apps with Pages](https://getpocket.com/redirect?url=http%3A%2F%2Fblog.mxstbr.com%2F2016%2F01%2Freact-apps-with-pages%2F&amp;formCheck=0b0d10781e025a205b05e2941ffdc845)
-*   [Building the World Bank data site as a fast-loading, single-page app with code splitting](https://getpocket.com/redirect?url=https%3A%2F%2Fwiredcraft.com%2Fblog%2Fcode-splitting-single-page-app%2F&amp;formCheck=0b0d10781e025a205b05e2941ffdc845)
-*   [Implementing PRPL in Gatsby (React.js static site generator)](https://github.com/gatsbyjs/gatsby/issues/431)
+*   [Webpack 关于代码分割的文档](https://webpack.github.io/docs/code-splitting.html)
+*   Formidable 的关于 Webpack 的 OSS Playbook [代码分割](https://formidable.com/open-source/playbook/docs/frontend/webpack-code-splitting/) and [shared libraries](https://formidable.com/open-source/playbook/docs/frontend/webpack-shared-libs/)
+*   [使用 Webpack 的渐进式 Web Apps](http://michalzalecki.com/progressive-web-apps-with-webpack)
+*   [高级 Webpack Part 2&#8202;—&#8202;代码分割](https://getpocket.com/redirect?url=http%3A%2F%2Fjonathancreamer.com%2Fadvanced-webpack-part-2-code-splitting%2F&amp;formCheck=0b0d10781e025a205b05e2941ffdc845)
+*   [为现代 web 应用程序通过代码分割来渐进加载](https://medium.com/@lavrton/progressive-loading-for-modern-web-applications-via-code-splitting-fb43999735c6#.1965mrwlr)
+*   [在 React 组件中异步加载依赖](https://getpocket.com/redirect?url=https%3A%2F%2Ftailordev.fr%2Fblog%2F2016%2F03%2F17%2Floading-dependencies-asynchronously-in-react-components%2F&amp;formCheck=0b0d10781e025a205b05e2941ffdc845)
+*   [我们继续前进在 Webpack 插件 DLL](https://medium.com/@soederpop/webpack-plugins-been-we-been-keepin-on-the-dll-cdfdd6cb8cd7)
+*   [自动代码分割用于 React Router 和 ES6 Imports&#8202;—&#8202;Modus Create](https://getpocket.com/redirect?url=https%3A%2F%2Fmedium.com%2Fmodus-create-front-end-development%2Fautomatic-code-splitting-for-react-router-w-es6-imports-a0abdaa491e9%23.twoltv57f&amp;formCheck=0b0d10781e025a205b05e2941ffdc845)
+*   [使用 webpack 和 react-router 于懒加载和代码分割没有去加载](https://getpocket.com/redirect?url=http%3A%2F%2Fstackoverflow.com%2Fquestions%2F34925717%2Fusing-webpack-and-react-router-for-lazyloading-and-code-splitting-not-loading&amp;formCheck=0b0d10781e025a205b05e2941ffdc845)
+*   [在现实生活通过 React 同构/通用渲染/路由/数据抓取](https://reactjsnews.com/isomorphic-react-in-real-life)
+*   [一个懒得同构 React 实验](https://getpocket.com/redirect?url=http%3A%2F%2Fblog.scottlogic.com%2F2016%2F02%2F05%2Fa-lazy-isomorphic-react-experiment.html&amp;formCheck=0b0d10781e025a205b05e2941ffdc845)
+*   [服务端渲染懒路由](https://getpocket.com/redirect?url=https%3A%2F%2Fgithub.com%2Fryanflorence%2Fexample-react-router-server-rendering-lazy-routes&amp;formCheck=0b0d10781e025a205b05e2941ffdc845) 基于 React Router 和代码分割
+*   [给初学者的 React 在服务端&#8202;—&#8202;构建一个通用的 React app](https://scotch.io/tutorials/react-on-the-server-for-beginners-build-a-universal-react-and-node-app)
+*   [有页面的 React.js Apps](https://getpocket.com/redirect?url=http%3A%2F%2Fblog.mxstbr.com%2F2016%2F01%2Freact-apps-with-pages%2F&amp;formCheck=0b0d10781e025a205b05e2941ffdc845)
+*   [将世界银行数据网站构建为使用代码分割的快速加载单页应用](https://getpocket.com/redirect?url=https%3A%2F%2Fwiredcraft.com%2Fblog%2Fcode-splitting-single-page-app%2F&amp;formCheck=0b0d10781e025a205b05e2941ffdc845)
+*   [在 Gatsby 实现 PRPL（React.js 静态网站生成器）](https://github.com/gatsbyjs/gatsby/issues/431)
 
-#### Advanced Module Bundling optimization reads
+#### 高级模块打包优化读物
 
-*   [The cost of modules](https://nolanlawson.com/2016/08/15/the-cost-of-small-modules/)
-*   [How RollUp and Closure Compiler mitigate the cost of modules](https://twitter.com/nolanlawson/status/768525330113925121)
-*   [The cost of transpiling ES2015 in 2016](https://github.com/samccone/The-cost-of-transpiling-es2015-in-2016)
+*   [模块化的代价](https://nolanlawson.com/2016/08/15/the-cost-of-small-modules/)
+*   [RollUp 和 Closure Compiler 如何减轻模块的代价](https://twitter.com/nolanlawson/status/768525330113925121)
+*   [在 2016 年转译 ES2015 的代价](https://github.com/samccone/The-cost-of-transpiling-es2015-in-2016)
 
-In part 3 of this series, we’ll look at [**how to get your React PWA working offline and under flaky network conditions**](https://medium.com/@addyosmani/progressive-web-apps-with-react-js-part-3-offline-support-and-network-resilience-c84db889162c#.tcspudthd).
+在系列文章第三篇中，我们会来看看 [**怎么使你的 React PWA 能离线和断续的网络状态下工作**](https://medium.com/@addyosmani/progressive-web-apps-with-react-js-part-3-offline-support-and-network-resilience-c84db889162c#.tcspudthd).
 
-If you’re new to React, I’ve found [React for Beginners](https://goo.gl/G1WGxU) by Wes Bos excellent.
+如果你新接触 React，我发现 Wes Bos 写的 [给新手的 React](https://goo.gl/G1WGxU) 很棒。
 
-_With thanks to Gray Norton, Sean Larkin, Sunil Pai, Max Stoiber, Simon Boudrias, Kyle Mathews and Owen Campbell-Moore for their reviews._
+_感谢 Gray Norton, Sean Larkin, Sunil Pai, Max Stoiber, Simon Boudrias, Kyle Mathews 和 Owen Campbell-Moore 的校对。_
