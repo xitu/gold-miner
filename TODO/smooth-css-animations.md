@@ -443,9 +443,15 @@ This feature is actually part of OS X—if you shift-click the minimize button o
 
 ### Take videos of your UI and replay them to get a valuable third-person perspective.
 
+### 给你的用户界面录个像，并且在重复播放中得到一个有价值的第三人视角的看法。
+
 Sometimes a different perspective helps you see things more clearly, and video is a great way to do this.
 
 Some people build a video in after effects and then try to implement that on a site. I often end up going the other way around, and try to make a good video from the UI of a site.
+
+有时候不同的视角能够帮助你对事物有更加清楚的认识，而录像则是一种很好的方法。
+
+有的人会用 AE 做视频然后放到网站上，而我经常是用其他方式，尝试从网站用户界面做一个很棒的视频。
 
 
 
@@ -465,9 +471,15 @@ Some people build a video in after effects and then try to implement that on a s
 
 Being able to post a Vine* or video of something is a fairly high bar. One day I was excited about something I built, and tried to make a recording to share with some friends.
 
+发布视频其实门槛很高的。有一天我对做出来的东西感到非常激动，想记录下来和朋友们分享。
+
 However, when I watched it again I noticed a bunch of things that were not great. There was a big lag spike and all the timings were slightly wrong. It made me cringe a bit and instead of sending it I realized there was a lot more work to do.
 
+然而，当看第二遍的时候，我发现了一些瑕疵，时间节点设置得不那么恰当，并且出现了一个延迟尖峰。这让我有点打退堂鼓了，我发现还有很多的内容需要优化，所以我不能就这么把视频发送给朋友。
+
 It is easy to gloss over these while you’re using it in realtime, but watching animations on video — over and over again or in slow motion — makes any issues extremely obvious.
+
+在使用过程中这些瑕疵都很容易被掩盖，但是在视频中一次次地观看慢动作的动画能够让一切问题都暴露地非常明显。
 
 
 
@@ -487,7 +499,7 @@ It is easy to gloss over these while you’re using it in realtime, but watching
 
 They say the camera adds 10 pounds. Perhaps it also adds 10 frames.
 
-
+有人会说拍摄出来的效果和现实并不完全相同，也许它变更加精确了呢。
 
 
 
@@ -505,45 +517,81 @@ They say the camera adds 10 pounds. Perhaps it also adds 10 frames.
 
 It has now become an important part of my workflow to watch slow-motion videos of my pages and make changes if any of the frames don’t feel right. It’s easy to just blame it on slow browsers, but with some more optimization and testing it’s possible to work through all of those problems.
 
+这已经成为我工作中很重要的一部分，我会观看慢动作的视频并且修改任何我举得不妥的地方。其实也可以很容易地将这类问题归咎于浏览器性慢，但是再多优化一点多测试一点，这些问题就能够得到解决。
+
 Once you’re not embarrassed by catching lag spikes on video, and feel like the video is good enough to share, then the page is probably ready to release.
+
+等到你在视频中不会发现非常尴尬的延迟尖峰，并且感觉视频挺好的可以晒出来了，这个时候你的页面就可以发布了。
 
 > #7
 
 ### Network activity can cause lag.
 
+### 网络活动可能会造成延迟。
+
 _You should preload or delay big HTTP requests_
+
+**你应该预加载或者延迟处理非常大的 HTTP 请求**
 
 Images are a big culprit for this one, whether a few big ones (a big background perhaps) or tons of little ones (imagine 50 avatars loading), or just a lot of content (a long page with images going down to the footer).
 
+图片便是其中一个元凶，无论是几个大图片（大的背景图）或者非常多的小图（五十个头像），或者非常多的内容（一个从头到尾有很多图片的长页面）。
+
 When the page is first loading, tons of things are being initialized and downloaded. Having analytics, ads, and other 3rd party scripts makes that even worse. Sometimes, delaying all the animations by just a few hundred milliseconds after load will do wonders for performance.
+
+页面首次加载的时候，许多的东西会被初始化并下载。其中内容解析、广告和其他第三方脚本会使性能变得更糟糕。有时候，将动画效果在页面加载后延迟零点几秒将会对性能有很大的提升。
 
 Don’t over-optimize for this one until it becomes necessary, but a complicated page might require very precise delays and timings of content to run smoothly. In general, you’ll want to load as little data as possible at the beginning, and then continue loading the rest of the page once the heavy lifting and intro animations are done.
 
+如果没有必要的话，不要过度优化动画延迟，一个复杂的页面要求非常精确的延迟和时间节点才能运行流畅。通常你会想要在开始的时候加载尽可能少的数据，当主要内容和介绍动画完成之后再继续加载其他的内容。
+
 On pages with a lot of data, the work to get everything loaded can be considerable. An animation that works well with static content may fall apart once you start loading it with real data at the same time. If something seems like it should work, or sometimes works smoothly and other times doesn’t, I would suggest checking the network activity to make sure you aren’t doing other stuff at the same time.
+
+一个有很多数据的页面，需要深思熟虑地加载所有内容。一个在静态页面中表现良好的动画效果也许就会在实时数据的加载中变得缓慢。如果有些内容仿佛应该生效但却没有，或者不能一如既往地流畅表现，我建议检查一下网络活动，确认一下你是否也在同时处理其他的内容。
 
 > #8
 
 ### Don’t bind directly to scroll.
 
+### 不要直接绑定滚动事件。
+
 _Seems like a cool idea, but it really isn’t great._
+
+**貌似是个好主意，其实不然**
 
 Scrolling-based animations sometimes have gained a lot of popularity over the last few years, especially ones involving parallax or some other special effects. Whether or not they are good design is up for debate, but there are better and worse ways to technically implement them.
 
+基于滚动的动画在前些年一段时间非常火爆，尤其是涉及视差或者其他特效的内容里。它们的设计模式是好是坏仍有待考证，但是在技术上有着良莠不齐的实现方法。
+
 A moderately performant way to do things in this category is to treat reaching a certain scroll distance as an event — and just fire things once. Unless you really know what you’re doing, I would suggest avoiding this category since it is so easily to go wrong and really hard to maintain.
+
+基于滚动的动画中有一种非常流行的处理方式，即将滚动一定距离作为事件处理同时触发动画内容。除非你对自己的行为了如指掌，否则我会建议不要使用这种方式，因为它真的很容易出错并且很难维护。
 
 Even worse is building your own scroll bar functionality instead of using the default one—aka _scrolljacking_. Please don’t do this.
 
+更糟糕的情况是自定义滚动条功能，而不用默认的功能—又名  _scrolljacking_ 。请不要这么想不开。
+
 This is one of those rules that is especially useful for mobile, but also probably good practice for the ideal user experience.
 
+所有规则中，这项对移动开发尤其有用，另外可能也是理想用户体验的好的实践。
+
 If you do have a specific type of experience you want that is focused on scrolling or some special events, I would suggest building a quick prototype of it to make sure that it can perform well before spending much time designing it.
+
+如果你确实要求独特的体验并且你希望它基于滚动或者其他的特殊事件，我建议创建一个快速原型来实现，而不是费力不讨好地去设计事件形式。
 
 > #9
 
 ### Test on mobile early & often.
 
+### 尽早并且经常地在移动设备上的测试。
+
 Most websites are built on a computer, and likely tested most often on the same machine they’re built on. Thus the mobile experience & animation performance will often be an afterthought. Some technologies (like canvas) or animation techniques may not perform as well on mobile.
 
+大多数的网站都是在电脑上搭建的，并且最常用本机做测试。因此，移动端体验和动画性能就被次要考虑了。一些技术（比如 canvas）或者动画技术可能在移动端表现地并不好。
+
 However, if coded & optimized properly (see rule #1), a mobile experience can be even smoother than on a computer. Mobile optimization was once a very tricky subject, but new iPhones are now faster than most laptops! If you’ve been following the previous tips, you may very well end up with great mobile performance out of the box.
+
+然而，如果代码写得好优化也到位（参考规则 #1），移动端的体验甚至比电脑更加流畅。移动端的优化是一项非常棘手的事情，但是新的 iPhones 比手提电脑更快！如果你采用了前几项建议，你将会得到一个非常棒的移动端表现。
 
 
 
@@ -561,25 +609,42 @@ However, if coded & optimized properly (see rule #1), a mobile experience can be
 
 Mobile usage will be a large and very important part of almost any site. It may seem extreme, but I would suggest viewing it exclusively from your phone for a whole week. It shouldn’t feel like a punishment to be forced to use the mobile version, but often it will.
 
+移动端使用方法是绝大多数网站中一个非常大而且非常重要的部分。或许会有些极端，但是我建议你专门拿出一个星期的时间用手机好好地查看你的网站。这不应该像惩罚那样被迫使用移动端版本，尽管经常会有这种感觉。
+
 Keep making design improvements & performance enhancements until it feels just as polished and convenient as the big version of the site.
 
+不断优化设计和提高性能，直到网站在移动端的表现和在电脑上一样优美和方便。
+
 If you force yourself to only use your mobile site for a week, you will probably end up optimizing it to be an even better experience than the big one. Being annoyed by using it regularly is worth it though, if it means that the issues get fixed before your users experience them!
+
+如果你迫使自己在使用移动端版本一个星期，你将会得到一个比电脑上更优化体验更好的网站。即使在使用过程中遇到非常恼人的事情也是值得的，那意味着这些问题将在你的用户体验到之前就被解决掉了！
 
 > #10
 
 ### Test frequently on multiple devices
 
+### 经常在不同的设备上测试
+
 _Screen size, density, or device can all have big implications_
+
+**不同屏幕尺寸、分辨率，或者有着各种样式的设备**
 
 There are many factors besides mobile vs desktop that can drastically affect performance, like whether a screen is “retina” or not, the total pixel count of the window, how old the hardware is, etc.
 
+除了移动端和电脑之外还有很多因素能够对性能产生极大的影响，比如是否是 "retina" 屏幕、窗口的分辨率、硬盘的老旧程度等等。
+
 Even though Chrome and Safari are both Webkit based browsers with similar syntax, they also both have their own quirks. Each Chrome update can fix things and introduce new bugs, so you need to constantly be on your toes.
+
+及时 Chorme 和 Safari 都是基于 Webkit 的浏览器并且有着相似的语法，但是他们也有各自的特点。每一次 Chrome 升级都会修复一些问题同时也会引入新的 bug，所以你必须时刻保持警惕。
 
 Of course, you don’t only want to build for the lowest common denominator, so finding clever ways to progressively add or remove the enhancements can be really useful.
 
+当然，你不会只想着搭建一个对于所有浏览器放之四海而皆准的网站，所以寻找一个灵活的方法以便于你能够增加或者移除一些功能是非常有用的。
+
 I regularly switch between my tiny MacBook Air and huge iMac, and each cycle reveals small issues and improvements to be made — especially in terms of animation performance but also for overall design, information density, readability, etc.
+
+我通常会交替在较小的 MacBook Air 和大屏的 iMac 中使用网站，每次都会暴露出新的问题然后再修复 — 尤其是动画性能方面的问题，有时候也会有全局设计的题、信息密度、可读性的问题等等。
 
 Media queries can be really powerful tools to address these different segments—styling differently by height or width is a typical use of media queries, but they can can also be used to add targeting by pixel density or other properties. Figuring out the OS and type of device can also be useful, as mobile performance characteristics can be very different than computers.
 
-
-
+Media queries 是一款非常强大的工具，它典型的用处是定位由于高度或者宽度造成的样式差异，但是它同样能够用来根据分辨率添加目标内容或者其他属性。另外，识别系统和设备类型的功能也是非常有用的，因为移动设备的性能特征和电脑还是有很大区别的。
