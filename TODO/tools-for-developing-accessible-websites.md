@@ -18,7 +18,7 @@
 
 有一些我经常使用并且对可及性开发大有裨益的工具，我想应该和大家一起分享。由于我大部分开发都基于 Chrome，所以这些工具更适用于 Chrome。
 
-[Accessibility Developer Tools](https://chrome.google.com/webstore/detail/accessibility-developer-t/fpkknkljclfencbdbgkenhalefipecmb?hl=en) 是一款由谷歌可访问性团队开发的谷歌 Chrome 浏览器扩展程序。这款扩展在开发者工具界面添加了一个名为“Audits”的嵌板，通过 Audits 我们能得到网页的网络利用率、网页性能，当然也包括可及性。
+[Accessibility Developer Tools](https://chrome.google.com/webstore/detail/accessibility-developer-t/fpkknkljclfencbdbgkenhalefipecmb?hl=en) 是一款由谷歌可访问性团队开发的谷歌 Chrome 浏览器扩展程序。这款扩展在开发者工具界面添加了一个名为 "Audits" 的嵌板，通过 Audits 我们能得到网页的网络利用率、网页性能，当然也包括可及性。
 
 ![Screenshot of Panel](https://bitsofco.de/content/images/2016/10/Screen-Shot-2016-10-30-at-16.26.42.png)
 
@@ -27,7 +27,7 @@
 ![Accessibility Audit Results](https://bitsofco.de/content/images/2016/10/Screen-Shot-2016-10-30-at-16.27.51.png)
 
 
-除了可及性检测之外，我们能在元素审查中审查任何特定元素的可及性属性。在元素审查项中有一个新的名为“Accessibility Properties”的嵌板，它能够列出某特定元素的所有可及性相关的属性。
+除了可及性检测之外，我们能在元素审查中审查任何特定元素的可及性属性。在元素审查项中有一个新的名为 "Accessibility Properties" 的嵌板，它能够列出某特定元素的所有可及性相关的属性。
 
 
 ![Accessibility Properties Inspector](https://bitsofco.de/content/images/2016/10/Screen-Shot-2016-10-30-at-16.29.14.png)
