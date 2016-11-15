@@ -1,4 +1,4 @@
-# 掘金翻译计划      
+# 掘金翻译计划
 
 [![xitu](https://camo.githubusercontent.com/c9c9db0a39b56738a62332f0791d58b1522fdf82/68747470733a2f2f7261776769742e636f6d2f616c65656e34322f6261646765732f6d61737465722f7372632f786974752e737667)](https://github.com/xitu/gold-miner)
 
@@ -8,11 +8,11 @@
 
 #  官方指南：
 
-- [**推荐优质英文文章**](http://gold.codesign.me/)
+- [**推荐优质英文文章到掘金翻译计划**](http://gold.codesign.me/)
 - [如何参与翻译](https://github.com/xitu/gold-miner/wiki/如何参与翻译)
 - [十万个为什么](https://github.com/xitu/gold-miner/wiki/十万个为什么)
 - [译文排版规则指北](https://github.com/xitu/gold-miner/wiki/译文排版规则指北)
-- [参与翻译所得的积分能做什么](https://github.com/xitu/gold-miner/wiki/)
+- [参与翻译所得的积分能做什么?](https://github.com/xitu/gold-miner/wiki/)
 
 
 # 近期文章列表
