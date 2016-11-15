@@ -1,7 +1,7 @@
 > * 原文地址：[Conditions for CSS Variables](http://kizu.ru/en/fun/conditions-for-css-variables/)
 * 原文作者：[Roman Komarov](https://twitter.com/kizmarh)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[rottenpen](https://github.com/rottenpen)
 * 校对者：
 
 # Conditions for CSS Variables
