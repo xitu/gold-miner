@@ -19,19 +19,20 @@
 
 
 I had initially planned to make a comprehensive multi-part video series on setting up remote push notifications but, unfortunately, I underestimated the time it would take for me to recover from getting my wisdom teeth removed.
-我开始的时候打算做一系列全方位的视频 关于如何设置远程推送，但是，不幸的是。我低估了自己从拔智齿到恢复所需要的时间。
+我开始的时候打算做一系列全方位的关于如何设置远程推送视频，但是，不幸的是。我低估了自己从拔智齿到恢复所需要的时间。
 
 
 But that’s no excuse. Here’s a tutorial on how to set up push notifications in React Native (both iOS and Android) with [OneSignal](https://onesignal.com/), a service that provides free push notification delivery for multiple platforms. This is a pretty long tutorial but it’s worth it. Even if you don’t use OneSignal, much of this will apply to you (general configuration). Let’s get to it.
-但是，这并不是什么借口。这是一系列的关于如何在ReactNative上通过使用[OneSignal](https://onesignal.com/)设置推送的教程。[OneSignal](https://onesignal.com/)一个提供跨平台的推送交付服务的服务商。这是一篇非常长的但是值得阅读的教程。即使你不使用OneSinagal。大部分的内容也是适用于你的(基本的配置)。让我们开始吧。
+但是，这并不是什么借口。这是一系列的关于如何在ReactNative上通过使用[OneSignal](https://onesignal.com/)设置推送的教程。[OneSignal](https://onesignal.com/)一个提供跨平台的推送交付服务的服务商。这是一篇非常长的但是值得阅读的教程。即使你不使用OneSinagal。大部分的内容也是适用于你的(基础的配置)。让我们开始吧。
 
 #### Create React Native App
 #### 创建 React Native App
 First thing you’ll need is a React Native app. Maybe that’s your existing app or maybe it’s a new one. We’ll start with a new one. From the command line:
+首先你需要一个React Native app 也须是已经存在的工程也许是一个新的项目。我们这里将使用一个新的项目。从下面的命令开始：
+
 
     react-native init OneSignalExample
 
-首先你需要一个React Native app 也须是已经存在的工程也许是一个新的项目。我们这里将使用一个新的项目。从下面的命令开始：
 
     react-native init OneSignalExample
 
@@ -69,7 +70,7 @@ Next you’ll want to head over to [OneSignal](https://onesignal.com/) and sign 
 
 Now we’ll be asked to configure a platform. This is going to be the most complex part. I’m going to start off with iOS and configure Android later — details on how to do that outlined below.
 
-现在，在你将被要求签署一个协议。下面将会是最复杂的部分。我将从如何去处理iOS开始，然后会介绍一下安卓。
+现在，在你需要签署一个协议。下面将会是最复杂的部分。我将从如何去处理iOS开始，然后会介绍一下安卓。
 
 
 
@@ -100,7 +101,7 @@ You may be wanting to jump right into creating your .p12 file (we’ll cover th
 
 
 Now if you’ve never done this before it’s important to note that you’ll need to set an Explicit App ID for push notifications to work.
-如果你从没有做过上面的事情的话。需要注意的是你需要设置一个不冲突的 App ID 才能使推送正常工作。
+如果你从没有做过上面的事情的话。需要注意的是你需要设置一个不冲突的App ID才能使推送正常工作。
 
 
 
@@ -128,16 +129,16 @@ Now that we’re done with that we can move over to actually creating the provis
 
 
 > If you’re uncomfortable using giving this tool access to your Apple account you can [create the profile manually.](https://documentation.onesignal.com/docs/generate-an-ios-push-certificate#section-option-b-create-certificate-request-manually)
-> 如果你对这个工具获取到你的App 账号的使用权感到不安。你可以[手动的创建证书。](https://documentation.onesignal.com/docs/generate-an-ios-push-certificate#section-option-b-create-certificate-request-manually)
+> 如果你对这个工具获取到你的App账号的使用权感到不安。你可以[手动的创建证书。](https://documentation.onesignal.com/docs/generate-an-ios-push-certificate#section-option-b-create-certificate-request-manually)
 
 _Protip: If you’ve got two-factor authentication turned on for your account you’ll need to turn it off in order to use_ [_The Provisionator_](https://onesignal.com/provisionator)_. Feel free to change your password before/after using it — that’s what I did to aid in keeping my account secure._
-高级技巧：如果你的账号开启了二次身份验证。为了使用[_The Provisionator_](https://onesignal.com/provisionator)_。你需要关闭它。为了保持我的账号的安全我会在使用前和使用后去更改密码。所以放轻松的使用它。
+高级技巧：如果你的账号开启了二次身份验证。为了使用[_The Provisionator_](https://onesignal.com/provisionator)_。你需要关闭它。为了保持账号的安全我通常会在使用前和使用后去更改密码。所以放轻松的使用它。
 
 Okay, now that we’re past those notes let’s actually use this tool and get our profile.
 现在让我们使用这个工具获取到我们的证书。
 
 You’ll want to sign into your account and make sure you choose the proper team.
-登陆你的账号 确保选择正确的team。
+登陆你的账号确保选择正确的team。
 
 
 
@@ -173,7 +174,7 @@ Go ahead and download those files and remember the password for the p12 file. Th
 
 
 And that’s it, for now! We’ll just close out this modal and come back to the React Native side of things in a moment. Now let’s configure Android (it’s easier, I promise).
-这就是如何设置iOS，现在这边的事情可以告一段落。让我们来到另一边。现在我们来设置安卓(这是我早些时候承诺过的)。
+这就是如何设置iOS，现在这边的事情可以告一段落。让我们来到另一边。我们来设置安卓(这是我早些时候承诺过的)。
 
 #### Generate Google Server API Key
 #### 生成 Google Server API Key
@@ -239,7 +240,7 @@ Woohoo! Platforms are set up. Now we can actually work on integrating this with 
 
 
 OneSignal has a package on npm, [react-native-onesignal](https://github.com/geektimecoil/react-native-onesignal#installation), that makes integrating with your platform super easy. It’s not the easiest to install but once it’s done you don’t have to do it again :) I’m hoping in the future that they integrate with rnpm/_react-native link_ so that we can minimize diving into native code but until then we must. For now, from your project root, run the following to install the package.
-OneSignal 在npm上有一个包，[react-native-onesignal](https://github.com/geektimecoil/react-native-onesignal#installation)，可以让你的在项目即成中变的非常容易。并不需要在一开始的时候导入包。但是一旦包导入了。你就不需要再做第二遍了。我希望未来的一天它可以与rnpm/_react-native即成在一起。这样我可以写很少的本地化代码了。但是在此之前 我们必须一步一步的配置。现在 在你的根目录下面运行下面的代码安装包文件。
+OneSignal 在npm上有一个包，[react-native-onesignal](https://github.com/geektimecoil/react-native-onesignal#installation)，可以让你在项目的集成变的非常容易。并不需要在一开始的时候就导入包。但是一旦包导入了。你就不需要再做第二遍了。我希望未来的一天它可以与rnpm/_react-native集成在一起。这样我可以写很少的本地化代码了。但是在此之前 我们必须一步一步的配置。现在 在你的根目录下面运行下面的代码安装包文件。
 
 
 
@@ -252,7 +253,7 @@ Into the Objective-C/Java!
 #### 配置 iOS
 
 Before I dive in here I want to say that this is basically just me rehashing the [official instructions](https://github.com/geektimecoil/react-native-onesignal#ios-installation) so if you run into issues be sure to check those out as well. With that, let’s jump into our app and start configuring things
-在我深入之前 我想说这些基本上是我重新组织了一下[官方文档](https://github.com/geektimecoil/react-native-onesignal#ios-installation)，所以如果你遇到问题。请去官方文档看一下。让我们开始配置我们的app。
+在我深入之前，我想说，这些基本上是我重新组织了一下[官方文档](https://github.com/geektimecoil/react-native-onesignal#ios-installation)，所以如果你遇到问题。请去官方文档看一下。让我们开始配置我们的app。
 
 First thing we have to do is install the OneSignal iOS SDK — which is available via [CocoaPods](http://guides.cocoapods.org/using/getting-started.html). You’ll want to make sure you’ve got at least version _1.1.0_. You can check that by running
 首先你应该安装 OneSiganl的iOS SDK，可以通过[CocoaPods](http://guides.cocoapods.org/using/getting-started.html)进行安装。你应该确保你的cocopods为最新版本。可以通过下面的命令进行检查。
@@ -265,12 +266,12 @@ If it’s outdated you can update with
     sudo gem install cocoapods --pre
 
 Now, from within your React Native project, you’ll want to to move to your _ios/_ directory and initialize a PodFile.
-现在，在你的React Native项目中，你进入到iOS目录下面。初始化一个PodFile文件。
+现在，在你的React Native项目中，进入到iOS目录下面。初始化一个PodFile文件。
 
     cd ios/ && pod init
 
 You then want to add the OneSignal pod to the file. It should look something like this
-下面你应该添加OneSiganl的源在文件中。应该看起来像下面的文件。
+你应该添加OneSiganl的源在文件中。看起来应该像这样。
 
     # Uncomment the next line to define a global platform for your project
     # platform :ios, '9.0'
@@ -287,7 +288,7 @@ You then want to add the OneSignal pod to the file. It should look something lik
 
 
 I removed the tests since I don’t need them and they were causing an error.
-我移除了测试目录。我不需要他们 并且他们产生了一个错误。
+我移除了测试目录。我不需要他们并且他们产生了一个错误。
 
 Now, back at the command line and still in the _ios/_ directory, run
 现在。回到命令行并在_ios/_ directory目录底下运行下面的命令。
