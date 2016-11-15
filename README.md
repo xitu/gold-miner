@@ -1,36 +1,19 @@
 # 掘金翻译计划      
 
-## 推荐优质英文文章到掘金翻译计划请点[这里](http://gold.codesign.me/)。
-
 [![xitu](https://camo.githubusercontent.com/c9c9db0a39b56738a62332f0791d58b1522fdf82/68747470733a2f2f7261776769742e636f6d2f616c65656e34322f6261646765732f6d61737465722f7372632f786974752e737667)](https://github.com/xitu/gold-miner)
 
 [掘金翻译计划](http://gold.xitu.io/#/tag/%E6%8E%98%E9%87%91%E7%BF%BB%E8%AF%91%E8%AE%A1%E5%88%92) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](http://gold.xitu.io) 上的英文分享文章。内容覆盖 [Android](#android)、[iOS](#ios)、[React](#react)、[前端](#前端)、[后端](#后端)、[产品](#产品)、[设计](#设计) 等领域，读者为热爱新技术的新锐开发者。
 
 掘金翻译计划目前翻译完成 [265](#近期文章列表) 篇文章，共有 [220](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
 
-# 如何参与翻译
+# 相关链接：
 
-1. **发 issue 申请成为译者**，只有掘金翻译计划的译者才可以参与校对和翻译，issue 内容包括：公司/学校、工作内容/专业、常浏览的国外网站、英语水平、有无翻译经验、个人博客，[往期译者申请格式](https://github.com/xitu/gold-miner/issues/249)。
+- [**推荐优质英文文章**](http://gold.codesign.me/)
+- [如何参与翻译](https://github.com/xitu/gold-miner/wiki/如何参与翻译)
+- [十万个为什么](https://github.com/xitu/gold-miner/wiki/十万个为什么)
+- [译文排版规则指北](https://github.com/xitu/gold-miner/wiki/译文排版规则指北)
+- [参与翻译所得的积分能做什么](https://github.com/xitu/gold-miner/wiki/)
 
-2. 每篇译文需要**一位译者和两位校对者**。新译者从校对文章开始，校对完至少一篇文章之后才能开始领取翻译任务。label 具体内容及其含义：
-
-   * 校对认领：此文章需要两位校对者。
-   * 校对认领 + 正在校对：此文章已经有一位校对者在校对了，现在还需要第二位校对者。
-   * 正在校对：此文章已经有两位校对者在校对了，校对文章只需在有**校对认领** label 的 Pull requests 下留言即可。
-
-3. 翻译文章，在 [待认领文章列表](https://github.com/xitu/gold-miner/issues?q=is%3Aissue+is%3Aopen+label%3A%E6%96%87%E7%AB%A0%E8%AE%A4%E9%A2%86) 中认领翻译文章。（认领文章前请先到 [wiki](https://github.com/xitu/gold-miner/wiki/译者擅长领域表) 中修改下自己擅长的分类撒，为了保证翻译质量，建议认领自己擅长的领域内的译文进行翻译啦，校对文章就随便了哈~）
-
-4. 认领通过后，Fork 此仓库开始翻译，**注意：Fork 此仓库后，请先从 master 分支上 `git checkout -b translate` 一个新的 translate 分支来翻译文章，翻译完成后再把 translate 分支发 PR**。
-
-5. 翻译为中文时排版请参考 **[中文文案排版指北](https://github.com/xitu/gold-miner/wiki/译文排版规则指北)**。
-
-6. 翻译完成，发送 [Pull Request](https://github.com/xitu/gold-miner/pull/new/master)，**注意：发 PR 的时候请注意检查，一个 PR 只能有一篇文章，切勿两篇或多篇合并到一个 PR**。
-
-7. 两位校对者校对完成后，可以根据校对者意见进行修改，修改完成后 @[管理员羊三岁](https://github.com/antonia0912) 或 [根号三](https://github.com/sqrthree) 进行最终检查，merge 后分享你的译文到 [掘金](http://gold.xitu.io)，让更多的开发者看到好的文章。
-
-8. 如果你是第一次参与翻译计划，分享文章到掘金的时候请参考 [分享指南](https://github.com/xitu/gold-miner/wiki/分享到掘金指南)。
-
-9. 更多问题请参考其实并没有十万个的 [十万个为什么](https://github.com/xitu/gold-miner/wiki/十万个为什么)。
 
 # 近期文章列表
 
