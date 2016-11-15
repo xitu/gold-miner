@@ -1,25 +1,25 @@
 > * 原文地址：[19 things I learnt reading the NodeJS docs](https://hackernoon.com/19-things-i-learnt-reading-the-nodejs-docs-8a2dcc7f307f#.8iaiz8xls)
 * 原文作者：[David Gilbertson](https://hackernoon.com/@david.gilbertson)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：jacksonke
 * 校对者：
 
-# 19 things I learnt reading the NodeJS docs
+# 阅读NodeJS文档，我学到了这19件事情
 
 
-I’d like to think I know Node pretty well. I haven’t written a web site that _doesn’t_ use it for about 3 years now. But I’ve never actually sat down and read the docs.
+我相信我对Node了若指掌。我写的网站已经3年多没出现问题了。但实际上，我从没有详细查看Node文档。
 
-As long-time readers will know, I am on a journey of writing out every interface, prop, method, function, data type, etc related to web development, so that I can fill in the gaps of what I don’t know. The Node docs were my last stop, having finished HTML, DOM, the Web APIs, CSS, SVG, and EcmaScript.
+长期的订阅者应该知道，我正处在书写每一个接口(interface)，属性(prop)，方法(method)，函数(function)，数据类型(data type)等等关于网络开发的漫漫长途中，这样可以填补我的知识面的空缺。在完成了HTML，DOM, WebApi, CSS, SVG和EcmaScript之后, Node文档会是我的最后一站。
 
-This held the most unknown gems for me, so I thought I’d share them in this little listicle. I will present them in descending order of appeal. As I do with my outfits when I meet someone new.
+对我来说，这里面有很多宝贵的知识，所以我想简短地列举，并且分享它们。我会按吸引力从高到低列举它们，好比我见新朋友时的衣服顺序，（最吸引人的放外面 ^_^）
 
-### The querystring module as a general purpose parser
+### 将 querystring 作为通用的解析模块
 
-Let’s say you’ve got data from some weirdo database that gives you an array of key/value pairs in the form `name:Sophie;shape:fox;condition:new`. Naturally you think this might be nice as a JavaScript object. So you create a blank object, then you create an array by splitting the string on `;`, loop over it, for each item, split it again on `:` and add the first item in that array as a prop of your object setting the second as the value.
+假设你从一些古怪的数据库中获取到的数据是一些键值对数组，格式像`name:Sophie;shape:fox;condition:new`。很自然的，你会将它当成一个JavaScript对象。你会将所取得的数据以`;`为分隔符切分成数组，然后遍历数组，以`:`为分隔符，左边的作为属性，右边的作为属性对应的值。
 
-Right?
+这样对吧？
 
-No! You use `querystring`
+不用这般麻烦的，你可以使用 `querystring`
 
     const weirdoString = `name:Sophie;shape:fox;condition:new`;
     const result = querystring.parse(weirdoString, `;`, `:`);
@@ -36,22 +36,22 @@ _By default, percent-encoded characters within the query string will be assumed 
 
 ### V8 Inspector
 
-Run node with `--inspect`, it will tell you a URL. Paste that URL into Chrome. Boom, debugging Node in the Chrome DevTools. Happy days. There’s a [how-to by Paul Irish over here](https://medium.com/@paul_irish/debugging-node-js-nightlies-with-chrome-devtools-7c4a1b95ae27#.evhku718w).
+运行node，加上`--inspect`选项，会给出一个URL地址。粘贴该URL到Chrome。哈哈，这就能用Chrome DevTools调试Node，这方便，多轻松。这篇文章有介绍如何使用[how-to by Paul Irish over here](https://medium.com/@paul_irish/debugging-node-js-nightlies-with-chrome-devtools-7c4a1b95ae27#.evhku718w).
 
-It’s still ‘experimental’, but so is my medication and I’M DOING FINE.
+虽然它现在还处于“试验”阶段，但是现在已经极大地解决了我的困挠。
 
 [**Debugger | Node.js v7.0.0 Documentation**  
 _Node.js includes a full-featured out-of-process debugging utility accessible via a simple TCP-based protocol and built…_nodejs.org](https://nodejs.org/api/debugger.html#debugger_v8_inspector_integration_for_node_js "https://nodejs.org/api/debugger.html#debugger_v8_inspector_integration_for_node_js")
 
-### The difference between nextTick and setImmediate
+### nextTick和setImmediate的不同点
 
-As with so many things, remembering the difference between these two is easy if you imagine they had different names.
+和多数情况一样，如果能把它们想象成不同的名字，记住两者的不同点是很容易的。
 
-`process.nextTick()` should be `process.sendThisToTheStartOfTheQueue()`.
+`process.nextTick()` 是 `process.sendThisToTheStartOfTheQueue()`.(译者注：放入队列的第一个位置)
 
-`setImmediate()` should be called `sendThisToTheEndOfTheQueue()`.
+`setImmediate()` 应该被叫做 `sendThisToTheEndOfTheQueue()`.(译者注：放入队列的尾部，最后一个处理的)
 
-(Unrelated: I always thought that in React, `props` should be called `stuffThatShouldStayTheSameIfTheUserRefreshes` and `state` should be called `stuffThatShouldBeForgottenIfTheUserRefreshes`. The fact that they’re the same length is just a bonus.)
+(不相关的：React中，我通常将`props`当成`stuffThatShouldStayTheSameIfTheUserRefreshes`，而将`state`当成`stuffThatShouldBeForgottenIfTheUserRefreshes`.这两者长度一致也是个意外，哈哈哈。)
 
 [**Node.js v7.0.0 Documentation**  
 _Stability: 3 — Locked The timer module exposes a global API for scheduling functions to be called at some future period…_nodejs.org](https://nodejs.org/api/timers.html#timers_setimmediate_callback_args "https://nodejs.org/api/timers.html#timers_setimmediate_callback_args")
@@ -62,9 +62,9 @@ _A process warning is similar to an error in that it describes exceptional condi
 [**Node v0.10.0 (Stable)**  
 _I am pleased to announce a new stable version of Node. This branch brings significant improvements to many areas, with…_nodejs.org](https://nodejs.org/en/blog/release/v0.10.0/#faster-process-nexttick "https://nodejs.org/en/blog/release/v0.10.0/#faster-process-nexttick")
 
-### Server.listen takes an object
+### Server.listen 只带一个参数对象
 
-I’m a fan of passing a single ‘options’ parameter rather than five different parameters that are unnamed and must be in a particular order. As it turns out, you can do this when setting up a server to listen for requests.
+对于参数传递，我认可只使用一个参数'options'，而不认可使用五个没有实际意义命名的同时必须按照一定顺序传入的做法。这可以在服务端监听连接时使用。
 
     require(`http`)
       .createServer()
@@ -76,14 +76,14 @@ I’m a fan of passing a single ‘options’ parameter rather than five differe
         res.end(`Hello World!`);
       });
 
-This is a sneaky one, because it’s not actually listed in the docs for `http.Server`, you will only find it in the `net.Server` documentation (which `http.Server` inherits from).
+这个文档比较隐蔽，它并不在`http.Server`的函数列表下，而是在`net.Server`中（`http.Server`继承`net.Server`）
 
 [**net | Node.js v7.0.0 Documentation**  
 _Stops the server from accepting new connections and keeps existing connections. This function is asynchronous, the…_nodejs.org](https://nodejs.org/api/net.html#net_net_createserver_options_connectionlistener "https://nodejs.org/api/net.html#net_net_createserver_options_connectionlistener")
 
-### Relative paths
+### 相对路径
 
-The path you pass to the `fs` module methods can be relative. It’s relative to `process.cwd()`. This is probably something that most people already knew, but I always thought it had to be a full path.
+传入`fs`模块方法的路径可以是相对路径。这是相对于`process.cwd()`。这可能多数人都知道了，但我以前一直以为要传入绝对路径。
 
     const fs = require(`fs`);
     const path = require(`path`);
@@ -101,9 +101,9 @@ The path you pass to the `fs` module methods can be relative. It’s relative to
 [**File System | Node.js v7.0.0 Documentation**  
 _birthtime “Birth Time” — Time of file creation. Set once when the file is created. On filesystems where birthtime is…_nodejs.org](https://nodejs.org/api/fs.html#fs_file_system "https://nodejs.org/api/fs.html#fs_file_system")
 
-### Path parsing
+### 路径解析
 
-One of the many things I’ve unnecessarily fiddled with regexes for is getting filenames and extensions from paths, when all I needed to do was:
+以前我会显摆的技术之一就是使用正则表达式从路径字符串中获取文件名和拓展名，这其实根本没有必要，需要做的仅仅是调用接口：
 
     myFilePath = `/someDir/someFile.json`;
     path.parse(myFilePath).base === `someFile.json`; // true
@@ -113,16 +113,16 @@ One of the many things I’ve unnecessarily fiddled with regexes for is getting 
 [**Node.js v7.0.0 Documentation**  
 _Stability: 2 — Stable The path module provides utilities for working with file and directory paths. It can be accessed…_nodejs.org](https://nodejs.org/api/path.html#path_path_parse_path "https://nodejs.org/api/path.html#path_path_parse_path")
 
-### Logging with colors
+### 使用不同颜色来记录日志
 
-I’m going to pretend I didn’t already know that `console.dir(obj, {colors: true})` will print the object with props/values as different colors, making them much easier to read.
+使用`console.dir(obj, {colors: true})`可以属性打印出不同颜色的日志，这样更易于阅读。
 
 [**Console | Node.js v7.0.0 Documentation**  
 _The console functions are usually asynchronous unless the destination is a file. Disks are fast and operating systems…_nodejs.org](https://nodejs.org/api/console.html#console_console_dir_obj_options "https://nodejs.org/api/console.html#console_console_dir_obj_options")
 
-### You can tell setInterval() to sit in the corner
+### 让setInterval()不去影响应用的效率
 
-Let’s say you use `setInterval()` to do a database cleanup once a day. By default, Node’s event loop won’t exit while there is a `setInterval()`pending. If you want to let Node sleep (I have no idea what the benefits of this are) you can do this.
+假设你使用`setInterval()`来执行数据库清理操作，一天一次。默认情况下，只要`setInterval()`还在， Node的事件循环是不会停止的。如果你想让Node休息（我也不知道这样做的好处），你可以这么做：
 
     const dailyCleanup = setInterval(() => {
       cleanup();
@@ -130,43 +130,44 @@ Let’s say you use `setInterval()` to do a database cleanup once a day. By defa
 
     dailyCleanup.unref();
 
-Careful though, if you have nothing else pending (e.g. no http server listening), Node will exit.
+需要注意的是，如果你的队列中没有其它的请求（比如http服务监听），Node会退出的。
 
 [**Node.js v7.0.0 Documentation**  
 _Stability: 3 — Locked The timer module exposes a global API for scheduling functions to be called at some future period…_nodejs.org](https://nodejs.org/api/timers.html#timers_timeout_unref "https://nodejs.org/api/timers.html#timers_timeout_unref")
 
-### Using the signal constants
+### 使用Signal常量
 
-If you enjoy killing, you may have done this before:
+可能你以前会这样处理kill：
 
     process.kill(process.pid, `SIGTERM`);
 
-Nothing wrong with that. If no bug involving a typo had ever existed in the history of computer programming. But since that second parameter takes a string _or_ the equivalent int, you can use the more robust:
+如果计算机编程的历史不存在由错字引发的错误，这样做没什么错的。但是实际上这是发生过的。第二个参数可以是带上'string'_或者_对应的int，你可以使用下面更健壮的方式
 
     process.kill(process.pid, os.constants.signals.SIGTERM);
 
-### IP address validation
+### IP地址有效性验证
 
-There’s a built in IP address validator. I have written out a regex to do exactly this more than once. Stupid David.
+Ip地址有效性验证已经有内置的接口。我以前不止一次自己写正则表达式去做这个。好蠢（┬＿┬）
 
 `require(`net`).isIP(`10.0.0.1`)` will return `4`.
 
 `require(`net`).isIP(`cats`)` will return `0`.
 
-Because cats aren’t an IP address.
+因为`cats`并不是一个IP地址
 
 If you haven’t noticed, I’m going through a phase of using only backticks for strings. It’s growing on me but I’m aware it looks odd so I’m mentioning it and quite frankly wondering what the point of mentioning it is and am now concerned with how I’m going to wrap up this sentence, I shou
+如果你没注意到，我正经历着这么个阶段，字符串使用引号包起来， 我越来越喜欢，但同时我也意识到这很丑陋，所以我在这里提到这点，同时也很坦率----
 
 [**net | Node.js v7.0.0 Documentation**  
 _Stops the server from accepting new connections and keeps existing connections. This function is asynchronous, the…_nodejs.org](https://nodejs.org/api/net.html#net_net_isip_input "https://nodejs.org/api/net.html#net_net_isip_input")
 
 ### os.EOL
 
-Have you ever hard-coded an end-of-line character?
+你曾经对行结束符硬编码吗？
 
-Egad!
+我的天！
 
-Just for you, there is `os.EOL` (which is `\r\n` on Windows and `\n`elsewhere). [Switching to os.EOL](https://github.com/sasstools/sass-lint/pull/92/files) will ensure your code behaves consistently across operating systems.
+`os.EOL`是专门为你准备的，它在windows操作系统上为`\r\n`，在其它系统上是`\n`。[使用os.EOL](https://github.com/sasstools/sass-lint/pull/92/files) 能让你的代码在不同的操作系统上表现一致。
 
     const fs = require(`fs`);
 
@@ -188,9 +189,9 @@ Just for you, there is `os.EOL` (which is `\r\n` on Windows and `\n`elsewhere). 
 [**OS | Node.js v7.0.0 Documentation**  
 _{ model: ‘Intel(R) Core(TM) i7 CPU 860 @ 2.80GHz’, speed: 2926, times: { user: 252020, nice: 0, sys: 30340, idle…_nodejs.org](https://nodejs.org/api/os.html#os_os_eol "https://nodejs.org/api/os.html#os_os_eol")
 
-### Status code lookup
+### 状态码查询
 
-There is a lookup of common HTTP status codes and their friendly names. `http.STATUS_CODES` is the object of which I speak, where each key is a status code, and the matching value is the human readable description.
+HTTP状态码及其对应的易读性的名字是可以查询的。`http.STATUS_CODES`正是我这里想说的，它的键是个状态码，值对应其状态的简短描述。
 
 
 
@@ -206,7 +207,7 @@ There is a lookup of common HTTP status codes and their friendly names. `http.ST
 
 
 
-So you can do this:
+所以你可以这么做：
 
     someResponse.code === 301; // true
     require(`http`).STATUS_CODES[someResponse.code] === `Moved Permanently`; // true
@@ -214,43 +215,43 @@ So you can do this:
 [**HTTP | Node.js v7.0.0 Documentation**  
 _The HTTP interfaces in Node.js are designed to support many features of the protocol which have been traditionally…_nodejs.org](https://nodejs.org/api/http.html#http_http_status_codes "https://nodejs.org/api/http.html#http_http_status_codes")
 
-### Preventing unnecessary crashes
+### 预防崩溃
 
-I always thought it was a bit ridiculous that the below would actually stop a server:
+我一直认为下面的这种错误导致的服务崩溃是非常荒谬的：
 
     const jsonData = getDataFromSomeApi(); // But oh no, bad data!
     const data = JSON.parse(jsonData); // Loud crashing noise.
 
-To prevent silly things like this from ruining your day, you can put `process.on(`uncaughtException`, console.error);` right at the top of your Node app.
+预防这种可笑的错误，你可以在你app的中使用`process.on(`uncaughtException`, console.error);`
 
-Of course, I’m a sane person so I use [PM2](http://pm2.keymetrics.io/) and wrap everything in `try...catch` if I’m being paid, but for personal projects…
+当然，我不是傻瓜，在付费的项目中，我会使用[PM2](http://pm2.keymetrics.io/)，同时把所有的东西都装到`try...catch`语句中。但是，私人免费项目就另说 o_o ....
 
-Warning, this is [not best practice](https://nodejs.org/api/process.html#process_warning_using_uncaughtexception_correctly), and in a large complex app is probably a bad idea. I’ll let you decide if you want to trust some dude’s blog post or the official docs.
+警告，这个[并非最好的练习](https://nodejs.org/api/process.html#process_warning_using_uncaughtexception_correctly),在大点复杂点的app中，这甚至可能是个坏主意。这需要你来决定是否要信任一个家伙的博客文章或官方文档。
 
 [**process | Node.js v7.0.0 Documentation**  
 _A process warning is similar to an error in that it describes exceptional conditions that are being brought to the user…_nodejs.org](https://nodejs.org/api/process.html#process_event_uncaughtexception "https://nodejs.org/api/process.html#process_event_uncaughtexception")
 
 ### Just this once()
 
-In addition to `on()`, there is a `once()` method for all EventEmitters. I’m quite sure I’m the last person on earth to learn this. So … that’s everyone then.
+对所有的事件发送者(EventEmitters)，除了`on()`方法之外，还有`once()`，我很确认我是地球上最后一个学到这点的人 (T_T) 
 
     server.once(`request`, (req, res) => res.end(`No more from me.`));
 
 [**Events | Node.js v7.0.0 Documentation**  
 _Much of the Node.js core API is built around an idiomatic asynchronous event-driven architecture in which certain kinds…_nodejs.org](https://nodejs.org/api/events.html#events_emitter_once_eventname_listener "https://nodejs.org/api/events.html#events_emitter_once_eventname_listener")
 
-### Custom console
+### 定制控制台
 
-You can create your own console with `new console.Console(standardOut, errorOut)` and pass in your own output streams.
+你可以使用 `new console.Console(standardOut, errorOut)` 创建你自己的控制台，用于你自己的输出流。
 
-Why? I have no idea. Maybe you want to create a console that outputs to a file, or a socket, or a third thing.
+为什么要定制控制台? 我也不知道。或许想要将一些内容输出到文件，套接字，或者其他东西的时候，会考虑定制控制台。
 
 [**Console | Node.js v7.0.0 Documentation**  
 _The console functions are usually asynchronous unless the destination is a file. Disks are fast and operating systems…_nodejs.org](https://nodejs.org/api/console.html#console_new_console_stdout_stderr "https://nodejs.org/api/console.html#console_new_console_stdout_stderr")
 
-### DNS lookup
+### DNS查询结果
 
-A little birdy told me that Node [doesn’t cache DNS lookups](https://github.com/nodejs/node/issues/5893). So if you’re hitting a URL again and again you’re wasting valuable milliseconds. In which case you could get the domain yourself with `dns.lookup()` and cache it. Or [here’s one](https://www.npmjs.com/package/dnscache) someone else created earlier.
+Node [不缓存DNS返回的结果](https://github.com/nodejs/node/issues/5893).所以当你一次又一次地查询同一个URL的时候，其实已经浪费了很多宝贵的时间。这种情况下，你完全可以自己调用`dns.lookup()`并缓存结果的。或者可以[这么](https://www.npmjs.com/package/dnscache)做，这个是先前有人实现的。
 
     dns.lookup(`www.myApi.com`, 4, (err, address) => {
       cacheThisForLater(address);
@@ -259,38 +260,39 @@ A little birdy told me that Node [doesn’t cache DNS lookups](https://github.co
 [**DNS | Node.js v7.0.0 Documentation**  
 _2) Functions that connect to an actual DNS server to perform name resolution, and that always use the network to…_nodejs.org](https://nodejs.org/api/dns.html#dns_dns_lookup_hostname_options_callback "https://nodejs.org/api/dns.html#dns_dns_lookup_hostname_options_callback")
 
-### The `fs` module is a minefield of OS quirks
+### `fs`模块是多操作系统兼容性的雷区
 
-If, like me, your style of writing code is read-the-absolute-minimum-from-the-docs-then-fiddle-till-it-works, then you’re probably going to run into trouble with the `fs` module. Node does a great job of ironing out the differences between operating systems, but there’s only so much they can do, and a number of OS differences poke through the ocean of code like the jagged protrusions of a reef. A reef that has a minefield in it. You’re a boat.
+如果你写代码的风格和我一样--阅读最小的知识，微调程序，直到它可以运行。那么，你很有可能也会触到`fs`模块的雷区。虽然Node为多操作系统的兼容性做了很多，但毕竟也只能做到那么多。许多OS的不同特性就像代码海洋中突起的珊瑚瞧，每个瞧石都隐藏着风险。而你，仅仅是小船。
 
-Unfortunately, these differences aren’t all “Window vs The Others”, so we can’t simply invoke the “pffft, no one uses Windows” defence. (I wrote a whole big rant about the anti-Windows sentiment in web development but deleted it because it got so preachy even I was rolling my eyes at myself.)
+不幸的是，这些不同点不仅仅是存在于Windows和其它操作系统之间，所以，你不能简单的自我安慰“哇，太好了，没人使用windows”。（我写过一大篇反对使用window来进行web开发的文章，但我自己把它删了，因为那些说教，连我自己看了都翻白眼）。
 
 Here is a spattering of things from the `fs` module that could bite you in your downstairs area:
+这里
 
-*   The `mode` property of the object returned by `fs.stats()` will be different on Windows and other operating systems (on Windows they may not match the file mode constants such as `fs.constants.S_IRWXU`).
-*   `fs.lchmod()` is only available on macOS.
-*   Calling `fs.symlink()` with the `type` parameter is only supported on Windows.
-*   The `recursive` option that can be passed to `fs.watch()` works on macOS and Windows only.
-*   The `fs.watch()` callback will only receive a filename on Linux and Windows.
-*   Using `fs.open()` on a directory with the flag `a+` will work on FreeBSD and Windows, but fail on macOS and Linux.
-*   A `position` parameter passed to `fs.write()` will be ignored on Linux when the file is opened in append mode (the kernel will ignore the position and append to the end of the file).
+*   `fs.stats()`返回的`mode`属性在 Windows 和其它操作系统上是不同的（在 Windows 上没有匹配一些文件模式常量，比如 `fs.constants.S_IRWXU`）
+*   `fs.lchmod()`只能在macOS中使用
+*   `fs.symlink()` 的`type`参数只可能在Windows上使用
+*   `fs.watch()` 选项`recursive`只能在macOS和Windows中使用。
+*   `fs.watch()` 在Windows和Linux上，回调只会接受一个文件名
+*   `fs.open()` 打开一个文件夹，在FreeBSD和Windows上使用`a+`属性是可以的，但是在macOS和Linux上是不行的。
+*   `fs.write()` 在linux上，当文件是以append的方式打开的，参数`position`是会被直接忽视掉的，直接在文件末尾添加。
 
-(I’m so hip I’m already calling it macOS when OS X has only been in the grave for 49 days.)
+(我还算挺赶时髦的，我已经改用 `macOS` 了，`OS X` 只用了49天)
 
 [**File System | Node.js v7.0.0 Documentation**  
 _birthtime “Birth Time” – Time of file creation. Set once when the file is created. On filesystems where birthtime is…_nodejs.org](https://nodejs.org/api/fs.html "https://nodejs.org/api/fs.html")
 
-### The net module is twice as fast as http
+### net模块是http模块速度的两倍
 
-Reading the docs, I learnt that the `net` module is a thing. And that it underpins the `http` module. Which got me thinking, if I wanted to do server-to-server communication (as it turns out, I do) should I just be using the `net` module?
+阅读文档，我学到了`net`模块是个事儿。它支撑着`http`模块。这会让我思索，假如我只想做服务器间的通讯(server-to-server communication )，我是不是只需要使用`net`模块？
 
-Networking folk will find it difficult to believe that I couldn’t intuit the answer, but as a web developer that has fallen ass-first into the server world, I know HTTP and not much else. All this TCP, socket, stream malarkey is a bit like [Japanese rap](https://www.youtube.com/watch?v=FQgH4G3qypI) to me. Which is to say, I don’t really get it, but I’m intrigued.
+网上的人或许很难相信我不能凭直接获得答案。作为一个web开发者，我一开始就扎进了服务端的世界里，我知道http但是其他方面并不是很多。所有的TCP, 套接字，流之类的对我来说就像[日本摇滚](https://www.youtube.com/watch?v=FQgH4G3qypI).我真的不是很明白，但是我很好奇。
 
-To play and compare, I set up a couple of servers (I trust you’re listening to Japanese rap right now) and fired some requests at them. End result, `http.Server` handles ~3,400 requests per second, `net.Server` handles ~5,500 requests per second.
+为了比较验证我的想法，我建立了多个服务端程序，（我相信这时你肯定在听日本摇滚了）,并且发送了多个请求。结论是 `http.Server`每秒中处理了大约3,400个请求，`net.Server`每秒钟处理5,500个。
 
-It’s simpler too.
+它其实也很简单。
 
-This is the code, if you’re interested. If you’re not interested then I’m sorry I’m making you scroll so much.
+如果你感兴趣的话，可以查看我的代码。如果不感兴趣，那不好意思，需要你滚动页面了。
 
     // This makes two connections, one to a tcp server, one to an http server (both in server.js)
     // It fires off a bunch of connections and times the response
@@ -423,10 +425,9 @@ This is the code, if you’re interested. If you’re not interested then I’m 
 [**net | Node.js v7.0.0 Documentation**  
 _Stops the server from accepting new connections and keeps existing connections. This function is asynchronous, the…_nodejs.org](https://nodejs.org/api/net.html "https://nodejs.org/api/net.html")
 
-### REPL tricks
+### REPL技巧
 
-1.  If you’re in the REPL (that is, you’ve typed `node` and hit enter in your terminal) you can type `.load someFile.js` and it will load that file in (for example you might load a file that sets a bunch of constants).
-2.  You can set the environment variable `NODE_REPL_HISTORY=""` to disable writing the repl history to a file. I also learnt (was reminded at least) that the REPL history is written to `~/.node_repl_history`, if you’d like a trip down memory lane.
-3.  `_` is a variable that holds the result of the last evaluated expression. Mildly handy!
-4.  When the REPL starts, all modules are loaded for you. So, for example, you can just type `os.arch()` so see what your architecture is. You don’t need to do `require(`os`).arch();`. (Edit: OK to be precise, modules are loaded on demand.)
-
+1.  当你处于REPL（那是，你在控制台敲入`node`，并按了回车键的情形），你可以敲入`.load someFile.js`，这时，它会将这个文件的内容加载进来。（比如，你可以加载一个包含大量常量的文件）。
+2.  当你设置环境变量`NODE_REPL_HISTORY=""`，这样可以禁止repl的历史写入文件中。同时我也学到（至少是被提醒了）REPL的历史默认是写到`~/.node_repl_history`中，当你想回忆起之前的REPL历史时，可以上这儿查。
+3.  `_` 这个变量，保存着上一次的计算结果. 相当方便!
+4.  当你进入REPL模式中时，模块都已经为你加载好了。所以了，比如说，你可以直接敲入`os.arch()`查看操作系统体系结构。你不需要先敲入`require(`os`).arch();` (注: 确的说，是按需加载的模块.)
