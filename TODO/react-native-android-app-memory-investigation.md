@@ -29,9 +29,9 @@
 
 ### 我的宿敌——内存
 
-这应用有许多作为背景显示的图片，而且这些图片也不算小（400~800 kb）。除此之外，还有一个本应被略过，但还是有疑点的可能性，即这些图片都是通过远程 URI 获取的。
+这应用有许多作为背景显示的图片，而且这些图片也不算小（400~800 kb）。除此之外，虽然不太可能，但仍有点可疑的是，这些图片都是通过远程 URI 获取的。
 
-我开始对内存结构产生了好奇心，尤其是从远程加载图片时动态初始化的堆空间。于是我开始追踪内存使用。
+我开始对内存结构产生了好奇心，尤其是从远程加载图片时动态分配的堆空间。于是我开始追踪内存使用。
 
 ### 想要一些炫酷的内存查看工具？
 
@@ -186,7 +186,7 @@ source: [https://01.org/android-ia/user-guides/android-memory-tuning-android-5.0
 
 ### 更上一层楼——如何检查内存泄漏
 
-确切地说，我在上文解决的问题并不算是一个典型的应用内存问题，而是设置问题。如果你的应用有隐藏更深的内存问题，使用基于 Eclipse RCP 的 **Memory Analyzer** 来检查是否有内存泄漏是一种可行的方法。
+确切地说，我在上文解决的问题并不算是一个应用内存问题，而是设置问题。如果你的应用有隐藏更深的内存问题，使用基于 Eclipse RCP 的 **Memory Analyzer** 来检查是否有内存泄漏是一种可行的方法。
 
 这个工具并不需要依赖 Eclipse ，所以你可以下载单独版。链接在此： [http://www.eclipse.org/mat/downloads.php](http://www.eclipse.org/mat/downloads.php)
 
@@ -244,9 +244,9 @@ source: [https://01.org/android-ia/user-guides/android-memory-tuning-android-5.0
 
 ### 举个内存泄漏的例子
 
-假设你的 React Native 应用有个 Android 原生的模块。模块中有个单例类会在建立一个包含 10,000,000 个元素的 String 数组时调用 listener 的 onUpdate() 函数。（我知道这是个无意义类，但我们先关注主要矛盾吧。简单点。）
+假设你的 React Native 应用有个 Android 原生的模块。模块中有个单例类会在调用 listener 的 onUpdate() 函数时创建一个包含 10,000,000 个元素的 String 数组。（我知道这是个无意义类，但我们先关注主要矛盾吧。简单点。）
 
-悲剧的是，你忘记在 onDestroy() 中清理这个 listener 了，这就会在每次旋转屏幕时导致内存泄漏。你就会奇怪为什么应用莫名其妙的崩溃了。
+悲剧的是，你忘记在 onDestroy() 中取消监听了，这就会在每次旋转屏幕时导致内存泄漏。你就会奇怪为什么应用莫名其妙的崩溃了。
 
 以下是 Memory Analyzer 在执行完上述 5 步的界面：
 
@@ -274,7 +274,7 @@ source: [https://01.org/android-ia/user-guides/android-memory-tuning-android-5.0
 
 
 
-你可以在 **Top Consumers** 看到排序后的内存使用列表，但在当前假设环境下只有一个有问题的情况，如果要看细节的话， Dominator Tree 是个更好的选择。
+你可以在 **Top Consumers** 看到排序后的内存使用列表，但是如果是这种只有一个疑点需要仔细排查的情况， Dominator Tree 是个更好的选择。
 
 
 
@@ -288,7 +288,7 @@ source: [https://01.org/android-ia/user-guides/android-memory-tuning-android-5.0
 
 在 **Dominator Tree** 界面, Shallow Heap 是内存引用的意思， Retained Heap 则代表所有类实际持有的内存。
 
-在 **Inspector** 界面，你可以看到你创建的超大数组。你也许会想，**“我是在单例里建立了一个 String 数组，但为什么会持有这么大的内存？应该只有一个才对……”**之后你会意识到自己并没有释放内存，这是使用单例时的常见问题。
+在 **Inspector** 界面，你可以看到你创建的超大数组。你也许会想，**“我是在单例里创建了一个 String 数组，但为什么会持有这么大的内存？应该只有一个才对……”**之后你会意识到自己并没有释放内存，这是使用单例时的常见问题。
 
 ### 结论
 
@@ -298,7 +298,7 @@ source: [https://01.org/android-ia/user-guides/android-memory-tuning-android-5.0
 
 ### 关于 Leon
 
-Leon Kim 是 [Infinite Red](http://infinite.red/) 公司的软件工程师，来自远东，韩国。他在研究所发表了 [image processing and pattern recognition](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3222545/) ，研发了作为政府研究计划一部分的 [prison guard robot](http://www.reuters.com/video/2012/04/12/robo-guard-on-patrol-in-south-korean-pri?videoId=233213268) ，并有着从 LTE IPsec 安全网关到七号信令系统的 MTP3 层再到制药自动化的不同系统的研发经验。他热爱在 [Infinite Red](http://infinite.red/) 和这群酷炫的家伙在 web 和移动端开发的生活，当然，也喜欢和朋友们在每个周五晚来一次韩式烤肉。 (불금!)
+Leon Kim 是 [Infinite Red](http://infinite.red/) 公司的软件工程师，来自远东，韩国。他在读研究生时的主要方向是 [图像处理与模式识别](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3222545/) ，研发了作为政府研究计划一部分的 [prison guard robot](http://www.reuters.com/video/2012/04/12/robo-guard-on-patrol-in-south-korean-pri?videoId=233213268) ，并有着从 LTE IPsec 安全网关到七号信令系统（Signaling System 7）的 MTP3 层再到制药自动化的不同系统的研发经验。他热爱在 [Infinite Red](http://infinite.red/) 和这群酷炫的家伙在 web 和移动端开发的生活，当然，也喜欢和朋友们在每个周五晚来一次韩式烤肉。 (불금!)
 
 有什么问题或评论么？ 我的推特是 [@leonskim](https://twitter.com/leonskim) 。或者通过 [**Infinite Red**](http://infinite.red/) 联系我们**。**
 
