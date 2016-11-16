@@ -7,14 +7,6 @@
 # Audio Fingerprinting with Python and Numpy
 
 
-
-
-
-
-Published November 15, 2013  
-
-
-
 The first day I tried out Shazam, I was blown away. Next to GPS and surviving the fall down a flight of stairs, being able to recognize a song from a vast corpus of audio was the most incredible thing I'd ever seen my phone do. This recognition works though a process called [audio fingerprinting](http://en.wikipedia.org/wiki/Acoustic_fingerprint). Examples include:
 
 *   [Shazam](http://www.ee.columbia.edu/%7Edpwe/papers/Wang03-shazam.pdf)
@@ -119,10 +111,10 @@ The fingerprints table will have the following fields:
 
 
 
-    CREATE TABLE fingerprints ( 
+    CREATE TABLE fingerprints (
          hash binary(10) not null,
-         song_id mediumint unsigned not null, 
-         offset int unsigned not null, 
+         song_id mediumint unsigned not null,
+         offset int unsigned not null,
          INDEX(hash),
          UNIQUE(song_id, offset, hash)
     );
@@ -166,7 +158,7 @@ The songs table will be pretty vanilla, essentially we'll just use it for holdin
 
 
     CREATE TABLE songs (
-        song_id mediumint unsigned not null auto_increment, 
+        song_id mediumint unsigned not null auto_increment,
         song_name varchar(250) not null,
         fingerprinted tinyint default 0,
         PRIMARY KEY (song_id),
@@ -192,7 +184,7 @@ Our pseudocode looks something like this:
     fingerprints_matching = [ ]
     for channel_samples in channels
         hashes = process_audio(channel_samples)
-        fingerprints_matching += find_database_matches(hashes) 
+        fingerprints_matching += find_database_matches(hashes)
 
     predicted_song = align_matches(fingerprints_matching)
 
@@ -245,82 +237,14 @@ Here are the results for different values of listening time (`n`):
 This is pretty rad. For the percentages:
 
 
-
-
-
-
-
-Number of Seconds
-
-Number Correct
-
-Percentage Accuracy
-
-
-
-
-
-1
-
-27 / 45
-
-60.0%
-
-
-
-
-
-2
-
-43 / 45
-
-95.6%
-
-
-
-
-
-3
-
-44 / 45
-
-97.8%
-
-
-
-
-
-4
-
-44 / 45
-
-97.8%
-
-
-
-
-
-5
-
-45 / 45
-
-100.0%
-
-
-
-
-
-6
-
-45 / 45
-
-100.0%
-
-
-
-
-
-
+|Number of Seconds|Number Correct|Percentage Accuracy|
+|---|---|---|
+|1|27 / 45|60.0%|
+|2|43 / 45|95.6%|
+|3|44 / 45|97.8%|
+|4|44 / 45|97.8%|
+|5|45 / 45|100.0%|
+|6|45 / 45|100.0%|
 
 Even with only a single second, randomly chosen from anywhere in the song, Dejavu is getting 60%! One extra second to 2 seconds get us to around 96%, while getting perfect only took 5 seconds or more. Honestly when I was testing this myself, I found Dejavu beat me - listening to only 1-2 seconds of a song out of context to identify is pretty hard. I had even been listening to these same songs for two days straight while debugging...
 
@@ -356,42 +280,11 @@ For the 45 songs I fingerprinted, the database used 377 MB of space for 5.4 mill
 
 
 
-
-
-
-
-Audio Information Type
-
-Storage in MB
-
-
-
-
-
-mp3
-
-339
-
-
-
-
-
-wav
-
-1885
-
-
-
-
-
-fingerprints
-
-377
-
-
-
-
-
+|Audio Information Type|Storage in MB|
+|---|---|
+|mp3|339|
+|wav|1885|
+|fingerprints|377
 
 
 There's a pretty direct trade-off between the necessary record time and the amount of storage needed. Adjusting the amplitude threshold for peaks and the fan value for fingerprinting will add more fingerprints and bolster the accuracy at the expense of more space.
