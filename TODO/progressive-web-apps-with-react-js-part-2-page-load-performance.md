@@ -103,7 +103,6 @@ Webpack 支持当它发现一个 [require.ensure()](https://webpack.github.io/do
     });
 
 当你的代码需要某些东西，Webpack 会发起一个 JSONP 请求来从服务器获得它。这个和 React Router 结合工作得很好，我们可以在对用户渲染视图之前在依赖（块）中懒加载一个新的路由。
-When your code needs something, Webpack makes a JSONP call to fetch it from the server. This works well with React Router and we can lazy-load in the dependencies (chunks) a new route needs before rendering the view to a user.
 
 Webpack 2 支持 [使用 React Router 的自动代码分割](https://medium.com/modus-create-front-end-development/automatic-code-splitting-for-react-router-w-es6-imports-a0abdaa491e9#.3ryyedhfc) 因为它可以处理模块上的 System.import 调用为 import 语句，将导入的文件和它们的依赖一起打包。依赖不会与你在 Webpack 设置中的初始入口冲突。
 ```JavaScript
@@ -265,8 +264,8 @@ Orz 太美了。这..就搞定了。不骗你。我们可以把这个用到剩�
 
 提醒：有许多可用于 Service Worker 的简单 Webpack 插件：
 
-*   [sw-precache-webpack-plugin](https://github.com/goldhand/sw-precache-webpack-plugin) which uses sw-precache under the hood
-*   [offline-plugin](https://github.com/NekR/offline-plugin) which is used by react-boilerplate
+*   [sw-precache-webpack-plugin](https://github.com/goldhand/sw-precache-webpack-plugin) 在底层使用 sw-precache
+*   [offline-plugin](https://github.com/NekR/offline-plugin) 被 react-boilerplate 所使用
 
 #### CommonsChunkPlugin
 
@@ -334,23 +333,23 @@ Polymer 发现了一个有趣的 web 性能模式，用于精细服务的 apps�
 
 
 
-We have to give great kudos here to the [Polymer Shop demo](https://shop.polymer-project.org/) for showing us the way on real mobile devices. Using PRPL (in this case with HTML Imports, which can take advantage of the browser’s background HTML parser). No pixels go on screen that you can’t use. Additional work here is chunked and stays interactive. We’re interactive on a real mobile device at 1.75seconds. 1.3s of JavaScript but it’s all broken up. After that it all works.
+在这里，我们必须给予 [Polymer Shop demo](https://shop.polymer-project.org/) 大大的赞赏，因为它向我们展示了真实移动设备上的道路。使用 PRPL（在这种情况下通过 HTML Imports，从而利用浏览器的后台 HTML parser 的好处）。屏幕上的像素你都可以使用。这里额外的工作在于分块和保持可交互。在一台真实移动设备上，我们可以在 1.75 秒内达到可交互。1.3 秒用于 JavaScript，但它都被打散了。在那以后所有功能都可以用了。
 
-You’re hopefully on board with the benefits of breaking down applications into more granular chunks by now. When a user first visits our PWA, let’s say they go to a particular route. The server (using H/2 Push) can push down the chunks needed for just that route — these are only the pieces needed to get the application booted up. Those go into the network cache.
+你到现在应该已经成功享受到讲应用打碎到更精细的分块的好处了。当用户第一次访问我们的 PWA，假设说他们去到一个特定的路由。服务器（使用 H/2 Push）能够推送下来仅仅那次路由需要的分块 —— 这些是用来启动应用的必要资源，并会进入网络缓存中。
 
-Once they’ve been pushed down, we’ve effectively primed the cache with the chunks we know the page will need. When the application boots up, it looks at the route and knows that what we need is already in the cache, so we get that really fast first load of our application — not just a splash screen — but the interactive content the user asked for.
+一旦它们被推送下来了，我们就能高效地准备好未来会被加载的页面分块到缓存中。当应用启动后，检查路由并指导我们想要的已经在缓存中了，所以我们就能使得应用的首次加载非常快 —— 不仅仅是闪屏 —— 而是用户请求的可交互内容。
 
-The next part of this is rendering the content for the view as quickly as possible. The third is, while the user is looking at the current view, using Service Worker to start pre-caching all of the other chunks and routes the user hasn’t asked for yet and getting those all installed into the Service Worker cache.
+下一部分是尽快渲染这个视图的内容。第三部分是，当用户在看当前的视图的时候，使用 Service Worker 来开始预缓存所有其他用户还没有请求的分块和路由，将它们安装到 Service Worker 的缓存中。
 
-At this point the entire application (or a lot more of it) can be available offline. When a user navigates to a different part of the application, we can lazy load the next parts of it from the Service Worker cache. There’s no network loading needed because they’re already precached. Instant loading awesomeness ahoy! ❤
+此时，整个应用（或者大部分）都已经可以离线使用了。当用户导航到应用的不同部分，我们可以从 Service Worker 的缓存中懒加载下面的部分。不需要网络加载 —— 因为它们已经被预缓存了。瞬间加载碉堡了！❤
 
-PRPL can be applied to any app, as Flipkart recently demonstrated on their React stack. Apps fully using PRPL can take advantage of fast-loading using HTTP/2 server push by producing two builds that we conditionally serve depending on your browser support:
+PRPL 可以被应用到任何 app，正如 Flipkart 最近在他们的 React 栈上所展示的。完全使用 PRPL 的 Apps 可以利用 HTTP/2 服务器推送的快速加载，通过产生两种编译版本，并根据浏览器的支持提供不同版本：
 
-* A bundled build optimised to minimize round-trips for servers/browsers without HTTP/2 Push support. For most of us, this is what we ship today by default.
+* 一个 bundled 编译，为没有 HTTP/2 推送支持的服务器/浏览器优化以最小化往返。For most of us, this is what we ship today by default.
 
-* An unbundled build for servers/browsers that do support HTTP/2 Push enabling a faster first-paint
+* 一个没有 bundled 编译，用于支持 HTTP/2 推送的服务器/浏览器，使得首次绘制更快。
 
-This builds on some of the thinking we talked about earlier with route-chunking. With PRPL, the server and our Service Worker work together to precache resources for intactive routes. When a user navigates around your app and changes routes, we lazy-load resources for routes not cached yet and create the required views.
+这个部分基于我们在之前讨论的路由分块的想法。通过 PRPL，服务器和我们的 Service Worker 协作来为非活动路由预缓存资源。当一个用户在你的 app 中浏览并改变路由，我们对尚未缓存的路由进行懒加载，并创建请求的视图。
 
 ### 实现 PRPL
 
