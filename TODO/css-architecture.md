@@ -27,7 +27,7 @@
 *   CSS 预编译器，已经存在很长时间了（如 [SASS](http://sass-lang.com/)、[LESS](http://lesscss.org/) 及其他）
 *   CSS-in-JS 库，一个相对较新的样式解决方案（如 [free-style](https://github.com/blakeembrey/free-style) 和很多[其他的](https://github.com/MicheleBertoli/css-in-js)）
 
-两种方法的选择已经可以单独写篇文章来讨论了，并且像往常一样，它们都有各自的支持者和反对者。说完这些，在下面的内容里，我将会专注于第一种方法，所以如果你选择了后者，那么这篇文章可能就没什么吸引力了。
+两种方法间的抉择不在本文过多赘述，并且像往常一样，它们都有各自的支持者和反对者。说完这些，在下面的内容里，我将会专注于第一种方法，所以如果你选择了后者，那么这篇文章可能就没什么吸引力了。
 
 ## [](#high-level-goals)主要目标
 
