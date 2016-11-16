@@ -149,8 +149,8 @@ This effect could’ve been done with a ton of tiny elements individually animat
 
 In many cases, you’ll want to use the CSS transition property to automatically animate an element as it changes. This technique is also known as “tweening”—as in transitioning be_tween_ two different values. It has the benefit of being easily cancellable or reversible without needing to build all that logic. This is ideal for “set and forget” style animations, like intro sequences, etc. or simple interactions like hovers.
 
-许多时候，你会想要使用 CSS 切换属性来自动实现元素改变的动画效果，这种技术被称作“tweening”—因其是在两个不同的属性值之间切换（译者注：tweening 来自 transitioning be_tween_ two different values）。它的好处是可以非常简单地取消或者替换掉而不用重新构造逻辑内容，这是完美的一劳永逸式的动画，像介绍序言等，或者如鼠标悬停等简单的交互。
-
+许多时候，你会想要使用 CSS 切换属性来自动实现元素改变的动画效果，这种技术被称作 “tweening” ——因其是在两个不同的属性值之间切换（译者注：tweening 来自 transitioning be _tween_ two different values）。它的好处是可以非常简单地取消或者替换掉而不用重新构造逻辑内容，这是完美的一劳永逸式的动画，像介绍序言等，或者如鼠标悬停等简单的交互。
+ 
 Further reading: [All you need to know about CSS Transitions](https://blog.alexmaccaw.com/css-transitions)
 
 更多资料: [All you need to know about CSS Transitions](https://blog.alexmaccaw.com/css-transitions)
@@ -197,7 +197,7 @@ It is quite straightforward once you get used to thinking that way, but may be a
 
 For example, if you wanted to make something smaller, you could use_transform: scale()_ instead of changing the width. If you wanted to move it around, instead of messing with margins or paddings — which would need to rebuild the whole page layout for every frame — you could just use a simple_transform: translateX_ or _transform: translateY_.
 
-比如，你想让某个元素小，你可以使用 **transform：scale()**，而不是改变宽度；如果你想移动它，你可以使用简单的 **transform：translateX** 或者 **transform：translateY**，从而替代乱糟糟的外补白（margin）或者内补白（padding） — 那些需要重建每一帧的页面布局。
+比如，你想让某个元素变小，你可以使用 **transform：scale()**，而不是改变宽度；如果你想移动它，你可以使用简单的 **transform：translateX** 或者 **transform：translateY**，从而替代乱糟糟的外补白（margin）或者内补白（padding） — 那些需要重建每一帧的页面布局。
 
 #### Why does this work?
 
@@ -609,7 +609,7 @@ However, if coded & optimized properly (see rule #1), a mobile experience can be
 
 Mobile usage will be a large and very important part of almost any site. It may seem extreme, but I would suggest viewing it exclusively from your phone for a whole week. It shouldn’t feel like a punishment to be forced to use the mobile version, but often it will.
 
-移动端使用方法是绝大多数网站中一个非常大而且非常重要的部分。或许会有些极端，但是我建议你专门拿出一个星期的时间用手机好好地查看你的网站。这不应该像惩罚那样被迫使用移动端版本，尽管经常会有这种感觉。
+移动端使用方法是绝大多数网站中一个非常大而且非常重要的部分。或许会有些极端，但是我建议你专门拿出一个星期的时间用手机好好地查看你的网站。这不应该像接受惩罚那样被迫使用移动端版本，尽管你经常会有这种感觉。
 
 Keep making design improvements & performance enhancements until it feels just as polished and convenient as the big version of the site.
 
@@ -631,11 +631,11 @@ _Screen size, density, or device can all have big implications_
 
 There are many factors besides mobile vs desktop that can drastically affect performance, like whether a screen is “retina” or not, the total pixel count of the window, how old the hardware is, etc.
 
-除了移动端和电脑之外还有很多因素能够对性能产生极大的影响，比如是否是 "retina" 屏幕、窗口的分辨率、硬盘的老旧程度等等。
+除了移动端和电脑之外还有很多因素能够对性能产生极大的影响，比如是否是 "retina" 屏幕、窗口的分辨率、硬件的老旧程度等等。
 
 Even though Chrome and Safari are both Webkit based browsers with similar syntax, they also both have their own quirks. Each Chrome update can fix things and introduce new bugs, so you need to constantly be on your toes.
 
-及时 Chorme 和 Safari 都是基于 Webkit 的浏览器并且有着相似的语法，但是他们也有各自的特点。每一次 Chrome 升级都会修复一些问题同时也会引入新的 bug，所以你必须时刻保持警惕。
+即使 Chorme 和 Safari 都是基于 Webkit 的浏览器并且有着相似的语法，但是他们也有各自的特点。每一次 Chrome 升级都会修复一些问题同时也会引入新的 bug，所以你必须时刻保持警惕。
 
 Of course, you don’t only want to build for the lowest common denominator, so finding clever ways to progressively add or remove the enhancements can be really useful.
 
