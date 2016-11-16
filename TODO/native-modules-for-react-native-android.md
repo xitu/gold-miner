@@ -2,7 +2,7 @@
 * 原文作者：[Ryan Linton](https://shift.infinite.red/@ryanlntn)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[XHShirley](https://github.com/XHShirley)
-* 校对者：
+* 校对者：[zhouzihanntu](https://github.com/zhouzihanntu), [PhxNirvana](https://github.com/phxnirvana)
 
 
 # React Native Android 的 native 模块
@@ -11,12 +11,12 @@
 
 
 
-当我们使用 React Native 开发一个安卓应用的时候可能需要访问一个还没有对应的 React Native 模块的 API。这可以通过用java编写自己的 native 模块并选择性地开放接口给 React Native. 让我们一起来试一试。
+当我们使用 React Native 开发一个安卓应用时，可能需要访问一个还没有对应的 React Native 模块的 API。我们可以通过用 Java 编写自己的 native 模块并向 React Native 选择性地开放接口来解决。让我们一起来试一试。
 
-#### 我们想做的事
+#### 我们将要做的事
 
 
-在写这篇文章的时候， React Native 包含 ImagePickerIOS 组件却没有对应的安卓 ImagePicker 组件。 我们打算创建一个功能行为大致跟 ImagePickerIOS 一样的简单的 ImagePicker 组件。
+在写这篇文章的时候，React Native 包含 ImagePickerIOS 组件却没有对应的安卓 ImagePicker 组件。我们打算创建一个功能行为大致跟 ImagePickerIOS 一样的简单的 ImagePicker 组件。
 
 
 
@@ -29,13 +29,13 @@
 
 
 
-**通过下面的步骤写一个安卓的 native 模块**
+**根据下列步骤写一个安卓的 native 模块**
 
-1. 创建一个 _ReactPackage_ 对象， 这个对象可以把许多模块组合到一起（包括 native 和 JavaScript)。在 _MainActivity_ 中把它写进 _getPackages_ 方法中。
-2. 创建一个继承 _ReactContextBaseJavaModule_ 的 Java 类。 _ReactContextBaseJavaModule_ 实现了我们想要的功能并且与我们的 _ReactPackage_ 绑定。
-3. 在上面提到的类里重写 _getName_ 方法。 它返回的名字会成为 JavaScript 中的 native 模块的名字。
-4. 通过添加注解 _@ReactMethod_ 的方式向 JavaScript 暴露想要的公有方法。
-5. 最后，从 _NativeModules_ 中导入模块到你的 JavaScript 代码并且调用这些方法。
+1. 创建一个 **ReactPackage** 对象，这个对象可以把许多模块组合到一起（包括 native 和 JavaScript)。在 **MainActivity** 中把它写进 **getPackages** 方法中。
+2. 创建一个继承 **ReactContextBaseJavaModule** 的 Java 类来实现目标功能，并将这个类和我们的 **ReactPackage** 绑定。
+3. 在上面创建的类里重写 **getName** 方法。它返回的名字会成为 JavaScript 中的 native 模块的名字。
+4. 通过添加注解 **@ReactMethod** 的方式向 JavaScript 暴露想要的公有方法。
+5. 最后，在你的 JavaScript 代码中导入 **NativeModules** 里的模块并调用这些方法。
 
 让我们来看看实际中时什么样子。
 
@@ -43,7 +43,7 @@
 #### 创建一个 ReactPackage
 
 
-启动 AndroidStudio 并一层层找到 _MyApp/android/app/src/main/java/com/myapp/MainActivity.java_ 文件。它看起来差不多应该是下面这个样子：
+启动 AndroidStudio 并逐层找到 **MyApp/android/app/src/main/java/com/myapp/MainActivity.java** 文件。它看起来差不多应该是下面这个样子：
 
     package com.myapp;
 
@@ -77,7 +77,7 @@
 
 
 
-我们准备乐观些直接把我们还未定义的包引进来。
+我们准备乐观地把我们还未定义的包引进来。
 
 
 
@@ -93,7 +93,8 @@
 
 
 
-import com.myapp.imagepicker.*; // import the package public class MainActivity extends ReactActivity { @Override protected List getPackages() { return Arrays.asList( new MainReactPackage(), new ImagePickerPackage() // include it in getPackages ); }}
+import com.myapp.imagepicker.*; // 导入包
+public class MainActivity extends ReactActivity { @Override protected List getPackages() { return Arrays.asList( new MainReactPackage(), new ImagePickerPackage() // 把它包括进 getPackages 里 ); }}
 
 
 
@@ -106,7 +107,7 @@ import com.myapp.imagepicker.*; // import the package public class MainActivity 
 
 
 
-现在，我们才来真正定义这个包。我们会为它创建一个名为 _imagepicker_ 的新目录并把下面的代码添加进 _ImagePickerPackage_ ：
+现在，我们才来真正定义这个包。我们会为它创建一个名为 **imagepicker** 的新目录并把下面的代码添加进 **ImagePickerPackage** ：
 
     package com.myapp.imagepicker;
 
@@ -139,12 +140,12 @@ import com.myapp.imagepicker.*; // import the package public class MainActivity 
     }
 
 
-既然我们已经创建了一个包并且也把它放进了 _MainActivity_ 。我们现在可以开始定义自己的模块了。
+既然我们已经创建了一个包并且也把它放进了 **MainActivity** 。我们现在可以开始定义自己的模块了。
 
-#### 创建一个 _ReactContextBaseJavaModule_ 模块
+#### 创建一个 **ReactContextBaseJavaModule** 模块
 
 
-我们将开始创建 _ImagePickerModule_ 类，并将它继承 _ReactContextBaseJavaModule_ .
+我们将开始创建一个继承 **ReactContextBaseJavaModule** 的类 **ImagePickerModule**.
 
 
 
@@ -161,7 +162,7 @@ import com.myapp.imagepicker.*; // import the package public class MainActivity 
     }
 
 
-这是一个好的开端，但为了让 React Native 在 _NativeModules_ 中找到我们的模块，我们需要重写 _getName_ 方法。
+这是一个好的开端，但为了让 React Native 在 **NativeModules** 中找到我们的模块，我们需要重写 **getName** 方法。
 
 
 
@@ -172,7 +173,7 @@ import com.myapp.imagepicker.*; // import the package public class MainActivity 
 
 #### 暴露方法
 
-_ImagePickerIOS_ 中定义了一个以 config 对象以及成功和取消两个回调对象为参数的方法。让我们在 _ImagePickerModule_ 中也定义一个类似的方法。
+**ImagePickerIOS** 中定义了一个以 config 对象以及成功和取消两个回调对象为参数的 **openSelectDialog** 方法。让我们在 **ImagePickerModule** 中也定义一个类似的方法。
 
     import com.facebook.react.bridge.Callback;
     import com.facebook.react.bridge.ReadableMap;
@@ -201,7 +202,7 @@ _ImagePickerIOS_ 中定义了一个以 config 对象以及成功和取消两个�
 
 
 
-这里我们从 React Native 的 bridge 包导入分别对应 JavaScript _object_ 和 _function_ 的 _Callback_ 和 _ReadableMap_ 类。我们给这个方法添加注解 _@ReactMethod，_ 作为 _ImagePicker_ 模块的一部分暴露给 JavaScript. 在这个方法体里， 我们获取当前的 activity ，如果它不存在的话也可以调用取消回调。现在我们就有一个能工作的方法了，但它还没有做任何有趣的事情。让我们给它添加打开画册的功能吧。
+这里我们从 React Native 的 bridge 包导入分别对应 JavaScript **object** 和 **function** 的 **Callback** 和 **ReadableMap** 类。我们给这个方法添加注解 **@ReactMethod，**作为 **ImagePicker** 模块的一部分暴露给 JavaScript. 在这个方法体里， 我们获取当前的 activity ，如果它不存在的话也可以调用取消回调。现在我们就有一个能工作的方法了，但它还没有做任何有趣的事情。让我们给它添加打开画册的功能吧。
 
     @Override
     public void onActivityResult(final int requestCode, final int resultCode, final Intent intent) {
@@ -220,17 +221,17 @@ _ImagePickerIOS_ 中定义了一个以 config 对象以及成功和取消两个�
     pickerCancelCallback.invoke("No image data found");
 
 
-首先，我们设置回调作为实例变量，原因之后会阐明。接着创建和配置我们的 _Intent_ 并传入 _startActivityForResult_ 。 最后，我们用 try/catch 语句块把整段代码囊括起来，处理期间可能产生的异常。
+首先，我们设置回调作为实例变量，原因之后会阐明。接着创建和配置我们的 **Intent** 并传入 **startActivityForResult**。最后，我们用 try/catch 语句块把整段代码囊括起来，处理期间可能产生的异常。
 
-现在当你在 _ImagePicker_ 调用 _openSelectDialog_ 时应该看到一个图片画册。但是当选择一个图片时，画册会不做任何操作并消失。为了能返回图片数据，我们需要在模块中处理 activity 的结果。
+现在当你在 **ImagePicker** 调用 **openSelectDialog** 时应该看到一个图片画册。但是当选择一个图片时，画册会不做任何操作并消失。为了能返回图片数据，我们需要在模块中处理 activity 的结果。
 
-首先我们需要添加一个 activity 的事件监听到我们的 react 代码里：
+首先我们需要在我们的 **react** 代码里添加一个 **activity** 的事件监听函数：
 
 
 
 public class ImagePickerModule extends ReactContextBaseJavaModule implements ActivityEventListener { public ImagePickerModule(ReactApplicationContext reactContext) { super(reactContext); reactContext.addActivityEventListener(this); } }
 
-既然我们可以监听 activity 事件，我们就可以通过处理 _onActivityResult_ 返回我们想要的图片数据。
+既然我们可以监听 activity 事件，我们就可以通过处理 **onActivityResult** 返回我们想要的图片数据。
 
     @Override
     public void onActivityResult(final int requestCode, final int resultCode, final Intent intent) {
@@ -253,7 +254,7 @@ public class ImagePickerModule extends ReactContextBaseJavaModule implements Act
 
 
 
-有了这段代码，当我们调用 _openSelectDialog_ ，应该能持续从成功回调中接收到图片的 URI。
+有了这段代码，当我们调用 **openSelectDialog** 时，应该能持续从成功回调中接收到图片的 URI。
 
 
 
@@ -266,7 +267,7 @@ public class ImagePickerModule extends ReactContextBaseJavaModule implements Act
     )
 
 
-为了进一步模仿 _ImagePickerIOS_ 的行为，我们可以建立设置选项，让用户选择图片，视频或者同时支持直接开启摄像头。因为这些功能运用的事跟上述一样的概念，所以就作为练习留给读者吧。
+为了进一步模仿 **ImagePickerIOS** 的行为，我们可以建立设置选项，允许用户选择图片，视频或者同时支持直接开启摄像头。因为这些功能都是基于相同的概念，前面已经演示过了，所以就作为练习留给读者吧。
 
 
 
@@ -288,11 +289,11 @@ public class ImagePickerModule extends ReactContextBaseJavaModule implements Act
 
 ### 特别鸣谢
 
-如果没有 [Infinite Red](http://infinite.red/) 的技术主管 [Gant Laborde](https://medium.com/u/6ca0fe37eac1) 的帮助和支持，我才能写出这篇文章。他对 toast 深刻的见解真是救我于水火之中。
+多亏 [Infinite Red](http://infinite.red/) 的技术主管 [Gant Laborde](https://medium.com/u/6ca0fe37eac1) 的帮助和支持，我才能写出这篇文章。他的丰富知识帮了我大忙。
 
 ### 关于 Ryan Linton
 
-Ryan Linton 是 [Infinite Red](http://infinite.red/) 的资深软件工程师。他喜欢在把他们的项目带到生活中的同时与客户密切合作。在不折腾前端样式和后台数据库的时候，他会到世界各地去旅行或者阅读书籍，以缩短他不断增加的阅读清单。
+Ryan Linton 是 [Infinite Red](http://infinite.red/) 的资深软件工程师。他喜欢在把他们的项目带到生活中的同时与客户密切合作。在不折腾前端样式和后台数据库的时候，他会到世界各地去旅行，或者试图从他那飞速增长的书单上划去一两本（已经读过的书）。
 
 
 
