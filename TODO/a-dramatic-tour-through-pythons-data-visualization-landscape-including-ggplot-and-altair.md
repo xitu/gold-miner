@@ -5,7 +5,8 @@
 * 校对者：
 
 # A Dramatic Tour through Python’s Data Visualization Landscape (including ggplot and Altair)
-![yejgqmzehsyh83ossacczmgrjtvkpm3fpiesqskqajpe2c9szs7b0jkea8aqx38vjsegmyjuchwmzo2hesiaesiaesiaesiaesiaesiaesgh8ekfsmv5jsixigarigarigarigarigarigariws4bchdnqsemkqaikqaikqaikqaikqaikqaikmp4iukgyfzglryr](http://ac-Myg6wSTV.clouddn.com/c8bb8d3326158ea27701.png?w=1066)
+
+![](https://dansaber.files.wordpress.com/2016/09/yejgqmzehsyh83ossacczmgrjtvkpm3fpiesqskqajpe2c9szs7b0jkea8aqx38vjsegmyjuchwmzo2hesiaesiaesiaesiaesiaesiaesgh8ekfsmv5jsixigarigarigarigarigarigariws4bchdnqsemkqaikqaikqaikqaikqaikqaikm.png)
 
 
 
@@ -76,86 +77,13 @@ Wonderful. Now that our guests have arrived and checked their coats, let’s set
 (In Scene 1, we’ll be dealing with a tidy data set named “ts.” It consists of three columns: a “dt” column (for dates); a “value” column (for values); and a “kind” column, which has four unique levels: A, B, C, and D. Here’s a preview…)
 
 
-
-
-
-
-
-
-
-dt
-
-kind
-
-value
-
-
-
-
-
-
-
-
-
-0
-
-2000-01-01
-
-A
-
-1.442521
-
-
-
-
-
-1
-
-2000-01-02
-
-A
-
-1.981290
-
-
-
-
-
-2
-
-2000-01-03
-
-A
-
-1.586494
-
-
-
-
-
-3
-
-2000-01-04
-
-A
-
-1.378969
-
-
-
-
-
-4
-
-2000-01-05
-
-A
-
--0.277937
-
-
-
-
+||dt|kind|value|
+|---|---|---|---|
+|0|2000-01-01|A|1.442521|
+|1|2000-01-02|A|1.981290|
+|2|2000-01-03|A|1.586494|
+|3|2000-01-04|A|1.378969|
+|4|2000-01-05|A|-0.277937|
 
 
 
@@ -175,14 +103,14 @@ _**matplotlib: **_Ha! Haha! _Beyond _simple. While I _could _and _would _
 
     ax.set(xlabel='Date',
            ylabel='Value',
-           title='Random Timeseries')    
+           title='Random Timeseries')
 
     ax.legend(loc=2)
     fig.autofmt_xdate()
 
-![+Ct7c3SkpKsGnTJpw6dQp5eXnQ09PDiBEjMHPmTCgqKsrjazMYTQLWaTMYDAaD0URgMW0Gg8FgMJoIrNNmMBgMBqOJwDptBoPBYDCaCKzTZjAYDAajicA6bQaDwWAwmgis02YwGAwGo4nAOm0Gg8FgMJoIrNNmMBgMBqOJwDptBoPBYDCaCP8DxilTRoWpSuYAAAAASUVORK5CYII=.png](http://ac-Myg6wSTV.clouddn.com/bdfd4cc6db70cf1bceee.png?w=701&h=505)
+![](https://dansaber.files.wordpress.com/2016/09/ct7c3skpksgntjpw6dqp5exnq09pdibejmhpmtcgqksrjazmytqlwatmydaad0urgmw0gg8fgmjoirnnmmbgmbqojwdptbopbydcackztzjaydaajica6bqadwwawmgis02ywgawgo4naom0gg8fgmjoirnnmmbgmbqojwdptbopbydcacp8dxilt.png)
 
-_**  
+_**
 MPL: **_Next, I enlist this chump _(*motions to pandas*)_, and have him pivot this “Data” “Frame” so that it looks like this…
 
     # the notion of a tidy dataframe matters not here
@@ -190,116 +118,21 @@ MPL: **_Next, I enlist this chump _(*motions to pandas*)_, and have him pivot 
     dfp.head()
 
 
+|kind|A|B|C|D|
+|---|---|---|---|---|
+|dt|||||
+|2000-01-01|1.442521|1.808741|0.437415|0.096980|
+|2000-01-02|1.981290|2.277020|0.706127|-1.523108|
+|2000-01-03|1.586494|3.474392|1.358063|-3.100735|
+|2000-01-04|1.378969|2.906132|0.262223|-2.660599|
+|2000-01-05|-0.277937|3.489553|0.796743|-3.417402|
 
 
 
 
 
-kind
 
-A
-
-B
-
-C
-
-D
-
-
-
-
-
-dt
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-2000-01-01
-
-1.442521
-
-1.808741
-
-0.437415
-
-0.096980
-
-
-
-
-
-2000-01-02
-
-1.981290
-
-2.277020
-
-0.706127
-
--1.523108
-
-
-
-
-
-2000-01-03
-
-1.586494
-
-3.474392
-
-1.358063
-
--3.100735
-
-
-
-
-
-2000-01-04
-
-1.378969
-
-2.906132
-
-0.262223
-
--2.660599
-
-
-
-
-
-2000-01-05
-
--0.277937
-
-3.489553
-
-0.796743
-
--3.417402
-
-
-
-
-
-
-
-_**  
+_**
 MPL: **_By transforming the data into an index with four columns — one for each line I want to plot — I can do the whole thing in one fell swoop (i.e., a single call of my “plot” function).
 
     # MATPLOTLIB
@@ -315,10 +148,10 @@ MPL: **_By transforming the data into an index with four columns — one for ea
     ax.legend(dfp.columns, loc=2)
     fig.autofmt_xdate()
 
-![+Ct7c3SkpKsGnTJpw6dQp5eXnQ09PDiBEjMHPmTCgqKsrjazMYTQLWaTMYDAaD0URgMW0Gg8FgMJoIrNNmMBgMBqOJwDptBoPBYDCaCKzTZjAYDAajicA6bQaDwWAwmgis02YwGAwGo4nAOm0Gg8FgMJoIrNNmMBgMBqOJwDptBoPBYDCaCP8DxilTRoWpSuYAAAAASUVORK5CYII=-1.png](http://ac-Myg6wSTV.clouddn.com/1dc131e631c88d0b5f44.png?w=699&h=504)
+![](https://dansaber.files.wordpress.com/2016/09/ct7c3skpksgntjpw6dqp5exnq09pdibejmhpmtcgqksrjazmytqlwatmydaad0urgmw0gg8fgmjoirnnmmbgmbqojwdptbopbydcackztzjaydaajica6bqadwwawmgis02ywgawgo4naom0gg8fgmjoirnnmmbgmbqojwdptbopbydcacp8dxilt1.png)
 
-_**  
-pandas (*looking timid*):**_  That was great, Mat. Really great. Thanks for including me. I do the same thing — hopefully as good? _(*smiles weakly*)  
+_**
+pandas (*looking timid*):**_  That was great, Mat. Really great. Thanks for including me. I do the same thing — hopefully as good? _(*smiles weakly*)
 _
 
     # PANDAS
@@ -346,7 +179,7 @@ _**Seaborn (*smoking a cigarette and adjusting her beret*):**_ Hmmm. Seems like
              title='Random Timeseries')
     g.fig.autofmt_xdate()
 
-![PCYLvH1MdHR08Pz8TBAEtLS3xdn5+zvr6OqlUqqj3JOlrccVJ0j+Xz+fjVaMwDHl8fOTw8JC9vT0mJydpbW3l9fUVgKWlJYaGhsjlcuzs7HB1dUUURRQKBUpLS0mn0zw8PHB8fExTUxPd3d20t7czPT3NzMwM9fX1ZDIZ1tbWGBgY+O2rPkn6G6noR2vdkvSHRkdHOT09jfdTqRQVFRU0NjYyMjJCX19fPLa7u8vW1hbZbJaqqio6Ozvp7.png](http://ac-Myg6wSTV.clouddn.com/9ef45ab05ca2d39b04a2.png?w=686&h=425)
+![](https://dansaber.files.wordpress.com/2016/09/pcylvh1mdhr08pz8tbaetls3xdn5zvr6oqluqqj3jolrccvj0jxzfjvamwdhl8fotw8jc9vt0mjydpbw3l9fuvgkwljyaghsjlcuzs7hb1duuurrqkbupls0mn0zw8phb8fextuxpd3d20t7czpt3nzmwm9fx1zdiz1tbwgbgyo2rpkn6g6nor.png)
 
 _**SB:**_ See? You hand FacetGrid your un-manipulated tidy data. At that point, passing in “kind” to the “hue” parameter means you’ll plot four different lines — one for each level in the “kind” field. The way you actually realize these four different lines is by mapping my FacetGrid to this Philistine’s _(*motions to matplotlib*)_ plot function, and passing in “x” and “y” arguments. There are some things you need to keep in mind, obviously, like manually adding a legend, but nothing too challenging. Well, nothing too challenging for some of us…
 
@@ -366,7 +199,7 @@ _**GG: **_Check it out!
             ggtitle('Random Timeseries')
     g
 
-![A0VxdiqoLaa4AAAAAElFTkSuQmCC.png](http://ac-Myg6wSTV.clouddn.com/d2bee029e062a45d346a.png?w=703&h=529)
+![](https://dansaber.files.wordpress.com/2016/09/a0vxdiqolaa4aaaaaelftksuqmcc.png)
 
 _**GG (*picks up ggpot2 by Hadley Wickham and sounds out words*): **_Every plot is com — com — com-_prised_ of data (e.g., “ts”), aesthetic mappings (e.g, “x”, “y”, “color”), and the geometric shapes that turn our data and aesthetic mappings into a real visualization (e.g., “geom_line”)!
 
@@ -380,7 +213,7 @@ _**Altair: **_Yup, I do that, too.
     )
     c
 
-![sncA9dQgREQAT6EpBIUnCIgAiIgAiIgAiIQA8CEkkKCxEQAREQAREQARGQSFIMiIAIiIAIiIAIiEAxAppJKsZJR4mACIiACIiACDSMgERSwxwuc0VABERABERABIoRkEgqxklHiYAIiIAIiIAINIyARFLDHC5zRUAEREAEREAEihH4f8agJG7cmX0YAAAAAElFTkSuQmCC.png](http://ac-Myg6wSTV.clouddn.com/cdde2f759c06e1ffe39b.png?w=719&h=552)
+![](https://dansaber.files.wordpress.com/2016/09/snca9dqgreqat6epbiuncigaiigaiigaiiqa8cekkkcxeqareqareqargqsfimiiaiiiaiiiaiieaxappjkszjr4maciiaciiacdsmgerswxwuc0vaberaberabiorkegqxklhiyaiiiaiiiainiyarfldhc5zruaereaereaeihh4f8agjg7cmx0y.png)
 
 _**ALT: **_You give my Chart class some data and tell it what kind of visualization you want: in this case, it’s “mark_line”. Next, you specify your aesthetic mappings: our x-axis needs to be “date”; our y-axis needs to be “value”; and we want to split by kind, so we pass “kind” to “color.” Just like you, GG _(*tousles GG’s hair*)_. Oh, and by the way, using the same color scheme y’all use isn’t a problem, either:
 
@@ -394,7 +227,7 @@ _**ALT: **_You give my Chart class some data and tell it what kind of visualiza
     )
     c
 
-![xdux5sty+klAiIgAoUQkEgqBKsuKgIiMAICz3dLanty15oELHfp2RHcQ5cQAREQgZ4EJJIUHCIgAiIgAiIgAiLQhYBEksJCBERABERABERABCSSFAMiIAIiIAIiIAIiEEZAM0lhnHSUCIiACIiACIhAzQhIJNXM4TJXBERABERABEQgjIBEUhgnHSUCIiACIiACIlAzAhJJNXO4zBUBERABERABEQgj8P9uK5OM6th7XgAAAABJRU5ErkJ.png](http://ac-Myg6wSTV.clouddn.com/9bfb781f934d1a69996a.png?w=683&h=524)
+![](https://dansaber.files.wordpress.com/2016/09/xdux5styklaiigaouqkegqbksukgiimaicz3dlanty15oelhfp2rhcq5cqareqgz4ejjiuhcigaiigaiigailqhybeksjcberaberaberabcssfamiiaiiiaiiiaiieezam0lhnhsuciiaciiacihazqhijnxm4tjxberaberabeqgjibeuhgnhsu.png)
 
 _***MPL stares in terrified wonder***_
 
@@ -419,112 +252,13 @@ _**Data Aside**_
 (In Scenes 2-4, we’ll be dealing with the famous “iris” data set [though we refer to it as “df” in our code]. It consists of four numeric columns corresponding to various measurements, and a categorical column corresponding to one of three species of iris. Here’s a preview…)
 
 
-
-
-
-
-
-
-
-petalLength
-
-petalWidth
-
-sepalLength
-
-sepalWidth
-
-species
-
-
-
-
-
-
-
-
-
-0
-
-1.4
-
-0.2
-
-5.1
-
-3.5
-
-setosa
-
-
-
-
-
-1
-
-1.4
-
-0.2
-
-4.9
-
-3.0
-
-setosa
-
-
-
-
-
-2
-
-1.3
-
-0.2
-
-4.7
-
-3.2
-
-setosa
-
-
-
-
-
-3
-
-1.5
-
-0.2
-
-4.6
-
-3.1
-
-setosa
-
-
-
-
-
-4
-
-1.4
-
-0.2
-
-5.0
-
-3.6
-
-setosa
-
-
-
-
-
-
+|petalLength|petalWidth|sepalLength|sepalWidth|species|
+|---|---|---|---|---|
+|0|1.4|0.2|5.1|3.5|setosa|
+|1|1.4|0.2|4.9|3.0|setosa|
+|2|1.3|0.2|4.7|3.2|setosa|
+|3|1.5|0.2|4.6|3.1|setosa|
+|4|1.4|0.2|5.0|3.6|setosa|
 
 #### _**Scene 2: How would you make a scatter plot?**_
 
@@ -546,7 +280,7 @@ _**MPL (*looking shaken*): **_I mean, you could do the for loop thing again. Of
 
     ax.legend(loc=2)
 
-![B8ZAYrg+hOIxAAAAAElFTkSuQmCC.png](http://ac-Myg6wSTV.clouddn.com/ee09ad87f7776a7ccc10.png?w=602&h=600)
+![](https://dansaber.files.wordpress.com/2016/09/b8zayrghoixaaaaaelftksuqmcc.png)
 
 _**MPL: **_But, uh, _(*feigning confidence*) _I have a **_better_** way! Look at this:
 
@@ -566,7 +300,7 @@ _**MPL: **_But, uh, _(*feigning confidence*) _I have a **_better_** way! Loo
 
     ax.legend(loc=2)
 
-![A2ClfjM5bkUNAAAAAElFTkSuQmCC.png](http://ac-Myg6wSTV.clouddn.com/16083705468eaba39df6.png?w=601&h=612)
+![](https://dansaber.files.wordpress.com/2016/09/a2clfjm5bkunaaaaaelftksuqmcc.png)
 
 _**MPL: **_Here, I define a function named “scatter.” It will take groups from a pandas groupby object and plot petal length on the x-axis and petal width on the y-axis. Once per group! Powerful!
 
@@ -585,7 +319,7 @@ _**SB: **_Whatever. Anyway, in my mind, this problem is the same as the last on
     g.map(plt.scatter, 'petalLength', 'petalWidth').add_legend()
     g.ax.set_title('Petal Width v. Length -- by Species')
 
-![H8V9T5kv2yf2AAAAAElFTkSuQmCC.png](http://ac-Myg6wSTV.clouddn.com/519efa5cf8093385c769.png?w=600&h=504)
+![](https://dansaber.files.wordpress.com/2016/09/h8v9t5kv2yf2aaaaaelftksuqmcc.png)
 
 _**GG: **_Yes! Yes! Same! You just gotta swap out geom_line for geom_point!
 
@@ -597,7 +331,7 @@ _**GG: **_Yes! Yes! Same! You just gotta swap out geom_line for geom_point!
             ggtitle('Petal Width v. Length -- by Species')
     g
 
-![w9IKWkwfhHl2QAAAABJRU5ErkJggg==.png](http://ac-Myg6wSTV.clouddn.com/bf18753db7eea66afc59.png?w=601&h=437)
+![](https://dansaber.files.wordpress.com/2016/09/w9ikwkwfhhl2qaaaabjru5erkjggg.png)
 
 _**ALT (*looking bemused*): **_Yup — just swap our mark_line for mark_point.
 
@@ -609,7 +343,7 @@ _**ALT (*looking bemused*): **_Yup — just swap our mark_line for mark_point.
     )
     c
 
-![wO7Xb6FOWH+JAAAAABJRU5ErkJggg==.png](http://ac-Myg6wSTV.clouddn.com/0ed5994b87219ad45a6a.png?w=600&h=394)
+![](https://dansaber.files.wordpress.com/2016/09/wo7xb6fowhjaaaaabjru5erkjggg.png)
 
 #### _**Analyzing Scene 2**_
 
@@ -787,7 +521,7 @@ _**MPL:**_ And if we wanted a histogram — do we want a histogram? — I have 
 
     ax.set(xlabel='Petal Width',
            ylabel='Frequency',
-           title='Distribution of Petal Width by Species')    
+           title='Distribution of Petal Width by Species')
 
     ax.legend(loc=1)
 
@@ -809,7 +543,7 @@ _**P (*looking uncharacteristically proud*):**_ Ha! Hahahaha! This is my moment
 
 ![+QEAAGABShsAAIAFKG0AAAAWoLQBAABYgNIGAABggf8HnE3tVwwY5+QAAAAASUVORK5CYII=.png](http://ac-Myg6wSTV.clouddn.com/0f4e3ad4e30057f72db0.png?w=599&h=579)
 
-_***GG and ALT high five and congratulate P; shouts of “awesome!”, “way to be!”, “let’s go!” audible*  
+_***GG and ALT high five and congratulate P; shouts of “awesome!”, “way to be!”, “let’s go!” audible*
 **_
 
 _**SB (*feigning enthusiasm*): **_Wooooow. Greeeeat. Meanwhile, in my world, distributions are exceedingly important, so I maintain special methods for them. For example, my boxplot method needs an x argument, a y argument, and data, resulting in this:
@@ -898,124 +632,13 @@ _**Data Aside**_
 
 (In the final scene, we’ll be dealing with “titanic,” another famous tidy dataset [although again, we refer to it as “df” in our code]. Here’s a preview…)
 
-
-
-
-
-
-
-
-
-survived
-
-pclass
-
-sex
-
-age
-
-fare
-
-class
-
-
-
-
-
-
-
-
-
-0
-
-0
-
-3
-
-male
-
-22.0
-
-7.2500
-
-Third
-
-
-
-
-
-1
-
-1
-
-1
-
-female
-
-38.0
-
-71.2833
-
-First
-
-
-
-
-
-2
-
-1
-
-3
-
-female
-
-26.0
-
-7.9250
-
-Third
-
-
-
-
-
-3
-
-1
-
-1
-
-female
-
-35.0
-
-53.1000
-
-First
-
-
-
-
-
-4
-
-0
-
-3
-
-male
-
-35.0
-
-8.0500
-
-Third
-
-
-
-
-
+|survived|pclass|sex|age|fare|class|
+|---|---|---|---|---|---|
+|0|0|3|male|22.0|7.2500|Third|
+|1|1|1|female|38.0|71.2833|First|
+|2|1|3|female|26.0|7.9250|Third|
+|3|1|1|female|35.0|53.1000|First|
+|4|0|3|male|35.0|8.0500|Third|
 
 
 In this example, we’ll be interested in looking at the average fare paid by class and by whether or not somebody survived. Obviously, you could do this in pandas…
@@ -1027,84 +650,48 @@ In this example, we’ll be interested in looking at the average fare paid by cl
 
 
 
-
-
-
-
-
-
-fare
-
-
-
-
-
-survived
-
-pclass
-
-
-
-
-
-
-
-
-
-
-
-0
-
-1
-
-64.684008
-
-
-
-
-
-2
-
-19.412328
-
-
-
-
-
-3
-
-13.669364
-
-
-
-
-
-1
-
-1
-
-95.608029
-
-
-
-
-
-2
-
-22.055700
-
-
-
-
-
-3
-
-13.694887
-
-
-
-
-
+<table class="dataframe" border="1">
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th>fare</th>
+</tr>
+<tr>
+<th>survived</th>
+<th>pclass</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th rowspan="3" valign="top">0</th>
+<th>1</th>
+<td>64.684008</td>
+</tr>
+<tr>
+<th>2</th>
+<td>19.412328</td>
+</tr>
+<tr>
+<th>3</th>
+<td>13.669364</td>
+</tr>
+<tr>
+<th rowspan="3" valign="top">1</th>
+<th>1</th>
+<td>95.608029</td>
+</tr>
+<tr>
+<th>2</th>
+<td>22.055700</td>
+</tr>
+<tr>
+<th>3</th>
+<td>13.694887</td>
+</tr>
+</tbody>
+</table>
 
 
 …but what fun is that? This is a post on visualization, so let’s do it in the form of a bar chart!)
@@ -1148,7 +735,7 @@ _**MPL (*looking grim*): **_No comment.
                     '%d' % int(height),
                     ha='center', va='bottom')
 
-    ax.set_ylim(0, 110)        
+    ax.set_ylim(0, 110)
 
     autolabel(rects1)
     autolabel(rects2)
