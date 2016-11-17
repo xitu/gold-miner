@@ -11,7 +11,7 @@
 
 刚开始接触 React Native 应用时，我发现有个现象很奇怪，在 Android 手机上我无法看到任何图片，只有颜色和文字可以显示。但 iOS 手机却没有任何问题。
 
-我以为是我新找来测试 React Native 工程的 Android 手机有问题。我甚至被这错误的想法牵着刷了 rom （基于 AOSP 5.1.1 的系统）来在更高的 Android 版本上运行 React Native，当然也有着避免被无用 Samsung 应用影响的原因。然而，除了样例工程的首屏外，其他地方仍看不到图片。于是我将这手机打入冷宫。
+我以为是我新找来测试 React Native 工程的 Android 手机有问题。我甚至被这错误的想法牵着刷了 rom （基于 AOSP 5.1.1 的系统）来在更高的 Android 版本上运行 React Native，当然也有着避免被 Samsung 自带应用影响的原因。然而，除了样例工程的首屏外，其他地方仍看不到图片。于是我将这手机打入冷宫。
 
 几天后，我的朋友指出 React Native 的 Android 应用在一些特定屏幕上无法加载图片。呃……这可真够奇怪的……等等，我好像在哪儿见过这现象……
 
@@ -128,7 +128,7 @@
 
 
 
-即使第一屏使用的内存已经在124MB左右时，**堆大小**也并没有明显超过124MB的迹象。之后执行垃圾回收：
+即使第一屏使用的内存已经在124MB左右时，**堆大小**也并没有明显超过124MB的迹象。但垃圾回收却开始执行：
 
     I/art(27035): Background partial concurrent mark sweep GC freed 1584(69KB) AllocSpace objects, 2(30KB) LOS objects, 12% free, 108MB/124MB, paused 3.874ms total 182.718ms
 
