@@ -55,21 +55,20 @@
     import java.util.List;
 
     public class MainActivity extends ReactActivity {
-    @Override
-    protected String getMainComponentName() {
-    return "MyApp";
-    }
-
-    @Override
-    protected boolean getUseDeveloperSupport() {
-    return BuildConfig.DEBUG;
-    }
-    @Override
-    protected List getPackages() {
-    return Arrays.asList(
-    new MainReactPackage()
-    );
-    }
+	    @Override
+	    protected String getMainComponentName() {
+	    	return "MyApp";
+	    }
+	
+	    @Override
+	    protected boolean getUseDeveloperSupport() {
+	    	return BuildConfig.DEBUG;
+	    }
+	    
+	    @Override
+	    protected List getPackages() {
+	    	return Arrays.asList(new MainReactPackage());
+	    }
     }
 
 
@@ -93,8 +92,15 @@
 
 
 
-import com.myapp.imagepicker.*; // 导入包
-public class MainActivity extends ReactActivity { @Override protected List getPackages() { return Arrays.asList( new MainReactPackage(), new ImagePickerPackage() // 把它包括进 getPackages 里 ); }}
+	import com.myapp.imagepicker.*; // 导入包
+
+	public class MainActivity extends ReactActivity { 
+
+		@Override protected List getPackages() { 
+			return Arrays.asList(new MainReactPackage(), new ImagePickerPackage()); // 把它包括进 getPackages 里 
+		}
+		
+	}
 
 
 
@@ -121,22 +127,24 @@ public class MainActivity extends ReactActivity { @Override protected List getPa
     import java.util.Collections;import java.util.List;
 
     public class ImagePickerPackage implements ReactPackage {
-    @Override
-    public List createNativeModules(ReactApplicationContext reactContext) {
-    List modules = new ArrayList<>();
-
-    modules.add(new ImagePickerModule(reactContext));
-
-    return modules;}
-
-    @Override
-    public List<Class> createJSModules() {
-    return Collections.emptyList();
-    }
-
-    @Override
-    public List createViewManagers(ReactApplicationContext reactContext) {
-    return Collections.emptyList();}
+	    @Override
+	    public List createNativeModules(ReactApplicationContext reactContext) {
+	    	List modules = new ArrayList<>();
+	
+	    	modules.add(new ImagePickerModule(reactContext));
+	
+	    	return modules;
+    	}
+	
+	    @Override
+	    public List<Class> createJSModules() {
+	    	return Collections.emptyList();
+	    }
+	
+	    @Override
+	    public List createViewManagers(ReactApplicationContext reactContext) {
+	    	return Collections.emptyList();
+	    }
     }
 
 
@@ -156,9 +164,9 @@ public class MainActivity extends ReactActivity { @Override protected List getPa
     import com.facebook.react.bridge.ReactContextBaseJavaModule;
 
     public class ImagePickerModule extends ReactContextBaseJavaModule {
-    public ImagePickerModule(ReactApplicationContext reactContext) {
-    super(reactContext);
-    }
+	    public ImagePickerModule(ReactApplicationContext reactContext) {
+	    	super(reactContext);
+    	}
     }
 
 
@@ -166,7 +174,10 @@ public class MainActivity extends ReactActivity { @Override protected List getPa
 
 
 
-@Override public String getName() { return "ImagePicker"; }
+	@Override 
+	public String getName() { 
+		return "ImagePicker"; 
+	}
 
 
 现在，我们有可以导入到 JavaScript 代码的功能完备的 native 模块了。让我们再让它做点有趣的事情。
@@ -179,14 +190,15 @@ public class MainActivity extends ReactActivity { @Override protected List getPa
     import com.facebook.react.bridge.ReadableMap;
 
     public class ImagePickerModule extends ReactContextBaseJavaModule {
-    @ReactMethod
-    public void openSelectDialog(ReadableMap config, Callback successCallback, Callback cancelCallback) {
-    Activity currentActivity = getCurrentActivity();
-
-    if (currentActivity == null) {
-    cancelCallback.invoke("Activity doesn't exist");return;
-    }
-    }
+	    @ReactMethod
+	    public void openSelectDialog(ReadableMap config, Callback successCallback, Callback cancelCallback) {
+	    	Activity currentActivity = getCurrentActivity();
+	
+	    	if (currentActivity == null) {
+	    		cancelCallback.invoke("Activity doesn't exist");
+	    		return;
+			}
+    	}
     }
 
 
@@ -206,19 +218,19 @@ public class MainActivity extends ReactActivity { @Override protected List getPa
 
     @Override
     public void onActivityResult(final int requestCode, final int resultCode, final Intent intent) {
-    if (pickerSuccessCallback != null) {
-    if (resultCode == Activity.RESULT_CANCELED) {
-    pickerCancelCallback.invoke("ImagePicker was cancelled");
-    } else if (resultCode == Activity.RESULT_OK) {
-    Uri uri = intent.getData();
+    	if (pickerSuccessCallback != null) {
+    		if (resultCode == Activity.RESULT_CANCELED) {
+    			pickerCancelCallback.invoke("ImagePicker was cancelled");
+    		} else if (resultCode == Activity.RESULT_OK) {
+    			Uri uri = intent.getData();
 
-    if (uri == null) {
-    pickerCancelCallback.invoke("No image data found");
-    } else {
-    try {
-    pickerSuccessCallback.invoke(uri);
-    } catch (Exception e) {
-    pickerCancelCallback.invoke("No image data found");
+    			if (uri == null) {
+    				pickerCancelCallback.invoke("No image data found");
+    			} else {
+				    try {
+				    	pickerSuccessCallback.invoke(uri);
+				    } catch (Exception e) {
+				    	pickerCancelCallback.invoke("No image data found");
 
 
 首先，我们设置回调作为实例变量，原因之后会阐明。接着创建和配置我们的 **Intent** 并传入 **startActivityForResult**。最后，我们用 try/catch 语句块把整段代码囊括起来，处理期间可能产生的异常。
@@ -229,25 +241,30 @@ public class MainActivity extends ReactActivity { @Override protected List getPa
 
 
 
-public class ImagePickerModule extends ReactContextBaseJavaModule implements ActivityEventListener { public ImagePickerModule(ReactApplicationContext reactContext) { super(reactContext); reactContext.addActivityEventListener(this); } }
+	public class ImagePickerModule extends ReactContextBaseJavaModule implements ActivityEventListener { 
+		public ImagePickerModule(ReactApplicationContext reactContext) { 
+			super(reactContext);
+			reactContext.addActivityEventListener(this); 
+		} 
+	}
 
 既然我们可以监听 activity 事件，我们就可以通过处理 **onActivityResult** 返回我们想要的图片数据。
 
     @Override
     public void onActivityResult(final int requestCode, final int resultCode, final Intent intent) {
-    if (pickerSuccessCallback != null) {
-    if (resultCode == Activity.RESULT_CANCELED) {
-    pickerCancelCallback.invoke("ImagePicker was cancelled");
-    } else if (resultCode == Activity.RESULT_OK) {
-    Uri uri = intent.getData();
+    	if (pickerSuccessCallback != null) {
+    		if (resultCode == Activity.RESULT_CANCELED) {
+    			pickerCancelCallback.invoke("ImagePicker was cancelled");
+    		} else if (resultCode == Activity.RESULT_OK) {
+    			Uri uri = intent.getData();
 
-    if (uri == null) {
-    pickerCancelCallback.invoke("No image data found");
-    } else {
-    try {
-    pickerSuccessCallback.invoke(uri);
-    } catch (Exception e) {
-    pickerCancelCallback.invoke("No image data found");
+    			if (uri == null) {
+    				pickerCancelCallback.invoke("No image data found");
+    			} else {
+				    try {
+				    	pickerSuccessCallback.invoke(uri);
+				    } catch (Exception e) {
+				    	pickerCancelCallback.invoke("No image data found");
 
 
 
