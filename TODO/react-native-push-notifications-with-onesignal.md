@@ -1,8 +1,8 @@
 > * 原文地址：[React Native Push Notifications with OneSignal](https://medium.com/differential/react-native-push-notifications-with-onesignal-9db6a7d75e1e#.ji9dbcxv7)
 * 原文作者：[Spencer Carli](https://medium.com/@spencer_carli)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：[大猫](https://github.com/xiaoheiai4719)
-* 校对者：[王子建](https://github.com/Romeo0906) [XHShirley](https://github.com/XHShirley)
+* 译者：[xiaoheiai4719](https://github.com/xiaoheiai4719)
+* 校对者：[Romeo0906](https://github.com/Romeo0906) [XHShirley](https://github.com/XHShirley)
 
 # React Native 使用OneSignal 进行推送
 
