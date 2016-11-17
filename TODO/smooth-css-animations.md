@@ -2,26 +2,26 @@
 * 原文作者：[Anand Sharma](https://blog.gyrosco.pe/@aprilzero)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[王子建](https://github.com/Romeo0906)
-* 校对者：
+* 校对者：[Scarecrow](https://github.com/xiaoheiai4719)，[Gocy](https://github.com/Gocy015)
 
 # 10 principles for smooth web animations
 
-# 10 个原则让你的动画平稳起飞
+# 10 个原则让动画带你飞
 
 
 
 
 Since we launched [_Gyroscope_](https://gyrosco.pe/) last year, many people have asked about the JavaScript library we use for our animations. We thought about releasing it to the public, but that’s actually not where the magic happens.
 
-去年我们发布了 [**Gyroscope**](https://gyrosco.pe/) 以来，许多人问过我们做动画用的什么 JavaScript 库，我们也曾想过将它公布于众，但实际上那并不是给动画施加魔法的地方。
+去年我们发布了 [**Gyroscope**](https://gyrosco.pe/) 以来，许多人问过我们做动画用的什么 JavaScript 库，我们也曾想过将它公布于众，但实际上那并不是奥妙所在。
 
 We don’t want people to feel like they’re dependent on some special JavaScript plugin that magically solves these problems. For the most part, we’re just taking advantage of the recent improvements in browser performance, GPU’s and the CSS3 spec.
 
-我们不想让大伙儿觉得自己需要依赖特定的 JavaScript 插件才能魔法般地解决问题。大部分时候，我们都是在谈论最新的浏览器和 GPU 的性能的提升和 CSS3。
+我们不想让大伙儿觉得自己需要依赖特别黑魔法的 JavaScript 插件才能解决问题。大部分时候，我们都只要对最新的浏览器和 GPU 的性能和 CSS3 加以利用就够了。
 
 There is no silver bullet for great animations, besides spending a lot of time testing and optimizing them. However, after years of experimentation and hitting the limits of browser performance, we’ve come up with a series of design & code principles that seem to reliably result in nice animations. These techniques should get you pages that feel smooth, work in modern desktop and mobile browsers, and—most importantly—are easy to maintain.
 
-其实并没有什么绚丽动画的武功秘籍，唯一的办法就是花大量时间测试和优化。但是，在经过多年的试验和浏览器性能的极限考验，我们发现了一些设计和编码的原则可以有效地做出很棒的动画效果。这些技巧能够使你的页面流畅，并且能够运行在流行的台式和移动设备的浏览器上，最重要的一点，它们还非常易于维护。
+其实并没有什么绚丽动画的武功秘籍，唯一的办法就是花大量时间测试和优化。但是，在经过多年的试验和浏览器性能的极限考验，我们发现了一些设计和编码的原则可以有效地提升动画表现。这些技巧能够使你的页面流畅，并且能够运行在流行的台式和移动设备的浏览器上，最重要的一点，它们还非常易于维护。
 
 
 
@@ -171,7 +171,7 @@ Further reading: [All you need to know about CSS Transitions](https://blog.alexm
 
 In other cases, the keyframe-based CSS animation property may be ideal for continuously running background details. For example, the rings in the Gyroscope logo are scheduled to constantly spin. Other types of things that would benefit from the CSS animation syntax are gear ratios.
 
-其他时候，基于关键帧的 CSS 动画属性会非常适合持续运行的后台数据。举个例子，陀螺仪中的圆环按会照预设持续转动，还有其他能够利用 CSS 动画的类型比如齿轮。
+其他时候，基于关键帧的 CSS 动画属性会非常适合不断变化的背景元素。举个例子，陀螺仪中的圆环按会照预设持续转动，还有其他能够利用 CSS 动画的类型比如齿轮。
 
 So without further ado, here are some tips that will hopefully greatly improve your animation performance…
 
@@ -189,7 +189,7 @@ _Even if you think it might be ok, don’t!_
 
 Just this one basic principle should get you 80% of the way there, even on mobile. You’ve probably heard this one before—it’s not an original idea but it is seldom followed. It is the web equivalent of “eat healthy and exercise” that sounds like good advice but you probably ignore.
 
-仅仅这项基本的原则就应该存在你 80% 的工作中，即使是在移动端也一样。你或许以前听过这个原则，这不是我提出来的，但是很少有人去遵守。这跟“管住嘴迈开腿”一样，建议很好却也最容易被忽略。
+动画中百分之八十的优化会用到这项基本原则，即使是在移动端也一样。你或许以前听过这个原则，这不是我提出来的，但是很少有人去遵守。这跟“管住嘴迈开腿”一样，建议很好却也最容易被忽略。
 
 It is quite straightforward once you get used to thinking that way, but may be a big jump for those used to animating traditional CSS properties.
 
@@ -217,7 +217,7 @@ You can go crazy when first loading the page — round all the corners, use 
 
 Further reading: [Moving elements with translate (Paul Irish)](https://www.paulirish.com/2012/why-moving-elements-with-translate-is-better-than-posabs-topleft/)
 
-更多内容，请戳: [Moving elements with translate (Paul Irish)](https://www.paulirish.com/2012/why-moving-elements-with-translate-is-better-than-posabs-topleft/)
+更多内容: [Moving elements with translate (Paul Irish)](https://www.paulirish.com/2012/why-moving-elements-with-translate-is-better-than-posabs-topleft/)
 
 > #2
 
@@ -251,7 +251,7 @@ This works especially well with absolutely positioned elements, because you can 
 
 It also gives you a bit more leeway, as the timing doesn’t have to be perfect — it isn’t the end of the world if an element is clickable or covering other things for a second longer than it was visible, or if it only become clickable once it fully faded in.
 
-它有时也会剑走偏锋，因为时机并不会总是那么完美 — 但是这并没有到不可挽救的地步，比如一个元素仍然可以点击或者在不可见状态下覆盖了其他内容，或者只有当元素淡入显示完全的时候才可以点击。
+它有时也会剑走偏锋，因为动画的时机并不总那么完美 — 比如一个元素在不可见状态下仍然可以点击或者覆盖了其他内容，或者只有当元素淡入显示完全的时候才可以点击，但是不要灰心，会有办法解决的。（下文会提到解决办法，译者注）
 
 > #3
 
@@ -265,7 +265,7 @@ _Rather, use choreography._
 
 A single animation may be smooth on its own, but at the same time as a many others will probably mess it up. It is very easy to create a basic demo of almost anything running smoothly — but an order of magnitude harder to maintain that performance with a full site. Therefore, it is important to schedule them properly.
 
-单一的动画会很流畅，但是和其他许多动画一起也许就完全乱套了。写一个全员动画的例子很简单 — 但是这样的数量级下很难保持一个完整的网站的性能。因此，合理安排好每个元素非常重要。
+单一的动画会很流畅，但是和其他许多动画一起也许就完全乱套了。编写一个流畅的全员动画的例很简单，但当数量级上升到整个网站时性能就很难维持了。因此，合理安排好每个元素非常重要。
 
 You will want to spread the timings out so everything isn’t starting or running at the exact same time. Typically, 2 or 3 things can be moving at the same time without slowing down, especially if they were kicked off at slightly different times. More than that and you risk lag spikes.
 
@@ -277,7 +277,7 @@ Unless there is literally only one thing on your pages, it is important to under
 
 Google’s material design has some interesting suggestions on this subject. It is not the only right way to do things, but something you should be thinking about and testing.
 
-谷歌的 material design 有几点关于动作编排的有趣建议，这并不是实现目标的不二法门，但总会有一些你应该考虑和测试的内容。
+谷歌的 material design 有几点关于动作编排的有趣建议，虽然这并不是实现目标的不二法门，但总有一些你应该去考虑和尝试。
 
 
 
@@ -409,7 +409,7 @@ Whether you’re using Javascript, or some sort of CSS preprocessor like SASS (w
 
 You should make sure it is convenient to try different speeds or timings. For example, if an animation stutters even at 1/10 speed, there might be something fundamentally wrong. If it goes smoothly when stretched out 50x, then it is just a matter of finding the fastest speed it will run at. It may be hard to notice 5-millisecond issues at full speed, but if you slow the whole thing down they will become extremely obvious.
 
-你必须确保它能够非常容易地尝试不同的速度或时间节点。举个例子，如果一个动画效果在 1/10 的速度下还表现地结结巴巴，那么可能会有一些非常基础的错误。
+你必须确保它能够非常容易地尝试不同的速度或时间节点。举个例子，如果一个动画效果在 1/10 的速度下还表现地结结巴巴，那么可能会有一些非常基础的错误。如果在放慢 50 倍的速率下表现流畅，假以时日定能找到运行流畅的最大速度。或许正常速度下 5 毫秒的差池很难被注意到，但是放慢速度，它就变得非常明显了。
 
 Especially for very complex animations, or solving tricky performance bottle necks, the ability to see things in slow motion can be really useful.
 
@@ -451,7 +451,7 @@ Some people build a video in after effects and then try to implement that on a s
 
 有时候不同的视角能够帮助你对事物有更加清楚的认识，而录像则是一种很好的方法。
 
-有的人会用 AE 做视频然后放到网站上，而我经常是用其他方式，尝试从网站用户界面做一个很棒的视频。
+有的人会用 AE 做视频然后放到网站上，而我恰恰相反，我总是尝试将网站界面录制成很棒的视频。
 
 
 
@@ -517,7 +517,7 @@ They say the camera adds 10 pounds. Perhaps it also adds 10 frames.
 
 It has now become an important part of my workflow to watch slow-motion videos of my pages and make changes if any of the frames don’t feel right. It’s easy to just blame it on slow browsers, but with some more optimization and testing it’s possible to work through all of those problems.
 
-这已经成为我工作中很重要的一部分，我会观看慢动作的视频并且修改任何我举得不妥的地方。其实也可以很容易地将这类问题归咎于浏览器性慢，但是再多优化一点多测试一点，这些问题就能够得到解决。
+这已经成为我工作中很重要的一部分，我会观看慢动作的视频并且修改任何我觉得不妥的地方。其实也可以很容易地将这类问题归咎于浏览器性能差，但是再多优化一点多测试一点，这些问题就能够得到解决。
 
 Once you’re not embarrassed by catching lag spikes on video, and feel like the video is good enough to share, then the page is probably ready to release.
 
@@ -573,7 +573,7 @@ Even worse is building your own scroll bar functionality instead of using the de
 
 This is one of those rules that is especially useful for mobile, but also probably good practice for the ideal user experience.
 
-所有规则中，这项对移动开发尤其有用，另外可能也是理想用户体验的好的实践。
+在这十项准则中，这项尤其适用于移动开发，另外可能也是理想用户体验的好的实践。
 
 If you do have a specific type of experience you want that is focused on scrolling or some special events, I would suggest building a quick prototype of it to make sure that it can perform well before spending much time designing it.
 
@@ -591,7 +591,7 @@ Most websites are built on a computer, and likely tested most often on the same 
 
 However, if coded & optimized properly (see rule #1), a mobile experience can be even smoother than on a computer. Mobile optimization was once a very tricky subject, but new iPhones are now faster than most laptops! If you’ve been following the previous tips, you may very well end up with great mobile performance out of the box.
 
-然而，如果代码写得好优化也到位（参考规则 #1），移动端的体验甚至比电脑更加流畅。移动端的优化是一项非常棘手的事情，但是新的 iPhones 比手提电脑更快！如果你采用了前几项建议，你将会得到一个非常棒的移动端表现。
+然而，如果代码写得好优化也到位（参考规则 #1），移动端的体验甚至比电脑更加流畅。移动端的优化是一项非常棘手的事情，但是新的 iPhone 比手提电脑更快！如果你采用了前几项建议，你将会得到一个非常棒的移动端表现。
 
 
 
@@ -609,7 +609,7 @@ However, if coded & optimized properly (see rule #1), a mobile experience can be
 
 Mobile usage will be a large and very important part of almost any site. It may seem extreme, but I would suggest viewing it exclusively from your phone for a whole week. It shouldn’t feel like a punishment to be forced to use the mobile version, but often it will.
 
-移动端使用方法是绝大多数网站中一个非常大而且非常重要的部分。或许会有些极端，但是我建议你专门拿出一个星期的时间用手机好好地查看你的网站。这不应该像惩罚那样被迫使用移动端版本，尽管经常会有这种感觉。
+移动端访问网站将会变得非常非常的重要。我建议你专门拿一个星期的时间认真地用手机查看你的网站，这或许有些极端，你可能会感觉像是在接受惩罚而被迫使用移动端版本，但是你应该调整好心态。
 
 Keep making design improvements & performance enhancements until it feels just as polished and convenient as the big version of the site.
 
@@ -617,7 +617,7 @@ Keep making design improvements & performance enhancements until it feels just a
 
 If you force yourself to only use your mobile site for a week, you will probably end up optimizing it to be an even better experience than the big one. Being annoyed by using it regularly is worth it though, if it means that the issues get fixed before your users experience them!
 
-如果你迫使自己在使用移动端版本一个星期，你将会得到一个比电脑上更优化体验更好的网站。即使在使用过程中遇到非常恼人的事情也是值得的，那意味着这些问题将在你的用户体验到之前就被解决掉了！
+如果你坚持一周都用移动端来访问网站，你将会得到一个比电脑上更优化体验更好的网站。即使在使用过程中遇到非常恼人的事情也是值得的，那意味着这些问题将在你的用户体验到之前就被解决掉了！
 
 > #10
 
