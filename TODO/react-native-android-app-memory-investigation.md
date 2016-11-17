@@ -1,45 +1,45 @@
 > * 原文地址：[React Native Android App Memory Investigation](https://shift.infinite.red/react-native-android-app-memory-investigation-55695625da9c#.a1m35m6jb)
 * 原文作者：[Leon Kim](https://shift.infinite.red/@blackgoat)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
-* 校对者：
+* 译者：[PhxNirvana](https://github.com/phxnirvana)
+* 校对者：[XHShirley](https://github.com/XHShirley), [jamweak](https://github.com/jamweak)
 
-# React Native Android App Memory Investigation
+# React Native Android 应用内存使用探究
 
 
-### Images not loading on my old Android phone?
+### 为什么我那台老旧的 Android 手机无法加载图片？
 
-While working on a React Native app not long ago, I noticed something odd. I could not see any images on the next screens, only colors and text on Android. Whereas, there was no problem on iOS.
+刚开始接触 React Native 应用时，我发现有个现象很奇怪，在 Android 手机上我无法看到任何图片，只有颜色和文字可以显示。但 iOS 手机却没有任何问题。
 
-I blamed my old Android phone which I had recently set up for testing React Native Android projects. I went so far as to install a custom rom (based on AOSP 5.1.1) for running React Native on a higher Android version, and to get rid of all the useless Samsung apps. However, I couldn’t see any images except on the first screen of a sample project. I just threw the phone back in my drawer.
+我以为是我新找来测试 React Native 工程的 Android 手机有问题。我甚至被这错误的想法牵着刷了 rom （基于 AOSP 5.1.1 的系统）来在更高的 Android 版本上运行 React Native，当然也有着避免被 Samsung 自带应用影响的原因。然而，除了样例工程的首屏外，其他地方仍看不到图片。于是我将这手机打入冷宫。
 
-A couple of days later, my friend posted that images were not loading on a certain screen of a React Native Android app. Hmm… that’s pretty bizarre… oh wait, I think I have seen something like that…
+几天后，我的朋友指出 React Native 的 Android 应用在一些特定屏幕上无法加载图片。呃……这可真够奇怪的……等等，我好像在哪儿见过这现象……
 
-Oh, it was not just my phone.
+好吧，原来不止是我的手机有这现象。
 
-### It’s… hard to explain.
+### 这……一言难尽啊。
 
-The source code is straightforward. There are no tricks or external libraries for displaying images. I started off by running the app on GenyMotion and Android Virtual Device(AVD) with different Android versions:
+代码很明了，在显示图片方面并没有用什么黑科技或者第三方库。我开始在不同Android版本的 GenyMotion 和 Android Virtual Device （ AVD ，Android 虚拟机）上运行（React Native应用）。
 
-*   **My phone**: I could only see the images that were on the first screen
-*   **GenyMotion (API 21, API 22)**: Problem with some  nodes
-*   **AVD (API 21, API 22, API 23)**: No problem!?
+*   **我的手机**：只能在第一屏看到图片
+*   **GenyMotion (API 21, API 22)**：部分节点有问题
+*   **AVD (API 21, API 22, API 23)**：完全没问题？！
 
-I thought the chances are that the issue was only happening on specific devices or Android API versions but apparently it wasn’t. In another words, I had to take pretty much all the other possibilities into account. This was becoming a big headache.
+我本以为这是在特定机型或者 API 版本上发生的事情，但显然不是这样的。也就是说我需要考虑一堆其他的可能性。这可真让人头痛。
 
-### My life-long enemy: memory
+### 我的宿敌——内存
 
-This app has many images to display as cell backgrounds and they aren’t small. (400~800kb) Despite that, it should be bearable, but one thing slightly suspicious was that the images are fetched by remote URI.
+这应用有许多作为背景显示的图片，而且这些图片也不算小（400~800 kb）。除此之外，虽然不太可能，但仍有点可疑的是，这些图片都是通过远程 URI 获取的。
 
-I started wondering what the memory structure looked like, especially heap space since the images from remote will be assigned dynamically. I started tracking down memory usage.
+我开始对内存结构产生了好奇心，尤其是从远程加载图片时动态分配的堆空间。于是我开始追踪内存使用。
 
-### You want some eye-candy memory inspector?
+### 想要一些炫酷的内存查看工具？
 
-Years ago, I used to use this to check memory usage:
+几年前，我用这个来查看内存：
 
     adb shell dumpsys meminfo
 
-I love console applications, but this is not so eye-friendly when it comes to visualizing memory usage.
+我喜欢命令行应用，但当涉及到图形化的内存使用时，这真的不是什么界面友好的东西。
 
 
 
@@ -51,21 +51,21 @@ I love console applications, but this is not so eye-friendly when it comes to vi
 
 
 
-You don’t want these, do you?
+别告诉我你喜欢看这样的内存分享界面。
 
-If you use it when you’re hungover on a Saturday morning, it’s a nightmare. (Not that I did, though ![😉](https://linmi.cc/wp-content/themes/bokeh/images/emoji/1f609.png)) I needed something to make running the garbage collector easy.
+如果你在一个宿醉的周六清晨用这东西，那绝对会让你从梦魇中醒来。（不不，我绝对没干过这种事！[😉](https://linmi.cc/wp-content/themes/bokeh/images/emoji/1f609.png)） 我需要能让垃圾回收变得更容易的工具。
 
-The easiest (and free!) inspector is **Android Device Monitor**. If you have Android Studio, you already have it. Open it up with these steps:
+最容易获取（并且免费！）的内存查看器就是 **Android Device Monitor**。如果你安装过 Android Studio 的话，你就已经拥有它了。按照如下步骤来打开它： 
 
-1.  Run React Native app normally (**_react-native run-android_**)
-2.  Run **Android Studio**
-3.  On the menu, click **Tools → Android → Enable ADB Integration**
-4.  Click **Tools → Android → Android Device Monitor**
-5.  When Android Device Monitor shows up, click **Monitor → Preferences**
-6.  On the dialog, in **Android** → **DDMS**, check these two options:
+1.  用平常的方式运行 React Native 应用 (**_react-native run-android_**)
+2.  运行 **Android Studio**
+3.  在菜单栏找到并打开 **Tools → Android → Enable ADB Integration**
+4.  点击 **Tools → Android → Android Device Monitor**
+5.  当显示 Android Device Monitor 界面时，点击 **Monitor → Preferences**
+6.  在打开的对话框中找到 **Android** → **DDMS** ，选中这两项
 
-*   Heap updates enabled by default
-*   Thread updates enable by default (optional)
+*   Heap updates enabled by default（默认更新堆开启）
+*   Thread updates enable by default (optional)（默认更新线程开启）
 
 
 
@@ -77,7 +77,7 @@ The easiest (and free!) inspector is **Android Device Monitor**. If you have And
 
 
 
-Then you will see a screen like this (**System Information tab**):
+之后你就会看到一个如图所示的界面 (**System Information tab**):
 
 
 
@@ -89,7 +89,7 @@ Then you will see a screen like this (**System Information tab**):
 
 
 
-If you see this screen:
+如果你看到这个界面的话：
 
 
 
@@ -101,11 +101,11 @@ If you see this screen:
 
 
 
-Run this to make your development server accessible for the device.
+执行下面这条命令来确保你的开发服务连上了设备。
 
     adb reverse tcp:8081 tcp:8081
 
-This could happen if you run your app from Android Studio while the app has already been started by **_react-native run-android_**.
+当你从 Android Studio 运行一个已经通过 **_react-native run-android_** 启动的应用时，可能发生这个问题。
 
 
 
@@ -117,25 +117,24 @@ This could happen if you run your app from Android Studio while the app has alre
 
 
 
-Select your app on the Devices tab on the left. Now you’re ready to check out your app’s memory.
+在左边的 Devices 栏选择你的应用。现在内存检查前的工作就已经准备完毕了。
 
-### Increase the heap size
+### 增加堆空间
 
-I saw something weird was going on while I was running Android Device Monitor and navigating through the screens.
-
+当我运行 Android Device Monitor 并来回拖动时，我发现了一些奇怪的现象。
 
 
 ![](https://cdn-images-1.medium.com/max/1600/1*kNdaXpsYjMpleztZhynlMg.png)
 
 
 
-It was the **Heap Size** which wasn’t going over about 124MB, even though it was already about 124MB on the first screen. Then garbage collector ran:
+即使第一屏使用的内存已经在124MB左右时，**堆大小**也并没有明显超过124MB的迹象。但垃圾回收却开始执行：
 
     I/art(27035): Background partial concurrent mark sweep GC freed 1584(69KB) AllocSpace objects, 2(30KB) LOS objects, 12% free, 108MB/124MB, paused 3.874ms total 182.718ms
 
-My question was, **_“Why is the heap size so small?”_**
+于是问题来了, **“为什么堆的内存如此小？”**
 
-Recommended **dalvik.vm.heapsize** in **ART Java Heap Parameter** for Android 5.0.0 is **384MB**:
+Android 5.0.0 中 **ART Java Heap Parameter** 推荐的 **dalvik.vm.heapsize** 值为 **384MB**:
 
 
 
@@ -149,7 +148,7 @@ Recommended **dalvik.vm.heapsize** in **ART Java Heap Parameter** for Android 5.
 
 source: [https://01.org/android-ia/user-guides/android-memory-tuning-android-5.0-and-5.1](https://01.org/android-ia/user-guides/android-memory-tuning-android-5.0-and-5.1)
 
-I even pulled my phone’s build property and checked (**_adb -d pull /system/build.prop_**) the heap size was **_256MB_**.
+我甚至去拉了我手机的 build property 文件 (**_adb -d pull /system/build.prop_**) 然后证实堆内存是 **_256 MB_**.
 
 
 
@@ -161,7 +160,7 @@ I even pulled my phone’s build property and checked (**_adb -d pull /system/bu
 
 
 
-Then I figured out how to set a larger heap size. Just add this line in: ****in **AndroidManifest.xml**
+后来我知道怎么设置大内存了，只需在 **AndroidManifest.xml** 中加这行代码： 
 
     <application
           android:name=".MainApplication"
@@ -171,7 +170,7 @@ Then I figured out how to set a larger heap size. Just add this line in: ****in 
           android:theme="@style/AppTheme"
           android:largeHeap="true">
 
-This is the result when I enabled largeHeap:
+这是我开启 largeHeap 后的结果：
 
 
 
@@ -179,19 +178,19 @@ This is the result when I enabled largeHeap:
 
 
 
-That’s it. Yes. Only one dang line. _What a bummer!_
+就是这样。是的，就这么一行该死的代码。**真是够恶心的！**
 
-The reason that none of AVD instances (API 21 ~23) have a problem with displaying images was the emulator is smarter. It increases heap size when it needs, although it warns about setting heap size.
+所有 AVD 设备（ API 21 ~ 23）在显示图片时没有这个问题的原因是模拟器更智能。当需要时它会增大堆的大小，虽然设置堆大小（的行为）会产生警告。
 
     emulator: WARNING: Setting VM heap size to 384MB
 
-### One step further – How to check for memory leaks
+### 更上一层楼——如何检查内存泄漏
 
-The issue I solved above was not exactly an application memory problem, but the configuration. If your app has a deeper memory problem, here is a way to check if your app is leaking memory with **Memory Analyzer** based on Eclipse RCP.
+确切地说，我在上文解决的问题并不算是一个应用内存问题，而是设置问题。如果你的应用有隐藏更深的内存问题，使用基于 Eclipse RCP 的 **Memory Analyzer** 来检查是否有内存泄漏是一种可行的方法。
 
-It doesn’t require Eclipse so you can just download the standalone version. Download and install it: [http://www.eclipse.org/mat/downloads.php](http://www.eclipse.org/mat/downloads.php)
+这个工具并不需要依赖 Eclipse ，所以你可以下载单独版。链接在此： [http://www.eclipse.org/mat/downloads.php](http://www.eclipse.org/mat/downloads.php)
 
-1.  Click **Cause GC** to run garbage collector.
+1.  点击 **Cause GC** 来执行垃圾回收。
 
 
 
@@ -203,7 +202,7 @@ It doesn’t require Eclipse so you can just download the standalone version. Do
 
 
 
-2\. Click **Dump HPROF file** button to capture memory profile dump.
+2\. 点击 **Dump HPROF file** 按钮来捕获内存转储文件。
 
 
 
@@ -215,11 +214,11 @@ It doesn’t require Eclipse so you can just download the standalone version. Do
 
 
 
-3\. Convert the Android-specific dump file so that our Memory Analyzer can read. (You need **platform-tools** from Android SDK)
+3\. 将 Android 转储文件转换成 Memory Analyzer 可以读取的格式。 (你需要 Android SDK的 **platform-tools** )
 
     hprof-conv com.leak_sample.hprof com.leak_sample_converted.hprof
 
-4\. Run Memory Analyzer and open the converted hprof file. Then Select **Leak Suspects Report** (You can cancel and choose this later).
+4\. 运行 Memory Analyzer 打开转换后的 hprof 文件。然后选择 **Leak Suspects Report** （你可以先点取消，稍后再执行）。
 
 
 
@@ -231,7 +230,7 @@ It doesn’t require Eclipse so you can just download the standalone version. Do
 
 
 
-5\. Ta-da!
+5\. 就是这样，喵~
 
 
 
@@ -243,13 +242,13 @@ It doesn’t require Eclipse so you can just download the standalone version. Do
 
 
 
-### Memory leak example
+### 举个内存泄漏的例子
 
-Let’s assume there’s an Android native module for your React Native app. It has a singleton class setting a listener that calls onUpdate() with creating a String array[10,000,000]. (I know it’s a meaningless class but let’s focus on what we want to see. Be simple.)
+假设你的 React Native 应用有个 Android 原生的模块。模块中有个单例类会在调用 listener 的 onUpdate() 函数时创建一个包含 10,000,000 个元素的 String 数组。（我知道这是个无意义类，但我们先关注主要矛盾吧。简单点。）
 
-Unfortunately, you forgot to clear the listener onDestroy(), which will cause a memory leak every time when you rotate the screen. And you’re wondering why your app dies unexpectedly.
+悲剧的是，你忘记在 onDestroy() 中取消监听了，这就会在每次旋转屏幕时导致内存泄漏。你就会奇怪为什么应用莫名其妙的崩溃了。
 
-Here’s the screen of Memory Analyzer after following the 5 steps above:
+以下是 Memory Analyzer 在执行完上述 5 步的界面：
 
 
 
@@ -261,9 +260,9 @@ Here’s the screen of Memory Analyzer after following the 5 steps above:
 
 
 
-As you can see, **LetsLeak** class consumed a pretty big portion of memory. Note that it’s a _suspect_ not an _actual cause_.
+如图所示， **LetsLeak** 类占用了相当多的内存。注意这只是个**假设**而不是**实际情况**。
 
-Let’s move onto **Dominator Tree**.
+让我们聚焦于 **Dominator Tree** 。
 
 
 
@@ -275,7 +274,7 @@ Let’s move onto **Dominator Tree**.
 
 
 
-You can see sorted lists of memory usage on **Top Consumers**, but in this case there’s only one problem suspect, Dominator Tree is a better option to see the details.
+你可以在 **Top Consumers** 看到排序后的内存使用列表，但是如果是这种只有一个疑点需要仔细排查的情况， Dominator Tree 是个更好的选择。
 
 
 
@@ -287,19 +286,19 @@ You can see sorted lists of memory usage on **Top Consumers**, but in this case 
 
 
 
-On **Dominator Tree**, Shallow Heap means references for objects, and Retained Heap stands for actual size of all objects contained.
+在 **Dominator Tree** 界面, Shallow Heap 是内存引用的意思， Retained Heap 则代表所有类实际持有的内存。
 
-On **Inspector**, you see the big size of array that you created. You might think, _“Okay, I’ve created a String array in the singleton class, but why is the retained heap so big? There should be only one…”_ Then you would realize that you didn’t release the memory; a pretty common mistake when using a singleton.
+在 **Inspector** 界面，你可以看到你创建的超大数组。你也许会想，**“我是在单例里创建了一个 String 数组，但为什么会持有这么大的内存？应该只有一个才对……”**之后你会意识到自己并没有释放内存，这是使用单例时的常见问题。
 
-### Conclusion
+### 结论
 
-A good combination of Android Device Monitor and Memory Analyzer can monitor threads and profile memory which could be used to investigate any kind of memory issue on Android. React Native Android is not an exception.
+将 Android Device Monitor 和 Memory Analyzer 高效地结合起来可以监视线程并且可以通过转储内存查找所有 Android 系统上的内存问题。 Android 上的 React Native 也不例外。
 
-Like the memory leak example above, a single object holding a bigger heap size than you would expect, is rather easy to catch. However, it’s tough when it comes to tracking down real apps. Using these tools could be a big help without a doubt.
+就像上文举例的内存泄漏问题一样，一个简单对象持有你想不到的大内存这种情况是很容易找到原因的。然而在开发环境中追踪内存泄漏还是相当困难的。毋庸置疑的是，这些工具可以带来极大的便利。
 
-### About Leon
+### 关于 Leon
 
-Leon Kim is a software engineer at [Infinite Red](http://infinite.red/) who works from the Far East, South Korea. He studied [image processing and pattern recognition](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3222545/) in graduate school, developed a [prison guard robot](http://www.reuters.com/video/2012/04/12/robo-guard-on-patrol-in-south-korean-pri?videoId=233213268) as a part of a government research project, and has diverse system development backgrounds across LTE IPsec Security Gateway, Signaling System 7 MTP3 layer and pharmaceutical automation. He loves working as a web and mobile app developer with the amazing folks at [Infinite Red](http://infinite.red/) and enjoys having Korean BBQ with friends every Friday night. (불금!)
+Leon Kim 是 [Infinite Red](http://infinite.red/) 公司的软件工程师，来自远东，韩国。他在读研究生时的主要方向是 [图像处理与模式识别](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3222545/) ，研发了作为政府研究计划一部分的 [prison guard robot](http://www.reuters.com/video/2012/04/12/robo-guard-on-patrol-in-south-korean-pri?videoId=233213268) ，并有着从 LTE IPsec 安全网关到七号信令系统（Signaling System 7）的 MTP3 层再到制药自动化的不同系统的研发经验。他热爱在 [Infinite Red](http://infinite.red/) 和这群酷炫的家伙在 web 和移动端开发的生活，当然，也喜欢和朋友们在每个周五晚来一次韩式烤肉。 (불금!)
 
-Have questions? Comments? I’m [@leonskim on Twitter](https://twitter.com/leonskim) Or visit us at [**Infinite Red**](http://infinite.red/)**.**
+有什么问题或评论么？ 我的推特是 [@leonskim](https://twitter.com/leonskim) 。或者通过 [**Infinite Red**](http://infinite.red/) 联系我们**。**
 
