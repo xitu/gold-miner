@@ -2,7 +2,7 @@
 * 原文作者：[Leon Kim](https://shift.infinite.red/@blackgoat)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[PhxNirvana](https://github.com/phxnirvana)
-* 校对者：
+* 校对者：[XHShirley](https://github.com/XHShirley), [jamweak](https://github.com/jamweak)
 
 # React Native Android 应用内存使用探究
 
