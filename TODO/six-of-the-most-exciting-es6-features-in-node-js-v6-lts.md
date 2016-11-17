@@ -12,7 +12,7 @@
 
 ## 给函数设置默认参数
 
-新的 [默认函数特性](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Default_parameters)让函数在初始化定义的时候能够设置一个默认的参数值。
+新的[默认函数特性](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Default_parameters)让函数在初始化定义的时候能够设置一个默认的参数值。
 
 ES6 中函数默认参数特性和随后 Node 核心内容的增加，并没有必然地增加以前没有实现的功能。也就是说，这些对自定义参数值的最高级的支持让我们在整个应用生态中能够写出更加协调一致的代码。
 
@@ -133,6 +133,6 @@ ES6 中，匿名函数可以接受一个 `name` 属性，这个属性在调试�
 
 ## 写在最后
 
-如果你想了解更多关于 Node.js v6 发布为长期支持版（LTS）的变动，请查看我们的博文： [升级之后，Node.js v6 LTS 的十个关键特性](https://nodesource.com/blog/the-10-key-features-in-node-js-v6-lts-boron-after-you-upgrade)。
+如果你想了解更多关于 Node.js v6 发布为长期支持版（LTS）的变动，请查看我们的博文：[升级之后，Node.js v6 LTS 的十个关键特性](https://nodesource.com/blog/the-10-key-features-in-node-js-v6-lts-boron-after-you-upgrade)。
 
 或者，想获取更多 Node、JavaScript、ES6、Electron、npm、yarn 或者其他内容的更新，请关注 [@NodeSource](https://twitter.com/nodesource) 的 Twitter。非常乐意收到您的消息，我们一直都在！
