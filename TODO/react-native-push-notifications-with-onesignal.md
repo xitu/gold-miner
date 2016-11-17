@@ -21,7 +21,7 @@
 
 
 
-但是，这并不是什么借口。这是一系列的关于如何在 ReactNative 上通过使用 [OneSignal](https://onesignal.com/)设置推送的教程，[OneSignal](https://onesignal.com/) 是一个提供跨平台的服务商。这是一篇非常长的但是值得阅读的教程，即使你不使用 OneSinagal，大部分的内容也是适用于你的(基础的配置)。让我们开始吧。
+但是，这并不是什么借口。这是一系列的关于如何在 ReactNative 上通过使用 [OneSignal](https://onesignal.com/) 设置推送的教程，[OneSignal](https://onesignal.com/) 是一个提供跨平台的服务商。这是一篇非常长的但是值得阅读的教程，即使你不使用 OneSinagal，大部分的内容也是适用于你的(基础的配置)。让我们开始吧。
 
 
 #### 创建 React Native App
@@ -111,11 +111,11 @@ _我们需要知道这点才能继续做下去_：推送只能在真机上使用
 > 如果你对这个工具获取到你的App账号的使用权感到不安。你可以 [手动的创建证书。](https://documentation.onesignal.com/docs/generate-an-ios-push-certificate#section-option-b-create-certificate-request-manually) 
 
 
-**高级技巧：如果你的账号开启了二次身份验证。为了使用 **[**The Provisionator**]**(https://onesignal.com/provisionator)。你需要关闭它。为了保持账号的安全我通常会在使用前和使用后去更改密码。所以尽情的使用它。**
+**高级技巧：如果你的账号开启了二次身份验证。为了使用 [**The Provisionator**](https://onesignal.com/provisionator)。你需要关闭它。为了保持账号的安全我通常会在使用前和使用后去更改密码。所以尽情的使用它。**
 
 现在让我们使用这个工具获取到我们的证书。
 
-登陆你的账号并确保选择正确的team。
+登陆你的账号并确保选择正确的 team。
 
 
 
@@ -179,7 +179,7 @@ _我们需要知道这点才能继续做下去_：推送只能在真机上使用
 
 
 
-我喜欢让 iOS 和 Android 保持一致
+我喜欢让 iOS 和 Android 保持一致。
 
 然后允许云推送
 
@@ -278,7 +278,7 @@ OneSignal 在 npm 上有一个包，[react-native-onesignal](https://github.com/
 
 
 
-下面我们需要在项目工程中添加 RCTOneSignal.xcodeproj。可以在_/node_modules/react-native-onesignal/ios_这个目录下面找到。
+下面我们需要在项目工程中添加 RCTOneSignal.xcodeproj。可以在 **/node_modules/react-native-onesignal/ios** 这个目录下面找到。
 
 
 
@@ -451,7 +451,7 @@ OneSignal 在 npm 上有一个包，[react-native-onesignal](https://github.com/
 
 
 
-然后选择你的证书和应包括在 AdHoc 分发中的设备。 如果你需要添加设备 [Apple开发者网站上面的介绍]（https://developer.apple.com/account/ios/device/）。 需要找出你的 UDID？ [找到我的UDID]（http://whatsmyudid.com/）。
+然后选择你的证书和应包括在 AdHoc 分发中的设备。 如果你需要添加设备 [ Apple 开发者网站上面的介绍]（https://developer.apple.com/account/ios/device/）。 需要找出你的 UDID？ [找到我的 UDID]（http://whatsmyudid.com/）。
 
 
 然后创建你的证书并且下载下来。当下载完成之后，双击安装证书。
@@ -578,13 +578,12 @@ OneSignal 在 npm 上有一个包，[react-native-onesignal](https://github.com/
     }
 
 
-请记住，您想要更改_YOUR_ONESIGNAL_ID_（用于iOS的相同）和_YOUR_GOOGLE_PROJECT_NUMBER_（这是您先前生成并添加到OneSignal里面的那个）_._
+请记住，您想要更改 **YOUR_ONESIGNAL_ID** （用于iOS的相同）和 **YOUR_GOOGLE_PROJECT_NUMBER** （这是你先前生成并添加到OneSignal里面的那个）。
 
-[The full file is available also if you want to reference it](https://gist.github.com/spencercarli/b8e61d29fe1c1ab1798a3b7861177db5). The changes made occur at line 87, line 98, and line 135.
 
-[以下是完整文件，仅供参考](https://gist.github.com/spencercarli/b8e61d29fe1c1ab1798a3b7861177db5). The changes made occur at line 87, line 98, and line 135.
-Just about there! Last thing we need to do is modify _MainApplication.java_(_android/app/src/main/java/com/YOUR_APP_NAME/MainApplication.java_). Line 15 and 29 are the ones you’ll be interested in.
-差不多就这样了！最后我们需要做的事更改_MainApplication.java_(_android/app/src/main/java/com/YOUR_APP_NAME/MainApplication.java_)。你需要注意第15行和29行。
+
+[以下是完整文件，仅供参考](https://gist.github.com/spencercarli/b8e61d29fe1c1ab1798a3b7861177db5)。
+差不多就这样了！最后我们需要做的事更改_MainApplication.java_(_android/app/src/main/java/com/YOUR_APP_NAME/MainApplication.java_)。你需要注意第 15 行和 29 行。
 
 
     package com.onesignalexample;
@@ -746,7 +745,7 @@ Just about there! Last thing we need to do is modify _MainApplication.java_(_and
 
 
 
-我现在暂且不为你一一介绍 OneSiganl 上可用的选项，但是你可以做很多事情通过仪表盘，你还可以通过其 [REST API]（https://documentation.onesignal.com/reference）与服务进行交互，以便您可以通过编程方式发送通知。 无论如何，如果一切正常，你应该得到你的设备上的通知！
+我现在暂且不为你一一介绍 OneSiganl 上可用的选项，但是你可以做很多事情通过仪表盘，你还可以通过其 [REST API](https://documentation.onesignal.com/reference) 与服务进行交互，以便您可以通过编程方式发送通知。 无论如何，如果一切正常，你应该得到你的设备上的通知！
 
 
 
@@ -755,7 +754,6 @@ Just about there! Last thing we need to do is modify _MainApplication.java_(_and
 
 
 
-Now that’s pretty basic and you can do a lot more with OneSignal and push notifications in general, some of which I’ll cover below.
 现在这是很基本的，你可以通过 OneSignal 做很多事情，其中一些我将在下面介绍。
 #### [iOS] 仅在需要时请求通知权限
 
