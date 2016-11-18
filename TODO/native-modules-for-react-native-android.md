@@ -216,22 +216,37 @@
 
 这里我们从 React Native 的 bridge 包导入分别对应 JavaScript **object** 和 **function** 的 **Callback** 和 **ReadableMap** 类。我们给这个方法添加注解 **@ReactMethod，**作为 **ImagePicker** 模块的一部分暴露给 JavaScript. 在这个方法体里， 我们获取当前的 activity ，如果它不存在的话也可以调用取消回调。现在我们就有一个能工作的方法了，但它还没有做任何有趣的事情。让我们给它添加打开画册的功能吧。
 
-    @Override
-    public void onActivityResult(final int requestCode, final int resultCode, final Intent intent) {
-    	if (pickerSuccessCallback != null) {
-    		if (resultCode == Activity.RESULT_CANCELED) {
-    			pickerCancelCallback.invoke("ImagePicker was cancelled");
-    		} else if (resultCode == Activity.RESULT_OK) {
-    			Uri uri = intent.getData();
+    public class ImagePickerModule extends ReactContextBaseJavaModule {
+    private static final int PICK_IMAGE = 1;
 
-    			if (uri == null) {
-    				pickerCancelCallback.invoke("No image data found");
-    			} else {
-				    try {
-				    	pickerSuccessCallback.invoke(uri);
-				    } catch (Exception e) {
-				    	pickerCancelCallback.invoke("No image data found");
+    private Callback pickerSuccessCallback;
+    private Callback pickerCancelCallback;
 
+    @ReactMethod
+    public void openSelectDialog(ReadableMap config, Callback successCallback, Callback cancelCallback) {
+        Activity currentActivity = getCurrentActivity();
+
+        if (currentActivity == null) {
+            cancelCallback.invoke("Activity doesn't exist");
+            return;
+        }
+
+        pickerSuccessCallback = successCallback;
+        pickerCancelCallback = cancelCallback;
+
+        try {
+            final Intent galleryIntent = new Intent();
+
+            galleryIntent.setType("image/*");
+            galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+
+            final Intent chooserIntent = Intent.createChooser(galleryIntent, "Pick an image");
+
+            currentActivity.startActivityForResult(chooserIntent, PICK_IMAGE);
+        } catch (Exception e) {
+            cancelCallback.invoke(e);
+        }
+    }
 
 首先，我们设置回调作为实例变量，原因之后会阐明。接着创建和配置我们的 **Intent** 并传入 **startActivityForResult**。最后，我们用 try/catch 语句块把整段代码囊括起来，处理期间可能产生的异常。
 
@@ -265,6 +280,11 @@
 				    	pickerSuccessCallback.invoke(uri);
 				    } catch (Exception e) {
 				    	pickerCancelCallback.invoke("No image data found");
+			    	}
+		    	}
+	    	}
+    	}
+	}
 
 
 
