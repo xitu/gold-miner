@@ -2,10 +2,10 @@
 * 原文作者：[Patrick Hund](https://medium.freecodecamp.com/@wiekatz)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Nicolas(Yifei) Li](https://github.com/yifili09)
-* 校对者：
+* 校对者：[markzhai](https://github.com/markzhai), [Romeo0906](https://github.com/Romeo0906)
 
 # 使用 `Google` 抓取方式，测试 `React` 驱动的网站 `SEO`
-我最近进行了一项测试，有关客户端渲染的网站是否能避免被搜索引擎的机器人爬取内容。就如[我这篇文章展现的](https://medium.freecodecamp.com/seo-vs-react-is-it-neccessary-to-render-react-pages-in-the-backend-74ce5015c0c9#.eg3w0nh17)，`React` 并不会破坏搜索引擎的索引。
+我最近进行了一项测试，它有关客户端渲染的网站是否能避免被搜索引擎的机器人爬取内容。就如我[此文](https://medium.freecodecamp.com/seo-vs-react-is-it-neccessary-to-render-react-pages-in-the-backend-74ce5015c0c9#.eg3w0nh17)所述，`React` 并不会破坏搜索引擎的索引。
 
 现在，我开始实施我的下一个步骤。为了了解 `Google` 到底能爬取和索引哪些内容，我建立了一个 `React` 的沙盒项目。
 
@@ -29,7 +29,7 @@
 
 ### 部署到 `GitHub Pages`
 
-_create-react-app_ 非常有用。几乎和我神同步。在我执行了 _npm run build_ 指令后，它就识别出我准备计划在 `GitHub Pages` 上发布我的项目，并且告诉我应该这么做:
+_create-react-app_ 非常有用。简直和我心有灵犀。在我执行了 _npm run build_ 指令后，它就识别出我准备计划在 `GitHub Pages` 上发布我的项目，并且告诉我应该这么做:
 
 
 
@@ -67,7 +67,7 @@ _create-react-app_ 非常有用。几乎和我神同步。在我执行了 _npm r
 
 `Google` 为网站所有者提供了一份免费的套件工具叫做 [Google 搜索终端](https://www.google.com/webmasters/tools)，它可以被用于测试他们的网站。
 
-为了建立这个服务，我为这个网站增加一个 `property`:
+为了建立这个服务，我为这个网站增加一个称为 `property` 的东西:
 
 
 
@@ -83,7 +83,7 @@ _create-react-app_ 非常有用。几乎和我神同步。在我执行了 _npm r
 
 
 
-为了证明我就是这个网站的所有者，我不得不向 `Google` 上传一个特别的文件来找到这个网站。多谢这个有用的方法 _npm rum deploy_，用不了多少时间就能完成。
+为了证明我就是这个网站的所有者，我不得不向 `Google` 上传一个特别的文件来找到这个网站。多亏了这个有用的方法 _npm rum deploy_，让我在很快的时间内就完成了。
  
 ### `Google` 眼中我们网站长什么样
 
@@ -123,7 +123,7 @@ _create-react-app_ 非常有用。几乎和我神同步。在我执行了 _npm r
 
 #### 发现 #1: `Googlebot` 以异步加载的形式来阅读内容
 
-我想最先测试的是 `Googlebot` 是否不会对异步渲染的内容进行检索或者爬取。
+我想最先测试的是 `Googlebot` 会不会对异步渲染的内容进行检索或者爬取。
 
 在页面被加载完毕后，我的 `React` 应用程序为数据发送了一个 `Ajax` 请求，并用这些数据更新了部分页面上的内容。
 
@@ -173,7 +173,7 @@ _create-react-app_ 非常有用。几乎和我神同步。在我执行了 _npm r
 
 #### `React Router` 让 `Googlebot` 迷了眼
 
-我把 [`React Router`](https://react-router.now.sh/) (version 4.0.0-alpha.5) 添加到网页应用程序中，它能创建一个菜单条加载不同的子页面（复制并从他们的文档中直接粘贴）:
+我把 [`React Router`](https://react-router.now.sh/) (version 4.0.0-alpha.5) 添加到网页应用程序中，它能创建一个菜单条加载不同的子页面（从他们的文档里直接复制粘贴过来）:
 
 
 
@@ -213,6 +213,6 @@ _create-react-app_ 非常有用。几乎和我神同步。在我执行了 _npm r
 
 * `Googlebot` 会沿着异步渲染文本块中的链接继续爬取内容么？
 * 我能在 `React` 应用程序中异步地设定元标签，例如 _description_，并且让 `Googlebot` 理解它们么？
-* `Googlebot` 需要花费多少时间才能爬取一个通过 `React` 渲染的网站并且其中包含有很多很多的页面？
+* `Googlebot` 需要花费多少时间才能爬取一个通过 `React` 渲染并且包含有很多很多的页面的网站？
 
-你可能会有更多的点子。请您不吝赐教！
+我暂且抛砖引玉，请您不吝赐教！
