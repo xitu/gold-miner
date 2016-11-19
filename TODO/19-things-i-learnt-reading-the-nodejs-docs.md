@@ -1,21 +1,21 @@
 > * 原文地址：[19 things I learnt reading the NodeJS docs](https://hackernoon.com/19-things-i-learnt-reading-the-nodejs-docs-8a2dcc7f307f#.8iaiz8xls)
 * 原文作者：[David Gilbertson](https://hackernoon.com/@david.gilbertson)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：jacksonke
+* 译者：jacksonke20120711@gmail.com
 * 校对者：
 
-# 阅读NodeJS文档，我学到了这19件事情
+# 阅读 NodeJS 文档，我学到了这19件事情
 
 
-我相信我对Node了若指掌。我写的网站已经3年多没出现问题了。但实际上，我从没有详细查看Node文档。
+我相信我对 Node 了若指掌。我这3年来写的网站都是用 Node 来开发的。但实际上，我从没有详细查看 Node 文档。
 
-长期的订阅者应该知道，我正处在书写每一个接口(interface)，属性(prop)，方法(method)，函数(function)，数据类型(data type)等等关于网络开发的漫漫长途中，这样可以填补我的知识面的空缺。在完成了HTML，DOM, WebApi, CSS, SVG和EcmaScript之后, Node文档会是我的最后一站。
+长期的订阅者应该知道，我正处在书写每一个接口(interface)，属性(prop)，方法(method)，函数(function)，数据类型(data type)等等关于 Web 开发的漫漫长途中，这样可以填补我的知识面的空缺。在完成了HTML，DOM, WebApi, CSS, SVG 和 EcmaScript 之后, Node 文档会是我的最后一站。
 
 对我来说，这里面有很多宝贵的知识，所以我想简短地列举，并且分享它们。我会按吸引力从高到低列举它们，好比我见新朋友时的衣服顺序，（最吸引人的放外面 ^_^）
 
-### 将 querystring 作为通用的解析模块
+### 把 querystring 当作通用解析器
 
-假设你从一些古怪的数据库中获取到的数据是一些键值对数组，格式像`name:Sophie;shape:fox;condition:new`。很自然的，你会将它当成一个JavaScript对象。你会将所取得的数据以`;`为分隔符切分成数组，然后遍历数组，以`:`为分隔符，左边的作为属性，右边的作为属性对应的值。
+假设你从一些古怪的数据库中获取到的数据是一些键值对数组，格式像`name:Sophie;shape:fox;condition:new`。很自然的，你会将它当成一个 JavaScript 对象。你会将所取得的数据以`;`为分隔符切分成数组，然后遍历数组，用`:`分割，第一项作为属性，第二项作为该属性对应的值。
 
 这样对吧？
 
@@ -36,22 +36,22 @@ _By default, percent-encoded characters within the query string will be assumed 
 
 ### V8 Inspector
 
-运行node，加上`--inspect`选项，会给出一个URL地址。粘贴该URL到Chrome。哈哈，这就能用Chrome DevTools调试Node，这方便，多轻松。这篇文章有介绍如何使用[how-to by Paul Irish over here](https://medium.com/@paul_irish/debugging-node-js-nightlies-with-chrome-devtools-7c4a1b95ae27#.evhku718w).
+运行 node，加上`--inspect`选项，会给出一个 URL 地址。粘贴该 URL 到 Chrome。哈哈，这就能用 Chrome DevTools 调试 Node，这多方便，多轻松。这篇文章有介绍如何使用[how-to by Paul Irish over here](https://medium.com/@paul_irish/debugging-node-js-nightlies-with-chrome-devtools-7c4a1b95ae27#.evhku718w).
 
 虽然它现在还处于“试验”阶段，但是现在已经极大地解决了我的困挠。
 
 [**Debugger | Node.js v7.0.0 Documentation**  
 _Node.js includes a full-featured out-of-process debugging utility accessible via a simple TCP-based protocol and built…_nodejs.org](https://nodejs.org/api/debugger.html#debugger_v8_inspector_integration_for_node_js "https://nodejs.org/api/debugger.html#debugger_v8_inspector_integration_for_node_js")
 
-### nextTick和setImmediate的不同点
+### nextTick 和 setImmediate 的不同点
 
-和多数情况一样，如果能把它们想象成不同的名字，记住两者的不同点是很容易的。
+和多数情况一样，如果能给它们起个更贴切的名字，就很容易记住两者的不同了。
 
 `process.nextTick()` 是 `process.sendThisToTheStartOfTheQueue()`.(译者注：放入队列的第一个位置)
 
 `setImmediate()` 应该被叫做 `sendThisToTheEndOfTheQueue()`.(译者注：放入队列的尾部，最后一个处理的)
 
-(不相关的：React中，我通常将`props`当成`stuffThatShouldStayTheSameIfTheUserRefreshes`，而将`state`当成`stuffThatShouldBeForgottenIfTheUserRefreshes`.这两者长度一致也是个意外，哈哈哈。)
+(题外话：React 中，我通常将`props`当成`stuffThatShouldStayTheSameIfTheUserRefreshes`，而将`state`当成`stuffThatShouldBeForgottenIfTheUserRefreshes`.这两者长度一致也是个意外，哈哈哈。)
 
 [**Node.js v7.0.0 Documentation**  
 _Stability: 3 — Locked The timer module exposes a global API for scheduling functions to be called at some future period…_nodejs.org](https://nodejs.org/api/timers.html#timers_setimmediate_callback_args "https://nodejs.org/api/timers.html#timers_setimmediate_callback_args")
@@ -64,7 +64,7 @@ _I am pleased to announce a new stable version of Node. This branch brings signi
 
 ### Server.listen 只带一个参数对象
 
-对于参数传递，我认可只使用一个参数'options'，而不认可使用五个没有实际意义命名的同时必须按照一定顺序传入的做法。这可以在服务端监听连接时使用。
+对于参数传递，我倾向于只使用一个参数'options'，而不是传 5 个没命名且必须按照特定顺序的参数。这可以在服务端监听连接时使用。
 
     require(`http`)
       .createServer()
@@ -76,7 +76,7 @@ _I am pleased to announce a new stable version of Node. This branch brings signi
         res.end(`Hello World!`);
       });
 
-这个文档比较隐蔽，它并不在`http.Server`的函数列表下，而是在`net.Server`中（`http.Server`继承`net.Server`）
+这个文档比较隐蔽，它并不在`http.Server`的方法列表里，而是在`net.Server`中（`http.Server`继承`net.Server`）
 
 [**net | Node.js v7.0.0 Documentation**  
 _Stops the server from accepting new connections and keeps existing connections. This function is asynchronous, the…_nodejs.org](https://nodejs.org/api/net.html#net_net_createserver_options_connectionlistener "https://nodejs.org/api/net.html#net_net_createserver_options_connectionlistener")
@@ -115,14 +115,14 @@ _Stability: 2 — Stable The path module provides utilities for working with
 
 ### 使用不同颜色来记录日志
 
-使用`console.dir(obj, {colors: true})`可以属性打印出不同颜色的日志，这样更易于阅读。
+使用`console.dir(obj, {colors: true})`可以使用预先设置好的配色方案打印日志，这样更易于阅读。
 
 [**Console | Node.js v7.0.0 Documentation**  
 _The console functions are usually asynchronous unless the destination is a file. Disks are fast and operating systems…_nodejs.org](https://nodejs.org/api/console.html#console_console_dir_obj_options "https://nodejs.org/api/console.html#console_console_dir_obj_options")
 
-### 让setInterval()不去影响应用的效率
+### 让 setInterval() 不去影响应用的效率
 
-假设你使用`setInterval()`来执行数据库清理操作，一天一次。默认情况下，只要`setInterval()`还在， Node的事件循环是不会停止的。如果你想让Node休息（我也不知道这样做的好处），你可以这么做：
+假设你使用`setInterval()`来执行数据库清理操作，一天一次。默认情况下，只要`setInterval()`的请求还在， Node的事件循环是不会停止的。如果你想让Node休息（我也不知道这样做的好处），你可以这么做：
 
     const dailyCleanup = setInterval(() => {
       cleanup();
@@ -135,19 +135,19 @@ _The console functions are usually asynchronous unless the destination is a file
 [**Node.js v7.0.0 Documentation**  
 _Stability: 3 — Locked The timer module exposes a global API for scheduling functions to be called at some future period…_nodejs.org](https://nodejs.org/api/timers.html#timers_timeout_unref "https://nodejs.org/api/timers.html#timers_timeout_unref")
 
-### 使用Signal常量
+### 使用 Signal 常量
 
 可能你以前会这样处理kill：
 
     process.kill(process.pid, `SIGTERM`);
 
-如果计算机编程的历史不存在由错字引发的错误，这样做没什么错的。但是实际上这是发生过的。第二个参数可以是带上'string'_或者_对应的int，你可以使用下面更健壮的方式
+如果计算机编程的历史不存在由错字引发的错误，这样做没什么错的。但是实际上这是发生过的。第二个参数可以是带上'string'_或者_对应的 int，你可以使用下面更健壮的方式
 
     process.kill(process.pid, os.constants.signals.SIGTERM);
 
-### IP地址有效性验证
+### IP 地址有效性验证
 
-Ip地址有效性验证已经有内置的接口。我以前不止一次自己写正则表达式去做这个。好蠢（┬＿┬）
+Node 已经有内置的 IP 地址校验器。我以前不止一次自己写正则表达式去做这个。好蠢（┬＿┬）
 
 `require(`net`).isIP(`10.0.0.1`)` will return `4`.
 
@@ -155,8 +155,7 @@ Ip地址有效性验证已经有内置的接口。我以前不止一次自己写
 
 因为`cats`并不是一个IP地址
 
-If you haven’t noticed, I’m going through a phase of using only backticks for strings. It’s growing on me but I’m aware it looks odd so I’m mentioning it and quite frankly wondering what the point of mentioning it is and am now concerned with how I’m going to wrap up this sentence, I shou
-如果你没注意到，我正经历着这么个阶段，字符串使用引号包起来， 我越来越喜欢，但同时我也意识到这很丑陋，所以我在这里提到这点，同时也很坦率----
+如果你没注意到，我正经历着这么个阶段，字符串使用反引号包起来， 它在我身上越来越多，但我知道它看起来很奇怪，所以我特意提到它。。。（作者的唠叨）
 
 [**net | Node.js v7.0.0 Documentation**  
 _Stops the server from accepting new connections and keeps existing connections. This function is asynchronous, the…_nodejs.org](https://nodejs.org/api/net.html#net_net_isip_input "https://nodejs.org/api/net.html#net_net_isip_input")
@@ -167,7 +166,7 @@ _Stops the server from accepting new connections and keeps existing connections.
 
 我的天！
 
-`os.EOL`是专门为你准备的，它在windows操作系统上为`\r\n`，在其它系统上是`\n`。[使用os.EOL](https://github.com/sasstools/sass-lint/pull/92/files) 能让你的代码在不同的操作系统上表现一致。
+`os.EOL`是专门为你准备的，它在 Windows 操作系统上为`\r\n`，在其它系统上是`\n`。[使用os.EOL](https://github.com/sasstools/sass-lint/pull/92/files) 能让你的代码在不同的操作系统上表现一致。
 
     const fs = require(`fs`);
 
@@ -242,7 +241,7 @@ _Much of the Node.js core API is built around an idiomatic asynchronous event-dr
 
 ### 定制控制台
 
-你可以使用 `new console.Console(standardOut, errorOut)` 创建你自己的控制台，用于你自己的输出流。
+你可以使用 `new console.Console(standardOut, errorOut)` 创建你自己的控制台，传入你自己的输出流。
 
 为什么要定制控制台? 我也不知道。或许想要将一些内容输出到文件，套接字，或者其他东西的时候，会考虑定制控制台。
 
@@ -262,19 +261,18 @@ _2) Functions that connect to an actual DNS server to perform name resolution, a
 
 ### `fs`模块是多操作系统兼容性的雷区
 
-如果你写代码的风格和我一样--阅读最小的知识，微调程序，直到它可以运行。那么，你很有可能也会触到`fs`模块的雷区。虽然Node为多操作系统的兼容性做了很多，但毕竟也只能做到那么多。许多OS的不同特性就像代码海洋中突起的珊瑚瞧，每个瞧石都隐藏着风险。而你，仅仅是小船。
+如果你写代码的风格和我一样--阅读最少的知识，微调程序，直到它可以运行。那么，你很有可能也会触到`fs`模块的雷区。虽然 Node 为多操作系统的兼容性做了很多，但毕竟也只能做到那么多。许多 OS 的不同特性就像代码海洋中突起的珊瑚瞧，每个瞧石都隐藏着风险。而你，仅仅是小船。
 
-不幸的是，这些不同点不仅仅是存在于Windows和其它操作系统之间，所以，你不能简单的自我安慰“哇，太好了，没人使用windows”。（我写过一大篇反对使用window来进行web开发的文章，但我自己把它删了，因为那些说教，连我自己看了都翻白眼）。
+不幸的是，这些不同点不仅仅是存在于 Windows 和其它操作系统之间，所以，你不能简单的自我安慰“哇，太好了，没人使用 Windows”。（我写过一大篇反对使用 Windows 来进行 Web 开发的文章，但我自己把它删了，因为那些说教，连我自己看了都翻白眼）。
 
-Here is a spattering of things from the `fs` module that could bite you in your downstairs area:
-这里
+下面这些是你在使用`fs`模块时，可能碰到的坑
 
 *   `fs.stats()`返回的`mode`属性在 Windows 和其它操作系统上是不同的（在 Windows 上没有匹配一些文件模式常量，比如 `fs.constants.S_IRWXU`）
-*   `fs.lchmod()`只能在macOS中使用
-*   `fs.symlink()` 的`type`参数只可能在Windows上使用
-*   `fs.watch()` 选项`recursive`只能在macOS和Windows中使用。
-*   `fs.watch()` 在Windows和Linux上，回调只会接受一个文件名
-*   `fs.open()` 打开一个文件夹，在FreeBSD和Windows上使用`a+`属性是可以的，但是在macOS和Linux上是不行的。
+*   `fs.lchmod()`只能在 macOS 中使用
+*   `fs.symlink()` 的`type`参数只可能在 Windows 上使用
+*   `fs.watch()` 选项`recursive`只能在 macOS 和 Windows 中使用。
+*   `fs.watch()` 在 Windows 和 Linux 上，回调只会接受一个文件名
+*   `fs.open()` 打开一个文件夹，在 FreeBSD 和 Windows 上使用`a+`属性是可以的，但是在 macOS 和 Linux 上是不行的。
 *   `fs.write()` 在linux上，当文件是以append的方式打开的，参数`position`是会被直接忽视掉的，直接在文件末尾添加。
 
 (我还算挺赶时髦的，我已经改用 `macOS` 了，`OS X` 只用了49天)
@@ -286,7 +284,7 @@ _birthtime “Birth Time” – Time of file creation. Set once when the file is
 
 阅读文档，我学到了`net`模块是个事儿。它支撑着`http`模块。这会让我思索，假如我只想做服务器间的通讯(server-to-server communication )，我是不是只需要使用`net`模块？
 
-网上的人或许很难相信我不能凭直接获得答案。作为一个web开发者，我一开始就扎进了服务端的世界里，我知道http但是其他方面并不是很多。所有的TCP, 套接字，流之类的对我来说就像[日本摇滚](https://www.youtube.com/watch?v=FQgH4G3qypI).我真的不是很明白，但是我很好奇。
+网上的人或许很难相信我不能凭直觉获得答案。作为一个 Web 开发者，我一开始就扎进了服务端的世界里，我知道http但是其他方面并不是很多。所有的 TCP, 套接字，流之类的对我来说就像[日本摇滚](https://www.youtube.com/watch?v=FQgH4G3qypI).我真的不是很明白，但是我很好奇。
 
 为了比较验证我的想法，我建立了多个服务端程序，（我相信这时你肯定在听日本摇滚了）,并且发送了多个请求。结论是 `http.Server`每秒中处理了大约3,400个请求，`net.Server`每秒钟处理5,500个。
 
@@ -427,7 +425,7 @@ _Stops the server from accepting new connections and keeps existing connections.
 
 ### REPL技巧
 
-1.  当你处于REPL（那是，你在控制台敲入`node`，并按了回车键的情形），你可以敲入`.load someFile.js`，这时，它会将这个文件的内容加载进来。（比如，你可以加载一个包含大量常量的文件）。
-2.  当你设置环境变量`NODE_REPL_HISTORY=""`，这样可以禁止repl的历史写入文件中。同时我也学到（至少是被提醒了）REPL的历史默认是写到`~/.node_repl_history`中，当你想回忆起之前的REPL历史时，可以上这儿查。
+1.  当你处于 REPL（那是，你在控制台敲入`node`，并按了回车键的情形），你可以敲入`.load someFile.js`，这时，它会将这个文件的内容加载进来。（比如，你可以加载一个包含大量常量的文件）。
+2.  当你设置环境变量`NODE_REPL_HISTORY=""`，这样可以禁止 repl 的历史写入文件中。同时我也学到（至少是被提醒了）REPL 的历史默认是写到`~/.node_repl_history`中，当你想回忆起之前的REPL历史时，可以上这儿查。
 3.  `_` 这个变量，保存着上一次的计算结果. 相当方便!
-4.  当你进入REPL模式中时，模块都已经为你加载好了。所以了，比如说，你可以直接敲入`os.arch()`查看操作系统体系结构。你不需要先敲入`require(`os`).arch();` (注: 确的说，是按需加载的模块.)
+4.  当你进入 REPL 模式中时，模块都已经为你加载好了。所以了，比如说，你可以直接敲入`os.arch()`查看操作系统体系结构。你不需要先敲入`require(`os`).arch();` (注: 确的说，是按需加载的模块.)
