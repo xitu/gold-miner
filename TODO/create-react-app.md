@@ -2,7 +2,7 @@
 * 原文作者：[Facebook Incubato](https://github.com/facebookincubator)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[贾克奇](https://github.com/jiakeqi)
-* 校对者：
+* 校对者：[XHShirley](https://github.com/XHShirley) [Gocy015](https://github.com/Gocy015)
 
 # 无需配置即可创建 React App
 
@@ -23,7 +23,7 @@ npm start
 ```
 
 然后打开 [http://localhost:3000/](http://localhost:3000/) 查看你的 app。<br>
-当你准备部署到生产模式时，使用 `npm run build` 缩小包的体积。
+当你准备部署到生产模式时，使用 `npm run build` 构建更小体积的包。
 
 <img src='https://camo.githubusercontent.com/506a5a0a33aebed2bf0d24d3999af7f582b31808/687474703a2f2f692e696d6775722e636f6d2f616d794e66434e2e706e67' width='600' alt='npm start'>
 
@@ -37,15 +37,15 @@ npm start
 npm install -g create-react-app
 ```
 
-**需要你的机器上 Node 版本 >= 4**。
+**你机器上 Node 的版本不能低于 4.0 **。
 
-**为了加快安装速度和更好的磁盘使用，我们强烈建议使用 Node6+ 和 npm3+。** 你可以使用 [nvm](https://github.com/creationix/nvm#usage) 在不同的项目中切换 Node 版本。
+**为了加快安装速度和更好的利用磁盘，我们强烈建议使用 Node6+ 和 npm3+。** 你可以使用 [nvm](https://github.com/creationix/nvm#usage) 在不同的项目中切换 Node 版本。
 
-**这个工具不会扮演 Node 后端的角色**。 安装 Node 只是在本地的构建工具所依赖，就像 Webpack 和 Babel。
+**这个工具不一定需要 Node 作为后端**。 安装Node只是为了本地构建工具的依赖，比如说 Webpack 和 Babel 。
 
 ### 创建一个 app
 
-为了创建一个新 app， 运行:
+要创建一个新 app， 运行:
 
 ```sh
 create-react-app my-app
@@ -72,32 +72,32 @@ my-app/
     logo.svg
 ```
 
-无需配置或者复杂的文件结构，只有你构建 app 所需的文件<br>
-一旦初始化完毕后，你可以在项目文件夹下运行一些命令:
+无需配置或者复杂的目录结构，只有你构建 app 所需的文件。<br>
+一旦安装完毕后，你可以在项目文件夹下运行一些命令:
 
 ### `npm start`
 
 在开发模式下运行 app 。<br>
 在浏览器中打开 [http://localhost:3000](http://localhost:3000) 查看视图。
 
-如果你编辑了文件这个页面会自动刷新。<br>
+对界面的编辑会实时刷新。<br>
 你可以在控制台下看到构建错误和语法警告。
 
 <img src='https://camo.githubusercontent.com/41678b3254cf583d3186c365528553c7ada53c6e/687474703a2f2f692e696d6775722e636f6d2f466e4c566677362e706e67' width='600' alt='Build errors'>
 
 ### `npm test`
 
-Runs the test watcher in an interactive mode 在交互模式下运行测试。 默认情况下，运行与自上次提交以来更改的文件的相关测试。
+在交互模式下运行测试。 默认情况下，运行与自上次提交以来更改的文件的相关测试。
 
 [更多关于测试的文章](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#running-tests)。
 
 ### `npm run build`
 
-为生产模式构建 app 到 `build`文件夹。<br>
-它在生产模式下正确绑定 React，并优化构建以获得最佳性能。
+会以生产模式构建 app 到 `build`文件夹内。<br>
+它在生产模式下正确打包 React，并优化构建以获得最佳性能。
 
-这个构建是最小的体积，并且文件名都包含了哈希。<br>
-你的 app 已经部署了!
+这个构建的体积已经被压缩过了，并且文件名都包含了哈希。<br>
+你的 app 已经部署好了!
 
 ## 用户指南
 
@@ -132,13 +132,13 @@ Runs the test watcher in an interactive mode 在交互模式下运行测试。 �
 
 ## 哲学理念
 
-* **单依赖:** 只有一个构建依赖。它使用了 Webpack，Babel，ESLint，和其他鹅妹子嘤的项目，但在他们的顶部提供了一个整体的粘合.
+* **单依赖:** 只有一个构建依赖。它使用了 Webpack，Babel，ESLint，和其他很棒的项目，但是把他们整合到一起提供给用户。
 
-* **零配置:** 这里没有配置文件或者命令行选项。开发和生产构建配置都已经完毕，这样以来你可以专注于写代码。
+* **零配置:** 这里没有配置文件或者命令行选项。开发和生产构建配置都已经设置完毕，这样以来你可以专注于写代码。
 
 * **无锁定:** 您可以随时到到自定义设置。运行一个简单的命令，所有配置和构建依赖会移动到你的项目内，因此你可以选择他们的位置。
 
-## 如何使用?
+## 为什么使用?
 
 **如果你用 React 开始**，使用 `create-react-app` 自动构建你的 app。无需配置文件，并且 `react-scripts` 是在 `package.json` 额外的构建依赖。你的环境会提供你需要构建现代化 React app 的任何东西:
 
@@ -147,25 +147,25 @@ Runs the test watcher in an interactive mode 在交互模式下运行测试。 �
 * 一个开发服务器的检查常见错误。
 * 从 JavaScript 中 引入 CSS 和图片文件。
 * 自定义 CSS，因此你不需要 `-webkit` 或者其他前缀。
-* 一个 `build` 构建脚本为生产模式从源码去打包 JS，CSS，and 图片。
+* 一个 `build` 构建脚本为生产模式从源码去打包 JS，CSS，和 图片。
 
-**一些功能是受限制的**。它不支持一些高级功能，如服务端渲染或者 CSS 模块。这个工具之所以是 **无配置** ，因为很难提供一个有凝聚力的经验，并且当用户跨一组工具可以调整任何东西简单更新。
+**一些功能是受限制的**。它不支持一些高级功能，如服务端渲染或者 CSS 模块。目前也不支持测试。这个工具之所以是 **无配置** ，是因为当用户调整任何东西时，很难提供一个粘性方案，简单地让整个工具集更新。
 
-**你不会使用这个。** 历史上很容易 [逐渐使用](https://www.youtube.com/watch?v=BF58ZJ1ZQxY) React。可是有很多人为了构建单页面 React app 而终日抓耳挠腮。我们听到 [loud](https://medium.com/@ericclemmons/javascript-fatigue-48d4011b6fc4) 和 [clear](https://twitter.com/thomasfuchs/status/708675139253174273) 的过程可能是容易出错和繁琐，特别是如果这是你的第一个 JavaScript 构建栈。这个项目是尝试开发 React 应用程序找出一个好的方法。
+**你不一定非要使用。** 纵观历史，[逐渐过渡](https://www.youtube.com/watch?v=BF58ZJ1ZQxY) 到 React 是非常容易的。但是仍有很多人每天从零开始构建单页面 React app。我们注意到一些 [提示](https://medium.com/@ericclemmons/javascript-fatigue-48d4011b6fc4) 和 [反馈](https://twitter.com/thomasfuchs/status/708675139253174273)，特别是如果这是你的第一个 JavaScript 构建栈，这个过程非常繁琐并且容易出错。这个项目是尝试开发 React 应用程序更好的解决方案。
 
 ### 转到自定义配置
 
 **如果你是重度用户** 并且对默认配置不满意，你可以从工具中退出，并像样板生成器一样使用它。
 
-运行 `npm run eject` 复制所有依赖文件和相应依赖 (Webpack，Babel，ESLint，etc) 到你的项目，因此你可以完全控制它。类似 `npm start` 和 `npm run build` 的命令依旧会工作， 但他们会指向复制的脚本，因此你可以调整。在这个指向中，你是自己的所有者。
+运行 `npm run eject` 复制所有依赖文件和相应依赖 (Webpack，Babel，ESLint，etc) 到你的项目，因此完全可控。类似 `npm start` 和 `npm run build` 的命令依旧会工作， 但他们会指向复制的脚本，因此你可以调整。在这一点上，你只能靠自己。
 
 **注: 这是个单向操作。一旦 `eject`，你就回不去啦!**
 
-你不需要使用 `eject`。 这个功能集适合中小型部署，而且你不应该感到有义务使用此功能。但是，我们理解，如果你无法自定义该工具，那么此工具将不会有用。
+你可能不需要使用 `eject`。 这个功能集适合中小型部署，而且你不应该感到有义务使用此功能。但是，我们明白如果你无法自定义该工具，那么它将不会有用。
 
 ## 限制
 
-S一些功能是 **不支持的*:
+一些功能现在是 **不支持的** :
 
 * 服务端渲染。
 * 一些实验语法扩展 (如: 装饰器)。
@@ -177,20 +177,20 @@ S一些功能是 **不支持的*:
 
 ## 内部是什么?
 
-创建 React 应用程序使用的工具可能还会更改。目前它是一个上层的许多令人惊叹的社区项目，如:
+创建 React 应用程序使用的技术栈可能还会更改。目前它构建于许多令人惊叹的社区项目的上层，如:
 
 * [webpack](https://webpack.github.io/) 和 [webpack-dev-server](https://github.com/webpack/webpack-dev-server)，[html-webpack-plugin](https://github.com/ampedandwired/html-webpack-plugin) 和 [style-loader](https://github.com/webpack/style-loader)
 * [Babel](http://babeljs.io/) 与 ES6 和 Facebook 使用的扩展 (JSX，[object spread](https://github.com/sebmarkbage/ecmascript-rest-spread/commits/master)，[class properties](https://github.com/jeffmo/es-class-public-fields))
 * [Autoprefixer](https://github.com/postcss/autoprefixer)
 * [ESLint](http://eslint.org/)
 * [Jest](http://facebook.github.io/jest)
-* 还有其他的。
+* 其他...
 
 这些都是 npm 包提供的相应依赖。
 
 ## 贡献
 
-我们很愿意你为 `create-react-app` 伸出援助之手! 有关我们正在查找的内容以及如何开始使用的更多信息，查看[CONTRIBUTING.md](CONTRIBUTING.md)。
+我们很希望你为 `create-react-app` 提供帮助! 有关我们希望得到什么帮助以及如何开始，请查看[CONTRIBUTING.md](CONTRIBUTING.md)。
 
 ## 感谢
 
@@ -210,7 +210,7 @@ S一些功能是 **不支持的*:
 * [zeit/next.js](https://github.com/zeit/next.js)
 * [gatsbyjs/gatsby](https://github.com/gatsbyjs/gatsby)
 
-值得注意的是也包括:
+著名的类似项目还包括:
 
 * [enclave](https://github.com/eanplatter/enclave)
 * [motion](https://github.com/motion/motion)
@@ -222,5 +222,5 @@ S一些功能是 **不支持的*:
 * [dev-toolkit](https://github.com/stoikerty/dev-toolkit)
 * [tarec](https://github.com/geowarin/tarec)
 
-你也可以使用模块打包工具，像[webpack](http://webpack.github.io) 和 [Browserify](http://browserify.org/)。<br>
+你也可以直接使用模块打包工具，像[webpack](http://webpack.github.io) 和 [Browserify](http://browserify.org/)。<br>
 React 文档也包含了这个话题[a walkthrough](https://facebook.github.io/react/docs/package-management.html)。
