@@ -1,4 +1,4 @@
-tive Modules for React Native Android](https://shift.infinite.red/native-modules-for-react-native-android-ac05dbda800d#.cdjn1o88w)
+> * 原文地址：[Native Modules for React Native Android](https://shift.infinite.red/native-modules-for-react-native-android-ac05dbda800d#.cdjn1o88w)
 * 原文作者：[Ryan Linton](https://shift.infinite.red/@ryanlntn)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[XHShirley](https://github.com/XHShirley)
@@ -50,25 +50,25 @@ tive Modules for React Native Android](https://shift.infinite.red/native-modules
     import com.facebook.react.ReactActivity;
     import com.facebook.react.ReactPackage;
     import com.facebook.react.shell.MainReactPackage;
-
+    
     import java.util.Arrays;
     import java.util.List;
-
+    
     public class MainActivity extends ReactActivity {
-	    @Override
-	    protected String getMainComponentName() {
-	    	return "MyApp";
-	    }
-	
-	    @Override
-	    protected boolean getUseDeveloperSupport() {
-	    	return BuildConfig.DEBUG;
-	    }
-	    
-	    @Override
-	    protected List getPackages() {
-	    	return Arrays.asList(new MainReactPackage());
-	    }
+        @Override
+        protected String getMainComponentName() {
+        	return "MyApp";
+        }
+    
+        @Override
+        protected boolean getUseDeveloperSupport() {
+        	return BuildConfig.DEBUG;
+        }
+        
+        @Override
+        protected List getPackages() {
+        	return Arrays.asList(new MainReactPackage());
+        }
     }
 
 
@@ -122,29 +122,29 @@ tive Modules for React Native Android](https://shift.infinite.red/native-modules
     import com.facebook.react.bridge.NativeModule;
     import com.facebook.react.bridge.ReactApplicationContext;
     import com.facebook.react.uimanager.ViewManager;
-
+    
     import java.util.ArrayList;
     import java.util.Collections;import java.util.List;
-
+    
     public class ImagePickerPackage implements ReactPackage {
-	    @Override
-	    public List createNativeModules(ReactApplicationContext reactContext) {
-	    	List modules = new ArrayList<>();
-	
-	    	modules.add(new ImagePickerModule(reactContext));
-	
-	    	return modules;
+        @Override
+        public List createNativeModules(ReactApplicationContext reactContext) {
+        	List modules = new ArrayList<>();
+    
+        	modules.add(new ImagePickerModule(reactContext));
+    
+        	return modules;
     	}
-	
-	    @Override
-	    public List<Class> createJSModules() {
-	    	return Collections.emptyList();
-	    }
-	
-	    @Override
-	    public List createViewManagers(ReactApplicationContext reactContext) {
-	    	return Collections.emptyList();
-	    }
+    
+        @Override
+        public List<Class> createJSModules() {
+        	return Collections.emptyList();
+        }
+    
+        @Override
+        public List createViewManagers(ReactApplicationContext reactContext) {
+        	return Collections.emptyList();
+        }
     }
 
 
@@ -164,8 +164,8 @@ tive Modules for React Native Android](https://shift.infinite.red/native-modules
     import com.facebook.react.bridge.ReactContextBaseJavaModule;
 
     public class ImagePickerModule extends ReactContextBaseJavaModule {
-	    public ImagePickerModule(ReactApplicationContext reactContext) {
-	    	super(reactContext);
+        public ImagePickerModule(ReactApplicationContext reactContext) {
+        	super(reactContext);
     	}
     }
 
@@ -188,16 +188,16 @@ tive Modules for React Native Android](https://shift.infinite.red/native-modules
 
     import com.facebook.react.bridge.Callback;
     import com.facebook.react.bridge.ReadableMap;
-
+    
     public class ImagePickerModule extends ReactContextBaseJavaModule {
-	    @ReactMethod
-	    public void openSelectDialog(ReadableMap config, Callback successCallback, Callback cancelCallback) {
-	    	Activity currentActivity = getCurrentActivity();
-	
-	    	if (currentActivity == null) {
-	    		cancelCallback.invoke("Activity doesn't exist");
-	    		return;
-			}
+        @ReactMethod
+        public void openSelectDialog(ReadableMap config, Callback successCallback, Callback cancelCallback) {
+        	Activity currentActivity = getCurrentActivity();
+    
+        	if (currentActivity == null) {
+        		cancelCallback.invoke("Activity doesn't exist");
+        		return;
+    		}
     	}
     }
 
@@ -218,30 +218,30 @@ tive Modules for React Native Android](https://shift.infinite.red/native-modules
 
     public class ImagePickerModule extends ReactContextBaseJavaModule {
     private static final int PICK_IMAGE = 1;
-
+    
     private Callback pickerSuccessCallback;
     private Callback pickerCancelCallback;
-
+    
     @ReactMethod
     public void openSelectDialog(ReadableMap config, Callback successCallback, Callback cancelCallback) {
         Activity currentActivity = getCurrentActivity();
-
+    
         if (currentActivity == null) {
             cancelCallback.invoke("Activity doesn't exist");
             return;
         }
-
+    
         pickerSuccessCallback = successCallback;
         pickerCancelCallback = cancelCallback;
-
+    
         try {
             final Intent galleryIntent = new Intent();
-
+    
             galleryIntent.setType("image/*");
             galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
-
+    
             final Intent chooserIntent = Intent.createChooser(galleryIntent, "Pick an image");
-
+    
             currentActivity.startActivityForResult(chooserIntent, PICK_IMAGE);
         } catch (Exception e) {
             cancelCallback.invoke(e);
@@ -272,19 +272,19 @@ tive Modules for React Native Android](https://shift.infinite.red/native-modules
     			pickerCancelCallback.invoke("ImagePicker was cancelled");
     		} else if (resultCode == Activity.RESULT_OK) {
     			Uri uri = intent.getData();
-
+    
     			if (uri == null) {
     				pickerCancelCallback.invoke("No image data found");
     			} else {
-				    try {
-				    	pickerSuccessCallback.invoke(uri);
-				    } catch (Exception e) {
-				    	pickerCancelCallback.invoke("No image data found");
-			    	}
-		    	}
-	    	}
+    			    try {
+    			    	pickerSuccessCallback.invoke(uri);
+    			    } catch (Exception e) {
+    			    	pickerCancelCallback.invoke("No image data found");
+    		    	}
+    	    	}
+        	}
     	}
-	}
+    }
 
 
 
@@ -328,10 +328,9 @@ tive Modules for React Native Android](https://shift.infinite.red/native-modules
 
 多亏 [Infinite Red](http://infinite.red/) 的技术主管 [Gant Laborde](https://medium.com/u/6ca0fe37eac1) 的帮助和支持，我才能写出这篇文章。他的丰富知识帮了我大忙。
 
-### 关于 Ryan Linton
+### 关于 Ryan Linton
 
 Ryan Linton 是 [Infinite Red](http://infinite.red/) 的资深软件工程师。他喜欢在把他们的项目带到生活中的同时与客户密切合作。在不折腾前端样式和后台数据库的时候，他会到世界各地去旅行，或者试图从他那飞速增长的书单上划去一两本（已经读过的书）。
-
 
 
 
