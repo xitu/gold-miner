@@ -6,8 +6,6 @@
 
 # 无需配置即可创建 React App
 
-无需配置即可创建 React Apps.
-
 * [开始](#getting-started) – 如何创建一个新 app。
 * [用户指南](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md) – 如何使用 Create React App 脚手架开发 app。
 
@@ -37,11 +35,11 @@ npm start
 npm install -g create-react-app
 ```
 
-**你机器上 Node 的版本不能低于 4.0 **。
+*你机器上 Node 的版本不能低于 4.0*。
 
 **为了加快安装速度和更好的利用磁盘，我们强烈建议使用 Node6+ 和 npm3+。** 你可以使用 [nvm](https://github.com/creationix/nvm#usage) 在不同的项目中切换 Node 版本。
 
-**这个工具不一定需要 Node 作为后端**。 安装Node只是为了本地构建工具的依赖，比如说 Webpack 和 Babel 。
+**这个工具不一定需要 Node 作为后端**。 安装 Node 只是为了本地构建工具的依赖，比如说 Webpack 和 Babel 。
 
 ### 创建一个 app
 
@@ -136,18 +134,18 @@ my-app/
 
 * **零配置:** 这里没有配置文件或者命令行选项。开发和生产构建配置都已经设置完毕，这样以来你可以专注于写代码。
 
-* **无锁定:** 您可以随时到到自定义设置。运行一个简单的命令，所有配置和构建依赖会移动到你的项目内，因此你可以选择他们的位置。
+* **无锁定:** 您可以随时到自定义设置。运行一个简单的命令，所有配置和构建依赖会移动到你的项目内，因此你可以选择他们的位置。
 
 ## 为什么使用?
 
 **如果你用 React 开始**，使用 `create-react-app` 自动构建你的 app。无需配置文件，并且 `react-scripts` 是在 `package.json` 额外的构建依赖。你的环境会提供你需要构建现代化 React app 的任何东西:
 
 * React，JSX，和 ES6 支持。
-* LES6之外的语言扩展，如对象扩展运算符。
-* 一个开发服务器的检查常见错误。
+* ES6 之外的语言扩展，如对象扩展运算符。
+* 一个开发服务器用来检查常见错误。
 * 从 JavaScript 中 引入 CSS 和图片文件。
-* 自定义 CSS，因此你不需要 `-webkit` 或者其他前缀。
-* 一个 `build` 构建脚本为生产模式从源码去打包 JS，CSS，和 图片。
+* 自动补全 CSS，因此你不需要 `-webkit` 或者其他前缀。
+* 一个 `build` 构建脚本为生产模式从源码去打包 JS、CSS、和图片。
 
 **一些功能是受限制的**。它不支持一些高级功能，如服务端渲染或者 CSS 模块。目前也不支持测试。这个工具之所以是 **无配置** ，是因为当用户调整任何东西时，很难提供一个粘性方案，简单地让整个工具集更新。
 
@@ -157,7 +155,7 @@ my-app/
 
 **如果你是重度用户** 并且对默认配置不满意，你可以从工具中退出，并像样板生成器一样使用它。
 
-运行 `npm run eject` 复制所有依赖文件和相应依赖 (Webpack，Babel，ESLint，etc) 到你的项目，因此完全可控。类似 `npm start` 和 `npm run build` 的命令依旧会工作， 但他们会指向复制的脚本，因此你可以调整。在这一点上，你只能靠自己。
+运行 `npm run eject` 复制所有依赖文件和相应依赖 (Webpack、Babel、ESLint 等等) 到你的项目，因此完全可控。类似 `npm start` 和 `npm run build` 的命令依旧会工作， 但他们会指向复制的脚本，因此你可以调整。在这一点上，你只能靠自己。
 
 **注: 这是个单向操作。一旦 `eject`，你就回不去啦!**
 
@@ -222,5 +220,5 @@ my-app/
 * [dev-toolkit](https://github.com/stoikerty/dev-toolkit)
 * [tarec](https://github.com/geowarin/tarec)
 
-你也可以直接使用模块打包工具，像[webpack](http://webpack.github.io) 和 [Browserify](http://browserify.org/)。<br>
-React 文档也包含了这个话题[a walkthrough](https://facebook.github.io/react/docs/package-management.html)。
+你也可以直接使用模块打包工具，像 [webpack](http://webpack.github.io) 和 [Browserify](http://browserify.org/) 。<br>
+React 文档也包含了这个话题 [a walkthrough](https://facebook.github.io/react/docs/package-management.html) 。
