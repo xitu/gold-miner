@@ -37,7 +37,7 @@
 ## 前端
 
 * [[译] 我在手撕 SVG 条形图时踩过的定位坑](http://gold.xitu.io/entry/58306b428ac2470061b60ede?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([cyseria](https://github.com/cyseria) 翻译)
-* [使用 “Google 抓取方式” 测试 React 驱动的网站 SEO](http://gold.xitu.io/entry/582e8b2fd20309006702090f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([yifili09](https://github.com/yifili09) 翻译)
+* [[译] 使用 “Google 抓取方式” 测试 React 驱动的网站 SEO](http://gold.xitu.io/entry/582e8b2fd20309006702090f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([yifili09](https://github.com/yifili09) 翻译)
 * [[译] Node.js v6 LTS 中最激动人心的六个 ES6 特性](http://gold.xitu.io/entry/582dcfb067f356006336c834?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Romeo0906](https://github.com/Romeo0906) 翻译)
 * [[译] 10 个原则让动画带你飞](http://gold.xitu.io/entry/582dce6ea0bb9f0067ac0b4e?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Romeo0906](https://github.com/Romeo0906) 翻译)
 * [所有前端译文>>](https://github.com/xitu/gold-miner/blob/master/front-end.md)
