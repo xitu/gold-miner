@@ -4,7 +4,7 @@
 
 [掘金翻译计划](http://gold.xitu.io/#/tag/%E6%8E%98%E9%87%91%E7%BF%BB%E8%AF%91%E8%AE%A1%E5%88%92) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](http://gold.xitu.io) 上的英文分享文章。内容覆盖 [Android](#android)、[iOS](#ios)、[React](#react)、[前端](#前端)、[后端](#后端)、[产品](#产品)、[设计](#设计) 等领域，读者为热爱新技术的新锐开发者。
 
-掘金翻译计划目前翻译完成 [268](#近期文章列表) 篇文章，共有 [220](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
+掘金翻译计划目前翻译完成 [269](#近期文章列表) 篇文章，共有 [230](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
 
 #  官方指南：
 
@@ -36,10 +36,10 @@
 
 ## 前端
 
+* [[译] 10 个原则让动画带你飞](http://gold.xitu.io/entry/582dce6ea0bb9f0067ac0b4e/) ([Romeo0906](https://github.com/Romeo0906) 翻译)
 * [[译] 一个健壮且可扩展的 CSS 架构所需的 8 个简单规则](http://gold.xitu.io/post/582d137d128fe1006952b12c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([llp0574](https://github.com/llp0574) 翻译)
 * [[译] 使用 React.js 的渐进式 Web 应用程序：第 1 部分 - 介绍](http://gold.xitu.io/post/582a64dd2e958a0069a507f8?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([markzhai](https://github.com/markzhai) 翻译)
 * [[译] 无障碍网站开发工具](https://gold.xitu.io/entry/58294b222f301e00585ae000?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Romeo0906](https://github.com/Romeo0906) 翻译)
-* [[译] 全方位提升网站打开速度：前端、后端、新的技术)](https://gold.xitu.io/entry/582492025bbb5000590ef04d?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([luoyaqifei](https://github.com/luoyaqifei) 翻译)
 * [所有前端译文>>](https://github.com/xitu/gold-miner/blob/master/front-end.md)
 
 
