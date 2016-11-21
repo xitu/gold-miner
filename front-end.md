@@ -1,3 +1,4 @@
+* [使用 “Google 抓取方式” 测试 React 驱动的网站 SEO](http://gold.xitu.io/entry/582e8b2fd20309006702090f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([yifili09](https://github.com/yifili09) 翻译)
 * [Node.js v6 LTS 中最激动人心的六个 ES6 特性](http://gold.xitu.io/entry/582dcfb067f356006336c834?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Romeo0906](https://github.com/Romeo0906) 翻译)
 * [10 个原则让动画带你飞](http://gold.xitu.io/entry/582dce6ea0bb9f0067ac0b4e?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Romeo0906](https://github.com/Romeo0906) 翻译)
 * [一个健壮且可扩展的 CSS 架构所需的 8 个简单规则](http://gold.xitu.io/post/582d137d128fe1006952b12c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([llp0574](https://github.com/llp0574) 翻译)
