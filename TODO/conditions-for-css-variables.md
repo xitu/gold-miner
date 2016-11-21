@@ -2,18 +2,18 @@
 * 原文作者：[Roman Komarov](https://twitter.com/kizmarh)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[rottenpen](https://github.com/rottenpen)
-* 校对者：
+* 校对者：[cyseria](https://github.com/cyseria) [Tina92](https://github.com/Tina92)
 
 # Conditions for CSS Variables
-（感觉 condition 翻译成条件不太确切，可是 MDN 里conditional rule 是翻译成条件规则 就继续用条件这个词了）
 
-我将从这里开始：[不是这](#not-those)（这是一个名为“[ CSS 的条件规则](https://www.w3.org/TR/css3-conditional/)模块”，但不要期望着它能包含 CSS 的变量 —— 它涵盖了一些 @规则（at-rules）。甚至有一个[提议](https://tabatkins.github.io/specs/css-when-else/)关于 `@when`/`@else` @规则，再次，与变量没有什么共同点。）[](#x) 规范使用 [ CSS 变量](https://www.w3.org/TR/css-variables-1/) 的条件。我认为这是在规范里的一个重大缺陷。因为变量已经提供了许多以前无法实现的东西。没有条件是真的令人沮丧，因为它们可能有很多用途。
+我将从这里开始：[不是这](#not-those)（这是一个名为“[ CSS 的条件规则](https://www.w3.org/TR/css3-conditional/)模块”，但不要期望着它能包含 CSS 的变量 —— 它涵盖了一些 @规则（at-rules）。甚至有一个关于 `@when`/`@else` @规则的[提议](https://tabatkins.github.io/specs/css-when-else/)，再次，与变量没有什么共同点。）[](#x) 规范使用 [ CSS 变量](https://www.w3.org/TR/css-variables-1/) 的条件。我认为这是在规范里的一个重大缺陷。因为变量已经提供了许多以前无法实现的东西。没有条件是真的令人沮丧，因为它们可能有很多用途。
 
 但如果我们现在需要那些虚构的条件语句用在 CSS 变量上呢？好，正如一些其他的 CSS 参考手册，我们可以在相同情况下进行 hack 。
 
-## [](#the-problem-39-s-definition)问题规定
+## [](#the-problem-39-s-definition)问题的定义
 
-因此，我们需要的是一种简单的 CSS 变量使用方法，为不同的值设定不同的CSS特征。但这种方法并不能直接源于变量（就是说——它们的值不能通过我们的变量计算出来）。这时候我们需要规定**条件**。
+因此，我们需要的是一种简单的 CSS 变量使用方法，为不同的值设定不同的 CSS 特征。但这种方法并不能直接源于变量（就是说——它们的值不能通过我们的变量计算出来）。这时候我们需要规定**条件**。
+
 ## [](#using-calculations-for-binary-conditions)使用二元条件的计算
 
 长话短说，我马上就介绍解决方法给你，稍后还有它的解释：
@@ -37,8 +37,9 @@
         );
     }
 
-在这个例子中，我们将所有的`.block`元素设定 padding 为 `10px` ， border 设定为 `1px` ，除非这些元素的 `--is-big` 变量值等于`1`，那么它们的值会分别变为 `25px` 和 `3px`。
- 
+在这个例子中，我们将所有的 `.block` 元素设定 padding 为 `10px` ， border 设定为 `1px` ，一旦这些元素的 `--is-big` 变量值等于`1`，它们的值会分别变为 `25px` 和 `3px`。
+
+想跳过这个机制相当简单：我们可以在使用到 'calc()' 的计算中，基于变量的值选择保留其中一个有可能的值并且废除另一个值，该值可以是 '1' 或 '0'。换句话说，我们会在一个案例中遇到 `25px * 1 + 10px * 0` ，而在另外一个案例中遇到 `25px * 0 + 10px * 1`。
 
 ## [](#more-complex-conditions)更复杂的条件
 
@@ -60,7 +61,7 @@
 
 随着这种计算复杂性的增加，有可能，它们将停止工作。 为什么？ 这个笔记在[规范中](https://drafts.csswg.org/css-values-3/#calc-syntax):
 
-> UAs（？） 必须支持至少20个术语的calc（）表达式，其中每个 NUMBER ， DIMENSION 或 PERCENTAGE 是一个术语。 如果calc（）表达式包含的术语数超过支持的数量，则必须将其视为无效。
+> UAs（？） 必须支持至少20个术语的 calc（） 表达式，其中每个 NUMBER ， DIMENSION 或 PERCENTAGE 是一个术语。 如果 calc（） 表达式包含的术语数超过支持的数量，则必须将其视为无效。
 
 当然，我测试了这一点，在我测试的浏览器中找不到这样的限制，但仍然有一个机会，你会写一些真正复杂的代码，以满足可能存在的限制，或一些浏览器可能会被引入 这个限制在未来，所以在使用真正复杂的计算时要小心了。
 
@@ -93,7 +94,7 @@
 
 ### [](#another-trap-in-the-specs)规范中的另一个陷阱
 
-当我测试颜色的条件如何工作，我发现了一个真正的_really_ [规格中的奇怪的限制](#issue-resolved) (Tab Atkins [commented](https://github.com/kizu/kizu.github.com/issues/186) 这个问题与颜色组件是固定的规格（但浏览器尚未支持）。 好极了！ 另外他说，作为另一个解决方案，我们可以使用 `rgba` 里面的百分比，我完全忘了这个功能，哈哈。)[](#x). It is called [“Type Checking”](https://twitter.com/kizmarh/status/788504161864261632)。我现在正式地讨厌它了。 这意味着如果属性只接受 `＆lt;integer＆gt;` 作为值，或者你在 `calc（）` 里面有任何分割或非整数，哪怕结果是整数，  “resolved type” 都不会是 `＆lt; integer＆gt;` ，它将是 `＆lt; number＆gt;` ，这意味着这些属性不会接受这样的值。 当我们计算涉及两个以上的可能值时，我们需要一个非整数修饰符。 这将使我们的计算对于使用颜色或其他只有整数的属性（如 `z-index` ）无效。
+当我测试颜色的条件如何工作，我发现了一个真正的 _really_ [规格中的奇怪的限制](#issue-resolved) (Tab Atkins [commented](https://github.com/kizu/kizu.github.com/issues/186) 这个问题与颜色组件是固定的规格（但浏览器尚未支持）。 好极了！ 另外他说，作为另一个解决方案，我们可以使用 `rgba` 里面的百分比，我完全忘了这个功能，哈哈。)[](#x). It is called [“Type Checking”](https://twitter.com/kizmarh/status/788504161864261632)。我现在正式地讨厌它了。 这意味着如果属性只接受 `＆lt;integer＆gt;` 作为值，或者你在 `calc（）` 里面有任何分割或非整数，哪怕结果是整数，  “resolved type” 都不会是 `＆lt; integer＆gt;` ，它将是 `＆lt; number＆gt;` ，这意味着这些属性不会接受这样的值。 当我们计算涉及两个以上的可能值时，我们需要一个非整数修饰符。 这将使我们的计算对于使用颜色或其他只有整数的属性（如 `z-index` ）无效。
 
 That is:
 
@@ -260,13 +261,13 @@ That is:
 
 ## [](#future)未来
 
-我真的想看到CSS规范中描述的条件，所以我们不会依赖 calc hacks ，并且可以为非计算值使用适当的条件。 现在也不可能有除了严格相等的条件，所以没有“当变量超过X”和其他类似的东西。 我没有看到任何理由为什么我们不能在CSS中有适当的条件，所以如果你知道一个规范开发人员，提示他们这个问题。 我唯一的希望是，他们不会告诉我们“只是使用 JS ”或找出原因，为什么是不可能的。 在这里，现在已经可以使用 hacks，不能有任何借口。
+我真的想看到CSS规范中描述的条件，所以我们不会依赖 calc hacks ，并且可以为非计算值使用适当的条件。 现在也不可能有除了严格相等的条件，所以没有“当变量超过 X ”和其他类似的东西。 我没有看到任何理由为什么我们不能在 CSS 中有适当的条件，所以如果你知道一个规范开发人员，提示他们这个问题。 我唯一的希望是，他们不会告诉我们“只是使用 JS ”或找出原因，为什么是不可能的。 在这里，现在已经可以使用 hacks，不能有任何借口。
 
 发表在 10 月 21 日， in [实验](../).
 
 
 
-如果你发现什么编写错误或者小漏洞又或者你想添加点什么，你可以 [写在这](https://github.com/kizu/kizu.github.com/issues/new?title=Feedback%20for%20%E2%80%9CConditions%20for%20CSS%20Variables%E2%80%9D) 或者 [在Github编写这篇文章](https://github.com/kizu/kizu.github.com/blob/source/src/documents/posts/2016-10-21-(fun)-conditions-for-css-variables/index.en.md).
+如果你发现什么编写错误或者小漏洞又或者你想添加点什么，你可以 [写在这](https://github.com/kizu/kizu.github.com/issues/new?title=Feedback%20for%20%E2%80%9CConditions%20for%20CSS%20Variables%E2%80%9D) 或者 [在 Github 编写这篇文章](https://github.com/kizu/kizu.github.com/blob/source/src/documents/posts/2016-10-21-(fun)-conditions-for-css-variables/index.en.md).
 
 
 
