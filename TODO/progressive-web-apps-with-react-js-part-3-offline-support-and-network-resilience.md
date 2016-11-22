@@ -6,19 +6,19 @@
 
 # 使用 React.js 的渐进式 Web 应用程序：第 3 部分 - 离线支持和网络恢复能力
 
-### 新[系列](https://medium.com/@addyosmani/progressive-web-apps-with-react-js-part-i-introduction-50679aef2b12#.ysn8uhvkq)的第三部分介绍关于使用 [Lighthouse](https://github.com/googlechrome/lighthouse) 优化移动 web 应用传输的技巧。 本期，我们来看如何使你的 React 应用离线工作。
+### 本期是新[系列](https://medium.com/@addyosmani/progressive-web-apps-with-react-js-part-i-introduction-50679aef2b12#.ysn8uhvkq)的第三部分，将介绍使用 [Lighthouse](https://github.com/googlechrome/lighthouse) 优化移动 web 应用传输的技巧。 并看看如何使你的 React 应用离线工作。
 
-一个好的渐进式 Web 应用，不论网络状况如何都能立即加载，并且在不需要网络请求的情况下也能展示 UI (例如：离线时)。
+一个好的渐进式 Web 应用，不论网络状况如何都能立即加载，并且在不需要网络请求的情况下也能展示 UI （即离线时)。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*O7K0EvTJ8P8VmqhLALZBzg.png)
 
-重复访问 Housing.com 渐进式 Web 应用（使用 React 和 Redux 构建）能够[立即](https://www.webpagetest.org/video/compare.php?tests=160912_0F_229-r%3A1-c%3A1&thumbSize=200&ival=100&end=visual)加载离线缓存的 UI。
+再次访问 Housing.com 渐进式 Web 应用（使用 React 和 Redux 构建）能够[立即](https://www.webpagetest.org/video/compare.php?tests=160912_0F_229-r%3A1-c%3A1&thumbSize=200&ival=100&end=visual)加载离线缓存的 UI。
 
-我们可以用 [service worker](https://developers.google.com/web/fundamentals/getting-started/primers/service-workers?hl=en) 实现这一需求。service worker 是一个可编程代理的后台 worker，允许开发者在请求之间执行其他操作。使用 service worker，React 应用得以（部分或全部）离线工作。
+我们可以用 [Service Worker](https://developers.google.com/web/fundamentals/getting-started/primers/service-workers?hl=en) 实现这一需求。Service Worker 是一个后台 worker，可以看做是可编程的代理，允许开发者控制 request 执行其他操作。使用 Service Worker，React 应用得以（部分或全部）离线工作。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*sNDoPikstWvIuKY9HphuSw.png)
 
-如果你正受制于离线时 UX 的可用程度。你可以只离线缓存应用的外壳，全部数据（就像 ReactHN 缓存 stories 一样），或者像 Housing.com 和 Flipkart 那样，提供有限但有帮助的静态旧数据。并且均通过置灰 UI 蒙层来暗示已离线，这样就能够感知“实时”价格还未同步。
+你能够掌控离线时 UX 的可用程度。你可以只离线缓存应用的外壳，全部数据（就像 ReactHN 缓存 stories 一样），或者像 Housing.com 和 Flipkart 那样，提供有限但有帮助的静态旧数据。并且均通过置灰 UI 蒙层来暗示已离线，这样就能够感知“实时”价格还未同步。
 
 Service worker 实际上依赖两个 API：[Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) (通过网络重新获取内容的标准方式) 和 [Cache](https://developer.mozilla.org/en-US/docs/Web/API/Cache)（应用数据的内容存储，此缓存独立于浏览器缓存和网络状态）。
 
@@ -29,15 +29,15 @@ Service worker 实际上依赖两个 API：[Fetch](https://developer.mozilla.org
 Service worker 也设计作为基础 API，让 web 应用更像 native 应用。具体包括：
 
 * [推送 API](https://developers.google.com/web/fundamentals/engage-and-retain/push-notifications/) - 启用 web 应用消息推送服务。服务器能够任意发送消息，即使 web 应用或浏览器不在工作状态。
-* [后台同步](https://developers.google.com/web/updates/2015/12/background-sync?hl=en) - 延迟处理直到用户网络连接稳定为止。在处理用户要发送的消息实际已经发送时得心应手。应用下次在线时能够启动自动定期更新。
+* [后台同步](https://developers.google.com/web/updates/2015/12/background-sync?hl=en) - 延迟处理直到用户网络连接稳定为止。这能方便保证用户消息的正确发送。应用下次在线时能够启动自动定期更新。
 
 ### Service Worker 生命周期
 
-每个 [service worker](https://developers.google.com/web/fundamentals/getting-started/primers/service-workers?hl=en) 的生命周期有三步：注册，安装和激活。**[Jake Archibald 的这篇文章有更详细的说明._](https://developers.google.com/web/fundamentals/instant-and-offline/service-worker/lifecycle)**
+每个 [Service Worker](https://developers.google.com/web/fundamentals/getting-started/primers/service-workers?hl=en) 的生命周期有三步：注册，安装和激活。**[Jake Archibald 的这篇文章有更详细的说明._](https://developers.google.com/web/fundamentals/instant-and-offline/service-worker/lifecycle)**
 
 #### 注册
 
-如果要安装 service worker，你需要在脚本里注册它。注册后会通知浏览器定位你的 service worker 文件，并启动后台安装。在 index.html 中的基本注册方法如下： 
+如果要安装 Service Worker，你需要在脚本里注册它。注册后会通知浏览器定位你的 Service Worker 文件，并启动后台安装。在 index.html 中的基本注册方法如下： 
 
     // Check for browser support of service worker
     if ('serviceWorker' in navigator) {
@@ -57,7 +57,7 @@ Service worker 也设计作为基础 API，让 web 应用更像 native 应用。
 
 #### 作用域
 
-service worker 的作用域由拦截请求的路径决定。**默认**作用域是 service worker 文件所在路径。如果 service-worker.js 在根目录下，则 service worker 将控制该域名下所有文件的访问请求。你可以通过在注册时传入其他参数来改变作用域。
+Service Worker 的作用域由拦截请求的路径决定。**默认**作用域是 Service Worker 文件所在路径。如果 service-worker.js 在根目录下，则 Service Worker 将控制该域名下所有文件的访问请求。你可以通过在注册时传入其他参数来改变作用域。
 
     navigator.serviceWorker.register('service-worker.js', {
      scope: '/app/'
@@ -65,9 +65,9 @@ service worker 的作用域由拦截请求的路径决定。**默认**作用域�
 
 #### 安装和激活
 
-Service workers 是事件驱动的。安装和激活方法由对应的安装和激活事件触发，由 service worker 响应。
+Service workers 是事件驱动的。安装和激活方法由对应的安装和激活事件触发，由 Service Worker 响应。
 
-service worker 注册之后，用户第一次访问 PWA 时，install 事件触发，确定页面需要缓存的静态资源。当 service worker 被认为是**新**的时才会触发该事件，即要么是页面第一次加载 service worker 文件，要么是当前文件与之前安装的文件不同，哪怕是一个字节不同，都会被认为是新的。如果你想在有机会控制客户端之前缓存东西，那么 install 是关键所在。
+Service Worker 注册之后，用户第一次访问 PWA 时，install 事件触发，此时确定页面需要缓存的静态资源。当 Service Worker 被认为是**新**的时才会触发该事件，即要么是页面第一次加载 Service Worker 文件，要么是当前文件与之前安装的文件不同，哪怕是一个字节不同，都会被认为是新的。如果你想在有机会控制客户端之前缓存东西，那么 install 是关键所在。
 
 我们可以使用以下代码为静态应用添加最基本的缓存：
 
@@ -88,11 +88,11 @@ service worker 注册之后，用户第一次访问 PWA 时，install 事件触�
       );
     });
 
-addAll() 传入一个 URL 数组，请求并获取文件，然后添加到缓存中去。如果任一步骤获取/写入失败，操作都失败，并且缓存回退到它的上一个状态。
+addAll() 传入一个 URL 数组，请求并获取文件，然后添加到缓存中去。如果任一步骤获取/写入失败，整个操作失败，并且缓存回退到它的上一个状态。
 
 拦截和缓存请求
 
-当 service worker 控制页面时，它能够拦截页面发起的每个请求，并且决定如何处理。这使得它有点像后台代理。我们用它来拦截到 urlsToCache 列表的请求，接着返回资源的本地版本，而不是走网络获取资源。这通过在 fetch 事件上绑定处理方法实现：
+当 Service Worker 控制页面时，它能够拦截页面发起的每个请求，并且决定如何处理。这使得它有点像后台代理。我们用它来拦截到 urlsToCache 列表的请求，接着返回资源的本地版本，而不是走网络获取资源。这通过在 fetch 事件上绑定处理方法实现：
 
     self.addEventListener('fetch', function(event) {
         console.log(event.request.url);
@@ -103,7 +103,7 @@ addAll() 传入一个 URL 数组，请求并获取文件，然后添加到缓存
         );
     });
 
-在 fetch 监听器中（具体的说是 event.respondWith），向 caches.match() 方法传入一个 promise 对象，这个能够监听请求和从 service worker 创建的条目中发现缓存。如果有匹配的缓存响应，返回对应的值。
+在 fetch 监听器中（具体的说是 event.respondWith），向 caches.match() 方法传入一个 promise 对象，这个能够监听请求和从 Service Worker 创建的条目中发现缓存。如果有匹配的缓存响应，返回对应的值。
 
 这就是 Service Worker。以下是学习 Service Worker 可用的免费资源。
 
@@ -113,7 +113,7 @@ addAll() 传入一个 URL 数组，请求并获取文件，然后添加到缓存
 *   推荐[Jake Archibald 的离线小书](https://jakearchibald.com/2014/offline-cookbook/)。
 *   [基于 Webpack 的渐进式 Web 应用](http://michalzalecki.com/progressive-web-apps-with-webpack/) 也是一个很棒的指南，学h会如何用基础 Service Worker 代码启用离线缓存（如果你不喜欢用库的话）。
 
-**如果第三方 API 想要部署他们自己的 service worker 来处理其他域传来的请求，[Foreign Fetch](https://developers.google.com/web/updates/2016/09/foreign-fetch?hl=en) 可以帮忙。这对于网络化逻辑自定义和单个缓存实例响应定义都有帮助。**
+**如果第三方 API 想要部署他们自己的 Service Worker 来处理其他域传来的请求，[Foreign Fetch](https://developers.google.com/web/updates/2016/09/foreign-fetch?hl=en) 可以帮忙。这对于网络化逻辑自定义和单个缓存实例响应定义都有帮助。**
 
 探索 - 自定义离线页面
 
@@ -121,7 +121,7 @@ addAll() 传入一个 URL 数组，请求并获取文件，然后添加到缓存
 
 基于 React 的 mobile.twitter.com 用 Service Worker 在网络不可达时提供自定义离线页面。
 
-为用户提供有意义的离线体验（例如：可读内容）是一个很好的目标。也就是说，在早期的 service worker 实验中，你会发现设置自定义离线页面是很小但正确的决定。这里有许多优秀的 [案例](https://googlechrome.github.io/samples/service-worker/custom-offline-page/index.html) 展示如何实现它。
+为用户提供有意义的离线体验（例如：可读内容）是一个很好的目标。也就是说，在早期的 Service Worker 实验中，你会发现设置自定义离线页面是很小但正确的决定。这里有许多优秀的 [案例](https://googlechrome.github.io/samples/service-worker/custom-offline-page/index.html) 展示如何实现它。
 
 Lighthouse
 
@@ -129,11 +129,11 @@ Lighthouse
 
 ![](https://cdn-images-1.medium.com/max/1600/1*xzaEpLzD6uDBngkU5YD9OA.jpeg)
 
-**start_url 检查便于检查老用户离线时已经从首屏启动的 PWA 绝对在缓存中。如果不在缓存中会流失许多用户，所以要确保 start_url 在 Web 应用清单里。**
+**start_url 便于检查用户从主界面打开 PWA 时使用离线缓存的体验情况，这项检查能够发现许多的问题，所以要确保 start_url 在你的 Web 应用的 manifest 中。**
 
 Chrome 开发工具
 
-开发工具通过应用选项卡支持调试 Service Worker 和 模拟脱机连通性。
+开发工具通过应用选项卡支持 「调试 Service Worker」 和 「模拟脱机连通性」。
 
 ![](https://cdn-images-1.medium.com/max/1600/0*UX83F86-oPO1HVbt.)
 
@@ -157,7 +157,7 @@ Housing.com 使用了内容占位符的应用外壳。一旦全部下载完成�
 
 ![](https://cdn-images-1.medium.com/max/1200/0*ssjtA1rSYhk61_iU.)
 
-我们利用 Cache Storage API（通过 service worker）离线缓存外壳，目的是当重复访问时，应用外壳能够立即加载，这样就能在无网络情况下快速获取屏幕信息，即使内容最终还是来自网络。
+我们利用 Cache Storage API（通过 Service Worker）离线缓存外壳，目的是当重复访问时，应用外壳能够立即加载，这样就能在无网络情况下快速获取屏幕信息，即使内容最终还是来自网络。
 
 记住你可以使用更简单的 SSR 或者 SPA 架构开发 PWA，但它没有同样的性能优势并且更依赖全页缓存。
 
@@ -167,9 +167,9 @@ Housing.com 使用了内容占位符的应用外壳。一旦全部下载完成�
 
 应用外壳缓存：静态资源（HTML, JavaScript, CSS 和 images）提供 web 应用的核心外壳。Sw-precache 确保绝大多数这类静态资源都被缓存下来，并且保持更新。预缓存一个网站离线工作需要的所有资源显然是不现实的。
 
-运行时缓存：一些过于庞大或者很少使用资源，还有一些动态资源，像来自远程 API 或服务的响应。但是请求没有被事先缓存并不意味着它必须返回网络错误。sw-toolbox 让我们得以灵活实现请求的处理，这能够处理某些资源的运行时缓存和其他资源的自定义回退。
+运行时缓存：一些过于庞大或者很少使用的资源，还有一些动态资源，像来自远程 API 或服务的响应。没有预缓存的请求并不一定要响应网络错误。sw-toolbox 让我们得以灵活实现请求的处理，这能够处理某些资源的运行时缓存和其他资源的自定义回退。
 
-**sw-toolbox 支持大多数不同缓存策略，包括网络优先（确保可用数据是最新的，但回退到缓存里），缓存优先（匹配请求与缓存列表，回退到网络），速度优先（同时从缓存和网络请求资源，响应最快的返回结果）。了解这些方法的[优劣](https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/)十分重要。**
+**sw-toolbox 支持大多数不同缓存策略，包括网络优先（确保可用数据是最新的，而不是读取缓存），缓存优先（匹配请求与缓存列表，如果资源不存在则发起网络请求），速度优先（同时从缓存和网络请求资源，响应最快的返回结果）。了解这些方法的[优劣](https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/)十分重要。**
 
 ![](https://cdn-images-1.medium.com/max/2000/1*E2m37hLNWAjXw_-B8A8n-Q.png)
 
@@ -283,16 +283,16 @@ IndexedDB 中的离线 Google 分析事件队列
 
 对我来说，Service Worker 最难搞的部分就是调试。但去年开始，Chrome DevTools 显著降低了调试难度。为了节约你的时间和减少稍后踩的大坑，我强烈推荐在 [SW debugging codelab](https://codelabs.developers.google.com/codelabs/debugging-service-workers/index.html) 上做开发。😨
 
-记录你发现的技巧或者新知识也可以帮助别人。Rich Harris 就写了 [service worker 早知道](https://gist.github.com/Rich-Harris/fd6c3c73e6e707e312d7c5d7d0f3b2f9)。
+记录你发现的技巧或者新知识也可以帮助别人。Rich Harris 就写了 [Service Worker 早知道](https://gist.github.com/Rich-Harris/fd6c3c73e6e707e312d7c5d7d0f3b2f9)。
 
 根据其他内容集结了资料如下：
 
-*   [如何删除一个多 bug 的 service worker 或者实现一个终止开关？](http://stackoverflow.com/a/38980776)
-*   [测试 service worker 代码有哪些方法？](http://stackoverflow.com/questions/34160509/options-for-testing-service-workers-via-http)
-*   [service worker 可以缓存 POST 请求吗？](http://stackoverflow.com/a/35272243)
+*   [如何删除一个多 bug 的 Service Worker 或者实现一个终止开关？](http://stackoverflow.com/a/38980776)
+*   [测试 Service Worker 代码有哪些方法？](http://stackoverflow.com/questions/34160509/options-for-testing-service-workers-via-http)
+*   [Service Worker 可以缓存 POST 请求吗？](http://stackoverflow.com/a/35272243)
 *   [如何多个页面注册同一个 sw ？](http://stackoverflow.com/a/33881341)
-*   [service worker 内部能够读取 cookie 吗？](https://github.com/w3c/ServiceWorker/issues/707) (not yet, coming)
-*   [如何处理 service worker 的全局错误？](http://stackoverflow.com/questions/37736322/how-does-global-error-handling-work-in-service-workers)
+*   [Service Worker 内部能够读取 cookie 吗？](https://github.com/w3c/ServiceWorker/issues/707) (not yet, coming)
+*   [如何处理 Service Worker 的全局错误？](http://stackoverflow.com/questions/37736322/how-does-global-error-handling-work-in-service-workers)
 
 其他资源：
 
@@ -306,8 +306,8 @@ IndexedDB 中的离线 Google 分析事件队列
 
 最后结语！
 
-这个系列的第四部分，[我们关注使用普遍方法的基于 React.js 的渐进式 Web 应用的渐进式增强](https://medium.com/@addyosmani/progressive-web-apps-with-react-js-part-4-site-is-progressively-enhanced-b5ad7cf7a447#.bu0kk36bo)。
+在这个系列的第四部分，[我们会重点关注使用全局渲染来渐进增强 React.js 渐进式 Web 应用](https://medium.com/@addyosmani/progressive-web-apps-with-react-js-part-4-site-is-progressively-enhanced-b5ad7cf7a447#.bu0kk36bo)。
 
-如果你刚了解 React，Wes Bos 的 [初入 React](https://goo.gl/G1WGxU) 很适合你。
+如果你刚了解 React，Wes Bos 的 [React 入门](https://goo.gl/G1WGxU) 很适合你。
 
-**最后感谢 Gray Norton, Sean Larkin, Sunil Pai, Max Stoiber, Simon Boudrias, Kyle Mathews, Arthur Stolyar 和 Owen Campbell-Moore 的审查。**
+**感谢 Gray Norton, Sean Larkin, Sunil Pai, Max Stoiber, Simon Boudrias, Kyle Mathews, Arthur Stolyar 和 Owen Campbell-Moore 的评价。**
