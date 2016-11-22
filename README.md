@@ -4,7 +4,7 @@
 
 [掘金翻译计划](http://gold.xitu.io/#/tag/%E6%8E%98%E9%87%91%E7%BF%BB%E8%AF%91%E8%AE%A1%E5%88%92) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](http://gold.xitu.io) 上的英文分享文章。内容覆盖 [Android](#android)、[iOS](#ios)、[React](#react)、[前端](#前端)、[后端](#后端)、[产品](#产品)、[设计](#设计) 等领域，读者为热爱新技术的新锐开发者。
 
-掘金翻译计划目前翻译完成 [274](#近期文章列表) 篇文章，共有 [230](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
+掘金翻译计划目前翻译完成 [275](#近期文章列表) 篇文章，共有 [230](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
 
 #  官方指南：
 
@@ -36,10 +36,10 @@
 
 ## 前端
 
+* [[译] React Native Android 应用内存使用探究](http://gold.xitu.io/entry/5834161bda2f600062be79b5?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([phxnirvana](https://github.com/phxnirvana) 翻译)
 * [[译] React Native Android 的 native 模块](http://gold.xitu.io/entry/5832e55fc4c971005f565b4c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([XHShirley](https://github.com/XHShirley) 翻译)
 * [[译] 我在手撕 SVG 条形图时踩过的定位坑](http://gold.xitu.io/entry/58306b428ac2470061b60ede?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([cyseria](https://github.com/cyseria) 翻译)
 * [[译] 使用 “Google 抓取方式” 测试 React 驱动的网站 SEO](http://gold.xitu.io/entry/582e8b2fd20309006702090f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([yifili09](https://github.com/yifili09) 翻译)
-* [[译] Node.js v6 LTS 中最激动人心的六个 ES6 特性](http://gold.xitu.io/entry/582dcfb067f356006336c834?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Romeo0906](https://github.com/Romeo0906) 翻译)
 * [所有前端译文>>](https://github.com/xitu/gold-miner/blob/master/front-end.md)
 
 
