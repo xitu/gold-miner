@@ -67,7 +67,7 @@
 
 ## [](#conditions-for-colors)颜色的条件
 
-你可以看到，这些数值只能用于你可以 _计算_ 的东西，所以我们没有办法使用它来切换 `display` 属性或任何其他非数字的值。但是颜色怎么样？实际上，我们可以计算颜色的各个组成部分。可悲的是，现在它只能在 Webkits 和 Blinks 中工作，例如 [ Firefox 还不支持](https://bugzilla.mozilla.org/show_bug.cgi?id=984021 "Bugzilla ticket") 在 `rgba()` 里使用 `calc()` 和其他数学函数。
+你可以看到，这些数值只能用于你可以 **计算** 的东西，所以我们没有办法使用它来切换 `display` 属性或任何其他非数字的值。但是颜色怎么样？实际上，我们可以计算颜色的各个组成部分。可悲的是，现在它只能在 Webkits 和 Blinks 中工作，例如 [ Firefox 还不支持](https://bugzilla.mozilla.org/show_bug.cgi?id=984021 "Bugzilla ticket") 在 `rgba()` 里使用 `calc()` 和其他数学函数。
 
 不过当支持将在哪里（或者如果你想在浏览器中使用现有的支持进行实验时），我们可以做这样的事情：
 
@@ -94,7 +94,7 @@
 
 ### [](#another-trap-in-the-specs)规范中的另一个陷阱
 
-当我测试颜色的条件如何工作，我发现了一个真正的 _really_ [规格中的奇怪的限制](#issue-resolved) (Tab Atkins [commented](https://github.com/kizu/kizu.github.com/issues/186) 这个问题与颜色组件是固定的规格（但浏览器尚未支持）。好极了！另外他说，作为另一个解决方案，我们可以使用 `rgba` 里面的百分比，我完全忘了这个功能，哈哈。)[](#x). 这叫做 [“Type Checking”](https://twitter.com/kizmarh/status/788504161864261632)。我现在正式地讨厌它了。这意味着如果属性只接受 `<integer>` 作为值，或者你在 `calc()` 里面有任何分割或非整数，哪怕结果是整数, “resolved type” 都不会是 `<integer>` ，它将是 `<integer>` ，这意味着这些属性不会接受这样的值。当我们计算涉及两个以上的可能值时，我们需要一个非整数修饰符。这将使我们的计算对于使用颜色或其他只有整数的属性（如 `z-index` ）无效。
+当我测试颜色的条件如何工作，我发现了一个**真正**[规格中的奇怪限制](#issue-resolved) (Tab Atkins 的这个[问题](https://github.com/kizu/kizu.github.com/issues/186) 与颜色组件是固定的规格（但浏览器尚未支持）。好极了！另外他说，作为另一个解决方案，我们可以使用 `rgba` 里面的百分比，我完全忘了这个功能，哈哈。)[](#x). 这叫做 [“Type Checking”](https://twitter.com/kizmarh/status/788504161864261632)。我现在正式地讨厌它了。这意味着如果属性只接受 `<integer>` 作为值，或者你在 `calc()` 里面有任何分割或非整数，哪怕结果是整数, “resolved type” 都不会是 `<integer>` ，它将是 `<integer>` ，这意味着这些属性不会接受这样的值。当我们计算涉及两个以上的可能值时，我们需要一个非整数修饰符。这将使我们的计算对于使用颜色或其他只有整数的属性（如 `z-index` ）无效。
 
 如下所示:
 
@@ -223,7 +223,7 @@
         );
     }
 
-但是当涉及到颜色我们有一个问题：当有一个支持变量，事实上（这是规范里的另一个很奇怪的地方），_所有_包含该变量的声明将被认为是有效的。这意味着在CSS中不可能对包含变量的东西做出回退：
+但是当涉及到颜色我们有一个问题：当有一个支持变量，事实上（这是规范里的另一个很奇怪的地方），**所有**包含该变量的声明将被认为是有效的。这意味着在CSS中不可能对包含变量的东西做出回退：
 
     background: blue;
     background: I 💩 CSS VAR(--I)ABLES;
