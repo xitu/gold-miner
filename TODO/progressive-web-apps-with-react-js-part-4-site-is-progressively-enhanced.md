@@ -43,7 +43,7 @@ Aaron Gustafson，Web 标准的布道师，将 [渐进增强](http://alistapart.
 渐进式Web应用程序 [Selio](https://selio.com/) 中如果网络加载需要一定时间, 统一渲染会先加载一个不需 JS 即可运行的静态的版本，静态文件可以被脚本接管，以改善体验。
 
 
-具体到[Application Shell 架构](https://developers.google.com/web/fundamentals/architecture/app-shell)，您可以使用统一渲染在服务器上呈现您的Shell，以及那些你认为对用户很重要的内容 (比如文章正文)，你将会自然而然的选择使用这种服务器端渲染。
+具体到[Application Shell 架构](https://developers.google.com/web/fundamentals/architecture/app-shell)，您可以使用统一渲染在服务器上呈现您 Shell，以及那些你认为对用户很重要的内容 (比如文章正文)，你将会自然而然的选择使用这种服务器端渲染。
 
 ![](https://cdn-images-1.medium.com/max/1600/0*bIfkiNN8A_q3plJh.)
 
@@ -57,7 +57,7 @@ Aaron Gustafson，Web 标准的布道师，将 [渐进增强](http://alistapart.
 
 ### 用 React Router 的统一渲染(Universal Rendering with React Router)
 
-[Pro React](http://www.pro-react.com/)（Cassio Zen 著作）中有一个关于Isomorphic JS 与 React 的精彩章节，我建议你读一下他。本文这一节就是基于这一章节实现的一个简化版本。
+[Pro React](http://www.pro-react.com/)（Cassio Zen 著作）中有一个关于 Isomorphic JS 与 React 的精彩章节，我建议你读一下他。本文这一节就是基于这一章节实现的一个简化版本。
 
 React已经使用 [ReactDOMServer.renderToString()](https://facebook.github.io/react/docs/top-level-api.html#reactdomserver.rendertostring) 对服务器渲染组件提供了支持。 给定一个组件，它将生成要发送到浏览器的HTML标记。 React使用这些标记，并使用 [ReactDOM.render（）](https://facebook.github.io/react/docs/top-level-api.html#reactdom.render) 加强它，监听事件来实现交互并渲染出一些内容。
 
