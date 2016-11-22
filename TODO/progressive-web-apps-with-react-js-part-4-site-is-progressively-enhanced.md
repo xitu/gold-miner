@@ -10,8 +10,6 @@
 
 > 渐进增强 (Progressive Enhancement) 意味着所有人都可以在任意一款浏览器中访问页面的**基本内容**和功能，在那些不支持某些特性的浏览器中访问时，体验上有所退化但仍然是可用的。 - Lighthouse
 
-Well built web apps should work for the majority of users in that market. If they are built for resilience, they can avoid users staring at a white screen for seconds on first load, rather than the basic content for the experience:
-
 一个比较完善的 Web 应用要对它所面对的市场的大部分用户是可用的。如此，如果一个Web 应用遵循弹性开发的理念，那么它可以避免用户在第一次进入应用时遭受好几秒的白屏而非正常要展示的内容的情况：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*1ORn_gBszpIr5grUWB1k_A.png)
@@ -36,7 +34,7 @@ Aaron Gustafson，Web 标准的布道师，将 [渐进增强](http://alistapart.
 
 这个概念在React社区 [流行](https://www.smashingmagazine.com/2015/04/react-to-the-future-with-isomorphic-apps/) 有下面几个原因：应用程序可以以更快的速度在页面上呈现内容，没有网络太差这个大瓶颈；即使 JavaScript 无法加载，他也会正常工作；它使得客户端代码逐步生效，以达到更好的交互体验。
 
-因为 renderToString[http://facebook.github.io/react/docs/top-level-api.html#reactdomserver.rendertostring] 函数 (这个函数将组件渲染成初始 HTML) ，React 做统一渲染相对很自然， 虽然要达到这一点还有不少步骤要完成。关于怎样设置SSR有一些 [指南](https://ifelse.io/2015/08/27/server-side-rendering-with-react-and-react-router/) ，下文我们会简要阐述其中一个。
+因为 [renderToString](http://facebook.github.io/react/docs/top-level-api.html#reactdomserver.rendertostring) 函数 (这个函数将组件渲染成初始 HTML) ，React 做统一渲染相对很自然， 虽然要达到这一点还有不少步骤要完成。关于怎样设置SSR有一些 [指南](https://ifelse.io/2015/08/27/server-side-rendering-with-react-and-react-router/) ，下文我们会简要阐述其中一个。
 
 注：统一路由(Universal routing)指从客户端和服务端都可以用同一路由找到对应的视图（ [React Router支持这个很好](https://github.com/ReactTraining/react-router/blob/master/docs/guides/ServerRendering.md)。统一数据(Universal data)获取指从客户端和服务端都可以访问数据，比如通过一个 API。我使用  [isomorphic-fetch](https://www.npmjs.com/package/isomorphic-fetch) （基于Fetch API polyfill）去做这件事。
 
@@ -45,12 +43,12 @@ Aaron Gustafson，Web 标准的布道师，将 [渐进增强](http://alistapart.
 渐进式Web应用程序 [Selio](https://selio.com/) 中如果网络加载需要一定时间, 统一渲染会先加载一个不需 JS 即可运行的静态的版本，静态文件可以被脚本接管，以改善体验。
 
 
-具体到[Application Shell 架构](https://developers.google.com/web/fundamentals/architecture/app-shell)，您可以使用通用渲染在服务器上呈现您的Shell，以及那些你认为对用户很重要的内容 (比如文章正文)，你将会自然而然的选择使用这种服务器端渲染。
+具体到[Application Shell 架构](https://developers.google.com/web/fundamentals/architecture/app-shell)，您可以使用统一渲染在服务器上呈现您的Shell，以及那些你认为对用户很重要的内容 (比如文章正文)，你将会自然而然的选择使用这种服务器端渲染。
 
 ![](https://cdn-images-1.medium.com/max/1600/0*bIfkiNN8A_q3plJh.)
 
 
-其他PWA，如Housing，[Flipkart](https://speakerdeck.com/abhinavrastogi/next-gen-web-scaling-progressive-web-apps) 和AliExpress服务器渲染的shell与[屏幕](http ：//www.lukew.com/ff/entry.asp?1797)，虽然实际可能并不是立即加载，但用户会觉得内容是立即加载的。这让用户能够感觉到性能的提升。
+其他PWA，如Housing，[Flipkart](https://speakerdeck.com/abhinavrastogi/next-gen-web-scaling-progressive-web-apps) 和AliExpress服务器渲染的shell与 [屏幕](http ：//www.lukew.com/ff/entry.asp?1797)，虽然实际可能并不是立即加载，但用户会觉得内容是立即加载的。这让用户能够感觉到性能的提升。
 
 
 注意：服务器渲染可以意味着你的服务端要做 **更多的工作** ，并可能会增加您的代码库的复杂性，因为您的 React 组件需要 Node 环境是可用的。 在决定是否使用 SSR 的时候，请记住这一点。 德文林赛有一个很棒的演讲在[SSR perf with React](https://www.youtube.com/watch?v=PnpfGy7q96U)，非常值得去观看！
@@ -61,7 +59,7 @@ Aaron Gustafson，Web 标准的布道师，将 [渐进增强](http://alistapart.
 
 [Pro React](http://www.pro-react.com/)（Cassio Zen 著作）中有一个关于Isomorphic JS 与 React 的精彩章节，我建议你读一下他。本文这一节就是基于这一章节实现的一个简化版本。
 
-React已经使用 [ReactDOMServer.renderToString（）](https://facebook.github.io/react/docs/top-level-api.html#reactdomserver.rendertostring) 对服务器渲染组件提供了支持。 给定一个组件，它将生成要发送到浏览器的HTML标记。 React使用这些标记，并使用 [ReactDOM.render（）](https://facebook.github.io/react/docs/top-level-api.html#reactdom.render) 加强它，监听事件来实现交互并渲染出一些内容。
+React已经使用 [ReactDOMServer.renderToString()](https://facebook.github.io/react/docs/top-level-api.html#reactdomserver.rendertostring) 对服务器渲染组件提供了支持。 给定一个组件，它将生成要发送到浏览器的HTML标记。 React使用这些标记，并使用 [ReactDOM.render（）](https://facebook.github.io/react/docs/top-level-api.html#reactdom.render) 加强它，监听事件来实现交互并渲染出一些内容。
 
 假想我们来实现一个第三方的 Hacker News 应用，使用Express渲染React组件可能看起来像这样:
 
@@ -140,9 +138,9 @@ render(, document.getElementById('container'));
 
 典型的SPA将有许多路由，但是一次为我们的所有路由加载所有数据是没有意义的。 相反，我们需要通过路由的映射来告知服务当前路由的组件需要什么数据，以便我们可以准确满足需要。如果用户从一个路由过渡到另一个路由，我们还需要动态拉取数据，这意味着我们需要一个支持在客户端上拉取数据和在服务器预拉取数据的策略。
 
-通用数据请求的常见解决方案是使用[React对'statics'的支持](https://facebook.github.io/react/docs/component-specs.html)在每个组件上创建静态“fetchData”方法，定义它需要什么数据。此方法可以随时访问，即使组件尚未实例化，这对于预拉取工作很重要。
+统一数据请求的常见解决方案是使用[React对`statics`的支持](https://facebook.github.io/react/docs/component-specs.html)在每个组件上创建静态“fetchData”方法，定义它需要什么数据。此方法可以随时访问，即使组件尚未实例化，这对于预拉取工作很重要。
 
-下面是一个简单的组件使用静态fetchData方法的代码片段。我们还可以利用客户端上的 componentDidMount 来检查服务器是否提供了我们的 bootupData(否则我们是否需要自己获取启动数据)。
+下面是一个简单的组件使用静态fetchData方法的代码片段。我们还可以利用客户端上的 componentDidMount 来检查服务器是否提供了我们的启动数据，否则我们是否需要自己获取启动数据。
 ``` javascript
 // Fetch for Node and the browser
 import fetch from 'isomorphic-fetch'; 
@@ -286,7 +284,7 @@ render((
 ), document.getElementById('container'))
 ```
 
-就这样，有很多关于使用React的通用渲染的知识，深入研究其他架构像[Flux](https://facebook.github.io/flux/)和像[Redux](https://github.com/reactjs/redux)的库适合。我强烈鼓励阅读一些链接，以对其他有效的模式有一个更全面的认识。
+就这样，有很多关于使用React的统一渲染的知识，深入研究其他架构像[Flux](https://facebook.github.io/flux/)和像[Redux](https://github.com/reactjs/redux)的库适合。我强烈鼓励阅读一些链接，以对其他有效的模式有一个更全面的认识。
 
 ### 数据流技巧(Data-flow tips)
 
