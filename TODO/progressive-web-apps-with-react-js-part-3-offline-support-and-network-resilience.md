@@ -33,7 +33,7 @@ Service worker 也设计作为基础 API，让 web 应用更像 native 应用。
 
 ### Service Worker 生命周期
 
-每个 [Service Worker](https://developers.google.com/web/fundamentals/getting-started/primers/service-workers?hl=en) 的生命周期有三步：注册，安装和激活。**[Jake Archibald 的这篇文章有更详细的说明._](https://developers.google.com/web/fundamentals/instant-and-offline/service-worker/lifecycle)**
+每个 [Service Worker](https://developers.google.com/web/fundamentals/getting-started/primers/service-workers?hl=en) 的生命周期有三步：注册，安装和激活。**[Jake Archibald 的这篇文章有更详细的说明](https://developers.google.com/web/fundamentals/instant-and-offline/service-worker/lifecycle)**
 
 #### 注册
 
@@ -110,7 +110,7 @@ addAll() 传入一个 URL 数组，请求并获取文件，然后添加到缓存
 *   基于 Web 基本原理的 [Service Worker 入门](https://developers.google.com/web/fundamentals/getting-started/primers/service-workers#install_a_service_worker)
 *   [你的第一个离线 webapp](https://developers.google.com/web/fundamentals/getting-started/your-first-offline-web-app/?hl=en)，web 基本原理编程实验室
 *   [Udacity 基于 Service Worker 的离线 Web 应用教程](https://www.udacity.com/course/offline-web-applications--ud899)
-*   推荐[Jake Archibald 的离线小书](https://jakearchibald.com/2014/offline-cookbook/)。
+*   推荐 [Jake Archibald 的离线小书](https://jakearchibald.com/2014/offline-cookbook/)。
 *   [基于 Webpack 的渐进式 Web 应用](http://michalzalecki.com/progressive-web-apps-with-webpack/) 也是一个很棒的指南，学h会如何用基础 Service Worker 代码启用离线缓存（如果你不喜欢用库的话）。
 
 **如果第三方 API 想要部署他们自己的 Service Worker 来处理其他域传来的请求，[Foreign Fetch](https://developers.google.com/web/updates/2016/09/foreign-fetch?hl=en) 可以帮忙。这对于网络化逻辑自定义和单个缓存实例响应定义都有帮助。**
@@ -151,7 +151,7 @@ Chrome 开发工具
 
 Housing.com 使用了内容占位符的应用外壳。一旦全部下载完成，立即填充占位，此举有助于提升感官性能。
 
-对于富 JavaScript 架构的[单页应用](https://en.wikipedia.org/wiki/Single-page_application)来说，应用外壳是首选方法。这个方法依赖外壳的缓存（利用 [Service Worker](https://github.com/google/WebFundamentals/blob/99046f5543e414261670142f04836b121eb2e7d5/web/fundamentals/primers/service-worker)）来运行程序。其次，用 JavaScript 加载每个页面的动态内容。在无网络情况下，应用外壳有助于更快的获取屏幕的起始 HTML 页面。外壳可以使用 [Material UI](http://www.material-ui.com/) 或是自定义风格。
+对于富 JavaScript 架构的 [单页应用](https://en.wikipedia.org/wiki/Single-page_application) 来说，应用外壳是首选方法。这个方法依赖外壳的缓存（利用 [Service Worker](https://github.com/google/WebFundamentals/blob/99046f5543e414261670142f04836b121eb2e7d5/web/fundamentals/primers/service-worker)）来运行程序。其次，用 JavaScript 加载每个页面的动态内容。在无网络情况下，应用外壳有助于更快的获取屏幕的起始 HTML 页面。外壳可以使用 [Material UI](http://www.material-ui.com/) 或是自定义风格。
 
 **注意：参考 [第一个渐进式 Web 应用](https://codelabs.developers.google.com/codelabs/your-first-pwapp/#0) 学习设计和实现第一个应用外壳程序，以天气应用为样例。[用应用外壳模型实现立即加载](https://www.youtube.com/watch?v=QhUzmR8eZAo) 同样探讨了这个模式。**
 
@@ -169,7 +169,7 @@ Housing.com 使用了内容占位符的应用外壳。一旦全部下载完成�
 
 运行时缓存：一些过于庞大或者很少使用的资源，还有一些动态资源，像来自远程 API 或服务的响应。没有预缓存的请求并不一定要响应网络错误。sw-toolbox 让我们得以灵活实现请求的处理，这能够处理某些资源的运行时缓存和其他资源的自定义回退。
 
-**sw-toolbox 支持大多数不同缓存策略，包括网络优先（确保可用数据是最新的，而不是读取缓存），缓存优先（匹配请求与缓存列表，如果资源不存在则发起网络请求），速度优先（同时从缓存和网络请求资源，响应最快的返回结果）。了解这些方法的[优劣](https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/)十分重要。**
+**sw-toolbox 支持大多数不同缓存策略，包括网络优先（确保可用数据是最新的，而不是读取缓存），缓存优先（匹配请求与缓存列表，如果资源不存在则发起网络请求），速度优先（同时从缓存和网络请求资源，响应最快的返回结果）。了解这些方法的 [优劣](https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/) 十分重要。**
 
 ![](https://cdn-images-1.medium.com/max/2000/1*E2m37hLNWAjXw_-B8A8n-Q.png)
 
@@ -200,7 +200,7 @@ Housing.com 使用了内容占位符的应用外壳。一旦全部下载完成�
       ]
     }
 
-我在 [渐进式 Web 应用的离线缓存](https://medium.com/dev-channel/offline-storage-for-progressive-web-apps-70d52695513c)中讲了其他类型数据的离线存储策略。尤其是 React，如果你正关注添加数据仓库到缓存或正使用 Redux，你会对 [坚持 Redux](https://github.com/rt2zz/redux-persist) 和 [Redux 复制本地搜索](https://github.com/loggur/redux-replicate-localforage) 感兴趣的（后者压缩后约 8 KB）。
+我在 [渐进式 Web 应用的离线缓存](https://medium.com/dev-channel/offline-storage-for-progressive-web-apps-70d52695513c) 中讲了其他类型数据的离线存储策略。尤其是 React，如果你正关注添加数据仓库到缓存或正使用 Redux，你会对 [坚持 Redux](https://github.com/rt2zz/redux-persist) 和 [Redux 复制本地搜索](https://github.com/loggur/redux-replicate-localforage) 感兴趣的（后者压缩后约 8 KB）。
 
 ### 迷你案例学习：为 ReactHN 添加离线缓存
 
@@ -291,7 +291,7 @@ IndexedDB 中的离线 Google 分析事件队列
 *   [测试 Service Worker 代码有哪些方法？](http://stackoverflow.com/questions/34160509/options-for-testing-service-workers-via-http)
 *   [Service Worker 可以缓存 POST 请求吗？](http://stackoverflow.com/a/35272243)
 *   [如何多个页面注册同一个 sw ？](http://stackoverflow.com/a/33881341)
-*   [Service Worker 内部能够读取 cookie 吗？](https://github.com/w3c/ServiceWorker/issues/707) (not yet, coming)
+*   [Service Worker 内部能够读取 cookie 吗？](https://github.com/w3c/ServiceWorker/issues/707) (敬请期待)
 *   [如何处理 Service Worker 的全局错误？](http://stackoverflow.com/questions/37736322/how-does-global-error-handling-work-in-service-workers)
 
 其他资源：
@@ -310,4 +310,4 @@ IndexedDB 中的离线 Google 分析事件队列
 
 如果你刚了解 React，Wes Bos 的 [React 入门](https://goo.gl/G1WGxU) 很适合你。
 
-**感谢 Gray Norton, Sean Larkin, Sunil Pai, Max Stoiber, Simon Boudrias, Kyle Mathews, Arthur Stolyar 和 Owen Campbell-Moore 的评价。**
+**感谢 Gray Norton, Sean Larkin, Sunil Pai, Max Stoiber, Simon Boudrias, Kyle Mathews, Arthur Stolyar 和 Owen Campbell-Moore 的评论。**
