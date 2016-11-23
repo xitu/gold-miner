@@ -6,9 +6,6 @@
 
 # Optimizing Layouts in Android – Reducing Overdraw
 
-
-
-
 You have a great idea and you have launched your application into the wild. Now you hear people complaining how your app is slow and horrible to use. Sad face.
 
 One such step to improve the rendering time of your application is to have a look at the GPU Overdraw tool.
@@ -28,8 +25,10 @@ You will notice your screen change colour – don’t panic. Navigate to your ap
 
 ## What do the different colours mean?
 
-[![Screenshot_2016-02-01-11-08-40](http://i1.wp.com/riggaroo.co.za/wp-content/uploads/2016/02/Screenshot_2016-02-01-11-08-40.png?resize=169%2C300%20169w,%20http://i1.wp.com/riggaroo.co.za/wp-content/uploads/2016/02/Screenshot_2016-02-01-11-08-40.png?resize=768%2C1365%20768w,%20http://i1.wp.com/riggaroo.co.za/wp-content/uploads/2016/02/Screenshot_2016-02-01-11-08-40.png?resize=576%2C1024%20576w,%20http://i1.wp.com/riggaroo.co.za/wp-content/uploads/2016/02/Screenshot_2016-02-01-11-08-40.png?w=1440%201440w)  
-](http://i1.wp.com/riggaroo.co.za/wp-content/uploads/2016/02/Screenshot_2016-02-01-11-08-40.png)The colours mean the following things:
+[![Screenshot_2016-02-01-11-08-40](https://i1.wp.com/riggaroo.co.za/wp-content/uploads/2016/02/Screenshot_2016-02-01-11-08-40.png?resize=576%2C1024&ssl=1)
+](https://i1.wp.com/riggaroo.co.za/wp-content/uploads/2016/02/Screenshot_2016-02-01-11-08-40.png?resize=576%2C1024&ssl=1)
+
+The colours mean the following things:
 
 _**Original colour**_ – _no overdraw_ – The pixels have been painted once on the screen.
 
@@ -51,86 +50,30 @@ In the example above, I removed the background colour that was set on the Relati
 
 So going from this:
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+```
 <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF">
 
-android:layout_width="match_parent"
-
-android:layout_height="match_parent"
-
-android:background="#FFFFFF">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+```
 
 to this:
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+```
 <RelativeLayout
-
-android:layout_width="match_parent"
-
-android:layout_height="match_parent">
-
-
-
-
-
-
-
-
-
-
-
-
-
+     android:layout_width="match_parent"
+     android:layout_height="match_parent">
+```
 
 
 Modifying the layout yielded the following result 😊:
 
-[![After removing the background colour.](http://i1.wp.com/riggaroo.co.za/wp-content/uploads/2016/02/Screenshot_2016-02-01-11-20-08.png?resize=169%2C300%20169w,%20http://i1.wp.com/riggaroo.co.za/wp-content/uploads/2016/02/Screenshot_2016-02-01-11-20-08.png?resize=768%2C1365%20768w,%20http://i1.wp.com/riggaroo.co.za/wp-content/uploads/2016/02/Screenshot_2016-02-01-11-20-08.png?resize=576%2C1024%20576w,%20http://i1.wp.com/riggaroo.co.za/wp-content/uploads/2016/02/Screenshot_2016-02-01-11-20-08.png?w=1440%201440w)  
-](http://i1.wp.com/riggaroo.co.za/wp-content/uploads/2016/02/Screenshot_2016-02-01-11-20-08.png)As you can see, the overdraw has been minimized. The red overdraw has been reduced.
+[![After removing the background colour.](https://i1.wp.com/riggaroo.co.za/wp-content/uploads/2016/02/Screenshot_2016-02-01-11-20-08.png?resize=576%2C1024&ssl=1)
+](https://i1.wp.com/riggaroo.co.za/wp-content/uploads/2016/02/Screenshot_2016-02-01-11-20-08.png)
+
+As you can see, the overdraw has been minimized. The red overdraw has been reduced.
 
 This could be further improved to the layout showing mostly its true colour and a slight amount of blue overdraw. Some overdraw is inevitable.
 
