@@ -11,7 +11,7 @@
 
 ### 保证页面加载性能是快的
 
-移动 Web 的速度很关键。平均来说，更快的体验会 [延长 70% 的会话](https://www.doubleclickbygoogle.com/articles/mobile-speed-matters/) 以及两倍以上更多的移动广告收益。基于 React 的 Web 性能投资中，Flipkart Lite 使[访问时间提升了三倍](https://developers.google.com/web/showcase/2016/flipkart)， GQ 在流量上得到了 [80% 增长](http://digiday.com/publishers/gq-com-cut-page-load-time-80-percent/)，Trainline 在 [年收益上增长了 11M](https://youtu.be/ai-6qwT6ES8?t=462) 并且 Instagram [的好感度上升了 33%](http://engineering.instagram.com/posts/193415561023919/performance-&-usage-at-Instagram).
+移动 Web 的速度很关键。平均来说，更快的体验会 [延长 70% 的会话](https://www.doubleclickbygoogle.com/articles/mobile-speed-matters/) 以及两倍以上更多的移动广告收益。基于 React 的 Web 性能投资中，Flipkart Lite 使[访问时间提升了三倍](https://developers.google.com/web/showcase/2016/flipkart)， GQ 在流量上得到了 [80% 增长](http://digiday.com/publishers/gq-com-cut-page-load-time-80-percent/)，Trainline 在 [年收益上增长了 11M](https://youtu.be/ai-6qwT6ES8?t=462) 并且 Instagram 的 [好感度上升了 33%](http://engineering.instagram.com/posts/193415561023919/performance-&-usage-at-Instagram)。
 
 在你的 web app 加载时有一些 [关键的用户时刻](https://www.youtube.com/watch?v=wFwogd4CdwY&index=4&list=PLNYkxOF6rcIB3ci6nwNyLYNU6RDOU3YyL)：
 
@@ -92,7 +92,7 @@ Flipkart 也做了类似的：
 
 ### 实践基于路由的代码分块
 
-当 Webpack 在 app 代码中发现  [require.ensure()](https://webpack.github.io/docs/code-splitting.html) （在 [Webpack 2](https://gist.github.com/sokra/27b24881210b56bbaff7) 中是 [System.import](http://moduscreate.com/code-splitting-for-react-router-with-es6-imports/))时，支持分割代码。这些方法出现的地方被称为“分割点”，Webpack 会对它们的每一个都生成一个分开的 bundle，按需解决依赖。
+当 Webpack 在 app 代码中发现  [require.ensure()](https://webpack.github.io/docs/code-splitting.html)（在 [Webpack 2](https://gist.github.com/sokra/27b24881210b56bbaff7) 中是 [System.import](http://moduscreate.com/code-splitting-for-react-router-with-es6-imports/)）时，支持分割代码。这些方法出现的地方被称为“分割点”，Webpack 会对它们的每一个都生成一个分开的 bundle，按需解决依赖。
 
     // 定义一个 "split-point"
     require.ensure([], function () {
@@ -194,7 +194,7 @@ Brian Holt 在 [React 的完整介绍](https://btholt.github.io/complete-intro-t
 
 有一个可以更快设置代码分割的小技巧。在 React Router 中，一个根路由 “/” 映射到 `App` 组件的 [申明式的路由](https://github.com/ReactTraining/react-router/blob/master/docs/API.md#route) 就像这样 `<Route path=”/” component={App}>`。
 
-React Router 也支持 `[getComponent](https://github.com/ReactTraining/react-router/blob/master/docs/API.md#getcomponentnextstate-callback)` 属性，十分方便，类似于 `component` 但却是异步的，**并且能够**非常快速**地设置代码分割。：
+React Router 也支持 `[getComponent](https://github.com/ReactTraining/react-router/blob/master/docs/API.md#getcomponentnextstate-callback)` 属性，十分方便，类似于 `component` 但却是异步的，并且能够**非常快速**地设置代码分割：
 
 ```
 <Route
