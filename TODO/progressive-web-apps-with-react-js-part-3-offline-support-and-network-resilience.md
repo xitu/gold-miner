@@ -2,7 +2,7 @@
 * 原文作者：[Addy Osmani](https://medium.com/@addyosmani)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Jiang Haichao](http://github.com/AceLeeWinnie)
-* 校对者：
+* 校对者：[Gocy](https://github.com/Gocy015), [David Lin](https://github.com/wild-flame)
 
 # 使用 React.js 的渐进式 Web 应用程序：第 3 部分 - 离线支持和网络恢复能力
 
@@ -306,7 +306,7 @@ IndexedDB 中的离线 Google 分析事件队列
 
 最后结语！
 
-在这个系列的第四部分，[我们会重点关注使用全局渲染来渐进增强 React.js 渐进式 Web 应用](https://medium.com/@addyosmani/progressive-web-apps-with-react-js-part-4-site-is-progressively-enhanced-b5ad7cf7a447#.bu0kk36bo)。
+在这个系列的第四部分，[我们会重点关注使用全局渲染来渐进增强 React.js 渐进式 Web 应用](https://github.com/xitu/gold-miner/blob/master/TODO/progressive-web-apps-with-react-js-part-4-site-is-progressively-enhanced.md)。
 
 如果你刚了解 React，Wes Bos 的 [React 入门](https://goo.gl/G1WGxU) 很适合你。
 
