@@ -16,195 +16,20 @@ All of the data is in a SQLite database called `flights.db`, which contains thre
 Here are two rows from the `airlines` table:
 
 
-
-
-
-
-
-
-
-
-
-id
-
-name
-
-alias
-
-iata
-
-icao
-
-callsign
-
-country
-
-active
-
-
-
-
-
-
-
-
-
-10
-
-11
-
-4D Air
-
-\N
-
-NaN
-
-QRT
-
-QUARTET
-
-Thailand
-
-N
-
-
-
-
-
-11
-
-12
-
-611897 Alberta Limited
-
-\N
-
-NaN
-
-THD
-
-DONUT
-
-Canada
-
-N
-
-
-
-
-
-
-
-
+|     | id  | name                   | alias | iata | icao | callsign | country  | active |
+|-----|-----|------------------------|-------|------|------|----------|----------|--------|
+| 10  | 11  | 4D Air                 | \\N   | NaN  | QRT  | QUARTET  | Thailand | N      |
+| 11  | 12  | 611897 Alberta Limited | \\N   | NaN  | THD  | DONUT    | Canada   | N      |
 
 As you can see above, each row is a different airline, and each column is a property of that airline, such as `name`, and `country`. Each airline also has a unique `id`, so we can easily look it up when we need to.
 
 Here are two rows from the `airports` table:
 
 
-
-
-
-
-
-
-
-
-
-id
-
-name
-
-city
-
-country
-
-code
-
-icao
-
-latitude
-
-longitude
-
-altitude
-
-offset
-
-dst
-
-timezone
-
-
-
-
-
-
-
-
-
-0
-
-1
-
-Goroka
-
-Goroka
-
-Papua New Guinea
-
-GKA
-
-AYGA
-
--6.081689
-
-145.391881
-
-5282
-
-10
-
-U
-
-Pacific/Port_Moresby
-
-
-
-
-
-1
-
-2
-
-Madang
-
-Madang
-
-Papua New Guinea
-
-MAG
-
-AYMD
-
--5.207083
-
-145.7887
-
-20
-
-10
-
-U
-
-Pacific/Port_Moresby
-
-
-
-
-
-
-
+|     | id  | name   | city   | country          | code | icao | latitude  | longitude  | altitude | offset | dst | timezone              |
+|-----|-----|--------|--------|------------------|------|------|-----------|------------|----------|--------|-----|-----------------------|
+| 0   | 1   | Goroka | Goroka | Papua New Guinea | GKA  | AYGA | -6.081689 | 145.391881 | 5282     | 10     | U   | Pacific/Port\_Moresby |
+| 1   | 2   | Madang | Madang | Papua New Guinea | MAG  | AYMD | -5.207083 | 145.7887   | 20       | 10     | U   | Pacific/Port\_Moresby |
 
 
 As you can see, each row corresponds to an airport, and contains information on the location of the airport. Each airport also has a unique `id`, so we can easily look it up.
@@ -212,91 +37,10 @@ As you can see, each row corresponds to an airport, and contains information on 
 Here are two rows from the `routes` table:
 
 
-
-
-
-
-
-
-
-
-
-airline
-
-airline_id
-
-source
-
-source_id
-
-dest
-
-dest_id
-
-codeshare
-
-stops
-
-equipment
-
-
-
-
-
-
-
-
-
-0
-
-2B
-
-410
-
-AER
-
-2965
-
-KZN
-
-2990
-
-NaN
-
-0
-
-CR2
-
-
-
-
-
-1
-
-2B
-
-410
-
-ASF
-
-2966
-
-KZN
-
-2990
-
-NaN
-
-0
-
-CR2
-
-
-
-
-
-
-
+|     | airline | airline\_id | source | source\_id | dest | dest\_id | codeshare | stops | equipment |
+|-----|---------|-------------|--------|------------|------|----------|-----------|-------|-----------|
+| 0   | 2B      | 410         | AER    | 2965       | KZN  | 2990     | NaN       | 0     | CR2       |
+| 1   | 2B      | 410         | ASF    | 2966       | KZN  | 2990     | NaN       | 0     | CR2       |
 
 
 Each route contains an `airline_id`, which the `id` of the airline that flies the route, as well as `source_id`, which is the id of the airport that the route originates from, and `dest_id`, which is the id of the destination airport for the flight.
@@ -372,8 +116,8 @@ Using our newfound knowledge of queries, we can create a plot that shows where a
     conn = sqlite3.connect("flights.db")
     cur = conn.cursor()
     coords = cur.execute("""
-      select cast(longitude as float), 
-      cast(latitude as float) 
+      select cast(longitude as float),
+      cast(latitude as float)
       from airports;"""
     ).fetchall()
 
@@ -416,7 +160,7 @@ Finally, we plot the coordinates of each airport onto the map. We retrieved a li
 
 
     x, y = m(
-      [l[0] for l in coords], 
+      [l[0] for l in coords],
       [l[1] for l in coords]
     )
 
@@ -463,165 +207,13 @@ We can use the pandas [read_sql_query](http://pandas.pydata.org/pandas-docs/stab
 
 
 
-
-
-
-
-
-
-
-
-
-
-index
-
-id
-
-name
-
-alias
-
-iata
-
-icao
-
-callsign
-
-country
-
-active
-
-
-
-
-
-
-
-
-
-0
-
-0
-
-1
-
-Private flight
-
-\N
-
--
-
-None
-
-None
-
-None
-
-Y
-
-
-
-
-
-1
-
-1
-
-2
-
-135 Airways
-
-\N
-
-None
-
-GNL
-
-GENERAL
-
-United States
-
-N
-
-
-
-
-
-2
-
-2
-
-3
-
-1Time Airline
-
-\N
-
-1T
-
-RNX
-
-NEXTIME
-
-South Africa
-
-Y
-
-
-
-
-
-3
-
-3
-
-4
-
-2 Sqn No 1 Elementary Flying Training School
-
-\N
-
-None
-
-WYT
-
-None
-
-United Kingdom
-
-N
-
-
-
-
-
-4
-
-4
-
-5
-
-213 Flight Unit
-
-\N
-
-None
-
-TFU
-
-None
-
-Russia
-
-N
-
-
-
-
-
-
-
-
+|     | index | id  | name                                         | alias | iata | icao | callsign | country        | active |
+|-----|-------|-----|----------------------------------------------|-------|------|------|----------|----------------|--------|
+| 0   | 0     | 1   | Private flight                               | \\N   | -    | None | None     | None           | Y      |
+| 1   | 1     | 2   | 135 Airways                                  | \\N   | None | GNL  | GENERAL  | United States  | N      |
+| 2   | 2     | 3   | 1Time Airline                                | \\N   | 1T   | RNX  | NEXTIME  | South Africa   | Y      |
+| 3   | 3     | 4   | 2 Sqn No 1 Elementary Flying Training School | \\N   | None | WYT  | None     | United Kingdom | N      |
+| 4   | 4     | 5   | 213 Flight Unit                              | \\N   | None | TFU  | None     | Russia         | N      |
 
 As you can see, we get a nicely formatted DataFrame as the result. We could easily manipulate the columns:
 
@@ -656,16 +248,16 @@ Now that we know how to read queries into pandas DataFrames, we can create a map
 
 
     routes = pd.read_sql_query("""
-                               select cast(sa.longitude as float) as source_lon, 
+                               select cast(sa.longitude as float) as source_lon,
                                cast(sa.latitude as float) as source_lat,
                                cast(da.longitude as float) as dest_lon,
                                cast(da.latitude as float) as dest_lat
-                               from routes 
+                               from routes
                                inner join airports sa on
                                sa.id = routes.source_id
                                inner join airports da on
                                da.id = routes.dest_id;
-                               """, 
+                               """,
                                conn)
 
 
@@ -692,8 +284,8 @@ We iterate through the first `3000` rows, and draw them. The below code will:
         if abs(row["source_lon"] - row["dest_lon"]) < 90:
             # Draw a great circle between source and dest airports.
             m.drawgreatcircle(
-                row["source_lon"], 
-                row["source_lat"], 
+                row["source_lon"],
+                row["source_lat"],
                 row["dest_lon"],
                 row["dest_lat"],
                 linewidth=1,
@@ -724,7 +316,7 @@ Now that we know how to query database rows, let’s move on to modifying them.
 
 ### Enjoying this post? Learn data science with Dataquest!
 
-##### 
+#####
 
 *   Learn from the comfort of your browser.
 *   Work with real-life data sets.
@@ -778,66 +370,9 @@ Now, when we query `flights.db`, we’ll see the extra row that contains our tes
 
 
 
-
-
-
-
-
-
-
-
-
-index
-
-id
-
-name
-
-alias
-
-iata
-
-icao
-
-callsign
-
-country
-
-active
-
-
-
-
-
-
-
-
-
-0
-
-1
-
-19846
-
-Test flight
-
-
-
-
-
-None
-
-None
-
-None
-
-Y
-
-
-
-
-
-
+|     | index | id    | name        | alias | iata | icao | callsign | country | active |
+|-----|-------|-------|-------------|-------|------|------|----------|---------|--------|
+| 0   | 1     | 19846 | Test flight |       |      | None | None     | None    | Y      |
 
 
 
@@ -889,69 +424,9 @@ We can then verify that the update happened:
     pd.read_sql_query("select * from airlines where id=19847;", conn)
 
 
-
-
-
-
-
-
-
-
-
-
-
-index
-
-id
-
-name
-
-alias
-
-iata
-
-icao
-
-callsign
-
-country
-
-active
-
-
-
-
-
-
-
-
-
-0
-
-6049
-
-19847
-
-Test Flight
-
-
-
-
-
-None
-
-None
-
-USA
-
-Y
-
-
-
-
-
-
-
+|     | index | id    | name        | alias | iata | icao | callsign | country | active |
+|-----|-------|-------|-------------|-------|------|------|----------|---------|--------|
+| 0   | 6049  | 19847 | Test Flight |       |      | None | None     | USA     | Y      |
 
 
 ### Deleting rows
@@ -975,40 +450,8 @@ We can then verify that the deletion happened, by making sure no rows match our 
 
 
 
-
-
-
-
-
-
-
-
-
-
-index
-
-id
-
-name
-
-alias
-
-iata
-
-icao
-
-callsign
-
-country
-
-active
-
-
-
-
-
-
-
+|     | index | id  | name | alias | iata | icao | callsign | country | active |
+|-----|-------|-----|------|-------|------|------|----------|---------|--------|
 
 
 ## Creating tables
@@ -1046,52 +489,9 @@ When we query the table, we’ll now see the row:
 
 
 
-
-
-
-
-
-
-
-
-
-
-id
-
-departure
-
-arrival
-
-number
-
-route_id
-
-
-
-
-
-
-
-
-
-0
-
-1
-
-2016-09-28 0:00
-
-2016-09-28 12:00
-
-T1
-
-1
-
-
-
-
-
-
-
+|     | id  | departure       | arrival          | number | route\_id |
+|-----|-----|-----------------|------------------|--------|-----------|
+| 0   | 1   | 2016-09-28 0:00 | 2016-09-28 12:00 | T1     | 1         |
 
 
 ### Creating tables with pandas
@@ -1102,7 +502,7 @@ The pandas package gives us a much faster way to create tables. We just have to 
 
     from datetime import datetime
     df = pd.DataFrame(
-        [[1, datetime(2016, 9, 29, 0, 0) , datetime(2016, 9, 29, 12, 0), 'T1', 1]], 
+        [[1, datetime(2016, 9, 29, 0, 0) , datetime(2016, 9, 29, 12, 0), 'T1', 1]],
         columns=["id", "departure", "arrival", "number", "route_id"]
     )
 
@@ -1124,56 +524,9 @@ We can then verify that everything worked by querying the database:
 
 
 
-
-
-
-
-
-
-
-
-
-
-index
-
-id
-
-departure
-
-arrival
-
-number
-
-route_id
-
-
-
-
-
-
-
-
-
-0
-
-0
-
-1
-
-2016-09-29 00:00:00
-
-2016-09-29 12:00:00
-
-T1
-
-1
-
-
-
-
-
-
-
+|     | index | id  | departure           | arrival             | number | route\_id |
+|-----|-------|-----|---------------------|---------------------|--------|-----------|
+| 0   | 0     | 1   | 2016-09-29 00:00:00 | 2016-09-29 12:00:00 | T1     | 1         |
 
 
 ## Altering tables with Pandas
@@ -1195,70 +548,9 @@ Note that we don’t need to call commit – `alter table` queries are immediate
 
 
 
-
-
-
-
-
-
-
-
-
-index
-
-id
-
-name
-
-alias
-
-iata
-
-icao
-
-callsign
-
-country
-
-active
-
-airplanes
-
-
-
-
-
-
-
-
-
-0
-
-0
-
-1
-
-Private flight
-
-\N
-
--
-
-None
-
-None
-
-None
-
-Y
-
-None
-
-
-
-
-
-
+|     | index | id  | name           | alias | iata | icao | callsign | country | active | airplanes |
+|-----|-------|-----|----------------|-------|------|------|----------|---------|--------|-----------|
+| 0   | 0     | 1   | Private flight | \\N   | -    | None | None     | None    | Y      | None      |
 
 
 
