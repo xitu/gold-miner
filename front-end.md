@@ -1,4 +1,5 @@
 * [使用 React.js 的渐进式 Web 应用程序：第 4 部分 - 渐进增强](http://gold.xitu.io/entry/58345f5cc4c9710054e187a5?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([rccoder](https://github.com/rccoder) 翻译)
+* [使用 React.js 的渐进式 Web 应用程序：第 3 部分 - 离线支持和网络恢复能力](http://gold.xitu.io/entry/58350983a22b9d006bbb90d3?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([AceLeeWinnie](https://github.com/AceLeeWinnie) 翻译)
 * [CSS 变量的条件](http://gold.xitu.io/entry/58354e50a22b9d006bc01c06?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([rottenpen](https://github.com/rottenpen) 翻译)
 * [JavaScript 包管理器工作原理简介](http://gold.xitu.io/entry/5835a2c0c59e0d005772a62f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([luoyaqifei](https://github.com/luoyaqifei) 翻译)
 * [使用 React.js 的渐进式 Web 应用程序：第 2 部分 - 页面加载性能](http://gold.xitu.io/entry/583576f3c4c9710054a3e212?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([markzhai](https://github.com/markzhai) 翻译)
