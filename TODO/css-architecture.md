@@ -1,56 +1,58 @@
+# 一个健壮且可扩展的 CSS 架构所需的8个简单规则
+
 > * 原文地址：[8 simple rules for a robust, scalable CSS architecture](https://github.com/jareware/css-architecture)
 * 原文作者：[Jarno Rantanen](https://github.com/jareware)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
-* 校对者：
+* 译者：[linpu.li](https://github.com/llp0574)
+* 校对者：[galenyuan](https://github.com/galenyuan)，[StarCrew](https://github.com/StarCrew)
 
-# 8 simple rules for a robust, scalable CSS architecture
-This is the manifest of things I've learned about managing CSS in large, complex web projects during my many years of professional web development. I've been asked about these things enough times that having a document to point to sounded like a good idea.
 
-I've tried to keep the explanations short, but this is essentially the tl;dr:
+这是一份清单，里面列出了在我多年的专业 Web 开发期间，在复杂的大型 Web 项目中学习到的有关管理 CSS 的事项。我多次被人问起这些东西，所以写一份文档记录下来听起来是个不错的主意。
 
-1.  [**Always prefer classes**](#1-always-prefer-classes)
-2.  [**Co-locate component code**](#2-co-locate-component-code)
-3.  [**Use consistent class namespacing**](#3-use-consistent-class-namespacing)
-4.  [**Maintain a strict mapping between namespaces and filenames**](#4-maintain-a-strict-mapping-between-namespaces-and-filenames)
-5.  [**Prevent leaking styles outside the component**](#5-prevent-leaking-styles-outside-the-component)
-6.  [**Prevent leaking styles inside the component**](#6-prevent-leaking-styles-inside-the-component)
-7.  [**Respect component boundaries**](#7-respect-component-boundaries)
-8.  [**Integrate external styles loosely**](#8-integrate-external-styles-loosely)
+我已经尽力尝试用简短的语言去解释它们了，然而这篇文章本质上还是长文慎入：
 
-## [](#introduction)Introduction
+1.  [**总是类名优先**](#1-always-prefer-classes)
+2.  [**组件代码放在一起**](#2-co-locate-component-code)
+3.  [**使用一致的类命名空间**](#3-use-consistent-class-namespacing)
+4.  [**维护命名空间和文件名之间的严格映射**](#4-maintain-a-strict-mapping-between-namespaces-and-filenames)
+5.  [**避免组件外的样式泄露**](#5-prevent-leaking-styles-outside-the-component)
+6.  [**避免组件内的样式泄露**](#6-prevent-leaking-styles-inside-the-component)
+7.  [**遵守组件边界**](#7-respect-component-boundaries)
+8.  [**松散地整合外部样式**](#8-integrate-external-styles-loosely)
 
-If you're working with frontend applications, eventually you'll need to style things. And even though the state-of-the-art of frontend applications keeps blazing ahead, CSS is still the only way to style anything on the web (and lately, in some cases, [native applications too](https://facebook.github.io/react-native/)). There's two broad categories of styling solutions out there, namely:
+## [](#introduction)介绍
 
-*   CSS preprocessors, which have been around for ages (such as [SASS](http://sass-lang.com/), [LESS](http://lesscss.org/), and others)
-*   CSS-in-JS libraries, which are a relatively new approach to styling (such as [free-style](https://github.com/blakeembrey/free-style), and [many others](https://github.com/MicheleBertoli/css-in-js))
+如果你正在开发前端应用，那么最后你肯定需要关心样式方面的问题。尽管开发前端应用的技术水平持续增长，CSS 仍然是给 Web 应用赋予样式的唯一方式（而且最近，在某些情况下，[原生应用也一样](https://facebook.github.io/react-native/)）。目前在市面上有两大类样式解决方案，即：
 
-The choice between the two approaches is a topic for a separate article, and as usual, both have their pros and cons. That said, I'll be focusing on the former approach, and if you've chosen to go with the latter, this article will probably be a bit less interesting.
+*   CSS 预编译器，已经存在很长时间了（如 [SASS](http://sass-lang.com/)、[LESS](http://lesscss.org/) 及其他）
+*   CSS-in-JS 库，一个相对较新的样式解决方案（如 [free-style](https://github.com/blakeembrey/free-style) 和很多[其他的](https://github.com/MicheleBertoli/css-in-js)）
 
-## [](#high-level-goals)High-level goals
+两种方法间的抉择不在本文过多赘述，并且像往常一样，它们都有各自的支持者和反对者。说完这些，在下面的内容里，我将会专注于第一种方法，所以如果你选择了后者，那么这篇文章可能就没什么吸引力了。
 
-So we're after a robust, scalable CSS architecture. But what properties does that call for, specifically?
+## [](#high-level-goals)主要目标
 
-*   **Component oriented** - The best way to deal with UI complexity is to split the UI into smaller components. If you're using a sensible framework, the JavaScript side of this will come naturally. [React](https://facebook.github.io/react/), for instance, encourages a high-level of componentization and compartmentalization. We want a CSS architecture to match.
-*   **Sandboxed** - Splitting the UI into components won't help our cognitive load if touching the styles of one component can have unwanted and unpredictable effects on another. Fundamental CSS features such as the [cascade](https://developer.mozilla.org/en/docs/Web/Guide/CSS/Getting_started/Cascading_and_inheritance), and a single, global namespace for identifiers actively work against you in this regard. If you're familiar with the [Web Components spec](https://developer.mozilla.org/en-US/docs/Web/Web_Components), think of this as getting the [style isolation benefits of the Shadow DOM](http://www.html5rocks.com/en/tutorials/webcomponents/shadowdom-201/) without having to care about browser support (or whether or not the spec ever gets serious traction).
-*   **Convenient** - We want all the nice things, and we don't want to work for them. That is, we don't want to make our developer experience any worse by adopting this architecture. If possible, we want to make better.
-*   **Err on the side of safety** - Somewhat related to the previous point, we want everything to be _local by default_, and global only as an exception. We engineers are lazy people, and the path of least resistance always needs to point to the correct solution.
+但更具体地说，怎样才能被称为健壮且可扩展呢？
 
-## [](#concrete-rules)Concrete rules
+*   **面向组件** - 处理 UI 复杂性的最佳实践就是将 UI 分割成一个个的小组件。如果你正在使用一个合理的框架，JavaScript 方面就将原生支持（组件化）。举个例子，[React](https://facebook.github.io/react/) 就鼓励高度组件化和分割。我们希望有一个 CSS 架构去匹配。
+*   **沙箱化（Sandboxed）** - 如果一个组件的样式会对其他组件产生不必要以及意想不到的影响，那么将 UI 分割成组件并不会对我们的认知负荷起到帮助作用。就这方面而言，CSS的基本功能，如[层叠（cascade）](https://developer.mozilla.org/en/docs/Web/Guide/CSS/Getting_started/Cascading_and_inheritance)以及一个针对标识符的独立全局命名空间，都会给你造成负担。如果你熟悉 Web 组件规范的话，那么就可以认为它（此架构）有着 [Shadow DOM 的样式隔离好处](http://www.html5rocks.com/en/tutorials/webcomponents/shadowdom-201/) ，而无需关心浏览器支持（或者规范是否经过严格的推敲）。
+*   **方便** - 我们想要所有好的东西，并且还不想因它们而产生更多的工作。也就是说，我们不想因为采用这个架构而让我们的开发者体验变得更糟。可能的话，我们想（开发者体验）变得更好。
+*   **安全性错误** - 结合之前的一点，我们想要所有东西都可以**默认局部化**，并且全局化只是一个特例。工程师都是很懒的，所以为了得到最容易的方法往往都需要使用合适的解决方案。
 
-### [](#1-always-prefer-classes)1\. Always prefer classes
+## [](#concrete-rules)具体的规则
 
-This is just to get the obvious out of the way.
+### [](#1-always-prefer-classes)1\. 总是类名优先
 
-Do not target ID's (e.g. `#header`), because whenever you think there can be only one instance of something, [on an infinite timescale](https://twitter.com/stedwick/status/525777867146539009), you'll be proven wrong. One past example of this was when we wanted to weed out any data-binding bugs on a large application we were working on. We started two instances of our UI code, side-by-side in the same DOM, both bound to a _shared_ instance of our data model. This was to make sure that all changes in the data model were correctly reflected in both UI's. Any components that you might have assumed to always be unique, such as a header bar, no longer are. This is a great benchmark for surfacing other subtle bugs related to assumptions about uniqueness too, by the way. I digress, but the moral of the story is: there's no situation where targeting an ID would be a _better_ idea than targeting a class, so let's just not, ever.
+这是显而易见的。
 
-Neither should you target elements (e.g. `p`) directly. It's often OK to target elements that _belong to a component_ (see below), but on their own, eventually you'll end up having to [undo those styles](http://csswizardry.com/2012/11/code-smells-in-css/) for a component that doesn't want them. Recalling our high-level goals, this also goes against just about all of them (component-orientedness, avoiding the cascade like the plague, and being local by default). Setting things like fonts, line-heights and colors (a.k.a [inherited properties](https://developer.mozilla.org/en-US/docs/Web/CSS/inheritance)) on `body` _can_ be the exception to this rule if you so choose, but if you're serious about component isolation, it's completely feasible to forgo even these (see below about [working with external styles](#8-integrate-external-styles-loosely)).
+不要去使用 ID 选择器 (如 `#header`)，因为每当你认为某样东西只会有一个实例的时候，[在无限的时间范围内](https://twitter.com/stedwick/status/525777867146539009)，你都将被证明是错的。一个典型的例子就是，当想要在我们构建的大型应用中修复任何数据绑定漏洞的时候（这种情况尤为明显）。我们从为 UI 代码创建两个实例开始，它们并行在同一个 DOM，并都绑定到一个数据模型的共享实例上。这么做是为了保证所有数据模型的变化都可以正确体现到这两个 UI 上。所以任何你可能假设总是唯一的组件，如一个头部模板，就不再唯一了。顺便一提，这对找出其他唯一性假设相关的细微漏洞来说，也是一个很好的基准。我跑题了，但这个故事告诉我们的就是：没有一种情况是使用 ID 选择器会比使用类选择器**更好**，所以只要不使用就行了。
 
-So with very few exceptions, your styles should always target a class.
+同样也不应该直接使用元素选择器（如 `p`）。通常对一个**属于组件**的元素使用元素选择器是可以的（看下面），但是对于元素本身来说，最终你将会为了一个不想使用它们的组件，而不得不[将那些样式给撤销掉](http://csswizardry.com/2012/11/code-smells-in-css/)。回想一下我们的主要目标，这同样也违背了它们（面向组件，避免折磨人的层叠（cascade），以及默认局部化）。如果你这么选择的话，那么在`body`上设置一些像字体，行高以及颜色的属性（也叫[可继承属性](https://developer.mozilla.org/en-US/docs/Web/CSS/inheritance)），对这个规则来说也可以是一个特例，但是如果你真正想做到组件隔离的话，那么放弃这些也完全是可行的（看下面关于[使用外部样式的部分](#8-integrate-external-styles-loosely)）。
 
-### [](#2-co-locate-component-code)2\. Co-locate component code
+所以在极少特例的情况下，你的样式应该总是类名优先。
 
-When working on a component, it helps tremendously if everything related to that component — its JavaScript, styles, tests, documentation, etc — live very close to each other:
+### [](#2-co-locate-component-code)2\. 组件代码放在一起
+
+当使用一个组件的时候，如果所有和组件相关的资源（其 JavaScript 代码，样式，测试用例，文档等等）都可以非常紧密地放在一起，那就更好了：
 
     ui/
     ├── layout/
@@ -63,49 +65,49 @@ When working on a component, it helps tremendously if everything related to that
     |   ├── Button.js              // ...and so on, you get the idea
     |   └── Button.scss
 
-When you're working in the code, simply open your project browser, and all other aspects of the component are at your fingertips. There's a natural coupling between the styles and the JavaScript that produces your DOM, and it's a fair bet you'll be touching one soon after touching the other. The same applies to a component and its tests, for example. Think of this as the [locality of reference principle](https://en.wikipedia.org/wiki/Locality_of_reference) for UI components. I, too, used to meticulously maintain separate mirrors of my source tree under `styles/`, `tests/`, `docs/` etc, until I realized that literally the only reason I kept doing that was because that's how I'd always done it.
+当你写代码的时候，只需要简单地打开项目的浏览工具，组件的所有其他内容都唾手可得了。样式代码和生成DOM的JavaScript之间有着天然的耦合性，而且我敢打赌你在修改完其中一个之后不久肯定会去修改另外一个。举例来说，这同样适用于组件及其测试代码。可以认为这就是 UI 组件的[访问局部性原理](https://en.wikipedia.org/wiki/Locality_of_reference)。我以前也会细致地去维护各种独立的镜像文件，它们各自存在 `styles/`、 `tests/` 和 `docs/` 等目录下面，直到我意识到，实际上我一直这么做的唯一原因是因为我就是一直这样做的。
 
-### [](#3-use-consistent-class-namespacing)3\. Use consistent class namespacing
+### [](#3-use-consistent-class-namespacing)3\. 使用一致的类命名空间
 
-CSS has a single, flat namespace for class names and other identifiers (such as ID's, animation names, etc). Just like in the PHP days of old, the community has dealt with this by simply using longer, structured names, thus emulating namespaces ([BEM](http://getbem.com/) is an example). We'll want to choose a namespacing convention, and stick with it.
+CSS 对类名及其他标识符（如 ID、动画名称等）都有一个独立扁平的命名空间。就像过去在 PHP 里，其社区想通过简单地使用更长且具有结构性的名称来处理这个问题，因此就效仿了命名空间（[BEM](http://getbem.com/) 就是个例子）。我们也想要选择一个命名空间规范，并坚持下去。
 
-For instance, let's say we use `myapp-Header-link` as a class name. Each of its 3 parts have a specific function:
+比如，使用 `myapp-Header-link` 来当做一个类名，组成它的三个部分都有着特定的功能：
 
-*   `myapp` to first isolate our app from other apps possibly running on the same DOM
-*   `Header` to isolate the component from other components in the app
-*   `link` to reserve a local name (within the component's namespace) for our local styling purposes
+*   `myapp` 首先用来将我们的应用和其他可能运行在同一个 DOM 上的应用隔离开来
+*   `Header` 用来将组件和应用里其他的组件隔离开来
+*   `link` 用来为局部样式效果保存一个局部名称（在组件的命名空间内）
 
-As a special case, the root element of the `Header` component can be simply marked with the `myapp-Header` class. For a very simple component, that might be all you need.
+作为一个特殊的情况，`Header` 组件的根元素可以简单地用 `myapp-Header` 类来标记。对于一个非常简单的组件来说，这可能就是所需要做的全部了。
 
-Whatever namespacing convention we choose, we'll want to be consistent about it. In addition to each of the 3 parts having a specific _function_, they'll also have a specific _meaning_. Just by looking at a class, you'll know where it belongs. The namespacing will be the map by which we navigate the styles of our project.
+不管我们选择怎样的命名空间规范，我们都想要通过它保持一致性。那三个类名组成部分除了有着特定**功能**，也同样有着特定的**含义**。只需要看一下类名，就可以知道它属于哪里了。这样的命名空间将成为我们浏览项目样式的地图。
 
-From now on I'll assume the namespacing scheme of `app-Component-class`, which I've personally found to work really well, but you can of course also come up with your own.
+目前为止我都假设命名空间的方案为 `app-Component-class`，这是我个人在工作当中发现确实好用的方案，当然你也可以琢磨出自己的一套来。
 
-### [](#4-maintain-a-strict-mapping-between-namespaces-and-filenames)4\. Maintain a strict mapping between namespaces and filenames
+### [](#4-maintain-a-strict-mapping-between-namespaces-and-filenames)4\. 维护命名空间和文件名之间的严格映射
 
-This is just the logical combination of the preceding two rules (co-locating component code, and class namespacing): all styles affecting a specific component should go to a file named after the component. No exceptions.
+这只是对之前两条规则的逻辑组合（组件代码放在一起以及类命名空间）：所有影响一个特定组件的样式都应该放到一个文件里，并以组件命名，没有例外。
 
-If you're working in the browser, and you spot a component that's misbehaving, you can right-click-Inspect it, and you'll see for instance:
-
-
-
-    ...
+如果你正在使用浏览器，然后发现一个组件表现异常，那么你就可以点击右键检查它，接着你就会看到：
 
 
 
-Noting the name of the component you switch to your editor, hit the key combo for "Quick open file", start typing "head", and there you go:
+    <div class="myapp-Header">...</div>
+
+
+
+注意到组件名称，然后切换至你的编辑器，按下“快速打开文件”的快捷键，然后开始输入“head”，就可以看到：
 
 [![Quick open file](https://github.com/jareware/css-architecture/raw/master/quick-open-file.png)](/jareware/css-architecture/blob/master/quick-open-file.png)
 
-This strict mapping from UI components to the corresponding source files is doubly useful if you're new on the team and don't know the architecture by heart yet: you don't need to, to be able to find the guts of the thing you're supposed to work on.
+这种来自 UI 组件关联源代码文件的严格映射非常有用，特别是如果你新进入一个团队并且还没有完全熟悉代码结构，通过这个方法你不需要熟悉就可以快速找到你应该写代码的地方了。
 
-There's a natural (but perhaps not immediately obvious) corollary to this: a single style file should only contain styles belonging to a single namespace. Why? Say we have a login form, that's only used within the `Header` component. On the JavaScript side, it's defined as a helper component within `Header.js`, and not exported anywhere. It might be tempting to declare a class name `myapp-LoginForm`, and sneak that into both `Header.js` and `Header.scss`. But let's say the new guy on the team is be tasked to fix a small layout issue in the login form, and inspects the element to figure out where to start. There is no `LoginForm.js` or `LoginForm.scss` to be found, and he has to resort to `grep` or guesswork to find the relevant source files. That is to say, if the login form warrants a separate namespace, split it into a separate component. Consistency is worth its weight in gold in projects of non-trivial size.
+有一个对这种方法的自然推论（但或许不是那么快变得明显）：一个单独的样式文件应该只包含属于一个独立命名空间的样式。为什么？假设我们有一个登录表单，只在 `Header` 组件内使用。在 JavaScript 代码层面，它被定义成一个名为 `Header.js` 的辅助组件，并且没有在任何地方被引入。你可能想声明一个类名为 `myapp-LoginForm`，并在 `Header.js` 和 `Header.scss` 里使用。那么假设团队里有一个新人被安排去修复登录表单上一个很小的布局问题，并想通过检查元素发现在哪里开始修改。然而并没有 `LoginForm.js` 或者 `LoginForm.scss` 可以被发现，这时他就不得不凭借 `grep` （Linux 命令）或者靠猜去寻找相关联的源代码文件。这也就是说，如果这个登录表单产生了一个独立的命名空间，那么就应该将其分割成一个独立的组件。一致性在大型项目里是非常有价值的。
 
-### [](#5-prevent-leaking-styles-outside-the-component)5\. Prevent leaking styles outside the component
+### [](#5-prevent-leaking-styles-outside-the-component)5\. 避免组件外的样式泄露
 
-So we've established our namespacing conventions, and now want to use them to sandbox our UI components. If every component only uses class names prefixed with their unique namespace, we can be sure that their styles never leak to their neighbors. This is very effective (see below for the caveats), but having to type the namespace over and over again also gets rather tedious.
+我们已经建立了自己的命名空间规范，并且现在想使用它们去沙箱化我们的 UI 组件。如果每个组件都只使用加上它们唯一的命名空间前缀的类名，那我们就可以确定它们的样式不会泄露到其他组件中去。这是非常高效的（看后面的注意事项），但是不得不反复输入命名空间也会变得越来越冗长乏味。
 
-A robust, yet still tremendously simple solution to this is to wrap the entire style file into a prefix block. Note how we only have to repeat the app and component names once:
+一个健壮，且仍然非常简单的解决方案就是将整个样式文件包装成一个前缀。注意我们是怎样做到只需要重复一次应用和组件名称：
 
 
 
@@ -124,7 +126,7 @@ A robust, yet still tremendously simple solution to this is to wrap the entire s
 
 
 
-The above example is in SASS, but the `&` symbol — perhaps shockingly — works the same across all relevant CSS preprocessors ([SASS](http://sass-lang.com/), [PostCSS](https://github.com/postcss/postcss-nested), [LESS](http://lesscss.org/) and [Stylus](http://stylus-lang.com/)). For completeness, this is what the above SASS compiles to:
+上面的例子是在 SASS 中实现的，但其中的 `&` 符号（或许让人有点惊讶）在所有相关的 CSS 预处理器中都做着同样的工作（[SASS](http://sass-lang.com/)、[PostCSS](https://github.com/postcss/postcss-nested)、[LESS](http://lesscss.org/) 以及 [Stylus](http://stylus-lang.com/)）。出于完整性，接下来给出上面 SASS 代码编译后的结果：
 
 
 
@@ -143,7 +145,7 @@ The above example is in SASS, but the `&` symbol — perhaps shockingly — work
 
 
 
-All the usual patterns play well with this, e.g. having different styles for different component states (think [Modifier in BEM terms](http://getbem.com/naming/)):
+所有常见的模式也可以使用它很好地表示出来，比如不同的组件状态有着不同的样式（想想 [BEM 条件下的修饰符](http://getbem.com/naming/)）：
 
 
 
@@ -160,7 +162,7 @@ All the usual patterns play well with this, e.g. having different styles for dif
 
 
 
-Which compiles to:
+上面的编译结果如下：
 
 
 
@@ -174,7 +176,7 @@ Which compiles to:
 
 
 
-Even media queries work conveniently, as long as your preprocessor supports bubbling (SASS, LESS, PostCSS and Stylus all do):
+只要你的预编译器支持冒泡（SASS、LESS、PostCSS 和 Stylus 都可以做到），甚至媒体查询也可以很方便表示：
 
 
 
@@ -191,7 +193,7 @@ Even media queries work conveniently, as long as your preprocessor supports bubb
 
 
 
-Which becomes:
+上面的代码就会变成：
 
 
 
@@ -207,13 +209,13 @@ Which becomes:
 
 
 
-The above pattern makes it very convenient to use long, unique class names without having to keep typing them over and over again. Convenience is mandatory, because without convenience, we will cut corners.
+上面的模式让使用长且唯一的类名变得非常方便，因为你再也无需反复输入它们了。方便性是强制的，因为如果不方便，那么我们就会偷工减料了。
 
-### [](#quick-aside-on-the-js-side-of-things)Quick aside on the JS side of things
+### [](#quick-aside-on-the-js-side-of-things)JS 端的快速一览
 
-This document is about styling conventions, but the styles don't exist in a vacuum: our JS side will need to produce the same namespaced class names, and convenience is mandatory there as well.
+这篇文档是关于样式规范的，但样式是不能凭空独立存在的：我们在 JS 端也需要产生同样的命名空间化类名，并且方便性也是强制的。
 
-As a shameless plug, I have created a very simple, 0-dependency JS library for exactly this, called [`css-ns`](https://github.com/jareware/css-ns). When combined at the framework level ([with e.g. React](https://github.com/jareware/css-ns#use-with-react)), it allows you to **enforce** a specific namespace within a specific file:
+厚着脸皮做个广告，我恰好为此曾经建立了一个非常简单，无任何依赖的 JS 库，叫做 [`css-ns`](https://github.com/jareware/css-ns)。当在框架层面编译的时候（[比如使用 React](https://github.com/jareware/css-ns#use-with-react)），它允许在一个特定文件内**强制**建立一个特定的命名空间。
 
 
 
@@ -221,33 +223,36 @@ As a shameless plug, I have created a very simple, 0-dependency JS library for e
     var { React } = require('./config/css-ns')('Header');
 
     // Create some elements:
-    
-      ...
-      ...
-    
+    <div className="signup">
+      <div className="intro">...</div>
+      <div className="link">...</div>
+    </div>
 
 
 
-Will render into the DOM as:
+
+将渲染出的 DOM 如下所示：
 
 
 
-    
-      ...
-      ...
-    
+
+    <div class="myapp-Header-signup">
+      <div class="myapp-Header-intro">...</div>
+      <div class="myapp-Header-link">...</div>
+    </div>
 
 
 
-This is very convenient, and above all makes the JS side _local by default_.
 
-But again, I digress. Back to the CSS side of things.
+这真的非常方便，并且上面所有的代码让 JS 端也变成了**默认局部化**。
 
-### [](#6-prevent-leaking-styles-inside-the-component)6\. Prevent leaking styles inside the component
+但是我再次跑题了，回到 CSS 端。
 
-Remember when I said prefixing each class name with the component namespace was a "very effective" way of sandboxing styles? Remember when I said there were "caveats"?
+### [](#6-prevent-leaking-styles-inside-the-component)6\. 避免组件内的样式泄露
 
-Consider the following styles:
+还记得我说过给每个类名加上组件命名空间的前缀时，这是对沙箱化样式来说很高效的一种方式吗？还记得我说过这里有个“注意事项”吗？
+
+考虑下面的样式：
 
 
 
@@ -259,15 +264,15 @@ Consider the following styles:
 
 
 
-And the following component hierarchy:
+以及下面的组件层：
 
     +-------------------------+
     | Header                  |
     |                         |
-    | [home] [blog] [kittens] | <-- these are  elements
+    | [home] [blog] [kittens] | <-- 这些都是 <a> 元素
     +-------------------------+
 
-We're cool, right? Only the `` elements inside `Header` get [blued](https://www.youtube.com/watch?v=axHe_BVY_9c), because the rule we generate is:
+这很酷，不是吗？`Header` 里只有 `<a>` 元素会变成[蓝色](https://www.youtube.com/watch?v=axHe_BVY_9c)，因为我们生成的规则如下：
 
 
 
@@ -275,24 +280,24 @@ We're cool, right? Only the `` elements inside `Header` get [blued](https://www.
 
 
 
-But consider the layout is later changed to:
+但是考虑布局在之后做一下变化：
 
     +-----------------------------------------+
     | Header                    +-----------+ |
     |                           | LoginForm | |
     |                           |           | |
-    | [home] [blog] [kittens]   | [info]    | | <-- these are  elements
+    | [home] [blog] [kittens]   | [info]    | | <-- 这些是 <a> 元素
     |                           +-----------+ |
     +-----------------------------------------+
 
-The selector `.myapp-Header a` **also matches** the `` element inside `LoginForm`, and we've blown our style isolation. As it turns out, wrapping all styles in a namespace block is an effective way for isolating a component from its neighbors, **but not always from its children**.
+选择器 `.myapp-Header a` **同样匹配**了 `LoginForm` 里的 `<a>` 元素，所以我们搞砸了这里的样式隔离。事实证明，将所有样式包装到一个命名空间里对于隔离组件及其邻居组件来说，是一个高效的方式，**但却不能总是和其子组件隔离**。
 
-This can be fixed in two ways:
+这个问题可以通过两种方法修复：
 
-1.  Never target element names in stylesheets. If every `` element in `Header` is `` instead, we'll never have to deal with this issue. Then again, sometimes you have the perfectly semantic markup set up, with the ``s and ``s and ``s in all the right places, and you don't want to clutter them with extra classes. In that case:
-2.  Only target things outside your namespace with [the `>` combinator](https://developer.mozilla.org/en-US/docs/Web/CSS/Child_selectors).
+1.  绝不在样式表中使用元素名称选择器。如果 `Header` 里的 `<a>` 元素都使用 `<a class="myapp-Header-link">` 替代，那么我们就不需要处理这个问题了。再往下看，有时候你会设置一些语义化标签，像 `<article>`、`<aside>` 以及 `<th>`，都放在了正确的位置上，并且你又不想用额外的类名来弄乱它们，这种情况下：
+2.  在你的命名空间之外只使用 [`>` 操作符](https://developer.mozilla.org/en-US/docs/Web/CSS/Child_selectors) 来选择元素。
 
-Adjusted for the latter approach, our styles can be rewritten as:
+根据第二个方法来做调整，我们的样式代码就可以改写如下：
 
 
 
@@ -304,9 +309,9 @@ Adjusted for the latter approach, our styles can be rewritten as:
 
 
 
-Which will ensure our isolation also works depth-wise in the component tree, as the generated selector becomes `.myapp-Header > a`.
+这样就可以确保隔离同样作用于更深层次的组件树，因为生成的选择器变成了 `.myapp-Header > a`。
 
-If this sounds controversial, let me further bring up your blood pressure by claiming that this is also fine:
+如果这听起来有争议，那么让我通过下面这个同样运行良好的例子更进一步地使你信服：
 
 
 
@@ -318,19 +323,19 @@ If this sounds controversial, let me further bring up your blood pressure by cla
 
 
 
-We've been trained to avoid selector nesting (including this stronger form with `>`) like the plague, by [many years' worth of credible advice](http://lmgtfy.com/?q=css+nesting+harmful). But why? The cited reasons boil down to these three:
+经过[多年的可靠建议](http://lmgtfy.com/?q=css+nesting+harmful)，我们一直认为要尽量避免选择器嵌套（包括这个使用了 `>` 的强关联形式）。但是为什么呢？这个引用的原因归结为以下三个：
 
-1.  Cascading styles will ruin your day, eventually. The more you nest selectors, the higher the chances of accidentally finding an element which matches the selectors of _more than one component_. If you've read this far, you know we've already eliminated this possibility (with strict namespace prefixing, and using strong child selectors where needed).
-2.  Too much specificity will reduce reusability. The styles written for `nav p a` won't be reusable anywhere else except in that very specific environment. But we specifically _never want this anyway_, in fact, we go out of our way to forbid this method of reusability, as it doesn't play well with our goal of components being isolated from each other.
-3.  Too much specificity will make refactorings harder. This has some basis in reality, in that if you only had `.myapp-Header-link a`, you could freely move the `` around in your component's HTML, and the same styles will always apply. Whereas with `> nav > p > a` you will need to update the selector to match the link's new location within the component's HTML. But given how we want to assemble our UI from small, well-isolated components, this argument is also rather moot. Sure, if you had to consider the HTML & CSS of your entire application when doing a refactoring, this might be scary. But you're operating in a small sandbox which has some tens of lines of styles, and knowing that nothing outside that sandbox needs to be considered, these types of changes become a non-issue.
+1.  层叠样式最终会毁掉你的一天。要是嵌套越多的选择器，那么就有越高的机会造成一个元素匹配上**多于一个组件**的情况。如果你读到这里，你就会知道我们已经消除了这种可能性了（使用严格的命名空间前缀，并在需要的时候使用强关联子元素选择器）。
+2.  太多的特性会减少可复用性。写给 `nav p a` 的样式将不能在特定情况下之外的任意地方被复用。但其实我们**从来没想要它可复用**，事实上，我们特意禁止这个可复用的方法，因为这种可复用性并不能在我们想实现组件隔离的目标上产生好的作用。
+3.  太多的特性会让重构变得更加困难。这可以在现实中找到依据，假设你只有一个 `.myapp-Header-link a`，你可以很自由地在组件的 HTML 中移动 `<a>` 元素，同样的样式总是会一直生效。然而如果使用 `> nav > p > a`，就需要更新选择器去匹配组件的 HTML 内这个链接的新位置。但考虑到我们想要 UI 是由一些小且隔离性好的组件组成，这个问题也不是相当重要。当然，如果你不得不在重构的时候考虑整个应用的 HTML 和 CSS，那么这个问题可能就有点严重了。但是现在你是在一个只有十行样式代码的小沙箱内进行操作，并且还知道沙箱外没有其他东西需要考虑，那么这种类型的变化就不是问题了。
 
-This is a good example of understanding the rules, so you know when to break them. In our architecture, selector nesting is not only OK, it's sometimes the right thing to do. Go crazy with it.
+通过这个例子，你应该很好的理解了规则，所以你知道什么时候应该打破它们。在我们的架构里，选择器嵌套不仅仅只是可以用，有时候它还是一件非常正确的事情。为之疯狂吧。
 
-### [](#an-aside-for-the-curious-prevent-leaking-styles-into-the-component)An aside for the curious: Prevent leaking styles _into_ the component
+### [](#an-aside-for-the-curious-prevent-leaking-styles-into-the-component)出于好奇的题外话：预防泄露样式**进入**组件
 
-So have we achieved perfect sandboxing of our styles, so that each component can live in total isolation from the rest of the page? As a quick recap:
+所以我们是否已经实现了样式的完美沙箱化，以至于每个组件的存在都可以和页面的其他内容隔离开来呢？做一个快速回顾：
 
-*   We've prevented leaks **out of our components** by prefixing each class name with the component namespace:
+*   我们已经通过用组件的命名空间给每个类名加前缀来避免**组件向外泄露样式**：
 
         +-------+
         |       |
@@ -338,7 +343,7 @@ So have we achieved perfect sandboxing of our styles, so that each component can
         |       |
         +-------+
 
-*   By extension, this means we've prevented leaks **between our components**:
+*   引申开来，这也意味着我们已经避免了**组件间的泄露**：
 
         +-------+     +-------+
         |       |     |       |
@@ -346,7 +351,7 @@ So have we achieved perfect sandboxing of our styles, so that each component can
         |       |     |       |
         +-------+     +-------+
 
-*   And we've prevented leaks **into child components** by minding our child selectors:
+*   而且我们还通过考虑子选择器来避免**泄露进入子组件**：
 
         +---------------------+
         |           +-------+ |
@@ -356,7 +361,7 @@ So have we achieved perfect sandboxing of our styles, so that each component can
         |           +-------+ |
         +---------------------+
 
-*   But crucially, **external styles can still leak into components**:
+*   但更为关键的是，**外部样式仍然可以泄露进入组件当中**：
 
               +-------+
               |       |
@@ -364,7 +369,7 @@ So have we achieved perfect sandboxing of our styles, so that each component can
               |       |
               +-------+
 
-For example, say we have styled our component with:
+举个例子，假设我们给组件写了下面的样式：
 
 
 
@@ -376,7 +381,7 @@ For example, say we have styled our component with:
 
 
 
-But then we include an ill-behaving 3rd party library which introduces the following CSS:
+但是接着我们引入一个表现不好的第三方库，有着下面的 CSS：
 
 
 
@@ -386,24 +391,24 @@ But then we include an ill-behaving 3rd party library which introduces the follo
 
 
 
-**There is no simple way to protect your components from such external abuse**, and this is where we often need to just:
+**没有一个简单的方法可以保护我们的组件不受外部样式的污染**，并且这是我们经常需要调整的地方：
 
 [![Give up](https://github.com/jareware/css-architecture/raw/master/give-up.gif)](/jareware/css-architecture/blob/master/give-up.gif)
 
-Luckily, you often have some control over the dependencies you use, and can simply look for a more well-behaved alternative.
+幸好，对于你自己使用的依赖来说常常会有一个控制方式，并且也可以简单地找一个表现更好的选择。
 
-Also, I said there's no _simple_ way to protect your components from this. That doesn't mean there aren't ways. [There are ways, dude](https://www.youtube.com/watch?v=20wUS_bbOHY), they just come with various trade-offs:
+而且，我说的是没有一个**简单的**的方法可以保护组件，并不意味着没有方法。[老兄，当然是有方法的](https://www.youtube.com/watch?v=20wUS_bbOHY)，它们只是有不同的取舍：
 
-*   Just brute-forcing it: if you include a [CSS reset](http://cssreset.com/what-is-a-css-reset/) _for every element of every component_, and attach it to a selector that always wins over the 3rd party ones, you're golden. But unless your application is tiny (say, a "Share" button 3rd parties can embed onto their sites), this approach quickly spirals out of control. This is rarely a good idea, it's just listed here for completeness.
-*   [`all: initial`](https://developer.mozilla.org/en/docs/Web/CSS/all) is a less-known new CSS property designed for exactly this. It can [stop inherited properties from flowing in](https://jsfiddle.net/0d9htatc/), and also work as a local reset, [as long as it wins the specificity war](https://jsfiddle.net/e7rw4L8L/) (and as long as you repeat it for each element you want to protect). Its implementation includes [some intricacies](https://speakerdeck.com/csswizardry/refactoring-css-without-losing-your-mind?slide=39) and [isn't yet supported](http://caniuse.com/#feat=css-all) everywhere, but `all: initial` might eventually become a useful tool for style isolation.
-*   Shadow DOM has already been mentioned, and it's exactly the tool you would want for this job, as it allows declaring clear component boundaries for both JS and CSS. Despite [some recent glimmers of hope](https://developer.apple.com/library/content/releasenotes/General/WhatsNewInSafari/Articles/Safari_10_0.html), the Web Components spec hasn't made great progress in recent years, and unless you're working with a known set of browsers you can't really count on the Shadow DOM.
-*   Finally, there's the ``. It offers the strongest form of isolation the web runtime can offer (both for JS and CSS), but also carries steep penalties in startup cost (latency) and maintenance cost (retained memory). Still, oftentimes the trade-off is worth it, and most prominent web embeds (Facebook, Twitter, Disqus, etc) are in fact implemented with iframes. For the purposes of this document however — isolating hundreds or thousands of small components from each other — this approach would blow our performance budget a 100 times over.
+*   只需强制覆盖它：如果你为每个组件的每个元素去引入一个 [CSS 重置样式](http://cssreset.com/what-is-a-css-reset/)，并且使用一个优先级总是高于其他第三方库的选择器，那么就非常棒了。但是除非是一个小应用（假设一个第三方“共享”按钮可以嵌入到网站上那种），否则这种方法将会迅速失控。这不算是一个好主意，只是在这里列出来等待完善。
+*   [`all: initial`](https://developer.mozilla.org/en/docs/Web/CSS/all) 是一个很少人知道的新 CSS 属性，它专门为了这个问题而设计。它可以[阻止继承属性流入](https://jsfiddle.net/0d9htatc/)，并且[只要它赢得了特性之争](https://jsfiddle.net/e7rw4L8L/)（并且只要你为每个想保护的属性重复使用它），还可以作为一个本地重置生效。它的实现[有些错综复杂](https://speakerdeck.com/csswizardry/refactoring-css-without-losing-your-mind?slide=39)，而且还不是所有浏览器都[支持](http://caniuse.com/#feat=css-all)，但是 `all: initial` 最后或许可以成为样式隔离的有效方法。
+*   Shadow DOM 已经被提到过，而它正是为你解决问题的一个工具，因为它允许为 JS 和 CSS 声明组件边界。尽管最近有[一丝希望的微光](https://developer.apple.com/library/content/releasenotes/General/WhatsNewInSafari/Articles/Safari_10_0.html)，Web 组件规范还是没有在今年取得很大的进步，并且除非你使用的是一些已知可支持的浏览器，否则还是不能将 Shadow DOM 列入考虑范围。
+*   最后，还有 `<iframe>`。它提供了 Web 运行环境所能提供的最强的隔离形式（既为 JS 也为 CSS），但同样为运行成本（潜在因素）和维护（保留的内存）带来了巨大的消耗。不过，通常代价是值得的，并且最著名的网络嵌入（Facebook、Twitter、Disqus等等）事实上也是用 iframe 实现的。然而本文档的目的是隔离成千上百个小组件，就此而言，这个方法将数以百倍地消耗我们的性能。
 
-Anyway, this aside is running long, back to our list of CSS rules.
+不管怎样，这个题外话跑得有点远了，回到我们的 CSS 规则。
 
-### [](#7-respect-component-boundaries)7\. Respect component boundaries
+### [](#7-respect-component-boundaries)7\. 遵守组件边界
 
-Exactly like we styled `.myapp-Header > a`, when we nest components, we may need to apply some styles to child components (the Web Component analogy is again perfect, as then there'd truly be no distinction between how `> a` and `> my-custom-a` work). Consider this layout:
+就像我们赋予 `.myapp-Header > a` 的样式，当嵌套组件的时候，我们可能还需要给子组件提供一些样式（Web 组件类比再次完美，因为接下来 `> a` 和 `> my-custom-a` 的效果并没有什么差异）。考虑下面的布局：
 
     +---------------------------------+
     | Header           +------------+ |
@@ -415,9 +420,9 @@ Exactly like we styled `.myapp-Header > a`, when we nest components, we may need
     | +--------+       +------------+ |
     +---------------------------------+
 
-We immediately see that styling `.myapp-Header .myapp-Button` would be a bad idea, and we'd obviously want `.myapp-Header > .myapp-Button` instead. But what styles would we ever want to apply to child components?
+我们马上可以看到用 `.myapp-Header .myapp-Button` 写样式不会是一个好主意，显然应该用 `.myapp-Header > .myapp-Button` 来替代。但是我们到底要给子组件提供什么样式呢？
 
-Note how the `LoginForm` is docked to the right edge of the `Header`. Intuitively, one might style this as:
+注意到 `LoginForm` 靠在了 `Header` 的右边界上。直观看来，一个可能的样式就是：
 
 
 
@@ -427,9 +432,9 @@ Note how the `LoginForm` is docked to the right edge of the `Header`. Intuitivel
 
 
 
-We haven't violated any of our rules, but we've also made the `LoginForm` a lot harder to reuse: if our upcoming home page wants to repeat the `LoginForm`, but without the right-side float, we're out of luck.
+我们没有违反任何规则，但是我们让 `LoginForm` 变得有点难以复用了：如果我们接下来的主页想要这个 `LoginForm`，但是不想要右浮动，那就不走运了。
 
-The pragmatic solution to this is to (partially) relax our previous rule of only applying styles to the namespace the current file belongs to. Specifically, we want to do this instead:
+这个问题实际的解决方案就是（局部地）放宽之前的规则，只对当前文件所属的命名空间提供样式。具体来说，我们希望用下面的代码替换：
 
 
 
@@ -441,7 +446,7 @@ The pragmatic solution to this is to (partially) relax our previous rule of only
 
 
 
-This is in fact perfectly OK, as long as we don't allow breaching the child's sandbox arbitrarily:
+这样实际上已经很好了，只要我们不允许随意地破坏子组件的沙箱：
 
 
 
@@ -455,15 +460,15 @@ This is in fact perfectly OK, as long as we don't allow breaching the child's sa
 
 
 
-We don't want to allow this, because we'd lose our safety net of local changes never having global repercussions. With the above code, `LoginForm.scss` is no longer the only place you need to check when modifying the appearance of the `LoginForm` component. Making changes gets scary again. So where do we draw the line between what's OK and what's a no-no?
+我们不允许这么做，因为这样做会失去局部变化没有全局影响的安全性。使用上面代码的话，当修改 `LoginForm` 组件表现的时候，`LoginForm.scss` 就不再是唯一需要检查的地方了。发生变化再次变得可怕。所以可用与不可用之间的界限到底在哪里？
 
-We want to respect the sandbox _inside_ each child component, as we don't want to rely on its implementation details. It's a black box to us. What's _outside_ the child component, conversely, is the sandbox of the parent, where it reigns supreme. The distinction between inside and outside emerges quite naturally from one of the most fundamental concepts in CSS: [the box model](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Box_Model/Introduction_to_the_CSS_box_model).
+我们希望遵守每个子组件**内部**的沙箱，因为我们不想依赖其实现细节。它对于我们来说是个黑盒。相反地，在子组件**外部**的是父组件的沙箱，它占据着主要位置。区分内部和外部正好引出了 CSS 中最基本的概念之一：[盒模型](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Box_Model/Introduction_to_the_CSS_box_model)。
 
 [![CSS Box Model](https://github.com/jareware/css-architecture/raw/master/box-model.png)](/jareware/css-architecture/blob/master/box-model.png)
 
-My analogies are terrible, but here goes: just like _being inside a country_ means being within its physical borders, we establish that a parent can effect styles on its (direct) children only outside the border of the component. That means properties related to positioning and dimensions (e.g. `position`, `margin`, `display`, `width`, `float`, `z-index` etc) are OK, while properties that reach inside the border (e.g. `border` itself, `padding`, `color`, `font` etc) are a no-no.
+我做的这个类比很糟糕，但我们继续看：就像**在一个国家内**意味着在其物理边界之内，我们建立了一个边界，父组件只可以在子组件边界之外对（直接）子组件样式产生影响。这意味着关系到位置和大小的属性（如 `position`、`margin`、`display`、`width`、`float`、`z-index` 等等）是可用的，而影响到内部边界的属性（如 `border` 本身、`padding`、`color`、`font`等）是不可用的。
 
-As a corollary, this is also very obviously forbidden:
+按照推论，下面这样显然也是禁止的：
 
 
 
@@ -478,41 +483,38 @@ As a corollary, this is also very obviously forbidden:
 
 
 
-There are a few interesting/boring edge cases, such as:
+有几个有趣或者说无聊的边界情况，比如：
 
-*   `box-shadow` - A specific type of shadow can be an integral part of the look-and-feel of a component, and thus it should contain those styles itself. Then again, the visual effect is clearly rendered outside the border, so it's going into its parent component's territory.
-*   `color`, `font` and other [inherited properties](https://developer.mozilla.org/en-US/docs/Web/CSS/inheritance) - `.myapp-Header > .myapp-LoginForm { color: red }` reaches into the insides of the child component, but on the other hand can be functionally equivalent to `.myapp-Header { color: red; }`, which is OK by our other rules.
-*   `display` - If the child component uses a [Flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/) layout, it's possibly relying on having `display: flex` set on its root element. However, the parent might choose to hide its child by setting `display: none` on it.
+*   `box-shadow` - 一个特定类型的 shadow 可以是一个组件外观不可缺少的部分，因此组件应该自己包含这些样式。话又说回来，这种视觉效果可以在边界外清楚地渲染出来，所以它又可以回到父组件的作用域。
+*   `color`, `font` 及其他[可继承属性](https://developer.mozilla.org/en-US/docs/Web/CSS/inheritance) - `.myapp-Header > .myapp-LoginForm { color: red }` 这种写法碰到了子组件内部的属性，但从另一方面来说，这又可以在功能上等同于 `.myapp-Header { color: red; }`，这种写法根据其他规则又是可行的。
+*   `display` - 如果子组件使用了 [Flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/) 布局，那么它很可能依赖于其根元素上设置 `display: flex` 属性。不过，父组件也可能选择通过 `display: none` 来隐藏其子组件。
 
-The important thing to realize is that in these edge cases, you're not risking thermonuclear war, just introducing a tiny bit of the CSS cascade back into your styles. As with other things that are bad for you, enjoying the cascade _in moderation_ is fine. For instance, taking a closer look at the last example, the [specificity contest](https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity) works out exactly like you'd want it to: when the component is visible, `.myapp-LoginForm { display: flex }` is the most specific rule, and takes precedence. When the owner decides to hide it with `.myapp-Header-loginBoxHidden > .myapp-LoginBox { display: none }` that rule is more specific, and wins.
+在这些边界情况下要意识到一件重要的事情，你并不是在冒着打核战争的危险，而只是在引入少量的 CSS 层叠好回到自己的样式。就和其他不好的做法一样，适当地使用层叠是可以的。例如，再仔细看到最后的例子，[特性优先级比较](https://developer.mozilla.org/en-US/docs/Web/CSS/Specificity)正如你所想要的效果一样：当组件可见时，`.myapp-LoginForm { display: flex }` 的优先级更高。而当拥有者决定用 `.myapp-Header-loginBoxHidden > .myapp-LoginBox { display: none }` 隐藏组件时，这个样式的优先级更高。
 
-### [](#8-integrate-external-styles-loosely)8\. Integrate external styles loosely
+### [](#8-integrate-external-styles-loosely)8\. 松散地整合外部样式
 
-To avoid repetitive work, you sometimes need to share styles between components. To avoid work altogether, you sometimes want to use styles created by others. Both of these should be achieved without creating any unnecessary coupling into the codebase.
+为了避免重复工作，有时可能需要在组件间共享样式。为了避免全部工作，有时又可能想使用其他人创建的样式。这两种情况的实现都不应该创建出不必要的耦合到代码库中。
 
-As a concrete example, let's consider using some styles from [Bootstrap](http://getbootstrap.com/css/), as it's a perfect example of an annoying framework to work with. Considering everything we've talked about above, with regard to sharing a single global namespace for styles, and collisions being bad, Bootstrap:
+拿一个具体的例子来说，考虑使用一些来自 [Bootstrap](http://getbootstrap.com/css/) 的样式，因为这对于使用恼人的框架来说是一个很好的例子。想想我们上面所讨论到的所有事情，关于为样式共享一个独立的全局命名空间，以及不好的冲突，Bootstrap 会：
 
-*   Exports a ton of selectors (as of version 3.3.7, 2481 to be precise) to that namespace, whether you actually use them or not. (Fun aside: IE's up to version 9 can only process 4095 selectors before silently ignoring the rest. I've heard of people spending _days_ debugging this wondering what the hell's going on.)
-*   Uses hard-coded class names such as `.btn` and `.table`. Can't imagine those ever being accidentally reused by some other developer or project. :sarcasm:
+*   导出一大堆选择器（版本 3.3.7 来说, 具体有 2481 个）到命名空间里，不管你实际上是否使用它们。（有趣的一面：IE9 在默认忽略剩余选择器之前只会处理 4095 个选择器。我曾经听说有人花了**很多天**来调试它们，鬼知道他们经历了什么。）
+*   使用写死的类名如 `.btn` 和 `.table`。不敢想象某些不小心复用了这些样式的开发者或者项目。（讽刺脸）
 
-Regardless, let's say we want to use Bootstrap as a basis for our `Button` component.
+不管了，我们希望使用 Bootstrap 作为 `Button` 组件的基础。
 
-Instead of integrating on the HTML side with:
-
-
-
-    
+用某段代码替换下面的来整合到 HTML 端：
 
 
 
-Consider [extending](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#extend) the class in your styles:
+    <button class="myapp-Button btn">
 
 
 
-    
+考虑在样式中[扩展](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#extend)这个类：
 
 
 
+    <button class="myapp-Button">
 
 
     .myapp-Button {
@@ -521,9 +523,9 @@ Consider [extending](http://sass-lang.com/documentation/file.SASS_REFERENCE.html
 
 
 
-This has the benefit of not giving anyone (including yourself) any ideas about relying on the presence of the ridiculously named `btn` class on the HTML component. The origin of the styles that `Button` uses is an implementation detail that need not show on the outside at all. As a consequence, should you ever decide to ditch Bootstrap in favor of another framework (or just writing the styles yourself), the change won't be externally visible in any way (except, uhh, the visible changes in how `Button` looks).
+这么做有一个好处，那就是没有给任何人（包括你自己）产生一种想法：在 HTML 组件上去依赖可笑地命名为 `btn` 的类。`Button` 所使用的样式的来源是一个完全不需要显示在外面的实现细节。因此，如果你决定放弃 Bootstrap 转而支持另外的框架（或者只是你自己去写样式），那么这种改变无论如何都不会外部可见（呃，除非，这种可见变化是在于 `Button` 本身长什么样子）。
 
-The same principle applies to your own helper classes, and there you'll have the option of using more sensible class names:
+同样的原则适用于你自己的辅助类，并且你可以选择使用更合理的类名：
 
 
 
@@ -533,7 +535,7 @@ The same principle applies to your own helper classes, and there you'll have the
 
 
 
-Or [forgoing emitting the class](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#placeholder_selectors_) altogether ([supported by most preprocessors](https://csspre.com/placeholder-selectors/)):
+或者[干脆放弃放出类](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#placeholder_selectors_)（[大部分预编译器都可以支持](https://csspre.com/placeholder-selectors/)）：
 
 
 
@@ -543,7 +545,7 @@ Or [forgoing emitting the class](http://sass-lang.com/documentation/file.SASS_RE
 
 
 
-Finally, all CSS preprocessors support the concept of [mixins](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#mixins), which are a tremendously powerful tool:
+最后，所有的 CSS 预编译器都支持 [mixins](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#mixins) 的概念，这可是一个强有力的工具：
 
 
 
@@ -553,28 +555,28 @@ Finally, all CSS preprocessors support the concept of [mixins](http://sass-lang.
 
 
 
-It should be noted that when dealing with more civilized style frameworks (such as [Bourbon](http://bourbon.io/) or [Foundation](http://foundation.zurb.com/)), they'll in fact be doing just this: declaring a bunch of mixins for you to use where they're needed, and not emitting any styles on their own. [Neat](http://neat.bourbon.io/).
+应该注意的是当处理更友好的样式框架时（如 [Bourbon](http://bourbon.io/) 或者 [Foundation](http://foundation.zurb.com/)），它们实际上会这么做：定义一大堆 mixin 给你去在需要的时候使用，并且它们本身没有放出任何样式。[Neat](http://neat.bourbon.io/) 框架。
 
-## [](#in-closing)In closing
+## [](#in-closing)在结束前
 
-> Know the rules, so you know when to break them
+> 知晓所有规则，所以知道何时打破它们
 
-Finally, as mentioned before, when you understand the rules you've laid out (or adopted from a stranger on the Internet), you can make exceptions that make sense to you. For instance, if you feel that there's added value in using a helper class directly, you can do so:
-
-
-
-    
+最后，如前所述，当你理解了你所制定的规则（或者是从网上其他人那儿采取的），你就可以写出对你有意义的特例。比如，如果你觉得直接使用一个辅助类是有附加价值的，那么就可以这么做：
 
 
 
-That added value might be — for instance — that your test framework can then be more clever in automatically figuring out what things act as buttons, and can be clicked on.
+    <button class="myapp-Button myapp-utils-button">
 
-Or you might decide that it's OK to break component isolation when the breach is tiny, and the additional work from splitting components would be too great. While I'll want to remind you that it's a slippery slope and that consistency is king et cetera, as long as your team is in agreement, and you get stuff done, you're doing the right thing.
 
-## [](#the-end)The End
 
-If you liked this article, you could totally [tweet about it!](https://twitter.com/home?status=8%20simple%20rules%20for%20a%20robust,%20scalable%20CSS%20architecture%3A%20https%3A//github.com/jareware/css-architecture) Or not.
+这种附加价值可能是，比如说，你的测试框架之后可以更智能地自动找出什么元素表现为按钮，以及可以被点击。
 
-## [](#license)License
+或者你可能会在违背程度很小的情况下决定去打破组件隔离，并且分割组件的额外工作可能会变得更好。但我想要提醒的是这就像是个下坡路，而且不要忘了一致性的重要性等等，只要你的团队保持一致，并且你可以完成它们，那么你就是在做对的事情。
+
+## [](#the-end)结语
+
+如果你喜欢这篇文章，你完全可以 [tweet 关于它的内容！](https://twitter.com/home?status=8%20simple%20rules%20for%20a%20robust,%20scalable%20CSS%20architecture%3A%20https%3A//github.com/jareware/css-architecture)或者不。
+
+## [](#license)证书
 
 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
