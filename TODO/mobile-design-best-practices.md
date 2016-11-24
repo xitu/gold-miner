@@ -81,7 +81,7 @@ App 已经成为了能够可靠地展现内容并提供服务的主流平台。�
 大众使用手机的基本方式。数据来源： Steven Hoober
 
 
-[85%的受访者](http://www.uxmatters.com/mt/archives/2013/02/how-do-users-really-hold-mobile-devices.php) 习惯单手使用手机，下面的热区图展示了自 2007 年以来，用户的拇指在不同大小的 iPhone 屏幕上的活动区域。**你会发现，屏幕越大，拇指能够舒适触及的区域越小**。
+[85% 的受访者](http://www.uxmatters.com/mt/archives/2013/02/how-do-users-really-hold-mobile-devices.php) 习惯单手使用手机，下面的热区图展示了自 2007 年以来，用户的拇指在不同大小的 iPhone 屏幕上的活动区域。**你会发现，屏幕越大，拇指能够舒适触及的区域越小**。
 
  ![](http://babich.biz//content/images/2016/11/7.png)
  
