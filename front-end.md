@@ -1,3 +1,4 @@
+* [JavaScript 包管理器工作原理简介](http://gold.xitu.io/entry/5835a2c0c59e0d005772a62f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([luoyaqifei](https://github.com/luoyaqifei) 翻译)
 * [使用 React.js 的渐进式 Web 应用程序：第 2 部分 - 页面加载性能](http://gold.xitu.io/entry/583576f3c4c9710054a3e212?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([markzhai](https://github.com/markzhai) 翻译)
 * [详解 React Native 使用 OneSignal 推送通知](http://gold.xitu.io/entry/58369fa5c59e0d005777d12f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([xiaoheiai4719](https://github.com/xiaoheiai4719) 翻译)
 * [无需配置即可创建 React Apps](http://gold.xitu.io/entry/583266068ac2470061c24c06?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jiakeqi](https://github.com/jiakeqi) 翻译)
