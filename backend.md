@@ -1,3 +1,4 @@
+*  [带你声明 Python 中的动态属性](http://gold.xitu.io/entry/5832a16d2e958a0069e2c560?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Romeo0906](https://github.com/Romeo0906) 翻译)
 *  [承载了巨大访问量的热门游戏 Pokémon GO 的后端架构是什么？](http://gold.xitu.io/entry/580aef59bf22ec005820a1dc?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([cdpath](https://github.com/cdpath) 翻译)
 *  [人人都应该用的 Python 开源库](http://gold.xitu.io/entry/57ca8aab165abd0068e5097a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Graning](https://github.com/Graning) 翻译)
 *  [详解 Python 模板引擎工作机制](http://gold.xitu.io/entry/57b4609f6be3ff006a0c8ad3?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zheaoli](https://github.com/Zheaoli) 翻译)

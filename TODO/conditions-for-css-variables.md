@@ -1,23 +1,22 @@
 > * 原文地址：[Conditions for CSS Variables](http://kizu.ru/en/fun/conditions-for-css-variables/)
 * 原文作者：[Roman Komarov](https://twitter.com/kizmarh)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
-* 校对者：
+* 译者：[rottenpen](https://github.com/rottenpen)
+* 校对者：[cyseria](https://github.com/cyseria) [Tina92](https://github.com/Tina92)
 
-# Conditions for CSS Variables
+# CSS 变量的条件
 
+我将从这里开始：[不是这](#not-those)（这是一个名为“[ CSS 的条件规则](https://www.w3.org/TR/css3-conditional/)模块”，但不要期望着它能包含 CSS 的变量 —— 它涵盖了一些 @规则（at-rules）。甚至有一个关于 `@when`/`@else` @规则的[提议](https://tabatkins.github.io/specs/css-when-else/)，再次，与变量没有什么共同点。）[](#x) 规范使用 [ CSS 变量](https://www.w3.org/TR/css-variables-1/) 的条件。我认为这是在规范里的一个重大缺陷。因为变量已经提供了许多以前无法实现的东西。没有条件是真的令人沮丧，因为它们可能有很多用途。
 
-I'll start from this: [there are no](#not-those) (There is a module named “[CSS Conditional Rules](https://www.w3.org/TR/css3-conditional/)”, but don't expect it to cover the CSS variables — it covers some at-rules stuff. There is even a [proposal](https://tabatkins.github.io/specs/css-when-else/) for `@when`/`@else` at-rules, which, again, do not anything in common with variables.)[](#x) conditions in specs to use with [CSS variables](https://www.w3.org/TR/css-variables-1/). I think that this is a really big flaw in specs, as while variables already provide a lot of things that were not possible in any other way before, the absence of conditions is really frustrating, as there could be a lot of uses for them.
+但如果我们现在需要那些虚构的条件语句用在 CSS 变量上呢？好，正如一些其他的 CSS 参考手册，我们可以在相同情况下进行 hack 。
 
-But what if we'd need those imaginary conditional statements for our CSS variables _now_? Well, as with a lot of other CSS stuff, we can hack our way around for same cases.
+## [](#the-problem-39-s-definition)问题的定义
 
-## [](#the-problem-39-s-definition)The Problem's Definition
+因此，我们需要的是一种简单的 CSS 变量使用方法，为不同的值设定不同的 CSS 特征。但这种方法并不能直接源于变量（就是说——它们的值不能通过我们的变量计算出来）。这时候我们需要规定**条件**。
 
-So, what we need is a way to use a single CSS variable for setting different CSS properties to _different_ values, but not based directly on this variable (that is — those values shouldn't be _calculated_ from our variable). We need **conditions**.
+## [](#using-calculations-for-binary-conditions)使用二元条件的计算
 
-## [](#using-calculations-for-binary-conditions)Using Calculations for Binary Conditions
-
-Long story short, I'll just present the solution to you right now and would explain it later:
+长话短说，我马上就介绍解决方法给你，稍后还有它的解释：
 
     :root {
         --is-big: 0;
@@ -38,13 +37,13 @@ Long story short, I'll just present the solution to you right now and would e
         );
     }
 
-In this example, we're making all our elements with `.block` to have paddings equal to `10px` and border widths to `1px` unless the `--is-big` variable on those elements won't be `1`, in which case they would become `25px` and `3px` respectively.
+在这个例子中，我们将所有的 `.block` 元素设定 padding 为 `10px` ， border 设定为 `1px` ，一旦这些元素的 `--is-big` 变量值等于`1`，它们的值会分别变为 `25px` 和 `3px`。
 
-The mechanism beyond this is rather simple: we use both our possible values in a single calculation using `calc()`, where we nullify one and keep another value based on the variable's value which can be either `1` or `0`. In other words, we'll have `25px * 1 + 10px * 0` in one case and `25px * 0 + 10px * 1` in another.
+想跳过这个机制相当简单：我们可以在使用到 'calc()' 的计算中，基于变量的值选择保留其中一个有可能的值并且废除另一个值，该值可以是 '1' 或 '0'。换句话说，我们会在一个案例中遇到 `25px * 1 + 10px * 0` ，而在另外一个案例中遇到 `25px * 0 + 10px * 1`。
 
-## [](#more-complex-conditions)More Complex Conditions
+## [](#more-complex-conditions)更复杂的条件
 
-We can use this method to choose not only from 2 possible values but for choosing from 3 or more values. However, for each new added possible value the calculation becomes more complex. For choosing between 3 possible values it would already look like this:
+我们使用此方法不仅可以从 2 个有可能的值中选择，而且可以从 3 个或更多个值中进行选择。然而，每添加一个新的可能值，都会使计算更加复杂。为了在 3 个可能值之间进行选择，它将看起来像这样：
 
     .block {
         padding: calc(
@@ -54,23 +53,23 @@ We can use this method to choose not only from 2 possible values but for choo
         );
     }
 
-This could accept `0`, `1` and `2` values for `--foo` variable and calculate the padding to `100px`, `20px` or `3px` correspondingly.
+这里变量 `-foo` 可以接受 `0` ， `1` 和 `2` ，并且相应的将元素的 padding 设为 `100px`，`20px`或`3px`。
 
-The principle is the same: we just need to multiply each possible value to an expression that would be equal to `1` when the condition for this value is the one we need and to `0` in other cases. And this expression can be composed rather easily: we just need to nullify each other possible value of our conditional variable. After doing this we'd need to add our triggering value there to see if we'd need to adjust the result so it would be equal to 1\. And that's it.
+原理是一样的：我们只需要将每个可能的值乘以一个表达式，当这个值的条件是我们需要的值时，该值等于`1`，在其他情况下为`0`。并且这个表达式可以很容易地组成：我们只需要使我们的条件变量的每个其他可能的值无效而已。 这样做后，我们需要在那里添加触发值，看看是否需要调整结果，使其等于 1\。就是这样。
 
-### [](#a-possible-trap-in-the-specs)A Possible Trap in the Specs
+### [](#a-possible-trap-in-the-specs)在规格中可能的陷阱
 
-With the increasing complexity of such calculations, there is a chance at one point they would stop from working. Why? There is this note in [specs](https://drafts.csswg.org/css-values-3/#calc-syntax):
+随着这种计算复杂性的增加，在某个点，它们有可能失效。为什么？这个笔记在[规范中](https://drafts.csswg.org/css-values-3/#calc-syntax):
 
-> UAs must support calc() expressions of at least 20 terms, where each NUMBER, DIMENSION, or PERCENTAGE is a term. If a calc() expression contains more than the supported number of terms, it must be treated as if it were invalid.
+> 用户代理必须支持至少20个术语的 calc（） 表达式，其中每个数字，尺寸描述或百分比都是是一个术语。如果 calc（） 表达式中包含的术语超过了这个范围，则必须视其无效。
 
-Of course, I tested this a bit and couldn't found such limitations in the browsers I tested, but there is still a chance either you would write some really complex code that would meet the possible existing limit, or some of the browsers could introduce this limit in the future, so be careful when using really complex calculations.
+当然，我测试过这一点，在我测试的浏览器中没找到这样的限制。但在你写一些真正复杂的代码时候，或者未来一些浏览器引入这个限制的时候可能，就有机会达到这个限制了，所以在使用真正复杂的计算时你要小心了。
 
-## [](#conditions-for-colors)Conditions for Colors
+## [](#conditions-for-colors)颜色的条件
 
-As you can see, those calculations could be used only for things that you can _calculate_, so there is no chance we could use it for switching the values of `display` property or any other non-numeric ones. But what about colors? Actually, we can calculate the individual components of the colors. Sadly, right now it would work only in Webkits and Blinks, as [Firefox don't yet support](https://bugzilla.mozilla.org/show_bug.cgi?id=984021 "Bugzilla ticket") `calc()` inside `rgba()` and other color functions.
+你可以看到，这些数值只能用于你可以 **计算** 的东西，所以我们没有办法使用它来切换 `display` 属性或任何其他非数字的值。但是颜色怎么样？实际上，我们可以计算颜色的各个组成部分。可悲的是，现在它只能在 Webkits 和 Blinks 中工作，例如 [ Firefox 还不支持](https://bugzilla.mozilla.org/show_bug.cgi?id=984021 "Bugzilla ticket") 在 `rgba()` 里使用 `calc()` 和其他数学函数。
 
-But when the support would be there (or if you'd like to experiment on this in browsers with an existing support), we could do things like that:
+不过当支持将在哪里（或者如果你想在浏览器中使用现有的支持进行实验时），我们可以做这样的事情：
 
     :root {
         --is-red: 0;
@@ -89,31 +88,31 @@ But when the support would be there (or if you'd like to experiment on thi
             0, 1);
     }
 
-Here we'd have lime color by default and red if the `--is-red` would be set to `1` (note that when the component could be zero we could just omit it at all, making out code more compact, here I kept those for clarity of an algorithm).
+这里我们默认使用灰色，如果 `--is-red` 被设置为 `1` ，则为红色（请注意，该组件可以是零，我们可以忽略它，使制作出来的代码更紧凑，这里我保留了那些关于清晰度的算法）。
 
-As you could do those calculations with any components, it is possible to create those conditions for any colors (and maybe even for gradients? You should try it!).
+正如你可以在任何组件进行这些计算，你完全可以为任何颜色创建这些条件（甚至可以是渐变色，你应该尝试！）。
 
-### [](#another-trap-in-the-specs)Another Trap in the Specs
+### [](#another-trap-in-the-specs)规范中的另一个陷阱
 
-When I was testing how the conditions work for colors, I found out a really, _really_ [weird limitation in Specs](#issue-resolved) (Tab Atkins [commented](https://github.com/kizu/kizu.github.com/issues/186) that this issue with color components was fixed in the specs (but is not yet supported by browsers). Yay! Also he said that as another solution we could just use percentages inside `rgba`, I totally forgot about this feature, haha.)[](#x). It is called [“Type Checking”](https://twitter.com/kizmarh/status/788504161864261632). I now officially hate it. What this means is that if the property accepts only `&lt;integer&gt;` as a value, if you'd have any divisions or non-integers inside the `calc()` for it, even if the result would be integer, the “resolved type” wouldn't be `&lt;integer&gt;`, it would be `&lt;number&gt;`, and that means that those properties won't accept such values. And when we'd have calculations involving more than two possible values, we'd need to have a non-integer modifiers. And that would make our calculation invalid for using with colors or other integer-only properties (like `z-index`).
+当我测试颜色的条件如何工作，我发现了一个**真正**[规格中的奇怪限制](#issue-resolved) (Tab Atkins 的这个[问题](https://github.com/kizu/kizu.github.com/issues/186) 与颜色组件是固定的规格（但浏览器尚未支持）。好极了！另外他说，作为另一个解决方案，我们可以使用 `rgba` 里面的百分比，我完全忘了这个功能，哈哈。)[](#x). 这叫做 [“Type Checking”](https://twitter.com/kizmarh/status/788504161864261632)。我现在正式地讨厌它了。这意味着如果属性只接受 `<integer>` 作为值，或者你在 `calc()` 里面有任何分割或非整数，哪怕结果是整数, “resolved type” 都不会是 `<integer>` ，它将是 `<integer>` ，这意味着这些属性不会接受这样的值。当我们计算涉及两个以上的可能值时，我们需要一个非整数修饰符。这将使我们的计算对于使用颜色或其他只有整数的属性（如 `z-index` ）无效。
 
-That is:
+如下所示:
 
     calc(255 * (1 - var(--bar)) * (var(--bar) - 2) * -0.5)
 
-Would be invalid when inside of the `rgba()`. Initially I thought that this behaviour is a bug, especially knowing how the color functions can actually accept the values that go beyond the possible ranges (you can do `rgba(9001, +9001, -9001, 42)` and get a valid yellow color), but this typing thing seems to be too hard for browsers to handle.
+这在 `rgba（）` 里面是无效的。 最初我认为这种行为是一个错误，特别是知道颜色函数实际接受的值是怎样超出可能范围的值（你可以做 `rgba（9001，+9001，-9001，42）` ，并得到一个有效的黄色），但这类东西似乎太难以让浏览器来处理。
 
-#### [](#solutions-)Solutions?
+#### [](#solutions-)解决方案？
 
-There is one far from perfect solution. As in our case we know both the desired value and the problematic modifier, we can pre-calculate them and then round it up. Yep, that means that the resulting value could be not exactly the same, as we would lose some precision in some cases. But it is better than nothing, right?
+有一个不怎么完美的解决方案。在我们的例子中，我们知道期望的值和有问题的修饰符，我们可以预先计算它们，然后四舍五入。是的，这意味着结果值可能不完全相同，因为我们将失去一些精度在某些情况下。但它比没有什么好，对吧？
 
-But there is another solution that would work for colors — we can use `hsla` instead of `rgba`, as it accepts not integers, but numbers and percentages, so there won't be a conflict in type resolving. But for other properties like `z-index` that solution won't work. But even with this method there still could be some losses in precision if you're going to convert `rgb` to `hsl`. But those should be less than in previous solution.
+但是有另一个解决方案可以用于颜色 —— 我们可以使用 `hsla` 取代 `rgba` ，因为它不接受整数，而是数字和百分比，因此类型解析中不会有冲突。但是对于其他属性，如 `z-index` ，解决方案将不工作。但即使使用这种方法，如果你要将 `rgb` 转换为 `hsl` ，仍然会有一些精度的损失。但是应该比以前的解决方案少。
 
-## [](#preprocessing)Preprocessing
+## [](#preprocessing)预处理
+当条件是二进制时，你仍然可以用手写。但是当我们开始使用更复杂的条件时，或者当我们得到颜色时，我们最好有一些工具，使写入更容易。幸运的是，我们有预处理器。
 
-When the conditions are binary it is still possible to write them by hand. But when we're starting to use more complex conditions, or when we're getting to the colors, we'd better have tools that could make it easier to write. Luckily, we have preprocessors for this purpose.
 
-Here is how I managed to quickly do it in [Stylus](#pen) (You can look at [CodePen with this code](http://codepen.io/kizu/pen/zKmyvG) in action.)[](#x):
+这里是我设法做的 [Stylus](#pen) (你可以看看 [ CodePen 里的这个代码](http://codepen.io/kizu/pen/zKmyvG) )[](#x)：
 
     conditional($var, $values...)
       $result = ''
@@ -187,31 +186,33 @@ Here is how I managed to quickly do it in [Stylus](#pen) (You can look at�
 
       return unquote($result)
 
-Yep, there is a lot of code, but this mixin can generate conditionals both for numbers and colors, and not only for two possible conditions but for many more.
 
-The usage is really easy:
+是的，这有很多代码，但是这个 mixin 可以生成包括数字和颜色在内的多种有可能的条件。
+
+它的的使用方法很简单:
 
     border-width: conditional(var(--foo), 10px, 20px)
 
-The first argument is our variable, the second one is the value that should be applied when the variable would be equal to `0`, the third — when it would be equal to `1`, etc.
 
-This above call would generate proper conditional:
+第一个参数是我们的变量，第二个参数当变量等于 `0` 时应用的值，第三个是当它等于`1`时......
+
+这个调用会产生正确的条件：
 
     border-width: calc(10px * (1 - var(--foo)) + 20px * var(--foo));
 
-And here is a more complex example for the color conditionals:
+这里是一个更加复杂的颜色条件例子：
 
     color: conditional(var(--bar), red, lime, rebeccapurple, orange)
 
-Would generate something that you surely wouldn't want to write by hand:
+这还会产生一些你肯定不想手写的东西：
 
     color: hsla(calc(120 * var(--bar) * (var(--bar) - 2) * (var(--bar) - 3) * 0.5 + 270 * var(--bar) * (1 - var(--bar)) * (var(--bar) - 3) * 0.5 + 38.82352941176471 * var(--bar) * (1 - var(--bar)) * (var(--bar) - 2) * -0.16666666666666666), calc(100% * (1 - var(--bar)) * (var(--bar) - 2) * (var(--bar) - 3) * 0.16666666666666666 + 100% * var(--bar) * (var(--bar) - 2) * (var(--bar) - 3) * 0.5 + 49.99999999999999% * var(--bar) * (1 - var(--bar)) * (var(--bar) - 3) * 0.5 + 100% * var(--bar) * (1 - var(--bar)) * (var(--bar) - 2) * -0.16666666666666666), calc(50% * (1 - var(--bar)) * (var(--bar) - 2) * (var(--bar) - 3) * 0.16666666666666666 + 50% * var(--bar) * (var(--bar) - 2) * (var(--bar) - 3) * 0.5 + 40% * var(--bar) * (1 - var(--bar)) * (var(--bar) - 3) * 0.5 + 50% * var(--bar) * (1 - var(--bar)) * (var(--bar) - 2) * -0.16666666666666666), 1);
 
-Note that there is no detection of `&lt;integer&gt;`-accepting properties, so that won't work for `z-index` and such, but it already converts colors to `hsla()` to make them manageble (though even this could be enhanced so this convertation would happen only when it would be needed). Another thing I didn't implement in this mixin (yet?) is the ability to use CSS variables for the values. This would be possible for non-integer numbers as those values would be inserted as is in the conditional calculations. Maybe, when I'll find time, I'll fix the mixin to accept not only numbers or colors but also variables. For the time being it is still possible to do using the algorithm explained in this article.
+注意，没有检测 `<integer>` 接受属性，所以它不能用于 `z-index` 等，但是它已经将颜色转换为 `hsla（）` ，使它们可控（即使技术可以增强，这种转换仍将发生，只有当它将需要）。另一件事我没有实现在这个 mixin（还没？）是使用 CSS 变量的值的能力。 这对于非整数是可能的，因为那些值将如条件计算中那样插入。也许，当我找到时间时，我将修复 mixin ，使它不仅接受数字或颜色，而且接受变量。目前仍然可以使用本文中解释的算法。
 
-## [](#fallbacks)Fallbacks
+## [](#fallbacks)后退
 
-Of course, if you're planning to actually use this, you'll need to have a way to set fallbacks. They're easy for browsers that just don't support variables: you just declare the fallback value before the conditional declaration:
+当然，如果你计划实际使用这个，你需要有一个方法来设置回退。对于不支持变量的浏览器，很简单：只需在条件声明之前声明 fallback 值：
 
     .block {
         padding: 100px; /* fallback */
@@ -222,16 +223,16 @@ Of course, if you're planning to actually use this, you'll need to have a w
         );
     }
 
-But when it comes to colors we have a problem: when there is a support for variables, in fact (and that's another really weird place in specs), _just any_ declaration containing variables would be considered valid. And this means that it is not possible in CSS to make a fallback for something containing variables:
+但是当涉及到颜色我们有一个问题：当有一个支持变量，事实上（这是规范里的另一个很奇怪的地方），**所有**包含该变量的声明将被认为是有效的。这意味着在CSS中不可能对包含变量的东西做出回退：
 
     background: blue;
     background: I 💩 CSS VAR(--I)ABLES;
 
-Is valid CSS and per specs, the background would get an `initial` value, not the one provided in a fallback (even though it is obvious that the other parts of the value are incorrect).
+是有效的CSS和规范，这背景将得到一个“初始”值，而不是一个后备提供的值（即使其他部分的值明显错误）。
 
-So, what we need in order to provide a fallback in those cases — add `@support` wrapper that would test the support for everything **except** for the variables.
+所以，我们在这些情况下需要提供一个回调 - 添加 `@ support` 测试被支持的部分来**排除**变量。
 
-In our case, we need to wrap our conditional colors for Firefox in something like this:
+在我们的例子中，我们需要为我们 Firefox 的条件颜色包装，像这样：
 
     .block {
         color: #f00;
@@ -242,31 +243,31 @@ In our case, we need to wrap our conditional colors for Firefox in somethin
       }
     }
 
-Here we're testing a support for calculations inside color functions and applying the conditional color only in that case.
+这里我们测试一个关于颜色算法的支持，并仅在这种情况下应用条件颜色。
 
-It is also possible to create such fallbacks automatically, but I won't recommend you to use preprocessors for them as the complexity of creating such stuff is much more than the capabilities preprocessors provide.
+也可以自动创建这样的备份，但是我不建议您为它们使用预处理器，因为创建这样的东西的复杂性远不止预处理器提供的功能。
 
-## [](#use-cases)Use Cases
+## [](#use-cases)使用实例
 
-I really don't like to provide use cases for the things the need for which is obvious. So I'll be brief. And I'll state not only the conditions for variables, but also the general conditions, like for the result of `calc()`.
+我真的不觉得有必要为如此显而易见的东西提供使用实例。所以我会很简短。同时我将不仅描述变量的条件，而且描述一般条件，例如 `calc（）` 的结果。
 
-*   The conditions for CSS variables would be perfect for themifying blocks. This way you could have a number of numbered themes and then apply them to blocks (and nested ones!) using just one CSS variable like `--block-variant: 1`. This is not something that is possible through any other means other than variables and when you'd want to have different values for different props in different themes, without the conditionals you'd need to have many different variables and apply all of them in every case.
+*   CSS 变量的条件对于区分块是完美的。这样，你可以有一些编号的主题，然后将它们应用到块（和嵌套的！）只使用一个像 `--block-variant：1` 的 CSS 变量。这是不是就可以通过不同的条件取代变量，当你想要不同的主体，不同的道具，不同的值，如果没有条件，你将需要有很多的变量并应用与他们每一个案例中去。
 
-*   Typography. If it was possible to use the `&lt;`, `&lt;=`, `&gt;` and `&gt;=` in conditions for variables, it would be possible to have a number of “rules” for different font sizes, so you could set different line heights, font weights and other properties based on the given font-size. This is possible now, but now when you need to have some “stops” for those valuea and not just the values derived from `em`s.
+*   排版。如果有可能使用  `<` ,  `<=` ,  `>`  和  `>=` 为变量的情况下，有可能有不同字体大小的一些“规则”，因此您可以根据给定的字体大小设置不同的行高，字体粗细和其他属性。现在这是可能的，但现在，你需要那些值有一些“停顿”，而不仅仅是靠 `em` 获得值。
 
-*   Responsive design. Well, if there were the conditions for calculations, then it would be almost the same as those elusive “element queries” — you could check the `vw` or the parent's widths in percents and decide what to apply in different cases.
+*   响应设计。好吧，如果有计算的条件，那么它几乎与那些难以捉摸的“元素查询”相同 —— 你可以检查 `vw` 或父元素的宽度百分比，并决定在不同的情况下应用什么。
 
-There can be other use cases, tell me if you'd find one! I'm sure I had more of them myself, but I don't have that good of a memory to remember all the things I ever wanted to do with CSS. Because its all the things.
+如果你找到其他使用案例，请告诉我。我相信还有很多这样的案例，但我没有那么好的记忆力把它们全部记下来。我曾经想用 CSS 把它做出来。因为这是它的一切。 
 
-## [](#future)Future
+## [](#future)未来
 
-I would really like to see conditions described in CSS specs, so we would not rely on calc hacks and could use proper conditions for non-calculatable values too. It is also impossible right now to have conditions other than strict equality, so no “when the variable is more than X” and other stuff like that. I don't see any reasons why we can't have proper conditions in CSS, so if you know a fellow spec developer, hint them about this issue. My only hope is that they won't tell us to “just use JS” or find out excuses of why that wouldn't ever be possible. Here, it is already possible now using the hacks, there can't be any excuses.
+我真的想看到CSS规范中描述的条件，所以我们不会依赖 calc hacks ，并且可以为非计算值使用适当的条件。现在也不可能有除了严格相等的条件，所以没有“当变量超过 X ”和其他类似的东西。我没有看到任何理由为什么我们不能在 CSS 中有适当的条件，所以如果你知道一个规范开发人员，提示他们这个问题。我唯一的希望是，他们不会告诉我们“只是使用 JS ”或找出原因，为什么是不可能的。在这里，现在已经可以使用 hacks，不能有任何借口。
 
-Published on October 21, in [Experiments](../).
+发表在 10 月 21 日， 于[实验](../)中.
 
 
 
-If you've spotted a typo or a mistake, or wish to add something on, you could either [write me about this](https://github.com/kizu/kizu.github.com/issues/new?title=Feedback%20for%20%E2%80%9CConditions%20for%20CSS%20Variables%E2%80%9D) or [edit this article on Github](https://github.com/kizu/kizu.github.com/blob/source/src/documents/posts/2016-10-21-(fun)-conditions-for-css-variables/index.en.md).
+如果你发现什么编写错误或者小漏洞又或者你想添加点什么，你可以 [写在这](https://github.com/kizu/kizu.github.com/issues/new?title=Feedback%20for%20%E2%80%9CConditions%20for%20CSS%20Variables%E2%80%9D) 或者 [在 Github 编写这篇文章](https://github.com/kizu/kizu.github.com/blob/source/src/documents/posts/2016-10-21-(fun)-conditions-for-css-variables/index.en.md).
 
 
 
