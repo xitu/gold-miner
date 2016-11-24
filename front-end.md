@@ -1,3 +1,4 @@
+* [详解 React Native 使用 OneSignal 推送通知](http://gold.xitu.io/entry/58369fa5c59e0d005777d12f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([xiaoheiai4719](https://github.com/xiaoheiai4719) 翻译)
 * [无需配置即可创建 React Apps](http://gold.xitu.io/entry/583266068ac2470061c24c06?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jiakeqi](https://github.com/jiakeqi) 翻译)
 * [React Native Android 应用内存使用探究](http://gold.xitu.io/entry/5834161bda2f600062be79b5?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([phxnirvana](https://github.com/phxnirvana) 翻译)
 * [React Native Android 的 native 模块](http://gold.xitu.io/entry/5832e55fc4c971005f565b4c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([XHShirley](https://github.com/XHShirley) 翻译)
