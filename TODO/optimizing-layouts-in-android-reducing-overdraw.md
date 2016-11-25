@@ -30,15 +30,15 @@
 
 以下是各种颜色的解释:
 
-_**本色**_ —— _没有发生过度渲染_ —— 屏幕上的像素点只被绘制了 **1** 次。
+_**本色**_ —— _没有发生过度绘制_ —— 屏幕上的像素点只被绘制了 **1** 次。
 
-**_蓝色_** —— _1 倍过度渲染_ —— 屏幕上的像素点被绘制了 **2** 次。
+**_蓝色_** —— _1 倍过度绘制_ —— 屏幕上的像素点被绘制了 **2** 次。
 
-**绿色** —— _2 倍过度渲染_ —— 屏幕上的像素点被绘制了 **3** 次。
+**绿色** —— _2 倍过度绘制_ —— 屏幕上的像素点被绘制了 **3** 次。
 
-_**粉色**_ —— _3 倍过度渲染_ —— 屏幕上的像素点被绘制了 **4** 次。
+_**粉色**_ —— _3 倍过度绘制_ —— 屏幕上的像素点被绘制了 **4** 次。
 
-_**红色**_ —— _4 倍过度渲染_ —— 屏幕上的像素点被绘制了 **5** 次。
+_**红色**_ —— _4 倍过度绘制_ —— 屏幕上的像素点被绘制了 **5** 次。
 
 [![GPU Overdraw](http://i1.wp.com/riggaroo.co.za/wp-content/uploads/2016/02/Screen-Shot-2016-02-10-at-6.40.42-PM.png?resize=150%2C150%20150w,%20http://i1.wp.com/riggaroo.co.za/wp-content/uploads/2016/02/Screen-Shot-2016-02-10-at-6.40.42-PM.png?resize=50%2C50%2050w)](http://i1.wp.com/riggaroo.co.za/wp-content/uploads/2016/02/Screen-Shot-2016-02-10-at-6.40.42-PM.png)
 
@@ -73,17 +73,17 @@ _**红色**_ —— _4 倍过度渲染_ —— 屏幕上的像素点被绘制了
 [![After removing the background colour.](https://i1.wp.com/riggaroo.co.za/wp-content/uploads/2016/02/Screenshot_2016-02-01-11-20-08.png?resize=576%2C1024&ssl=1)
 ](https://i1.wp.com/riggaroo.co.za/wp-content/uploads/2016/02/Screenshot_2016-02-01-11-20-08.png)
 
-就如你看到的，过度绘制的问题被最大程度地减少了。红色的过度渲染区域被大大地减少了。
+就如你看到的，过度绘制的问题被最大程度地减少了。红色的过度绘制区域被大大地减少了。
 
-这个界面还有继续优化的空间，现在大部分展现的已经是界面的真本色了，还有一些蓝色的过度渲染区域。有些过度渲染是不可避免的。
+这个界面还有继续优化的空间，现在大部分展现的已经是界面的真本色了，还有一些蓝色的过度绘制区域。有些过度绘制是不可避免的。
 
-并不是所有的过度渲染都是由背景色造成的。其他问题也会呈现过度渲染，例如，有非常复杂层次结构或者包含有太多视图的界面。
+并不是所有的过度绘制都是由背景色造成的。其他问题也会呈现过度绘制，例如，有非常复杂层次结构或者包含有太多视图的界面。
 
-你应当把目标定在 **最多只允许 2 倍过度渲染 （也就是只出现绿色过度渲染区域）**。
+你应当把目标定在 **最多只允许 2 倍过度绘制 （也就是只出现绿色过度绘制区域）**。
 
-你也可以使用一些其他的工具来调试为什么发生了过度渲染，例如，[Hierarchy Viewer](http://developer.android.com/tools/performance/hierarchy-viewer/index.html) 和 [GL Tracer](http://developer.android.com/tools/help/gltracer.html).
+你也可以使用一些其他的工具来调试为什么发生了过度绘制，例如，[Hierarchy Viewer](http://developer.android.com/tools/performance/hierarchy-viewer/index.html) 和 [GL Tracer](http://developer.android.com/tools/help/gltracer.html).
 
-你是怎么来解决调试过度渲染时遇到的问题？你还有其他宝贵的经验分享给大家么？
+你是怎么来解决调试过度绘制时遇到的问题？你还有其他宝贵的经验分享给大家么？
 
 参考资料：
 
