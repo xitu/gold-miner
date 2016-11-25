@@ -2,7 +2,7 @@
 * 原文作者：[Rebecca](https://riggaroo.co.za/female-android-developer/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者： [Nicolas(Yifei) Li](https://github.com/yifili09)
-* 校对者：
+* 校对者：[XHShirley](https://github.com/XHShirley), [jamweak](https://github.com/jamweak)
 
 # `Android` 界面的性能优化 —— 减少过度绘制
 
@@ -12,7 +12,7 @@
 
 ## 什么是过度绘制？
 
-过度绘制发生在每一次应用程序要求系统在某些界面上再绘制一些界面的时候。这个 `Debug GPU Overdraw` 工具可以在屏幕最上层叠加上一些颜色，它显示出多少像素点是被重复绘制了。
+过度绘制发生在每一次应用程序要求系统在某些界面上再绘制一些界面的时候。这个 `Debug GPU Overdraw` 工具可以在屏幕最上层叠加上一些颜色，它显示出一个像素点被重复绘制了多少次。
 
 ## 我怎么能启动这个 `Debug GPU Overdraw` 工具？
 
