@@ -1,80 +1,80 @@
 > * 原文地址：[A Dramatic Tour through Python’s Data Visualization Landscape (including ggplot and Altair)](https://dansaber.wordpress.com/2016/10/02/a-dramatic-tour-through-pythons-data-visualization-landscape-including-ggplot-and-altair/)
 * 原文作者：[Dan Saber](https://dansaber.wordpress.com/about-me/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[cdpath](https://github.com/cdpath)
 * 校对者：
 
-# A Dramatic Tour through Python’s Data Visualization Landscape (including ggplot and Altair)
+# Python 数据可视化概览（涵盖 ggplot 和 Altair）
 
 ![](https://dansaber.files.wordpress.com/2016/09/yejgqmzehsyh83ossacczmgrjtvkpm3fpiesqskqajpe2c9szs7b0jkea8aqx38vjsegmyjuchwmzo2hesiaesiaesiaesiaesiaesiaesgh8ekfsmv5jsixigarigarigarigarigarigariws4bchdnqsemkqaikqaikqaikqaikqaikqaikm.png)
 
 
 
-### _Why Even Try, Man?_
+### 伙计，为什么还要去尝试？
 
 * * *
 
-I recently came upon Brian Granger and Jake VanderPlas’s Altair, a promising young visualization library. Altair seems well-suited to addressing Python’s ggplot envy, and its tie-in with JavaScript’s Vega-Lite grammar means that as the latter develops new functionality (e.g., tooltips and zooming), Altair benefits — seemingly for free!
+我最近偶然发现了 Brian Granger 和 Jake VanderPlas 开发的 Altair，一个非常有潜力的新可视化库。Altair 似乎非常适合用来表达 Python 对 ggplot 的羡慕，而它采用了 JavaScript 的 Vega-Lite 语法意味着，后者开发的新功能（比如提示框和缩放）都能被 Altair 所用，而且看样子是免费的！
 
-Indeed, I was so impressed by Altair that the original thesis of my post was going to be: _“Yo, use Altair.”_
+我甚至是太喜欢 Altair 了，都想把本文的主题改成：**「嘿，用 Altair 吧。」**
 
-But then I began ruminating on my own Pythonic visualization habits, and — in a painful moment of self-reflection — realized I’m all over the place: I use a hodgepodge of tools and disjointed techniques depending on the task at hand (usually whichever library I first used to accomplish that task1).
+但是当我开始反思自以为更符合 Python 哲学的可视化习惯的时候，当然了，相当痛苦的自我反思，我发现自己错得一塌糊涂：为了应对手头的工作我用了一大堆工具还有乱七八糟的技术（通常是随便选一个第一个完成工作的库 <sup>1</sup>）。 
 
-This is no good. As the old saying goes: _“The unexamined plot is not worth exporting to a_ _PNG.”_
+这并不好。俗话说得好，「未经校对的绘图不值得导出 PNG 文件」。
 
-Thus, I’m using my discovery of Altair as an opportunity to step back — to investigate how Python’s statistical visualization options hang together. I hope this investigation proves helpful for you as well.
+于是我借着探索 Altair 的机会回过头来调查了 Python 统计可视化工具是如何组织在一起的。希望我的调查结果对你也有用。
 
-### _How’s This Gonna Go?_
-
-* * *
-
-The conceit of this post will be: _“You need to do Thing X. How would you do Thing X in matplotlib? pandas? Seaborn? ggplot? Altair?”  _By doing many different Thing X’s, we’ll develop a reasonable list of pros, cons, and takeaways — or at least a whole bunch of code that might be somehow useful.
-
-(Warning: this all may happen in the form of a two-act play.)
-
-### _The Options (in ~Descending Order of Subjective Complexity)_
+### 这个该怎么用？
 
 * * *
 
-First, let’s welcome our friends2:
+本文别出心裁的对比会是这样的：「你需要做某事。你要怎么用 matplotlib，pandas，Seaborn，ggplot 或者 Altair 来实现呢？」通过这些不同的实现方式，我们就可以得出它们的优点，缺点，还有其他收获 —— 至少这么多代码说不定啥时候有用呢。
 
-_**[matplotlib](http://matplotlib.org/)**_
+（警告：所有这一切都会以双幕剧的形式呈现）
 
-The 800-pound gorilla — and like most 800-pound gorillas, this one should probably be avoided unless you genuinely need its power, e.g., to make a custom plot or produce a publication-ready graphic.
-
-(As we’ll see, when it comes to statistical visualization, the preferred tack might be: “do as much as you easily can in your convenience layer of choice [i.e., any of the next four libraries], and then use matplotlib for the rest.”)
-
-_**[pandas](http://pandas.pydata.org/pandas-docs/stable/visualization.html)**_
-
-_“Come for the DataFrames; stay for the plotting convenience functions that are arguably more pleasant than the matplotlib code they supplant.” _— rejected pandas taglines
-
-(Bonus tidbit: the pandas team must include a few visualization nerds, as the library includes things like RadViz plots and Andrews Curves that I haven’t seen elsewhere.)
-
-_**[Seaborn](https://stanford.edu/~mwaskom/software/seaborn/)**_
-
-Seaborn has long been my go-to library for statistical visualization; it summarizes itself thusly:
-
-_“If matplotlib ‘tries to make easy things easy and hard things possible,’ seaborn tries to make a well-defined set of hard things easy too”_
-
-_**[yhat’s ggplot](https://github.com/yhat/ggplot)**_
-
-A Python implementation of the wonderfully declarative ggplot2\. This isn’t a “feature-for-feature port of ggplot2,” but there’s strong feature overlap. (And speaking as a part-time R user, the main geoms seem to be in place.)
-
-_**[Altair](https://github.com/ellisonbg/altair)**_
-
-The new guy, Altair is a “declarative statistical visualization library” with an exceedingly pleasant API.
-
-Wonderful. Now that our guests have arrived and checked their coats, let’s settle in for our very awkward dinner conversation. Our show is entitled…
-
-## _**Little Shop of Python Visualization Libraries (starring all libraries as themselves) **_
+### 主角们（按主观复杂性递减排列）
 
 * * *
 
-### _ACT I: LINES AND DOTS_
+首先，欢迎我们的朋友们<sup>2</sup>:
+
+**[matplotlib](http://matplotlib.org/)**
+
+八百磅的大猩猩，就跟八百磅的大猩猩一样，你一般都会躲着它走，除非真的需要它的力量，比如需要定制化绘图或者提供可以出版的图像。
+
+（我们将会看到，当谈到统计可视化时，正确的思路可能是：「尽量用熟悉的工具（比如下面要讲到的四个库）把活干完，剩下的再用 matplotlib」。）
+
+**[pandas](http://pandas.pydata.org/pandas-docs/stable/visualization.html)**
+
+为数据框而生；坚持使用绘图便利函数，而这可以说比被取代的 matplotlib 代码好用多了。- 被拒的 pandas 广告语。
+
+（花边新闻：pandas 项目组肯定有些可视化迷，因为它包含了诸如 RadViz 图和 Andrews 曲线这类其他库没有的东西。）
+
+**[Seaborn](https://stanford.edu/~mwaskom/software/seaborn/)**
+
+Seaborn 一直是我最核心的统计可视化库，它这样自我总结的：
+
+**如果说 matplotlib 试图让简单的更简单，让难的变得可行，那么 Seaborn 就是试图让虽难却定义精良的部分也变得简单。**
+
+**[yhat’s ggplot](https://github.com/yhat/ggplot)**
+
+ggplot 是出色的声明式 ggplot2 的 Python 实现。它不仅仅「逐一复刻」了 ggplot2 的特性，还有一些共有的强大特性。（作为一个业余的 R 用户，重要的组件似乎应有尽有。）
+
+**[Altair](https://github.com/ellisonbg/altair)**
+
+新人 Altair 是「声明式统计可视化库」，有着极其好用的 API。
+
+好极了。既然大伙都到了还做了自我介绍，我们开始尴尬的晚宴对话吧。我们的演出叫……
+
+## Python 可视化库小商店（每个库演的就是自己）
 
 * * *
 
-(In Scene 1, we’ll be dealing with a tidy data set named “ts.” It consists of three columns: a “dt” column (for dates); a “value” column (for values); and a “kind” column, which has four unique levels: A, B, C, and D. Here’s a preview…)
+### 第一幕：线和点
+
+* * *
+
+（在第一场，我们要处理的是整洁数据集 `ts`。它有三列：`dt`（存数据），`value` （存值）和 `kind` （有四个不同的水平：A，B，C 和 D）。数据长这个样子：）
 
 
 ||dt|kind|value|
@@ -87,11 +87,11 @@ Wonderful. Now that our guests have arrived and checked their coats, let’s set
 
 
 
-#### _**Scene 1: How would you plot multiple time series on the same graph?**_
+#### 第一场：如何在一张图上画多个时间序列？
 
 * * *
 
-_**matplotlib: **_Ha! Haha! _Beyond _simple. While I _could _and _would _accomplish this task in any number of complex ways, I know your feeble brains would crumble under the weight of their ingenuity. Hence, I dumb it down, showing you two simple methods. In the first, I loop through your trumped-up matrix — I believe you peons call it a “Data” “Frame” — and subset it to the relevant time series. Next, I invoke my “plot” method and pass in the relevant columns from that subset.
+**matplotlib: ** 哈！哈哈！不能再简单了。虽然我可以用很多复杂的方式搞定这个，不过我明白你们的笨脑子是无法理解其中的精妙的。所以我退而求其次给你们展示两个简单的方法。第一个方法，我循环使用你们虚构的矩阵，我相信你们这些人把它叫做「数据框」，取其子集传给相关的时间序列。然后调用 `plot` 方法，传入子集中的相关列。
 
     # MATPLOTLIB
     fig, ax = plt.subplots(1, 1,
@@ -110,8 +110,8 @@ _**matplotlib: **_Ha! Haha! _Beyond _simple. While I _could _and _would _
 
 ![](https://dansaber.files.wordpress.com/2016/09/ct7c3skpksgntjpw6dqp5exnq09pdibejmhpmtcgqksrjazmytqlwatmydaad0urgmw0gg8fgmjoirnnmmbgmbqojwdptbopbydcackztzjaydaajica6bqadwwawmgis02ywgawgo4naom0gg8fgmjoirnnmmbgmbqojwdptbopbydcacp8dxilt.png)
 
-_**
-MPL: **_Next, I enlist this chump _(*motions to pandas*)_, and have him pivot this “Data” “Frame” so that it looks like this…
+
+**MPL**: 然后我把它转换成数组（给 pandas 做手势），让他对「数据框」做轴向旋转（pivot），结果是这样的：
 
     # the notion of a tidy dataframe matters not here
     dfp = ts.pivot(index='dt', columns='kind', values='value')
@@ -132,8 +132,7 @@ MPL: **_Next, I enlist this chump _(*motions to pandas*)_, and have him pivot 
 
 
 
-_**
-MPL: **_By transforming the data into an index with four columns — one for each line I want to plot — I can do the whole thing in one fell swoop (i.e., a single call of my “plot” function).
+**MPL: ** 将数据转换为有四个列的索引 —— 每一列都对应待画的线 —— 我用一步就可以搞定这一切（比如，调用一次 `plot` 函数）。
 
     # MATPLOTLIB
     fig, ax = plt.subplots(1, 1,
@@ -150,9 +149,8 @@ MPL: **_By transforming the data into an index with four columns — one for ea
 
 ![](https://dansaber.files.wordpress.com/2016/09/ct7c3skpksgntjpw6dqp5exnq09pdibejmhpmtcgqksrjazmytqlwatmydaad0urgmw0gg8fgmjoirnnmmbgmbqojwdptbopbydcackztzjaydaajica6bqadwwawmgis02ywgawgo4naom0gg8fgmjoirnnmmbgmbqojwdptbopbydcacp8dxilt1.png)
 
-_**
-pandas (*looking timid*):**_  That was great, Mat. Really great. Thanks for including me. I do the same thing — hopefully as good? _(*smiles weakly*)
-_
+**pandas (看上去怯生生的):** 这很不错，Mat。真的不错。谢谢你提到我。我也能搞定这个 —— 希望可以同样出色（微微一笑）。
+
 
     # PANDAS
     fig, ax = plt.subplots(1, 1,
@@ -167,9 +165,9 @@ _
     ax.legend(loc=2)
     fig.autofmt_xdate()
 
-_**pandas: **_It looks exactly the same, so I just won’t show it.
+**pandas: ** 结果看上去完全一样，所以我就不展示了。
 
-_**Seaborn (*smoking a cigarette and adjusting her beret*):**_ Hmmm. Seems like an awful lot of data manipulation for a silly line graph. I mean, for loops and pivoting? This isn’t the 90’s or Microsoft Excel. I have this thing called a FacetGrid I picked up when I went abroad. You’ve probably never heard of it…
+**Seaborn（抽着烟，调整着贝雷帽）：** 唔。看上去区区一个折线图就让你们做了这么多数据操作。我是说，for 循环和轴向旋转？这不是九十年代的微软 Excel（译者注：pivot table 即 Excel 的数据透视表）。我在国外学到一个叫做 FacetGrid 的东西。你们大概从来没有听说过……
 
     # SEABORN
     g = sns.FacetGrid(ts, hue='kind', size=5, aspect=1.5)
@@ -181,13 +179,13 @@ _**Seaborn (*smoking a cigarette and adjusting her beret*):**_ Hmmm. Seems like
 
 ![](https://dansaber.files.wordpress.com/2016/09/pcylvh1mdhr08pz8tbaetls3xdn5zvr6oqluqqj3jolrccvj0jxzfjvamwdhl8fotw8jc9vt0mjydpbw3l9fuvgkwljyaghsjlcuzs7hb1duuurrqkbupls0mn0zw8phb8fextuxpd3d20t7czpt3nzmwm9fx1zdiz1tbwgbgyo2rpkn6g6nor.png)
 
-_**SB:**_ See? You hand FacetGrid your un-manipulated tidy data. At that point, passing in “kind” to the “hue” parameter means you’ll plot four different lines — one for each level in the “kind” field. The way you actually realize these four different lines is by mapping my FacetGrid to this Philistine’s _(*motions to matplotlib*)_ plot function, and passing in “x” and “y” arguments. There are some things you need to keep in mind, obviously, like manually adding a legend, but nothing too challenging. Well, nothing too challenging for some of us…
+**SB:** 看懂了吗？直接给 FacetGrid 传入未处理的整洁数据。在这里，将 `kind` 赋给 `hue` 参数的意思是绘出四条不同的线 —— 每条线对应 `kind` 的一个水平。而真正画出这四条线，得把 FacetGrid 映射到到庸俗的（**示意 matplotlib**） plot 函数，再传入 `x` 和 `y` 参数。显然，这些东西得牢记，就像添加图例一样，但是也不会太难。好吧，对有些人来说没有什么东西有挑战性……
 
-_**ggplot: **_Wow, neat! I do something similar, but _**I** _do it like my big bro. Have you heard of him? He’s so coo–
+**ggplot: ** 哇，赞！我的方法和她差不多，但是我做起来更像我的大哥。你们听过他吗？他超级酷 ——
 
-**_SB: _**Who invited the kid?
+**SB: ** 谁邀请了这个孩子？
 
-_**GG: **_Check it out!
+**GG: ** 快来看看！
 
     # GGPLOT
     fig, ax = plt.subplots(1, 1, figsize=(7.5, 5))
@@ -201,9 +199,9 @@ _**GG: **_Check it out!
 
 ![](https://dansaber.files.wordpress.com/2016/09/a0vxdiqolaa4aaaaaelftksuqmcc.png)
 
-_**GG (*picks up ggpot2 by Hadley Wickham and sounds out words*): **_Every plot is com — com — com-_prised_ of data (e.g., “ts”), aesthetic mappings (e.g, “x”, “y”, “color”), and the geometric shapes that turn our data and aesthetic mappings into a real visualization (e.g., “geom_line”)!
+**GG (拿起 Hadley Wickham 写的 《ggplot2》读出声来): ** 每一幅图都由数据（比如 `ds`），图形映射（比如 `x`，`y` 和 `color`）和几何图形（比如 `geom_line`）组成，而后者将数据和图形映射转换成真正的可视化。
 
-_**Altair: **_Yup, I do that, too.
+**Altair: ** 没错，我也是这么做的。
 
     # ALTAIR
     c = Chart(ts).mark_line().encode(
@@ -215,7 +213,7 @@ _**Altair: **_Yup, I do that, too.
 
 ![](https://dansaber.files.wordpress.com/2016/09/snca9dqgreqat6epbiuncigaiigaiigaiiqa8cekkkcxeqareqareqargqsfimiiaiiiaiiiaiieaxappjkszjr4maciiaciiacdsmgerswxwuc0vaberaberabiorkegqxklhiyaiiiaiiiainiyarfldhc5zruaereaereaeihh4f8agjg7cmx0y.png)
 
-_**ALT: **_You give my Chart class some data and tell it what kind of visualization you want: in this case, it’s “mark_line”. Next, you specify your aesthetic mappings: our x-axis needs to be “date”; our y-axis needs to be “value”; and we want to split by kind, so we pass “kind” to “color.” Just like you, GG _(*tousles GG’s hair*)_. Oh, and by the way, using the same color scheme y’all use isn’t a problem, either:
+**ALT: ** 给我的 Chart 类同样的数据，告诉它你要哪种可视化：这里就是 `mark_line`。然后指定想要的图形映射：x 轴是 `data`，y 轴是 `value`；再按 `kind` 进行分组，所以把 `kind` 传给 `color`。就跟你一样，GG（**拨乱 GG 的头发**）。哦，这样一来，要用你们都用的配色方案也轻而易举了：
 
     # ALTAIR
 
@@ -229,30 +227,30 @@ _**ALT: **_You give my Chart class some data and tell it what kind of visualiza
 
 ![](https://dansaber.files.wordpress.com/2016/09/xdux5styklaiigaouqkegqbksukgiimaicz3dlanty15oelhfp2rhcq5cqareqgz4ejjiuhcigaiigaiigailqhybeksjcberaberaberabcssfamiiaiiiaiiiaiieezam0lhnhsuciiaciiacihazqhijnxm4tjxberaberabeqgjibeuhgnhsu.png)
 
-_***MPL stares in terrified wonder***_
+**MPL 害怕又惊讶地盯着**
 
-#### _**Analyzing Scene 1**_
+#### 第一场的分析
 
 * * *
 
-Aside from matplotlib being a jerk3, a few themes emerged:
+除了混蛋的 matplotlib <sup>3</sup>，还有一些要点值得注意。
 
-*   In matplotlib and pandas, you must either make multiple calls to the “plot” function (e.g., once-per-for loop), or you must manipulate your data to make it optimally fit the plot function (e.g., pivoting). (That said, there’s another technique we’ll see in Scene 2.)
+*   用 matplotlib 和 pandas 的时候，要么得多次调用 `plot` 函数（比如每个 for 循环里面），要么得对数据进行操作才能更好适用于 plot 函数（比如轴向旋转）。（也就是说我们在第二场还会见到其他的技术。）
 
-*   (To be frank, I never used to think this was a big deal, but then I met people who use R. They looked at me aghast.)
+*   （说实话，我从来不觉得这是个大问题，直到我遇到了 R 语言使用者。他们看到我都惊呆了。）
 
-*   Conversely, ggplot and Altair implement similar and declarative “grammar of graphics”-approved ways to handle our simple case: you give their “main” function– “ggplot” in ggplot and “Chart” in Altair” — a tidy data set. Next, you define a set of aesthetic mappings — x, y, and color — that explain how the data will map to our geoms (i.e., the visual marks that do the hard work of conveying information to the reader). Once you actually invoke said geom (“geom_line” in ggplot and “mark_line” in Altair), the data and aesthetic mappings are transformed into visual ticks that a human can understand — and thus, an angel gets its wings.
+*   与之相反，ggplot 和 Altair 用的是类似声明式「图形语法」的方法去解决这种简单问题：给「主」函数 （ggplot 中的 `ggplot` 和 Altair 中的 `Chart`）传入整洁的数据集。然后定义一组图形映射（x，y 和 color）来说明数据该如何映射到图形上（比如视觉标记做了很多努力以便更好地传达信息）。只要使用这些图形（ggplot 的 `geom_line` 和 Altair 的 `mark_line`），数据和图形映射就会被转换成便于人类理解的视觉形象，这样一来就大功告成了。
 
-*   Intellectually, you can — and probably should (?) — view Seaborn’s FacetGrid through the same lens; however, it’s not 100% identical. FacetGrid needs a hue argument _upfront _— _alongside _your data — but wants the x and y arguments _later_. At that point, your mapping isn’t an aesthetic one, but a functional one: for each “hue” in your data set, you’re simply calling matplotlib’s plot function using “dt” and “value” as its x and y arguments. The for loop is simply hidden from you.
+*   聪明得话，你可以（甚至应该）透过同样的视角看待 Seaborn 的 FacetGrit；但是并不是完全一致。FacetGrid 除了数据集之外还需要**预先**提供 `hue` 参数，然后才需要 x 和 y 参数。这种映射并不是图形映射，只是函数映射：数据集中的每一个 `hue` 都会调用 matplotlib 的 plot 函数，`dt` 和 `value` 分别传给 x 和 y 参数。for 循环是不可见的底层实现。
 
-*   That said, even though the aesthetic maps happen in two separate steps, I prefer the aesthetic mapping mindset to the imperative mindset (at least when it comes to plotting).
+*   也就是说，尽管图形映射需要两个独立的步骤，比起命令式的思维方式，我还是更喜欢图形映射（至少在画图时如此）。
 
-_**Data Aside**_
+**数据说明**
 
-(In Scenes 2-4, we’ll be dealing with the famous “iris” data set [though we refer to it as “df” in our code]. It consists of four numeric columns corresponding to various measurements, and a categorical column corresponding to one of three species of iris. Here’s a preview…)
+（在第二场到第四场，我们会处理著名的「鸢尾花」数据集（在代码中用 `df` 表示）。它包含了四个数字列，对应不同的测量，还有一个类别列，表明它是三种鸢尾花中的哪一种。下面是预览：
 
 
-|petalLength|petalWidth|sepalLength|sepalWidth|species|
+|花瓣长度|花瓣宽度|萼片长度|萼片宽度|品种|
 |---|---|---|---|---|
 |0|1.4|0.2|5.1|3.5|setosa|
 |1|1.4|0.2|4.9|3.0|setosa|
@@ -260,11 +258,11 @@ _**Data Aside**_
 |3|1.5|0.2|4.6|3.1|setosa|
 |4|1.4|0.2|5.0|3.6|setosa|
 
-#### _**Scene 2: How would you make a scatter plot?**_
+#### 第二场：如何画散点图？
 
 * * *
 
-_**MPL (*looking shaken*): **_I mean, you could do the for loop thing again. Of course. And that would be fine. Of course. See? _(*lowers voice to a whisper*) _Just remember to set the color argument explicitly or else the dots will all be blue…
+**MPL（看上去有点震惊）：** 我是说，你可以继续用 for 循环，当然了。这样也没什么问题。当然。懂了吗？（**压低声音小声说**）只要记得显式地设定好颜色变量，不然所有的点都是蓝的……
 
     # MATPLOTLIB
     fig, ax = plt.subplots(1, 1, figsize=(7.5, 7.5))
@@ -282,7 +280,7 @@ _**MPL (*looking shaken*): **_I mean, you could do the for loop thing again. Of
 
 ![](https://dansaber.files.wordpress.com/2016/09/b8zayrghoixaaaaaelftksuqmcc.png)
 
-_**MPL: **_But, uh, _(*feigning confidence*) _I have a **_better_** way! Look at this:
+**MPL: ** 可是，呃，（**假装充满自信**）我有个更好的主意！看这个：
 
     # MATPLOTLIB
     fig, ax = plt.subplots(1, 1, figsize=(7.5, 7.5))
@@ -302,17 +300,17 @@ _**MPL: **_But, uh, _(*feigning confidence*) _I have a **_better_** way! Loo
 
 ![](https://dansaber.files.wordpress.com/2016/09/a2clfjm5bkunaaaaaelftksuqmcc.png)
 
-_**MPL: **_Here, I define a function named “scatter.” It will take groups from a pandas groupby object and plot petal length on the x-axis and petal width on the y-axis. Once per group! Powerful!
+**MPL: ** 我在这定义了 `scatter` 函数。它用 pandas 的 groupby 对象得到分组，然后在 x 轴上画出花瓣长度，y 轴则是花瓣宽度。每组都如此处理一番！厉害吧！
 
-_**P: **_Wonderful, Mat! Wonderful! Essentially what I would have done, so I will sit this one out.
+**P: ** 真不错，Mat！真不错！基本上和我的方法差不多，所以我就坐这里不展示了。
 
-_**SB (*grinning*): **_No pivoting this time?
+**SB (咧嘴笑): ** 这次怎么没用轴向旋转？
 
-_**P: **_Well, in this case, pivoting is complex. We can’t have a common index like we could with our time series data set, and so —
+**P: ** 嗯，这个例子里要用轴向旋转的话比较复杂。因为不像处理时序数据一样有一个通用的索引，所以……
 
-_**MPL: **SHHHHH! WE DON’T HAVE TO EXPLAIN OURSELVES TO HER._
+**MPL: ** 嘘！我们没必要跟她解释。
 
-_**SB: **_Whatever. Anyway, in my mind, this problem is the same as the last one. Build another FacetGrid but borrow plt.scatter rather than plt.plot.
+**SB: ** 随便你了。不管怎样，在我看来这个问题和上一个没有什么区别。还是构建一个 FacetGrid，只是这次将 `plt.plot` 换成 `plt.scatter`。
 
     # SEABORN
     g = sns.FacetGrid(df, hue='species', size=7.5)
@@ -321,7 +319,7 @@ _**SB: **_Whatever. Anyway, in my mind, this problem is the same as the last on
 
 ![](https://dansaber.files.wordpress.com/2016/09/h8v9t5kv2yf2aaaaaelftksuqmcc.png)
 
-_**GG: **_Yes! Yes! Same! You just gotta swap out geom_line for geom_point!
+**GG: ** 对！对！就是这样！我的写法就是把 `geom_line` 换成 `geom_point`！
 
     # GGPLOT
     g = ggplot(df, aes(x='petalLength',
@@ -333,7 +331,7 @@ _**GG: **_Yes! Yes! Same! You just gotta swap out geom_line for geom_point!
 
 ![](https://dansaber.files.wordpress.com/2016/09/w9ikwkwfhhl2qaaaabjru5erkjggg.png)
 
-_**ALT (*looking bemused*): **_Yup — just swap our mark_line for mark_point.
+**ALT (一脸茫然): ** 是的，只要把 `mark_line` 换成 `mark_point`。
 
     # ALTAIR
     c = Chart(df).mark_point(filled=True).encode(
@@ -345,23 +343,23 @@ _**ALT (*looking bemused*): **_Yup — just swap our mark_line for mark_point.
 
 ![](https://dansaber.files.wordpress.com/2016/09/wo7xb6fowhjaaaaabjru5erkjggg.png)
 
-#### _**Analyzing Scene 2**_
+#### 第二场的分析
 
 * * *
 
-*   Here, the potential complications that emerge from building up the API from your data become clearer. While the pandas pivoting trick was extremely convenient for time series, it doesn’t translate so well to this case.
+*   到这儿，用数据构建 API 的潜在难题变得清晰了。尽管 pandas 的轴向旋转处理时序数据时非常方便，处理这个例子却力不从心了。
 
-*   To be fair, the “group by” method is somewhat generalizable, and the “for loop” method is very generalizable; however, they require more custom logic, and custom logic requires custom work: you would need to reinvent a wheel that Seaborn has kindly provided for you.
+*   公平地说，`group by` 方法是可以推导出来的，而 for 循环就更容易推出来了；但是这样一来就要有更多自定义的逻辑，也就意味着更多的工作：Seaborn 已经好心帮你做好了，你还得自己造轮子。
 
-*   Conversely, Seaborn, ggplot, and Altair all realize that scatter plots are in many ways line plots without the assumptions (however innocuous those assumptions may be). As such, our code from Scene 1 can largely be reused, but with a new geom (geom_point/mark_point in the case of ggplot/Altair) or a new method (plt.scatter in the case of Seaborn). At this junction, none of these options seems to emerge as particularly more convenient than the other, though I love Altair’s elegant simplicity.
+*   反过来说，Seaborn，ggplot 和 Altair 都明白散点图在很多方面就是没有假设的折线图（尽管这些假设可能是无害的）。因此，第一场中的代码大都可以重用，但是得用新的几何对象（ggplot 和 Altair 分别用的是 `geom_point` 和 `mark_point`）或者新的方法（比如 Seaborn 的 `plt.scatter`）。在这个节点上，没有哪个库比其他库更方便，尽管我爱 Altair 优雅的简洁。
 
-#### _**Scene 3: How would you facet your scatter plot?**_
+#### 第三场：如何画分面的散点图？
 
 * * *
 
-_**MPL: **_Well, uh, once you’ve mastered the for loop — as I have, obviously — this is a simple adjustment to my earlier example. Rather than build a single Axes using my subplots method, I build three. Next, I loop through as before, but in the same way I subset my data, I subset to the relevant Axes object.
+**MPL: ** 那么，嗯，一旦你掌握了 for 循环 —— 显然我就掌握了 —— 只需要简单调整一下之前的代码就行了。我用 `subplot` 方法画了三个轴，而不是一个。接下来就跟以前一样遍历一遍，用类似取数据子集的方法来取相关的 Axes 对象的子集。
 
-_(*confidence returning*) **AND I WOULD CHALLENGE ANY AMONG YOU TO COME UP WITH AN EASIER WAY!** (*raises arms, nearly hitting pandas in the process*)_
+（**重拾自信）我敢打赌你们各位没有更简单的方法！（举起双臂，差点打到了 pandas）**
 
     # MATPLOTLIB
     fig, ax = plt.subplots(1, 3, figsize=(15, 5))
@@ -377,15 +375,15 @@ _(*confidence returning*) **AND I WOULD CHALLENGE ANY AMONG YOU TO COME UP WITH 
 
     fig.tight_layout()
 
-![8B7NIet7ypMDYAAAAASUVORK5CYII=.png](http://ac-Myg6wSTV.clouddn.com/6e27e997f0dee6e3a558.png?w=680&h=216)
+![](https://dansaber.files.wordpress.com/2016/09/8b7niet7ypmdyaaaaasuvork5cyii.png)
 
-_***SB shares a look with ALT, who starts laughing; GG starts laughing to appear in on the joke***_
+**SB 和笑的起来 ALT 交换了目光；GG 仿佛听到笑话了笑了起来**
 
-_**MPL: **__What is it?!_
+**MPL: ** 怎么啦？！
 
-_**Altair: **_Check your x- and y-axes, man. All your plots have different limits.
+**Altair: ** 老兄，看看你的 x 轴和 y 轴。所有图像的坐标轴范围都不一样。
 
-_**MPL (*goes red*): **_Ah, yes, of course. _A TEST TO ENSURE YOU WERE PAYING ATTENTION. _You can, uh, ensure that all subplots share the same limits by specifying this in the subplots function.
+**MPL (脸红了): ** 呃，是，当然啊。我就是想看看你们有没有注意听我说话。你当然可以在 `subplot` 函数中指定坐标轴范围，保证所有的子图坐标轴范围是统一的。
 
     # MATPLOTLIB
     fig, ax = plt.subplots(1, 3, figsize=(15, 5),
@@ -404,19 +402,19 @@ _**MPL (*goes red*): **_Ah, yes, of course. _A TEST TO ENSURE YOU WERE PAYING 
 
     fig.tight_layout()
 
-![H8Ufmi6A3GMRwAAAABJRU5ErkJggg==.png](http://ac-Myg6wSTV.clouddn.com/d59d860a58d9d78c0a46.png?w=746&h=237)
+![](https://dansaber.files.wordpress.com/2016/09/h8ufmi6a3gmrwaaaabjru5erkjggg.png?w=768&h=244)
 
-_**P (*sighs*):**_ I would do the same. Pass.
+**P（叹气）：** 我也是这么做的。跳过我吧。
 
-_**SB: **_Adapting FacetGrid to this case is simple. In the same way we have a “hue” argument, we can simply add a “col” (i.e., column) argument. This tells FacetGrid to not only assign each species a unique color, but also to assign each species a unique subplot, arranged column-wise. (We could have arranged them row-wise by passing in a “row” argument rather than a “col” argument.)
+**SB: ** 改写 FacetGrid 然后用在这个例子上很简单。就像使用 `hue` 变量一样，我们可以简单加一个 `col` 变量（比如 colum）。这会告诉 FacetGrid 不仅给每个种类一个唯一的颜色，还把每个种类都画在唯一的子图上，按列排列。（只要将 `col` 变量换成 `row` 就可以按行排列。）
 
     # SEABORN
     g = sns.FacetGrid(df, col='species', hue='species', size=5)
     g.map(plt.scatter, 'petalLength', 'petalWidth')
 
-![c0vgAAAABJRU5ErkJggg==.png](http://ac-Myg6wSTV.clouddn.com/37f5ce1aab791e244f0f.png?w=683&h=216)
+![](https://dansaber.files.wordpress.com/2016/09/c0vgaaaabjru5erkjggg.png?w=768&h=243)
 
-_**GG:**_ Oooo — this is different from how I do it. _(*again picks up ggplot2 and starts sounding out words*) _See, faceting and aesthetic mapping are two fundamentally different steps, and we don’t want to in-ad-vert-ent-ly conflate the two. As such, we need to take our code from before but add a “facet_grid” layer that explicitly says to facet by species. _(*shuts book happily*) _At least, that’s what my big bro says! Have you heard of him, by the way? He’s so cool–4
+**GG:** 哦，这和我的做法不同（**再一次拿起《ggplot2》开始读**）。看，分面和图形映射本质上是两个不同的步骤，我们不应该一时疏忽把它们混为一谈。因此，我们接着用之前的代码这次加上 `facet_grid` 层，也就是显式地用类别进行分面。（开心地合上书）至少我大哥是这么说的！你们听到他了吗？在书里。他真酷啊<sup>4</sup>。
 
     # GGPLOT
     g = ggplot(df, aes(x='petalLength',
@@ -426,9 +424,9 @@ _**GG:**_ Oooo — this is different from how I do it. _(*again picks up ggplo
             geom_point(size=40.0)
     g
 
-![H4+VBxbH6TaPAAAAAElFTkSuQmCC.png](http://ac-Myg6wSTV.clouddn.com/1b9392ca6246162b3ac7.png?w=686&h=490)
+![](https://dansaber.files.wordpress.com/2016/09/h4vbxbh6tapaaaaaelftksuqmcc.png)
 
-_**ALT****:**_ I take a more Seaborn-esque approach here. Specifically, I just add a column argument to the encode function. That said, I’m doing a couple of new things here, too: (A) While the column parameter could accept a simple string argument, I actually use a Column object instead — this lets me set a title; (B) I use my configure_cell method, since without it, the subplots would have been way too big.
+**ALT****:** 我这里采用更具 Seaborn 风格的方法。具体地说，我给编码函数加了一个 `column` 参数。也就是说我也做了一些新工作：第一，虽然 `column` 参数可以接受一个简单的字符串变量，实际上我传给它的是 Column 对象，如此我可以自定义标题了。第二，我用了自定义的 `configure_cell` 方法，如果不用的话子图会变得特别巨大。
 
     # ALTAIR
     c = Chart(df).mark_point().encode(
@@ -440,13 +438,13 @@ _**ALT****:**_ I take a more Seaborn-esque approach here. Specifically, I just 
     )
     c.configure_cell(height=300, width=300)
 
-![yEjgqmzEhSyh83osSaCczMGRjTvkpm3f+PIE+sQskQAJpE2C9Szs+7B0JkEA8Aqx38VjSEgmYJUChwmzo2HESIAESIAESIAESIAESIAESIAESGH8EKFSMv5jSIxIgARIgARIgARIgARIgARIgARIwS4BChdnQseMkQAIkQAIkQAIkQAIkQAIkQAIkMP4IUKgYfzGlRyRAAiRAAiRAAiRAAiRAAiRAAiRglgCFCrOhY8dJgARIgARIgARIg.png](http://ac-Myg6wSTV.clouddn.com/3e8aa81a67c1526aab6e.png?w=709&h=267)
+![](https://dansaber.files.wordpress.com/2016/09/yejgqmzehsyh83ossacczmgrjtvkpm3fpiesqskqajpe2c9szs7b0jkea8aqx38vjsegmyjuchwmzo2hesiaesiaesiaesiaesiaesiaesgh8ekfsmv5jsixigarigarigarigarigarigariws4bchdnqsemkqaikqaikqaikqaikqaikqaikm.png)
 
-#### _**Analyzing Scene 3**_
+#### 第三场的分析
 
 * * *
 
-*   matplotlib made a really good point: in this case, his code to facet by species is nearly identical to what we saw above; assuming you can wrap your head around the previous for loops, you can wrap your head around this one. However, I didn’t ask him to do anything more complicated — say, a 2 x 3 grid. In that case, he might have had to do something like this:
+*   matplotlib 说得很清楚：这个例子中，他的代码根据分类对数据进行分面的思路和上面的其他方案是一样的；假如你的脑袋可以搞清楚那些 for 循环的话，你可以再试试下面这段代码。但是我可没有让他再搞出更复杂的东西出来，比如 2 x 3 的网格。不然他就得像下面这样干：
 
     # MATPLOTLIB
     fig, ax = plt.subplots(2, 3, figsize=(15, 10), sharex=True, sharey=True)
@@ -466,9 +464,9 @@ _**ALT****:**_ I take a more Seaborn-esque approach here. Specifically, I just 
 
     fig.tight_layout()
 
-![tl2cujb3xeuaaaaasuvork5cyii](http://ac-Myg6wSTV.clouddn.com/5006b4b671aa14684b86.png?w=720&h=475)
+![](https://dansaber.files.wordpress.com/2016/09/tl2cujb3xeuaaaaasuvork5cyii.png)
 
-*   To use the formal visualization expression: _Yeesh. _Meanwhile, in Altair, this would have been wonderfully simple:
+*   为了用正规的可视化表达式：**呸**。如果用 Altair 的话一切都变得非常简单。
 
     # ALTAIR
     c = Chart(df).mark_point().encode(
@@ -481,21 +479,21 @@ _**ALT****:**_ I take a more Seaborn-esque approach here. Specifically, I just 
     )
     c.configure_cell(height=200, width=200)
 
-![wfAgffg5zflCgAAAABJRU5ErkJggg==.png](http://ac-Myg6wSTV.clouddn.com/4b29de2cb49cddef43de.png?w=741&h=477)
+![](https://dansaber.files.wordpress.com/2016/09/wfagffg5zflcgaaaabjru5erkjggg.png)
 
-*   Just one more argument to the “encode” function than we had above!
+*   只比我们刚才用过的 `encode` 函数多一个变量！
 
-*   Hopefully, the advantages of having faceting built into your visualization library’s framework are clear.
+*   幸运的是，把分面构建到可视化库框架中的好处是显而易见的。
 
-### _ACT 2: DISTRIBUTIONS AND BARS_
-
-* * *
-
-#### _**Scene 4: How would you visualize distributions?**_
+### 第二幕：分布和条形图
 
 * * *
 
-_**MPL (*confidence visibly shaken*): **_Well, if we wanted a boxplot — do we want a boxplot? — I have a way of doing it. It’s stupid; you’d hate it. But I pass an array of arrays to my boxplot method, and this produces a boxplot for each subarray. You’ll need to manually label the x-ticks yourself.
+#### 第四场：怎么可视化分布？
+
+* * *
+
+**MPL （信心明显不足了）：** 好吧，如果我们要画箱线图——我们真的要箱线图吗？——我知道怎么画。不过非常愚蠢；你肯定不会喜欢。不过我给 `boxplot` 方法传入一个数组组成的数组，每个数组就都会得到一个箱线图。你可能需要手动标注 X 轴的刻度。
 
     # MATPLOTLIB
     fig, ax = plt.subplots(1, 1, figsize=(10, 10))
@@ -508,9 +506,9 @@ _**MPL (*confidence visibly shaken*): **_Well, if we wanted a boxplot — do we
            ylabel='Petal Width',
            title='Distribution of Petal Width by Species')
 
-![x40bNxAVFQVlZeXBnGbG2CDjjXMZYyNCRUUFEhMTcebMGbS1tUFFRQXGxsZ4++23MXv2bAB39mFTVFSEhYUF9u7dCyUlJcydOxcRERFQUVER+iosLERcXBwqKiqgrKwMc3NzhIWFyS1L1tXVITY2FidPnoSqqqqwb9orr7wCmUwGFxcXxMTEwMvLCwDQ2NiIrVu3oqioCD09PdDX10dQUJDc0mt2djZ27dqFCxcuQEFBAdOmTUNERMSAy6.png](http://ac-Myg6wSTV.clouddn.com/f44007a331235b077b66.png?w=601&h=613)
+![](https://dansaber.files.wordpress.com/2016/09/x40bnxavfqvlzexbngbg2cdjjxmzyyncruufehmtcebmgbs1tuffrqxgxsz423mxv2bab39mftvfsehyuf9u7dcyuljcydoxcrerfquverioslercxbwqkiqgrkwmc3nzhiwfys1l1txvity2fidpnosqqqqwb9orr7wcmuwgfxcxxmtewmvlcw.png)
 
-_**MPL:**_ And if we wanted a histogram — do we want a histogram? — I have a method for that, too, which you can produce using either the for loop or group by methods from before.
+**MPL:** 如果要画柱状图 —— 我们真的要画柱状图吗？ —— 我也有个方法可以用，你可以用之前提到的 for 循环或者 `group by`。
 
     # MATPLOTLIB
     fig, ax = plt.subplots(1, 1, figsize=(10, 10))
@@ -525,28 +523,27 @@ _**MPL:**_ And if we wanted a histogram — do we want a histogram? — I have 
 
     ax.legend(loc=1)
 
-![wCEF9ioDIHxkAAAAABJRU5ErkJggg==.png](http://ac-Myg6wSTV.clouddn.com/9d62e01fe82c5f9834a1.png?w=600&h=606)
+![](https://dansaber.files.wordpress.com/2016/09/wcef9iodihxkaaaaabjru5erkjggg.png)
 
-_**P (*looking uncharacteristically proud*):**_ Ha! Hahahaha! This is my moment! You all thought I was nothing but matplotlib’s patsy, and although I’ve so far been nothing but a wrapper around his plot method, I possess special functions for both boxplots _**and**_ histograms — these make visualizing distributions a snap. You only need two things: (A) The column name by which you’d like to stratify; and (B) The column name for which you’d like distributions. These go to the “by” and “column” parameters, respectively, resulting in instant plots!
+**P (看上去不同寻常的骄傲）：** 哈！哈哈哈哈！该我大显身手了！你们都觉得我一无是处，只是 `matplotlib` 的替罪羊。虽然我目前都只是套用他的 `plot` 方法，但我也拥有一些特殊的函数可以处理箱线图**和**柱状图。用它们来可视化分布简直就是小菜一碟！你只需要两件事：第一，用来分组的列名；第二，待分布统计的列名。分别把它们传给 `by` 和 `column` 参数，图马上就画好了！
 
     # PANDAS
     fig, ax = plt.subplots(1, 1, figsize=(10, 10))
 
     df.boxplot(column='petalWidth', by='species', ax=ax)
 
-![jEx9CiGEEEI0U9JRE0IIIYRopmTqUwghhBCimZIRNSGEEEKIZko6akIIIYQQzZR01IQQQgghminpqAkhhBBCNFPSURNCCCGEaKb+A0ZRIb+p2Q8lAAAAAElFTkSuQmCC.png](http://ac-Myg6wSTV.clouddn.com/023f8d50a61f922e6ef0.png?w=600&h=638)
+![](https://dansaber.files.wordpress.com/2016/09/jex9cigeeei0u9jre0iiiyropmtquwghhbcimzirnsgeeekizko6akiiiyqqzzr01iqqqgghminpqakhhbbcnfpsurncccgeakba0zribp2q8laaaaaelftksuqmcc.png)
 
     # PANDAS
     fig, ax = plt.subplots(1, 1, figsize=(10, 10))
 
     df.hist(column='petalWidth', by='species', grid=None, ax=ax)
 
-![+QEAAGABShsAAIAFKG0AAAAWoLQBAABYgNIGAABggf8HnE3tVwwY5+QAAAAASUVORK5CYII=.png](http://ac-Myg6wSTV.clouddn.com/0f4e3ad4e30057f72db0.png?w=599&h=579)
+![](https://dansaber.files.wordpress.com/2016/09/qeaagabshsaaiafkg0aaaawolqbaabygnigaabggf8hne3tvwwy5qaaaaasuvork5cyii.png)
 
-_***GG and ALT high five and congratulate P; shouts of “awesome!”, “way to be!”, “let’s go!” audible*
-**_
+**GG和ALT举手击掌然后祝贺P；高呼「棒极了！」，「就该这样！」，「就这么干！」**
 
-_**SB (*feigning enthusiasm*): **_Wooooow. Greeeeat. Meanwhile, in my world, distributions are exceedingly important, so I maintain special methods for them. For example, my boxplot method needs an x argument, a y argument, and data, resulting in this:
+**SB (假装很热情)：** 喔喔喔。很赞。同时呢，分布对我非常重要，所以我为它准备了一些特殊方法。比如，我的 `boxplot` 方法只需要 x 变量、y 变量和数据就可以得到这个：
 
     # SEABORN
     fig, ax = plt.subplots(1, 1, figsize=(10, 10))
@@ -554,9 +551,9 @@ _**SB (*feigning enthusiasm*): **_Wooooow. Greeeeat. Meanwhile, in my world, di
     g = sns.boxplot('species', 'petalWidth', data=df, ax=ax)
     g.set(title='Distribution of Petal Width by Species')
 
-![Lly8jODgYmZmZaGxsxPDhw+Hj4wOpVNpGs8cY68i4YGOMdQnPC7aTJ0+291AYY+yd8ZIoY4wxxlgHxwUbY4wxxlgHx0uijDHGGGMdHB9hY4wxxhjr4LhgY4wxxhjr4LhgY4wxxhjr4LhgY4wxxhjr4LhgY4wxxhjr4LhgY4wxxhjr4P4PZzfvgCmezQgAAAAASUVORK5CYII=.png](http://ac-Myg6wSTV.clouddn.com/167749e0351cabf7bbcd.png?w=600&h=612)
+![](https://dansaber.files.wordpress.com/2016/09/lly8jodgymzmzagxsxpdhwhj4wopvnpgs8cy68i4ygomdqnpc7atj0291ayyyd8zioy4wxxlghxwuby4wxxlghx0uijdhgggmdhb9hy4wxxhjr4lhgy4wxxhjr4lhgy4wxxhjr4lhgy4wxxhjr4lhgy4wxxhjr4lhgy4wxxhjr4p4pzzfvgcmez.png)
 
-_**SB:**_ Which, I mean, some people have told me is beautiful… but whatever. I _also _have a special distribution method named “distplot” that goes beyond histograms _(*looks at pandas haughtily*)_. You can use it for histograms, KDEs, and rugplots — even plotting them simultaneously. For example, by combining this method with FacetGrid, I can produce a histo-rugplot for every species of iris:
+**SB:** 这个图不错吧，我是说有人这么说过…… 不管了。我还有个特殊的分布方法叫 `distplot` 远不止条形图那么简单（傲慢的看了眼 pandas）。你可以用来画条形图，KDEs 和轴须图（rugplots） —— 甚至画在一起。比如把 `displot` 和 FacedGrid 结合起来，我就可以为每一种鸢尾花都画出直方轴须图：
 
     # SEABORN
     g = sns.FacetGrid(df, hue='species', size=7.5)
@@ -568,11 +565,11 @@ _**SB:**_ Which, I mean, some people have told me is beautiful… but whatever. 
           ylabel='Frequency',
           title='Distribution of Petal Width by Species')
 
-![h+KCYXmYLUFaQAAAABJRU5ErkJggg==.png](http://ac-Myg6wSTV.clouddn.com/024f23be00375fed0ffd.png?w=599&h=481)
+![](https://dansaber.files.wordpress.com/2016/09/hkcyxmylufaqaaaabjru5erkjggg.png)
 
-_**SB: **_But again… whatever.
+**SB: ** 不过…… 管他呢。
 
-_**GG:**_ THESE ARE BOTH JUST NEW GEOMS! GEOM_BOXPLOT FOR BOXPLOTS AND GEOM_HISTOGRAM FOR HISTOGRAMS! JUST SWAP THEM IN! _(*starts running around the dinner table*)_
+**GG:** 这些只不过是新的几何对象！`GEOM_BOXPLOT` 来画箱线图，`GEOM_HISTOGRAM` 来画直方图！换用它俩就行了！（**绕着餐桌跑了起来**）
 
     # GGPLOT
     g = ggplot(df, aes(x='species',
@@ -582,7 +579,7 @@ _**GG:**_ THESE ARE BOTH JUST NEW GEOMS! GEOM_BOXPLOT FOR BOXPLOTS AND GEOM_HIS
             ggtitle('Distribution of Petal Width by Species')
     g
 
-![XBBx+opqZGZrNZs2bN0vDhwzVixAgtXbpUTqdTu3bt0vLlyyXdPDOfnZ2thIQElZSUaO7cuXK5XDKbzf4vDQAAYyCkA0CAFRYWasGCBdq+fXugSwEAGATDXQAAAACD4Uw6AAAAYDCcSQcAAAAMhpAOAAAAGAwhHQAAADAYQjoAAABgMIR0AAAAwGD+Da+9x30+mxfUAAAAAElFTkSuQmCC.png](http://ac-Myg6wSTV.clouddn.com/45c96b93b34e71c9672b.png?w=601&h=437)
+![](https://dansaber.files.wordpress.com/2016/09/xbbxopqzgzrnzs2bn0vdhwzvixagtxbputqdtu3bt0vllyyxdpdofnz2thiqelzsuao7cuxk5xdkbzf4vdqaayycka0cafrywasgcbdqfxugsweagatdxqaaaacd4uw6aaaaydccsqcaaaamhpaoaaaagawhhqaaadayqjoaaabgmir0aaaawgd.png)
 
     # GGPLOT
     g = ggplot(df, aes(x='petalWidth',
@@ -592,13 +589,13 @@ _**GG:**_ THESE ARE BOTH JUST NEW GEOMS! GEOM_BOXPLOT FOR BOXPLOTS AND GEOM_HIS
             ggtitle('Distribution of Petal Width by Species')
     g
 
-![j1B6tsGHMsAAAAABJRU5ErkJggg==.png](http://ac-Myg6wSTV.clouddn.com/8c4008b502e7f9a79584.png?w=601&h=438)
+![](https://dansaber.files.wordpress.com/2016/09/j1b6tsghmsaaaaabjru5erkjggg.png)
 
-_**ALT (*looking steely-eyed and confident*): **_I… I have a confession…
+**ALT （看上去坚定又自信）：** 我要忏悔……
 
-_***silence falls — GG stops running and lets plate fall to the floor***_
+**四周安静了下来 —— GG停了下来，把盘子撞到了地上。**
 
-_**ALT: **__(*breathing deeply*)_ I… I… I can’t do boxplots. Never really learned how, but I trust the JavaScript grammar out of which I grew has a good reason for this. I can make a mean histogram, though…
+**ALT：（沉重地喘气）** 我……我……我不会画箱线图。从来没学过怎么画，不过我相信曾用过的 JavaScript 的语法不支持箱线图肯定是有原因的。不过我会画直方图……
 
     # ALTAIR
     c = Chart(df).mark_bar(opacity=.75).encode(
@@ -608,29 +605,29 @@ _**ALT: **__(*breathing deeply*)_ I… I… I can’t do boxplots. Never real
     )
     c
 
-#### ![cWkEozQAAAABJRU5ErkJggg==.png](http://ac-Myg6wSTV.clouddn.com/0c817f7d5e40304852d0.png?w=602&h=394)
+![](https://dansaber.files.wordpress.com/2016/09/cwkeozqaaaabjru5erkjggg.png)
 
-_**ALT: **_The code may look weird at first glance, but don’t be alarmed. All we’re saying here is: “Hey, histograms are effectively bar charts.” Their x-axes correspond to bins, which we can define with my Bin class; meanwhile, their y-axes correspond to the number of items in the data set which fall into those bins, which we can explain using a SQL-esque “count(*)” as our argument for y.
+**ALT: ** 乍一看代码会觉得有点怪，但是不要担心。这里实际是在说：「嘿，直方图事实上就是条形图」。X 轴对应着 `bin`，我们可以用 `Bin` 类来定义；同时 y 轴对应数据集中落到对应 Bin 的数据的数量。用 SQL 语言来说 y 就是 `count(*)`。
 
-#### _**Analyzing Scene 4**_
+#### 第四场的分析
 
 * * *
 
-*   In my work, I actually find pandas’ convenience functions very convenient; however, I’ll admit that there’s some cognitive overhead in remembering that pandas has implemented a “by” parameter for boxplots and histograms but not for lines.
+*   在工作中，我的确发现 pandas 的便利函数很方便，但是我得承认，脑子里总要惦记着 pandas 给箱线图和直方图提供了 `by` 参数，折线图却没有这件事。
 
-*   I separate Act 1 from Act 2 for a few reasons, and a big one is this: Act 2 is when using matplotlib gets particularly hairy. Remembering a totally separate interface when you want a boxplot, for example, doesn’t work for me.
+*   我把第一场和第二场分开是有原因的，其中最重要的原因是：从第二场开始 matplotlib 变得比较吓人。比如说要画箱线图还得记着用一个完全独立的界面，这根本不适合我。
 
-*   Speaking of Act 1 v. Act 2, a fun story: I actually came to Seaborn from matplotlib/pandas for its rich set of “proprietary” visualization functions (e.g., distplot, violin plots, regression plots, etc.). While I later learned to love FacetGrid, I maintain that it’s these Act 2 functions which are Seaborn’s killer app. They’ll keep me a Seaborn fan as long as I plot.
+*   说起第一场和第二场，有一个有趣的小细节：其实我一开始是因为 Seaborn 有丰富的「专利级」可视化函数（比如，distplot，小提琴图，回归图等等）而从 matplotlib/pandas 转移阵营的。但我后来喜欢上了 FacetGrid，我必须说这些第二场中的函数是 Seaborn 的杀手级应用。只要我还在画图我就离不开它们。
 
-*   (Moreover, I need to note: Seaborn implements a number of awesome visualizations that lesser libraries ignore; if you’re in the market for one of these, then Seaborn is your only option.)
+*  （此外，我需要说明：Seaborn 提供了许多被小型库所忽略的优秀可视化函数；如果你碰巧需要一二，那么 Seaborn 是你唯一的选择。）
 
-*   These examples are really when you begin to grok the power of ggplot’s geom system. Using mostly the same code (and more importantly, mostly the same thought process), we create a wildly different graph. We do this not by calling an entirely separate function, but by changing how our aesthetic mappings get presented to the viewer, i.e., by swapping out one geom for another.
+*   这些例子真的可以让你领会到 ggplot 图形对象系统的力量。用基本相同的代码（更重要的是连思路都基本相同），就可以画出截然不同的图来。还不用调用不同的函数，只是改变图形映射呈现给视图的方式就行了，比如换一下几何对象。
 
-*   Similarly, even in the world of Act 2, Altair’s API remains remarkably consistent. Even for what feels like a different operation, Altair’s API is simple, elegant, and expressive.
+*   类似的，哪怕在第二场，Altair 的 API 也有非同寻常的一致性。哪怕对于那些看上去非常另类的操作，Altair 的 API 也非常简单、优雅，令人印象深刻。
 
-_**Data Aside**_
+**数据说明**
 
-(In the final scene, we’ll be dealing with “titanic,” another famous tidy dataset [although again, we refer to it as “df” in our code]. Here’s a preview…)
+（在最后一幕，我们会处理「泰坦尼克」，另一个著名的整洁数据集（代码中仍然用 `df` 来表示）。下面是预览……）
 
 |survived|pclass|sex|age|fare|class|
 |---|---|---|---|---|---|
@@ -641,7 +638,7 @@ _**Data Aside**_
 |4|0|3|male|35.0|8.0500|Third|
 
 
-In this example, we’ll be interested in looking at the average fare paid by class and by whether or not somebody survived. Obviously, you could do this in pandas…
+这个例子中，我们感兴趣的是看看每个客舱等级的平均费用以及客舱等级是否逃生率相关。显然，在 pandas 中我们可以这样写：
 
     dfg = df.groupby(['survived', 'pclass']).agg({'fare': 'mean'})
     dfg
@@ -694,13 +691,13 @@ In this example, we’ll be interested in looking at the average fare paid by cl
 </table>
 
 
-…but what fun is that? This is a post on visualization, so let’s do it in the form of a bar chart!)
+…… 不过这有什么意思呢？我写的可是数据可视化文章，所以用条形图再试一次！
 
-#### _**Scene 5: How would you create a bar chart?**_
+#### 第五场：如何画条形图？
 
 * * *
 
-_**MPL (*looking grim*): **_No comment.
+**MPL (表情严肃): ** 一句话也没说。
 
     # MATPLOTLIB
 
@@ -742,11 +739,11 @@ _**MPL (*looking grim*): **_No comment.
 
     plt.show()
 
-![RdV0bwj0Y4I8gAAAABJRU5ErkJggg==-1.png](http://ac-Myg6wSTV.clouddn.com/e4bdae155d48582b4d0b.png?w=702&h=409)
+![](https://dansaber.files.wordpress.com/2016/09/rdv0bwj0y4i8gaaaabjru5erkjggg-1.png)
 
-_***everyone else shakes their head***_
+**其他人都开始摇头**
 
-_**P: **_I need to do some data manipulation first — namely, a group by and a pivot — but once I do, I have a really cool bar chart method — much simpler than that mess above! Wow, I’m feeling so much more confident — who knew all I had to was put someone else down!?5
+**P: ** 我得先对数据进行一些处理 —— 也就是 `group by` 和 `pivot` —— 处理完就可以用非常帅气的条形图方法了，比上面这些简单得多！哇，我现在自信多了，我把其他人都比下去了！<sup>5</sup>
 
     # PANDAS
     fig, ax = plt.subplots(1, 1, figsize=(12.5, 7))
@@ -761,9 +758,9 @@ _**P: **_I need to do some data manipulation first — namely, a group by and a
            ylabel='Fare',
            title='Fare by survival and class')
 
-![dcMfkmSJCnCvOGXJEmSIszglyRJkiLM4JckSZIizOCXJEmSIszglyRJkiLM4JckSZIizOCXJEmSIszglyRJkiLM4JckSZIi7AchzHRnH06z1gAAAABJRU5ErkJggg==.png](https://dansaber.files.wordpress.com/2016/09/dcmfkmsjcncvogxjemsiszglyrjkilm4jcksziizocxjemsiszglyrjkilm4jcksziizocxjemsiszglyrjkilm4jckszii7achzhrnh06z1gaaaabjru5erkjggg.png?w=740&h=445)
+![](https://dansaber.files.wordpress.com/2016/09/dcmfkmsjcncvogxjemsiszglyrjkilm4jcksziizocxjemsiszglyrjkilm4jcksziizocxjemsiszglyrjkilm4jckszii7achzhrnh06z1gaaaabjru5erkjggg.png)
 
-_**SB:**_ Again, I happen to think tasks such as this are extremely important. As such, I implement a special function named “factorplot” to help out:
+**SB:** 我恰好又认为这类工作非常重要。鉴于此，我使用了特殊的 `factorplot` 函数来帮助我：
 
     # SEABORN
     g = sns.factorplot(x='class', y='fare', hue='survived',
@@ -772,49 +769,49 @@ _**SB:**_ Again, I happen to think tasks such as this are extremely important. A
                        size=7.5, aspect=1.5)
     g.ax.set_title('Fare by survival and class')
 
-![fj0nTpzAxcWF0NBQ4uLiMBqN1rwMIiLSSClciYiIiIiIWIDmXImIiIiIiFiAwpWIiIiIiIgFKFyJiIiIiIhYgMKViIiIiIiIBShciYiIiIiIWIDClYiIiIiIiAUoXImIiIiIiFiAwpWIiIiIiIgFKFyJiIiIiIhYwP8DgbfcaznOtkIAAAAASUVORK5CYII=.png](http://ac-Myg6wSTV.clouddn.com/2dddb85ec261ed56c721.png?w=775&h=478)
+![](https://dansaber.files.wordpress.com/2016/09/fj0ntpzaxcwf0nbq4ulimbqn1rwmiilssclciyiiiiiiwidmximiiiiiifiawpwiiiiiiigfkfyjiiiiiihygmkviiiiiiiibshciyiiiiiiwidclyiiiiiiiauoximiiiiiifiawpwiiiiiiigfkfyjiiiiiihywp8dgbfcaznotkiaaaaasuvork.png)
 
-_**SB: **_As ever, you pass in your _un_-manipulated data frame. Next, you explain what you would like to group by — in this case, it’s “class” and “survived,” so these become our “x” and “hue” arguments. Next, you explain what numeric field you would like summaries for — in this case, it’s “fare,” so this becomes our “y” argument. The default summary statistic is mean, but factorplot possesses a parameter named “estimator,” where you can specify any function you want, e.g., sum, standard deviation, median, etc. The function you choose will determine the height of each bar.
+**SB: ** 跟之前一样，先将未处理过的数据传给数据框，再搞明白自己要按照什么进行分组，这里就是 `class` 和 `survived`，它们对应 `x` 和 `hue` 变量。然后搞明白要对哪个数据列进行摘要统计，这里就是 `fare`，对应到 `y` 变量。默认的摘要统计方法是求平均数，不过 `factorplot` 提供了 `estimator` 参数，可以通过它指定想要的函数，比如求和，标准差，中位数等等。而选择的函数会决定每个柱的高度。
 
-Of course, there are many ways to visualize this information, only _one _of which is a bar. As such, I also have a “kind” parameter where you can specify different visualizations.
+当然，有很多方法可以可视化这个信息，条形图只有一种。同样我还提供了 `kind` 参数用来指定不同的可视化方法。
 
-Finally, _some _of us still care about statistical certainty, so by default, I bootstrap you some error bars so you can see if the differences in average fair between classes and survivorship are meaningful.
+最后，**还有人**比较在意统计确定性，所以我会默认给你加上误差线，这样可以看出不同等级舱位的平均费用和生存率是否有关系。
 
-_(*under her breath*) _Would like to see any of you top that…
+（**压低声音说**）希望你们做得比我还好
 
-_***ggplot2 pulls up in his Lamborghini and walks through the door***_
+**ggplot2 停下兰博基尼，走了进来**
 
-_**ggplo2: **_Hey, have y’all see–
+**ggplo2: ** 嘿，你们看到 ——
 
-_**GG: **_HEY BRO.
+**GG: ** 嘿，大哥。
 
-_**GG2: **_Hey, little man. We gotta go.
+**GG2: ** 嘿，小家伙。我们得走了。
 
-_**GG: **_Wait, one sec — I gotta make this bar plot real quick, but I’m having a hard time. How would you do it?
+**GG: ** 等一下，我得马上把这个条形图画好，不过遇到麻烦了。你会怎么做呢？
 
-_**GG2 (*reading instructions*)**_: Ah, like this:
+**GG2 (阅读手册)**_: 哦，就像这样：
 
-# GGPLOT2
+    # GGPLOT2
 
-# in R, I believe you'd do something like this:
+    # R 语言中你得这样写
 
-ggplot(df, aes(x=factor(survived), y=fare)) +
-    stat_summary_bin(aes(fill=factor(survived)),
-                     fun.y=mean) +
-    facet_wrap(~class)
+    ggplot(df, aes(x=factor(survived), y=fare)) +
+        stat_summary_bin(aes(fill=factor(survived)),
+                         fun.y=mean) +
+        facet_wrap(~class)
 
-# damn ggplot2 is awesome...
+    # 天啊，ggplot2 可真棒
 
 
-![4_R_example.png](http://ac-Myg6wSTV.clouddn.com/3b61c71f7acd7e1bef5f.png?w=600&h=498)
+![](https://dansaber.files.wordpress.com/2016/09/4_r_example.png)
 
-_**GG2: **_See? You define your aesthetic mappings like we always talk about, but you need to turn your “y” mapping into average fare. To do so, I get my pal “stat_summary_bin” to do that for me by passing in “mean” to his “fun.y” parameter.
+**GG2: ** 看懂了吗？你要像我之前说的一样定义好图形映射，不过得把 `y` 映射到平均费用上。这就得叫我的好兄弟 `stat_summary_bin` 帮忙了，我只要把 `mean` 传给 `fun.y` 参数就行了。
 
-_**GG (*eyes wide in amazement*):**_ Oh, whoa… I don’t think I have stat_summary yet. I guess — pandas, could you help me out?
+**GG （惊讶地睁大眼睛）：** 哦，呃…… 我发现我还没有 `stat_summary_bin` 呢。我想想 —— pandas 你能帮帮我吗？
 
-_**P: **_Uh, sure.
+**P: ** 呃，当然可以。
 
-_**GG: **_Weeeee!
+**GG: ** 好诶！
 
     # GGPLOT
     g = ggplot(df.groupby(['class', 'survived']).\
@@ -829,17 +826,17 @@ _**GG: **_Weeeee!
             ggtitle('Fare by survival and class')
     g
 
-![fstddeue+++zJp0qT06NEj55xzTl544YV06dIlQ4YMycUXX5xXXnnlTa+vrq4u96cMwFZADAAAQEF5zQAAABSUGAAAgIISAwAAUFBiAAAACkoMAABAQYkBAAAoKDEAAAAF9f8DsDFayigfyTUAAAAASUVORK5CYII=.png](http://ac-Myg6wSTV.clouddn.com/2c1b6410fa7f42c47314.png?w=729&h=512)
+![](https://dansaber.files.wordpress.com/2016/09/fstddeuezjp0qt06nej55xztl544yv06dilq4ymycuxx5xxxnnltavrq4u96cmwfzadaaaqef5zqaaabsugaaagiisawaaufbiaaaackomaabaqykbaaaokdeaaaaf9f8dsdfayigfytuaaaaasuvork5cyii.png)
 
-_**GG2: **_Huh, not exactly grammar of graphics-approved, but I guess so long as Hadley doesn’t find out it seems to work fine… In particular, you shouldn’t have to summarize your data in advance of your visualization. I’m also confused by what “weight” means in this context…
+**GG2: ** 噢，不完全是图形式语法，不过我觉得只要 Hadley 还没有发现，这样也能用…… 特别是你不应该在可视化之前就对数据进行汇总。我也不是特别懂这个上下文中 `weight` 是什么意思……
 
-_**GG: **_Well, by default, my bar geom seems to default to simple counts, so without a “weight,” all the bars would have had a height of one.
+**GG: ** 是这样，我的条形图形对象默认会使用简单计数，所以如果没有 `weight` 的话所有柱子的高度都是 `1`。
 
-_**GG2: **_Ah, I see… Let’s talk about that later later.
+**GG2: ** 噢，我懂了…… 我们以后再讨论吧。
 
-_***GG and GG2 say their goodbyes and leave the dinner party***_
+**GG 和 GG2 道别并离开了晚宴**
 
-_**ALT: **_Ah, now _this_ is my bread-and-butter. It’s really simple.
+**ALT: ** 噢，现在**这**可是我的安身立命之道。非常简单。
 
 
 
@@ -865,89 +862,89 @@ _**ALT: **_Ah, now _this_ is my bread-and-butter. It’s really simple.
 
 
 
-![ZsQMD0drVwAAAABJRU5ErkJggg==.png](http://ac-Myg6wSTV.clouddn.com/f03546524c44e648bde1.png?w=501&h=648)
+![](https://dansaber.files.wordpress.com/2016/09/zsqmd0drvwaaaabjru5erkjggg.png?w=501&h=648)
 
-_**ALT:**_ I’m hoping all the arguments are intuitive by this point: I want to plot mean fare by survivorship — faceted by class. This directly translates into “survived” as the x argument; “mean(fare)” as the y argument; and “class” as the column argument. (I specify the color argument for some pizazz.)
+**ALT:** 我希望下面的解释可以让所有的变量都非常直观：我想按幸存数来画平均船费，按舱位等级进行分面。写在代码里就是 `survived` 是 x 变量，`mean(fare)` 是 y 变量，而 `class` 是 column 变量。（我还指定了 color 变量这样画面可以热闹点。）
 
-That said, a couple of new things are happening here. Notice how I append “:N” to the “survived” string in the x and color arguments. This is a note to myself which says, “This is a nominal variable.” I need to put this here because survived _looks _like a quantitative variable, and a quantitative variable would lead to a slightly uglier visualization of this plot. Don’t be alarmed: this has been happening the whole time — just implicitly. For example, in the time series plots above, if I hadn’t known “dt” was a temporal variable I would have assumed they were nominal variables, which… would have been awkward (at least until I appended “:T” to clear things up.
+但是，这里也有一些新东西值得注意。注意，我在 x 和 color 中的 `survivde` 字符串后面加了 `:N`。这是我给自己加的注释，意思就是「这是个名义上的变量。」我需要加这个注释是因为 `survived` 看上去像个数量（数量还是定量？）变量，而数量变量有可能让绘的图变得有点丑。也不要太担心啦，这问题也不是每次都能碰到，只有个别情况下会有影响。比如，在上面的时间序列图中，如果我不知道 `dt` 是时间变量，我可能会假设它们只是数量变量，这样子就尴尬了（还好我在后面加上了 `:T`，这样就好了）。
 
-Separately, I invoke my configure_facet_cell protocol to make my three subplots look more unified.
+另外我还用了 `configure_facet_cell` 协议让三个子图看上去更加统一。
 
-#### _** Analyzing Scene 5**_
-
-* * *
-
-*   Don’t overthink this one: I’m never making a bar chart in matplotlib again, and to be clear, it’s nothing personal! The fact is: unlike the other libraries, matplotlib doesn’t have the luxury of making any assumptions about the data it receives. Occasionally, this means you’ll have pedantically imperative code.
-
-*   (Of course, it’s this same data agnosticism that allows matplotlib to be the foundation upon which Python visualization is built.)
-
-*   Conversely, whenever I need summary statistics and error bars, I will always and forever turn to Seaborn.
-
-*   (It’s potentially unfair I chose an example that seems tailor-made to one of Seaborn’s functions, but it comes up a lot in my work, and hey, I’m writing the blog post here.)
-
-*   I don’t find either the pandas approach or the ggplot approach particularly offensive.
-
-*   However, in the pandas case, knowing you must group by _and _pivot — all in service of a simple bar chart — seems a bit silly.
-
-*   Similarly, I do think this is the main hole I’ve found in yhat’s ggplot — having a “stat_summary” equivalent would go a long way toward making this thing wonderfully full-featured.
-
-*   Meanwhile, Altair continues to impress! I was struck by how intuitive the code was for this example. Even if you’d never seen Altair before, I imagine someone could intuit what was happening. It’s _this_ type of 1:1:1 mapping between thinking, code, and visualization that is my favorite thing about the library.
-
-### _Final Thoughts_
+#### 第五场的分析
 
 * * *
 
-You know, sometimes I think it’s important to just be grateful: we have a ton of great visualization options, and I enjoyed digging into all of them!
+*   这条不要想太多：我再也不用 matplotlib 画条形图了，明确地说，这不是我的个人观点！事实上 matplotlib 不会像其他的库那样对传入的数据进行推测。这有时候就意味着你得写严格的命令式代码。
 
-(Yes, this is a cop-out.)
+*  （当然，正是这种数据不可知论让 matplotlib 成了其他 Python 可视化库的基础。）
 
-Although I was a bit hard on matplotlib, it was all in good fun (every play needs comedic relief). Not only is matplotlib the foundation upon which pandas plotting, Seaborn, and ggplot are built, but the fine-grained control he gives you is essential. I didn’t touch on this, but in almost every non-Altair example, I used matplotlib to customize our final graph. But — and this is a big “but” — matplotlib is purely imperative, and specifying your visualization in exacting detail can get tedious (see: bar chart).
+*   反过来说，只要我需要汇总统计和误差线，我总是会用 Seaborn。
 
-Indeed, the upshot here is probably: “Judging matplotlib on the basis of its statistical visualization capabilities is kind of unfair, you big meanie. You’re comparing _one _of its use cases to the other libraries’ _primary _use case. These approaches obviously need to work _together_. You can use your preferred convenience/declarative layer — pandas, Seaborn, ggplot, or one day Altair (see below) — for the basics. Then you can use matplotlib for the non-basics. When you run up against the limitations of what these other libraries can do, you’ll be happy to have the limitless power of matplotlib at your side, you ungrateful aesthetic amateur.”
+*  （这样比较可能有失公允，毕竟我选的例子仿佛是为 Seaborn 的一个函数量身定制的，不过我的工作中这种事遇到的太多了，而且，嘿，这篇文章可是我写的。）
 
-To which I’d say: yes! That seems quite sensible, Disembodied Voice… although just _saying _that wouldn’t make for much of a blog post.
+*   我不觉得 pandas 或 ggplot 的方式有什么特别的优势。
 
-Plus… I could do without the name-calling
+*   不过，就 pandas 而言，哪怕是简单的条形图也必须得记得用 `group by` 和 `pivot` 看上去有点傻。
 
-Meanwhile, pivoting plus pandas works wonders for time series plots. Given how good pandas’ time series support is more broadly, this is something I’ll continue to leverage. Moreover, the next time I need a [RadViz](http://pandas.pydata.org/pandas-docs/stable/visualization.html#radviz) plot, I’ll know where to go. That said, while pandas _does _improve upon matplotlib’s imperative paradigm by giving you basic declarative syntax (see: bar chart), it’s still fundamentally matplotlib-ish.
+*   同样，我的确认为这是 yhat 开发的 ggplot 的一个重大缺陷，要找一个 `stat_summary` 的替代品从而让 ggplot 变得功能完善全面还有很长的路要走。
 
-Moving on: if you want to do anything more stats-y, use Seaborn (she really did pick up a ton of cool things when she went abroad). Learn her API — factorplot, regplot, displot, et al — and love it. It will be worth the time. As for faceting, I find FacetGrid to be a very useful partner in crime; however, if I hadn’t worked with Seaborn for so long, it’s possible I would prefer the ggplot or Altair versions.
+*   同时，Altair 依然让我印象深刻！我被解决这个例子的代码的直观性震惊了。哪怕你从来没有见过 Altair，我也能想象有人是可以看懂的。正是它**这种**思考，代码和可视化的一一对应让它成了我最爱的库。
 
-Speaking of declarative elegance, I’ve long loved ggplot2, and for the most part came away impressed by how well Python’s ggplot managed to hang in example-for-example. This is a project I will definitely continue to monitor. (More selfishly, I hope it prevents my R-centric coworkers from making fun of me.)
-
-Finally, if the thing you want to do is implemented in Altair (sorry, boxplot jockeys), it boasts an amazingly simple and pleasant API. Use it! If you need additional motivation, consider the following: one exciting thing about Altair — other than forthcoming improvements to its underlying Vega-Lite grammar — is that it technically isn’t a visualization library. It emits Vega-Lite approved JSON blobs, which — in notebooks — get lovingly rendered by IPython Vega.
-
-Why is this exciting? Well, under the hood, all of our visualizations looked like this:
-
-![Screen Shot 2016-09-24 at 8.17.38 AM.png](http://ac-Myg6wSTV.clouddn.com/2e334d17831e118a0e52.png?w=685&h=254)
-
-Granted, that doesn’t_ look_ exciting, but think about the implication: if other libraries were interested, they could _also _develop ways to turn these Vega-Lite JSON blobs into visualizations. That would mean you could do the basics in Altair and then drop down to matplotlib for more control.
-
-I am already salivating about the possibilities.
-
-All of that said, some parting words: visualization in Python is larger than any single man, woman, or Loch Ness Monster. Thus, you should take everything I said above — code and opinions alike — with a grain of salt. Remember: everything on the internet amounts to lies, damned lies, and statistics.
-
-I hope you enjoyed this far nerdier version of Mad Hatter’s Tea Party, and that you learned some things you can take to your own work.
-
-As always, [code is available](https://github.com/dsaber/py-viz-blog).
-
-#### _**Notes**_
+### 最后的感想
 
 * * *
 
-First, a huge thank you to redditor /u/counters, who provided extremely valuable feedback/perspective in the form of [this comment](https://www.reddit.com/r/Python/comments/55k4ru/a_dramatic_tour_through_pythons_data/d8bawp4). I incorporated some of it into the “Final Thoughts” section; however, my rambling is far less articulate. Which is to say: read the comment; it’s good.
+你知道有时我觉得心怀感激非常重要：我们有非常多的可视化库可以选择，我痴迷于深入探索这一切！
 
-Second, a huge thank you to [Thomas Caswell](https://plus.google.com/+ThomasCaswell), who left a phenomenal comment below about matplotlib’s features that you should absolutely read. Doing so will lead to matplotlib code that is _far_ more elegant than my meager offering above.
+（是啊，这只是种逃避。）
 
-1Strictly speaking, this story isn’t true. I’ve almost always used Seaborn if I could, dropping down to matplotlib when I needed the customizability. That said, I find this premise to be a more compelling set-up, plus we’re living in a post-truth society anyway.
+尽管我在 matplotlib 上遇到了点困难，它还是非常好玩的（每一部剧都要有搞笑的部分）。不仅仅是因为 matplotlib 是 pandas，Seaborn 和 ggplot 这些库的底层基础，而且是因为它给予你非常细粒度的控制权。虽然我没有说，但是我用 matplotlib 调整了所有非 Altair 所绘的图。但是，注意听，matplotlib 是纯声明式的，非常细节地指定可视化图像的方方面面简直是无趣的（看看条形图的例子吧）。
 
-2Right off the bat, you’re mad at me, so allow me to explain: I love bokeh and plotly. Indeed, one of my favorite things to do before sending out an analysis is getting “free interactivity” by passing my figures to the relevant bokeh/plotly functions; however, I’m not familiar enough with either to do anything more sophisticated. (And let’s be honest — this post is long enough.)
+的确，还有这种结果：「用统计可视化能力来评价 matplotlib 是不公平的，你这个刻薄的家伙。你在用它的一种使用案例来和其他库的主要使用案例进行比较。这些方法显然应该一起使用。你可以使用自己喜欢的方便的/陈述式表达层—— pandas，Seaborn，ggplot 或者将来的 Altair（下文会详述）—— 来做基础工作。然后用 matplotlib 完成那些非基础工作。如果你穷尽了其他库所能提供的一切也找不到想要的东西，你会很高兴可以看到能力无限的 matplotlib 就在你身边，你这个不知感恩的业余绘图的。」
 
-Obviously, if you’re in the market for interactive visualizations (versus statistical visualizations), then you should probably look to them.
+对于这些人我得说：是的！这很有道理，却脱离现实……，尽管只是**说**这些并不会撑起博文的大部分内容。
 
-3_Please_ note: this is all in good fun. I am rendering **_no_**judgments on any library with my amateur anthropomorphism. I’m sure matplotlib is very charming in real life.
+再说，要是我就不会骂人。
 
-4To be frank, I’m not _totally _sure if faceting is handled separately for ideological purity or if it’s simply a practical concern. While my ggplot character claims it’s the former (his understanding is based on a hasty reading of [this paper](http://vita.had.co.nz/papers/layered-grammar.pdf)), it may be that ggplot2 has such rich faceting support that — practically speaking — it needs to happen as a separate step. If my characterization offends any grammar of graphics disciples, please let me know and I’ll find a new bit.
+同时，轴向旋转（pivoting）结合 pandas 处理时间序列图像非常好用。考虑到 pandas 的时间序列支持更加广泛，我还会接着用。此外，下一次如果要画 [RadViz](http://pandas.pydata.org/pandas-docs/stable/visualization.html#radviz) 图，我就知道该怎么做了。也就是说，尽管 pandas 的确在 matplotlib 的命令式范式的基础上提供了声明式语法（比如条形图），它仍然极具 matplotlib 风格。
 
-5Absolutely _**not**_ the moral of this story
+接着说：如果你想要一些更偏向统计的东西，用 Seaborn 吧（她的确在国外学到了很多很酷的东西）。学习她的 API —— factorplot, regplot, displot 等等等等 —— 然后爱上她。这时间花得值。至于 faceting，我觉得 FacetGrid 是个很有用的共犯（wtf！）；但是要不是我使用 Seaborn 已久，我可能更喜欢 ggplot 或 Altair。
+
+说到声明式的优雅，我一直深爱着 ggplot2 ，而且对 Python 的 ggplot 留下了深刻印象。我肯定会持续关注这个项目。（更自私地说，我希望它可以阻止那些使用 R 语言同事取笑我。）
+
+最后，如果你要做的事可以用 Altair 实现（抱歉了，箱线图骑师），它有惊人的简单又好用的 API。用它吧！如果还需要其他动力，想想这些：Altair 一个令人激动的特性是（除了即将到来的针对其底层 Vega-Lite 语法的改进之外），从技术的角度来说，它并不是可视化库。它输出符合 Vega-Lite 标准的 JSON 对象，可以用 IPython Vega 渲染得非常好。
+
+这有什么好激动的？好吧，在底层，所有的可视化看上去都是这个样子的：
+
+![](https://dansaber.files.wordpress.com/2016/09/screen-shot-2016-09-24-at-8-17-38-am.png)
+
+的确，看上去没什么好激动的，但是想想它的影响：如果其他的库对此感兴趣，他们可以直接开发新方法将这些 Vega-Lite JSON 对象转换成可视化结果。这就意味着可以用 Altair 搞定基本工作，然后深入底层用 matplotlib 获得更多控制。
+
+我已经对此期待万分了。
+
+说完这一切，再说几句告别的话：Python 可视化可比一个男人，女人或者尼斯湖水怪大多了。所以你得有选择地接受我刚才说的一切，不论是代码还是意见。记得：互联网上的一切都是谎言，该死的谎言和统计。
+
+希望你喜欢这个书呆子气十足的疯帽匠茶会，如果学到了什么东西你可以用到自己的工作中。
+
+照旧, 代码在 [GitHub](https://github.com/dsaber/py-viz-blog) 上。
+
+#### _**注释**_
+
+* * *
+
+首先，非常感谢订阅了 /u/counters 的 reddit 用户，你们在[这个评论](https://www.reddit.com/r/Python/comments/55k4ru/a_dramatic_tour_through_pythons_data/d8bawp4)留下了非常有价值的反馈和观点。我选取了一些放在了「最后的感谢」一节；不过我的表示远没有那么清楚，也就是说，看看那个评论吧；非常不错。
+
+其次，非常非常感谢 [Thomas Caswell](https://plus.google.com/+ThomasCaswell)，他写的关于 matplotlib 的特性的评论你绝对要读一读。这样你就能一睹远比我写的优雅得多的 matplotlib 代码了。
+
+1. 严格地说，这不是真的。我会尽量使用 Seaborn，只有在需要定制的时候才深入到 matplotlib。也就是说，我觉得这个前提是更强有力的陷阱，毕竟我们生活在后真相社会。
+
+2. 马上解释一下，你都对我愤怒了，所以允许我解释一二：我爱 bokeh 和 plotly。真的，我在提交分析之前最爱做的一件事就是把图像传给相关的 bokeh/plotly 函数，获得自由的交互性；但是我对它俩都不是特别熟，没法做更高级的操作。（说实话，这篇文章已经够长的了。）
+
+显然，如果你要的是交互可视化（而不是统计可视化），你可能就得找它俩了。
+
+3. **请**注意：这只是为了好玩。我**没有**用业余的拟人化手法评价任何库。我相信显示生活中的 matplotlib 是非常可爱的。
+
+4. 坦率地说，我不是**完全**确定单独进行分面操作是为了意识形态上的纯洁，或者只是单纯出于实用的考虑。虽然我的 ggplot 角色声称他是前者（他的理解来自匆匆读完的[这篇论文](http://vita.had.co.nz/papers/layered-grammar.pdf)），也有可能是因为（实际上） ggplot2 对分面的支持太丰富了，所以需要当作是独立的步骤。如果我描述的角色违反了任何图形语法规则，请务必告诉我，我会去找个新的。
+
+5. 绝对不是这个故事的道德规范。
 
