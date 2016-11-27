@@ -1,16 +1,15 @@
 > * 原文地址：[Webhooks do’s and dont’s: what we learned after integrating +100 APIs](https://restful.io/webhooks-dos-and-dont-s-what-we-learned-after-integrating-100-apis-d567405a3671)
 * 原文作者：[Giuliano Iacobelli](Giuliano Iacobelli)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[steinliber](https://github.com/steinliber)
 * 校对者：
 
-# Webhooks do’s and dont’s: what we learned after integrating +100 APIs
+# webhook 该做的和不该做的: 我们在整合超过100个 API 中所学到的
 
 
-As modern applications are becoming more and more a composite of APIs and the serverless architectures are getting more attention, API providers can’t afford any longer to expose only traditional REST endpoints.
+就像现在的应用变的越来越像 API 的整合并且无服务架构获得越来越多的关注，作为一个 API 的提供者，不应该再只是暴露传统的 REST 端口。
 
-Traditional REST API are designed for when you want to allow a programmatical retrieve or post content, far from being optimal when you just want your application to be told when something changed. If that is the case, it would require polling at regular intervals, and that just doesn’t scale.
-
+传统 REST API 的设计目的是为了让你可以程序化的得到一个结果或者提交内容，但是在你想要当一些东西被改变时你的应用只是收到通知还大相径庭。如果是这样的话,就需要在固定间隔内轮询，而且这样也不能做到规模化。
 
 
 ![](https://cdn-images-1.medium.com/max/800/1*dEmrcTajSG5A4Z_JjrGqfw.png)
@@ -19,11 +18,11 @@ Picture credits [Lorna Mitchell](https://medium.com/u/e6dd3fdb7c2d)
 
 
 
-Polling an API is generally a wasteful and messy way of trying to retrieve that piece of information. Some events may only happen once in a while, so you have to figure out how often to make the polling calls, and you might miss it.
+轮询 API 通常是一种浪费和杂乱的方式来尝试检索一些信息。一些事件或许在一段时间内只发生一次，所以你必须推断出轮询调用的频率。即使这样你也可能错过它。
 
 > Don’t call us, we’ll call you!
 
-Well webhooks are the answer. **A webhook is a way for web service to provide other services with near real-time information using HTTP POST requests.**
+好的，webhook 就是这个问题的答案.  **webhook 就是 Web 服务使用 HTTP POST 请求为其他服务提供接近实时的信息的一种方式。**
 
 
 
@@ -33,49 +32,54 @@ Picture credits [Lorna Mitchell](https://medium.com/u/e6dd3fdb7c2d)
 
 
 
-A webhook delivers data to other applications as it happens, meaning you get data immediately. This makes webhooks much more efficient for both the provider and the consumer, if your API doesn’t support them you should really do something about it (you hear me [Salesforce](https://medium.com/u/f4fb2a348280)?).
+一个 webhook 会在它产生时传递数据到其它的应用，这表明你可以立即得到数据。这使webhooks这个机制对于提供者和消费者都更有效率，如果你的 API 还不支持它们，你真应该做一些关于这方面的事。
+(you hear me [Salesforce](https://medium.com/u/f4fb2a348280)?).
 
-When it comes to designing webhooks there is nothing really close to a standard in the HTTP API literacy. Every service implements webhook differently leading to many different flavors of webhooks implementations out there.
+当涉及到设计 webhooks 没有什么真正接近一个标准的HTTP API规范。每个服务实现 webhook 不同地导致许多不同风格的 webhooks 实现。
 
-After integrating APIs from more than 100 different services I can tell that the way a service exposes webhooks can be a deal breaker. So here are the things that make us happy when we need to integrate with a service exposing webhooks.
+在集成了来自100多个不同服务的 API 后，我可以说服务暴露 webhooks 的方式可以是一个规范。所以这里存在一些东西，这些东西可以帮助我们在需要暴露 webhooks 与一个服务集成的时候，感到一丝快意。
 
-#### Self explanatory and consistent
 
-A good webhook service should provide as much information as possible about the event that is being notified, as well as additional information for the client to act upon that event.
+#### 自我解释和一致性
 
-The POST request should contain a `timestamp` and `webhook_id` if one was given by the client when creating it. A `type` attribute should be included if you're providing different types of webhooks whether or not they are being sent to a single endpoint.
+一个好的 webhook 服务可以尽可能多的提供被通知事件的信息，以及用于客户端对该事件采取行动的附加信息。
+
+客户端在创建 POST 请求的时候应该包含一个 `timestamp` 和 `webhook_id`。如果你提供不同类型的webhooks，不管它们是否被发送到单个端点，都应该包含一个 `type` 属性。
+
 
 
 
 ![](https://cdn-images-1.medium.com/max/600/1*Yi85OX2kNJw-bbn8O0VVQQ.png)
 
-Sample of Github’s webhook payload
+Github webhook 携带数据的示例
 
 
 
-[GitHub](https://medium.com/u/d18563e4f2b9) does that perfectly. Please don’t send just an ID that has to be resolved with another API request like Instagram or Eventbrite do.
+[GitHub](https://medium.com/u/d18563e4f2b9) 非常完美的实现了这个. 请不要像Instagram或Eventbrite那样，只发送一个 ID 然后使用另一个 API 解析。
 
-If you think your payload is too heavy to be sent all at once give me the chance to make it lighter.
 
-[Stripe](https://medium.com/u/3ecae35d6d66)’s [event types](https://stripe.com/docs/api) are a good example of this done well.
+如果你认为你的在一次请求中发送的有效载荷太多，请给我机会使它更轻量化。
 
-#### Allow consumers to define multiple URLs
+[Stripe](https://medium.com/u/3ecae35d6d66)’s [event types](https://stripe.com/docs/api) 是一个很好的例子。
 
-When you build your webhooks you should think about the people on the other end of the wire that have to receive your data. Giving them the chance to subscribe to events under one single URL is not the best developer experience that you can offer. If I need to listen for the same event across different systems I’m going to end up in troubles and I need to put in between some Reflector.io type of thing. [Clearbit](https://medium.com/u/ce5450a7b906) please you have such good APIs, step up your webhook game accordingly.
+#### 允许消费者定义多个 URLs
 
-[Intercom](https://medium.com/u/7ca8972daf76) does this very well giving you the chance to add multiple URLs and define for each one of them the events that you want to listen for.
+当你构建你的webhooks，你应该考虑到在另一端的人必须去接收你的数据。给予他们在一个网址下订阅活动的机会不是你可以提供的最好的开发者体验。如果我需要在不同的系统上监听相同的事件，就会遇到麻烦，我需要把类似Reflector.io的库来系统间管理数据。[Clearbit](https://medium.com/u/ce5450a7b906) 请开发这样好的 API, 并相应加快你的 webhook 开发进程。
+
+
+[Intercom](https://medium.com/u/7ca8972daf76) 在这方面做的非常好，让你可以添加多个 URLs，并为其中的每一个都定义你想监听的事件。
 
 
 
 ![](https://cdn-images-1.medium.com/max/800/1*lGfFqT7G4x3swfm1qkxjfA.png)
 
-Webhook management panel on Intercom
+Intercom 的 webhook 管理面板
 
 
 
-#### UI based subscription vs API based subscription
+#### 基于UI的订阅与基于API的订阅
 
-Once the integration is in place how should we handle the creation of an actual subscription? Some services opted for a UI that guides you through the setup of a subscription some others built an API for that.
+一旦整合完成，我们应该如何处理实际订阅的创建？一些服务选择了使用 UI 来引导你完成订阅的设置，其他服务则为此提供了 API。
 
 
 
@@ -83,13 +87,13 @@ Once the integration is in place how should we handle the creation of an actual 
 
 
 
-[Slack](https://medium.com/u/26d90a99f605) killed it by supporting both.
+[Slack](https://medium.com/u/26d90a99f605) 两种都支持。
 
-It provides a slick UI that makes creating subscription very easy and exposing a solid Event API (which still doesn’t support as much events as their Real Time Messaging API does but I’m sure their working on it).
+它提供了一个自由的UI，这使创建订阅很容易，并且它也提供了一个稳定的事件 API（仍然不支持尽可能多的事件，比如说他们的实时消息传递 API ，但我相信他们的工作）
 
-An important thing to keep in mind when choosing whether or not providing an API for your webhooks is at what scale and granularity your subscriptions are going be available and who is going to configure them.
+在选择是否为 Webhooks 提供 API 时，需要记住的一件重要的事情是，订阅将以什么规模和粒度提供，以及谁将会配置它们。
 
-I find it curious that a tool like [MailChimp](https://medium.com/u/772bf2413f17) forces a non technical audience to mess with webhooks configurations. By making webhooks available via API, any third-service (e.g. Stamplay, Zapier or IFTTT) that has a Mailchimp integration could just make that happen programmatically and build better user experiences.
+我发现让人感到好奇的是像 [MailChimp](https://medium.com/u/772bf2413f17) 这样的工具会迫使非技术的群体混淆webhooks配置。它们通过 API 提供 webhooks ，任何具有 Mailchimp 集成的第三方服务（例如 Stamplay，Zapier 或 IFTTT）都可以通过编程的方式来实现，并创建更好的用户体验。
 
 
 
@@ -97,43 +101,44 @@ I find it curious that a tool like [MailChimp](https://medium.com/u/772bf2413f17
 
 
 
-For creating new webhooks subscriptions via API, you should treat the _subscription_ like any other resource in an HTTP API.
+要通过 API 创建新的 webhooks 订阅，你就应该像 HTTP API 中的任何其他资源一样处理 _subscription_ 。
 
-A very good one we’ve been working with recently is the completely renewed webhook implementation made by the Box team which was released [this summer](https://blog.box.com/blog/box-webhooks/).
+我们最近在工作中发现非常好的例子是由 Box 团队最新发布的 webhook 实现 [this summer](https://blog.box.com/blog/box-webhooks/)。
 
-#### Securing webhooks
+#### webhooks 安全
 
-Once someone configured his service to receive payloads from your webhook, it’ll listen for any payload sent to the endpoint.
+一旦有人配置他的服务从你的webhook接收有效负载，它将监听发送到端点的任何有效负载。
 
-If consumer’s application exposes sensitive data, it can (optionally) verify that requests are generated by your service and not a third-party pretending to be you. This isn’t required, but offers an additional layer of verification.
+如果消费者的应用程序会暴露敏感数据，那么它可以（可选）验证请求是否由你的服务生成的，而不是第三方假装是你。这种验证不是必需的，但提供了一个额外的验证层。
 
-There are a bunch of ways to go about this — if you want to put the burden on the consumer side, you could opt to give him a whitelist requests from IP address — but a far easier method is to set up a secret token and validate the information.
+有很多方法可以实现这一点，如果你想把处理放在消费者一方，你可以选择给他一个白名单来接受指定IP地址的请求，但更容易的方法是设置一个秘密令牌并验证相关信息。
 
-This can be done at different degrees of complexity starting from a plain text shared secret like Slack or Facebook do
+这可以从不同程度的复杂性开始做，比如说一个纯文本共享的秘密，就像 Slack 或 Facebook 所做的那样。
 
 
 
 ![](https://cdn-images-1.medium.com/max/800/1*qyzDKFf4CfPwJEozGIah0w.png)
 
 
+到更复杂的实现。作为示例，Mandrill 对 webhook 请求进行签名，包括具有  webhook POST 请求的附加HTTP 头，`X-Mandrill-Signature` 将包含请求的签名。要验证 Webhook 请求，请使用 Mandrill 使用的相同密钥生成签名，并将其与 `X-Mandrill-Signature`  头里的值进行比较。
 
-To more complex implementations. As an example Mandrill signs webhook requests including an additional HTTP header with webhook POST requests, `X-Mandrill-Signature`, which will contain the signature for the request. To verify a webhook request, generate a signature using the same key that Mandrill uses and compare that to the value of the `X-Mandrill-Signature` header.
 
-#### Subscriptions with expiration date
+#### 具有到期日期的订阅
 
-The odds to face an integration of a service that exposes subscriptions with an expiration date is not very high today but we can see this becoming a more common feature. Microsoft Graph API is an example. Any subscription you perform over API expires 72hours later unless you renew it.
+现在整合有过期时间的服务暴露订阅的可能性不是很高，但可以看到这可以作为一个更常见的功能。 Microsoft Graph API 就是一个例子。除非你进行续订，否则通过 API 执行的任何订阅将在72小时后过期。
 
-From a data provider standpoint it makes sense. You do not want to keep sending out POST requests to services that could be no longer up and running or interested in your data but for all those who are actually interested it’s an unpleasant surprise. You’re Microsoft: if you can’t afford the heavy lifting who is supposed to do it?
+从数据提供商的角度来看，这是有道理的。你不想继续向可能不再运行或对你数据感兴趣的服务发送 POST 请求，但对所有真正感兴趣的用户来说，这是一个令人不快的惊喜。你是微软：如果你做不了应该做的繁重工作那谁又应该做呢？
 
-#### Conclusions
+#### 总结
 
-The webhook landspace is still fragmented but common patterns are eventually coming up tough.
+webhook 领域仍然是分散的，但是常见的模式最终会展现出来。
 
-At [**Stamplay**](https://stamplay.com/) API integration is a thing. We face the integration challenges on a daily basis and OpenAPI specifications like Swagger, RAML or API Blueprint can’t help because none of them supports webhook scenarios.
+在 [**Stamplay**](https://stamplay.com/) API 集成是一个问题。我们每天都面临着集成的挑战，像 Swagger，RAML 或 API Blueprint 这样的 OpenAPI 规范并不能有所帮助，因为它们都不支持webhook 场景。
 
-So if you’re thinking about implementing webhooks I invite you to think about their consumption and look at examples like [GitHub](https://medium.com/u/d18563e4f2b9), [Stripe](https://medium.com/u/3ecae35d6d66), [Intercom](https://medium.com/u/7ca8972daf76) and [Slack API](https://medium.com/u/272cd95a3742).
+所以如果你正在考虑实现webhooks，我邀请你想想他们的使用说明，看看例子
+[GitHub](https://medium.com/u/d18563e4f2b9), [Stripe](https://medium.com/u/3ecae35d6d66), [Intercom](https://medium.com/u/7ca8972daf76) 和 [Slack API](https://medium.com/u/272cd95a3742).
 
-PS. [Medium](https://medium.com/u/504c7870fdb6) any plans for webhooks? Come on, RSS feeds are so old school.
+PS. [Medium](https://medium.com/u/504c7870fdb6) 任何关于 webhooks 的想法？来吧, RSS 订阅是老的学校.
 
-**Update**: Medium actually does provide a way to get realtime notifications through [http://medium.superfeedr.com/](http://medium.superfeedr.com/) 👌
+**更新**: Medium实际上提供了一种通过 [http://medium.superfeedr.com/](http://medium.superfeedr.com/) 实时通知的方式👌
 
