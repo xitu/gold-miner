@@ -1,19 +1,19 @@
 > * 原文地址：[Working with SQLite Databases using Python and Pandas](https://www.dataquest.io/blog/python-pandas-databases/)
 * 原文作者：[Vik Paruchuri](https://twitter.com/vikparuchuri)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者： [Nicolas(Yifei) Li](https://github.com/yifili09)
 * 校对者：
 
-# Working with SQLite Databases using Python and Pandas
+# `Python` 和 `Pandas` 在 `SQLite` 数据库中的运用
 
 
-[SQLite](https://www.sqlite.org) is a database engine that makes it simple to store and work with relational data. Much like the _csv_ format, SQLite stores data in a single file that can be easily shared with others. Most programming languages and environments have good support for working with SQLite databases. Python is no exception, and a library to access SQLite databases, called `sqlite3`, has been included with Python since version `2.5`. In this post, we’ll walk through how to use `sqlite3` to create, query, and update databases. We’ll also cover how to simplify working with SQLite databases using the [pandas](http://pandas.pydata.org/) package. We’ll be using Python `3.5`, but this same approach should work with Python `2`.
+[SQLite](https://www.sqlite.org) 是一个数据库引擎，使用它能方便地存储和处理关系型数据。它和 _cvs_ 格式很相似，`SQLite` 把数据存储在一个单独的文件中，它能方便地与其他人共享。大部分的编程语言和编译环境都对 `SQLite` 数据库提供了很好的支持。`Python` 也不例外，并且专门有一个访问 `SQLite` 数据库的程序库，叫做 `sqlite3`，自从 `2.5` 版本以来，它就已经被 `Python` 纳入标准库中。在这篇博文中，我们将学会如何使用 `sqlite3` 创建、查询和更新数据库。也包括了，使用 [pandas](https://pandas.pydata.org/) 程序包配合 `SQLite` 数据库是有多么方便！我们会使用 `Python 3.5`，但是所有的实现应该兼容 `Python 2`。 
 
-Before we get started, let’s take a quick look at the data we’ll be working with. We’ll be looking at airline flight data, which contains information on airlines, airports, and routes between airports. Each route represents a repeated flight that an airline flies between a source and a destination airport.
+在我们开始之前，让我们先快速检阅下我们之后要处理的数据。我们看到的是飞机航线数据，它包含了有关飞机型号，机场名称和往来的航路名称。每一条航线会显示出一个重复的航班，它是往返与目的地和始发地的那架飞机。
 
-All of the data is in a SQLite database called `flights.db`, which contains three tables – `airports`, `airlines`, and `routes`. You can download the data [here](https://www.dropbox.com/s/a2wax843eniq12g/flights.db?dl=0).
+所有的数据都存在一个叫做 `flights.db` 的数据库中，它有三张表格 - `airports`, `airliens`, `routes`。你可以在 [这里](https://www.dropbox.com/s/a2wax843eniq12g/flights.db?dl=0) 下载到它。
 
-Here are two rows from the `airlines` table:
+这里有两行来自 `airlines` 表格的数据:
 
 
 |     | id  | name                   | alias | iata | icao | callsign | country  | active |
@@ -21,9 +21,9 @@ Here are two rows from the `airlines` table:
 | 10  | 11  | 4D Air                 | \\N   | NaN  | QRT  | QUARTET  | Thailand | N      |
 | 11  | 12  | 611897 Alberta Limited | \\N   | NaN  | THD  | DONUT    | Canada   | N      |
 
-As you can see above, each row is a different airline, and each column is a property of that airline, such as `name`, and `country`. Each airline also has a unique `id`, so we can easily look it up when we need to.
+就如你在上表中看到的，每一行都是一个不同的航空公司，每一列是这个航空公司的属性，例如 `name` 和 `country`。每一个航班也都有一个独一无二的 `id`，所以如果需要的时候，我们能非常方便地查询到。
 
-Here are two rows from the `airports` table:
+这里有两行来自 `airports` 表格的数据:
 
 
 |     | id  | name   | city   | country          | code | icao | latitude  | longitude  | altitude | offset | dst | timezone              |
@@ -32,9 +32,9 @@ Here are two rows from the `airports` table:
 | 1   | 2   | Madang | Madang | Papua New Guinea | MAG  | AYMD | -5.207083 | 145.7887   | 20       | 10     | U   | Pacific/Port\_Moresby |
 
 
-As you can see, each row corresponds to an airport, and contains information on the location of the airport. Each airport also has a unique `id`, so we can easily look it up.
+就如你所看到的，每一行都对应了一个机场，并且包含了机场所在地的信息。每一个机场也有一个独一无二的 `id`，所以我们也能方便地进行查询。
 
-Here are two rows from the `routes` table:
+这里有两行来自 `routes` 表格的数据:
 
 
 |     | airline | airline\_id | source | source\_id | dest | dest\_id | codeshare | stops | equipment |
@@ -43,13 +43,13 @@ Here are two rows from the `routes` table:
 | 1   | 2B      | 410         | ASF    | 2966       | KZN  | 2990     | NaN       | 0     | CR2       |
 
 
-Each route contains an `airline_id`, which the `id` of the airline that flies the route, as well as `source_id`, which is the id of the airport that the route originates from, and `dest_id`, which is the id of the destination airport for the flight.
+每一条航线包含有一个 `airline_id`，这个 `id` 代表的航空公司飞这条航线，`souce_id` 也是，它是航班始发地机场的 `id`，而 `dest_id`，是航班目的地机场的 `id`。
 
-Now that we know what kind of data we’re working with, let’s start by connecting to the database and running a query.
+至此，我们知道了需要处理的是什么数据，让我们先从连接数据库和执行一条查询语句开始。
 
-## Querying database rows in Python
+## 使用 `Python` 在数据库中查询资料
 
-In order to work with a SQLite database from Python, we first have to connect to it. We can do that using the [connect](https://docs.python.org/3/library/sqlite3.html?highlight=connect#sqlite3.connect) function, which returns a [Connection](https://docs.python.org/3/library/sqlite3.html?highlight=connect#sqlite3.Connection) object:
+为了通过 `Python` 使用 `SQLite` 数据库，我们先要连接这个数据库。我们可以使用 [connect](https://docs.python.org/3/library/sqlite3.html?highlight=connect#sqlite3.connect) 方法, 它返回一个 [Connection](https://docs.python.org/3/library/sqlite3.html?highlight=connect#sqlite3.Connection) 对象:
 
 
 
@@ -59,7 +59,7 @@ In order to work with a SQLite database from Python, we first have to connect to
 
 
 
-Once we have a Connection object, we can then create a [Cursor](https://docs.python.org/3/library/sqlite3.html#cursor-objects) object. Cursors allow us to execute SQL queries against a database:
+一旦我们有了一个 `Connection 对象`，之后创建一个 [Cursor](https://docs.python.org/3/library/sqlite3.html#cursor-objects) 对象。`Cursors` 让我们能对一个数据库执行 `SQL` 查询指令。
 
 
 
@@ -67,7 +67,7 @@ Once we have a Connection object, we can then create a [Cursor](https://docs.pyt
 
 
 
-Once we have a Cursor object, we can use it to execute a query against the database with the aptly named [execute](https://docs.python.org/3/library/sqlite3.html?highlight=connect#sqlite3.Cursor.execute) method. The below code will fetch the first `5` rows from the `airlines` table:
+一旦我们有了这个 `Cursor 对象`，我们能使用它通过适当地调用 [execute](https://docs.python.org/3/library/sqlite3.html?highlight=connect#sqlite3.Cursor.execute) 方法来对数据库执行查询指令。通过以下代码，你能从 `airlines` 表中获取前 `5` 行数据结果。
 
 
 
@@ -75,7 +75,7 @@ Once we have a Cursor object, we can use it to execute a query against the datab
 
 
 
-You may have noticed that we didn’t assign the result of the above query to a variable. This is because we need to run another command to actually fetch the results. We can use the [fetchall](https://docs.python.org/3/library/sqlite3.html?highlight=connect#sqlite3.Cursor.fetchall) method to fetch all of the results of a query:
+你可以已经注意到，我们没有把之前的查询结果存储到一个变量中。这是因为我们需要执行另外一个指令来真正地获得结果。我们可以使用 [fetchall](https://docs.python.org/3/library/sqlite3.html?highlight=connect#sqlite3.Cursor.fetchall) 方法来获取查询的结果。
 
 
 
@@ -94,9 +94,9 @@ You may have noticed that we didn’t assign the result of the above query to a 
 
 
 
-As you can see, the results are formatted as a list of [tuples](https://docs.python.org/3.5/tutorial/datastructures.html#tuples-and-sequences). Each tuple corresponds to a row in the database that we accessed. Dealing with data this way is fairly painful. We’d need to manually add column heads, and manually parse the data. Luckily, the pandas library has an easier way, which we’ll look at in the next section.
+如你所见，查询结果以 一组 [tuples](https://docs.python.org/3.5/tutorial/datastructures.html#tuples-and-sequences) 的格式返回。每一个 `tuple` 对应了我们从数据库中访问到某一行数据。以这种形式处理是数据是非常麻烦的。我们需要人为地增加每一列的表头，并且手动解析数据。 幸运的是，`pandas` 提供的库中有更加便捷的方法，我们会在下一个部分中提到它。
 
-Before we move on, it’s good practice to close Connection objects and Cursor objects that are open. This prevents the SQLite database from being locked. When a SQLite database is locked, you may be unable to update the database, and may get errors. We can close the Cursor and the Connection like this:
+在我们继续探索之前，及时关闭那些被打开的 `Connection 对象` 和 `Cursor 对象` 是良好的习惯。这样避免了 `SQLite` 数据库被锁上。当一个 `SQLite` 数据库被锁上的时候，你可能就无法对这个数据库进行更新操作了，也会得到错误的提示。我们能通过以下方式关闭 `Connection 对象` 和 `Cusor 对象`:
 
 
 
@@ -105,9 +105,9 @@ Before we move on, it’s good practice to close Connection objects and Cursor o
 
 
 
-### Mapping airports
+### 绘制机场图
 
-Using our newfound knowledge of queries, we can create a plot that shows where all the airports in the world are. First, we query latitudes and longitudes:
+使用我们新发现的查询机技巧，我们能在世界地图上描绘和展示出所有机场的位置。首先，我们先要查询机场的经纬度坐标：
 
 
 
@@ -123,11 +123,11 @@ Using our newfound knowledge of queries, we can create a plot that shows where a
 
 
 
-The above query will retrieve the `latitude` and `longitude` columns from `airports`, and convert both of them to floats. We then call the `fetchall` method to retrieve them.
+以上的查询代码将检索返回 `airports` 表中每列 `latitude` 和 `longitude` 的数据，并把结果转化成 `float` 类型。之后，我们调用 `fetchall` 方法来获取他们。
 
-We then need to setup our plotting by importing [matplotlib](http://matplotlib.org/), the primary plotting library for Python. Combined with the [basemap](http://matplotlib.org/basemap/) package, this allows us to create maps only using Python.
+接下来，我们通过导入 [matplotlib](http://matplotlib.org/) 来创建我们的绘图，它是 `Python` 上主要的绘图库。结合 [basemap](http://matplotlib.org/basemap/) 包，这允许我们只使用 `Python` 就能创建地图。
 
-We first need to import the libraries:
+首先，我们需要导入这些库:
 
 
 
@@ -136,7 +136,7 @@ We first need to import the libraries:
 
 
 
-Then, we setup our map, and draw the continents and coastlines that will form the background of our map:
+之后，我们建立我们的地图，并且描绘出大陆和海岸线，它们会构成我们地图的背景。
 
 
 
@@ -155,7 +155,7 @@ Then, we setup our map, and draw the continents and coastlines that will form th
 
 
 
-Finally, we plot the coordinates of each airport onto the map. We retrieved a list of tuples from the SQLite database. The first element in each tuple is the longitude of the airport, and the second is the latitude. We’ll convert the longitudes and latitudes into their own lists, and then plot them on the map:
+最后，我们在地图上描绘出每一个机场的坐标。我们从 `SQLite` 数据库中检索一组 `tuples`。 在每个 `tuple` 中第一个元素是飞机场的经度，第二个是纬度。我们会把这些经度和纬度转换成它们自己的数组，之后把它们描绘在地图上。 
 
 
 
@@ -174,7 +174,7 @@ Finally, we plot the coordinates of each airport onto the map. We retrieved a li
 
 
 
-We end up with a map that shows every airport in the world:
+最终，我们把每一个机场都展现在了世界地图上:
 
 
 
@@ -186,15 +186,16 @@ We end up with a map that shows every airport in the world:
 
 
 
-As you may have noticed, working with data from the database is a bit painful. We needed to remember which position in each tuple corresponded to what database column, and manually parse out individual lists for each column. Luckily, the pandas library gives us an easier way to work with the results of SQL queries.
+你可能注意到，直接操作来自数据库的数据让你痛苦不堪。我们需记住每一个 `tuple`
+ 的位置对应到数据库中每一列是什么，并且手动为每一列解析出每组各自的内容。
 
-### Reading results into a pandas DataFrame
+### 用 `pandas DataFrame` 读取数据结果
 
-We can use the pandas [read_sql_query](http://pandas.pydata.org/pandas-docs/stable/generated/pandas.read_sql_query.html) function to read the results of a SQL query directly into a pandas DataFrame. The below code will execute the same query that we just did, but it will return a DataFrame. It has several advantages over the query we did above:
+我们能使用 `pandas` 的 [read_sql_query](http://pandas.pydata.org/pandas-docs/stable/generated/pandas.read_sql_query.html) 方法直接把一条 `SQL` 查询结果读取到一个 `pandas DataFrame` 中。下面的代码将执行和前文中作用一样的查询，但是它会返回一个 `DataFrame`。对比前文的数据查询方式，这能带来诸多好处:
 
-*   It doesn’t require us to create a Cursor object or call `fetchall` at the end.
-*   It automatically reads in the names of the headers from the table.
-*   It creates a DataFrame, so we can quickly explore the data.
+* 最后，我们不需要创建一个 `Cursor 对象` 或者调用 `fetchall`。
+* 它能自动通过表头的名字来阅读整个表。
+* 它创建了一个 `DataFrame`，所以我们能快速的挖掘数据。
 
 
 
@@ -215,8 +216,7 @@ We can use the pandas [read_sql_query](http://pandas.pydata.org/pandas-docs/stab
 | 3   | 3     | 4   | 2 Sqn No 1 Elementary Flying Training School | \\N   | None | WYT  | None     | United Kingdom | N      |
 | 4   | 4     | 5   | 213 Flight Unit                              | \\N   | None | TFU  | None     | Russia         | N      |
 
-As you can see, we get a nicely formatted DataFrame as the result. We could easily manipulate the columns:
-
+如你所见，我们得到了一个有着清晰格式的 `DataFrame` 作为结果。我们能方便地操作这些列:
 
 
     df["country"]
@@ -234,16 +234,16 @@ As you can see, we get a nicely formatted DataFrame as the result. We could easi
 
 
 
-It’s highly recommended to use the `read_sql_query` function when possible.
+强烈建议尽可能使用 `read_sql_query` 方法。
 
-### Mapping routes
+### 构建地图航路
 
-Now that we know how to read queries into pandas DataFrames, we can create a map of every airline route in the world. We first start by querying the data. The below query will:
+至此，我们已经知道如何把查询结果读取到 `pandas DataFrames` 中，我们能在世界地图上常见每一条飞机的航线图。首先，我们需要查询这些数据。查询方式如下:
 
-*   Get the latitude and longitude for the source airport for each route.
-*   Get the latitude and longitude for the destination airport for each route.
-*   Convert all the coordinate values to floats.
-*   Read the results into a DataFrame, and store them to the variable `routes`.
+* 获取每一条航线中始发地机场的经纬度。
+* 获取每一条航线中目的地机场的经纬度。
+* 把所有这些坐标转换成 `float` 类型。
+* 把检索结果读取进一个 `DataFrame` 中，并把他们存在变量 `routes` 中。 
 
 
 
@@ -262,7 +262,7 @@ Now that we know how to read queries into pandas DataFrames, we can create a map
 
 
 
-We then setup our map:
+之后，我们开始创建地图:
 
 
 
@@ -271,12 +271,12 @@ We then setup our map:
 
 
 
-We iterate through the first `3000` rows, and draw them. The below code will:
+首先，我们开始遍历最先的 `3000` 行数据，并绘制他们。代码如下:
 
-*   Loop through the first `3000` rows in `routes`.
-*   Figure out if the route is too long.
-*   If the route isn’t too long:
-    *   Draw a circle between the origin and the destination.
+* 把前 `3000` 行数据遍历存储到 `routes` 中。
+* 判断航线是否太长。
+* 如果航线不是很长:
+    * 在始发地和目的地之间画一个圈。
 
 
 
@@ -294,7 +294,7 @@ We iterate through the first `3000` rows, and draw them. The below code will:
 
 
 
-We end up with the following map:
+最后，我们完成了这个地图:
 
 
 
@@ -306,33 +306,33 @@ We end up with the following map:
 
 
 
-The above is much more efficient when we use pandas to turn the results of the SQL query into a DataFrame, instead of working with the raw results from `sqlite3`.
+比起直接使用 `sqlite3` 处理这些原始检索数据，当我们使用 `pandas` 把所有的 `SQL` 检索到的数据读入一个 `DataFrame` 中是一个非常有效的方法。
 
-Now that we know how to query database rows, let’s move on to modifying them.
-
-
+至此，我们理解了如何检索数据库的内容，接下来，让我们看看如何对这些数据进行修改。
 
 
 
-### Enjoying this post? Learn data science with Dataquest!
+
+
+### 这篇博文还是挺有趣的吧？ 让我们使用 `Dataquest` 学习数据科学 
 
 #####
 
-*   Learn from the comfort of your browser.
-*   Work with real-life data sets.
-*   Build a portfolio of projects.
+* 选一个你喜欢的浏览器继续学习。
+* 操作真实世界的数据。
+* 创建一个项目集。
 
-[Start for Free](https://www.dataquest.io/)
+[免费开始](https://www.dataquest.io/)
 
 
 
-## Modifying database rows
+## 修改数据库的内容
 
-We can use the `sqlite3` package to modify a SQLite database by inserting, updating, or deleting rows. Creating the Connection is the same for this as it is when you’re querying a table, so we’ll skip that part.
+我们可以使用 `sqlite3` 开发包来修改一个 `SQLite` 数据库，比如插入，更新或者删除某些行内容。创建数据库的连接和查询一个数据表的方法一样，所以我们会跳过这个部分。
 
-### Inserting rows with Python
+### 使用 `Python` 插入行内容
 
-To insert a row, we need to write an `INSERT` query. The below code will add a new row to the `airlines` table. We specify `9` values to insert, one for each column in `airlines`. This will add a new row to the table.
+为了插入一行数据，我们需要写一条 `INSERT` 查询指令。以下代码会对 `airlines` 表中新增加一行数据。我们指定 `9` 个数据需要被添加，对应者 `airlines` 表格的每一列。这会为这个表增加一行新数据。 
 
 
 
@@ -341,27 +341,26 @@ To insert a row, we need to write an `INSERT` query. The below code will add a n
 
 
 
-If you try to query the table now, you actually won’t see the new row yet. Instead you’ll see that a file was created called `flights.db-journal`. `flights.db-journal` is storing the new row until you’re ready to `commit` it to the main database, `flights.db`.
+如果你尝试对这个表格进行检索，你其实还不能看到这条新的数据。然而，你会看到一个 `flights.db-journal` 的文件被创建了。`flights.db-journal` 会存储新增加的行数据直到你准备好把它 `commit` 到主数据库 `flights.db` 中。 
 
-SQLite doesn’t write to the database until you commit a [transaction](https://www.sqlite.org/lang_transaction.html). A transaction consists of 1 or more queries that all make changes to the database at once. This is designed to make it easier to recover from accidental changes, or errors. Transactions allow you to run several queries, then finally alter the database with the results of all of them. This ensures that if one of the queries fails, the database isn’t partially updated.
+`SQLite` 并不会写入数据库直到你提交了一个 [transaction](https://www.sqlite.org/lang_transaction.html)。每一个 `transaction` 包含了 1 个或者多个查询指令，它能把所有新的变化一次提交给数据库。这样的设计使得从意外的修改变化或错误中恢复变得更加容易。`Transaction` 允许你执行多个查询指令，最终这些结果都会修改数据库。这确保了如果有一条查询指令失败了，数据库不会只有部分被更新。
 
-A good example is if you have two tables, one of which contains charges made to people’s bank accounts (`charges`), and another which contains the dollar amount in the bank accounts (`balances`). Let’s say a bank customer, Roberto, wants to send $50 to his sister, Luisa. In order to make this work, the bank would need to:
+举个例子来说，如果你有两张表，一张表包含了对银行账户的收取的费用(`charges`)，另一张表包含了账户在银行内存款的总额(`balances`)。假定有一个银行的客户, Roberto 想给他的姐妹 Luisa 转 $50 美元。为了完成这笔交易，银行应该需要执行以下几步:
 
-*   Create a row in `charges` that says $50 is being taken from Roberto’s account and sent to Luisa.
-*   Update Roberto’s row in the `balances` table and remove $50.
-*   Update Luisa’s row in the `balances` table and add $50.
+* 在 `charges` 中新增加一行，描述有 $50 美元正要从 Roberto 的账户转到 Luisa。
+* 更新 Roberto `balances` 表中的数据内容，并且移除 $50 美元。
+* 更新 Luisa `balances` 表中的数据内容，并且增加 $50 美元。
 
-These will require three separate SQL queries to update all of the tables. If a query fails, we’ll be stuck with bad data in our database. For example, if the first two queries work, then the third fails, Roberto will lose his money, but Luisa won’t get it. Transactions mean that the main database isn’t updated unless all the queries succeed. This prevents the system from getting into a bad state, where customers lose their money.
+如此来说，为了更新所有的表格需要三次单独的 `SQL` 查询指令。如果一个查询指令失败了，我们的数据库就会被破损的数据卡住。举例来说，如果前两条指令成功运行了，第三条失败了，Roberto 将会损失他的钱，但是 Luisa 也不会获得这笔钱。`Transactions` 意味着主数据库不会被更新除非所有的查询指令都成功执行。这避免了系统进入错误的状态，用户可能丢失他们的钱。
 
-By default, `sqlite3` opens a transaction when you do any query that modifies the database. You can read more about it [here](https://docs.python.org/3/library/sqlite3.html#sqlite3-controlling-transactions). We can commit the transaction, and add our new row to the `airlines` table, using the [commit](https://docs.python.org/3/library/sqlite3.html#sqlite3.Connection.commit) method:
-
+默认情况下，`sqlite3` 打开了一个 `transaction` 当你执行了任何会修改数据库的指令。在 [这里](https://docs.python.org/3/library/sqlite3.html#sqlite3-controlling-transactions) 你能了解更多。我们能提交 `transaction`，也能使用 [commit](https://docs.python.org/3/library/sqlite3.html#sqlite3.Connection.commit) 方法对 `airlines` 表新增加内容:
 
 
     conn.commit()
 
 
 
-Now, when we query `flights.db`, we’ll see the extra row that contains our test flight:
+现在，当我们检索 `flights.db` 的时候，我们将看到这个额外的数据包含我们的测试航班。
 
 
 
@@ -376,11 +375,11 @@ Now, when we query `flights.db`, we’ll see the extra row that contains our tes
 
 
 
-### Passing parameters into a query
+### 对检索增加条件参数
 
-In the last query, we hardcoded the values we wanted to insert into the database. Most of the time, when you insert data into a database, it won’t be hardcoded, it will be dynamic values you want to pass in. These dynamic values might come from downloaded data, or might come from user input.
+在最后那条查询指令中，我们把固定值插入到对所需要的数据库中。多数情况下，当你想插入数据到数据库中的时候，它不会是一些固定值，它应该是一些你想传入方法的动态值。这些动态值可能来自于下载得到的数据，或者来自于用户的输入。
 
-When working with dynamic data, it might be tempting to insert values using Python string formatting:
+当操作动态值的时候，有些人尝试用 `Python` 的串格式化字符串来插入这些值:
 
 
 
@@ -391,7 +390,8 @@ When working with dynamic data, it might be tempting to insert values using Pyth
 
 
 
-You want to avoid doing this! Inserting values with Python string formatting makes your program vulnerable to [SQL Injection](https://en.wikipedia.org/wiki/SQL_injection) attacks. Luckily, `sqlite3` has a straightforward way to inject dynamic values without relying on string formatting:
+你应该避免这样做！通过 `Python` 的格式化字符串插入数值会让你的程序更加容易受到 [SQL 注入](https://en.wikipedia.org/wiki/SQL_injection) 的攻击。幸运的是，`sqlite3` 有一个更加直接的方式来注入动态值，而不是依赖格式化的字符串。
+
 
 
 
@@ -402,11 +402,11 @@ You want to avoid doing this! Inserting values with Python string formatting mak
 
 
 
-Any `?` value in the query will be replaced by a value in `values`. The first `?` will be replaced by the first item in `values`, the second by the second, and so on. This works for any type of query. This created a SQLite [parameterized query](https://www.sqlite.org/lang_expr.html), which avoids SQL injection issues.
+任何在查询指令中以 `?` 形式出现的数值都会被 `values` 中的数值替代。第一个 `?` 将会被 `values` 中的第一个数值替代，第二个也是，其他以此类推。这个方式对任何形式的查询指令都有用。如此就创建了一个 `SQLite` [带参数形式的查询指令](https://www.sqlite.org/lang_expr.html)，它有效避免了 `SQLite 注入` 的问题。
 
-### Updating rows
+### 更新行数据内容
 
-We can modify rows in a SQLite table using the `execute` method:
+通过使用 `execute` 方法，我们可以修改在 `SQLite` 表格中某些行数据的内容:
 
 
 
@@ -417,7 +417,7 @@ We can modify rows in a SQLite table using the `execute` method:
 
 
 
-We can then verify that the update happened:
+之后，我们能验证更新的内容:
 
 
 
@@ -429,9 +429,9 @@ We can then verify that the update happened:
 | 0   | 6049  | 19847 | Test Flight |       |      | None | None     | USA     | Y      |
 
 
-### Deleting rows
+### 删除某些行数据的内容
 
-Finally, we can delete the rows in a database using the `execute` method:
+最后，通过使用 `execute` 方法，我们能删除数据库中的某些行数据内容:
 
 
 
@@ -442,7 +442,7 @@ Finally, we can delete the rows in a database using the `execute` method:
 
 
 
-We can then verify that the deletion happened, by making sure no rows match our query:
+之后，通过确认没有相匹配的查询内容，我们能验证这些行数据内容确实被删除了:
 
 
 
@@ -454,15 +454,15 @@ We can then verify that the deletion happened, by making sure no rows match our 
 |-----|-------|-----|------|-------|------|------|----------|---------|--------|
 
 
-## Creating tables
+## 创建表格
 
-We can create tables by executing a SQL query. We can create a table to represent each daily flight on a route, with the following columns:
+我们可以通过执行一条 `SQLite` 查询指令来创建表。我们能创建一个表，它能展示每天在某一条航线上的飞机，使用以下几列:
 
-*   `id` – integer
-*   `departure` – date, when the flight left the airport
-*   `arrival` – date, when the flight arrived at the destination
-*   `number` – text, the flight number
-*   `route_id` – integer, the id of the route the flight was flying
+* `id` —— 整数型
+* `departure` —— 日期型，表示飞机离开机场的时间 
+*  `arrival` —— 日期型，表示飞机到达目的地的时间
+* `number` —— 文本型，飞机航班号
+* `route_id` —— 整数型，正在飞行的航线号
 
 
 
@@ -472,7 +472,7 @@ We can create tables by executing a SQL query. We can create a table to represen
 
 
 
-Once we create a table, we can insert data into it normally:
+一旦我们创建了这个表，我们就能对这个表插入数据:
 
 
 
@@ -481,7 +481,7 @@ Once we create a table, we can insert data into it normally:
 
 
 
-When we query the table, we’ll now see the row:
+当我们对该表执行查询指令的时候，我们就能看到这些行数据内容:
 
 
 
@@ -494,9 +494,9 @@ When we query the table, we’ll now see the row:
 | 0   | 1   | 2016-09-28 0:00 | 2016-09-28 12:00 | T1     | 1         |
 
 
-### Creating tables with pandas
+### 使用 `pandas` 创建表
 
-The pandas package gives us a much faster way to create tables. We just have to create a DataFrame first, then export it to a SQL table. First, we’ll create a DataFrame:
+`pandas` 包提供给我们一个更加快捷地创建表格的方法。我们只需要先创建一个 `DataFrame`，之后把它导出到一个 `SQL` 表格内。首先，我们将创建一个 `DataFrame`:
 
 
 
@@ -508,7 +508,7 @@ The pandas package gives us a much faster way to create tables. We just have to 
 
 
 
-Then, we’ll be able to call the [to_sql](http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.to_sql.html) method to convert `df` to a table in a database. We set the `keep_exists` parameter to `replace` to delete and replace any existing tables named `daily_flights`:
+之后，我们就能调用 [to_sql](http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.to_sql.html) 方法，它将 `df` 转化成一个数据库中的数据表。我们把参数 `keep_exists` 设定成 `replace`，为了删除并且替换数据库中任何已存在的 `daily_flights`: 
 
 
 
@@ -516,7 +516,7 @@ Then, we’ll be able to call the [to_sql](http://pandas.pydata.org/pandas-docs/
 
 
 
-We can then verify that everything worked by querying the database:
+通过对数据库执行查询指令，我们能验证是否正常工作了:
 
 
 
@@ -529,9 +529,9 @@ We can then verify that everything worked by querying the database:
 | 0   | 0     | 1   | 2016-09-29 00:00:00 | 2016-09-29 12:00:00 | T1     | 1         |
 
 
-## Altering tables with Pandas
+## 使用 `Pandas` 修改数据表
 
-One of the hardest parts of working with real-world data science is that the data you have per record changes often. Using our airline example, we may decide to add an `airplanes` field to the `airlines` table that indicates how many airplanes each airline owns. Luckily, there’s a way to alter a table to add columns in SQLite:
+对于现实世界中的数据科学来说，最难处理的不分就是那些经常几乎每秒都不停变换着的数据。拿 `aireline` 这个例子来说，我们可能决定在 `airelines` 表中新增加一个 `airplanes` 的属性，它显示出每一个航公公司拥有多少架飞机。幸运的是，在 `SQLite` 中有一个方式能修改表并且添加这些列:
 
 
 
@@ -539,7 +539,7 @@ One of the hardest parts of working with real-world data science is that the dat
 
 
 
-Note that we don’t need to call commit – `alter table` queries are immediately executed, and aren’t placed into a transaction. We can now query and see the extra column:
+请注意，我们不需要调用 `commit` 方法 —— `alter table` 查询指令会被立刻执行，并且不会发生在一个 `transaction` 中。现在，我们能查询并且看到这些额外的列:
 
 
 
@@ -554,11 +554,11 @@ Note that we don’t need to call commit – `alter table` queries are immediate
 
 
 
-Note that all the columns are set to `null` in SQLite (which translates to `None` in Python) because there aren’t any values for the column yet.
+你可能注意到了，在 `SQLite` 中所有的列都被设值成了 `null`（在 `Python` 中被转化成了 `None`），因为这些列还没有任何数值。
 
-### Altering tables with Pandas
+### 使用 `Pandas` 修改表
 
-It’s also possible to use Pandas to alter tables by exporting the table to a DataFrame, making modifications to the DataFrame, then exporting the DataFrame to a table:
+也可以使用 `Pandas` 通过把表导出成 `DataFrame` 去修改表格的内容，仅需要对 `DataFrame` 进行修改，之后把这个 `DataFrame` 导出成一个表:
 
 
 
@@ -568,18 +568,17 @@ It’s also possible to use Pandas to alter tables by exporting the table to a D
 
 
 
-The above code will add a column called `delay_minutes` to the `daily_flights` table.
+以上代码将会对 `daily_flight` 表增加一个叫做 `delay_minutes` 的列项。
 
-## Further reading
+## 延伸阅读
 
-You should now have a good grasp on how to work with data in a SQLite database using Python and pandas. We covered querying databases, updating rows, inserting rows, deleting rows, creating tables, and altering tables. This covers all of the major SQL operations, and almost everything you’d work with on a day to day basis.
+你现在应该对在 `SQLite` 数据库中如何使用 `Python` 和 `Pandas` 对数据操作有了一个很好的掌握和认识了。本文包含了查询数据库，更新行数据内容，插入行数据内容，删除行数据内容，创建数据表和修改数据表。这些已经覆盖了主要的 `SQL` 操作内容，这些几乎就是你的日常工作。
 
-Here are some supplemental resources if you want to dive deeper:
+以下是一些额外的资料，如果你想要深入了解:
 
-*   [sqlite3 documentation](https://docs.python.org/3/library/sqlite3.html)
-*   [Comparing pandas and SQL](http://pandas.pydata.org/pandas-docs/stable/comparison_with_sql.html)
-*   [Dataquest SQL Course](https://www.dataquest.io/path-step/working-with-data-sources)
-*   [sqlite3 operations guide](http://sebastianraschka.com/Articles/2014_sqlite_in_python_tutorial.html)
+*   [sqlite3 在线文档](https://docs.python.org/3/library/sqlite3.html)
+*   [比较 `pandas` 和 `SQL`](http://pandas.pydata.org/pandas-docs/stable/comparison_with_sql.html)
+*   [在线课程 —— `Dataquest SQL`](https://www.dataquest.io/path-step/working-with-data-sources)
+*   [sqlite3 操作指南](http://sebastianraschka.com/Articles/2014_sqlite_in_python_tutorial.html)
 
-If you want to keep practicing, you can download the file we used in this blog post, `flights.db`, [here](https://www.dropbox.com/s/a2wax843eniq12g/flights.db?dl=0).
-
+如果你想继续自己操练，你能从 [这里](https://www.dropbox.com/s/a2wax843eniq12g/flights.db?dl=0) 下载到博文中使用的 `flights.db` 文件。
