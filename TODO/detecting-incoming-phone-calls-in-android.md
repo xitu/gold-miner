@@ -148,9 +148,9 @@ Broadcast receiver 响应来自系统本身或其他应用的广播信息（inte
 
 **KEEP CALM AND KEEP IT UP TO DETECT PHONE STATES**
 
-_那我们要怎么做来取到来电消息呢？ 你听说过 Android 里面的 Telephony Manager 么？_
+那我们要怎么做来取到来电消息呢？ 你听说过 Android 里面的 Telephony Manager 么？
 
-_如果你对 Telephony Manager 不熟悉的话，别担心。我会教你什么是 Telephony Manager 以及如何用它取到来电状态的。_
+如果你对 Telephony Manager 不熟悉的话，别担心。我会教你什么是 Telephony Manager 以及如何用它取到来电状态的。
 
 Telephony Manager 会将来自 Android 设备来电的全部状态信息告诉你。利用这些状态我们可以做许多事。
 
@@ -217,11 +217,11 @@ Telephony Manager 会将来自 Android 设备来电的全部状态信息告诉�
 
 **需要来电号码？**
 
-_你仔细看过 Telephony Manager 这个类么？_
+你仔细看过 Telephony Manager 这个类么？
 
-_你看到 **TelephonyManager.EXTRA_INCOMING_NUMBER** 这个了么？_
+你看到 **TelephonyManager.EXTRA_INCOMING_NUMBER** 这个了么？
 
-_如果你已经了解了 **TelephonyManager.EXTRA_INCOMING_NUMBER**，那很好，证明你读过我在上面给的关于 Telephony Manager 类的链接了_
+如果你已经了解了 **TelephonyManager.EXTRA_INCOMING_NUMBER**，那很好，证明你读过我在上面给的关于 Telephony Manager 类的链接了
 
 **TelephonyManager.EXTRA_INCOMING_NUMBER** 用 String 的形式返回来电号码。
 
