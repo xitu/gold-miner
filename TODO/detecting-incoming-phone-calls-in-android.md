@@ -1,122 +1,123 @@
+
 > * 原文地址：[Detecting Incoming Phone Calls In Android](http://www.theappguruz.com/blog/detecting-incoming-phone-calls-in-android)
 * 原文作者：[Parimal Gotecha](http://www.theappguruz.com/author/parimalgotecha)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[PhxNirvana](https://github.com/phxnirvana)
 * 校对者：
 
-# Detecting Incoming Phone Calls In Android
+# 在 Android 应用中监测来电信息
 
 
 
 
-## Objective
+## 目标
 
-The main objective of this blog post is to give you an idea about how to detect phone call state in Android.
+本文的主要目标是监测 Android 中的来电状态信息。
 
-**Are you trying to detect incoming call and incoming call number in your Android app?**
+**你想在你的 Android 应用中监测来电状态和来电号码么？**
 
-**Are you facing problem in detecting whether your phone is in ringing state, receiving state (off hook) or idle state?**
+**你在处理通话、摘机、空闲状态时无从下手么？**
 
-**Do you wish to take any action when there is an incoming call or when the phone goes into off hook state (Phone goes into off hook state when you receive a call) or when the phone goes into idle state (when you cut your call)?**
+**你想在收到来电、摘机（接听时的状态）或空闲（挂机状态）时做一些事情么？**
 
-I was working on a pretty huge Android project recently. In that I had to detect the state of the phone.
+我最近搞的一个大工程中必须要用到监测来电信息。
 
-So if you wish to know how I achieved that, read on further.
+如果你想知道我如何实现的话，就继续读下去吧。.
 
-**DETECT PHONE CALL STATE EVEN YOUR APPLICATION IS CLOSED**
+**即使应用关闭也可以监测来电信息**
 
-Do you know, even when your app is closed you can detect phone call states in your Android phone from within your app?
+你知道么，即使你的 Android 应用是关闭状态，也可以在应用中取到来电信息的。
 
-Cool…right? Now lets concentrate on **"How to do"** that!
+这很酷，是吧？现在让我们看看该 **“怎么做”** ！
 
-**RECEIVERS ARE THE KEY**
+**关键点在于 Receiver**
 
-Have you heard about receivers in Android?
+你听说过 Android 里面的 receiver 么？
 
-If yes, then learning the phone state concept would be pretty easy for you
+如果听说过的话，那么你会很容易的弄清楚手机状态这个概念的。
 
-And don’t worry if you are not familiar with receivers, I will tell you what actually receiver is and how to use it in our app.
+当然，没听说过也不要担心，我会告诉你 receiver 是什么以及如何在应用中使用它。
 
-**WHAT THE HELL ARE RECEIVERS?**
+**RECEIVER 到底是个什么鬼东西？**
 
-Broadcast receivers help us to receive messages from system or other applications.
+Broadcast receiver 帮助我们接收系统或其他应用的消息。
 
-Broadcast receiver respond to broadcast messages (intent, events etc.) from system it self or other applications.
+Broadcast receiver 响应来自系统本身或其他应用的广播信息（intent、event等）。
 
-**To know more about Broadcast Receiver, follow below link:**
+**点击以下链接获取更多知识：**
 
 *   [https://developer.android.com/reference/android/content/BroadcastReceiver.html](https://developer.android.com/reference/android/content/BroadcastReceiver.html)
 
-**To implement Broadcast Receiver in our app, we have to follow below 2 steps:**
+**在我们的应用里创建一个 Broadcast Receiver 需要执行以下两步：**
 
-1.  Create Broadcast Receiver
-2.  Register Broadcast Receiver
+1.  创建 Broadcast Receiver
+2.  注册 Broadcast Receiver
 
-Lets first create a simple project in Android Studio with blank activity.
+让我们先在 Android Studio 里建立一个带有空白 Activity 的简单工程。
 
-**If you are new to Android studio and don’t know how to create new project, please check the following link:**
+**如果你第一次接触 Android studio 不知道如何创建新工程的话，点击以下链接：**
 
 *   [http://www.theappguruz.com/blog/create-new-project-in-android-studio](http://www.theappguruz.com/blog/create-new-project-in-android-studio)
 
-**LETS CREATE & REGISTER A BROADCAST RECEIVER**
+**让我们创建并注册 BROADCAST RECEIVER**
 
-Create one Java class named **PhoneStateReceiver** and it should extend **BroadcastReceiver** class.
+创建一个名为 **PhoneStateReceiver** 的 Java 类文件，并继承 **BroadcastReceiver** 类。
 
-To register Broadcast Receiver, write below codes in **AndroidMainifest.xml** file.
+要注册 Broadcast Receiver的话，需要将以下代码写入 ```AndroidMainifest.xml``` 文件
 
-    
-        
-            
-        
-    
+```
+<receiver android:name=".PhoneStateReceiver">
+    <intent-filter>
+        <action android:name="android.intent.action.PHONE_STATE" />
+    </intent-filter>
+</receiver>
+```
 
+### 注意
 
-
-
-
-### Note
-
-You must write these lines between ****tag.
+你必须在 ```<application>```标签内写这几行代码.
 
 
 
-Our main goal is to receive mobile phone call state. So for that we have to define **android.intent.action.PHONE_STATE** as an action.
+我们的主要目的是接收通话广播，所以我们需要将 ```android.intent.action.PHONE_STATE``` 作为 receiver 的 action。
 
-**Now your AndroidMainifest.xml file should look like below**:
+**你的 ```AndroidMainifest.xml``` 文件应该和下图一样**:
 
 ![Phone State Receiver](http://www.theappguruz.com/app/uploads/2016/05/1-phonestatereceiver.png)
 
-Voila! We have successfully integrated Broadcast Receiver to our project.
+漂亮！我们成功的在项目中加入了一个 Broadcast Receiver。
 
-**HAVE YOU TAKEN PERMISSION FROM USER?**
+**你得到权限了么？**
 
-In order to receive phone call state in an application, you have to take permission from the users.
+为了在应用中接收手机的通话状态广播，你需要取得对应的权限。
 
-To take permission, we need to write below line in our **AndroidManifest.xml** file.
+我们需要在 ```AndroidManifest.xml``` 文件中写入以下代码来获取权限。
 
-    
+```
+<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+``` 
 
-**Now your AndroidManifest.xml file should look like below:**
+**现在你的 ```AndroidManifest.xml``` 应该和下面这张图一样了**
 
 ![Read Phone State](http://www.theappguruz.com/app/uploads/2016/05/2-read_phone_state.png)
 
-**THE STORY OF onReceive() METHOD**
+**关于 onReceive() 方法的故事**
 
-Now lets get back to our **PhoneStateListener** class, where we have extended **BroadcastReceiver**.
+现在让我们将目光转回到 继承了  **BroadcastReceiver** 的 **PhoneStateListener** 类中。
 
-In this class, we must override _**onReceive(Contex context, Intenet intent)**_ method because it’s an abstract method of BroadcastReceiver class.
+在这个类中我们需要重写 _```onReceive(Contex context, Intenet intent)```_ 方法，因为在基类（BroadcastReceiver）中这个方法是虚方法（abstract method）。
 
-_Do you have any idea about **onReceive()** method?_
+**你对 **onReceive()** 方法了解多少呢？**
 
-_If I ask you to take a wild guess about what the method should be doing, what your guess would be?_
+**如果我让你天马行空的想象一下这个方法的作用，你会怎么猜呢？**
 
-_**Hint:** The name itself is self-explanatory._
+**提示：** 它的名字已经解释了一切。
 
-_Guess… Guess… Guess..._
+加油……努力……你离答案只有一步之遥了……
 
-Yes, you have done it. Your thinking is totally right that _**onReceive()**_ method receives each message as an **Intent** object parameter. We have already declared Broadcast Receiver & registered it in **AndroidManifest.xml**.
+是的，就是你猜的那样。**onReceive()** 方法接收每一个以 **Intent** 对象的方式传来的消息。我们已经声明并在 **AndroidManifest.xml** 中注册了Broadcast Receiver。
 
-Now, let’s take a look at **PhoneStateReciver.java** file and specifically we would be focusing upon _**onReceive()**_ method of that class.
+现在，让我们将目光转向 **PhoneStateReciver.java** 文件来看看我们要在 _**onReceive()**_ 方法中做些什么。
 
     public void onReceive(Context context, Intent intent) {
 
@@ -130,41 +131,40 @@ Now, let’s take a look at **PhoneStateReciver.java** file and specifically we 
 
     }
 
-_We are done with lot of stuff. Do you think now we would be able to detect phone state?_
+我们已经做了一堆准备工作了，猜猜我们现在该怎么做才能监测到通话状态？
 
-_Think over it._
+先自己想一想。
 
-Right now, whenever a phone call comes we’ll get a toast message that says **Receiver start** and we’ll also be able to see that in our console since we have also printed the statement on the console.
-
+目前只要收到来电就会弹出一个显示 **Receiver start** 消息的 toast，我们也会在控制台中收到同样的消息，因为我们已经将其输出到控制台中。
 ![Receiver Start](http://www.theappguruz.com/app/uploads/2016/05/receiver-start.png)
 
-But…
+但……
 
-**We won’t be able to identify the different states of the phone. Our objective was to find the states like:**
+**我们无法得知准确的来电状态，我们的目标是取到如下的状态：**
 
-*   Ringing
-*   Off Hook
-*   Idle
+*   响铃
+*   摘机
+*   空闲
 
 **KEEP CALM AND KEEP IT UP TO DETECT PHONE STATES**
 
-_What we have to do to detect all phone states? Do you know about Telephony Manager in Android?_
+_那我们要怎么做来取到来电消息呢？ 你听说过 Android 里面的 Telephony Manager 么？_
 
-_Don’t worry if you are not familiar with Telephony Manager. I’ll guide you what is Telephony Manager and how we can use it to detect phone call states._
+_如果你对 Telephony Manager 不熟悉的话，别担心。我会教你什么是 Telephony Manager 以及如何用它取到来电状态的。_
 
-Telephony Manager gives you all the states information of Android devices calls. Using these states, we can preform various actions.
+Telephony Manager 会将来自 Android 设备来电的全部状态信息告诉你。利用这些状态我们可以做许多事。
 
-**If you wish to learn more about Telephony Manager, please go through below link:**
+**想了解更多关于 Telephony Manager 的知识，请点以下链接：**
 
 *   [https://developer.android.com/reference/android/telephony/TelephonyManager.html](https://developer.android.com/reference/android/telephony/TelephonyManager.html)
 
-We can detect our phone call states using **TelephonyManager.EXTRA_STATE**. It indicates the current call state and it will return phone state as a **String Object**.
+我们可以通过 **TelephonyManager.EXTRA_STATE** 来取得当前来电状态。它会用一个 **String** 对象来返回当前来电状态。
 
-**So declare one String object like below and get different phone call states:**
+**以如下方式新建一个 String 对象来获取不同的通话状态信息：**
 
     String state = intent.getStringExtra(TelephonyManager.EXTRA_STATE);
 
-**To get different phone call states, we have to implement our code like below:**
+**要获取不同的状态，我们可以用下面的代码达到目的：**
 
     if(state.equals(TelephonyManager.EXTRA_STATE_RINGING)){
         Toast.makeText(context,"Ringing State Number is -"+incomingNumber,Toast.LENGTH_SHORT).show();
@@ -176,60 +176,60 @@ We can detect our phone call states using **TelephonyManager.EXTRA_STATE**. It i
         Toast.makeText(context,"Idle State",Toast.LENGTH_SHORT).show();
     }
 
-So now our **PhoneCallReceiver** class looks like below:
+现在我们的 **PhoneCallReceiver** 类应该如下所示：
 
 ![Broadcast Receiver](http://www.theappguruz.com/app/uploads/2016/05/4-broadcastreceiver-.png)
 
-**YES, FINALLY WE DID IT..!!!**
+**是的，我们成功了！！！**
 
-We have successfully implemented all the things. You can check using emulator as well as installing app into your device.
+我们成功达到了目标，你可以用模拟器或真机来检验一下成果。
 
-**If you don’t know how to check in emulator using device monitor, please follow below steps:**
+**如果你不知道如何打开模拟器的话，按照下面的步骤来：**
 
-1.  Start Android studio
-2.  Click on Android Device Monitor. See below screenshot if you can’t find Android Device Monitor.
+1.  打开 Android studio
+2.  点击 Android Device Monitor。如果你找不到 Android Device Monitor 的话，看下面这张截图。
 
 ![Android Device Moniter](http://www.theappguruz.com/app/uploads/2016/05/android-device-moniter.png)
 
-**Follow below screenshots to get more idea:**
+**下面这张图会显示如何操作模拟器**
 
 ![Emulator Control](http://www.theappguruz.com/app/uploads/2016/05/emulator-control.png)
 
-If you are using new version of Android Studio (2.1 +) or if you have latest **HAXM** then you have to follow screenshot steps:
+如果你使用新版本的 Android Studio (2.1 +) 或者你有最新的 **HAXM** 那你要跟着下面这张图来
 
 ![Phone Device](http://www.theappguruz.com/app/uploads/2016/05/7-phone-device-1234567890.png)
 
-_That’s it… You are finished with all the things and now you can detect all the phone states using emulator. You can find outputs like below screenshots._
+就酱。你可以用模拟器来监测通话状态了，下面的截图显示了运行结果。
 
-**OUTPUT 1\. INCOMING CALL STATE DETECTED**
+**结果 1\. 来电状态**
 
 ![Incoming Call State](http://www.theappguruz.com/app/uploads/2016/05/8-incoming-call-state.png)
 
-**OUTPUT 2\. RECEIVING CALL STATE DETECTED**
+**结果 2\. 接听状态**
 
 ![Call Receiver State](http://www.theappguruz.com/app/uploads/2016/05/9-call-receiver-state.png)
 
-**OUTPUT 3\. IDEAL STATE DETECTED**
+**结果 3\. 空闲状态**
 
 ![Call Idle State](http://www.theappguruz.com/app/uploads/2016/05/10-call-idle-state.png)
 
-We’re done with our main goal of detect phone states.
+我们的主要目标就完成了。
 
-**NEED INCOMING CALL NUMBER?**
+**需要来电号码？**
 
-_Have you read Telephony Manager class in detail?_
+_你仔细看过 Telephony Manager 这个类么？_
 
-_Have you seen **TelephonyManager.EXTRA_INCOMING_NUMBER**?_
+_你看到 **TelephonyManager.EXTRA_INCOMING_NUMBER** 这个了么？_
 
-_If you are already aware about **TelephonyManager.EXTRA_INCOMING_NUMBER**, that’s good it means you already read my given link of Telephony Manager class._
+_如果你已经了解了 **TelephonyManager.EXTRA_INCOMING_NUMBER**，那很好，证明你读过我在上面给的关于 Telephony Manager 类的链接了_
 
-**TelephonyManager.EXTRA_INCOMING_NUMBER** returns an incoming call number as a string.
+**TelephonyManager.EXTRA_INCOMING_NUMBER** 用 String 的形式返回来电号码。
 
 ![Extra State](http://www.theappguruz.com/app/uploads/2016/05/11-extra-state.png)
 
     String incomingNumber = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER);
 
-**If you wish to detect incoming call number in your app then you can do so using below code:**
+**如果你想在自己的应用中监测来电号码，可以利用下面的代码：**
 
     public class PhoneStateReceiver extends BroadcastReceiver {
         @Override
@@ -250,10 +250,10 @@ _If you are already aware about **TelephonyManager.EXTRA_INCOMING_NUMBER**, that
 
         }
 
-_Yupii...We have successfully detected Incoming call number..!!!_
+啊哈！我们成功取到了来电号码！
 
-I hope you find this blog post very helpful while with Detecting incoming phone calls concept. Let me know in comment if you have any questions regarding Detecting incoming phone calls. I will reply you ASAP.
+但愿本篇博客在获取来电信息方面对你有所帮助。对于获取来电消息方面还有问题的话请留言，我会尽快回复的。
 
-Learning Android sounds fun, right? Why not check out our other [**Android Tutorials**](http://www.theappguruz.com/category/android)?
+学习 Android 很棒，不是么？来看看其他的 [**Android 教程**](http://www.theappguruz.com/category/android) 吧。
 
-Got an Idea of Android App Development? What are you still waiting for? [**Contact Us**](http://www.theappguruz.com/contact-us) now and see the Idea live soon. Our company has been named as one of the best [**Android Application Development Company**](http://www.theappguruz.com/android-app-development) in India.
+有开发 Android 应用的灵感？还等什么，快 [**联系我们**](http://www.theappguruz.com/contact-us) ，灵感直播即将上线。我们的公司被提名为印度最好的  [**Android 应用开发公司**](http://www.theappguruz.com/android-app-development) 。
