@@ -1,10 +1,12 @@
 > * 原文地址：[Introduction to Node & Express](https://medium.com/javascript-scene/introduction-to-node-express-90c431f9e6fd#.xffyxajza)
 * 原文作者：[Eric Elliott](https://medium.com/@_ericelliott)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[王子建](https://github.com/Romeo0906)
 * 校对者：
 
 # Introduction to Node & Express
+
+# Node & Express 入门指南
 
 
 
@@ -14,6 +16,8 @@
 
 
 > This post series has companion videos and exercises for members of [“Learn JavaScript with Eric Elliott”](https://ericelliottjs.com/product/lifetime-access-pass/). For members, the video lessons are here: [“Introduction to Node and Express” video course](https://ericelliottjs.com/premium-content/introduction-to-node-express/). Not a member yet? [Sign up now](https://ericelliottjs.com/product/lifetime-access-pass/).
+
+> 本系列文章给[跟 Eric Elliott 学 JavaScript](https://ericelliottjs.com/product/lifetime-access-pass/)的会员提供了配套的视频和练习，会员可点击查看视频教程：[“Node & Express 入门指南”视频教程](https://ericelliottjs.com/premium-content/introduction-to-node-express/)。还不是会员？[马上注册](https://ericelliottjs.com/product/lifetime-access-pass/)。
 
 
 
@@ -35,11 +39,19 @@
 
 Node is a JavaScript environment built on the same JavaScript engine used in Google’s Chrome web browser. It has some great features that make it an attractive choice for building server-side application middle tiers, including web servers and web services for platform APIs.
 
+Node 是一个 JavaScript 环境，使用了与谷歌 Chrome 浏览器相同的 JavaScript 引擎。Node 具有非常强大的功能，无论对 web 服务器还是 web 服务器的平台 API 来说，它都是搭建服务端应用中间层的诱人之选。
+
 The non-blocking event driven I/O model gives it very attractive performance, easily beating threaded server environments like PHP and Ruby on Rails, which block on I/O and handle multiple simultaneous users by spinning up separate threads for each.
+
+非阻塞事件驱动的 I/O 模型给予 Node 非常强大的性能，轻而易举地就能打败阻塞 I/O 和分线程处理多用户并发的线程服务器环境，比如 PHP 和 Ruby on Rails。
 
 I’ve ported production apps with tens of millions of users from both PHP and Ruby on Rails to Node, leading to 2x — 10x improvements of both response handling time and the number of simultaneous users handled by a single server.
 
+我曾经将千万级用户的 app 产品从 PHP 和 Ruby on Rails 环境迁移至 Node 环境，并实现了响应处理时间和单服务器多用户并发状况处理 2-10 倍的性能提升。
+
 **Node Features:**
+
+**Node 的特征：**
 
 *   Fast! (Non-blocking I/O by default).
 *   Event driven.
@@ -50,17 +62,34 @@ I’ve ported production apps with tens of millions of users from both PHP and R
 *   Trusted and backed by large enterprises running mission-critical apps. (Adobe, Google, Microsoft, Netflix, PayPal, Uber, Walmart, etc…).
 *   Easy to get started.
 
+* 快！（默认为非阻塞 I/O）
+* 事件驱动
+* 一流的网络性能
+* 一流的流媒体接口
+* 用于接入操作系统和文件系统等的强大的标准库
+* 支持编译的二进制模块，以便用户可以用其他更为基础的语言（如 C++）实现 Node 的强大性能
+* 深受许多大企业的信赖和支持，并用于运行关键任务应用（如：Adobe, Google, Microsoft, Netflix, PayPal, Uber, Walmart 等）
+* 易于上手
+
 ### Installing Node
 
+### 安装 Node
+
 Before we jump in, let’s make sure you’ve got Node installed. There are always two supported versions of Node, the Long Term Support version (stable), and the current release. For production projects, try the LTS version. If you want to play with cutting edge features from the future, pick the current version.
+
+入圈之前，要确保已经安装了 Node。Node 一般提供两个版本，长期支持版本（稳定）和最新版本。如果用于生产项目，你应该使用 LTS 版本，如果想使用最前沿的功能则应选择最新版本。
 
 #### Windows
 
 Hit the [Node website](https://nodejs.org/en/) and click one of the big green install buttons.
 
-#### Mac or Linux
+访问[Node 官网](https://nodejs.org/en/)并且点击绿色的安装按钮。
+
+#### Mac 或者 Linux
 
 If you’re on a Mac or Linux system, my favorite way to install Node is with nvm.
+
+在 Mac 或者 Linux 系统上，我最喜欢的方式是用 nvm 安装 Node。
 
 To install or update nvm, you can use the [install script](https://github.com/creationix/nvm/blob/v0.32.1/install.sh) using cURL:
 
@@ -72,9 +101,21 @@ wget -qO- [https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh](
 
 Once nvm is installed, you can use it to install any version of Node.
 
-### Hello, World!
+你可以使用[install script](https://github.com/creationix/nvm/blob/v0.32.1/install.sh)来安装或者升级 nvm，使用 cURL：
+
+curl -o- [https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh](https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh) | bash
+
+or Wget:
+
+wget -qO- [https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh](https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh) | bash
+
+安装好 nvm 后，你可以用它来安装各种版本的 Node。
+
+### Hello, World! 实例
 
 Node & Express are easy enough that you get a basic web server to serve “Hello, world!” in about 12 lines of code:
+
+Node & Express 非常简单，你可以仅用 12 行代码就能够实现一个基本的 web 服务器来实现“Hello,world!”：
 
     const express = require('express');
 
@@ -91,44 +132,70 @@ Node & Express are easy enough that you get a basic web server to serve “Hello
 
 Before this code will run, you’ll need to set up your app a little. Start by creating a new git repo:
 
+在代码运行之前，你需要创建你的应用。从创建一个新的 git 仓库开始：
+
     mkdir my-node-app && cd my-node-app
     git init
 
 You need a `package.json` file to store your apps configuration. To create one, use `npm`, which comes installed with Node:
 
+你需要一个  `package.json` 文件来存储应用的配置信息，你可以用 Node 中自带的 `npm` 来创建：
+
     npm init
 
 Answer a few questions (app name, git repo, etc…) and you’ll be ready to roll. Then you’ll need to install Express:
+
+填写一些问题（应用名称、git 仓库等）之后你就可以准备部署应用了。接下来你需要安装 Express：
 
     npm install --save express
 
 With the dependencies installed, you can run your app by typing:
 
+依赖关系安装完之后，你可以输入以下命令来运行你的应用：
+
     node index.js
 
 Test it with `curl`:
+
+用 `curl` 来测试：
 
 curl localhost:3000
 
 Or visit `localhost:3000` in your browser.
 
+或者在浏览器中访问 `localhost:3000`。
+
 That’s it! You’ve just built your first Node app.
+
+搞定了！你已经搭建了你的首个 Node 应用。
 
 ### Environment Variables
 
+### 环境变量
+
 You can use environment variables to configure your Node application. That makes it easy to use different configurations in different environments, such as the developer’s local machine, a testing server, a staging server, and production servers.
+
+你可以使用环境变量来配置你的 Node 应用，这样就能很容易地因地制宜切换不同的配置，比如在开发者本地环境，测试环境以及生产环境下使用对应的配置。
 
 You should also use environment variables to inject app secrets, such as API keys into the app, without checking them into source control. Some deployment environments let you use `.env` files that contain the configuration settings for your app, but then you’re left with the question, “how do I load the `.env` settings into environment variables that the app can use?”
 
+你应该使用环境变量给应用注入应用密文，如 API 的 key，而不是在源代码控制中对其进行校验。一些开发环境使用 `.env` 文件来保存应用的配置信息，但是你可能对此充满了疑问，“我如何才能将 .env 文件中的设置加载到应用的环境变量中去呢？”
+
 For that, try [dotenv](https://github.com/motdotla/dotenv) for Node:
+
+鉴于此，来试试 Node 的 [dotenv](https://github.com/motdotla/dotenv) 吧：
 
     npm install --save dotenv
 
 Then add one line to the top of your entry file:
 
+然后在入口文件顶部添加：
+
     require('dotenv').config();
 
 Now you can load the `port` setting from a `.env` file. Create a new file called `.env` in your project root with the following:
+
+
 
     PORT=5150
 
