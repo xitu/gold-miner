@@ -37,7 +37,7 @@ Picture credits [Lorna Mitchell](https://medium.com/u/e6dd3fdb7c2d)
 
 当涉及到 webhooks 的设计，现在并没有类似标准的HTTP API这样的规范。每个服务实现不同的 webhook， 从而导致许多不同的 webhooks 实现风格。
 
-我们在集成了来自100多个不同服务 API 后，可以说服务对外提供 webhooks 的方式是存在妥协方案的。所以这里有一些东西帮助我们，让我们可以帮助我们在需要对外提供 webhooks 与一个服务集成的时候，感到一丝快意。
+我们在集成了来自100多个不同服务 API 后，可以说服务对外提供 webhooks 的方式是存在妥协方案的。所以这里有一些东西可以帮助我们，让我们在需要对外提供 webhooks 与一个服务集成的时候感到一丝快意。
 
 
 #### 自我解释和一致性
