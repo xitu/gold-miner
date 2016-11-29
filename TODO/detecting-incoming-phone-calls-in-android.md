@@ -20,7 +20,7 @@
 
 **你想在收到来电、摘机（接听时的状态）或空闲（挂机状态）时做一些事情么？**
 
-我最近搞的一个大工程中必须要用到监测来电信息。
+我最近搞的一个大工程中必须要用到监测电话信息。
 
 如果你想知道我如何实现的话，就继续读下去吧。.
 
@@ -101,11 +101,11 @@ Broadcast receiver 响应来自系统本身或其他应用的广播信息（inte
 
 ![Read Phone State](http://www.theappguruz.com/app/uploads/2016/05/2-read_phone_state.png)
 
-**关于 onReceive() 方法的故事**
+**关于 onReceive() 方法的来龙去脉**
 
 现在让我们将目光转回到 继承了  **BroadcastReceiver** 的 **PhoneStateListener** 类中。
 
-在这个类中我们需要重写 _```onReceive(Contex context, Intenet intent)```_ 方法，因为在基类（BroadcastReceiver）中这个方法是虚方法（abstract method）。
+在这个类中我们需要重写 _```onReceive(Contex context, Intenet intent)```_ 方法，因为在基类（BroadcastReceiver）中这个方法是抽象方法（abstract method）。
 
 **你对 **onReceive()** 方法了解多少呢？**
 
@@ -115,7 +115,7 @@ Broadcast receiver 响应来自系统本身或其他应用的广播信息（inte
 
 加油……努力……你离答案只有一步之遥了……
 
-是的，就是你猜的那样。**onReceive()** 方法接收每一个以 **Intent** 对象的方式传来的消息。我们已经声明并在 **AndroidManifest.xml** 中注册了Broadcast Receiver。
+是的，就是你猜的那样。_**onReceive()**_ 使用 **Intent** 对象参数来接收每个消息。我们已经声明并在 **AndroidManifest.xml** 中注册了Broadcast Receiver。
 
 现在，让我们将目光转向 **PhoneStateReciver.java** 文件来看看我们要在 _**onReceive()**_ 方法中做些什么。
 
@@ -131,7 +131,7 @@ Broadcast receiver 响应来自系统本身或其他应用的广播信息（inte
 
     }
 
-我们已经做了一堆准备工作了，猜猜我们现在该怎么做才能监测到通话状态？
+我们已经做了一堆准备工作了，你觉得我们现在是不是可以检测到通话状态了呢？
 
 先自己想一想。
 
@@ -140,25 +140,25 @@ Broadcast receiver 响应来自系统本身或其他应用的广播信息（inte
 
 但……
 
-**我们无法得知准确的来电状态，我们的目标是取到如下的状态：**
+**我们无法得知准确的通话状态，我们的目标是取到如下的状态：**
 
 *   响铃
 *   摘机
 *   空闲
 
-**KEEP CALM AND KEEP IT UP TO DETECT PHONE STATES**
+**保持冷静，继续探索手机状态**
 
-那我们要怎么做来取到来电消息呢？ 你听说过 Android 里面的 Telephony Manager 么？
+那我们要怎么做来取到电话状态信息呢？ 你听说过 Android 里面的 Telephony Manager 么？
 
-如果你对 Telephony Manager 不熟悉的话，别担心。我会教你什么是 Telephony Manager 以及如何用它取到来电状态的。
+如果你对 Telephony Manager 不熟悉的话，别担心。我会教你什么是 Telephony Manager 以及如何用它取到通话状态的。
 
-Telephony Manager 会将来自 Android 设备来电的全部状态信息告诉你。利用这些状态我们可以做许多事。
+Telephony Manager 会将来自 Android 设备电话的全部状态信息告诉你。利用这些状态我们可以做许多事。
 
 **想了解更多关于 Telephony Manager 的知识，请点以下链接：**
 
 *   [https://developer.android.com/reference/android/telephony/TelephonyManager.html](https://developer.android.com/reference/android/telephony/TelephonyManager.html)
 
-我们可以通过 **TelephonyManager.EXTRA_STATE** 来取得当前来电状态。它会用一个 **String** 对象来返回当前来电状态。
+我们可以通过 **TelephonyManager.EXTRA_STATE** 来取得当前通话状态。它会用一个 **String** 对象来返回当前通话状态。
 
 **以如下方式新建一个 String 对象来获取不同的通话状态信息：**
 
