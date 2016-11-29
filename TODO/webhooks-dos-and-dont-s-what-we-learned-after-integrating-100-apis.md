@@ -9,7 +9,7 @@
 
 当现在的应用变的越来越像 API 的集合而且无服务架构获得越来越多的关注时，作为一个 API 的提供者，不应该再只是暴露传统的 REST 端口。
 
-传统 REST API 的设计是用来让你可以程序化的得到一个结果或者提交的内容，但是在你只是想要在事情改变时你的应用能收到的响应，这还远远不是最佳的实践。如果是要实现这个的话,就需要在固定间隔内轮询，而且这样也不能实现高可扩展性。
+传统 REST API 的设计是用来让你可以程序化的得到一个结果或者提交内容，但是在你只是想要当事情改变时你的应用能收到的响应的情况下，这还远远不是最佳的实践。如果是要实现这个的话,就需要在固定间隔内进行轮询，而且这样也不能实现高可扩展性。
 
 
 ![](https://cdn-images-1.medium.com/max/800/1*dEmrcTajSG5A4Z_JjrGqfw.png)
@@ -18,7 +18,7 @@ Picture credits [Lorna Mitchell](https://medium.com/u/e6dd3fdb7c2d)
 
 
 
-为了获取一小段信息，轮询 API 这种方式通常会迫既浪费又杂乱。一些事件或许在一段时间内只发生一次，所以你必须推断出轮询的频率。然而即使这样你也可能错过它。
+为了获取一小段信息，轮询 API 这种方式通常会显得既浪费又混乱。一些事件或许在一段时间内只发生一次，所以你必须推断出轮询的频率。然而即使这样你也可能错过它。
 
 > Don’t call us, we’ll call you!
 
@@ -35,9 +35,9 @@ Picture credits [Lorna Mitchell](https://medium.com/u/e6dd3fdb7c2d)
 一个 webhook 会在它调用时就传递数据到其它的应用，这表明你可以立即得到数据。这让使用了 webhook 的提供者和消费者都变的更有效率，如果你的 API 还不支持这些，你真应该做一些关于这方面的事。
 (you hear me [Salesforce](https://medium.com/u/f4fb2a348280)?).
 
-当涉及到设计 webhooks，现在并没有类似标准的HTTP API这样的规范。每个服务实现不同的 webhook， 从而导致许多不同的 webhooks 实现风格。
+当涉及到 webhooks 的设计，现在并没有类似标准的HTTP API这样的规范。每个服务实现不同的 webhook， 从而导致许多不同的 webhooks 实现风格。
 
-我们在集成了来自100多个不同服务 API 后，可以说服务对外提供 webhooks 的方式是存在一个妥协方案的。所以这里有一些东西可以帮助我们在需要对外提供 webhooks 与一个服务集成的时候，感到一丝快意。
+我们在集成了来自100多个不同服务 API 后，可以说服务对外提供 webhooks 的方式是存在妥协方案的。所以这里有一些东西帮助我们，让我们可以帮助我们在需要对外提供 webhooks 与一个服务集成的时候，感到一丝快意。
 
 
 #### 自我解释和一致性
@@ -55,10 +55,10 @@ Github webhook 携带数据的示例
 
 
 
-[GitHub](https://medium.com/u/d18563e4f2b9) 非常完美的实现了以上这点. 请不要像Instagram或Eventbrite那样，只发送一个 ID 然后使用另一个 API 来解析。
+[GitHub](https://medium.com/u/d18563e4f2b9) 非常完美的实现了以上这点. 请不要像 Instagram 或 Eventbrite 那样，只发送一个 ID 然后使用另一个 API 来解析。
 
 
-如果你认为你的在一次请求中发送的有效载荷太多，请给我机会让它变的更轻量。
+如果你认为你的在一次请求中发送的有效数据太多，请给我机会让它变的更轻量。
 
 [Stripe](https://medium.com/u/3ecae35d6d66)’s [event types](https://stripe.com/docs/api) 就是一个很好的例子。
 
