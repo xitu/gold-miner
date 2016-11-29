@@ -195,15 +195,19 @@ Then add one line to the top of your entry file:
 
 Now you can load the `port` setting from a `.env` file. Create a new file called `.env` in your project root with the following:
 
-
+现在你能从 `.env` 文件中加载 `port` 的设置了，接下来在项目的根目录下新建一个名为 `.env` 的文件：
 
     PORT=5150
 
 Save it, and relaunch the app, and you should see:
 
+保存，重启应用，之后你会看到：
+
     listening on port 5150
 
 You don’t want to check your `.env` file into Git, so add it to your `.gitignore` file. In fact, while we’re at it, let’s add some other stuff, too:
+
+如果你不想将 `.env` 文件提交到 Git，你需要将它添加到 `.gitignore` 文件中。事实上，我们还需要将一些其他的内容添加进去：
 
     node_modules
     build
@@ -213,18 +217,30 @@ You don’t want to check your `.env` file into Git, so add it to your `.gitig
 
 You still want to document the settings that are required for your app, so I like to check in a copy of the `.env` file with app secrets redacted. New users of the app can copy the file, name it `.env`, customize the settings, and be off and running. I name the checked-in copy `.env.example` and include instructions for developers in the project’s `README.md` file.
 
+如果你还是想记录应用所需的配置信息，我通常喜欢在应用密文编辑中添加一份 `.env` 文件的副本。新用户可以复制该文件，将其命名为 `.env` 并自定义设置选项、关闭文件然后运行。我会将提交的副本文件命名为 `.env.example` 并在项目的 `README.md` 文件中写一份开发指南。
+
 PORT=5150
 AWS_KEY=
 
 Note that you should be careful that all the app secrets are all redacted in your `.env.example` file, as demonstrated.
 
+你应该注意，如我所言，所有的应用密文都要写在 `.env.example` 文件中。
+
 > Don’t check your app secrets into the Git repository.
+
+> 不要将你的应用密文提交到 Git 仓库。
 
 ### Testing Node Apps
 
+### 测试 Node 应用
+
 I like to test Node apps with [Supertest](https://github.com/visionmedia/supertest), which abstracts away http connection issues and provides a simple, Fluent API. For http endpoints, I use [functional tests](https://www.sitepoint.com/javascript-testing-unit-functional-integration/), which means that I don’t worry about mocking databases and so on. I just hit the API with some values and expect a specific response back.
 
+我喜欢用[Supertest](https://github.com/visionmedia/supertest)来测试 Node 应用，它会抽象出 http 连接问题，并且提供一个简单、流畅的 API。我用 [functional tests](https://www.sitepoint.com/javascript-testing-unit-functional-integration/) 进行 http 端点测试，它让我不必担心模拟数据库等问题。我只需要点击 API 并传入一些值，然后静候一个具体的响应。
+
 Here’s a simple example with Supertest and [Tape](https://medium.com/javascript-scene/why-i-use-tape-instead-of-mocha-so-should-you-6aa105d8eaf4):
+
+以下是一个使用 Supertest 和 [Tape](https://medium.com/javascript-scene/why-i-use-tape-instead-of-mocha-so-should-you-6aa105d8eaf4) 测试的一个简单的实例：
 
     const test = require('tape');
     const request = require('supertest');
@@ -241,23 +257,37 @@ Here’s a simple example with Supertest and [Tape](https://medium.com/javascrip
 
 I also write [unit tests](https://medium.com/javascript-scene/what-every-unit-test-needs-f6cd34d9836d) for any smaller, reusable modules I use to build the API.
 
+我也会给任何我用于构建 API 的稍小的、可重用的模块写[单元测试](https://medium.com/javascript-scene/what-every-unit-test-needs-f6cd34d9836d)。
+
 Note that instead of dealing with the network, we’re directly importing the express app. Supertest doesn’t need to read your app config to know what port to connect to. It handles all those details under the covers, but for this to work, you’ll want to export your app… in your app file:
+
+需要注意的是，我们直接导入了快速应用，而没有使用网络。Supertest 并不需要读取应用配置来确定连接端口，它将所有的细节都封装起来，为了能够正常工作，你需要在应用文件中导出你的应用。
 
     module.exports = app;
 
 For this and other reasons, I split my app into a couple different pieces, `app.js` where I build and configure the app itself, and `server.js`, where I import the app, handle the networking details, and call `app.listen()`.
 
+出于这样和那样的理由，我将应用分割成许多不同的切片，在 `app.js` 中搭建并配置应用，在 `server.js` 中导入应用，在 `app.listen()` 中处理网络细节。
+
 #### Setting the Node Path
 
+#### 设置 Node 路径
+
 When you start splitting your app into modules, you may get sick of relative path requires like this:
+
+当你将应用划分为多个模块时，你将会对相对路径的引入关系感到不胜其烦：
 
 const app = require('../../app');
 
 Luckily, you don’t need to use them. Put your app files in a directory named `source` or `src` and then set the `NODE_PATH` environment variable. You can use `cross-env` to set environment variables so they’ll work cross-platform (read, run your app on Windows):
 
+幸运的是，你不需要这样做。把你的应用文件放在名为 `source` 或者 `src` 的目录中，然后设置 `NODE_PATH` 环境变量。你可以使用 `cross-env` 设置环境变量，使他们可以跨平台使用（可以在 Windows 下读取并运行应用）。
+
     npm install --save cross-env
 
 Then in your `package.json` scripts, you can safely set your environment variables:
+
+之后，你可以很安全地在 `package.json` 脚本中设置环境变量：
 
      "scripts": {
         "start": "cross-env NODE_PATH=source node source/server.js",
@@ -267,17 +297,27 @@ Then in your `package.json` scripts, you can safely set your environment variabl
 
 With `NODE_PATH` set, you can require modules like this:
 
+设置 `NODE_PATH` 之后，你可以这样引入模块：
+
 const app = require('app');
 
 Much better!
 
+超赞！
+
 ### Middleware
 
+### 中间件
+
 [Express](http://expressjs.com/) is the most popular framework for Node apps, and it features middleware using continuation passing. When you want to run the same code for potentially many different routes, the right place for that code is probably middleware.
+
+[Express](http://expressjs.com/) 是 Node 应用中最流行的框架，它使用延续传递的方式实现中间件。如果你有可能在许多路由中都会运行相同的代码，也许最好的方式是将它们写入中间件。
 
 Middleware is a function that gets passed the request and response objects, along with a continuation function to call, called `next()`. Imagine you want to add a `requestId` to each request/response pair so that you can easily trace them back to the individual request when you’re debugging or searching your logs for something.
 
 You can write some middleware like this:
+
+中间件其实是一个函数，他能够调用一个名为 `next()` 的函数，来传递请求和响应对象。假如你想在每个请求和响应中都添加一个 `requestId` ，从而能够很方便地在调试中追踪单个请求或者在日志中搜索内容，你可以写一个像这样的中间件：
 
     require('dotenv').config();
     const express = require('express');
@@ -285,39 +325,63 @@ You can write some middleware like this:
 
     const app = express();
 
-    // request id middleware
+    // 请求 id 的中间件
     const requestId = (req, res, next) => {
       const requestId = cuid();
       req.id = requestId;
       res.id = requestId;
 
-      // pass continuation to next middleware
+      // 延续传递至下一个中间件
 
 ### Memory Management
 
+### 内存管理
+
 Since Node is single-threaded, that means that all your users are going to be sharing the same memory space. In other words, unlike in the browser, you have to be careful not to store user-specific data in closures where other connections can get at it. For this reason, I like to use `res.locals` to store temporary user data that’s only available during that user’s request/response cycle:
+
+因为 Node 是单线程的，这也意味着所有的用户都会共享同一块内存空间。换句话说，不像是在浏览器中，你不得不当心不要再闭包函数中保存针对某一个用户的数据，因为其他的连接可能会拿到那些数据。正因如此，我喜欢用 `res.locals` 来存储当前用户的信息，这只在该用户的请求和响应循环中可用。
 
 This is also a better way to store the `requestId` mentioned above.
 
+这也是一个用来存储上文提到的 `requestId` 的更好的办法。
+
 ### Debugging Node Apps
+
+### 调试 Node 应用
 
 Node v6.4.x+ ships with an integrated Chrome debugger, so you can hook up Node to use the same tools you use to debug your JS apps in the browser.
 
+Node v6.4.x+ 版本中集成了完整的 Chrome 调试工具，因此你可以像在浏览器中调试 JS 应用一样调试 Node。
+
 To use it, simply add debugger statements anywhere you want to set a breakpoint, then run:
+
+要使用调试功能，你只需简单的在断点处添加一个调试声明，然后运行：
 
 node --debug-brk --inspect source/app.js
 
 Open the provided URL in the browser, and you’ll get an interactive debugging environment.
 
+在浏览器中打开所提供的 URL，之后你就能得到一个交互式的调试环境。
+
 I use `--debug-brk` by default to tell it to break at the beginning, but you can leave it out. Remember, you’ll probably need to hit your route in a browser or from curl to trigger the route handlers and hit your breakpoints.
+
+我会使用 `--debug-brk` 默认地在起点设置一个断点，但是你也可以取消。要记住，你可能需要在浏览器中点击路由或者从 curl 中触发路由处理机制并且点击你的断点位置。
 
 As you probably already know, Chrome’s dev tools are packed with valuable debugging insights. You can profile, inspect the memory management and watch for memory leaks, step through the code a line at a time, hover over variables to see values, etc…
 
+你可能知道的，Chrome 的开发工具集成了非常有价值的调试信息。你能够浏览、检查内存管理并监控内存泄漏、一次只执行一行代码、鼠标悬停在变量上来查看变量的值等等。
+
 ### Let it Crash
+
+### 应用崩溃
 
 Processes crash. Like all things, your server’s runtime will probably encounter an error it can’t handle at some point. Don’t sweat it. Log the error, shut down the server, and launch a new instance.
 
+进程崩溃。众生皆如此，你的服务器在运行中可能会遭遇一个它无法处理的错误。不要苦恼，记录下错误信息，关闭服务器然后重新运行一个新的实例。
+
 What you absolutely must not do is this:
+
+你绝对不能像这样做：
 
     process.on('uncaughtException', (err) => {
       console.log('Oops!');
@@ -325,25 +389,47 @@ What you absolutely must not do is this:
 
 You must shut down the process when there is an uncaught exception, because by definition, if you don’t know what went wrong with the app, your app is in an unknown, undefined state, and just about anything could be going wrong.
 
+当出现未捕获的异常时，你必须关闭进程，因为从定义上来讲，如果你不知道应用哪里出了问题，你的应用就处在一种不可知不明确的状态，并且随处都有可能产生错误。
+
 You could be leaking resources. Your users may not be seeing the correct data. You could have all kinds of crazy, undefined behaviors. When there is an exception you haven’t specifically planned for, log the error, clean up whatever resources you can, and shut down the process.
+
+你可能会造成资源泄漏，用户可能看到错误的数据，你可能会得到各种疯狂的不明确的应用操作。当产生一个你意料之外的异常时，记录下错误信息，清理所以有你能清理的资源，并且关闭进程。
 
 I wrote a module to make graceful error handling easy with Node. Check out [express-error-handler](https://github.com/ericelliott/express-error-handler).
 
+我用 Node 写了一个优雅的错误处理模块，在此检出 [express-error-handler](https://github.com/ericelliott/express-error-handler)。
+
 #### Crash Recovery
+
+#### 崩溃修复
 
 There are a wide range of server monitor utilities to detect crashes and repair the service in order to keep things running smoothly, even in the face of unexpected exceptions.
 
+有各种各种的服务器监控工具可以检测崩溃并且修复服务来保持应用运行流畅，即使是遇到了未知异常，它们同样有效。
+
 I highly recommend [PM2](http://pm2.keymetrics.io/) for this. I use it, and it’s trusted by companies like Microsoft, IBM, and PayPal.
+
+我极力推荐 [PM2](http://pm2.keymetrics.io/) ，因为不光我在使用它而且它也深受许多公司的信赖，比如 Microsoft，IBM，和 PayPal。
 
 To install, run `npm install -g pm2`. Install locally using `npm install --save-dev pm2`. Then you can launch the app using `pm2 start source/app.js`.
 
+安装的时候，运行 `npm install -g pm2`，在本地安装就使用 `npm install --save-dev pm2` 命令。之后你就可以使用 `pm2 start source/app.js` 来运行应用了。
+
 You can manage running app instances with `pm2 list` and stop instances with `pm2 stop`. See the [quick start](http://pm2.keymetrics.io/docs/usage/quick-start/) for details.
+
+你可以用 `pm2 list` 管理运行的应用实例，也可以使用 `pm2 stop` 来终止实例。查看更多细节请点击 [quick start](http://pm2.keymetrics.io/docs/usage/quick-start/)。
 
 Bonus: PM2 can be configured to integrate with [Keymetrics](https://keymetrics.io/), which can provide great insights into your production app instances with a friendly web interface.
 
+福利：PM2 能配置集成 [Keymetrics](https://keymetrics.io/)，它能以非常友好的 web 界面为你的生产应用实例提供很棒的调试意见。
+
 ### Conclusion
 
+### 小结
+
 We’ve only just scratched the surface of Node. There’s a lot more to learn about, including session management, token authentication, API design, etc… I’ve covered some of those topics in much more depth in [“Programming JavaScript Applications”](http://pjabook.com/) (free online).
+
+我们仅仅是蜻蜓点水一般地了解了 Node，还有很多的东西需要我们去学习，包括会话管理、token 验证、API 设计等等。我对其中一些内容做了更深刻地阐释，详见 [“Programming JavaScript Applications”](http://pjabook.com/)（免费）。
 
 
 
@@ -364,6 +450,8 @@ We’ve only just scratched the surface of Node. There’s a lot more to learn a
 
 
 Want to learn a lot more about Node? We’re launching a new Node video series for members of EricElliottJS.com. If you’re not a member, you’re missing out.
+
+想学习更多 Node 的知识？我们为 EricElliottJS.com 的会员发行了新的 Node 视频系列，如果你不是会员，那么你就要错过啦！
 
 
 
@@ -386,6 +474,10 @@ Want to learn a lot more about Node? We’re launching a new Node video series f
 **_Eric Elliott_** _is the author of_ [_“Programming JavaScript Applications”_](http://pjabook.com/) _(O’Reilly), and_ [_“Learn JavaScript with Eric Elliott”_](http://ericelliottjs.com/product/lifetime-access-pass/)_. He has contributed to software experiences for_ **_Adobe Systems_**_,_ **_Zumba Fitness_**_,_ **_The Wall Street Journal_**_,_**_ESPN_**_,_ **_BBC_**_, and top recording artists including_ **_Usher_**_,_ **_Frank Ocean_**_,_**_Metallica_**_, and many more._
 
 _He spends most of his time in the San Francisco Bay Area with the most beautiful woman in the world._
+
+**_Eric Elliott_****是 [_“Programming JavaScript Applications”_](http://pjabook.com/)(O’Reilly) 和 [_“Learn JavaScript with Eric Elliott”_](http://ericelliottjs.com/product/lifetime-access-pass/) 的作者。他曾在****_Adobe Systems_**_,_ **_Zumba Fitness_**_,_ **_The Wall Street Journal_**_,_**_ESPN_**_,_ **_BBC_****的软件开发领域立下汗马功劳，也曾为顶级唱片大师****_Usher_**_,_ **_Frank Ocean_**_,_**_Metallica_****等人量身定制。
+
+**他的大部分时光都是和世界上最美丽的女人在旧金山海湾地区度过的。**
 
 
 
