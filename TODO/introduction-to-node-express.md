@@ -475,7 +475,7 @@ Want to learn a lot more about Node? We’re launching a new Node video series f
 
 _He spends most of his time in the San Francisco Bay Area with the most beautiful woman in the world._
 
-**_Eric Elliott_****是 [_“Programming JavaScript Applications”_](http://pjabook.com/)(O’Reilly) 和 [_“Learn JavaScript with Eric Elliott”_](http://ericelliottjs.com/product/lifetime-access-pass/) 的作者。他曾在****_Adobe Systems_**_,_ **_Zumba Fitness_**_,_ **_The Wall Street Journal_**_,_**_ESPN_**_,_ **_BBC_****的软件开发领域立下汗马功劳，也曾为顶级唱片大师****_Usher_**_,_ **_Frank Ocean_**_,_**_Metallica_****等人量身定制。
+**_Eric Elliott_**是 [**_“Programming JavaScript Applications”_**](http://pjabook.com/)(O’Reilly) 和 [**_“Learn JavaScript with Eric Elliott”_**](http://ericelliottjs.com/product/lifetime-access-pass/) 的作者。他曾在**_Adobe Systems_**_,_ **_Zumba Fitness_**_,_ **_The Wall Street Journal_**_,_**_ESPN_**_,_ **_BBC_**的软件开发领域立下汗马功劳，也曾为顶级唱片大师**_Usher_**_,_ **_Frank Ocean_**_,_**_Metallica_**等人量身定制。
 
 **他的大部分时光都是和世界上最美丽的女人在旧金山海湾地区度过的。**
 
