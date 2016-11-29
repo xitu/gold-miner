@@ -5,6 +5,7 @@
 * 校对者：
 
 # Making the most of the APK analyzer
+# 利用好 Android Studio 中的 APK Analyzer
 
 
 
@@ -13,25 +14,40 @@
 
 One of my favorite recent additions to Android Studio is the APK Analyzer, which you can find in the top menu under **Build** → **Analyze APK**.
 
+最近的 Android Studio 插件中我最喜欢的是 APK Analyzer。你可以从顶端菜单栏中的 **Build** 找到 **Analyze APK**。
+
 
 
 ![](https://d262ilb51hltx0.cloudfront.net/max/800/0*RiXOWhjkTw8ELX7M.)
 
 Pro-tip: you can also drag and drop APK files into the editor to open them
 
+专业提示：你也可以拖拽 APK 文件到编辑栏中打开。
+
 
 
 APK Analyzer lets you open and inspect the contents of any APK file you have on your computer, either built from your local Android Studio project or acquired from your build server or other artifact repository. It doesn’t have to be built from any project you have open in Android Studio and you don’t need the source code for that particular APK.
 
+APK Analyzer 让你可以打开并审查存于你电脑中的 APK 文件的内容，不管它是通过本地 Android Studio 工程构建，还是需要从服务器上或者其他构件仓库中构建后得到的。它不需要在任何你所打开的 Android Studio项目中被构建，甚至也不需要它的源代码。
+
 > **Note:** APK Analyzer works best with release builds. If you need to analyze a debug build of your app, make sure you are using an APK that is not instrumented for Instant Run. To obtain it, you can use the **Build** → **Build APK**command. You can see if you’ve opened an Instant Run instrumented APK by checking the presence of an instant-run.zip file inside the archive.
+
+> **注意：**APK Analyzer 最好用于发布版本的构建。如果你需要分析你 app 的调试版本，确认你的 APK 不是用 Instant Run 构建出来的。如果想要了解，你可以在顶部菜单栏点击 **Build** → **Build APK**，通过查看 instant-run.zip 文件是否存在，了解你是否打开了 Instant Run。
 
 Using the APK analyzer is a great way to poke around APK files and learn about their [structure](https://developer.android.com/topic/performance/reduce-apk-size.html#apk-structure), verify the file contents before releasing or debug some common problems, including APK size and DEX issues.
 
+使用 APK analyzer 是一个非常好的途径来查找 APK 文件并了解他们的[结构](https://developer.android.com/topic/performance/reduce-apk-size.html#apk-structure)，在发布前或调试时验证一些常见问题，例如 APK 大小和 DEX 问题。
+
 ### Reducing app size with the APK Analyzer
+###使用 APK Analyzer 减小应用的大小
 
 The APK analyzer can give you a lot of useful, actionable info about app size. At the top of the screen, you can see the **Raw File Size** which is just the APK on-disk size. The **Download size** shows an estimate of how much data will used to download your app by taking into account compression applied by the Play Store.
 
+APK analyzer 在应用大小方面可以给你很多有用并且可操作的信息。在屏幕的顶部，应用占磁盘大小可以从 **Raw File Size** 看到。**Download size** 是一个估计值，表示考虑到 Play Store 的压缩，多少数据会被用来下载你的应用。
+
 The list of files and folders is sorted by total size in descending order. This makes it great for identifying the low hanging fruit of APK size optimization. Each time you drill down into a folder, you can see the resources and other entities that take up the most space in your APK.
+
+文件和文件夹根据文件大小降序排列。这让我们很容易看出对 APK 大小优化最容易从哪里入手。每当你深入到某个文件夹的时候，你能看到资源和其他实体占用了 APK 大部分的空间。
 
 
 
