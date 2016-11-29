@@ -165,9 +165,11 @@ Unit tests should be:
 有一个好的报告
 
 What do I mean by “a good bug report?”
+
 什么事「好的报告」？
 
 I mean that whatever test runner and assertion library you use, a failing unit test should tell you at a glance:
+
 「好的报告」就是能够一眼就告诉你，
 
 1.  Which component is under test?
@@ -176,11 +178,11 @@ I mean that whatever test runner and assertion library you use, a failing unit t
 4.  What is the expected result?
 5.  How is the behavior reproduced?
 
-什么组件被测试 ing
-你期望什么行为
-实际是什么结果
-你期望什么结果
-为什么会这样
+1. 什么组件被测试 ing
+2. 你期望什么行为
+3. 实际是什么结果
+4. 你期望什么结果
+5. 为什么会这样
 
 The first four questions should be visible in the failure report. The last question should be clear from the test’s implementation. Some assertion types are not capable of answering all those questions in a failure report, but most `equal`, `same`, or `deepEqual` assertions should. In fact, if those were the only assertions in any assertion library, most test suites would probably be better off. Simplify.
 
@@ -241,8 +243,8 @@ In this case, we have two units under test:
 1.  The route handler
 2.  The logger
 
-路由处理器（Route handler）
-记录器（Logger）
+1. 路由处理器（Route handler）
+2. 记录器（Logger）
 
 If we were unit testing the logger, our tests wouldn’t invoke the route handler, or know anything about it.
 
@@ -347,7 +349,8 @@ That takes a bit of juggling. Luckily, there are some great open source projects
 这可能有点奇技淫巧/奇淫技巧。幸运的是，我们有不少开源项目，这使得这件事简单不少。
 
 My favorite is [Nightwatch.js](http://nightwatchjs.org/). Here’s what a simple Nightwatch functional test suite looks like this example from the Nightwatch docs:
-我 个人最喜欢的是守夜人项目 —— Nightwatch.js。从守夜人项目文档中可以看到，一个简单的守夜人功能测试套件像看起来是这样︰
+
+我个人最喜欢的是守夜人项目 —— Nightwatch.js。从守夜人项目文档中可以看到，一个简单的守夜人功能测试套件像看起来是这样︰
 
     module.exports = {
       'Demo test Google' : function (browser) {
@@ -397,12 +400,12 @@ Prior to the continuous delivery revolution, software was released using a water
 4.  Verification
 5.  Deployment
 6.  Maintenance
-收集需求
-设计
-实现
-检验
-部署
-维护
+1. 收集需求
+2. 设计
+3. 实现
+4. 检验
+5. 部署
+6. 维护
 
 It’s called waterfall because if you chart it with time running from right to left, it looks like a waterfall cascading from one task to the next. In other words, in theory, you can’t really do these things concurrently.
 
