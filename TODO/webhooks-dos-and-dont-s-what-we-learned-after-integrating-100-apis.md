@@ -18,7 +18,7 @@ Picture credits [Lorna Mitchell](https://medium.com/u/e6dd3fdb7c2d)
 
 
 
-为了获取一小段信息，轮询 API 这个方法通常即浪费又杂乱。一些事件或许在一段时间内只发生一次，所以你必须推断出轮询的频率。然而即使这样你也可能错过它。
+为了获取一小段信息，轮询 API 这种方式通常会既浪费又杂乱。一些事件或许在一段时间内只发生一次，所以你必须推断出轮询的频率。然而即使这样你也可能错过它。
 
 > Don’t call us, we’ll call you!
 
