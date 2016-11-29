@@ -1,17 +1,23 @@
 > * 原文地址：[Making the Switch from Node.js to Golang](https://medium.com/@theflapjack103/the-way-of-the-gopher-6693db15ae1f#.f1purx7x4)
 * 原文作者：[Alexandra Grant](https://medium.com/@theflapjack103)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[王子建](https://github.com/Romeo0906)
 * 校对者：
 
 # Making the Switch from Node.js to Golang
+
+# 从 Node.js 到 Golang 的迁徙之路
 
 
 
 
 _This post was written by Digg Software Engineer [Alexandra Grant](https://twitter.com/TheFlapjack103) and was [originally posted on Medium](http://t.umblr.com/redirect?z=https%3A%2F%2Fmedium.com%2F%40theflapjack103%2Fthe-way-of-the-gopher-6693db15ae1f&t=ZTNjOWEzYTUzMGUzNWQwNDk2NDY4ZDM1YWNlMGQwZWI0ZGMwMDFlMCx2SE41TFFrZg%3D%3D)._
 
+**本文由 Digg 的软件工程师 [Alexandra Grant](https://twitter.com/TheFlapjack103) 而作，最初发表在 [Medium](http://t.umblr.com/redirect?z=https%3A%2F%2Fmedium.com%2F%40theflapjack103%2Fthe-way-of-the-gopher-6693db15ae1f&t=ZTNjOWEzYTUzMGUzNWQwNDk2NDY4ZDM1YWNlMGQwZWI0ZGMwMDFlMCx2SE41TFFrZg%3D%3D)。**
+
 I’ve dabbled in JavaScript since college, made a few web pages here and there and while JS was always an enjoyable break from C or Java, I regarded it as a fairly limited language, imbued with the special purpose of serving up animations and pretty little things to make users go “ooh” and “aah”. It was the first language I taught anyone who wanted to learn how to code because it was simple enough to pick up and would quickly deliver tangible results to the developer. Smash it together with some HTML and CSS and you have a web page. Beginner programmers love that stuff.
+
+我在大学时期就开始涉猎 JavaScript 并会随处写一些网页。我把 JS 当作写 C 语言和 Java 时候的一种小憩，并且我认为它是一种相当受限制的语言，它一直在鼓吹能够实现一些令用户叹为观止的特效和动画。我第一次教人编程就是用的 JS，因为它简单易学、能快速给开发者以可见的结果。将它与 HTML 和 CSS 代码写到一起，就能得到一个网页，初学者对此爱不释手。
 
 Then something happened two years ago. At that time, I was in a researchy position working mostly on server-side code and app prototypes for Android. It wasn’t long before Node.js popped up on my radar. Backend JavaScript? Who would take that seriously? At best, it seemed like a new attempt to make server-side development easier at the cost of performance, scalability, etc. Maybe it’s just my ingrained developer skepticism, but there’s always been that alarm that goes off in my brain when I read about something being fast and easy and production-level.
 
