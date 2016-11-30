@@ -1,57 +1,59 @@
 > * 原文地址：[How Not to Crash](http://blog.supertop.co/post/152615019837/how-not-to-crash-1)
 * 原文作者：[Padraig](https://twitter.com/supertopsquid)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[Gocy](https://github.com/Gocy015/)
 * 校对者：
 
-# How Not to Crash
+
+# 如何避免应用崩溃
 
 
-Sometimes apps crash. Crashes can interrupt the user’s workflow, cause data to be lost, and interfere with the background operation of an app. For developers, some of the hardest crashes to fix are the ones that are hard to recreate or worse still, hard to detect.
+应用崩溃时有发生。崩溃会打断用户当前的工作流，导致数据的丢失，还会扰乱应用在后台的操作。对于开发者而言，那些最难修复的崩溃往往是那些难以重现，甚至难以检测到的崩溃。
 
-I recently discovered and fixed a bug that was causing many hard-to-detect crashes in Castro, and I want to share the story, along with some advice that might help you track down similar issues.
+我最近发现并修复了一个 bug ，而它正是导致 Castro 反复出现难以检测的崩溃的罪魁祸首（译者注： Castro 是原文作者开发的一款应用），我想分享一下其中的心得与建议，或许能帮助你定位类似的问题。
 
-Oisin and I released Castro 2.1 in September. Soon afterwards the number of Castro crashes reported through iTunes Connect increased sharply.
+我和 Oisin 在九月份发布了 Castro 2.1 版本，那之后不久，从 iTunes Connect 上报的 Castro 崩溃数量便急剧上升。
 
-![Chart showing Castro 2 crash report counts rising after version 2.1](http://supertop.co/images/crashes.png)
+![图表展示了 Castro 从 2.0 升级到 2.1 后崩溃数量上升的情况](http://supertop.co/images/crashes.png)
 
-### iTunes Connect Crash Reports
+### iTunes Connect 崩溃上报
 
-Interestingly, these crashes did not appear in our usual crash reporting service, HockeyApp, so it actually took us a while to realize that we had a problem. To be aware of all crashes, developers need to check for crash reports through iTunes Connect or Xcode too. (Update: Greg Parker [points out](https://twitter.com/gparker/status/794076875249225728) that _“3rd party crash reporters use an in-process handler to record. But if the OS kills you from outside then that handler never runs.”_ Additionally, Andreas Linde, co-founder of HockeyApp, [linked](https://twitter.com/therealkerni/status/794275740631973888) to an article that explains what kinds of [crashes Hockey can and cannot find](http://t.umblr.com/redirect?z=https%3A%2F%2Fsupport.hockeyapp.net%2Fkb%2Fclient-integration-ios-mac-os-x-tvos%2Fwhich-types-of-crashes-can-be-collected-on-ios-and-os-x&t=M2RkMzgyMDY2MzU0ZWNmZmVjNDdiOTQ4MjljYWZhNjFiNDgwOGZhOCxXbjdGaWFQcQ%3D%3D&b=t%3AicJmaFg9TmrfMRpH7q0GXw&m=1).)
+有趣的是，这些崩溃并没有出现在我们平时使用的崩溃上报服务 HockeyApp 中，因此我们实际上在晚些时候才发现我们的应用出现了问题。想要查看到应用的所有崩溃，开发者需要从 iTunes Connect 或是 Xcode 中查看崩溃上报。（更新： Greg Parker [指出](https://twitter.com/gparker/status/794076875249225728) **“第三方崩溃上报系统在对应的应用进程中建立 handler 来记录应用行为，但如果操作系统从外部终止进程，这个 handler 就永远无法执行了。”**），另外， HockeyApp 的联合创始人 Andreas Linde [引用](https://twitter.com/therealkerni/status/794275740631973888) 了一篇文章来界定那些 [Hockey 能以及不能检测到的崩溃](http://t.umblr.com/redirect?z=https%3A%2F%2Fsupport.hockeyapp.net%2Fkb%2Fclient-integration-ios-mac-os-x-tvos%2Fwhich-types-of-crashes-can-be-collected-on-ios-and-os-x&t=M2RkMzgyMDY2MzU0ZWNmZmVjNDdiOTQ4MjljYWZhNjFiNDgwOGZhOCxXbjdGaWFQcQ%3D%3D&b=t%3AicJmaFg9TmrfMRpH7q0GXw&m=1)。）
 
-If you’re an app developer and signed in to your account, Xcode allows you to review the crash reports collected by Apple from users of your app. The feature is found in the Organizer window, Crashes Tab. You can choose the app version and it’ll download crash reports that Apple collected from users who opted-in to sharing information with developers.
+如果你是一名应用开发者并且登陆了开发者账号， Xcode 将允许你检视那些 Apple 官方从你的应用用户那收集到的崩溃。这项功能在 Organizer 窗口中的 Crashes 标签中。你可以选择特定的应用版本，然后下载 Apple 从那些愿意将信息分享给开发者的用户手上收集到的崩溃日志。
 
-![Xcode's Crashes Tab showing crashes received from users.](http://supertop.co/images/crashes_tab.png)
+![图为 Xcode 中的 Crashes 标签栏所展示的用户崩溃信息](http://supertop.co/images/crashes_tab.png)
 
-I’ve found this part of Xcode to be prone to crashing itself, particularly when toggling open and closed the disclosure arrows on threads in the crash report. A handy work-around is to right click on the crash in the list pane, and choose “Show in Finder”. If you dig into the revealed bundle, you can see the crash reports as simple text files.
+我发现 Xcode 的这个功能也非常容易崩溃，尤其是当点击崩溃日志中线程的详情按钮进行切换的时候。一个简便的解决方案是，在列表中右键选中相应的崩溃，并选择在 Finder 中显示。如果你研究研究包的内容，你会发现这些崩溃日志其实本质就是纯文本文件。
 
-### Investigating the crash
+### 分析崩溃原因
 
-The crash itself was triggered by a variety of code-paths, but it always ended in a database query execution method.
+许多不同的代码路径都触发了这个崩溃，但崩溃最终都汇集到一个数据库查询方法之中。
 
-At first I suspected a threading issue, because after years of torment at the hands of threading bugs, that’s always the first thing I suspect. By opening the crash report as a text file, I could see more details than Xcode shows. The exception type was `EXC_CRASH (SIGKILL)` the note was `EXC_CORPSE_NOTIFY`, and the termination reason was `Code 0xdead10cc`. I started trying to track down what `0xdead10cc` means. There isn’t much on Google or the Apple Developer Forums about this, but [Technical Note 2151](http://t.umblr.com/redirect?z=https%3A%2F%2Fdeveloper.apple.com%2Flibrary%2Fcontent%2Ftechnotes%2Ftn2151%2F_index.html&t=MTJmNGU4NThiODlmYzE1ZWJhMTM2MWFlODU3MzFiYTFmZGU2NWY4OSxXbjdGaWFQcQ%3D%3D&b=t%3AicJmaFg9TmrfMRpH7q0GXw&m=1) says:
+一开始我认为是多线程引发的问题，毕竟在被线程问题折磨了多年之后，我总是第一时间想到它。我以文本文件的格式打开崩溃日志，因为这样比直接用 Xcode 打开展示了更多的细节。崩溃的异常类型是 `EXC_CRASH (SIGKILL)` ，对应的信息是 `EXC_CORPSE_NOTIFY` ，程序被终止的原因是 `Code 0xdead10cc` 。于是我试着找出 `0xdead10cc` 是什么含义。 Google 或是 Apple Developer 论坛都没有多少相关的信息，但 [Technical Note 2151](http://t.umblr.com/redirect?z=https%3A%2F%2Fdeveloper.apple.com%2Flibrary%2Fcontent%2Ftechnotes%2Ftn2151%2F_index.html&t=MTJmNGU4NThiODlmYzE1ZWJhMTM2MWFlODU3MzFiYTFmZGU2NWY4OSxXbjdGaWFQcQ%3D%3D&b=t%3AicJmaFg9TmrfMRpH7q0GXw&m=1) 中提到：
 
-> The exception code 0xdead10cc indicates that an application has been terminated by iOS because it held on to a system resource (like the address book database) while running in the background.
+> 异常码 0xdead10cc 出现意味着应用程序因为在后台持有系统资源（譬如 Address Book 数据库）而被 iOS 系统终止。
 
-At this point I knew that iOS was terminating the app because of a policy violation, and not some simple mistake in our code. However, Castro doesn’t use the Address Book database or any comparable system resources that I could think of. I wondered if the app was working for too long in the background without cancelling, but I noticed from our crash reports that in some cases the app had run for just 2 seconds.
+这时候我意识到 iOS 强制关闭我的应用是因为我违反了系统规则，而不是说我的代码出了什么小问题。但是， Castro 并没有用到 Address Book 数据库或是任何我能想到的类似的系统资源。我还怀疑原因是不是应用在后台长时间运行而没有取消，但我也发现日志中有一些应用仅仅运行了两秒钟就发生崩溃的记录。
 
-I eventually reasoned that the many stack traces pointing to the crash happening in the database meant that the issue was probably with our database SQLite file. But what had changed in 2.1 that suddenly brought on this crash?
+经过推理，我最终将可能原因定位到我们的数据库相关的 SQLite 文件上，因为绝大部分的堆栈信息都显示崩溃是在操作数据库的时候发生的。但 2.1 版本上的哪个改动，瞬间就引起了这个崩溃呢？
 
-### Shared App Container
+### 应用的共享容器
 
-The 2.1 release of Castro introduced an iMessages App to allow easy sharing of recently played episodes. In order to allow the messages app to access the database, we had to move the database into a shared app container.
+Castro 2.1 版本推出了 iMessage App 来让用户轻松地分享他们最近听过的播客。为了让 message app 能够访问数据库，我们将数据库逻辑移动到了应用共享容器中。
 
-I wondered if the rules for file locking are stricter when the file is in a shared location. Perhaps when iOS tries to suspend an app, it checks if it’s using files that could be used by another process, if it is, iOS terminates the app. This seemed like a reasonably possible explanation.
+我猜想文件的锁机制对在共享区域的文件有更严格的要求。或许当 iOS 准备挂起一个应用的时候，系统会检查这个应用是否正在使用一些可能被其他进程使用的文件，如果有， iOS 就会直接终止这个应用。这看起来是个有理有据的解释。
 
-### How to Crash
 
-It’s good practice for programmers to figure out how to recreate crashes that they’re trying to fix. This can involve temporarily rewriting parts of the code to behave in an artificial way that makes the crash more likely. If we can reliably see the crash happen, it goes some distance to confirming suspicions and it gives us something to test potential fixes against. The alternative is to try a fix blindly, release it, and wait to see if we get crash reports. Sometimes that is the only way, but it’s a tedious process, and all the way through the app is still crashing for users.
+### 如何制造崩溃
 
-This crash in particular was very challenging to recreate. I think there’s a fair critique to be made of iOS development here. The operating system enforces its rules aggressively. This is good, for the most part, because it improves security, battery life and stability. Testing and debugging apps under these circumstances however, is harder than it needs to be. The rules change quietly, and manually testing apps in each of the possible life-cycle states is awkward, and sometimes impossible.
+如何重现正在修复的崩溃是锻炼开发者的绝佳实践。这可能涉及到临时改写一部分代码来刻意提高崩溃出现的可能性。如果我们能稳定地看到崩溃的发生，就能够逐步的验证我们的猜测，同时我们测试修复的正确性就有了参考。而与之对应的另一个方法是盲目地进行修复，发布版本，然后等着看是否会有崩溃上报。有时候，只有盲目修复一条路可走，但这条路枯燥乏味，而且到头来应用依然不断地在用户侧发生崩溃。
 
-In this case, I am aware of no way to trigger the suspension of an app that is connected to the debugger. In fact the debugger [prevents suspension, and the simulators don’t accurately simulate it.](http://t.umblr.com/redirect?z=https%3A%2F%2Fforums.developer.apple.com%2Fthread%2F14855&t=NmNmMmFhODVlZTk0Y2E3NDkzMzBmMWY5NzRhODY3NWRiY2MwNDExMSxXbjdGaWFQcQ%3D%3D&b=t%3AicJmaFg9TmrfMRpH7q0GXw&m=1) Without the debugger, the only option is to experiment and then review logs on the device.
+而这个崩溃就非常不容易重现，我觉得这里批评一下 iOS 的开发环境并不过分。操作系统粗野地执行着自己的规则，大部分时候，这样做很好，因为这样可以提高安全性，延长电池寿命和稳定性。但在这样的大环境下进行应用的测试和修复，就增加了不必要的麻烦。这些规则的变化悄无声息，而要人为地在应用周期可能出现的每一个状态下进行测试非常不方便，有时候甚至根本无法完成。 
 
-The new Console app in macOS Sierra provides a view into the system log of any attached iPhone. Before Sierra, I relied on Lemon Jar’s [iOS Console](http://t.umblr.com/redirect?z=https%3A%2F%2Flemonjar.com%2Fiosconsole%2F&t=ZDQ0Y2E0YjdiNDJkMDliYzA3ZDViYTMxYTUyYThiM2Y3NjU5MzY3ZixXbjdGaWFQcQ%3D%3D&b=t%3AicJmaFg9TmrfMRpH7q0GXw&m=1) for this, but it’s great to see Apple offer access to these logs and know that this technique is accepted and supported. It is well worth spending the time to learn how to use the new Console app. It reveals a lot of the workings of iOS that the Xcode debugger alone does not. There’s a lot of irrelevant noise because this is a unified log for the whole system, but you can easily set up filters to narrow down to just the messages that are relevant to your app.
+在本例中，我清楚的明白我不可能在应用与调试器保持连接的状态下，使应用进入挂起状态。实际上，调试器[屏蔽挂起状态，而且模拟器不会精准模拟挂起](http://t.umblr.com/redirect?z=https%3A%2F%2Fforums.developer.apple.com%2Fthread%2F14855&t=NmNmMmFhODVlZTk0Y2E3NDkzMzBmMWY5NzRhODY3NWRiY2MwNDExMSxXbjdGaWFQcQ%3D%3D&b=t%3AicJmaFg9TmrfMRpH7q0GXw&m=1)。如果不连接调试器，那么就只剩下反复测试然后查看设备日志这一个选择了。
+
+macOS Sierra 上的全新 Console App 提供了访问任何当前连接中的 iPhone 的系统日志的功能，而在 Sierra 之前，我都是靠 Lemon Jar 的 [iOS Console](http://t.umblr.com/redirect?z=https%3A%2F%2Flemonjar.com%2Fiosconsole%2F&t=ZDQ0Y2E0YjdiNDJkMDliYzA3ZDViYTMxYTUyYThiM2Y3NjU5MzY3ZixXbjdGaWFQcQ%3D%3D&b=t%3AicJmaFg9TmrfMRpH7q0GXw&m=1) 来完成这个操作，但是，看到 Apple 官方提供能够访问日志的工具，了解这样的技术是被官方所接受并支持的，感觉也是极好的。你值得花时间去学习如何使用全新的 Console App ，它呈现出许多单单 Xcode 调试器无法呈现的操作。由于这份日志是整个系统所有日志的统一输出，所以会有许多不相关的冗余信息，但你可以轻松地创建一个过滤器，将显示的内容限定在与你的应用相关的范围内。
 
 To contrive my `dead10cc` crash:
 
@@ -64,48 +66,57 @@ After following these steps a few times, I was able to see in Console that I had
 
 I was then able to find and fix a place in the app where background work was being triggered that would access the database: on network reachability change, the app was doing a refresh without a background task. If the app was suspended while this refresh was accessing the database, iOS would kill it.
 
-### Background Fetch Gotcha
+为了刻意重现崩溃 `dead10cc` ：
 
-I was surprised by one more thing that I’d like to share. In Castro 2, our server tells the app that a new episode has been released, which triggers a refresh of the user’s feed. When iOS passes this message to our app, it calls a method called `didReceiveRemoteNotification`, which includes a completion block. From the documentation:
+*   我在 `applicationDidEnterBackground` 方法中做了几百次数据库查询操作。
+*   在我的 Mac 上打开 Console 应用，并过滤信息，仅显示 Castro 相关。
+*   我从 Xcode 上运行安装应用，但以直接点击应用图标的形式打开应用。
+*   我按 Home 键将应用退到后台，并立刻打开 Pokémon Go ，以期系统会由于内存吃紧而挂起 Castro 。
 
-> Your app has up to 30 seconds of wall-clock time to process the notification and call the specified completion handler block. In practice, you should call the handler block as soon as you are done processing the notification. The system tracks the elapsed time, power usage, and data costs for your app’s background downloads.
+在重复了几次上述步骤之后，我发现 Console 中已经出现了我尝试重现的崩溃信息。调用堆栈看起来和真实场景的崩溃一模一样，现在我就非常自信地知道崩溃的原因何在了。
 
-Here’s the crazy thing: As I mentioned earlier, Castro was sometimes being killed within 2 seconds. I could tell from the stack trace that it hadn’t yet called that completion block. So, although the documentation says that the app should be safe for up to 30 seconds, it was getting suspended anyway.
+接着我找到了一个能够可靠触发应用从后台更新数据库的地方，并把它改成：当网络状况变化时，应用在 background task 之外进行数据库刷新。如果应用在这次数据刷新还未结束时被挂起， iOS 就会强制终止应用。
 
-I found this so surprising that I decided to use one of our developer technical support incidents to see what was up. I got some very helpful responses from Kevin Elliott, the engineer assigned to my case:
 
-As suspected the `dead10cc` issue was caused by file locking:
+### 抓到你啦！ Background Fetch ！
 
-> “What’s actually triggering this is that iOS has found a locked file (in this case, an SQLite lock) in your apps container at the time your app is suspending. This check here was actually added as a way to manage and reduce data corruption inside applications. The problem here is that the locked file indicates that the file is still being actively modified and may be in an incoherent state. In other words, the only reason an app would lock a given file is because it intends to do a series of reads and/or writes to that file over time and it wants to guarantee all of those writes can complete without any writes being inserted in between. That, by extension, means that the fact the file is still locked means the app hasn’t finished writing it’s data out. A file in this state has a few potential problems:
+我还要再分享一件让我惊讶的事情。在 Castro 2 版本，我们在有新剧集发布后通知客户端，从而客户端会刷新用户的推送内容。当 iOS 将这条消息转发给我们的应用的时候，它会调用 `didReceiveRemoteNotification` 方法，而在这个方法中，我们有一个 completion block 的回调。官方文档中提到：
+
+> 你的应用至多只有三十秒时间来处理推送消息，而后调用相应的 completion handler block 。实际开发中，一旦你处理完推送，就应该尽快地调用这个 handler block 。系统会记录下应用在后台所耗费的时间、电量、以及数据处理所消耗的流量。
+
+令人抓狂的点在于：就像我在前文中提到的， Castro 有时候运行不到两秒就被终止了，我从调用栈信息明确看到这时候还没有调用 completion block ，所以说，尽管文档写着说应用可以安安心心的运行个 30 秒，但我的应用还是被挂起了。
+
+这件事实在是让我震惊，于是我决定使用一次开发者 Technical Support Incidents 来看看到底发生了什么事（译者注： [Technical Support Incidents](https://developer.apple.com/support/technical/) 是苹果提供的一项技术支持服务 ）。我从负责我的请求的工程师 Kevin Elliott 那得到了一些非常有帮助的回应：
+
+正如我所怀疑的那样， `dead10cc` 问题源于文件上锁：
+
+> “真正触发崩溃的原因是， iOS 在挂起你的应用的时候，检查到在你的应用容器中有一个被锁住的文件（本例中就是一个 SQLite 锁）。这个检查的目的在于管理和减少应用内的数据损坏。本例的问题在于，一个文件处于被锁状态，意味着它很可能正在被修改，处于一个数据不连贯的状态。也就是说，一个应用对一个文件加锁的唯一理由就是它接下来要对这个文件进行一系列的读／写操作，并且需要保证这些写操作能够顺利完成而不被其他的写操作插队。扩展地理解就是说，一个文件还处于被锁状态意味着对应的应用还没有完成数据的写入，而处于这种状态下的文件可能会有以下的几个问题
 > 
-> *   If the app is killed while the app is suspended, then the data that “should” have been written won’t be, corrupting the data.
-> *   If the file is shared between two apps and the second app/extension runs, then that second app is going to be forced to either break the lock and try to restore the file to a consistent state, leaving the first app in an inconsistent state, or ignore the shared file entirely.”
+> *		如果应用在挂起状态被强制终止，那些“应该却还未被写入”的数据便不会被写入，导致数据损坏。
+> *		如果这个文件在两个应用之间共享，此时第二个应用／应用扩展开始运行，那么这个应用将要么被迫解除这个锁，并试图将文件恢复到一个稳定连续的状态，而让第一个应用继续处在一个不连续的状态，要么就完全忽略这个共享文件。”
 
-Regarding the 30 seconds of background time:
+至于那 30 秒的后台运行时间：
 
-> … the right answer here is to side step the issue entirely- if you can’t finish all of your work within the delegate method then just start a background task and now iOS will tell you before it suspends your app (in the completion block)…
+> ...正确的做法应该是彻底规避这个问题 － 如果你不能在 delegate 方法中完成所有的操作（译者注：这里的 delegate 方法即指 `didReceiveRemoteNotification` 方法），那么就直接另起一个 background task ，这样 iOS 在（completion block 中）挂起你的应用之前就会先通知你...
 
-Apps that access files in a shared container while the app is running in the background should create a background task and not assume that the 30 second completion block time covers them. To work around this, developers can create a background task using the `beginBackgroundTaskWithName:expirationHandler` method on UIApplication and call `endBackgroundTask` when the background work is finished.
+另外， Kevin 也建议应用进入后台的时候应该关闭数据库，以此来确保应用已经完成了数据刷新并能更准确的找到少见的 bug ：
 
-Additionally, Kevin also suggested that apps should close the database when they go into the background as a way to ensure they’ve finished flushing data and to surface rare bugs more reliably:
+> 将关闭文件作为一项退后台的常规操作将会把那些“我的应用有时候在后台不能正常运行”的情况转化为更清晰的“我的应用在后台不能正常运行”，这时候你就可以直接去定位问题了。
 
-> Closing the file as part of normal operation converts the potentially rare and mysterious bug “things sometimes don’t work in the background” into the much clearer “my app doesn’t work in the background”, at which point you can address the problem directly.
+这看起来是个明智的做法；我从没想过要在应用进入后台的时候关闭一部分功能，但其实这么做非常合理。在 Castro 的下一个版本更新中，我将会尝试在退后台时关闭数据库。
 
-This seems pretty smart; it hadn’t occurred to me to think of shutting down parts of the app when going into the background, but it makes a lot of sense. I’m going to look into closing the database in the background in the next update to Castro.
+### 总结
 
-### Conclusion
+通过把任何会在后台持续运行的操作放到一系列 background task 中，我成功地在 beta 版本中解决了这一问题。我们会尽快发布包含这个修复的更新。
 
-By adding background tasks around any work that continues in the background, I have fixed this issue in our beta. We’ll release an update soon that includes this fix.
+以下是我所学到的东西的小小总结：
 
-Here’s a quick summary of what I learned:
+*   Apple 官方会上报一些其他服务不会上报的崩溃。所以除了外部服务之外，也要查看在 iTunes Connect 和 Xcode 上面的崩溃信息。
+*   文件的锁机制对于在共享区域的文件有着更严格的要求。
+*   依赖于 background fetch 的 completion block 是远远不够的，不要在一个现行的 background task 之外做**任何**后台操作。
+*   想要调试那些仅仅在应用生命周期的特定条件下出现的问题是非常困难的。如果你还没有尝试过新的 Sierra Console.app ，现在就开始学习吧。
+*   别忘了 [Technical Support Incidents](http://t.umblr.com/redirect?z=https%3A%2F%2Fdeveloper.apple.com%2Fsupport%2Ftechnical%2F&t=MmJjYzRkN2JmNTg0YjlmYjEyMmZkN2QwMzFmNzAyMGNjYTZjYzI1NixXbjdGaWFQcQ%3D%3D&b=t%3AicJmaFg9TmrfMRpH7q0GXw&m=1) ，你每年的开发者账号可都为这两次机会买了单噢。（多谢啦 Kevin 大兄弟！）
 
-*   Apple reports some crashes that other services don’t. Check for crash reports through iTunes Connect or Xcode as well as any external services.
-*   The rules for file locking are stricter when your database is in a shared location.
-*   It’s not enough to rely on a background fetch completion block, don’t do _any_ work in the background without an active background task.
-*   It’s hard to debug issues that only manifest in particular stages of the app lifecycle. If you haven’t tried it yet, learn how to use the new Sierra Console.app.
-*   Don’t forget about [Technical Support Incidents](http://t.umblr.com/redirect?z=https%3A%2F%2Fdeveloper.apple.com%2Fsupport%2Ftechnical%2F&t=MmJjYzRkN2JmNTg0YjlmYjEyMmZkN2QwMzFmNzAyMGNjYTZjYzI1NixXbjdGaWFQcQ%3D%3D&b=t%3AicJmaFg9TmrfMRpH7q0GXw&m=1), you get 2 included in your developer account payment every year. (Thanks Kevin!)
+如果你欣赏这篇文章，或许你也会对 [Supertop podcast](http://t.umblr.com/redirect?z=https%3A%2F%2Fitunes.apple.com%2Fca%2Fpodcast%2Fsupertop-podcast%2Fid1143273587%3Fmt%3D2&t=OGRlZTk5NmVhMDc2YmNlMmRmN2FhYmRjMzJmMTgxODYyZDcwNzFmZSxXbjdGaWFQcQ%3D%3D&b=t%3AicJmaFg9TmrfMRpH7q0GXw&m=1) 和我们的播客应用 [Castro](http://t.umblr.com/redirect?z=http%3A%2F%2Fsupertop.co%2Fcastro%2Fdownload%3Fcampaign%3DCastroBGCrashPost&t=OTJiNjAwYTgwOWJhNzNmNzI2NWNiMDI3Y2RhNGFhOWNiNDVmOWY2OCxXbjdGaWFQcQ%3D%3D&b=t%3AicJmaFg9TmrfMRpH7q0GXw&m=1) 感兴趣。
 
-If you enjoyed this post, you might also enjoy the [Supertop podcast](http://t.umblr.com/redirect?z=https%3A%2F%2Fitunes.apple.com%2Fca%2Fpodcast%2Fsupertop-podcast%2Fid1143273587%3Fmt%3D2&t=OGRlZTk5NmVhMDc2YmNlMmRmN2FhYmRjMzJmMTgxODYyZDcwNzFmZSxXbjdGaWFQcQ%3D%3D&b=t%3AicJmaFg9TmrfMRpH7q0GXw&m=1) and our podcast app, [Castro](http://t.umblr.com/redirect?z=http%3A%2F%2Fsupertop.co%2Fcastro%2Fdownload%3Fcampaign%3DCastroBGCrashPost&t=OTJiNjAwYTgwOWJhNzNmNzI2NWNiMDI3Y2RhNGFhOWNiNDVmOWY2OCxXbjdGaWFQcQ%3D%3D&b=t%3AicJmaFg9TmrfMRpH7q0GXw&m=1).
-
-The title of this post is a reference to Brent Simmons’ ["How Not to Crash”](http://t.umblr.com/redirect?z=http%3A%2F%2Finessential.com%2Fhownottocrash&t=YWQwOTk2YWRiOTZlYmU3ZDIyYzUwM2I5OWEzOTBiMGYxZDA0ODNjNSxXbjdGaWFQcQ%3D%3D&b=t%3AicJmaFg9TmrfMRpH7q0GXw&m=1) series, which you should read if you haven’t already.
-
+这篇文章的标题引用了 Brent Simmons 的 ["How Not to Crash”](http://t.umblr.com/redirect?z=http%3A%2F%2Finessential.com%2Fhownottocrash&t=YWQwOTk2YWRiOTZlYmU3ZDIyYzUwM2I5OWEzOTBiMGYxZDA0ODNjNSxXbjdGaWFQcQ%3D%3D&b=t%3AicJmaFg9TmrfMRpH7q0GXw&m=1) 系列，我强烈推荐还没看过的读者去看看这个系列。
