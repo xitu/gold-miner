@@ -9,7 +9,7 @@
 
 当现在的应用变的越来越像 API 的集合而且无服务架构获得越来越多的关注时，作为一个 API 的提供者，不应该再只是暴露传统的 REST 接口。
 
-传统 REST API 的设计是用来让你可以程序化的获取或提交内容，但在你只是想如果某些信息改变， API 再通知应用程序的情况下，传统 API 还远不够好。，这还远远不是最佳的实践。如果是要实现这个的话,就需要定期轮询，而且这样还会失去扩展性。
+传统 REST API 的设计是用来让你可以程序化的获取或提交内容，但在你只是想如果某些信息改变，API 再通知应用程序的情况下，传统 API 还远不够好，这还远远不是最佳的实践。如果是要实现这个的话,就需要定期轮询，而且这样还会失去扩展性。
 
 
 ![](https://cdn-images-1.medium.com/max/800/1*dEmrcTajSG5A4Z_JjrGqfw.png)
@@ -89,7 +89,7 @@ Intercom 的 webhook 管理面板
 
 [Slack](https://medium.com/u/26d90a99f605) 两种都支持。
 
-它提供了一个自由的UI，这使创建订阅很容易，并且它也提供了一个稳定的事件 API（仍然没有提供尽可能多的事件，比如说他们的实时消息传递 API ，但我相信他们的工作）
+它提供了一个精巧的UI，这使创建订阅很容易，并且它也提供了一个稳定的事件 API（仍然没有提供尽可能多的事件，比如说他们的实时消息传递 API ，但我相信他们的工作）
 
 在选择是否为 Webhooks 提供 API 时，需要记住的一件重要的事情是，订阅将以什么规模和粒度提供，以及谁将会配置它们。
 
@@ -101,9 +101,9 @@ Intercom 的 webhook 管理面板
 
 
 
-要通过 API 创建新的 webhooks 订阅，你就应该像 HTTP API 中的任何其他资源一样来处理 _subscription_ 。
+要通过 API 创建新的 webhooks 订阅，你就应该像 HTTP API 中的任何其他资源一样来处理 _订阅_ 。
 
-最近我们在工作中发现非常好的例子是由 Box 团队最新发布的 webhook 实现 [this summer](https://blog.box.com/blog/box-webhooks/)。
+最近我们在工作中发现非常好的例子是由 Box 团队在今年[夏天](https://blog.box.com/blog/box-webhooks/)更新的 webhook 实现。
 
 #### webhooks 安全
 
@@ -120,7 +120,7 @@ Intercom 的 webhook 管理面板
 ![](https://cdn-images-1.medium.com/max/800/1*qyzDKFf4CfPwJEozGIah0w.png)
 
 
-甚至更复杂的实现。比如说 Mandrill 对 webhook 请求进行签名，包括在具有 webhook POST 请求的附加HTTP 头`X-Mandrill-Signature` ，这个头中将包含请求的签名。要验证 Webhook 请求，就要使用 Mandrill 相同的密钥生成签名，并将这个签名与 `X-Mandrill-Signature` 头里的值进行比较。
+至于更复杂的实现。比如说 Mandrill 对 webhook 请求进行签名，webhook POST 请求的 HTTP 头部包含了附加的`X-Mandrill-Signature` ，这个头中将包含请求的签名。要验证 Webhook 请求，就要使用 Mandrill 相同的密钥生成签名，并将这个签名与 `X-Mandrill-Signature` 头里的值进行比较。
 
 
 #### 具有到期日期的订阅
@@ -133,12 +133,12 @@ Intercom 的 webhook 管理面板
 
 webhook 领域的设计仍然是分散的，但是常见的模式终究会显露出来。
 
-在 [**Stamplay**](https://stamplay.com/) API 集成是一个问题。我们每天都面临着集成的挑战，像 Swagger，RAML 或 API Blueprint 这样的 OpenAPI 规范并不能有所帮助，因为它们都不支持webhook 场景。
+在 [**Stamplay**](https://stamplay.com/) API 集成是一个问题。我们每天都面临着集成的挑战，像 Swagger ，RAML 或 API Blueprint 这样的 OpenAPI 规范并不能有所帮助，因为它们都不支持webhook 场景。
 
 所以如果你正在考虑实现webhooks，我邀请你想想他们的使用说明，看看例子
 [GitHub](https://medium.com/u/d18563e4f2b9), [Stripe](https://medium.com/u/3ecae35d6d66), [Intercom](https://medium.com/u/7ca8972daf76) 和 [Slack API](https://medium.com/u/272cd95a3742).
 
-PS. [Medium](https://medium.com/u/504c7870fdb6) 任何关于 webhooks 的想法？来吧, RSS 订阅是 so old school.
+PS. [Medium](https://medium.com/u/504c7870fdb6) 任何关于 webhooks 的想法？来吧, 拜托，RSS 是老一套的做法啦。
 
 **更新**: Medium实际上提供了一种通过 [http://medium.superfeedr.com/](http://medium.superfeedr.com/) 实时通知的方式👌
 
