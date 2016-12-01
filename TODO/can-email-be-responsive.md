@@ -8,14 +8,6 @@
 
 Love it or hate it, there’s no denying the popularity of HTML emails. And, like the web before it, the inbox has officially gone mobile—with [over 50 percent of email opens](https://litmus.com/blog/email-client-market-share-where-people-opened-in-2013) occurring on mobile devices.
 
-Article Continues Below
-
-# Share this on
-
-- [http://twitter.com/intent/tweet?url=http://alistapart.com/article/can-email-be-responsive&amp;text=Can+Email+Be+Responsive%3F&amp;via=alistapart](http://twitter.com/intent/tweet?url=http://alistapart.com/article/can-email-be-responsive&amp;text=Can+Email+Be+Responsive%3F&amp;via=alistapart)
-- [http://www.facebook.com/sharer.php?u=http://alistapart.com/article/can-email-be-responsive&amp;t=Can+Email+Be+Responsive%3F](http://www.facebook.com/sharer.php?u=http://alistapart.com/article/can-email-be-responsive&amp;t=Can+Email+Be+Responsive%3F)
-- [https://plus.google.com/share?url=http://alistapart.com/article/can-email-be-responsive](https://plus.google.com/share?url=http://alistapart.com/article/can-email-be-responsive)
-
 # Translations
 
 - [Italian](http://italianalistapart.com/articoli/112-numero-95-29-luglio-2014/472-email-puo-essere-responsive)
