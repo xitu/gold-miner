@@ -73,7 +73,8 @@ Basic styling of tables will largely use attributes that most people haven’t u
 
 Here’s an example of what a well-coded table in email looks like:
 
-    <tableborder="0"cellpadding="0"cellspacing="0"width="100%"><tr><tdbgcolor="#333333"><divalign="center"style="padding: 0px 15px 0px 15px;"><tableborder="0"cellpadding="0"cellspacing="0"width="500"class="wrapper"><tr><td>…Content…</td></tr></table></div></td></tr></table><table border="0" cellpadding="0" cellspacing="0" width="100%">
+```
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
 	<tr>
 		<td bgcolor="#333333">
 			<div align="center" style="padding: 0px 15px 0px 15px;">
@@ -85,7 +86,8 @@ Here’s an example of what a well-coded table in email looks like:
 			</div>
 		</td>
 	</tr>
-    </table>
+</table>
+```
 
 You can see how we nest tables and use the `border`, `cellpadding`, and `cellspacing` attributes to ensure that there aren’t unnecessary gaps in the design. A `bgcolor` is applied on the table-cell level, which is a more reliable method than `background` or `background-color` (although `background-color` does have its place).
 
@@ -97,7 +99,9 @@ Using images in email is very similar to using them on the web, with one caveat:
 ![](http://alistapart.com/d/395/can-email-be-responsive/can-email-be-responsive-1.png)An email with images disabled
 While there is no way to automatically enable those images, we can improve the situation by using alt-text to provide some context for the missing images. What’s more, we can use inline styles on the `img` element to style that alt-text and maintain some semblance of design.
 
-    <img src="img/fluid-images.jpg" width="240" height="130" style="display: block; color: #666666; font-family: Helvetica, arial, sans-serif; font-size: 13px; width: 240px; height: 130px;" alt="Fluid images" border="0" class="img-max">
+```
+<img src="img/fluid-images.jpg" width="240" height="130" style="display: block; color: #666666; font-family: Helvetica, arial, sans-serif; font-size: 13px; width: 240px; height: 130px;" alt="Fluid images" border="0" class="img-max">
+```
 
 Using the code above, our missing image now makes a bit more sense:
 ![](http://alistapart.com/d/395/can-email-be-responsive/can-email-be-responsive-2.png)Alt-text goes a long way
@@ -109,11 +113,13 @@ Many email marketers use linked images for buttons. However, using [bulletproof 
 
 The table below is an example of an all-HTML bulletproof button, which uses borders to ensure the entire button is clickable, not just the text:
 
-    <table border="0" cellspacing="0" cellpadding="0" class="responsive-table">
+```
+<table border="0" cellspacing="0" cellpadding="0" class="responsive-table">
 	<tr>
-	    <td align="center"><a href="http://alistapart.com" target="_blank" style="font-size: 16px; font-family: Helvetica, Arial, sans-serif; font-weight: normal; color: #666666; text-decoration: none; background-color: #5D9CEC; border-top: 15px solid #5D9CEC; border-bottom: 15px solid #5D9CEC; border-left: 25px solid #5D9CEC; border-right: 25px solid #5D9CEC; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px; display: inline-block;" class="mobile-button">Learn More →</a></td>
+		<td align="center"><a href="http://alistapart.com" target="_blank" style="font-size: 16px; font-family: Helvetica, Arial, sans-serif; font-weight: normal; color: #666666; text-decoration: none; background-color: #5D9CEC; border-top: 15px solid #5D9CEC; border-bottom: 15px solid #5D9CEC; border-left: 25px solid #5D9CEC; border-right: 25px solid #5D9CEC; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px; display: inline-block;" class="mobile-button">Learn More →</a></td>
 	</tr>
-    </table>
+</table>
+```
 
 ![](http://alistapart.com/d/395/can-email-be-responsive/can-email-be-responsive-3.png)Bulletproof buttons look great with images disabled
 Once you have those basics down, it’s time to see how we actually make an email work well across a range of device sizes.
@@ -132,16 +138,20 @@ Fluid images aren’t too tricky. Although they use the `width` property set to 
 
 The first step is ensuring that images are robustly coded. Let’s look at our image of the email screen from earlier.
 
-    <img src="responsive-email.jpg" width="500" height="200" border="0" alt="Can an email really be responsive?" style="display: block; padding: 0; color: #666666; text-decoration: none; font-family: Helvetica, arial, sans-serif; font-size: 16px;" class="img-max">
+```
+<img src="responsive-email.jpg" width="500" height="200" border="0" alt="Can an email really be responsive?" style="display: block; padding: 0; color: #666666; text-decoration: none; font-family: Helvetica, arial, sans-serif; font-size: 16px;" class="img-max">
+```
 
 Notice that `display` property that’s included? It’s just one example of the many hacks required to deal with naughty email clients, as is the `border` attribute. Most webmail clients add space around images in an attempt to fix line-height issues that may arise. Making images block-level will kill that spacing and save your design.
 
 Now, when we want to make our images fluid, we can do so in a media query in the head of our email:
 
-    img[class="img-max”] {
+```
+img[class="img-max”] {
 	width:100% !important; 
 	height: auto !important;
-    }
+}
+```
 
 Not every image will need to be fluid. Elements like logos and social icons typically stay the same size regardless of device size, which is why we target flexible images using a class.
 
@@ -157,11 +167,13 @@ Nearly all of our tables will use percentages for their widths. The one exceptio
 
 Let’s start with the container table:
 
-    <table border="0" cellpadding="0" cellspacing="0" width="500" class="wrapper">
+```
+<table border="0" cellpadding="0" cellspacing="0" width="500" class="wrapper">
 	<tr>
-	    <td>…Content…</td>
+		<td>…Content…</td>
 	</tr>
-    </table>
+</table>
+```
 
 You’ll see that we use the `width` attribute to force the table to be 500 pixels wide.
 
@@ -175,22 +187,26 @@ Media queries in email work just like in web design. By including them in the he
 
 Keeping things simple, we’ll target viewports with a `max-width` of 525 pixels and below. Then, targeting that wrapper table, we can override those HTML attributes and inline styles to force the table to be the full width of the screen on mobile devices.
 
-    @media screen and (max-width:525px) {
+```
+@media screen and (max-width:525px) {
 	table[class=“wrapper”] {
 		width:100% !important;
 	}
-    }
+}
+```
 
 We can also target any nested tables and do the same—effectively stacking content sections for an improved mobile experience. It’s not a bad idea to bump up the size of text and buttons on mobile, either.
 
-    @media screen and (max-width:525px) {
+```
+@media screen and (max-width:525px) {
 	body, table, td, a {
 		font-size:16px !important;
 	}	
 	table[id=“responsive-table”] {
 		width:100% !important;
 	}
-    }
+}
+```
 
 The main drawback of using media queries is that they are not supported everywhere. While WebKit-based email clients like iOS Mail and the default Android email app work well, older Blackberry devices, Windows Phone 8, and the Gmail app on every platform disregard media queries.
 
