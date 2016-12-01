@@ -14,11 +14,6 @@ Love it or hate it, there’s no denying the popularity of HTML emails. And, lik
 
 [![](//assets.servedby-buysellads.com/p/manage/asset/id/32683)Brief books for people who make websites. Ad via BuySellAds](//srv.buysellads.com/ads/click/x/GTND423YCTSD4KJYCAA4YKQWFTYDK23JCVBICZ3JCEADT2J7CK7DL23KC6BDEK3NCTYDEK3EHJNCLSIZ)
 
-#### Job Board
-
-[![Job listings via We Work Remotely](/components/assets/img/we-work-remotely.jpg)](https://weworkremotely.com/?source=ala)
-[AgentMethods is looking for a Customer Support Representative (Part Time).](https://weworkremotely.com/jobs/3728-customer-support-representative-part-time)
-
 Still, email design is an outrageously outdated practice. Remember coding before web standards became… standards? Welcome to the living hell of email design.
 
 But coding an email doesn’t need to be a lesson in frustration. While email designers still have to build layouts using tables and style them with HTML attributes and—gasp!—inline styles, a number of intrepid designers are taking modern techniques pioneered for the web and applying them to the archaic practice of email design.
@@ -102,7 +97,11 @@ Many email marketers use linked images for buttons. However, using [bulletproof 
 
 The table below is an example of an all-HTML bulletproof button, which uses borders to ensure the entire button is clickable, not just the text:
 
-    <tableborder="0"cellspacing="0"cellpadding="0"class="responsive-table"><tr><tdalign="center"><ahref="http://alistapart.com"target="_blank"style="font-size: 16px; font-family: Helvetica, Arial, sans-serif; font-weight: normal; color: #666666; text-decoration: none; background-color: #5D9CEC; border-top: 15px solid #5D9CEC; border-bottom: 15px solid #5D9CEC; border-left: 25px solid #5D9CEC; border-right: 25px solid #5D9CEC; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px; display: inline-block;"class="mobile-button">Learn More →</a></td></tr></table>
+    <table border="0" cellspacing="0" cellpadding="0" class="responsive-table">
+	<tr>
+	    <td align="center"><a href="http://alistapart.com" target="_blank" style="font-size: 16px; font-family: Helvetica, Arial, sans-serif; font-weight: normal; color: #666666; text-decoration: none; background-color: #5D9CEC; border-top: 15px solid #5D9CEC; border-bottom: 15px solid #5D9CEC; border-left: 25px solid #5D9CEC; border-right: 25px solid #5D9CEC; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px; display: inline-block;" class="mobile-button">Learn More →</a></td>
+	</tr>
+    </table>
 
 ![](http://alistapart.com/d/395/can-email-be-responsive/can-email-be-responsive-3.png)Bulletproof buttons look great with images disabled
 Once you have those basics down, it’s time to see how we actually make an email work well across a range of device sizes.
@@ -121,13 +120,16 @@ Fluid images aren’t too tricky. Although they use the `width` property set to 
 
 The first step is ensuring that images are robustly coded. Let’s look at our image of the email screen from earlier.
 
-    <imgsrc="responsive-email.jpg"width="500"height="200"border="0"alt="Can an email really be responsive?"style="display: block; padding: 0; color: #666666; text-decoration: none; font-family: Helvetica, arial, sans-serif; font-size: 16px;"class="img-max">
+    <img src="responsive-email.jpg" width="500" height="200" border="0" alt="Can an email really be responsive?" style="display: block; padding: 0; color: #666666; text-decoration: none; font-family: Helvetica, arial, sans-serif; font-size: 16px;" class="img-max">
 
 Notice that `display` property that’s included? It’s just one example of the many hacks required to deal with naughty email clients, as is the `border` attribute. Most webmail clients add space around images in an attempt to fix line-height issues that may arise. Making images block-level will kill that spacing and save your design.
 
 Now, when we want to make our images fluid, we can do so in a media query in the head of our email:
 
-    img[class="img-max”] {width:100% !important;height: auto !important;}
+    img[class="img-max”] {
+	width:100% !important; 
+	height: auto !important;
+    }
 
 Not every image will need to be fluid. Elements like logos and social icons typically stay the same size regardless of device size, which is why we target flexible images using a class.
 
@@ -143,7 +145,11 @@ Nearly all of our tables will use percentages for their widths. The one exceptio
 
 Let’s start with the container table:
 
-    <tableborder="0"cellpadding="0"cellspacing="0"width="500"class="wrapper"><tr><td>…Content…</td></tr></table>
+    <table border="0" cellpadding="0" cellspacing="0" width="500" class="wrapper">
+	<tr>
+	    <td>…Content…</td>
+	</tr>
+    </table>
 
 You’ll see that we use the `width` attribute to force the table to be 500 pixels wide.
 
@@ -157,11 +163,22 @@ Media queries in email work just like in web design. By including them in the he
 
 Keeping things simple, we’ll target viewports with a `max-width` of 525 pixels and below. Then, targeting that wrapper table, we can override those HTML attributes and inline styles to force the table to be the full width of the screen on mobile devices.
 
-    @media screen and (max-width:525px) {table[class=“wrapper”] {width:100% !important;}}
+    @media screen and (max-width:525px) {
+	table[class=“wrapper”] {
+		width:100% !important;
+	}
+    }
 
 We can also target any nested tables and do the same—effectively stacking content sections for an improved mobile experience. It’s not a bad idea to bump up the size of text and buttons on mobile, either.
 
-    @media screen and (max-width:525px) {body, table, td, a {font-size:16px !important;}table[id=“responsive-table”] {width:100% !important;}}
+    @media screen and (max-width:525px) {
+	body, table, td, a {
+		font-size:16px !important;
+	}	
+	table[id=“responsive-table”] {
+		width:100% !important;
+	}
+    }
 
 The main drawback of using media queries is that they are not supported everywhere. While WebKit-based email clients like iOS Mail and the default Android email app work well, older Blackberry devices, Windows Phone 8, and the Gmail app on every platform disregard media queries.
 
@@ -176,34 +193,3 @@ My one recommendation is to test the hell out of any email you build. Email clie
 Aside from testing your code and rendering, track all of your emails and test what [kind of content](http://mailchimp.com/resources/guides/how-to-create-an-email-marketing-plan/html/), copy, design, and [sending cadence](http://www.campaignmonitor.com/guides/planning/qanda/) resonates with your audience.
 
 Above all, don’t disregard email design. It’s a necessary evil, but it’s getting better all the time. A [community is finally forming](https://litmus.com/community) around email design, and techniques are constantly being refined and perfected. Responsive email design is one of them. If you really care about your product and presence on the web, you will take the passion and craft you apply to your app’s interface and transfer it to one of the most widespread and valuable mediums around.
-![](/d/_made/d/ALA395_accessingredient_300_322_150_61.jpg)<img src="/d/_made/d/ALA395_accessingredient_300_322_150_10.jpg" alt="">
-# Also in Issue № 395
-
-# [Accessibility: The Missing Ingredient](/article/accessibility-the-missing-ingredient)
-
-If economics is “the dismal science,” accessibility has long been the least loved branch of web design and development—and the…
-
-# 
-	 	Further reading about
-	 	[Layout & Grids](/topic/layout-grids)
-
-## [Creating Style Guides](http://alistapart.com/article/creating-style-guides)
-
-A style guide, also referred to as a pattern library, is a living document that details the front-end code for all the elements…
-
-## [Content-out Layout](http://alistapart.com/article/content-out-layout)
-
-Grids serve well to divide up a predefined canvas and guide how content fits onto a page, but when designing for the web’s…
-
-# About the Author
-
-[![](/d/_made/pix/authors/photos/rodriguez-headshot-small_120_120_c1.jpg)](/author/JasonRodriguez)
-## [Jason Rodriguez](/author/JasonRodriguez)
-
-Jason Rodriguez is an email geek, writer, and product manager at [Litmus](https://litmus.com/). Most of his time is spent educating others about email design and making email marketing better for everyone. The author of [two books](http://rodriguezcommaj.com/books/), Jason also sends out a [weekly email newsletter](http://rodriguezcommaj.com/newsletter/), and sometimes [tweets](https://twitter.com/rodriguezcommaj). 
-
-### More from this Author
-
-- [The Coming Revolution in Email Design](/article/the-coming-revolution-in-email-design)
-
-Get our latest articles in your inbox.[Sign up for email alerts](/email-signup).
