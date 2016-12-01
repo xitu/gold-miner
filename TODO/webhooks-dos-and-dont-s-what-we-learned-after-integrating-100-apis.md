@@ -2,9 +2,9 @@
 * 原文作者：[Giuliano Iacobelli](Giuliano Iacobelli)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[steinliber](https://github.com/steinliber)
-* 校对者：
+* 校对者：[xekri](https://github.com/xekri) , [DeadLion](https://github.com/DeadLion)
 
-# Webhook 该做和不该做的: 我们在整合超过100个 API 中所学到的
+# Webhook 该做和不该做的: 我们在整合超过 100 个 API 中所学到的
 
 
 当现在的应用变的越来越像 API 的集合而且无服务架构获得越来越多的关注时，作为一个 API 的提供者，不应该再只是暴露传统的 REST 接口。
@@ -64,7 +64,7 @@ Github webhook 携带数据的示例
 
 #### 允许消费者定义多个 URLs
 
-当你构建你的webhooks，你应该考虑到在另一端的人必须去接收你的数据。如果只给予他们在一个网址下订阅活动的机会，那肯定不是你所可以提供的最好的开发者体验。如果我需要在不同的系统上监听相同的事件就会遇到麻烦，然后我就需要把类似Reflector.io的库来在系统间管理数据。[Clearbit](https://medium.com/u/ce5450a7b906) 请开发这样的好的 API, 并相应加快你的 webhook 开发进程。
+当你构建你的 webhooks ，你应该考虑到在另一端的人必须去接收你的数据。如果只给予他们在一个网址下订阅活动的机会，那肯定不是你所可以提供的最好的开发者体验。如果我需要在不同的系统上监听相同的事件就会遇到麻烦，然后我就需要把类似 Reflector.io 的库来在系统间管理数据。[Clearbit](https://medium.com/u/ce5450a7b906) 请开发这样的好的 API, 并相应加快你的 webhook 开发进程。
 
 
 [Intercom](https://medium.com/u/7ca8972daf76) 在这方面做的非常好，让你可以添加多个 URLs，并为其中的每一个都定义想监听的事件。
@@ -101,7 +101,7 @@ Intercom 的 webhook 管理面板
 
 
 
-要通过 API 创建新的 webhooks 订阅，你就应该像 HTTP API 中的任何其他资源一样来处理 _订阅_ 。
+要通过 API 创建新的 webhooks 订阅，你就应该像 HTTP API 中的任何其他资源一样来处理 __订阅__ 。
 
 最近我们在工作中发现非常好的例子是由 Box 团队在今年[夏天](https://blog.box.com/blog/box-webhooks/)更新的 webhook 实现。
 
@@ -125,7 +125,7 @@ Intercom 的 webhook 管理面板
 
 #### 具有到期日期的订阅
 
-现在对外提供整合了过期时间的订阅服务可能性不是很高，但可以我们可以看到这可以作为一个更常见的功能。 Microsoft Graph API 就是一个例子。除非你进行续订，否则通过 API 执行的任何订阅都将在72小时后过期。
+现在对外提供整合了过期时间的订阅服务可能性不是很高，但可以我们可以看到这可以作为一个更常见的功能。 Microsoft Graph API 就是一个例子。除非你进行续订，否则通过 API 执行的任何订阅都将在 72 小时后过期。
 
 从数据提供商的角度来看，这是有道理的。你不想继续向可能不再运行或对你数据感兴趣的服务发送 POST 请求，但对所有真正对此感兴趣的用户来说，这是一个令人不快的体验。你是微软：如果你做不了应该做的繁重工作那又应该谁去做呢？
 
@@ -135,10 +135,10 @@ webhook 领域的设计仍然是分散的，但是常见的模式终究会显露
 
 在 [**Stamplay**](https://stamplay.com/) API 集成是一个问题。我们每天都面临着集成的挑战，像 Swagger ，RAML 或 API Blueprint 这样的 OpenAPI 规范并不能有所帮助，因为它们都不支持webhook 场景。
 
-所以如果你正在考虑实现webhooks，我邀请你想想他们的使用说明，看看例子
+所以如果你正在考虑实现 webhooks ，我邀请你想想他们的使用说明，看看例子
 [GitHub](https://medium.com/u/d18563e4f2b9), [Stripe](https://medium.com/u/3ecae35d6d66), [Intercom](https://medium.com/u/7ca8972daf76) 和 [Slack API](https://medium.com/u/272cd95a3742).
 
-PS. [Medium](https://medium.com/u/504c7870fdb6) 任何关于 webhooks 的想法？来吧, 拜托，RSS 是老一套的做法啦。
+PS. [Medium](https://medium.com/u/504c7870fdb6) 任何关于 webhooks 的想法？拜托，RSS 是老一套的做法啦。
 
-**更新**: Medium实际上提供了一种通过 [http://medium.superfeedr.com/](http://medium.superfeedr.com/) 实时通知的方式👌
+**更新**: Medium 实际上提供了一种通过 [http://medium.superfeedr.com/](http://medium.superfeedr.com/) 实时通知的方式👌
 
