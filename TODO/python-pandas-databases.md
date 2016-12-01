@@ -2,14 +2,14 @@
 * 原文作者：[Vik Paruchuri](https://twitter.com/vikparuchuri)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者： [Nicolas(Yifei) Li](https://github.com/yifili09)
-* 校对者：
+* 校对者：[marcmoore](https://github.com/marcmoore)
 
 # `Python` 和 `Pandas` 在 `SQLite` 数据库中的运用
 
 
 [SQLite](https://www.sqlite.org) 是一个数据库引擎，使用它能方便地存储和处理关系型数据。它和 _cvs_ 格式很相似，`SQLite` 把数据存储在一个单独的文件中，它能方便地与其他人共享。大部分的编程语言和编译环境都对 `SQLite` 数据库提供了很好的支持。`Python` 也不例外，并且专门有一个访问 `SQLite` 数据库的程序库，叫做 `sqlite3`，自从 `2.5` 版本以来，它就已经被 `Python` 纳入标准库里。在这篇博文中，我们将学会如何使用 `sqlite3` 创建、查询和更新数据库。也包括了，使用 [pandas](https://pandas.pydata.org/) 程序包配合 `SQLite` 数据库是有多么方便！我们会使用 `Python 3.5`，但是所有的实现方法应该兼容 `Python 2`。 
 
-在我们开始之前，让我们先快速检阅下我们之后要处理的数据。我们看到的是航空公司的航班数据，它包含了有关航空公司的信息，机场名称和往来各个机场的航线名称。每一条航线会显示出一个重复的航班，它是往返于目的地和始发地的航空公司。
+在我们开始之前，让我们先快速检阅下我们之后要处理的数据。我们看到的是航空公司的航班数据，它包含了有关航空公司的信息，机场名称和往来各个机场的航线名称。每一条航线代表着有一架航班重复往返于目的地和始发地的机场。
 
 所有的数据都存在一个叫做 `flights.db` 的数据库中，它有三张表格 - `airports`, `airliens`, `routes`。你可以到 [这里](https://www.dropbox.com/s/a2wax843eniq12g/flights.db?dl=0) 下载到它。
 
@@ -75,7 +75,7 @@
 
 
 
-你可以已经注意到，我们没有把之前的查询结果存储到一个变量中。这是因为我们需要执行另外一个指令来真正地获得结果。我们可以使用 [fetchall](https://docs.python.org/3/library/sqlite3.html?highlight=connect#sqlite3.Cursor.fetchall) 方法来获取查询的结果。
+你可能已经注意到，我们没有把之前的查询结果存储到一个变量中。这是因为我们需要执行另外一个指令来真正地获得结果。我们可以使用 [fetchall](https://docs.python.org/3/library/sqlite3.html?highlight=connect#sqlite3.Cursor.fetchall) 方法来获取查询的结果。
 
 
 
@@ -193,7 +193,7 @@
 
 我们能使用 `pandas` 的 [read_sql_query](http://pandas.pydata.org/pandas-docs/stable/generated/pandas.read_sql_query.html) 方法直接把一条 `SQL` 查询结果读取到一个 `pandas DataFrame` 中。下面的代码将执行和前文中作用一样的查询，但是它会返回一个 `DataFrame`。对比前文的数据查询方式，它能带来诸多好处:
 
-* 最后，我们不需要创建一个 `Cursor 对象` 或者调用 `fetchall`。
+* 我们不需要每次到最后都创建一个 `Cursor 对象` 或者调用 `fetchall`。
 * 它能自动通过表头的名字来阅读整个表。
 * 它创建了一个 `DataFrame`，所以我们能快速的挖掘数据。
 
@@ -377,9 +377,9 @@
 
 ### 对检索增加条件参数
 
-在最后那条查询指令中，我们把固定值插入到对所需要的数据库中。多数情况下，当你想插入数据到数据库中的时候，它不会是一些固定值，它应该是一些你想传入方法的动态值。这些动态值可能来自于下载得到的数据，或者来自于用户的输入。
+在最后那条查询指令中，我们把固定值插入到所需要的数据库中。多数情况下，当你想插入数据到数据库中的时候，它不会是一些固定值，它应该是一些你想传入方法的动态值。这些动态值可能来自于下载得到的数据，或者来自于用户的输入。
 
-当操作动态值的时候，有些人尝试用 `Python` 的串格式化字符串来插入这些值:
+当操作动态值的时候，有些人尝试用 `Python` 的格式化字符串来插入这些值:
 
 
 
@@ -574,7 +574,7 @@
 
 你现在应该对在 `SQLite` 数据库中如何使用 `Python` 和 `Pandas` 对数据操作有了一个很好的掌握和认识了。本文包含了查询数据库，更新行数据内容，插入行数据内容，删除行数据内容，创建数据表和修改数据表。这些已经覆盖了主要的 `SQL` 操作内容，这些几乎就是你的日常工作。
 
-以下是一些额外的资料，如果你想要深入了解:
+如果你想要深入了解，以下是一些补充资料:
 
 *   [sqlite3 在线文档](https://docs.python.org/3/library/sqlite3.html)
 *   [比较 `pandas` 和 `SQL`](http://pandas.pydata.org/pandas-docs/stable/comparison_with_sql.html)
