@@ -73,7 +73,19 @@ Basic styling of tables will largely use attributes that most people haven’t u
 
 Here’s an example of what a well-coded table in email looks like:
 
-    <tableborder="0"cellpadding="0"cellspacing="0"width="100%"><tr><tdbgcolor="#333333"><divalign="center"style="padding: 0px 15px 0px 15px;"><tableborder="0"cellpadding="0"cellspacing="0"width="500"class="wrapper"><tr><td>…Content…</td></tr></table></div></td></tr></table>
+    <tableborder="0"cellpadding="0"cellspacing="0"width="100%"><tr><tdbgcolor="#333333"><divalign="center"style="padding: 0px 15px 0px 15px;"><tableborder="0"cellpadding="0"cellspacing="0"width="500"class="wrapper"><tr><td>…Content…</td></tr></table></div></td></tr></table><table border="0" cellpadding="0" cellspacing="0" width="100%">
+	<tr>
+		<td bgcolor="#333333">
+			<div align="center" style="padding: 0px 15px 0px 15px;">
+				<table border="0" cellpadding="0" cellspacing="0" width="500" class="wrapper">
+					<tr>
+						<td>…Content…</td>
+					</tr>
+				</table>
+			</div>
+		</td>
+	</tr>
+    </table>
 
 You can see how we nest tables and use the `border`, `cellpadding`, and `cellspacing` attributes to ensure that there aren’t unnecessary gaps in the design. A `bgcolor` is applied on the table-cell level, which is a more reliable method than `background` or `background-color` (although `background-color` does have its place).
 
@@ -85,7 +97,7 @@ Using images in email is very similar to using them on the web, with one caveat:
 ![](http://alistapart.com/d/395/can-email-be-responsive/can-email-be-responsive-1.png)An email with images disabled
 While there is no way to automatically enable those images, we can improve the situation by using alt-text to provide some context for the missing images. What’s more, we can use inline styles on the `img` element to style that alt-text and maintain some semblance of design.
 
-    <imgsrc="img/fluid-images.jpg"width="240"height="130"style="display: block; color: #666666; font-family: Helvetica, arial, sans-serif; font-size: 13px; width: 240px; height: 130px;"alt="Fluid images"border="0"class="img-max">
+    <img src="img/fluid-images.jpg" width="240" height="130" style="display: block; color: #666666; font-family: Helvetica, arial, sans-serif; font-size: 13px; width: 240px; height: 130px;" alt="Fluid images" border="0" class="img-max">
 
 Using the code above, our missing image now makes a bit more sense:
 ![](http://alistapart.com/d/395/can-email-be-responsive/can-email-be-responsive-2.png)Alt-text goes a long way
