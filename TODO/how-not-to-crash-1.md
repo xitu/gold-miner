@@ -7,7 +7,6 @@
 
 # 如何避免应用崩溃
 
-
 应用崩溃时有发生。崩溃会打断用户当前的工作流，导致数据的丢失，还会扰乱应用在后台的操作。对于开发者而言，那些最难修复的崩溃往往是那些难以重现，甚至难以检测到的崩溃。
 
 我最近发现并修复了一个 bug ，而它正是导致 Castro 反复出现难以检测的崩溃的罪魁祸首（译者注： Castro 是原文作者开发的一款应用），我想分享一下其中的心得与建议，或许能帮助你定位类似的问题。
@@ -54,17 +53,6 @@ Castro 2.1 版本推出了 iMessage App 来让用户轻松地分享他们最近�
 在本例中，我清楚的明白我不可能在应用与调试器保持连接的状态下，使应用进入挂起状态。实际上，调试器[屏蔽挂起状态，而且模拟器不会精准模拟挂起](http://t.umblr.com/redirect?z=https%3A%2F%2Fforums.developer.apple.com%2Fthread%2F14855&t=NmNmMmFhODVlZTk0Y2E3NDkzMzBmMWY5NzRhODY3NWRiY2MwNDExMSxXbjdGaWFQcQ%3D%3D&b=t%3AicJmaFg9TmrfMRpH7q0GXw&m=1)。如果不连接调试器，那么就只剩下反复测试然后查看设备日志这一个选择了。
 
 macOS Sierra 上的全新 Console App 提供了访问任何当前连接中的 iPhone 的系统日志的功能，而在 Sierra 之前，我都是靠 Lemon Jar 的 [iOS Console](http://t.umblr.com/redirect?z=https%3A%2F%2Flemonjar.com%2Fiosconsole%2F&t=ZDQ0Y2E0YjdiNDJkMDliYzA3ZDViYTMxYTUyYThiM2Y3NjU5MzY3ZixXbjdGaWFQcQ%3D%3D&b=t%3AicJmaFg9TmrfMRpH7q0GXw&m=1) 来完成这个操作，但是，看到 Apple 官方提供能够访问日志的工具，了解这样的技术是被官方所接受并支持的，感觉也是极好的。你值得花时间去学习如何使用全新的 Console App ，它呈现出许多单单 Xcode 调试器无法呈现的操作。由于这份日志是整个系统所有日志的统一输出，所以会有许多不相关的冗余信息，但你可以轻松地创建一个过滤器，将显示的内容限定在与你的应用相关的范围内。
-
-To contrive my `dead10cc` crash:
-
-*   I set up the `applicationDidEnterBackground` method to do a few hundred database queries.
-*   On my Mac, I opened Console and filtered for messages mentioning Castro.
-*   I installed the app through Xcode but ran it normally by tapping the icon.
-*   I pressed the home button to move the app to the background and then immediately opened Pokémon Go in the hope that the memory pressure would suspend Castro.
-
-After following these steps a few times, I was able to see in Console that I had managed to recreate the crash. The backtrace looked the same as the real crashes, so I was pretty confident of the cause of the crash now.
-
-I was then able to find and fix a place in the app where background work was being triggered that would access the database: on network reachability change, the app was doing a refresh without a background task. If the app was suspended while this refresh was accessing the database, iOS would kill it.
 
 为了刻意重现崩溃 `dead10cc` ：
 
