@@ -123,7 +123,7 @@ Intercom 的 webhook 管理面板
 至于更复杂的实现。比如说 Mandrill 对 webhook 请求进行签名，webhook POST 请求的 HTTP 头部包含了附加的`X-Mandrill-Signature` ，这个头中将包含请求的签名。要验证 Webhook 请求，就要使用 Mandrill 相同的密钥生成签名，并将这个签名与 `X-Mandrill-Signature` 头里的值进行比较。
 
 
-#### 具有到期日期的订阅
+#### 具有过期日期的订阅
 
 现在对外提供整合了过期时间的订阅服务可能性不是很高，但可以我们可以看到这可以作为一个更常见的功能。 Microsoft Graph API 就是一个例子。除非你进行续订，否则通过 API 执行的任何订阅都将在 72 小时后过期。
 
