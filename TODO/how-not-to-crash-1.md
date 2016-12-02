@@ -2,7 +2,7 @@
 * 原文作者：[Padraig](https://twitter.com/supertopsquid)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Gocy](https://github.com/Gocy015/)
-* 校对者：
+* 校对者：[lovelyCiTY](https://github.com/lovelyCiTY), [DeadLion](https://github.com/DeadLion)
 
 
 # 如何避免应用崩溃
@@ -19,7 +19,7 @@
 
 有趣的是，这些崩溃并没有出现在我们平时使用的崩溃上报服务 HockeyApp 中，因此我们实际上在晚些时候才发现我们的应用出现了问题。想要查看到应用的所有崩溃，开发者需要从 iTunes Connect 或是 Xcode 中查看崩溃上报。（更新： Greg Parker [指出](https://twitter.com/gparker/status/794076875249225728) **“第三方崩溃上报系统在对应的应用进程中建立 handler 来记录应用行为，但如果操作系统从外部终止进程，这个 handler 就永远无法执行了。”**），另外， HockeyApp 的联合创始人 Andreas Linde [引用](https://twitter.com/therealkerni/status/794275740631973888) 了一篇文章来界定那些 [Hockey 能以及不能检测到的崩溃](http://t.umblr.com/redirect?z=https%3A%2F%2Fsupport.hockeyapp.net%2Fkb%2Fclient-integration-ios-mac-os-x-tvos%2Fwhich-types-of-crashes-can-be-collected-on-ios-and-os-x&t=M2RkMzgyMDY2MzU0ZWNmZmVjNDdiOTQ4MjljYWZhNjFiNDgwOGZhOCxXbjdGaWFQcQ%3D%3D&b=t%3AicJmaFg9TmrfMRpH7q0GXw&m=1)。）
 
-如果你是一名应用开发者并且登陆了开发者账号， Xcode 将允许你检视那些 Apple 官方从你的当前帐号下的用户那收集到的崩溃。这项功能在 Window 导航栏下的 Organizer 窗口中的 Crashes 标签中。你可以选择特定的应用版本， Xcode 会下载从那些愿意将信息分享给开发者的用户手上收集到的崩溃日志。
+如果你是一名应用开发者并且登陆了开发者账号， Xcode 允许你检视 Apple 官方从你的当前帐号下的 app 用户那收集到的崩溃日志。这项功能在 Window 导航栏下的 Organizer 窗口中的 Crashes 标签中。你可以选择特定的应用版本， Xcode 会下载 Apple 从用户手上收集到的崩溃日志，前提是用户同意将信息分享给开发者。
 
 ![图为 Xcode 中的 Crashes 标签栏所展示的用户崩溃信息](http://supertop.co/images/crashes_tab.png)
 
@@ -27,7 +27,7 @@
 
 ### 分析崩溃原因
 
-许多不同的代码路径都触发了这个崩溃，但崩溃最终都汇集到一个数据库查询方法之中。
+许多不同的代码路径都触发了这个崩溃，但崩溃最终都指向一个数据库查询方法。
 
 一开始我认为是多线程引发的问题，毕竟在被线程问题折磨了多年之后，我总是第一时间想到它。我以文本文件的格式打开崩溃日志，因为这样比直接用 Xcode 打开展示了更多的细节。崩溃的异常类型是 `EXC_CRASH (SIGKILL)` ，对应的信息是 `EXC_CORPSE_NOTIFY` ，程序被终止的原因是 `Code 0xdead10cc` 。于是我试着找出 `0xdead10cc` 是什么含义。 Google 或是 Apple Developer 论坛都没有多少相关的信息，但 [Technical Note 2151](http://t.umblr.com/redirect?z=https%3A%2F%2Fdeveloper.apple.com%2Flibrary%2Fcontent%2Ftechnotes%2Ftn2151%2F_index.html&t=MTJmNGU4NThiODlmYzE1ZWJhMTM2MWFlODU3MzFiYTFmZGU2NWY4OSxXbjdGaWFQcQ%3D%3D&b=t%3AicJmaFg9TmrfMRpH7q0GXw&m=1) 中提到：
 
@@ -35,7 +35,7 @@
 
 这时候我意识到 iOS 强制关闭我的应用是因为我违反了系统规则，而不是说我的代码出了什么小问题。但是， Castro 并没有用到通讯录数据库或是任何我能想到的类似的系统资源。我还怀疑原因是不是应用在后台长时间运行而没有取消，但我也发现日志中有一些应用仅仅运行了两秒钟就发生崩溃的记录。
 
-经过推理，我最终将可能原因定位到我们的数据库相关的 SQLite 文件上，因为绝大部分的堆栈信息都显示崩溃是在操作数据库的时候发生的。但 2.1 版本上的哪个改动，瞬间就引起了这个崩溃呢？
+经过推理，我最终将可能原因定位到我们的数据库相关的 SQLite 文件上，因为绝大部分的堆栈信息都显示崩溃是在操作数据库的时候发生的。但 2.1 版本上的哪个改动，突然就引起了这个崩溃呢？
 
 ### 应用的共享容器
 
@@ -50,9 +50,9 @@ Castro 2.1 版本引入了对 iMessage 的支持来让用户轻松地分享他�
 
 而这个崩溃就非常不容易重现，我觉得这里批评一下 iOS 的开发环境并不过分。操作系统粗野地执行着自己的规则，大部分时候，这样做很好，因为这样可以提高安全性，延长电池寿命和稳定性。但在这样的大环境下进行应用的测试和修复，就增加了不必要的麻烦。这些规则的变化悄无声息，而要人为地在应用周期可能出现的每一个状态下进行测试非常不方便，有时候甚至根本无法完成。 
 
-在本例中，我清楚的明白我不可能在应用与调试器保持连接的状态下，使应用进入挂起状态。实际上，调试器[屏蔽挂起状态，而且模拟器不会精准模拟挂起](http://t.umblr.com/redirect?z=https%3A%2F%2Fforums.developer.apple.com%2Fthread%2F14855&t=NmNmMmFhODVlZTk0Y2E3NDkzMzBmMWY5NzRhODY3NWRiY2MwNDExMSxXbjdGaWFQcQ%3D%3D&b=t%3AicJmaFg9TmrfMRpH7q0GXw&m=1)。如果不连接调试器，那么就只剩下反复测试然后查看设备日志这一个选择了。
+在本例中，我意识到在 debugger 模式下进行测试无法触发程序后台挂起的状态。实际上，debugger [会阻止挂起，而且模拟器也不会精准的模拟挂起](http://t.umblr.com/redirect?z=https%3A%2F%2Fforums.developer.apple.com%2Fthread%2F14855&t=NmNmMmFhODVlZTk0Y2E3NDkzMzBmMWY5NzRhODY3NWRiY2MwNDExMSxXbjdGaWFQcQ%3D%3D&b=t%3AicJmaFg9TmrfMRpH7q0GXw&m=1)。如果不在 debugger 模式下的话，那么就只剩下反复测试然后查看设备日志这一个选择了。
 
-macOS Sierra 上的全新 Console App 提供了访问任何当前连接中的 iPhone 的系统日志的功能，而在 Sierra 之前，我都是靠 Lemon Jar 的 [iOS Console](http://t.umblr.com/redirect?z=https%3A%2F%2Flemonjar.com%2Fiosconsole%2F&t=ZDQ0Y2E0YjdiNDJkMDliYzA3ZDViYTMxYTUyYThiM2Y3NjU5MzY3ZixXbjdGaWFQcQ%3D%3D&b=t%3AicJmaFg9TmrfMRpH7q0GXw&m=1) 来完成这个操作，但是，看到 Apple 官方提供能够访问日志的工具，了解这样的技术是被官方所接受并支持的，感觉也是极好的。你值得花时间去学习如何使用全新的 Console App ，它呈现出许多单单 Xcode 调试器无法呈现的操作。由于这份日志是整个系统所有日志的统一输出，所以会有许多不相关的冗余信息，但你可以轻松地创建一个过滤器，将显示的内容限定在与你的应用相关的范围内。
+macOS Sierra 上的全新 Console App 提供了访问任何当前连接中的 iPhone 的系统日志的功能，而在 Sierra 之前，我都是靠 Lemon Jar 的 [iOS Console](http://t.umblr.com/redirect?z=https%3A%2F%2Flemonjar.com%2Fiosconsole%2F&t=ZDQ0Y2E0YjdiNDJkMDliYzA3ZDViYTMxYTUyYThiM2Y3NjU5MzY3ZixXbjdGaWFQcQ%3D%3D&b=t%3AicJmaFg9TmrfMRpH7q0GXw&m=1) 来完成这个操作，但是，看到 Apple 官方提供能够访问日志的工具，了解这样的技术是被官方所接受并支持的，感觉也是极好的。你值得花时间去学习如何使用全新的 Console App ，它呈现出许多 Xcode 调试器无法呈现的操作。由于这份日志是整个系统所有日志的统一输出，所以会有许多不相关的冗余信息，但你可以轻松地创建一个过滤器，将显示的内容限定在与你的应用相关的范围内。
 
 为了刻意重现崩溃 `dead10cc` ：
 
