@@ -3,7 +3,7 @@
 * 原文作者：[Parimal Gotecha](http://www.theappguruz.com/author/parimalgotecha)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[PhxNirvana](https://github.com/phxnirvana)
-* 校对者：
+* 校对者：[XHShirley](https://github.com/XHShirley), [jamweak](https://github.com/jamweak)
 
 # 在 Android 应用中监测来电信息
 
@@ -107,7 +107,7 @@ Broadcast receiver 响应来自系统本身或其他应用的广播信息（inte
 
 在这个类中我们需要重写 _```onReceive(Contex context, Intenet intent)```_ 方法，因为在基类（BroadcastReceiver）中这个方法是抽象方法（abstract method）。
 
-**你对 **onReceive()** 方法了解多少呢？**
+**你对** onReceive() **方法了解多少呢？**
 
 **如果我让你天马行空的想象一下这个方法的作用，你会怎么猜呢？**
 
