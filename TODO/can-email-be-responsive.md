@@ -1,20 +1,20 @@
 > * 原文地址：[Can Email Be Responsive?](http://alistapart.com/article/can-email-be-responsive)
 * 原文作者：[Jason Rodriguez](http://alistapart.com/author/JasonRodriguez)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[Hyuni](http://hyuni.cn/)
 * 校对者：
 
-# Can Email Be Responsive?
+# 响应式邮箱设计
 
-Love it or hate it, there’s no denying the popularity of HTML emails. And, like the web before it, the inbox has officially gone mobile—with [over 50 percent of email opens](https://litmus.com/blog/email-client-market-share-where-people-opened-in-2013) occurring on mobile devices.
+无论你喜不喜欢,网页邮箱的人气是不可否认的. 就像网页一样, 收件箱开始走向走向移动化,[有一半以上的邮件](https://litmus.com/blog/email-client-market-share-where-people-opened-in-2013) 是在移动设备上被打开.
 
 # Translations
 
-- [Italian](http://italianalistapart.com/articoli/112-numero-95-29-luglio-2014/472-email-puo-essere-responsive)
+- [意大利语](http://italianalistapart.com/articoli/112-numero-95-29-luglio-2014/472-email-puo-essere-responsive)
 
 [![](//assets.servedby-buysellads.com/p/manage/asset/id/32683)Brief books for people who make websites. Ad via BuySellAds](//srv.buysellads.com/ads/click/x/GTND423YCTSD4KJYCAA4YKQWFTYDK23JCVBICZ3JCEADT2J7CK7DL23KC6BDEK3NCTYDEK3EHJNCLSIZ)
 
-Still, email design is an outrageously outdated practice. Remember coding before web standards became… standards? Welcome to the living hell of email design.
+邮箱设计仍然是非常过时的实践. 还记得在Web规范成为…规范之前的编码时光吗? 欢迎来到邮箱设计地狱.
 
 But coding an email doesn’t need to be a lesson in frustration. While email designers still have to build layouts using tables and style them with HTML attributes and—gasp!—inline styles, a number of intrepid designers are taking modern techniques pioneered for the web and applying them to the archaic practice of email design.
 
