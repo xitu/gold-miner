@@ -2,7 +2,7 @@
 * 原文作者：[aleen42](https://github.com/aleen42)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Jiang Haichao](http://github.com/AceLeeWinnie)
-* 校对者：
+* 校对者：[L9m](https://github.com/L9m) [Mark](https://github.com/marcmoore)
 
 # 如何用 JavaScript 作画
 
