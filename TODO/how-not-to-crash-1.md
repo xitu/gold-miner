@@ -19,11 +19,11 @@
 
 有趣的是，这些崩溃并没有出现在我们平时使用的崩溃上报服务 HockeyApp 中，因此我们实际上在晚些时候才发现我们的应用出现了问题。想要查看到应用的所有崩溃，开发者需要从 iTunes Connect 或是 Xcode 中查看崩溃上报。（更新： Greg Parker [指出](https://twitter.com/gparker/status/794076875249225728) **“第三方崩溃上报系统在对应的应用进程中建立 handler 来记录应用行为，但如果操作系统从外部终止进程，这个 handler 就永远无法执行了。”**），另外， HockeyApp 的联合创始人 Andreas Linde [引用](https://twitter.com/therealkerni/status/794275740631973888) 了一篇文章来界定那些 [Hockey 能以及不能检测到的崩溃](http://t.umblr.com/redirect?z=https%3A%2F%2Fsupport.hockeyapp.net%2Fkb%2Fclient-integration-ios-mac-os-x-tvos%2Fwhich-types-of-crashes-can-be-collected-on-ios-and-os-x&t=M2RkMzgyMDY2MzU0ZWNmZmVjNDdiOTQ4MjljYWZhNjFiNDgwOGZhOCxXbjdGaWFQcQ%3D%3D&b=t%3AicJmaFg9TmrfMRpH7q0GXw&m=1)。）
 
-如果你是一名应用开发者并且登陆了开发者账号， Xcode 将允许你检视那些 Apple 官方从你的应用用户那收集到的崩溃。这项功能在 Organizer 窗口中的 Crashes 标签中。你可以选择特定的应用版本，然后下载 Apple 从那些愿意将信息分享给开发者的用户手上收集到的崩溃日志。
+如果你是一名应用开发者并且登陆了开发者账号， Xcode 将允许你检视那些 Apple 官方从你的当前帐号下的用户那收集到的崩溃。这项功能在 Window 导航栏下的 Organizer 窗口中的 Crashes 标签中。你可以选择特定的应用版本， Xcode 会下载从那些愿意将信息分享给开发者的用户手上收集到的崩溃日志。
 
 ![图为 Xcode 中的 Crashes 标签栏所展示的用户崩溃信息](http://supertop.co/images/crashes_tab.png)
 
-我发现 Xcode 的这个功能也非常容易崩溃，尤其是当点击崩溃日志中线程的详情按钮进行切换的时候。一个简便的解决方案是，在列表中右键选中相应的崩溃，并选择在 Finder 中显示。如果你研究研究包的内容，你会发现这些崩溃日志其实本质就是纯文本文件。
+我发现 Xcode 的这个功能也非常容易崩溃，尤其是当点击崩溃日志中线程的详情按钮进行切换的时候。一个简便的解决方案是，在列表中右键选中相应的崩溃，并选择在 Finder 中显示。如果你要研究研究包中的内容，你可以把这些崩溃日志简单地当作文本文件。
 
 ### 分析崩溃原因
 
@@ -31,20 +31,20 @@
 
 一开始我认为是多线程引发的问题，毕竟在被线程问题折磨了多年之后，我总是第一时间想到它。我以文本文件的格式打开崩溃日志，因为这样比直接用 Xcode 打开展示了更多的细节。崩溃的异常类型是 `EXC_CRASH (SIGKILL)` ，对应的信息是 `EXC_CORPSE_NOTIFY` ，程序被终止的原因是 `Code 0xdead10cc` 。于是我试着找出 `0xdead10cc` 是什么含义。 Google 或是 Apple Developer 论坛都没有多少相关的信息，但 [Technical Note 2151](http://t.umblr.com/redirect?z=https%3A%2F%2Fdeveloper.apple.com%2Flibrary%2Fcontent%2Ftechnotes%2Ftn2151%2F_index.html&t=MTJmNGU4NThiODlmYzE1ZWJhMTM2MWFlODU3MzFiYTFmZGU2NWY4OSxXbjdGaWFQcQ%3D%3D&b=t%3AicJmaFg9TmrfMRpH7q0GXw&m=1) 中提到：
 
-> 异常码 0xdead10cc 出现意味着应用程序因为在后台持有系统资源（譬如 Address Book 数据库）而被 iOS 系统终止。
+> 异常码 0xdead10cc 出现意味着应用程序因为在后台操作系统资源（譬如通讯录数据库）而被 iOS 系统终止。
 
-这时候我意识到 iOS 强制关闭我的应用是因为我违反了系统规则，而不是说我的代码出了什么小问题。但是， Castro 并没有用到 Address Book 数据库或是任何我能想到的类似的系统资源。我还怀疑原因是不是应用在后台长时间运行而没有取消，但我也发现日志中有一些应用仅仅运行了两秒钟就发生崩溃的记录。
+这时候我意识到 iOS 强制关闭我的应用是因为我违反了系统规则，而不是说我的代码出了什么小问题。但是， Castro 并没有用到通讯录数据库或是任何我能想到的类似的系统资源。我还怀疑原因是不是应用在后台长时间运行而没有取消，但我也发现日志中有一些应用仅仅运行了两秒钟就发生崩溃的记录。
 
 经过推理，我最终将可能原因定位到我们的数据库相关的 SQLite 文件上，因为绝大部分的堆栈信息都显示崩溃是在操作数据库的时候发生的。但 2.1 版本上的哪个改动，瞬间就引起了这个崩溃呢？
 
 ### 应用的共享容器
 
-Castro 2.1 版本推出了 iMessage App 来让用户轻松地分享他们最近听过的播客。为了让 message app 能够访问数据库，我们将数据库逻辑移动到了应用共享容器中。
+Castro 2.1 版本引入了对 iMessage 的支持来让用户轻松地分享他们最近听过的播客。为了让 message app 能够访问数据库，我们将数据库逻辑移动到了应用共享容器中。
 
 我猜想文件的锁机制对在共享区域的文件有更严格的要求。或许当 iOS 准备挂起一个应用的时候，系统会检查这个应用是否正在使用一些可能被其他进程使用的文件，如果有， iOS 就会直接终止这个应用。这看起来是个有理有据的解释。
 
 
-### 如何制造崩溃
+### 如何重现崩溃
 
 如何重现正在修复的崩溃是锻炼开发者的绝佳实践。这可能涉及到临时改写一部分代码来刻意提高崩溃出现的可能性。如果我们能稳定地看到崩溃的发生，就能够逐步的验证我们的猜测，同时我们测试修复的正确性就有了参考。而与之对应的另一个方法是盲目地进行修复，发布版本，然后等着看是否会有崩溃上报。有时候，只有盲目修复一条路可走，但这条路枯燥乏味，而且到头来应用依然不断地在用户侧发生崩溃。
 
@@ -63,9 +63,9 @@ macOS Sierra 上的全新 Console App 提供了访问任何当前连接中的 iP
 
 在重复了几次上述步骤之后，我发现 Console 中已经出现了我尝试重现的崩溃信息。调用堆栈看起来和真实场景的崩溃一模一样，现在我就非常自信地知道崩溃的原因何在了。
 
-接着我找到了一个能够可靠触发应用从后台更新数据库的地方，并把它改成：当网络状况变化时，应用在 background task 之外进行数据库刷新。如果应用在这次数据刷新还未结束时被挂起， iOS 就会强制终止应用。
+接着我发现并修复了项目中一个在后台访问数据库触发的错误：在网络状况变化时，应用会在没有创建 background task 的情况下进行数据库刷新操作。如果在刷新操作尚未完成时应用进入挂起状态， iOS 就会强制终止应用运行。
 
-### 抓到你啦！ Background Fetch ！
+### 理解后台获取（ Background Fetch Gotcha ）
 
 我还要再分享一件让我惊讶的事情。在 Castro 2 版本，我们在有新剧集发布后通知客户端，从而客户端会刷新用户的推送内容。当 iOS 将这条消息转发给我们的应用的时候，它会调用 `didReceiveRemoteNotification` 方法，而在这个方法中，我们有一个 completion block 的回调。官方文档中提到：
 
