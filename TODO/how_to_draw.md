@@ -9,7 +9,7 @@
 <p align="center"><img width="70%" src="https://github.com/aleen42/PersonalWiki/blob/master/post/how_to_draw/preview.png" alt="用 javascript 作画" /></p>
 <p align="center"><strong>图 1.1</strong>简单预览</p>
 
-之前我司提出要在浏览器端像上图那样以编程方式绘画，我想分享一些用 JavaScript 绘画的要点。实际上，我们画啥呢？**答案是任一种图像和图形**。
+因为我司给我一个在浏览器中以编程方式来实现绘图的需求，如下图 1.1 所示，我想分享一些用 JavaScript 绘画的要点。实际上，我们画啥呢？**答案是任一种图像和图形**。
 
 这里有个样例，你可以直接点击 http://draw.soundtooth.cn/ 查看。并拖拽任意图片，放置到红色方框内，点击 "Process" 按钮，启动绘图方法：
 
@@ -45,8 +45,6 @@ if (FileReader) {
     var fileReader = new FileReader();
 }
 ```
-
-As a Web API, `FileReader` has given you a chance to read local files, in which `readAsText` is one of methods supported for reading contents with text format. As it may trigger the `onload` event set before being called, we can exactly read the content inside an event handler. So, the code of reading contents should be:
 
 作为一个 Web API，`FileReader` 能够读取本地文件，`readAsText` 是其中支持读取文本格式内容的方法之一。它可以触发事先定义的 `onload` 方法，我们能够在事件处理方法内部读取内容。读取内容的代码应该如下所示：
 
@@ -150,7 +148,7 @@ function recursivelyExtract(parentNode) {
 recursivelyExtract(SVGNode);
 ```
 
-使用那种方法看起来优雅多了，至少我是这么认为的，尤其是和其他元素一起绘制的时候，我只用 `switch` 结构就能提取不同元素，而不是使用一些常规表达。一般来说，一个 SVG 文件，不只由 `path` 组成，也可以由 `circle`，`rect`，`polyline`，或者 `line` 等定义形成。所以，我们应该怎么处理他们？答案是用 JavaScript 就能全部转换成 `path` 元素，这个稍后再说。
+使用那种方法看起来优雅多了，至少我是这么认为的，尤其是和其他元素一起绘制的时候，我只用 `switch` 结构就能提取不同元素，而不是使用一些常规表达。一般来说，在一个 SVG 文件里，图形元素除了可以被定义成 `path`，还可被定义成 `circle`，`rect`，`polyline`。所以，我们应该怎么处理他们？答案是用 JavaScript 就能全部转换成 `path` 元素，这个稍后再说。
 
 我在开发项目的时候有一个问题是到底需要重点关注什么。在一个复合路径中，`m` 和 `M` 完全不一样，必须要有至少一个 `m` 或者一个 `M`，所以你必须把他们分离出来，避免两条路径相互影响。也就是说，如果一条路径属于复合路径，则区分这两个符号：
 
@@ -248,14 +246,13 @@ function drawPath(index) {
 
 算法是我们需要重点思考的。
 
-#### Calibration parameters
 #### 校准参数
 
 随着需求越来越复杂，路径数据无法适应比例缩放，改变大小或者移动图形的场景。
 
 ##### **为何要校准参数？**
 
-要用 Canvas 比例缩放，改变大小，甚至用移动图形，意味着路径数据应该响应你的动作。不幸的是，它不能，这也是为什么需要校准参数的原因。
+因为你可能要在Canvas当中对图形进行比例缩放、调整尺寸、移动，这就意味着路径数据也应该随着你的改动来变化。但实际上它不能，所以我们才需要校准参数。
 
 <p align="center"><img width="70%" src="https://github.com/aleen42/PersonalWiki/raw/master/post/how_to_draw/panel.png" alt="draw in javascript" /></p>
 <p align="center"><strong>图 2.1</strong>所谓面板</p>
@@ -327,16 +324,14 @@ var ratioY = (curH / oriH) * ratioParam;
 <p align="center"><img width="70%" src="https://github.com/aleen42/PersonalWiki/raw/master/post/how_to_draw/2.png" alt="draw in javascript" /></p>
 <p align="center"><strong>图 2.4</strong> 裁切图形 </p>
 
-For me, I have just rewrite them with a maximum or a minimum for the edge point. For example, if the position of points is out of the graphic, I will rewrite them by changing `x` or `y`, or even both when necessary, to the edge of graphics.
-
-我只需要一条边点集的最大值和最小值。举个栗子，如果点集的位置在图形之外，我就改变 `x` 或 `y`，甚至全部改变，重写到图形的边上。
+我只需要边缘点的最大值和最小值。举个栗子，如果点集的位置在图形之外，我就改变 `x` 或 `y`，甚至全部改变，重写到图形的边上。
 
 ```js
 point.x = point.x >= x && point.x <= x + curW ? point.x : ((point.x < x) ? x : x + curW);
 point.y = point.y >= y && point.y <= x + curH ? point.y : ((point.y < y) ? y : y + curH);
 ```
 
-据我所知，当点的数量很大的时候，删除范围外的点而不是重写会比较好。
+据我所知，当点的数量很大的时候，删除范围外的点要比重写更好。
 
 #### 把所有形状变成路径元素
 
@@ -456,7 +451,7 @@ function convertRectangles(x, y, width, height) {
 
 寻找轮廓的整个步骤简单概括为：**灰度** -> **高斯模糊** -> **Canny 梯度** -> **Canny 非极大值抑制** -> **Canny 磁滞** -> **扫描**。这也是 [Canny 边缘检测算法](https://en.wikipedia.org/wiki/Canny_edge_detector) 的步骤。
 
-在处理之前，我们要定义一些通用函数。第一个是 `runImg` 函数，通常用在从 Canvas 中加载图片时，这个方法把 Canvas 转换成由数组构成的矩阵模型。
+在处理之前，我们要定义一些通用函数。第一个是 `runImg` 函数，通常用在从 Canvas 中加载图片时，将其转换成由数组组成的矩阵。
 
 ```js
 /**
@@ -912,7 +907,7 @@ function gradient(canvas, op) {
 
 #### Canny 非极大值抑制
 
-非极大值抑制应用到 “薄” 边。梯度计算后，从梯度值中提取的边缘仍然很模糊。根据范式 3，边缘只能有一个精确值。所以非极大值抑制能够帮助抑制除了本地极大值之外的其他值，指明亮度值改变最大的位置。
+非极大值抑制应用到 “薄” 边。梯度计算后，从梯度值中提取的边缘仍然很模糊。根据范式 3，边缘只能有一个精确值。所以非极大值抑制能够帮助抑制除了本地极大值之外的其他值，指出亮度值改变最大的位置。
 
 最后一步是计算 `dirMap` 和 `graphMap`：
 
@@ -1134,20 +1129,17 @@ function hysteresis(canvas) {
 
 这幅图只有两种像素：0 和 255，可以通过扫描每个像素生成点路径。算法描述如下：
 
-- Loop for getting pixels, and check whether it's marked as seen and its value is 255.
-- When it matches, find out a direction to generate a path as longest as possible. (Each pixel will be marked as seen, when a path is made of itself, while a path is a true path when its points has been more than a value, **6** ~ **10**.)
-
 - 循环获取像素值, 检测是否被标记为255值.
 - 匹配之后，找出生成最长路径的方向。（当一条路径是由自身组成的，每个像素都会被标记，当一条路径的点有超过一个值，就是一条真实路径，**6** ~ **10**。）
 
-扫描之后，提取像 SVG 的路径数据，当然你还可以绘制路径。
+扫描之后，提取 SVG 的路径数据，当然你还可以绘制路径。
 
 ### 小结
 
 本文详细地讨论了如何用 JavaScript 绘图，不管是 SVG 文件还是其他类型图片，比如 PNG、JPG 和 GIF。核心思想是转换特定格式到路径数据。一旦抽离出这样的数据，我们还可以模进行模拟绘图。
 
 - 直接绘制 SVG 文件中的 `path` 元素。
-- 如果是 `rect` 元素，绘制前转换。
+- 如果是其他元素，例如 `rect`，需要先转换成 `path`。
 - 使用 Canny 轮廓检测算法检测位图中的轮廓，这样才可以绘制.
 
 ### 参考文档
