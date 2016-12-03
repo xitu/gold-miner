@@ -1,4 +1,4 @@
-*  [Webhook 该做和不该做的: 我们在整合超过 100 个 API 中所学到的](http://gold.xitu.io/entry/5840df86a22b9d007a882f5d?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jacksonke](https://github.com/jacksonke) 翻译)
+*  [Webhook 该做和不该做的: 我们在整合超过 100 个 API 中所学到的](http://gold.xitu.io/entry/5840df86a22b9d007a882f5d?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([steinliber](https://github.com/steinliber) 翻译)
 *  [研读 NodeJS 文档，我知道了这 19 件事](http://gold.xitu.io/entry/583ad71d128fe1006be5ddd6?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jacksonke](https://github.com/jacksonke) 翻译)
 *  [带你声明 Python 中的动态属性](http://gold.xitu.io/entry/5832a16d2e958a0069e2c560?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Romeo0906](https://github.com/Romeo0906) 翻译)
 *  [承载了巨大访问量的热门游戏 Pokémon GO 的后端架构是什么？](http://gold.xitu.io/entry/580aef59bf22ec005820a1dc?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([cdpath](https://github.com/cdpath) 翻译)
