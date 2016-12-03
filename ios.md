@@ -1,3 +1,4 @@
+* [[译] 如何避免应用崩溃](http://gold.xitu.io/entry/58423231a22b9d006c1959ee?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Gocy](https://github.com/Gocy) 翻译)
 * [[译] 理解 iOS 应用程序的代码签名 (CODE SIGN) 机制](http://gold.xitu.io/entry/5826ef85570c3500586b241d?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([yifili09](https://github.com/yifili09) 翻译)
 * [给 iOS App 开发者的 39 个开源的 Swift UI 库](http://gold.xitu.io/entry/58209322570c350060b73588?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jiaowoyongqi](https://github.com/jiaowoyongqi) 翻译)
 * [Swift 3 语言中的全模块优化](http://gold.xitu.io/entry/5818b6f52f301e005cf0ef8e?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Edison-Hsu](https://github.com/Edison-Hsu) 翻译)
