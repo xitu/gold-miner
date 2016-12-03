@@ -93,29 +93,33 @@ ggplot 是出色的声明式 ggplot2 的 Python 实现。它不仅仅「逐一�
 
 **matplotlib: ** 哈！哈哈！不能再简单了。虽然我可以用很多复杂的方式搞定这个，不过我明白你们的笨脑子是无法理解其中的精妙的。所以我退而求其次给你们展示两个简单的方法。第一个方法，我循环使用你们虚构的矩阵，我相信你们这些人把它叫做「数据框」，取其子集传给相关的时间序列。然后调用 `plot` 方法，传入子集中的相关列。
 
-    # MATPLOTLIB
-    fig, ax = plt.subplots(1, 1,
-                           figsize=(7.5, 5))
+``` python
+# MATPLOTLIB
+fig, ax = plt.subplots(1, 1,
+                       figsize=(7.5, 5))
 
-    for k in ts.kind.unique():
-        tmp = ts[ts.kind == k]
-        ax.plot(tmp.dt, tmp.value, label=k)
+for k in ts.kind.unique():
+    tmp = ts[ts.kind == k]
+    ax.plot(tmp.dt, tmp.value, label=k)
 
-    ax.set(xlabel='Date',
-           ylabel='Value',
-           title='Random Timeseries')
+ax.set(xlabel='Date',
+       ylabel='Value',
+       title='Random Timeseries')
 
-    ax.legend(loc=2)
-    fig.autofmt_xdate()
+ax.legend(loc=2)
+fig.autofmt_xdate()
+```
 
 ![](https://dansaber.files.wordpress.com/2016/09/ct7c3skpksgntjpw6dqp5exnq09pdibejmhpmtcgqksrjazmytqlwatmydaad0urgmw0gg8fgmjoirnnmmbgmbqojwdptbopbydcackztzjaydaajica6bqadwwawmgis02ywgawgo4naom0gg8fgmjoirnnmmbgmbqojwdptbopbydcacp8dxilt.png)
 
 
 **MPL**: 然后我把它转换成数组（给 pandas 做手势），让他对「数据框」做轴向旋转（pivot），结果是这样的：
 
-    # the notion of a tidy dataframe matters not here
-    dfp = ts.pivot(index='dt', columns='kind', values='value')
-    dfp.head()
+``` python
+# the notion of a tidy dataframe matters not here
+dfp = ts.pivot(index='dt', columns='kind', values='value')
+dfp.head()
+```
 
 
 |kind|A|B|C|D|
@@ -134,48 +138,54 @@ ggplot 是出色的声明式 ggplot2 的 Python 实现。它不仅仅「逐一�
 
 **MPL: ** 将数据转换为有四个列的索引 —— 每一列都对应待画的线 —— 我用一步就可以搞定这一切（比如，调用一次 `plot` 函数）。
 
-    # MATPLOTLIB
-    fig, ax = plt.subplots(1, 1,
-                           figsize=(7.5, 5))
+``` python
+# MATPLOTLIB
+fig, ax = plt.subplots(1, 1,
+                       figsize=(7.5, 5))
 
-    ax.plot(dfp)
+ax.plot(dfp)
 
-    ax.set(xlabel='Date',
-           ylabel='Value',
-           title='Random Timeseries')
+ax.set(xlabel='Date',
+       ylabel='Value',
+       title='Random Timeseries')
 
-    ax.legend(dfp.columns, loc=2)
-    fig.autofmt_xdate()
+ax.legend(dfp.columns, loc=2)
+fig.autofmt_xdate()
+```
 
 ![](https://dansaber.files.wordpress.com/2016/09/ct7c3skpksgntjpw6dqp5exnq09pdibejmhpmtcgqksrjazmytqlwatmydaad0urgmw0gg8fgmjoirnnmmbgmbqojwdptbopbydcackztzjaydaajica6bqadwwawmgis02ywgawgo4naom0gg8fgmjoirnnmmbgmbqojwdptbopbydcacp8dxilt1.png)
 
 **pandas (看上去怯生生的):** 这很不错，Mat。真的不错。谢谢你提到我。我也能用同样的方法搞定这个 —— 希望可以同样出色（微微一笑）。
 
 
-    # PANDAS
-    fig, ax = plt.subplots(1, 1,
-                           figsize=(7.5, 5))
+``` python
+# PANDAS
+fig, ax = plt.subplots(1, 1,
+                       figsize=(7.5, 5))
 
-    dfp.plot(ax=ax)
+dfp.plot(ax=ax)
 
-    ax.set(xlabel='Date',
-           ylabel='Value',
-           title='Random Timeseries')
+ax.set(xlabel='Date',
+       ylabel='Value',
+       title='Random Timeseries')
 
-    ax.legend(loc=2)
-    fig.autofmt_xdate()
+ax.legend(loc=2)
+fig.autofmt_xdate()
+```
 
 **pandas: ** 结果看上去完全一样，所以我就不展示了。
 
 **Seaborn（抽着烟，调整着贝雷帽）：** 唔。看上去区区一个折线图就让你们做了这么多数据处理。我是说，for 循环和轴向旋转？这不是九十年代的微软 Excel（译者注：pivot table 即 Excel 的数据透视表）。我在国外学到一个叫做 FacetGrid 的东西。你们大概从来没有听说过……
 
-    # SEABORN
-    g = sns.FacetGrid(ts, hue='kind', size=5, aspect=1.5)
-    g.map(plt.plot, 'dt', 'value').add_legend()
-    g.ax.set(xlabel='Date',
-             ylabel='Value',
-             title='Random Timeseries')
-    g.fig.autofmt_xdate()
+``` python
+# SEABORN
+g = sns.FacetGrid(ts, hue='kind', size=5, aspect=1.5)
+g.map(plt.plot, 'dt', 'value').add_legend()
+g.ax.set(xlabel='Date',
+         ylabel='Value',
+         title='Random Timeseries')
+g.fig.autofmt_xdate()
+```
 
 ![](https://dansaber.files.wordpress.com/2016/09/pcylvh1mdhr08pz8tbaetls3xdn5zvr6oqluqqj3jolrccvj0jxzfjvamwdhl8fotw8jc9vt0mjydpbw3l9fuvgkwljyaghsjlcuzs7hb1duuurrqkbupls0mn0zw8phb8fextuxpd3d20t7czpt3nzmwm9fx1zdiz1tbwgbgyo2rpkn6g6nor.png)
 
@@ -187,15 +197,17 @@ ggplot 是出色的声明式 ggplot2 的 Python 实现。它不仅仅「逐一�
 
 **GG: ** 快来看看！
 
-    # GGPLOT
-    fig, ax = plt.subplots(1, 1, figsize=(7.5, 5))
+``` python
+# GGPLOT
+fig, ax = plt.subplots(1, 1, figsize=(7.5, 5))
 
-    g = ggplot(ts, aes(x='dt', y='value', color='kind')) + \
-            geom_line(size=2.0) + \
-            xlab('Date') + \
-            ylab('Value') + \
-            ggtitle('Random Timeseries')
-    g
+g = ggplot(ts, aes(x='dt', y='value', color='kind')) + \
+        geom_line(size=2.0) + \
+        xlab('Date') + \
+        ylab('Value') + \
+        ggtitle('Random Timeseries')
+g
+```
 
 ![](https://dansaber.files.wordpress.com/2016/09/a0vxdiqolaa4aaaaaelftksuqmcc.png)
 
@@ -203,27 +215,31 @@ ggplot 是出色的声明式 ggplot2 的 Python 实现。它不仅仅「逐一�
 
 **Altair: ** 没错，我也是这么做的。
 
-    # ALTAIR
-    c = Chart(ts).mark_line().encode(
-        x='dt',
-        y='value',
-        color='kind'
-    )
-    c
+``` python
+# ALTAIR
+c = Chart(ts).mark_line().encode(
+    x='dt',
+    y='value',
+    color='kind'
+)
+c
+```
 
 ![](https://dansaber.files.wordpress.com/2016/09/snca9dqgreqat6epbiuncigaiigaiigaiiqa8cekkkcxeqareqareqargqsfimiiaiiiaiiiaiieaxappjkszjr4maciiaciiacdsmgerswxwuc0vaberaberabiorkegqxklhiyaiiiaiiiainiyarfldhc5zruaereaereaeihh4f8agjg7cmx0y.png)
 
 **ALT: ** 给我的 Chart 类同样的数据，告诉它你要哪种可视化：这里就是 `mark_line`。然后指定想要的图形映射：x 轴是 `data`，y 轴是 `value`；因为我们想要按 `kind` 分组，所以把 `kind` 传给 `color`。就跟你一样，GG（**拨乱 GG 的头发**）。哦，这样一来，要用你们都用的配色方案也轻而易举了：
 
-    # ALTAIR
+``` python
+# ALTAIR
 
-    # cp corresponds to Seaborn's standard color palette
-    c = Chart(ts).mark_line().encode(
-        x='dt',
-        y='value',
-        color=Color('kind', scale=Scale(range=cp.as_hex()))
-    )
-    c
+# cp corresponds to Seaborn's standard color palette
+c = Chart(ts).mark_line().encode(
+    x='dt',
+    y='value',
+    color=Color('kind', scale=Scale(range=cp.as_hex()))
+)
+c
+```
 
 ![](https://dansaber.files.wordpress.com/2016/09/xdux5styklaiigaouqkegqbksukgiimaicz3dlanty15oelhfp2rhcq5cqareqgz4ejjiuhcigaiigaiigailqhybeksjcberaberaberabcssfamiiaiiiaiiiaiieezam0lhnhsuciiaciiacihazqhijnxm4tjxberaberabeqgjibeuhgnhsu.png)
 
@@ -264,39 +280,43 @@ ggplot 是出色的声明式 ggplot2 的 Python 实现。它不仅仅「逐一�
 
 **MPL（看上去有点震惊）：** 我是说，你可以继续用 for 循环，当然了。这样也没什么问题。当然。懂了吗？（**压低声音小声说**）只要记得显式地设定好颜色变量，不然所有的点都是蓝的……
 
-    # MATPLOTLIB
-    fig, ax = plt.subplots(1, 1, figsize=(7.5, 7.5))
+``` python
+# MATPLOTLIB
+fig, ax = plt.subplots(1, 1, figsize=(7.5, 7.5))
 
-    for i, s in enumerate(df.species.unique()):
-        tmp = df[df.species == s]
-        ax.scatter(tmp.petalLength, tmp.petalWidth,
-                   label=s, color=cp[i])
+for i, s in enumerate(df.species.unique()):
+    tmp = df[df.species == s]
+    ax.scatter(tmp.petalLength, tmp.petalWidth,
+               label=s, color=cp[i])
 
-    ax.set(xlabel='Petal Length',
-           ylabel='Petal Width',
-           title='Petal Width v. Length -- by Species')
+ax.set(xlabel='Petal Length',
+       ylabel='Petal Width',
+       title='Petal Width v. Length -- by Species')
 
-    ax.legend(loc=2)
+ax.legend(loc=2)
+```
 
 ![](https://dansaber.files.wordpress.com/2016/09/b8zayrghoixaaaaaelftksuqmcc.png)
 
 **MPL: ** 可是，呃，（**假装充满自信**）我有个更好的主意！看这个：
 
-    # MATPLOTLIB
-    fig, ax = plt.subplots(1, 1, figsize=(7.5, 7.5))
+``` python
+# MATPLOTLIB
+fig, ax = plt.subplots(1, 1, figsize=(7.5, 7.5))
 
-    def scatter(group):
-        plt.plot(group['petalLength'],
-                 group['petalWidth'],
-                 'o', label=group.name)
+def scatter(group):
+    plt.plot(group['petalLength'],
+             group['petalWidth'],
+             'o', label=group.name)
 
-    df.groupby('species').apply(scatter)
+df.groupby('species').apply(scatter)
 
-    ax.set(xlabel='Petal Length',
-           ylabel='Petal Width',
-           title='Petal Width v. Length -- by Species')
+ax.set(xlabel='Petal Length',
+       ylabel='Petal Width',
+       title='Petal Width v. Length -- by Species')
 
-    ax.legend(loc=2)
+ax.legend(loc=2)
+```
 
 ![](https://dansaber.files.wordpress.com/2016/09/a2clfjm5bkunaaaaaelftksuqmcc.png)
 
@@ -312,34 +332,40 @@ ggplot 是出色的声明式 ggplot2 的 Python 实现。它不仅仅「逐一�
 
 **SB: ** 随便你了。不管怎样，在我看来这个问题和上一个没有什么区别。还是构建一个 FacetGrid，只是这次将 `plt.plot` 换成 `plt.scatter`。
 
-    # SEABORN
-    g = sns.FacetGrid(df, hue='species', size=7.5)
-    g.map(plt.scatter, 'petalLength', 'petalWidth').add_legend()
-    g.ax.set_title('Petal Width v. Length -- by Species')
+``` python
+# SEABORN
+g = sns.FacetGrid(df, hue='species', size=7.5)
+g.map(plt.scatter, 'petalLength', 'petalWidth').add_legend()
+g.ax.set_title('Petal Width v. Length -- by Species')
+```
 
 ![](https://dansaber.files.wordpress.com/2016/09/h8v9t5kv2yf2aaaaaelftksuqmcc.png)
 
 **GG: ** 对！对！就是这样！我的写法就是把 `geom_line` 换成 `geom_point`！
 
-    # GGPLOT
-    g = ggplot(df, aes(x='petalLength',
-                       y='petalWidth',
-                       color='species')) + \
-            geom_point(size=40.0) + \
-            ggtitle('Petal Width v. Length -- by Species')
-    g
+``` python
+# GGPLOT
+g = ggplot(df, aes(x='petalLength',
+                   y='petalWidth',
+                   color='species')) + \
+        geom_point(size=40.0) + \
+        ggtitle('Petal Width v. Length -- by Species')
+g
+```
 
 ![](https://dansaber.files.wordpress.com/2016/09/w9ikwkwfhhl2qaaaabjru5erkjggg.png)
 
 **ALT (一脸茫然): ** 是的，只要把 `mark_line` 换成 `mark_point`。
 
-    # ALTAIR
-    c = Chart(df).mark_point(filled=True).encode(
-        x='petalLength',
-        y='petalWidth',
-        color='species'
-    )
-    c
+``` python
+# ALTAIR
+c = Chart(df).mark_point(filled=True).encode(
+    x='petalLength',
+    y='petalWidth',
+    color='species'
+)
+c
+```
 
 ![](https://dansaber.files.wordpress.com/2016/09/wo7xb6fowhjaaaaabjru5erkjggg.png)
 
@@ -361,19 +387,21 @@ ggplot 是出色的声明式 ggplot2 的 Python 实现。它不仅仅「逐一�
 
 （**重拾自信）我敢打赌你们各位没有更简单的方法！（举起双臂，差点打到了 pandas）**
 
-    # MATPLOTLIB
-    fig, ax = plt.subplots(1, 3, figsize=(15, 5))
+``` python
+# MATPLOTLIB
+fig, ax = plt.subplots(1, 3, figsize=(15, 5))
 
-    for i, s in enumerate(df.species.unique()):
-        tmp = df[df.species == s]
+for i, s in enumerate(df.species.unique()):
+    tmp = df[df.species == s]
 
-        ax[i].scatter(tmp.petalLength, tmp.petalWidth, c=cp[i])
+    ax[i].scatter(tmp.petalLength, tmp.petalWidth, c=cp[i])
 
-        ax[i].set(xlabel='Petal Length',
-                  ylabel='Petal Width',
-                  title=s)
+    ax[i].set(xlabel='Petal Length',
+              ylabel='Petal Width',
+              title=s)
 
-    fig.tight_layout()
+fig.tight_layout()
+```
 
 ![](https://dansaber.files.wordpress.com/2016/09/8b7niet7ypmdyaaaaasuvork5cyii.png)
 
@@ -385,22 +413,24 @@ ggplot 是出色的声明式 ggplot2 的 Python 实现。它不仅仅「逐一�
 
 **MPL (脸红了): ** 呃，是，当然啊。我就是想看看你们有没有注意听我说话。你当然可以在 `subplot` 函数中指定坐标轴范围，保证所有的子图坐标轴范围是统一的。
 
-    # MATPLOTLIB
-    fig, ax = plt.subplots(1, 3, figsize=(15, 5),
-                           sharex=True, sharey=True)
+``` python
+# MATPLOTLIB
+fig, ax = plt.subplots(1, 3, figsize=(15, 5),
+                       sharex=True, sharey=True)
 
-    for i, s in enumerate(df.species.unique()):
-        tmp = df[df.species == s]
+for i, s in enumerate(df.species.unique()):
+    tmp = df[df.species == s]
 
-        ax[i].scatter(tmp.petalLength,
-                      tmp.petalWidth,
-                      c=cp[i])
+    ax[i].scatter(tmp.petalLength,
+                  tmp.petalWidth,
+                  c=cp[i])
 
-        ax[i].set(xlabel='Petal Length',
-                  ylabel='Petal Width',
-                  title=s)
+    ax[i].set(xlabel='Petal Length',
+              ylabel='Petal Width',
+              title=s)
 
-    fig.tight_layout()
+fig.tight_layout()
+```
 
 ![](https://dansaber.files.wordpress.com/2016/09/h8ufmi6a3gmrwaaaabjru5erkjggg.png?w=768&h=244)
 
@@ -408,35 +438,41 @@ ggplot 是出色的声明式 ggplot2 的 Python 实现。它不仅仅「逐一�
 
 **SB: ** 改写 FacetGrid 然后用在这个例子上很简单。就像使用 `hue` 变量一样，我们可以简单加一个 `col` 变量（比如 colum）。这会告诉 FacetGrid 不仅给每个种类一个唯一的颜色，还把每个种类都画在唯一的子图上，按列排列。（只要将 `col` 变量换成 `row` 就可以按行排列。）
 
-    # SEABORN
-    g = sns.FacetGrid(df, col='species', hue='species', size=5)
-    g.map(plt.scatter, 'petalLength', 'petalWidth')
+``` python
+# SEABORN
+g = sns.FacetGrid(df, col='species', hue='species', size=5)
+g.map(plt.scatter, 'petalLength', 'petalWidth')
+```
 
 ![](https://dansaber.files.wordpress.com/2016/09/c0vgaaaabjru5erkjggg.png?w=768&h=243)
 
 **GG:** 哦，这和我的做法不同（**再一次拿起《ggplot2》开始读**）。看，分面和图形映射本质上是两个不同的步骤，我们不应该一时疏忽把它们混为一谈。因此，我们接着用之前的代码这次加上 `facet_grid` 层，也就是显式地用类别进行分面。（**开心地合上书**）至少我大哥是这么说的！你们听到他了吗？在书里。他真酷啊<sup>4</sup>。
 
-    # GGPLOT
-    g = ggplot(df, aes(x='petalLength',
-                       y='petalWidth',
-                       color='species')) + \
-            facet_grid(y='species') + \
-            geom_point(size=40.0)
-    g
+``` python
+# GGPLOT
+g = ggplot(df, aes(x='petalLength',
+                   y='petalWidth',
+                   color='species')) + \
+        facet_grid(y='species') + \
+        geom_point(size=40.0)
+g
+```
 
 ![](https://dansaber.files.wordpress.com/2016/09/h4vbxbh6tapaaaaaelftksuqmcc.png)
 
 **ALT****:** 我这里采用更具 Seaborn 风格的方法。具体地说，我给编码函数加了一个 `column` 参数。也就是说我也做了一些新工作：第一，虽然 `column` 参数可以接受一个简单的字符串变量，实际上我传给它的是 Column 对象，如此我可以自定义标题了。第二，我用了自定义的 `configure_cell` 方法，如果不用的话子图会变得特别巨大。
 
-    # ALTAIR
-    c = Chart(df).mark_point().encode(
-        x='petalLength',
-        y='petalWidth',
-        color='species',
-        column=Column('species',
-                      title='Petal Width v. Length by Species')
-    )
-    c.configure_cell(height=300, width=300)
+``` python
+# ALTAIR
+c = Chart(df).mark_point().encode(
+    x='petalLength',
+    y='petalWidth',
+    color='species',
+    column=Column('species',
+                  title='Petal Width v. Length by Species')
+)
+c.configure_cell(height=300, width=300)
+```
 
 ![](https://dansaber.files.wordpress.com/2016/09/yejgqmzehsyh83ossacczmgrjtvkpm3fpiesqskqajpe2c9szs7b0jkea8aqx38vjsegmyjuchwmzo2hesiaesiaesiaesiaesiaesiaesgh8ekfsmv5jsixigarigarigarigarigarigariws4bchdnqsemkqaikqaikqaikqaikqaikqaikm.png)
 
@@ -446,38 +482,42 @@ ggplot 是出色的声明式 ggplot2 的 Python 实现。它不仅仅「逐一�
 
 *   matplotlib 说得很清楚：这个例子中，他的代码根据分类对数据进行分面的思路和上面的其他方案是一样的；假如你的脑袋可以搞清楚那些 for 循环的话，你可以再试试下面这段代码。但是我可没有让他再搞出更复杂的东西出来，比如 2 x 3 的网格。不然他就得像下面这样干：
 
-    # MATPLOTLIB
-    fig, ax = plt.subplots(2, 3, figsize=(15, 10), sharex=True, sharey=True)
+``` python
+# MATPLOTLIB
+fig, ax = plt.subplots(2, 3, figsize=(15, 10), sharex=True, sharey=True)
 
-    # this is preposterous -- don't do this
-    for i, s in enumerate(df.species.unique()):
-        for j, r in enumerate(df.random_factor.sort_values().unique()):
-            tmp = df[(df.species == s) & (df.random_factor == r)]
+# this is preposterous -- don't do this
+for i, s in enumerate(df.species.unique()):
+    for j, r in enumerate(df.random_factor.sort_values().unique()):
+        tmp = df[(df.species == s) & (df.random_factor == r)]
 
-            ax[j][i].scatter(tmp.petalLength,
-                             tmp.petalWidth,
-                             c=cp[i+j])
+        ax[j][i].scatter(tmp.petalLength,
+                         tmp.petalWidth,
+                         c=cp[i+j])
 
-            ax[j][i].set(xlabel='Petal Length',
-                         ylabel='Petal Width',
-                         title=s + '--' + r)
+        ax[j][i].set(xlabel='Petal Length',
+                     ylabel='Petal Width',
+                     title=s + '--' + r)
 
-    fig.tight_layout()
+fig.tight_layout()
+```
 
 ![](https://dansaber.files.wordpress.com/2016/09/tl2cujb3xeuaaaaasuvork5cyii.png)
 
 *   为了用正规的可视化表达式：**呸**。如果用 Altair 的话一切都变得非常简单。
 
-    # ALTAIR
-    c = Chart(df).mark_point().encode(
-        x='petalLength',
-        y='petalWidth',
-        color='species',
-        column=Column('species',
-                      title='Petal Width v. Length by Species'),
-        row='random_factor'
-    )
-    c.configure_cell(height=200, width=200)
+``` python
+# ALTAIR
+c = Chart(df).mark_point().encode(
+    x='petalLength',
+    y='petalWidth',
+    color='species',
+    column=Column('species',
+                  title='Petal Width v. Length by Species'),
+    row='random_factor'
+)
+c.configure_cell(height=200, width=200)
+```
 
 ![](https://dansaber.files.wordpress.com/2016/09/wfagffg5zflcgaaaabjru5erkjggg.png)
 
@@ -495,49 +535,57 @@ ggplot 是出色的声明式 ggplot2 的 Python 实现。它不仅仅「逐一�
 
 **MPL （信心明显不足了）：** 好吧，如果我们要画箱线图——我们真的要箱线图吗？——我知道怎么画。不过非常愚蠢；你肯定不会喜欢。不过我给 `boxplot` 方法传入一个数组组成的数组，每个数组就都会得到一个箱线图。你可能需要手动标注 X 轴的刻度。
 
-    # MATPLOTLIB
-    fig, ax = plt.subplots(1, 1, figsize=(10, 10))
+``` python
+# MATPLOTLIB
+fig, ax = plt.subplots(1, 1, figsize=(10, 10))
 
-    ax.boxplot([df[df.species == s]['petalWidth'].values
-                    for s in df.species.unique()])
+ax.boxplot([df[df.species == s]['petalWidth'].values
+                for s in df.species.unique()])
 
-    ax.set(xticklabels=df.species.unique(),
-           xlabel='Species',
-           ylabel='Petal Width',
-           title='Distribution of Petal Width by Species')
+ax.set(xticklabels=df.species.unique(),
+       xlabel='Species',
+       ylabel='Petal Width',
+       title='Distribution of Petal Width by Species')
+```
 
 ![](https://dansaber.files.wordpress.com/2016/09/x40bnxavfqvlzexbngbg2cdjjxmzyyncruufehmtcebmgbs1tuffrqxgxsz423mxv2bab39mftvfsehyuf9u7dcyuljcydoxcrerfquverioslercxbwqkiqgrkwmc3nzhiwfys1l1txvity2fidpnosqqqqwb9orr7wcmuwgfxcxxmtewmvlcw.png)
 
 **MPL:** 如果要画柱状图 —— 我们真的要画柱状图吗？ —— 我也有个方法可以用，你可以用之前提到的 for 循环或者 `group by`。
 
-    # MATPLOTLIB
-    fig, ax = plt.subplots(1, 1, figsize=(10, 10))
+``` python
+# MATPLOTLIB
+fig, ax = plt.subplots(1, 1, figsize=(10, 10))
 
-    for i, s in enumerate(df.species.unique()):
-        tmp = df[df.species == s]
-        ax.hist(tmp.petalWidth, label=s, alpha=.8)
+for i, s in enumerate(df.species.unique()):
+    tmp = df[df.species == s]
+    ax.hist(tmp.petalWidth, label=s, alpha=.8)
 
-    ax.set(xlabel='Petal Width',
-           ylabel='Frequency',
-           title='Distribution of Petal Width by Species')
+ax.set(xlabel='Petal Width',
+       ylabel='Frequency',
+       title='Distribution of Petal Width by Species')
 
-    ax.legend(loc=1)
+ax.legend(loc=1)
+```
 
 ![](https://dansaber.files.wordpress.com/2016/09/wcef9iodihxkaaaaabjru5erkjggg.png)
 
 **P (看上去不同寻常的骄傲）：** 哈！哈哈哈哈！该我大显身手了！你们都觉得我一无是处，只是 `matplotlib` 的替罪羊。虽然我目前都只是套用他的 `plot` 方法，但我也拥有一些特殊的函数可以处理箱线图**和**柱状图。用他们来可视化分布简直就是小菜一碟！你只需要提供两个列名：第一，用来分组的列名；第二，待分布统计的列名。分别把它们传给 `by` 和 `column` 参数，图马上就画好了！
 
-    # PANDAS
-    fig, ax = plt.subplots(1, 1, figsize=(10, 10))
+``` python
+# PANDAS
+fig, ax = plt.subplots(1, 1, figsize=(10, 10))
 
-    df.boxplot(column='petalWidth', by='species', ax=ax)
+df.boxplot(column='petalWidth', by='species', ax=ax)
+```
 
 ![](https://dansaber.files.wordpress.com/2016/09/jex9cigeeei0u9jre0iiiyropmtquwghhbcimzirnsgeeekizko6akiiiyqqzzr01iqqqgghminpqakhhbbcnfpsurncccgeakba0zribp2q8laaaaaelftksuqmcc.png)
 
-    # PANDAS
-    fig, ax = plt.subplots(1, 1, figsize=(10, 10))
+``` python
+# PANDAS
+fig, ax = plt.subplots(1, 1, figsize=(10, 10))
 
-    df.hist(column='petalWidth', by='species', grid=None, ax=ax)
+df.hist(column='petalWidth', by='species', grid=None, ax=ax)
+```
 
 ![](https://dansaber.files.wordpress.com/2016/09/qeaagabshsaaiafkg0aaaawolqbaabygnigaabggf8hne3tvwwy5qaaaaasuvork5cyii.png)
 
@@ -545,25 +593,29 @@ ggplot 是出色的声明式 ggplot2 的 Python 实现。它不仅仅「逐一�
 
 **SB (假装很热情)：** 喔喔喔。很赞。同时呢，分布对我非常重要，所以我为它准备了一些特殊方法。比如，我的 `boxplot` 方法只需要 x 变量、y 变量和数据就可以得到这个：
 
-    # SEABORN
-    fig, ax = plt.subplots(1, 1, figsize=(10, 10))
+``` python
+# SEABORN
+fig, ax = plt.subplots(1, 1, figsize=(10, 10))
 
-    g = sns.boxplot('species', 'petalWidth', data=df, ax=ax)
-    g.set(title='Distribution of Petal Width by Species')
+g = sns.boxplot('species', 'petalWidth', data=df, ax=ax)
+g.set(title='Distribution of Petal Width by Species')
+```
 
 ![](https://dansaber.files.wordpress.com/2016/09/lly8jodgymzmzagxsxpdhwhj4wopvnpgs8cy68i4ygomdqnpc7atj0291ayyyd8zioy4wxxlghxwuby4wxxlghx0uijdhgggmdhb9hy4wxxhjr4lhgy4wxxhjr4lhgy4wxxhjr4lhgy4wxxhjr4lhgy4wxxhjr4lhgy4wxxhjr4p4pzzfvgcmez.png)
 
 **SB:** 这个图不错吧，我是说有人这么说过…… 不管了。我还有个特殊的分布方法叫 `distplot` 远不止条形图那么简单（傲慢的看了眼 pandas）。你可以用来画条形图，KDEs 和轴须图（rugplots） —— 甚至画在一起。比如把 `displot` 和 FacedGrid 结合起来，我就可以为每一种鸢尾花都画出直方轴须图：
 
-    # SEABORN
-    g = sns.FacetGrid(df, hue='species', size=7.5)
+``` python
+# SEABORN
+g = sns.FacetGrid(df, hue='species', size=7.5)
 
-    g.map(sns.distplot, 'petalWidth', bins=10,
-          kde=False, rug=True).add_legend()
+g.map(sns.distplot, 'petalWidth', bins=10,
+      kde=False, rug=True).add_legend()
 
-    g.set(xlabel='Petal Width',
-          ylabel='Frequency',
-          title='Distribution of Petal Width by Species')
+g.set(xlabel='Petal Width',
+      ylabel='Frequency',
+      title='Distribution of Petal Width by Species')
+```
 
 ![](https://dansaber.files.wordpress.com/2016/09/hkcyxmylufaqaaaabjru5erkjggg.png)
 
@@ -571,23 +623,27 @@ ggplot 是出色的声明式 ggplot2 的 Python 实现。它不仅仅「逐一�
 
 **GG:** 这些只不过是新的几何对象！`GEOM_BOXPLOT` 来画箱线图，`GEOM_HISTOGRAM` 来画直方图！换用它俩就行了！（**绕着餐桌跑了起来**）
 
-    # GGPLOT
-    g = ggplot(df, aes(x='species',
-                       y='petalWidth',
-                       fill='species')) + \
-            geom_boxplot() + \
-            ggtitle('Distribution of Petal Width by Species')
-    g
+``` python
+# GGPLOT
+g = ggplot(df, aes(x='species',
+                   y='petalWidth',
+                   fill='species')) + \
+        geom_boxplot() + \
+        ggtitle('Distribution of Petal Width by Species')
+g
+```
 
 ![](https://dansaber.files.wordpress.com/2016/09/xbbxopqzgzrnzs2bn0vdhwzvixagtxbputqdtu3bt0vllyyxdpdofnz2thiqelzsuao7cuxk5xdkbzf4vdqaayycka0cafrywasgcbdqfxugsweagatdxqaaaacd4uw6aaaaydccsqcaaaamhpaoaaaagawhhqaaadayqjoaaabgmir0aaaawgd.png)
 
-    # GGPLOT
-    g = ggplot(df, aes(x='petalWidth',
-                       fill='species')) + \
-            geom_histogram() + \
-            ylab('Frequency') + \
-            ggtitle('Distribution of Petal Width by Species')
-    g
+``` python
+# GGPLOT
+g = ggplot(df, aes(x='petalWidth',
+                   fill='species')) + \
+        geom_histogram() + \
+        ylab('Frequency') + \
+        ggtitle('Distribution of Petal Width by Species')
+g
+```
 
 ![](https://dansaber.files.wordpress.com/2016/09/j1b6tsghmsaaaaabjru5erkjggg.png)
 
@@ -597,13 +653,15 @@ ggplot 是出色的声明式 ggplot2 的 Python 实现。它不仅仅「逐一�
 
 **ALT：（沉重地喘气）** 我……我……我不会画箱线图。从来没学过怎么画，不过我相信我的源语言 JavaScript 的语法不支持箱线图肯定是有原因的。不过我会画直方图……
 
-    # ALTAIR
-    c = Chart(df).mark_bar(opacity=.75).encode(
-        x=X('petalWidth', bin=Bin(maxbins=30)),
-        y='count(*)',
-        color=Color('species', scale=Scale(range=cp.as_hex()))
-    )
-    c
+``` python
+# ALTAIR
+c = Chart(df).mark_bar(opacity=.75).encode(
+    x=X('petalWidth', bin=Bin(maxbins=30)),
+    y='count(*)',
+    color=Color('species', scale=Scale(range=cp.as_hex()))
+)
+c
+```
 
 ![](https://dansaber.files.wordpress.com/2016/09/cwkeozqaaaabjru5erkjggg.png)
 
@@ -640,8 +698,10 @@ ggplot 是出色的声明式 ggplot2 的 Python 实现。它不仅仅「逐一�
 
 这个例子中，我们感兴趣的是看看每个客舱等级的平均费用是否和逃生率相关。显然，在 pandas 中我们可以这样写：
 
-    dfg = df.groupby(['survived', 'pclass']).agg({'fare': 'mean'})
-    dfg
+``` python
+dfg = df.groupby(['survived', 'pclass']).agg({'fare': 'mean'})
+dfg
+```
 
 
 
@@ -699,45 +759,47 @@ ggplot 是出色的声明式 ggplot2 的 Python 实现。它不仅仅「逐一�
 
 **MPL (表情严肃): ** 一句话也没说。
 
-    # MATPLOTLIB
+``` python
+# MATPLOTLIB
 
-    died = dfg.loc[0, :]
-    survived = dfg.loc[1, :]
+died = dfg.loc[0, :]
+survived = dfg.loc[1, :]
 
-    # more or less copied from matplotlib's own
-    # api example
-    fig, ax = plt.subplots(1, 1, figsize=(12.5, 7))
+# more or less copied from matplotlib's own
+# api example
+fig, ax = plt.subplots(1, 1, figsize=(12.5, 7))
 
-    N = 3
+N = 3
 
-    ind = np.arange(N)  # the x locations for the groups
-    width = 0.35        # the width of the bars
+ind = np.arange(N)  # the x locations for the groups
+width = 0.35        # the width of the bars
 
-    rects1 = ax.bar(ind, died.fare, width, color='r')
-    rects2 = ax.bar(ind + width, survived.fare, width, color='y')
+rects1 = ax.bar(ind, died.fare, width, color='r')
+rects2 = ax.bar(ind + width, survived.fare, width, color='y')
 
-    # add some text for labels, title and axes ticks
-    ax.set_ylabel('Fare')
-    ax.set_title('Fare by survival and class')
-    ax.set_xticks(ind + width)
-    ax.set_xticklabels(('First', 'Second', 'Third'))
+# add some text for labels, title and axes ticks
+ax.set_ylabel('Fare')
+ax.set_title('Fare by survival and class')
+ax.set_xticks(ind + width)
+ax.set_xticklabels(('First', 'Second', 'Third'))
 
-    ax.legend((rects1[0], rects2[0]), ('Died', 'Survived'))
+ax.legend((rects1[0], rects2[0]), ('Died', 'Survived'))
 
-    def autolabel(rects):
-        # attach some text labels
-        for rect in rects:
-            height = rect.get_height()
-            ax.text(rect.get_x() + rect.get_width()/2., 1.05*height,
-                    '%d' % int(height),
-                    ha='center', va='bottom')
+def autolabel(rects):
+    # attach some text labels
+    for rect in rects:
+        height = rect.get_height()
+        ax.text(rect.get_x() + rect.get_width()/2., 1.05*height,
+                '%d' % int(height),
+                ha='center', va='bottom')
 
-    ax.set_ylim(0, 110)
+ax.set_ylim(0, 110)
 
-    autolabel(rects1)
-    autolabel(rects2)
+autolabel(rects1)
+autolabel(rects2)
 
-    plt.show()
+plt.show()
+```
 
 ![](https://dansaber.files.wordpress.com/2016/09/rdv0bwj0y4i8gaaaabjru5erkjggg-1.png)
 
@@ -745,29 +807,33 @@ ggplot 是出色的声明式 ggplot2 的 Python 实现。它不仅仅「逐一�
 
 **P: ** 我得先对数据进行一些处理 —— 也就是 `group by` 和 `pivot` —— 处理完就可以用非常帅气的条形图方法了，比上面这些简单得多！哇，我现在自信多了，我把其他人都比下去了！<sup>5</sup>
 
-    # PANDAS
-    fig, ax = plt.subplots(1, 1, figsize=(12.5, 7))
-    # note: dfg refers to grouped by
-    # version of df, presented above
-    dfg.reset_index().\
-        pivot(index='pclass',
-              columns='survived',
-              values='fare').plot.bar(ax=ax)
+``` python
+# PANDAS
+fig, ax = plt.subplots(1, 1, figsize=(12.5, 7))
+# note: dfg refers to grouped by
+# version of df, presented above
+dfg.reset_index().\
+    pivot(index='pclass',
+          columns='survived',
+          values='fare').plot.bar(ax=ax)
 
-    ax.set(xlabel='Class',
-           ylabel='Fare',
-           title='Fare by survival and class')
+ax.set(xlabel='Class',
+       ylabel='Fare',
+       title='Fare by survival and class')
+```
 
 ![](https://dansaber.files.wordpress.com/2016/09/dcmfkmsjcncvogxjemsiszglyrjkilm4jcksziizocxjemsiszglyrjkilm4jcksziizocxjemsiszglyrjkilm4jckszii7achzhrnh06z1gaaaabjru5erkjggg.png)
 
 **SB:** 我恰好又认为这类工作非常重要。鉴于此，我使用了特殊的 `factorplot` 函数来帮助我：
 
-    # SEABORN
-    g = sns.factorplot(x='class', y='fare', hue='survived',
-                       data=df, kind='bar',
-                       order=['First', 'Second', 'Third'],
-                       size=7.5, aspect=1.5)
-    g.ax.set_title('Fare by survival and class')
+``` python
+# SEABORN
+g = sns.factorplot(x='class', y='fare', hue='survived',
+                   data=df, kind='bar',
+                   order=['First', 'Second', 'Third'],
+                   size=7.5, aspect=1.5)
+g.ax.set_title('Fare by survival and class')
+```
 
 ![](https://dansaber.files.wordpress.com/2016/09/fj0ntpzaxcwf0nbq4ulimbqn1rwmiilssclciyiiiiiiwidmximiiiiiifiawpwiiiiiiigfkfyjiiiiiihygmkviiiiiiiibshciyiiiiiiwidclyiiiiiiiauoximiiiiiifiawpwiiiiiiigfkfyjiiiiiihywp8dgbfcaznotkiaaaaasuvork.png)
 
@@ -791,16 +857,18 @@ ggplot 是出色的声明式 ggplot2 的 Python 实现。它不仅仅「逐一�
 
 **GG2 (阅读手册)**_: 哦，就像这样：
 
-    # GGPLOT2
+``` python
+# GGPLOT2
 
-    # R 语言中你得这样写
+# R 语言中你得这样写
 
-    ggplot(df, aes(x=factor(survived), y=fare)) +
-        stat_summary_bin(aes(fill=factor(survived)),
-                         fun.y=mean) +
-        facet_wrap(~class)
+ggplot(df, aes(x=factor(survived), y=fare)) +
+    stat_summary_bin(aes(fill=factor(survived)),
+                     fun.y=mean) +
+    facet_wrap(~class)
 
-    # 天啊，ggplot2 可真棒
+# 天啊，ggplot2 可真棒
+```
 
 
 ![](https://dansaber.files.wordpress.com/2016/09/4_r_example.png)
@@ -813,18 +881,20 @@ ggplot 是出色的声明式 ggplot2 的 Python 实现。它不仅仅「逐一�
 
 **GG: ** 好诶！
 
-    # GGPLOT
-    g = ggplot(df.groupby(['class', 'survived']).\
-                   agg({'fare': 'mean'}).\
-                   reset_index(), aes(x='class',
-                                      fill='factor(survived)',
-                                      weight='fare',
-                                      y='fare')) + \
-            geom_bar() + \
-            ylab('Avg. Fare') + \
-            xlab('Class') + \
-            ggtitle('Fare by survival and class')
-    g
+``` python
+# GGPLOT
+g = ggplot(df.groupby(['class', 'survived']).\
+               agg({'fare': 'mean'}).\
+               reset_index(), aes(x='class',
+                                  fill='factor(survived)',
+                                  weight='fare',
+                                  y='fare')) + \
+        geom_bar() + \
+        ylab('Avg. Fare') + \
+        xlab('Class') + \
+        ggtitle('Fare by survival and class')
+g
+```
 
 ![](https://dansaber.files.wordpress.com/2016/09/fstddeuezjp0qt06nej55xztl544yv06dilq4ymycuxx5xxxnnltavrq4u96cmwfzadaaaqef5zqaaabsugaaagiisawaaufbiaaaackomaabaqykbaaaokdeaaaaf9f8dsdfayigfytuaaaaasuvork5cyii.png)
 
@@ -846,13 +916,15 @@ ggplot 是出色的声明式 ggplot2 的 Python 实现。它不仅仅「逐一�
 
 
 
-    # ALTAIR
-    c = Chart(df).mark_bar().encode(
-        x='survived:N',
-        y='mean(fare)',
-        color='survived:N',
-        column='class')
-    c.configure_facet_cell(strokeWidth=0, height=250)
+``` python
+# ALTAIR
+c = Chart(df).mark_bar().encode(
+    x='survived:N',
+    y='mean(fare)',
+    color='survived:N',
+    column='class')
+c.configure_facet_cell(strokeWidth=0, height=250)
+```
 
 
 
@@ -947,5 +1019,6 @@ ggplot 是出色的声明式 ggplot2 的 Python 实现。它不仅仅「逐一�
 4. 坦率地说，我不是**完全**确定单独进行分面操作是为了意识形态上的纯洁，或者只是单纯出于实用的考虑。虽然我的 ggplot 角色声称他是前者（他的理解来自匆匆读完的[这篇论文](http://vita.had.co.nz/papers/layered-grammar.pdf)），也有可能是因为（实际上） ggplot2 对分面的支持太丰富了，所以需要当作是独立的步骤。如果我描述的角色违反了任何图形语法规则，请务必告诉我，我会去找个新的。
 
 5. 绝对不是这个故事的道德准则。
+
 
 
