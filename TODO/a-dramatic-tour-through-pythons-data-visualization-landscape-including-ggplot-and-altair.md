@@ -2,7 +2,7 @@
 * 原文作者：[Dan Saber](https://dansaber.wordpress.com/about-me/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[cdpath](https://github.com/cdpath)
-* 校对者：
+* 校对者：[Gran](https://github.com/Graning), [Freya Yu](https://github.com/ZiXYu)
 
 # Python 数据可视化概览（涵盖 ggplot 和 Altair）
 
@@ -14,21 +14,21 @@
 
 * * *
 
-我最近偶然发现了 Brian Granger 和 Jake VanderPlas 开发的 Altair，一个非常有潜力的新可视化库。Altair 似乎非常适合用来表达 Python 对 ggplot 的羡慕，而它采用了 JavaScript 的 Vega-Lite 语法意味着，后者开发的新功能（比如提示框和缩放）都能被 Altair 所用，而且看样子是免费的！
+我最近偶然发现了 Brian Granger 和 Jake VanderPlas 开发的 Altair，一个非常有潜力的新可视化库。Altair 似乎非常适合用来表达 Python 对 ggplot 的羡慕，而它采用了 JavaScript 的 Vega-Lite 语法，这意味着后者开发的新功能（比如提示框和缩放）都能被 Altair 所用，而且看样子是免费的！
 
 我甚至是太喜欢 Altair 了，都想把本文的主题改成：**「嘿，用 Altair 吧。」**
 
-但是当我开始反思自以为更符合 Python 哲学的可视化习惯的时候，当然了，相当痛苦的自我反思，我发现自己错得一塌糊涂：为了应对手头的工作我用了一大堆工具还有乱七八糟的技术（通常是随便选一个第一个完成工作的库 <sup>1</sup>）。 
+不过我随后开始反思自以为更 Pythonic 的可视化习惯，在这相当痛苦的自我反思中，我发现自己错得一塌糊涂：为了应对手头的工作我用了一大堆工具还有乱七八糟的技术，通常是随便选一个第一个能完成工作的库 <sup>1</sup>。 
 
 这并不好。俗话说得好，「未经校对的绘图不值得导出 PNG 文件」。
 
-于是我借着探索 Altair 的机会回过头来调查了 Python 统计可视化工具是如何组织在一起的。希望我的调查结果对你也有用。
+于是我借着探索 Altair 的机会回过头来研究了 Python 可视化统计工具是如何组织在一起的。希望我的调查结果对你也有用。
 
-### 这个该怎么用？
+### 我们从哪里开始呢？
 
 * * *
 
-本文别出心裁的对比会是这样的：「你需要做某事。你要怎么用 matplotlib，pandas，Seaborn，ggplot 或者 Altair 来实现呢？」通过这些不同的实现方式，我们就可以得出它们的优点，缺点，还有其他收获 —— 至少这么多代码说不定啥时候有用呢。
+本文用别出心裁的对比手法写成：「你需要做某事。你要怎么用 matplotlib，pandas，Seaborn，ggplot 或者 Altair 来实现呢？」通过这些不同的实现方式，我们就可以得出它们的优点，缺点，还有其他收获 —— 至少这么多代码说不定啥时候有用呢。
 
 （警告：所有这一切都会以双幕剧的形式呈现）
 
@@ -40,7 +40,7 @@
 
 **[matplotlib](http://matplotlib.org/)**
 
-八百磅的大猩猩，就跟八百磅的大猩猩一样，你一般都会躲着它走，除非真的需要它的力量，比如需要定制化绘图或者提供可以出版的图像。
+matplotlib 就像八百磅的大猩猩一样「重」，最好躲着它走，除非真的需要它的力量，比如需要定制化绘图或者提供可以出版的图像。
 
 （我们将会看到，当谈到统计可视化时，正确的思路可能是：「尽量用熟悉的工具（比如下面要讲到的四个库）把活干完，剩下的再用 matplotlib」。）
 
@@ -58,11 +58,11 @@ Seaborn 一直是我最核心的统计可视化库，它这样自我总结的：
 
 **[yhat’s ggplot](https://github.com/yhat/ggplot)**
 
-ggplot 是出色的声明式 ggplot2 的 Python 实现。它不仅仅「逐一复刻」了 ggplot2 的特性，还有一些共有的强大特性。（作为一个业余的 R 用户，重要的组件似乎应有尽有。）
+ggplot 是出色的声明式 ggplot2 的 Python 实现。它不仅仅「逐一复刻」了 ggplot2 的特性，还有一些共有的强大特性。（对业余的 R 语言用户而言，重要的组件似乎应有尽有。）
 
 **[Altair](https://github.com/ellisonbg/altair)**
 
-新人 Altair 是「声明式统计可视化库」，有着极其好用的 API。
+新成员 Altair 是「声明式统计可视化库」，有着极其好用的 API。
 
 好极了。既然大伙都到了还做了自我介绍，我们开始尴尬的晚宴对话吧。我们的演出叫……
 
@@ -74,7 +74,7 @@ ggplot 是出色的声明式 ggplot2 的 Python 实现。它不仅仅「逐一�
 
 * * *
 
-（在第一场，我们要处理的是整洁数据集 `ts`。它有三列：`dt`（存数据），`value` （存值）和 `kind` （有四个不同的水平：A，B，C 和 D）。数据长这个样子：）
+（在第一场，我们要处理的是整洁数据集 `ts`。它有三列：`dt`（存日期），`value` （存值）和 `kind` （有四个不同的**水平**：A，B，C 和 D）。数据长这个样子：）
 
 
 ||dt|kind|value|
@@ -149,7 +149,7 @@ ggplot 是出色的声明式 ggplot2 的 Python 实现。它不仅仅「逐一�
 
 ![](https://dansaber.files.wordpress.com/2016/09/ct7c3skpksgntjpw6dqp5exnq09pdibejmhpmtcgqksrjazmytqlwatmydaad0urgmw0gg8fgmjoirnnmmbgmbqojwdptbopbydcackztzjaydaajica6bqadwwawmgis02ywgawgo4naom0gg8fgmjoirnnmmbgmbqojwdptbopbydcacp8dxilt1.png)
 
-**pandas (看上去怯生生的):** 这很不错，Mat。真的不错。谢谢你提到我。我也能搞定这个 —— 希望可以同样出色（微微一笑）。
+**pandas (看上去怯生生的):** 这很不错，Mat。真的不错。谢谢你提到我。我也能用同样的方法搞定这个 —— 希望可以同样出色（微微一笑）。
 
 
     # PANDAS
@@ -167,7 +167,7 @@ ggplot 是出色的声明式 ggplot2 的 Python 实现。它不仅仅「逐一�
 
 **pandas: ** 结果看上去完全一样，所以我就不展示了。
 
-**Seaborn（抽着烟，调整着贝雷帽）：** 唔。看上去区区一个折线图就让你们做了这么多数据操作。我是说，for 循环和轴向旋转？这不是九十年代的微软 Excel（译者注：pivot table 即 Excel 的数据透视表）。我在国外学到一个叫做 FacetGrid 的东西。你们大概从来没有听说过……
+**Seaborn（抽着烟，调整着贝雷帽）：** 唔。看上去区区一个折线图就让你们做了这么多数据处理。我是说，for 循环和轴向旋转？这不是九十年代的微软 Excel（译者注：pivot table 即 Excel 的数据透视表）。我在国外学到一个叫做 FacetGrid 的东西。你们大概从来没有听说过……
 
     # SEABORN
     g = sns.FacetGrid(ts, hue='kind', size=5, aspect=1.5)
@@ -213,7 +213,7 @@ ggplot 是出色的声明式 ggplot2 的 Python 实现。它不仅仅「逐一�
 
 ![](https://dansaber.files.wordpress.com/2016/09/snca9dqgreqat6epbiuncigaiigaiigaiiqa8cekkkcxeqareqareqargqsfimiiaiiiaiiiaiieaxappjkszjr4maciiaciiacdsmgerswxwuc0vaberaberabiorkegqxklhiyaiiiaiiiainiyarfldhc5zruaereaereaeihh4f8agjg7cmx0y.png)
 
-**ALT: ** 给我的 Chart 类同样的数据，告诉它你要哪种可视化：这里就是 `mark_line`。然后指定想要的图形映射：x 轴是 `data`，y 轴是 `value`；再按 `kind` 进行分组，所以把 `kind` 传给 `color`。就跟你一样，GG（**拨乱 GG 的头发**）。哦，这样一来，要用你们都用的配色方案也轻而易举了：
+**ALT: ** 给我的 Chart 类同样的数据，告诉它你要哪种可视化：这里就是 `mark_line`。然后指定想要的图形映射：x 轴是 `data`，y 轴是 `value`；因为我们想要按 `kind` 分组，所以把 `kind` 传给 `color`。就跟你一样，GG（**拨乱 GG 的头发**）。哦，这样一来，要用你们都用的配色方案也轻而易举了：
 
     # ALTAIR
 
@@ -235,7 +235,7 @@ ggplot 是出色的声明式 ggplot2 的 Python 实现。它不仅仅「逐一�
 
 除了混蛋的 matplotlib <sup>3</sup>，还有一些要点值得注意。
 
-*   用 matplotlib 和 pandas 的时候，要么得多次调用 `plot` 函数（比如每个 for 循环里面），要么得对数据进行操作才能更好适用于 plot 函数（比如轴向旋转）。（也就是说我们在第二场还会见到其他的技术。）
+*   用 matplotlib 和 pandas 的时候，要么得多次调用 `plot` 函数（比如每个 for 循环里面），要么得对数据进行处理才能更好适用于 plot 函数（比如轴向旋转）。（也就是说我们在第二场还会见到其他的技术。）
 
 *   （说实话，我从来不觉得这是个大问题，直到我遇到了 R 语言使用者。他们看到我都惊呆了。）
 
@@ -349,7 +349,7 @@ ggplot 是出色的声明式 ggplot2 的 Python 实现。它不仅仅「逐一�
 
 *   到这儿，用数据构建 API 的潜在难题变得清晰了。尽管 pandas 的轴向旋转处理时序数据时非常方便，处理这个例子却力不从心了。
 
-*   公平地说，`group by` 方法是可以推导出来的，而 for 循环就更容易推出来了；但是这样一来就要有更多自定义的逻辑，也就意味着更多的工作：Seaborn 已经好心帮你做好了，你还得自己造轮子。
+*   公平地说，`group by` 方法是可以推导出来的，而 for 循环就更容易推出来了；但是这样一来就要有更多自定义的逻辑，也就意味着更多的工作：Seaborn 已经好心帮你做好了，不然你还得自己造轮子。
 
 *   反过来说，Seaborn，ggplot 和 Altair 都明白散点图在很多方面就是没有假设的折线图（尽管这些假设可能是无害的）。因此，第一场中的代码大都可以重用，但是得用新的几何对象（ggplot 和 Altair 分别用的是 `geom_point` 和 `mark_point`）或者新的方法（比如 Seaborn 的 `plt.scatter`）。在这个节点上，没有哪个库比其他库更方便，尽管我爱 Altair 优雅的简洁。
 
@@ -377,7 +377,7 @@ ggplot 是出色的声明式 ggplot2 的 Python 实现。它不仅仅「逐一�
 
 ![](https://dansaber.files.wordpress.com/2016/09/8b7niet7ypmdyaaaaasuvork5cyii.png)
 
-**SB 和笑的起来 ALT 交换了目光；GG 仿佛听到笑话了笑了起来**
+**SB 和笑起来的 ALT 交换了目光；GG 仿佛听到笑话了笑了起来**
 
 **MPL: ** 怎么啦？！
 
@@ -414,7 +414,7 @@ ggplot 是出色的声明式 ggplot2 的 Python 实现。它不仅仅「逐一�
 
 ![](https://dansaber.files.wordpress.com/2016/09/c0vgaaaabjru5erkjggg.png?w=768&h=243)
 
-**GG:** 哦，这和我的做法不同（**再一次拿起《ggplot2》开始读**）。看，分面和图形映射本质上是两个不同的步骤，我们不应该一时疏忽把它们混为一谈。因此，我们接着用之前的代码这次加上 `facet_grid` 层，也就是显式地用类别进行分面。（开心地合上书）至少我大哥是这么说的！你们听到他了吗？在书里。他真酷啊<sup>4</sup>。
+**GG:** 哦，这和我的做法不同（**再一次拿起《ggplot2》开始读**）。看，分面和图形映射本质上是两个不同的步骤，我们不应该一时疏忽把它们混为一谈。因此，我们接着用之前的代码这次加上 `facet_grid` 层，也就是显式地用类别进行分面。（**开心地合上书**）至少我大哥是这么说的！你们听到他了吗？在书里。他真酷啊<sup>4</sup>。
 
     # GGPLOT
     g = ggplot(df, aes(x='petalLength',
@@ -525,7 +525,7 @@ ggplot 是出色的声明式 ggplot2 的 Python 实现。它不仅仅「逐一�
 
 ![](https://dansaber.files.wordpress.com/2016/09/wcef9iodihxkaaaaabjru5erkjggg.png)
 
-**P (看上去不同寻常的骄傲）：** 哈！哈哈哈哈！该我大显身手了！你们都觉得我一无是处，只是 `matplotlib` 的替罪羊。虽然我目前都只是套用他的 `plot` 方法，但我也拥有一些特殊的函数可以处理箱线图**和**柱状图。用它们来可视化分布简直就是小菜一碟！你只需要两件事：第一，用来分组的列名；第二，待分布统计的列名。分别把它们传给 `by` 和 `column` 参数，图马上就画好了！
+**P (看上去不同寻常的骄傲）：** 哈！哈哈哈哈！该我大显身手了！你们都觉得我一无是处，只是 `matplotlib` 的替罪羊。虽然我目前都只是套用他的 `plot` 方法，但我也拥有一些特殊的函数可以处理箱线图**和**柱状图。用他们来可视化分布简直就是小菜一碟！你只需要提供两个列名：第一，用来分组的列名；第二，待分布统计的列名。分别把它们传给 `by` 和 `column` 参数，图马上就画好了！
 
     # PANDAS
     fig, ax = plt.subplots(1, 1, figsize=(10, 10))
@@ -595,7 +595,7 @@ ggplot 是出色的声明式 ggplot2 的 Python 实现。它不仅仅「逐一�
 
 **四周安静了下来 —— GG停了下来，把盘子撞到了地上。**
 
-**ALT：（沉重地喘气）** 我……我……我不会画箱线图。从来没学过怎么画，不过我相信曾用过的 JavaScript 的语法不支持箱线图肯定是有原因的。不过我会画直方图……
+**ALT：（沉重地喘气）** 我……我……我不会画箱线图。从来没学过怎么画，不过我相信我的源语言 JavaScript 的语法不支持箱线图肯定是有原因的。不过我会画直方图……
 
     # ALTAIR
     c = Chart(df).mark_bar(opacity=.75).encode(
@@ -607,13 +607,13 @@ ggplot 是出色的声明式 ggplot2 的 Python 实现。它不仅仅「逐一�
 
 ![](https://dansaber.files.wordpress.com/2016/09/cwkeozqaaaabjru5erkjggg.png)
 
-**ALT: ** 乍一看代码会觉得有点怪，但是不要担心。这里实际是在说：「嘿，直方图事实上就是条形图」。X 轴对应着 `bin`，我们可以用 `Bin` 类来定义；同时 y 轴对应数据集中落到对应 Bin 的数据的数量。用 SQL 语言来说 y 就是 `count(*)`。
+**ALT: ** 乍一看代码会觉得有点怪，但是不要担心。这里实际是在说：「嘿，直方图事实上就是条形图」。X 轴对应着 `bin`，我们可以用 `Bin` 类来定义；同时 y 轴对应到数据集里落到对应 Bin 的数据的数量。用 SQL 语言来说 y 就是 `count(*)`。
 
 #### 第四场的分析
 
 * * *
 
-*   在工作中，我的确发现 pandas 的便利函数很方便，但是我得承认，脑子里总要惦记着 pandas 给箱线图和直方图提供了 `by` 参数，折线图却没有这件事。
+*   在工作中，我的确发现 pandas 的便利函数很方便，但是我得承认，脑子里总要惦记着 pandas 给箱线图和直方图提供了 `by` 参数，却没有给折线图提供该参数。
 
 *   我把第一场和第二场分开是有原因的，其中最重要的原因是：从第二场开始 matplotlib 变得比较吓人。比如说要画箱线图还得记着用一个完全独立的界面，这根本不适合我。
 
@@ -638,7 +638,7 @@ ggplot 是出色的声明式 ggplot2 的 Python 实现。它不仅仅「逐一�
 |4|0|3|male|35.0|8.0500|Third|
 
 
-这个例子中，我们感兴趣的是看看每个客舱等级的平均费用以及客舱等级是否逃生率相关。显然，在 pandas 中我们可以这样写：
+这个例子中，我们感兴趣的是看看每个客舱等级的平均费用是否和逃生率相关。显然，在 pandas 中我们可以这样写：
 
     dfg = df.groupby(['survived', 'pclass']).agg({'fare': 'mean'})
     dfg
@@ -866,7 +866,7 @@ ggplot 是出色的声明式 ggplot2 的 Python 实现。它不仅仅「逐一�
 
 **ALT:** 我希望下面的解释可以让所有的变量都非常直观：我想按幸存数来画平均船费，按舱位等级进行分面。写在代码里就是 `survived` 是 x 变量，`mean(fare)` 是 y 变量，而 `class` 是 column 变量。（我还指定了 color 变量这样画面可以热闹点。）
 
-但是，这里也有一些新东西值得注意。注意，我在 x 和 color 中的 `survivde` 字符串后面加了 `:N`。这是我给自己加的注释，意思就是「这是个名义上的变量。」我需要加这个注释是因为 `survived` 看上去像个数量（数量还是定量？）变量，而数量变量有可能让绘的图变得有点丑。也不要太担心啦，这问题也不是每次都能碰到，只有个别情况下会有影响。比如，在上面的时间序列图中，如果我不知道 `dt` 是时间变量，我可能会假设它们只是数量变量，这样子就尴尬了（还好我在后面加上了 `:T`，这样就好了）。
+但是，这里也有一些新东西值得注意。注意，我在 x 和 color 中的 `survivde` 字符串后面加了 `:N`。这是我给自己加的注释，意思就是「这是个名义上的变量。」我需要加这个注释是因为 `survived` 看上去像个定量变量，而定量变量有可能让绘的图变得有点丑。也不要太担心啦，这问题也不是每次都能碰到，只有个别情况下会有影响。比如，在上面的时间序列图中，如果我不知道 `dt` 是时间变量，我可能会假设它们只是名义变量，这样子就尴尬了（还好我在后面加上了 `:T`，这样就好了）。
 
 另外我还用了 `configure_facet_cell` 协议让三个子图看上去更加统一。
 
@@ -878,13 +878,13 @@ ggplot 是出色的声明式 ggplot2 的 Python 实现。它不仅仅「逐一�
 
 *  （当然，正是这种数据不可知论让 matplotlib 成了其他 Python 可视化库的基础。）
 
-*   反过来说，只要我需要汇总统计和误差线，我总是会用 Seaborn。
+*   相对而言，在需要汇总统计和误差线的时候，我总是会用 Seaborn。
 
 *  （这样比较可能有失公允，毕竟我选的例子仿佛是为 Seaborn 的一个函数量身定制的，不过我的工作中这种事遇到的太多了，而且，嘿，这篇文章可是我写的。）
 
 *   我不觉得 pandas 或 ggplot 的方式有什么特别的优势。
 
-*   不过，就 pandas 而言，哪怕是简单的条形图也必须得记得用 `group by` 和 `pivot` 看上去有点傻。
+*   不过，就 pandas 而言，哪怕是简单的条形图也必须得记得用 `group by` 和 `pivot`，这看上去有点傻。
 
 *   同样，我的确认为这是 yhat 开发的 ggplot 的一个重大缺陷，要找一个 `stat_summary` 的替代品从而让 ggplot 变得功能完善全面还有很长的路要走。
 
@@ -906,13 +906,13 @@ ggplot 是出色的声明式 ggplot2 的 Python 实现。它不仅仅「逐一�
 
 再说，要是我就不会骂人。
 
-同时，轴向旋转（pivoting）结合 pandas 处理时间序列图像非常好用。考虑到 pandas 的时间序列支持更加广泛，我还会接着用。此外，下一次如果要画 [RadViz](http://pandas.pydata.org/pandas-docs/stable/visualization.html#radviz) 图，我就知道该怎么做了。也就是说，尽管 pandas 的确在 matplotlib 的命令式范式的基础上提供了声明式语法（比如条形图），它仍然极具 matplotlib 风格。
+同时，轴向旋转（pivot）结合 pandas 处理时间序列图像非常好用。考虑到 pandas 的时间序列支持更加广泛，我还会接着用。此外，下一次如果要画 [RadViz](http://pandas.pydata.org/pandas-docs/stable/visualization.html#radviz) 图，我就知道该怎么做了。也就是说，尽管 pandas 的确在 matplotlib 的命令式范式的基础上提供了声明式语法（比如条形图），它仍然极具 matplotlib 风格。
 
 接着说：如果你想要一些更偏向统计的东西，用 Seaborn 吧（她的确在国外学到了很多很酷的东西）。学习她的 API —— factorplot, regplot, displot 等等等等 —— 然后爱上她。这时间花得值。至于 faceting，我觉得 FacetGrid 是个很有用的共犯（wtf！）；但是要不是我使用 Seaborn 已久，我可能更喜欢 ggplot 或 Altair。
 
 说到声明式的优雅，我一直深爱着 ggplot2 ，而且对 Python 的 ggplot 留下了深刻印象。我肯定会持续关注这个项目。（更自私地说，我希望它可以阻止那些使用 R 语言同事取笑我。）
 
-最后，如果你要做的事可以用 Altair 实现（抱歉了，箱线图骑师），它有惊人的简单又好用的 API。用它吧！如果还需要其他动力，想想这些：Altair 一个令人激动的特性是（除了即将到来的针对其底层 Vega-Lite 语法的改进之外），从技术的角度来说，它并不是可视化库。它输出符合 Vega-Lite 标准的 JSON 对象，可以用 IPython Vega 渲染得非常好。
+最后，如果你要做的事可以用 Altair 完成（抱歉了，箱线图使用者），用它吧！它提供的 API 异常简单又非常好用。如果还需要其他动力，想想这些：Altair 一个令人激动的特性是（除了即将到来的针对其底层 Vega-Lite 语法的改进之外），从技术的角度来说，它并不是可视化库。它输出符合 Vega-Lite 标准的 JSON 对象，可以用 IPython Vega 渲染得非常好。
 
 这有什么好激动的？好吧，在底层，所有的可视化看上去都是这个样子的：
 
@@ -946,5 +946,6 @@ ggplot 是出色的声明式 ggplot2 的 Python 实现。它不仅仅「逐一�
 
 4. 坦率地说，我不是**完全**确定单独进行分面操作是为了意识形态上的纯洁，或者只是单纯出于实用的考虑。虽然我的 ggplot 角色声称他是前者（他的理解来自匆匆读完的[这篇论文](http://vita.had.co.nz/papers/layered-grammar.pdf)），也有可能是因为（实际上） ggplot2 对分面的支持太丰富了，所以需要当作是独立的步骤。如果我描述的角色违反了任何图形语法规则，请务必告诉我，我会去找个新的。
 
-5. 绝对不是这个故事的道德规范。
+5. 绝对不是这个故事的道德准则。
+
 
