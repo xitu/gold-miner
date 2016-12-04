@@ -1,10 +1,11 @@
+
 > * 原文地址：[Designing the new Uber App](https://medium.com/uber-design/designing-the-new-uber-app-16afcc1d3c2e#.kaoghc61m)
 * 原文作者：[Didier Hilhorst](https://medium.com/@didierh)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[PhxNirvana](https://github.com/phxnirvana)
 * 校对者：
 
-# Designing the new Uber App
+# 全新的 Uber 应用设计
 
 
 
@@ -21,17 +22,17 @@
 
 
 
-A big redesign is daunting. There are a lot of variables and unknowns that tell you there will be potential failure down the road. But we knew that if we wanted to build for the future, we had to be comfortable taking that risk. This meant not only taking a big bet on how things look, but also re-imagining how things flow.
+大刀阔斧地改进设计这种东西光是听起来就足以让人裹足不前。大量的变数和未知情况都暗示着这条道路上充满荆棘，甚至通向悬崖。但只要我们还想建设光明未来，就势必承担这风险。这意味着不仅要将（重新设计的）筹码压在界面上，还要重新想象一下整个流程。
 
-Uber’s original premise was simple. “Push a button, get a ride.” You didn’t need to set your destination, you didn’t need to select a product, you just hit a button, or two, and you were off.
+Uber 起初的愿景很简单。“轻触屏幕，即刻接驾。”无需设置目的地，无需选择套餐，只需轻轻一点，至多两次，就可以开启一段行程。
 
-As we added more features and our products became more complex, we continued to strive to keep the original simplicity and speed of a single button. But we realized that speed was about much more than minimizing taps and streamlining flows. People were selecting the wrong product when they had to catch a movie (I’m looking at you, Uber Pool). Opportunities to save time by suggesting good pick-up spots were being missed.
+随着新功能的不断加入，我们的产品变得越来越复杂，我们不断地努力，试图保持最初一键式的简洁高效。后来我们意识到高效率绝不仅仅是减少点击和优化流程这么简单。人们总是在去看电影时选择了错误的套餐（对，就是你，Uber Pool）。通过选择合适接人地点来节省时间的这种机会就被生生错过了。
 
-In a fast growing environment it can become challenging to see the way ahead. So, to move past the comfort of our beginnings we decided to design the new Uber experience with a simple twist: _“Start at the end.”_
+在一家快速增长的公司考虑未来道路是很有挑战性的。所以，为了走出我们先前的舒适区，我们决定用**“以终为始”**作为新 Uber 的设计理念。
 
-Sometimes in order to get more quickly from point A to point B, you need to slow down, look up, and see what’s ahead of you. Where Uber originally asked you to only think about getting a ride, we now ask you “Where to?”.
+有时为了更快的从 A 点到达 B 点，需要减速、抬头、观察前方。原先的 Uber 只让你考虑搭便车，而现在会问你“去哪儿？”（Where to go?）。
 
-Everything starts there and builds around that. Interface elements fly in from the next step and route-lines animate toward your destination. It’s a philosophy based on looking ahead that carries you forward. Each action you take propels you to the next step and each trip you complete feeds back into the experience. By the time you’re ready to enter your next destination, it’s already there.
+一切流程始于此并环绕它（Where to go）打造。下一步飞入的界面元素，由起点指向终点的路线动画。指引前进的是基于向前看的哲学理念。每一个动作都引领用户走向下一步，每一步结束时同样会带来反馈。当你打算开始一段行程时，一切都将水到渠成。
 
 
 
@@ -47,11 +48,11 @@ Everything starts there and builds around that. Interface elements fly in from t
 
 
 
-A key area of the experience that was showing cracks was the product selection slider. A great interface when you have, say, three to four options… not so much when that number balloons to more than eight — as our riders in Los Angeles and other cities can attest. It got even worse: when we launched a scheduling option, we simply ran out of space and dropped it pretty much in the middle of the screen.
+一个关于体验的关键分歧是产品选择滑动条。一个好的界面有，呃，三到四个选项，至多八个，我们在洛杉矶和其他城市的司机可以证明这一点。（现实情况却）甚至更糟，如果我们显示计划（显示的）选项的话，整个屏幕就都挤满了，而且还落下很多。
 
-This feature went through the most design cycles and iterations. From list views to tabular representations to paginations and pretty much everything in between. Ongoing user research and iterative prototyping played a crucial role in our process. We interviewed people each day with prototypes we built in Framer and Swift. Day by day, week over week we iterated on these prototypes until we got to the right answer. We found that people didn’t care about how many products and features we could cram in a single screen.
+这项特性有着最多的设计稿和迭代。从列出代表到分页以及众多二者之间的设计。用户调研和原型迭代在进程中扮演了重要角色。我们每天都带着用 Framer 和 Swift 建立的原型去人群中做调查。日复一日，周复一周地迭代，直到我们找到答案。我们发现人们并不关心我们能在一个屏幕上填满多少产品和特性。
 
-By knowing your destination, we can now give you opportunities to make better decisions with just the right amount of context. We display up-front fares for products so you can make a clearer and simpler choice on how to get there. For Uber Pool and UberX we show you arrival times to let you know if you’ll make your dinner reservation.
+通过对目的地的了解，我们可以在屏幕上显示最恰当的选项来提供让用户提供选择的机会 我们在（界面）最上层显示各产品的费用，以此让用户可以简洁直观的选择到达方式。 对于 Uber Pool 和 UberX 我们会显示到达时间来让用户可以得知是否会错过晚餐。
 
 
 
@@ -67,15 +68,15 @@ By knowing your destination, we can now give you opportunities to make better de
 
 
 
-And as you’re looking forward, the app is constantly working on the next step to save you time. It’s searching for the fastest pickup point while you’re selecting a product. And once you hit request we instantly give you a peek into your future by showing you which drivers you could be paired up with, giving you an estimated time sooner.
+就像期待的那样，应用总会先想一步来节省时间。它会在选择产品时搜索最佳搭车点。一旦提交请求，我们会马上显示可能的配对司机，并提供预估时间。
 
-From the start we wanted to be sure to create a platform that other people could use, build upon and extend internally. It takes a village to build something, and not one populated solely by designers; engineers, product managers, operations, marketing, and many other talented members of the team were involved. Building an entire new product and a design system at the same time was a challenge, especially at this scale.
+起初我们想建立一个别人也能用的平台，并以此为基础来建设和扩展。这花了不少功夫，而且有着设计师、工程师、产品经理、运维、市场和其他各种人才的参与。边设计边创造新产品的确是个挑战，尤其是这么大的产品。
 
-In an ideal world you would probably choose to sequence product design and platform design a little more, but at the speed we were moving, that was simply not an option. This constraint, however, proved to be a happy accident: it forced us to apply platform design decisions in near real-time to product designs, with real data — and vice-versa. It reminds me of a quote by a legendary racing driver:
+理想状态下你可能会选择让产品设计和实现按顺序进行，但以我们进行的速度来说，这基本不可能。然而在这种条件下，我们的成果还很乐观：我们被迫用真实的数据边设计边实现，反之亦然。（这边感觉不通顺。。不知道反之亦然是干嘛的）这让我想起了一个传奇赛车手的名言：
 
-> _“If everything seems under control, you’re just not going fast enough.”—Mario Andretti._
+> “如果一切都在掌控中，那速度肯定不会快。”——Mario Andretti.
 
-We developed standards across a number of elements from foundational parts like grid and spacing, typography, colors, content, icons, illustrations, drop shadows, status bars, animations, and action sheets to components like alerts, avatars, buttons, cards, date and time pickers, empty states, forms, headers, lists, map interfaces, loading indicators and states, selectors, and tabs. But perhaps most importantly, we created a space to interact with our riders during the trip.
+我们在基础阶段就建立了一系列元素的标准，如间距、字体、颜色、内容、图标、图表、阴影、状态栏、动画以及用动作表单实现的警告框、头像、按钮、卡片、时间选择器、空状态、表格、标题、列表、地图、加载指示器、选择器和标签。但可能最重要的是，我们建立了和乘客交流的空间。
 
 
 
@@ -91,9 +92,9 @@ We developed standards across a number of elements from foundational parts like 
 
 
 
-We used to think our job was done once you got in a car, and that the faster we got you out of our app, the better the experience. But as we looked ahead at each step, we realized we were neglecting the longest part of the journey: being on your way.
+我们曾以为走进车门时我们的工作就结束了，在那之后，越快关闭应用体验越好。但在审视每一步之后，发现我们忽略了旅程中最长的一部分：在路上。
 
-We thought about the music you might want to listen to on your way, the menu at the restaurant you’re headed to, and how you could stay connected to the people you’re going to see. We built a platform for content that will put you and your journey at the center.
+我们考虑到了可能在路上听的音乐，目标饭馆的菜单，以及如何与将要见的人保持联系。（因此）我们建立了一个以旅客和旅程为中心的平台。
 
 
 
@@ -109,13 +110,10 @@ We thought about the music you might want to listen to on your way, the menu at 
 
 
 
-The new Uber app is about you, the things you want to do, and the places you want to be. We start at the end, to get you closer to your next beginning.
+全新 Uber 应用是关于你，你的目标和你的目的地。我们以终为始，希望可以让你的下一次旅程到来的更早些。
 
-Special thanks to Peter Ng, Bryant Jow, Nick Kruge and the entire team at [Uber Design](https://medium.com/u/f0f8b53891a8). But beyond design, the most rewarding part is working with an amazing team of engineers and product managers, who brought this to life. Design isn’t just the designer’s responsibility, it’s all of us. We work in an environment where we jam with engineers and product managers from the start to get to a solution that is better for the people that use our products. If this sounds like fun, we’re hiring to design many more things — we need your help. [Reach out](https://www.linkedin.com/in/dhilhorst), let’s grab a coffee, and come join us.
+特别鸣谢 Peter Ng，Bryant Jow，Nick Kruge 和 [Uber Design](https://medium.com/u/f0f8b53891a8) 的全体成员。除了设计之外，最值得称道的是和一群优异的工程师和产品经理共事的经历，正是他们的努力，才有了新 Uber 应用的诞生。设计并不止是设计师的职责，它关乎我们全体。我们工作的环境从一开始就有着一群以让用户更满意为目标的工程师和产品经理。如果（你）觉得这有趣的话，那就加入我们来一起设计更好未来吧——我们需要你的帮助。 [点这里](https://www.linkedin.com/in/dhilhorst)，让我们喝着咖啡携手共事吧。
 
-The new update is still gradually rolling out to stores around the world, with more features slated to ship by the end of the year. We hope you are as excited as we are. And if you’ve come this far, here’s a short video of the new app in action:
-
-
-
-
-
+年底，有着更多功能的更新会在全球各应用市场分批上线。 希望你和我们一样激动。如果你读到这里的话，可以看看下面介绍新应用的短视频：
+<iframe width="1514" height="851" src="https://www.youtube.com/embed/I1DdoN6NLDg" frameborder="0" allowfullscreen></iframe>
+[点这里](https://www.youtube.com/embed/I1DdoN6NLDg)（Youtube地址，需自备梯子）
