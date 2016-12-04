@@ -1,3 +1,4 @@
+* [如何用 JavaScript 作图](https://gold.xitu.io/entry/58441f8f128fe1006c4d1191?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([AceLeeWinnie](https://github.com/AceLeeWinnie) 翻译)
 * [实践 Redux，第 2 部分：Redux-ORM 的概念和技术](http://gold.xitu.io/entry/583d90aba22b9d006c1f092a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([luoyaqifei](https://github.com/luoyaqifei) 翻译)
 * [使用 React.js 的渐进式 Web 应用程序：第 4 部分 - 渐进增强](http://gold.xitu.io/entry/58345f5cc4c9710054e187a5?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([rccoder](https://github.com/rccoder) 翻译)
 * [使用 React.js 的渐进式 Web 应用程序：第 3 部分 - 离线支持和网络恢复能力](http://gold.xitu.io/entry/58350983a22b9d006bbb90d3?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([AceLeeWinnie](https://github.com/AceLeeWinnie) 翻译)
