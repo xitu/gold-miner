@@ -218,6 +218,8 @@ node --debug-brk --inspect source/app.js
 
 在浏览器中打开所提供的 URL，之后你就能得到一个交互式的调试环境。
 
+![](https://d262ilb51hltx0.cloudfront.net/max/1600/1*U0VOYcBh6FBzVhtsjqvf4Q.png)
+
 我会使用 `--debug-brk` 默认地在起点设置一个断点，但是你也可以取消。要记住，你可能需要在浏览器中点击路由或者从 curl 中触发路由处理机制并且点击你的断点位置。
 
 你可能知道的，Chrome 的开发工具集成了非常有价值的调试信息。你能够浏览、检查内存管理并监控内存泄漏、一次只执行一行代码、鼠标悬停在变量上来查看变量的值等等。
