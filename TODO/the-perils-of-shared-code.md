@@ -1,77 +1,79 @@
 * 原文地址：[The perils of shared code](https://www.innoq.com/en/blog/the-perils-of-shared-code)
 * 原文作者：[Daniel Westheide](https://www.innoq.com/en/staff/daniel-westheide)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[Gocy](https://github.com/Gocy015/)
 * 校对者：
 
-# The perils of shared code
+# 代码复用的风险性
 
-The road to hell is often paved with good intentions. One such road that I have seen people walk on in various software projects is sharing code between microservices by means of libraries. In almost every project in which the organization went for a microservices architecture, individual teams and developers were expected to base their microservices on some core library. Apparently, even though the problems that can come with that have been known for a long time, a lot of people are still unaware of them. In this blog article, I want to examine why using such a library may sound attractive in the first place, why it can be problematic, and how you can mitigate those problems.
+通往地狱的路往往是由美好的意图铺成的。在软件项目中，通过代码库来实现微服务之间的代码复用就是这样的一条路，一条我亲眼目睹了人们一次又一次踏上的地狱之路。几乎在所有采用了微服务架构的项目组织中，各个独立的团队和开发者都应该基于某些核心代码库来构建他们的微服务。很显然，尽管人们早已知道这其中潜在的问题，但依然有许多的人没有给予足够的重视。在这篇文章中，我将会论证为什么采用代码库可能起初看起来很有吸引力，又为何会成为一个麻烦，以及你应该如何缓解这些问题。
 
-## Goals of shared code
+## 代码复用的目的
 
-There are two main goals I have seen for sharing code via libraries: sharing domain logic and sharing abstractions in the infrastructure layer:
+利用库来实现代码复用往往是为了这两个目的：共享域逻辑和基础组件层的抽象。
 
-1. **Shared domain model:** A specific part of the domain model is common between two or more *Bounded Contexts*, so instead of implementing it again and again, you eliminate the need for repetition and the possibility of introducing inconsistent implementations of this domain logic. Usually, the parts of the domain model that people want to share like that are the core domain or one or more generic subdomains. In domain-driven design lingo, this is also called a *Shared Kernel*. Often, you would find concepts like a *Session*, and authentication logic, in here, but it’s not limited to that. A related approach is the *Canonical Data Model*.
-2. **Infrastructure layer abstractions:** You want to avoid having to implement useful abstractions for the infrastructure layer time and again, so you put these into a library. Often, these libraries provide a unified approach at database access, messaging, and serialization, among other things.
+1. **共享域数据模型（ Shared domain model ）：** 域模型中的某一部分可能在多个 **有界上下文（ Bounded Contexts ）** 中是一样的，因此，相比起反复地实现这一段域逻辑，你会砍掉重复实现的需求并消除在多次实现中出现逻辑不一致的可能性。这部分人们想要共享的域逻辑一般是核心域或是数个泛型子域。在域驱动设计的术语中，这也被称作 **共享内核 （ Shared Kernel ）** 。通常，你会在这里面找到像 **Session** 、认证逻辑这样的概念，当然，其中的内容不仅仅局限于这些。与之相似的方法还有 **标准数据模型（ Canonical Data Model ）**。
 
-The motivation for either of them is the same – to avoid repetition, i.e. to follow the *DRY* principle (“Don’t repeat yourself!”). Implementing these things once has several advantages:
+2. **基础组件层的抽象（ Infrastructure layer abstractions ）：** 你希望避免反复地实现有用的基础组件层抽象逻辑，所以你把它们放到库中。通常，这些库提供了统一的数据库访问、消息发送、序列化接口以及其他各种服务。
 
-- You don’t spend precious time working on problems that have already been solved.
-- Having a unified way of doing messaging, database access etc. means that it’s easy for developers to find their way when they need to read or modify code in microservices other developers have originally created.
-- You won’t have divergent implementations of business logic or infrastructure concerns that behave slightly different from each other. Instead, there is one canonical implementation that does the right thing.
+上述两个目标的出发点是一致的 - 避免代码重复，即遵循 **DRY** 原则（ “ Don't repeat yourself ! ”）。这些逻辑只实现一次有以下几个好处：
 
-## Problems of shared code
+- 你不需要花费宝贵的时间去解决那些已经解决过的问题。
+- 有一套统一的消息发送、数据库访问及其他操作的接口，意味着当开发者在阅读或修改由他人编写的微服务模块代码时更加轻松。
+- 你不需要担心业务逻辑或是基础组件的具体实现在不同模块之间出现细微的差异。取而代之的是，它们都只有一个统一而且正确的实现方式。
 
-What may sound great in theory doesn’t come without its own problems, and those problems are probably more painful than the ones you are trying to solve with your library. Stefan Tilkov has already explained in detail [why you should avoid a canonical data model](https://www.innoq.com/en/blog/thoughts-on-a-canonical-data-model/). In addition to that, let me point out a few other issues.
+## 代码复用的问题
 
-### [The distributed monolith](#thedistributedmonolith)
+听起来非常棒的理论都有着自己的问题，而这些问题很可能比那些你用代码库来解决的问题更加让人头疼。 Stefan Tilkov 已经详细解释了 [为什么你应该避免使用标准数据模型](https://www.innoq.com/en/blog/thoughts-on-a-canonical-data-model/) 。在他的基础之上，我再补充一些其它的问题。
 
-Often, there seems to be an implicit assumption that putting things into a library means that you never have to worry about services using a wrong or outdated implementation, because they simply need to update their dependency on the library to the latest version.
+### 分布式整体
 
-Whenever you rely on being able to change some behaviour consistently across all your microservices by updating them all to the same new version of your library, you introduce a strong coupling between them. You lose one major benefit of microservices, the ability to have them evolve and to deploy them independently from each other.
+通常，人们总隐隐地觉得把代码放入库中意味着永远都不需要担心其中的服务出现错误或是使用了过时的实现方式，因为他们只需要把依赖的库升级到最新版本就可以了。
 
-I have seen cases where all the services had to be deployed together in order for things to still work properly. If you reach this state, there is no denying that you have actually built a distributed monolith.
+当你依赖于通过升级自己的库，来对所有微服务的某些功能作出一致的改变时，你实际上在服务之间建立了强耦合关系。你因此而失去了微服务架构的一大优势，那就是各个服务更新迭代的相互独立性。
 
-A popular example is to use code generation based, for instance, on a Swagger description of your service API, in order to provide a client library for your service. More often than you may think, developers are tempted to abuse this for making breaking changes, because dependent services “just” need to use a new version of their client library. This is not how you [evolve a distributed system](http://olivergierke.de/2016/10/evolving-distributed-systems/).
+我见过许多这样的案例：所有的服务必须同时发布，以保证功能的正常使用。如果你的项目已经走到了这一步，那么毫无疑问，你其实建立了一个分布式整体。
 
-### [Dependency hell](#dependencyhell)
+一个常见的案例就是用代码生成技术来为你的服务提供一个用户代码库，譬如使用 Swagger 描述你的服务 API 。开发者会比想象中更倾向于滥用这个功能来进行大的修改，因为依赖其服务的用户“仅仅”需要更新用户代码库的版本就行了。这可不是你 [迭代一个分布式系统](http://olivergierke.de/2016/10/evolving-distributed-systems/) 所应该做的。
 
-Libraries, especially those that are designed to provide a common solution to infrastructure concerns, often have an additional problem: They come with a whole bag of additional libraries they depend on. The bigger the transitive dependency tree of your library, the higher the probability that it will lead to the nightmare commonly known as dependency hell. Since your microservices will likely need their own additional dependencies, which again have transitive dependencies, it is only a matter of time until some of them transitively pull in conflicting versions of some library, and simply choosing between the different versions will be impossible, because they are binary incompatible.
+### 依赖关系地狱
 
-Of course, your solution might be to simply provide all the libraries your microservices could possibly need as dependencies of your core library. That still means that your microservices cannot evolve independently, for example by upgrading to a later version of only a specific library they depend on – they are all in lockstep with the release cycle of your core library. Apart from that, why would you force a whole bunch of dependencies on every service when in fact they probably only need a few of them?
 
-### [Top-down library design](#top-downlibrarydesign)
+代码库，尤其是那些为了解决基础组件的问题而提供一个通用实现的库，往往有一个通病：它们引入了一大堆自身所依赖的库。你的库的传递依赖树越大，就越可能步入被称之为依赖关系地狱的噩梦。由于你的微服务很可能还要依赖其它具有传递依赖关系的库，迟早会有一些库传递性地引入一些版本冲突的库，而简单地在库的版本之间选择是不可行的，因为它们在二进制上无法兼容。（译者注：此处原文想表达的意思应该是，在庞大的依赖树中，可能有两个节点依赖了同一个库的不同版本，而这个共同依赖的库的两个版本之间无法兼容。）
 
-More often than not, the libraries I have seen were forced upon the developers by one or more architects, taking a top-down approach to library design.
+当然，你可以通过让你的核心库依赖所有微服务所需要用到的库来解决这个问题。但这依旧意味着微服务不能够独立进行迭代更新，比方说你更新了微服务所依赖的某一个特定的库 - 这些微服务就都要与你的核心库的发布步调一致了。除此之外，在每个单独的服务可能都只需要依赖少数几个的库的情况下，你何必强制使它们依赖一大堆其它的库呢？
 
-Usually, what happens in this case is that the APIs that are exposed by the library are too restrictive and inflexible, or use the wrong level of abstraction, because they are designed by people who are not familiar enough with the wide spectrum of different real-world use cases. Such a library often leads to frustration among the developers that have to live with it, and to people trying to work around the limitations of the library.
+### 自顶而下的库设计方式
 
-### [One language to rule them all](#onelanguagetorulethemall)
+更多时候，我所见到的库常常是数名架构师强迫开发者实现的，这是一种自顶而下的库设计方式。
 
-One of the most obvious drawbacks that come with enforcing libraries is that this makes it even harder to switch to a different programming language (or platform, like the JVM or .NET), again losing one advantage of a microservices architecture, the ability to choose the technology that fits best for a given problem. If you later on realise that you need this kind of language or platform diversity after all, you have to do invent all kinds of weird crutches. For instance, Netflix came up with [Prana](https://github.com/Netflix/Prana), a sidecar that runs along side non-JVM services, providing them an HTTP API to the Netflix technology stack.
+通常，这类库所暴露的 API 要么局限性强、缺乏灵活性，要么是使用了错误的抽象，因为它们的设计者对实际应用中存在的广泛的差异性了解不足。这样的一个库常常使不得不使用它的开发者，以及那些试着绕过库的局限性的人感到受挫。
 
-## Can we do better?
+### 使用统一语言进行约束
 
-With all the problems introduced by sharing code via libraries, the most extreme solution is to simply have no such library at all. If you do that, you will have to do some copy-and-paste or provide a template project for new microservices in order to liberate your services from the lockstep described above. This can be done both for infrastructure code as well as for the shared kernel of your domain model. In fact, in his classic blue book on domain-driven design, Eric Evans mentioned that usually, “teams make changes on separate copies of the KERNEL, integrating with the other team at intervals”[[1]](#fn:1). The shared kernel does not necessarily have to be a library.
+强制使用库所导致的一个最明显缺陷就是，迁移到不同的语言（或是平台，譬如 JVM 或 .NET ）变得更加困难，这同样失去了微服务架构的优势，即根据特定问题选择最合适的技术方案的能力。如果一段时间后你意识到这些库终究还是需要在不同的语言或环境中运行，你就必须要提供许多奇怪的支持。举个例子， Netflix 提供了一个 [Prana](https://github.com/Netflix/Prana) 的插件，这个插件运行了一系列非 JVM 服务，来为 Netflix 技术栈提供 HTML API 。
 
-If you don’t like the idea of copy and paste, that’s fine as well. After all, as mentioned above, there are definite advantages to sharing code through libraries. Here are some important things to consider in this case:
+## 我们能不能做得更好？
 
-### [Small libraries with minimal dependencies](#smalllibrarieswithminimaldependencies)
+面对众多因采用库来实现代码复用而出现的问题，最极端的解决方案是直接不引入任何的库。这样做的话，你就得做一些复制-粘贴工作，或是为新的微服务模块提供一个模板工程以便将你的服务从上述的窘境中解放出来。基础组件相关的代码和域模型中的共享内核逻辑都可以这么做。实际上，在 Eric Evans 的经典小蓝书的域驱动设计部分，他提到，“不同团队在各自的 KERNEL 副本中进行改动，并定期与其它团队进行整合”[[1]](#fn:1)。可见，共享内核并不一定要依赖库的形式。
 
-Try to split up your big shared library into a set of very small, highly focussed libraries, each of them solving one specific problem. Try to make these libraries zero-dependency libraries, only relying on the language’s standard library. Yes, it’s not always enjoyable to program only against your languge’s standard library, but the tremendous benefits for all the teams in your company (or even beyond your company, if your library is open source) clearly outweigh this minor inconvenience.
+如果你觉得复制粘贴不是个好的主意，也完全没问题。毕竟正如前文所说，利用库实现代码复用是有一定的好处的。这样做的话，有以下几个重要的事情需要考虑：
 
-Of course, zero dependencies is not always possible, especially for infrastructure concerns. For these, minimize the dependencies required by each of your small libraries. Also, sometimes it can make sense to provide a binding or integration with another library as a separate artifact, independently from the core of your library.
+### 轻量并少依赖的库
 
-### [Be optional](#beoptional)
+试着把大型的共享代码库拆分成一系列小的、功能性强的库，每一个库都只解决一个特定的问题。试着让这些库仅仅依赖其实现语言的标准库。没错，只使用语言的标准库编程可能有时会不那么舒服，但和为公司中的所有团队（如果你的库是开源的，则不局限与你的公司）所带来的极大益处相比，这点麻烦微不足道。
 
-Never rely on the fact that services will update to the latest version of your shared library at a specific point in time. In other words, don’t force library updates on teams, but give them the freedom to update at their own pace. This may require you to change your library in backward and forward compatible ways, but it decouples your services, giving you not only the operational costs of a microservices architecture, but also some of the benefits.
+当然，零依赖并不总是可行，尤其是考虑到那些基础组件相关的问题。对于这种情况，尽量减少每一个独立库的依赖。同时，有时候把集成了其它库的部分代码独立成一个单一的、与你的库的核心逻辑相互独立的模块也是可取的。
 
-If possible, avoid not only forced library upates, but make the usage of your library itself optional.
+### 留下选择余地
 
-### [Bottom-up library design](#bottom-uplibrarydesign)
+永远不要认为在某个时间点那些服务会把你的共享库升级到最新版本。换句话说，不要强迫其它团队升级代码库，而应该给他们自由选择升级进度的自由。尽管这意味着你需要把自己的库改造成能够前后兼容，但这意味着你实现了服务间的解耦，不仅降低了微服务架构的操作成本，还为你带来了一些好处。
 
-Finally, if you want to have shared libraries, successful projects I have seen were using a bottom-up approach. Instead of having ivory tower architects design libraries that are hardly usable in the real-world, have your teams implement their microservices, and when some common patterns emerge that have proven themselves in production in multiple services, extract them into a library.
+可能的话，不光要避免代码库的强制升级，还要使对库的使用成为可选的选项。
 
-1. 
+### 自底而上的库设计方式
+
+最后，如果你真的要用共享库的方式，我所见到的成功的项目都是采用自底而上的方式设计代码库的。与实际用例中可用性低的象牙塔式库设计原则不同，让你的团队先实现各个微服务，仅当某些在产品中证明过自己的固定的模式在不同的服务中出现时，才将它们提取出来放入库中。
+
+1.
 Evans, Eric: Domain-Driven Design: Tackling Complexity in the Heart of Software, p. 355 [ ↩](#fnref:1)
