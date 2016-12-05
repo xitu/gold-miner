@@ -1,19 +1,42 @@
 > * 原文地址：[Exploring Firebase on Android & iOS: Analytics](https://medium.com/exploring-android/exploring-firebase-on-android-ios-analytics-8484b61a21ba#.b0hgigy3r)
 * 原文作者：[Joe Birch](https://medium.com/@hitherejoe)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
-* 校对者：
+* 译者：[Nicolas(Yifei) Li](https://github.com/yifili09)
+* 校对者：[Danny1451](https://github.com/Danny1451), [owenlyn](https://github.com/owenlyn)
 
-# Exploring Firebase on Android & iOS: Analytics
-
-
+# 探索 `Firebase` 在 `Android` 和 `iOS` 的使用: 分析
 
 
 
 
 
 
-Firebase is an exciting new collection of services that I’ve been reading up on and experimenting with. In this new series of articles, we’ll be covering the features of firebase to learn exactly what we can do with each integration. In this chapter, we’re going to be taking a look at **Firebase Analytics **— the integration that allows us to begin tracking user and application data in just a few steps.
+
+
+`Firebase` 是一个令人惊艳的新的服务类聚合框架, 我已经对它进行了深入的阅读和实验。在这个新的系列文章中，我们会涵盖这些 `firebase` 的特性，去学习整合每一个功能能为我们带来什么。在本次章节中，我们准备看看 **`Firebase Analytics`** - 整合这个 `Analytics` 的功能使我们仅需要几个步骤就能开始追踪用户和应用程序的数据。
+
+
+
+
+
+
+
+
+
+
+* * *
+
+
+
+
+
+
+
+`Analytics` 对能更多地了解有关你的应用程序和用户来说是至关重要的。追踪一些事件能让你了解，例如，你的应用程序做了什么，有些用户可能未必知道的功能，用户是怎么探索你的应用程序的，或者当面对需要选择时，用户是怎么做出决定的。从这些数据中学习不仅能帮助你提高应用程序带来的用户体验度，也能帮助你提高应用程序的收入，并且能让你了解什么是需要改进提高的和为未来布局什么新特性。
+
+`Firebase Analytics` 是一个工具，它能真真正正的帮助你了解我们的 `Android` 和 `iOS` 的用户是如何使用我们的应用程序。从启动开始，它会自动开始追踪一些预先设定好的事件 - 这意味着从第一步开始我们就能了解一些事件。在这基础上，我们还能够增加一些我们需要追踪的自定义事件。所有这些事件都能从 `Firebase` 的仪表板中的控制台中观察到 - 它是我们一个集中的入口，包括访问分析报告和其他的 `Firebase` 服务。
+
+一旦我们已经追踪和分析了这些数据，我们可以决定未来对我们的应用程序做出什么修改能带来更好的用户体验。如果你还需要更多，**`Firebase Crash Reporting / Firebase 奔溃报告系统`** 也已经整合进了 `Firebase Analytics / Firebase 分析系统`，它能为观察者创建用户使用中应用程序奔溃的日志报告， **`Firebase Notifications / Firebase 通知系统`** 将为观察者发送通知并且追踪基于有交互通知的事件， **`Firebase Remote Config / Firebase 远程配置系统** 可以帮助观察者远程改变应用程序的外观感受和我们的应用程序的表现， **BigQuery** 用于针对我们一些追踪的事件执行更高级的数据分析,并且 **`Google Tag Manager / 谷歌标记管理器`** 可以让我们通过其他网页应用软件来远程建立我们的 `Firebase Analytics / Firebase 分析系统`。  
 
 
 
@@ -33,32 +56,7 @@ Firebase is an exciting new collection of services that I’ve been reading up o
 
 
 
-Analytics are crucial to learning more about both your application and your users. Tracking events allows you to learn things such as what works in your app, what users may not know exists, the paths users are exploring in their journey through your app and what choices are being made when presented with options. Learning from this data can not only help you to improve the user experience provided by your app, but it can also help you to increase any revenue you may make from your app and also learn about what works for future features and improvements.
-
-Firebase Analytics is a tool which allows you to do exactly that — it helps us to learn how our Android and iOS users are engaging with our application. From setup, it’ll automatically begin tracking a defined set of events — meaning we can begin learning from the very first step. And if that isn’t enough, then we can add our own custom events that we can track. All of these events are then viewable through the Firebase Dashboard within the Firebase Console — our central point of access for analytics reports and other firebase services.
-
-Once we’ve tracked and analysed this data, we can can make decisions on future changes to our app to better the users experience. And if that wasn’t enough, Firebase Analytics Integrates with **Firebase Crash Reporting** to create audiences for users who have experienced tracked crashes, **Firebase Notifications** to send notifications to audiences and track events based on notification interactions, **Firebase Remote Config** to change the look / feel and behaviour of our application based on Audiences, **BigQuery** to perform advanced data analysis on our tracked events and **Google Tag Manager** to our Firebase Analytics setup remotely from an alternative web application.
-
-
-
-
-
-
-
-
-
-
-
-* * *
-
-
-
-
-
-
-
-I’m also releasing a full eBook that will act as a practical guide to integrating firebase features, which will feature more detailed guides on each section of the Firebase suite 🙂 For analytics, in the book we’ll be taking a deeper look into analytics tracking and the firebase console. Click the image below to be alerted when it’s out!
-
+我也正在着手编辑一个全方位介绍如何整合 `Firebase 特性` 的指导手册，该手册将对每一个 `Firebase` 的内容进行更加详细的指导，它将会以电子书的形式发布。🙂  对于分析来说，在这本书中，我们会深入如何追踪分析和使用 `Firebase 终端`。请点击下方的图片，当我们发布这本电子书的时候会通知你知道！
 
 
 
@@ -95,88 +93,37 @@ I’m also releasing a full eBook that will act as a practical guide to integrat
 
 
 
-### What makes it different from Google Analytics?
+### `Firebase Analytics` 和 `Google Analytics` 有什么不同? 
 
-One of the first things that came to my mind when I read about Firebase Analytics was, “What about my Google Analytics setup?”. So if you already have Google Analytics in place, then why would you make the switch to Firebase Analytics? Well, here’s a couple of differences between the two:
+当我开始阅读有关 `Firebase Analytics` 的时候，潜意识里一下子让我想到，"那我已经设置好的 Google Analytics 怎么办？"。所以，如果你已经在使用 `Google Analytics`，那为什么你想要改变到 `Firebase Analytics` 呢？ 好吧，他们两者当然有很多的不同:
 
-**Audiences**
+**观察者**
 
-We can use Firebase Analytics to create Audiences — these are groups of users that we can then interact with using other Firebase service such as Firebase Notifications and / or Firebase Remote Config.
+我们能使用 `Firebase Analytics` 创建观察者 - 这些是用户的组群，我们之后能使用其他的 `Firebase` 服务和这些组群互动，例如 `Firebase Notifications / Firebase 通知系统` 或者 `Firebase Remote Config / Firebase 远程配置系统`。
 
-**Integration with other Firebase Services**
+**整合其他 `Firebase` 服务**
 
-An awesome thing with Firebase Analytics is that we can integrate other Firebase services with analytics. For example, creating an Audience of users who have experienced a crash reported through Firebase Crash Reporting.
+我们能整合其他 `Firebase` 的服务到 `Firebase Analytics` 中，这是它的一个很棒的特性！举例来说，通过 `Firebase Crash Reporting / Firebase 奔溃报告系统`，为观察者创建遇到应用程序意外奔溃的日志报告。
 
-**Lower Method Count**
+**更少的接口方法**
 
-The Google Analytics dependency on Android has a total count of 18,607 methods and has a total of 4kb used for dependancies. On the other hand, Firebase Core (for Analytics) has a method count of 15,130 and only 1kb used for dependancies.
+`Google Analytics` Android 上一共有 18,607 个方法，依赖库一共占用了 `4kb` 的存储空间。另一方面来说，`Firebase Core` （对于分析服务） 有 15,130 个方法，并且依赖库仅仅占用了 `1kb` 的存储空间。
 
-**Automatic Tracking**
+**自动追踪**
 
-When we add the firebase core dependency, it will automatically begin tracking a collection of user engagement events and device information for us — this is useful if you’re looking to only collect the minimal data for your app.
+当我们增加了 `Firebase` 的核心依赖库，它就会为我们自动开始追踪一些用户的使用事件和设备的基本信息 - 如果你只需要一些对应用程序使用的基本数据，这是非常有用的。
 
-**Unlimited Reporting**
+**无限制的服务日志报告**
 
-For up to 500 events, Firebase Analytics provides us with unlimited reporting straight out of the box for free!
+`Firebase Analytics` 提供给我们 `500` 多个事件的日志报告，它们都是无限制的并且免费的！
 
-**No Singleton Initialisation**
+**不需要初始化单例**
 
-When setting up Google Analytics on Android we are required to initialize a Singleton instance. Firebase Analytics are simply available by fetching the instance directly from where we wish to track data. This isn’t much effort obviously but just makes the setup flow slightly easier.
+当在 `Android` 上创建 `Google Analytics` 的时候，我们需要初始化一个单例。`Firebase Analytics` 可以在我们需要追踪数据的地方，方便地获得实例。当然这并不是什么大事，但是可以让建立过程更加简单。 
 
-**Single Console**
+**单独的控制台**
 
-All of the data for every Firebase service is available for a single console. That makes it both easier and quicker for us to navigate from checking the analytic stats for our app to viewing the latest crash reports.
-
-
-
-
-
-
-
-
-
-
-
-* * *
-
-
-
-
-
-
-
-### What can we track?
-
-The firebase SDK provides a collection of commonly used events in the form of predefined constants that can be used when tracking events. If you are only performing simple tracking, then the predefined events should cover your needs. On the other hand, using custom event names allows you to track events that are specific to your app and will allow for a deeper analytical understanding when it comes to the reports created from your tracking.
-
-As previously mentioned, Firebase Analytics will automatically begin tracking events for us once we’ve added the core dependency — these are:
-
-*   **first_open** — This event is tracked when the user launches the app for the first time after either installing or re-installing it. Note, this does not represent the number of downloads for the application.
-*   **in_app_purchase** — This event is tracked whenever the user carries out an in-app purchase through either Google Play or iTunes. When tracking, the even used the name and ID other product, along with the quantity of the product and the currency used to complete the purchase.
-*   **user_engagement** — This event tracks user engagement with the application, essentially whilst the app is foregrounded.
-*   **session_start** — This event is tracked when the user has engaged with the app for a minimum given time to satisfy the required start length for a session to begin.
-*   **app_update** — This event is tracked when the user updates the app to a newer version and re-launches the app. When tracked, the previous version of the app is sent as a parameter — this is used to show the gap between updating versions.
-*   **app_remove** — This event is tracked when the user removes an installed application package or uninstalls the application through their devices application manager.
-*   **os_update** — This event is tracked when the user updates the operating system on their device. When tracked, the previous version of the OS is sent as a parameter.
-*   **app_clear_data** — This event is tracked when the user either clears or reset the application data for the tracked app on their device.
-*   **app_exception** — This event is tracked when the app either throws some form of exception or crashes.
-*   **notification_foreground** — This event is tracked when the app is in the foreground and a notification is received that was sent using Firebase Notifications.
-*   **notification_receive** — This event is tracked when the app is in the background and a notification is received that was sent using Firebase Notifications. Note, this event is only tracked on Android devices.
-*   **notification_open** — This event is tracked when a notification is opened and was sent using Firebase Notifications.
-*   **notification_dismiss** — This event is tracked when a notification is dismissed and was sent using Firebase Notifications.
-*   **dynamic_link_first_open** — This event is tracked when the the app is launched for the first time by the use of a dynamic link.
-*   **dynamic_link_app_open** — This event is tracked when the the app is launched with the use of a dynamic link.
-*   **dynamic_link_app_update** — This event is tracked when the the app is updated with the use of a dynamic link. Note, this event is only tracked on Android devices.
-
-We can also track custom events for our application. Firebase provides a list of custom events that we may wish to use from categories such as:
-
-*   [All Applications](https://support.google.com/firebase/answer/6317498?hl=en&ref_topic=6317484)
-*   [Retail / Ecommerce](https://support.google.com/firebase/answer/6317499?hl=en&ref_topic=6317484)
-*   [Jobs, Education, Local Deals, Real Estate](https://support.google.com/firebase/answer/6375140?hl=en&ref_topic=6317484)
-*   [Travel](https://support.google.com/firebase/answer/6317508?hl=en&ref_topic=6317484)
-*   [Games](https://support.google.com/firebase/answer/6317494?hl=en&ref_topic=6317484)
-
-Other than these, we can also define our own within our app. We’ll look at how we can do this over the next few sections!
+每一个 `Firebase` 服务的所有数据都能从一个单独的控制台获取到。它让我们更加方便和快捷的对我们的应用程序在查看分析状态到观看最新的崩溃日志报告之间切换导航。
 
 
 
@@ -196,38 +143,89 @@ Other than these, we can also define our own within our app. We’ll look at how
 
 
 
-### Getting setup
+### 我们能追踪什么？
 
-Getting setup to use Firebase is super easy. We first need to begin by adding our application to the [Firebase Console here](https://console.firebase.google.com/). Once we’ve done so, we can add the core firebase dependancy to our project to automatically begin tracking events from our application usage. Let’s get started!
+`Firebase` 的开发包提供了一系列以预定义常量的形式定义的常用事件，当追踪事件的时候，它能被使用。如果你只执行一些简单的追踪，那这些预定义的事件应该能覆盖你的需求。换句话说，使用以自定义命名的事件将允许你追踪那些对你应用程序来说很特别的事件，当看到那些由追踪到的结果所生成的报告的时候，它将会对你的应用程序有一个更深层次的分析和认识。
 
-### Getting setup on Android
+如前文提到的，一旦我们增加了核心依赖，`Firebase Analytics` 会自动为我们开始追踪事件 - 它们是: 
 
-**Add the Core Dependency**
+* **first_open** - 当用户在首次安装或者重新安装应用程序后，首次启动这个应用程序的时候，这个事件就被追踪了。注意，它并不表示这个应用程序被下载了多少次。
+* **in_app_purchase** - 每当用户通过 `Google Play` 或者 `iTunes` 执行了一次应用内的购买，这个事件就被追踪了。当追踪的时候，这个事件会使用程序的 `name / 名字`，`产品的 ID`，与产品的数量和当前的货币信息来完成应用程序的购买。
+* **user_engagement** - 这个事件追踪用户对应用程序的参与度，也同时记录应用程序在后台的情况。
+* **session_start** - 当用户开始使用这个应用程序的时间超过某一个长度后，这个事件就被追踪了。
+* **app_update** - 当用户把应用程序更新到一个更新的版本并且重新启动的时候，这个事件就被追踪了。当追踪的时候，之前应用程序的版本号会被作为一个参数发送 - 这为了显示与更新版本的差别。
+* **app_remove** - 当用户删除了一个已经安装的应用程序包或者通过他们设备上的应用程序管理器卸载了这个应用程序的时候，这个事件就被追踪了。
+* **os_update** - 当用户更新了他们设备的操作系统的时候，这个事件就被追踪了。当被追踪时，这个操作系统之前的版本会被作为一个参数发送回来。
+* **app_clear_data** - 当用户在他们被追踪的应用程序的设备上清除或者重置了数据，这个事件就被追踪了。
+* **app_exception** - 当这个应用程序抛出一些奔溃的异常信息的时候，这个事件就被追踪了。
+* **notification_foreground** - 当这个应用程序在前台并且收到了一个由 `Firebase Notification` 发来的通知时，这个事件就被追踪了。
+* **notification_receive** - 当这个应用程序在后台并且收到了一个由 `Firebase Notification` 发来通知的时候，这个事件就被追踪了。注意，这个事件仅追踪 `Android` 设备。
+* **notification_open** - 当这个通知被打开了并且使用 `Firebase Notifications` 发送，这个事件就被追踪了。
+* **notification_dismiss** - 当一个通知被取消并且使用 `Firebase Notifications` 发送，这个事件就被追踪了。
+* **dynamic_link_first_open** - 当这个应用程序首次通过一个动态链接被启动了，这个事件就被追踪了。
+* **dynamic_link_app_open** - 当这个应用程序使用了一个动态链接启动的时候，这个事件就被追踪了。
+* **dynamic_link_app_update** - 当这个应用程序通过一个动态链接更新了，这个事件就被追踪了。注意，这个事件只能追踪 `Android` 设备。 
 
-The Firebase Analytics functionality is found within the core firebase dependancy. So to begin tracking analytics events in our application, we need to begin by adding the firebase analytics dependency to our **build.gradle** file.
+我们也可以使用自定义事件来追踪我们的应用程序。`Firebase` 提供了一份自定义事件列表，我们可能会通过这些分类来使用，例如:
+
+*   [所有的应用程序](https://support.google.com/firebase/answer/6317498?hl=en&ref_topic=6317484)
+*   [零售商 / 电子商务 ](https://support.google.com/firebase/answer/6317499?hl=en&ref_topic=6317484)
+*   [工作，教育，本地产品推介，房地产](https://support.google.com/firebase/answer/6375140?hl=en&ref_topic=6317484)
+*   [旅行产品](https://support.google.com/firebase/answer/6317508?hl=en&ref_topic=6317484)
+*   [游戏产品](https://support.google.com/firebase/answer/6317494?hl=en&ref_topic=6317484)
+
+除了这些，我们也能在我们的应用内定义我们自己的事件。我们会在之后的章节详细讨论!
+
+
+
+
+
+
+
+
+
+
+
+* * *
+
+
+
+
+
+
+
+### 开始使用
+
+开始使用 `Firebase` 是非常简单的。首先，我们需要开始把应用程序增加到 [`Firebase 控制台`](https://console.firebase.google.com/)。一旦我们完成了这步，我们就能把 `Firebase` 的核心依赖增加到我们的项目工程中，开始自动从我们的应用程序的使用中追踪这些事件。让我们开始吧！
+
+### 开始在 `Android` 上使用
+
+**增加核心依赖**
+
+`Firebase Analytics` 的功能可以在 `Firebase` 核心依赖中被发现。所以在我们的应用程序中追踪这些分析的事件，我们需要开始把 `firebase analytics` 的依赖增加到我们的 **build.gradle** 文件中。 
 
     compile 'com.google.firebase:firebase-core:9.4.0'
 
-**Retrieving the Analytics instance**
+**获取这个 `Analytics` 的实例**
 
-Once we’ve added this dependency, our application will automatically begin tracking default events from our application for things such as opening the app, device information, region and other standard data.
+一旦我们增加了这个依赖，我们的应用程序将会自动开始追踪这些从应用程序来的默认的事件，例如，启动应用程序，设备信息，地区和其他的标准数据。
 
     private FirebaseAnalytics firebaseAnalytics;
 
-Now we’ve added the dependency, we can go ahead and make use of its classes, here we’ll be using the FirebaseAnalytics class to track analytics events. We need to begin by declaring this object in the class that we wish to use it (for example, this could be an activity or a fragment).
+现在我们已经增加了依赖，我们就可以继续并且使用这些类，我们会使用 `FirebaseAnalytics` 这个类来追踪需要分析的事件。我们需要从在这个类中申明我们想使用的那些对象开始（举个例子来说，这个可能是一个 `activity` 或者 `fragment`）。
 
     firebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
-Then once that’s been declared, we can fetch the FirebaseAnalytics instance from within the onCreate() method of our Activity / Fragment.
+一旦这个被申明过了，我们就能从 `Activity / Fragment` 中的 `onCreate()` 方法获取到 `FirebaseAnalytics` 的实例。 
 
-You’ll need to retrieve this instance wherever you wish to send events to Firebase from. If you’re using dependency injection, then you could simplify this a bit — for example using Dagger 2:
+在任何你想发送事件到 `Firebase` 的地方，你都需要取得这个实例。如果你正在使用依赖注入，你能简化这个 - 比如使用 `Dagger 2`:
 
     @Provides
     FirebaseAnalytics providesFirebaseAnalytics() {
         return FirebaseAnalytics.getInstance(activity);
     }
 
-Then, wherever we wish to use the FirebaseAnalytics instance, we can do so by simply injecting an instance into our desired class like so:
+之后，每当我们想使用这个 `FirebaseAnalytics` 的实例，我们能通过简单的注入一个实例到我们想要的类中，比如:
 
     @Inject FirebaseAnalytics firebaseAnalytics;
 
@@ -249,37 +247,37 @@ Then, wherever we wish to use the FirebaseAnalytics instance, we can do so by si
 
 
 
-### Getting setup on iOS
+### 开始在 `iOS` 上使用
 
-**Add the Core Dependency**
+**增加核心依赖**
 
-The Firebase Analytics functionality is found within the core firebase dependancy. So to begin tracking analytics events in our application, we need to add the firebase analytics dependency to our **Podfile**.
+`Firebase Analytics` 的功能可以在 `Firebase` 核心依赖中被发现。所以在我们的应用程序中追踪这些分析的事件，我们需要开始把 `Firebase analytics` 的依赖增加到我们的 **Podfile** 文件中。 
 
     pod ‘Firebase/core’
 
-Once added, be sure to remember to run the following command to install the dependency:
+一旦增加了，确保记得运行以下命令来安装依赖:
 
     pod install
 
-Almost there! We then need to import the dependency so that we can begin using it in our application. To do this, we need to add the import statement to our .xcworkspace file.
+几乎都完成了！之后，我们需要导入这个依赖，所以我们能在这个应用程序中使用它。为了这个，我们需要增加这个导入的申明到我们的 `.xcworkspace` 文件。
 
-In Objective-C:
+在 `Objective-C` 中:
 
     @import Firebase;
 
-In Swift:
+在 `Swift` 中:
 
     import Firebase
 
-**Configure the Analytics instance**
+**配置 `Analytics` 的实例**
 
-Once we’ve added this dependency to our **podfile**, we need to configure the Firebase Analytics instance. Once this has been done, our application will automatically begin tracking default events from our application for things such as opening the app, device information, region and other standard data.
+一旦我们已经增加了这个依赖到我们的 `podfile` 文件，我们需要配置这个 `Firebase Analytics` 的实例。一旦完成这步，我们的应用程序将会自动开始追踪这些从应用程序来的默认的事件，例如，启动应用程序，设备信息，地区和其他的标准数据。
 
-We can do this in Objective-C like so:
+我们能在 `Objective-C` 中这么做，比如:
 
     [FIRApp configure];
 
-And in Swift:
+并且在 `Swift` 中:
 
     FIRApp.configure()
 
@@ -301,18 +299,18 @@ And in Swift:
 
 
 
-### Tracking events on Android
+### 在 `Android` 设备上追踪事件
 
-Now we have access to the FirebaseAnalytics class, we can use to track events within our application. We track events using the **logEvent()** method provided by the Firebase SDK. This method takes two parameters:
+现在我们已经访问到了 `FirebaseAnalytics` 的类，我们能在应用程序内追踪这个事件了。我们使用由 `Firebase SDK` 提供的 **logEvent()** 方法来追踪这些事件。这个方法需要两个参数:
 
-*   **name** — A String representing the name of the event. This name is **case sensitive** and can be up to 32 characters in length and consist of only letters and underscores. **Note:** The name must begin with a letter.
-*   **params** — A Bundle object that contains a collection of parameters that are to be tracked in relation to the named event. Parameter names can be up to 24 characters in length and just like the names, they can only be made up of alphabetic characters and underscores, as well as start with a letter. Parameter values can be of the types String, long or double and can be no longer than 36 characters in length.
+* **name** - 用字符串来表示事件的名字。这个名字是**区分大小写的**并且最多使用 32 个字符且只能由字母和下划线组成。**注意:** 这个名字必须由一个字母开始。
+* **params** - 一个 `Bundle` 对象包含了一些参数，他们都被相关的事件追踪。这个参数的名字至多可以使用 24 个字符并且就像名字，他们只能由字母和下划线组成，也只能由子母开始。参数取值的类型可以是 `String`, `long` 或者 `double`，并且不能超多 36 个字符。
 
-We can track an event without sending any parameters by simply calling the logEvent() method with the event name, and simply passing in null for the parameters.
+我们也能通过简单直接调用无参数形的 **logEvent()** 来追踪一个事件，直接把 `null / 空值` 传送到参数就可以。
 
     firebaseAnalytics.logEvent(“checkout_complete”, null);
 
-However, if we wish to send parameters along with our event then we can so by packaging it up into a Bundle instance. This allows us to send multiple parameters in a singular object.
+然而，如果我们想让参数和事件一同发送，那我们可以把他们包装在一起放到一个 `Bundle` 实例中。这允许我们用一个单独的对象发送多个参数。
 
     Bundle bundle = new Bundle();
 
@@ -322,7 +320,8 @@ However, if we wish to send parameters along with our event then we can so by pa
 
     firebaseAnalytics.logEvent(“checkout_complete”, bundle);
 
-Once we call the **logEvent()** method, our event is tracked and sent to firebase on behalf of the firebase SDK.
+一旦我们调用这个 **logEvent()** 方法，我们的事件就被追踪，并且代表 `Firebase SDK` 发送给 `Firebase` 服务。  
+
 
 
 
@@ -342,14 +341,14 @@ Once we call the **logEvent()** method, our event is tracked and sent to firebas
 
 
 
-### **Tracking Events on iOS**
+### **在 `iOS` 设备上追踪事件**
 
-Now we have access to the FirebaseAnalytics class, we can use to track events within our application. We track events using the **logEvent()** method provided by the Firebase SDK, this method takes two parameters:
+现在我们已经访问到了 `FirebaseAnalytics` 的类，我们能在应用程序内追踪这个事件了。我们使用由 `Firebase SDK` 提供的 **logEvent()** 方法来追踪这些事件。这个方法需要两个参数:
 
-*   **name** — A String representing the name of the event. This name is **case sensitive** and can be up to 32 characters in length and consist of only letters and underscores. **Note:** The name must begin with a letter.
-*   **params** — A Bundle object that contains a collection of parameters that are to be tracked in relation to the named event. Parameter names can be up to 24 characters in length and just like the names, they can only be made up of alphabetic characters and underscores, as well as start with a letter. Parameter values can be of the types String, long or double and can be no longer than 36 characters in length.
+* **name** - 用字符串来表示事件的名字。这个名字是**区分大小写的**并且最多使用 32 个字符且只能由字母和下划线组成。**注意:** 这个名字必须由一个字母开始。
+* **params** - 一个 `Bundle` 对象包含了一些参数，他们都被相关的事件追踪。这个参数的名字至多可以使用 24 个字符并且就像名字，他们只能由字母和下划线组成，也只能由子母开始。参数取值的类型可以是 `String`, `long` 或者 `double`，并且不能超多 36 个字符。
 
-For example say we want to track when the user shares a piece of content through our app:
+举例来说，我们想要追踪那些，当用户通过我们的应用程序分享了一部分内容的时候。
 
     [FIRAnalytics logEventWithName:Share parameters:@{
 
@@ -359,7 +358,7 @@ For example say we want to track when the user shares a piece of content through
 
     }];
 
-All provided events and parameters are defined in the **FIREventNames.h**header file and **FIRParameterNames.h** header files. However, if we wish to track out own custom events or parameters we can do so by defining our own event and parameter names within our application — this allows us to track more customised events specific to our application. Custom event names gives us more flexibility to track events that are not already defined in the FIREventNames.h header file, whilst custom parameters allow us to track properties related to these events that may not already be defined within the **FIREventParameters.h** file. We can track custom events and parameters like so:
+所有提供的时间和参数都定义在了 **`FIREventName.h`** 和 **`FIRParameterNames.h`** 头文件中。然而，如果我们希望追踪自定义的事件或者参数，我们能在应用程序内定义自定义的事件和参数 - 这让我们能追踪更多自定义的事件。自定义事件的名字让我们能更灵活地对事那些并没有定义在 `FIREventNames.h` 头文件中的事件进行追踪，同时自定义的参数允许我们追踪与这些事件相关的东西，它可能没有被定义在 `FIREventParameters.h` 的文件中。我们能类似这样追踪自定义的事件和参数:
 
     [FIRAnalytics logEventWithName:@”share_facebook” parameters:@{
 
@@ -371,9 +370,9 @@ All provided events and parameters are defined in the **FIREventNames.h**header 
 
     }];
 
-**Verbose Logging on Android**
+**在 `Android` 设备上完整的日志记录**
 
-Enabling verbose logging allows to check that both our automatic and manual events are being logged correctly by the firebase SDK. We can enable verbose logging fairly easily by entering the following **adb** commands into the terminal:
+激活完整的日志记录能让你检查自动和手动配置的事件是否被 `Firebase SDK` 正确的记录在日志中。我们可以在终端中通过输入以下 **`adb`** 命令来开启完整的日志记录:
 
     adb shell setprop log.tag.FA VERBOSE
 
@@ -381,7 +380,7 @@ Enabling verbose logging allows to check that both our automatic and manual even
 
     adb logcat -v time -s FA FA-SVC
 
-Once you’ve enabled this, you can run the debug build of your app and perform actions that trigger analytic events. When events are triggered, you should see them appear in your terminal console, as shown below:
+一旦你激活了这个，你能运行调试版本的应用程序并且执行触发需要分析的事件。当事件被触发了，你应该能看到他们被显示在终端控制台中，如下所示:
 
 
 
@@ -395,24 +394,24 @@ Once you’ve enabled this, you can run the debug build of your app and perform 
 
 
 
-Logging events into the terminal
+将事件记录在终端中
 
 
 
-If you can’t see events being logged, be sure to check that you’re correctly calling the **logEvent()** method as discussed on the previous page!
+如果你不能看到事件被记录，请确认检查你正确调用了前文中讨论的 **logEvent()**方法！
 
-**Verbose Logging on iOS**
+**在 `iOS` 设备上完整的日志记录**
 
-To ensure that our events are being tracked correctly, we can debug our Firebase Analytics events easily within xcode itself — it’s always good practice to do so as events can take several hours to be appear within the firebase console. To enable debugging within xcode:
+为了确保我们的事件被正确的追踪，我们能方便地通过 `xcode` 来调试我们的 `Firebase Analytics` 的事件 - 事件可能需要花费好几个小时才能被显示在 `firebase` 的控制台中是常有的事。为了用 `xcode` 进行调试:
 
-*   You need to begin by opening up the **Edit scheme** window. This can be done by navigating to **Product** > **Scheme** and selecting the **Edit** **scheme**option from the dropdown.
-*   Next, on the left hand side you will need to select the **Run** option from the menu.
-*   Then, select the tab labelled **Arguments** within the **Run** window that you just opened.
-*   Finally, within the section labelled **Arguments Passed on Launch** you’ll need to add:
+* 你需要先打开 **`Edit scheme`** 窗口。可以通过从 **`Product`** 到  **`Scheme`**并且从下拉框中选择 **`Edit Scheme`**。 
+* 下一步，在你左手边，你需要从菜单中选择 **`Run`**。
+* 之后，选择刚刚打开的 **`Run`** 窗体中的 **`Arguments`** 标签。
+* 最后，在 **`Arguments Passed on Launch`** 标签内你需要增加： 
 
     -FIRAnalyticsDebugEnabled
 
-This is essentially a flag to notify the SDK to log out any analytics events to the console.
+这是一个必须的编译标识，它通知 `SDK` 去输出一些分析的事件到控制台。
 
 
 
@@ -432,22 +431,21 @@ This is essentially a flag to notify the SDK to log out any analytics events to 
 
 
 
-### User Properties
+### 用户信息
 
-User properties allow us to track data that is specific to the users who are engaging with our app. This allows us to keep a track of data that is not specifically associated with our application itself, but more focused on the users. Just like events, the Firebase SDK automatically tracks a collection of different user properties for use. These are:
+用户信息允许我们追踪那些使用我们应用程序的用户数据。这让我们可以追踪那些和应用程序本身无关的用户数据，以便我们更加注重用户的需求。就好像事件，`Firebase SDK` 会自动追踪一系列不同用户的信息。这些是:
 
-*   **App Version** — The version of the app that the user has installed on their device. On android this tracks the versionName and on iOS the Bundle version is used.
-*   **Device Model** — The model of the device that the application is installed on. This is the device model name, so for example iPhone 6s, or SM-G9300.
-*   **Gender** — The gender of the user using the app on the installed device.
-*   **Age** — The age of the user using the app on the installed device. This falls into either: 18–24, 25–34, 35–44, 45–54, 55–64 or 65+
-*   **Interests** — The categorized interests of the user using the app on the installed device.
-*   **OS Version** — The version of the OS running on the device. Generally in a numerical format such as 6.0 or 9.3.1.
-*   **New / Established** — Two values representing timed usage of the app. **New** is when the user began using the app with the last 7 days, whereas **established** is where the user began using the app more than 7 days ago.
+* **App Version** - 用户安装在设备上的该应用程序的版本。在 `Android` 设备中追踪的是 `versionName`，而在 `iOS` 设备上是 `Bundle` 版本。
+* **Device Model** - 安装了这个应用程序的设备型号。这是设备模型的名字，举例来说，`iPhone 6s`，或者 `SM-G9300`。
+* **Gender** - 在设备上安装了应用程序的用户的性别。
+* **Age** - 在设备上安装了应用程序的用户的年龄。它的数值分为: `18-24`, `25-34`，`35-44`，`45-54`，`55-64` 或者 `65+`。
+* **Interests** - 在设备上安装了应用程序的用户感兴趣的分类。
+* **OS Version** - 该设备运行的操作系统的版本。一般来说是一个数字格式，例如 `6.0` 或者 `9.3.1`
+* **New / Established** - 两个数值来表示应用程序的使用程度。**New** 表示当用户在 7 天内就开始使用了应用程序，然而 **established** 表示用户 7 天前就开始使用应用程序。
 
-**Adding a new user property**
+**增加一个新的用户属性**
 
-However, we’re not restricted to using these properties alone — we can define our own custom user properties from within the firebase console. We can do this by navigating to **User Properties** tab, and selecting the **New User Property** button.
-
+然而，我们并不仅限制单独使用这些属性 - 我们能在 `firebase` 控制台中自定义用户属性。我们能通过导航到 **User Properties** 的标签页，并且选择 **New User Property** 按钮。
 
 
 
@@ -462,10 +460,10 @@ However, we’re not restricted to using these properties alone — we can d
 
 
 
-Once you’ve selected that button, you’ll be displayed with a pop-up window that will allow you to enter the details for a new User Property. Here you’ll enter:
+一旦你选择了那个按钮，屏幕上会显示一个弹窗，你可以在弹窗里输入 **User Property** 的详细信息:
 
-*   **User property name** — The name used to identify the user property. This should be in lowercase letters, with words separated by underscores instead of spaces.
-*   **Description** — A short (maximum 150 characters) description of what the property is used for. This should be simple yet descriptive, so that both yourself and possibly others can easily understand what the property represents in the future.
+* **User property name** - 这个名字被用于识别用户属性。它应该用小写字母，并用下划线分割单词而不是用空格。
+* **Description** - 一个简短的有关这个属性是干什么的描述 (最多 150 字符)。它应该是简洁的但不失描述性，所以你自己和其他人都能轻易明白这个属性在未来表示了什么。
 
 
 
@@ -481,25 +479,26 @@ Once you’ve selected that button, you’ll be displayed with a pop-up window t
 
 
 
-**Setting User Properties on Android**
+**在 `Android` 中设立用户属性**
 
-Tracking user properties within our android app is done in a similar way to the way that we track events. Once we’ve registered the property within the firebase (as detailed in the previous section), it’s as simple as making a call to the **setUserProperty()** method from the Firebase SDK. This method takes two parameters, these are the **User Property Name** and the **User Property Value** which we wish to set for the given property.
+在 `Android` 应用程序中追踪用户属性和追踪事件的方式一样。一旦我们在 `Firebase` 中注册了这个属性（在之前的章节有了详细的介绍），它很方便就如同从 `Firebase SDK` 中调用 **setUserProperty()** 方法。这个方法需要两个参数，他们是 **User Property Name** 和 **User Property Value**，亦是我们想设定的属性。 
 
     firebaseAnalytics.setUserProperty(
                “favourite_film_genre”, filmGenre);
 
-Once tracked, we will be able to view the tracked User Properties from within the Firebase console. Remember that you’ll need to wait a few hours for the data displayed in the console to update.
+一旦追踪了，我们能从 `Firebase` 控制台内观察到被追踪的用户属性。请记住，你会需要等待几个小时才能看到这个更新在控制台内出现。
 
-**Setting User Properties on iOS**
+**在 `iOS` 中设立用户属性**
 
-Tracking user properties within our android app is done in a similar way to the way that we track events. Once we’ve registered the property within the firebase (as detailed in the previous section), it’s as simple as making a call to the **setUserPropertyString()** method from the Firebase SDK. This method takes two parameters, these are the **User Property Name** and the **User Property Value** which we wish to set for the given property.
+在 `iOS` 应用程序中追踪用户属性和追踪事件的方式一样。一旦我们在 `Firebase` 中注册了这个属性（在之前的章节有了详细的介绍），它很方便就如同从 `Firebase SDK` 中调用 **setUserProperty()** 方法。这个方法需要两个参数，他们是 **User Property Name** 和 **User Property Value**，亦是我们想设定的属性。 
 
-In Objective-C, we can do this like so:
+
+在 `Objective-C` 代码中，我们能这么干:
 
     [FIRAnalytics setUserPropertyString:filmGenre       
                                   forName:@”favourite_film_genre”]
 
-And in Swift we can do this like so:
+在 `Swift` 代码中，它看上去是这样的：
 
     FIRAnalytics.setUserPropertyString(filmGenre   
                                   forName:”favourite_film_genre”)
@@ -522,11 +521,12 @@ And in Swift we can do this like so:
 
 
 
-### And that’s it!
+### 总结！
 
-So we’ve seen what we can do with Firebase Analytics and how to implement it into our application to begin tracking events. I hope from this you’ve been able to see the benefits of Firebase and how super easy it is to get setup!
+这就是 `Firebase Analytics` 能为我们做到的事情，并且怎么在我们的应用程序中开始实现追踪事件的能力。我希望通过这篇文章你能看到 `Firebase` 为我们带来的好处和方便快捷的搭建方式。
 
-And if you wish to learn more about Firebase analytics and other integrations, please do remember to sign-up to be alerted when my Firebase eBook is out! ![🚀](https://linmi.cc/wp-content/themes/bokeh/images/emoji/1f680.png)
+如果你想要学习更多有关 `Firebase analytics` 的内容和其他整合资料，请记得先注册，当我的 `Firebase` 电子书面世的时候会通知提醒你们! ![🚀](https://linmi.cc/wp-content/themes/bokeh/images/emoji/1f680.png)
+
 
 
 
