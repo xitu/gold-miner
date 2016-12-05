@@ -150,6 +150,10 @@ Node & Express 非常简单，你可以仅用 12 行代码就能够实现一个�
         .end((err, res) => {
           const msg = 'should return 200 OK';
           if (err) return assert.fail(msg);
+          assert.pass(msg);
+          assert.end();
+        });
+    });
 
 我也会给任何我用于构建 API 的稍小的、可重用的模块写[单元测试](https://medium.com/javascript-scene/what-every-unit-test-needs-f6cd34d9836d)。
 
@@ -199,8 +203,19 @@ const app = require('app');
     const requestId = (req, res, next) => {
       const requestId = cuid();
       req.id = requestId;
+      res.id = requestId;
 
       // 延续传递至下一个中间件
+      next();
+    };
+
+    app.use(requestId);
+
+    app.get('/', (req, res) => {
+      res.send('\n\nHello, world!\n\n');
+    });
+
+    module.exports = app;
 
 ### 内存管理
 
