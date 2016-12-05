@@ -6,7 +6,7 @@
 
 # Node & Express 入门指南
 
-> 本系列文章为[跟 Eric Elliott 学 JavaScript](https://ericelliottjs.com/product/lifetime-access-pass/)的会员提供了配套的视频和练习，会员可点击查看视频教程：[“Node & Express 入门指南”视频教程](https://ericelliottjs.com/premium-content/introduction-to-node-express/)。还不是会员？[马上注册](https://ericelliottjs.com/product/lifetime-access-pass/)。
+> 本系列文章为[跟 Eric Elliott 学 JavaScript](https://ericelliottjs.com/product/lifetime-access-pass/) 的会员提供了配套的视频和练习，会员可点击查看视频教程：[“Node & Express 入门指南”视频教程](https://ericelliottjs.com/premium-content/introduction-to-node-express/)。还不是会员？[马上注册](https://ericelliottjs.com/product/lifetime-access-pass/)。
 
 * * *
 
@@ -39,19 +39,19 @@ Node 是一个 JavaScript 环境，使用了与谷歌 Chrome 浏览器相同的 
 
 在 Mac 或者 Linux 系统上，我最喜欢的方式是用 nvm 安装 Node。
 
-你可以使用[install script](https://github.com/creationix/nvm/blob/v0.32.1/install.sh)来安装或者升级 nvm，使用 curl：
+你可以使用 install script 来安装或者升级 nvm，使用 curl：
 
-curl -o- [https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh](https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh) | bash
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh | bash
 
 或者 Wget：
 
-wget -qO- [https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh](https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh) | bash
+wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh | bash
 
 安装好 nvm 后，你可以用它来安装各种版本的 Node。
 
 ### Hello, World! 实例
 
-Node & Express 非常简单，你可以仅用 12 行代码就能够实现一个基本的 web 服务器来实现“Hello,world!”：
+Node & Express 非常简单，你可以仅用 12 行代码就能够实现一个基本的 web 服务器来实现 “Hello,world!” ：
 
     const express = require('express');
 
@@ -85,7 +85,7 @@ Node & Express 非常简单，你可以仅用 12 行代码就能够实现一个�
 
 用 `curl` 来测试：
 
-curl localhost:3000
+	curl localhost:3000
 
 或者在浏览器中访问 `localhost:3000`。
 
@@ -125,8 +125,8 @@ curl localhost:3000
 
 [可将应用的配置项写入 `.env.example` 文件，并将敏感配置信息以加密形式处理，仅作为配置内容示例，译者注。]
 
-PORT=5150
-AWS_KEY=
+	PORT=5150
+	AWS_KEY=
 
 你应该注意，如我所言，所有的应用密文全都要写在 `.env.example` 文件中。
 
@@ -134,7 +134,7 @@ AWS_KEY=
 
 ### 测试 Node 应用
 
-我喜欢用[Supertest](https://github.com/visionmedia/supertest)来测试 Node 应用，它会抽象出 http 连接问题，并且提供一个简单、流畅的 API。我用 [functional tests](https://www.sitepoint.com/javascript-testing-unit-functional-integration/) 进行 http 端点测试，它让我不必担心模拟数据库等问题。我只需要点击 API 并传入一些值，然后静候一个具体的响应。
+我喜欢用 [Supertest](https://github.com/visionmedia/supertest) 来测试 Node 应用，它会抽象出 http 连接问题，并且提供一个简单、流畅的 API。我用 [functional tests](https://www.sitepoint.com/javascript-testing-unit-functional-integration/) 进行 http 端点测试，它让我不必担心模拟数据库等问题。我只需要点击 API 并传入一些值，然后静候一个具体的响应。
 
 以下是一个使用 Supertest 和 [Tape](https://medium.com/javascript-scene/why-i-use-tape-instead-of-mocha-so-should-you-6aa105d8eaf4) 测试的一个简单的实例：
 
@@ -150,6 +150,7 @@ AWS_KEY=
         .end((err, res) => {
           const msg = 'should return 200 OK';
           if (err) return assert.fail(msg);
+
 我也会给任何我用于构建 API 的稍小的、可重用的模块写[单元测试](https://medium.com/javascript-scene/what-every-unit-test-needs-f6cd34d9836d)。
 
 需要注意的是，我们直接导入了快速应用，而没有使用网络。Supertest 并不需要读取应用配置来确定连接端口，它将所有的细节都封装起来，为了能够正常工作，你需要在应用文件中导出你的应用。
@@ -198,13 +199,12 @@ const app = require('app');
     const requestId = (req, res, next) => {
       const requestId = cuid();
       req.id = requestId;
-      res.id = requestId;
 
       // 延续传递至下一个中间件
 
 ### 内存管理
 
-因为 Node 是单线程的，这也意味着所有的用户都会共享同一块内存空间。换句话说，不像是在浏览器中，你不得不当心不要再闭包函数中保存针对某一个用户的数据，因为其他的连接可能会拿到那些数据。正因如此，我喜欢用 `res.locals` 来存储当前用户的信息，这只在该用户的请求和响应循环中可用。
+因为 Node 是单线程的，这也意味着所有的用户都会共享同一块内存空间。换句话说，不像是在浏览器中，你不得不当心不要在闭包函数中保存某个特定用户的数据，因为其他的连接可能会拿到那些数据。正因如此，我喜欢用 `res.locals` 来存储当前用户的信息，这只在该用户的请求和响应循环中可用。
 
 这也是一个用来存储上文提到的 `requestId` 的更好的办法。
 
@@ -234,7 +234,7 @@ node --debug-brk --inspect source/app.js
 
 当出现未捕获的异常时，你必须关闭进程，因为从定义上来讲，如果你不知道应用哪里出了问题，你的应用就处在一种不可知不明确的状态，并且随处都有可能产生错误。
 
-你可能会造成资源泄漏，用户可能看到错误的数据，你可能会得到各种疯狂的不明确的应用操作。当产生一个你意料之外的异常时，记录下错误信息，清理所以有你能清理的资源，并且关闭进程。
+你可能会造成资源泄漏，用户可能看到错误的数据，你可能会得到各种疯狂的不明确的应用操作。当产生一个你意料之外的异常时，记录下错误信息，清理所有你能清理的资源，并且关闭进程。
 
 我用 Node 写了一个优雅的错误处理模块，在此检出 [express-error-handler](https://github.com/ericelliott/express-error-handler)。
 
@@ -242,7 +242,7 @@ node --debug-brk --inspect source/app.js
 
 有各种各种的服务器监控工具可以检测崩溃并且修复服务来保持应用运行流畅，即使是遇到了未知异常，它们同样有效。
 
-我极力推荐 [PM2](http://pm2.keymetrics.io/) ，因为不光我在使用它而且它也深受许多公司的信赖，比如 Microsoft，IBM，和 PayPal。
+我极力推荐 [PM2](http://pm2.keymetrics.io/) ，因为不光我在使用它而且它也深受许多公司的信赖，比如 Microsoft，IBM 和 PayPal。
 
 安装的时候，运行 `npm install -g pm2`，在本地安装就使用 `npm install --save-dev pm2` 命令。之后你就可以使用 `pm2 start source/app.js` 来运行应用了。
 
@@ -260,7 +260,7 @@ node --debug-brk --inspect source/app.js
 
 * * *
 
-**_Eric Elliott_**是 [**_“Programming JavaScript Applications”_**](http://pjabook.com/)(O’Reilly) 和 [**_“Learn JavaScript with Eric Elliott”_**](http://ericelliottjs.com/product/lifetime-access-pass/) 的作者。他曾在**_Adobe Systems_**_,_ **_Zumba Fitness_**_,_ **_The Wall Street Journal_**_,_**_ESPN_**_,_ **_BBC_**的软件开发领域立下汗马功劳，也曾为顶级唱片大师**_Usher_**_,_ **_Frank Ocean_**_,_**_Metallica_**等人量身定制。
+**_Eric Elliott_**是 [**_“Programming JavaScript Applications”_**](http://pjabook.com/)(O’Reilly) 和 [**_“Learn JavaScript with Eric Elliott”_**](http://ericelliottjs.com/product/lifetime-access-pass/) 的作者。他曾在 **_Adobe Systems_**_,_ **_Zumba Fitness_**_,_ **_The Wall Street Journal_**_,_**_ESPN_**_,_ **_BBC_** 的软件开发领域立下汗马功劳，也曾为顶级唱片大师 **_Usher_**_,_ **_Frank Ocean_**_,_**_Metallica_** 等人量身定制。
 
 **他的大部分时光都是和世界上最美丽的女人在旧金山海湾地区度过的。**
 
