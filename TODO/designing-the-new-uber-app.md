@@ -3,7 +3,7 @@
 * 原文作者：[Didier Hilhorst](https://medium.com/@didierh)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[PhxNirvana](https://github.com/phxnirvana)
-* 校对者：
+* 校对者：[Gocy](https://github.com/Gocy015), [Freya Yu](https://github.com/ZiXYu)
 
 # 全新的 Uber 应用设计
 
