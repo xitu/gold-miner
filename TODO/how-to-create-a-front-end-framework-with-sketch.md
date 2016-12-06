@@ -1,4 +1,8 @@
-
+> * 原文地址：[How to create a FRONT END FRAMEWORK with Sketch](https://medium.com/sketch-app-sources/how-to-create-a-front-end-framework-with-sketch-2379edb5e7df#.r6g3tx6wk)
+* 原文作者：[Seba Mantel](https://medium.com/@sebamantel)
+* 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+* 译者：[]()
+* 校对者：[]()
 
 # How to create a FRONT END FRAMEWORK with Sketch
 
