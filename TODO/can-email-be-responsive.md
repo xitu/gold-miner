@@ -34,7 +34,7 @@ But coding an email doesn’t need to be a lesson in frustration. 现在的邮�
 - 层次结构. 在HTML邮件中你可以使你的邮件主从分明，让人更容易注意到重要副本或者重要连接.
 - 跟踪. HTML邮件允许你去追踪邮件是否被打开和约会接受情况，这些有价值的数据可以用来优化你的营销效率.
 
-By not giving email as much attention as your pixel-perfect app, you are effectively losing out on 1) a valuable branding opportunity, 2) the ability to track opens and interactions in your emails, and 3) the opportunity to provide an amazing user experience outside of your application.
+如果不像设计精良的APP一样要求你的邮件，你就会失去 1) 树立品牌形象的机会, 2) 追踪邮件是否被打开与用户行为的能力 3) 在你的应用之外给用户一份极好的用户体验
 
 ## HTML 邮件很糟糕[#section2](#section2)
 
@@ -47,37 +47,36 @@ By not giving email as much attention as your pixel-perfect app, you are effecti
 
 - 邮件客户端。邮件客户端，比如 Outlook 和 Gmail，经常以不同的方式渲染 HTML and CSS，从而导致...
 
-- 许多 hacks。即使是设计良好的邮件 Even well-designed email campaigns need to rely on client-specific hacks to make things work.
+- 许多 hacks。即使是设计良好的邮件营销活动也需要针对不同的客户端hack来保证质量。
 
-- 没有 JavaScript。邮件中 web 最喜欢的语言, as email clients (rightly) strip it due to security concerns. Goodbye interactivity.
+- 没有 JavaScript。电子邮件中 web 中最受欢迎的语言在电子邮件丝毫没有地位, 因为电子邮件客户端会（正当地）出于安全因素而禁用它。这样就没有交互性了。
 
 - 行内样式。我跟喜欢使用单独的结构进行描述。不幸的是，大部分邮件客户端强制你依赖行内样式和属性去做邮件中近乎所有的事。
 
-While things likely won’t change anytime soon, there is a movement in the email design community (yes, one *does* exist) to alleviate the misery normally associated with developing email campaigns. A number of companies and individuals are improving the tools and methods of email design, and sharing their knowledge more than ever before.
+当一切趋于稳定时,  在电子邮件设计社区(是的， 确实 *有* 一个)中开始有关于减轻开发电子邮件营销活动的痛苦的动向 . 许多公司与个人开发者开始优化电子邮件设计的工具与方法，并且首次开始分享他们的见解。
+我所在的公司, [Litmus](http://litmus.com), 就是其中一个.我们构建了测试与跟踪电子邮件活动的工具. And we’re all-in on spreading information about email marketing in general, and email design specifically. We even started a dedicated [community](http://litmus.com/email-community) to connect email marketers, allowing them to share their knowledge, refine techniques, and learn from both us and each other.
 
-The company I work for, [Litmus](http://litmus.com), is one of them. We build instruments to make testing and tracking email campaigns as painless as possible. And we’re all-in on spreading information about email marketing in general, and email design specifically. We even started a dedicated [community](http://litmus.com/email-community) to connect email marketers, allowing them to share their knowledge, refine techniques, and learn from both us and each other.
-
-While I reference some of Litmus’ tools and resources in this article, there are a number of other companies and people working hard to improve the art of email design. In particular, both [MailChimp](http://mailchimp.com) and [Campaign Monitor](http://campaignmonitor.com) have excellent blogs and guides. And people like [Anna Yeaman](https://twitter.com/stylecampaign), [Nicole Merlin](https://twitter.com/moonstrips), [Fabio Carneiro](https://twitter.com/flcarneiro), [Elliot Ross](https://twitter.com/iamelliot), and [Brian Graves](https://twitter.com/briangraves) are all working to make email design a true craft.  
+虽然我在本文中提及了一些Litmus的工具和资源， 但还有许多公司与个人在努力提高电子邮件设计的艺术. 尤其是， [MailChimp](http://mailchimp.com) 和 [Campaign Monitor](http://campaignmonitor.com)都有非常出色的bloghe说明. 还有像 [Anna Yeaman](https://twitter.com/stylecampaign), [Nicole Merlin](https://twitter.com/moonstrips), [Fabio Carneiro](https://twitter.com/flcarneiro), [Elliot Ross](https://twitter.com/iamelliot), 和 [Brian Graves](https://twitter.com/briangraves) 这样的人都在致力于使电子邮件设计成为一门真正的工艺。  
 
 ## 进化的收件箱[#section3](#section3)
 
-Just like the rest of the web, the inbox is becoming mobile. In 2013, [51 percent of users opened emails on mobile devices](https://litmus.com/blog/email-client-market-share-where-people-opened-in-2013). That number is likely to increase, especially considering that a [growing number of people](http://blogs.hbr.org/2013/05/the-rise-of-the-mobile-only-us/) rely on their mobile device to access the internet, both out of habit and necessity.
+就像Web的其他部分一样, 收件箱也开始走向移动化. 在2013年, [51%的用户在移动设备上打开邮件](https://litmus.com/blog/email-client-market-share-where-people-opened-in-2013). 而且还考虑到[越来越多人](http://blogs.hbr.org/2013/05/the-rise-of-the-mobile-only-us/) 使用移动设备来连接互联网，无论出于爱好与习性，这一数字还在持续增长 .
 
-The good news is that web designers can adapt their existing skills and apply them to email campaigns, creating a beautiful user experience on a channel vital to most users, but ignored by many designers.
+好消息是，Web设计人员现有的技能也适用于邮件营销活动, creating a beautiful user experience on a channel vital to most users, but ignored by many designers.
 
 ## HTML邮件的原理是什么[#section4](#section4)
 
-Generally speaking, HTML email is just like designing a web page—assuming web design has no knowledge of anything post-[Designing with Web Standards](http://en.wikipedia.org/wiki/Designing_with_Web_Standards). HTML emails rely on three things: tables, HTML attributes, and inline CSS. As you learn to build HTML emails, keep in mind that, due to email client rendering engines, we are working with a very limited subset of HTML and CSS. Campaign Monitor maintains an [excellent chart](http://www.campaignmonitor.com/css/) of what CSS is supported across major email clients.
+通常来讲，假设web设计与[遵循Web标准的设计](http://en.wikipedia.org/wiki/Designing_with_Web_Standards)无关 ，那么HTML邮件与网页设计很类似. HTML邮件基于三样东西: 表格，HTML属性，行内样式.在你学习写HTML邮件的时候要知道，由于电子邮件客户端渲染引擎的限制，我们只能使用HTML与CSS中非常有限的一部门子集 . Campaign Monitor在维护一份有关大多数主流邮件客户端所支持的CSS属性的 [非常好的图标](http://www.campaignmonitor.com/css/)  .
 
-Let’s briefly go over the basics of HTML email before looking at how to make emails responsive. As an example, I’ve adapted the template we use for our own newsletters at Litmus. Thanks to both Litmus and our wonderful designer, [Kevin Mandeville](http://dribbble.com/KEVINgotbounce), A List Apart readers can learn from and build on the same code we use for most of our campaigns—it’s now hosted on the [A List Apart Github account](https://github.com/alistapart/salted). To see how it performs across clients, you can check out the full range of [Litmus tests](https://litmus.com/pub/d5586ad/screenshots).
+在我们讲如何构建自适应的邮件前我们先回顾一下HTML邮件的基础. 举个例子,我曾改编过我们在Litmus中通讯用的邮件模板. 多亏了Litmus和我们出色的设计师[Kevin Mandeville](http://dribbble.com/KEVINgotbounce), A List Apart readers can learn from and build on the same code we use for most of our campaigns—it’s now hosted on the [A List Apart Github account](https://github.com/alistapart/salted). 你可以查看[Litmus tests](https://litmus.com/pub/d5586ad/screenshots)的全部示例来看他在跨客户端中的表现。.
 
 ### 表格[#section5](#section5)
 
-Most web designers use tags like the `div`, `header`, `section`, `article`, `nav`, and `footer` for building the structure of web pages. Unfortunately, email designers don’t have the luxury of using semantic elements. Instead, you *have* to use HTML tables to lay out your email campaigns. These tables will be nested… deeply.
+许多Web开发者喜欢使用 `div`, `header`, `section`, `article`, `nav`, 和 `footer` 这样的标签来构建Web页面的架构. 不幸的是, 电子邮件开发者没有闲工夫去使用语义化标签。 相反, 你 *必须* 使用表格来给你的电子邮件布局. 这些表格会嵌套的非常……深.
 
-Basic styling of tables will largely use attributes that most people haven’t used in quite some time: `width`, `height`, `bgcolor`, `align`, `cellpadding`, `cellspacing`, and `border`. Coupled with inline styles like `padding`, `width`, and `max-width`, designers can build robust email layouts.
+设置表格的基本样式会用到许多人平常不会用到的属性: `width`, `height`, `bgcolor`, `align`, `cellpadding`, `cellspacing`, 和 `border`.结合像 `padding`, `width`, 和 `max-width`这样的属性，设计者可以构建出更健壮的邮件布局.
 
-Here’s an example of what a well-coded table in email looks like:
+一个编码良好的表格示例在邮件中是看起来是这样的：
 
 ```
 <table border="0" cellpadding="0" cellspacing="0" width="100%">
@@ -95,22 +94,22 @@ Here’s an example of what a well-coded table in email looks like:
 </table>
 ```
 
-You can see how we nest tables and use the `border`, `cellpadding`, and `cellspacing` attributes to ensure that there aren’t unnecessary gaps in the design. A `bgcolor` is applied on the table-cell level, which is a more reliable method than `background` or `background-color` (although `background-color` does have its place).
+你可以看到我们如何嵌套表格并且使用`border`, `cellpadding`, 和 `cellspacing` 属性来确保设计中没有多余的空隙.  在表格单元层中使用比`background`和`background-color`更可靠的`bgcolor`属性  (尽管 `background-color` 也很有地位).
 
-One interesting thing to note is that a `div` is used to center the nested table and provide padding around the content. While tables should make up the bulk of your structure, the occasional utility `div` is useful for aligning content blocks, providing padding, and setting up some basic styles. However, they should not be used as the main structure of an email since most email clients have trouble with at least some aspect of the box model, making it unreliable for laying out emails.
+有一个有趣的事情是，div标签被用来剧中表格并且给内容提供内边距. 虽然表格应该承担大部分的结构，但是偶尔使用`div`标签给内容定位，提供内边距和设置一些基本样式是非常实用的. 无论如何, 因为大多数邮件客户端解析盒子模型都有一些问题，所以在邮件中使用div构建主要架构会使邮件布局变得非常不可靠。
 
-### Images[#section6](#section6)
+### 图片[#section6](#section6)
 
-Using images in email is very similar to using them on the web, with one caveat: a number of email clients disable images by default, leaving subscribers looking at a broken, confusing mess.
-![](http://alistapart.com/d/395/can-email-be-responsive/can-email-be-responsive-1.png)An email with images disabled
-While there is no way to automatically enable those images, we can improve the situation by using alt-text to provide some context for the missing images. What’s more, we can use inline styles on the `img` element to style that alt-text and maintain some semblance of design.
+在邮件中使用图片与在Web页面是使用图片非常类似, 但是有一个警告: 大多数邮件客户端默认禁用图片导致许多订阅者只能看到些无意义占位图.
+![](http://alistapart.com/d/395/can-email-be-responsive/can-email-be-responsive-1.png)图片被禁用的邮件
+尽管没有办法自动显示那些图片, 我们可以使用提示文字（alt-text）来改善一下现有情况. 我们甚至可以通过给`img`标签设置行内样式来给提示文字设置样式来维持与原设置的相似外观.
 
 ```
 <img src="img/fluid-images.jpg" width="240" height="130" style="display: block; color: #666666; font-family: Helvetica, arial, sans-serif; font-size: 13px; width: 240px; height: 130px;" alt="Fluid images" border="0" class="img-max">
 ```
 
-Using the code above, our missing image now makes a bit more sense:
-![](http://alistapart.com/d/395/can-email-be-responsive/can-email-be-responsive-2.png)Alt-text goes a long way
+通过使用上诉代码可以使我们缺失的图片现在看起来有了一定意义:
+![](http://alistapart.com/d/395/can-email-be-responsive/can-email-be-responsive-2.png)提示文字还有待被普及
 ### Calls-to-Action[#section7](#section7)
 
 One of the main advantages of HTML email is the ability to include clickable hyperlinks. Beyond just including links within copy, HTML email allows you to use big, beautiful buttons to entice subscribers.
