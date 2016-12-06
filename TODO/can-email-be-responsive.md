@@ -6,7 +6,7 @@
 
 # 响应式邮箱设计
 
-无论你喜不喜欢,网页邮箱的人气是不可否认的. 就像网页一样, 收件箱开始走向走向移动化,[有一半以上的邮件](https://litmus.com/blog/email-client-market-share-where-people-opened-in-2013) 是在移动设备上被打开.
+无论你喜不喜欢,网页邮箱的人气是不可否认的. 就像网页一样, 收件箱也开始走向走向移动化,[有一半以上的邮件](https://litmus.com/blog/email-client-market-share-where-people-opened-in-2013) 是在移动设备上被打开.
 
 # Translations
 
@@ -20,18 +20,18 @@ But coding an email doesn’t need to be a lesson in frustration. While email de
 
 Building on the principles of [responsive web design](http://alistapart.com/article/responsive-web-design/) first codified by Ethan Marcotte, a revolution in email design is giving birth to an experience fast approaching that of the modern web. Subscribers need no longer be subjected to terrible reading experiences, frustrating touch targets, and tiny text.
 
-## The value of HTML email[#section1](#section1)
+## 网页邮箱的价值[#section1](#section1)
 
-Whether or not you like HTML email, it is a vital tool for nearly every business. When it comes to marketing, email consistently [outperforms](http://www.wired.com/business/2013/07/email-crushing-twitter-facebook/) other channels like Facebook and Twitter. More importantly, email allows you to interact with a [potentially massive audience](http://blog.getvero.com/email-marketing-statistics/) in an increasingly [personal way](http://blog.mailchimp.com/paul-jarvis-likes-trading-stories-with-people/).
+无论你是否喜欢,网页邮箱在各行各业都是非常重要的工具.在营销方面, 电子邮件一贯[优于](http://www.wired.com/business/2013/07/email-crushing-twitter-facebook/) 其他方式，比如Facebook和Twitter. 更重要的是,电子邮件提供越来越[个性化的方式](http://blog.mailchimp.com/paul-jarvis-likes-trading-stories-with-people/)使[大量的潜在用户](http://blog.getvero.com/email-marketing-statistics/)互相影响.
 
-You may not actively engage in email marketing, but chances are that, as a web designer or developer, you use email to communicate with users on a regular basis. It could be sending a receipt, updating users on a new product feature, or letting them know about your latest blog post. Whatever the reason, email is an important and often overlooked medium.
+你可能对电子邮件营销不太积极， 但是作为一名Web设计师或者开发人员，你会使用电子邮件与你的用户定期沟通. 可能是发一条回执, 或者公告新的产品功能给用户, 或者通知他们你最新发的的博文. 无论什么原因, 电子邮件都是一种重要和经常被忽略的媒介.
 
-Many developers choose to send customers plain text email. While plain text has many benefits (easy to create, renders everywhere, downloads quickly, etc.), HTML email has a number of advantages: 
+许多开发者给顾客发送纯文本格式的邮件. 尽管纯文本格式有许多优点 (容易写，兼容性强，下载快等等), 但是HTML格式的电子邮件也有许多优势: 
 
-- Hyperlinks. You can link out to landing pages from an HTML email and build traffic and engagement.
-- Design. A well-designed HTML email lets you reinforce your brand, even in the inbox.
-- Hierarchy. You can build hierarchy within HTML emails and more easily call attention to important copy or vital links.
-- Tracking. HTML email allows you to track opens and engagement—valuable data that can be used to optimize your marketing efforts.
+- 超链接. .
+- 设计. A well-designed HTML email lets you reinforce your brand, even in the inbox.
+- 层次结构. You can build hierarchy within HTML emails and more easily call attention to important copy or vital links.
+- 跟踪. HTML email allows you to track opens and engagement—valuable data that can be used to optimize your marketing efforts.
 
 By not giving email as much attention as your pixel-perfect app, you are effectively losing out on 1) a valuable branding opportunity, 2) the ability to track opens and interactions in your emails, and 3) the opportunity to provide an amazing user experience outside of your application.
 
