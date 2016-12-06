@@ -6,7 +6,9 @@
 
 # 响应式邮箱设计
 
-无论你喜不喜欢,网页邮箱的人气是不可否认的. 就像网页一样, 收件箱也开始走向走向移动化,[有一半以上的邮件](https://litmus.com/blog/email-client-market-share-where-people-opened-in-2013) 是在移动设备上被打开.
+
+无论你喜不喜欢,网页邮箱的人气是不可否认的. 就像网页一样, 收件箱开始走向移动化,[有一半以上的邮件](https://litmus.com/blog/email-client-market-share-where-people-opened-in-2013) 是在移动设备上被打开.
+
 
 # Translations
 
@@ -35,17 +37,22 @@ Building on the principles of [responsive web design](http://alistapart.com/arti
 
 By not giving email as much attention as your pixel-perfect app, you are effectively losing out on 1) a valuable branding opportunity, 2) the ability to track opens and interactions in your emails, and 3) the opportunity to provide an amazing user experience outside of your application.
 
-## HTML email sucks[#section2](#section2)
+## HTML 邮件很糟糕[#section2](#section2)
 
-Designing and developing HTML email has traditionally ranked among the worst experiences for any web designer.  It’s like getting into a time machine and stepping out into a hellish ’90s world of table-based layouts, inline styles, non-semantic markup, and client-specific hacks.
+传统上，对于网页设计师来说，设计和开发 HTML 邮件有着最坏的体验。 就像进入一个时光机，走进一个地狱般的 90 年代，基于表格布局，行内样式，非语义标记，和客户端 hack 技巧。
 
-Here’s just a small sampling of why HTML email can be a pain:
+这里是一小部分 HTML 邮件痛苦的原因：
 
-- No Standards. Sure, we use HTML and CSS. But not like on the web. No real standards exist between email clients, leading to some crazy code.
-- Email Clients. Email clients, like Outlook and Gmail, all render HTML and CSS differently, often outrageously so. Which leads to…
-- Lots of hacks. Even well-designed email campaigns need to rely on client-specific hacks to make things work.
-- No JavaScript. The web’s favorite language has no place in email, as email clients (rightly) strip it due to security concerns. Goodbye interactivity.
-- Inline styles. I’d love to separate structure from presentation. Unfortunately, most email clients force you to rely on inline styles and attributes for nearly everything in email.
+
+- 没有标准。当然，我们使用 HTML 和 CSS，但不像 web，邮件客户端没有真正的标准存在，这导致写出一些疯狂的代码
+
+- 邮件客户端。邮件客户端，比如 Outlook 和 Gmail，经常以不同的方式渲染 HTML and CSS，从而导致...
+
+- 许多 hacks。即使是设计良好的邮件 Even well-designed email campaigns need to rely on client-specific hacks to make things work.
+
+- 没有 JavaScript。邮件中 web 最喜欢的语言, as email clients (rightly) strip it due to security concerns. Goodbye interactivity.
+
+- 行内样式。我跟喜欢使用单独的结构进行描述。不幸的是，大部分邮件客户端强制你依赖行内样式和属性去做邮件中近乎所有的事。
 
 While things likely won’t change anytime soon, there is a movement in the email design community (yes, one *does* exist) to alleviate the misery normally associated with developing email campaigns. A number of companies and individuals are improving the tools and methods of email design, and sharing their knowledge more than ever before.
 
@@ -53,19 +60,19 @@ The company I work for, [Litmus](http://litmus.com), is one of them. We build in
 
 While I reference some of Litmus’ tools and resources in this article, there are a number of other companies and people working hard to improve the art of email design. In particular, both [MailChimp](http://mailchimp.com) and [Campaign Monitor](http://campaignmonitor.com) have excellent blogs and guides. And people like [Anna Yeaman](https://twitter.com/stylecampaign), [Nicole Merlin](https://twitter.com/moonstrips), [Fabio Carneiro](https://twitter.com/flcarneiro), [Elliot Ross](https://twitter.com/iamelliot), and [Brian Graves](https://twitter.com/briangraves) are all working to make email design a true craft.  
 
-## The changing inbox[#section3](#section3)
+## 进化的收件箱[#section3](#section3)
 
 Just like the rest of the web, the inbox is becoming mobile. In 2013, [51 percent of users opened emails on mobile devices](https://litmus.com/blog/email-client-market-share-where-people-opened-in-2013). That number is likely to increase, especially considering that a [growing number of people](http://blogs.hbr.org/2013/05/the-rise-of-the-mobile-only-us/) rely on their mobile device to access the internet, both out of habit and necessity.
 
 The good news is that web designers can adapt their existing skills and apply them to email campaigns, creating a beautiful user experience on a channel vital to most users, but ignored by many designers.
 
-## How HTML email works[#section4](#section4)
+## HTML邮件的原理是什么[#section4](#section4)
 
 Generally speaking, HTML email is just like designing a web page—assuming web design has no knowledge of anything post-[Designing with Web Standards](http://en.wikipedia.org/wiki/Designing_with_Web_Standards). HTML emails rely on three things: tables, HTML attributes, and inline CSS. As you learn to build HTML emails, keep in mind that, due to email client rendering engines, we are working with a very limited subset of HTML and CSS. Campaign Monitor maintains an [excellent chart](http://www.campaignmonitor.com/css/) of what CSS is supported across major email clients.
 
 Let’s briefly go over the basics of HTML email before looking at how to make emails responsive. As an example, I’ve adapted the template we use for our own newsletters at Litmus. Thanks to both Litmus and our wonderful designer, [Kevin Mandeville](http://dribbble.com/KEVINgotbounce), A List Apart readers can learn from and build on the same code we use for most of our campaigns—it’s now hosted on the [A List Apart Github account](https://github.com/alistapart/salted). To see how it performs across clients, you can check out the full range of [Litmus tests](https://litmus.com/pub/d5586ad/screenshots).
 
-### Tables[#section5](#section5)
+### 表格[#section5](#section5)
 
 Most web designers use tags like the `div`, `header`, `section`, `article`, `nav`, and `footer` for building the structure of web pages. Unfortunately, email designers don’t have the luxury of using semantic elements. Instead, you *have* to use HTML tables to lay out your email campaigns. These tables will be nested… deeply.
 
@@ -124,7 +131,7 @@ The table below is an example of an all-HTML bulletproof button, which uses bord
 ![](http://alistapart.com/d/395/can-email-be-responsive/can-email-be-responsive-3.png)Bulletproof buttons look great with images disabled
 Once you have those basics down, it’s time to see how we actually make an email work well across a range of device sizes.
 
-## How responsive email works[#section8](#section8)
+## 响应式邮件的原理是什么[#section8](#section8)
 
 Just like with responsive websites, there are three main components of a responsive email: flexible images, flexible layouts, and media queries.
 
@@ -132,40 +139,41 @@ The only difference between the web and email is in how these three techniques a
 
 In email design, we have a limited subset of HTML and CSS at our disposal. We can’t rely on properties and values that designers use for responsive sites on the web; margins, floats, and ems don’t work in many email clients. So we have to think of workarounds.
 
-### Flexible images[#section9](#section9)
+### 弹性布局图片[#section9](#section9)
 
-Fluid images aren’t too tricky. Although they use the `width` property set to 100%, some clients have trouble rendering images at their intended size unless the width and height are defined using the corresponding HTML attributes. Therefore, we have to build them to specific dimensions and knock them down later.
+浮动图片不是最棘手的. 虽然他们的`width` 属性被设定为100%, 除非高度和宽度使用相应的HTML属性定义，否则有些客户端可能在把图片渲染成预期大小时会有问题. 因此, 我们不得不先给他们设定成特定尺寸，之后才敲定具体尺寸.
 
-The first step is ensuring that images are robustly coded. Let’s look at our image of the email screen from earlier.
+第一步是确保使用健壮的代码来编码图片. 让我们看一下早先在邮件中的图片的代码.
 
 ```
 <img src="responsive-email.jpg" width="500" height="200" border="0" alt="Can an email really be responsive?" style="display: block; padding: 0; color: #666666; text-decoration: none; font-family: Helvetica, arial, sans-serif; font-size: 16px;" class="img-max">
 ```
 
-Notice that `display` property that’s included? It’s just one example of the many hacks required to deal with naughty email clients, as is the `border` attribute. Most webmail clients add space around images in an attempt to fix line-height issues that may arise. Making images block-level will kill that spacing and save your design.
-
-Now, when we want to make our images fluid, we can do so in a media query in the head of our email:
+注意到里面的 `display` 属性了吗? 就像border属性一样， 那是也是应对淘气的客户端的众多hack手段之一.许多电子邮件客户端. Making images block-level will kill that spacing and save your design.
+在图片周围增加空白来解决可能出现的行高问题。
+现在，当我们想让我们的图片是弹性布局的，我们可以在邮件头部使用媒体查询:
 
 ```
 img[class="img-max”] {
-	width:100% !important; 
+	width:100% !important;  
 	height: auto !important;
 }
 ```
 
-Not every image will need to be fluid. Elements like logos and social icons typically stay the same size regardless of device size, which is why we target flexible images using a class.
+并不是每一个图片都需要是弹性布局.例如logos和社交网站的图标无论设备的大小如何都要保持相同的大小, which is why we target flexible images using a class.
 
-Since we will always be overriding inline styles and HTML attributes, the `important` declaration is used to ensure that our responsive styles take precedence when the document is rendered.
+由于我们经常覆盖我们写的行内样式和HTML属性，所以使用important声明使文档渲染的时候确保我们的响应式样式会被优先表现。
 
-Let’s jump into something a bit more difficult.
+现在让我们来跳到有点儿难度的地方吧。
 
-### Flexible layouts[#section10](#section10)
+### 弹性布局[#section10](#section10)
 
-Most web designers are familiar with building responsive designs using [semantic elements](http://alistapart.com/article/semanticsinhtml5) sized with [relative units](http://alistapart.com/article/fluidgrids) like percentages, ems, and rems. While we can still use percentages for flexible layouts in email, they will be used inline on tables and subject to a few limitations.  
+大多数Web开发者都对使用 [相对单位](http://alistapart.com/article/fluidgrids) 来定义 [语义化标签](http://alistapart.com/article/semanticsinhtml5) 的大小来开发响应式布局很熟悉，例如百分数，ems，rems. 虽然我们还是可以在电子邮件中使用百分比来进行弹性布局，但是他们在被内联使用时会在表格和其他一些元素上收到一些限制。
 
-Nearly all of our tables will use percentages for their widths. The one exception is a container table with specific pixel dimensions to constrain the overall width of the email design to prevent it from blowing out in clients that don’t handle percentages well, typically most versions of Microsoft Outlook.
+The one exception is a container table with specific pixel dimensions to constrain the overall width of the email design to prevent it from blowing out in clients that don’t handle percentages well, typically most versions of Microsoft Outlook.
+几乎我们所有的表格都会使用百分比来设置列宽。 但是有一个例外，尤其在大多数Microsoft Outlook的版本中，
 
-Let’s start with the container table:
+让我们从表格容器开始看起:
 
 ```
 <table border="0" cellpadding="0" cellspacing="0" width="500" class="wrapper">
@@ -175,17 +183,17 @@ Let’s start with the container table:
 </table>
 ```
 
-You’ll see that we use the `width` attribute to force the table to be 500 pixels wide.
+你看到我们使用 `width` 属性来强制使表格500像素宽。
 
-This container will hold every other nested table in the email. Since it will constrain everything to that 500-pixel width, we can safely use percentages to size our other tables.
+这个表格容器可以容纳在email中的所有其他表格。 因为容器会逼迫所有元素在500像素内显示，所以我们可以安全的在我们其他表格中使用百分比来设置大小.
 
-But what good are flexible tables if the email is *always* 500 pixels wide? Take a look at that container table again. Notice that I included a class of `wrapper`. We’ll use that selector to make our emails truly responsive using (what else?) media queries.
+但是弹性表格永远是500像素宽有什么好处呢？ 让我们再一次看一下容器表格. 注意我使用的 `wrapper`类. 我们将会通过媒体查询使用这个类选择器使我们的邮件达到真正的响应式.
 
-### Media queries in email[#section11](#section11)
+### 在电子邮件中使用媒体查询[#section11](#section11)
 
-Media queries in email work just like in web design. By including them in the head of your email, you can target specific device attributes and adjust your styles accordingly.
+在电子邮件中使用媒体查询与在网页设计中一样。你可以在电子邮件中的头部引用媒体查询，从而使你的样式针对不同的设备属性做出调整。
 
-Keeping things simple, we’ll target viewports with a `max-width` of 525 pixels and below. Then, targeting that wrapper table, we can override those HTML attributes and inline styles to force the table to be the full width of the screen on mobile devices.
+简单而言, 我们将视窗(viewports)针对在 `max-width`525像素及以下. 然后针对那个wrapper类的表格，我们覆盖他们的HTML属性与内联样式来强制表格水平占满移动设备屏幕。
 
 ```
 @media screen and (max-width:525px) {
