@@ -1,25 +1,25 @@
 > * 原文地址：[How to draw in JavaScript](https://aleen42.gitbooks.io/personalwiki/content/post/how_to_draw/how_to_draw.html)
 * 原文作者：[aleen42](https://github.com/aleen42)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
-* 校对者：
+* 译者：[Jiang Haichao](http://github.com/AceLeeWinnie)
+* 校对者：[L9m](https://github.com/L9m) [Mark](https://github.com/marcmoore)
 
-# How to draw in JavaScript
+# 如何用 JavaScript 作画
 
-<p align="center"><img width="70%" src="https://github.com/aleen42/PersonalWiki/blob/master/post/how_to_draw/preview.png" alt="draw in javascript" /></p>
-<p align="center"><strong>Figure 1.1</strong> A simple preview</p>
+<p align="center"><img width="70%" src="https://github.com/aleen42/PersonalWiki/blob/master/post/how_to_draw/preview.png" alt="用 javascript 作画" /></p>
+<p align="center"><strong>图 1.1</strong>简单预览</p>
 
-Since my company has given me a requirement of drawing in a browser programmatically, simply shown as Figure 1.1 above, I would like to share some points with you about drawing in JavaScript. Actually, what we're going to draw? **Any kind of images and graphics**.
+因为我司给我一个在浏览器中以编程方式来实现绘图的需求，如下图 1.1 所示，我想分享一些用 JavaScript 绘画的要点。实际上，我们画啥呢？**答案是任一种图像和图形**。
 
-Here is a demo for you, or you can directly click into http://draw.soundtooth.cn/. What you should is to drag any pictures and drop into the box with a red border, and then just click 'Process' button to start the process of drawing:
+这里有个样例，你可以直接点击 http://draw.soundtooth.cn/ 查看。并拖拽任意图片，放置到红色方框内，点击 "Process" 按钮，启动绘图方法：
 
 <p align="center">
 <iframe width="100%" height="600px" src="https://aleen42.github.io/example/draw/"></iframe>
 </p>
 
-Note that this is a project which belongs to my company, and that's why I'm not going to *open* the source code in the public community.
+注意：这个项目的版权是我司的，所以并不会向社区 **开源** 代码。
 
-At the beginning of the project, I was exactly inspired by the animation of drawing glowing line in [this article](./../../Programming/JavaScript/webgl/canvas/line_drawing/line_drawing.md). If you read it in details, you'll also find that before we draw any graphics, what we need is the data of paths, with which we are able to simulate the drawing. The format of those data should be like this:
+项目开始时，我深受 [这篇文章](https://aleen42.gitbooks.io/personalwiki/content/Programming/JavaScript/webgl/canvas/line_drawing/line_drawing.html) 中光线动画绘制的启发。如果仔细阅读，你会发现，在绘制任何图形之前都需要路径数据，有了这些数据，我们才能够模拟绘画。这些数据的形式应该像下面这样：
 
 ```nginx
 M 161.70443,272.07413
@@ -27,78 +27,78 @@ C 148.01517,240.84549 134.3259,209.61686 120.63664,178.38822
 C 132.07442,172.84968 139.59482,171.3636 151.84309,171.76866
 ```
 
-You may doubt that such data is only legal in an SVG element, named `path`, and how can we draw all kinds of pictures like JPG, PNG, or GIF. That's another topic going to be discussed later in this post. Before that, we can just simply draw an SVG file.
+你可能会问，这样的 `path` 数据只在 SVG 元素中有效，怎么能绘制其他像 JPG、PNG、或者 GIF 这样的图片呢。这是我们在本文后面将探讨的问题。在那之前，我们先简单绘制一幅 SVG 图像。
 
-### Drawing an SVG file
+### 绘制 SVG 文件
 
-What is SVG? Scalable Vector Graphics a.k.a SVG is an XML-based vector image format for two-dimensional graphics with support for interactivity and animation. In older IE browsers, such kind of files is not supported at all. If you're a designer, or an illustrator who usually used Adobe Illustration as one of your drawing tools, you may be already similar with those kinds of graphics. What the main difference is, an SVG is scalable and lossless, opposed to other formats of pictures.
+什么是 SVG？可伸缩矢量图形，又称为 SVG，是针对二维图形基于 XML 的矢量图片格式，支持动画交互。不支持老旧的 IE 浏览器。如果你是设计师，或者是经常使用 Adobe Illustration 做绘图工具的插画家，也许已经对图形已经有了一定的认知。但与一般图形主要的不同在于，SVG 是可伸缩的无损的，而其他格式的图片不是。
 
-Note that, generally pictures with SVG formats are called as **graphics**, while those with any other formats are called as **images**.
+注意：一般来说，SVG 格式的图片被称作 **图形**，而其他格式的被称为 **图像**。
 
-#### Extracting data from an SVG file
+#### 从 SVG 文件中提取数据
 
-As mentioned above, before drawing an SVG file, what you need to do is to read data from an SVG file. It's actually the duty of an object, named `FileReader` in JavaScript, of which the initialization code snippet should be look like this:
+正如上文所说，在绘制 SVG 之前，你需要从 SVG 文件中读取数据。这通常是 JavaScript 中 `FileReader` 这个对象的工作，它的初始化代码片段像下面这样：
 
 ```js
 if (FileReader) {
-    /** if the browser support FileReader Objects */
+    /** 如果浏览器支持 FileReader 对象 */
     var fileReader = new FileReader();
 }
 ```
 
-As a Web API, `FileReader` has given you a chance to read local files, in which `readAsText` is one of methods supported for reading contents with text format. As it may trigger the `onload` event set before being called, we can exactly read the content inside an event handler. So, the code of reading contents should be:
+作为一个 Web API，`FileReader` 能够读取本地文件，`readAsText` 是其中支持读取文本格式内容的方法之一。它可以触发事先定义的 `onload` 方法，我们能够在事件处理方法内部读取内容。读取内容的代码应该如下所示：
 
 ```js
 fileReader.onload = function (e) {
-    /** contents of an SVG file */
+    /** SVG 文件内容 */
     var contents = e.target.result;
 };
 
 fileReader.readAsText(file);
 ```
 
-With reading listener, you may consider whether we're going to upload a file with a button? Oh, that may be just a normal and unattractive way for interactions. Besides this, we can improve this way with dragging and dropping. It means that you can drag any graphics you want and drop it into the box for reading contents. Since Canvas is the first technical choice of my project, I would like to implement this way with setting up an event listener and registered for the `drop` event of a canvas.
+有了阅读监听器，你也许会考虑是否还要用一个按钮来上传文件。现在看来，那是普通没有任何吸引力的交互方式。于此，我们可以通过拖放来优化这类交互。这意味着你能够拖拽任何图形并且放置到读取内容的方框里。因为我的项目的优先技术选型是 Canvas，我将通过设置事件监听器和注册一个 canvas 的 `drop` 事件来实现这种交互。 
 
 ```js
-/** Drop Event Handler */
+/** Drop 事件处理 */
 canvas.addEventListener('drop', function (e) {
-    /** e is where we can extract out the `file` objecj */
+    /** 从 e 中提取 `file` 对象 */
     var file = e.dataTransfer.files[0];
 
-    /** start to read file contents */
+    /** 开始读取文件内容 */
     fileReader.readAsText(file);
 });
 ```
 
-#### Processing data
+#### 数据加工
 
-Now we know the data is already stored in the variable `contents`, and how can we process it, which is only text for us. At the beginning, I have tried to use regular expressions to extract path nodes:
+现在数据已经存储在 `contents` 变量里，并且已经能够处理它，数据对我们来说只是文本而已。开始时，我尝试使用常规方法提取路径节点。
 
 ```js
 var paths = contents.match(/<path([\s\S]+?)\/>/g);
 ```
 
-But with this way, it may result in two drawbacks:
+但是这个方法有两个缺点：
 
-- Lose the whole structure of the SVG file.
-- Unable to create a legal DOM element, `SVGPathElement`.
+- 会丢失整个 SVG 文件结构。
+- 不能创建一个合法的 `SVGPathElement` DOM 元素。
 
-To explain it more explicitly, you can check the code as followed:
+为了更直白地说明，请看如下代码：
 
 ```js
 if (paths) {
     var pathNodes = [];
-    var pathLen = paths.lenght;
+    var pathLen = paths.length;
 
     for (var i = 0; i < pathLen; i++) {
-        /** create a legal DOM node, SVGPathElement */
+        /** 创建一个合法的 SVGPathElement DOM 节点 */
         var pathNode = document.createElementNS('http://www.w3.org/2000/svg', 'path');
 
-        /** use a temporary div elements for reading the attribute `d` */
+        /** 使用临时 div 元素，方便读取属性 `d` */
         var tmpDiv = document.createElement('div');
-        tmpDiv.innerHTML = path[i];
+        tmpDiv.innerHTML = paths[i];
 
-        /** set it into the legal one */
+        /** 设置合法的 `d` 属性 */
         pathNode.setAttribute('d', tmpDiv.childNodes[0]
             .getAttribute('d')
             .trim()
@@ -106,13 +106,13 @@ if (paths) {
             .split('    ').join('')
         );
 
-        /** store it into an array */
+        /** 存储在一个数组里 */
         pathNodes.push(pathNode);
     }
 }
 ```
 
-As you see, `tmpDiv.childNodes[0]` is not an `SVGPathElement`, so we need to create another node. What if I use another way to read the whole SVG file, and you can see that the variable `SVGPath` has stored the whole SVG objects with a clear structure, and it's also available to be accessed wherever you want:
+正如你看到的， `tmpDiv.childNodes[0]` 不是一个 `SVGPathElement`，所以我们需要创建另一个节点。如果我用另一个方法读取整个 SVG 文件，`SVGPath` 变量能够以清晰的结构存储整个 SVG 对象，并且可以随意访问：
 
 ```js
 var tempDiv = document.createElement('div');
@@ -123,7 +123,7 @@ tempDiv.innerHTML = contents.trim()
 var SVGNode = tempDiv.childNodes[0];
 ```
 
-With a recursive way, we can easily extract all `SVGPathElement`s and directly push them into the array `pathNodes`:
+用递归的方式可以很容易地提取所有 `SVGPathElement` 并且直接送入 `pathNodes` 栈。
 
 ```js
 var pathNodes = [];
@@ -132,12 +132,12 @@ function recursivelyExtract(parentNode) {
     var children = parentNode.childNodes;
     var childLen = children.length;
 
-    /** If the node has no children, then directly return */
+    /** 如果节点没有孩子节点，则直接返回 */
     if (childLen === 0) {
         return;
     }
 
-    /** Loop to extract nodes when it's an SVGPathElement */
+    /** 循环子节点，如果子节点是 SVGPathElement，则提取出来 */
     for (var i = 0; i < childLen; i++) {
         if (children[i].nodeName === 'path') {
             pathNodes.push(children[i]);
@@ -148,9 +148,9 @@ function recursivelyExtract(parentNode) {
 recursivelyExtract(SVGNode);
 ```
 
-It does seem so elegant to use that way, and at least it does for me, especially in the case with other elements to draw, I can just use a `switch` structure to extract different elements, rather than using several regular expressions. Generally, in an SVG file, also can shapes be defined as `circle`, `rect`, `polyline`, or `line`, not only as `path`. Therefore, how can we handle them? Just to convert them all into `path` elements with JavaScript, mentioned later.
+使用那种方法看起来优雅多了，至少我是这么认为的，尤其是和其他元素一起绘制的时候，我只用 `switch` 结构就能提取不同元素，而不是使用一些常规表达。一般来说，在一个 SVG 文件里，图形元素除了可以被定义成 `path`，还可被定义成 `circle`，`rect`，`polyline`。所以，我们应该怎么处理他们？答案是用 JavaScript 就能全部转换成 `path` 元素，这个稍后再说。
 
-There was one problem as I developed the project, which should be paid more attention to. In data of paths, `m` and `M` is completely not the same, and in a compound path, there should be more than one `m` or `M`, so you have to split them out, to avoid drawing lines between two paths. It means that you have to distinguish these two notations after you confirm the path belongs to compound paths:
+我在开发项目的时候有一个问题是到底需要重点关注什么。在一个复合路径中，`m` 和 `M` 完全不一样，必须要有至少一个 `m` 或者一个 `M`，所以你必须把他们分离出来，避免两条路径相互影响。也就是说，如果一条路径属于复合路径，则区分这两个符号：
 
 ```js
 function generatePathNode(d) {
@@ -161,14 +161,14 @@ function generatePathNode(d) {
 
 var d = children[i].getAttribute('d');
 
-/** to solve the problem of compound paths */
+/** 分离复合路径 */
 var ds = d.match(/m[\s\S]+?(?=(?:m|$)+)/ig);
 var dsLen = ds.length;
 
-/** compound paths */
+/** 复合路径 */
 if (dsLen > 1) {
     /**
-     * distinguish m and M
+     * 区分 `m` 和 `M`
      * ...
      */
 } else {
@@ -176,9 +176,9 @@ if (dsLen > 1) {
 }
 ```
 
-#### Drawing in Canvas
+#### 用 Canvas 作图
 
-Now that paths has been extracted and stored in a local variable, the next step we should do is to draw them with points:
+注意：路径已经在提取出来并存储在本地变量中，下一步要做的是用点绘制出来：
 
 ```js
 var pointsArr = [];
@@ -189,40 +189,40 @@ for (var j = 0; j < pathLen; j++) {
     var pointsLen = pathNodes[j].getTotalLength();
 
     for (var k = 0; k < pointsLen; k++) {
-        /** extract points from a path */
+        /** 从路径中提取点 */
         pointsArr[index].push(pathNodes[j].getPointAtLength(k));
     }
 }
 ```
 
-As you can see, `pointsArr` is a two-dimensional array, with paths in the first dimension, and points of each path in the second one. Certainly, those points is exactly what we can used to draw in Canvas like this:
+如你所见，`pointsArr` 是一个二维数组，第一维是路径，第二维是每个路径下的点。当然，这些点是能用 Canvas 画出来的，如下：
 
 ```js
-/** draw the path with a given index */
+/** 根据所给 index 绘制路径 */
 function drawPath(index) {
     var ctx = canvas.getContext('2d');
     ctx.beginPath();
 
-    /** set path */
+    /** 设置路径 */
     ctx.moveTo(pointsArr[index][0].x, pointsArr[index][0].y);
 
     for (var i = 1; i < pointsArr[index].length; i++) {
         ctx.lineTo(pointsArr[index][i].x, pointsArr[index][i].y);
     }
 
-    /** render */
+    /** 渲染 */
     ctx.stroke();
 }
 ```
 
-Try to think about a problem: what if a path includes so many points to draw, how can we optimize it to draw fast? Perhaps, jumping to draw is a simple way to solve the problem, but how to jump is, however, another critical problem for you and me. Though I haven't found the perfect solution, I'm glad that you can give out any ideas.
+试着考虑这样一个问题：如果一条路径包括尽可能多的可绘制点，如何优化绘制方案更快速地绘制？也许，跳着画是解决的简单之法，但是怎么跳着画是另一个关键问题。我还没有发现完美解法，如果你有想法，欢迎交流。
 
 ```js
 function optimizeJump() {
     var perfectJump = 1;
 
     /**
-     * a algorithm to calculate the perfect jump value
+     * 计算最优跨度值的算法
      * ...
      */
     return perfectJump;
@@ -234,7 +234,7 @@ function drawPath(index) {
 
     ctx.moveTo(pointsArr[index][0].x, pointsArr[index][0].y);
 
-    /** optimization with jumping to draw */
+    /** 跳着画的优化方案 */
     var perfectJump = optimizeJump();
     for (var i = 1; i < pointsArr[index].length; i+= perfectJump) {
         ctx.lineTo(pointsArr[index][i].x, pointsArr[index][i].y);
@@ -244,30 +244,30 @@ function drawPath(index) {
 }
 ```
 
-The algorithm is exactly the place we should think more about.
+算法是我们需要重点思考的。
 
-#### Calibration parameters
+#### 校准参数
 
-As the requirement gets more and more complicated, we may find that data of paths cannot fit the case at all, when we want to scale and resize, or move graphics in Canvas.
+随着需求越来越复杂，路径数据无法适应比例缩放，改变大小或者移动图形的场景。
 
-##### **Why we need calibration parameters?**
+##### **为何要校准参数？**
 
-Since you would like to scale and resize, or even move graphics in Canvas, it means that the data of paths should be changed corresponding to your actions. Unfortunately, it won't, and that's exactly why we need calibration parameters.
+因为你可能要在Canvas当中对图形进行比例缩放、调整尺寸、移动，这就意味着路径数据也应该随着你的改动来变化。但实际上它不能，所以我们才需要校准参数。
 
 <p align="center"><img width="70%" src="https://github.com/aleen42/PersonalWiki/raw/master/post/how_to_draw/panel.png" alt="draw in javascript" /></p>
-<p align="center"><strong>Figure 2.1</strong> A so-called panel</p>
+<p align="center"><strong>图 2.1</strong>所谓面板</p>
 
-Figure 2.1 has shown you a highlight work area, which is called **a panel** by me, and it is that panel in which you can drop, drag and resize, or move graphics. In fact, it has included a Canvas object inside, which is implemented to satisfy your requirements. Supposed we have an SVG file (Figure 2.2) to draw, we can just drop it into the panel box, and rendered on the screen like Figure 2.3:
+图 2.1 展示了一个高亮工作区域，我叫它 **面板**。在这个面板上，你可以进行拖放，拖拽，调整尺寸或者移动操作。实际上，面板里包含了一个能满足你需求的 Canvas 对象。只需要把 SVG 文件（图 2.2）拖放到面板里，就可以在屏幕上重绘，结果如图 2.3：
 
 <p align="center"><img width="50%" src="https://github.com/aleen42/PersonalWiki/raw/master/post/how_to_draw/example.svg" alt="draw in javascript" /></p>
-<p align="center"><strong>Figure 2.2</strong> An SVG file to draw</p>
+<p align="center"><strong>图 2.2</strong>绘制的 SVG 文件</p>
 
-Such a wonderful logo, full with Chinese styles.
+富含中国元素的美丽 logo 就生成啦
 
 <p align="center"><img width="70%" src="https://github.com/aleen42/PersonalWiki/raw/master/post/how_to_draw/1.png" alt="draw in javascript" /></p>
-<p align="center"><strong>Figure 2.3</strong> Rendered graphics </p>
+<p align="center"><strong>图 2.3</strong> 渲染图形 </p>
 
-Except your operating on the graphic, some attributes of the SVG file will also affect data of paths, like `width`, `height`, and `viewBox`.
+除了图形操作，其他 SVG 属性也会影响路径数据，比如 `width`，`height` 和 `viewBox`。
 
 ```html
 <svg xmlns="http://www.w3.org/2000/svg" width="400" height="200" viewBox="0 0 200 200">
@@ -275,42 +275,42 @@ Except your operating on the graphic, some attributes of the SVG file will also 
 </svg>
 ```
 
-Therefore, the calculation of calibration parameters will have two factors: corresponding to **attributes** and **actions**.
+所以，校准参数的计算受两个因素影响，**属性** 和 **操作**。
 
-##### **Calculation**
+##### **计算**
 
-Before calculating, we're going to know about some defined variables, and what they actually represent for.
+计算之前，要了解定义的变量和代表的含义。
 
-Firstly, when it comes to the position of graphics:
+首先是图形位置变量：
 
-- **oriX**: the original `x` value of the graphic
-- **oriY**: the original `y` value of the graphic
-- **moveX**: difference of the `x` value after moving.
-- **moveY**: difference of the `y` value after moving.
-- **viewBoxX**: the `x` value of the attribute `viewBox` in that graphic
-- **viewBoxY**: the `y` value of the attribute `viewBox` in that graphic
+- **oriX**: 图形初始 `x` 值
+- **oriY**: 图形初始 `y` 值
+- **moveX**: 移动前后 `x` 的差值.
+- **moveY**: 移动前后 `y` 的差值.
+- **viewBoxX**: 图形的 `viewBox` 属性的 `x` 值
+- **viewBoxY**: 图形的 `viewBox` 属性的 `y` 值
 
-And then, the size of graphics:
+然后是图形尺寸变量：
 
-- **oriW**: the original width of the graphic
-- **oriH**: the original height of the graphic
-- **svgW**: the width of the SVG element
-- **svgH**: the height of the SVG element
-- **viewBoxW**: the width of the attribute `viewBox` in that SVG element
-- **viewBoxH**: the height of the attribute `viewBox` in that SVG element
-- **curW**: the current width of the graphic
-- **curH**: the current height of the graphic
+- **oriW**: 图形初始宽度
+- **oriH**: 图形初始高度
+- **svgW**: SVG 元素的宽度
+- **svgH**: SVG 元素的高度
+- **viewBoxW**: SVG 元素的 `viewBox` 属性的宽度
+- **viewBoxH**: SVG 元素的 `viewBox` 属性的高度
+- **curW**: 图形的当前宽度
+- **curH**: 图形的当前高度
 
-Now we know what all these parameters mean, and then we can start to calculate the calibration parameters.
+了解变量含义之后，我们可以开始计算校准参数了。
 
-To calculate the current position of graphics, we can use an expression like this:
+用以下公式计算图形的当前位置：
 
 ```js
-var x = oriX + moveX;   /** current x value of the graphic */
-var y = oriY + moveY;   /** current y value of the graphic */
+var x = oriX + moveX;   /** 图形的当前 x 值 */
+var y = oriY + moveY;   /** 图形的当前 y 值 */
 ```
 
-And to calculate the difference of ratios, here is another expression:
+下面这个公式是用于计算比例：
 
 ```js
 var ratioParam = Math.max(oriW / svgW, oriH / svgH) * Math.min(svgW / viewBoxW, svgH / viewBoxH);
@@ -319,45 +319,45 @@ var ratioX = (curW / oriW) * ratioParam;
 var ratioY = (curH / oriH) * ratioParam;
 ```
 
-What we should remember is that the `x` and `y` value of the attribute `viewBox` will also affect graphics with cropping (as shown in Figure 2.4). Therefore, we need to filter them out of original points.
+要记住 `viewBox` 属性的 `x` 和 `y` 值会裁切图形（如图 2.4）。所以，我们需要从初始点值中去掉这部分值。
 
 <p align="center"><img width="70%" src="https://github.com/aleen42/PersonalWiki/raw/master/post/how_to_draw/2.png" alt="draw in javascript" /></p>
-<p align="center"><strong>Figure 2.4</strong> Cropped graphics</p>
+<p align="center"><strong>图 2.4</strong> 裁切图形 </p>
 
-For me, I have just rewrite them with a maximum or a minimum for the edge point. For example, if the position of points is out of the graphic, I will rewrite them by changing `x` or `y`, or even both when necessary, to the edge of graphics.
+我只需要边缘点的最大值和最小值。举个栗子，如果点集的位置在图形之外，我就改变 `x` 或 `y`，甚至全部改变，重写到图形的边上。
 
 ```js
 point.x = point.x >= x && point.x <= x + curW ? point.x : ((point.x < x) ? x : x + curW);
 point.y = point.y >= y && point.y <= x + curH ? point.y : ((point.y < y) ? y : y + curH);
 ```
 
-As far as I'm concerned, it's recommended to remove them rather than to rewrite them when the number of points is large.
+据我所知，当点的数量很大的时候，删除范围外的点要比重写更好。
 
-#### Convert all shapes into path elements
+#### 把所有形状变成路径元素
 
-At this moment, we have already known how to draw `path` elements in JavaScript, but as mentioned above, some shapes are defined with other elements like `rect`, `polyline`, `circle`, and so on. To draw them all, we should convert them into paths before. In this chapter, I will introduce how to do this.
+现在，我们已经知道怎么用 JavaScript 绘制 `path` 元素。上文说道，在绘制 `rect`、`polyline`、`circle` 等其他元素定义的形状之前，应该先转换成路径。本节，就来介绍一下做法。
 
-##### **Circles & Ellipses**
+##### **圆与椭圆**
 
-circle and ellipse elements are similar to each other with both attributes shown in Table 2.1:
+圆和椭圆元素是近亲，相同属性如表 2.1 所示：
 
-**Circles**|**Ellipses**
+**圆**|**椭圆**
 :-----:|:------:
 CX|CX
 CY|CY
 
-<p align="center"><strong>Table 2.1</strong> Attributes both they have</p>
+<p align="center"><strong>表 2.1</strong>相同属性</p>
 
-And Table 2.2 has shown the differences between them:
+不同属性如表 2.2 所示：
 
-**Circles**|**Ellipses**
+**圆**|**椭圆**
 :-----:|:------:
 R|RX
 |RY
 
-<p align="center"><strong>Table 2.2</strong> Different attributes between them</p>
+<p align="center"><strong>表 2.2</strong>不同属性</p>
 
-Then we can convert them like this:
+路径转换方法如下：
 
 ```js
 function convertCE(cx, cy) {
@@ -385,17 +385,17 @@ function convertCE(cx, cy) {
 }
 ```
 
-##### **Polylines & Polycircles**
+##### **多边形和随意画的圆**
 
-For these both elements, what you should do is to extract out the attribute `points`. and recompose them into a special format for `d` value of path elements.
+对于这些元素，要提取 `points` 属性。按路径元素的 `d` 值的特定格式重新组装。
 
 ```js
-/** pass the value of the attribute `points` into this function */
+/** 传入 `points` 属性的值*/
 function convertPoly(points, types) {
     types = types || 'polyline';
 
     var pointsArr = points
-        /** clear redundant characters */
+        /** 清除多余元素 */
         .split(' 	').join('')
         .trim()
         .split(/\s+|,/);
@@ -408,11 +408,11 @@ function convertPoly(points, types) {
 }
 ```
 
-##### **Lines**
+##### **线段**
 
-Generally, `line` elements will have some attributes defined for positioning start and end points of a line: `x1`, `y1`, `x2`, and `y2`.
+一般来说，`line` 元素有多个属性用于线的定位：`x1`，`y1`，`x2` 和 `y2`。
 
-Easily can we calculate like this:
+很简单，我们可以这么计算：
 
 ```js
 function convertLine(x1, y1, x2, y2) {
@@ -424,9 +424,9 @@ function convertLine(x1, y1, x2, y2) {
 }
 ```
 
-##### **Rectangles**
+##### **矩形**
 
-Rectangles will also have some attributes defined for positioning itself and deciding how big it's: `x`, `y`, `width`, and `height`.
+矩形也有一些用于定位和决定大小的属性：`x`，`y`，`width` 和 `height`。
 
 ```js
 function convertRectangles(x, y, width, height) {
@@ -443,19 +443,19 @@ function convertRectangles(x, y, width, height) {
 }
 ```
 
-So far I have already shown you how to convert all shape elements into `path`s. With them, you're of course able to draw them all with the way provided above.
+形状转换成 `path` 的方法已经全部讲解完毕。你可以用这些方法绘制上述图形。
 
-### Drawing non-SVG pictures a.k.a images
+### 绘制非 SVG 图像，也就是图片
 
-Except for SVG files, we are also have an expectation for drawing pictures with formats like PNG, JPG, or GIF. Only composed with pixel data, we cannot directly make use of it. Because of this reason, I have tried to use a normal technology in the region of Computer Vision, and that's Canny Edge Detection. With such detection, we can easily find contours of a bitmap image.
+除了 SVG 文件，我们还想绘制像 PNG，JPG，或者 GIF 格式的图像。仅仅由像素数据组成，我们是无法直接使用的。因此，我尝试用计算机视觉领域的一个常见技术，Canny 边缘检测算法。用这种算法，可以简单地找到位图的轮廓。
 
-The whole process of finding contours can be simply described as: **Gray Scale** -> **Gaussian Blur** -> **Canny Gradient** -> **Canny Non-maximum Suppression** -> **Canny Hysteresis** -> **Scanning**. As we all know, this is also the process of [*Canny Edge Detection*](https://en.wikipedia.org/wiki/Canny_edge_detector).
+寻找轮廓的整个步骤简单概括为：**灰度** -> **高斯模糊** -> **Canny 梯度** -> **Canny 非极大值抑制** -> **Canny 磁滞** -> **扫描**。这也是 [Canny 边缘检测算法](https://en.wikipedia.org/wiki/Canny_edge_detector) 的步骤。
 
-Before the process, we're going to define some common functions for using. The first item is `rumImg` function, which mainly used for loading images from a Canvas, and convert all them into a matrix, composed with an array.
+在处理之前，我们要定义一些通用函数。第一个是 `runImg` 函数，通常用在从 Canvas 中加载图片时，将其转换成由数组组成的矩阵。
 
 ```js
 /**
- * [runImg: loading images from a Canvas object]
+ * [runImg: 从 Canvas 对象中加载图片]
  * @param  {[type]}   canvas [the canvas object]
  * @param  {[type]}   size   [the size of the matrix, like 3 for 3x3 matrixs]
  * @param  {Function} fn     [callback function]
@@ -470,7 +470,7 @@ function runImg(canvas, size, fn) {
     }
 
     /**
-     * [getMatrix: generate a matrix with a given size]
+     * [getMatrix: 给定规模生成矩阵]
      * @param  {[type]} cx   [the x value of the central point]
      * @param  {[type]} cy   [the y value of the central point]
      * @param  {[type]} size [the size of the matrix you want to generate]
@@ -478,8 +478,7 @@ function runImg(canvas, size, fn) {
      */
     function getMatrix(cx, cy, size) {
         /**
-         * will generate a 2d array of size x size given center x,
-         * center y, size, image width & height
+         * 给定 cx，cy，size，图片宽高，生成 size x size 的二维数组
          */
         if (!size) {
             return;
@@ -500,11 +499,11 @@ function runImg(canvas, size, fn) {
 }
 ```
 
-Then, we will also have some operations about `imgData`, a variable which comes from a prototype method of Context objects in a Canvas, `Context.prototype.getImageData(x, y, width, height)`.
+然而，针对 `imgData` 还有一些操作，`imgData` 是 Canvas 中 Context 对象的 `Context.prototype.getImageData(x, y, width, height)` 这 个 prototype 方法的返回值变量。
 
 ```js
 /**
- * [getRGBA: get the RGBA value of a given start point]
+ * [getRGBA: 给定初始节点获取 RGBA 值]
  * @param  {[type]} start   [the point you want to know]
  * @param  {[type]} imgData [image data of the canvas]
  * @return {[Object]}       [return an object composed with r, g, b, and a attributes respectively]
@@ -519,7 +518,7 @@ function getRGBA(start, imgData) {
 }
 
 /**
- * [getPixel: same as getRGBA, but with legality checking]
+ * [getPixel: 类似 getRGBA, 但包含合法性检测]
  * @param  {[type]} i       [the point you want to know]
  * @param  {[type]} imgData [image data of the canvas]
  * @return {[Object]}       [return an object composed with r, g, b, and a attributes respectively]
@@ -538,7 +537,7 @@ function getPixel(i, imgData) {
 }
 
 /**
- * [setPixel: opposed to getPixel, this function is used to set value for specific points]
+ * [setPixel: 与 getPixel 相反, 这个函数用于为特定点设值]
  * @param {[type]} i       [the point you want to set]
  * @param {[type]} val     [an object composed with r, g, b, and a attributes respectively]
  * @param {[type]} imgData [image data of the canvas]
@@ -550,19 +549,19 @@ function setPixel(i, val, imgData) {
 }
 ```
 
-#### Gray Scale
+#### 灰度
 
-Now, we are on the journey of finding contours, and all examples given by Codepen can be run by clicking *Run* buttons. Due to its complexity, you have to wait a moment before reults are displayed on the screen.
+现在，可以开始找轮廓了，点击 *Run* 运行 Codepen 上给出的例子。由于有一定的复杂性，要等一会儿才能在屏幕上看到结果。
 
-Gray Scale in Wikipedia is defined as followed:
+灰度在维基百科上的定义如下：
 
-> In photography and computing, a **grayscale** or **greyscale** digital image is an image in which the value of each pixel is a single sample, that is, it carries only intensity information."
+> 在摄影和计算领域，**灰度** 或者说 **灰度** 数字图像是每个像素值都是单个采样的图片，即，这样的图片只携带亮度信息。
 
-In this section, we will use two methods to implement the process of gray scale:
+本节，我们将用两个方法实现灰度处理：
 
 ```js
 /**
- * [calculateGray: calculate the gray value]
+ * [calculateGray: 计算灰度值]
  * @param  {[type]} pixel [an object composed with r, g, b, and a attributes respectively]
  * @return {[Number]}     [return a grayscale value]
  */
@@ -571,7 +570,7 @@ function calculateGray(pixel) {
 }
 
 /**
- * [grayscale: process gray scale for the canvas]
+ * [grayscale: 为 canvas 处理灰度]
  * @param  {[type]} canvas [the canvas object]
  */
 function grayscale(canvas) {
@@ -589,20 +588,20 @@ function grayscale(canvas) {
 }
 ```
 
-An example has been shown as followed:
+栗子如下：
 
 <p>
 <p data-height="383" data-theme-id="21735" data-slug-hash="gLOgLM" data-default-tab="result" data-user="aleen42" data-embed-version="2" data-pen-title="gLOgLM" class="codepen">See the Pen <a href="http://codepen.io/aleen42/pen/gLOgLM/">gLOgLM</a> by aleen42 (<a href="http://codepen.io/aleen42">@aleen42</a>) on <a href="http://codepen.io">CodePen</a>.</p>
 <script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
 </p>
 
-#### Gaussian Blur
+#### 高斯模糊
 
-Gaussian Blur is a way used to increase the accuracy of contours finding, and it's also know as the first step of a Canny Edge Detector.
+高斯模糊是增加边缘检测精度的一个方法，也是 Canny 边缘检测的第一步。
 
 ```js
 /**
- * [sumArr: process sum of an given array]
+ * [sumArr: 给定数组取和]
  * @param  {[type]} arr [the array]
  * @return {[type]}     [return the sum value]
  */
@@ -617,7 +616,7 @@ function sumArr(arr) {
 }
 
 /**
- * [generateKernel: generate the kernel parameter of a Gaussian Blur algorithm]
+ * [generateKernel: 生成高斯模糊算法的核心参数]
  * @param  {[type]} sigma [the sigma value]
  * @param  {[type]} size  [the size of the matrix]
  * @return {[type]}       [description]
@@ -650,7 +649,7 @@ function generateKernel(sigma, size) {
 }
 
 /**
- * [gaussianBlur: run Gaussian Blur on a canvas object]
+ * [gaussianBlur: 对 canvas 对象进行高斯模糊处理]
  * @param  {[type]} canvas [the canvas object]
  * @param  {[type]} sigma  [the sigma value]
  * @param  {[type]} size   [the size of the matrix]
@@ -672,7 +671,7 @@ function gaussianBlur(canvas, sigma, size) {
             for (var j = 0; j < size; j++) {
                 pixel = getPixel(neighbors[i][j], imgDataCopy);
 
-                /** return the existing pixel value multiplied by the kernel */
+                /** 返回像素值乘以核心值 */
                 resultR += pixel.r * kernel[i][j];
                 resultG += pixel.g * kernel[i][j];
                 resultB += pixel.b * kernel[i][j];
@@ -690,22 +689,22 @@ function gaussianBlur(canvas, sigma, size) {
 }
 ```
 
-If you want to check the effect, you can change the sigma and size parameters to rerun the followed demo.
+如果你想检查效果，改变 sigma 和 size 参数返回演示如下，
 
 <p>
 <p data-height="383" data-theme-id="21735" data-slug-hash="LbYWYN" data-default-tab="result" data-user="aleen42" data-embed-version="2" data-pen-title="LbYWYN" class="codepen">See the Pen <a href="http://codepen.io/aleen42/pen/LbYWYN/">LbYWYN</a> by aleen42 (<a href="http://codepen.io/aleen42">@aleen42</a>) on <a href="http://codepen.io">CodePen</a>.</p>
 <script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
 </p>
 
-#### Canny Gradient
+#### Canny 梯度
 
-In this step, we are going to find the intensity gradient (G) of the image. Before that, we have to used the value for the first derivative in the horizontal direction (Gx) and the vertical direction (Gy), returned by a edge detector (Roberts, Prewitt, Sobel, etc.). *Sobel Detector* is exactly what we used.
+在这步，我们将找到图片的亮度梯度（G）。在之前，我们要得到边缘检测器（Roberts，Prewitt，Sobel等）第一步在水平方向（Gx）和垂直方向（Gy）的衍生值。我们用的是 **Sobel 探测器**。
 
-Before processing gradient, we should export a module, used for operating pixels easily, which is named as Pixel.
+在处理灰度之前，我们应该导出一个模块，用于操作像素，我们命名为 Pixel。
 
 ```js
 (function(exports) {
-    /** actually, there should be eight directions for each pixel */
+    /** 实际上，每个像素有 8 个方向 */
     var DIRECTIONS = ['n', 'e', 's', 'w', 'ne', 'nw', 'se', 'sw'];
 
     function Pixel(i, w, h, canvas) {
@@ -721,8 +720,7 @@ Before processing gradient, we should export a module, used for operating pixels
     }
 
     /**
-     * This object was created to simplify getting the
-     * coordinates of any of the 8 neighboring pixels
+     * 这个对象方便获取 8 个临近方向的像素值
      * _______________
      * | NW | N | NE |
      * |____|___|____|
@@ -730,14 +728,14 @@ Before processing gradient, we should export a module, used for operating pixels
      * |____|___|____|
      * | SW | S | SE |
      * |____|___|____|
-     * given the index, width and height of matrix
+     * 给定矩阵模型的 index, width and height
     **/
 
     Pixel.prototype.n = function() {
         /**
-         * pixels are simply arrays in canvas image data
-         * where 1 pixel occupies 4 consecutive elements
-         * equal to r-g-b-a
+         * 像素在 canvas 图片数据中是个简单数组
+         * 1 个像素占用 4 个连续数组元素
+         * 等于 r-g-b-a
          */
         return (this.index - this.width * 4);
     };
@@ -797,7 +795,7 @@ Before processing gradient, we should export a module, used for operating pixels
 }(this));
 ```
 
-With the Pixel, we can just start to implement the process of Gradient:
+用 Pixel 开始实现梯度处理：
 
 ```js
 function roundDir(deg) {
@@ -900,18 +898,18 @@ function gradient(canvas, op) {
 }
 ```
 
-And the demo should look like this:
+样例如下：
 
 <p>
 <p data-height="383" data-theme-id="21735" data-slug-hash="aBbpWM" data-default-tab="result" data-user="aleen42" data-embed-version="2" data-pen-title="aBbpWM" class="codepen">See the Pen <a href="http://codepen.io/aleen42/pen/aBbpWM/">aBbpWM</a> by aleen42 (<a href="http://codepen.io/aleen42">@aleen42</a>) on <a href="http://codepen.io">CodePen</a>.</p>
 <script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
 </p>
 
-#### Canny Non-maximum Suppression
+#### Canny 非极大值抑制
 
-Non-Maximum suppression is applied to "thin" the edge. As you can see, after applying gradient calculation, the edge extracted from the gradient value is still quite blurred. With respect to criterion 3, there should only be one accurate response to the edge. Thus non-maximum suppression can help to suppress all the gradient values to 0 except the local maximal, which indicates location with the sharpest change of intensity value.
+非极大值抑制应用到 “薄” 边。梯度计算后，从梯度值中提取的边缘仍然很模糊。根据范式 3，边缘只能有一个精确值。所以非极大值抑制能够帮助抑制除了本地极大值之外的其他值，指出亮度值改变最大的位置。
 
-With the calculated `dirMap` and `gradMap` provided by the last step:
+最后一步是计算 `dirMap` 和 `graphMap`：
 
 ```js
 function getPixelNeighbors(dir) {
@@ -949,16 +947,16 @@ function nonMaximumSuppress(canvas, dirMap, gradMap) {
 }
 ```
 
-After suppression, it seems greater than before:
+抑制之后，看起来比以前效果要好：
 
 <p>
 <p data-height="383" data-theme-id="21735" data-slug-hash="jVOBNe" data-default-tab="result" data-user="aleen42" data-embed-version="2" data-pen-title="jVOBNe" class="codepen">See the Pen <a href="http://codepen.io/aleen42/pen/jVOBNe/">jVOBNe</a> by aleen42 (<a href="http://codepen.io/aleen42">@aleen42</a>) on <a href="http://codepen.io">CodePen</a>.</p>
 <script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
 </p>
 
-#### Canny Hysteresis
+#### Canny 磁滞
 
-However, there're also so-called "weak" edges needed to be process. Canny Hysteresis is an improved solution for Canny Edge Detection.
+无论如何，这个所谓的 “弱” 边还需要进一步加工。Canny 磁滞是 Canny 边缘检测的改进方法。
 
 ```js
 function createHistogram(canvas) {
@@ -1118,38 +1116,38 @@ function hysteresis(canvas) {
 }
 ```
 
-Or what will it be after removing weak edges from strong ones?
+从图中删除 “弱” 边之后是什么样的呢？
 
 <p>
 <p data-height="383" data-theme-id="21735" data-slug-hash="RowpLx" data-default-tab="result" data-user="aleen42" data-embed-version="2" data-pen-title="RowpLx" class="codepen">See the Pen <a href="http://codepen.io/aleen42/pen/RowpLx/">RowpLx</a> by aleen42 (<a href="http://codepen.io/aleen42">@aleen42</a>) on <a href="http://codepen.io">CodePen</a>.</p>
 <script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
 </p>
 
-Wow, it looks perfect for me.
+哇，看起来更完美了。
 
-#### Scanning
+#### 扫描
 
-With the image, which only has two kinds of pixels: 0 and 255, we can just scan each of them to generate a path with points. The algorithm can be described as followed:
+这幅图只有两种像素：0 和 255，可以通过扫描每个像素生成点路径。算法描述如下：
 
-- Loop for getting pixels, and check whether it's marked as seen and its value is 255.
-- When it matches, find out a direction to generate a path as longest as possible. (Each pixel will be marked as seen, when a path is made of itself, while a path is a true path when its points has been more than a value, **6** ~ **10**.)
+- 循环获取像素值, 检测是否被标记为255值.
+- 匹配之后，找出生成最长路径的方向。（当一条路径是由自身组成的，每个像素都会被标记，当一条路径的点有超过一个值，就是一条真实路径，**6** ~ **10**。）
 
-After scanning, we will extract out data of paths like SVGs have, and of course you can also draw it as well.
+扫描之后，提取 SVG 的路径数据，当然你还可以绘制路径。
 
-### Summary
+### 小结
 
-The article has talked about how to draw in JavaScript in details, no matter SVG files or any images of PNG, JPG, or GIF. The core idea to implement such requirements is to convert them all into data of paths with a specific format. As long as we can extract out such data, of course can we simulate to draw pictures in JavaScript.
+本文详细地讨论了如何用 JavaScript 绘图，不管是 SVG 文件还是其他类型图片，比如 PNG、JPG 和 GIF。核心思想是转换特定格式到路径数据。一旦抽离出这样的数据，我们还可以模进行模拟绘图。
 
-- For `path` elements in SVG files, just draw it directly.
-- When it comes to other elements like `rect`, we can convert them before.
-- Using Canny Edge Detection to detect contours in any bitmap images, so that we can draw them.
+- 直接绘制 SVG 文件中的 `path` 元素。
+- 如果是其他元素，例如 `rect`，需要先转换成 `path`。
+- 使用 Canny 轮廓检测算法检测位图中的轮廓，这样才可以绘制.
 
-### Reference
+### 参考文档
 
-- [1] ["Animated Glowing Line Drawing"](./../../Programming/JavaScript/webgl/canvas/line_drawing/line_drawing.md), 2016
-- [2] ["Finding Contours of a bitmap image"](./../../Programming/JavaScript/webgl/canvas/finding_contours/finding_contours.md), 2016
-- [3] ["Drawing an SVG file"](./../../Programming/JavaScript/webgl/canvas/drawing_an_svg/drawing_an_svg.md), 2016
-- [4] ["Calibration parameters for drawing an SVG file"](./../../Programming/JavaScript/webgl/SVG/calibration_parameters/calibration_parameters.md), 2016
-- [5] ["Convert all shapes/primitives into path elements of SVG"](./../../Programming/JavaScript/webgl/SVG/convert_shapes_to_path/convert_shapes_to_path.md), 2016
-- [6] ["contour"](https://github.com/JMPerez/contour), 2015
-- [7] ["Canny edge detector"](https://en.wikipedia.org/wiki/Canny_edge_detector), Wikipedia, 2016
+- [1] ["光线绘图动画"](./../../Programming/JavaScript/webgl/canvas/line_drawing/line_drawing.md), 2016
+- [2] ["位图轮廓查找"](./../../Programming/JavaScript/webgl/canvas/finding_contours/finding_contours.md), 2016
+- [3] ["绘制一个 SVG 文件"](./../../Programming/JavaScript/webgl/canvas/drawing_an_svg/drawing_an_svg.md), 2016
+- [4] ["SVG 文件绘制的校准参数"](./../../Programming/JavaScript/webgl/SVG/calibration_parameters/calibration_parameters.md), 2016
+- [5] ["转换所有形状/原始形状到 SVG 的路径元素"](./../../Programming/JavaScript/webgl/SVG/convert_shapes_to_path/convert_shapes_to_path.md), 2016
+- [6] ["轮廓"](https://github.com/JMPerez/contour), 2015
+- [7] ["Canny 边缘检测器"](https://en.wikipedia.org/wiki/Canny_edge_detector), Wikipedia, 2016
