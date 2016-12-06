@@ -1,33 +1,33 @@
 > * 原文地址：[Finally understanding how references work in Android and Java](https://medium.com/google-developer-experts/finally-understanding-how-references-work-in-android-and-java-26a0d9c92f83#.x1m4ykp6m)
 * 原文作者：[Enrique López Mañas](https://medium.com/@enriquelopezmanas)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
-* 校对者：
+* 译者：[jacksonke](https://github.com/jacksonke)
+* 校对者：[jamweak](https://github.com/jamweak)，[PhxNirvana](https://github.com/phxnirvana) 
 
-# Finally understanding how references work in Android and Java
-A few weeks ago I attended [Mobiconf](http://2016.mobiconf.org/), one of the best conferences for Mobile Developers I had the pleasure to attend in Poland. During his eclectic presentation “The best (good) practices”, my friend and colleague [Jorge Barroso](https://github.com/flipper83) came up with a statement that made me reflect after hearing it:
+# 彻底理解引用在 Android 和 Java 中的工作原理
+几周前，我很荣幸地参加了在波兰举行的[ Mobiconf ](http://2016.mobiconf.org/)，移动开发者参加的最好的研讨会之一。我的朋友兼同事 [Jorge Barroso](https://github.com/flipper83) 做了个名为“最好（良好）的做法”的演说 ，这让我在听后很有感触：
 
-> If you are an Android developer and you do not use WeakReferences, you have a problem.
+> 对于一个 Android 开发者，如果你不使用 WeakReferences，这是有问题的。
 
-On an example of good timing, a couple of months ago I did publish my last book, “[Android High Performance](https://goo.gl/DLyeXN)”, co-authored with [Diego Grancini](https://www.linkedin.com/in/diegograncini). One of the most passionate chapters is the one talking about Memory Management in Android. In this chapter, we talk about how the memory works in a mobile device, how memory leaks happen, why this is important and which techniques we can apply to avoid them. Since I did start developing for Android, I have always observed a tendency to involuntarily avoid or give a low priority to everything related with memory leaks and memory management. If the functional criteria are fulfilled, why bothering? We are always in a rush to develop new features, and we would rather present something visual in our next Sprint demo rather than caring about something that nobody will see at a first glance.
+举个恰当的例子，几个月前，我发布了我的最后一本书 “[Android High Performance](https://goo.gl/DLyeXN)”, 联席作者是 [Diego Grancini](https://www.linkedin.com/in/diegograncini)。最热门的章节之一就是讨论 Android 的内存管理。在本章中，我们介绍了移动设备中内存的工作原理，内存泄漏是如何发生的，为什么这个是重要的，以及我们可以应用哪些技术来避开它们。因为我从开发 Android 起，就常常看到这么种倾向：轻视甚至无视一切与内存泄漏和内存管理相关的问题。已经满足开发需求了，为何要庸人自扰呢？我们总是急于开发新的功能，我们宁愿在下一个斯普林特演示中呈现一些可见的东西，也不会关心那些没有人一眼就能看到的东西。
 
-Is a nice argument, which irrevocably leads to acquiring [technical debt](https://en.wikipedia.org/wiki/Technical_debt). I would even add that the technical debt has also some effects in the real world that we cannot measure with unit tests: disappointment, friction among fellow developers, low quality software shipped and loss of motivation. The reason why this effects are difficult to measure is because often they happen in the long term. It occurs a little bit like with politicians: if I am only going to be in charge for 8 years, why would I bother about what happens in 12? Except that in Software Development everything moves way faster.
+这无疑是导致[技术债务](https://en.wikipedia.org/wiki/Technical_debt)一个活生生的例子。 我甚至可以补充地说，技术债务在现实世界中也有一些影响，那是我们不能用单元测试衡量的：失望，开发者间的摩擦，低质量的软件和积极性的丧失。这种影响难以衡量的原因是在于它们常常发生在长远的将来的某个时间点。这有点像政客：如果我只当政 8 年，为何我要烦心 12 年后将要发生的事呢？除了在软件开发，一切都以更快的方式。
 
-Writing about the decent and proper mindset to adopt in Software Development could require a few volumes, and there are already many books and articles that you can explore. However, explaining briefly the different types of memory references, what do they mean and how can they be applied in Android will be a briefer task, and this is what I want to do in this article.
+编写软件开发中应该采纳的设计思想可能需要一些大篇文章，而且已经有很多书和文章可供您参考。然而，简要地解释不同类型的内存引用，它们具体是什么，以及如何在 Android 中使用，这是个相对简短的任务，这也是我想在本文中做的。
 
-First of all: what is a reference in Java?
+首先：Java 中的引用是什么？
 
-> A reference is the direction of an object that is annotated, so you can access it.
+> 引用指向了一个对象，你能通过引用访问对象。
 
-Java has by default 4 types of references: **strong**, **soft**, **weak** and **phantom**. Some people argue that there are just two types of references, strong and weak, and the weak references can present 2 degrees of weakness. We tend to classify everything in life with the taxonomic perseverance of a botanist. Whatever it works better for you, but first you do need to understand them. Then you can figure out your own classification.
+Java 默认有 4 种类型的引用：**强引用（StrongReference）**、**软引用（SoftReference）**、**弱引用（WeakReference）** 和 **虚引用（PhantomReference）**。部分人认为只有强引用和弱引用两种类型的引用，而弱引用有两个层次的弱化。我们习惯于将生活中的一切事物归类，那种毅力堪比植物学家对植物的分类的。不论你觉得哪种分类更好，首先你需要去理解这些引用。然后你可以找出自己的分类。
 
-What does each type of reference mean?
+各种引用都是什么意思？
 
-**Strong reference:** strong references are the ordinary references in Java. Anytime we create a new object, a strong reference is by default created. For example, when we do:
+**StrongReference：** 强引用是 Java 中最为常见的引用类型。任何时候，当我们创建了一个对象，强引用也同时被创建了。比如，当我们这么做：
 
     MyObject object = new MyObject();
 
-A new object _MyObject_ is created, and a strong reference to it is stored in _object_. Easy so far, are you still with me? Well, now more interesting things are coming. This _object_ is **strongly reachable** — that means, it can be reached through a chain of strong references. That will prevent the Garbage Collector of picking it up and destroy it, which is what we mostly want. But now, let´s see an example where this can play against us.
+一个新的 **MyObject** 对象被创建，指向它的强引用保存在 **object** 中。你还在看吧？ 嗯，更有意思的事情来了，这个 **object** 是可以**强行到达**的——意思就是，它可以通过一系列强引用找到，这将会阻止垃圾回收机制回收它，然而，这正是是我们最想要的。现在，我们来看个例子。
 
     public class MainActivity extends Activity {
         @Override
@@ -47,25 +47,25 @@ A new object _MyObject_ is created, and a strong reference to it is stored in _o
                 return new MyObject();
             } 
         }
-        }
+    }
 
-Take a few minutes and try to spot any approach susceptible of problems.
+花几分钟，尝试去找可能出现问题的点。
 
-No worries, take more time if you can´t.
+不用担心，如果一时找不到，那再花点时间看看。
 
-Now?
+现在呢？
 
-The _AsyncTask_ will be created and executed together with the _Activity_ _onCreate()_ method. But here we have a problem: the inner class needs to be accessing the outside class during its entire lifetime.
+**AsyncTask** 对象会在 **Activity** **onCreate()** 方法中创建并运行。但这里有个问题：内部类在它的整个生命周期中是会访问外部类。
 
-What happens when the _Activity_ is destroyed? The _AsyncTask_ is holding a reference to the _Activity_, and the _Activity_ cannot be collected by the GC. This is what we called a memory leak.
+如果 **Activity** 被 destroy 掉时，会发生什么？ **AsyncTask** 仍然持有 **Activity** 的引用，所以 **Activity** 是不能被 GC 回收的。这就是我们所说的内存泄漏。
 
-> **Side note**: when in my previous lifes I used to conduct interviews with prospective candidates, I used to ask them how could you create a memory leak rather than asking about the theoretical aspect of what a memory leak is. It was always much more fun!
+> **旁注** ：以前，我曾经对合适的人进行访谈，我问他们如何创建内存泄漏，而不是询问内存泄漏的理论方面。这总是更有趣！
 
-The memory leak actually happens not only when the _Activity_ is destroyed _per-se_, but as well when it is forcibly destroyed by the system due to a change in the configuration or more memory is needed, etc. If the _AsyncTask_ is complex (i.e., keeps references to _Views_ in the _Activity_, etc) it could even lead to crashes, since the view references are null.
+内存泄漏实际上不仅发生在 **Activity** 自身销毁的时候，同时还发生在由于配置的改变或需要更多的内存而被系统强行销毁等时刻。如果 **AsyncTask** 复杂点（比如，持有 **Activity** 上的 **View** 的引用），它甚至会导致崩溃，因为 view 的引用是 null。
 
-So how can prevent this problem from ever happening again? Let´s explain the other type of references:
+那么，要如何防止这种问题再次发生呢？我们接下来介绍另一种类型的引用：
 
-**WeakReference**: a weak reference is a reference not strong enough to keep the object in memory. If we try to determine if the object is strongly referenced and it happened to be through _WeakReferences_, the object will be garbage-collected. For terms of understanding, is better to kill the theory and show as a practical example how could we adapt the previous code to use a _WeakReference_ and avoid a memory leak:
+**WeakReference**：弱引用是引用强度不足以将对象保持在内存中的引用。如果垃圾回收机制试图确定对象的引用强度，如果恰好是通过 WeakReferences 引用，那么该对象将被垃圾回收。为了便于理解，最好是先抛开理论，用上个例子来说明如何使用 **WeakReference** 来避免内存泄漏：
 
     public class MainActivity extends Activity {
         @Override
@@ -97,20 +97,20 @@ So how can prevent this problem from ever happening again? Let´s explain the ot
         }
         }
 
-Note a main difference now: the Activity within the inner class is now referenced as follows:
+现在注意一个主要区别：Activity 是这样被内部类引用的：
 
     private WeakReference mainActivity;
 
-What will happen here? When the Activity stops existing, since it is hold through the means of a WeakReference, it can be collected. Therefore no memory leaks will happen.
+这样做有什么差别呢？ 当 Activity 不存在时，由于它是被 WeakReference 持有的，可以被收集。 因此，不会发生内存泄漏。
 
-> **Side note:** now that you hopefully understand what WeakReferences are a little bit better, you will find useful the class WeakHashMap. It works exactly as a HashMap, except that the keys (key, not values) are referred to using WeakReferences. This makes them very useful to implement entities such as caches.
+> **旁注:** 如果你现在对 WeakReferences 有预期的更好的了解，你会发现类 WeakHashMap 是很有用的。 它完全就是一个 HashMap，除了使用 WeakReferences 引用键（键，而不是值）。 这使得它们对于实现诸如缓存之类的实体非常有用。
 
-We have mentioned however a couple of references more. Let´s see where they are useful, and how we can benefit of them:
+我们提到过更多的引用类型。 让我们看看它们在什么地方有用，以及我们如何能从中受益：
 
-**SoftReference**: think of a _SoftReference_ as a stronger _WeakReference_. Whereas a _WeakReference_ will be collected immediately, a _SoftReference_ will beg to the GC to stay in memory unless there is no other option. The [Garbage Collector algorithms](https://plumbr.eu/handbook/garbage-collection-algorithms-implementations) are really thrilling and something you can dive in for hours and hours without getting tired. But basically, they say _“I will always reclaim the WeakReference. If the object is a SoftReference, I will decide what to do based on the ecosystem conditions”_. This makes a _SoftReference_ very useful for the implementation of a cache: as long as the memory is plenty, we do not have to worry of manually removing objects. If you want to see an example in action, you can check [this example](http://peters-andoird-blog.blogspot.de/2012/05/softreference-cache.html) of a cache implemented with _SoftReference_.
+**SoftReference**: **软引用**可以作为一个引用强度更强的**弱引用**。在**弱引用**将被立即回收的情形下，**软引用**会向 GC 请求留在内存中，除非没有其他选项（否则是不会回收软引用持有的对象）。[垃圾回收算法](https://plumbr.eu/handbook/garbage-collection-algorithms-implementations)真的很有意思，你可以几个小时内沉醉于研究它，而不会感到疲惫。但大体上，垃圾回收会这么解说“我会永远收回弱引用。 如果对象是 软引用，我将基于具体条件决定是否回收。” 这使得**软引用**对于实现缓存非常有用：只要内存足够，我们就不必担心手动删除对象。 如果你想看实际中的例子，你可以查看[这个例子](http://peters-andoird-blog.blogspot.de/2012/05/softreference-cache.html)，用**软引用**实现的缓存。
 
-**PhantomReference**: Ah, PhantomReferences! I think I can count on the fingers of one hand how often I saw them used in a production environment. An Object that has only being referenced through a PhantomReference them can be collected whenever the Garbage Collector wants. No further explanations, no “call me back”. This makes it hard to characterise. Why would we like to use such a thing? Are the other ones not problematic enough? Why did I choose to be a programmer? PhantomReference can be used exactly to detect when an object has been removed from memory. Being fully transparent, I recall two occasions when I had to use a PhantomReference in my entire professional career. So do not get stressed if they are hard to understand now.
+**PhantomReference**：额，虚引用! 在实际产品开发中，我见过的，使用的次数不会超过 5 次。 垃圾收集器能随时回收虚引用 持有的对象，只要它乐意。没有进一步的解释，没有回调，这使得它难以描述。为什么我们要使用这样的东西？ 其他几个的问题还不够吗？ 为什么我会选择成为程序员？ 虚引用可以精确地用于检测对象是否已从内存中删除。 说实话，在我的整个职业生涯中不得不用虚引用的场景只有两次。 所以，即便你现在不是很难理解，也不要感到有压力。
 
-Hope this has clear a little bit the idea you previously had about references. As in any matter of learning, you might want to start to [be practical](https://medium.com/@enriquelopezmanas/the-theoretical-animal-4f6901aaf571#.5nocvfu4m) and play around with your code and see how can you improve it. A first step would be to see if you are having any memory leak, and see if you can use any of the lessons learned here to get rid of those nasty memory leaks. If you have liked this article or it did help you, feel free to share and/or leave a comment. That is the currency that fuels amateur writers.
+希望这有稍微消除点之前你对引用的疑虑。作为学习的东西，或许你现在想要来点[练习](https://medium.com/@enriquelopezmanas/the-theoretical-animal-4f6901aaf571#.5nocvfu4m)，玩你自己的代码，看看能怎么改进它。第一步应该是看看有没有内存泄漏，然后看看能否通过这里所学的知识去改掉那些令人讨厌的内存泄漏。如果你喜欢这篇文章，或者它确实帮到了你，请随意分享或者留下你的评论。这也是我这位业余写手的动力。
 
-Thanks to my colleague [Sebastian](https://twitter.com/semuvex) for his input on the article!
+感谢我的同事 [Sebastian](https://twitter.com/semuvex) 对这篇文章的投入！
