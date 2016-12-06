@@ -4,10 +4,10 @@
 * 译者：[Hyuni](http://hyuni.cn/)
 * 校对者：
 
-# 响应式邮箱设计
+# 响应式邮件设计
 
 
-无论你喜不喜欢,网页邮箱的人气是不可否认的. 就像网页一样, 收件箱开始走向移动化,[有一半以上的邮件](https://litmus.com/blog/email-client-market-share-where-people-opened-in-2013) 是在移动设备上被打开.
+无论你是否喜欢,HTML邮件的人气是不可否认的. 就像网页一样, 收件箱开始走向移动化,[有一半以上的邮件](https://litmus.com/blog/email-client-market-share-where-people-opened-in-2013) 是在移动设备上被打开.
 
 
 # Translations
@@ -16,11 +16,10 @@
 
 [![](//assets.servedby-buysellads.com/p/manage/asset/id/32683)Brief books for people who make websites. Ad via BuySellAds](//srv.buysellads.com/ads/click/x/GTND423YCTSD4KJYCAA4YKQWFTYDK23JCVBICZ3JCEADT2J7CK7DL23KC6BDEK3NCTYDEK3EHJNCLSIZ)
 
-邮箱设计仍然是非常过时的实践. 还记得在Web规范成为…规范之前的编码时光吗? 欢迎来到邮箱设计地狱.
+现在的邮件依然设计的很过时. 还记得在Web规范成为…规范之前的编码时光吗? 欢迎来到邮箱设计地狱.
 
-But coding an email doesn’t need to be a lesson in frustration. While email designers still have to build layouts using tables and style them with HTML attributes and—gasp!—inline styles, a number of intrepid designers are taking modern techniques pioneered for the web and applying them to the archaic practice of email design.
-
-Building on the principles of [responsive web design](http://alistapart.com/article/responsive-web-design/) first codified by Ethan Marcotte, a revolution in email design is giving birth to an experience fast approaching that of the modern web. Subscribers need no longer be subjected to terrible reading experiences, frustrating touch targets, and tiny text.
+But coding an email doesn’t need to be a lesson in frustration. 现在的邮件设计者还必须使用HTML属性，gsap，行内样式，以及一些前卫的设计师所说的前沿技术来代替老旧的用法来给邮件设计布局。
+收到由Ethan Marcotte首次撰写的基于[响应式网页设计]原理的开发(http://alistapart.com/article/responsive-web-design/)的启发，一场逐步逼近现代网页的电子邮件设计风潮开始了。
 
 ## 网页邮箱的价值[#section1](#section1)
 
@@ -30,10 +29,10 @@ Building on the principles of [responsive web design](http://alistapart.com/arti
 
 许多开发者给顾客发送纯文本格式的邮件. 尽管纯文本格式有许多优点 (容易写，兼容性强，下载快等等), 但是HTML格式的电子邮件也有许多优势: 
 
-- 超链接. .
-- 设计. A well-designed HTML email lets you reinforce your brand, even in the inbox.
-- 层次结构. You can build hierarchy within HTML emails and more easily call attention to important copy or vital links.
-- 跟踪. HTML email allows you to track opens and engagement—valuable data that can be used to optimize your marketing efforts.
+- 超链接. 你可以通过邮件中链接到外部页面来进行更多交互.
+- 设计.及时是在收件箱中，一个设计良好的HTML邮件也能让你强调你的品牌.
+- 层次结构. 在HTML邮件中你可以使你的邮件主从分明，让人更容易注意到重要副本或者重要连接.
+- 跟踪. HTML邮件允许你去追踪邮件是否被打开和约会接受情况，这些有价值的数据可以用来优化你的营销效率.
 
 By not giving email as much attention as your pixel-perfect app, you are effectively losing out on 1) a valuable branding opportunity, 2) the ability to track opens and interactions in your emails, and 3) the opportunity to provide an amazing user experience outside of your application.
 
