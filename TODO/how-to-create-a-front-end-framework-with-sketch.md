@@ -15,11 +15,11 @@ A good style guide must be adopted by all the team members, such as developers, 
 
 Before starting with the creation process of the *FEF*, it is important to keep some aspects in mind:
 
-> **It must be usable **andit must be easy to integrate into the different work processes.
+> **It must be usable** andit must be easy to integrate into the different work processes.
 
-> **It must be educational **andmust contain examples to help us create new components and interactions.
+> **It must be educational** andmust contain examples to help us create new components and interactions.
 
-> **It must be visual **andclear in its specifications.
+> **It must be visual** andclear in its specifications.
 
 > **Must be collaborative**, so each member has the possibility to make changes and add new information.
 
