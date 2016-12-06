@@ -216,7 +216,6 @@ Node & Express 非常简单，你可以仅用 12 行代码就能够实现一个�
     const requestId = (req, res, next) => {
       const requestId = cuid();
       req.id = requestId;
-      res.id = requestId;
 
       // 延续传递至下一个中间件
       next();
