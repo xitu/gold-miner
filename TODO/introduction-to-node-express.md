@@ -41,11 +41,11 @@ Node 是一个 JavaScript 环境，使用了与谷歌 Chrome 浏览器相同的 
 
 你可以使用 install script 来安装或者升级 nvm，使用 curl：
 
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh | bash
+`curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh | bash`
 
 或者 Wget：
 
-wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh | bash
+`wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh | bash`
 
 安装好 nvm 后，你可以用它来安装各种版本的 Node。
 
@@ -53,6 +53,7 @@ wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh | 
 
 Node & Express 非常简单，你可以仅用 12 行代码就能够实现一个基本的 web 服务器来实现 “Hello,world!” ：
 
+```
     const express = require('express');
 
     const app = express();
@@ -65,27 +66,30 @@ Node & Express 非常简单，你可以仅用 12 行代码就能够实现一个�
     app.listen(port, () => {
       console.log(`listening on port ${ port }`);
     });
+```
 
 在代码运行之前，你需要创建你的应用。从创建一个新的 git 仓库开始：
 
+```
     mkdir my-node-app && cd my-node-app
     git init
+```
 
 你需要一个  `package.json` 文件来存储应用的配置信息，你可以用 Node 中自带的 `npm` 来创建：
 
-    npm init
+    `npm ini`
 
 填写一些问题（应用名称、git 仓库等）之后你就可以准备部署应用了。接下来你需要安装 Express：
 
-    npm install --save express
+    `npm install --save express`
 
 依赖安装完之后，你可以输入以下命令来运行你的应用：
 
-    node index.js
+    `node index.js`
 
 用 `curl` 来测试：
 
-	curl localhost:3000
+    `curl localhost:3000`
 
 或者在浏览器中访问 `localhost:3000`。
 
@@ -99,34 +103,38 @@ Node & Express 非常简单，你可以仅用 12 行代码就能够实现一个�
 
 要想解决这个问题，不妨来试试 [dotenv](https://github.com/motdotla/dotenv) 的 Node 版本：
 
-    npm install --save dotenv
+    `npm install --save dotenv`
 
 然后在入口文件顶部添加：
 
-    require('dotenv').config();
+    `require('dotenv').config();`
 
 现在你能从 `.env` 文件中加载 `port` 的设置了，接下来在项目的根目录下新建一个名为 `.env` 的文件：
 
-    PORT=5150
+    `PORT=5150`
 
 保存，重启应用，之后你会看到：
 
-    listening on port 5150
+    `listening on port 5150`
 
 如果你不想将 `.env` 文件提交到 Git，你需要将它添加到 `.gitignore` 文件中。事实上，我们还需要将一些其他的内容添加进去：
 
+```
     node_modules
     build
     npm-debug.log
     .env
     .DS_Store
+```
 
 如果你还是想记录应用所需的配置信息，我通常喜欢添加一份 `.env` 文件的副本，并将应用密文写进去。新用户可以复制该文件，将其命名为 `.env` 并自定义设置选项、关闭文件然后运行。我会将提交的副本文件命名为 `.env.example` 并在项目的 `README.md` 文件中写一份开发指南。
 
 [可将应用的配置项写入 `.env.example` 文件，并将敏感配置信息以加密形式处理，仅作为配置内容示例，译者注。]
 
+```
 	PORT=5150
 	AWS_KEY=
+```
 
 你应该注意，如我所言，所有的应用密文全都要写在 `.env.example` 文件中。
 
@@ -138,6 +146,7 @@ Node & Express 非常简单，你可以仅用 12 行代码就能够实现一个�
 
 以下是一个使用 Supertest 和 [Tape](https://medium.com/javascript-scene/why-i-use-tape-instead-of-mocha-so-should-you-6aa105d8eaf4) 测试的一个简单的实例：
 
+```
     const test = require('tape');
     const request = require('supertest');
 
@@ -154,12 +163,13 @@ Node & Express 非常简单，你可以仅用 12 行代码就能够实现一个�
           assert.end();
         });
     });
+```
 
 我也会给任何我用于构建 API 的稍小的、可重用的模块写[单元测试](https://medium.com/javascript-scene/what-every-unit-test-needs-f6cd34d9836d)。
 
 需要注意的是，我们直接导入了快速应用，而没有使用网络。Supertest 并不需要读取应用配置来确定连接端口，它将所有的细节都封装起来，为了能够正常工作，你需要在应用文件中导出你的应用。
 
-    module.exports = app;
+    `module.exports = app;`
 
 基于这样和那样的原因，我将应用分割成许多不同的切片，在 `app.js` 中搭建并配置应用，在 `server.js` 中导入应用，在 `app.listen()` 中处理网络细节。
 
@@ -167,23 +177,25 @@ Node & Express 非常简单，你可以仅用 12 行代码就能够实现一个�
 
 当你将应用划分为多个模块时，你将会对相对路径的引入关系感到不胜其烦：
 
-const app = require('../../app');
+    `const app = require('../../app');`
 
 幸运的是，你不需要这样做。把你的应用文件放在名为 `source` 或者 `src` 的目录中，然后设置 `NODE_PATH` 环境变量。你可以使用 `cross-env` 设置环境变量，使他们可以跨平台使用（可以在 Windows 下读取并运行应用）。
 
-    npm install --save cross-env
+    `npm install --save cross-env`
 
 之后，你可以很安全地在 `package.json` 脚本中设置环境变量：
 
+```
      "scripts": {
         "start": "cross-env NODE_PATH=source node source/server.js",
         "debug": "cross-env NODE_PATH=source node --debug-brk --inspect source/server.js",
         "test": "cross-env NODE_PATH=source node source/test/index.js"
       }
+```
 
 设置 `NODE_PATH` 之后，你可以这样引入模块：
 
-const app = require('app');
+`const app = require('app');`
 
 超赞！
 
@@ -193,6 +205,7 @@ const app = require('app');
 
 中间件其实是一个函数，他能够调用一个名为 `next()` 的函数，来传递请求和响应对象。假如你想在每个请求和响应中都添加一个 `requestId` ，从而能够很方便地在调试中追踪单个请求或者在日志中搜索内容，你可以写一个像这样的中间件：
 
+```
     require('dotenv').config();
     const express = require('express');
     const cuid = require('cuid');
@@ -216,6 +229,7 @@ const app = require('app');
     });
 
     module.exports = app;
+```
 
 ### 内存管理
 
@@ -229,7 +243,7 @@ Node v6.4.x+ 版本中集成了完整的 Chrome 调试工具，因此你可以�
 
 要使用调试功能，你只需简单的在断点处添加一个调试声明，然后运行：
 
-node --debug-brk --inspect source/app.js
+`node --debug-brk --inspect source/app.js`
 
 在浏览器中打开所提供的 URL，之后你就能得到一个交互式的调试环境。
 
@@ -245,9 +259,11 @@ node --debug-brk --inspect source/app.js
 
 你绝对不能像这样做：
 
+```
     process.on('uncaughtException', (err) => {
       console.log('Oops!');
     });
+```
 
 当出现未捕获的异常时，你必须关闭进程，因为从定义上来讲，如果你不知道应用哪里出了问题，你的应用就处在一种不可知不明确的状态，并且随处都有可能产生错误。
 
