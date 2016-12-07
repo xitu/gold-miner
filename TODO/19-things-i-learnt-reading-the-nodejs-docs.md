@@ -2,7 +2,7 @@
 * 原文作者：[David Gilbertson](https://hackernoon.com/@david.gilbertson)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：jacksonke20120711@gmail.com
-* 校对者：
+* 校对者：[mortyu](https://github.com/mortyu), [rottenpen](https://github.com/rottenpen)
 
 # 阅读 NodeJS 文档，我学到了这 19 件事情
 
