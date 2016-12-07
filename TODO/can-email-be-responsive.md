@@ -7,7 +7,7 @@
 # 响应式邮件设计
 
 
-无论你是否喜欢,HTML邮件的人气是不可否认的. 就像网页一样, 收件箱开始走向移动化,[有一半以上的邮件](https://litmus.com/blog/email-client-market-share-where-people-opened-in-2013) 是在移动设备上被打开.
+无论你是否喜欢,HTML邮件的人气是不可否认的. 就像网页一样, 收件箱开始走向移动化,[有一半以上的邮件](https://litmus.com/blog/email-client-market-share-where-people-opened-in-2013) 是在移动设备上打开.
 
 
 # Translations
@@ -19,13 +19,13 @@
 现在的邮件依然设计的很过时. 还记得在Web规范成为…规范之前的编码时光吗? 欢迎来到邮箱设计地狱.
 
 But coding an email doesn’t need to be a lesson in frustration. 现在的邮件设计者还必须使用HTML属性，gsap，行内样式，以及一些前卫的设计师所说的前沿技术来代替老旧的用法来给邮件设计布局。
-收到由Ethan Marcotte首次撰写的基于[响应式网页设计]原理的开发(http://alistapart.com/article/responsive-web-design/)的启发，一场逐步逼近现代网页的电子邮件设计风潮开始了。
+受到由Ethan Marcotte首次撰写的基于[响应式网页设计]原理的开发(http://alistapart.com/article/responsive-web-design/)的启发，一场逐步逼近现代网页的电子邮件设计风潮开始了。
 
 ## 网页邮箱的价值[#section1](#section1)
 
 无论你是否喜欢,网页邮箱在各行各业都是非常重要的工具.在营销方面, 电子邮件一贯[优于](http://www.wired.com/business/2013/07/email-crushing-twitter-facebook/) 其他方式，比如Facebook和Twitter. 更重要的是,电子邮件提供越来越[个性化的方式](http://blog.mailchimp.com/paul-jarvis-likes-trading-stories-with-people/)使[大量的潜在用户](http://blog.getvero.com/email-marketing-statistics/)互相影响.
 
-你可能对电子邮件营销不太积极， 但是作为一名Web设计师或者开发人员，你会使用电子邮件与你的用户定期沟通. 可能是发一条回执, 或者公告新的产品功能给用户, 或者通知他们你最新发的的博文. 无论什么原因, 电子邮件都是一种重要和经常被忽略的媒介.
+你可能对电子邮件广告不太积极， 但是作为一名Web设计师或者开发人员，你会使用电子邮件与你的用户定期沟通. 可能是发一条回执, 或者公告新的产品功能给用户, 或者通知他们你最新发的的博文. 无论什么原因, 电子邮件都是一种重要和经常被忽略的媒介.
 
 许多开发者给顾客发送纯文本格式的邮件. 尽管纯文本格式有许多优点 (容易写，兼容性强，下载快等等), 但是HTML格式的电子邮件也有许多优势: 
 
@@ -47,13 +47,13 @@ But coding an email doesn’t need to be a lesson in frustration. 现在的邮�
 
 - 邮件客户端。邮件客户端，比如 Outlook 和 Gmail，经常以不同的方式渲染 HTML and CSS，从而导致...
 
-- 许多 hacks。即使是设计良好的邮件营销活动也需要针对不同的客户端hack来保证质量。
+- 许多 hacks。即使是设计良好的邮件广告也需要针对不同的客户端hack来保证质量。
 
 - 没有 JavaScript。电子邮件中 web 中最受欢迎的语言在电子邮件丝毫没有地位, 因为电子邮件客户端会（正当地）出于安全因素而禁用它。这样就没有交互性了。
 
 - 行内样式。我跟喜欢使用单独的结构进行描述。不幸的是，大部分邮件客户端强制你依赖行内样式和属性去做邮件中近乎所有的事。
 
-当一切趋于稳定时,  在电子邮件设计社区(是的， 确实 *有* 一个)中开始有关于减轻开发电子邮件营销活动的痛苦的动向 . 许多公司与个人开发者开始优化电子邮件设计的工具与方法，并且首次开始分享他们的见解。
+当一切趋于稳定时,  在电子邮件设计社区(是的， 确实 *有* 一个)中开始有关于减轻开发电子邮件广告的痛苦的动向 . 许多公司与个人开发者开始优化电子邮件设计的工具与方法，并且首次开始分享他们的见解。
 我所在的公司, [Litmus](http://litmus.com), 就是其中一个.我们构建了测试与跟踪电子邮件活动的工具. And we’re all-in on spreading information about email marketing in general, and email design specifically. We even started a dedicated [community](http://litmus.com/email-community) to connect email marketers, allowing them to share their knowledge, refine techniques, and learn from both us and each other.
 
 虽然我在本文中提及了一些Litmus的工具和资源， 但还有许多公司与个人在努力提高电子邮件设计的艺术. 尤其是， [MailChimp](http://mailchimp.com) 和 [Campaign Monitor](http://campaignmonitor.com)都有非常出色的bloghe说明. 还有像 [Anna Yeaman](https://twitter.com/stylecampaign), [Nicole Merlin](https://twitter.com/moonstrips), [Fabio Carneiro](https://twitter.com/flcarneiro), [Elliot Ross](https://twitter.com/iamelliot), 和 [Brian Graves](https://twitter.com/briangraves) 这样的人都在致力于使电子邮件设计成为一门真正的工艺。  
@@ -62,8 +62,7 @@ But coding an email doesn’t need to be a lesson in frustration. 现在的邮�
 
 就像Web的其他部分一样, 收件箱也开始走向移动化. 在2013年, [51%的用户在移动设备上打开邮件](https://litmus.com/blog/email-client-market-share-where-people-opened-in-2013). 而且还考虑到[越来越多人](http://blogs.hbr.org/2013/05/the-rise-of-the-mobile-only-us/) 使用移动设备来连接互联网，无论出于爱好与习性，这一数字还在持续增长 .
 
-好消息是，Web设计人员现有的技能也适用于邮件营销活动, creating a beautiful user experience on a channel vital to most users, but ignored by many designers.
-
+好消息是，Web设计人员现有的创造一个对大多数用户所重视的良好的用户体验的技能也适用于邮件广告, 这也是被许多设计者忽略的。
 ## HTML邮件的原理是什么[#section4](#section4)
 
 通常来讲，假设web设计与[遵循Web标准的设计](http://en.wikipedia.org/wiki/Designing_with_Web_Standards)无关 ，那么HTML邮件与网页设计很类似. HTML邮件基于三样东西: 表格，HTML属性，行内样式.在你学习写HTML邮件的时候要知道，由于电子邮件客户端渲染引擎的限制，我们只能使用HTML与CSS中非常有限的一部门子集 . Campaign Monitor在维护一份有关大多数主流邮件客户端所支持的CSS属性的 [非常好的图标](http://www.campaignmonitor.com/css/)  .
@@ -112,11 +111,11 @@ But coding an email doesn’t need to be a lesson in frustration. 现在的邮�
 ![](http://alistapart.com/d/395/can-email-be-responsive/can-email-be-responsive-2.png)提示文字还有待被普及
 ### Calls-to-Action[#section7](#section7)
 
-One of the main advantages of HTML email is the ability to include clickable hyperlinks. Beyond just including links within copy, HTML email allows you to use big, beautiful buttons to entice subscribers.
+HTML邮件的主要优势之一就是可以使用超链接.HTML邮件允许你使用又大又优美的按钮取缔传统的副本链接来吸引订阅者。
 
-Many email marketers use linked images for buttons. However, using [bulletproof buttons](http://buttons.cm), designers can craft buttons via code that renders reliably across clients, even with images disabled.
+许多邮件营销人员使用图片作为链接按钮. 然而, 如果使用 [bulletproof buttons](http://buttons.cm)，即使是在图片被禁用的情况下也可以允许设计人员通过代码来渲染出可靠的跨平台按钮。
 
-The table below is an example of an all-HTML bulletproof button, which uses borders to ensure the entire button is clickable, not just the text:
+下面是一个用纯HTML制作的按钮，这个按钮通过边框来确保整个按钮不光是文字，而是整个按钮都是可以点击的:
 
 ```
 <table border="0" cellspacing="0" cellpadding="0" class="responsive-table">
@@ -126,16 +125,16 @@ The table below is an example of an all-HTML bulletproof button, which uses bord
 </table>
 ```
 
-![](http://alistapart.com/d/395/can-email-be-responsive/can-email-be-responsive-3.png)Bulletproof buttons look great with images disabled
-Once you have those basics down, it’s time to see how we actually make an email work well across a range of device sizes.
+![](http://alistapart.com/d/395/can-email-be-responsive/can-email-be-responsive-3.png)即使图片被禁用，Bulletproof buttons依旧表现良好。
+一旦你掌握了这些基础，我们就可以继续了解如何让邮件在一系列不同的设备尺寸上依旧表现良好。
 
 ## 响应式邮件的原理是什么[#section8](#section8)
 
-Just like with responsive websites, there are three main components of a responsive email: flexible images, flexible layouts, and media queries.
+与响应式网页一样, 响应式邮件也有三大组件：弹性图片，弹性布局和媒体查询。
 
-The only difference between the web and email is in how these three techniques are implemented.
+网页与邮件唯一不同的是这三种技术的实现方式。
 
-In email design, we have a limited subset of HTML and CSS at our disposal. We can’t rely on properties and values that designers use for responsive sites on the web; margins, floats, and ems don’t work in many email clients. So we have to think of workarounds.
+在邮件设计中，我们只能使用HTML和CSS的一部分. 我们不能依靠使用在响应式网页中的那些属性; margins, floats, 和 ems 在许多客户端上无效.所以我们必须另辟蹊径.
 
 ### 弹性布局图片[#section9](#section9)
 
@@ -147,7 +146,7 @@ In email design, we have a limited subset of HTML and CSS at our disposal. We ca
 <img src="responsive-email.jpg" width="500" height="200" border="0" alt="Can an email really be responsive?" style="display: block; padding: 0; color: #666666; text-decoration: none; font-family: Helvetica, arial, sans-serif; font-size: 16px;" class="img-max">
 ```
 
-注意到里面的 `display` 属性了吗? 就像border属性一样， 那是也是应对淘气的客户端的众多hack手段之一.许多电子邮件客户端. Making images block-level will kill that spacing and save your design.
+注意到里面的 `display` 属性了吗? 就像border属性一样， 那是也是应对淘气的客户端的众多hack手段之一.许多电子邮件客户端. 给图片设置块级布局也可以消除那些空袭并完成你的布局.
 在图片周围增加空白来解决可能出现的行高问题。
 现在，当我们想让我们的图片是弹性布局的，我们可以在邮件头部使用媒体查询:
 
@@ -195,13 +194,13 @@ The one exception is a container table with specific pixel dimensions to constra
 
 ```
 @media screen and (max-width:525px) {
-	table[class=“wrapper”] {
+	table[class=“wrapper”] 
 		width:100% !important;
 	}
 }
 ```
 
-We can also target any nested tables and do the same—effectively stacking content sections for an improved mobile experience. It’s not a bad idea to bump up the size of text and buttons on mobile, either.
+我们也可以其他任何嵌套在内层的表格设置一样的效果来给内容节点布局以提升在移动设备上的体验. 在移动设备上增加文字和按钮的大小也是个好主意。
 
 ```
 @media screen and (max-width:525px) {
@@ -214,16 +213,16 @@ We can also target any nested tables and do the same—effectively stacking cont
 }
 ```
 
-The main drawback of using media queries is that they are not supported everywhere. While WebKit-based email clients like iOS Mail and the default Android email app work well, older Blackberry devices, Windows Phone 8, and the Gmail app on every platform disregard media queries.
+使用媒体查询的唯一缺点是媒体查询的兼容性并不太好. 虽然像iOS Mail和Android默认客户端那样的基于WebKit渲染引擎的邮件客户端上没问题, 但是在老旧的黑莓设备，Windows Phone 8 和 所有平台的Gmail应用都会无视媒体查询.
 
-Fortunately, iOS and Android [make up the majority](http://emailclientmarketshare.com) of mobile email audiences, so you can rely on most subscribers seeing your responsive emails as intended.
+幸运的是, iOS 和 Android [占据了大多数](http://emailclientmarketshare.com) 移动邮件收发设备，所以大多数订阅者都可以按照你的设计看到你的响应式邮件。
 
 ## Explore email design[#section12](#section12)
 
-The techniques described above are just the beginning. Intrepid email designers are exploring the use of web fonts, SVG, and CSS3 animations in email. Sure, email design is hard and things break constantly, but that shouldn’t prevent you from exploring advanced techniques to see what works for you and your audience.
+上述的这些技巧都仅仅是入门. 前卫的邮件开发者正在研究在邮件中使用Web字体，SVG，和CSS3动画.当然，邮件设计依旧十分困难而且常常违背预期，但是这不应该是你停止探索更多能为你和你的用户服务的技术的不发。
 
-My one recommendation is to test the hell out of any email you build. Email clients are far worse than browsers in terms of rendering and support for HTML and CSS. Testing both on devices and using an email preview service—be it [Litmus](http://litmus.com), [Email on Acid](http://emailonacid.com), your own [device lab](http://stylecampaign.com/blog/2012/09/mobile-email-testing-rig/), or something else entirely—helps identify problems and allows you to work out issues before sending to a million subscribers.
+我唯一的建议是非常严格的测试你的邮件. 从渲染能力和对HTML/CSS的支持成都，邮件客户端还远不及浏览器. 既在真机测试，也要使用邮件预览服务测试。邮件预览服务例如 [Litmus](http://litmus.com), [Email on Acid](http://emailonacid.com), 你自己的 [测试环境](http://stylecampaign.com/blog/2012/09/mobile-email-testing-rig/),或者其他一些能在你发送给海量订阅者前帮助你找到并修复问题的工具。
 
-Aside from testing your code and rendering, track all of your emails and test what [kind of content](http://mailchimp.com/resources/guides/how-to-create-an-email-marketing-plan/html/), copy, design, and [sending cadence](http://www.campaignmonitor.com/guides/planning/qanda/) resonates with your audience.
+除了测试你的代码和渲染央视，还要跟踪你的用户对 [哪种内容](http://mailchimp.com/resources/guides/how-to-create-an-email-marketing-plan/html/), 副本, 设计, 和 [发送频率](http://www.campaignmonitor.com/guides/planning/qanda/) 的满意程度.
 
-Above all, don’t disregard email design. It’s a necessary evil, but it’s getting better all the time. A [community is finally forming](https://litmus.com/community) around email design, and techniques are constantly being refined and perfected. Responsive email design is one of them. If you really care about your product and presence on the web, you will take the passion and craft you apply to your app’s interface and transfer it to one of the most widespread and valuable mediums around.
+综上所述，别小看邮件设计. 它现在很糟糕，但是会变得越来越好. 一个关于邮件设计的 [社区终于建好了](https://litmus.com/community) , 这方面的技术在逐渐提高. 响应式邮件只是主题之一. 如果你真的关心在你的网络上的产品, 你会把你的热情与工艺应用到你的界面上并把它转化成最普及和最有价值的媒体工具。
