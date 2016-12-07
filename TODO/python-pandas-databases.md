@@ -2,12 +2,12 @@
 * 原文作者：[Vik Paruchuri](https://twitter.com/vikparuchuri)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者： [Nicolas(Yifei) Li](https://github.com/yifili09)
-* 校对者：[marcmoore](https://github.com/marcmoore)
+* 校对者：[marcmoore](https://github.com/marcmoore), [futureshine](https://github.com/futureshine)
 
 # `Python` 和 `Pandas` 在 `SQLite` 数据库中的运用
 
 
-[SQLite](https://www.sqlite.org) 是一个数据库引擎，使用它能方便地存储和处理关系型数据。它和 _cvs_ 格式很相似，`SQLite` 把数据存储在一个单独的文件中，它能方便地与其他人共享。大部分的编程语言和编译环境都对 `SQLite` 数据库提供了很好的支持。`Python` 也不例外，并且专门有一个访问 `SQLite` 数据库的程序库，叫做 `sqlite3`，自从 `2.5` 版本以来，它就已经被 `Python` 纳入标准库里。在这篇博文中，我们将学会如何使用 `sqlite3` 创建、查询和更新数据库。也包括了，使用 [pandas](https://pandas.pydata.org/) 程序包配合 `SQLite` 数据库是有多么方便！我们会使用 `Python 3.5`，但是所有的实现方法应该兼容 `Python 2`。 
+[SQLite](https://www.sqlite.org) 是一个数据库引擎，使用它能方便地存储和处理关系型数据。它和 _cvs_ 格式很相似，`SQLite` 把数据存储在一个单独的文件中，它能方便地与其他人共享。大部分的编程语言和编译环境都对 `SQLite` 数据库提供了很好的支持。`Python` 也不例外，并且专门有一个访问 `SQLite` 数据库的程序库，叫做 `sqlite3`，自从 `2.5` 版本以来，它就已经被 `Python` 纳入标准库里。在这篇博文中，我们将学会如何使用 `sqlite3` 创建、查询和更新数据库。也包括了，使用 [pandas](https://pandas.pydata.org/) 程序包如何简化 `SQLite` 数据库。我们会使用 `Python 3.5`，但是所有的实现方法应该兼容 `Python 2`。 
 
 在我们开始之前，让我们先快速检阅下我们之后要处理的数据。我们看到的是航空公司的航班数据，它包含了有关航空公司的信息，机场名称和往来各个机场的航线名称。每一条航线代表着有一架航班重复往返于目的地和始发地的机场。
 
@@ -279,7 +279,7 @@
     * 在始发地和目的地之间画一个圈。
 
 
-
+```
     for name, row in routes[:3000].iterrows():
         if abs(row["source_lon"] - row["dest_lon"]) < 90:
             # Draw a great circle between source and dest airports.
@@ -291,7 +291,7 @@
                 linewidth=1,
                 color='b'
             )
-
+```
 
 
 最后，我们完成了这个地图:
@@ -458,11 +458,11 @@
 
 我们可以通过执行一条 `SQLite` 查询指令来创建表。我们能创建一个表，它能展示每天在某一条航线上的航班，使用以下几列:
 
-* `id` —— 整数型
-* `departure` —— 日期型，表示飞机离开机场的时间 
-*  `arrival` —— 日期型，表示飞机到达目的地的时间
-* `number` —— 文本型，飞机航班号
-* `route_id` —— 整数型，正在飞行的航线号
+* `id` — 整型
+* `departure` — 日期型，表示飞机离开机场的时间 
+*  `arrival` — 日期型，表示飞机到达目的地的时间
+* `number` — 文本型，飞机航班号
+* `route_id` — 整型，正在飞行的航线号
 
 
 ```
