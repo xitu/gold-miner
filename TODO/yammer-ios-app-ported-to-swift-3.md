@@ -5,7 +5,7 @@
 * 校对者：[冯志浩](https://github.com/fengzhihao123)，[Gocy](https://github.com/Gocy015)
 
 
-Yammer iOS 版移植到 Swift3
+-# Yammer iOS 版移植到 Swift3
 
 
 
@@ -15,7 +15,7 @@ Yammer iOS 版移植到 Swift3
 
 作为一个 iOS 商店，我们必须制定一个迁移工程，在保持与项目中 Objective C 部分良好交互的前提下，把基础代码从 2.3 迁移到 3 。
 
-第一步是决定我们是否要移植到 Swift 3 。在之前我们没有别的选择，只能咬着牙上。但是这次 Xcode 8 提供了一个 [build flag](https://developer.apple.com/swift/blog/?id=36) 能够让你使用旧版本的 Swift 。这表明旧特性只对版本改变有意义。根据 [发行说明](https://developer.apple.com/library/prerelease/content/releasenotes/DeveloperTools/RN-Xcode/Introduction.html) Xcode 8.2 预计是最后一个能够支持 Swift 2.3 的版本。
+第一步是决定我们是否要移植到 Swift 3 。在之前我们没有别的选择，只能咬着牙上。但是这次 Xcode 8 提供了一个 [build flag](https://developer.apple.com/swift/blog/?id=36) 能够让你使用旧版本的 Swift 。这表明旧特性只对版本改变有意义。根据[发行说明](https://developer.apple.com/library/prerelease/content/releasenotes/DeveloperTools/RN-Xcode/Introduction.html) Xcode 8.2 预计是最后一个能够支持 Swift 2.3 的版本。
 
 另一个让我们考虑反对迁移的原因是大量的[改变](https://buildingvts.com/a-mostly-comprehensive-list-of-swift-3-0-and-2-3-changes-193b904bb5b1#.z9w2usfdx)。Swift 团队和社区非常的活跃，而且 Swift 3 也展示出了作为一个年轻语言的发展潜力。不幸的是，这个版本[不具有 ABI 的兼容性](http://thread.gmane.org/gmane.comp.lang.swift.evolution/17276)，意味着1年之后 Swift 4 着陆的时候，我们又要进行一次类似的迁移。现在不迁移的话，因为要同时迁移 3 和 4 的特性，到时候就是两倍的工作量了。当然不一定是真的，也许 Swift 4 的改变和 Swift 3 在相同的范围内呢，而且久而久之，Xcode 提供的迁移工具也会变得更加好用更加值得信赖。 
 
@@ -23,7 +23,7 @@ Yammer iOS 版移植到 Swift3
 
 一旦我们决定开始迁移了，必须制定一个计划。把迁移工作模块化很明显是几乎不可能的。Xcode 只能允许编译一个 Swift 的版本，因此一旦迁移之球开始滚动，所有的改动需要同时合并到主干上。这就导致了一系列的逻辑问题：从禁止团队修改任何 Swift 文件，到后来出现大量 pull request 。同事也许会很感谢你的努力但是他们无论如何都会恨你的。我们最终决定建立一个笔记，团队中的任何人可以都把他们正在工作的类文件添加进去，通过这样我们就可以暂时把这些文件放在一旁，等到迁移之前再尝试将它们合并。这个工作一般来说不会轻松，尤其是你接下来的工作都要靠编译错误来指引的情况下。
 
-也就是说，还是有更好的方法的。在 Target 中移除大部分你的类，然后[将它们构建成单独的模块][build separate modules with them](https://twitter.com/cocoaphony/status/794988795208802305)。这个方式可以使不同版本的 Swift 共存。但是，我不相信这是一个完全不痛苦的过程。我也不是真的知道，因为我们没有选择这个方式。
+也就是说，还是有更好的方法的。在 Target 中移除大部分你的类，然后[将它们构建成单独的模块](https://twitter.com/cocoaphony/status/794988795208802305)。这个方式可以使不同版本的 Swift 共存。但是，我不相信这是一个完全不痛苦的过程。我也不是真的知道，因为我们没有选择这个方式。
 
 一旦准备好了，我们启动了 Xcode 的迁移工具（_Edit->Convert->to Current Swift Syntax_）然后看到生成了大量的不同点。我们通过分析每个文件中的每个不同点，对那些看上去不是很正确的进行笔记和制定草稿（在后面的列表中更多）。
 
@@ -61,7 +61,7 @@ Yammer iOS 版移植到 Swift3
 
 迁移对把你的代码提高到更高的水平来说是个有效的方法。它通过更新代码版本来实现这一目的，同时这也是一次发现代码中不规范或过时编码的一个好机会。把这些发现和更新记录下来并加入你们的团队编码规范之中（如果你还没有这个规范，现在就开始写吧）。这么做主要有两个原因，其一是可以供将来加入团队的人进行参考。二来是可以将更新/创造过程中的思路展示出来。就像一个普通的迁移 PR 或许非常无趣，没有什么吸引力，而一个有着许多更新、同时还有描述这些变化的动机的说明的 PR，对团队中的其它成员就更容易跟进和理解了.
 
-_Francesco Frison 是 Yammer 一名 iOS 工程师。_ [_@cescofry_](https://twitter.com/cescofry)
+_Francesco Frison 是 Yammer 的一名 iOS 工程师。_ [_@cescofry_](https://twitter.com/cescofry)
 
 
 
