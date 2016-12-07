@@ -5,7 +5,7 @@
 * 校对者：[冯志浩](https://github.com/fengzhihao123)，[Gocy](https://github.com/Gocy015)
 
 
--# Yammer iOS 版移植到 Swift3
+# Yammer iOS 版移植到 Swift3
 
 
 
