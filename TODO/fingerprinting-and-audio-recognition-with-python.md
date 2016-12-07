@@ -16,7 +16,7 @@ The first day I tried out Shazam, I was blown away. Next to GPS and surviving th
 *   [Chromaprint](http://acoustid.org/chromaprint)
 *   [Echoprint](http://echoprint.me/)
 
-我第一次用 Shazam 的时候，简直惊呆了。除了 GPS 功能和从楼梯摔下仍然没坏之外，用一段音频片段识别歌曲是我所见过我手机能做到的最不可思议的事了。识别是通过一个叫[音频特征识别]的过程来实现的，例子包括：
+我第一次用 Shazam 的时候，简直惊呆了。除了 GPS 功能和从楼梯摔下仍然没坏之外，能用一段音频片段识别歌曲是我所见过我手机能做到的最不可思议的事了。识别是通过一个叫[音频特征识别]的过程来实现的，例子包括：
 
 - [Shazam](http://www.ee.columbia.edu/%7Edpwe/papers/Wang03-shazam.pdf)
 - [SoundHound / Midomi](http://www.midomi.com/)
@@ -31,7 +31,7 @@ On my testing dataset, Dejavu exhibits 100% recall when reading an unknown wave 
 
 Following is all the knowledge you need to understand audio fingerprinting and recognition, starting from the basics. Those with signals experience should skip to "Peak Finding".
 
-经过几个周末在学术论文和代码中求索，我想出了一个基于Python语言开发的，开源的音频特征识别项目，名字叫 Dejavu。 你在 GitHub 上找到它：
+经过几个周末在学术论文和代码中求索，我想出了一个基于Python语言开发的，开源的音频特征识别项目，名字叫 Dejavu。 你可以在 GitHub 上找到它：
 
 [https://github.com/worldveil/dejavu](https://github.com/worldveil/dejavu)
 
@@ -51,13 +51,13 @@ A channel is a separate sequence of samples that a speaker can play. Think of ha
 
 ## 把音乐当作信号处理
 
-作为一名计算机科学家，我所了解的[快速傅立叶变换 (FFT)](http://en.wikipedia.org/wiki/Fast_Fourier_transform) ，只是把它当作一种很酷在`O(nlog(n))` 时间内计算多项式乘法的方法。幸亏，它在信号处理方面更酷。
+作为一名计算机科学家，我所了解的[快速傅立叶变换 (FFT)](http://en.wikipedia.org/wiki/Fast_Fourier_transform) ，只是把它当作一种很高效地在`O(nlog(n))` 时间内计算多项式乘法的方法。实际上，它在信号处理方面也有很好的应用场景。
 
 音乐，其实就是与一长串数字相似的数字编码。在未压缩的 .wav 文件里，有很多这样的数字 — 每个声道每秒钟 44100 个数字。这意味着三分钟长的歌曲有近 1600 万个数字。
 
 > 3 分钟 * 60 秒 * 44100 个样本每秒 * 2 声道 = 15,876,000 个信号样本
 
-声道是指，可以用扬声器播放的，独立的信号样本序列。两个耳塞 — 可以想成是立体声，两个声道。一个声道也被称作‘单声道’。现在，现代的环绕音系统可以支持更多的声道。但除非声音在被录制或者混录时已经是多声道，否则多出来没有对应的扬声器就会播放跟其他扬声器一样的信号流。
+声道是指，可以用扬声器播放的，独立的信号样本序列。两个耳塞 — 可以想成是立体声，两个声道。一个声道也被称作‘单声道’。现代的环绕音系统可以支持更多的声道。但除非声音在被录制或者混录时已经是多声道，否则多出来没有对应的扬声器就会播放跟其他扬声器一样的信号流。
 
 ## Sampling
 
@@ -412,7 +412,7 @@ Here are the results for different values of listening time (`n`):
 
 ## 2.通过笔记本的麦克风获取音频
 
-这里我写了一个脚本，可以随机选取原始 mp3 文件的`n`秒的音频，让 Dejavu 通过麦克风听。为了公正起见，我只允许 10 秒以上的音频片段，避开了开始或结束的部分，以防止听取的是没有声音。
+这里我写了一个脚本，可以随机选取原始 mp3 文件的`n`秒的音频，让 Dejavu 通过麦克风听。为了结果可信，我只选择了刨除开始或结束的部分，时长并且10 秒以上的音频片段，以防听取不到声音。
 
 另外，在整个过程中，我朋友在说话，我在跟着哼，以加入噪音。
 
@@ -483,7 +483,7 @@ The overhead of peak finding is the bottleneck - I experimented with mutlithread
 
 An important caveat is of course, the round trip time (RTT) for making matches. Since my MySQL instance was local, I didn't have to deal with the latency penalty of transfering fingerprint matches over the air. This would add RTT to the constant term in the overall calculation, but would not effect the matching process.
 
-如你所见，关系是非常线性的。你看到的直线是对数据的最小二乘线性回归拟合。相应的方程是：
+如你所见，关系是非常线性相关的。你看到的直线是对数据的最小二乘线性回归拟合。相应的方程是：
 
 > 1.364757 * record time - 0.034373 = time to match
 
@@ -541,9 +541,9 @@ If you liked this post, feel free to [share it with your followers](https://twit
 
 当我第一次见到音频特征识别的时候，它似乎很神奇。但随着我们掌握一小部分信号处理和基础数学的知识之后，这其实是相当入门的领域。
 
-我希望每一个正在读这篇文章的人都去看下 Dejavu 项目，可以给我加 star，或者更好的是，fork 它。可以在这里看 Dejavu：
+我希望每一个正在读这篇文章的人都去看下 Dejavu 项目，可以给我加 star，或者更好的是，fork 它。这是 Dejavu 的项目地址：
 
 > https://github.com/worldveil/dejavu
 
-如果你喜欢这篇博客，可以[分享给你的 followers ](https://twitter.com/intent/tweet?url=http://willdrevo.com/fingerprinting-and-audio-recognition-with-python&text=Audio%20Fingerprinting%20with%20Python%20and%20Numpy&via=wddrevo)或者[在 Twitter 上 follow 我](https://twitter.com/itsdrevo)!
+如果你喜欢这篇博客，可以[分享给你的关注者 ](https://twitter.com/intent/tweet?url=http://willdrevo.com/fingerprinting-and-audio-recognition-with-python&text=Audio%20Fingerprinting%20with%20Python%20and%20Numpy&via=wddrevo)或者[在 Twitter 上关注我](https://twitter.com/itsdrevo)!
 
