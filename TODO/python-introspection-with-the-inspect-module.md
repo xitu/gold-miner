@@ -1,7 +1,7 @@
 > * 原文地址：[How to write your own Python documentation generator](https://medium.com/python-pandemonium/python-introspection-with-the-inspect-module-2c85d5aa5a48#.hcqq6xtl8)
 * 原文作者：[Cristian Medina](https://medium.com/@tryexceptpass)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[王子建](https://github.com/Romeo0906)
 * 校对者：
 
 # How to write your own Python documentation generator
