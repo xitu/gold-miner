@@ -1,10 +1,10 @@
 > * 原文地址：[TensorFlow in a Nutshell — Part Three: All the Models](https://hackernoon.com/tensorflow-in-a-nutshell-part-three-all-the-models-be1465993930?gi=ce7ca5538f3e#.ji73p7x7j)
 * 原文作者：[Camron Godbout](https://hackernoon.com/@camrongodbout)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[edvardhua](https://github.com/edvardHua)
 * 校对者：
 
-# TensorFlow in a Nutshell — Part Three: All the Models
+# TensorFlow —  第三部分: 所有的模型
 
 
 
@@ -12,14 +12,13 @@
 
 
 
+#### 世界上最流行的深度学习框架的快速入门指南。
 
-#### The fast and easy guide to the most popular Deep Learning framework in the world.
+请务必查看其他文章。 >>[点击查看](http://camron.xyz/)<<
 
-Make sure to check out the other articles [here](http://camron.xyz/).
+#### 概述
 
-#### Overview
-
-In this installment we will be going over all the abstracted models that are currently available in TensorFlow and describe use cases for that particular model as well as simple sample code. Full sources of working examples are in the [TensorFlow In a Nutshell repo](https://github.com/c0cky/TensorFlow-in-a-Nutshell).
+在本文中，我们将讨论TensorFlow中当前可用的所有抽象模型，并描述该特定模型的用例以及简单的示例代码。 [完整的工作示例源码](https://github.com/c0cky/TensorFlow-in-a-Nutshell)。
 
 
 
@@ -50,16 +49,16 @@ In this installment we will be going over all the abstracted models that are cur
 ![](https://cdn-images-1.medium.com/max/800/1*lQ4izz9ZbhKYD8NClZpsmQ.png)
 
 
-
-A recurrent neural network
-
+一个循环神经网络。
 
 
-#### Recurrent Neural Networks
 
-**_Use Cases:_ **Language Modeling, Machine translation, Word embedding, Text processing.
 
-Since the advent of Long Short Term Memory and Gated Recurrent Units, Recurrent Neural Networks have made leaps and bounds above other models in natural language processing. They can be fed vectors representing characters and be trained to generate new sentences based on the training set. The merit in this model is that it keeps the context of the sentence and derives meaning that “cat sat on the mat” means the cat is on the mat. Since the creation of TensorFlow writing these networks have become increasingly simpler. There are even hidden features covered by Denny Britz [here](http://www.wildml.com/2016/08/rnns-in-tensorflow-a-practical-guide-and-undocumented-features/) that make writing RNN’s even simpler heres a quick example.
+#### 循环神经网络
+
+**_使用用例:_ **语言建模，机器翻译，词嵌入，文本处理。
+
+自从长短记忆网络和聚集循环单元出现依赖，循环神经网络在自然语言处理中的发展迅速，远远超越了其他的模型。它们可以被馈送表示字符的向量并且被训练以基于训练集合来生成新句子。这个模型的优点是它保持句子的上下文，并得出“猫坐在垫子上”的意思，意味着猫在垫子上。 TensorFlow 能让创建使这些网络变得越来越简单。关于 TensorFlow 的更多隐藏特性可以从 [Denny Britz 文章](http://www.wildml.com/2016/08/rnns-in-tensorflow-a-practical-guide-and-undocumented-features/) 中找到。
 
     import tensorflow as tf
     import numpy as np
@@ -115,17 +114,15 @@ Since the advent of Long Short Term Memory and Gated Recurrent Units, Recurrent 
 
 
 
-Convolution Neural Network
+卷积神经网络
 
 
 
-#### Convolution Neural Networks
+#### 卷积神经网络
 
-**_Use Cases:_ **Image processing, Facial recognition, Computer Vision
+**_使用用例:_ **图像处理, 面部识别, 计算机视觉
 
-Convolution Neural Networks are unique because they’re created in mind that the input will be an image. CNNs perform a sliding window function to a matrix. The window is called a kernel and it slides across the image creating a convolved feature.
-
-
+卷积神经网络（Convolutional Neural Networks-简称CNN）是独一无二的，因为他可以直接输入原始图像，避免了对图像复杂前期预处理。 CNN用固定的窗口（下图窗口为3x3）从左至右从上往下遍历图像。 其中我们称该窗口为卷积核，每次卷积（与前面遍历对应）都会计算其卷积特征。
 
 
 
@@ -137,12 +134,11 @@ Convolution Neural Networks are unique because they’re created in mind that th
 
 
 
-from [http://deeplearning.standford.edu/wiki/index.php/Feature_extraction_using_convolution](http://deeplearning.standford.edu/wiki/index.php/Feature_extraction_using_convolution)
+图片来源 [http://deeplearning.standford.edu/wiki/index.php/Feature_extraction_using_convolution](http://deeplearning.standford.edu/wiki/index.php/Feature_extraction_using_convolution)
 
 
 
-Creating a convolved feature allows for edge detection which then allows for a network to depict objects from pictures.
-
+我们可以使用卷积特征来做边缘检测，从而允许 CNN 描述图像中的物体。
 
 
 
@@ -155,12 +151,11 @@ Creating a convolved feature allows for edge detection which then allows for a n
 
 
 
-edge detection from GIMP manual
+[GIMP手册](https://docs.gimp.org/2.8/zh_CN/)上边缘检测的例子
 
 
 
-The convolved feature to create this looks like this matrix below:
-
+上图使用的卷积特征矩阵如下所示：
 
 
 
@@ -169,13 +164,12 @@ The convolved feature to create this looks like this matrix below:
 
 
 
-Convolved feature from GIMP manual
+GIMP手册中的卷积特征
 
 
+下面是一个代码示例，用于从 MNIST 数据集中识别手写数字。
 
-Here’s a sample of code to identify handwritten digits from the MNIST dataset.
-
-    ### Convolutional network
+    ### juan'ji
     def max_pool_2x2(tensor_in):
       return tf.nn.max_pool(
           tensor_in, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
@@ -232,13 +226,13 @@ Here’s a sample of code to identify handwritten digits from the MNIST dataset.
 
 
 
-#### Feed Forward Neural Networks
+#### 前馈型神经网络
 
-**_Use Cases:_ **Classification and Regression
+**_使用用例：_ **分类和回归
 
-These networks consist of perceptrons in layers that take inputs that pass information on to the next layer. The last layer in the network produces the output. There is no connection between each node in a given layer. The layer that has no original input and no final output is called the hidden layer.
+这些网络由层中的感知器组成，这些感知器接收将信息传递到下一层的输入。 网络中的最后一层产生输出。 在给定层中的每个节点之间没有连接。 没有原始输入和没有最终输出的图层称为隐藏图层。
 
-The goal of this network is similar to other supervised neural networks using back propagation, to make inputs have the desired trained outputs. These are some of the simplest effective neural networks for classification and regression problems. We will show how easy it is to create a feed forward network to classify handwritten digits:
+这个网络的目标类似于使用反向传播的其他监督神经网络，以使输入具有期望的训练输出。 这些是用于分类和回归问题的一些最简单的有效神经网络。 下面代码展示如何轻松地创建前馈型神经网络来分类手写数字：
 
     def init_weights(shape):
         return tf.Variable(tf.random_normal(shape, stddev=0.01))
@@ -297,13 +291,13 @@ The goal of this network is similar to other supervised neural networks using ba
 
 
 
-#### Linear Models
+#### 线性模型
 
-**_Use Cases:_ **Classification and Regression
+**_使用用例：_ **分类和回归
 
-Linear models take X values and produce a line of best fit used for classification and regression of Y values. For example if you have a list of house sizes and their price in a neighborhood you can predict the price of house given the size using a linear model.
+线性模型根据X轴值的变化，并产生用于Y轴值的分类和回归的最佳拟合线。 例如，如果你有一片区域房子的大小和价钱，那么我们就可以利用线性模型来根据房子的大小来预测价钱。
 
-One thing to note is that linear models can be used for multiple X features. For example in the housing example we can create a linear model given house sizes, how many rooms, how many bathrooms and price and predict price given a house with size, # of rooms, # of bathrooms.
+需要注意的一点是，线性模型可以用于多个特征。 例如在住房示例中，我们可以根据房子大小，房间数量和浴室数量以及价钱来构建一个线性模型，然后利用这个线性模型来根据房子的大小，房间以及浴室个数来预测价钱。
 
     import numpy as np
     import tensorflow as tf
@@ -365,11 +359,11 @@ One thing to note is that linear models can be used for multiple X features. For
 
 
 
-#### Support Vector Machines
+#### 支持向量机
 
-**_Use Cases:_ **Currently only Binary Classification
+**_使用用例：_ **目前只能用来做二进制分类
 
-The general idea behind a SVM is that there is an optimal hyperplane for linearly separable patterns. For data that is not linearly separable we can use a kernel function to transform the original data into a new space. SVMs maximize the margin around separating the hyperplane. They work extremely well in high dimensional spaces and and are still effective if the dimensions are greater than the number of samples.
+SVM 背后的一般思想是存在线性可分离模式的最佳超平面。 对于不可线性分离的数据，我们可以使用内核函数将原始数据转换为新空间。 SVM 使分离超平面的边界最大化。 它们在高维空间中非常好地工作，并且如果维度大于取样的数量，SVM 仍然有效。
 
     def input_fn():
           return {
@@ -431,11 +425,11 @@ The general idea behind a SVM is that there is an optimal hyperplane for linearl
 
 
 
-#### Deep and Wide Models
+#### 深和宽的模型
 
-**_Use Cases:_ **Recommendation systems, Classification and Regression
+**_使用用例：_ **推荐系统，分类和回归
 
-Deep and Wide models were covered with greater detail in [part two](https://medium.com/@camrongodbout/tensorflow-in-a-nutshell-part-two-hybrid-learning-98c121d35392#.oubizxp18), so we won’t get too heavy here. A Wide and Deep Network combines a linear model with a feed forward neural net so that our predictions will have memorization and generalization. This type of model can be used for classification and regression problems. This allows for less feature engineering with relatively accurate predictions. Thus, getting the best of both worlds. Here’s a code snippet from [part two’s github](https://github.com/c0cky/TensorFlow-in-a-Nutshell/tree/master/part2).
+深和宽模型在[第二部分](https://medium.com/@camrongodbout/tensorflow-in-a-nutshell-part-two-hybrid-learning-98c121d35392#.oubizxp18)中有更详细的描述，所以我们在这里不会讲解太多。 宽和深网络将线性模型与前馈神经网络结合，使得我们的预测将具有记忆和泛化。 这种类型的模型可以用于分类和回归问题。 这允许利用相对准确的预测来减少特征工程。 因此，能够结合两个模型得出最好的记过。 下面的代码片段摘自[第二部分](https://github.com/c0cky/TensorFlow-in-a-Nutshell/tree/master/part2)。
 
     def input_fn(df, train=False):
       """Input builder function."""
@@ -498,13 +492,13 @@ Deep and Wide models were covered with greater detail in [part two](https://medi
 
 
 
-#### Random Forest
+#### 随机森林
 
-**_Use Cases:_ **Classification and Regression
+**_使用用例：_ **分类和回归
 
-Random Forest model takes many different classification trees and each tree votes for that class. The forest chooses the classification having the most votes.
+随机森林模型中有很多不同分类树，每个分类树都可以投票来对物体进行分类，从而选出票数最多的类别。
 
-Random Forests do not overfit, you can run as many treees as you want and it is relatively fast. Give it a try on the iris data with this snippet below:
+随机森林不会过拟合，所以你可以使用尽可能多的树，而且执行的速度也是相对较快的。 下面的代码片段是对虹膜数据使用随机森林：
 
     hparams = tf.contrib.tensor_forest.python.tensor_forest.ForestHParams(
             num_trees=3, max_nodes=1000, num_classes=3, num_features=4)
@@ -548,15 +542,16 @@ Random Forests do not overfit, you can run as many treees as you want and it is 
 
 
 
-#### Bayesian Reinforcement Learning
+#### 贝叶斯强化学习（Bayesian Reinforcement Learning）
 
-**_Use Cases:_ **Classification and Regression
+**_使用用例：_ **分类和回归
 
-In the contrib folder of TensorFlow there is a library called BayesFlow. BayesFlow has no documentation except for an example of the REINFORCE algorithm. This algorithm is proposed in a [paper](http://incompleteideas.net/sutton/williams-92.pdf) by Ronald Williams.
+在 TensorFlow 的 contrib 文件夹中有一个名为 BayesFlow 的库。 除了一个 REINFORCE 算法的例子就没有其他文档了。 该算法在 Ronald Williams 的[论文](http://incompleteideas.net/sutton/williams-92.pdf)中提出。
 
-> **RE**ward **I**ncrement = **N**onnegative **F**actor * **O**ffset **R**einforcement * **C**haracteristic **E**ligibility
 
-This network trying to solve an immediate reinforcement learning task, adjusts the weights after getting the reinforcement value at each trial. At the end of each trial each weight is incremented by a learning rate factor multiplied by the reinforcement value minus the baseline multiplied by characteristic eligibility. Williams paper also discusses the use of back propagation to train the REINFORCE network.
+> 获得的递增 = 非负因子 * **  强化偏移 * ** 合格的特征
+
+这个网络试图解决立即强化学习任务，在每次试验获得强化值后调整权重。 在每次试验结束时，每个权重通过学习率因子乘以增强值减去基线乘以合格的特征而增加。 Williams 的论文还讨论了使用反向传播来训练强化网络。
 
     """Build the Split-Apply-Merge Model.
       Route each value of input [-1, -1, 1, 1] through one of the
@@ -611,11 +606,11 @@ This network trying to solve an immediate reinforcement learning task, adjusts t
 
 
 
-#### Linear Chain Conditional Random Fields
+#### 线性链条件随机域 （Linear Chain Conditional Random Fields，简称 CRF）
 
-**_Use Cases:_ **Sequential Data
+**_使用用例：_ **序列数据
 
-CRFs are conditional probability distributions that factoirze according to an undirected model. They predict a label for a single sample keeping context from the neighboring samples. CRFs are similar to Hidden Markov Models. CRFs are often used for image segmentation and object recognition, as well as shallow parsing, named entity recognition and gene finding.
+CRF 是根据无向模型分解的条件概率分布。 他们预测单个样本的标签，保留来自相邻样本的上下文。 CRF 类似于隐马尔可夫模型。 CRF 通常用于图像分割和对象识别，以及浅分析，命名实体识别和基因发现。
 
     # Train for a fixed number of iterations.
     session.run(tf.initialize_all_variables())
@@ -658,21 +653,14 @@ CRFs are conditional probability distributions that factoirze according to an un
 
 
 
-#### Conclusion
+#### 总结
 
-Ever since TensorFlow has been released the community surrounding the project has been adding more packages, examples and cases for using this amazing library. Even at the time of writing this article there are more models and sample code being written. It is amazing to see how much TensorFlow as grown in these past few months. The ease of use and diversity in the package are increasing overtime and don’t seem to be slowing down anytime soon.
-
-
+自从 TensorFlow 发布以来，围绕该项目的社区一直在添加更多的组件，示例和案例来使用这个库。 即使在撰写本文时，还有更多的模型和示例代码正在编写。 很高兴看到 TensorFlow 在过去几个月中的成长。 组件的易用性和多样性正在增加，在未来也会平稳的增加
 
 
+#### 译者参考文献
 
-
-
-
-
-转载请标明出处：[梦在这里](https://linmi.cc)
-
-本文地址：[https://linmi.cc/?p=791](https://linmi.cc/?p=791)
-
-
-
+[1] [词嵌入](https://www.zhihu.com/question/32275069)
+[2] [长短记忆网络](https://en.wikipedia.org/wiki/Long_short-term_memory)
+[3] [卷积神经网络](http://blog.csdn.net/stdcoutzyx/article/details/41596663)
+[4] [前馈神经网络](http://baike.baidu.com/view/1986922.htm)
