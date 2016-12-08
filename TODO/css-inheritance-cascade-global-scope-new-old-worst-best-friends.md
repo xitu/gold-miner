@@ -25,17 +25,18 @@ Despite protestations by many, CSS does not only provide a global scope. If it d
 
 For instance, if I apply a `font-family` declaration to the root (read: global) `html` element, I can ensure that this rule applies to all ancestor elements within the document (with a few exceptions, to be addressed in the next section).
 
-    html { 
-      font-family: sans-serif;
-    }
+```
+html { 
+    font-family: sans-serif;
+}
     
-    /* 
-    This rule is not needed ↷
-    p { 
-      font-family: sans-serif;
-    }
-    */
-    
+/* 
+This rule is not needed ↷
+p { 
+    font-family: sans-serif;
+}
+*/
+```
 
 Just like in JavaScript, if I declare something within the local scope, it is not available to the global — or, indeed, any ancestral — scope, but it is available to the child scope (elements within `p`). In the next example, the `line-height` of `1.5` is not adopted by the `html` element. However, the `a` element inside the `p` does respect the `line-height` value.
 
