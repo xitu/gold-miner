@@ -24,7 +24,7 @@
 
 ## 代码复用的问题
 
-听起来非常棒的理论都有着自己的问题，而这些问题很可能比那些你用代码库来解决的问题更加让人头疼。 Stefan Tilkov 已经详细解释了 [为什么你应该避免使用标准数据模型](https://www.innoq.com/en/blog/thoughts-on-a-canonical-data-model/) 。在他的基础之上，我再补充一些其它的问题。
+听起来非常棒的理论都有着自己的问题，而这些问题很可能比那些你用自己的代码库来解决的问题更加让人头疼。 Stefan Tilkov 已经详细解释了 [为什么你应该避免使用标准数据模型](https://www.innoq.com/en/blog/thoughts-on-a-canonical-data-model/) 。在他的基础之上，我再补充一些其它的问题。
 
 ### 分布式整体
 
