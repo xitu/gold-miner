@@ -14,7 +14,7 @@ In my early days with Python, one of the things that I really liked was using th
 
 The beauty about it being built into the standard library is that with output being generated straight from code, it indirectly emphasizes a coding style for lazy people like me, who want to do as little extra work as possible to maintain documentation. Especially if you already choose straight forward names for your variables and functions. This style involves things like adding docstrings to your functions and classes, as well as properly identifying private and protected members by prefixing them with underscores.
 
-将 `help` 函数置入标准库最为美妙的一点就是它能直接从代码中输出说明内容，这也间接地助长了一些 人的懒惰，比如像我这种不想为文档多浪费一点力气的人。尤其是你已经为你的变量和函数起好了直白的名字，`help` 函数能够给你的函数和类添加说明，也能够正确地识别私有和受保护的成员并给它们添加下划线的前缀。
+将 `help` 函数置入标准库最为美妙的一点就是它能直接从代码中输出说明内容，这也间接地助长了一些 人的懒惰，比如像我这种不想为文档多浪费一点力气的人。尤其是你已经为你的变量和函数起好了直白的名字，`help` 函数能够给你的函数和类添加说明，也能够正确地识别私有和受保护的成员并给它们添加下划线前缀。
 
     Help on class list in module builtins:
 
@@ -93,7 +93,7 @@ However, it turns out there is no default way of generating markdown from source
 
 #### Inspect this!
 
-#### 来吧 Inspect！
+#### 来检查吧！
 
 Originating from the standard library, inspect not only lets you look at lower level python `frame` and `code` objects, it also provides a number of methods for examining modules and classes, helping you find the items that may be of interest. It’s what pydoc uses to generate the help files mentioned previously.
 
