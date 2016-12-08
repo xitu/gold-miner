@@ -10,13 +10,13 @@
 无论你是否喜欢,HTML邮件的人气是不可否认的. 就像网页一样, 收件箱开始走向移动化,[有一半以上的邮件](https://litmus.com/blog/email-client-market-share-where-people-opened-in-2013) 是在移动设备上打开.
 
 
-# Translations
+# 翻译版本
 
 - [意大利语](http://italianalistapart.com/articoli/112-numero-95-29-luglio-2014/472-email-puo-essere-responsive)
 
 [![](//assets.servedby-buysellads.com/p/manage/asset/id/32683)Brief books for people who make websites. Ad via BuySellAds](//srv.buysellads.com/ads/click/x/GTND423YCTSD4KJYCAA4YKQWFTYDK23JCVBICZ3JCEADT2J7CK7DL23KC6BDEK3NCTYDEK3EHJNCLSIZ)
 
-现在的邮件依然设计的很过时. 还记得在Web规范成为…规范之前的编码时光吗? 欢迎来到邮箱设计地狱.
+现在的邮件依然设计的很过时. 还记得在Web规范成为…规范之前的编码时光吗? 欢迎来到邮件设计地狱.
 
 But coding an email doesn’t need to be a lesson in frustration. 现在的邮件设计者还必须使用HTML属性，gsap，行内样式，以及一些前卫的设计师所说的前沿技术来代替老旧的用法来给邮件设计布局。
 受到由Ethan Marcotte首次撰写的基于[响应式网页设计]原理的开发(http://alistapart.com/article/responsive-web-design/)的启发，一场逐步逼近现代网页的电子邮件设计风潮开始了。
@@ -27,10 +27,10 @@ But coding an email doesn’t need to be a lesson in frustration. 现在的邮�
 
 你可能对电子邮件广告不太积极， 但是作为一名Web设计师或者开发人员，你会使用电子邮件与你的用户定期沟通. 可能是发一条回执, 或者公告新的产品功能给用户, 或者通知他们你最新发的的博文. 无论什么原因, 电子邮件都是一种重要和经常被忽略的媒介.
 
-许多开发者给顾客发送纯文本格式的邮件. 尽管纯文本格式有许多优点 (容易写，兼容性强，下载快等等), 但是HTML格式的电子邮件也有许多优势: 
+许多开发者给顾客发送纯文本格式的邮件. 尽管纯文本格式有许多优点 (方便写，兼容性强，下载快等等), 但是HTML格式的电子邮件也有许多优势: 
 
 - 超链接. 你可以通过邮件中链接到外部页面来进行更多交互.
-- 设计.及时是在收件箱中，一个设计良好的HTML邮件也能让你强调你的品牌.
+- 设计.及时是在收件箱中，一个设计良好的HTML邮件能让你突出你的品牌.
 - 层次结构. 在HTML邮件中你可以使你的邮件主从分明，让人更容易注意到重要副本或者重要连接.
 - 跟踪. HTML邮件允许你去追踪邮件是否被打开和约会接受情况，这些有价值的数据可以用来优化你的营销效率.
 
@@ -48,13 +48,12 @@ But coding an email doesn’t need to be a lesson in frustration. 现在的邮�
 - 邮件客户端。邮件客户端，比如 Outlook 和 Gmail，经常以不同的方式渲染 HTML and CSS，从而导致...
 
 - 许多 hacks。即使是设计良好的邮件广告也需要针对不同的客户端hack来保证质量。
-
 - 没有 JavaScript。电子邮件中 web 中最受欢迎的语言在电子邮件丝毫没有地位, 因为电子邮件客户端会（正当地）出于安全因素而禁用它。这样就没有交互性了。
 
 - 行内样式。我跟喜欢使用单独的结构进行描述。不幸的是，大部分邮件客户端强制你依赖行内样式和属性去做邮件中近乎所有的事。
 
 当一切趋于稳定时,  在电子邮件设计社区(是的， 确实 *有* 一个)中开始有关于减轻开发电子邮件广告的痛苦的动向 . 许多公司与个人开发者开始优化电子邮件设计的工具与方法，并且首次开始分享他们的见解。
-我所在的公司, [Litmus](http://litmus.com), 就是其中一个.我们构建了测试与跟踪电子邮件活动的工具. And we’re all-in on spreading information about email marketing in general, and email design specifically. We even started a dedicated [community](http://litmus.com/email-community) to connect email marketers, allowing them to share their knowledge, refine techniques, and learn from both us and each other.
+我所在的公司, [Litmus](http://litmus.com), 就是其中一个.我们构建了测试与跟踪电子邮件活动的工具. 我们都收到了电子邮件营销，尤其是电子邮件设计的影响. 我们甚至专门创建了一个 [社区](http://litmus.com/email-community)来聚集这些邮件营销人员，给他们提供一个分享知识，提高节能，互相学习的平台.
 
 虽然我在本文中提及了一些Litmus的工具和资源， 但还有许多公司与个人在努力提高电子邮件设计的艺术. 尤其是， [MailChimp](http://mailchimp.com) 和 [Campaign Monitor](http://campaignmonitor.com)都有非常出色的bloghe说明. 还有像 [Anna Yeaman](https://twitter.com/stylecampaign), [Nicole Merlin](https://twitter.com/moonstrips), [Fabio Carneiro](https://twitter.com/flcarneiro), [Elliot Ross](https://twitter.com/iamelliot), 和 [Brian Graves](https://twitter.com/briangraves) 这样的人都在致力于使电子邮件设计成为一门真正的工艺。  
 
@@ -67,7 +66,7 @@ But coding an email doesn’t need to be a lesson in frustration. 现在的邮�
 
 通常来讲，假设web设计与[遵循Web标准的设计](http://en.wikipedia.org/wiki/Designing_with_Web_Standards)无关 ，那么HTML邮件与网页设计很类似. HTML邮件基于三样东西: 表格，HTML属性，行内样式.在你学习写HTML邮件的时候要知道，由于电子邮件客户端渲染引擎的限制，我们只能使用HTML与CSS中非常有限的一部门子集 . Campaign Monitor在维护一份有关大多数主流邮件客户端所支持的CSS属性的 [非常好的图标](http://www.campaignmonitor.com/css/)  .
 
-在我们讲如何构建自适应的邮件前我们先回顾一下HTML邮件的基础. 举个例子,我曾改编过我们在Litmus中通讯用的邮件模板. 多亏了Litmus和我们出色的设计师[Kevin Mandeville](http://dribbble.com/KEVINgotbounce), A List Apart readers can learn from and build on the same code we use for most of our campaigns—it’s now hosted on the [A List Apart Github account](https://github.com/alistapart/salted). 你可以查看[Litmus tests](https://litmus.com/pub/d5586ad/screenshots)的全部示例来看他在跨客户端中的表现。.
+在我们讲如何构建自适应的邮件前我们先回顾一下HTML邮件的基础. 举个例子,我曾改编过我们在Litmus中通讯用的邮件模板. 多亏了Litmus和我们出色的设计师[Kevin Mandeville](http://dribbble.com/KEVINgotbounce), A List Apart 的读者们可以学习并且使用我们在许多电子邮件广告中使用的代码-这些现在都在 [A List Apart 的Github账号上](https://github.com/alistapart/salted). 你可以查看[Litmus tests](https://litmus.com/pub/d5586ad/screenshots)的全部示例来看他在跨客户端中的表现。.
 
 ### 表格[#section5](#section5)
 
@@ -109,7 +108,7 @@ But coding an email doesn’t need to be a lesson in frustration. 现在的邮�
 
 通过使用上诉代码可以使我们缺失的图片现在看起来有了一定意义:
 ![](http://alistapart.com/d/395/can-email-be-responsive/can-email-be-responsive-2.png)提示文字还有待被普及
-### Calls-to-Action[#section7](#section7)
+### 发起互动[#section7](#section7)
 
 HTML邮件的主要优势之一就是可以使用超链接.HTML邮件允许你使用又大又优美的按钮取缔传统的副本链接来吸引订阅者。
 
@@ -167,8 +166,7 @@ img[class="img-max”] {
 
 大多数Web开发者都对使用 [相对单位](http://alistapart.com/article/fluidgrids) 来定义 [语义化标签](http://alistapart.com/article/semanticsinhtml5) 的大小来开发响应式布局很熟悉，例如百分数，ems，rems. 虽然我们还是可以在电子邮件中使用百分比来进行弹性布局，但是他们在被内联使用时会在表格和其他一些元素上收到一些限制。
 
-The one exception is a container table with specific pixel dimensions to constrain the overall width of the email design to prevent it from blowing out in clients that don’t handle percentages well, typically most versions of Microsoft Outlook.
-几乎我们所有的表格都会使用百分比来设置列宽。 但是有一个例外，尤其在大多数Microsoft Outlook的版本中，
+几乎所有的表格都会使用百分数来设置宽度。但是在那些处理百分数上效果不太好的客户端上有一个例外，尤其在大多数Microsoft Outlook的版本中，使用一个固定宽度的表格来做容器容纳所有的邮件内容以防止内容超出布局范围时效果不佳。
 
 让我们从表格容器开始看起:
 
