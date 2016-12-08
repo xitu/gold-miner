@@ -558,17 +558,17 @@ Annotated lists of launch daemons and agents, the respective program executed, a
 
 See also [cirrusj.github.io/Yosemite-Stop-Launch](http://cirrusj.github.io/Yosemite-Stop-Launch/) for descriptions of services and [Provisioning OS X and Disabling Unnecessary Services](https://vilimpoc.org/blog/2014/01/15/provisioning-os-x-and-disabling-unnecessary-services/) for another explanation.
 
-## Spotlight Suggestions
+## Spotlight 建议
 
-Disable **Spotlight Suggestions** in both the Spotlight preferences and Safari's Search preferences to avoid your search queries being sent to Apple.
+在 Spotlight 偏好设置面板和 Safari 的搜索偏好设置中都禁用 **Spotlight 建议** ，来避免你的搜索查询项会发送给 Apple 。
 
-Also disable **Bing Web Searches** in the Spotlight preferences to avoid your search queries being sent to Microsoft.
+在 Spotlight 偏好设置面板中也禁用 **必应 Web 搜索** 来避免你的搜索查询项会发送给 Microsoft 。
 
-See [fix-macosx.com](https://fix-macosx.com/) for detailed instructions.
+查看[fix-macosx.com](https://fix-macosx.com/)获得更详细的信息。
 
 > If you've upgraded to Mac OS X Yosemite (10.10) and you're using the default settings, each time you start typing in Spotlight (to open an application or search for a file on your computer), your local search terms and location are sent to Apple and third parties (including Microsoft).
 
-To download, view and apply their suggested fixes:
+如需下载，查看并应用他们建议的补丁：
 
 ```
 $ curl -O https://fix-macosx.com/fix-macosx.py
@@ -579,45 +579,45 @@ $ python fix-macosx.py
 All done. Make sure to log out (and back in) for the changes to take effect.
 ```
 
-Speaking of Microsoft, you may want to see <https://fix10.isleaked.com/> just for fun.
+谈到 Microsoft ，你可能还想看看<https://fix10.isleaked.com/> ，挺有意思的。
 
 ## Homebrew
 
-Consider using [Homebrew](http://brew.sh/) to make software installations easier and to update userland tools (see [Apple’s great GPL purge](http://meta.ath0.com/2012/02/05/apples-great-gpl-purge/)).
+考虑使用 [Homebrew](http://brew.sh/) 来让安装软件和更新 userland 工具 (查看 [Apple’s great GPL purge](http://meta.ath0.com/2012/02/05/apples-great-gpl-purge/)) 更简单。
 
-**Note** If you have not already installed Xcode or Command Line Tools, use `xcode-select --install` to download and install them from Apple.
+**注意** 如果你还没安装 Xcode 或命令行工具，用 `xcode-select --install` 来从 Apple 下载、安装。
 
-To [install Homebrew](https://github.com/Homebrew/brew/blob/master/docs/Installation.md#installation):
-
+要[安装 Homebrew](https://github.com/Homebrew/brew/blob/master/docs/Installation.md#installation):
     $ mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
 
-Edit `PATH` in your shell or shell rc file to use `~/homebrew/bin` and `~/homebrew/sbin`. For example, `echo 'PATH=$PATH:~/homebrew/sbin:~/homebrew/bin' >> .zshrc`, then change your login shell to Z shell with `chsh -s /bin/zsh`, open a new Terminal window and run `brew update`.
 
-Homebrew uses SSL/TLS to talk with GitHub and verifies checksums of downloaded packages, so it's [fairly secure](https://github.com/Homebrew/homebrew/issues/18036).
+在你的脚本或 rc 文件中编辑 `PATH` 来使用 `~/homebrew/bin` 和 `~/homebrew/sbin`。例如，先 `echo 'PATH=$PATH:~/homebrew/sbin:~/homebrew/bin' >> .zshrc`，然后用 `chsh -s /bin/zsh` 把登录脚本改为 Z shell ，打开一个新的终端窗口并运行 `brew update`。
 
-Remember to periodically run `brew update` and `brew upgrade` on trusted and secure networks to download and install software updates. To get information on a package before installation, run `brew info <package>` and check its recipe online.
+Homebrew 使用 SSL/TLS 与 GitHub 通信并验证下载包的校验，所以它是[相当安全的](https://github.com/Homebrew/homebrew/issues/18036)。
 
-According to [Homebrew's Anonymous Aggregate User Behaviour Analytics](https://github.com/Homebrew/brew/blob/master/docs/Analytics.md), Homebrew gathers anonymous aggregate user behaviour analytics and reporting these to Google Analytics.
+记得定期在可信任的、安全的网络上运行`brew update` 和 `brew upgrade`来下载、安装软件更新。想在安装前得到关于一个包的信息，运行`brew info <package>`，在线查看。
 
-To opt out of Homebrew's analytics, you can set `export HOMEBREW_NO_ANALYTICS=1` in your environment or shell rc file, or use `brew analytics off`.
+依据[Homebrew 匿名汇总用户行为分析](https://github.com/Homebrew/brew/blob/master/docs/Analytics.md)，Homebrew 获取匿名的汇总的用户行为分析数据并把它们报告给 Google Analytics。
 
-You may also wish to enable [additional security options](https://github.com/drduh/macOS-Security-and-Privacy-Guide/issues/138), such as `HOMEBREW_NO_INSECURE_REDIRECT=1` and `HOMEBREW_CASK_OPTS=--require-sha`.
+要退出  Homebrew 的分析，你能在你的环境中或编辑 rc 文件来设置 `export HOMEBREW_NO_ANALYTICS=1`，或使用 `brew analytics off`。
+
+可能你还希望启用[额外的安全选项](https://github.com/drduh/macOS-Security-and-Privacy-Guide/issues/138)，例如 `HOMEBREW_NO_INSECURE_REDIRECT=1` 和 `HOMEBREW_CASK_OPTS=--require-sha`。
 
 ## DNS
 
-#### Hosts file
+#### Hosts 文件
 
-Use the [hosts file](https://en.wikipedia.org/wiki/Hosts_(file)) to block known malware, advertising or otherwise unwanted domains.
+使用[Hosts 文件](https://en.wikipedia.org/wiki/Hosts_(file)) 来屏蔽已知的恶意代码，广告或讨厌的域名。
 
-Edit the hosts file as root, for example with `sudo vi /etc/hosts`. The hosts file can also be managed with the GUI app [2ndalpha/gasmask](https://github.com/2ndalpha/gasmask).
+以根用户身份编辑 hosts 文件，例如用 `sudo vi /etc/hosts`。hosts 文件也能用可视化的应用[2ndalpha/gasmask](https://github.com/2ndalpha/gasmask)管理。
 
-To block a domain, append `0 example.com` or `0.0.0.0 example.com` or `127.0.0.1 example.com` to `/etc/hosts`
+要屏蔽一个域名，在 `/etc/hosts` 中加上 `0 example.com` 或 `0.0.0.0 example.com` 或 `127.0.0.1 example.com`。
 
-There are many lists of domains available online which you can paste in, just make sure each line starts with `0`, `0.0.0.0`, `127.0.0.1`, and the line `127.0.0.1 localhost` is included.
+网上能获得很多域名的可复制的列表，要确保每一行以 `0`, `0.0.0.0`, `127.0.0.1` 开始，并且 `127.0.0.1 localhost` 这一行包含在内。
 
-For hosts lists, see [someonewhocares.org](http://someonewhocares.org/hosts/zero/hosts), [l1k/osxparanoia/blob/master/hosts](https://github.com/l1k/osxparanoia/blob/master/hosts), [StevenBlack/hosts](https://github.com/StevenBlack/hosts) and [gorhill/uMatrix/hosts-files.json](https://github.com/gorhill/uMatrix/blob/master/assets/umatrix/hosts-files.json).
+对于主机列表，查看[someonewhocares.org](http://someonewhocares.org/hosts/zero/hosts), [l1k/osxparanoia/blob/master/hosts](https://github.com/l1k/osxparanoia/blob/master/hosts), [StevenBlack/hosts](https://github.com/StevenBlack/hosts) 和 [gorhill/uMatrix/hosts-files.json](https://github.com/gorhill/uMatrix/blob/master/assets/umatrix/hosts-files.json)。
 
-To append a raw list:
+要添加一个新的列表：
 
 ```
 $ curl "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts" | sudo tee -a /etc/hosts
@@ -631,29 +631,29 @@ fe80::1%lo0 localhost
 [should not return any other IP addresses]
 ```
 
-See `man hosts` and [FreeBSD Configuration Files](https://www.freebsd.org/doc/handbook/configtuning-configfiles.html) for more information.
+更多信息请查看 `man hosts` 和[FreeBSD 配置文件](https://www.freebsd.org/doc/handbook/configtuning-configfiles.html) 。
 
 #### Dnsmasq
 
-Among other features, [dnsmasq](http://www.thekelleys.org.uk/dnsmasq/doc.html) is able to cache replies, prevent upstreaming queries for unqualified names, and block entire TLDs.
+与其他特性相比，[dnsmasq](http://www.thekelleys.org.uk/dnsmasq/doc.html) 能缓存请求，避免向上查询无保留的名字，并且屏蔽整个顶级域名。
 
-Use in combination with DNSCrypt to additionally encrypt outgoing DNS traffic.
+另外，和 DNSCrypt 一起使用来加密输出的 DNS 流量。
 
-If you don't wish to use DNSCrypt, you should at least use DNS [not provided](http://bcn.boulder.co.us/~neal/ietf/verisign-abuse.html) [by your ISP](http://hackercodex.com/guide/how-to-stop-isp-dns-server-hijacking/). Two popular alternatives are [Google DNS](https://developers.google.com/speed/public-dns/) and [OpenDNS](https://www.opendns.com/home-internet-security/).
+如果你不想使用 DNSCrypt，你至少应该[通过你的 ISP](http://hackercodex.com/guide/how-to-stop-isp-dns-server-hijacking/)使用 DNS[没有提供](http://bcn.boulder.co.us/~neal/ietf/verisign-abuse.html) 。两个流行的选择是[Google DNS](https://developers.google.com/speed/public-dns/) 和 [OpenDNS](https://www.opendns.com/home-internet-security/).
 
-**(Optional)** [DNSSEC](https://en.wikipedia.org/wiki/Domain_Name_System_Security_Extensions) is a set of extensions to DNS which provide to DNS clients (resolvers) origin authentication of DNS data, authenticated denial of existence, and data integrity. All answers from DNSSEC protected zones are digitally signed. The signed records are authenticated via a chain of trust, starting with a set of verified public keys for the DNS root-zone. The current root-zone trust anchors may be downloaded [from IANA website](https://www.iana.org/dnssec/files). There are a number of resources on DNSSEC, but probably the best one is [dnssec.net website](http://www.dnssec.net).
+**(可选)** [DNSSEC](https://en.wikipedia.org/wiki/Domain_Name_System_Security_Extensions)是一系列 DNS 的扩展,为 DNS 客户端提供 DNS 数据的来源验证、否定存在验证和数据完整性检验。所有来自 DNSSEC 保护区域的应答都是数字签名的。签名的记录通过一个信任链授权，以一系列验证过的 DNS 根区域的公钥开头。当前的根区域信任猫店可能下载下来[从 IANA 网站](https://www.iana.org/dnssec/files)。关于 DNSSEC 有很多的资源，可能最好的一个是[dnssec.net 网站](http://www.dnssec.net)。
 
-Install Dnsmasq (DNSSEC is optional):
-
+安装 Dnsmasq (DNSSEC 是可选的)：
     $ brew install dnsmasq --with-dnssec
 
     $ cp ~/homebrew/opt/dnsmasq/dnsmasq.conf.example ~/homebrew/etc/dnsmasq.conf
 
-Edit the configuration:
+
+编辑配置项：
 
     $ vim ~/homebrew/etc/dnsmasq.conf
 
-Examine all the options. Here are a few recommended settings to enable:
+检查所有的选项。这有一些推荐的设置来启用：
 
 ```
 # Forward queries to DNSCrypt on localhost port 5355
@@ -698,15 +698,15 @@ log-facility=/var/log/dnsmasq.log
 #dnssec-check-unsigned
 ```
 
-Install and start the program:
+安装并启动程序：
 
     $ brew services start dnsmasq
 
-To set Dnsmasq as your local DNS server, open **System Preferences** > **Network** and select the active interface, then the **DNS** tab, select **+** and add `127.0.0.1`, or use:
+要设置 Dnsmasq 为本地的 DNS 服务器，打开 **系统偏好设置** > **网络** 并选择“高级”(译者注：原文为 ‘active interface’，实际上‘高级’)，接着 **DNS** 选项卡，选择 **+** 并 添加 `127.0.0.1`, 或使用:
 
     $ sudo networksetup -setdnsservers "Wi-Fi" 127.0.0.1
 
-Make sure Dnsmasq is correctly configured:
+确保 Dnsmasq 正确配置：
 
 ```
 $ scutil --dns
@@ -722,70 +722,70 @@ $ networksetup -getdnsservers "Wi-Fi"
 127.0.0.1
 ```
 
-**Note** Some VPN software overrides DNS settings on connect. See [issue #24](https://github.com/drduh/OS-X-Security-and-Privacy-Guide/issues/24) for more information.
+**注意** 一些 VPN 软件一链接会覆盖 DNS 设置。更多信息查看[issue #24](https://github.com/drduh/OS-X-Security-and-Privacy-Guide/issues/24)。
 
-##### Test DNSSEC validation
+#### 检测 DNSSEC 验证
 
-Test DNSSEC validation succeeds for signed zones:
+检测 DNSSEC 验证需要有签过名的区域：
 
     $ dig +dnssec icann.org
 
-Reply should have `NOERROR` status and contain `ad` flag. For instance,
+应答应该有`NOERROR`状态并包含`ad`。例如：
 
     ;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 47039
     ;; flags: qr rd ra ad; QUERY: 1, ANSWER: 2, AUTHORITY: 0, ADDITIONAL: 1
 
-Test DNSSEC validation fails for zones that are signed improperly:
+不恰当签名的区域会导致检测 DNSSEC 验证的失败：
 
     $ dig www.dnssec-failed.org
 
-Reply should have `SERVFAIL` status. For instance,
+应答应该包含`SERVFAIL`状态。例如：
 
     ;; ->>HEADER<<- opcode: QUERY, status: SERVFAIL, id: 15190
     ;; flags: qr rd ra; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1
 
 #### dnscrypt
 
-Use [dnscrypt](https://dnscrypt.org/) to encrypt DNS traffic to the provider of choice.
+使用[dnscrypt](https://dnscrypt.org/) 来加密 DNS 流量（译者注：the provider of choice怎么翻啊求指教）。
 
-If you prefer a GUI application, see [alterstep/dnscrypt-osxclient](https://github.com/alterstep/dnscrypt-osxclient).
+如果你更喜欢一个 GUI 应用程序，看这里[alterstep/dnscrypt-osxclient](https://github.com/alterstep/dnscrypt-osxclient)。
 
-Install DNSCrypt from Homebrew:
+从 Homebrew 安装 DNSCrypt：
 
     $ brew install dnscrypt-proxy
 
-If using in combination with Dnsmasq, find the file `homebrew.mxcl.dnscrypt-proxy.plist`
+如果要和 Dnsmasq 一起使用，找到这个文件`homebrew.mxcl.dnscrypt-proxy.plist`
 
 ```
 $ find ~/homebrew -name homebrew.mxcl.dnscrypt-proxy.plist
 /Users/drduh/homebrew/Cellar/dnscrypt-proxy/1.7.0/homebrew.mxcl.dnscrypt-proxy.plist
 ```
 
-Edit it to have the line:
+将下面一行编辑进去：
 
     <string>--local-address=127.0.0.1:5355</string>
 
-Below the line:
+接着写：
 
     <string>/usr/local/opt/dnscrypt-proxy/sbin/dnscrypt-proxy</string>
 
 <img width="1015" alt="dnscrypt" src="https://cloud.githubusercontent.com/assets/12475110/19222914/8e6f853e-8e31-11e6-8dd6-27c33cbfaea5.png">
 
-*Append a local-address line to use DNScrypt on a port other than 53, like 5355*
+*加一行本地地址，通过除了 53 的端口，像 5355，来使用 DNScrypt*
 
-This can also be done using Homebrew, by installing `gnu-sed` and using the `gsed` command:
+用 Homebrew 也能实现上述过程，安装`gnu-sed`并使用`gsed`命令行：
 
     $ sudo gsed -i "/sbin\\/dnscrypt-proxy<\\/string>/a<string>--local-address=127.0.0.1:5355<\\/string>\n" $(find ~/homebrew -name homebrew.mxcl.dnscrypt-proxy.plist)
 
-By default, the `resolvers-list` will point to the dnscrypt version specific resolvers file. When dnscrypt is updated, this version may no longer exist, and if it does, may point to an outdated file. This can be fixed by changing the resolvers file in `/Library/LaunchDaemons/homebrew.mxcl.dnscrypt-proxy.plist` to the symlinked version in `/usr/local/share`:
+默认情况下，`resolvers-list`将会指向 dnscrypt 版本特定的 resolvers 文件。当更新了 dnscrypt，这一版本将不再存在，若它存在，可能指向一个过期的文件。在`/Library/LaunchDaemons/homebrew.mxcl.dnscrypt-proxy.plist`中把 resolvers 文件改为`/usr/local/share`中的符号链接的版本，能解决上述问题：
 
     <string>--resolvers-list=/usr/local/share/dnscrypt-proxy/dnscrypt-resolvers.csv</string>
 
-Start DNSCrypt:
+启用 DNSCrypt：
 
     $ brew services start dnscrypt-proxy
 
-Make sure DNSCrypt is running:
+确保 DNSCrypt 在运行：
 
 ```
 $ sudo lsof -Pni UDP:5355
@@ -800,11 +800,11 @@ $ ps A | grep '[d]nscrypt'
 and under the "nobody" user using the dnscrypt.eu-dk DNSCrypt-enabled
 resolver. If you would like to change these settings, you will have to edit the plist file (e.g., --resolver-address, --provider-name, --provider-key, etc.)
 
-This can be accomplished by editing `homebrew.mxcl.dnscrypt-proxy.plist`
+通过编辑`homebrew.mxcl.dnscrypt-proxy.plist`也能完成
 
-You can run your own [dnscrypt server](https://github.com/Cofyc/dnscrypt-wrapper) (see also [drduh/Debian-Privacy-Server-Guide#dnscrypt](https://github.com/drduh/Debian-Privacy-Server-Guide#dnscrypt)) from a trusted location or use one of many [public servers](https://github.com/jedisct1/dnscrypt-proxy/blob/master/dnscrypt-resolvers.csv) instead.
+你能从一个信任的位置或使用[public servers](https://github.com/jedisct1/dnscrypt-proxy/blob/master/dnscrypt-resolvers.csv) 中的一个运行你自己的[dnscrypt server](https://github.com/Cofyc/dnscrypt-wrapper)(也看看这个 [drduh/Debian-Privacy-Server-Guide#dnscrypt](https://github.com/drduh/Debian-Privacy-Server-Guide#dnscrypt))
 
-Confirm outgoing DNS traffic is encrypted:
+确保输出的 DNS 流量已加密：
 
 ```
 $ sudo tcpdump -qtni en0
@@ -815,41 +815,41 @@ $ dig +short -x 77.66.84.233
 resolver2.dnscrypt.eu
 ```
 
-See also [What is a DNS leak](https://dnsleaktest.com/what-is-a-dns-leak.html), the [mDNSResponder manual page](https://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man8/mDNSResponder.8.html) and [ipv6-test.com](http://ipv6-test.com/).
+也读读[What is a DNS leak](https://dnsleaktest.com/what-is-a-dns-leak.html), [mDNSResponder manual page](https://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man8/mDNSResponder.8.html) 和 [ipv6-test.com](http://ipv6-test.com/)。
 
 ## Captive portal
 
-When macOS connects to new networks, it **probes** the network and launches a Captive Portal assistant utility if connectivity can't be determined.
+当 macOS 连接到新的网络，它会 **检测** 网络，如果连接没有接通，启动 Captive Portal assistant 功能。
 
-An attacker could trigger the utility and direct a Mac to a site with malware without user interaction, so it's best to disable this feature and log in to captive portals using your regular Web browser, provided you have first disable any custom dns and/or proxy settings.
+一个攻击者能触发这一功能，无需用户交互就将一台电脑定向到有恶意代码的网站，所以如果你起初禁用任何的客户端/代理设置，最好禁用 captive portal 并用你通常的浏览器登录 captive portals。
 
     $ sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.captive.control Active -bool false
 
-See also [Apple OS X Lion Security: Captive Portal Hijacking Attack](https://www.securestate.com/blog/2011/10/07/apple-os-x-lion-captive-portal-hijacking-attack), [Apple's secret "wispr" request](http://blog.erratasec.com/2010/09/apples-secret-wispr-request.html), [How to disable the captive portal window in Mac OS Lion](https://web.archive.org/web/20130407200745/http://www.divertednetworks.net/apple-captiveportal.html), and [An undocumented change to Captive Network Assistant settings in OS X 10.10 Yosemite](https://grpugh.wordpress.com/2014/10/29/an-undocumented-change-to-captive-network-assistant-settings-in-os-x-10-10-yosemite/).
+也看看这些 [Apple OS X Lion Security: Captive Portal Hijacking Attack](https://www.securestate.com/blog/2011/10/07/apple-os-x-lion-captive-portal-hijacking-attack), [Apple's secret "wispr" request](http://blog.erratasec.com/2010/09/apples-secret-wispr-request.html), [How to disable the captive portal window in Mac OS Lion](https://web.archive.org/web/20130407200745/http://www.divertednetworks.net/apple-captiveportal.html), and [An undocumented change to Captive Network Assistant settings in OS X 10.10 Yosemite](https://grpugh.wordpress.com/2014/10/29/an-undocumented-change-to-captive-network-assistant-settings-in-os-x-10-10-yosemite/).
 
-## Certificate authorities
+## 证书授权
 
-macOS comes with [over 200](https://support.apple.com/en-us/HT202858) root authority certificates installed from for-profit corporations like Apple, Verisign, Thawte, Digicert and government agencies from China, Japan, Netherlands, U.S., and more! These Certificate Authorities (CAs) are capable of issuing SSL/TLS certificates for any domain, code signing certificates, etc.
+macOS 上有从营利的公司像 Apple, Verisign, Thawte, Digicert 和来自中国，日本，荷兰，美国等等的政府机关安装的[超过 200](https://support.apple.com/en-us/HT202858)个可信任的根证书。这些证书授权(CAs)能够针对任一域名处理 SSL/TLS 认证，代码签名证书等等。
 
-For more information, see [Certification Authority Trust Tracker](https://github.com/kirei/catt), [Analysis of the HTTPS certificate ecosystem](http://conferences.sigcomm.org/imc/2013/papers/imc257-durumericAemb.pdf) (pdf), and [You Won’t Be Needing These Any More: On Removing Unused Certificates From Trust Stores](http://www.ifca.ai/fc14/papers/fc14_submission_100.pdf) (pdf).
+想要了解更多，看看 [Certification Authority Trust Tracker](https://github.com/kirei/catt), [Analysis of the HTTPS certificate ecosystem](http://conferences.sigcomm.org/imc/2013/papers/imc257-durumericAemb.pdf) (pdf), 和 [You Won’t Be Needing These Any More: On Removing Unused Certificates From Trust Stores](http://www.ifca.ai/fc14/papers/fc14_submission_100.pdf) (pdf)。
 
-You can inspect system root certificates in **Keychain Access**, under the **System Roots** tab or by using the `security` command line tool and `/System/Library/Keychains/SystemRootCertificates.keychain` file.
+你能在 **钥匙串访问** 中检查系统根证书，在 **系统根证书** 选项卡下或使用`security`命令行工具和`/System/Library/Keychains/SystemRootCertificates.keychain`文件。
 
-You can disable certificate authorities through Keychain Access by marking them as **Never Trust** and closing the window:
+你能通过钥匙串访问将它们标记为 **永不信任** 禁用证书授权并关闭窗口：
 
 <img width="450" alt="A certificate authority certificate" src="https://cloud.githubusercontent.com/assets/12475110/19222972/6b7aabac-8e32-11e6-8efe-5d3219575a98.png">
 
-The risk of a [man in the middle](https://en.wikipedia.org/wiki/Man-in-the-middle_attack) attack in which a coerced or compromised certificate authority trusted by your system issues a fake/rogue SSL certificate is quite low, but still [possible](https://en.wikipedia.org/wiki/DigiNotar#Issuance_of_fraudulent_certificates).
+被你的系统信任的被迫或妥协的证书授权产生一个假的/欺骗的 SSL 证书，这样的一个[中间人攻击](https://en.wikipedia.org/wiki/Man-in-the-middle_attack)的风险很低，但仍然是[可能的](https://en.wikipedia.org/wiki/DigiNotar#Issuance_of_fraudulent_certificates)。
 
 ## OpenSSL
 
-The version of OpenSSL in Sierra is `0.9.8zh` which is [not current](https://apple.stackexchange.com/questions/200582/why-is-apple-using-an-older-version-of-openssl). It doesn't support TLS 1.1 or newer, elliptic curve ciphers, and [more](https://stackoverflow.com/questions/27502215/difference-between-openssl-09-8z-and-1-0-1).
+在 Sierra 中 OpenSSL 的版本是`0.9.8zh`，这[不是最新的](https://apple.stackexchange.com/questions/200582/why-is-apple-using-an-older-version-of-openssl)。它不支持TLS 1.1或新的版本，elliptic curve ciphers（译者注：这个要怎么翻求指教），[还有更多](https://stackoverflow.com/questions/27502215/difference-between-openssl-09-8z-and-1-0-1)。
 
-Apple declares OpenSSL **deprecated** in their [Cryptographic Services Guide](https://developer.apple.com/library/mac/documentation/Security/Conceptual/cryptoservices/GeneralPurposeCrypto/GeneralPurposeCrypto.html) document. Their version also has patches which may [surprise you](https://hynek.me/articles/apple-openssl-verification-surprises/).
+Apple 在他们的[Cryptographic Services 指南](https://developer.apple.com/library/mac/documentation/Security/Conceptual/cryptoservices/GeneralPurposeCrypto/GeneralPurposeCrypto.html)文档中宣布 **弃用** OpenSSL。他们的版本也有补丁，可能会 [带来惊喜喔](https://hynek.me/articles/apple-openssl-verification-surprises/)。
 
-If you're going to use OpenSSL on your Mac, download and install a recent version of OpenSSL with `brew install openssl`. Note, linking brew to be used in favor of `/usr/bin/openssl` may interfere with building software. See [issue #39](https://github.com/drduh/OS-X-Security-and-Privacy-Guide/issues/39).
+如果你要在你的 Mac 上用 OpenSSL，用`brew install openssl`下载并安装一个 OpenSSL 最近的版本。注意，将 brew 连接来支持`/usr/bin/openssl` 可能会干扰构建软件。(译者注：校对着求帮助 这句话主语不会翻)查看 [issue #39](https://github.com/drduh/OS-X-Security-and-Privacy-Guide/issues/39)。
 
-Compare the TLS protocol and cipher between the homebrew version and the system version of OpenSSL:
+在 homebrew 版本和 OpenSSL 系统版本之间比较 TLS 协议和密码：
 
 ```
 $ ~/homebrew/bin/openssl version; echo | ~/homebrew/bin openssl s_client -connect github.com:443 2>&1 | grep -A2 SSL-Session
@@ -865,16 +865,15 @@ SSL-Session:
     Cipher    : AES128-SHA
 ```
 
-See also [Comparison of TLS implementations](https://en.wikipedia.org/wiki/Comparison_of_TLS_implementations), [How's My SSL](https://www.howsmyssl.com/), [Qualys SSL Labs Tools](https://www.ssllabs.com/projects/) and for detailed explanations and with latest vulnerabilities tests [ssl-checker.online-domain-tools.com](http://ssl-checker.online-domain-tools.com).
+也看看 [Comparison of TLS implementations](https://en.wikipedia.org/wiki/Comparison_of_TLS_implementations), [How's My SSL](https://www.howsmyssl.com/), [Qualys SSL Labs Tools](https://www.ssllabs.com/projects/)以及更详细的解释和最新的漏洞测试 [ssl-checker.online-domain-tools.com](http://ssl-checker.online-domain-tools.com)。
 
 ## Curl
 
-The version of Curl which comes with macOS uses [Secure Transport](https://developer.apple.com/library/mac/documentation/Security/Reference/secureTransportRef/) for SSL/TLS validation.
+macOS 中 Curl 的版本针对 SSL/TLS 验证使用[安全传输](https://developer.apple.com/library/mac/documentation/Security/Reference/secureTransportRef/) 。
 
-If you prefer to use OpenSSL, install with `brew install curl --with-openssl` and ensure it's the default with `brew link --force curl`
+如果你更愿意使用 OpenSSL，用`brew install curl --with-openssl`安装并确保默认是`brew link --force curl`
 
-Here are several recommended [options](http://curl.haxx.se/docs/manpage.html) to add to `~/.curlrc` (see `man curl` for more):
-
+这推荐几个向`~/.curlrc`中添加的[可选项](http://curl.haxx.se/docs/manpage.html)(更多请查看 `man curl` ):
 ```
 user-agent = "Mozilla/5.0 (Windows NT 6.1; rv:45.0) Gecko/20100101 Firefox/45.0"
 referer = ";auto"
@@ -889,29 +888,31 @@ ipv4
 
 ## Web
 
-### Privoxy
+### 代理
 
-Consider using [Privoxy](http://www.privoxy.org/) as a local proxy to filter Web browsing traffic.
+考虑使用 [Privoxy](http://www.privoxy.org/)作为本地代理来过滤网络浏览内容。
 
-A signed installation package for privoxy can be downloaded from [silvester.org.uk](http://silvester.org.uk/privoxy/OSX/) or [Sourceforge](http://sourceforge.net/projects/ijbswa/files/Macintosh%20%28OS%20X%29/). The signed package is [more secure](https://github.com/drduh/OS-X-Security-and-Privacy-Guide/issues/65) than the Homebrew version, and attracts full support from the Privoxy project.
+一个已签名的 privoxy 安装包能从[silvester.org.uk](http://silvester.org.uk/privoxy/OSX/) 或 [Sourceforge](http://sourceforge.net/projects/ijbswa/files/Macintosh%20%28OS%20X%29/)下载。签过名的包比 Homebrew 版本[更安全](https://github.com/drduh/OS-X-Security-and-Privacy-Guide/issues/65)，而且能得到 Privoxy 项目全面的支持。
 
-Alternatively, install and start privoxy using Homebrew:
+另外，用 Homebrew 安装、启动 privoxy：
 
     $ brew install privoxy
 
     $ brew services start privoxy
 
-By default, privoxy listens on local TCP port 8118.
 
-Set the system **http** proxy for your active network interface `127.0.0.1` and `8118` (This can be done through **System Preferences > Network > Advanced > Proxies**):
+默认情况下，privoxy 监听本地的 8118 端口。
+
+为你的网络接口设置系统 **http** 代理为`127.0.0.1` 和 `8118`(可以通过 **系统偏好设置 > 网络 > 高级 > 代理** ):
 
     $ sudo networksetup -setwebproxy "Wi-Fi" 127.0.0.1 8118
 
-**(Optional)** Set the system **https** proxy, which still allows for domain name filtering, with:
+
+**(可选)** 用下述方法设置系统 **https** 代理，这仍提供了域名过滤功能:
 
     $ sudo networksetup -setsecurewebproxy "Wi-Fi" 127.0.0.1 8118
 
-Confirm the proxy is set:
+确保代理设置好了:
 
 ```
 $ scutil --proxy
@@ -927,7 +928,7 @@ $ scutil --proxy
 }
 ```
 
-Visit <http://p.p/> in a browser, or with Curl:
+在一个浏览器里访问<http://p.p/>,或用 Curl 访问:
 
 ```
 $ ALL_PROXY=127.0.0.1:8118 curl -I http://p.p/
@@ -937,12 +938,11 @@ Content-Type: text/html
 Cache-Control: no-cache
 ```
 
-Privoxy already comes with many good rules, however you can also write your own.
+代理已经有很多好的规则，你也能自己定义。
 
-Edit `~/homebrew/etc/privoxy/user.action` to filter elements by domain or with regular expressions.
+编辑`~/homebrew/etc/privoxy/user.action`用域名或正则表达式来过滤。
 
-Here are some examples:
-
+示例如下:
 ```
 { +block{social networking} }
 www.facebook.com/(extern|plugins)/(login_status|like(box)?|activity|fan)\.php
@@ -965,7 +965,7 @@ code.jquery.com
 imgur.com
 ```
 
-Verify Privoxy is blocking and redirecting:
+验证 Privoxy 能够屏蔽和重定向:
 
 ```
 $ ALL_PROXY=127.0.0.1:8118 curl ads.foo.com/ -IL
@@ -984,67 +984,67 @@ HTTP/1.1 200 OK
 Content-Type: text/html; charset=utf-8
 ```
 
-You can replace ad images with pictures of kittens, for example, by starting the a local Web server and [redirecting blocked requests](https://www.privoxy.org/user-manual/actions-file.html#SET-IMAGE-BLOCKER) to localhost.
+你能用小猫的图片来代替广告图片，例如，通过启动一个本地的 Web 服务器然后[重定向屏蔽的请求](https://www.privoxy.org/user-manual/actions-file.html#SET-IMAGE-BLOCKER)到本地。
 
-### Browser
+### 浏览器
 
-The Web browser poses the largest security and privacy risk, as its fundamental job is to download and execute untrusted code from the Internet.
+Web 浏览器引发最大的安全和隐私风险，因为它基本的工作是从因特网上下载和运行未信任的代码。
 
-Use [Google Chrome](https://www.google.com/chrome/browser/desktop/) for most of your browsing. It offers [separate profiles](https://www.chromium.org/user-experience/multi-profiles), [good sandboxing](https://www.chromium.org/developers/design-documents/sandbox), [frequent updates](http://googlechromereleases.blogspot.com/) (including Flash, although you should disable it - see below), and carries [impressive credentials](https://www.chromium.org/Home/chromium-security/brag-sheet).
+对于你的大部分浏览使用[Google Chrome](https://www.google.com/chrome/browser/desktop/)。它提供了[独立的配置文件](https://www.chromium.org/user-experience/multi-profiles), [好的沙盒处理](https://www.chromium.org/developers/design-documents/sandbox), [经常更新](http://googlechromereleases.blogspot.com/) (包括 Flash，尽管你应该禁用它 - 看下面i), 并且有 [很好的证书](https://www.chromium.org/Home/chromium-security/brag-sheet).
 
-Chrome also comes with a great [PDF viewer](http://0xdabbad00.com/2013/01/13/most-secure-pdf-viewer-chrome-pdf-viewer/).
+Chrome 也有一个很好的[PDF 阅读器](http://0xdabbad00.com/2013/01/13/most-secure-pdf-viewer-chrome-pdf-viewer/)。
 
-If you don't want to use Chrome, [Firefox](https://www.mozilla.org/en-US/firefox/new/) is an excellent browser as well. Or simply use both. See discussion in issues [#2](https://github.com/drduh/OS-X-Security-and-Privacy-Guide/issues/2), [#90](https://github.com/drduh/OS-X-Security-and-Privacy-Guide/issues/90).
+如果你不想用 Chrome，[Firefox](https://www.mozilla.org/en-US/firefox/new/)也是一个很好的浏览器。或就用这两个。看这里的讨论[#2](https://github.com/drduh/OS-X-Security-and-Privacy-Guide/issues/2)。
 
-If using Firefox, see [TheCreeper/PrivacyFox](https://github.com/TheCreeper/PrivacyFox) for recommended privacy preferences. Also be sure to check out [NoScript](https://noscript.net/) for Mozilla-based browsers, which allows whitelist-based, pre-emptive script blocking.
+如果用 Firefox，查看[TheCreeper/PrivacyFox](https://github.com/TheCreeper/PrivacyFox) 里推荐的隐私偏好设置。也要确保为基于 Mozilla 的浏览器检查[NoScript](https://noscript.net/)，它允许基于白名单的抢先脚本阻止。
 
-Create at least three profiles, one for browsing **trusted** Web sites (email, banking), another for **mostly trusted** Web sites (link aggregators, news sites), and a third for a completely **cookie-less** and **script-less** experience.
+创建至少三个配置文件，一个用来浏览 **可信任的** 网站 (邮箱，银行)，另一个为了 **大部分是可信的** 网站(链路聚合，新闻站点)，第三个是针对完全 **无 cookie** 和 **无脚本** 的体验。
 
-* One profile **without cookies or Javascript** enabled (e.g., turned off in `chrome://settings/content`) which should be the preferred profile to visiting untrusted Web sites. However, many pages will not load at all without Javascript enabled.
+* 一个启用了 **无 cookies 和 Javascript** 的配置文件就应该用来访问未信任的网站。然而，如果不启用 Javascript，很多页面根本不会加载。
 
-* One profile with [uMatrix](https://github.com/gorhill/uMatrix) or [uBlock Origin](https://github.com/gorhill/uBlock) (or both). Use this profile for visiting **mostly trusted** Web sites. Take time to learn how these firewall extensions work. Other frequently recommended extensions are [Privacy Badger](https://www.eff.org/privacybadger), [HTTPSEverywhere](https://www.eff.org/https-everywhere) and [CertPatrol](http://patrol.psyced.org/) (Firefox only).
+* 一个有[uMatrix](https://github.com/gorhill/uMatrix) 或 [uBlock Origin](https://github.com/gorhill/uBlock) (或两个都有)的配置文件。用这个文件来访问 **大部分是可信的** 网站。花时间了解防火墙扩展程序是怎么工作的。其他经常被推荐的扩展程序是[Privacy Badger](https://www.eff.org/privacybadger), [HTTPSEverywhere](https://www.eff.org/https-everywhere) 和 [CertPatrol](http://patrol.psyced.org/) (仅限 Firefox).
 
-* One or more profile(s) for secure and trusted browsing needs, such as banking and email only.
+* 一个或更多的配置文件用来满足安全和可信任的浏览需求，例如仅限于银行和邮件。
 
-The idea is to separate and compartmentalize data, so that an exploit or privacy violation in one "session" does not necessarily affect data in another.
+想法是分隔并划分数据，因此在一个"区域"的漏洞利用或隐私漏洞并不一定影响另一个的数据。
 
-In each profile, visit `chrome://plugins/` and disable **Adobe Flash Player**. If you must use Flash, visit `chrome://settings/contents` to enable **Let me choose when to run plugin content**, under the Plugins section (also known as *click-to-play*).
+在每一个文件里，访问`chrome://plugins/`并禁用 **Adobe Flash Player**。如果你一定要用 Flash，访问`chrome://settings/contents`，在插件部分，启用在 **让我自行选择何时运行插件内容** (也叫做 *click-to-play*)。
 
-Take some time to read through [Chromium Security](https://www.chromium.org/Home/chromium-security) and [Chromium Privacy](https://www.chromium.org/Home/chromium-privacy).
+花时间阅读[Chromium 安全](https://www.chromium.org/Home/chromium-security) 和 [Chromium 隐私](https://www.chromium.org/Home/chromium-privacy)。
 
-For example you may wish to disable [DNS prefetching](https://www.chromium.org/developers/design-documents/dns-prefetching) (see also [DNS Prefetching and Its Privacy Implications](https://www.usenix.org/legacy/event/leet10/tech/full_papers/Krishnan.pdf) (pdf)).
+例如你可能希望禁用[DNS prefetching](https://www.chromium.org/developers/design-documents/dns-prefetching) (也看看 [DNS Prefetching and Its Privacy Implications](https://www.usenix.org/legacy/event/leet10/tech/full_papers/Krishnan.pdf) (pdf))。
 
-Also be aware of [WebRTC](https://en.wikipedia.org/wiki/WebRTC#Concerns), which may reveal your local or public (if connected to VPN) IP address(es). This can be disabled with extensions such as [uBlock Origin](https://github.com/gorhill/uBlock/wiki/Prevent-WebRTC-from-leaking-local-IP-address) and [rentamob/WebRTC-Leak-Prevent](https://github.com/rentamob/WebRTC-Leak-Prevent).
+你也应该知道[WebRTC](https://en.wikipedia.org/wiki/WebRTC#Concerns)，它能获取你本地或外网的(如果连到 VPN)IP 地址.这能用例如[uBlock Origin](https://github.com/gorhill/uBlock/wiki/Prevent-WebRTC-from-leaking-local-IP-address) 和 [rentamob/WebRTC-Leak-Prevent](https://github.com/rentamob/WebRTC-Leak-Prevent)的扩展程序禁用掉。
 
-Many Chromium-derived browsers are not recommended. They are usually [closed source](http://yro.slashdot.org/comments.pl?sid=4176879&cid=44774943), [poorly maintained](https://plus.google.com/+JustinSchuh/posts/69qw9wZVH8z), [have bugs](https://code.google.com/p/google-security-research/issues/detail?id=679), and make dubious claims to protect privacy. See [The Private Life of Chromium Browsers](http://thesimplecomputer.info/the-private-life-of-chromium-browsers).
+很多源于 Chromium 的浏览器这里不推荐。它们通常 [不开源](http://yro.slashdot.org/comments.pl?sid=4176879&cid=44774943), [维护性差](https://plus.google.com/+JustinSchuh/posts/69qw9wZVH8z), [有问题](https://code.google.com/p/google-security-research/issues/detail?id=679),而且对保护隐私有可疑的声明。 看这里 [The Private Life of Chromium Browsers](http://thesimplecomputer.info/the-private-life-of-chromium-browsers)。
 
-Safari is not recommended. The code is a mess and [security](https://nakedsecurity.sophos.com/2014/02/24/anatomy-of-a-goto-fail-apples-ssl-bug-explained-plus-an-unofficial-patch/) [vulnerabilities](https://vimeo.com/144872861) are frequent, and slower to patch (see [discussion on Hacker News](https://news.ycombinator.com/item?id=10150038)). Security does [not appear](https://discussions.apple.com/thread/5128209) to be a priority for Safari. If you do use it, at least [disable](https://thoughtsviewsopinions.wordpress.com/2013/04/26/how-to-stop-downloaded-files-opening-automatically/) the **Open "safe" files after downloading** option in Preferences, and be aware of other [privacy nuances](https://github.com/drduh/OS-X-Security-and-Privacy-Guide/issues/93).
+也不推荐 Safari。代码一团糟而且[安全问题](https://nakedsecurity.sophos.com/2014/02/24/anatomy-of-a-goto-fail-apples-ssl-bug-explained-plus-an-unofficial-patch/) [漏洞](https://vimeo.com/144872861) 经常发生，并且打补丁很慢 (看这里 [Hacker News上的讨论](https://news.ycombinator.com/item?id=10150038))。安全[并不是](https://discussions.apple.com/thread/5128209)Safari 的一个优点，。如果你硬要使用它，至少在偏好设置里[禁用](https://thoughtsviewsopinions.wordpress.com/2013/04/26/how-to-stop-downloaded-files-opening-automatically/)  **下载后打开"安全的文件**,也要了解其他的[隐私差别](https://github.com/drduh/OS-X-Security-and-Privacy-Guide/issues/93)。
 
-Other miscellaneous browsers, such as [Brave](https://github.com/drduh/OS-X-Security-and-Privacy-Guide/issues/94), are not evaluated in this guide, so are neither recommended nor actively discouraged from use.
+其他乱七八糟的浏览器，例如[Brave](https://github.com/drduh/OS-X-Security-and-Privacy-Guide/issues/94)，在这个指南里没有评估，所以既不推荐也不反对使用。
 
-For more information about security conscious browsing, see [HowTo: Privacy & Security Conscious Browsing](https://gist.github.com/atcuno/3425484ac5cce5298932), [browserleaks.com](https://www.browserleaks.com/) and [EFF Panopticlick](https://panopticlick.eff.org/).
+查看更多关于安全意识的浏览，看[HowTo: Privacy & Security Conscious Browsing](https://gist.github.com/atcuno/3425484ac5cce5298932), [browserleaks.com](https://www.browserleaks.com/) 和 [EFF Panopticlick](https://panopticlick.eff.org/)。
 
-### Plugins
+### 插件
 
-**Adobe Flash**, **Oracle Java**, **Adobe Reader**, **Microsoft Silverlight** (Netflix now works with [HTML5](https://help.netflix.com/en/node/23742)) and other plugins are [security risks](https://news.ycombinator.com/item?id=9901480) and should not be installed.
+**Adobe Flash**, **Oracle Java**, **Adobe Reader**, **Microsoft Silverlight** (Netflix 现在使用 [HTML5](https://help.netflix.com/en/node/23742)) 和其他的插件有[安全风险](https://news.ycombinator.com/item?id=9901480)，不应该安装。
 
-If they are necessary, only use them in a disposable virtual machine and subscribe to security announcements to make sure you're always patched.
+如果它们是必须的，只在一个虚拟机里安装它们并且订阅安全通知以便确保你总是被保护的。
 
-See [Hacking Team Flash Zero-Day](http://blog.trendmicro.com/trendlabs-security-intelligence/hacking-team-flash-zero-day-integrated-into-exploit-kits/), [Java Trojan BackDoor.Flashback](https://en.wikipedia.org/wiki/Trojan_BackDoor.Flashback), [Acrobat Reader: Security Vulnerabilities](http://www.cvedetails.com/vulnerability-list/vendor_id-53/product_id-497/Adobe-Acrobat-Reader.html), and [Angling for Silverlight Exploits](https://blogs.cisco.com/security/angling-for-silverlight-exploits), for example.
+看 [Hacking Team Flash Zero-Day](http://blog.trendmicro.com/trendlabs-security-intelligence/hacking-team-flash-zero-day-integrated-into-exploit-kits/), [Java Trojan BackDoor.Flashback](https://en.wikipedia.org/wiki/Trojan_BackDoor.Flashback), [Acrobat Reader: Security Vulnerabilities](http://www.cvedetails.com/vulnerability-list/vendor_id-53/product_id-497/Adobe-Acrobat-Reader.html), 和 [Angling for Silverlight Exploits](https://blogs.cisco.com/security/angling-for-silverlight-exploits).
 
 ## PGP/GPG
 
-PGP is a standard for encrypting email end to end. That means only the chosen recipients can decrypt a message, unlike regular email which is read and forever archived by providers.
+PGP 是一个端对端邮件加密标准。这意味着只是选中的接收者能解密一条消息，不像通常的邮件被提供者永久阅读和保存。
 
-**GPG**, or **GNU Privacy Guard**, is a GPL licensed program compliant with the standard.
+**GPG**, 或 **GNU Privacy Guard**，是一个符合标准的 GPL 协议项目。
 
-**GPG** is used to verify signatures of software you download and install, as well as [symmetrically](https://en.wikipedia.org/wiki/Symmetric-key_algorithm) or [asymmetrically](https://en.wikipedia.org/wiki/Public-key_cryptography) encrypt files and text.
+**GPG** 被用来验证你下载和安装的软件签名，也[对称](https://en.wikipedia.org/wiki/Symmetric-key_algorithm) 或 [非对称](https://en.wikipedia.org/wiki/Public-key_cryptography)的加密文件和文本。
 
-Install from Homebrew with `brew install gnupg2`.
+从 Homebrew 上用`brew install gnupg2`安装。
 
-If you prefer a graphical application, download and install [GPG Suite](https://gpgtools.org/).
+如果你更喜欢图形化的应用，下载安装[GPG Suite](https://gpgtools.org/)。
 
-Here are several [recommended options](https://github.com/drduh/config/blob/master/gpg.conf) to add to `~/.gnupg/gpg.conf`:
+这有几个往`~/.gnupg/gpg.conf`中添加的[推荐选项](https://github.com/drduh/config/blob/master/gpg.conf):
 
 ```
 auto-key-locate keyserver
@@ -1070,31 +1070,30 @@ verify-options show-uid-validity
 with-fingerprint
 ```
 
-Install the keyservers [CA certificate](https://sks-keyservers.net/verify_tls.php):
+安装 keyservers[CA 认证](https://sks-keyservers.net/verify_tls.php):
 
     $ curl -O https://sks-keyservers.net/sks-keyservers.netCA.pem
 
     $ sudo mv sks-keyservers.netCA.pem /etc
 
-These settings will configure GnuPG to use SSL when fetching new keys and prefer strong cryptographic primitives.
+这些设置将会配置 GnuPG 当得到新的密码时使用 SSL 并且更喜欢强健的密码学原语。
 
-See also [ioerror/duraconf/configs/gnupg/gpg.conf](https://github.com/ioerror/duraconf/blob/master/configs/gnupg/gpg.conf). You should also take some time to read [OpenPGP Best Practices](https://help.riseup.net/en/security/message-security/openpgp/best-practices).
+也看看[ioerror/duraconf/configs/gnupg/gpg.conf](https://github.com/ioerror/duraconf/blob/master/configs/gnupg/gpg.conf)。你也应该花时间读读[OpenPGP Best Practices](https://help.riseup.net/en/security/message-security/openpgp/best-practices)。
 
-If you don't already have a keypair, create one using `gpg --gen-key`. Also see [drduh/YubiKey-Guide](https://github.com/drduh/YubiKey-Guide).
+如果你没有一个密钥对，用`gpg --gen-key`创建一个。也看看[drduh/YubiKey-Guide](https://github.com/drduh/YubiKey-Guide)。
 
-Read [online](https://alexcabal.com/creating-the-perfect-gpg-keypair/) [guides](https://security.stackexchange.com/questions/31594/what-is-a-good-general-purpose-gnupg-key-setup) and practice encrypting and decrypting email to yourself and your friends. Get them interested in this stuff!
+读[在线的](https://alexcabal.com/creating-the-perfect-gpg-keypair/) [指南](https://security.stackexchange.com/questions/31594/what-is-a-good-general-purpose-gnupg-key-setup)并练习给你自己和朋友们加密解密邮件。让他们也对这篇文章感兴趣吧！
 
 ## OTR
 
-OTR stands for **off-the-record** and is a cryptographic protocol for encrypting and authenticating conversations over instant messaging.
+OTR 代表 **off-the-record** 并且是一个针对即时消息对话加密和授权的密码协议。
 
-You can use OTR on top of any existing [XMPP](https://xmpp.org/about) chat service, even Google Hangouts (which only encrypts conversations between users and the server using TLS).
+你能在任何一个已存在的[XMPP](https://xmpp.org/about) 聊天服务顶部使用 OTR，甚至是 Google Hangouts(它只在使用 TLS 的用户和服务器之间加密对话)。
 
-The first time you start a conversation with someone new, you'll be asked to verify their public key fingerprint. Make sure to do this in person or by some other secure means (e.g. GPG encrypted mail).
+你和某人第一次开始一段对话，你将会被询问来验证他们的公钥 fingerprint。确保亲自或通过某些其他的安全方法(例如 GPG 加密过的邮件)做这件事。
+针对 XMPP 和其他的聊天协议，有一个流行的 macOS GUI 客户端是[Adium](https://adium.im/)。
 
-A popular macOS GUI client for XMPP and other chat protocols is [Adium](https://adium.im/)
-
-Consider downloading the [beta version](https://beta.adium.im/) which uses OAuth2, making logging in to Google accounts [more](https://adium.im/blog/2015/04/) [secure](https://trac.adium.im/ticket/16161).
+考虑下载使用 OAuth2 的 [测试版](https://beta.adium.im/)，确保登录谷歌账号[更](https://adium.im/blog/2015/04/) [安全](https://trac.adium.im/ticket/16161)。
 
 ```
 Adium_1.5.11b3.dmg
@@ -1102,23 +1101,23 @@ SHA-256: 999e1931a52dc327b3a6e8492ffa9df724a837c88ad9637a501be2e3b6710078
 SHA-1:   ca804389412f9aeb7971ade6812f33ac739140e6
 ```
 
-Remember to [disable logging](https://trac.adium.im/ticket/15722) for OTR chats with Adium.
+记住对于 Adium 的 OTR 聊天[禁用登录](https://trac.adium.im/ticket/15722)。
 
-A good console-based XMPP client is [profanity](http://www.profanity.im/), which can be installed with `brew install profanity`
+一个好的基于控制台的 XMPP 客户端是[profanity](http://www.profanity.im/)，它能用`brew install profanity`安装。
 
-For improved anonymity, check out [Tor Messenger](https://blog.torproject.org/blog/tor-messenger-beta-chat-over-tor-easily), although it is still in beta, as well as [Ricochet](https://ricochet.im/) (which has recently received a thorough [security audit](https://ricochet.im/files/ricochet-ncc-audit-2016-01.pdf) (pdf)), which both use the Tor network rather than relying on messaging servers.
+针对改进的匿名，查看[Tor Messenger](https://blog.torproject.org/blog/tor-messenger-beta-chat-over-tor-easily)，尽管它还在测试中，[Ricochet](https://ricochet.im/) (它最近接受了一个彻底的 [安全 审查](https://ricochet.im/files/ricochet-ncc-audit-2016-01.pdf) (pdf))也是，这两个都使用 Tor 网络而不是依赖于消息服务器。
 
-If you want to know how OTR works, read the paper [Off-the-Record Communication, or, Why Not To Use PGP](https://otr.cypherpunks.ca/otr-wpes.pdf) (pdf)
+如果你想了解 OTR 是如何工作的，读这篇论文[Off-the-Record Communication, or, Why Not To Use PGP](https://otr.cypherpunks.ca/otr-wpes.pdf) (pdf)
 
 ## Tor
 
-Tor is an anonymizing proxy which can be used for browsing the Web.
+Tor 是一个用来浏览网页的匿名代理。
 
-Download Tor Browser from the [offical Tor Project Web site](https://www.torproject.org/projects/torbrowser.html).
+从[官方 Tor 项目网站](https://www.torproject.org/projects/torbrowser.html)下载 Tor 浏览器。
 
-Do **not** attempt to configure other browsers or applications to use Tor as you will likely make a mistake which will compromise your anonymity.
+**不要** 尝试配置其他的浏览器或应用程序来使用 Tor，因为你可能会犯破坏匿名的错。
 
-Download both the `dmg` and `asc` signature files, then verify the disk image has been signed by Tor developers:
+下载`dmg` 和 `asc`签名文件，然后验证磁盘镜像已经被 Tor 开发者签过名了：
 
 ```
 $ cd Downloads
@@ -1149,11 +1148,11 @@ Primary key fingerprint: EF6E 286D DA85 EA2A 4BA7  DE68 4E2C 6E87 9329 8290
      Subkey fingerprint: BA1E E421 BBB4 5263 180E  1FC7 2E1A C68E D408 14E0
 ```
 
-Make sure `Good signature from "Tor Browser Developers (signing key) <torbrowser@torproject.org>"` appears in the output. The warning about the key not being certified is benign, as it has not yet been manually assigned trust.
+确保`Good signature from "Tor Browser Developers (signing key) <torbrowser@torproject.org>"`出现在输出结果中。关于密钥没被认证的警告不是坏的，因为它还没被手动分配信任。
 
-See [How to verify signatures for packages](https://www.torproject.org/docs/verifying-signatures.html) for more information.
+看[How to verify signatures for packages](https://www.torproject.org/docs/verifying-signatures.html) 获得更多信息。
 
-To finish installing Tor Browser, open the disk image and drag the it into the Applications folder, or with:
+要完成安装 Tor 浏览器，打开磁盘镜像，拖动它到应用文件夹里，或者这样：
 
 ```
 $ hdiutil mount TorBrowser-6.0.5-osx64_en-US.dmg
@@ -1161,7 +1160,7 @@ $ hdiutil mount TorBrowser-6.0.5-osx64_en-US.dmg
 $ cp -rv /Volumes/Tor\ Browser/TorBrowser.app /Applications
 ```
 
-Tor traffic is **encrypted** to the [exit node](https://en.wikipedia.org/wiki/Tor_(anonymity_network)#Exit_node_eavesdropping) (cannot be read by a passive network eavesdropper), but Tor use **can** be identified - for example, TLS handshake "hostnames" will show up in plaintext:
+Tor 流量对于[出口节点](https://en.wikipedia.org/wiki/Tor_(anonymity_network#Exit_node_eavesdropping)(不能被一个网络窃听者读取) 是 **加密的**，但是Tor的使用 **能** 被确认 - 例如，TLS 握手“主机名”将会以明文显示：
 
 ```
 $ sudo tcpdump -An "tcp" | grep "www"
@@ -1171,31 +1170,31 @@ listening on pktap, link-type PKTAP (Apple DLT_PKTAP), capture size 262144 bytes
 .6....m.....>...:.........|../*	Z....W....X=..6...C../....................................0...0..0.......'....F./0..	*.H........0%1#0!..U....www.b6zazzahl3h3faf4x2.com0...160402000000Z..170317000000Z0'1%0#..U....www.tm3ddrghe22wgqna5u8g.net0..0..
 ```
 
-See [Tor Protocol Specification](https://gitweb.torproject.org/torspec.git/tree/tor-spec.txt) and [Tor/TLSHistory](https://trac.torproject.org/projects/tor/wiki/org/projects/Tor/TLSHistory) for more information.
+查看 [Tor Protocol Specification](https://gitweb.torproject.org/torspec.git/tree/tor-spec.txt) 和 [Tor/TLSHistory](https://trac.torproject.org/projects/tor/wiki/org/projects/Tor/TLSHistory) 获得更多信息。
 
-You may wish to additionally obfuscate Tor traffic using a [pluggable transport](https://www.torproject.org/docs/pluggable-transports.html), such as [Yawning/obfs4proxy](https://github.com/Yawning/obfs4) or [SRI-CSL/stegotorus](https://github.com/SRI-CSL/stegotorus).
+另外，你可能也希望使用一个[pluggable transport](https://www.torproject.org/docs/pluggable-transports.html), 例如 [Yawning/obfs4proxy](https://github.com/Yawning/obfs4) 或 [SRI-CSL/stegotorus](https://github.com/SRI-CSL/stegotorus)来混淆 Tor 流量。
 
-This can be done by setting up your own [Tor relay](https://www.torproject.org/docs/tor-relay-debian.html) or finding an existing private or public [bridge](https://www.torproject.org/docs/bridges.html.en#RunningABridge) to serve as an obfuscating entry node.
+这能通过建立你自己的[Tor relay](https://www.torproject.org/docs/tor-relay-debian.html)或找到一个已存在的私有或公用的[bridge](https://www.torproject.org/docs/bridges.html.en#RunningABridge) 来作为一个混淆入口节点来实现。
 
-For extra security, use Tor inside a [VirtualBox](https://www.virtualbox.org/wiki/Downloads) or [VMware](https://www.vmware.com/products/fusion) virtualized [GNU/Linux](http://www.brianlinkletter.com/installing-debian-linux-in-a-virtualbox-virtual-machine/) or [BSD](http://www.openbsd.org/faq/faq4.html) machine.
+对于额外的安全性，在[VirtualBox](https://www.virtualbox.org/wiki/Downloads) 或 [VMware](https://www.vmware.com/products/fusion) ，可视化的 [GNU/Linux](http://www.brianlinkletter.com/installing-debian-linux-in-a-virtualbox-virtual-machine/) 或 [BSD](http://www.openbsd.org/faq/faq4.html)及其里用 Tor。
 
-Finally, remember the Tor network provides [anonymity](https://www.privateinternetaccess.com/blog/2013/10/how-does-privacy-differ-from-anonymity-and-why-are-both-important/), which is not necessarily synonymous with privacy. The Tor network does not guarantee protection against a global observer capable of traffic analysis and [correlation](https://blog.torproject.org/category/tags/traffic-correlation). See also [Seeking Anonymity in an Internet Panopticon](http://bford.info/pub/net/panopticon-cacm.pdf) (pdf) and [Traffic Correlation on Tor by Realistic Adversaries](http://www.ohmygodel.com/publications/usersrouted-ccs13.pdf) (pdf).
+最后，记得 Tor 网络提供了[匿名](https://www.privateinternetaccess.com/blog/2013/10/how-does-privacy-differ-from-anonymity-and-why-are-both-important/)，这并不等于隐私。Tor 网络不一定能防止一个全球的窃听者能获得流量统计和[相关性](https://blog.torproject.org/category/tags/traffic-correlation)。也看看 [Seeking Anonymity in an Internet Panopticon](http://bford.info/pub/net/panopticon-cacm.pdf) (pdf) 和 [Traffic Correlation on Tor by Realistic Adversaries](http://www.ohmygodel.com/publications/usersrouted-ccs13.pdf) (pdf)。
 
-Also see [Invisible Internet Project (I2P)](https://geti2p.net/en/about/intro) and its [Tor comparison](https://geti2p.net/en/comparison/tor).
+也看看 [Invisible Internet Project (I2P)](https://geti2p.net/en/about/intro) 和它的 [Tor 对比](https://geti2p.net/en/comparison/tor)。
 
 ## VPN
 
-If you use your Mac on untrusted networks - airports, cafes, etc. - your network traffic is being monitored and possibly tampered with.
+如果你在未信任的网络使用 Mac - 机场，咖啡厅等 - 你的网络流量会被监控并可能被篡改。
 
-It is a good idea to use a VPN which encrypts **all** outgoing network traffic (i.e., not **split tunnel**) with a provider you trust. For an example of how to set up and host your own VPN, see [drduh/Debian-Privacy-Server-Guide](https://github.com/drduh/Debian-Privacy-Server-Guide).
+用一个 VPN 是个好想法，它能用一个你信任的提供商加密 **所有** 输出的网络流量。举例说如何建立并拥有自己的 VPN，看 [drduh/Debian-Privacy-Server-Guide](https://github.com/drduh/Debian-Privacy-Server-Guide)。
 
-Don't just blindly sign up for a VPN service without understanding the full implications and how your traffic will be routed. If you don't understand how the VPN works or are not familiar with the software used, you are probably better off without it.
+不要盲目地还没理解整个含义和流量的路由原理就为一个 VPN 服务签名。如果你不理解 VPN 是怎样工作的或不熟悉软件的使用，你就最好别用它。
 
-When choosing a VPN service or setting up your own, be sure to research the protocols, key exchange algorithms, authentication mechanisms, and type of encryption being used. Some protocols, such as [PPTP](https://en.wikipedia.org/wiki/Point-to-Point_Tunneling_Protocol#Security), should be avoided in favor of [OpenVPN](https://en.wikipedia.org/wiki/OpenVPN), for example.
+当选择一个 VPN 服务或建立你自己的服务时，确保研究过协议，密钥交换算法，认证机制和使用的加密类型。一些协议，例如[PPTP](https://en.wikipedia.org/wiki/Point-to-Point_Tunneling_Protocol#Security)，应该避免支持 [OpenVPN](https://en.wikipedia.org/wiki/OpenVPN)。
 
-Some clients may send traffic over the next available interface when VPN is interrupted or disconnected. See [scy/8122924](https://gist.github.com/scy/8122924) for an example on how to allow traffic only over VPN.
+当 VPN 被中断或失去连接时，一些客户端可能通过下一个可用的接口发送流量。查看[scy/8122924](https://gist.github.com/scy/8122924)研究下如何允许流量只通过VPN。
 
-Another set of scripts to lock down your system so it will only access the internet via a VPN can be found as part of the Voodoo Privacy project - [sarfata/voodooprivacy](https://github.com/sarfata/voodooprivacy) and there is an updated guide to setting up an IPSec VPN on a virtual machine ([hwdsl2/setup-ipsec-vpn](https://github.com/hwdsl2/setup-ipsec-vpn)) or a docker container ([hwdsl2/docker-ipsec-vpn-server](https://github.com/hwdsl2/docker-ipsec-vpn-server)).
+另一些脚本会关闭系统，所以只能通过 VPN 访问网络，这就是 the Voodoo Privacy project - [sarfata/voodooprivacy](https://github.com/sarfata/voodooprivacy)的一部分，有一个更新的指南用来在一个虚拟机上([hwdsl2/setup-ipsec-vpn](https://github.com/hwdsl2/setup-ipsec-vpn))或一个 docker 容器([hwdsl2/docker-ipsec-vpn-server](https://github.com/hwdsl2/docker-ipsec-vpn-server)).建立一个 IPSec VPN。
 
 ## Viruses and malware
 
