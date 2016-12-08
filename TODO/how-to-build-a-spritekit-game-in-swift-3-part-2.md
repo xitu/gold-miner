@@ -1,4 +1,10 @@
 
+> * 原文地址：[ How To Build A SpriteKit Game In Swift 3 (Part 2) ](https://www.smashingmagazine.com/2016/12/how-to-build-a-spritekit-game-in-swift-3-part-2/ )
+* 原文作者：[ Marc Vandehey ]( https://www.smashingmagazine.com/author/marcvandehey/)
+* 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+* 译者：
+* 校对者：
+
 ## [How To Build A SpriteKit Game In Swift 3 (Part 2)](https://www.smashingmagazine.com/2016/12/how-to-build-a-spritekit-game-in-swift-3-part-2/)  ##
 
 Have you ever wondered what it takes to create a [SpriteKit](https://developer.apple.com/spritekit/)[1](#1) game? Does collision detection seem like a daunting task? Do you want to know how to properly handle sound effects and background music? Game-making has never been easier on iOS since the introduction of SpriteKit. In part two of this three-part series, we will explore the basics of SpriteKit.
