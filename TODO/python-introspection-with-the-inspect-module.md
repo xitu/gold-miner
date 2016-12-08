@@ -6,7 +6,7 @@
 
 # How to write your own Python documentation generator
 
-# 来写一个 Python 文档生成器吧
+# 来写一个 Python 说明文档生成器吧
 
 In my early days with Python, one of the things that I really liked was using the built-in `help` function to examine classes and methods while sitting at the interpreter, trying to determine what to type next. This function imports an object and walks through its members, pulling out docstrings and generating manpage-like output to help give you an idea of how to use the object it was examining.
 
@@ -211,20 +211,43 @@ When formatting a large body of text and interweaving with some programmatic cod
 
 As you can see, `getmembers()` returns a tuple with the name of the object in the first position and the actual object in the second, which we can then use to recurse through the object hierarchy.
 
+如你所见，`getmembers()` 首先返回了对象名，然后返回了实际的对象，我们可以用它来递归整个对象结构。
+
 For each one of the items retrieved, it’s then possible to pull docstrings and comments with `getdoc()` or `getcomments()`. For every function we can use `signature()` to get a `Signature` object that represents its positional and keyword arguments, their default values and any annotations, providing us with the flexibility of generating fairly descriptive and well styled text that helps our users understand the intent of the code we’ve written.
+
+我们可以用 `getdoc()` 或者 `getcomments()` 来获取每个检索内容的说明内容和注释。对函数来说，我们可以使用 `signature()` 获取描述其位置和关键字参数、默认值以及注释的 `Signature` 对象，并灵活生成极具描述性和风格良好的文本来帮助用户了解我们编码的意图。
 
 #### Other considerations and unintended consequences
 
+#### 未雨绸缪和以防万一
+
 Please note that the code above is just sample code only meant to give you an idea of what the final product should look like. There are quite a few more considerations to keep in mind before finalizing things:
 
+要注意上文中的代码仅仅是为了让你对结果有个直观的认识，在大功告成之前，你还要对以下问题加以深思熟虑：
+
 *   As is, `getfunctions` and `getclasses` will show **ALL** functions and classes imported in the module. This includes builtins, as well as anything from external packages, so you’ll have to filter that for-loop some more. I wound up using the `__file__` property of the module that contains whatever item I’m inspecting. In other words, if the item is defined in a module that exists within the path in which I’m executing, then include it (use `os.path.commonprefix()`)
+
+*  如上所示，`getfunctions` 和 `getclasses` 会展示模块中引入的**所有**函数和类，包含内置和扩展包中的内容，因此你需要在 for 循环中进一步筛选。最后，我使用了当前检视内容所在模块的 `__file__` 属性，换句话说，如果所检视路径中存在某个模块，而模块中定义了所检视内容，然后我们可以使用 `os.path.commonprefix()` 将其引入。
+
 *   There are some gotcha’s with file paths, import hierarchy and names. Like when you import moduleX into a package through __init__.py, you’ll be able to access its functions as package.moduleX.function, but the full name — the one returned by moduleX.__name__ — will be package.moduleX.moduleX.function. You may not care, but I did, so it’s something to keep in mind when iterating through things.
+
+*   在文件路径、引入结构和命名方面还存在一些疑难杂症，比如当你通过 __init__.py 将模块 X 引入一个代码包的时候，你将能通过 package.moduleX.function 的方式获取它的函数，但是完整的命名——moduleX.__name__ 返回的名字——却是 package.moduleX.moduleX.function。或许你并不在意这些，但是我在意，所以当轮询内容的时候你需要将此时刻铭记于心。
+
 *   You’ll import classes from `builtins` and anything from there does not have `__file__`, so check for that if you put any filtering in place like described above.
+
+*   你也会从 `builtins` 中引入类，但是内置的模块没有 `__file__` 属性，所以当你在添加筛选时要记得检查哦。
+
 *   Because this is markdown and because we’re simply importing docstrings, you can include markdown in your docstrings and it will appear in the page all nice and pretty. However, this means that you should take care to properly escape the docstring so it doesn’t break the HTML generated.
+
+*   因为是 markdown 语法并且我们只是简单的引入说明内容，所以你可以在说明文档中引入 markdown 语法的内容，它也能很精美地显示在页面中。
 
 #### Sample output
 
+#### 采样输出
+
 I ran my generator over the `sofi` package — the `sofi.app` module to be precise — and here’s the markdown it created.
+
+我在 `sofi` 代码包上运行生成器——准确来说是 `sofi.app` 模块——以下是生成的 markdown 文件的内容。
 
     # sofi
     
@@ -241,47 +264,16 @@ I ran my generator over the `sofi` package — the `sofi.app` module to be p
 
 Below is a sample of the final product (excluding function annotations) after running it through mkdocs to produce a readthedocs themed page.
 
-
-
-
-
-
-
-
-
-
-
-
+下面是在 mkdocs 下生成的一个 readthedocs 主题的样本内容（不包含函数注释）：
 
 ![](https://cdn-images-1.medium.com/max/1000/1*y1cT7FhQpijK_wVhFuHNsw.png)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 * * *
-
-
-
-
-
-
 
 As I’m sure you already know, using these mechanisms for automatically generating documentation leads to complete, accurate and up-to-date information on your modules that’s easy to maintain and edit as you write the code, instead of after the fact. I strongly encourage everyone to give it a shot.
 
+我相信你肯定已经明白，使用这些机制自动生成的文档能提供完整、准确、最新的模块信息，这使得模块在编程过程中易于维护和编辑，而并非是事后诸葛。（即并非在事后已经不需要的时候才总结出一份与模块相符的文档，原文为 instead of after the fact ，译者注）。我强烈建议每个人都给它一个机会。
+
 Before closing, I’d like to take a step back and mention that mkdocs is not the only documentation package out there. There are other well known and widely used systems like Sphinx (which mkdocs is based on) and Doxygen, both of which already do what we discussed here. However, as always, I wanted to go through the exercise in order to learn more about Python internals and the tools that come with it.
 
-
-
-
-
+本文结束之前，我想回顾一下并说明 makdocs 并不是唯一的文档包，还有很多著名且应用广泛的文档包，比如 Sphinx（mkdocs 既是基于此）和 Doxygen，两者都可以实现我们今天谈论的内容。然而，我一如既往义无反顾地这样做，就是为了能够深入了解 Python 和它所自带的工具。
