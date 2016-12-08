@@ -1,3 +1,9 @@
+> * 原文地址：[USE THESE POWERFUL RESEARCH TECHNIQUES TO UNDERSTAND WHAT MOTIVATES YOUR USERS](http://blog.invisionapp.com/generative-research-ux/)
+* 原文作者：[Misael Leon](http://blog.invisionapp.com/author/misael-leon/)
+* 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+* 译者：
+* 校对者：
+
 
 # Use these powerful research techniques to understand what motivates your users
 
