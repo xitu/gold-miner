@@ -28,7 +28,7 @@ Today, we will focus on the following:
 - “Damage” the cat when it comes into contact with the rain.
 - Add sound effects and music.
 
-### Get The Assets Again [Link](#get-the-assets-again) (.sr .hsl aria-label=sr hsl) ### (#get-the-assets-again)
+### Get The Assets Again
 
 You can get the assets needed for this lesson [on GitHub](https://github.com/thirteen23/RainCat/blob/smashing-day-2/dayTwoAssets.zip)[6](#6) (ZIP). Download and add the images to your `Assets.xcassets` file by dragging them all in at once. You should now have an asset for the cat animation and the food dish. We will add in the sound effects and music later on.
 
@@ -59,7 +59,6 @@ public class CatSprite : SKSpriteNode {
 
   }
 }
-
 ```
 
 We’ve stubbed out the file with a static initializer that returns a generated cat sprite. We’ve also stubbed out another `update` function. If we need to update more sprites, we should look into making this function a part of a [protocol](https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Protocols.html)[9](#9) for our sprites to conform to. One thing to note here: For the cat sprite, we are using a circular `SKPhysicsBody`. We could use the texture to create the physics body, as we did with the raindrops, but this is an “artistic” decision. When the cat is hit by the raindrops or the umbrella, it would be much more amusing for the cat to roll around in a fit of despair, instead of just sitting still.
@@ -68,7 +67,6 @@ We will need callbacks for when the cat comes into contact with the rain or fall
 
 ```
 let CatCategory      : UInt32 = 0x1 << 4
-
 ```
 
 The code above will be the constant used to determine which `SKPhysicsBody` is the cat. Let’s move back to `CatSprite.swift` and update the sprite to include `categoryBitMask` and `contactTestBitMask`. Add the following lines before we return the `catSprite` in `newInstance()`:
@@ -76,7 +74,6 @@ The code above will be the constant used to determine which `SKPhysicsBody` is t
 ```
 catSprite.physicsBody?.categoryBitMask = CatCategory
 catSprite.physicsBody?.contactTestBitMask = RainDropCategory | WorldCategory
-
 ```
 
 Now, we will get a callback when the cat is hit by rain or when it comes into contact with the edge of the world. After adding this, we need to add the cat to the scene.
@@ -85,7 +82,6 @@ At the top of `GameScene.swift`, below where we initialized `umbrellaSprite`, ad
 
 ```
 private var catNode : CatSprite!
-
 ```
 
 We can create a cat right away in `sceneDidLoad()`, but we want to spawn the cat from a separate function in order to reuse the code. The exclamation point (`!`) tells the compiler that it does not need to be initialized in an `init` statement, and that it probably will not be `nil`. We do this for two reasons. First, we don’t want to include an `init()` statement for only one variable. Secondly, we don’t want to initialize it right away, only to reinitialize and position the cat when we hit `spawnCat()` the first time. We could have it as an optional (`?`), but after we hit the `spawnCat()` function the first time, our cat sprite will never be `nil` again. To get around this and the headache of unwrapping it every time we want to use it, we’ll say that it is safe to automatically unwrap using the exclamation pont. If we touch our cat object before initializing it, our app would crash, because we told it that it was safe to unwrap when it wasn’t. We need to initialize it before using it, but in the proper function.
@@ -107,7 +103,6 @@ func spawnCat() {
 
   addChild(catNode)
 }
-
 ```
 
 Walking through this function, we’re first checking whether the cat is not `nil`. Then, we’re checking whether the scene contains a cat. If the scene does contain a cat, we remove it from the parent, remove any actions that the cat is currently performing, and clear out the `SKPhysicsBody` of the cat. This will only trigger if the cat comes into contact with the edge of the game world. After this, we initialized a new cat and set the position to 30 pixels below the umbrella. We could spawn the cat anywhere, but I thought that this would be a clever place, instead of dropping the cat from the sky.
@@ -119,7 +114,6 @@ umbrellaNode.zPosition = 4
 addChild(umbrellaNode)
 
 spawnCat()
-
 ```
 
 Now we can run the app, and voilà!
@@ -151,7 +145,6 @@ func handleCatCollision(contact: SKPhysicsContact) {
     print("Something hit the cat")
   }
 }
-
 ```
 
 In this block of code, we are looking for the physics body that is not the cat. Once we have the other body, we need to figure out what hit the cat. For now, if a raindrop hits the cat, we just print out to the console that the collision occurred. If the cat hits the edge of the game world, we will respawn the cat.
@@ -182,7 +175,6 @@ func didBegin(_ contact: SKPhysicsContact) {
     contact.bodyA.node?.removeAllActions()
   }
 }
-
 ```
 
 We snuck in a condition between where we remove collision from raindrops and where we cull off-screen nodes. This `if` statement checks whether either body is the cat, and then we handle the cat behaviors in the `handleCatCollision(contact:)` function.
@@ -195,7 +187,6 @@ Now seems like a good time to spawn some food for our cat to eat. Sure, the cat 
 
 ```
 let FoodCategory     : UInt32 = 0x1 << 5
-
 ```
 
 The code above will be the constant used to determine which `SKPhysicsBody` is the food. Create a file exactly how we created the `CatSprite.swift` file, but this time named `FoodSprite.swift`, under the “Sprites” group. Add the following code to the new file:
@@ -215,7 +206,6 @@ public class FoodSprite : SKSpriteNode {
     return foodDish
   }
 }
-
 ```
 
 This is a static function that, when called, will initialize a `FoodSprite` and return it. We set the physics body to a rectangle of the sprite’s size. This is fine because the sprite itself is a rectangle. Then, we set the category to the `FoodCategory` that we just created, and added it to the object that we want collisions with (the world frame, the raindrops and the cat). The `zPosition`s of the food and the cat are the same, and they’ll never overlap, because as soon as they come into contact, the food will be deleted and the player will earn a point.
@@ -224,7 +214,6 @@ Heading back to `GameScene.swift`, we will need to add functionality to spawn an
 
 ```
 private let foodEdgeMargin : CGFloat = 75.0
-
 ```
 
 This will act as a margin when spawning food. We don’t want to spawn it too close to either the left or right side of the screen. We place it at the top of the file, so that we won’t have to search all over to change this value if we need to later on. Next, below our `spawnCat()` function, we can add our `spawnFood` function:
@@ -240,7 +229,6 @@ func spawnFood() {
 
   addChild(food)
 }
-
 ```
 
 This function acts almost exactly like our `spawnRaindrop()` function. We create a new `FoodSprite`, then place it in a random `x` location on the screen. We use the margin variable that we set earlier to shrink the amount of screen space where the food sprite can spawn. First, we get a random location from 0 to the width of the screen, minus the margin, multiplied by 2. Then, we offset the start by the margin. This prevents food from spawning anywhere between 0 and 75 from each side of the screen.
@@ -250,7 +238,6 @@ Near the top of the file in `sceneDidLoad()`, let’s add the following code ben
 ```
 spawnCat()
 spawnFood()
-
 ```
 
 Now when the scene loads, we will spawn an umbrella, a cat from the umbrella, some raindrops and food falling from the sky. Currently, the rain can interact with the food, possibly moving it around. The rain will act in the same way relative to the food as the umbrella and the floor, bouncing once and then losing all of its collision until it interacts with the edge of the game world and is deleted. We also need some interaction between the food and the cat.
@@ -284,7 +271,6 @@ func handleFoodHit(contact: SKPhysicsContact) {
     print("something else touched the food")
   }
 }
-
 ```
 
 With this function, we will handle the food’s collision in the same way we handle the cat’s collision. First, we identify which physics body is the food, and then we run a `switch` statement on the other body. Then, we add cases for `CatCategory` — this is a stub so that we can later update our score. Then we `fallthrough` to hit the `WorldFrameCategory`, where we remove the food sprite from the scene, and also the `physicsBody` associated with it. Finally, we spawn the food again. When it hits the world boundary, we just remove the sprite and `physicsBody`. If anything else is detected, our default case will trigger and send a generic statement to the console. Currently, the only thing that can hit this statement is `RainDropCategory`. As of now, we don’t care what happens when the rain hits the food. We just want the rain to act the same as it does when it hits the floor or the umbrella.
@@ -296,7 +282,6 @@ if contact.bodyA.categoryBitMask == FoodCategory || contact.bodyB.categoryBitMas
   handleFoodHit(contact: contact)
   return
 }
-
 ```
 
 The final code for `didBegin(_ contact)` should look like the following code snippet:
@@ -331,7 +316,6 @@ func didBegin(_ contact: SKPhysicsContact) {
     contact.bodyA.node?.removeAllActions()
   }
 }
-
 ```
 
 Let’s run the app again. The cat won’t be running anywhere right now, but we can test our method by pushing the cat food off screen or by rolling the cat onto the cat food. Either case should now delete the food node, and one should respawn from off screen.
@@ -344,7 +328,6 @@ Going back to `GameScene.swift`, let’s add a variable to the top of the file, 
 
 ```
 private var foodNode : FoodSprite!
-
 ```
 
 Now, we can update the `spawnFood()` function to set this variable every time the food is spawned.
@@ -368,7 +351,6 @@ func spawnFood() {
 
   addChild(foodNode)
 }
-
 ```
 
 This will change the scope of the food variable from the `spawnFood()` function to that of the `GameScene.swift` file. The way we’ve coded things, we have only one `FoodSprite` spawning at a time, and we’re keeping a reference to it. Because we have this reference, we can detect where the food is at any given time. We also have a single cat on screen at any time, and we also keep a reference to it.
@@ -377,7 +359,6 @@ We know the cat wants the food; we just need to provide a means for the cat to m
 
 ```
 private let movementSpeed : CGFloat = 100
-
 ```
 
 This line is our movement speed, which is a simple solution to a complex problem. It’s a simple linear equation, ignoring any complexities that friction or acceleration brings into the mix.
@@ -396,7 +377,6 @@ public func update(deltaTime : TimeInterval, foodLocation: CGPoint) {
     xScale = 1
   }
 }
-
 ```
 
 We’ve updated the signature of the function! We needed to give the cat the location of the food, so instead of only sending in the delta time, we’ve added the food location as well. Because many things can affect the location of the food, we need to update it constantly so that we are always moving in the right direction. Let’s also look at the function here. In the new update function, we take in the delta time, which will be pretty short, about 0.166 seconds or so. We also take in the food’s location, which is a `CGPoint`. If the food location’s `x` position is less than the cat’s `x` position, then we’ll know that the food is to the left. If not, then the food will be either on top or to the right. If we move left, then we take the cat’s `x` position and subtract the movement speed, multiplied by the delta time. We need to cast it from a `TimeInterval` to a `CGFloat`, since our position and movement speed use those units, and Swift is a strongly typed language.
@@ -409,7 +389,6 @@ Moving to the `GameScene.swift` file, navigate to our `update(_ currentTime:)` f
 
 ```
 catNode.update(deltaTime: dt, foodLocation: foodNode.position)
-
 ```
 
 Run the app, and we should have success! Mostly, at least. Currently, the cat does indeed move toward the food, but it can get into some interesting situations.
@@ -424,7 +403,6 @@ At the top of `CatSprite.swift`, we will add in a string constant so that we can
 
 ```
 private let walkingActionKey = "action_walking"
-
 ```
 
 The string itself is not really important, but it is unique to this walking animation. I also like adding something meaningful to the key for debugging purposes down the line. For example, if I see the key, I will know that it is a `SKAction` and, specifically, that it is the walking action.
@@ -436,7 +414,6 @@ private let walkFrames = [
   SKTexture(imageNamed: "cat_one"),
   SKTexture(imageNamed: "cat_two")
 ]
-
 ```
 
 This is just an array of the two textures that we will switch between while walking. To finish this off, we will update our `update(deltaTime: foodLocation:)` function to the following code:
@@ -463,7 +440,6 @@ public func update(deltaTime : TimeInterval, foodLocation: CGPoint) {
     xScale = 1
   }
 }
-
 ```
 
 With this update, we’ve checked whether our cat sprite is already running the walking animation sequence. If it is not, we will add an action to the sprite. This is a nested `SKAction`. First, we create an action that will repeat forever. Then, in *that* action, we create the animation sequence for walking. The `SKAction.animate(with: …)` takes in the array of animation frames, along with the time per frame. The next variable in the function checks whether one of the textures is of a different size and whether it should resize the `SKSpriteNode` when it gets to that frame. `Restore` checks whether the sprite should return to its initial state after the action is completed. We set both of these to `false` so that we don’t get any unintended side effects. After we set up the walking action, we tell the sprite to start running it with the `run()` function.
@@ -479,7 +455,6 @@ Let’s go over the plan. We want to show the user that the cat has been hit, ot
 ```
 private var timeSinceLastHit : TimeInterval = 2
 private let maxFlailTime : TimeInterval = 2
-
 ```
 
 The first variable, `timeSinceLastHit` holds how long it has been since the cat was hit last. We set it to `2` because of the next variable, `maxFlailTime`. This is a constant, saying that the cat will be stunned for only 2 seconds. Both are set to 2 so that the cat does not start out stunned when spawned. You can play with these variables later to get the perfect stun time.
@@ -491,7 +466,6 @@ public func hitByRain() {
   timeSinceLastHit = 0
   removeAction(forKey: walkingActionKey)
 }
-
 ```
 
 This just updates the `timeSinceLastHit` to `0`, and removes the walking animation that we set up earlier. Now we need to overhaul `update(deltaTime: foodLocation:)`, so that the cat doesn’t move while it is stunned. Update the function to the following:
@@ -522,7 +496,6 @@ public func update(deltaTime : TimeInterval, foodLocation: CGPoint) {
     }
   }
 }
-
 ```
 
 Now, our `timeSinceLastHit` will constantly be updated, and if the cat hasn’t been hit in the past 2 seconds, it will walk toward the food. If our walking animation isn’t set, then we’ll set it correctly. This is a frame-based animation that just swaps out the texture every 0.1 seconds to make it appear as though the cat is walking. It looks exactly like how real cats walk, doesn’t it?
@@ -531,14 +504,12 @@ We need to move over to `GameScene.swift` to tell the cat that it has been hit. 
 
 ```
 print("rain hit the cat")
-
 ```
 
 … with this:
 
 ```
 catNode.hitByRain()
-
 ```
 
 If we run the app now, the cat will be stunned for 2 seconds once rain touches it!
@@ -549,7 +520,6 @@ For the raindrop problem, we can make a slight tweak to its `physicsBody`. Under
 
 ```
 raindrop.physicsBody?.density = 0.5
-
 ```
 
 This will halve the density of the raindrop from its normal value of `1.0`. This will launch the cat a little less.
@@ -560,7 +530,6 @@ Find this line:
 
 ```
 if timeSinceLastHit >= maxFlailTime {
-
 ```
 
 And add the following code to correct the angular rotation:
@@ -569,7 +538,6 @@ And add the following code to correct the angular rotation:
 if zRotation != 0 && action(forKey: "action_rotate") == nil {
   run(SKAction.rotate(toAngle: 0, duration: 0.25), withKey: "action_rotate")
 }
-
 ```
 
 This block of code checks whether the cat is rotated, even in the slightest. Then, we check currently running `SKAction`s to see whether we are already animating the cat to its standing position. If the cat is rotated and not animating, we run an action to rotate it back to 0 radians. Note that we are hardcoding the key here, because we currently don’t need to use this key outside of this spot. In the future, if we need to check the animation of our rotation in another function or class, we would make a constant at the top of the file, exactly like the `walkingActionKey`.
@@ -613,7 +581,6 @@ public func update(deltaTime : TimeInterval, foodLocation: CGPoint) {
     physicsBody?.angularVelocity = 0
   }
 }
-
 ```
 
 Run the app yet again, and much of the herky-jerky action will be corrected. Not only that, but the cat will now stand still when the food is directly above it.
@@ -645,7 +612,6 @@ private let meowSFX = [
   "cat_meow_5.wav",
   "cat_meow_6.wav"
 ]
-
 ```
 
 We can have the cat make sounds by adding two lines to the `hitByRain` function:
@@ -653,7 +619,6 @@ We can have the cat make sounds by adding two lines to the `hitByRain` function:
 ```
 let selectedSFX = Int(arc4random_uniform(UInt32(meowSFX.count)))
 run(SKAction.playSoundFileNamed(meowSFX[selectedSFX], waitForCompletion: true))
-
 ```
 
 The code above selects a random number, with the minimum being `0` and maximum being the size of the `meowSFX` array. Then, we pick the sound effect’s name from the string array and play the sound file. We will get to the `waitForCompletion` variable in a bit. Also, we’ll use `SKAction.playSoundFileNamed` for our short-and-sweet sound effects.
@@ -661,7 +626,6 @@ The code above selects a random number, with the minimum being `0` and maximum b
 And we have sound! Too much sound! We have sounds playing over other sounds. Right now, we’re playing one of the sound effects every time the cat gets hit by rain. This gets annoying fast. We need to add more logic around when to play the sound, and we also shouldn’t play two clips at the same time.
 
 Add these variables to the top of the `CatSprite.swift` file, below the `maxFlailTime` variable:
-
 ```
 private var currentRainHits = 4
 private let maxRainHits = 4
@@ -693,7 +657,6 @@ public func hitByRain() {
           withKey: "action_sound_effect")
   }
 }
-
 ```
 
 Now, if the `currentRainHits` is less than the maximum, we just increment the `currentRainHits` and return before we play the sound effect. Then, we check whether we are currently playing the sound effect by the key we provided: `action_sound_effect`. If we are not running the action, then we select a random sound effect to play. We set `waitForCompletion` to `true` because the action will not complete until the sound effect is completed. If we set it to `false`, then it would count the sound-effect action as completed as soon as it begins to play.
@@ -706,7 +669,7 @@ Download all four tracks ([1](http://www.bensound.com/royalty-free-music/track/l
 
 Once you download the tracks, create a folder named “Music” in the “RainCat” folder, the same way you created the “SFX” folder earlier. Move the tracks to that folder.
 
-[![Adding in some music tracks](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Adding-in-some-music-tracks-preview-opt.png) (width=undefined height=undefined)](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Adding-in-some-music-tracks-large-opt.png)[23](#23)
+[![Adding in some music tracks](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Adding-in-some-music-tracks-preview-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Adding-in-some-music-tracks-large-opt.png)[23](#23)
 
 Adding in some music tracks ([View large version](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Adding-in-some-music-tracks-large-opt.png)[24](#24))
 
@@ -764,7 +727,6 @@ class SoundManager : NSObject, AVAudioPlayerDelegate {
     startPlaying()
   }
 }
-
 ```
 
 Going through the new `SoundManager` class, we are making a [singleton](https://www.codefellows.org/blog/singletons-and-swift/)[25](#25) class that handles playback of the large track files and continuously plays them in order. For longer-format audio files, we need to use `AVFoundation`. It is built for this, and `SKAction` cannot load the file in quickly enough to play it in the same way it could load in a small SFX file. Because this library has been around forever, the `delegate` still depends on [`NSObjects`](https://developer.apple.com/reference/objectivec/nsobject)[26](#26). We need to be the [`AVAudioPlayerDelegate`](https://developer.apple.com/reference/avfoundation/avaudioplayerdelegate)[27](#27) to detect when the audio player completes playback. We’ll hold class variables for the current `audioPlayer` for now; we will need them later to mute playback.
@@ -775,7 +737,6 @@ We need to implement the default `init` function. Here, we choose a random track
 
 ```
 trackPosition = (trackPosition + 1) % SoundManager.tracks.count
-
 ```
 
 This sets the next position of the track by incrementing it and then performing a [modulo](https://en.wikipedia.org/wiki/Modulo_operation)[30](#30) on it to keep it within the bounds of the tracks’ array. Finally, in `audioPlayerDidFinishPlaying(_ player:successfully flag:)`, we implement the `delegate` method, which lets us know when the track finishes. Currently, we don’t care whether it succeeds or not — we just play the next track when this is called.
@@ -786,7 +747,6 @@ Now that we are done explaining the `SoundManager`, we just need to tell it to s
 
 ```
 SoundManager.sharedInstance.startPlaying()
-
 ```
 
 We do this in `GameViewController` because we want the music to be independent of the scene. If we run the app at this point, and everything has been added to the project correctly, we will have background music for our game!
@@ -798,8 +758,6 @@ For those who have made it this far, congratulations! Our game is nearing comple
 How did you do? Does your code look almost exactly like mine? What has changed? Did you update the code for the better? Let me know in the comments below.
 
 Lesson 3 is coming up next!
-
-*(da, al, il)*
 
 #### Footnotes 
 
