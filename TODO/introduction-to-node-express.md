@@ -77,7 +77,7 @@ Node & Express 非常简单，你可以仅用 12 行代码就能够实现一个�
 
 你需要一个  `package.json` 文件来存储应用的配置信息，你可以用 Node 中自带的 `npm` 来创建：
 
-    `npm ini`
+    `npm init`
 
 填写一些问题（应用名称、git 仓库等）之后你就可以准备部署应用了。接下来你需要安装 Express：
 
