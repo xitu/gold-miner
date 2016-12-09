@@ -1,3 +1,4 @@
+*  [代码复用的风险性](https://gold.xitu.io/entry/58491d3b8e450a006aae7b4f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Gocy015](https://github.com/Gocy015) 翻译)
 *  [通过 Python 和 Pandas 调用 SQLite Databases](https://gold.xitu.io/entry/584790a70ce46300578c5977/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Nicolas(Yifei) Li](https://github.com/yifili09) 翻译)
 *  [Node & Express 入门指南](https://gold.xitu.io/entry/58468843a22b9d007aa70d38/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([王子建](https://github.com/Romeo0906) 翻译)
 *  [从 Node.js 到 Golang 的迁徙之路](https://gold.xitu.io/entry/584780928e450a006c1b801c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([王子建](https://github.com/Romeo0906) 翻译)
