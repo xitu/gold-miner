@@ -6,9 +6,7 @@
 
 # 响应式邮件设计
 
-
 无论你是否喜欢,HTML邮件的人气是不可否认的。 就像网页一样, 收件箱开始走向移动化，[有一半以上的邮件](https://litmus.com/blog/email-client-market-share-where-people-opened-in-2013) 是在移动设备上打开。
-
 
 # 翻译版本
 
@@ -19,6 +17,7 @@
 现在的邮件依然设计的很过时。 还记得在 Web 标准成为…标准之前的编码时光吗? 欢迎来到邮件设计地狱。
 
 但是编写一个邮件还没有那么多的挫折。 现在的邮件设计者仍在使用HTML属性，先让我喘口气，内联样式，众多先驱设计者们却已开始在古老的电子邮件设计上使用 web 前沿技术。
+
 受到由Ethan Marcotte首次撰写的基于[响应式网页设计](http://alistapart.com/article/responsive-web-design/)原理的开发的启发，一场逐步逼近现代网页的电子邮件设计革命开始了。订阅者不会再遇到糟糕的阅读体验，难以触摸的目标，和小小的字体。
 
 ## 网页邮箱的价值[#section1](#section1)
@@ -42,18 +41,13 @@
 
 这只是一小部分 HTML 邮件痛苦的原因：
 
-
 - 没有标准。当然，我们使用 HTML 和 CSS，但不像 web，邮件客户端没有真正的标准存在，这是一些匪夷所思的代码存在的原因。
-
 - 邮件客户端。邮件客户端，比如 Outlook 和 Gmail，经常以不同的方式渲染 HTML and CSS，从而导致...
-
 - 许多 hacks。即使是设计良好的邮件广告也需要针对不同的客户端hack来保证质量。
-
 - 没有 JavaScript。电子邮件中 web 中最受欢迎的语言在电子邮件丝毫没有地位, 因为电子邮件客户端会（正当地）出于安全因素而禁用它。这样就没有交互性了。
-
 - 内联样式。我更喜欢使用单独的结构进行描述。不幸的是，大部分邮件客户端强制你依赖内联样式和属性去做邮件中近乎所有的事。
 
-当一切趋于稳定时, 在电子邮件设计社区(是的， 确实 *有* 一个)中开始有关于减轻开发电子邮件广告的痛苦的动向。许多公司与个人开发者开始优化电子邮件设计的工具与方法，并且首次开始分享他们的见解。
+当一切趋于稳定时, 在电子邮件设计社区(是的， 确实 *有* 一个)中开始有关于减轻开发电子邮件促销广告的痛苦的动向。许多公司与个人开发者开始优化电子邮件设计的工具与方法，并且开始更多的分享他们的见解。
 我所在的公司, [Litmus](http://litmus.com), 就是其中一个。我们构建了测试与跟踪电子邮件活动的工具。我们都收到了电子邮件营销，尤其是电子邮件设计的影响。我们甚至专门创建了一个 [社区](http://litmus.com/email-community)来聚集这些邮件营销人员，给他们提供一个分享知识，提高节能，互相学习的平台。
 
 虽然我在本文中提及了一些Litmus的工具和资源， 但还有许多公司与个人在努力提高电子邮件设计的艺术. 尤其是， [MailChimp](http://mailchimp.com) 和 [Campaign Monitor](http://campaignmonitor.com)都有非常出色的bloghe说明. 还有像 [Anna Yeaman](https://twitter.com/stylecampaign), [Nicole Merlin](https://twitter.com/moonstrips), [Fabio Carneiro](https://twitter.com/flcarneiro), [Elliot Ross](https://twitter.com/iamelliot), 和 [Brian Graves](https://twitter.com/briangraves) 这样的人都在致力于使电子邮件设计成为一门真正的工艺。  
@@ -63,6 +57,7 @@
 就像Web的其他部分一样, 收件箱也开始走向移动化。在2013年, [51%的用户在移动设备上打开邮件](https://litmus.com/blog/email-client-market-share-where-people-opened-in-2013)。而且还考虑到[越来越多人](http://blogs.hbr.org/2013/05/the-rise-of-the-mobile-only-us/) 使用移动设备来连接互联网，无论出于爱好与习性，这一数字还在持续增长。
 
 好消息是，Web设计人员现有的创造一个对大多数用户所重视的良好的用户体验的技能也适用于邮件广告, 这也是被许多设计者忽略的。
+
 ## HTML邮件的原理是什么[#section4](#section4)
 
 通常来讲，假设web设计与[遵循Web标准的设计](http://en.wikipedia.org/wiki/Designing_with_Web_Standards)无关，那么HTML邮件与网页设计很类似。HTML邮件基于三样东西: 表格，HTML属性，内联样式.在你学习写HTML邮件的时候要知道。由于电子邮件客户端渲染引擎的限制，我们只能使用HTML与CSS中非常有限的一部门子集。Campaign Monitor在维护一份有关大多数主流邮件客户端所支持的CSS属性的 [非常好的图标](http://www.campaignmonitor.com/css/)。
@@ -109,6 +104,7 @@
 
 通过使用上诉代码可以使我们缺失的图片现在看起来有了一定意义:
 ![](http://alistapart.com/d/395/can-email-be-responsive/can-email-be-responsive-2.png)提示文字还有待被普及
+
 ### 发起互动[#section7](#section7)
 
 HTML邮件的主要优势之一就是可以使用超链接.HTML邮件允许你使用又大又优美的按钮取缔传统的副本链接来吸引订阅者。
