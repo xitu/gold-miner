@@ -32,7 +32,7 @@ Martin 在那次演讲中的主题是软件工程师最好知道如何快速自�
 
 “我们在杀人”，Martin 说。“（尽管）我们不是亲自下的手，但这只会更糟”。
 
-他指出“有迹象标明” 开发者在未来几年将面对越来越多的大问题。他引用了大众美国区首席执行官 Michael Horn 在国会听证会时的发言，[Michael Horn 一开始将排放门丑闻归咎于程序员](http://www.theverge.com/2015/10/8/9481651/volkswagen-congressional-hearing-diesel-scandal-fault)，宣称程序员“不知出于何理由”自作主张。Horn 在 [公司受到检察机关指控](http://www.businessinsider.com/volkswagen-vw-emission-scandal-new-york-attorney-general-massive-cover-up-matthias-muller-2016-7) 该决定为高层决策并且试图隐瞒真相  [不久之后引咎辞职](http://www.businessinsider.com/volkswagens-us-boss-horn-departs-2016-3)。
+他指出“有迹象表明” 开发者在未来几年将面对越来越多的大问题。他引用了大众美国区首席执行官 Michael Horn 在国会听证会时的发言，[Michael Horn 一开始将排放门丑闻归咎于程序员](http://www.theverge.com/2015/10/8/9481651/volkswagen-congressional-hearing-diesel-scandal-fault)，宣称程序员“不知出于何理由”自作主张。Horn 在 [公司受到检察机关指控](http://www.businessinsider.com/volkswagen-vw-emission-scandal-new-york-attorney-general-massive-cover-up-matthias-muller-2016-7) 该决定为高层决策并且试图隐瞒真相  [不久之后引咎辞职](http://www.businessinsider.com/volkswagens-us-boss-horn-departs-2016-3)。
 
 ![](https://user-gold-cdn.xitu.io/2016/11/29/0e6b092a8b9221df3502e66e0f7a337e)  
 "Uncle" Bob Martin  [YouTube/Expert Talks Mobile](https://www.youtube.com/watch?v=ecIWPzGEbFc&feature=youtu.be&t=1h9m49s)   
