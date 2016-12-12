@@ -2,7 +2,7 @@
 * 原文作者：[Camron Godbout](https://medium.com/@camrongodbout)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[cdpath](https://github.com/cdpath)
-* 校对者：
+* 校对者：[marcmoore (Mark)](https://github.com/marcmoore), [Graning (Gran)](https://github.com/Graning)
 
 # 简明 TensorFlow 教程 —— 第一部分：基础知识
 
@@ -11,7 +11,7 @@
 
 #### 快速上手世界上最流行的深度学习框架
 
-TensorFlow 是谷歌开发的用于训练深度学习模型的框架。深度学习属于机器学习，使用多层神经网络。深度学习的思想早在 1943 年，神经生理学家 Warren McCulloch 和数学家 Walter Pitts 发表了关于神经元工作机制的论文之后就开始流行。他俩还用电路搭建了简单的神经网络模型。
+TensorFlow 是谷歌开发的用于训练深度学习模型的框架。深度学习属于机器学习，使用多层神经网络。自 1943 年神经生理学家 Warren McCulloch 和数学家 Walter Pitts 发表关于神经元工作机制的论文以来，深度学习的观念开始流行。他俩还用电路搭建了简单的神经网络模型。
 
 自那时起众多开发者参与进来。（不过）这些数学模型高度精确，要求极高的计算资源。随着近期 GPU 和 CPU 的计算能力的进步，深度学习开始爆发性流行起来。
 
@@ -73,15 +73,15 @@ tf.less(1, 2)
 ``` python
 import tensorflow as tf
 
-# create a constant 2X2 matrix
+# 新建 2X2 矩阵常量
 tensor_1 = tf.constant([[1., 2.], [3.,4]])
 
 tensor_2 = tf.constant([[5.,6.],[7.,8.]])
 
-# create a matrix multiplication operation
+# 新建矩阵乘法操作
 output_tensor = tf.matmul(tensor_1, tensor_2)
 
-# have to run the graph using a session
+# 必须在会话 (Session) 中运行计算图
 sess = tf.Session()
 
 result = sess.run(output_tensor)
@@ -149,7 +149,7 @@ sess = tf.InteractiveSession()
 a = tf.constant(1)
 b = tf.constant(2)
 c = a + b
-# instead of sess.run(c)
+# 这里不用 sess.run(c)
 c.eval()
 ```
 
@@ -174,7 +174,7 @@ tensorflow_var = tf.Variable(1, name="my_variable")
 这些函数接受一个初始化用的 shape 参数，用来定义矩阵的维度。比如：
 
 ``` python
-# 4x4x4 matrix normally distribued mean 0 std 1
+# 正态分布的 4X4X4 三维矩阵，平均值 0， 标准差 1
 normal = tf.truncated_normal([4, 4, 4], mean=0.0, stddev=1.0)
 ```
 
@@ -242,6 +242,7 @@ with tf.name_scope("Scope1"):
 #### 小结
 
 我展示了许多 TensorFlow 提供的基本组件。它们组合起来可以构建非常复杂的模型。TensorFlow 提供的远不止这些，如果需要在接下来的文章中了解其他特性，欢迎告诉我。
+
 
 
 
