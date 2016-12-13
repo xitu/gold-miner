@@ -1,21 +1,21 @@
 > * 原文地址：[TensorFlow in a Nutshell — Part One: Basics](https://medium.com/@camrongodbout/tensorflow-in-a-nutshell-part-one-basics-3f4403709c9d#.y95bdu5wy)
 * 原文作者：[Camron Godbout](https://medium.com/@camrongodbout)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
-* 校对者：
+* 译者：[cdpath](https://github.com/cdpath)
+* 校对者：[marcmoore (Mark)](https://github.com/marcmoore), [Graning (Gran)](https://github.com/Graning)
 
-# TensorFlow in a Nutshell — Part One: Basics
-
-
+# 简明 TensorFlow 教程 —— 第一部分：基础知识
 
 
-#### The fast and easy guide to the most popular Deep Learning framework in the world.
 
-TensorFlow is a framework created by Google for creating Deep Learning models. Deep Learning is a category of machine learning models that use multi-layer neural networks. The idea of deep learning has been around since 1943 when neurophysiologist Warren McCulloch and mathematician Walter Pitts wrote a paper on how neurons might work and they modeled a simple neural network using electrical circuits.
 
-Many, many developments have occurred since then. These highly accurate mathematical models are extremely computationally expensive. With recent advances in processing power from GPUs and increasing CPU power Deep Learning has been exploding with popularity.
+#### 快速上手世界上最流行的深度学习框架
 
-TensorFlow was created with processing power limitations in mind. Open sourced in November 2015, this library can be ran on computers of all kinds including smartphones. It allows for instant creation of trained production models. It is currently the number 1 Deep Learning framework at the time of writing this article.
+TensorFlow 是谷歌开发的用于训练深度学习模型的框架。深度学习属于机器学习，使用多层神经网络。自 1943 年神经生理学家 Warren McCulloch 和数学家 Walter Pitts 发表关于神经元工作机制的论文以来，深度学习的观念开始流行。他俩还用电路搭建了简单的神经网络模型。
+
+自那时起众多开发者参与进来。（不过）这些数学模型高度精确，要求极高的计算资源。随着近期 GPU 和 CPU 的计算能力的进步，深度学习开始爆发性流行起来。
+
+TensorFlow 在发明之初就考虑到了处理能力的限制。自 2015 年 11 月 开源以来，TensorFlow 已经可以成功地运行在所有类型的计算机上，甚至包括智能手机。TensorFlow 可以快速生成经过训练的预测模型。在写作本文时，TensorFlow 是目前排名第一的深度学习框架。
 
 
 
@@ -29,61 +29,66 @@ TensorFlow was created with processing power limitations in mind. Open sourced i
 
 
 
-Created by Francois Chollet @fchollet (twitter)
+作者 Francois Chollet @fchollet (twitter)
 
 
 
-#### Basic Computational Graph
+#### 基本计算图
 
-Everything in TensorFlow is based on creating a computational graph. If you’ve ever used Theano then this section will look familiar. Think of a computational graph as a network of nodes, with each node known as an operation, running some function that can be as simple as addition or subtraction to as complex as some multi variate equation.
+TensorFlow 中一切的一切都是基于创建计算图。用过 Theano 的读者应该会对本节非常熟悉。不妨将计算图看成节点网络，每个节点都是一种操作，可以运行函数，包括简单的加减甚至复杂的多元方程。
 
-An Operation also referred to as op can return zero or more tensors which can be used later on in the graph. Heres a list of operations with their output for example
+每个操作也表示能返回零个或多个张量的操作符，返回的张量可以稍后在图中使用。下面是一些操作及其输出的例子:
 
-    import tensorflow as tf
+``` python
+import tensorflow as tf
 
-    tf.add(1, 2)
-    # 3
+tf.add(1, 2)
+# 3
 
-    tf.sub(2, 1)
-    # 1
+tf.sub(2, 1)
+# 1
 
-    tf.mul(2, 2)
-    # 4
+tf.mul(2, 2)
+# 4
 
-    tf.div(2, 2)
-    # 1
+tf.div(2, 2)
+# 1
 
-    tf.mod(4, 5)
-    # 4
+tf.mod(4, 5)
+# 4
 
-    tf.pow(3, 2)
-    # 9
+tf.pow(3, 2)
+# 9
 
-    # x < y
-    tf.less(1, 2)
-    # True 
+# x < y
+tf.less(1, 2)
+# True 
 
-    # x <= y="" tf.less_equal(1,="" 1)="" #="" true="" tf.greater(1,="" 2)="" false="" tf.greater_equal(1,="" tf.logical_and(true,="" false)="" tf.logical_or(true,="" tf.logical_xor(true,="" true
+# x <= y="" tf.less_equal(1,="" 1)="" #="" true="" tf.greater(1,="" 2)="" false="" tf.greater_equal(1,="" tf.logical_and(true,="" false)="" tf.logical_or(true,="" tf.logical_xor(true,="" true
+```
 
-Each operation can be handed a constant, array, matrix or n-dimensional matrix. Another word for an n-dimensional matrix is a tensor, a 2-dimensional tensor is equivalent to a m x m matrix.
+每个操作都可以接受一个常量，数组，矩阵或者 n 维矩阵。n 维矩阵也叫做张量，二维张量等价于 m x m 矩阵。
 
-    import tensorflow as tf
 
-    # create a constant 2X2 matrix
-    tensor_1 = tf.constant([[1., 2.], [3.,4]])
+``` python
+import tensorflow as tf
 
-    tensor_2 = tf.constant([[5.,6.],[7.,8.]])
+# 新建 2X2 矩阵常量
+tensor_1 = tf.constant([[1., 2.], [3.,4]])
 
-    # create a matrix multiplication operation
-    output_tensor = tf.matmul(tensor_1, tensor_2)
+tensor_2 = tf.constant([[5.,6.],[7.,8.]])
 
-    # have to run the graph using a session
-    sess = tf.Session()
+# 新建矩阵乘法操作
+output_tensor = tf.matmul(tensor_1, tensor_2)
 
-    result = sess.run(output_tensor)
-    print(result)
+# 必须在会话 (Session) 中运行计算图
+sess = tf.Session()
 
-    sess.close()
+result = sess.run(output_tensor)
+print(result)
+
+sess.close()
+```
 
 
 
@@ -97,127 +102,148 @@ Each operation can be handed a constant, array, matrix or n-dimensional matrix. 
 
 
 
-Our computational graph
+计算图
 
 
+上面的代码新建了两个常量张量，相乘，然后输出结果。这只是个简单的例子，用来示范如何创建图并运行会话 (session)。 操作符所需的所有输入都会自动求值，而且通常是并行计算。这里运行的会话实际上会执行图中的三个操作，结果就是创建两个常量然后进行矩阵乘法。
 
-The code above is creating two constant tensors and multiplying them together and outputting our result. This is a trivial example that demonstrates how you can create a graph and run the session. All inputs needed by the op are run automatically. They’re typically ran in parallel. This session run actually causes the execution of three operations in the graph, creating the two constants then the matrix multiplication.
+#### 图
 
-#### Graph
+上面创建的常量和操作都会自动加到 TensorFlow 图中。默认图在导入 TensorFlow 库时就实例化了。当然，不使用默认图新建一个也可以，这在需要在一个文件中创建多个互不依赖的模型时非常有用。
 
-The constants and operation that we created above was automagically added to the graph in TensorFlow. The graph default is instantiated when the library is imported. Creating a Graph object instead of using the default graph is useful when creating multiple models in one file that do not depend on each other.
+``` python
+new_graph = tf.Graph()
 
-    new_graph = tf.Graph()
+with new_graph.as_default():
+    new_g_const = tf.constant([1., 2.])
+```
 
-    with new_graph.as_default():
-        new_g_const = tf.constant([1., 2.])
+任何在 `with new_graph.as_default()` 之外使用的变量和操作都会加到默认图中，默认图就是加载库时新建的那个图。当然，也可以取得指向默认图的引用。
 
-any variables or operations used outside of the with new_graph.as_default() will be added to the default graph that is created when the library is loaded. You can even get a handle to the default graph with
+``` python
+default_g = tf.get_default_graph()
+```
 
-    default_g = tf.get_default_graph()
+大多数情况下默认图就够用了。
 
-for most cases it’s best to stick with the default graph.
+#### 会话
 
-#### Session
+TensorFlow 中有两种会话 (Session) 对象
 
-There are two kinds of Session objects in TensorFlow:
+#### `tf.Session()`
 
-#### **tf.Session()**
+它封装了执行运算和张量求值需要的环境。会话可以有自己的变量，队列和分配的订阅者。所以在用完之后记得使用 `close()`。会话有三个可选参数。
 
-This encapsulates the environment that operations and tensors are executed and evaluated. Sessions can have their own variables, queues and readers that are allocated. So it’s important to use the close() method when the session is over. There are 3 arguments for a Session, all of which are optional.
+1.  target —— 要连接的执行引擎
+2.  graph —— 要使用的图
+3.  config —— ConfigProto 协议缓存，里面有会话的配置参数
 
-1.  target — The execution engine to connect to.
-2.  graph — The Graph to be launched.
-3.  config — A ConfigProto protocol buffer with configuration options for the session
+只要运行 TensorFlow 计算中的「一步」，`tf.Session()` 就会被调用，所有执行图所需要的依赖都会被运行。
 
-To run one “step” of the TensorFlow computation this function is called and all of the necessary dependencies for the graph to execute are ran.
+#### `tf.InteractiveSession()`
 
-#### tf.InteractiveSession()
+和 `tf.Session()` 完全一样，主要是为了方便 IPython 和 Jupyter Notebooks 使用，加些东西比较方便，而且使用 `Tensor.eval()` 和 `Operation.run()` 就不用每次要算个什么东西都得用 `Session.run()` 完整地跑一遍了。
 
-This is the exact same as tf.Session() but is targeted for using IPython and Jupyter Notebooks that allows you to add things and use Tensor.eval() and Operation.run() instead of having to do Session.run() every time you want something to be computed.
+``` python
+sess = tf.InteractiveSession()
+a = tf.constant(1)
+b = tf.constant(2)
+c = a + b
+# 这里不用 sess.run(c)
+c.eval()
+```
 
-    sess = tf.InteractiveSession()
-    a = tf.constant(1)
-    b = tf.constant(2)
-    c = a + b
-    # instead of sess.run(c)
-    c.eval()
+使用 `InteractiveSession` 还可以不显式地传入会话 (Session) 对象。
 
-InteractiveSession allows so that you dont have to explicitly pass Session object.
+#### 变量
 
-#### Variables
+变量在 TensorFlow 中由会话 (Session) 管理。因为张量和操作对象都是不可变的，所以生存期超过会话的变量非常有用。`tf.Variable()` 就可以新建变量。
 
-Variables in TensorFlow are managed by the Session. They persist between sessions which are useful because Tensor and Operation objects are immutable. Variables can be created by tf.Variable().
+``` python
+tensorflow_var = tf.Variable(1, name="my_variable")
+```
 
-    tensorflow_var = tf.Variable(1, name="my_variable")
+大多数时候你可能需要新建由 0，1 或者随机数组成的张量变量。
 
-Most of the time you will want to create these variables as tensors of zeros, ones or random values:
+*   tf.zeros() — 由 0 组成的矩阵
+*   tf.ones() — 由 1 组成的矩阵
+*   tf.random_normal() — 由随机均匀值组成的矩阵
+*   tf.random_uniform() — 由随机正态分布的数字组成的矩阵
+*   tf.truncated_normal() — 和 tf.random_normal() 一样，但是所有数字都不超过两个标准差
 
-*   tf.zeros() — creates a matrix full of zeros
-*   tf.ones() — creates a matrix full of ones
-*   tf.random_normal() — a matrix with random uniform values between an interval
-*   tf.random_uniform() — random normally distributed numbers
-*   tf.truncated_normal() — same as random normal but doesn’t include any numbers more than 2 standard deviations.
+这些函数接受一个初始化用的 shape 参数，用来定义矩阵的维度。比如：
 
-These functions take an inital shape parameter where the dimension of the matrix is defined. For example:
+``` python
+# 正态分布的 4X4X4 三维矩阵，平均值 0， 标准差 1
+normal = tf.truncated_normal([4, 4, 4], mean=0.0, stddev=1.0)
+```
 
-    # 4x4x4 matrix normally distribued mean 0 std 1
-    normal = tf.truncated_normal([4, 4, 4], mean=0.0, stddev=1.0)
+还可以把变量设成这种矩阵辅助函数：
 
-To have your variable set to one of these matrix helper functions:
+``` python
+normal_var = tf.Variable(tf.truncated_normal([4,4,4] , mean=0.0, stddev=1.0)
+```
 
-    normal_var = tf.Variable(tf.truncated_normal([4,4,4] , mean=0.0, stddev=1.0)
+要初始化这些变量，必须使用 TensorFlow 的变量初始化函数，然后把初始化函数传给会话。这样的话如果运行多个会话，变量都是一样的。
 
-To have these variables initialized you must use TensorFlow’s variable initialization function then pass it to the session. This way when multiple sessions are ran the variables are the same.
+``` python
+init = tf.initialize_all_variables()
+sess = tf.Session()
+sess.run(init)
+```
 
-    init = tf.initialize_all_variables()
-    sess = tf.Session()
-    sess.run(init)
+如果要完全改变变量的值可以使用 `Variable.assign()` ，必须在会话中使用。
 
-If you’d like to completely change the value of a variable you can use Variable.assign() operation, this must be run in a session update the value.
+``` python
+initial_var = tf.Variable(1)
 
-    initial_var = tf.Variable(1)
+changed_var = initial_var.assign(initial_var + initial_var)
 
-    changed_var = initial_var.assign(initial_var + initial_var)
+init = tf.initialize_all_variables()
+sess = tf.Session()
+sess.run(init)
 
-    init = tf.initialize_all_variables()
-    sess = tf.Session()
-    sess.run(init)
+sess.run(changed_var)
+# 2
 
-    sess.run(changed_var)
-    # 2
+sess.run(changed_var)
+# 4
 
-    sess.run(changed_var)
-    # 4
+sess.run(changed_var)
+# 8
 
-    sess.run(changed_var)
-    # 8
+# .... and so on
+```
 
-    # .... and so on
+有时需要在模型中添加一个计数器，这时就可以用 `Variable.assign_add()` ，它需要一个数量参数，这个参数就是说给变量加多少。 类似的，减法可以用 `Variable.assign_sub()`。
 
-Sometimes you would like to add a counter inside your model this is where you can do a Variable.assign_add() method which takes a numeric parameter and increments it by the parameter. Similarily there is Variable.assign_sub().
+``` python
+counter = tf.Variable(0)
 
-    counter = tf.Variable(0)
+sess.run(counter.assign_add(1))
+# 1
 
-    sess.run(counter.assign_add(1))
-    # 1
+sess.run(counter.assign_sub(1))
+# -1
+```
 
-    sess.run(counter.assign_sub(1))
-    # -1
+#### 作用域
 
-#### Scope
+TensorFlow 有作用域，可以控制模型的复杂性，便于将模型分解为独立的小组件。作用域非常简单，甚至可以用来在用 TensorBoard 的时候分解模型(本文第二部分有所介绍）。作用域甚至可以嵌套在其他作用域中。
 
-To control the complexity of models and make them easier to break down into individual pieces TensorFlow has scopes. Scopes are very simple and even help break down your model when using TensorBoard (which will be covered in Part 2). Scopes can even be nested inside of other scopes.
+```
+with tf.name_scope("Scope1"):
+    with tf.name_scope("Scope_nested"):
+        nested_var = tf.mul(5, 5)
+```
 
-    with tf.name_scope("Scope1"):
-        with tf.name_scope("Scope_nested"):
-            nested_var = tf.mul(5, 5)
+当然这里作用域看上去并不是特别强大，但是结合 TensorBoard 使用就会非常有用。
 
-Scopes may not seem that powerful right now but used in collaboration with TensorBoard and they’re very useful.
+#### 小结
 
-#### Conclusion
+我展示了许多 TensorFlow 提供的基本组件。它们组合起来可以构建非常复杂的模型。TensorFlow 提供的远不止这些，如果需要在接下来的文章中了解其他特性，欢迎告诉我。
 
-I’ve demonstrated many of the building blocks that TensorFlow offers. These individual pieces added together can create very complicated models. There is much more that TensorFlow offers, if there are any requests for features in upcoming parts let me know.
+
 
 
 
