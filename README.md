@@ -28,7 +28,7 @@
 
 ## iOS
 
-* [[译] Yammer iOS 版移植到 Swift3](https://gold.xitu.io/entry/5848b88ab123db006601f750?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Dnny Lau](https://github.com/Danny1451) 翻译)
+* [[译] Yammer iOS 版移植到 Swift3](https://gold.xitu.io/entry/5848b88ab123db006601f750?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Danny Lau](https://github.com/Danny1451) 翻译)
 * [[译] Swift 面向协议编程，灵丹妙药或是饮鸩止渴？](https://gold.xitu.io/entry/584781e161ff4b006bac77ba?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([王子建](https://github.com/Romeo0906) 翻译)
 * [[译] 如何避免应用崩溃](http://gold.xitu.io/entry/58423231a22b9d006c1959ee?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Gocy](https://github.com/Gocy) 翻译)
 * [[译] 理解 iOS 应用程序的代码签名 (CODE SIGN) 机制](http://gold.xitu.io/entry/5826ef85570c3500586b241d?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([yifili09](https://github.com/yifili09) 翻译)
