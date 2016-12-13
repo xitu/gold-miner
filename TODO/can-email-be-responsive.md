@@ -24,16 +24,16 @@
 
 无论你是否喜欢网页邮箱，它在几乎所有行业里都是非常重要的工具。在营销方面，电子邮件一贯 [优于](http://www.wired.com/business/2013/07/email-crushing-twitter-facebook/) 其他方式，比如 Facebook 和 Twitter 。更重要的是，电子邮件提供越来越 [个性化的方式](http://blog.mailchimp.com/paul-jarvis-likes-trading-stories-with-people/) 使 [大量的潜在用户](http://blog.getvero.com/email-marketing-statistics/) 互相影响。
 
-你可能对电子邮件广告不太积极，碰巧的是，作为一名Web设计师或者开发人员，你会使用电子邮件与你的用户定期沟通。可能是发一条回执，或者公告新的产品功能给用户，或者通知他们你最新发的的博文。无论什么原因，电子邮件都是一种重要和经常被忽略的媒介。
+你可能对电子邮件广告不太积极，碰巧的是，作为一名 Web 设计师或者开发人员，你会使用电子邮件与你的用户定期沟通。可能是发一条回执，或者公告新的产品功能给用户，或者通知他们你最新发的的博文。无论什么原因，电子邮件都是一种重要和经常被忽略的媒介。
 
-许多开发者给顾客发送纯文本格式的邮件。尽管纯文本格式有许多优点(方便写，兼容性强，下载快等等)，但是 HTML 格式的电子邮件也有许多优势：
+许多开发者给顾客发送纯文本格式的邮件。尽管纯文本格式有许多优点（方便写，兼容性强，下载快等等），但是 HTML 格式的电子邮件也有许多优势：
 
 - 超链接。你可以通过邮件中链接到外部页面来进行更多交互。
 - 设计。即使是在收件箱中，一个设计良好的 HTML 邮件能让你突出你的品牌。
 - 层次结构。在 HTML 邮件中你可以使你的邮件主从分明，让人更容易注意到重要副本或者重要连接。
-- 跟踪。 HTML 邮件允许你去追踪邮件是否被打开和约会接受情况，这些有价值的数据可以用来优化你的营销效率。
+- 跟踪。HTML 邮件允许你去追踪邮件是否被打开和约会接受情况，这些有价值的数据可以用来优化你的营销效率。
 
-如果不像设计精良的 APP 一样要求你的邮件，你就会失去 1) 树立品牌形象的机会， 2) 追踪邮件是否被打开与用户行为的能力的机会 3) 在你的应用之外给用户一份极好的用户体验的机会
+如果不像设计精良的 APP 一样要求你的邮件，你就会失去 1) 树立品牌形象的机会 2) 追踪邮件是否被打开与用户行为的能力的机会 3) 在你的应用之外给用户一份极好的用户体验的机会
 
 ## HTML 邮件很糟糕
 
@@ -47,11 +47,11 @@
 - 没有 JavaScript。电子邮件中 web 中最受欢迎的语言在电子邮件丝毫没有地位，因为电子邮件客户端会（正当地）出于安全因素而禁用它。这样就没有交互性了。
 - 内联样式。我更喜欢使用单独的结构进行描述。不幸的是，大部分邮件客户端强制你依赖内联样式和属性去做邮件中近乎所有的事。
 
-当一切趋于稳定时，在电子邮件设计社区（是的， 确实 **有** 一个）中开始有关于减轻开发电子邮件促销广告的痛苦的动向。许多公司与个人开发者开始优化电子邮件设计的工具与方法，并且开始更多的分享他们的见解。
+当一切趋于稳定时，在电子邮件设计社区（是的，确实 **有** 一个）中开始有关于减轻开发电子邮件促销广告的痛苦的动向。许多公司与个人开发者开始优化电子邮件设计的工具与方法，并且开始更多的分享他们的见解。
 
 我所在的公司，[Litmus](http://litmus.com)，就是其中一个。我们构建了测试与跟踪电子邮件活动的工具。我们都收到了电子邮件营销，尤其是电子邮件设计的影响。我们甚至专门创建了一个 [社区](http://litmus.com/email-community) 来聚集这些邮件营销人员，给他们提供一个分享知识，提高技能，互相学习的平台。
 
-虽然我在本文中提及了一些 Litmus 的工具和资源，但还有许多公司与个人在努力提高电子邮件设计的艺术。尤其是，[MailChimp](http://mailchimp.com) 和 [Campaign Monitor](http://campaignmonitor.com) 都有非常出色的 blog 和说明。还有像 [Anna Yeaman](https://twitter.com/stylecampaign)、[Nicole Merlin](https://twitter.com/moonstrips)、[Fabio Carneiro](https://twitter.com/flcarneiro)、[Elliot Ross](https://twitter.com/iamelliot) 和 [Brian Graves](https://twitter.com/briangraves) 这样的人都在致力于使电子邮件设计成为一门真正的工艺。  
+虽然我在本文中提及了一些 Litmus 的工具和资源，但还有许多公司与个人在努力提高电子邮件设计的艺术。尤其是，[MailChimp](http://mailchimp.com) 和 [Campaign Monitor](http://campaignmonitor.com) 都有非常出色的 blog 和说明。还有像 [Anna Yeaman](https://twitter.com/stylecampaign)、[Nicole Merlin](https://twitter.com/moonstrips)、[Fabio Carneiro](https://twitter.com/flcarneiro)、[Elliot Ross](https://twitter.com/iamelliot) 和 [Brian Graves](https://twitter.com/briangraves) 这样的人都在致力于使电子邮件设计成为一门真正的工艺。
 
 ## 进化的收件箱
 
@@ -63,7 +63,7 @@
 
 通常来讲，假设 web 设计与 [遵循Web标准的设计](http://en.wikipedia.org/wiki/Designing_with_Web_Standards) 无关，那么 HTML 邮件与网页设计很类似。HTML 邮件基于三样东西：表格，HTML 属性，内联样式。在你学习写 HTML 邮件的时候要知道。由于电子邮件客户端渲染引擎的限制，我们只能使用 HTML 与 CSS 中非常有限的一部分子集。Campaign Monitor 在维护一份有关大多数主流邮件客户端所支持的 CSS 属性的 [非常好的图表](http://www.campaignmonitor.com/css/)。
 
-在我们讲如何构建自适应的邮件前我们先回顾一下 HTML 邮件的基础。举个例子，我曾改编过我们在 Litmus 中通讯用的邮件模板。多亏了 Litmus 和我们出色的设计师 [Kevin Mandeville](http://dribbble.com/KEVINgotbounce) ，A List Apart 的读者们可以学习并且使用我们在许多电子邮件广告中使用的代码，这些现在都在 [A List Apart 的 Github 账号](https://github.com/alistapart/salted) 上。你可以查看 [Litmus tests](https://litmus.com/pub/d5586ad/screenshots) 的全部示例来看他在跨客户端中的表现。
+在我们讲如何构建自适应的邮件前我们先回顾一下 HTML 邮件的基础。举个例子，我曾改编过我们在 Litmus 中通讯用的邮件模板。多亏了 Litmus 和我们出色的设计师 [Kevin Mandeville](http://dribbble.com/KEVINgotbounce)，A List Apart 的读者们可以学习并且使用我们在许多电子邮件广告中使用的代码，这些现在都在 [A List Apart 的 Github 账号](https://github.com/alistapart/salted) 上。你可以查看 [Litmus tests](https://litmus.com/pub/d5586ad/screenshots) 的全部示例来看他在跨客户端中的表现。
 
 ### 表格
 
@@ -91,7 +91,7 @@
 
 你可以看到我们如何嵌套表格并且使用 **border**、**cellpadding** 和 **cellspacing** 属性来确保设计中没有多余的空隙。在表格单元层中使用比 **background** 和 **background-color** 更可靠的 **bgcolor** 属性（尽管 **background-color** 也很有地位）。
 
-有一个有趣的事情是，div 标签被用来剧中表格并且给内容提供内边距。虽然表格应该承担大部分的结构，但是偶尔使用 **div** 标签给内容定位，提供内边距和设置一些基本样式是非常实用的。无论如何， 因为大多数邮件客户端解析盒子模型都有一些问题，所以在邮件中使用 div 构建主要架构会使邮件布局变得非常不可靠。
+有一个有趣的事情是，div 标签被用来剧中表格并且给内容提供内边距。虽然表格应该承担大部分的结构，但是偶尔使用 **div** 标签给内容定位，提供内边距和设置一些基本样式是非常实用的。无论如何，因为大多数邮件客户端解析盒子模型都有一些问题，所以在邮件中使用 div 构建主要架构会使邮件布局变得非常不可靠。
 
 ### 图片
 
@@ -100,7 +100,7 @@
 
 图片被禁用的邮件
 
-尽管没有办法自动显示那些图片， 我们可以使用提示文字（ alt-text ）来改善一下现有情况。 我们甚至可以通过给 **img** 标签设置内联样式来给提示文字设置样式来维持与原设置的相似外观。
+尽管没有办法自动显示那些图片，我们可以使用提示文字（ alt-text ）来改善一下现有情况。我们甚至可以通过给 **img** 标签设置内联样式来给提示文字设置样式来维持与原设置的相似外观。
 
 ```
 <img src="img/fluid-images.jpg" width="240" height="130" style="display: block; color: #666666; font-family: Helvetica, arial, sans-serif; font-size: 13px; width: 240px; height: 130px;" alt="Fluid images" border="0" class="img-max">
@@ -139,7 +139,7 @@ HTML 邮件的主要优势之一就是可以使用超链接。HTML 邮件允许�
 
 网页与邮件唯一不同的是这三种技术的实现方式。
 
-在邮件设计中，我们只能使用 HTML 和 CSS 的一部分。 我们不能依靠使用在响应式网页中的那些属性；margin，float和 em 在许多客户端上无效。所以我们必须另辟蹊径。
+在邮件设计中，我们只能使用 HTML 和 CSS 的一部分。我们不能依靠使用在响应式网页中的那些属性；margin，float和 em 在许多客户端上无效。所以我们必须另辟蹊径。
 
 ### 弹性布局图片
 
@@ -193,7 +193,7 @@ img[class="img-max”] {
 
 在电子邮件中使用媒体查询与在网页设计中一样。你可以在电子邮件中的头部引用媒体查询，从而使你的样式针对不同的设备属性做出调整。
 
-简单而言，我们将视窗( viewports )针对在 **max-width** 525像素及以下。 然后针对那个容器表格，我们覆盖他们的 HTML 属性与内联样式来强制表格水平占满移动设备屏幕。
+简单而言，我们将视窗（viewports）针对在 **max-width** 525像素及以下。然后针对那个容器表格，我们覆盖他们的 HTML 属性与内联样式来强制表格水平占满移动设备屏幕。
 
 ```
 @media screen and (max-width:525px) {
