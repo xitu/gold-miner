@@ -2,31 +2,31 @@
 > * 原文地址：[ How To Build A SpriteKit Game In Swift 3 (Part 2) ](https://www.smashingmagazine.com/2016/12/how-to-build-a-spritekit-game-in-swift-3-part-2/ )
 * 原文作者：[ Marc Vandehey ]( https://www.smashingmagazine.com/author/marcvandehey/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[ZiXYu](https://github.com/ZiXYu)
 * 校对者：
 
-## [How To Build A SpriteKit Game In Swift 3 (Part 2)](https://www.smashingmagazine.com/2016/12/how-to-build-a-spritekit-game-in-swift-3-part-2/)  ##
+## [ 如何在 Swift 3 中用 SpriteKit 框架编写游戏 (Part 2)](https://www.smashingmagazine.com/2016/12/how-to-build-a-spritekit-game-in-swift-3-part-2/)  ##
 
-Have you ever wondered what it takes to create a [SpriteKit](https://developer.apple.com/spritekit/)[1](#1) game? Does collision detection seem like a daunting task? Do you want to know how to properly handle sound effects and background music? Game-making has never been easier on iOS since the introduction of SpriteKit. In part two of this three-part series, we will explore the basics of SpriteKit.
+你是否曾经想过要创建一个  [SpriteKit](https://developer.apple.com/spritekit/)[1](#1) 游戏？碰撞检测看起来像是个令人生畏的任务吗？你想知道如何正确的处理音效和背景音乐吗？自从 SpriteKit 推出以来，在 iOS 上的游戏制作从未看起来如此简单过。本文中，我们将探索 SpriteKit 的基础使用。
 
-If you missed out on the [previous lesson](https://www.smashingmagazine.com/2016/11/how-to-build-a-spritekit-game-in-swift-3-part-1/)[2](#2), you can catch up by getting the [code on GitHub](https://github.com/thirteen23/RainCat/releases/tag/smashing-magazine-lesson-one)[3](#3). Remember that this tutorial requires Xcode 8 and Swift 3.
+如果你错过了[之前的课程](https://www.smashingmagazine.com/2016/11/how-to-build-a-spritekit-game-in-swift-3-part-1/)[2](#2)，你可以通过获取[ Github 上的代码](https://github.com/thirteen23/RainCat/releases/tag/smashing-magazine-lesson-one)[3](#3)来赶上进度。请记住，本教程需要使用 Xcode 8 和 Swift 3。
 
 [![Raincat: Lesson 2](https://www.smashingmagazine.com/wp-content/uploads/2016/10/raincat_header_sm-preview-opt.png) ](https://www.smashingmagazine.com/wp-content/uploads/2016/10/raincat_header_sm-preview-opt.png)[4](#4)
 
-RainCat, lesson 2
+RainCat, 第二课
 
-In the [last lesson](https://www.smashingmagazine.com/2016/11/how-to-build-a-spritekit-game-in-swift-3-part-1/)[5](#5), we created a floor and a background, randomly generated raindrops and added the umbrella. The umbrella sprite has a custom `SKPhysicsBody`, generated with a `CGPath`, and we enabled touch detection so that we could move it around the screen. We hooked up collision detection by leveraging `categoryBitMask` and `contactTestBitMask`. We removed collision on raindrops when they hit anything, so that they don’t pile up, but rather fall through the floor after one bounce. Finally, we set up a world frame to remove any `SKNode` that comes into contact with it.
+在 [上一课](https://www.smashingmagazine.com/2016/11/how-to-build-a-spritekit-game-in-swift-3-part-1/)[5](#5)， 我们创建了地板和背景，随机生成了雨滴并添加了雨伞。这把雨伞的精灵(译者注：sprite，中文译名精灵，在游戏开发中，精灵指的是以图像方式呈现在屏幕上的一个图像)中存在一个自定义的 `SKPhysicsBody`，是通过 `CGPath` 来生成的，同时我们启用了触摸检测，因此我们可以在屏幕范围内移动它。我们使用了 `categoryBitMask` 和 `contactTestBitMask` 来链接了碰撞检测。我们移除了当雨滴落到任何物体上时的碰撞，因此它们不会堆积起来，而是在一次弹跳后穿过地板。最后，我们设置了一个世界的边框来移除所有和它接触的 `SKNode`。
 
-Today, we will focus on the following:
+本文中，我们将重点实现以下几点：
 
-- Spawn the cat.
-- Implement cat collision.
-- Spawn food.
-- Implement food collision.
-- Move the cat toward the food.
-- Animate the cat.
-- “Damage” the cat when it comes into contact with the rain.
-- Add sound effects and music.
+- 生成猫
+- 实现猫的碰撞
+- 生成食物
+- 实现食物的碰撞
+- 将猫移向食物
+- 创建猫的动画
+- 当猫接触雨滴时，使猫受到伤害
+- 添加音效和背景音乐
 
 ### Get The Assets Again
 
