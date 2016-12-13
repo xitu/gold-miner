@@ -2,7 +2,7 @@
 * 原文作者：[Diogo Mónica](https://diogomonica.com/author/diogo/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Airmacho](https://github.com/Airmacho)
-* 校对者：
+* 校对者：[marcmoore](https://github.com/marcmoore), [xiaoheiai4719](https://github.com/xiaoheiai4719)
 
 # Increasing Attacker Cost Using Immutable Infrastructure
 
@@ -15,7 +15,7 @@ One of the reasons why this is so handy is that you get to check for drift reall
 
 Docker 容器的一个便捷之处在于它们是不可变的。Docker 附带一个写入时复制的文件系统，意味着基础镜像不能被修改，除非你显示地发布一个提交。
 
-这么便利的原因之一是，你很容易检查不同的地方，如果试图调查一个安全事件，这可能会派上用场。
+这么便利的原因之一是，你很容易检查出被修改的地方，如果试图调查一个安全事件，这可能会派上用场。
 
 ### Demo application
 
@@ -34,7 +34,7 @@ We have a [PHP application](https://github.com/diogomonica/apachehackdemo) runni
 
 Now that you have your database and front-end running you should be greeted by something that looks like this:
 
-我们有一个 [PHP 应用](https://github.com/diogomonica/apachehackdemo)作为前端，用 MYSQL 服务器作为我们的后端数据库，你可以在 home 目录跑一下命令：
+我们有一个 [PHP 应用](https://github.com/diogomonica/apachehackdemo)作为前端，用 MYSQL 服务器作为我们的后端数据库，你可以在家试试跑一下命令：
 
 ~~~
 ➜ docker run -d --name db -e MYSQL_ROOT_PASSWORD=insecurepwd mariadb
@@ -76,7 +76,7 @@ Going back to immutability, one of the cool things that a copy-on-write filesyst
 
 ## 从被 hack 恢复
 
-回到不可变性，写入时复制的文件系统提供的一个很酷的特性就是可以看到发生的所有更改。通过使用`docker diff`命令，我们可以看到攻击者在文件修改方面的情况：
+回到不可变性，写入时复制的文件系统提供的一个很酷的特性就是可以看到发生的所有更改。通过使用`docker diff`命令，我们可以看到攻击者修改文件的详情：
 
     ➜ docker diff pensive_meitner
     C /run  
@@ -163,7 +163,7 @@ The security of our applications will never be perfect, but having immutable inf
 
 If by using a strong sandbox and tuning a few knobs you can make your application safer, why wouldn’t you? 🐳
 
-我们的应用的安全性从来就不完美，但配合不可变的基础设施帮助时间响应，允许快速恢复，可以让攻击者更难。
+我们的应用程序的安全性从来就不完美，但通过不可变的基础设施协助完成事件响应，实现快速恢复，可以加大攻击者的难度。
 
 如果用一个强大的沙盒并且调整几个旋钮就可以让你的应用更加安全，为什么不这样做呢？🐳
 
