@@ -29,18 +29,21 @@ RainCat, 第二课
 - 添加音效和背景音乐
 
 ### Get The Assets Again
+### 重新获取资源
 
 You can get the assets needed for this lesson [on GitHub](https://github.com/thirteen23/RainCat/blob/smashing-day-2/dayTwoAssets.zip)[6](#6) (ZIP). Download and add the images to your `Assets.xcassets` file by dragging them all in at once. You should now have an asset for the cat animation and the food dish. We will add in the sound effects and music later on.
+你可以从 [GitHub](https://github.com/thirteen23/RainCat/blob/smashing-day-2/dayTwoAssets.zip)[6](#6) (ZIP) 上获取本课所需要的资源。下载图片后，通过一次性拖拽所有图片将它们添加到你的 `Assets.xcassets` 文件中。你现在应该有了包含猫动画和宠物碗的资源文件。我们之后将会添加音效和背景音乐文件。
 
-[![App assets](https://www.smashingmagazine.com/wp-content/uploads/2016/10/App-assets-preview-opt-1.png)](https://www.smashingmagazine.com/wp-content/uploads/2016/10/App-assets-large-opt.png)[7](#7)
+[![App 资源](https://www.smashingmagazine.com/wp-content/uploads/2016/10/App-assets-preview-opt-1.png)](https://www.smashingmagazine.com/wp-content/uploads/2016/10/App-assets-large-opt.png)[7](#7)
 
-A lot of assets! ([View large version](https://www.smashingmagazine.com/wp-content/uploads/2016/10/App-assets-large-opt.png)[8](#8))
 
-### Cat Time! 
+一大堆资源！ ([查看源版本](https://www.smashingmagazine.com/wp-content/uploads/2016/10/App-assets-large-opt.png)[8](#8))
 
-We begin the lesson by adding the protagonist of the game. Start out by creating a new file under the “Sprites” group, named `CatSprite`.
+### 猫猫时间！ 
 
-Update the code in `CatSprite.swift` to this:
+我们从添加游戏主角开始本期课程。我们首先在 “Sprites” 组下创建一个新文件，命名为 `CatSprite`。
+
+更新 `CatSprite.swift` 中的代码如下：
 
 ```
 import SpriteKit
@@ -61,24 +64,24 @@ public class CatSprite : SKSpriteNode {
 }
 ```
 
-We’ve stubbed out the file with a static initializer that returns a generated cat sprite. We’ve also stubbed out another `update` function. If we need to update more sprites, we should look into making this function a part of a [protocol](https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Protocols.html)[9](#9) for our sprites to conform to. One thing to note here: For the cat sprite, we are using a circular `SKPhysicsBody`. We could use the texture to create the physics body, as we did with the raindrops, but this is an “artistic” decision. When the cat is hit by the raindrops or the umbrella, it would be much more amusing for the cat to roll around in a fit of despair, instead of just sitting still.
+我们已经使用了一个会返回猫精灵的静态初始化器来处理这些文件。我们也同样处理了另一个 `update` 函数。如果我们需要更新更多的精灵，我们应该尝试把这个函数变成一个[协议](https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Protocols.html)[9](#9)的一部分来让我们的精灵能够符合要求。这里需要注意一点，对于猫精灵，我们使用了一个圆形的 `SKPhysicsBody`。我们可以使用纹理来创建猫的物理身体，就像我们创建雨滴一样，但是这是一个“艺术”的决定。当猫被雨滴打中时， 与其让猫始终坐着，让猫痛苦地打滚显然更有趣一些。
 
-We will need callbacks for when the cat comes into contact with the rain or falls off the world. Moving to the `Constants.swift` file, we can add the following line to it, to act as a `CatCategory`:
+当猫接触雨滴或猫掉出该世界时，我们将需要回调函数来处理这些事件。我们可以打开 `Constants.swift` 文件，将下列代码加入该文件，使它作为一个 `CatCategory`：
 
 ```
 let CatCategory      : UInt32 = 0x1 << 4
 ```
 
-The code above will be the constant used to determine which `SKPhysicsBody` is the cat. Let’s move back to `CatSprite.swift` and update the sprite to include `categoryBitMask` and `contactTestBitMask`. Add the following lines before we return the `catSprite` in `newInstance()`:
+上面代码中定义的变量将决定猫的身体是哪个`SKPhysicsBody`。让我们重新打开 `CatSprite.swift` 来更新猫精灵，使它包含 `categoryBitMask` 和 `contactTestBitMask`。 在 `newInstance()` 返回 `catSprite` 之前，我们需要添加如下代码：
 
 ```
 catSprite.physicsBody?.categoryBitMask = CatCategory
 catSprite.physicsBody?.contactTestBitMask = RainDropCategory | WorldCategory
 ```
 
-Now, we will get a callback when the cat is hit by rain or when it comes into contact with the edge of the world. After adding this, we need to add the cat to the scene.
+现在，当猫被雨滴击中或者当猫跌出世界时，我们将会得到一个回调。在添加了如上代码后，我们需要将猫添加到场景中。
 
-At the top of `GameScene.swift`, below where we initialized `umbrellaSprite`, add the following line:
+在 `GameScene.swift` 文件的顶部, 在初始化了 `umbrellaSprite` 之后， 我们需要添加如下代码:
 
 ```
 private var catNode : CatSprite!
