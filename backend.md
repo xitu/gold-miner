@@ -1,3 +1,7 @@
+*  [代码复用的风险性](https://gold.xitu.io/entry/58491d3b8e450a006aae7b4f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Gocy015](https://github.com/Gocy015) 翻译)
+*  [通过 Python 和 Pandas 调用 SQLite Databases](https://gold.xitu.io/entry/584790a70ce46300578c5977/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Nicolas(Yifei) Li](https://github.com/yifili09) 翻译)
+*  [Node & Express 入门指南](https://gold.xitu.io/entry/58468843a22b9d007aa70d38/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([王子建](https://github.com/Romeo0906) 翻译)
+*  [从 Node.js 到 Golang 的迁徙之路](https://gold.xitu.io/entry/584780928e450a006c1b801c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([王子建](https://github.com/Romeo0906) 翻译)
 *  [Python 数据可视化概览（涵盖 ggplot 和 Altair)](https://gold.xitu.io/entry/5842eded128fe10058a3cd7a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([cdpath](https://github.com/cdpath) 翻译)
 *  [Webhook 该做和不该做的: 我们在整合超过 100 个 API 中所学到的](http://gold.xitu.io/entry/5840df86a22b9d007a882f5d?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([steinliber](https://github.com/steinliber) 翻译)
 *  [研读 NodeJS 文档，我知道了这 19 件事](http://gold.xitu.io/entry/583ad71d128fe1006be5ddd6?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jacksonke](https://github.com/jacksonke) 翻译)

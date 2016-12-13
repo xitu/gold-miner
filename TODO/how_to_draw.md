@@ -259,7 +259,7 @@ function drawPath(index) {
 
 图 2.1 展示了一个高亮工作区域，我叫它 **面板**。在这个面板上，你可以进行拖放，拖拽，调整尺寸或者移动操作。实际上，面板里包含了一个能满足你需求的 Canvas 对象。只需要把 SVG 文件（图 2.2）拖放到面板里，就可以在屏幕上重绘，结果如图 2.3：
 
-<p align="center"><img width="50%" src="https://github.com/aleen42/PersonalWiki/raw/master/post/how_to_draw/example.svg" alt="draw in javascript" /></p>
+<p align="center"><img width="50%" src="http://ww1.sinaimg.cn/large/006y8lVagw1faie2abj2nj30e80e8dgn.jpg" /></p>
 <p align="center"><strong>图 2.2</strong>绘制的 SVG 文件</p>
 
 富含中国元素的美丽 logo 就生成啦
