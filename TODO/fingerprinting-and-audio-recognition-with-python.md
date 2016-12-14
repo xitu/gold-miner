@@ -73,7 +73,7 @@ The MP3 format compresses this in order to 1) save space on your hard drive, and
 
 ## 信号样本
 
-为什么是每秒 44100 个信号样本？这样选择的原因看起来随意，其实与[奈奎斯特-香农采样定理](http://en.wikipedia.org/wiki/Nyquist%E2%80%93Shannon_sampling_theorem)有关。这个很长的，数学推导的方法告诉我们，可以准确采集录音的最大频率是有一个理论上限的。这个最大的频率根据与我们信号采样的多快。
+为什么是每秒 44100 个信号样本？这样选择的原因看起来随意，其实与[奈奎斯特-香农采样定理](http://en.wikipedia.org/wiki/Nyquist%E2%80%93Shannon_sampling_theorem)有关。这个很长的，数学推导的方法告诉我们，可以准确采集录音的最大频率是有一个理论上限的。这个最大的频率取决于我们信号采样有多**快**。
 
 如果你没理解，可以想象看一个扇叶每秒转一个整圈(1Hz)的电风扇。现在闭上你的眼睛，精确地每秒钟快速睁开一下。如果扇叶也是精确的每秒转一圈，对你来说扇叶并没有移动！每次你睁开眼睛，扇叶都会转到相同的位置。但这有问题，实际上，如你所知，扇叶每秒钟可以转 0，1，2，3，10，100，甚至100万圈。但你却永远感知不到 — 它看起来是静止的！因此为了保证你可以准确地采样（或者‘看到’）高频率的运动（如‘转圈’），你需要以更高的频率采样（或者说‘睁眼’），准确的说，我们需要用运动两倍的频率采样才能确定我们可以觉察到。
 
@@ -81,7 +81,7 @@ The MP3 format compresses this in order to 1) save space on your hard drive, and
 
 > 每秒需要采样的 = 最高频率 * 2 = 22050 * 2 = 44100
 
-MP3 格式的文件压缩了这个采样率，以 1）节省你的硬盘空间，2）惹恼音乐发烧友，但其实纯 .wav 格式文件不过是一串 16 比特的数字序列（文件头更小）。
+MP3 格式的文件压缩了这个采样率，以 1）节省你的硬盘空间，2）惹恼音乐发烧友，但其实纯 .wav 格式文件不过是一串 16 比特的数字序列（加上一个小小的文件头）。
 
 ## Spectrograms
 
@@ -89,7 +89,7 @@ MP3 格式的文件压缩了这个采样率，以 1）节省你的硬盘空间�
 
 Since these samples are a signal of sorts, we can repeatedly use an FFT over small windows of time in the song's samples to create a [spectrogram](http://en.wikipedia.org/wiki/Spectrogram) of the song. Here's a spectrogram of the first few seconds of "Blurred Lines" by Robin Thicke.
 
-因为这些信号样本其实就是信号，我们可以不断地在一小段窗口时间内的歌曲样本上，用快速傅立叶变换生成歌曲的[频谱图](http://en.wikipedia.org/wiki/Spectrogram)。下面就是 Robin Thicke 的 “Blurred Lines” 这首歌开始几秒的频谱图。
+因为这些音频样本其实就是信号，我们可以不断地在一小段时间窗口内的歌曲样本上，用快速傅立叶变换生成歌曲的[频谱图](http://en.wikipedia.org/wiki/Spectrogram)。下面就是 Robin Thicke 的 “Blurred Lines” 这首歌开始几秒的频谱图。
 
 ![Blurred Lines](http://willdrevo.com/public/images/dejavu-post/spectrogram_no_peaks.png)
 
@@ -105,7 +105,7 @@ Great. So how does this help us recognize audio? Well, we'd like to use this spe
 
 重要的是要注意，频率和时间的值是离散的，每对代表一个 “bin”，振幅是实值。颜色表示在离散化（时间，频率）的坐标系中的振幅的实值（红 -> 较高，绿 -> 较低）。
 
-现在思考，如果我们给一个单音记录并创建频谱，我们会在单音的频率上得到一条直的水平线的。这是因为频率不随窗口变化而变化。
+现在思考，如果我们记录一个单音并创建频谱，我们会在单音的频率上得到一条直的水平线的。这是因为频率不随窗口变化而变化。
 
 很好，那么这如何帮我们识别音频呢？我们想用这个频谱图来唯一地标记这首歌。问题是如果你当车上使用手机，识别的还是收音机上播放的歌曲时，会有噪音 — 背景音里有说话声，另一辆车按喇叭等。我们不得不找一个稳健的方法来获取音频信号的“数字指纹”。
 
@@ -119,7 +119,7 @@ Once we've extracted these noise-resistant peaks, we have found points of intere
 
 Let's plot them to see what it looks like:
 
-现在我们有了根据音频信号生成的频谱图，我们可以从在振幅里面寻找‘峰值’开始。我们这里定义的峰值是一对（时间和频率）
+现在我们有了根据音频信号生成的频谱图，我们可以从在振幅里面寻找‘峰值’开始。我们这里定义峰值为振幅在附近“临域”极大值对应的时频。周围的时频对应的振幅都比它小，更有可能是背景噪音。
 
 查找峰值本身就是个问题。我最后把频谱图当作图片处理，用图片处理工具和`scipy`库里的技术查找峰值。用一组高通滤波器（强调高振幅）和 `scipy`查找局部极大值的算法可以实现。
 
@@ -168,7 +168,7 @@ hash(frequencies of peaks, time difference between peaks) = fingerprint hash val
 
 这有很多种实现方式，Shazam 用自己的算法，SoundHound 用另外的。你可以通过读我的源码来看我是怎样实现的。但是关键是，因为考虑多个单一的峰值，你创建的数字指纹有更多的熵，也就是包含更多的信息。因此它们是歌曲更有说服力的标识符，因为它们碰撞重复的几率更小。
 
-你可以将通过下面这个放大的有注释标记的频谱片段来讲这个过程在脑海中可视化：
+你可以将通过下面这个放大的有注释标记的频谱片段来将这个过程在脑海中可视化：
 
 ![Blurred Lines](http://willdrevo.com/public/images/dejavu-post/spectrogram_zoomed.png)
 
@@ -190,7 +190,7 @@ For this, we'll use our knowledge thus far and MySQL for the database functional
 现在我们可以开始研究这些系统是怎样工作的了，音频特征系统有两个任务：
 
 1. 通过对音乐的特征识别学习一首歌曲
-2. 通过在存储了已学习的歌曲的数据库中查询未知歌曲来识别
+2. 通过在存储了已学习的歌曲的数据库中查询来识别未知歌曲
 
 为了实现这个，我们用我们的知识和 MySQL 作为数据库。我们的数据库结构包含下面两个表：
 
@@ -248,7 +248,7 @@ Next we'll take this hex encoding and convert it to binary, once again cutting t
 
 Much better. We went from 320 bits down to 80 bits for the `hash` field, a reduction of 75%.
 
-有了这么多指纹，我们需要从哈希值的维度上减少不必要的磁盘存储。对于我们的数字指纹哈希，我们可以从用` SHA1`开始，将其减少成一半的尺寸（只是前20个字符）。这可以是我们每个哈希值所占用的字节数减半：
+有了这么多指纹，我们需要从哈希值的维度上减少不必要的磁盘存储。对于我们的数字指纹哈希，我们可以从用` SHA1`开始，将其减少成一半的尺寸（只是前20个字符）。这可以使我们每个哈希值所占用的字节数减半：
 
 > char(40) => char(20) goes from 40 bytes to 20 bytes
 
@@ -266,13 +266,13 @@ We do lose some of the information - our hashes will, statistically speaking, co
 
 Not too shabby. We've saved ourself 75% of the space and still managed to have an unimaginably large fingerprint space to work with. Gurantees on the distribution of keys is a hard argument to make, but we certainly have enough entropy to go around.
 
-我第一次试用系统时，我用一个 `char(40)`字段来存储每个哈希 - 这导致只是数字指纹的数据就占了超过 1GB 的空间。通过用 `binary(10)`，我们将表大小缩小至 377M 空间可以存储 520 万个数字指纹。
+我第一次试用系统时，我用一个 `char(40)`字段来存储每个哈希 - 这导致仅数字指纹的数据就占了超过 1GB 的空间。通过用 `binary(10)`，存储 520 万个数字指纹仅需要377M 空间。
 
 我们确实丢失了一些信息 - 我们的哈希值，从统计的角度讲，会碰撞的更频繁。我们大大减少了哈希的“熵”。然而，重要的是要记得我们的熵（或者说信息）还包含4 字节的 `offset` 字段。这使我们每个数字指纹的总的熵达到：
 
 > 10 bytes (hash) + 4 bytes (offset) = 14 bytes = 112 bits = 2^112 ~= 5.2+e33 possible fingerprints
 
-还不赖。我们省下了 75% 的空间，但仍有难以想象多的数据指纹需要处理。保证密钥的分配是很难的，但我们肯定有足够的熵来回避。
+还不赖。我们省下了 75% 的空间，但仍有难以想象多的数据指纹需要处理。保证关键点的分配是很难的，但我们肯定有足够的熵来回避。
 
 ## Songs table
 
@@ -318,7 +318,7 @@ Assuming we've already performed this fingerprinting on known tracks, ie we have
 
 Our pseudocode looks something like this:
 
-太棒了，所以现在我们听取了一个音轨，在重叠的窗口期内执行 FFT，提取峰值，形成数字指纹。现在该做什么呢？
+太棒了，所以现在我们听取了一个音轨，在重叠的时间窗口执行 FFT，提取峰值，形成数字指纹。现在该做什么呢？
 
 假设我们已经在已知的音轨上提取了数字指纹，将其存入数据库，并用歌曲 ID 标记，可以查找直接匹配。
 
@@ -360,7 +360,7 @@ And that's all there is to it!
 
 在这种假设下，对于每个匹配，我们计算偏移量之间的差：
 
-> difference = database offset from original track - sample offset from recording
+> 偏移量差 = 库中数据相对原音轨的偏移 - 样本相对于录音的偏移
 
 这会产生一个正整数，因为数据库里的音轨始终至少是样本的长度。所有的真正的匹配都有相同的区别，因此，我们从数据库匹配会被改成：
 
@@ -368,7 +368,7 @@ And that's all there is to it!
 
 现在我们只要查看所有的匹配并预测差异数最大的歌曲ID。如果你能把这想象成直方图，就很容易。
 
-这就是所有的事情！
+大功告成！
 
 ## How well it works
 
@@ -412,7 +412,7 @@ Here are the results for different values of listening time (`n`):
 
 ## 2.通过笔记本的麦克风获取音频
 
-这里我写了一个脚本，可以随机选取原始 mp3 文件的`n`秒的音频，让 Dejavu 通过麦克风听。为了结果可信，我只选择了刨除开始或结束的部分，时长并且10 秒以上的音频片段，以防听取不到声音。
+这里我写了一个脚本，可以随机选取原始 mp3 文件的`n`秒的音频，让 Dejavu 通过麦克风听。为了结果可信，我选取的音频片段刨除了距歌曲开始或结束10秒内的部分，以防听取不到声音。
 
 另外，在整个过程中，我朋友在说话，我在跟着哼，以加入噪音。
 
@@ -449,7 +449,7 @@ In conclusion, Dejavu works amazingly well, even with next to nothing to work wi
 
 即使只听取一秒，随机选取歌曲的任意部分，Dejavu 的准确率也达到了 60%！两秒的话准确率可以达到约 96%，5秒或以上，结果就趋近于完美了。老实说，当我测试的时候，我发现 Dejavu 赢了我，只听一两秒就识别出歌曲是相当难的。我甚至已经 debugging 的时候连续听了两天相同的歌。
 
-结论是，Dejavu 工作的非常出色，即使没什么工作。
+结论是，即便在提供的数据少到几乎没有的情况下，Dejavu 工作的也非常出色。
 
 ## 3\. Compressed streamed music played on my iPhone
 
@@ -457,7 +457,7 @@ In conclusion, Dejavu works amazingly well, even with next to nothing to work wi
 
 Just to try it out, I tried playing music from my Spotify account (160 kbit/s compressed) through my iPhone's speakers with Dejavu again listening on my MacBook mic. I saw no degredation in performance; 1-2 seconds was enough to recognize any of the songs.
 
-只是尝试一下，我尝试用我的 iPhone 扬声器从我的 Spotify 账户播放音乐（已压缩160 kbit/s），Dejavu 仍从我的 MacBook 的麦克上听取。我看到性能有下降，但 1 到 2 秒仍足以识别出任何歌曲。
+只是尝试一下，我尝试用我的 iPhone 扬声器从我的 Spotify 账户播放音乐（已压缩160 kbit/s），Dejavu 仍从我的 MacBook 的麦克上听取。正确率没有下降， 1 到 2 秒仍足以识别出任何歌曲。
 
 ## Performance: Speed
 
@@ -465,7 +465,7 @@ On my MacBook Pro, matching was done at 3x listening speed with a small constant
 
 ## 性能：速度
 
-在我的 MacBook Pro上，以 3 倍速只要很少的开销就可以完成匹配。为了测试，我尝试了不同的录音次数，
+在我的 MacBook Pro上，以 3 倍速只要很少的开销就可以完成匹配。为了测试，我尝试了不同的录音时长，并记下录音时长加与匹配用时的对应关系。由于匹配速度主要取决于频谱图的长度，和具体哪首歌没有关系，我只测试了一首歌， Daft Punk 的《Get Lucky》:
 
 ![Matching time](http://ac-Myg6wSTV.clouddn.com/6d03d080cc00cc5f5e90.png)
 
@@ -487,13 +487,13 @@ An important caveat is of course, the round trip time (RTT) for making matches. 
 
 > 1.364757 * record time - 0.034373 = time to match
 
-注意， 因为匹配本身是单线程的，匹配时间页包含录音的时间。这解释了用三倍速匹配时：
+注意， 因为匹配本身是单线程的，匹配时间也包含录音的时间。这解释了用三倍速匹配时：
 
 > 1 (recording) + 1/3 (matching) = 4/3 ~= 1.364757
 
 如果我们忽略微小的常数项。
 
-peak finding 算法的开销是瓶颈 — 我尝试用多线程和实时匹配，这注定不是 Python 的强项。等效的  Java 或者 C/C++ 实现可以没什么问题，实时地应用 FFT 和 peak finding。
+peak finding 算法的开销是瓶颈 — 我尝试用多线程和实时匹配，这注定不是 Python 的强项。等效的 Java 或 C/C++ 实现应该不难完成实时 FFT 和峰值查找的需求。
 
 重要的警告是，为了匹配数据的往返时间（RTT）。因为我的 MYSQL 实例是本地的，我不用处理无限传输造成的延迟。在计算总的用时时需要加上 RTT，但这不影响匹配的过程。
 
@@ -523,7 +523,7 @@ It's true, the fingerprints take up a surprising amount of space (slighty more t
 | wav                    | 1885          |
 | fingerprints           | 377           |
 
-这是一个相当直接的在记录时间和存储空间之间的折衷。调整峰值的振幅阈值和数字指纹采集时的风扇值，可以增加指纹数量， 并以更多空间占用为代价换取更高的准确度。
+这是一个相当直接的在记录时间和存储空间之间的折衷。调整峰值的振幅阈值和数字指纹采集时的采样频率，可以增加指纹数量， 并以更多空间占用为代价换取更高的准确度。
 
 真的，数字指纹占用惊人的存储空间（比原始的 MP3 文件稍大）。这似乎令人震惊，直到你考虑到每首歌有成百上千，甚至有时成千上万条哈希值记录。我们已经把波形文件中的整个音频信号折衷成数字指纹占用的20%。我们可以在五秒内非常可靠地匹配到歌曲，所以我们的空间／时间取舍似乎得到了回报。
 
