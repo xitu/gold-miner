@@ -72,7 +72,7 @@ public class CatSprite : SKSpriteNode {
 let CatCategory      : UInt32 = 0x1 << 4
 ```
 
-上面代码中定义的变量将决定猫的身体是哪个`SKPhysicsBody`。让我们重新打开 `CatSprite.swift` 来更新猫精灵，使它包含 `categoryBitMask` 和 `contactTestBitMask`。 在 `newInstance()` 返回 `catSprite` 之前，我们需要添加如下代码：
+上面代码中定义的变量将决定猫的身体是哪个 `SKPhysicsBody` 。让我们重新打开 `CatSprite.swift` 来更新猫精灵，使它包含 `categoryBitMask` 和 `contactTestBitMask`。 在 `newInstance()` 返回 `catSprite` 之前，我们需要添加如下代码：
 
 ```
 catSprite.physicsBody?.categoryBitMask = CatCategory
@@ -81,17 +81,17 @@ catSprite.physicsBody?.contactTestBitMask = RainDropCategory | WorldCategory
 
 现在，当猫被雨滴击中或者当猫跌出世界时，我们将会得到一个回调。在添加了如上代码后，我们需要将猫添加到场景中。
 
-在 `GameScene.swift` 文件的顶部, 在初始化了 `umbrellaSprite` 之后， 我们需要添加如下代码:
+在 `GameScene.swift` 文件的顶部, 初始化了 `umbrellaSprite` 之后， 我们需要添加如下代码:
 
 ```
 private var catNode : CatSprite!
 ```
 
-We can create a cat right away in `sceneDidLoad()`, but we want to spawn the cat from a separate function in order to reuse the code. The exclamation point (`!`) tells the compiler that it does not need to be initialized in an `init` statement, and that it probably will not be `nil`. We do this for two reasons. First, we don’t want to include an `init()` statement for only one variable. Secondly, we don’t want to initialize it right away, only to reinitialize and position the cat when we hit `spawnCat()` the first time. We could have it as an optional (`?`), but after we hit the `spawnCat()` function the first time, our cat sprite will never be `nil` again. To get around this and the headache of unwrapping it every time we want to use it, we’ll say that it is safe to automatically unwrap using the exclamation pont. If we touch our cat object before initializing it, our app would crash, because we told it that it was safe to unwrap when it wasn’t. We need to initialize it before using it, but in the proper function.
+我们可以立刻在 `sceneDidLoad()` 里创建一只猫，但是我们更想要从一个单独的函数中来创建猫对象，以便于代码重用。感叹号(`!`)告诉编译器，它并不需要在 `init` 语句中立即初始化，而且它应该不会是 `nil`。我们这么做有两个理由。首先，我们不想单独为了一个变量创建 `init()` 语句。其次，我们并不想立刻初始化它，只要在我们第一次运行 `spawnCat()` 时重新初始化和定位猫对象就可以了。我们也可以用 optional(`?`) 来定义该变量，但是当我们第一次运行了 `spawnCat()` 函数后，我们的猫精灵就再也不会变成 `nil` 了。为了解决初始化问题和让我们头疼的拆包，我们会说使用感叹号来进行自动拆包是安全的操作。如果我们在初始化我们的猫对象前就使用了它，我们的应用就会闪退，因为我们告诉我们的应用对我们的猫对象进行拆包是安全的，然而并不是。我们需要在使用它之前初始化它，但是是在合适的函数中。
 
-Next, we will create a `spawnCat()` function in `GameScene.swift`, so that we can initialize our cat sprite. We’ll break this out into its own function to be able to reuse the code and to make sure that only one cat is in the scene at a time.
+接下来，我们将要在 `GameScene.swift` 文件中新建一个 `spawnCat()` 函数来初始化我们的猫精灵。我们会把这个初始化的部分拆分到一个单独的函数中，使这部分代码具有重用性，同时保证在一个场景中一次只可能存在一只猫。
 
-Add the following code near the bottom of the file, just under our `spawnRaindrop()` function:
+在这个文件中接近底部的地方，我们的 `spawnRaindrop()` 函数后面添加如下代码：
 
 ```
 func spawnCat() {
@@ -108,9 +108,9 @@ func spawnCat() {
 }
 ```
 
-Walking through this function, we’re first checking whether the cat is not `nil`. Then, we’re checking whether the scene contains a cat. If the scene does contain a cat, we remove it from the parent, remove any actions that the cat is currently performing, and clear out the `SKPhysicsBody` of the cat. This will only trigger if the cat comes into contact with the edge of the game world. After this, we initialized a new cat and set the position to 30 pixels below the umbrella. We could spawn the cat anywhere, but I thought that this would be a clever place, instead of dropping the cat from the sky.
+纵观这段函数，我们首先检查了猫对象是否为空。然后，我们确定了这个场景中是否存在一个猫对象。如果这个场景内存在一只猫，我们就要从父类中移除它，移除它现在正在进行的所有操作，并清除这个猫对象的 `SKPhysicsBody` 。这些操作仅仅会在猫掉出该世界时被触发。在这之后，我们会重新初始化一个新的猫对象，同时设定它的初始位置为伞下 30 像素的地方。其实我们可以在任何位置初始化我们的猫对象，但是我想这个位置总比直接从天空中把猫丢下来更好。
 
-Finally, in `sceneDidLoad()`, after we position and add the umbrella, call the `spawnCat()` function:
+最后，在 `sceneDidLoad()` 函数中，在我们定位并添加了雨伞之后，调用 `spawnCat()` 函数：
 
 ```
 umbrellaNode.zPosition = 4
@@ -119,15 +119,15 @@ addChild(umbrellaNode)
 spawnCat()
 ```
 
-Now we can run the app, and voilà!
+现在我们可以运行我们的应用并且欢呼啦！
 
-[![App assets](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Cat-preview-opt.png) ](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Cat-large-opt.png)[10](#10)
+[![应用资源](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Cat-preview-opt.png) ](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Cat-large-opt.png)[10](#10)
 
-Cat ([View large version](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Cat-large-opt.png)[11](#11))
+猫 ([查看源文件](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Cat-large-opt.png)[11](#11))
 
-If the cat now comes into contact with raindrops or the umbrella, it will roll around. At this point, the cat can roll off screen and would be deleted as soon as it hits the world edge; so, we will need to respawn the cat. Because a callback is currently in place for when the cat comes into contact with raindrops and the game world, we can handle the collision in the `didBegin(_ contact:)` function.
+如果现在猫走出了雨伞并且碰到了雨滴，它将会在地上打滚。这时候，猫可能会滚出屏幕然后在接触世界边框的一瞬间被删除掉，那么，我们就需要重新生成猫对象了。因为现在回调函数会在当猫接触到雨滴时或猫掉出世界时被触发，所以我们可以在 `didBegin(_ contact:)` 函数中来处理这个碰撞事件。
 
-We want to differentiate between when a raindrop hits the cat and when the cat hits the world frame, so let’s break out the logic into a new function. At the bottom of `GameScene.swift`, below `didBegin(_ contact:)`, enter the code below:
+我们想要在猫触碰到雨滴后和触碰世界边框后触发不同的事件，所以我们把这些逻辑拆分到了一个新的函数中。在 `GameScene.swift` 文件的底部， `didBegin(_ contact:)` 函数的后面，加上如下代码：
 
 ```
 func handleCatCollision(contact: SKPhysicsContact) {
@@ -150,9 +150,9 @@ func handleCatCollision(contact: SKPhysicsContact) {
 }
 ```
 
-In this block of code, we are looking for the physics body that is not the cat. Once we have the other body, we need to figure out what hit the cat. For now, if a raindrop hits the cat, we just print out to the console that the collision occurred. If the cat hits the edge of the game world, we will respawn the cat.
+在这段代码中，我们在寻找除了猫以外的物理对象。一旦我们获取到了另外的物理对象，我们需要判断是什么触碰了猫。现在，如果是雨滴击中了猫，我们只在控制台中输出这个碰撞发生了，而如果是猫触碰了这个游戏世界的边缘，我们就会重新生成一个猫对象。
 
-We need to call this function if contact occurs with the cat object. So, let’s update `didBegin(_ contact:)` to the following code:
+我们需要在有触碰发生猫对象上时调用这个函数。那么，让我们用如下代码来更新 `didBegin(_ contact:)` 函数：
 
 ```
 func didBegin(_ contact: SKPhysicsContact) {
@@ -180,19 +180,19 @@ func didBegin(_ contact: SKPhysicsContact) {
 }
 ```
 
-We snuck in a condition between where we remove collision from raindrops and where we cull off-screen nodes. This `if` statement checks whether either body is the cat, and then we handle the cat behaviors in the `handleCatCollision(contact:)` function.
+我们在移除雨滴碰撞和移除离屏指针中间插入了一个条件判断。这个 `if` 语句判断了碰撞物体是不是猫，然后我们在 `handleCatCollision(contact:)` 函数中处理猫的行为。
 
-We can now test our cat’s respawning function by pushing the cat off screen with the umbrella. The cat will now respawn below the umbrella! Note that if the umbrella’s bottom is beneath the floor, the cat will fall off screen for as long as the umbrella stays beneath the floor. This isn’t a huge issue for now, but we should figure out a way around this later on.
+我们现在可以用雨伞把猫推出屏幕来测试猫的重生函数了。猫现在将会在伞下重新被定义出来。请注意，如果雨伞的底部低于地板，那么猫就会一直从屏幕中掉出去。到现在为止这并不是什么大问题，但是我们之后会提供一个方法来解决它。
 
-### Spawning Food 
+### 生成食物
 
-Now seems like a good time to spawn some food for our cat to eat. Sure, the cat can’t move by itself, but we can fix that later. Before creating the food sprite, we can add a new category for food in our `Constants.swift` file. Add the following line below the `CatCategory`.
+现在看来，是时候生成一些食物来喂我们的小猫了。当然了，现在猫并不能自己移动，不过我们一会可以修复这个问题。在创建食物精灵之前，我们可以先在 `Constants.swift` 文件中为食物新建一个类。让我们在 `CatCategory` 中添加如下代码：
 
 ```
 let FoodCategory     : UInt32 = 0x1 << 5
 ```
 
-The code above will be the constant used to determine which `SKPhysicsBody` is the food. Create a file exactly how we created the `CatSprite.swift` file, but this time named `FoodSprite.swift`, under the “Sprites” group. Add the following code to the new file:
+上面代码中定义的变量将决定食物的物理对象是哪个 `SKPhysicsBody` 。在 “Sprites” 组中，我们用创建 `CatSprite.swift` 文件图片同样的方法新建一个名为 `FoodSprite.swift` 的文件，并在该文件中添加如下代码：
 
 ```
 import SpriteKit
@@ -211,14 +211,15 @@ public class FoodSprite : SKSpriteNode {
 }
 ```
 
-This is a static function that, when called, will initialize a `FoodSprite` and return it. We set the physics body to a rectangle of the sprite’s size. This is fine because the sprite itself is a rectangle. Then, we set the category to the `FoodCategory` that we just created, and added it to the object that we want collisions with (the world frame, the raindrops and the cat). The `zPosition`s of the food and the cat are the same, and they’ll never overlap, because as soon as they come into contact, the food will be deleted and the player will earn a point.
+这是一个静态的类，当它被调用时，将会初始化一个 `FoodSprite` 并且返回它。我们把食物的物理对象设置为一个和食物精灵同样大小的矩形。这种处理很好，因为食物精灵本身就是一个矩形。接下来，我们把物理对象的种类设置为我们刚刚创建的 `FoodCategory` ，然后把它添加到它可能会碰撞的对象（世界边框，雨滴和猫）中。我们把食物和猫的 `zPosition` 设置成相同的，它们将永远不会重叠，因为当它们相遇时，食物就会被删除然后用户将会得到一分。
 
-Heading back to `GameScene.swift`, we will need to add functionality to spawn and remove the food. At the top of the file, beneath the `rainDropSpawnRate` variable, we can add this line:
+重新打开 `GameScene.swift` 文件，我们需要添加一些功能来生成和移除食物。在这个文件的顶部，`rainDropSpawnRate` 变量的下面，我们添加如下代码：
 
 ```
 private let foodEdgeMargin : CGFloat = 75.0
 ```
 
+This will act as a margin when spawning food. We don’t want to spawn it too close to either the left or right side of the screen. We place it at the top of the file, so that we won’t have to search all over to change this value if we need to later on. Next, below our `spawnCat()` function, we can add our `spawnFood` function:
 This will act as a margin when spawning food. We don’t want to spawn it too close to either the left or right side of the screen. We place it at the top of the file, so that we won’t have to search all over to change this value if we need to later on. Next, below our `spawnCat()` function, we can add our `spawnFood` function:
 
 ```
