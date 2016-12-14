@@ -1,4 +1,4 @@
-* 原文地址：[ Progressive Web AMPs ](https://www.smashingmagazine.com/2016/12/progressive-web-amps/#amp-for-accelerated-mobile-pages)
+* 原文地址：[ Progressive Web AMPs ](https://www.smashingmagazine.com/2016/12/progressive-web-amps/)
 * 原文作者：[ Paul Bakaus ]( https://www.smashingmagazine.com/author/paulbakaus/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：
