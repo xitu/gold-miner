@@ -1,4 +1,4 @@
-* 原文地址：[ Effective Java for Android (cheatsheet) ](https://medium.com/rocknnull/effective-java-for-android-cheatsheet )
+* 原文地址：[ Effective Java for Android (cheatsheet) ](https://medium.com/rocknnull/effective-java-for-android-cheatsheet-bf4e3433889a#.hmlqxkmzh)
 * 原文作者：[ Netcyrax ]( https://medium.com/@netcyrax)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：
@@ -10,17 +10,14 @@
 
 This post is an attempt to concentrate what I consider the most important items from the book when developing an Android app. For those who read the book, this post might act as a reminder of the items/principles that are mentioned. For those who didn’t read it (yet), it can be used to give them a taste of what the book offers.
 
-#### Force non-instantiability 
+#### Force non-instantiability
 
-If you do not want an object to be created using the *new *keyword, enforce it using a **private constructor**. Especially useful for utility classes that contain only static functions.
+If you do not want an object to be created using the *new* keyword, enforce it using a **private constructor**. Especially useful for utility classes that contain only static functions.
 
 ```
 class MovieUtils {
   private MovieUtils() {}
 
-```
-
-```
     static String titleAndYear(Movie movie) {
         [...]
     }
@@ -28,7 +25,7 @@ class MovieUtils {
 
 ```
 
-#### Static Factories  
+#### Static Factories
 
 Instead of using the new keyword and the constructor use a static factory method (and a private constructor). These factory methods are named, are not required to return a new instance of the object each time and can return a different subtype depending on what’s needed.
 
@@ -42,7 +39,7 @@ class Movie {
 
 ```
 
-#### Builders  
+#### Builders
 
 When you have an object that requires more than ~3 constructor parameters, use a builder to construct the object.It might be a little more verbose to write but it scales well and it’s very readable. If you are creating a value class, consider [AutoValue](https://medium.com/rocknnull/no-more-value-classes-boilerplate-the-power-of-autovalue-bbaf36cf8bbe#.cazel3w3g) .
 
@@ -63,7 +60,7 @@ class Movie {
     }
 
     private Movie(String title) {
-    [...]    
+    [...]
     }
 }
 // Use like this:
@@ -71,7 +68,7 @@ Movie matrix = Movie.newBuilder().withTitle("The Matrix").build();
 
 ```
 
-#### Avoid mutability 
+#### Avoid mutability
 
 Immutable is an object that stays the same for its entire lifetime. All the necessary data of the object are provided during its creation.There are various advantages to this approach like simplicity, thread-safety and shareability.
 
@@ -90,7 +87,7 @@ Movie toyStory2 = toyStory.sequel();
 
 It might be difficult to make every class immutable. If that’s the case, make your class as immutable as possible(eg, fields private final and the class final). Object creation might be more expensive on mobile,therefore don’t over do it.
 
-#### Static member classes  
+#### Static member classes
 
 If you define an inner class that does not depend on the outer class, don’t forget to define it as static. Failing to do so will result in each instance of the inner class to have references to the outer class.
 
@@ -104,7 +101,7 @@ class Movie {
 
 ```
 
-#### Generics (almost) everywhere  
+#### Generics (almost) everywhere
 
 Java provides type-safety and we should be grateful for it (see JS). Try to avoid using raw types or the Object type when possible. Generics provide, most of the times the mechanism to make your code type safe on compile time.
 
@@ -157,7 +154,7 @@ void writeList(List<? super Movie> movieList) {
 
 ```
 
-#### Return empty 
+#### Return empty
 
 When having to return a list/collection with no result avoid *null.* Returning an empty collection leads to a **simpler interface** (no need to document and annotate the null-returning function) and **avoids accidental NPE**. Prefer to return the **same empty collection** rather than creating a new one.
 
@@ -186,7 +183,7 @@ StringBuilder sb = new StringBuilder();
 
 ```
 
-#### Recoverable exceptions 
+#### Recoverable exceptions
 
 I am not in favor of throwing exceptions for indicating errors, but if you do so, make sure the exception is checkedand the catcher of the exception is able to **recover from the error**.
 
@@ -200,6 +197,6 @@ throw new MoviesNotFoundException();
 
 ```
 
-### Conclusion 
+### Conclusion
 
 This list is by no mean a complete list of the advice that is given in the book nor the short text explanations full-depth justifications. This was rather a cheat sheet for these useful tips :)
