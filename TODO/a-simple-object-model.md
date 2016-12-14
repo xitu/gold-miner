@@ -64,7 +64,7 @@ def test_read_write_field():
     assert obj.read_attr("b") == 5
 ~~~
 
-在上面这个测试代码中包含了我们必须实现的三个东西。`Class` 以及 `Instance` 类分别代表着我们对象中的类以及实例。同时这里有两个特殊的累的实例：`OBJECT` 和 `TYPE`。 `OBJECT` 对应的是作为 Python 继承系统起点的 `object` 类（译者注：在 Python 2.x 版本中，实际上是有两套类系统，一套被统称为 **new style class** , 一套被称为 **old style class** ，`object` 是 **new style class** 的基类）。`TYPE` 对应的是 Python 类型系统中的 `type` 。
+在上面这个测试代码中包含了我们必须实现的三个东西。`Class` 以及 `Instance` 类分别代表着我们对象中的类以及实例。同时这里有两个特殊的类的实例：`OBJECT` 和 `TYPE`。 `OBJECT` 对应的是作为 Python 继承系统起点的 `object` 类（译者注：在 Python 2.x 版本中，实际上是有两套类系统，一套被统称为 **new style class** , 一套被称为 **old style class** ，`object` 是 **new style class** 的基类）。`TYPE` 对应的是 Python 类型系统中的 `type` 。
 
 为了给 `Class` 以及 `Instance` 类的实例提供通用操作支持，这两个类都会从 `Base` 类这样提供了一系列方法的基础类中进行继承并实现：
 
