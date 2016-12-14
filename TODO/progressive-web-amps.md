@@ -1,4 +1,10 @@
-#	Progressive Web AMPs
+* 原文地址：[ Progressive Web AMPs ](https://www.smashingmagazine.com/2016/12/progressive-web-amps/#amp-for-accelerated-mobile-pages)
+* 原文作者：[ Paul Bakaus ]( https://www.smashingmagazine.com/author/paulbakaus/)
+* 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+* 译者：
+* 校对者：
+
+#  Progressive Web AMPs
 
 If you’ve been following the web development community these last few months, chances are you’ve read about [progressive web apps](https://www.smashingmagazine.com/2016/08/a-beginners-guide-to-progressive-web-apps/)(PWAs). It’s an umbrella term used to describe web experiences so advanced that they compete with ever-so-rich and immersive native apps: [full offline support](https://www.smashingmagazine.com/2016/02/making-a-service-worker/),[installability](https://developers.google.com/web/fundamentals/engage-and-retain/app-install-banners/?hl=en), “Retina,” full-bleed imagery, sign-in support for personalization, fast, smooth in-app browsing, push notifications and a great UI.
 
