@@ -9,76 +9,78 @@
 # iOS: 自定义模态视图
 
 ## Modals became so diverse that Apple’s HIG no longer cuts it. How to choose from all the custom options out there?
+<!-- ## 模态视图变得如此多元化，Apple 的人机交互指南都不再削减关于它的描述。我们如何从中选择自定义选项呢? -->
 
 <!-- ![](https://cdn-images-1.medium.com/max/2000/1*LPXhF6DNBVu8qz4P-sHZTA.png) -->
 
-I’m thrilled when developers ask me about my choice of view types. I get to go on and on about the problem and my take on it. Interestingly, they are often surprised when they realise it had nothing to do with aesthetics.
+当开发者们询问我如何选择的视图类型时，我非常兴奋。我开始不停思考这个问题，得出了自己的结论。有趣的是，当他们意识到视图的选择与美学无关时，他们常会感到惊讶。
 
-[Modality](https://developer.apple.com/ios/human-interface-guidelines/interaction/modality/) in *iOS Human Interface Guidelines* is a great resource on that topic. That’s where I refer everyone to. But recently a friend told me, that it wasn’t enough for him.
+我一直建议大家去看 *iOS 人机交互设计指南* 里关于 [模态视图](https://developer.apple.com/ios/human-interface-guidelines/interaction/modality/) 的介绍，这是篇很棒的参考材料。但是最近有个朋友告诉我这对于他来说还不够。
 
 Curious, I started checking out existing patterns to figure out how much more there is to it. He was right.
+出于好奇，我去查看了现有的样式
 
-Which modal is the best choice then? I put together a list that’ll help you decide. Let’s go through it.
+那么哪种模态视图才是最好的选择呢？我列了一个清单，也许对你做决定有帮助。下面我们就来看看吧。
 
-### Modal 类型
+### 类型
 
 Modals are a way to step out of the main flow of the app to make a decision or complete a task. They are the best tool when we need user’s uninterrupted attention.
 
 > While *navigation controllers* promote content and its hierarchy, modals always exist in the context of a task.
+> While *导航控制器* 提出了内容和层次结构, modals always exist in the context of a task.
 
 There is a lot of modal types out there. They can take up the whole screen, or a part of it. They can be centered, fixed to the top or bottom. Sometimes they pop-up, sometimes slide from a side. *No wonder this is confusing.*
 
 There’s a lot to break down here before you make a decision. My rule of thumb is to check if the view lets people **pick** a task or **do** a task.
+在做决定之前你需要考虑一些事。我的经验是检查视图是否允许人们 **选择** 任务或 **做** 任务。
 
 ### **选择类**
 
-This type of modal requires a decision before you can proceed. It could be a warning, dialog letting you specify what you want to do or which mode you want to select.
+这类模态视图要求你做出一个选择后才能继续操作。它可以是一个警告，或者一个让你指定你下一步操作或选择模式的对话框。
 
-<!-- ![](https://cdn-images-1.medium.com/max/800/1*llj4coNsU1kwsUIdBgeNAA.png) -->
+![](https://cdn-images-1.medium.com/max/800/1*llj4coNsU1kwsUIdBgeNAA.png)
 
-- **Action sheet** is best for showing multiple actions. It’s a safe choice when you don’t have a lot of additional content to show besides the list.
-- **Popover** helps if the context of the previous screen is important. Arrow does a great job explaining the relation between views.
-- If you need to ask a question or get a permission from the user, it’s best to go with an **alert**.
+- **操作列表** 是显示多个操作选项的最好方式。如果你除了列表没有太多额外展示的东西的话，这是个安全的选择。
+- **弹出框** 可以应用在之前视图的上下文比较重要的场景，弹出框的箭头在解释视图之间的关系上发挥了很好的作用。
+- 如果你要提问或者从用户处获取权限, 最好使用 **警告框**。
 
-Notice how none of those takes the whole screen? It’s because they are meant to be **fast to use**, you make a selection and you’re back on.
+你可能注意到了以上介绍的视图都没有覆盖到整个屏幕，因为他们应该被 **快速使用**，用户选择完就立刻回到之前的界面。
 
 ### **操作类**
 
-Those modals are for getting stuff done. They are great for adding, editing—any complex task, basically.
+这类模态视图是为了完成功能任务的，它们适用于添加、编辑等所有复杂的任务场景。
 
 **全屏视图**
 
-<!-- ![](https://cdn-images-1.medium.com/max/800/1*xu_NhNyGVRNfMl2a0ztL_Q.png) -->
+![](https://cdn-images-1.medium.com/max/800/1*xu_NhNyGVRNfMl2a0ztL_Q.png)
 
-Definitely the most common type of modal. Covers the whole screen, requiring the full attention. Designed for complex tasks that might have multiple steps.
+全屏视图是最常见的模态视图。覆盖整个屏幕来引起充分注意，为可能包含多个步骤的复杂任务而设计。
 
-For fullscreen modals it’s generally agreed that:
+一般情况下，使用全屏视图需要遵守以下两点:
 
-- Main action (*Done*/*Save/Close*) is always in the top right corner
-- Destructive action (*Cancel*) should be in the top left corner
+- 完成性操作 (*完成*/*保存*/*关闭*) 总在视图右上角
+- 取消性操作 (*取消*) 应该在视图左上角
 
 **非全屏视图**
 
-Sometimes you have a feature that affects a part of the main view. In that case it‘s helpful to show it in the background, for context. People will instantly get what the modal does, then.
-有的时候你可能会有一些功能影响到部分主视图，在这种情况下最好让主视图作为背景显示。 People will instantly get what the modal does, then.
+有的时候你可能会有一些功能影响到部分主视图，在这种情况下最好让主视图作为背景显示。 这样人们就会立刻明白这个模态视图的作用。
 
-<!-- ![](https://cdn-images-1.medium.com/max/800/1*i4OTZP-ESmIxde2sELE1SA.png) -->
+![](https://cdn-images-1.medium.com/max/800/1*i4OTZP-ESmIxde2sELE1SA.png)
 
 如果你选择使用非全屏视图的话, 你还要额外考虑两件事:
 
-- **选择合适的过渡动画** 如果一个视图和屏幕上方的内容相关，那就让模态视图从那里滑出。让模态视图以用户可预见的方式出现会令应用的使用体验加分。
+- **选择合适的过渡方式** 如果一个视图和屏幕上方的内容相关，那就让模态视图从那里滑出。让模态视图以用户可预见的方式出现会令应用的使用体验加分。
 
 - **添加手势关闭操作** 当模态视图以动画形式出现时,人们通常会尝试用手势去关闭它 (*例如. 把放大的视图缩小)*. 对这一操作的支持会让这个应用使用起来更加和谐。
 
-There is one more thing, and it’s tricky. Sometimes the feature might refer to a specific part of the previous view. This means that a **popover** can be used here as well.
-还有个有趣的问题， 有的时候功能可能涉及之前视图的某个特定部分. 这意味着 **弹出框** 在这里同样适用.
+还有个有趣的问题， 有的时候模态视图内的功能可能涉及之前视图的某个部分。这个时候你也可以使用 **弹出框** 。
 
 ---
 
-Modal 是个非常有用的工具。刚接触时可能会比较难理解，但是只要你在你的 app 上实践过，再用起来就会快速和简单很多。
+模态视图是个非常有用的工具。刚开始接触可能会比较难理解，但是只要你在你的 app 上实践过，再用起来就会快速和简单很多。
 
-如果你还是决定不了选择哪种 modal ，我准备了一个流程图，你可以把它当做快速参考。
+如果你还是决定不了选择哪种模态视图，我准备了一个流程图，你可以把它当做快速参考。
 
-<!-- ![](https://cdn-images-1.medium.com/max/1000/1*xmvX16jk_E5mxxYDPnAt9Q.png) -->
+![](https://cdn-images-1.medium.com/max/1000/1*xmvX16jk_E5mxxYDPnAt9Q.png)
 
 希望对你有帮助!
