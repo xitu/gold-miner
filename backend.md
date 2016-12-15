@@ -1,3 +1,4 @@
+*  [简明 TensorFlow 教程 —— 第一部分：基础知识](https://gold.xitu.io/entry/5850c11cac502e0067cd7ea5?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([cdpath](https://github.com/cdpath) 翻译)
 *  [代码复用的风险性](https://gold.xitu.io/entry/58491d3b8e450a006aae7b4f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Gocy015](https://github.com/Gocy015) 翻译)
 *  [通过 Python 和 Pandas 调用 SQLite Databases](https://gold.xitu.io/entry/584790a70ce46300578c5977/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Nicolas(Yifei) Li](https://github.com/yifili09) 翻译)
 *  [Node & Express 入门指南](https://gold.xitu.io/entry/58468843a22b9d007aa70d38/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([王子建](https://github.com/Romeo0906) 翻译)
