@@ -28,10 +28,8 @@ RainCat, 第二课
 - 当猫接触雨滴时，使猫受到伤害
 - 添加音效和背景音乐
 
-### Get The Assets Again
 ### 重新获取资源
 
-You can get the assets needed for this lesson [on GitHub](https://github.com/thirteen23/RainCat/blob/smashing-day-2/dayTwoAssets.zip)[6](#6) (ZIP). Download and add the images to your `Assets.xcassets` file by dragging them all in at once. You should now have an asset for the cat animation and the food dish. We will add in the sound effects and music later on.
 你可以从 [GitHub](https://github.com/thirteen23/RainCat/blob/smashing-day-2/dayTwoAssets.zip)[6](#6) (ZIP) 上获取本课所需要的资源。下载图片后，通过一次性拖拽所有图片将它们添加到你的 `Assets.xcassets` 文件中。你现在应该有了包含猫动画和宠物碗的资源文件。我们之后将会添加音效和背景音乐文件。
 
 [![App 资源](https://www.smashingmagazine.com/wp-content/uploads/2016/10/App-assets-preview-opt-1.png)](https://www.smashingmagazine.com/wp-content/uploads/2016/10/App-assets-large-opt.png)[7](#7)
@@ -64,7 +62,7 @@ public class CatSprite : SKSpriteNode {
 }
 ```
 
-我们已经使用了一个会返回猫精灵的静态初始化器来处理这些文件。我们也同样处理了另一个 `update` 函数。如果我们需要更新更多的精灵，我们应该尝试把这个函数变成一个[协议](https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Protocols.html)[9](#9)的一部分来让我们的精灵能够符合要求。这里需要注意一点，对于猫精灵，我们使用了一个圆形的 `SKPhysicsBody`。我们可以使用纹理来创建猫的物理身体，就像我们创建雨滴一样，但是这是一个“艺术”的决定。当猫被雨滴打中时， 与其让猫始终坐着，让猫痛苦地打滚显然更有趣一些。
+我们已经使用了一个会返回猫精灵的静态初始化器来处理这些文件。我们也同样处理了另一个 `update` 函数。如果我们需要更新更多的精灵，我们应该尝试把这个函数变成一个[协议](https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Protocols.html)[9](#9)的一部分来让我们的精灵能够符合要求。这里需要注意一点，对于猫精灵，我们使用了一个圆形的 `SKPhysicsBody`。我们可以使用纹理来创建猫的物理实体，就像我们创建雨滴一样，但是这是一个“艺术”的决定。当猫被雨滴打中时， 与其让猫始终坐着，让猫痛苦地打滚显然更有趣一些。
 
 当猫接触雨滴或猫掉出该世界时，我们将需要回调函数来处理这些事件。我们可以打开 `Constants.swift` 文件，将下列代码加入该文件，使它作为一个 `CatCategory`：
 
@@ -150,7 +148,7 @@ func handleCatCollision(contact: SKPhysicsContact) {
 }
 ```
 
-在这段代码中，我们在寻找除了猫以外的物理对象。一旦我们获取到了另外的物理对象，我们需要判断是什么触碰了猫。现在，如果是雨滴击中了猫，我们只在控制台中输出这个碰撞发生了，而如果是猫触碰了这个游戏世界的边缘，我们就会重新生成一个猫对象。
+在这段代码中，我们在寻找除了猫以外的物理实体。一旦我们获取到了另外的实体对象，我们需要判断是什么触碰了猫。现在，如果是雨滴击中了猫，我们只在控制台中输出这个碰撞发生了，而如果是猫触碰了这个游戏世界的边缘，我们就会重新生成一个猫对象。
 
 我们需要在有触碰发生猫对象上时调用这个函数。那么，让我们用如下代码来更新 `didBegin(_ contact:)` 函数：
 
@@ -211,7 +209,7 @@ public class FoodSprite : SKSpriteNode {
 }
 ```
 
-这是一个静态的类，当它被调用时，将会初始化一个 `FoodSprite` 并且返回它。我们把食物的物理对象设置为一个和食物精灵同样大小的矩形。这种处理很好，因为食物精灵本身就是一个矩形。接下来，我们把物理对象的种类设置为我们刚刚创建的 `FoodCategory` ，然后把它添加到它可能会碰撞的对象（世界边框，雨滴和猫）中。我们把食物和猫的 `zPosition` 设置成相同的，它们将永远不会重叠，因为当它们相遇时，食物就会被删除然后用户将会得到一分。
+这是一个静态的类，当它被调用时，将会初始化一个 `FoodSprite` 并且返回它。我们把食物的物理实体设置为一个和食物精灵同样大小的矩形。这种处理很好，因为食物精灵本身就是一个矩形。接下来，我们把物理对象的种类设置为我们刚刚创建的 `FoodCategory` ，然后把它添加到它可能会碰撞的对象（世界边框，雨滴和猫）中。我们把食物和猫的 `zPosition` 设置成相同的，它们将永远不会重叠，因为当它们相遇时，食物就会被删除然后用户将会得到一分。
 
 重新打开 `GameScene.swift` 文件，我们需要添加一些功能来生成和移除食物。在这个文件的顶部，`rainDropSpawnRate` 变量的下面，我们添加如下代码：
 
@@ -219,8 +217,7 @@ public class FoodSprite : SKSpriteNode {
 private let foodEdgeMargin : CGFloat = 75.0
 ```
 
-This will act as a margin when spawning food. We don’t want to spawn it too close to either the left or right side of the screen. We place it at the top of the file, so that we won’t have to search all over to change this value if we need to later on. Next, below our `spawnCat()` function, we can add our `spawnFood` function:
-This will act as a margin when spawning food. We don’t want to spawn it too close to either the left or right side of the screen. We place it at the top of the file, so that we won’t have to search all over to change this value if we need to later on. Next, below our `spawnCat()` function, we can add our `spawnFood` function:
+这个变量将会作为生成食物时的外边距。我们不想将食物生成在离屏幕两侧特别近的位置。我们把这个值定义在文件的顶部，这样如果我们之后可能要改变这个值的时候就不用搜索整个文档了。接下来，在我们的 `spawnCat()` 函数下面，我们可以新增我们的 `spawnFood` 函数了。
 
 ```
 func spawnFood() {
@@ -235,18 +232,18 @@ func spawnFood() {
 }
 ```
 
-This function acts almost exactly like our `spawnRaindrop()` function. We create a new `FoodSprite`, then place it in a random `x` location on the screen. We use the margin variable that we set earlier to shrink the amount of screen space where the food sprite can spawn. First, we get a random location from 0 to the width of the screen, minus the margin, multiplied by 2. Then, we offset the start by the margin. This prevents food from spawning anywhere between 0 and 75 from each side of the screen.
+这个函数和我们的 `spawnRaindrop()` 函数几乎一模一样。我们新建了一个 `FoodSprite`，然后把它放在了屏幕上一个随机的位置 `x`。我们用了之前设定的外边距变量来限制了能够生成食物精灵的屏幕范围。首先，我们设置了随机的位置的范围为屏幕的宽度减去 2 乘以外边距。然后，我们用外边距来偏移起始位置。这使得食物不会生成在距屏幕边界 0 到 75 的任意位置。
 
-Near the top of the file in `sceneDidLoad()`, let’s add the following code beneath our initial call of `spawnCat()`:
+在 `sceneDidLoad()` 文件接近顶部的位置，让我们在 `spawnCat()` 函数的初始化调用下面加上如下代码：
 
 ```
 spawnCat()
 spawnFood()
 ```
 
-Now when the scene loads, we will spawn an umbrella, a cat from the umbrella, some raindrops and food falling from the sky. Currently, the rain can interact with the food, possibly moving it around. The rain will act in the same way relative to the food as the umbrella and the floor, bouncing once and then losing all of its collision until it interacts with the edge of the game world and is deleted. We also need some interaction between the food and the cat.
+现在当场景加载时，我们会生成一把雨伞，雨伞下一只猫，还有一些从天上掉下来的雨滴和食物。现在雨滴可以和猫互动，还可以让它来回滚动。对于雨伞和地板，食物将和雨滴有一样的碰撞效果，反弹一次然后失去所有的碰撞属性，直到触碰到世界边界后被删除。我们也同样需要添加一些食物和猫的互动。
 
-At the bottom of the file in `GameScene.swift`, we will add our code for the food collision. Add the following below `handleCatCollision()`:
+在 `GameScene.swift` 文件的底部，我们将添加所有有关于食物碰撞的代码。让我们在 `handleCatCollision()` 函数后添加如下代码：
 
 ```
 func handleFoodHit(contact: SKPhysicsContact) {
@@ -277,9 +274,9 @@ func handleFoodHit(contact: SKPhysicsContact) {
 }
 ```
 
-With this function, we will handle the food’s collision in the same way we handle the cat’s collision. First, we identify which physics body is the food, and then we run a `switch` statement on the other body. Then, we add cases for `CatCategory` — this is a stub so that we can later update our score. Then we `fallthrough` to hit the `WorldFrameCategory`, where we remove the food sprite from the scene, and also the `physicsBody` associated with it. Finally, we spawn the food again. When it hits the world boundary, we just remove the sprite and `physicsBody`. If anything else is detected, our default case will trigger and send a generic statement to the console. Currently, the only thing that can hit this statement is `RainDropCategory`. As of now, we don’t care what happens when the rain hits the food. We just want the rain to act the same as it does when it hits the floor or the umbrella.
+在这个函数中，我们将用和处理猫的碰撞同样的方式来处理食物的碰撞。首先，我们定义了食物的物理实体，然后我们运行了一个 `switch` 语句来判断除食物之外的物理实体。接下来，我们为 `CatCategory` 创建一个新的分支语句 - 这是个预留的接口，我们之后可以来更新我们的代码。接下来我们 `fallthrough` 到 `WorldFrameCategory` 分支语句，这里我们需要从场景里移除食物精灵和它的物理实体。最后，我们需要重新生成食物。当食物触碰到了世界边界，我们只需要移除食物精灵和它的物理实体。如果食物触碰到了其它物理实体，那么 default 分支语句就会被触发然后在控制台打印一个通用语句。现在，唯一能触发这个语句的物理实体就是 `RainDropCategory`。而到现在为止，我们并不关心当雨击中食物时会发生什么。我们只希望雨滴和食物在击中地板或雨伞时有同样的表现。
 
-To get everything wired up, we will add in a few lines to `didBegin(_ contact)`. Add the following code above the check for `CatCategory`:
+为了让所有部分连接起来，我们将在 `didBegin(_ contact)` 函数中添加几行代码。在判断 `CatCategory` 之前添加如下代码：
 
 ```
 if contact.bodyA.categoryBitMask == FoodCategory || contact.bodyB.categoryBitMask == FoodCategory {
@@ -288,7 +285,7 @@ if contact.bodyA.categoryBitMask == FoodCategory || contact.bodyB.categoryBitMas
 }
 ```
 
-The final code for `didBegin(_ contact)` should look like the following code snippet:
+`didBegin(_ contact)` 最后应该看起来像下面这个代码片段：
 
 ```
 func didBegin(_ contact: SKPhysicsContact) {
@@ -322,21 +319,21 @@ func didBegin(_ contact: SKPhysicsContact) {
 }
 ```
 
-Let’s run the app again. The cat won’t be running anywhere right now, but we can test our method by pushing the cat food off screen or by rolling the cat onto the cat food. Either case should now delete the food node, and one should respawn from off screen.
+我们再次运行我们的应用。猫现在还不会自己跑来跑去，但是我们可以通过把食物推出屏幕边界或把猫移动到食物上来测试我们的函数。两个情况都会删除食物节点，而其中一个情况则会从屏幕外重新生成食物。
 
-### Let’s Get Moving 
+### 让物理实体动起来吧
 
-Now it’s time to get this kitty moving. What motivates RainCat to move? Food, of course! We just spawned food, and now we need to get the cat to move towards it. Currently, our food sprite is added to the scene and forgotten about. We need to fix this. If we keep a reference to the food, we can know its location at any given time, and thus we can tell the cat where the food is in the scene. The cat can know where it is in the scene by checking its position. With all of this information in place, we can now move the cat towards the food.
+现在是时候让我们的小猫动起来了。是什么驱使了小猫移动呢？当然是食物啦！我们刚刚生成了食物，那么现在我们就需要让小猫向着食物移动啦。 现在我们的食物精灵被添加到了场景中，然后就被遗忘了。我们需要修正这个问题。如果我们能够保留食物的引用，我们就可以知道它在任何时候的位置，这样我们就可以告诉小猫食物在场景的哪个位置了。小猫可以通过检查自己的坐标来了解自己在场景中的哪个位置。有了这些位置信息，我们就可以让小猫向着食物移动了。
 
-Going back to `GameScene.swift`, let’s add a variable to the top of the file, beneath our local cat variable:
+重新打开 `GameScene.swift` 文件，让我们在文件的顶部，猫变量的下面添加一个变量：
 
 ```
 private var foodNode : FoodSprite!
 ```
 
-Now, we can update the `spawnFood()` function to set this variable every time the food is spawned.
+现在我们可以更新 `spawnFood()` 函数，使每次食物生成时都会设置这个变量的值：
 
-Update `spawnFood()` to the following:
+用如下代码更新 `spawnFood()` 函数：
 
 ```
 func spawnFood() {
@@ -357,17 +354,17 @@ func spawnFood() {
 }
 ```
 
-This will change the scope of the food variable from the `spawnFood()` function to that of the `GameScene.swift` file. The way we’ve coded things, we have only one `FoodSprite` spawning at a time, and we’re keeping a reference to it. Because we have this reference, we can detect where the food is at any given time. We also have a single cat on screen at any time, and we also keep a reference to it.
+这个函数将把食物变量的作用域从 `spawnFood()` 函数变为整个 `GameScene.swift` 文件。在我们的代码中，同一时间我们只会生成一个 `FoodSprite`，同时我们需要保持对它的引用。因为有这个引用，我们就可以检测到在任何给定时间里食物的位置了。同样的，在任何时间场景内也只会有一只猫，同样我们也需要保持对它的引用。
 
-We know the cat wants the food; we just need to provide a means for the cat to move. We need to edit the `CatSprite.swift` file in order to know in which direction it needs to travel toward the food. For it to get to the food, we need to know the rate of speed it can move towards it. At the top of the `CatSprite.swift` file, we can add the following line above the `newInstance()` function.
+我们知道小猫想要获得食物，我们只需要提供一个方法让小猫能够移动。我们需要编辑 `CatSprite.swift` 文件以便我们知道小猫需要往哪个方向前进来获取食物。为了让小猫获得食物，我们还需要知道小猫的移动速度。在 `CatSprite.swift` 文件的顶部，我们可以在 `newInstance()` 函数前添加如下代码：
 
 ```
 private let movementSpeed : CGFloat = 100
 ```
 
-This line is our movement speed, which is a simple solution to a complex problem. It’s a simple linear equation, ignoring any complexities that friction or acceleration brings into the mix.
+这一行代码定义了猫的移动速度，这是对一个复杂问题的简单解法。这是个简单的线性方程，忽略了所有摩擦和加速带来的复杂性。
 
-Now we need to do something with our `update(deltaTime:)` method. Because we will know where the food is, we need to move toward that location. Replace the update function in `CatSprite.swift` with the following code:
+现在我们需要在我们的 `update(deltaTime:)` 方法中做点什么了。因为我们已经知道了食物的位置，我们需要让小猫朝着这个位置移动了。用如下代码更新 `CatSprite.swift` 文件中的 update 函数：
 
 ```
 public func update(deltaTime : TimeInterval, foodLocation: CGPoint) {
@@ -384,6 +381,7 @@ public func update(deltaTime : TimeInterval, foodLocation: CGPoint) {
 ```
 
 We’ve updated the signature of the function! We needed to give the cat the location of the food, so instead of only sending in the delta time, we’ve added the food location as well. Because many things can affect the location of the food, we need to update it constantly so that we are always moving in the right direction. Let’s also look at the function here. In the new update function, we take in the delta time, which will be pretty short, about 0.166 seconds or so. We also take in the food’s location, which is a `CGPoint`. If the food location’s `x` position is less than the cat’s `x` position, then we’ll know that the food is to the left. If not, then the food will be either on top or to the right. If we move left, then we take the cat’s `x` position and subtract the movement speed, multiplied by the delta time. We need to cast it from a `TimeInterval` to a `CGFloat`, since our position and movement speed use those units, and Swift is a strongly typed language.
+我们更新了整个函数。我们需要告诉小猫食物的位置， updated the signature of the function! We needed to give the cat the location of the food, so instead of only sending in the delta time, we’ve added the food location as well. Because many things can affect the location of the food, we need to update it constantly so that we are always moving in the right direction. Let’s also look at the function here. In the new update function, we take in the delta time, which will be pretty short, about 0.166 seconds or so. We also take in the food’s location, which is a `CGPoint`. If the food location’s `x` position is less than the cat’s `x` position, then we’ll know that the food is to the left. If not, then the food will be either on top or to the right. If we move left, then we take the cat’s `x` position and subtract the movement speed, multiplied by the delta time. We need to cast it from a `TimeInterval` to a `CGFloat`, since our position and movement speed use those units, and Swift is a strongly typed language.
 
 What this does exactly is nudge the cat left at a pretty constant rate to make it appear as if it is moving. In case the delta time is 0.166 seconds, we position the cat sprite 16.6 units to the left of its previous location. This is because our `movementSpeed` variable is 100, and 0.166 × 100 = 16.6. The same will happen when going right, except that we position the cat 16.6 units to the right of its previous location. Next, we edit the [xScale](https://developer.apple.com/reference/spritekit/sknode/1483087-xscale)[12](#12) property of our cat. This governs the width of our sprite. The default value is 1.0; so, if we set the `xScale` to 0.5, the cat will be half its original width. If we double it to 2.0, then the cat will be double its original width, and so on. Because the original sprite is looking to the right, when moving right, the scale will be set to its default value of 1. If we want to “flip” the cat, we set the scale to -1, which sets its frame to a negative value and renders it backwards. We keep it at -1 to maintain the proportions of the cat. Now, when moving left, the cat will face left, and when moving right, will face right!
 
