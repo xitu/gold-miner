@@ -677,14 +677,13 @@ public func hitByRain() {
 
 在你下载了这些音轨之后，你需要在 “RainCat” 文件夹下新建一个名叫 “Music” 的文件，和你之前创建 “SFX” 文件夹的操作一样。然后把下载的音轨移动到这个文件夹中。
 
-[![Adding in some music tracks](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Adding-in-some-music-tracks-preview-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Adding-in-some-music-tracks-large-opt.png)[23](#23)
+[![添加音乐](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Adding-in-some-music-tracks-preview-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Adding-in-some-music-tracks-large-opt.png)[23](#23)
 
-Adding in some music tracks ([View large version](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Adding-in-some-music-tracks-large-opt.png)[24](#24))
+添加音乐 ([清晰版](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Adding-in-some-music-tracks-large-opt.png)[24](#24))
 
-Then, create a group in the “Support” group of our project’s structure, named “Music.” Add our tracks to the project by right-clicking on the “Music” group and clicking “Add Files to RainCat”. This is the same procedure that we used when adding our sound effects.
+然后，在我们的项目结构里的“Support”中创建一个组，命名为“Music.” 在 “Music”组右击，点击 “Add Files to RainCat”，把我们的音乐添加到项目里。这和我们添加音效是同样的过程
 
-Next, we will create a new file named `SoundManager.swift`, as you may have seen in the picture above. This will act as the single source of music tracks to be played. For sound effects, we don’t care if one plays over another, but it would sound terrible if two music tracks played at the same time. Finally, we can implement the `SoundManager`:
-
+然后，我们创建一个新的文件，命名为`SoundManager.swift`，正如你在上面图片中看到的那样，这将用来作为播放音乐的单例，对声音来说，我们不需要关心在哪里播放，但是如果同时播放那将是一件很恐怖的事。所以我们可以实现`SoundManager`：
 ```
 import AVFoundation
 
@@ -739,15 +738,20 @@ class SoundManager : NSObject, AVAudioPlayerDelegate {
 
 Going through the new `SoundManager` class, we are making a [singleton](https://www.codefellows.org/blog/singletons-and-swift/)[25](#25) class that handles playback of the large track files and continuously plays them in order. For longer-format audio files, we need to use `AVFoundation`. It is built for this, and `SKAction` cannot load the file in quickly enough to play it in the same way it could load in a small SFX file. Because this library has been around forever, the `delegate` still depends on [`NSObjects`](https://developer.apple.com/reference/objectivec/nsobject)[26](#26). We need to be the [`AVAudioPlayerDelegate`](https://developer.apple.com/reference/avfoundation/avaudioplayerdelegate)[27](#27) to detect when the audio player completes playback. We’ll hold class variables for the current `audioPlayer` for now; we will need them later to mute playback.
 
+我们需要使用[单例](https://www.codefellows.org/blog/singletons-and-swift/)[25](#25)来创建`SoundManager`，处理巨大的音轨文件并且按顺序连续播放它们。为了处理更长时间的音频文件，我们需要使用`AVFoundation`。它是专门为此构建的，并且`SKAction`不能快速加载文件，并且与一个小的 SFX 文件加载方式相同。因为这个库一直都存在，`delegate`也是依赖于 [`NSObjects`](https://developer.apple.com/reference/objectivec/nsobject)[26](#26)。我们需要使用[`AVAudioPlayerDelegate`](https://developer.apple.com/reference/avfoundation/avaudioplayerdelegate)[27](#27) 来检测音频何时播放完毕。
+现在我们将持有`audioPlayer`变量，以用来静音后的播放。
+
+
+
 Now we have the current track’s location, so we know the next track to play, followed by an array of the names of the music tracks in our project. We should attribute it to [Bensound](http://www.bensound.com/royalty-free-music)[28](#28)[17](#17) to honor our licensing agreement.
 
-We need to implement the default `init` function. Here, we choose a random track to start with, so that we don’t always hear the same track first. From then on, we wait for the program to tell us to start playing. In `startPlaying`, we check to see whether the current audio player is playing. If it is not, then we attempt to start playing the selected track. We’ll attempt to start the audio player, which can fail, so we need to surround it in a [try/catch block](https://www.bignerdranch.com/blog/error-handling-in-swift-2/)[29](#29). After that, we prepare playback, play the audio clip, and then set the index for the next track. This line is pretty important:
+现在我们有当前音轨的位置，我们可以按照文件名数组来播放下一个音轨。当然我们也应该遵守 [Bensound](http://www.bensound.com/royalty-free-music)[28](#28)[17](#17)协议。
+我们需要实现默认的`init`方法，在这里，我们选择随机播放起始音乐，这样我们不用在一开始总是听同样的音乐。在这之后，我们需要等待程序告诉我们去开始播放，在`startPlaying`，我们需要检查是否有别的播放器正在播放，如果没有，我们开始尝试播放被选中的音乐，我们需要去启动音乐播放器，因为有可能会失败，所以我们需要[try/catch block](https://www.bignerdranch.com/blog/error-handling-in-swift-2/)[29](#29)。然后，我们准备好了播放，我们可以播放音频剪辑，我们需要设置索引给下一个音乐，下面这行非常重要：
 
 ```
 trackPosition = (trackPosition + 1) % SoundManager.tracks.count
 ```
-
-This sets the next position of the track by incrementing it and then performing a [modulo](https://en.wikipedia.org/wiki/Modulo_operation)[30](#30) on it to keep it within the bounds of the tracks’ array. Finally, in `audioPlayerDidFinishPlaying(_ player:successfully flag:)`, we implement the `delegate` method, which lets us know when the track finishes. Currently, we don’t care whether it succeeds or not — we just play the next track when this is called.
+这行会通过增加这个值来设置音轨这的下一个位置，然后会执行[modulo](https://en.wikipedia.org/wiki/Modulo_operation)[30](#30)，以保持音轨不会数组越界。最后，在`audioPlayerDidFinishPlaying(_ player:successfully flag:)`， 我们实现`delegate`方法，可以让我们知道音乐播放完毕。现在，我们不需要关心是否成功，我们就是当这个方法被调用时播放下一个音乐。
 
 ### 按下 Play 键 
 
