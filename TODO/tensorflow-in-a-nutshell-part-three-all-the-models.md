@@ -2,17 +2,12 @@
 * 原文作者：[Camron Godbout](https://hackernoon.com/@camrongodbout)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[edvardhua](https://github.com/edvardHua)
-* 校对者：
+* 校对者：[marcmoore](https://github.com/marcmoore), [cdpath](https://github.com/cdpath)
 
-# TensorFlow —  第三部分: 所有的模型
-
-
+# 简明 TensorFlow 教程 —  第三部分: 所有的模型
 
 
-
-
-
-#### 世界上最流行的深度学习框架的快速入门指南。
+#### 快速上手世界上最流行的深度学习框架
 
 请务必查看其他文章。 >>[点击查看](http://camron.xyz/)<<
 
@@ -21,27 +16,7 @@
 在本文中，我们将讨论TensorFlow中当前可用的所有抽象模型，并描述该特定模型的用例以及简单的示例代码。 [完整的工作示例源码](https://github.com/c0cky/TensorFlow-in-a-Nutshell)。
 
 
-
-
-
-
-
-
-
-
-
 * * *
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -52,13 +27,11 @@
 一个循环神经网络。
 
 
+#### 递归神经网络 简称RNN
 
+**_用例:_ **语言建模，机器翻译，词嵌入，文本处理。
 
-#### 循环神经网络
-
-**_使用用例:_ **语言建模，机器翻译，词嵌入，文本处理。
-
-自从长短记忆网络和聚集循环单元出现依赖，循环神经网络在自然语言处理中的发展迅速，远远超越了其他的模型。它们可以被馈送表示字符的向量并且被训练以基于训练集合来生成新句子。这个模型的优点是它保持句子的上下文，并得出“猫坐在垫子上”的意思，意味着猫在垫子上。 TensorFlow 能让创建使这些网络变得越来越简单。关于 TensorFlow 的更多隐藏特性可以从 [Denny Britz 文章](http://www.wildml.com/2016/08/rnns-in-tensorflow-a-practical-guide-and-undocumented-features/) 中找到。
+自从长短期记忆神经网络（LSTM）和门限循环单元（GRU）的出现，循环神经网络在自然语言处理中的发展迅速，远远超越了其他的模型。他们可以被用于传入向量以表示字符，依据训练集生成新的语句。。这个模型的优点是它保持句子的上下文，并得出“猫坐在垫子上”的意思，意味着猫在垫子上。 TensorFlow 的出现让创建这些网络变得越来越简单。关于 TensorFlow 的更多隐藏特性可以从 [Denny Britz 文章](http://www.wildml.com/2016/08/rnns-in-tensorflow-a-practical-guide-and-undocumented-features/) 中找到。
 
     import tensorflow as tf
     import numpy as np
@@ -86,24 +59,7 @@
 
 
 
-
-
-
-
-
-
-
-
 * * *
-
-
-
-
-
-
-
-
-
 
 
 
@@ -114,13 +70,13 @@
 
 
 
-卷积神经网络
+卷积网络
 
 
 
-#### 卷积神经网络
+#### 卷积网络
 
-**_使用用例:_ **图像处理, 面部识别, 计算机视觉
+**_用例:_ **图像处理, 面部识别, 计算机视觉
 
 卷积神经网络（Convolutional Neural Networks-简称CNN）是独一无二的，因为他可以直接输入原始图像，避免了对图像复杂前期预处理。 CNN用固定的窗口（下图窗口为3x3）从左至右从上往下遍历图像。 其中我们称该窗口为卷积核，每次卷积（与前面遍历对应）都会计算其卷积特征。
 
@@ -195,27 +151,7 @@ GIMP手册中的卷积特征
       return learn.models.logistic_regression(h_fc1, y)
 
 
-
-
-
-
-
-
-
-
-
 * * *
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -228,11 +164,11 @@ GIMP手册中的卷积特征
 
 #### 前馈型神经网络
 
-**_使用用例：_ **分类和回归
+**_用例：_ **分类和回归
 
-这些网络由层中的感知器组成，这些感知器接收将信息传递到下一层的输入。 网络中的最后一层产生输出。 在给定层中的每个节点之间没有连接。 没有原始输入和没有最终输出的图层称为隐藏图层。
+这些网络由一层层的感知器组成，这些感知器接收将信息传递到下一层的输入，由网络中的最后一层输出结果。 在给定层中的每个节点之间没有连接。 没有原始输入和没有最终输出的图层称为隐藏图层。
 
-这个网络的目标类似于使用反向传播的其他监督神经网络，以使输入具有期望的训练输出。 这些是用于分类和回归问题的一些最简单的有效神经网络。 下面代码展示如何轻松地创建前馈型神经网络来分类手写数字：
+这个网络的目标类似于使用反向传播的其他监督神经网络，使得输入后得到期望的受训输出。 这些是用于分类和回归问题的一些最简单的有效神经网络。 下面代码展示如何轻松地创建前馈型神经网络来分类手写数字：
 
     def init_weights(shape):
         return tf.Variable(tf.random_normal(shape, stddev=0.01))
@@ -261,26 +197,7 @@ GIMP手册中的卷积特征
 
 
 
-
-
-
-
-
-
-
-
 * * *
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -293,7 +210,7 @@ GIMP手册中的卷积特征
 
 #### 线性模型
 
-**_使用用例：_ **分类和回归
+**_用例：_ **分类和回归
 
 线性模型根据X轴值的变化，并产生用于Y轴值的分类和回归的最佳拟合线。 例如，如果你有一片区域房子的大小和价钱，那么我们就可以利用线性模型来根据房子的大小来预测价钱。
 
@@ -329,28 +246,7 @@ GIMP手册中的卷积特征
 
 
 
-
-
-
-
-
-
-
-
 * * *
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 ![](https://cdn-images-1.medium.com/max/800/1*XwNZplJ1p-xnUKRQPMS6Aw.png)
@@ -361,7 +257,7 @@ GIMP手册中的卷积特征
 
 #### 支持向量机
 
-**_使用用例：_ **目前只能用来做二进制分类
+**_用例：_ **目前只能用来做二进制分类
 
 SVM 背后的一般思想是存在线性可分离模式的最佳超平面。 对于不可线性分离的数据，我们可以使用内核函数将原始数据转换为新空间。 SVM 使分离超平面的边界最大化。 它们在高维空间中非常好地工作，并且如果维度大于取样的数量，SVM 仍然有效。
 
@@ -395,26 +291,7 @@ SVM 背后的一般思想是存在线性可分离模式的最佳超平面。 对
 
 
 
-
-
-
-
-
-
-
-
 * * *
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -427,9 +304,9 @@ SVM 背后的一般思想是存在线性可分离模式的最佳超平面。 对
 
 #### 深和宽的模型
 
-**_使用用例：_ **推荐系统，分类和回归
+**_用例：_ **推荐系统，分类和回归
 
-深和宽模型在[第二部分](https://medium.com/@camrongodbout/tensorflow-in-a-nutshell-part-two-hybrid-learning-98c121d35392#.oubizxp18)中有更详细的描述，所以我们在这里不会讲解太多。 宽和深网络将线性模型与前馈神经网络结合，使得我们的预测将具有记忆和泛化。 这种类型的模型可以用于分类和回归问题。 这允许利用相对准确的预测来减少特征工程。 因此，能够结合两个模型得出最好的记过。 下面的代码片段摘自[第二部分](https://github.com/c0cky/TensorFlow-in-a-Nutshell/tree/master/part2)。
+深和宽模型在[第二部分](https://medium.com/@camrongodbout/tensorflow-in-a-nutshell-part-two-hybrid-learning-98c121d35392#.oubizxp18)中有更详细的描述，所以我们在这里不会讲解太多。 宽和深网络将线性模型与前馈神经网络结合，使得我们的预测将具有记忆和泛化。 这种类型的模型可以用于分类和回归问题。 这允许利用相对准确的预测来减少特征工程。 因此，能够结合两个模型得出最好的结果。 下面的代码片段摘自[第二部分](https://github.com/c0cky/TensorFlow-in-a-Nutshell/tree/master/part2)。
 
     def input_fn(df, train=False):
       """Input builder function."""
@@ -461,28 +338,7 @@ SVM 背后的一般思想是存在线性可分离模式的最佳超平面。 对
       print("%s: %s" % (key, results[key]))
 
 
-
-
-
-
-
-
-
-
-
 * * *
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -494,11 +350,11 @@ SVM 背后的一般思想是存在线性可分离模式的最佳超平面。 对
 
 #### 随机森林
 
-**_使用用例：_ **分类和回归
+**_用例：_ **分类和回归
 
 随机森林模型中有很多不同分类树，每个分类树都可以投票来对物体进行分类，从而选出票数最多的类别。
 
-随机森林不会过拟合，所以你可以使用尽可能多的树，而且执行的速度也是相对较快的。 下面的代码片段是对虹膜数据使用随机森林：
+随机森林不会过拟合，所以你可以使用尽可能多的树，而且执行的速度也是相对较快的。 下面的代码片段是对鸢尾花数据集（[Iris flower data set](https://en.wikipedia.org/wiki/Iris_flower_data_set)）使用随机森林：
 
     hparams = tf.contrib.tensor_forest.python.tensor_forest.ForestHParams(
             num_trees=3, max_nodes=1000, num_classes=3, num_features=4)
@@ -512,27 +368,7 @@ SVM 背后的一般思想是存在线性可分离模式的最佳超平面。 对
 
 
 
-
-
-
-
-
-
-
-
 * * *
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -544,7 +380,7 @@ SVM 背后的一般思想是存在线性可分离模式的最佳超平面。 对
 
 #### 贝叶斯强化学习（Bayesian Reinforcement Learning）
 
-**_使用用例：_ **分类和回归
+**_用例：_ **分类和回归
 
 在 TensorFlow 的 contrib 文件夹中有一个名为 BayesFlow 的库。 除了一个 REINFORCE 算法的例子就没有其他文档了。 该算法在 Ronald Williams 的[论文](http://incompleteideas.net/sutton/williams-92.pdf)中提出。
 
@@ -575,28 +411,7 @@ SVM 背后的一般思想是存在线性可分离模式的最佳超平面。 对
           distributions.Categorical, logits=logits)
 
 
-
-
-
-
-
-
-
-
-
 * * *
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -608,7 +423,7 @@ SVM 背后的一般思想是存在线性可分离模式的最佳超平面。 对
 
 #### 线性链条件随机域 （Linear Chain Conditional Random Fields，简称 CRF）
 
-**_使用用例：_ **序列数据
+**_用例：_ **序列数据
 
 CRF 是根据无向模型分解的条件概率分布。 他们预测单个样本的标签，保留来自相邻样本的上下文。 CRF 类似于隐马尔可夫模型。 CRF 通常用于图像分割和对象识别，以及浅分析，命名实体识别和基因发现。
 
@@ -634,14 +449,6 @@ CRF 是根据无向模型分解的条件概率分布。 他们预测单个样本
             total_labels += sequence_length_
           accuracy = 100.0 * correct_labels / float(total_labels)
           print("Accuracy: %.2f%%" % accuracy)
-
-
-
-
-
-
-
-
 
 
 
