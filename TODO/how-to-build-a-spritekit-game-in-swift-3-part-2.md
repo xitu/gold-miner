@@ -382,10 +382,9 @@ public func update(deltaTime : TimeInterval, foodLocation: CGPoint) {
 
 我们更新了这个函数的函数签名。因为我们需要告诉小猫食物的位置，所以在传参时，我们不仅传递了 delta 时间，也传递了食物的位置信息。因为很多事情可以影响食物的位置，所以我们需要不停地更新食物的位置信息，以保证小猫一直在正确的方向上前进。接下来，让我们来看一下函数的功能。在这个更新过的函数中，我们取的 delta 时间是一个非常短的时间，大约只有 0.166 秒左右。我们也取了食物的位置，是 `CGPoint` 类型的参数。如果食物的 `x` 位置比小猫的 `x` 位置更小，那么我们就知道食物在小猫的左边，反之，食物就在小猫的上边或右边。如果小猫朝左边移动，那么我们取小猫的 `x` 位置减去小猫的移动速度乘以 delta 时间。我们需要把 delta 时间的类型从 `TimeInterval` 转换到 `CGFloat`，因为我们的位置和速度变量用的是这个单位，而 Swift 恰恰是一种强类型语言。
 
-What this does exactly is nudge the cat left at a pretty constant rate to make it appear as if it is moving. In case the delta time is 0.166 seconds, we position the cat sprite 16.6 units to the left of its previous location. This is because our `movementSpeed` variable is 100, and 0.166 × 100 = 16.6. The same will happen when going right, except that we position the cat 16.6 units to the right of its previous location. Next, we edit the [xScale](https://developer.apple.com/reference/spritekit/sknode/1483087-xscale)[12](#12) property of our cat. This governs the width of our sprite. The default value is 1.0; so, if we set the `xScale` to 0.5, the cat will be half its original width. If we double it to 2.0, then the cat will be double its original width, and so on. Because the original sprite is looking to the right, when moving right, the scale will be set to its default value of 1. If we want to “flip” the cat, we set the scale to -1, which sets its frame to a negative value and renders it backwards. We keep it at -1 to maintain the proportions of the cat. Now, when moving left, the cat will face left, and when moving right, will face right!
-What this does exactly is nudge the cat left at a pretty constant rate to make it appear as if it is moving. In case the delta time is 0.166 seconds, we position the cat sprite 16.6 units to the left of its previous location. This is because our `movementSpeed` variable is 100, and 0.166 × 100 = 16.6. The same will happen when going right, except that we position the cat 16.6 units to the right of its previous location. Next, we edit the [xScale](https://developer.apple.com/reference/spritekit/sknode/1483087-xscale)[12](#12) property of our cat. This governs the width of our sprite. The default value is 1.0; so, if we set the `xScale` to 0.5, the cat will be half its original width. If we double it to 2.0, then the cat will be double its original width, and so on. Because the original sprite is looking to the right, when moving right, the scale will be set to its default value of 1. If we want to “flip” the cat, we set the scale to -1, which sets its frame to a negative value and renders it backwards. We keep it at -1 to maintain the proportions of the cat. Now, when moving left, the cat will face left, and when moving right, will face right!
+这个效果实际上是以一个恒定的速率将小猫往左边推，让它看起来像是在移动。在这里，每隔 0.166 秒，我们将猫精灵放在上一位置左边 16.6 单位的位置上。这是因为我们的 `movementSpeed` 变量是 100，而 0.166 × 100 = 16.6。小猫往右边移动时进行一样的处理，除了我们是将猫精灵放在上一位置右边 16.6 单位的位置上。接下来，我们设定了我们猫的 [xScale](https://developer.apple.com/reference/spritekit/sknode/1483087-xscale)[12](#12) 属性。这个值决定了猫精灵的宽度。默认值是 1.0，如果我们把 `xScale` 设置成 0.5，猫的宽度就会变成之前的一半。如果我们把这个值翻倍到 2.0，那么猫的宽度就会变成之前的一倍，以此类推。因为原始的猫精灵是面朝右边的，当猫朝着右边移动时，xScale 值会被设定为默认的 1。如果我们想要“翻转”猫精灵，我们就把 xScale 设置成 -1，这会把猫的 frame 值置为负数并且反向渲染。我们把这个值保持在 -1 来保证猫精灵的比例一致。现在，当猫朝左边移动时，它会面朝左边，当猫朝右边移动时，它会面朝右边。
 
-Now we will move toward the food dish’s location at a constant rate of speed. First, we check which direction to move in, then we move in that direction on the x-axis. We should also update the `xScale`, because we want to face the correct direction while moving… unless, of course, we want our cat to do the moonwalk! Finally, we need to tell the cat to update in our game scene.
+现在小猫会以一个恒定的速率朝着食物的位置移动了。首先，我们确定了小猫需要移动的方向，之后小猫在 x 轴上朝着那个方向移动。我们同样也需要更新猫的  `xScale` 参数，因为我们希望小猫可以在移动时面朝正确的方向。当然了，除非我们希望小猫在用太空步移动！最后，我们需要告诉小猫来更新我们的游戏场景。
 
 打开 `GameScene.swift` 文件，找到我们的 `update(_ currentTime:)` 函数，在更新雨伞的调用下面，新增如下代码：
 
@@ -393,23 +392,24 @@ Now we will move toward the food dish’s location at a constant rate of speed. 
 catNode.update(deltaTime: dt, foodLocation: foodNode.position)
 ```
 
-Run the app, and we should have success! Mostly, at least. Currently, the cat does indeed move toward the food, but it can get into some interesting situations.
+运行我们的应用，然后我们成功啦！最起码是在绝大多数情况下。到现在为止，小猫会朝着食物移动了，但是却可能会陷入一些有意思的情况里。
 
-Just a normal cat doing normal cat things
+只是一只小猫做着小猫该做的事
 
-Next, we can add the walking animation! After that, we’ll circle back to fix the cat’s rotation after it gets hit. You may have noticed an unused asset named `cat_two`. We need to pull this texture in and alternate it to make it appear as if the cat is walking. To do this, we will add our first `SKAction`!
+接下来，我们就要来添加移动动画啦！在这之后，我们会绕回来解决猫被打中后的滚动效果。你可能已经注意到了一个名为 `cat_two` 的未使用资源。我们需要添加这个纹理，并且穿插使用它，使小猫看起来像在行走。为了实现这个，我们需要添加我们第一个 `SKAction`！
 
-### Walking With Style 
+### 行走样式
 
 At the top of `CatSprite.swift`, we will add in a string constant so that we can add a walking action associated with this key. This way, we can stop the walking action without removing all of the actions that we may have on the cat later on. Add the following line above the `movementSpeed` variable:
+在 `CatSprite.swift` 文件的顶部，我们将要添加一个字符串常量，以便我们添加一个与该键值相关联的步行动作。这样做使得我们可以单独停止猫的步行动作，而不是移除之后我们可能会添加的所有动作。在 `movementSpeed` 变量前添加如下代码：
 
 ```
 private let walkingActionKey = "action_walking"
 ```
 
-The string itself is not really important, but it is unique to this walking animation. I also like adding something meaningful to the key for debugging purposes down the line. For example, if I see the key, I will know that it is a `SKAction` and, specifically, that it is the walking action.
+这个字符串本身并不是那么重要，但是它是步行动画的标志位。我也很喜欢在给键值命名时添加一些有意义的字段，以方便调试。例如，当我看到这个键值时，我会知道这是个 `SKAction`，具体来说，是个步行动作。
 
-Beneath the `walkingActionKey`, we will add in the frames. Because we will be using only two frames, we can do this at the top of the file without it looking messy:
+在 `walkingActionKey` 的下面，我们将会添加图像帧。因为我们只会使用两个不同的图象帧，我们可以把它放在文件的顶部也不会让它看起来乱糟糟的：
 
 ```
 private let walkFrames = [
@@ -418,7 +418,7 @@ private let walkFrames = [
 ]
 ```
 
-This is just an array of the two textures that we will switch between while walking. To finish this off, we will update our `update(deltaTime: foodLocation:)` function to the following code:
+这只是个包含了两个纹理的数组，而这两个纹理是在猫行走时需要交替使用的。为了完成这个功能，我们需要用如下代码更新我们的 `update(deltaTime: foodLocation:)` 函数：
 
 ```
 public func update(deltaTime : TimeInterval, foodLocation: CGPoint) {
@@ -444,24 +444,25 @@ public func update(deltaTime : TimeInterval, foodLocation: CGPoint) {
 }
 ```
 
-With this update, we’ve checked whether our cat sprite is already running the walking animation sequence. If it is not, we will add an action to the sprite. This is a nested `SKAction`. First, we create an action that will repeat forever. Then, in *that* action, we create the animation sequence for walking. The `SKAction.animate(with: …)` takes in the array of animation frames, along with the time per frame. The next variable in the function checks whether one of the textures is of a different size and whether it should resize the `SKSpriteNode` when it gets to that frame. `Restore` checks whether the sprite should return to its initial state after the action is completed. We set both of these to `false` so that we don’t get any unintended side effects. After we set up the walking action, we tell the sprite to start running it with the `run()` function.
+通过此更新，我们检查了我们的猫精灵是否已经在运行步行动画序列了。如果没有，那么我们就会将步行动画添加到猫精灵上。这是个嵌套的 `SKAction`。首先，我们新建了一个会一直重复的动作。然后，在*那个*动作里，我们新建了步行的动画序列。`SKAction.animate(with: …)` 函数会接收动画帧数组，以及每帧持续的时间。 函数中接收的下一个变量确定了其中的纹理是否具有不一样的大小，同时当该纹理在动画帧上生效时是否需要调整 `SKSpriteNode` 的大小。 `Restore` 确定了当动画结束时，精灵是否需要重置到它的初始状态。我们把这两个值都设置成了 `false`，这样就不会有什么出人意料的事情发生了。在我们设定好了步行动画之后，我们就可以通过运行 `run()` 函数来让猫精灵开始行走了。
 
-Run the app again, and we will see our cat walking intently toward the food!
+再次运行我们的应用，我们将看到我们的小猫专心致志地朝着食物移动啦！
 
-Yeah, on the catwalk, on the catwalk, yeah I do my little turn on the catwalk.
+Yeah, on the catwalk, on the catwalk, yeah I do my little turn on the catwalk（译者注：这是 “I am Too Sexy” 的歌词）.
 
-If the cat gets hit, it will rotate but still move toward the food. We need to show a damaged state for the cat, so that the user knows they did something bad. Also, we need to correct the cat’s rotation while moving, so that it is not walking on its side or upside down.
+如果在这个过程中，小猫被击中，它会打滚，但是仍旧朝着食物移动。我们需要显示小猫的受损状态，以便用户知道他们做了什么不好的事。同样的，我们需要修正小猫在移动过程中的打滚动作，以保证小猫不会在乱七八糟的方向上移动。
 
 Let’s go over the plan. We want to show the user that the cat has been hit, other than by just updating the score later on. Some games will make the unit invulnerable while flashing. We could also do a damage animation if we get the textures for this. For this game, I want to keep things simple, so I will add in some functionality for “flailing.” This cat, when hit by rain, will become stunned and just sort of roll onto its back in disbelief; the cat will be *shocked* that you would let this happen. To accomplish this, we will set up a few variables. We need to know for how long the cat will be stunned and for how long it has been stunned. Add the following lines to the top of the file, below the `movementSpeed` variable:
+让我们来看一下我们的计划。我们希望能够显示小猫被击中了，而不是仅仅更新游戏得分。有些游戏会使该受损单位闪烁并且进入无敌状态。如果我们有纹理的话，我们也可以做一个受损动画。对这个游戏而言，我想保持它的简单性，所以我只添加了一些“摇动”功能。当小猫被雨滴击中时，它会被晕眩然后不可置信地翻倒；它会被*震惊*，因为玩家居然让这种事发生了。为了实现这个功能，我们会定义一些变量。我们需要知道小猫会被晕眩多长时间和它已经被晕眩了多长时间。在这个文件的顶部， `movementSpeed` 变量的下面添加如下代码：
 
 ```
 private var timeSinceLastHit : TimeInterval = 2
 private let maxFlailTime : TimeInterval = 2
 ```
 
-The first variable, `timeSinceLastHit` holds how long it has been since the cat was hit last. We set it to `2` because of the next variable, `maxFlailTime`. This is a constant, saying that the cat will be stunned for only 2 seconds. Both are set to 2 so that the cat does not start out stunned when spawned. You can play with these variables later to get the perfect stun time.
+第一个变量， `timeSinceLastHit` 保存了自小猫上次被打中后过了多长时间。因为下一个变量 `maxFlailTime`，我们把这个值设置成 2。`maxFlailTime` 变量是个常数，表示小猫每次会被晕眩 2 秒钟。我们把这两个值都被设置成 2，这样小猫就不会在生成的一瞬间就被晕眩了。你可以尝试着重新设定这两个值，来确定最好的晕眩时间。
 
-Now we need to add in a function to let the cat know it’s been hit, and that it needs to react, by stopping moving. Add the following function below our `update(deltaTime: foodLocation:)` function:
+现在，我们需要添加一个函数，让小猫知道它被打中了，它需要通过停止移动来对此做出反应。在我们的 `update(deltaTime: foodLocation:)` 函数下添加如下代码：
 
 ```
 public func hitByRain() {
@@ -470,7 +471,7 @@ public func hitByRain() {
 }
 ```
 
-This just updates the `timeSinceLastHit` to `0`, and removes the walking animation that we set up earlier. Now we need to overhaul `update(deltaTime: foodLocation:)`, so that the cat doesn’t move while it is stunned. Update the function to the following:
+这段代码只是把 `timeSinceLastHit` 变量设置成了 `0`，同时移除了小猫的步行动画。现在我们需要重写 `update(deltaTime: foodLocation:)` 函数，以保证小猫就不会在它被晕眩的时候移动。让我们用如下代码更新该函数：
 
 ```
 public func update(deltaTime : TimeInterval, foodLocation: CGPoint) {
@@ -500,41 +501,42 @@ public func update(deltaTime : TimeInterval, foodLocation: CGPoint) {
 }
 ```
 
-Now, our `timeSinceLastHit` will constantly be updated, and if the cat hasn’t been hit in the past 2 seconds, it will walk toward the food. If our walking animation isn’t set, then we’ll set it correctly. This is a frame-based animation that just swaps out the texture every 0.1 seconds to make it appear as though the cat is walking. It looks exactly like how real cats walk, doesn’t it?
+现在，我们的 `timeSinceLastHit` 变量会不停更新，而且如果小猫在过去的 2 秒钟没有被打中，那么它就会继续朝着食物移动。如果我们并没有设置步行动画，那么必须要正确地设置它。步行动画是个基于帧的动画，而它只是每 0.1 秒交换两个纹理使得小猫看起来像在行走。不过它看起来的确很像小猫真的在行走，对吧？
 
 We need to move over to `GameScene.swift` to tell the cat that it has been hit. In `handleCatCollision(contact:)`, we will call the `hitByRain` function. In the `switch` statement, look for the `RainDropCategory` and replace this…
+我们需要重新打开 `GameScene.swift` 文件来告诉小猫它被击中了。在 `handleCatCollision(contact:)` 函数中，我们需要调用 `hitByRain` 函数。在 `switch` 语句里，找到 `RainDropCategory` 然后把其中的这个语句：
 
 ```
 print("rain hit the cat")
 ```
 
-… with this:
+换成这个：
 
 ```
 catNode.hitByRain()
 ```
 
-If we run the app now, the cat will be stunned for 2 seconds once rain touches it!
+如果我们现在运行我们的应用，当小猫被雨滴击中时，它就会被晕眩 2 秒啦！
 
-It works, but the cat seems to get into a rotated state and looks funny. Also, it looks like the rain really hurts — maybe we need to do something about that.
+这个功能成功实现了，只是现在小猫会进入一个颠倒的状态，看起来很滑稽。同样的，这也会让雨滴看起来真的很痛——可能我们需要做点什么了。
 
-For the raindrop problem, we can make a slight tweak to its `physicsBody`. Under `spawnRaindrop` and below where we initialize `physicsBody`, we can add the following line:
+对于雨滴的问题，我们可以对它的 `physicsBody` 做点细微的调整。在 `spawnRaindrop` 函数中，初始化 `physicsBody` 语句的下面，我们可以添加如下代码：
 
 ```
 raindrop.physicsBody?.density = 0.5
 ```
 
-This will halve the density of the raindrop from its normal value of `1.0`. This will launch the cat a little less.
+这会使雨滴的密度从它的初始值 `1.0` 减半。这会使得小猫没这么容易被击中了。
 
-Moving to `CatSprite.swift`, we can correct the rotation of the cat with an `SKAction`. Add the following to the `update(deltaTime: foodLocation:)` function. Make sure that it is inside the `if` statement that checks whether the cat is flailing.
+打开 `CatSprite.swift` 文件，我们可以修改 `SKAction` 来修正小猫的旋转。在 `update(deltaTime: foodLocation:)` 函数中添加如下代码。确保它在 `if` 语句的里面判断猫是否在抖动。
 
-Find this line:
+找到这一行：
 
 ```
 if timeSinceLastHit >= maxFlailTime {
 ```
 
-And add the following code to correct the angular rotation:
+并且添加如下代码来修正小猫的旋转角度：
 
 ```
 if zRotation != 0 && action(forKey: "action_rotate") == nil {
@@ -542,9 +544,9 @@ if zRotation != 0 && action(forKey: "action_rotate") == nil {
 }
 ```
 
-This block of code checks whether the cat is rotated, even in the slightest. Then, we check currently running `SKAction`s to see whether we are already animating the cat to its standing position. If the cat is rotated and not animating, we run an action to rotate it back to 0 radians. Note that we are hardcoding the key here, because we currently don’t need to use this key outside of this spot. In the future, if we need to check the animation of our rotation in another function or class, we would make a constant at the top of the file, exactly like the `walkingActionKey`.
+这个代码块会判断是否小猫已经被旋转了，哪怕只是一点点。然后，我们要判断当前正在运行的这些 `SKAction` 来确定我们是否已经运行猫的重置动画。如果小猫被旋转了，而又没有运行其他动画，那么我们就需要运行一个动画来让小猫回归到初始状态。需要注意的是，我们这里直接设置了代码的默认值，因为我们暂时不需要在任何别的部分使用这个值。以后如果我们需要在别的函数或类中判断旋转动画，我们就需要在文件的顶部设置一个常量了，就像 `walkingActionKey` 一样。
 
-Run the app, and you will see the magic happen: Cat gets hit, cat probably rotates, cat fixes itself, cat is then happy to eat more. There are still two problems, though. Because we are using a circle for the cat’s `physicsBody`, after the cat corrects itself the first time, you might notice that the cat gets jittery. It is constantly rotating and correcting itself. To get around this, we need to reset the `angularVelocity`. Basically, the cat is rotating from getting hit, and we’ve never corrected the velocity that was added. The cat also does not update its velocity after being hit. If the cat is hit and tries to move in the opposite direction, you might notice that it goes slower than normal. The other problem is when the food is directly above the cat. The cat will quickly turn around endlessly while the food is above it. We can fix these issues by updating our `update(deltaTime :, foodLocation:)` function to the following:
+运行我们的应用，现在你能看到奇迹发生了：小猫被击中了，小猫旋转了，小猫又转回来了，它很开心可以继续去吃掉更多的食物了。可是这里仍旧有两个小问题。因为我们把猫的 `physicsBody` 设置成了一个圆，在小猫第一次修正自己时，你可能会发现小猫的状态变得不太稳定了。它会不停的旋转然后修正自己。为了解决这个问题，我们需要重设 `angularVelocity`。本质上，小猫在被击中时会旋转，然而我们并没有修正我们为小猫添加的移动速度。而小猫也在被击中后没有更新自己的速度。如果小猫被击中了然后尝试着向相反方向移动，你可能会发现它比正常的速度慢了。另外一个问题是，食物可能会在小猫的正上方。当食物在小猫正上方时，小猫会迅速地转身。我们可以通过用如下代码更新我们的 `update(deltaTime :, foodLocation:)` 函数来解决这个问题：
 
 ```
 public func update(deltaTime : TimeInterval, foodLocation: CGPoint) {
@@ -585,25 +587,26 @@ public func update(deltaTime : TimeInterval, foodLocation: CGPoint) {
 }
 ```
 
-Run the app yet again, and much of the herky-jerky action will be corrected. Not only that, but the cat will now stand still when the food is directly above it.
+现在让我们再来重新运行应用，大部分的不稳定动作已经被修正了。不仅仅是这样，当食物在小猫正上方时，小猫也会稳稳地站着了。
 
-### Now Add Sound 
+### 现在来添加音乐吧 
 
-Before we start the programming, we should look into finding sound effects. Generally, when looking for sound effects, I just search for a phrase like “cat meow royalty free.” The first hit is usually [SoundBible.com](http://soundbible.com/tags-cat-meow.html)[13](#13), which generally has a good selection of royalty-free sound effects. Make sure to read the licenses. If you plan to never release the app, then pay no concern to licensing, since the app is for personal use. However, if you wish to sell this in the App Store, distribute it or the like, then make sure to attach a Creative Commons Attribution 3.0 licence or something similar. A lot of licenses are out there, so find out what the license is for a sound or image before using someone else’s work.
+在我们开始写代码前，我们应该先要找点音效。一般来说，在寻找音效时，我只会搜索一些类似于 “cat meow royalty free” 的关键词。第一个匹配的通常是 [SoundBible.com](http://soundbible.com/tags-cat-meow.html)[13](#13)，它通常会提供一些免费的音效。请务必阅读许可证。如果你不打算发布你的应用，那么就不需要关心许可证，因为这只是个个人应用。可是，如果你想要在 App store 中发售它，或者通过别的方式发布它，那么就请确保附上了 Creative Commons Attribution 3.0 或者是类似的许可证。这里有许多种许可证，所以当你使用别人的作品前，请确定你找到了相对应的许可证。
 
 All of these RainCat sound effects are Creative Commons-licensed and are free to use. For the next step, move the `SFX` folder that we downloaded earlier into the `RainCat` folder.
+在该应用中使用的音效都是通过 Creative Commons-licensed 授权并且免费使用的。为了之后的操作，我们需要将之前下载的 `SFX` 文件夹移动到 `RainCat` 文件夹中。
 
-[![Finder mode activated](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Finder-Mode-Activated-preview-opt.png) ](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Finder-Mode-Activated-large-opt.png)[14](#14)
+[![Finder 模式已激活](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Finder-Mode-Activated-preview-opt.png) ](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Finder-Mode-Activated-large-opt.png)[14](#14)
 
-Add in your sound effects to the file system. ([View large version](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Finder-Mode-Activated-large-opt.png)[15](#15))
+把音效添加到文件系统中。 ([查看源文件](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Finder-Mode-Activated-large-opt.png)[15](#15))
 
-After you add the files to the project, add them to your project in Xcode. Create a group under “Support” named “SFX.” Right-click on the group and click “Add Files to RainCat…”
+在你把这些文件拷贝到项目中之后，你需要用 Xcode 来把它们添加到你的项目中。在 “Support” 文件夹下新建一个名为 “SFX” 的 group。右键点击这个group 然后点击 “Add Files to RainCat…” 选项
 
-[![Adding in sound effects](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Adding-in-SFX-preview-opt.png) ](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Adding-in-SFX-preview-opt.png)[16](#16)
+[![添加音效](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Adding-in-SFX-preview-opt.png) ](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Adding-in-SFX-preview-opt.png)[16](#16)
 
-Adding in your sound effects
+添加音效
 
-Find your “SFX” folder, select all of your sound-effect files, and click the “Add” button. Now you have sound effects to play with. Moving to `CatSprite.swift`, we can add in an array of the sound-effect file names so that we can play them on the hit of a raindrop. Add the following array below the `walkFrames` variable up at the top of the file:
+找到你的 “SFX” 文件夹，选中你的所有音效文件，然后点击 “Add” 按钮。现在项目中就有了你所有需要使用的音效文件了。打开 `CatSprite.swift` 文件，我们可以添加一个包含了所有音效文件名的数组，这样我们就可以在雨滴击中物体时播放它们了。在该文件的顶部， `walkFrames` 变量下，添加如下数组：
 
 ```
 private let meowSFX = [
@@ -616,7 +619,7 @@ private let meowSFX = [
 ]
 ```
 
-We can have the cat make sounds by adding two lines to the `hitByRain` function:
+我们在 `hitByRain` 函数中添加两行代码，来让小猫发出声音了：
 
 ```
 let selectedSFX = Int(arc4random_uniform(UInt32(meowSFX.count)))
@@ -624,19 +627,22 @@ run(SKAction.playSoundFileNamed(meowSFX[selectedSFX], waitForCompletion: true))
 ```
 
 The code above selects a random number, with the minimum being `0` and maximum being the size of the `meowSFX` array. Then, we pick the sound effect’s name from the string array and play the sound file. We will get to the `waitForCompletion` variable in a bit. Also, we’ll use `SKAction.playSoundFileNamed` for our short-and-sweet sound effects.
+上面的代码会在 0 到 `meowSFX` 数组大小的范围内随机选择一个值。然后，我们从字符串数组中选择相对应的音效名并且播放它。我们将得到一个 1 bit 的 `waitForCompletion` 变量. 同样的，我们将使用 `SKAction.playSoundFileNamed` 来播放我们可爱的音效。
 
-And we have sound! Too much sound! We have sounds playing over other sounds. Right now, we’re playing one of the sound effects every time the cat gets hit by rain. This gets annoying fast. We need to add more logic around when to play the sound, and we also shouldn’t play two clips at the same time.
+那么现在我们的应用就有声音啦！那么多声音！可是有些声音会重叠起来。现在，每当小猫被雨滴击中时，我们就会播放一个音效。很快我们就会觉得烦了。我们需要在播放音效时添加更多的逻辑判断，而且我们也不应该同时播放两个音效。
 
-Add these variables to the top of the `CatSprite.swift` file, below the `maxFlailTime` variable:
+在 `CatSprite.swift` 文件的顶部，`maxFlailTime` 变量的下面，添加如下两个变量:
+
 ```
 private var currentRainHits = 4
 private let maxRainHits = 4
 
 ```
 
-The first variable, `currentRainHits`, is a counter for how many times the cat has been hit, and `maxRainHits` is the number of hits it will take before meowing.
+第一个变量，`currentRainHits`，是一个计数器，会统计小猫总共被雨滴打中了多少次，而 `maxRainHits` 表示了在小猫喵喵叫前能被击中几次。
 
 Now we will update the `hitByRain` function. We need to apply the rules for `currentRainHits` and `maxRainHits`. Replace the `hitByRain` function with the following:
+现在我们将要更新 `hitByRain` 函数了。我们需要应用 `currentRainHits` 和 `maxRainHits` 两个变量来制定规则了。让我们用如下代码来更新 `hitByRain` 函数：
 
 ```
 public func hitByRain() {
@@ -661,15 +667,15 @@ public func hitByRain() {
 }
 ```
 
-Now, if the `currentRainHits` is less than the maximum, we just increment the `currentRainHits` and return before we play the sound effect. Then, we check whether we are currently playing the sound effect by the key we provided: `action_sound_effect`. If we are not running the action, then we select a random sound effect to play. We set `waitForCompletion` to `true` because the action will not complete until the sound effect is completed. If we set it to `false`, then it would count the sound-effect action as completed as soon as it begins to play.
+现在，如果 `currentRainHits` 的值比设定的最大值小，那么我们只增加 `currentRainHits` 的值而不播放音效。然后，我们需要通过我们提供的键值： `action_sound_effect` 来判断我们现在是否已经在播放音效了。如果我们没在播放音效，那么我们可以随机播放一个音效。我们把 `waitForCompletion` 参数设置成 `true`， 因为这个操作在音效结束前并不会完成。如果我们把该参数设置成 `false`，那么它会在音效刚开始时就把它当做播放结束来计数了。
+ 
+### 添加音乐 
 
-### Adding Music 
+在我们新建一个方法在我们的应用中播放音乐之前，我们需要找到能播放的东西。类似于搜索音效的过程，我们可以在 Google 中搜索 “royalty free music” 来找到需要播放的音乐。此外，你可以去 SoundCloud 网站，并与里面的艺术家交谈。你需要查看你是否可以找到音乐相对应的许可证以保证你可以在你的游戏中使用它。 对这个应用而言，我碰巧发现了 [Bensound](http://www.bensound.com/royalty-free-music)[28](#28)[17](#17)，根据 Creative Commons license，有一些我们可以使用的音乐。你必须遵从 [licensing agreement](http://www.bensound.com/licensing)[18](#18) 来使用它。操作其实很简单：credit Bensound 或者付费购买许可。
 
-Before we create a way to play music in our app, we need something to play. Similar to our search for sound effects, we can search Google for “royalty free music,” and we will generally find something. Additionally, you can go to SoundCloud and talk to artists there. See if you can reach an agreement, either by using the music for free with attribution or by paying for a license to use it in your game. For this app, I happened across [Bensound](http://www.bensound.com/royalty-free-music)[28](#28)[17](#17), which had some music I could use, under the Creative Commons license. To use it, you must follow its [licensing agreement](http://www.bensound.com/licensing)[18](#18). Pretty straightforward: Either credit Bensound or pay for a license.
+下载我们的四个音轨 ([1](http://www.bensound.com/royalty-free-music/track/little-idea)[19](#19), [2](http://www.bensound.com/royalty-free-music/track/clear-day)[20](#20), [3](http://www.bensound.com/royalty-free-music/track/jazzy-frenchy)[21](#21), [4](http://www.bensound.com/royalty-free-music/track/jazz-comedy)[22](#22))，或者把它们从之前下载的 “Music” 文件夹里拖出来。我们将在四个音轨循环播放，来保证玩家不会感到厌烦。另外一件需要考虑的事是，这些音轨并不能正确循环，这样你就会知道每个音轨的开始和结束时间。 好的背景音乐可以很好的在不同的音轨间循环或切换。
 
-Download all four tracks ([1](http://www.bensound.com/royalty-free-music/track/little-idea)[19](#19), [2](http://www.bensound.com/royalty-free-music/track/clear-day)[20](#20), [3](http://www.bensound.com/royalty-free-music/track/jazzy-frenchy)[21](#21), [4](http://www.bensound.com/royalty-free-music/track/jazz-comedy)[22](#22)), or move them over from the “Music” folder that we downloaded earlier. We will use them and cycle between each track to keep things fresh. Another thing to consider is that these tracks don’t loop correctly, so you will know when each starts and ends. Good background music will loop or morph one track into another really well.
-
-Once you download the tracks, create a folder named “Music” in the “RainCat” folder, the same way you created the “SFX” folder earlier. Move the tracks to that folder.
+在你下载了这些音轨之后，你需要在 “RainCat” 文件夹下新建一个名叫 “Music” 的文件，和你之前创建 “SFX” 文件夹的操作一样。然后把下载的音轨移动到这个文件夹中。
 
 [![Adding in some music tracks](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Adding-in-some-music-tracks-preview-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Adding-in-some-music-tracks-large-opt.png)[23](#23)
 
@@ -743,7 +749,7 @@ trackPosition = (trackPosition + 1) % SoundManager.tracks.count
 
 This sets the next position of the track by incrementing it and then performing a [modulo](https://en.wikipedia.org/wiki/Modulo_operation)[30](#30) on it to keep it within the bounds of the tracks’ array. Finally, in `audioPlayerDidFinishPlaying(_ player:successfully flag:)`, we implement the `delegate` method, which lets us know when the track finishes. Currently, we don’t care whether it succeeds or not — we just play the next track when this is called.
 
-### Just Press Play 
+### 按下 Play 键 
 
 Now that we are done explaining the `SoundManager`, we just need to tell it to start, and we’ll have music playing on a loop forever. Quickly run over to `GameViewController.swift` and place the following line of code below where we set up the scene the first time:
 
