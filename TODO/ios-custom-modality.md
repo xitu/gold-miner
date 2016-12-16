@@ -6,55 +6,51 @@
 
 ---
 
-# iOS: 自定义模态视图
+# iOS: 自定义 Modal
 
-## Modals became so diverse that Apple’s HIG no longer cuts it. How to choose from all the custom options out there?
-<!-- ## 模态视图变得如此多元化，Apple 的人机交互指南都不再削减关于它的描述。我们如何从中选择自定义选项呢? -->
+## Modal 变得越来越多样化，Apple 的人机交互指南里都不再削减对它的描述。我们该如何从中选择自定义选项呢?[这句哪里怪怪的，拜托校对的小伙伴了！]
 
-<!-- ![](https://cdn-images-1.medium.com/max/2000/1*LPXhF6DNBVu8qz4P-sHZTA.png) -->
+![](https://cdn-images-1.medium.com/max/2000/1*LPXhF6DNBVu8qz4P-sHZTA.png)
 
-当开发者们询问我如何选择的视图类型时，我非常兴奋。我开始不停思考这个问题，得出了自己的结论。有趣的是，当他们意识到视图的选择与美学无关时，他们常会感到惊讶。
+当开发者们询问我如何选择 modal 类型时，我非常兴奋。我开始不停思考这个问题，给出了自己的结论。有趣的是，当他们意识到 modal 的选择与美学无关时，他们常会感到惊讶。
 
-我一直建议大家去看 *iOS 人机交互设计指南* 里关于 [模态视图](https://developer.apple.com/ios/human-interface-guidelines/interaction/modality/) 的介绍，这是篇很棒的参考材料。但是最近有个朋友告诉我这对于他来说还不够。
+我一直建议大家去看 *iOS 人机交互设计指南* 里关于 [Modality](https://developer.apple.com/ios/human-interface-guidelines/interaction/modality/) 的介绍，这是篇很棒的参考材料。但是最近有个朋友告诉我这对他来说还不够。
 
-Curious, I started checking out existing patterns to figure out how much more there is to it. He was right.
-出于好奇，我去查看了现有的样式
+出于好奇，我去查看了现在的文档中有多少样式。他是对的，这确实不够。
 
-那么哪种模态视图才是最好的选择呢？我列了一个清单，也许对你做决定有帮助。下面我们就来看看吧。
+那么哪种 modal 才是最好的选择呢？我列了一个清单，也许对你做决定有帮助。下面就来看看吧。
 
 ### 类型
 
-Modals are a way to step out of the main flow of the app to make a decision or complete a task. They are the best tool when we need user’s uninterrupted attention.
+Modal 是一种从应用的主任务中暂时退出，去做一些选择或者完成某些任务的方式，当我们需要用户保持注意时它们是最好的工具。
 
-> While *navigation controllers* promote content and its hierarchy, modals always exist in the context of a task.
-> While *导航控制器* 提出了内容和层次结构, modals always exist in the context of a task.
+> 尽管 *导航控制器* 提升了内容和它的层次结构， modal 总是在任务的上下文中存在。
 
-There is a lot of modal types out there. They can take up the whole screen, or a part of it. They can be centered, fixed to the top or bottom. Sometimes they pop-up, sometimes slide from a side. *No wonder this is confusing.*
+现在有很多类型的 modal ，它们可能覆盖整个屏幕或屏幕的一部分，也可能显示在屏幕中央或固定在屏幕顶部或底部。有时它们以弹出框的方式出现，有时又从一侧滑出。 *这的确令人困惑*
 
-There’s a lot to break down here before you make a decision. My rule of thumb is to check if the view lets people **pick** a task or **do** a task.
-在做决定之前你需要考虑一些事。我的经验是检查视图是否允许人们 **选择** 任务或 **做** 任务。
+在做决定之前你需要考虑一些事。我的经验是先确定视图是让人们 **选择** 任务还是 **做** 任务。
 
 ### **选择类**
 
-这类模态视图要求你做出一个选择后才能继续操作。它可以是一个警告，或者一个让你指定你下一步操作或选择模式的对话框。
+这类 modal 要求你做出一个选择后才能继续操作。它可以是一个警告，或者一个让你指定你下一步操作或选择模式的对话框。
 
 ![](https://cdn-images-1.medium.com/max/800/1*llj4coNsU1kwsUIdBgeNAA.png)
 
-- **操作列表** 是显示多个操作选项的最好方式。如果你除了列表没有太多额外展示的东西的话，这是个安全的选择。
+- **操作列表** 是显示多个操作选项的最好方式。如果你除了列表没有太多额外需要展示的东西的话，这是个安全的选择。
 - **弹出框** 可以应用在之前视图的上下文比较重要的场景，弹出框的箭头在解释视图之间的关系上发挥了很好的作用。
-- 如果你要提问或者从用户处获取权限, 最好使用 **警告框**。
+- 如果你要提问或者从用户处获取权限， 最好使用 **警告框**。
 
 你可能注意到了以上介绍的视图都没有覆盖到整个屏幕，因为他们应该被 **快速使用**，用户选择完就立刻回到之前的界面。
 
 ### **操作类**
 
-这类模态视图是为了完成功能任务的，它们适用于添加、编辑等所有复杂的任务场景。
+这类 modal 是为了完成功能任务的，它们适用于添加、编辑等所有复杂的任务场景。
 
 **全屏视图**
 
 ![](https://cdn-images-1.medium.com/max/800/1*xu_NhNyGVRNfMl2a0ztL_Q.png)
 
-全屏视图是最常见的模态视图。覆盖整个屏幕来引起充分注意，为可能包含多个步骤的复杂任务而设计。
+全屏视图是最常见的 modal 。通过覆盖整个屏幕来引起用户的充分注意，为可能包含多个步骤的复杂任务而设计。
 
 一般情况下，使用全屏视图需要遵守以下两点:
 
@@ -63,23 +59,23 @@ There’s a lot to break down here before you make a decision. My rule of thumb 
 
 **非全屏视图**
 
-有的时候你可能会有一些功能影响到部分主视图，在这种情况下最好让主视图作为背景显示。 这样人们就会立刻明白这个模态视图的作用。
+有的时候你可能会有一些功能影响到部分主视图，在这种情况下最好让主视图作为背景显示。 这样人们就会立刻明白这个 modal 的作用。
 
 ![](https://cdn-images-1.medium.com/max/800/1*i4OTZP-ESmIxde2sELE1SA.png)
 
-如果你选择使用非全屏视图的话, 你还要额外考虑两件事:
+如果你选择使用非全屏视图的话， 你还要额外考虑两件事:
 
-- **选择合适的过渡方式** 如果一个视图和屏幕上方的内容相关，那就让模态视图从那里滑出。让模态视图以用户可预见的方式出现会令应用的使用体验加分。
+- **选择合适的过渡方式** 如果一个视图和屏幕上方的内容相关，那就让 modal 从那里滑出。让 modal 以用户可预见的方式出现会令应用的使用体验加分。
 
-- **添加手势关闭操作** 当模态视图以动画形式出现时,人们通常会尝试用手势去关闭它 (*例如. 把放大的视图缩小)*. 对这一操作的支持会让这个应用使用起来更加和谐。
+- **添加手势关闭操作** 当 modal 以动画形式出现时，人们通常会尝试用手势去关闭它 (*例如. 把放大的视图缩小)*。对这一操作的支持会让这个应用使用起来更加和谐。
 
-还有个有趣的问题， 有的时候模态视图内的功能可能涉及之前视图的某个部分。这个时候你也可以使用 **弹出框** 。
+还有个有趣的问题， 有的时候 modal 内的功能可能涉及之前视图的某个部分。这个时候你也可以使用 **弹出框** 。
 
 ---
 
-模态视图是个非常有用的工具。刚开始接触可能会比较难理解，但是只要你在你的 app 上实践过，再用起来就会快速和简单很多。
+Modal 是个非常有用的工具。刚开始接触可能会比较难理解，但是只要你在你的 app 上实践过，再用起来就会快速和简单很多。
 
-如果你还是决定不了选择哪种模态视图，我准备了一个流程图，你可以把它当做快速参考。
+如果你还是决定不了选择哪种 modal ，我准备了一个流程图，你可以把它当做快速参考。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*xmvX16jk_E5mxxYDPnAt9Q.png)
 
