@@ -754,24 +754,21 @@ trackPosition = (trackPosition + 1) % SoundManager.tracks.count
 这行会通过增加这个值来设置音轨这的下一个位置，然后会执行[modulo](https://en.wikipedia.org/wiki/Modulo_operation)[30](#30)，以保持音轨不会数组越界。最后，在`audioPlayerDidFinishPlaying(_ player:successfully flag:)`， 我们实现`delegate`方法，可以让我们知道音乐播放完毕。现在，我们不需要关心是否成功，我们就是当这个方法被调用时播放下一个音乐。
 
 ### 按下 Play 键 
-
-Now that we are done explaining the `SoundManager`, we just need to tell it to start, and we’ll have music playing on a loop forever. Quickly run over to `GameViewController.swift` and place the following line of code below where we set up the scene the first time:
+现在我们已经完成了`SoundManager`，我们就需要跟它说开始，我们就有音乐一直在无限循环播放了。快速进入`GameViewController.swift`，然后将下面这行代码放到第一次设置场景的地方：
 
 ```
 SoundManager.sharedInstance.startPlaying()
 ```
 
-We do this in `GameViewController` because we want the music to be independent of the scene. If we run the app at this point, and everything has been added to the project correctly, we will have background music for our game!
 
-In this lesson, we’ve touched on two major topics: sprite animation and sound. We used a frame-based animation to animate our sprite, used `SKAction`s to animate, and used methods to correct our cat after it is hit by rain. We added sound effects using `SKAction`s and assigned them to play when the cat gets hit by rain. Finally, we added initial background music for our game.
+我们在 `GameViewController`里做这个是因为我们需要音乐独立于场景，如果我们在这个时候运行app，所有的东西已经被添加到项目中，我们就有背景音乐了！
 
-For those who have made it this far, congratulations! Our game is nearing completion! If you missed a step or got confused along the way, please check out the completed code for this lesson [on GitHub](https://github.com/thirteen23/RainCat/releases/tag/smashing-magazine-lesson-two)[31](#31).
+在本课中，我们讨论了两个主要议题：sprite动画和声音。 我们使用一个基于框架的动画来使sprite有动画，使用SKAction来进行动画，并使用方法来纠正我们的猫被雨滴到。 我们添加了声音效果使用`SKAction`，并指定猫被雨滴到时播放音乐。 最后，我们为我们的游戏添加了初始背景音乐。
+到这里，恭喜！我们的游戏即将完成！如果有什么地方疏忽，请仔细检查代码[在Github](https://github.com/thirteen23/RainCat/releases/tag/smashing-magazine-lesson-two)[31](#31).
+你是怎么完成的？你的代码和我的差不多吗？如果有一些修改，或者有更好的更新，可以通过评论让我知道。
+第三节课即将到来！
 
-How did you do? Does your code look almost exactly like mine? What has changed? Did you update the code for the better? Let me know in the comments below.
-
-Lesson 3 is coming up next!
-
-#### Footnotes 
+#### 附录 
 
 1. [ https://developer.apple.com/spritekit/](#note-1)
 2. [ https://www.smashingmagazine.com/2016/11/how-to-build-a-spritekit-game-in-swift-3-part-1/](#note-2)
