@@ -1,8 +1,8 @@
 > * 原文地址：[How to create effective push notifications](https://blog.intercom.com/create-effective-push-notifications/)
 * 原文作者：[GEOFFREYKEATING](http://twitter.com/geoffreykeating)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
-* 校对者：
+* 译者：[PhxNirvana](https://github.com/phxnirvana)
+* 校对者：[Danny Lau](https://github.com/Danny1451) , [Freya Yu](https://github.com/ZiXYu)
 
 #  如何建立高效推送通知
 
