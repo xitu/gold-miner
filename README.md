@@ -22,7 +22,7 @@
 * [彻底理解引用在 Android 和 Java 中的工作原理](https://gold.xitu.io/entry/58476f2c128fe10058bae7ca?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jacksonke](https://github.com/jacksonke) 翻译)
 * [利用好 Android Studio 中的 APK Analyzer](https://gold.xitu.io/entry/58466c7e128fe1006c5897fa?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([XHShirley](https://github.com/XHShirley) 翻译)
 * [在 Android 应用中监测来电信息](https://gold.xitu.io/entry/5842ac36128fe1006c44b0b4?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([PhxNirvana](https://github.com/phxnirvana) 翻译)
-* [[译] Android 界面的性能优化 — 减少过度绘制](https://gold.xitu.io/entry/58398df2a22b9d006dc2bd7a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Nicolas(Yifei) Li](https://github.com/yifili09) 翻译)
+* [ Android 界面的性能优化 — 减少过度绘制](https://gold.xitu.io/entry/58398df2a22b9d006dc2bd7a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Nicolas(Yifei) Li](https://github.com/yifili09) 翻译)
 * [所有 Android 译文>>](https://github.com/xitu/gold-miner/blob/master/android.md)
 
 
@@ -48,6 +48,7 @@
 * [[译] 实践 Redux，第 1 部分： Redux-ORM 基础](https://gold.xitu.io/entry/58249792a0bb9f0058dd30ab?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([luoyaqifei](https://github.com/luoyaqifei) 翻译)
 * [[译] 如何用 React 完成图片上传功能？](https://gold.xitu.io/entry/57b923225bbb50005b794943?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([DeadLion](https://github.com/DeadLion) 翻译)
 * [[译] 为你定制的 React 学习路线](https://gold.xitu.io/entry/578375b85bbb5000610cc247?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([aleen42](http://aleen42.github.io/pc.html) 翻译)
+* [[译] 基于 Meteor1.3 和 React 创建简单 App](http://gold.xitu.io/entry/5732a5af79df540060df2e53?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([yangzj1992](http://www.qcyoung.com/) 翻译)
 * [所有前端译文>>](https://github.com/xitu/gold-miner/blob/master/front-end.md)
 
 
