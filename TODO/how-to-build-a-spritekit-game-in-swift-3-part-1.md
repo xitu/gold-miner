@@ -47,7 +47,7 @@ RainCat，第一课
 
 在动手打代码之前，我们要先获取项目中会用到的资源。今天我们会用到雨伞精灵（ sprite ）和雨滴。你可以在 [GitHub 上找到这些纹理](https://github.com/thirteen23/RainCat/tree/smashing-day-1/dayOneAssets.zip)[8] 。将它们添加到 Xcode 左部面板的 `Assets.xcassets` 文件夹中。当你点击 `Assets.xcassets` 文件，你会见到一个带有 `AppIcon` 占位符的空白界面。在 Finder 中选中所有（解压的资源文件），并把它们都拖到 `AppIcon` 占位符的下面。如果你正确进行了上述操作，你的 “Assets” 文件看起来应该是这样：
 
-![程序的资源文件](https://www.smashingmagazine.com/wp-content/uploads/2016/10/App-assets-preview-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2016/10/App-assets-preview-opt.png)[9]
+[![程序的资源文件](https://www.smashingmagazine.com/wp-content/uploads/2016/10/App-assets-preview-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2016/10/App-assets-preview-opt.png)[9]
 
 由于雨伞的顶端是白色的，你现在看不到它，但我保证，它是在那儿的。
 
