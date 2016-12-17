@@ -8,21 +8,21 @@
 
 过去二十年来，内容分发的方式已经发生了翻天覆地的变化。
 
-推送方式从巨型信息入口到网页，再到轻应用，以及手机屏幕上小小的通知（notification）栏一步一步地改变着。
+推送方式从大型信息门户到网页，再到轻应用，以及手机屏幕上小小的通知（notification）栏一步一步地改变着。
 
 通知最好的呈现方式是作为**信息**的载体。
 
 如果内容分发的方式已经被彻底改变了的话，那创造内容的方式也一定发生了改变。这一点在当今社会已是既成事实。
 
-当诸如通知这样的新形式出现时，我们却又回到了旧的内容建立模式。通知这样的新科技变得快速而又平淡。
+可是当诸如通知这样的新形式出现时，我们却又回到了旧的内容建立模式。这使得通知这样的新科技变得快速而又平淡。
 
 也难怪人们将通知视为二十一世纪的推销电话。没有人情味，毫无相关性，还总在错误的时间出现，通知栏简直成了错误营销的教科书，而不是一种自发行渠道。
 
 然而，通知是可以成为一种相当有效的内容渠道的——唯一需要的就是适合该媒介的发行技巧。下文将列出几条推送通知所用到的技巧。
 
-## 1. 注意移动平台的样式 ##
+## 1. 注意移动化的模式 ##
 
-尽管移动平台使用广泛，大多数的内容形式却依旧与台式计算机踩着相同的步伐。时事通讯在早上九点到达，博客推送在下午五点到达。
+尽管移动平台使用广泛，大多数的内容形式却依旧与台式计算机踩着相同的步伐。时事通讯在早上九点送达，博客推送在下午五点送达。
 
 这些发行时间表都是与传统媒体相连甚密的，却没有自动适应移动通知（的形式）。
 
@@ -38,7 +38,7 @@
 
 ## 2. 要明了而不要多加词藻 ##
 
-在 iOS 和 Android 平台上，你总会听到有公司说交互性通知翻开了崭新的篇章这种话。媒体宣称“图片和礼物使 CTR （广告点击到达率）增加了 60%”，当然还有其他一系列与之相伴随的浮夸语句。
+每一次 iOS 和 Android 平台发布新版本，你总会听到有公司说交互性通知翻开了崭新的篇章这种话。媒体宣称“图片和 GIF 动图使 CTR （广告点击到达率）增加了 60%”，当然还有其他一系列与之相伴随的浮夸语句。
 
 ![](https://blog.intercomassets.com/wp-content/uploads/2016/10/25153946/Same_Terrible_Content-1.jpg) (.small)
 
@@ -62,15 +62,15 @@
 
 为了实现个性化定制的通知，各公司的通知都应该遵循规范。即使是各种小细节，如添加接收者的名字都可以让推送通知体验更好。（某些情况下 [可以达到四倍的优化](http://andrewchen.co/new-data-on-push-notification-ctrs-shows-the-best-apps-perform-4x-better-than-the-worst-heres-why-guest-post/) (target=undefined)).
 
-当然，个性化绝不只是前面加个用户名字，后面署上自己名字那么简单。在通知上使用精准个人信息的重要性，恕我词穷，用语言难以描述万一。 事件参数、语言、生活圈等都是确保你的信息足够个性化和有指向性的手段。（当然，[Intercom](https://www.intercom.com/customer-engagement) (target=undefined) 是发送这类信息的一个很好的选择，但无论使用什么工具，道理都是一样的。）
+当然，个性化绝不只是前面加个用户名字，后面署上自己名字那么简单。在通知上使用精准个人信息的重要性，恕我词穷，用语言难以描述万一。 事件参数、语言、生活圈等都是确保你的信息足够个性化和针对性的手段。（当然，[Intercom](https://www.intercom.com/customer-engagement) (target=undefined) 是发送这类信息的一个很好的选择，但无论使用什么工具，道理都是一样的。）
 
 ![](https://blog.intercomassets.com/wp-content/uploads/2016/10/25115944/Say_This_Not_This_Final-1.jpg) (.small)
 
 ## 4. 通知的实时性 ##
 
-通知的一大问题是持续时间很短。一旦发送出去就无法适应新的时间或背景。
+通知面临的一大问题是它们的内容的有效性本质上是转瞬即逝的，一旦发送出去就无法适应新的时间或背景。
 
-[一些出版者](http://www.niemanlab.org/2016/06/the-guardian-is-experimenting-with-interactive-auto-updating-push-alerts-to-cover-big-stories/) (target=undefined) 正在试图将自动更新的通知变为可能。这意味着你将得到最新的和最精准的推送消息。
+[一些发布者](http://www.niemanlab.org/2016/06/the-guardian-is-experimenting-with-interactive-auto-updating-push-alerts-to-cover-big-stories/) (target=undefined) 正在试图将自动更新的通知变为可能。这意味着你将得到最新的和最精准的推送消息。
 
 > Android 又得一分，实时更新通知是个很棒的特性。[pic.twitter.com/7gs9cqMrcf](https://t.co/7gs9cqMrcf)
 > 
@@ -82,7 +82,7 @@
 
 影响你在真实世界计划和决策的新闻（想想 Uber 的自动调价通知），转瞬即逝的机会（比如亚马逊降价了），和刚更新的关注内容（比如 Netflix 的新电影）这些都是最受欢迎的打断性通知。 fleeting opportunities someone is likely to take advantage of (such as price drops on Amazon), and status updates about content they’re monitoring (new arrivals on Netflix, for example) are notifications most likely to be seen as welcome interruptions. 
 
-## 5. 平实而非浮夸 ##
+## 5. 衡量实际效益而不是乱放卫星 ##
 
 传统上，推送的评价方式都是依赖指标如打开率、点击率等。这些吹出来的数据也只能信一半。
 
