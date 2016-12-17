@@ -30,11 +30,11 @@ It was a Sony walkman.
 
 *Hold up*, you say. *What’s the big deal?* Everyone had a Sony Walkman growing up.
 
-*等等*，你或许会说。*那又怎么了？*每个人长大的时候都有一台索尼的随身听。
+**等等**，你或许会说。**那又怎么了？**每个人长大的时候都有一台索尼的随身听。
 
 Ah, but not *this* Sony Walkman. Not one from the Motherland itself, a model I’ve never seen in the U.S., all sleek curves and cool metal. Not in *this* shade, which I called yellow at the time, but which was brighter and grassier than any yellow I’d ever seen. I didn’t have the vocabulary for it then, but I do now. The damn thing was *chartreuse*.
 
-哈，但是那并不是*这款*随身听，不是来自祖国（这里指日本，译者注）的，拥有我从未在美国见过的款式，有着光滑的曲线和凉爽的金属质感的随身听，不是这种渐变色，我当时叫作黄色，但是比我见过的黄色更亮更绿。我当时并不知道怎么形容，但是现在我知道了，那种颜色被称为“淡黄绿色”。
+哈，但是那并不是**这款**随身听，不是来自祖国（这里指日本，译者注）的，拥有我从未在美国见过的款式，有着光滑的曲线和凉爽的金属质感的随身听，不是这种渐变色，我当时叫作黄色，但是比我见过的黄色更亮更绿。我当时并不知道怎么形容，但是现在我知道了，那种颜色被称为“淡黄绿色”。
 
 It was the most magnificent thing I’ve ever owned, and not just because it played my recorded-from-the-radio mix tapes. Its every detail was, in my mind, flawless.
 
@@ -96,13 +96,13 @@ I’d set the clocks, program the VCRs, burn the CDs. I’d roll my eyes and com
 
 I wore my badge with pride. I was one of the *tech-savvy* ones.
 
-我很自豪地给自己戴上奖章，我是其中一个*技术天才*。
+我很自豪地给自己戴上奖章，我是其中一个**技术天才**。
 
 ---
 
 What does the word *designer* connote?
 
-*设计师*意味着什么呢？
+**设计师**意味着什么呢？
 
 A certain focus on visual beauty, on the way the space flows between two descenders, on the tucked-in lines of a handsome armchair, on the precise curves of that metallic casing?
 
@@ -116,7 +116,7 @@ What kind of identity have we wrapped into such a word?
 
 是一种特定的对视觉美关注，比如两行字母的间距、漂亮的扶椅的线条、金属外壳的曲线？
 
-是一种特定的对简单可爱的事物本质的深刻理解？
+是一种特定的对简单可爱的事物**本质**的深刻**理解**？
 
 是一种特定的通过多年来的见闻和感受产生的对于事物的直觉，其他人在接触它、或者犹豫或者经历的时候会产生何种感受？
 
@@ -126,15 +126,15 @@ What kind of identity have we wrapped into such a word?
 
 In my senior year of college, I was assigned to read *The Design of Everyday Things* by Don Norman. There is a famous passage where he talks about the design of doors. Imagine that a door has a u-shaped handle but is labelled with the word *PUSH*. What would you do?
 
-大四的时候，我被指派（可能是课堂作业，译者注）阅读 Don Norman 的*The Design of Everyday Things（日常用品的设计）*。他在一个非常著名的通道曾讨论过关于们的设计，试想一下，一个装有 U 型把手的门，却贴着*推*，你会怎么做？
+大四的时候，我被指派（可能是课堂作业，译者注）阅读 Don Norman 的*The Design of Everyday Things*（日常用品的设计）。他在一个非常著名的通道曾讨论过关于们的设计，试想一下，一个装有 U 型把手的门，却贴着**推**，你会怎么做？
 
 Well, half the people would try pulling, because that’s what the handle seems to beckon. *Pull me! I am a u-shaped handle!* And when the door doesn’t budge, they may feel a flicker of irritation. *Is this thing broken? What’s going on?* Then, when they see the sign, it might dawn on them that they’re doing it all wrong. *Oh, *they think with a mild sense of foolishness.
 
-约一半的人会去试着拉门，因为那是门把手在暗示他们：*赶快拉我！我是一个 U 型门把手！*。但当门并不能被拉动的时候，他们可能就面带愠色了。*这玩意儿坏了吗？怎么回事儿？*然后，他们才看到标志提示他们做错了。他们会觉得自己有点犯傻了。
+约一半的人会去试着拉门，因为那是门把手在暗示他们：**赶快拉我！我是一个 U 型门把手！**。但当门并不能被拉动的时候，他们可能就面带愠色了。**这玩意儿坏了吗？怎么回事儿？**然后，他们才看到标志提示他们做错了。他们会觉得自己有点犯傻了。
 
 We’ve all encountered these kinds of Norman doors. Most of the time, we internalize the tension. *I should have read the sign*. *I’m not using this right. I’m not tech-savvy enough. I might mess it up. It’s too hard to learn. It will take me forever*.
 
-我们都遭遇过这种诺曼式的门，很多时候，我们内心都略有紧张，*我应该先看标志的*，*我做错了，我不够聪明。我搞砸了。这太难学了。我一辈子也学不会。*
+我们都遭遇过这种诺曼式的门，很多时候，我们内心都略有紧张，**我应该先看标志的**，**我做错了，我不够聪明。我搞砸了。这太难学了。我一辈子也学不会。**
 
 *The Design of Everyday Things* made me see a different perspective.
 
@@ -152,15 +152,15 @@ Why should anyone be made to feel like an idiot when the design of the thing is 
 
 When you *find* a solution, what do you think of? Peering through a magnifying glass or emerging from a maze? The notion of meandering around lost until — lo and behold! A shimmer on the ground! Could it be the missing piece we were looking for?
 
-当你在*寻求*解决方案时，你会怎么想？通过放大镜寻找或者它自己会从迷宫中浮现？摸着石头过河，直到你情不自禁地笑出来，看到那点星星之火！那是我们正在苦苦寻找的光明吗？
+当你在**寻求**解决方案时，你会怎么想？通过放大镜寻找或者它自己会从迷宫中浮现？摸着石头过河，直到你情不自禁地笑出来，看到那点星星之火！那是我们正在苦苦寻找的光明吗？
 
 When you *engineer* a solution, what comes to mind? Gadgets and gears? A stroke of cleverness late one night as the rest of the world sleeps, a flurry of hours spent rigging up a precise contraption until it does something we’ve never seen before?
 
-当你*实现*解决方案时，你会想到什么？小工具和齿轮？夜深人静时的灵光一现？紧张工作几个小时搭建一个精妙地装置来实现我们迄今闻所未闻的功能？
+当你**实现**解决方案时，你会想到什么？小工具和齿轮？夜深人静时的灵光一现？紧张工作几个小时搭建一个精妙地装置来实现我们迄今闻所未闻的功能？
 
 When you *design* a solution, what pops into your head?
 
-当你*设计*解决方案时，你大脑中会出现什么？
+当你**设计**解决方案时，你大脑中会出现什么？
 
 Here is my answer: that we considered and explored. That we peered ahead into the stress test of the real world, when some harried young woman minding her own business encounters our work. She’s not thinking of us, she’s thinking of what she has to do that night — an e-mail to write to her professor, a midterm to cram for, laundry to do in preparation for that party on Saturday. And we were prepared for her. We left no detail unexamined.
 
