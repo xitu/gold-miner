@@ -1,5 +1,5 @@
 * 原文地址：[ In the age of the algorithm, the human gatekeeper is back ](https://www.theguardian.com/technology/2016/sep/30/age-of-algorithm-human-gatekeeper)
-* 原文作者：[ https://www.theguardian.com/profile/michael-bhaskar)
+* 原文作者：[Michael Bhaskar](https://www.theguardian.com/profile/michael-bhaskar)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：
 * 校对者：
