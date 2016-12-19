@@ -2,7 +2,7 @@
 * 原文作者：[Kamil Kołodziejczyk](https://twitter.com/_kolodziejczyk)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[zhouzihanntu](https://github.com/zhouzihanntu)
-* 校对者：
+* 校对者：[Gocy](https://github.com/Gocy015)、[Mark](https://github.com/marcmoore)
 
 ---
 
