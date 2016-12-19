@@ -2,13 +2,13 @@
 * 原文作者：[ Netcyrax ]( https://medium.com/@netcyrax)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Jamweak](https://github.com/jamweak)
-* 校对者：
+* 校对者：[jacksonke](https://github.com/jacksonke)，[phxnirvana](https://github.com/phxnirvana)
 
-# Effective Java for Android (cheatsheet)
+# Android 中的 Effective Java(速查表)
 
-[Effective Java](https://www.amazon.co.uk/Effective-Java-Second-Joshua-Bloch/dp/0321356683) 是一本被广泛认可的著作，它指明了在写 Java 代码时兼顾**可维护性**与**效率**的方式。Android 也是使用 Java 来开发的，这意味着前书中的**所有**建议仍旧可用，对吗？并不尽然。[某些](https://news.ycombinator.com/item?id=12893118) [同学](https://www.reddit.com/r/androiddev/comments/4smncj/is_this_true/) 认为书中的“大部分”建议都不能被 Android 开发所接受，但我认为并不是这样。我承认书中的部分建议确实不可用，其中包括一些 Java 特性没有针对 Android 优化（比如说[枚举](https://developer.android.com/topic/performance/memory.html#Abstractions) , 序列化等等)，或者是因为移动设备的采用 (例如 [Dalvik](https://en.wikipedia.org/wiki/Dalvik_%28software%29) /[ART](https://en.wikipedia.org/wiki/Android_Runtime) )的限制. 不管怎样,书中的 **大部分** 规范是稍微修改下甚至不修改就可以直接用的，以便构建更鲁棒，简洁且更可维护的代码库。
+[Effective Java](https://www.amazon.co.uk/Effective-Java-Second-Joshua-Bloch/dp/0321356683) 是一本被广泛认可的著作，它指明了在写 Java 代码时兼顾**可维护性**与**效率**的方式。Android 也是使用 Java 来开发的，这意味着前书中的**所有**建议仍旧可用，真的是这样吗？并不尽然。[某些](https://news.ycombinator.com/item?id=12893118) [同学](https://www.reddit.com/r/androiddev/comments/4smncj/is_this_true/) 认为书中的“大部分”建议都不适用于 Android 开发，但我认为并不是这样。我承认书中的部分建议确实不适用，因为并非所有 Java 特性都有针对 Android 优化（比如说[枚举](https://developer.android.com/topic/performance/memory.html#Abstractions) , 序列化等等)，或者是因为移动设备的局限 (例如 [Dalvik](https://en.wikipedia.org/wiki/Dalvik_%28software%29) /[ART](https://en.wikipedia.org/wiki/Android_Runtime) )。 不管怎样,书中的 **大部分** 规范是稍微修改下甚至不修改就可以直接用的，以便构建更鲁棒，简洁且更可维护的代码库。
 
-本文试图聚焦于原书中我认为在 Android 开发时最重要的一些意见。对于那些读过此书的人，本文也许能帮助你回忆起这些条目，对于那些（还）没有读过的人，本文能够让他们品尝到一丝原书的韵味。
+本文试图聚焦于原书中我认为在 Android 开发时最重要的一些条目。对于那些读过此书的人，本文也许能帮助你回忆起这些条目，对于那些（还）没有读过的人，本文能够让他们品尝到一丝原书的韵味。
 
 #### 强制不可实例化
 
@@ -39,7 +39,7 @@ class Movie {
 
 #### 创建者模式
 
-当你的对象需要包括超过 3 个参数的构造方法时，使用创建者模式来构建对象。这可能需要更多行的代码来完成，但它保持了良好的结构和可读性。如果你正创建一个实体类，考虑使用 [AutoValue]。
+当对象的构造方法参数不小于 3 个时，可以考虑创建者模式。这可能需要更多行的代码，但拓展性和可读性会很好。如果你正创建一个实体类，考虑使用  [AutoValue]。
 
 ```
 class Movie {
@@ -119,7 +119,6 @@ String movie = movies.get(0);
 ```
 
 不要忘记你能在方法中对参数和返回值使用泛型
-Don’t forget that you can use generics and in your methods for parameters and returned values.
 
 ```
 // 不要这样做
@@ -167,7 +166,7 @@ List<Movie> latestMovies() {
 
 ```
 
-不要 + String
+不要用 “+” 来连接 String
 
 必须要拼接一系列字符串时，可能会使用 + 连字符。永远不要用它来拼接大量字符串，这样的性能真的很差，考虑使用 StringBuilder 来代替。
 
@@ -184,7 +183,7 @@ StringBuilder sb = new StringBuilder();
 
 #### Recoverable exceptions
 
-我个人不喜欢抛出异常来指示错误，但是如果你这样做，确保这个异常被检查，并且在捕获异常后能够**从异常中恢复**。
+我个人不喜欢抛出异常来指示错误，但是如果你这样做，确保这个异常被检查，确保这个**异常被捕获到**。
 
 ```
 List<Movie> latestMovies() throws MoviesNotFoundException {
