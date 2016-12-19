@@ -587,17 +587,17 @@ public func update(deltaTime : TimeInterval, foodLocation: CGPoint) {
 
 ### 现在来添加音乐吧 
 
-在我们开始写代码前，我们应该先要找点音效。一般来说，在寻找音效时，我只会搜索一些类似于 “cat meow royalty free” 的关键词。第一个匹配的通常是 [SoundBible.com](http://soundbible.com/tags-cat-meow.html)[13](#13)，它通常会提供一些免费的音效。请务必阅读许可证。如果你不打算发布你的应用，那么就不需要关心许可证，因为这只是个个人应用。可是，如果你想要在 App store 中发售它，或者通过别的方式发布它，那么就请确保附上了 Creative Commons Attribution 3.0 或者是类似的许可证。这里有许多种许可证，所以当你使用别人的作品前，请确定你找到了相对应的许可证。
+在我们开始写代码前，我们应该先要找点音效。一般来说，在寻找音效时，我只会搜索一些类似于 “cat meow royalty free” 的关键词。第一个匹配的通常是 [SoundBible.com](http://soundbible.com/tags-cat-meow.html)，它会提供一些免费的音效。请务必阅读使用许可证。如果你不打算发布你的应用，那么就不需要关心许可证，因为这只是个个人应用。可是，如果你想要在 App store 中发售它，或者通过别的方式发布它，那么就请确保附上了 Creative Commons Attribution 3.0 或者是类似的许可证。这里有许多种许可证，所以当你使用别人的作品前，请确定你找到了相对应的许可证。
 
 在该应用中使用的音效都是通过 Creative Commons-licensed 授权并且免费使用的。为了之后的操作，我们需要将之前下载的 `SFX` 文件夹移动到 `RainCat` 文件夹中。
 
-[![Finder 模式已激活](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Finder-Mode-Activated-preview-opt.png) ](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Finder-Mode-Activated-large-opt.png)[14](#14)
+[![Finder 模式已激活](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Finder-Mode-Activated-preview-opt.png) ](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Finder-Mode-Activated-large-opt.png)
 
-把音效添加到文件系统中。 ([查看源文件](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Finder-Mode-Activated-large-opt.png)[15](#15))
+把音效添加到文件系统中。 ([查看源文件](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Finder-Mode-Activated-large-opt.png)))
 
-在你把这些文件拷贝到项目中之后，你需要用 Xcode 来把它们添加到你的项目中。在 “Support” 文件夹下新建一个名为 “SFX” 的 group。右键点击这个group 然后点击 “Add Files to RainCat…” 选项
+在你把这些文件拷贝到项目中之后，你需要用 Xcode 来把它们添加到你的项目中。在 “Support” 文件夹下新建一个名为 “SFX” 的 group。右键点击这个group 然后点击 “Add Files to RainCat…” 选项。
 
-[![添加音效](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Adding-in-SFX-preview-opt.png) ](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Adding-in-SFX-preview-opt.png)[16](#16)
+[![添加音效](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Adding-in-SFX-preview-opt.png) ](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Adding-in-SFX-preview-opt.png)
 
 添加音效
 
