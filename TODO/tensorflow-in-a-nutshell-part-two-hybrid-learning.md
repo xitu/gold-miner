@@ -2,9 +2,9 @@
 * 原文作者：[Camron Godbout](https://chatbotnewsdaily.com/@camrongodbout)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[edvardhua](https://github.com/edvardHua)
-* 校对者：
+* 校对者：[marcmoore](https://github.com/marcmoore), [futureshine](https://github.com/futureshine)
 
-# 简明 TensorFlow 教程 —第二部分：混合学习
+# 简明 TensorFlow 教程 — 第二部分：混合学习
 #### 快速上手世界上最流行的深度学习框架。
 
 确保你已经阅读了[第一部分](http://camron.xyz/index.php/2016/08/22/in_a_nutshell_part_one/)
@@ -16,9 +16,9 @@
 
 本文的代码可以在[这里](https://github.com/c0cky/TensorFlow-in-a-Nutshell/tree/master/part2)找到。
 
-#### 宽和深的网络
+#### 广泛深度网络
 
-宽和深网络将线性模型与前馈神经网络结合，使得我们的预测将具有记忆和通用化。 这种类型的模型可以用于分类和回归问题。 这种方法能够在减少特征工程的同时拥有相对精确的预测结果。
+宽和深网络将线性模型与前馈神经网络结合，使得我们的预测将具有记忆和通用化。 这种类型的模型可以用于分类和回归问题。 这种方法能够在减少特征工程的同时拥有相对精确的预测结果，可谓一箭双雕。
 
 ![](https://cdn-images-1.medium.com/freeze/max/60/1*UutPkDr3n0DF6RrlnsAJEA.png?q=20)
 
@@ -28,11 +28,6 @@
 
 
 
-
-
-
-
-#### The Data
 #### 数据
 
 我们将使用泰坦尼克号 Kaggle 数据来预测乘客的生存率是否和某些属性有关，如姓名，性别，船票，船舱的类型等。有关此数据的更多信息请点击[这里](https://www.kaggle.com/c/titanic/data)。
@@ -46,7 +41,7 @@
     CATEGORICAL_COLUMNS = ["Name", "Sex", "Embarked", "Cabin"]
     CONTINUOUS_COLUMNS = ["Age", "SibSp", "Parch", "Fare", "PassengerId", "Pclass"]
 
-因为我们只是想看看一个人是否幸存下来，这是一个二进制分类问题。 所以预测结果1表示该乘客幸存下来，而结果0表示没有幸存。（也即创建一列来储存预测结果）
+因为我们只是想看看一个人是否幸存下来，这是一个二元分类问题。 所以预测结果 1 表示该乘客幸存下来，而结果 0 表示没有幸存。（也即创建一列来储存预测结果）
 
     SURVIVED_COLUMN = "Survived"
 
@@ -62,7 +57,7 @@
                                                              "S",
                                                              "Q"])
 
-对于类别较多的分类列，由于我们没有一个 vocab 文件将所有可能的类别映射为一个整数，所以我们使用哈希值作为键值。（sparse_column_with_hash_bucket）
+对于类别较多的分类列，由于我们没有一个词汇表文件（vocab file）将所有可能的类别映射为一个整数，所以我们使用哈希值作为键值。（sparse_column_with_hash_bucket）
 
     cabin = tf.contrib.layers.sparse_column_with_hash_bucket(
           "Cabin", hash_bucket_size=1000)
@@ -88,7 +83,7 @@
                                                              65
                                                         ])
 
-几乎完成，我们将定义我们的宽列和我们的深列。 我们的宽列将有效地记住我们与特征之间的交互。 我们的宽列不会将我们的特征通用化，这就是为什么我们有我们的深列。
+最后，我们将定义我们的广度列和深度列。 我们的宽列将有效地记住我们与特征之间的交互。 我们的宽列不会将我们的特征通用化，这是深度列的用处。
 
     wide_columns = [sex, embarked, p_class, cabin, name, age_buckets,
                       tf.contrib.layers.crossed_column([p_class, cabin],
@@ -99,7 +94,7 @@
                       tf.contrib.layers.crossed_column([embarked, name],
                                                        hash_bucket_size=int(1e4))]
 
-拥有这些深列的好处是，它会将我们提供的高维度稀疏的特征进行降维来计算。
+拥有这些深度列的好处是，它会将我们提供的高维度稀疏的特征进行降维来计算。
 
     deep_columns = [
           tf.contrib.layers.embedding_column(sex, dimension=8),
@@ -115,7 +110,7 @@
           fare,
       ]
 
-我们通过使用深和宽的模型完成了分类器的创建，
+我们通过使用深度列和广度列来创建分类器，以完成我们的函数。
 
     return tf.contrib.learn.DNNLinearCombinedClassifier(
              linear_feature_columns=wide_columns,
@@ -148,7 +143,7 @@
         # so we can predict our results that don't exist in the csv
         return feature_cols
 
-现在，所有这一切，我们可以编写我们的训练功能
+现在，做完了以上工作，我们就可以开始编写训练功能了
 
     def train_and_eval():
       """Train and evaluate the model."""
@@ -171,7 +166,7 @@
 
 我们读取预处理后的 csv 文件，像处理缺失值等。为了让文章保持简洁，更多有关预处理的代码和内容可以在代码仓库中找到。
 
-这些 csv's 将通过调用 input_fn 函数转换为 tensors 。 我们先构建评价指标，然后打印我们的预测和评估结果。
+这些 csv 文件将通过调用 input_fn 函数转换为 tensors 。 我们先构建评价指标，然后打印我们的预测和评估结果。
 
 ### 结构
 
@@ -197,8 +192,8 @@
 
 
 
-与传统宽线性模型一起添加嵌入层的能力允许通过将稀疏维度降低到低维度来进行准确的预测。
+与传统广度线性模型一起添加嵌入层的能力，允许通过将稀疏维度降低到低维度来进行准确的预测。
 
 ### 结论
 
-这部分偏离了传统的深度学习，说明 Tensorflow 的还有许多其他用途和应用。 本文主要根据 Google 提供的论文和代码进行广泛深入的学习。 研究论文可以在[这里](https://arxiv.org/abs/1606.07792)找到。 Google将此模型用作 Google Play 商店的产品推荐引擎，并帮助他们在提高应用销量上给出了建议。 YouTube 也发布了一篇关于他们使用混合模型做推荐系统的[文章](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/45530.pdf)。 这些模型开始更多地被各种公司推荐，并且会因为优秀的嵌入能力越来越流行。
+这部分偏离了传统的深度学习，说明 Tensorflow 还有许多其他用途和应用。 本文主要根据 Google 提供的论文和代码进行广泛深入的学习。 研究论文可以在[这里](https://arxiv.org/abs/1606.07792)找到。 Google将此模型用作 Google Play 商店的产品推荐引擎，并帮助他们在提高应用销量上给出了建议。 YouTube 也发布了一篇关于他们使用混合模型做推荐系统的[文章](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/45530.pdf)。 这些模型开始更多地被各种公司推荐，并且会因为优秀的嵌入能力越来越流行。
