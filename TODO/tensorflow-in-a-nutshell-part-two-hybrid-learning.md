@@ -168,7 +168,7 @@
 
 这些 csv 文件将通过调用 input_fn 函数转换为 tensors 。 我们先构建评价指标，然后打印我们的预测和评估结果。
 
-### 结构
+### 结果
 
 ![](https://cdn-images-1.medium.com/freeze/max/60/1*WP9Rh1BvPNJyZw9-UYDhWg.png?q=20)
 
