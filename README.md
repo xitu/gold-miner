@@ -4,7 +4,7 @@
 
 [掘金翻译计划](https://juejin.im/tag/%E6%8E%98%E9%87%91%E7%BF%BB%E8%AF%91%E8%AE%A1%E5%88%92) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](#android)、[iOS](#ios)、[React](#react)、[前端](#前端)、[后端](#后端)、[产品](#产品)、[设计](#设计) 等领域，读者为热爱新技术的新锐开发者。
 
-掘金翻译计划目前翻译完成 [315](#近期文章列表) 篇文章，共有 [230](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
+掘金翻译计划目前翻译完成 [316](#近期文章列表) 篇文章，共有 [230](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
 
 #  官方指南：
 
@@ -54,34 +54,7 @@
 
 ## 后端
 
+*  [简明 TensorFlow 教程 —第二部分：混合学习](https://gold.xitu.io/entry/5858ed4e1b69e6006cb12a7c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([edvardhua](https://github.com/edvardHua) 翻译)
 *  [来写一个 Python 说明文档生成器吧](https://gold.xitu.io/entry/585549afb123db00656c849b?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([王子建](https://github.com/Romeo0906) 翻译)
 *  [TensorFlow —  第三部分: 所有的模型](https://gold.xitu.io/entry/58574d0c8d6d810065b4a0b5?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([edvardhua](https://github.com/edvardHua) 翻译)
-*  [[译] 用 Python 建立一个简单的对象模型](https://gold.xitu.io/entry/5852965661ff4b0063a72977?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zheaoli](https://github.com/Zheaoli) 翻译)
-*  [[译] 用不可变的基础设施提高攻击者的攻击成本](https://gold.xitu.io/entry/5850e60f1b69e6006c773e07?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Airmacho](https://github.com/Airmacho) 翻译)
-* [所有后端译文>>](https://github.com/xitu/gold-miner/blob/master/backend.md)
-
-## 教程
-
-* [[译] Chrome 开发者工具提示和技巧](http://gold.xitu.io/entry/56d56f4dc4c971005193ecec?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([chemzqm](https://github.com/chemzqm) 翻译)
-* [[译] 通过 Electron 开发一个简单的桌面应用](http://gold.xitu.io/entry/56aae5e4a633bd0257ae4ab8?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zhangdroid](https://github.com/Zhangdroid) 翻译)
-* [[译] Retrofit 入门教程](http://gold.xitu.io/entry/56cc4085128fe100580dd0ca?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([kevin xiu](https://github.com/xiuweikang) 翻译)
-* [[译] Pokedex.org 给宠物小精灵爱好者的 web app 的技术选型](http://gold.xitu.io/entry/56cebb8edf0eea79dc7c1ff0?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([RobertWang](https://github.com/RobertWang) 翻译)
-* [选择使用正确的 Markdown Parser](http://gold.xitu.io/entry/56ce79db1532bc0053728c2f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lfkdsk](https://github.com/lfkdsk) 翻译)
-
-
-## 设计
-
-* [[译] iOS: 自定义 Modal 视图](https://gold.xitu.io/entry/58576ca7128fe1006b7b35a3/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([zhouzihanntu](https://github.com/zhouzihanntu) 翻译)
-* [[译] 如何用 Sketch 打造「前端框架」](https://gold.xitu.io/entry/5836ad4367f3560065f439dc/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Ruixi](https://github.com/Ruixi) 翻译)
-* [[译] 全新的 Uber App 与全新的设计](http://gold.xitu.io/entry/584770f80ce46300578b9b48?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([PhxNirvana](https://github.com/phxnirvana) 翻译)
-* [[译] 移动端设计最佳实践](http://gold.xitu.io/entry/583bd69bac502e006ea8caaa?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Gocy](https://github.com/Gocy015) 翻译)
-* [所有设计译文>>](https://github.com/xitu/gold-miner/blob/master/design.md)
-
-
-## 产品
-
-* [为何而设计？](https://gold.xitu.io/entry/5857969761ff4b00686ad66b/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([王子建](https://github.com/Romeo0906) 翻译)
-* [如何建立高效推送通知](https://gold.xitu.io/entry/5856427d61ff4b0063badca2?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([PhxNirvana](https://github.com/phxnirvana) 翻译)
-* [[译] 关于程序员被要求做不道德甚至非法的事情的激烈讨论](https://gold.xitu.io/entry/584c122c61ff4b006cc6df53?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([phxnirvana](https://github.com/phxnirvana) 翻译)
-* [[译] 如何设计精准的推送通知？](http://gold.xitu.io/entry/58199acca22b9d0067a34821?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([laobie](https://github.com/laobie) 翻译)
-* [所有产品译文>>](https://github.com/xitu/gold-miner/blob/master/product.md)
+*  [[译] 用 Python 建立一个简单的对象模型](https://gold.xitu.io/entry/5852965661ff4b0063a72977?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([
