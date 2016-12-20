@@ -6,7 +6,7 @@
 
 # Android 中的 Effective Java(速查表)
 
-[Effective Java](https://www.amazon.co.uk/Effective-Java-Second-Joshua-Bloch/dp/0321356683) 是一本被广泛认可的著作，它指明了在写 Java 代码时兼顾**可维护性**与**效率**的方式。Android 也是使用 Java 来开发的，这意味着前书中的**所有**建议仍旧可用，真的是这样吗？并不尽然。[某些](https://news.ycombinator.com/item?id=12893118) [同学](https://www.reddit.com/r/androiddev/comments/4smncj/is_this_true/) 认为书中的“大部分”建议都不适用于 Android 开发，但我认为并不是这样。我承认书中的部分建议确实不适用，因为并非所有 Java 特性都有针对 Android 优化（比如说[枚举](https://developer.android.com/topic/performance/memory.html#Abstractions) , 序列化等等)，或者是因为移动设备的局限 (例如 [Dalvik](https://en.wikipedia.org/wiki/Dalvik_%28software%29) /[ART](https://en.wikipedia.org/wiki/Android_Runtime) )。 不管怎样,书中的 **大部分** 规范是稍微修改下甚至不修改就可以直接用的，以便构建更鲁棒，简洁且更可维护的代码库。
+[Effective Java](https://www.amazon.co.uk/Effective-Java-Second-Joshua-Bloch/dp/0321356683) 是一本被广泛认可的著作，它指明了在写 Java 代码时兼顾**可维护性**与**效率**的方式。Android 也是使用 Java 来开发的，这意味着前书中的**所有**建议仍旧可用，真的是这样吗？并不尽然。[某些](https://news.ycombinator.com/item?id=12893118)[同学](https://www.reddit.com/r/androiddev/comments/4smncj/is_this_true/) 认为书中的“大部分”建议都不适用于 Android 开发，但我认为并不是这样。我承认书中的部分建议确实不适用，因为并非所有 Java 特性都有针对 Android 优化（比如说[枚举](https://developer.android.com/topic/performance/memory.html#Abstractions)，序列化等等），或者是因为移动设备的局限 （例如 [Dalvik](https://en.wikipedia.org/wiki/Dalvik_%28software%29) /[ART](https://en.wikipedia.org/wiki/Android_Runtime) ）。 不管怎样，书中的**大部分**规范是稍微修改下甚至不修改就可以直接用的，以便构建更鲁棒，简洁且更可维护的代码库。
 
 本文试图聚焦于原书中我认为在 Android 开发时最重要的一些条目。对于那些读过此书的人，本文也许能帮助你回忆起这些条目，对于那些（还）没有读过的人，本文能够让他们品尝到一丝原书的韵味。
 
@@ -39,7 +39,7 @@ class Movie {
 
 #### 创建者模式
 
-当对象的构造方法参数不小于 3 个时，可以考虑创建者模式。这可能需要更多行的代码，但拓展性和可读性会很好。如果你正创建一个实体类，考虑使用  [AutoValue]。
+当对象的构造方法参数不小于 3 个时，可以考虑创建者模式。这可能需要更多行的代码，但拓展性和可读性会很好。如果你正创建一个实体类，考虑使用  [AutoValue](https://medium.com/rocknnull/no-more-value-classes-boilerplate-the-power-of-autovalue-bbaf36cf8bbe#.cazel3w3g) 。
 
 ```
 class Movie {
@@ -133,7 +133,7 @@ List sort(List input) {
 
 ```
 
-想更灵活的话，你可以使用 [bounded wildcards](http://stackoverflow.com/questions/2723397/what-is-pecs-producer-extends-consumer-super) (这里肿么了…) 来扩展你接受类型的范围。
+想更灵活的话，你可以使用 [bounded wildcards](http://stackoverflow.com/questions/2723397/what-is-pecs-producer-extends-consumer-super) 来扩展你接受类型的范围。
 
 ```
 // 从集合中读取 Stuff - 使用 "extends"
@@ -154,7 +154,7 @@ void writeList(List<? super Movie> movieList) {
 
 #### 返回空值
 
-当你方法的返回类型为 list/collecion 时，返回空值时要避免返回 *null*。返回一个空的集合类型，这会使得你 **简化接口** （没有必要写文档来声明方法返回值为 null）并且**避免空指针异常**。就返回那个集合的空值，而不是再创建一个。
+当你方法的返回类型为 list/collecion 时，返回空值时要避免返回 *null*。返回一个空的集合类型，这会使得你**简化接口**（没有必要写文档来声明方法返回值为 null）并且**避免空指针异常**。就返回那个集合的空值，而不是再创建一个。
 
 ```
 List<Movie> latestMovies() {
