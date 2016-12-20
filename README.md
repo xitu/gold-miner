@@ -4,7 +4,7 @@
 
 [掘金翻译计划](https://juejin.im/tag/%E6%8E%98%E9%87%91%E7%BF%BB%E8%AF%91%E8%AE%A1%E5%88%92) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](#android)、[iOS](#ios)、[React](#react)、[前端](#前端)、[后端](#后端)、[产品](#产品)、[设计](#设计) 等领域，读者为热爱新技术的新锐开发者。
 
-掘金翻译计划目前翻译完成 [314](#近期文章列表) 篇文章，共有 [230](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
+掘金翻译计划目前翻译完成 [315](#近期文章列表) 篇文章，共有 [230](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
 
 #  官方指南：
 
@@ -19,10 +19,10 @@
 
 ## Android
 
+* [Android 中的 Effective Java(速查表)](https://gold.xitu.io/entry/5858efc1128fe10069b28de4?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Jamweak](https://github.com/jamweak) 翻译)
 * [彻底理解引用在 Android 和 Java 中的工作原理](https://gold.xitu.io/entry/58476f2c128fe10058bae7ca?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jacksonke](https://github.com/jacksonke) 翻译)
 * [利用好 Android Studio 中的 APK Analyzer](https://gold.xitu.io/entry/58466c7e128fe1006c5897fa?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([XHShirley](https://github.com/XHShirley) 翻译)
 * [在 Android 应用中监测来电信息](https://gold.xitu.io/entry/5842ac36128fe1006c44b0b4?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([PhxNirvana](https://github.com/phxnirvana) 翻译)
-* [ Android 界面的性能优化 — 减少过度绘制](https://gold.xitu.io/entry/58398df2a22b9d006dc2bd7a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Nicolas(Yifei) Li](https://github.com/yifili09) 翻译)
 * [所有 Android 译文>>](https://github.com/xitu/gold-miner/blob/master/android.md)
 
 
