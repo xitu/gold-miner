@@ -77,7 +77,7 @@ There’s a lot of interesting data you can get from here. For example:
 
 - I wrote the story at a **6th-grade level**.
 - My tone was **neutral** but **slightly positive.**
-- I averaged **10.7 words per sentence. **(At Dropbox, we try to keep our sentences to 15 words or less.)
+- I averaged **10.7 words per sentence.** (At Dropbox, we try to keep our sentences to 15 words or less.)
 
 If you want to give one of these tests a spin, below are a few you can try. Some of these tests even give you suggested edits to make your writing more readable.
 
