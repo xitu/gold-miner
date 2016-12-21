@@ -4,6 +4,7 @@
 * 译者：[jiaowoyongqi](https://github.com/jiaowoyongqi)
 * 校对者：[cbangchen](https://github.com/cbangchen), [owenlyn](https://github.com/owenlyn)
 
+# 用 Swift 开发我的第一个 iOS 应用前，我想要知道这些内容
 
 上周，我和我[哥哥](http://medium.com/@_mac)使用 Swift 语言开发了第一款[iOS 应用](http://echotags.io/appstore)。通过这篇文章，我想分享在此过程中所收获的心得体会。
 

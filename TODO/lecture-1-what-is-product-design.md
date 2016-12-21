@@ -6,7 +6,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*kOx2oUFQrrXhbUF9CMQHog.jpeg) 
 
-### 第一课：什么是产品设计?
+# 什么是产品设计?
 
 _这篇文章是对 CUAppDev 在康奈尔大学主办的 Intro to Digital Product Design 课程的总结记录。这门课程是1学分的，时间每周一 5:30PM 到 6:30PM，地点 Phillips 203。_
 

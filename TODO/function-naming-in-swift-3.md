@@ -1,229 +1,203 @@
 > * 原文地址：[Function Naming In Swift 3](http://inaka.net/blog/2016/09/16/function-naming-in-swift-3/)
 * 原文作者：[Pablo Villar](https://twitter.com/volbap)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
-* 校对者：
+* 译者：[Zheaoli](https://github.com/Zheaoli)
+* 校对者：[Kulbear](https://github.com/Kulbear), [Tuccuay](https://github.com/Tuccuay)
 
-Yesterday, I started to migrate [Jayme](http://inaka.net/blog/2016/05/09/meet-jayme/) to Swift 3\. It was my very first experience migrating Swift 2.2 code to Swift 3\. While it's been cumbersome, I have to admit it couldn't have turned out another way: Swift 3 is **very different** from older versions; most of the changes are **abrupt**, and take time to think of. The good part is that it's for our own sake: The more Swift 3 code I write, the happier I feel. 😃
+# Swift 3 中的函数参数命名规范指北
 
-There have been many, many decisions I had to take regarding changes in code. What's more, it's not just about translating the code, but also dividing the whole migration process into steps, and take it little by little, patiently. Changes in code is just **one** of those steps.
+昨天，我开始将这个 [Jayme](http://inaka.net/blog/2016/05/09/meet-jayme/) 迁移到 Swift 3。这是我第一次将一个项目从 Swift 2.2 迁移至 Swift 3。说实话这个过程十分的繁琐，由于 Swift 3 在老版本基础上发生了很多比较大的改变，我不得不承认眼前这样一个事实，除了花费较多的时间以外，没有其余的捷径可走。不过这样的经历也带来一点好处：我对 Swift 3 的理解变得更为深入，对我来讲，这可能是最好的消息了。😃
 
-If you have already decided to start migrating your codebases, I recommend [this article](http://www.jessesquires.com/migrating-to-swift-3/) as a good kickstart.
+在迁移代码的过程中，我需要做出很多的选择。更为蛋疼的是，整个迁移过程并不是修改代码那么简单，你还需要用耐心去一点点适应 Swift 3 中带来的新变化。某种意义上来讲，修改代码只是整个迁移过程的开始而已。
 
-Hopefully, in a near future, I'll write a blogpost about my experience, covering the whole process and wrapping up most of those decisions I've been facing. But for now, I will just focus on one of those, which I consider being the most important one so far: **How to write function signatures properly**.
+如果你已经决定将你的代码迁移到 Swift 3 ，我建议你去看看这篇[文章](http://www.jessesquires.com/migrating-to-swift-3/)来作为你万里长征的第一步。
 
-## The Basics
+如果一切顺利的话，在不久以后，我将回去写一篇博客来记录下整个迁移过程中的点点滴滴，包括我所作出的决定等等。但是眼前，我将会把注意力集中在一个非常非常重要的问题上：**怎样正确的编写函数签名**.
 
-Let's start by understanding that **function naming in Swift 3 behaves differently** than in Swift 2.
+## 开篇
 
-In Swift 2, the label for the **first** parameter of a function is implicitly omitted when you call the function, in order to follow the [good ol' Objective-C conventions](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/CodingGuidelines/Articles/NamingMethods.html) that we've been carrying since then:
+首先，让我们来看看在 Swift 3 与 Swift 2 相比函数命名方式的差异吧。
 
+在 Swift 2 中，函数中的第一个参数的标签在调用时可以省略，这是为了遵循这样一个 [good ol' Objective-C conventions](https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/CodingGuidelines/Articles/NamingMethods.html) 标准。比如我们可以这样写代码：
 
-
-    // Swift 2 
+~~~Swift
+    // Swift 2
     func handleError(error: NSError) { }
     let error = NSError()
     handleError(error) // Looks like Objective-C
+~~~
 
+在 Swift 3 中调用函数时，其实也是有办法省略第一个参数的标签的，但默认情况下不是这样：
 
-
-In Swift 3, instead, the first parameter label _can_ be omitted in a function call, but by default, it is **not**:
-
-
-
+~~~Swift
     // Swift 3
     func handleError(error: NSError) { }
     let error = NSError()
     handleError(error)  // Does not compile!
     // ⛔ Missing argument label 'error:' in call
+~~~
 
 
+当遇到这样的情况时，我们第一反应可能是下面这样的：
 
-So, the first fix would be:
-
-
-
+~~~Swift
     // Swift 3
     func handleError(error: NSError) { }
     let error = NSError()
     handleError(error: error)    
     // Had to write 'error' three times in a row!
     // My eyes already hurt 🙈
+~~~
 
+当然如果这样做，你肯定会很快意识到你的代码将将会变得有多坑爹。
 
+如同前面所说的一样，在 Swift 3 中，我们是可以在调用函数时，将第一个参数的标签省略的，但是记住，你要去明确的告诉编译器这一点：
 
-At this point, you can realize how tiresome and repetitive your code could become...
-
-That said, you'll want to omit the first parameter label in the function call. But remember, in Swift 3, you have to be **explicit** about it:
-
-
-
+~~~Swift
     // Swift 3
     func handleError(_ error: NSError) { }
     // 🖐 Notice the underscore!
     let error = NSError()
     handleError(error)  // Same as in Swift 2
+~~~
 
+> 你可能在使用 Xcode 自带的迁移工具进行迁移时遇到这样的情况。
 
+注意，在函数签名中的下划线的意思是：告诉编译器，我们在调用函数时第一个参数不需要外带标签。这样，我们可以按照 Swift 2 中的方式去调用函数。
 
-> This is the typical change that would occur to your functions when you run the Xcode migrator.
+此外，你需要意识到，Swift 3 之所以修改了函数编写方式，是为了保证其一致性与可读性：我们不在需要对不同的参数区别对待。我想这可能是你遇到的第一个问题。
 
-Notice the underscore in the function signature: It points out that the first parameter will **not** require a label when you call the function. This way, we can keep the function calling like in Swift 2.
+好了，现在代码可以编译运行了，但是你必须知道，你需要反复的去阅读 [Swift 3 API design guidelines](https://swift.org/documentation/api-design-guidelines/) 一文。
 
-Furthermore, you can realize that Swift 3 is more consistent and easier to understand when it comes to functions naming: **All parameter labels are treated the same**; there is no such thing as treating the first one differently.
+> ☝️ 一点微小的人生经验：你需要随时去诵读 [Swift 3 API design guidelines](https://swift.org/documentation/api-design-guidelines/) 一文，这会为你解锁 Swift 开发的新体位。
 
-This code will compile, but you still need to go a step further in order to stick to the [Swift 3 API design guidelines](https://swift.org/documentation/api-design-guidelines/).
+## 第二步，精简你的代码
 
-> ☝️ A piece of advice: Read the [Swift 3 API design guidelines](https://swift.org/documentation/api-design-guidelines/) once and again. Every day in the morning, if necessary, until you get used to the new way of writing Swift code.
+![Pruning](http://v1.qzone.cc/pic/201507/27/16/46/55b5efcd7c79f853.png%21600x600.jpg)
 
-## One Step Further: Da Pruning
+让我们再来看看之前的代码:
 
-![Pruning](http://inaka.net/assets/img/jet-pruning.gif)
+为了精简我们的代码，你可以将你的代码进行[修剪](https://github.com/apple/swift-evolution/blob/master/proposals/0005-objective-c-name-translation.md#prune-redundant-type-names)一番，比如去除函数名里的类型信息等。
 
-Observe how repetitive this line of code is:
-
-    handleError(error)
-
-In order to make it less repetitive and more concise, you can [**prune**](https://github.com/apple/swift-evolution/blob/master/proposals/0005-objective-c-name-translation.md#prune-redundant-type-names) the redundant type name from the function signature:
-
-
-
+~~~Swift
     // Swift 3
     func handle(_ error: NSError) { /* ... */ }
     let error = NSError()
     handle(error)   // Type name has been pruned
     // from function name, since it was redundant
+~~~
 
+如果你想让你的代码变得更短，更精悍，更明了的话，我给你们讲，作为一个钦定的开发者，一定要去反复诵读这篇 [Swift 3 API design guidelines](https://swift.org/documentation/api-design-guidelines/) 文章到可以默写为止。
 
+要注意让函数的调用过程是清晰、明确的，我们根据以下两点来确定函数的的命名和参数：
 
-This is shorter, clearer, more concise, and encourages developers to follow the [Swift 3 API design guidelines](https://swift.org/documentation/api-design-guidelines/) (yes, [**read them again**](https://swift.org/documentation/api-design-guidelines/), and [**again**](https://swift.org/documentation/api-design-guidelines/)!)
+*   我们知道函数的返回**类型**
+*   我们知道参数所对应的类型（比如在上面这个例子中，我们毫无疑问的知道其参数所属的类型是 **NSError**）。
 
-Notice that the function call is clear. We can know what the function parameter is expected to be because of two facts:
+## 更多的一些问题
 
-*   **We know its type**.
-*   And also, **that type denotes exactly what the parameter is expected to represent** (an _error_, in this case, there is no doubt about it).
+现在请睁大眼睛看清楚我们下面所讨论的东西。 ⚠️
 
-## It's Not Always A Matter Of Pruning
+上面我们所讲的东西并没有包括所有可能出现的情况，换句话说，你可能遇到这样一种特殊情况，即，一个参数的类型没有办法直观的体现其作用。
 
-Now, it's time to **be careful**! ⚠️
+让我们考虑下面这样一种情况：
 
-There are lots of scenarios where the latter fact I mentioned above doesn't actually happen. In other words, the parameter's type **does not reflect** what the parameter itself is supposed to represent.
-
-Consider the following example:
-
-
-
+~~~Swift
     // Swift 2
     func requestForPath(path: String) -> URLRequest {  }
     let request = requestForPath("local:80/users")
+~~~
 
+如果你想将代码迁移到 Swift 3 ，那么根据已有的知识，你可能会这么做：
 
-
-If you try to migrate that code to Swift 3, by following what we've learned so far, you will end up with something like this:
-
-
-
+~~~Swift
     // Swift 3
     func request(_ path: String) -> URLRequest {  }
     let request = request("local:80/users")
+~~~
 
+讲真，这段代码看起来可读性很差，让我们稍微修改下：
 
-
-This is confusing and not really readable. Let's enhance it just a bit:
-
-
-
+~~~Swift
     // Swift 3
     func request(for path: String) -> URLRequest {  }
     let request = request(for: "local:80/users")
+~~~
 
+OK，现在看起来舒服多了，但是并没有解决我上面提到的问题。
 
+在我们调用这个函数的时候，我们怎样很直观的知道我们需要给这个参数传递一个 Web Url 呢？你所能提前知道的是你需要传递一个 String 类型的变量进去，但是你并不清楚你需要传递一个 Web Url 进去。
 
-Now, while this is more readable, it doesn't solve the problem I mentioned above.
+同理，我们在一个大型项目中，我们需要很清楚的明白每个参数的作用所在，但是很明显，目前我们还没有解决这个大问题，比如:
 
-At the moment of calling this function, how can you know that what you need to pass in is a _path_? All you can know beforehand, because of Swift's static typing, is that the parameter is expected to be of `String` type, but there's no clue that you need to pass in a _path_ there.
+*   你怎么知道一个 `String` 类型的变量代表着 Web Url。
+*   你怎么知道一个 `Int` 类型的变量代表着 Http 状态码。`[String: String]`
+*   你怎么知道一个 `[String: String]` 类型的变量代表着 Http Header。
+*   等等...。
 
-There are plenty of these scenarios where the parameter type isn't meaningful to what it should represent, for instance:
+> ⚠️ 综上，我给你们一点微小的人生经验吧: **谨慎精简你的代码** ✄
 
-*   A `String` not always represents a _path_.
-*   An `Int` not always represents a _status code_.
-*   A `[String: String]` not always represents an _HTTP header_.
-*   And so on...
+回到代码上，我们可以给参数添加上相对应的标签来解决这个问题，好了看看下面这个代码：
 
-> ⚠️ My advice up to here: **Always take your pruning shears with caution!** ✄
-
-Back to the code, a first approach to solve this issue could be appending the name of the parameter to the argument label, making it explicit in consequence:
-
-
-
+~~~Swift
     func request(forPath path: String) -> URLRequest {  }
     let request = request(forPath: "local:80/users")
+~~~
 
-
-
-This code is **clear**, **compiles** and does **follow the guidelines**. 🎉 Hooray!
+好了，现在代码看起来是不是**更清楚**，**可读性**更强了呢？ 🎉 恭喜~
 
 ![Hooray](http://inaka.net/assets/img/rick-hooray-confeti.gif)
 
-> You can stop reading here, but hang on, the best part is yet to come...
+> 讲真，看到这里其实你可以关闭浏览器了，但是事实上，下面才是最精华的部分。
 
-Now, notice this wording in the _function declaration_:
+好了，让我们来看看关于函数参命名的用词问题：
 
-
-
+~~~Swift
     func request(forPath path: String) -> URLRequest {  }
     // The word 'path' appears twice
+~~~
 
+这段代码看起来不错，但是如果你想让其变得更好，那么请看接下来的部分。
 
+## 你所不知道的小技巧
 
-Even though this ain't evil, and in most scenarios this is still correct and will work out well, there's a way to avoid it.
-
-More about this in the following section….
-
-## The Trick You (Probably) Didn't Know
-
-The idea is simple: Make the parameter type reflects its content, in order to be able to **prune with no mercy**.
+这个小技巧很简单：在上下文中反映参数的类型及作用，这样你就可以无脑的精简你的代码了。
 
 ![Prune with no mercy](http://inaka.net/assets/img/prune-with-no-mercy.gif)
 
-What if I told you…?
+呐，我们来看看下面这段代码。
 
-
-
+~~~Swift
     typealias Path = String      // To the rescue!
 
     func request(for path: Path) -> URLRequest {  }
     let request = request(for: "local:80/users")
+~~~
 
+在这个例子中，参数的类型和参数的作用表达达成了一个完美的统一，因为你在上下文中为 `String` 赋予了一个别名叫做 `Path`。
 
+现在，你的函数看起来还是依旧的精简，可读性较高，但是却不重复。
 
-In this case, your parameter's **type** and its **expected content** are coherent and in harmony, because the parameter's type was made **explicit** through defining `Path` as a type alias for `String`.
+以此类推，你可以使用同样的方式来书写一些优美的代码，比如：
 
-This way, your function is still intuitive, readable, unambiguous, yet non-repetitive.
-
-Likewise, you can think of some other examples of type aliases that might help in other common scenarios:
-
-
-
+~~~Swift
     typealias Path = String
     typealias StatusCode = Int
     typealias HTTPHeader = [String: String]
     // etc...
+~~~
 
+如你所见，你可以尽情的写精简而优美的代码了。
 
+不过，请记住，凡事走向极端便变了味了：这个小技巧会为你的代码添加额外的负担，特别是你们代码存在多重嵌套的情况下。因此请记住，如果你无脑的使用这样的小技巧的话，那么你可能会付出一些惨痛的代价。
 
-These will allow you to write clearer code, as we just saw.
+## 结论
 
-Nonetheless, extremes are not good: Type aliases add an extra layer of complexity to your code, even more if they are nested… So, don't abuse.🖐 While in some cases they can help you out very well, as we just see, sometimes they are actually unnecessary and will just make your code harder to follow. Always be disciplined.
+很多时候，你在使用　Swift 3 时，命名函数的时候你会遇到很多困难。
 
-## Conclusion
+积累一些代码片段可能会帮助你很多：
 
-There are many scenarios you will stumble upon when naming functions in Swift 3.
-
-Code snippets are worth _a billion_ words:
-
-
-
+~~~Swift
     func remove(at position: Index) -> Element {  }
     employees.remove(at: x)
 
@@ -239,4 +213,4 @@ Code snippets are worth _a billion_ words:
 
     func entity(from dictionary: [String: Any]) -> Entity { /* ... */ }
     let entity = entity(from: ["id": "1", "name": "John"])
-
+~~~

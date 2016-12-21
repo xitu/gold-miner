@@ -5,7 +5,7 @@
 * 校对者 : [lekenny](https://github.com/lekenny)，[CoderBOBO](https://github.com/CoderBOBO)
 
 
-# 高水平设计
+# 响应式 GraphQL 结构
 
 这是一个高度概述的响应式 GraphQL 数据加载系统的体系结构。，我们这么做的目的是希望得到那些相关领域工程师的反馈。我们想要分享我们正在做的事以确认人们是否对它感兴趣，同时使得该领域中的人能够接受我们的设计。
 

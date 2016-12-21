@@ -6,6 +6,8 @@
 * 状态 : 完成
 * 说明 : 注释皆为译者注
 
+# Swift 新手指南
+
 **更新:** 我们高兴地宣布 Treehouse 已经发布了[学习 Swift 教程](http://teamtreehouse.com/learn-swift "Learn Swift on Treehouse")！快来学习 Swift 基础知识， Swift 函数并用 Swift 构建两个真正的 App吧。 [了解详情](http://teamtreehouse.com/learn-swift "Learn Swift on Treehouse")。
 
 ## 为什么选择 Swift？

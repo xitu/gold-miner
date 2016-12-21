@@ -4,6 +4,8 @@
 * 译者 : [wildflame](https://github.com/wildflame)
 * 校对者: [thanksdanny](https://github.com/thanksdanny),[owenlyn](https://github.com/owenlyn)
 
+# 假如 Mac 上也有 iOS 应用？
+
 ![](https://cdn-images-1.medium.com/max/800/1*o5AUFxXTmRcAr17x1p6m6A.jpeg)
 
 ### 假如 Mac 上也有 iOS 应用，世界将会怎样？

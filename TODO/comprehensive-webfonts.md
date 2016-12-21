@@ -4,6 +4,8 @@
 > * 译者 : [Nicolas(Yifei) Li](https://github.com/yifili09) 
 > * 校对者: [cyseria](https://github.com/cyseria) , [David Lin (wild-flame)](https://github.com/wild-flame)
 
+# 字体加载策略全面指南
+
 _2016 年 7 月 12 日，_ _本文需要 20 分钟的阅读时间。_
 
 _这份指南并不是教你怎么使用显示图标字体，它有不同的加载优先顺序和使用场景。事实上，此时使用 `SVG` 或许才是一个长久之计。_

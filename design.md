@@ -1,3 +1,8 @@
+* [iOS: 自定义 Modal 视图](https://gold.xitu.io/entry/58576ca7128fe1006b7b35a3/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([zhouzihanntu](https://github.com/zhouzihanntu) 翻译)
+* [如何用 Sketch 打造「前端框架」](https://gold.xitu.io/entry/5836ad4367f3560065f439dc/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Ruixi](https://github.com/Ruixi) 翻译)
+* [全新的 Uber App 与全新的设计](http://gold.xitu.io/entry/584770f80ce46300578b9b48?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([PhxNirvana](https://github.com/phxnirvana) 翻译)
+* [移动端设计最佳实践](http://gold.xitu.io/entry/583bd69bac502e006ea8caaa?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Gocy](https://github.com/Gocy015) 翻译)
+* [为用户体验设计绘制草图，你所需要知道的一切](http://gold.xitu.io/entry/580cd2c5a22b9d006382cba8?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([funtrip](https://github.com/funtrip) 翻译)
 * [奋起的 IBM 凭什么成为世界上最大最精致的设计公司？](http://gold.xitu.io/entry/57e8c99b8ac247005bd929a6?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jiaowoyongqi](https://github.com/jiaowoyongqi) 翻译)
 * [顾虑越少，设计越好](http://gold.xitu.io/entry/57df4d04a0bb9f0058a4429d?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Siegen](https://github.com/siegeout) 翻译)
 * [好的设计准则是如何塑造更强大的产品形态的](http://gold.xitu.io/entry/57db572ed203090069d2e201?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([rottenpen](https://github.com/rottenpen) 翻译)

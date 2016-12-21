@@ -4,6 +4,7 @@
 * 译者：[DeadLion](https://github.com/DeadLion)
 * 校对者：[mypchas6fans](https://github.com/mypchas6fans), [Kulbear](https://github.com/Kulbear)
 
+# 如何用 React 完成图片上传功能？
 
 _下面这篇特邀文章是由 [Damon Bauer](http://damonbauer.me/) 完成的，主题是关于一个 web 开发人员非常常见的工作：为用户提供图片上传功能。我想说这并不容易，但是有了一些功能强大的工具来帮忙做一些比较“重”的工作，这个任务会觉得比以前轻松许多。Damon 甚至全程在浏览器中完成了[这项任务](https://github.com/damonbauer/react-cloudinary)!_
 

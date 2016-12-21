@@ -4,6 +4,7 @@
 * 译者：[Siegen](https://github.com/siegeout)
 * 校对者：[Gran](https://github.com/Graning) ，[cbangchen](https://github.com/cbangchen)
 
+# 一些 NSFetchedResultsController 使用报错解决方案
 
 ### NSFetchedResultsController 困境
 

@@ -4,6 +4,8 @@
 * 译者：[jiaowoyongqi](https://github.com/jiaowoyongqi)
 * 校对者：[zhouzihanntu](https://github.com/zhouzihanntu), [ddiiiik](https://github.com/ddiiiik)
 
+# 奋起的 IBM 凭什么成为世界上最大最精致的设计公司？
+
 _在这本书 [完美的公司](http://qz.com/se/perfect-company/) 中我们研究了世界上各个小而美的公司，发现没有任何一个公司可以称之为完美，但是如果把他们整合在一起那么就会出现符合理想型公司的特点。_
 
 ## 最终理想

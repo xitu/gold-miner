@@ -5,9 +5,7 @@
 * 校对者: [Yves-X](https://github.com/Yves-X)、[boycechang](https://github.com/boycechang)、[achilleo](https://github.com/achilleo)
 * 状态 :  翻译已完成
 
-通过设计让学习变轻松
-
-——Google的Primer团队是如何做用户体验设计的
+# 通过设计让学习变轻松 - Google 的 Primer 团队是如何做用户体验设计的
 
 学习一向是个苦差事，如何在设计上下功夫，让学习变得愉快呢？
 
