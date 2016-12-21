@@ -5,6 +5,8 @@
 * 校对者 :[Glow Chiang](https://github.com/Glowin), [Void Main](https://github.com/void-main)
 * 状态 : 完成
 
+# 每个 Android 开发者都应该读的 Android Studio Tips
+
 欢迎来到Phillipe Breault发布的Android Studio技巧wiki页面。
 
 我创建了这个仓库是因为我认为Phillipe Breault发布的每一个Android Studio技巧都应该被记录下来。

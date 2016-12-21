@@ -4,10 +4,7 @@
 * 译者：[rottenpen](https://github.com/rottenpen)
 * 校对者：[mypchas6fans](https://github.com/mypchas6fans) [Graning](https://github.com/Graning)
 
-
-
-
-
+# 好的设计准则是如何塑造更强大的产品形态的
 
 我们设计团队没有任何设计原则，这导致我们很难评判设计。
 

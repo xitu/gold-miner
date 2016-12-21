@@ -1,8 +1,10 @@
-* 原文链接 : [Using concurrency to improve speed and performance in Android](https://medium.com/@ali.muzaffar/using-concurrency-and-speed-and-performance-on-android-d00ab4c5c8e3#.rt9z1k25u)
+> * 原文链接 : [Using concurrency to improve speed and performance in Android](https://medium.com/@ali.muzaffar/using-concurrency-and-speed-and-performance-on-android-d00ab4c5c8e3#.rt9z1k25u)
 * 原文作者 : [Ali Muzaffar](https://medium.com/@ali.muzaffar)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [edvardHua](https://github.com/edvardHua)
 * 校对者: [JOJO](https://github.com/Sausure)、[Jing KE](https://github.com/jingkecn)
+
+# Android 开发中利用异步来优化运行速度和性能
 
 ![](http://ww1.sinaimg.cn/large/9b5c8bd8jw1f1cvbu9fzaj20m80fj48q.jpg)
 

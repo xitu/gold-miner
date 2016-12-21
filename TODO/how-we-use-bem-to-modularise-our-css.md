@@ -4,9 +4,7 @@
 * 译者 : [杨龙龙](https://github.com/yllziv)
 * 校对者: [L9m](https://github.com/L9m), [JasinYip](https://github.com/JasinYip)
 
-
-
-### 使用 BEM 来模块化你的 CSS 代码
+# 使用 BEM 来模块化你的 CSS 代码 
 
 如果你对 BEM 不熟悉，它是通过一种严格方式来将 CSS 类划分成独立构成要素的一种命名方法。它表示为 _Block Element Modifier_，一个常见的 BEM 看起来就像这样：
 

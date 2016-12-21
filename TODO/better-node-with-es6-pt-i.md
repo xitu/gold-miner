@@ -4,6 +4,8 @@
 * 译者 : [huanglizhuo](https://github.com/huanglizhuo) 
 * 校对者: [yllziv](https://github.com/yllziv) , [godofchina](https://github.com/godofchina)
 
+# 使用 ES6 写更好的 JavaScript part I：广受欢迎的新特性
+
 ## 介绍 
 
 在 ES2015 规范敲定并且 Node.js 增添了大量的函数式子集的背景下，我们终于可以拍着胸脯说：未来就在眼前。
