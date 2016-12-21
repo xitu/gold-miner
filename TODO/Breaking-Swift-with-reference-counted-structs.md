@@ -4,7 +4,7 @@
 * 译者 : [Tuccuay](https://github.com/Tuccuay)
 * 校对者 : [Jing KE](https://github.com/jingkecn), [Jack King](https://github.com/Jack-Kingdom)
 
-
+# 打破 Swift 结构体中的循环引用
 
 在 Swift 中，「类」(`class`) 类型会被分配在堆 (heap) 中，并使用引用计数来追踪它的生命周期，并在它被销毁的时候从堆中移除。而「结构体」(`struct`) 则不需要在堆中分配额外的内存空间，也不使用引用计数器机制，同时也就没有了销毁的步骤。
 

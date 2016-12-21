@@ -4,6 +4,8 @@
 * 译者：[circlelove](https://github.com/circlelove)
 * 校对者：[llp0574](https://github.com/llp0574), [zhouzihanntu](https://github.com/zhouzihanntu)
 
+# 使用 Cordova 和 Vue.js 创建移动应用
+
 [获取代码](https://github.com/coligo-io/random-word-generator-cordova-vuejs)
 
 

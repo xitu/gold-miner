@@ -4,6 +4,7 @@
 * 译者 : [Nicolas(Yifei) Li](https://github.com/yifili09) 
 * 校对者: [Liz](https://github.com/lizwangying), [Gran](https://github.com/Graning)
 
+# 深入理解 Swift 中闭包的捕捉语义（一）
 
 即使是有 `ARC` 的今天，理解内存管理和对象的生命周期仍旧是非常重要的。当使用闭包的时候是一个特例，它在 `Swift` 中出现的场景越来越多，比起 `Objective` 的代码块的捕获规则有很多不同的捕获语法。让我们看看它们是如果工作的吧。
 

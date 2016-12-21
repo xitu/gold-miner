@@ -4,6 +4,8 @@
 * 译者：[shliujing](https://github.com/shliujing)
 * 校对者：[Danny1451](https://github.com/Danny1451), [Tina92](https://github.com/Tina92)
 
+# 迁移到 Swift 3，这些陷阱在等你
+
 [](http://codelle.com/blog/2016/9/swift-3-migration-pitfalls/)
 
 万岁！Swift 3 发布了，让我们一起来移植项目吧！在这篇文章中，我会你分享我的项目迁移到 Swift 3的经历，那是一个 2 万行的 Swift 项目。如果你对此感到好奇，这个项目其实是我实现的 Cassowary 线性约束求解算法，该算法最著名之处在于其通常被用于页面的自动布局。但我将它用在了一些完全不同的事情上，我将会在以后的文章中说明。

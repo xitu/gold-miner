@@ -5,6 +5,8 @@
 * 译者:  [llp0574](https://github.com/llp0574)
 * 校对者: [yifili09](https://github.com/yifili09),[Graning](https://github.com/Graning)
 
+# iOS 开发，该如何解决弹窗的设计问题？
+
 iOS 开发，该如何解决弹窗的设计问题？
 
 iOS 9 的页面用了一种我们不能复现的方式去展示一个活动视图控制器，并且当从内部表单和弹窗呈现操作列表和活动视图控制器时 UIKit 的行为一开始看起来不那么连贯。我们提交了两份 Radars 给苹果：[rdar://27448912 Can’t show activity view controller filling a form sheet](http://openradar.appspot.com/27448912) 和 [rdar://27448488 Reading an alert controller’s popoverPresentationController property changes behavior](http://openradar.appspot.com/27448488)。
