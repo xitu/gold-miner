@@ -1,11 +1,10 @@
 * 原文地址：[Intuitive Design vs. Shareable Design](https://news.greylock.com/intuitive-design-vs-shareable-design-88ff6bb184bb#.pvcpqeddr)
 * 原文作者：[Josh Elman ]( https://news.greylock.com/@joshelman)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：特伦[https://www.behance.net/Funtrip]
+* 译者：[特伦][https://www.behance.net/Funtrip]
 * 校对者：
 
-# **直观设计 VS. 共享式设计* 
-
+# **直观设计 VS. 共享式设计**
 Snapchat 的界面阻挡了许多人。这并不是针对于年长的人们，但许多超过一定年龄的人们往往很难弄清楚如何在 Snapchat 上进行最基本的操作，比如说找到它的换脸功能。我无法告诉你有多少人曾向我抱怨 Snapchat。「噢，我想不明白，」他们很苦恼，「为什么它那么复杂？」
 
 我在这里就是想要告诉你，Snapchat 里那些隐晦的设计不是一个 bug，而是一个特点。就像 Tinder，它的设计非常吸引用户并鼓励他们与其他用户分享使用的经验。实际上，这是一个能[让 Snapchat 如此成功](http://www.wsj.com/articles/snap-begins-the-ipo-process-1479244471)的关键点。
