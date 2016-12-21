@@ -1,3 +1,9 @@
+> * 原文地址：[How To Build A SpriteKit Game In Swift 3 (Part 3)](https://www.smashingmagazine.com/2016/12/how-to-build-a-spritekit-game-in-swift-3-part-3/)
+* 原文作者：[Marc Vandehey](https://twitter.com/marcvandehey)
+* 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+* 译者：[]()
+* 校对者：[]()
+
 # [How To Build A SpriteKit Game In Swift 3 (Part 3)](https://www.smashingmagazine.com/2016/12/how-to-build-a-spritekit-game-in-swift-3-part-3/)
 
 Have you ever wondered what it takes to create a [SpriteKit](https://developer.apple.com/spritekit/) game? Do buttons seem like a bigger task than they should be? Ever wonder how to persist settings in a game? Game-making has never been easier on iOS since the introduction of SpriteKit. In part three of this three-part series, we will finish up our RainCat game and complete our introduction to SpriteKit.
