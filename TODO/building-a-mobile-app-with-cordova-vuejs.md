@@ -1,81 +1,87 @@
-> * 原文地址：[Building a Mobile App with Cordova and Vue.js](https://coligo.io/building-a-mobile-app-with-cordova-vuejs/)
+> * 原文地址：[使用 Cordova 和 Vue.js 创建移动应用](https://coligo.io/building-a-mobile-app-with-cordova-vuejs/)
 * 原文作者：[Michael Viveros](https://coligo.io/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
-* 校对者：
+* 译者：[circlelove](https://github.com/circlelove)
+* 校对者：[llp0574](https://github.com/llp0574), [zhouzihanntu](https://github.com/zhouzihanntu)
+
+# 使用 Cordova 和 Vue.js 创建移动应用
+
+[获取代码](https://github.com/coligo-io/random-word-generator-cordova-vuejs)
 
 
+[Cordova](https://cordova.apache.org/) 是一个你可以使用HTML, JavaScript 和 CSS 等 web 技术开发移动应用的框架。它支持使用一套基本代码面向多平台，如 Android 和 iOS 。尽管你在开发中仍然需要用到该平台特定的技术，例如 Android SDK 或 Xcode ，你也无需再编写任何 Android 或 iOS 代码就能完成应用开发。
 
-[Cordova](https://cordova.apache.org/) is a framework that lets you create mobile apps using web technologies like HTML, Javascript and CSS. This allows you to target multiple platforms like Android and iOS using one code base. Although you still need platform-specific technologies like the Android SDK and XCode to build an app, you can create apps without having to write any Android or iOS code.
+既然你能够掌握 HTML 和 JavaScript 代码的编写，使用[Vue.js](https://vuejs.org/) 这样配有 Cordova 的  JavaScript 库就是小菜一碟了。
 
-Since you can write code in HTML and Javascript, it's very easy to use front-end Javascript libraries like [Vue.js](https://vuejs.org/) with Cordova.
+这个教程将为您展示如何使用 Cordova 和 Vue.js 开发一个简单的生成随机单词的移动应用。
 
-This tutorial will show you how to create a simple mobile app which generates random words by using Cordova and Vue.js.
 
-# Pre-requisites
+# 准备工作
 
-*   Download [Node.js](https://nodejs.org/en/)
-*   Install Cordova: `npm install -g cordova`
-*   [Vue.js Basics](https://coligo.io/vuejs-the-basics/)
+* 下载 [Node.js](https://nodejs.org/en/)
+* 安装 Cordova: `npm install -g cordova`
+* [Vue.js 基础](https://coligo.io/vuejs-the-basics/)
 
-# Setting Up a Cordova Project
+# 配置一个 Cordova 工程
 
-Create a Cordova project called RandomWord:
+创建一个名为 RandomWord 的工程：
 
     cordova create RandomWord
     cd RandomWord
 
-This will create the directory structure of a Cordova project:
+将会创建一个 Cordova 工程的目录结构：
 
 ![Cordova Vue.js Directory Structure](https://coligo.io/building-a-mobile-app-with-cordova-vuejs/directory-structure.png)
 
-*   **config.xml** - contains info about the app, plugins it uses and platforms it targets
-*   **platforms** - contains the Cordova libraries for the targeted platforms like Android and iOS that the app will run on
-*   **plugins** - contains the Cordova libraries for plugins used by the app which allow the app to access things related to the device like Camera and Battery Status
-*   **www** - contains source code for the app like HTML, Javascript and CSS files
-*   **hooks** - contains scripts used to customize the build system for the app
 
-Add the Android platform:
+*   **config.xml** -包含应用相关信息，使用到的插件以及面向的平台
+*   **platforms** -  包含应用运行平台如 Android 和 iOS 上对应的 Cordova 库
+*   **plugins** - 包含应用所需插件的 Cordova 库，使得应用能够访问例如照相机和电池状态相关的事项。
+*   **www** -  包含应用源代码，例如 HTML, JavaScript 和 CSS 文件
+*   **hooks** - 包含为个性化应用编译系统所需的脚本
+
+添加安卓平台：
 
     cordova platform add android --save
 
-This will add the Android platform library to the platforms directory (platforms/android).
+这样就可以将安卓平台库添加到平台目录(platforms/android)当中。
 
-It will also add the whitelist plugin which is used to specify which URLs the app can link to or open in the browser. The random word generator app will not need this functionality but you can read more about the whitelist plugin [here](https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-whitelist/).
+它也可以添加白名单插件用于限制应用访问或在浏览器当中打开指定 URL 地址。随机单词生成器应用无需这种功能，但是你可以了解关于白名单的更多事项。[这里](https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-whitelist/)。
 
-The `--save` flag adds the platform engine to config.xml which is used by the [cordova prepare](https://cordova.apache.org/docs/en/latest/reference/cordova-cli/#cordova-prepare-command) command when initializing a Cordova project from a **config.xml** file.
+`--save` flag 将平台引擎添加到 config.xml ，是[cordova prepare](https://cordova.apache.org/docs/en/latest/reference/cordova-cli/#cordova-prepare-command) 从一个 **config.xml** 文件初始化 Cordova 工程需要的命令。
 
+
+  
     ...
         <engine name="android" spec="~5.2.1" />
     </widget>
-        
 
-Check if you have the requirements for building/running Android apps through Cordova:
+检查你是否具备使用 Cordova 开发/运行 Android 应用的条件：
 
     cordova requirements
 
-If missing requirements, see the [Cordova Docs for Android](https://cordova.apache.org/docs/en/latest/guide/platforms/android/) and the Help section at the bottom of the tutorial. This is definitely the hardest part of the tutorial. Just be patient and refer to the links mentioned. Once you get all the requirements working, the rest of the tutorial is a breeze.
+如果有条件缺失，查看[ Android 版 Cordova 文档](https://cordova.apache.org/docs/en/latest/guide/platforms/android/) 以及以及以及教程底部的 Help。这的确是教程当中最难的部分。耐心一点，参考链接提到的部分。一旦所有需求都满足了，教程剩下的部分就是小意思了。
 
-Build the app for Android:
+创建一个 Android 应用：
 
     cordova build android
 
-Plug-in your phone to your computer and run the app for Android:
+将手机连接在电脑上，运行该 Android 程序：
 
     cordova run android
 
-If there is no Android phone connected to the computer, Cordova will run the app on an emulator.
+如果没有 Android 手机可以连接到电脑，Cordova 将在仿真器上运行应用。
 
-The sample app is very simple and all it does is change the background colour of a label.
+示例应用相当简单，它所做的只是更改标签的背景色
 
 ![Cordova Sample Screen](https://coligo.io/building-a-mobile-app-with-cordova-vuejs/cordova-sample-app.png)
 
-To use iOS instead of Android, do the same steps as above but replace `android` with `ios`. If missing requirements, see [Cordova Docs for iOS](https://cordova.apache.org/docs/en/latest/guide/platforms/ios/) and the Help section at the bottom of the tutorial. If running Cordova on a Windows computer, you can NOT build/run the app on iOS since the iOS Cordova platform needs Apple OS X.
+要用 iOS 替代 Android ，按上述步骤进行操作，只需把 `android` 换成 `ios` 。如果不满足条件，查看[iOS 版 Cordova 文档](https://cordova.apache.org/docs/en/latest/guide/platforms/ios/)  以及教程底部的 Help 。如果在 Windows 系统的电脑上运行 Cordova ，你*无法*创建/运行 iOS 应用，因为 iOS Cordova 需要苹果系统。
 
-Alternatively, you can use your browser instead of a mobile device by using the `browser` platform. Do the same steps as above but replace `android` with `browser`.
 
-Modify the app info in **config.xml** to be about our random word generator:
+或者，你可以使用你的浏览器替代手机设备，只需使用 `browser` 平台。同样按上述步骤，只需把 `android` 换成 `browser`。
 
+在 **config.xml** 文件中更改有关随机单词生成器应用的信息：
     
     
         <?xml version='1.0' encoding='utf-8'?>
@@ -89,9 +95,9 @@ Modify the app info in **config.xml** to be about our random word generator:
             </author>
             ...
 
-# Adding Vue.js
+# 添加 Vue.js
 
-Like in any HTML file, add the Vue.js CDN to the bottom of **www/index.html**:
+与所有的 HTML 文件一样，添加 Vue.js CDN 到 **www/index.html** 底部：
 
     ...
             <script type="text/javascript" src="cordova.js"></script>
@@ -99,29 +105,29 @@ Like in any HTML file, add the Vue.js CDN to the bottom of **www/index.html**:
             <script type="text/javascript" src="js/index.js"></script>
         </body>
     </html>
-            
 
-To allow the app to access the Vue.js library, we also need to add the following to the end of the Content Security Policy (CSP) `meta` tag in www/index.html:
+
+
+为了使应用可以访问 Vue.js 库，我们还需要在 www/index.html 文件中把下面代码添加到内容安全协议（CSP） meta 标签的最后：
 
     ; script-src 'self' http://cdn.jsdelivr.net/vue/1.0.16/vue.js 'unsafe-eval'
 
-The Content Security Policy of a webpage allows you to create a whitelist of sources of trusted content and instructs the browser to only execute or render resources from those sources. This is different from the whitelist plugin mentioned above since the whitelist plugin is used mainly to define which links the app is allowed to open whereas the CSP is used to define which scripts the app can execute and which urls the app can make http requests to.
+内容安全协议的网页允许你创建来自可信来源的白名单，并引导浏览器只执行那些可信来源的操作或资源渲染。这和上面提到的白名单插件不同，因为白名单插件主要用于定义应用允许访问什么链接，而 CSP 拥有定义应用可以执行何种脚本以及应用向哪个 url 提出 http 请求。
 
-The `script-src` part of the CSP `meta` tag defines which scripts can be executed by the app.
+CSP `meta` 标签的 `script-src` 部分定义了应用可以执行的脚本。
 
-*   ’self’ - allows scripts from the same origin like www/js/index.js
-*   [http://cdn.jsdelivr.net/vue/1.0.16/vue.js](http://cdn.jsdelivr.net/vue/1.0.16/vue.js) - allows the Vue.js library
-*   ’unsafe-eval’ - allows unsafe dynamic code evaluation since parts of the Vue.js library code use strings to generate functions
+*   ’self’ - 允许统一来源的脚本，例如 www/js/index.js
+*   [http://cdn.jsdelivr.net/vue/1.0.16/vue.js](http://cdn.jsdelivr.net/vue/1.0.16/vue.js) - 允许 Vue.js 库
+*   ’unsafe-eval’ - 允许不安全的动态代码评估，因为 Vue.js 中有部分代码使用了字符串生成函数
 
-The CSP meta tag should look like this:
-
+CSP meta 标签看起来应该像这样 
+    
     <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; script-src 'self' http://cdn.jsdelivr.net/vue/1.0.16/vue.js 'unsafe-eval'">
 
 
-For more info about CSP, see [html5rocks](http://www.html5rocks.com/en/tutorials/security/content-security-policy/) and the [Cordova Docs](https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy).
+获得有关 CSP 的更多内容, 查看 [html5rocks](http://www.html5rocks.com/en/tutorials/security/content-security-policy/) 和 [Cordova 文档](https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy).
 
-After replacing the code in the `body` of **www/index.html** with some Vue.js code to show a random word and removing some comments, **wwww/index.html** will look like:
-                
+使用 Vue.js 替换 **www/index.html** 中 `body` 部分代码显示随机单词并移除一些注释后，**wwww/index.html** 就会像这样
             
 ```           
 <!DOCTYPE html>
@@ -145,14 +151,16 @@ After replacing the code in the `body` of **www/index.html** with some Vue.js co
         <script type="text/javascript" src="js/index.js"></script>
     </body>
 </html>
-```            
-    
+```              
+            
+现在我们将添加一些 JavaScript 来生成随机单词进行展示。
 
-Now we will add some Javascript to generate the random word that gets shown.
+当应用接收到 `deviceready` 事件时，**www/js/index.js** 即可生成改变标签背景色的代码。接收我们简单的随机单词生成器的 `deviceready` 事件后，我们无需做其他多余的事情，不过最好知道你可以用 `bindEvents` 方法在应用运行周期的不同阶段做不同的事情。查看  [Cordova Events](https://cordova.apache.org/docs/en/latest/cordova/events/events.html) 获得更多信息。
 
-**www/js/index.js** currently has some code to change the background colour of a label when the app receives the `deviceready` event. We won't need to do anything extra when the app receives the `deviceready` event for our simple random word generator but it's good to know that you can use the `bindEvents` method to do different things at different stages of the app's lifecycle. See [Cordova Events](https://cordova.apache.org/docs/en/latest/cordova/events/events.html) for more info.
 
-We will add a new method in **www/js/index.js** called `setupVue` which will create a new Vue instance and mount it to the random word `div`. The new Vue instance will have a `getRandomWord` method that will pick a random word from a list of words when the Get Random Word button is clicked. We also need to call `setupVue` from the `initialize` method.
+
+
+我们将在 **www/js/index.js** 添加一个名叫 `setupVue` 方法，它可以创建一个新的 Vue 实例，并装载到随机单词 `div` 。新的 Vue 实例会使用 `getRandomWord` 方法，单击 Get Random Word  按键即可从列表中随机提取单词。我么也需要从 `initialize` 方法中调用 `setupVue`。
 
     var app = {
         initialize: function() {
@@ -185,7 +193,8 @@ We will add a new method in **www/js/index.js** called `setupVue` which will cre
 
     app.initialize();
 
-After removing the old code that changed the background colour of a label in `receivedEvent` and removing some comments, **www/js/index.js** will now look like:
+
+移除掉 `receivedEvent` 里改变标签背景色的代码和一些注释之后， **www/js/index.js** 看上去是这样的： 
 
     var app = {
         initialize: function() {
@@ -226,28 +235,31 @@ After removing the old code that changed the background colour of a label in `re
 
     app.initialize();
 
-Build it, plug-in your phone and run it:
+创建，连接手机然后运行：
 
     cordova build android
     cordova run android
 
-The app should look like this:
+该应用看上去应该像下面这样：
 
 ![Random Word App Cordova Vue.js](https://coligo.io/building-a-mobile-app-with-cordova-vuejs/random-word-cordova-vuejs.png)
 
-# Making HTTP Requests with vue-resource
 
-Instead of picking a random word from a hard-coded list of words, the app can do a GET request to an API that generates random words like the [Wordnik Random Word API](http://developer.wordnik.com/docs.html#!/words/getRandomWord_get_4)
+#  vue-resource 发起 HTTP 请求
 
-To allow the app to make an http request to the random word API, add the following to the end of the CSP meta tag:
+该应用没有从硬编码的单词列表中提取随机单词，而是从可以生成随机单词的 API 中发起请求的，例如 [Wordnik Random Word API](http://developer.wordnik.com/docs.html#!/words/getRandomWord_get_4) 。
+
+为了能够向随机单词 API 发起请求， 需要在 CSP 元标签最后添加下面代码。
 
     ; connect-src http://api.wordnik.com:80/v4/words.json/randomWord
 
 The `connect-src` part of the CSP meta tag defines which origins the app can make http requests to.
+CSP 元标签的 `connect-src` 部分定义了应用发起 HTTP 请求的来源。
 
-The app will use the [vue-resource library](https://github.com/vuejs/vue-resource) to make an HTTP request so we have to add vue-resource to the `script-src` part of the CSP meta tag and add the vue-resource CDN.
+该应用可以使用[vue-resource library](https://github.com/vuejs/vue-resource)  发起 HTTP 请求，那样我们就可以添加 vue 源到 CSP 元标签 `script-src` 部分以及添加 vue 源 CDN 。
 
-**index.html** will look like:
+**index.html** 将变成:
+
 
 ```
 <!DOCTYPE html>
@@ -259,12 +271,11 @@ The app will use the [vue-resource library](https://github.com/vuejs/vue-resourc
         <script type="text/javascript" src="js/index.js"></script>
     </body>
 </html>
-```    
-    
+```     
 
-To make the HTTP request to the random word API, we can use the [http service](https://github.com/vuejs/vue-resource/blob/master/docs/http.md) of the vue-resource library in the `getRandomWord` method of the Vue instance in **www/js/index.js**:
+为了向随机单词 API 发起 http 请求，我们可使用 vue-resource 当中的 [http service](https://github.com/vuejs/vue-resource/blob/master/docs/http.md) ，这是来自 **www/js/index.js** 里 Vue 实例中的 `getRandomWord` 方法。
 
-    ...
+    ... 
         setupVue: function() {
             var vm = new Vue({
                 el: "#vue-instance",
@@ -289,25 +300,25 @@ To make the HTTP request to the random word API, we can use the [http service](h
 
     app.initialize();
 
-Build it, plug-in your phone and run it:
+创建，连接手机并运行：
 
     cordova build android
     cordova run android
 
-The app should look the same as before but now it will get the random words from the random word API.
+应用和之前看起来一样，但是现在它可以从 API 当中获取随机单词了。
 
-# Using Vue Components
+# 使用 Vue 组件
 
-[Vueify](https://github.com/vuejs/vueify) is a library for Vue.js that lets you break down the UI into individual components with their own HTML, JavaScript and CSS. This will make your app more modular and it allows you to define components in a hierarchical manner.
+[Vueify](https://github.com/vuejs/vueify)  是一个 Vue.js 库，他可以帮你将 UI 变成独立的带有各自 HTML, JavaScript 和 CSS 的组件。这令你的应用更加的模块化，也方便你使用层级方式定义组件。
 
-Using Vue components will add an additional step to your build system to bundle all the components together. Cordova makes this really easy by using [hooks](https://cordova.apache.org/docs/en/latest/guide/appdev/hooks/) which let you specify additional scripts to be run at different parts of your build system.
-
-This is what your directory will look like after adding the Vue Component:
+使用 Vue 组件需要在你的编译系统中添加额外的步骤以合并所有组件。Cordova 通过 [hooks](https://cordova.apache.org/docs/en/latest/guide/appdev/hooks/) 来指定额外的脚本在编译系统的各个部分运行，从而让该过程变得相当简单
+这就是添加 Vue 组件之后目录的样子：
 
 ![Cordova Vue.js Directory Structure](https://coligo.io/building-a-mobile-app-with-cordova-vuejs/directory-structure-2.png)
 
-Create a component with all the code for the random word generator called **www/js/random-word.vue**:
 
+创建一个带有随机单词生成器所有代码的组件，命名为 **www/js/random-word.vue** ：
+    
 ```
 <template>
   <div class="app">      
@@ -341,9 +352,11 @@ export default {
 ```
     
 
-The HTML from **www/index.html** goes in the `template` tag and the Javascript from **www/js/index.js** goes in the `script` tag of **random-word.vue**.
 
-Create a new Vue instance that contains the random word component in a new file called **www/js/main.js**:
+
+**www/index.html**的 HTML 放入 `template` 标签，而 JavaScript 放入 **random-word.vue**的 `script` 标签
+
+创建一个新的包含随机单词组件的 Vue 实例文件，命名 **www/js/main.js**：
 
     var Vue = require('vue');
     var VueResource = require('vue-resource');
@@ -358,11 +371,12 @@ Create a new Vue instance that contains the random word component in a new file 
       }
     });
 
-To bundle our component, we will use [browserify](http://browserify.org/) and vueify to create a file called bundle.js. Make a new directory called scripts and a new file in it called **vueify-build.js** which will contain the code for bundling the random word component.
+为了合并组件，我们需要使用 [browserify](http://browserify.org/) 和 vueify 来创建一个 名为 bundle.js 的文件。创建一个新的名为 scripts 的目录，新建 **vueify-build.js** 文件，其中包含了需要合并的随机单词组件的代码。
 
-In the past, a script like vueify-build.js would have gone in the hooks directory that gets created from `cordova create` but using the hooks directory has been [deprecated](https://cordova.apache.org/docs/en/latest/guide/appdev/hooks/index.html#via-hooks-directory-deprecated). So you can delete the hooks directory and use the scripts directory instead.
+以前的版本，vueify-build.js 这样的脚本是放在 hooks 目录里的，而 hooks 目录则从 cordova create 这个命令中创建，但是后来这种方式被[废弃了](https://cordova.apache.org/docs/en/latest/guide/appdev/hooks/index.html#via-hooks-directory-deprecated)。所以你可以删除了 hooks 目录并用 scipts 目录代替。
 
-**scripts/vueify-build.js** will look like:
+
+**scripts/vueify-build.js** 就会像这样:
 
     var fs = require('fs');
     var browserify = require('browserify');
@@ -373,7 +387,7 @@ In the past, a script like vueify-build.js would have gone in the hooks director
       .bundle()
       .pipe(fs.createWriteStream('www/js/bundle.js'))
 
-Before, we were using CDNs in **www/index.html** to reference the Vue.js libraries but now **www/js/main.js** is using javascript to do that. So we have to add a **package.json** file to define all the dependencies for the Vue.js libraries:
+从前，我们在 **www/index.html** 使用 CDN 来引用 Vue.js 库，但是现在 **www/js/main.js** 用的是 JavaScript 来做。所以我们需要添加一个 **package.json** 文件为 Vue.js 库来定义所有需要的依赖。
 
     {
       "name": "random-word",
@@ -395,23 +409,24 @@ Before, we were using CDNs in **www/index.html** to reference the Vue.js librari
       "license": "Apache version 2.0"
     }
 
-All the babel modules, browserify and vue-hot-reload-api are used by vueify, see [vueify Docs](https://github.com/vuejs/vueify#usage).
+所有的 label 相关模块，以及 browserify 和 vue-hot-reload-api 由 vueify 使用，参考 [vueify 文档](https://github.com/vuejs/vueify#usage)。
 
-Get all the node modules for the dependencies defined in **package.json**:
+获取定义在 **package.json** 里的所有 node 模块依赖：
 
     npm install
 
-Add a hook to the bottom of **config.xml** to tell Cordova to bundle the random word component before building the rest of the app:
+开发应用其他部分之前，在 **config.xml** 底部添加一个 hook 来告知 Cordova 绑定随机单词组件：
 
 
     ...
         <hook type="before_compile" src="scripts/vueify-build.js" />
     </widget>
-        
+    ```
+调用 scripts/vueify-build.js 将产生合并的组件并放入 www/js/bundle.js 中。
+  
 
-Recall that scripts/vueify-build.js will generate the bundled component and put it into www/js/bundle.js
+通过向 `random-word` 和 `script` 标签添加指向合并组件的方式向 **www/index.html** 主体添加随机单词组件。
 
-Add the random word component to the body of **www/index.html** by adding a `random-word` tag and a `script` tag pointing to the bundled component.
 
 ```
 ...
@@ -427,11 +442,11 @@ Add the random word component to the body of **www/index.html** by adding a `ran
     </body>
 </html>
 ```
-    
 
-Note that the link tag in **www/index.html** defines the CSS for the app and the `div` in **www/js/random-word.vue** uses the "app" class defined in the CSS.
 
-Since our random word component has all the code for generating the random word, we can remove the `setupVue` method from **www/js/index.js** which will now look like:
+注意到 **www/index.html** 中链接标签定义了应用的 CSS 和 **www/js/random-word.vue** 中的 `div` 。在 CSS 中使用了 "app" 类定义。
+
+由于随机单词组件包含生成随机单词的所有代码，我们可以从 **www/js/index.js** 中删除 `setupVue` 方法，就会像这样：
 
     var app = {
         initialize: function() {
@@ -450,60 +465,66 @@ Since our random word component has all the code for generating the random word,
 
     app.initialize();
 
-Build it, plug-in your phone and run it:
+创建，连接手机并运行：
 
     cordova build android
     cordova run android
 
-The app should look and function the same as before but now it is using a Vue component.
+应用外观和功能和先前一样，但是我们现在有使用 Vue 组件。
 
-# Summary
+# 总结
 
-All Done.
+全部完成了。
 
-Cordova makes developing mobile apps with web technologies super simple. Connecting Cordova and Vue.js is also very easy and lets you take advantage of all the cool things about Vue.js (2-way data binding, components, ...) in mobile apps. Now you can make an app in HTML, JavaScript and CSS that targets multiple platforms with 1 code base.
+Cordova 令使用 web 技术开发移动应用变得超简单。 连接 Cordova 和 Vue.js 也很容易，而且让你充分利用手机应用上 Vue.js 相关的很酷的东西（2套数据绑定，组件……）现在你可以以一套代码使用 HTML, JavaScript 和 CSS 面向多个平台进行开发了。
 
-This tutorial went over:
+本教程涵盖：
 
-*   Creating a Cordova project
-*   Connecting Cordova and Vue.js
-*   Making HTTP Requests in a Cordova app by updating it's Content Security Policy
-*   Using Vue Components in a Cordova app by adding Hooks
+*   开发一个 Cordova 工程
+*   链接 Cordova 和 Vue.js
+*   Cordova app 通过更新内容安全策略来发出 HTTP 申请  
+*   添加 Hooks 在 Cordova 应用中使用 Vue 组件
 
-# Help
+
+# 帮助
 
 ### Android
 
-After installing the Android SDK, you can run the following to open the Android SDK Manager:
+安装好 Android SDK 之后，你可以运行下面的命来来打开 Android SDK 管理器。
 
     /Users/your_username/Library/Android/sdk/tools/android sdk
 
-I installed the following packages:
+我安装了下面这些包：
 
-**Tools**
+**工具**
 
-*   Android SDK Tools
-*   Android SDK Platform-tools
-*   Android SDK Build-tools
+*   Android SDK 工具
+*   Android SDK 平台工具
+*   Android SDK 开发工具
 
 **Android 6.0 (API 23)**
 
-*   SDK Platform
-*   Intel x86 Atom_64 System Image
 
-**Extras**
+*   SDK 平台
+*   Intel x86 Atom_64 系统映象
 
-*   Intel x86 Emulator Accelerator (HAXM Installer)
+**额外**
+
+*   Intel x86 仿真器加速设备 (HAXM Installer)
 
 ### iOS
 
-I got an error when trying to install ios-deploy through npm while running OS X El Capitan 10.11, resolved it by running:
+通过 npm 安装 iOS 依赖的时候我犯了个错误，运行了 OS X El Capitan 10.11，可以运行下面代码来解决：
 
     sudo npm install -g ios-deploy –unsafe-perm=true
 
-See [StackOverflow](http://stackoverflow.com/questions/34195673/ios-deploy-fail-to-install-on-mac-os-x-el-capitan-10-11)
+见 [StackOverflow](http://stackoverflow.com/questions/34195673/ios-deploy-fail-to-install-on-mac-os-x-el-capitan-10-11)
 
-# About the Author
 
-My name is Michael Viveros and I am in my 5th year of studying Software Engineering. I am a passionate programmer, incredibly inconsistent golfer and sarcastically subtle joker. I am developing a golf stat-tracking website and mobile app using Cordova and Vue.js. You can read more @ [michaelviveros.com](http://www.michaelviveros.com/).
+# 关于作者
+
+
+我的名字叫 Michael Viveros 。今年是我学习软件工程的第五年。我是个充满热情的程序员，难得一见的没准的高尔夫球手和会挖苦人的机智的说笑话的家伙。我正在开发一个高尔夫球跟踪网站，还有个用到 Cordova 和 Vue.js 的移动应用。  你可以在下面的网站看到更多 [michaelviveros.com](http://www.michaelviveros.com/) 。
+
+
 

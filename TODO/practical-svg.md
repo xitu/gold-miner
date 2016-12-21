@@ -4,6 +4,8 @@
 * 译者： [MAYDAY1993](https://github.com/MAYDAY1993)
 * 校对者： [zhouzihanntu](https://github.com/zhouzihanntu)   [hpoenixf](https://github.com/hpoenixf)
 
+# 嘿，Logo，你应该是这个尺寸的！
+
 可能你想控制任何你放在网上的图片的尺寸，_嗨！就是你！ Logo !你应该是这个大小：_
 
 ```

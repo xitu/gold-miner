@@ -4,8 +4,9 @@
 * 译者：[Siegen](https://github.com/siegeout)
 * 校对者：[jiaowoyongqi](https://github.com/jiaowoyongqi),[Newton](https://github.com/Newt0n)                                           
 
-<blockquote>在设计过程中，存在的可能性越多，需要进行的思考就越多。</blockquote>
+# 顾虑越少，设计越好。
 
+<blockquote>在设计过程中，存在的可能性越多，需要进行的思考就越多。</blockquote>
 
 
 美国心理学家 Barry Schwartz 在 [The Paradox Of Choice](https://en.wikipedia.org/wiki/The_Paradox_of_Choice) 这本书中写到，排除一些选择可以大幅度的减少焦虑。

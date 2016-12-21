@@ -4,6 +4,8 @@
 > * 译者 : [Nicolas(Yifei) Li](https://github.com/yifili09) 
 > * 校对者: [rccoder](https://github.com/rccoder), [Gran](https://github.com/Graning)
 
+# iOS 开发中的 Flux 架构模式
+
 在半年前，我开始在 `PlanGrid` iOS 应用程序中采用 `Flux` 架构（开发）。这篇文章将会讨论我们从传统的 `MVC` 转换到 `Flux`的动机，同时分享我们目前积累到的经验。
 
 我尝试通过讨论代码来描述我们大部分的 `Flux` 实现， 它用于我们今天的产品中。 如果你只对综合结果感兴趣， 请跳过这篇文章的中间部分。

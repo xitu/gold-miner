@@ -1,9 +1,10 @@
-> 
-* 原文链接 : [Building a Kotlin project 1/2](http://cirorizzo.net/2016/03/04/building-a-kotlin-project/)
+> * 原文链接 : [Building a Kotlin project 1/2](http://cirorizzo.net/2016/03/04/building-a-kotlin-project/)
 * 原文作者 : [CIRO RIZZO](https://github.com/cirorizzo)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [Jing KE](https://github.com/jingkecn)
 * 校对者: [lizhuo](https://github.com/huanglizhuo)、[JOJO](https://github.com/Sausure)
+
+# 创建一个基于 Kotlin 的 Android 项目（上集）
 
 ###### _第 1 部分_
 

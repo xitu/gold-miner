@@ -4,6 +4,7 @@
 * 译者 : [Jing KE](https://github.com/jingkecn)
 * 校对者: [lizhuo](https://github.com/huanglizhuo), [DianaZhou](https://github.com/DianaZhou)
 
+# 创建一个基于 Kotlin 的 Android 项目（下集）
 
 ###### _第 2 部分_
 

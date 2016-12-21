@@ -1,11 +1,10 @@
-# 在生产环境中使用 NODEJS 一年记
-
 >* 原文链接 : [AFTER A YEAR OF USING NODEJS IN PRODUCTION](http://geekforbrains.com/post/after-a-year-of-nodejs-in-production)
 * 原文作者 : [GEEK FOR BRAINS](http://geekforbrains.com/)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [cdpath](https://github.com/cdpath)
 * 校对者: [godofchina](https://github.com/godofchina) , [Zhangjd](https://github.com/Zhangjd)
 
+# 在生产环境中使用 NODEJS 一年记
 
 本文是[「我为什么弃 Python 从 Node.js」](http://geekforbrains.com/post/why-im-switching-from-python-to-node-js)一文的续集。一年多前，我因为对 Python 的挫败，还想解释为什么转而尝试 Node ，故写下那篇文章。
 
