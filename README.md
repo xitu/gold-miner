@@ -82,6 +82,6 @@
 
 * [为何而设计？](https://gold.xitu.io/entry/5857969761ff4b00686ad66b/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([王子建](https://github.com/Romeo0906) 翻译)
 * [如何建立高效推送通知](https://gold.xitu.io/entry/5856427d61ff4b0063badca2?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([PhxNirvana](https://github.com/phxnirvana) 翻译)
-* [[译] 关于程序员被要求做不道德甚至非法的事情的激烈讨论](https://gold.xitu.io/entry/584c122c61ff4b006cc6df53?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([phxnirvana](https://github.com/phxnirvana) 翻译)
-* [[译] 如何设计精准的推送通知？](http://gold.xitu.io/entry/58199acca22b9d0067a34821?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([laobie](https://github.com/laobie) 翻译)
+* [关于程序员被要求做不道德甚至非法的事情的激烈讨论](https://gold.xitu.io/entry/584c122c61ff4b006cc6df53?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([phxnirvana](https://github.com/phxnirvana) 翻译)
+* [如何设计精准的推送通知？](http://gold.xitu.io/entry/58199acca22b9d0067a34821?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([laobie](https://github.com/laobie) 翻译)
 * [所有产品译文>>](https://github.com/xitu/gold-miner/blob/master/product.md)
