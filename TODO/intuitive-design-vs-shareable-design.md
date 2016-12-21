@@ -1,7 +1,7 @@
 * 原文地址：[Intuitive Design vs. Shareable Design](https://news.greylock.com/intuitive-design-vs-shareable-design-88ff6bb184bb#.pvcpqeddr)
 * 原文作者：[Josh Elman ]( https://news.greylock.com/@joshelman)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：[特伦][https://www.behance.net/Funtrip]
+* 译者：[特伦](https://www.behance.net/Funtrip)
 * 校对者：
 
 # **直观设计 VS. 共享式设计**
