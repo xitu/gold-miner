@@ -528,7 +528,7 @@ umbrellaNode.update(deltaTime: dt)
 
 #### 注释
 
-<a title = "note-1" href="#note-1">1. [1 https://developer.apple.com/spritekit/]</a>
+<a title = "#note-1" href="#note-1">1.</a>[1 https://developer.apple.com/spritekit/]
 2. [2 https://www.smashingmagazine.com/wp-content/uploads/2016/10/raincat_header-preview-opt.png](#note-2)
 3. [3 https://itunes.apple.com/us/app/raincat/id1152624676?ls=1&mt=8](#note-3)
 4. [4 https://github.com/thirteen23/RainCat/releases/tag/smashing-magazine-initial-code](#note-4)
