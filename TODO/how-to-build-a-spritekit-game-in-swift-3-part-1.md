@@ -6,7 +6,7 @@
 
 # 如何在 Swift 3 中用 SpriteKit 框架编写游戏 (Part 1)
 
-**你有没有想过要如何开始创作一款基于 SpriteKit 的游戏？开发一款基于真实物理规则的游戏是不是让你望而生畏？随着 [SpriteKit](https://developer.apple.com/spritekit/)<sup>[1](#note-1)</sup> 的出现，在 iOS 上开发游戏已经变得空前的简单了。**
+**你有没有想过要如何开始创作一款基于 SpriteKit 的游戏？开发一款基于真实物理规则的游戏是不是让你望而生畏？随着 [SpriteKit](https://developer.apple.com/spritekit/) <sup>[1](#note1)</sup> 的出现，在 iOS 上开发游戏已经变得空前的简单了。**
 
 本系列将分为三个部分，带你探索 SpriteKit 的基础知识。我们会接触到物理引擎（ SKPhysics ）、碰撞、纹理管理、互动、音效、音乐、按钮以及场景（ `SKScene` ） 。这些看上去艰深晦涩的东西其实非常容易掌握。赶紧跟着我们一起开始编写 RainCat 吧。
 
@@ -528,7 +528,7 @@ umbrellaNode.update(deltaTime: dt)
 
 #### 注释
 
-<a title = "#note-1" href="#note-1">1.</a>[1 https://developer.apple.com/spritekit/]
+<a name="#note1" href="#note1">1.</a>[1 https://developer.apple.com/spritekit/]
 2. [2 https://www.smashingmagazine.com/wp-content/uploads/2016/10/raincat_header-preview-opt.png](#note-2)
 3. [3 https://itunes.apple.com/us/app/raincat/id1152624676?ls=1&mt=8](#note-3)
 4. [4 https://github.com/thirteen23/RainCat/releases/tag/smashing-magazine-initial-code](#note-4)
