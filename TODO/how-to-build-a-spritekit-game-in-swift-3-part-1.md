@@ -6,7 +6,7 @@
 
 # 如何在 Swift 3 中用 SpriteKit 框架编写游戏 (Part 1)
 
-**你有没有想过要如何开始创作一款基于 SpriteKit 的游戏？开发一款基于真实物理规则的游戏是不是让你望而生畏？随着 [SpriteKit](https://developer.apple.com/spritekit/)[1] 的出现，在 iOS 上开发游戏已经变得空前的简单了。**
+**你有没有想过要如何开始创作一款基于 SpriteKit 的游戏？开发一款基于真实物理规则的游戏是不是让你望而生畏？随着 [SpriteKit](https://developer.apple.com/spritekit/)<sup>[1](#note-1)</sup> 的出现，在 iOS 上开发游戏已经变得空前的简单了。**
 
 本系列将分为三个部分，带你探索 SpriteKit 的基础知识。我们会接触到物理引擎（ SKPhysics ）、碰撞、纹理管理、互动、音效、音乐、按钮以及场景（ `SKScene` ） 。这些看上去艰深晦涩的东西其实非常容易掌握。赶紧跟着我们一起开始编写 RainCat 吧。
 
@@ -45,7 +45,7 @@ RainCat，第一课
 
 ### 获取资源文件
 
-在我们写代码之前，要先获取项目中会用到的资源。今天我们会用到雨伞和雨滴。你可以在GitHub 上找到这些 [纹理](https://github.com/thirteen23/RainCat/tree/smashing-day-1/dayOneAssets.zip)[8] 。将它们添加到 Xcode 左部面板的 `Assets.xcassets` 文件夹中。当你点击 `Assets.xcassets` 文件，你会见到一个带有 `AppIcon` 占位符的空白界面。在 Finder 中选中所有（解压的资源文件），并把它们都拖到 `AppIcon` 占位符的下面。如果你正确进行了上述操作，你的 “Assets” 文件看起来应该是这样：
+在我们写代码之前，要先获取项目中会用到的资源。今天我们会用到雨伞和雨滴。你可以在 GitHub 上找到这些 [纹理](https://github.com/thirteen23/RainCat/tree/smashing-day-1/dayOneAssets.zip)[8] 。将它们添加到 Xcode 左部面板的 `Assets.xcassets` 文件夹中。当你点击 `Assets.xcassets` 文件，你会见到一个带有 `AppIcon` 占位符的空白界面。在 Finder 中选中所有（解压的资源文件），并把它们都拖到 `AppIcon` 占位符的下面。如果你正确进行了上述操作，你的 “Assets” 文件看起来应该是这样：
 
 [![程序的资源文件](https://www.smashingmagazine.com/wp-content/uploads/2016/10/App-assets-preview-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2016/10/App-assets-preview-opt.png)[9]
 
@@ -526,11 +526,9 @@ umbrellaNode.update(deltaTime: dt)
 
 感谢你坚持完成了第一课。让我们拭目以待 RainCat 第二课吧！
 
-**(da, yk, al, il)**
-
 #### 注释
 
-1. [1 https://developer.apple.com/spritekit/](#note-1)
+<a title = "note-1" href="#note-1">1. [1 https://developer.apple.com/spritekit/]</a>
 2. [2 https://www.smashingmagazine.com/wp-content/uploads/2016/10/raincat_header-preview-opt.png](#note-2)
 3. [3 https://itunes.apple.com/us/app/raincat/id1152624676?ls=1&mt=8](#note-3)
 4. [4 https://github.com/thirteen23/RainCat/releases/tag/smashing-magazine-initial-code](#note-4)
