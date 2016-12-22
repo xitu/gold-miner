@@ -6,16 +6,15 @@
 
 # 如何在 Swift 3 中用 SpriteKit 框架编写游戏 (Part 1)
 
-**你有没有想过要如何开始创作一款基于 SpriteKit 的游戏？开发一款基于真实物理规则的游戏是不是让你望而生畏？随着 [SpriteKit](https://developer.apple.com/spritekit/) <sup>[1](#note1)</sup> 的出现，在 iOS 上开发游戏已经变得空前的简单了。**
+**你有没有想过要如何开始创作一款基于 SpriteKit 的游戏？开发一款基于真实物理规则的游戏是不是让你望而生畏？随着 [SpriteKit](https://developer.apple.com/spritekit/)<sup>[1](#note-1)</sup> 的出现，在 iOS 上开发游戏已经变得空前的简单了。**
 
 本系列将分为三个部分，带你探索 SpriteKit 的基础知识。我们会接触到物理引擎（ SKPhysics ）、碰撞、纹理管理、互动、音效、音乐、按钮以及场景（ `SKScene` ） 。这些看上去艰深晦涩的东西其实非常容易掌握。赶紧跟着我们一起开始编写 RainCat 吧。
 
-[![Raincat: 第一课](https://www.smashingmagazine.com/wp-content/uploads/2016/10/raincat_header-preview-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2016/10/raincat_header-preview-opt.png)
-[2]
+[![Raincat: 第一课](https://www.smashingmagazine.com/wp-content/uploads/2016/10/raincat_header-preview-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2016/10/raincat_header-preview-opt.png)<sup>[2](#note-2)</sup>
 
 RainCat，第一课
 
-我们将要实现的这个游戏有一个简单的前提：我们想喂饱一只饥肠辘辘的猫，但它现在正孤身地站在雨中。不巧地是，RainCat 并不喜欢下雨天，而它被淋湿之后就会觉得很难过。为了让它能在大吃的时候不被雨水淋到，我们必须要替它撑把伞。想先体验一下我们的目标成果的话，看看 [完整项目](https://itunes.apple.com/us/app/raincat/id1152624676?ls=1&amp;mt=8)[3] 吧。项目中会有一些文章里不会涉及到的进阶内容，但你可以稍后在 GitHub 上面看到这些内容。本系列的目标是让你深刻地理解做一个简单地游戏需要投入些什么。你可以随时与我们联系，并把这些代码作为将来其它项目的参考。我将会持续更新代码库，添加一些有趣的新功能并对一些部分进行重构。
+我们将要实现的这个游戏有一个简单的前提：我们想喂饱一只饥肠辘辘的猫，但它现在正孤身地站在雨中。不巧地是，RainCat 并不喜欢下雨天，而它被淋湿之后就会觉得很难过。为了让它能在大吃的时候不被雨水淋到，我们必须要替它撑把伞。想先体验一下我们的目标成果的话，看看 [完整项目](https://itunes.apple.com/us/app/raincat/id1152624676?ls=1&amp;mt=8)<sup>[3](#note-3)</sup> 吧。项目中会有一些文章里不会涉及到的进阶内容，但你可以稍后在 GitHub 上面看到这些内容。本系列的目标是让你深刻地理解做一个简单地游戏需要投入些什么。你可以随时与我们联系，并把这些代码作为将来其它项目的参考。我将会持续更新代码库，添加一些有趣的新功能并对一些部分进行重构。
 
 在本文中，我们将：
 
@@ -31,7 +30,7 @@ RainCat，第一课
 
 接下来有几件事需要你跟着完成。为了让你轻松起步，我准备好了一个基础工程。这个工程把 Xcode 8 在创建新的 SpriteKit 工程时联带生成的冗余代码都删的一干二净了。
 
-- 从 [这里](https://github.com/thirteen23/RainCat/releases/tag/smashing-magazine-initial-code)[4] 下载 RainCat 游戏工程的基础代码。
+- 从 [这里](https://github.com/thirteen23/RainCat/releases/tag/smashing-magazine-initial-code)<sup>[4](#note-4)</sup> 下载 RainCat 游戏工程的基础代码。
 - 安装 Xcode 8。
 - 找一台测试机器！在本例中，你应该找一台 iPad ，这样可以避免做复杂的屏幕适配。模拟器也是可以的，但是操作上会有延迟，而且比在真实设备上的帧数低不少。
 
@@ -41,13 +40,13 @@ RainCat，第一课
 
 决定利用 Swift 3 来实现这个游戏的原因： iOS 开发者社区非常积极地参与到了 Swift 3 的发布过程中，带来了许多编码风格上的变化和全方位的升级。由于新版本的 iOS 系统在 Apple 用户群体中覆盖速率快、面积广，我们认为，使用最新发布的 Swift 版本来编写这篇教程是最合适的。
 
-在 `GameViewController.swift` 中有一个标准的 [`UIViewController`](https://developer.apple.com/library/content/referencelibrary/GettingStarted/DevelopiOSAppsSwift/Lesson4.html)[5] 子类 ，我们修改了一些初始化 `GameScene.swift` 中的 [`SKScene`](https://developer.apple.com/reference/spritekit/skscene)[6] 的代码。在做这些改动之前，我们会通过一个 SpriteKit 场景编辑器文件（ SpriteKit scene editor (SKS) file ）来读取 `GameScene` 类。在本教程中，我们将直接读取这个场景，而不是使用更复杂的 SKS 文件。如果你想更深入地了解 SKS 文件的相关知识， Ray Wenderlich 有一篇 [极佳的文章](https://www.raywenderlich.com/118225/introduction-sprite-kit-scene-editor)[7] 。
+在 `GameViewController.swift` 中有一个标准的 [`UIViewController`](https://developer.apple.com/library/content/referencelibrary/GettingStarted/DevelopiOSAppsSwift/Lesson4.html)<sup>[5](#note-5)</sup> 子类 ，我们修改了一些初始化 `GameScene.swift` 中的 [`SKScene`](https://developer.apple.com/reference/spritekit/skscene)<sup>[6](#note-6)</sup> 的代码。在做这些改动之前，我们会通过一个 SpriteKit 场景编辑器文件（ SpriteKit scene editor (SKS) file ）来读取 `GameScene` 类。在本教程中，我们将直接读取这个场景，而不是使用更复杂的 SKS 文件。如果你想更深入地了解 SKS 文件的相关知识， Ray Wenderlich 有一篇 [极佳的文章](https://www.raywenderlich.com/118225/introduction-sprite-kit-scene-editor)<sup>[7](#note-7)</sup> 。
 
 ### 获取资源文件
 
-在我们写代码之前，要先获取项目中会用到的资源。今天我们会用到雨伞和雨滴。你可以在 GitHub 上找到这些 [纹理](https://github.com/thirteen23/RainCat/tree/smashing-day-1/dayOneAssets.zip)[8] 。将它们添加到 Xcode 左部面板的 `Assets.xcassets` 文件夹中。当你点击 `Assets.xcassets` 文件，你会见到一个带有 `AppIcon` 占位符的空白界面。在 Finder 中选中所有（解压的资源文件），并把它们都拖到 `AppIcon` 占位符的下面。如果你正确进行了上述操作，你的 “Assets” 文件看起来应该是这样：
+在我们写代码之前，要先获取项目中会用到的资源。今天我们会用到雨伞和雨滴。你可以在 GitHub 上找到这些 [纹理](https://github.com/thirteen23/RainCat/tree/smashing-day-1/dayOneAssets.zip)<sup>[8](#note-8)</sup> 。将它们添加到 Xcode 左部面板的 `Assets.xcassets` 文件夹中。当你点击 `Assets.xcassets` 文件，你会见到一个带有 `AppIcon` 占位符的空白界面。在 Finder 中选中所有（解压的资源文件），并把它们都拖到 `AppIcon` 占位符的下面。如果你正确进行了上述操作，你的 “Assets” 文件看起来应该是这样：
 
-[![程序的资源文件](https://www.smashingmagazine.com/wp-content/uploads/2016/10/App-assets-preview-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2016/10/App-assets-preview-opt.png)[9]
+[![程序的资源文件](https://www.smashingmagazine.com/wp-content/uploads/2016/10/App-assets-preview-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2016/10/App-assets-preview-opt.png)<sup>[9](#note-9)</sup>
 
 虽然你不能从白色的背景上分辨出白色的伞尖，但我保证，它是在那儿的。
 
@@ -73,7 +72,7 @@ public class BackgroundNode : SKNode {
 
 ```
 
-上面的代码引用了 SpriteKit 框架。这是 Apple 官方的用于开发游戏的资源库。在我们接下来新建的大部分源文件中，我们都会用到它。我们创建的这个对象是一个 [`SKNode`](https://developer.apple.com/reference/spritekit/sknode)[10] 实例，我们会把它作为背景元素的容器。目前，我们仅仅是在调用 `setup(size:)` 方法的时候为其添加了一个 [`SKPhysicsBody`](https://developer.apple.com/reference/spritekit/skphysicsbody)[11] 实例。这个物理实体（ physics body ）会告诉我们的场景（ scene ），其定义的区域（目前只有一条线），能够和其它的物理实体和 [物理世界（ physics world ）](https://developer.apple.com/reference/spritekit/skphysicsworld)[12] 进行交互。我们还改变了 `restitution` 的值。这个属性决定了地面的弹性。想让这个对象为我们所用，我们需要把它加入 `GameScene` 中。切换到 `GameScene.swift` 文件中，在靠近顶部，一串 `TimeInterval` 变量的下面，添加如下代码：
+上面的代码引用了 SpriteKit 框架。这是 Apple 官方的用于开发游戏的资源库。在我们接下来新建的大部分源文件中，我们都会用到它。我们创建的这个对象是一个 [`SKNode`](https://developer.apple.com/reference/spritekit/sknode)<sup>[10](#note-10)</sup> 实例，我们会把它作为背景元素的容器。目前，我们仅仅是在调用 `setup(size:)` 方法的时候为其添加了一个 [`SKPhysicsBody`](https://developer.apple.com/reference/spritekit/skphysicsbody)<sup>[11](#note-11)</sup> 实例。这个物理实体（ physics body ）会告诉我们的场景（ scene ），其定义的区域（目前只有一条线），能够和其它的物理实体和 [物理世界（ physics world ）](https://developer.apple.com/reference/spritekit/skphysicsworld)<sup>[12](#note-12)</sup> 进行交互。我们还改变了 `restitution` 的值。这个属性决定了地面的弹性。想让这个对象为我们所用，我们需要把它加入 `GameScene` 中。切换到 `GameScene.swift` 文件中，在靠近顶部，一串 `TimeInterval` 变量的下面，添加如下代码：
 
 ```
 private let backgroundNode = BackgroundNode()
@@ -90,7 +89,7 @@ addChild(backgroundNode)
 
 现在，如果我们运行程序，我们将会看到如图的游戏场景：
 
-[![空白场景](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Empty-scene-preview-opt.png) ](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Empty-scene-preview-opt.png)[13]
+[![空白场景](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Empty-scene-preview-opt.png) ](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Empty-scene-preview-opt.png)<sup>[13](#note-13)</sup>
 
 我们的略微空旷的场景。
 
@@ -136,7 +135,7 @@ private func spawnRaindrop() {
 
 该方法被调用时，会利用我们刚刚创建的 `raindropTexture` 来生成一个新的雨滴结点。然后，我们通过纹理的形状创建 `SKPhysicsBody`，将结点位置设置为场景中央，并最终将其加入场景中。由于我们为雨滴结点添加了 `SKPhysicsBody` ，它将会自动地受到默认的重力作用并滴落至地面。为了测试这段代码，我们可以在 `touchesBegan(_ touches:, with event:)` 中调用这个方法，并看到如图的效果：
 
-[![下起雨吧](https://www.smashingmagazine.com/wp-content/uploads/2016/10/first-rain-fall.gif)](https://www.smashingmagazine.com/wp-content/uploads/2016/10/first-rain-fall.gif)[14]
+[![下起雨吧](https://www.smashingmagazine.com/wp-content/uploads/2016/10/first-rain-fall.gif)](https://www.smashingmagazine.com/wp-content/uploads/2016/10/first-rain-fall.gif)<sup>[14](#note-14)</sup>
 
 让雨水来的更猛烈些吧
 
@@ -177,7 +176,7 @@ raindrop.position = CGPoint(x: xPosition, y: yPosition)
 
 在创建雨滴之后，我们利用 `arc4Random()` 来随机化 `x` 坐标，并通过调用 `truncatingRemainder` 来确保坐标在屏幕范围内。现在运行程序，你应该可以看到这样的效果：
 
-[![雨下一整天!](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Raindrops-for-days-preview-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Raindrops-for-days-preview-opt.png)[15]
+[![雨下一整天!](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Raindrops-for-days-preview-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Raindrops-for-days-preview-opt.png)<sup>[15](#note-15)</sup>
 
 这雨可以下好几天！
 
@@ -196,7 +195,7 @@ let FloorCategory    : UInt32 = 0x1 << 3
 
 ```
 
-上述的代码运用了 [移位运算符](http://www-numi.fnal.gov/offline_software/srt_public_context/WebDocs/Companion/cxx_crib/shift.html)[16] 来为不同物理实体的 [`categoryBitMasks`](https://developer.apple.com/reference/spritekit/skphysicsbody/1519869-categorybitmask)[17] 设置不同的唯一值。`0x1 << 1` 是十六进制的 1 ，`0x1 << 2` 是十六进制的 2 ，`0x1 << 3` 是十六进制的 4 ，后续的值依此类推，为前一个值的两倍。在设置这些特定的类别（ category ）之后，回到 `BackgroundNode.swift` 文件中，将我们的物理实体更新为刚创建的 `FloorCategory` 。接着，我们还要将地面物理实体设置为可触碰的。为了达到这个目的，将 `RainDropCategory` 添加到地面元素的 `contactTestBitMask` 中。如此一来，当我们将这些元素加入 `GameScene.swift` 中时，我们就能在二者（雨滴和地面）接触时收到回调了。`BackgroundNode` 代码如下：
+上述的代码运用了 [移位运算符](http://www-numi.fnal.gov/offline_software/srt_public_context/WebDocs/Companion/cxx_crib/shift.html)<sup>[16](#note-16)</sup> 来为不同物理实体的 [`categoryBitMasks`](https://developer.apple.com/reference/spritekit/skphysicsbody/1519869-categorybitmask)<sup>[17](#note-17)</sup> 设置不同的唯一值。`0x1 << 1` 是十六进制的 1 ，`0x1 << 2` 是十六进制的 2 ，`0x1 << 3` 是十六进制的 4 ，后续的值依此类推，为前一个值的两倍。在设置这些特定的类别（ category ）之后，回到 `BackgroundNode.swift` 文件中，将我们的物理实体更新为刚创建的 `FloorCategory` 。接着，我们还要将地面物理实体设置为可触碰的。为了达到这个目的，将 `RainDropCategory` 添加到地面元素的 `contactTestBitMask` 中。如此一来，当我们将这些元素加入 `GameScene.swift` 中时，我们就能在二者（雨滴和地面）接触时收到回调了。`BackgroundNode` 代码如下：
 
 ```
 import SpriteKit
@@ -226,7 +225,7 @@ raindrop.physicsBody?.contactTestBitMask = FloorCategory | WorldCategory
 
 ```
 
-注意，此处我们也添加了 `WorldCategory` 。由于我们此处使用的是 [位掩码（ bitmask ）](https://en.wikipedia.org/wiki/Mask_%28computing%29)[18] ，我们可以通过 [位运算（ bitwise operation）](https://en.wikipedia.org/wiki/Bitwise_operation)[19] 来添加任何我们想要的类别。而对于本例中的 `raindrop` 实例，我们希望监听它与 `FloorCategory` 以及 `WorldCategory` 发生碰撞时的信息。现在，我们终于可以在 `sceneDidLoad()` 方法中加入我们的全局边界了：
+注意，此处我们也添加了 `WorldCategory` 。由于我们此处使用的是 [位掩码（ bitmask ）](https://en.wikipedia.org/wiki/Mask_%28computing%29)<sup>[18](#note-18)</sup> ，我们可以通过 [位运算（ bitwise operation）](https://en.wikipedia.org/wiki/Bitwise_operation)<sup>[19](#note-19)</sup> 来添加任何我们想要的类别。而对于本例中的 `raindrop` 实例，我们希望监听它与 `FloorCategory` 以及 `WorldCategory` 发生碰撞时的信息。现在，我们终于可以在 `sceneDidLoad()` 方法中加入我们的全局边界了：
 
 ```
 var worldFrame = frame
@@ -256,7 +255,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
 ```
 
-现在，我们需要监听场景的 [`physicsWorld`](https://developer.apple.com/reference/spritekit/skphysicsworld)[20] 中所发生的碰撞。在 `sceneDidLoad()` 中，我们设置全局边界的逻辑下面添加如下代码：
+现在，我们需要监听场景的 [`physicsWorld`](https://developer.apple.com/reference/spritekit/skphysicsworld)<sup>[20](#note-20)</sup> 中所发生的碰撞。在 `sceneDidLoad()` 中，我们设置全局边界的逻辑下面添加如下代码：
 
 ```
 	self.physicsWorld.contactDelegate = self
@@ -280,7 +279,7 @@ func didBegin(_ contact: SKPhysicsContact) {
 
 现在，当一滴雨滴和任何其它对象的边缘发生碰撞后，我们会将其碰撞掩码（ collision bitmask ）清零。这样做可以避免雨滴在初次碰撞后反复与其它对象碰撞，最终变成像俄罗斯方块那样的噩梦！
 
-[![弹跳的雨滴](https://www.smashingmagazine.com/wp-content/uploads/2016/10/happy-bouncing-raindrops.gif) ](https://www.smashingmagazine.com/wp-content/uploads/2016/10/happy-bouncing-raindrops.gif)[21]
+[![弹跳的雨滴](https://www.smashingmagazine.com/wp-content/uploads/2016/10/happy-bouncing-raindrops.gif) ](https://www.smashingmagazine.com/wp-content/uploads/2016/10/happy-bouncing-raindrops.gif)<sup>[21](#note-21)</sup>
 
 愉快蹦达着的小雨滴
 
@@ -345,7 +344,7 @@ raindrop.zPosition = 2
 
 再次运行程序，背景应该能够被正常绘制了。
 
-[![背景](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Background-preview-opt.png) ](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Background-preview-opt.png)[22]
+[![背景](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Background-preview-opt.png) ](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Background-preview-opt.png)<sup>[22](#note-22)</sup>
 
 这下就好多了。
 
@@ -383,15 +382,15 @@ umbrella.physicsBody?.restitution = 0.9
 
 我们自己创建路径来初始化雨伞的 `SKPhysicsBody` 主要有两个原因。首先，就像之前提到的一样，我们只希望雨伞的顶部能够与其它对象碰撞。其次，这样我们可以自行调控雨伞的有效撞击区域。
 
-先创建一个 `UIBezierPath` 并添加点和线绘制好图形后，再通过它生成 `CGPath` 是一个相对简单的方法。上述代码中，我们就创建了一个 `UIBezierPath` 并将其绘制起点移动到精灵的中心点。`umbrellaSprite` 的中心点是 `0,0` 的原因是：其 [`anchorPoint`](https://developer.apple.com/reference/spritekit/skspritenode#//apple_ref/occ/instp/SKSpriteNode/anchorPoint)[23] 的值为 `0.5,0.5` 。接着，我们向左侧添加一条线，并向外延伸 30 个点（ points ）。
+先创建一个 `UIBezierPath` 并添加点和线绘制好图形后，再通过它生成 `CGPath` 是一个相对简单的方法。上述代码中，我们就创建了一个 `UIBezierPath` 并将其绘制起点移动到精灵的中心点。`umbrellaSprite` 的中心点是 `0,0` 的原因是：其 [`anchorPoint`](https://developer.apple.com/reference/spritekit/skspritenode#//apple_ref/occ/instp/SKSpriteNode/anchorPoint)<sup>[23](#note-23)</sup> 的值为 `0.5,0.5` 。接着，我们向左侧添加一条线，并向外延伸 30 个点（ points ）。
 
-本文中关于“点（ point ）”的概念的注解：一个“点”，不要与 `CGPoint` 或是我们的 `anchorPoint` 混淆，它是一个测量单位。在非 Retina 设备上，一个点等于一个像素，在 Retina 设备上则等于两个像素，这个值会随着屏幕分辨率的提高而增加。更多相关知识，请参阅 Fluid 博客中的 [pixels and points](http://blog.fluidui.com/designing-for-mobile-101-pixels-points-and-resolutions/)[24] 。
+本文中关于“点（ point ）”的概念的注解：一个“点”，不要与 `CGPoint` 或是我们的 `anchorPoint` 混淆，它是一个测量单位。在非 Retina 设备上，一个点等于一个像素，在 Retina 设备上则等于两个像素，这个值会随着屏幕分辨率的提高而增加。更多相关知识，请参阅 Fluid 博客中的 [pixels and points](http://blog.fluidui.com/designing-for-mobile-101-pixels-points-and-resolutions/)<sup>[24](#note-24)</sup> 。
 
 随后，我们一路画到精灵的顶部中点位置，再画到中部右侧，并向外延伸 30 个点。我们向外延伸一些距离，是为了在保持精灵外观的前提下，增大其能遮雨的区域。当我们用这个多边形初始化 `SKPhysicsBody` 时，路径将会自动闭合成一个完整的三角形。接着，将雨伞的物理状态设置为非动态，这样它就不会受重力影响了。我们绘制的这个物理实体看起来是这样的：
 
-[![雨伞特写](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Umbrella-Close-up-preview-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Umbrella-Close-up-large-opt.png)[25]
+[![雨伞特写](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Umbrella-Close-up-preview-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Umbrella-Close-up-large-opt.png)<sup>[25](#note-25)</sup>
 
-雨伞物理实体的特写（[放大版本](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Umbrella-Close-up-large-opt.png)[26]）
+雨伞物理实体的特写（[放大版本](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Umbrella-Close-up-large-opt.png)<sup>[26](#note-26)</sup>）
 
 现在，到 `GameScene.swift` 中来初始化雨伞对象并将其加入场景中。在文件顶部，类变量的下方，加入下面的代码：
 
@@ -520,7 +519,7 @@ umbrellaNode.update(deltaTime: dt)
 
 再次运行程序，雨伞应该能够正确地跟着点击和拖动手势进行移动了。
 
-嘿，第一课到此结束啦！我们接触到了许多概念，并自己动手搭建了基础代码，接着又添加了一个容器结点来容纳背景和地面的 `SKPhysicsBody` 。我们还成功使新的雨滴定时出现，并让雨伞响应我们的手势。你可以在 [GitHub上找到](https://github.com/thirteen23/RainCat/releases/tag/smashing-magazine-lesson-one)[27] 第一课内容所涉及的源代码。
+嘿，第一课到此结束啦！我们接触到了许多概念，并自己动手搭建了基础代码，接着又添加了一个容器结点来容纳背景和地面的 `SKPhysicsBody` 。我们还成功使新的雨滴定时出现，并让雨伞响应我们的手势。你可以在 [GitHub上找到](https://github.com/thirteen23/RainCat/releases/tag/smashing-magazine-lesson-one)<sup>[27](#note-27)</sup> 第一课内容所涉及的源代码。
 
 你完成的怎么样？你的代码实现是否和我的示例几乎一样？哪里有不同呢？你是否优化了示例代码？教程中是否有阐述不清晰的地方？请在评论中写下你的想法。
 
@@ -528,30 +527,30 @@ umbrellaNode.update(deltaTime: dt)
 
 #### 注释
 
-1. <a name="note1"></a>[1 https://developer.apple.com/spritekit/]
-2. [2 https://www.smashingmagazine.com/wp-content/uploads/2016/10/raincat_header-preview-opt.png](#note-2)
-3. [3 https://itunes.apple.com/us/app/raincat/id1152624676?ls=1&mt=8](#note-3)
-4. [4 https://github.com/thirteen23/RainCat/releases/tag/smashing-magazine-initial-code](#note-4)
-5. [5 https://developer.apple.com/library/content/referencelibrary/GettingStarted/DevelopiOSAppsSwift/Lesson4.html](#note-5)
-6. [6 https://developer.apple.com/reference/spritekit/skscene](#note-6)
-7. [7 https://www.raywenderlich.com/118225/introduction-sprite-kit-scene-editor](#note-7)
-8. [8 https://github.com/thirteen23/RainCat/tree/smashing-day-1/dayOneAssets.zip](#note-8)
-9. [9 https://www.smashingmagazine.com/wp-content/uploads/2016/10/App-assets-preview-opt.png](#note-9)
-10. [10 https://developer.apple.com/reference/spritekit/sknode](#note-10)
-11. [11 https://developer.apple.com/reference/spritekit/skphysicsbody](#note-11)
-12. [12 https://developer.apple.com/reference/spritekit/skphysicsworld](#note-12)
-13. [13 https://www.smashingmagazine.com/wp-content/uploads/2016/10/Empty-scene-preview-opt.png](#note-13)
-14. [14 https://www.smashingmagazine.com/wp-content/uploads/2016/10/first-rain-fall.gif](#note-14)
-15. [15 https://www.smashingmagazine.com/wp-content/uploads/2016/10/Raindrops-for-days-preview-opt.png](#note-15)
-16. [16 http://www-numi.fnal.gov/offline_software/srt_public_context/WebDocs/Companion/cxx_crib/shift.html](#note-16)
-17. [17 https://developer.apple.com/reference/spritekit/skphysicsbody/1519869-categorybitmask](#note-17)
-18. [18 https://en.wikipedia.org/wiki/Mask_%28computing%29](#note-18)
-19. [19 https://en.wikipedia.org/wiki/Bitwise_operation](#note-19)
-20. [20 https://developer.apple.com/reference/spritekit/skphysicsworld](#note-20)
-21. [21 https://www.smashingmagazine.com/wp-content/uploads/2016/10/happy-bouncing-raindrops.gif](#note-21)
-22. [22 https://www.smashingmagazine.com/wp-content/uploads/2016/10/Background-preview-opt.png](#note-22)
-23. [23 https://developer.apple.com/reference/spritekit/skspritenode#//apple_ref/occ/instp/SKSpriteNode/anchorPoint](#note-23)
-24. [24 http://blog.fluidui.com/designing-for-mobile-101-pixels-points-and-resolutions/](#note-24)
-25. [25 https://www.smashingmagazine.com/wp-content/uploads/2016/10/Umbrella-Close-up-large-opt.png](#note-25)
-26. [26 https://www.smashingmagazine.com/wp-content/uploads/2016/10/Umbrella-Close-up-large-opt.png](#note-26)
-27. [27 https://github.com/thirteen23/RainCat/releases/tag/smashing-magazine-lesson-one](#note-27)
+1. <a name="note-1"></a>https://developer.apple.com/spritekit/
+2. <a name="note-2"></a>https://www.smashingmagazine.com/wp-content/uploads/2016/10/raincat_header-preview-opt.png
+3. <a name="note-3"></a>https://itunes.apple.com/us/app/raincat/id1152624676?ls=1&mt=8
+4. <a name="note-4"></a>https://github.com/thirteen23/RainCat/releases/tag/smashing-magazine-initial-code
+5. <a name="note-5"></a>https://developer.apple.com/library/content/referencelibrary/GettingStarted/DevelopiOSAppsSwift/Lesson4.html
+6. <a name="note-6"></a>https://developer.apple.com/reference/spritekit/skscene
+7. <a name="note-7"></a>https://www.raywenderlich.com/118225/introduction-sprite-kit-scene-editor
+8. <a name="note-8"></a>https://github.com/thirteen23/RainCat/tree/smashing-day-1/dayOneAssets.zip
+9. <a name="note-9"></a>https://www.smashingmagazine.com/wp-content/uploads/2016/10/App-assets-preview-opt.png
+10. <a name="note-10"></a>https://developer.apple.com/reference/spritekit/sknode
+11. <a name="note-11"></a>https://developer.apple.com/reference/spritekit/skphysicsbody
+12. <a name="note-12"></a>https://developer.apple.com/reference/spritekit/skphysicsworld
+13. <a name="note-13"></a>https://www.smashingmagazine.com/wp-content/uploads/2016/10/Empty-scene-preview-opt.png
+14. <a name="note-14"></a>https://www.smashingmagazine.com/wp-content/uploads/2016/10/first-rain-fall.gif
+15. <a name="note-15"></a>https://www.smashingmagazine.com/wp-content/uploads/2016/10/Raindrops-for-days-preview-opt.png
+16. <a name="note-16"></a>http://www-numi.fnal.gov/offline_software/srt_public_context/WebDocs/Companion/cxx_crib/shift.html
+17. <a name="note-17"></a>https://developer.apple.com/reference/spritekit/skphysicsbody/1519869-categorybitmask
+18. <a name="note-18"></a>https://en.wikipedia.org/wiki/Mask_%28computing%29
+19. <a name="note-19"></a>https://en.wikipedia.org/wiki/Bitwise_operation
+20. <a name="note-20"></a>https://developer.apple.com/reference/spritekit/skphysicsworld
+21. <a name="note-21"></a>https://www.smashingmagazine.com/wp-content/uploads/2016/10/happy-bouncing-raindrops.gif
+22. <a name="note-22"></a>https://www.smashingmagazine.com/wp-content/uploads/2016/10/Background-preview-opt.png
+23. <a name="note-23"></a>https://developer.apple.com/reference/spritekit/skspritenode#//apple_ref/occ/instp/SKSpriteNode/anchorPoint
+24. <a name="note-24"></a>http://blog.fluidui.com/designing-for-mobile-101-pixels-points-and-resolutions/
+25. <a name="note-25"></a>https://www.smashingmagazine.com/wp-content/uploads/2016/10/Umbrella-Close-up-large-opt.png
+26. <a name="note-26"></a>https://www.smashingmagazine.com/wp-content/uploads/2016/10/Umbrella-Close-up-large-opt.png
+27. <a name="note-27"></a>https://github.com/thirteen23/RainCat/releases/tag/smashing-magazine-lesson-one
