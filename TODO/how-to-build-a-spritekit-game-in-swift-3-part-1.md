@@ -2,13 +2,13 @@
 * 原文作者：[Marc Vandehey](https://www.smashingmagazine.com/author/marcvandehey/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Gocy](https://github.com/Gocy015/)
-* 校对者：
+* 校对者：[Tuccuay](https://github.com/Tuccuay), [DeepMissea](https://github.com/DeepMissea)
 
 # 如何在 Swift 3 中用 SpriteKit 框架编写游戏 (Part 1)
 
-**你有没有想过想一款 SpriteKit 游戏从无到有的过程是怎样的？开发一款基于真实物理规则的游戏是不是让你望而生畏？随着 [SpriteKit](https://developer.apple.com/spritekit/)[1] 的出现，在 iOS 上开发游戏已经变得空前的简单了。**
+**你有没有想过要如何开始创作一款基于 SpriteKit 的游戏？开发一款基于真实物理规则的游戏是不是让你望而生畏？随着 [SpriteKit](https://developer.apple.com/spritekit/)[1] 的出现，在 iOS 上开发游戏已经变得空前的简单了。**
 
-本系列将分为三个部分，带你探索 SpriteKit 的基础知识。我们会接触到 SKPhysics 、（ Sprite 间的）碰撞、纹理管理、（ Sprite 间的）相互作用、音效、音乐、按钮以及 `SKScene` 。这些看起来很难的东西其实非常容易掌握。赶紧跟着我们一起开始编写 RainCat 吧。
+本系列将分为三个部分，带你探索 SpriteKit 的基础知识。我们会接触到物理引擎（ SKPhysics ）、碰撞、纹理管理、互动、音效、音乐、按钮以及场景（ `SKScene` ） 。这些看上去艰深晦涩的东西其实非常容易掌握。赶紧跟着我们一起开始编写 RainCat 吧。
 
 [![Raincat: 第一课](https://www.smashingmagazine.com/wp-content/uploads/2016/10/raincat_header-preview-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2016/10/raincat_header-preview-opt.png)
 [2]
@@ -37,7 +37,7 @@ RainCat，第一课
 
 ### 查看工程代码
 
-我已经帮你起了个好头了，创建好了 RainCat 工程，还做了一些初始化的工作。打开这个 Xcode 工程。现在，项目看起来还非常的简单基础。我们先梳理一下现在的情况：我们创建了一个工程，指定运行系统为 iOS 10，运行设备为 iPad ，支持的设备方向为水平。如果我们要在较旧的设备上进行测试，我们也可以把系统版本设定为更早的版本，Swift 3 至多支持到 iOS 8 。当然，让你的应用支持起码比最新版本要早一个版本的系统也是一个很好的实践。不过需要注意：本教程内容仅针对 iOS 10 ，如果你要支持更早的版本的话，可能会出现一些问题。
+我已经帮你起了个好头了，创建好了 RainCat 工程，还做了一些初始化的工作。打开这个 Xcode 工程。现在，项目看起来还非常的简单基础。我们先梳理一下现在的情况：我们创建了一个工程，指定运行系统为 iOS 10，运行设备为 iPad ，并且只支持设备的水平方向。如果我们要在较旧的设备上进行测试，我们也可以把系统版本设定为更早的版本，Swift 3 至多支持到 iOS 8 。当然，让你的应用支持起码比最新版本要早一个版本的系统也是一个很好的实践。不过需要注意：本教程内容仅针对 iOS 10 ，如果你要支持更早的版本的话，可能会出现一些问题。
 
 决定利用 Swift 3 来实现这个游戏的原因： iOS 开发者社区非常积极地参与到了 Swift 3 的发布过程中，带来了许多编码风格上的变化和全方位的升级。由于新版本的 iOS 系统在 Apple 用户群体中覆盖速率快、面积广，我们认为，使用最新发布的 Swift 版本来编写这篇教程是最合适的。
 
@@ -45,17 +45,17 @@ RainCat，第一课
 
 ### 获取资源文件
 
-在动手打代码之前，我们要先获取项目中会用到的资源。今天我们会用到雨伞精灵（ sprite ）和雨滴。你可以在 [GitHub 上找到这些纹理](https://github.com/thirteen23/RainCat/tree/smashing-day-1/dayOneAssets.zip)[8] 。将它们添加到 Xcode 左部面板的 `Assets.xcassets` 文件夹中。当你点击 `Assets.xcassets` 文件，你会见到一个带有 `AppIcon` 占位符的空白界面。在 Finder 中选中所有（解压的资源文件），并把它们都拖到 `AppIcon` 占位符的下面。如果你正确进行了上述操作，你的 “Assets” 文件看起来应该是这样：
+在我们写代码之前，要先获取项目中会用到的资源。今天我们会用到雨伞和雨滴。你可以在GitHub 上找到这些 [纹理](https://github.com/thirteen23/RainCat/tree/smashing-day-1/dayOneAssets.zip)[8] 。将它们添加到 Xcode 左部面板的 `Assets.xcassets` 文件夹中。当你点击 `Assets.xcassets` 文件，你会见到一个带有 `AppIcon` 占位符的空白界面。在 Finder 中选中所有（解压的资源文件），并把它们都拖到 `AppIcon` 占位符的下面。如果你正确进行了上述操作，你的 “Assets” 文件看起来应该是这样：
 
 [![程序的资源文件](https://www.smashingmagazine.com/wp-content/uploads/2016/10/App-assets-preview-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2016/10/App-assets-preview-opt.png)[9]
 
-由于雨伞的顶端是白色的，你现在看不到它，但我保证，它是在那儿的。
+虽然你不能从白色的背景上分辨出白色的伞尖，但我保证，它是在那儿的。
 
 ### 是时候动手编码了
 
 现在我们已经做足了各项准备工作，我们可以开始动手开发游戏啦。
 
-我们首先要做出个地面，好腾出地方来遛猫和喂猫。由于背景和地面都非常的简单，我们可以把这些精灵（ sprite ）放到一个自定义的背景结点（ node ）中。在 Xcode 左部面板的 “Sprites” 文件夹下，创建名为 `BackgroundNode.swift` 的 Swift 源文件（译者注：由于 “Sprites” 文件夹下一开始无任何文件，因此原工程文件目录下并没有这个文件夹， Xcode 工程中仅有一个逻辑文件夹，读者可以自己在工程目录下创建 “Sprites” 文件夹），并添加以下代码：
+我们首先要做出个地面，好腾出地方来遛猫和喂猫。由于背景和地面都非常的简单，我们可以把这些精灵（ sprite ）放到一个自定义的背景结点（ node ）中。在 Xcode 左部面板的 “Sprites” 文件夹下，创建名为 `BackgroundNode.swift` 的 Swift 源文件，并添加以下代码：
 
 ```
 import SpriteKit
@@ -73,7 +73,7 @@ public class BackgroundNode : SKNode {
 
 ```
 
-上面的代码引用了 SpriteKit 框架。这是 Apple 官方的用于开发游戏的代码库。在我们接下来新建的大部分源文件中，我们都会用到它。我们创建的这个对象是一个 [`SKNode`](https://developer.apple.com/reference/spritekit/sknode)[10] 实例，我们会把它作为背景元素的容器。目前，我们仅仅是在调用 `setup(size:)` 方法的时候为其添加了一个 [`SKPhysicsBody`](https://developer.apple.com/reference/spritekit/skphysicsbody)[11] 实例。这个物理实体（ physics body ）会告诉我们的场景（ scene ），其定义的区域（目前只有一条线），能够和其它的物理实体和 [物理世界（ physics world ）](https://developer.apple.com/reference/spritekit/skphysicsworld)[12] 进行交互。我们还改变了 `restitution` 的值。这个属性决定了地面的弹性。想让这个对象为我们所用，我们需要把它加入 `GameScene` 中。切换到 `GameScene.swift` 文件中，在靠近顶部，一串 `TimeInterval` 变量的下面，添加如下代码：
+上面的代码引用了 SpriteKit 框架。这是 Apple 官方的用于开发游戏的资源库。在我们接下来新建的大部分源文件中，我们都会用到它。我们创建的这个对象是一个 [`SKNode`](https://developer.apple.com/reference/spritekit/sknode)[10] 实例，我们会把它作为背景元素的容器。目前，我们仅仅是在调用 `setup(size:)` 方法的时候为其添加了一个 [`SKPhysicsBody`](https://developer.apple.com/reference/spritekit/skphysicsbody)[11] 实例。这个物理实体（ physics body ）会告诉我们的场景（ scene ），其定义的区域（目前只有一条线），能够和其它的物理实体和 [物理世界（ physics world ）](https://developer.apple.com/reference/spritekit/skphysicsworld)[12] 进行交互。我们还改变了 `restitution` 的值。这个属性决定了地面的弹性。想让这个对象为我们所用，我们需要把它加入 `GameScene` 中。切换到 `GameScene.swift` 文件中，在靠近顶部，一串 `TimeInterval` 变量的下面，添加如下代码：
 
 ```
 private let backgroundNode = BackgroundNode()
@@ -94,7 +94,7 @@ addChild(backgroundNode)
 
 我们的略微空旷的场景。
 
-如果你没看见那条线，那说明你在将结点（ node ）加入场景（ scene ）时出现了错误，要么就是场（ scene ）现在不显示物理实体（ physics body ）。要控制这些选项的开关，只需要在 `GameViewController.swift` 中修改下列选项即可：
+如果你没看见那条线，那说明你在将结点（ node ）加入场景时出现了错误，要么就是场景现在不显示物理实体。要控制这些选项的开关，只需要在 `GameViewController.swift` 中修改下列选项即可：
 
 ```
 if let view = self.view as! SKView? {
@@ -109,8 +109,8 @@ if let view = self.view as! SKView? {
 
 现在，确保 `showsPhysics` 属性被设为 `true` 。这有助于我们调试物理实体。尽管眼下并没有什么值得特别关注的地方，但这个背景将会充当雨滴下落反弹时的地面，也会作为猫咪行走时的边界。
 
-接下来，我们来添加一些雨水：
-如果我们在一股脑的把雨滴加入场景之前思考一下，就会明白在这儿我们需要一个可复用的方法来原子性地添加雨滴。雨滴元素将由一个 `SKSpriteNode` 和另外一个物理实体构成。你可以用一张图片或是一块纹理来实例化一个 `SKSpriteNode` 对象。明白了这点，并且想到我们应该会添加许多的雨滴，我们就知道自己应该做一些复用了。有了这个想法，我们就可以复用纹理，而不必每次创建雨滴元素时都创建新的纹理了。
+接下来，我们来添加一些雨水。
+如果我们在把雨滴加入场景之前思考一下，就会明白在这儿我们需要一个可复用的方法来原子性地添加雨滴。雨滴元素将由一个 `SKSpriteNode` 和另外一个物理实体构成。你可以用一张图片或是一块纹理来实例化一个 `SKSpriteNode` 对象。明白了这点，并且想到我们应该会添加许多的雨滴，我们就知道自己应该做一些复用了。有了这个想法，我们就可以复用纹理，而不必每次创建雨滴元素时都创建新的纹理了。
 
 在 `GameScene.swift` 文件的顶部，实例化 `backgroundNode` 的前面，加入下面这行代码：
 
@@ -140,7 +140,7 @@ private func spawnRaindrop() {
 
 让雨水来的更猛烈些吧
 
-只要我们不断地点击屏幕，雨滴就会远远不断地出现。这仅仅是出于测试的目的；毕竟最终我们想要控制的是雨伞，而不是雨水落下的速率。玩够了之后，我们就该把代码从 `touchesBegan(_ touches:, with event:)` 中删除，并将其绑定到我们的 `update` 循环中了。我们有一个名为 `update(_ currentTime:)` 的方法，我们希望在这个方法中进行降雨操作。方法中已经有一些基础代码了；目前，我们仅仅是测量时间差，但一会儿，我们将用它来更新其它的精灵元素。在这个方法的底部，更新 `self.lastUpdateTime` 变量之前，添加如下代码：
+只要我们不断地点击屏幕，雨滴就会源源不断地出现。这仅仅是出于测试的目的；毕竟最终我们想要控制的是雨伞，而不是雨水落下的速率。玩够了之后，我们就该把代码从 `touchesBegan(_ touches:, with event:)` 中删除，并将其绑定到我们的 `update` 循环中了。我们有一个名为 `update(_ currentTime:)` 的方法，我们希望在这个方法中进行降雨操作。方法中已经有一些基础代码了；目前，我们仅仅是测量时间差，但一会儿，我们将用它来更新其它的精灵元素。在这个方法的底部，更新 `self.lastUpdateTime` 变量之前，添加如下代码：
 
 ```
 // Update the spawn timer
@@ -263,7 +263,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
 ```
 
-接着，我们需要实现 `SKPhysicsContactDelegate` 中的一个协议方法，`didBegin(_ contact:)`。每当带有我们预先设置的 `contactTestBitMasks` 的物体碰撞发生时，这个方法就会被调用。在 `GameScene.swift` 的底部，加入如下代码：
+接着，我们需要实现 `SKPhysicsContactDelegate` 中的一个方法，`didBegin(_ contact:)`。每当带有我们预先设置的 `contactTestBitMasks` 的物体碰撞发生时，这个方法就会被调用。在 `GameScene.swift` 的底部，加入如下代码：
 
 ```
 func didBegin(_ contact: SKPhysicsContact) {
@@ -278,7 +278,7 @@ func didBegin(_ contact: SKPhysicsContact) {
 
 ```
 
-现在，当一滴雨滴和任何其它对象发生碰撞后，我们会将其碰撞掩码（ collision bitmask ）清零。这样做可以避免雨滴在初次碰撞后反复与其它对象碰撞，最终变成像俄罗斯方块那样的噩梦！
+现在，当一滴雨滴和任何其它对象的边缘发生碰撞后，我们会将其碰撞掩码（ collision bitmask ）清零。这样做可以避免雨滴在初次碰撞后反复与其它对象碰撞，最终变成像俄罗斯方块那样的噩梦！
 
 [![弹跳的雨滴](https://www.smashingmagazine.com/wp-content/uploads/2016/10/happy-bouncing-raindrops.gif) ](https://www.smashingmagazine.com/wp-content/uploads/2016/10/happy-bouncing-raindrops.gif)[21]
 
@@ -366,7 +366,7 @@ public class UmbrellaSprite : SKSpriteNode {
 
 ```
 
-一个非常基础的对象就能满足创建雨伞的要求了。目前，我们只是使用一个静态方法创建了一个新的精灵结点（ sprite node ），但别急，一会我们就会为其添加一个自定的物理实体了。我们可以像创建雨滴一样，调用 `init(texture: size:)` 方法来用纹理创建一个物理实体。这样做也是可以的，但是雨伞的把手就会被物理实体所环绕。如果把手被物理实体环绕，那么猫就可能被挂在伞上，这个游戏也就因此失去了许多乐趣。所以，我们会转而通过在 `newInstance()` 方法中构造一个 `CGPath` 来初始化 `SKPhysicsBody` 。将下列代码添加到 `UmbrellaSprite.swift` 的 `newInstance()` 方法中，把它放在返回雨伞精灵的语句之前。
+一个非常基础的对象就能满足创建雨伞的要求了。目前，我们只是使用一个静态方法创建了一个新的精灵结点（ sprite node ），但别急，一会我们就会为其添加一个自定的物理实体了。我们可以像创建雨滴一样，调用 `init(texture: size:)` 方法来用纹理创建一个物理实体。这样做也是可以的，但是雨伞的把手就会被物理实体所环绕。如果把手被物理实体环绕，那么猫就可能被挂在伞上，这个游戏也就因此失去了许多乐趣。所以，我们会转而通过在 `newInstance()` 方法中构造一个 `CGPath` 来初始化 `SKPhysicsBody` 。将下列代码添加到 `UmbrellaSprite.swift` 的 `newInstance()` 方法中，返回雨伞对象的语句之前。
 
 ```
 let path = UIBezierPath()
@@ -385,7 +385,7 @@ umbrella.physicsBody?.restitution = 0.9
 
 先创建一个 `UIBezierPath` 并添加点和线绘制好图形后，再通过它生成 `CGPath` 是一个相对简单的方法。上述代码中，我们就创建了一个 `UIBezierPath` 并将其绘制起点移动到精灵的中心点。`umbrellaSprite` 的中心点是 `0,0` 的原因是：其 [`anchorPoint`](https://developer.apple.com/reference/spritekit/skspritenode#//apple_ref/occ/instp/SKSpriteNode/anchorPoint)[23] 的值为 `0.5,0.5` 。接着，我们向左侧添加一条线，并向外延伸 30 个点（ points ）。
 
-本文中关于“点（ point ）”的概念的注解：一个“点”，不要与 `CGPoint` 或是我们的 `anchorPoint` 混淆，它是一个测量单位。在非视网膜设备上，一个点等于一个像素，在视网膜设备上则等于两个像素，这个值会随着屏幕分辨率的提高而增加。更多相关知识，请参阅 [pixels and points on Fluid’s blog](http://blog.fluidui.com/designing-for-mobile-101-pixels-points-and-resolutions/)[24] 。
+本文中关于“点（ point ）”的概念的注解：一个“点”，不要与 `CGPoint` 或是我们的 `anchorPoint` 混淆，它是一个测量单位。在非 Retina 设备上，一个点等于一个像素，在 Retina 设备上则等于两个像素，这个值会随着屏幕分辨率的提高而增加。更多相关知识，请参阅 Fluid 博客中的 [pixels and points](http://blog.fluidui.com/designing-for-mobile-101-pixels-points-and-resolutions/)[24] 。
 
 随后，我们一路画到精灵的顶部中点位置，再画到中部右侧，并向外延伸 30 个点。我们向外延伸一些距离，是为了在保持精灵外观的前提下，增大其能遮雨的区域。当我们用这个多边形初始化 `SKPhysicsBody` 时，路径将会自动闭合成一个完整的三角形。接着，将雨伞的物理状态设置为非动态，这样它就不会受重力影响了。我们绘制的这个物理实体看起来是这样的：
 
@@ -470,7 +470,7 @@ public class UmbrellaSprite : SKSpriteNode {
 
 ```
 
-这里主要干了这么几件事。`newInstance()` 方法保持不变，但我们在它的上方加入了两个变量。我们加入了 destination 变量（保存对象移动的终点位置）；我们加入了 `setDestination(destination:)` 方法来缓冲雨伞精灵的移动；我们还加入了一个 `updatePosition(point:)` 方法。
+这里主要干了这么几件事。`newInstance()` 方法保持不变，但我们在它的上方加入了两个变量。我们加入了 destination 变量（保存对象移动的终点位置）；我们加入了 `setDestination(destination:)` 方法来缓冲雨伞的移动；我们还加入了一个 `updatePosition(point:)` 方法。
 
 `updatePosition(point:)` 方法将会在我们进行刷新操作之前直接对 `position` 属性进行赋值（译者注：此处的意思是，雨伞的移动本应是设置终点后，在 `update(dt:)` 方法中逐步移动，但这个 `updatePosition(point:)` 方法将直接移动雨伞）。现在我们可以同时更新 position 和 destination 了。如此一来， `umbrellaSprite` 对象就会被移动到相应位置，并保持在原地，由于这个位置就是它的终点，它也不会在设置位置后立刻移动了。
 
@@ -520,7 +520,7 @@ umbrellaNode.update(deltaTime: dt)
 
 再次运行程序，雨伞应该能够正确地跟着点击和拖动手势进行移动了。
 
-嘿，第一课到此结束啦！我们接触到了许多概念，并自己动手搭建了基础代码，接着又添加了一个容器结点来容纳背景和地面的 `SKPhysicsBody` 。我们还成功使新的雨滴定时出现，并让雨伞精灵响应我们的手势。你可以在 [GitHub上找到](https://github.com/thirteen23/RainCat/releases/tag/smashing-magazine-lesson-one)[27] 第一课内容所涉及的源代码。
+嘿，第一课到此结束啦！我们接触到了许多概念，并自己动手搭建了基础代码，接着又添加了一个容器结点来容纳背景和地面的 `SKPhysicsBody` 。我们还成功使新的雨滴定时出现，并让雨伞响应我们的手势。你可以在 [GitHub上找到](https://github.com/thirteen23/RainCat/releases/tag/smashing-magazine-lesson-one)[27] 第一课内容所涉及的源代码。
 
 你完成的怎么样？你的代码实现是否和我的示例几乎一样？哪里有不同呢？你是否优化了示例代码？教程中是否有阐述不清晰的地方？请在评论中写下你的想法。
 
