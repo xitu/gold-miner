@@ -6,7 +6,7 @@
 
 #  渐进增强的 Web 体验（Progressive Web AMP）
 
-如果你最近几个月一直关注着 Web 开发社区，可能你对[渐进增强的 Web 应用](https://www.smashingmagazine.com/2016/08/a-beginners-guide-to-progressive-web-apps/)（简称 PWA）已有所了解。它是应用体验能与原生应用媲美的 Web 应用的统称：[不依赖网络连接](https://www.smashingmagazine.com/2016/02/making-a-service-worker/)，[易安装](https://developers.google.com/web/fundamentals/engage-and-retain/app-install-banners/?hl=en)，支持视网膜屏幕，支持无边距图像，支持登录和个性化，快速且流畅的应用体验，支持推送通并且有一个好看的界面。
+如果你最近几个月一直关注着 Web 开发社区，可能你对[渐进增强的 Web 应用](https://www.smashingmagazine.com/2016/08/a-beginners-guide-to-progressive-web-apps/)（Progressive Web App 简称 PWA）已有所了解。它是应用体验能与原生应用媲美的 Web 应用的统称：[不依赖网络连接](https://www.smashingmagazine.com/2016/02/making-a-service-worker/)，[易安装](https://developers.google.com/web/fundamentals/engage-and-retain/app-install-banners/?hl=en)，支持视网膜屏幕，支持无边距图像，支持登录和个性化，快速且流畅的应用体验，支持推送通并且有一个好看的界面。
 
 ![从谷歌的 Advanced Mobile Page（AMP）到渐进式 Web 应用](https://www.smashingmagazine.com/wp-content/uploads/2016/12/progressive-web-amp-2.png)
 
@@ -76,7 +76,7 @@ AMP 可靠快速的体验，在实现时也伴随着一些限制。当你需要�
 #### AMP 作为 PWA
 许多网站其实用不到超出 AMP（功能）范围。[Amp by Example](https://ampbyexample.com/) 就是一个例子，它既是 AMP 也是一个渐进式 Web 应用。
 - 它有 service worker，因此允许包括离线访问等在内的其他功能。
-- 它有清单（manifest），在网页横幅上会提醒“添加到主屏幕“。
+- 它有清单（manifest），在横幅（banner）上会提醒“添加到主屏幕“。
 
 当用户从谷歌搜索访问 [Amp by Example](https://ampbyexample.com/)，然后点击网站上链接，它们将从 AMP 缓存页面转到源页面上。当然，网站仍在使用 AMP 库，但是现在由于它处于源页面上，它能使用 service worker 或提示安装等等。
 
@@ -104,12 +104,12 @@ function createCompleteResponse (header, body) {
 
 #### AMP 转作 PWA
 
-当上述不能满足时，并且你想让内容有一个完全不同的 PWA 体验时，是时候用一种更高级一点的模式了：
+当上述不能满足，并且你想让内容有一个完全不同的 PWA 体验时，是时候用一种更高级一点的模式了：
 - 为了接近瞬时加载的体验，所有内容“叶”页（指有特定内容，不是概述的页面）被发布成 AMP。
 - 这些 AMP 使用 AMP 的特殊元素 [`<amp-install-serviceworker>`](https://www.ampproject.org/docs/reference/extended/amp-install-serviceworker.html) 来预备缓存，并且**当用户喜欢**你的内容时用 PWA 的外壳。
 - 当用户点击你网站上的另一个链接（比如，在底部的行为召唤（按钮），使其更像原生）service worker 拦截请求并接管页面，然后加载 PWA 外壳替代之。
 
-你可以通过以上三个简单步骤来实现这种体验，假如你熟悉 service worker 的运作（如果你不清楚的话，强烈推荐我的同事[杰克在优达学城（Udacity）上的课程](https://www.udacity.com/course/offline-web-applications--ud899)）。第一步，在你所有的 AMP 上放置 service worker。
+假如你熟悉 service worker 的运作，你可以通过以上三个简单步骤来实现这种体验。（如果你不清楚的话，强烈推荐我的同事[杰克在优达学城（Udacity）上的课程](https://www.udacity.com/course/offline-web-applications--ud899)）。第一步，在你所有的 AMP 上放置 service worker。
 ```
 <amp-install-serviceworker
       src="https://www.your-domain.com/serviceworker.js"
@@ -180,16 +180,16 @@ AMP 通过 [Shell URL 重写](https://www.ampproject.org/docs/reference/componen
 
 AMP 页面能顺利地嵌入其他网站中 — PWA 的 AMP 库只会编译并加载一次。
 
-当然，一个简单的方法是在 frames 中加载 AMP 页面。但是使用 iframes 比较慢，并且需要你一遍又一遍地重新编译和初始化 AMP 库。现在前沿的 Web技术提供了一种更好的方式：Shadow DOM。
+当然，一个简单的方法是在 frames 中加载 AMP 页面。但是使用 iframes 比较慢，并且需要你一遍又一遍地重新编译和初始化 AMP 库。现在前沿的 Web 技术提供了一种更好的方式：Shadow DOM。
 
 处理过程看起来是这样的：
 1. PWA 操纵所有的导航点击事件。
 2. 然后，用 XMLHttpRequest 获取请求的 AMP 页面。
 3. 将内容放入一个新的 shadow root 中。
-4. 然后返回给主 AMP 库，”嘿，我有一个新文档给你。请查收！“（在运行时调用 `attachShadowDoc`）。
+4. 然后返回给主 AMP 库，“嘿，我有一个新文档给你。请查收！”（在运行时调用 `attachShadowDoc`）。
 
-使用此种技术，整个 PWA 只会编译和加载一次 AMP 库，并且然后，因为你是通过 XMLHttpRequests 获取的页面，你能在 AMP 源插入新的 shadow document 之前进行一些修改，你可以像这样做：
-- 去掉不必要的内容，比如页眉（headers）和页脚（footers）;
+使用此种技术，整个 PWA 只会编译和加载一次 AMP 库，并且然后，因为你是通过 XMLHttpRequest 获取的页面，你能在 AMP 源插入新的 shadow document 之前进行一些修改，你可以像这样做：
+- 去掉不必要的内容，比如页眉（header）和页脚（footer）;
 - 插入额外的内容，比如令人反感的广告或信息提示；
 - 用更动态的内容替换特定内容。
 
@@ -204,7 +204,7 @@ AMP 团队做了一个[名为 The Scenic 的 React 示例](https://choumx.github
 
 #### 看点真东西
 
-一个真实产品的例子是 [Mic 新的 PWA](https://beta.mic.com)（beta 阶段），研究一下 :如果你按住 shift 重新刷新（shift-reload）[任意文章](https://beta.mic.com/articles/161568/arrow-season-5-episode-9-a-major-character-returns-in-midseason-finale-maybe)（这样暂时忽略 service worker）查看源代码， 你会注意到这是一个 AMP 页面。现在尝试点击一下菜单：它会重新加载当前页面， 但由于 `<amp-install-serviceworker>` **已存在**于 PWA 应用外壳中，重载几乎是*瞬间*完成的，并且菜单在刷新后打开，使其看起来不像是重新加载过一样。但现在你处于拥有其他丰富功能的（内嵌 AMP 页面）PWA 中。狡猾，但很了不起。
+一个真实产品的例子是 [Mic 新式 PWA](https://beta.mic.com)（beta 阶段），研究一下 :如果你按住 shift 重新刷新（shift-reload）[任意文章](https://beta.mic.com/articles/161568/arrow-season-5-episode-9-a-major-character-returns-in-midseason-finale-maybe)（这样暂时忽略 service worker）查看源代码， 你会注意到这是一个 AMP 页面。现在尝试点击一下菜单：它会重新加载当前页面， 但由于 `<amp-install-serviceworker>` **已存在**于 PWA 应用外壳中，重载几乎是**瞬间**完成的，并且菜单在刷新后打开，使其看起来不像是重新加载过一样。但现在你处于拥有其他丰富功能的（内嵌 AMP 页面）PWA 中。狡猾，但很了不起。
 
 ### 结语
 
