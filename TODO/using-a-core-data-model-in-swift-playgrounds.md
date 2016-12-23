@@ -4,6 +4,8 @@
 * 译者 : [MAYDAY1993](https://github.com/MAYDAY1993)
 * 校对者: [siegeout](https://github.com/siegeout) [owenlyn] (https://github.com/owenlyn)
 
+# 在 Swift Playgrounds 中使用 Core Data 模型
+
 你能在 Xcode 的 Swift Playgrounds 中使用 Core Data 模型么？当然可以！
 
 在2015年， [http://www.learncoredata.com](http://www.learncoredata.com)的作者 [Jeremiah Jessel](https://twitter.com/JCubedApps)，写了篇文章 [detailing how you can use the Core Data framework inside a playground](http://www.learncoredata.com/core-data-and-playgrounds/)。从建立 Core Data 堆栈到在代码中创建 NSManagedObjects，他向我们展示了如何处理这一过程中的所有事情。多么好的资料啊！

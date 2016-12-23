@@ -4,6 +4,7 @@
 * 译者：[mypchas6fans] (https://github.com/mypchas6fans)
 * 校对者：[Graning] (https://github.com/Graning) [lizwangying] (https://github.com/lizwangying)
 
+# 安全的计时器设计模式
 
 本文版权所有者为 [Matt Gallagher](http://www.cocoawithlove.com)，原文链接在 [Design patterns for safe timer usage](http://www.cocoawithlove.com/blog/2016/07/30/timer-problems.html)。 译文的翻译和发表得到了原作者的许可。
 

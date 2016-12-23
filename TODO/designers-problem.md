@@ -1,206 +1,247 @@
 > * 原文地址：[How to design a mobile app across OS platforms?](https://medium.com/@ooceanzou/designers-problem-d7f70d4f4d6c#.8mr6hednc)
 * 原文作者：[Ocean Zou](https://medium.com/@ooceanzou)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者： 
-* 校对者： 
+* 译者：[Kulbear](https://kulbear.github.io/)
+* 校对者：[siegeout](https://github.com/siegeout), [jiaowoyongqi](https://github.com/jiaowoyongqi)
 
-### Designers’ Problem
+# 根据 OS 设计你的应用
 
-***Android and iOS,***[the two main mobile OS platforms in the market](http://www.idc.com/prodserv/smartphone-os-market-share.jsp), are usually requested to be developed when a company wants to launch a mobile app. For a mobile app to be designed across these two platforms, one of the challenges is to balance the consistency of branding and functionality with the conventions of each platform.
+### 设计师们的难题
 
-As a digital designer, it is important to understand the idioms and behaviours of each platform so that we can better communicate with the developers and stakeholders before starting the design. That way, your team can discuss about the development plan based on the advantages and disadvantages of adapting each platform (whether to develop iOS first, Android first, or to develop your app on both platforms at the same time).
+***Android 和 iOS***[ 是市场上的两个主流操作系统](http://www.idc.com/prodserv/smartphone-os-market-share.jsp)。多数公司都会要求开发者开发对应的移动端应用。对于这些需要在两个平台上同时设计的应用，其中一个挑战就是在品牌一致性和平台的不同功能特性之间进行平衡。
 
-> Therefore, I want to compare the similarities & differences between Google’s and Apple’s Mobile OS Design Guideline. In addition, I will explore those differences & similarities by studying selected app design on iOS and Android platforms.
+作为一名设计师，了解不同平台的设计惯例和行为才能在开始设计前更好的和开发者及股东们进行交流。这样，你的团队可以基于适配各个平台的优缺点来讨论决定开发计划（先开始 iOS 的开发，或者先开始 Android 的开发，或者同时进行两个平台的开发）。
 
-By doing so, I hope to better understand the benefits & drawbacks to depot design on each platform and come up with some advice to help designers & developers better decide on their mobile app design & development strategies in the future — whether iOS first, Android first or developing both at the same time.
+> 因此，在这里我将会比对苹果和谷歌这两个操作系统设计风格上的相似之处和不同之处。我将会挑选部分应用，分析其在这两个平台上设计的相似和不同。
 
-### Design Guidelines
+通过这样的比对，我们可以更好的理解在这两个平台上约定俗成的设计形式。同时还可以给予设计者／开发者们一些建议，帮他们决定将来的设计和开发策略——不论他们想要先开发某一平台或者并行开发。
 
-In this section, I will analyze and study the design guideline from [Apple](https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/MobileHIG/) and [Google](https://www.google.com/design/spec/material-design/introduction.html), exploring their similarities & differences.
+### 设计参考（指南）
 
-#### Google Design Guideline
+这一部分我们将会研究和探讨来自 [ Apple ](https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/MobileHIG/)和[ Google ](https://www.google.com/design/spec/material-design/introduction.html)的设计方针中的相似与不同。
 
-[Material Design](https://www.google.com/design/spec/material-design/introduction.html), coming up in 2014 as google’s new approach to cross-product, cross-platform design, is the default visual language for Android 5.0+ devices.
+#### 谷歌的设计指南
+
+[Material Design](https://www.google.com/design/spec/material-design/introduction.html) 在 2014 年被谷歌提出并作为 5.0 版本及以上的 Android 系统中跨产品，跨平台设计的默认“视觉语言”。
 
 ![](http://ac-Myg6wSTV.clouddn.com/5a25fa2885fcbf1a5e08.png)
-Figure 1.1 Adaption Rate for Each Version of Android
-Based on figure 1.1 from [android developer dashboard site](http://developer.android.com/about/dashboards/index.html) , the adoption rate of material design is only around 24% as of *October 5, 2015* but it has been increased radically since its launched on* November, 2014. Based on the growth of new android devices, *The adoption rate of material design is likely to grow in the future as there are [growing amounts of new android devices](http://www.idc.com/prodserv/smartphone-os-market-share.jsp). Therefore, as Material Design is the latest design framework that Google define for the android device, in this study, I will refer Material design as the design applied in the android system.
+
+图表 1.1 各版本 Android 操作系统普及率
+
+基于来自 [android developer dashboard site](http://developer.android.com/about/dashboards/index.html) 的上图我们可以看出，Material Design 的普及率在 2015 年 10 月 5 日时仅仅有 24%。在 2014 年 11 月发布的时候, 它的用户有过一段迅猛增长。基于新的 Android 设备的普及率，Material Design 的普及率应该和未来[新增长的 Android 设备数量](http://www.idc.com/prodserv/smartphone-os-market-share.jsp)相似。因此，由于 Material Design 是 Google 为 Android 设备发布的最新设计框架，本文中对 Android 系统的设计研究将基于此。
 
 ![](http://ac-Myg6wSTV.clouddn.com/53102f018f484dde50cf.png)
-Figure 1.2 Material Design Main Features
-Material design has been well-defined by Google. According to the figure 1.2, there are four aspects you need to pay attention to if you are not familiar with the material design.
 
-**Depth & Surface:** You will find a considered use of elevated surfaces and shadows in Android, which intends to indicate the depth of UI elements.
+图表 1.2 Material Design 的主要特征
 
-**Grid and dpi: **Material design strictly adheres to the Density-independent pixels(dp) grid system. According to [google’s definition, ](https://www.google.com/design/spec/layout/units-measurements.html#units-measurements-density-independent-pixels-dp-)dp are flexible units that scale to uniform dimensions on any screen. When developing an Android application, designers use dp to display elements uniformly on screens with different densities. In material design, everything aligns to an 8dp grid, creating a consistent visual rhythm across apps. For example, buttons are often 48dp tall, the [app bar](https://www.google.com/design/spec/layout/structure.html#structure-app-bar) is 56dp tall by default, and spacing between elements is in multiples of 8dp.
+谷歌很好的定义了 Material Design。从图表 1.2 中我们能看出，如果你不熟悉材料设计，共有四个方面你需要特别注意。
 
-**Typography: **[Roboto](https://www.google.com/fonts/specimen/Roboto) is the default font family for Android, and includes a number of weights as well as a [condensed](https://www.google.com/fonts/specimen/Roboto+Condensed) variant. In addition, you can also incorporate your brand’s typographic palette into your app.
+**深度 & 表面：** 你将会发现在 Android 中使用的效果是深经考究的，尤其是浮起的元素及其投影，都是为了表现不同界面元素之间的层级关系。
 
-**Interaction & Motion: **Material design places a lot of emphasis on user-initiated motion and touch response. According to figure 1.3 below, when you touch an element, in addition to the touch ripples that emanate from your finger, buttons can rise in elevation (essentially, their shadow grows) to “meet” your finger.
+**网格 and dpi（每英寸所打印的点数）：** Material Design 严格使用了独立于密度的像素网格系统（dp）。 根据 [google’s definition](https://www.google.com/design/spec/layout/units-measurements.html#units-measurements-density-independent-pixels-dp-)，dp 是一种灵活的像素单位，它可以自动按比例显示在任意屏幕上。在设计 Android 应用的时候，设计师们可以通过使用 dp 在不同像素密度的屏幕上显示同样比例的元素。在 Material Design 中，所有元素都依附在网格 8dp 宽的框架上, 这可以使不同应用间的视觉效果很有规律。比如，按钮一般都是高 48dp 的，[应用栏](https://www.google.com/design/spec/layout/structure.html#structure-app-bar)默认为 56dp，不同元素的间距总是 8dp 的倍数。
+
+**字体：** [Roboto](https://www.google.com/fonts/specimen/Roboto) 是 Android 的默认字体集，它包括了不同尺寸和[字重](https://www.google.com/fonts/specimen/Roboto+Condensed)的字体。此外，你还可以在你的应用中导入你自己的排版字体。
+
+**交互 & 运动：** Material Design 参考了很多用户使用动机和接触反应。根据图 1.3 中我们可以看出，当你点击某个元素时，接触点的四周将会扩散出波纹，如果你点击的是按钮，则按钮将会升起（一般通过加深阴影实现）来“靠近”你的手指。
 
 ![](http://ac-Myg6wSTV.clouddn.com/ef8991f36a50b6877541.gif)
-Figure 1.3 Material Design Interaction
+
+图表 1.3 Material Design 交互
+
 ![](http://ac-Myg6wSTV.clouddn.com/1b40487c14c76b73a321.png)
-Figure 1.4, Adoption Rate for Each Version of iOS
 
-#### Apple Design Guideline
+图表 1.4, 各版本 iOS 的普及率
 
-Unlike the Material design, Apple has established and developed their iOS Design Framework for a long time and there are dramatically more users using iOS8 and iOS9 [(based on ](https://developer.apple.com/support/app-store/)figure[ 1.3)](https://developer.apple.com/support/app-store/). As iOS9 is a new OS that launched a few months ago, most of the iOS application still remain in iOS8. Due to this reason, when I am talking about iOS Design in this study, I will refer to iOS8 and its features.
+#### Apple 设计指南
 
-Based on the reading on [iOS Human Interface Guideline](https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/MobileHIG/), I have summarized the following key points for iOS Design:
+和 Material Design 不同的是，Apple 很早就建立了自己的 iOS 设计框架。从图 1.3 中不难看出 iOS8 和 iOS9 占据了大多数用户。由于 iOS9 数月前刚刚发布，多数 iOS 应用还停留在 iOS8 的版本下。因此，此次我谈论的 iOS 设计将主要围绕 iOS8 和它的特性。
 
-**Flat Design: **It removes any stylistic choices that give it the illusion of three-dimensionality, like drop shadows, gradients, and textures. It’s focused purely on the interplay of icons, typography, and colour.
+参考阅读 [iOS 界面设计](https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/MobileHIG/)后，我针对 iOS 设计总结出如下几点：
 
-**Minimalist Design & Functionality: **The design in iOS focuses more on raw functionality instead of the appearance. The simplicity of its iconography and layout is intended to reduce the cognition workload for users while they are using the phone.
+**扁平化设计：**它移除了任何给予组件 3D 效果的选择，比如阴影，纹理等。它专注于排版，颜色和组件之间的关系。
 
-**Intuitive Interaction:** The built-in apps use a variety of cues, including response to pressure, colour, location, context, and meaningful icons and labels. Users rarely need additional decorations to show them that an onscreen element is interactive or to suggest what it does. For example, to go back, users will generally get hints to slide their finger from the left to the right as there is response to pressure on screen.
+**极简设计 & 功能：** iOS 的设计更专注于原始功能而非外观。简易的图标和布局最大程度上减少了用户使用手机时的认知成本。
 
-**Colour & Image:** In iOS, Apple relies on using colour to helps indicate interactivity and provide visual continuity. To intuitively guided users through the process of a mobile app, it suggest designers to base heavily on using the colours and pictures alone to guide for user’s next actions.
+**直观的交互：**内置的应用使用了很多直观的设计，如压感反应，颜色，位置，有含义的图标和标志。用户不需要过多装饰就能明白屏幕上的某个元素是用来干什么的。比如，对于回到上一界面，多数用户会被暗示只需要在屏幕上轻轻从左向右滑动手指即可。
 
-#### Comparisons between Apple and Google
+**颜色 & 图片：**在 iOS 中，Apple 使用了颜色来指出交互和视觉上的连贯性。 设计师们被强烈建议使用颜色和图片来引导用户使用应用时的每一步操作。
 
-**UI Elements**
+#### Apple 和 Google 的比较
+
+**用户界面元素**
 
 ![](http://ac-Myg6wSTV.clouddn.com/775dce40405661b2b82f.png)
-Figure 1.5 UI Elements Comparisons
 
-The iOS Platform and Android Platform have differences in the User Interface elements. According to the figure 1.4, firstly, iOS(left) and Android(right) have different position for the main action bar. While apple system place it on the bottom of the User Interface, Android system usually place it on the top but below the navigation bar. Secondly, both android and iOS have designed back navigation button on the top. However, the top back navigation button is optional for Android since it also has a physical back navigation bar on the phone. Thirdly, while material design frequently uses hamburger icon as their menu button, apple normally do not use the hamburger-like menu. Fourthly, material design also allow float button always stay above the UI, using as a shortcut button for the user. In addition, material design also use cards as a key component for their user interface.
+图表 1.5 用户界面的比较
 
-**Interaction & Motion**
+iOS 和 Android 平台在用户界面上有着明显的分别。根据图 1.4 不难看出，第一，iOS（左）和Android（右）的主要操作栏位于不同的位置。苹果系统将其放置于界面下方，而 Android 系统将其放置在上方导航条的下方。第二，两个平台都为回退功能设计了在左上的按钮，但在 Android 平台下这个是可选的，因为 Android 手机上自带了回退导航的按钮。第三，Material Design 常用一种类似“汉堡”的图标表示菜单栏，而 Apple 不常使用这种导航方式。第四，Material Design 允许浮动按钮作为快捷方式出现在界面上，并把卡片视图作为一个用户界面上重要的组件。
+
+**交互 & 运动**
 
 ![](http://ac-Myg6wSTV.clouddn.com/3bbd8617f851fdb1ac5e.png)
-Figure 1.6 Interaction and Motion Design Comparisons
-Android also differs from iOS design regarding its interaction and motion design. According to figure 1.5, Firstly, while iOS use colour change or dimming to provide users with interaction feedback, the interaction feedback from Android includes touch ripples that emanate from your finger *(surface reaction and radial reaction)*, buttons can rise in elevation with their shadow grow to “meet” your finger *(material response)*. Secondly, while Apple advocates to add animation cautiously and do the animation in a subtle way, Material design implements animation in a more eye catching way. In Google’s opinion, the clean and strong motion design can effectively guide the user’s attention in ways that both inform and delight. They believe the use of motion can smoothly transport users between navigational contexts, explain changes in the arrangement of elements on a screen, and reinforce element hierarchy *(transitions).*
 
-**Visual Language**
+图表 1.6 交互设计上的比对
+
+Android 和 iOS 在交互设计上也很不一样。根据图 1.5 我们可以看出，第一，当 iOS 使用颜色变化或淡出来给交互提供反馈，Android 使用从你的手指扩散出的浮动的波纹（水面和光线的反馈）以及点击后会通过加深阴影上升“靠近”你手指的按钮（材质反馈） 。第二，Apple 谨慎的设计了动画，而 Material Design 对动画的设计更抓人眼球。在 Google 来看，丰富清晰的动态设计可以有效的引导用户的关注度。他们相信对于动态效果的应用可以更平滑的在不同导航界面间引导用户，解释屏幕上组件的改变，以及强调元素的优先级*（过渡）*。
+
+**视觉语言**
 
 ![](http://ac-Myg6wSTV.clouddn.com/89cbb9564cdc61855a4b.png)
-Figure 1.7 Visual Design Comparision
 
-Android and iOS also have different visual languages based on figure 1.6. Firstly, on Android, the key unit of measure is the density-independent pixel, often abbreviated DIP or DP while iOS use points as their unit. Both types of units ensures your designs have a consistent physical size across devices of varying density. Secondly, iOS conventionally uses a blur effect to indicate depth while Android use the shadow to do so. Thirdly, regarding the form size, iOS use 3 types (@1x,@2x,@3x) while the Android use 4 types (normal, small, large, extra large).
+图表 1.7 视觉设计的比对
 
-### Mobile Applications
+Android 和 iOS 在视觉设计上也大为不同。首先，在 Android 上，一个关键点是密度无关像素（常被缩写为 DIP 或 DP）的引入，而 iOS 只是使用点作为他们的单位。 这两种类型都能保证你的设计在不同密度大小的设备上能正常使用。第二，iOS 大量使用了模糊效果而 Android 选择使用了阴影。第三，iOS 使用三种标准尺寸（@1x，@2x，@3x）而 Android 有四种（normal，small，large，extra large）。
 
-After knowing the main features of Material Design and iOS Design, I researched and studied the applications that has different or similar design on iOS & Android. As I don’t know any people from the application team, the opinion in this section is my observation instead of the team’s actual decisions. Based on the observations, there are various approaches on designing apps on multi-platforms which includes Brand-oriented approach, Platform-oriented approach, and the Fixed approach. In the following section, I will explain each approach and analyze the examples.
+### 移动端应用
 
-#### Brand-oriented approach
+在了解 Material Design 和 iOS 设计的主要特点后。我研究了一些在 Android 或是 iOS 上有相似和不相似界面的应用。由于我不认识这些开发团队中的任何人，所以这一部分的总结来源于我的观察和猜测而非真实的开发决策。基于我的观察，对多平台设计应用通常有面向平台的，面向品牌的，以及混合的方法。我会在接下来解释每种方法并分析一些例子。
 
-The Brand-oriented approach unifies a product’s brand identity by customizing its user interface and user experience on both OS. Under this approach, designer usually don’t follow the standard platform guideline and design unique user interface to deploy on both platform. Under this category, VSCO CAM and Snapchat not only have strong brand identity but also have unique custom interface. In this section, we will evaluate them and study from their design.
+#### 面向品牌的方法
+
+面向品牌的方法主要是使用在两种系统上使用自定义的用户界面来突出自己的品牌。为了贯彻这种方法，设计师们往往不会遵循标准的平台设计而去设计独特的用户界面并发布于两个平台。在这个分类下，VSCO CAM 和 Snapchat 不仅保持了品牌特性，并且都有独特的自定义界面。这一部分，我们将比对它们并研究它们的设计。
 
 > VSCO CAM
 
 ![](http://ac-Myg6wSTV.clouddn.com/690e10db3d0181112c16.gif)
-Figure 2.1 VSCO CAM — Explore Page ( Left IOS vs Right Android )
-VSCO Cam app is a popular photo editing application nowadays. It was first launched in iOS and then was ported to Android. As you can see from the figure 2.1 above, the UI on android looks almost the same UI on iOS. They have the same navigation, same menu, and even the same icons. More interestingly, neither of them follow the platform design guidelines. There is no traditional action bar. The way you navigate around is through its menu which is not located in a traditional position. In this case, as VSCO CAM drop platform guidelines in favour of brand identity, you can strongly feel its consistent brand identity across both platforms.
+
+图表 2.1 VSCO CAM — 探索页（左 iOS vs 右 Android）
+
+VSCO Cam 应用是一个现今流行的照片处理应用。刚开始它被发布于 iOS 平台 并在随后推出了 Android 版本。图 2.1 中可以看出， Android 上的界面和 iOS 上的几乎一样。同样的导航，菜单，甚至图标。更有趣的是，没有一个平台上的开发是遵循平台设计准则的。没有传统的动作条。在不同界面的转换需要通过一个不在通常位置的菜单完成。由于 VSCO Cam 完全“不管不顾”平台的设计准则而侧重于品牌特点，你可以很明显的感觉出在不同平台上他们所关注的品牌特点。
 
 ![](http://ac-Myg6wSTV.clouddn.com/7f760c5880e1ea13e99e.gif)
-Figure 2.2 VSCO CAM — Camera Page( Left IOS vs Right Android )
-Although the current iOS and Android versions of Snapcthat do look like twins, there are still a few elements that set them apart. For example, the camera interface looks native to both platforms.
+
+图表 2.2 VSCO CAM — 相机页（左 IOS vs 右 Android）
+
+虽然现在 iOS 和 Android 平台上的 VSCO CAM 看似很接近，但实际仍然有一些地方可以被区分开。比如，相机的界面都是原生平台的界面。
 
 > Snapchat
 
 ![](https://cdn-images-1.medium.com/max/800/1*4uytqo55hEPhaLn2WSlrQw.gif)
-Figure h2.3 Snapchat — UI flow ( Left iOS vs Right Android )
-Like the VSCO Cam app, Snapchat was launched in the App Store way before it became available for Android in 2011. The uniqueness and playfulness of its interaction has made Snapchat stand out, which make this app successfully [attract more than 200 million active users nowadays](http://www.businessinsider.com/snapchats-monthly-active-users-may-be-nearing-200-million-2014-12). simplified process to take and send photo, nice color palette, the smooth transition, and animation all contribute to the uniqueness of Snapchat. As the unique interaction is Snapchat’s brand identity, we can see that the company is trying to unify its interaction experience on both platforms. The iOS and Android interfaces of the Snapchat app are almost identical, including UX design and UI design. As you can see from figure 2.3, Snapchat has the same interaction flow on both platforms. On both iOS and Android, user will first enter the camera page. After that, they can view the friends page if they swipe to the left while swiping right to view the “discovery” page. In addition, the design for UI elements and graphics also look highly similar. The design on each platform only differ regarding the size and position of title and icon element.
 
-Generally speaking, both Snapchat and VSCO Cam have created strong brand identities via implementing unified UX and UI design across platforms. However, such approach also has drawbacks and we will further discuss it in later section. For now, we will keep exploring and get to know the platform-oriented approach.
+图表 2.3 Snapchat — 用户界面流（左 IOS vs 右 Android）
 
-#### Platform-oriented Approach
+如同 VSCO Cam 应用一样，Snapchat 很早发布在 App Store，很久之后才有 Android 版本（2011年）。交互的独特性和娱乐性让 Snapchat 脱颖而出，使它[拥有超过两亿的用户](http://www.businessinsider.com/snapchats-monthly-active-users-may-be-nearing-200-million-2014-12)。简单的拍摄并发送照片儿，优秀的颜色处理，平滑的过渡和动画效果构成了 Snapchat 的独特性。这种独一的交互是 Snapchat 的一大品牌特点，我们可以发现公司尝试统一在两个平台上的交互体验——界面看起来在两个平台上完全一样。从图 2.3 中看，Snapchat 在两个平台上有着相同的交互流程。首先用户进入相机界面，他们可以通过左滑进入朋友页或者右滑到“发现”页。此外，界面元素的设计和样式相似度很高，唯一的区别是标题和图标的位置与尺寸。
 
-The Platform-oriented approach aligns the design on each platform with the corresponding platform design guideline. In this case, the product designer’s focus has shifted from brand identity to familiarity with platform standards since users are accustomed to the platform conventions. They have an intuitive grasp of the design rules around their platform so that the platform-specific design can make them easily to adapt to your product. In this category, Evernote and Dropbox are excellent examples.
+总的来说，Snapchat 和 VSCO Cam 通过在不同平台上创建独特一致的用户界面来提升了品牌的独一性。然而，这样的方法也有着很多的缺点（一会再讨论）。现在，让我们来看看面向平台的方法。
+
+#### 面向平台的方法
+
+面向平台的方法是在设计的过程中遵守各个平台的设计准则。在这种情况下，产品设计人员的关注点从品牌特点转向了更贴近平台设计准则（因为用户习惯于自己使用的平台习惯）。他们更熟悉自己所使用平台的设计规则，所以一个专门为平台考虑的设计使他们更快接受你的应用。在这一类产品中，Evernote 和 Dropbox 是很好的例子。
 
 > Evernote
 
-Evernote was introduced in 2007 as a note taking product aiming to help to improve people’s work productivity. As note taking
+Evernote 作为一个帮助提升用户效率的记录笔记的应用发布于 2007 年。
 
-The iOS and Android versions of Evernote look completely different from each other regarding both the UI and UX. They differ everything on each platform from the login page design to the menu design, and even the choice on specific UI element.
+iOS 和 Android 版本的 Evernote 不论从 UI 还是 UX 来看都完全不一样。在两个平台上几乎每一部分都不一样，从登陆页，到菜单的设计，甚至一些界面元素。
 
 ![](http://ac-Myg6wSTV.clouddn.com/e441197fed5eb967158f.gif)
-Figure 2.4 Evernote Login ( Left iOS vs Right Android )
-Mentioned previously, while iOS advocates adding animation cautiously and in a very subtle way, Android prefer use dynamic animation to guide user’s eyes. As you can see from figure 2.4, the login pages on iOS and Android follow each platforms guideline and look completely different. As a result, we see the login page on iOS has minimal graphic design and animation while the one on Android has more dynamic looks and animation.
+
+图表 2.4 Evernote 登陆页（左 iOS vs 右 Android）
+
+如同前面所提到的，在 iOS 版本上倾向于简洁的动画过渡，而 Android 版本上更多的动画效果致力于抓住用户的目光。从图 2.4 中看，两个平台上的登陆页遵循各自的设计准则而看起来完全不一样。这样的结果便是在 iOS 的登陆页上有着极少的图像设计和动画，而 Android 版本上有的动态风富的设计和动画。
 
 ![](http://ac-Myg6wSTV.clouddn.com/81f08899ab7d034ad4fa.gif)
-Figure 2.5 Evernote Main Menu | left(iOS) vs right(Android)
-The menu design also looks completely different. The menu on iOS takes up full page and has an overwhelming green background, which makes it look like a new page instead of a menu. Unlike the design on iOS, Android’s version follows Material Design guideline and use hamburger menu. As the menu only take up half of the page and user can easily see where they are, it gives user better understanding about their locations during the page transition. In addition, the menu items on Android is easier to read as there are more white space and better information hierarchy.
+
+图表 2.5 Evernote 主菜单（左 iOS vs 右 Android）
+
+菜单的设计也完全不一样。iOS 上的菜单有着全绿色的背景，占据了整页，这使它看起来像一个新页面而不是菜单。而和 iOS 版本不同的是， Android 版本中遵循了 Material Design 的准则，使用了“汉堡”菜单。这个菜单只占据了半页，用户可以很明确的知道他们所在的页面。这在页面转换之余给予了用户更明确的体验。此外，菜单的栏目在 Android 版本上由于更多的留白和信息优先级要更易读一些。
 
 ![](http://ac-Myg6wSTV.clouddn.com/be827a16addd448cebfd.gif)
-Figure 2.6 Evernote Macro Interaction ( Left iOS vs Right Android )
-Evernote’s designers also adopted native UI elements on each platform to perform same tasks. As you can see from the graph 2.6, the add button on android is float button, which is a traditional UI element on material design. On the other hand, the add button on iOS is action bar button, which is usually seen in the iOS design guideline.
+
+图表 2.6 Evernote 动态交互（左 iOS vs 右 Android）
+
+Evernote 的设计师们还在每个平台上采用了原生的用户界面组件来执行同样的任务。从图 2.6 中可以见到，在 Android 版本中的添加按钮是一个在 Material Design 中传统的浮动按钮，而在 iOS 版本中添加按钮则被设计在了动作条上作为一个按钮——这在 iOS 的设计中十分常见。
 
 > Dropbox
 
-Dropbox is a utility app that has chosen to focus on functionality rather than the look. Therefore, its designers decided to stick to a platform-oriented approach since the native user interface is more predictable and is therefore easier for a user.
+Dropbox 是一个重视功能而非界面的实用应用程序。因此，它的设计师们决定严格遵守面向平台的方法，沿用原生设计准则，从而使界面和交互更易预测，对用户更友善。
 
 ![](http://ac-Myg6wSTV.clouddn.com/fd2fc3dc962f9814f9e9.gif)
-Figure 2.7 Dropbox Navigation Strucutre
-As you can see from figure 2.7, Dropbox Android and iOS take different approaches for navigation hierarchy. The current Dropbox for iOS uses a bottom tabs bar to switch between four top-level sections: Files, Photos, Offline Files, and Notifications. However, Android version hides all top level sections into the navigation drawer, which is a large difference from hierarchical perspective.
+
+图表 2.7 Dropbox 导航结构
+
+从图 2.7 中看，Dropbox 的 Android 和 iOS 版本使用了不同的方法来决定导航的优先级。iOS 版本中，它使用了底部的选项栏来完成在四个最高级的部分（文件，照片，离线文件，通知）之间切换。然而，Android 版本中这些都被隐藏在导航 drawer 中。从优先级角度来看，这是很大的差异。
 
 ![](http://ac-Myg6wSTV.clouddn.com/41f45399d3e334894329.gif)
-Figure 2.8 Dropbox Float Button ( Left iOS and Right Android )
-The Dropbox designers also use platform-standard controls and UX interaction elements for the design on each platform. According to figure 2.8, Android’s floating action button and iOS’s tab button have been used in the corresponding platform to give users easy access to primary content-related actions, for example, u*pload file*, new folder, etc. The use of these two UI elements not only keep the same content working across platforms but also truly fit in with each OS’s UI pattern.
+
+图表 2.8 Dropbox 浮动按钮（左 iOS vs 右 Android）
+
+Dropbox 的设计师们也对各自平台使用了各自规范的控制和体验交互元素。从图 2.8 来看， Android 的浮动动作条和 iOS 中的选项按钮各自被应用在其中关键的内容功能上。比如，*上传文件*，新建文件夹等等。这种对界面元素的应用不仅使两个平台上的功能保持高度一致，而且还符合各自的界面设计模式。
 
 ![](http://ac-Myg6wSTV.clouddn.com/4cc916d24f5c47cf8ac7.gif)
-Figure 2.9 Dropbox Login Page ( Left iOS vs Right Android )
-Beside the UI and UX differences among these two platforms, there are also differences regarding graphic design, animation, and copywriting. As you can see from graph 2.9, while iOS version has minimal text and icon, the Android version shows us appealing visual design and animation. Android’s version has better copywriting as well, which create a sense of caring and welcome.
 
-Generally speaking, both Evernote and Dropbox have created highly platform-specific apps. However, as the opposite side of brand-oriented approach, this method also has drawbacks, which will be discussed later. For now, we will keep exploring the last methods to design multiplatform apps: the mixed approach.
+图表 2.9 Dropbox 登陆页（左 iOS vs 右 Android）
 
-#### Mixed Approach
+除了 UI 和 UX 上的设计差异之外，图像设计，动画，包括写作在不同平台上也很不一样。从图 2.9 中我们可以看到，iOS 版本使用了最少的文字和图标，而 Android 版本上则重点照顾了视觉设计和动画。 Android 上也有更好的写作体验，让用户感觉被关注和重视。 
 
-This mixed approach to multiplatform design seeks a balanced combination of the two approaches mentioned above, and it’s also the most complicated one. In this case, designer need to take into account two types of users: those familiar with your product, and those who have never used it before. The former adhere to a brand, while the latter are accustomed to the particularities of their platform. Designers who choose the mixed method are diplomats whose job is to represent the interests of the brand, as well as promote friendly relations with users. They need to figure out what UI elements make a product stand out, and also find platform-specific solutions which won’t hurt the brand. Under this category, Facebook and Spotify are the examples being used.
+总的来说，这两个公司都创建了高度面向平台的应用。然而，面向平台方法也有着很多的不足。现在我们先来看看最后一种方法：混合方法。
+
+#### 混合方法
+
+在多平台设计上应用混合方法往往是在以上提及的两种方法中寻求平衡，当然它也是最复杂的一种。在这种情况下，设计师需要考虑两种用户：熟悉你的产品的，和从未使用过你的产品的。第一种用户更贴近你的品牌，第二种用户更习惯于所使用的平台。混合方法的设计师是品牌兴趣和用户体验的外交官。他们需要找出哪些用户界面元素让它们的产品与众不同，还要找到针对平台同时不影响品牌效应的解决方案。这一类公司中，Facebook 和 Spotify 是我们将要讨论的例子。
 
 > Facebook
 
-Facebook’s brand has a huge impact while its multiplatform network has an enormous number of users. That’s why the mixed approach which harmoniously combines brand identity and platform was the most appropriate approach for its situation. It is easy to see that Facebook is adopting mixed approach. The current iOS and Android versions of Facebook’s app look similar, but also feel quite native to users of both platforms.
+Facebook 由于其品牌在多平台网络下大量的用户有着巨大的影响。这就是为什么结合品牌效应和平台适应性的混合方法看起来是最佳的选择。显而易见的，Facebook 使用了混合的方法。现在的 iOS 和 Android 端应用看起来很相似，但对每个平台的用户来说都十分“原生”。
 
 ![](http://ac-Myg6wSTV.clouddn.com/76a10752b1df69d5e875.gif)
-Figure 3.1 Facebook Layout (Left iOS vs Right Android)
-At first sight, the compliance with the brand identity is achieved by using colour and icons identical on both platforms. The main difference between Facebook’s iOS and Android apps is the location of the navigation bar. As you can see from graph 3.1, the iOS version uses a typical iOS navigation bar at the bottom of the screen and a standard search bar. In the Android version switching between sections is done with the help of a tab bar, which is located at the top just like the majority of Android apps.
+
+图表 3.1 Facebook 布局（左 iOS vs 右 Android）
+
+第一眼看去，品牌的特点通过在不同平台使用同样的图标和颜色得以体现。Facebook 在这两个平台上的区别主要在于导航栏的位置。如你在图 3.1 中所见到的，iOS 版本使用的是标准的 iOS风格的导航栏和标准搜索栏。在 Android 平台下则是和多数应用一样，通过位于顶部的选择栏完成的。
 
 ![](http://ac-Myg6wSTV.clouddn.com/6c7deac5dc7e72ba6495.gif)
-Figure 3.3 Facebook Search Bar ( Left iOS vs Right Android )
-The navigation button on search bar is also platform-specific. According to figure 3.3, the Facebook’s search bar on iOS has a cancel button. However, the cancel button becomes a arrow icon on Android, which may not be familiar for iOS’s users. The platform-specific design for those interactions has allowed first-time users to easily understand how those interactions work.
+
+图表 3.3 Facebook 搜索栏（左 iOS vs 右 Android）
+
+在搜索栏上的导航按钮同样是针对每个平台的。从图 3.3 上看，iOS 上的 Facebook 应用有着一个取消键，在 Android 上这个取消键变成了一个 iOS 用户所不熟悉的箭头。这些针对平台的设计使新用户很容易能理解这些交互该如何完成。
 
 > Spotify
 
-Spotify is a well-known music streaming app that has stylized design and strong brand identity. While Spotify’s designers made a significant efforts to maintain the brand’s integrity, they also follow the platform’s design guidelines to design some specific app features.
+Spotify 是一个流行的音乐播放应用，它有着针对品牌很鲜明的设计。他们的设计师侧重于品牌特点的设计，并遵循各个平台的设计准则来设计一些应用中特殊的功能。
 
 ![](http://ac-Myg6wSTV.clouddn.com/52e9851376f9599abce7.gif)
-Figure 3.4 Spotify Home Page ( Left iOS and Right Android )
-At first sight from figure 3.4, the Spotify designers did a great job on unifying UI and visual design on both platforms’ home page. The design on this page show a strong consistency across platforms.
+
+图表 3.4 Spotify Home Page（左 iOS vs 右 Android）
+
+第一眼观看图 3.4 就不难发现，Spotify 的设计师在统一两个平台上的界面和视觉设计上做的非常好。这个页面上的设计在两个平台上保持了高度的一致性。
 
 ![](http://ac-Myg6wSTV.clouddn.com/d3f65a13207a69347547.gif)
-Figure 3.6 Spotify Sign Up Page
-Despite strong adherence to the brand, Spotify also meets users’ expectations in the interface and interactions, and pays a lot of attention to the use of platform-specific UI elements. As you can see from figure 3.6, Spotify design the text filed for birthday and gender information differently on iOS and Android. While iOS design respond to user’s interaction with its traditional dropdown menu, the response on Android is a pop up window. “ The pop window ” is the typical card design based on the Material Design guideline.
+
+图表 3.6 Spotify 注册页
+
+尽管大力的贴近了品牌特点，Spotify 也迎合了用户在交互和界面上的预期，并且很多的应用了各个平台特色的用户界面组件。从图 3.6 中看，Spotify 对生日和性别信息的文本框设计在两个平台上是不一样的。在 iOS 上使用了传统的下拉菜单设计，而在 Android 上是一个弹出的菜单。卡片类的弹出菜单是 Material Design 的一个设计标准。
 
 ![](http://ac-Myg6wSTV.clouddn.com/d71ea302d20a2924bf41.gif)
-Figure 3.7 Spotify Message and Activity Page ( Left iOS and Right Android )
-In addition, the content hierarchy is designed differently on iOS and Android. According to graph 3.7 , while the activities and messages sections are top-level menu items on iOS, these two sections are under a menu item called “notification” on Android version. Spotify’s designers have taken the design from Google to simplify the information flow on Android.
 
-### Pros and Cons
+消息和活动页面（左 iOS vs 右 Android）
 
-After viewing those case studies, we will move forward and analyze the pros and cons on each approaches. In this section, I will explore when a company is suggested to choose each approach and analyze the advantages and disadvantages of using each approach.
+此外，内容的优先级设计在两个平台上也不太一样。从图 3.7 中看，在 iOS 上这一部分是在最高级菜单中的，而在 Android 版本中这两个部分被放在了一个叫“通知”的菜单选项中。Spotify 的设计师遵循了 Google 的设计来简化 Android 版本上的信息流。
 
-#### Brand-oriented Approach
+### 优势与缺陷
 
-Sticking to the brand and ignoring rules from platform guideline is the fastest, easiest and most cost-efficient approach to create UI design. The UI components that freely created by designers usually allow apps to provide users with more customized design and interaction experience. As it is not following specific platform guideline, the product is easier to give users the same look and feeling across platform, which helps company retain their brand identity. However,custom UI is complex in implementation, so development effort would cost your company more if compared to the price of building standard components. It may also causes specific user experience problems since your users are not familiar with the new interface and interaction.
+经过了这些案例分析以后，我们会针对每种方法分析优势与缺点。在这部分，我会推荐在何种情况下一个公司最好使用哪种方法，并分析使用每种方法的优缺点。
 
-**Recommendation: **It is perfect to develop an app to be part of the brand when retaining the brand’s consistency is the first priority for company’s strategy.
+#### 面向品牌的方法
 
-#### Platform-oriented Approached
+专注于品牌而忽略平台规定的准则创建 UI 是最快，最容易，也是最经济的方法。这些 UI 组件将会自由的被设计创建，从而给予用户更个性化的的设计和交互体验。由于没有遵循平台的设计准则，在多个平台上产品也可以给予用户同样的观感，帮助公司建立更好的品牌效应。然而，自定义的 UI 在开发过程中更难，需要公司比往常投入更多的精力。对于一些用户来说，可能还有体验上的问题，因为你们的界面和通用的界面并不相似。
 
-Platform-oriented approached has a faster development cycle as software engineers are familiar with standard UI element and can implement the idea much quicker. Once an app has been launched, users who download it will find interaction patterns familiar, which iseasier for a user to adapt your app. However, following platform-specific standards requires significantly more time and money regarding UI design. When designer port design, many UX and UI elements need to be recreated from scratch to align with the conventions of the target platform. Moreover, when designer follow the guideline, everything start to looks like made by google and apple. In this case, the platform-oriented approach isn’t always so awesome for companies that want to retain the strength of their own brand.
+**推荐：**开发一个树立品牌的应用，并且将保持品牌一致性作为第一准则是没有任何问题的。
 
-**Recommendation:** It is a perfect approach when your want to make a fast launch and rapidly grow a user base in a highly competitive market environment.
+#### 面向平台的方法
 
-#### Mixed approached
+因为开发人员熟悉每个平台的标准界面，面向平台的方法拥有更快的开发周期。当一个应用发布之后，用户很容易就能明确交互的方法和常见的方法很相似，更容易上手。但当你遵循平台的设计准则，在设计 UI 方面你需要投入更多的时间和金钱。设计师完成设计后，很多 UI 组件需要针对不同平台重新设计和创建。此外，当设计师遵循设计准则之后，所有东西都看起来像是 Google / Apple 制造了。看起来，对于想要树立品牌的公司来说，这个方法并不是十分实用的。
 
-The mixed approach is a singular case where you let the experience speak for the brand. I believe it’s the best path to the ideal multiplatform adaptation. It allows designer to stay true to the platform, brand and user. Besides, using this approach lets a designer alter the balance either in favor of the brand or the platform guidelines, and as a result deliver a great product. However, mixed method require longest time and effort to develop products as it involves constant change in development cycle. It’s usually hard for small startups since they don’t have enough time and money.
+**推荐：** 当你需要快速投放市场并快速的在激烈竞争的市场中抢占用户的时候，这个方法是最好的。
 
-**Recommendation: **In my opinion, such approach is perfect when designer do not have too much restriction and can incrementally develop and refine the product’s design based on feedback and evaluation
+#### 混合方法
 
-### Guideline for Decision Making
+混合的方法在你需要用户体验为品牌代言时，是最佳的选择。我相信这是通往多平台适应的最佳路线。它允许设计师切身为平台，用户和品牌考虑。此外，这个方法可以让设计师很好的平衡诸如品牌和平台设计规则，从而发布优秀的产品。然而，混合方法由于在开发过程中经常需要变更，所以最长的时间和工作量去完成。对于没有足够的资金和时间的初创公司来说这样太难了。
 
-Even though the mixed method seems to be the way to go, I’d say none of the approaches mentioned in this article is perfect. Sometimes choosing brand identity over the platform standards leads to specific user experience problems . The apps that use platform-oriented approaches risk acquiring a look that’s toostandardized and doesn’t work well for the brand. The apps I used to illustrate the mixed approach are great examples of successful multiplatform adaptation. However, such cases are rare since it require a lot of time and investments.
+**推荐：**在我看来，如果设计师可以根据反馈和评估增加／改进产品的设计而没有太多的限制，这个方法是近乎完美的。
 
-Therefore, when considering about the use of each approach, designers should align their decisions with the product’s strategy and consider the constraints in the product development, such as the lack of talent developers, money, or even the time. When your team have strong needs for brand integrity and your company are not a big company, Brand-oriented approach is suggested. On the other hand, the Platform-oriented approach will be suggested when your company focus on more rapidly growing a user base. The mixed approach will be recommended when your product development team doesn’t have too much constraints and just want to constantly improve the product.
+### “如何下决定”的指导
+
+尽管多方面结合（上文所提的多种）的方法看起来是应选的路线，我还是要说文中所提的方法没有一种是完美的。有时，倾向于品牌效应而忽视的平台标准会造成一些“特别的”用户体验问题。而针对平台开发的方法，有时候看起来太刻板太标准化，对品牌提升没什么效果。我举例的这个使用混合方法开发的应用显然是一个多平台适应的成功案例。然而，这样的例子少之又少，因为它需要很多时间和投资的支持。
+
+因此，当我们考虑使用任何一种方法时，设计师都应该考虑产品设计的策略和实际开发中的限制（比如，缺少能胜任的开发人员，资金和时间上的限制等等）。当你身处一个小公司，团队需要极高的品牌效应的时候，面向品牌的方法显然是较好的（被推荐的）。从另一方面讲，当你的公司想要快速增增长用户的时候，面向平台开发的方法便是更好的。如果你的团队并没有什么明显的限制，而只是想要进一步提升你们的产品品质，那么混合的方法来开发是最好的。

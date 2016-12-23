@@ -4,7 +4,8 @@
 * 译者 : [bobmayuze](https://github.com/bobmayuze)
 * 校对者: [SatanWoo](https://github.com/SatanWoo), [Nathanwhy](https://github.com/nathanwhy), [Tuccuay](https://github.com/Tuccuay)
 
-<h1>论Facebook是如何在iOS客户端上提高图片加载速度的</h1>
+# Facebook iOS 应用是如何加速图片显示的？
+
 你的Facebook的动态消息中充满着一些关于你朋友、家人以及你所爱的人的照片，也许你会想要在手机上也能重温那些场景。我们一直在寻找提升用户体验的方式，包括更优秀和更快的移动端体验。为了达到这个目标，我们团队仔细研究了如何在 iOS 设备上更好更快得显示照片并最终找到了一种方法，能够让 Facebook for iOS 的数据开销降低10%，同时将照片加载显示的速度提升了15%。接下来的内容是讲述我们如何做到这一点的。
 
 ## 过去图片是如何被处理的

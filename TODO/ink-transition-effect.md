@@ -4,6 +4,7 @@
 * 译者 : [L9m](https://github.com/L9m)
 * 校对者: [hikerpig](https://github.com/hikerpig), [sqrthree](https://github.com/sqrthree)
 
+# 使用 CSS 和 jQuery 来做一个墨水晕开的效果
 
 一个用 CSS 动画实现的墨水晕开过渡效果。
 
