@@ -5,7 +5,7 @@
 * 校对者 : [achilleo](https://github.com/achilleo)
 * 状态 : 完成  
 
-
+# 2015 年底 JS 必备工具集
 
 >“Javascript没法胜任大型应用，因为它甚至不能确定一个变量的类型，而且很难重构”~一大堆困惑的人
 

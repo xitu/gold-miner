@@ -4,6 +4,7 @@
 * 译者 : [Jack](https://github.com/Jack-Kingdom)
 * 校对者: [Tuccuay](https://github.com/Tuccuay), [void-main](https://github.com/void-main)
 
+# 深度剖析 Swift 编译与运行时的类型检查
 
 当我们学习如何使用 Swift 的类型系统时，理解 Swift（与其他编程语言类似）静态与动态两种不同的类型检查机制非常重要。 今天,我想简短地谈论一下二者的不同以及组合使用二者时一些令人头疼的地方。
 

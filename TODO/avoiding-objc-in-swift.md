@@ -4,6 +4,7 @@
 * 译者 : [Dwight](https://github.com/ldhlfzysys)
 * 校对者: [jk77me](https://github.com/jk77me), [owenlyn](https://github.com/owenlyn)
 
+# iOS 开发者在 Swift 中应避免过度使用
 
 就在前几天，我终于把项目迁移到了Swift2.2，在使用[SE-0022](https://github.com/apple/swift-evolution/blob/master/proposals/0022-objc-selectors.md)建议的`#selector`语句时，我遇到了一些问题。如果在protocol extension中使用`#selector`，这个protocol必须添加`@Objc`修饰符。而之前的`Selector("method:")`语句则不需要添加。
 

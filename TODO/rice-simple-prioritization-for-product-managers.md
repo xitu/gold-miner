@@ -5,6 +5,8 @@
 >* 校对者: [lynulzy](https://github.com/lynulzy), [dongpeiguo](https://github.com/dongpeiguo)
 
 
+# 给产品经理的简易优先级法则
+
 在确立产品路线图时，优先级永远都是一个难题。你该如何决定从何处着手呢？
 
 如果你已经花了足够的功夫来构思新的想法、寻找改善的机会、并收集反馈，你会有一个蕴含着不错想法的[可靠的路线图](httop://blog.intercom.io/where-do-product-roadmaps-come-from/)。不过，着手这些想法的顺序同样值得充分思考。你需要花一些时间来合理地确立优先级。

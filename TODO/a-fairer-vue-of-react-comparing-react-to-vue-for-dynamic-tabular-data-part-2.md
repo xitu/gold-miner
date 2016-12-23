@@ -4,6 +4,7 @@
 * 译者 : [wildflame](https://github.com/wildflame)
 * 校对者:[hikerpig](https://github.com/hikerpig), [JolsonZhu](https://github.com/JolsonZhu), [godofchina](https://github.com/godofchina)
 
+# 较为完整的 React.js / Vue.js 的性能比较 Part 1
 
 _有关第一部分的文章，请访问 [https://engineering.footballradar.com/from-a-react-point-of-vue-comparing-reactjs-to-vuejs-for-dynamic-tabular-data/](https://engineering.footballradar.com/from-a-react-point-of-vue-comparing-reactjs-to-vuejs-for-dynamic-tabular-data/) 。第一篇文章的实验结果已经被证明有错误，但是它为这篇文章奠定了基础。_
 

@@ -4,6 +4,8 @@
 * 译者： [huanglizhuo](https://github.com/huanglizhuo)
 * 校对者：[Kulbear](https://github.com/Kulbear) , [shixinzhang](https://github.com/shixinzhang)
 
+# CSS writing-mode 的特别技巧
+
 最近在 Opera inspector 中编辑 CSS 时，我第一次注意到有一个名为 `writing-mode` 的 css 属性。经过一番搜索，发现它是用于垂直排版的语言，比如中文或者日文。然而，有趣的是如果我们把它用在英语中，可以很方便的创建垂直文本。
 
 >  writing-mode 属性定义了文字在文文字块中垂直或者水平方向，参考[MDN](https://developer.mozilla.org/en/docs/Web/CSS/writing-mode)。
