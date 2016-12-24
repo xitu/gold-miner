@@ -1,40 +1,42 @@
 * 原文地址：[ In the age of the algorithm, the human gatekeeper is back ](https://www.theguardian.com/technology/2016/sep/30/age-of-algorithm-human-gatekeeper)
 * 原文作者：[Michael Bhaskar](https://www.theguardian.com/profile/michael-bhaskar)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[Jiang Haichao](https://github.com/AceLeeWinnie)
 * 校对者：
 
-#  In the age of the algorithm, the human gatekeeper is back
+# 在算法横行的时代，仍需要人类把关
 
-Greg Linden may not be a household name, but he changed the way we interact with culture and transformed retail forever. [An engineer at Amazon in the late 1990s](https://www.theguardian.com/technology/2006/mar/09/newmedia.guardianweeklytechnologysection), Linden worked on a curious problem: how to recommend books without human intervention. Until then Amazon relied on editors who wrote hundreds of reviews every year. It was a costly and time-consuming process.
+Greg Linden 或许不是一个家喻户晓的名字，但他改变了我们与文化的相互影响并且永久变革了零售业。作为[九十年代晚期 Amazon 的一名工程师](https://www.theguardian.com/technology/2006/mar/09/newmedia.guardianweeklytechnologysection)，Linden 要解决一个奇怪的问题：如何在没有人工干预的情况下向顾客推荐书籍。那时 Amazon 还要依靠编辑们每年写上上百篇评论。这不仅费钱还费时。
 
-Automating recommendations proved trickier than anyone expected. Linden cracked it. He hit on “personalisation”, which paradoxically meant looking not at an individual’s purchasing history, but only at correlations among products. Regardless of what you had bought in the past, Amazon realised that if product A was often bought alongside product B, it meant almost anyone buying product A would also want product B. Amazon tested the results to see which method sold more books. No surprises: the editors were soon looking for new jobs. Humans out; machines in. Some estimates suggest a third of Amazon sales arise from these recommendations. Ever since, the rise of algorithms has been relentless. Now books, articles, music, films, not to mention holidays and clothes, are all suggested by machines.
+自动化推荐在当时是难以想象的棘手。 Linden 成功破解。他把目光放在 "个性化" 上，矛盾的是，这关注的是产品之间的相关性而不是个人购买历史。忽略过去的购买记录后， Amazon 发现如果 A 产品一般和 B 产品一起售出，也就是说几乎所有人买 A 时也会想买 B。 Amazon 通过不同的售书方法的销量测试了这一发现。不出意外：编辑们要卷铺盖走人了。人类退出，机器当道。一些估算显示因为这些推荐算法， Amazon 的营业额上升了 1/3。从此，算法被大量使用。现在书籍、文章、音乐、电影，还有不消说的度假和服装，都是通过机器推荐的。
 
-Last year 1m new books were published in English. Since at least the ancient Greeks, people have believed there is too much to read; now they may be right. That, of course, doesn’t even count all the self-published works, the reams of news or the Borgesian vastness of the internet. By any measure, we have an astounding surplus of reading matter.
+去年，英文书籍新出版了一百万册。至少自从古老的希腊人开始，人们一直赞成大量阅读；现在看来也许是正确的。当然，自出版的作品算入在内，大量的新闻与互联网快餐阅读也囊括其中。不管怎么说，我们都处在令人惊讶的阅读过剩之中。
 
-The more we have, the more we rely on algorithms and automated recommendation systems. Hence the unstoppable march of algorithmic recommendations, machine learning, artificial intelligence and big data into the cultural sphere.
+我们拥有的越多，我们就越依赖算法和自动化推荐系统。因此，推荐算法、机器学习、人工智能和大数据不可抵挡地侵入了文化领域。
 
-Yet this isn’t the end of the story. Search, for example, tells us what we want to know, but can’t help if we don’t already know what we want. Far from disappearing, human curation and sensibilities have a new value in the age of algorithms. Yes, the more we have the more we need automation. But we also increasingly want informed and idiosyncratic selections. Humans are back.
+然而故事并没有结束。例如搜索，能告诉我们想知道的，但是不能帮助我们知道我们还不知道我们想知道的。人类的挑选和识别力在算法时代有了新的意义， 远不能消失。是的，随着拥有的越多，我们越来越需要算法了。但是我们也更加希望见多识广和特殊选择。人类又回来了。
 
-This is why, despite having the world’s most powerful book recommendation engine, Amazon bought [Goodreads](https://www.theguardian.com/books/2013/apr/02/amazon-purchase-goodreads-stuns-book-industry), a website based around personal book reviews. It is why sites such as Canopy.co thrive atop Amazon. Canopy knows many of Amazon’s best items are hidden in the mediocre morass. Canopy’s founders, all designers, trawl through thousands of entries a day to highlight exceptional products.
+这是为什么尽管有全世界最强大的图书推荐引擎，Amazon 还是买下了 [Goodreads](https://www.theguardian.com/books/2013/apr/02/amazon-purchase-goodreads-stuns-book-industry)，一个主营个人书籍评论的网站。这也是为什么像 Canopy.co 这类的网站活跃程度在 Amazon 之上。Canopy 知道 Amazon 最棒的商品隐藏在一堆乱七八糟的东西里。Canopy 的创始人全都是设计师，每天筛选数千条记录以重点标注高质量商品。
 
-It’s why publishers keep producing new imprints, to allow for more diverse and personal lists, and why bookshops are once again flourishing, even though we can find any book we want online. We go to browse their tables. In Japan they talk about *tsundoku*, or the uneasy feeling of having too many books to read. They also have its solution: a [bookshop in Tokyo’s Ginza ](https://www.theguardian.com/books/2015/dec/23/japanese-bookshop-stocks-only-one-book-at-a-time)that sells only one book at a time.
+这是为什么尽管在网上能找到任何想要的书，但出版商仍印刷新的书籍满足多样化与个人书单，书店也再次兴起的原因。我们能够漫不经心的查看桌子上的书籍。在日本，人们谈论  ***tsundoku***，即太多书可读的不安感受。他们自有解决办法：[东京银座书店](https://www.theguardian.com/books/2015/dec/23/japanese-bookshop-stocks-only-one-book-at-a-time)一次就只售卖一本书。
 
-This rejuvenated interest in curation isn’t just happening in publishing. On Spotify you can listen to 30m songs, 20% of which have never been streamed once. To help manage this huge catalogue, Spotify spent a reported $100m (£77m) acquiring a company called [the Echo Nest](https://www.theguardian.com/technology/2014/mar/06/spotify-echo-nest-streaming-music-deal), which pioneered a technique known as audio-fingerprinting, which automatically categorises songs. At the same time, however, [Spotify](https://www.theguardian.com/business/2016/may/24/spotify-revenues-surge-80-to-more-than-13bn) has massively expanded its range of playlist makers, musical experts who are rapidly becoming the new DJs.
+这个在内容挑选上重焕生机的趣味不仅出现在出版业。在 Spotify（某在线音乐播放器）上，你可以听 30m 的音乐，20% 只播放一次。为了帮助管理庞大的音乐目录，Spotify 花了 1 个亿收购了 [the Echo Nest](https://www.theguardian.com/technology/2014/mar/06/spotify-echo-nest-streaming-music-deal) 公司，后者拥有一项先进技术，用于识别音乐，自动分类曲目。同时，[Spotify](https://www.theguardian.com/business/2016/may/24/spotify-revenues-surge-80-to-more-than-13bn) 扩充了自己的歌单推荐人和快速成为新 DJ 的音乐专家。
 
-![Spotify’s office](https://i.guim.co.uk/img/media/b1817d17c3857559c8c5bb3ebdd852627eefa181/0_192_5760_3456/master/5760.jpg?w=620&q=55&auto=format&usm=12&fit=max&s=aa4b8651de389bfc8cff727a2bb8c24d)
+![Spotify 办公室](https://i.guim.co.uk/img/media/b1817d17c3857559c8c5bb3ebdd852627eefa181/0_192_5760_3456/master/5760.jpg?w=620&q=55&auto=format&usm=12&fit=max&s=aa4b8651de389bfc8cff727a2bb8c24d)
 
-[Netflix](https://www.theguardian.com/tv-and-radio/tvandradioblog/2013/aug/15/netflix-subscribe-breaking-bad-justified) has more TV and film than we could ever want. An early pioneer of using data science to manage culture, it even launched a $1m competition for teams of researchers to improve its algorithms – and then, despite the prize money, didn’t implement any changes as they weren’t seen as good enough. Yet Netflix also trained viewers to tag its content exhaustively. They make judgments machines cannot: is the ending wistful? Are moustaches important in the film or not?
+[Netflix](https://www.theguardian.com/tv-and-radio/tvandradioblog/2013/aug/15/netflix-subscribe-breaking-bad-justified) 有远超观众需要的影视剧集。它是一个用数据科学管理文化的先驱者，它甚至发起一个奖金 100 万美元的比赛为了研究团队们来升级它的算法，最后钱花出去了，却没有实现他们想要的效果。然而 Netflix 还训练观众为它内容全部打标签。他们做到了评论系统做不到的是：结局是想要的吗？胡子在电影里重要吗？
 
-Facebook is mired in a series of controversies about the curation of its news feed, from its broadcasting live killings, to editing out an iconic photo of the Vietnam war, to accusations of political bias. It recently tried to smooth the process out by firing its human editors … only to find the news feed degenerated into a mass of fake and controversial news stories.
+Facebook 陷入一系列信息流内容管理的争议中，从直播杀戮，到删除越战的象征图片，再到政治偏见的指控。它最近试图通过开除人工编辑消除审核流程... 仅仅为了发现信息流退化成大量虚假和有争议的新闻故事。
 
-[Apple’s news and music ](https://www.theguardian.com/technology/2016/may/04/apple-music-wwdc-taylor-swift) apps make much of their human curation, even hiring famous names from newsrooms and radio. Twitter invested heavily in its [Moments](https://www.theguardian.com/technology/2015/oct/06/twitter-launches-news-moments-curation) product. While not universally liked, it shows Twitter wants to curate better. Samsung’s news app divides into what you want to know and need to know; the former chosen by algorithm, the latter by editors. Big tech is on a hiring spree for old-fashioned experts.
+[苹果新闻和音乐](https://www.theguardian.com/technology/2016/may/04/apple-music-wwdc-taylor-swift) 应用有大量人工内容管理，甚至找了新闻编辑部和广播的名人们。Twitter 在它的 [Moments](https://www.theguardian.com/technology/2015/oct/06/twitter-launches-news-moments-curation) 产品中下了重金。虽然普遍不看好，但 Twitter 确实希望在内容上做的更好。Samsung 的新闻应用分成你想知道的和你需要知道的；前者通过算法挑选，后者通过编辑。大型科技公司对老牌专家求贤若渴。
 
 We’ve also got excess stuff. The average western European household owns 10,000 items, more in the US. But in order to cope we turn not to an app but the [Kondo](https://www.theguardian.com/lifeandstyle/2016/jan/21/tidying-up-marie-kondo-spark-joy-new-york-book-singing)  method, the wildly popular home organisation technique relying on our personal histories. In retail’s upper tier, a renewed emphasis on expert selection is behind the success of shops as diverse as fashion boutique [Opening Ceremony](https://www.theguardian.com/fashion/fashion-blog/2012/jul/23/opening-ceremony-london) and “supermarket of the future” Eataly. As with our media, we’ve passed from an era of bulk industrial selection to finely honed choice.
 
-Curation can be a clumsy, sometimes maligned word, but with its Latin root *curare* (to take care of), it captures this irreplaceable human touch. We want to be surprised. We want expertise, distinctive aesthetic judgments, clear expenditure of time and effort. We relish the messy reality of another’s taste and a trusted personal connection. We don’t just want correlations – we want a why, a narrative, which machines can’t provide. Even if we define curation as selecting and arranging, this won’t be left solely to algorithms. Unlike so many sectors experiencing technological disruption, from self-driving cars to automated accountancy, the cultural sphere will always value human choice, the unique perspective.
+我们也有多余的东西。西欧家庭平均拥有 1 万件东西，美国家庭更多。但是处理这个情况不需要应用，只需要 [Kondo](https://www.theguardian.com/lifeandstyle/2016/jan/21/tidying-up-marie-kondo-spark-joy-new-york-book-singing) 方法，受到广泛欢迎的家庭整理术依靠我们的个人经验。在零售业的上游，成功商店的背后有一个更新的专家精选，和时尚精品 [Opening Ceremony](https://www.theguardian.com/fashion/fashion-blog/2012/jul/23/opening-ceremony-london) 和 ”未来超市“ Eataly 一样多样化。随着媒体发展，我们从大量工业选择时代过渡到精选时代。
 
-This is where the arts and humanities strike back in a world of machine learning. Here is a new generation of jobs. Information overload and its technology-driven response are one of the great transformations of our time. But amid today’s saturation (and those teetering piles of new books), knowledge and subjective judgment are more valuable than ever. In the words of one Silicon Valley investor, “software eats the world”. Well, software can’t eat human curation. Contrary to myth, traditional gatekeeping roles are here to stay.
+精选可以是不得当的，有时还是贬义的词语，然而加上拉丁语词根 ***curare***，它捕捉人类独一无二的触摸。我们想要惊喜，我们想要专业知识，独特的审美评论，取消的时间和精力的花费。我们享受另一种味道的混乱的现实世界，也相信人与人之间的联系。我们不仅想要相关性，我们还想知道为什么，想要故事，这是机器无法提供的。即使我们将精选定义为选择和排列，这也不完全是算法的工作。与许多行业经历技术破坏不同，从自动驾驶汽车到自动化会计，文化领域将一直重视人类选择和独特的感受。
 
-What we will see are hybrids: rich blends of human and machine curation that handle huge datasets while going far beyond narrow confines. We now have so much – whether it’s books, songs, films or artworks (let alone data) – that we can’t manage it all alone. We need an “algorithmic culture”. Yet we also need something more than ever: human taste.
+这是艺术和人文对机器学习世界的反击。这会创造新的就业。信息过载和技术驱动响应是我们的时代最好的转变。但是在当今的饱和（和那些成堆的摇摇欲坠的书）中，知识和主观判断比以往更有价值。用一名硅谷投资人的话说，“软件吃掉了世界“。当然，软件吃不掉人类选择。与神话相反，传统守门人角色仍健在。
+
+我们下一步要看的是混合动力车：充分混合了人类和机器选择来处理庞大数据集，在狭窄范围之上越走越远。我们现在有许多我们不能独自处理的东西，例如书籍、音乐、电影和艺术作品。我们需要一个 ”算法文化“。但是我们比以往更需要：人类品味。
 
