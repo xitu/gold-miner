@@ -95,7 +95,7 @@
 * [在 chrome 的开发者工具里 debug node.js 代码](http://gold.xitu.io/entry/56d3cfea6be3ff005c5f9b89?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([sqrthree](https://github.com/sqrthree) 翻译)
 * [350 个特性看透 ES6](https://github.com/xitu/gold-miner/blob/master/TODO/es6.md) ([Go7hic](https://github.com/dyygtfx) 翻译)
 * [2015 年底 JS 必备工具集](http://gold.xitu.io/entry/56cee8afc24aa800545f73bb?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([赵鑫晖](https://github.com/zxc0328) 翻译)
-* [[译] Promise 是如何工作的?](http://gold.xitu.io/entry/56cc0bcf8ac2470053b7c5ab?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zhangjd](https://github.com/Zhangjd) 翻译)
+* [Promise 是如何工作的?](http://gold.xitu.io/entry/56cc0bcf8ac2470053b7c5ab?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zhangjd](https://github.com/Zhangjd) 翻译)
 * [JavaScript 开发者年度调查报告](http://gold.xitu.io/entry/56ca985071cfe40054d98994?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([sqrthree](https://github.com/sqrthree) 翻译)
 * [Functional JavaScript 教程（一）](http://gold.xitu.io/entry/56d4e8b57db2a200556c64cb?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)  ([Zhangjd](https://github.com/zhangjd) 翻译)
 *  [人人须知的 jQuery 技巧](http://gold.xitu.io/entry/56e1a95b731956005da35c24?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)  ([Yves-X](https://github.com/Yves-X) 翻译)
