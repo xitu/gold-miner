@@ -1,3 +1,10 @@
+> * 原文地址：[10 things I learned making the fastest site in the world
+](https://hackernoon.com/10-things-i-learned-making-the-fastest-site-in-the-world-18a0e1cdf4a7#.3u7qvm8ta)
+* 原文作者：[David Gilbertson](https://hackernoon.com/@david.gilbertson)
+* 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+* 译者：[]()
+* 校对者：[]()
+
 # 10 things I learned making the fastest site in the world
 
 This post is about performance techniques, so I hope you won’t mind that the site in question is not *quite* finished.
