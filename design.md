@@ -1,3 +1,4 @@
+* [使用强大的调查技巧了解用户的动机](https://gold.xitu.io/entry/585a3f9b1b69e6006cb93529/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Romeo0906](https://github.com/Romeo0906) 翻译)
 * [iOS: 自定义 Modal 视图](https://gold.xitu.io/entry/58576ca7128fe1006b7b35a3/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([zhouzihanntu](https://github.com/zhouzihanntu) 翻译)
 * [如何用 Sketch 打造「前端框架」](https://gold.xitu.io/entry/5836ad4367f3560065f439dc/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Ruixi](https://github.com/Ruixi) 翻译)
 * [全新的 Uber App 与全新的设计](http://gold.xitu.io/entry/584770f80ce46300578b9b48?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([PhxNirvana](https://github.com/phxnirvana) 翻译)
