@@ -2,7 +2,7 @@
 * 原文作者：[ Paul Bakaus ]( https://www.smashingmagazine.com/author/paulbakaus/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[L9m](https://github.com/L9m)
-* 校对者：[marcmoore](https://github.com/marcmoore)，[qrthree](https://github.com/sqrthree)
+* 校对者：[marcmoore](https://github.com/marcmoore)，[sqrthree](https://github.com/sqrthree)
 
 #  渐进增强的 Web 体验（Progressive Web AMP）
 
