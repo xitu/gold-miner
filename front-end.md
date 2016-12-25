@@ -1,3 +1,4 @@
+* [渐进增强的 Web AMP](https://gold.xitu.io/entry/585d35b561ff4b00580eccb3?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([L9m](https://github.com/L9m) 翻译)
 * [CSS 继承深度解析](https://gold.xitu.io/entry/585a29c01b69e6006cb89465?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([llp0574](https://llp0574.github.io) 翻译)
 * [响应式邮件设计](https://gold.xitu.io/entry/58516cc01b69e60056c04528?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Hyuni](https://github.com/xuzaixian) 翻译)
 * [JavaScript 测试︰ 单元 vs 功能 vs 集成测试](https://gold.xitu.io/entry/584ab2dc128fe1006c7cdc11?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([wild-flame](https://github.com/wild-flame) 翻译)
