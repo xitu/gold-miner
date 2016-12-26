@@ -3,7 +3,7 @@
 * 原文作者：[ Marc Vandehey ]( https://www.smashingmagazine.com/author/marcvandehey/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[ZiXYu](https://github.com/ZiXYu)
-* 校对者：[DeepMissea](DeepMissea), [Tuccuay](https://github.com/Tuccuay)
+* 校对者：[DeepMissea](https://github.com/DeepMissea), [Tuccuay](https://github.com/Tuccuay)
 
 ## [ 如何在 Swift 3 中用 SpriteKit 框架编写游戏 (Part 2)](https://www.smashingmagazine.com/2016/12/how-to-build-a-spritekit-game-in-swift-3-part-2/)  ##
 
