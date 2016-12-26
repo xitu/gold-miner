@@ -3,19 +3,19 @@
 * 原文作者：[ Marc Vandehey ]( https://www.smashingmagazine.com/author/marcvandehey/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[ZiXYu](https://github.com/ZiXYu)
-* 校对者：
+* 校对者：[DeepMissea](DeepMissea), [Tuccuay](https://github.com/Tuccuay)
 
 ## [ 如何在 Swift 3 中用 SpriteKit 框架编写游戏 (Part 2)](https://www.smashingmagazine.com/2016/12/how-to-build-a-spritekit-game-in-swift-3-part-2/)  ##
 
 你是否想过如何来开发一款 [SpriteKit](https://developer.apple.com/spritekit/)<sup>[\[1\]](#note-1)</sup> 游戏？实现碰撞检测会是个令人生畏的任务吗？你想知道如何正确的处理音效和背景音乐吗？随着 SpriteKit 的发布，在 iOS 上的游戏开发已经变得空前简单了。在本系列三部中的第二部分中，我们将继续探索 SpriteKit 的基础知识。
 
-如果你错过了 [之前的课程](https://www.smashingmagazine.com/2016/11/how-to-build-a-spritekit-game-in-swift-3-part-1/)<sup>[\[2\]](#note-2)</sup>，你可以通过获取 [ Github 上的代码](https://github.com/thirteen23/RainCat/releases/tag/smashing-magazine-lesson-one)<sup>[\[3\]](#note-3)</sup> 来赶上进度。请记住，本教程需要使用 Xcode 8 和 Swift 3。
+如果你错过了 [之前的课程](https://www.smashingmagazine.com/2016/11/how-to-build-a-spritekit-game-in-swift-3-part-1/)<sup>[\[2\]](#note-2)</sup>，你可以通过获取 [ GitHub 上的代码](https://github.com/thirteen23/RainCat/releases/tag/smashing-magazine-lesson-one)<sup>[\[3\]](#note-3)</sup> 来赶上进度。请记住，本教程需要使用 Xcode 8 和 Swift 3。
 
 [![Raincat: 第二课](https://www.smashingmagazine.com/wp-content/uploads/2016/10/raincat_header_sm-preview-opt.png) ](https://www.smashingmagazine.com/wp-content/uploads/2016/10/raincat_header_sm-preview-opt.png)<sup>[\[4\]](#note-4)</sup>
 
 RainCat, 第二课
 
-在 [上一课](https://www.smashingmagazine.com/2016/11/how-to-build-a-spritekit-game-in-swift-3-part-1/)<sup>[\[5\]](#note-5)</sup> 中，我们创建了地板和背景，随机生成了雨滴并添加了雨伞。这把雨伞的精灵（译者注：sprite，中文译名精灵，在游戏开发中，精灵指的是以图像方式呈现在屏幕上的一个图像）中存在一个自定义的 `SKPhysicsBody`，是通过 `CGPath` 来生成的，同时我们启用了触摸检测，因此我们可以在屏幕范围内移动它。而且我们通过 `categoryBitMask` 和 `contactTestBitMask` 来实现了碰撞检测。我们在雨滴落到任何物体上时消除了碰撞，因此它们不会堆积起来，而是会在一次弹跳后穿过地板。最后，我们设置了一个世界边框来移除所有和它接触的 `SKNode`。
+在 [上一课](https://github.com/xitu/gold-miner/blob/master/TODO/how-to-build-a-spritekit-game-in-swift-3-part-1.md)<sup>[\[5\]](#note-5)</sup> 中，我们创建了地板和背景，随机生成了雨滴并添加了雨伞。这把雨伞的精灵（译者注：sprite，中文译名精灵，在游戏开发中，精灵指的是以图像方式呈现在屏幕上的一个图像）中存在一个自定义的 `SKPhysicsBody`，是通过 `CGPath` 来生成的，同时我们启用了触摸检测，因此我们可以在屏幕范围内移动它。而且我们通过 `categoryBitMask` 和 `contactTestBitMask` 来实现了碰撞检测。我们在雨滴落到任何物体上时消除了碰撞，因此它们不会堆积起来，而是会在一次弹跳后穿过地板。最后，我们设置了一个世界边框来移除所有和它接触的 `SKNode`。
 
 本文中，我们将重点实现以下几点：
 
