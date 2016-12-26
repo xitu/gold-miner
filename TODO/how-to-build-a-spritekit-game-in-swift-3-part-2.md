@@ -7,15 +7,15 @@
 
 ## [ 如何在 Swift 3 中用 SpriteKit 框架编写游戏 (Part 2)](https://www.smashingmagazine.com/2016/12/how-to-build-a-spritekit-game-in-swift-3-part-2/)  ##
 
-你是否想过如何来开发一款 [SpriteKit](https://developer.apple.com/spritekit/) 游戏？实现碰撞检测会是个令人生畏的任务吗？你想知道如何正确的处理音效和背景音乐吗？随着 SpriteKit 的发布，在 iOS 上的游戏开发已经变得空前简单了。在本系列三部中的第二部分中，我们将继续探索 SpriteKit 的基础知识。
+你是否想过如何来开发一款 [SpriteKit](https://developer.apple.com/spritekit/)<sup>[\[1\]](#note-1)</sup> 游戏？实现碰撞检测会是个令人生畏的任务吗？你想知道如何正确的处理音效和背景音乐吗？随着 SpriteKit 的发布，在 iOS 上的游戏开发已经变得空前简单了。在本系列三部中的第二部分中，我们将继续探索 SpriteKit 的基础知识。
 
-如果你错过了 [之前的课程](https://www.smashingmagazine.com/2016/11/how-to-build-a-spritekit-game-in-swift-3-part-1/)，你可以通过获取 [ Github 上的代码](https://github.com/thirteen23/RainCat/releases/tag/smashing-magazine-lesson-one) 来赶上进度。请记住，本教程需要使用 Xcode 8 和 Swift 3。
+如果你错过了 [之前的课程](https://www.smashingmagazine.com/2016/11/how-to-build-a-spritekit-game-in-swift-3-part-1/)<sup>[\[2\]](#note-2)</sup>，你可以通过获取 [ Github 上的代码](https://github.com/thirteen23/RainCat/releases/tag/smashing-magazine-lesson-one)<sup>[\[3\]](#note-3)</sup> 来赶上进度。请记住，本教程需要使用 Xcode 8 和 Swift 3。
 
-[![Raincat: 第二课](https://www.smashingmagazine.com/wp-content/uploads/2016/10/raincat_header_sm-preview-opt.png) ](https://www.smashingmagazine.com/wp-content/uploads/2016/10/raincat_header_sm-preview-opt.png)
+[![Raincat: 第二课](https://www.smashingmagazine.com/wp-content/uploads/2016/10/raincat_header_sm-preview-opt.png) ](https://www.smashingmagazine.com/wp-content/uploads/2016/10/raincat_header_sm-preview-opt.png)<sup>[\[4\]](#note-4)</sup>
 
 RainCat, 第二课
 
-在 [上一课](https://www.smashingmagazine.com/2016/11/how-to-build-a-spritekit-game-in-swift-3-part-1/) 中，我们创建了地板和背景，随机生成了雨滴并添加了雨伞。这把雨伞的精灵（译者注：sprite，中文译名精灵，在游戏开发中，精灵指的是以图像方式呈现在屏幕上的一个图像）中存在一个自定义的 `SKPhysicsBody`，是通过 `CGPath` 来生成的，同时我们启用了触摸检测，因此我们可以在屏幕范围内移动它。而且我们通过 `categoryBitMask` 和 `contactTestBitMask` 来实现了碰撞检测。我们在雨滴落到任何物体上时消除了碰撞，因此它们不会堆积起来，而是会在一次弹跳后穿过地板。最后，我们设置了一个世界边框来移除所有和它接触的 `SKNode`。
+在 [上一课](https://www.smashingmagazine.com/2016/11/how-to-build-a-spritekit-game-in-swift-3-part-1/)<sup>[\[5\]](#note-5)</sup> 中，我们创建了地板和背景，随机生成了雨滴并添加了雨伞。这把雨伞的精灵（译者注：sprite，中文译名精灵，在游戏开发中，精灵指的是以图像方式呈现在屏幕上的一个图像）中存在一个自定义的 `SKPhysicsBody`，是通过 `CGPath` 来生成的，同时我们启用了触摸检测，因此我们可以在屏幕范围内移动它。而且我们通过 `categoryBitMask` 和 `contactTestBitMask` 来实现了碰撞检测。我们在雨滴落到任何物体上时消除了碰撞，因此它们不会堆积起来，而是会在一次弹跳后穿过地板。最后，我们设置了一个世界边框来移除所有和它接触的 `SKNode`。
 
 本文中，我们将重点实现以下几点：
 
@@ -30,11 +30,11 @@ RainCat, 第二课
 
 ### 获取资源
 
-你可以从 [GitHub](https://github.com/thirteen23/RainCat/blob/smashing-day-2/dayTwoAssets.zip)(ZIP) 上获取本课所需要的资源。下载图片后，通过一次性拖拽所有图片将它们添加到你的 `Assets.xcassets` 文件中。你现在应该有了包含猫动画和宠物碗的资源文件。我们之后将会添加音效和背景音乐文件。
+你可以从 [GitHub](https://github.com/thirteen23/RainCat/blob/smashing-day-2/dayTwoAssets.zip)<sup>[\[6\]](#note-6)</sup> (ZIP) 上获取本课所需要的资源。下载图片后，通过一次性拖拽所有图片将它们添加到你的 `Assets.xcassets` 文件中。你现在应该有了包含猫动画和宠物碗的资源文件。我们之后将会添加音效和背景音乐文件。
 
-[![App 资源](https://www.smashingmagazine.com/wp-content/uploads/2016/10/App-assets-preview-opt-1.png)](https://www.smashingmagazine.com/wp-content/uploads/2016/10/App-assets-large-opt.png)
+[![App 资源](https://www.smashingmagazine.com/wp-content/uploads/2016/10/App-assets-preview-opt-1.png)](https://www.smashingmagazine.com/wp-content/uploads/2016/10/App-assets-large-opt.png)<sup>[\[7\]](#note-7)</sup>
 
-一大堆资源！ ([查看源文件](https://www.smashingmagazine.com/wp-content/uploads/2016/10/App-assets-large-opt.png))
+一大堆资源！ ([查看源文件](https://www.smashingmagazine.com/wp-content/uploads/2016/10/App-assets-large-opt.png))<sup>[\[8\]](#note-8)</sup>
 
 ### 猫猫时间！ 
 
@@ -61,7 +61,7 @@ public class CatSprite : SKSpriteNode {
 }
 ```
 
-在这个文件中，我们用了一个会返回猫精灵的静态初始化函数。在另一个 `update` 函数中，我们也使用了同样的方法。如果我们需要生成更多的精灵，我们应该尝试把这个函数变成一个 [协议](https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Protocols.html) 的一部分来生成合适的精灵。这里需要注意一点，对于猫精灵，我们使用的是一个圆形的 `SKPhysicsBody`。就像我们创建雨滴一样，我们当然可以使用纹理来创建猫的物理实体，但是这是一个有“美感”的决定。当猫被雨滴或雨伞碰到时， 与其让猫始终坐着，让猫在地上打滚显然更有趣一些。
+在这个文件中，我们用了一个会返回猫精灵的静态初始化函数。在另一个 `update` 函数中，我们也使用了同样的方法。如果我们需要生成更多的精灵，我们应该尝试把这个函数变成一个 [协议](https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Protocols.html)<sup>[\[9\]](#note-9)</sup> 的一部分来生成合适的精灵。这里需要注意一点，对于猫精灵，我们使用的是一个圆形的 `SKPhysicsBody`。就像我们创建雨滴一样，我们当然可以使用纹理来创建猫的物理实体，但是这是一个有“美感”的决定。当猫被雨滴或雨伞碰到时， 与其让猫始终坐着，让猫在地上打滚显然更有趣一些。
 
 当猫接触雨滴或猫掉出该世界时，我们将需要回调函数来处理这些事件。我们可以打开 `Constants.swift` 文件，将下列代码加入该文件，使它作为一个 `CatCategory`：
 
@@ -118,9 +118,9 @@ spawnCat()
 
 现在我们可以运行我们的应用啦！
 
-[![应用资源](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Cat-preview-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Cat-large-opt.png)
+[![应用资源](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Cat-preview-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Cat-large-opt.png)<sup>[\[10\]](#note-10)</sup>
 
-猫 ([查看源文件](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Cat-large-opt.png))
+猫 ([查看源文件](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Cat-large-opt.png))<sup>[\[11\]](#note-11)</sup>
 
 如果现在猫碰到雨滴或是雨伞，它将会在地上打滚。这时候，猫可能会滚出屏幕然后在接触世界边框的一瞬间被删除掉，那么，我们就需要重新生成猫对象了。因为现在回调函数会在当猫接触到雨滴时或猫掉出世界时被触发，所以我们可以在 `didBegin(_ contact:)` 函数中来处理这个碰撞事件。
 
@@ -381,7 +381,7 @@ public func update(deltaTime : TimeInterval, foodLocation: CGPoint) {
 
 我们更新了这个函数的函数签名（signature）。因为我们需要告诉小猫食物的位置，所以在传参时，我们不仅传递了 delta 时间，也传递了食物的位置信息。因为很多事情可以影响食物的位置，所以我们需要不停地更新食物的位置信息，以保证小猫一直在正确的方向上前进。接下来，让我们来看一下函数的功能。在这个更新过的函数中，我们取的 delta 时间是一个非常短的时间，大约只有 0.166 秒左右。我们也取了食物的位置，是 `CGPoint` 类型的参数。如果食物的 `x` 位置比小猫的 `x` 位置更小，那么我们就知道食物在小猫的左边，反之，食物就在小猫的上边或右边。如果小猫朝左边移动，那么我们取小猫的 `x` 位置减去小猫的移动速度乘以 delta 时间。我们需要把 delta 时间的类型从 `TimeInterval` 转换到 `CGFloat`，因为我们的位置和速度变量用的是这个单位，而 Swift 恰恰是一种强类型语言。
 
-这个效果实际上是以一个恒定的速率将小猫往左边推，让它看起来像是在移动。在这里，每隔 0.166 秒，我们就将猫精灵放在上一位置左边 16.6 单位的位置上。这是因为我们的 `movementSpeed` 变量是 100，而 0.166 × 100 = 16.6。小猫往右边移动时进行一样的处理，除了我们是将猫精灵放在上一位置右边 16.6 单位的位置上。接下来，我们设定了我们猫的 [xScale](https://developer.apple.com/reference/spritekit/sknode/1483087-xscale) 属性。这个值决定了猫精灵的宽度。默认值是 1.0，如果我们把 `xScale` 设置成 0.5，猫的宽度就会变成之前的一半。如果我们把这个值翻倍到 2.0，那么猫的宽度就会变成之前的一倍，以此类推。因为原始的猫精灵是面朝右边的，当猫朝着右边移动时，xScale 值会被设定为默认的 1。如果我们想要“翻转”猫精灵，我们就把 xScale 设置成 -1，这会把猫的 frame 值置为负数并且反向渲染。我们把这个值保持在 -1 来保证猫精灵的比例一致。现在，当猫朝左边移动时，它会面朝左边，当猫朝右边移动时，它会面朝右边。
+这个效果实际上是以一个恒定的速率将小猫往左边推，让它看起来像是在移动。在这里，每隔 0.166 秒，我们就将猫精灵放在上一位置左边 16.6 单位的位置上。这是因为我们的 `movementSpeed` 变量是 100，而 0.166 × 100 = 16.6。小猫往右边移动时进行一样的处理，除了我们是将猫精灵放在上一位置右边 16.6 单位的位置上。接下来，我们设定了我们猫的 [xScale](https://developer.apple.com/reference/spritekit/sknode/1483087-xscale)<sup>[\[12\]](#note-12)</sup> 属性。这个值决定了猫精灵的宽度。默认值是 1.0，如果我们把 `xScale` 设置成 0.5，猫的宽度就会变成之前的一半。如果我们把这个值翻倍到 2.0，那么猫的宽度就会变成之前的一倍，以此类推。因为原始的猫精灵是面朝右边的，当猫朝着右边移动时，xScale 值会被设定为默认的 1。如果我们想要“翻转”猫精灵，我们就把 xScale 设置成 -1，这会把猫的 frame 值置为负数并且反向渲染。我们把这个值保持在 -1 来保证猫精灵的比例一致。现在，当猫朝左边移动时，它会面朝左边，当猫朝右边移动时，它会面朝右边。
 
 现在小猫会以一个恒定的速率朝着食物的位置移动了。首先，我们确定了小猫需要移动的方向，之后让小猫在 x 轴上朝着那个方向移动。我们同样也需要更新猫的  `xScale` 参数，因为我们希望小猫可以在移动时面朝正确的方向。除非我们希望小猫在用太空步移动！最后，我们需要告诉小猫来更新我们的游戏场景。
 
@@ -587,17 +587,17 @@ public func update(deltaTime : TimeInterval, foodLocation: CGPoint) {
 
 ### 现在来添加音乐吧 
 
-在我们开始写代码前，我们应该先要找点音效。一般来说，在寻找音效时，我只会搜索一些类似于 “cat meow royalty free” 的关键词。第一个匹配的通常是 [SoundBible.com](http://soundbible.com/tags-cat-meow.html)，它会提供一些免费的音效。请务必阅读使用许可证。如果你不打算发布你的应用，那么就不需要关心许可证，因为这只是个个人应用。可是，如果你想要在 App store 中发售它，或者通过别的方式发布它，那么就请确保附上了 Creative Commons Attribution 3.0 或者是类似的许可证。这里有许多种许可证，所以当你使用别人的作品前，请确定你找到了相对应的许可证。
+在我们开始写代码前，我们应该先要找点音效。一般来说，在寻找音效时，我只会搜索一些类似于 “cat meow royalty free” 的关键词。第一个匹配的通常是 [SoundBible.com](http://soundbible.com/tags-cat-meow.html)<sup>[\[13\]](#note-13)</sup>，它会提供一些免费的音效。请务必阅读使用许可证。如果你不打算发布你的应用，那么就不需要关心许可证，因为这只是个个人应用。可是，如果你想要在 App store 中发售它，或者通过别的方式发布它，那么就请确保附上了 Creative Commons Attribution 3.0 或者是类似的许可证。这里有许多种许可证，所以当你使用别人的作品前，请确定你找到了相对应的许可证。
 
 在该应用中使用的音效都是通过 Creative Commons-licensed 授权并且免费使用的。为了之后的操作，我们需要将之前下载的 `SFX` 文件夹移动到 `RainCat` 文件夹中。
 
-[![Finder 模式已激活](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Finder-Mode-Activated-preview-opt.png) ](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Finder-Mode-Activated-large-opt.png)
+[![Finder 模式已激活](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Finder-Mode-Activated-preview-opt.png) ](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Finder-Mode-Activated-large-opt.png)<sup>[\[14\]](#note-14)</sup>
 
-把音效添加到文件系统中。 ([查看源文件](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Finder-Mode-Activated-large-opt.png)))
+把音效添加到文件系统中。 ([查看源文件](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Finder-Mode-Activated-large-opt.png)<sup>[\[15\]](#note-15)</sup>)
 
 在你把这些文件拷贝到项目中之后，你需要用 Xcode 来把它们添加到你的项目中。在 “Support” 文件夹下新建一个名为 “SFX” 的 group。右键点击这个group 然后点击 “Add Files to RainCat…” 选项。
 
-[![添加音效](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Adding-in-SFX-preview-opt.png) ](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Adding-in-SFX-preview-opt.png)
+[![添加音效](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Adding-in-SFX-preview-opt.png) ](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Adding-in-SFX-preview-opt.png)<sup>[\[16\]](#note-16)</sup>
 
 添加音效
 
@@ -664,15 +664,15 @@ public func hitByRain() {
  
 ### 添加音乐 
 
-在我们新建一个方法在我们的应用中播放音乐之前，我们需要找到能播放的东西。类似于搜索音效的过程，我们可以在 Google 中搜索 “royalty free music” 来找到需要播放的音乐。此外，你可以去 SoundCloud 网站，并与里面的艺术家交谈。你需要查看你是否可以找到音乐相对应的许可证以保证你可以在你的游戏中使用它。 对这个应用而言，我碰巧发现了 [Bensound](http://www.bensound.com/royalty-free-music)，根据 Creative Commons license，有一些我们可以使用的音乐。你必须遵从 [licensing agreement](http://www.bensound.com/licensing) 来使用它。操作其实很简单：credit Bensound 或者付费购买许可。
+在我们新建一个方法在我们的应用中播放音乐之前，我们需要找到能播放的东西。类似于搜索音效的过程，我们可以在 Google 中搜索 “royalty free music” 来找到需要播放的音乐。此外，你可以去 SoundCloud 网站，并与里面的艺术家交谈。你需要查看你是否可以找到音乐相对应的许可证以保证你可以在你的游戏中使用它。 对这个应用而言，我碰巧发现了 [Bensound](http://www.bensound.com/royalty-free-music)<sup>[\[28\]](#note-28)</sup><sup>[\[17\]](#note-17)</sup>，根据 Creative Commons license，有一些我们可以使用的音乐。你必须遵从 [licensing agreement](http://www.bensound.com/licensing)<sup>[\[18\]](#note-18)</sup> 来使用它。操作其实很简单：credit Bensound 或者付费购买许可。
 
-下载我们的四个音轨 ([1](http://www.bensound.com/royalty-free-music/track/little-idea), [2](http://www.bensound.com/royalty-free-music/track/clear-day)), [3](http://www.bensound.com/royalty-free-music/track/jazzy-frenchy), [4](http://www.bensound.com/royalty-free-music/track/jazz-comedy))，或者把它们从之前下载的 “Music” 文件夹里拖出来。我们将在四个音轨循环播放，来保证玩家不会感到厌烦。另外一件需要考虑的事是，这些音轨可能并不能正确循环，这样你就需要知道每个音轨的开始和结束时间。好的背景音乐可以很好的在不同的音轨间循环或切换。
+下载我们的四个音轨 ([1](http://www.bensound.com/royalty-free-music/track/little-idea)<sup>[\[19\]](#note-19)</sup>, [2](http://www.bensound.com/royalty-free-music/track/clear-day)<sup>[\[20\]](#note-20)</sup>, [3](http://www.bensound.com/royalty-free-music/track/jazzy-frenchy)<sup>[\[21\]](#note-21)</sup>, [4](http://www.bensound.com/royalty-free-music/track/jazz-comedy)<sup>[\[22\]](#note-22)</sup>)，或者把它们从之前下载的 “Music” 文件夹里拖出来。我们将在四个音轨循环播放，来保证玩家不会感到厌烦。另外一件需要考虑的事是，这些音轨可能并不能正确循环，这样你就需要知道每个音轨的开始和结束时间。好的背景音乐可以很好的在不同的音轨间循环或切换。
 
 在你下载了这些音轨之后，你需要在 “RainCat” 文件夹下新建一个名叫 “Music” 的文件夹，和你之前创建 “SFX” 文件夹的操作一样。然后把下载的音轨移动到这个文件夹中。
 
-[![添加音乐](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Adding-in-some-music-tracks-preview-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Adding-in-some-music-tracks-large-opt.png)
+[![添加音乐](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Adding-in-some-music-tracks-preview-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Adding-in-some-music-tracks-large-opt.png)<sup>[\[23\]](#note-23)</sup>
 
-添加音乐 ([查看源文件](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Adding-in-some-music-tracks-large-opt.png))
+添加音乐 ([查看源文件](https://www.smashingmagazine.com/wp-content/uploads/2016/10/Adding-in-some-music-tracks-large-opt.png))<sup>[\[24\]](#note-24)</sup>
 
 然后，在我们的项目结构里的 “Support” 中创建一个组，命名为 “Music”。 右键点击 “Music” 组，点击 “Add Files to RainCat”，把我们的音乐添加到项目里。这和我们添加音效的操作一样。
 
@@ -730,18 +730,18 @@ class SoundManager : NSObject, AVAudioPlayerDelegate {
 }
 ```
 
-在 `SoundManager` 类中，我们需要使用[单例](https://www.codefellows.org/blog/singletons-and-swift/)来创建 `SoundManager`，来处理巨大的音轨文件并且按顺序连续播放它们。为了处理更长时间的音频文件，我们需要使用 `AVFoundation`。它是专门为此构建的，而 `SKAction` 并不能边加载边播放一个大音频文件，这和它在加载小的 SFX 文件时不一样。因为这个库一直都存在， `delegate` 是依赖于 [`NSObjects`](https://developer.apple.com/reference/objectivec/nsobject)。我们需要使用 [`AVAudioPlayerDelegate`](https://developer.apple.com/reference/avfoundation/avaudioplayerdelegate) 来检测音频何时播放完毕。
+在 `SoundManager` 类中，我们需要使用 [单例](https://www.codefellows.org/blog/singletons-and-swift/)<sup>[\[25\]](#note-25)</sup> 来创建 `SoundManager`，来处理巨大的音轨文件并且按顺序连续播放它们。为了处理更长时间的音频文件，我们需要使用 `AVFoundation`。它是专门为此构建的，而 `SKAction` 并不能边加载边播放一个大音频文件，这和它在加载小的 SFX 文件时不一样。因为这个库一直都存在， `delegate` 是依赖于 [`NSObjects`](https://developer.apple.com/reference/objectivec/nsobject)<sup>[\[26\]](#note-26)</sup>。我们需要使用 [`AVAudioPlayerDelegate`](https://developer.apple.com/reference/avfoundation/avaudioplayerdelegate)<sup>[\[27\]](#note-27)</sup> 来检测音频何时播放完毕。
 我们需要持有现在正在播放的 `audioPlayer` 变量，以用来实现静音操作。
 
-现在我们有当前音轨的位置，我们可以按照文件名数组来播放下一个音轨。当然我们也应该遵守 [Bensound](http://www.bensound.com/royalty-free-music) 协议许可。
+现在我们有当前音轨的位置，我们可以按照文件名数组来播放下一个音轨。当然我们也应该遵守 [Bensound](http://www.bensound.com/royalty-free-music)<sup>[\[28\]](#note-28)</sup><sup>[\[17\]](#note-17)</sup> 协议许可。
 
-我们需要实现默认的 `init` 函数，在这里，我们将随机选择起始音乐，这样我们不用总是在游戏开始时听同样的音乐。在这之后，我们需要等待程序告诉我们开始播放操作。在 `startPlaying` 函数中，我们需要检查当前播放器是否正在播放，如果没有，我们开始尝试播放被选中的音乐。我们需要启动音乐播放器，因为该操作有可能失败，所以我们需要将该操作放到 [try/catch block](https://www.bignerdranch.com/blog/error-handling-in-swift-2/) 中。然后，我们准备开始播放选中的音轨，同时设置索引给下一个需要播放的音乐。因此，下面这行代码非常重要：
+我们需要实现默认的 `init` 函数，在这里，我们将随机选择起始音乐，这样我们不用总是在游戏开始时听同样的音乐。在这之后，我们需要等待程序告诉我们开始播放操作。在 `startPlaying` 函数中，我们需要检查当前播放器是否正在播放，如果没有，我们开始尝试播放被选中的音乐。我们需要启动音乐播放器，因为该操作有可能失败，所以我们需要将该操作放到 [try/catch block](https://www.bignerdranch.com/blog/error-handling-in-swift-2/)<sup>[\[29\]](#note-29)</sup> 中。然后，我们准备开始播放选中的音轨，同时设置索引给下一个需要播放的音乐。因此，下面这行代码非常重要：
 
 ```
 trackPosition = (trackPosition + 1) % SoundManager.tracks.count
 ```
 
-这行代码会通过增加索引值来设置音轨的下个位置，然后会执行 [modulo](https://en.wikipedia.org/wiki/Modulo_operation) 操作，以保持索引值不会越界。最后，在 `audioPlayerDidFinishPlaying(_ player:successfully flag:)` 函数中，我们实现了 `delegate` 方法，这可以让我们知道音乐播放完毕。现在，我们并不需要关心这个方法是否成功——只要在这个方法被调用时播放下一个音乐就好了。
+这行代码会通过增加索引值来设置音轨的下个位置，然后会执行 [modulo](https://en.wikipedia.org/wiki/Modulo_operation)<sup>[\[30\]](#note-30)</sup> 操作，以保持索引值不会越界。最后，在 `audioPlayerDidFinishPlaying(_ player:successfully flag:)` 函数中，我们实现了 `delegate` 方法，这可以让我们知道音乐播放完毕。现在，我们并不需要关心这个方法是否成功——只要在这个方法被调用时播放下一个音乐就好了。
 
 ### 按下 Play 键 
 
@@ -756,7 +756,7 @@ SoundManager.sharedInstance.startPlaying()
 
 在本课中，我们主要实现了两个部分：精灵动画和声音。我们使用了一个基于帧的动画来使精灵可以动起来，用了 SKAction 来实现，并使用了一些方法来重设我们被雨滴击中的小猫。我们使用了 `SKAction` 来添加了音效，并指定了当小猫被雨击中时来播放音效。 最后，我们为我们的游戏添加了初始背景音乐。
 
-到这里，恭喜！我们的游戏即将完成！如果你有什么不明白的地方，请仔细检查我们在 [在Github](https://github.com/thirteen23/RainCat/releases/tag/smashing-magazine-lesson-two) 上的代码。
+到这里，恭喜！我们的游戏即将完成！如果你有什么不明白的地方，请仔细检查我们在 [在Github](https://github.com/thirteen23/RainCat/releases/tag/smashing-magazine-lesson-two)<sup>[\[31\]](#note-31)</sup> 上的代码。
 
 你做的怎么样了？你的代码和我的差不多吗？如果你做了一些修改，或者有更好的更新，可以通过评论让我知道。
 
@@ -764,35 +764,35 @@ SoundManager.sharedInstance.startPlaying()
 
 #### 附录 
 
-1. [ https://developer.apple.com/spritekit/](#note-1)
-2. [ https://www.smashingmagazine.com/2016/11/how-to-build-a-spritekit-game-in-swift-3-part-1/](#note-2)
-3. [ https://github.com/thirteen23/RainCat/releases/tag/smashing-magazine-lesson-one](#note-3)
-4. [ https://www.smashingmagazine.com/wp-content/uploads/2016/10/raincat_header_sm-preview-opt.png](#note-4)
-5. [ https://www.smashingmagazine.com/2016/11/how-to-build-a-spritekit-game-in-swift-3-part-1/](#note-5)
-6. [ https://github.com/thirteen23/RainCat/blob/smashing-day-2/dayTwoAssets.zip](#note-6)
-7. [ https://www.smashingmagazine.com/wp-content/uploads/2016/10/App-assets-large-opt.png](#note-7)
-8. [ https://www.smashingmagazine.com/wp-content/uploads/2016/10/App-assets-large-opt.png](#note-8)
-9. [ https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Protocols.html](#note-9)
-10. [ https://www.smashingmagazine.com/wp-content/uploads/2016/10/Cat-large-opt.png](#note-10)
-11. [ https://www.smashingmagazine.com/wp-content/uploads/2016/10/Cat-large-opt.png](#note-11)
-12. [ https://developer.apple.com/reference/spritekit/sknode/1483087-xscale](#note-12)
-13. [ http://soundbible.com/tags-cat-meow.html](#note-13)
-14. [ https://www.smashingmagazine.com/wp-content/uploads/2016/10/Finder-Mode-Activated-large-opt.png](#note-14)
-15. [ https://www.smashingmagazine.com/wp-content/uploads/2016/10/Finder-Mode-Activated-large-opt.png](#note-15)
-16. [ https://www.smashingmagazine.com/wp-content/uploads/2016/10/Adding-in-SFX-preview-opt.png](#note-16)
-17. [ http://www.bensound.com/royalty-free-music](#note-17)
-18. [ http://www.bensound.com/licensing](#note-18)
-19. [ http://www.bensound.com/royalty-free-music/track/little-idea](#note-19)
-20. [ http://www.bensound.com/royalty-free-music/track/clear-day](#note-20)
-21. [ http://www.bensound.com/royalty-free-music/track/jazzy-frenchy](#note-21)
-22. [ http://www.bensound.com/royalty-free-music/track/jazz-comedy](#note-22)
-23. [ https://www.smashingmagazine.com/wp-content/uploads/2016/10/Adding-in-some-music-tracks-large-opt.png](#note-23)
-24. [ https://www.smashingmagazine.com/wp-content/uploads/2016/10/Adding-in-some-music-tracks-large-opt.png](#note-24)
-25. [ https://www.codefellows.org/blog/singletons-and-swift/](#note-25)
-26. [ https://developer.apple.com/reference/objectivec/nsobject](#note-26)
-27. [ https://developer.apple.com/reference/avfoundation/avaudioplayerdelegate](#note-27)
-28. [ http://www.bensound.com/royalty-free-music](#note-28)
-29. [ https://www.bignerdranch.com/blog/error-handling-in-swift-2/](#note-29)
-30. [ https://en.wikipedia.org/wiki/Modulo_operation](#note-30)
-31. [ https://github.com/thirteen23/RainCat/releases/tag/smashing-magazine-lesson-two](#note-31)
+1. <a name="note-1"></a>https://developer.apple.com/spritekit/
+2. <a name="note-2"></a>https://www.smashingmagazine.com/2016/11/how-to-build-a-spritekit-game-in-swift-3-part-1/
+3. <a name="note-3"></a>https://github.com/thirteen23/RainCat/releases/tag/smashing-magazine-lesson-one
+4. <a name="note-4"></a>https://www.smashingmagazine.com/wp-content/uploads/2016/10/raincat_header_sm-preview-opt.png
+5. <a name="note-5"></a>https://www.smashingmagazine.com/2016/11/how-to-build-a-spritekit-game-in-swift-3-part-1/
+6. <a name="note-6"></a>https://github.com/thirteen23/RainCat/blob/smashing-day-2/dayTwoAssets.zip
+7. <a name="note-7"></a>https://www.smashingmagazine.com/wp-content/uploads/2016/10/App-assets-large-opt.png
+8. <a name="note-8"></a>https://www.smashingmagazine.com/wp-content/uploads/2016/10/App-assets-large-opt.png
+9. <a name="note-9"></a>https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Protocols.html
+10. <a name="note-10"></a>https://www.smashingmagazine.com/wp-content/uploads/2016/10/Cat-large-opt.png
+11. <a name="note-11"></a>https://www.smashingmagazine.com/wp-content/uploads/2016/10/Cat-large-opt.png
+12. <a name="note-12"></a>https://developer.apple.com/reference/spritekit/sknode/1483087-xscale
+13. <a name="note-13"></a>http://soundbible.com/tags-cat-meow.html
+14. <a name="note-14"></a>https://www.smashingmagazine.com/wp-content/uploads/2016/10/Finder-Mode-Activated-large-opt.png
+15. <a name="note-15"></a>https://www.smashingmagazine.com/wp-content/uploads/2016/10/Finder-Mode-Activated-large-opt.png
+16. <a name="note-16"></a>https://www.smashingmagazine.com/wp-content/uploads/2016/10/Adding-in-SFX-preview-opt.png
+17. <a name="note-17"></a>http://www.bensound.com/royalty-free-music
+18. <a name="note-18"></a>http://www.bensound.com/licensing](#note-18)
+19. <a name="note-19"></a>http://www.bensound.com/royalty-free-music/track/little-idea
+20. <a name="note-20"></a>http://www.bensound.com/royalty-free-music/track/clear-day
+21. <a name="note-21"></a>http://www.bensound.com/royalty-free-music/track/jazzy-frenchy
+22. <a name="note-22"></a>http://www.bensound.com/royalty-free-music/track/jazz-comedy
+23. <a name="note-23"></a>https://www.smashingmagazine.com/wp-content/uploads/2016/10/Adding-in-some-music-tracks-large-opt.png
+24. <a name="note-24"></a>https://www.smashingmagazine.com/wp-content/uploads/2016/10/Adding-in-some-music-tracks-large-opt.png
+25. <a name="note-25"></a>https://www.codefellows.org/blog/singletons-and-swift/
+26. <a name="note-26"></a>https://developer.apple.com/reference/objectivec/nsobject
+27. <a name="note-27"></a>https://developer.apple.com/reference/avfoundation/avaudioplayerdelegate
+28. <a name="note-28"></a>http://www.bensound.com/royalty-free-music
+29. <a name="note-29"></a>https://www.bignerdranch.com/blog/error-handling-in-swift-2/
+30. <a name="note-30"></a>https://en.wikipedia.org/wiki/Modulo_operation
+31. <a name="note-31"></a>https://github.com/thirteen23/RainCat/releases/tag/smashing-magazine-lesson-two
 
