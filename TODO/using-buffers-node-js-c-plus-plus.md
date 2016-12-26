@@ -1,6 +1,6 @@
 > * 原文地址：[Using Buffers to share data between Node.js and C++](https://community.risingstack.com/using-buffers-node-js-c-plus-plus/)
 * 原文作者：[Scott Frees](https://scottfrees.com/)
-* 译文出自：[]()
+* 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[]()
 * 校对者：[]()
 
@@ -15,8 +15,6 @@ We can categorize the different use cases for add-ons along (at least) two axes 
 Most articles discussing C++ add-ons for Node.js are focusing on the differences between the left and right quadrants. If you are in the left quadrants (short processing time), your add-on can possibly be synchronous - meaning the C++ code that executes is running directly in the Node.js event loop when called.
 
 ["#nodejs allows us to move fairly seamlessly between #javascript and native C++ code" via @RisingStack](https://twitter.com/share?text=%22%23nodejs%20allows%20us%20to%20move%20fairly%20seamlessly%20between%20%23javascript%20and%20native%20C%2B%2B%20code%22%20via%20%40RisingStack;url=https://community.risingstack.com/using-buffers-node-js-c-plus-plus/)
-
-[Click To Tweet](https://twitter.com/share?text=%22%23nodejs%20allows%20us%20to%20move%20fairly%20seamlessly%20between%20%23javascript%20and%20native%20C%2B%2B%20code%22%20via%20%40RisingStack;url=https://community.risingstack.com/using-buffers-node-js-c-plus-plus/)
 
 In this case, the add-on function is blocks and waits for the return value, meaning no other operations can be done in the meantime. In the right quadrants, you would almost certainly design the add-on using the asynchronous pattern. In an asynchronous add-on function, the calling JavaScript code returns immediately. The calling code passes a callback function to the add-on, and the add-on does its work in a separate worker thread. This avoids locking up the Node.js event loop, as the add-on function does not block.
 

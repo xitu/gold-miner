@@ -1,6 +1,6 @@
 > * 原文地址：[An Ode to Async-Await](https://hackernoon.com/an-ode-to-async-await-7da2dd3c2056#.pdydhv9a0)
 * 原文作者：[Tal Kol](https://hackernoon.com/@talkol)
-* 译文出自：[]()
+* 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[]()
 * 校对者：[]()
 
@@ -8,7 +8,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*xB_H7hyiX3-K7wbf4hH9Yw.jpeg)
 
-*With the *[*news*](https://blog.risingstack.com/async-await-node-js-7-nightly/)* of async-await coming natively to Node 7 (no transpilation needed), I’ve decided to dedicate a post to celebrate this wonderful language construct. In recent years async-await has become my favorite way to implement asynchronous business logic. An excellent example how a higher order abstraction can make a big impact on our daily work — with code that is simpler, more readable, contains less boilerplate and yet remains as efficient as the best of the alternatives.
+*With the [*news*](https://blog.risingstack.com/async-await-node-js-7-nightly/) of async-await coming natively to Node 7 (no transpilation needed), I’ve decided to dedicate a post to celebrate this wonderful language construct. In recent years async-await has become my favorite way to implement asynchronous business logic. An excellent example how a higher order abstraction can make a big impact on our daily work — with code that is simpler, more readable, contains less boilerplate and yet remains as efficient as the best of the alternatives.
 
 ---
 
