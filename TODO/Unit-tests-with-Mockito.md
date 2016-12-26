@@ -4,6 +4,8 @@
 * 译者 : [edvardhua](https://github.com/edvardHua/)
 * 校对者: [hackerkevin](https://github.com/hackerkevin), [futureshine](https://github.com/futureshine) 
 
+# 使用强大的 Mockito 测试框架来测试你的代码
+
 >这篇教程介绍了如何使用 Mockito 框架来给软件写测试用例
 
 ## 1\. 预备知识

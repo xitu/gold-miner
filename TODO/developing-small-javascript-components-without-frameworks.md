@@ -4,6 +4,7 @@
 * 译者 : [L9m](https://github.com/L9m/)
 * 校对者: [wild-flame](https://github.com/wild-flame), [hikerpig](https://github.com/hikerpig)
 
+# 怎样在不使用框架的基础上开发一个 Javascript 组件
 
 许多开发者（包括我）犯的一个错误是当遇到问题时他们总是自上而下地考虑问题。他们想问题的时候，总是从考虑框架（Framework），插件（Plugin），预处理器（Pre-processors），后处理器（Post-processors），面向对象模式（objected-oriented patterns）等等这些方面出发，他们也可能会从他们以前看过的一篇文章来考虑。而这时如果有一个生成器（Generator）的话，他们当然也愿意使用生成器提供的脚手架（Scaffold）来解决这样的问题。但是随着使用所有这些优秀的工具和强大的插件，我们往往忽略了，我们到底要构建什么，以及我们为什么要构建。在大多数场景下，我们实际上并不需要 _任何_  的这些框架！我们在 _没有_ 使用任何 JavaScript 框架和工具的情况下构建了一个简单组件实例。这篇文章给想给那些中高级程序员提个醒，其实不用框架和膨胀软件（Bloatware）也可以做事。当然，这里的经验和代码示例对初级工程师们来说也是易懂和实用的。
 

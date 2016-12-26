@@ -1,11 +1,12 @@
 > * 原文地址：[Practical SVG](http://alistapart.com/article/practical-svg)
 * 原文作者：[Chris Coyier](http://alistapart.com/author/chriscoyier)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者： 
-* 校对者： 
+* 译者： [MAYDAY1993](https://github.com/MAYDAY1993)
+* 校对者： [zhouzihanntu](https://github.com/zhouzihanntu)   [hpoenixf](https://github.com/hpoenixf)
 
+# 嘿，Logo，你应该是这个尺寸的！
 
-You’ll probably want to exert some sizing control over any graphic you put on a website. _Hey! You! Logo! You should be this size:_
+可能你想控制任何你放在网上的图片的尺寸，_嗨！就是你！ Logo !你应该是这个大小：_
 
 ```
 <img src="logo.png" class="logo" />
@@ -18,90 +19,89 @@ You’ll probably want to exert some sizing control over any graphic you put on 
 }
 ```
 
-**Article Continues Below**
+**下面继续**
 
-And so shall it be.
+并且图片也应该能任意控制大小。
 
-But if the element you are resizing happens to be `svg`, the result might not be exactly what you expect. Sizing `svg` is a little more complicated than sizing an `img`. I’m not saying this to scare you. It’s almost complicated in a _good_ way, because it gives you more control and opens up some interesting possibilities.
+但是如果你正在缩放的元素恰好是 `svg`，结果可能并不是你期待的。定义 `svg` 的尺寸比定义 `img` 复杂一点。说这句不是吓你喔。复杂不是坏事，因为它给你更多的控制并且多了一些有趣的可能性。
 
-Keep these two concepts in mind when you’re working with the size of SVG images:
+当你涉及 SVG 图片的尺寸，记住下面两个概念：
 
-*   The viewport is simply the height and width of the element: the visible area of the SVG image. It’s often set as <var>width</var> and <var>height</var> attributes right on the SVG itself, or through CSS.
-*   The `viewBox` is an attribute of `svg` that determines the coordinate system and aspect ratio. The four values are <var>x</var>, <var>y</var>, <var>width</var>, and <var>height</var>.
+* viewport 就是元素的高度和宽度：即 SVG 图片可见区域的大小。经常直接在 SVG 上或者通过 CSS 设置<var>width</var> 和 <var>height</var>属性。
+* `viewBox` 是 `svg` 的一个属性，来确定坐标系和纵横比。四个值是<var>x</var>, <var>y</var>, <var>width</var>, 和 <var>height</var>。
 
-Say we’re working with some SVG like this:
-
+我们一般这样做：
 ```
 <svg width="100" height="100" viewBox="0 0 100 100">
 
 <!-- alternatively: viewBox="0, 0 100, 100" -->
 ```
 
-In this case, the viewport and `viewBox` are in perfect harmony (**Fig 6.1**). The SVG will be drawn in the exact area it visually occupies.
-
+在这种情况下，视图大小和 `viewBox` 完全一致(**Fig 6.1**)。 SVG 将会在它视觉上占据的那个地方展现出来。
 [CodePen Embed](//codepen.io/chriscoyier/embed/adqEmQ?height=265&amp;theme-id=0&amp;slug-hash=adqEmQ&amp;default-tab=html%2Cresult&amp;user=chriscoyier&amp;embed-version=2")
 
-Fig 6.1: Viewport and `viewBox` in perfect harmony. This happens when you apply no width or height to the `svg` (either via attribute or CSS), or if you do, they match the aspect ratio of the `viewBox`.
+Fig 6.1: viewport 和 `viewBox` 完全一致。这发生在没有设置`svg`的长度或宽度（属性或 CSS 都没有），或者如果你设置了长度和宽度，它们和`viewBox`的纵横比保持一致。
 
-Now say we double the width and height, like this:
+现在我们将宽度和高度翻倍，像这样：
 
 ```
 <svg width="200" height="200" viewBox="0 0 100 100">
 ```
 
-Will the `svg` just draw in a 100 by 100 space in the upper left side of the 200 by 200 element? Nope. Everything inside the `svg` will scale up perfectly to be drawn in the new, larger space (**Fig 6.2**).
-
+`svg` 会在 200 * 200 的元素的左上角占据 100 * 100 的区域么？不会， `svg` 内的每个都会在新的更大的空间扩大(**Fig 6.2**)。
 [CodePen Embed](//codepen.io/chriscoyier/embed/VeQyQY?height=265&amp;theme-id=0&amp;slug-hash=VeQyQY&amp;default-tab=html%2Cresult&amp;user=chriscoyier&amp;embed-version=2")
 
-Fig 6.2: With the viewport enlarged and `viewBox` kept the same, the graphic scales up to fit the viewport.
+Fig 6.2: viewport 变大而 `viewBox` 保持不变，图片放大来适应 viewport。
 
-The square aspect ratio still matches perfectly. That’s why it’s not particularly useful to think of the numbers anywhere in SVG as pixels, because they aren’t pixels; they’re just numbers on an arbitrary coordinate system.
+正方形的纵横比依然很匹配。这就是为什么将 SVG 内任何地方的数值认为是像素是没用的，因为他们不是像素；他们只是在一个任意的坐标系里的数值。
 
-What if the aspect ratios don’t match, though?
+那么，如果纵横比不匹配怎么办？
 
 ```
 <svg width="300" height="75" viewBox="0 0 100 100">
 ```
 
-What happens now, by default, is that the SVG will draw itself as large as it can, centered along the longest dimension (**Fig 6.3**).
-
+默认情况下，SVG将尽可能大的展现自己，沿着最长的尺寸居中(**Fig 6.3**)。
 [CodePen Embed](//codepen.io/chriscoyier/embed/vLdpdN?height=265&amp;theme-id=0&amp;slug-hash=vLdpdN&amp;default-tab=html%2Cresult&amp;user=chriscoyier&amp;embed-version=2")
 
-Fig 6.3: The viewport is enlarged, but no longer matches the aspect ratio of the `viewBox`. So by default, the image is drawn as large as possible without being cut off, and centered on the long dimension.
+Fig 6.3: viewport 变大了，但不再匹配 `viewBox` 的纵横比。所以默认情况下，图片在没被裁剪的情况下尽可能大的展现出来，并在比例大的方向居中。
 
-If you want to regain some control over this behavior, there’s an attribute for the `svg` element that can help!
-
+如果你想重新控制这个行为， `svg` 元素有个属性会起作用！
 ## `preserveAspectRatio`
 
-It looks like this:
+像这样：
 
 ```
 <svg preserveAspectRatio="xMaxYMax">
 ```
 
-The `x` and `Y` parts of that value are followed by `Min`, `Mid`, or `Max`. The reason SVG normally centers in the viewport is because it has a default value of `xMidYMid`. If you change that to `xMaxYMax`, it tells the SVG: _Make sure you go horizontally as far to the right as you can, and vertically as far to the bottom as you can. Then be as big as you can be without cutting off._
+这个值的 `x` 和 `Y` 部分后面是 `Min`, `Mid`, 或 `Max`。 SVG 通常在视图中居中的原因是有个默认的 `xMidYMid` 值。如果你把值改成 `xMaxYMax`，这就告诉了 SVG：确保在水平方向上尽可能靠右，竖直方向上尽可能靠底部。然后在没有裁剪的情况下尽可能的大。
 
-The “without cutting off” part is another aspect of `preserveAspectRatio`. The default value is `xMidYMid meet`—note the “meet.” You can replace `meet` with `slice` to say instead: _Fill the area entirely; cutting off is okay._
+“没有裁剪”部分是 `preserveAspectRatio` 的另一个方面。默认值是 `xMidYMid meet` －注意下 “meet” 。你可以用 `slice` 来代替 `meet` 意思是：完整地填充区域；裁剪也可以。
 
-There are nine possible alignment values combined with `meet` (**Fig 6.4**).
+和 `meet` 组合会有九种可能的对齐的值(**Fig 6.4**)。
 
 ![Several images representing rectangle pairs, demonstrating placement variations for smiley face graphics found in each rectangle.](http://alistapart.com/d/practical-svg/Fig6.4preserveAspectRatio.jpg)
 
-Fig 6.4: Examples of `preserveAspectRatio` values with `meet`.
+Fig 6.4: 带 `meet` 值的 `preserveAspectRatio` 的例子。
 
-There are also nine possible alignment values combined with `slice` (**Fig 6.5**).
+和 `slice` 组合也有九种可能的对齐的值(**Fig 6.5**)。
+
 
 ![Several images representing rectangle pairs, demonstrating placement variations for smiley face graphics found in each rectangle. Each also exceeds the height and width of the rectangle's frame.](http://alistapart.com/d/practical-svg/Fig6.5preserveAspectRatio-slice.jpg)
 
-Fig 6.5: Examples of `preserveAspectRatio` values with `slice`.
+Fig 6.5: 带 `slice` 值的 `preserveAspectRatio` 的例子。
 
-I made a [testing tool](http://bkaprt.com/psvg/06-01/) for playing with this idea. Sara Soueidan also wrote an in-depth article on this subject, where she makes an excellent observation [relating this idea to CSS](http://bkaprt.com/psvg/06-02/). The `background-size` property has two keywords it can take: `contain` and `cover`. The `contain` value means “make sure this entire image is viewable, even if you have to shrink it,” which makes it just like `meet`. The `cover` value means “make sure this covers the entire area, even if you have to cut parts off,” which makes it just like `slice`.
 
-Even the alignment part of the value has a matching CSS counterpart: `background-position`. The default `background-position` is `0 0`, meaning “top left.” That’s just like `xMinYMin`. If you were to change that to, say, `50% 100%`, that would be like `xMidYMax`!
+为了证实这个想法我做了一个[测试工具](http://bkaprt.com/psvg/06-01/)。关于这个主题 Sara Soueidan 也写了一篇有深度的文章，她很好的研究了[把这个想法关联到 CSS](http://bkaprt.com/psvg/06-02/)。 `background-size` 属性有两个值：`contain` 和 `cover`。`contain` 值的作用是“确保整个图片在屏幕缩小的情况下仍然可见”，就像 `meet`。`cover` 值的作用是“确保图片覆盖整个背景区域，即使图像的某些部分可能被裁减，”，就像 `slice`。
 
-**Fig 6.6** has some examples to make that connection a little clearer.
 
-`preserveAspectRatio` values and CSS properties
+就算是对齐部分也有一个对应的 CSS 属性： `background-position`。默认的 `background-position`值是`0 0`，意思是 “top left”。就像 `xMinYMin` 一样。如果你把它改成 `50% 100%`，那就像 `xMidYMax`！
+
+**Fig 6.6** 这些例子让联系更清晰。
+
+`preserveAspectRatio` 值 和 CSS 属性
+
 
 | | |
 | :-: | :-: |
@@ -110,11 +110,11 @@ Even the alignment part of the value has a matching CSS counterpart: `background
 | `preserveAspectRatio= "xMinYmax slice"` | `background-position: 100% 0; background-size: cover;` |
 | `preserveAspectRatio= "xMidYMid slice"` | `background-position: 50% 100%; background-size: cover;` |
 
-Fig 6.6: `preserveAspectRatio` values and the CSS properties they are similar to.
+Fig 6.6: `preserveAspectRatio` 的值和与之相似的 CSS 属性
 
-Remember: these aren’t interchangeable bits of code; they are just conceptually related.
+记住：他们在代码不是通用的；只是概念上相关。
 
-What if you want to throw aspect ratio out the window and have SVG scale to the viewport, like a raster image would? Turn `preserveAspectRatio` off (**Fig 6.7**)!
+如果你不想考虑纵横比，让 SVG 随视图大小缩放，就像光栅图像那样呢？把 `preserveAspectRatio` 属性设置为 ‘none’ 吧(**Fig 6.7**)!
 
 ```
 <svg preserveAspectRatio="none" viewBox="0 0 100 100">
@@ -122,27 +122,26 @@ What if you want to throw aspect ratio out the window and have SVG scale to the 
 
 [CodePen Embed](//codepen.io/chriscoyier/embed/yevpvj?height=265&amp;theme-id=0&amp;slug-hash=yevpvj&amp;default-tab=html%2Cresult&amp;user=chriscoyier&amp;embed-version=2")
 
-Fig 6.7: Example of `preserveAspectRatio="none"`. Poor little buggers.
+Fig 6.7: `preserveAspectRatio="none"` 的例子。
 
-Amelia Bellamy-Royds wrote a [comprehensive article on scaling SVG](http://bkaprt.com/psvg/06-03/), in which she covers things like the fact that `svg` can essentially contain other `svg` with different aspect ratios and behavior, so you can make some parts of an image scale and others not, which is pretty cool and unique to SVG.
+Amelia Bellamy-Royds 写了篇[关于缩放 SVG 的全面的文章](http://bkaprt.com/psvg/06-03/)，在文章中她叙述了 `svg`  实际上可以包含其他的有不同纵横比和行为的 `svg`，所以你可以让一张图部分缩放，其余部分正常显示；这对于 `svg` 来说又酷又独特。
 
-### Approaches to artboard sizing
+### 画板尺寸缩放的方法
 
-When you draw SVG in editing software, that software likely gives you some kind of artboard to draw on. That’s not a technical SVG term; it’s essentially a visual metaphor for `viewBox`.
+当你在编辑软件中画 SVG，软件可能提供给你某种画板来在上面画。这不是个技术的 SVG 术语；它实际上是 `viewBox` 的一个视觉上的比喻。
 
-Let’s say you’re working with a whole set of icons for a site. One approach is to make all artboards hug each edge of the icon (**Fig 6.8**).
-
+假设你在为一个网站设计一整套图标。一种方法是让所有的画板接触图标的每个边(**Fig 6.8**)。
 ![Adobe Illustrator graphics cropped to their edges](http://alistapart.com/d/practical-svg/Fig6.8cropped.jpg)
 
-Fig 6.8: Example of graphics in Adobe Illustrator cropped to their edges.
+Fig 6.8: 在 Adobe Illustrator 中图片接触到边缘的例子。
 
-Here’s a quick trick to get that artboard cropping in Illustrator: select the Artboard tool and then “Fit to Artwork Bounds” from the Presets menu (**Fig 6.9**).
+这儿有个快捷的小技巧来在 Illustrator 里裁剪画板：选择画板工具，然后在 Presets 菜单选 “Fit to Artwork Bounds”(**Fig 6.9**).
 
 ![Cropped view of Adobe Illustrator menu option for resizing an artboard to the edges of a graphic](http://alistapart.com/d/practical-svg/Fig6.9fit-to-bounds.jpg)
 
-Fig 6.9: The menu option in Adobe Illustrator for resizing an artboard to the edges of a graphic.
+Fig 6.9: 在 Adobe Illustrator 里菜单选项可以根据图片的边缘重新定义画板大小。
 
-The big advantage to this technique is alignment (**Fig 6.10**). If you want to align any edge of any of these icons to anything else, that’s easy to do. There is no mysterious space you need to contend with, or tweaky positional CSS.
+这个技巧的优点是对齐(**Fig 6.10**)。如果你想把这些图标的任一边和任何其他的东西对齐，实现起来很简单。并不存在你需要应对的魔幻之处或需要不断调整的定位样式。
 
 ```
 .icon.nudge {
@@ -153,10 +152,9 @@ The big advantage to this technique is alignment (**Fig 6.10**). If you want to 
 
 ![Icons aligned to corners of graphics](http://alistapart.com/d/practical-svg/Fig6.10corner-positioning.jpg)
 
-Fig 6.10: Icons aligning to edges without little bits of extra space you have to account for.
+Fig 6.10: 图标无间隙地和边缘对齐。
 
-The big disadvantage to the cropping technique is relative sizing. Imagine you take the practical step of sizing your icon’s width and height, like this:
-
+这个裁剪技术的缺点是相对的尺寸。想象下你采取一般的方法来定义图标的宽度和高度，像这样：
 ```
 .icon {
   width: 1em;
@@ -164,49 +162,47 @@ The big disadvantage to the cropping technique is relative sizing. Imagine you t
 }
 ```
 
-A tall, skinny icon will shrink to fit in that space and potentially appear awkwardly small. Or perhaps you’re trying to have an intentionally small star shape as an icon, except the star has a squarish aspect ratio and thus grows to fill the space, appearing bigger than you want it to.
+一个又高又细长的图标将会缩小来适应那个区域，并且可能显得很小。或是你可能在尝试有意把一个小的星星形状作为一个图标，期待着星星有一个正方形的纵横比，因此会放大来填充区域，然而结果比你想要的还大。
 
-Here’s an example where two icons are sized identically as a square (**Fig 6.11**). The “expand” icon looks right at home, since it has a square aspect ratio to match. But the “zap it” icon has a tall and narrow aspect ratio, so it looks wimpy, like it’s floating in the same square area.
-
+这有个例子关于两个图标的尺寸都设置成正方形(**Fig 6.11**)。“expand” 图标看上去很正常，因为它有一个正方形的纵横比来调整。但是 “zap it” 图标有一个高高窄窄的纵横比，所以它看上去很小，像在同样的正方形区域上浮动。
 ![Two button samples; one example has a nicely-balanced scale of icon to text, the other has an icon that is too small for the space and size of text](http://alistapart.com/d/practical-svg/Fig6.11AwkwardIconSizes.jpg)
 
-Fig 6.11: Two icons sized in the same square space within a button. The top one fits nicely, but the bottom one floats awkwardly in space.
+Fig 6.11: 两个图标在一个按钮中尺寸是同样的正方形区域。上面的一个响应的很好，但是底部的那个很奇怪的在区域中浮动。
 
-The other approach here is to make consistently sized artboards (**Fig 6.12**):
-
+另一个方法是制作尺寸一致的画板(**Fig 6.12**)：
 ![Several similarly-sized graphics](http://alistapart.com/d/practical-svg/Fig6.12same-size.jpg)
 
-Fig 6.12: Example of Illustrator graphics whose artboards are equal in size.
+Fig 6.12: Illustrator 里的画板大小相同的图形的例子。
 
-The advantages and disadvantages are exactly inverse here. You might have alignment issues, because not all edges of the icons touch the edge of the `viewBox`, which can be frustrating and might require tweaking sometimes (**Fig 6.13**).
+优点和缺点恰恰是可逆的。你可能遇到对齐的问题，因为并不是所有图标的边会碰到 `viewBox` 的边，这是沮丧的并且有时候可能需要调整(**Fig 6.13**)。
 
 ![Graphics with icons sized to be comparable to one another](http://alistapart.com/d/practical-svg/6.13RelativeSizing.jpg)
 
-Fig 6.13: You can adjust icons’ relative sizing, but that can make alignment more difficult.
+Fig 6.13: 你可以调整图标的相对大小，但那样会让对齐更困难。
 
-You won’t have relative sizing issues, though, because the `viewBox` is the same for all of them. If any particular icon looks too big or small, you can adjust the artwork to bring it more in line with the set.
+但是你不会有相对的尺寸问题，因为对于所有的画板来说 `viewBox` 是一样的。如果任何一个图标看上去太大或太小，你可以调整画板来使其符合这一系列。
 
-Since we’re learning about sizing, now is the perfect time to bring up how SVG fits into the flexible world of responsive design.
+既然我们在了解尺寸，现在是时候来研究 SVG 是如何适配响应式设计的弹性世界的。
 
-## Responsive SVG
+## 响应式的 SVG
 
-One of the hallmarks of responsive design is fluid layout. Content—images included—is designed to fit its containers and the screen. If responsive design is new to you, [Ethan Marcotte’s seminal 2010 article](http://alistapart.com/article/responsive-web-design) on the subject is a fine place to start learning about it. SVG jibes extremely well with responsive design:
+响应式设计的一个特点是流式布局。内容－包括图片－被设计来适应它的容器和屏幕。如果响应式设计对你来说是陌生的，关于这个主题 [Ethan Marcotte 在 2010 年的重要的文章](http://alistapart.com/article/responsive-web-design)是一个很好的选择来开始了解响应式设计。SVG 与响应式设计很适合。
 
-*   Responsive designs are flexible. So is SVG! It renders well at any size.
-*   Responsive web design is a philosophy of caring about how a website looks and behaves in any browser. Comparatively smaller SVG files and performance-responsible tactics like an SVG icon system can be a part of that.
+* 响应式设计是弹性的。SVG 也是！它在每个尺寸都呈现的很好。
+*响应式设计是一门关注一个网站在任一浏览器中如何呈现和如何表现的哲学。相对小的 SVG 文件和像一个 SVG 图标系统的性能优先的策略就是响应式设计的一部分。
 
-But perhaps SVG’s most obvious connection to responsive design is the possibility to react to CSS `@media` queries. Media queries move, hide, or show elements with CSS based on things like the width or height of the browser window. Those elements can be anything: sidebars, navigation, ads, what have you. They can be SVG elements as well.
+但可能 SVG 与响应式设计最显著的联系是对 CSS 媒体查询的可能性。媒体查询基于浏览器窗口的高度或宽度等因素用 CSS 来移动，隐藏或显示元素。这些元素能是任何东西：侧边栏，导航栏，广告和你有的任何东西。也可能是 SVG 元素。
 
-Imagine a logo that displays different levels of detail depending on how much space is available. That’s exactly what Joe Harrison was thinking when he created a really neat [demo using well-known logos](http://bkaprt.com/psvg/06-05/), (**Fig 6.14**).
-
+想象一下，有一个图标能基于可用空间的大小展现不同层次的细节。这就是当 Joe Harrison 设计一个真正简洁的[用著名图标设计的 demo](http://bkaprt.com/psvg/06-05/)时想到的东西, (**Fig 6.14**).
 ![Modified versions of the Disney logo, progressing to greater and greater simplification](http://alistapart.com/d/practical-svg/Fig6.14responsive-logos.jpg)
 
-Fig 6.14: Joe Harrison’s demo of the Disney logo at different sizes.
+Fig 6.14: Joe Harrison 的不同尺寸迪斯尼图标的 demo。
 
-On the web, we’ve always had the ability to swap out images with other ones. What’s appealing here is that we aren’t _swapping out_ images; these are all the _same_ image. Or at least they could be. That signature “D” all by itself could be the same exact “D” used in the most complex version of the logo. Easy-cheesy in CSS.
+在网站上，我们经常能用其他的图片来替换图片。这里吸引我们的是我们并没有_替换_图片；它们都是_同一张_图片。或至少它们能是同一张。签名 “D” 和在最复杂的图表版本中使用的就是同样的 “D”。
 
-Say we organize the SVG like so:
+在 CSS 中通俗的写法。
 
+我们像这样组织 SVG：
 ```
 <svg class="disney-logo">
  <g class="magic-castle">
@@ -222,14 +218,12 @@ Say we organize the SVG like so:
 </svg>
 ```
 
-This, by the way, is pretty easy to do in Illustrator (**Fig 6.15**). The groups and names you create there turn into IDs in the SVG output, and you can use those IDs to do the styling. Personally, though, I prefer using classes because they aren’t unique (so you don’t accidentally end up with multiple identical IDs on the page) and because classes have a lower and more manageable level of CSS specificity. It’s easy enough to change IDs to classes with a bit of find-and-replace maneuvering in a code editor.
-
+顺便说一下，在 Illustrator 中这很容易实现(**Fig 6.15**)。在这里你写的组件和名称在以 SVG 输出时变成 ID，你能使用这些 ID 来定义样式。然而，我个人更喜欢使用类因为它们不是唯一的（所以你不会突然遇到在页面上有多个同样的 ID）并且类有一个更低更好管理的 CSS specificity 特性权重。在一个代码编辑器里非常简单地就能用查找替换操作把 ID 变成类。
 ![Adobe Illustrator interface showing vector paths and layers for Walt Disney logo](http://alistapart.com/d/practical-svg/Fig6.15NamedLayers.jpg)
 
-Fig 6.15: Named layers and named shapes in Adobe Illustrator.
+Fig 6.15: 在 Adobe Illustrator 中命名的层和形状。
 
-The corresponding CSS could be something like this:
-
+对应的CSS像这样：
 ```
 @media (max-width: 1000px) {
   .magic-castle {
@@ -248,24 +242,21 @@ The corresponding CSS could be something like this:
 }
 ```
 
-Mind you, this is a contrived example of hiding parts of the images at different breakpoints, but that’s exactly how you would do it, along with some likely sizing adjustments. Anything you can do with CSS is on the table here. Perhaps some animation is appropriate at some breakpoints but not at others. Perhaps you change stroke sizes to beef up or trim down icons at different sizes. Perhaps you change some fill colors to simplify adjacent shapes.
+注意，有一个人为的例子在不同的断点隐藏部分图片，但是这就是你将要做的，同时可能有一些尺寸调整。你能用 CSS 做的任何事情都列在这儿了。可能某些动画在某些断点是合适的，但是在其他并不合适。可能（译者注：求助攻）。可能你改变一些填充颜色来简化相邻的外形。
 
-And things can get even fancier! Depending on how the SVG is used, those media queries might actually be different. SVG used as `img`, `iframe`, or `object` has its own viewport. That means CSS _embedded inside of it_ reacts to media queries based on that, rather than the whole browser window viewport. That means you would write, say, width-based media queries based on the width of the image, not of the entire page.
+事情会更有趣！取决于 SVG 的使用方式，这些媒体查询实际上可能是不同的。作为 `img`, `iframe`, 或 `object` 使用的 SVG 有它自己的视图。这就意味着_嵌入在内的_ CSS 以此为基础来响应媒体查询，而不是整个的浏览器窗口视图。这就意味着你是基于图片的宽度来声明以图片为基础的媒体查询，而不是整个页面的宽度。
 
-That’s a very appealing idea: an element that arranges itself based on attributes of itself, rather than the page. _Am I this wide? Do this. Am I this tall? Do this._ That way, the SVG reacts to the situation it’s in rather than the arbitrary document it happens to be part of.
+这是个非常吸引人的想法：一个元素基于它自己的属性安排自己，而不是页面。我是这么宽么？对。我是这么高么？也是。_那样， SVG 响应它所在的情景而不是它所在的任意文档。
 
-As I write, this is referred to as “element queries” in CSS, but it doesn’t actually exist yet in regular HTML/CSS. Once again, SVG is ahead of the curve.
+正如我写的，这在 CSS 中称作“元素查询”，但是实际上在正常的 HTML/CSS 中并不存在。又一次地，SVG 具有超前意识。
 
-## Graduation into animation
+## 来看看动画
 
-Speaking of things SVG is good at, let’s move into animation next. Everything we have been building on so far has prepared us for this. Hang on tight!
+谈到 SVG 擅长的事情，让我们接下来看看动画。至今为止我们一直依赖的一切已经为我们准备好了。紧紧抓住吧！
 
-## [The Only Constant is Change: A Q&A with Ethan Marcotte](http://alistapart.com/blog/post/responsive-web-design-second-ed)
+## [唯一的常量变了：与 Ethan Marcotte 的一场问答](http://alistapart.com/blog/post/responsive-web-design-second-ed)
 
-A new edition of Responsive Web Design is here. To celebrate, A List Apart’s editor-in-chief, Sara Wachter-Boettcher, sat down…
+## [框架](http://alistapart.com/article/frameworks)
 
-## [Frameworks](http://alistapart.com/article/frameworks)
+在这个摘录中，Ethan Marcotte 检查框架来思考响应式设计的规则并把它们应用在我们的工作中。
 
-In this excerpt, Ethan Marcotte examines frameworks for thinking about responsive design principles and applying them to our work.
-
-</div>

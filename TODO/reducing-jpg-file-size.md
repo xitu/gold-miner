@@ -4,10 +4,10 @@
 * 译者 : [SHENXN](https://github.com/shenxn)
 * 校对者: [Galen](https://github.com/galenyuan), [Hugo Xie](https://github.com/xcc3641)
 
+# 减少 JPG 文件大小
 
 ![](https://cdn-images-1.medium.com/max/2000/1*sRYE2_-ROxbzz1y1s4M9GQ.png)
 
-### 减少 JPG 文件大小
 
 如果你是一个现代的开发者，无论你是网站开发、移动开发、还是一些奇怪的系统管理程序，你一定会使用 JPG 文件。JPG 是你工作的一部分，并且对于用户体验有着极其重要的作用。
 

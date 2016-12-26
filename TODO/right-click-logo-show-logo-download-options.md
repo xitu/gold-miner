@@ -4,8 +4,7 @@
 * 译者 : [Yushneng](https://github.com/rainyear)
 * 校对者: [circlelove](https://github.com/circlelove)，[ZhaofengWu](https://github.com/ZhaofengWu)
 
-
-
+# 在网站 Logo 上右击时提示下载网站的 Logo 素材下载
 
 有一天我在访问 [Invision](http://www.invisionapp.com/) 网站时，突然想要抓取他们网站的 logo。如果运气好的话（例如你非常开心地发现他们 logo 的 SVG 文件），有时候你不需要去 Google 图片搜索，也不用普通网页搜索关键词 “Invision Logo”找到一些品牌介绍页面之类网页，才可以下载 logo 图片。
 

@@ -4,6 +4,8 @@
 * 译者 : [Malcolm](https://github.com/malcolmyu)
 * 校对者: [嘤嘤嘤](https://github.com/xingwanying), [Jack-Kingdom](https://github.com/Jack-Kingdom)
 
+# 使用 ES6 编写更好的 JavaScript Part II：深入探究 [类]
+
 ## 辞旧迎新
 
 在本文的开始，我们要说明一件事：

@@ -4,6 +4,8 @@
 * 译者 :[DeadLion](https://github.com/DeadLion)
 * 校对者 :[Graning](https://github.com/Graning), [Kulbear](https://github.com/Kulbear)
 
+# 如何创建高度模块化的 Android 应用
+
 >“单一职责原则规定，每个模块或类应该对软件提供的某单一功能负责。”([en.wikipedia.org/wiki/Single_responsibility_principle](https://en.wikipedia.org/wiki/Single_responsibility_principle))
 
 Android 中构建 UI 的职责通常委派给一个类（比如 Activity、Fragment 或 View/Presenter）。这通常涉及到以下任务：

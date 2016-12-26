@@ -4,7 +4,7 @@
 * 译者 : [circlelove](https://github.com/circlelove)
 * 校对者:[ruixi](https://github.com/ruixi)，[wild-flame](https://github.com/wild-flame)
 
-
+# 用户界面中的字体
 
 回想2004年，在我刚入行的时候，[sIFR](http://mikeindustries.com/blog/archive/2004/08/sifr) 是最火的东西。它是由[Shaun Inman](http://shauninman.com/pendium/)公司开发的，其自定义字体嵌入在一个小小的 flash 动画里，它可以用在一些 JavaScript 和 CSS 中。那时候，它基本上就是[Firefox](https://www.mozilla.org/en-US/firefox/new/) 或 [Safari](http://www.apple.com/safari/)浏览器自定义字体的唯一选择。事实上，随着 iPhone （不支持 Flash ）的发布，该技术对于 Flash 的依赖使它很快就过时了。
 

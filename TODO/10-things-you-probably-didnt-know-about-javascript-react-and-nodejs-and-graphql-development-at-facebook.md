@@ -4,6 +4,7 @@
 * 译者 : [Jack](https://github.com/Jack-Kingdom)
 * 校对者: [DeadLion](https://github.com/DeadLion),[Joddiy](https://github.com/joddiy)
 
+# 10 个你可能不知道的事，关于 Facebook 内部开发环境是如何使用 JavaScript 和 GraphQL 的
 
 最近, 来自 Facebook 的 Lee Byron ([@leebyron](https://hashnode.com/@leebyron)) 在Hashnode上主办了一场 [AMA](https://hashnode.com/ama/with-lee-byron-cin0kpe8p0073rb53b19emcda)( Ask Me Anything )。 这里提出了许多有趣的问题，并且 Lee 透露了一些关于 Facebook 如何使用 React 、GraphQL 、和 React Native 的惊人事实与细节。我拜读了他在 AMA 上的回答，思考并总结出了十条有趣的重点。
 

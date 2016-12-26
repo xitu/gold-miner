@@ -5,7 +5,7 @@
 * 校对者: [Nicolas(Yifei) Li](https://github.com/yifili09)、[Jack King](https://github.com/Jack-Kingdom)
 
 
-### Swift 语言面面观（一）
+# 好的与坏的，Swift 语言面面观（一）
 
 在 WWDC 2014（苹果 2014 年开发者大会）发布的 Swift 编程语言，大约在一周内将迎来它的两周岁生日（译注：WWDC 2014 的时间是 2014-6-3）。当时听到这个消息，我们在工作室里兴奋地跳了起来，并从此投入到了 Swift 的怀抱。然而两年时间过去了，我依然在苦苦思索着怎样写出好的 Swift 代码。要知道 Objective-C 已经快有三十年历史了，我们都已经摸索出 Objective-C 的最佳实践，以及什么是好或坏的 Objective-C 代码，然而 Swift 还很年轻。
 

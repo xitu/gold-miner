@@ -4,6 +4,8 @@
 * 译者 : [Zhangjd](https://github.com/Zhangjd)
 * 校对者: [yangzj1992](https://github.com/yangzj1992), [shaohui10086](https://github.com/shaohui10086)
 
+# 互联网公司真的是「看重能力，不看重学历」吗？
+
 <div class="entry-content">![](http://ww2.sinaimg.cn/large/a490147fjw1f2uxkmiivnj20kt0dvae7.jpg)
 
 图为 Facebook 创始人马克·扎克伯格 2011 年在哈佛大学和记者交流。众所周知，扎克伯格曾经在 05 年辍学，但根据 Burning Glass Technologies 的最新调查数据显示，硅谷的雇主们更倾向于雇佣一个有本科甚至更高级学位的员工。

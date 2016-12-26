@@ -4,6 +4,7 @@
 * 译者 : [Dwight](https://github.com/ldhlfzysys)
 * 校对者: [aidistan](https://github.com/aidistan), [Goshin](https://github.com/Goshin)
 
+# 怎样在 5 分钟内使 Drawer 在状态栏下可见？
 
 你也许听过谷歌最新的设计理念 Material Design （“质感设计”）[规范](http://www.google.com/design/spec/patterns/navigation-drawer.html)，可以让你的抽屉式导航栏跨越整个屏幕，包括状态栏，并且让抽屉后的所有控件以灰暗的网格形式可见。
 
