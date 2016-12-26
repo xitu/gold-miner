@@ -2,7 +2,7 @@
 * 原文作者：[ Ben Thompson ]( https://blog.gitprime.com/author/ben-thompson)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[cdpath](https://github.com/cdpath)
-* 校对者：
+* 校对者：[marcmoore (Mark)](https://github.com/marcmoore), [phxnirvana (PhxNirvana)](https://github.com/phxnirvana)
 
 # 高效的工程师一步一步来 —— 开发者影响力中的模式
 
@@ -10,14 +10,14 @@
 
 ### 前提假设：要速度还是要数量
 
-要探讨这个，我们得先假设团队里有的工程师更容易上手新工作，其他人则更喜欢一次搞定大量工作。如果假设成立，我们可以用频率和工作量这两个轴画出工程师的分布，就像这样：
+要探讨这个，我们得先假设团队里有的工程师易于快速切换工作，其他人则更喜欢一次搞定大量工作。如果假设成立，我们可以用频率和工作量这两个轴画出工程师的分布，就像这样：
 ![](https://blog.gitprime.com/hubfs/GitPrime/Blog/eng-character-1assumption-4.png?t=1481225729545)
 
 但是「工作量」如何定义呢？
 
 ### 什么是「大」工作量？
 
-我们试了能想到的所有衡量「大」工作量的手段。因为代码行数 (LoC) 比较简单（也很能说明问题！），所以用它来做基准线。代码行数并不是切实可行的度量，详见这篇[更深入的文章](http://blog.gitprime.com/lines-of-code-is-a-worthless-metric-except-when-it-isnt/)。
+我们试了能想到的所有衡量「大」工作量的手段。因为代码行数 (LoC) 比较简单（也很能说明问题！），所以用它来做基准线。尽管代码行数并不是切实可行的度量，详见这篇[更深入的文章](http://blog.gitprime.com/lines-of-code-is-a-worthless-metric-except-when-it-isnt/)，但它确实为我们找到更好的标准开了个头儿。
 
 真正的挑战是找到一种度量，可以判断出用五行更高效的代码替换五十行旧代码的工作量要高于写一百行未编辑过的原型代码。毕竟从头开始写新代码可比追查一个可恶的 bug 结果只修改了四行代码要来得容易。
 
@@ -64,17 +64,17 @@
 
 把结果画成散点图可以充分说明一个工程师在特定时间段内（相对于团队其他成员）工作模式。
 
-![a successful framework for visualizing how software engineers work](https://blog.gitprime.com/hubfs/GitPrime/Blog/eng-character-3rev2.png?t=1481225729545) 
+![成功地用来可视化软件工程师工作方式的框架](https://blog.gitprime.com/hubfs/GitPrime/Blog/eng-character-3rev2.png?t=1481225729545) 
 
 我们可以从这张可视化图看出一些启示：
 
 - 左下角还是最初设计中的「难题发现者」。
 - 左上角表示那些探索新实现方式的工程师，我们经常可以在这一区域看到提出新特性的原型的工程师。
-- 右下角则是那些「完美主义者」，他们的代码搅拌率在团队中较低，但是总体进展速度也较慢。
+- 右下角则是那些「完美主义者」，他们的代码改动率在团队中较低，但是总体进展速度也较慢。
 - 最后**右上角**代表提交频繁，不太需要返工的工程师，最好别打扰他们，他们正干得起劲呢！
 
 ---
 
-**Notes:**
+**备注：**
 
 1. 感谢 [Bobby Wallace](https://twitter.com/bikeath1337) 帮忙将可视化图中的「探索（Exploring）」象限改成了「发现（Discovery)」。
