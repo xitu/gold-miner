@@ -2,10 +2,10 @@
 * 原文作者：[Chike Mgbemena](https://tutsplus.com/authors/chike-mgbemena)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Zhiw](https://github.com/Zhiw)
-* 校对者：
+* 校对者：[PhxNirvana](https://github.com/phxnirvana)，[Draftbk](https://github.com/draftbk)
 
 
-# 网络请求框架 Retrofit 2 使用详解
+# 网络请求框架 Retrofit 2 使用入门
 
 ![Final product image](https://cms-assets.tutsplus.com/uploads/users/1499/posts/27792/final_image/gt5.JPG)
 
@@ -17,7 +17,7 @@
 
 这个强大的库可以很简单的把返回的 JSON 或者 XML 数据解析成简单 Java 对象（POJO）。`GET`, `POST`, `PUT`, `PATCH`, 和 `DELETE` 这些请求都可以执行。
 
-和大多数开源软件一样，Retrofit 也是建立在一些强大的库和工具基础上的。Retrofit 背后用了同一个开发团队的 [OkHttp](http://square.github.io/okhttp/) 来处理网络请求。而且 Retrofit 不再内置 JSON converter 来将 JSON 装换为 Java 对象。取而代之的是提供以下 JSON converter 来处理：
+和大多数开源软件一样，Retrofit 也是建立在一些强大的库和工具基础上的。Retrofit 背后用了同一个开发团队的 [OkHttp](http://square.github.io/okhttp/) 来处理网络请求。而且 Retrofit 不再内置 JSON 转换器来将 JSON 装换为 Java 对象。取而代之的是提供以下 JSON 转换器来处理：
 
 - Gson: `com.squareup.retrofit:converter-gson`
 - Jackson: `com.squareup.retrofit:converter-jackson`
@@ -59,7 +59,7 @@
     compile 'com.android.support:recyclerview-v7:25.0.1'
 
 
-不要忘记同步工程来下载这些库。
+不要忘记同步（sync）工程来下载这些库。
 
 ## 3. 添加网络权限
 
@@ -170,7 +170,7 @@ Gson 使用 `@SerializedName` 注解来将 JSON 的 key 映射到我们类的变
 
 在上面的示例中，我们告诉 Gson 我们的 JSON 的 key `quota_remaining` 应该被映射到 Java 变量 `quotaRemaining`上。如果两个值是一样的，即如果我们的 JSON 的 key 和 Java 变量一样是 `quotaRemaining`，那么就没有必要为变量设置 `@SerializedName` 注解，Gson 会自己搞定。
 
-`@Expose` 注解表明在 JSON 序列化或反序列化的时候，该成员是否暴露给 Gson。
+`@Expose` 注解表明在 JSON 序列化或反序列化的时候，该成员应该暴露给 Gson。
 
 ### 将数据模型导入 Android Studio
 
@@ -482,7 +482,7 @@ Gson 使用 `@SerializedName` 注解来将 JSON 的 key 映射到我们类的变
 
     https://api.stackexchange.com/2.2/answers?order=desc&sort=activity&site=stackoverflow&tagged=android
 
-接口方法的参数支持以下注解：
+接口方法的参数有以下注解：
 
 ||||
 |---|---|---|
@@ -508,7 +508,7 @@ Gson 使用 `@SerializedName` 注解来将 JSON 的 key 映射到我们类的变
 
 ## 8.显示到 RecyclerView
 
-我们需要一个 adapter 来将结果将显示到 [recycler view](https://code.tutsplus.com/tutorials/getting-started-with-recyclerview-and-cardview-on-android--cms-23465) 上面。以下是 `AnswersAdapter` 类的代码片段。
+既然结果要显示到 [RecyclerView](https://code.tutsplus.com/tutorials/getting-started-with-recyclerview-and-cardview-on-android--cms-23465) 上面，我们需要一个 adpter。以下是 `AnswersAdapter` 类的代码片段。
 
     public class AnswersAdapter extends RecyclerView.Adapter<AnswersAdapter.ViewHolder> {
 
@@ -585,7 +585,7 @@ Gson 使用 `@SerializedName` 注解来将 JSON 的 key 映射到我们类的变
 
 ## 9.执行请求
 
-在 `MainActivity` 的 `onCreate()` 方法内部，我们初始化 `SOService` 的实例（参见第 9 行），recycler view 以及 adapter。最后我们调用 `loadAnswers()` 方法。
+在 `MainActivity` 的 `onCreate()` 方法内部，我们初始化 `SOService` 的实例（参见第 9 行），RecyclerView 以及 adapter。最后我们调用 `loadAnswers()` 方法。
 
      private AnswersAdapter mAdapter;
         private RecyclerView mRecyclerView;
