@@ -22,7 +22,7 @@ That’s the basis behind *asynchronicity* and *concurrency*.
 
 Suppose we could halt execution and block until the anticipated response arrives. This normally isn’t a good idea because our program will remain unresponsive to anything else going on. If we’re implementing a frontend application — what happens if the user tries to interact with it while we block? If we’re implementing a backend service — what happens if a new request suddenly comes in?
 
-Let’s start pure, with minimal abstractions and low-level API from the likes of the immortal `[selec](http://man7.org/linux/man-pages/man2/select.2.html)t` function. If we don’t want to block, the alternative is returning immediately — or in other words, *polling*. This also feels wrong, [busy-wait](https://en.wikipedia.org/wiki/Busy_waiting) never sounds like a good idea.
+Let’s start pure, with minimal abstractions and low-level API from the likes of the immortal [select](http://man7.org/linux/man-pages/man2/select.2.html) function. If we don’t want to block, the alternative is returning immediately — or in other words, *polling*. This also feels wrong, [busy-wait](https://en.wikipedia.org/wiki/Busy_waiting) never sounds like a good idea.
 
 We need something else. We need abstractions.
 
@@ -98,7 +98,7 @@ Node relies on the JavaScript [event loop](https://developer.mozilla.org/en/docs
 
 The standard complaint about callbacks is the famous *pyramid of doom*, where your code ends up looking like an indented [mess](http://callbackhell.com/). My biggest problem with callbacks is actually different and is that they don’t deal well with *control flow*.
 
-What is control flow? It’s the `for` loops and `if` statements that you need to implement basic business logic rules like pinging every server exactly ***3 times***, and including this server in the result only ***if*** it failed. Try using a `[forEach](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)` and `[setTimeout](https://developer.mozilla.org/en-US/docs/Web/API/WindowTimers/setTimeout)` to implement this logic and you’ll see that it simply doesn’t work as easily with callbacks as you’d think.
+What is control flow? It’s the `for` loops and `if` statements that you need to implement basic business logic rules like pinging every server exactly ***3 times***, and including this server in the result only ***if*** it failed. Try using a [forEach](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach) and [setTimeout](https://developer.mozilla.org/en-US/docs/Web/API/WindowTimers/setTimeout) to implement this logic and you’ll see that it simply doesn’t work as easily with callbacks as you’d think.
 
 So what do we do instead? One of the more flexible ways I know to implement non-trivial control flow with callbacks is building a [state machine](https://en.wikipedia.org/wiki/Finite-state_machine):
 
@@ -191,7 +191,7 @@ Most modern asynchronous APIs favor promises to callbacks. In our case, we’ll 
 
 We still have the issue of control flow. How can our simple logic be achieved with promises? In my opinion, [functional programming](https://en.wikipedia.org/wiki/Functional_programming) works best with promises, and in JavaScript this usually means pulling out [lodash](https://lodash.com/).
 
-If we had wanted to ping the servers in parallel, things would have been quite easy and we could use an operation like `[map](https://lodash.com/docs#map)` to transform our array of URLs into an array of promises that resolve to the number of failures in each URL. Since we want to ping the servers sequentially, things are a little more tricky. Since each promise needs to be chained to the `[then](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then)` of the previous one, we’ll need to pass data between the different iterations. This can be achieved with an *accumulator* in operations like `[reduce](https://lodash.com/docs#reduce)` or `[transform](https://lodash.com/docs#transform)`:
+If we had wanted to ping the servers in parallel, things would have been quite easy and we could use an operation like [map](https://lodash.com/docs#map) to transform our array of URLs into an array of promises that resolve to the number of failures in each URL. Since we want to ping the servers sequentially, things are a little more tricky. Since each promise needs to be chained to the [then](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then) of the previous one, we’ll need to pass data between the different iterations. This can be achieved with an *accumulator* in operations like [reduce](https://lodash.com/docs#reduce) or [transform](https://lodash.com/docs#transform):
 
 ```
 import _ from 'lodash';
