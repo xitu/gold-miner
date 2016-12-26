@@ -2,7 +2,7 @@
 * 原文作者：[Michael Bhaskar](https://www.theguardian.com/profile/michael-bhaskar)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Jiang Haichao](https://github.com/AceLeeWinnie)
-* 校对者：
+* 校对者：[根号三](https://github.com/sqrthree),[Mark](https://github.com/marcmoore)
 
 # 在算法横行的时代，仍需要人类把关
 
