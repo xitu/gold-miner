@@ -1,3 +1,4 @@
+* [如何在 Swift 3 中用 Spirit Kit 框架编写游戏 (Part 1)](https://gold.xitu.io/entry/585b7cc18d6d810065d2905e?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Gocy015](https://github.com/Gocy015) 翻译)
 * [macOS Security and Privacy Guide](https://gold.xitu.io/entry/585501e2b123db00656a6947?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Nicolas(Yifei) Li](https://github.com/yifili09)   [MAYDAY1993](https://github.com/MAYDAY1993)   [DeadLion](https://github.com/DeadLion) 翻译)
 * [Yammer iOS 版移植到 Swift3](https://gold.xitu.io/entry/5848b88ab123db006601f750?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Danny Lau](https://github.com/Danny1451) 翻译)
 * [Swift 面向协议编程，灵丹妙药或是饮鸩止渴？](https://gold.xitu.io/entry/584781e161ff4b006bac77ba?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([王子建](https://github.com/Romeo0906) 翻译)
