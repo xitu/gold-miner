@@ -712,12 +712,11 @@ view.showsNodeCount = true
 提供了编辑文章的帮助，这的确是一项大工程。
 - [Jeff Moon](https://www.thirteen23.com/about/#jeffrey-moon)
 
-For help editing lesson three and the ping-pong. Lots of ping-pong.
-提供了第三课的编辑工作和一些杂项，很多很多杂项（这里）
+提供了第三课的编辑工作和乒乓球，很多的乒乓球（译者注：一脸懵逼）
 - [Tom Nelson](https://www.thirteen23.com/about/#tom-nelson)
 
 正因为这些帮助，教程才会像预计的那样完成。
 
-认真的说，用了一大堆人来准备这篇文章，并发布到商店。
+认真的说，真的用了一大堆人来准备这篇文章，并发布到商店。
 
 也谢谢每一位读到这句话的读者，感谢。
