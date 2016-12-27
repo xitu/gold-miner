@@ -49,7 +49,7 @@ Snapchat 是被我所称为的「共享式设计」中的一个最好的例子�
 
 在这方面做得很聪明，因为这些看似不起眼的特点是一个机会，让它的使用者们可以向他们的朋友去展示一些很酷的新玩意儿。给朋友看一些很酷的东西可以增加你的社交地位，或者是给你一种很棒的感觉。这绝对是你愿意去做的事！对于 Snapchat 来说，这是很棒的，因为它将你变成了一个它们产品的「传教士」，你甚至不觉得你在「传教」：你只是在教你的朋友如何灵活地做一件事。
 
-![](https://cdn-images-1.medium.com/freeze/max/30/1*RQYCS0leu9YR8TrLQUruaQ.gif?q=20) 
+![](https://cdn-images-1.medium.com/max/800/1*RQYCS0leu9YR8TrLQUruaQ.gif) 
 
 Musical.ly 的影片在 Instagram，Facebook 和 Twitter 上传播得非常广泛。
 
