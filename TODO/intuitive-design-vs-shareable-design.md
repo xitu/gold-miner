@@ -24,14 +24,14 @@ Snapchat 是被我所称为的「共享式设计」中的一个最好的例子�
 
 比如，微软用了大量的时间去弄明白如何把软件设计地更加直观。我们可以针对他们在审美上是否成功保留见解，但是像 Excel 这样的软件来说它在市场上是非常成功的，因为用户有很多种方法去探索它里面的功能，只需要随处点击。这就是为什么工具栏和菜单栏看上去会像这样。它们很丑，但它们是有用的，因为它们足够**直观**。当然了，如果还不够简单，人们会去买书并跟着上面的步骤一步一步学习。我曾经花费了一个夏天的时间来实习，在一家叫做 Catapult Press 的公司作为[Microsoft Step by Step books](https://www.microsoftpressstore.com/series/series_detail.aspx?st=99028) 的「校验员」，当我在书中寻找错误的时候，我以最无聊的方式学习了这本书。
 
-在那个同样的时代，苹果花费了很多时间去弄明白如何让它们的操作系统变得尽可能地直观。苹果在 1987 年出版了一本书来介绍它们的人机交互指南，这本书从 Macintosh 时代甚至到互联网时代都[影响非凡](http://tantek.pbworks.com/w/page/34457520/Web%20Human%20Interface%20Guidelines) 
+在那个同样的时代，苹果花费了很多时间去弄明白如何让它们的操作系统变得尽可能地直观。苹果在 1987 年出版了一本书来介绍它们的人机交互指南，这本书从 Macintosh 时代甚至到互联网时代都[影响非凡](http://tantek.pbworks.com/w/page/34457520/Web%20Human%20Interface%20Guidelines) 。
 
-所有的这些作品都是基于出色的软件和产品设计师们在 80 年代和 90年代的研究。Don Norman 的[*Design of Everyday Things*（日常设计）](http://www.jnd.org/books/design-of-everyday-things-revised.html)在软件设计师中非常有影响力，尽管它是专注于工业设计（实物设计）。Brenda Laurel 的书[*The Art of Human-Computer Interface Design*（人机交互设计的艺术）](https://www.amazon.com/exec/obidos/ASIN/0201517973/o/qid=981345710/sr=2-1/103-8893962-0315059)于 1990 年出版，它现在还在我的书架上。这些书都是具有开创性的作品，它们的影响力一直持续到了今天。
+所有的这些作品都是基于出色的软件和产品设计师们在 80 年代和 90 年代的研究。Don Norman 的 [*Design of Everyday Things*（日常设计）](http://www.jnd.org/books/design-of-everyday-things-revised.html)在软件设计师中非常有影响力，尽管它是专注于工业设计（实物设计）。Brenda Laurel 的书 [*The Art of Human-Computer Interface Design*（人机交互设计的艺术）](https://www.amazon.com/exec/obidos/ASIN/0201517973/o/qid=981345710/sr=2-1/103-8893962-0315059)于 1990 年出版，它现在还在我的书架上。这些书都是具有开创性的作品，它们的影响力一直持续到了今天。
 #### **移动设备让一切变得触手可及**
 
-当 2008 年科技界开始聚焦于移动设备的时候，一切事都改变了。突然间，软件设计师不再只把坐在办公桌前为自己工作的人作为目标用户。世界各地的用户在自己的手机上使用他们所制作的 app，周围常常有其他人：他们的朋友们，家人们，同学和同事。
+当 2008 年科技界开始聚焦于移动设备的时候，一切事都改变了。突然间，软件设计师不再只把坐在办公桌前为自己工作的人作为目标用户。世界各地的用户在自己的手机上使用他们所制作的 app，周围常常有其他人：他们的朋友们、家人们、同学和同事。
 
-![](https://cdn-images-1.medium.com/max/800/1*DTTjwC4XI41I6NTMzxUJlg.gif)<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*DTTjwC4XI41I6NTMzxUJlg.gif">
+![](https://cdn-images-1.medium.com/max/800/1*DTTjwC4XI41I6NTMzxUJlg.gif)
 
 物理世界的手势，就像滑动，放大，和点击这样的手势是自然和人性化的。
 
@@ -49,7 +49,7 @@ Snapchat 是被我所称为的「共享式设计」中的一个最好的例子�
 
 在这方面做得很聪明，因为这些看似不起眼的特点是一个机会，让它的使用者们可以向他们的朋友去展示一些很酷的新玩意儿。给朋友看一些很酷的东西可以增加你的社交地位，或者是给你一种很棒的感觉。这绝对是你愿意去做的事！对于 Snapchat 来说，这是很棒的，因为它将你变成了一个它们产品的「传教士」，你甚至不觉得你在「传教」：你只是在教你的朋友如何灵活地做一件事。
 
-![](https://cdn-images-1.medium.com/freeze/max/30/1*RQYCS0leu9YR8TrLQUruaQ.gif?q=20) <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*RQYCS0leu9YR8TrLQUruaQ.gif">
+![](https://cdn-images-1.medium.com/freeze/max/30/1*RQYCS0leu9YR8TrLQUruaQ.gif?q=20) 
 
 Musical.ly 的影片在 Instagram，Facebook 和 Twitter 上传播得非常广泛。
 
@@ -59,6 +59,6 @@ Musical.ly 的影片在 Instagram，Facebook 和 Twitter 上传播得非常广�
 
 另一个好处是，这些功能不占用任何屏幕空间。手机的屏幕真的很小，所以屏幕上你可以安排给按钮和图标的地盘也非常非常小。很显然，上个世纪 90 年代 Windows 应用里那被占满的工具栏在这里是不好用的。但那些 「看不见」 的功能，比如一个长按，一个 3D touch 「重」 按，或从屏幕顶划到顶部，这些操作都没有在占用屏幕上的地盘。
 
-虽然我们还没有一本很好的书来介绍共享式设计，但是有些设计师，像 [Luke Wroblewski]（http://www.lukew.com/ ），写了很多关于移动设备设计的有意思的文章，里面已经有这样一些概念。当然，也有一些应用程序和操作系统的设计者们理解了这个理念：比如 Snapchat，PRISMA，最新版本的 iOS，甚至在一定程度上 Twitter 也是这样。
+虽然我们还没有一本很好的书来介绍共享式设计，但是有些设计师，像 [Luke Wroblewski](http://www.lukew.com/)，写了很多关于移动设备设计的有意思的文章，里面已经有这样一些概念。当然，也有一些应用程序和操作系统的设计者们理解了这个理念：比如 Snapchat，PRISMA，最新版本的 iOS，甚至在一定程度上 Twitter 也是这样。
 
 我乐于看到更多的人研究和写关于共享式设计的文章。这是一个重要的领域，随着我们进入充满可穿戴设备，增强现实的更加多样化的移动设备世界，它会越发重要。如果你有什么好例子，也请多多沟通。
