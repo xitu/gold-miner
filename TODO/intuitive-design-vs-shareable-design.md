@@ -2,7 +2,7 @@
 * 原文作者：[Josh Elman ]( https://news.greylock.com/@joshelman)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[特伦](https://www.behance.net/Funtrip)
-* 校对者：
+* 校对者：[marcmoore](http://ucashin.com)、[L9m](http://liudm.me)
 
 # **直观设计 VS. 共享式设计**
 
