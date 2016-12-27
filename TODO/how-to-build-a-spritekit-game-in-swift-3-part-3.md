@@ -1,53 +1,54 @@
 > * 原文地址：[How To Build A SpriteKit Game In Swift 3 (Part 3)](https://www.smashingmagazine.com/2016/12/how-to-build-a-spritekit-game-in-swift-3-part-3/)
 * 原文作者：[Marc Vandehey](https://twitter.com/marcvandehey)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：[]()
+* 译者：[DeepMissea](http://deepmissea.blue)
 * 校对者：[]()
 
-# [How To Build A SpriteKit Game In Swift 3 (Part 3)](https://www.smashingmagazine.com/2016/12/how-to-build-a-spritekit-game-in-swift-3-part-3/)
+# 如何在 Swift 3 中用 SpriteKit 框架编写游戏 (Part 1)
 
-Have you ever wondered what it takes to create a [SpriteKit](https://developer.apple.com/spritekit/) game? Do buttons seem like a bigger task than they should be? Ever wonder how to persist settings in a game? Game-making has never been easier on iOS since the introduction of SpriteKit. In part three of this three-part series, we will finish up our RainCat game and complete our introduction to SpriteKit.
+你有没有想过要如何开始创作一款基于 SpriteKit 的游戏？开发一款基于真实物理规则的游戏是不是让你望而生畏？随着 [SpriteKit](https://developer.apple.com/spritekit/) 的出现，在 iOS 上开发游戏已经变得空前的简单了。在本系列的第三部分，我们将完成 RainCat 游戏的开发以及对 SpriteKit 框架的介绍。
 
-If you missed out on the [previous lesson](https://www.smashingmagazine.com/2016/12/how-to-build-a-spritekit-game-in-swift-3-part-2/), you can catch up by getting the code [on GitHub](https://github.com/thirteen23/RainCat/releases/tag/smashing-magazine-lesson-two). Remember that this tutorial requires Xcode 8 and Swift 3.
+如果你错过了[上一课](https://www.smashingmagazine.com/2016/12/how-to-build-a-spritekit-game-in-swift-3-part-2/)，你可以通过获取[ Github 上的代码](https://github.com/thirteen23/RainCat/releases/tag/smashing-magazine-lesson-two)来赶上进度。请记住，本教程需要使用 Xcode 8 和 Swift 3。
 
-[![Raincat, lesson 3](https://www.smashingmagazine.com/wp-content/uploads/2016/10/raincat_header_sm-preview-opt-1.png)](https://www.smashingmagazine.com/wp-content/uploads/2016/10/raincat_header_sm-preview-opt-1.png)
+[![Raincat, 第三课](https://www.smashingmagazine.com/wp-content/uploads/2016/10/raincat_header_sm-preview-opt-1.png)](https://www.smashingmagazine.com/wp-content/uploads/2016/10/raincat_header_sm-preview-opt-1.png)
 
-This is lesson three in our RainCat journey. In the [previous lesson](https://www.smashingmagazine.com/2016/12/how-to-build-a-spritekit-game-in-swift-3-part-2/), we had a long day going though some simple animations, cat behaviors, quick sound effects and background music.
+这是我们 RainCat 之旅的第三课。在[上节课](https://www.smashingmagazine.com/2016/12/how-to-build-a-spritekit-game-in-swift-3-part-2/)里，我们用了很长一段时间来搞定了一些简单动画，猫的行为，音效和背景音乐。
 
-Today we will focus on the following:
 
-- heads-up display (HUD) for scoring;
-- main menu — with buttons;
-- options for muting sounds;
-- game-quitting option.
+今天，我们将重点关注下面的内容：
 
-#### Even More Assets
+- 用指示器（HUD）显示得分；
+- 主菜单 — 带一些按钮；
+- 静音选项；
+- 退出游戏选项。
 
-The assets for the final lesson are [available on GitHub](https://github.com/thirteen23/RainCat/blob/smashing-day-3/dayThreeAssets.zip). Drag the images into `Assets.xcassets` again, just as we did in the previous lessons.
+#### 更多的资源
 
-### Heads Up!
+最后一节课的资源都在 [GitHub](https://github.com/thirteen23/RainCat/blob/smashing-day-3/dayThreeAssets.zip) 上，再次把它们拖进 `Assets.xcassets` 里，就像我们上节课做的那样。
 
-We need a way to keep score. To do this, we can create a heads-up display (HUD). This will be pretty simple; it will be an `SKNode` that contains the score and a button to quit the game. For now, we will just focus on the score. The font we will be using is Pixel Digivolve, which you can [get at Dafont.com](http://www.dafont.com/pixel-digivolve.font). As with using images or sounds that are not yours, read the font’s license before using it. This one states that it is free for personal use, but if you really like the font, you can donate to the author from the page. You can’t always make everything yourself, so giving back to those who have helped you along the way is nice.
+### 往上看！
 
-Next, we need to add the custom font to the project. This process can be tricky the first time.
+我们需要一种方式来显示得分。要做这个，我们就得创建一个指示器（HUD）。这个很简单：指示器是一个 `SKNode` ，它包含了分数和一个退出游戏的按钮。现在，我们先来搞定分数。我们用 Pixel Digivolve 字体来显示分数，你可以在 [Dafont.com](http://www.dafont.com/pixel-digivolve.font) 找到它。就像之前我们使用不是我们原创的图片和音效一样，使用字体前，一定要浏览它的使用协议。这个字体声明，个人使用是免费的，但如果你真的很喜欢，你可以去作者的页面捐赠他。你不可能自己做所有的事，所以回馈那些一路帮助过你的人也是很愉快的。
 
-Download and move the font into the project folder, under a “Fonts” folder. We’ve done this a few times in the previous lessons, so we’ll go through this process a little more quickly. Add a group named `Fonts` to the project, and add the `Pixel digivolve.otf` file.
+接着，我们就需要把自定义的字体添加到项目里了。如果是第一次添加，这可能是个棘手的过程。
 
-Now comes the tricky part. If you miss this part, you probably won’t be able to use the font. We need to add it to our `Info.plist` file. This file is in the left pane of Xcode. Click it and you will see the property list (or `plist`). Right-click on the list, and click “Add Row.”
+下载字体并把它移动到项目文件夹的 “Fonts” 文件夹里。这个过程我们上节课已经做过好几次了，所以我们加快点儿速度。在项目里创建 `Fonts` 组，然后把 `Pixel digivolve.otf` 文件加进去。
 
-[![Add Row](https://www.smashingmagazine.com/wp-content/uploads/2016/10/settings_infoplist-preview-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2016/10/settings_infoplist-preview-opt.png)
+现在棘手的部分来了。如果错过了这部分，也许你就不能使用字体了。我们需要添加它到 `Info.plist` 文件。这个文件在 Xcode 的左边。打开它你会看到一堆属性列表（或者叫 `plist` 文件）。右键点击列表，然后点 “Add Row”。
 
-When the new row comes up, enter in the following:
+[![添加一行](https://www.smashingmagazine.com/wp-content/uploads/2016/10/settings_infoplist-preview-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2016/10/settings_infoplist-preview-opt.png)
+
+在新添加的一行里，输入下面的内容：
 
 ```
 Fonts provided by application
 ```
 
-Then, under `Item 0`, we need to add our font’s name. The `plist` should look like the following:
+然后在 `Item 0` 下面，我们得添加字体的名字。`plist` 文件看起来应该像下面这样：
 
 [![Pixel digivolve.otf](https://www.smashingmagazine.com/wp-content/uploads/2016/10/settings_plistfont-preview-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2016/10/settings_plistfont-preview-opt.png)
 
-The font should be ready to use! We should do a quick test to make sure it works as intended. Move to `GameScene.swift`, and in `sceneDidLoad` add the following code at the top of the function:
+字体已经准备完毕啦！我们应该做个小测试，看看它能不能像预期那样使用。打开 `GameScene.swift`，把下面的代码加在 `sceneDidLoad` 函数里的上方：
 
 ```
 let label =SKLabelNode(fontNamed:"PixelDigivolve")
@@ -56,15 +57,15 @@ label.position =CGPoint(x: size.width /2, y: size.height /2)
 label.zPosition =1000addChild(label)    
 ```
 
-Does it work?
+一切 OK 吗？
 
 [![Hello world!](https://www.smashingmagazine.com/wp-content/uploads/2016/10/screen_withtext-preview-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2016/10/screen_withtext-preview-opt.png)
 
-If it works, then you’ve done everything correctly. If not, then something is wrong. Code With Chris has a more in-depth [troubleshooting guide](http://codewithchris.com/common-mistakes-with-adding-custom-fonts-to-your-ios-app/), but note that it is for an older version of Swift, so you will have to make minor tweaks to bring it up to Swift 3.
+如果字体正常，那就说明你做的完全正确。如果不正常，那就是什么地方出了问题。Code With Chris 有一篇更加深入的[字体导入问题的文章](http://codewithchris.com/common-mistakes-with-adding-custom-fonts-to-your-ios-app/)，但要注意的是，这是一篇老版本 Swift 的文章，你不得不做一些小调整来过渡到 Swift 3 。
 
-Now that we can load in custom fonts, we can start on our HUD. Delete the “Hello World” label, because we only used it to make sure our font loads. The HUD will be an `SKNode`, acting like a container for our HUD elements. This is the same process we followed when creating the background node in lesson one.
+现在可以开始给我们的指示器加载自定义字体了。删掉 “Hello World” 标签，因为这个只是测试字体是否正常用的。指示器是一个 `SKNode` ，作为我们 HUD 控件的容器。这和我们在第一节课创建背景节点的过程一样。
 
-Create the `HudNode.swift` file using the usual methods, and enter the following code:
+老样子，创建 `HudNode.swift` 文件，输入下面的代码：
 
 ```
 import SpriteKit
@@ -138,79 +139,80 @@ class HudNode : SKNode {
 }
 ```
 
-Before we do anything else, open up `Constants.swift` and add the following line to the bottom of the file — we will be using it to retrieve and persist the high score:
+在我们做其他事之前，先在 `Constants.swift` 文件底部把下面的这行代码加上 —— 我们用它来检索和保留最高分：
 
 ```
 let ScoreKey ="RAINCAT_HIGHSCORE"
 ```
 
-In the code, we have five variables that pertain to the scoreboard. The first variable is the actual `SKLabelNode`, which we use to present the label. Next is our variable to hold the current score; then the variable that holds the best score. The last variable is a boolean that tells us whether we are currently presenting the high score (we use this to establish whether we need to run an `SKAction` to increase the scale of the scoreboard and to colorize it to the yellow of the floor).
+代码里，有五个关于计分板的变量，第一个实际上是个 `SKLabelNode`，用来表示标签。接着是用来保存当前分数的变量；再接下来是记录最高分的变量，最后一个变量是布尔类型，用来判断是否显示我们当前获得的分数（我们用这个变量来判断是否需要运行一个 `SKAction` 来增加计分板的比例以及把地板弄成黄色）。
 
-The first function, `setup(size:)`, is there just to set everything up. We set up the `SKLabelNode` the same way we did earlier. The `SKNode` class does not have any size properties by default, so we need to create a way to set a size to position our `scoreNode` label. We’re also fetching the current high score from [`UserDefaults`](https://developer.apple.com/reference/foundation/userdefaults). This is a quick and easy way to save small chunks of data, but it isn’t secure. Because we’re not worried about security for this example, `UserDefaults` is perfectly fine.
+第一个函数 `setup(size:)` 的功能是把一切都设置好。我们就像之前那样来设置 `SKLabelNode`。`SKNode` 类没有任何默认尺寸，所以我们要创建一种方式来设置一个尺寸用于固定 `scoreNode` 的大小。我们还要从 [`UserDefaults`](https://developer.apple.com/reference/foundation/userdefaults) 里面得到当前最高分。这是一种简单方便的存储少量数据的方法，不过不太安全。因为本例中，我们不太考虑安全问题，所以 `UserDefaults` 就是最好的方式了。
 
-In our `addPoint()`, we’re incrementing the current `score` variable and checking whether the user has gotten a high score. If they have a high score, then we save that score to `UserDefaults` and check whether we are currently showing the best score. If the user has achieved a high score, we can animate the size and color of `scoreNode`.
+在 `addPoint()` 函数里面，我们增加了 `score` 变量的值，接着检查玩家是否得到一个更高的分数。如果是，那么我们就把分数存到 `UserDefaults` 里，然后检查当前是否显示最高分。如果玩家达到了一个很高的分数，我们就用动画渲染 `scoreNode` 的颜色和大小。
 
-In the `resetPoints()` function, we set the current score to `0`. We then need to check whether we were showing the high score, and reset the size and color to the default values if needed.
+在 `resetPoints()` 函数中，我们把当前分数设为 `0`。然后，我们就检查是否需要显示高的得分，如果需要的话，重置颜色和大小。
 
-Finally, we have a small function named `updateScoreboard`. This is an internal function to set the score to `scoreNode`‘s text. This is called in both `addPoint()` and `resetPoints()`.
+最后还有一个小函数，叫 `updateScoreboard`。这个私有函数用来把分数设置到 `scoreNode` 的文本上。在 `addPoint()` 和 `resetPoints()` 里用到了这个函数。
 
-### Hooking Up The HUD
+### 挂上指示器
 
-We need to test whether our HUD is working correctly. Move over to `GameScene.swift`, and add the following line below the `foodNode` variable at the top of the file:
+我们得检查一下指示器是不是正常工作。到 `GameScene.swift` 文件，在文件的上方，`foodNode` 变量下边添加一行代码：
 
 ```
 private let hudNode =HudNode()
 ```
 
-Add the following two lines in the `sceneDidLoad()` function, near the top:
+在 `sceneDidLoad()` 函数内部的上方，添加下面两行代码：
 
 ```
 hudNode.setup(size: size)
 addChild(hudNode)
 ```
 
-Then, in the `spawnCat()` function, reset the points in case the cat has fallen off the screen. Add the following line after adding the cat sprite to the scene:
+接着，在 `spawnCat()` 函数，重置所有点防止猫从屏幕上掉下去。在把猫精灵加到场景的后面，加上这行代码：
 
 ```
 hudNode.resetPoints()
 ```
 
 Next, in the `handleCatCollision(contact:)` function, we need to reset the score again when the cat is hit by rain. In the `switch` statement at the end of the function — when the other body is a `RainDropCategory` — add the following line:
+接下来，在 `handleCatCollision(contact:)` 函数中，当猫被雨淋到时，我们也需要重置分数。在函数最后，`switch` 语句的 `RainDropCategory` 分支里，加上下面这行代码：
 
 ```
 hudNode.resetPoints()
 ```
 
-Finally, we need to tell the scoreboard when the user has earned points. At the end of the file in `handleFoodHit(contact:)`, find the following lines up to here:
+最后，我们得告诉计分板，什么时候用户得了分。在 `handleFoodHit(contact:)` 文件的最后，找到下面这几行代码：
 
 ```
 //TODO increment points
 print("fed cat")
 ```
 
-And replace them with this:
+换成这个：
 
 ```
 hudNode.addPoint()
 ```
 
-Voilà!
+以上！
 
 [![HUD unlocked!](https://www.smashingmagazine.com/wp-content/uploads/2016/10/raincat_scoring-preview-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2016/10/raincat_scoring-preview-opt.png)
 
-You should see the HUD in action. Run around and collect some food. The first time you collect food, you should see the score turn yellow and grow in scale. When you see this happen, let the cat get hit. If the score resets, then you’ll know you are on the right track!
+你应该看到了指示器的效果。来回收集食物。第一次收集食物的时候，你应该会看到分数变黄然后比例变大，如果你看到了这些，让猫淋到一些雨滴。如果分数重置，那么你就是正确的。
 
 [![High Score!](https://www.smashingmagazine.com/wp-content/uploads/2016/10/raincat_scoreincrease-preview-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2016/10/raincat_scoreincrease-preview-opt.png)
 
-### The Next Scene
+### 下一个场景
 
-That’s right, we are moving to another scene! In fact, when completed, this will be the first screen of our app. Before you do anything else, open up `Constants.swift` and add the following line to the bottom of the file — we will be using it to retrieve and persist the high score:
+没错，我们要开始下一个场景了！事实上，如果这个场景完成，它将会作为我们游戏的首屏展示。在做其他事情之前，打开 `Constants.swift` 然后添加下面这行代码到文件的底部 — 我们用它来检索以及保持高分：
 
 ```
 let ScoreKey ="RAINCAT_HIGHSCORE"
 ```
 
-Create the new scene, place it under the “Scenes” folder, and call it `MenuScene.swift`. Enter the following code in the `MenuScene.swift` file:
+创建一个新场景，把它放到 “Scenes” 文件夹里，然后命名为 `MenuScene.swift`。把下面的代码加进去：
 
 ```
 import SpriteKit
@@ -268,35 +270,36 @@ override func sceneDidLoad(){
   
 ```
 
-Because this scene is relatively simple, we won’t be creating any special classes. Our scene will consist of two buttons. These could be (and possibly deserve to be) their own class of `SKSpriteNodes`, but because they are different enough, we will not need to create new classes for them. This is an important tip for when you build your own game: You need to be able to determine where to stop and refactor code when things get complex. Once you’ve added more than three or four buttons to a game, it might be time to stop and refactor the menu button’s code into its own class.
+因为这个场景真的很简单。所以我们不会创建任何特殊的类。我们的场景将只由两个按钮组成。这两个按钮可以（或者说应该）拥有自己的 `SKSpriteNodes` 类，但是因为他们都不一样，所以我不会为他们创建新的类。在构建属于你自己的游戏的时候，这是很重要的一点：在事情变得复杂时，你需要有能力来判断，在哪里停下来并重构代码。一旦你添加了三个或四个以上的按钮到游戏里，那可能就是时候停下来把菜单按钮放到他们自己的类里了。
 
-The code above isn’t doing anything special; it is setting the positions of four sprites. We are also setting the scene’s background color, so that the whole background is the correct value. A nice tool to generate color codes from HEX strings for Xcode is [UI Color](http://uicolor.xyz/). The code above is also setting the textures for our button states. The button to start the game has a normal state and a pressed state, whereas the sound button is a toggle. To simplify things for the toggle, we will be changing the alpha value of the sound button upon the user’s press. We are also pulling and setting the high-score `SKLabelNode`.
+上面的代码没做什么特别的事儿；只是设置了四个精灵的坐标。当然我们也设置了场景的背景颜色，所以整个背景的值也是正确的。[UI Color](http://uicolor.xyz/) 是一个从十六进制串（HEX strings）生成 Xcode 颜色代码的优秀工具。上面的代码还设置了按钮状态的纹理。开始按钮有一个正常状态和一个按下的状态，而声音按钮则是一个切换。为了让切换简单点，在玩家点击时，我们
+改变声音按钮上的 α 值。当然我们也设置了获得高分的 `SKLabelNode`。
 
-Our `MenuScene` is looking pretty good. Now we need to show the scene when the app loads. Move to `GameViewController.swift` and find the following line:
+我们的 `MenuScene` 看起来不错。现在，在应用加载时需要展示场景。到 `GameViewController.swift` 文件，找到下面这行代码：
 
 ```
 let sceneNode =GameScene(size: view.frame.size)
 ```
 
-Replace it with this:
+把它换成这个：
 
 ```
 let sceneNode =MenuScene(size: view.frame.size)
 ```
 
-This small change will load `MenuScene` by default, instead of `GameScene`.
+这个小改动会默认加载 `MenuScene` 场景，而不是 `GameScene`。
 
 [![Our new scene!](https://www.smashingmagazine.com/wp-content/uploads/2016/10/raincat_newscene-preview-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2016/10/raincat_newscene-preview-opt.png)
 
-### Button States
+### 按钮的状态
 
-Buttons can be tricky in SpriteKit. Plenty of third-party options are available (I even made one myself), but in theory you only need to know the three touch methods:
+按钮在 SpriteKit 中可能有些麻烦。有丰富的轮子可以用（我甚至还自己做了一个），但是理论上，你只需要理解这三个函数：
 
 - `touchesBegan(_ touches: with event:)`
 - `touchesMoved(_ touches: with event:)`
 - `touchesEnded(_ touches: with event:)`
 
-We covered this briefly when updating the umbrella, but now we need to know the following: which button was touched, whether the user released their tap or clicked that button, and whether the user is still touching it. This is where our `selectedButton` variable comes into play. When a touch begin, we can capture the button that the user started clicking with that variable. If they drag outside the button, we can handle this and give the appropriate texture to it. When they release the touch, we can then see whether they are still touching inside the button. If they are, then we can apply the associated action to it. Add the following lines to the bottom of `MenuScene.swift`:
+在更新伞的时候我们简单提了几句，但是现在我们需要知道接下来的几点：哪个按钮被触摸，玩家是松开按钮还是点击按钮，按钮是不是一直被按着。这个时候就需要 `selectedButton` 变量发挥它的作用了。在触摸开始时，我们就可以通过这个变量来捕获被按的按钮。如果他们拖拽按钮，我们就可以处理并适当的给它一些纹理。在松开按钮时，我们也可以知道他们是否还跟按钮有接触，如果有接触，那就可以提供一些相关联的动作。把下面这些代码添加到 `MenuScene.swift` 的底部：
 
 ```
   override func touchesBegan(_ touches: Set, with event: UIEvent?){
@@ -382,16 +385,15 @@ override func touchesEnded(_ touches: Set, with event: UIEvent?){
   }
 ```
 
-This is simple button-handling for our two buttons. In `touchesBegan(_ touches: with events:)`, we start off by checking whether we have any currently selected buttons. If we do, we need to reset the state of the button to unpressed. Then, we need to check whether any button is pressed. If one is pressed, it will show the highlighted state for the button. Then, we set `selectedButton` to the button for use in the other two methods.
+这就是对我们两个按钮的简单处理。在 `touchesBegan(_ touches: with events:)` 里，我们首先检查当前是否有按钮被选中。如果要做这些，我们就要得先重置按钮到没有被按下的状态，然后，检查是否有哪个按钮被按下。如果有被按下的按钮，就显示它的高亮状态，接下来，我们就在其他两个方法里设置按钮的 `selectedButton` 属性以供使用。
 
-In `touchesMoved(_ touches: with events:)`, we check which button was originally touched. Then, we check whether the current touch is still within the bounds of `selectedButton`, and we update the highlighted state from there. The `startButton`‘s highlighted state changes the texture to the pressed-state’s texture, where the `soundButton`‘s highlighted state has the alpha value of the sprite set to 50%.
+在 `touchesMoved(_ touches: with events:)` 方法中，我们检查最初触摸的是哪个按钮。接着，检查当前触摸是否还在 `selectedButton` 的边界内，如果还在，就更新按钮的状态为高亮。`startButton` 的高亮状态是改变按下的纹理，而 `soundButton` 的高亮状态是把精灵的 α 值设置为 50%。
 
-Finally, in `touchesEnded(_ touches: with event:)`, we check again which button is selected, if any, and then whether the touch is still within the bounds of the button. If all cases are satisfied, we call `handleStartButtonClick()` or `handleSoundButtonClick()` for the correct button.
+最后，在 `touchesEnded(_ touches: with event:)` 方法里，我们再次检查哪个按钮被选中，如果有，接着检查这个触摸时候还在按钮的边界内，如果前面的条件都满足，那么我们根据不同的按钮调用 `handleStartButtonClick()` 或者 `handleSoundButtonClick()`。
 
-### A Time For Action
+### 行动时间
 
-Now that we have the basic button behavior down, we need an event to trigger when they are clicked. The easier button to implement is `startButton`. On click, we only need to present the `GameScene`. Update `handleStartButtonClick()` in the `MenuScene.swift` function to the following code:
-
+现在，我们已经搞定了按钮的基础行为，在钮被点击的时候，我们还需要一个触发事件。对于 `startButton` 来说，这个实现很容易。我们只需要在点击时，展示 `GameScene`。在 `MenuScene.swift` 文件里，更新 `handleStartButtonClick()` 方法里面的代码：
 ```
 func handleStartButtonClick(){
 	let transition = SKTransition.reveal(with:.down, duration:0.75)
@@ -401,21 +403,21 @@ func handleStartButtonClick(){
 }
 ```
 
-If you run the app now and press the button, the game will start!
+如果你现在运行程序，然后点击按钮，游戏就开始了！
 
-Now we need to implement the mute toggle. We already have a sound manager, but we need to be able to tell it whether muting is on or off. In `Constants.swift`, we need to add a key to persist when muting is on. Add the following line:
+接着，我们需要一个静音的切换。我们已经有一个音乐管理器了，但是我们需要告诉它静音是否开启。在 `Constants.swift` 文件里，我们添加一个键，以确保在静音打开时持有它。添加下面这行代码：
 
 ```
 let MuteKey ="RAINCAT_MUTED"
 ```
 
-We will use this to save a boolean value to `UserDefaults`. Now that this is set up, we can move into `SoundManager.swift`. This is where we will check and set `UserDefaults` to see whether muting is on or off. At the top of the file, under the `trackPosition` variable, add the following line:
+用它把一个布尔类型的值保存到 `UserDefaults` 里。现在这里已经设置完了，我们到 `SoundManager.swift` 文件中。我们在这里通过检查和设置 `UserDefaults` 来确定静音的开关。在文件的顶部，`trackPosition` 变量的下面，加上这行代码：
 
 ```
 private(set) var isMuted = false
 ```   
 
-This is the variable that the main menu (and anything else that will play sound) checks to determine whether sound is allowed. We initialize it as `false`, but now we need to check `UserDefaults` to see what the user wants. Replace the `init()` function with the following:
+这个变量用于主菜单（或者其他要播放声音的地方）检查是否允许播放声音。我们给他设置一个 `false` 的初始值，但首先我们需要检查 `UserDefaults` 里，来看看玩家是怎样设置的。把 `init()` 方法换成下面的代码：
 
 ```
 private override init(){
@@ -428,7 +430,7 @@ private override init(){
 }
 ```
 
-Now that we have a default value for `isMuted`, we need the ability to change it. Add the following code to the bottom of `SoundManager.swift`:
+做完这些，我们的 `isMuted` 就有默认值了，我们还需要它能够切换。在 `SoundManager.swift` 文件里的底部，加入这些代码：
 
 ```
 func toggleMute()-> Bool {
@@ -447,24 +449,24 @@ func toggleMute()-> Bool {
 	return isMuted
 }
 ```
-  
-This method will toggle our muted variable, as well as update `UserDefaults`. If the new value is not muted, playback of the music will begin; if the new value is muted, playback will not begin. Otherwise, we will stop the current track from playing. After this, we need to edit the `if` statement in `startPlaying()`.
 
-Find the following line:
+在 `UserDefaults` 更新时，这个方法会切换我们的静音变量，如果新的值不是静音，那音乐就会开始播放；如果新的值是静音，那音乐就不会开始。次外，我们还会停止播放当前的音乐。做完这些，我们还需要修改一下 `startPlaying()` 里的 `if` 语句。
+
+找到下面的代码：
 
 ```
 if audioPlayer == nil || audioPlayer?.isPlaying == false {
 ```
 
-And replace it with this:
+换成这行：
 
 ```
 if!isMuted &&(audioPlayer == nil || audioPlayer?.isPlaying == false){
 ```
-    
-Now, if muting is off and either the audio player is not set or the current audio player is no longer playing, we will play the next track.
 
-From here, we can move back into `MenuScene.swift` to finish up our mute button. Replace `handleSoundbuttonClick()` with the following code:
+现在，在静音被关闭时，无论是播放器没有设置，还是当前播放停止了，我们都会继续播放音乐。
+
+从这开始，我们就该完成 `MenuScene.swift` 的静音按钮了。把 `handleSoundbuttonClick()` 方法换成下面的代码：
 
 ```
 func handleSoundButtonClick(){
@@ -478,39 +480,39 @@ func handleSoundButtonClick(){
 }
 ```
 
-This toggles the sound in `SoundManager`, checks the result and then appropriately sets the texture to show the user whether the sound is muted or not. We are almost done! We only need to set the initial texture of the button on launch. In `sceneDidLoad()`, find the following line:
+这里切换了在 `SoundManager` 的声音，检查结果，接着稍微改变了一下纹理，来告诉玩家音乐是否静音。我们马上就要完成了！只剩下在游戏启动时候，设置按钮的初始纹理。在 `sceneDidLoad()`，找到这行代码：
 
 ```
 soundButton =SKSpriteNode(texture: soundButtonTexture)
 ```
   
 
-And replace it with this:
+替换成下面的：
 
 ```
 soundButton =SKSpriteNode(texture: SoundManager.sharedInstance.isMuted ?
 soundButtonTextureOff : soundButtonTexture)
 ```
 
-The example above uses a [ternary operator](https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/BasicOperators.html#//apple_ref/doc/uid/TP40014097-CH6-ID60) to set the correct texture.
+上面的例子使用了 [ternary operator](https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/BasicOperators.html#//apple_ref/doc/uid/TP40014097-CH6-ID60) 来设置正确的纹理。
 
-Now that the music is hooked up, we can move to `CatSprite.swift` to disable the cat meowing when muting is on. In the `hitByRain()`, we can add the following `if` statement after removing the walking action:
+音乐这部分处理已经完成了，我们到 `CatSprite.swift` 文件，让小猫在静音的时候不能喵喵叫。在 `hitByRain()` 方法，删除散步动作后，添加下面的这行 `if` 语句：
 
 ```
 if SoundManager.sharedInstance.isMuted {return}
 ```
 
-This statement will return whether the user has muted the app. Because of this, we will completely ignore our `currentRainHits`, `maxRainHits` and meowing sound effects.
+这条语句会判断游戏是否静音，如果是就返回。这样，我们就可以忽略 `currentRainHits`，`maxRainHits` 和喵喵声的效果了。
 
-After all of that, now it is time to try out our mute button. Run the app and verify whether it is playing and muting sounds appropriately. Mute the sound, close the app, and reopen it. Make sure that the mute setting persists. Note that if you just mute and rerun the app from Xcode, you might not have given enough time for `UserDefaults` to save. Play the game, and make sure the cat never meows when you are muted.
+所有的这些都弄完之后，是时候来试试静音按钮的效果了。运行应用，确定是否在播放音乐。关闭音乐，然后重启应用。确定游戏还是静音的。需要注意的一点是，如果你只是开启静音并用 Xcode 重启应用，那可能没有足够的时间来向 `UserDefaults` 存储静音变量。玩一下游戏，确认在静音的时候猫不会喵喵的叫。
 
 [![](https://i.vimeocdn.com/video/600110219.webp?mw=700&mh=528)](https://player.vimeo.com/video/189700402)
 
-### Exiting The Game
+### 退出游戏
 
-Now that we have the first type of button for the main menu, we can get into some tricky business by adding the quit button to our game scene. Some interesting interactions can come up with our style of game; currently, the umbrella will move to wherever the user touches or moves their touch. Obviously, the umbrella moving to the quit button when the user is attempting to exit the game is a pretty poor user experience, so we will attempt to stop this from happening.
+现在为止，我们已经弄完了主菜单的第一种按钮，我们可以通过添加按钮，来为场景处理一些棘手的业务了。一些有趣的交互可以展示出我们游戏的风格；现在，雨伞会随着玩家的触摸而移动到相应的位置。显然，在玩家要退出游戏的时候，雨伞也会移动过去，这肯定是个糟糕的用户体验，所以我们要阻止它发生。
 
-The quit button we are implementing will mimic the start game button that we added earlier, with much of the process staying the same. The change will be in how we handle touches. Get your `quit_button` and `quit_button_pressed` assets into the `Assets.xcassets` file, and add the following code to the `HudNode.swift` file:
+我们会模仿前面添加的开始按钮来实现退出按钮，其中大部分过程都不会变。改变的地方在处理触摸这部分。把你的 `quit_button` 和 `quit_button_pressed` 资源放进 `Assets.xcassets` 文件夹里，然后把下面的代码添加到 `HudNode.swift` 文件中：
 
 ```
 private var quitButton : SKSpriteNode!
@@ -518,13 +520,13 @@ private let quitButtonTexture =SKTexture(imageNamed:"quit_button")
 private let quitButtonPressedTexture =SKTexture(imageNamed:"quit_button_pressed")
 ```
     
-This will handle our `quitButton` reference, along with the textures that we will set for the button states. To ensure that we don’t inadvertently update the umbrella while trying to quit, we need a variable that tells the HUD (and the game scene) that we are interacting with the quit button and not the umbrella. Add the following code below the `showingHighScore` boolean variable:
+这些变量会处理我们的 `quitButton` 引用，并且会根据退出按钮的不同状态来设置纹理。为了确保不在退出游戏的时候，不小心更新雨伞对象，我们还需要一个变量来告诉指示器（和游戏场景），我们只是和退出按钮交互，而不是雨伞。把下面的代码添加到 `showingHighScore` 变量后面：
 
 ```
 private(set) var quitButtonPressed = false
 ```
   
-Again, this is a variable that only the `HudNode` can set but that other classes can check. Now that our variables are set up, we can add in the button to the HUD. Add the following code to the `setup(size:)` function:
+同样的，这是一个只有在 `HudNode` 中才能修改，而其他类只能查看的变量。现在变量已经设置好了，我们可以添加按钮到指示器了。把下面的代码添加到 `setup(size:)` 方法中：
 
 ```
 quitButton = SKSpriteNode(texture: quitButtonTexture)
@@ -535,12 +537,11 @@ quitButton.zPosition =1000
 addChild(quitButton)
 ```
 
-The code above will set the quit button with the texture of our non-pressed state. We’re also setting the position to the upper-right corner and setting the `zPosition` to a high number in order to force it to always draw on top. If you run the game now, it will show up in `GameScene`, but it will not be clickable yet.
+上面的代码会设置退出按钮没被按下状态的纹理。我们也把它的位置设到了右上角，并且把 `zPosition` 的值设置的很高，来让它一直显示在最前面。如果你现在运行游戏，他就会显示在 `GameScene` 里，不过还不能点。
 
 [![Quit button](https://www.smashingmagazine.com/wp-content/uploads/2016/10/raincat_quit-preview-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2016/10/raincat_quit-preview-opt.png)
 
-Now that the button has been positioned, we need to be able to interact with it. Right now, the only place where we have interaction in `GameScene` is when we are interacting with `umbrellaSprite`. In our example, the HUD will have priority over the umbrella, so that users don’t have to move the umbrella out of the way in order to exit. We can create the same functions in `HudNode.swift` to mimic the touch functionality in `GameScene.swift`. Add the following code to `HudNode.swift`:
-
+现在按钮已经定位，我们还要能够和它交互。在 `GameScene` 中，唯一有交互的地方就是和 `umbrellaSprite` 的交互。在我们的例子里，指示器的优先级比伞高，所以玩家在退出时，不用特意把伞移走。我们可以在 `HudNode.swift` 里创建一些相同的方法来模仿 `GameScene.swift` 里的触摸功能。在 `HudNode.swift` 文件加入下面的代码：
 ```
 func touchBeganAtPoint(point: CGPoint) {
   let containsPoint = quitButton.contains(point)
@@ -574,9 +575,9 @@ func touchEndedAtPoint(point: CGPoint) {
 }
 ```
 
-The code above is a lot like the code that we created for `MenuScene`. The difference is that there is only one button to keep track of, so we can handle everything within these touch methods. Also, because we will know the location of the touch in `GameScene`, we can just check whether our button contains the touch point.
+上面的代码大部分和 `MenuScene` 创建的差不多。不同的地方是，只需要跟踪一个按钮的状态，所以我们可以在这些方法里处理所有的事情。而且，我们还知道 `GameScene` 里的触摸点的位置，这样就可以检查我们的按钮是否包含触摸点。
 
-Move over to `GameScene.swift`, and replace the `touchesBegan(_ touches with event:)` and `touchesMoved(_ touches: with event:)` methods with the following code:
+移动到 `GameScene.swift`， 并用下面的代码替换 `touchesBegan(_ touches with event:)` 和 `touchesMoved(_ touches: with event:)`：
 
 ```
 override func touchesBegan(_ touches: Set, with event: UIEvent?) {
@@ -612,17 +613,17 @@ override func touchesEnded(_ touches: Set, with event: UIEvent?) {
 }
 ```
 
-Here, each method handles everything in pretty much the same way. We’re telling the HUD that the user has interacted with the scene. Then, we check whether the quit button is currently capturing the touches. If it is not, then we move the umbrella. We’ve also added the `touchesEnded(_ touches: with event:)` function to handle the end of the click for the quit button, but we are still not using it for `umbrellaSprite`.
+这里，每个方法以几乎相同的方式处理一切。我们告诉指示器玩家和场景交互。然后，检查退出按钮当前是否在捕捉触摸。如果它没有捕捉触摸，那我们就移动伞。我们还在 `touchesEnded(_ touches: with event:)` 方法里添加了点击退出按钮结束的处理，但我们还是没有使用到 `umbrellaSprite`。
 
 [![](https://i.vimeocdn.com/video/600111380.webp?mw=700&mh=549)](https://player.vimeo.com/video/189701318)
 
-Now that we have a button, we need a way to have it affect `GameScene`. Add the following line to the top of `HudeNode.swift`:
+我们有个按钮了，现在我们需要一种方式来作用于 `GameScene`。把下面这行代码添加到 `HudeNode.swift` 的顶部：
 
 ```
   var quitButtonAction : (()->())?
 ```
 
-This is a generic [closure](https://www.weheartswift.com/closures/)[19](#19) that has no input and no output. We will set this with code in the `GameScene.swift` file and call it when we click the button in `HudNode.swift`. Then, we can replace the `TODO` in the code we created earlier in the `touchEndedAtPoint(point:)` function with this:
+这是一个基本的 [closure](https://www.weheartswift.com/closures/)[19](#19)，没有参数也没返回值。我们会在 `GameScene.swift` 文件里设置它，在点击 `HudNode.swift` 里的按钮时候调用。接着，我们就可以用下面的代码，来替换以前在 `touchEndedAtPoint(point:)` 里面创建的 `TODO` 部分：
         
 ```
 if quitButton.contains(point)&& quitButtonAction != nil {
@@ -630,9 +631,9 @@ if quitButton.contains(point)&& quitButtonAction != nil {
 }
 ```
     
-Now, if we set the `quitButtonAction` closure, it will be called from this point.
+现在如果我们设置了 `quitButtonAction` 闭包，它就会在这被调用。
 
-To set up the `quitButtonAction` closure, we need to move over to `GameScene.swift`. In `sceneDidLoad()`, we can replace our HUD setup with the following code:
+要设置 `quitButtonAction` 闭包，我们就要到 `GameScene.swift` 文件里。在 `sceneDidLoad()` 函数，把设置指示器的代码换成下面的：
 
 ```
 hudNode.setup(size: size)
@@ -651,9 +652,9 @@ hudNode.quitButtonAction ={
 addChild(hudNode)
 ```
 
-Run the app, press play, and then press quit. If you are back at the main menu, then your quit button is working as intended. In the closure that we created, we initialized a transition to the `MenuScene`. And we set this closure to the `HUD` node to run when the quit button is clicked. Another important line here is when we set the `quitButtonAction` to `nil`. The reason for this is that a retain cycle is occurring. The scene is holding a reference to the HUD where the HUD is holding a reference to the scene. Because there is a reference to both objects, neither will be disposed of when it comes time for garbage collection. In this case, every time we enter and leave `GameScene`, another instance of it will be created and never released. This is bad for performance, and the app will eventually run out of memory. There are a number of ways to avoid this, but in our case we can just remove the reference to `GameScene` from the HUD, and the scene and HUD will be terminated once we go back to the `MenuScene`. [Krakendev has a deeper explanation](http://krakendev.io/blog/weak-and-unowned-references-in-swift) of reference types and how to avoid these cycles.
+运行程序，点击开始游戏，然后点退出按钮。如果你回到了主菜单，那说明退出按钮和预期的一样。在闭包里，我们创建并初始化了一个到 `MenuScene` 的过渡。我们还把这个闭包设置为 `HUD` 的节点，当点击退出按钮时运行闭包。这里，另一行重要的代码是我们把 `quitButtonAction` 设为 `nil`。这么做的原因是有一个循环引用产生了。场景持有一个指示器的引用，而指示器也持有一个场景的引用。因为他们两个互相引用，导致在垃圾回收的时候，他们都不会被处理。这种情形下，每次我们进入和离开 `GameScene` 的时候，都会有一个新的实例被创建，并且从来都不释放。这对性能有严重的影响，应用最后一定会内存爆炸。有很多种方式来避免它，但在我们这里，只是从指示器中移除对 `GameScene` 的引用，这样在我们回到 `MenuScene` 的时候，场景和指示器都会被终止。对于引用类型和如何避免循环引用，[Krakendev 有一些更深的见解](http://krakendev.io/blog/weak-and-unowned-references-in-swift) 。
 
-Now, move to `GameViewController.swift`, and remove or comment out the following three lines of code:
+现在，到 `GameViewController.swift` 文件，把下面的这几行代码注掉或者删除：
 
 ```
 view.showsPhysics = true
@@ -661,61 +662,62 @@ view.showsFPS = true
 view.showsNodeCount = true
 ```
   
-With the debugging data out of the way, the game is looking really good! Congratulations: We are currently into beta! Check out the final code from today [on GitHub](https://github.com/thirteen23/RainCat/releases/tag/smashing-magazine-lesson-three)
+把调试信息去掉以后，游戏看起来真的很不错！恭喜你：我们已经现在进入 beta 版了！在 [GitHub](https://github.com/thirteen23/RainCat/releases/tag/smashing-magazine-lesson-three) 上找到今天的最终代码。
 
-### Final Thoughts
+### 最后的思考
 
-This is the final lesson of a three-part tutorial, and if you made it this far, you just did a lot of work on your game. In this tutorial, you went from a scene that had absolutely nothing in it, to a completed game. Congrats! In [lesson one](https://www.smashingmagazine.com/2016/11/how-to-build-a-spritekit-game-in-swift-3-part-1/), we added the floor, raindrops, background and umbrella sprites. We also played around with physics and made sure that our raindrops don’t pile up. We started out with collision detection and worked on culling nodes so that we would not run out of memory. We also added some user interaction by allowing the umbrella to move around towards where the user touches on the screen.
+这是三遍教程的最后一篇，如果你一直跟着到这，那你已经对你的游戏付出了很多工作。在本教程中，你把一个一无所有的场景，变成了一个完整的游戏。恭喜！在 [第一课](https://www.smashingmagazine.com/2016/11/how-to-build-a-spritekit-game-in-swift-3-part-1/) 里，我们添加了地面，雨滴，背景和雨伞精灵。我们还通过物理引擎来确保雨滴没有堆积在一起。我们用碰撞检测来移除节点，这样就解决了内存溢出的问题。我们也添加了一些交互来允许伞向玩家触摸屏幕的位置移动。
 
-In [lesson two](https://www.smashingmagazine.com/2016/12/how-to-build-a-spritekit-game-in-swift-3-part-2/), we added the cat and food, along with custom spawning methods for each of them. We updated our collision detection to allow for the cat and food sprites. We also worked on the movement of the cat. The cat gained a purpose: Eat every bit of food available. We added simple animation for the cat and added custom interactions between the cat and the rain. Finally, we added sound effects and music to make it feel like a complete game.
+在 [第二课](https://www.smashingmagazine.com/2016/12/how-to-build-a-spritekit-game-in-swift-3-part-2/) 里，我们添加了猫和食物，为他们定制了一些不同的生成方法。我们还更新了碰撞检测，让猫精灵和食物精灵产生一些作用。我们也在猫的移动上做了一些处理。小猫有一个目的：吃掉每一个食物。我们为猫添加了简单的动画效果，还增加了猫和雨滴之间的交互。最后，我们添加了音效和背景音乐，让我们的程序看上去更像一个完整的游戏。
 
-In this last lesson, we created a heads-up display to hold our score label, as well as our quit button. We handled actions across nodes and enabled the user to quit with a callback from the HUD node. We also added another scene that the user can launch into and can get back to after clicking the quit button. We handled the process for starting the game and for controlling sound in the game.
+在这最后的一篇教程里，我们创建了一个指示器放我们的分数标签和退出按钮。我们处理节点上的操作，并使用户能够从指示器节点的回调里退出。我们还添加了一个玩家启动游戏的场景，并可以在点击退出按钮后返回。我们还处理了开始游戏和控制游戏中的声音的过程。
 
-#### Where To Go From Here
+#### 接下来做什么
 
-We put in a lot of time to get this far, but there is still a lot of work that can go into this game. RainCat continues development still, and it is [available in the App Store](https://itunes.apple.com/us/app/raincat/id1152624676?ls=1&amp;mt=8). Below is a list of wants and needs to be added. Some of the items have been added, while others are still pending:
+我们做到这一步用了很久，但这个游戏还有许多工作需要继续。RainCat 也会继续发展，而且它已经可以在 [App Store](https://itunes.apple.com/us/app/raincat/id1152624676?ls=1&amp;mt=8) 下载了。下面的列表是一些想要加的和需要加的功能。有一些已经加上了，还有一些待定中：
 
-- Add in icons and a splash screen.
-- Finalize the main menu (simplified for the tutorial).
-- Fix bugs, including rogue raindrops and multiple food spawning.
-- Refactor and optimize the code.
-- Change the color palette of the game based on the score.
-- Update the difficulty based on the score.
-- Animate the cat when food is right above it.
-- Integrate Game Center.
-- Give credit (including proper credit for music tracks).
+- 添加 icon 图标和启动画面。
+- 完成主菜单（教程的是简化版）。
+- 修复 bug，包括烦人的雨滴和多重食物的生成。
+- 重构并优化代码。
+- 根据得分更改游戏的调色板。
+- 根据得分更新难度。
+- 当食物在猫的正上方，让猫有一些动作。
+- 集成 Game Center。
+- 标明出处（包括一些适当的音乐曲目）。
 
-[Keep track on GitHub](https://github.com/thirteen23/RainCat) because these changes will be made in future. If you have any questions about the code, feel free to drop us a line at [hello@thirteen23.com](mailto:hello@thirteen23.com) and we can discuss it. If certain topics get enough attention, maybe we can write another article discussing the topic.
+请持续关注 [GitHub](https://github.com/thirteen23/RainCat)，因为在不久的将来这些都会被实现。如果你对代码有任何的问题，随时可以在 [hello@thirteen23.com](mailto:hello@thirteen23.com) 给我们留言，我们可以一起讨论它。如果问题有足够的关注，那也许我们会专门写一篇文章来探讨这些问题。
 
-#### Thank You!
+#### 感谢！
 
-I want to thank all of the people who helped in the process of creating the game and developing the articles that go along with it.
+我真的很感谢所有那些，在制作游戏和写文章的过程中，与之相伴的人。
 
 - [Cathryn Rowe](https://www.thirteen23.com/about/#cathryn-rowe)
 
-For the initial art, design and editing, and for publishing the articles in our [Garage](https://www.thirteen23.com/garage/)
+提供了游戏最初的美术，设计和编辑，并且在 [Garage](https://www.thirteen23.com/garage/) 发布了文章。
 - [Morgan Wheaton](https://www.thirteen23.com/about/#morgan-wheaton)
 
-For the final menu design and color palettes (which will look awesome once I actually implement these features — stay tuned).
+提供了游戏最终菜单的设计和调色板（如果我实现了这些，效果肯定酷炫 — 敬请期待）。
 - [Nikki Clark](https://www.thirteen23.com/about/#nikki-clark)
 
-For the awesome headers and dividers in the articles and for help with editing the articles.
+提供了文章中漂亮的标题和分割符，并且帮助编写文章。
 - [Laura Levisay](https://www.thirteen23.com/about/#laura-levisay)
 
-For all of the awesome GIFs in the articles and for sending me cute cat GIFs for moral support.
+提供了三篇文章里所有漂亮的 GIF 图片，还很友好的把小猫的 GIF 也发给了我。
 - [Tom Hudson](https://www.thirteen23.com/about/#tom-hudson)
 
-For help with editing the articles and without whom this series would not have been made at all.
+提供了编辑文章的帮助，如果没有他，这个系列可能都不会出现。
 - [Lani DeGuire](https://www.thirteen23.com/about/#lani-deguire)
 
-For help with editing the articles, which was a ton of work.
+提供了编辑文章的帮助，这的确是一项大工程。
 - [Jeff Moon](https://www.thirteen23.com/about/#jeffrey-moon)
 
 For help editing lesson three and the ping-pong. Lots of ping-pong.
+提供了第三课的编辑工作和一些杂项，很多很多杂项（这里）
 - [Tom Nelson](https://www.thirteen23.com/about/#tom-nelson)
 
-For helping to make sure that the tutorial works as it should.
+正因为这些帮助，教程才会像预计的那样完成。
 
-Seriously, it took a ton of people to get everything ready for this article and to release it to the store.
+认真的说，用了一大堆人来准备这篇文章，并发布到商店。
 
-Thank you to everyone who reads this sentence, too.
+也谢谢每一位读到这句话的读者，感谢。
