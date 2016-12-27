@@ -623,7 +623,7 @@ override func touchesEnded(_ touches: Set, with event: UIEvent?) {
   var quitButtonAction : (()->())?
 ```
 
-这是一个基本的 [closure](https://www.weheartswift.com/closures/)[19](#19)，没有参数也没返回值。我们会在 `GameScene.swift` 文件里设置它，在点击 `HudNode.swift` 里的按钮时候调用。接着，我们就可以用下面的代码，来替换以前在 `touchEndedAtPoint(point:)` 里面创建的 `TODO` 部分：
+这是一个基本的 [closure](https://www.weheartswift.com/closures/)，没有参数也没返回值。我们会在 `GameScene.swift` 文件里设置它，在点击 `HudNode.swift` 里的按钮时候调用。接着，我们就可以用下面的代码，来替换以前在 `touchEndedAtPoint(point:)` 里面创建的 `TODO` 部分：
         
 ```
 if quitButton.contains(point)&& quitButtonAction != nil {
@@ -666,9 +666,9 @@ view.showsNodeCount = true
 
 ### 最后的思考
 
-这是三遍教程的最后一篇，如果你一直跟着到这，那你已经对你的游戏付出了很多工作。在本教程中，你把一个一无所有的场景，变成了一个完整的游戏。恭喜！在 [第一课](https://www.smashingmagazine.com/2016/11/how-to-build-a-spritekit-game-in-swift-3-part-1/) 里，我们添加了地面，雨滴，背景和雨伞精灵。我们还通过物理引擎来确保雨滴没有堆积在一起。我们用碰撞检测来移除节点，这样就解决了内存溢出的问题。我们也添加了一些交互来允许伞向玩家触摸屏幕的位置移动。
+这是三遍教程的最后一篇，如果你一直跟着到这，那你已经对你的游戏付出了很多工作。在本教程中，你把一个一无所有的场景，变成了一个完整的游戏。恭喜！在[第一课](https://www.smashingmagazine.com/2016/11/how-to-build-a-spritekit-game-in-swift-3-part-1/)里，我们添加了地面，雨滴，背景和雨伞精灵。我们还通过物理引擎来确保雨滴没有堆积在一起。我们用碰撞检测来移除节点，这样就解决了内存溢出的问题。我们也添加了一些交互来允许伞向玩家触摸屏幕的位置移动。
 
-在 [第二课](https://www.smashingmagazine.com/2016/12/how-to-build-a-spritekit-game-in-swift-3-part-2/) 里，我们添加了猫和食物，为他们定制了一些不同的生成方法。我们还更新了碰撞检测，让猫精灵和食物精灵产生一些作用。我们也在猫的移动上做了一些处理。小猫有一个目的：吃掉每一个食物。我们为猫添加了简单的动画效果，还增加了猫和雨滴之间的交互。最后，我们添加了音效和背景音乐，让我们的程序看上去更像一个完整的游戏。
+在[第二课](https://www.smashingmagazine.com/2016/12/how-to-build-a-spritekit-game-in-swift-3-part-2/)里，我们添加了猫和食物，为他们定制了一些不同的生成方法。我们还更新了碰撞检测，让猫精灵和食物精灵产生一些作用。我们也在猫的移动上做了一些处理。小猫有一个目的：吃掉每一个食物。我们为猫添加了简单的动画效果，还增加了猫和雨滴之间的交互。最后，我们添加了音效和背景音乐，让我们的程序看上去更像一个完整的游戏。
 
 在这最后的一篇教程里，我们创建了一个指示器放我们的分数标签和退出按钮。我们处理节点上的操作，并使用户能够从指示器节点的回调里退出。我们还添加了一个玩家启动游戏的场景，并可以在点击退出按钮后返回。我们还处理了开始游戏和控制游戏中的声音的过程。
 
