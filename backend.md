@@ -1,3 +1,4 @@
+*  [在算法横行的时代，我们更需要人类来把关](https://gold.xitu.io/entry/5860fd7761ff4b0058248319?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Jiang Haichao](https://github.com/AceLeeWinnie) 翻译)
 *  [高效的工程师一步一步来 —— 开发者影响力中的模式](https://gold.xitu.io/entry/5860f5dcb123db0065be0c45?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([cdpath](https://github.com/cdpath) 翻译)
 *  [简明 TensorFlow 教程 —第二部分：混合学习](https://gold.xitu.io/entry/5858ed4e1b69e6006cb12a7c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([edvardhua](https://github.com/edvardHua) 翻译)
 *  [来写一个 Python 说明文档生成器吧](https://gold.xitu.io/entry/58574d0c8d6d810065b4a0b5?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([王子建](https://github.com/Romeo0906) 翻译)
