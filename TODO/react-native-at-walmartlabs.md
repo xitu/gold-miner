@@ -2,7 +2,7 @@
 * 原文作者：[Keerti](https://medium.com/@Keerti)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Draftbk](https://github.com/draftbk)
-* 校对者：[]()
+* 校对者：[marcmoore](https://github.com/marcmoore), [DeadLion](https://github.com/DeadLion)
 
 # 看沃尔玛如何玩转 React Native
 
