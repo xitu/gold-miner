@@ -90,7 +90,7 @@ React Native 很快，飞一样快。虽然我们没有用一个纯粹的原生�
 
 在沃尔玛，我们需要支持各种设备和操作系统。[Sauce Labs](https://saucelabs.com/) 使得我们能在不同版本的硬件和操作系统组合的 iOS 和 Android 设备上运行我们的集成测试。在多个设备上运行集成测试需要很长时间，所以我们每天晚上只做一次测试。
 
-我们还使用我们的集成测试来防止回滚。我们已经使用 GitHub Enterprise 连接了我们的 [TeamCity CI](https://www.jetbrains.com/teamcity/) 以便对每个 pull 请求运行我们的测试。与集成测试不同，在 pull 请求时，我们只在一个设备上运行测试。 但即便这样也可能需要更长的时间，因此我们采用一些工具来减少所消耗的时间。[Magellan](https://github.com/TestArmada/magellan) 也是一个我们的开源项目，它允许我们并行运行测试，显着减少了测试时间。
+我们还使用我们的集成测试来防止回滚。我们已经使用 GitHub Enterprise 连接了我们的 [TeamCity CI](https://www.jetbrains.com/teamcity/) 以便对每个 pull 请求运行我们的测试。与集成测试不同，在 pull 请求时，我们只在一个设备上运行测试。 但即便这样也可能需要更长的时间，因此我们采用一些工具来减少所消耗的时间。[Magellan](https://github.com/TestArmada/magellan) 也是一个我们的开源项目，它允许我们并行运行测试，显著减少了测试时间。
 
 测试本身用 JavaScript 编写，由 Mocha 运行，并使用 [Appium](http://appium.io/) 命令来控制手机模拟器。React Native 允许我们在每个组件上设置一个`testID`属性。这些`testID`作为 CSS 类名。我们方便地使用它们来精确地指定使用 XPath 的组件，并与之交互来达到测试的目的。
 
