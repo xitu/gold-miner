@@ -99,7 +99,7 @@ React Native 很快，飞一样快。虽然我们没有用一个纯粹的原生�
 
 我们使用单元测试来独立地运行我们的 React Native 组件，防止无意的更改。
 
-我们使用常用的 React 单元测试工具，如 Mocha、Chai、Sinon 和Enzyme。但是 React Native 也有一些[独特的挑战](https://formidable.com/blog/2016/02/08/unit-testing-react-native-with-mocha-and-enzyme/)，因为它的组件有环境[依赖](http://airbnb.io/enzyme/docs/guides/react-native.html)使得它无法在 Node 上运行。[react-native-mock](https://github.com/lelandrichardson/react-native-mock) 为我们解决了这个问题，因为它提供了模拟的 React Native 组件，当在 iOS 或 Android 之外运行时不会中断。当我们发现自己需要模拟额外的依赖时，我们使用 [rewire](https://github.com/jhnns/rewire) 这样的 Node 模块。
+我们使用常用的 React 单元测试工具，如 Mocha、Chai、Sinon 和 Enzyme。但是 React Native 也有一些[独特的挑战](https://formidable.com/blog/2016/02/08/unit-testing-react-native-with-mocha-and-enzyme/)，因为它的组件有环境[依赖](http://airbnb.io/enzyme/docs/guides/react-native.html)使得它无法在 Node 上运行。[react-native-mock](https://github.com/lelandrichardson/react-native-mock) 为我们解决了这个问题，因为它提供了模拟的 React Native 组件，当在 iOS 或 Android 之外运行时不会中断。当我们发现自己需要模拟额外的依赖时，我们使用 [rewire](https://github.com/jhnns/rewire) 这样的 Node 模块。
 
 #### 复用性
 
@@ -138,4 +138,4 @@ React Native 的确进行着一些伟大的事情。React Native 的标志（可
 
 **贡献者**
 
-本文是由 WalmartLabs 的 React Native 团队的工程师协作完成的 ——[Matt Bresnan](https://medium.com/u/bbf6a1d22e3)、[M.K. Safi](https://medium.com/u/a4da983a03a0)、 [Sanket Patel](https://medium.com/u/3736ca4de438) 和 [Keerti](https://medium.com/u/5d46542ee15f)。
+本文是由 WalmartLabs 的 React Native 团队的工程师协作完成的 —— [Matt Bresnan](https://medium.com/u/bbf6a1d22e3)、[M.K. Safi](https://medium.com/u/a4da983a03a0)、 [Sanket Patel](https://medium.com/u/3736ca4de438) 和 [Keerti](https://medium.com/u/5d46542ee15f)。
