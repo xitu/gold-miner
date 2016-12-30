@@ -1,3 +1,4 @@
+*  [GitHub 是如何阻止网络暴力的](https://gold.xitu.io/entry/58652f6661ff4b00583ba924?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([wild-flame](https://github.com/wild-flame) 翻译)
 *  [在算法横行的时代，我们更需要人类来把关](https://gold.xitu.io/entry/5860fd7761ff4b0058248319?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Jiang Haichao](https://github.com/AceLeeWinnie) 翻译)
 *  [高效的工程师一步一步来 —— 开发者影响力中的模式](https://gold.xitu.io/entry/5860f5dcb123db0065be0c45?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([cdpath](https://github.com/cdpath) 翻译)
 *  [简明 TensorFlow 教程 —第二部分：混合学习](https://gold.xitu.io/entry/5858ed4e1b69e6006cb12a7c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([edvardhua](https://github.com/edvardHua) 翻译)
