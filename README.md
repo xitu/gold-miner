@@ -4,7 +4,7 @@
 
 [掘金翻译计划](https://juejin.im/tag/%E6%8E%98%E9%87%91%E7%BF%BB%E8%AF%91%E8%AE%A1%E5%88%92) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](#android)、[iOS](#ios)、[React](#react)、[前端](#前端)、[后端](#后端)、[产品](#产品)、[设计](#设计) 等领域，读者为热爱新技术的新锐开发者。
 
-掘金翻译计划目前翻译完成 [327](#近期文章列表) 篇文章，共有 [230](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
+掘金翻译计划目前翻译完成 [328](#近期文章列表) 篇文章，共有 [230](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
 
 #  官方指南：
 
@@ -54,10 +54,10 @@
 
 ## 后端
 
+* [GitHub 是如何阻止网络暴力的](https://gold.xitu.io/entry/58652f6661ff4b00583ba924?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([wild-flame](https://github.com/wild-flame) 翻译)
 *  [在算法横行的时代，我们更需要人类来把关](https://gold.xitu.io/entry/5860fd7761ff4b0058248319?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Jiang Haichao](https://github.com/AceLeeWinnie) 翻译)
 *  [高效的工程师一步一步来 —— 开发者影响力中的模式](https://gold.xitu.io/entry/5860f5dcb123db0065be0c45?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([cdpath](https://github.com/cdpath) 翻译)
 *  [简明 TensorFlow 教程 —第二部分：混合学习](https://gold.xitu.io/entry/5858ed4e1b69e6006cb12a7c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([edvardhua](https://github.com/edvardHua) 翻译)
-*  [来写一个 Python 说明文档生成器吧](https://gold.xitu.io/entry/585549afb123db00656c849b?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([王子建](https://github.com/Romeo0906) 翻译)
 * [所有后端译文>>](https://github.com/xitu/gold-miner/blob/master/backend.md)
 
 ## 教程
