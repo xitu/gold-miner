@@ -1,3 +1,4 @@
+* [使用约束控件创建界面](https://gold.xitu.io/entry/58652b381b69e6006cf8cd59/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([王子建](https://github.com/Romeo0906) 翻译)
 * [网络请求框架 Retrofit 2 使用入门](https://gold.xitu.io/entry/5861cbc461ff4b0058282a8f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zhiw](https://github.com/Zhiw) 翻译)
 * [Android 中的 Effective Java(速查表)](https://gold.xitu.io/entry/5858efc1128fe10069b28de4?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Jamweak](https://github.com/jamweak) 翻译)
 * [彻底理解引用在 Android 和 Java 中的工作原理](https://gold.xitu.io/entry/58476f2c128fe10058bae7ca?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jacksonke](https://github.com/jacksonke) 翻译)
