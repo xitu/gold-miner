@@ -1,3 +1,4 @@
+* [看沃尔玛如何玩转 React Native](https://gold.xitu.io/entry/5864e40e1b69e675fce43a80?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Draftbk](https://github.com/draftbk) 翻译)
 * [渐进增强的 Web AMP](https://gold.xitu.io/entry/585d35b561ff4b00580eccb3?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([L9m](https://github.com/L9m) 翻译)
 * [CSS 继承深度解析](https://gold.xitu.io/entry/585a29c01b69e6006cb89465?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([llp0574](https://llp0574.github.io) 翻译)
 * [响应式邮件设计](https://gold.xitu.io/entry/58516cc01b69e60056c04528?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Hyuni](https://github.com/xuzaixian) 翻译)
