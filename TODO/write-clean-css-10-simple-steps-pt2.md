@@ -1,7 +1,7 @@
 > * 原文地址：[How to Write Clean CSS in 10 Simple Steps Pt2](http://blog.alexdevero.com/write-clean-css-10-simple-steps-pt2/)
 * 原文作者：[Alex Devero](http://blog.alexdevero.com/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：[]()
+* 译者：[王子建](https://github.com/Romeo0906)
 * 校对者：[]()
 
 # How to Write Clean CSS in 10 Simple Steps Pt2
