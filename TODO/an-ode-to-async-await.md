@@ -1,62 +1,65 @@
 > * 原文地址：[An Ode to Async-Await](https://hackernoon.com/an-ode-to-async-await-7da2dd3c2056#.pdydhv9a0)
 * 原文作者：[Tal Kol](https://hackernoon.com/@talkol)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：[]()
+* 译者：[Xekri](https://github.com/xekri/)
 * 校对者：[]()
 
-# An Ode to Async-Await
+# 为 Async-Await 唱一曲赞歌
 
 ![](https://cdn-images-1.medium.com/max/2000/1*xB_H7hyiX3-K7wbf4hH9Yw.jpeg)
 
-*With the [*news*](https://blog.risingstack.com/async-await-node-js-7-nightly/) of async-await coming natively to Node 7 (no transpilation needed), I’ve decided to dedicate a post to celebrate this wonderful language construct. In recent years async-await has become my favorite way to implement asynchronous business logic. An excellent example how a higher order abstraction can make a big impact on our daily work — with code that is simpler, more readable, contains less boilerplate and yet remains as efficient as the best of the alternatives.
+随着 Node 7 将原生支持 async-await 特性（不需要转译器）的[**消息**](https://blog.risingstack.com/async-await-node-js-7-nightly/)爆出，我决定为如此精妙的语言构造谱写一曲赞歌。近几年来，async-await  成了我最爱的异步业务逻辑实现方式。这是更高层的抽象对我们的日常工作产生巨大改变的一个很好的例子——代码更简单、更易读、包含更少的脚手架代码，仍保持着所有替代方法中最佳的效率。
 
 ---
 
-#### Some things in life take time
+#### 心急吃不了热豆腐
 
-Not everything completes immediately. Some operations in software take a short while to finish — which presents a very interesting challenge to implement on systems that are designed for serial execution. If you need to access a server over the network, you’ll have to wait until it responds. Since CPUs are designed to run opcodes one after the other without waiting, what do they do in the meantime?
+不是所有事都能立马完成。软件中的一些操作要花一段时间才能做完，这就给它们在串行化执行系统中的实现提出了难题。如果你需要通过网络访问服务器，你必须等它作出响应。由于 CPU 被设计成一个接一个地运行指令码而不做等待，这段时间它们什么也做不了。
 
-That’s the basis behind *asynchronicity* and *concurrency*.
+这就是**异步**和**并发**的出发点。
 
-#### Why not just block?
+#### 为什么不直接阻塞？
 
-Suppose we could halt execution and block until the anticipated response arrives. This normally isn’t a good idea because our program will remain unresponsive to anything else going on. If we’re implementing a frontend application — what happens if the user tries to interact with it while we block? If we’re implementing a backend service — what happens if a new request suddenly comes in?
+就假设我们可以暂停执行并阻塞，直到预期的响应抵达。通常这不是一个好主意，因为在这期间我们的程序无法对任何其他事情作出响应。设想我们正在实现一个前端应用，如果用户在我们阻塞时尝试交互怎么办？又比如我们在写后端服务，如果新的请求突然出现会怎么样？
 
-Let’s start pure, with minimal abstractions and low-level API from the likes of the immortal [select](http://man7.org/linux/man-pages/man2/select.2.html) function. If we don’t want to block, the alternative is returning immediately — or in other words, *polling*. This also feels wrong, [busy-wait](https://en.wikipedia.org/wiki/Busy_waiting) never sounds like a good idea.
+我们从最朴素的方式开始，用最少的抽象以及底层的 API 来实现，比如不朽的 [select](http://man7.org/linux/man-pages/man2/select.2.html) 函数。如果我们不想阻塞，替代方法就是立刻返回——也就是所谓**轮询**。可这也不大对劲， [忙碌等待](https://en.wikipedia.org/wiki/Busy_waiting)一直听上去就不像个好主意。
 
-We need something else. We need abstractions.
+我们需要别的东西。我们需要抽象。
 
-#### Why multi-threading is evil
+#### 为什么多线程很糟糕
 
-The traditional solution to this problem has been an abstraction offered on the operating-system level — [*multi-threading*](https://en.wikipedia.org/wiki/Thread_%28computing%29). We want to block, but we don’t want to block the main execution context. So let’s create additional execution contexts that could run in parallel. But what if we only have a single CPU with a single core? That’s where the abstraction comes in — the OS will multiplex and transparently jump between multiple execution threads for us.
+操作系统为我们提供了这个问题的传统解决方案—— [**多线程**](https://en.wikipedia.org/wiki/Thread_%28computing%29)。我们需要阻塞，但我们不想阻塞主执行上下文。因此，让我们创建可并行运行的附加执行上下文。但如果我们只有一个单核 CPU 呢？这就是抽象的来源——操作系统将在我们的多个执行线程间进行（时分）复用和透明跳转。
 
-This approach is so popular in fact, that the majority of web content on the Internet is served this way. [Apache HTTP Server](https://httpd.apache.org/), the world’s most popular web server having over [40% market share](https://news.netcraft.com/archives/2016/07/19/july-2016-web-server-survey.html), traditionally relies on a [separate thread](https://httpd.apache.org/docs/2.4/mod/worker.html) to handle every concurrent client.
+事实上，这种方法相当受欢迎，互联网上的大多数网站内容是这样提供的。 [Apache HTTP 服务器](https://httpd.apache.org/)，世界上最受欢迎的 Web 服务器，拥有超过 [40% 的市场份额](https://news.netcraft.com/archives/2016/07/19/july-2016-web-server-survey.html)，历来就依赖于 [单独的线程](https://httpd.apache.org/docs/2.4/mod/worker.html)来处理每个并发客户端。
 
-The problem with relying on threads to magically solve the concurrency problem is that threads are generally expensive in terms of resources and also introduce significant additional complexity when used.
+问题是依靠线程来神奇地解决并发性问题通常来说很昂贵，并且还在使用时引入了显著的额外复杂性。
 
-Let’s start with complexity. Threaded code may seem to be simpler because it can be *synchronous* and block until things are ready. The problem is that we usually have little control over when one thread stops running and another starts (a context switch). If we have a shared data structure that several threads rely on, we need to be very careful. If one thread starts updating data and is switched from before completing the update, another thread can pick up from an inconsistent state. This problem introduces synchronization mechanisms such as [mutexes](https://en.wikipedia.org/wiki/Lock_%28computer_science%29) and [semaphores](https://en.wikipedia.org/wiki/Semaphore_%28programming%29) that are never a [delight](http://blog.nahurst.com/thread-synchronization-issues-romance) to work with.
+让我们从复杂性开始。 线程代码看上去更简单，因为它可以**同步**并阻塞，直到事情准备完毕。问题是，当一个线程停止运行而另一个线程启动时（上下文切换），我们通常无法控制。 如果几个线程依赖一个共享的数据结构，我们需要加倍小心。如果一个线程开始更新数据并且在完成更新之前切换，另一个线程就可能从不确定的状态中恢复运行。 这个问题引入了同步机制，比如[互斥锁](https://en.wikipedia.org/wiki/Lock_%28computer_science%29)和[抽象数据类型](https://en.wikipedia.org/wiki/Semaphore_%28programming%29)，这些就一点也不[优雅](http://blog.nahurst.com/thread-synchronization-issues-romance)了。
 
-The second problem is cost, or more specifically the resource overhead that threads incur. The *scheduler* is the entity in the OS charged with [orchestrating](https://en.wikipedia.org/wiki/Scheduling_%28computing%29) when threads run. The more threads you have, the more time the OS spends on deciding who should run instead of actually running them. Even more serious is the problem of memory. Every thread has an execution [stack](https://en.wikipedia.org/wiki/Call_stack) that usually reserves several MBs of memory, some of which even has to be [non-paged](https://blogs.technet.microsoft.com/askperf/2007/03/07/memory-management-understanding-pool-resources/) (so [virtual memory](https://en.wikipedia.org/wiki/Virtual_memory) doesn’t necessarily help). This oftens becomes the bottleneck when running large amounts of threads.
+第二个问题是成本，或者更具体地说是线程引起的资源开销。**调度器**是线程运行时在操作系统中承担[分配资源工作](https://en.wikipedia.org/wiki/Scheduling_%28computing%29)的实体。你运行的线程越多，操作系统花在决定谁该运行而不是实际运行它们的时间越多。 更严重的是内存问题。每个线程都有一个运行时的调用[堆栈](https://en.wikipedia.org/wiki/Call_stack)，通常会为此保留数兆的内存；其中某些必须是[非分页内存](https://blogs.technet.microsoft.com/askperf/2007/03/07/memory-management-understanding-pool-resources/)（因此[虚拟内存](https://en.wikipedia.org/wiki/Virtual_memory)起不了作用）。当运行大量线程时，这些就成为了瓶颈。
 
-These are not theoretical problems, they influence the world around us in some very practical ways. For starters, they contribute to a very poor standard of load acceptable today on the Internet. Ridiculous things like the [Reddit hug of death](http://www.urbandictionary.com/define.php?term=reddit%20hug%20of%20death) constantly happen because many servers can’t handle more than a few thousands of concurrent connections. This is known as the [C10K](http://www.kegel.com/c10k.html) problem. It’s ridiculous because with a slightly different architecture (not based on threads), these same servers could handle hundreds of thousands of concurrent connections with ease.
+这些不仅是理论问题，更以非常实际的方式影响着我们周围的世界。首先，这使得我们今天对互联网的可负载量的要求标准很低。很多服务器处理不了超过几千的并发连接，这导致像[Reddit 的死亡拥抱](http://www.urbandictionary.com/define.php?term=reddit%20hug%20of%20death)（译注：就像 xxx 观光团到此一游让某网站瞬间崩溃）这样可笑的事情不断发生。这便是著名的[C10K](http://www.kegel.com/c10k.html)问题。为什么说它可笑？因为同样是这些服务器，只要架构稍稍不同（只要不依赖多线程），就能轻松处理成千上万的并发连接。
 
-#### So threads are bad — now what?
 
-It’s not really that threads are bad, it’s more that we shouldn’t rely on them as the *only* concurrency abstraction we have. We must develop abstractions that provide the same freedom of concurrency even on *single-threaded systems*.
+#### 多线程不好，然后呢？
 
-This is why I love [Node](https://nodejs.org). JavaScript, due to an [unrelated](http://stackoverflow.com/questions/39879/why-doesnt-javascript-support-multithreading) limitation, forces us to work with a single execution thread. This may seem at first like a big drawback of this ecosystem, but is actually a blessing in disguise. If we don’t have the luxury of threads, we must evolve powerful concurrency tools that are not dependent on them.
+并不是说多线程真的是不好的，我想说的是，我们不应该**仅仅**依赖于这一层并发抽象。我们必须开发出一种能让我们在**单线程系统**下拥有同样并发自由的抽象层。
 
-What if we have more than one CPU or more than one core? How can we make use of them if Node is single-threaded? In this case we can simply run multiple instances of Node on the same machine.
 
-#### Let’s play with a real-life example
+这就是我爱 [Node](https://nodejs.org) 的原因。由于某种[不相干](http://stackoverflow.com/questions/39879/why-doesnt-javascript-support-multithreading)的限制，JavaScript 强迫我们在单线程下工作。一开始我们可能觉得这是（Node）生态系统的一大缺陷，但实际上我们因祸得福了。如果不能奢享多线程，我们就必须开发出强大的非多线程并发机制。
 
-To keep the discussion grounded, let’s take a realistic scenario that we want to implement. Let’s build a service like [Pingdom](https://www.pingdom.com/). Given an array of server URLs, our service will “ping” each one by issuing an HTTP request exactly 3 times in intervals of 10 seconds.
+如果我们有多个CPU或多个核心会怎么样？ 既然 Node 是单线程的，我们如何充分利用它们？ 在这种情况下，我们可以在同一台机器上运行多个Node实例。
 
-The service will return the list of servers that failed to reply and the number of times they didn’t respond properly. There’s no need to ping different servers in parallel, so we’ll process the list one by one. And lastly, while we wait for a server to respond, we won’t block the main execution thread.
 
-We can summarize our entire service by implementing the following `pingServers` function:
+#### 从一个现实中的例子开始
 
-```
+为了让讨论更接地气，让我们从一个设想要实现的真实情景开始。我们来构建一个类似于 [Pingdom](https://www.pingdom.com/) 的服务。给定一个包含服务器 URL 的数组，通过发出 HTTP 请求，我们要对这些服务器分别进行每次间隔 10 秒的 3 次 `ping` 操作。
+
+该服务将返回未能响应的服务器列表以及它们未正确响应的次数。不需要并行地 ping 不同的服务器，所以我们将按照列表一个个地操作。最后，当我们等待服务器响应时，我们不会阻塞主线程执行。
+
+我们可以通过实现下面的 `pingServers` 函数来为我们的服务进行总结：
+
+```js
 const servers = [
   'http://www.sevengramscaffe.com',
   'http://www.hernanparra.co',
@@ -70,11 +73,11 @@ pingServers(servers, function (failedServers) {
 });
 ```
 
-#### Pseudocode implementation with threads
+#### 多线程的伪代码实现
 
-If we were using multi-threading and allowed ourselves to block, pseudocode of the implementation would have been:
+如果我们使用多线程，并且允许阻塞，伪代码的实现将会是这样：
 
-```
+```js
 function pingServers(servers) {
   let failedServers = {};
   for (const url of servers) {
@@ -90,19 +93,19 @@ function pingServers(servers) {
 }
 ```
 
-To make sure we don’t accidently rely on threading, in the next sections we’ll implement the service on Node — using *asynchronous code.*
+为了确保我们不会不小心依赖线程，在接下来的部分中，我们将使用**异步代码**实现 Node 上的服务。
 
-#### First approach — callbacks
+#### 第一种实现——回调
 
-Node relies on the JavaScript [event loop](https://developer.mozilla.org/en/docs/Web/JavaScript/EventLoop). Since it’s single-threaded, API calls normally don’t block execution. Instead, commands that aren’t completed immediately post an event when they do. We can specify a callback function to run when the event is posted, and place the remainder of our business logic there.
+Node 依赖 JavaScript 的[事件循环](https://developer.mozilla.org/en/docs/Web/JavaScript/EventLoop)机制。由于它是单线程的，因此 API 调用通常不会阻塞执行。相反，不能立即完成的命令会在执行时发布一个事件；我们可以指定事件完成时的回调函数，并将我们其余的业务逻辑代码放在那里。
 
-The standard complaint about callbacks is the famous *pyramid of doom*, where your code ends up looking like an indented [mess](http://callbackhell.com/). My biggest problem with callbacks is actually different and is that they don’t deal well with *control flow*.
+关于回调，最著名的抱怨就是**厄运金字塔**（译注：回调地狱），你的代码最终就看上去像一堆[乱七八糟](http://callbackhell.com/)的缩进。事实上，我对回调的最大意见有所不同，即它不能很好地处理**控制流**。
 
-What is control flow? It’s the `for` loops and `if` statements that you need to implement basic business logic rules like pinging every server exactly ***3 times***, and including this server in the result only ***if*** it failed. Try using a [forEach](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach) and [setTimeout](https://developer.mozilla.org/en-US/docs/Web/API/WindowTimers/setTimeout) to implement this logic and you’ll see that it simply doesn’t work as easily with callbacks as you’d think.
+什么是控制流？它是你需要通过 `for` 循环和 `if` 语句实现的基本业务逻辑，比如这里的对每个服务器 ping 正好三次、当且仅当失败时将服务器写入结果中。试着用 [forEach](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach) 和 [setTimeout](https://developer.mozilla.org/en-US/docs/Web/API/WindowTimers/setTimeout) 来实现吧，你会发现它根本不能像你想象的那样，通过回调轻易地完成。
 
-So what do we do instead? One of the more flexible ways I know to implement non-trivial control flow with callbacks is building a [state machine](https://en.wikipedia.org/wiki/Finite-state_machine):
+于是我们要怎么做？我知道的更灵活的方法之一是通过构建一个[状态机](https://en.wikipedia.org/wiki/Finite-state_machine)来实现这些重要的控制流。
 
-```
+```js
 import request from 'request';
 
 export function pingServers(servers, onComplete) {
@@ -139,9 +142,9 @@ function handleState(state, onComplete) {
 }
 ```
 
-This works but isn’t as straightforward as I’d like. Let’s explore an alternative implementation using an additional dependency — a library dedicated for callback control flow called [async](https://github.com/caolan/async):
+这能奏效，不过不像我想象的那样直接。让我们探索使用一个专门为回调控制流而生的库（[async](https://github.com/caolan/async)）的实现：
 
-```
+```js
 
 import request from 'request';
 import asyncLib from 'async';
@@ -165,15 +168,15 @@ export function pingServers(servers, onComplete) {
 }
 ```
 
-This is a little better and shorter. Is this straightforward and easy to understand at a quick glance ? I think we can do better.
+现在代码更好、更短了。不过它直白到了一眼看过去就能理解的程度吗？我想我们能做得更棒。
 
-#### Second approach — promises
+#### 第二种实现——Promises
 
-We’re not perfectly happy with the first approach and the way to improve is using a higher level of abstraction. [Promises](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise) hold “future” values that haven’t necessarily been resolved yet. It’s a placeholder of sorts that is returned immediately, even if the asynchronous action that defines it hasn’t completed. The interesting thing about promises is that they allow us to start working with this future value immediately and keep chaining actions to it that will actually take place in the future when it’s finally resolved.
+我们对第一种实现方式并不满意，改进的方法是使用更高的一层抽象。[Promises](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise)保存尚未确定下来的「未来」值。它是一种占位符，被用来代替能立即返回的值，即使定义它的异步操作尚未完成。
 
-We’ll change `pingServers` to return a promise, and alter its usage to:
+我们让 `pingServers` 返回一个 promise，
 
-```
+```js
 const servers = [
   'http://www.sevengramscaffe.com',
   'http://www.hernanparra.co',
@@ -187,13 +190,13 @@ pingServers(servers).then( function (failedServers) {
 });
 ```
 
-Most modern asynchronous APIs favor promises to callbacks. In our case, we’ll base our HTTP requests on the [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) that is promise-based.
+大多数现代异步 API 都倾向于使 promise 来进行回调。在我们的示例中，我们将使用基于 promise 的 [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) 作为我们 HTTP 请求的基础。
 
-We still have the issue of control flow. How can our simple logic be achieved with promises? In my opinion, [functional programming](https://en.wikipedia.org/wiki/Functional_programming) works best with promises, and in JavaScript this usually means pulling out [lodash](https://lodash.com/).
+我们仍然有控制流的问题。我们的简单逻辑该如何用 promise 来实现？我认为[函数式编程](https://en.wikipedia.org/wiki/Functional_programming)与 promise 结合得最好，在 JavaScript 中这通常意味着使用[lodash](https://lodash.com/)。
 
-If we had wanted to ping the servers in parallel, things would have been quite easy and we could use an operation like [map](https://lodash.com/docs#map) to transform our array of URLs into an array of promises that resolve to the number of failures in each URL. Since we want to ping the servers sequentially, things are a little more tricky. Since each promise needs to be chained to the [then](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then) of the previous one, we’ll need to pass data between the different iterations. This can be achieved with an *accumulator* in operations like [reduce](https://lodash.com/docs#reduce) or [transform](https://lodash.com/docs#transform):
+如果我们想并行地 ping 服务器，事情会变得很简单。我们可以用诸如 [map](https://lodash.com/docs#map) 这样的操作将我们的 URL 数组转换为一组 promise，resolve 时返回每个 URL 的失败次数。因为我们需要按序地 ping 这些服务器，事情有点更棘手。由于每个 promise 都需要连接到上一个的 [then](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then) 中，我们就要再不同的循环中传递数据。这可以通过在像 [reduce](https://lodash.com/docs#reduce) 或 [transform](https://lodash.com/docs#transform) 这样的操作中使用**累加器（accumulator）**来实现：
 
-```
+```js
 import _ from 'lodash';
 import fetch from 'node-fetch';
 import delay from 'delay';
@@ -216,9 +219,8 @@ export function pingServers(servers) {
 }
 ```
 
-Hmmm.. I have to say this isn’t easy on the eyes either. I actually have a hard time following what goes in there 5 minutes after writing it. To help clarify this mess, I think it’s easier if we split the same exact implementation into two separate smaller functions:
-
-```
+嗯……我不得不说这也有点瞎眼。事实上，在写完代码的5分钟后，我就很难跟上这节奏了。为了解决这样的混乱，我想如果我们将相同的实现放在两个单独的小函数中会更有助于理解：
+```js
 import _ from 'lodash';
 import fetch from 'node-fetch';
 import delay from 'delay';
@@ -245,19 +247,20 @@ function pingOneServer(url) {
 }
 ```
 
-This is a little clearer… but the accumulator still complicates the whole thing.
 
-#### Third approach — async-await bliss
+现在更清楚一些了……但是累加器还是让整件事变得更复杂了。
 
-Come on, all we’re trying to do is ping a few servers in order. The previous two approaches gave us valid implementations, but they weren’t exactly trivial to follow. Why is that? Maybe it’s because us humans tend to find procedural thinking a little more intuitive for business logic.
+#### 第三种方式—— async-await 的极乐净土
 
-I’ve first [met](http://stackoverflow.com/questions/18498942/why-shouldnt-all-functions-be-async-by-default) the *async-await* pattern while I was doing a side project on Microsoft Azure and learned a little [C# and .NET](https://msdn.microsoft.com/en-us/library/mt674882.aspx) by proxy. I was immediately blown away. This was the best of both worlds — straightforward procedural thinking without the thread block penalties. These guys did an awesome job!
+拜托，我们只不过是要按顺序 ping 几台服务器而已。前面两种实现方式的确有效，但它们不大容易效仿。为什么？也许是因为对业务逻辑而言，人们觉得过程化思维来得更符合直觉一点。
 
-I was delighted to see this pattern seeping into many other languages like [JavaScript](https://github.com/tc39/ecmascript-asyncawait), [Python](https://www.python.org/dev/peps/pep-0492/), [Scala](http://docs.scala-lang.org/sips/pending/async.html), [Swift](https://github.com/yannickl/AwaitKit) and more.
+第一次与 **async-await** 模式[相遇](http://stackoverflow.com/questions/18498942/why-shouldnt-all-functions-be-async-by-default)，是在做微软 Azure 上的一个业余项目时，囫囵吞枣地学了一些 [C# 和 .NET](https://msdn.microsoft.com/en-us/library/mt674882.aspx)。我当时就震惊了。两个世界（译注：异步和同步）在这完美结合了——直接的过程化思维，而不用忍受该死的阻塞。
 
-I think the best introduction to async-await is to simply jump into the code and let is speak for itself:
+看到 [JavaScript](https://github.com/tc39/ecmascript-asyncawait), [Python](https://www.python.org/dev/peps/pep-0492/), [Scala](http://docs.scala-lang.org/sips/pending/async.html), [Swift](https://github.com/yannickl/AwaitKit) 等越来越多的语言中渗入了这种模式，我十分庆幸。 
 
-```
+毋须多言，对 async-await 的最好介绍就是直接看代码，让它为自己代言：
+
+```js
 import _ from 'lodash';
 import fetch from 'node-fetch';
 import delay from 'delay';
@@ -277,17 +280,17 @@ export async function pingServers(servers) {
 }
 ```
 
-Now we’re talking. Easy to write, easy to read. What the code is doing is finally obvious from a quick glance. And it’s completely *asynchronous*. Yay.
-I can’t put it any better than the words of [Jake Archibald](https://jakearchibald.com/2014/es7-async-functions/):
+代码看完了，我们来谈谈。易写又易读，代码在做什么一眼就能看明白。并且他是完全**异步**的。哈哈。我说不出比 [Jake Archibald](https://jakearchibald.com/2014/es7-async-functions/) 更棒的赞美了：
 
-> They’re brilliant. They’re brilliant and I want laws changed so I can marry them.
+> 了不起。真的太了不起了，我想要修改法律，这样我就能和它们结婚了。
 
-Notice how the implementation resembles the synchronous flow we could previously only achieve using threads and blocking. How is it doing it without blocking? There’s a lot of magic happening behind the scenes. I won’t get into it, but the `await` keyword does not block, it yields execution to other things in the event loop. When the result being awaited on is ready, execution can resume from this point.
+注意到这种类似于同步的实现流程是如何完成之前只能用多线程和阻塞来完成的事的。没有阻塞它是如何完成的呢？幕后其实有很多魔术一样的实现。我不打算深入，只是提醒一下 `await` 关键词并不阻塞，它使得事件循环中的执行切出（yield）到其他事件。一旦等待的结果准备就绪，就能从这一断点继续执行了。
 
-In addition, the way to call this version of `pingServers` is identical to the previous version with promises. An `async` function returns a `promise`, making integration with existing code as simple as possible.
+此外，调用这个版本的 `pingServers` 的方法和之前的 promise 版本相同。`async` 函数返回一个 `promise`，让它与现有代码更容易整合。
 
-#### Summary
+#### 总结
 
-We’ve severed our dependency on threads for concurrency and played with 3 different flavors of *asynchronous* code. *Callbacks*, *promises* and *async-await* are different abstractions designed for similar purposes. Which one is better? It’s a matter of personal taste.
 
-It’s also nice to see how historically these 3 flavors signify 3 generations of JavaScript. Callbacks ruling in the early days until ES5. Promises prominent in the ES6 era, where JavaScript as a whole took a big step towards modern syntax. And of course, the subject of our celebration — async-await, in the bleeding edge of ES7. It’s a marvelous tool, use it!
+我们割断了对同步多线程的依赖，并见识了三种不同风格的**异步**代码。**回调**、**promise** 和 **async-await** 是为类似目的设计的不同抽象表示。哪一个更好？这是个人口味的问题。
+
+很高兴能看到这三种口味的风格如何代表了历史上的三代 JavaScript。回调从早期一直统治到了 ES5 时代。Promises 在 ES6 时代非常突出，这时 JavaScript 也作为一个整体朝现代语法迈出了一大步。当然，我们赞扬的主题——async-await 走在了 ES7 的最前沿。这是一个令人惊叹的工具，快用上它吧！
