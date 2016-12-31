@@ -4,9 +4,9 @@
 * 译者：[DeepMissea](http://deepmissea.blue)
 * 校对者：[]()
 
-# 如何在 Swift 3 中用 SpriteKit 框架编写游戏 (Part 1)
+# 如何在 Swift 3 中用 SpriteKit 框架编写游戏 (Part 3)
 
-你有没有想过要如何开始创作一款基于 SpriteKit 的游戏？开发一款基于真实物理规则的游戏是不是让你望而生畏？随着 [SpriteKit](https://developer.apple.com/spritekit/) 的出现，在 iOS 上开发游戏已经变得空前的简单了。在本系列的第三部分，我们将完成 RainCat 游戏的开发以及对 SpriteKit 框架的介绍。
+你有没有想过要如何开始创作一款基于 SpriteKit 的游戏？按钮的开发是一个很庞大的任务吗？想过如何制作游戏的设置部分吗？随着 [SpriteKit](https://developer.apple.com/spritekit/) 的出现，在 iOS 上开发游戏已经变得空前的简单了。在本系列的第三部分，我们将完成 RainCat 游戏的开发以及对 SpriteKit 框架的介绍。
 
 如果你错过了[上一课](https://www.smashingmagazine.com/2016/12/how-to-build-a-spritekit-game-in-swift-3-part-2/)，你可以通过获取[ Github 上的代码](https://github.com/thirteen23/RainCat/releases/tag/smashing-magazine-lesson-two)来赶上进度。请记住，本教程需要使用 Xcode 8 和 Swift 3。
 
@@ -24,11 +24,11 @@
 
 #### 更多的资源
 
-最后一节课的资源都在 [GitHub](https://github.com/thirteen23/RainCat/blob/smashing-day-3/dayThreeAssets.zip) 上，再次把它们拖进 `Assets.xcassets` 里，就像我们上节课做的那样。
+最后一节课的资源都在 [GitHub](https://github.com/thirteen23/RainCat/blob/smashing-day-3/dayThreeAssets.zip) 上，再次把那些图片拖进 `Assets.xcassets` 里，就像我们上节课做的那样。
 
-### 往上看！
+### 第一步！
 
-我们需要一种方式来显示得分。要做这个，我们就得创建一个指示器（HUD）。这个很简单：指示器是一个 `SKNode` ，它包含了分数和一个退出游戏的按钮。现在，我们先来搞定分数。我们用 Pixel Digivolve 字体来显示分数，你可以在 [Dafont.com](http://www.dafont.com/pixel-digivolve.font) 找到它。就像之前我们使用不是我们原创的图片和音效一样，使用字体前，一定要浏览它的使用协议。这个字体声明，个人使用是免费的，但如果你真的很喜欢，你可以去作者的页面捐赠他。你不可能自己做所有的事，所以回馈那些一路帮助过你的人也是很愉快的。
+我们需要一种方式来显示得分。要做这个，我们就得创建一个指示器（HUD）。这个很简单：指示器是一个 `SKNode` ，它包含了分数和一个退出游戏的按钮。现在，我们先来搞定分数。我们用 Pixel Digivolve 字体来显示分数，你可以在 [Dafont.com](http://www.dafont.com/pixel-digivolve.font) 找到它。就像之前我们使用不是我们原创的图片和音效一样，使用字体前，一定要浏览它的使用协议。这个字体声明，个人使用是免费的，但如果你真的很喜欢，你可以去作者的页面对他进行捐赠以表示支持。你不可能自己做所有的事，所以回馈那些一路帮助过你的人也是很愉快的。
 
 接着，我们就需要把自定义的字体添加到项目里了。如果是第一次添加，这可能是个棘手的过程。
 
@@ -48,7 +48,7 @@ Fonts provided by application
 
 [![Pixel digivolve.otf](https://www.smashingmagazine.com/wp-content/uploads/2016/10/settings_plistfont-preview-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2016/10/settings_plistfont-preview-opt.png)
 
-字体已经准备完毕啦！我们应该做个小测试，看看它能不能像预期那样使用。打开 `GameScene.swift`，把下面的代码加在 `sceneDidLoad` 函数里的上方：
+字体已经准备完毕啦！我们应该做个快速的测试，看看它能不能像预期那样使用。打开 `GameScene.swift`，把下面的代码加在 `sceneDidLoad` 函数里的上方：
 
 ```
 let label =SKLabelNode(fontNamed:"PixelDigivolve")
@@ -176,7 +176,6 @@ addChild(hudNode)
 hudNode.resetPoints()
 ```
 
-Next, in the `handleCatCollision(contact:)` function, we need to reset the score again when the cat is hit by rain. In the `switch` statement at the end of the function — when the other body is a `RainDropCategory` — add the following line:
 接下来，在 `handleCatCollision(contact:)` 函数中，当猫被雨淋到时，我们也需要重置分数。在函数最后，`switch` 语句的 `RainDropCategory` 分支里，加上下面这行代码：
 
 ```
@@ -200,7 +199,7 @@ hudNode.addPoint()
 
 [![HUD unlocked!](https://www.smashingmagazine.com/wp-content/uploads/2016/10/raincat_scoring-preview-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2016/10/raincat_scoring-preview-opt.png)
 
-你应该看到了指示器的效果。来回收集食物。第一次收集食物的时候，你应该会看到分数变黄然后比例变大，如果你看到了这些，让猫淋到一些雨滴。如果分数重置，那么你就是正确的。
+当来回收集食物时，你就会看到指示器的效果了。第一次收集食物的时候，你应该会看到分数变黄然后比例变大，如果你看到当猫淋到雨滴时，分数重置，那么你就是正确的
 
 [![High Score!](https://www.smashingmagazine.com/wp-content/uploads/2016/10/raincat_scoreincrease-preview-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2016/10/raincat_scoreincrease-preview-opt.png)
 
@@ -385,7 +384,7 @@ override func touchesEnded(_ touches: Set, with event: UIEvent?){
   }
 ```
 
-这就是对我们两个按钮的简单处理。在 `touchesBegan(_ touches: with events:)` 里，我们首先检查当前是否有按钮被选中。如果要做这些，我们就要得先重置按钮到没有被按下的状态，然后，检查是否有哪个按钮被按下。如果有被按下的按钮，就显示它的高亮状态，接下来，我们就在其他两个方法里设置按钮的 `selectedButton` 属性以供使用。
+这就是对我们两个按钮的简单处理。在 `touchesBegan(_ touches: with events:)` 里，我们首先检查当前是否有按钮被选中。如果我们要做这个检查，我们就要得先重置按钮到没有被按下的状态，然后，检查是否有哪个按钮被按下。如果有被按下的按钮，就显示它的高亮状态，接下来，我们就在其他两个方法里设置按钮的 `selectedButton` 属性以供使用。
 
 在 `touchesMoved(_ touches: with events:)` 方法中，我们检查最初触摸的是哪个按钮。接着，检查当前触摸是否还在 `selectedButton` 的边界内，如果还在，就更新按钮的状态为高亮。`startButton` 的高亮状态是改变按下的纹理，而 `soundButton` 的高亮状态是把精灵的 α 值设置为 50%。
 
@@ -450,7 +449,7 @@ func toggleMute()-> Bool {
 }
 ```
 
-在 `UserDefaults` 更新时，这个方法会切换我们的静音变量，如果新的值不是静音，那音乐就会开始播放；如果新的值是静音，那音乐就不会开始。次外，我们还会停止播放当前的音乐。做完这些，我们还需要修改一下 `startPlaying()` 里的 `if` 语句。
+在 `UserDefaults` 更新时，这个方法会切换我们的静音变量，如果新的值不是静音，那音乐就会开始播放；如果新的值是静音，那音乐就不会开始。此外，我们还会停止播放当前的音乐。做完这些，我们还需要修改一下 `startPlaying()` 里的 `if` 语句。
 
 找到下面的代码：
 
@@ -623,7 +622,7 @@ override func touchesEnded(_ touches: Set, with event: UIEvent?) {
   var quitButtonAction : (()->())?
 ```
 
-这是一个基本的 [closure](https://www.weheartswift.com/closures/)，没有参数也没返回值。我们会在 `GameScene.swift` 文件里设置它，在点击 `HudNode.swift` 里的按钮时候调用。接着，我们就可以用下面的代码，来替换以前在 `touchEndedAtPoint(point:)` 里面创建的 `TODO` 部分：
+这是一个基本的[闭包](https://www.weheartswift.com/closures/)，没有参数也没返回值。我们会在 `GameScene.swift` 文件里设置它，在点击 `HudNode.swift` 里的按钮时候调用。接着，我们就可以用下面的代码，来替换以前在 `touchEndedAtPoint(point:)` 里面创建的 `TODO` 部分：
         
 ```
 if quitButton.contains(point)&& quitButtonAction != nil {
