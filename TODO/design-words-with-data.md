@@ -2,7 +2,7 @@
 * 原文作者：[John Saito](https://medium.com/@jsaito)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Nicolas(Yifei) Li](https://github.com/yifili09)
-* 校对者：
+* 校对者：[Zhiw](https://github.com/Zhiw), [marcmoore](https://github.com/marcmoore)
 
 ![](https://cdn-images-1.medium.com/max/1000/1*M1N7HJEyqpyaT71xVEBVSQ.jpeg)
 
@@ -35,11 +35,11 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*9NBykN1q0YApaT2h4s4NCw.png)
 
-哈哈！看上去 "sign in" 是明显的赢家。这意味着当人们提到这个操作的时候，他们更加喜欢使用 "sign in"。如果想让你的文字符合他们的期望，相比其他备选，"sign in" 可能是一个更加安全的选择。 
+哈哈！看上去 "sign in" 是明显的赢家。这意味着当人们提到这个操作的时候，他们更加喜欢使用 "sign in"。如果想让你的文字符合用户的期望，相比其他备选，"sign in" 可能是一个更加安全的选择。 
 
 ---
 
-在 Dropbox，我们意识到在 "version on history" 这个特性上，我们使用了不同的术语。 
+在 Dropbox，我们意识到在 "version history" 这个特性上，我们使用了不同的术语。 
 
 ![](https://cdn-images-1.medium.com/max/800/1*ohhKBv3jQfTbFB8CJapZ0Q.png)
 
@@ -47,19 +47,19 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*HvjhGsKR3ZtutkZlfDToAQ.png)
 
-`Google 趋势`告诉我们人们会更喜欢搜索 "version history"，并且这也是很重要的原因为什么我们的产品都把它叫做 "version history"。
+`Google 趋势`告诉我们人们会更喜欢搜索 "version history"，并且这也是为什么我们现在的产品中都把它称做 "version history" 的一个很重要的原因。
 
-### 2. `Google Ngram 观察者`
+### 2. Google Ngram 观察者
 
-[Ngram 观察者](https://books.google.com/ngrams) 有点类似于 `Google 趋势`，除了它搜索的是那些由 `Google` 收录的出版物。你能使用这些数据看看哪些术语在你的文字表达中是常用的。
+[Ngram 观察者](https://books.google.com/ngrams) 有点类似于 `Google 趋势`，除了它搜索的是那些由 `Google` 收录的出版物。你能使用这些数据看看哪些术语在你的文字表达中是更常用的。
 
-`Dropbox` 最近在我们的 `iOS` 应用程序中启用了一套新的签名工具。你在手机屏幕上进行签名，在能检查它之前，屏幕上会显示 “Sign Your Signature”。
+`Dropbox` 最近在我们的 `iOS` 应用程序中启用了一套新的签名工具。在我们进行签名审核之前，你的手机屏幕上会显示 “Sign Your Signature”。
 
 ![](https://cdn-images-1.medium.com/max/800/1*sGngF3GxPZhmfU2G7owU-g.png)
 
 我们知道 “sign your signature” 听上去很可笑。但是 “听上去很可笑” 并不足以改变它。我们如何才能说服团队成员来改变它呢？
 
-当我们转向 `Ngram 观察者`来对比 "sign your signature" 和 “sign your name” 的时候。它明确指出，"sign your signature" 根本不会被使用。当我们把这个数据结果分享给团队成员的时候，他们马上就把它替换成了 "Sign your name"。
+当我们转向 `Ngram 观察者`来对比 "sign your signature" 和 "sign your name" 的时候。它明确指出，"sign your signature" 根本不会被使用。当我们把这个数据结果分享给团队成员的时候，他们马上就把它替换成了 "Sign your name"。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Pg44k4J9VFHaEjQZcr0UwA.png)
 
@@ -75,7 +75,7 @@
 
 你能从这里得到很多有趣的数据。例如：
 
-- 我写的这篇小说能达到**6 年级的水平**
+- 我写的这篇小说能达到 **6 年级的水平**
 - 我的文中的语气是**中立的**，但是**稍稍偏向乐观。**
 - 平均**每句话有 10.7 个单词**。（在 Dropbox，我们尝试把每句话的单词控制在 15 个或者更少。）
 
@@ -89,7 +89,7 @@
 
 尝试找出新功能的名字会是什么？或者应该关注什么价值？在类似这些情况下，它能帮助你建立一个研究调查问卷。
 
-许多调查问卷的工具允许你选择你的目标听众，所以你能方便地从潜在用户中获得反馈。
+许多调查问卷的工具允许你选择你的目标受众，所以你能方便地从潜在用户中获得反馈。
 
 你能从以下这些地方建立一些研究性的调查问卷：
 
@@ -103,7 +103,7 @@
 
 ### 5. 用户研究
 
-对于收集那些能对你的作品带来价值的反馈来说，用户研究是一个非常好的方式。以一个典型的用户研究为例，你邀请了很多人读你的文章或者试用一个产品，之后你问他们有关这个的问题。对于你的作品是否有道理，这会是非常有帮助的。
+对于收集那些能对你的作品带来价值的反馈来说，用户研究是一个非常好的方式。以一个典型的用户研究为例，你邀请了很多人读你的文章或者试用一个产品，之后你问他们有关这个的问题。这对于看看你的作品是否有意义，会是非常有帮助的。
 
 我们其中一位研究者最近进行了一个研究，它有关测试一个新的流程。有一条是这样的:
 
