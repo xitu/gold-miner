@@ -1,103 +1,108 @@
 > * 原文地址：[Using Buffers to share data between Node.js and C++](https://community.risingstack.com/using-buffers-node-js-c-plus-plus/)
 * 原文作者：[Scott Frees](https://scottfrees.com/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：[]()
+* 译者：[Jiang Haichao](https://github.com/AceLeeWinnie)
 * 校对者：[]()
 
-# Using Buffers to share data between Node.js and C++
+# 在 Node.js 和 C++ 之间使用 Buffer 共享数据
 
-One of the best things about developing with Node.js is the ability to move fairly seamlessly between JavaScript and native C++ code - thanks to the V8's add-on API. The ability to move into C++ is sometimes driven by processing speed, but more often because we already have C++ code and we just want to be able to use it from JavaScript.
+使用 Node.js 开发的一个好处是简直能够在 JavaScript 和 本地 C++ 代码之间无缝切换 - 这要得益于 V8 的扩展 API。从 JavaScript 进入 C++ 的能力有时由处理速度驱动，但更多的情况是我们已经有 C++ 代码，只需要能在 JavaScript 中运行即可。
 
-We can categorize the different use cases for add-ons along (at least) two axes - (1) amount of processing time we'll spend in the C++ code, and (2) the amount of data flowing between C++ and JavaScript.
+我们可以用（至少）两轴对不同用例的扩展进行分类 - （1）我们在 C++ 代码中花费的运行时间，（2）C++ 和 JavaScript 之间数据流量。
 
-![CPU vs. Data quadrant](https://scottfrees.com/quadrant.png)
+![CPU vs. 数据象限](https://scottfrees.com/quadrant.png)
 
-Most articles discussing C++ add-ons for Node.js are focusing on the differences between the left and right quadrants. If you are in the left quadrants (short processing time), your add-on can possibly be synchronous - meaning the C++ code that executes is running directly in the Node.js event loop when called.
+大多数文档讨论的 Node.js 的 C++ 扩展关注于左右象限的不同。如果你在左象限（短处理时间），你的扩展有可能是同步的 - 意思是当调用时 C++ 代码在 Node.js 的事件循环中立即执行。
 
-["#nodejs allows us to move fairly seamlessly between #javascript and native C++ code" via @RisingStack](https://twitter.com/share?text=%22%23nodejs%20allows%20us%20to%20move%20fairly%20seamlessly%20between%20%23javascript%20and%20native%20C%2B%2B%20code%22%20via%20%40RisingStack;url=https://community.risingstack.com/using-buffers-node-js-c-plus-plus/)
+["#nodejs 允许我们在#javascript 和本地 C++ 代码之间无缝切换" via @RisingStack](https://twitter.com/share?text=%22%23nodejs%20allows%20us%20to%20move%20fairly%20seamlessly%20between%20%23javascript%20and%20native%20C%2B%2B%20code%22%20via%20%40RisingStack;url=https://community.risingstack.com/using-buffers-node-js-c-plus-plus/)
 
-In this case, the add-on function is blocks and waits for the return value, meaning no other operations can be done in the meantime. In the right quadrants, you would almost certainly design the add-on using the asynchronous pattern. In an asynchronous add-on function, the calling JavaScript code returns immediately. The calling code passes a callback function to the add-on, and the add-on does its work in a separate worker thread. This avoids locking up the Node.js event loop, as the add-on function does not block.
+在这个场景中，扩展函数阻塞并等待返回值，意味着其他操作不能同时进行。在右侧象限中，几乎可以确定要用异步模式来设计附加组件。在一个异步扩展函数中，JavaScript 调用函数立即返回。调用代码向扩展函数传入一个回调，扩展函数工作于一个独立工作线程中。这避免锁住 Node.js 事件循环，因为扩展函数并没有阻塞。
 
-The difference between the top and bottom quadrants is often overlooked, however they can be just as important.
+顶部和底部象限的不同时常容易被忽视，但是他们也同样重要。
 
-# V8 vs. C++ memory and data
+# V8 vs. C++ 内存和数据
 
-If you are new to writing native add-ons, one of the first things you must master is the differences between V8-owned data (which you **can** access from C++ add-ons) and normal C++ memory allocations.
+如果你不了解如何写一个本地附件，那么你首先要掌握的是属于 V8 的数据（**可以** 通过 C++ 附件获取的）和普通 C++ 内存分配的区别。 
 
-When we say "V8-owned", we are referring to the storage cells that hold JavaScript data.
+当我们提到 “属于 V8 的”，指的是持有 JavaScript 数据的存储单元。
 
-These storage cells are accessible through V8's C++ API, but they aren't ordinary C++ variables since they can only be accessed in limited ways. While your add-on *could* restrict itself to ONLY using V8 data, it will more likely create it's own variables too - in plain old C++. These could be stack or heap variables, and of course are completely independent of V8.
+这些存储单元是可通过 V8 的 C++ API 访问的，但它们不是普通的 C++ 变量，因为他们只能够通过有限的方式访问。当你的扩展 **能够** 限制自身只使用 V8 数据，它就更有可能也创建它自身的变量 - 在简单的老 C++ 代码中，这些变量可以是栈或堆变量，当然他们完全独立于 V8。
 
-In JavaScript, primitives (numbers, strings, booleans, etc.) are *immutable*, and a C++ add-on can not alter storage cells associated with primitive JavaScript variables. The primitive JavaScript variables can be reassigned to *new storage cells* created by C++ - but this means that changing data will always result in *new* memory allocation.
+在 JavaScript 中，基本类型（数字，字符串，布尔值等）是 **不可变的**，一个 C++ 扩展不能够改变与基本类型相连的存储单元。这些 JavaScript 基本变量可以被重置到 C++ 创建的 **新存储单元** 中 - 但是这意味着改变数据将会导致 **新** 内存的分配。
 
-In the upper quadrant (low data transfer), this really isn't a big deal. If you are designing an add-on that doesn't have a lot of data exchange, then the overhead of all the new memory allocation probably doesn't mean much. As your add-ons move closer to the lower quadrant, the cost of allocation / copying will start to hurt you.
+在上层象限（低数据传递），这没什么大不了。如果你正在设计一个无需频繁数据交换的附加组件，那么所有新内存定位的开销可能没有那么大。因为你的附加组件更靠近低层象限，分配/复制 的开销会开始令人震惊。
 
-For one, it costs you in terms of peak memory usage, and **it also costs you in performance**!
+花费的时间取决于顶峰内存使用情况，并且 **在性能上也会拖后腿**！
 
-The time cost of copying all this data between JavaScript (V8 storage cells) to C++ (and back) usually kills the performance benefits you might be getting from running C++ in the first place!For add-ons in the lower left quadrant (low processing, high data usage), the latency associated with data copying can push your add-on towards the right - forcing you to consider an asynchronous design.
+在 JavaScript(V8 存储单元) 和 C++（返回）之间复制所有数据花费的时间通常会牺牲首先运行 C++ 赚来的性能红利！对于在左下象限（低处理，高数据利用场景）的扩展应用，数据拷贝的延迟会把你的扩展引用往右侧象限引导 - 迫使你考虑异步设计。
 
-# V8 memory and asynchronous add-ons
+# V8 内存与异步附件
 
-In asynchronous add-ons we execute the bulk of our C++ processing code in a worker thread. If you are unfamiliar with asynchronous callbacks, you might want to check out a few tutorials (like [here](http://blog.scottfrees.com/building-an-asynchronous-c-addon-for-node-js-using-nan) and [here](http://blog.scottfrees.com/c-processing-from-node-js-part-4-asynchronous-addons)).
+在异步扩展中，我们在一个工作线程中执行大块的 C++ 处理代码。如果你对异步回调并不熟悉，看看这些教程（[这里](http://blog.scottfrees.com/building-an-asynchronous-c-addon-for-node-js-using-nan) 和 [这里](http://blog.scottfrees.com/c-processing-from-node-js-part-4-asynchronous-addons)）。
 
-A central tenant of asynchronous add-ons is that *you can't access V8 (JavaScript) memory outside the event-loop's thread*. This leads us to our next problem. If we have lots of data, that data must be copied out of V8 memory and into your add-on's native address space *from the event loop's thread*, before the worker thread starts. Likewise, any data produced or modified by the worker thread must be copied back into V8 by code executing in the event loop (in the callback). If you are interested in creating high throughput Node.js applications, you should avoid spending lots of time in the event loop copying data!
+异步扩展的中心思想是 **你不能在事件循环线程外访问 V8 （JavaScript）内存**。这导致了新的问题。大量数据必须在工作线程启动前 **从事件循环中** 复制到 V8 内存之外，即扩展的本地地址空间中去。同样地，工作线程产生或修改的任何数据都必须通过执行事件循环（回调）中的代码拷贝回 V8 引擎。如果你致力于创建高吞吐量的 Node.js 应用，你应该避免花费过多的时间在事件循环的数据拷贝上。
 
-![Creating copies for input and output for a C++ worker thread](https://raw.githubusercontent.com/freezer333/node-v8-workers/master/imgs/copying.gif)
+![为 C++ 工作线程创建输入输出拷贝](https://raw.githubusercontent.com/freezer333/node-v8-workers/master/imgs/copying.gif)
 
-Ideally, we'd prefer a way to do this:
+理想情况下，我们更倾向于这么做：
 
-![Accessing V8 data directly from C++ worker thread](https://raw.githubusercontent.com/freezer333/node-v8-workers/master/imgs/inplace.gif)
+![从 C++ 工作线程中直接访问 V8 数据](https://raw.githubusercontent.com/freezer333/node-v8-workers/master/imgs/inplace.gif)
 
-# Node.js Buffers to the rescue
+# Node.js Buffer 来救命
 
-So, we have two somewhat related problems.
+这里有两个相关的问题。
 
-1. When working with synchronous add-ons, unless we aren't changing/producing data, it's likely we'll need to spend a lot of time moving our data between V8 storage cells and plain old C++ variables - which costs us.
-2. When working with asynchronous add-ons, we ideally should spend as little time in the event loop as possible. This is why we still have a problem - since we *must* do our data copying in the event loop's thread due to V8's multi-threaded restrictions.
+1. 当使用同步扩展时，除非我们不改变/产生数据，那么可能会需要花费大量时间在 V8 存储单元和老的简单 C++ 变量之间移动数据 - 十分费时。
 
-This is where an often overlooked feature of Node.js helps us with add-on development - the `Buffer`. Quoting the [Node.js official documentation](https://nodejs.org/api/buffer.html),
+2. 当使用一步扩展是，理想情况下我们应该尽可能减少事件轮询的时间。这就是问题所在 - 由于 V8 的多线程限制，我们 **必须** 在事件轮询线程中进行数据拷贝。
 
-> Instances of the Buffer class are similar to arrays of integers but correspond to fixed-sized, raw memory allocations outside the V8 heap.
+Node.js 里有一个经常会被忽视的特性可以帮助我们进行扩展开发 - `Buffer`。[Nodes.js 官方文档](https://nodejs.org/api/buffer.html) 在此。
 
-This is exactly what we are looking for - because the data inside a Buffer is *not stored in a V8 storage cell*, it is not subjected to the multi-threading rules of V8. This means that we can interact with it **in place** from a C++ worker thread started by an asynchronous add-on.
+> Buffer 类的实例与整型数组类似，但对应的是 V8 堆外大小固定，原始内存分配空间。
 
-## How Buffers work
+这不就是我们一直想要的吗 - Buffer 里的数据 **并不存储在 V8 存储单元内**，不受限于 V8 的多线程规则。这意味着可以通过异步扩展启动的 C++ 工作线程与 Buffer 进行交互。
 
-Buffers store raw binary data, and they can be found in the Node.js API for reading files and other I/O devices.
+## Buffer 是如何工作的
 
-Borrowing from some examples in the Node.js documentation, we can create initialized buffers of a specified size, buffers pre-set with a specified value, buffers from arrays of bytes, and buffers from strings.
+Buffer 存储原始的二进制数据，可以通过 Node.js 的读文件和其他 I/O 设备 API 访问。
 
-    // buffer with size 10 bytesconst buf1 = Buffer.alloc(10);
-
-    // buffer filled with 1's (10 bytes)const buf2 = Buffer.alloc(10, 1);
-
-    //buffer containing [0x1, 0x2, 0x3]const buf3 = Buffer.from([1, 2, 3]);
-
-    // buffer containing ASCII bytes [0x74, 0x65, 0x73, 0x74].const buf4 = Buffer.from('test');
-
-    // buffer containing bytes from a fileconst buf5 = fs.readFileSync("some file");
+借助 Node.js 文档里的一些例子，可以初始化指定大小的 buffer，指定预设值的 buffer，由字节数组创建的 buffer 和 由字符串创建的 buffer。
 
 
-Buffers can be turned back into traditional JavaScript data (strings) or written back out to files, databases, or other I/O devices.
+    // 10 个字节的 buffer：const buf1 = Buffer.alloc(10);
 
-## How to access Buffers in C++
+    // 10 字节并初始化为 1 的 buffer：const buf2 = Buffer.alloc(10, 1);
 
-When building an add-on for Node.js, the best place to start is by making use of the NAN (Native Abstractions for Node.js) API rather than directly using the V8 API - which can be a moving target. There are many tutorials on the web for getting started with NAN add-ons - including [examples](https://github.com/nodejs/nan#example) in NAN's code base itself. I've written a bit about it [here](http://blog.scottfrees.com/building-an-asynchronous-c-addon-for-node-js-using-nan), and it's also covered in a lot of depth in my [ebook](https://scottfrees.com/ebooks/nodecpp/).
+    //包含 [0x1, 0x2, 0x3] 的 buffer：const buf3 = Buffer.from([1, 2, 3]);
 
-First, let’s see how an add-on can access a Buffer sent to it from JavaScript. We'll start with a simple JS program that requires an add-on that we'll create in a moment:
+    // 包含 ASCII 字节 [0x74, 0x65, 0x73, 0x74] 的 buffer：const buf4 = Buffer.from('test');
 
+    // 从文件中读取 buffer：const buf5 = fs.readFileSync("some file");
+
+Buffer 能够传回传统 JavaScript 数据（字符串）或者写回文件，数据库，或者其他 I/O 设备中。
+
+## C++ 中如何访问 Buffer
+
+构建 Node.js 的扩展时，最好是通过使用 NAN（Node.js 本地抽象）API 启动，而不是直接用 V8 API 启动 - 后者可能是一个移动目标。网上有许多用 NAN 扩展启动的教程 - 包括 NAN 代码库自己的 [例子](https://github.com/nodejs/nan#example)。我也写过很多 [教程](http://blog.scottfrees.com/building-an-asynchronous-c-addon-for-node-js-using-nan)，在我的 [电子书](https://scottfrees.com/ebooks/nodecpp/) 里藏得比较深。
+
+首先，来看看扩展程序如何访问 JavaScript 发送给它的 Buffer。我们会启动一个简单的 JS 程序并引入稍后创建的扩展。
+
+```javascript
     'use strict';  
-    // Requiring the add-on that we'll build in a moment...const addon = require('./build/Release/buffer_example');
 
-    // Allocates memory holding ASCII "ABC" outside of V8.const buffer = Buffer.from("ABC");
+    // 先引入稍后创建的扩展 
+    const addon = require('./build/Release/buffer_example');
 
-    // synchronous, rotates each character by +13
+    // 在 V8 之外分配内存，预设值为 ASCII 码的 "ABC"
+    const buffer = Buffer.from("ABC");
+
+    // 同步，每个字符旋转 +13
     addon.rotate(buffer, buffer.length, 13);
 
     console.log(buffer.toString('ascii'));
+```
 
-
-The expected output is "NOP", the ASCII rotation by 13 of "ABC". Let's take a look the add-on! It consists of three files (in the same directory, for simplicity):
+"ABC" 进行 ASCII 旋转 13 后，期望输出是 "NOP"。来看看扩展！它由三个文件（方便起见，都在同一目录下）组成。
 
 ```
 // binding.gyp
@@ -113,7 +118,7 @@ The expected output is "NOP", the ASCII rotation by 13 of "ABC". Let's take a lo
 
 ```
 
-```
+```json
 //package.json
 {
   "name": "buffer_example",
@@ -130,15 +135,17 @@ The expected output is "NOP", the ASCII rotation by 13 of "ABC". Let's take a lo
 ```
 
 ```
-// buffer_example.cpp#include<nan.h>usingnamespace Nan;  
-usingnamespace v8;
+// buffer_example.cpp
+#include <nan.h>
+using namespace Nan;  
+using namespace v8;
 
 NAN_METHOD(rotate) {  
     char* buffer = (char*) node::Buffer::Data(info[0]->ToObject());
-    unsignedint size = info[1]->Uint32Value();
-    unsignedint rot = info[2]->Uint32Value();
+    unsigned int size = info[1]->Uint32Value();
+    unsigned int rot = info[2]->Uint32Value();
 
-    for(unsignedint i = 0; i < size; i++ ) {
+    for(unsigned int i = 0; i < size; i++ ) {
         buffer[i] += rot;
     }   
 }
@@ -152,20 +159,20 @@ NODE_MODULE(buffer_example, Init)
 ```
 
 
-The most interesting file is `buffer_example.cpp`. Notice that we've used `node::Buffer`'s `Data` method to convert the first parameter sent to the add-on to a character array. This is now free for us to use in any way we see fit. In this case, we just perform an ASCII rotation of the text. Notice that there is no return value, the memory associated with the Buffer has been modified **in place**.
+最有趣的文件就是 `buffer_example.cpp`。注意我们用了 `node:Buffer` 的 `Data` 方法来把传入扩展的第一个参数转换为字符数组。现在我们能用任何觉得合适的方式来操作数组了。在本例中，我们仅仅执行了文本的 ASCII 码旋转。要注意这没有返回值，Buffer 的关联内存已经被修改了。
 
-We can build the add-on by just typing `npm install`. The `package.json` tells npm to download NAN and build the add-on using the `binding.gyp` file. Running it will give us the "NOP" output we expect.
+通过 `npm install` 构建扩展。`package.json` 会告知 npm 下载 NAN 并使用 `binding.gyp` 文件构建扩展。运行 index.js 会返回期望的 "NOP" 输出。
 
-We can also create *new* buffers while inside the add-on. Let's modify the rotate function to increment the input, but return another buffer containing the string resulting from a decrement operation:
+我们还可以在扩展里创建 **新** buffer。修改 rotate 函数增加输入，并返回减小相应数值后生成的字符串 buffer。
 
 ```
 NAN_METHOD(rotate) {  
     char* buffer = (char*) node::Buffer::Data(info[0]->ToObject());
-    unsignedint size = info[1]->Uint32Value();
-    unsignedint rot = info[2]->Uint32Value();
+    unsigned int size = info[1]->Uint32Value();
+    unsigned int rot = info[2]->Uint32Value();
 
-    char * retval = newchar[size];
-    for(unsignedint i = 0; i < size; i++ ) {
+    char * retval = new char[size];
+    for(unsigned int i = 0; i < size; i++ ) {
         retval[i] = buffer[i] - rot;
         buffer[i] += rot;
     }   
@@ -174,7 +181,7 @@ NAN_METHOD(rotate) {
 }
 ```    
 
-```
+```javascript
 var result = addon.rotate(buffer, buffer.length, 13);
 
 console.log(buffer.toString('ascii'));  
@@ -182,24 +189,25 @@ console.log(result.toString('ascii'));
 ```
 
 
-Now the resulting buffer will contain '456'. Note the use of NAN's `NewBuffer` function, which wraps the dynamically allocated `retval` array in a Node buffer. Doing so *transfers ownership* of this memory to Node.js, so the memory associated with `retval` will be reclaimed (by calling `free`) when the buffer goes out of scope in JavaScript. More on this issue later - as we don't always want to have it happen this way!
+现在结果 buffer 是 '456'。注意 NAN 的 `NewBuffer` 方法的使用，它包装了 Node buffer 里 `retval` 数据的动态分配。这么做会 **转让这块内存的使用权** 给 Node.js，所以当 buffer 越过 JavaScript 作用域时 `retval` 的关联内存将会（通过调用 `free`）重新声明。稍后会有更多关于这一点的解释 - 毕竟我们不希望总是重新声明。
 
-You can find additional information about how NAN handles buffers [here](https://github.com/nodejs/nan/blob/master/doc/buffers.md).
+你可以在 [这里](https://github.com/nodejs/nan/blob/master/doc/buffers.md) 找到 NAN 如何处理 buffer 的更多信息。
 
-# Example: PNG and BMP Image Processing
+# 🌰 ：PNG 和 BMP 图片处理
 
-The example above is pretty basic and not particularly exciting. Let's turn to a more practical example - image processing with C++. If you want to get the full source code for both the example above and the image processing code below, you can head over to my `nodecpp-demo` repository at [https://github.com/freezer333/nodecpp-demo](https://github.com/freezer333/nodecpp-demo), the code is in the "buffers" directory.
+上面的例子非常基础，没什么兴奋点。来看个更具有实操性的例子 - C++ 图片处理。如果你想要拿到上例和本例的全部源码，请到我的github仓库 [https://github.com/freezer333/nodecpp-demo](https://github.com/freezer333/nodecpp-demo)，代码在 'buffers' 目录下。
 
-Image processing is a good candidate for C++ add-ons, as it can often be time-consuming, CPU intensive, and some processing techniques have parallelism that C++ can exploit well. In the example we'll look at now, we'll simply convert png formatted data into bmp formatted data .
+图片处理用 C++ 扩展处理再合适不过，因为它耗时，CPU 密集，许多处理方法并行，正是 C++ 所擅长的。本例中我们会简单把 png 格式转换为 bmp 格式。
 
-> Converting a png to bmp is *not* particularly time consuming and it's probably overkill for an add-on, but it's good for demonstration purposes. If you are looking for a pure JavaScript implementation of image processing (including much more than png to bmp conversion), take a look at JIMP at [https://www.npmjs.com/package/jimp](https://www.npmjs.com/package/jimp)[https://www.npmjs.com/package/jimp](https://www.npmjs.com/package/jimp).
+> png 转换 bmp **不是** 特别耗时，对扩展来说可能会有杀伤力，但能很好的实现示范目的。如果你在找纯 JavaScript 进行图片处理（包括不止 png 转 bmp）的实现方式，可以看看 JIMP，[https://www.npmjs.com/package/jimp](https://www.npmjs.com/package/jimp)[https://www.npmjs.com/package/jimp](https://www.npmjs.com/package/jimp)。
 
-There are a good number of open source C++ libraries that can help us with this task. I'm going to use LodePNG as it is dependency free and quite simple to use. LodePNG can be found at [http://lodev.org/lodepng/](http://lodev.org/lodepng/), and it's source code is at [https://github.com/lvandeve/lodepng](https://github.com/lvandeve/lodepng). Many thanks to the developer, Lode Vandevenne for providing such an easy to use library!
+有许多开源 C++ 库可以帮我们做这件事。我要使用的是 LodePNG，因为它没有依赖，使用方便。LodePNG 在 [http://lodev.org/lodepng/](http://lodev.org/lodepng/)，它的源码在 [https://github.com/lvandeve/lodepng](https://github.com/lvandeve/lodepng)。多谢开发者 Lode Vandevenne 提供了这么好用的库!
 
-## Setting up the add-on
+## 设置扩展
 
-For this add-on, we'll create the following directory structure, which includes source code downloaded from [https://github.com/lvandeve/lodepng](https://github.com/lvandeve/lodepng), namely `lodepng.h` and `lodepng.cpp`.
+我们要创建以下目录结构，包括从 [https://github.com/lvandeve/lodepng](https://github.com/lvandeve/lodepng) 下载的源码，命名为 `lodepng.h` 和 `lodepng.cpp`。
 
+```
     /png2bmp
      |
      |--- binding.gyp
@@ -209,12 +217,13 @@ For this add-on, we'll create the following directory structure, which includes 
      |--- sample.png   # input (will be converted to bmp)
      |--- lodepng.h    # from lodepng distribution
      |--- lodepng.cpp  # From loadpng distribution
+```
 
+`lodepng.cpp` 包含所有进行图片处理必要的代码，我不会就其工作细节进行讨论。另外，lodepng 包囊括了允许你指定在 pnp 和 bmp 之间进行转换的简单代码。我对它进行了一些小改动并放入扩展源文件 `png2bmp.cpp` 中，马上我们就会看到。
 
-`lodepng.cpp` contains all the necessary code for doing image processing, and I will not discuss it's working in detail. In addition, the lodepng distribution contains sample code that allows you to specifically convert between png and bmp. I've adapted it slightly and will put it in the add-ons source code file `png2bmp.cpp` which we will take a look at shortly.
+在深入扩展之前来看看 JavaScript 程序：
 
-Let's look at what the actual JavaScript program looks like before diving into the add-on code itself:
-
+```javascript
     'use strict';  
     const fs = require('fs');  
     const path = require('path');  
@@ -226,12 +235,13 @@ Let's look at what the actual JavaScript program looks like before diving into t
 
     const bmp_buffer = png2bmp.getBMP(png_buffer, png_buffer.length);  
     fs.writeFileSync(bmp_file, bmp_buffer);
+```
 
+这个程序把 png 图片的文件名作为命令行参数传入。调用了 `getBMP` 扩展函数，该函数接受包含 png 文件的 buffer 和它的长度。此扩展是 **同步** 的，在稍后我们也会看到异步版本。
 
-The program uses a filename for a png image as a command line option. It calls an add-on function `getBMP` which accepts a buffer containing the png file and its length. This add-on is *synchronous*, but we'll take a look at the asynchronous version later on too.
+这是 `package.json` 文件，设置了 `npm start` 命令来调用 `index.js` 程序并传入 `sample.png` 命令行参数。这是一张普通的图片。
 
-Here's the `package.json`, which is setting up `npm start` to invoke the `index.js` program with a command line argument of `sample.png`. It's a pretty generic image:
-
+```json
     {
       "name": "png2bmp",
       "version": "0.0.1",
@@ -244,11 +254,11 @@ Here's the `package.json`, which is setting up `npm start` to invoke the `index.
           "nan": "*"
       }
     }
-
+```
 
 ![](https://scottfrees.com/sample.png)
 
-Here is the `binding.gyp` file - which is fairly standard, other than a few compiler flags needed to compile lodepng. It also includes the requisite references to NAN.
+这是 `binding.gyp` 文件 - 在标准文件的基础上设置了一些编译器标识用于编译 lodepng。还包括了 NAN 必要的引用。
 
     {
       "targets": [
@@ -262,12 +272,13 @@ Here is the `binding.gyp` file - which is fairly standard, other than a few comp
     }
 
 
-`png2bmp.cpp` will mostly contain V8/NAN code. However, it does have one image processing utility function - `do_convert`, adopted from lodepng's png to bmp example code.
+`png2bmp.cpp` 主要包括了 V8/NAN 代码。不过，它也有一个图片处理通用函数 - `do_convert`，从 lodepng 的 png 转 bmp 例子里采纳过来的。
 
-The function accepts a `vector<unsigned char>` containing input data (png format) and a `vector<unsigned char>` to put its output (bmp format) data into. That function, in turn, calls `encodeBMP`, which is straight from the lodepng examples.
+`encodeBMP` 函数接受 `vector<unsigned char>` 参数用于输入数据（png 格式）和 `vector<unsigned char>` 参数来存放输出数据（bmp 格式，直接参照 lodepng 的例子。
 
-Here is the full code listing of these two functions. The details are not important to the understanding of the add-ons `Buffer` objects but are included here for completeness. Our add-on entry point(s) will call `do_convert`.
+这是这两个函数的全部代码。细节对于理解扩展的 `Buffer` 对象不重要，包含进来是为了程序完整性。扩展程序入口会调用 `do_convert`。
 
+```
     ~~~~~~~~<del>{#binding-hello .cpp}
     /*
     ALL LodePNG code in this file is adapted from lodepng's  
@@ -341,20 +352,21 @@ Here is the full code listing of these two functions. The details are not import
       return true;
     }
     </del>~~~~~~~~
+```
 
+Sorry... 代码太长了，但对于理解运行机制很重要！把这些代码在 JavaScript 里运行一把看看。
 
-Sorry... that listing was long, but it's important to see what's actually going on! Let's get to work bridging all this code to JavaScript.
+## 同步 Buffer 处理
 
-## Synchronous Buffer Processing
+当我们在 JavaScript 里，png 图片数据会被真实读取，所以会作为 Node.js 的 `Buffer` 传入。我们用 NAN 访问 buffer 自身。这里是同步版本的完整代码：
 
-The png image data is actually read when we are in JavaScript, so it's passed in as a Node.js `Buffer`. We'll use NAN to access the buffer itself. Here's the complete code for the synchronous version:
-
+```
     NAN_METHOD(GetBMP) {  
-    unsignedchar*buffer = (unsignedchar*) node::Buffer::Data(info[0]->ToObject());  
-        unsignedint size = info[1]->Uint32Value();
+        unsigned char*buffer = (unsigned char*) node::Buffer::Data(info[0]->ToObject());  
+        unsigned int size = info[1]->Uint32Value();
 
-        std::vector<unsignedchar> png_data(buffer, buffer + size);
-        std::vector<unsignedchar> bmp;
+        std::vector<unsigned char> png_data(buffer, buffer + size);
+        std::vector<unsigned char> bmp;
 
         if ( do_convert(png_data, bmp)) {
             info.GetReturnValue().Set(
@@ -368,33 +380,34 @@ The png image data is actually read when we are in JavaScript, so it's passed in
     }
 
     NODE_MODULE(png2bmp, Init)
+```
 
+在 `GetBMP` 函数里，我们用熟悉的 `Data` 方法打开 buffer，所以我们能够像普通字符数组一样处理它。接着，基于输入构建一个 `vector`，才能够传入上面列出的 `do_convert` 函数。一旦 `bmp` 向量被 `do_convert` 函数填满，我们会把它包装进 `Buffer` 里并返回 JavaScript。
 
-In `GetBMP`, we use the familiar `Data` method to unwrap the buffer so we can work with it like a normal character array. Next, we build a `vector` around the input so we can pass it to our `do_convert` function listed above. Once the `bmp` vector is filled in by `do_convert`, we wrap it up in a `Buffer` and return to JavaScript.
+这里有个问题：返回的 buffer 里的数据在 JavaScript 使用之前可能会被删除。为啥？因为当 `GetBMP` 函数返回时，`bmp` 向量要传出作用域。C++ 向量语义当向量传出作用域时，向量析构函数会删除向量里所有的数据 - 在本例中，bmp 数据也会被删掉！这是个大问题，因为回传到 JavaScript 的 `Buffer` 里的数据会被删掉。这最后会使程序崩溃。
 
-So *here is the problem* with this code: The data contained in the buffer we return is likely deleted before our JavaScript gets to use it. Why? Because the `bmp` vector is going to go out of scope as our `GetBMP` function returns. C++ vector semantics hold that when the vector goes out of scope, the vector's destructor deletes all data within the vector - in our case, our bmp data will be deleted as well! This is a huge problem since the `Buffer` we send back to JavaScript will have it's data deleted out from under it. You might get away with this (race conditions are fun right?), but it will eventually cause your program to crash.
+幸运的是，`NewBuffer` 的第三和第四个可选参数可控制这种情况。
 
-Luckily, `NewBuffer` has an optional third and fourth parameter to give us some more control.
+第三个参数是当 `Buffer` 被 V8 垃圾回收结束时调用的回调函数。记住，`Buffer` 是 JavaScript 对象，数据存储在 V8 之外，但是对象本身受到 V8 的控制。
 
-The third parameter is a callback which ends up being called when the `Buffer` gets garbage collected by V8. Remember that `Buffer`s are JavaScript objects, whose data is stored outside of V8, but the object itself is under V8's control.
+从这个角度来看，就能解释为什么回调有用。当 V8 销毁 buffer 时，我们需要一些方法来释放创建的数据 - 这些数据可以通过第一个参数传入回调函数中。回调的信号由 NAN 定义 - `Nan::FreeCallback()`。第四个参数则提示重新分配内存地址，接着我们就可以随便使用。
 
-From this perspective, it should make sense that a callback would be handy. When V8 destroys the buffer, we need some way of freeing up the data we have created - which is passed into the callback as its first parameter. The signature of the callback is defined by NAN - `Nan::FreeCallback()`. The fourth parameter is a hint to aid in deallocation, and we can use it however we want.
+因为我们的问题是向量包含 bitmap 数据会传出作用域，我们可以 **动态** 分配向量，并传入回调，当 `Buffer` 被垃圾回收时能够被正确删除。
 
-Since our problem is that the vector containing bitmap data goes out of scope, we can *dynamically* allocate the vector itself instead, and pass it into the free callback where it can be properly deleted when the `Buffer` has been garbage collected.
+以下是新的 `delete_callback`，与新的 `NewBuffer` 调用方法。 把真实的指针传入向量作为一个信号，这样它就能够被正确删除。
 
-Below is the new `delete_callback`, along with the new call to `NewBuffer`. I'm sending the actual pointer to the vector as the hint, so it can be deleted directly.
-
-    voidbuffer_delete_callback(char* data, void* the_vector){  
-      deletereinterpret_cast<vector<unsignedchar> *> (the_vector);
+```
+    void buffer_delete_callback(char* data, void* the_vector){  
+      deletereinterpret_cast<vector<unsigned char> *> (the_vector);
     }
 
     NAN_METHOD(GetBMP) {
 
-      unsignedchar*buffer =  (unsignedchar*) node::Buffer::Data(info[0]->ToObject());
-      unsignedint size = info[1]->Uint32Value();
+      unsigned char*buffer =  (unsigned char*) node::Buffer::Data(info[0]->ToObject());
+      unsigned int size = info[1]->Uint32Value();
 
-      std::vector<unsignedchar> png_data(buffer, buffer + size);
-      std::vector<unsignedchar> * bmp = newvector<unsignedchar>();
+      std::vector<unsigned char> png_data(buffer, buffer + size);
+      std::vector<unsigned char> * bmp = new vector<unsigned char>();
 
       if ( do_convert(png_data, *bmp)) {
           info.GetReturnValue().Set(
@@ -406,30 +419,31 @@ Below is the new `delete_callback`, along with the new call to `NewBuffer`. I'm 
                 .ToLocalChecked());
       }
     }
+```
 
+`npm install` 和 `npm start` 运行程序，目录下会生成 `sample.bmp` 文件，和 `sample.png` 非常相似 - 仅仅文件大小变大了（因为 bmp 压缩远没有 png 高效）。
 
-Run this program by doing an `npm install` and then an `npm start` and you'll see a `sample.bmp` generated in your directory that looks eerily similar to `sample.png` - just a whole lot bigger (because bmp compression is far less efficient than png).
+## 异步 Buffer 处理
 
-## Asynchronous Buffer Processing
+接着开发一个 png 转 bitmap 转换器的异步版本。使用 `Nan::AsyncWorker` 在一个 C++ 线程中执行真正的转换方法。通过使用 `Buffer` 对象，我们能够避免复制 png 数据，这样我们只需要拿到工作线程可访问的底层数据的指针。同样的，工作线程产生的数据（`bmp` 向量），也能够在不复制数据情况下用于创建新的 `Buffer`。
 
-Let's develop an asynchronous version of the png to bitmap converter. We'll perform the actual conversion in a C++ worker thread, using `Nan::AsyncWorker`. By using `Buffer` objects, we can avoid copying the png data, so we will only need to hold a pointer to the underlying data such that our worker thread can access it. Likewise, the data produced by the worker thread (the `bmp` vector) can be used to create a new `Buffer` without copying data.
-
+```
     class PngToBmpWorker : public AsyncWorker {
         public:
         PngToBmpWorker(Callback * callback,
             v8::Local<v8::Object> &pngBuffer, int size)
             : AsyncWorker(callback) {
-            unsignedchar*buffer =
-              (unsignedchar*) node::Buffer::Data(pngBuffer);
+            unsigned char*buffer =
+              (unsigned char*) node::Buffer::Data(pngBuffer);
 
-            std::vector<unsignedchar> tmp(
+            std::vector<unsigned char> tmp(
               buffer,
-              buffer +  (unsignedint) size);
+              buffer +  (unsigned int) size);
 
             png_data = tmp;
         }
         voidExecute(){
-           bmp = newvector<unsignedchar>();
+           bmp = new vector<unsigned char>();
            do_convert(png_data, *bmp);
         }
         voidHandleOKCallback(){
@@ -442,8 +456,8 @@ Let's develop an asynchronous version of the png to bitmap converter. We'll perf
         }
 
         private:
-            vector<unsignedchar> png_data;
-            std::vector<unsignedchar> * bmp;
+            vector<unsigned char> png_data;
+            std::vector<unsigned char> * bmp;
     };
 
     NAN_METHOD(GetBMPAsync) {  
@@ -457,31 +471,32 @@ Let's develop an asynchronous version of the png to bitmap converter. We'll perf
         AsyncQueueWorker(
           new PngToBmpWorker(callback, pngBuffer , size));
     }
+```
 
+我们新的 `GetBMPAsync` 扩展函数首先解压缩从 JavaScript 传入的 buffer，接着初始化并用 NAN API 把新的 `PngToBmpWorker` 工作线程入队。这个工作线程对象的 `Execute` 方法在转换结束时被工作线程内的 `libuv` 调用。当 `Execute` 函数返回，`libuv` 调用 Node.js 事件轮询线程的 `HandleOKCallback` 方法，创建一个 buffer 并调用 JavaScript 传入的回调函数。
 
-Our new `GetBMPAsync` add-on function first unwraps the input buffer sent from JavaScript and then initializes and queues a new `PngToBmpWorker` worker , using NAN's API. The worker object's `Execute` method is called by `libuv` inside a worker thread where the conversion is done. When the `Execute` function returns, `libuv` calls the `HandleOKCallback` in the Node.js event loop thread, which creates the buffer and invokes the callback sent from JavaScript.
+现在我们能够在 JavaScript 中使用这个扩展函数了：
 
-Now we can utilize this add-on function in JavaScript like this:
-
+```
     png2bmp.getBMPAsync(png_buffer,  
       png_buffer.length,
       function(bmp_buffer) {
         fs.writeFileSync(bmp_file, bmp_buffer);
     });
+```
 
+# 总结
 
-# Summary
-
-There were two core takeaways in this post:
+本文有两个核心卖点：
 
 1.
-You can't ignore the costs of copying data between V8 storage cells and C++ variables. If you aren't careful, you can easily kill the performance boost you might have thought you were getting by dropping into C++ to perform your work!
+不能忽视 V8 存储单元和 C++ 变量之间的数据拷贝消耗。如果你不注意，本来你认为把工作丢进 C++ 里执行可以提高的性能，就又被轻易消耗了。
 
 2.
-Buffers offer a way to work with the same data in both JavaScript and C++, thus avoiding the need to create copies.
+Buffer 提供了一个在 JavaScript 和 C++ 共享数据的方法，所以避免了创建备份。
 
-Using buffers in your add-ons can be pretty painless. I hope I've been able to show you this through a simple demo application that rotates ASCII text, along with more practical synchronous and asynchronous image conversion examples Hopefully, this post helps you boost the performance of your own add-ons!
+在扩展里使用 buffer 是无痛的。我希望已经能很清楚的说明这一点了，通过旋转 ASCII 文本的简单例子，和同步和异步图片转换实战。希望本帖对你加速扩展应用性能有所帮助！
 
-A reminder, all the code from this post can be found at [https://github.com/freezer333/nodecpp-demo](https://github.com/freezer333/nodecpp-demo), the code is in the "buffers" directory.
+再次提醒，本文内的所有代码均能在 [https://github.com/freezer333/nodecpp-demo](https://github.com/freezer333/nodecpp-demo) 中找到，位于 "buffers" 目录下。
 
-If you are looking for more tips on how to design Node.js C++ add-ons, please check out my [ebook on C++ and Node.js Integration](https://scottfrees.com/ebooks/nodecpp/).
+如果你正在寻找关于如何设计 Node.js 的 C++ 扩展的小贴士，可以访问我的 [C++ 和 Node.js 一体化电子书](https://scottfrees.com/ebooks/nodecpp/)。
