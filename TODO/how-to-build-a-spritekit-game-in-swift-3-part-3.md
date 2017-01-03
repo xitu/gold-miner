@@ -2,17 +2,17 @@
 * 原文作者：[Marc Vandehey](https://twitter.com/marcvandehey)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[DeepMissea](http://deepmissea.blue)
-* 校对者：[]()
+* 校对者：[Tina92](https://github.com/Tina92)，[Tuccuay](http://www.tuccuay.com)
 
 # 如何在 Swift 3 中用 SpriteKit 框架编写游戏 (Part 3)
 
 你有没有想过要如何开始创作一款基于 SpriteKit 的游戏？按钮的开发是一个很庞大的任务吗？想过如何制作游戏的设置部分吗？随着 [SpriteKit](https://developer.apple.com/spritekit/) 的出现，在 iOS 上开发游戏已经变得空前的简单了。在本系列的第三部分，我们将完成 RainCat 游戏的开发以及对 SpriteKit 框架的介绍。
 
-如果你错过了[上一课](https://www.smashingmagazine.com/2016/12/how-to-build-a-spritekit-game-in-swift-3-part-2/)，你可以通过获取 [Github 上的代码](https://github.com/thirteen23/RainCat/releases/tag/smashing-magazine-lesson-two)来赶上进度。请记住，本教程需要使用 Xcode 8 和 Swift 3。
+如果你错过了[上一课](https://github.com/xitu/gold-miner/blob/master/TODO/how-to-build-a-spritekit-game-in-swift-3-part-2.md)，你可以通过获取 [Github 上的代码](https://github.com/thirteen23/RainCat/releases/tag/smashing-magazine-lesson-two)来赶上进度。请记住，本教程需要使用 Xcode 8 和 Swift 3。
 
 [![Raincat, 第三课](https://www.smashingmagazine.com/wp-content/uploads/2016/10/raincat_header_sm-preview-opt-1.png)](https://www.smashingmagazine.com/wp-content/uploads/2016/10/raincat_header_sm-preview-opt-1.png)
 
-这是我们 RainCat 之旅的第三课。在[上节课](https://www.smashingmagazine.com/2016/12/how-to-build-a-spritekit-game-in-swift-3-part-2/)里，我们用了很长一段时间来搞定了一些简单动画，猫的行为，音效和背景音乐。
+这是我们 RainCat 之旅的第三课。在[上节课](https://github.com/xitu/gold-miner/blob/master/TODO/how-to-build-a-spritekit-game-in-swift-3-part-2.md)里，我们用了很长一段时间来搞定了一些简单动画，猫的行为、音效和背景音乐。
 
 
 今天，我们将重点关注下面的内容：
@@ -199,7 +199,7 @@ hudNode.addPoint()
 
 [![HUD unlocked!](https://www.smashingmagazine.com/wp-content/uploads/2016/10/raincat_scoring-preview-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2016/10/raincat_scoring-preview-opt.png)
 
-当来回收集食物时，你就会看到指示器的效果了。第一次收集食物的时候，你应该会看到分数变黄然后比例变大，如果你看到当猫淋到雨滴时，分数重置，那么你就是正确的
+当来回收集食物时，你就会看到指示器的效果了。第一次收集食物的时候，你应该会看到分数变黄然后比例变大，如果你看到当猫淋到雨滴时，分数重置，那么你就是正确的！
 
 [![High Score!](https://www.smashingmagazine.com/wp-content/uploads/2016/10/raincat_scoreincrease-preview-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2016/10/raincat_scoreincrease-preview-opt.png)
 
@@ -391,7 +391,7 @@ override func touchesEnded(_ touches: Set, with event: UIEvent?){
 
 ### 行动时间
 
-现在，我们已经搞定了按钮的基础行为，在钮被点击的时候，我们还需要一个触发事件。对于 `startButton` 来说，这个实现很容易。我们只需要在点击时，展示 `GameScene`。在 `MenuScene.swift` 文件里，更新 `handleStartButtonClick()` 方法里面的代码：
+现在，我们已经搞定了按钮的基础行为，在按钮被点击的时候，我们还需要一个触发事件。对于 `startButton` 来说，这个实现很容易。我们只需要在点击时展示 `GameScene`。在 `MenuScene.swift` 文件里，更新 `handleStartButtonClick()` 方法里面的代码：
 ```
 func handleStartButtonClick(){
 	let transition = SKTransition.reveal(with:.down, duration:0.75)
@@ -664,9 +664,9 @@ view.showsNodeCount = true
 
 ### 最后的思考
 
-这是三遍教程的最后一篇，如果你一直跟着到这，那你已经对你的游戏付出了很多工作。在本教程中，你把一个一无所有的场景，变成了一个完整的游戏。恭喜！在[第一课](https://www.smashingmagazine.com/2016/11/how-to-build-a-spritekit-game-in-swift-3-part-1/)里，我们添加了地面，雨滴，背景和雨伞精灵。我们还通过物理引擎来确保雨滴没有堆积在一起。我们用碰撞检测来移除节点，这样就解决了内存溢出的问题。我们也添加了一些交互来允许伞向玩家触摸屏幕的位置移动。
+这是三遍教程的最后一篇，如果你一直跟着到这，那你已经对你的游戏付出了很多工作。在本教程中，你把一个一无所有的场景，变成了一个完整的游戏。恭喜！在[第一课](https://github.com/xitu/gold-miner/blob/master/TODO/how-to-build-a-spritekit-game-in-swift-3-part-1.md)里，我们添加了地面，雨滴，背景和雨伞精灵。我们还通过物理引擎来确保雨滴没有堆积在一起。我们用碰撞检测来移除节点，这样就解决了内存溢出的问题。我们也添加了一些交互来允许伞向玩家触摸屏幕的位置移动。
 
-在[第二课](https://www.smashingmagazine.com/2016/12/how-to-build-a-spritekit-game-in-swift-3-part-2/)里，我们添加了猫和食物，为他们定制了一些不同的生成方法。我们还更新了碰撞检测，让猫精灵和食物精灵产生一些作用。我们也在猫的移动上做了一些处理。小猫有一个目的：吃掉每一个食物。我们为猫添加了简单的动画效果，还增加了猫和雨滴之间的交互。最后，我们添加了音效和背景音乐，让我们的程序看上去更像一个完整的游戏。
+在[第二课](https://github.com/xitu/gold-miner/blob/master/TODO/how-to-build-a-spritekit-game-in-swift-3-part-2.md)里，我们添加了猫和食物，为他们定制了一些不同的生成方法。我们还更新了碰撞检测，让猫精灵和食物精灵产生一些作用。我们也在猫的移动上做了一些处理。小猫有一个目的：吃掉每一个食物。我们为猫添加了简单的动画效果，还增加了猫和雨滴之间的交互。最后，我们添加了音效和背景音乐，让我们的程序看上去更像一个完整的游戏。
 
 在这最后的一篇教程里，我们创建了一个指示器放我们的分数标签和退出按钮。我们处理节点上的操作，并使用户能够从指示器节点的回调里退出。我们还添加了一个玩家启动游戏的场景，并可以在点击退出按钮后返回。我们还处理了开始游戏和控制游戏中的声音的过程。
 
@@ -710,7 +710,7 @@ view.showsNodeCount = true
 提供了编辑文章的帮助，这的确是一项大工程。
 - [Jeff Moon](https://www.thirteen23.com/about/#jeffrey-moon)
 
-提供了第三课的编辑工作和乒乓球，很多的乒乓球（译者注：一脸懵逼）
+提供了第三课的编辑工作和乒乓球，很多的乒乓球（译者注：这里原文就是ping-pong，译者的理解是，可能他们写代码有点累，所以打了会乒乓球。）
 - [Tom Nelson](https://www.thirteen23.com/about/#tom-nelson)
 
 正因为这些帮助，教程才会像预计的那样完成。
