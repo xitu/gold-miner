@@ -2,35 +2,35 @@
 * 原文作者：[Scott Frees](https://scottfrees.com/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Jiang Haichao](https://github.com/AceLeeWinnie)
-* 校对者：[]()
+* 校对者：[熊贤仁](https://github.com/FrankXiong)
 
 # 在 Node.js 和 C++ 之间使用 Buffer 共享数据
 
-使用 Node.js 开发的一个好处是简直能够在 JavaScript 和 本地 C++ 代码之间无缝切换 - 这要得益于 V8 的扩展 API。从 JavaScript 进入 C++ 的能力有时由处理速度驱动，但更多的情况是我们已经有 C++ 代码，只需要能在 JavaScript 中运行即可。
+使用 Node.js 开发的一个好处是简直能够在 JavaScript 和 原生 C++ 代码之间无缝切换 - 这要得益于 V8 的扩展 API。从 JavaScript 进入 C++ 的能力有时由处理速度驱动，但更多的情况是我们已经有 C++ 代码，只需要能在 JavaScript 中运行即可。
 
-我们可以用（至少）两轴对不同用例的扩展进行分类 - （1）我们在 C++ 代码中花费的运行时间，（2）C++ 和 JavaScript 之间数据流量。
+我们可以用（至少）两轴对不同用例的扩展进行分类 - （1）C++ 代码的运行时间，（2）C++ 和 JavaScript 之间数据流量。
 
 ![CPU vs. 数据象限](https://scottfrees.com/quadrant.png)
 
-大多数文档讨论的 Node.js 的 C++ 扩展关注于左右象限的不同。如果你在左象限（短处理时间），你的扩展有可能是同步的 - 意思是当调用时 C++ 代码在 Node.js 的事件循环中立即执行。
+大多数文档讨论的 Node.js 的 C++ 扩展关注于左右象限的不同。如果你在左象限（短处理时间），你的扩展有可能是同步的 - 意思是当调用时 C++ 代码在 Node.js 的事件循环中直接运行。
 
-["#nodejs 允许我们在#javascript 和本地 C++ 代码之间无缝切换" via @RisingStack](https://twitter.com/share?text=%22%23nodejs%20allows%20us%20to%20move%20fairly%20seamlessly%20between%20%23javascript%20and%20native%20C%2B%2B%20code%22%20via%20%40RisingStack;url=https://community.risingstack.com/using-buffers-node-js-c-plus-plus/)
+["#nodejs 允许我们在#javascript 和原生 C++ 代码之间无缝切换" via @RisingStack](https://twitter.com/share?text=%22%23nodejs%20allows%20us%20to%20move%20fairly%20seamlessly%20between%20%23javascript%20and%20native%20C%2B%2B%20code%22%20via%20%40RisingStack;url=https://community.risingstack.com/using-buffers-node-js-c-plus-plus/)
 
-在这个场景中，扩展函数阻塞并等待返回值，意味着其他操作不能同时进行。在右侧象限中，几乎可以确定要用异步模式来设计附加组件。在一个异步扩展函数中，JavaScript 调用函数立即返回。调用代码向扩展函数传入一个回调，扩展函数工作于一个独立工作线程中。这避免锁住 Node.js 事件循环，因为扩展函数并没有阻塞。
+在这个场景中，扩展函数阻塞并等待返回值，意味着其他操作不能同时进行。在右侧象限中，几乎可以确定要用异步模式来设计附加组件。在一个异步扩展函数中，JavaScript 调用函数立即返回。调用代码向扩展函数传入一个回调，扩展函数工作于一个独立工作线程中。由于扩展函数没有阻塞，则避免了 Node.js 事件循环的死锁。
 
 顶部和底部象限的不同时常容易被忽视，但是他们也同样重要。
 
 # V8 vs. C++ 内存和数据
 
-如果你不了解如何写一个本地附件，那么你首先要掌握的是属于 V8 的数据（**可以** 通过 C++ 附件获取的）和普通 C++ 内存分配的区别。 
+如果你不了解如何写一个原生附件，那么你首先要掌握的是属于 V8 的数据（**可以** 通过 C++ 附件获取的）和普通 C++ 内存分配的区别。 
 
 当我们提到 “属于 V8 的”，指的是持有 JavaScript 数据的存储单元。
 
-这些存储单元是可通过 V8 的 C++ API 访问的，但它们不是普通的 C++ 变量，因为他们只能够通过有限的方式访问。当你的扩展 **能够** 限制自身只使用 V8 数据，它就更有可能也创建它自身的变量 - 在简单的老 C++ 代码中，这些变量可以是栈或堆变量，当然他们完全独立于 V8。
+这些存储单元是可通过 V8 的 C++ API 访问的，但它们不是普通的 C++ 变量，因为他们只能够通过受限的方式访问。当你的扩展 **能够** 限制自身只使用 V8 数据，它就更有可能同样会在普通 C++ 代码中创建自身的变量。这些变量可以是栈或堆变量，且完全独立于 V8。
 
-在 JavaScript 中，基本类型（数字，字符串，布尔值等）是 **不可变的**，一个 C++ 扩展不能够改变与基本类型相连的存储单元。这些 JavaScript 基本变量可以被重置到 C++ 创建的 **新存储单元** 中 - 但是这意味着改变数据将会导致 **新** 内存的分配。
+在 JavaScript 中，基本类型（数字，字符串，布尔值等）是 **不可变的**，一个 C++ 扩展不能够改变与基本类型相连的存储单元。这些基本类型的 JavaScript 变量可以被重新分配到 C++ 创建的 **新存储单元** 中 - 但是这意味着改变数据将会导致 **新** 内存的分配。
 
-在上层象限（低数据传递），这没什么大不了。如果你正在设计一个无需频繁数据交换的附加组件，那么所有新内存定位的开销可能没有那么大。因为你的附加组件更靠近低层象限，分配/复制 的开销会开始令人震惊。
+在上层象限（少量数据传递），这没什么大不了。如果你正在设计一个无需频繁数据交换的附加组件，那么所有新内存分配的开销可能没有那么大。当扩展更靠近下层象限时，分配/拷贝的开销会开始令人震惊。
 
 花费的时间取决于顶峰内存使用情况，并且 **在性能上也会拖后腿**！
 
@@ -40,7 +40,7 @@
 
 在异步扩展中，我们在一个工作线程中执行大块的 C++ 处理代码。如果你对异步回调并不熟悉，看看这些教程（[这里](http://blog.scottfrees.com/building-an-asynchronous-c-addon-for-node-js-using-nan) 和 [这里](http://blog.scottfrees.com/c-processing-from-node-js-part-4-asynchronous-addons)）。
 
-异步扩展的中心思想是 **你不能在事件循环线程外访问 V8 （JavaScript）内存**。这导致了新的问题。大量数据必须在工作线程启动前 **从事件循环中** 复制到 V8 内存之外，即扩展的本地地址空间中去。同样地，工作线程产生或修改的任何数据都必须通过执行事件循环（回调）中的代码拷贝回 V8 引擎。如果你致力于创建高吞吐量的 Node.js 应用，你应该避免花费过多的时间在事件循环的数据拷贝上。
+异步扩展的中心思想是 **你不能在事件循环线程外访问 V8 （JavaScript）内存**。这导致了新的问题。大量数据必须在工作线程启动前 **从事件循环中** 复制到 V8 内存之外，即扩展的原生地址空间中去。同样地，工作线程产生或修改的任何数据都必须通过执行事件循环（回调）中的代码拷贝回 V8 引擎。如果你致力于创建高吞吐量的 Node.js 应用，你应该避免花费过多的时间在事件循环的数据拷贝上。
 
 ![为 C++ 工作线程创建输入输出拷贝](https://raw.githubusercontent.com/freezer333/node-v8-workers/master/imgs/copying.gif)
 
@@ -53,8 +53,7 @@
 这里有两个相关的问题。
 
 1. 当使用同步扩展时，除非我们不改变/产生数据，那么可能会需要花费大量时间在 V8 存储单元和老的简单 C++ 变量之间移动数据 - 十分费时。
-
-2. 当使用一步扩展是，理想情况下我们应该尽可能减少事件轮询的时间。这就是问题所在 - 由于 V8 的多线程限制，我们 **必须** 在事件轮询线程中进行数据拷贝。
+2. 当使用异步扩展时，理想情况下我们应该尽可能减少事件轮询的时间。这就是问题所在 - 由于 V8 的多线程限制，我们 **必须** 在事件轮询线程中进行数据拷贝。
 
 Node.js 里有一个经常会被忽视的特性可以帮助我们进行扩展开发 - `Buffer`。[Nodes.js 官方文档](https://nodejs.org/api/buffer.html) 在此。
 
@@ -83,7 +82,7 @@ Buffer 能够传回传统 JavaScript 数据（字符串）或者写回文件，�
 
 ## C++ 中如何访问 Buffer
 
-构建 Node.js 的扩展时，最好是通过使用 NAN（Node.js 本地抽象）API 启动，而不是直接用 V8 API 启动 - 后者可能是一个移动目标。网上有许多用 NAN 扩展启动的教程 - 包括 NAN 代码库自己的 [例子](https://github.com/nodejs/nan#example)。我也写过很多 [教程](http://blog.scottfrees.com/building-an-asynchronous-c-addon-for-node-js-using-nan)，在我的 [电子书](https://scottfrees.com/ebooks/nodecpp/) 里藏得比较深。
+构建 Node.js 的扩展时，最好是通过使用 NAN（Node.js 原生抽象）API 启动，而不是直接用 V8 API 启动 - 后者可能是一个移动目标。网上有许多用 NAN 扩展启动的教程 - 包括 NAN 代码库自己的 [例子](https://github.com/nodejs/nan#example)。我也写过很多 [教程](http://blog.scottfrees.com/building-an-asynchronous-c-addon-for-node-js-using-nan)，在我的 [电子书](https://scottfrees.com/ebooks/nodecpp/) 里藏得比较深。
 
 首先，来看看扩展程序如何访问 JavaScript 发送给它的 Buffer。我们会启动一个简单的 JS 程序并引入稍后创建的扩展。
 
@@ -197,9 +196,9 @@ console.log(result.toString('ascii'));
 
 上面的例子非常基础，没什么兴奋点。来看个更具有实操性的例子 - C++ 图片处理。如果你想要拿到上例和本例的全部源码，请到我的github仓库 [https://github.com/freezer333/nodecpp-demo](https://github.com/freezer333/nodecpp-demo)，代码在 'buffers' 目录下。
 
-图片处理用 C++ 扩展处理再合适不过，因为它耗时，CPU 密集，许多处理方法并行，正是 C++ 所擅长的。本例中我们会简单把 png 格式转换为 bmp 格式。
+图片处理用 C++ 扩展处理再合适不过，因为它耗时，CPU 密集，许多处理方法并行，而这些正是C++所擅长的。本例中我们会简单地将图片由png格式转换为bmp格式。
 
-> png 转换 bmp **不是** 特别耗时，对扩展来说可能会有杀伤力，但能很好的实现示范目的。如果你在找纯 JavaScript 进行图片处理（包括不止 png 转 bmp）的实现方式，可以看看 JIMP，[https://www.npmjs.com/package/jimp](https://www.npmjs.com/package/jimp)[https://www.npmjs.com/package/jimp](https://www.npmjs.com/package/jimp)。
+> png 转换 bmp **不是** 特别耗时，使用扩展可能有点大材小用了，但能很好的实现示范目的。如果你在找纯 JavaScript 进行图片处理（包括不止 png 转 bmp）的实现方式，可以看看 JIMP，[https://www.npmjs.com/package/jimp](https://www.npmjs.com/package/jimp)[https://www.npmjs.com/package/jimp](https://www.npmjs.com/package/jimp)。
 
 有许多开源 C++ 库可以帮我们做这件事。我要使用的是 LodePNG，因为它没有依赖，使用方便。LodePNG 在 [http://lodev.org/lodepng/](http://lodev.org/lodepng/)，它的源码在 [https://github.com/lvandeve/lodepng](https://github.com/lvandeve/lodepng)。多谢开发者 Lode Vandevenne 提供了这么好用的库!
 
@@ -493,9 +492,9 @@ Sorry... 代码太长了，但对于理解运行机制很重要！把这些代�
 不能忽视 V8 存储单元和 C++ 变量之间的数据拷贝消耗。如果你不注意，本来你认为把工作丢进 C++ 里执行可以提高的性能，就又被轻易消耗了。
 
 2.
-Buffer 提供了一个在 JavaScript 和 C++ 共享数据的方法，所以避免了创建备份。
+Buffer 提供了一个在 JavaScript 和 C++ 共享数据的方法，这样避免了数据拷贝。
 
-在扩展里使用 buffer 是无痛的。我希望已经能很清楚的说明这一点了，通过旋转 ASCII 文本的简单例子，和同步和异步图片转换实战。希望本帖对你加速扩展应用性能有所帮助！
+在扩展里使用 buffer 是无痛的。本文中我已经通过旋转 ASCII 文本的简单例子，同步与异步进行图片转换很清楚的说明了这一点。希望本文对你提升扩展应用的性能有所帮助！
 
 再次提醒，本文内的所有代码均能在 [https://github.com/freezer333/nodecpp-demo](https://github.com/freezer333/nodecpp-demo) 中找到，位于 "buffers" 目录下。
 
