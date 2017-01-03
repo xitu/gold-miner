@@ -8,7 +8,7 @@
 
 你有没有想过要如何开始创作一款基于 SpriteKit 的游戏？按钮的开发是一个很庞大的任务吗？想过如何制作游戏的设置部分吗？随着 [SpriteKit](https://developer.apple.com/spritekit/) 的出现，在 iOS 上开发游戏已经变得空前的简单了。在本系列的第三部分，我们将完成 RainCat 游戏的开发以及对 SpriteKit 框架的介绍。
 
-如果你错过了[上一课](https://www.smashingmagazine.com/2016/12/how-to-build-a-spritekit-game-in-swift-3-part-2/)，你可以通过获取[ Github 上的代码](https://github.com/thirteen23/RainCat/releases/tag/smashing-magazine-lesson-two)来赶上进度。请记住，本教程需要使用 Xcode 8 和 Swift 3。
+如果你错过了[上一课](https://www.smashingmagazine.com/2016/12/how-to-build-a-spritekit-game-in-swift-3-part-2/)，你可以通过获取 [Github 上的代码](https://github.com/thirteen23/RainCat/releases/tag/smashing-magazine-lesson-two)来赶上进度。请记住，本教程需要使用 Xcode 8 和 Swift 3。
 
 [![Raincat, 第三课](https://www.smashingmagazine.com/wp-content/uploads/2016/10/raincat_header_sm-preview-opt-1.png)](https://www.smashingmagazine.com/wp-content/uploads/2016/10/raincat_header_sm-preview-opt-1.png)
 
@@ -61,7 +61,7 @@ label.zPosition =1000addChild(label)
 
 [![Hello world!](https://www.smashingmagazine.com/wp-content/uploads/2016/10/screen_withtext-preview-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2016/10/screen_withtext-preview-opt.png)
 
-如果字体正常，那就说明你做的完全正确。如果不正常，那就是什么地方出了问题。Code With Chris 有一篇更加深入的[字体导入问题的文章](http://codewithchris.com/common-mistakes-with-adding-custom-fonts-to-your-ios-app/)，但要注意的是，这是一篇老版本 Swift 的文章，你不得不做一些小调整来过渡到 Swift 3 。
+如果字体正常，那就说明你做的完全正确。如果不正常，那就是什么地方出了问题。Code With Chris 有一篇更加深入的[字体导入问题的文章](http://codewithchris.com/common-mistakes-with-adding-custom-fonts-to-your-ios-app/)，但要注意的是，这是一篇老版本 Swift 的文章，你可能需要稍稍改动一些地方来过渡到 Swift 3 。
 
 现在可以开始给我们的指示器加载自定义字体了。删掉 “Hello World” 标签，因为这个只是测试字体是否正常用的。指示器是一个 `SKNode` ，作为我们 HUD 控件的容器。这和我们在第一节课创建背景节点的过程一样。
 
@@ -139,7 +139,7 @@ class HudNode : SKNode {
 }
 ```
 
-在我们做其他事之前，先在 `Constants.swift` 文件底部把下面的这行代码加上 —— 我们用它来检索和保留最高分：
+在我们做其他事之前，先在 `Constants.swift` 文件底部把下面的这行代码加上 —— 我们用这个键来读写最高得分记录：
 
 ```
 let ScoreKey ="RAINCAT_HIGHSCORE"
@@ -147,7 +147,7 @@ let ScoreKey ="RAINCAT_HIGHSCORE"
 
 代码里，有五个关于计分板的变量，第一个实际上是个 `SKLabelNode`，用来表示标签。接着是用来保存当前分数的变量；再接下来是记录最高分的变量，最后一个变量是布尔类型，用来判断是否显示我们当前获得的分数（我们用这个变量来判断是否需要运行一个 `SKAction` 来增加计分板的比例以及把地板弄成黄色）。
 
-第一个函数 `setup(size:)` 的功能是把一切都设置好。我们就像之前那样来设置 `SKLabelNode`。`SKNode` 类没有任何默认尺寸，所以我们要创建一种方式来设置一个尺寸用于固定 `scoreNode` 的大小。我们还要从 [`UserDefaults`](https://developer.apple.com/reference/foundation/userdefaults) 里面得到当前最高分。这是一种简单方便的存储少量数据的方法，不过不太安全。因为本例中，我们不太考虑安全问题，所以 `UserDefaults` 就是最好的方式了。
+第一个函数 `setup(size:)` 的功能是把一切都设置好。我们就像之前那样来设置 `SKLabelNode`。`SKNode` 类没有任何默认尺寸，所以我们要创建一种方式来设置一个尺寸用于固定 `scoreNode` 的大小。我们还要从 [`UserDefaults`](https://developer.apple.com/reference/foundation/userdefaults) 里面得到当前最高分。这是一种简单方便的存储少量数据的方法，不过不太安全。不过我们并不用担心示例程序的安全性，所以使用  `UserDefaults` 也能让很好地完成这个任务
 
 在 `addPoint()` 函数里面，我们增加了 `score` 变量的值，接着检查玩家是否得到一个更高的分数。如果是，那么我们就把分数存到 `UserDefaults` 里，然后检查当前是否显示最高分。如果玩家达到了一个很高的分数，我们就用动画渲染 `scoreNode` 的颜色和大小。
 
@@ -271,8 +271,7 @@ override func sceneDidLoad(){
 
 因为这个场景真的很简单。所以我们不会创建任何特殊的类。我们的场景将只由两个按钮组成。这两个按钮可以（或者说应该）拥有自己的 `SKSpriteNodes` 类，但是因为他们都不一样，所以我不会为他们创建新的类。在构建属于你自己的游戏的时候，这是很重要的一点：在事情变得复杂时，你需要有能力来判断，在哪里停下来并重构代码。一旦你添加了三个或四个以上的按钮到游戏里，那可能就是时候停下来把菜单按钮放到他们自己的类里了。
 
-上面的代码没做什么特别的事儿；只是设置了四个精灵的坐标。当然我们也设置了场景的背景颜色，所以整个背景的值也是正确的。[UI Color](http://uicolor.xyz/) 是一个从十六进制串（HEX strings）生成 Xcode 颜色代码的优秀工具。上面的代码还设置了按钮状态的纹理。开始按钮有一个正常状态和一个按下的状态，而声音按钮则是一个切换。为了让切换简单点，在玩家点击时，我们
-改变声音按钮上的 α 值。当然我们也设置了获得高分的 `SKLabelNode`。
+上面的代码没做什么特别的事儿；只是设置了四个精灵的坐标。当然我们也设置了场景的背景颜色，所以整个背景的值也是正确的。[UI Color](http://uicolor.xyz/) 是一个从十六进制串（HEX strings）生成 Xcode 颜色代码的优秀工具。上面的代码还设置了按钮状态的纹理。开始按钮有一个正常状态和一个按下的状态，而声音按钮则是一个开关。为了让开关简单点，在玩家点击时，我们改变声音按钮上的透明度。当然我们也设置了获得高分的 `SKLabelNode`。
 
 我们的 `MenuScene` 看起来不错。现在，在游戏加载时需要展示场景。到 `GameViewController.swift` 文件，找到下面这行代码：
 
@@ -386,7 +385,7 @@ override func touchesEnded(_ touches: Set, with event: UIEvent?){
 
 这就是对我们两个按钮的简单处理。在 `touchesBegan(_ touches: with events:)` 里，我们首先检查当前是否有按钮被选中。如果我们要做这个检查，我们就要得先重置按钮到没有被按下的状态，然后，检查是否有哪个按钮被按下。如果有被按下的按钮，就显示它的高亮状态，接下来，我们就在其他两个方法里设置按钮的 `selectedButton` 属性以供使用。
 
-在 `touchesMoved(_ touches: with events:)` 方法中，我们检查最初触摸的是哪个按钮。接着，检查当前触摸是否还在 `selectedButton` 的边界内，如果还在，就更新按钮的状态为高亮。`startButton` 的高亮状态是改变按下的纹理，而 `soundButton` 的高亮状态是把精灵的 α 值设置为 50%。
+在 `touchesMoved(_ touches: with events:)` 方法中，我们检查最初触摸的是哪个按钮。接着，检查当前触摸是否还在 `selectedButton` 的边界内，如果还在，就更新按钮的状态为高亮。`startButton` 的高亮状态是改变按下的纹理，而 `soundButton` 的高亮状态是把精灵的透明度设置为 50%。
 
 最后，在 `touchesEnded(_ touches: with event:)` 方法里，我们再次检查哪个按钮被选中，如果有，接着检查这个触摸时候还在按钮的边界内，如果前面的条件都满足，那么我们根据不同的按钮调用 `handleStartButtonClick()` 或者 `handleSoundButtonClick()`。
 
