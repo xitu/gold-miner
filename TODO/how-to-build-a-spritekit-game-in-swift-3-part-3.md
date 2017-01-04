@@ -151,7 +151,7 @@ let ScoreKey ="RAINCAT_HIGHSCORE"
 
 在 `addPoint()` 函数里面，我们增加了 `score` 变量的值，接着检查玩家是否得到一个更高的分数。如果是，那么我们就把分数存到 `UserDefaults` 里，然后检查当前是否显示最高分。如果玩家达到了一个很高的分数，我们就用动画渲染 `scoreNode` 的颜色和大小。
 
-在 `resetPoints()` 函数中，我们把当前分数设为 `0`。然后，我们就检查是否需要显示高的得分，如果需要的话，重置颜色和大小。
+在 `resetPoints()` 函数中，我们把当前分数设为 `0`。然后，我们就检查是否需要显示高的得分，如果需要的话，重置默认值的颜色和大小。
 
 最后还有一个小函数，叫 `updateScoreboard`。这个私有函数用来把分数设置到 `scoreNode` 的文本上。在 `addPoint()` 和 `resetPoints()` 里用到了这个函数。
 
@@ -287,7 +287,7 @@ let sceneNode =MenuScene(size: view.frame.size)
 
 这个小改动会默认加载 `MenuScene` 场景，而不是 `GameScene`。
 
-[![Our new scene!](https://www.smashingmagazine.com/wp-content/uploads/2016/10/raincat_newscene-preview-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2016/10/raincat_newscene-preview-opt.png)
+[![我们新的场景!](https://www.smashingmagazine.com/wp-content/uploads/2016/10/raincat_newscene-preview-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2016/10/raincat_newscene-preview-opt.png)
 
 ### 按钮的状态
 
@@ -389,7 +389,7 @@ override func touchesEnded(_ touches: Set, with event: UIEvent?){
 
 最后，在 `touchesEnded(_ touches: with event:)` 方法里，我们再次检查哪个按钮被选中，如果有，接着检查这个触摸时候还在按钮的边界内，如果前面的条件都满足，那么我们根据不同的按钮调用 `handleStartButtonClick()` 或者 `handleSoundButtonClick()`。
 
-### 行动时间
+### 按钮的动作
 
 现在，我们已经搞定了按钮的基础行为，在按钮被点击的时候，我们还需要一个触发事件。对于 `startButton` 来说，这个实现很容易。我们只需要在点击时展示 `GameScene`。在 `MenuScene.swift` 文件里，更新 `handleStartButtonClick()` 方法里面的代码：
 ```
@@ -403,7 +403,7 @@ func handleStartButtonClick(){
 
 如果你现在运行程序，然后点击按钮，游戏就开始了！
 
-接着，我们需要一个静音的切换。我们已经有一个音乐管理器了，但是我们需要告诉它静音是否开启。在 `Constants.swift` 文件里，我们添加一个键，以确保在静音打开时持有它。添加下面这行代码：
+接着，我们需要一个静音的切换。我们已经有一个音乐管理器了，但是我们需要告诉它静音是否开启。我们需要在 `Constants.swift` 里添加一个 key 来持久化存储静音状态。添加下面这行代码：
 
 ```
 let MuteKey ="RAINCAT_MUTED"
