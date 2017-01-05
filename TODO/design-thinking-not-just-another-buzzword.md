@@ -6,196 +6,172 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*0BVz9TeT1HG-6ejPvInoQw.jpeg) 
 
-# Design Thinking, Not Just Another Buzzword #
+# 设计思考，不只是流行词而已#
 
-&rlm;Design-thinking is one of those phrases that’s used a lot, everyone you ask will provide a different opinion over its precise definition.
+&rlm;设计思考是一个常常被人们提到，但是每个人都对此有自己不一样的见解的思维方式。
 
-#### Definition ####
+#### 定义 ####
 
-Centres around the concept that design isn’t a solitary, isolated discipline. Design-thinking brings together many different elements of an overall process (design approach) by adopting a multi-disciplinary approach to engineering a solution, it involves massive collaboration and frequent iterations. But some consider design thinking a methodology, while others consider it a philosophy. The one thing that everyone tends to agree with, however, is that design thinking is a **systematic approach to solving problems** and **creating new opportunities**.
+这个思维方式不是一个被孤立，独立的方法论。与之相反，设计思考更像是一个综合性的，多方法论的，用来解决工程学方面问题的交叉领域思维方式。设计思考主要由多领域的内容交叉和产品不断迭代更新构成。社会上关于这个思维方式的归属有很大的争议：有的人认为这只是一种方法论，还有人认为这种思维方式应当被认为是哲学。然而，大家都同意的是：设计思考是一个 **系统化的解决问题的方式** 并且能 **带来许多新的机遇**
 
-### The Origins of Design Thinking ###
+### 设计思考的起源 ###
 
-“Design thinking is created because big corporation lack the ability to be creative and on extreme cases, aren’t able to create new products and services that meet unmet needs of their customers. Because of 20th century education system that fostered dominant logic and disregard creativity,… “
+" 设计思考之所以被创造出来是因为大公司往往缺少在极端情况下的创新能力，不能创建新的产品去跟上用户们日新月异的需求。由于20世纪的教育系统注重主流逻辑思想而摒弃创造力。。。 "
 
 
-[**The Origins of Design Thinking**](https://www.wired.com/insights/2014/04/origins-design-thinking/)
+[**设计思考的起源**](https://www.wired.com/insights/2014/04/origins-design-thinking/)
 
-[*Design thinking is created not only because Tim Brown coined the word that became a buzzword. There's a logical reason…*](https://www.wired.com/insights/2014/04/origins-design-thinking/)
+[*论设计思考是如何理性的成为网络流行词的*](https://www.wired.com/insights/2014/04/origins-design-thinking/)
 
-> The Design Thinking Process is sold as a one-size-fits-all solution. In actuality, it’s a tool for teaching problem solving that’s effective in educational.
 
-**Approach**
+> 设计思考是一个一揽子解决方案，可用性和复用性都非常高的方式。一个思考方式适合所有遇到的问题。事实上，这是一个在教授问题解决能力的时候非常有教育意义的一个思考方式。
 
-I normally break it in 2 parts, first part is the Ideology side of it approach to innovation and applying methods from creative process, Design Thinking is based on several mindsets such as: Have a vision of the future, Seek inspiration, Acknowledge uncertainty, Learn by doing, Think with your hands, Go visual, Fail often, fail early, fail cheaply.
+**正确的打开方式**
+
+
+我通常会把这个思考方式分成2部分。第一部分：发散性思考，尽可能的想出多的，有创造力的解决方案。先不管方案的可行性，把重心放在寻求新的思路上。同时，还需要承认方案的不稳定性，在实践中不断获取反馈并且修正自己的方案。在早期失败没什么大不了的，代价也很小。（译者加：中国有句古话：早死早超生。）
 
 — — — 
 
-The second part is the Process Design Thinking more systematic side of things, a step-by-step framework to guide you through the problem.
+第二部分相对第一部分来说就更加理性，更关注在系统层面上如何解决这个问题：把解决方法分割成一步一步的方式来帮助我们解决问题。
 
-The end goal of the process is to create a product, or experience that people want, has real potential to become useful, and can easily or conveniently be built in terms of technology.
+这一整个过程的目的就是创造一个新的产品，或者获取一段人们想要的并且有可能变得非常有帮助的经历。此外，这一过程还可以简单，方便的在科技的帮助下快速做出原型解决问题。
 
 ![](https://cdn-images-1.medium.com/max/800/1*6TsQXpS16jzWku1CR2CBog.jpeg)
 
-It’s important to stay focused on one phase at a time.
+一次只关注着一个阶段就好，不要吃着碗里的盯着锅里的。
 
-I will break it down in 6 phases as a guide to follow you through the process, it can be apply on small organization or large, so it scales and we can shape it with our own needs.
+我接下来会把整个过程分为6部分让我们可以一起过一下。由于设计思考的高复用性，我们可以根据实际情况中遇到事件的大小做出相应的更改。
 
-This diagram is often presented with the caveat that you can do the steps in roughly any order, and often need to iterate through many of the phases multiple times. It is a fantastic teaching tool, and helps simplify design down to its essence so beginners can learn.
+下面这张图可以用来当设计思考的小抄用。你可以几乎不需要估计先后，直接做某一个步骤，然后通常会在一个步骤来回很多次。它是一个十分惊艳的教学工具，并且能深入浅出的解释设计思考的理念
 
 ![](https://cdn-images-1.medium.com/max/2000/1*PDTWHDUVUGq5AvZLLlYa7Q.jpeg)
 
-### Phase one: Empathize ###
+### 第一步: 同理心(站在用户的角度想问题) ###
 
-Empathy is the ability to put yourself in someone else’s shoes, Conduct research to develop an understanding of your users.
+同理心是一种能让我们站在他人的角度来观察问题的能力，并以此来理解你的用户。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*ldIauRBquhAgvFTMno9hfw.png)
 
-Get to know your users how they feel, talk to them, the Design Thinking process recommends quality over quantity in general. This means fewer people in your interviews, but selecting people that you think can represent different audiences of your product or service, that is really valuable.
+和用户进行高效的交流，知道他们是怎么想的非常重要。设计思考的重点通常在于质而不是在量。这意味着在交流中需要尽可能的选择少数的，具有代表性的用户，这是非常重要的。
 
-> Interviews aren’t the only way to gain empathy
+> 面谈不只是体会用户想法的唯一方式
 
-During the Empathy Phase, you can use some powerful tools, such as Empathy Maps, where you can list what personas say + do (explicit) and think + feel (implicit).
+在第一阶段时，你可以用很多非常高大上的工具，比如说可以列出人们怎么说，做，想和感觉的同理图(Empathy Map)。
 
-Empathy mapping helps to consider how other people are thinking and feeling. Typically, research notes are categorized based on what the research interviewees were thinking, feeling, doing, seeing, and hearing as they engaged with your product.
+同理画图帮助我们理解其他人是怎么思考和感受的。一般来说，调查笔记会安装受访者使用你的产品时的想到了什么，看到了什么，感受到了什么和听到了什么来分类。
 
 ![](https://cdn-images-1.medium.com/max/800/1*hbqEtm83r4qf7KLu1g7ljg.jpeg)
 
-**Resources about Empathy maps:**
+**关于同理图的资源:**
 
-[**How to Use Persona Empathy Mapping | UX Magazine**](https://uxmag.com/articles/how-to-use-persona-empathy-mapping)
+[**如何使用同理图 | UX Magazine**](https://uxmag.com/articles/how-to-use-persona-empathy-mapping)
 
-[Empathy: it's a buzzword in the UX design world. Everybody's doing it! But what exactly are they doing? There isn't a…](https://uxmag.com/articles/how-to-use-persona-empathy-mapping)
+[论同理心的正确打开方式](https://uxmag.com/articles/how-to-use-persona-empathy-mapping)
 
-[uxmag.com](https://uxmag.com/articles/how-to-use-persona-empathy-mapping)
-
-[**The Guide to Empathy Maps: Creating 10-Minute User Persona**](https://www.uxpin.com/studio/blog/the-practical-guide-to-empathy-maps-creating-a-10-minute-persona/)
-
-[*UX designers know better than anyone - it's what's inside that counts. As in, the user's thoughts and feelings, and how…*](https://www.uxpin.com/studio/blog/the-practical-guide-to-empathy-maps-creating-a-10-minute-persona/)
-
-[www.uxpin.com](https://www.uxpin.com/studio/blog/the-practical-guide-to-empathy-maps-creating-a-10-minute-persona/)
+[**10分钟用户解析大法**](https://www.uxpin.com/studio/blog/the-practical-guide-to-empathy-maps-creating-a-10-minute-persona/)
 
 
-### Phase two: Define ###
 
-Now it’s time to revisit the initial design challenge and re-define the problem. **user + need + insight**
+### 第二步: 定义问题 ###
 
-Combine all your research and observe where your users’ problems exist. In pinpointing your users’ needs, begin to highlight opportunities for innovation.
+现在是时候回过头看看我们遇到的问题并且重新定义它了。**用户 + 需求 + 洞察力**
+
+结合你的调研并且观察你的用户们的真实问题到底在哪里。指出问题的根源，并且开始关注创新的可行性。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*yNLmbbgoERUpBto5ELx-Cg.jpeg)
 
-Redefining and focusing your question based on your insights from the empathy stage.
+基于你对问题的认识来重新定义你需要解决的问题。
 
-### Phase three: Ideate ###
+### 第三步: 头脑风暴 ###
 
-Brainstorm a range of crazy, creative ideas.
+尽可能地提出疯狂的，有创造力想法。
 
-*In my opinion, ideation is the best part of the process because it’s fun and exciting. :)*
+*在我看来，头脑风暴是这个思维方式里最有趣也是最激动人心的环节*
 
 ![](https://cdn-images-1.medium.com/max/1000/1*lPIWX8-cw9AEb-VOwlR8BA.png)
 
-Ideate=unleashed imagination + no judgment
+头脑风暴 = 被释放的想法 + 没有约束（译者: unleash通常用来被释放恶魔）
+ 
+一旦当一个问题/机会被清楚的定义之后，我们便开始寻找解决它的办法。***尽可能的想出多的解决方案。*** 在这一阶段，我们不应当因为解决方式太简单或者太基础就抛弃他们。任何一个想法都可能是另外一个想法的种子，所以认真的对待这些种子吧！
 
-Once a problem/opportunity has been clearly defined, start looking for ways to solve it. Generating as many ideas as possible ***we ideate***. Design thinking highlights that during this stage we should not reject ideas because they seem too simple or too basic. Any idea can be a seed for another. So pay close attention and examine every new idea with a fresh perspective. 
+此时我们应该把提出解决方案和评估方案可行性这两个步骤分开来。我们之后在**原型测试**的阶段再做方案可行性评估。
 
-Make sure you separating idea generation from idea evaluation, the evaluation happens later — **during prototype and testing spaces.**
+头脑风暴就是让"桌面"上的东西变多，摒弃原有的思路和框架。*头脑风暴就是拥抱多选择，多解决方案，拓展性高的方案*
 
-To ideate is to be messy, to reject the often hierarchical structure of linear problem solving. *To ideate is to embrace an approach that allows multiple voices and ideas to compete, percolate and evolve.*
+设计思考同时也会让整个团队脑洞大增，成长为一个多选择方案的团队。这样的团队在解决问题时往往能提出站在不同视角的想法，也往往能给出一个更好的答案
 
-Design thinking also promotes a team approach to brainstorming, and especially embraces multi-disciplinary teams, which could bring together different point of views. This always gives better results.
+#### 花时间用心聆听你的队友们的反馈 ####
 
-#### Spend the time listening to your team mate feedback. ####
+在这个阶段的最后，细分筛选所有的想法并留下最好的来为下一步做准备。
 
-To finalize this stage, narrow down all the ideas leaving only the best ones, for the next phase.
+**资源:**
 
-**Resources:**
+[**思考方法**](http://www.ideou.com/pages/ideation-method-mash-up)
 
-[**Ideation Method: Mash-Up**](http://www.ideou.com/pages/ideation-method-mash-up)
-
-[*"From Ideas to Action" Course Activity &amp;amp; Worksheet Any great ideation session begins with a well-framed…*](http://www.ideou.com/pages/ideation-method-mash-up)
-
-[www.ideou.com](http://www.ideou.com/pages/ideation-method-mash-up)
+[*"从想法到行动"*](http://www.ideou.com/pages/ideation-method-mash-up)
 
 
 
-### Phase Four: Prototype ###
 
-“A prototype is worth a thousand meetings”, is a saying at[*IDEO*](https://www.ideo.com/post/design-thinking-for-educators)*.*
+### 第四步: 原型测试 ###
+
+“一个原型测试比的上开1000场会”, 来自 [*IDEO*](https://www.ideo.com/post/design-thinking-for-educators)*.*
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*MWmT7HaDVgebvbqXqAmGgQ.png">
 
-*The most basic definition of prototype is, “A simulation or sample version of a final product, which is used for testing prior to launch.” The goal of a prototype is to test products (and product ideas) before sinking lots of time and money into the final product.*
 
-A prototype is an amazing tool to help you fail fast to learn fast. It’s a lot cheaper to fail early (during the initial stages of a project) than later, after lots of resources are allocated and working on executing tasks.
+*原型测试最重要的一点就是“模拟或者一个最终产品的简易模型”来测试，这样就能避免在我们找到适合的方案前花大量的时间和金钱在不适合的产品上*
 
-There are different techniques for that such as ‘sketching’, ‘rapid prototyping’, etc. No matter which technique you prefer, the essence of this step stays the same: here we are building rough drafts of solutions to determine whether or not our solutions actually apply to the problem. And, as suggested by design thinking, we should do it in a simple, fast and least-expensive fashion.
+在原型制作时，我们失败的很快，但是学习起来也很快。早期失败的代价比后期失败的代价要小的多的多。
 
-Depending on the context, a prototype can later evolve into a ‘beta product’ or a ‘minimal viable product (MVP)’.
+这一步有很多实现的方法比如"草图","快速原型制作"之类的。不论你选择哪一种方法，这一步的重要性都不会变: 我们通过建立模拟模型来确认我们的解决方案是否真的契合我们的问题。在这一阶段，我们应当制作快速，简单，低成本的原型。
 
-**Prototype meaning and resources:**
+基于这些内容，一个原型便可以慢慢的成长成为一个内测的产品或者是最小可行性模型(MVP)。
 
-[**What a Prototype Is (and Is Not) | UX Magazine**](https://uxmag.com/articles/what-a-prototype-is-and-is-not)
+**原型制作相关资源:**
 
-[*In case of a paper prototypes the major advantage is that you can use the same pencil sketches you initially began your…*](https://uxmag.com/articles/what-a-prototype-is-and-is-not)
+[**什么是原型，什么不是原型 | UX Magazine**](https://uxmag.com/articles/what-a-prototype-is-and-is-not)
 
-[uxmag.com](https://uxmag.com/articles/what-a-prototype-is-and-is-not)
+[**原型制作指南**](https://www.uxpin.com/studio/blog/what-is-a-prototype-a-guide-to-functional-ux/)
 
-[**What Is a Prototype: A Guide to Functional UX**](https://www.uxpin.com)
 
-[*Prototypes are one of the most important steps in the design process, yet still confusing for some designers and…*](https://www.uxpin.com)
+### 第五步: 测试 ###
 
-[www.uxpin.com](https://www.uxpin.com/studio/blog/what-is-a-prototype-a-guide-to-functional-ux/)
-
-### Phase Five: Test ###
-
-The name of this stage says it all. When at this stage, test the prototype with the users in order to receive the feedback and solutions, to learn more about the user, and to test and refine. Also synthesize whether or not our solution meets their needs.
+这一步的名字基本上就说明了这一步要做什么。在这一步，我们需要测试我们的原型并且收集用户的反馈，同时更加了解我们的用户。此外，我们还能知道我们的方案到底能不能解决问题。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*J6wm2lOAwODVntKi4ADWEw.png">
 
-When testing, let users play with your prototypes, watch and listen. If small tweaks are easy to make, do them and test again. Get close to your users and most importantly, **never fall in love with your ideas have an open mind and listen the users.**
+在测试的阶段，让用户们随意蹂躏你的原型吧！如果有小的调整可以做，那就应用吧。接近用户，**更重要的是，不要对自己的想法过分偏执，要多听听用户的想法**
 
-**Some resources about testing:**
+**测试阶段的相关资源:**
 
-[**13 Ways To Master UX Testing for Your Startup**](http://thenextweb.com/dd/2013/08/10/13-ways-to-master-ux-testing-for-your-startup/)
+[**13种面对初创公司的测试原型方法**](http://thenextweb.com/dd/2013/08/10/13-ways-to-master-ux-testing-for-your-startup/)
 
-[*Perfecting your product's user experience (UX) means creating something that people truly enjoy using, be it an app…*](http://thenextweb.com/dd/2013/08/10/13-ways-to-master-ux-testing-for-your-startup/)
 
-[thenextweb.com]()
+[**UX必须掌握的测试工具**](https://uxdesign.cc/ux-tools-for-user-research-and-user-testing-a720131552e1)
 
-[**UX Tools for User Research and User Testing**](https://uxdesign.cc/ux-tools-for-user-research-and-user-testing-a720131552e1)
 
-[*How do you handle remote user testing sessions? What are some of the tools you use for recording the user’s interaction…*](https://uxdesign.cc/ux-tools-for-user-research-and-user-testing-a720131552e1)
+#### 最后说点什么 ####
 
-[uxdesign.cc]()
+设计思考是一个从设计挑战开始，站在他人角度看待问题，重新定义问题，拥抱新的想法然后用原型测试和迭代原型的一个方法/过程。
 
-#### In Conclusion ####
+它可以被看做是一个问题解决的方法。某种意义上来说，是解决问题的思维方式。
 
-Design Thinking is a method or process that starts with a design challenge, moves to the empathy phase (interviews, observation or experience), then to definition (or re-definition) of a problem or challenge, embraces ideation (diverge first and converge later), uses prototypes (build to think and learn fast) and continues with testing.
+作为一个以解决方案为向导的问题解决方法，设计思考在面对很多棘手的问题时非常有效。
 
-Design Thinking can be regarded as a problem solving method or, by some definitions, a process for the resolution of problems.
-
-As a solution-based approach to solving problems, Design Thinking is particularly useful for addressing so-called “wicked” problems. Wicked means that they are ill-defined or tricky.
-
-**Resources:**
+**相关资源:**
 
 [**Design Thinking**](https://designthinking.ideo.com/)
 
-[*You may have heard that IDEO has joined the kyu collective (a unit of Tokyo-based Hakuhodo DY Holdings). kyu was formed…*](https://designthinking.ideo.com/)
 
-[designthinking.ideo.com/](https://designthinking.ideo.com/) 
+### [设计思考指南](https://dschool.stanford.edu/groups/dresources/wiki/welcome/attachments/8e447/d.school%27s%20Design%20Thinking%20Process%20Mode%20Guide.pdf)###
 
-### [An Introduction to Design Thinking PROCESS GUIDE](https://dschool.stanford.edu/groups/dresources/wiki/welcome/attachments/8e447/d.school%27s%20Design%20Thinking%20Process%20Mode%20Guide.pdf)###
+[**设计思考101**](https://www.nngroup.com/articles/design-thinking/)
 
-[**Design Thinking 101**](https://www.nngroup.com/articles/design-thinking/)
 
-[*What is design thinking and why should you care? History and background plus a quick overview and visualization of 6…*](https://www.nngroup.com/articles/design-thinking/)
+[**设计思考正确的打开方式**](https://medium.com/design-thinking-in-motion/design-thinking-unboxed-1476f7c88641)
 
-[www.nngroup.com](https://www.nngroup.com/articles/design-thinking/)
 
-[**Design thinking, unboxed**](https://medium.com/design-thinking-in-motion/design-thinking-unboxed-1476f7c88641)
+*感谢阅读，如果你有任何的建议和意见，请给我留言！****
 
-[*7 design thinking ideas liberated from design thinking methods*](https://medium.com/design-thinking-in-motion/design-thinking-unboxed-1476f7c88641)
-
-[medium.com](https://medium.com/design-thinking-in-motion/design-thinking-unboxed-1476f7c88641)
-
-*Thank you for reading, if you have anything to add please send a response or add a note!****
