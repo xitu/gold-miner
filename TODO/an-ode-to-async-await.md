@@ -30,7 +30,7 @@
 
 操作系统为我们提供了这个问题的传统解决方案 —— [**多线程**](https://en.wikipedia.org/wiki/Thread_%28computing%29)。我们需要阻塞，但我们不想阻塞主执行上下文。因此，让我们创建可并行运行的附加执行上下文。但如果我们只有一个单核 CPU 呢？这就是抽象的来源 —— 操作系统将在我们的多个执行线程间进行复用和透明跳转。
 
-事实上，这种方法相当受欢迎，互联网上的大多数网站内容是这样提供的。[Apache HTTP 服务器](https://httpd.apache.org/)，世界上最受欢迎的 Web 服务器，拥有超过[40% 的市场份额](https://news.netcraft.com/archives/2016/07/19/july-2016-web-server-survey.html)，历来就依赖于 [单独的线程](https://httpd.apache.org/docs/2.4/mod/worker.html)来处理每个并发客户端。
+事实上，这种方法相当受欢迎，互联网上的大多数网站内容是这样提供的。[Apache HTTP 服务器](https://httpd.apache.org/)，世界上最受欢迎的 Web 服务器，拥有超过 [40% 的市场份额](https://news.netcraft.com/archives/2016/07/19/july-2016-web-server-survey.html)，历来就依赖于[单独的线程](https://httpd.apache.org/docs/2.4/mod/worker.html)来处理每个并发客户端。
 
 问题是依靠线程来解决并发性问题通常来说代价是很昂贵的，并且还在使用时引入了显著的额外复杂性。
 
@@ -48,12 +48,12 @@
 
 这就是我爱 [Node](https://nodejs.org) 的原因。由于某种[不相干](http://stackoverflow.com/questions/39879/why-doesnt-javascript-support-multithreading)的限制，JavaScript 强迫我们在单线程下工作。一开始我们可能觉得这是 (JavaScript) 生态系统的一大缺陷，但实际上我们因祸得福了。如果不能奢享多线程，我们就必须开发出强大的非多线程并发机制。
 
-如果我们有多个CPU或多个核心会怎么样？ 既然 Node 是单线程的，我们如何充分利用它们？ 在这种情况下，我们可以在同一台机器上运行多个 Node 实例。
+如果我们有多个 CPU 或多个核心会怎么样？ 既然 Node 是单线程的，我们如何充分利用它们？ 在这种情况下，我们可以在同一台机器上运行多个 Node 实例。
 
 
 #### 从一个现实中的例子开始
 
-为了让讨论更接地气，让我们从一个设想要实现的真实情景开始。我们来构建一个类似于 [Pingdom](https://www.pingdom.com/) 的服务。给定一个由服务器 URL 组成的数组，我们要对这些服务器通过发出 HTTP 请求分别进行3次（每10 秒一次）的 `ping` 操作。。
+为了让讨论更接地气，让我们从一个设想要实现的真实情景开始。我们来构建一个类似于 [Pingdom](https://www.pingdom.com/) 的服务。给定一个由服务器 URL 组成的数组，我们要对这些服务器通过发出 HTTP 请求分别进行 3 次（每 10 秒一次）的 `ping` 操作。。
 
 该服务将返回未能响应的服务器列表以及它们未正确响应的次数。不需要并行地 ping 不同的服务器，所以我们将按照列表一个个地操作。最后，当我们等待服务器响应时，我们不会阻塞主线程执行。
 
@@ -172,7 +172,7 @@ export function pingServers(servers, onComplete) {
 
 #### 第二种实现 —— Promises
 
-我们对第一种实现方式并不满意，改进的方法是使用更高的一层抽象。[Promise](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise)保存尚未确定下来的「未来」值。它是一种占位符，被用来代替能立即返回的值，即使定义它的异步操作尚未完成。关于 promise，有趣的是它允许我们立即使用未来的值，并且保持住链式操作，最后它在未来发生后 (resolved) 就能被执行了。
+我们对第一种实现方式并不满意，改进的方法是使用更高的一层抽象。[Promise](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise) 保存尚未确定下来的「未来」值。它是一种占位符，被用来代替能立即返回的值，即使定义它的异步操作尚未完成。关于 promise，有趣的是它允许我们立即使用未来的值，并且保持住链式操作，最后它在未来发生后 (resolved) 就能被执行了。
 
 我们让 `pingServers` 返回一个 promise，并像下面这样改变它的用法：
 ```js
@@ -191,7 +191,7 @@ pingServers(servers).then( function (failedServers) {
 
 大多数现代异步 API 都倾向于使用 promise 来进行回调。在我们的示例中，我们将使用基于 promise 的 [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) 作为我们 HTTP 请求的基础。
 
-我们仍然有控制流的问题。我们的简单逻辑该如何用 promise 来实现？我认为[函数式编程](https://en.wikipedia.org/wiki/Functional_programming)与 promise 结合得最好，在 JavaScript 中这通常意味着使用[lodash](https://lodash.com/)。
+我们仍然有控制流的问题。我们的简单逻辑该如何用 promise 来实现？我认为[函数式编程](https://en.wikipedia.org/wiki/Functional_programming)与 promise 结合得最好，在 JavaScript 中这通常意味着使用 [lodash](https://lodash.com/)。
 
 如果我们想并行地 ping 服务器，事情会变得很简单。我们可以用诸如 [map](https://lodash.com/docs#map) 这样的操作将我们的 URL 数组转换为一组 promise，resolve 时返回每个 URL 的失败次数。因为我们需要按序地 ping 这些服务器，事情有点更棘手。由于每个 promise 都需要连接到上一个的 [then](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then) 中，我们就要在不同的循环中传递数据。这可以通过在像 [reduce](https://lodash.com/docs#reduce) 或 [transform](https://lodash.com/docs#transform) 这样的操作中使用**累加器（accumulator）**来实现：
 
