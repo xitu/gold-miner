@@ -4,7 +4,7 @@
 * 译者：[cdpath](https://github.com/cdpath)
 * 校对者：[Zhiw (Zhiwei Yu)](https://github.com/Zhiw), [Luolc (LoLo)](https://github.com/Luolc)
 
-# 关闭 PR 的理由（开源软件维护者笔记）
+# 为什么我关闭了你的 PR （开源软件维护者笔记）
 
 ![GitHub 上 geerlingguy/drupal-vm 的 PRs 提醒](http://www.jeffgeerling.com/sites/jeffgeerling.com/files/images/github-project-notifications-prs.jpg) 
 
@@ -20,7 +20,7 @@
 
 ### 所有东西都要经过完整的自动化测试
 
-我维护过的大多数项目都要经过 Travis CI, Jenkins, 或其他持续集成系统组成的成功路径（happy path）。[如果你破坏我的测试我会打烂你的脸](https://www.amazon.com/SmartSign-Lyle-K2-0113-AL-12x18-Breaka-Aluminum/dp/B01KIYWD70/ref=as_li_ss_tl?ie=UTF8&amp;qid=1482861696&amp;sr=8-1-fkmr0&amp;keywords=if+you+taka+my+space+i+breaka+your+face&amp;linkCode=ll1&amp;tag=mmjjg-20&amp;linkId=71ba06c689653589697ff5c93c95491f)。除非极个别的情况，我不会合并没有通过全部测试的 PR。如果 PR 新增了大量未经测试的功能，我也不会合并。我不要求 100% 的单元测试覆盖率，但是所有的测试都必须通过。
+我维护过的大多数项目都要经过 Travis CI、Jenkins 或其他持续集成系统组成的成功路径（happy path）。[如果你破坏我的测试我会打烂你的脸](https://www.amazon.com/SmartSign-Lyle-K2-0113-AL-12x18-Breaka-Aluminum/dp/B01KIYWD70/ref=as_li_ss_tl?ie=UTF8&amp;qid=1482861696&amp;sr=8-1-fkmr0&amp;keywords=if+you+taka+my+space+i+breaka+your+face&amp;linkCode=ll1&amp;tag=mmjjg-20&amp;linkId=71ba06c689653589697ff5c93c95491f)。除非极个别的情况，我不会合并没有通过全部测试的 PR。如果 PR 新增了大量未经测试的功能，我也不会合并。我不要求 100% 的单元测试覆盖率，但是所有的测试都必须通过。
 
 ### 可维护性比完整性更重要
 
@@ -39,7 +39,7 @@
 
 （除非事先在 issue 中讨论过。）
 
-我见过将整个项目架构或测试架构都推翻重建的 PR。除非事先在 issue 中进行过全面的讨论（并得到我的同意），我永远不会合并这种 PR 。一切都事出有因（而且实际上有**很多**原因）。我不是说我的架构或测试框架永远是**正确**的，但我不会合并那些会引入翻天覆地变化的代码，不然我自己都会难以理解自己的项目。
+我见过将整个项目架构或测试架构都推翻重建的 PR。除非事先在 issue 中进行过全面的讨论（并得到我的同意），否则我永远不会合并这种 PR 。一切都事出有因（而且实际上有**很多**原因）。我不是说我的架构或测试框架永远是**正确**的，但我不会合并那些会引入翻天覆地变化的代码，不然我自己都会难以理解自己的项目。
 
 ### 不要在一次 PR 中修改超过 50 行代码
 
@@ -49,7 +49,7 @@
 
 ## 结论：默认就是「拒绝」
 
-在这一过程中最讽刺的事之一，就是那些最固执、烦人、难搞的 issue 和 PR 的发起者在我解决了他们项目中出现的问题之后马上就会消失。他们意识到（通常不那么**直接**）如果他们能说服**我**维护他们的雪花代码，他们就可以摆脱正在折磨他们的技术债。
+在这一过程中最讽刺的事之一，就是那些最固执、烦人、难搞的 issue 和 PR 的发起者在我解决了他们项目中出现的问题之后马上就会消失。他们意识到（通常不那么**直接**）如果他们能说服**我**维护他们的雪花代码（译者注：这个梗来自 No two snowflakes are alike. snowflake code 强调不用大家约定俗成的写法，刻意使用奇葩的写法。），他们就可以摆脱正在折磨他们的技术债。
 
 如果贡献者愿意和项目建立长期的关系，我愿意给他们控制代码架构部分权力。但是他们必须证明我可以信任他们。我的项目中最好的一些贡献者正是那些在自己的盈利性工作中使用这些项目的人，但是他们每周会贡献一到两小时帮助整理 issue 队列，关闭无效的 issue，提 PR 修正简单的错误（尤其是那些他们最为熟悉的项目）。
 
