@@ -2,11 +2,11 @@
 * 原文作者：[Scott Frees](https://scottfrees.com/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Jiang Haichao](https://github.com/AceLeeWinnie)
-* 校对者：[熊贤仁](https://github.com/FrankXiong)
+* 校对者：[熊贤仁](https://github.com/FrankXiong), [Lei Guo](https://github.com/futureshine)
 
 # 在 Node.js 和 C++ 之间使用 Buffer 共享数据
 
-使用 Node.js 开发的一个好处是简直能够在 JavaScript 和 原生 C++ 代码之间无缝切换 - 这要得益于 V8 的扩展 API。从 JavaScript 进入 C++ 的能力有时由处理速度驱动，但更多的情况是我们已经有 C++ 代码，只需要能在 JavaScript 中运行即可。
+使用 Node.js 开发的一个好处是简直能够在 JavaScript 和 原生 C++ 代码之间无缝切换 - 这要得益于 V8 的扩展 API。从 JavaScript 进入 C++ 的能力有时由处理速度驱动，但更多的情况是我们已经有 C++ 代码，而我们想要直接用 JavaScript 调用。
 
 我们可以用（至少）两轴对不同用例的扩展进行分类 - （1）C++ 代码的运行时间，（2）C++ 和 JavaScript 之间数据流量。
 
@@ -26,13 +26,13 @@
 
 当我们提到 “属于 V8 的”，指的是持有 JavaScript 数据的存储单元。
 
-这些存储单元是可通过 V8 的 C++ API 访问的，但它们不是普通的 C++ 变量，因为他们只能够通过受限的方式访问。当你的扩展 **能够** 限制自身只使用 V8 数据，它就更有可能同样会在普通 C++ 代码中创建自身的变量。这些变量可以是栈或堆变量，且完全独立于 V8。
+这些存储单元是可通过 V8 的 C++ API 访问的，但它们不是普通的 C++ 变量，因为他们只能够通过受限的方式访问。当你的扩展 **可以** 限制为只使用 V8 数据，它就更有可能同样会在普通 C++ 代码中创建自身的变量。这些变量可以是栈或堆变量，且完全独立于 V8。
 
 在 JavaScript 中，基本类型（数字，字符串，布尔值等）是 **不可变的**，一个 C++ 扩展不能够改变与基本类型相连的存储单元。这些基本类型的 JavaScript 变量可以被重新分配到 C++ 创建的 **新存储单元** 中 - 但是这意味着改变数据将会导致 **新** 内存的分配。
 
 在上层象限（少量数据传递），这没什么大不了。如果你正在设计一个无需频繁数据交换的附加组件，那么所有新内存分配的开销可能没有那么大。当扩展更靠近下层象限时，分配/拷贝的开销会开始令人震惊。
 
-花费的时间取决于顶峰内存使用情况，并且 **在性能上也会拖后腿**！
+一方面，这会增大最高的内存使用量，另一方面，也会 **损耗性能**。
 
 在 JavaScript(V8 存储单元) 和 C++（返回）之间复制所有数据花费的时间通常会牺牲首先运行 C++ 赚来的性能红利！对于在左下象限（低处理，高数据利用场景）的扩展应用，数据拷贝的延迟会把你的扩展引用往右侧象限引导 - 迫使你考虑异步设计。
 
@@ -204,7 +204,7 @@ console.log(result.toString('ascii'));
 
 ## 设置扩展
 
-我们要创建以下目录结构，包括从 [https://github.com/lvandeve/lodepng](https://github.com/lvandeve/lodepng) 下载的源码，命名为 `lodepng.h` 和 `lodepng.cpp`。
+我们要创建以下目录结构，包括从 [https://github.com/lvandeve/lodepng](https://github.com/lvandeve/lodepng) 下载的源码，也就是 `lodepng.h` 和 `lodepng.cpp`。
 
 ```
     /png2bmp
@@ -494,7 +494,7 @@ Sorry... 代码太长了，但对于理解运行机制很重要！把这些代�
 2.
 Buffer 提供了一个在 JavaScript 和 C++ 共享数据的方法，这样避免了数据拷贝。
 
-在扩展里使用 buffer 是无痛的。本文中我已经通过旋转 ASCII 文本的简单例子，同步与异步进行图片转换很清楚的说明了这一点。希望本文对你提升扩展应用的性能有所帮助！
+我希望通过旋转 ASCII 文本的简单例子，和同步与异步进行图片转换实战使用 Buffer 很简单。希望本文对你提升扩展应用的性能有所帮助！
 
 再次提醒，本文内的所有代码均能在 [https://github.com/freezer333/nodecpp-demo](https://github.com/freezer333/nodecpp-demo) 中找到，位于 "buffers" 目录下。
 
