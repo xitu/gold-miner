@@ -6,7 +6,7 @@
 
 # Using a function in `setState` instead of an object #
 
-# 在 `setState` 使用函数替代对象 #
+# 在 `setState` 中使用函数替代对象 #
 
 The [React documentation](https://facebook.github.io/react/docs/hello-world.html) has recently been revamped — if you haven’t checked it out yet, you should! I have been helping out a little bit with the documentation by writing up a “Glossary of React Terms” and in that process I’ve been thoroughly reading all the new documentation. In reading the documentation I found out about a relatively unknown aspect of `setState` and inspired by this tweet:
 
