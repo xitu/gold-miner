@@ -818,7 +818,7 @@ public class Mustang implements Car {
 ```
 
 - Refactor **DeloRean (implements Car and TimeMachine):**
-- 重构 **DeloRean（同时实现**
+- 重构 **DeloRean（同时实现 Car 和 TimeMachine）**
 
 ```
 public class DeloRean implements Car, TimeMachine {
@@ -847,22 +847,37 @@ public class DeloRean implements Car, TimeMachine {
 
 ### Dependency Inversion Principle (DIP):
 
+### 依赖倒转原则 (DIP):
+
 > *High-level modules should not depend on low-level modules. Both should depend on abstractions.*
 
 > *Abstractions should not depend on details. Details should depend on abstractions.*
+> *高层次的模块不应该依赖于低层次的模块，它们都应该依赖于抽象。*
+> *抽象不应该依赖于细节。细节应该依赖于抽象。*
 
 The Dependency Inversion Principle means that a particular class should not depend directly on another class, but on an abstraction (interface) of this class.
 
 When we apply this principle we will reduce dependency on specific implementations and thus make our code more reusable.
 
+依赖倒转原则的意思是一个特定的类不应该直接依赖于另外一个类，但是可以依赖于一个抽象类（接口）。
+
+当我们应用这个原则的时候我们能减少对特定实现的依赖性，让我们的代码更具有复用行。
+
 **Benefits:**
+
+**好处:**
 
 - Reduce the coupling.
 - Code more reusable.
+- 减少耦合。
+- 代码更高的复用性。
 
 #### **Violation of DIP:**
 
+#### **违反 DIP 原则:**
+
 - We have a **DeliveryDriver** class that represents a driver that works for a delivery company:
+- 我们有一个类叫 **DeliveryDriver** 代表着一个司机为快递公司工作。
 
 ```
 public class DeliveryDriver {
@@ -874,6 +889,7 @@ public class DeliveryDriver {
 ```
 
 - **DeliveryCompany** that handles shipments:
+- **DeliveryCompany** 类处理货物装运：
 
 ```
 public class DeliveryCompany {
@@ -887,9 +903,14 @@ public class DeliveryCompany {
 
 Note that **DeliveryCompany** creates and uses DeliveryDriver concretions. Therefore **DeliveryCompany** which is a high-level class is dependent on a lower level class and this is a **violation of Dependency Inversion Principle.**
 
+我们注意到 **DeliveryCompany** 创建并使用 DeliveryDriver 实例。所以 **DeliveryCompany** 是一个依赖于低层次类的高层次的类，这就**违背了依赖倒转原则**。
+
 #### **A solution:**
 
+#### **解决方法:**
+
 - We create the **DeliveryService** interface to have an abstraction:
+- 我们创建 **DeliveryService** 接口，这样我们就有一个抽象方法了。
 
 ```
 public interface DeliveryService {
@@ -898,6 +919,7 @@ public interface DeliveryService {
 ```
 
 - Refactor **DeliveryDriver** class to implements **DeliveryService:**
+- 重构 **DeliveryDriver** 类以实现 **DeliveryService** 的抽象方法：
 
 ```
 public class DeliveryDriver implements DeliveryService {
@@ -910,6 +932,7 @@ public class DeliveryDriver implements DeliveryService {
 ```
 
 - Refactor **DeliveryCompany** that now depends on an abstraction and not off a concretion:
+- 重构 **DeliveryCompany**，使它依赖于一个抽象东西而不是一个具体的东西。
 
 ```
 public class DeliveryCompany {
@@ -928,10 +951,19 @@ public class DeliveryCompany {
 
 Now the dependencies are created elsewhere and are injected through the class constructor.
 
+现在，依赖在别的地方创建，并且从类构造器中被注入。
+
 It is important not to confuse this principle with the [Dependence Injection](https://en.wikipedia.org/wiki/Dependency_injection) that is a pattern that helps us to apply this principle to ensure that collaboration between classes does not involve dependencies between them.
+
+千万不要把这个原则与[依赖注入](https://en.wikipedia.org/wiki/Dependency_injection)混淆。依赖注入是一种设计模式，帮助我们应用这个原则来确保各个类之间的合作不涉及相互依赖。
 
 There are several libraries that facilitate the dependency injection, like [Guice](https://github.com/google/guice) or [Dagger2](https://github.com/google/dagger) that is one of the most popular.
 
+这里有好几个库使依赖注入更容易实现，像[Guice](https://github.com/google/guice) 或者 [Dagger2](https://github.com/google/dagger)，这是其中一个非常流行的库。
+
 ### Conclusion
+### 结论
 
 Following SOLID principles is essential if we are to build quality software that is easy to extend, robust and reusable. Also is important not forgetting to be pragmatic and use common sense because sometimes over-engineering can make simple things more complex.
+
+遵循 SOLID 原则是基本的如果我们需要高质量的软件，它易于扩展，健壮并且可复用的。同时，
