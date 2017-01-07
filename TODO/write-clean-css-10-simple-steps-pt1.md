@@ -32,7 +32,7 @@ No.5: 采用模块化的 CSS 代码
 
 如何选择模块化框架
 
-No.6-10 在[第二部分]() 
+No.6-10 在[第二部分](https://github.com/xitu/gold-miner/blob/master/TODO/write-clean-css-10-simple-steps-pt2.md) 
 
 # 简介
 
