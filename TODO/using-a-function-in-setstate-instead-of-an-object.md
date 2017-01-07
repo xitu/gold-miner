@@ -1,7 +1,7 @@
 > * 原文地址：[Using a function in `setState` instead of an object](https://medium.com/@shopsifter/using-a-function-in-setstate-instead-of-an-object-1f5cfd6e55d1#.hwznlbxsa)
 * 原文作者：[Sophia Shoemaker](https://medium.com/@shopsifter?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[王子建](https://github.com/Romeo0906)
 * 校对者：
 
 # Using a function in `setState` instead of an object #
