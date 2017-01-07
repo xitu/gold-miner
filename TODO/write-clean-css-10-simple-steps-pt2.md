@@ -4,8 +4,6 @@
 * 译者：[王子建](https://github.com/Romeo0906)
 * 校对者：[肘子涵](https://github.com/zhouzihanntu)、[naivebenson](https://github.com/bensonlove)
 
-# How to Write Clean CSS in 10 Simple Steps Pt2
-
 # 如何书写整洁的 CSS 代码？只需十步！
 
 [![How to Write Clean CSS in 10 Simple Steps Pt2](https://i0.wp.com/blog.alexdevero.com/wp-content/uploads/2016/12/How-to-Write-Clean-CSS-in-10-Simple-Steps-Pt2-small.jpg?resize=697%2C464)](https://i0.wp.com/blog.alexdevero.com/wp-content/uploads/2016/12/How-to-Write-Clean-CSS-in-10-Simple-Steps-Pt2-small.jpg)
