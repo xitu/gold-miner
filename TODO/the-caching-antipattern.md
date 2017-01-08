@@ -2,7 +2,7 @@
 > * 原文地址：[The Caching Antipattern](https://www.hidefsoftware.co.uk/2016/12/25/the-caching-antipattern/)
 * 原文作者：[ROBERT STIFF](https://www.hidefsoftware.co.uk/about/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[王子建](https://github.com/Romeo0906)
 * 校对者：
 
 # The Caching Antipattern #
