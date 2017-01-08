@@ -1,3 +1,4 @@
+* [在 Node.js 和 C++ 之间使用 Buffer 共享数据](https://gold.xitu.io/entry/586fbcefda2f600053df7787?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Jiang Haichao](https://github.com/AceLeeWinnie) 翻译)
 * [容器时代的分布式日志架构](https://gold.xitu.io/entry/5870f966a22b9d00588bafce?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Airmacho](https://github.com/Airmacho) 翻译)
 * [为 Async-Await 唱一曲赞歌](https://gold.xitu.io/entry/586eff068d6d810058794c94?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([xekri](https://github.com/xekri) 翻译)
 *  [GitHub 是如何阻止网络暴力的](https://gold.xitu.io/entry/58652f6661ff4b00583ba924?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([wild-flame](https://github.com/wild-flame) 翻译)
