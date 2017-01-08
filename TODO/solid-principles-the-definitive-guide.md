@@ -15,7 +15,7 @@ Understanding and applying these principles will **allow you to write better qua
 
 The SOLID principles were defined in the early 2000s by [Robert C. Martin (Uncle Bob)](https://en.wikipedia.org/wiki/Robert_Cecil_Martin). Uncle Bob elaborated some of these and identified others already existing and said that these principles should be used to get a good management of dependencies in our code.
 
-SOLID 原则是由 [Robert C. Martin （Bob大叔）](https://en.wikipedia.org/wiki/Robert_Cecil_Martin)在21世纪初定义的。Bob大叔阐述了几个并且确认了其它已经存在的原则。他说这些原则应该被使用到我们的代码中得到好的依赖管理。
+SOLID 原则是由 [Robert C. Martin （Bob大叔）](https://en.wikipedia.org/wiki/Robert_Cecil_Martin) 在21世纪初定义的。Bob大叔阐述了几个并且确认了其它已经存在的原则。他说这些原则应该被使用到我们的代码中得到好的依赖管理。
 
 However, in the beginning these principles were not yet known as SOLID until [Michael Feathers](https://michaelfeathers.silvrback.com/) observed that the initials of these principles fit perfectly under the acronym SOLID and that it was also a very representative name for its definition.
 
@@ -262,7 +262,7 @@ public class ShapePrinter {
 
 We can see that every time we want to draw a distinct shape we will have to **modify the drawShape method** of the ShapePrinter **to accept a new shape.**
 
-可以看到，当我们每次想要画一个新的形状我们就要**修改 ShapePrinter 类里的 drawShape 方法以接受一个这个新的形状。**
+可以看到，当我们每次想要画一个新的形状我们就要**修改 ShapePrinter 类里的 drawShape 方法来接受这个新的形状。**
 
 As new types of shapes come to draw, the ShapePrinter class will be more confusing and fragile to changes.
 
@@ -346,7 +346,7 @@ So if we want to add more types of shapes we just have to create a class for tha
 
 Now with this solution **ShapePrinter** class also remains intact when we add a new shape type because the **drawShape method receives Shape abstractions.**
 
-用这个方法，**ShapePrinter** 也能在添加新形状的同时保持完整性，因为 **drawShape 方法接受 Shape 抽象类。**
+用这个方法，**ShapePrinter** 也能在添加新形状的同时保持完整性，因为 **drawShape 方法接受 Shape 抽象。**
 
 - We change **Shape** to an interface:
 - 我们把 **Shape** 变成一个接口：
@@ -407,13 +407,13 @@ public class ShapePrinter {
 ### 里氏替换原则（LSP）：
 
 > *Objects in a program should be replaceable with instances of their subtypes without altering the correctness of that program.*
-> *程序里的对象应该可以被它的子类实例替换而不用更改程序.*
+> *程序里的对象都应该可以被它的子类实例替换而不用更改程序.*
 
 This principle was defined by [Barbara Liskov](https://en.wikipedia.org/wiki/Barbara_Liskov) and says that objects must be replaceable by instances of their subtypes without altering the correct functioning of our system.
 
 Applying this principle we can validate that our abstractions are correct.
 
-这个原则由[Barbara Liskov](https://en.wikipedia.org/wiki/Barbara_Liskov)定义。他说程序里的对象应该可以被它的子类实例替换而不用更改系统的正确功能.
+这个原则由[Barbara Liskov](https://en.wikipedia.org/wiki/Barbara_Liskov)定义。他说程序里的对象都应该可以被它的子类实例替换而不用更改系统的正常工作.
 
 **Benefits:**
 
@@ -465,7 +465,7 @@ Since a square is a rectangle (mathematically speaking), we decided that **Squar
 
 We make overriding of **setHeight()** and **setWidth()** to set both dimensions (width and height) to the same value for that instances of **Square** remain valid.
 
-我门在重写的 **setHeight()** 和 **setWidth()** 方法中设置与实例同样的尺寸（宽和高），让 **Square** 的实例依然有效。
+我门在重写的 **setHeight()** 和 **setWidth()** 方法中设置（与它的父类）同样的尺寸（宽和高），让 **Square** 的实例依然有效。
 
 ```
 public class Square extends Rectangle {
@@ -494,7 +494,7 @@ The next assumption **is true** for **Rectangle:**
 
 但是如果我们这样做，我们会**破坏 Rectangle 的行为假设：**
 
-下一个 **Rectangle** 的假设是**真的：**
+下面对于 **Rectangle** 的假设是**对的：**
 
 ```
 public class LiskovSubstitutionTest {
@@ -543,7 +543,7 @@ The **Square** / **Rectangle** hierarchy in isolation did not show any problems 
 #### **一个解决方法：**
 
 - Using a **Shape** interface to obtain the area:
-- 用一个 **Shape** 接口来获取面积：
+- 用 **Shape** 接口来获取面积：
 
 ```
 public interface Shape {
@@ -632,21 +632,21 @@ public class Square extends Rectangle {
 
 Many times we model our classes depending on the properties of the real world object that we want to represent. But it is more important that we **pay attention to behaviours** to avoid this kind of mistakes.
 
-很多时候，我们对类的建模依赖于我们想要展示的现实世界物品的属性。但更重要的是我们应该注意行为来避免这种错误。
+很多时候，我们对类的建模依赖于我们想展示的现实世界客体的属性，但更重要的是我们应该关注它们各自的行为来避免这种错误。
 
 ### Interface Segregation Principle (ISP):
 ### 接口隔离原则（ISP）：
 
 > *many client-specific interfaces are better than one general-purpose interface*
-> *多个专门的接口比一个通用接口好。*
+> *多个专用的接口比一个通用接口好。*
 
 This principle defines that **a class should never implement an interface that does not go to use**. Failure to comply with this principle means that in our implementations we will have dependencies on methods that we do not need but that we are obliged to define.
 
-这个原则定义了**一个类决不要实现一个不会用到的接口**。不遵循这个原则意味着在我们的实现会依赖很多我们并不需要的方法，但是我们不得不去定义。
+这个原则定义了**一个类决不要实现不会用到的接口**。不遵循这个原则意味着在我们在实现里会依赖很多我们并不需要的方法，但又不得不去定义。
 
 Therefore, **implement specific interfaces is better to implement a general purpose interface.** An interface is defined by the client that will use it, so it should not have methods that this client will not implement.
 
-所以，实现多个特定的接口比实现一个通用接口要好。一个接口被需要用到的类所定义，所以它不会有这个类不需要实现的其它方法。
+所以，实现多个特定的接口比实现一个通用接口要好。一个接口被需要用到的类所定义，所以这个接口不应该有这个类不需要实现的其它方法。
 
 **Benefits:**
 
@@ -695,14 +695,14 @@ A **DeloRean,** but it’s not a common DeLorean. Our **DeloRean** is very speci
 As usual we do not have time to make a good implementation and in addition, the **DeloRean** has to back to the past urgently.
 So we decided:
 
-现在我们有一个新的需求来添加一个新的车型：
+现在我们有个新的需求，要添加一个新的车型：
 
-一个 **DeloRean,** 但这不是一个普通的 DeLorean，我们的 **DeloRean** 非常特殊，并且有穿梭时光的功能。
+一辆 **DeloRean,** 但这并不是一个普通的 DeLorean，我们的 **DeloRean** 非常特别，它有穿梭时光的功能。
 
-按照惯例，我们没有没有时间来做一个好的实现，而且 **DeloRean** 必须马上回到过去。
+像以往一样，我们没有时间来做一个好的实现，而且 **DeloRean** 必须马上回到过去。
 
 - Add two new methods for our **DeloRean** in the **Car** interface:
-- 为我们的 **DeloRean** 增加两个新的方法在 **Car** 接口里：
+- 为我们的 **DeloRean** 在 **Car** 接口里增加两个新的方法：
 
 ```
 public interface Car {
@@ -749,23 +749,23 @@ public class Mustang implements Car {
  
     @Override
     public void startEngine() {
-        // start engine...
+        // 启动引擎
     }
  
     @Override
     public void accelerate() {
-        // accelerate...
+        // 加速
     }
  
     @Override
     public void backToThePast() {
-        // because a Mustang can not back to the past!
+        // 因为 Mustang 不能回到过去！
         throw new UnsupportedOperationException();
     }
  
     @Override
     public void backToTheFuture() {
-        // because a Mustang can not back to the future!
+        // 因为 Mustang 不能穿越去未来！
         throw new UnsupportedOperationException();
     }
 }
@@ -773,7 +773,7 @@ public class Mustang implements Car {
 
 In this case, Mustang **violates the Interface Segregation Principle** because should implement methods that do not use.
 
-在这个情况下，Mustang**违反了接口隔离的原则**，因为它实现了它不会用到的方法。
+在这种情况下，Mustang **违反了接口隔离的原则**，因为它实现了它不会用到的方法。
 
 #### **A solution with interfaces segregation:**
 
@@ -807,12 +807,12 @@ public class Mustang implements Car {
  
     @Override
     public void startEngine() {
-        // start engine...
+        // 启动引擎
     }
  
     @Override
     public void accelerate() {
-        // accelerate...
+        // 加速
     }
 }
 ```
@@ -825,22 +825,22 @@ public class DeloRean implements Car, TimeMachine {
  
     @Override
     public void startEngine() {
-        // start engine...
+        // 启动引擎
     }
  
     @Override
     public void accelerate() {
-        // accelerate...
+        // 加速
     }
  
     @Override
     public void backToThePast() {
-        // back to de past...
+        // 回到过去
     }
  
     @Override
     public void backToTheFuture() {
-        // back to de future...
+        // 到未来去
     }
 }
 ```
@@ -859,9 +859,9 @@ The Dependency Inversion Principle means that a particular class should not depe
 
 When we apply this principle we will reduce dependency on specific implementations and thus make our code more reusable.
 
-依赖倒转原则的意思是一个特定的类不应该直接依赖于另外一个类，但是可以依赖于一个抽象类（接口）。
+依赖倒转原则的意思是一个特定的类不应该直接依赖于另外一个类，但是可以依赖于这个类的抽象（接口）。
 
-当我们应用这个原则的时候我们能减少对特定实现的依赖性，让我们的代码更具有复用行。
+当我们应用这个原则的时候我们能减少对特定实现的依赖性，让我们的代码复用性更高。
 
 **Benefits:**
 
@@ -883,7 +883,7 @@ When we apply this principle we will reduce dependency on specific implementatio
 public class DeliveryDriver {
  
     public void deliverProduct(Product product){
-        // deliver product...
+        // 运送产品
     }
 }
 ```
@@ -903,14 +903,14 @@ public class DeliveryCompany {
 
 Note that **DeliveryCompany** creates and uses DeliveryDriver concretions. Therefore **DeliveryCompany** which is a high-level class is dependent on a lower level class and this is a **violation of Dependency Inversion Principle.**
 
-我们注意到 **DeliveryCompany** 创建并使用 DeliveryDriver 实例。所以 **DeliveryCompany** 是一个依赖于低层次类的高层次的类，这就**违背了依赖倒转原则**。
+我们注意到 **DeliveryCompany** 创建并使用 DeliveryDriver 实例。所以 **DeliveryCompany** 是一个依赖于低层次类的高层次的类，这就**违背了依赖倒转原则**。（译者注：上述代码中 DeliveryCompany 需要运送货物，必须需要一个 DeliveryDriver 参与。但如果以后对司机有更多的要求，那我们既要修改 DeliveryDriver 也要修改上述代码。这样造成的依赖，耦合度高）
 
 #### **A solution:**
 
 #### **解决方法:**
 
 - We create the **DeliveryService** interface to have an abstraction:
-- 我们创建 **DeliveryService** 接口，这样我们就有一个抽象方法了。
+- 我们创建 **DeliveryService** 接口，这样我们就有了一个抽象。
 
 ```
 public interface DeliveryService {
@@ -926,13 +926,13 @@ public class DeliveryDriver implements DeliveryService {
  
     @Override
     public void deliverProduct(Product product) {
-        // deliver product...
+        // 运送产品
     }
 }
 ```
 
 - Refactor **DeliveryCompany** that now depends on an abstraction and not off a concretion:
-- 重构 **DeliveryCompany**，使它依赖于一个抽象东西而不是一个具体的东西。
+- 重构 **DeliveryCompany**，使它依赖于一个抽象而不是一个具体的东西。
 
 ```
 public class DeliveryCompany {
@@ -959,11 +959,11 @@ It is important not to confuse this principle with the [Dependence Injection](ht
 
 There are several libraries that facilitate the dependency injection, like [Guice](https://github.com/google/guice) or [Dagger2](https://github.com/google/dagger) that is one of the most popular.
 
-这里有好几个库使依赖注入更容易实现，像[Guice](https://github.com/google/guice) 或者 [Dagger2](https://github.com/google/dagger)，这是其中一个非常流行的库。
+这里有好几个库使依赖注入更容易实现，像[Guice](https://github.com/google/guice) 或者非常流行的 [Dagger2](https://github.com/google/dagger)。
 
 ### Conclusion
 ### 结论
 
 Following SOLID principles is essential if we are to build quality software that is easy to extend, robust and reusable. Also is important not forgetting to be pragmatic and use common sense because sometimes over-engineering can make simple things more complex.
 
-遵循 SOLID 原则是基本的如果我们需要高质量的软件，它易于扩展，健壮并且可复用的。同时，
+遵循 SOLID 原则是基本的如果我们需要高质量的软件，它易于扩展，健壮并且可复用的。同时，我们也不要忘记用常识来做现实判断，因为有的时候过度重构会使简单的问题复杂化。
