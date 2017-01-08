@@ -1,82 +1,80 @@
 * 原文地址：[ Prolific Engineers Take Small Bites — Patterns in Developer Impact ](https://blog.gitprime.com/check-in-frequency-and-codebase-impact-the-surprising-correlation/ )
 * 原文作者：[ Ben Thompson ]( https://blog.gitprime.com/author/ben-thompson)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
-* 校对者：
+* 译者：[cdpath](https://github.com/cdpath)
+* 校对者：[marcmoore (Mark)](https://github.com/marcmoore), [phxnirvana (PhxNirvana)](https://github.com/phxnirvana)
 
-# Prolific Engineers Take Small Bites — Patterns in Developer Impact 
+# 高效的工程师一步一步来 —— 开发者影响力中的模式
 
-The work patterns of engineers reveal interesting things about their character, but it’s not what you might imagine.
+工程师的工作模式可以揭示他们性格中一些有趣的东西，不过和你想象的不太一样。
 
-### Our Hypothesis: Speedy vs. Bulky 
+### 前提假设：要速度还是要数量
 
-To explore this, we started with a hypothesis that some engineers on a team are better at turning work around fast, while others are better at burning through lots of work. If correct, this would lead to an interesting distribution of engineers across two axes: Frequency and Volume, yielding a chart that looked something like this:
-
+要探讨这个，我们得先假设团队里有的工程师易于快速切换工作，其他人则更喜欢一次搞定大量工作。如果假设成立，我们可以用频率和工作量这两个轴画出工程师的分布，就像这样：
 ![](https://blog.gitprime.com/hubfs/GitPrime/Blog/eng-character-1assumption-4.png?t=1481225729545)
 
-But what does “volume” even mean?
+但是「工作量」如何定义呢？
 
-### Finding ‘Big’ 
+### 什么是「大」工作量？
 
-We tried all versions of 'big' we could think of. Since Lines of Code (LoC) is simple (though much reviled!), we started there to get a baseline. LoC doesn't actually work as an operational metric, for reasons we explore [in more depth here](//blog.gitprime.com/lines-of-code-is-a-worthless-metric-except-when-it-isnt/), but it did provide a starting point for something better.
+我们试了能想到的所有衡量「大」工作量的手段。因为代码行数 (LoC) 比较简单（也很能说明问题！），所以用它来做基准线。尽管代码行数并不是切实可行的度量，详见这篇[更深入的文章](http://blog.gitprime.com/lines-of-code-is-a-worthless-metric-except-when-it-isnt/)，但它确实为我们找到更好的标准开了个头儿。
 
-The challenge is to find some metric that account for the fact deleting 50 lines of code and replacing them with 5 lines of more efficient code is arguably 'bigger' (e.g. more work) than contributing 100 new lines of un-edited prototype code: purely green-field work is often much easier than hunting down a pesky bug that results in a 4-line change.
+真正的挑战是找到一种度量，可以判断出用五行更高效的代码替换五十行旧代码的工作量要高于写一百行未编辑过的原型代码。毕竟从头开始写新代码可比追查一个可恶的 bug 结果只修改了四行代码要来得容易。
 
-We took a run at measuring the “bigness” of work from just about every other conceivable angle: overall code footprint, live lines in the codebase, lines that ‘stick,’ number of files hit, distinct edit locations — pretty much everything we could conceivably measure.
+我们穷尽了能想到的所有办法尝试衡量工作量的大小：总体代码量，源码库中有效代码行数，被持续使用的代码，用到的文件数，不同的编辑位置数。差不多能想到的手段都用上了。
 
-What ended up helping us crack this nut was the impressively large body of scholarly research around engineering work, particularly around commit normality: there is, in fact, such a thing as a ‘normal’ commit, and this ended up being the seed of a very reasonable proxy for engineering work, something we now call [‘Impact’](https://blog.gitprime.com/impact-a-better-way-to-measure-codebase-change).
+最后帮我们搞定这个难题的是大量关于工程工作的学术研究，尤其是关于提交常态（commit normality）的，正是这个概念最终促使我们找到了可以公平衡量工程工作量的指标，也叫做[「影响力（Impact）」](https://blog.gitprime.com/impact-a-better-way-to-measure-codebase-change)。
 
-With impact, we cross-weighted several data points in an attempt to approximate the cognitive load of engineering work and, after a bit of tuning, found something that maps to developer intuitions much better than LoC alone ever could.
+我们用影响力交叉衡量几个数据点，试着让数值接近我们认知上的工程工作量，再做一些调整，最后找到了比代码行数更符合开发者直觉的度量。
 
-### Learning that quick is big 
+### 快速学习很重要
 
-In analyzing millions of commits across thousands of teams, our initial theory about how engineers work turned out to be completely false.
+分析了数千个团队的数百万个提交（commit）之后，我们最初提出的关于工程师如何工作的理论被彻底推翻了。
 
-Checking in frequently has such a tight correlation to an individual’s overall impact on the codebase that they are functional equivalents, resulting in banding that looks like this:
+更新代码的频率和个人对源码库的综合影响力的关联如此紧密以至于两者在作用上完全相等了，两者的关系如下图所示：
 
 ![](https://blog.gitprime.com/hubfs/GitPrime/Blog/eng-character-2actual-1.png?t=1481225729545)
 
-Commit frequency moves in lock-step with overall impact to the codebase, by any other measure we came up up with.
+当调整我们能想到的任何度量时，提交频率和对源码库的综合影响力都以同样的速率变化。
 
-This correlation is so strong, in fact, in analyzing over 20 million commits across thousands of teams, we did not find any strong counter-examples to this.
+这种相关性如此之强，实际上在分析了数千个团队超过两千万个提交之后，我们没有找到一个有力的反例。
 
-### High impact engineers take small, rapid bites 
+### 高影响力的工程师细分工作，提交频繁
 
-This is sort of fascinating in itself, because saying “we need to do more work” is kind of a crappy way to approach improving throughput of an engineering team. Most engineers are already doing their best, so if the team needs to “do more work,” it’s not immediately obvious how that’s going to happen and just results in bad feelings.
+这个观点本身就比较有意思，因为提出「我们得干更多活」就是种蹩脚的、试图提高工程团队产出的方法。大多数工程师已经尽力了，所以如果团队要「干更多活」，不能马上看出来什么东西，结果就是伤害了大家的感情。
 
-What’s fascinating about this particular data set is that it suggests that there may be structural things to change the way we work that can net out to efficiency gains.
+这个特殊的数据集有意思的地方在于，它暗示了有可能通过某种结构性的工作方式的调整来提升工作效率。
 
-Breaking work into granular bits is already considered a best practice, but this data suggests it may be more than that: encouraging this (and developing feedback loops that help make sure sure it’s happening) looks to be a more actionable path to encouraging higher individual impact.
+将工作分成小部分已是公认的最佳实践，不过这个数据表明它比我们想象的还重要：鼓励细分工作（并且实行反馈机制帮助更好地实现）看起来是更可行的激励更高的个人影响力（impact）的手段。
 
-“Take small bites and check in frequently” is actionable and visible; saying “do more work” just acts as a stressor.
+「细分工作，频繁提交」是可行且可见的；而说「干更多活」实际上只能增加压力。
 
-And this is a holistic gain: besides being generally good for an engineer’s ability to make a personal impact, smaller and more frequent commits yield other positive externalities for the rest of the team:
+而且这是整体上的提升：除了通常有助于提高工程师的能力并提高个人影响力以外，更小更频繁的提交还可以为团队的其他成员带来额外的好处：
 
-- More granular commits make it easier to find and track down bugs when something breaks
-- It’s easier to roll back specific changes instead of a giant change set.
-- Smaller work is focused and easier for team mates to review and integrate
-- Lower process overhead for everyone with less merge commits
+- 更细粒度的提交便于追踪 bug
+- 撤回具体的改动比撤回一大块改动更容易。
+- 细分的工作重点明确，团队成员做代码审查和集成也更容易。
+- 更少的合并提交可以减少流程上的开支。
 
-### A successful picture of engineering activity 
+### 成功的工程活动图
 
-We did end up creating something that says a lot about engineering style, but it worked out a bit differently than we thought. We took everything we learned about impact and rolled this up into a single axis called *throughput*. Because of all our exploration, we were able to come up with a way of measuring code-impact that leaves behind the overly reductionist LoC view of software development (you can read more about how we’re calculating impact [here](http://help.gitprime.com/537-calculations/1606-what-is-impact)).
+我们的确创造了能说明很多工程风格的东西，但是得到它的过程却出乎我们的意料。我们用了从影响力概念了解到的所有东西一股脑塞进了一个叫做**生产量**的轴。经过了所有的探索，我们终于得到了能够度量软件开发中代码影响力的方法，可以替换掉过度简化的代码行数了。我们具体计算影响力的方法参见[这篇文章](http://help.gitprime.com/537-calculations/1606-what-is-impact)。
 
-On the other axis, we plotted the *churn* rate — how much of an engineer’s focus is spent re-working recent code.
+另一个轴是**改动率**，用来衡量工程师花了多少精力重写最近的代码。
 
-Plotting the result into a scatterplot can reveal quite a bit about an engineer’s work pattern over a specific timeframe in the context of the rest of the team.
+把结果画成散点图可以充分说明一个工程师在特定时间段内（相对于团队其他成员）工作模式。
 
-![a successful framework for visualizing how software engineers work](https://blog.gitprime.com/hubfs/GitPrime/Blog/eng-character-3rev2.png?t=1481225729545) 
+![成功地用来可视化软件工程师工作方式的框架](https://blog.gitprime.com/hubfs/GitPrime/Blog/eng-character-3rev2.png?t=1481225729545) 
 
-The resulting visual offers helpful clues about a team:
+我们可以从这张可视化图看出一些启示：
 
-- In the **bottom left** quadrant, we retained the ‘stuck detector’ that we wanted from our original design.
-- The **top left** highlights engineers who are exploring an implementation — we usually see engineers who are rapidly prototyping a new feature in this quadrant.
-- The **bottom right** houses the “perfectionists” who have the lowest code churn on the team, but move a bit slower overall.
-- Finally, in the **top right** are the engineers who are checking in lots of work, with little need for re-works — it’s generally a good idea to avoid interrupting these people, because they’re on fire!
+- 左下角还是最初设计中的「难题发现者」。
+- 左上角表示那些探索新实现方式的工程师，我们经常可以在这一区域看到提出新特性的原型的工程师。
+- 右下角则是那些「完美主义者」，他们的代码改动率在团队中较低，但是总体进展速度也较慢。
+- 最后**右上角**代表提交频繁，不太需要返工的工程师，最好别打扰他们，他们正干得起劲呢！
 
 ---
 
-**Notes:**
+**备注：**
 
-1. Thanks to [Bobby Wallace](https://twitter.com/bikeath1337) for help renaming the old “Exploring” quadrant, now called “Discovery”. [↩](#fnref:1) )
-
+1. 感谢 [Bobby Wallace](https://twitter.com/bikeath1337) 帮忙将可视化图中的「探索（Exploring）」象限改成了「发现（Discovery)」。
