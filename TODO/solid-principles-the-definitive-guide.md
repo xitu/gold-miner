@@ -1,10 +1,11 @@
 > * 原文地址：[SOLID Principles : The Definitive Guide](https://android.jlelse.eu/solid-principles-the-definitive-guide-75e30a284dea#.8b78yjtyk)
 * 原文作者：[Arthur Antunes](https://android.jlelse.eu/@aantunesdias)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：[]()
+* 译者：[XHShirley](https://github.com/XHShirley)
 * 校对者：[]()
 
 # SOLID Principles : The Definitive Guide
+# SOLID 原则：权威指南
 
 ![](https://cdn-images-1.medium.com/max/2000/1*LcsyJRuNmvg31Va1M2OZgA.png)
 
