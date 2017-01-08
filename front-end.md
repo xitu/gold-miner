@@ -1,3 +1,4 @@
+* [书写干净的 CSS 代码 PART2](https://gold.xitu.io/entry/5870d0841b69e6005cd23edc?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([王子建](https://github.com/Romeo0906) 翻译)
 * [书写干净的 CSS 代码 PART1](https://gold.xitu.io/entry/5870d03c1b69e6005cd23aaa?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([王子建](https://github.com/Romeo0906) 翻译)
 * [看沃尔玛如何玩转 React Native](https://gold.xitu.io/entry/5864e40e1b69e675fce43a80?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Draftbk](https://github.com/draftbk) 翻译)
 * [渐进增强的 Web AMP](https://gold.xitu.io/entry/585d35b561ff4b00580eccb3?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([L9m](https://github.com/L9m) 翻译)
