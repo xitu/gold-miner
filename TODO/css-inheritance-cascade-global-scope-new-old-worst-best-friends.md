@@ -1,281 +1,295 @@
 > * 原文地址：[CSS Inheritance, The Cascade And Global Scope: Your New Old Worst Best Friends](https://www.smashingmagazine.com/2016/11/css-inheritance-cascade-global-scope-new-old-worst-best-friends)
 * 原文作者：[Heydon Pickering](https://www.smashingmagazine.com/author/heydon-pickering)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
-* 校对者：
+* 译者：[linpu.li](https://llp0574.github.io/)
+* 校对者：[xekri](https://github.com/xekri)、[Tina92](https://github.com/Tina92)
 
-# CSS Inheritance, The Cascade And Global Scope: Your New Old Worst Best Friends
+# CSS 继承深度解析
 
-**I’m big on [modular design](https://www.smashingmagazine.com/2016/06/designing-modular-ui-systems-via-style-guide-driven-development/). I’ve long been sold on dividing websites into components, not pages, and amalgamating those components dynamically into interfaces. Flexibility, efficiency and maintainability abound.**
+**我酷爱[模块化设计](https://www.smashingmagazine.com/2016/06/designing-modular-ui-systems-via-style-guide-driven-development/)。长期以来我都热衷于将网站分离成组件，而不是页面，并且动态地将那些组件合并到界面上。这种做法灵活，高效并且易维护。**
 
-But I don’t want my design to *look* like it’s made out of unrelated things. I’m making an interface, not a surrealist photomontage.
+但是我不想我的设计**看上去**是由一些不相关的东西组成的。我是在创造一个界面，而不是一张超现实主义的照片。
 
-As luck would have it, there is already a technology, called CSS, which is designed specifically to solve this problem. Using CSS, I can propagate styles that cross the borders of my HTML components, **ensuring a consistent design with minimal effort**. This is largely thanks to two key CSS features:
+很幸运的是，已经有一项叫做 CSS 的技术，就是特意设计用来解决这个问题的。使用 CSS，我就可以在 HTML 组件之间到处传递样式，**从而以最小的代价来保证一致性的设计**。这很大程度上要感谢两个 CSS 特性：
 
-- inheritance,
-- the cascade (the “C” in CSS).
+- 继承，
+- 层叠 (CSS 当中的 C，cascade)。
 
-Despite these features enabling a [DRY](https://en.wikipedia.org/wiki/Don't_repeat_yourself), efficient way to style web documents and despite them being the very reason CSS exists, they have fallen remarkably out of favor. From CSS methodologies such as BEM and Atomic CSS through to programmatically encapsulated CSS modules, many are doing their best to sidestep or otherwise suppress these features. This gives developers more control over their CSS, but only an autocratic sort of control based on frequent intervention.
+尽管这些特性让我们能够以一种 [DRY](https://en.wikipedia.org/wiki/Don't_repeat_yourself) 且有效率的方式来给 Web 文档添加样式，同时也是 CSS 存在的原因，但很明显，它们已经不再受到青睐。在一些 CSS 方法论里，如 BEM 和 Atomic CSS 这些通过程序化封装 CSS 模块的方法，许多都尽力去规避或者抑制这些特性。这也让开发者有了更多机会去控制他们的 CSS，但这仅仅是一种基于频繁干预的专项控制。
 
-I’m going to revisit inheritance, the cascade and scope here with respect to modular interface design. I aim to show you how to leverage these features so that your CSS code becomes more concise and self-regulating, and your interface more easily extensible.
+我准备带着对模块化界面设计的尊敬在此重新审视继承、层叠和作用域。我想要的告诉你的是如何利用这些特性让你的 CSS 代码更简洁，实现更好的自适应，并且提高页面的可扩展性。
 
-### Inheritance And `font-family`
+### 继承和 `font-family`
 
-Despite protestations by many, CSS does not only provide a global scope. If it did, everything would look exactly the same. Instead, CSS has a global scope and a local scope. Just as in JavaScript, the local scope has access to the parent and global scope. In CSS, this facilitates **inheritance**.
+尽管许多人在抱怨 CSS 为什么不单单提供一个全局作用域，但如果它这么做的话，那么就会有很多重复样式了。反之，CSS 有全局作用域和局部作用域。就像在 JavaScript 里，局部作用域有权限访问父级和全局作用域，而在 CSS 里，局部作用域则帮助了**继承**。
 
-For instance, if I apply a `font-family` declaration to the root (read: global) `html` element, I can ensure that this rule applies to all ancestor elements within the document (with a few exceptions, to be addressed in the next section).
+例如，如果给根部（也作：全局）的 `html` 元素定义一个 `font-family` 属性，那么可以确定这条规则会在文档里应用到所有祖先元素（有一些例外情况，将在下个部分讨论）。
 
 ```
-html { 
+html {
     font-family: sans-serif;
 }
-    
-/* 
+
+/*
 This rule is not needed ↷
-p { 
+p {
     font-family: sans-serif;
 }
 */
 ```
 
-Just like in JavaScript, if I declare something within the local scope, it is not available to the global — or, indeed, any ancestral — scope, but it is available to the child scope (elements within `p`). In the next example, the `line-height` of `1.5` is not adopted by the `html` element. However, the `a` element inside the `p` does respect the `line-height` value.
+就像在 JavaScript 里那样，如果我在局部作用域里定义了某些规则，那么它们在全局，或者说在任意祖先级的作用域中都是无效的，只有在它们自己的子作用域里是有效的（就像在上面代码中的 `p` 元素里）。在下个例子当中，`1.5` 的 `line-height` 并没有被 `html` 元素用上。但是，`p` 里的 `a` 元素则运用上了 `line-height` 的值。
 
+```
     html {
       font-family: sans-serif;
     }
-    
+
     p {
       line-height: 1.5;
     }
-    
-    /* 
+
+    /*
     This rule is not needed ↷
     p a {
       line-height: 1.5;
     }
     */
-    
+```
 
-The great thing about inheritance is that you can establish the basis for a consistent visual design with very little code. And these styles will even apply to HTML you have yet to write. Talk about future-proof!
+继承最大的好处就是你可以用很少量的代码为一致性的可视化设计建立一个基础。而且这些样式甚至将作用到你还没写的 HTML 上。我们在讨论不会过时的代码！
 
-#### The Alternative
+#### 替代方法
 
-There are other ways to apply common styles, of course. For example, I could create a `.sans-serif` class…
+当然有另外一种方式提供公用样式。比如，我可以创建一个 `.sans-serif` 类...
 
+```
     .sans-serif {
       font-family: sans-serif;
     }
-    
+```
 
-… and apply it to any element that I feel should have that style:
+...并将它应用到任意我想要它有这个样式的元素上去：
 
+```
     <p class="sans-serif">Lorem ipsum.</p>
-    
+```
 
-This affords me some control: I can pick and choose exactly which elements take this style and which don’t.
+这种方法提供了一些控制上的权利：我可以准确地挑选决定哪些元素应用这个样式，哪些元素不用。
 
-Any opportunity for control is seductive, but there are clear issues. Not only do I have to manually apply the class to any element that should take it (which means knowing what the class is to begin with), but in this case I’ve effectively forgone the possibility of supporting dynamic content: Neither WYSIWYG editors nor Markdown parsers provide `sans-serif` classes to arbitrary `p` elements by default.
+任何能够控制的机会都是很吸引人的，但有一些明显的问题。我不仅需要手动地给需要应用样式的元素添加类名（这也意味着我要首先确定这个样式类是什么效果），而且在这种情况下也已经有效地放弃了支持动态内容的可能性：不管是富文本编辑器还是 Markdown 解析器都没办法给任意的 p 元素提供 `sans-serif` 类。
 
-That `class="sans-serif"` is not such a distant relative of `style="font-family: sans-serif"` — except that the former means adding code to both the style sheet *and* the HTML. Using inheritance, we can do less of one and none of the other. Instead of writing out classes for each font style, we can just apply any we want to the `html` element in one declaration:
+`class="sans-serif"` 和 `style="font-family: sans-serif"` 的用法差不多 - 除了前者意味着要同时在样式表**和** HTML 当中添加代码。使用继承，我们就可以在其中一个少写点，而另外一个则不用再写了。相比给每个字体样式写一个类，我们可以只在一个声明里，给 `html` 元素添加想要的规则。
 
+```
     html {
       font-size: 125%;
       font-family: sans-serif;
       line-height: 1.5;
       color: #222;
     }
-    
+```
 
-### The `inherit` Keyword
+### `inherit` 关键字
 
-Some types of properties are not inherited by default, and some elements do not inherit some properties. But you can use `[property name]: inherit` to force inheritance in some cases.
+某些类型的属性是不会默认继承的，而某些元素则不会继承某些属性。但是在某些情况下，可以使用 `[property name]: inherit` 来强制继承。
 
-For example, the `input` element doesn’t inherit any of the font properties in the previous example. Nor does `textarea`. In order to make sure all elements inherit these properties from the global scope, I can use the universal selector and the `inherit` keyword. This way, I get the most mileage from inheritance.
+举个例子，`input` 元素在之前的例子中不会继承任何字体的属性，`textarea` 也一样不会继承。为了确保所有元素都可以从全局作用域中继承这些属性，可以使用通配选择符和 `inherit` 关键字。这样，就可以最大程度地使用继承了。
 
+```
     * {
       font-family: inherit;
       line-height: inherit;
       color: inherit;
     }
-    
+
     html {
       font-size: 125%;
       font-family: sans-serif;
       line-height: 1.5;
       color: #222;
     }
-    
+```
 
-Note that I’ve omitted `font-size`. I don’t want `font-size` to be inherited directly because it would override user-agent styles for heading elements, the `small` element and others. This way, I save a line of code and can defer to user-agent styles if I should want.
+注意到我忽略了 `font-size`。我不想直接继承 `font-size` 的原因是，它会将 heading 元素（译者注：如 `h1`）、`small` 元素以及其他一些元素的默认 user-agent 样式给覆盖掉。这么做我就可以节省一行代码，并且让 user-agent 决定想要什么样式。
 
-Another property I would not want to inherit is `font-style`: I don’t want to unset the italicization of `em`s just to code it back in again. That would be wasted work and result in more code than I need.
+另外一个我不想继承的属性是 `font-style`：我不想重设 `em` 的斜体，然后再次添加上它。这将成为无谓的工作并会产生多余的代码。
 
-Now, everything either inherits or is *forced* to inherit the font styles I want them to. We’ve gone a long way to propagating a consistent brand, project-wide, with just two declaration blocks. From this point onwards, no developer has to even think about `font-family`, `line-height` or `color` while constructing components, unless they are making exceptions. This is where the cascade comes in.
+现在，所有不管是可以继承或者是**强制**继承的字体样式都是我所期望的。我们已经花了很长时间只用两个声明区块来传递一个一致性的理念和作用域。从现在开始，除开一些例外情况，没有人会在构造组件的时候还需要去考虑 `font-family`、`line-height` 或者 `color` 了。这就是层叠的由来。
 
-### Exceptions-Based Styling
+### 基于例外的样式
 
-I’ll probably want my main heading to adopt the same `font-family`, `color` and possibly `line-height`. That’s taken care of using inheritance. But I’ll want its `font-size` to differ. Because the user agent already provides an enlarged `font-size` for `h1` elements (and it will be relative to the `125%` base font size I’ve set), it’s possible I don’t need to do anything here.
+我可能想要主要的 heading 元素（`h1`）采用相同的 `font-family`、`color` 和 `line-height`。使用继承就是很好的解决方案，但是我又想要它的 `font-size` 不一样。因为默认的 user-agent 样式已经给 `h1` 元素提供了一个大号的 `font-size`（但这时它就会被我设置的相对基础字体大小为 125% 的样式覆盖掉），可能的话我不需要这里发生覆盖。
 
-However, should I want to tweak the font size of any element, I can. I take advantage of the global scope and only tweak what I need to in the local scope.
+然而，难道我需要调整所有元素的字体大小吗？这时我就利用了全局作用域的优势，在局部作用域里只调整我需要调整的地方。
 
+```
     * {
       font-family: inherit;
       line-height: inherit;
       color: inherit;
     }
-    
+
     html {
       font-size: 125%;
       font-family: sans-serif;
       line-height: 1.5;
       color: #222;
     }
-    
-    h1 { 
-      font-size: 3rem; 
+
+    h1 {
+      font-size: 3rem;
     }
-    
+```
 
-If the styles of CSS elements were encapsulated by default, this would not be possible: I’d have to add *all* of the font styles to `h1` explicitly. Alternatively, I could divide my styles up into separate classes and apply each to the `h1` as a space-separated value:
+如果 CSS 元素的样式默认被封装，那么下面的情况就不可能了：需要明确地给 `h1` 添加**所有**字体样式。反而，我可以将样式分为几个单独的样式类，然后通过空格分隔来逐一给 `h1` 添加样式：
 
+```
     <h1 class="Ff(sans) Fs(3) Lh(1point5) C(darkGrey)">Hello World</h1>
-    
+```
 
-Either way, it’s more work and a styled `h1` would be the only outcome. Using the cascade, I’ve styled *most* elements the way I want them, with `h1` just as a special case, just in one regard. The cascade works as a filter, meaning styles are only ever stated where they add something new.
+不管哪种方式，都需要更多的工作，而且最终目的都是一个具备样式的 `h1`。使用层叠，我已经给**大部分**元素赋上了想要的样式，并且只在一个方面使得 `h1` 成为一个例外。层叠作为一个过滤器，意味着样式只在添加新样式覆盖的时候才会发生改变。
 
-### Element Styles
+### 元素样式
 
-We’ve made a good start, but to really leverage the cascade, we should be styling as many common elements as possible. Why? Because our compound components will be made of individual HTML elements, and a screen-reader-accessible interface makes the most of semantic markup.
+我们已经开了个好头，但想要真正地掌握层叠，还需要尽可能多地给公共元素添加样式。为什么？因为我们的混合组件是由独立的 HTML 元素构成，并且一个屏幕阅读器友好的界面充分利用了语义化结构标记。
 
-To put it another way, the style of “atoms” that make up your interface “molecules” (to use [atomic design terminology](http://bradfrost.com/blog/post/atomic-web-design/#molecules)) should be largely addressable using element selectors. Element selectors are low in [specificity](https://www.smashingmagazine.com/2007/07/css-specificity-things-you-should-know/), so they won’t override any class-based styles you might incorporate later.
+换句话说，让你的界面“分子化”（使用了 [atomic 设计术语](http://bradfrost.com/blog/post/atomic-web-design/#molecules)）的 “atoms” 样式应该在很大程度上可定位并且使用元素选择符。元素选择符的[优先级](https://www.smashingmagazine.com/2007/07/css-specificity-things-you-should-know/)很低，所以它们不会覆盖你之后可能加进来的基于类的样式。
 
-The first thing you should do is style all of the elements that you know you’re going to need:
+首先应该做的事情就是给所有你即将需要使用的元素添加样式：
 
+```
     a { … }
     p { … }
     h1, h2, h3 { … }
     input, textarea { … }
     /* etc */
-    
+```
 
-The next part is crucial if you want a consistent interface without redundancy: Each time you come to creating a new component, **if it introduces new elements, style those new elements with element selectors**. Now is not the time to introduce restrictive, high-specificity selectors. Nor is there any need to compose a class. Semantic elements are what they are.
+如果你想在无冗余的情况下有个一致性界面的话，那么下一步非常重要：每当你创建一个新组件的时候，**如果它采用了一些新元素，那么就用元素选择符来给它们添加样式**。现在不是时候去使用限制性、高优先级的选择符，也没有任何需要去编写一个样式类。语义化元素就使用其本身。
 
-For example, if I’ve yet to style `button` elements (as in the previous example) and my new component incorporates a button element, this is my opportunity to style button elements **for the entire interface**.
+举个例子，如果我还没有给 `button` 元素 （就像前一个例子）添加样式，并且新组件加入了一个 `button` 元素，那么这就是一个给**整个界面**的 `button` 元素添加样式的好机会。
 
+```
     button {
       padding: 0.75em;
       background: #008;
       color: #fff;
     }
-    
+
     button:focus {
       outline: 0.25em solid #dd0;
     }
-    
+```
 
-Now, when you come to write a new component that also happens to incorporate buttons, that’s one less thing to worry about. You’re not **rewriting** the same CSS under a different namespace, and there’s no class name to remember or write either. CSS should always aim to be this effortless and efficient — it’s designed for it.
+现在，当你想要再写一个新组件并且同样加入按钮的时候，就少了一件需要操心的事情了。在不同的命名空间下，不要去重写相同的 CSS，并且也没有类名需要记住或编写。CSS 本就应该总是致力于让事情变得简单和高效 - 它本身就是为此而设计的。
 
-Using element selectors has three main advantages:
+使用元素选择符有三个主要的优势：
 
-- The resulting HTML is less verbose (no redundant classes).
-- The resulting style sheet is less verbose (styles are shared between components, not rewritten per component).
-- The resulting styled interface is based on semantic HTML.
+- 生成的 HTML 更加简洁（没有多余的各种样式类）。
+- 生成的样式表更加简洁（样式在组件间共享，不需要在每个组件里重写）。
+- 生成的添加好样式的界面基于语义化 HTML。
 
-The use of classes to exclusively provide styles is often defended as a “separation of concerns.” This is to misunderstand the W3C’s [separation of concerns](https://www.w3.org/TR/html-design-principles/#separation-of-concerns) principle. The objective is to describe structure with HTML and style with CSS. Because classes are designated exclusively for styling purposes and they appear within the markup, you are technically **breaking with** separation wherever they’re used. You have to change the nature of the structure to elicit the style.
+使用类来专门提供样式常常被定义为“关注点分离”。这是对 W3C 的[关注点分离](https://www.w3.org/TR/html-design-principles/#separation-of-concerns)原则的误解。它的目的是用 HTML 和 CSS 样式来描述整个结构。因为类专门是为了样式目的而制定，而且是在结构标记里出现，所以无论它们在哪里使用，技术上都是在**打破**分离，你不得不改变实质结构来得到样式。
 
-Wherever you don’t rely on presentational markup (classes, inline styles), your CSS is compatible with generic structural and semantic conventions. This makes it trivial to extend content and functionality without it also becoming a styling task. It also makes your CSS more reusable across different projects where conventional semantic structures are employed (but where CSS ‘methodologies’ may differ).
+不管在哪里都不要依赖表面的结构标记（样式类，内联样式），你的 CSS 应该兼容通用的结构和语义化的约定。这就可以简单地扩展内容和功能而无需它也变成一个样式的任务。同样在不同传统语义化结构的项目里，也可以让你的 CSS 变得更加可复用（但是这一点 CSS 的“方法论”可能会有所不同）。
 
-#### Special Cases
+#### 特殊情况
 
-Before anyone accuses me of being simplistic, I’m aware that not all buttons in your interface are going to do the same thing. I’m also aware that buttons that do different things should probably look different in some way.
+在有人指责我过分简单化之前，我意识到界面上不是所有的按钮都做同样的事情，我还意识到做不同事情的按钮在某种程度上可能应该看起来不一样。
 
-But that’s not to say we need to defer to classes, inheritance *or* the cascade. To make buttons found in one interface look fundamentally dissimilar is to confound your users. For the sake of accessibility *and* consistency, most buttons only need to differ in appearance by label.
+但这并不是说我们就需要用样式类、继承**或者**层叠来处理了。让一个界面上的按钮看起来完全不一样是在混淆你的用户。为了可访问性**和**一致性，大多数按钮在外观上只需要通过标签来进行区分。
 
+```
     <button>create</button>
-    
+
     <button>edit</button>
-    
+
     <button>delete</button>
-    
+```
 
-Remember that style is not the only visual differentiator. Content also differentiates visually — and in a way that is much less ambiguous. You’re literally spelling out what different things are for.
+记住样式并不是视觉上唯一的区分方法。内容同样可以在视觉上区分，而且在一定程度上它更加明确一些，因为你可是在文字上告诉了用户不同的地方。
 
-There are fewer instances than you might imagine where using style alone to differentiate content is necessary or appropriate. Usually, style differences should be supplemental, such as a red background or a pictographic icon accompanying a textual label. The presence of textual labels are of particular utility to those using voice-activation software: Saying “red button” or “button with cross icon” is not likely to elicit recognition by the software.
+大多数情况下，单独使用样式来区分内容都不是必要或者正确的。通常，样式区分应该是附加条件，比如一个红色背景或者一个带图标的文本标签。文本标签对那些使用声音激活的软件有着特定的效果：当说出 “red button” 或者 “button with cross icon” 的时候并没有引起软件的识别时。
 
-I’ll cover the topic of adding nuances to otherwise similar looking elements in the “Utility Classes” section to follow.
+我将在“工具类”部分探讨关于添加细微差别到看起来相似的元素上的话题。
 
-### Attributes
+### 标签属性
 
-Semantic HTML isn’t just about elements. Attributes define types, properties and states. These too are important for accessibility, so they need to be in the HTML where applicable. And because they’re in the HTML, they provide additional opportunities for styling hooks.
+语义化 HTML 并不仅仅关于元素。标签属性定义类型、样式属性和状态。这些对可访问性来说也很重要，所以它们需要写在 HTML 里合适的地方。而且因为都在 HTML 里，所以它们还提供了做样式钩子的机会。
 
-For example, the `input` element takes a `type` attribute, should you want to take advantage of it, and also [attributes such as `aria-invalid`](https://www.w3.org/TR/wai-aria/states_and_properties#aria-invalid) to describe state.
+举个例子，`input` 元素有一个 `type` 属性，那么你应该想要利用它的好处，还有[像 `aria-invalid` 属性](https://www.w3.org/TR/wai-aria/states_and_properties#aria-invalid)是用来描述状态的。
 
+```
     input, textarea {
       border: 2px solid;
       padding: 0.5rem;
     }
-    
+
     [aria-invalid] {
       border-color: #c00;
       padding-right: 1.5rem;
       background: url(images/cross.svg) no-repeat center 0.5em;
     }
-    
+```
 
-A few things to note here:
+这里有几点需要注意一下：
 
-- I don’t need to set `color`, `font-family` or `line-height` here because these are inherited from `html`, thanks to my use of the `inherit` keyword. If I want to change the main `font-family` used application-wide, I only need to edit the one declaration in the  `html` block.
-- The border color is linked to `color`, so it too inherits the global color. All I need to declare is the border’s width and style.
-- The `[aria-invalid]` attribute selector is unqualified. This means it has better reach (it can be used with both my `input` and `textarea` selectors) and it has minimal specificity. Simple attribute selectors have the same specificity as classes. Using them unqualified means that any classes written further down the cascade will override them as intended.
+- 这里我不需要设置 `color`、`font-family` 或者 `line-height`，因为这些都从 `html` 上继承了，得益于上面使用的 `inherit` 关键字。如果我想在整个应用的层面上改变 `font-family`，只需要在 `html` 那一块对其中一个声明进行编辑就可以了。
+- border 的颜色关联到 `color`，所以它同样是从全局 `color` 中继承。我只需声明 border 的宽度和风格。
+- `[aria-invalid]` 属性选择符是没有限制的。这意味着它有着更好的应用（它可以同时作用在 `input` 和 `textarea` 选择符）以及最低的优先级。简单的属性选择符和类选择符有着同样的优先级。无限制使用它们意味着之后任何写在层叠下的样式类都可以覆盖它们。
 
-The BEM methodology would solve this by applying a modifier class, such as `input--invalid`. But considering that the invalid state should only apply where it is communicated accessibly, `input--invalid` is necessarily redundant. In other words, the `aria-invalid` attribute *has* to be there, so what’s the point of the class?
+BEM 方法论通过一个修饰符类来解决这个问题，比如 `input--invalid`。但是考虑到无效的状态应该只在可通信的时候起作用，`input--invalid` 还是一定的冗余。换句话说，`aria-invalid` 属性**不得不**写在那里，所以这个样式类的目的在哪里？
 
-#### Just Write HTML
+#### 只写 HTML
 
-My absolute favorite thing about making the most of element and attribute selectors high up in the cascade is this: The composition of new components becomes **less a matter of knowing the company or organization’s naming conventions and more a matter of knowing HTML**. Any developer versed in writing decent HTML who is assigned to the project will benefit from inheriting styling that’s already been put in place. This dramatically reduces the need to refer to documentation or write new CSS. For the most part, they can just write the (meta) language that they should know by rote. Tim Baxter also makes a case for this in [Meaningful CSS: Style It Like You Mean It](http://alistapart.com/article/meaningful-css-style-like-you-mean-it).
+在层叠方面关于大多数元素和属性选择符我绝对喜欢的事情是：组件的构造变成**更少地了解公司或组织的命名约定，更多地关注 HTML**。任何精通写出像样 HTML 的开发者被分配到项目中时，都会从已经写到位的继承样式当中获益。这些样式显著地减少了读文档和写新 CSS 的需要。大多数情况下，他们可以只写一些死记硬背应该知道的（meta）语言。Tim Baxter 同样为此在 [Meaningful CSS: Style It Like You Mean It](http://alistapart.com/article/meaningful-css-style-like-you-mean-it) 里写了一个案例。
 
-### Layout
+### 布局
 
-So far, we’ve not written any component-specific CSS, but that’s not to say we haven’t styled anything. All components are compositions of HTML elements. It’s largely in the order and arrangement of these elements that more complex components form their identity.
+目前为止，我们还没有写任何指定组件的 CSS，但这并不是说我们还没有添加任何相关样式。所有组件都是 HTML 元素的组合。形成更复杂的组件主要是靠这些元素的组合顺序和排列。
 
-Which brings us to layout.
+这就给我们引出了布局这个概念。
 
-Principally, we need to deal with flow layout — the spacing of successive block elements. You may have noticed that I haven’t set any margins on any of my elements so far. That’s because margin should not be considered a property of elements but a property of the context of elements. That is, they should only come into play where elements meet.
+主要我们需要处理流式布局 - 连续块元素之间的间距。你可能已经注意到目前为止我没有给任何元素设置任何的外边距。那是因为外边距不应该考虑成一个元素的属性，而应该是元素上下文的属性。也就是说，它们应该只在遇到元素的时候才起作用。
 
-Fortunately, the [adjacent sibling combinator](https://developer.mozilla.org/en/docs/Web/CSS/Adjacent_sibling_selectors) can describe exactly this relationship. Harnessing the cascade, we can instate a uniform default across *all* block-level elements that appear in succession, with just a few exceptions.
+幸运的是，[直接相邻选择符](https://developer.mozilla.org/en/docs/Web/CSS/Adjacent_sibling_selectors)可以准确地描述这种关系。利用层叠，我们可以使用一个统一默认贯穿**所有**连续块级元素的选择符，只有少数例外情况。
 
+```
     * {
       margin: 0;
     }
-    
+
     * + * {
       margin-top: 1.5em;
     }
-    
+
     body, br, li, dt, dd, th, td, option {
       margin-top: 0;
     }
-    
+```
 
-The use of the extremely low-specificity [lobotomized owl selector](http://alistapart.com/article/axiomatic-css-and-lobotomized-owls) ensures that *any* elements (except the common exceptions) are spaced by one line. This means that there is default white space in all cases, and developers writing component flow content will have a reasonable starting point. 
+使用优先级极低的[猫头鹰选择符](http://alistapart.com/article/axiomatic-css-and-lobotomized-owls)确保了**任意**元素（除了那些公共的例外情况）都通过一行来间隔。这意味着在所有情况下都会有一个默认的白色间隔，所有编写组件流内容的开发者都将有一个合理的起点。
 
-In most cases, margins now take care of themselves. But because of the low specificity, it’s easy to override this basic one-line spacing where needed. For example, I might want to close the gap between labels and their respective fields, to show they are paired. In the following example, any element that follows a label (`input`, `textarea`, `select`, etc.) closes the gap.
+在大多数情况下，外边距只会关心它们自己。不过因为低优先级，很轻易就可以在需要的时候覆盖掉那基础的一行间隔。举个例子，我可能想要去掉标签和其相关元素之间的间隔，好表示它们是一对的。在下面的示例里，任意在标签之后的元素（`input`、`textarea`、`select` 等等）都不会有间隔。
 
-    label { 
-      display: block 
+```
+    label {
+      display: block
     }
-    
+
     label + * {
       margin-top: 0.5rem;
     }
-    
+```
 
-Once again, using the cascade means only having to write specific styles where necessary. Everything else conforms to a sensible baseline.
+再次，使用层叠意味着只需要在需要的时候写一些特定的样式就可以了，而其他的元素都符合一个合理的基准。
 
-Note that, because margins only appear between elements, they don’t double up with any padding that may have been included for the container. That’s one more thing not to have to worry about or code defensively against.
+需要注意的是，因为外边距只在元素之间出现，所以它们不会和可能包括在容器内的内边距重叠。这也是一件不需要担心或者预防的事情。
 
-Also, note that you get the same spacing whether or not you decide to include wrapper elements. That is, you can do the following and achieve the same layout — it’s just that the margins emerge between the `div`s rather than between labels following inputs.
+还注意到不管你是否决定引入包装元素都得到了同样的间隔。就是说，你可以像下面这样做并实现相同的布局 - 外边距在 `div` 之间出现比在标签和输入框之间出现要好得多。
 
+```
     <form>
       <div>
         <label for="one">Label one</label>
@@ -287,10 +301,10 @@ Also, note that you get the same spacing whether or not you decide to include wr
       </div>
       <button type="submit">Submit</button>
     </form>
-    
+```
+用像 [atomic CSS](http://acss.io/) 这样的方法能实现同样的效果，只需组合各种外边距相关的样式类并在各种情况下手动添加它们，包括被 `* + *` 隐式控制的 `first-child` 这种例外情况：
 
-Achieving the same result with a methodology such as [atomic CSS](http://acss.io/) would mean composing specific margin-related classes and applying them manually in each case, including for `first-child` exceptions handled implicitly by `* + *`:
-
+```
     <form class="Mtop(1point5)">
       <div class="Mtop(0)">
         <label for="one" class="Mtop(0)">Label one</label>
@@ -302,10 +316,11 @@ Achieving the same result with a methodology such as [atomic CSS](http://acss.io
       </div>
       <button type="submit" class="Mtop(1point5)">Submit</button>
     </form>
-    
+```
 
-Bear in mind that this would only cover top margins if one is adhering to atomic CSS. You’d have to prescribe individual classes for `color`, `background-color` and a host of other properties, because atomic CSS does not leverage inheritance or element selectors.
+记住如果坚持使用 atomic CSS 的话，像上面那么写只会覆盖到顶部外边距的情况。你必须还要为 `color`、`background-color` 以及其他属性建立独立的样式类，因为 atomic CSS 不会控制继承或者元素选择符。
 
+```
     <form class="Mtop(1point5) Bdc(#ccc) P(1point5)">
       <div class="Mtop(0)">
         <label for="one" class="Mtop(0) C(brandColor) Fs(bold)">Label one</label>
@@ -317,91 +332,97 @@ Bear in mind that this would only cover top margins if one is adhering to atomic
       </div>
       <button type="submit" class="Mtop(1point5) C(#fff) Bdc(blue) P(1)">Submit</button>
     </form>
-    
+```
 
-Atomic CSS gives developers direct control over style without deferring completely to inline styles, which are not reusable like classes. By providing classes for individual properties, it reduces the duplication of declarations in the stylesheet.
+Atomic CSS 使开发者可以直接控制样式而不再使用内联样式，内联样式不像样式类一样可以复用。通过为各种独立的属性提供样式类，减少了样式表中的重复声明。
 
-However, it necessitates direct intervention in the markup to achieve these ends. This requires learning and being commiting to its verbose API, as well as having to write a lot of additional HTML code.
+但是，它需要直接介入标记从而实现这些目的。这就要求学习并投入它那冗长的 API，同样还需要编写大量额外的 HTML 代码。
 
-Instead, by styling arbitrary HTML elements and their spacial relationships, CSS ‘methodology’ becomes largely obsolete. You have the advantage of working with a unified design system, rather than an HTML system with a superimposed styling system to consider and maintain separately.
+相反，如果只用来对任意 HTML 元素及其空间关系设计样式的话，那么 CSS “方法论”就要被大范围弃用了。使用一致性设计的系统有着很大的优势，相比一个叠加样式的 HTML 系统更方便考虑和分开管理。
 
-Anyway, here’s how the structure of our CSS should look with our flow content solution in place:
+无论如何，下面是我们的 CSS 架构和流式布局内容解决方案应该具备的特征：
 
-1. global (`html`) styles and enforced inheritance,
-2. flow algorithm and exceptions (using the lobotomized owl selector),
-3. element and attribute styles.
+1. 全局（`html`）样式并强制继承，
+2. 流式布局方法及部分例外（使用猫头鹰选择符），
+3. 元素及属性样式。
 
-We’ve yet to write a specific component or conceive a CSS class, but a large proportion of our styling is done — that is, if we write our classes in a sensible, reusable fashion.
+我们还没有编写一个特定组件或者构思一个 CSS 样式类，但我们大部分的样式都已经写好了，前提是如果我们能够将样式类写得合理且可复用。
 
-### Utility Classes
+### 工具类
 
-The thing about classes is that they have a global scope: Anywhere they are applied in the HTML, they are affected by the associated CSS. For many, this is seen as a drawback, because two developers working independently could write a class with the same name and negatively affect each other’s work.
+关于样式类它们有一个全局作用域：在 HTML 里任何地方使用，它们都会被关联的 CSS 所影响。对大多数人来说，这都被看做一个弊端，因为两个独立的开发者有可能以同样的命名来编写一个样式类，从而互相影响工作。
 
-[CSS modules](https://css-tricks.com/css-modules-part-1-need/) were recently conceived to remedy this scenario by programmatically generating unique class names tied to their local or component scope.
+[CSS modules](https://css-tricks.com/css-modules-part-1-need/) 最近被用来解决这种情况，通过以程序来生成唯一的样式类名，绑定到它们的局部或组件作用域当中。
 
+```
     <!-- my module's button -->
     <button class="button_dysuhe027653">Press me</button>
-    
+
     <!-- their module's button -->
     <button class="button_hydsth971283">Hit me</button>
-    
+```
 
-Ignoring the superficial ugliness of the generated code, you should be able to see where disparity between independently authored components can easily creep in: Unique identifiers are used to style similar things. The resulting interface will either be inconsistent or be consistent with much greater effort and redundancy. 
+忽略掉生成代码的丑陋，你应该能够看到两个独立组件之间的不同，并且可以轻易地放在一起：唯一的标识符被用来区分同类的样式。在这么多更好的努力和冗余代码下，结果界面将要么不一致，要么一致。
 
-There’s no reason to treat common elements as unique. You should be styling the type of element, not the instance of the element. Always remember that the term “class” means “type of thing, of which there may be many.” In other words, all classes should be utility classes: reusable globally. 
+没有理由对公共元素来进行唯一性区分。你应该对元素类型添加样式，而不是元素实例。谨记 “class” 意味着“某种可能存在很多的东西的类型”。换句话说，所有的样式类都应该是工具类：全局可复用。
 
-Of course, in this example, a `.button` class is redundant anyway: we have the `button` element selector to use instead. But what if it was a special type of button? For instance, we might write a `.danger` class to indicate that buttons do destructive actions, like deleting data:
+当然，在这个示例里，总之 `.button` 类是冗余的：我们可以用 `button` 元素选择符来替代。但是如果有一种特殊类型的按钮呢？比如，我们可能编写一个 `.danger` 类来指明这个按钮是做危险性操作，比如删除数据：
 
+```
     .danger {
       background: #c00;
       color: #fff;
     }
-    
+```
 
-Because class selectors are higher in specificity than element selectors and of the same specificity as attribute selectors, any rules applied in this way will override the element and attribute rules further up in the style sheet. So, my danger button will appear red with white text, but its other properties — like padding, the focus outline, and the margin applied via the flow algorithm — will remain intact.
+因为类选择符的优先级比元素选择符的优先级高，而和属性选择符优先级相同，所以这种方式添加在样式表后面的样式规则会覆盖前面元素和属性选择符的规则。所以，危险按钮会以红色背景配白色文本出现，但它其他的属性，比如内边距，聚焦轮廓以及外边距都会通过之前的流式布局方法添加，保持不变。
 
+```
     <button class="danger">delete</button>
-    
+```
 
-Name clashes may happen, occasionally, if several people are working on the same code base for a long time. But there are ways of avoiding this, like, oh, I don’t know, first doing a text search to check for the existence of the name you are about to take. You never know, someone may have solved the problem you’re addressing already.
+如果多位开发人员长时间在同样的代码基础上工作，那么偶尔就会发生命名冲突。但是有几种避免这种情况的方法，比如，噢，我不太知道，但对于你想要采用的名称我建议首先做一个文本搜索，看看是否已经存在了。因为你不知道，可能已经有人解决了你正在定位的问题。
 
-#### Local Scope Utilities
+#### 局部作用域的各种工具类
 
-My favorite thing to do with utility classes is to set them on containers, then use this hook to affect the layout of child elements within. For example, I can quickly code up an evenly spaced, responsive, center-aligned layout for any elements:
+对于工具类来说，我最喜欢做的事情就是把它们设置在容器上，然后用这个钩子去影响内部子元素的布局。举个例子，我可以快速对任意元素设置一个等间隔、响应式以及居中的布局。
 
+```
     .centered {
       text-align: center;
       margin-bottom: -1rem; /* adjusts for leftover bottom margin of children */
     }
-    
+
     .centered > * {
       display: inline-block;
       margin: 0 0.5rem 1rem;
     }
-    
+```
 
-With this, I can center group list items, buttons, a combination of buttons and links, whatever. That’s thanks to the use of the `> *` part, which means that any immediate children of `.centered` will adopt these styles, in this scope, but inherit global and element styles, too.
+使用这个方法，我可以把列表项、按钮、按钮组合以及链接等随便什么元素居中展示。全靠 `> *` 的使用，在这个作用域中，它意味着带有 `.centered` 样式的元素下最近的子元素将会采用这些样式，并且还继承全局和父元素的样式。
 
-And I’ve adjusted the margins so that the elements can wrap freely without breaking the vertical rhythm set using the `* + *` selector above it. It’s a small amount of code that provides a generic, responsive layout solution by setting a local scope for arbitrary elements.
+而且我调整了外边距，好让元素可以自由进行包裹，而且不会破坏使用 `* + *` 选择符设置的垂直设定。这少量的代码通过对不同元素设置一个局部作用域，就提供了一个通用、响应式的布局解决方案。
 
-My tiny (93B minified) [flexbox-based grid system](https://github.com/Heydon/fukol-grids) is essentially just a utility class like this one. It’s highly reusable, and because it employs `flex-basis`, no breakpoint intervention is needed. I just defer to flexbox’s wrapping algorithm.
+我的一个小型（压缩后 93B）的[基于 flexbox 网格布局系统](https://github.com/Heydon/fukol-grids) 就是一个类似这种方法的工具类。它高度可复用，而且因为它使用了 `flex-basis`，所以不需要断点干预。我只是用了 flexbox 布局的方法。
 
+```
     .fukol-grid {
       display: flex;
       flex-wrap: wrap;
       margin: -0.5em; /* adjusting for gutters */
     }
-    
+
     .fukol-grid > * {
       flex: 1 0 5em; /* The 5em part is the basis (ideal width) */
       margin: 0.5em; /* Half the gutter value */
     }
-    
+```
 
 ![logo with sea anemone (penis) motif](https://www.smashingmagazine.com/wp-content/uploads/2016/11/logo-fukol.png)
 
-Using BEM, you’d be encouraged to place an explicit “element” class on each grid item:
+使用 BEM 的方法，你会被鼓励在每个网格项上放置一个明确的“元素”样式类：
 
+```
     <div class="fukol"> <!-- the outer container, needed for vertical rhythm -->
       <ul class="fukol-grid">
         <li class="fukol-grid__item"></li>
@@ -410,62 +431,64 @@ Using BEM, you’d be encouraged to place an explicit “element” class on eac
         <li class="fukol-grid__item"></li>
       </ul>
     </div>
-    
+```
 
-But there’s no need. Only one identifier is required to instantiate the local scope. The items here are no more protected from outside influence than the ones in my version, targeted with `> *` — **nor should they be**. The only difference is the inflated markup.
- 
-So, now we’ve started incorporating classes, but only generically, as they were intended. We’re still not styling complex components independently. Instead, we’re solving system-wide problems in a reusable fashion. Naturally, you will need to document how these classes are used in your comments.
+但这不是必要的。只需一个标识符去实例化本地作用域。这里的列表项相比起我版本当中的列表项，不再受外部影响的保护，**也不应该**被 `> *` 所影响。仅有的区别就是充斥了大量样式类的标记。
 
-Utility classes like these take advantage of CSS’ global scope, the local scope, inheritance and the cascade simultaneously. The classes can be applied universally; they instantiate the local scope to affect just their child elements; they inherit styles *not* set here from the parent or global scope; *and* we’ve not overqualified using element or class selectors.
+所以，现在我们已经开始合并样式类，但只在通用性上合并，和它们所预期的效果一样。我们仍然还没有独立地给复杂组件添加样式。反而，我们在以一种可复用的方式解决一些系统性的问题。当然，你将需要在注释里写清楚这些样式类是如何使用的。
 
-Here’s how our cascade looks now:
+像这些的工具类同时采用了 CSS 的全局作用域、局部作用域、继承以及层叠的优点。这些样式类可以在各个地方使用，它们实例化局部作用域从而只影响它们的子元素，它们从父级或全局作用域中继承**没有**设置在自身的样式，**而且**我们没有过度使用元素或类选择符。
 
-1. global (`html`) styles and enforced inheritance,
-2. flow algorithm and exceptions (using the lobotomized owl selector),
-3. element and attribute styles,
-4. generic utility classes.
+下面是现在我们的层叠看上去的样子：
 
-Of course, there may never be the need to write either of these example utilities. The point is that, if the need does emerge while working on one component, the solution should be made available to all components. Always be thinking in terms of the system.
+1. 全局（`html`）样式和强制性继承，
+2. 流式布局方法和一些例外（使用猫头鹰选择符），
+3. 元素和属性样式，
+4. 通用的工具类。
 
-#### Component-Specific Styles
+当然，可能没有必要去编写所有这些示例工具类。重点是，如果在使用组件的时候出现了需求，那么解决方案应该对所有组件都有效才行。一定要总是站在系统层面去思考。
 
-We’ve been styling components, and ways to combine components, from the beginning, so it’s tempting to leave this section blank. But it’s worth stating that any components not created from other components (right down to individual HTML elements) are necessarily over-prescribed. They are to components what IDs are to selectors and risk becoming anachronistic to the system.
+#### 特定组件样式
 
-In fact, a good exercise is to identify complex components (“molecules,” “organisms”) by ID only and try not to use those IDs in your CSS. For example, you could place `#login` on your log-in form component. You shouldn’t have to use `#login` in your CSS with the element, attribute and flow algorithm styles in place, although you might find yourself making one or two generic utility classes that can be used in other form components.
+我们从一开始就已经给组件添加了样式，并且学习样式结合组件的方法，所以很多人有可能会忽略掉马上要讲到这个部分。但值得说明的是，任何不是从其他组件中创建的组件（甚至包括单个 HTML 元素）都是有必要存在的。它们是使用 ID 选择符的组件，以及有可能成为系统问题的风险。
 
-If you *do* use `#login`, it can only affect that component. It’s a reminder that you’ve moved away from developing a design system and towards the interminable occupation of merely pushing pixels.
+事实上，一个好的实践是只使用 ID 来给复杂组件标识（“molecules”、“organisms”），并且不在 CSS 里使用这些 ID。比如，你可以在登录表单组件上写一个 `#login`，那么你就不应该在 CSS 里以元素、属性或者流式布局方法的样式来使用 `#login`，即使你可能会发现你在创造一个或两个可以在其他表单组件里使用的通用工具类。
 
-### Conclusion
+如果你**确实**使用了 `#login`，那么它只会影响那个组件。值得提醒的是如果这么做，那么你就已经偏离了开发一个设计系统方向，并且朝着只有不停纠结像素的冗长代码前进。
 
-When I tell folks that I don’t use methodologies such as BEM or tools such as CSS modules, many assume I’m writing CSS like this:
+### 结论
 
+当我告诉人们我不使用诸如 BEM 这样的方法论或者 CSS 模块这样的工具时，多数人会认为我会编写下面这样的 CSS：
+
+```
     header nav ul li {
       display: inline-block;
     }
-    
+
     header nav ul li a {
       background: #008;
     }
-    
+```
 
-I don’t. A clear over-specification is present here, and one we should all be careful to avoid. It’s just that BEM (plus OOCSS, SMACSS, atomic CSS, etc.) are not the only ways to avoid convoluted, unmanageable CSS.
+我没有这样做。一份清晰的陈述已经在这儿了，还有我们需要小心去避免的事情也已经阐述了。只是想说明 BEM（还有 OOCSS、SMACSS、atomic CSS 等）并不是避免复杂、不可能管理的 CSS 的唯一方法。
 
-In an effort to defeat specificity woes, many methodologies defer almost exclusively to the class selector. The trouble is that this leads to a proliferation of classes: cryptic ciphers that bloat the markup and that — without careful attention to documentation — can confound developers new to the in-house naming system they constitute.
+为了解决优先级问题，许多方法论几乎都选择了使用类选择符。问题在于这产生了大量的样式类：让 HTML 标记变得臃肿的各种神奇代码，以及失去了对文档的注意力，这些都会让新来的开发者对他们所处的系统感到困扰和迷惑。
 
-By using classes prolifically, you also maintain a styling system that is largely separate from your HTML system. This misappropriation of ‘separate concerns’ can lead to redundancy or, worse, can encourage inaccessibility: it’s possible to affect a visual style without affecting the accessible state along with it:
+通过大量地使用样式类，你还需要管理一个样式系统，而且这个系统很大程度上是和 HTML 系统分离的。这种不太合适的所谓“关注点分离”可以造成冗余，甚至更糟糕，导致不可访问性：有可能会在可访问的状态下影响一个视觉上的样式：
 
+```
     <input id="my-text" aria-invalid="false" class="text-input--invalid" />
-    
+```
 
-In place of the extensive writing and prescription of classes, I looked at some other methods:
+为了替换掉大量的编写和各种样式类，我找到了其他一些方法：
 
-- leveraging inheritance to set a precedent for consistency;
-- making the most of element and attribute selectors to support transparent, standards-based composition;
-- applying a code- and labor-saving flow layout system;
-- incorporating a modest set of highly generic utility classes to solve common layout problems affecting multiple elements.
+- 为了一致性掌握继承去设置一个前置条件；
+- 充分使用元素和属性选择符去支持透明度和基于标准的组合样式；
+- 使用简便的的流式布局系统；
+- 合并一些高度通用的工具类，解决影响多元素的共同布局问题。
 
-All of these were put in service of creating a design **system** that should make writing new interface components easier and less reliant on adding new CSS code as a project matures. And this is possible not thanks to strict naming and encapsulation, but thanks to a distinct lack of it.
+所有这些方法都是为了创建一个设计**系统**，使编写一个新组件变得更简单，以及当项目成熟的时候，减少添加新的 CSS 代码的依赖。并且这并不是获益于严格的命名和合并，反而是因为缺少了它们。
 
-Even if you’re not comfortable using the specific techniques I’ve recommended here, I hope this article has at least gotten you to rethink what components are. They’re not things you create in isolation. Sometimes, in the case of standard HTML elements, they’re not things you create at all. The more you compose components *from* components, the more accessible and visually consistent your interface will be, and with less CSS to achieve that end. 
+可能你会对我在这里推荐的特殊技巧并不感冒，但我还是希望这篇文章至少可以让你重新思考一下组件是什么。它们不是你独立创建的东西。有的时候，在标准 HTML 元素的情况下，它们甚至不是你所创建的东西。你的组件**从**其他组件拿来的东西越多，那么界面的可访问性和视觉上的一致性就会变得更好，并且最后会用更少的 CSS 去实现它们。
 
-There’s not much wrong with CSS. In fact, it’s remarkably good at letting you do a lot with a little. We’re just not taking advantage of that.
+（这些问题）CSS 并没有太多过错。事实上，让你做很多事情是非常好的，我们只是没有利用罢了。
