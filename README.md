@@ -8,7 +8,7 @@
 
 #  官方指南：
 
-- [**推荐优质英文文章到掘金翻译计划**](http://gold.codesign.me/)
+- [**推荐优质英文文章到掘金翻译计划**](https://gold.xitu.io)
 - [如何参与翻译](https://github.com/xitu/gold-miner/wiki/如何参与翻译)
 - [十万个为什么](https://github.com/xitu/gold-miner/wiki/十万个为什么)
 - [译文排版规则指北](https://github.com/xitu/gold-miner/wiki/译文排版规则指北)
