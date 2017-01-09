@@ -49,7 +49,7 @@
 
 同理心是一种能让我们站在他人的角度来观察问题的能力，并以此来理解你的用户。
 
-![](https://cdn-images-1.medium.com/max/ 1000 /1*，IauRBquhAgvFTMno9hfw.png)
+![](https://cdn-images-1.medium.com/max/1000/1*ldIauRBquhAgvFTMno9hfw.png)
 
 和用户进行高效的交流，知道他们是怎么想的非常重要。设计思考的重点通常在于质而不是在量。这意味着在交流中需要尽可能的选择少数的，具有代表性的用户，这是非常重要的。
 
@@ -65,7 +65,7 @@
 
 [**如何使用同理图 | UX Magazine**](https://uxmag.com/articles/how-to-use-persona-empathy-mapping)
 
-[论同理心的正确打开方式](https://uxmag.com/articles/how-to-use-persona-empathy-mapping)
+[**论同理心的正确打开方式**](https://uxmag.com/articles/how-to-use-persona-empathy-mapping)
 
 [**10分钟用户解析大法**](https://www.uxpin.com/studio/blog/the-practical-guide-to-empathy-maps-creating-a-10-minute-persona/)
 
@@ -77,7 +77,7 @@
 
 结合你的调研并且观察你的用户们的真实问题到底在哪里。指出问题的根源，并且开始关注创新的可行性，找准用户的需求。
 
-![](https://cdn-images-1.medium.com/max/ 1000 /1*，LmbbgoERUpBto5ELx-Cg.jpeg)
+![](https://cdn-images-1.medium.com/max/1000/1*yNLmbbgoERUpBto5ELx-Cg.jpeg)
 
 基于你的换位思考来重新定义你需要解决的问题。
 
@@ -85,9 +85,9 @@
 
 尽可能地提出疯狂的，有创造力想法。
 
-*在我看来，头脑风暴是这个思维方式里最有趣也是最激动人心的环节*
+**在我看来，头脑风暴是这个思维方式里最有趣也是最激动人心的环节**
 
-![](https://cdn-images-1.medium.com/max/ 1000 /1*，IWX8-cw9AEb-VOwlR8BA.png)
+![](https://cdn-images-1.medium.com/max/1000/1*lPIWX8-cw9AEb-VOwlR8BA.png)
 
 头脑风暴 = 被释放的想法 + 没有约束（译者：unleash通常用来被释放恶魔）
  
@@ -103,18 +103,18 @@
 
 在这个阶段的最后，细分筛选所有的想法并留下最好的来为下一步做准备。
 
-**资源:**
+**参考资源:**
 
 [**思考方法**](http://www.ideou.com/pages/ideation-method-mash-up)
 
-[*"从想法到行动"*](http://www.ideou.com/pages/ideation-method-mash-up)
+[**"从想法到行动"**](http://www.ideou.com/pages/ideation-method-mash-up)
 
 
 
 
 ### 第四步：原型测试 ###
 
-“一个原型测试比的上开 1000 场会”，来自 [*IDEO*](https://www.ideo.com/post/design-thinking-for-educators)*.*
+“一个原型测试比的上开 1000 场会”，来自 [**IDEO**](https://www.ideo.com/post/design-thinking-for-educators)*.*
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*MWmT7HaDVgebvbqXqAmGgQ.png">
 
