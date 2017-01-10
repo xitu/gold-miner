@@ -12,20 +12,20 @@
 
 从复杂的 ERP（Enterprise Resource Planning，企业资源计划）系统到 Facebook，是数据的输入让应用们有了意义。表单在许多时候是用户提交数据的一个必经入口。这篇文章介绍了 13 种不同的方法来呈现表单，并探讨了数据输入的未来。
 
-### 窗口（Modal）
+### 模态对话框（Modal）
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*6zcZuyRJSVwO8KbIg_byLg.jpeg">
 
 简洁的窗口在低复杂度要求和数据有限的情况下很适用。窗口通常很容易实现，并且会有一个很直接了当的用户体验。然而，复杂的交互往往需要额外的窗口或弹出窗口，这会让用户觉得很混乱。当然，窗口可以让用户暂时不与页面的其他部分交互，直到关闭窗口。如果你有一个较长的表单，可以考虑设立一个单独的页面，或者直接在上下文中添加行内编辑的入口。
 				
 
-### 多窗口（Multi-modal）
+### 多重模态对话框（Multi-modal）
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*JV84BrsVxgFzozI-fHWcpQ.jpeg">
 
 多窗口的表单（也许有一个更好的名称）可呈现为可拖动的窗格，它允许用户一次和多个表单进行交互。用户可以在页面中拖动表单，这允许他们看到表单下面遮住的内容。多窗口表单可以让重度用户同时输入大量的信息，而需要打开多个界面或浏览器窗口等等。这样的展示会为初级用户带来一些困扰，因为他们有可能在页面中迷失，或者做出错误的操作。
 
 
-### 侧边栏（lideout）
+### 侧边栏（lideouts）
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*_0eKR6PyTRnil20DAw90Dg.jpeg">
 
@@ -37,7 +37,7 @@
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*k6h1MrBIg-DoCIMzcTmvgw.jpeg">
 
-拥有多个入口的快速编辑来说，弹出的表单是很好用的。弹出表单直接在上下文中展现了相关联的数据，因此用户们不会迷失自己在 App 中的位置。
+对于快速编辑和输入来说，弹出窗口是个很好的办法。弹出表单直接在上下文中展现了相关联的数据，因此用户们不会迷失自己在 App 中的位置。
 			
 
 
@@ -74,7 +74,7 @@
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*cXVZjXUt4TRoxnc8HDRhsQ.jpeg">
 
-章节式表单适用于复杂信息的输入。用户可以在表单中看到整个上下文，而不是向导式表单那样的多个页面。用户可以在章节式表单中自由地填写信息，而不需要一条一条地填写，这给用户提供了更高的灵活性。
+章节式表单适用于复杂信息的输入。用户可以在表单中看到整个上下文，而不是向导式表单那样的多个页面。用户可以在章节式表单中自由地填写信息，而不需要逐行去填写，这给用户提供了更高的灵活性。
 
 
 
@@ -100,7 +100,7 @@
 
 
 
-### Conversational user interfaces and the future
+### 对话式用户界面及其未来
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*GZcRV8jv6To_qil0mHSZeQ.jpeg">
 
