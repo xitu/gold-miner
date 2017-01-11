@@ -1,5 +1,5 @@
 > * 原文地址：[The Do’s and Don’ts of Writing Test cases in Android.](https://blog.mindorks.com/the-dos-and-don-ts-of-writing-test-cases-in-android-70f1b5dab3e1#.sjelh11mm)
-* 原文作者：[The Do’s and Don’ts of Writing Test cases in Android.](https://gold.xitu.io/entry/5875a757128fe1006b49151f/)
+* 原文作者：[Anshul Jain](https://blog.mindorks.com/@anshuljain?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：
 * 校对者：
