@@ -1,8 +1,8 @@
 > * 原文地址：[Form Design for Complex Applications](https://uxdesign.cc/form-design-for-complex-applications-d8a1d025eba6#.l08bq0kbt)
 * 原文作者：[Andrew Coyle](https://uxdesign.cc/@CoyleAndrew?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
-* 校对者：
+* 译者：[特伦](https://www.behance.net/Funtrip)
+* 校对者：[Mark](https://github.com/marcmoore)、[Freya Yu](https://github.com/ZiXYu)
 
 # 如何为复杂应用设计表单
 
