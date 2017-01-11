@@ -10,7 +10,7 @@
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/2000/1*RVpQciv-R44ZlAY_dKEXgw.jpeg">
 
-从复杂的 ERP（Enterprise Resource Planning，企业资源计划）系统到 Facebook，是数据的输入让应用们有了意义。表单在许多时候是用户提交数据的一个必经入口。这篇文章介绍了 13 种不同的方法来呈现表单，并探讨了数据输入的未来。
+从复杂的 ERP（Enterprise Resource Planning，企业资源计划）系统到 Facebook，是数据的输入让应用们有了意义。表单在许多时候是用户提交数据的一个必经入口。本文介绍了呈现表单的 13 种不同的方法，并探讨了数据输入的未来。
 
 ### 模态对话框（Modal）
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*6zcZuyRJSVwO8KbIg_byLg.jpeg">
@@ -22,7 +22,7 @@
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*JV84BrsVxgFzozI-fHWcpQ.jpeg">
 
-多窗口的表单（也许有一个更好的名称）可呈现为可拖动的窗格，它允许用户一次和多个表单进行交互。用户可以在页面中拖动表单，这允许他们看到表单下面遮住的内容。多窗口表单可以让重度用户同时输入大量的信息，而需要打开多个界面或浏览器窗口等等。这样的展示会为初级用户带来一些困扰，因为他们有可能在页面中迷失，或者做出错误的操作。
+多窗口的表单（也许有一个更好的名称）可呈现为可拖动的窗格，它允许用户一次和多个表单进行交互。用户可以在页面中拖动表单，这使他们可以看到表单下面遮住的内容。多窗口表单可以让重度用户同时输入大量的信息，而不需要打开多个界面或浏览器窗口等等。这样的展示会为初级用户带来一些困扰，因为他们有可能在页面中迷失，或者做出错误的操作。
 
 
 ### 侧边栏（lideouts）
@@ -37,11 +37,11 @@
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*k6h1MrBIg-DoCIMzcTmvgw.jpeg">
 
-对于快速编辑和输入来说，弹出窗口是个很好的办法。弹出表单直接在上下文中展现了相关联的数据，因此用户们不会迷失自己在 App 中的位置。
+弹出表单很适合用来实现表单的快速编辑和输入。弹出表单直接在上下文中展现了相关联的数据，因此用户们不会迷失自己在 App 中的位置。
 			
 
 
-### 行内（Inline）
+### 行内表单（Inline）
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*woE3kW5k9ec9w7Aw7XfpHA.jpeg">
 
 行内表单允许用户在数据展现的地方直接进入和编辑，而不需要转到另一个界面。行内表单一般有一个编辑和阅读模式，或者当用户与单个字段交互的时候，数据可以被编辑并自动保存。
@@ -55,18 +55,18 @@
 
 
 
-### 可延续式（Takeover）
+### 可延续式窗口（Takeover）
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*uxYT1b0iR93t8M1eIrgVUw.jpeg">
 
-可延续窗口允许用户与复杂表单数据交互，并且他们能够迅速回到之前的视图。可延续窗口适用于输入系统级的数据而不需要一个后续视图。
+可延续式窗口允许用户与复杂表单数据交互，并且他们能够迅速回到之前的视图。可延续窗口适用于输入系统级的数据而不需要一个后续视图。
 
 
 
-### 向导式（Wizard）
+### 引导式表单（Wizard）
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*bUZdK24WxCYo351JD6h8hQ.jpeg">
 
-向导式表单允许用户一步一步按顺序填写信息。向导式适用于那些用户在完成填写之后不会再次交互的复杂表单。当用户对过程很不熟悉的时候应该使用引导式的表单。引导式表单是一种典型的、高使用频率的表单，但它的用户体验较差，且给人居高临下的感觉。
+引导式表单允许用户一步一步按顺序填写信息。引导式适用于那些用户在完成填写之后不会再次交互的复杂表单。当用户对过程很不熟悉的时候应该使用引导式的表单。引导式表单是一种典型的、高使用频率的表单，但它的用户体验较差，且给人居高临下的感觉。
 
 
 
@@ -81,7 +81,7 @@
 ### 拖放（Drag & Drop）
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*KsKwmpwYGnTbly2JHNy0iQ.jpeg">
 
-虽然这不是一个典型的表单，但拖放编辑器让用户可以从预设的数据中挑选并拖放到一个所见即所得的视图中。通过模拟现实世界，这样的交互也被增添了一些趣味。
+虽然这不是一个典型的表单，但拖放编辑器让用户可以从预设的数据中挑选并拖放到一个所见即所得的视图中。通过模拟现实世界的方式，这样的交互模式也显得更加有趣了。
 
 
 
@@ -96,7 +96,7 @@
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*TO6FcUsAps09_1x1edIUVw.jpeg">
 
-有时候追求实用性最佳，会忽略审美和有趣的交互。为了不造成一个糟糕的用户体验我写了一篇关于[实用性审美](https://uxdesign.cc/aesthetics-matter-75060b7b572)的文章。在句子或段落中填入当前输入的预设样式，可以帮助用户完成输入他们的数据。
+有时候追求最佳的实用性，会忽略审美和有趣的交互。为了不造成一个糟糕的用户体验我写了一篇关于[实用性审美](https://uxdesign.cc/aesthetics-matter-75060b7b572)的文章。在句子或段落中填入当前输入的预设样式，可以帮助用户完成输入他们的数据。
 
 
 
