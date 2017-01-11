@@ -10,7 +10,7 @@
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/2000/1*Q2ZvXIuTtJePjjAZWdSbmg.jpeg">
 
-内联验证是一种验证输入有效性并在表格提交前就提供反馈的方式。它 [显著增强](http://alistapart.com/article/inline-validation-in-web-forms)  It [significantly enhances](http://alistapart.com/article/inline-validation-in-web-forms) 了表单的可用性和用户体验。本文阐述了有关设计表单的内联验证和错误处理的技术。
+内联验证是一种验证输入有效性并在表格提交前就提供反馈的方式。它 [显著增强](http://alistapart.com/article/inline-validation-in-web-forms) 了表单的可用性和用户体验。本文阐述了有关设计表单的内联验证和错误处理的技术。
 
 #### 表单验证 ####
 
@@ -48,52 +48,50 @@
 
 ### [什么时候应该提供内联验证和错误显示？](http://ux.stackexchange.com/questions/74531/form-validation-when-should-error-messages-be-triggered) ###
 
-I have distilled 5 ways; each with its trade-offs and limitations. It’s important to address problems early and at their source, but it is easy to make matters worse with an inconsiderate approach.
-对于上面的问题，我总结了五个答案，每个答案都有自己的优缺点。显然，从源头快速解决问题是很重要的，但是这也很容易因为没有思虑周全的解决方式让问题变得更糟。
+对于上面的问题，我总结了五个答案，每个答案都有自己的优缺点。显然，快速定位表单中出了问题的部分是很重要的，但是如果采用了不妥当的方式却容易让问题变得更糟糕。
 
-#### 1. When a user click into an input ####
 #### 1. 当用户点击一个表单元素时 ####
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*J8Fplefyf7-67jf0f23dqA.jpeg">
 
-Immediately showing an error when a user clicks into a field is annoying, misleading, and distracting. It is like the form is yelling at you before you say anything. Talk about a bad relationship… However, this approach can be done well by presenting helper text in place of an explicit error until the error is confirmed, or the entry validated.
-当用户点击一个表单元素时直接显示一个错误是非常恼人的，同时也容易误导用户，让用户分心。这就好像这个表单在用户还没有说任何话之前就已经在超用户咆哮了。 It is like the form is yelling at you before you say anything. Talk about a bad relationship… However, this approach can be done well by presenting helper text in place of an explicit error until the error is confirmed, or the entry validated.
+当用户点击一个表单元素时直接显示一个错误信息是非常恼人的，同时也容易误导用户，让用户分心。这就好像这个表单在用户还没有说任何话之前就已经在朝用户咆哮了。然而，我们可以选择显示帮助文本来替代错误提示，这样就可以很好的实现这个方式。帮助文本可以一直存在，直到错误的部分被纠正或者输入条目被验证正确。
 
 
-#### 2. As a user types ####
+#### 2. 当用户在进行输入时 ####
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*P-vT9AnP4iSPE6ob6OSmmg.jpeg">
 
-This approach annoys the user until the entry is validated. The user is harassed with each entered character, providing more frustration than help. It is like arguing with someone who is talking over you…However, this method provides helpful feedback for password strength and username availability.
+这个方式会在输入条目被验证前一直使用户感到不舒服。用户每输入一个字符就会被骚扰一次，这种方式提供的更多是挫败感而不是合理的帮助。这就像在不停地和一个试图说服你的人争论一般。然而，这种方式在用户输入密码和用户名时，可以对密码强度和用户名可用性提供很有帮助的反馈。
 
-
-#### 3. Once the user reaches the character requirement ####
+#### 3. 当用户的输入到达字符限制时 ####
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/600/1*smLh69YQQHeAB_V8IjLVoA.jpeg">
 
-This validation method works for inputs with predictable character lengths like Zip codes, phone numbers, CC numbers, etc. However, this can be problematic for [internationalization](https://uxdesign.cc/form-internationalization-techniques-3e4d394cd7e5#.fqjyl772t) because the intended formate is not always known.
+这种验证方式适用于验证可预测字符长度的输入，例如邮政编码，电话号码，银行汇款号码等。然而，这可能对于表单实现 [国际化](https://uxdesign.cc/form-internationalization-techniques-3e4d394cd7e5#.fqjyl772t) 会造成一点困扰，因为输入的格式并不总是已知的。
 
 
-#### 4. When a user leaves the field ####
+#### 4. 当用户离开表单元素时 ####
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/600/1*obM310umFGFCX_WUZm8FYQ.jpeg">
 
-This is probably the best default behavior because validation occurs after the entry is made explicit. However, it can disrupt a user’s flow because it provides feedback after the user has moved on.
+这种在输入明确完成之后的验证方式可能是最好的默认行为了。然而，它可能打断用户的输入流程，因为它是在用户完成输入移动到下一个表单元素才提供反馈的。
 
 
-#### 5. When a user pauses ####
+#### 5. 当用户停下输入时 ####
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/600/1*ukUmHTkQeDce4Ae7nHl-5g.jpeg">
 
-This technique provides feedback when a user pauses. This mitigates the annoyance of inline errors as a user types and provides feedback when they pause or exit the input.
+这种方式是在用户停下输入的时候提供反馈的。这种方式可以减轻用户在键入时产生内联错误的不适感，同时又可以在用户暂停或者退出输入时提供合理的反馈。
 
 
-It is surprising how many forms don’t employ simple inline validation and error handling, and it is even more surprising how often it is poorly implemented. I hope this article helps you design better web form validation. I would love to hear your helpful techniques.
+可是，令人惊讶的是现在很多的表单并没有采用任何简单的内联验证和错误处理，更令人惊讶的是它们更多的是用很差劲的方式来实现的。我希望这篇文章可以帮助开发者设计一种更好的网页表单验证方式。如果你们有更有帮助的解决方案，我也很期待听到你的回音。
 
-**Feel free to reach out to me on** [**Twitter**](https://twitter.com/CoyleAndrew).
+**如果想要联系我，请通过** [**Twitter**](https://twitter.com/CoyleAndrew).
 
-This article is part of an initiative to build a user interface pattern library focused on usability and aesthetics. [**Subscribe to receive updates**](http://ohapollo.com/) .
 
-#### If you found this article of value, please click the ❤ below so others can find it too. ####
+这篇文章是构建一个关注可用性和美学的用户界面模式库系列的一部分。[**订阅来获取最新消息**](http://ohapollo.com/)。
+
+
+#### 如果你觉得这篇文章很有价值，请点击文章底部的 ❤ 来支持我们哟。 ####
 
 ![Markdown](http://p1.bqimg.com/1949/a9581415d9cb68fb.png)
