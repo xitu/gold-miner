@@ -104,9 +104,9 @@
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*GZcRV8jv6To_qil0mHSZeQ.jpeg">
 
-Conversational user interfaces (CUI) typically consist of a “[bot](https://chatbotsmagazine.com/the-complete-beginner-s-guide-to-chatbots-8280b7b906ca)” responding to freeform voice or text inputs. The bot then answers or provides further form controls to address the request. Machine learning has been employed to better interpret input and tailor responses.对话式用户界面（CUI）通常由一个“[机器人](https://chatbotsmagazine.com/the-complete-beginner-s-guide-to-chatbots-8280b7b906ca)”来回复任意的语音或文字输入。机器人会回答或提供下一步的表单空间来输入请求。机器学习已经被用来更好地理解输入和定制回复。
+对话式用户界面（CUI）通常由一个“[机器人](https://chatbotsmagazine.com/the-complete-beginner-s-guide-to-chatbots-8280b7b906ca)”来回复任意的语音或文字输入。机器人会回答或提供下一步的表单空间来输入请求。机器学习已经被用来更好地理解输入和定制回复。
 
-There is a lot of hype around conversational user interfaces. Many designers think CUI is [the future of web forms](https://blog.prototypr.io/the-future-of-web-forms-4578485e1461). WeChat’s success has provided credibility to the exuberance. However, as [Yunnuo Cheng and Jakob Nielsen point out](https://www.nngroup.com/articles/wechat-integrated-ux/), **the benefits of WeChat’s integrated service offerings come more from its familiar and convenient graphical user interface instead of its conversational user interface.**关于 CUI 的炒作非常之多。许多设计师认为 CUI 是网络表单的未来，微信的成功就提供了一个可靠的例子。然而，正如 [Yunnuo Cheng 和 Jakob Nielsen 所指出的](https://www.nngroup.com/articles/wechat-integrated-ux/)，**微信整体服务的效力更多来源于友好和方便的图形用户界面而不是对话式用户界面。**
+关于 CUI 的炒作非常之多。许多设计师认为 CUI 是网络表单的未来，微信的成功就提供了一个可靠的例子。然而，正如 [Yunnuo Cheng 和 Jakob Nielsen 所指出的](https://www.nngroup.com/articles/wechat-integrated-ux/)，**微信整体服务的效力更多来源于友好和方便的图形用户界面而不是对话式用户界面。**
 
 CUI 有很多可用性方面的硬伤：缺乏探索性，不固定的完成步骤。CUI 不是表单的未来，但它是许多[聊天软件](https://operator.com/)的未来，它们已经围绕这条路线找到了收集数据的方法。
 
