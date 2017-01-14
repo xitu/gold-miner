@@ -59,4 +59,4 @@
 
 感谢阅读本文。我希望这将帮助你写出更好的测试用例。你可以在 [LinkedIn](http://www.linkedin.com/in/anshul-jain-b7082573) 上联系我。你也可以在 [这里](https://medium.com/@anshuljain) 查看我的其他 medium 文章。
 
-***了解更多关于编程方面的内容，关注 [***Mindorks***](https://blog.mindorks.com) ，当我们有新文章发布的时候，你就能收到通知。***
+**想要了解更多关于编程方面的内容，请关注 [***Mindorks***](https://blog.mindorks.com) ，当我们有新文章发布的时候，你就能收到通知啦。**
