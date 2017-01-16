@@ -64,7 +64,7 @@ YouTube 安卓客户端
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*YjZGGyu1OLaddxQ-b-NKXg.gif">
 
-展览式的导航功能。 图片来源:[Barthelemy Chalvet](https://dribbble.com/BarthelemyChalvet)
+展览式的导航功能。 图片来源：[Barthelemy Chalvet](https://dribbble.com/BarthelemyChalvet)
 
 ### 总结 ###
 
