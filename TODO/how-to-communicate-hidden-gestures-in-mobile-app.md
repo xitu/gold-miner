@@ -2,7 +2,7 @@
 * 原文作者：[Nick Babich](https://uxplanet.org/@101?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Gocy](https://github.com/Gocy015/)
-* 校对者：[Tina92](https://github.com/Tina92) ,
+* 校对者：[Tina92](https://github.com/Tina92) , [marcmoore](https://github.com/marcmoore)
 
 # 如何让用户发掘移动应用中的“隐藏”手势 #
 
@@ -22,9 +22,9 @@
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/0*GPB-VY6vVkRPtU1t.png">
 
-** Clear 应用中的教程**
+**Clear 应用中的教程**
 
-避免强制要求用户阅读长篇的使用教程，试着在对应的会话上下文中再进行指导（当用户实际使用该功能时）。为教程定义一个连续的过程，它其实可以变成一段渐进式的探索之旅：
+避免一次性展示包含多个步骤的演示，试着在对应的会话上下文中再进行指导（当用户实际使用该功能时）。通过多次小的演示，教程其实可以变成一段渐进式的探索之旅：
 
 > 将关注点放在一次特定的交互上，而不是试着将所有可能用到的指令全都呈现在界面上。
 
@@ -34,7 +34,7 @@
 
 YouTube 安卓客户端
 
-该应用同样是基于手势交互的，但它没有以教程形式向用户展示指令。相反，它仅在新用户首次进入应用的某些界面时，展示与该界面相关的使用提示。（ 感觉这里 one at a time 翻出来比较拗口，而且用户同时也只能进一个页面，所以一次只展示一个提示，感觉可以不翻译，希望校者提供意见）
+该应用同样是基于手势交互的，但它没有以教程形式向用户展示指令。相反，它仅在新用户首次进入应用的某些界面时，展示与该界面相关的使用提示。
 
 ### 如何在上下文中指导用户 ###
 
@@ -44,30 +44,30 @@ YouTube 安卓客户端
 
 这项技巧基于文本指令来提示用户进行某种手势操作，并精简的描述该操作所起到的作用。
 
-**小贴士：** 尽可能缩短指令文字长度 - 文字越精简，用户就越可能仔细地读完并根据指令完成操作。
+**小贴士：**尽可能缩短指令文字长度 - 文字越精简，用户就越可能仔细地读完并根据指令完成操作。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*jZyn5K8phjbxoFiZNYKZ6A.gif">
 
-图片源于: Material Design
+图片源于:Material Design
 
-#### 动态提示（ Hint Motion ）####
+#### 动态提示（Hint Motion）####
 
 动态提示（或者说界面提示动画）为元素交互动作的方式和结果提供了预览。举个例子， Pudding Monsters 的游戏机制是完全基于手势的，但它却能让用户较为准确地猜测到交互的方式。动画诠释了功能信息 - 展示一个带有动画的场景，用户便能清楚的知道该怎么做了。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*mtNyp2a4Ovg2usopA6cOfw.gif">
 
-动态提示为元素的操控提供了预览。图片来源： Pudding Monsters
+动态提示为元素的操控提供了预览。图片来源：Pudding Monsters
 
-#### 弹性内容（ Content Teases ） ####
+#### 内容梳理（Content Teases） ####
 
-弹性内容属于简单视觉线索（ subtle visual clues ）的一种，用于表明操作的可能性。下面的例子展示了卡片的弹性内容展示 - 它简单地在当前卡片下展示了其它的卡片，以此来说明此处可以使用滑动操作。
+内容梳理属于简单视觉线索（subtle visual clues）的一种，用于表明操作的可能性。下面的例子展示了如何对卡片视图进行内容梳理 - 它简单地在当前卡片下展示了其它的卡片，以此来说明此处可以使用滑动操作。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*YjZGGyu1OLaddxQ-b-NKXg.gif">
 
-展览式的导航功能。 图片来源: [Barthelemy Chalvet](https://dribbble.com/BarthelemyChalvet)
+展览式的导航功能。 图片来源:[Barthelemy Chalvet](https://dribbble.com/BarthelemyChalvet)
 
 ### 总结 ###
 
-需要牢记的是，没有一个万能的方法，能够满足所有在移动应用或是 web app 中指导用户使用手势的需求。但当涉及到指导用户如何使用界面时，我建议你尽量在相应上下文中使用弹性内容来显示指南，[渐进式地展示信息](https://uxplanet.org/design-patterns-progressive-disclosure-for-mobile-apps-f41001a293ba#.p5aq5o4f2) 并配合简短的动画。直到万不得已时，才使用教程和演示。
+归根结底，没有一个万能的方法，能够满足所有在移动应用或是 web app 中指导用户使用手势的需求。但当涉及到指导用户如何使用界面时，我建议你尽量在相应上下文中使用弹性内容来显示指南，[渐进式地展示信息](https://uxplanet.org/design-patterns-progressive-disclosure-for-mobile-apps-f41001a293ba#.p5aq5o4f2) 并配合简短的动画。教程和演示是迫不得已时才考虑的手段。
 
 感谢阅读！
