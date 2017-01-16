@@ -2,7 +2,7 @@
 * 原文作者：[George Mount](https://medium.com/@georgemount007?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Jamweak](https://github.com/jamweak)
-* 校对者：
+* 校对者：[Zhiwei Yu](https://github.com/Zhiw)，[tanglie](https://github.com/tanglie1993)
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*NShiWWuJvGcsbywB-O7-Ng.jpeg">
 
@@ -14,17 +14,17 @@
 
 ```
 RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent,
-**int **viewType);
+int viewType);
 
-**void **onBindViewHolder(RecyclerView.ViewHolder holder, **int **position);
+void onBindViewHolder(RecyclerView.ViewHolder holder, int position);
 ```
 
-RecyclerView 对外暴露出了常见的 [ViewHolder 模式](https://developer.android.com/training/improving-layouts/smooth-scrolling.html) 作为其 API 中的第一个子类。在 onCreateViewHolder() 方法中，View 被创建之后，其引用就被包含在 ViewHolder 中以便能被快速配置数据。然后在 onBindView() 方法中，特定的数据即和 View 关联起来。
+RecyclerView 对外暴露出了常见的 [ViewHolder 模式](https://developer.android.com/training/improving-layouts/smooth-scrolling.html) 作为其 API 中的第一类公民。在 onCreateViewHolder() 方法中，View 被创建之后，其引用就被包含在 ViewHolder 中以便能被快速配置数据。然后在 onBindView() 方法中，特定的数据即和 View 关联起来。
 
 #### RecyclerView 中的 Android 数据绑定####
 
 [前篇文章中](https://medium.com/google-developers/android-data-binding-adding-some-variability-1fe001b3abcc#.1o06zcbx5)指出 , 
-Android 数据绑定可以被看作 ViewHolder 模式，理论上，我们只需在 onCreateViewHolder() 方法中返回生成的绑定类，但是这个类并没有继承自 RecyclerView.ViewHolder 类，因此，这个绑定类必须被 ViewHolder ”包含“进去。
+Android 数据绑定可以被看作 ViewHolder 模式。理论上，我们只需在 onCreateViewHolder() 方法中返回生成的绑定类，但是这个类并没有继承 RecyclerView.ViewHolder 类。因此，这个绑定类必须被 ViewHolder ”**包含**“进去。
 
 ```
 public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -63,9 +63,9 @@ public void onBindViewHolder(MyViewHolder holder, int position) {
 
 #### 复用 ViewHolder ####
 
-如果你之前曾经使用过 RecyclerView 的 ViewHolder，你会知道我们已经减少了一大堆关于将数据设置到 View 中的代码。但不幸的是，我们仍不得不为不同的 RecyclerView 写一大堆 ViewHolder。另外，当有多种 View 类型时，如何扩展 ViewHolder 也没有被明确。我们可以修复此问题。
+如果你之前曾经使用过 RecyclerView 的 ViewHolder，你会知道我们已经减少了一大堆关于将数据设置到 View 中的代码。但不幸的是，我们仍不得不为不同的 RecyclerView 写一大堆 ViewHolder。另外，如果你有多种 View 类型，你也不清楚如何拓展它。我们可以修复此问题。
 
-通常来说，只有一个数据被传入到绑定类中，例如上文中的 "Item"。当你使用这种模式时，你可以使用类型转换来为各种 RecyclerView 以及各种 View 类型都使用唯一的 ViewHodler。按照惯例我们将单一视图模型对象命名成 "obj"。你也许会命名为 "item" 或者 "data"，但如果我使用 "obj"，将很容易在例子中辨别。
+通常来说，只有一个数据被传入到绑定类中，例如上文中的 "Item"。当你使用这种模式时，你可以使用类型转换来为各种 RecyclerView 以及各种 View 类型都使用唯一的 ViewHolder。按照惯例我们将单一视图模型对象命名成 "obj"。你也许会命名为 "item" 或者 "data"，但如果我使用 "obj"，将很容易在例子中辨别。
 
 ```
 public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -91,7 +91,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
 
 当然，你的变量相比于 "Item" ，能使用任何在布局中想要绑定的类型
  
-之后我就你能创建一个通用的 RecyclerView 适配器了。
+之后我就能创建一个通用的 RecyclerView 适配器了。
 
 ```
 public abstract class MyBaseAdapter
@@ -121,7 +121,7 @@ public abstract class MyBaseAdapter
     protected abstract int getLayoutIdForPosition(int position);
 }
 ```
-在这个适配器中，布局的 ID 被用作 view 类型，这样能更方便得来获取正确的绑定类，同时也能让适配器处理任意数量的布局。但最通用的做法是 RecyclerView 只有一个布局，因此我们可以写这样一个抽象类：
+在这个适配器中，布局的 ID 被用作 view 类型，这样能更方便得来获取正确的绑定类，同时也能让适配器处理任意数量的布局。但最通用的做法是 RecyclerView 只有一个布局，因此我们可以写这样一个基类：
 
 ```
 public abstract class SingleLayoutAdapter extends MyBaseAdapter {
@@ -142,6 +142,6 @@ public abstract class SingleLayoutAdapter extends MyBaseAdapter {
 
 所有 RecyclerView 中的模板现在都被处理完了，留给你做的是最困难的部分：在非 UI 线程加载数据，当数据更新时通知适配器等等。Android 数据绑定仅简化了无聊的部分。 
 
-你也可以扩展这个技术来支持多个变量。通常来说需要支持一个事件处理对象来处理例如点击事件等，你也许会想将其传入到视图模型类中。如果你经常在 Activity 或 Fragment 中传值，你可以将其添加到变量中。只要你使用连贯的命名，你就可以在所有 RecyclerView  中使用这项技术。
+你也可以扩展这个技术来支持多个变量。通常来说需要支持一个事件处理对象来处理例如点击事件等，你也许会想将其传入到视图模型类中。如果你经常在 Activity 或 Fragment 中传值，你可以添加这些变量。只要你使用连贯的命名，你就可以在所有 RecyclerView  中使用这项技术。
 
 使用 Android 数据绑定结合  RecyclerView 是简便的，能显著减少冗长的代码。也许你的应用只需要一个 ViewHolder 并且你再也不需要重写 onCreateViewHolder() 方法和 onBindViewHolder() 了！
