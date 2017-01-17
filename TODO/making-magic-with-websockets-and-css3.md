@@ -35,15 +35,11 @@ The audience saw images being pushed from a tablet and projected on a much bigge
 
 I’m going to show you how we did this. And I’ll be using a very appropriate, classic magician’s tool: a deck of playing cards:
 
-![](https://i.embed.ly/1/display/resize?url=https%3A%2F%2Fthumbs.gfycat.com%2FDefiantAdventurousCamel-size_restricted.gif&amp;key=4fce0568f2ce49e8b54624ef71a8a5bd&amp;width=40)
-
-<div class="iframeContainer"><IFRAME data-width="1920" data-height="1080" width="875" height="492" src="/media/f55f771adab3c40d209e94cd95a92c4b?postId=ec22c1dcc8a8" data-media-id="f55f771adab3c40d209e94cd95a92c4b" data-thumbnail="https://i.embed.ly/1/image?url=https%3A%2F%2Fthumbs.gfycat.com%2FDefiantAdventurousCamel-size_restricted.gif&amp;key=4fce0568f2ce49e8b54624ef71a8a5bd" allowfullscreen frameborder="0"></IFRAME></div>
+[![](https://thumbs.gfycat.com/DefiantAdventurousCamel-mobile.jpg)](https://gfycat.com/DefiantAdventurousCamel)
 
 There are two main factors in this interaction: real-time communication with WebSockets and optical illusions with CSS3. The devices synchronize the animation of the two different cards so the audience believes they’re the same instance.
 
-![](https://i.embed.ly/1/display/resize?url=https%3A%2F%2Fthumbs.gfycat.com%2FUnrulySaltyAnnelida-size_restricted.gif&amp;key=4fce0568f2ce49e8b54624ef71a8a5bd&amp;width=40) 
-
-<div class="iframeContainer"><IFRAME data-width="863" data-height="874" width="700" height="709" src="/media/e081849311dc3b70d65f9ae4ca476dd8?postId=ec22c1dcc8a8" data-media-id="e081849311dc3b70d65f9ae4ca476dd8" data-thumbnail="https://i.embed.ly/1/image?url=https%3A%2F%2Fthumbs.gfycat.com%2FUnrulySaltyAnnelida-size_restricted.gif&amp;key=4fce0568f2ce49e8b54624ef71a8a5bd" allowfullscreen frameborder="0"></IFRAME></div>
+[![](https://thumbs.gfycat.com/UnrulySaltyAnnelida-mobile.jpg)](https://gfycat.com/UnrulySaltyAnnelida)
 
 So, let’s dive into the deets of how this magic really happens.
 
@@ -83,7 +79,7 @@ I changed the table script (phone-throw-card event) to call a function that inje
 
 You can check the codepen here for an example and — who knows? — maybe get some inspiration.
 
-![](https://i.embed.ly/1/display/resize?url=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fi.cdpn.io%2F914234.ZBQJEJ.small.90291803-163f-404d-a518-0e45c28f6d2c.png&amp;key=4fce0568f2ce49e8b54624ef71a8a5bd&amp;width=40)<div class="iframeContainer"><IFRAME data-width="800" data-height="600" width="700" height="525" src="/media/4ddf88ce43d5a88b77917f85fb079fe7?postId=ec22c1dcc8a8" data-media-id="4ddf88ce43d5a88b77917f85fb079fe7" data-thumbnail="https://i.embed.ly/1/image?url=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fi.cdpn.io%2F914234.ZBQJEJ.small.90291803-163f-404d-a518-0e45c28f6d2c.png&amp;key=4fce0568f2ce49e8b54624ef71a8a5bd" allowfullscreen frameborder="0"></IFRAME></div>
+[![](https://thumbs.gfycat.com/UnrulySaltyAnnelida-mobile.jpg)](https://gfycat.com/UnrulySaltyAnnelida)
 
 ### Going the Extra Mile ###
 
