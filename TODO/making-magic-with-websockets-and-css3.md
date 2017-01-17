@@ -92,6 +92,7 @@ As for the card dropping in the direction you set from the phone, most browsers 
 
 For help with these animations, check out this codepen:
 
+[![Markdown](http://i1.piimg.com/1949/bea41e853fc7d113.png)](http://codepen.io/heliodolores/pen/vyLJPL)
 
 Now that I’ve shared this trick with you, I really hope you’ll be inspired to make some magic of your own.
 
