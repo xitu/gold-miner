@@ -6,7 +6,7 @@
 
 # Making Magic with WebSockets and CSS3 #
 
-<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/0*Nkkza8wGZFucca1c.">
+![](https://cdn-images-1.medium.com/max/1000/0*Nkkza8wGZFucca1c.)
 
 > *“Any sufficiently advanced technology is indistinguishable from magic.”
 >  ― Arthur C. Clarke*
@@ -29,17 +29,19 @@ Even though we didn’t win that particular competition — [a different gro
 
 The audience saw images being pushed from a tablet and projected on a much bigger screen (that’s a little bit IoT). They appeared to travel by air, from starting point to destination. It was magically awesome.
 
-<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/0*bLcvjqKyjmSrsKst.">
+![](https://cdn-images-1.medium.com/max/800/0*bLcvjqKyjmSrsKst.)
 
 ### Unveiling the Magic Trick ###
 
 I’m going to show you how we did this. And I’ll be using a very appropriate, classic magician’s tool: a deck of playing cards:
 
 [![](https://thumbs.gfycat.com/DefiantAdventurousCamel-mobile.jpg)](https://gfycat.com/DefiantAdventurousCamel)
+点击图片查看视频
 
 There are two main factors in this interaction: real-time communication with WebSockets and optical illusions with CSS3. The devices synchronize the animation of the two different cards so the audience believes they’re the same instance.
 
 [![](https://thumbs.gfycat.com/UnrulySaltyAnnelida-mobile.jpg)](https://gfycat.com/UnrulySaltyAnnelida)
+点击图片查看视频
 
 So, let’s dive into the deets of how this magic really happens.
 
@@ -80,6 +82,7 @@ I changed the table script (phone-throw-card event) to call a function that inje
 You can check the codepen here for an example and — who knows? — maybe get some inspiration.
 
 [![](https://s3-us-west-2.amazonaws.com/i.cdpn.io/914234.ZBQJEJ.7422cae8-a613-4170-925f-c19f5c7e2839.png)](https://codepen.io/heliodolores/embed/preview/ZBQJEJ?amp%3Bdefault-tabs=css%2Cresult&amp%3Bembed-version=2&amp%3Bhost=http%3A%2F%2Fcodepen.io&amp%3Bslug-hash=ZBQJEJ&height=600&referrer=https%3A%2F%2Fmedium.com%2Fmedia%2F4ddf88ce43d5a88b77917f85fb079fe7%3FpostId%3Dec22c1dcc8a8)
+点击查看源代码
 
 ### Going the Extra Mile ###
 
