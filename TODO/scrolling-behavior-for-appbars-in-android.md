@@ -101,7 +101,7 @@ That’s it. We have done with the basic implementation and after this, there ar
 
 - **stay fixed at the top** with content scrolling under it.
 
-<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*UsQiD6VrDEWufK4C7ZfGXw.gif">
+![](https://cdn-images-1.medium.com/max/800/1*UsQiD6VrDEWufK4C7ZfGXw.gif)
 
 Appbar with toolbar scrolls and settles back along with the content
 
@@ -171,7 +171,7 @@ To achieve this, we need to add ***TabLayout*** inside the ***AppBarLayout*** an
 
 - The whole **app bar scrolls off**. When the user reverse scrolls, the toolbar returns **anchored to the top**. When scrolling all the way back, the **flexible space and the title grow into place again**.
 
-<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*bG1RZCd7_623GzOxZ984KA.gif">
+![](https://cdn-images-1.medium.com/max/800/1*bG1RZCd7_623GzOxZ984KA.gif)
 
 Flexible space with Scrolling
 
@@ -210,7 +210,7 @@ app:layout_collapseMode="pin"/>
 
 - While reversing the scrolling **primary color fades away to leave way for the image** been pulled down with a slight animation.
 
-<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*Ee4hkJjvOyJOKxViXpTgEA.gif">
+![](https://cdn-images-1.medium.com/max/800/1*Ee4hkJjvOyJOKxViXpTgEA.gif)
 
 Image parallax scrolling
 
@@ -255,7 +255,7 @@ It is very much similar to the Flexible Space implementation with the below chan
 
 - There will not be any **TabBar** placement in this behavior.
 
-<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*S3P_sztswwHR6D-NViX9tg.gif">
+![](https://cdn-images-1.medium.com/max/800/1*S3P_sztswwHR6D-NViX9tg.gif)
 
 Flexible space scrolling with content overlapping
 
