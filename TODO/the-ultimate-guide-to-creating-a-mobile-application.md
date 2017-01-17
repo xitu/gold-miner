@@ -2,10 +2,10 @@
 > * 原文地址：[The Ultimate Guide to Creating a Mobile Application](https://uxplanet.org/the-ultimate-guide-to-creating-a-mobile-application-8e2b265580d9#.sk3bzlt5z)
 * 原文作者：[Tubik Studio](https://hackernoon.com/@talkol)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：[]()
-* 校对者：[]()
+* 译者：[PhxNirvana](https://github.com/phxnirvana)
+* 校对者：[lovelyCiTY](https://github.com/lovelyCiTY)、[Gocy015](https://github.com/Gocy015)
 
-# The Ultimate Guide to Creating a Mobile Application
+# 创建一个移动应用的终极指导
 
 ![](https://cdn-images-1.medium.com/max/2000/1*ecU3mH6ajULJpcVFvLGcaQ.png)
 
