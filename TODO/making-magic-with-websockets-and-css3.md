@@ -79,7 +79,7 @@ I changed the table script (phone-throw-card event) to call a function that inje
 
 You can check the codepen here for an example and — who knows? — maybe get some inspiration.
 
-[![](https://thumbs.gfycat.com/UnrulySaltyAnnelida-mobile.jpg)](https://gfycat.com/UnrulySaltyAnnelida)
+[![](https://s3-us-west-2.amazonaws.com/i.cdpn.io/914234.ZBQJEJ.7422cae8-a613-4170-925f-c19f5c7e2839.png)](https://codepen.io/heliodolores/embed/preview/ZBQJEJ?amp%3Bdefault-tabs=css%2Cresult&amp%3Bembed-version=2&amp%3Bhost=http%3A%2F%2Fcodepen.io&amp%3Bslug-hash=ZBQJEJ&height=600&referrer=https%3A%2F%2Fmedium.com%2Fmedia%2F4ddf88ce43d5a88b77917f85fb079fe7%3FpostId%3Dec22c1dcc8a8)
 
 ### Going the Extra Mile ###
 
@@ -89,9 +89,6 @@ As for the card dropping in the direction you set from the phone, most browsers 
 
 For help with these animations, check out this codepen:
 
-![](https://i.embed.ly/1/display/resize?url=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fi.cdpn.io%2F914234.vyLJPL.small.eb8431cb-3ba2-43a8-8342-1b40be816d46.png&amp;key=4fce0568f2ce49e8b54624ef71a8a5bd&amp;width=40)
-
-<div class="iframeContainer"><IFRAME data-width="800" data-height="600" width="700" height="525" src="/media/9da00ef601af2e718b0a5fc2b1c0dc4f?postId=ec22c1dcc8a8" data-media-id="9da00ef601af2e718b0a5fc2b1c0dc4f" data-thumbnail="https://i.embed.ly/1/image?url=https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fi.cdpn.io%2F914234.vyLJPL.small.eb8431cb-3ba2-43a8-8342-1b40be816d46.png&amp;key=4fce0568f2ce49e8b54624ef71a8a5bd" allowfullscreen frameborder="0"></IFRAME></div>
 
 Now that I’ve shared this trick with you, I really hope you’ll be inspired to make some magic of your own.
 
