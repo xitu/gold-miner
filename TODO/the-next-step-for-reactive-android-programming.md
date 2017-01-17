@@ -17,13 +17,13 @@
 
 RxJava 2 其中一个结构性变化就是增加了对 [响应流（Reactive Streams）](https://github.com/reactive-streams/reactive-streams-jvm) 的兼容性。为此，RxJava 只能从头开始重写。
 
-响应流为描述响应式编程库该如何运作提供了一种共同的理解及相应的 API。
+响应流为描述响应式编程库该如何运作提供了一种共同的理解和通用的 API。
 
 我们大多数人并不编写响应式编程库，但相同的 API 可以让我们能够同时使用不同的响应式编程库。
 
 其中一个例子就是 [Reactor 3](https://github.com/reactor/reactor-core) 库，这个库很像 RxJava。如果你是个 Android 开发者，可能没怎么跟它打过交道，因为它只支持 Java 8 及以上版本。
 
-但是，在这两个库之间转换响应流现在可以像下面这样简单：
+但不管怎样，现在在这两个库之间转换响应流可以像下面这样简单：
 
 ![](https://flockler.com/files/sites/377/rxjava_reactor.gif)
 
@@ -65,7 +65,7 @@ RxJava 2 新增了一种响应式类型：[Flowable](http://reactivex.io/RxJava/
 利用 Flowable 的加速度计
 
 
-这个 Android 加速度计每秒处理大概 50 次数据读取，而这种频率下的数据显示尚不足以发生负载过重的情况。当然这取决于响应式序列中的每个事件的处理负荷，但也能够说明负载压力并不会经常出现。
+这个 Android 加速度计每秒处理大概 50 次数据读取，而这种频率下的数据显示尚不足以发生负载过重的情况。当然这取决于响应式序列中的每个事件的处理负荷，但也足以说明负载压力并不会经常出现。
 
 #### Observable
 
@@ -73,7 +73,7 @@ Observable 不支持负载压力处理，这意味着 Observable 不会抛出 Mi
 
 那么我们什么时候该用 Flowable，什么时候又该用 Observable 呢？
 
-在可能会出现负载压力且需要仔细处理对待的时候，我会选择 Flowable。例如上面的加速度计，我仍会使用 Flowable。因为如果我在读取传感器数据时需要额外做一些处理，而不是仅仅把它们显示出来，就可能会出现负载压力。
+在可能会出现负载压力且需要仔细处理对待的时候，我会选择 Flowable。例如上面的加速度计，我仍会使用 Flowable。因为如果我在读取传感器数据时需要额外做一些处理，而不是仅仅把它们显示出来，就有可能出现负载压力。
 
 如果不太可能出现这种情况，应该选择 Observable。用户在一小段时间内点击多次按钮时，把这些事件进行缓存处理也是可以接受的。
 
@@ -119,7 +119,7 @@ RxJava 2 的性能表现要[优于](https://github.com/akarnokd/akarnokd-misc/is
 
 你有试过向函数式编程开发者解释「在 Android ，实际上函数的数量存在限制」吗？你可以试试，他们的反应会很有趣。
 
-很遗憾，的确存在这个我们都尽量避免的 65000 个方法的数量限制。（译者注：如果方法超出这个数量，Java 字节码将需要分开存放在两个或多个 Dex 中。这个分割过程可以自动完成，一般无需干预，但在特定场景下，可能会引发问题。）RxJava 1 有大概 5500 个方法，数量不少。而现在 RxJava 2 则有超过 9200 个方法。这 4000 方法数量的增加相较于新增的功能来说还算是可以接受的，但在你逐步迁移的过程中，你可能会需要两个版本的库同时并存。
+很遗憾，的确存在这个我们都尽量避免的 65000 个方法的数量限制。（译者注：如果方法超出这个数量，Java 字节码将需要分开存放在两个或多个 Dex 中。这个分割过程可以自动完成，一般无需干预，但在特定场景下，可能会引发问题。）RxJava 1 有大概 5500 个方法，数量不少。而现在 RxJava 2 则有超过 9200 个方法。这 4000 方法数量的增加相较于新增的功能来说还算是可以接受的，但在你逐步迁移的过程中，你也许会需要两个版本的库同时并存。
 
 那么总共差不多就是 15000 个方法，已经占到了 Dex 限制的 22%！
 
@@ -127,14 +127,14 @@ RxJava 2 的性能表现要[优于](https://github.com/akarnokd/akarnokd-misc/is
 
 如果你早已经超出了这个限制，则不用担心这个问题。
 
-但如果是十分接近 Dex 限制的情况，则要在迁移过程中多加留意。
+但如果是十分接近的情况，则要在迁移过程中多加留意是否会超出 Dex 限制。
 
 
 ### 编写操作符
 
 ![good news.jpg](https://flockler.com/thumbs/sites/377/goog-news_s830x0_q80_noupscale.jpg)
 
-RxJava 现有的操作符（Operator）可能不能满足你的需要。要实现一些自定义的行为机制，你可能会考虑自己编写操作符。
+RxJava 现有的操作符（Operator）可能不能满足你的需要。要实现一些自定义的行为机制，你也许会考虑自己编写操作符。
 
 > 现在，给 RxJava 2.x 编写操作符要比给 1.x 编写难上 10 倍。
 > 
@@ -148,7 +148,7 @@ RxJava 现有的操作符（Operator）可能不能满足你的需要。要实�
 
 除非你是想为 RxJava 2 或其他响应式库贡献代码，否则我都建议用其他方法解决问题。
 
-首先看看能不能通过现有操作符的组合使用来解决问题。或者你可以考虑编写一个[转换器（transformer）](https://github.com/ReactiveX/RxJava/wiki/Implementing-Your-Own-Operators#transformational-operators)。虽然不能像操作符那样高度可定制，但相对而言要容易编写得多。使用操作符的另一个好处是性能提升，但如上文所述，这种性能提升在 Android 中有很大可能会被浪费或掩盖，因为瓶颈往往在 UI 方面。
+首先看看能不能通过现有操作符的组合使用来解决问题。或者你可以考虑编写一个[转换器（transformer）](https://github.com/ReactiveX/RxJava/wiki/Implementing-Your-Own-Operators#transformational-operators)。虽然不能像操作符那样高度可定制，但相对而言要容易编写得多。虽然使用操作符还有另一个提升性能的好处，但如上文所述，这种性能提升在 Android 中有很大可能会被浪费或掩盖，因为瓶颈往往在 UI 方面。
 
 如果你仍想编写一个自定义操作符，可以对照一下最简单的操作符（[map](https://github.com/ReactiveX/RxJava/blob/2.x/src/main/java/io/reactivex/internal/operators/observable/ObservableMap.java)），和一个最复杂的操作符（[flatMap](https://github.com/ReactiveX/RxJava/blob/2.x/src/main/java/io/reactivex/internal/operators/observable/ObservableFlatMap.java)），看看你是否要应对挑战。
  
@@ -157,7 +157,7 @@ RxJava 现有的操作符（Operator）可能不能满足你的需要。要实�
 
 以上就是升级到 RxJava 2 带来的主要好处与挑战。但要判断迁移是否值得总得根据你的实际情况而定。
 
-就目前来说，停留在 RxJava 1 十分不错，它仍受开发团队维护和支持。在不久之后，当 RxJava 开发团队不再维护而选择[弃用 RxJava 1](https://github.com/ReactiveX/RxJava/issues/4853#issuecomment-260660000) 时，届时你也会有更加充分的理由升级到 RxJava 2。
+就目前来说，停留在 RxJava 1 十分不错，它仍受开发团队维护和支持。在不久之后，当 RxJava 开发团队不再维护而选择[弃用 RxJava 1](https://github.com/ReactiveX/RxJava/issues/4853#issuecomment-260660000)，届时你也会有更加充分的理由升级到 RxJava 2。
 
 如果你的项目要持续一年以上，你可能需要考虑迁移事宜，否则停留在 RxJava 1 是更好的选择。
  
