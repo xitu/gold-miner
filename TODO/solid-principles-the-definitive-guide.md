@@ -11,7 +11,7 @@
 
 **SOLID** 是五个面向对象编程的重要原则的缩写。另外，它也是每个开发者必备的基本知识。了解并应用这些原则能**让你写出更优质的代码**，变成更优秀的开发者。
 
-SOLID 原则是由 [Robert C. Martin （Bob大叔）](https://en.wikipedia.org/wiki/Robert_Cecil_Martin) 在21世纪初定义的。Bob大叔阐述了几个并且确认了其它已经存在的原则。他说我们应该使用这些原则，让代码获得好的依赖管理。
+SOLID 原则是由 [Robert C. Martin （Bob 大叔）](https://en.wikipedia.org/wiki/Robert_Cecil_Martin) 在 21 世纪初定义的。Bob 大叔阐述了几个并且确认了其它已经存在的原则。他说我们应该使用这些原则，让代码获得好的依赖管理。
 
 但是，SOLID 原则在最初并没有被大家熟知直到 [Michael Feathers](https://michaelfeathers.silvrback.com/) 观察到这些原则的首字母正好能拼成缩写 SOLID，这个非常具有代表性的名字。
 
@@ -45,7 +45,7 @@ SOLID 原则是由 [Robert C. Martin （Bob大叔）](https://en.wikipedia.org/w
 
 ### 单一职责原则（SRP）：
 
-> *一个类应该只有一个引起改变的原因。*
+> **一个类应该只有一个引起改变的原因。**
 
 这个原则意味着**一个类只能有一个职责并且只完成为它设计的功能任务。**
 
@@ -53,8 +53,9 @@ SOLID 原则是由 [Robert C. Martin （Bob大叔）](https://en.wikipedia.org/w
 
 
 **好处：**
-－ 降低耦合性。
-－ 代码易于理解和维护。
+
+- 降低耦合性。
+- 代码易于理解和维护。
 
 #### **违反 SRP 原则**
 
@@ -129,7 +130,7 @@ public class CustomerReportGenerator {
 
 ### 开闭原则（OCP）：
 
-> *软件实体（类，模块，方法等）应该对扩展开放，对修改封闭。*
+> **软件实体（类，模块，方法等）应该对扩展开放，对修改封闭。**
 
 
 根据这一原则，一个软件实体能很容易地扩展新功能而不必修改现有的代码。
@@ -319,7 +320,7 @@ public class ShapePrinter {
 > *程序里的对象都应该可以被它的子类实例替换而不用更改程序.*
 
 
-这个原则由[Barbara Liskov](https://en.wikipedia.org/wiki/Barbara_Liskov)定义。他说程序里的对象都应该可以被它的子类实例替换而不用更改系统的正常工作.
+这个原则由 [Barbara Liskov](https://en.wikipedia.org/wiki/Barbara_Liskov) 定义。他说程序里的对象都应该可以被它的子类实例替换而不用更改系统的正常工作.
 
 
 **好处:**
@@ -515,7 +516,7 @@ public class Square extends Rectangle {
 
 ### 接口隔离原则（ISP）：
 
-> *多个专用的接口比一个通用接口好。*
+> **多个专用的接口比一个通用接口好。**
 
 这个原则定义了**一个类决不要实现不会用到的接口**。不遵循这个原则意味着在我们在实现里会依赖很多我们并不需要的方法，但又不得不去定义。
 
@@ -700,8 +701,9 @@ public class DeloRean implements Car, TimeMachine {
 ### 依赖倒转原则 (DIP):
 
 
-> *高层次的模块不应该依赖于低层次的模块，它们都应该依赖于抽象。*
-> *抽象不应该依赖于细节。细节应该依赖于抽象。*
+> **高层次的模块不应该依赖于低层次的模块，它们都应该依赖于抽象。**
+> 
+> **抽象不应该依赖于细节。细节应该依赖于抽象。**
 
 
 依赖倒转原则的意思是一个特定的类不应该直接依赖于另外一个类，但是可以依赖于这个类的抽象（接口）。
@@ -791,7 +793,7 @@ public class DeliveryCompany {
 千万不要把这个原则与[依赖注入](https://en.wikipedia.org/wiki/Dependency_injection)混淆。依赖注入是一种设计模式，帮助我们应用这个原则来确保各个类之间的合作不涉及相互依赖。
 
 
-这里有好几个库使依赖注入更容易实现，像[Guice](https://github.com/google/guice) 或者非常流行的 [Dagger2](https://github.com/google/dagger)。
+这里有好几个库使依赖注入更容易实现，像 [Guice](https://github.com/google/guice) 或者非常流行的 [Dagger2](https://github.com/google/dagger)。
 
 ### 结论
 
