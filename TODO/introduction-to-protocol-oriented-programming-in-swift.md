@@ -6,7 +6,7 @@
 
 # Swift 面向协议编程入门 #
 
-## 面向对象编程没毛病，但是可以变得更6 ##
+## 面向对象编程没毛病，但是可以变得更好 ##
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/2000/1*5yuIezhfETFouNNTablgSA.jpeg">
 
@@ -17,7 +17,9 @@
 这个教程也是为了那些不知道类和结构体根本区别的人写的。我们都知道在结构体里是没有继承的，但是为什么没有呢？
 
 如果你不知道上面问题的答案，那么花几秒钟看下下面的代码。请再次原谅我的排版，我已经让它尽可能的简单明了了。
->译者已经改了下排版了
+
+>注：译者已经改过排版了🤔
+
 ```
 class HumanClass {
     var name: String
@@ -73,7 +75,7 @@ humanStruct.name // "Bob"
 
 3. 因为对象都是指向内存中的同一个空间，如果你创建了一个拷贝，并且对它的属性进行了一点小改动，它会影响到其余的对象。（引用导致的易变性）
 
-顺便说一下，来看一下 UIKit 框架是怎么用面向对象来写的。
+顺便说一下，来看一下 UIKit 框架是怎么用面向对象编程来写的。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*hjEXB3PGUOSbxet0qUJRNA.png">
 
@@ -81,18 +83,17 @@ humanStruct.name // "Bob"
 
 如果你作为软件工程师第一次去苹果工作的话，你能使用这些代码么？我的意思是我们开发者在界面层使用中都有过很痛苦的经历。
 
-*有人说过面向对象就是一种把写意大利面条式代码的模块化的模式。如果你想找到更多关于 OOP 的缺点的话，这些* [*咆哮 1*](http://krakendev.io/blog/subclassing-can-suck-and-heres-why) , [*咆哮 2*](https://blog.pivotal.io/labs/labs/all-evidence-points-to-oop-being-bullshit),[*咆哮 3*](http://www.smashcompany.com/technology/object-oriented-programming-is-an-expensive-disaster-which-must-end), [*咆哮 4*](https://www.leaseweb.com/labs/2015/08/object-oriented-programming-is-exceptionally-bad/).
+*有人说过面向对象编程就是通过模块化的模式来写意大利面条式的代码。如果你想找到更多关于面向对象编程的缺点的话，这些* [*咆哮 1*](http://krakendev.io/blog/subclassing-can-suck-and-heres-why) , [*咆哮 2*](https://blog.pivotal.io/labs/labs/all-evidence-points-to-oop-being-bullshit),[*咆哮 3*](http://www.smashcompany.com/technology/object-oriented-programming-is-an-expensive-disaster-which-must-end), [*咆哮 4*](https://www.leaseweb.com/labs/2015/08/object-oriented-programming-is-exceptionally-bad/).
 
 #### 欢迎面向协议编程 ####
 
-你可能已经猜到了，和类不一样的是，面向协议编程的基础是值类型。不再是引用了，不像你之前看到的金字塔结构， 面向协议所提倡的是扁平化和去嵌套的代码。
-
+你可能已经猜到了，和类不一样的是，面向协议编程的基础是值类型。不再是引用了，和你之前看到的金字塔结构不一样，面向协议所提倡的是扁平化和去嵌套的代码。
 
 可能会有点吓到你，我将引出的是苹果的定义。
 
-“协议定义了方法，属性等的蓝图，类，结构体或枚举类型以后都能够使用协议” — 苹果
+“协议定义了方法，属性的蓝图…… 然后类，结构体或枚举类型都能够使用协议” — 苹果
 
-你现在唯一需要记住的就是这个词语，”蓝图“。
+你现在唯一需要记住的就是这个词语，“蓝图”。
 
 协议就好像是一个篮球教练，他告诉他的队员该怎么做，但是他却不知道怎么扣篮。
 
@@ -122,7 +123,7 @@ struct Korean: Human {
 }
 ```
 
-一旦这个结构体采用了人类这个协议，它就必须”遵循”这个协议，实现它的所有属性和方法。如果不这么做的话，Xcode 会警报，当然左边也会报错 😡。
+一旦这个结构体采用了人类这个协议，它就必须”遵循”这个协议，实现它的所有属性和方法。如果不这么做的话, Xcode 会警报，当然左边也会报错 😡 。
 
 就像你看到的，为了满足蓝图你能够自定义所有的协议。你甚至可以建造一个“围墙”。
 
@@ -184,7 +185,7 @@ struct Example: ProtocolOne, ProtocolTwo { }
 现在，这是使用协议最强大的特点了，我不认为我需要讲太多。
 
 ```
-// 说英语的超级动物
+// 会说英语的超级动物
 protocol SuperAnimal {
 	func speakEnglish()
 }
@@ -209,7 +210,7 @@ var ramon = Donkey()
 ramon.speakEnglish() //  "I speak English, pretty cool, huh?"
 ```
 
-如果你使用扩展的话，你能够给类，结构体和枚举增加默认函数和属性。它难道不神奇么？我发现这是真正的宝藏。
+如果你使用扩展的话，你能够给类，结构体和枚举增加默认方法和属性。它难道不神奇么？我发现这是真正的金块啊。
 
 顺带提一下，如果你没有理解的话，你可以看[这个](https://www.youtube.com/watch?v=MzLEjzvygYE)
 
@@ -221,7 +222,7 @@ ramon.speakEnglish() //  "I speak English, pretty cool, huh?"
 
 就是这样。
 
-举个例子，我将用使用为了获得雌性而打架的袋鼠。如果你不相信我的话，看看这个[袋鼠打架](https://www.youtube.com/watch?v=WCcLMNcWZOc&amp;t=129s) 
+举个例子，我将用使用为了获得雌性配偶而打架的袋鼠。如果你不相信我的话，看看这个[袋鼠打架](https://www.youtube.com/watch?v=WCcLMNcWZOc&amp;t=129s) 
 
 ```
 protocol Fightable {
@@ -274,7 +275,7 @@ for kang in kangaroos {
 
 #### **最后提示** ####
 
-如果你觉得这个教程有用的话，而且你认为我做了一个很棒的事情，请❤️我并且分享到你的社交圈中。我保证，更多的 iOS 开发者都该应该使用面向协议编程 ！我也在努力中，所以才写了这个文章，但是为了更大的影响我需要你的支持。
+如果你觉得这个教程有用的话，而且你认为我做了一个很棒的事情，请 ❤️ 我并且分享到你的社交圈中。我发誓，更多的 iOS 开发者都该应该使用面向协议编程 ！我也在努力中，所以才写了这个文章，但是为了更大的影响我需要你的支持。
 
 #### 公开感谢 ####
 
@@ -282,4 +283,4 @@ for kang in kangaroos {
 
 ### 预告 ###
 
-这个周六，我将写一些关于在 Swift 3 中通过协议实现代理的设计模式的东西。有些人让我写这个，所以我决定听你们的。如果你想要快速更新或者请求我的文章的话，你可以关注我[**Facebook Page**](https://www.facebook.com/bobthedeveloper/)，那里我和我的读者有很多的互动。再见！
+这个周六，我将写一些关于在 Swift 3 中如何通过协议实现代理的设计模式的东西。有些人让我写这个，所以我决定听你们的。如果你想要快速更新或者请求我的文章的话，你可以关注我[**Facebook Page**](https://www.facebook.com/bobthedeveloper/)，那里我和我的读者有很多的互动。再见！
