@@ -2,7 +2,7 @@
 * 原文作者：[Tomek Polański](http://futurice.com/people/tomek-polanski)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Goshin](https://github.com/Goshin)
-* 校对者：
+* 校对者：[tanglie](https://github.com/tanglie1993)、[jamweak](https://github.com/jamweak)
 
 # Android 响应式编程的未来展望
 
