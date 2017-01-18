@@ -1,3 +1,4 @@
+* [创建一个移动应用的终极指导](https://gold.xitu.io/entry/587f05a48d6d810058e20795/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([PhxNirvana](https://github.com/phxnirvana) 翻译)
 * [如何让用户发掘移动应用中的 “隐藏” 手势](https://gold.xitu.io/entry/587d72af2f301e00579ed0e3/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Gocy015](https://github.com/Gocy015) 翻译)
 * [如何为复杂应用设计表单](https://gold.xitu.io/entry/5877633b1b69e6006bd1efc3/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([funtrip](https://github.com/funtrip) 翻译)
 * [设计思考，不只是流行词而已](https://gold.xitu.io/entry/5873faf4da2f6035a7f4a025?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([bobmayuze](https://github.com/bobmayuze) 翻译)
