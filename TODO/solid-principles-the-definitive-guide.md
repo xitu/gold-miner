@@ -1,8 +1,7 @@
 > * 原文地址：[SOLID Principles : The Definitive Guide](https://android.jlelse.eu/solid-principles-the-definitive-guide-75e30a284dea#.8b78yjtyk)
 * 原文作者：[Arthur Antunes](https://android.jlelse.eu/@aantunesdias)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：[XHShirley](https://github.com/XHShirley)
-* 校对者：[Patrick Wang](https://github.com/imink), [skyar2009](https://github.com/skyar2009)
+* 译者：[XHShirley](https://github.com/XHShirley) * 校对者：[Patrick Wang](https://github.com/imink), [skyar2009](https://github.com/skyar2009)
 
 # SOLID 原则：权威指南
 
@@ -317,7 +316,7 @@ public class ShapePrinter {
 
 ### 里氏替换原则（LSP）：
 
-> *程序里的对象都应该可以被它的子类实例替换而不用更改程序.*
+> **程序里的对象都应该可以被它的子类实例替换而不用更改程序.**
 
 
 这个原则由 [Barbara Liskov](https://en.wikipedia.org/wiki/Barbara_Liskov) 定义。他说程序里的对象都应该可以被它的子类实例替换而不用更改系统的正常工作.
