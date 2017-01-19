@@ -141,3 +141,5 @@ This is something we have been able to do with the help of CSS pre-processors li
 As you can see, none of these features are fully supported in every browser yet, so how do we comfortably usem the in production? Well, Progressive Enhancement! Last year I gave a talk about how to apply Progressive Enhancement in relation to CSS at Fronteers Conference. You can watch the talk below -
 
 [![JavaScript Array Methods - Mutator](http://bitsofco.de/content/images/2017/01/Screen-Shot-2017-01-09-at-20.58.09--2-.png)](https://player.vimeo.com/video/194815985)
+
+What CSS features are you excited about to learn in 2017?
