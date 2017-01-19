@@ -17,15 +17,15 @@ Why don’t developers write secure code? We’re not talking yet another time a
 This should be enough to understand how important is to write secure software, specially in certain contexts. But also in other use cases, we should be aware where our software bugs can lead us to.
 # 防守式编程的艺术 #
 
-为什么开发人员不编写安全代码？ 我们不再在这里讨论 *“干净的代码”* 。我们从一个纯粹的角度，软件的安全和安全性来讨论更多的东西。是的，因为一个不安全的软件几乎是没用的。让我们来看看不安全的软件意味着什么。
+为什么开发人员不编写安全代码？ 我们不再在这里讨论 *“干净的代码”* 。我们从一个纯粹的角度，软件的安全性来讨论更多的东西。是的，因为一个不安全的软件几乎是没用的。让我们来看看不安全的软件意味着什么。
 
-- **欧洲航天局的 Ariane 5 Flight 501** 在起飞后 40 秒（1996年6月4日）被毁。**10 亿美元的**原型火箭**由于机载指导软件中的错误**而自毁。 
+- **欧洲航天局的 Ariane 5 Flight 501** 在起飞后 40 秒（1996年6月4日）被毁。**10 亿美元的**原型火箭**由于机载导航软件中的错误**而自毁。 
 
-- 在 20 世纪 80 年代，因为治疗机中控制 Therac-25 辐射的的代码错误，导致其施用过量的 X 射线致使至少五名患者死亡。
+- 在 20 世纪 80 年代，由于治疗机中控制 Therac-25 辐射的的代码错误，导致其施用过量的 X 射线致使至少五名患者死亡。
 
-- MIM-104 爱国者的软件错误导致其系统时钟在 100 小时时段内偏移三分之一秒，以至于无法定位和拦截来袭导弹。伊拉克导弹袭击了沙特阿拉伯 - 达哈兰一个军事大院（ 1991 年 2 月 25 日 ），杀害了 28 名美国人。
+- MIM-104 爱国者的软件错误导致其系统时钟在 100 小时时段内偏移三分之一秒，以至于无法定位和拦截来袭导弹。伊拉克导弹袭击了沙特阿拉伯在达哈兰的一个军事大院（ 1991 年 2 月 25 日 ），杀害了 28 名美国人。
 
-这些例子足以让我们认识到编写安全的软件，特别是在某些情况下是多么重要。但在其他使用情况下，我们也应该知道我们软件错误会带给我们什么。
+这些例子足以让我们认识到编写安全的软件，特别是在某些情况下是多么重要。在其他使用情况下，我们也应该知道我们软件错误会带给我们什么。
 ### A first sight to Defensive Programming ###
 
 Why do I think Defensive Programming is a good approach to issue these problems in certain kind of projects?
@@ -42,15 +42,15 @@ Let’s explore some of my diluted key points in order to achieve a Defensive Pr
 
 ### 防守式编程角度一 ###
 
-为什么我认为防守式编程在某些项目中是一个发布这些问题的好方法？
+为什么我认为防守式编程在某些项目中是一个发现这些问题的好方法？
 
 > 防御不可能，因为不可能将可能发生。
 
 对于防御性编程有很多定义，它还取决于**安全性**的级别和您的软件项目所需的资源级别。
 
-**防守式编程**是一种[防守式设计](https://en.wikipedia.org/wiki/Defensive_design),旨在确保在意外的情况下[软件](https://en.wikipedia.org/wiki/Software)的持续性功能,防守式编程实践常被用在高可用性，安全或安全的地方 — [维基百科](https://en.wikipedia.org/wiki/Defensive_programming)
+**防守式编程**是一种[防守式设计](https://en.wikipedia.org/wiki/Defensive_design),旨在确保在意外的情况下[软件](https://en.wikipedia.org/wiki/Software)的持续性功能,防守式编程实践常被用在高可用性，需要安全的地方 — [维基百科](https://en.wikipedia.org/wiki/Defensive_programming)
 
-我个人认为这种方法适合当你处理一个大的，长期的项目，有许多人参与。 例如，对于需要大量维护的开源项目。
+我个人认为这种方法适合当你处理一个大的，长期的项目，有许多人参与的项目。 例如，需要大量维护的开源项目。
 
 让我们了解一些我的浅薄的关键点，为了实现防守式编程方法。
 
@@ -68,13 +68,13 @@ Do whitelists not blacklists, for example when validating an image extension, do
 
 ### 从不相信用户输入 ###
 
-假设你总是会收到你意料之外的东西。这应该是你作为防守式程序员的方法，针对用户输入，或者平常进入你的系统。因为我们可以预料到意想不到的，尽量做到尽可能严格。[断言](https://en.wikipedia.org/wiki/Assertion_(software_development))你的输入值是你期望的。
+假设你总是会收到你意料之外的东西。这应该是你作为防守式程序员的方法，针对用户输入，或者平常进入你的系统的各种东西。因为我们可以预料到意想不到的，尽量做到尽可能严格。[断言](https://en.wikipedia.org/wiki/Assertion_(software_development))你的输入值是你期望的。
 
 ![The best defense is a good offense](https://res.cloudinary.com/practicaldev/image/fetch/s--Pic7qAkP--/c_limit,f_auto,fl_progressive,q_auto,w_725/https://medium2.global.ssl.fastly.net/max/2000/1%2AwJBEFQ8XcNR7RzlMnTF_fw.png) 
 
 *进攻就是最好的防守*
 
-列入白名单不是黑名单，例如，当验证图像扩展名时，不检查无效的类型，但检查有效的类型，排除所有其余的类型。 在PHP中，你也有无数的开源验证库，使您的工作更容易。
+列入白名单不是黑名单，例如，当验证图像扩展名时，不检查无效的类型，但检查有效的类型，排除所有其余的类型。 在PHP中，你也有无数的开源验证库，使你的工作更容易。
 
 *进攻就是最好的防守*要严格。
 
@@ -84,7 +84,7 @@ The first of **[OWASP Top 10 Security Vulnerabilities](https://www.veracode.com/
 
 ### 使用数据抽象 ###
 
- **[OWASP 十大安全漏洞](https://www.veracode.com/directory/owasp-top-10)** 中的第一个是注入。这意味着有人（很多人在这儿）还没有使用安全工具来查询他们的数据库。请使用数据库抽象包和库。在PHP中你可以使用 [PDO](http://php.net/manual/en/book.pdo.php) 来[确保基本的注入保护](http://stackoverflow.com/questions/134099/are-pdo-prepared-statements-sufficient-to-prevent-sql-injection)。
+ **[OWASP 十大安全漏洞](https://www.veracode.com/directory/owasp-top-10)** 中的第一个是注入。这意味着有人（很多人）还没有使用安全工具来查询他们的数据库。请使用数据库抽象包和库。在PHP中你可以使用 [PDO](http://php.net/manual/en/book.pdo.php) 来[确保基本的注入保护](http://stackoverflow.com/questions/134099/are-pdo-prepared-statements-sufficient-to-prevent-sql-injection)。
 
 ### Don’t reinvent the wheel ###
 
@@ -94,7 +94,7 @@ That’s what is used to call **intelligent code reuse**. Embrace it
 
 ### 不要造轮子 ###
 
-你不使用框架（或微框架）？ 你喜欢做额外的工作，没有理由，恭喜你！ 它不仅仅是框架，而且对于新的功能，你可以很容易地[使用已经在那里，经过测试，受到成千上万的开发人员和稳定的信任](https://packagist.org/)，而不是只因为他的缘故而亲手制作它。 你应该自己创建一个东西的唯一原因是你需要一些不存在或存在但不适合你的需要（性能不佳，缺少的功能等）。
+你不使用框架（或微框架）？ 你就是喜欢做额外的工作，没有理由。恭喜你！ 它不仅仅是框架，而且你可以很容易地[使用已经存在，经过测试，并受到成千上万的开发人员和的信任](https://packagist.org/)的新特性，而不是只因为他的缘故而重新造轮子。 你自己造轮子的唯一原因是你需要一些不存在或存在但不适合你的需要（性能不佳，缺少的功能等）。
 
 那个（使用框架）我们称它为**智能代码重用**，它值得拥有。
 ### Don’t trust developers ###
@@ -105,9 +105,9 @@ In big projects, where many people are involved, we can have many different ways
 
 ### 不要信任开发人员 ###
 
-防守式编程可以与称为**[防御性驾驶](https://en.wikipedia.org/wiki/Defensive_driving)**的东西相关。在防御驾驶中，我们假设我们周围的每个人都有可能和可能犯错误。 所以我们必须小心别人的行为。这些同样适用于**我们的防守式编程，作为开发者，我们不应该相信其他开发者**。我们也同样不应该信任我们的代码。
+防守式编程可以与称为**[防御性驾驶](https://en.wikipedia.org/wiki/Defensive_driving)**的东西相关。在防御驾驶中，我们假设我们周围的每个人都有可能犯错误。 所以我们必须小心别人的行为。这些同样适用于**我们的防守式编程，作为开发者，我们不应该相信其他开发者**。我们也同样不应该信任我们的代码。
 
-在大项目中，许多人参与，我们可以有许多不同的方式来编写和组织代码。 这也可能导致混乱，甚至更多的错误。 这是因为为什么我们应该实施编码风格和乱码检测器，使我们的生活更轻松。
+在许多人参与的大项目中，我们可以有许多不同的方式来编写和组织代码。 这也可能导致混乱，甚至更多的错误。 这就是为什么我们统一编码风格和使用代码检测器会使我们的生活更加轻松。
 
 ### Write SOLID code ###
 
@@ -290,4 +290,4 @@ Hope you liked the article. Remember those are just suggestions, it’s up to yo
 
 ### 总结 ###
 
-希望你喜欢这篇文章。 记住这些只是建议，这是由你知道什么时候，在哪里和如果应用他们。
+希望你喜欢这篇文章。 记住这些只是建议，何时、何地采纳这些建议，这取决于你。
