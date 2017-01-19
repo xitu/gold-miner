@@ -182,9 +182,6 @@ I hope you’ve learned something new with me. If you have, please tap that ❤�
 
 [Andyy Hope](https://medium.com/u/99c752aeaa48), a friend of mine, is currently organizing one of the largest and greatest Swift Conferences at Melbourne, Australia. It’s called Playgrounds. I just wanted to help out with spreading the word. There are speakers from mega-billion dollar companies such as Instagram, IBM, Meet up, Lyft, Facebook, Uber. Here is the [website](http://www.playgroundscon.com) for more info.
 
-[Playgrounds 🐨 (@playgroundscon) | Twitter
-The latest Tweets from Playgrounds 🐨 (@playgroundscon). ● Swift and Apple Developers Conference ● Melbourne, February…twitter.com](https://twitter.com/playgroundscon)
-
 [https://twitter.com/playgroundscon](https://twitter.com/playgroundscon)
 
 #### Shoutout
