@@ -50,7 +50,7 @@
 
 - `mCheeseSearchEngine`: 一个 `CheeseSearchEngine` 的实例。它具有 `search` 方法，你可以调用它来查询奶酪。这个方法接收一个文本查询，返回一个匹配奶酪的列表：
 
-构建并在你的 Android 设备或模拟器上运行这个工程。 你将会看到一个空荡荡的查询页面。
+编译并在你的 Android 设备或模拟器上运行这个工程。 你将会看到一个空荡荡的查询页面。
 
 ![starter-300x500](https://koenig-media.raywenderlich.com/uploads/2016/09/starter-300x500.png)
 
@@ -264,7 +264,7 @@ import io.reactivex.functions.Consumer;
 
 4. 最后, 执行查询并展示查询结果。
 
-构建并运行应用，输入一些字符然后点击 *Search* 按钮。你应该看到一个匹配你查询规则的奶酪列表：
+编译并运行应用，输入一些字符然后点击 *Search* 按钮。你应该看到一个匹配你查询规则的奶酪列表：
 
 ![enter-and-press-300x500](https://koenig-media.raywenderlich.com/uploads/2016/09/enter-and-press-300x500.png)
 
@@ -272,51 +272,52 @@ import io.reactivex.functions.Consumer;
 
 ## RxJava 线程模型 ##
 
-You’ve had your first taste of reactive programming. There is one problem though: the UI freezes up for a few seconds when the search button is pressed.
+你刚才已经初尝了响应式编程。现在还有一个问题：当点击查询按钮时，UI 界面会卡住几秒钟的时间。
 
-You might also notice the following line in Android Monitor:
+你也可能注意到在 Studio 的 Android Monitor 一栏会有如下几行：
 
 ```
 > 08-24 14:36:34.554 3500-3500/com.raywenderlich.cheesefinder I/Choreographer: Skipped 119 frames!  The application may be doing too much work on its main thread.
 ```
 
-This happens because `search` is executed on the main thread. If `search` were to perform a network request, Android will crash the app with a NetworkOnMainThreadException exception. It’s time to fix that.
+发生这种情况是因为在主线程中执行了 `search` 操作。如果 `search` 操作中存在网络访问请求， Android 应用会崩溃，并会发出一个 NetworkOnMainThreadException 异常。是时候来修复这个问题了。
 
-One popular myth about RxJava is that it is multi-threaded by default, similar to `AsyncTask`. However, if not otherwise specified, RxJava does all the work in the same thread it was called from.
+RxJava 一个神奇的地方在于它默认是支持多线程的，类似于 `AsyncTask`，然而，如非特别指定，RxJava 会在它被调用的线程中执行所有的操作。
 
-You can change this behavior with the `subscribeOn` and `observeOn` operators.
+你可以通过使用 `subscribeOn` 和 `observeOn` 操作符来改变这一行为。
 
-`subscribeOn` is supposed to be called only once in the chain of operators. If it’s not, the first call wins. `subscribeOn` specifies the thread on which the observable will be subscribed (i.e. created). If you use observables that emit events from Android View, you need to make sure subscription is done on the Android UI thread.
+`subscribeOn` 应该只会在调用链中被调用一次。如果并非如此的话，那会以第一次调用时的线程为准。
+`subscribeOn` 指定了 observable 在哪个线程中被订阅（例如，被创建）。如果你在 Android 的 View 中使用 observable 发出事件，你需要确认订阅会在 Android UI 线程中执行。
 
-On the other hand, it’s okay to call `observeOn` as many times as you want in the chain. `observeOn` specifies the thread on which the next operators in the chain will be executed. For example:
+另一方面，在调用链中调用多少次 `observeOn` 都是可以的。`observeOn` 指定了链中的下一个操作符执行的线程，例如：
 
 ```
-myObservable // observable will be subscribed on i/o thread
+myObservable // observable 将会在 i/o 线程被订阅
   .subscribeOn(Schedulers.io())
   .observeOn(AndroidSchedulers.mainThread())
-  .map(/* this will be called on main thread... */)
-  .doOnNext(/* ...and everything below until next observeOn */)
+  .map(/* 将会在主线程被调用 */)
+  .doOnNext(/* ...下面的代码会等到下次 observeOn 时执行 */)
   .observeOn(Schedulers.io())
-  .subscribe(/* this will be called on i/o thread */);
+  .subscribe(/* 将会在 i/o 线程执行 */);
 ```
 
-The most useful schedulers are:
+最有用的调度器有如下几个：
 
-- `Schedulers.io()`: Suitable for I/O-bound work such as network requests or disk operations.
+- `Schedulers.io()`: 适合在 I/O 线程的工作，例如网络请求或磁盘操作。
 
-- `Schedulers.computation()`: Works best with computational tasks like event-loops and processing callbacks.
+- `Schedulers.computation()`: 计算性的任务，比如事件轮循或者处理回调等。
 
-- `AndroidSchedulers.mainThread()` executes the next operators on the UI thread.
+- `AndroidSchedulers.mainThread()` 在主线程中执行下个操作符的操作。
 
-## The Map Operator ##
+## Map 操作符 ##
 
-The `map` operator applies a function to each item emitted by an observable and returns another observable that emits results of those function calls. You’ll need this to fix the threading issue as well.
+`map` 操作符对 observable 发出的每一个事件应用一次函数变换，返回另外的一个发出函数执行结果类型事件的 observable。你也会用到它来处理线程调度问题。
 
-If you have an observable called `numbers` that emits the following:
+如果你有一个叫做 `numbers` 的 observable 发出如下事件：
 
 ![map-0](https://koenig-media.raywenderlich.com/uploads/2016/08/map-0-1.png)
 
-And if you apply `map` as follows:
+并且你按着如下方式使用 `map` 操作符:
 
 ```
 numbers.map(new Function<Integer, Integer>() {
@@ -327,13 +328,13 @@ numbers.map(new Function<Integer, Integer>() {
 }
 ```
 
-The result would be the following:
+结果如下:
 
 ![map-1](https://koenig-media.raywenderlich.com/uploads/2016/08/map-1-1.png)
 
-That’s a handy way to iterate over multiple items with little code. Let’s put it to use!
+这是一种用较少的代码来遍历多个事件条目的巧妙方式。让我开始使用它吧！
 
-Modify `onStart()` in `CheeseActivity` class to look like the following:
+修改 `CheeseActivity` 类中的 `onStart()` 成如下形式：
 
 ```
 @Override
@@ -362,29 +363,29 @@ protected void onStart() {
 }
 ```
 
-When prompted, resolve the ambiguous `Function` import:
+当看到提示时, 解决有歧义的 `Function` 依赖:
 
 ```
 importio.reactivex.functions.Function;
 ```
 
-Going over the code above:
+重新回顾一下上面的代码:
 
-1. First, specify that the next operator should be called on the I/O thread.
+1. 首先, 指定下一个操作符应该在 I/O 线程执行；
 
-2. For each search query, you return a list of results.
+2. 对于每一次查询，都会返回一个结果列表；
 
-3. Finally, specify that code down the chain should be executed on the main thread instead of on the I/O thread. In Android, all code that works with `View`s should execute on the main thread.
+3. 最后, 指定该位置处的代码应当在主线程，而不是 I/O 线程中运行。 在 Android 中, 所有对 `View` 的操作都应保证在主线程中执行。
 
-Build and run your project. Now the UI should be responsive even when a search is in progress.
+编译并运行工程. 现在 UI 界面哪怕在执行查询时应该也不会再卡顿了。
 
-## Show Progress Bar with doOnNext ##
+## 利用 doOnNext 来显示进度条 ##
 
-It’s time to display the progress bar!
+是时候来展示进度条了!
 
-For that you’ll need a `doOnNext` operator. `doOnNext` takes a `Consumer` and allows you do something each time an item is emitted by observable.
+这需要用到 `doOnNext` 操作符。`doOnNext` 需要一个 `Consumer` 参数，它能让你在每次 observable 发出事件的时候做一些处理。
 
-In the same `CheeseActivity` class modify `onStart()` to the following:
+同样地，需要在 `CheeseActivity` 类中修改 `onStart()` 成如下:
 
 ```
 @Override
@@ -421,23 +422,23 @@ protected void onStart() {
 }
 ```
 
-Taking each numbered comment in turn:
+依次解释 3 条注释:
 
-1. Ensure that the next operator in chain will be run on the main thread.
+1. 保证下一个操作符将会在主线程中执行；
 
-2. Add the `doOnNext` operator so that `showProgressBar()` will be called every time a new item is emitted.
+2. 添加 `doOnNext` 操作符以便 `showProgressBar()` 方法会在 observable 每次发出事件时被回调；
 
-3. Don’t forget to call `hideProgressBar()` when you are just about to display a result.
+3. 当你想要展示查询结果时，不要忘记调用 `hideProgressBar()` 方法。
 
-Build and run your project. You should see the progress bar appearing when you initiate the search:
+编译并运行工程。 当你开始查询时，你应该会看到进度条:
 
 ![progressbar](https://koenig-media.raywenderlich.com/uploads/2016/09/progressbar-300x500.png)
 
-## Observe Text Changes ##
+## 观察文本改变 ##
 
-What if you want to perform search automatically when the user types some text, just like Google?
+如果你想在用户键入一些文字时自动执行搜索，就想Google一样，该怎样做呢？
 
-First, you need to subscribe to `TextView` text changes. Add the following method to the `CheeseActivity` class:
+首先, 你需要订阅 `TextView` 的文本改变. 在 `CheeseActivity` 类中添加如下代码:
 
 ```
 //1
@@ -479,39 +480,38 @@ private Observable<String> createTextChangeObservable() {
 }
 ```
 
-Here’s the play-by-play of each step above:
+下面是每一步的详细解释:
 
-1. Declare a method that will return an observable for text changes.
+1. 声明一个方法，返回一个发出文本改变事件的 observable；
 
-2. Create `textChangeObservable` with `create()`, which takes an `ObservableOnSubscribe`.
+2. 使用 `create()`方法创建 `textChangeObservable`, 它需要一个 `ObservableOnSubscribe` 参数；
 
-3. When an observer makes a subscription, the first thing to do is to create a `TextWatcher`.
+3. 当 observer 进行订阅时, 第一件事就是要创建一个 `TextWatcher`.
 
-4. You aren’t interested in `beforeTextChanged()` and `afterTextChanged()`. When the user types and `onTextChanged()` triggers, you pass the new text value to an observer.
+4. 我们并不对 `beforeTextChanged()` 和 `afterTextChanged()` 方法感兴趣。当用户键入内容触发 `onTextChanged()` 方法时, 将文本值传递给 observer；
 
-5. Add the watcher to your `TextView` by calling `addTextChangedListener()`.
+5. 通过 `addTextChangedListener()` 方法将观察器添加到 `TextView` 上；
 
-6. Don’t forget to remove your watcher. To do this, call `emitter.setCancellable()` and overwrite `cancel()` to call `removeTextChangedListener()`
+6. 不要忘记移除观察器。调用 `emitter.setCancellable()` 并 重写 `cancel()` 来调用 `removeTextChangedListener()` 方法；
 
-7. Finally, return the created observable.
+7. 最后, 返回创建的 observable。
 
-To see this observable in action, replace the declaration of `searchTextObservable` in `onStart()` of `CheeseActivity` as follows:
+为了看到这个 observable 起作用, 将 `CheeseActivity` 类的 `onStart()` 方法中的 `searchTextObservable` 替换如下:
 
 ```
 Observable<String> searchTextObservable = createTextChangeObservable();
 ```
 
-Build and run your app. You should see the search kick off when you start typing text in the `TextView`:
+编译并运行工程。你将会看到在 `TextView` 中键入内容后，即会开始查询：
 
 ![text-view-changes-simple](https://koenig-media.raywenderlich.com/uploads/2016/09/text-view-changes-simple-300x500.png)
 
-## Filter Queries by Length ##
+## 按长度过滤查询 ##
 
-It doesn’t make sense to search for queries as short as a single letter. To fix this, let’s introduce the powerful `filter` operator.
+查询只有一个输入字母的结果是没有意义的。为了解决这个问题，让我们来引入强大的 `filter` 操作符。`filter` 采用一个 `Predicate` 作为参数，`Predicate` 是一个接口，在其中定义了一个输入指定的类型才会通过的测试，它返回一个 `boolean` 类型的结果。在这个例子中，Predicate 有一个 `String` 类型的入参，并在字符串的长度大于等于两个字符时返回 `true`。
 
-`filter` passes only those items which satisfy a particular condition. `filter` takes in a `Predicate`, which is an interface that defines the test that input of a given type needs to pass, with a `boolean` result. In this case, the Predicate takes a `String` and returns `true` if the string’s length is two or more characters.
 
-Replace `return textChangeObservable` in `createTextChangeObservable()` with the following code:
+用下面的代码替换 `createTextChangeObservable()` 中的 `return textChangeObservable`:
 
 ```
 return textChangeObservable
@@ -523,31 +523,31 @@ return textChangeObservable
     });
 ```
 
-Resolve the ambiguous `Predicate` import with:
+解决有歧义的 `Predicate` 依赖:
 
 ```
-importio.reactivex.functions.Predicate;
+import io.reactivex.functions.Predicate;
 ```
 
-Everything will work exactly the same, except that text queries with `length` less than `2` won’t get sent down the chain.
+其它流程都保持不变，除了字符长度小于 `2` 的查询不会向下传递执行。
 
-Run the app; you should see the search kick off only when you type the second character:
+运行这个工程；你将会看到只有当键入第二个字符时才会执行查询操作:
 
 ![filter-0](https://koenig-media.raywenderlich.com/uploads/2016/09/filter-0-300x500.png)
 
 ![filter-1](https://koenig-media.raywenderlich.com/uploads/2016/09/filter-1-300x500.png)
 
-## Debounce operator ##
+## 防抖动操作符 ##
 
-You don’t want to send a new request to the server every time the query is changed by one symbol.
+你并不会想每次改变一个字符时都向服务器去请求一次查询。
 
-`debounce` is one of those operators that shows the real power of reactive paradigm. Much like the `filter` operator, `debounce`, filters items emitted by the observable. But the decision on whether the item should be filtered out is made not based on what the item is, but based on when the item was emitted.
+`防抖动` 是能展示响应式编程规范强大之处的操作符之一。非常类似 `filter` 操作符, `防抖动`, 对 observable 发出的事件进行过滤。但是决定事件该不该被过滤掉的原则不是靠判断发出的是什么事件，而是取决于何时发出的事件。
 
-`debounce` waits for a specified amount of time after each item emission for another item. If no item happens to be emitted during this wait, the last item is finally emitted:
+`防抖动` 会在每个事件发出后等待指定的时间。如果在这等待期间没有其它事件发生，那么最后保留的事件将会被发送出去：
 
 ![719f0e58_1472502674](https://koenig-media.raywenderlich.com/uploads/2016/08/719f0e58_1472502674-650x219.png) 
 
-In `createTextChangeObservable()`, add the `debounce` operator just below the `filter` so that the `return` statement will look like the following code:
+在 `createTextChangeObservable()` 方法中, 在 `filter` 操作符后添加 `debounce` 操作符，代码如下所示：
 
 ```
 return textChangeObservable
@@ -560,23 +560,23 @@ return textChangeObservable
 
 ```
 
-Run the app. You’ll notice that the search begins only when you stop making quick changes:
+运行应用，你将会注意到只有当你停止快速键入时，才会执行查询操作：
 
 ![debounce-500px](https://koenig-media.raywenderlich.com/uploads/2016/09/debounce-500px-1.gif)
 
-`debounce` waits for 1000 milliseconds before emitting the latest query text.
+`防抖动`会等待 1000 毫秒后发出最近一次的查询事件。
 
-## Merge Operator ##
+## 合并操作符 ##
 
-You started by creating an observable that reacted to button clicks and then implemented an observable that reacts to text field changes. But how do you react to both?
+刚开始时，你创建了一个响应查询按钮点击事件的 observable，接着又实现了一个响应文字变化的 observable。但是怎样做到响应两者呢？
 
-There are a lot of operators to combine observables. The most simple and useful one is `merge`.
+RxJava 中有许多合并 observable 的操作符。最简便易用的就是 `merge`。
 
-`merge` takes items from two or more observables and puts them into a single observable:
+`merge` 接收两个或更多 observable 发出的事件，然后将它们放入一个 observable 中：
 
 ![ae08759b_1472502259](https://koenig-media.raywenderlich.com/uploads/2016/08/ae08759b_1472502259-650x296.png) 
 
-Change the beginning of `onStart()` to the following:
+将 `onStart()` 的开头改成如下形式:
 
 ```
 Observable<String> buttonClickStream = createButtonClickObservable();
@@ -585,31 +585,31 @@ Observable<String> textChangeStream = createTextChangeObservable();
 Observable<String> searchTextObservable = Observable.merge(textChangeStream, buttonClickStream);
 ```
 
-Run your app. Play with the text field and the search button; the search will kick off either when you type finish typing two or more symbols or when you simply press the Search button.
+运行应用。试一试键入文字或者点击查询按钮；查询操作会在完成输入两个以上的字符后或是点击查询按钮时被执行。
 
-## RxJava and Activity/Fragment lifecycle ##
+## RxJava 与 Activity/Fragment 的生命周期 ##
 
-Remember those `setCancellable` methods you set up? They won’t fire until the observable is unsubscribed.
+还记得你设置的那些　`setCancellable`　方法吗？除非这些 observable 被取消订阅，否则它们不会被触发。
 
-The `Observable.subscribe()` call returns a `Disposable`. `Disposable` is an interface that has two methods:
+`Observable.subscribe()` 方法调用之后会返回一个 `Disposable`。 `Disposable` 是一个包括两个方法的接口:
 
 ```
 public interface Disposable {
-  void dispose();  // ends a subscription
-  boolean isDisposed(); // returns true if resource is disposed (unsubscribed)
+  void dispose();  // 结束订阅
+  boolean isDisposed(); // 当订阅结束后返回 true
 }
 ```
 
-Add the following field to `CheeseActivity`:
+将如下字段添加到 `CheeseActivity` 类中:
 
 ```
 private Disposable mDisposable;
 ```
 
-In `onStart()`, set the returned value of `subscribe()` to `mDisposable` with the following code (only the first line changes):
+在 `onStart()` 中, 添加如下代码将 `subscribe()` 方法的返回值赋值给 `mDisposable` (只需改变第一行):
 
 ```
-mDisposable = searchTextObservable // change this line
+mDisposable = searchTextObservable // 修改此行
   .observeOn(AndroidSchedulers.mainThread())
   .doOnNext(new Consumer<String>() {
     @Override
@@ -634,9 +634,9 @@ mDisposable = searchTextObservable // change this line
   });
 ```
 
-Since you subscribed to the observable in `onStart()`, `onStop()` would be a perfect place to unsubscribe. 
+既然已经在 `onStart()` 中进行了订阅，那么 `onStop()` 是取消订阅的极佳地点。
 
-Add the following code to *CheeseActivity.java*:
+将这段代码添加到 *CheeseActivity.java* 类中:
 
 ```
 @Override
@@ -648,14 +648,14 @@ protected void onStop() {
 }
 ```
 
-And that’s it! :]
+就是这样！完成！:]
 
-## Where to Go From Here? ##
+## 后续 ##
 
-You can download the final project from this tutorial [here](https://koenig-media.raywenderlich.com/uploads/2016/12/CheeseFinder-final.zip).
+你可以从[这里](https://koenig-media.raywenderlich.com/uploads/2016/12/CheeseFinder-final.zip)下载本教程中的最终版本项目。
 
-You’ve learned a lot in this tutorial. But that’s only a glimpse of the RxJava world. For example, there is [RxBinding](https://github.com/JakeWharton/RxBinding) , a library that includes most of the Android View APIs. Using this library, you can create a click observable by just calling `RxView.clicks(viewVariable)`.
+在本教程中，你已经学到了许多知识。但这仅是 RxJava 世界的一小部分。比如说，还有 [RxBinding](https://github.com/JakeWharton/RxBinding) , 一个包含大多数 Android View API 的库。使用这个库后，你只需调用 `RxView.clicks(viewVariable)` 来创建一个发出点击事件的 observable。
 
-To learn more about RxJava refer to the [ReactiveX documentation](http://reactivex.io/documentation/operators.html).
+想要了解更多关于 RxJava 的知识，请参考 [ReactiveX 文档](http://reactivex.io/documentation/operators.html).
 
-If you have any comments or questions, don’t hesitate to join the discussion below!
+如果你有任何意见或者疑问，不要犹豫，立刻加入到下面的讨论中来！
