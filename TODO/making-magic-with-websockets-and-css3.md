@@ -1,15 +1,20 @@
 > * 原文地址：[Making Magic with WebSockets and CSS3](https://medium.com/outsystems-engineering/making-magic-with-websockets-and-css3-ec22c1dcc8a8#.4d13ybtra)
 * 原文作者：[Hélio Dolores](https://medium.com/@helio.dolores?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[王子建](https://github.com/Romeo0906)
 * 校对者：
 
 # Making Magic with WebSockets and CSS3 #
+
+# 使用 WebSockets 和 CSS3 创造魔法 #
 
 ![](https://cdn-images-1.medium.com/max/1000/0*Nkkza8wGZFucca1c.)
 
 > *“Any sufficiently advanced technology is indistinguishable from magic.”
 >  ― Arthur C. Clarke*
+
+> **任何特别先进的技术都与魔法无异**
+> **—— Arthur C. Clarke**
 
 Magic has a way of captivating attention and interest, and you can’t go wrong with magic tricks if you want to amaze people.
 
@@ -18,6 +23,10 @@ When I started programming, impressing people was easy to do with just a few lin
 Fortunately, the Internet of Things creates a world of opportunities to bring this kind of magic back.
 
 You have the most unexpected objects getting connected to the internet, as well as a plethora of interactions with users and between… things.
+
+魔法自有其吸引人们注意和兴趣的方式，如果你想让人们惊艳，使用魔术绝对没错。
+
+我刚开始编程的时候，只需简单的几行代码就足以深入人心。然而，如今技术在生活中扮演着如此重要的角色，我们需要不断推动自己进步。并且，我们必须要极具创造性才惊艳到人们。
 
 ### Bringing the Magic Back with … a Shopping App? Seriously? ###
 
