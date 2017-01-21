@@ -244,17 +244,26 @@ To achieve this, we need to add ***TabLayout*** inside the ***AppBarLayout*** an
 
 - The whole **app bar scrolls off**. When the user reverse scrolls, the toolbar returns **anchored to the top**. When scrolling all the way back, the **flexible space and the title grow into place again**.
 
-- 
+- **灵活空间收缩**直到只剩下工具栏。在导航栏中**标题收缩至 20sp**。当用户滚动至顶端，**灵活空间和标题又拉长到原来的位置**。 
 
 ![](https://cdn-images-1.medium.com/max/800/1*bG1RZCd7_623GzOxZ984KA.gif)
 
 Flexible space with Scrolling
 
+可以滚动的灵活空间
+
 To get Flexible space for **AppBar**, we need to use **CollapsingToolbarLayout** around the **ToolBar** tag. Which means **CoordinatorLayout** in the top and **AppBarLayout**, **CollapsingToolbarLayout**, **ToolbarLayout** inside the order.
+
+为了得到**应用栏**的灵活空间，我们需要用到 **CollapsingToolbarLayout** 环绕 **ToolBar** 标签。这意味着 **CoordinatorLayout** 在最上层， 然后 **AppBarLayout**, **CollapsingToolbarLayout**, **ToolbarLayout** 按照顺序摆放在里面。
 
 We need to add height for the **AppBarLayout** and need to specify `app:layout_scrollFlags` for `CollapsingToolbarLayout.`
 
 Also we need to add ***app:layout_collapseMode=”pin”*** tag in **Toolbar**.
+
+我们要为 **AppBarLayout** 添加高度并且为 `CollapsingToolbarLayout` 指定 `app:layout_scrollFlags` 属性值。
+
+同时，我们把 **app:layout_collapseMode=”pin”** 添加进 **Toolbar** 里。
+
 
 ```
 <android.support.design.widget.AppBarLayout  
@@ -279,21 +288,36 @@ app:layout_collapseMode="pin"/>
 
 ***exitUntilCollapsed*** -flag will make the Flexible space scrolled down while scrolling back to position along with the content.
 
+**exitUntilCollapsed** －标志位会让灵活空间滚动下来，当它随着内容滚动回到原来的位置。
+
 ### App bar scrolling with image in Flexible space ###
+
+### 加载了图片的灵活空间的应用栏滚动效果 ###
 
 - Similar to the above Flexible space behavior. When scrolling image will **pushed up with slight animation** and the color changes to primary color.
 
 - While reversing the scrolling **primary color fades away to leave way for the image** been pulled down with a slight animation.
 
+- 与上面灵活空间的效果类似。当滚动图片时，图片会**显示推上去的小动画** 并且颜色变成一个图片的主要颜色。
+
+- 当回滚的时候， **主要颜色褪去**， 图片拉下来时有一个小动画。
+
 ![](https://cdn-images-1.medium.com/max/800/1*Ee4hkJjvOyJOKxViXpTgEA.gif)
 
 Image parallax scrolling
+图片的视差滚动
 
 It is very much similar to the Flexible Space implementation with the below changes,
 
 - **ImageView** needs to added inside **CollapsingToolbarlayout**.
 
 - **AppBarLayout** height specified 200dp will be applied to image.
+
+下面的改动与灵活空间的实现非常相似。
+
+- **ImageView** 要加进 **CollapsingToolbarlayout**。
+
+- **AppBarLayout** 里图片高度固定为 200dp。
 
 ```
 <android.support.design.widget.AppBarLayout
@@ -324,17 +348,28 @@ It is very much similar to the Flexible Space implementation with the below chan
 
 ### App bar scrolling with overlapping content in Flexible space ###
 
+### 灵活空间中重叠内容的滚动效果 ###
+
 - In this scrolling, the **AppBar** with Flexible space will be placed behind the content. Once content **starts scrolling**, the app bar will **scroll faster than the content** until it gets out of the **overlapping content view**. Once the content **reaches top**, app bar comes upside of the content and content goes **underneath and scrolls smoothly**.
+
+- 在这样的滚动效果中，有灵活空间的**应用栏**会被放置在页面内容的下面。一旦内容**开始滚动**，应用栏会**滚动得比内容快**直到它不再与**页面视图内容重叠**。一旦页面内容**滚动到顶部**，应用栏会从页面内容的上方出来并且**平滑地在下层滚动**。
 
 - The whole **AppBar** can **scroll off-screen** along with content and can be **returned while reverse scrolling**.
 
 - There will not be any **TabBar** placement in this behavior.
 
+- 整个**应用栏**可以随着页面内容滚动至消失在屏幕上，并且在回滚的时候重现。
+- 
+- 这个效果中没有标签的位置。
+
 ![](https://cdn-images-1.medium.com/max/800/1*S3P_sztswwHR6D-NViX9tg.gif)
 
 Flexible space scrolling with content overlapping
+与内容重叠的灵活洞见的滚动效果
 
 This can be achieved by using ***app:behaviour_overlapTop*** in the **NestedScrollView** or **RecyclerView**. Also in this case we are specifying height value for `**CollapsingToolbarLayout**` .
+
+在 **NestedScrollView** 或者 **RecyclerView** 中使用 ***app:behaviour_overlapTop*** 就可以达到这种效果。我们还要定义 `**CollapsingToolbarLayout**` 的高度。
 
 ```
 <android.support.design.widget.AppBarLayout
@@ -373,8 +408,18 @@ Also we can implement and specify the **scrollFlags** dynamically through java c
 
 Hopefully this article will help you to implement scrolling behaviors for AppBar.
 
+同样地，我们可以通过 JAVA 代码动态指定 **scrollFlags** 属性值。
+
+希望这篇文章可以帮你们实现应用栏的滚动效果。
+
 I posted this article originally on [my blog](http://karthikraj.net/2016/12/24/scrolling-behavior-for-appbars-in-android/).
+
+这篇文章原来发表在[我的博客](http://karthikraj.net/2016/12/24/scrolling-behavior-for-appbars-in-android/)。
 
 Code for demo app is available on [Github](https://github.com/karthikraj-duraisamy/ScrollingBehaviorAndroid).
 
+示例应用的代码可以通过 [Github](https://github.com/karthikraj-duraisamy/ScrollingBehaviorAndroid) 下载。
+
 If you like the article, follow me on [Medium](https://medium.com/@twit2karthikraj)  and [Twitter](https://twitter.com/MeKarthikraj) . You can also find me on [LinkedIn](https://in.linkedin.com/in/karthikrajduraisamy) .
+
+如果你喜欢这篇文章，请在 [Medium](https://medium.com/@twit2karthikraj) 和 [Twitter](https://twitter.com/MeKarthikraj) 上关注我。你也可以在 [LinkedIn](https://in.linkedin.com/in/karthikrajduraisamy) 上找到我。
