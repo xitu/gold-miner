@@ -4,7 +4,7 @@
 * 译者：[ZiXYu](https://github.com/ZiXYu)
 * 校对者：
 
-# 表单验证 #
+# 每一个表单都渴望验证 #
 
 ## 内联验证的设计和错误处理 ##
 
@@ -48,7 +48,7 @@
 
 ### [什么时候应该提供内联验证和错误显示？](http://ux.stackexchange.com/questions/74531/form-validation-when-should-error-messages-be-triggered) ###
 
-对于上面的问题，我总结了五个答案，每个答案都有自己的优缺点。显然，快速定位表单中出了问题的部分是很重要的，但是如果采用了不妥当的方式却容易让问题变得更糟糕。
+对于上面的问题，我总结了五个答案，每个答案都有自己的优缺点。显然，快速定位表单中出了问题的部分是很重要的，但是如果采用了不妥当的方式反而容易让问题变得更糟糕。
 
 #### 1. 当用户点击一个表单元素时 ####
 
@@ -61,20 +61,20 @@
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*P-vT9AnP4iSPE6ob6OSmmg.jpeg">
 
-这个方式会在输入条目被验证前一直使用户感到不舒服。用户每输入一个字符就会被骚扰一次，这种方式提供的更多是挫败感而不是合理的帮助。这就像在不停地和一个试图说服你的人争论一般。然而，这种方式在用户输入密码和用户名时，可以对密码强度和用户名可用性提供很有帮助的反馈。
+这个方式会在输入条目被验证有效前一直使用户感到不舒服。用户每输入一个字符就会被骚扰一次，这种方式提供的更多是挫败感而不是合理的帮助。这就像在不停地和一个试图说服你的人争论一般。然而，这种方式在用户输入密码和用户名时，可以对密码强度和用户名可用性提供很有帮助的反馈。
 
 #### 3. 当用户的输入到达字符限制时 ####
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/600/1*smLh69YQQHeAB_V8IjLVoA.jpeg">
 
-这种验证方式适用于验证可预测字符长度的输入，例如邮政编码，电话号码，银行汇款号码等。然而，这可能对于表单实现 [国际化](https://uxdesign.cc/form-internationalization-techniques-3e4d394cd7e5#.fqjyl772t) 会造成一点困扰，因为输入的格式并不总是已知的。
+这种验证方式适用于验证可预测字符长度的输入，例如邮政编码，电话号码，银行汇款号码等。然而，这可能会对表单实现 [国际化](https://uxdesign.cc/form-internationalization-techniques-3e4d394cd7e5#.fqjyl772t) 造成一点困扰，因为输入的格式并不总是已知的。
 
 
 #### 4. 当用户离开表单元素时 ####
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/600/1*obM310umFGFCX_WUZm8FYQ.jpeg">
 
-这种在输入明确完成之后的验证方式可能是最好的默认行为了。然而，它可能打断用户的输入流程，因为它是在用户完成输入移动到下一个表单元素才提供反馈的。
+这种在输入明确完成之后的验证方式可能是最好的默认行为了。然而，它可能打断用户的输入流程，因为它是在用户完成输入移动到下一个表单元素后才提供反馈的。
 
 
 #### 5. 当用户停下输入时 ####
@@ -86,12 +86,11 @@
 
 可是，令人惊讶的是现在很多的表单并没有采用任何简单的内联验证和错误处理，更令人惊讶的是它们更多的是用很差劲的方式来实现的。我希望这篇文章可以帮助开发者设计一种更好的网页表单验证方式。如果你们有更有帮助的解决方案，我也很期待听到你的回音。
 
-**如果想要联系我，请通过** [**Twitter**](https://twitter.com/CoyleAndrew).
+**如果想要联系我，请随时通过** [**Twitter**](https://twitter.com/CoyleAndrew).
 
 
-这篇文章是构建一个关注可用性和美学的用户界面模式库系列的一部分。[**订阅来获取最新消息**](http://ohapollo.com/)。
+这这篇文章作为一个倡导的一部分，目的是搭建一个专注于可用性和美学的UI模式库。[**订阅来获取最新消息**](http://ohapollo.com/)。
 
 
-#### 如果你觉得这篇文章很有价值，请点击文章底部的 ❤ 来支持我们哟。 ####
 
 ![Markdown](http://p1.bqimg.com/1949/a9581415d9cb68fb.png)
