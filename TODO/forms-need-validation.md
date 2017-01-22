@@ -2,7 +2,7 @@
 * 原文作者：[Andrew Coyle](https://uxdesign.cc/@CoyleAndrew?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[ZiXYu](https://github.com/ZiXYu)
-* 校对者：
+* 校对者：[marcmoore](https://github.com/marcmoore), [zhouzihanntu](https://github.com/zhouzihanntu)
 
 # 每一个表单都渴望验证 #
 
