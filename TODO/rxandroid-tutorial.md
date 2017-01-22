@@ -2,7 +2,7 @@
 * 原文作者：[Artem Kholodnyi](https://www.raywenderlich.com/u/mlatu)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Jamweak](https://github.com/jamweak)
-* 校对者：
+* 校对者：[Zhiwei Yu](https://github.com/Zhiw), [Tanglie](https://github.com/tanglie1993)
 
 # RxAndroid 中文教程
 
@@ -10,7 +10,7 @@
 
 ![AndroidReactive-feature](https://koenig-media.raywenderlich.com/uploads/2016/11/AndroidReactive-feature-250x250.png)
 
-有人曾说，我们一生都应去追求主动式地编程，而不是响应式。然而，这种思想并不适用开发 Android 程序。:]
+有人曾说，我们一生都应去追求积极主动的处事方式，而不是响应式。然而，这种思想并不适用开发 Android 程序。:]
 
 响应式编程并不仅是另外一套 API 规范。它是一种全新的并且非常有用的代码规范。“RxJava” 是一个能在 Android 上使用的响应式编程的实现。Android 是一个开始探索响应式编程世界的极佳平台。尤其是使用 “RxAndroid” 后，事情变得更加简单。“RxAndroid” 是一个将异步 UI 事件封装成更像 RxJava 风格的公共库。
 
@@ -32,7 +32,7 @@
 
 - 指定代码在特定的线程中执行
 
-- 拼装若干 observable，合并成一个
+- 将多个 observable 合并成一个
 
 但愿你喜欢奶酪——因为我们将使用一个寻找奶酪的应用程序来讲述上面的这些概念！:]
 
@@ -71,7 +71,7 @@ a = 10;
 
 在另一方面，*响应式* 编程就是关注值的变化。
 
-你可能已经完成了一些响应式的编程，即便当时你并了解它。
+你可能已经完成了一些响应式的编程，即便当时你并不了解它。
 
 - 
 定义电子表格中单元格的“值”类似于在命令式编程中定义变量。
@@ -123,7 +123,7 @@ RxJava 使用了 *观察者模式*。
 
 ![misbehaving-stream](https://koenig-media.raywenderlich.com/uploads/2016/08/misbehaving-stream-650x186.png) 
 
-这是个错误的，错误的 observable，因为它违背了 Observable 规范，在发出结束信号之后，又发出了其它事件。
+这是个非常错误的 observable，因为它违背了 Observable 规范，在发出结束信号之后，又发出了其它事件。
 
 ## 如何创建一个 Observable ##
 
@@ -135,7 +135,7 @@ RxJava 使用了 *观察者模式*。
 Observable<T> create(ObservableOnSubscribe<T> source)
 ```
 
-看起来很简洁方便，但是它是什么意思？“source?” 又是什么意思？要了解这个方法签名，你必须得知道什么是 `ObservableOnSubscribe`。它是一个接口，声明如下：
+看起来很简洁方便，但是它是什么意思？“source” 又是什么意思？要了解这个方法签名，你必须得知道什么是 `ObservableOnSubscribe`。它是一个接口，声明如下：
 
 ```
 public interface ObservableOnSubscribe<T> {
@@ -156,7 +156,7 @@ public interface Emitter<T> {
 
  `ObservableEmitter`, 特别地, 还提供了一种取消订阅的方式。
 
-为了比拟使用过程，来设想调节水流大小的水龙头。水管就相当于一个 `Observable`，如果你有办法从中汲取的话，它就会释放出水流。你构建一个可以开关的水龙头，就像创建一个 `ObservableEmitter`，随后用 `Observable.create()` 来连接水管。结果就是一个理想的水龙头。:]
+为了让整个过程形象化，来设想调节水流大小的水龙头。水管就相当于一个 `Observable`，如果你有办法从中汲取的话，它就会释放出水流。你构建一个可以开关的水龙头，就像创建一个 `ObservableEmitter`，随后用 `Observable.create()` 来连接水管。结果就是一个理想的水龙头。:]
 
 举例说明能将场景去抽象化，更加容易理解。接下来是时候来创建你的第一个 observable 了！:]
 
@@ -212,7 +212,7 @@ private Observable<String> createButtonClickObservable() {
 
 7. 对于 `OnClickListener`, 移除监听器的方式是 `setOnClickListener(null)`；
 
-既然已经定义好了 Observable，你需要设置一个关于它的订阅。在这之前，你需要了解更多的接口，`Consumer`。它是一种从 emitter 中接收值的简便方式。
+既然已经定义好了 Observable，你需要为它设置一个订阅者。在这之前，你需要了解更多的接口，`Consumer`。它是一种从 emitter 中接收值的简便方式。
 
 ```
 public interface Consumer<T> {
@@ -260,7 +260,7 @@ import io.reactivex.functions.Consumer;
 
 2. 使用 `subscribe()` 来订阅 observable, 提供一个 `Consumer` 参数。
 
-3. 重写 `accept()` 方法, 当 oberservable 发出事件后会回调次方法。
+3. 重写 `accept()` 方法, 当 oberservable 发出事件后会回调此方法。
 
 4. 最后, 执行查询并展示查询结果。
 
@@ -282,7 +282,7 @@ import io.reactivex.functions.Consumer;
 
 发生这种情况是因为在主线程中执行了 `search` 操作。如果 `search` 操作中存在网络访问请求， Android 应用会崩溃，并会发出一个 NetworkOnMainThreadException 异常。是时候来修复这个问题了。
 
-RxJava 一个神奇的地方在于它默认是支持多线程的，类似于 `AsyncTask`，然而，如非特别指定，RxJava 会在它被调用的线程中执行所有的操作。
+RxJava 中一个流传甚广的错误观点在于它默认是支持多线程的，类似于 `AsyncTask`，然而，如非特别指定，RxJava 会在它被调用的线程中执行所有的操作。
 
 你可以通过使用 `subscribeOn` 和 `observeOn` 操作符来改变这一行为。
 
@@ -492,7 +492,7 @@ private Observable<String> createTextChangeObservable() {
 
 5. 通过 `addTextChangedListener()` 方法将观察器添加到 `TextView` 上；
 
-6. 不要忘记移除观察器。调用 `emitter.setCancellable()` 并 重写 `cancel()` 来调用 `removeTextChangedListener()` 方法；
+6. 不要忘记移除观察器。调用 `emitter.setCancellable()` 并重写 `cancel()` 来调用 `removeTextChangedListener()` 方法；
 
 7. 最后, 返回创建的 observable。
 
@@ -508,7 +508,7 @@ Observable<String> searchTextObservable = createTextChangeObservable();
 
 ## 按长度过滤查询 ##
 
-查询只有一个输入字母的结果是没有意义的。为了解决这个问题，让我们来引入强大的 `filter` 操作符。`filter` 采用一个 `Predicate` 作为参数，`Predicate` 是一个接口，在其中定义了一个输入指定的类型才会通过的测试，它返回一个 `boolean` 类型的结果。在这个例子中，Predicate 有一个 `String` 类型的入参，并在字符串的长度大于等于两个字符时返回 `true`。
+查询只有一个输入字母的结果是没有意义的。为了解决这个问题，让我们来引入强大的 `filter` 操作符。`filter` 只会让符合特定条件的事件通过。它采用一个 `Predicate` 作为参数，`Predicate` 是一个接口，在其中定义了一个输入指定的类型才会通过的测试，它返回一个 `boolean` 类型的结果。在这个例子中，Predicate 有一个 `String` 类型的入参，并在字符串的长度大于等于两个字符时返回 `true`。
 
 
 用下面的代码替换 `createTextChangeObservable()` 中的 `return textChangeObservable`:
