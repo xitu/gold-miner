@@ -2,11 +2,11 @@
 * 原文作者：[Diego Mariani](https://dev.to/0x13a)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[GiggleAll](https://github.com/GiggleAll)
-* 校对者：
+* 校对者：[tanglie1993](https://github.com/tanglie1993) , [fghpdf](https://github.com/fghpdf)
 
 # 防守式编程的艺术 #
 
-为什么开发人员不编写安全代码？ 我们不再在这里讨论 *“干净的代码”* 。我们从一个纯粹的角度，软件的安全性来讨论更多的东西。是的，因为一个不安全的软件几乎是没用的。让我们来看看不安全的软件意味着什么。
+为什么开发人员不编写安全代码？ 我们不再在这里讨论 “**干净的代码**” 。我们从一个纯粹的角度，软件的安全性来讨论更多的东西。是的，因为一个不安全的软件几乎是没用的。让我们来看看不安全的软件意味着什么。
 
 - **欧洲航天局的 Ariane 5 Flight 501** 在起飞后 40 秒（1996年6月4日）被毁。**10 亿美元的**原型火箭**由于机载导航软件中的错误**而自毁。 
 
@@ -24,11 +24,11 @@
 
 对于防御性编程有很多定义，它还取决于**安全性**的级别和您的软件项目所需的资源级别。
 
-**防守式编程**是一种[防守式设计](https://en.wikipedia.org/wiki/Defensive_design),旨在确保在意外的情况下[软件](https://en.wikipedia.org/wiki/Software)的持续性功能,防守式编程实践常被用在高可用性，需要安全的地方 — [维基百科](https://en.wikipedia.org/wiki/Defensive_programming)
+**防守式编程**是一种[防守式设计](https://en.wikipedia.org/wiki/Defensive_design)，旨在确保在意外的情况下[软件](https://en.wikipedia.org/wiki/Software)的持续性功能,防守式编程实践常被用在高可用性，需要安全的地方 — [维基百科](https://en.wikipedia.org/wiki/Defensive_programming)
 
-我个人认为这种方法适合当你处理一个大的，长期的项目，有许多人参与的项目。 例如，需要大量维护的开源项目。
+我个人认为这种方法适合当你处理一个大的、长期的、有许多人参与的项目。 例如，需要大量维护的开源项目。
 
-让我们了解一些我的浅薄的关键点，为了实现防守式编程方法。
+为了实现防守式编程方法，让我谈谈我个人简陋的观点。
 
 
 ### 从不相信用户输入 ###
@@ -37,19 +37,19 @@
 
 ![The best defense is a good offense](https://res.cloudinary.com/practicaldev/image/fetch/s--Pic7qAkP--/c_limit,f_auto,fl_progressive,q_auto,w_725/https://medium2.global.ssl.fastly.net/max/2000/1%2AwJBEFQ8XcNR7RzlMnTF_fw.png) 
 
-*进攻就是最好的防守*
+**进攻就是最好的防守**
 
-列入白名单不是黑名单，例如，当验证图像扩展名时，不检查无效的类型，但检查有效的类型，排除所有其余的类型。 在PHP中，你也有无数的开源验证库，使你的工作更容易。
+（将输入）列入白名单而不是把它放到黑名单中，例如，当验证图像扩展名时，不检查无效的类型，而是检查有效的类型，排除所有其余的类型。 在 PHP 中，也有无数的开源验证库来使你的工作更容易。
 
-*进攻就是最好的防守*要严格。
+**进攻就是最好的防守**，控制要严格。
 
 ### 使用数据抽象 ###
 
  **[OWASP 十大安全漏洞](https://www.veracode.com/directory/owasp-top-10)** 中的第一个是注入。这意味着有人（很多人）还没有使用安全工具来查询他们的数据库。请使用数据库抽象包和库。在PHP中你可以使用 [PDO](http://php.net/manual/en/book.pdo.php) 来[确保基本的注入保护](http://stackoverflow.com/questions/134099/are-pdo-prepared-statements-sufficient-to-prevent-sql-injection)。
 
-### 不要造轮子 ###
+### 不要重复造轮子 ###
 
-你不使用框架（或微框架）？ 你就是喜欢做额外的工作，没有理由。恭喜你！ 它不仅仅是框架，而且你可以很容易地[使用已经存在，经过测试，并受到成千上万的开发人员和的信任](https://packagist.org/)的新特性，而不是只因为他的缘故而重新造轮子。 你自己造轮子的唯一原因是你需要一些不存在或存在但不适合你的需要（性能不佳，缺少的功能等）。
+你不用框架（或微框架）？ 你就是喜欢没有理由的做额外的工作。恭喜你！ 它（轮子）不仅仅是框架，还有一些你可以很容易地使用那些[已经存在、经过测试、并受到成千上万的开发人员的信任](https://packagist.org/)的新特性，而不是只因为他是已经造好的轮子的缘故而重新造轮子。 你自己造轮子的唯一原因是你需要一些不存在或存在但不适合你的需求（性能不佳，缺少的功能等）。
 
 那个（使用框架）我们称它为**智能代码重用**，它值得拥有。
 
@@ -61,7 +61,7 @@
 
 ### 写SOLID代码 ###
 
-这是对一个防守式程序员困难的地方，*[writing code that doesn’t suck](https://medium.com/web-engineering-vox/how-to-write-solid-code-that-doesnt-suck-2a3416623d48)*。这是许多人知道和谈论的事情，但没有人真正关心或投入正确的注意力和努力来实现 *SOLID代码*。
+这是对一个防守式程序员困难的地方，**[writing code that doesn’t suck](https://medium.com/web-engineering-vox/how-to-write-solid-code-that-doesnt-suck-2a3416623d48)**。这是许多人知道和谈论的事情，但没有人真正关心或投入正确的注意力和努力来实现 **SOLID代码**。
 
 让我们来看一些不好的例子。
 
@@ -88,7 +88,7 @@ $bankAccount->payTo($joe,100);
 
 ```
 
-在这种情况下，我们必须记住，为了发出付款，我们需要先调用 _setCurrency_ 。 这是一个非常糟糕的事情，像这样的状态更改操作（发出付款）不应该使用 two（n）公共方法在两个步骤。 我们仍然可以有很多方法来付款，但是我们必须只有一个简单的公共方法，以改变状态（对象应该永远不会处于不一致的状态）。
+在这种情况下，我们必须记住，为了发出付款，我们需要先调用 _setCurrency_ 。 这是一个非常糟糕的事情，像这样的状态更改操作（发出付款）不应该在两个步骤使用两个（或多个）公共方法。 我们仍然可以有很多方法来付款，但是我们必须只有一个简单的公共方法，以改变状态（对象应该永远不会处于不一致的状态）。
 
 在这种情况下，我们可以做得更好，将未初始化的属性封装到 **Money** 对象中。
 
@@ -109,6 +109,7 @@ $bankAccount->payTo($joe,newMoney(100,newCurrency('GBP')));
 > ### Don’t: Leaking state outside class scope. ###
 
 > ### 不要：类作用域之外的暴露状态。
+
 ```
 
 <?php
@@ -147,6 +148,7 @@ $bobMailer->sendMessage();
 ```
 
 在这种情况下，**消息**通过引用传递，结果将在两种情况下都是 *“joe message”* 。 解决方案是在 Mailer 构造函数中克隆消息对象。 但是我们应该总是尝试使用一个（**不可变的**）[值对象](https://en.wikipedia.org/wiki/Value_object)去替代一个简单的 _Message_ mutable对象。**当你可以的时候使用不可变对象**。
+
 ```
 
 <?php
@@ -178,11 +180,13 @@ $bobMailer = new Mailer(new Message("joe message"));
 
 $joeMailer->sendMessage();
 $bobMailer->sendMessage();
+
 ```
+
 
 ### 写测试 ###
 
-我们还需要说些什么？ 写单元测试将帮助您遵守共同的原则，如**高聚合，单一责任，低耦合和正确的对象组合**。 它不仅帮助你测试小单元，而且也能测试你的对象的结构的方式。 事实上，你会清楚地看到，当测试你的小功能需要测试多少个单元和需要模拟多少个对象，以实现100％的代码覆盖率。
+我们还需要说些什么？ 写单元测试将帮助您遵守共同的原则，如**高聚合，单一责任，低耦合和正确的对象组合**。 它不仅帮助你测试小单元，而且也能测试你的对象的结构的方式。 事实上，你会清楚地看到，为了测试你的小功能需要测试多少个单元和你需要模拟多少个对象，以实现100％的代码覆盖率。
 
 ### 总结 ###
 
