@@ -40,11 +40,11 @@
 
 ```swift
 class BuzzableButton: UIButton {
-  func buzz() { /* Animation Logic */ }
+    func buzz() { /* Animation Logic */ }
 }
 
 class BuzzableLabel: UIButton {
-  func buzz() { /* Animation Logic */ }
+    func buzz() { /* Animation Logic */ }
 }
 ```
 
@@ -55,8 +55,8 @@ class BuzzableLabel: UIButton {
 @IBOutlet wear var loginButton: BuzzableButton!
 
 @IBAction func didTapLoginButton(_ sender: UIButton) {
-   errorMessageLabel.buzz()
-   loginButton.buzz()
+    errorMessageLabel.buzz()
+    loginButton.buzz()
 }
 ```
 
@@ -64,7 +64,7 @@ class BuzzableLabel: UIButton {
 
 ```swift
 extension UIView {
-  func buzz() { /* Animation Logic */ }
+    func buzz() { /* Animation Logic */ }
 }
 ```
 
@@ -78,8 +78,8 @@ class BuzzableLabel: UIButton { }
 @IBOutlet wear var loginButton: BuzzableLabel!
 
 @IBAction func didTapLoginButton(_ sender: UIButton) {
-  errorMessageLabel.buzz()
-  loginButton.buzz()
+    errorMessageLabel.buzz()
+    loginButton.buzz()
 }
 ```
 
@@ -92,8 +92,8 @@ class BuzzableLabel: UIButton { }
 ```swift
 // Extend UIView
 extension UIView {
-  func buzz() { /* Animation Logic */ }
-  func pop() { /* UILabel Animation Logic */ }
+    func buzz() { /* Animation Logic */ }
+    func pop() { /* UILabel Animation Logic */ }
 }
 ```
 
@@ -104,7 +104,7 @@ extension UIView {
 ```swift
 // Subclass UILabel
 class BuzzableLabel: UILabel {
-  func pop() { /* UILabel Animation Logic */ }
+    func pop() { /* UILabel Animation Logic */ }
 }
 ```
 
@@ -124,86 +124,98 @@ class BuzzableLabel: UILabel {
 protocol Buzzable {}
 
 extension Buzzable where Self: UIView {
-  func buzz() { /* Animation Logic */ }
+    func buzz() { /* Animation Logic */ }
 }
 ```
 
-So, any UIComponents that conform to the `Buzzable` protocol would have the `buzz` method associated. Unlike `extension` only those who conform to the protocol will have that method. Also, `where Self: UIView` is used to indicate that the protocol should be only conformed to `UIView` or components that inherit from `UIView`
+任何 UI 组件只要遵循 `Buzzalbe` 协议就能拥有 `buzz` 方法，与直接给 `UIView` 添加 `extension` 不同，只有遵循协议的类才会拥有这些方法。另外，`where Self: UIView` 表示只有 `UIView` 或者从 `UIView` 继承的组件才能够遵循这个协议。
 
-Now, that’s it. Let’s apply Buzzable to `loginButton`, `passcodeTextField`, `errorMessageLabel`, and `profileImageView` But, wait, how about Poppable?
+现在，我们将 `Buzzable` 应用给了 `loginButton`, `passcodeTextField`, `errorMessageLabel` 和 `profileImageView`。等等，那 `Poppable` 呢？
 
-Well, same thing.
+看起来差不多的：
 
-    protocol Poppable {}
+```swift
+protocol Poppable { }
 
-    extension Poppable where Self: UIView {
-     func pop() { // Pop Animation Logic }
-    }
-
-Now, it’s time to make it real!
-
+extension Poppable where Self: UIView {
+    func pop() { /* Pop Animation Logic */ }
+}
 ```
-class BuzzableTextField: UITextField, Buzzable {}
-class BuzzableButton: UIButton, Buzzable {}
-class BuzzableImageView: UIImageView, Buzzable {}
-class BuzzablePoppableLabel: UILabel, Buzzable, Poppable {}
+
+是时候动真格的了！
+
+```swift
+class BuzzableTextField: UITextField, Buzzable { }
+class BuzzableButton: UIButton, Buzzable { }
+class BuzzableImageView: UIImageView, Buzzable { }
+class BuzzablePoppableLabel: UILabel, Buzzable, Poppable { }
 
 class LoginViewController: UIViewController {
-  @IBOutlet weak var passcodTextField: BuzzableTextField!
-  @IBOutlet weak var loginButton: BuzzableButton!
-  @IBOutlet weak var errorMessageLabel: BuzzablePoppableLabel!
-  @IBOutlet weak var profileImageView: BuzzableImageView!
+    @IBOutlet weak var passcodTextField: BuzzableTextField!
+    @IBOutlet weak var loginButton: BuzzableButton!
+    @IBOutlet weak var errorMessageLabel: BuzzablePoppableLabel!
+    @IBOutlet weak var profileImageView: BuzzableImageView!
 
-  @IBAction func didTabLoginButton(_ sender: UIButton) {
-    passcodTextField.buzz()
-    loginButton.buzz()
-    errorMessageLabel.buzz()
-    errorMessageLabel.pop()
-    profileImageView.buzz()
-  }
+    @IBAction func didTabLoginButton(_ sender: UIButton) {
+        passcodTextField.buzz()
+        loginButton.buzz()
+        errorMessageLabel.buzz()
+        errorMessageLabel.pop()
+        profileImageView.buzz()
+    }
 }
 ```
 
-The cool thing about POP is that you can even apply `pop` to any other UIComponents without subclassing at all.
+POP 是一件很苦的事情，你可以在任何时间把这个协议应用给任何一个 UI 组件都不需要再去子类化任何东西。
 
-    class MyImageView: UIImageVIew, Buzzable, Poppable
+```swift
+class MyImageView: UIImageVIew, Buzzable, Poppable { }
+```
 
-Now, the name of the class can be more flexible because you already know available methods based on the protocols you conform, and the name of each protocol describe the class. So, you no longer have write something like, `MyBuzzablePoppableProfileImage.`
+现在，你可以更加灵活的给类来命名，因为你已经知道它遵循了哪些协议，并且每个协议的名称就能很清晰的描述它在干什么。所以你不会再有 `MyBuzzablePoppableProfileImage` 这样的东西。
 
-**Too long, didn’t read:**
+**TL;DR**
 
-No more Subclassing
+少用子类
 
-Flexible Class Name
+灵活的类名
 
-Feel caught up as a Swift Developer
+就像一个 Swift 开发者一样
 
-### Next Step
+### 下一步
 
-Once I get **200 likes **on this article, and you want to learn how to apply POP to `UITableView` and `UICollectionView`, make sure follow me on Medium!
+一旦我这篇文章（译注：指英文原文）获得超过 *200 个 like*，并且你想了解如何将 POP 运用在 `UITableView` 和 `UICollectionView` 中，请关注我的 Medium。
 
-#### Resource
+#### 资源
 
-[Source Code](https://github.com/bobleesj/Blog_Protocol_Oriented_View)
+[源代码](https://github.com/bobleesj/Blog_Protocol_Oriented_View)
 
 ### Last Remarks
 
-I hope you’ve learned something new with me. If you have, please tap that ❤️ to indicate, “yes”. If you’ve found this implementation useful, make sure **share** so that iOS developers all around the world begin to use Protocol Oriented Views to write fewer lines of code and modularize. Come back on Sat 8am EST!
+我希望你已经学到了一些新的东西。 如果你有，请点击❤️表示，“是”。 如果你发现这个实现有用，请确保**共享**，以便世界各地的iOS开发人员开始使用面向协议的视图写入更少的代码行和模块化。 回来在星期六上午8点EST！
+我想希望你已经学到了一些新知识，如果有的话，请给本文点赞。如果你觉得本文内容很有用，请将本文分享给大家，以便世界各地的 iOS 开发者都能使用面向协议编程在写视图控件的时候写更少和更清晰的代码。回顾与 EST 时间星期六上午 8 点。
 
-### Swift Conference
+### Swift 会议
 
-[Andyy Hope](https://medium.com/u/99c752aeaa48), a friend of mine, is currently organizing one of the largest and greatest Swift Conferences at Melbourne, Australia. It’s called Playgrounds. I just wanted to help out with spreading the word. There are speakers from mega-billion dollar companies such as Instagram, IBM, Meet up, Lyft, Facebook, Uber. Here is the [website](http://www.playgroundscon.com) for more info.
+[Andyy Hope](https://medium.com/u/99c752aeaa48) ，我的一个朋友，目前正在组织在澳大利亚墨尔本最大的 Swift 会议之一 ———— Playground，我只是想让大家都知道这个。 有来自市值亿万美元公司的讲者，比如 Instagram，IBM，Meet Up，Lyft，Facebook，Uber。 在这里 [网站](http://www.playgroundscon.com) 你可以了解到更多信息。
 
 [https://twitter.com/playgroundscon](https://twitter.com/playgroundscon)
 
 #### Shoutout
 
-Thanks to my VIPs: [Nam-Anh](https://medium.com/u/faa961e18d88), [Kevin Curry](https://medium.com/u/c433b47b54de), David, [Akshay Chaudhary](https://medium.com/u/f5e268749caa) for their support. I’ve met David this week in Seoul, Korea. He needed some help with Bluetooth… I’m like, “😨, let me try”.
+感谢大家给我的支持:
 
-#### Upcoming Course
+- [Nam-Anh](https://medium.com/u/faa961e18d88)
+- [Kevin Curry](https://medium.com/u/c433b47b54de)
+- David
+- [Akshay Chaudhary](https://medium.com/u/f5e268749caa)
 
-I’m currently creating a course called, The UIKit Fundamentals with Bob on Udemy. This course is designed for Swift intermediates. It’s not one of those “Complete Courses”. It’s specific. Over 180 readers have sent me emails since last month. If interested, join me for free until released: bobleesj@gmail.com
+我本周在韩国首尔遇见了 David，他在蓝牙上需要一些帮助，我喜欢说...「😨，让我试试」。
 
-#### Coaching
+#### 即将开课
 
-If you are looking for help to switch your career as an iOS developer or create your dream apps that would help the world, contact me for more detail.
+我目前正在制作一个课程，和 Bob 一起在 Udemy 上教 UIKit 基本原理，这个课程是为中级 Swift 开发者设计的，目前还没有完成。自上个月以来已经有超过 180 个读者给我发邮件，如果你也想加入我们那就给 bobleesj@gmail.com 发邮件吧，直到课程发布前都是免费的。
+
+#### 辅导
+
+如果你正需要帮助来成为一个 iOS 开发者或者创建你喜欢的应用来帮助大家，请联系我活动更多的细节。
