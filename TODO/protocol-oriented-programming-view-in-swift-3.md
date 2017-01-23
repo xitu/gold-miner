@@ -1,120 +1,132 @@
 > * 原文链接: [Protocol Oriented Programming View in Swift 3](https://medium.com/ios-geek-community/protocol-oriented-programming-view-in-swift-3-8bcb3305c427#.nxlwj0t9f)
 * 原文作者 : [Bob Lee](https://medium.com/@bobleesj)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : 
-* 校对者 : 
+* 译者 : [洪朔](http://www.tuccuay.com)
+* 校对者 :
 
-# Protocol Oriented Programming View in Swift 3
+# 在 Swift 3 上对视图控件实践面向协议编程
 
-## Learn how to animate buttons, labels, imageView without creating bunch of classes
+## 学习如何对 `button`, `label`, `imageView` 创建动画而不制造一串乱七八糟的类
 
 ![](https://cdn-images-1.medium.com/max/2000/1*s_XZ1RzyZgyON36tM4zZCA.png)
 
-You’ve heard knowledge without execution is like having teeth but only drinking milk. You ask, “Okay, enough of theories. How can I start using POP in my app?” 🤔
+光说不做嘴把式。那好，我们要怎样开始在我的应用中实践面向协议编程？🤔
 
-In order to drink the most juice out of your time with me, I expect my readers to understand `Completion Handlers`, and create basic implementation using Protocol. If you aren’t comfortable with them, I ask you to kindly *leave* and then watch some of my articles and videos below and *come back* after.
+为了能更加高效的理解下面的内容，我希望读者能够明白 `Complection Handlers`，并且能创建协议的基本实现。如果你还不熟悉他们，可以先阅读下面的文章再回来接着看：
 
-Prerequisite:
+前景提要：
 
-*No Fear Closures Part 2: Completion Handlers (*[*Medium*](https://medium.com/ios-geek-community/introduction-to-protocol-oriented-programming-in-swift-b358fe4974f#.koyj2ap8d)*)*
+- [Intro to Protocol Oriented Programming](https://medium.com/ios-geek-community/introduction-to-protocol-oriented-programming-in-swift-b358fe4974f)
 
-*Intro to Protocol Oriented Programming (*[*Medium*](https://medium.com/ios-geek-community/introduction-to-protocol-oriented-programming-in-swift-b358fe4974f#.koyj2ap8d)*)*
+- [Protocol Oriented Programming Series](https://www.youtube.com/playlist?list=PL8btZwalbjYm5xDXDURW9u86vCtRKaHML)
 
-Protocol Oriented Programming Series ([YouTube](https://www.youtube.com/playlist?list=PL8btZwalbjYm5xDXDURW9u86vCtRKaHML))
+### 看完这篇文章你会学到这些内容
 
-### What I think you will learn
-
-You will learn how to use Protocol to **animate** UI Components such as `UIButton`, `UILabel`, and `UIImageView`. I will also show you the differences between traditional methods vs the POP way. 😎
+你将会明白如何使用协议给 `UIButton`, `UILabel`, `UIImageView` 等 UI 组件添加动画，同时我也会给你演示传统方法和使用 POP 方法之间的差异。😎
 
 ### UI
 
-The demo app called, “Welcome to My House Party”. I’ve made this app to verify if I’ve invited you to my house party. You have to enter your invitation code. **There is no logic behind this app. If you press the button, things will animate regardless.** There are four components that animate, `passcodeTextField`, `loginButton`, `errorMessageLabel`, and `profileImageView`.
+这个演示程序名为「欢迎来到我家的聚会」。我将会使用这个应用程序来验证你是否获得邀请，你必须输入你的邀请码。**这个应用并没有逻辑判断，所以只要你按下按钮，无论如何动画都将会被执行。** 将会有 `passcodeTextField`, `loginButton`, `errorMessageLabel` 和 `profileImageView` 四个组件将会参与动画过程。
 
-There are two animations: 1. Buzzing 2. Popping (Flash)
+这里有两个动画：1. 左右晃动 2. 淡入淡出
 
 ![](https://cdn-images-1.medium.com/max/1600/1*uN6sB588ehZIivOmmAsLPg.gif)
 
-Don’t worry about getting it down. Just flow like water with me for now. If you are impatient, just scroll, download the source code, and you may dismiss.
+不用担心遇到问题，现在我们干的就像写流水账一样，如果你不耐烦了，直接滑动到下面下载源代码就可以了，
 
-### Things Back Then
+### 我们接着来
 
-To fully grasp the power of POP in real apps, let’s compare with the traditional. Let’s say you want to animate `UIButton` and `UILabel`, You might subclass both and then add a method to it.
+想要完整的在应用中体验 POP 的魔力，那就先让我们和传统方式来比较一下，假设你想给 `UIButton` 和 `UILabel` 添加动画，你先将他们都子类化，再给他们添加一个方法：
 
-    class **BuzzableButton**: UIButton {
-     func buzz() { // Animation Logic }
-    }
+```swift
+class BuzzableButton: UIButton {
+  func buzz() { /* Animation Logic */ }
+}
 
-    class **BuzzableLabel**: UIButton {
-     func buzz() { // Animation Logic }
-    }
+class BuzzableLabel: UIButton {
+  func buzz() { /* Animation Logic */ }
+}
+```
 
-So, let it “buzz” when you tap on the login button
+然后，在你点击登录按钮的时候让他抖动
 
-    @IBOutlet wear var errorMessageLabel: **BuzzableButton!**
-    @IBOutlet wear var loginButton: **BuzzableLabel!**
+```swift
+@IBOutlet wear var errorMessageLabel: BuzzableLabel!
+@IBOutlet wear var loginButton: BuzzableButton!
 
-    @IBAction func didTapLoginButton(_ sender: UIButton) {
-     errorMessageLabel.buzz()
-     loginButton.buzz() 
-    }
+@IBAction func didTapLoginButton(_ sender: UIButton) {
+   errorMessageLabel.buzz()
+   loginButton.buzz()
+}
+```
 
-Do you see how we are **repeating ourselves**? The animation logic is at least 5 lines, and there is a “better” way to go about using `extension`. Since `UILabel` and `UIButton` belong to `UIView`, we can add
+看到我们是如何写**重复的代码**了吗？这个动画逻辑一共有 5 行，更好的选择是使用 `extension`，因为 `UILabel` 和 `UIButton` 都继承自 `UIView`，我们可以给它添加这样的扩展：
 
-    extension UIView {
-     func buzz() { // Animation Logic }
-    }
+```swift
+extension UIView {
+  func buzz() { /* Animation Logic */ }
+}
+```
 
-So, `BuzzableButton` and `BuzzableLabel` contains that `buzz` method. Now, we are no longer repeating ourselves.
+然后，`BuzzableButton` 和 `BuzzableLabel` 就都有了 `buzz` 方法。现在，我们不用再写重复的内容了。
 
-    class **BuzzableButton**: UIButton {}
-    class **BuzzableLabel**: UIButton {}
+```swift
+class BuzzableButton: UIButton { }
+class BuzzableLabel: UIButton { }
 
-    @IBOutlet wear var errorMessageLabel: **BuzzableButton!**
-    @IBOutlet wear var loginButton: **BuzzableLabel!**
+@IBOutlet wear var errorMessageLabel: BuzzableButton!
+@IBOutlet wear var loginButton: BuzzableLabel!
 
-    @IBAction func didTapLoginButton(_ sender: UIButton) {
-     errorMessageLabel.buzz()
-     loginButton.buzz() 
-    }
+@IBAction func didTapLoginButton(_ sender: UIButton) {
+  errorMessageLabel.buzz()
+  loginButton.buzz()
+}
+```
 
-### Okay, then why POP? 🤔
+### 那好，为什么要用 POP？ 🤔
 
-As you’ve seen, the `errorMessageLabel`, which states, “Please enter valid code 😂” also has one more animation to it. It appears and fades out. So, how do we go about with the traditional method?
+正如你锁看到的，`errorMessageLabel` 将会显示 "Please enter valid code 😂"，并且具有淡入和淡出效果，在传统形式下我们会怎么做？
 
-There are **two ways** to go about this. First, you could, again, add another method to `UIView`
+有两种方式来完成这一步。首先，你可以再向 `UIView` 添加一个方法
 
-    // Extend UIView 
-    extension UIView {
-     func buzz() { // Animation Logic }
-     func pop() { // UILabel Animation Logic }
-    }
+```swift
+// Extend UIView
+extension UIView {
+  func buzz() { /* Animation Logic */ }
+  func pop() { /* UILabel Animation Logic */ }
+}
+```
 
-However, if we add methods to `UIView`, the `pop` method will be available to other UIComponents besides `UILabel`. We are inheriting the unnecessary functions, and those UIComponents become bloated by default or to emphasize, as f.
+然而，如果我们把方法添加到 `UIView`，那么不光是 `UILabel`，其他所有 UI 组件都将会拥有 `pop` 这个方法，继承了不必要的函数让它变得过于臃肿了。
 
-The second way is by subclassing `UILabel`,
+而另一种方式则是创建 `UILabel` 的子类：
 
-    // Subclass UILabel
-    class **BuzzableLabel**: UILabel {
-     func pop() { // UILabel Animation Logic }  
-    }
+```swift
+// Subclass UILabel
+class BuzzableLabel: UILabel {
+  func pop() { /* UILabel Animation Logic */ }
+}
+```
 
-This works *okay. *However, we might want to change the class name to `BuzzablePoppableLabel` to indicate clearly just by looking at the name.
+这样是**可用的**，我们可能会希望将类名改成 `BuzzablePoppableLabel` 来更清晰的声明它的用途。
 
-Now, what if you want to add one more method to `UILabel` to clearly indicate what the label does, you might have to change the class name to, like `BuzzablePoppableFlashableDopeFancyLovelyLabel`. This isn’t sustainable. Of course, I’m taking it pretty far.
+现在，如果你想给 `UILabel` 添加更多的方法，你就要再次给他起个新名字比如 `BuzzablePoppableFlashableDopeFancyLovelyLabel`，这恐怕不是一个可维护的方案，我们可能需要想想别的方法。
 
-### Protocol Oriented Programming
+### 面向协议编程
 
-*Okay, you have come this far, and you haven’t recommended this article yet, gently tap that and continue.*
+**看到这里还没给文字点赞吗？动动手指点个赞然后继续往下看吧**
 
-Okay, enough of subclassing. Let’s create a protocol first. Buzzing first.
+我们受够了各种子类了，让我们先来创建一个协议，让他抖动起来。
 
-*I didn’t insert code for animations since they are quite long, and gists aren’t natively supported by mobile apps.*
+**我并没有在这里写动画代码，因为它很长，并且 gist 在移动设备上支持不佳**
 
-    protocol Buzzable {}
+```swift
+protocol Buzzable {}
 
-    extension Buzzable where Self: UIView {
-     func buzz() { // Animation Logic}
-    }
+extension Buzzable where Self: UIView {
+  func buzz() { /* Animation Logic */ }
+}
+```
 
 So, any UIComponents that conform to the `Buzzable` protocol would have the `buzz` method associated. Unlike `extension` only those who conform to the protocol will have that method. Also, `where Self: UIView` is used to indicate that the protocol should be only conformed to `UIView` or components that inherit from `UIView`
 
@@ -141,7 +153,7 @@ class LoginViewController: UIViewController {
   @IBOutlet weak var loginButton: BuzzableButton!
   @IBOutlet weak var errorMessageLabel: BuzzablePoppableLabel!
   @IBOutlet weak var profileImageView: BuzzableImageView!
-  
+
   @IBAction func didTabLoginButton(_ sender: UIButton) {
     passcodTextField.buzz()
     loginButton.buzz()
