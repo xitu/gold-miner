@@ -4,7 +4,6 @@
 * 译者：[XHShirley](https://github.com/XHShirley)
 * 校对者：
 
-# Scrolling Behavior for Appbars in Android #
 
 # 安卓应用栏的滚动效果 #
 
@@ -26,7 +25,7 @@
 
 应用栏滚动效果丰富了页面内容的显示方式。
 
-我想分享给大家我们理解和使用应用栏在滚动时升高，调整弹性空白的大小，以及怎样将特定的元素固定可以多么简单。
+我想把自己的经验分享给大家，其实理解和使用滚动的高度，弹性空白的大小调整，以及固定特定的元素可以很简单。
 
 应用栏有以下几种滚动的效果，
 
@@ -48,7 +47,7 @@
 
 在我们开始深入了解各种类型的滚动效果前，我们需要清楚基本设置和实现，
 
-我们需要使用设计支持库来达到 **应用栏** 的滚动效果。这个库提供了很多原质化设计的部件。
+我们需要使用设计支持库来实现 **应用栏** 的滚动效果。这个库提供了很多原质化设计的部件。
 
 
 
@@ -61,16 +60,16 @@ dependencies {
 ```
 
 
-将需要此功能的 Activity 类继承 `android.support.v7.app.AppCompatActivity`。
+使需要此功能的 Activity 类继承 `android.support.v7.app.AppCompatActivity`。
 
 ```
 public class MainActivity extends AppCompatActivity {
 ```
 
 
-在 layout 的 xml 文件中，我们要把 **CoordinatorLayout** 放在最上面。在 **AppBarLayout** 里添加 **工具栏**，并在 **CoordinatorLayout** 里添加 **AppBarLayout**。
+在 layout 的 xml 文件中，我们要把 **CoordinatorLayout** 放在最外层。在 **AppBarLayout** 里添加 **工具栏**，并在 **CoordinatorLayout** 里添加 **AppBarLayout**。
 
-**CoordinatorLayout** 为其附属视图提供合适的滚动以及原质动画，就像 **FloatingButtons**, **ModalSheets 和 SnackBar**。
+**CoordinatorLayout** 为其附属视图（例如 **FloatingButtons**,**ModalSheets** 和 **SnackBar**）提供合适的滚动以及原质动画。
 
 ```
 <android.support.design.widget.CoordinatorLayout  
@@ -113,12 +112,12 @@ public class MainActivity extends AppCompatActivity {
 
 - 随着内容往下翻 **滚动出屏幕** 并且当用户往回翻时重新出现。
 
-－ 当内容在下方滚动时，工具栏 **停留在顶部**
+－ 当内容向下滚动时，工具栏 **停留在顶部**
 
 ![](https://cdn-images-1.medium.com/max/800/1*UsQiD6VrDEWufK4C7ZfGXw.gif)
 
 
-应用栏中的工具栏滚动并在与内容一起出现。
+带有工具栏的应用栏和内容一起滚动或出现。
 
 为了达到这个目的，除了基本的代码实现，我们还需要：
 
@@ -137,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
 
 **snap** －当 **应用栏** 在内容滚动停止时只显示出一半，这个属性会让 **应用栏** 根据工具栏的滚动部分的大小全部隐藏或者全部显示。
 
-一旦 **app:layout_scrollFlags** 被添加进 **应用栏**，内容视图（**NestedScrollView** 或者 **RecyclerView**）需要 **app:layout_behavior** 标签。
+一旦 **app:layout_scrollFlags** 被添加进 **应用栏**，内容视图（**NestedScrollView** 或者 **RecyclerView**）就需要 **app:layout_behavior** 标签。
 
 ```
 <android.support.v4.widget.NestedScrollView  
@@ -146,9 +145,9 @@ public class MainActivity extends AppCompatActivity {
 ```
 
 
-这两个标签以及基本设置就足以达到工具栏滚动的应用栏效果了。我们可以尝试不同的 **app:layout_scrollFlags.** 属性值来看看不同的效果。
+这两个标签以及基本设置就足以让带有工具栏的应用栏滚动起来了。我们可以尝试不同的 **app:layout_scrollFlags.** 属性值来看看不同的效果。
 
-下面是对标志位的安卓文档解释。
+下面是对属性的安卓文档解释。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*MXrFGQeSybQeDmLJrZ6tWA.jpeg">
 
@@ -189,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
 ### 弹性空白的滚动效果 ###
 
 
-- **弹性空白收缩**直到只剩下工具栏。在导航栏中**标题收缩至 20sp**。当用户滚动至顶端，**弹性空白和标题又拉长到原来的位置**。 
+- **弹性空白收缩**到只剩下工具栏。在导航栏中**标题收缩至 20sp**。当用户滚动至顶端，**弹性空白和标题又拉长到原来的位置**。 
 
 - 整个**应用栏随着滚动消失**。当用户回滚，工具栏重新出现并**固定在顶部**。当用户回滚到底时，**弹性空白和标题又拉长到原来的位置**。 
 
@@ -198,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
 可以滚动的弹性空白
 
 
-为了得到**应用栏**的弹性空白，我们需要用到 **CollapsingToolbarLayout** 环绕 **ToolBar** 标签。这意味着 **CoordinatorLayout** 在最上层， 然后 **AppBarLayout**, **CollapsingToolbarLayout**, **ToolbarLayout** 按照顺序摆放在里面。
+为了得到**应用栏**的弹性空白，我们需要在 **CollapsingToolbarLayout** 里嵌套 **ToolBar** 标签。这意味着 **CoordinatorLayout** 在最上层， 然后 **AppBarLayout**, **CollapsingToolbarLayout**, **ToolbarLayout** 按照顺序摆放在里面。
 
 我们要为 **AppBarLayout** 添加高度并且为 `CollapsingToolbarLayout` 指定 `app:layout_scrollFlags` 属性值。
 
@@ -227,11 +226,11 @@ app:layout_collapseMode="pin"/>
 ```
 
 
-**exitUntilCollapsed** －标志位会让弹性空白滚动下来，当它随着内容滚动回到原来的位置。
+**exitUntilCollapsed** －这个属性会让弹性空白滚动下来，当它随着内容滚动回到原来的位置。
 
 ### 加载了图片的弹性空白滚动效果 ###
 
-- 与上面弹性空白的效果类似。当滚动图片时，图片会**显示推上去的小动画** 并且颜色变成图片的基色。
+- 与上面弹性空白的效果类似。当滚动图片时，**图片在被推上去的过程中会有小动画** 并且颜色变成应用的主色调。
 
 - 当回滚的时候， **基色褪去**， 图片拉下来时有一个小动画。
 
