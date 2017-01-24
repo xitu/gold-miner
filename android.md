@@ -1,3 +1,4 @@
+* [Android 响应式编程的未来展望：RxJava 2 版本前瞻](https://gold.xitu.io/entry/587f2ee0570c35220118c926/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Goshin](https://github.com/Goshin) 翻译)
 * [SOLID 原则：权威指南](https://gold.xitu.io/entry/587f1c331b69e6005853ecfa/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([XHShirley](https://github.com/XHShirley) 翻译)
 * [Android 数据绑定之: RecyclerView](https://gold.xitu.io/entry/587d7361b123db4d5e7d7522/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jamweak](https://github.com/jamweak) 翻译)
 * [Android 写测试用例的注意事项](https://gold.xitu.io/entry/5875a757128fe1006b49151f/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zhiwei Yu](https://github.com/Zhiw) 翻译)
