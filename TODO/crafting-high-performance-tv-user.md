@@ -12,7 +12,7 @@
 
 在2015年，我们开始对我们的电视用户界面架构进行批量重写和现代化改造。我们决定使用 React ，因为它的单项数据流和声明式的用户界面开发方法使得我们更容易地理清楚我们的应用。显然，我们需要我们自己特色的 React ，因为在那时候它还只针对 DOM，我们当时很快地创造了一个针对 Gibbon 的原型。这个原型最终进化成为了 React-Gibbon ，我们也开始着手建造我们的 基于 React 的用户界面。
 
-React-Gibbon 的 API 对于任何接触过 React-DOM 的人来说都会非常熟悉。最大的不同是，我们只有一个单一的支持内联样式的叫做 ```widget```的绘图原语，而没有 divs, spans, inputs 等。 
+React-Gibbon 的 API 对于任何接触过 React-DOM 的人来说都会非常熟悉。最大的不同是，我们只有一个单一的支持内联样式的叫做 widget 的绘图原语，而没有 divs, spans, inputs 等。 
 ```
 React.createClass({
     render() {
