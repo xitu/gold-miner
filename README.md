@@ -4,7 +4,7 @@
 
 [掘金翻译计划](https://juejin.im/tag/%E6%8E%98%E9%87%91%E7%BF%BB%E8%AF%91%E8%AE%A1%E5%88%92) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](#android)、[iOS](#ios)、[React](#react)、[前端](#前端)、[后端](#后端)、[产品](#产品)、[设计](#设计) 等领域，读者为热爱新技术的新锐开发者。
 
-掘金翻译计划目前翻译完成 [347](#近期文章列表) 篇文章，共有 [230](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
+掘金翻译计划目前翻译完成 [348](#近期文章列表) 篇文章，共有 [230](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
 
 #  官方指南：
 
@@ -54,10 +54,10 @@
 
 ## 后端
 
+* [为何我抵制使用缓存？](https://gold.xitu.io/entry/5884184f1b69e60058dc7fc6/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Romeo0906](https://github.com/Romeo0906) 翻译)
 * [为什么我关闭了你的 PR （开源软件维护者笔记）](https://gold.xitu.io/entry/5870ed78da2f603a93d7e0f0/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([cdpath](https://github.com/cdpath) 翻译)
 * [在 Node.js 和 C++ 之间使用 Buffer 共享数据](https://gold.xitu.io/entry/586fbcefda2f600053df7787?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Jiang Haichao](https://github.com/AceLeeWinnie) 翻译)
 * [容器时代的分布式日志架构](https://gold.xitu.io/entry/5870f966a22b9d00588bafce?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Airmacho](https://github.com/Airmacho) 翻译)
-* [为 Async-Await 唱一曲赞歌](https://gold.xitu.io/entry/586eff068d6d810058794c94?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([xekri](https://github.com/xekri) 翻译)
 * [所有后端译文>>](https://github.com/xitu/gold-miner/blob/master/backend.md)
 
 ## 教程
