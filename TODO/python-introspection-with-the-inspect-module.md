@@ -1,21 +1,14 @@
 > * 原文地址：[How to write your own Python documentation generator](https://medium.com/python-pandemonium/python-introspection-with-the-inspect-module-2c85d5aa5a48#.hcqq6xtl8)
 * 原文作者：[Cristian Medina](https://medium.com/@tryexceptpass)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
-* 校对者：
+* 译者：[王子建](https://github.com/Romeo0906)
+* 校对者：[Zheaoli](https://github.com/Zheaoli)、[Zhiwei Yu](https://github.com/Zhiw)
 
-# How to write your own Python documentation generator
+# 来写一个 Python 说明文档生成器吧
 
+我一开始学习 Python 的时候，我最喜欢的一件事就是坐在编译器前，使用内置的 `help` 函数检查类和方法，然后决定我接下来要怎么写。这个函数会引入一个对象并检查其内部成员，生成说明并且输出类似帮助文档的内容，帮助你了解该对象的使用方法。
 
-
-
-
-
-
-
-In my early days with Python, one of the things that I really liked was using the built-in `help` function to examine classes and methods while sitting at the interpreter, trying to determine what to type next. This function imports an object and walks through its members, pulling out docstrings and generating manpage-like output to help give you an idea of how to use the object it was examining.
-
-The beauty about it being built into the standard library is that with output being generated straight from code, it indirectly emphasizes a coding style for lazy people like me, who want to do as little extra work as possible to maintain documentation. Especially if you already choose straight forward names for your variables and functions. This style involves things like adding docstrings to your functions and classes, as well as properly identifying private and protected members by prefixing them with underscores.
+将 `help` 函数置入标准库最为美妙的一点就是它能直接从代码中输出说明内容，这也间接地助长了一些人的懒惰，比如像我这种不愿意多花时间来维护文档的人。尤其是你已经为你的变量和函数起好了直白的名字，`help` 函数能够给你的函数和类添加说明，也能够通过下划线前缀正确地识别私有和受保护的成员。
 
     Help on class list in module builtins:
 
@@ -63,52 +56,35 @@ The beauty about it being built into the standard library is that with output be
      |  __hash__ = None
 
 
+在 Python 编译器中使用 `help(list)` 会输出以上内容
 
-
-
-Output from running `help(list)` at the Python interpreter
-
-The help function is actually using the `pydoc` module to generate its output, which is also runnable from the command line to produce a text or html representation of any importable module in your path.
-
-
-
-
-
-
-
-
+实际上，help 函数使用了 `pydoc` 模块来生成输出的内容，该模块也可以在命令行中运行生成任何引入模块的 .txt 或者 .html 格式的说明文档。
 
 * * *
 
+不久前，我需要写一些更加详细、正式的设计文档，作为 Markdown 的忠实拥趸，我决定去看看 [`mkdocs`](http://www.mkdocs.org/) 能否给我提供有效内容。这个模块能够很容易地将你的 markdown 文本转换成风格精美的网页，并且在你正式发布之前都可以做出修改。它提供了一个 [readthedocs](https://readthedocs.org/) 模板，还提供了一个简单的命令行界面，方便你将内容推到 [GitHub Pages](https://pages.github.com/) 上。
 
+完成最初的一些设计需求文档之后，我想给自己开发和现行的面向其他模块的接口添加细节描述。因为我已经给大多数的方法都写了定义，所以我想从源文件中自动生成引用页面，并且想使用 markdown 格式以便日后我可以和其他文件一起用 mkdocs 渲染成 html 文档。
 
+然而，项目中并没有默认使用 mkdocs 从源文件中生成 markdown 文件的方法，但是有插件可以做到。经过一阵子搜索和研究之后，我对网上找到的项目和插件感到很失望——许多都已经过时了，没有人维护，或者根本不能输出我想要的内容——所以我决定自己写。学习使用 inspect 模块是一件非常有趣的事情，之前我构建调试器的时候尝试过使用这个模块，具体可以参考这篇文章：[Hacking together a Simple Graphical Python Debugger](https://medium.com/@tryexceptpass/hacking-together-a-simple-graphical-python-debugger-efe7e6b1f9a8#.jqe3no3k9)）。
 
+> “Inspect 模块提供了一些非常有用的方法来获取当前的对象的信息……”——[Python 文档](https://docs.python.org/3.6/library/inspect.html)
 
+#### 来检查吧！
 
+Inspect 是标准库中的模块，它不仅能够让检视低级别的 python `frame` 和 `code` 对象，还提供了许多方法来检查模块和类，能够帮助你找到可能感兴趣的内容。正如上文所言， pydoc 正是用它来生成帮助文档的。
 
-A little while ago I needed to write more detailed, formal, design documentation and — being a fan of Markdown — I decided to play around with [`mkdocs`](http://www.mkdocs.org/) to see if I could get what I was looking for. This module makes it easy to turn your markdown text into nicely styled web pages and can serve them up as you make changes before publishing to an official location. It comes with a template for [readthedocs](https://readthedocs.org/) and even provides an easy command line interface to push your changes into [GitHub Pages](https://pages.github.com/) if you wish to go down that route.
+浏览在线文档时，你会发现有很多相关的函数，最重要的要数 `getmembers()`、`getdoc()` 和 `signature()`，还有许多用来给 `getmembers` 做筛选 `is...` 函数。通过这些函数，我们能够很容易地遍历函数，包括区分生成器和协程，并按需递归到任何类及其内部。
 
-Having completed my initial batch of text describing design decisions and considerations, I wanted to add details on the actual interface methods I was developing and exposing to the other modules in the project. Since I already wrote the definitions for most of those functions, I intended to automatically generate the reference pages from my source, and I wanted it in markdown so it could render into html along with the rest of my documentation whenever I ran mkdocs.
+#### 引入代码
 
-However, it turns out there is no default way of generating markdown from source with mkdocs, but there are plugins. After googling and researching a bit more, I was not content with the projects or plugins I found — lots of things are out of date, not maintained, or the output was just not what I was looking for — so I decided to write my own. I thought it would be another interesting foray into learning a little more about a module I used a little while ago when building a debugger for one of my previous articles (see [Hacking together a Simple Graphical Python Debugger](https://medium.com/@tryexceptpass/hacking-together-a-simple-graphical-python-debugger-efe7e6b1f9a8#.jqe3no3k9)): the `inspect`module.
+如果我们检视一个对象，无论什么对象，首先要做的就是提供将其引入命名空间的结构。为什么还要谈论引入呢？鉴于我们要做的事，有许多需要考虑的事，比如虚拟环境、自定义代码、标准模块和重复命名。这真如一团乱麻，一招棋错满盘皆输。
 
-> “The inspect module provides several useful functions to help get information about live objects… ” — [Python Docs](https://docs.python.org/3.6/library/inspect.html)
+确实有一些内容供我们选择，比较完善的要数 `pydoc` 中 [`safeimport`](https://github.com/python/cpython/blob/master/Lib/pydoc.py#L318)() 的复用了，它可以为我们照管一些特殊的案例，并且在出问题的时候抛出一个 `ErrorDuringImport` 异常。但是，如果我们的环境更加可控的时候，也可以简单地运行 `__import__(modulename)`。
 
-#### Inspect this!
+另一个需要铭记于心的就是代码的执行路径。或许会需要 `sys.path.append()` 一个目录来获取我们需要的模块。我是在被检查模块的路径中的一个目录内用命令行的方式执行的，所以我将当前目录添加到了系统路径中，这样就能够解决典型的引入路径问题。
 
-Originating from the standard library, inspect not only lets you look at lower level python `frame` and `code` objects, it also provides a number of methods for examining modules and classes, helping you find the items that may be of interest. It’s what pydoc uses to generate the help files mentioned previously.
-
-Browsing through the online documentation, you’ll find a number of methods relevant to our adventure. The most important ones being `getmembers()`, `getdoc()` and `signature()`, as well as the many `is...`functions that serve as filters to `getmembers`. With these we can easily iterate through functions, including distinctions between generators and coroutines, and recurse into any classes and their internals as needed.
-
-#### Importing the code
-
-If we’re going to inspect an object, no matter what it is, the first thing to do is provide a mechanism with which to import it into our namespace. Why even talk about imports? Depending on what you want to do, there’s a number of items to worry about, including virtual environments, custom code, standard modules and reused names. Things can get confusing, and getting it wrong can lead to some frustrating moments trying to figure things out.
-
-We do have a few options here, the more complete one being a reuse of [`safeimport`](https://github.com/python/cpython/blob/master/Lib/pydoc.py#L318)() directly from `pydoc`, which takes care of a number of special cases for us and raises a pretty `ErrorDuringImport` exception when things break. However, it’s also possible to simply run `__import__(modulename)`ourselves if we have more control over our environment.
-
-Another item to keep in mind is the path from which code executes. There may be a need to `sys.path.append()` a directory in order to access the module we’re looking for. My use case is to execute from the command line and within a directory that’s in the path of the module being examined, so I added the current directory to sys.path, which was enough to take care of the typical import path issues.
-
-Keeping this in mind, our import function would look something like this:
+要谨记，我们的引入函数要这样写：
 
     def generatedocs(module):
         try:
@@ -118,28 +94,28 @@ Keeping this in mind, our import function would look something like this:
             if mod is None:
                print("Module not found")
 
-            # Module imported correctly, let's create the docs
+            # 模块已被正确引入，我们来创建文档吧
             return getmarkdown(mod)
         except ErrorDuringImport as e:
             print("Error while trying to import " + module)
 
-#### Deciding on the output
+#### 确定输出内容
 
-Before continuing on, you’ll want to have a mental picture of how to organize the markdown output being generated. Do you want a shallow reference that does not recurse into custom classes? Which methods do we want to include? What about built-ins? Or `_` and `__` methods? How should we present function signatures? Should we pull annotations?
+此时，你将会在脑海中构建一个如何组织生成的 markdown 内容的蓝图。你想得到一个非递归至自定义类内部的浅述内容吗？我们要对哪些方法生成描述文档呢？内置的内容还要生成说明吗？或者 `_` 和 `__` 方法（即非公有方法和魔术方法）？我们要如何表述函数签名？我们要获取注释吗？
 
-My choices were as follows:
+我的选择如下：
 
-*   One `.md` file per run with information generated from recursing into any child classes of the object being inspecting.
-*   Only include custom code that I’ve created, nothing from imported modules.
-*   The output must be identified with 2nd level markdown headers (`##`) per item.
-*   All headers must include the full path of the item being described (`module.class.subclass.function`)
-*   Include the full function signature as pre-formatted text.
-*   Provide anchors for each header to easily link into the docs, as well as within the docs themselves.
-*   Any function that starts with `_` or `__` is not intended to be documented.
+* 每次运行都生成一个包含递归至被检视对象的各种子类内部的信息的 `.md` 文件
+* 只对我创建的自定义代码生成说明，对引入的模块不做处理
+* 输出的每个部分都必须使用 mrakdown 的二级标题（`##`）标记
+* 所有的标题都必须包含当前描述项目的完整路径（`模块.类.子类.方法`）
+* 将完整的函数签名作为预定义格式的文本
+* 为每个标题提供一个锚点，方便快速链接到文档（文档内也是如此）
+* 任何以 `_` 或者 `__` 开始的函数都不生成文档
 
-#### Putting it all together
+#### 整合文档
 
-Once the object is imported, we can get to work inspecting it. It’s simply a matter of performing repeated calls to `getmembers(object, filter)` where the filter is one of the helper `is` functions. You’ll be able to get pretty far with `isclass` and `isfunction`, but the other relevant ones will be `ismethod`, `isgenerator` and `iscoroutine`. It all depends on whether you want to write something generic that can handle all the special cases, or something smaller and more specific the source code. I stuck with the first two because I knew I didn’t have anything else to worry about and split things into three methods to create the formatting I wanted for modules, classes and functions.
+引入对象之后，我们就能开始检视它了，只需很简单地反复调用 `getmembers(对象, 筛选)` 方法，“筛选”即为某个 `is` 方法。你不光能使用 `isclass` 和 `isfunction` 方法，还有其他的诸如 `ismethod`，`isgenerator` 和 `iscoroutine` 方法。这完全取决于你是想写一些能够处理所有特殊情况的泛型，还是一些更细致更具有特点的源码。因为没有什么后顾之忧，所以我一直使用前两个方法，并且兵分三路来分别创建模块、类和方法的文档格式。
 
     def getmarkdown(module):
         output = [ module_header ]
@@ -174,24 +150,27 @@ Once the object is imported, we can get to work inspecting it. It’s simply a m
             output.append(inspect.getdoc(func[1])
         return output
 
-When formatting a large body of text and interweaving with some programmatic code, I tend to prefer to stick it all as separate items in a list or tuple and `"".join()` the output to put it all together. At the time of this writing, it’s actually faster than `.format` and `%` based interpolation. However, the new string formatting coming with python 3.6 will be faster than this and more readable.
+当格式化一大段夹杂着程序代码的文本的时候，我喜欢将其分为多个列表或者元组并且用 `"".join()` 来将输出的内容组合到一起，这种写法实际上比添写 `.format` 和 `%` 快很多。然而，python 3.6 中新的字符串格式化方式比这种方法更快，更具可读性。
 
-As you can see, `getmembers()` returns a tuple with the name of the object in the first position and the actual object in the second, which we can then use to recurse through the object hierarchy.
+如你所见，`getmembers()` 首先返回了对象名，然后返回了实际的对象，我们可以用它来递归整个对象结构。
 
-For each one of the items retrieved, it’s then possible to pull docstrings and comments with `getdoc()` or `getcomments()`. For every function we can use `signature()` to get a `Signature` object that represents its positional and keyword arguments, their default values and any annotations, providing us with the flexibility of generating fairly descriptive and well styled text that helps our users understand the intent of the code we’ve written.
+我们可以用 `getdoc()` 或者 `getcomments()` 来获取每个检索内容的说明内容和注释。对函数来说，我们可以使用 `signature()` 获取描述其位置和关键字参数、默认值以及注释的 `Signature` 对象，并灵活生成极具描述性和风格良好的文本来帮助用户了解我们编码的意图。
 
-#### Other considerations and unintended consequences
+#### 未雨绸缪和以防万一
 
-Please note that the code above is just sample code only meant to give you an idea of what the final product should look like. There are quite a few more considerations to keep in mind before finalizing things:
+要注意上文中的代码仅仅是为了让你对结果有个直观的认识，在大功告成之前，你还要对以下问题加以深思熟虑：
 
-*   As is, `getfunctions` and `getclasses` will show **ALL** functions and classes imported in the module. This includes builtins, as well as anything from external packages, so you’ll have to filter that for-loop some more. I wound up using the `__file__` property of the module that contains whatever item I’m inspecting. In other words, if the item is defined in a module that exists within the path in which I’m executing, then include it (use `os.path.commonprefix()`)
-*   There are some gotcha’s with file paths, import hierarchy and names. Like when you import moduleX into a package through __init__.py, you’ll be able to access its functions as package.moduleX.function, but the full name — the one returned by moduleX.__name__ — will be package.moduleX.moduleX.function. You may not care, but I did, so it’s something to keep in mind when iterating through things.
-*   You’ll import classes from `builtins` and anything from there does not have `__file__`, so check for that if you put any filtering in place like described above.
-*   Because this is markdown and because we’re simply importing docstrings, you can include markdown in your docstrings and it will appear in the page all nice and pretty. However, this means that you should take care to properly escape the docstring so it doesn’t break the HTML generated.
+*  如上所示，`getfunctions` 和 `getclasses` 会展示模块中引入的**所有**函数和类，包含内置和扩展包中的内容，因此你需要在 for 循环中进一步筛选。最后，我使用了当前检视内容所在模块的 `__file__` 属性，换句话说，如果所检视路径中存在某个模块，而模块中定义了所检视内容，然后我们可以使用 `os.path.commonprefix()` 将其引入。
 
-#### Sample output
+*   在文件路径、引入结构和命名方面还存在一些疑难杂症，比如当你通过 __init__.py 将模块 X 引入一个代码包的时候，你将能通过 package.moduleX.function 的方式获取它的函数，但是通过 moduleX.__name__ 返回的完整的名字却是 package.moduleX.moduleX.function，在迭代内容的时候需要时刻牢记。
 
-I ran my generator over the `sofi` package — the `sofi.app` module to be precise — and here’s the markdown it created.
+*   你也会从 `builtins` 中引入类，但是内置的模块没有 `__file__` 属性，所以当你在添加筛选时要记得检查哦。
+
+*   因为是 markdown 语法并且我们只是简单的引入说明内容，所以你可以在说明文档中引入 markdown 语法的内容，它也能很精美地显示在页面中。然而，这意味着你要正确操作，避免文档说明影响 HTML 的生成。
+
+#### 采样输出
+
+我在 `sofi` 代码包上运行生成器——准确来说是 `sofi.app` 模块——以下是生成的 markdown 文件的内容。
 
     # sofi
     
@@ -206,49 +185,12 @@ I ran my generator over the `sofi` package — the `sofi.app` module to be p
     ```
     Add the given class from all elements matching this selector.
 
-Below is a sample of the final product (excluding function annotations) after running it through mkdocs to produce a readthedocs themed page.
-
-
-
-
-
-
-
-
-
-
-
-
+下面是在 mkdocs 下生成的一个 readthedocs 主题的样本内容（不包含函数注释）：
 
 ![](https://cdn-images-1.medium.com/max/1000/1*y1cT7FhQpijK_wVhFuHNsw.png)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 * * *
 
+我相信你肯定已经明白，使用这些机制自动生成的文档能提供完整、准确、最新的模块信息，这使得模块在编程过程中易于维护和编辑，而并非是事后诸葛。（即并非在事后已经不需要的时候才总结出一份与模块相符的文档，原文为 instead of after the fact ，译者注）。我强烈建议每个人都试一试。
 
-
-
-
-
-
-As I’m sure you already know, using these mechanisms for automatically generating documentation leads to complete, accurate and up-to-date information on your modules that’s easy to maintain and edit as you write the code, instead of after the fact. I strongly encourage everyone to give it a shot.
-
-Before closing, I’d like to take a step back and mention that mkdocs is not the only documentation package out there. There are other well known and widely used systems like Sphinx (which mkdocs is based on) and Doxygen, both of which already do what we discussed here. However, as always, I wanted to go through the exercise in order to learn more about Python internals and the tools that come with it.
-
-
-
-
-
+本文结束之前，我想回顾一下并说明 makdocs 并不是唯一的文档包，还有很多著名且应用广泛的文档包，比如 Sphinx（mkdocs 既是基于此）和 Doxygen，两者都可以实现我们今天谈论的内容。然而，我一如既往义无反顾地这样做，就是为了能够深入了解 Python 和它所自带的工具。
