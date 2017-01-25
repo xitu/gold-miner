@@ -2,7 +2,7 @@
 * 原文作者：[Nolan Lawson](https://nolanlawson.com/about/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[luoyaqifei](http://www.zengmingxia.com)
-* 校对者：
+* 校对者：[fghpdf](https://github.com/fghpdf)，(Romeo0906)[https://github.com/Romeo0906]
 
 # 怎样写一个能同时用于 Node 和浏览器的 JavaScript 包？#
 
@@ -41,7 +41,7 @@ b64encode('foo');    // Zm9v
 b64encode('foobar'); // Zm9vYmFy
 ```
 
-现在我们只需要一些方法来检测我们究竟是在浏览器上运行还是在 Node 上，好让我们确定使用那个哪个版本是正确的。Browserify 和 Webpack 都定义了一个叫 `process.browser` 的字段，它会返回 `true`，然而在 Node 上这个字段返回 `false`。所以我们只需要简单地：
+现在我们只需要一些方法来检测我们究竟是在浏览器上运行还是在 Node 上，好让我们能保证使用正确的版本。Browserify 和 Webpack 都定义了一个叫 `process.browser` 的字段，它会返回 `true`（译者注：即浏览器环境下），然而在 Node 上这个字段返回 `false`。所以我们只需要简单地：
 
 
 
@@ -59,7 +59,7 @@ if (process.browser) {
 
 现在我们只需要把我们的文件命名为 `index.js`，键入 `npm publish`，我们就完成了，对不对？好的吧，这个方法有效，但不幸的是，这种实现有一个巨大的性能问题。
 
-因为我们的 `index.js` 文件包含了对 Node 自带的 `process` 和 `Buffer` 模块的引用，Browserify 和 Webpack 都会自动引入 [它们的](https://github.com/defunctzombie/node-process)[polyfill](https://github.com/feross/buffer)，来将它们打包进这些模块。
+因为我们的 `index.js` 文件包含了对 Node 自带的 `process` 和 `Buffer` 模块的引用，Browserify 和 Webpack 都会自动引入 [其](https://github.com/defunctzombie/node-process) [polyfill](https://github.com/feross/buffer)，来将它们打包进这些模块。
 
 对于这个简单的九行模块，我算了一下， Browserify 和 Webpack 会创建 [一个压缩后有 24.7KB 的包](https://gist.github.com/nolanlawson/6891be612c8faca42d2d9492b0d54e24) (7.6KB min+gz)。对于这种东西，用掉的空间实在是太多，因为在浏览器里，只需要 `btoa` 就能表示这个。
 
@@ -92,17 +92,17 @@ module.exports = function (string) {
 };
 ```
 
-在这次修复后，Browserify 和 Webpack 会给出 [更加合理的包](https://gist.github.com/nolanlawson/a8945de1dd52fdc9b4772a2056d3c3b7)：Browserify 的包压缩后是 511 字节（315 min+gz)，Webpack 的包压缩后是 550 字节（297 min+gz）。
+有了这次改进以后，Browserify 和 Webpack 会给出 [更加合理的包](https://gist.github.com/nolanlawson/a8945de1dd52fdc9b4772a2056d3c3b7)：Browserify 的包压缩后是 511 字节（315 min+gz)，Webpack 的包压缩后是 550 字节（297 min+gz）。
 
-当我们将我们的包发布到 npm 时，任何在 Node 里跑 `require('base64-encode-string')` 的人将得到 Node 版的，在 Browserfy 和 Webpack 里跑的人会得到浏览器版的。
+当我们将我们的包发布到 npm 时，在 Node 里运行 `require('base64-encode-string')` 的人将得到 Node 版的代码，在 Browserfy 和 Webpack 里跑的人会得到浏览器版的代码。
 
 对于 Rollup 来说，这就有点复杂了，但也不需要太多额外的工作。Rollup 用户需要使用 [rollup-plugin-node-resolve](https://github.com/rollup/rollup-plugin-node-resolve) 并在选项里将 `browser` 设置为 `true`。
 
 对 jspm 来说，很不幸地，[没有对 “browser” 字段的支持](https://github.com/jspm/jspm-cli/issues/1675)，但是 jspm 用户可以通过 `require('base64-encode-string/browser')` 或者 `jspm install npm:base64-encode-string -o "{main:'browser.js'}"` 来迂回地解决问题。另一种方法是，包的作者可以在他们的 `package.json` 里 [指定一个 “jspm” 字段](https://github.com/jspm/registry/wiki/Configuring-Packages-for-jspm#prefixing-configuration)。
 
-### 进阶技术 ###
+### 进阶技巧 ###
 
-这种直接的 `"browser"` 方法可以工作得很好，但是对于大型项目来说，我发现它在 `package.json` 和代码库间引入了一种尴尬的耦合。比如说，我们的 `package.json` 会很快长成这样：
+这种直接使用的 `"browser"` 方法可以工作得很好，但是对于大型项目来说，我发现它在 `package.json` 和代码库间引入了一种尴尬的耦合。比如说，我们的 `package.json` 会很快长成这样：
 
 ```
 {
@@ -115,11 +115,11 @@ module.exports = function (string) {
   }
 }
 ```
-在这种情况下，任何时候你想要一个浏览器特定的模块，你需要分别创建两个文件，并且要记住在 `"browser"` 字段上添加额外行来将它们连接起来。还要注意不能拼错所有的东西！
+在这种情况下，任何时候你想要一个适配于浏览器的模块，都需要分别创建两个文件，并且要记住在 `"browser"` 字段上添加额外行来将它们连接起来。还要注意不能拼错任何东西！
 
-并且，你会发现你在将很少的代码提取到分离的模块里，仅仅是因为你想要避免 `if (process.browser) {}` 检查。当这些 `*-browser.js` 文件积累起来的时候，它们会开始让代码库变得很难跳转。
+并且，你会发现你在费尽心机地将微小的代码提取到分离的模块里，仅仅是因为你想要避免 `if (process.browser) {}` 检查。当这些 `*-browser.js` 文件积累起来的时候，它们会开始让代码库变得很难跳转。
 
-如果这种情况变得实在太笨重了，有一些别的解决方案。我自己的偏好是使用 Rollup 作为构建工具，来自动地将单个代码库分割到不同的 `index.js` 和 `browser.js` 文件里。这对于将你提供给消费者的代码的解模块化有额外的价值，[节省了空间和时间](https://nolanwlawson.wordpress.com/2016/08/15/the-cost-of-small-modules/)。
+如果这种情况变得实在太笨重了，有一些别的解决方案。我自己的偏好是使用 Rollup 作为构建工具，来自动地将单个代码库分割到不同的 `index.js` 和 `browser.js` 文件里。这对于将你提供给用户的代码的解模块化有额外的价值，[节省了空间和时间](https://nolanwlawson.wordpress.com/2016/08/15/the-cost-of-small-modules/)。
 
 要这样做的话，先安装 `rollup` 和 `rollup-plugin-replace`，然后定义一个 `rollup.config.js` 文件：
 
@@ -134,7 +134,7 @@ export default {
 };
 ```
 
-（我们将使用 `process.env.BROWSER` 作为一个方便地在浏览器构建和 Node 构建间切换的方式。）
+（我们将使用 `process.env.BROWSER` 作为一种方便地在浏览器构建和 Node 构建间切换的方式。）
 
 接下来，我们可以创建一个带有单个函数的 `src/index.js` 文件，使用普通的 `process.browser` 条件：
 
@@ -188,8 +188,8 @@ module.exports = base64Encode;
 
 你将注意到，Rollup 会按需自动地将 `process.browser` 转换成 `true` 或者  `false`，然后去掉那些无用代码。所以在生成的浏览器包里不会有对于  `process` 或者 `Buffer` 的引用。
 
-使用这个技术，在你的代码库里可以有任意个数的 `process.browser` 切换，并且发布的结果是两个小的集中的 `index.js` 和 `browser.js` 文件，其中对于 Node 只有 Node 相关的代码，对于浏览器只有浏览器相关的代码。
+使用这个技巧，在你的代码库里可以有任意个的 `process.browser` 切换，并且发布的结果是两个小的集中的 `index.js` 和 `browser.js` 文件，其中对于 Node 只有 Node 相关的代码，对于浏览器只有浏览器相关的代码。
 
-作为额外的好处，你可以配置 Rollup 来生成 ES 模块构建，IIFE 构建，或者 UMD 构建。以一个拥有多个 Rollup 构建目标的简单库为例，你可以查看我的项目 marky](https://github.com/nolanlawson/marky)。
+作为附带的福利，你可以配置 Rollup 来生成 ES 模块构建，IIFE 构建，或者 UMD 构建。如果你想要示例的话，可以查看我的项目 [marky](https://github.com/nolanlawson/marky)，这是一个拥有多个 Rollup 构建目标的简单库。
 
 在这篇文章里描述的实际项目（`base64-encode-string`）也同样被 [发布到 npm 上](https://www.npmjs.com/package/base64-encode-string) ，你可以审视它，看看它是怎么做到的。源码 [在 GitHub 上](https://github.com/nolanlawson/base64-encode-string)。
