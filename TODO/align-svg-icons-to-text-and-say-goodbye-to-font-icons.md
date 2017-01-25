@@ -1,7 +1,7 @@
 > * 原文链接: [Align SVG Icons to Text and Say Goodbye to Font Icons](https://blog.prototypr.io/align-svg-icons-to-text-and-say-goodbye-to-font-icons-d44b3d7b26b4#.9gcnlx2bm)
 * 原文作者 : [Elliot Dahl](https://blog.prototypr.io/@Elliotdahl)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 :
+* 译者 : [aleen42](https://github.com/aleen42)
 * 校对者 :
 
 ![](https://cdn-images-1.medium.com/max/1600/1*YJKqXVh1XZcKB9QeyVcKkA.png)
