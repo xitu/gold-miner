@@ -490,7 +490,7 @@ private Observable<String> createTextChangeObservable() {
 
 4. 我们并不对 `beforeTextChanged()` 和 `afterTextChanged()` 方法感兴趣。当用户键入内容触发 `onTextChanged()` 方法时, 将文本值传递给 observer；
 
-5. 通过 `addTextChangedListener()` 方法将观察器添加到 `TextView` 上；
+5. 通过 `addTextChangedListener()` 方法将观察器添加到 `EditText` 上；
 
 6. 不要忘记移除观察器。调用 `emitter.setCancellable()` 并重写 `cancel()` 来调用 `removeTextChangedListener()` 方法；
 
