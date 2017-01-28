@@ -31,8 +31,6 @@
 
 ![](https://cdn-images-1.medium.com/max/1600/1*F49a4lqd8Lw5eFVTnPm4Lg.png)
 
-The first example shows that DOM elements align to the baseline of text by default. However, since our icon is already properly scaled to consider the baseline, we need to pull it down for the baseline to truly align. At this size the distance is 6px away, 6px/48px = ? or 12.5%. In the second example, pulling the icon down by -0.125em places the icon onto the proper baseline of the text.
-
 从该首例中，我们可以看到 DOM 元素默认情况下会与文本的基线（baseline）对齐。可既然图标已经适配于该基线，那么，我们只需要把该基线往下移动，就能达到真正对齐的效果。因此，通过计算可以得出上述例子尺寸下的移动距离为 6px，或 6px/48px，即12.5%。同样，在第二个例子中，我们只需要把图标往下移动-0.125em 的位置，即能对齐文本的基线。
 
     .svg-icon {
