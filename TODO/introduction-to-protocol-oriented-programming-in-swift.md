@@ -82,7 +82,7 @@ humanStruct.name // "Bob"
 
 如果你作为软件工程师第一次去苹果工作的话，你能使用这些代码么？我的意思是我们开发者在界面层使用中都有过很痛苦的经历。
 
-**有人说过面向对象编程就是通过模块化的模式来写意大利面条式的代码。如果你想找到更多关于面向对象编程的缺点的话，这些**[**咆哮 1**](http://krakendev.io/blog/subclassing-can-suck-and-heres-why) 、[**咆哮 2**](https://blog.pivotal.io/labs/labs/all-evidence-points-to-oop-being-bullshit) 、[**咆哮 3**](http://www.smashcompany.com/technology/object-oriented-programming-is-an-expensive-disaster-which-must-end) 、[**咆哮 4**](https://www.leaseweb.com/labs/2015/08/object-oriented-programming-is-exceptionally-bad/) 。
+**有人说过面向对象编程就是通过模块化的模式来写意大利面条式的代码。如果你想找到更多关于面向对象编程的缺点的话，看这里的**[**咆哮 1**](http://krakendev.io/blog/subclassing-can-suck-and-heres-why) 、[**咆哮 2**](https://blog.pivotal.io/labs/labs/all-evidence-points-to-oop-being-bullshit) 、[**咆哮 3**](http://www.smashcompany.com/technology/object-oriented-programming-is-an-expensive-disaster-which-must-end) 、[**咆哮 4**](https://www.leaseweb.com/labs/2015/08/object-oriented-programming-is-exceptionally-bad/) 。
 
 #### 欢迎使用面向协议编程 ####
 
