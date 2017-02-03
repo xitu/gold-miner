@@ -268,7 +268,7 @@ for kang in kangaroos {
 
 [协议类型课程](https://www.youtube.com/watch?v=PxWoWmJAMiA&amp;list=PL8btZwalbjYm5xDXDURW9u86vCtRKaHML&amp;index=4)
 
-<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*6gtsyoBiGnwGpE9gFITlSw.png">
+![](https://cdn-images-1.medium.com/max/1000/1*6gtsyoBiGnwGpE9gFITlSw.png)
 
 现在是免费的，直到它发布之前:)
 
