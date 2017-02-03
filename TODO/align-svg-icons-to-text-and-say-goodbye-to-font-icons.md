@@ -8,7 +8,7 @@
 
 # 把 SVG 图标对齐到文本，以告别字体图标（Font Icons）的时代
 
-在字体图标盛行的时代，推行 SVG 图标可谓是 Web 社区中的一次重要契机。毕竟，SVG 图标系统能更好地遵循图形的访问性标准，并渲染出更高质量的图像。此外，开发者还能轻而易举地通过该类系统增加/删除/修改库中的图标。因此，鉴于这样的优势，我们使用 React 开发了一套自家的 SVG 图标系统产品，并发布在 [Pivotal](https://pivotal.io/) 上。本文将阐述作者如何使用 CSS 来对 SVG 图标系统进行样式的定制以高效便捷地使用该类系统。
+在字体图标盛行的时代，推行 SVG 图标可谓是 Web 社区中的一次重要契机。毕竟，使用 SVG 图标系统能更好地遵循图形的访问性标准，并渲染出更高质量的图像。此外，开发者还能轻而易举地通过该类系统增加/删除/修改库中的图标。因此，鉴于这样的优势，我们使用 React 开发了一套自家的 SVG 图标系统产品，并发布在 [Pivotal](https://pivotal.io/) 上。本文将阐述作者如何使用 CSS 来对 SVG 图标系统进行样式的定制以高效便捷地使用该类系统。
 
 ### 为何在乎 SVG 图标样式的定制方式？
 
@@ -25,9 +25,9 @@
       width: 1em;
     }
 
-### **当 SVG 图标并未对齐文本时，该如何解决？**
+### **如何解决 SVG 图标未与文本对齐的问题？**
 
-上述方法其负面的影响在于，DOM 元素自身并未与文本对齐。针对于此，过去我会采用一个标签处理类（handler class）`.svg-icon` 来承托该元素的尺寸，并使用相对定位的方式进行布局。这样的话，SVG 图标就能在该类内部采用绝对定位的方式改变位置。也就是说，把该图标往下移动 “-0.125em” 的距离，就可以使得图标在任何尺寸下都能往下移动12.5%。
+上述方法的负面影响在于，DOM 元素自身并未与文本对齐。针对于此，过去我会采用一个标签处理类（handler class）`.svg-icon` 来承托该元素的尺寸，并使用相对定位的方式进行布局。这样的话，SVG 图标就能在该类内部采用绝对定位的方式改变位置。也就是说，把该图标往下移动 “-0.125em” 的距离，就可以使得图标在任何尺寸下都能往下移动12.5%。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*F49a4lqd8Lw5eFVTnPm4Lg.png)
 
@@ -63,7 +63,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*-fnv9uyDUgahTAozqb9jqg.png)
 
-查阅以下的 Codepen 并测试自己的字体与配对图标。
+利用下面这个 Codepen 来测试你自己的字体与图标的配对效果。
 
 [![](http://i1.piimg.com/567571/92bc3cae3455dbc9.jpg)](https://codepen.io/elliotdahl/embed/ygYrvm?amp%3Bdefault-tabs=html%2Cresult&amp%3Bembed-version=2&amp%3Bhost=http%3A%2F%2Fcodepen.io&amp%3Bslug-hash=ygYrvm&height=600&referrer=https%3A%2F%2Fblog.prototypr.io%2Fmedia%2F78db9599a37b1b90530624815c99c973%3FpostId%3Dd44b3d7b26b)
 
