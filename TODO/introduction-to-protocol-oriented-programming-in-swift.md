@@ -2,13 +2,13 @@
 * 原文作者：[Bob Lee](https://medium.com/@bobleesj?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Danny Lau](https://github.com/Danny1451)
-* 校对者：
+* 校对者：[Tuccuay](https://github.com/Tuccuay) [lovelyCiTY](https://github.com/lovelyCiTY)
 
 # Swift 面向协议编程入门 #
 
-## 面向对象编程没毛病，但是可以变得更好 ##
+## 面向对象编程的思想没毛病，但老铁你可以更 666 的 ##
 
-<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/2000/1*5yuIezhfETFouNNTablgSA.jpeg">
+![](https://cdn-images-1.medium.com/max/2000/1*5yuIezhfETFouNNTablgSA.jpeg)
 
 上图这个人不是我，但这就是使用面向协议编程替换掉面向对象编程之后的感觉。
 
@@ -71,21 +71,20 @@ humanStruct.name // "Bob"
 
 1. 当时构建子类的时候，你必须继承一些你不需要的属性和方法。你的对象变得不必要的虚胖。
 
-2. 当时使用了大量的父类（太多继承层级），在不同的类里面跳转，修改 bugs 或者编辑都会变得异常的困难。
+2. 当时使用了大量的父类（太多继承层级），在不同的类里面跳来跳去编写代码或者修复 bug 都会变得非常棘手。
 
 3. 因为对象都是指向内存中的同一个空间，如果你创建了一个拷贝，并且对它的属性进行了一点小改动，它会影响到其余的对象。（引用导致的易变性）
 
 顺便说一下，来看一下 UIKit 框架是怎么用面向对象编程来写的。
 
-<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*hjEXB3PGUOSbxet0qUJRNA.png">
+![2015 WWDC_Hideous Structure](https://cdn-images-1.medium.com/max/800/1*hjEXB3PGUOSbxet0qUJRNA.png)
 
-2015 WWDC_Hideous Structure
 
 如果你作为软件工程师第一次去苹果工作的话，你能使用这些代码么？我的意思是我们开发者在界面层使用中都有过很痛苦的经历。
 
-*有人说过面向对象编程就是通过模块化的模式来写意大利面条式的代码。如果你想找到更多关于面向对象编程的缺点的话，这些* [*咆哮 1*](http://krakendev.io/blog/subclassing-can-suck-and-heres-why) , [*咆哮 2*](https://blog.pivotal.io/labs/labs/all-evidence-points-to-oop-being-bullshit),[*咆哮 3*](http://www.smashcompany.com/technology/object-oriented-programming-is-an-expensive-disaster-which-must-end), [*咆哮 4*](https://www.leaseweb.com/labs/2015/08/object-oriented-programming-is-exceptionally-bad/).
+有人说过面向对象编程就是通过模块化的模式来写意大利面条式的代码。如果你想找到更多关于面向对象编程的缺点的话，这些 [*咆哮 1*](http://krakendev.io/blog/subclassing-can-suck-and-heres-why) , [*咆哮 2*](https://blog.pivotal.io/labs/labs/all-evidence-points-to-oop-being-bullshit),[*咆哮 3*](http://www.smashcompany.com/technology/object-oriented-programming-is-an-expensive-disaster-which-must-end), [*咆哮 4*](https://www.leaseweb.com/labs/2015/08/object-oriented-programming-is-exceptionally-bad/).
 
-#### 欢迎面向协议编程 ####
+#### 欢迎使用面向协议编程 ####
 
 你可能已经猜到了，和类不一样的是，面向协议编程的基础是值类型。不再是引用了，和你之前看到的金字塔结构不一样，面向协议所提倡的是扁平化和去嵌套的代码。
 
@@ -222,7 +221,7 @@ ramon.speakEnglish() //  "I speak English, pretty cool, huh?"
 
 就是这样。
 
-举个例子，我将用使用为了获得雌性配偶而打架的袋鼠。如果你不相信我的话，看看这个[袋鼠打架](https://www.youtube.com/watch?v=WCcLMNcWZOc&amp;t=129s) 
+我用为获得雌性配偶而打架的袋鼠来举个例子。如果你不相信我的话，看看这个[袋鼠打架](https://www.youtube.com/watch?v=WCcLMNcWZOc&amp;t=129s) 
 
 ```
 protocol Fightable {
