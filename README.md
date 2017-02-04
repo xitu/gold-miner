@@ -4,7 +4,7 @@
 
 [掘金翻译计划](https://juejin.im/tag/%E6%8E%98%E9%87%91%E7%BF%BB%E8%AF%91%E8%AE%A1%E5%88%92) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](#android)、[iOS](#ios)、[React](#react)、[前端](#前端)、[后端](#后端)、[产品](#产品)、[设计](#设计) 等领域，读者为热爱新技术的新锐开发者。
 
-掘金翻译计划目前翻译完成 [350](#近期文章列表) 篇文章，共有 [240](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
+掘金翻译计划目前翻译完成 [351](#近期文章列表) 篇文章，共有 [240](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
 
 #  官方指南：
 
@@ -36,10 +36,10 @@
 
 ## 前端
 
+* [快来和你的 Font Icons 说 Goodbye 吧](https://gold.xitu.io/entry/589591442f301e0069488788?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Aleen](https://github.com/aleen42) 翻译)
 * [使用 WebSocket 和 CSS3 创造魔法](https://gold.xitu.io/entry/5894612a2f301e006900cfcc?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([王子建](https://github.com/Romeo0906) 翻译)
 * [在 CSS 中使用恒定角度的斜边](https://gold.xitu.io/entry/5875af941b69e6005ceffe94?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([王子建](https://github.com/Romeo0906) 翻译)
 * [在 `setState` 中使用函数替代对象](https://gold.xitu.io/entry/5873b04f61ff4b006d4d45f7?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([王子建](https://github.com/Romeo0906) 翻译)
-* [书写干净的 CSS 代码 PART2](https://gold.xitu.io/entry/5870d0841b69e6005cd23edc?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([王子建](https://github.com/Romeo0906) 翻译)
 * [所有前端译文>>](https://github.com/xitu/gold-miner/blob/master/front-end.md)
 
 
