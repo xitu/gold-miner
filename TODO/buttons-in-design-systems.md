@@ -1,7 +1,7 @@
 > * 原文地址：[Buttons in Design Systems](https://medium.com/eightshapes-llc/buttons-in-design-systems-eac3acf7e23#.u8m3qun1i)
 * 原文作者：[Nathan Curtis](https://medium.com/@nathanacurtis?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：Funtrip
 * 校对者：
 
 # Buttons in Design Systems #
