@@ -91,8 +91,6 @@
 
 即使确实有一些颜色选择时必须要遵守的规则，它也不是必要的技术。色彩通常是抽象的东西，像一种感觉。即使你的 app 不是为了在用户身上表明情绪，也不代表它不会。如果完美色盘不是非得黑色和白色，建议试试灰色调。
 
-Build a flat prototype of your app in a grayscale gradient and use that as your baseline. Take note with how it looks and feels: pass it along to your QA team, and see what they have to say. Is your onboarding process murky without color? Are you drawing attention to the wrong parts of your app? With this feedback, design a few more prototypes, this time bringing in color. Don’t rely on a singular palette. Instead, take a cue from Google’s [material design](https://material.google.com/style/color.html)  website and play with a few of their swatches.
-
 用灰色渐变色构建 app 的平面原型并且作为基本准则。记住它的展示和给你的感受：传达给 QA 团队，关注他们的说法。你的新手培训是否灰暗无色？你是否错误关注到了应用的其他部分？带着这些反馈，再设计更多的原型，这次加上颜色。别依赖单色色盘。并且，从 Google 的 [material design](https://material.google.com/style/color.html) 网站获得提示，考虑它提供的色盘。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/0*ceW-J0USVj3tW0MF.jpg">
