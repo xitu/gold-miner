@@ -12,7 +12,7 @@
 
 光说不做嘴把式。那好，我们要怎样开始在我的应用中实践面向协议编程？🤔
 
-为了能更加高效的理解下面的内容，我希望读者能够明白 `Complection Handlers`，并且能创建协议的基本实现。如果你还不熟悉他们，可以先阅读下面的文章再回来接着看：
+为了能更加高效的理解下面的内容，我希望读者能够明白 `Complection Handlers`，并且能创建协议的基本实现。如果你还不熟悉他们，可以先查看下面的文章和视频再回来接着看：
 
 前景提要：
 
@@ -26,7 +26,7 @@
 
 ### UI
 
-这个演示程序名为「欢迎来到我家的聚会」。我将会使用这个应用程序来验证你是否获得邀请，你必须输入你的邀请码。**这个应用并没有逻辑判断，所以只要你按下按钮，无论如何动画都将会被执行。** 将会有 `passcodeTextField`, `loginButton`, `errorMessageLabel` 和 `profileImageView` 四个组件将会参与动画过程。
+这个演示程序名为「欢迎来到我家的聚会」。我将会使用这个应用程序来验证你是否获得邀请，你必须输入你的邀请码。**这个应用并没有逻辑判断，所以只要你按下按钮，无论如何动画都将会被执行。** 将会有 `passcodeTextField`, `loginButton`, `errorMessageLabel` 和 `profileImageView` 四个组件参与动画过程。
 
 这里有两个动画：1. 左右晃动 2. 淡入淡出
 
@@ -60,7 +60,7 @@ class BuzzableLabel: UIButton {
 }
 ```
 
-看到我们是如何写**重复的代码**了吗？这个动画逻辑一共有 5 行，更好的选择是使用 `extension`，因为 `UILabel` 和 `UIButton` 都继承自 `UIView`，我们可以给它添加这样的扩展：
+看到我们是如何写**重复的代码**了吗？这个动画逻辑至少有 5 行，更好的选择是使用 `extension`，因为 `UILabel` 和 `UIButton` 都继承自 `UIView`，我们可以给它添加这样的扩展：
 
 ```swift
 extension UIView {
@@ -166,7 +166,7 @@ class LoginViewController: UIViewController {
 }
 ```
 
-POP 是一件很苦的事情，你可以在任何时间把这个协议应用给任何一个 UI 组件都不需要再去子类化任何东西。
+POP 是一件很酷的事情，你可以在任何时间把这个协议应用给任何一个 UI 组件都不需要再去子类化任何东西。
 
 ```swift
 class MyImageView: UIImageVIew, Buzzable, Poppable { }
@@ -192,7 +192,7 @@ class MyImageView: UIImageVIew, Buzzable, Poppable { }
 
 ### Last Remarks
 
-我想希望你已经学到了一些新知识，如果有的话，请给本文点赞。如果你觉得本文内容很有用，请将本文分享给大家，以便世界各地的 iOS 开发者都能使用面向协议编程在写视图控件的时候写更少和更清晰的代码。回顾于 EST 时间星期六上午 8 点。
+我想希望你已经学到了一些新知识，如果有的话，请给本文点赞。如果你觉得本文内容很有用，请将本文分享给大家，以便世界各地的 iOS 开发者都能运用面向协议编程，以在写视图控件的时候写更少和更清晰的代码。回顾于 EST 时间星期六上午 8 点。
 
 ### Swift 会议
 
