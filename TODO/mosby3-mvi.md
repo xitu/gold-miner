@@ -5,7 +5,7 @@
 * 校对者：
 
 # Reactive Apps with Model-View-Intent - Part1 - Model #
-# Model-View-Intent 模式下的响应式应用 － 第一部分 － 模型 #
+# Model-View-Intent 模式下的响应式应用 － 第一部分 － Model（模型） #
 
 Once I have figured out that I have modeled my Model classes wrong all the time, a lot of issues and headache I previously had with some Android platform related topics are gone. Moreover, finally I was able to build Reactive Apps using RxJava and Model-View-Intent (MVI) as I never was able before although the apps I have built so far are reactive too but not on the same level of reactiveness as I’m going to describe in this blog post series. In the first part I would like to talk about Model and why Model matters.
 当我想明白原来我的模型类一直被我用错了，一大堆以前我遇到的安卓平台相关的问题就都消失了。更重要的是，我终于使用RxJava和模型-视图-意图模型来构建响应式应用了，因为我从来没成功过，尽管我已经构建过很多响应式应用，但与我马上要在博客上写的这一系列不是一个等级的。在第一部分，我想讲讲模型以及为什么模型这么重要。
