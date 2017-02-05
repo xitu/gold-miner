@@ -13,7 +13,7 @@ Understanding [how chatbots work](https://medium.com/p/how-chat-bots-work-dfff65
 multi-layer ANN
 We’ll use 2 layers of neurons (1 hidden layer) and a “bag of words” approach to organizing our training data. [Text classification comes in 3 flavors](https://medium.com/@gk_/how-chat-bots-work-dfff656a35e2#.3zb2b9g2v): *pattern matching*, *algorithms*, *neural nets*. While the [algorithmic approach](https://medium.com/@gk_/text-classification-using-algorithms-e4d50dcba45#.mho4fx7e5) using Multinomial Naive Bayes is surprisingly effective, it suffers from 3 fundamental flaws:
 
-- **the algorithm produces a *score*** rather than a probability. We want a probability to ignore predictions below some threshold. This is akin to a ‘squelch’ dial on a VHF radio.
+- **the algorithm produces a score** rather than a probability. We want a probability to ignore predictions below some threshold. This is akin to a ‘squelch’ dial on a VHF radio.
 - the algorithm ‘learns’ from examples of what *is* in a class, but **not what isn’t**. This learning of patterns of what does *not* belong to a class is often very important.
 - classes with disproportionately large training sets can create distorted classification scores, forcing the algorithm to **adjust scores relative to class size**. This is not ideal.
 
