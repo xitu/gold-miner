@@ -21,7 +21,7 @@ During a scroll or fling operation, RecyclerView will need to display new items 
 Typical rendering phases of RecyclerView content during a scroll (as of the Lollipop release). On the UI thread, we process input events, handle animations, perform layout, and record the drawing operations. Then the RenderThread (RT) sends the commands to the GPU.
 During most frames of a scroll, the RecyclerView has no problem doing what it needs to do, because there is no new content to deal with. During these frames, the UI thread processes input, handles animations, performs layout, and records drawing commands. It then syncs the drawing information over to the RenderThread (as of the [Lollipop](https://developer.android.com/about/versions/lollipop.html) release; prior releases do all of this work on the UI thread), which sends those commands over to the GPU.
 
-![](https://cdn-images-1.medium.com/max/1200/1*DIr64fruHL5lp72Ji-b7rw.png)![](https://cdn-images-1.medium.com/max/1200/1*DIr64fruHL5lp72Ji-b7rw.png)
+![](https://cdn-images-1.medium.com/max/1200/1*DIr64fruHL5lp72Ji-b7rw.png)
 
 New items cause the Input stage to take longer as new views are created, bound, and laid out. This results in a later start for the Render stage, which might cause it to finish after the frame boundary, resulting in a missed frame.
 When a new item comes on screen, more work is required in the input stage to bind, and possibly create, the appropriate views. This pushes the rest of the UI thread work later, as well as the ensuing work of the RenderThread, and can cause jank if it cannot all happen within the frame boundary.
