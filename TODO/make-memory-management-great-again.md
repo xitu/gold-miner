@@ -63,20 +63,20 @@ First of all, let’s create an object first. I’ve made a class called `Passpo
       print("You've made a passport object")
      }
 
-    **deinit** {
+    deinit {
       print("I, paper, am gone")
      }
     }
 
 By the way, if you don’t know what `deinit` means, it’s the opposite of `init`. So when you `init`, you’ve created an object and inserted into the box/memory. `deinit` occurs when the specific location of the object in the box has been freed/deallocated/purged.
 
-Let’s create an object **by itself **without creating `var` or `let`
+Let’s create an object **by itself** without creating `var` or `let`
 
     Passport(citizenship: "Republic of Korea")
     // "You've made a passport object"
     // "I, paper, am gone"
 
-Wait, why is it being** deleted right** after you’ve made an instance/object? Well, it’s due to ARC and let me explain.
+Wait, why is it being **deleted right** after you’ve made an instance/object? Well, it’s due to ARC and let me explain.
 
 In order to maintain an object in memory, you must have a reference to something, and there must be a relationship. I know it sounds weird. Please bare with me for a bit.
 
@@ -95,7 +95,7 @@ When you’ve created the `Passport` object by itself, it had **no relationship/
 Now, I’m going to create a class called `Human` which has an optional property whose type is `Passport`.
 
     class Human {
-    ** var passport: Passport?**
+     var passport: Passport?
      let name: String
      init(name: String) {
       self.name = name
@@ -177,7 +177,7 @@ Remember, **weak does not increase reference count. **Let’s add `weak` in fron
 
 Every thing else remains the same.
 
-![](https://cdn-images-1.medium.com/freeze/max/60/1*Q0Mh1UxKEVwCuPPSLtFlfA.png?q=20)![](https://cdn-images-1.medium.com/max/1600/1*Q0Mh1UxKEVwCuPPSLtFlfA.png)<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1600/1*Q0Mh1UxKEVwCuPPSLtFlfA.png">
+![](https://cdn-images-1.medium.com/max/1600/1*Q0Mh1UxKEVwCuPPSLtFlfA.png)
 
 Passport not has a weak reference to Human and does not increase reference cycle
 Now, if you set
@@ -188,7 +188,7 @@ Now, if you set
     // "I, papepr, am gone"
     // "I'm gone, friends" 👋
 
-![](https://cdn-images-1.medium.com/freeze/max/60/1*7DKrMzcj38Hlvmi3vwY12g.png?q=20)![](https://cdn-images-1.medium.com/max/1600/1*7DKrMzcj38Hlvmi3vwY12g.png)<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1600/1*7DKrMzcj38Hlvmi3vwY12g.png">
+![](https://cdn-images-1.medium.com/max/1600/1*7DKrMzcj38Hlvmi3vwY12g.png)
 
 Destroyed and Deallocated
 This is what happened. Since `weak` does not count as a relationship or does not increase the reference count, there is virtually only **one reference count** before you set `bobby` to `nil`. So, when you set `bobby` to `nil`, the reference count/relationship becomes `0` which successfully allows you destroy everything. I love when things get out of memory. Damn, this article took forever.
