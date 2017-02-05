@@ -280,14 +280,19 @@ By doing so we have established a unidirectional data flow with the business log
 ## 6. 可调试且可复现的状态 ##
 
 Moreover, the unidirectional data flow ensures that our app is easy to debug. Wouldn’t it be nice next time we get a crash report from Crashlytics that we could reproduce and fix this crash easily because all required information is attached to that crash report. What is “the required information”? Well, all information we need is the current Model and the action the user wanted to perform when the crash happened (i.e. clicked decrement Button). That’s all we need to reproduce this crash and that information is super easy to log and to attach to a crash report. This would not be as easy without a unidirectional data flow (i.e. someone misuses an EventBus and fires CounterModels out into the wild) or without immutability (so that we are not sure who has actually changed the Model).
-另外，单一的数据流让我们的应用易于调试。下一次，当我们从 Crashlytics 拿到一个崩溃日志，我们能简单复现并修复问题，因为所有需要的信息都附在崩溃日志上，这不是很棒吗？当然，我们所需要的所有信息是当前的模型和用户造成崩溃的行为（也就是单击减少按钮）。这些就是我们复现崩溃所需要的所有东西。而且，那些信息非常容易记录到崩溃日志中。如果不是单一数据流（比如，有人误用 EventBugs 并且把 CounterModels 传得到处都是）和不可变性（我们将没办法确定到底是谁修改了模型），这将没那么简单。
+另外，单一的数据流让我们的应用易于调试。下一次，当我们从 Crashlytics 拿到一个崩溃日志，我们能简单复现并修复问题，因为所有需要的信息都附在崩溃日志上，这不是很棒吗？当然，我们所需要的所有信息是当前的模型和用户造成崩溃的行为（也就是单击减少按钮）。这些就是我们复现崩溃所需要的所有东西。而且，那些信息非常容易记录到崩溃日志中。如果不是单一数据流（比如，有人误用 EventBugs 并且把 CounterModels 传得到处都是）和不可变性（我们将没办法确定到底是谁修改了模型），就不会那么简单。
 
 ## 7. Testability ##
+## 7. 易测性 ##
+
 
 “Traditional” MVP or MVVM improves testability of an app. MVC is also testable: nobody ever said that we have to put all our business logic into the activity. With a Model representing State we can simplify our unit test’s code as we can simply check *assertEquals(expectedModel, model)*. This eliminates a lot of objects we otherwise have to mock. Additionally, this removes many verification tests that a certain method has been called i.e. *Mockito.verify(view, times(1)).showFoo()*. Eventually, this makes our unit test’s code more readable, understandable and finally maintainable as we don’t have to deal that much with implementation details of our real code.
+“传统的” MVP 或者 MVVM 改进了应用的易测性。MVC 也是可测的：从来没有人说过我们需要把所有的业务逻辑放进 activity。通过用模型反映状态，我们可以简化单元测试代码，因为只需要检查 **assertEquals(expectedModel, model)**。这消除了很多我们本来需要模拟的很多对象。另外，这样就移除了很多调用 **Mockito.verify(view, times(1)).showFoo()** 方法的验证测试。最后，测试代码的可读性会更高，也更容易理解和维护，因为我们不需要处理真实代码里的实现细节。
 
 # Conclusion #
+# 结论 #
 
 In this first part of this blog post series we talked a lot about theoretical stuff. Do we really need a dedicated blog post about Model? I think it is elementary to understand that a Model is important and helps to prevent some issues we otherwise would struggle with. Model doesn’t mean business logic. It’s the business logic (i.e. an Interactor, a Usecase, a Repositor or whatever you call it in your app) that produces a Model. In the second part we will see this theoretical Model stuff in action when we finally build a reactive app with Model-View-Intent. The demo app we are going to build is a app for a fictional online shop. Here is just a short preview demo of what you can expect in part two. Stay tuned.
+在这博客系列里的第一部分我们讨论很多理论的东西。我们真的需要一个博客专门说模型吗？我觉得理解模型是非常重要和基本的，它能帮助我们避免难对付的问题。模型并不等于业务逻辑。而是业务逻辑（也就是应用里的用例）生产模型。在第二部分，当我们最后构建好 Model-View-Intent（模型-视图-意图模型）模式的响应式应用后，我们可以看到理论上的模型是怎么实现的。我们马上要构建的示例应用是一个虚拟线上商店。关于你在第二部分想知道的东西，这里有一个短的预告片。敬请期待。
 
 [![](https://i.ytimg.com/vi_webp/rmR9mV1Dsqk/maxresdefault.webp)](https://www.youtube.com/embed/rmR9mV1Dsqk)
