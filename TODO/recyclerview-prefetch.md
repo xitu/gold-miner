@@ -16,7 +16,7 @@ Procrastination has always worked for me. But I never had to deal with the issue
 
 During a scroll or fling operation, RecyclerView will need to display new items as they arrive on screen. These new items need to be bound to the data (and possibly created, if there are no items like it in the cache). Then they need to be laid out and drawn. When all of this is done lazily, just before it is needed, the UI thread can grind to a halt while the work completes. Then rendering can proceed and the scroll (or fling, but I’ll just refer to either as “scroll” from here on to simplify things) can get back to moving along smoothly… until the next new item comes into view.
 
-![](https://cdn-images-1.medium.com/freeze/max/60/1*X9E34oKRhAJbG-uSrhv-TA.png?q=20)![](https://cdn-images-1.medium.com/max/1200/1*X9E34oKRhAJbG-uSrhv-TA.png)
+![](https://cdn-images-1.medium.com/max/1200/1*X9E34oKRhAJbG-uSrhv-TA.png)
 
 Typical rendering phases of RecyclerView content during a scroll (as of the Lollipop release). On the UI thread, we process input events, handle animations, perform layout, and record the drawing operations. Then the RenderThread (RT) sends the commands to the GPU.
 During most frames of a scroll, the RecyclerView has no problem doing what it needs to do, because there is no new content to deal with. During these frames, the UI thread processes input, handles animations, performs layout, and records drawing commands. It then syncs the drawing information over to the RenderThread (as of the [Lollipop](https://developer.android.com/about/versions/lollipop.html) release; prior releases do all of this work on the UI thread), which sends those commands over to the GPU.
