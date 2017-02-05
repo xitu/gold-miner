@@ -2,7 +2,7 @@
 * 原文作者：[Karthikraj](https://android.jlelse.eu/@twit2karthikraj?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[XHShirley](https://github.com/XHShirley)
-* 校对者：
+* 校对者：[jifaxu](https://github.com/jifaxu)，[tanglie1993](https://github.com/tanglie1993)
 
 
 # 安卓应用栏的滚动效果 #
@@ -39,7 +39,7 @@
 
 5. 弹性空白中重叠的内容滚动
 
-如果你想直接看代码，这里是 [Github](https://github.com/karthikraj-duraisamy/ScrollingBehaviorAndroid) 的仓库链接。
+如果你想直接看代码，这里是 [GitHub](https://github.com/karthikraj-duraisamy/ScrollingBehaviorAndroid) 的仓库链接。
 
 
 ### 基本设置 ###
@@ -287,7 +287,7 @@ app:layout_collapseMode="pin"/>
 与内容重叠的弹性空白的滚动效果
 
 
-在 **NestedScrollView** 或者 **RecyclerView** 中使用 **app:behaviour_overlapTop** 就可以达到这种效果。我们还要定义 `**CollapsingToolbarLayout**` 的高度。
+在 **NestedScrollView** 或者 **RecyclerView** 中使用 **app:behaviour_overlapTop** 就可以达到这种效果。我们还要定义 **CollapsingToolbarLayout** 的高度。
 
 ```
 <android.support.design.widget.AppBarLayout
@@ -331,7 +331,7 @@ app:layout_collapseMode="pin"/>
 这篇文章原来发表在[我的博客](http://karthikraj.net/2016/12/24/scrolling-behavior-for-appbars-in-android/)。
 
 
-示例应用的代码可以通过 [Github](https://github.com/karthikraj-duraisamy/ScrollingBehaviorAndroid) 下载。
+示例应用的代码可以通过 [GitHub](https://github.com/karthikraj-duraisamy/ScrollingBehaviorAndroid) 下载。
 
 
 如果你喜欢这篇文章，请在 [Medium](https://medium.com/@twit2karthikraj) 和 [Twitter](https://twitter.com/MeKarthikraj) 上关注我。你也可以在 [LinkedIn](https://in.linkedin.com/in/karthikrajduraisamy) 上找到我。
