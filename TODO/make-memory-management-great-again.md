@@ -66,7 +66,7 @@ RAM 就像个冰箱，你可以放吃的喝的，甚至衣服，就像我一样�
      }
     }
 
-顺便说一下，如果你不知道 `deinit` 是什么意思，那可以理解为与 `init` 相反。所以当你看到了 `init`,意味着你已经创建了一个对象，并把它放到了内存里。而 `deinit` 发生在对象在特定的位置已经被释放/取消分配/清除。
+顺便说一下，如果你不知道 `deinit` 是什么意思，那可以理解为与 `init` 相反。所以当你看到了 `init`，意味着你已经创建了一个对象，并把它放到了内存里。而 `deinit` 发生在对象在特定的位置已经被释放/取消分配/清除。
 
 让我们**通过它自己**创建一个对象，而不是用 `var` 或者 `let`
 
@@ -76,7 +76,6 @@ RAM 就像个冰箱，你可以放吃的喝的，甚至衣服，就像我一样�
 
 等等，为什么你创建了一个对象，却又被**正确删除**了？好吧，这是由于 ARC，我来解释。
 
-In order to maintain an object in memory, you must have a reference to something, and there must be a relationship. I know it sounds weird. Please bare with me for a bit.
 为了维持一个在内存中的对象，你必须有一个对象的引用，必须有一个关系，我知道这听上去很奇怪，请原谅我的词穷。
 
     var myPassPort: Passport? = Passport(citizenship: "Republic of Korea")
@@ -89,7 +88,7 @@ myPassport 持有了一个Passport 对象的引用/关系
 
 > **唯一法则**: 如果引用计数是零或者没有，那对象就会从内存里清除。
 
-*你可能会奇怪 *`*strong*`* 是什么意思. 它是一种默认的关系类型. 一个关系将引用计数加一, 稍后我会在什么时候用 *`*weak*`* 时解释。*
+*你可能会奇怪 **`strong`** 是什么意思. 它是一种默认的关系类型. 一个关系将引用计数加一, 稍后我会在什么时候用 **`weak`** 时解释。*
 
 现在，我要创建一个叫 `Human` 的类，这个就是在 `Passport` 里面的可选类型属性。
 
@@ -122,7 +121,7 @@ bob 对于 Human 和 myPassport 对于 Passport 是一样的
 所有的都被释放掉了
 在你设置他们为 `nil` 的时候，关系就不存在了，所以他们的引用计数变为 **0**，这导致他们都被释放。
 
-**但是，有时即使你设置了 **`**nil**`**，它还是不会释放内存，这可能是由于和对象和其他的对象还存在联系，导致引用计数不能为 0，这听上去很疯，那么我们来看一下。
+但是，有时即使你设置了 **`**nil**`**，它还是不会释放内存，这可能是由于和对象和其他的对象还存在联系，导致引用计数不能为 0，这听上去很疯，那么我们来看一下。
 
 
 `Human` 类有一个可选类型的属性 `Passport`，而 `Passport` 也有一个可选类型的属性 `Human`。（译者注：这里的 `Human` 在原文中是 `Human1`，肯定是笔误，所以纠正了。）
@@ -159,7 +158,6 @@ OK，现在，我们像刚才一样，把他们的值设置为 `nil`。
 
 非常棒，你已经走了很长一段路了。恭喜。现在，你会学习为什么我们使用 `weak`。唯一的目的是允许**释放对象**。
 
-Remember, **weak does not increase reference count. **Let’s add `weak` in front of the `passport` property within the `Human` class.
 记住，**弱引用不会增加引用计数**。让我们把 `weak` 加到 `Passport` 类 `Human` 属性的前面。
 
     class Passport {
