@@ -2,7 +2,7 @@
 * 原文作者：[Nolan Lawson](https://nolanlawson.com/about/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[luoyaqifei](http://www.zengmingxia.com)
-* 校对者：[fghpdf](https://github.com/fghpdf)，(Romeo0906)[https://github.com/Romeo0906]
+* 校对者：[fghpdf](https://github.com/fghpdf)，[Romeo0906](https://github.com/Romeo0906)
 
 # 怎样写一个能同时用于 Node 和浏览器的 JavaScript 包？#
 
