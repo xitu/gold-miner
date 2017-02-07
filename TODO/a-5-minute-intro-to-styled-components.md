@@ -1,10 +1,10 @@
 > * 原文地址：[A 5-minute Intro to Styled Components](https://medium.freecodecamp.com/a-5-minute-intro-to-styled-components-41f40eb7cd55#.z1nrxe1zr)
 * 原文作者：[Sacha Greif](https://medium.freecodecamp.com/@sachagreif)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[根号三](https://github.com/sqrthree)
 * 校对者：
 
-# A 5-minute Intro to Styled Components
+# 一个关于 Styled Components 的五分钟介绍
 
 ![](https://cdn-images-1.medium.com/max/2000/1*DIFji4ZmJa4_H3EpbG2XAw.png)
 
