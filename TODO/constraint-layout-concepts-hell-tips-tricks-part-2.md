@@ -34,8 +34,9 @@ Its time to ATTACK :).
 
 We need to download 2.3 Android studio. In previous versions Visual Editor is not good and that show some wrong info on Design Tab. So that is really important download 2.3 beta which is available when I am writing this post.
 
-**1. MATCH_PARENT not working:
-**When you try to give match_parent width/height to any view in Constraint layout. That will not work as show below (Automatically change by Editor).
+**1. MATCH_PARENT not working:**
+
+When you try to give match_parent width/height to any view in Constraint layout. That will not work as show below (Automatically change by Editor).
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-14-2017-08-31-31.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-14-2017-08-31-31.gif)
 
