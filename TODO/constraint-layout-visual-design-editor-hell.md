@@ -56,14 +56,15 @@ Now if you saw above image there are some icons. Its time to explain these icons
 
 Ok before start, I am giving names to these icons which is easy for me to explain later. I am going to start from left to right. **Eye** Icon, **Magnet** Icon, **Cross with Arrow** Icon, **Stars** icon, **Number** box, **Pack** icon, **Align** icon, **Guideline** icon, **ZoomIn** Icon, **ZoomOut** icon, **Fit to screen** icon, **Pan and Zoom** icon, **Warning and Error** icon.
 
-**[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.56.38-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.56.38-AM.png)Eye Icon: **
+[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.56.38-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.56.38-AM.png)**Eye Icon:**
 
 This is really helpful icon specially when we have a lot of views on our UI. If that is turn ON, its mean I can see all constraints of the views together. Like I am only managing one Button but I can see all other Views constraints and if that is turn OFF then you are only able to see the constraint of a selected view as shown below.
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-09-13-57-221x300.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-09-13-57.gif)
 
-**[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.55.08-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.55.08-AM.png)Magnet****Icon:
-**This icon will save lot of time. If you know properly how that work. Truly saying I am not good with this icon but here I am describing what I know. If that is turn OFF you can drag and drop or move your views in Design Editor but you need to give your constraints manually. If that is turn ON then lot of constraints with parent view automatically applied by the Editor.
+**[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.55.08-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.55.08-AM.png)Magnet** **Icon:**
+
+This icon will save lot of time. If you know properly how that work. Truly saying I am not good with this icon but here I am describing what I know. If that is turn OFF you can drag and drop or move your views in Design Editor but you need to give your constraints manually. If that is turn ON then lot of constraints with parent view automatically applied by the Editor.
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-09-29-49-221x300.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-09-29-49.gif)As shown above. First time icon is turned OFF and I move my ImageView to center but nothing happens later I turned ON magnet icon and magic start happening. I move ImageView to center and Editor automatically created constraint for me. WOW
 
@@ -143,9 +144,9 @@ Below you can see how you can create chain using Editor.
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-11-17-59-221x300.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-11-17-59.gif)
 
-**[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-11.57.13-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-11.57.13-AM.png)Align****icon:
+[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-11.57.13-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-11.57.13-AM.png)**Align icon:**
 
-**This icon contains 11 more icons in popup. In which four will work with single views and remaining work with multiple selected views.
+This icon contains 11 more icons in popup. In which four will work with single views and remaining work with multiple selected views.
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-11.24.49-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-11.24.49-AM.png)
 
@@ -188,12 +189,17 @@ Bottom four icons are also same only they work in vertical fashion.
 As we already discuss Guidelines in [part2](http://www.uwanttolearn.com/android/constraint-layout-concepts-hell-tips-tricks-part-2/). What are they and how we can get benefit. Here I am only going to show you. How you can add guidelines in your UI because these are not views. So for that we have this guideline icon, by using this we can add guidelines as shown below.
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-12-03-28-208x300.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-12-03-28.gif)
-**[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-12.04.52-PM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-12.04.52-PM.png)ZoomIn, ZoomOut, Fit to screen icon:**
+
+[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-12.04.52-PM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-12.04.52-PM.png)
+
+**ZoomIn, ZoomOut, Fit to screen icon:**
 
 My assumption is every body know these icons functionality so I am going to next one.
 
-**[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-12.04.59-PM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-12.04.59-PM.png)Pan and Zoom:
-**This icon is useful when I am doing my work on a very high level of zoom and I want scroll my UI as shown below.
+[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-12.04.59-PM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-12.04.59-PM.png)
+**Pan and Zoom:**
+
+This icon is useful when I am doing my work on a very high level of zoom and I want scroll my UI as shown below.
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-11-53-29-300x278.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-11-53-29.gif)
 
@@ -263,8 +269,9 @@ Its time to learn first property pane view new things which are shown below.
 
 There are two main things which we are going to explore. First the internal square which is used for view size. Second are blue lines outside of that internal square. These are used to manage our view constraints.
 
-**Internal square:
-**Internal square we can see in three forms.
+**Internal square:**
+
+Internal square we can see in three forms.
 
 1. Wrap content:
 
