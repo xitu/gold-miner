@@ -8,8 +8,9 @@ WOW, we got one more day so its time to make this day awesome by learning someth
 
 Hello Guys, Today we are going to learn Constraint Layout in Android.
 
-**Motivation:
-**I want to discuss my own experience with this awesome layout. When Google announced this layout, I start learning but I faced a lot of issues. I try to get some good tutorials but always get Visual Editor, Drag & Drop images in tutorials. Which not make sense for me. After two months I changed my strategy. I analysed my self and I got answer. I am good in XML with Linear, Relative, Frame … layouts, so I should work with XML of Constraint Layout but again when I drag drop some views on Visual Editor and opened a XML, I am in more difficult situation because there are lot of new tags which I don’t know. I am frustrated but I never give up. Then I changed again my strategy. I decided I will not use Visual Editor, create my own Relative Layout then convert to Constraint Layout. Now magic happens 🙂 , it took only one whole day and now I am really comfortable with Constraint Layout.
+**Motivation:**
+
+I want to discuss my own experience with this awesome layout. When Google announced this layout, I start learning but I faced a lot of issues. I try to get some good tutorials but always get Visual Editor, Drag & Drop images in tutorials. Which not make sense for me. After two months I changed my strategy. I analysed my self and I got answer. I am good in XML with Linear, Relative, Frame … layouts, so I should work with XML of Constraint Layout but again when I drag drop some views on Visual Editor and opened a XML, I am in more difficult situation because there are lot of new tags which I don’t know. I am frustrated but I never give up. Then I changed again my strategy. I decided I will not use Visual Editor, create my own Relative Layout then convert to Constraint Layout. Now magic happens 🙂 , it took only one whole day and now I am really comfortable with Constraint Layout.
 
 After that I choose the same strategy with Linear Layout to Constraint, Frame Layout to Constraint. Today I am choosing same strategy with this post. Every body has different learning and thinking capacity. So may be there is a possibility you are not agree with my approach but those who are struggling, I am giving you surety this approach is awesome. One more good news, now I know how I can use Visual Editor without any confusion. Every thing is crystal clear. Its time to start playing with our best friend **CONSTRAINT LAYOUT**.
 
@@ -31,8 +32,7 @@ Now our project is ready. As I selected Add No Activity. I have no Java and XML 
 
 In this whole post we most probably work with layouts files.
 
-**1. Relative to Constraint Layout:
-**
+**1. Relative to Constraint Layout:**
 
 Now I am going to make first Relative Layout and later we will change that into Constraint Layout.
 
@@ -62,20 +62,20 @@ Now I am going to explain XML. Important tags are **bold**.
 
         <!-- 4:3 ratio -->
         <ImageView
-    **        android:id="@+id/listingImageView"**
+            android:id="@+id/listingImageView"
             android:layout_width="96dp"
             android:layout_height="72dp"
             android:scaleType="centerCrop"
             android:src="@drawable/image" />
 
         <TextView
-    **        android:id="@+id/titleTextView"**
+            android:id="@+id/titleTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-    **        android:layout_toRightOf="@id/listingImageView"**
+            android:layout_toRightOf="@id/listingImageView"
             android:lines="1"
             android:text="Hey I am title"
             android:textSize="20sp"
@@ -83,13 +83,13 @@ Now I am going to explain XML. Important tags are **bold**.
             android:textStyle="bold" />
 
         <TextView
-    **        android:id="@+id/descriptionTextView"**
+            android:id="@+id/descriptionTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-    **        android:layout_below="@id/titleTextView"**
+            android:layout_below="@id/titleTextView"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-    **        android:layout_toRightOf="@id/listingImageView"**
+            android:layout_toRightOf="@id/listingImageView"
             android:ellipsize="end"
             android:lines="2"
             android:text="Hey I am description. Yes I am description. Believe on me I am description."
@@ -99,20 +99,25 @@ Now I am going to explain XML. Important tags are **bold**.
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-    **        android:layout_alignLeft="@id/descriptionTextView"****        android:layout_below="@id/listingImageView"**
+            android:layout_alignLeft="@id/descriptionTextView"
+            android:layout_below="@id/listingImageView"
             android:text="What! Button, Why " />
 
     </RelativeLayout>
 
 Now I think every body knows easily how I implemented this UI but for revision purposes I am taking important tags from UI.
 
-    **ImageView       android:id="@+id/listingImageView"**
+    ImageView       android:id="@+id/listingImageView"
 
-    **TextView        android:id="@+id/titleTextView"****[android:layout_toRightOf="@id/listingImageView"](https://developer.android.com/reference/android/widget/RelativeLayout.LayoutParams.html#attr_android:layout_toRightOf)**
+    TextView        android:id="@+id/titleTextView"
+                    android:layout_toRightOf="@id/listingImageView"
 
-    **TextView        android:id="@+id/descriptionTextView"**[**                android:layout_below="@id/titleTextView"**](https://developer.android.com/reference/android/widget/RelativeLayout.LayoutParams.html#attr_android:layout_below)[**                android:layout_toRightOf="@id/listingImageView"**](https://developer.android.com/reference/android/widget/RelativeLayout.LayoutParams.html#attr_android:layout_toRightOf)
+    TextView        android:id="@+id/descriptionTextView"
+                    android:layout_below="@id/titleTextView"
+                    android:layout_toRightOf="@id/listingImageView"
 
-    **Button          [android:layout_alignLeft="@id/descriptionTextView"](https://developer.android.com/reference/android/widget/RelativeLayout.LayoutParams.html#attr_android:layout_alignLeft)**[**                android:layout_below="@id/listingImageView"**](https://developer.android.com/reference/android/widget/RelativeLayout.LayoutParams.html#attr_android:layout_below)
+    Button          android:layout_alignLeft="@id/descriptionTextView"
+                    android:layout_below="@id/listingImageView"
 
 Now Its time to convert this layout into Constraint Layout. For that we need to add dependency into gradle file and sync.
 
@@ -144,11 +149,12 @@ Haha one short story.  At that time when I am learning, I created this UI withou
             android:layout_marginTop="16dp"
             android:scaleType="centerCrop"
             android:src="@drawable/image"
-            **app:layout_constraintLeft_toLeftOf="parent"****        app:layout_constraintTop_toTopOf="parent"** />
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/titleTextView"
-            **android:layout_width="0dp"**
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="5dp"
@@ -158,11 +164,13 @@ Haha one short story.  At that time when I am learning, I created this UI withou
             android:text="Hey I am title"
             android:textSize="20sp"
             android:textStyle="bold"
-            **app:layout_constraintLeft_toRightOf="@+id/listingImageView"****        app:layout_constraintRight_toRightOf="parent"****        app:layout_constraintTop_toTopOf="parent"** />
+            app:layout_constraintLeft_toRightOf="@+id/listingImageView"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/descriptionTextView"
-            **android:layout_width="0dp"**
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
@@ -171,7 +179,9 @@ Haha one short story.  At that time when I am learning, I created this UI withou
             android:lines="2"
             android:text="Hey I am description. Yes I am description. Believe on me I am description."
             android:textSize="16sp"
-            **app:layout_constraintLeft_toRightOf="@+id/listingImageView"****        app:layout_constraintRight_toRightOf="parent"****        app:layout_constraintTop_toBottomOf="@+id/titleTextView"** />
+            app:layout_constraintLeft_toRightOf="@+id/listingImageView"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
 
 
         <Button
@@ -181,7 +191,8 @@ Haha one short story.  At that time when I am learning, I created this UI withou
             android:layout_marginStart="0dp"
             android:layout_marginTop="0dp"
             android:text="What! Button, Why "
-            **app:layout_constraintLeft_toLeftOf="@+id/descriptionTextView"****        app:layout_constraintTop_toBottomOf="@+id/listingImageView"** />
+            app:layout_constraintLeft_toLeftOf="@+id/descriptionTextView"
+            app:layout_constraintTop_toBottomOf="@+id/listingImageView" />
 
     </android.support.constraint.ConstraintLayout>
 
@@ -191,8 +202,9 @@ Just like in Relative Layout we use **android:layout_toRightOf=”@id/abc” **m
 
 In Constraint Layout I need to mention about my current view plus the other view. I feel this is a secret recipe of Constraint Layout. Like below example. (**only focus on tag names not on concept**)
 
-    **app:layout_constraintLeft_toLeftOf="@+id/descriptionTextView
-    **Here if you do focus, I mentioned first "**layout_constraintLeft"_   **toLeftOf.
+    app:layout_constraintLeft_toLeftOf="@+id/descriptionTextView
+
+Here if you do focus, I mentioned first "layout_constraintLeft"_   toLeftOf.
 
 So I am saying hey take my left edge and then I am saying to take that edge toLeftOf given Id. Simple, now back to the topic.
 
@@ -204,35 +216,51 @@ For simplicity I am going to copy again only required tags which we need to disc
         android:layout_height="match_parent">
         <!-- 4:3 ratio -->
 
-    **ImageView       android:id="@+id/listingImageView"****app:layout_constraintLeft_toLeftOf="parent"****                app:layout_constraintTop_toTopOf="parent"** />
+    ImageView       android:id="@+id/listingImageView"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-    **TextView        android:id="@+id/titleTextView"****android:layout_width="0dp"****app:layout_constraintLeft_toRightOf="@+id/listingImageView"****                app:layout_constraintRight_toRightOf="parent"****                app:layout_constraintTop_toTopOf="parent"** />
+    TextView        android:id="@+id/titleTextView"
+                    android:layout_width="0dp"
+                    app:layout_constraintLeft_toRightOf="@+id/listingImageView"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-    **TextView        android:id="@+id/descriptionTextView"****android:layout_width="0dp"****app:layout_constraintLeft_toRightOf="@+id/listingImageView"****                app:layout_constraintRight_toRightOf="parent"****                app:layout_constraintTop_toBottomOf="@+id/titleTextView"** />
+    TextView        android:id="@+id/descriptionTextView"
+                    android:layout_width="0dp"
+                    app:layout_constraintLeft_toRightOf="@+id/listingImageView"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
 
-    **Button****app:layout_constraintLeft_toLeftOf="@+id/descriptionTextView"****                app:layout_constraintTop_toBottomOf="@+id/listingImageView"** />
+    Button          app:layout_constraintLeft_toLeftOf="@+id/descriptionTextView"
+                    app:layout_constraintTop_toBottomOf="@+id/listingImageView" />
 
 
 OK guys now I am taking here only descriptionTextView for explaining. Again remember the secret recipe of Constraint Layout. You need to mention first, current view and then other view.
 
-**android:id=”@+id/titleTextView”:****
-**I think that is simple. No need to explain.
+**android:id=”@+id/titleTextView”:**
 
-**android:layout_width=”0dp”:
-**Width 0dp means width should be managed by some other constraints. Which you will see later.
+I think that is simple. No need to explain.
 
-**app:layout_constraintLeft_toRightOf=”@+id/listingImageView”:
-**Now here I am giving order to renderer. Hey take my (Current TextView) left edge and place right of a ImageView (@+id/listingImageView). Hurray now we know how to use this layout. This is really simple if you grasp this reading strategy.
-**
-**** app:layout_constraintRight_toRightOf=”parent”:
-**Here I am giving order to renderer. Hey take my (Current TextView) right edge and place up to parent right edge. Now my width is the reamining space on UI from ImageView to the end of parent. That’s why we have 0dp width and managed here.
-**Imporant note: **
+**android:layout_width=”0dp”:**
+
+Width 0dp means width should be managed by some other constraints. Which you will see later.
+
+**app:layout_constraintLeft_toRightOf=”@+id/listingImageView”:**
+
+Now here I am giving order to renderer. Hey take my (Current TextView) left edge and place right of a ImageView (@+id/listingImageView). Hurray now we know how to use this layout. This is really simple if you grasp this reading strategy.
+
+**app:layout_constraintRight_toRightOf=”parent”:**
+
+Here I am giving order to renderer. Hey take my (Current TextView) right edge and place up to parent right edge. Now my width is the reamining space on UI from ImageView to the end of parent. That’s why we have 0dp width and managed here.
+
+**Imporant note:**
 
 There is not match_parent tag instead if you use, that will not work. You always need to use parent. Now question is why. I am not sure but what I feel parent will give more sense when you read your XML.
-**
 
-app:layout_constraintTop_toTopOf=”parent”:
-**Here I am giving order to renderer. Hey take my (Current TextView) top edge and place up to parent top edge. So it is just like I am always top parent true.
+**app:layout_constraintTop_toTopOf=”parent”:**
+
+Here I am giving order to renderer. Hey take my (Current TextView) top edge and place up to parent top edge. So it is just like I am always top parent true.
 
 Now most important thing you guys should do practice and you will learn in minutes. I give a lot of time to learn this layout but I want you should save your time.
 
@@ -260,11 +288,3 @@ After playing with these tags. When you feel comfortable. We will start new thin
 OK guys. Its time to say BYE. We will meet again in next post.
 
 [**Constraint Layout Concepts ( What the hell is this )[ (Tips and Tricks) Part 2 ]**](http://www.uwanttolearn.com/android/constraint-layout-concepts-hell-tips-tricks-part-2/)
-[![Share on Facebook](http://www.uwanttolearn.com/wp-content/plugins/social-media-feather/synved-social/image/social/regular/96x96/facebook.png)](http://www.facebook.com/sharer.php?u=http%3A%2F%2Fwww.uwanttolearn.com%2F%3Fp%3D803&amp;t=Constraint%20Layout%20%28%20What%20the%20hell%20is%20this%20%29&amp;s=100&amp;p[url]=http%3A%2F%2Fwww.uwanttolearn.com%2F%3Fp%3D803&amp;p[images][0]=http%3A%2F%2Fwww.uwanttolearn.com%2Fwp-content%2Fuploads%2F2017%2F01%2FScreen-Shot-2017-01-07-at-9.45.29-AM-300x173.png&amp;p[title]=Constraint%20Layout%20%28%20What%20the%20hell%20is%20this%20%29)
-[![Share on Twitter](http://www.uwanttolearn.com/wp-content/plugins/social-media-feather/synved-social/image/social/regular/96x96/twitter.png)](https://twitter.com/intent/tweet?url=http%3A%2F%2Fwww.uwanttolearn.com%2F%3Fp%3D803&amp;text=Hey%20check%20this%20out)
-[![Share on Google+](http://www.uwanttolearn.com/wp-content/plugins/social-media-feather/synved-social/image/social/regular/96x96/google_plus.png)](https://plus.google.com/share?url=http%3A%2F%2Fwww.uwanttolearn.com%2F%3Fp%3D803)
-[![Share on Reddit](http://www.uwanttolearn.com/wp-content/plugins/social-media-feather/synved-social/image/social/regular/96x96/reddit.png)](http://www.reddit.com/submit?url=http%3A%2F%2Fwww.uwanttolearn.com%2F%3Fp%3D803&amp;title=Constraint%20Layout%20%28%20What%20the%20hell%20is%20this%20%29)
-[![Pin it with Pinterest](http://www.uwanttolearn.com/wp-content/plugins/social-media-feather/synved-social/image/social/regular/96x96/pinterest.png)](http://pinterest.com/pin/create/button/?url=http%3A%2F%2Fwww.uwanttolearn.com%2F%3Fp%3D803&amp;media=http%3A%2F%2Fwww.uwanttolearn.com%2Fwp-content%2Fuploads%2F2017%2F01%2FScreen-Shot-2017-01-07-at-9.45.29-AM-300x173.png&amp;description=Constraint%20Layout%20%28%20What%20the%20hell%20is%20this%20%29)
-[![Share on Linkedin](http://www.uwanttolearn.com/wp-content/plugins/social-media-feather/synved-social/image/social/regular/96x96/linkedin.png)](http://www.linkedin.com/shareArticle?mini=true&amp;url=http%3A%2F%2Fwww.uwanttolearn.com%2F%3Fp%3D803&amp;title=Constraint%20Layout%20%28%20What%20the%20hell%20is%20this%20%29)
-[![Share by email](http://www.uwanttolearn.com/wp-content/plugins/social-media-feather/synved-social/image/social/regular/96x96/mail.png)](mailto:?subject=Constraint%20Layout%20%28%20What%20the%20hell%20is%20this%20%29&amp;body=Hey%20check%20this%20out:%20http%3A%2F%2Fwww.uwanttolearn.com%2F%3Fp%3D803)
-[by ![feather](http://www.uwanttolearn.com/wp-content/plugins/social-media-feather/synved-social/image/icon.png)](http://synved.com/wordpress-social-media-feather/)
