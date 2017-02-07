@@ -8,7 +8,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*DIFji4ZmJa4_H3EpbG2XAw.png)
 
-CSS 很不可思议，你可以在 15 分钟之内就学会一些基础部分，但是如果你要弄清楚一个好的方式来组织你的样式，将会花费数年时间。
+CSS 是一个很神奇的语言，你可以在 15 分钟之内就学会一些基础部分，但是如果你要找到一个好的方式来组织你的样式，将会花费数年时间。
 
 这主要是由于语言本身很奇葩。不合常规的是， CSS 是相当有限的，没有变量、循环或者函数。与此同时，它又是相当自由的，你可以随意使用元素、Class、ID 或它们的任意组合。
 
@@ -37,7 +37,7 @@ CSS 很不可思议，你可以在 15 分钟之内就学会一些基础部分，
       color: purple;
     }
 
-相反，你正在定义一个拥有它们自己的封装风格的 styled Components。然后你就可以在你的代码中自由的使用它们了。
+相反，你可以定义一个拥有它们自己的封装风格的 styled Components。然后你就可以在你的代码中自由的使用它们了。
 
     import styled from 'styled-components';
 
@@ -54,7 +54,7 @@ CSS 很不可思议，你可以在 15 分钟之内就学会一些基础部分，
 
 styled-components 的联合创造者 Max Stoiber 说：
 
-> styled-components 的基本思想就是通过移除样式和组件之间的映射关系来实施最佳实践。
+> styled-components 的基本思想就是通过移除样式和组件之间的映射关系来达到最佳实践。
 
 ### 减少复杂性
 
@@ -101,7 +101,7 @@ styled-components 的联合创造者 Max Stoiber 说：
 
     <Title className="primary">Hello World</Title> // will be blue
 
-这是一个让 styled-components 很容易就被接受的一个特性：当存在疑惑时，你总是可以倒退回你所知道的知识。
+这是让 styled-components 很容易就被接受的一个特性：当存在疑惑时，你总是可以倒退回你所熟悉的领域。
 
 ### 警告
 
@@ -115,7 +115,7 @@ styled-components 的联合创造者 Max Stoiber 说：
 
 ### 了解更多一点吧
 
-我这篇文章的目的不是向你解释 styled-components 的工作细节，更多的是给你一个小瞥。所以你可以自己决定是否值得一试。
+我这篇文章的目的不是向你详细解释 styled-components 是如何生效的，更多的是给你一个小瞥。所以你可以自己决定是否值得一试。
 
 如果我的文章让你感到好奇的话，这里有一些链接你可以了解更多关于 styled-components 的知识。
 
