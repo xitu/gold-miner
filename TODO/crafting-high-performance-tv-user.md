@@ -6,7 +6,7 @@
 
 # 使用 React 构建高性能的电视用户界面 
 
-我们在为 Netflix 会员努力寻找最佳体验的过程中也在不断优化其电视界面。例如，在进行[A/B 测试](http://techblog.netflix.com/2016/04/its-all-about-testing-netflix.html) 、眼球追踪研究以及研究用户反馈之后，我们最近推出了[视频预览](https://www.fastcompany.com/3066166/innovation-agents/netflix-launches-video-previews-how-the-company-landed-on-its-biggest-rede) 来帮助会员们更好地决定看什么。我们 [之前写过一篇文章](http://techblog.netflix.com/2013/11/building-new-netflix-experience-for-tv.html)中讲到了我们的电视应用是由一个预装在设备上面的 SDK，一个可以随时更新的 JavaScript 应用以及一个被称为 Gibbon 的渲染层组成的。在这篇文章中，我们会着重讲解在优化 JavaScript 应用性能的过程中使用的一些方法。
+我们在为 Netflix 会员努力寻找最佳体验的过程中也在不断优化其电视界面。例如，在进行[A/B 测试](http://techblog.netflix.com/2016/04/its-all-about-testing-netflix.html) 、眼球追踪研究以及研究用户反馈之后，我们最近推出了[视频预览](https://www.fastcompany.com/3066166/innovation-agents/netflix-launches-video-previews-how-the-company-landed-on-its-biggest-rede) 功能来帮助会员们更好地决定看什么。我们在之前写的 [一篇文章](http://techblog.netflix.com/2013/11/building-new-netflix-experience-for-tv.html)中讲到了我们的电视应用是由一个预装在设备上面的 SDK，一个可以随时更新的 JavaScript 应用以及一个被称为 Gibbon 的渲染层组成的。在这篇文章中，我们会着重讲解在优化 JavaScript 应用性能的过程中使用的一些方法。
 
 ## React-Gibbon
 
@@ -32,7 +32,7 @@ React.createClass({
 - 按键响应 —— 响应一个按键操作并渲染相关修改所用的时间。
 - 启动时间 —— 启动这个应用所用的时间。
 - 每秒帧数 —— 反映在我们动画的连续性和顺滑度。
-- 内存使用
+- 内存占用
 
 下文概述的策略主要的目标都是提高按键响应速度。它们都在我们的设备上被识别、测试、测量过，但在其它的环境中不一定适用。就像所有的『最佳实践』的建议一样，保持怀疑并确认他们在你的环境中和你的用例中可用是非常重要的。我们开始使用性能分析工具来识别正在执行的代码路径以及它们在总渲染时间中的份额； 这让我们观察到了一些有趣的现象。
 
@@ -66,11 +66,11 @@ render() {
 如你所见，我们完全移除了 createElement 函数调用的成本，一个软件优化上『我们能不能不这样』思维的胜利。
 我们想知道这个技术是否可以在我们的整个应用中使用，从而完全避免调用 createElement 函数。结果我们发现如果在元素中使用了 ref ，createElement 就需要被调用，以便在运行时连接所有者。如果你使用了 [扩展属性](https://facebook.github.io/react/docs/jsx-in-depth.html#spread-attributes) 而其中包含 ref 值，也是同样的道理。（之后我们会重新谈到这一点）
 
-我们使用了一个定制化的 Babel 插件来进行元素的内联，不过现在你有可以用 [官方插件](https://babeljs.io/docs/plugins/transform-react-inline-elements/) 来做这件事。这个官方插件会调用一个之后会消失的辅助函数而不是使用对象字面量，这要归功于 V8 的魔法 [函数内联](https://ariya.io/2013/04/automatic-inlining-in-javascript-engines)。然而，在使用了我们的插件之后，仍然有不少的组件没有被内联，尤其是在我们应用内占有很大比例的高阶组件。
+我们使用了一个定制化的 Babel 插件来进行元素的内联，不过现在你也可以用 [官方插件](https://babeljs.io/docs/plugins/transform-react-inline-elements/) 来做这件事。这个官方插件会调用一个之后会消失的辅助函数而不是使用对象字面量，这要归功于 V8 的魔法 [函数内联](https://ariya.io/2013/04/automatic-inlining-in-javascript-engines)。然而，在使用了我们的插件之后，仍然有不少的组件没有被内联，尤其是在我们应用内占有很大比例的高阶组件。
 
 ### 问题： 高阶组件不能使用内联
 
-我们很喜欢替代了 mixin 的 [高阶组件](https://facebook.github.io/react/docs/higher-order-components.html)。它既能在行为上分层，又能保持关注的分离。我们希望在我们的高阶组件中利用内联的好处，但是我们碰到了一个难题：高阶组件通常表现为他们的属性的传递者。这就自然的引入了属性扩展符，从而阻止 Babel 插件进行内联操作。
+我们喜欢将 [高阶组件](https://facebook.github.io/react/docs/higher-order-components.html) 作为 mixin 的替代品。它既能在行为上分层，又能保持关注的分离。我们希望在我们的高阶组件中利用内联的好处，但是我们碰到了一个难题：高阶组件通常表现为他们的属性的传递者。这就自然的引入了属性扩展符，从而阻止 Babel 插件进行内联操作。
 
 当我们开始重写我们的应用时，我们决定渲染层的所有交互需要经过声明式 API。例如，我们不会这样做：
 ```
