@@ -2,11 +2,11 @@
 * 原文作者 : [Ian McKay](https://twitter.com/madcapnmckay)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [Professor-Z](https://github.com/Professor-Z)
-* 校对者 : 
+* 校对者 : [SumiMakito](https://github.com/SumiMakito) [zhouzihanntu](https://github.com/zhouzihanntu)
 
 # 使用 React 构建高性能的电视用户界面 
 
-我们在为 Netflix 会员努力寻找最佳体验的过程中也在不断优化其电视界面。例如，在进行[A/B 测试](http://techblog.netflix.com/2016/04/its-all-about-testing-netflix.html) 、眼球追踪研究以及研究用户反馈之后，我们最近推出了[视频预览](https://www.fastcompany.com/3066166/innovation-agents/netflix-launches-video-previews-how-the-company-landed-on-its-biggest-rede) 功能来帮助会员们更好地决定看什么。我们在之前写的 [一篇文章](http://techblog.netflix.com/2013/11/building-new-netflix-experience-for-tv.html)中讲到了我们的电视应用是由一个预装在设备上面的 SDK，一个可以随时更新的 JavaScript 应用以及一个被称为 Gibbon 的渲染层组成的。在这篇文章中，我们会着重讲解在优化 JavaScript 应用性能的过程中使用的一些方法。
+我们在为 Netflix 会员努力寻找最佳体验的过程中也在不断优化其电视界面。例如，在进行 [A/B 测试](http://techblog.netflix.com/2016/04/its-all-about-testing-netflix.html) 、眼球追踪研究以及研究用户反馈之后，我们最近推出了 [视频预览](https://www.fastcompany.com/3066166/innovation-agents/netflix-launches-video-previews-how-the-company-landed-on-its-biggest-rede) 功能来帮助会员们更好地决定看什么。我们在之前写的 [一篇文章](http://techblog.netflix.com/2013/11/building-new-netflix-experience-for-tv.html) 中讲到了我们的电视应用是由一个预装在设备上面的 SDK，一个可以随时更新的 JavaScript 应用以及一个被称为 Gibbon 的渲染层组成的。在这篇文章中，我们会着重讲解在优化 JavaScript 应用性能的过程中使用的一些方法。
 
 ## React-Gibbon
 
@@ -23,7 +23,7 @@ React.createClass({
 
 ## 性能是一个关键的挑战
 
-我们的应用运行在数百种设备上 —— 从最大的游戏机如 PS4 Pro 到内存和处理器性能都有限的消费电子产品。我们要面对的低端电子设备常常有着低于 1 GHz 的单核 CPU，低内存和有限的图像处理加速能力。让事情更有挑战性的是，我们的 JavaScript 运行环境是没有 JIT 的老版本的 JavaScriptCore。这些限制让实现超高响应的 60 fps 的体验变得尤其棘手，使得React-Gibbon 和 React-DOM 有了很多差异。
+我们的应用运行在数百种设备上 —— 从最大的游戏机如 PS4 Pro 到内存和处理器性能都有限的消费电子产品。我们要面对的低端电子设备常常有着低于 1 GHz 的单核 CPU，低内存和有限的图像处理加速能力。让事情更有挑战性的是，我们的 JavaScript 运行环境是没有 JIT 的老版本的 JavaScriptCore。这些限制让实现超高响应的 60 fps 的体验变得尤其棘手，使得 React-Gibbon 和 React-DOM 有了很多差异。
 
 ### 测量，测量，测量
 
