@@ -2,7 +2,7 @@
 * 原文作者：[Sacha Greif](https://medium.freecodecamp.com/@sachagreif)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[根号三](https://github.com/sqrthree)
-* 校对者：
+* 校对者：[Tina92](https://github.com/Tina92)、[lovelyCiTY](https://github.com/lovelyCiTY)
 
 # 一个关于 Styled Components 的五分钟介绍
 
