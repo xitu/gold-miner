@@ -1,22 +1,22 @@
 > * 原文地址：[Constraint Layout ( What the hell is this )](http://www.uwanttolearn.com/android/constraint-layout-hell/)
 * 原文作者：[Hafiz Waleed Hussain](http://www.uwanttolearn.com/about/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[jifaxu](https://github.com/jifaxu)
 * 校对者：
 
-WOW, we got one more day so its time to make this day awesome by learning something new :).
+喔，又是新的一天，为了不浪费这宝贵的时光，让我们来学点新知识吧 :)。
 
-Hello Guys, Today we are going to learn Constraint Layout in Android.
+大家好，今天让我们学习 Android 里的 Constraint 布局。
 
-**Motivation:**
+**动机：**
 
-I want to discuss my own experience with this awesome layout. When Google announced this layout, I start learning but I faced a lot of issues. I try to get some good tutorials but always get Visual Editor, Drag & Drop images in tutorials. Which not make sense for me. After two months I changed my strategy. I analysed my self and I got answer. I am good in XML with Linear, Relative, Frame … layouts, so I should work with XML of Constraint Layout but again when I drag drop some views on Visual Editor and opened a XML, I am in more difficult situation because there are lot of new tags which I don’t know. I am frustrated but I never give up. Then I changed again my strategy. I decided I will not use Visual Editor, create my own Relative Layout then convert to Constraint Layout. Now magic happens 🙂 , it took only one whole day and now I am really comfortable with Constraint Layout.
+我想先讨论一下我在学习这个很酷的布局时的经验。当 Google 发布这个布局后我就开始学习了，在这个过程中我遇到了很多的问题。我像找一些优秀的教程，但是结果都是一些教我在可视化编辑器里拖拽图片的东西，这些对我一点用都没有。两个月之后我改变了我的方法。通过分析我自己的特点我找到了答案。我擅长用 XML 来编写 LinearLayout，RelativeLayout，FrameLayout 等，所以我觉得我应该通过 XML 来学习 ConstraintLayout。但是当我在可视化编辑器里添加了一些组件并打开 XML 文件的时候，我再一次陷入了困境，这里面有太多我不认识的新属性了。虽然感到很沮丧但我并不打算就此放弃。再一次地，我改变了方法，这次我决定放弃可视化编辑器，创建一个 RelativeLayout 再将它转换成 ConstraintLayout。一切尽在意料之中，这次我只用了一天就掌握了它 🙂，现在我已经习惯使用 ConstraintLayout 了。
 
-After that I choose the same strategy with Linear Layout to Constraint, Frame Layout to Constraint. Today I am choosing same strategy with this post. Every body has different learning and thinking capacity. So may be there is a possibility you are not agree with my approach but those who are struggling, I am giving you surety this approach is awesome. One more good news, now I know how I can use Visual Editor without any confusion. Every thing is crystal clear. Its time to start playing with our best friend **CONSTRAINT LAYOUT**.
+在这之后，我又同样的方法将 LinearLayout 和 FrameLayout 转成了 ConstraintLayout。今天我将会在这篇博客中使用同样的方法。每个人脑回路都不太一样，所以有可能你并不认同我的方法。但是对于哪些苦于不知如何入手的朋友们，我可以向你保证这个方法时值得一试的。还有一个好消息那就是现在我知道如何顺畅的使用可视化编辑器了。事情已经说的很清楚了，现在是时候开始学习 **CONSTRAINT LAYOUT** 了。
 
-We need to download 2.3 Android studio. In previous versions Visual Editor is not good and that show some wrong info on Design Tab. So that is really important download 2.3 beta which is available when I am writing this post.
+首先我们需要下载 Android Studio 2.3。在这之前的可视化编辑器做的不够好，而且在 Design 标签栏里还有一些问题。所以一定要下载 2.3 beta 版。
 
-Create a new project.
+创建新工程
 
 [![Create a new project.](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-07-at-9.39.45-AM-300x152.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-07-at-9.39.45-AM.png)
 
@@ -26,40 +26,40 @@ Create a new project.
 
 [![screen-shot-2017-01-07-at-9-45-29-am](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-07-at-9.45.29-AM-300x173.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-07-at-9.45.29-AM.png)
 
-Now our project is ready. As I selected Add No Activity. I have no Java and XML layout files in our project as shown below.
+现在，我们的工程已经准备好了。因为我选了 No Activity，所以在工程里没有 Java 和 XML 布局文件。如下所示。
 
 [![screen-shot-2017-01-07-at-9-53-17-am](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-07-at-9.53.17-AM-300x267.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-07-at-9.53.17-AM.png)
 
-In this whole post we most probably work with layouts files.
+我们将主要围绕布局文件来构建这篇文章。
 
-**1. Relative to Constraint Layout:**
+**1. 从 RelativeLayout 到 ConstraintLayout：**
 
-Now I am going to make first Relative Layout and later we will change that into Constraint Layout.
+现在我会创建第一个 RelativeLayout，之后我们将把它转化成 ConstraintLayout。
 
 [![screen-shot-2017-01-07-at-10-11-05-am](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-07-at-10.11.05-AM-1024x437.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-07-at-10.11.05-AM.png)
 
-As shown above. We can see, that is the most used design pattern in Android lists. How I achieve this I will show you later in XML. Only first focus on Arrows which you can see easily in image. Basically these arrows are telling you how we use relative layout tags to manage this UI.
+从上图我们可以看到这是一个最常见 Android 列表中的设计。我会在下面向你展示我是如何通过 XML 实现的。现在只简单的关注图片上一眼就可以看到的箭头。从这些箭头可以看出来我们是怎样用 RelativeLayout 的属性来实现位置关系的。
 
-Like Title TextView is android:layout_toRightOf ImageView.
+比如标题 TextView 就是 android:layout_toRightOf ImageView 的。
 
-As a user requirement
+作为一个用户我有这些需求
 
-1. I want a ImageView on left side of screen having 4:3 ratio in size.
+1. 我想一个贴靠屏幕左侧并且宽高比为 4:3 的 ImageView。
 
-2. I want a Title with one line text after Image view up to end of screen.
+2. 我想要一个单行标题，它应该在图片的右边。
 
-3. I want a Description, below title and after image view up to end of a screen with max 2 lines.
+3. 我想要一个描述，在图片右边标题下边，最多两行。
 
-4. I want a Button, below ImageView and left align with description.
+4. 我想要一个按钮，在图片下边并且和描述左对齐
 
-Now I am going to explain XML. Important tags are **bold**.
+现在我会去解释 XML。重要的属性会**加粗**显示。
 
     <?xml version="1.0" encoding="utf-8"?>
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="16dp">
-
+    
         <!-- 4:3 ratio -->
         <ImageView
             android:id="@+id/listingImageView"
@@ -67,7 +67,7 @@ Now I am going to explain XML. Important tags are **bold**.
             android:layout_height="72dp"
             android:scaleType="centerCrop"
             android:src="@drawable/image" />
-
+    
         <TextView
             android:id="@+id/titleTextView"
             android:layout_width="match_parent"
@@ -79,9 +79,9 @@ Now I am going to explain XML. Important tags are **bold**.
             android:lines="1"
             android:text="Hey I am title"
             android:textSize="20sp"
-
+    
             android:textStyle="bold" />
-
+    
         <TextView
             android:id="@+id/descriptionTextView"
             android:layout_width="match_parent"
@@ -95,43 +95,43 @@ Now I am going to explain XML. Important tags are **bold**.
             android:text="Hey I am description. Yes I am description. Believe on me I am description."
             android:textSize="16sp"
             />
-
+    
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@id/descriptionTextView"
             android:layout_below="@id/listingImageView"
             android:text="What! Button, Why " />
-
+    
     </RelativeLayout>
 
-Now I think every body knows easily how I implemented this UI but for revision purposes I am taking important tags from UI.
+现在我想每个人都可以很轻松的知道我是如何实现这个 UI 的了。为了更突出一点，我将 UI 中重要的属性单独拿出来了。
 
     ImageView       android:id="@+id/listingImageView"
 
     TextView        android:id="@+id/titleTextView"
                     android:layout_toRightOf="@id/listingImageView"
-
+    
     TextView        android:id="@+id/descriptionTextView"
                     android:layout_below="@id/titleTextView"
                     android:layout_toRightOf="@id/listingImageView"
-
+    
     Button          android:layout_alignLeft="@id/descriptionTextView"
                     android:layout_below="@id/listingImageView"
 
-Now Its time to convert this layout into Constraint Layout. For that we need to add dependency into gradle file and sync.
+现在是时候把这个布局转换成 ConstraintLayout 了。首先我们需要在 gradle 文件里增加依赖并同步。
 
      compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
 
-Now our UI is ready in Constraint Layout as shown below.
+如下图示，现在我们的 UI 已经是 ConstraintLayout 了。
 
 [![screen-shot-2017-01-07-at-10-49-16-am](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-07-at-10.49.16-AM-1024x568.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-07-at-10.49.16-AM.png)
 
-This is 100% just like Relative Layout. This time may be you can ask this question. Why I am not showing arrows on this image? So for that my answer is, I don’t want to confuse you. So guys now I am ready to show you image with arrows but promise don’t confuse only saw below image, enjoy and start reading don’t do focus a lot. 🙂
+这和 RelativeLayout 的效果是百分百相同的。你可能要问了。为什么我没有在这张图里显示箭头。那是因为我不想搅乱你的思绪。马上我就会向你展示带箭头的图像，但是你得保证不只关注下面这张图，开始阅读和享受吧。🙂
 
 [![screen-shot-2017-01-07-at-10-49-47-am](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-07-at-10.49.47-AM-1024x632.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-07-at-10.49.47-AM.png)
 
-Haha one short story.  At that time when I am learning, I created this UI without seeing Visual Editor but when I opened, I am amazed what I did, how I did. So after learning XML I can do this same thing using Visual Editor in minutes. So its time to learn first its XML. Important tags are **bold.**
+哈哈，再说一件事。当我学习到这个阶段是，我不依赖可视化编辑器创建了这个 UI，但是当我打开可视化编辑器了，我对自己做到的事感到惊讶。所以在学习了 XML 之后，我可以在几分钟之类通过可视化编辑器完成同样的事了。现在是时候从 XML 开始学习了。重要的属性已经被**加粗**显示。
 
     <?xml version="1.0" encoding="utf-8"?>
     <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -139,7 +139,7 @@ Haha one short story.  At that time when I am learning, I created this UI withou
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <!-- 4:3 ratio -->
-
+    
         <ImageView
             android:id="@+id/listingImageView"
             android:layout_width="96dp"
@@ -151,7 +151,7 @@ Haha one short story.  At that time when I am learning, I created this UI withou
             android:src="@drawable/image"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
+    
         <TextView
             android:id="@+id/titleTextView"
             android:layout_width="0dp"
@@ -167,7 +167,7 @@ Haha one short story.  At that time when I am learning, I created this UI withou
             app:layout_constraintLeft_toRightOf="@+id/listingImageView"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
+    
         <TextView
             android:id="@+id/descriptionTextView"
             android:layout_width="0dp"
@@ -193,82 +193,85 @@ Haha one short story.  At that time when I am learning, I created this UI withou
             android:text="What! Button, Why "
             app:layout_constraintLeft_toLeftOf="@+id/descriptionTextView"
             app:layout_constraintTop_toBottomOf="@+id/listingImageView" />
-
+    
     </android.support.constraint.ConstraintLayout>
 
-Before jumping into more detail. I want to clear one thing. Basically this is a secret recipe of Constraint Layout in my opinion. How to read XML tags.
+在了解更多细节之前，我要说明一件事。阅读 XML 的方法是我的秘密武器。
 
-Just like in Relative Layout we use **android:layout_toRightOf=”@id/abc” **means take my current View to right of the given resource view. So its mean Editor automatically knows we are talking about current view. I did not mention any thing about my current view. I only mentioned the other view by using id.
+就像在 RelativeLayout 中，当我们使用 **android:layout_toRightOf="@id/abc"** 就代表着当前的组件在源组件的右边。这意味着编辑器自动的识别出了我们指的是当前的组件。我不需要额外的声明我操作的是哪个组件，只需要通过 id 引用其它组件就好了。
 
-In Constraint Layout I need to mention about my current view plus the other view. I feel this is a secret recipe of Constraint Layout. Like below example. (**only focus on tag names not on concept**)
+但在 ConstraintLayout 中，我需要同时指出当前的组件和别的组件。这是 ConstraintLayout 的一个特点。就像下面的例子一样。(**只需要关注属性名，暂时别去想它是干嘛的**)
+
 
     app:layout_constraintLeft_toLeftOf="@+id/descriptionTextView
 
-Here if you do focus, I mentioned first "layout_constraintLeft"_   toLeftOf.
+如果你看了就知道我指的是 "layout_constraintLeft_toLeftOf"。
 
-So I am saying hey take my left edge and then I am saying to take that edge toLeftOf given Id. Simple, now back to the topic.
+我对这个组件说，嗨，把你的的左边缘和有这个 id 的组件的左边对齐。简单，现在回到正题吧。
 
-For simplicity I am going to copy again only required tags which we need to discuss.
+为了简单考虑，我还是将我们需要的属性单独弄出来讨论。
+
 
     <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <!-- 4:3 ratio -->
-
+    
     ImageView       android:id="@+id/listingImageView"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-
+    
     TextView        android:id="@+id/titleTextView"
                     android:layout_width="0dp"
                     app:layout_constraintLeft_toRightOf="@+id/listingImageView"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-
+    
     TextView        android:id="@+id/descriptionTextView"
                     android:layout_width="0dp"
                     app:layout_constraintLeft_toRightOf="@+id/listingImageView"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
-
+    
     Button          app:layout_constraintLeft_toLeftOf="@+id/descriptionTextView"
                     app:layout_constraintTop_toBottomOf="@+id/listingImageView" />
 
 
-OK guys now I am taking here only descriptionTextView for explaining. Again remember the secret recipe of Constraint Layout. You need to mention first, current view and then other view.
+现在我们就只讨论描述文字。把之前提到的 ConstraintLayout 的特点记在脑子里，你得先说明当前组件和其它组件。
 
 **android:id=”@+id/titleTextView”:**
 
-I think that is simple. No need to explain.
+我想这够简单，不需要解释。
 
 **android:layout_width=”0dp”:**
 
-Width 0dp means width should be managed by some other constraints. Which you will see later.
+宽 0dp 说明宽应当被别的约束控制，你会在下面看到它。
 
 **app:layout_constraintLeft_toRightOf=”@+id/listingImageView”:**
 
-Now here I am giving order to renderer. Hey take my (Current TextView) left edge and place right of a ImageView (@+id/listingImageView). Hurray now we know how to use this layout. This is really simple if you grasp this reading strategy.
+在这里我指定了渲染的顺序。嗨，把我(当前的 TextView)的左边缘放在 ImageView(@+id/listingImageView) 的右边。欢呼吧，现在我们已经知道该如何使用这个布局。只要你掌握了阅读的方法就是很简单的。
 
 **app:layout_constraintRight_toRightOf=”parent”:**
 
-Here I am giving order to renderer. Hey take my (Current TextView) right edge and place up to parent right edge. Now my width is the reamining space on UI from ImageView to the end of parent. That’s why we have 0dp width and managed here.
+在这里我指定了渲染的顺序。嗨，让我(当前的 TextView)的右边缘和父组件的右边对齐。现在，我的宽度就是从 ImageView 的右边到父组件右边这么多了。这就是为什么我们将宽度设为 0dp。
 
-**Imporant note:**
+**重要的笔记：**
 
-There is not match_parent tag instead if you use, that will not work. You always need to use parent. Now question is why. I am not sure but what I feel parent will give more sense when you read your XML.
+这里没有 match_parent 属性，就算你用了也没用。你必须使用 parent 属性。你肯定要问为什么了，可是我也不知道。但是我觉得使用 parent 会让你在阅读 XML 更明确。
+
 
 **app:layout_constraintTop_toTopOf=”parent”:**
 
-Here I am giving order to renderer. Hey take my (Current TextView) top edge and place up to parent top edge. So it is just like I am always top parent true.
+在这里我指定了渲染的顺序。嗨，把我(当前的 TextView)的上边缘和父组件的上边缘对齐。这样我就始终在上面了。
 
-Now most important thing you guys should do practice and you will learn in minutes. I give a lot of time to learn this layout but I want you should save your time.
+现在大家最重要的事就是去练习练习了。我花费了大量的时间去学习这个布局，但希望你能节省点时间。
 
-Now I want to show you a complete image. How our image is showing in Visual Editor.
+现在我想向你展示完成时的可视化编辑器显示的样子。
 
 [![screen-shot-2017-01-07-at-11-24-22-am](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-07-at-11.24.22-AM-1024x798.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-07-at-11.24.22-AM.png)
 
-Here guys you can take a break. Try to implement this same example, after that I am 100% sure you are comfortable with this layout, play with other XML tags which I mention below.
+现在你可以暂停一下了。尝试去实现实现同样的例子。当你完成适应了这个布局就可以尝试我下面提到的这些属性了。
 
     app:layout_constraintTop_toTopOf="@id/view"
     app:layout_constraintTop_toBottomOf="@id/view"
@@ -283,8 +286,8 @@ Here guys you can take a break. Try to implement this same example, after that I
     app:layout_constraintEnd_toStartOf="@id/view"
     app:layout_constraintEnd_toEndOf="@id/view"
 
-After playing with these tags. When you feel comfortable. We will start new things about Constraint Layout in next post. Really important grasp these tags after that all new concepts in Constraint Layout are nothing.
+在试过之后。找一个合适的时间，我们将会在下一篇文章中说一些 ConstraintLayout 的新知识。掌握了这些属性时候学点新东西也就不是什么难事了。
 
-OK guys. Its time to say BYE. We will meet again in next post.
+那么大家，是时候说再见了。让我们在下一篇文章中再会。
 
 [**Constraint Layout Concepts ( What the hell is this )[ (Tips and Tricks) Part 2 ]**](http://www.uwanttolearn.com/android/constraint-layout-concepts-hell-tips-tricks-part-2/)
