@@ -86,7 +86,7 @@ styled-components 的联合创造者 Max Stoiber 说：
 
     <Title primary>Hello World</Title> // will be blue
 
-正如你所看到的那样，styled-components 通过保留所有的 CSS 和 HTML 之间的相关实现细节来让你的 React 组件更干净。
+正如你所看到的那样，styled-components 通过将所有的 CSS 和 HTML 之间的相关实现细节（从组件中）分离出来使你的 React 组件更干净。
 
 也就是说，styled-components 的 CSS 仍然还是 CSS。所以像下面这样的代码也是完全有效的（尽管略微不常用）。
 
