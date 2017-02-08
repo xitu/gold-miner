@@ -4,7 +4,6 @@
 * 译者：[XHShirley](https://github.com/XHShirley)
 * 校对者：[yazhi1992](https://github.com/yazhi1992)，[DeadLion](https://github.com/DeadLion)
 
-# Reactive Apps with Model-View-Intent - Part1 - Model #
 # Model-View-Intent 模式下的响应式应用 － 第一部分 － Model（模型） #
 
 当我想明白原来我的模型类一直被我用错了，一大堆以前我遇到的安卓平台相关的问题就都消失了。更重要的是，我终于使用RxJava和模型-视图-意图模型来构建响应式应用了，因为我从来没成功过，尽管我已经构建过很多响应式应用，但与我马上要在博客上写的这一系列不是一个等级的。在第一部分，我想讲讲模型以及为什么模型这么重要。
@@ -20,10 +19,13 @@ class PersonsPresenter extends Presenter<PersonsView> {
     getView().showLoading(true); // 在屏幕上显示进度条
     backend.loadPersons(new Callback(){
       public void onSuccess(List<Person> persons){
-        getView().showPersons(persons); // 在屏幕上显示一份人员名单      }
+        getView().showPersons(persons); // 在屏幕上显示一份人员名单      
+      }
 
       public void onError(Throwable error){
-        getView().showError(error); // 在屏幕上显示一个错误信息      }
+        getView().showError(error); // 在屏幕上显示一个错误信息      
+      }
+      
     });
   }
 }
@@ -70,7 +72,7 @@ class PersonsPresenter extends Presenter<PersonsView> {
 }
 ```
 
-现在，视图有一个模型可以显示在屏幕上。这并不是什么新的概念。Trygve Reenskaug 所定义的最原始的 MVC 有相近的概念：视图观察模型的改变。不幸的是，MVC 这个名词一直被误用于描述很多不同于 Reenskaug 在1979年所定义的模式。例如，后端开发者使用 MVC 架构，iOS 使用 VieController。但在 Android 里 MVC 到底意味着什么呢？Activity 是控制器吗？那么 ClickListener 是什么呢？如今，大家对于 MVC 这个名词有很大的误解并且被误用，已经曲解了 Reenskaug 的原意。让我们先不急着讨论 MVC，这可能会让我们偏离正轨。
+现在，视图有一个模型可以显示在屏幕上。这并不是什么新的概念。Trygve Reenskaug 所定义的最原始的 MVC 有相近的概念：视图观察模型的改变。不幸的是，MVC 这个名词一直被误用于描述很多不同于 Reenskaug 在 1979 年所定义的模式。例如，后端开发者使用 MVC 架构，iOS 使用 VieController。但在 Android 里 MVC 到底意味着什么呢？Activity 是控制器吗？那么 ClickListener 是什么呢？如今，大家对于 MVC 这个名词有很大的误解并且被误用，已经曲解了 Reenskaug 的原意。让我们先不急着讨论 MVC，这可能会让我们偏离正轨。
 
 我们回到我最初的论点。一个“模型”解决了很多我们在安卓开发中常遇到并头疼的问题。
 
@@ -93,7 +95,7 @@ class PersonsPresenter extends Presenter<PersonsView> {
 
 ## 1. 状态问题 ##
 
-响应式应用 － 真是一个时髦的词语。我用这个词来表达一个应用通过 UI 来响应状态的改变。啊，对，我们有另外一个词：“State（状态）”。什么是“State”呢？其实，通常我们把“State”描述为我们在屏幕上的所见，比如视图显示进度条时表示“正在加载的状态”。关键在于：我们的前端开发者趋于关注 UI。这并不一定是一件坏事因为最终用户是否会使用我们的应用是由 UI 的好坏决定，而这也决定了一个应用的成败。但是，看一下上面简单的 MVP 例子（没有用到 PersonsModel 的那个）。在这里，UI 的状态是与 Presenter（提供器）协作的，因为显示器会告诉视图需要显示什么。同样地，这也适用于 MVVM。在这篇博客里，我想要区别两种 MVVM 实现：第一种使用安卓的数据绑定，第二种使用 RxJava。在使用数据绑定的 MVVM 模式中，状态直接放在 ViewModel（视图模型）中：
+响应式应用 － 真是一个时髦的词语。我用这个词来表达一个应用通过 UI 来响应状态的改变。啊，对，我们有另外一个词：“State（状态）”。什么是 “State” 呢？其实，通常我们把 “State” 描述为我们在屏幕上的所见，比如视图显示进度条时表示“正在加载的状态”。关键在于：我们的前端开发者趋于关注 UI。这并不一定是一件坏事因为最终用户是否会使用我们的应用是由 UI 的好坏决定，而这也决定了一个应用的成败。但是，看一下上面简单的 MVP 例子（没有用到 PersonsModel 的那个）。在这里，UI 的状态是与 Presenter（提供器）协作的，因为显示器会告诉视图需要显示什么。同样地，这也适用于 MVVM。在这篇博客里，我想要区别两种 MVVM 实现：第一种使用安卓的数据绑定，第二种使用 RxJava。在使用数据绑定的 MVVM 模式中，状态直接放在 ViewModel（视图模型）中：
 
 ```
 class PersonsViewModel {
