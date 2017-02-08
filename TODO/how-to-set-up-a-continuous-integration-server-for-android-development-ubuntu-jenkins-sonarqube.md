@@ -18,7 +18,7 @@
 
 - Android App 配置需求。
 
-### 第 1 步 —— 安装 Ubuntu： ###
+### 第 1 步 —— 安装 Ubuntu： ###
 
 我之所以选择 Ubuntu 作为 CI 的操作系统，是因为它有着强大的社区，方便对可能遇到的问题寻求帮助，我个人建议使用最新的 LTS 版本，目前是 16.04 LTS。因为有许多 Ubuntu 安装教程（虚拟机和真机），所以这里我只提供下载链接。
 
@@ -44,7 +44,7 @@ $ sudo apt-get install openssh-server
 [**NoMachine - 对任何人都免费**](https://www.nomachine.com/download)
 
 
-### 第 3 步 —— 环境配置 ###
+### 第 3 步 —— 环境配置 ###
 
 下面我将安装 Jenkins pull 代码、编译运行 android 项目所依赖工具，包括 JAVA8，Git，和 Android SDK。
 
@@ -92,7 +92,7 @@ $ sudo apt install git
 [**下载 Android Studio 和 SDK 工具 | Android Studio**](https://developer.android.com/studio/index.html)
 
 
-你可以看到 “***Get just the command line tools***”，复制像下面的链接：
+你可以看到 “**Get just the command line tools**”，复制像下面的链接：
 
 [https://dl.google.com/android/repository/tools_r25.2.3-linux.zip](https://dl.google.com/android/repository/tools_r25.2.3-linux.zip) 
 
@@ -143,7 +143,7 @@ $ android
 Android SDK Manager 界面
 
 
-### 第 4 步 —— Jenkins 服务: ###
+### 第 4 步 —— Jenkins 服务: ###
 
 接下来我将描述 Jenkins 的安装与配置，并创建一个 Jenkins 任务来拉取 Android 项目代码并对其进行编译和测试，以及查看控制台输出。
 
@@ -241,7 +241,7 @@ Jenkins 任务由一系列连续执行的步骤组成。我在 GitHub 上准备�
 
 [**pamartineza/helloJenkins**](https://github.com/pamartineza/helloJenkins)
 
-首先新建一个 ***自由风格工程项目*** 并取个名字例如 “***Hello_Android***” （Jenkins 任务名不要有空格，避免将来与 SonarQube 的兼容性问题）
+首先新建一个 **自由风格工程项目** 并取个名字例如 “**Hello_Android**” （Jenkins 任务名不要有空格，避免将来与 SonarQube 的兼容性问题）
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*ITE7xIrbsrChWv45PSlPPw.png">
 
@@ -290,7 +290,7 @@ Jenkins 任务由一系列连续执行的步骤组成。我在 GitHub 上准备�
 
 **构建环境:**
 
-我推荐配置构建的 ***stuck*** 超时时间，避免 Jenkins 当意外错误发生时阻塞占用内存和 CPU。这里也可以配置环境变量和账号密码等。
+我推荐配置构建的 **stuck** 超时时间，避免 Jenkins 当意外错误发生时阻塞占用内存和 CPU。这里也可以配置环境变量和账号密码等。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*Y6FgbIQq8pMk6D72Sr9KdQ.png">
 
@@ -299,7 +299,7 @@ Jenkins 任务由一系列连续执行的步骤组成。我在 GitHub 上准备�
 
 **构建:**
 
-这里是最神奇的地方！添加一个 ***构建步骤*** 选择 ***执行 Gradle 脚本***  选择 Gradle Wrapper （Android 项目默认情况下都包含 Gradle Wrapper，不要忘记将其添加到 Git）并且配置需要执行的任务：
+这里是最神奇的地方！添加一个 **构建步骤** 选择 **执行 Gradle 脚本**  选择 Gradle Wrapper （Android 项目默认情况下都包含 Gradle Wrapper，不要忘记将其添加到 Git）并且配置需要执行的任务：
 
 1. **clean:** 删除所有之前构建产生的输出，确保本次构建没有任何缓存。
 
@@ -316,7 +316,7 @@ Gradle 任务配置
 
 **构建后操作**
 
-这部分我们添加 ***发布 JUnit 测试结果报告***，本步骤由 JUnit 插件提供，收集 JUnit 测试产生的 .XML 报告，并生成测试结果图表报告。
+这部分我们添加 **发布 JUnit 测试结果报告**，本步骤由 JUnit 插件提供，收集 JUnit 测试产生的 .XML 报告，并生成测试结果图表报告。
 
 该部分对 debug 包来说测试结果的路径是：
 
@@ -324,25 +324,25 @@ Gradle 任务配置
 
 在多模块工程中，“纯” Java 模块的测试结果路径是：
 
-***/build/test-results/*.xml**
+**/build/test-results/*.xml**
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*ZQtamiQ_8PzAFBd-pMfvdg.png">
 
 
-同时添加 ***Record JaCoCo coverage report*** 以生成展示代码变更进程的图标
+同时添加 **Record JaCoCo coverage report** 以生成展示代码变更进程的图标
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*wKaFykDl0qg-c79QwRTR2w.png">
 
 
 #### 运行 Jenkins 任务 ####
 
-如果有新的任务推送到仓库，上面的任务会每个 15 分钟运行一次；如果不想等下次自动运行而是想立即看到修改，也可以手动触发。点击 ***立即构建*** 之后当前的构建会出现在 ***构建历史*** 中，点击它可以查看详情。
+如果有新的任务推送到仓库，上面的任务会每个 15 分钟运行一次；如果不想等下次自动运行而是想立即看到修改，也可以手动触发。点击 **立即构建** 之后当前的构建会出现在 **构建历史** 中，点击它可以查看详情。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*vKi-BGQ2blimaoTl7PTXtQ.png">
 
 手动执行任务
 
-最有趣的部分是控制台输出，可以看到 Jenkins 是如何获取代码并且如何执行前面配置的 Gradle 任务（例如 ***clean.***）。
+最有趣的部分是控制台输出，可以看到 Jenkins 是如何获取代码并且如何执行前面配置的 Gradle 任务（例如 **clean.**）。
 
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*dbtmlSr2owrj_CQfGXjdsw.png">
@@ -356,7 +356,7 @@ Gradle 任务配置
 构建成功和测试结果收集
 
 
-### 第 5 步 —— SonarQube ###
+### 第 5 步 —— SonarQube ###
 
 这部分我将介绍使用 Docker 容器安装配置 SonarQube 和它的伴侣 MySQL数据库。
 
@@ -378,7 +378,7 @@ SonarQube 是一个静态代码分析工具，它可以帮助开发者编写干�
 
 **MySQL:**
 
-下面我们创建 MySQL 5.7.17 叫做 ***mysqlserver*** 的服务容器，配置如下：自启动、安装到你自己的目录下、配置密码、以及端口 3306 *（ YOUR_USER 和 YOUR_MYSQL_PASSWORD 用真实值替换）*
+下面我们创建 MySQL 5.7.17 叫做 **mysqlserver** 的服务容器，配置如下：自启动、安装到你自己的目录下、配置密码、以及端口 3306 *（ YOUR_USER 和 YOUR_MYSQL_PASSWORD 用真实值替换）*
 
 ```
 $ docker run --name mysqlserver --restart=always -v /home/YOUR_USER/mysqlVolume:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=YOUR_MYSQL_PASSWORD -p 3306:3306 -d mysql:5.7.17
@@ -387,18 +387,18 @@ $ docker run --name mysqlserver --restart=always -v /home/YOUR_USER/mysqlVolume:
 
 **phpMyAdmin:** 
 
-我使用 phpMyAdmin 管理 MySQL 服务，当然最简单的方法就是创建一个叫做 ***phpmyadmin*** 的容器关联到 ***mysqlserver***，配置如下：自启动、端口 9090、使用最新的版本
+我使用 phpMyAdmin 管理 MySQL 服务，当然最简单的方法就是创建一个叫做 **phpmyadmin** 的容器关联到 **mysqlserver**，配置如下：自启动、端口 9090、使用最新的版本
 
 ```
 $ docker run --name phpmyadmin --restart=always --link mysqlserver:db -p 9090:80 -d phpmyadmin/phpmyadmin
 ```
 
-通过访问 localhost:**9090** 使用 phpMyAdmin, 使用 ***root*** 账户登录，并创建 ***sonar*** 数据库，字符集设为 ***utf8_general_ci***。新建一个 ***sonar*** 用户并授权 ***sonar*** 数据库的全部权限
+通过访问 localhost:**9090** 使用 phpMyAdmin, 使用 **root** 账户登录，并创建 **sonar** 数据库，字符集设为 **utf8_general_ci**。新建一个 **sonar** 用户并授权 **sonar** 数据库的全部权限
 
 
 **SonarQube:**
 
-下面我们开始创建 SonarQube 容器，取名 ***sonarqube*** 配置如下：自启动、关联到刚刚配置的 db，端口 9000，使用 5.6.4（LTS）版。
+下面我们开始创建 SonarQube 容器，取名 **sonarqube** 配置如下：自启动、关联到刚刚配置的 db，端口 9000，使用 5.6.4（LTS）版。
 
 ```
 $ docker run --name sonarqube --restart=always --link mysqlserver:db -p 9000:9000 -p 9092:9092 -e "SONARQUBE_JDBC_URL=jdbc:mysql://db:3306/sonar?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true&useConfigs=maxPerformance" -e "SONARQUBE_JDBC_USER=sonar" -e "SONARQUBE_JDBC_PASSWORD=YOUR_SONAR_PASSWORD" -d sonarqube:5.6.4
@@ -448,7 +448,7 @@ $ docker run --name sonarqube --restart=always --link mysqlserver:db -p 9000:900
 
 #### 运行 SonarQube 分析: ####
 
-现在 SonarQube 已经配置好，接下来只需要添加 Gradle 任务， ***sonarqube***，并在 Jenkins任务的最后一步执行：
+现在 SonarQube 已经配置好，接下来只需要添加 Gradle 任务， **sonarqube**，并在 Jenkins任务的最后一步执行：
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*EDAjalNzmdU-ptjhWzuCcQ.png">
 
@@ -462,14 +462,14 @@ $ docker run --name sonarqube --restart=always --link mysqlserver:db -p 9000:900
 
 我们可以通过点击工程名来切换仪表盘，这里面包含了很多内容，其中最重要的是 Issues 部分。
 
-下面的截图显示的是一个被标记为空构造方法的 ***major*** 问题。对我个人而言，使用 Sonarqube 最大价值是当你点击 period … 后，屏幕下方显示的非常宝贵的学习编程经验和技巧。
+下面的截图显示的是一个被标记为空构造方法的 **major** 问题。对我个人而言，使用 Sonarqube 最大价值是当你点击 period … 后，屏幕下方显示的非常宝贵的学习编程经验和技巧。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*KKM9T2qHzanraAetghYCqg.png">
 
 获得问题的说明
 
 
-### 第 6 步 —— 其它：配置其它 Android 应用 ###
+### 第 6 步 —— 其它：配置其它 Android 应用 ###
 
 配置一个 Android 应用获得覆盖统计和 sonarqube 结果，只需要使用 JsCoCo 和 SonarQube 插件就可以了。可以在我的 demo 应用 **HelloJenkins** 中找到详细的配置：
 
