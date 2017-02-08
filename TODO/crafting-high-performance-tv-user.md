@@ -4,7 +4,7 @@
 * 译者 : [Professor-Z](https://github.com/Professor-Z)
 * 校对者 : [SumiMakito](https://github.com/SumiMakito) [zhouzihanntu](https://github.com/zhouzihanntu)
 
-# 使用 React 构建高性能的电视用户界面 
+# Netflix: 使用 React 构建高性能的电视用户界面 
 
 我们在为 Netflix 会员努力寻找最佳体验的过程中也在不断优化其电视界面。例如，在进行 [A/B 测试](http://techblog.netflix.com/2016/04/its-all-about-testing-netflix.html) 、眼球追踪研究以及研究用户反馈之后，我们最近推出了 [视频预览](https://www.fastcompany.com/3066166/innovation-agents/netflix-launches-video-previews-how-the-company-landed-on-its-biggest-rede) 功能来帮助会员们更好地决定看什么。我们在之前写的 [一篇文章](http://techblog.netflix.com/2013/11/building-new-netflix-experience-for-tv.html) 中讲到了我们的电视应用是由一个预装在设备上面的 SDK，一个可以随时更新的 JavaScript 应用以及一个被称为 Gibbon 的渲染层组成的。在这篇文章中，我们会着重讲解在优化 JavaScript 应用性能的过程中使用的一些方法。
 
