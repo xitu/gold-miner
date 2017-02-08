@@ -4,6 +4,8 @@
 * 译者：
 * 校对者：
 
+# Constraint Layout Animations | Dynamic Constraints | UI by Java[Part3]
+
 WOW, we got one more day so its time to make this day awesome by learning something new 🙂 .
 
 Hello guys, hope every body is doing good. We already learned a lot of new things about Constraint Layout in [part1](http://www.uwanttolearn.com/android/constraint-layout-hell/) and [part2](http://www.uwanttolearn.com/android/constraint-layout-concepts-hell-tips-tricks-part-2/). Now Its time to start learning about remaining things of this awesome layout. Most probably this is the final post about Constraint Layout.
