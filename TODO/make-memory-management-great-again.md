@@ -1,59 +1,57 @@
 > * 原文地址：[Make Memory Management Great Again](https://medium.com/ios-geek-community/make-memory-management-great-again-f781fb29cea1#.w6wgnw1og)
 * 原文作者：[Bob Lee](https://medium.com/@bobleesj)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
-* 校对者：
+* 译者：[Deepmissea](http://deepmissea.blue)
+* 校对者：[xiaoheiai4719](https://github.com/xiaoheiai4719)，[lovelyCiTY](https://github.com/lovelyCiTY)
 
-# Make Memory Management Great Again
+# 让内存管理重振雄风
 
-## Swift 3 Automatic Reference Counting explained with ease for complete beginners without CS/CE degree
+## 无需任何 CS/CE 学位的初学者，可以轻松掌握 Swift 3 中的 ARC（自动引用计数）
 
 ![](https://cdn-images-1.medium.com/max/2000/1*s0LCbddq8T4VN4kXtt9r2g.png)
 
-Beautiful picture from Unsplash
+Unsplash 上的美图
 
-### Audience
+### 读者们
 
-This article is written for those who may have close to zero understanding of `Memory Management`. Many iOS courses and books tend to skip this because it can be quite complicated for beginners. For example, have you seen those keywords like `weak` and `strong` when you create `IBOutlet` ? You probably have. You just do it because it somehow works.
+这篇文章主要写给那些对`内存管理`零基础的同学。许多 iOS 培训或者书籍都倾向于跳过这部分的内容，因为它对初学者来说实在是有点复杂。举个栗子，你在创建 `IBOutlet` 的时候见过 `weak` 和 `strong` 这些关键字吗？你可能见过，你写这些只是因为需要这么写。
 
-Before we talk about Swift, let us build a strong foundation in terms of what `memory` is in the first place, and why we need it. You may skip this part.
+在我们讨论 Swift 之前，先来建立一下关于`内存`的基础，什么是它首要的，以及为什么需要它。你可以跳过这部分。
 
-The term `memory management` refers to an overview of how an operating system, iOS for example, handles saving and extracting data. As you may already know, there are two main ways to save information/data. **1. Disk** and **2. Random Access Memory (RAM)**.
+术语`内存管理`是指一个操作系统（比如 iOS）如何保存和读取数据的概述。当然你已经知道，有两种方式来存储信息或数据。**1. 磁盘** and **2. 随机存取存储器（RAM）**.
 
-#### Prerequisites:
+#### 预备知识:
 
-A decent understanding of `Object Oriented Programming`, `Optionals`, and `Optional Chaining`. If you are stuck, feel free to check out my YouTube Swift series. [Here](https://www.youtube.com/playlist?list=PL8btZwalbjYlRZh8Q1VK80Ly0YsZ7PZxx)
+对`面向对象编程`、`可选类型`、`可选链`有一个正确的理解。如果你一脸懵逼，放松，赶快来 YouTube 看看我 Swift 的视频。[地址](https://www.youtube.com/playlist?list=PL8btZwalbjYlRZh8Q1VK80Ly0YsZ7PZxx)
 
-### The purpose of RAM
+### RAM 的目的
 
-Imagine you are playing a shooting game on your phone, and it needs to store a bunch of images and graphics so that you can continue playing even if you press the setting button, and you still expect your PR stay even if you come back. If not, that would be horrendous. 😅
+现在想象你正在你手机上玩射击游戏，然后它就需要存储一些图形图片，这样你才能在按下设置按钮的时候继续游戏，而且你希望回来时，PR 保持原样。如果不是这样，那就很糟糕了。😅
 
-But, when you shut down your phone, all those images are gone. So, as you might have guessed it, they are all stored in RAM. They are a temporary storage on your phone, and it’s much quicker, around 15,000 MB/s as supposed to 1,000MB/s of a normal hard drive. Those graphics do not get stored on your hard drive. If that was the case, your phone would be full of images and texts after playing a couple hours of the game.
+但是，在你关掉手机的时候，所有的图片都没了。所有，你应该猜到了，他们都是存储在 RAM 中。他们是临时存储到你的手机上，而且非常的迅速，大概在 15,000 MB/s，假设是 1,000 MB/s 的硬盘。那些图形并没有存储在你的硬盘上。因为如果那样，你的玩几个小时游戏以后，手机就剩图片和文字了。
 
-Often times, teachers describe RAM as a short term memory. Take a look at the short clip below.
-
+经常，老师们把 RAM 描述为短期记忆。看看下面的短片。
 [![](https://i.ytimg.com/vi_webp/Zz7ShiQqLQg/maxresdefault.webp)](https://www.youtube.com/embed/Zz7ShiQqLQg?wmode=opaque&widget_referrer=https%3A%2F%2Fmedium.com%2Fmedia%2F7ffc9e0d06c547a5448c166284d7fe53%3FpostId%3Df781fb29cea1&enablejsapi=1&origin=https%3A%2F%2Fcdn.embedly.com&widgetid=1)
 
-The chimp has a greater short-term memory than most that of humans. However. both will never remember the pattern in long term
-My iPhone has a 4GB RAM and 128GB disk. So, when you are running your app, pretty much everything is stored in your RAM unless I specifically use `UserDefaults` or `CoreData` to store data on the disk.
+黑猩猩拥有比大部分人类优秀的短期记忆。尽管两者都不会永远有一个长期的记忆。我的 iPhone 有 4GB 的 RAM 和 128GB 的磁盘。所以，在你运行程序的时候，几乎所有都存储在你的 RAM 里，除非我特别强调这是用 `UserDefaults` 或者 `CoreData` 来存到你的磁盘上。
 
-### Ram Storage Limitation
+### RAM 存储的限制
 
-This is another scenario. It’s 2AM, you are scrolling through Instagram or Facebook Feed on your bed. But, how is it possible that your phone is able to maintain a beautiful 60 frame per second, very smooth transition even if you scroll up and down? It’s because they those objects and data are temporarily stored in the RAM. However, you can’t store indefinitely.
+这是另一个场景。现在半夜两点了，你无聊的刷着 Instagram 或者 Facebook 在你的床上孤枕难眠。但是，手机是怎么保持每秒 60 帧的频率，在你上下滑动时，保持平滑过渡的？那是因为这些对象和数据被临时存入了 RAM 中。当然，这无法无限的存储。(译者注：这里手机滑动的流畅不仅仅是因为缓存数据，还有界面的优化等等)
 
-When we say `memory management` specifically in iOS, we refer to the process of managing space available in your RAM. Although nowadays you rarely see it gets overloaded since it’s getting more powerful than your computer 5 years ago. However, the golden rule for iOS developers is to create an efficient app so that you don’t kill apps in the background. Let’s be respectful to other iOS developers. We want our apps to stay alive.
+在我们说`内存管理`时，尤其是在 iOS 上，指的是管理 RAM 可用空间的过程。尽管现在你很难见到内存超载，那是因为现在的手机性能要比 5 年前强得多。当然，iOS 开发者的黄金法则是创建一个高性能的程序，即使很多程序在后台运行也不产生影响。让我们对其他 iOS 开发者保持尊重。我们希望我们的程序永生。
 
-### Okay, What now? 😴
+### OK，接着干嘛？ 😴
 
-RAM is like a refrigerator. You can add food, drinks, and even clothes if you are like me. Similarly, in iOS, you can add a bunch of pictures, images, large objects such as UIView. However, just like a fridge, there is a physical limitation to how much you can store. You might have to take out a couple of beers so that you can add fresh sushi. 🍲
+RAM 就像个冰箱，你可以放吃的喝的，甚至衣服，就像我一样。同样地，在 iOS，你可以添加一堆影像，图像，大的对象，比如 UIView。对，就像冰箱一样，有一个物理空间的限制你一共能放多少东西。你可以拿出几瓶啤酒，这样就又能放新鲜的寿司。🍲
 
-Fortunately, in iOS 10, the cleaning/freeing part has been automatically done by a library created by Apple Engineers. They have implemented what they call, `Automatic Reference Counting` to indicate whether an object is still being used or no longer needed. In other programming languages or back a couple years ago, however, you had to manually insert objects into the box and discard those objects — one by one.
+幸运的是，在 iOS 10，清理/释放内存这部分工作已经由苹果的工程师创建的库自动完成。他们实现了他们说的 `自动引用计数`，来表示对象是否正在使用或者已经没用。然而在其他的某些编程语言或者几年前，你不得不为对象逐个的手动申请内存，再一个个的释放。
 
-So, let’s take a look at how `Automatic Reference Counting` works.
+所以，来看看`自动引用计数`是怎么工作的吧。
 
-### Automatic Reference Counting
+### 自动引用计数
 
-First of all, let’s create an object first. I’ve made a class called `Passport`which contains its citizenship and an optional property called `human` which is described later — You don’t need to know how the `Human` class is made up of for now since it’s an optional type.
+首先，我们先创建个对象，我已经创建了一个名为 `Passport` 的类，它包含了一个公民身份，和一个可选属性 `human` ——这个一会儿再说，现在不用管 `human` 是怎么创建的，它是一个可选类型。
 
     class Passport {
       var human: Human?
@@ -68,31 +66,31 @@ First of all, let’s create an object first. I’ve made a class called `Passpo
      }
     }
 
-By the way, if you don’t know what `deinit` means, it’s the opposite of `init`. So when you `init`, you’ve created an object and inserted into the box/memory. `deinit` occurs when the specific location of the object in the box has been freed/deallocated/purged.
+顺便说一下，如果你不知道 `deinit` 是什么意思，那可以理解为与 `init` 相反。所以当你看到了 `init`，意味着你已经创建了一个对象，并把它放到了内存里。而 `deinit` 发生在对象在特定的位置已经被释放/取消分配/清除。
 
-Let’s create an object **by itself** without creating `var` or `let`
+让我们**通过它自己**创建一个对象，而不是用 `var` 或者 `let`
 
     Passport(citizenship: "Republic of Korea")
     // "You've made a passport object"
     // "I, paper, am gone"
 
-Wait, why is it being **deleted right** after you’ve made an instance/object? Well, it’s due to ARC and let me explain.
+等等，为什么你创建了一个对象，却又被**正确删除**了？好吧，这是由于 ARC，我来解释。
 
-In order to maintain an object in memory, you must have a reference to something, and there must be a relationship. I know it sounds weird. Please bare with me for a bit.
+为了维持一个在内存中的对象，你必须有一个对象的引用，必须有一个关系，我知道这听上去很奇怪，请原谅我的词穷。
 
     var myPassPort: Passport? = Passport(citizenship: "Republic of Korea")
 
 ![](https://cdn-images-1.medium.com/max/1600/1*onm_nN7Cyd9D2fNUZbVyCQ.png)
 
-myPassport holds a reference/relationship with Passport
+myPassport 持有了一个Passport 对象的引用/关系
 
-When you’ve created the `Passport` object by itself, it had **no relationship/reference count**. Now, however, there is a relationship between `myPassport` and `Passport` and the reference count is **one.**
+在你通过 `Passport` 对象自己创建它的时候，它**没有引用/关系的计数**。现在，在 `myPassport` 和 `Passport` 之间有了一个关系，引用计数现在是**一**。
 
-> **The Only Rule**: If the reference count is zero/no relationship, the object gets purged out of the memory.
+> **唯一法则**: 如果引用计数是零或者没有，那对象就会从内存里清除。
 
-*You might be wondering what *`*strong*`* means. It’s a default relationship. One relationship adds reference count by one, and I will explain it later when we have to use *`*weak*`* in certain cases.*
+*你可能会奇怪 `strong` 是什么意思. 它是一种默认的关系类型. 一个关系将引用计数加一, 稍后我会在什么时候用 `weak` 时解释。*
 
-Now, I’m going to create a class called `Human` which has an optional property whose type is `Passport`.
+现在，我要创建一个叫 `Human` 的类，它包含一个类型是 Passport 的可选类型属性。
 
     class Human {
      var passport: Passport?
@@ -106,26 +104,27 @@ Now, I’m going to create a class called `Human` which has an optional property
      }
     }
 
-Since the variable `passport` is an optional type, we don’t have to set it when you first initialize a`Human` object.
+现在 `passport` 是一个可选类型了，在初始化一个 `Human` 对象时，我们不用设置它的值。
 
     var bob: Human? = Human(name: "Bob Lee")
 
 ![](https://cdn-images-1.medium.com/max/1600/1*WGQoMfvMtiYU3QxOXqT9Sw.png)
 
-bob to Human and myPassport to Passport
-If you decide to make both `bob` and `myPassport` as `nil` then
+bob 对于 Human 和 myPassport 对于 Passport 是一样的
+如果你现在把 `bob` 和 `myPassport` 的值设为 `nil` 那么
 
     myPassport = nil // "I, paper, am gone"
     bob = nil // "I'm gone, friends"
 
 ![](https://cdn-images-1.medium.com/max/1600/1*aTt-hEdZ-p7SSA7NgcN6jA.png)
 
-All gone and deallocated
-As soon as you’ve set them as `nil` for each object, the relationship no longer exists, so the reference count for each becomes **0** which causes both objects to be deallocated.
+所有的都被释放掉了
+在你设置他们为 `nil` 的时候，关系就不存在了，所以他们的引用计数变为 **0**，这导致他们都被释放。
 
-**However, even if you set something to **`**nil**`** it may necessarily not deallocate **due to possible relationships with other objects, thus not reaching reference count to 0. It may sound crazy. So, let’s take a look.
+但是，有时即使你设置了 **`**nil**`**，它还是不会释放内存，这可能是由于和对象和其他的对象还存在联系，导致引用计数不能为 0，这听上去很疯，那么我们来看一下。
 
-The `Human1` class had an optional property whose type was `Passport `Also, `Passport` had an optional property whose type is `Human`.
+
+`Human` 类有一个可选类型的属性 `Passport`，而 `Passport` 也有一个可选类型的属性 `Human`。（译者注：这里的 `Human` 在原文中是 `Human1`，肯定是笔误，所以纠正了。）
 
     var newPassport: Passport? = Passport(citizenship: "South Korea")
     var bobby: Human? = Human(name: "Bob the Developer")
@@ -133,33 +132,33 @@ The `Human1` class had an optional property whose type was `Passport `Also, `Pas
     bobby?.passport = newPassport
     newPassport?.human = bobby
 
-To visualize the relationship, I’ve made a diagram for you.
+为了搞清楚他们的关系，我已经给你弄了一张表。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*dbWY94LQTZCCLGUvMPfQaA.png)
 
-Okay, now, let’s do the same thing by setting those objects to `nil`.
+OK，现在，我们像刚才一样，把他们的值设置为 `nil`。
 
     newPassport = nil
     bobby = nil
     // Nothing happens 🤔
 
-Nothing happens. They remain. Why? It’s because there is still a relationship between `bobby` and `newPassport`.
+什么都没发生。他们还在。为什么？因为在 `bobby` 和 `newPassport` 之间还是存在一个关系。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*aytSkuvT1dh0Fjk3HCiiXg.png)
 
-It may look counter-intuitive. **You must break all the relationships associated among/between objects in order to purge both objects completely**. For example, even if `Human` with “Bob Lee” has been set to `nil`, it doesn’t get deallocated since there is a relationship (reference count 1) as `Passport` is referring to the `Human `object. So, now when you try to set `Passport` to `nil` , it doesn’t get deallocated because the `Human` object is still alive and has a reference to `Passport`. The reference count never reaches 0.
+这看起来有点和预期相反。**你必须彻底把这两个对象之间的关系，和其他对象与这两个对象的关系都打破，以完全清除这两个对象**。例如，即使 `Human` 的 “Bob Lee” 已经设置为 `nil`，它还是不会被释放，因为 `Passport` 是指向 `Human` 对象的，他们之间还存在关系（`Human` 的引用计数为 1）。所以现在，当你试着把 `Passport` 设置为 `nil` 的时候，它也不会被释放，因为 `Human` 对象还存在而且还有一个到 `Passport` 的引用。引用计数永远不会为 0。
 
-> “The Only Rule Converse: It doesn’t matter whether you’ve set objects to nil, it’s all about the reference count number. You must Destroy everything. nil != deallocation” — SangJoon Lee
+> “唯一法则反向推论: 对象是否设置为 nil 无关紧要，一切皆为引用计数。你必须破坏所有引用。nil != 释放内存” — SangJoon Lee
 
-### Critical Problem
+### 关键的问题
 
-We call this **reference cycle** and **memory leak**. Even if those objects are no longer used and you thought they had been deallocated, they remain in your phone and take up space like fat. (It’s one of the most common iOS interview questions). This is a nono. Imagine if there was memory leak when you scroll thousands of instagram posts or Facebook NewsFeed. Your limited 4GB of space would be filled with data objects and eventually your app would break. Not a great experience for many users.
+我们叫它**循环引用**或**内存泄漏**。即使一些对象已经不在使用，而且你认为他们已经被释放了，而他们却还呆在你的手机里占着地方，就像胖子的脂肪一样。（这是 iOS 最常见的面试题之一。）这很糟糕。想象一下如果你在滑动上千条 instagram 推送或者 Facebook NewsFeed 的时候内存泄漏。你仅有的 4G 的内存会被数据对象填满，最终崩溃。这对很多用户来说都不是一个好的体验。
 
-### Bye Strong, Welcome Weak
+### 送走 Strong，迎接 Weak
 
-Great, you’ve come a long way. Congratulations. Now, you are going to learn why we use `weak`. The only purpose is to allow **deallocating objects.**
+非常棒，你已经走了很长一段路了。恭喜。现在，你会学习为什么我们使用 `weak`。唯一的目的是允许**释放对象**。
 
-Remember, **weak does not increase reference count. **Let’s add `weak` in front of the `passport` property within the `Human` class.
+记住，**弱引用不会增加引用计数**。让我们把 `weak` 加到 `Passport` 类 `Human` 属性的前面。
 
     class Passport {
     **weak var human: Human?
@@ -175,12 +174,12 @@ Remember, **weak does not increase reference count. **Let’s add `weak` in fron
      }
     }
 
-Every thing else remains the same.
+其他的都保持原样。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*Q0Mh1UxKEVwCuPPSLtFlfA.png)
 
-Passport not has a weak reference to Human and does not increase reference cycle
-Now, if you set
+Passport 现在对 human 是一个弱引用，不会造成循环引用。
+现在，如果你设置
 
     newPassport = nil
     bobby = nil
@@ -190,32 +189,33 @@ Now, if you set
 
 ![](https://cdn-images-1.medium.com/max/1600/1*7DKrMzcj38Hlvmi3vwY12g.png)
 
-Destroyed and Deallocated
-This is what happened. Since `weak` does not count as a relationship or does not increase the reference count, there is virtually only **one reference count** before you set `bobby` to `nil`. So, when you set `bobby` to `nil`, the reference count/relationship becomes `0` which successfully allows you destroy everything. I love when things get out of memory. Damn, this article took forever.
+对象被销毁，然后释放。
 
-#### [Source Code](https://github.com/bobleesj/Blog_Memory_Management)
+由于 `weak` 不会作为一种关系而增加，或者说不会增加引用计数，在你设置 `bobby` 为 `nil` 之前，实际上只有**一个引用**。所以，在你把 `bobby` 设置为 `nil`，引用计数/关系变成了 `0`，成功的让你销毁所有对象。我喜欢让东西从内存里出来，妈的，这文章永远牛逼。
 
-### Last Remarks
+#### [源码在这](https://github.com/bobleesj/Blog_Memory_Management)
 
-By now, I hope you understand what it means by `strong``and``weak`and how `reference count` works in Swift automatically. If you’ve learned something new with me, I’d appreciate your gratitude by gently tapping the ❤️ below or left. I was thinking of not putting those graphics since it added a lot more time, but anything for my lovely Medium readers.
+### 最后的备注
 
-In Part 2, I will talk about how **memory management works within closures **and you have seen something like`[weak self]` I will also talk about the purpose of using `self` and so on. So stay tuned and follow me so that you get notified first!
+到现在，我希望能你已经理解 `strong` 和 `weak` 是什么，以及`引用计数`是如何在 Swift 里自动工作的。如果你跟我学到了一些新的东西，请点击右面或者下面的 ❤️，我会很感激。我曾想过是否应该放上这些图，因为它们很耗费时间，但是为了我亲爱的 Medium 读者们，这都不是事儿。
 
-### Upcoming Course
+在第二部分，我会讲讲**闭包的内存管理**，就像你看到过的 `[weak self]` 一样，我也会聊聊 `self` 的使用目的等等。所以保持关注 follow 我，这样你就能第一时间得到通知！
 
-I’m currently creating a course called, The UIKit Fundamentals with Bob on Udemy. This course is designed for Swift intermediates. It’s not one of those “Complete Courses”. It’s specific. So far, 200 readers have sent me emails since last month. If interested, shoot me an email for more into and register your spot for free until it is released. I will give you a form to sign up.`bobleesj@gmail.com`
+### 即将到来的课程
 
-#### Coaching
+我现在开了一门课，叫 The UIKit Fundamentals with Bob on Udemy。这门课面向的是 Swift 的中级开发者。这和那些 “完整的课程” 不一样，它很特别。从上个月到现在，已经有 200 多位读者给我发邮件了。如果感兴趣，给我发邮件，开课的时候免费注册进入，我会给你一个表格来注册。`bobleesj@gmail.com`
 
-If you are looking for help to switch your career as an iOS developer or create your apps that would help the world, contact me for more detail.
+#### 辅导
 
-### Swift Conference
+如果你正在寻找一个人，能帮助你转行成为一个 iOS 开发者，或者创建一个为世界共建和谐美好的应用，请联系我详谈。
 
-[Andyy Hope](https://medium.com/@AndyyHope), a friend of mine, is currently organizing one of the largest and Swift Conferences in Melbourne, Australia. It’s called Playgrounds. It’s coming soon in about 3 weeks! I highly recommend you to take a look at speakers all from mega companies. 😲
+### Swift 会议
+
+[Andyy Hope](https://medium.com/@AndyyHope)，我的一个朋友，在澳大利亚墨尔本，正在组织最大的 Swift 会议之一，名为 Playgrounds。估计三周以内就会开始了！我非常非常的建议你去看看，因为演讲者们都是大公司来的。😲
 
 [Playgrounds 🐨 (@playgroundscon) | Twitter
 The latest Tweets from Playgrounds 🐨 (@playgroundscon). ● Swift and Apple Developers Conference ● Melbourne, February…twitter.com](https://twitter.com/playgroundscon)
 
-#### Shoutout
+#### 最后的呐喊
 
-A big thanks to my students! [Nam-Anh](https://medium.com/@yoowinks), [Kevin Curry](https://medium.com/@kevincurry_89695), David, [Akshay Chaudhary](https://medium.com/@Akshay_Webster).
+巨感谢我的学生们！ [Nam-Anh](https://medium.com/@yoowinks), [Kevin Curry](https://medium.com/@kevincurry_89695), David, [Akshay Chaudhary](https://medium.com/@Akshay_Webster).
