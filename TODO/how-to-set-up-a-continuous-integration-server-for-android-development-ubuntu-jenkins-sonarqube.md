@@ -1,61 +1,62 @@
 > * 原文地址：[How to set up a Continuous Integration server for Android development (Ubuntu + Jenkins + SonarQube)](https://pamartinezandres.com/how-to-set-up-a-continuous-integration-server-for-android-development-ubuntu-jenkins-sonarqube-43c1ed6b08d3#.sylq0wmfq)
 * 原文作者：[Pablo A. Martínez](https://pamartinezandres.com/@pamartineza?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
-* 校对者：
+* 译者：[skyar2009](https://github.com/skyar2009)
+* 校对者：[jifaxu](https://github.com/jifaxu), [tanglie1993](https://github.com/tanglie1993)
 
-# How to set up a Continuous Integration server for Android development (Ubuntu + Jenkins + SonarQube) #
+# 如何搭建安卓开发持续化集成环境（Ubuntu + Jenkins + SonarQube） #
 
-I have recently acquired a new MacBook Pro as my main Android development machine and instead of selling or giving away my old Mac BookPro (13", late 2011, 16GB RAM, 500G SSD, Core i5 2,4GHz, 64Bit) I have wiped it out and turned it into a Continuous Integration Server with dual boot MacOS-Ubuntu.
+我最近换了一台新的 MacBook Pro 作为我的 Android 开发机。旧的 Mac BookPro （13英寸，2011款，16GB 内存，500G SSD，i5 内核 2.4GHz，64位）我并没有卖掉或丢掉，而是装了 MacOS-Ubuntu 双系统作为持续化集成环境服务器。
 
-The goal of this article is to summarize the installation steps for me as future reference and for any developer that may be interested in setting up its own CI server, I will explain how to:
+本文目标是总结安装步骤，以便广大开发者朋友和我自己将来在搭建自己的 CI 时参考，主要内容如下：
 
-- Configure a fresh Ubuntu installation to be able to run the Android SDK.
+- 在全新的 Ubuntu 环境下安装 Android SDK。
 
-- Install Jenkins CI as a service to pull, compile, and run tests of an Android multi-module project hosted in GitHub.
+- 搭建 Jenkins CI 服务，在其基础上从 GitHub 上获取代码、编译一个多模块的 Android 项目，并对其进行测试。
 
-- Install Docker to run a MySQL server and SonarQube in their own containers, to perform static code analysis triggered by Jenkins
+- 安装 Docker 容器，并在其上安装 MySQL 服务和 SonarQube，以实现 Jenkins 触发的静态代码分析。
 
-- Android App configuration requirements.
+- Android App 配置需求。
 
-### Step 1 — Ubuntu Installation: ###
+### 第 1 步 —— 安装 Ubuntu： ###
 
-I’m going to use Ubuntu as the SO of the CI because it has a strong community that will provide you support for any issue you may encounter and my personal recommendation is always to use the last LTS version, currently 16.04 LTS. There are plenty of tutorials about how to install it on virtually any hardware so I’m just providing the link to download it.
+我之所以选择 Ubuntu 作为 CI 的操作系统，是因为它有着强大的社区，方便对可能遇到的问题寻求帮助，我个人建议使用最新的 LTS 版本，目前是 16.04 LTS。因为有许多 Ubuntu 安装教程（虚拟机和真机），所以这里我只提供下载链接。
 
-[Install Ubuntu Desktop 16.04 LTS](https://www.ubuntu.com/download/desktop)
+[安装 Ubuntu 16.04 LTS 桌面版](https://www.ubuntu.com/download/desktop)
 
-You may wonder why I’m using the Desktop version instead of the pure server version, this is just a matter of personal preference, I’m not worried of losing a bit of performance and available RAM due to be running the desktop interface because I think that the usability that provides de GUI pays off enough in increased productivity.
+你可能会对我选择桌面版而不是选择服务器版而感到疑惑，这只是个人的偏好，我并不介意因为有界面交互而带来的性能和可用内存的少量损失，因为我认为 GUI 对提高工作效率的帮助大过消耗。
 
-### Step 2 — Remote access management: ###
+### 第 2 步 —— 远程访问管理： ###
 
-#### **SSH-Server:** ####
+#### **SSH服务:** ####
 
-Ubuntu desktop is not shipped with the ssh server installed by default, so to be able to manage your server remotely through the command line just install it:
+Ubuntu 桌面版默认并没有安装 ssh 服务，因此如果需要远程管理你的服务器还需要手动安装，安装命令如下：
 
 ```
 $ sudo apt-get install openssh-server
 ```
 
-#### **NoMachine Remote Desktop:** ####
+#### **NoMachine 远程桌面：** ####
 
-Probably your CI is not going to be next to you but closer to your router, other room or even miles away from your current location. I have been dealing with different remote desktop solutions and I have to say that IMHO NoMachine performs the best, it is platform agnostic and works just out of the box just using your ssh credentials. (Obviously you have to install it both in your CI and your machine)
-
-[**NoMachine - Free Remote Access For Everybody**](https://www.nomachine.com/download)
+可能你的 CI 没在你眼前而是在你的路由器附近、别的屋子甚至几公里外的地方。我使用过多种远程桌面程序，IMHO NOMachine 是最好的一款，它平台无关并且仅仅需要你的 ssh 凭证。（当然 CI 服务器和你的本机都需要进行安装）
 
 
-### Step 3 — Environment configuration ###
+[**NoMachine - 对任何人都免费**](https://www.nomachine.com/download)
 
-Here I’m going to install JAVA8, Git and the Android SDK that are required by Jenkins to pull, compile and run android projects.
+
+### 第 3 步 —— 环境配置 ###
+
+下面我将安装 Jenkins pull 代码、编译运行 android 项目所依赖工具，包括 JAVA8，Git，和 Android SDK。
 
 #### **SDKMAN!:** ####
 
-This marvelous command line tool allows you install many popular SDK (eg. Gradle, Groovy, Grails, Kotlin, Scala…), list candidates and switch among different versions in parallel in a really easy and handy way.
+SDKMAN! 是一个非常酷的命令行工具，它支持主流的 SDK（例如：Gradle, Groovy, Grails, Kotlin, Scala 等），它可以提供可用列表供我们选择并可以方便地在不同版本之间进行切换。
 
-[**SDKMAN! the Software Development Kit Manager**](http://sdkman.io/) 
+[**SDKMAN! 软件开发工具管理器**](http://sdkman.io/) 
 
-They have added recently support for JAVA8 so I preferred to install Java using it instead of using the popular webupd8 repository, so it is up to you to choose whether to install SDKMAN! or not but I’m pretty sure it is a tool that you will use in the near future.
+SDKMAN! 最近支持了 JAVA8，所以我选择使用它而不是主流的 webupd8 库来安装 JAVA 环境，当对你而言用不用 SDKMAN! 都可以，不过我认为将来你一定会用。
 
-Installation of SDKMAN! is as easy as executing the following line:
+安装 SDKMAN! 只需要执行下面的命令：
 
 ```
 $ curl -s "https://get.sdkman.io" | bash
@@ -64,20 +65,20 @@ $ curl -s "https://get.sdkman.io" | bash
 
 #### Oracle JAVA8: ####
 
-As we have previously installed SDKMAN! now installing JAVA8 is as easy as:
+如果前面已经安装了 SDKMAN! ，安装 JAVA8 只需要简单的执行下面的命令：
 
 ```
 $ sdk install java
 ```
 
-Or using the webupd8 repository:
+或者使用 webupd8 库进行安装：
 
-[**Install Oracle Java 8 In Ubuntu Or Linux Mint Via PPA Repository [JDK8]**](http://www.webupd8.org/2012/09/install-oracle-java-8-in-ubuntu-via-ppa.html)
+[**Ubuntu 或 Linux Mint 通过 PPA 库安装 Java 8 [JDK8]**](http://www.webupd8.org/2012/09/install-oracle-java-8-in-ubuntu-via-ppa.html)
 
 
 #### **Git:** ####
 
-Installing git is straight forward, no more comments needed:
+安装 git 非常简单，不需要多说：
 
 ```
 $ sudo apt install git
@@ -86,59 +87,52 @@ $ sudo apt install git
 
 #### **Android SDK:** ####
 
-At the bottom of this page:
+在本页的底部：
 
-[**Download Android Studio and SDK Tools | Android Studio**](https://developer.android.com/studio/index.html)
+[**下载 Android Studio 和 SDK 工具 | Android Studio**](https://developer.android.com/studio/index.html)
 
 
-you can find “***Get just the command line tools***”, copy the link e.g:
-
+你可以看到 “**Get just the command line tools**”，复制像下面的链接：
 
 [https://dl.google.com/android/repository/tools_r25.2.3-linux.zip](https://dl.google.com/android/repository/tools_r25.2.3-linux.zip) 
 
 
-Then download and unzip it at /opt/android-sdk-linux
+然后下载并解压到 /opt/android-sdk-linux
 
 ```
 $ cd /opt
-```
-
-
 $ sudo wget [https://dl.google.com/android/repository/tools_r25.2.3-linux.zip](https://dl.google.com/android/repository/tools_r25.2.3-linux.zip)
-
-
-```
 $ sudo unzip tools_r25.2.3-linux.zip -d android-sdk-linux
 ```
 
-As we have used root user to create de directory we need to fix folder permissions to make it readable and writable by our main user:
+因为我们是使用 root 用户创建的目录，我们需要修改目录权限允许主用户对其读和写：
 
 ```
 $ sudo chown -R YOUR_USERNAME:YOUR_USERNAME android-sdk-linux/
 ```
 
-Let’s set the SDK environmental variables editing the /.bashrc file:
+接下来修改 /.bashrc 来配置 SDK 环境变量：
 
 ```
 $ cd
 $ nano .bashrc
 ```
 
-Then add at the bottom (but before SDKMAN! config line) these lines:
+在文件的底部（SDKMAN! 配置之前）添加如下内容：
 
 ```
 export ANDROID_HOME="/opt/android-sdk-linux"
 export PATH="$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$PATH"
 ```
 
-Close the terminal and open a new one to verify that variables have been properly exported:
+关掉终端并重新打开一个，以确认环境变量配置正确（译者注：不关闭，执行 source ~/.bashrc 也可以）
 
 ```
 $ echo $ANDROID_HOME
 /opt/android-sdk-linux
 ```
 
-Then you can launch the Android SDK Manager GUI and install your desired platforms and dependencies
+接着打开 Android SDK Manager 的窗口程序，安装你需要的平台版本以及依赖
 
 ```
 $ android
@@ -146,64 +140,66 @@ $ android
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*Q4o_LpfC5A3evFUwd62MOQ.png">
 
-Running Android SDK Manager GUI
+Android SDK Manager 界面
 
 
-### Step 4 — Jenkins server: ###
+### 第 4 步 —— Jenkins 服务: ###
 
-Here I’m going to describe how to install the server, configure it, create a Jenkins Job to pull, build and test an Android project and how to get to the console output.
+接下来我将描述 Jenkins 的安装与配置，并创建一个 Jenkins 任务来拉取 Android 项目代码并对其进行编译和测试，以及查看控制台输出。
 
-#### Jenkins installation: ####
+#### Jenkins 安装: ####
 
-Jenkins server is available at:
+Jenkins 可以从官网获得：
 
 [**Jenkins**](https://jenkins.io/)
 
-There are many ways to run **Jenkins**, executing a **.war** file, as a linux **service**, as a Docker **container**, etc….
+有多方式可以运行 **Jenkins**，例如运行一个 **.war** 文件，作为一个 linux **服务**， 作为一个 Docker **容器** 等。
 
-My first thought was to run it using a Docker container but then I realized that it was a nightmare to properly configure code folders, android-sdk folder visibility and USB visibility of physical devices plug to run Android Tests.
+我的第一反应是使用 Docker 容器的方式安装，但我发现那简直是个噩梦，因为我需要配置代码目录、android-sdk 目录的可见性，以及运行 Android 测试的物理可插拔设备 USB 的可见性。
 
-For ease of use I finally decided to use it as service adding the Stable repository key to install and get updates with **apt**
+为了方便使用，我最终选择将它作为服务使用，通过 **apt** 来安装、更新稳定的版本
 
-
+```
 $ wget -q -O - [https://pkg.jenkins.io/debian-stable/jenkins.io.key](https://pkg.jenkins.io/debian-stable/jenkins.io.key)| sudo apt-key add -
+```
 
-
-Edit the sources.list file and add:
+修改 sources.list 文件
 
 ```
 $ sudo nano /etc/apt/sources.list
 ```
+
+添加如下内容
 
 ```
 #Jenkin Stable
 deb https://pkg.jenkins.io/debian-stable binary/
 ```
 
-Then install it:
+然后安装
 
 ```
 sudo apt-get update
 sudo apt-get install jenkins
 ```
 
-Add user *jenkins* to your username group to allow it to read and write the Android SDK folder
+将 *jenkins* 用户添加到你的用户组，确保其对 Android SDK 目录有读写权限
 
 ```
 $ sudo usermod -a -G YOUR_USERNAME jenkins
 ```
 
-Jenkins service will always start at boot time and will be available at [http://localhost:8080](http://localhost:8080) 
+Jenkins 服务会在开机的时候自启动，可以通过 [http://localhost:8080](http://localhost:8080) 进行访问
 
-Just after installation due to security reasons this screen is shown, just follow the instructions to finally get your Jenkins instance up and running.
+为了安全起见，刚刚装完显示的是如下的页面，只需要跟着说明就可以完成 Jenkins 的启动了。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*gN6-ncU7mRdQWL3wmlS_5g.png">
 
-Unlocking a successfully installed Jenkins server
+解锁成功安装的 Jenkins 服务
 
-#### Jenkins Configuration: ####
+#### Jenkins 配置: ####
 
-After unlocking Jenkins installation you are prompted to install plugins, click “**Select plugins to Install**” browse and select the following ones to be installed in addition to suggested plugins:
+Jenkins 解锁后需要安装插件，点击 “**Select plugins to Install**” 浏览、选择如下建议的插件，然后进行安装
 
 - JUnit
 
@@ -224,162 +220,165 @@ After unlocking Jenkins installation you are prompted to install plugins, click 
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*xvG06qRSCvfw5OQgQleG0A.png">
 
-Installing Jenkins plugins
+安装 Jenkins 插件
 
-Create the admin user and complete installation.
+创建 admin 完成安装。
 
-To finish configuration we have to configure ANDROID_HOME and JAVA_HOME environmental variables:
+在配置完成之前，我们还要配置 ANDROID_HOME 和 JAVA_HOME：
 
-Go to Manage Jenkins > Configure System
+点击进入 Manage Jenkins > Configure 页面
 
-Scroll down and at **Global properties** section check the **Environment variables** box and add *ANDROID_HOME* and *JAVA_HOME*
+
+滚动到 **Global properties** 部分，勾选 **Environment variables** 选项，将 *ANDROID_HOME* 和 *JAVA_HOME* 填好
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*rpgkUsqWhkHk4xOKCGPcvw.png">
 
-Adding global environmental variables common to all Jenkins jobs
+添加全局的环境变量
 
-#### **Creating a “Jenkins Job”** ####
+#### **创建 “Jenkins 任务”** ####
 
-A Jenkins Job describes a series of steps that are executed consecutively. I have prepared a “Hello Jenkins” Android project in GitHub that you can use to test your Jenkins configuration as you follow this tutorial. It is just a hello world multi-module app with Unit tests, Android tests and includes JaCoCo and SonarQube plugins.
+Jenkins 任务由一系列连续执行的步骤组成。我在 GitHub 上准备了一个 “Hello Jenkins” 的 Android 工程，如果你是跟着本教程做的，你可以用来测试你的Jenkins配置。这只是一个简单的多模块 app，包括单元测试、Android 测试 以及 JaCoCo 和 SonarQube 插件。
 
 [**pamartineza/helloJenkins**](https://github.com/pamartineza/helloJenkins)
 
-First create a new ***Freestyle project Job ***and give it a name eg. “***Hello_Android***” (Don’t use spaces in Jenkins Job names to avoid future compatibility problems with SonarQube)
+首先新建一个 **自由风格工程项目** 并取个名字例如 “**Hello_Android**” （Jenkins 任务名不要有空格，避免将来与 SonarQube 的兼容性问题）
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*ITE7xIrbsrChWv45PSlPPw.png">
 
-Creating a Freestyle Jenkins Job
+创建自由风格的 Jenkins 任务
 
-Then let’s configure it, I’m going to add screenshots of every section:
+下面让我们一起进行配置，我会对每个部分截图
 
 **General:**
 
-This section is not very interesting for our goals, here you can change the name of the Job, add a description and if using a GitHub project add the project URL, (without *.git, the url of the web not the repo)
+该部分和我们最终的目标关系不大，在这你可以修改任务名，添加描述，如果使用的是 GitHub 项目可以添加项目的 URL，（不要带 *.git, 这个 url 项目的 url 不是 repo）
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*7QF2pfgM73FVIWTfQhcbEA.png">
 
-Project Url Configuration
+项目 Url 配置
 
 
-**Source Code Management:**
+**源代码管理:**
 
-Here is where we have to chose our CVS as Git and add the repository url (this time include *.git) and select the branch to pull. As this is a public GitHub repository you don’t need to add credentials but otherwise you will have to add your user and password.
+这里我们需要选择 Git 作为 CVS 选项，并且填写代码库地址（需要包含 *.git）并选择要获取的分支。这是一个公开的 GitHub 仓库，因此不需要添加凭证，否则需要填写你的用户名和密码。
 
-I recommend you that instead of using your actual GitHub user with full permissions create a new GitHub user with read-only privileges of your private repos to be used exclusively by your Jenkins Jobs.
+我建议你重新创建一个只有你私有仓库只读权限 GitHub 账户 供你的 Jenkins 使用，而不是直接使用你的真实 GitHub 账户。
 
-In addition if you have enabled Two-Factor authentication Jenkins won’t be able to pull code and again having this exclusively created for Jenkins user will be the solution to pull code from private repos.
+此外如果你开启了双重身份验证 Jenkins 将不能获取代码，这时为 Jenkins 单独创建账户是能够正常获取私有仓库代码的方法。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*wkzdL70XrCzIpXDsHPA2Pg.png">
 
-Repository configuration
+仓库配置
 
 
-**Build Triggers:**
+**构建触发器:**
 
-Builds can be triggered manually, remotely, periodically, after another Job build, when changes are detected, etc…
+构建可以被以下方式触发：手动的、远程的、周期性的、另一个任务构建、检测到变更时等等。
 
-Ideally the optimal situation is to just trigger a build when a change has been pushed to the repository, GitHub provides a system called Webhooks
+理想的最好的情景是，当新的变更推送到仓库是触发构建，GitHub 提供了一个叫 Webhooks的系统
 
 [**Webhooks | GitHub Developer Guide**](https://developer.github.com/webhooks/)
 
-that we can configure to send events to the CI server and then trigger the build, but this obviously requires our CI sever to be online and reachable by GitHub servers.
+我们可以配置 Webhooks 发送事件到 CI 服务触发构建，但是这需要我们的 CI 服务器对 GitHub 在线并可以通过 GitHub 访问。
 
-Your CI is going to be probably isolated in a private network for security reasons then the only solution is to poll GitHub periodically. In my personal case I just turn on the CI when I’m working, in the following screenshot I have configured it to poll Github every 15 minutes. Polling times are defined with **CRON** syntax, if you are not familiar with it, press the help button on the right to get an extensive documentation with examples.
+可能处于安全考虑你的 CI 是放在私有网络里的，这时唯一的解决方案就是周期性的查询 GitHub。就我个人而言，我一工作就会打开 CI，在下面的截图中我配置的是每 15 分钟查询一次 GitHub。查询的频次与 **CRON** 语法一样，如果你对其不熟悉，可以点击右面的帮助按钮获得帮助文档。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*eONz8DAwJ9PW7uc8VQw7wQ.png">
 
-Repository polling configuration
+任务配置
 
 
-**Build Environment:**
+**构建环境:**
 
-Here I recommend to configure the build ***stuck*** timeout to avoid Jenkins blocking memory and CPU if any unexpected error happens. Here also you can Inject environmental variables, passwords, etc…
+我推荐配置构建的 **stuck** 超时时间，避免 Jenkins 当意外错误发生时阻塞占用内存和 CPU。这里也可以配置环境变量和账号密码等。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*Y6FgbIQq8pMk6D72Sr9KdQ.png">
 
-Build stuck time out
+错误构建超时
 
 
-**Build:**
+**构建:**
 
-Here is where the magic happens! Add a ***Build Step ***that ***Invokes Gradle Script ***select the Gradle Wrapper (Android projects are shipped with a Gradle Wrapper by default, don’t forget to check it into Git) and let’s define which tasks are going to be executed:
+这里是最神奇的地方！添加一个 **构建步骤** 选择 **执行 Gradle 脚本**  选择 Gradle Wrapper （Android 项目默认情况下都包含 Gradle Wrapper，不要忘记将其添加到 Git）并且配置需要执行的任务：
 
-1. **clean:** Deletes all build outputs of previous builds, this ensures nothing is cached and the freshness of this build.
+1. **clean:** 删除所有之前构建产生的输出，确保本次构建没有任何缓存。
 
-2. **assembleDebug:** Generates the debug .apk
+2. **assembleDebug:** 生成 debug .apk
 
-3. **test:** executes JUnit tests in all modules
+3. **test:** 对所有模块执行单元测试
 
-4. **connectedDebugAndroidTest:** executes Android Tests on actual android devices connected to the CI. (It is also possible to run Android Test against an Android Emulator installing the Android Emulator Jenkins plugin, but it doesn’t support all emulator versions and its configuration is not trivial at all)
+4. **connectedDebugAndroidTest:** 在连接到 CI 的真机上执行 Android 测试。（通过安装 Android Emulator Jenkins 插件也可以在 Android 模拟器上运行 Android 测试，但是并不支持所有版本的模拟器，并且配置非常琐碎）
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*D0HDPOUYCWzsWKiLv4LrBA.png">
 
-Gradle tasks definition
+Gradle 任务配置
 
 
-**Post-build Actions:**
+**构建后操作**
 
-Here we are going to add ***Publish JUnit test result report ***this step is provided by the JUnit plugin and collects the .XML reports generated with the outcome of the JUnit tests that will generate a fancy chart with the evolution of tests results in time.
+这部分我们添加 **发布 JUnit 测试结果报告**，本步骤由 JUnit 插件提供，收集 JUnit 测试产生的 .XML 报告，并生成测试结果图表报告。
 
-The path for debug flavor tests results in our app module is:
+该部分对 debug 包来说测试结果的路径是：
 
 **app/build/test-results/debug/*.xml**
 
-In multi-module projects the path for test results in other “pure” java modules is:
+在多模块工程中，“纯” Java 模块的测试结果路径是：
 
-***/build/test-results/*.xml**
+**/build/test-results/*.xml**
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*ZQtamiQ_8PzAFBd-pMfvdg.png">
 
 
-Also add ***Record JaCoCo coverage report*** that will create a chart to show the evolution of the code coverage
+同时添加 **Record JaCoCo coverage report** 以生成展示代码变更进程的图标
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*wKaFykDl0qg-c79QwRTR2w.png">
 
 
-#### Executing a Jenkins Job ####
+#### 运行 Jenkins 任务 ####
 
-Our Job will execute every 15 minutes if new changes have been pushed to the repository but it can also be triggered manually if you don’t want to wait until next polling or you just want to verify any change in the configuration straight forward. Click ***Build Now*** and then current build will be shown in the ***Build History ***, click on it to see the details.
+如果有新的任务推送到仓库，上面的任务会每个 15 分钟运行一次；如果不想等下次自动运行而是想立即看到修改，也可以手动触发。点击 **立即构建** 之后当前的构建会出现在 **构建历史** 中，点击它可以查看详情。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*vKi-BGQ2blimaoTl7PTXtQ.png">
 
-Manual Job execution
+手动执行任务
 
-The most interesting part here is the console output, you can see how Jenkins pulls the code and starts executing the Gradle tasks we have previously defined e.g ***clean.***
+最有趣的部分是控制台输出，可以看到 Jenkins 是如何获取代码并且如何执行前面配置的 Gradle 任务（例如 **clean.**）。
+
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*dbtmlSr2owrj_CQfGXjdsw.png">
 
-Beginning of console output
+控制台输出的开头
 
-If everything is OK console output will finish as follows (any repository connectivity problem, failing JUnit or Android test failure would make the build to fail)
+如果所有任务都成功执行控制台输出会如下图（仓库连接错误、单元测试问题或者 Android 测试问题都会导致构建失败）
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*WpOH-aHuuNRDYmY710ecLQ.png">
 
-Yeehaa! build Sucsessful and test results with coverage collected
+构建成功和测试结果收集
 
 
-### Step 5 — SonarQube ###
+### 第 5 步 —— SonarQube ###
 
-In this section I will describe how to install and configure SonarQube and its companion MySQL database using Docker containers.
+这部分我将介绍使用 Docker 容器安装配置 SonarQube 和它的伴侣 MySQL数据库。
 
 [**Continuous Code Quality | SonarQube**](https://www.sonarqube.org/)
 
-SonarQube is a code static analysis tool that helps developers to write cleaner code, detect bugs, learn good practices and it also keeps track of code coverage, tests results, technical debt, etc… all SonarQube detected issues can be imported easily to be fixed into Android Studio/IntelliJ with a plugin:
+SonarQube 是一个静态代码分析工具，它可以帮助开发者编写干净的代码、发现 bug、学习好的经验，并且可以跟踪代码覆盖、测试结果、技术债务等。所有 SonarQube 检测到的问题都可以导入到安装了插件的 Android Studio/IntelliJ 中，并修复。
 
 [**JetBrains Plugin Repository :: SonarQube Community Plugin**](https://plugins.jetbrains.com/idea/plugin/7238-sonarqube-community-plugin)
 
-#### Installing Docker: ####
+#### 安装 Docker: ####
 
-Installation of Docker is pretty straightforward following official Docker documentation:
+按照 Docker 官方文档进行安装非常的简单：
 
 [**Install Docker on Ubuntu**](https://docs.docker.com/engine/installation/linux/ubuntulinux/)
+[**在 Ubuntu 上安装 Docker**](https://docs.docker.com/engine/installation/linux/ubuntulinux/)
 
 
-#### Creating Containers: ####
+#### 创建容器： ####
 
 **MySQL:**
 
-Let’s create a MySQL 5.7.17 server container called ***mysqlserver,*** that will allways start at boot time, with a local volume in your user folder, a password and exposed at localhost:3306 *(replace YOUR_USER and YOUR_MYSQL_PASSWORD with your values)*
+下面我们创建 MySQL 5.7.17 叫做 **mysqlserver** 的服务容器，配置如下：自启动、安装到你自己的目录下、配置密码、以及端口 3306 *（ YOUR_USER 和 YOUR_MYSQL_PASSWORD 用真实值替换）*
 
 ```
 $ docker run --name mysqlserver --restart=always -v /home/YOUR_USER/mysqlVolume:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=YOUR_MYSQL_PASSWORD -p 3306:3306 -d mysql:5.7.17
@@ -388,40 +387,40 @@ $ docker run --name mysqlserver --restart=always -v /home/YOUR_USER/mysqlVolume:
 
 **phpMyAdmin:** 
 
-To manage the MySQL server I’m used to phpMyAdmin then nothing more easy than creating another container called ***phpmyadmin*** linked to our ***mysqlserver*** container, that also starts at boot time, exposed at localhost:9090 and using the last version available.
+我使用 phpMyAdmin 管理 MySQL 服务，当然最简单的方法就是创建一个叫做 **phpmyadmin** 的容器关联到 **mysqlserver**，配置如下：自启动、端口 9090、使用最新的版本
 
 ```
 $ docker run --name phpmyadmin --restart=always --link mysqlserver:db -p 9090:80 -d phpmyadmin/phpmyadmin
 ```
 
-Using the phpMyAdmin interface at localhost:**9090** login as ***root and YOUR_MYSQL_PASSWORD*** andcreate a database called ***sonar*** with ***utf8_general_ci*** collation. Also create a new user ***sonar*** with password ***YOUR_SONAR_PASSWORD*** and give it all privileges on the ***sonar*** database.
+通过访问 localhost:**9090** 使用 phpMyAdmin, 使用 **root** 账户登录，并创建 **sonar** 数据库，字符集设为 **utf8_general_ci**。新建一个 **sonar** 用户并授权 **sonar** 数据库的全部权限
 
 
 **SonarQube:**
 
-Now we are ready to create our SonarQube container called ***sonarqube*** that starts at boot time, linked to our db, exposed at localhost:**9000** and using the 5.6.4 (LTS) version.
+下面我们开始创建 SonarQube 容器，取名 **sonarqube** 配置如下：自启动、关联到刚刚配置的 db，端口 9000，使用 5.6.4（LTS）版。
 
 ```
 $ docker run --name sonarqube --restart=always --link mysqlserver:db -p 9000:9000 -p 9092:9092 -e "SONARQUBE_JDBC_URL=jdbc:mysql://db:3306/sonar?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true&useConfigs=maxPerformance" -e "SONARQUBE_JDBC_USER=sonar" -e "SONARQUBE_JDBC_PASSWORD=YOUR_SONAR_PASSWORD" -d sonarqube:5.6.4
 ```
 
-#### SonarQube Configuration: ####
+#### SonarQube 配置: ####
 
-If everything is OK browsing to localhost:9000 will lead you to this page:
+如果一切 OK，访问 localhost:9000 将会看到下图：
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*tcgww8PENXdyrLS3K95ZEw.png">
 
-Now let’s configure necessary plugins and Quality Profiles:
+下面安装必要的插件和 Quality Profiles
 
-1. Login at the top right corner (Default administrator login is admin/admin)
+1. 右上角登录（默认的管理员账号是 admin/admin）
 
-2. Go to Administration > System > Update Center > **Updates Only**
+2. 点击 Administration > System > Update Center > **Updates Only**
 
-- Update **Java** plugin if necessary
+- 如果需要请更新 **Java** 插件
 
-3. Now switch to **Available** and install the following plugins:
+3. 切换到 **Available** 并安装如下插件：
 
-- **Android** (provides Android lint rules)
+- **Android** （提供 Android lint 规则）
 
 - **Checkstyle**
 
@@ -429,55 +428,56 @@ Now let’s configure necessary plugins and Quality Profiles:
 
 - **XML**
 
-4. Scroll back to the top and press restart button to complete the installation
+4. 回到顶部，点击重启完成安装
 
 
-#### SonarQube Profiles: ####
+#### SonarQube 配置: ####
 
-The plugins that we have installed define profiles that are sets of rules used to evaluate the code quality of a project.
+我们已经安装的插件定义了一系列用来评估代码质量的规则。
 
-Only 1 profile can be applied to a project at a time but we can make profiles have a parent and therefore inherit rules, so to be able to have all rules evaluated against our project we can create a new custom profile and chain all profiles.
+一个项目只能应用一个配置，但是我们为一个配置指定父配置来继承它，所以我们可以新建一个自定义配置将所有配置串起来，来评价项目。
 
-Let’s do it, go to Quality Profiles > Create and give it a name e.g. **CustomAndroidProfile**
+点击 Quality Profiles > Create 并取个名字（例如 **CustomAndroidProfile**）
 
-Add Android Lint as parent, then switch to the **Android Lint** profile and add **FindBugs Security Minimal** as parent, continue this chain until you get this inheritance schema and set the **CustomAndroidProfile** as the default one:
+添加 Android Lint 作为父配置，然后切换到 **Android Lint** 并将 **FindBugs Security Minimal** 设为父配置，继续设置直到将所有配置串联起来，最后将 **CustomAndroidProfile** 设为默认配置
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*w2CvH8uAOUcvajzjsOoCgQ.png">
 
-Inheritance chain
+继承链
 
 
-#### Executing the SonarQube Analysis: ####
+#### 运行 SonarQube 分析: ####
 
-Now that our SonarQube is properly configured we just have to add a new Gradle task, ***sonarqube***, to our Jenkins job, that will be executed in last place:
+现在 SonarQube 已经配置好，接下来只需要添加 Gradle 任务， **sonarqube**，并在 Jenkins任务的最后一步执行：
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*EDAjalNzmdU-ptjhWzuCcQ.png">
 
-Adding the sonarqube gradle task
+添加 sonarqube gradle 任务
 
-Execute again the Jenkins job and once it has finished let’s see our sonarQube dashboard at localhost:9000 :
+再运行一次 Jenkins 任务，任务成功完成后在 localhost:9000 可以看到：
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*n7dKdPXyUPj1AZe6ujL3vw.png">
 
-Dashboard with Analysis result
+分析结果页面
 
-If we press the project name we can navigate different dashboards, with tons of info, the most important one is probably Issues. 
+我们可以通过点击工程名来切换仪表盘，这里面包含了很多内容，其中最重要的是 Issues 部分。
 
-In the next screenshot I’m showing the detail of a ***major*** issue that flags an empty constructor method. Here personally what gives me the most important value of using Sonarqube is the explanation shown at the screen bottom when you click on the period … , this is an invaluable way of learning tips and tricks of programming.
+下面的截图显示的是一个被标记为空构造方法的 **major** 问题。对我个人而言，使用 Sonarqube 最大价值是当你点击 period … 后，屏幕下方显示的非常宝贵的学习编程经验和技巧。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*KKM9T2qHzanraAetghYCqg.png">
 
-Getting the explanation of the issue
+获得问题的说明
 
 
-### Step 6 — Extra: configuring other Android apps ###
+### 第 6 步 —— 其它：配置其它 Android 应用 ###
 
-Configuring an Android app to get coverage and sonarqube results is just having the JaCoCo and SonarQube plugins applied. Again you can find more details at my demo app **HelloJenkins:**
+配置一个 Android 应用获得覆盖统计和 sonarqube 结果，只需要使用 JsCoCo 和 SonarQube 插件就可以了。可以在我的 demo 应用 **HelloJenkins** 中找到详细的配置：
 
 [**pamartineza/helloJenkins**](https://github.com/pamartineza/helloJenkins)
 
 ### The end! ###
 
-Yes, you have finally reached the end of this long article! I hope you found it useful. If you find any error or you have any doubt please don’t hesitate to make any comment, I’ll do my best to try to help and if you liked it please share it!
+
+本文到了该结束的时候！希望能对您有所帮助。如果您发现任何问题或有所疑问不吝赐教，我会尽最大努力帮助您。如果您喜欢本文，麻烦分享一下。
 
 ![Markdown](http://i1.piimg.com/1949/7d2d44d03dd76bdc.png)
