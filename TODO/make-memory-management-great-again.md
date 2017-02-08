@@ -2,7 +2,7 @@
 * 原文作者：[Bob Lee](https://medium.com/@bobleesj)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Deepmissea](http://deepmissea.blue)
-* 校对者：
+* 校对者：[xiaoheiai4719](https://github.com/xiaoheiai4719)，[lovelyCiTY](https://github.com/lovelyCiTY)
 
 # 让内存管理重振雄风
 
@@ -22,7 +22,7 @@ Unsplash 上的美图
 
 #### 预备知识:
 
-对`面向对象编程`，`可选类型`，`可选链`有一个正确的理解。如果你一脸懵逼，放松，赶快来 YouTube 看看我 Swift 的视频。[地址](https://www.youtube.com/playlist?list=PL8btZwalbjYlRZh8Q1VK80Ly0YsZ7PZxx)
+对`面向对象编程`、`可选类型`、`可选链`有一个正确的理解。如果你一脸懵逼，放松，赶快来 YouTube 看看我 Swift 的视频。[地址](https://www.youtube.com/playlist?list=PL8btZwalbjYlRZh8Q1VK80Ly0YsZ7PZxx)
 
 ### RAM 的目的
 
