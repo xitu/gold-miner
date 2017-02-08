@@ -1,108 +1,107 @@
 > * 原文地址：[Constraint Layout Concepts ( What the hell is this ) (Tips and Tricks) Part 2 ](http://www.uwanttolearn.com/android/constraint-layout-concepts-hell-tips-tricks-part-2/)
 * 原文作者：[Hafiz Waleed Hussain](http://www.uwanttolearn.com/author/admin/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[Jamweak](https://github.com/jamweak)
 * 校对者：
 
-WOW, we got one more day so its time to make this day awesome by learning something new 🙂 .
+哇哦，我们又有一整天时间，所以就来学点酷炫的新知识吧。
 
-Hello guys, hope every body is doing good. In last week we learn about what is Constraint Layout in [part1](http://www.uwanttolearn.com/android/constraint-layout-hell/). Now Its time to start learning about remaining things about this awesome layout.
+你们好，希望各位都能进步。在上周中，我们学习了 Constraint Layout 的[第一部分](http://www.uwanttolearn.com/android/constraint-layout-hell/)。现在是时候来学习这个神奇布局的剩下内容了。
 
-**Motivation:**
+**动机:**
 
-Motivation is same as discus with you guys in [part1](http://www.uwanttolearn.com/android/constraint-layout-hell/). Now this time I am not going to explain what features are given by Constraint Layout instead I will share with you issues which may be you will face when implementing. In the end I promise with you guys, you will know all concepts (which I know) without knowing you know 🙂 .
+学习动机与先前在[第一部分](http://www.uwanttolearn.com/android/constraint-layout-hell/)中讨论的是一样的。 不过这次我不准备解释 Constraint Layout 的特性，相反，我会分享一些当你们独立实现时可能遇到的问题。最后，我向大家承诺，你们将会潜移默化地了解所有（我知道的）概念。
 
-**Issues:**
+**问题:**
 
-1. [MATCH_PARENT not working.](#match_parent_not_working)
+1. [MATCH_PARENT 不起作用](#1)
 
-2. [Align view in centre (Horizontally, Vertically, In Parent View).](#align_view_in_centre)
+2. [居中对齐视图 (水平, 垂直, 在父视图中心)](#2)
 
-3. [How move View from Centre to Left or Right some DP.](#how_move_view_from_centre_to_left_or_right)
+3. [怎样将视图从中心向左或右移动一些 DP 值](#3)
 
-4. [Management of Ratio of my Image View.](#management_of_ratio_of_my_image_view)
+4. [管理图片视图的比例](#4)
 
-5. [Two or more columns required.](#two_or_more_columns_required)
+5. [需要两列或多列](#5)
 
-6. [Parent Left Views, some have 16dp margin but some have 8dp.](#parent_left_views)
+6. [父视图的左边距, 一些是 16dp ，一些是 8dp ](#6)
 
-7. [How achieve Linear Layout in Constraint Layout.](#linear_layout_to_constraint_layout)
+7. [怎样在 Constraint Layout 中实现 Linear Layout](#7)
 
-8. [View Gone, Break my UI.](#view_gone_break_my_ui)
+8. [隐藏视图后，布局遭到破坏](#8)
 
-Its time to ATTACK :).
+是时候开始了！:).
 
-We need to download 2.3 Android studio. In previous versions Visual Editor is not good and that show some wrong info on Design Tab. So that is really important download 2.3 beta which is available when I am writing this post.
+我们需要下载 2.3 版本的 Android studio。先前版本的 Visual Editor 不太完善，有时会在设计面板上显示错误的信息。所以下载 2.3 测试版本是非常重要的，该版本在我写这篇文章时已经可以获取到了。
 
-**1. MATCH_PARENT not working:**
+<h6 id="1">1. MATCH_PARENT 不起作用:</h6>
 
-When you try to give match_parent width/height to any view in Constraint layout. That will not work as show below (Automatically change by Editor).
+当你在 Constraint Layout 中试图设置长宽为 match_parent 时，如下图所示，将不会起作用（编辑器会自动修正）。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-14-2017-08-31-31.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-14-2017-08-31-31.gif)
 
-No more match_parent. Remember match_parent is not deprecated instead that is removed from Constraint Layout nested views.
+不要再用 match_parent。记住 match_parent 不是被废弃了，而是从 Constrain Layout 嵌套的视图中移除掉了。
 
-Solution:
+解决方案:
 
-Use **parent** property for Constraint Layout nested views. Just like we do in RelativeLayout width=0dp and left and right to parent align. Same we will do here as shown below.
+恰当地在 Constrain Layout 嵌套的视图中使用 **parent** 属性。就像我们在 RelativeLayout 中设置 width=0dp，然后对其到父布局的左右两边一样，我们需要做同样的操作，如下图所示：
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-14-2017-08-50-40.gif)
 ](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-14-2017-08-50-40.gif)
 
-**2. Align view in centre (Horizontally, Vertically, Centre In Parent):**
+<h6 id="2">2. 居中对齐视图 (水平, 垂直, 在父视图中心):</h6>
 
-We need a Button in the centre of a parent. We can achieve as shown below.
+我们需要在父布局的中心放置一个按钮，能通过下图的操作实现：
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-14-2017-09-02-29.gif)
 ](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-14-2017-09-02-29.gif)
 
-Now I have a feeling you can easily achieve Horizontal and Vertical centre positions on your own :).
+现在我坚信，你能轻易地自己实现水平和垂直居中了。:)
 
-**3. How move View from Centre to Left or Right some DP:**
+<h6 id="3">3. 怎样将视图从中心向左或右移动一些 DP 值:</h6>
 
-Mostly designer’s give us weird requirements. For example designer want a text which is not 100% centre of parent instead that start from nearly to centre.
+大部分设计师都给我们提过奇怪的需求，比如有人想要一段文字不是 100% 居中的，而是几乎从中心开始的。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-14-at-9.15.48-AM-181x300.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-14-at-9.15.48-AM.png)
 
-Solution:
+解决方案:
 
-First, Sorry designers 😛 .  Really easy to achieve this in Constraint Layout as shown below.
+首先, 抱歉了设计师😛。 在 Constraint Layout 中实现起来非常容易：
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-14-2017-09-21-32.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-14-2017-09-21-32.gif)
 
-Same you can play with app:layout_constraintVertical_bias=”.1″.  Remember value limit 0,0.1 .. 1.
+同样地，你可以使用 app:layout_constraintVertical_bias=”.1″.  记住取值区间是 0,0.1 .. 1。
 
-**4. Management of Ratio of my Image View:**
+<h6 id="4">4. 管理图片视图的比例:</h6>
 
-Lots of time we have ImageView with some specific ratio like 4:3. So we can achieve that as shown below.
+很多时候我们的 ImageView 都有特定的比例，比如 4:3，因此我们能用下图的方式实现：
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-14-2017-09-39-48.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-14-2017-09-39-48.gif)
 
-Haha I know really simple. But now there is one more issue. Like I have a textview which has match_constrained in both width and height dimensions, but I want size of that TextView should be square according to device size. One more important thing, we need to mention square in perspective of Height or Width as shown below.
+哈哈！我知道这很简单，但还有另外一个问题。比如我有一个宽高尺寸都是 match_constrained 类型的 textView，但是我希望整个 textView 的形状适应设备大小为方型。一个关键点是，我们需要按如下方式设置宽高属性来约束为方型：
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-14-2017-09-56-50.gif)
-](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-14-2017-09-56-50.gif)Now you can play more by changing values randomly.
+](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-14-2017-09-56-50.gif)现在你可以随机地尝试更多设置值了。
 
-**5. Two or more columns required:**
+<h6 id="5">5. 需要两列或多列:</h6>
 
-Now my designer want something like Table Layout. Two columns as shown below
+现在我们的设计师又要求像是平板布局的样式，像是下面这样的两列：
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-14-at-10.17.19-AM-181x300.png)
 ](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-14-at-10.17.19-AM.png)
 
-Solution:
+解决方案：
 
-That is really simple. Only we need to add one new concept of ConstraintLayout is called Guidelines. That is awesome. You will see in a minute. Basically these are virtual lines which you can use as a UI separator. There is only three important properties if you know you can say you are master of Guidelines.
+实现起来非常简单。我们只需在 ConstraintLayout 中添加一个叫做 Guidelines 即可。这非常酷！你能在一分钟之内搞定。 你可以将这些线条主要用作分隔 UI 的辅助工具。如果你说你掌握了 Guidelines 的话，你必须知道下面三个重要的属性：
 
-**orientation**: horizontal, vertical // how you want to divide screen logically
+**orientation**: 水平, 垂直 // 分隔屏幕的方式
 
-**layout_constraintGuide_percent**: 0, 0.1 ..  1 // Total screen having 1.0 percent
+**layout_constraintGuide_percent**: 0, 0.1 ..  1 // 屏幕的全部大小表示为 1.0 
 
-**layout_constraintGuide_begin**: 200dp  // By using dp we can place our Guideline
+**layout_constraintGuide_begin**: 200dp  // 通过 dp 值来表示放置 Guidelines 的位置
 
-In the end this Guideline never render on UI.
-
-So first I am going to implement Guideline which will divide my screen into half. So I can get two column feeling.
+最终，Guidelines 永远不会绘制到 UI 界面中。
+首先，我先来实现一个将屏幕分隔为两部分的 Guidelines ，以便我能和看到两列内容。
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
@@ -114,7 +113,7 @@ So first I am going to implement Guideline which will divide my screen into half
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-14-at-10.32.35-AM-209x300.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-14-at-10.32.35-AM.png)
 
-Its time to add first button.
+首先添加第一个按钮：
 
     <Button
     android:id="@+id/button"
@@ -128,7 +127,7 @@ Its time to add first button.
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-14-at-10.35.24-AM-211x300.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-14-at-10.35.24-AM.png)
 
-Its time to add second button.
+添加第二个按钮：
 
     <Button
         android:id="@+id/button2"
@@ -136,13 +135,13 @@ Its time to add second button.
         android:layout_height="wrap_content"
         android:text="Button"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/guideline"
+       app:layout_constraintRight_toLeftOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/button" />
 
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-14-at-10.38.04-AM-211x300.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-14-at-10.38.04-AM.png)
 
-Its time to add textview in second column.
+接下来在第二列中添加 textview：
 
     <TextView
         android:id="@+id/textView2"
@@ -158,9 +157,9 @@ Its time to add textview in second column.
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-14-at-10.41.39-AM-210x300.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-14-at-10.41.39-AM.png)
 
-Very simple to achieve this type of UI in ConstraintLayout.  You can make more columns or rows by using same concept.
+使用 ConstraintLayout 实现这样的 UI 效果非常简单。使用这个方法，你可以随意添加更多的行和列。
 
-Whole code is written below.
+完整的代码如下：
 
     <?xml version="1.0" encoding="utf-8"?>
         <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -207,22 +206,22 @@ Whole code is written below.
                 app:layout_constraintTop_toTopOf="parent" />
         </android.support.constraint.ConstraintLayout>
 
-**6. Parent Left Views, some have 16dp margin but some have 8dp:**
+<h6 id="6">6. 父视图的左边距, 一些是 16dp ，一些是 8dp:</h6>
 
-I have some views which have constant 16dp left margin and some have 8dp as shown below.
+我有一些视图，其中一些有固定的 16dp 的左边距，一些是 8dp 的左边距。如下所示： 
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-14-at-10.52.32-AM-179x300.png)
 ](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-14-at-10.52.32-AM.png)
 
-May be you can ask this question. That is simple why that is mention as issue in post? Basically I am sharing with you a good practice how to manage UI.  By implementing my way you can make scale able your UI. I want you should know, how you can use something in different perspectives.
+也许你会问这样的问题：为什么这篇文章中会提到这么简单的效果？主要是因为我在分享一些管理 UI  布局的技巧，我觉得你应该知道，用不同的方式来实现效果。
 
-So its time to start.
+所以是时候开始了。
 
-OK if you saw from top to bottom. First, second and last view having 16dp margin and all other have 8dp.
+如果你由上至下地看下来，首先，第二个和最后一个视图边距为 16dp，其余的边距为 8dp。
 
-I can do by giving direct margin to all views. But many time’s designer ask me, hey on small devices it look ugly can you do all views which have 8dp to 12dp left margin and those which have 16dp give them 20dp left margin.
+我能够直接设置所有视图的边距，但是许多时候设计师要求，说这样在某些小屏设备上看起来很丑，能否将这些视图都设置成 8dp 到 12dp 的边距，然后将具有 16dp 值的视图设置为 20dp 的左边距。
 
-If you giving direct margin. Its a nightmare. So I am going to make two guide lines. One having 8dp margin and second has 16dp margin. Both have vertical orientation.
+如果你直接设置边距，那简直就是噩梦 。所以我将要设置两条辅助线，一个边距是 8dp，另一个边距是 16dp。两个都是垂直方向的。 
 
     <android.support.constraint.Guideline
         android:id="@+id/eightDpGuideLine"
@@ -238,7 +237,7 @@ If you giving direct margin. Its a nightmare. So I am going to make two guide li
         android:orientation="vertical"
         app:layout_constraintGuide_begin="16dp" />
 
-Now its really simple add all other views according to requirement but with “0dp” margin. Now I am giving you whole code below.
+现在可以很轻松地根据需求添加边距为 “0dp” 的其它视图了。下面会给出完整的代码：
 
     <?xml version="1.0" encoding="utf-8"?>
         <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -311,13 +310,13 @@ Now its really simple add all other views according to requirement but with “0
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-14-at-11.11.23-AM-1024x559.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-14-at-11.11.23-AM.png)
 
-Now designer want’s to change 16dp to 20dp. I only need to change Guideline value  app:layout_constraintGuide_begin=”16dp” to app:layout_constraintGuide_begin=”20dp”. One important thing please don’t make your team members fooooool. Always refactor your name if required. Like currently I have **sixteenDpGuideLine**. As a good developer its my duty to refactor Id name to **twentyDpGuideLine**. Now you can see magic in below image.
+现在设计师想要把 16dp 改成 20dp。我只需要改变 Guideline 值即可：  app:layout_constraintGuide_begin=”16dp” 变为 app:layout_constraintGuide_begin=”20dp”。一个关键点就是不要让你的同事们犯傻。 记得有必要的话修改你的命名，比如现在的 **sixteenDpGuideLine**。作为一个优秀的开发者，我的责任就是将其修改成 **twentyDpGuideLine**。现在你可以看到下图中神奇的变化： 
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-14-2017-11-17-59.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-14-2017-11-17-59.gif)
 
-**7. How achieve Linear Layout in Constraint Layout:**
+<h6 id="7">7. 怎样在 Constraint Layout 中实现 Linear Layout:</h6>
 
-We have three buttons which are equally distributed in horizontal fashion. So in Linear layout I can achieve this by using weight as code written below.
+我们现在有三个按钮，水平均分并排着。在 Linear Layout 中我们可以通过 weight 来实现，代码如下：
 
     <?xml version="1.0" encoding="utf-8"?>
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -348,7 +347,7 @@ We have three buttons which are equally distributed in horizontal fashion. So in
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-14-at-11.27.11-AM-209x300.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-14-at-11.27.11-AM.png)
 
-How we can achieve this in Constraint Layout. Very easy, I am writing code below.
+怎样在 Constraint Layout 中实现这种效果呢？ 非常简单，直接看代码： 
 
     <?xml version="1.0" encoding="utf-8"?>
         <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -386,7 +385,7 @@ How we can achieve this in Constraint Layout. Very easy, I am writing code below
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-14-at-11.36.04-AM-209x300.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-14-at-11.36.04-AM.png)
 
-So we achieve same result. Only focus on one thing. I created Bi – Directional relationship in between these buttons and width=”0dp”
+这样就得到了同样的效果。只需关注一点，在这些按钮中我建立了两两之间的关系，并且设置 width=”0dp”。
 
     android:id="@+id/button1"
     ........
@@ -398,40 +397,40 @@ So we achieve same result. Only focus on one thing. I created Bi – Directional
     app:layout_constraintRight_toLeftOf="@+id/button3"
     ........
 
-Oh no, guys you learned one new concept is called **chaining**. When we have Bi Directional relationship between views. Editor automatically take that as chaining. Now its time to discuss what benefits we can get by using chaining but before that I want to show how chaining looks on UI editor.
+噢不，你们已经学到了一个新的概念叫做 **chaining**。当我们建立视图之间的两者关系时，编辑器会自动链接起来。现在是时候来讨论下使用 chaining 带来的好处了。在这之前，我想要你先了解 chaining 在编辑器中的样子：
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-14-at-11.44.26-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-14-at-11.44.26-AM.png)
 
-Here I am going to copy some definitions from Android Documentation. Because I feel that is good time to explain.
+在下文我将复制一些来自 Android 官方的文档。因为我觉得解释得很好。
 
 **Chains:**
 
-Chains provide group-like behavior in a single axis (horizontally or vertically). The other axis can be constrained independently.
+Chains 在一个方向（水平或垂直）提供类似组合的行为。另一方向可以独立约束。
 
-**Creating a chain:**
+**创建 chain:**
 
-A set of widgets are considered a chain if they are linked together via a bi-directional connection (see below, showing a minimal chain, with two widgets).
+ 一系列控件通过建立双向联系从而链接成链 (看下面，展示了一个含有两个控件的最小链)。
 
 ![](https://developer.android.com/reference/android/support/constraint/resources/images/chains.png)
 
-**Chain heads**
+**Chain 的头部**
 
-Chains are controlled by attributes set on the first element of the chain (the “head” of the chain):
+Chain被位于它链中第一个元素的属性集控制 (链的“头”部)：
 
 ![](https://developer.android.com/reference/android/support/constraint/resources/images/chains-head.png)
 
-The head is the left-most widget for horizontal chains, and the top-most widget for vertical chains.
+头部是对于水平链来说最左边的控件，对于垂直链来说最上面的控件。
 
-Now I have a feeling you guys are comfortable with the concept of Chaining. Its time to show you one more thing about chaining, that is called **chaining style**. Basically there is very good documentation available which I will show you later because that mostly create confusion. First I want to give you some practical experience.
+现在我觉得你们应该熟悉了 Chaining 的概念了。接下来我会介绍 chaining 的更多方面，被叫做 **chaining style**。本来有一个非常好的文档来介绍它，但我决定稍后再推荐，因为它会把你搞混淆。首先，我先来让你们掌握些实际经验。
 
-For chaining style there is one new property **layout_constraintHorizontal_chainStyle
-(layout_constraintVertical_chainStyle)** and we have five values for this property.
+F对于 chaining style 来说，有一个新的属性 **layout_constraintHorizontal_chainStyle
+(layout_constraintVertical_chainStyle)** 我们能给这个属性设置五种值。
 
-Spread Chain, Spread Inside Chain, Packed Chain, Packed Chain with Bias and Weighted Chain. Its time to look one by one of all these values.
+Spread Chain, Spread Inside Chain, Packed Chain, Packed Chain with Bias 以及 Weighted Chain。下面将一一介绍每一种值。
 
 **Spread Chain:**
 
-By adding spread value in my Head view. I got below result.
+B通过在头部视图的属性中添加 “spread”，得到如下的结果。
 
     app:layout_constraintHorizontal_chainStyle="spread"
 
@@ -439,66 +438,68 @@ By adding spread value in my Head view. I got below result.
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-14-at-11.57.28-AM-211x300.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-14-at-11.57.28-AM.png)
 
-Nothing change because **spread **is a default value. 🙂
+并没有发生变化，因为 **spread ** 就是默认值。
 
 **Spread Inside Chain:**
-
-By adding spread_inside in my Head view. I got below result.
+ 
+在头部视图中添加 “spread inside”，得到如下结果： 
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-14-2017-12-03-41.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-14-2017-12-03-41.gif)
 
-In easy words when I gave this property to my head view my head and last view automatically attached with parent left and right edges. If you want this type of behaviour use “spread_insdie” value.
+简而言之当我的头部视图中设置这个值时，链头和尾部的视图都自动地依附到了父容器的左右两边。如果你想要这种效果，那就应该使用  “spread_insdie” 值。
 
 **Packed Chain:**
 
-By adding packed value in my Head view. I got below result.
+在头部视图中添加 “packed”，得到如下结果：
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-14-2017-12-07-52.gif)
-](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-14-2017-12-07-52.gif)So when we want all views should be together. we can use “packed” value. Only one thing, all views are together but centre horizontal by default. Now my issue is I don’t want centre horizontal. For that, check next property.
+](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-14-2017-12-07-52.gif)
+如果我们想要所有的视图连在一起，我们就应使用 “packed” 属性。 需要注意一点，所有的视图会默认变为水平居中。现在我的问题是我不想要水平居中的效果，那么就轮到下个属性了。
 
 **Packed Chain with Bias:**
 
-By adding packed and horizontal bias value in my Head view I got below result.
+在头部视图中添加 “packed and horizontal bias”，得到如下结果：
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-14-2017-12-15-05.gif)
-](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-14-2017-12-15-05.gif)By using bias property I can change position as I want.
+](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-14-2017-12-15-05.gif)
+通过使用偏移量属性，我能随意地修改位置。
 
 **Weighted Chain:**
 
-For example I have three buttons. First two buttons should take half screen and third will take a remaining half. For that I will use weighted chain concept as shown below. One important point, in this chaining style we always choose default style “spread” and then by using property **“layout_constraintHorizontal_weight**” we manage distribution of space between views.
+比如我有三个按钮，前两个要占半个屏幕，第三个占据剩下的一半屏幕。对于这种需求，我将要使用到 weighted chain 概念，如下所示。一个关键点是，通常来说，我们使用默认的 “spread” 属性，然后添加一个 **“layout_constraintHorizontal_weight”**属性来管理视图空白的分布。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-14-2017-12-22-55.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-14-2017-12-22-55.gif)
 
-Now we know real concept of Chaining and what are different chaining styles. Next I am doing copy some definitions of these chaining styles .
+现在我们了解了 Chaining 的概念以及 chaining styles 的不同。接下来我将要复制一些关于样式的定义：
 
-- `CHAIN_SPREAD` — the elements will be spread out (default style)
-- Weighted chain — in `CHAIN_SPREAD` mode, if some widgets are set to `MATCH_CONSTRAINT`, they will split the available space
-- `CHAIN_SPREAD_INSIDE` — similar, but the endpoints of the chain will not be spread out
-- `CHAIN_PACKED` — the elements of the chain will be packed together. The horizontal or vertical bias attribute of the child will then affect the positioning of the packed elements
+- `CHAIN_SPREAD` — 元素将被站展开 (默认样式)
+- Weighted chain — 在 `CHAIN_SPREAD` 模式下, 如果控件被设置成 `MATCH_CONSTRAINT`, 它们将会分割剩余空间
+- `CHAIN_SPREAD_INSIDE` — 同样地, 但是链的端点不会被展开
+- `CHAIN_PACKED` —链的元素将会被拼接，子元素的水平或垂直偏移量会影响拼接后整体的位置
 
 ![](https://developer.android.com/reference/android/support/constraint/resources/images/chains-styles.png)
 
 **Weighted chains:**
 
-The default behavior of a chain is to spread the elements equally in the available space. If one or more elements are using `MATCH_CONSTRAINT`, they will use the available empty space (equally divided among themselves). The attribute `layout_constraintHorizontal_weight` and `layout_constraintVertical_weight` will control how the space will be distributed among the elements using`MATCH_CONSTRAINT`. For exemple, on a chain containing two elements using `MATCH_CONSTRAINT`, with the first element using a weight of 2 and the second a weight of 1, the space occupied by the first element will be twice that of the second element.
+链的默认样式是展开并均分剩余空间。如果一个或多个元素使用  `MATCH_CONSTRAINT`，它们将会使用剩余空间(平均分配剩余空间)。 `layout_constraintHorizontal_weight` 属性和  `layout_constraintVertical_weight` 属性将会控制类型为 `MATCH_CONSTRAINT` 的元素如何分配剩余空间。例如， 一条链上有两个元素使用 `MATCH_CONSTRAINT`, 第一个元素的权重值是 2 第二个元素的权重值是 1, 那么第一个元素占据的空间将是第二个元素的两倍。
 
-** 8. View Gone, Break my UI:**
+<h6 id="8">8. 隐藏视图后，布局遭到破坏：</h6>
 
-Now what happened when some view Gone on runtime. I did some experiment and I got very odd results. For explaining this issue and how we can resolve I am taking very easy but effective example. For example I have two buttons as shown below.
+在运行时，某些视图隐藏之后会发生什么呢？我做了一些实验并得到了奇怪的结果。 为了解释并解决这些问题，我用了一个非常简单但有效的例子，例如我有如下两个按钮：
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-14-at-12.33.31-PM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-14-at-12.33.31-PM.png)
 
-According to functionality when second button clicked, first button will be gone. So as I implemented I have expectation my second button should go on the left edge of parent. So its time to see what will happen.
+根据编写的代码，当第二个按钮点击时，第一个按钮会隐藏。当我实现这个代码时，我猜想第二个按钮会移动到父容器的左边缘，让我们来看看发生了什么。
 
-[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-14-2017-12-36-13.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-14-2017-12-36-13.gif)
+[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-14-2017-12-36-13.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-14-2017-12-36-13.gif)和
 
-Haha my expectations are ruined.
+哈哈我的设想被推翻了！
 
-Its time to resolve. Basically there is one new property is given in Constraint Layout called “app:layout_goneMargin”. By using this property I can resolve these type of issues. So now I am going to add one more line of code and will see is my issue resolve or not.
+解决方案： 基本上来说，Constraint Layout 中有一个新的属性叫做  “app:layout_goneMargin”。通过使用这个属性，我能解决这种问题。因此我将添加一两行代码然后看看我的问题解决没。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-14-2017-12-40-40.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-14-2017-12-40-40.gif)
 
-Boom. Every thing is working according to expectations. Hurray.
+砰！如期所至！好耶。
 
-OK guys. Its time to say BYE. We will meet again in next post.
+好啦各位，该说再见啦。 下期再见！
 **[Constraint Layout [Animations | Dynamic Constraints | UI by Java] ( What the hell is this) [Part3] ](http://www.uwanttolearn.com/android/constraint-layout-animations-dynamic-constraints-ui-java-hell/)**
