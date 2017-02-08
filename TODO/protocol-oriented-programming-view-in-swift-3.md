@@ -2,7 +2,7 @@
 * 原文作者 : [Bob Lee](https://medium.com/@bobleesj)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者 : [洪朔](http://www.tuccuay.com)
-* 校对者 :
+* 校对者 : [DeepMissea](https://github.com/DeepMissea), [thanksdanny](https://github.com/thanksdanny)
 
 # 在 Swift 3 上对视图控件实践面向协议编程
 
@@ -10,14 +10,14 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*s_XZ1RzyZgyON36tM4zZCA.png)
 
-光说不做嘴把式。那好，我们要怎样开始在我的应用中实践面向协议编程？🤔
+你可能听人说过，学到了知识却缺失了行动就好比人长了牙却还老盯着奶喝一样。那好，我们要怎样开始在我的应用中实践面向协议编程？🤔
 
 为了能更加高效的理解下面的内容，我希望读者能够明白 `Complection Handlers`，并且能创建协议的基本实现。如果你还不熟悉他们，可以先查看下面的文章和视频再回来接着看：
 
 前景提要：
 
 - [Intro to Protocol Oriented Programming](https://medium.com/ios-geek-community/introduction-to-protocol-oriented-programming-in-swift-b358fe4974f)
-
+- [No Fear Closures Part 2: Completion Handlers](https://medium.com/ios-geek-community/no-fear-closure-in-swift-3-with-bob-part-2-1d79b8c4021d#.5duucas56)
 - [Protocol Oriented Programming Series](https://www.youtube.com/playlist?list=PL8btZwalbjYm5xDXDURW9u86vCtRKaHML)
 
 ### 看完这篇文章你会学到这些内容
