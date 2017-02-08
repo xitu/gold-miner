@@ -12,13 +12,13 @@
 
 - 在全新的 Ubuntu 环境下安装 Android SDK。
 
-- 搭建 Jenkins CI 服务，在其基础上完成从 GitHub 上获取代码、编译一个多模块的 Android 项目，并对其进行测试。
+- 搭建 Jenkins CI 服务，在其基础上从 GitHub 上获取代码、编译一个多模块的 Android 项目，并对其进行测试。
 
 - 安装 Docker 容器，并在其上安装 MySQL 服务和 SonarQube，以实现 Jenkins 触发的静态代码分析。
 
 - Android App 配置需求。
 
-### 第 1 步 — Ubuntu 安装： ###
+### 第 1 步 — 安装 Ubuntu： ###
 
 我之所以选择 Ubuntu 作为 CI 的操作系统，是因为它有着强大的社区，方便对可能遇到的问题寻求帮助，我个人建议使用最新的 LTS 版本，目前是 16.04 LTS。因为有许多 Ubuntu 安装教程（虚拟机和真机），所以这里我只提供下载链接。
 
@@ -46,11 +46,11 @@ $ sudo apt-get install openssh-server
 
 ### 第 3 步 — 环境配置 ###
 
-下面我将 Jenkins pull 代码、编译运行 android 项目所依赖工具，包括 JAVA8，Git，和 Android SDK。
+下面我将安装 Jenkins pull 代码、编译运行 android 项目所依赖工具，包括 JAVA8，Git，和 Android SDK。
 
 #### **SDKMAN!:** ####
 
-SDKMAN! 是一个非常酷的命令行工具支持主流的 SDK（例如：Gradle, Groovy, Grails, Kotlin, Scala 等），它可以提供可用列表供我们选择并可以简单易用的可以在不同版本之间进行切换。
+SDKMAN! 是一个非常酷的命令行工具，它支持主流的 SDK（例如：Gradle, Groovy, Grails, Kotlin, Scala 等），它可以提供可用列表供我们选择并可以方便地在不同版本之间进行切换。
 
 [**SDKMAN! 软件开发工具管理器**](http://sdkman.io/) 
 
@@ -118,7 +118,7 @@ $ cd
 $ nano .bashrc
 ```
 
-在文件的底部（SDKMAN! 之前）添加如下内容：
+在文件的底部（SDKMAN! 配置之前）添加如下内容：
 
 ```
 export ANDROID_HOME="/opt/android-sdk-linux"
@@ -145,7 +145,7 @@ Android SDK Manager 界面
 
 ### 第 4 步 — Jenkins 服务: ###
 
-接下来我将描述 Jenkins 的安装与配置，并创建一个 Jenkins 任务来拉取 Android 项目代码并对其进行编译，以及如何查看控制台输出。
+接下来我将描述 Jenkins 的安装与配置，并创建一个 Jenkins 任务来拉取 Android 项目代码并对其进行编译和测试，以及查看控制台输出。
 
 #### Jenkins 安装: ####
 
@@ -224,7 +224,7 @@ Jenkins 解锁后需要安装插件，点击 “**Select plugins to Install**”
 
 创建 admin 完成安装。
 
-我们必须配置 ANDROID_HOME 和 JAVA_HOME 环境变量结束整个配置：
+在配置完成之前，我们还要配置 ANDROID_HOME 和 JAVA_HOME：
 
 点击进入 Manage Jenkins > Configure 页面
 
@@ -262,9 +262,9 @@ Jenkins 任务由一系列连续执行的步骤组成。我在 GitHub 上准备�
 
 这里我们需要选择 Git 作为 CVS 选项，并且填写代码库地址（需要包含 *.git）并选择要获取的分支。这是一个公开的 GitHub 仓库，因此不需要添加凭证，否则需要填写你的用户名和密码。
 
-我建议你重新创建一个只有你私有仓库只读权限 GitHub 账户 供你的 Jenkins 使用，而不是直接使用你的真是 GitHub 账户。
+我建议你重新创建一个只有你私有仓库只读权限 GitHub 账户 供你的 Jenkins 使用，而不是直接使用你的真实 GitHub 账户。
 
-此外如果你开启了双方认证 Jenkins 将不能获取代码，这时为 Jenkins 单独创建账户是能够正常获取私有仓库代码的方法。
+此外如果你开启了双重身份验证 Jenkins 将不能获取代码，这时为 Jenkins 单独创建账户是能够正常获取私有仓库代码的方法。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*wkzdL70XrCzIpXDsHPA2Pg.png">
 
@@ -273,13 +273,13 @@ Jenkins 任务由一系列连续执行的步骤组成。我在 GitHub 上准备�
 
 **构建触发器:**
 
-构建可以被以下方式出发：手动的、远程的、周期性的、另一个任务构建、检测到变更时等等。
+构建可以被以下方式触发：手动的、远程的、周期性的、另一个任务构建、检测到变更时等等。
 
-理想的最好的情景是，当新的变更推送到仓库是出发构建，GitHub 提供了一个叫 Webhooks的系统
+理想的最好的情景是，当新的变更推送到仓库是触发构建，GitHub 提供了一个叫 Webhooks的系统
 
 [**Webhooks | GitHub Developer Guide**](https://developer.github.com/webhooks/)
 
-我们可以配置 Webhooks 发送事件到 CI 服务触发构建，但是这需要我们的 CI 服务器对 GitHub 是可以通网络访问的。
+我们可以配置 Webhooks 发送事件到 CI 服务触发构建，但是这需要我们的 CI 服务器对 GitHub 在线并可以通过 GitHub 访问。
 
 可能处于安全考虑你的 CI 是放在私有网络里的，这时唯一的解决方案就是周期性的查询 GitHub。就我个人而言，我一工作就会打开 CI，在下面的截图中我配置的是每 15 分钟查询一次 Github。查询的频次与 **CRON** 语法一样，如果你对其不熟悉，可以点击右面的帮助按钮获得帮助文档。
 
@@ -316,7 +316,7 @@ Gradle 任务配置
 
 **构建后操作**
 
-这部分我们添加 ***Publish JUnit test result report ***，本步骤是由 JUnit 插件提供，收集 JUnit 测试产生的 .XML 报告，并生成测试结果图标报告。
+这部分我们添加 ***Publish JUnit test result report ***，本步骤由 JUnit 插件提供，收集 JUnit 测试产生的 .XML 报告，并生成测试结果图表报告。
 
 该部分对 debug 包来说测试结果的路径是：
 
@@ -362,7 +362,7 @@ Gradle 任务配置
 
 [**Continuous Code Quality | SonarQube**](https://www.sonarqube.org/)
 
-SonarQube 是一个静态代码分析工具，它可以帮助开发者编写干净的代码、发现 bug、学习好的经验，并且可以跟踪代码覆盖、测试结果、技术缺陷等。所有 SonarQube 检测到的问题都可以导入到安装了插件的 Android Studio/IntelliJ 中，并修复。
+SonarQube 是一个静态代码分析工具，它可以帮助开发者编写干净的代码、发现 bug、学习好的经验，并且可以跟踪代码覆盖、测试结果、技术债务等。所有 SonarQube 检测到的问题都可以导入到安装了插件的 Android Studio/IntelliJ 中，并修复。
 
 [**JetBrains Plugin Repository :: SonarQube Community Plugin**](https://plugins.jetbrains.com/idea/plugin/7238-sonarqube-community-plugin)
 
@@ -433,13 +433,13 @@ $ docker run --name sonarqube --restart=always --link mysqlserver:db -p 9000:900
 
 #### SonarQube 配置: ####
 
-我们已安装插件可以配置一系列的规则来评估项目代码的质量。
+我们已经安装的插件定义了一系列用来评估代码质量的规则。
 
 一个项目只能应用一个配置，但是我们为一个配置指定父配置来继承它，所以我们可以新建一个自定义配置将所有配置串起来，来评价项目。
 
 点击 Quality Profiles > Create 并取个名字（例如 **CustomAndroidProfile**）
 
-添加 Android Lint 作为父配置，然后切换到 **Android Lint** 并将 **FindBugs Security Minimal** 设为父配置，继续设置知道将所有配置串联起来，最后将 **CustomAndroidProfile** 设为默认配置
+添加 Android Lint 作为父配置，然后切换到 **Android Lint** 并将 **FindBugs Security Minimal** 设为父配置，继续设置直到将所有配置串联起来，最后将 **CustomAndroidProfile** 设为默认配置
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*w2CvH8uAOUcvajzjsOoCgQ.png">
 
@@ -460,13 +460,13 @@ $ docker run --name sonarqube --restart=always --link mysqlserver:db -p 9000:900
 
 分析结果页面
 
-点击项目名可以跳转到另外一个内容非常多页面，其中最重要的是 Issues 部分。
+我们可以通过点击工程名来切换仪表盘，这里面包含了很多内容，其中最重要的是 Issues 部分。
 
-下面的截图显示的是一个被标记为空构造方法的 ***major*** 问题。对我个人而言，使用 Sonarqube 最大价值是当你点击 period … 后，屏幕下方显示的非常宝贵的学习经验和变成技巧。
+下面的截图显示的是一个被标记为空构造方法的 ***major*** 问题。对我个人而言，使用 Sonarqube 最大价值是当你点击 period … 后，屏幕下方显示的非常宝贵的学习编程经验和技巧。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*KKM9T2qHzanraAetghYCqg.png">
 
-问题说明
+获得问题的说明
 
 
 ### 第 6 步 — 其它：配置其它 Android 应用 ###
