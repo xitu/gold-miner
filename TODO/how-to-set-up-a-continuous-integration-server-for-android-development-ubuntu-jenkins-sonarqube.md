@@ -2,7 +2,7 @@
 * 原文作者：[Pablo A. Martínez](https://pamartinezandres.com/@pamartineza?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[skyar2009](https://github.com/skyar2009)
-* 校对者：
+* 校对者：[jifaxu](https://github.com/jifaxu), [tanglie1993](https://github.com/tanglie1993)
 
 # 如何搭建安卓开发持续化集成环境（Ubuntu + Jenkins + SonarQube） #
 
@@ -18,7 +18,7 @@
 
 - Android App 配置需求。
 
-### 第 1 步 — 安装 Ubuntu： ###
+### 第 1 步 —— 安装 Ubuntu： ###
 
 我之所以选择 Ubuntu 作为 CI 的操作系统，是因为它有着强大的社区，方便对可能遇到的问题寻求帮助，我个人建议使用最新的 LTS 版本，目前是 16.04 LTS。因为有许多 Ubuntu 安装教程（虚拟机和真机），所以这里我只提供下载链接。
 
@@ -26,7 +26,7 @@
 
 你可能会对我选择桌面版而不是选择服务器版而感到疑惑，这只是个人的偏好，我并不介意因为有界面交互而带来的性能和可用内存的少量损失，因为我认为 GUI 对提高工作效率的帮助大过消耗。
 
-### 第 2 步 - 远程访问管理： ###
+### 第 2 步 —— 远程访问管理： ###
 
 #### **SSH服务:** ####
 
@@ -44,7 +44,7 @@ $ sudo apt-get install openssh-server
 [**NoMachine - 对任何人都免费**](https://www.nomachine.com/download)
 
 
-### 第 3 步 — 环境配置 ###
+### 第 3 步 —— 环境配置 ###
 
 下面我将安装 Jenkins pull 代码、编译运行 android 项目所依赖工具，包括 JAVA8，Git，和 Android SDK。
 
@@ -143,7 +143,7 @@ $ android
 Android SDK Manager 界面
 
 
-### 第 4 步 — Jenkins 服务: ###
+### 第 4 步 —— Jenkins 服务: ###
 
 接下来我将描述 Jenkins 的安装与配置，并创建一个 Jenkins 任务来拉取 Android 项目代码并对其进行编译和测试，以及查看控制台输出。
 
@@ -241,7 +241,7 @@ Jenkins 任务由一系列连续执行的步骤组成。我在 GitHub 上准备�
 
 [**pamartineza/helloJenkins**](https://github.com/pamartineza/helloJenkins)
 
-首先新建一个 ***Freestyle project Job *** 并取个名字例如 “***Hello_Android***” （Jenkins 任务名不要有空格，避免将来与 SonarQube 的兼容性问题）
+首先新建一个 ***自由风格工程项目*** 并取个名字例如 “***Hello_Android***” （Jenkins 任务名不要有空格，避免将来与 SonarQube 的兼容性问题）
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*ITE7xIrbsrChWv45PSlPPw.png">
 
@@ -281,7 +281,7 @@ Jenkins 任务由一系列连续执行的步骤组成。我在 GitHub 上准备�
 
 我们可以配置 Webhooks 发送事件到 CI 服务触发构建，但是这需要我们的 CI 服务器对 GitHub 在线并可以通过 GitHub 访问。
 
-可能处于安全考虑你的 CI 是放在私有网络里的，这时唯一的解决方案就是周期性的查询 GitHub。就我个人而言，我一工作就会打开 CI，在下面的截图中我配置的是每 15 分钟查询一次 Github。查询的频次与 **CRON** 语法一样，如果你对其不熟悉，可以点击右面的帮助按钮获得帮助文档。
+可能处于安全考虑你的 CI 是放在私有网络里的，这时唯一的解决方案就是周期性的查询 GitHub。就我个人而言，我一工作就会打开 CI，在下面的截图中我配置的是每 15 分钟查询一次 GitHub。查询的频次与 **CRON** 语法一样，如果你对其不熟悉，可以点击右面的帮助按钮获得帮助文档。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*eONz8DAwJ9PW7uc8VQw7wQ.png">
 
@@ -299,7 +299,7 @@ Jenkins 任务由一系列连续执行的步骤组成。我在 GitHub 上准备�
 
 **构建:**
 
-这里是最神奇的地方！添加一个 ***Build Step *** 选择 ***Invokes Gradle Script ***  选择 Gradle Wrapper （Android 项目默认情况下都包含 Gradle Wrapper，不要忘记将其添加到 Git）并且配置需要执行的任务：
+这里是最神奇的地方！添加一个 ***构建步骤*** 选择 ***执行 Gradle 脚本***  选择 Gradle Wrapper （Android 项目默认情况下都包含 Gradle Wrapper，不要忘记将其添加到 Git）并且配置需要执行的任务：
 
 1. **clean:** 删除所有之前构建产生的输出，确保本次构建没有任何缓存。
 
@@ -316,7 +316,7 @@ Gradle 任务配置
 
 **构建后操作**
 
-这部分我们添加 ***Publish JUnit test result report ***，本步骤由 JUnit 插件提供，收集 JUnit 测试产生的 .XML 报告，并生成测试结果图表报告。
+这部分我们添加 ***发布 JUnit 测试结果报告***，本步骤由 JUnit 插件提供，收集 JUnit 测试产生的 .XML 报告，并生成测试结果图表报告。
 
 该部分对 debug 包来说测试结果的路径是：
 
@@ -336,7 +336,7 @@ Gradle 任务配置
 
 #### 运行 Jenkins 任务 ####
 
-如果有新的任务推送到仓库，上面的任务会每个 15 分钟运行一次；如果不想等下次自动运行而是想立即看到修改，也可以手动触发。点击 ***Build Now*** 之后当前的构建会出现在 ***Build History *** 中，点击它可以查看详情。
+如果有新的任务推送到仓库，上面的任务会每个 15 分钟运行一次；如果不想等下次自动运行而是想立即看到修改，也可以手动触发。点击 ***立即构建*** 之后当前的构建会出现在 ***构建历史*** 中，点击它可以查看详情。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*vKi-BGQ2blimaoTl7PTXtQ.png">
 
@@ -356,7 +356,7 @@ Gradle 任务配置
 构建成功和测试结果收集
 
 
-### 第 5 步 — SonarQube ###
+### 第 5 步 —— SonarQube ###
 
 这部分我将介绍使用 Docker 容器安装配置 SonarQube 和它的伴侣 MySQL数据库。
 
@@ -469,7 +469,7 @@ $ docker run --name sonarqube --restart=always --link mysqlserver:db -p 9000:900
 获得问题的说明
 
 
-### 第 6 步 — 其它：配置其它 Android 应用 ###
+### 第 6 步 —— 其它：配置其它 Android 应用 ###
 
 配置一个 Android 应用获得覆盖统计和 sonarqube 结果，只需要使用 JsCoCo 和 SonarQube 插件就可以了。可以在我的 demo 应用 **HelloJenkins** 中找到详细的配置：
 
