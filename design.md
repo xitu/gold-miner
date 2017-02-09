@@ -1,3 +1,7 @@
+* [每一个表单都渴望验证](https://gold.xitu.io/entry/58845fa2b123db7389d23bc1/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([ZiXYu](https://github.com/ZiXYu) 翻译)
+* [创建一个移动应用的终极指导](https://gold.xitu.io/entry/587f05a48d6d810058e20795/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([PhxNirvana](https://github.com/phxnirvana) 翻译)
+* [如何让用户发掘移动应用中的 “隐藏” 手势](https://gold.xitu.io/entry/587d72af2f301e00579ed0e3/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Gocy015](https://github.com/Gocy015) 翻译)
+* [如何为复杂应用设计表单](https://gold.xitu.io/entry/5877633b1b69e6006bd1efc3/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([funtrip](https://github.com/funtrip) 翻译)
 * [设计思考，不只是流行词而已](https://gold.xitu.io/entry/5873faf4da2f6035a7f4a025?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([bobmayuze](https://github.com/bobmayuze) 翻译)
 * [科学写作，为产品经理推荐的利器！](https://gold.xitu.io/entry/586b37e7ac502e12d62a3b5d?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Nicolas(Yifei) Li](https://github.com/yifili09) 翻译)
 * [使用强大的调查技巧了解用户的动机](https://gold.xitu.io/entry/585a3f9b1b69e6006cb93529/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Romeo0906](https://github.com/Romeo0906) 翻译)
