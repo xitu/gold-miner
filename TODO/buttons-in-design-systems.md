@@ -21,19 +21,19 @@ Here’s **12** lessons I’ve learned when working the **primary button**, **se
 
 #### #1. 设定一个系统的风格基调 ####
 
-一个按钮就像是系统视觉风格中最纯粹的原子表达（译者注：原子是化学反应中不可分割的最小微粒）。它结合了三大属性——**颜色**，**字体**以及**图像**——这些成为了一个原子中不可分割的部分。按钮也引发了对**空间**的讨论：内部填充（特别是标签的左、右）和边距（与其他元素相邻）。最后，按钮甚至可以表达更深层次的东西，比如圆角（通过**边缘半径**），比如扩散（通过**边框阴影**）。
+一个按钮就像是系统视觉风格中最纯粹的原子表达（译者注：原子是化学反应中不可分割的最小微粒）。它结合了三大属性——**颜色**，**字体**以及**图像**——这些成为了一个原子中不可分割的部分。按钮也引发了对**空间**的讨论：内部填充（特别是标签的左、右）和边距（与其他元素相邻）。最后，按钮甚至可以表达更深层次的东西，比如圆角（通过**边缘半径**），比如提升效果（通过**边框阴影**）。
 
-**要点**：把按钮当作一个系统风格中的首要代表去接受它吧。如果你把按钮的定义与颜色、大小、空间或其他细节等[新的变量](https://medium.com/salesforce-ux/living-design-system-3ab1f2280ef7)联系起来，那将会是很好的加分项。
+**要点**：你应该赞同按钮是一个系统风格的首要展现。如果你把按钮的定义与颜色、大小、空间或其他细节等[新的变量](https://medium.com/salesforce-ux/living-design-system-3ab1f2280ef7)联系起来，那将会是很好的加分项。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*PyWEYZhKikVzaC8KwAbN-A.png">
 
-按钮这样一个简单的元素包含了很大范围广泛的属性。
+按钮这样一个简单的元素包含了范围广泛的属性。
 
 #### #2. 设定一个语言基调 ####
 
-幸运的是，「点击这里」的讲法已经是过去式了。但我们仍然需要回答：一个按钮上的标签可以有多长？标签是用祈使句写的吗（比如「保存」或「关闭」）？我应该用一个对象（「文档」）来匹配一个动词（「保存」）吗？常用的动作有建议标签吗？我们加入了品牌的声音……还是没有？
+幸运的是，「点击这里」的讲法已经是过去式了。但我们仍然需要回答：一个按钮上的标签可以有多长？标签是用祈使句写的吗（比如「保存」或「关闭」）？我应该用一个对象（「文档」）来匹配一个动词（「保存」）吗？这些常用的标签有一些默认的用处么？ 我们是否需要引入品牌声音？
 
-**要点**：我发现按钮的价值是用里面的标签来创造一个一致的语调。当然，单词表和深层次的文案标准可以在具体的文档中找到，比如说语言和语调的指南。无论如何，按钮是一个很好的地方来把各种指引桥接在一起。
+**要点**：我发现按钮的价值是通过标签的引导来推动一个一致性的声音。当然，单词表和深层次的文案标准可以在具体的文档中找到，比如说语言和语调的指南。无论如何，按钮是一个很好的地方来把各种指引桥接在一起。
 
 ![](https://cdn-images-1.medium.com/max/800/1*hqrRbtUd5v_HPeGqf_Ke3Q.png) 
 
@@ -47,9 +47,9 @@ Here’s **12** lessons I’ve learned when working the **primary button**, **se
 
 在不同的背景上展示按钮，看看它们看起来是不是都好
 
-#### #4. 限制每页只有一个按钮，除非它们是主要按钮的重复 ####
+#### #4. 限制每页只有一个按钮，除非要重复主要操作 ####
 
-Buttons call for action. We often use a primary button to draw attention to a page’s highest priority action. Until, we can’t prioritize and there’s a bunch of primary buttons littered throughout a page ([hopefully they’re consistent](http://bradfrost.com/blog/post/conducting-an-interface-inventory/), right?).按钮可以引起动作。我们经常用一个主要的按钮，把用户的注意力吸引到页面里高优先级的操作上。但是，如果有一大堆按钮散落在页面上，我们就无法区分出它们的优先级的先后了。（[除非它们都是一样的](http://bradfrost.com/blog/post/conducting-an-interface-inventory/)，对吧？）
+按钮可以引起动作。我们经常用一个主要的按钮，把用户的注意力吸引到页面里高优先级的操作上。但是，如果有一大堆按钮散落在页面上，我们就无法区分出它们的优先级的先后了。（[除非它们都是一样的](http://bradfrost.com/blog/post/conducting-an-interface-inventory/)，对吧？）
 
 在某些情况下，使用一个主按钮是恰当的，比如当你必须从一大堆平行的对象中做选择，或是一个设置页面有相似的模块化的区域，布满了指向不同类别的选项。
 
@@ -67,7 +67,7 @@ Buttons call for action. We often use a primary button to draw attention to a pa
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*t9OuRA0hVzMw7uItFsqEAQ.png">
 
 
-#### #6. 让元素以可响应式的方式结合起来 ####
+#### #6. 让多元素更具有灵动性 ####
 
 将按钮上的文字与 icon 配对可以让用户更快地识别和更易理解。
 
@@ -111,7 +111,7 @@ Buttons call for action. We often use a primary button to draw attention to a pa
 
 #### #9. 可变尺寸，大（或者超大/巨大/扩展）&小（或者微小/极小） ####
 
-交互可以在重要的地方比如**卡片**元素或侧边栏模块中找到。有时，你需要在一个全屏的图片上放上一个巨大的按钮来主导视图。
+交互可以在重要的地方比如**卡片**元素或侧边栏模块中找到。有时，你需要在一个全屏的图片上放上一个巨大的按钮来引起用户关注。
 
 **要点**：在有必要的时候调整按钮的尺寸大小，尽可能像其他的 CSS 类或者设计软件的风格一样简洁。此外，考虑一个更难忘的名字——比如「扩展」或「微小」——而不是一个平淡的「大」或「小」
 
@@ -125,7 +125,7 @@ Buttons call for action. We often use a primary button to draw attention to a pa
 
 ![](https://cdn-images-1.medium.com/max/800/1*0MCgCs3CpqhuQ9S_pQIalA.png) 
 
-#### #11. 可变的的菜单和区域 ####
+#### #11. 使用菜单和区块丰富按钮的多样性 ####
 
 可变的按钮可以触发相关的菜单选项来进行选择。许多系统在 UI 位置紧张时提供了复合式的选项，就像**菜单**（或**下拉菜单**）和**分割**（或**分段式**）按钮。
 
