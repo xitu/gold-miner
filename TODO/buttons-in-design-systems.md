@@ -117,7 +117,7 @@ Here’s **12** lessons I’ve learned when working the **primary button**, **se
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*xxExyXQ3M1TXwwK__d4fMw.png">
 
-#### #10. 区分按钮与链接s ####
+#### #10. 区分按钮与链接 ####
 
 在扁平化设计的时代，像 [Material Design 这样的视觉系统](https://www.google.com/design/spec/components/buttons.html#buttons-flat-buttons)使用了多种「扁平」按钮，来用在工具栏、对话框操作和行内文本渣。在默认状态下，按钮和链接几乎没有视觉差异。然而，一个按钮的状态和行为，与简单的锚标签相比，会带来完全不同的效果。
 
