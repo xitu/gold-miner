@@ -39,7 +39,7 @@ Here’s **12** lessons I’ve learned when working the **primary button**, **se
 
 #### #3. 在背景变得复杂时使用反转色 ####
 
-大部分按钮在白色的背景上都可以正常工作。但是当你把按钮放到一张照片上又会发生什么呢？或者深色的背景上呢？诶，它甚至可能被放到一个浅色的中性颜色上？你的按钮可以被用到任何地方吗？你可以**更改**按钮的原始颜色吗？
+大部分按钮在白色的背景上都可以正常工作。但是当你把按钮放到一张照片上又会发生什么呢？或者深色的背景上呢？诶，它甚至可能被放到一个浅色的中性颜色上？你的按钮可以被用到任何地方吗？你可以**更改**主要按钮的颜色吗？
 
 **要点**：请在一个清晰可见的背景上展示你的按钮，并且设定一个反转色备用——白色？一个完全不同的颜色？或是半透明？——在背景灰暗时使用。当在编排文档时，在一系列有普遍性的背景上展示备用的亮色或暗色来把标准搞清楚。
 
@@ -67,7 +67,7 @@ Buttons call for action. We often use a primary button to draw attention to a pa
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*t9OuRA0hVzMw7uItFsqEAQ.png">
 
 
-#### #6. 让元素以可响应式的方式结合起来s ####
+#### #6. 让元素以可响应式的方式结合起来 ####
 
 将按钮上的文字与 icon 配对可以让用户更快地识别和更易理解。
 
@@ -83,7 +83,7 @@ Buttons call for action. We often use a primary button to draw attention to a pa
 
 没有谁希望看到灰色的按钮
 
-但你可能发现你需要为那个吸引人的、高饱和度的主要按钮匹配一个次要按钮。你避免了使用第二个高饱和度的颜色，因为这会导致两个高饱和度的按钮彼此相邻，就像绿色表示**保存**，蓝色表示**提交**。不光是你，更不用说还有你的用户，你应该让人们知道哪一个按钮是更重要的。
+但你可能发现你需要为那个吸引人的、高饱和度的主要按钮匹配一个次要按钮。你避免了使用第二个高饱和度的颜色，因为这会导致两个高饱和度的按钮彼此相邻，就像绿色表示**保存**，蓝色表示**提交**。不说用户，就连你自己也不知道哪个按钮更重要。
 
 所以，你可能会选择使用中性颜色。中性颜色看起来接近或完全是灰色。并且它看上去像是表达不可用。更糟糕的是，当主要按钮不可用的时候它也会变成灰色。并且就在你灰色的次要按钮旁边。哎。:-(
 
@@ -95,7 +95,7 @@ Buttons call for action. We often use a primary button to draw attention to a pa
 
 #### #8. 当心机器里的「幽灵」 ####
 
-「幽灵按钮 」 通常只依赖于相同颜色的边框和标签，而缺乏填充背景色。这样的标签背后的区域是不确定的。有时候标签在白色上（是的，那很容易被看清！）。然而，在其他时候一个纯色或者细节丰富的照片都可以让标签变得很难阅读。
+「幽灵按钮」通常只依赖于相同颜色的边框和标签，而缺乏填充背景色。这样的标签背后的区域是不确定的。有时候标签在白色上（是的，那很容易被看清！）。然而，在其他时候一个纯色或者细节丰富的照片都可以让标签变得很难阅读。
 
 「幽灵」让设计师在设计高对比度的主要按钮时想要偷懒。然而，把他们称为「**幽灵**」是有原因的。因为很多时候它们会无法被看见。我观察了「幽灵按钮」被难以查看的图片覆盖的情况下的可见性测试。参与者看不清它们或很难阅读它们。这将会削弱或破坏我们原本打算让这个按钮实现的交互的价值。
 
@@ -111,7 +111,7 @@ Buttons call for action. We often use a primary button to draw attention to a pa
 
 #### #9. 可变尺寸，大（或者超大/巨大/扩展）&小（或者微小/极小） ####
 
-交互可以在重要的地方比如**卡片**元素或侧边栏模块中找到。否则，你需要在一个全屏的图片上放上一个巨大的按钮来主导视图。
+交互可以在重要的地方比如**卡片**元素或侧边栏模块中找到。有时，你需要在一个全屏的图片上放上一个巨大的按钮来主导视图。
 
 **要点**：在有必要的时候调整按钮的尺寸大小，尽可能像其他的 CSS 类或者设计软件的风格一样简洁。此外，考虑一个更难忘的名字——比如「扩展」或「微小」——而不是一个平淡的「大」或「小」
 
@@ -119,7 +119,7 @@ Buttons call for action. We often use a primary button to draw attention to a pa
 
 #### #10. 区分按钮与链接s ####
 
-在扁平化设计的时代，像 [Material Design 这样的视觉系统](https://www.google.com/design/spec/components/buttons.html#buttons-flat-buttons)使用了多种「扁平」按钮，来用在工具栏、对话框操作和行内文本渣。在默认状态下，按钮和链接几乎没有视觉差异。然而，一个按钮的状态和行为，会给你简单的锚标签带来完全不同的考虑。
+在扁平化设计的时代，像 [Material Design 这样的视觉系统](https://www.google.com/design/spec/components/buttons.html#buttons-flat-buttons)使用了多种「扁平」按钮，来用在工具栏、对话框操作和行内文本渣。在默认状态下，按钮和链接几乎没有视觉差异。然而，一个按钮的状态和行为，与简单的锚标签相比，会带来完全不同的效果。
 
 *Takeaway*: If your system offers a flat variant, be sure it’s conventional use — in both design and code — is distinguished from links. Additionally, cover all the interactive complexity such as *focus* & *press* states, *spacing*, and *alignment*.**要点**：如果你的系统使用了扁平化的版本，应该确保它的常规使用——在设计和代码中——都有别于链接。此外，这条准则应该涵盖所有复杂交互。例如**焦点**和**被按下**的状态，**间距**和**对齐方式**。
 
