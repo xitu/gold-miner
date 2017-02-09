@@ -16,7 +16,7 @@
 
 大公司里会有专业的 QA 团队，但如果你是两个开发者中的一员，确保代码的质量和可靠性就是你在工作中必须要承担的责任。这其中的压力不言而喻，因为项目中你写的每一个功能都可能对其他的部分造成影响。
 
-我们来看看在 iOS 应用里编写可维护测试的实践与技巧
+我们来看看在 iOS 应用里编写可维护测试的实践与技巧。
 
 
 ## 基础 ##
@@ -24,11 +24,11 @@
 
 ### Red - Green - Refactor ###
 
-- **RED**: 显示测试不通过
+- **RED**：显示测试不通过
 
-- **GREEN**:  无论写什么代码，都会让测试通过。
+- **GREEN**：无论写什么代码，都会让测试通过
 
-- **REFACTOR**:重构代码去提高项目质量。**千万不要**忽略这一步
+- **REFACTOR**：重构代码去提高项目质量。**千万不要**忽略这一步
 
 重复这个循环直到你的代码是干净的，而且都是被测试过的。
 
@@ -215,7 +215,7 @@ RSpec 的测试风格可以提高你部分的测试用例。
 
 [RSpec](http://rspec.info)是常见的行为驱动开发（BDD）方式，去写人类可读的的规范，可以专注于你应用的开发。
 
-在 iOS 上，我更喜欢 [Quick](https://github.com/Quick/Quick) 这个进行 BDD 测试的框架和一个叫做[Nimble](https://github.com/Quick/Nimble)的“matcher 框架”.
+在 iOS 上，我更喜欢 [Quick](https://github.com/Quick/Quick) 这个进行 BDD 测试的框架和一个叫做 [Nimble](https://github.com/Quick/Nimble) 的 “matcher 框架”.
 
 实际上 BDD 跟 TDD 之间最大的不同，就是 BDD 的测试用例可以被开发者外的成员去阅读，这对团队来说非常有用。
 
@@ -364,7 +364,7 @@ exit 0
 ```
 #### 在 RSpec 中的 AAA ####
 
-通常 `beforeEach` 扮演着 **Arrange** 跟 **Act** 的角色，留下 `it` 去扮演**Assert**的角色。
+通常 `beforeEach` 扮演着 **Arrange** 跟 **Act** 的角色，留下 `it` 去扮演 **Assert** 的角色。
 
 在一些场景， 使用 `beforeEach` 可能会让测试不明显和让它在操作中更难看到 AAA,你应该直接地在`it`中执行 **Act** 与 **Assert**，尽管在有些时候，添加更多测试意味着**需要重构**。
 
@@ -395,5 +395,5 @@ exit 0
 
 测试的回报会越来越高，项目的存在时间越长，你越会感激自己在早期对测试的投入。
 
-我要感谢[Paweł Dudek](https://twitter.com/eldudi) 与 [Klaas Pieter Annema](https://github.com/klaaspieter)能花费宝贵的时间来帮我校对这篇文章。
+我要感谢 [Paweł Dudek](https://twitter.com/eldudi) 与 [Klaas Pieter Annema](https://github.com/klaaspieter) 能花费宝贵的时间来帮我校对这篇文章。
 
