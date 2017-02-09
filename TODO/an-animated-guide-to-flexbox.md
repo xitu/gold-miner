@@ -2,15 +2,15 @@
 * 原文作者：[Scott Domes](https://medium.freecodecamp.com/@scottdomes)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[linpu.li](https://github.com/llp0574)
-* 校对者：
+* 校对者：[sqrthree](https://github.com/sqrthree)，[xuzaixian](https://github.com/xuzaixian)
 
 # 几张GIF动图让你看懂弹性盒模型（Flexbox）如何工作
 
 ![](https://cdn-images-1.medium.com/max/2000/1*zyzR64aw4rDPsoG-ZwZ9rQ.png)
 
-弹性盒模型许诺可以解决纯 CSS 造成的诸多弊端（就像垂直对齐一样）。
+弹性盒模型许诺可以解决纯 CSS 造成的诸多弊端（比如垂直对齐）。
 
-好吧，它的确兑现了诺言。但是掌握这种新的模型可不是一件简单的事情。
+好吧，它的确兑现了诺言。但是掌握这种新的思路可不是一件简单的事情。
 
 所以我们将以动图的形式来看看弹性盒模型是怎么工作的，好在以后的工作中使用它来构建更好的布局。
 
@@ -20,7 +20,7 @@
 
 这些从原理上讲都很好理解。但让我们来看看在实践当中它又会是什么样子。
 
-在本文当中，我们将深入弹性盒模型最常用的5个属性，探究一下它们做了什么，如何使用它们，以及导致的效果会是什么样子。
+在本文当中，我们将深入弹性盒模型最常用的5个属性。探究一下它们做了什么，如何使用它们，以及会产生什么效果。
 
 ### 第一个属性：Display: Flex
 
@@ -48,7 +48,7 @@
 
 ![](https://cdn-images-1.medium.com/max/1600/1*_Ruy6jFG7gUpSf76IUcJTQ.png)
 
-**默认状态下，容器里的每一项都会从左至右沿着主轴排列**。这也是为什么一旦 `display: flex` 生效，所有块都会默认排列在一个水平线上。
+**默认状态下，容器里的每一个元素都会从左至右沿着主轴排列**。这也是为什么一旦 `display: flex` 生效，所有块都会默认排列在一个水平线上。
 
 但是 `Flex-direction` 可以让你旋转主轴。
 
@@ -61,20 +61,20 @@
 
 这里有一个很重要的区别：`flex-direction: column` 并不是把块从主轴移到交叉轴上排列，**而是让主轴自身从水平变成垂直。**
 
-另外 flex-direction 还有两个其他的选项值：**row-reverse** 和 **column-reverse**。
+另外 flex-direction 还有两个选项值：**row-reverse** 和 **column-reverse**。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*PBr_ncouIehALaEOWmSbpQ.gif)
 
 ### 第三个属性：Justify Content
 
-**justify-content** 控制项目在**主轴**上的对齐方式。
+**justify-content** 控制元素在**主轴**上的对齐方式。
 
 下面，将稍微深入一下主轴和交叉轴的区别。首先，回到 `flex-direction: row` 的状态。
 
     #container {
       display: flex;
       flex-direction: row;
-    **justify-content: flex-start;**
+      justify-content: flex-start;
     }
 
 **justify-content** 有五个可选值：
