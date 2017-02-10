@@ -2,7 +2,7 @@
 * 原文作者：[Hafiz Waleed Hussain](http://www.uwanttolearn.com/about/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[jifaxu](https://github.com/jifaxu)
-* 校对者：[yazhi1992](https://github.com/yazhi1992) [jamweak](https://github.com/jamweak)
+* 校对者：[yazhi1992](https://github.com/yazhi1992),  [jamweak](https://github.com/jamweak)
 
 # ConstraintLayout (这到底是什么)
 
@@ -292,4 +292,4 @@
 
 那么大家，是时候说再见了。让我们在下一篇文章中再会。
 
-[**Constraint Layout Concepts ( What the hell is this )[ (Tips and Tricks) Part 2 ]**](http://www.uwanttolearn.com/android/constraint-layout-concepts-hell-tips-tricks-part-2/)
+[**Constraint Layout Concepts ( What the hell is this )[ (Tips and Tricks) Part 2 ]**](https://github.com/xitu/gold-miner/blob/master/TODO/constraint-layout-concepts-hell-tips-tricks-part-2.md)
