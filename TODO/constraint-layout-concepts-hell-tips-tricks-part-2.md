@@ -4,6 +4,8 @@
 * 译者：
 * 校对者：
 
+# Constraint Layout Concepts ( What the hell is this ) (Tips and Tricks) Part 2
+
 WOW, we got one more day so its time to make this day awesome by learning something new 🙂 .
 
 Hello guys, hope every body is doing good. In last week we learn about what is Constraint Layout in [part1](http://www.uwanttolearn.com/android/constraint-layout-hell/). Now Its time to start learning about remaining things about this awesome layout.
