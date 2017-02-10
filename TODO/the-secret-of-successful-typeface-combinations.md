@@ -16,7 +16,7 @@
 
 我们一般通过在下列三个维度营造对比，以试作标题与正文的区分。
 
-- **字重：** 标题字体更粗，或者更细。(想要了解更多如何巧妙驾驭字重的信息？移步我的文章 [*What You Can Do with Different Font Weights*](https://blog.prototypr.io/what-you-can-do-with-different-font-weights-1b464caaf0d4#.8hjlg82qu).)
+- **字重（Fontweights）：** 标题字体更粗，或者更细。(想要了解更多如何巧妙驾驭字重的信息？移步我的文章 [*What You Can Do with Different Font Weights*](https://blog.prototypr.io/what-you-can-do-with-different-font-weights-1b464caaf0d4#.8hjlg82qu).)
 
 - **字号：** 标题字体更大。
 
@@ -26,7 +26,7 @@
 
 ### 更多的可能性 ###
 
-不同的字体和 certain type settings（这个我不太确定翻译成什么比较好，某一类型设置？感觉说的不够清楚……译者注）为创造对比提供了更多的可能性。字重、字号和字体颜色之外，我们再来看看字体比例、字型、大小写和字距。
+不同的字体和不同的版式设置为创造对比提供了更多的可能性。字重、字号和字体颜色之外，我们再来看看字体比例、字型、大小写和字距。
 
 #### 字体比例 ####
 
@@ -42,17 +42,17 @@
 
 用字体的不同比例来搭配，形成对比。
 
-注意，太长或是太扁的字体的可读性相较标准字型来的差一些，所以正文部分还是保守一点比较好。
+注意，太长或是太扁的字体的可读性相较标准字形来的差一些，所以正文部分还是保守一点比较好。
 
-#### 字型 ####
+#### 字型（Letterforms） ####
 
-字型即字体的形状。我们对字型比较熟悉，毕竟总得靠它来区分不同的字体。Serif（衬线）和 sans serif（无衬线）是两种很常见的字型。其他还有包括 display（特印）， handwriting（书法）， script（手写）等等。
+字型即字体的形状。我们对字型比较熟悉，毕竟总得靠它来区分不同的字体。衬线（serif）和无衬线（sans serif）是两种很常见的字型。其他还有包括特印（display）， 书法（handwriting）， 手写（script）等等。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*h7tQtEzQ1wjEbpYLrMJQTw.png">
 
 Google 字体中的不同类型。
 
-为了营造对比，我们挑选出字型不同的字体。还记得我们总会听到的超简单的原则吗？就是选择一种无衬线字体，在挑一种衬线字体来搭配它。这其实是利用字型之间的差异来营造对比。我们也可以选择一种 script（手写）或者 display（特印）字体作为标题的字体，然后再选择一种serif（衬线）或者是 sans serif（无衬线）字体来作为正文字体。这有着无限的可能。 
+为了营造对比，我们挑选出字型不同的字体。还记得我们总会听到的超简单的原则吗？就是选择一种无衬线字体，在挑一种衬线字体来搭配它。这其实是利用字型之间的差异来营造对比。我们也可以选择一种手写（script）或者特印（display）字体作为标题的字体，然后再选择一种衬线（serif）或者是无衬线（sans serif）字体来作为正文字体。这有着无限的可能。 
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*bNGYs6TTds0lOX--pjyUtg.jpeg">
 
@@ -72,7 +72,7 @@ Google 字体中的不同类型。
 
 单词大写与小写所形成的轮廓不同。
 
-如果文档标题不长，我们可以利用全大写来使它看上去和由小写字母组成的段落的区别更加明显。 （要是你的标题很长而且长篇连句的话，你可能并不想让它们全部大写。毕竟可读性略差。）
+如果文档标题不长，我们可以利用全大写来使它看上去和由小写字母组成的段落的区别更加明显。（要是你的标题很长而且长篇连句的话，你可能并不想让它们全部大写。毕竟可读性略差。）
 
 #### 字距 ####
 
