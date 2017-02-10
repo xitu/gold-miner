@@ -9,7 +9,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*q9CR-wzFHkccp7I761piVw.png)
 
-什么是代理呢？在软件开发中，存在许多用于解决特定场景中的普遍问题的通用方案架构，这些所谓的“模板”，常被成为设计模式。
+什么是代理呢？在软件开发中，存在许多用于解决特定场景中的普遍问题的通用方案架构，这些所谓的“模板”，常被称为设计模式。
 
 代理就是一种设计模式，它允许某个对象在特定事件发生时，向另一个对象发送消息。
 
@@ -44,7 +44,7 @@ func changeBackgroundColor(_ color: UIColor?)
 
 首先我们需要创建一个协议（protocol），本例中，我们将在类 B 中创建这个协议，你可以根据实际需要来向协议中添加任意数量的方法。本例只添加了一个接收可选的 UIColor 实例（optional UIColor）为参数的简单方法。
 
-**在类名末尾添加 Delegate 并将其作为你的协议的名称是一个良好的实践，本例中就是 ClassBVCDelegate。**
+**在类名末尾添加 Delegate 并将其作为你的协议的名称是一个良好的习惯，本例中就是 ClassBVCDelegate。**
 
 第二步：在 ClassBVC 文件中找到 step 2 的注释，并添加如下代码
 
@@ -78,7 +78,7 @@ class ClassAVC: UIViewController, ClassBVCDelegate {
 
 ![](https://cdn-images-1.medium.com/max/800/0*0nAPyS5dneFZqjtm.jpg)
 
-**小笔记：如果你有一定的 Objective-C 开发经验，你或许认为将该协议方法标记为可选就能消除这个错误了，但出乎我意料的是（或许你也感到惊讶），Swift 中并没有可选协议方法的概念。**
+**注意：如果你有一定的 Objective-C 开发经验，你或许认为将该协议方法标记为可选就能消除这个错误了，但出乎我意料的是（或许你也感到惊讶），Swift 中并没有可选协议方法的概念。**
 
 第五步：在 prepare for segue 方法中找到 step 5 的注释，并添加
 
