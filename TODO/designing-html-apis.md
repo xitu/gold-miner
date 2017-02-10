@@ -1,14 +1,5 @@
-> * 原文地址：[HTML APIs: What They Are And How To Design A Good One](https://www.smashingmagazine.com/2017/02/designing-html-apis/)
-* 原文作者：[Lea Verou](https://www.smashingmagazine.com/author/lea-verou/)
-* 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
-* 校对者：
 
 # HTML APIs: What They Are And How To Design A Good One #
-
-![The Sketch Handbook](https://www.smashingmagazine.com/wp-content/uploads/2016/11/sketch-handbook-sidebar-opt-v2.png)
- 
-Meet the new [Sketch Handbook](https://shop.smashingmagazine.com/products/sketch-handbook?utm_source=magazine&amp;utm_campaign=sketch-handbook&amp;utm_medium=html-ad-content-1), our brand **new Smashing book** that will help you master all the tricky, advanced facets of Sketch. Filled with **practical examples and tutorials in 12 chapters**, the book will help you become more proficient in your work. [Get the book now →](https://shop.smashingmagazine.com/products/sketch-handbook?utm_source=magazine&amp;utm_campaign=sketch-handbook&amp;utm_medium=html-ad-content-1)
 
 As JavaScript developers, we often forget that not everyone has the same knowledge as us. It’s called the [curse of knowledge](https://en.wikipedia.org/wiki/Curse_of_knowledge): When we’re an expert on something, we cannot remember how confused we felt as newbies. We overestimate what people will find easy. Therefore, we think that requiring a bunch of JavaScript to initialize or configure the libraries we write is OK. Meanwhile, some of our users struggle to use them, frantically copying and pasting examples from the documentation, tweaking them at random until they work.
 
