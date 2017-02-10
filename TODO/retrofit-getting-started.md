@@ -78,11 +78,11 @@
 
 Retrofit 2默认使用OKHttp作为网络层,并且在它上面进行构建。 你不需要在你的项目中显式的定义OkHttp依赖，除非你有一个特殊的版本需求。
 
-现在你的项目已经集成了Retrofit,让我们一起创建一个具有持久性的 Android API/HTTP客户端吧
+现在你的项目已经集成了Retrofit,让我们一起创建一个具有持久性的 Android API/HTTP客户端吧。
 
 
 ##可持续的Android客户端
-在对已经有的Retrofit的客户端的研究期间，发现了[example repository of Bart Kiers](https://github.com/bkiers/retrofit-oauth/tree/master/src/main/java/nl/bigo/retrofitoauth)。实际上，它是一个用Retrofit进行OAuth认证的例子。然而，它提供了做一个可持续的Android客户端需要的全部基本原理。这就是为什么我们在未来的博客文章中要把它作为一个基础进行扩展，将认证功能更进一步。
+在对已经有的Retrofit的客户端的研究期间，我们发现了[example repository of Bart Kiers](https://github.com/bkiers/retrofit-oauth/tree/master/src/main/java/nl/bigo/retrofitoauth)。实际上，它是一个用Retrofit进行OAuth认证的例子。然而，它提供了做一个可持续的Android客户端需要的全部基本原理。这就是我们在未来的博客文章中要把它作为一个基础进行扩展，将认证功能更进一步的原因。
 
 
 接下来的这个类是我们的Android客户端的主要成分：**ServiceGenerator**。
@@ -128,12 +128,12 @@ Retrofit 2默认使用OKHttp作为网络层,并且在它上面进行构建。 �
 
 `ServiceGenerator`类 用Retrofit的 `RestAdapter`-Builder与给定的API基础url来创建一个新的REST客户端。例如，Github的API基础url是`https://developer.github.com/v3/`。
 
-`serviceClass`类定义了用于API请求的注解了的类或接口。接下里的章节会向我们展示Retrofit的实用的用法，还有如何写出一个值得仿效的客户端。
+`serviceClass`类定义了用于API请求的注解了的类或接口。接下来的章节会向我们展示Retrofit的实用的用法，还有如何写出一个值得仿效的客户端。
 ## JSON 映射
 
-Retrofit 1.9 默认提供Google的GSON。你需要做的只是定义好你的response对象，之后这个response将会被自动的映射。
+Retrofit 1.9 默认提供Google的GSON。你需要做的只是定义好你的response对象，之后这个response将会被自动地映射。
 
-当用Retrofit 2时，你需要对`Retrofit`对象显式的添加一个转换器(converter).这就是为什么我们要在Retrofit的 builder上调用`.addConverterFactory(GsonConverterFactory.create())`去集成GSON作为默认的JSON转换器。
+当用Retrofit 2时，你需要对`Retrofit`对象显式地添加一个转换器(converter).这就是我们要在Retrofit的 builder上调用`.addConverterFactory(GsonConverterFactory.create())`去集成GSON作为默认的JSON转换器的原因。
 
 ## Retrofit实战
 
@@ -181,7 +181,7 @@ Retrofit 1.9 默认提供Google的GSON。你需要做的只是定义好你的res
 mples/src/main/java/com/example/retrofit)是一个修改后的版本。
 
 
-当执行Github的这个例子的时候，你需要手动的在`ServiceGenerator`中用`"https://developer.github.com/v3/"`作为基础的url。另一个选择是用额外的`createService()`方法接受两个参数: 客户端类名，和基础的url。
+当执行Github的这个例子的时候，你需要手动地在`ServiceGenerator`中用`"https://developer.github.com/v3/"`作为基础的url。另一个选择是用额外的`createService()`方法接受两个参数: 客户端类名，和基础的url。
 
 **Retrofit 1.9**
 
