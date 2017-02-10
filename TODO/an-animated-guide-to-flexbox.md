@@ -4,7 +4,7 @@
 * 译者：[linpu.li](https://github.com/llp0574)
 * 校对者：[sqrthree](https://github.com/sqrthree)，[xuzaixian](https://github.com/xuzaixian)
 
-# 几张GIF动图让你看懂弹性盒模型（Flexbox）如何工作
+# 几张 GIF 动图让你看懂弹性盒模型（Flexbox）如何工作
 
 ![](https://cdn-images-1.medium.com/max/2000/1*zyzR64aw4rDPsoG-ZwZ9rQ.png)
 
@@ -20,7 +20,7 @@
 
 这些从原理上讲都很好理解。但让我们来看看在实践当中它又会是什么样子。
 
-在本文当中，我们将深入弹性盒模型最常用的5个属性。探究一下它们做了什么，如何使用它们，以及会产生什么效果。
+在本文当中，我们将深入弹性盒模型最常用的 5 个属性。探究一下它们做了什么、如何使用它们、以及会产生什么效果。
 
 ### 第一个属性：Display: Flex
 
@@ -91,13 +91,13 @@
 
 `space-around` 则会在每个块的两边产生一个相同大小的间隔，也就是说**最外层块和容器之间的间隔大小刚好是两块之间间隔大小的一半**（每个块产生的间隔不重叠，所以间隔变成两倍）。
 
-最后一个注意点：记住 **`justify-content` 是和主轴一起工作的**，**而 `flex-direction` 则是用来改变主轴的**。当看到下一个属性的时候就会发现这点很重要。
+最后一个注意点：记住 **`justify-content` 是沿着主轴工作的**，**而 `flex-direction` 则是用来改变主轴的**。当看到下一个属性的时候就会发现这点很重要。
 
 ### 第四个属性: Align Items
 
 如果你掌握了 `justify-content`，`align-items` 也会很容易掌握。
 
-前面讲到 `justify-content` 是和主轴一起工作的，而 **`align-items` 则作用于交叉轴。**
+前面讲到 `justify-content` 是沿着主轴工作的，而 **`align-items` 则作用于交叉轴。**
 
 ![](https://cdn-images-1.medium.com/max/1600/1*_Ruy6jFG7gUpSf76IUcJTQ.png)
 
@@ -115,13 +115,13 @@
 
 但下面两个值有一点不一样。
 
-`stretch` 状态下，每一项都会占满整个交叉轴，而 `baseline` 状态下，将按照段落标签的底部对齐（译者注：每个块中的数字均由`p`标签包含，此处就是按照`p`标签的底部对齐）。
+`stretch` 状态下，每一项都会占满整个交叉轴，而 `baseline` 状态下，将按照段落标签的底部对齐（译者注：图中每个块里的数字均由`p`标签包含，此处就是按照`p`标签的底部对齐）。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*htfdNmRIIFu_veRaFOj5qA.gif)
 
-（注意 `align-items: stretch`，必须将每一块的高度设置为 `auto`，否则高度属性就会将 `stretch` 作用高度给覆盖掉。）
+（注意 `align-items: stretch`，必须将每一块的高度设置为 `auto`，否则高度属性（height）就会将 `stretch` 的作用给覆盖掉。）
 
-对于 baseline 来说，要意识到如果去掉段落标签，就将按照每个块的底部对齐，像下面这样：
+对于 baseline 来说，要意识到如果去掉段落标签，就将按照每个块的底部对齐（译者注：只要是元素标签内没有文字或者子标签内没有文字，均会按照每个块的底部对齐），像下面这样：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*6dd9KnKMUN49lFsbHlJi6A.png)
 
@@ -154,7 +154,7 @@
 
 ### 结论
 
-尽管我们只介绍了弹性盒模型的一点皮毛，但操作基本的对齐，或者垂直排列你的核心内容，这些属性应该足够使用了。
+尽管我们只介绍了弹性盒模型的一点皮毛，但对于操作基本的对齐，或者垂直排列你的核心内容来说，这些属性应该足够使用了。
 
 如果你想看到更多的 GIF 弹性盒模型教程，或者如果这个教程对你有帮助，请点击下面的绿色心形或者留下一个评论吧。
 
