@@ -1,3 +1,4 @@
+* [Model-View-Intent 模式下的响应式应用 － 第一部分 － Model（模型）](https://gold.xitu.io/entry/589c91935c497d0056211a19/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([XHShirley](https://github.com/XHShirley) 翻译)
 * [RxAndroid 中文教程](https://gold.xitu.io/entry/5884374e570c350062c1ac3b/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Jamweak](https://github.com/jamweak) 翻译)
 * [Android 响应式编程的未来展望：RxJava 2 版本前瞻](https://gold.xitu.io/entry/587f2ee0570c35220118c926/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Goshin](https://github.com/Goshin) 翻译)
 * [SOLID 原则：权威指南](https://gold.xitu.io/entry/587f1c331b69e6005853ecfa/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([XHShirley](https://github.com/XHShirley) 翻译)
