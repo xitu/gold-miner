@@ -2,7 +2,7 @@
 * 原文作者：[Nathan Curtis](https://medium.com/@nathanacurtis?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Funtrip](https://www.behance.net/Funtrip)
-* 校对者：
+* 校对者：[yifili09](https://github.com/yifili09)、[skyar2009](https://github.com/skyar2009)
 
 # 视觉系统中的按钮 #
 
@@ -14,14 +14,13 @@
 
 这就是为什么**按钮**们是一个设计系统里最重要的组成部分。非常简单，它们在指定的区域提供可以点击的简单标签。因此，按钮是你应用一种设计语言的基本特征的重要方式，之后你可以把特征扩展到其他更复杂的部分上。
 
-Here’s **12** lessons I’ve learned when working the **primary button**, **secondary buttons**, and a whole host of **other button types** in an emerging system.
-这篇文章讲的是我在一个新生系统中着手设计主要按钮，次要按钮，以及一大堆其他类型按钮的时候所学习到的 **12** 条经验。
+这篇文章讲的是我在一个新生系统中着手设计主要按钮、次要按钮、以及一大堆其他类型按钮的时候所学习到的 **12** 条经验。
 
 ### 主要按钮 ###
 
 #### #1. 设定一个系统的风格基调 ####
 
-一个按钮就像是系统视觉风格中最纯粹的原子表达（译者注：原子是化学反应中不可分割的最小微粒）。它结合了三大属性——**颜色**，**字体**以及**图像**——这些成为了一个原子中不可分割的部分。按钮也引发了对**空间**的讨论：内部填充（特别是标签的左、右）和边距（与其他元素相邻）。最后，按钮甚至可以表达更深层次的东西，比如圆角（通过**边缘半径**），比如提升效果（通过**边框阴影**）。
+一个按钮就像是系统视觉风格中最纯粹的原子表达（译者注：原子是化学反应中不可分割的最小微粒）。它结合了三大属性——**颜色**、**字体**以及**图像**——这些成为了一个原子中不可分割的部分。按钮也引发了对**空间**的讨论：内部填充（特别是标签的左、右）和边距（与其他元素相邻）。最后，按钮甚至可以表达更深层次的东西，比如圆角（通过**边缘半径**），比如提升效果（通过**边框阴影**）。
 
 **要点**：你应该赞同按钮是一个系统风格的首要展现。如果你把按钮的定义与颜色、大小、空间或其他细节等[新的变量](https://medium.com/salesforce-ux/living-design-system-3ab1f2280ef7)联系起来，那将会是很好的加分项。
 
@@ -33,7 +32,7 @@ Here’s **12** lessons I’ve learned when working the **primary button**, **se
 
 幸运的是，「点击这里」的讲法已经是过去式了。但我们仍然需要回答：一个按钮上的标签可以有多长？标签是用祈使句写的吗（比如「保存」或「关闭」）？我应该用一个对象（「文档」）来匹配一个动词（「保存」）吗？这些常用的标签有一些默认的用处么？ 我们是否需要引入品牌声音？
 
-**要点**：我发现按钮的价值是通过标签的引导来推动一个一致性的声音。当然，单词表和深层次的文案标准可以在具体的文档中找到，比如说语言和语调的指南。无论如何，按钮是一个很好的地方来把各种指引桥接在一起。
+**要点**：我发现按钮的价值是通过标签的引导来推动一个一致性的声音。当然，单词表和深层次的文案标准可以在具体的文档中找到，比如说语言和语调的指南。但无论如何，要把各种指引桥接在一起，按钮是一个绝佳的元素。
 
 ![](https://cdn-images-1.medium.com/max/800/1*hqrRbtUd5v_HPeGqf_Ke3Q.png) 
 
@@ -53,7 +52,7 @@ Here’s **12** lessons I’ve learned when working the **primary button**, **se
 
 在某些情况下，使用一个主按钮是恰当的，比如当你必须从一大堆平行的对象中做选择，或是一个设置页面有相似的模块化的区域，布满了指向不同类别的选项。
 
-**要点**：明确什么时候使用——和什么时候应该避免——在一个页面上使用超过一个的主要按钮。
+**要点**：明确什么时候使用，和什么时候应该避免——在一个页面上使用超过一个的主要按钮。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*o2H9eO-00poReXitGm-hAQ.png">
 
@@ -121,7 +120,7 @@ Here’s **12** lessons I’ve learned when working the **primary button**, **se
 
 在扁平化设计的时代，像 [Material Design 这样的视觉系统](https://www.google.com/design/spec/components/buttons.html#buttons-flat-buttons)使用了多种「扁平」按钮，来用在工具栏、对话框操作和行内文本渣。在默认状态下，按钮和链接几乎没有视觉差异。然而，一个按钮的状态和行为，与简单的锚标签相比，会带来完全不同的效果。
 
-*Takeaway*: If your system offers a flat variant, be sure it’s conventional use — in both design and code — is distinguished from links. Additionally, cover all the interactive complexity such as *focus* & *press* states, *spacing*, and *alignment*.**要点**：如果你的系统使用了扁平化的版本，应该确保它的常规使用——在设计和代码中——都有别于链接。此外，这条准则应该涵盖所有复杂交互。例如**焦点**和**被按下**的状态，**间距**和**对齐方式**。
+**要点**：如果你的系统使用了扁平化的版本，应该确保它的常规使用——在设计和代码中——都有别于链接。此外，这条准则应该涵盖所有复杂交互。例如**焦点**和**被按下**的状态，**间距**和**对齐方式**。
 
 ![](https://cdn-images-1.medium.com/max/800/1*0MCgCs3CpqhuQ9S_pQIalA.png) 
 
@@ -138,14 +137,14 @@ Here’s **12** lessons I’ve learned when working the **primary button**, **se
 
 #### #12. 从开关到工具栏，让按钮们工作地更和谐 ####
 
-按钮可以成组使用。一个**按钮组**常常搭配一个主要选项和一个或多个次要选项。一个**开关按钮**常常用来表示开关（比如粗体）或者显示一个设置菜单的选项（就像文本对齐选项的左对齐，右对齐，居中或两端对齐）。在它们最广泛的用法中，一个工具栏可以把许多不同类型的按钮搭配在一起：主要的、次要的、开关、菜单、部件。
+按钮可以成组使用。一个**按钮组**常常搭配一个主要选项和一个或多个次要选项。一个**开关按钮**常常用来表示开关（比如粗体）或者显示一个设置菜单的选项（就像文本对齐选项的左对齐、右对齐、居中或两端对齐）。在它们最广泛的用法中，一个工具栏可以把许多不同类型的按钮搭配在一起：主要的、次要的、开关、菜单、部件。
 
-**要点**：当你在拓展按钮的种类，你应该试着让按钮们在一个紧张的空间内做一个压力测试并且尝试多种不同的组合。视觉系统的设计师们不是算命先生，没有办法预测未来。但是探索一个不同情形下的合理状态可以帮助你避免厌恶情绪或一条道走到黑。
+**要点**：当你在拓展按钮的种类时，你应该试着让按钮们在一个紧张的空间内做一个压力测试，并且尝试多种不同的组合。视觉系统的设计师们不是算命先生，没有办法预测未来。但是探索一个不同情形下的合理状态，可以帮助你避免厌恶情绪或一条道走到黑。
 
 
 ### 对于按钮，就使用 <button> ###
 
-There’s a treasure trove of good learning about coding buttons correctly. The CSS Tricks article [When to Use the Button Element](https://css-tricks.com/use-button-element/) (and it’s robust and lively discussion) is a great place to start.有一个很好的关于学习按钮代码的宝库。这篇 CSS 技巧的文章[什么时候使用按钮元素](https://css-tricks.com/use-button-element/)（和关于它的活跃的讨论）是一个很好的开始。
+有一个很好的关于学习按钮代码的宝库。这篇 CSS 技巧的文章[什么时候使用按钮元素](https://css-tricks.com/use-button-element/)（和关于它的活跃的讨论）是一个很好的开始。
 
 ![Markdown](http://p1.bqimg.com/1949/40f4997a20dea3f2.png)
 
