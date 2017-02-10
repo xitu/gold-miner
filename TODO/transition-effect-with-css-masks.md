@@ -1,59 +1,60 @@
 > * 原文地址：[Transition Effect with CSS Masks](http://tympanus.net/codrops/2016/09/29/transition-effect-with-css-masks/)
 * 原文作者：[Robin Delaporte](http://tympanus.net/codrops/author/robin/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
-* 校对者：
+* 译者：[luoyaqifei](http://www.zengmingxia.com)
+* 校对者：[Graning](https://github.com/Graning), [hyuni](http://hyuni.cn/)
 
-# Transition Effect with CSS Masks
+# CSS 遮罩的过渡效果
 
-A tutorial on how to use CSS Masks to create some interesting looking slide transitions. Highly experimental!
+一份关于如何使用 CSS 遮罩来创建一些有趣的视觉滑动过渡的教程。这份教程具有高度试验性！
 
 ![](http://codropspz.tympanus.netdna-cdn.com/codrops/wp-content/uploads/2016/09/CSSMaskTransition_800x600.jpg)
 
 
-[View demo](http://tympanus.net/Tutorials/CSSMaskTransition/) [Download source](http://tympanus.net/Tutorials/CSSMaskTransition/CSSMaskTransition.zip)
+[查看演示](http://tympanus.net/Tutorials/CSSMaskTransition/) [下载源码](http://tympanus.net/Tutorials/CSSMaskTransition/CSSMaskTransition.zip)
 
-Today we’d like to show you how to create an intriguingly simple, yet eye-catching transition effect using [CSS Masks](http://tympanus.net/codrops/css_reference/mask/). Together with clipping, masking is another way of defining visibility and composite with an element. In the following tutorial we’ll show you how to apply the new properties for a modern transition effect on a simple slideshow. We’ll be applying animations utilizing the steps() timing function and move a mask PNG over an image to achieve an interesting transition effect.
+今天我们想向你展示怎样创建一个有趣简单并且吸引眼球的过渡效果，采用的是 [CSS 遮罩](http://tympanus.net/codrops/css_reference/mask/) 。 与剪裁一样，遮罩是另一种定义可见性和与一个元素组合的方式。在接下来的教程中我们将展示给你的是：如何将一种现代过渡效果的新属性应用在简单的幻灯片上。我们使用 steps() 时间函数来应用动画，并将一张遮罩 PNG 移动到一张图片上方，来达到有趣的过渡效果。
 
-**Attention:** Please keep in mind that this effect is **highly experimental** and only supported by some modern browsers (Chrome, Safari and Opera for now).
+**注意：**请记住，这种效果是**具有高度试验性**的，只能被某些现代浏览器支持。
 
 ![](http://7xl8me.com1.z0.glb.clouddn.com/CSS%20Masks.png)
 
-Keep in mind that Firefox has only partial support (it only supports inline SVG mask elements) so we’ll have a fallback for now. Hopefully, we can welcome support in all modern browsers very soon. Note that we’re adding [Modernizr](https://modernizr.com/download?cssmask-setclasses&q=css%20mask) to check for support.
+记住 Firefox 只部分支持（它只支持行内 SVG 遮罩元素），因此我们现在需要有一个回退机制，很快我们就可以迎接所有现有浏览器的支持。注意我们加入 [Modernizr](https://modernizr.com/download?cssmask-setclasses&q=css%20mask) 来检查是否支持。
 
-**So let’s get started!**
+**所以让我们开始吧！**
 
-## Creating the Mask Image
 
-_In this tutorial we’ll be going through the first example (demo 1)._
+## 创建遮罩图
 
-For the mask transition effect to work, we will need an image that we’ll use to hide/show certain parts of our underlying image. That mask image will be a PNG with transparent parts on it. The PNG itself will be a sprite image and it looks as follows:
+_ 我们将走进本教程的第一个例子（演示1）。_
 
-![CSS Mask transition](http://codropspz.tympanus.netdna-cdn.com/codrops/wp-content/uploads/2016/09/sprite-example.jpg)
+为了让遮罩过渡效果可行，我们需要一张用来隐藏／显示底层图片某些部分的图片。该遮罩图会是一张带有透明部分的 PNG 。该 PNG 自身是一张雪碧图，看上去像下图这样：
 
-While the black parts will show the current image, the white part (which is actually transparent) will be the masked part of our image that will reveal the second image.
+![CSS 遮罩过渡](http://codropspz.tympanus.netdna-cdn.com/codrops/wp-content/uploads/2016/09/sprite-example.jpg)
 
-In order to create the sprite image we will use this [video](https://youtu.be/Tb7-pCetjG8). We import it into Adobe After Effects to reduce the timing of the video, remove the white part and export it as a PNG sequence.
+黑色部分显示的是当前图，同时，白色部分（其实是透明的）就是图片中被遮住的部分，它露出了第二张图。
 
-To reduce the duration to 1.4 seconds (the time we want our transition to take) we’ll use the **[Time stretch](https://helpx.adobe.com/after-effects/using/time-stretching-time-remapping.html)** effect.
+为了创建雪碧图，我们需要用到这个 [视频](https://youtu.be/Tb7-pCetjG8) 。我们将它导入 Adobe After Effects 内来减短视频时间，移除白色部分并作为 PNG 序列导出。
 
-![CSS Mask transition](http://codropspz.tympanus.netdna-cdn.com/codrops/wp-content/uploads/2016/09/time-300x230.jpg)
+为了将时长减短至 1.4 秒（即我们想要过渡发生的时间），我们将采用 **[Time stretch](https://helpx.adobe.com/after-effects/using/time-stretching-time-remapping.html)** 效果。
 
-To remove the white part we will use **Keying -> extract** and set the white point to 0\. In the screenshot below, the blue portion is the background of our composition, the transparent parts of the video.
+![CSS 遮罩过渡](http://codropspz.tympanus.netdna-cdn.com/codrops/wp-content/uploads/2016/09/time-300x230.jpg)
 
-![CSS Mask transition](http://codropspz.tympanus.netdna-cdn.com/codrops/wp-content/uploads/2016/09/key.jpg)
+为了移除白色部分，我们将采用 **Keying -> extract** 并将白点设为 0。在以下的截图里，蓝色部分是我们的组合背景，视频的透明部分。
 
-Finally, we can save our composition as a PNG sequence and then use Photoshop or a tool like this [CSS sprite generator](http://spritegen.website-performance.org/) to generate a single image:
+![CSS 遮罩过渡](http://codropspz.tympanus.netdna-cdn.com/codrops/wp-content/uploads/2016/09/key.jpg)
 
-![CSS Mask transition](http://codropspz.tympanus.netdna-cdn.com/codrops/wp-content/uploads/2016/09/sprite-example.jpg)
+最终，我们可以将我们的组合用 PNG 序列保存，然后使用 Photoshop 或者类似于 [CSS 雪碧图生成器](http://spritegen.website-performance.org/) 这样的工具来生成单张图片。
 
-This is one sprite image for a very organic looking reveal effect. We’ll create another, “inversed” sprite for the opposite kind of effect. You’ll find all the different sprites in the _img_ folder of the demo files.
+![CSS 遮罩过渡](http://codropspz.tympanus.netdna-cdn.com/codrops/wp-content/uploads/2016/09/sprite-example.jpg)
 
-Now, that we’ve created the mask image, let’s dive into the HTML structure for our simple example slideshow.
+这是一张为了达到有机外观（译者注：指一种贴近大自然的外观）揭露效果生成的雪碧图。我们将创建另一个『翻转的』雪碧图，用来达到相反的效果。你可以在 _img_  这个存放演示文件的文件夹下找到所有不同的雪碧图。
 
-## The Markup
+既然我们已经创建好了遮罩图，现在让我们挖掘一下我们简单的幻灯片例子中的 HTML 结构。
 
-For our demo, we’ll create a simple slideshow to show the mask effect. Our slideshow will fill the entire screen and we’ll add some arrows that will trigger the slide transitions. The idea is to superpose the slides and then change the z-index of the incoming slide when the animation is over. The structure for our slideshow looks as follows:
+## 标记
+
+为了我们的演示，我们将创建一个简单的幻灯片来展示遮罩效果。我们的幻灯片将会充斥整个屏幕，并且我们会添加几个能够触发幻灯页过渡的箭头。这个想法是用来将幻灯片重叠，然后在动画结束的时候，改变接下来的幻灯页的 z-index 。我们的幻灯片结构如下所示：
 
 ```
 <div class="page-view">
@@ -96,11 +97,11 @@ For our demo, we’ll create a simple slideshow to show the mask effect. Our sli
 </div>
 ```
 
-The division page-view is our global container, it will contain all our slides. The project divisions are the slides of our slideshow; each one contains a title and a legend. Additionally, we’ll set an individual background image for each slide.
+这个 div 页面视图是我们的主容器，它将包含我们所有的幻灯页。这个项目内部的 div 是我们幻灯片中的幻灯页，每一张包含了一个标题和一个题注。并且，我们将为每张幻灯页设置一个单独的背景图。
 
-The arrows will serve as our trigger for the next or previous animation, and to navigate through the slides.
+箭头用来触发后一个或前一个动画，以及在幻灯页里跳转。
 
-Let’s have a look at the style.
+让我们看看这种风格。
 
 
 
@@ -108,13 +109,13 @@ Let’s have a look at the style.
 
 
 
-## The CSS
+## CSS
 
-In this part we’ll define the CSS for our effect.
+在这部分，我们将为我们的效果设定 CSS 。
 
-We’ll set up the layout for a classic fullscreen slider, with some centered titles and the navigation at the bottom left of the page. Moreover, we’ll define some media queries to adapt the style for mobile devices.
+我们将创建一个典型的全屏幻灯片布局，里面包括一些居中标题和页面左下角的跳转链接。并且，我们会定义一些媒体查询来使移动设备兼容这种风格。
 
-Furthermore, we’ll set our sprite images as invisible backgrounds on our global container just so that we have them start loading when we open the page.
+除此之外，我们还会将我们的雪碧图设置成在我们的全局容器上不可见的背景，只有这样才能让它们在页面刚被打开的时候就能加载。
 
     .demo-1 {
     	background: url(../img/nature-sprite.png) no-repeat -9999px -9999px;
@@ -126,7 +127,7 @@ Furthermore, we’ll set our sprite images as invisible backgrounds on our globa
     	background-size: 0;
     }
 
-Each slide will have a different background-image:
+每张幻灯页将会有一个不同的背景图：
 
     .demo-1 .page-view .project:nth-child(1) {
     	background-image: url(../img/nature-1.jpg);
@@ -144,13 +145,13 @@ Each slide will have a different background-image:
     	background-image: url(../img/nature-4.jpg);
     }
 
-This would of course be something that you’ll dynamically implement but we are interested in the effect, so let’s keep it simple.
+这不同的背景图当然会是你们动态实现的，但是在本教程中，我们的兴趣点在于效果，所以就让它简单一点。
 
-We define a class named **hide** that we will add to the slide whenever we want to hide it. The class definition contains our sprite applied as a mask.
+我们定义了一个叫做 **hide** 的类，无论何时我们想隐藏一张幻灯页，我们就将这个类加在幻灯页上。这个类的定义中包括了我们用作遮罩的雪碧图。
 
-Knowing that a frame is 100% of the screen and our animation contains 23 images, we will need to set the width to 23 * 100% = 2300%.
+已知一帧占据了屏幕的 100% 且我们的动画包含 23 张图，我们需要将宽度设置成 23 * 100% = 2300%。
 
-Now we add our CSS animation utilizing **steps**. We want our sprite to stop at the beginning of our last frame. Hence, to achieve this, we need to count one less step than the total, which is 22 steps:
+现在我们要使用 **steps** 来添加我们的 CSS 动画。我们想要我们的雪碧图在最后一帧的开头停住。因此，为了达到这个目的，我们需要数到 22 步，比总数少了一步。
 
     .demo-1 .page-view .project:nth-child(even).hide {
     	-webkit-mask: url(../img/nature-sprite.png);
@@ -170,7 +171,7 @@ Now we add our CSS animation utilizing **steps**. We want our sprite to stop at 
     	animation: mask-play 1.4s steps(70) forwards;
     }
 
-Finally, we define the animation keyframes:
+最后，我们定义动画的关键帧：
 
     @-webkit-keyframes mask-play {
       from {
@@ -194,20 +195,20 @@ Finally, we define the animation keyframes:
       }
     }
 
-And here we go; we now have a structured and styled slideshow. Let’s turn it into something functional!
+现在我们已经走到这儿啦，我们有了一个结构化、风格化的幻灯片。让我们往上面添加功能！
 
-![CSS Mask transition](http://codropspz.tympanus.netdna-cdn.com/codrops/wp-content/uploads/2016/09/main.jpg)
+![CSS 遮罩过渡](http://codropspz.tympanus.netdna-cdn.com/codrops/wp-content/uploads/2016/09/main.jpg)
 
-## The JavaScript
+## JavaScript
 
-We will be using [zepto.js](http://zeptojs.com/) for this demo which is a very lightweight JavaScript framework similar to jQuery.
+我们将使用 [zepto.js](http://zeptojs.com/) 来进行演示，这是一个类似于 jQuery 的轻量级 JavaScript 框架。
 
-We start by declaring all our variables, setting the durations and the elements.
+我们从声明所有的变量、设置长度和元素开始。
 
-Then we initialize the events, get the current and the next slide, set the correct z-index.
+然后我们初始化事件，得到当前和后一张幻灯页，设置正确的 z-index。
 
     function Slider() {
-    	// Durations
+    	// 长度
     	this.durations = {
     		auto: 5000,
     		slide: 1400
@@ -221,7 +222,7 @@ Then we initialize the events, get the current and the next slide, set the corre
     		next: null,
     		arrow: null
     	};
-    	// Misc stuff
+    	// 杂七杂八的代码
     	this.length = 0;
     	this.current = 0;
     	this.next = 0;
@@ -236,7 +237,7 @@ Then we initialize the events, get the current and the next slide, set the corre
     	this.auto = setInterval(this.updateNext.bind(this), this.durations.auto);
     }
     /**
-     * Set initial z-indexes & get current project
+     * 设置初始的 z-indexes & 得到当前项目
      */
     Slider.prototype.init = function () {
     	this.dom.project.css('z-index', 10);
@@ -246,10 +247,10 @@ Then we initialize the events, get the current and the next slide, set the corre
     	this.dom.next.css('z-index', 20);
     };
 
-We listen for the click event on the arrows, and if the slideshow is not currently involved in an animation, we check if the click was on the next or previous arrow. Like that we adapt the value of the “next” variable and we proceed to change the slide.
+我们监听箭头上的点击事件，如果幻灯片目前没有动画的话，我们检查点击是否发生在后一个或者前一个箭头上。像这样，我们接受 next 这个变量的值，处理它并更换幻灯页。
 
     /**
-     * Initialize events
+     * 初始化事件
      */
     Slider.prototype.events = function () {
     	var self = this;
@@ -270,14 +271,14 @@ We listen for the click event on the arrows, and if the slideshow is not current
     		this.updatePrevious();
     };
     /**
-     * Update next global index
+     * 更新后一个全局 index
      */
     Slider.prototype.updateNext = function () {
     	this.next = (this.current + 1) % this.length;
     	this.process();
     };
     /**
-     * Update next global index
+     * 更新前一个全局 index
      */
     Slider.prototype.updatePrevious = function () {
     	this.next--;
@@ -286,10 +287,10 @@ We listen for the click event on the arrows, and if the slideshow is not current
     	this.process();
     };
 
-This function is the heart of our slideshow: we set the class **“hide”** to the current slide and once the animation is over, we reduce the z-index of the previous slide, increase the one of the current slide and then remove the **hide** class of the previous slide.
+这个函数是我们幻灯片的心脏所在：我们对当前幻灯页设置 **“hide”** 类，一旦动画结束，我们减小前一页的 z-index ，增加当前页的 z-index ，然后移除前一页的 **“hide”** 类。
 
     /**
-     * Process, calculate and switch between slides
+     * 处理，计算并在幻灯页之间切换
      */
     Slider.prototype.process = function () {
     	var self = this;
@@ -309,21 +310,18 @@ This function is the heart of our slideshow: we set the class **“hide”** to 
     	}, this.durations.slide);
     };
 
-Adding the respective classes will trigger our animations which in turn apply the mask image to our slides. The main idea is to move the mask in a step animation function in order to create transition flow.
+加入相应的类会触发我们的动画，这些动画轮流将遮罩图片应用到我们的幻灯页上。主要的思想是用步伐动画函数来移动遮罩，从而创建过渡流。
 
-**And that’s it! I hope you find this tutorial useful and have fun creating your own cool mask effects! Don’t hesitate to share your creations, I would love to see them!**
+**这就是本文所有内容了！我希望你们能够觉得本教程有用，并且在你们自己创建很酷的遮罩效果时享受它！不要犹豫，分享你们的创造，我会很高兴看到的！**
 
-**Browser Support:**
+**浏览器支持：**
 
-*   ChromeSupported
-*   FirefoxNot supported
-*   Internet ExplorerNot supported
-*   SafariSupported
-*   OperaSupported
+*   Chrome 支持
+*   Firefox 不支持
+*   Internet Explorer 不支持
+*   Safari 支持
+*   Opera 支持
 
-## References and Credits
+## 参考和信用
 
-[View demo](http://tympanus.net/Tutorials/CSSMaskTransition/) [Download source](http://tympanus.net/Tutorials/CSSMaskTransition/CSSMaskTransition.zip)
-
-
-
+[查看演示](http://tympanus.net/Tutorials/CSSMaskTransition/) [下载源码](http://tympanus.net/Tutorials/CSSMaskTransition/CSSMaskTransition.zip)

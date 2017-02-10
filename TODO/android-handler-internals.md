@@ -6,7 +6,7 @@
 
 # 探索 Android 大杀器—— Handler
 
-如果你想要让一个 Android 应用程序反应灵敏，那么你必须防止它的 UI 线程被阻塞。同样地，将这些阻塞的或者计算密集型的任务转到工作线程去执行也会提高程序的响应灵敏性。然而，这些任务的执行结果通常需要更新UI组件的显示，但该操作只能在UI线程中去执行。有一些方法解决了 UI 线程的阻塞问题，例如阻塞队列，共享内存以及管道技术。在 Android 中，为解决这个问题，提供了一种自有的消息传递机制——[Handler](https://developer.android.com/reference/android/os/Handler.html)。Handler 是 Android Framework 架构中的一个基础组件，它实现了一种非阻塞的消息传递机制，在消息转换的过程中，消息的生产者和消费者都不会阻塞。
+如果你想要让一个 Android 应用程序反应灵敏，那么你必须防止它的 UI 线程被阻塞。同样地，将这些阻塞的或者计算密集型的任务转到工作线程去执行也会提高程序的响应灵敏性。然而，这些任务的执行结果通常需要更新UI组件的显示，但该操作只能在UI线程中去执行。有一些方法解决了 UI 线程的阻塞问题，例如阻塞队列，共享内存以及管道技术。Android 为解决这个问题，提供了一种自有的消息传递机制——[Handler](https://developer.android.com/reference/android/os/Handler.html)。Handler 是 Android Framework 架构中的一个基础组件，它实现了一种非阻塞的消息传递机制，在消息转换的过程中，消息的生产者和消费者都不会阻塞。
 
 虽然 Handler 被使用的频率非常高，它的工作原理却很容易被忽视。本篇文章深入地剖析 Handler 众多内部组件的实现，它将会向您揭示 Handler 的强大之处，而不仅仅作为一个工作线程和 UI 线程通信的工具。
 
@@ -145,7 +145,7 @@ android.os.Message 组件
     public final Message obtainMessage(int what, int arg1, int arg2)
     public final Message obtainMessage(int what, int arg1, int arg2, Object obj)
 
-消息从消息池中获取得到，方法中提供的参数会放到消息体的对应字段中。Handler 同样可以设置消息的目标为其自身，这允许我们可以进行链式调用，比如：
+消息从消息池中获取得到，方法中提供的参数会放到消息体的对应字段中。Handler 同样可以设置消息的目标为其自身，这允许我们进行链式调用，比如：
 
     mHandler.obtainMessage(MSG_SHOW_IMAGE, mBitmap).sendToTarget();
 
