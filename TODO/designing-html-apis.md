@@ -135,6 +135,6 @@ In the near future, the Web Components quartet of specifications will revolution
 
 However, `<template>` aside, browser support for the other three is [currently limited](http://caniuse.com/#search=web%20components). So, they require large polyfills, which makes them less attractive for library use. However, it’s something to keep on your radar for the near future.
 
-### MarkApp: A List Of Libraries With HTML APIs  ### 
+### MarkApp: A List Of Libraries With HTML APIs
 
 If you’ve followed the advice in this article, then congratulations on making the web a better, more inclusive space to be creative in! I try to maintain a list of all libraries that have HTML APIs on [MarkApp](http://markapp.io/). Send a pull request and add yours, too!
