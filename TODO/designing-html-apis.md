@@ -1,3 +1,8 @@
+> * 原文地址：[HTML APIs: What They Are And How To Design A Good One](https://www.smashingmagazine.com/2017/02/designing-html-apis/)
+* 原文作者：[Lea Verou](https://www.smashingmagazine.com/author/lea-verou/)
+* 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+* 译者：
+* 校对者：
 
 # HTML APIs: What They Are And How To Design A Good One #
 
