@@ -199,7 +199,3 @@ And the list of the useful links in the end:
 
 - [Web Share API Proposal](https://github.com/WICG/web-share)
 - [Intent to Experiment: Web Share on Android](https://groups.google.com/a/chromium.org/forum/#!msg/blink-dev/zuqQaLp3js8/5V9wpRWhBgAJ)
-
-Provide your code in 
-<pre><code class="{language}"></code></pre>
- tags
