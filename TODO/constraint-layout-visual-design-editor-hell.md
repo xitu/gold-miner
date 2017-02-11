@@ -46,25 +46,28 @@ Palette -> Design Editor -> Properties -> Design Editor
 Palette 窗口 -> Design 编辑器 -> Properties 窗口 -> Design 编辑器
 
 That is a basic flow which we do 90% in the process of UI creation. Now If any body know these terms, he/she can imagine easily in his/her mind what we are taking about. Now I am going to explain what are these terms which I mentioned above and in Visual Editor where we will get.
-这是我们90% 的基本流程。如果你知道这些术语，你就可以在头
+我们构建 UI 时 90% 都是这样的基本流程。如果你知道这些术语，你就可以轻易地想象出我们说的是什么。
 **Palette:**
 
 Provides a list of widgets and layouts that you can drag into your layout in the editor. (Documentation)
-
+提供了一系列的部件（widgets）和布局（layouts），你可以将其拖拽到位于编辑器中的布局里。（todo Documentation）
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-8.24.43-AM-188x300.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-8.24.43-AM.png)
 
 Here you will get all UI components given by Android. On top right corner there is a search icon that is really time saving. After search icon there is one more icon settings. Play with that, guys that is really awesome. You can change appearance of UI components according to your personal preference.
-
+在这里你可以获取到 Android 提供的所有的 UI 组件。在右上角有一个搜索图标，你可以通过搜索节省寻找的时间。搜索图标的右边还有一个设置图标。通过点击这个酷炫的图标，你可以根据个人喜好更改 UI 组件的外观。
 **Design Editor:**
+**Design 编辑器:**
 
 Displays your layout in a combination of the Design and Blueprint views. (Documentation)
-
+结合设计（Design）视图和蓝图（Blueprint）视图来预览你的布局（todo Documentation）
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-8.35.45-AM-300x280.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-8.35.45-AM.png)
 
 Above image is a Design Editor. In Design Editor we have two modes, one is Design and second one is Text. First we are going to discuss Design mode.
 
-As in above image we have two layouts basically both are same. On left side that is original UI how it look like in device. Right one is called blueprint. That is really helpful when you are doing design. You can easily saw margins, edges and collisions of views with each other. I have one assumption you guys already know how to drag and drop views into Design Editor and how to create constraint with parent and with other views. I am going on a next step.
+上图就是 Design 编辑器。在 Design 编辑器里我们有两种模式可选，一种是预览模式（Design），另一种是文本模式（Text）。首先我们来看看预览模式。
 
+As in above image we have two layouts basically both are same. On left side that is original UI how it look like in device. Right one is called blueprint. That is really helpful when you are doing design. You can easily saw margins, edges and collisions of views with each other. I have one assumption you guys already know how to drag and drop views into Design Editor and how to create constraint with parent and with other views. I am going on a next step.
+上图中我们看到的两个布局其实是同一个布局。左边那部分就是我们将在设备中看到的 UI 界面。右边那部分称之为蓝图（blueprint）。当你在设计时这些都非常有用。你可以很轻易地看到每个视图的外边距、边缘以及它们之间是否有冲突。我就当作你们已经知道了怎么去拖拽视图到 Design 编辑器中，并且知道怎么去创建与父布局或其他视图的约束关系。我要开始介绍下一个步骤了。
 Now if you saw above image there are some icons. Its time to explain these icons, what are these and what type of benefit we can get from these.
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-8.51.15-AM-300x23.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-8.51.15-AM.png)
