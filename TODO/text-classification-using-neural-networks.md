@@ -31,7 +31,7 @@
 2. 提供**训练数据**
 3. **组织整理**数据 
 4. **迭代**: 编写代码 + 测试预测结果 + 调整模型
-5. **抽象**迭代
+5. **抽象**
 
 代码可参见[这里](https://github.com/ugik/notebooks/blob/master/Neural_Network_Classifier.ipynb)，我们使用 [iPython notebook](https://ipython.org/notebook.html) 这个在数据科学领域极其高效的工具，编程语言使用的是 Python。
 
