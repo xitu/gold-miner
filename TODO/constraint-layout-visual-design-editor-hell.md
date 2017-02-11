@@ -63,20 +63,22 @@ Displays your layout in a combination of the Design and Blueprint views. (Docume
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-8.35.45-AM-300x280.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-8.35.45-AM.png)
 
 Above image is a Design Editor. In Design Editor we have two modes, one is Design and second one is Text. First we are going to discuss Design mode.
-
 上图就是 Design 编辑器。在 Design 编辑器里我们有两种模式可选，一种是预览模式（Design），另一种是文本模式（Text）。首先我们来看看预览模式。
 
 As in above image we have two layouts basically both are same. On left side that is original UI how it look like in device. Right one is called blueprint. That is really helpful when you are doing design. You can easily saw margins, edges and collisions of views with each other. I have one assumption you guys already know how to drag and drop views into Design Editor and how to create constraint with parent and with other views. I am going on a next step.
 上图中我们看到的两个布局其实是同一个布局。左边那部分就是我们将在设备中看到的 UI 界面。右边那部分称之为蓝图（blueprint）。当你在设计时这些都非常有用。你可以很轻易地看到每个视图的外边距、边缘以及它们之间是否有冲突。我就当作你们已经知道了怎么去拖拽视图到 Design 编辑器中，并且知道怎么去创建与父布局或其他视图的约束关系。我要开始介绍下一个步骤了。
-Now if you saw above image there are some icons. Its time to explain these icons, what are these and what type of benefit we can get from these.
 
+Now if you saw above image there are some icons. Its time to explain these icons, what are these and what type of benefit we can get from these.
+从上面的图片中可以看到有许多的图标。是时候介绍一下这些图标到底是什么，并且我们可以用它们来做些什么。
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-8.51.15-AM-300x23.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-8.51.15-AM.png)
 
 Ok before start, I am giving names to these icons which is easy for me to explain later. I am going to start from left to right. **Eye** Icon, **Magnet** Icon, **Cross with Arrow** Icon, **Stars** icon, **Number** box, **Pack** icon, **Align** icon, **Guideline** icon, **ZoomIn** Icon, **ZoomOut** icon, **Fit to screen** icon, **Pan and Zoom** icon, **Warning and Error** icon.
+在开始之前，为了便于后面解释，我会给这些图标起个名。从左到右开始分别是：**眼睛**图标，**磁铁**图标，**交叉箭头**图标，**星星**图标，**数字**盒子，**pack**图标，**对齐**图标，**指示线**图标，**放大**图标，**缩小**图标，**适应屏幕**图标，**平移缩放**图标，**警告和错误**图标。
 
-[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.56.38-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.56.38-AM.png)**Eye Icon:**
+[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.56.38-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.56.38-AM.png)**Eye Icon:****眼睛**图标
 
 This is really helpful icon specially when we have a lot of views on our UI. If that is turn ON, its mean I can see all constraints of the views together. Like I am only managing one Button but I can see all other Views constraints and if that is turn OFF then you are only able to see the constraint of a selected view as shown below.
+这个图标很有用，尤其是当我们的界面上有大量的视图时。如果这个功能处于打开状态，这代表我们可以看到视图之间的所有约束关系。就比如当我只在调整一个按钮时，我却可以看到其他所有视图的约束关系。如果关闭了该功能，你就仅仅只能看到选中视图的约束关系，如下图所示。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-09-13-57-221x300.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-09-13-57.gif)
 
