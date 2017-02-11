@@ -5,24 +5,33 @@
 * 校对者：
 
 # Constraint Layout Visual [Design] Editor ( What the hell is this )[Part4]
+# ConstaintLayout 可视化[Design面板] 编辑器 （这到底是什么）[第四部分]
 
 WOW, we got one more day so its time to make this day awesome by learning something new 🙂 .
+哇哦，又是新的一天。为了不浪费这宝贵的时光，让我们来学点新知识吧🙂。
 
 Hello guys, hope every body is doing good. We already learned a lot of new things about Constraint Layout in [part1](http://www.uwanttolearn.com/android/constraint-layout-hell/), [part2](http://www.uwanttolearn.com/android/constraint-layout-concepts-hell-tips-tricks-part-2/) and [part3](http://www.uwanttolearn.com/android/constraint-layout-animations-dynamic-constraints-ui-java-hell/). Now Its time to start learning about remaining things. By the way this is our final post in Constraint Layout ( What the hell is this) series.
+你们好，希望各位都有所进步。在[第一部分](http://www.uwanttolearn.com/android/constraint-layout-hell/), [第二部分](http://www.uwanttolearn.com/android/constraint-layout-concepts-hell-tips-tricks-part-2/) 和 [第三部分](http://www.uwanttolearn.com/android/constraint-layout-animations-dynamic-constraints-ui-java-hell/)这些文章中我们已经学习了许多关于 ConstraintLayout 的知识。现在是时候来学习这个神奇布局的剩余内容了。
 
 **Motivation:**
+**动机：**
 
 Motivation is same as discus with you guys in [part1](http://www.uwanttolearn.com/android/constraint-layout-hell/). Now in this post we are going to play with Visual Editor. On some places I will refer [part2](http://www.uwanttolearn.com/android/constraint-layout-concepts-hell-tips-tricks-part-2/) of this series. I am going to use all previous concepts, which we already discuss in XML or Java, to implement by using Visual Editor. In this way we can save a lot of time.
+学习动机与先前在[第一部分](http://www.uwanttolearn.com/android/constraint-layout-hell/)中讨论的是一样的。这篇文章里我准备向大家介绍可视化编辑器。在这一系列文章的[第二部分](http://www.uwanttolearn.com/android/constraint-layout-concepts-hell-tips-tricks-part-2/)中已经讨论过怎样在 XML 或者 Java 中实现一些效果，我会使用可视化编辑器来重新实现。通过这种方式我们可以节省掉许多的时间。
 
 We need to download 2.3 Android studio. In previous versions Visual Editor is not good and that show some wrong info on Design Tab. So that is really important download 2.3 beta which is available when I am writing this post.
+我们需要下载 2.3 版本的 Android studio。先前版本的可视化编辑器不太完善，有时会在 Design 面板上显示错误的信息。所以下载 2.3 beta 版是非常重要的，该版本在我写这篇文章时已经可以获取到了。
 
 **Introduction:**
+**引言**
 
 In this post we are mostly working with Visual Editor. There is a rare chance you will work with XML. So attach your mouse, increase brightness of your monitor and attack.
+在这篇文章里我们大部分时间都是使用可视化编辑器，比较少会用到 XML。所以带上你的鼠标和显示器，让我们开始吧！
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-7.40.17-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-7.40.17-AM.png)
 
 In above image I created five red rectangles. This is the whole visual editor. Before going to explain there is a one question. Is it really important to know about these sections and there names? In my opinion, when we want to do work as an individual at that time we can learn skill by repeating things again and again without knowing terminologies but If we really want to help other community members or may be we want to be a good team player then we should learn all these terms. They are really helpful I will show you now.
+在上图中我标出了五个红色的方框。这就是整个可视化编辑器了。在开始介绍之前有一个问题。那就是：了解各个组成部分以及他们的名字真的那么重要吗？在我看来，当我们想要独立完成某些工作时，我们只需要一遍又一遍地重复那些工作就可以掌握技能，并不需要了解术语。但如果我们想要帮助社区里的成员，或者说我们想要成为一名优秀的善于团队合作的人时，我们就应该学习所有的术语。这确实很有帮助，我现在就会暂时给你看。
 
 I know currently you guys don’t know (may be some of you know 🙂 ). What is Palette, Component  Tree, Properties etc but I am going to describe the flow by using these terms, when any developer will start working on UI he always follow these steps.
 
