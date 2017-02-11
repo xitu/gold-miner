@@ -1,79 +1,79 @@
 > * 原文地址：[Online migrations at scale](https://stripe.com/blog/online-migrations)
 * 原文作者：[Jacqueline Xu](https://stripe.com/about#jacqueline)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[steinliber](https://github.com/steinliber)
 * 校对者：
 
-Engineering teams face a common challenge when building software: they eventually need to redesign the data models they use to support clean abstractions and more complex features. In production environments, this might mean migrating millions of active objects and refactoring thousands of lines of code.
+工程师团队在构建软件时会面临一个普遍的挑战：为了支持整洁的抽象和更加复杂的特性，他们通常需要重新设计所使用的数据模型。在生产环境中，这或许就意味着迁移百万级的活跃对象和重构数千行的代码。
 
-Stripe users expect availability and consistency from our API. This means that when we do migrations, we need to be extra careful: objects stored in our systems need to have accurate values, and Stripe’s services need to remain available at all times.
+Strip 的用户期望我们的接口是可用并且一致的。这就意味着当我们在做迁移的时候，我们需要格外的小心：储存在我们系统的对象需要又精确的值，而且 Strip 的服务需要在任何时候都保持可用性。
 
-In this post, we’ll explain how we safely did one large migration of our hundreds of millions of Subscriptions objects.
-
----
-
-## Why are migrations hard?
-
--
-### Scale
-
-Stripe has hundreds of millions of Subscriptions objects. Running a large migration that touches all of those objects is a lot of work for our production database.
-
-Imagine that it takes one second to migrate each subscription object: in sequential fashion, it would take over three years to migrate one hundred million objects.
-
--
-### Uptime
-
-Businesses are constantly transacting on Stripe. We perform all infrastructure upgrades online, rather than relying on planned maintenance windows. Because we couldn’t simply pause the Subscriptions service during migrations, we had to execute the transition with all of our services operating at 100%.
-
--
-### Accuracy
-
-Our Subscriptions table is used in many different places in our codebase. If we tried to change thousands of lines of code across the Subscriptions service at once, we would almost certainly overlook some edge cases. We needed to be sure that every service could continue to rely on accurate data.
-
-## A pattern for online migrations
-
-Moving millions of objects from one database table to another is difficult, but it’s something that many companies need to do.
-
-There’s a common 4 step *dual writing pattern* that people often use to do large online migrations like this. Here’s how it works:
-
-1. **Dual writing** to the existing and new tables to keep them in sync.
-2. **Changing all read paths** in our codebase to read from the new table.
-3. **Changing all write paths** in our codebase to only write to the new table.
-4. **Removing old data** that relies on the outdated data model.
+在这篇文章中，我们将会说明我们是如何在数以百万的订阅对象进行安全的大规模迁移。
 
 ---
 
-## Our example migration: Subscriptions
+## 为什么迁移时困难的?
 
-What are Subscriptions and why did we need to do a migration?
+-
+### 规模
 
-[Stripe Subscriptions](https://stripe.com/subscriptions) helps users like [DigitalOcean](https://www.digitalocean.com/) and [Squarespace](https://www.squarespace.com/) build and manage recurring billing for their customers. Over the past few years, we’ve steadily added features to support their more complex billing models, such as multiple subscriptions, trials, coupons, and invoices.
+Strip 有数亿的订阅对象。运行一次涉及所有这些对象的大规模迁移对于我们的生产数据库来说意味着大量的工作。
 
-In the early days, each Customer object had, at most, one subscription. Our customers were stored as individual records. Since the mapping of customers to subscriptions was straightforward, subscriptions were stored alongside customers.
+想象如果每个对象的迁移都要耗费1秒钟：以这个线性增长的方式计算，迁移数亿的对象要花掉超过三年的时间。
+
+-
+### 上线时间
+
+商家在 Strip 上持续不断的进行交易。我们在线上进行所有的基础设施升级，而不是依赖于计划中的维护期。因为我们在迁移过程中不能只是简单的暂停订阅，我们必须保证所有交易的执行都可以在我们的所有服务器上 100% 执行。
+
+-
+### 精确性
+
+我们的订阅表在代码库的许多不同地方都会用到。如果我们想一次性在订阅服务中修改上千行的代码，我们几乎可以确信会忽略一些边缘条件。我们需要确保每一个服务可以继续依靠精确的数据。
+
+## 在线迁移的一个模式
+
+从一个数据库表迁移数百万的对象到另一个是困难的，但是这是许多公司所要做的一些事。
+
+这里有一个通用的 4 步*双重写入模式*，人们经常使用像这样的模式来做线上的大规模迁移。这里是它如何工作的
+
+1. **双重写入** 到已经存在和新的数据库来保持它们同步。
+2. **修改所有代码库里的读路径** 从新的表读数据。
+3. **修改所有代码库里的写路径** 只写入新的表.
+4. **移除依赖于过期数据模型的旧数据** 。
+
+---
+
+## 我们迁移的例子: 订阅
+
+什么是订阅已经我们为什么需要做迁移？
+
+[Stripe 订阅](https://stripe.com/subscriptions) 帮助像 [DigitalOcean](https://www.digitalocean.com/) 和 [Squarespace](https://www.squarespace.com/) 的用户建立和管理它们消费者的定期结算，在这过去的几年中，我们已经添加了许多特性去支持它们越来越复杂的账单模型，比如说多方订阅，试用，优惠券和发票。
+
+在早些时候，每个消费者对象最多可以有一个订阅。我们的消费者当作独立的记录储存。因为消费者和订阅的映射是直接的，订阅是和消费者一起储存的。
 
     class Customer
       Subscription subscription
     end
 
-Eventually, we realized that some users wanted to create customers with multiple subscriptions. We decided to transform the `subscription` field (for a single subscription) to a `subscriptions` field—allowing us to store an array of multiple active subscriptions.
+最终，我们意识到有些用户想要创建有多个订阅表的消费者。我们决定把 `subscription` 字段（只支持一个订阅）转换成`subscriptions`字段，这样我们就可以储存一个有多个活跃订阅的队列。
 
     class Customer
       array: Subscription subscriptions
     end
 
-As we added new features, this data model became problematic. Any changes to a customer’s subscriptions meant updating the entire Customer record, and subscriptions-related queries scanning through customer objects. So we decided to store active subscriptions separately.
+在我们添加新特性的时候,发现这个数据模型会有问题。任何对消费者订阅的改变都意味着更新整个消费者模型，而且和订阅相关的查询也会在消费者对象中查询。所以我们独立储存活跃的订阅。
 
-Our redesigned data model moves subscriptions into their own table.
+我们重新设计了数据模型把订阅移到课他们自己的表中。
 
-As a reminder, our four migration phases were:
+提醒一下⏰，我们的 4 个迁移阶段是
 
-1. **Dual writing** to the existing and new tables to keep them in sync.
-2. **Changing all read paths** in our codebase to read from the new table.
-3. **Changing all write paths** in our codebase to only write to the new table.
-4. **Removing old data** that relies on the outdated data model.
+1. **双重写入** 到已经存在和新的数据库来保持它们同步。
+2. **修改所有代码库里的读路径** 从新的表读数据。
+3. **修改所有代码库里的写路径** 只写入新的表.
+4. **移除依赖于过期数据模型的旧数据**。
 
-Let’s walk through these four phases looked like for us in practice.
+让我们像实践中一样走过这4个阶段。
 
 ---
 
@@ -169,3 +169,5 @@ Running migrations while keeping the Stripe API consistent is complicated. Here�
 - All our changes were highly transparent and observable. Scientist experiments alerted us as soon as a single piece of data was inconsistent in production. At each step of the way, we gained confidence in our safe migration.
 
 We’ve found this approach effective in the many online migrations we’ve executed at Stripe. We hope these practices prove useful for other teams performing migrations at scale.
+
+
