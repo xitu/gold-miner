@@ -2,17 +2,17 @@
 * 原文作者：[gk_](https://machinelearnings.co/@gk_)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Kulbear](https://github.com/kulbear)
-* 校对者：
+* 校对者：[luoyaqifei](https://github.com/luoyaqifei)，[hikerpig](https://github.com/hikerpig)
 
 # 用神经网络进行文本分类
 
-理解[聊天机器人如何工作](https://medium.com/p/how-chat-bots-work-dfff656a35e2)是很重要的。聊天机器人内部一个基础的组成部分是*文本分类器*。让我们一起来探究一下一个用于文本分类的人工神经网络的内部结构。
+理解[聊天机器人如何工作](https://medium.com/p/how-chat-bots-work-dfff656a35e2)是很重要的。聊天机器人内部一个基础的组成部分是*文本分类器*。让我们一起来探究一个用于文本分类的人工神经网络的内部结构。
 
 ![](https://cdn-images-1.medium.com/max/800/1*DpMaU1p85ZSgamwYDkzL-A.png)
 
 多层人工神经网络
 
-我们将会使用两层神经元（包括一个隐层）和词袋模型来组织（organizing 似乎有更好的选择，求建议）我们的训练数据。[三种聊天机器人文本分类的方法](https://medium.com/@gk_/how-chat-bots-work-dfff656a35e2#.3zb2b9g2v): *模式匹配*, *算法*, *神经网络*. 尽管[基于算法的方法](https://medium.com/@gk_/text-classification-using-algorithms-e4d50dcba45#.mho4fx7e5)使用的多项朴素贝叶斯方法效率惊人，但它有三个根本性的缺陷：
+我们将会使用两层神经元（包括一个隐层）和词袋模型来组织（organizing 似乎有更好的选择，求建议）我们的训练数据。[有三种聊天机器人文本分类的方法](https://medium.com/@gk_/how-chat-bots-work-dfff656a35e2#.3zb2b9g2v): **模式匹配**, **算法**, **神经网络**. 尽管[基于算法的方法](https://medium.com/@gk_/text-classification-using-algorithms-e4d50dcba45#.mho4fx7e5)使用的多项式朴素贝叶斯方法效率惊人，但它有三个根本性的缺陷：
 
 - **该算法的输出是一个评分**而非概率。我们想要的是一个概率，它可以直接应用于给定阈值的从而忽略一些预测结果，就像忽略收音机里呲呲啦啦的背景高频噪声。
 - 该算法从一类数据中“学习”什么**是**这一类数据，而非什么**不是**这一类数据
@@ -25,7 +25,7 @@
 
 #### 想要理解基于上述算法的方法，可以看[这里](https://chatbotslife.com/text-classification-using-algorithms-e4d50dcba45).
 
-让我们遵循下列步骤，一步一步的实践我们的文本分类器：
+让我们分析下我们的文本分类器，一次一部分，我们将采取如下步骤：
 
 1. 我们所需要的**库** 
 2. 提供**训练数据**
@@ -33,9 +33,9 @@
 4. **迭代**: 编写代码 + 测试预测结果 + 调整模型
 5. **抽象**迭代
 
-代码可参见[这里](https://github.com/ugik/notebooks/blob/master/Neural_Network_Classifier.ipynb)，我们使用 [iPython notebook](https://ipython.org/notebook.html) 这个在数据科学领域及其高效的工具，编程语言使用的是 Python。
+代码可参见[这里](https://github.com/ugik/notebooks/blob/master/Neural_Network_Classifier.ipynb)，我们使用 [iPython notebook](https://ipython.org/notebook.html) 这个在数据科学领域极其高效的工具，编程语言使用的是 Python。
 
-我们首先引入将要使用的自然语言工具库。我们需要将整句话特征化到词语和词干级别。
+我们首先引入将要使用的自然语言工具库。我们需要可靠地将整句话分词，并对词进行词干化处理。
 
 ![](https://ww1.sinaimg.cn/large/006y8lVagy1fcfejony8zj31880do0ua.jpg)
 
@@ -51,9 +51,9 @@
 
     12 文档
     3 个类别 ['greeting', 'goodbye', 'sandwich']
-    26 个词干 ['sandwich', 'hav', 'a', 'how', 'for', 'ar', 'good', 'mak', 'me', 'it', 'day', 'soon', 'nic', 'lat', 'going', 'you', 'today', 'can', 'lunch', 'is', "'s", 'see', 'to', 'talk', 'yo', 'what']
+    26 个唯一词干 ['sandwich', 'hav', 'a', 'how', 'for', 'ar', 'good', 'mak', 'me', 'it', 'day', 'soon', 'nic', 'lat', 'going', 'you', 'today', 'can', 'lunch', 'is', "'s", 'see', 'to', 'talk', 'yo', 'what']
 
-这里需要注意的是，每个词语在这里都已经是全小写并且只保留基本形式。保留基本形式可以让机器对于诸如 “have” 和 “having” 之类的词语划等号。我们不关心大小写的问题。
+这里需要注意的是，每个词语在这里都已经是全小写并且只被词干化处理。保留基本形式可以让机器将 "have" 和 "having" 这类词语同等看待。我们不关心大小写的问题。
 
 ![](https://cdn-images-1.medium.com/max/600/1*eUedufAl7_sI_QWSEIstZg.png)
 
@@ -65,7 +65,7 @@
     [0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     [1, 0, 0]
 
-上述步骤是文字分类任务中典型的一环：将每个训练数据的句子转换为一个由 0 和 1 组成的数组 against the array of unique words in the corpus. （这句没想出好的翻译方法）
+上述步骤是文字分类任务中典型的一环：将每个训练数据的句子转换为一个对应于完整词袋中单词位置的，由 0 和 1 组成的数组。
 
     ['how', 'are', 'you', '?']
 
@@ -89,7 +89,7 @@
 
 ![](https://cdn-images-1.medium.com/max/600/1*CcQPggEbLgej32mVF2lalg.png)
 
-接下来我们将学习单隐层网络（译者注：单隐层即原文中的2-layer NN）中的核心功能部分。
+接下来我们将学习单隐层网络（译者注：单隐层即原文中的 2-layer NN）中的核心功能部分。
 
 如果人工神经网络对你来说很陌生，那你可以先读一读[他们是如何工作的](https://medium.com/@gk_/how-neural-networks-work-ff4c7ad371f7).
 
@@ -103,14 +103,14 @@
 
 ![](https://ww4.sinaimg.cn/large/006y8lVagy1fcfetz7xn9j312w1leag3.jpg)
 
-接下来编写神经网络训练函数来获取链接权重，先别激动，这也就是高中数学课级别的矩阵乘法而已。
+接下来编写神经网络训练函数来获取连接权重，先别激动，这也就是高中数学课级别的矩阵乘法而已。
 
 ![](https://ww2.sinaimg.cn/large/006y8lVagy1fcfexdjb5qj312w2ohqg4.jpg)
 
 
 credit Andrew Trask [https://iamtrask.github.io//2015/07/12/basic-python-network/](https://iamtrask.github.io//2015/07/12/basic-python-network/) （编者注：由于排版的原因导致上图中的代码没有显示完整，如需查看完整代码请访问 [gist.github.com/ugik/70e055894f686bbbe1d052c649799148#file-text_ann_part6](https://gist.github.com/ugik/70e055894f686bbbe1d052c649799148#file-text_ann_part6)）
 
-现在我们准备好建立第一个神经网络*模型*了。我们将把链接权重数据存为单独的 JSON 数据文件。
+现在我们准备好建立第一个神经网络*模型*了。我们将把连接权重数据存为单独的 JSON 数据文件。
 
 你应该尝试不同的 alpha (梯度下降参数，译者：通常称为学习率) 并且观察它是如何影响错误率的。这个参数帮助我们调整错误并找到错误率最低的情况：
 
@@ -118,7 +118,7 @@ synapse_0 += **alpha** * synapse\_0\_weight\_update
 
 ![](https://cdn-images-1.medium.com/max/800/1*HZ-YQpdBM4hDbh4Q5FcsMA.png)
 
-在隐层中我们使用了 20 个神经元，你可以很简单的调整这个参数。它的数量主要取决于你数据的维度和量级。通过调整你可以达到大约 10^-3 的错误率结果。
+在隐层中我们使用了 20 个神经元，你可以很简单的调整这个数量。它的数量主要取决于你数据的维度和量级。通过调整你可以达到大约 10^-3 的错误率结果。
 
 ![](https://ww3.sinaimg.cn/large/006y8lVagy1fcff04a6v1j31540fs40c.jpg)
 
@@ -137,11 +137,11 @@ synapse_0 += **alpha** * synapse\_0\_weight\_update
     saved synapses to: synapses.json
     processing time: 6.501226902008057 seconds
 
-synapse.json 文件中包括了我们需要的所有链接权重数据，**这就是我们的模型**
+synapse.json 文件中包括了我们需要的所有连接权重数据，**这就是我们的模型**
 
 ![](https://cdn-images-1.medium.com/max/800/1*qYkCgPE3DD26VD-qDwsicA.jpeg)
 
-这个 **classify()** 函数是链接权重计算完毕后我们唯一所需要的了：十几行代码而已。
+这个 **classify()** 函数是连接权重计算完毕后我们唯一所需要的了：十几行代码而已。
 
 备注：如果训练数据有变化，我们的模型也需要重新计算。对于一个较大的训练数据量来说，这个过程可能会非常耗时。
 
@@ -162,7 +162,7 @@ synapse.json 文件中包括了我们需要的所有链接权重数据，**这�
     **how was your lunch today? **
      [['greeting', 0.99120883810944971], ['sandwich', 0.31626066870883057]]
 
-你可以用其他句子和概率来试验几次，也可以添加训练数据来改进／扩展当前的模型。多加小心 the solid predictions with scant training data（求建议这句）
+你可以用其它语句、不同概率来试验几次，也可以添加训练数据来改进／扩展当前的模型。多加小心 看这里用很少的训练数据就得出了好的结果。
 
 有一些句子将会有多个预测结果输出（高于阈值）。你需要给你的程序设定一个合适的阈值。并不是每个分类情景都是一样的：*有些类别比其他类别需要更大的置信水平*。 
 
@@ -185,8 +185,8 @@ synapse.json 文件中包括了我们需要的所有链接权重数据，**这�
     a burrito!
      [['sandwich', 0.61776860634647834]]
 
-现在你已经掌握了一些构建聊天机器人的基础知识结构。当你明白了如何处理大量不同的类别（事件？intent需要建议），并用有限的数据（模式）去完成对它们的适配之后。给一个intent（intent需要建议）添加几个相应的预测结果是轻而易举的。
+现在你已经掌握了一些构建聊天机器人的基础知识结构。当你明白了如何处理大量不同类别的任务，并用有限的数据（模式）去完成对它们的适配之后。给一个目标添加几个相应的预测结果是轻而易举的。
 
-#### Enjoy!
+#### 午时已到!
 
 ![](https://cdn-images-1.medium.com/max/800/1*qfqiMxeF2coed4oBign6IQ.jpeg)
