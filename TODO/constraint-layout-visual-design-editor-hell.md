@@ -145,31 +145,38 @@ One more important thing. Don’t confuse yourself because when you click width 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-10-40-53-221x300.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-10-40-53.gif)
 
 Before going to the other icons which are related to multiple selected views. One important point you can use these single view icons with multiple views selection as well as shown below.
-
+在开始介绍那些与多选视图有关的图标之前，还有一点是值得注意的，你可以在选中多个视图时使用那些单选视图时可用的图标，如下图所示。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-10-47-42-221x300.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-10-47-42.gif)
 
 Now its time to learn about those icons which are enable on multiple view selection.
+现在让我们开始学习那些多选视图后可用的图标吧。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-10.50.12-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-10.50.12-AM.png)
 
 As I selected multiple icons on Design Editor, all other icons are enable as shown above.
+当我在 Design 编辑器里选中多个视图后，剩下的几个图标就都变为可用的了。如下图所示。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-10.55.32-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-10.55.32-AM.png)
 
 Both icons have same functionality only one is used for horizontal and the other one is for vertical. When I clicked horizontal one. That will take all my views and do horizontal align with each other. Then question is what is the difference between above icons which we already learned.
+这两个图标功能是一样的的，只不过一个用于横向，另一个用于纵向。当我点击了横向的图标后，所有视图都会横向对齐。那么随之而来的问题是：这和上面刚学习过的那对图标有什么区别呢？
 
 Difference is, above one’s increase the size of our views but this one did not increase the size instead view moved to align to each other. **Again important thing** that only gave values on Design Editor. If you try to run that on a device you will never get like its shown on Design Editor. For that you need to create constraints on your own. Basically you can save your time by using these icons to align views to each other and later when everything on there required places you can apply constraints. Then you will get your proper result on device. Its time to show you when I clicked what happened.
+区别在于，上面的图标通过扩展数值（来对齐）。而这两个图标并不会扩展数值，而是将视图平移至互相对齐。**另外值得注意的是**， （todo） 这样的话就需要你自己去构建约束了。但其实你可以先通过使用这些图标来对齐视图，这样可以节省很多时间，如果还需要做一些调整的话，你可以再添加一下约束，这样你就可以在设备上得到适当的效果。让我们来看一下点击这些图标之后会发生什么吧。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-11-03-02-221x300.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-11-03-02.gif)
 
 So its time to explain remaining two icons.
+接着再来解释一下剩下的两个图标。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-11.04.33-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-11.04.33-AM.png)
 
 These icons have again same functionality only orientation differences.
+同样的，这两个图标也有着一样的功能，只不过作用的方向不一样。
 
 Now If I click left icon basically that will create horizontal constraints between all selected views without moving positions and size as shown below.
+用不着去移动位置或者改变数值，只要我点击了左边的图标，就可以在所有选中的视图之间构建好约束。如下图所示。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-11-14-06-221x300.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-11-14-06.gif)
 
