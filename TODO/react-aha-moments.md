@@ -1,7 +1,7 @@
 > * 原文地址：[React “Aha” Moments](https://medium.freecodecamp.com/react-aha-moments-4b92bd36cc4e#.jxiocbkv5)
 * 原文作者：[Tyler McGinnis](https://medium.freecodecamp.com/@tylermcginnis?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者： [aleen42](https://github.com/aleen42)
 * 校对者：
 
 # React 中“灵光乍现”的那些瞬息
@@ -40,11 +40,7 @@ React 的其中一个妙处在于，你可以通过自身对 JavaScript 函数�
 
 其次，既然 JSX 仅仅就是 JavaScript，那么你就可以运用上 JavaScript 的任何一切优势，如程序的编写、约束及调试。此外，你还可以利用上 HTML 的声明特性（以及关联点）。
 
-### Insight #3: Components don’t necessary have to correspond to DOM nodes. ###
-
 ### 瞬息 #3：组件与 DOM 节点并非相当。 ###
-
-When you first learn React you’re taught that “Components are the building blocks of React. They take in input and return some UI (the Descriptor Pattern).”
 
 当你首次学习 React 时，总会被教到那么一点，“组件是 React 的积木。它们可被用于输入，并返回部分的 UI（描述符模式，the Descriptor Pattern）”
 
@@ -107,8 +103,6 @@ Redux 所提出的办法是把共享的 State 存放在另一个名为“Store�
 而且，我还发现了一点。这样的新方法还能使开发者更好地去了解应用本身的结构，且能随时替换掉组件的实现而无须担心 UI 的改变，反之亦然。这样一来，设计师也就能随意地扭捏 UI，而无须操心那些描述型组件所接受数据的方式。
 
 更多详情请查看《[描述型组件与容器组件](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0#.q9tui51xz)》。
-
-### Insight #7: If you try to keep most of your components pure, stateless things become a lot simpler to maintain. ###
 
 ### 瞬息 #7：若你想保持大部分组件的纯净，无 State 组件会更为容易地去维护。 ###
 
