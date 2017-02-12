@@ -2,7 +2,7 @@
 * 原文作者：[Simon Li](https://blog.prototypr.io/@simonlidesign?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Ruixi](https://github.com/Ruixi)
-* 校对者：[L9m](https://github.com/L9m),[wild-flame](https://github.com/wild-flame)
+* 校对者：[L9m](https://github.com/L9m)、[wild-flame](https://github.com/wild-flame)
 
 # 漂亮的字体组合的秘密 #
 
