@@ -78,26 +78,30 @@ Ok before start, I am giving names to these icons which is easy for me to explai
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.56.38-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.56.38-AM.png)**Eye Icon:****眼睛**图标
 
 This is really helpful icon specially when we have a lot of views on our UI. If that is turn ON, its mean I can see all constraints of the views together. Like I am only managing one Button but I can see all other Views constraints and if that is turn OFF then you are only able to see the constraint of a selected view as shown below.
-这个图标很有用，尤其是当我们的界面上有大量的视图时。如果这个功能处于打开状态，这代表我们可以看到视图之间的所有约束关系。就比如当我只在调整一个按钮时，我却可以看到其他所有视图的约束关系。如果关闭了该功能，你就仅仅只能看到选中视图的约束关系，如下图所示。
+这个图标很有用，尤其是当我们的界面上有大量的视图时。如果这个功能处于打开状态，这意味着我们可以看到视图之间的所有约束。比如当我只在调整一个按钮时，我却可以看到其他所有视图的约束关系。如果关闭了该功能，你就仅仅只能看到选中视图的约束，如下图所示。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-09-13-57-221x300.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-09-13-57.gif)
 
-**[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.55.08-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.55.08-AM.png)Magnet** **Icon:**
+**[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.55.08-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.55.08-AM.png)Magnet** **Icon:** **磁铁图标**
 
 This icon will save lot of time. If you know properly how that work. Truly saying I am not good with this icon but here I am describing what I know. If that is turn OFF you can drag and drop or move your views in Design Editor but you need to give your constraints manually. If that is turn ON then lot of constraints with parent view automatically applied by the Editor.
+如果你了解了这个图标会节省许多的时间。老实说我不太擅长使用这个图标，但是我会把我知道的都告诉你。如果这个图标处于关闭状态，你可以在 Design 编辑器里拖拽或移动你的视图，但你必须手动构建约束。如果这个图标处于打开状态，这时编辑器就会自动构建与父视图的约束。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-09-29-49-221x300.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-09-29-49.gif)As shown above. First time icon is turned OFF and I move my ImageView to center but nothing happens later I turned ON magnet icon and magic start happening. I move ImageView to center and Editor automatically created constraint for me. WOW
+如上图所示。一开始图标处于关闭状态，我将我的 ImageView 设为居中，但什么都没有发生。之后我将磁铁图标打开了，神奇的事情发生了。我将我的 ImageView 设为居中，编辑器自动为我构建了约束。哇哦！
 
 **Cross with Arrow** **Icon:**
+**交叉箭头** **图标**
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.55.17-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.55.17-AM.png)
 
 This icon very simple and awesome. If I want to clear all constraints I can click on this and all constraints will be removed as shown below.
+这个图标非常简单也非常酷炫。如果我想要清空所有的约束，只要点击这个图标，然后所有的约束都会被移除掉。如下图所示。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-09-37-29-221x300.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-09-37-29.gif)
 
 Now as you saw in above image auto connect (magnet icon) is turned ON thats why all constraints automatically created for me. When I moved into center horizontal but in the end when I click cross icon all constraints are removed.
-
+如上图所示，自动约束（磁铁图标）是打开的，这就是为什么当我将视图设为横向居中时会自动构建约束，但是当我点击了交叉图标，所有的约束都被移除掉了。
 **Stars** **icon:**
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.55.37-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.55.37-AM.png)
 
