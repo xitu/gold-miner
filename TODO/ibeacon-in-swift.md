@@ -4,43 +4,47 @@
 * 译者：
 * 校对者：
 
-#A Guide to Interacting with iBeacons in iOS using Swift#
+#iOS 开发中使用 Swift 进行 iBeacons 交互指南
 
-I’ve recently been working on an iOS project that uses [iBeacons](https://developer.apple.com/ibeacon/) . In this post, I’ll provide a comprehensive guide for working with iBeacons in iOS using [Swift](https://developer.apple.com/swift) . I’ll describe what iBeacons are, how you can use them, and what you should know about the programming model for interacting with them in iOS. I’ll also share some of the best practices that I learned.
 
-## What Are iBeacons? ##
+我最近致力于研究一个关于 [iBeacons](https://developer.apple.com/ibeacon/) 的 iOS 项目。本文中，我将全面的介绍如何使用 [Swift](https://developer.apple.com/swift) 进行 iOS 项目中 iBeacons 开发。我将介绍 iBeacons 是什么，如何进行使用以及在 iOS 项目中开发 iBeacons 交互你应该知道的编程模板。同时，我将分享一些在开发中学到的最佳实践方案。
 
-iBeacons are a class of Bluetooth Low Energy (BLE) devices that continuously broadcast identifying information about themselves using the iBeacon protocol. They are meant to be placed in the physical world (usually indoors) at locations of interest. Mobile apps can then ask to be notified when they move within range of a beacon, and then react appropriately.
 
-You may read things that claim that iBeacons act as an alternative to GPS for indoor location sensing, in situations where GPS does not work reliably. While this is largely true, you shouldn’t necessarily think of iBeacons as a perfect substitute for GPS. Their operating model and location sensing precision are quite different compared to traditional GPS. Still, with a little creativity, you can do some pretty cool things with iBeacons.
+##iBeacons 是什么
 
-## iBeacon Applications ##
+iBeacons 是一类使用 iBeacon 协议持续向周围发送自身标识信息的低功耗蓝牙设备。它关注物质世界中的地理位置（通常为室内）。当设备移动到一定范围内时，手机应用会收到通知并作出相应的响应。
 
-Before we get into how iBeacons work, it might be useful to discuss the ways you can use them. While there are a variety of different iBeacons applications, I like to group them into the following categories: 1. context-aware content delivery and 2. passive tracking.
+你也许读过一些文章声称 iBeacons 是一种室内 GPS 信号不稳定时，取代 GPS 进行室内定位的解决方案。虽然这个的说法绝大部分是正确的，但是不能肯定的认为 iBeacons 是一个 GPS 完美的替代方案。他们在操作的模板和位置感知的准确性上比起传统的 GPS 有着相当大的区别。即便如此，带着一点创造性，你依然可以使用 iBeacons 做一些相当酷的事情。
 
-### Context-aware content delivery ###
+## iBeacon 的应用
 
-iBeacons can be used to deliver content to users when they move near an area of interest. One classic example involves a museum. Imagine placing an iBeacon near each museum exhibit, and when users move near an exhibit, automatically displaying more information about what they are viewing. This requires the mobile app listening for beacons to know which beacons are near which exhibits. With this association, though, the beacons help determine where the users are in the museum and allow the app to react appropriately.
+在我们了解 iBeacons 如何工作之前，讨论一下它的使用方法也许更有用。现在有多种多样的 iBeacons 应用，我喜欢把他们分成两大类：1. 感知信息的传输和 2.定位追踪。
+
+### 感知信息的传输（译者注：这里不知道如何翻比较好，没有查到相关的较好翻法，个人理解的翻译方式）
+
+iBeacons 可以用来在用户移动到接近目标区域的时候给他们发送消息。博物馆就是一个典型的例子，设想在每一个展品的位置放置一个 iBeacons 设备，当用户走近展品的时候，手机应用自动展示看到展品的更多信息会有多棒! 这就需要手机应用侦听发射器来了解有哪些发射器接近哪些展品，通过这样的匹配，发射器将决定用户在博物馆中的位置并让应用做出合理的响应。
 
 ### Passive tracking ###
 
-Extending the concept of context-aware content delivery, you can also use iBeacons as a means to track users. Imagine placing iBeacons throughout a building–perhaps a museum or grocery store. As users move around, you can detect the route they take through the building by recording the sequence of beacons they pass. This would allow you to track users and learn common pathways and traffic patterns.
+### 定位追踪
 
-Of course, there are countless other iBeacon applications beyond these simple examples–[this website](http://blog.mowowstudios.com/2015/02/100-use-cases-examples-ibeacon-technology/) has a nice list of them.
+作为感知信息的传输概念的扩展，你也可以使用 iBeacons 作为一种追踪用户的方式。设想在一个博物馆或者杂货店的建筑中遍布 iBeacons ，随着用户的移动，你可以侦测到用户在建筑中的移动轨迹通过他们经过的一系列设备。这将让你追踪到用户的轨迹并且了解常被走的路和交通模式。
 
-## iBeacon Addressing Scheme ##
+当然，除了那些简单的例子外这里还有数之不尽的 iBeacons 应用-[这个网站](http://blog.mowowstudios.com/2015/02/100-use-cases-examples-ibeacon-technology/) 很好地罗列出了这些项目。
 
-If you have worked with Bluetooth Low Energy devices in the past, you might be familiar with the concept of a Bluetooth advertising packet. iBeacons are essentially BLE devices that only send advertising packets. When they advertise themselves, they broadcast packets that contain three values: a **UUID**, a **major number**, and a **minor number**. The combination of these three numbers is used to uniquely identify an iBeacon, and it can be configured by the user.
+## iBeacon 寻址方案
 
-The UUID, combined with the major and minor number, allows for nice hierarchal addressing schemes. Imagine if a retail chain like Walmart were to deploy iBeacons in their stores. They might choose to use a single UUID to denote Walmart and have all Walmart iBeacons use that UUID (which makes the UUID not unique at all, but this seems to be the common way to address iBeacons). They could then use the iBeacon major number to denote the store number, and the minor number to differentiate between different departments or locations within that store.
+如果你过去开发过低功效蓝牙设备，你也许熟悉蓝牙广播包的概念.iBeacons 本质上只是一个发送广播包的 BLE 设备。当广播包广播出去，其实广播包中包含三个值：一个 **UUID**、一个 **主要值**和一个**次要值**。这三个数字组合起来定义一个 iBeacon 设备的特殊标识并且它是可以由用户进行配置的。
 
-## iBeacon Manufacturers ##
+考虑将 UUID 连同主要值以及次要值组合起来是一个很好地寻址方案。设想如果像沃尔玛这样的零售商在所有的商店里配置 iBeacons 设备，他们或许选择一个唯一的 UUID 来指代沃尔玛并且沃尔玛中的所有 iBeacons 都会使用这个 UUID(这使得 UUID 变得不再特殊，但是好像这是 iBeacons 中很常见的寻址方式).之后他们可以使用 iBeacons 的主要指来指代商店的编号和次要值去区别商店所在的不同的部门或区域。
 
-iBeacons are named as such because Apple defined the iBeacon protocol (e.g., the format for the advertising data that they broadcast). However, they are not made or sold by Apple.
+## iBeacon 的制造商
 
-Instead, there are several companies that make and sell iBeacons, and each manufacturer is a little different. Some of the more popular manufacturers include [Estimote](http://estimote.com/) , [Aruba](http://www.arubanetworks.com/products/mobile-engagement/aruba-beacons/?source=sem&amp;gclid=CMrEzpLaytECFVhYDQodPZ0AKg) , and [Radius Networks](https://www.radiusnetworks.com/) . If you’re looking to get started with iBeacons, any of these manufacturers would be a good choice. I have personally used the Estimote and Radius Networks beacons, so I can talk about them in more detail.
+iBeacons 的命名是因为苹果定义的 iBeacons 协议（比如广播出去的那些广播数据的形式），但是，他们并不是苹果生产或出售的。
 
-Below are some photos of Estimote and Radius Networks iBeacons.
+而有几家公司是成产和销售 iBeacons 的，并且每一个生产商都有一点不同，比较主流的生产商包括 [Estimote](http://estimote.com/) 、 [Aruba](http://www.arubanetworks.com/products/mobile-engagement/aruba-beacons/?source=sem&amp;gclid=CMrEzpLaytECFVhYDQodPZ0AKg) 和 [Radius Networks](https://www.radiusnetworks.com/) .如果你正在打算使用 iBeacons ，上边的任何一家都会是个不错的选择。我个人曾使用过 Estimote 和 Radius Networks 两家公司的设备，所以我可以讲一下关于他们更多的细节。
+
+下边是一些关于 Estimote 和 Radius Networks 两家生产商 iBeacons 的图片。
 
 ![](https://spin.atomicobject.com/wp-content/uploads/20170119182038/estimote-beacon2.jpg)
 
@@ -48,66 +52,72 @@ Estimote iBeacons
 
 ![](https://spin.atomicobject.com/wp-content/uploads/20170119181625/radius-networks-beacons.jpg) 
 
-Radius Networks iBeacons. The top comes off for easy access to the battery.
+Radius Networks iBeacons.它可以打开顶部来更简单的使用电池。
 
-The Radius Networks beacons are nice because you can turn them on and off and easily change their battery. The Estimote beacon battery lasts substantially longer, but you can’t easily change it when it dies, and you can not easily stop the Estimote beacons from broadcasting.
+Radius Networks 的设备很好用因为你可以随意的打开和关闭并且可以方便的更换电池。 Estimote 的设备的电池使用寿命更久，但是当电量用完之后更换起来很麻烦，此外你可能无法简单的使一个发送广播信号中的设备停止工作。
 
-Note: There are several other similar protocols to iBeacon, such as [Eddystone](https://en.wikipedia.org/wiki/Eddystone_(Google)) . Most manufactures make beacons that broadcast several different protocols.
+注：这还有几个和 iBeacons 相似的协议，比如 [Eddystone](https://en.wikipedia.org/wiki/Eddystone_(Google))，大部分的设备厂商生产的设备都是可以支持广播多种协议的。
 
-### Configurability ###
+###可配置性
 
-When you purchase iBeacons, the manufacturer usually provides a mobile app to help you configure them. This app allows you to do things like set each beacon’s UUID and major and minor number, adjust their advertising rate, and configure their Bluetooth broadcast strength. Some manufacturers don’t provide an app or any other easy way to configure their iBeacons. I would recommend avoiding these manufacturers unless you have a good reason not to.
+当你购买了 iBeacons ，制造商通常会提供一个手机应用来帮助你对它进行相关的设置。你可以在应用中对 iBeacons 的 UUID 以及主要值和次要值进行设置，调整他们广播的比率和蓝牙广播的强度。一些设备上并不提供手机应用或者其他便捷的方式来配置他们生产的 iBeacons 。 除非能找不到一个特别好的理由，否则我推荐你不要购买这些厂商的 iBeacons 。
 
-Below are some screenshots of the Estimote and Radius Networks iBeacon configuration apps.
+下边是 Estimote 和 Radius Networks 两个厂商的 iBeacons 配置应用中的一些截图。
 
-#### Estimote Configuration App Screenshots ####
+#### Estimote 应用配置截图
 
 ![](https://spin.atomicobject.com/wp-content/uploads/20170119182212/ea2.jpg)
 
 ![](https://spin.atomicobject.com/wp-content/uploads/20170119182215/ea3.jpg) 
 
-In the Estimote app (shown above), you can see the screens for adjusting the beacon’s advertising rate and Bluetooth broadcast strength.
+
+在 Estimote 厂商的应用中，你可以在截图中看到调整设备的广播比率和蓝牙广播强度的设置。6	 
 
 #### Radius Networks Configuration App Screenshots ####
+
+#### Radius Networks 应用配置截图
 ![](https://spin.atomicobject.com/wp-content/uploads/20170117223648/rna1.jpg)
 
 ![](https://spin.atomicobject.com/wp-content/uploads/20170117223650/rna2.jpg) 
 
-In addition to the mobile app, there are several other iBeacon differences across manufacturers. When choosing an iBeacon, you may want to consider some of the following, as they tend to vary between vendors:
+除了手机应用外，厂商之间的 iBeacons 还有如下的区别。当在选择 iBeacons 时，你应该去考虑如下的因素，因为厂商间趋向于在这些方便有所区别：
 
-- Beacon battery life
+- 设备的电池寿命
 
-- Beacon battery replaceability
+- 设备的电池是否可更换
 
-- Minimum and maximum beacon range
+- 最大和最下的设备范围
 
-- Ability to turn beacons off, or at least stop them from advertising
+- 设备是否有关闭的功能，至少是能否让他们停止广播
 
-- Other protocols that the beacons support (e.g., Eddystone)
+- 对其他协议的是否支持(比如 Eddystone)
 
-- SDK functionality (if one exists and you plan on leveraging it)
+- SDK 功能的完善性（如果一个存在你正打算使用的功能）
 
-## iOS Programming Model ##
+## iOS 编程模板
 
-Now that we have discussed what iBeacons are, how they work, and how to compare some manufacturers, let’s take a look at the iOS programming model for interacting with them.
+我们已经讨论了 iBeacons 是什么，如何工作并且比较了不同厂商的区别。现在让我们来看下一下 iOS 编程中和他们进行交互的模板。
 
-All iBeacon functionality is provided through the iOS CoreLocation library. This is actually kind of interesting, given that iBeacons are Bluetooth devices. The Bluetooth nature of the beacons is completely abstracted away from the developer.
+iBeacons 的所有功能都是有 iOS 中的 Corelocation 库提供，这实际上是一类有趣，给予蓝牙设备 iBeacons 功能的库。本质上蓝牙中 iBeacons 相关的部分完全是开发者抽象出来的。
 
-### Permission ###
 
-For your app to use iBeacons, users must allow it to access their location. You can prompt users for permission by adding keys to your `Info.plist` file. The `NSLocationWhenInUseUsageDescription` key will prompt users for permission to access their location when your app is in the foreground. If your app needs to receive iBeacon location notifications when in the background, the `NSLocationAlwaysUsageDescription` key should be used instead.
+### 权限
 
-In addition to setting these keys, you will need to call `requestWhenInUseAuthorization()` or `requestAlwaysAuthorization()` on your `CLLocationManager` class instance when your app starts up.
+在你的应用中使用 iBeacons，用户必须允许访问位置权限。你可以提示用户开启权限通过在你的 `Info.plist` 文件中添加一些关键词。`NSLocationWhenInUseUsageDescription` 关键词将在应用处于前台的时候提示用户打开他们的位置权限。如果你的应用需要在处于后台的情况下接收 iBeacons 位置的通知，需要使用 `NSLocationAlwaysUsageDescription` 关键词进行替代。
 
-### iBeacon Listening Modes ###
+此外你需要设置如下的关键词。当你的应用唤起是，你创建的 `CLLocationManager` 类需要调用 `requestWhenInUseAuthorization()` 方法或者 `requestAlwaysAuthorization()` 方法。
 
-There are two modes for receiving iBeacon notifications: **monitoring** and **ranging**. They work quite differently. Depending on what your app does, you may need to use one or both of them.
 
-#### Monitoring ####
+### iBeacon 监听模式
 
-Monitoring is the simpler of the two modes. It can alert your app of region enter and exit events, but that’s about it. To listen for these events, instantiate a new `CLLocationManager` and implement the `didEnterRegion` and `didExitRegion` delegate methods. In my experience, the exit events can be delayed for about 30 seconds after you leave a region. The enter events, however, seem to happen reliably with little delay. If you start inside of a region, you will not receive an event until you leave it (and trigger an exit event).
+接受 iBeacon 的通知有两种模型 ：**监听** 和 **范围**，他们之间有着很大的区别。你应该依据项目的需求，使用其中的一个或者全部都进行使用。
 
-The code below sets up monitoring for a region.
+
+#### 监听
+
+监听是两种模型中比较简单的一个，它可以在你的应用进入或者离开的一个区域的时候进行提醒。为了监听这些事件，需要实例化 `CLLocationManager` 类并且实现 `didEnterRegion` 和 `didExitRegion` 这两个代理方法。我的使用经验是退出事件可能会在你离开一个区域后推迟大概30秒后才会执行。但是进入一个区域的事件基本上在进入一个区域时马上就会触发，基本上是没有延迟的。如果你一开始是就是在一个区域中的，那么直到你离开这个区域之前不会收到任何的事件回调。
+
+下边的是设置监听一个区域的代码。
 
 Swift
 
@@ -125,6 +135,8 @@ if let uuid = UUID(uuidString: "B9407F30-F5F8-466E-AFF9-25556B57FE6D") {
 
 After setting up monitoring, you can listen for enter and exit region callbacks by implementing the following two delegate methods:
 
+在设置了监听之后，你可以通过实现下边的两个代理方法来监听进入和离开区域的回调 ：
+
 Swift
 
 ```
@@ -141,13 +153,13 @@ func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegio
 }
 ```
 
-There are also two `CLLocationManagerDelegate` methods that can be helpful: `didStartMonitoringForRegion` confirms that monitoring was started correctly, and `monitoringDidFailForRegion` provides error information if something goes wrong in the monitoring setup.
+这还有两个 `CLLocationManagerDelegate` 的代理方法会很有用 ：`didStartMonitoringForRegion` 方法来确认监听被正确的使用以及 `monitoringDidFailForRegion` 提供在设置监听中的出现的一些错误信息。
 
-The big limitation to be aware of with monitoring is that you can only monitor for 20 beacons at a given time. If you have more than 20 beacons, you will need to continuously manage which ones your app is monitoring for.
+你应当意识到监听最大的限制在于你同时最多只能监听20个设备。如果你有超过20设备，那么你就需要持续的管理哪些设备是你的应用当前需要进行监听的。
 
-#### Ranging ####
+#### 范围
 
-Ranging is the other iBeacon notification mode. It is substantially more informative than monitoring and sends updates to your app much more frequently. Setting up ranging is similar to monitoring, except you call `startRangingBeaconsInRegion` instead of `startMonitoringForRegion`. Once set up, you listen for `didRangeBeacons` callbacks. This delegate method can look like this:
+范围是 iBeacon 中的另一种通知模式，本质上它比起监听模式的信息量更大并且更频繁的发送更新数据到应用。设置范围模式和设置监听模式很相似，你只需要用 `startRangingBeaconsInRegion` 替换 `startMonitoringForRegion` 方法。一旦设置完成，你只需要监听 `didRangeBeacons` 方法的回调，这个代理方法实现如下：
 
 Swift
 
@@ -166,33 +178,35 @@ func locationManager(_ manager: CLLocationManager, didRangeBeacons beacons: [CLB
 }
 ```
 
-These callbacks can happen as often as one per second. Each callback provides a `CLBeacon` object, which contains the following information about the beacon being ranged:
+这些回调方法基本上每秒都会触发一次。每次回调返回一个`CLBeacon` 对象，其中范围内的设备信息如下：
 
-- Proximity – `CLProximity` describes how close the beacon is. Values include `Near`, `Far`, `Immediate`, and `Unknown`.
+- 接近度 - `CLProximity` 类描述设备的接近程度，值包括 `Near`, `Far`, `Immediate`, 和 `Unknown`。
 
-- Accuracy – `CLLocationAccuracy` captures a distance estimate to the beacon in meters.
+- 精确度 - `CLLocationAccuracy` 类捕获一个和设备间精确到米精确值。
 
-- RSSI – `Int` captures the signal strength of the beacon measured in decibels.
+- RSSI - 捕获一个 `Int` 类型的信息用来描述设备信号强度。
 
-The caveat with ranging is that it consumes significantly more power than monitoring. Further, while you can technically range in the background, it is strongly frowned upon. Most online discussions warn that Apple may reject your app if you do.
+另外说明一下我们同是需要关注范围模式比起监听模式是更耗电。此外，你可能在后台使用范围模式，这是很不被认可的方案，网上的讨论中都说如果你在项目中这样使用会被苹果公司拒绝上线。
 
-## Further Discussion ##
 
-### Is the distance accurate? ###
+## 更多讨论
 
-There is a [lot of discussion online](http://stackoverflow.com/questions/20416218/understanding-ibeacon-distancing)  surrounding the `CLLocationAccuracy` value returned with each ranging event. Folks often want to interpret this as the literal distance to the beacon. In my experience, you can attempt to interpret the value as a literal distance, but it will not always be accurate. The Apple docs suggest you use the `CLProxity` enumeration value as the initial way to determine which beacons are closest, and then break ties using the `CLLocationAccuracy` value.
+### 距离是否准确
 
-[This blog post](https://shinesolutions.com/2014/02/17/the-beacon-experiments-low-energy-bluetooth-devices-in-action/)  conducts some interesting experiments to test the accuracy of the distance value.
+[网上很多的讨论](http://stackoverflow.com/questions/20416218/understanding-ibeacon-distancing) 关于每次范围模式事件的 `CLLocationAccuracy` 类型返回值。人们通常都将这个值解释成到设备的实际值。我的经验是你可以把这个返回值解释成实际值，但有时这个值并不精确。苹果的官方文档建议开发者使用枚举 `CLProxity` 对象的值来作为初始化方案来决定范围模式中的哪一个设备最接近，然后使用 `CLLocationAccuracy` 值与这个值进行绑定。
 
-### Monitoring more than 20 beacons ###
+[这篇博客](https://shinesolutions.com/2014/02/17/the-beacon-experiments-low-energy-bluetooth-devices-in-action/) 进行了一些有趣的试验来测试精确的距离。
 
-As I mentioned earlier, you can only monitor 20 iBeacons concurrently. If you need to monitor more than 20, you will need to update the set being monitored as the app runs. One way to do this is to represent your iBeacon network as a graph, where the iBeacons are vertices and they are connected by an edge if they are near each other. When the user enters near an iBeacon, you can quickly search for its 20 nearest neighbors and monitor for them. This requires some work, but defining a topology like this is one way to work around the 20 iBeacon limitation.
+### 监听超过20个设备
 
-### Faraday containers ###
+正像我前边介绍的那样，你现在只能监听20个 iBeacons ，如果你需要监听超过20个设备，你将需要在应用运行的过程中更改监听的设置，一种实现方案是用图表来展示你的 iBeacons 网络，在网络中定义最顶层的 iBeacons 以及如果这些彼此接近的情况下能够连接到边界。这样你就可以快速的查找到最接近的20个 iBeacons 并监听他们。这需要很多的工作，但是定义一个这样的拓扑是一种实现 20个 iBeacons 限制的方式。
 
-If your iBeacons do not turn off or can’t easily be stopped from advertising, you might consider purchasing a Faraday bag or cage. It can be tricky attempting to configure each iBeacon, one at a time, when you have several nearby. We certainly had this problem with the Estimote iBeacons. Placing all but one in a Faraday cage will make it easy to isolate the beacon you want to configure.
+### Faraday 容器
 
-## Example Project ##
+如果你的 iBeacons 不能关闭或者不能轻易的在广播数据的过程中被停止，你也许应该考虑购买一个法拉第包或笼。当附近有多个设备的时候，它可以尝试着一个接一个的去配置 iBeacons。我们很确定 Estimote 的 iBeacons 就有上述的问题，放置所有的设备除了其中一个放置在法拉第笼中，这将使你很容易是你想要配置的 iBeacons 被孤立出来。（译者注：这一段确实翻译的不太好。）
 
-If you are looking for a simple example project that allows you to monitor or range for user-defined iBeacons, check out this [GitHub project](https://github.com/mattnedrich/beacon-scanner) of mine.
+## 示例工程
+
+如果你在寻找一个允许用户定义 iBeacons 的监听和范围模式的简单示例项目。你可以看下我的[GitHub 项目](https://github.com/mattnedrich/beacon-scanner)。
+
 
