@@ -102,39 +102,50 @@ This icon very simple and awesome. If I want to clear all constraints I can clic
 
 Now as you saw in above image auto connect (magnet icon) is turned ON thats why all constraints automatically created for me. When I moved into center horizontal but in the end when I click cross icon all constraints are removed.
 如上图所示，自动约束（磁铁图标）是打开的，这就是为什么当我将视图设为横向居中时会自动构建约束，但是当我点击了交叉图标，所有的约束都被移除掉了。
+
 **Stars** **icon:**
+**星星** **图标**
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.55.37-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.55.37-AM.png)
 
 This is one more really awesome icon. That is basically vice versa of cross ( Clear constraints) icon. I can drag, lot of views on there places where I want without giving any constraints. As I finished I will click this icon and all constraints automatically created for me as shown below. I really like this icon.
+这又是一个酷炫的图标。与交叉（清空约束）图标正好相反。我可以随意地拖拽视图而不用为它们构建约束。当我操作完成时只要点击一下这个图标，就可以自动构建出所有的约束，如下图所示。我很喜欢这个功能。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-09-46-52-221x300.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-09-46-52.gif)
 
-**[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.57.41-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.57.41-AM.png)Number box:**
+**[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.57.41-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.57.41-AM.png)Number box:** **数字盒子**
 
 This will gave default margin to your parent layout.
+为你的父布局设置默认的外边距。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-09-53-25-221x300.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-09-53-25.gif)
 
-**[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-11.57.05-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-11.57.05-AM.png)Pack icon:
+**[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-11.57.05-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-11.57.05-AM.png)Pack icon: （todo）
 **This icon contain a lot of functionalities. I am going to explain one by one.
+这个图标包含了许多功能。我会一个个地解释。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-10.24.29-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-10.24.29-AM.png)
 
 Currently all icons are disable because no view is selected in Design Editor. Here are some icons enable with single view selection and some will work with more then one views selection. First I am going to explain single view enable icons.
 
+因为选中任何视图，所以一开始在 Design 编辑器中所有的图标都是不可点击的。有一些图标在选中了单个视图后可用，另外一些图标在选中了多个视图后可用。首先我来解释一下那些选中单个视图后可用的图标。
+
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-10.27.50-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-10.27.50-AM.png)
 
 When I selected a single view, two icons are enable as shown above. Its time to see what magic they can do.
+当我选中了一个视图，有两个图标会变为可用的，如下图所示。让我们来看一下它们可以做些什么。
 
 I clicked left icon and that increased width of my view up to parent edges but remember that is value in dp not match_parent ( parent ). Its mean If I change my screen to more bigger size my view will not shown with the edges of a parent. Same functionality will happen with right icon but vertical. Now both are shown below.
+我点击了左边的图标，可以看到视图的宽度扩展到了屏幕边缘，但是请记住，这只是以 dp 为单位使用数值实现的效果而不是所谓的 match_parent(parent)。这就意味着如果在屏幕宽度更大的设备上，这个视图就无法扩展到屏幕边缘了。右边的图标也是一样的功能，只不过是在纵向的。如下图所示。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-10-36-54-221x300.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-10-36-54.gif)
 
 One more important thing. Don’t confuse yourself because when you click width or heigh icon that will increase your view width or height up to first view who is colliding with your view width or height. In above example I have only one view that’s why it go up to parent width and height. In next example I am showing you the other behavior.
+还有一件事别忘了。如果你点击了扩展宽度或高度的图标，而选中视图的宽高却只扩展到了相邻的视图边缘。不要感到困惑。因为在上面的例子中布局里只有一个视图，所以它填充满了父布局的宽高。下面的例子中我会给你看点不一样的。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-10-40-53-221x300.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-10-40-53.gif)
 
 Before going to the other icons which are related to multiple selected views. One important point you can use these single view icons with multiple views selection as well as shown below.
+
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-10-47-42-221x300.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-10-47-42.gif)
 
