@@ -168,7 +168,7 @@ JS 甚至会影响更恶劣。例如 [jQuery 插件](https://github.com/jjenzz/j
 CRP 优化的整个主题是相当复杂的，特别是内联、级联和异步加载，它们可能会破坏代码的可重用性。幸运的是，有很多强大的工具，可以为你做好这些优化，这些工具可以被集成到你的构建和部署链里。你的确应该地看看下面的工具……
 
 *   **分析：** [GTmetrix](https://gtmetrix.com/) 用来衡量网页速度，[webpagetest](https://www.webpagetest.org/) 用来分析你的资源，以及 Google 的[PageSpeed Insights](https://developers.google.com/speed/pagespeed/insights/)，为你的网站生成有关如何优化 CRP 的提示。
-*   **内联和优化**：[Critical]（(https://github.com/addyosmani/critical) 非常适合自动将你的明显位置的 CSS 内联并且异步加载其余 CSS，[processhtml](https://github.com/Wildhoney/gulp-processhtml) 连接你的资源和 [PostCSS](https://github.com/postcss/postcss) 进一步优化 CSS。
+*   **内联和优化**：[Critical](https://github.com/addyosmani/critical) 非常适合自动将你的明显位置的 CSS 内联并且异步加载其余 CSS，[processhtml](https://github.com/Wildhoney/gulp-processhtml) 连接你的资源和 [PostCSS](https://github.com/postcss/postcss) 进一步优化 CSS。
 *   **最小化和压缩：** 我们使用 [tiny png](https://tinypng.com/) 来进行图像压缩，[UglifyJs](https://github.com/mishoo/UglifyJS) 和 [cssmin](https://www.npmjs.com/package/cssmin) 来进行最小化，[Google Closure](https://developers.google.com/closure/) 来进行 JS 优化。
 
 有了这些工具只需很小的工作量，你就可以打造一个前端性能极好的网站。这里是 _Thinks_ 商城第一次访问时的页面速度测试：
