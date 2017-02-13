@@ -1,88 +1,88 @@
 > * 原文地址：[JavaScript Start-up Performance](https://medium.com/@addyosmani/javascript-start-up-performance-69200f43b201#.f2ifedbt2)
 * 原文作者：[Addy Osmani](https://medium.com/@addyosmani?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[Professor-Z](https://github.com/Professor-Z)
 * 校对者：
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/2000/1*ZpwZLFDNYZodJDerr7-37A.png">
 
-# JavaScript Start-up Performance #
+# JavaScript 启动性能 #
 
-As web developers, we know how easy it is to end up with web page bloat. But **loading** a webpage is much more than shipping bytes down the wire. Once the browser has downloaded our page’s scripts it then has to parse, interpret & run them. In this post, we’ll dive into this phase for JavaScript, *why* it might be slowing down your app’s start-up & *how* you can fix it.
+作为 web 开发者，都知道 web 项目开发到最后，页面规模很容易变的很大。 但 **加载** 一个网页远不止从网线上传送字节那么简单。浏览器下载了页面脚本之后，它还必须解析、解释和运行它们。这篇文章将深入 JavaScript 的这一部分，（研究）*为什么*它会减慢应用程序的启动，以及*如何*解决。
 
-Historically, we just haven’t spent a lot of time optimizing for the JavaScript Parse/Compile step. We almost expect scripts to be immediately parsed and executed as soon as the parser hits a script tag. But this isn’t quite the case. **Here’s a simplified breakdown of how V8 works**:
+过去，人们并没有花很多时间优化 JavaScript 的解析、编译步骤。我们总是期望解析器在遇到 script 标签时立即解析和执行代码，但是情况并非如此。 **以下是对V8引擎工作原理的简要分析**：
 
-<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*GuWInZljjvtDpdeT6O0emA.png">
+<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*GuWInZljjvtDpdeT6O0emA.png" title="描述V8工作流程的简图。这是我们正在努力达到的理想化流程。">
 
-A simplified view of how V8 works. This is our idealized pipeline that we’re working towards.
+描述V8工作流程的简图。这是我们正在努力达到的理想化流程。
 
-Let’s focus on some of the main phases.
+我们来着重分析几个主要阶段。
 
-#### **What slows our web apps from booting up?** ####
+#### **启动时拖慢应用的是什么?** ####
 
-Parsing, Compiling and Executing scripts are things a JavaScript engine spends **significant** time in during start-up. This matters as if it takes a while, it can **delay** how soon users can **interact** with our site. Imagine if they can see a button but not click or touch it for multiple seconds. This can **degrade** the user experience.
+在启动期间，JavaScript 引擎花费 **显著** 的时间来解析、编译和执行脚本。这一阶段很关键，因为如果它用时太多，将会 **延后** 用户可以与我们的网站 **互动** 的时间点。想象一下，如果用户可以看到一个按钮，但很多秒之后才能点击或触摸，这将会 **降低** 用户体验。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/0*M94-AavlZjGoudZG.">
 
-Parse & Compile times for a popular website using V8’s Runtime Call Stats in Chrome Canary. Notice how a slow Parse/Compile on desktop can take far longer on average mobile phones.
+V8 的 Chrome Canary 中的运行时调用统计工具分析出的流行网站的解析和编译时间。注意，桌面端就缓慢的解析、编译在一般手机上需要更长的时间。
 
-Start-up times matter for **performance-sensitive** code. In fact, V8 - Chrome’s JavaScript engine, spends a **large** amount of time parsing and compiling scripts on top sites like Facebook, Wikipedia and Reddit:
+启动时间对 **性能敏感的** 代码很重要。事实上，V8 —— Chrome 的 JavaScript 引擎，在 Facebook，Wikipedia 和 Reddit 等顶级网站上都会花费大量时间来解析和编译脚本：
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*XjHkzz0B7KlcDbLFD1JS8Q.png">
 
-The pink area (JavaScript) represents time spent in V8 and Blink’s C++, while the orange and yellow represent parse and compile.
+粉红色区域（JavaScript）表示在 V8 和 Blink 的 C++ 中花费的时间，而橙色和黄色则表示解析和编译所用时间。
 
-Parse and Compile have also been highlighted as a bottleneck by a **number** of large sites & frameworks you may be using. Below are tweets from Facebook’s Sebastian Markbage and Google’s Rob Wormald:
+解析和编译也在 **大量** 你可能正在使用的大型网站和框架中被视为一个瓶颈。以下是来自 Facebook 的 Sebastian Markbage 和 Google 的 Rob Wormald 的推文：
 
 ![Markdown](http://p1.bqimg.com/1949/1b2fcab3d77309c1.png)
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/600/1*nkJwMuE5PpgF_pE0e6RM6g.jpeg">
 
-Sam Saccone calls out the cost of JS parse in ‘[Planning for Performance](https://www.youtube.com/watch?v=RWLzUnESylc)’
+Sam Saccone 在 [Planning for Performance](https://www.youtube.com/watch?v=RWLzUnESylc) 中提到了 JS 解析的成本。
 
-As we move to an increasingly mobile world, it’s important that we understand the **time spent in Parse/Compile can often be 2–5x as long on phones as on desktop**. Higher-end phones (e.g the iPhone or Pixel) will perform very differently to a Moto G4. This highlights the importance of us testing on representative hardware (not just high-end!) so our users’ experiences don’t suffer.
+随着我们进入一个逐渐移动化的世界，我们有必要知道 **解析、编译在手机上花费的时间通常是在桌面上的 2 - 5 倍**。高端手机（例如 iPhone 或 Pixel）的表现与 Moto G4非常不同。这更说明了测试代表性硬件（不仅仅是高端硬件！）的重要性，只有这样，用户体验才不会受到影响。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*dnhO1M_zlmAhvtQY_7tZmA.jpeg">
 
-[Parse times](https://docs.google.com/a/google.com/spreadsheets/d/1Zk0HDGvqNO_8jaudF2jwTItI-H0blD8_ShHfLsnp_Us/edit?usp=sharing)  for a 1MB bundle of JavaScript across desktop & mobile devices of differing classes. Notice how close a high-end phone like an iPhone 7 is to perf on a Macbook Pro vs the performance as we go down the graph towards average mobile hardware.
+1 MB 的 JavaScript 文件在不同类别的桌面设备和移动设备上的 [解析时间](https://docs.google.com/a/google.com/spreadsheets/d/1Zk0HDGvqNO_8jaudF2jwTItI-H0blD8_ShHfLsnp_Us/edit?usp=sharing)。可以注意到，像 iPhone 7 这样的高端手机的性能和 Macbook Pro 是多么接近，而沿着图表向下看，普通的移动硬件性能则不一样了。
 
-If we’re shipping huge bundles for our app, this is where endorsing modern bundling techniques likecode-splitting, tree-shaking and Service Worker caching can really make a huge difference. That said, **even a small bundle, written poorly or with poor library choices can result in the main thread being pegged for a long time in compilation or function call times.** It’s important to holistically measure and understand where our real bottlenecks are.
+如果应用程序需要传输的文件很大，那么广为认可的现代打包技术，如 code-splitting、tree-shaking 和 Service Worker caching 可以产生巨大作用。但是，**即使是一个小的打包文件，如果写得不好或者库选择不好，也会导致主线程在编译或函数调用时被长时间阻塞。** 整体衡量和理解真正的瓶颈在哪里是很重要的。
 
-### Are JavaScript Parse & Compile bottlenecks for the average website? ###
+### JavaScript 解析、编译是普通网站的瓶颈吗？ ###
 
-“Buuuut, I’m not Facebook”, I hear you say dear, reader. **“How heavy are Parse & Compile times for average sites out in the wild?”**, you might be asking. Let’s science this out!
+『（你说的都对……）但是，我的网站又不是Facebook』，你可能会这样说。 **『外面的一般网站的解析和编译时间所占比例有多大？』**，你可能会这样问。现在我们来研究一下！
 
-I spent two months digging into the performance of a large set of production sites (6000+) built with different libraries and frameworks — like React, Angular, Ember and Vue. Most of the tests were recently redone on WebPageTest so you can easily redo them yourself or dig into the numbers if you wish. Here are some insights.
+我花了两个月时间深入研究了一系列（6000+）使用了不同库和框架（如React、Angular、Ember和Vue）构建的大型生产站点的性能。大多数测试最近可以在 WebPageTest 重做。所以如果你愿意的话，很容易重做这些测试，或者深入研究这些数据。下面是一些分析结果：
 
-**Apps became interactive in 8 seconds on desktop (using cable) and 16 seconds on mobile (Moto G4 over 3G)**
+**应用在桌面端（使用电缆）用8秒可以变得可交互，在移动端（ 3G 网络下的 Moto G4 ）则需要16秒。**
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*WC4zanI0DKAoSiJVU3VUeA.png">
 
-**What contributed to this? Most apps spent an average of 4 seconds in start-up (Parse/Compile/Exec)..on desktop.**
+**是什么造成了这一结果？大多数网页应用在桌面端的启动（解析、编译、执行）平均花费了4秒。**
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*NacL9cZJ1osZowPS6hbCsQ.jpeg">
 
-On mobile, parse times were up to 36% higher than they were on desktop.
+在移动设备上，解析时间比在桌面设备上高出36％。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*uTRfB5pne06h8lp5jGtiIQ.jpeg">
 
-**Was everyone shipping huge JS bundles? Not as large as I had guessed, but there’s room for improvement.** At the median, developers shipped 410KB of gzipped JS for their pages. This is in line with the 420KB over ‘average JS per page’ reported by the HTTPArchive. The worst offenders were sending anywhere up to 10MB of script down the wire. Oof.
+**大家都传输了巨大的 JS 打包文件吗？没有我猜到的那么大，但还有改进的余地。** 410KB，这是开发者传输的 gzip 压缩后的 JS 文件大小的中位数。这与 HTTPArchive 报告的『平均每网页 JS 大小』420KB 比较符合。最糟糕的情况下，服务器会向任何网页请求者发送高达 10MB 的脚本文件。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*GvwfE2GjKQyLBKPmmfRwuA.png">
 
-**Script size is important, but it isn’t everything. Parse and Compile times don’t necessarily increase linearly when the script size increases.** Smaller JavaScript bundles generally do result in a faster **load** time (regardless of our browser, device & network connection) but 200KB of our JS !== 200KB of someone else’s and can have wildly different parse and compile numbers.
+**脚本大小很重要，但它不是一切。解析和编译时间不一定随着脚本大小的增加线性增加。** 较小的 JavaScript 打包文件通常会带来更快的 **加载** 时间（不论什么浏览器，设备和网络连接），但是你的 200KB 的JS文件不等于别人的 200KB，同样大小的文件可以有差别很大的的解析和编译时间。
 
-### **Measuring JavaScript Parse & Compile today** ###
+### **当前如何测量 JavaScript 的解析和编译** ###
 
 **Chrome DevTools**
 
-Timeline (Performance panel) > Bottom-Up/Call Tree/Event Log will let us drill into the amount of time spent in Parse/Compile. For a more complete picture (like the time spent in Parsing, Preparsing or Lazy Compiling), we can turn on **V8’s Runtime Call Stats** . In Canary, this will be in Experiments > V8 Runtime Call Stats on Timeline.
+Timeline (Performance panel) > Bottom-Up/Call Tree/Event Log 可以帮助我们深入了解解析、编译花费的时间。为了得到更完整的分析（比如在解析、编译或惰性编译中花费的时间），我们可以打开 **V8 的 Runtime Call Stats** 。 在 Canary 中，你可以在 Timeline 中的 Experiments > V8 Runtime Call Stats 找到它。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/0*rWkYJzc6Cp0r3Xkr.">
 
 **Chrome Tracing**
 
-**about:tracing** — Chrome’s lower-level Tracing tool allows us to use the `disabled-by-default-v8.runtime_stats` category to get deeper insights into where V8 spends its time. V8 have a [step-by-step guide](https://docs.google.com/presentation/d/1Lq2DD28CGa7bxawVH_2OcmyiTiBn74dvC6vn2essroY/edit#slide=id.g1a504e63c9_2_84) on how to use this that was published just the other day.
+在 Chrome 地址栏输入 **about:tracing** 之后，这个 Chrome 的底层跟踪工具允许我们使用 `disabled-by-default-v8.runtime_stats` 目录来深入了解 V8 的时间消耗详情。V8 几天前发布了一个 [循序渐进的指导文档](https://docs.google.com/presentation/d/1Lq2DD28CGa7bxawVH_2OcmyiTiBn74dvC6vn2essroY/edit#slide=id.g1a504e63c9_2_84) 可以帮助你了解它的用法。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/0*P-_pLIITtYJRikRN.">
 
@@ -90,139 +90,138 @@ Timeline (Performance panel) > Bottom-Up/Call Tree/Event Log will let us drill i
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/600/1*y6x_vr7aOxK4jHG9blgseg.png">
 
-WebPageTest’s “Processing Breakdown” page includes insights into V8 Compile, EvaluateScript and FunctionCall time when we do a trace with the Chrome > Capture Dev Tools Timeline enabled.
+当我们使用 Chrome 的 Capture Dev Tools Timeline 进行跟踪分析时，WebPageTest 的 『Processing Breakdown』 页面包含了对 V8 编译、EvaluateScript 和 FunctionCall 的时间的深入分析。
 
-We can now also get out the **Runtime Call Stats** by specifying `disabled-by-default-v8.runtime_stats` as a custom Trace category (Pat Meenan of WPT now does this by default!).
+现在我们还可以通过指定 `disabled-by-default-v8.runtime_stats` 为自定义跟踪目录来获得 **Runtime Call Stats**（WPT 的 Pat Meenan 现在默认这样做！）。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*tV48evC-XzYkoHonyKGkOw.png">
 
-For a guide on how to get the most out of this, see [this gist](https://gist.github.com/addyosmani/45b135900a7e3296e22673148ae5165b) I wrote up.
+如果你想知道如何充分利用这一工具，可以参阅我写的 [这篇文档](https://gist.github.com/addyosmani/45b135900a7e3296e22673148ae5165b) 。
 
 **User Timing**
 
-It’s possible to measure Parse times through the [User Timing API](https://w3c.github.io/user-timing/#dom-performance-mark) as Nolan Lawson points out below:
+也可以像 Nolan Lawson 下面指出的这样，通过 [User Timing API](https://w3c.github.io/user-timing/#dom-performance-mark) 测量解析时间：
 
 ![Markdown](http://p1.bqimg.com/1949/268de751304f859f.png)
 
-The third script here isn’t important, but it’s the first script being separate from the second (*performance.mark()* starting before the script has been reached) that is.
+第 3 个脚本不重要，第 1 个脚本与第 2 个脚本分开（ *performance.mark()* 在要测试的 script 标签之前执行）是重要的。
 
-*This approach can be affected on subsequent reloads by V8’s preparser. This could be worked around by appending a random string to the end of the script, something Nolan does in his optimize-js benchmarks.*
+*使用此方法时，V8 的 preparser 可能会影响后续重新加载。这可以通过在脚本的结尾处附加一个随机字符串来解决，Nolan 在他的 optimize-js benchmarks 中就是这样做的。*
 
-I use a similar approach for measuring the impact of JavaScript Parse times using Google Analytics:
+我使用类似的方法用 Google Analytics 来测量 JavaScript 解析时间的影响：
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*ziA8f9KhB1gOt-Mq07cRFw.jpeg">
 
-A custom Google Analytics dimension for ‘parse’ allows me to measure JavaScript parse times from real users and devices hitting my pages in the wild.
+自定义的 Google Analytics 维度 『parse』 可让我测量开放环境中访问我的网页的真实用户和设备的 JavaScript 解析时间。
 
 **DeviceTiming**
 
-Etsy’s [DeviceTiming](https://github.com/danielmendel/DeviceTiming) tool can help measure parse & execution times for scripts in a controlled environment. It works by wrapping local scripts with instrumentation code so that each time our pages are hit from different devices (e.g laptops, phones, tablets) we can locally compare parse/exec. Daniel Espeset’s [Benchmarking JS Parsing and Execution on Mobile Devices](http://talks.desp.in/unpacking-the-black-box) goes into more detail on this tool.
+Etsy的 [DeviceTiming](https://github.com/danielmendel/DeviceTiming) 工具可以帮助测量受控环境中脚本的解析和执行时间。它的工作原理是用测试代码封装本地脚本，以便每次页面被不同的设备（例如笔记本电脑、手机、平板电脑）访问时，我们可以本地比较解析、执行时间。Daniel Espeset的文章 [Benchmarking JS Parsing and Execution on Mobile Devices](http://talks.desp.in/unpacking-the-black-box) 详细介绍了这个工具。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*FFzrH2QUiQZFX2rlF5e2-g.jpeg">
 
-### **What can we do to lower our JavaScript parse times today?** ###
+### **当前可以做什么来减少 JavaScript 解析时间?** ###
 
-- **Ship less JavaScript**. The less script that requires parsing, the lower our overall time spent in the parse & compile phases will be.
+**传输更少的 JavaScript。** 需要解析的脚本越少，我们在解析和编译阶段用的时间就越少。
 
-- **Use code-splitting to only ship the code a user needs for a route and lazy load the rest**. This probably is going to help the most to avoid parsing too much JS. Patterns like [PRPL](https://developers.google.com/web/fundamentals/performance/prpl-pattern/) encourage this type of route-based chunking, now used by Flipkart, Housing.com and Twitter.
+- **使用 code-splitting 技术，只发送用户当前路由需要的代码，延迟加载其余代码。** 想要避免解析太多的 JS，这可能是最有帮助的方法。类似 [PRPL](https://developers.google.com/web/fundamentals/performance/prpl-pattern/) 的模式鼓励这种基于路由的文件分块，现在已经被 Flipkart、Housing.com 和 Twitter 采用。
 
-- **Script streaming: **In the past, V8 have told developers to use `async/defer` to opt into [script streaming](https://blog.chromium.org/2015/03/new-javascript-techniques-for-rapid.html) for parse-time improvements of between 10–20%. This allows the HTML parser to at least detect the resource early, push the work to the script streaming thread and not halt the document parsing. Now that this is done for parser-blocking scripts too, I don’t think there’s anything actionable we need to do here. V8 recommend **loading larger bundles earlier on as there’s only one streamer thread** (more on this later)
+- **Script streaming:** 过去，V8 已经告诉开发者通过 `async/defer` 选择使用 [Script streaming](https://blog.chromium.org/2015/03/new-javascript-techniques -for-rapid.html) 模式，可以使得解析时间减少 10 - 20％。这允许 HTML 解析器能够至少先检测到资源，将（解析）工作分配给 script streaming 线程，从而不阻塞文档解析。现在，解析器阻塞脚本也有了个模式，不需要做什么额外操作。V8 建议 **先加载较大的打包文件，因只有一个脚本流线程**（之后会说到这点）
 
-- **Measure the parse cost of our dependencies**, such as libraries and frameworks. Where possible, switch them out for dependencies with faster parse times (e.g switch React for Preact or Inferno, which require fewer bytes to bootup and have smaller parse/compile times). Paul Lewis covered [framework bootup](https://aerotwist.com/blog/when-everything-is-important-nothing-is/)  costs in a recent article. As Sebastian Markbage has also [noted](https://twitter.com/sebmarkbage/status/829733454119989248), **a good way to measure start-up costs for frameworks is to first render a view, delete and then render again as this can tell you how it scales.** The first render tends to warm up a bunch of lazily compiled code, which a larger tree can benefit from when it scales.
+- **测量依赖的解析成本** ，比如各种库和框架。在可能的情况下，将它们切换为拥有更快解析速度的依赖（例如，把 React 切换为 Preact 或 Inferno，后两者启动时需要更少的字节码，更少的解析、编译时间）。Paul Lewis 在最近的一篇文章中介绍了 [framework bootup](https://aerotwist.com/blog/when-everything-is-important-nothing-is/) 成本。Sebastian Markbage 也在推文中 [提到](https://twitter.com/sebmarkbage/status/829733454119989248)，**一个测量框架的启动成本的好方法是首先渲染一遍视图，然后删除它，然后再次渲染，这可以告诉你它是如何扩展的**。 第一次渲染会唤起一堆懒编译的代码，之后一个更大的代码树扩展时可以获得好处。（译者著：最后这句不太明白）
 
-If our JavaScript framework of choice supports an ahead-of-time compilation mode (AoT), this can also help heavily reduce the time spent in parse/compile. Angular apps benefit from this for example:
+如果我们选择的 JavaScript 框架支持提前编译模式（AoT），也有助于大大减少在解析、编译中花费的时间。Angular 应用从中受益良多，看这个例子：
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*sr4eb-cx3lq7hVrJGfDNaw.png">
 
-Nolan Lawson’s ‘[Solving the Web Performance Crisis](https://channel9.msdn.com/Blogs/msedgedev/nolanlaw-web-perf-crisis)’
+Nolan Lawson 的 [『解决 Web 性能危机』](https://channel9.msdn.com/Blogs/msedgedev/nolanlaw-web-perf-crisis)
 
-### **What are *browsers* doing to improve Parse & Compile times today?** ###
+### **当前 *浏览器* 为了减少解析和编译时间在做什么?** ###
 
-Developers are not the only ones to still be catching up on real-world start-up times being an area for improvement. V8 discovered that Octane, one of our more historical benchmarks, was a poor proxy for real-world performance on the 25 popular sites we usually test. Octane can be a poor proxy for 1) **JavaScript frameworks** (typically code that isn’t mono/polymorphic) and 2) **real-page app startup** (where most code is cold). These two use-cases are pretty important for the web. That said, Octane isn’t unreasonable for all kinds of workloads.
+并不是只有开发者才认为生产环境的应用启动时间是一个需要改进的领域。V8 发现Octane 作为有历史的测试平台之一，对我们通常测试的 25 个热门网站的真实性能的测试效果不佳。Octane 对于 1）**JavaScript 框架**（通常代码不是单/多态性）和 2）**实际页面应用程序启动**（大多数代码是冷的）来说不是一个好的工具。这两个用例对于web 来说非常重要。也就是说，Octane 不是对所有种类的工作负载都是合理的。（译者著：这段的real-page app 不太理解，最后一句好像是作者笔误。）
 
-The V8 team has been hard at work improving start-up time and we’ve already seem some wins here:
+V8 团队一直努力改善启动时间，并且已经在这些地方取得了一些胜利：
 
 ![Markdown](http://p1.bqimg.com/1949/1cebbf646ca580f5.png)
 
-We also estimate a 25% improve on V8 parse times for many pages looking at our Octane-Codeload numbers:
+在查看我们的 Octane-Codeload 数据之后，我们估计在许多页面上，V8 解析时间提高了25％：
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*cE8uvuvb0-iZslygh2NCTQ.jpeg">
 
-And we’re seeing wins in this area for Pinterest too. There are a number of other explorations V8 has started over the last few years to improve Parsing and Compile times.
+我们也看到了 Pinterest 网站在这方面的有所进展。在过去几年中，V8 开展了许多其他探索，以减少解析和编译时间。
 
 **Code caching**
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/600/1*xChjWSbT1rCqgLMacOMotQ.png">
 
-From [using V8’s code caching](https://www.nativescript.org/blog/using-v8-code-caching-to-minimize-app-load-time-on-android)
+来自文章 [使用 V8 的代码缓存](https://www.nativescript.org/blog/using-v8-code-caching-to-minimize-app-load-time-on-android)
 
-Chrome 42 introduced [code caching ](http://v8project.blogspot.com/2015/07/code-caching.html) — a way to store a local copy of compiled code so that when users returned to the page, steps like script fetching, parsing and compilation could all be skipped. At the time we noted that this change allowed Chrome to avoid about 40% of compilation time on future visits, but I want to provide a little more insight into this feature:
+Chrome 42 引入了[Code caching](http://v8project.blogspot.com/2015/07/code-caching.html)  —— 它通过在本地存储编译后的代码，使得在用户返回页面时，脚本请求、解析和编译过程都可以跳过。我们注意到，这项变更可让 Chrome 在处理页面后续访问时减少约 40％ 的编译时间，但现在我想对这项功能进一步说明：
 
-- Code caching triggers for scripts that are executed **twice in 72 hours**.
+- **在 72 小时内执行两次** 的脚本才会触发 Code caching。
 
-- For scripts of Service Worker: Code caching triggers for scripts that are executed twice in 72 hours.
+- 对于 Service Worker 的脚本：对于在 72 小时内执行两次的脚本触发 Code caching。
 
-- For scripts stored in Cache Storage via Service Worker: Code caching triggers for scripts in the **first execution**.
+- 对于通过 Service Worker 存储在 Cache Storage 中的脚本：**首次执行** 脚本就会触发 Code caching。
 
-So, yes. **If our code is subject to caching V8 will skip parsing and compiling on the third load.**
+所以，结论是， **如果我们的代码是在缓存中，V8 会在第 3 次加载时跳过解析和编译。**
+我们可以在 *chrome://flags/#v8-cache-strategies-for-cache-storage* 中查看这些差异。 我们还可以设置 `js-flags=profile-deserialization` 后运行Chrome，看看项目是否从代码缓存中加载（在日志中显示为反序列化事件）。
 
-We can play around with these in *chrome://flags/#v8-cache-strategies-for-cache-storage* to look at the difference. We can also run Chrome with — js-flags=profile-deserialization to see if items are being loaded from the code cache (these are presented as deserialization events in the log).
-
-One caveat with code caching is that it only caches what’s being eagerly compiled. This is generally only the top-level code that’s run once to setup global values. Function definitions are usually lazily compiled and aren’t always cached. **IIFEs** (for users of optimize-js ;)) are also included in the V8 code cache as they are also eagerly compiled.
+使用 Code caching 需要注意的一个点是，它只缓存可预编译的内容。通常只是运行一次以设置全局值的顶级代码。 函数定义通常是惰性编译的，不总是被缓存。 **IIFEs**（optimize-js 用户）也被在 V8 Code caching 缓存，因为它们也可预编译。（译者著：此处不太确定）
 
 **Script Streaming**
 
-[Script streaming](https://blog.chromium.org/2015/03/new-javascript-techniques-for-rapid.html) allows async or defer scripts to be parsed on a **separate background thread** once downloading begins and improves page loading times by up to 10%. As noted earlier, this now also works for **sync** scripts.
+[Script streaming](https://blog.chromium.org/2015/03/new-javascript-techniques-for-rapid.html) 允许网开始下载后在 **单独的后台线程** 上解析异步或延迟脚本，从而将页面加载速度提高了多达10％。如前所述，这同样适用于 **同步** 脚本。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*ooXJ0NES-gXEzteaGPL2nQ.png">
 
-Since the feature was first introduced, V8 have switched over to allowing **all scripts**, *even* parser blocking script src=”” to be parsed on a background thread so everyone should be seeing some wins here. The only caveat is that there’s only one streaming background thread and so it makes sense to put our large/critical scripts in here first. *It’s important to measure for any potential wins here.*
+自从该功能首次引入以来，V8 已经切换到允许 **所有脚本**、*甚至* 是 `src=""` 的解析器阻塞脚本在后台线程上解析，所以所有人都应该在这里看到一些成果。唯一需要注意的是，这里只有一个后台线程，所以把大的、关键的脚本先分配给它很重要。*在这里思考任何潜在的优化都很重要。*
 
-**Practically, script defer in the <head> so we can discover the resource early and then parse it on the background thread.**
+**经验之谈是，把 defer 脚本放在 <head> 里，这样 V8 就可以早发现资源，然后在用台线程解析它。**
 
-It’s also possible to check with DevTools Timeline whether the correct scripts get streamed — if there’s one big script that dominates the parse time, it would make sense to make sure it’s (usually) picked up by the streaming.
+可以使用 DevTools Timeline 检查是否选择了正确的脚本被流式传输 —— 如果有一个大脚本占用了解析时间，那么（通常）确保它被流式传输接收是有意义的。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*FAvUG7DrVJUXCK3oweMSLQ.png">
 
-**Better Parsing & Compiling**
+**更好地解析和编译**
 
-Work is ongoing for a slimmer and faster Parser that fees up memory and is more efficient with data structures. Today, the **largest** cause of main thread jank for V8 is the nonlinear parsing cost. Take a snippet of UMD:
+研发一个更轻量、更快的解析器的工作正在进行，新的解析器会更消耗内存，并且更有效地利用数据结构。今天，V8 的主线程闪避的 **最大** 原因是非线性解析成本。来看一个 UMD 的片段：
 
 (function (global, **module**) { … })(this, function **module**() { *my functions* })
 
-V8 won’t know that **module** is definitely needed so we won’t compile it when the main script gets compiled. When we decide to compile **module**, we need to reparse all of the inner functions. This is what makes V8’s parse-times non-linear. Every function at n-th depth is parsed n times and causes jank.
+V8 不会知道 **modules** 是否一定是需要的，所以当主脚本编译时不会编译它。当我们决定编译 **modules** 时，我们需要重新解析所有的内部函数。这就是 V8 的解析时间非线性的原因。深度为 n 的每个函数都被解析 n 次，并导致闪避。
 
-V8 are already working on collecting info about inner functions during the initial compile, so any future compilations can *ignore* their inner functions. For **module** -style functions, this should result in a large perf improvement.
+V8 已经在致力于在初始编译期间收集内部函数的信息，从而任何未来的编译都可以 *忽略* 它们的内部函数。对于 **module** 风格函数，这应该会导致很大的性能改进。
 
-See ‘[The V8 Parser(s) — Design, Challenges, and Parsing JavaScript Better](https://docs.google.com/presentation/d/1214p4CFjsF-NY4z9in0GEcJtjbyVQgU0A-UqEvovzCs/edit#slide=id.p)’ for the full story.
+参阅 ‘[The V8 Parser(s) — Design, Challenges, and Parsing JavaScript Better](https://docs.google.com/presentation/d/1214p4CFjsF-NY4z9in0GEcJtjbyVQgU0A-UqEvovzCs/edit#slide=id.p)’ 以获得更多信息.
 
-V8 are also exploring offloading parts of JavaScript compilation to the **background** during startup.
+V8 也在探索在启动期间将 JavaScript 编译的部分分配到 **后台线程**。
 
-**Precompiling JavaScript?**
+**预编译 JavaScript?**
 
-Every few years, it’s proposed engines offer a way to *precompile* scripts so we don’t waste time parsing or compiling code pops up. The idea is if instead, a build-time or server-side tool can just generate bytecode, we’d see a large win on start-up time. My opinion is shipping bytecode can increase your load-time (it’s larger) and you would likely need to sign the code and process it for security. V8’s position is for now we think exploring avoiding reparsing internally will help see a decent enough boost that precompilation may not offer too much more, but are always open to discussing ideas that can lead to faster startup times. That said, V8 are exploring being more aggressive at compiling and code-caching scripts when you update a site in a Service Worker and we hope to see some wins with this work.
+每隔几年，就会有提供一种方法 *预编译* 脚本的引擎出现，以帮助我们不浪费时间解析或编译代码。它们的想法是，如果不预解析、编译代码，一个构建时或服务器端工具就能直接生成字节码，我们会看到启动速度的巨大提高。我认为，传输字节码将会增加加载时间（文件会更大），可能需要对代码进行签名并做一些安全处理。V8的立场是，现在探索避免内部重新解析将有助于看到很大的进步，这是预编译可能不能提供的，但同时我们会对可以获得更快的启动时间的想法持开放讨论的态度。也就是说，当开发者在 Service Worker 中更新站点时，V8 正在探索更积极地编译和缓存脚本代码，我们希望这些工作获得一些成果。
 
-We discussed precompilation at BlinkOn 7 with Facebook and Akamai and my notes can be found [here](https://gist.github.com/addyosmani/4009ee1238c4b1ff6f2a2d8a5057c181).
+我们与 Facebook 和 Akamai 在 BlinkOn 7 讨论了预编译，我的笔记可以在 [这里](https://gist.github.com/addyosmani/4009ee1238c4b1ff6f2a2d8a5057c181) 找到。
 
-**The Optimize JS lazy-parsing parens ‘hack’**
+**Optimize JS 惰性解析的括号「hack」**
 
-JavaScript engines like V8 have a lazy parsing heuristic where they pre-parse most of the functions in our scripts before doing a complete round of parsing (e.g to check for syntax errors). This is based on the idea that most pages have JS functions that are lazily executed if at all.
+像 V8 这样的 JavaScript 引擎有一个惰性解析启发式方法，在进行一轮完整的解析（例如检查语法错误）之前，它们会预先解析我们脚本中的大多数函数。这是因为大多数页面都有懒惰执行的 JS 函数。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/600/1*LMRg_jHJeP53vdy8aiTEJQ.png">
 
-Pre-parsing can speed up startup times by only checking the minimal a browser needs to know about functions. This breaks down with IIFEs. Although engines try to skip pre-parsing for them, the heuristics aren’t always reliable and this is where tools like [optimize-js](https://github.com/nolanlawson/optimize-js)  can be useful.
+预解析可以通过仅检查浏览器需要了解的函数的最小集合来加快启动时间。这与 IIFE 有所分歧，虽然引擎尝试跳过对它们的预解析，但是启发式并不总是可靠的，这就是 [optimize-js](https://github.com/nolanlawson/optimize-js) 等工具发挥作用的地方。
 
-optimize-js parses our scripts in advance, inserts parenthesis where it knows (or assumes via heuristics) functions will be immediately executed enabling **faster execution**. Some of the paren-hacked functions are sure bets (e.g IIFEs with !). Others are based on heuristics (e.g in a Browserify or Webpack bundle it’s assumed all modules are eagerly loaded which isn’t necessarily the case). Eventually, V8 hopes for such hacks to not be required but for now this is an optimization we can consider if we know what you’re doing.
+optimize-js 提前解析脚本，在它知道（或通过启发式假设）的函数将立即执行的地方插入括号来使其获得 **更快的执行**。对一些函数插入括号是稳妥的（比如带有 ! 的 IIFE）。其它的就是基于启发式的（例如在 Browserify 或 Webpack 包中，假定所有模块都急切加载，就不一定适用这种情况）。总而言之，V8 希望这样的 hack 不再被需要，但现在我们可以认为这是一个优化，如果我们知道你在做什么。
 
-*V8 are also working on reducing the cost for cases where we guess wrong, and that should also reduce the need for the parens hack*
+*V8 也在努力降低我们猜错的情况下的成本，这也应该减少对括号的需要*
 
-### Conclusions ###
+### 总结 ###
 
-**Start-up performance matters.** Acombination of slow parse, compile and execution times can be a real bottleneck for pages that wish to boot-up quickly. **Measure** how long your pages spend in this phase. Discover what you can do to make it faster.
+**启动性能很重要** 较长的解析、编译和执行时间组合起来会变成希望快速启动的页面的真正瓶颈。你应该 **测量** 你的网页在此阶段花费的时间，探索你可以做什么以使其更快。
 
-We’ll keep working on improving V8 start-up performance from our end as much as we can. We promise ;) Happy perfing!
+我们将尽我们所能从我们的角度继续努力提高 V8 启动性能。 这是我们的承诺;）也希望你们有一个快乐的提高性能的过程！
 
-### **Read More** ###
+### **阅读更多** ###
 
 - [Planning for Performance](https://www.youtube.com/watch?v=RWLzUnESylc)
 
@@ -243,4 +242,4 @@ We’ll keep working on improving V8 start-up performance from our end as much a
 - [Do Browsers Parse JavaScript On Every Page Load](http://stackoverflow.com/questions/1096907/do-browsers-parse-javascript-on-every-page-load/)
 
 
-*With thanks to V8 (Toon Verwaest, Camillo Bruni, Benedikt Meurer, Marja Hölttä, Seth Thompson), Nolan Lawson (MS Edge), Malte Ubl (AMP), Tim Kadlec (Synk), Gray Norton (Chrome DX), Paul Lewis, Matt Gaunt and Rob Wormald (Angular) and for their reviews of this article.*
+*感谢 V8 (Toon Verwaest, Camillo Bruni, Benedikt Meurer, Marja Hölttä, Seth Thompson), Nolan Lawson (MS Edge), Malte Ubl (AMP), Tim Kadlec (Synk), Gray Norton (Chrome DX), Paul Lewis, Matt Gaunt and Rob Wormald (Angular) and for their reviews of this article.*
