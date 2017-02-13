@@ -176,27 +176,33 @@ These icons have again same functionality only orientation differences.
 同样的，这两个图标也有着一样的功能，只不过作用的方向不一样。
 
 Now If I click left icon basically that will create horizontal constraints between all selected views without moving positions and size as shown below.
-用不着去移动位置或者改变数值，只要我点击了左边的图标，就可以在所有选中的视图之间构建好约束。如下图所示。
+用不着去移动位置或者改变数值，我只要点击左边的图标，就可以为所有选中的视图构建约束。如下图所示。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-11-14-06-221x300.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-11-14-06.gif)
 
 Here I can create chain between views by double clicking. If you guys don’t know what is chaining. You can read [part2](http://www.uwanttolearn.com/android/constraint-layout-concepts-hell-tips-tricks-part-2/) of the post. In which I explain what is chaining and what benefits we can get by chaining.
 
+还可以通过双击图标将视图链接成链。如果你对链还不太了解，你可以去阅读该系列博客的[第二部分](http://www.uwanttolearn.com/android/constraint-layout-concepts-hell-tips-tricks-part-2/)。那篇文章里介绍了什么是链以及使用链带来的好处。
+
 Below you can see how you can create chain using Editor.
+在下图中你可以看到如何使用编辑器构建链。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-11-17-59-221x300.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-11-17-59.gif)
 
-[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-11.57.13-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-11.57.13-AM.png)**Align icon:**
+[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-11.57.13-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-11.57.13-AM.png)**Align icon:** **对齐图标**
 
 This icon contains 11 more icons in popup. In which four will work with single views and remaining work with multiple selected views.
+这个图标的弹出菜单里包含了多达11个图标。其中4个图标在选中单个视图时可用，其余的在选中多个视图时可用。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-11.24.49-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-11.24.49-AM.png)
 
 So first I am going to explain bottom four icons which will enable as I select any single view.
+首先我来介绍一下底部那四个在选中单个视图时可用的图标吧。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-11.27.28-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-11.27.28-AM.png)
 
 First icon will do, view center horizontal, relative to other views with applying constraints.
+第一个
 
 Second icon will do, view center vertical, relative to other views with applying constraints.
 
