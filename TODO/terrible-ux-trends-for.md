@@ -14,14 +14,13 @@
 
 Instagram blew away the design world by redoing their app in black and white. It was as if we had never seen those two colors paired together in our entire lives.
 
-<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*XARSm9e47wY9X0X48p4U1A.png">
+![](https://cdn-images-1.medium.com/max/800/1*XARSm9e47wY9X0X48p4U1A.png)
 
 Instagram 3.0
 
 This year it’s all about grays getting greyer. A recent scientific survey we just published shows some compelling statistics:
 
-[<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*EVKyoiQvtl34AiQb2OImvA.png">
-](https://twitter.com/uxpowertools/status/829012492114391040) 
+[![](https://cdn-images-1.medium.com/max/800/1*EVKyoiQvtl34AiQb2OImvA.png)](https://twitter.com/uxpowertools/status/829012492114391040)
 
 Got a lot of DM’s wondering why the hell we asked this pointless question.
 
@@ -37,10 +36,9 @@ Paper prototyping is a thing you learned in school and still talk about like it�
 
 This is where origami prototyping comes in. If you want to really test your prototype without using a screen you’ll need to become an expert in origami shapes that mimic the soft drop shadows you plan to use. If you think you’re going to use texture in your skeuomorphic design, what better way than folding textured parchment paper?
 
-<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*nMRhrf72fkJvvoeEVLidow.png">
+![](https://cdn-images-1.medium.com/max/800/1*nMRhrf72fkJvvoeEVLidow.png)
 
 The new Pokémon Go app coming out in 2017
-
 
 ### Hot new job titles ###
 
@@ -50,7 +48,7 @@ Everyone loves job titles. When we’re not busy having job titles, we spend tim
 
 In the past, designers used to focus on screens, or user flows. Sometimes they would mock things up in “high fidelity” and hand them off to dev to help them build software. But this is basic shit now. You can design a bot to do all this boring work for you.
 
-![](https://cdn-images-1.medium.com/max/800/1*GH02-QpJ7lYeSpaJAsm5pQ.gif)
+![](https://cdn-images-1.medium.com/max/1600/1*GH02-QpJ7lYeSpaJAsm5pQ.gif)
 
 Leaked prototype of Adobe’s new Design Bot CC™
 
@@ -64,7 +62,7 @@ It gets misspelled so often it is now a real title. Yes, this means that as a tr
 
 Behind every great Principle Designer is a great Sketch Runner. This person is learning the ropes on how to be a great designer by printing out designs on paper, and then literally running them down the hall to development to be coded. There is no functional reason for this role but it’s a necessary addition for any design team that wants to have interns but doesn’t have any actual work to give them. Sketch Runners, while often unpaid, will earn plenty of sweat equity in the long run.
 
-<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*RVyq0FfNzeeQMjILSqi-FA.png">
+![](https://cdn-images-1.medium.com/max/800/1*RVyq0FfNzeeQMjILSqi-FA.png)
 
 Yep.
 
@@ -72,7 +70,7 @@ Yep.
 
 The field of eye tracking is so damn important you can’t just start “dabbling” in eye tracking any more. You also won’t become Amy Adams in *Arrival* right out of the gate.
 
-<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*nx8Mw2r_g2bMCx9VLUgVeQ.png">
+![](ttps://cdn-images-1.medium.com/max/800/1*nx8Mw2r_g2bMCx9VLUgVeQ.png)
 
 In time, young eye tracker. In time.
 
@@ -82,7 +80,7 @@ You will start by simply tracking people’s hand gestures. Are users flipping y
 
 Man these things are so hot, we probably need to write an article about what they **CAN’T DO**…the first thing I’d have to cross off the list is, “serve as the backdrop behind a flying Lady Gaga.” I thought for sure they couldn’t do that. Boy was I wrong!
 
-<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*AyBckEAyQwuxjfWUEZAu6g.gif">
+![](https://cdn-images-1.medium.com/max/800/1*AyBckEAyQwuxjfWUEZAu6g.gif)
 
 Fun fact: Drones are not fooled by poker faces. God Bless America!
 Think of anything you want to design this year and then imagine it with drones. Here are a couple of freebies for those that still don’t see the tremendous value these drones provide:
@@ -110,9 +108,9 @@ Remember those terrible gradients and shading techniques that tried to make virt
 
 Virtual Reality will be more like a *South Park* show than *Kubo and the Two Strings*. You will finally start to see designs that help people escape this awful 3-D reality we are forced to live in everyday.
 
-<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/600/1*UhzZz8T6hqp_WFyxo_Pj3A.png">
+![](https://cdn-images-1.medium.com/max/600/1*UhzZz8T6hqp_WFyxo_Pj3A.png)
 
-<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/600/1*_lw8ajalS14yXARJFuKXbw.png">
+![](https://cdn-images-1.medium.com/max/600/1*_lw8ajalS14yXARJFuKXbw.png)
 
 Before and after a VR Redesign I’m doing with our Principle Designer.
 
@@ -122,7 +120,7 @@ This is a lot like Brutalist design but *even uglier*. It’s like Tilda Swinton
 
 Color will be used sporadically. No fills or strokes. Just splatters of random color tossed like one of those trendy “color runs” all these damn millennials keep doing to trick themselves into thinking they’re living healthy lifestyles.
 
-<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*tlMwMwlttTZqgtC2Bqck_g.png">
+![](https://cdn-images-1.medium.com/max/800/1*tlMwMwlttTZqgtC2Bqck_g.png)
 
 At the end of the run, you inhale carcinogenic (but colorful!) chemicals
 
@@ -130,14 +128,13 @@ At the end of the run, you inhale carcinogenic (but colorful!) chemicals
 
 It’s you talking *in person* to another human.
 
-<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*eWI_7PuR0YPQ8EBRdLjX6g.png">
+![](https://cdn-images-1.medium.com/max/800/1*eWI_7PuR0YPQ8EBRdLjX6g.png)
 
 A mockup for a new project I’m working on for eHarmony (using a Bootstrap theme in Sketch).
 
 Alright, that’s all you need to know for 2017! It’s already February so I hope for your sake you are already aware of most of these trends. And remember if you want to make any mean comments, pump brakes mean girl.
 
-[<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*ZGoV9E37LM6evlsn79D0oA.png">
-](https://www.designernews.co/comments/242989)
+[![](https://cdn-images-1.medium.com/max/800/1*ZGoV9E37LM6evlsn79D0oA.png)](https://www.designernews.co/comments/242989)
 
 My favorite designer response from 2016
 
