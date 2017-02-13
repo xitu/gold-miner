@@ -4,7 +4,7 @@
 * 译者：[Deepmissea](http://deepmissea.blue)
 * 校对者：
 
-# iOS 开发者必须知道的 14 件事情
+# iOS 开发者一定要知道的 14 个知识点
 
 ![](https://cdn-images-1.medium.com/max/2000/1*GlmHP6nltxqLBZA3Rv8AGg.jpeg)
 
