@@ -2,7 +2,7 @@
 * 原文作者：[James Rochabrun](https://medium.com/@jamesrochabrun)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者： [Gocy](https://github.com/Gocy015)
-* 校对者：
+* 校对者：[skyar2009](https://github.com/skyar2009) ,[thanksdanny](https://github.com/thanksdanny)
 
 
 # 手把手带你在 Swift 中应用代理（Delegate）
