@@ -1,84 +1,79 @@
 > * 原文地址：[RecyclerView Prefetch](https://medium.com/google-developers/recyclerview-prefetch-c2f269075710#.b1or0k6l3)
 * 原文作者：[Chet Haase](https://medium.com/@chethaase)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：tanglie1993
 * 校对者：
 
-# RecyclerView Prefetch
+# RecyclerView 数据预取
 
-## Smoother Flings and Scrolls by Doing Stuff Sooner
+## 更快处理任务，使滚动和滑动更流畅
 
-When I was a kid, my mother would attempt to cure my persistent procrastination by telling me that if I cleaned my room now, I wouldn’t have to do it later. But I never fell for it. I knew that it was always best to let it ride as long as possible. For one thing, if I cleaned it now, it’d just get dirty again, and then I’d have to perform that odious chore twice. Also, if I let it go long enough, she might just forget about it.
+在我小时候，妈妈为了治疗我的拖延症，总是告诉我：“如果你现在打扫你的房间，就不用以后再打扫了。”但我从没这样做。我知道最好能拖延就尽量拖延。一个原因是：如果我现在打扫了，房间还会变脏，那时候我就必须再打扫一遍了。另外，如果我把这件事放下足够久，妈妈可能会忘了它的。
 
-Procrastination has always worked for me. But I never had to deal with the issue of consistent frame-rate, unlike my friend RecyclerView.
+拖延对我来说总是有效。但我永远不用处理保持帧率的问题，不像我的朋友RecyclerView一样。
 
-### The Problem
+### 问题
 
-During a scroll or fling operation, RecyclerView will need to display new items as they arrive on screen. These new items need to be bound to the data (and possibly created, if there are no items like it in the cache). Then they need to be laid out and drawn. When all of this is done lazily, just before it is needed, the UI thread can grind to a halt while the work completes. Then rendering can proceed and the scroll (or fling, but I’ll just refer to either as “scroll” from here on to simplify things) can get back to moving along smoothly… until the next new item comes into view.
+在一次滚动或惯性滑动中，RecyclerView需要在新条目抵达屏幕时予以展示。这些新条目需要与数据相绑定（如果缓存中没有相应条目的话，还需要创建一个）。接下来，它们还需要被展开并画出来。如果所有这些都是被懒加载的，在需要展示之前才做，UI线程就会在工作完成时陷入停顿。接下来渲染可以继续并且滚动（或者说滑动，但我打算用滚动来指代它们，以简化讨论）可以平滑地继续，直到下一个条目进入视野范围。 
 
 ![](https://cdn-images-1.medium.com/max/1200/1*X9E34oKRhAJbG-uSrhv-TA.png)
 
-Typical rendering phases of RecyclerView content during a scroll (as of the Lollipop release). On the UI thread, we process input events, handle animations, perform layout, and record the drawing operations. Then the RenderThread (RT) sends the commands to the GPU.
-During most frames of a scroll, the RecyclerView has no problem doing what it needs to do, because there is no new content to deal with. During these frames, the UI thread processes input, handles animations, performs layout, and records drawing commands. It then syncs the drawing information over to the RenderThread (as of the [Lollipop](https://developer.android.com/about/versions/lollipop.html) release; prior releases do all of this work on the UI thread), which sends those commands over to the GPU.
+一次典型的RecyclerView内容滚动中的各个渲染阶段（在Lollipop版本时的情况）。在UI线程，我们处理输入事件和动画，完成布局，并且记录绘图操作。接下来渲染线程把指令送往GPU。
+在一次滚动的大多数帧中，RecyclerView可以没问题地完成它需要做的事，因为不需要处理新的内容。在这些帧中，UI线程处理输入事件和动画，完成布局，记录绘图操作。接下来它把绘图信息与渲染线程同步（在Lollipop版本时的情况，之前的版本在UI线程完成所有工作），渲染线程把指令送往GPU。
 
 ![](https://cdn-images-1.medium.com/max/1200/1*DIr64fruHL5lp72Ji-b7rw.png)
 
-New items cause the Input stage to take longer as new views are created, bound, and laid out. This results in a later start for the Render stage, which might cause it to finish after the frame boundary, resulting in a missed frame.
-When a new item comes on screen, more work is required in the input stage to bind, and possibly create, the appropriate views. This pushes the rest of the UI thread work later, as well as the ensuing work of the RenderThread, and can cause jank if it cannot all happen within the frame boundary.
+新条目使得输入阶段耗时更长，因为新的view需要被创建、绑定并布局。这推迟了渲染阶段的开始，从而导致它可能在帧的边界之后结束。在此情况下，就会发生掉帧。当一个新的条目来到屏幕中时，输入阶段就需要完成更多工作，以绑定（可能还要创建）正确的view。这推迟了UI线程其余的工作，以及渲染线程接下来的工作。如果这些不能在帧边界内完成的话，就会发生卡顿。 
 
 ![](https://cdn-images-1.medium.com/max/1200/1*R0vg4lvbNilR1xB5Qrawmw.png)
 
-The call stack during input shows that new items coming into view cause a large chunk of time to be spent creating and binding the new views
-Examining the call stack during the input phase when these new items come in shows us that a large portion of the time is spent creating and binding the views.
-
-Wouldn’t it be nice if we could do that work elsewhere instead of delaying everything while we get those new items ready?
-
+输入阶段的调用栈表明：新的条目进入视野范围会导致一大块时间被用于创建和绑定新的view。
+如果我们可以在其它地方完成这些工作，而不推迟所有其它事情，不就很好吗？
 ![](https://cdn-images-1.medium.com/max/1200/1*2XWNdvsSwW8-L_DQwYxLxw.png)
 
-Creating and binding views has to be done before they can be rendered, which takes up valuable time on the UI thread during the frame in which they’re needed. But meanwhile, that thread spends a lot of time idling in the previous frame…
-This is the observation that [Chris Craik](http://androidbackstage.blogspot.com/2015/07/this-time-tor-and-chet-are-joined-by.html) (a graphics engineer on the Android UI Toolkit team) made when he was looking at [Systraces](https://developer.android.com/studio/profile/systrace.html) of RecyclerView scrolls. Specifically, he saw that we’re spending a lot of time getting the items ready right when they’re needed. But meanwhile, just a frame before that, the UI thread was spending a lot of the time in that frame sleeping, because it finished its tasks early.
+在view可以被渲染之前，创建和绑定必须完成。这会在相应的帧中消耗UI线程的宝贵时间。然而，UI线程在前一帧中有大量时间无所事事。
+ [Chris Craik](http://androidbackstage.blogspot.com/2015/07/this-time-tor-and-chet-are-joined-by.html)（Android UI Toolkit组的工程师）在用[Systraces](https://developer.android.com/studio/profile/systrace.html) 查看RecyclerView滚动时发现了这一点。他特别注意到，我们在需要使用一个条目时，会花费大量时间准备它。而在一帧之前，UI线程花了大量时间休眠，因为它很早就完成了任务。
 
-### The Solution
+### 解决方案
 
 ![](https://cdn-images-1.medium.com/max/1200/1*_qCP_uaM8nMSlgqU6L1CxA.png)
 
-Moving the creation and bind operations to the previous frame allows the UI Thread to do that work in parallel with the RenderThread, and avoids doing it later when it has to be done synchronously before the RenderThread can draw the results.
-Obviously, it was time to play around with time. Specifically, Chris rearranged the way things happen in the default RecyclerView layouts such that it now pre-fetches items that are *about* to come into view, so that we do this work during an idle phase, and avoid doing it later when everyone’s waiting for those results.
+将创建和绑定工作移到前一帧，使UI线程能够与渲染线程同时工作，从而避免接下来在渲染线程绘制结果之前同步完成这些工作。
+显然，这是优化耗时的好时机。Chris重新安排了默认RecyclerView布局时事件发生的顺序，它现在在一个条目即将进入视野时预取数据，这样我们可以在空闲期完成工作，避免拖到大家都在等待结果时才完成。
+完成这些工作基本上没有任何代价，因为UI线程在两帧之间的空隙不做任何工作。我们可以使用这些空闲时间来完成将来的工作，并使得未来的帧出现得更快，因为困难的部分已经被完成了。
 
-Now the work can happen essentially for free. Because the UI Thread was not doing any work in that gap between frames, we’re able to use that idle time to get work done that we will need later, and make that future frame that much faster because the hard part is already done.
+### 细节，细节
 
-### Details, Details
+这个系统的工作方式是，在RecyclerView开始一个滚动时安排一个Runnable。这个Runnable负责根据layout manager和滚动的方向预取很快会进入视野的条目。预取不限于一个单独的条目。它可以同时取出多个条目，例如在使用GridLayoutManager且新的一行马上要出现的时候。在25.1版本中，预取操作被分为单独的创建/绑定操作，从而比对整组条目做操作更容易被纳入UI线程的空隙中。
 
-The system works by scheduling a Runnable whenever RecyclerView starts a scrolling operation. This Runnable performs the prefetch of items that should come into view soon, depending on the layout manager and the direction that the views are being scrolled. Prefetching is not limited to a single item, either; it can fetch multiple items at once, such as when a row of GridLayoutManager items is coming on screen. In v25.1, prefetch operations are broken up into individual create/bind operations, which fit more easily into the UI thread gaps than operations on whole groups of items.
+有趣的是，系统必须预测操作需要多少时间，以及它们是否可以被放入空隙中。毕竟，如果预取把当前帧推迟到截止时间之后，我们仍然会因掉帧而感觉到卡顿，只是和不预取时原因不同而已。系统处理这些细节的方式是追踪每种view类型的平均创建/绑定时间，从而使未来创建/绑定时间的合理预测成为可能。
 
-One of the interesting things about the prefetch approach is that the system has to predict how much time operations will take, and whether they can fit within the available gap. After all, if prefetch work delayed that frame past its deadline, we may still have jank from a skipped frame, just in a different place than we would without the prefetch. The way that the system handles this detail is by tracking the average create/bind durations per view type, enabling reasonable prediction of future create/bind operations.
+对嵌套RecyclerView（每一个条目自身都是RecyclerView的容器）完成这些工作更加复杂，因为绑定内部RecyclerView并不涉及任何子控件的分配——RecyclerView在被绑定和布局时按需取得子控件。预取系统仍然可以预先准备内层的RecyclerView内部的子控件，但它必须知道有多少。这就是25.1版本中LinearLayoutManager新API[setInitialItemPrefetchCount()](https://developer.android.com/reference/android/support/v7/widget/LinearLayoutManager.html#setInitialPrefetchItemCount%28int%29)的意义。它告诉系统，在滚动时需要预取多少条目来充满RecyclerView。
 
-Performing this work for nested RecyclerViews (containers whose items are, themselves, RecyclerViews) is trickier, since binding the inner RecyclerView doesn’t allocate any children — RecyclerView fetches children on demand when it’s attached and laid out. The prefetching system can still prepare children within that inner RecyclerView, but it has to know how many. This is the reason for the new API in v25.1 of LinearLayoutManager, [setInitialItemPrefetchCount()](https://developer.android.com/reference/android/support/v7/widget/LinearLayoutManager.html#setInitialPrefetchItemCount%28int%29), which tells the system how many items to prefetch to fill the RecyclerView when it’s about to scroll on screen.
+### 警告
 
-### Caveats
+你需要注意这些危险：
 
-There are a some important caveats here to be aware of:
+-预取数据可能做一些最终不被需要的工作。因为我们在预取view时，有可能会采取太激进的策略，这样RecyclerView就可能不会滚动到我们预取的条目。这意味着我们的预取工作可能会被浪费（虽然这些工作是被并行完成的，应该不会浪费太多时间。另外，浪费是不太可能发生的，因为我们在需要数据之前不久才去预取，而且滚动不太可能在两帧之间停止或反转）。
+-渲染线程：渲染线程是Lollipop版本引入的性能特性，它可以让一个不同的线程分担渲染工作，并且支持其他的一些改进，例如把不可变的动画（如涟漪、环形展现等）完全放在渲染线程，使其不受UI线程停顿的影响。这意味着运行Lollipop之前的版本的设备将不会受益于这个优化，因为我们无法并行完成这些工作。
 
-- Pre-fetching may do work that ends up not being needed. Because we are pre-fetching a view, it is possible that we are doing this too aggressively, and that the RecyclerView will not get to the item in question. This means that our pre-fetching work may be wasted (although since it happened in parallel, this should not be a big deal. Besides, this should be pretty uncommon because we are fetching very soon before it is needed, and it’s unlikely that the scroll will stop or reverse between those two frames).
-- RenderThread: The RenderThread was a performance feature introduced in Lollipop, to offload rendering onto a different thread and allow for some improvements such as running some immutable animations (for example, ripples and circular reveals) completely on the RenderThread, without being affected by UI Thread stalls. This means that devices running on releases earlier than Lollipop will not benefit from this optimization, because we cannot parallelize this work.
+### 我要一些——去哪儿拿？
 
-### I Want Some — Where Can I Get It?
+预取优化是在 [Support Library v25](https://developer.android.com/topic/libraries/support-library/revisions.html#rev25-0-0), with further enhancements in [v25.1.0](https://developer.android.com/topic/libraries/support-library/revisions.html#25-1-0)中引入的。所以第一步是下载[最新版本](https://developer.android.com/topic/libraries/support-library/revisions.html)的支持库。
 
-The pre-fetch optimizations were introduced in [Support Library v25](https://developer.android.com/topic/libraries/support-library/revisions.html#rev25-0-0), with further enhancements in [v25.1.0](https://developer.android.com/topic/libraries/support-library/revisions.html#25-1-0). So the first step is to get the [latest version](https://developer.android.com/topic/libraries/support-library/revisions.html) of the Support Library.
+如果你使用RecyclerView提供的默认layout manager，你将自动获得这种优化。然而，如果你使用嵌套RecyclerView或者自己写layout manager，你需要改变你的代码来利用这个特性。
 
-If you use the default layout managers provided with RecyclerView, you will automatically get this optimization. However, if you are using nested RecyclerViews, or you wrote your own layout manager, you will need to change your code in order to take advantage of this feature.
+对于嵌套RecyclerView而言，要获取最佳的性能，在内部的LayoutManager中调用LinearLayoutManager的[setInitialItemPrefetchCount()](https://developer.android.com/reference/android/support/v7/widget/LinearLayoutManager.html#setInitialPrefetchItemCount%28int%29)方法（25.1版本起可用）。例如，如果你水平方向的list至少展示三个条目，调用setInitialItemPrefetchCount(4)。
 
-For nested RecyclerViews, call LinearLayoutManager’s new [setInitialItemPrefetchCount()](https://developer.android.com/reference/android/support/v7/widget/LinearLayoutManager.html#setInitialPrefetchItemCount%28int%29) method (available in v25.1) on the inner LayoutManagers to get the best performance. For example, if rows in your vertical list show over three items at a minimum, call setInitialItemPrefetchCount(4).
+如果你实现了自己的LayoutManager，你需要重载 [LayoutManager.collectAdjacentPrefetchPositions()](https://developer.android.com/reference/android/support/v7/widget/RecyclerView.LayoutManager.html#collectAdjacentPrefetchPositions%28int,%20int,%20android.support.v7.widget.RecyclerView.State,%20android.support.v7.widget.RecyclerView.LayoutManager.LayoutPrefetchRegistry%29)方法。该方法在数据预取开启时被RecyclerView调用（LayoutManager的默认实现什么都不做）。第二，在嵌套的内层RecyclerView中，如果你想让你的LayoutManager预取数据，你同样应当实现[LayoutManager.collectInitialPrefetchPositions()](https://developer.android.com/reference/android/support/v7/widget/RecyclerView.LayoutManager.html#collectInitialPrefetchPositions%28int,%20android.support.v7.widget.RecyclerView.LayoutManager.LayoutPrefetchRegistry%29)。
 
-If you’ve implemented your own LayoutManager, you will need to override [LayoutManager.collectAdjacentPrefetchPositions()](https://developer.android.com/reference/android/support/v7/widget/RecyclerView.LayoutManager.html#collectAdjacentPrefetchPositions%28int,%20int,%20android.support.v7.widget.RecyclerView.State,%20android.support.v7.widget.RecyclerView.LayoutManager.LayoutPrefetchRegistry%29), which is called by RecyclerView when prefetch is enabled (the default implementation in LayoutManager does nothing). Secondly, if you want prefetching to occur from your LayoutManager when its RecyclerView is nested in another, you should also implement [LayoutManager.collectInitialPrefetchPositions()](https://developer.android.com/reference/android/support/v7/widget/RecyclerView.LayoutManager.html#collectInitialPrefetchPositions%28int,%20android.support.v7.widget.RecyclerView.LayoutManager.LayoutPrefetchRegistry%29).
+和以前一样，优化你的创建和绑定步骤，做尽可能少的工作，是值得的。运行的最快的代码是根本不需要运行的代码；即使框架可以通过数据预取并行工作，它仍然消耗时间，而且耗时较长的条目创建仍然可以导致卡顿。例如，一棵最小的view树总比一棵复杂的更容易创建和绑定。本质上，绑定应该和调用setter一样方便，一样快。即使你用目前的代码就可以在一帧的时间限制中完成工作，进一步优化意味着它将更可能在低端的用户机型上运行良好。此外，在高端设备上为这些常用场景节约性能，总是对电池有益的。如果你已经尽可能缩短了创建和绑定的时间，预取将会帮助你缩短两帧之间的剩余时间。
 
-As always, it is worth optimizing both your create and bind steps, doing as little work as possible. The fastest code is that which doesn’t have to run; even when the framework can parallelize work done through prefetching, it still takes time, and expensive item creation can still cause jank. For example, a minimal view tree will always be cheaper to create and bind than a more complex one. And binding should essentially be as simple and fast as calling setters. Even if you are able to skate by under the frame time limit with your current code, optimizing it further means you will be more likely to run well on users’ lower-end devices, and saving performance even on higher-end devices always has battery benefits for these common situations. If you’ve already gotten the creation and bind as fast as they can be, then prefetching should help you hide the remaining time in the gap between frames.
-
-If you want to see the optimization in action, either in one of the default LayoutManagers or in a custom LayoutManager of yours, you can toggle [LayoutManager.setItemPrefetchEnabled()](https://developer.android.com/reference/android/support/v7/widget/RecyclerView.LayoutManager.html#setItemPrefetchEnabled%28boolean%29) and compare the results. You should be able to see the results visually; it really is that significant, especially with items that take a significant amount of time to create and bind. But if you want to see what’s going on under the hood, run a [Systrace](https://developer.android.com/studio/profile/systrace.html), or enable [GPU profiling](https://developer.android.com/studio/profile/dev-options-rendering.html), with and without prefetch enabled.
+如果你想要见到实际的优化，在默认或自定义的LayoutManager中，你可以切换[LayoutManager.setItemPrefetchEnabled()](https://developer.android.com/reference/android/support/v7/widget/RecyclerView.LayoutManager.html#setItemPrefetchEnabled%28boolean%29)并比较结果。你应该能够从视觉上直观地看到差异；它确实如此显著，特别是在条目需要大量时间创建和绑定的情况下。但如果你想知道在表面下发生过什么，在预取打开和关闭时运行[Systrace](https://developer.android.com/studio/profile/systrace.html), 或者打开[GPU profiling](https://developer.android.com/studio/profile/dev-options-rendering.html)。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*gmuFD82uYJmGVVEPFxs6ag.png)
 
-Systrace showing prefetch occurring during the otherwise idle time of the UI thread
-### GOTO End
+Systrace显示数据预取在UI线程空闲时预取数据。
+### GOTO 结尾
 
-Check out the [latest Support Library](https://developer.android.com/topic/libraries/support-library/revisions.html) and play with the new prefetching RecyclerView. Meanwhile, I’ll get back to not cleaning my room.
+查看[最新的Support Library](https://developer.android.com/topic/libraries/support-library/revisions.html)并和能预取数据的RecyclerView一起玩耍。同时，我将继续不清理我的房间。
