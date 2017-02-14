@@ -4,36 +4,36 @@
 * 译者：[steinliber](https://github.com/steinliber)
 * 校对者：
 
-工程师团队在构建软件时会面临一个普遍的挑战：为了支持整洁的抽象和更加复杂的特性，他们通常需要重新设计所使用的数据模型。在生产环境中，这或许就意味着迁移百万级的活跃对象和重构数千行的代码。
+工程师团队在构建软件时会面临一个普遍的挑战：为了支持整洁的抽象和更加复杂的特性，他们通常需要重新设计所使用的数据模型。在生产环境中，这或许就意味着要迁移百万级的活跃对象和重构数千行的代码。
 
-Strip 的用户期望我们的接口是可用并且一致的。这就意味着当我们在做迁移的时候，我们需要格外的小心：储存在我们系统的对象需要又精确的值，而且 Strip 的服务需要在任何时候都保持可用性。
+Stripe 的用户期望我们的接口是可用并且一致的。这就意味着当我们在做迁移的时候需要格外的小心：储存在我们系统的对象需要精确的值，而且 Stripe 的服务也需要在任何时候都保持高可用性。
 
-在这篇文章中，我们将会说明我们是如何在数以百万的订阅对象进行安全的大规模迁移。
+在这篇文章中，我们将会说明我们是如何对数以百万的订阅对象进行安全的大规模迁移。
 
 ---
 
-## 为什么迁移时困难的?
+## 为什么迁移是困难的?
 
 -
 ### 规模
 
-Strip 有数亿的订阅对象。运行一次涉及所有这些对象的大规模迁移对于我们的生产数据库来说意味着大量的工作。
+Stripe 有数亿的订阅对象。运行一次涉及所有这些对象的大规模迁移对于我们的生产数据库来说意味着大量的工作。
 
 想象如果每个对象的迁移都要耗费1秒钟：以这个线性增长的方式计算，迁移数亿的对象要花掉超过三年的时间。
 
 -
 ### 上线时间
 
-商家在 Strip 上持续不断的进行交易。我们在线上进行所有的基础设施升级，而不是依赖于计划中的维护期。因为我们在迁移过程中不能只是简单的暂停订阅，我们必须保证所有交易的执行都可以在我们的所有服务器上 100% 执行。
+商家在 Stripe 上持续不断的进行交易。我们在线上进行所有的基础设施升级，而不是依赖于计划中的维护期。因为我们在迁移过程中不能只是简单的暂停这些订阅，我们必须保证所有交易的执行都可以在我们的所有服务器上 100% 运行。
 
 -
 ### 精确性
 
-我们的订阅表在代码库的许多不同地方都会用到。如果我们想一次性在订阅服务中修改上千行的代码，我们几乎可以确信会忽略一些边缘条件。我们需要确保每一个服务可以继续依靠精确的数据。
+我们的订阅表在代码库的许多不同地方都会用到。如果我们想一次性在订阅服务中修改上千行的代码，我们几乎可以确信会忽略掉一些边缘条件。我们需要确保每一个服务可以继续依靠精确的数据。
 
 ## 在线迁移的一个模式
 
-从一个数据库表迁移数百万的对象到另一个是困难的，但是这是许多公司所要做的一些事。
+从一个数据库表迁移数百万的对象到另一个是困难的，但是这是许多公司所要面临去做的一些事。
 
 这里有一个通用的 4 步*双重写入模式*，人们经常使用像这样的模式来做线上的大规模迁移。这里是它如何工作的
 
@@ -46,99 +46,99 @@ Strip 有数亿的订阅对象。运行一次涉及所有这些对象的大规�
 
 ## 我们迁移的例子: 订阅
 
-什么是订阅已经我们为什么需要做迁移？
+什么是订阅以及我们为什么需要做迁移？
 
 [Stripe 订阅](https://stripe.com/subscriptions) 帮助像 [DigitalOcean](https://www.digitalocean.com/) 和 [Squarespace](https://www.squarespace.com/) 的用户建立和管理它们消费者的定期结算，在这过去的几年中，我们已经添加了许多特性去支持它们越来越复杂的账单模型，比如说多方订阅，试用，优惠券和发票。
 
-在早些时候，每个消费者对象最多可以有一个订阅。我们的消费者当作独立的记录储存。因为消费者和订阅的映射是直接的，订阅是和消费者一起储存的。
+在早些时候，每个消费者对象最多可以有一个订阅。我们的消费者被当作独立的记录储存。因为消费者和订阅的映射是直接的，所以订阅是和消费者是一起储存的。
 
     class Customer
       Subscription subscription
     end
 
-最终，我们意识到有些用户想要创建有多个订阅表的消费者。我们决定把 `subscription` 字段（只支持一个订阅）转换成`subscriptions`字段，这样我们就可以储存一个有多个活跃订阅的队列。
+最终，我们意识到有些用户想要创建有多个订阅表的消费者。我们决定把 `subscription` 字段（只支持一个订阅）转换成`subscriptions`字段，这样我们就可以储存一个有多个活跃订阅的数组。
 
     class Customer
       array: Subscription subscriptions
     end
 
-在我们添加新特性的时候,发现这个数据模型会有问题。任何对消费者订阅的改变都意味着更新整个消费者模型，而且和订阅相关的查询也会在消费者对象中查询。所以我们独立储存活跃的订阅。
+在我们添加新特性的时候,发现这个数据模型会有问题。任何对消费者订阅的改变都意味着要更新整个消费者模型，而且和订阅相关的查询也会在消费者对象中查询。所以我们决定分开储存活跃的订阅。
 
-我们重新设计了数据模型把订阅移到课他们自己的表中。
+我们重新设计了数据模型把订阅移到订阅表中。
 
-提醒一下⏰，我们的 4 个迁移阶段是
+提醒一下⏰，我们的4个迁移阶段是
 
 1. **双重写入** 到已经存在和新的数据库来保持它们同步。
 2. **修改所有代码库里的读路径** 从新的表读数据。
 3. **修改所有代码库里的写路径** 只写入新的表.
 4. **移除依赖于过期数据模型的旧数据**。
 
-让我们像实践中一样走过这4个阶段。
+让我们像实践中一样来体验这4个阶段。
 
 ---
 
-## Part 1: Dual writing
+## Part 1: 双重写入
 
-We begin the migration by creating a new database table. The first step is to start duplicating new information so that it’s written to both stores. We’ll then backfill missing data to the new store so the two stores hold identical information.
+开始迁移首先我们会创建一个新的数据库表。第一步就是开始复制新消息，以便将其写入到两个储存中。我们之后会将缺失的数据回填到新的储存中，以便两个储存保存相同的信息。
 
-All new writes should update both stores.
+所有新的写入都应该更新到这两个储存。
 
-In our case, we record all newly-created subscriptions into both the Customers table and the Subscriptions table. Before we begin dual writing to both tables, it’s worth considering the potential performance impact of this additional write on our production database. We can mitigate performance concerns by slowly ramping up the percentage of objects that get duplicated, while keeping a careful eye on operational metrics.
+在我们的例子中，我们将所有新创建的订阅记录写到 Customers 和 Subscriptions 表中。在我们开始双重写入这两张表之前，这种额外的写入对我们生产数据库产生的潜在影响是值得我们考虑的。我们可以通过降低提高复制对象的百分比的速度来缓解性能问题，同时仔细检查运行时的指标。
 
-At this point, newly created objects exist in both tables, while older objects are only found in the old table. We’ll start copying over existing subscriptions in a lazy fashion: whenever objects are updated, they will automatically be copied over to the new table. This approach lets us begin to incrementally transfer our existing subscriptions.
+这时候，新创建的对象会同时存在于两个表中，而旧的数据只能在旧的表中找到。我们将会以惰性方式开始复制已经存在的订阅：每当对象更新，它们将自动被复制到新表中。这个方法让我们开始逐步转移现有的订阅。
 
-Finally, we’ll backfill any remaining Customer subscriptions into the new Subscriptions table.
+最终，我们将会将任何剩余的消费者订阅数据回填到新的 Subscriptions 表中。
 
-We need to backfill existing subscriptions to the new Subscriptions table.
+我们需要将已经存在的订阅回填到新的 Subscriptions 表中。
 
-The most expensive part of backfilling the new table on the live database is simply finding all the objects that need migration. Finding all the objects by querying the database would require many queries to the production database, which would take a lot of time. Luckily, we were able to offload this to an offline process that had no impact on our production databases. We make snapshots of our databases available to our Hadoop cluster, which lets us use [MapReduce](https://en.wikipedia.org/wiki/MapReduce) to quickly process our data in a offline, distributed fashion.
+要在一个实时的数据库上回填一个新表其中最重要的是简单找到所有需要迁移的对象。通过查询数据库来查找所有对象将需要在生产数据库执行大量查询，这将需要很多时间。幸运的时候，我们可以将这个过程分流成对我们生产数据库没影响的离线过程。我们为我们的 Hadoop 集群提供了我们的数据库快照,这使我们能够使用 [MapReduce](https://en.wikipedia.org/wiki/MapReduce) 通过离线，分布式的方式快速处理我们的数据。
 
-We use [Scalding](https://github.com/twitter/scalding) to manage our MapReduce jobs. Scalding is a useful library written in Scala that makes it easy to write MapReduce jobs (you can write a simple one in 10 lines of code). In this case, we’ll use Scalding to help us identify all subscriptions. We’ll follow these steps:
+我们使用 [Scalding](https://github.com/twitter/scalding) 来管理我们的 MapReduce 任务。Scalding 是一个由 Scala 编写的有用的库，可以帮助我们方便的编写 MapReduce 的 Job (您可以在10行代码中编写一个简单的 Job)。在这个时候，我们将会使用 Scalding 来帮助我们识别所有的订阅。我们将会遵循以下步骤：
 
-- Write a Scalding job that provides a list of all subscription IDs that need to be copied over.
-- Run a large, multi-threaded migration to duplicate these subscriptions with a fleet of processes efficiently operating on our data in parallel.
-- Once the migration is complete, run the Scalding job once again to make sure there are no existing subscriptions missing from the Subscriptions table.
-
----
-
-## Part 2: Changing all read paths
-
-Now that the old and new data stores are in sync, the next step is to begin using the new data store to read all our data.
-
-For now, all reads use the existing Customers table: we need to move to the Subscriptions table.
-
-We need to be sure that it’s safe to read from the new Subscriptions table: our subscription data needs to be consistent. We’ll use GitHub’s [Scientist](https://github.com/github/scientist) to help us verify our read paths. Scientist is a Ruby library that allows you to run experiments and compare the results of two different code paths, alerting you if two expressions ever yield different results in production. With Scientist, we can generate alerts and metrics for differing results in real time. When an experimental code path generates an error, the rest of our application won’t be affected.
-
-We’ll run the following experiment:
-
-- Use Scientist to read from both the Subscriptions table and the Customers table.
-- If the results don’t match, raise an error alerting our engineers to the inconsistency.
-
-GitHub’s Scientist lets us run experiments that read from both tables and compare the results.
-
-After we verified that everything matched up, we started reading from the new table.
-
-Our experiments are successful: all reads now use the new Subscriptions table.
+- 编写一个Scalding job，该 job 提供需要复制的所有订阅数据 ID 的列表。
+- 运行大型多线程迁移，通过一系列可以有效对我们的数据并行操作的进程来复制这些订阅。
+- 迁移完成后，再次运行 Scalding Job，以确保订阅表中没有遗漏的订阅。
 
 ---
 
-## Part 3: Changing all write paths
+## Part 2: 修改全部的写路径
 
-Next, we need to update write paths to use our new Subscriptions store. Our goal is to incrementally roll out these changes, so we’ll need to employ careful tactics.
+现在新的和旧的数据都已经同步储存了，下一步就是开始使用新的数据储存来读取我们的全部数据。
 
-Up until now, we’ve been writing data to the old store and then copying them to the new store:
+到现在为止，所有的读操作都使用这已经存在的 Customers 表：我们需要将这些操作移到 Subscriptions 表中。
 
-We now want to reverse the order: write data to the new store and then archive it in the old store. By keeping these two stores consistent with each other, we can make incremental updates and observe each change carefully.
+我们需要确保从新的 Subscriptions 表中读取数据是安全的：我们的订阅数据需要保持一致性。我们将会使用 GitHub 的 [Scientist](https://github.com/github/scientist) 来帮助验证我们的数据读取路径。Scientist 是一个 Ruby 库可以让你运行试验并比较不同代码路径的运行结果，如果两个试验在生产中出现了不同的结果它就会提醒你。有了 Scientist，我们就可以在实时运行中生成不同结果的警告和指标。当一份试验代码路径上产生了一个错误，我们其余的应用并不会受此影响。
 
-Refactoring all code paths where we mutate subscriptions is arguably the most challenging part of the migration. Stripe’s logic for handling subscriptions operations (e.g. updates, prorations, renewals) spans thousands of lines of code across multiple services.
+我们将会运行以下试验:
 
-The key to a successful refactor will be our incremental process: we’ll isolate as many code paths into the smallest unit possible so we can apply each change carefully. Our two tables need to stay consistent with each other at every step.
+- 使用 Scientist 来同时从 Subscriptions 表和 Customers 表读取数据。
+- 如果结果并不匹配，产生一个错误来提醒我们的工程师这个结果不一致。
 
-For each code path, we’ll need to use a holistic approach to ensure our changes are safe. We can’t just substitute new records with old records: every piece of logic needs to be considered carefully. If we miss any cases, we might end up with data inconsistency. Thankfully, we can run more Scientist experiments to alert us to any potential inconsistencies along the way.
+GitHub 的 Scientist 让我们可以运行从两张表读取数据的试验并且比较运行的结果。
 
-Our new, simplified write path looks like this:
+在我们验证所有试验都匹配上之后，我们开始从新表中读取数据。
 
-We can make sure that no code blocks continue using the outdated `subscriptions` array by raising an error if the property is called:
+我们的试验是成功的：所有读的操作现在都是使用新的订阅表。
+
+---
+
+## Part 3: 修改所有写路径
+
+接下来，我们需要更新全部的写路径到我们新的 Subscriptions 储存。我们的目标是逐步推进这些变化，因此我们需要采取谨慎的策略。
+
+一直到现在 ，我们已经把数据写入到旧的储存中并且把它们复制到新的储存中：
+
+我们现在要逆转顺序：把数据写入到新的储存中之后再把它归档到旧的储存中。通过保持着两个储存的数据相互一致性，我们可以逐步更新并且仔细观察每一步的改变。
+
+在我们改变订阅的过程中最具有挑战性的部分就是重构所有的代码路径。Stripe 处理订阅操作(例如更新，h划分，续订）的逻辑跨多个服务和数千行代码。
+
+能够成功重构的关键就是我们的逐步过程：我们将隔离尽可能多的代码路径到最小的单元，从而可以仔细实现每个更改。我们的两张表需要在每一步都保持一致。
+
+对于每一个代码路径，我们都需要使用一个整体的方法来确保我们所做的改变是安全的。我们不能只是用新纪录来替换老纪录：每一段的逻辑都需要仔细考虑。如果我们忽略任何情况，或许就会出现数据不一致的情况。幸运的是，我们可以运行更多的 Scientist 试验来提醒我们这个过程中任何潜在的数据不一致。
+
+我们新的简化写入路径如下所示：
+
+我们可以确保没有代码块继续使用过时的 `subscriptions` 数组，任何对这个数组的调用都会引发错误：
 
     class Customer
       def subscriptions
@@ -147,27 +147,29 @@ We can make sure that no code blocks continue using the outdated `subscriptions`
 
 ---
 
-## Part 4: Removing old data
+## Part 4: 移除旧数据
 
-Our final (and most satisfying) step is to remove code that writes to the old store and eventually delete it.
+我们最终（也是最惬意）的一步是删除写入旧储存的代码并最后删除旧储存。
 
-Once we’ve determined that no more code relies on the `subscriptions` field of the outdated data model, we no longer need to write to the old table:
+一旦我们确信再没有代码依赖于已经过期的数据模型的 `subscriptions` 字段，我们就再也不需要把数据写入到旧的表里了。
 
-With this change, our code no longer uses the old store, and the new table now becomes our source of truth.
+有了这些改变，我们的代码再也不使用旧的储存，而新的表成为了我们信赖的数据来源。
 
-We can now remove the `subscriptions` array on all of our Customer objects, and we’ll incrementally process deletions in a lazy fashion. We first automatically empty the array every time a subscription is loaded, and then run a final Scalding job and migration to find any remaining objects for deletion. We end up with the desired data model:
+
+我们现在可以删除所有 Customer 对象的 `subscriptions` 数组，我们将会以惰性的方式来逐步进行删除。我们首先在每次加载订阅对象时自动清空数组，之后再运行一个最后的 Scalding job 和迁移来找到所有剩余要删除的对象。最终我们得到了所需要的模型。
+
 
 ---
 
-## Conclusion
+## 总结
 
-Running migrations while keeping the Stripe API consistent is complicated. Here’s what helped us run this migration safely:
+在保持 Stripe API 的一致性的同时运行迁移是复杂的。这里有帮助我们安全运行迁移的一些点：
 
-- We laid out a four phase migration strategy that would allow us to transition data stores while operating our services in production without any downtime.
-- We processed data offline with Hadoop, allowing us to manage high data volumes in a parallelized fashion with MapReduce, rather than relying on expensive queries on production databases.
-- All the changes we made were incremental. We never attempted to change more than a few hundred lines of code at one time.
-- All our changes were highly transparent and observable. Scientist experiments alerted us as soon as a single piece of data was inconsistent in production. At each step of the way, we gained confidence in our safe migration.
+- 我们制定了一份包含4个阶段的迁移策略，这个策略允许我们保持生产服务器运行的同时完成数据储存的转移，而没有任何下线时间。
+- 我们使用Hadoop离线处理数据，这让我们可以使用 MapReduce 以并行的方式来管理高数据量，而不是依赖于生产数据库上昂贵的查询。
+- 所有做的改变都是逐步的。我们从来都没有企图一次改超过几百行的代码。
+- 我们所做的所有改变都是高度透明和可观察的。一旦任何数据出现了不一致，Scientist 试验都会提醒我们。在每一步，我们都对我们的安全迁移抱有信心。
 
-We’ve found this approach effective in the many online migrations we’ve executed at Stripe. We hope these practices prove useful for other teams performing migrations at scale.
+我们发现这种方法在 Stripe 上执行的许多在线迁移中都非常有效。我们希望这些实践对其他团队执行大规模迁移会有用。
 
 
