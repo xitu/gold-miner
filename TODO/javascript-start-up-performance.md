@@ -8,7 +8,7 @@
 
 # JavaScript 启动性能 #
 
-作为 web 开发者，都知道 web 项目开发到最后，页面规模很容易变的很大。 但 **加载** 一个网页远不止从网线上传送字节那么简单。浏览器下载了页面脚本之后，它还必须解析、解释和运行它们。这篇文章将深入 JavaScript 的这一部分，（研究）*为什么*它会减慢应用程序的启动，以及*如何*解决。
+作为 web 开发者，都知道 web 项目开发到最后，页面规模很容易变的很大。 但 **加载** 一个网页远不止从网线上传送字节码那么简单。浏览器下载了页面脚本之后，它还必须解析、解释和运行它们。这篇文章将深入 JavaScript 的这一部分，（研究）*为什么*这一过程会拖慢应用程序的启动，以及*如何*解决。
 
 过去，人们并没有花很多时间优化 JavaScript 的解析、编译步骤。我们总是期望解析器在遇到 script 标签时立即解析和执行代码，但是情况并非如此。 **以下是对V8引擎工作原理的简要分析**：
 
@@ -24,7 +24,7 @@
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/0*M94-AavlZjGoudZG.">
 
-V8 的 Chrome Canary 中的运行时调用统计工具分析出的流行网站的解析和编译时间。注意，桌面端就缓慢的解析、编译在一般手机上需要更长的时间。
+V8 的 Chrome Canary 中的 Runtime Call Stats 分析出的流行网站的解析和编译时间。注意，桌面端本就缓慢的解析、编译在一般手机上需要更长的时间。
 
 启动时间对 **性能敏感的** 代码很重要。事实上，V8 —— Chrome 的 JavaScript 引擎，在 Facebook，Wikipedia 和 Reddit 等顶级网站上都会花费大量时间来解析和编译脚本：
 
@@ -40,19 +40,19 @@ V8 的 Chrome Canary 中的运行时调用统计工具分析出的流行网站�
 
 Sam Saccone 在 [Planning for Performance](https://www.youtube.com/watch?v=RWLzUnESylc) 中提到了 JS 解析的成本。
 
-随着我们进入一个逐渐移动化的世界，我们有必要知道 **解析、编译在手机上花费的时间通常是在桌面上的 2 - 5 倍**。高端手机（例如 iPhone 或 Pixel）的表现与 Moto G4非常不同。这更说明了测试代表性硬件（不仅仅是高端硬件！）的重要性，只有这样，用户体验才不会受到影响。
+随着我们进入一个逐渐移动化的世界，我们有必要知道 **解析、编译在手机上花费的时间通常是在桌面上的 2 - 5 倍**。高端手机（例如 iPhone 或 Pixel）的表现与 Moto G4 非常不同。这更说明了测试代表性硬件（不仅仅是高端硬件！）的重要性，只有这样，用户体验才不会受到影响。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*dnhO1M_zlmAhvtQY_7tZmA.jpeg">
 
 1 MB 的 JavaScript 文件在不同类别的桌面设备和移动设备上的 [解析时间](https://docs.google.com/a/google.com/spreadsheets/d/1Zk0HDGvqNO_8jaudF2jwTItI-H0blD8_ShHfLsnp_Us/edit?usp=sharing)。可以注意到，像 iPhone 7 这样的高端手机的性能和 Macbook Pro 是多么接近，而沿着图表向下看，普通的移动硬件性能则不一样了。
 
-如果应用程序需要传输的文件很大，那么广为认可的现代打包技术，如 code-splitting、tree-shaking 和 Service Worker caching 可以产生巨大作用。但是，**即使是一个小的打包文件，如果写得不好或者库选择不好，也会导致主线程在编译或函数调用时被长时间阻塞。** 整体衡量和理解真正的瓶颈在哪里是很重要的。
+如果应用程序需要传输的文件很大，那么被广泛采用的现代打包技术，如 code-splitting、tree-shaking 和 Service Worker caching 可以产生巨大作用。但是，**即使是一个小的打包文件，如果写得不好或者库选择不好，也会导致主线程在编译或函数调用时被长时间阻塞。** 整体衡量和理解真正的瓶颈在哪里是很重要的。
 
 ### JavaScript 解析、编译是普通网站的瓶颈吗？ ###
 
 『（你说的都对……）但是，我的网站又不是Facebook』，你可能会这样说。 **『外面的一般网站的解析和编译时间所占比例有多大？』**，你可能会这样问。现在我们来研究一下！
 
-我花了两个月时间深入研究了一系列（6000+）使用了不同库和框架（如React、Angular、Ember和Vue）构建的大型生产站点的性能。大多数测试最近可以在 WebPageTest 重做。所以如果你愿意的话，很容易重做这些测试，或者深入研究这些数据。下面是一些分析结果：
+我花了两个月时间测试了一系列（6000+）使用了不同库和框架（如React、Angular、Ember和Vue）构建的大型生产站点的性能。其中大多数测试最近可以在 WebPageTest 重做。所以如果你愿意的话，很容易重做这些测试，或者深入研究这些数据。下面是一些分析结果：
 
 **应用在桌面端（使用电缆）用8秒可以变得可交互，在移动端（ 3G 网络下的 Moto G4 ）则需要16秒。**
 
@@ -70,7 +70,7 @@ Sam Saccone 在 [Planning for Performance](https://www.youtube.com/watch?v=RWLzU
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*GvwfE2GjKQyLBKPmmfRwuA.png">
 
-**脚本大小很重要，但它不是一切。解析和编译时间不一定随着脚本大小的增加线性增加。** 较小的 JavaScript 打包文件通常会带来更快的 **加载** 时间（不论什么浏览器，设备和网络连接），但是你的 200KB 的JS文件不等于别人的 200KB，同样大小的文件可以有差别很大的的解析和编译时间。
+**脚本大小很重要，但它不是一切。解析和编译时间不一定随着脚本大小的增加线性增加。** 较小的 JavaScript 打包文件通常会带来更快的 **加载** 时间（忽略浏览器，设备和网络连接的影响），但是你的 200KB 的JS文件不等于别人的 200KB，同样大小的文件可以有差别很大的的解析和编译时间。
 
 ### **当前如何测量 JavaScript 的解析和编译** ###
 
@@ -128,9 +128,9 @@ Etsy的 [DeviceTiming](https://github.com/danielmendel/DeviceTiming) 工具可�
 
 - **Script streaming:** 过去，V8 已经告诉开发者通过 `async/defer` 选择使用 [Script streaming](https://blog.chromium.org/2015/03/new-javascript-techniques -for-rapid.html) 模式，可以使得解析时间减少 10 - 20％。这允许 HTML 解析器能够至少先检测到资源，将（解析）工作分配给 script streaming 线程，从而不阻塞文档解析。现在，解析器阻塞脚本也有了个模式，不需要做什么额外操作。V8 建议 **先加载较大的打包文件，因只有一个脚本流线程**（之后会说到这点）
 
-- **测量依赖的解析成本** ，比如各种库和框架。在可能的情况下，将它们切换为拥有更快解析速度的依赖（例如，把 React 切换为 Preact 或 Inferno，后两者启动时需要更少的字节码，更少的解析、编译时间）。Paul Lewis 在最近的一篇文章中介绍了 [framework bootup](https://aerotwist.com/blog/when-everything-is-important-nothing-is/) 成本。Sebastian Markbage 也在推文中 [提到](https://twitter.com/sebmarkbage/status/829733454119989248)，**一个测量框架的启动成本的好方法是首先渲染一遍视图，然后删除它，然后再次渲染，这可以告诉你它是如何扩展的**。 第一次渲染会唤起一堆懒编译的代码，之后一个更大的代码树扩展时可以获得好处。（译者著：最后这句不太明白）
+- **测量依赖的解析成本** ，比如各种库和框架。在可能的情况下，将它们切换为拥有更快解析速度的依赖（例如，把 React 切换为 Preact 或 Inferno，后两者启动时需要更少的字节码，更少的解析、编译时间）。Paul Lewis 在最近的一篇文章中介绍了 [framework bootup](https://aerotwist.com/blog/when-everything-is-important-nothing-is/) 成本。Sebastian Markbage 也在推文中 [提到](https://twitter.com/sebmarkbage/status/829733454119989248)，**一个测量框架的启动成本的好方法是首先渲染一遍视图，然后删除它，然后再次渲染，这可以告诉你它的启动成本**。因为第一次渲染会（解析、编译）唤起一堆懒编译的代码，之后重复渲染一个更大的代码树时可以不用重复进行。
 
-如果我们选择的 JavaScript 框架支持提前编译模式（AoT），也有助于大大减少在解析、编译中花费的时间。Angular 应用从中受益良多，看这个例子：
+如果我们选择的 JavaScript 框架支持提前编译模式（AoT），也有助于大大减少在解析、编译中花费的时间。Angular 应用就受益于这种模式，看这个例子：
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*sr4eb-cx3lq7hVrJGfDNaw.png">
 
@@ -138,7 +138,7 @@ Nolan Lawson 的 [『解决 Web 性能危机』](https://channel9.msdn.com/Blogs
 
 ### **当前 *浏览器* 为了减少解析和编译时间在做什么?** ###
 
-并不是只有开发者才认为生产环境的应用启动时间是一个需要改进的领域。V8 发现Octane 作为有历史的测试平台之一，对我们通常测试的 25 个热门网站的真实性能的测试效果不佳。Octane 对于 1）**JavaScript 框架**（通常代码不是单/多态性）和 2）**实际页面应用程序启动**（大多数代码是冷的）来说不是一个好的工具。这两个用例对于web 来说非常重要。也就是说，Octane 不是对所有种类的工作负载都是合理的。（译者著：这段的real-page app 不太理解，最后一句好像是作者笔误。）
+并不是只有开发者才认为生产环境的应用启动时间是一个需要改进的领域。V8 发现 Octane 作为有历史的测试平台之一，对我们通常测试的 25 个热门网站的真实性能的测试效果不佳。Octane 对于 1）**JavaScript 框架**（通常代码不是单/多态性）和 2）**实际页面应用程序启动**（大多数是冷启动代码）来说不是一个好的工具。这两个用例对于web 来说非常重要。也就是说，Octane 不是对所有种类的工作负载都是合理的。
 
 V8 团队一直努力改善启动时间，并且已经在这些地方取得了一些胜利：
 
@@ -167,7 +167,7 @@ Chrome 42 引入了[Code caching](http://v8project.blogspot.com/2015/07/code-cac
 所以，结论是， **如果我们的代码是在缓存中，V8 会在第 3 次加载时跳过解析和编译。**
 我们可以在 *chrome://flags/#v8-cache-strategies-for-cache-storage* 中查看这些差异。 我们还可以设置 `js-flags=profile-deserialization` 后运行Chrome，看看项目是否从代码缓存中加载（在日志中显示为反序列化事件）。
 
-使用 Code caching 需要注意的一个点是，它只缓存可预编译的内容。通常只是运行一次以设置全局值的顶级代码。 函数定义通常是惰性编译的，不总是被缓存。 **IIFEs**（optimize-js 用户）也被在 V8 Code caching 缓存，因为它们也可预编译。（译者著：此处不太确定）
+使用 Code caching 需要注意的一个点是，它只缓存可预编译的内容。通常只是运行一次以设置全局值的顶级代码。 函数定义通常是惰性编译的，不总是被缓存。 **IIFEs**（optimize-js 用户）也被在 V8 Code caching 缓存，因为它们也可预编译。
 
 **Script Streaming**
 
@@ -205,7 +205,7 @@ V8 也在探索在启动期间将 JavaScript 编译的部分分配到 **后台�
 
 **Optimize JS 惰性解析的括号「hack」**
 
-像 V8 这样的 JavaScript 引擎有一个惰性解析启发式方法，在进行一轮完整的解析（例如检查语法错误）之前，它们会预先解析我们脚本中的大多数函数。这是因为大多数页面都有懒惰执行的 JS 函数。
+像 V8 这样的 JavaScript 引擎有一个惰性解析启发式方法，在进行一轮完整的解析之前，它们会预先解析我们脚本中的大多数函数（例如检查语法错误）。这是因为大多数页面都有懒惰执行的 JS 函数。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/600/1*LMRg_jHJeP53vdy8aiTEJQ.png">
 
