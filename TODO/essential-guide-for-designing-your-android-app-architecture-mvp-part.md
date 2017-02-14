@@ -131,7 +131,7 @@ MVP 在单 Activity 的例子中看起来很简单。但是当我们尝试将一
 
 在下一部分，我们将探索一个真实的应用例子，希望能够很好地理解和掌握这些概念。
 
-[这是这篇文章第二部分的链接：](https://blog.mindorks.com/essential-guide-for-designing-your-android-app-architecture-mvp-part-2-b2ac6f3f9637) 
+[这是这篇文章第二部分的链接：](https://github.com/xitu/gold-miner/blob/master/TODO/essential-guide-for-designing-your-android-app-architecture-mvp-part-2.md) 
 
 [**Essential Guide For Designing Your Android App Architecture: MVP: Part 2**](https://blog.mindorks.com/essential-guide-for-designing-your-android-app-architecture-mvp-part-2-b2ac6f3f9637)
 
