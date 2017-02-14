@@ -4,35 +4,35 @@
 * 译者：
 * 校对者：
 
-# Sharing files through Intents: are you ready for Nougat? #
+# Nougat 中通过 Intents 共享文件，你准备好了吗？
 
-*Since Android 7.0 Nougat you can’t expose a file:// URI with an Intent outside your package domain, but don’t worry: here’s how you can fix it.*
+**从 Android 7.0 Nougat 开始，你将不能使用 Intent 传递 file:// URI 方式访问你包域之外的文件，但是无需苦恼：下面将介绍如何解决这个问题。**
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*OlPkbZzZ4fNdrPNcewWAlA.jpeg">
 
-**Android 7.0 Nougat** introduced some **file system permission changes** in order to improve security. If you’ve already updated your app to *targetSdkVersion* 24 (or higher) and you’re passing a *file://*[URI](https://developer.android.com/reference/android/net/Uri.html) outside your package domain through an [Intent](https://developer.android.com/reference/android/content/Intent.html) , then what you’ll get is a [FileUriExposedException](https://developer.android.com/reference/android/os/FileUriExposedException.html) .
+**Android 7.0 Nougat** 为了提高安全引入了一些 **文件系统权限变更**。如果你已经将 app 的 **目标 SDK 版本** 升级为 24 （或者更高），并且你通过 [Intent](https://developer.android.com/reference/android/content/Intent.html) 传递 **file://**[URI](https://developer.android.com/reference/android/net/Uri.html) 来访问你的包域之外的文件，那么你会遇到 [FileUriExposedException](https://developer.android.com/reference/android/os/FileUriExposedException.html) 的异常。
 
-#### Why is this happening? ####
+#### 为什么会这样呢？ ####
 
-According to the official documentation:
+根据官方文档介绍：
 
-> In order to improve the security of private files, the private directory of apps targeting Android 7.0 or higher has restricted access (`0700`). This setting prevents leakage of metadata of private files, such as their size or existence.
+> 为提高私有文件的安全性，在Android 7.0 及以上的应用中的私有目录有着严格的访问权限 （`0700`）。这个设定可以防止私有文件元数据的泄漏（比如文件的大小或者是否存在）。
 
-When you share a file with a *file://* [URI](https://developer.android.com/reference/android/net/Uri.html) , you also modify the file system permission of it and make it available to any app (until you change it again). There’s no need to say that this approach is insecure.
+当你通过 **file://** [URI](https://developer.android.com/reference/android/net/Uri.html)方式共享一个文件时，你同时修改了它的文件系统权限，是的它对所有应用都是可访问的（直到你再次修改它）。不用说这种方法是不安全的。
 
-#### Ok, but it’s affecting only Nougat, do I really have to fix it now? ####
+#### Ok, 但是这个问题只会影响 Nougat, 那我现在还需要修复吗？ ####
 
-TL;DR YES
+长话短说，当然需要。
 
-It’s true, it’s not affecting a wide range of Android device as of right now, but this is not just a feature you’re not taking advantage of: it’s going to crash on Nougat, and it’s also insecure on previous versions. And the fix is not that hard to make, so it’s definitely worth to deal with this now before your app starts crashing and your users start complaining.
+确实，目前来说这个问题并不会影响很大范围的 Android 设备，但是这不仅仅是你不采用新特性的问题 —— 如果不解决，在 Nougat 上会崩溃，并且在以前的版本上是不安全的。而且修复这个问题并不困难，所以在你的应用发生奔溃以及你的用户抱怨之前，修复这个问题确实是值得的。
 
-#### Time to show some code ####
+#### 是时候亮代码了 ####
 
-The most basic example, which is also how I found out about this condition, is when you’re passing a file [URI](https://developer.android.com/reference/android/net/Uri.html) to the camera to take a picture. You can find a GitHub repo sample at the end of this post if you want to take a look at it.
+最典型的例子（我也是通过它发现的这种问题），是当拍照时你给相机传递了一个文件 [URI](https://developer.android.com/reference/android/net/Uri.html) 来获取拍照后的照片。如果你想具体看看，在本文的结尾你可以找到一个 GitHub 代码库。
 
 ![Markdown](http://p1.bqimg.com/1949/46be5570af09f88d.png)
 
-We create a file and then we pass the [URI](https://developer.android.com/reference/android/net/Uri.html) of that file to the [Intent](https://developer.android.com/reference/android/content/Intent.html) which is going to get caught from a camera app (outside our package domain of course). This code will work fine if you’re on Marshmallow or a lower version, but it will throw an exception if you’re on Nougat and targeting sdk 24 or higher, and you’ll get a stacktrace similar to this:
+我们创建了一个文件，并把文件的 [URI](https://developer.android.com/reference/android/net/Uri.html) 传给了 [Intent](https://developer.android.com/reference/android/content/Intent.html) 来从相机应用接收文件（我们应用包域之外的路径）。这段代码在 Marshmallow 或更低版本上是正常的，在 Nougat、 SDK 24 版本或更高的版本，你会遇到下面类似的堆栈信息：
 
 ```
 
@@ -64,11 +64,11 @@ at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:88
 at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:776)                                                                                  
 ```
 
-#### FileProvider to the rescue ####
+#### 解决方案 —— FileProvider ####
 
-FileProvider is a special subclass of ContentProvider which allows us to securely share file through a *content://* URI instead of *file://* one. Why is this a better approach? Because you’re granting a temporary access to the file, which will be available for the receiver activity or service until they are active / running.
+FileProvider 是 ContentProvider 的子类，FileProvider 允许我们使用 *content://* URI 的方式取代 *file://* 实现文件的安全共享。为什么这种方法更好？因为你为文件赋予了临时的访问权限 —— 仅仅允许接收者 activity 和 service 运行时才能访问。
 
-We start by adding the `FileProvider` in our *AndroidManifest.xml*:
+首先，我们在 *AndroidManifest.xml* 中添加 `FileProvider`
 
 ```
 <manifest>
@@ -89,14 +89,14 @@ We start by adding the `FileProvider` in our *AndroidManifest.xml*:
 </manifest>
 ```
 
-We’re going to set `android:exported` to false because we don’t need it to be public, `android:grantUriPermissions` to true because it will grant temporary access to files and `android:authorities` to a domain you control, so if your domain is `com.quiro.fileproviderexample` then you can use something like `com.quiro.fileproviderexample.provider`. The authority of a provider should be unique and that’s the reason why we are using our application ID plus something like *.fileprovider:*
+我们将 `android:exported` 设置为禁止，因为我们不需要在其他应用使用；将 `android:grantUriPermissions` 设置为允许，因为这样才能给予文件临时访问权限；以及通过 `android:authorities` 设置管理的域。如果你的域为 `com.quiro.fileproviderexample`，你可以使用类似 `com.quiro.fileproviderexample.provider` 的内容来访问。提供者的授权标识应该是唯一的，所以我们往往会使用应用的包名加上类似 **.fileprovider:** 的内容。
 
 ```
 <string name="file_provider_authority" 
 translatable="false">com.quiro.fileproviderexample.fileprovider</string>
 ```
 
-Then we need to create the file_provider_path in the res/xml folder. That’s the file which defines the folders which contain the files you will be allowed to share safely. In our case we just need access to the external storage folder:
+接下来我们需要在 res/xml 目录下创建 file_provider_path。这个文件用来定义允许安全共享的文件目录。在我们的例子中，我们只需要访问外部存储目录就可以：
 
 ```
 <?xml version="1.0" encoding="utf-8"?>
@@ -106,10 +106,10 @@ Then we need to create the file_provider_path in the res/xml folder. That’s th
 </paths>
 ```
 
-Finally, we just have to change our code:
+最后，修改我们的代码：
 
 ![Markdown](http://p1.bqimg.com/1949/2d62a56e6e9d8909.png)
 
-Instead of using `Uri.fromFile(file)` we create our URI with `FileProvider.getUriForFile(context, string, file)` which will generate a new *content://* URI with the authority defined pointing to the file we passed in.
+用 `FileProvider.getUriForFile(context, string, file)` 的方式取代 `Uri.fromFile(file)` 来创建我们的 URI，`FileProvider.getUriForFile(context, string, file)` 会生成一个有权限访问我们所指向文件的 content://* URI。
 
-The receiver app will be able to open the file by calling [ContentResolver.openFileDescriptor](https://developer.android.com/reference/android/content/ContentResolver.html#openFileDescriptor%28android.net.Uri,%20java.lang.String%29) . In our case the `Intent` is handled by the camera, so we don’t have to add any more code.
+接收者应用通过调用 [ContentResolver.openFileDescriptor](https://developer.android.com/reference/android/content/ContentResolver.html#openFileDescriptor%28android.net.Uri,%20java.lang.String%29) 来访问文件。在我们代码中 `Intent` 是供相机应用使用的，所以我们无需添加其他代码。
