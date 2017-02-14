@@ -15,7 +15,7 @@
 
 ### 问题
 
-在一次滚动或惯性滑动中， RecyclerView 需要在新条目抵达屏幕时予以展示。这些新条目需要与数据相绑定（如果缓存中没有相应条目的话，还需要创建一个）。接下来，它们还需要被展开并画出来。如果所有这些都是被懒加载的，在需要展示之前才做，UI线程就会在工作完成时陷入停顿。接下来渲染可以继续并且滚动（或者说滑动，但我打算用滚动来指代它们，以简化讨论）可以平滑地继续，直到下一个条目进入视野范围。 
+在一次滚动或惯性滑动中，RecyclerView 需要在新条目抵达屏幕时予以展示。这些新条目需要与数据相绑定（如果缓存中没有相应条目的话，还需要创建一个）。接下来，它们还需要被展开并画出来。如果所有这些都是被懒加载的，在需要展示之前才做，UI 线程就会在工作完成时陷入停顿。接下来渲染可以继续并且滚动（或者说滑动，但我打算用滚动来指代它们，以简化讨论）可以平滑地继续，直到下一个条目进入视野范围。 
 
 ![](https://cdn-images-1.medium.com/max/1200/1*X9E34oKRhAJbG-uSrhv-TA.png)
 
@@ -24,11 +24,11 @@
 
 ![](https://cdn-images-1.medium.com/max/1200/1*DIr64fruHL5lp72Ji-b7rw.png)
 
-新条目使得输入阶段耗时更长，因为新的 view 需要被创建、绑定并布局。这推迟了渲染阶段的开始，从而导致它可能在帧的边界之后结束。在此情况下，就会发生掉帧。当一个新的条目来到屏幕中时，输入阶段就需要完成更多工作，以绑定（可能还要创建）正确的 view 。这推迟了 UI 线程其余的工作，以及渲染线程接下来的工作。如果这些不能在帧边界内完成的话，就会发生卡顿。 
+新条目使得输入阶段耗时更长，因为新的 view 需要被创建、绑定并布局。这推迟了渲染阶段的开始，从而导致它可能在帧的边界之后结束。在此情况下，就会发生掉帧。当一个新的条目来到屏幕中时，输入阶段就需要完成更多工作，以绑定（可能还要创建）正确的 view。这推迟了 UI 线程其余的工作，以及渲染线程接下来的工作。如果这些不能在帧边界内完成的话，就会发生卡顿。 
 
 ![](https://cdn-images-1.medium.com/max/1200/1*R0vg4lvbNilR1xB5Qrawmw.png)
 
-输入阶段的调用栈表明：新的条目进入视野范围会导致一大块时间被用于创建和绑定新的 view 。
+输入阶段的调用栈表明：新的条目进入视野范围会导致一大块时间被用于创建和绑定新的 view。
 如果我们可以在其它地方完成这些工作，而不推迟所有其它事情，不就很好吗？
 ![](https://cdn-images-1.medium.com/max/1200/1*2XWNdvsSwW8-L_DQwYxLxw.png)
 
@@ -45,11 +45,11 @@
 
 ### 细节，细节
 
-这个系统的工作方式是，在 RecyclerView 开始一个滚动时安排一个 Runnable。这个 Runnable 负责根据 layout manager 和滚动的方向预取即将进入视野的条目。预取不限于一个单独的条目。它可以同时取出多个条目，例如在使用 GridLayoutManager 且新的一行马上要出现的时候。在 25.1 版本中，预取操作被分为单独的创建/绑定操作，从而比对整组条目做操作更容易被纳入UI线程的空隙中。
+这个系统的工作方式是，在 RecyclerView 开始一个滚动时安排一个 Runnable。这个 Runnable 负责根据 layout manager 和滚动的方向预取即将进入视野的条目。预取不限于一个单独的条目。它可以同时取出多个条目，例如在使用 GridLayoutManager 且新的一行马上要出现的时候。在 25.1 版本中，预取操作被分为单独的创建/绑定操作，从而比对整组条目做操作更容易被纳入 UI 线程的空隙中。
 
 有趣的是，系统必须预测操作需要多少时间，以及它们是否可以被放入空隙中。毕竟，如果预取把当前帧推迟到截止时间之后，我们仍然会因掉帧而感觉到卡顿，只是和不预取时原因不同而已。系统处理这些细节的方式是追踪每种 view 类型的平均创建/绑定时间，从而使未来创建/绑定时间的合理预测成为可能。
 
-对嵌套 RecyclerView（每一个条目自身都是 RecyclerView 的容器）完成这些工作更加复杂，因为绑定内部 RecyclerView 并不涉及任何子控件的分配——RecyclerView 在被绑定和布局时按需取得子控件。预取系统仍然可以预先准备内层的 RecyclerView 内部的子控件，但它必须知道有多少。这就是 25.1 版本中LinearLayoutManager新API [setInitialItemPrefetchCount()](https://developer.android.com/reference/android/support/v7/widget/LinearLayoutManager.html#setInitialPrefetchItemCount%28int%29)的意义。它告诉系统，在滚动时需要预取多少条目来充满 RecyclerView。
+对嵌套 RecyclerView（每一个条目自身都是 RecyclerView 的容器）完成这些工作更加复杂，因为绑定内部 RecyclerView 并不涉及任何子控件的分配——RecyclerView 在被绑定和布局时按需取得子控件。预取系统仍然可以预先准备内层的 RecyclerView 内部的子控件，但它必须知道有多少。这就是 25.1 版本中 LinearLayoutManager 新 API [setInitialItemPrefetchCount()](https://developer.android.com/reference/android/support/v7/widget/LinearLayoutManager.html#setInitialPrefetchItemCount%28int%29)的意义。它告诉系统，在滚动时需要预取多少条目来充满 RecyclerView。
 
 ### 警告
 
@@ -64,7 +64,7 @@
 
 如果你使用 RecyclerView 提供的默认 layout manager，你将自动获得这种优化。然而，如果你使用嵌套 RecyclerView 或者自己写 layout manager，你需要改变你的代码来利用这个特性。
 
-对于嵌套 RecyclerView 而言，要获取最佳的性能，在内部的 LayoutManager 中调用 LinearLayoutManager 的 [setInitialItemPrefetchCount()](https://developer.android.com/reference/android/support/v7/widget/LinearLayoutManager.html#setInitialPrefetchItemCount%28int%29)方法（25.1版本起可用）。例如，如果你竖直方向的list至少展示三个条目，调用setInitialItemPrefetchCount(4)。
+对于嵌套 RecyclerView 而言，要获取最佳的性能，在内部的 LayoutManager 中调用 LinearLayoutManager 的 [setInitialItemPrefetchCount()](https://developer.android.com/reference/android/support/v7/widget/LinearLayoutManager.html#setInitialPrefetchItemCount%28int%29)方法（25.1版本起可用）。例如，如果你竖直方向的list至少展示三个条目，调用 setInitialItemPrefetchCount(4)。
 
 如果你实现了自己的 LayoutManager，你需要重写 [LayoutManager.collectAdjacentPrefetchPositions()](https://developer.android.com/reference/android/support/v7/widget/RecyclerView.LayoutManager.html#collectAdjacentPrefetchPositions%28int,%20int,%20android.support.v7.widget.RecyclerView.State,%20android.support.v7.widget.RecyclerView.LayoutManager.LayoutPrefetchRegistry%29)方法。该方法在数据预取开启时被 RecyclerView 调用（LayoutManager 的默认实现什么都不做）。第二，在嵌套的内层 RecyclerView 中，如果你想让你的 LayoutManager 预取数据，你同样应当实现 [LayoutManager.collectInitialPrefetchPositions()](https://developer.android.com/reference/android/support/v7/widget/RecyclerView.LayoutManager.html#collectInitialPrefetchPositions%28int,%20android.support.v7.widget.RecyclerView.LayoutManager.LayoutPrefetchRegistry%29)。
 
@@ -74,7 +74,7 @@
 
 ![](https://cdn-images-1.medium.com/max/1600/1*gmuFD82uYJmGVVEPFxs6ag.png)
 
-Systrace显示数据预取在UI线程空闲时预取数据。
+Systrace 显示数据预取在UI线程空闲时预取数据。
 ### GOTO 结尾
 
 查看 [最新的 Support Library](https://developer.android.com/topic/libraries/support-library/revisions.html)并和能预取数据的 RecyclerView 一起玩耍。同时，我将继续不清理我的房间。
