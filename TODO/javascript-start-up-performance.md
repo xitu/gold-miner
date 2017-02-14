@@ -6,7 +6,7 @@
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/2000/1*ZpwZLFDNYZodJDerr7-37A.png">
 
-# JavaScript 启动性能 #
+# JavaScript 启动性能探究 #
 
 作为 web 开发者，都知道 web 项目开发到最后，页面规模很容易变的很大。 但 **加载** 一个网页远不止从网线上传送字节码那么简单。浏览器下载了页面脚本之后，它还必须解析、解释和运行它们。这篇文章将深入 JavaScript 的这一部分，（研究）*为什么*这一过程会拖慢应用程序的启动，以及*如何*解决。
 
