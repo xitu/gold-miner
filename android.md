@@ -1,3 +1,4 @@
+* [Android MVP 架构必要知识：第一部分](https://gold.xitu.io/entry/58a27b2d2f301e006958d4aa?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jifaxu](https://github.com/jifaxu) 翻译)
 * [安卓应用栏的滚动效果](https://gold.xitu.io/entry/5899cd1361ff4b006b2280ce/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([XHShirley](https://github.com/XHShirley) 翻译)
 * [ConstraintLayout (这到底是什么)](https://gold.xitu.io/entry/589dc5382f301e0069c3791a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jifaxu](https://github.com/jifaxu) 翻译)
 * [如何搭建安卓开发持续化集成环境（Ubuntu + Jenkins + SonarQube）](https://gold.xitu.io/entry/589d1c251b69e60059ba04b5/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([skyar2009](https://github.com/skyar2009) 翻译)
