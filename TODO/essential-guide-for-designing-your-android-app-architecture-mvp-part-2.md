@@ -10,17 +10,15 @@
 
 This is the second part of the article series. In the first part, we developed the concept of MVP and worked out a blueprint for the android application architecture. If you haven’t read the first part then most of the following article will not make much sense. So, go through the first part before proceeding forward.
 
-[Here is the link to the first part](https://blog.mindorks.com/essential-guide-for-designing-your-android-app-architecture-mvp-part-1-74efaf1cda40):
+[Here is the link to the first part](https://github.com/xitu/gold-miner/blob/master/TODO/essential-guide-for-designing-your-android-app-architecture-mvp-part.md):
 
-[**Essential Guide For Designing Your Android App Architecture: MVP: Part 1**
-If you make your foundations strong, then you can rise high and touch the sky.](https://blog.mindorks.com/essential-guide-for-designing-your-android-app-architecture-mvp-part-1-74efaf1cda40) 
+[**Essential Guide For Designing Your Android App Architecture: MVP: Part 1**](https://github.com/xitu/gold-miner/blob/master/TODO/essential-guide-for-designing-your-android-app-architecture-mvp-part.md) 
 
 We will implement the MVP architecture by developing a full-fledged android application based on the blueprint sketched in the first part of this article series.
 
 The GitHub repo of the MVP project:
 
-[**MindorksOpenSource/android-mvp-architecture**
-android-mvp-architecture - This repository contains a detailed sample app that implements MVP architecture using…](https://github.com/MindorksOpenSource/android-mvp-architecture)
+[**MindorksOpenSource/android-mvp-architecture**](https://github.com/MindorksOpenSource/android-mvp-architecture)
 
 This project is developed to provide a proper way of structuring an android app. It contains all the code pieces required for most part of the android app.
 
@@ -66,8 +64,7 @@ There are a lot of interesting parts. But if I try explaining all of them at onc
 
 For any query connect with me on Twitter:
 
-[**janishar ali (@janisharali) | Twitter**
-The latest Tweets from janishar ali (@janisharali): "Check out the new release of Android-Debug-Database with complete…](https://twitter.com/janisharali)
+[**janishar ali (@janisharali)**](https://twitter.com/janisharali)
 
 ### Reference resources: ###
 
