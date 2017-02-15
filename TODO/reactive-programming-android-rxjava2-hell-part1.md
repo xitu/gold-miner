@@ -1,4 +1,4 @@
-> * 原文地址：[Observer Pattern – Reactive Programming [Android RxJava2] ( What the hell is this ) Part1](http://www.uwanttolearn.com/android/reactive-programming-android-rxjava2-hell-part1/)
+> * 原文地址：[Observer Pattern – Reactive Programming [Android RxJava2]\( What the hell is this ) Part1](http://www.uwanttolearn.com/android/reactive-programming-android-rxjava2-hell-part1/)
 * 原文作者：[Hafiz Waleed Hussain](http://www.uwanttolearn.com/author/admin/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：
