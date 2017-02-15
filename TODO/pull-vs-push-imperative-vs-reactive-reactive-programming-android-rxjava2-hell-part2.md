@@ -1,10 +1,10 @@
-> * 原文地址：[Pull vs Push & Imperative vs Reactive – Reactive Programming [Android RxJava2] ( What the hell is this ) Part2](http://www.uwanttolearn.com/android/pull-vs-push-imperative-vs-reactive-reactive-programming-android-rxjava2-hell-part2/)
+> * 原文地址：[Pull vs Push & Imperative vs Reactive – Reactive Programming [Android RxJava2]|( What the hell is this ) Part2](http://www.uwanttolearn.com/android/pull-vs-push-imperative-vs-reactive-reactive-programming-android-rxjava2-hell-part2/)
 * 原文作者：[Hafiz Waleed Hussain](http://www.uwanttolearn.com/author/admin/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：
 * 校对者：
 
-## Pull vs Push & Imperative vs Reactive – Reactive Programming [Android RxJava2] ( What the hell is this ) Part2 ##
+## Pull vs Push & Imperative vs Reactive – Reactive Programming [Android RxJava2]\( What the hell is this ) Part2 ##
 
 WOW, we got one more day so its time to make this day awesome by learning something new 🙂.
 
