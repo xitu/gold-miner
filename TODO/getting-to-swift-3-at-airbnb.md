@@ -190,7 +190,7 @@ func collectionView(
 
 #### Swift 3 方法命名 ####
 
-在手动转换代码的时候（在 Xcode 转换工具不好使，或者的时候），我们经常“表面”的修改方法名字，来让调用会正确的进行。采用 Swift 2.3 的方法签名，像这样：
+在手动转换代码的时候（在 Xcode 转换工具不好使，或者重组的时候），我们经常“表面”的修改方法名字，来让调用会正确的进行。采用 Swift 2.3 的方法签名，像这样：
 
 ```
 func incrementCounter(counter: Counter, atIndex index: Int)
