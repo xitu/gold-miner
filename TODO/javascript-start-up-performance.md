@@ -8,13 +8,13 @@
 
 # JavaScript 启动性能探究 #
 
-作为 web 开发者，都知道 web 项目开发到最后，页面规模很容易变的很大。 但 **加载** 一个网页远不止从网线上传送字节码那么简单。浏览器下载了页面脚本之后，它还必须解析、解释和运行它们。这篇文章将深入 JavaScript 的这一部分，（研究）*为什么*这一过程会拖慢应用程序的启动，以及*如何*解决。
+作为 web 开发者，都知道 web 项目开发到最后，页面规模很容易变的很大。 但 **加载** 一个网页远不止从网线上传送字节码那么简单。浏览器下载了页面脚本之后，它还必须解析、解释和运行它们。这篇文章将深入 JavaScript 的这一部分，研究 **为什么** 这一过程会拖慢应用程序的启动，以及 **如何** 解决。
 
 过去，人们并没有花很多时间优化 JavaScript 的解析、编译步骤。我们总是期望解析器在遇到 script 标签时立即解析和执行代码，但是情况并非如此。 **以下是对V8引擎工作原理的简要分析**：
 
-<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*GuWInZljjvtDpdeT6O0emA.png" title="描述V8工作流程的简图。这是我们正在努力达到的理想化流程。">
+<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*GuWInZljjvtDpdeT6O0emA.png" >
 
-描述V8工作流程的简图。这是我们正在努力达到的理想化流程。
+上图是描述 V8 工作流程的简图，这是我们正在努力达到的理想化流程。
 
 我们来着重分析几个主要阶段。
 
@@ -32,7 +32,7 @@ V8 的 Chrome Canary 中的 Runtime Call Stats 分析出的流行网站的解析
 
 粉红色区域（JavaScript）表示在 V8 和 Blink 的 C++ 中花费的时间，而橙色和黄色则表示解析和编译所用时间。
 
-解析和编译也在 **大量** 你可能正在使用的大型网站和框架中被视为一个瓶颈。以下是来自 Facebook 的 Sebastian Markbage 和 Google 的 Rob Wormald 的推文：
+在你可能正在使用的 **大量** 大型网站和框架中，解析和编译也被视为一个性能瓶颈。以下是来自 Facebook 的 Sebastian Markbage 和 Google 的 Rob Wormald 的推文：
 
 ![Markdown](http://p1.bqimg.com/1949/1b2fcab3d77309c1.png)
 
@@ -46,7 +46,7 @@ Sam Saccone 在 [Planning for Performance](https://www.youtube.com/watch?v=RWLzU
 
 1 MB 的 JavaScript 文件在不同类别的桌面设备和移动设备上的 [解析时间](https://docs.google.com/a/google.com/spreadsheets/d/1Zk0HDGvqNO_8jaudF2jwTItI-H0blD8_ShHfLsnp_Us/edit?usp=sharing)。可以注意到，像 iPhone 7 这样的高端手机的性能和 Macbook Pro 是多么接近，而沿着图表向下看，普通的移动硬件性能则不一样了。
 
-如果应用程序需要传输的文件很大，那么被广泛采用的现代打包技术，如 code-splitting、tree-shaking 和 Service Worker caching 可以产生巨大作用。但是，**即使是一个小的打包文件，如果写得不好或者库选择不好，也会导致主线程在编译或函数调用时被长时间阻塞。** 整体衡量和理解真正的瓶颈在哪里是很重要的。
+如果应用程序需要传输的文件很大，那么被广泛采用的现代打包技术，如 code-splitting、tree-shaking 和 Service Worker caching 可以产生巨大作用。但是，**即使文件很小，如果代码写得不好或者用了很差的第三方库，也会导致主线程在编译或函数调用时被长时间阻塞。** 整体衡量和理解真正的瓶颈在哪里是很重要的。
 
 ### JavaScript 解析、编译是普通网站的瓶颈吗？ ###
 
@@ -62,15 +62,15 @@ Sam Saccone 在 [Planning for Performance](https://www.youtube.com/watch?v=RWLzU
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*NacL9cZJ1osZowPS6hbCsQ.jpeg">
 
-在移动设备上，解析时间比在桌面设备上高出36％。
+在移动设备上，解析时间比在桌面设备上多出36％。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*uTRfB5pne06h8lp5jGtiIQ.jpeg">
 
-**大家都传输了巨大的 JS 打包文件吗？没有我猜到的那么大，但还有改进的余地。** 410KB，这是开发者传输的 gzip 压缩后的 JS 文件大小的中位数。这与 HTTPArchive 报告的『平均每网页 JS 大小』420KB 比较符合。最糟糕的情况下，服务器会向任何网页请求者发送高达 10MB 的脚本文件。
+**大家都传输了巨大的 JS 打包文件吗？没有我猜到的那么大，但还有改进的余地。** 410KB，这是开发者传输的 gzip 压缩后的 JS 文件大小的中位数。这与 HTTPArchive 报告的『平均每网页 JS 大小』420KB 比较符合。最差劲的网站会向任何网页请求者发送高达 10MB 的脚本文件。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*GvwfE2GjKQyLBKPmmfRwuA.png">
 
-**脚本大小很重要，但它不是一切。解析和编译时间不一定随着脚本大小的增加线性增加。** 较小的 JavaScript 打包文件通常会带来更快的 **加载** 时间（忽略浏览器，设备和网络连接的影响），但是你的 200KB 的JS文件不等于别人的 200KB，同样大小的文件可以有差别很大的的解析和编译时间。
+**脚本大小很重要，但它不是一切。解析和编译时间不一定随着脚本大小的增加线性增加。** 较小的 JavaScript 打包文件通常会减少 **加载** 时间（忽略浏览器，设备和网络连接的影响），但是你的 200KB 的JS文件不等于别人的 200KB，同样大小的文件可以有差别很大的的解析和编译时间。
 
 ### **当前如何测量 JavaScript 的解析和编译** ###
 
@@ -82,7 +82,7 @@ Timeline (Performance panel) > Bottom-Up/Call Tree/Event Log 可以帮助我们�
 
 **Chrome Tracing**
 
-在 Chrome 地址栏输入 **about:tracing** 之后，这个 Chrome 的底层跟踪工具允许我们使用 `disabled-by-default-v8.runtime_stats` 目录来深入了解 V8 的时间消耗详情。V8 几天前发布了一个 [循序渐进的指导文档](https://docs.google.com/presentation/d/1Lq2DD28CGa7bxawVH_2OcmyiTiBn74dvC6vn2essroY/edit#slide=id.g1a504e63c9_2_84) 可以帮助你了解它的用法。
+在 Chrome 地址栏输入 **about:tracing** 之后，这个 Chrome 的底层跟踪工具允许我们使用 `disabled-by-default-v8.runtime_stats` 类别来深入了解 V8 的时间消耗详情。V8 几天前发布了一个 [循序渐进的指导文档](https://docs.google.com/presentation/d/1Lq2DD28CGa7bxawVH_2OcmyiTiBn74dvC6vn2essroY/edit#slide=id.g1a504e63c9_2_84) 可以帮助你了解它的用法。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/0*P-_pLIITtYJRikRN.">
 
@@ -92,7 +92,7 @@ Timeline (Performance panel) > Bottom-Up/Call Tree/Event Log 可以帮助我们�
 
 当我们使用 Chrome 的 Capture Dev Tools Timeline 进行跟踪分析时，WebPageTest 的 『Processing Breakdown』 页面包含了对 V8 编译、EvaluateScript 和 FunctionCall 的时间的深入分析。
 
-现在我们还可以通过指定 `disabled-by-default-v8.runtime_stats` 为自定义跟踪目录来获得 **Runtime Call Stats**（WPT 的 Pat Meenan 现在默认这样做！）。
+现在我们还可以通过指定 `disabled-by-default-v8.runtime_stats` 为自定义跟踪类别来获得 **Runtime Call Stats**（WPT 的 Pat Meenan 现在默认这样做！）。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*tV48evC-XzYkoHonyKGkOw.png">
 
@@ -106,7 +106,7 @@ Timeline (Performance panel) > Bottom-Up/Call Tree/Event Log 可以帮助我们�
 
 第 3 个脚本不重要，第 1 个脚本与第 2 个脚本分开（ *performance.mark()* 在要测试的 script 标签之前执行）是重要的。
 
-*使用此方法时，V8 的 preparser 可能会影响后续重新加载。这可以通过在脚本的结尾处附加一个随机字符串来解决，Nolan 在他的 optimize-js benchmarks 中就是这样做的。*
+**使用此方法时，V8 的 preparser 可能会影响后续重新加载。这可以通过在脚本的结尾处附加一个随机字符串来解决，Nolan 在他的 optimize-js benchmarks 中就是这样做的。**
 
 我使用类似的方法用 Google Analytics 来测量 JavaScript 解析时间的影响：
 
@@ -122,7 +122,7 @@ Etsy的 [DeviceTiming](https://github.com/danielmendel/DeviceTiming) 工具可�
 
 ### **当前可以做什么来减少 JavaScript 解析时间?** ###
 
-**传输更少的 JavaScript。** 需要解析的脚本越少，我们在解析和编译阶段用的时间就越少。
+- **传输更少的 JavaScript。** 需要解析的脚本越少，我们在解析和编译阶段用的时间就越少。
 
 - **使用 code-splitting 技术，只发送用户当前路由需要的代码，延迟加载其余代码。** 想要避免解析太多的 JS，这可能是最有帮助的方法。类似 [PRPL](https://developers.google.com/web/fundamentals/performance/prpl-pattern/) 的模式鼓励这种基于路由的文件分块，现在已经被 Flipkart、Housing.com 和 Twitter 采用。
 
@@ -138,7 +138,7 @@ Nolan Lawson 的 [『解决 Web 性能危机』](https://channel9.msdn.com/Blogs
 
 ### **当前 *浏览器* 为了减少解析和编译时间在做什么?** ###
 
-并不是只有开发者才认为生产环境的应用启动时间是一个需要改进的领域。V8 发现 Octane 作为有历史的测试平台之一，对我们通常测试的 25 个热门网站的真实性能的测试效果不佳。Octane 对于 1）**JavaScript 框架**（通常代码不是单/多态性）和 2）**实际页面应用程序启动**（大多数是冷启动代码）来说不是一个好的工具。这两个用例对于web 来说非常重要。也就是说，Octane 不是对所有种类的工作负载都是合理的。
+并不是只有开发者才认为生产环境的应用启动时间是一个需要改进的领域。V8 发现 Octane 作为有历史的测试平台之一，对我们通常测试的 25 个热门网站的真实性能的测试效果不佳。Octane 对于 1）**JavaScript 框架**（通常代码不是单/多态性）和 2）**实际页面应用程序启动**（大多数是冷启动代码）来说不是一个好的工具。这两个用例对于web 来说非常重要。也就是说，Octane 不是对所有种类的工作负载都是不合理的。
 
 V8 团队一直努力改善启动时间，并且已经在这些地方取得了一些胜利：
 
@@ -167,15 +167,15 @@ Chrome 42 引入了[Code caching](http://v8project.blogspot.com/2015/07/code-cac
 所以，结论是， **如果我们的代码是在缓存中，V8 会在第 3 次加载时跳过解析和编译。**
 我们可以在 *chrome://flags/#v8-cache-strategies-for-cache-storage* 中查看这些差异。 我们还可以设置 `js-flags=profile-deserialization` 后运行Chrome，看看项目是否从代码缓存中加载（在日志中显示为反序列化事件）。
 
-使用 Code caching 需要注意的一个点是，它只缓存可预编译的内容。通常只是运行一次以设置全局值的顶级代码。 函数定义通常是惰性编译的，不总是被缓存。 **IIFEs**（optimize-js 用户）也被在 V8 Code caching 缓存，因为它们也可预编译。
+使用 Code caching 需要注意的一个点是，它只缓存可预编译的代码。通常只是运行一次以设置全局变量的顶层代码。 函数定义通常是惰性编译的，不总是被缓存。 **IIFEs**（optimize-js 用户）也被在 V8 Code caching 缓存，因为它们也可预编译。
 
 **Script Streaming**
 
-[Script streaming](https://blog.chromium.org/2015/03/new-javascript-techniques-for-rapid.html) 允许网开始下载后在 **单独的后台线程** 上解析异步或延迟脚本，从而将页面加载速度提高了多达10％。如前所述，这同样适用于 **同步** 脚本。
+[Script streaming](https://blog.chromium.org/2015/03/new-javascript-techniques-for-rapid.html) 允许脚本开始下载后在 **单独的后台线程** 上解析异步或延迟脚本，从而将页面加载速度提高了多达10％。如前所述，这同样适用于 **同步** 脚本。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*ooXJ0NES-gXEzteaGPL2nQ.png">
 
-自从该功能首次引入以来，V8 已经切换到允许 **所有脚本**、*甚至* 是 `src=""` 的解析器阻塞脚本在后台线程上解析，所以所有人都应该在这里看到一些成果。唯一需要注意的是，这里只有一个后台线程，所以把大的、关键的脚本先分配给它很重要。*在这里思考任何潜在的优化都很重要。*
+自从该功能首次引入以来，V8 已经切换到允许 **所有脚本**、*甚至* 是 `src=""` 的解析器阻塞脚本在后台线程上解析，所以所有人都应该在这里看到一些成果。唯一需要注意的是，这里只有一个后台线程，所以把大的、关键的脚本先分配给它很重要。**在这里思考任何潜在的优化都很重要。**
 
 **经验之谈是，把 defer 脚本放在 <head> 里，这样 V8 就可以早发现资源，然后在用台线程解析它。**
 
@@ -213,7 +213,7 @@ V8 也在探索在启动期间将 JavaScript 编译的部分分配到 **后台�
 
 optimize-js 提前解析脚本，在它知道（或通过启发式假设）的函数将立即执行的地方插入括号来使其获得 **更快的执行**。对一些函数插入括号是稳妥的（比如带有 ! 的 IIFE）。其它的就是基于启发式的（例如在 Browserify 或 Webpack 包中，假定所有模块都急切加载，就不一定适用这种情况）。总而言之，V8 希望这样的 hack 不再被需要，但现在我们可以认为这是一个优化，如果我们知道你在做什么。
 
-*V8 也在努力降低我们猜错的情况下的成本，这也应该减少对括号的需要*
+*V8 也在努力降低编译器判断错误的情况下的成本，这也应该减少对括号的需要*
 
 ### 总结 ###
 
@@ -242,4 +242,4 @@ optimize-js 提前解析脚本，在它知道（或通过启发式假设）的�
 - [Do Browsers Parse JavaScript On Every Page Load](http://stackoverflow.com/questions/1096907/do-browsers-parse-javascript-on-every-page-load/)
 
 
-*感谢 V8 (Toon Verwaest, Camillo Bruni, Benedikt Meurer, Marja Hölttä, Seth Thompson), Nolan Lawson (MS Edge), Malte Ubl (AMP), Tim Kadlec (Synk), Gray Norton (Chrome DX), Paul Lewis, Matt Gaunt and Rob Wormald (Angular) and for their reviews of this article.*
+**向 V8 (Toon Verwaest, Camillo Bruni, Benedikt Meurer, Marja Hölttä, Seth Thompson), Nolan Lawson (MS Edge), Malte Ubl (AMP), Tim Kadlec (Synk), Gray Norton (Chrome DX), Paul Lewis, Matt Gaunt and Rob Wormald (Angular) 致谢，同时感谢他们对本文的修订**
