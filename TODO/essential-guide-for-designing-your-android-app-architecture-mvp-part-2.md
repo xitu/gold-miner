@@ -10,17 +10,18 @@
 
 这是本系列文章的第二部分。在第一部分，我们发展了 MVP 的概念，并做出了一个安卓应用架构的蓝图。如果你还没有阅读第一部分，那么大部分接下来的文章将对你没有多大意义。所以，在你继续读下去之前，浏览一遍第一部分。
 
-[这是指向第一部分的链接](https://blog.mindorks.com/essential-guide-for-designing-your-android-app-architecture-mvp-part-1-74efaf1cda40):
 
-[**Android MVP 架构必要知识：第一部分**
-扎实的基础是成功的保证。](https://blog.mindorks.com/essential-guide-for-designing-your-android-app-architecture-mvp-part-1-74efaf1cda40) 
+[这是指向第一部分的链接](https://github.com/xitu/gold-miner/blob/master/TODO/essential-guide-for-designing-your-android-app-architecture-mvp-part.md):
+
+
+
+[**Android MVP 架构必要知识：第一部分**](https://github.com/xitu/gold-miner/blob/master/TODO/essential-guide-for-designing-your-android-app-architecture-mvp-part.md) 
 
 基于在第一部分中提出的蓝图，我们将开发一个成熟的安卓应用，通过它实现 MVP 架构。
 
 MVP 项目的 GitHub repo 地址:
 
-[**MindorksOpenSource/android-mvp-architecture**
-android-mvp-architecture - This repository contains a detailed sample app that implements MVP architecture using…](https://github.com/MindorksOpenSource/android-mvp-architecture)
+[**MindorksOpenSource/android-mvp-architecture**](https://github.com/MindorksOpenSource/android-mvp-architecture)
 
 本项目旨在提供一种正确的架构安卓应用的方式。它包括了安卓应用的大多数部分需要的全部代码。
 
