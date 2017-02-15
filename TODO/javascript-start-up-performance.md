@@ -2,7 +2,7 @@
 * 原文作者：[Addy Osmani](https://medium.com/@addyosmani?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Professor-Z](https://github.com/Professor-Z)
-* 校对者：
+* 校对者：[fghpdf](https://github.com/fghpdf) [skyar2009](https://github.com/skyar2009)
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/2000/1*ZpwZLFDNYZodJDerr7-37A.png">
 
