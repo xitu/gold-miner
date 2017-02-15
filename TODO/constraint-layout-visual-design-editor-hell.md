@@ -101,7 +101,7 @@ This icon very simple and awesome. If I want to clear all constraints I can clic
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-09-37-29-221x300.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-09-37-29.gif)
 
 Now as you saw in above image auto connect (magnet icon) is turned ON thats why all constraints automatically created for me. When I moved into center horizontal but in the end when I click cross icon all constraints are removed.
-如上图所示，自动约束（磁铁图标）是打开的，这就是为什么当我将视图设为横向居中时会自动构建约束，但是当我点击了交叉图标，所有的约束都被移除掉了。
+如上图所示，自动约束（磁铁图标）是打开的，这就是为什么当我将视图设为水平居中时会自动构建约束，但是当我点击了交叉图标，所有的约束都被移除掉了。
 
 **Stars** **icon:**
 **星星** **图标**
