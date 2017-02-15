@@ -1,50 +1,50 @@
 > * 原文地址：[Getting to Swift 3](https://medium.com/airbnb-engineering/getting-to-swift-3-at-airbnb-79a257d2b656#.b0f62n181)
 * 原文作者：[Chengyin Liu](https://twitter.com/chengyinliu), [Paul Kompfner](https://github.com/kompfner), [Michael Bachand](https://twitter.com/michaelbachand)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[Deepmissea](http://deepmissea.blue)
 * 校对者：
 
-# Getting to Swift 3 #
+# 步入 Swift 3 #
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*yRyt_nc-U0j7xGW0bMADOg.png">
 
-Airbnb has been using Swift since the language’s inception. We’ve seen many benefits from using this modern, safe, community-driven language.
+从 Swift 出现开始，Airbnb 就开始使用它。我们从这门现代、安全、社区驱动的语言看到了很多好处。
 
-Until recently, a large part of our codebase had been in Swift 2. We’ve just finished our migration to Swift 3, right in time for the release of Xcode that drops Swift 2 support.
+直到最近，我们大部分的代码还是基于 Swift 2 的。我们刚刚完成了 Swift 3 的迁移，正好赶上 Xcode 新版发布，就舍弃了对 Swift 2 的支持。
 
-We want to share with the community our approach to this migration, the effect Swift 3 has had on our app, and some technical insights we gained along the way.
+我们想在社区分享我们的迁移方式，Swift 3 对我们应用的影响，以及我们在此过程中获得的一些技术见解。
 
-### The “No Disruption to Development” Approach ###
+### “可持续发展”的方法 ###
 
-We have dozens of modules and several 3rd-party libraries written in Swift, comprising thousands of files and hundreds of thousands of lines of code. As if the size of this Swift codebase weren’t enough of a challenge, the fact that Swift 2 and Swift 3 modules cannot import each other further complicated the migration process. Since the Swift ABI changed between versions 2 and 3, even correct Swift 3 code that imports Swift 2 libraries will not compile. This incompatibility made it difficult to parallelize code conversion.
+我们有几十个模块和几个三方库，都是用 Swift 编写的，包括了几千个文件和几十万代码。就好像这些 Swift 的代码量不是个挑战一样，Swift 2 和 Swift 3 模块之间无法互相导入的事实，更加剧了迁移过程的复杂度。由于 Swift ABI 在版本 2 和 3 之间的改变，即使是正确的 Swift 代码引入 Swift 2 的库也不能编译。这个不兼容性，导致了代码并行优化变得异常困难。
 
-To make sure we could incrementally convert and validate our code, we began by creating a dependency graph which topologically sorted our 36 Swift modules. Our upgrade plan was as follows:
+为了确保我们能渐进地转换并校验代码，我们建立了一个依赖图，为我们 36 个 Swift 模块进行了拓扑排序。我们的升级计划如下：
 
-1. Upgrade CocoaPods to 1.1.0 (to support a necessary pod upgrade)
+1. 升级 CocoaPods 到 1.1.0（用来支持所需要的 pod 升级）
 
-2. Upgrade 3rd-party pods to Swift 3 versions
+2. 升级第三方的 pods 到 Swift 3 版本
 
-3. Convert our own modules in topological order
+3. 按照拓扑顺序，转换我们自己的模块
+ 
+从与已经完成迁移的公司的对话中，我们了解到冻结开发是一个常见策略。如果可能的话，我们希望尽量避免代码冻结，即使这意味着增加迁移的难度。由于转换工作无法简单的并行化，全员出动（all-hands-on-deck）的方法是低效的。而且，由于无法估计转换要花多长时间，所以我们想确保在迁移的过程中，继续的发布新版本。
 
-From speaking with other companies who had already completed the migration, we learned that freezing development was a common strategy. We wanted to avoid a code freeze if at all possible, even if it meant some added difficulty for those doing the migration. Since the conversion work would not be easily parallelizable, an all-hands-on-deck approach would be inefficient. Also, since it was difficult to estimate how long the conversion would take, we wanted to ensure that we could continue to ship new releases during the migration.
+我们有三个人来做迁移工作。两个人专注于代码的转换，然后第三个人来协调团队沟通和基准的检测。
 
-We had three people working on the migration. Two people focused on the code conversion, and the third focused on coordinating, communicating with the team, and benchmarking.
+包括准备工作，我们项目的时间线看起来是这样的：
 
-Including the preparation work, our project timeline looked like this:
+- 1 周：调研和准备（一个人）
 
-- 1 Week: investigation and preparation (one person)
+- 2.5 周：转换（两个人），并分析转换的效率，与大团队沟通（一个人）- 
 
-- 2.5 Weeks: conversion (two people), profiling impact of conversion and communication with larger team (one person)
+- 2 周：QA 和修复 bug（QA 团队 + 各个功能的作者）
 
-- 2 Weeks: QA and bug fixing (QA team + assorted iOS feature owners)
+### Swift 3 的影响 ###
 
-### The Impact of Swift 3 ###
+在我们对 Swift 3 新语言特性的感到兴奋时，我们也想知道这次更新会对最终用户，以及整体的开发体验有怎样的影响。我们密切关注着 Swift 3 对发布的 IPA 大小和调试时构建时间的影响，因为至今为止，这些是  Swift 项目的两个最大痛点。不幸的是，在尝试了不同的优化设置测试以后，Swift 3 在这两点上的指标还是略差。
 
-While we were excited about Swift 3’s new language features, we also wanted to understand how the update would affect our end users and overall developer experience. We closely monitored Swift 3’s impact on release IPA size and debug build time, since these have been our two largest Swift pain points so far. Unfortunately, after experimenting with different optimization settings, Swift 3 still scored marginally worse on both metrics.
+#### 发布 IPA 的体积 ####
 
-#### Release IPA Size ####
-
-After migrating to Swift 3, we saw a 2.2MB increase in our release IPA. A bit of digging revealed that this was almost entirely due to increases in the size of Swift’s libraries (the size of our own binaries barely changed). Here are a few examples we found of increases in uncompressed binary size:
+在迁移到 Swift 3 以后，我们发现 IPA 增加了 2.2MB。经过一点挖掘，我们发现，这几乎都是由于 Swift 的标准库体积增加（我们自己的二进制文件大小几乎没有改变）。这里有一些未压缩二进制大小增加的例子：
 
 - libswiftFoundation.dylib: up 233.40% (3.8 MB)
 
@@ -52,67 +52,68 @@ After migrating to Swift 3, we saw a 2.2MB increase in our release IPA. A bit of
 
 - libswiftDispatch.dylib: up 344.61% (0.8 MB)
 
-Given the enhancements in Swift 3’s libraries like Foundation, this change is understandable. Although, when the much-anticipated stable Swift ABI lands, applications should no longer have to suffer size increases to benefit from these enhancements.
+由于 Swift 3 库的增益，比如 Foundation，这种增加也是可以理解的。尽管，我们更期待的是 Swift ABI 稳定时，程序不用再被增加的体积所影响，并且获得增益的好处。
 
-#### Debug Build Time ####
+#### 调试的构建时间 ####
 
-Our debug build time was 4.6% slower after the migration, adding 16 seconds to what was previously 6 minutes.
+我们迁移之后，程序的构建时间比之前慢了 4.6%，以前 6 分钟，增加了 16 秒。
 
-We tried to compare per-function compile times between Swift 2 and Swift 3, but were unable to draw concrete conclusions since the profiles were so different. However, we did find a function whose compile time had ballooned to 12 seconds due to the migration. Fortunately, we were able to massage it back down, but it illustrated to us the importance of checking converted code for outliers like this. Tools like [Build Time Analyzer for Xcode](https://github.com/RobertGummesson/BuildTimeAnalyzer-for-Xcode)  can help, or you can just [set the appropriate Swift compiler flags and parse the resulting build logs](http://irace.me/swift-profiling) .
+我们试着比较在 Swift 2 和 Swift 3 之间每个函数的编译时间，但是我们无法得出具体结论，因为他们的配置文件大不相同。我们确实发现了一个函数，由于迁移，编译时间暴增 12 秒。幸运的是，我们能慢慢把它还原下来，但这也说明了检查转换代码的重要性。[Build Time Analyzer for Xcode](https://github.com/RobertGummesson/BuildTimeAnalyzer-for-Xcode) 这个工具很有帮助，或者你只需要[设置适当的编译标识，并解析他们，生成日志](http://irace.me/swift-profiling)。
 
-#### Runtime Issues ####
+#### Runtime 问题 ####
 
-Unfortunately, the migration work isn’t finished even after your code compiles in Swift 3. The Xcode code conversion tool doesn’t guarantee identical runtime behavior. Moreover, as we’ll discuss later, the code conversion still involves manual work and there are some gotchas. This, unfortunately, can mean regressions. Since our unit test coverage didn’t give us sufficient confidence, we had to spend extra QA cycles on the newly migrated app.
+不幸地，代码在 Swift 3 下成功编译并不意味着完成了迁移的工作。Xcode 的代码转换工具不能保证运行时的行为像编译时正常。此外，这是我们一会儿要讨论的，代码转换还是需要一些手动的工作，而且还有一些陷阱。这些不幸的事情，意味着代码回归。由于单元测试覆盖率没有给我们足够的信心，我们不得不耗费额外的 QA 周期在新迁移的应用上。
 
-The first QA pass through the newly migrated app yielded dozens of fairly obvious issues. The vast majority of issues were resolved quickly (in a matter of hours) by the 3-person team responsible for the migration, primarily through the application of a couple of the techniques discussed later in this doc. After this initial elimination of the low-hanging, highly visible regressions, the iOS team at large was left with 15 potential regressions — 3 of which were crashes — that required investigation before the next app version release.
+首先我们通过 QA 过滤最新迁移的应用，带来了几十个显而易见的问题。通过应用本文后面讨论的几种技术，大部分的问题都被三人小队快速地解决了（在几个小时内）。经过初步的消除容易的问题，高可见度的回归分析，我们的 iOS 团队在大型项目里留下了 15 个潜在回归，其中 3 个崩溃，这是我们在发布下一版本应用前需要解决的。
 
-### The Code Conversion Process ###
+### 代码转换过程 ###
 
-We started by creating a new `swift-3` branch from `master`. As mentioned earlier, we tackled the code conversion module by module, starting with leaf modules and working our way up the dependency tree. Wherever possible, we worked on converting different modules in parallel. When we couldn’t, we sat together, calling out what we were working on so as to avoid collisions.
+我们从 `master` 新建一个 `swift-3` 的分支开始。和刚才提到的一样，我们模块化的处理了代码转换模块，从叶子模块开始，依据依赖树展开工作。只要可能，我们就并行的转换不同的模块。如果不能，我们就在一起说一声我们正在做的，以避免冲突。
 
-For each module, the process was roughly the following:
+对于每个模块，过程大概是这样的：
 
-1. Create a new branch from the `swift-3` branch
+1. 从 `swift-3` 创建一个新的分支
 
-2. Run the Xcode code conversion tool on the module
+2. 在模块上运行 Xcode 代码转换工具
 
-3. Commit and push changes
+3. 提交并推送更改
 
-4. Build
+4. 构建
 
-5. Manually fix a number of build errors
+5. 手动修复一些构建错误
 
-6. Commit and push changes
+6. 提交并且推送更改
 
-7. Rebuild
+7. 再构建
 
-8. Repeat the previous 3 steps until finished
+8. 重复前面 3 步，直到完成
 
-When manually updating code, we held to the philosophy “do the most literal code conversion.” This meant that we didn’t aim to improve the safety of our code during the conversion. We did this for two reasons. First, since the team was actively developing in Swift 2, the process was a race against time. Second, we wanted to minimize the ever-present risk of introducing regressions.
+在手动地更新代码时，我们坚持的哲学是“做最表面的代码转换”。这意味着我们的目的不是在转换期间提高代码的安全性。这么做的原因有两个。第一，由于团队正在 Swift 2 积极开发，这是一场与时间的赛跑。第二，我们希望代码的回归风险降到最小。
 
-Fortunately, we undertook this project during a period of time when work was slower due to the holidays. This meant that we could safely go a number of days without rebasing `swift-3` onto `master` without falling too far behind. Whenever we did rebase, we used `git rebase -Xours master` to keep as much of `swift-3` as possible while defaulting to code in `master` to resolve conflicts.
+幸运地是，我们在进行这个项目的时间是比较宽裕的，因为恰好是假期。这意味着我们可以安全的度过几天，即使不急着把 `swift-3` 移接（rebase）到 `master` 分支上，也不会落后太多。在我们要移接的时候，使用 `git rebase -Xours master` 来保持尽量多的 `swift-3` 代码，而默认用 `master` 上的代码解决冲突。
 
-Once `swift-3` was caught up with `master`, we knew we’d need about a day to sort through a number of issues before we’d be comfortable merging it. With an iOS team our size, though, `master` is a moving target. So, to complete the Swift 3 migration we strongly encouraged the entire team (minus the ones doing the migration) to really, truly take a Saturday off work 😄.
+一旦 `swift-3` 的进度被 `master` 赶上，我们就知道在合并它之前，大概需要一天的时间来解决这些问题。鉴于我们 iOS 团队的规模，而且 `master` 是一个动态的目标。所以，为了完成 Swift 3 的迁移工作，我们强烈的鼓励整个团队（除了做代码迁移的）做到真真正正的周六歇一天 😄。
 
-### Issues Worth Mentioning ###
 
-#### Block Parameters in Objective-C ####
+### 值得一提的问题 ###
 
-One of the most common issues we encountered where Xcode did not automatically suggest a fix has to do with bridging block parameters between Objective-C and Swift. Consider this method declaration in an Objective-C header:
+#### Objective-C 中的闭包参数 ####
+
+我们最常见的问题之一，就是 Xcode 没有自动建议修复 Objective-C 和 Swift 之间的闭包参数。看一下这个函数在一个 Objective-C 头文件的声明：
 
 ![Markdown](http://i1.piimg.com/1949/300646b3b962e346.png)
 
-A number of things have changed, but most importantly the parameter in `completionBlock` has changed from an implicitly unwrapped optional to an optional. This can break its usage within the blocks.
+很多东西都变了，但是最重要的是 `completionBlock` 里面的参数从一个已拆包的类型，编程了一个可选类型。这破坏了闭包之间的使用。
 
-We decided that the most “literal” translation into Swift 3 (without touching Objective-C code) would be to declare at the top of the block a variable that has the same name as the parameter but is implicitly unwrapped:
+我们决定最“直接”的转化到 Swift 3（不和 Objective-C代码接触），我们想要在闭包的顶部声明一个变量，它有和参数相同的名字，不过它是隐式拆包的：
 
 ![Markdown](http://i1.piimg.com/1949/bbdc00bdcba906bb.png)
 
-Doing this, rather than actually unwrapping the parameter when it’s used, is the least likely to break semantics elsewhere in the block. In the above example, subsequent statements like `if let someReview = review { /* … */ } `and `review ?? anotherReview` would continue to work as expected.
+这么做，而不是在使用参数的时候再拆包，是因为这样做几乎不会破坏闭包内部其他地方的语义。在上面的例子里，接下来的语句像 `if let someReview = review { /* … */ } ` 和 `review ?? anotherReview` 都会正常的工作。
 
-#### Type Inference in Assignment of Implicitly Unwrapped Optionals ####
+#### 隐式拆包里的类型推演问题 ####
 
-Another common (and related) issue has to do with how Swift 3 infers the type of a variable to which an implicitly unwrapped optional is assigned. Consider the following:
+另一个常见（以及相关）的问题是，处理 Swift 3 所推演出变量的类型，原来是隐式拆包的，现在变为可选类型了。考虑下面的例子：
 
 ```
 func doSomething() -> Int! {
@@ -121,29 +122,28 @@ func doSomething() -> Int! {
 
 var result = doSomething()
 ```
-In Swift 2.3, `result` was inferred to be of type `Int!`. In Swift 3, it’s of type `Int?`.
+在 Swift 2.3 里，`result` 的类型被推断为 `Int!`。而在 Swift 3，它的类型是 `Int？`
 
-For reasons outlined with the block parameters, the most literal solution is to declare your variable to be an implicitly unwrapped optional type:
+鉴于上面提到的闭包参数问题，最直接的解决方案就是把你的变量声明为一个隐式拆包类型：
 
 ```
 var result: Int! = doSomething()
 ```
+因为桥接的 Objective-C 的初始化方法返回隐式拆包类型，导致这个特殊问题出现的比预期要频繁。
 
-This particular issue appeared more often than expected because bridged Objective-C initializers return implicitly unwrapped optionals.
+#### 个别的函数编译时间爆炸 ####
 
-#### Compile Time Explosion for Individual Functions ####
+在我们代码迁移的工作中，偶尔地，编译器会停顿那么几分钟。
 
-Occasionally during our code conversion work, the compiler would grind to a halt for many minutes.
+我们项目中的一些函数，需要很多复杂的类型推演。在正常情况下，编译的时间只有一丢丢，但是如果他们包含了编译错误，那编辑器就会一脸懵逼。
 
-Our project is home to some functions that require a lot of complex type inference. Under normal conditions these take a trivial amount of time to compile. But when they contain compilation errors, it can send the compiler into a tailspin.
+在构建过程被这个问题卡住的时候，我们使用 [Xcode 构建时间分析](https://github.com/RobertGummesson/BuildTimeAnalyzer-for-Xcode)工具来帮助我们发现瓶颈所在。接着我们就能专注于这个功能上，暂别我们快乐的转化代码、构建、再转换代码的快乐周期了。
 
-When our progress was blocked by this type of problem, we used the [Build Time Analyzer for Xcode](https://github.com/RobertGummesson/BuildTimeAnalyzer-for-Xcode)  to help us discover where the bottleneck was. Then we could focus our efforts on that function and unblock our happy cycle of converting code, rebuilding, and converting more code.
+#### 可选协议方法上的 “Near misses”  ####
 
-#### “Near misses” on Optional Protocol Method Implementations ####
+在转换 Swift 3 的过程中，可选协议方法是很容易忽略的一部分。
 
-Optional protocol methods are easy to accidentally miss during a Swift 3 conversion.
-
-Consider this method on `UICollectionViewDataSource`:
+考虑 `UICollectionViewDataSource` 上的这个方法：
 
 ```
 func collectionView(
@@ -151,7 +151,7 @@ func collectionView(
   viewForSupplementaryElementOfKind kind: String, 
   at indexPath: IndexPath) -> UICollectionReusableView
 ```
-Suppose your class implements `UICollectionViewDataSource` and declares the following method:
+假设你的类实现了 `UICollectionViewDataSource`，并且定义了下面这个方法：
 
 ```
 func collectionView(
@@ -160,67 +160,68 @@ func collectionView(
   atIndexPath indexPath: IndexPath) -> UICollectionReusableView
 ```
 
-Can you spot the differences? It’s tough. But they’re there. And your class will compile just fine without updating the definition’s signature since it’s an optional protocol method.
+你能指出不同吗？很难说。但是他们就是不同的，而且你的类编译的时候正常，因为它是一个可选的函数，没有更新描述的签名。
 
-Fortunately, there are compiler warnings to help you in some of these cases, but not all. It’s important to go through any types implementing protocols with optional methods — like most UIKit delegate and data source protocols — and verify their correctness. Searches for text like “`func collectionView(collectionView:`” (note the first parameter label, a sure sign of lingering Swift 2) can help you find offenders in your codebase.
+幸运地，有时候编译警告会帮你发现这些，但不是全部。所以去检查每个协议的可选方法（比如 UIKit 里的代理协议和数据源协议）是否正确是很重要的。搜索像 “`func collectionView(collectionView:`” 这样的文本（注意第一个参数，这是 Swift 2 遗留的标识），可以帮助找到代码里的元凶。
 
-#### Protocols with Default Method Implementations ####
+#### 具有默认实现的协议 ####
 
-Protocols may have default method implementations provided through protocol extensions. If a protocol’s method signature has changed between Swift 2 and Swift 3, it’s important to verify that it’s been changed everywhere. The compiler will happily compile if *either* the protocol extension’s implementation *or* your type’s implementation is correct, but successful compilation is no guarantee that *both* implementations are correct.
+通过协议扩展，协议本身可以有默认的实现。如果一个协议的方法签名在 Swift 2 到 Swift 3 之间改变了，那确认他们是否在任何地方都改变了就很重要。如果*协议的扩展实现*，或者是*你的类型的实现*是正确的，编译器都会很开心的编译，但是成功的编译并不能保证*两个*实现都是正确的。
 
-#### Enums with String Raw Values ####
+#### String 类型的枚举 ####
 
-In Swift 3, naming convention dictates that enum cases be `lowerCamelCase`. The Xcode code conversion tool will automatically make appropriate changes to any existing enums. It skips enums, however, whose raw value type is `String`. There is a good reason for this — it’s possible to initialize one of these enums with a `String` matching an enum case name. If you change the enum case name you risk breaking initialization somewhere. You may be tempted to “finish the job” by lower-casing some enum cases yourself, but only do so if you have the utmost confidence that it won’t break `String`-based initialization somewhere.
+在 Swift 3 中，枚举的命名被规定为`小驼峰`。Xcode 转换工具自动的对任何现有的枚举进行更改。尽管它会略过值类型为 `String` 的枚举。这么做是有理由的，因为有可能在用 `String` 初始化枚举的时候，匹配到了一个枚举的名字。如果你更改了枚举的名字，那你很有可能破坏某些地方的初始化代码。你可能会出于“完成工作”的目的，把一些枚举小写，但是这么做的前提是，你有足够的信心，不会破坏某些基于 `String` 的初始化。
 
-#### 3rd-party Library API Changes ####
+#### 三方库 API 的改变 ####
 
-Like most apps, we have some dependencies on 3rd-party libraries. The migration required updating any libraries written in Swift. This should hopefully seem obvious, but it’s worth mentioning: read release notes very carefully, especially if your dependency has undergone a major version change (which is likely when changing language versions). It helped us discover some non-obvious API changes that the compiler would not have been able to help us with.
+和大多数引用一样，我们也依赖了一些三方库。迁移过程需要更新任何用 Swift 编写的三方库。这看上去显而易见，但是仍然值得一提：仔细的阅读发布说明，尤其是你依赖的已经有一个重大版本更改（这可能发生在语言的版本更改的时候）。这帮助我们发现了一些难以发现的 API 更改，编译器做不到这一点。
 
-### Next Steps ###
+### 下一步 ###
 
-Whew! Our `master` branch is in Swift 3, and no new development is taking place in Swift 2. All migration-related work is done, right?
+哇！我们的 `master` 分支现在是 Swift 3 了，Swift 2 没有新开发的功能，所有的迁移工作已经完成了，是这样么？
 
-Well, not quite. As mentioned earlier, during the code conversion process we were only making the most “literal” conversion between Swift 2 and Swift 3 code. This means that we weren’t always taking advantage of Swift 3’s added safety or its new conventions.
+好吧，不全是。就像前面提到的，在代码转换过程中，我们只做了 Swift 2 和 Swift 3 之间最“表面”的转换。这代表我们还没利用上 Swift 3 的新特性和安全性。
 
-On an ongoing basis, we’ll be looking out for a number of potential improvements.
+在持续更新的基础上，我们会寻找一些潜在的改进。
 
-#### More Fine-Grained Access Control ####
+#### 更精细的访问控制 ####
 
-By default, the Xcode code conversion tool converts `private` access control modifiers to `fileprivate`, and `public` ones to `open`. This represents a “literal” conversion which guarantees that the code will continue to work as before. However, it also bypasses an opportunity for the developer to consider whether the new `private` and `public` behaviors are actually *better *tools for the job. A next step is to revisit instances of literal access control conversion and check whether we can make use of Swift 3’s increased expressiveness to provide more fine-grained control.
+默认情况下，Xcode 代码转换工具将 `private` 访问控制符改为 `fileprivate`，`public` 改为 `open`。这代表着一个“表面”的转换，保证代码能继续像以前一样工作。 然而，它也错过了一个机会，来让开发者思考新的 `private` 和 `public` 行为是否能*更好*的工作。下一步是重新查看访问控制符的转换的实例，并检查我们是否可以利用 Swift 3 新增的表达式，来提供更精细的控制。
 
-#### Swift 3 Method Naming ####
+#### Swift 3 方法命名 ####
 
-When manually converting code (when the Xcode conversion tool didn’t suffice, or when we were rebasing) we often took a “literal” approach to changing method names so that call sites would continue to be correct. Take the following Swift 2.3 method signature, for instance:
+在手动转换代码的时候（在 Xcode 转换工具不好使，或者移接的时候），我们经常“表面”的修改方法名字，来让调用会正确的进行。采用 Swift 2.3 的方法签名，像这样：
 
 ```
 func incrementCounter(counter: Counter, atIndex index: Int)
 ```
 
-In the interest of making the smallest, quickest change that would get our code compiling again in Swift 3, we would convert this to:
+为了做出最少的改动、最快的修改，能让代码再次 Swift 3 上编译，我们把代码改成了这样：
 
 
 ```
 func incrementCounter(_ counter: Counter, atIndex index: Int)
 ```
 
-A more “Swift 3” way of writing this, however, would be:
+尽管，一个更 “Swift 3” 的写法是这样的：
 
 ```
 func increment(_ counter: Counter, at index: Int)
 ```
 
-A next step is finding instances where took the naming shortcut and updating method signatures to better follow Swift 3 conventions.
+下一步工作就是找出快捷命名的变量，然后更新方法签名，来更好地跟随 Swift 3 的转变。
 
-#### Safer Use of Implicitly Unwrapped Optionals ####
+#### 更安全的使用隐式解包 ####
 
-As shown earlier, the way we dealt with newly-optional (in Swift 3) Objective-C block parameters was by assigning them right away to implicitly unwrapped optional variables, which obviates the need to update much of the code within the block. However, what we *should* be doing in our block is appropriately handling the possibility of the parameter being `nil`.
+如同前面展示的，我么应对新的 Objective-C 闭包参数的做法是转换成自动拆包的可选变量，这避免了更新闭包中的大量代码。而我们现在应该做的是，适当的处理闭包中参数可能是 `nil` 的情况。
 
-#### Fix Warnings ####
+#### 修复 ⚠️ ####
 
-In an effort to wrap up the code conversion process quickly, we ended up ignoring a fair number of compiler warnings that didn’t strike us as especially urgent. Going forward, we’ll have to be conscious of getting our warning count back down.
+为了让代码全速的转换，我们最终忽略了一堆不是特别重要的编译警告，在未来，我们会意识到必须要让警告数量减少。
 
-### Conclusion ###
+### 结论 ###
 
-As Airbnb was an early and eager adopter of Swift, we accumulated lots of Swift code. The prospect of migrating to Swift 3 seemed daunting at first, and it wasn’t clear how we were going proceed or how it would affect our app. If you haven’t yet decided to convert your code to Swift 3, we hope our experience has helped demystify the process a bit.
+由于 Airbnb 对 Swift 很期待，并且是早期的使用者，我们积累了大量的 Swift 代码。 迁移到 Swift 3 的展望似乎令人望而生畏，并且我们不清楚将如何进行，以及它会对我们的应用造成怎样的影响。如果你还没有决定将你的代码转换为 Swift 3，我们希望我们的经验对你的困惑有一些帮助。
 
 Finally, if you’re interested in using the latest mobile technologies like Swift 3 to help people belong anywhere, [we’re hiring!](https://www.airbnb.com/careers/departments/engineering)
+最后，如果你对使用最新的移动技术（比如 Swift 3）来帮助他人感兴趣，[我们正在招聘](https://www.airbnb.com/careers/departments/engineering)
