@@ -4,11 +4,11 @@
 
 [掘金翻译计划](https://juejin.im/tag/%E6%8E%98%E9%87%91%E7%BF%BB%E8%AF%91%E8%AE%A1%E5%88%92) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](#android)、[iOS](#ios)、[React](#react)、[前端](#前端)、[后端](#后端)、[产品](#产品)、[设计](#设计) 等领域，读者为热爱新技术的新锐开发者。
 
-掘金翻译计划目前翻译完成 [320](#近期文章列表) 篇文章，共有 [230](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
+掘金翻译计划目前翻译完成 [370](#近期文章列表) 篇文章，共有 [240](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
 
 #  官方指南：
 
-- [**推荐优质英文文章到掘金翻译计划**](http://gold.codesign.me/)
+- [**推荐优质英文文章到掘金翻译计划**](https://github.com/xitu/gold-miner/issues/new?title=推荐优秀英文文章&body=- 原文链接：%0A- 简要介绍：%0A)
 - [如何参与翻译](https://github.com/xitu/gold-miner/wiki/如何参与翻译)
 - [十万个为什么](https://github.com/xitu/gold-miner/wiki/十万个为什么)
 - [译文排版规则指北](https://github.com/xitu/gold-miner/wiki/译文排版规则指北)
@@ -19,27 +19,27 @@
 
 ## Android
 
-* [Android 中的 Effective Java(速查表)](https://gold.xitu.io/entry/5858efc1128fe10069b28de4?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Jamweak](https://github.com/jamweak) 翻译)
-* [彻底理解引用在 Android 和 Java 中的工作原理](https://gold.xitu.io/entry/58476f2c128fe10058bae7ca?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jacksonke](https://github.com/jacksonke) 翻译)
-* [利用好 Android Studio 中的 APK Analyzer](https://gold.xitu.io/entry/58466c7e128fe1006c5897fa?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([XHShirley](https://github.com/XHShirley) 翻译)
-* [在 Android 应用中监测来电信息](https://gold.xitu.io/entry/5842ac36128fe1006c44b0b4?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([PhxNirvana](https://github.com/phxnirvana) 翻译)
+* [Android MVP 架构必要知识：第一部分](https://gold.xitu.io/entry/58a27b2d2f301e006958d4aa?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jifaxu](https://github.com/jifaxu) 翻译)
+* [安卓应用栏的滚动效果](https://gold.xitu.io/entry/5899cd1361ff4b006b2280ce/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([XHShirley](https://github.com/XHShirley) 翻译)
+* [ConstraintLayout (这到底是什么)](https://gold.xitu.io/entry/589dc5382f301e0069c3791a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jifaxu](https://github.com/jifaxu) 翻译)
+* [如何搭建安卓开发持续化集成环境（Ubuntu + Jenkins + SonarQube）](https://gold.xitu.io/entry/589d1c251b69e60059ba04b5/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([skyar2009](https://github.com/skyar2009) 翻译)
 * [所有 Android 译文>>](https://github.com/xitu/gold-miner/blob/master/android.md)
 
 
 ## iOS
 
-* [如何在 Swift 3 中用 Spirit Kit 框架编写游戏 (Part 1)](https://gold.xitu.io/entry/585b7cc18d6d810065d2905e?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Gocy015](https://github.com/Gocy015) 翻译)
-* [[译] macOS Security and Privacy Guide](https://gold.xitu.io/entry/585501e2b123db00656a6947?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Nicolas(Yifei) Li](https://github.com/yifili09)   [MAYDAY1993](https://github.com/MAYDAY1993)   [DeadLion](https://github.com/DeadLion) 翻译)
-* [[译] Yammer iOS 版移植到 Swift3](https://gold.xitu.io/entry/5848b88ab123db006601f750?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Danny Lau](https://github.com/Danny1451) 翻译)
-* [[译] Swift 面向协议编程，灵丹妙药或是饮鸩止渴？](https://gold.xitu.io/entry/584781e161ff4b006bac77ba?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([王子建](https://github.com/Romeo0906) 翻译)
+* [iOS 应用测试](https://gold.xitu.io/entry/58a16cc161ff4b006b51d882/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([thanksdanny](https://github.com/thanksdanny) 翻译)
+* [老司机手把手带你在 Swift 中应用代理（Delegate）](https://gold.xitu.io/entry/58a11b7c61ff4b006b4f7f69/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Gocy015](https://github.com/Gocy015) 翻译)
+* [在 Swift 3 上对视图控件实践面向协议编程](https://gold.xitu.io/entry/589b42692f301e00699b8011/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Tuccuay](https://github.com/Tuccuay) 翻译)
+* [让内存管理重振雄风](https://gold.xitu.io/entry/589afeb78d6d81006c78132a/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([DeepMissea](https://github.com/DeepMissea) 翻译)
 * [所有 iOS 译文>>](https://github.com/xitu/gold-miner/blob/master/ios.md)
 
 ## 前端
 
-* [渐进增强的 Web AMP](https://gold.xitu.io/entry/585d35b561ff4b00580eccb3?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([L9m](https://github.com/L9m) 翻译)
-* [CSS 继承深度解析](https://gold.xitu.io/entry/585a29c01b69e6006cb89465?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([llp0574](https://llp0574.github.io) 翻译)
-* [响应式邮件设计](https://gold.xitu.io/entry/58516cc01b69e60056c04528?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Hyuni](https://github.com/xuzaixian) 翻译)
-* [JavaScript 测试︰ 单元 vs 功能 vs 集成测试](https://gold.xitu.io/entry/584ab2dc128fe1006c7cdc11?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([wild-flame](https://github.com/wild-flame) 翻译)
+* [几张 GIF 动图让你看懂弹性盒模型（Flexbox）如何工作](https://gold.xitu.io/entry/589d2dd886b599006b2c3308?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([llp0574](https://github.com/llp0574) 翻译)
+* [一个关于 Styled Components 的五分钟介绍](https://gold.xitu.io/entry/589ac8b886b599006b1cec3d?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([sqrthree](https://github.com/sqrthree) 翻译)
+* [Netflix: 使用 React 构建高性能的电视用户界面](https://gold.xitu.io/entry/589a93100ce4630056194875/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Professor-Z](https://github.com/Professor-Z) 翻译)
+* [怎样写一个能同时用于 Node 和浏览器的 JavaScript 包？](https://gold.xitu.io/entry/5899bc6e61ff4b006b21d0bc?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([luoyaqifei](https://github.com/luoyaqifei) 翻译)
 * [所有前端译文>>](https://github.com/xitu/gold-miner/blob/master/front-end.md)
 
 
@@ -54,10 +54,10 @@
 
 ## 后端
 
-*  [简明 TensorFlow 教程 —第二部分：混合学习](https://gold.xitu.io/entry/5858ed4e1b69e6006cb12a7c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([edvardhua](https://github.com/edvardHua) 翻译)
-*  [来写一个 Python 说明文档生成器吧](https://gold.xitu.io/entry/585549afb123db00656c849b?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([王子建](https://github.com/Romeo0906) 翻译)
-*  [TensorFlow —  第三部分: 所有的模型](https://gold.xitu.io/entry/58574d0c8d6d810065b4a0b5?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([edvardhua](https://github.com/edvardHua) 翻译)
-*  [[译] 用 Python 建立一个简单的对象模型](https://gold.xitu.io/entry/5852965661ff4b0063a72977?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zheaoli](https://github.com/Zheaoli) 翻译)
+* [防守式编程的艺术](https://gold.xitu.io/entry/58980dbc1b69e6005997f069/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([GiggleAll](https://github.com/GiggleAll) 翻译)
+* [为何我抵制使用缓存？](https://gold.xitu.io/entry/5884184f1b69e60058dc7fc6/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Romeo0906](https://github.com/Romeo0906) 翻译)
+* [为什么我关闭了你的 PR （开源软件维护者笔记）](https://gold.xitu.io/entry/5870ed78da2f603a93d7e0f0/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([cdpath](https://github.com/cdpath) 翻译)
+* [在 Node.js 和 C++ 之间使用 Buffer 共享数据](https://gold.xitu.io/entry/586fbcefda2f600053df7787?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Jiang Haichao](https://github.com/AceLeeWinnie) 翻译)
 * [所有后端译文>>](https://github.com/xitu/gold-miner/blob/master/backend.md)
 
 ## 教程
@@ -71,17 +71,17 @@
 
 ## 设计
 
-* [使用强大的调查技巧了解用户的动机](https://gold.xitu.io/entry/585a3f9b1b69e6006cb93529/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Romeo0906](https://github.com/Romeo0906) 翻译)
-* [[译] iOS: 自定义 Modal 视图](https://gold.xitu.io/entry/58576ca7128fe1006b7b35a3/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([zhouzihanntu](https://github.com/zhouzihanntu) 翻译)
-* [[译] 如何用 Sketch 打造「前端框架」](https://gold.xitu.io/entry/5836ad4367f3560065f439dc/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Ruixi](https://github.com/Ruixi) 翻译)
-* [[译] 全新的 Uber App 与全新的设计](http://gold.xitu.io/entry/584770f80ce46300578b9b48?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([PhxNirvana](https://github.com/phxnirvana) 翻译)
+* [色彩如何影响 UX 和用户行为](https://gold.xitu.io/entry/58a1a44886b599006b47ccda/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([AceLeeWinnie](https://github.com/AceLeeWinnie) 翻译)
+* [视觉系统中的按钮](https://gold.xitu.io/entry/58845fa2b123db7389d23bc1/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([funtrip](https://github.com/funtrip) 翻译)
+* [每一个表单都渴望验证](https://gold.xitu.io/entry/58845fa2b123db7389d23bc1/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([ZiXYu](https://github.com/ZiXYu) 翻译)
+* [创建一个移动应用的终极指导](https://gold.xitu.io/entry/587f05a48d6d810058e20795/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([PhxNirvana](https://github.com/phxnirvana) 翻译)
 * [所有设计译文>>](https://github.com/xitu/gold-miner/blob/master/design.md)
 
 
 ## 产品
 
+* [直观设计 vs. 共享式设计](https://gold.xitu.io/entry/5862650a128fe1006d04d398/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Funtrip](https://www.behance.net/Funtrip) 翻译)
 * [为何而设计？](https://gold.xitu.io/entry/5857969761ff4b00686ad66b/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([王子建](https://github.com/Romeo0906) 翻译)
 * [如何建立高效推送通知](https://gold.xitu.io/entry/5856427d61ff4b0063badca2?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([PhxNirvana](https://github.com/phxnirvana) 翻译)
 * [关于程序员被要求做不道德甚至非法的事情的激烈讨论](https://gold.xitu.io/entry/584c122c61ff4b006cc6df53?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([phxnirvana](https://github.com/phxnirvana) 翻译)
-* [如何设计精准的推送通知？](http://gold.xitu.io/entry/58199acca22b9d0067a34821?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([laobie](https://github.com/laobie) 翻译)
 * [所有产品译文>>](https://github.com/xitu/gold-miner/blob/master/product.md)
