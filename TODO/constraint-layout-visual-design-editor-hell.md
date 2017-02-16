@@ -273,37 +273,37 @@ Palette 窗口 ->  Design 编辑器 -> Properties 窗口 ->  Design 编辑器
 
 在方形内部我们可以看到三种形态。
 
-1. Wrap content:
+1.Wrap content:
 
-	[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-1.03.38-PM-150x150.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-1.03.38-PM.png)
+[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-1.03.38-PM-150x150.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-1.03.38-PM.png)
 
-	所有的视图都有 wrap_content 的概念，这里也是一样。现在我们可以在 Design 编辑器中设定该属性了。如下图所示。
+所有的视图都有 wrap_content 的概念，这里也是一样。现在我们可以在 Design 编辑器中设定该属性了。如下图所示。
 
-	[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-14-43-51.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-14-43-51.gif)
+[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-14-43-51.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-14-43-51.gif)
 
-	这里我将一个原本属性为 match_parent,match_parent 的按钮修改为了 wrap_content,wrap_content。
+这里我将一个原本属性为 match_parent,match_parent 的按钮修改为了 wrap_content,wrap_content。
 
-2. 固定尺寸：
+2.固定尺寸：
 
-	[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-1.03.53-PM-150x150.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-1.03.53-PM.png)
+[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-1.03.53-PM-150x150.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-1.03.53-PM.png)
 
-	固定尺寸指的是像我们给宽度和高度设定 dp 值一样，现在我们可以直接在 UI 界面里做到。如下图所示。
+固定尺寸指的是像我们给宽度和高度设定 dp 值一样，现在我们可以直接在 UI 界面里做到。如下图所示。
 
-	[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-14-47-34.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-14-47-34.gif)
+[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-14-47-34.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-14-47-34.gif)
 
-	这里我将一个属性为 wrap_content,wrap_content 的按钮更改成了固定尺寸，并通过拖拽来设定值。
+这里我将一个属性为 wrap_content,wrap_content 的按钮更改成了固定尺寸，并通过拖拽来设定值。
 
-3. 任意尺寸：
+3.任意尺寸：
 
-	[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-1.04.11-PM-150x150.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-1.04.11-PM.png)
+[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-1.04.11-PM-150x150.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-1.04.11-PM.png)
 
-	任意尺寸在我们构建约束时非常有用。就比如我没有给视图设置任何约束，并将其设置为任意尺寸，视图就会变为 0dp,0dp。如下图所示。
+任意尺寸在我们构建约束时非常有用。就比如我没有给视图设置任何约束，并将其设置为任意尺寸，视图就会变为 0dp,0dp。如下图所示。
 
-	[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-14-54-36.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-14-54-36.gif)
+[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-14-54-36.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-14-54-36.gif)
 
-	现在我要对这个按钮施加左右约束，之后将其宽高设置为任意尺寸，这时按钮会填充所有剩余的空间。如下图所示。
+现在我要对这个按钮施加左右约束，之后将其宽高设置为任意尺寸，这时按钮会填充所有剩余的空间。如下图所示。
 
-	[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-14-57-53.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-14-57-53.gif)
+[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-14-57-53.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-14-57-53.gif)
 
 现在是时候学习有关如何设置视图的约束值了。
 
