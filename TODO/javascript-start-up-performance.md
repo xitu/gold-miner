@@ -2,7 +2,7 @@
 * 原文作者：[Addy Osmani](https://medium.com/@addyosmani?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Professor-Z](https://github.com/Professor-Z)
-* 校对者：[fghpdf](https://github.com/fghpdf) [skyar2009](https://github.com/skyar2009)
+* 校对者：[fghpdf](https://github.com/fghpdf), [skyar2009](https://github.com/skyar2009)
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/2000/1*ZpwZLFDNYZodJDerr7-37A.png">
 
@@ -10,7 +10,7 @@
 
 作为 web 开发者，都知道 web 项目开发到最后，页面规模很容易变的很大。 但 **加载** 一个网页远不止从网线上传送字节码那么简单。浏览器下载了页面脚本之后，它还必须解析、解释和运行它们。这篇文章将深入 JavaScript 的这一部分，研究 **为什么** 这一过程会拖慢应用程序的启动，以及 **如何** 解决。
 
-过去，人们并没有花很多时间优化 JavaScript 的解析、编译步骤。我们总是期望解析器在遇到 script 标签时立即解析和执行代码，但是情况并非如此。 **以下是对V8引擎工作原理的简要分析**：
+过去，人们并没有花很多时间优化 JavaScript 的解析、编译步骤。我们总是期望解析器在遇到 script 标签时立即解析和执行代码，但是情况并非如此。 **以下是对 V8 引擎工作原理的简要分析**：
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*GuWInZljjvtDpdeT6O0emA.png" >
 
@@ -24,7 +24,7 @@
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/0*M94-AavlZjGoudZG.">
 
-V8 的 Chrome Canary 中的 Runtime Call Stats 分析出的流行网站的解析和编译时间。注意，桌面端本就缓慢的解析、编译在一般手机上需要更长的时间。
+V8 的 Chrome Canary 中的 Runtime Call Stats 分析出的流行网站的解析和编译时间。注意，桌面端本就缓慢的解析、编译过程，在一般手机上则需要更长的时间。
 
 启动时间对 **性能敏感的** 代码很重要。事实上，V8 —— Chrome 的 JavaScript 引擎，在 Facebook，Wikipedia 和 Reddit 等顶级网站上都会花费大量时间来解析和编译脚本：
 
@@ -52,17 +52,17 @@ Sam Saccone 在 [Planning for Performance](https://www.youtube.com/watch?v=RWLzU
 
 『（你说的都对……）但是，我的网站又不是Facebook』，你可能会这样说。 **『外面的一般网站的解析和编译时间所占比例有多大？』**，你可能会这样问。现在我们来研究一下！
 
-我花了两个月时间测试了一系列（6000+）使用了不同库和框架（如React、Angular、Ember和Vue）构建的大型生产站点的性能。其中大多数测试最近可以在 WebPageTest 重做。所以如果你愿意的话，很容易重做这些测试，或者深入研究这些数据。下面是一些分析结果：
+我花了两个月时间测试了一系列（6000+）使用了不同库和框架（如 React、Angular、Ember 和 Vue）构建的大型生产站点的性能。其中大多数测试最近可以在 WebPageTest 重做。所以如果你愿意的话，很容易重做这些测试，或者深入研究这些数据。下面是一些分析结果：
 
-**应用在桌面端（使用电缆）用8秒可以变得可交互，在移动端（ 3G 网络下的 Moto G4 ）则需要16秒。**
+**应用在桌面端（使用网线）用 8 秒可以变得可交互，在移动端（ 3G 网络下的 Moto G4 ）则需要 16 秒。**
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*WC4zanI0DKAoSiJVU3VUeA.png">
 
-**是什么造成了这一结果？大多数网页应用在桌面端的启动（解析、编译、执行）平均花费了4秒。**
+**是什么造成了这一结果？大多数网页应用在桌面端的启动（解析、编译、执行）平均花费了 4 秒。**
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*NacL9cZJ1osZowPS6hbCsQ.jpeg">
 
-在移动设备上，解析时间比在桌面设备上多出36％。
+在移动设备上，解析时间比在桌面设备上多出 36％。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*uTRfB5pne06h8lp5jGtiIQ.jpeg">
 
@@ -171,11 +171,11 @@ Chrome 42 引入了[Code caching](http://v8project.blogspot.com/2015/07/code-cac
 
 **Script Streaming**
 
-[Script streaming](https://blog.chromium.org/2015/03/new-javascript-techniques-for-rapid.html) 允许脚本开始下载后在 **单独的后台线程** 上解析异步或延迟脚本，从而将页面加载速度提高了多达10％。如前所述，这同样适用于 **同步** 脚本。
+[Script streaming](https://blog.chromium.org/2015/03/new-javascript-techniques-for-rapid.html) 允许脚本开始下载后在 **单独的后台线程** 上解析异步或延迟脚本，从而将页面加载速度提高了多达 10％。如前所述，这同样适用于 **同步** 脚本。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*ooXJ0NES-gXEzteaGPL2nQ.png">
 
-自从该功能首次引入以来，V8 已经切换到允许 **所有脚本**、*甚至* 是 `src=""` 的解析器阻塞脚本在后台线程上解析，所以所有人都应该在这里看到一些成果。唯一需要注意的是，这里只有一个后台线程，所以把大的、关键的脚本先分配给它很重要。**在这里思考任何潜在的优化都很重要。**
+自从该功能首次引入以来，V8 已经切换到允许 **所有脚本**、**甚至** 是 `src=""` 的解析器阻塞脚本在后台线程上解析，所以所有人都应该在这里看到一些成果。唯一需要注意的是，这里只有一个后台线程，所以把大的、关键的脚本先分配给它很重要。**在这里思考任何潜在的优化都很重要。**
 
 **经验之谈是，把 defer 脚本放在 <head> 里，这样 V8 就可以早发现资源，然后在用台线程解析它。**
 
@@ -199,7 +199,7 @@ V8 也在探索在启动期间将 JavaScript 编译的部分分配到 **后台�
 
 **预编译 JavaScript?**
 
-每隔几年，就会有提供一种方法 *预编译* 脚本的引擎出现，以帮助我们不浪费时间解析或编译代码。它们的想法是，如果不预解析、编译代码，一个构建时或服务器端工具就能直接生成字节码，我们会看到启动速度的巨大提高。我认为，传输字节码将会增加加载时间（文件会更大），可能需要对代码进行签名并做一些安全处理。V8的立场是，现在探索避免内部重新解析将有助于看到很大的进步，这是预编译可能不能提供的，但同时我们会对可以获得更快的启动时间的想法持开放讨论的态度。也就是说，当开发者在 Service Worker 中更新站点时，V8 正在探索更积极地编译和缓存脚本代码，我们希望这些工作获得一些成果。
+每隔几年，就会有提供一种方法 **预编译** 脚本的引擎出现，以帮助我们不浪费时间解析或编译代码。它们的想法是，如果不预解析、编译代码，一个构建时或服务器端工具就能直接生成字节码，我们会看到启动速度的巨大提高。我认为，传输字节码将会增加加载时间（文件会更大），可能需要对代码进行签名并做一些安全处理。V8 的立场是，现在探索避免内部重新解析将有助于看到很大的进步，这是预编译可能不能提供的，但同时我们会对可以获得更快的启动时间的想法持开放讨论的态度。也就是说，当开发者在 Service Worker 中更新站点时，V8 正在探索更积极地编译和缓存脚本代码，我们希望这些工作获得一些成果。
 
 我们与 Facebook 和 Akamai 在 BlinkOn 7 讨论了预编译，我的笔记可以在 [这里](https://gist.github.com/addyosmani/4009ee1238c4b1ff6f2a2d8a5057c181) 找到。
 
