@@ -37,6 +37,7 @@ Palette 窗口 ->  Design 编辑器 -> Properties 窗口 ->  Design 编辑器
 **Palette:**
 
 提供了一系列的部件（widgets）和布局（layouts），你可以将其拖拽到位于编辑器中的布局里。（Documentation）
+
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-8.24.43-AM-188x300.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-8.24.43-AM.png)
 
 在这里你可以获取到 Android 提供的所有 UI 组件。在右上角有一个搜索图标，你可以通过搜索节省寻找的时间。搜索图标的右边还有一个设置图标。点击这个酷炫的图标，你可以根据个人喜好更改 UI 组件的外观。
@@ -47,7 +48,7 @@ Palette 窗口 ->  Design 编辑器 -> Properties 窗口 ->  Design 编辑器
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-8.35.45-AM-300x280.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-8.35.45-AM.png)
 
-上图就是 Design 编辑器。在 Design 编辑器里我们有两种模式可选，一种是设计模式（Design），另一种是文本模式（Text）。首先我们来看预览模式。
+上图就是 Design 编辑器。在 Design 编辑器里我们有两种模式可选，一种是设计模式（Design），另一种是文本模式（Text）。首先我们来看设计模式。
 
 上图中我们看到的两个布局其实是同一个布局。左边那部分就是我们将在设备中看到的 UI 界面。右边那部分称之为蓝图（blueprint）。当你在设计时这些都非常有用。你可以很轻易地看到每个视图的外边距、边缘以及它们之间是否有冲突。我就当作你们已经知道了怎么去拖拽视图到 Design 编辑器中，并且知道怎么去创建与父布局或其他视图的约束关系。我要开始介绍下一个步骤了。
 
@@ -85,13 +86,13 @@ Palette 窗口 ->  Design 编辑器 -> Properties 窗口 ->  Design 编辑器
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-09-46-52-221x300.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-09-46-52.gif)
 
-[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.57.41-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.57.41-AM.png)**数字盒子：**
+[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.57.41-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.57.41-AM.png) **数字盒子：**
 
 作用是为你的父布局设置默认的外边距。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-09-53-25-221x300.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-09-53-25.gif)
 
-[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-11.57.05-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-11.57.05-AM.png)**背包图标：**
+[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-11.57.05-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-11.57.05-AM.png) **背包图标：**
 
 这个图标包含了许多功能。我会一个个地解释。
 
@@ -125,7 +126,7 @@ Palette 窗口 ->  Design 编辑器 -> Properties 窗口 ->  Design 编辑器
 
 这两个图标功能是一样的的，只不过一个用于水平方向，另一个用于垂直方向。当我点击了水平方向的图标后，所有视图都会水平方向对齐。那么随之而来的问题是：这和上面刚学习过的那对图标有什么区别呢？
 
-区别在于，上面的图标通过扩展数值（来对齐）。而这两个图标并不会扩展数值，而是将视图平移至互相对齐。**另外值得注意的是**，这只是在 Design 编辑器中设定了值，如果你运行到设备上你是无法获得在 Design 编辑器中显示的效果的。你必须自己去构建约束。但其实你可以先通过使用这些图标来对齐视图，这样可以节省很多时间，如果还需要做一些调整的话，你可以再构建约束，这样你就可以在设备上得到适当的效果。让我们来看一下点击这些图标之后会发生什么吧。
+区别在于，上面的图标通过扩展数值（来对齐）。而这两个图标并不会扩展数值，而是将视图平移至互相对齐。**另外值得注意的是**，这只是在 Design 编辑器中设定了值，如果你运行到设备上你是无法获得在 Design 编辑器中显示的效果的。你需要自己去构建约束。但其实你可以先通过使用这些图标来对齐视图，这样可以节省很多时间，如果还需要做一些调整的话，你可以再构建约束，这样你就可以在设备上得到适当的效果。让我们来看一下点击这些图标之后会发生什么吧。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-11-03-02-221x300.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-11-03-02.gif)
 
@@ -235,9 +236,7 @@ Palette 窗口 ->  Design 编辑器 -> Properties 窗口 ->  Design 编辑器
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-12-27-10-300x293.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-12-27-10.gif)
 
-[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-12.22.10-PM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-12.22.10-PM.png)
-
-**多布局图标：**
+[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-12.22.10-PM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-12.22.10-PM.png) **多布局图标：**
 
 当我想要为不同的布局创建不同的布局文件时这个图标就可以帮上大忙。就比如我想要单独创建一个横屏的布局。使用这个图标我可以很快地创建好而不用进入文件夹中。如下图所示。
 
@@ -276,35 +275,35 @@ Palette 窗口 ->  Design 编辑器 -> Properties 窗口 ->  Design 编辑器
 
 1. Wrap content:
 
-[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-1.03.38-PM-150x150.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-1.03.38-PM.png)
+	[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-1.03.38-PM-150x150.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-1.03.38-PM.png)
 
-所有的视图都有 wrap_content 的概念，这里也是一样。现在我们可以在 Design 编辑器中设定该属性了。如下图所示。
+	所有的视图都有 wrap_content 的概念，这里也是一样。现在我们可以在 Design 编辑器中设定该属性了。如下图所示。
 
-[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-14-43-51.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-14-43-51.gif)
+	[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-14-43-51.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-14-43-51.gif)
 
-这里我将一个原本属性为 match_parent,match_parent 的按钮修改为了 wrap_content,wrap_content。
+	这里我将一个原本属性为 match_parent,match_parent 的按钮修改为了 wrap_content,wrap_content。
 
 2. 固定尺寸：
 
-[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-1.03.53-PM-150x150.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-1.03.53-PM.png)
+	[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-1.03.53-PM-150x150.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-1.03.53-PM.png)
 
-固定尺寸指的是像我们给宽度和高度设定 dp 值一样，现在我们可以直接在 UI 界面里做到。如下图所示。
+	固定尺寸指的是像我们给宽度和高度设定 dp 值一样，现在我们可以直接在 UI 界面里做到。如下图所示。
 
-[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-14-47-34.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-14-47-34.gif)
+	[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-14-47-34.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-14-47-34.gif)
 
-这里我将一个属性为 wrap_content,wrap_content 的按钮更改成了固定尺寸，并通过拖拽来设定值。
+	这里我将一个属性为 wrap_content,wrap_content 的按钮更改成了固定尺寸，并通过拖拽来设定值。
 
 3. 任意尺寸：
 
-[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-1.04.11-PM-150x150.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-1.04.11-PM.png)
+	[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-1.04.11-PM-150x150.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-1.04.11-PM.png)
 
-任意尺寸在我们构建约束时非常有用。就比如我没有给视图设置任何约束，并将其设置为任意尺寸，视图就会变为 0dp,0dp。如下图所示。
+	任意尺寸在我们构建约束时非常有用。就比如我没有给视图设置任何约束，并将其设置为任意尺寸，视图就会变为 0dp,0dp。如下图所示。
 
-[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-14-54-36.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-14-54-36.gif)
+	[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-14-54-36.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-14-54-36.gif)
 
-现在我要对这个按钮施加左右约束，之后将其宽高设置为任意尺寸，这时按钮会填充所有剩余的空间。如下图所示。
+	现在我要对这个按钮施加左右约束，之后将其宽高设置为任意尺寸，这时按钮会填充所有剩余的空间。如下图所示。
 
-[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-14-57-53.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-14-57-53.gif)
+	[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-14-57-53.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-14-57-53.gif)
 
 现在是时候学习有关如何设置视图的约束值了。
 
