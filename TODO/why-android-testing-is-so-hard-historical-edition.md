@@ -1,66 +1,66 @@
 > * 原文地址：[Why Android Testing is so Hard: Historical Edition](https://www.philosophicalhacker.com/post/why-android-testing-is-so-hard-historical-edition/)
 * 原文作者：[David West](https://www.philosophicalhacker.com/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[tanglie1993](https://github.com/tanglie1993)
 * 校对者：
 
 
 ![](https://www.philosophicalhacker.com/images/time.jpg)
 
-# Why Android Testing is so Hard: Historical Edition #
+# 为什么安卓测试如此困难：历史版本 #
           
-> As a profession, we also tend to be abysmally ignorant of our own history.
+> 作为一种职业，程序员总是完全无视自己的历史。
 > 
-> David West, Object Thinking
+> David West, 《Object Thinking》
 
-Almost two years ago, I wrote a [couple](https://www.philosophicalhacker.com/2015/04/17/why-android-unit-testing-is-so-hard-pt-1/)[articles](https://www.philosophicalhacker.com/2015/04/24/why-android-unit-testing-is-so-hard-pt-2/) that attempted to answer the question, “Why is testing Android apps so hard?” In those posts, I suggested that the standard architecture of Android applications is what makes testing difficult. This explanation of the difficulty of testing android apps raises a deeper, more historical question: why did an architecture that makes testing difficult became the default way of building Android apps in the first place?
+几乎两年以前，我写了[两篇](https://www.philosophicalhacker.com/2015/04/17/why-android-unit-testing-is-so-hard-pt-1/)[文章](https://www.philosophicalhacker.com/2015/04/24/why-android-unit-testing-is-so-hard-pt-2/) 用于回答这个问题：“为什么测试安卓应用这么困难？”在这些帖子中，我提出，是安卓应用的标准架构使得测试如此困难的。这个对于安卓应用测试困难性的解释提出了一个更深、更历史性的问题：为什么一个如此难以测试的架构，在当初会成为开发安卓应用的默认方式？
 
-That’s the question I want to speculate about in this post. I think there were three things that contributed to a less-than-ideal testing situation on Android: performance concerns, confusion about the purpose of app component classes, and the newness of TDD and automated testing at the time of Android’s initial release.
+在本帖子中，我将推测这个问题的答案。我认为安卓目前不理想的测试状态由三个原因造成：性能因素、应用组件类目的不明确，以及在安卓刚推出时 TDD 和自动化测试的不成熟。
 
-### Performance ###
+### 性能 ###
 
-To some extent, there’s an inverse relationship between testable code and performant code. As Michael Feathers points out, testable code requires layers of abstraction.
+在某种程度上，代码的性能和可测试性是反相关的。就像 Michael Feathers 指出的那样，可测试的代码需要抽象层。
 
-> …one pervasive problem in legacy code bases is that there often aren’t any layers of abstraction; the most important code in the system often sits intermingled with low-level API calls. We’ve already seen how this can make testing difficult…1
+> ……遗留代码中一个普遍的问题是：它通常没有太多的抽象层；系统中最重要的代码通常和底层API调用混杂在一起。我们已经见到，它是怎样把测试复杂化的……1
 
-Layers of abstraction, as Chet Haase points out, have a performance cost, a cost that we need to particularly aware of as Android developers:
+如同 Chet Haase 所说，抽象层有性能代价。作为安卓开发者，我们需要对其额外警惕：
 
-> If there is some section of code that is executed rarely…,but which would benefit from a clearer style, then a more traditional layer of abstraction could be the right decision. But if analysis shows that you are re-executing some code path often and causing lots of memory churn in the process, consider these strategies for avoiding excess allocations…2
+> 如果有些代码很少执行……，但更清晰的风格对它有益，那么一个传统的抽象层会是正确的决定。但如果分析显示你经常反复执行某些代码路径，并在过程中造成大量内存抖动，考虑这些避免过量分配的策略……2
 
-Although “#perfmatters” in 2017, performance was a much larger concern when Android was first getting off the ground, which means that the design of the Android APIs and the early practices/architectures for building Android apps was extremely performance sensitive. Its possible that building the layers of abstraction to support testing just wasn’t practical in those days.
+虽然2017年有“#perfmatters”，但性能问题在安卓推出之初比现在更受关注。这意味着 Android API 的设计和安卓应用的早期架构/实践是对性能非常敏感的。添加额外的抽象层用于测试，在那段时间有可能是不现实的。
 
-The first Android phone, [the G1](https://www.google.com/shopping/product/1556749025834621307/specs?sourceid=chrome-psyapi2&amp;ion=1&amp;espv=2&amp;ie=UTF-8&amp;q=tmobile+g1+android&amp;oq=tmobile+g1+android&amp;aqs=chrome..69i57j0l5.2528j0j4&amp;sa=X&amp;ved=0ahUKEwjilvOU0YXSAhVG8CYKHTp2BrAQuC8IjgE), had *192 MB of RAM* and a *528MHZ* processor. Obviously, we’ve come a long way since then, and in many cases, we can now afford the additional layers of abstraction that testability requires.
+第一部安卓手机，[G1](https://www.google.com/shopping/product/1556749025834621307/specs?sourceid=chrome-psyapi2&amp;ion=1&amp;espv=2&amp;ie=UTF-8&amp;q=tmobile+g1+android&amp;oq=tmobile+g1+android&amp;aqs=chrome..69i57j0l5.2528j0j4&amp;sa=X&amp;ved=0ahUKEwjilvOU0YXSAhVG8CYKHTp2BrAQuC8IjgE)，有 *192 MB  RAM* 和一个 *528MHZ* 的处理器。显然，从那以后我们已经走过了很长的路。而且在很多情况下，我们可以负担得起可测试性所要求的额外抽象层。
 
-One of the more interesting things I’ve heard lately that indicates how heavily performance concerns weighed on the design of Android and on the early days of Android development in the trenches comes from Ficus Kirkpatrick, one of the founding members of the Android team, in a recent episode of Android Developers backstage:
+我最近听 Ficus Kirkpatrick 说了一件有趣的事。它是关于在安卓系统设计和早期的安卓开发中，性能因素有多重要的。Ficus Kirkpatrick 是安卓组成立时的成员之一，他在最近某期 Android Developers backstage 中提起：
 
-> …A lot these things like enums and this philosophy of extreme frugality when it comes to CPU cycles or memory…that’s an interesting lens to look at a lot the early Android decisions. I look at a lot of these engineers almost like they were raised during the depression and they learned to scrape the bottom of the pot.3
+> …当涉及到 CPU 周期和内存时，就出现很多 enum 之类的东西和极度节俭的哲学……这是观察安卓早期决定的一个有趣的角度。我看到很多工程师就像在大萧条时期长大的一样，锱铢必较地节俭。 3
 
-There’s a great discussion after this point in the podcast about the tradeoff between performance and development speed. Chet Haase and Tor Norbye push pretty hard on performance concerns while Ficus Fitzpatrick, who is now at Facebook, seems more sympathetic towards trading performance for development speed.
+关于性能和开发速度之间的权衡，在播客中已经有了很好的讨论。Chet Haase 和 Tor Norbye 非常强调性能因素，而目前在 Facebook 工作的 Ficus Fitzpatrick 看起来更倾向于牺牲性能换取开发速度。
 
-Who is right – or whether there was ultimately an unresolved disagreement in the end – doesn’t matter for our purposes. What matters is that their conversation, along with the [hoopla](https://plus.google.com/105051985738280261832/posts/YDykw2hstUu) [about](https://twitter.com/jakewharton/status/551876948469620737?lang=en) [enums](https://www.youtube.com/watch?v=5MzayZXtSiQ), shows clearly that the folks at Android are still very concerned about performance and this might make them less interested in promoting patterns whose abstractions have some performance overhead, even if that overhead facilitates testing.
+谁是对的——或者意见是否最终可以达成一致——对我们不重要。重要的是他们的对话，和 [关于](https://plus.google.com/105051985738280261832/posts/YDykw2hstUu) [enums](https://twitter.com/jakewharton/status/551876948469620737?lang=en)[的宣传] (https://www.youtube.com/watch?v=5MzayZXtSiQ), 明确显示了安卓系统的开发人员仍然很关心性能。这可能导致他们对于有一些性能消耗的抽象不那么热衷，哪怕这对测试有益。
 
-### Misunderstanding Android Components ###
+### 关于安卓组件的误解 ###
 
-Another reason that the testing situation on Android is so bad may be that we’ve fundamentally misunderstood the purpose of Android’s app component classes (viz., `Activity`, `Service`, `BroadcastReceiver`, and `ContentProvider`). For a long time, I thought that these classes were supposed to facilitate *application development*. Not so, says Diane Hackborne:
+另一个造成安卓测试环境如此恶劣的原因是我们可能完全误解了安卓的组件类（即`Activity`, `Service`, `BroadcastReceiver`, 和 `ContentProvider`）的目的。在很长一段时间里，我以为这些类是用于方便应用开发的。Diane Hackborne 并不这样认为：
 
-> …With its Java language APIs and fairly high-level concepts, it can look like a typical application framework that is there to say how applications should be doing their work.  But for the most part, it is not.
+> …从 Java 语言 API 和相当高层的概念来看，它像是一个典型的应用框架，用于指示应用应当如何工作。但就大部分情况而言，它不是。
 > 
-> It is probably better to call the core Android APIs a “system framework.”  For the most part, the platform APIs we provide are there to define how an application interacts with the operating system; but for anything going on purely within the app, these APIs are often just not relevant.
+> 大概把 Android API 称为“系统框架”会更合适。大多数情况下，我们提供的平台API是用于定义一个应用如何与操作系统互动的；但对于任何从纯粹在应用内部运行的东西而言，这些 API 和它并没有什么关系。
 
-This same idea gets reiterated by Chet Haase in his *Developing for Android* medium blog post series:
+Chet Haase在他的 *Developing for Android* medium 博客中重新强调了这一点：
 
-> Application components (activities, services, providers, receivers) are interfaces for your application to interact with the operating system; don’t take them as a recommendation of the facilities you should architect your entire application around.4
+> 应用组件（activities, services, providers, receivers）是用于和操作系统互动的接口；不推荐把它们作为架构整个应用的核心。4
 
-I think by know its well-known [that putting logic in activities and other app component classes makes testing difficult](/post/why-we-should-stop-putting-logic-in-activities/) because of the lack of proper dependency injection. Because many of us believed that we were supposed to be building our applications around these components, we over-used them, worsening the testability situation in our apps.
+我认为现在大家都已经知道，[把业务逻辑写在 Activity 和其它应用组件类中，会使测试变得困难](/post/why-we-should-stop-putting-logic-in-activities/) ，因为缺乏合适的依赖注入。由于我们中有许多人会围绕这些组件建立整个应用，我们可能会过度使用它们，使应用的测试状况进一步恶化。
 
-### The Rise of Android and Unit Testing ###
+### 安卓和单元测试的崛起 ###
 
-Here’s one more thing that probably contributed to the sad testing situation on Android: TDD was on the rise at the same time Android was. The first release of Android was in September of 2008. *TDD by Example* one of the earliest books written on TDD-style unit testing was written a mere 3 years earlier.
+有另一件事情导致了安卓不佳的测试状况： TDD 和安卓同时崛起。安卓最初的版本是在 2008 年九月发布的。最早的关于 TDD 型单元测试的书之一，*TDD by Example*，仅仅比它早3年。
 
-The importance of automated testing is likely much more widely accepted now than it was then. Perceived importance of testability likely factored into design decisions around the Android SDK and the Android community’s willingness to develop practices and architectures that supported testing.
+自动化测试的重要性比那时更广泛地被接受。测试的重要性影响了 Android SDK 的设计决定，以及 Android社区对于支持测试的架构和实践的热情。
 
 
-### Notes: ###
+### 注: ###
 
 1. 
 Michael Feathers, *Working Effectively with Legacy Code*, 350-351.
@@ -73,8 +73,3 @@ Chet Haase, *[Developing for Android II The Rules: Memory](https://medium.com/go
 
 4. 
 Haase, *[Developing for Android VII The Rules: Framework](https://medium.com/google-developers/developing-for-android-vii-the-rules-framework-concerns-d0210e52eee3#.yegpenynu)*
-
-### We're hiring mid-senior Android developers at [Unikey](http://www.unikey.com/). Email me if you want to work for a Startup in the smart lock space in Orlando ###
-
-#### kmatthew[dot]dupree[at][google'semailservice][dot]com ####
-
