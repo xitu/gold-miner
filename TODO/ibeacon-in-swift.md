@@ -1,8 +1,9 @@
+
 > * 原文地址：[A Guide to Interacting with iBeacons in iOS using Swift](https://spin.atomicobject.com/2017/01/31/ibeacon-in-swift/)
 * 原文作者：[MATT NEDRICH](https://spin.atomicobject.com/author/nedrich/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
-* 校对者：
+* 译者：[lovelyCiTY](https://github.com/lovelyCiTY)
+* 校对者：[Gocy015](https://github.com/Gocy015)、[Danny1451](https://github.com/Danny1451)
 
 #iOS 开发中使用 Swift 进行 iBeacons 交互指南
 
