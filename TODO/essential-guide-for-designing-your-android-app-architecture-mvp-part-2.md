@@ -1,8 +1,8 @@
 > * 原文地址：[Essential Guide For Designing Your Android App Architecture: MVP: Part 2](https://blog.mindorks.com/essential-guide-for-designing-your-android-app-architecture-mvp-part-2-b2ac6f3f9637#.k8ic3b2b3)
 * 原文作者：[Janishar Ali](https://blog.mindorks.com/@janishar.ali?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：tanglie1993(https://github.com/tanglie1993)
-* 校对者：skyar2009(https://github.com/skyar2009), Danny1451(https://github.com/Danny1451)
+* 译者：[tanglie1993](https://github.com/tanglie1993)
+* 校对者：[skyar2009](https://github.com/skyar2009), [Danny1451](https://github.com/Danny1451)
 
 # Android MVP 架构必要知识：第二部分 #
 
@@ -37,7 +37,7 @@ MVP 项目的 GitHub repo 地址:
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/400/1*d4WOBPrzv7N19tfkeY636Q.gif">
 
-这个应用有一个登录页面和一个主页面。登录页面实现了 google，facebook 和服务器登录。Google 和 facebook 登录是通过哑 API 实现的。登录是基于获取 access token 的，接下来的调用都被这个 token 所保护。主屏幕创建了和 MVP 相关问题的答题卡。这个 repo 包含了任何应用的大多数组件所需的基本框架。
+这个应用有一个登录页面和一个主页面。登录页面实现了 Google，Facebook 和服务器登录。Google 和 Facebook 登录是通过哑 API 实现的。登录是基于获取 access token 的，接下来的调用都被这个 token 所保护。主屏幕创建了和 MVP 相关问题的答题卡。这个 repo 包含了任何应用的大多数组件所需的基本框架。
 
 让我们看一眼项目的结构：
 
