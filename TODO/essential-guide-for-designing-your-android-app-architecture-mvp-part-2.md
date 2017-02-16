@@ -2,13 +2,13 @@
 * 原文作者：[Janishar Ali](https://blog.mindorks.com/@janishar.ali?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：tanglie1993(https://github.com/tanglie1993)
-* 校对者：
+* 校对者：skyar2009(https://github.com/skyar2009), Danny1451(https://github.com/Danny1451)
 
 # Android MVP 架构必要知识：第二部分 #
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/2000/1*eHluapKk6_AaHNd2gkLi3A.png">
 
-这是本系列文章的第二部分。在第一部分，我们发展了 MVP 的概念，并做出了一个安卓应用架构的蓝图。如果你还没有阅读第一部分，那么大部分接下来的文章将对你没有多大意义。所以，在你继续读下去之前，浏览一遍第一部分。
+这是本系列文章的第二部分。在第一部分，我们提出了 MVP 的概念，并做出了一个安卓应用架构的蓝图。如果你还没有阅读第一部分，那么大部分接下来的文章将对你没有多大意义。所以，在你继续读下去之前，浏览一遍第一部分。
 
 
 [这是指向第一部分的链接](https://github.com/xitu/gold-miner/blob/master/TODO/essential-guide-for-designing-your-android-app-architecture-mvp-part.md):
@@ -23,11 +23,11 @@ MVP 项目的 GitHub repo 地址:
 
 [**MindorksOpenSource/android-mvp-architecture**](https://github.com/MindorksOpenSource/android-mvp-architecture)
 
-本项目旨在提供一种正确的架构安卓应用的方式。它包括了安卓应用的大多数部分需要的全部代码。
+本项目旨在提供一种正确的安卓应用架构方式。它包括了大多数安卓应用的全部代码模块。
 
-这个项目一开始显得非常复杂。但如果你花时间探索，它将变得非常浅显。这个项目是用 Dagger2, Rxjava, FastAndroidNetworking  和 PlaceHolderView 实现的。
+这个项目刚开始看起来会很复杂，但是随着你花时间去探索，你看它也会变得更清晰明了。这个项目是用 Dagger2, Rxjava, FastAndroidNetworking  和 PlaceHolderView 实现的。
 
-> 把这个项目当作一个案例。研究它的每一行代码。如果这里面有任何 bug 或者你能想出一个更好的逻辑实现，创建一个 pull request。我们在逐步写测试。欢迎你为测试做贡献，并通过 pull request 的方式提交。
+> 把这个项目当作一个学习案例。研究它的每一行代码。如果这里面有任何 bug 或者你能想出一个更好的逻辑实现，创建一个 pull request。我们在逐步写测试。欢迎你为测试做贡献，并通过 pull request 的方式提交。
 
 开发出的应用的截屏如下：
 
@@ -37,7 +37,7 @@ MVP 项目的 GitHub repo 地址:
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/400/1*d4WOBPrzv7N19tfkeY636Q.gif">
 
-这个应用有一个登录页面和一个主页面。登录页面实现了 google，facebook 和服务器登录。Google 和 facebook 登录是通过哑 API  实现的。登录是基于获取 access token 的，接下来的调用都被这个 token 所保护。主屏幕创建了和 MVP 相关问题的抽认卡。这个  repo 包含了任何应用的大多数组件所需的基本框架。
+这个应用有一个登录页面和一个主页面。登录页面实现了 google，facebook 和服务器登录。Google 和 facebook 登录是通过哑 API 实现的。登录是基于获取 access token 的，接下来的调用都被这个 token 所保护。主屏幕创建了和 MVP 相关问题的答题卡。这个 repo 包含了任何应用的大多数组件所需的基本框架。
 
 让我们看一眼项目的结构：
 
@@ -49,7 +49,7 @@ MVP 项目的 GitHub repo 地址:
 4. **service**: 应用需要的服务。
 5. **utils**: 工具类。
 
-类是被这样设计的：它们应该能够被继承，并能最大化代码复用。
+类的设计方法是这样的：它们应该能够被继承，并能最大化代码复用。
 
 #### 项目结构图: ####
 
