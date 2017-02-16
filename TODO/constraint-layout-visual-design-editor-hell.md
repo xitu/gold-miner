@@ -8,7 +8,7 @@
 
 哇哦，又是新的一天。为了不浪费这宝贵的时光，让我们来学点新知识吧 🙂 。
 
-你们好，希望各位都有所进步。在[第一部分](http://www.uwanttolearn.com/android/constraint-layout-hell/), [第二部分](http://www.uwanttolearn.com/android/constraint-layout-concepts-hell-tips-tricks-part-2/) 和 [第三部分](http://www.uwanttolearn.com/android/constraint-layout-animations-dynamic-constraints-ui-java-hell/)这些文章中我们已经学习了许多关于 ConstraintLayout 的知识。现在是时候来学习这个神奇布局的剩余内容了。顺便一提，本文是 Constraint Layout (这到底是什么)系列的最后一篇文章了。
+大家好，希望各位都有所进步。在[第一部分](http://www.uwanttolearn.com/android/constraint-layout-hell/), [第二部分](http://www.uwanttolearn.com/android/constraint-layout-concepts-hell-tips-tricks-part-2/) 和 [第三部分](http://www.uwanttolearn.com/android/constraint-layout-animations-dynamic-constraints-ui-java-hell/)这些文章中我们已经学习了许多关于 ConstraintLayout 的知识。现在是时候来学习这个神奇布局的剩余内容了。顺便一提，本文是 Constraint Layout (这到底是什么)系列的最后一篇文章了。
 
 **动机：**
 
