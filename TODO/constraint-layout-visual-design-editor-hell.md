@@ -148,7 +148,7 @@ Palette 窗口 ->  Design 编辑器 -> Properties 窗口 ->  Design 编辑器
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-11.57.13-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-11.57.13-AM.png) **对齐图标：**
 
-这个图标的弹出菜单里包含了多达11个图标。其中4个图标在选中单个视图时可用，其余的在选中多个视图时可用。
+这个图标的弹出菜单里包含了多达 11 个图标。其中 4 个图标在选中单个视图时可用，其余的在选中多个视图时可用。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-11.24.49-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-11.24.49-AM.png)
 
@@ -281,7 +281,7 @@ Palette 窗口 ->  Design 编辑器 -> Properties 窗口 ->  Design 编辑器
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-14-43-51.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-14-43-51.gif)
 
-这里我将一个原本属性为 match_parent,match_parent 的按钮修改为了 wrap_content,wrap_content。
+这里我将一个原本属性为 match_parent，match_parent 的按钮修改为了 wrap_content，wrap_content。
 
 2.固定尺寸：
 
@@ -291,13 +291,13 @@ Palette 窗口 ->  Design 编辑器 -> Properties 窗口 ->  Design 编辑器
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-14-47-34.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-14-47-34.gif)
 
-这里我将一个属性为 wrap_content,wrap_content 的按钮更改成了固定尺寸，并通过拖拽来设定值。
+这里我将一个属性为 wrap_content，wrap_content 的按钮更改成了固定尺寸，并通过拖拽来设定值。
 
 3.任意尺寸：
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-1.04.11-PM-150x150.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-1.04.11-PM.png)
 
-任意尺寸在我们构建约束时非常有用。就比如我没有给视图设置任何约束，并将其设置为任意尺寸，视图就会变为 0dp,0dp。如下图所示。
+任意尺寸在我们构建约束时非常有用。就比如我没有给视图设置任何约束，并将其设置为任意尺寸，视图就会变为 0 dp，0 dp。如下图所示。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-14-54-36.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-14-54-36.gif)
 
@@ -315,7 +315,7 @@ Palette 窗口 ->  Design 编辑器 -> Properties 窗口 ->  Design 编辑器
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-15-06-36.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-15-06-36.gif)
 
-上图中有一个按钮，我为该按钮构建了左侧值为 24dp 的约束。之后我将值修改为 207dp，最后我通过点击小圆点将约束移除。有一点值得注意的是，这些值不是约束，而是外边距。你只能在构建约束后设置该值。
+上图中有一个按钮，我为该按钮构建了左侧值为 24 dp 的约束。之后我将值修改为 207 dp，最后我通过点击小圆点将约束移除。有一点值得注意的是，这些值不是约束，而是外边距。你只能在构建约束后设置该值。
 
 希望你们喜欢我的 Constraint Layout（这到底是什么） 这一系列教程。今天我们完成了所有我对 ConstraintLayout 了解的内容的介绍。
 
