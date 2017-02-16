@@ -1,3 +1,4 @@
+* [[译] iOS 开发者一定要知道的 14 个知识点](https://gold.xitu.io/entry/58a5727261ff4b006c432a7f/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Deepmissea](http://deepmissea.blue) 翻译)
 * [iOS 应用测试](https://gold.xitu.io/entry/58a16cc161ff4b006b51d882/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([thanksdanny](https://github.com/thanksdanny) 翻译)
 * [老司机手把手带你在 Swift 中应用代理（Delegate）](https://gold.xitu.io/entry/58a11b7c61ff4b006b4f7f69/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Gocy015](https://github.com/Gocy015) 翻译)
 * [在 Swift 3 上对视图控件实践面向协议编程](https://gold.xitu.io/entry/589b42692f301e00699b8011/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Tuccuay](https://github.com/Tuccuay) 翻译)
