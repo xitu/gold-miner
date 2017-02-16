@@ -11,7 +11,7 @@
 你们好，希望各位都有所进步。在上周中，我们学习了 ConstraintLayout 的[第一部分](http://www.uwanttolearn.com/android/constraint-layout-hell/)。现在是时候来学习这个神奇布局的剩下内容了。
 
 **动机:**
-学习动机与先前在[第一部分](http://www.uwanttolearn.com/android/constraint-layout-hell/)中讨论的是一样的。 不过这次我不准备解释 ConstraintLayout 的特性，相反，我会分享一些当你们独立实现时可能遇到的问题。最后，我向大家保证，你们将会潜移默化地了解所有（我知道的）概念。
+学习动机与先前在[第一部分](https://github.com/xitu/gold-miner/blob/master/TODO/constraint-layout-hell.md)中讨论的是一样的。 不过这次我不准备解释 ConstraintLayout 的特性，相反，我会分享一些当你们独立实现时可能遇到的问题。最后，我向大家保证，你们将会潜移默化地了解所有（我知道的）概念。
 
 **问题:**
 
@@ -31,7 +31,7 @@
 
 8. [隐藏视图后，布局遭到破坏](#8)
 
-是时候开始了！:).
+是时候开始了！:)
 
 我们需要下载 2.3 版本的 Android studio。先前版本的可视化编辑器不太完善，有时会在面板上显示错误的信息。所以下载 2.3 测试版本是非常重要的，该版本在我写这篇文章时已经可以获取到了。
 
@@ -82,7 +82,9 @@
 哈哈！我知道这很简单，但还有另外一个问题。比如我有一个宽高尺寸都是 match_constrained 类型的 TextView，但是我希望整个 textView 的形状适应设备大小为方型。一个关键点是，我们需要按如下方式设置宽高属性来约束为方型：
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-14-2017-09-56-50.gif)
-](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-14-2017-09-56-50.gif)现在你可以随机地尝试更多设置值了。
+](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-14-2017-09-56-50.gif)
+
+现在你可以随机地尝试更多设置值了。
 
 <h6 id="5">5. 需要两列或多列:</h6>
 
@@ -455,6 +457,7 @@ Spread Chain, Spread Inside Chain, Packed Chain, Packed Chain with Bias 以及 W
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-14-2017-12-07-52.gif)
 ](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-14-2017-12-07-52.gif)
+
 如果我们想要所有的视图连在一起，我们就应使用 “packed” 属性。需要注意一点，所有的视图会默认变为水平居中。现在我的问题是我不想要水平居中的效果，那么就轮到下个属性了。
 
 **Packed Chain with Bias:**
@@ -463,6 +466,7 @@ Spread Chain, Spread Inside Chain, Packed Chain, Packed Chain with Bias 以及 W
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-14-2017-12-15-05.gif)
 ](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-14-2017-12-15-05.gif)
+
 通过使用偏移量属性，我能随意地修改位置。
 
 **Weighted Chain:**
@@ -503,4 +507,4 @@ Spread Chain, Spread Inside Chain, Packed Chain, Packed Chain with Bias 以及 W
 砰！如期所至！好耶。
 
 好啦各位，该说再见啦。下期再见！
-**[ConstraintLayout [Animations | Dynamic Constraints | UI by Java] ( What the hell is this) [Part3] ](http://www.uwanttolearn.com/android/constraint-layout-animations-dynamic-constraints-ui-java-hell/)**
+**[ConstraintLayout \[Animations | Dynamic Constraints | UI by Java\] ( What the hell is this) \[Part3\] ](https://github.com/xitu/gold-miner/blob/master/TODO/constraint-layout-animations-dynamic-constraints-ui-java-hell.md)**
