@@ -6,7 +6,7 @@
 
 # ConstaintLayout 可视化[设计]编辑器 （这到底是什么）[第四部分]
 
-哇哦，又是新的一天。为了不浪费这宝贵的时光，让我们来学点新知识吧🙂。
+哇哦，又是新的一天。为了不浪费这宝贵的时光，让我们来学点新知识吧 🙂 。
 
 你们好，希望各位都有所进步。在[第一部分](http://www.uwanttolearn.com/android/constraint-layout-hell/), [第二部分](http://www.uwanttolearn.com/android/constraint-layout-concepts-hell-tips-tricks-part-2/) 和 [第三部分](http://www.uwanttolearn.com/android/constraint-layout-animations-dynamic-constraints-ui-java-hell/)这些文章中我们已经学习了许多关于 ConstraintLayout 的知识。现在是时候来学习这个神奇布局的剩余内容了。顺便一提，本文是 Constraint Layout (这到底是什么)系列的最后一篇文章了。
 
@@ -57,13 +57,13 @@ Palette 窗口 ->  Design 编辑器 -> Properties 窗口 ->  Design 编辑器
 
 在开始之前，为了便于后面解释，我会给这些图标起个名。从左到右开始分别是：**眼睛**图标，**磁铁**图标，**交叉箭头**图标，**星星**图标，**数字**盒子，**背包**图标，**对齐**图标，**指示线**图标，**放大**图标，**缩小**图标，**适应屏幕**图标，**平移缩放**图标，**警告和错误**图标。
 
-[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.56.38-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.56.38-AM.png)**眼睛图标：**
+[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.56.38-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.56.38-AM.png) **眼睛图标：**
 
 这个图标很有用，尤其是当我们的界面上有大量的视图时。如果这个图标处于打开状态，这意味着我们同时可以看到所有视图的约束关系。比如当我只在调整一个按钮时，我却可以看到其他所有视图的约束关系。如果关闭了该功能，你就仅仅只能看到选中视图的约束，如下图所示。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-09-13-57-221x300.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-09-13-57.gif)
 
-[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.55.08-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.55.08-AM.png)**磁铁图标：**
+[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.55.08-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.55.08-AM.png) **磁铁图标：**
 
 如果你了解了这个图标会节省许多的时间。老实说我不太擅长使用这个图标，但是我会把我所知道的都告诉你。如果这个图标处于关闭状态，你在 Design 编辑器里可以拖拽或移动你的视图，但你必须手动构建约束。如果这个图标处于打开状态，这时编辑器就会自动构建与父视图的约束。
 
@@ -71,9 +71,7 @@ Palette 窗口 ->  Design 编辑器 -> Properties 窗口 ->  Design 编辑器
 
 如上图所示。一开始图标处于关闭状态，我将我的 ImageView 移动到居中的位置，但什么都没有发生。之后我将磁铁图标打开了，神奇的事情发生了。我将我的 ImageView 移动到居中的位置，编辑器自动为我构建了约束。哇哦！
 
-**交叉箭头图标**
-
-[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.55.17-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.55.17-AM.png)
+[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.55.17-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.55.17-AM.png) **交叉箭头图标：**
 
 这个图标非常简单也非常酷炫。如果我想要清空所有的约束，只要点击这个图标，然后所有的约束都会被移除掉。如下图所示。
 
@@ -81,21 +79,19 @@ Palette 窗口 ->  Design 编辑器 -> Properties 窗口 ->  Design 编辑器
 
 如上图所示，自动约束（磁铁图标）是打开的，这就是为什么当我将视图移动到水平居中时会自动构建约束，但是当我点击了这个图标，所有的约束都被移除掉了。
 
-**星星图标**
-
-[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.55.37-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.55.37-AM.png)
+[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.55.37-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.55.37-AM.png) **星星图标：**
 
 这又是一个酷炫的图标。与交叉（清空约束）图标正好相反。我可以随意地拖拽视图而不用为它们构建约束。当我操作完成时只要点击一下这个图标，就可以自动构建出所有的约束，如下图所示。我很喜欢这个功能。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-09-46-52-221x300.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-09-46-52.gif)
 
-[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.57.41-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.57.41-AM.png)**数字盒子**
+[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.57.41-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.57.41-AM.png)**数字盒子：**
 
 作用是为你的父布局设置默认的外边距。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-09-53-25-221x300.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-09-53-25.gif)
 
-[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-11.57.05-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-11.57.05-AM.png)**背包图标**
+[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-11.57.05-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-11.57.05-AM.png)**背包图标：**
 
 这个图标包含了许多功能。我会一个个地解释。
 
@@ -107,240 +103,221 @@ Palette 窗口 ->  Design 编辑器 -> Properties 窗口 ->  Design 编辑器
 
 当我选中了一个视图，有两个图标会变为可用的，如下图所示。让我们来看一下它们可以做些什么。
 
-I clicked left icon and that increased width of my view up to parent edges but remember that is value in dp not match_parent ( parent ). Its mean If I change my screen to more bigger size my view will not shown with the edges of a parent. Same functionality will happen with right icon but vertical. Now both are shown below.
-我点击了左边的图标，可以看到视图的宽度扩展到了屏幕边缘，但是请记住，这只是以 dp 为单位使用数值实现的效果而不是所谓的 match_parent(parent)。这就意味着如果在屏幕宽度更大的设备上，这个视图就无法扩展到屏幕边缘了。右边的图标也是一样的功能，只不过是在纵向的。如下图所示。
+我点击了左边的图标，可以看到视图的宽度扩展到了屏幕边缘，但是请记住，这只是以 dp 为单位使用数值实现的效果而不是所谓的 match_parent(parent)。这就意味着如果在屏幕宽度更大的设备上，这个视图就无法扩展到屏幕边缘了。右边的图标也是一样的功能，只不过是作用于垂直方向的。如下图所示。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-10-36-54-221x300.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-10-36-54.gif)
 
-One more important thing. Don’t confuse yourself because when you click width or heigh icon that will increase your view width or height up to first view who is colliding with your view width or height. In above example I have only one view that’s why it go up to parent width and height. In next example I am showing you the other behavior.
 还有一件事别忘了。如果你点击了扩展宽度或高度的图标，而选中视图的宽高却只扩展到了相邻的视图边缘。不要感到困惑。因为在上面的例子中布局里只有一个视图，所以它填充满了父布局的宽高。下面的例子中我会给你看点不一样的。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-10-40-53-221x300.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-10-40-53.gif)
 
-Before going to the other icons which are related to multiple selected views. One important point you can use these single view icons with multiple views selection as well as shown below.
-在开始介绍那些与多选视图有关的图标之前，还有一点是值得注意的，你可以在选中多个视图时使用那些单选视图时可用的图标，如下图所示。
+在开始介绍那些与多选视图有关的图标之前，还有一点是值得注意的，你在选中多个视图时仍然可以使用那些单选视图时可用的图标，如下图所示。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-10-47-42-221x300.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-10-47-42.gif)
 
-Now its time to learn about those icons which are enable on multiple view selection.
 现在让我们开始学习那些多选视图后可用的图标吧。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-10.50.12-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-10.50.12-AM.png)
 
-As I selected multiple icons on Design Editor, all other icons are enable as shown above.
 当我在 Design 编辑器里选中多个视图后，剩下的几个图标就都变为可用的了。如下图所示。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-10.55.32-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-10.55.32-AM.png)
 
-Both icons have same functionality only one is used for horizontal and the other one is for vertical. When I clicked horizontal one. That will take all my views and do horizontal align with each other. Then question is what is the difference between above icons which we already learned.
-这两个图标功能是一样的的，只不过一个用于横向，另一个用于纵向。当我点击了横向的图标后，所有视图都会横向对齐。那么随之而来的问题是：这和上面刚学习过的那对图标有什么区别呢？
+这两个图标功能是一样的的，只不过一个用于水平方向，另一个用于垂直方向。当我点击了水平方向的图标后，所有视图都会水平方向对齐。那么随之而来的问题是：这和上面刚学习过的那对图标有什么区别呢？
 
-Difference is, above one’s increase the size of our views but this one did not increase the size instead view moved to align to each other. **Again important thing** that only gave values on Design Editor. If you try to run that on a device you will never get like its shown on Design Editor. For that you need to create constraints on your own. Basically you can save your time by using these icons to align views to each other and later when everything on there required places you can apply constraints. Then you will get your proper result on device. Its time to show you when I clicked what happened.
-区别在于，上面的图标通过扩展数值（来对齐）。而这两个图标并不会扩展数值，而是将视图平移至互相对齐。**另外值得注意的是**， （todo） 这样的话就需要你自己去构建约束了。但其实你可以先通过使用这些图标来对齐视图，这样可以节省很多时间，如果还需要做一些调整的话，你可以再添加一下约束，这样你就可以在设备上得到适当的效果。让我们来看一下点击这些图标之后会发生什么吧。
+区别在于，上面的图标通过扩展数值（来对齐）。而这两个图标并不会扩展数值，而是将视图平移至互相对齐。**另外值得注意的是**，这只是在 Design 编辑器中设定了值，如果你运行到设备上你是无法获得在 Design 编辑器中显示的效果的。你必须自己去构建约束。但其实你可以先通过使用这些图标来对齐视图，这样可以节省很多时间，如果还需要做一些调整的话，你可以再构建约束，这样你就可以在设备上得到适当的效果。让我们来看一下点击这些图标之后会发生什么吧。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-11-03-02-221x300.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-11-03-02.gif)
 
-So its time to explain remaining two icons.
-接着再来解释一下剩下的两个图标。
+接着再来解释剩下的两个图标。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-11.04.33-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-11.04.33-AM.png)
 
-These icons have again same functionality only orientation differences.
 同样的，这两个图标也有着一样的功能，只不过作用的方向不一样。
 
-Now If I click left icon basically that will create horizontal constraints between all selected views without moving positions and size as shown below.
-用不着去移动位置或者改变数值，我只要点击左边的图标，就可以为所有选中的视图构建约束。如下图所示。
+用不着去移动位置或者改变数值，我只要点击左边的图标，就可以为所有选中的视图构建水平方向的约束。如下图所示。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-11-14-06-221x300.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-11-14-06.gif)
 
-Here I can create chain between views by double clicking. If you guys don’t know what is chaining. You can read [part2](http://www.uwanttolearn.com/android/constraint-layout-concepts-hell-tips-tricks-part-2/) of the post. In which I explain what is chaining and what benefits we can get by chaining.
+还可以通过双击图标将视图链接成链。如果你对链不太了解，你可以去阅读该系列博客的[第二部分](http://www.uwanttolearn.com/android/constraint-layout-concepts-hell-tips-tricks-part-2/)。那篇文章里介绍了什么是链以及使用链带来的好处。
 
-还可以通过双击图标将视图链接成链。如果你对链还不太了解，你可以去阅读该系列博客的[第二部分](http://www.uwanttolearn.com/android/constraint-layout-concepts-hell-tips-tricks-part-2/)。那篇文章里介绍了什么是链以及使用链带来的好处。
-
-Below you can see how you can create chain using Editor.
 在下图中你可以看到如何使用编辑器构建链。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-11-17-59-221x300.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-11-17-59.gif)
 
-[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-11.57.13-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-11.57.13-AM.png)**Align icon:** **对齐图标**
+[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-11.57.13-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-11.57.13-AM.png) **对齐图标：**
 
-This icon contains 11 more icons in popup. In which four will work with single views and remaining work with multiple selected views.
 这个图标的弹出菜单里包含了多达11个图标。其中4个图标在选中单个视图时可用，其余的在选中多个视图时可用。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-11.24.49-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-11.24.49-AM.png)
 
-So first I am going to explain bottom four icons which will enable as I select any single view.
 首先我来介绍一下底部那四个在选中单个视图时可用的图标吧。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-11.27.28-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-11.27.28-AM.png)
 
-First icon will do, view center horizontal, relative to other views with applying constraints.
-第一个
+第一个图标的作用是将视图相对于相邻视图水平居中并构建约束。
 
-Second icon will do, view center vertical, relative to other views with applying constraints.
+第二个图标的作用是将视图相对于相邻视图垂直居中并构建约束。
 
-Third icon will do, view center horizontal relative to parent view with applying constraints.
+第三个图标的作用是将视图相对于父布局水平居中并构建约束。
 
-Fourth icon will do, view center vertical relative to parent view with applying constraints.
+第四个图标的作用是将视图相对于父布局垂直居中并构建约束。
 
-All icon functionalities are showing below respectively.
+这些图标实现的效果如下图所示。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-11-32-52-221x300.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-11-32-52.gif)
 
-Now remaining icons which are enable for multiple views selection.
+现在就剩下那些选中多个视图后可用的图标了。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-11.38.45-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-11.38.45-AM.png)
 
-Top three icons:
+先来介绍上面的三个：
 
-First icon will align, left edges of my views in horizontal fashion with applying constraints.
+第一个图标的作用是将所有选中视图左对齐于所选中视图的左边缘并构建约束。
 
-Second icon will align horizontal centers of all views with applying constraints.
+第二个图标的作用是将所有选中视图都水平居中并构建约束。
 
-Third icon will align, right edges of my views in horizontal fashion with applying constraints.
+第三个图标的作用是将所有选中视图右对齐于所选中视图的右边缘并构建约束。
 
-All icons functionalities are showing below respectively.
+这些图标实现的效果如下图所示。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-11-45-56-221x300.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-11-45-56.gif)
 
-Bottom four icons are also same only they work in vertical fashion.
+下面的四个图标的作用是一样的，只不过是作用于垂直反向。
 
-**[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-12.04.46-PM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-12.04.46-PM.png)Guideline icon:**
+[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-12.04.46-PM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-12.04.46-PM.png) **指示线图标：**
 
-As we already discuss Guidelines in [part2](http://www.uwanttolearn.com/android/constraint-layout-concepts-hell-tips-tricks-part-2/). What are they and how we can get benefit. Here I am only going to show you. How you can add guidelines in your UI because these are not views. So for that we have this guideline icon, by using this we can add guidelines as shown below.
+我们已经在[第二部分](http://www.uwanttolearn.com/android/constraint-layout-concepts-hell-tips-tricks-part-2/)中讨论过什么是指示线以及使用它会带来什么好处了。这里我就不再多介绍了。你可以放心地在 UI 中添加指示线因为它不算作视图。现在有了这个图标，我们可以使用它来添加指示线，如下图所示。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-12-03-28-208x300.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-12-03-28.gif)
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-12.04.52-PM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-12.04.52-PM.png)
 
-**ZoomIn, ZoomOut, Fit to screen icon:**
+**放大，缩小，适应屏幕图标：**
 
-My assumption is every body know these icons functionality so I am going to next one.
+这个大家应该都懂就不用多说了吧。
 
-[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-12.04.59-PM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-12.04.59-PM.png)
-**Pan and Zoom:**
+[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-12.04.59-PM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-12.04.59-PM.png) **平移缩放图标：**
 
-This icon is useful when I am doing my work on a very high level of zoom and I want scroll my UI as shown below.
+当我处理一些要放大很多倍，并且还需要拖动界面的工作时，这个图标就非常有用了。如下图所示。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-11-53-29-300x278.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-11-53-29.gif)
 
-**[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-12.05.06-PM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-12.05.06-PM.png)Warning and Error icon:**
+[![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-12.05.06-PM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-12.05.06-PM.png) **警告和错误图标：**
 
-This one is useful as I am going to create my UI. I can see if any error or warning occur by clicking on this icon.
+当我在构建我的 UI 时，这个图标非常有用。只要点击一下这个图标，就可以看到是否有任何错误或者警告发生。
 
-Good news. We completed our Visual Editor in Design Mode. Now its time to see how I can work in Text Mode.
+到这里，我们终于结束了对可视化编辑器设计模式（Design mode）的学习。是时候开始看看我是怎么在文本模式（Text mode）里工作的了。
 
-In Text Mode basically you can do all things which currently we did in Design Mode except property changes using Editor and additionally we are able to write XML.
+除了通过编辑器来改变属性外，刚刚我们在设计模式中做的所有事情都可以在文本模式中做到。除此之外，我们还可以编写 XML。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-12.13.10-PM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-12.13.10-PM.png)
 
-Toolbar:
+工具栏：
 
-Provides buttons to configure your layout appearance in the editor and to edit the layout properties. (documentation)
+提供了一些按钮用来配置编辑器中的布局外观以及编辑布局的属性。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-12.19.33-PM-300x16.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-12.19.33-PM.png)
 
-In toolbar I am going to explain only first three and last icon. All other icons are available from day. I think every body know all other icons.
+我只准备介绍工具栏中的前三个和最后一个图标。其他的图标以前就有了，我相信大家对它们都非常熟悉。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-12.22.03-PM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-12.22.03-PM.png)
 
-**Design View Mode Icons:**
+**设计视图模式（Design View Mode）图标：**
 
-First one show us the original UI layout.
+第一个会显示纯粹的 UI 布局。
 
-Second will show us blue print of our UI layout.
+第二个会显示我们的 UI 布局的蓝图。
 
-Third will show us both together.
+第三个则两种都显示。
 
-All icons functionalities are showing below respectively.
+这些图标实现的效果如下图所示。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-12-27-10-300x293.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-12-27-10.gif)
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-12.22.10-PM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-12.22.10-PM.png)
 
-**Layout Variant Icon:**
+**多布局图标：**
 
-This is really helpful icon if I want to create different layout files for different variants. Like I want to create separate Land scape layout. So without going into File I can create from here in seconds just as shown below.
+当我想要为不同的布局创建不同的布局文件时这个图标就可以帮上大忙。就比如我想要单独创建一个横屏的布局。使用这个图标我可以很快地创建好而不用进入文件夹中。如下图所示。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-12-32-50.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-12-32-50.gif)
 
-**Component Tree:**
+**组件树（Component Tree）：**
 
-Shows the view hierarchy for your layout. Click an item here to see it selected in the editor. (Documentation).
+展示你的布局的界面层级。单击某一项可以将其在编辑器中选中。(Documentation)
 
-This pane is really helpful specially when I am doing my work in Design Editor and I have a lot of views in the form of a stack.  Its really difficult to select some view which is behind to some other view. In these type of situations I always use to select my view by using this palette as shown below.
+这个窗口很有用，尤其是当我在 Design 编辑器中并且有大量的图标层层堆叠时，这时很难去选中某些视图旁边的一些视图。在这种情况下，我一般都会使用它来选中我想要的视图。如下图所示。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-12-40-09.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-12-40-09.gif)
 
-**Properties:**
 
-Provides property controls for the currently selected view. (Documentation)
+**属性（Properties）：**
+
+提供了对当前选中视图的属性控制。(Documentation)
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-12.42.57-PM-1-170x300.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-12.42.57-PM-1.png)
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-12.43.21-PM-172x300.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-12.43.21-PM.png)
 
-In Palette we have two views as shown in above images. Here I will explain the first top image because the second bottom image is available from day one in Android Studio. So I have an assumption every body knows about that property pane. About how you can swap these views for that check below image.
+面板由上图所示的两部分组成。这里我只介绍第一张图里的东西，因为第二张图里的东西在 Android Studio 诞生之初就已经存在了，所以应该不用我多说了吧。至于如何切换这两种视图，如下图所示。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-12-52-07-165x300.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-12-52-07.gif)
 
-Its time to learn first property pane view new things which are shown below.
+让我们开始学习第一个属性窗口里的新东西吧！如下图所示。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-12.54.24-PM-296x300.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-12.54.24-PM.png)
 
-There are two main things which we are going to explore. First the internal square which is used for view size. Second are blue lines outside of that internal square. These are used to manage our view constraints.
+我们要探索的主要分为两大部分。第一部分是方形内部，这部分是用来设置视图的尺寸。另一部分是方形外部的蓝色的线条，这些是用来调整视图的约束关系的。
 
-**Internal square:**
+**方形内部：**
 
-Internal square we can see in three forms.
+在方形内部我们可以看到三种形态。
 
 1. Wrap content:
 
-
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-1.03.38-PM-150x150.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-1.03.38-PM.png)
 
-Just like in all views we have a wrap_content concept that is same here. Only now we can do by using Design Editor just shown below.
+所有的视图都有 wrap_content 的概念，这里也是一样。现在我们可以在 Design 编辑器中设定该属性了。如下图所示。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-14-43-51.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-14-43-51.gif)
 
-Here I took a one button which is match_parent, match_parent and later by using UI i changed to wrap_content, wrap_content.
+这里我将一个原本属性为 match_parent,match_parent 的按钮修改为了 wrap_content,wrap_content。
 
-2. Fixed size:
+2. 固定尺寸：
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-1.03.53-PM-150x150.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-1.03.53-PM.png)
 
-Fixed size means like we gave values in dp to width and height. Now we can do by using UI as shown below.
+固定尺寸指的是像我们给宽度和高度设定 dp 值一样，现在我们可以直接在 UI 界面里做到。如下图所示。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-14-47-34.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-14-47-34.gif)
 
-Here I took a one button of wrap_content, wrap_content then I changed that to fixed size and after that I change size by dragging on UI.
+这里我将一个属性为 wrap_content,wrap_content 的按钮更改成了固定尺寸，并通过拖拽来设定值。
 
-3. Any size:
+3. 任意尺寸：
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-1.04.11-PM-150x150.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-1.04.11-PM.png)
 
-Any size is really useful when we are going with constraints. Like if I did not set any constraint on view and then do a any size, view will be 0dp,0dp as shown below.
+任意尺寸在我们构建约束时非常有用。就比如我没有给视图设置任何约束，并将其设置为任意尺寸，视图就会变为 0dp,0dp。如下图所示。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-14-54-36.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-14-54-36.gif)
 
-
-
-Now I am going to apply left and right constraints on the button and later I will change its width, height to any size and button will take whole space as shown below.
+现在我要对这个按钮施加左右约束，之后将其宽高设置为任意尺寸，这时按钮会填充所有剩余的空间。如下图所示。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-14-57-53.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-14-57-53.gif)
 
-Now its time to learn about view constraints value management.
+现在是时候学习有关如何设置视图的约束值了。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-3.00.12-PM-291x300.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-3.00.12-PM.png)
 
-In above image all read rectangles basically contained the constraint management UI of a selected view.
+上图中所有红色的方形区域包含了选中视图的所有约束设置。
 
-Used of these lines are shown below.
+这些线条的作用如下图所示。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-15-06-36.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-15-06-36.gif)
 
-In above image I have a one button. I apply first left constrained on that button with 24dp. Later I changed to 207dp and in the end I removed constraint by clicking on a circle. One important thing basically these values are not constrained instead these values are margins :). Only you can apply that after applying constraints.
+上图中有一个按钮，我为该按钮构建了左侧值为 24dp 的约束。之后我将值修改为 207dp，最后我通过点击小圆点将约束移除。有一点值得注意的是，这些值不是约束，而是外边距。你只能在构建约束后设置该值。
 
-OK guys its time to say BYE. I hope you enjoy all of my Constraint Layout ( What the hell is this ) series of tutorials. Today we completed all aspects of a Constraint Layout according to my knowledge.
+希望你们喜欢我的 Constraint Layout（这到底是什么） 这一系列教程。今天我们完成了所有我对 ConstraintLayout 了解的内容的介绍。
 
-Next time we will meet with some new topic. **BYE**. Have a nice weekend 🙂 .
+下次我们再一起学点新的知识吧。**再见**。周末愉快 🙂 。
