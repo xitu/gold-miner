@@ -1,3 +1,4 @@
+* [JavaScript 启动性能探究](https://gold.xitu.io/entry/58a5b7d21b69e6006d2008e9?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Professor-Z](https://github.com/Professor-Z) 翻译)
 * [几张 GIF 动图让你看懂弹性盒模型（Flexbox）如何工作](https://gold.xitu.io/entry/589d2dd886b599006b2c3308?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([llp0574](https://github.com/llp0574) 翻译)
 * [一个关于 Styled Components 的五分钟介绍](https://gold.xitu.io/entry/589ac8b886b599006b1cec3d?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([sqrthree](https://github.com/sqrthree) 翻译)
 * [Netflix: 使用 React 构建高性能的电视用户界面](https://gold.xitu.io/entry/589a93100ce4630056194875/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Professor-Z](https://github.com/Professor-Z) 翻译)
