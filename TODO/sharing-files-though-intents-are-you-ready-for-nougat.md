@@ -1,30 +1,30 @@
 > * 原文地址：[Sharing files through Intents: are you ready for Nougat?](https://medium.com/@quiro91/sharing-files-though-intents-are-you-ready-for-nougat-70f7e9294a0b#.8d2johavz)
 * 原文作者：[Lorenzo Quiroli](https://medium.com/@quiro91?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
-* 校对者：
+* 译者：[skyar2009](https://github.com/skyar2009)
+* 校对者：[dubuqingfeng](https://github.com/dubuqingfeng)
 
-# Nougat 中通过 Intents 共享文件，你准备好了吗？
+# Android Nougat 中通过 Intents 共享文件，你准备好了吗？
 
-**从 Android 7.0 Nougat 开始，你将不能使用 Intent 传递 file:// URI 方式访问你包域之外的文件，但是无需苦恼：下面将介绍如何解决这个问题。**
+**从 Android 7.0 Nougat 开始，你将不能使用 Intent 传递 file:// URI 的方式访问你主包之外的文件，但是无需苦恼：下面将介绍如何解决这个问题。**
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*OlPkbZzZ4fNdrPNcewWAlA.jpeg">
 
-**Android 7.0 Nougat** 为了提高安全引入了一些 **文件系统权限变更**。如果你已经将 app 的 **目标 SDK 版本** 升级为 24 （或者更高），并且你通过 [Intent](https://developer.android.com/reference/android/content/Intent.html) 传递 **file://**[URI](https://developer.android.com/reference/android/net/Uri.html) 来访问你的包域之外的文件，那么你会遇到 [FileUriExposedException](https://developer.android.com/reference/android/os/FileUriExposedException.html) 的异常。
+**Android 7.0 Nougat** 为了提高安全引入了一些 **文件系统权限变更**。如果你已经将 app 的 **targetSdkVersion** 升级为 24 （或者更高），并且你通过 [Intent](https://developer.android.com/reference/android/content/Intent.html) 传递 **file://**[URI](https://developer.android.com/reference/android/net/Uri.html) 来访问你的主包之外的文件，那么你将会遇到 [FileUriExposedException](https://developer.android.com/reference/android/os/FileUriExposedException.html) 的异常。
 
 #### 为什么会这样呢？ ####
 
 根据官方文档介绍：
 
-> 为提高私有文件的安全性，在Android 7.0 及以上的应用中的私有目录有着严格的访问权限 （`0700`）。这个设定可以防止私有文件元数据的泄漏（比如文件的大小或者是否存在）。
+> 为提高私有文件的安全性，在 Android 7.0 及以上的应用中的私有目录有着严格的访问权限 （`0700`）。这个设定可以防止私有文件元数据的泄漏（比如文件的大小或者是否存在）。
 
-当你通过 **file://** [URI](https://developer.android.com/reference/android/net/Uri.html)方式共享一个文件时，你同时修改了它的文件系统权限，是的它对所有应用都是可访问的（直到你再次修改它）。不用说这种方法是不安全的。
+当你通过 **file://** [URI](https://developer.android.com/reference/android/net/Uri.html)方式共享一个文件时，你同时修改了它的文件系统权限，使得它对所有应用都是可访问的（直到你再次修改它）。毋庸置疑这种方法是不安全的。
 
 #### Ok, 但是这个问题只会影响 Nougat, 那我现在还需要修复吗？ ####
 
 长话短说，当然需要。
 
-确实，目前来说这个问题并不会影响很大范围的 Android 设备，但是这不仅仅是你不采用新特性的问题 —— 如果不解决，在 Nougat 上会崩溃，并且在以前的版本上是不安全的。而且修复这个问题并不困难，所以在你的应用发生奔溃以及你的用户抱怨之前，修复这个问题确实是值得的。
+确实，目前来说这个问题并不会影响很大范围的 Android 设备，但是这不仅仅是你不采用新特性的问题 —— 如果不解决，在 Nougat 设备上会崩溃，并且在以前的版本上是不安全的。而且修复这个问题并不困难，所以在你的应用发生奔溃以及你的用户开始抱怨之前，修复这个问题确实是值得的。
 
 #### 是时候亮代码了 ####
 
@@ -32,7 +32,7 @@
 
 ![Markdown](http://p1.bqimg.com/1949/46be5570af09f88d.png)
 
-我们创建了一个文件，并把文件的 [URI](https://developer.android.com/reference/android/net/Uri.html) 传给了 [Intent](https://developer.android.com/reference/android/content/Intent.html) 来从相机应用接收文件（我们应用包域之外的路径）。这段代码在 Marshmallow 或更低版本上是正常的，在 Nougat、 SDK 24 版本或更高的版本，你会遇到下面类似的堆栈信息：
+我们创建了一个文件，并把文件的 [URI](https://developer.android.com/reference/android/net/Uri.html) 传给了 [Intent](https://developer.android.com/reference/android/content/Intent.html) 来从相机应用接收文件（我们应用主包之外的路径）。这段代码在 Marshmallow 或更低版本上是正常的，在 Nougat、 SDK 24 版本或更高的版本，你会遇到下面类似的堆栈信息：
 
 ```
 
@@ -96,7 +96,7 @@ FileProvider 是 ContentProvider 的子类，FileProvider 允许我们使用 *co
 translatable="false">com.quiro.fileproviderexample.fileprovider</string>
 ```
 
-接下来我们需要在 res/xml 目录下创建 file_provider_path。这个文件用来定义允许安全共享的文件目录。在我们的例子中，我们只需要访问外部存储目录就可以：
+接下来我们需要在 res/xml 目录下创建 file_provider_path。这个文件用来定义允许安全共享的文件目录。在我们的例子中，我们只需要访问外部存储目录：
 
 ```
 <?xml version="1.0" encoding="utf-8"?>
