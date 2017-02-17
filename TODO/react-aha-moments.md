@@ -10,31 +10,31 @@
 
 作为一名教师，我的主要目标之一就是要去让学生能遇到更多这种“灵光乍现”的瞬息。
 
-所谓[“灵光乍现”的瞬息](https://en.wikipedia.org/wiki/Eureka_effect)，指的就是一个人突然洞悉或阐明某事物的那一瞬间。而正正就是那么的一刹那时间，却理清楚了许多的事物。当然，我们每个人都会有所体验。而在我看来，最优秀的教师就是能因人施教，以使得学生能遇到更多的“灵光乍现”。
+所谓[“灵光乍现”的瞬息](https://en.wikipedia.org/wiki/Eureka_effect)，指的就是一个人突然洞悉或阐明某事物的那一瞬间。而正正是就在那一刻，便明白了很多事情。当然，我们每个人都会有所体验。而在我看来，最优秀的教师就是能因人施教，以使得学生能遇到更多的“灵光乍现”。
 
-在过去几年，我曾采用过各种流行的教学方法去施教 React。在整个过程中，尤其是对于学习 React 的过程，我都记录了会触发“灵光乍现”的一些瞬息。
+在过去几年，我曾采用过各种流行的教学方法去施教 React。在整个过程中，尤其是对于学习 React 的过程，我都记录了一些会遇到“灵光乍现”的情况。
 
 而大概就在两周前，我竟偶然地发现到[这则 Reddit](https://www.reddit.com/r/reactjs/comments/5gmywc/what_were_the_biggest_aha_moments_you_had_while/)与我的想法如出一辙，并致使我写下了该篇文章。文章中不仅记录了我所发现的这些瞬息，而且还转载有这则 Reddit 中分享的其他瞬息。因而希望能帮助学习者以新的方式去了解 React 的概念。
 
 ### 瞬息 #1：Props 之于组件（Components）正如参数之于函数。 ###
 
-React 的其中一个妙处在于，你可以通过自身对 JavaScript 函数的一种直观性来确定何时何地才应该创建一个 React 组件。但不同之处在于，函数要接受部分参数，并返回关于 UI 的一个对象存储结构，而非一个确切的值。
+React 的其中一个妙处在于，你可以通过自身对 JavaScript 函数的直观性感受来确定何时何地应该去创建一个 React 组件。但不同之处在于，函数要接受一些参数并返回一个确切的值，而组件则是接受一些参数并返回一个用于绘制 UI 界面的对象存储结构。
 
-总的来说，可以概括为这样的一个公式：`fn(d) = V`。即可理解为：“一个函数会接受部分的数据作为参数并返回一个视图。”
+总的来说，可以概括为这样的一个公式：`fn(d) = V`。即可理解为：“一个函数会接受一些数据作为参数并返回一个视图。”
 
 就开发 UI 而言，这的确是一种漂亮的思考方式。因为，如今你的 UI 仅仅是由不同的函数调用所构成。而这难道不是你构建应用时早已司空见惯的一种方法吗？换而言之，从此你就可以利用上所有关于函数组合的优势去构建 UI。
 
 ### 瞬息 #2：既然，在 React 中整个应用的 UI 都是可以使用函数组合来进行构建。那么，JSX 则是这些函数上的一种抽象。 ###
 
-每当我回顾第一次使用 React 时，脑海里总会涌现出同样的一个反应：“即便 React 看起来好酷，但我一点都不喜欢 JSX。这是因为，它打破了我的分离关注点。”
+每当我回顾第一次使用 React 时，脑海里总会涌现出同样的一个反应：“即便 React 看起来好酷，但我一点都不喜欢 JSX。这是因为，它破坏了我的关注点分离（Separation of Concerns）。”
 
 在我看来，JSX 的原意并非想尝试成为 HTML，而更多时候它仅仅是被定义成一种模板语言来使用。
 
 因而，关于 JSX 我们有两个重点需要了解的是：
 
-首先，[JSX 是在函数 *React.createElement* 上的一层抽象](https://tylermcginnis.com/react-elements-vs-react-components/)，而该函数会返回 DOM 的一个对象存储结构。
+首先，[JSX 是在函数 *React.createElement* 上的一层抽象](https://tylermcginnis.com/react-elements-vs-react-components/)，而该函数会返回 DOM 结构的一个对象存储结构。
 
-即便是啰嗦，我也要说一句，“每当我们写 JSX 时，都会发现一旦 JSX 被转译，则会生成一个 JavaScript 对象用于表示真正的 DOM 结构或任何平台（iOS、Android 等）上的视图。然后，React 就会分析该对象与真正的 DOM 结构之间的差异，并以此来更新产生变化的那一部分 DOM。”
+即便是啰嗦，我也要说一句，“每当我们写 JSX 时，都会发现一旦 JSX 被转译，则会生成一个 JavaScript 对象用于表示真正的 DOM 结构或任何平台（iOS、Android 等）上的视图。然后，React 就会分析该对象与真正的 DOM 结构之间的差异，并以此来更新产生变化的那一部分 DOM 结构。”
 
 这样做虽然会产生部分的性能问题，但更为重要的是它能彰显出一点：JSX 的的确确“只是 JavaScript”。
 
@@ -72,7 +72,7 @@ render () {
 }
 ```
 
-关于该原则的进一步探究，我推荐阅读 Ryan Florence 所制作的《[关于 React Rally 的讨论](https://www.youtube.com/watch?v=kp-NOggyz54)》。
+关于该原则的进一步探究，我推荐阅读 Ryan Florence 所制作的[关于 React Rally 的讨论](https://www.youtube.com/watch?v=kp-NOggyz54)。
 
 ### 瞬息 #4：当两个组件需要共享 State 时，抽取该值而并非尝试去进行同步。 ###
 
@@ -84,13 +84,13 @@ Redux 所提出的办法是把共享的 State 存放在另一个名为“Store�
 
 而 React 本身的解决办法是寻找所有这些组件的最近父组件，并让该父组件来管理共享的 State。然后，再把其传递给所需的子组件。尽管两种方案各有优劣之处，但重要的是我们能认清它俩的存在。
 
-### 瞬息 #5：React 中继承（Inheritance）并非绝对，因为通过组合（Composition）就可以完成组件的包裹（Containment）和特化（Specialization）。 ###
+### 瞬息 #5：React 中继承（Inheritance）并非必要，因为通过组合（Composition）就可以完成组件的包裹（Containment）和特化（Specialization）。 ###
 
 我们有理由相信，React 对采用函数式编程的原则总是抱有阔达的态度。关于 React 从继承走向组合的例子是其 0.13 版本的发行，这就使得我们更为清晰地发现， React 过去所做的并非是为 ES6 类（Class）下定义的 Mixins 提供支持。
 
 原因在于，任何几乎能使用 Mixins（或继承）完成的事情，都可以通过组合完成，即便这会产生些许的副作用。
 
-但若你在接触 React 时，本来就是一个看重继承方式的开发者，那么要接受这样的新思想也许是件难事，并感到不适。但幸运的是，部分的资源可以帮到你克服困难，而其中[就有一个](https://www.youtube.com/watch?v=wfMtDGfHWpA)并非针对于 React 本身。
+但若你在接触 React 时，本来就是一个看重继承方式的开发者，那么要接受这样的新思想也许是件难事，并感到不适。但幸运的是，一些资源可以帮到你克服困难，而其中[就有一个](https://www.youtube.com/watch?v=wfMtDGfHWpA)并非针对于 React 本身。
 
 ### 瞬息 #6：容器组件（Container Component）与描述型组件（Presentational Component）的分离
 
@@ -108,6 +108,6 @@ Redux 所提出的办法是把共享的 State 存放在另一个名为“Store�
 
 这是分离描述型组件与容器组件的另一大优势。
 
-在我看来，State 本来就是组件中不一致性的帮凶。通过划定清晰的分离界线，我们就可以封装起复杂的实现以大幅度地提高应用的可预测性（Predictability）。
+在我看来，State 本来就是组件中不一致性的帮凶。通过划定清晰的分离界线，我们就可以通过封装复杂的组件来大幅度地提高应用的可预测性（Predictability）。
 
 最后，感谢您花时间去阅读我的文章。恳请大家关注一下我的 [Twitter](https://twitter.com/tylermcginnis33)，并[查看我博客中](https://tylermcginnis.com/react-aha-moments/)与 JavaScript 和 React 相关的一些文章。
