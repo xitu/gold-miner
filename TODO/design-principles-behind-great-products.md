@@ -6,527 +6,540 @@
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/2000/1*Cd14Zx0mHo_rfTt_bDqSsg.gif">
 
-Lately, I needed to come up with some top level principles for the product I’m currently working on. I seek for some simple yet powerful concepts that will guide our team design decisions and break stalemates in discussions. For the first step, I decided to look around to see what others come up with. Through a miracle of time, I bring together this compilation, that should be useful for those who face the same challenge.
+最近，我需要为我正在做的产品提一些高级原则。我在寻找一些简单而有效的原则以指导设计团队并解决讨论时的一些分歧。第一步，我决定看看周围的人是怎么做的。经过一段时间的整理，我写了这篇文章，希望能对那些面临这同样问题的朋友有所帮助。
 
-But first, I found that there are some misleading concepts what are design principles itself, so let me take a quick dive into the topic.
+我发现对于什么是设计原则本身有些人可能会有些误解，所以首先我们先快速深入这个话题。
 
-#### The range of principles ####
 
-If you try to google “Design Principles” you most likely run into some basic rules of graphic design: proximity, balance, contrast, space, etc. Things that good designers usually familiar with, or, most likely, know inside out.
+### 原则包括什么 ###
 
-The next huge part is principles of a rational design process. It’s a set of concepts that makes you a true professional who’s able to provide an excellent design with great efficiency. Applying these principles to the whole team sets a bar of standards that new employees should match or reach in the short term. Let’s take a look at the [GOV.UK Design Principles](https://www.gov.uk/design-principles).
+如果你尝试着去 google “设计原则”，你可能找到的是一些关于图形设计的基础：接近度，平衡，对比度，空间等等。都是些优秀的设计师早已熟知的东西。
+
+下一大块是关于合理设计的过程。这是一套能能够让你成为一个专业且高效的优秀设计师的原则。将这些原则用于整个团队，确立了新员工在短期内应达到的标准。让我们看一下 [GOV.UK Design Principles](https://www.gov.uk/design-principles)。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/600/1*Sx_CxnMtQynYgg-0vMv5FA.png">
 
-The list seems reasonable, but what I think is that such things are an industrial standard by now. Everybody design with data, and everybody tries to understands context. I believe that if you choose design principles for your team, you should pick some that are groundbreaking and challenge your team to go further.
+这个列表似乎是合理的，但我认为这样的事情现在是一个基础标准。 每个人会都设计数据，每个人都会试图理解上下文。 我相信，如果你为你的团队选择设计原则，你应该选择一些开创性的原则以挑战你的团队，这样才能进步。
 
-Some teams put their principles online, and I regularly bump into some statements which sound like “be human” or “be communicative.” I hold a firm belief that such shit isn’t worth to be hanging on a wall unless your team is full of insensitive silent jerks and you want to change that fact. Why did you hire them in the first place?
+
+一些团队把他们的原则放在网上，我经常看到一些像“用户友好”这样的原则。我坚信，这样的狗屎是不值得放上来的，除非你的团队里都是一些不懂人际关系的怪人，而你想改变这一事实。 既然这样那你为什么要雇用他们？
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*lyf7k6VSbGBGm8Gl-oLn6A.gif">
 
-So, what I was looking for, are **product design principles**. And the Gov.UK provides at least one:
+所以，我正在寻找的是**产品设计原则**。 而 Gov.UK 提供了至少一个：
 
-> ***This is for everyone***
-> 
->  Accessible design is good design. Everything we build should be as inclusive, legible and readable as possible. If we have to sacrifice elegance — so be it. We’re building for needs, not audiences. We’re designing for the whole country, not just the ones who are used to using the web. The people who most need our services are often the people who find them hardest to use. Let’s think about those people from the start.
+>  为了每一个人设计
+>  
+>  易用的设计才是好的设计。我们设计的一切都应该尽可能宽容，清晰和可读，那怕为此牺牲一些美观。我们是为需求而不是为观众设计。我们的设计应该面向所有人，而不仅仅是那些习惯于使用网络的人。最需要我们服务的人通常是最不会使用的人。 我们需要从一开始就想想那些人。
 
-Design Principles of your product should tell you, your team and stakeholders which directions you should be going in the tough choices. They should focus on what distinct your product from others, how it feels and what is important for the business and your customers.
+产品设计原则应该告诉你，你的团队和利益相关者，你应该在艰难的选择中走哪条路。 他们应该专注于你的产品与竞品的不同之处以及对于业务和你的客户来说是什么重要的。
 
-You are probably aware of the Apple’s Human Interface Guidelines or Google’s material design guidelines. Design principles behind these systems try to unify different products under the platform and bring the shared feeling to them.
+您可能知道苹果的人机界面指南或 Google 的原型化指南。 这些系统背后的设计原则试图统一平台下的不同产品，给他们带来统一的感觉。
 
-If your product exists on various platforms, you should consider having a design system and some principles behind it, as well as the product design principles. You want to distance your product from others and unify the experience through different touchpoints, operating systems, and screens.
+如果您的产品是多平台的，则应考虑有一套设计系统及其背后的一些原则，以及产品设计原则。 你希望将你的产品和竞品区分开来并在不同的平台及设备上统一用户体验。
 
-There goes the same problem: some teams put obvious design principles for their product: clarity, simplicity, usability — but you can’t create a good product without keeping such things in mind, and nowadays professionals stick with such principles by default.
+也有同样的问题：一些团队为他们的产品提出了明确的设计原则：清晰，简单，可用 —— 但是如果你不遵守它仍旧不能创造出优秀的产品，而且现在的专业人士都已经默认这些原则了。
 
-#### Wrapping up ####
 
-- *Principles of good design*
-a scope of rules that define a great design.
-- *Principles for the design process*
-explains the way of work to create great products.
-- *Design principles for the products*
-how a product should feel, what emotions should it brings, what distinct it from the others.
-- *Design principle for the systems*
-unify your product experience in different circumstances.
+#### 综述 ####
 
-#### Do you need design principles for your product? ####
+- **优秀的设计原则**
+  一些优秀设计的规则。
+- **设计流程原则**
+  通过什么样的方式设计优秀的产品。
+- **产品设计原则**
+  产品给人的感觉是怎么样，它应该给用户带来什么样的情绪，又如何与竞品区分开来。
+- **系统设计原则**
+  在不同的场景下统一产品的用户体验。
 
-Having strong principles doesn’t necessarily make your product strong at the end. Apparently, the great product requires great execution at all stages of creation, and design principles are just a small bit that guides your decisions and brings valid arguments in the disputes. They share the common vision and save time.
 
-#### What are the good principles? ####
+### 你的产品需要设计原则吗？###
 
-- Simple
-- Have a real world examples
-- Guide design decisions
-- Reflect your brand
+强大的原则和强大的产品并没有一个必然的联系。 但是显然，伟大产品产生的过程需要各个方面的配合，设计原则只是其中一方面，它是用来指导你做出决定和减少争议。 它们的目标都是节省时间。
 
-#### Collection ####
+#### 优秀的原则是什么？####
 
-I gathered all principles that feel right to me. I don’t include basic design rules or process principles, but I added the Design Systems principles since they are overlapping with product design principles.
+- 简答
+- 有实际的例子
+- 指导设计过程中的决定
+- 能反映你的品牌
 
-Cheers!
+#### 收集 ####
 
-### Here we go: ###
+我收集了所有我感觉合适的原则。 不包括基本设计规则或过程原则，但我添加了系统设计原则，因为它们与产品设计原则重叠。
+
+打起精神来！
+
+### 让我们开始吧：###
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*R9nTDNPwWChKAZRIo77yeA.gif">
 
 ### [Airbnb](http://airbnb.design/building-a-visual-language/) ###
 
-**Unified**
+**统一**
 
 Each piece is part of a greater whole and should contribute positively to the system at scale. There should be no isolated features or outliers.
+应用的每个部分都是一个更大的整体的一部分，它们都应该对于整体有提升效果。而不应该存在独立特征或异常值。
 
-**Universal**
+**普遍**
 
-Airbnb is used around the world by a wide global community. Our products and visual language should be welcoming and accessible.
+Airbnb 在世界各地被广泛使用。 我们的产品和视觉语言应该是友好的。
 
-**Iconic**
+**标志**
 
-We’re focused when it comes to both design and functionality. Our work should speak boldly and clearly to this focus.
+我们专注于设计和功能。 我们的工作就是让这一点突出出来。
 
-**Conversational**
+**沟通**
 
-Our use of motion breathes life into our products, and allows us to communicate with users in easily understood ways.
+我们使用动效吸引用户，这也使得我们以更容易被理解的方式与用户沟通。
 
-**Design as the “mutual friend”**
+**像“用户的共同朋友”那样设计**
 
-Helping minimize uncertainties and setting expectations online, in the product, is an enabler for a meaningful experience offline, in the real world. We build products to let users get to know each other; we also learn what you’re looking for, and with that knowledge, we open the door to new experiences. We set the stage, help make the introduction, then get out of the way. And like a good friend, we’re there for you when you need us.
+在产品中将线上的不确定性降至最低，这会让线下的活动变得更加有效。 我们的产品让用户彼此认识; 我们也会去了解您正在寻找什么，并且凭借这些知识，我们为用户提供了新的体验。 我们提供平台，帮助用户交朋友。 当你需要我们的时候，我们就在这儿。
 
-**Design for first impressions**
+**为了第一印象而设计**
 
-Although Airbnb requires some information from our users to book, we don’t require disclosure. That is, we ask guests to tell us who they are, but it’s up to them to tell us about themselves.
+虽然 Aribnb 需要我们的用户提供一些信息以订房，但是我们绝不会泄露用户信息。也是就我们请求用户告诉我们他是谁，但是告不告诉我们由它自己决定。
 
-**Trust takes effort**
+**信任需要努力**
 
-As with most things in life, you get out of Airbnb what you put into it. Trust on Airbnb is shared; it goes both ways. We’ve found the more effort a guest can signal to a host, the more trust a host is willing to give that guest.
-
+就像生活中的大部分事情一样，你会从 Airbnb 中获得回报。对于 Airbnb 的信任是双向的。我们发现客人越信任房东，房东就越愿意信任用户。
 
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*Nkd9uYfm5uc5nOB8X7a6kw.gif">
 
 ### [Facebook](https://www.facebook.com/notes/facebook-design/facebook-design-principles/118951047792/) ###
 
-**Universal**
+**普遍**
 
-Our mission is to make the entire world more open, and this means reaching every corner, every person. So our design needs to work for everyone, every culture, every language, every device, every stage of life. This is why we build products that work for 90% of users and cut away features that only work for just a minority, even if we step back in the short term.
+我们的使命是使整个世界更加开放，连接每个角落与每个人。 所以我们的设计需要考虑到每个人，每个文化，每个语言，每个设备，以及生活的每个阶段。 这就是为什么我们构建的产品适用于90％的用户，并且去掉了只对少数人有用的功能，即使这样的代价是短期内的退步。
 
-**Human**
+**人们**
 
-Users return to our site to be surrounded by friends and other people near to them. This is a central promise of our product, that the people you care about are all in one place. This is why our voice and visual style stay in the background, behind people’s voices, people’s faces, and people’s expression.
+只要用户来到我们的网站就会被朋友们围绕着，也能认识更多的人。 我们产品的核心承诺就是你关心的人都在这儿。 这就是为什么我们产品的视觉风格没有人的声音，人的面孔和人的表达重要。
 
-**Clean**
+**简洁**
 
 Our visual style is clean and understated, to create a blank canvas on which our users live. A minimal, well-lit space encourages participation and honest transparent communication. Clean is the not the easiest approach to visual style. To the contrary, margins and type scale, washes and color become more important as we reduce the number of styles we rely on.
+我们的视觉风格是干净和低调，为我们的用户创建一个空白的使用环境。 最小的，光线充足的空间能鼓励用户参与进来进行诚实的透明沟通。简洁不是最简单的视觉风格的方法。相反，边距，类型规模和颜色变得更重要，因为我们减少了我们能依赖的样式。
 
-**Consistent**
+**一致**
 
-We invest our time wisely, by embracing patterns, recognizing that our usability is greatly improved when similar parts are expressed in similar ways. Our interactions speak to users with a single voice, building trust. Reduce, reuse, don’t redesign.
+通过时间的检验，我们发现当相同的部分以相同的方法表达时，产品的易用性大大的提高了。我们通过一致的体验与用户互动以建立起信任，所以，重用，不要重复设计。
 
-**Useful**
+**有用**
 
-Our product is more utility than entertainment, meant for repeated daily use, providing value efficiently. This is why our core interactions, the ones users engage daily, are streamlined, purged of unnecessary clicks and wasted space.
+我们的产品比娱乐更实用，会在日常中被重复使用，提供有效的价值。 这就是为什么我们的核心（用户每天都参与的行为）是简化的，避免了不必要的点击和空间的浪费。
 
-**Fast**
+**快捷**
 
-We value our users time more than our own. We recognize faster experiences are more efficient and feel more effortless. As such, site performance is something our users should never notice. Our site should move as fast as we do.
+你的时间非常值钱。我们认识到更快的体验会带给用户高效，轻松的感觉。因此，不应该让用户去担心网站的性能问题。我们的网站要尽可能的快。
 
-**Transparent**
+**透明**
 
-Users trust us with their identity, their photos, their thoughts and conversation. We reciprocate with the utmost honesty and transparency. We are clear and up front about what’s happening and why.
+用户信任我们，他们的身份，照片，想法，谈话记录都给了我们。我们以最大的诚实和透明度回报他们。我们很清楚发生了什么和为什么。
 
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*9TH9yRReIvtYwcxMaoTJ4Q.gif">
 
 ### [Apple](https://developer.apple.com/ios/human-interface-guidelines/overview/design-principles/)  ###
 
-**Aesthetic Integrity**
+**美学完整性**
 
-Aesthetic integrity represents how well an app’s appearance and behavior integrate with its function. For example, an app that helps people perform a serious task can keep them focused by using subtle, unobtrusive graphics, standard controls, and predictable behaviors. On the other hand, an immersive app, such as a game, can deliver a captivating appearance that promises fun and excitement, while encouraging discovery.
+美学完整性代表了应用程序的外观和行为与其功能相合的程度。 例如，帮助人们执行严肃任务的应用程序可以通过使用微妙，不显眼的图形，标准控件和可预测的行为来保持他们的注意力。 另一方面，沉浸式的应用程序，如游戏，可以提供一个迷人的外观，带来乐趣和兴奋感，同时鼓励用户主动探索。
 
-**Consistency**
+**一致性**
 
-A consistent app implements familiar standards and paradigms by using system-provided interface elements, well-known icons, standard text styles, and uniform terminology. The app incorporates features and behaviors in ways people expect.
+具有一致性的应用程序通过使用系统提供的界面元素，众所周知的图标，标准文本样式和统一术语来实现熟悉的标准和范例。该应用程序包含的功能和行为都在人们预期之内。
 
-**Direct Manipulation**
+**直观的操作**
 
-The direct manipulation of onscreen content engages people and facilitates understanding. Users experience direct manipulation when they rotate the device or use gestures to affect onscreen content. Through direct manipulation, they can see the immediate, visible results of their actions.
+直接操纵屏幕上的内容可以吸引人的注意力并有助于理解。 当旋转设备或使用手势影响屏幕上的内容时用户会觉得这很直观。 通过直观的操作，他们可以看到他们行动的直接、可见的结果。
 
-**Feedback**
+**反馈**
 
-Feedback acknowledges actions and shows results to keep people informed. The built-in iOS apps provide perceptible feedback in response to every user action. Interactive elements are highlighted briefly when tapped, progress indicators communicate the status of long-running operations, and animation and sound help clarify the results of actions.
+反馈就是接受操作并显示结果，让人们知道。 内置的 iOS 应用程序提供可感知的反馈，以响应用户的每个操作。 比如交互元素在轻敲时突出显示，进度指示器显示耗时操作的状态，动画和声音有助于突出操作的结果。
 
-**Metaphors**
+**隐喻**
 
-People learn more quickly when an app’s virtual objects and actions are metaphors for familiar experiences — whether rooted in the real or digital world. Metaphors work well in iOS because people physically interact with the screen. They move views out of the way to expose content beneath. They drag and swipe content. They toggle switches, move sliders, and scroll through picker values. They even flick through pages of books and magazines.
+如果人们发现应用的虚拟对象和动作和平时的体验相似，那就能更快地学习 ──无论是现实世界还是数字世界。 隐喻在 iOS 中表现良好，因为人们与屏幕进行物理交互。 他们移动视图以露出下面的内容。 他们拖曳内容， 他们切换开关，移动滑块和滚动选择器。 他们甚至可以像在现实世界中那样浏览书和杂志的页面。
 
-**User Control**
+**用户控制**
 
-Throughout iOS, people — not apps — are in control. An app can suggest a course of action or warn about dangerous consequences, but it’s usually a mistake for the app to take over the decision-making. The best apps find the correct balance between enabling users and avoiding unwanted outcomes. An app can make people feel like they’re in control by keeping interactive elements familiar and predictable, confirming destructive actions, and making it easy to cancel operations, even when they’re already underway.
+在 iOS 中，人们 ──而不是应用程序 ──是在控制之下的。 应用程序可以建议一个行动方案或警告危险后果，通常由不应该完全让应用程序去进行决策。 最好的应用程序在给用户的选择权和避免不必要的结果之间能找到正确的平衡。 一个应用程序可以通过保持交互式元素的熟悉性和可预测性，让用户确认破坏性的操作，同时让它易于取消（即使这些操作已经在运行了）来让用户感觉一切都在控制之中，。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*nYyUvTFwwQAsjj2S58ac1A.gif">
 
 ### [Google Material Design](https://material.io/guidelines/#introduction-principles)  ###
 
-**Material is the metaphor**
+**原型化是一种隐喻**
 
-A material metaphor is the unifying theory of a rationalized space and a system of motion. The material is grounded in tactile reality, inspired by the∫study of paper and ink, yet technologically advanced and open to imagination and magic.
+原型化隐喻是空间和动作系统的统一理论。原型化的基础是触觉，灵感来自纸张和墨水的。现在它是一种先进而充满魅力的技术。
 
-Surfaces and edges of the material provide visual cues that are grounded in reality. The use of familiar tactile attributes helps users quickly understand affordances. Yet the flexibility of the material creates new affordances that supercede those in the physical world, without breaking the rules of physics.
+原型化的设计接近现实中的视觉体验。 使用熟悉的触觉属性有助于用户快速理解。 现在，原型化的灵活性创造了新的能力，超越了物理世界，而不破坏物理学的规则。
 
-The fundamentals of light, surface, and movement are key to conveying how objects move, interact, and exist in space and in relation to each other. Realistic lighting shows seams, divides space, and indicates moving parts.
+光，表面和运动的基本原理是传达物体如何在空间中移动，相互作用和存在的关键。 逼真的光照显示接缝，划分空间，并指示移动的部件
 
-**Bold, graphic, intentional**
+**大胆，图像，刻意**
 
-The foundational elements of print-based design — typography, grids, space, scale, color, and use of imagery — guide visual treatments. These elements do far more than please the eye. They create hierarchy, meaning, and focus. Deliberate color choices, edge-to-edge imagery, large-scale typography, and intentional white space create a bold and graphic interface that immerse the user in the experience.
-An emphasis on user actions makes core functionality immediately apparent and provides waypoints for the user.
+基于打印的设计元素 ──排版，网格，空间，尺度，颜色和图像的使用的基本要素 ──指导视觉处理。 这些元素不只是为了取悦眼睛。 他们创造层次结构、意义和焦点。 大胆的颜色选择，边缘到边缘的图像，大规模的排版和有意的留白创建了一个大胆和图形界面，这些能让用户沉浸于体验。
 
-**Motion provides meaning**
+强调用户的操作使可以让核心功能立即显现，并为用户提供引导。
 
-Motion respects and reinforces the user as the prime mover. Primary user actions are inflection points that initiate motion, transforming the whole design.
-All action takes place in a single environment. Objects are presented to the user without breaking the continuity of experience even as they transform and reorganize.
-Motion is meaningful and appropriate, serving to focus attention and maintain continuity. Feedback is subtle yet clear. Transitions are efﬁcient yet coherent.
+**动效应具有意义**
+
+动效以尊重并加强用户作为主要目的。 用户操作是最初引入运动系统的原因，这改变了整个设计。
+所有操作都在单个环境中进行。 对象被呈现给用户而不破坏体验的连续性，即使它们经过了变换和重组。
+
+动效是有意义的，有助于集中注意力和保持连续性。带来了微妙而清楚的反馈。让界面元素高效而连贯地过渡。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*2isg1rY5gimcFb5r4mgLMg.gif">
 
 ### [Microsoft](https://www.google.ru/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=1&amp;ved=0ahUKEwiH4qL2h_7RAhXEF5oKHTUODrAQFggcMAA&amp;url=https%3A%2F%2Fwww.microsoft.com%2Fen-us%2Fdesign%2Fprinciples&amp;usg=AFQjCNH_3g0Ib4u3izhV6NVodNohr9nA4g&amp;sig2=YOGn3O0svJx5bcsXbhql4w&amp;cad=rja) ###
 
-**Keep it simple**
+**保持简单**
 
-We start with simplicity as the ultimate unifier. When design is intuitive, we just know. We can feel it. The result is an experience that’s honest and timeless.
+简单是我们从一而终的追求。我们知道设计应该是直观的。这让用户对我们的产品始终熟悉。
 
-**Make it personal**
+**私人化**
 
-Next, we challenge ourselves to create emotional connection with an individual person. We design for the ways people really live and think and act. The result is an experience that feels like it was created for one person.
+接下来，我们的挑战是与个人建立起情感上的联系。我们依据现实中人们生活、思考的方式来进行设计。这样做的结果就是我们的设计让用户觉得这是为他私人订制的。
 
-**Think universal**
+**广泛思考**
 
-We design to embrace the things that make us human. It’s more far more than an attitude for making stuff — and into creating a world that makes lives better. The result is technology that’s inclusive.
+我们试图拥抱那些符合人类习惯的设计。这不仅是一种工作态度  ──还是在创建一个更加美好的世界。
 
-**Create delight**
+**创造快乐**
 
 Our final principle is about energy within a structure. It’s how you know the experience was made by a real person. The result is an experience that surprises and has a sense of place.
+我们最后的原则是关于系统的活力。这是关于如何让用户感觉到产品是由人创造的。这会给用户带来惊喜的体验。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*_ww9DxBI9JeWuDIqf9j4_Q.gif">
 
 ### [Medium](https://medium.com/@dustin/thanks-for-writing-the-article-julie-8362fd235ae0#.h5e9d8xws)  ###
 
-**Direction over Choice**
+**引导高于选择**
 
-This principle was often referred to while we were designing the Medium editor. We purposely traded layout, type, and color choices for guidance and direction. Direction was more appropriate for the product because we wanted people to focus on writing, and not get distracted by choice.
+当我们设计 Medium 的编辑器时经常提到这个原则。 我们为了有效的引导用户而有意改变布局，类型和颜色选择。因为我们希望人们专注于写作，而不需要去被选择打断，所以引导是更合适的。
 
-**Appropriate over Consistent**
+**可用性高于一致性**
 
-This might seem controversial, but when applied across devices, its purpose is clear. We were willing to break consistency if it was more appropriate for the OS, device, or context.
+这可能看起来和之前的有些矛盾，但是当应用于不同的设备，它的目的是明确的。 如果它更适合于某种操作系统，我们宁愿破坏一致性。
 
-**Evolving over Finalized**
+**不断完善**
 
-This is exemplified in the ability to share Medium drafts, write responses, and leave notes. The content on Medium should be antifragile, improving with use and evolving overtime. We did not want to design printed books for the internet.
+以 Medium 中分享草稿，写评论和记笔记为例。 Medium 上的内容应该是随着时间不断的改进。 我们的目的可不是为互联网设计印刷书。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*6EIxwoYI7Y7VoH7M2L8Jbg.gif">
 
 ### [Firefox Design Values](https://people-mozilla.org/~madhava/FDV/) ###
 
-**Takes care of you**
+**照顾你自己**
 
-Firefox champions you — your security, privacy, and the quality of your online life. It makes sensible decisions for you that respect your time, data, and attention.
+Firefox 支持您 ──您的安全，隐私和网络生活的质量。它帮助您为您的时间，数据和关注做出明智决定。
 
-- user-sovereignty
-- default to privacy
-- no surprises
-- actionable advice
+- 用户主权
+- 默认为隐私
+- 没有意外
+- 可行性建议
 
-**You help make it**
+**你在帮助改善它**
 
-Firefox is crafted to have the best possible user-experience, but it’s only a perfect fit once it’s in your hands and can make it your own.
+Firefox 为最好的用户体验而设计，但它只有在你的手中才能完美的发挥作用。
 
-- research gives a voice to our non-core community
-- start people with smart defaults
-- implicit as well as explicit customization
-- invite people to be more than users
+- 调研以了解我们的非核心社区的需求
+- 让用户从默认配置开始
+- 隐式与显式自定义
+- 邀请用户来帮助改进我们的产品
 
 **Plays well with others**
 
 Firefox is part of the community of products you choose because they’re great, not because they’re the defaults. In that sёpirit, Firefox never locks you into particular services or providers. Instead, it gives you choice and independence (along with great suggestions) so you can have the best possible experience.
+Firefox 是您选择的产品社区的一部分，因为它们是优秀的，而不是因为它们是默认的。 在 sёpirit (我也不知道这是什么啊。。。) 里，Firefox 从来没有强迫你使用特定的服务或程序。 相反，它让你选择（也会有一些很好的建议），所以你可以有最好的体验。
 
-- user control and choice
-- simple to use the services you choose
-- suggest ways to get the most out of the web
+- 用户控制与选择
+- 您选的服务是易于使用的
+- 帮助您从互联网中获取更多的信息
 
-**Exuberant**
+**旺盛**
 
 Where other browsers might be plain and minimal, or sleek and impersonal, Firefox is human, fun, whimsical, and joyful. We all love the web and so does Firefox.
+虽然其他浏览器可能或朴素简单，或时尚，而 Firefox 是人类，它有趣，异想天开和快乐。 我们都喜欢网络，Firefox也是如此。
 
-- feels like there is a person at the other end
-- fun tools are easier to use
-- humour and whimsy
-- have a point of view
+- 让人们在使用 Firefox 的时候感觉是在于人交互
+- 有趣的工具也要易于使用
+- 幽默和奇想
+- 有自己的观点
 
-**Finely crafted**
+**精心制作**
 
-Firefox is made by people who care about the details. A beautiful product is a pleasure to use and feels easy and clear. This only comes with craft and attention to detail.
+Firefox 是由关心细节的人制作的。 一个美好的产品应当易于使用，并让用户感到轻松和明白。这只有通过注意细节和精心制作才能实现。
 
-- see also our visual design guidelines
-- continuity of look and feel across platforms
-- perceivable quality is vital
+- 另见我们的视觉设计指南
+- 跨平台的外观体验的连续性
+- 可感知的质量至关重要
 
-**Global**
+**全球化**
 
-Firefox is used and made by people all around the world. It’s not just translated — it’s designed for the whole world, place by place. While certain activities are universal, there’s a real diversity of use and need across the globe, and Firefox cares about these differences.
+Firefox 由世界各地的人们制作并使用。它不只是简单地翻译 ——它是为整个世界不同的地区而设计。 虽然某些行为是普遍的，但是在全球各地是存在使用和需求的差异性，Firefox 关心这些差异。
 
-- global means local and local and local
+- 全球化意味着本地化，本地化和本地化
 
-**Balances power and simplicity**
+**平衡权力和简单性**
 
-Firefox is simple and easy to use, clean and straightforward in its design. But simplicity is a means, not the end — the end is understanding and user-agency.
+Firefox 简单且易用，在它的设计中融入了干净，直接的力量。但是简单不是目的，至少不是最终目的 ——最终目的是易于理解和用户至上。
 
-- 80/20/2: default to surface minimalism and easy access to the rest
-- user-agency and understanding, not just less
+- 80/20/2：外观极简主义并易于访问。
+- 用户至上与易于理解，而不只是简单。
 
-**Makes sense of the web**
+**让网络变得有意义
 
-The web is huge and hard to comprehend. Firefox helps make sense of it by focusing on your real human goals and activities and giving you the tools you need to accomplish your ends.
+网络是巨大的，很难理解。 Firefox 通过专注于你真正的目标和活动来帮助理解它，并为你提供实现目标所需的工具
 
-- focus on real human tasks and contexts
-- many real tasks involve a browser and other tools
-- quick access to your stuff and web
-- no jargon
+- 专注于真正的人类行为
+- 许多实际任务涉及浏览器和其他工具
+- 快速访问你东西和网络
+- 不要说术语
 
-**High user-performance**
+**高用户性能**
 
-Speed is still the most important part of a good browser experience, but on top of benchmarkable technical performance, the browser must feel viscerally responsive.
+速度仍然是良好的浏览器体验的最重要的部分，但是除了基准的技术性能之外，浏览器必须感觉到内部响应。
 
-- performance is objective, but responsiveness is subjective
-- a happy user performs better
+- 性能是客观的，但响应性是主观的
+- 最好有令用户愉悦的表现
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*jV-stFJ91XQfBzvaYBCKJw.gif">
 
 ### [Salesforce](https://medium.com/salesforce-ux/defining-principles-to-drive-design-decisions-b647b68fb057#.i7e3yox8p) ###
 
-**Clarity**
+**明晰**
 
-Eliminate ambiguity. Enable people to see, understand, and act with confidence.
+消除歧义。 使人们对自己看到的，理解的和行动有信心
 
-**Efficiency**
+**效率**
 
-Streamline and optimize workflows. Intelligently anticipate needs to help people work better, smarter, and faster.
+简化和优化工作流程。智能地预测以帮助人们更好，更聪明，更快地工作。
 
-**Consistency**
+**一致性**
 
-Create familiarity and strengthen intuition by applying the same solution to the same problem.
+通过对同样的问题应用相同的解决方案来培养熟悉感和加强直觉。
 
-**Beauty**
+**优雅**
 
-Demonstrate respect for people’s time and attention through thoughtful and elegant craftsmanship.
+通过周到和优雅的工艺展示对人们的时间和精力的尊重
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*J1uRg2nxhzNQenObcVk0rA.gif">
 
 ### [IBM UX](http://www.ibm.com/design/language/experience/) ###
 
-**Discover, Try and Buy**
+**发现，尝试和购买**
 
-Meet users where they are. Show, don’t tell. Create a seamless transition from “try” to “buy.”
+与用户保持联系。 展示，不要说服。 创造从“尝试”到“购买”的无缝转换。
 
-- Discover
-One ideal discovery experience occurs when people feel they found the answer for themselves.
-- Try
-Trying out a product should be as engaging as taking a test drive in your first car.
-- Buy
-Purchasing a software-based product or digital service should be as simple and straightforward as buying a coffee. Steps and details about what goes where should always be obvious. Give users a sense of excitement once their purchase is complete.
+- 发现
+  一个理想的发现体验发生在人们觉得答案是自己找到的时候。
+- 尝试
+  尝试一个产品应该像在第一辆车上试驾一样。
+- 购买
+  购买基于软件的产品或数字服务应该像购买咖啡一样简单和直接。 步骤和细节应该是显而易见的。 一旦他们的购买完成，给用户一种兴奋的感觉
 
-**Get Started**
+**入门**
 
-Invite users in and show them what they can do. Initial experiences create lasting impressions.
+邀请用户，并向他们展示他们可以做什么。 初步体验会创造持久的印象
 
-- People are quick to form opinions when introduced to something new, especially if it is something we expect will improve their lives.
-- Get users to their work fast and show them personally relevant ways to get value from your product. Charm them with unexpected moments to show them you thought of everything, just for them. Never underestimate the little things; users are instantly gratified when you save them time, attention, hassle or even space on their desk.
 - First use isn’t finished until personal or business value is delivered.
+- 人们在接触新事物时会很快形成意见，特别是如果这件东西会改善他们的生活。
+- 让用户快速完成工作，并向他们展示与您的产品相关的个性化方法。用一些意想不到的东西去吸引他们，以显示你能为他们考虑一切。 不要低估小东西; 如果用户发现产品可以节省他们的时间，注意力，甚至他们的办公桌上的空间，他们马上就会感到满意。
 
-**Every Day Use**
+**每天都在使用**
 
-Users should get personal value every time they interact with your product.
+用户每次与您的产品互动时都应该获得个人价值的提升。
 
-Whether it’s every day or once a year, users should always feel in control, able to pick up right where they left off. Users should immediately understand the usefulness of your product. The system should convey its conceptual model so that your users know what to expect and can perform necessary actions or derive insights.
+无论是每天还是一年一次，用户应该总是感觉一切都在控制之下，能够在他们离开的地方继续。 用户应立即了解产品的有用性。 系统应该传达其概念模型，以便您的用户知道能期望什么，并且可以执行必要的操作或知道该怎么做。
 
-- Defer to the content to help users understand the path to reaching their goals.
-- Allow them to personalize the product to better fit their needs.
-- Provide a forgiving environment where mistakes are easily reversible.
-- Keep them motivated by ensuring that the right actions and tools are readily present.
-- When they’re done, give users a sense of accomplishment and help them feel proud of their work.
+- 遵循内容，帮助用户了解达到目标的途径。
+- 允许他们为了更好的适应自己的需求定制个性化产品。
+- 提供一个容错率高的环境。
+- 通过确保正确的操作和工具是始终可用的来保持用户的积极性。
+- 当用户完成工作时，给他们以满足感，让他们为自己的工作成果骄傲。
 
-**Manage and Upgrade**
+**管理和升级**
 
-Upkeep and receiving the newest improvements should be as elegant and predictable as using the product every day.
+不断地改进应该像每天使用产品一样优雅和可预测。
 
-- Manage
-A product that’s easy to manage invites frequent use. A user who doesn’t have to think deeply about managing how well a product works is a happy user. Whether it’s an administrator who’s responsible for an entire organization or an end user getting the job done, designing management tasks to be obvious makes for positive experiences. Remember, with either user group, the expectation is “don’t trouble me with management.”
-- Upgrade
-Minimize user involvement and disruption in the upgrade process. 
-When introducing significant user experience changes, don’t leave your users guessing at what’s new or what has been removed. Notify them that a change is happening or has happened, what occurred and how it affects them.
+- 管理
+  易于管理的产品会被经常使用。 不必深思熟虑如何管理产品工作情况的用户是一个快乐的用户。 无论是负责整个组织的管理员还是最终完成工作的用户，设计明显的管理任务都会带来积极的体验。 记住，无论是个人还是团队，期望都是“不要因为管理上的事麻烦我”。
+  
+- 升级
+  在升级过程中最小化用户的参与度并尽量不去打扰用户。
+  在引入重大的用户体验更改时，请不要让您的用户猜测新功能或已删除的内容是什么。 通知他们更改正在发生或已发生，发生了什么以及会对他们造成什么影响。
 
-**Get Support**
+**获得支持**
 
-Support users in the ways they want to get help. Expand their knowledge and encourage them to share it.
+以用户期望的方式提供支持。提高他们的知识，并鼓励他们分享。
 
-The iconic “support” experience exists across all five experiences. Support is proactive, engaging and comes in many forms:
+所有五种经验都存在着标志性的“支持”体验。 支持是主动，参与和多种形式：
 
-- On user-desired forums (for example, web search results and sites such as TechCrunch)
-- As nurturing during Discover, Try and Buy or Getting Started
-- As easily accessible during Everyday Use
-- As command line interface help for Leverage and Extend
+- 在用户所需的论坛（例如，Web搜索结果和网站，如TechCrunch）
+- 作为发现，尝试和购买或入门的手段
+- 在每天的使用中都能快速获得帮助
+- 作为 Leverage 和 Extend 的命令行界面帮助
 
-When users look for support, help them find what they need easily. Know your users’ habits and equip them with tools that are flexible and ready-at-hand.
+当用户寻求支持时，帮助他们轻松找到他们所需要的。 了解用户的习惯，并为他们配备灵活并随时可用的工具
 
-Guide them with thoughtful interactions and content so they can learn as they go, understand how to move forward, and acquire the necessary skills to succeed. Where possible, help users avoid mistakes rather than waiting for an error to occur.
+用周到的互动和内容引导他们，以便他们可以学习如何进步并获得必要的技能。在可能的情况下，帮助用户避免错误，而不是等待错误发生
 
-When your product or service breaks or becomes unavailable, provide users with factual status that will help them understand how and when they will regain use. Determine the best way to make these notifications meaningful (that is, “seen”) for your users, across all experience contexts.
+当您的产品或服务中断或不可用时，为用户提供实际状态，以帮助他们了解如何以及何时才能重新使用。 确定在当前环境下发出的通知对用户是有意义的。
 
-Support experiences should help people feel knowledgeable. Enlighten users to become experts. Use plain language that is appropriate for your target audience. Give them opportunities to provide feedback and share what they have learned. Users often trust advice from peers, so facilitate community learning when possible.
+支持应该有助于提高用户的知识。 启蒙用户成为专家。 使用适合您的目标受众的简明语言。 给他们提供反馈和分享他们学到的东西的机会。 用户经常信任来自同行的建议，因此尽可能地促进社区学习。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*oY3kiz236H2rqvT3_gN4cA.gif">
 
 ### [Bing](http://www.ibm.com/design/language/experience/) ###
 
-- Design for explorers
-- Delight and surprise our users
-- Earn Trust
-- Be the brand
-- Make money
-- Showcase our best
-- Organize the page by relevance
-- Respect the need for speed
-- Give just enough and offer more
-- Present a seamless experience
+- 为探索者设计
+- 欢迎用户并创造惊喜
+- 赢得信任
+- 品牌效应
+- 获得收益
+- 展示最好的一面
+- 按相关性排布页面
+- 注重对于速度的需求
+- 提供更多的内容
+- 提供无缝衔接的体验
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*aBG9zDQnL3Rsy2Dlb8PIRg.gif">
 
 ### [BBC GEL](http://www.bbc.co.uk/gel/philosophy/design-philosophy) ###
 
-**Universal**
+**普遍**
 
-Our messages are clear and are communicated through simple, useful and intuitive interfaces. Our services are inherently open and accessible.
+我们的信息是清晰的，通过简单，有用和直观的界面进行交流。我们的服务本质上是开放和易于访问。
 
-**Compelling**
+**引人注目**
 
-Our voice ranges from serious and authoritative through to witty and entertaining. We sound authentic and relevant, warm and human. We engage our audiences with compelling storytelling.
+我们的声音从严肃，权威，到机智和娱乐。我们听起来真实并及时，也温暖和人性化。我们通过引人入胜的故事吸引观众。
 
-**Authentic**
+**真实**
 
-We value the familiarity and trust placed in us. We acknowledge the BBC’s heritage of iconic design and broadcasting history with subtle references.
+我们重视用户对我们的熟悉和信任。我们继承了 BBC 的标志性设计和广播历史。
 
-**Pioneering**
+**开拓**
 
-We pioneer design innovations that surprise and delight. We introduce the unexpected but always take our audiences with us.
+我们进行了令人惊喜和高兴的创新设计。我们总是会给观众带来一些意想不到的东西。
 
-**Current**
 
-We curate a timeline of Britain; reflecting the present as it happens and adding relevant contextual links with the past.
+**及时**
 
-**Distinctive**
+我们策划英国的时间表; 反映当前的情况，并添加与过去相关的上下文链接。（这里不知道怎么翻译）
 
-We stand out by looking to tomorrow instead of simply referencing the design trends of today. We strike a balance between cookie-cutter design and beautiful anarchy.
+**特色**
 
-**Joined-up**
+我们通过展望未来，而不是简单地参考今天的设计趋势脱颖而出。我们在千篇一律的和随意而为之间取得设计的平衡。
 
-All our services and platforms are one connected whole which deliver experiences sensitive to their context of use. We enable coherent journeys both within and outside familiar paths. We connect our audiences where there are shared interests and experiences.
+**参与**
 
-**Local / Global**
+我们的所有服务和平台是一个连接整体，根据上下文提供连贯的使用体验。我们将具有共同兴趣和经验的受众联系起来。
 
-We need to speak to everyone but we recognise the individual. Our message is scalable and localisable.
+**本地化/国际化**
 
-**Modern British**
+我们需要和所有人对话，但我们也能识别每一个个体。我们的消息是可扩展和本地化的。
 
-Our services are woven into the fabric of everyday life in the UK. They embrace a modern British design aesthetic that extends outside national boundaries. Our character is vibrant and sometimes quirky.
+**现代英国**
 
-**Best**
+我们的服务是英国日常生活的一部分。符合现代英国设计审美并延伸到国界之外。我们的性格充满活力，有时也古怪。
 
-Last but not least we put quality first.
+**完美**
+
+最后的是我们把质量放在第一位。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*qgitfkONhVX5Vhbe4mENKQ.gif">
 
 ### [**Pinterest**](https://medium.com/@suprb/redesigning-pinterest-block-by-block-6040a00d80a3#.v2xgv1fl2) ###
 
-**Lucid**
+**清醒**
 
-- *It’s intuitive, not learned*
-You understand how things work without any direct explanation.
-- *It makes the user feel powerful*
-Nothing makes you feel uncomfortable or like you can’t trust the system. The system provides you with the right components and asks you what to do next.
-- *It makes the content taste better*
-The framework is totally seamless and hidden. You don’t notice it until you interact with it. You get to decide what you want it to be, instead of us forcing it on you.
+- **直观，不需要学习成本**
+  即使没有任何的解释你也知道它是怎么工作的。
+- **让用户感觉自己很强大**
+  没什么会让你感到不舒服或者让你不信任这个系统。系统为您提供正确的组件，并询问您接下来该做什么。
+- **让内容变得更好**
+  The framework is totally seamless and hidden. You don’t notice it until you interact with it. You get to decide what you want it to be, instead of us forcing it on you.
+  该框架是完全无缝和隐藏的。在你需要它之前你甚至没有注意到它。想要什么是你自己决定的，而不是我们强迫你这么做的。
 
-**Animated**
+**动画**
 
-- *It’s colorful*
-The personality is bold and stands out.
-- *It’s visually responsive*
-The experience interactions in a physical way.
-- *It’s unexpected*
-The experience is playful and fun, but never overwhelming.
+- **多彩**
+  个性是大胆和突出。
+- **视觉反馈**
+  以现实世界的方式交互。
+- **出乎意料**
+  使用体验是有趣的，绝不会让你觉得压抑。
 
-**Unbreakable**
+**牢不可破**
 
-- *It’s built for exploration*
-Just like a children’s toy, you want to try it out just to see what will happen. The more you investigate, the faster you learn and the more you get in return.
-- *It’s impossible to mis-tap*
-Everything is designed to help you navigate easily and do exactly what you had in mind.
-- *It’s reversible*
-If you accidentally do something that doesn’t produce the results you were looking for, it’s obvious how to correct it.
+- **为探索而生**
+  就像一个孩子的玩具，你想试试看看会发生什么。你用的越多，你学习越快，得到的回报越多。
+- **不可错过**
+   一切都是为了帮助您轻松使用，完全符合您的想法。
+- **可逆**
+  如果你不小心做了一些不能产生你想要的结果的东西，很轻松就可以纠正它。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*xnF6U3zhuOF9qH6gu_2HpQ.gif">
 
 ### [Lyft **Design Principles**](http://www.fueltravel.com/blog/tips-from-lyft-let-your-brand-drive-your-ux-decisions/) ###
 
-**Nail the basics**
-Clear choice and context
-**Build confidence**
-Consistency and transparent
-**Be unique**
-Own-able and delightful
+**明确**
+明确的选则和上下文
+**建立信心**
+一致性和透明度
+**独一无二**
+自主和愉快
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*VHnY-ykaxPUfAEqrci-n6g.gif">
 
 ### [Foursquare](https://medium.com/@sambrown/designing-the-new-foursquare-8f8788d366f0#.fh81og5d1) ###
 
-**Individual recommendations and experience**
+**私人建议和经验**
 
-There’s no reason why we should all get the same recommendations when looking for a place to eat, drink or shop. Getting a one-size-fits-all list of places may have been innovative in 2006, but it feels downright antiquated now. Our tastes are all different, so why should we all see the same results?
+我们为什么应该在寻找一个吃饭，喝酒或购物的地方时得到相同的建议。获得一个适合所有地方的名单在 2006 年可能是创新的，但现在彻头彻尾过时了。我们的口味都不同，那为什么我们都会看到相同的结果？
 
-**Continuous data collection and situational usage**
+**持续收集数据和依据情境使用**
 
-Our phones should learn about us — our tastes, our social connections, and our preferences. And, using what they know, they should help us better explore the world around us. If you love vintage clothing, it should tell you that there is a hidden gem nearby. If you’re in a new city, it should tell you that your friend Katy highly recommends this hole-in-the-wall restaurant downtown. If you crave spicy food, it should advise which dishes you should order when you sit down for dinner.
+我们的手机应该了解我们 ——我们的口味，我们的社会关系和我们的喜好。并且，使用它们所知道的帮助我们更好地探索我们周围的世界。如果你喜欢老式服装，它应该告诉你附近有一个很好的店。如果你在一个新的城市，它应该告诉你，你的朋友凯蒂强烈推荐这个在市中心的墙上餐厅。如果你渴望辛辣的食物，它应该在你坐下来吃饭时建议你点什么菜。
 
-**Playful visual language**
+**有趣的视觉语言**
 
-Involving into city exploration with an entertaining, easy, playful visual experience: bold icons, bright and deep colours, logo as a combination of superhero emblem & map pin.
+通过简单、有趣的视觉体验参与城市的探索：将大胆的图标，或明或暗的颜色，标志作为超级英雄会徽和地图标记的组合。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*Sp8eDx85hFUytKZPBuTumg.gif">
 
 ### [**Asana’s Design Principles**](https://blog.asana.com/2013/10/design-principles/) ###
 
-**Allow users to focus on their work without interference.**
+**允许用户专注工作不被干扰**
 
-A user’s focus should be in their control, only distract users with changes that are personally relevant.
+用户的注意力应在他们的控制之下，只有相关的人才能联系。（这句没看明白什么意思）
 
-**Increase confidence through clarity.**
+**通过清晰的表达提高信心**
 
-Within the application, and more broadly within teams, it is unambiguous what is happening and why.
+通过这个程序你能明确地知道在团队中发生了什么以及为什么。
 
-**Foster productive and emotionally satisfying interpersonal dynamics.**
+**培养有创造力和充满感情的人际动态**
 
-Users feel like they are part of a team, where they can count on each other to do their part, and feel like they’re moving forward towards a common goal.
+用户觉得他们是一个团队的一部分，在这里他们可以相互依赖，感觉正在朝着一个共同的目标前进。
 
-**Design for fast, effortless, and intentional interactions.**
+**更快速，轻松，有目的的互动设计**
 
-Simple and common tasks should be frictionless and obvious; complex tasks should feel efficient and delightful. But, speed should not lead to inaccuracies.
-
-**Empower everyone through progressive discoverability.**
-
-Everyone at all levels of experience with Asana should feel like they know how to use the product, regardless of how many features they use.
-
-**Be consistent and standard, and innovate when it’s worth it.**
-
-Users should feel like Asana is familiar yet modern.
+简单和普通的任务应该是无分歧和明显的; 复杂的任务应该高效和令人愉快。但是，速度不应导致不准确。
 
 
-> *If your product have some good Design Principles or you think I missed a great set,* [*contact me*](mailto:anton@badashov.com) *, and I’ll add them to the list.*
+**在逐步探索中让每个用户感到满意**
 
+每一个使用 Asana 的人都应该感觉他们知道如何使用该产品，无论他们使用多少功能。
+
+**持续标准化，同时在需要的时候创新**
+
+用户应该觉得 Asana 熟悉而现代。
+
+
+> **如果你的产品有什么好的设计原则并且你觉得我不应该错过它，[联系我](mailto:anton@badashov.com)，我会将它加到列表里去。**
