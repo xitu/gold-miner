@@ -1,8 +1,10 @@
 > * 原文地址：[Design Principles Behind Great Products](https://medium.muz.li/design-principles-behind-great-products-6ef13cd74ccf#.uo9ssig6q)
 * 原文作者：[Anton Badashov](https://medium.muz.li/@badashov?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[jifaxu](https://github.com/jifaxu)
 * 校对者：
+
+# 优秀产品背后的设计原则
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/2000/1*Cd14Zx0mHo_rfTt_bDqSsg.gif">
 
@@ -29,7 +31,7 @@
 所以，我正在寻找的是**产品设计原则**。 而 Gov.UK 提供了至少一个：
 
 >  为了每一个人设计
->  
+>
 >  易用的设计才是好的设计。我们设计的一切都应该尽可能宽容，清晰和可读，那怕为此牺牲一些美观。我们是为需求而不是为观众设计。我们的设计应该面向所有人，而不仅仅是那些习惯于使用网络的人。最需要我们服务的人通常是最不会使用的人。 我们需要从一开始就想想那些人。
 
 产品设计原则应该告诉你，你的团队和利益相关者，你应该在艰难的选择中走哪条路。 他们应该专注于你的产品与竞品的不同之处以及对于业务和你的客户来说是什么重要的。
@@ -369,7 +371,7 @@ Firefox 简单且易用，在它的设计中融入了干净，直接的力量。
 
 - 管理
   易于管理的产品会被经常使用。 不必深思熟虑如何管理产品工作情况的用户是一个快乐的用户。 无论是负责整个组织的管理员还是最终完成工作的用户，设计明显的管理任务都会带来积极的体验。 记住，无论是个人还是团队，期望都是“不要因为管理上的事麻烦我”。
-  
+
 - 升级
   在升级过程中最小化用户的参与度并尽量不去打扰用户。
   在引入重大的用户体验更改时，请不要让您的用户猜测新功能或已删除的内容是什么。 通知他们更改正在发生或已发生，发生了什么以及会对他们造成什么影响。
