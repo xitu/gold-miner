@@ -2,7 +2,7 @@
 * 原文作者：[Lorenzo Quiroli](https://medium.com/@quiro91?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[skyar2009](https://github.com/skyar2009)
-* 校对者：[dubuqingfeng](https://github.com/dubuqingfeng)
+* 校对者：[dubuqingfeng](https://github.com/dubuqingfeng), [tanglie1993](https://github.com/tanglie1993)
 
 # Android Nougat 中通过 Intents 共享文件，你准备好了吗？
 
@@ -10,13 +10,13 @@
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*OlPkbZzZ4fNdrPNcewWAlA.jpeg">
 
-**Android 7.0 Nougat** 为了提高安全引入了一些 **文件系统权限变更**。如果你已经将 app 的 **targetSdkVersion** 升级为 24 （或者更高），并且你通过 [Intent](https://developer.android.com/reference/android/content/Intent.html) 传递 **file://**[URI](https://developer.android.com/reference/android/net/Uri.html) 来访问你的主包之外的文件，那么你将会遇到 [FileUriExposedException](https://developer.android.com/reference/android/os/FileUriExposedException.html) 的异常。
+**Android 7.0 Nougat** 为了提高安全性引入了一些 **文件系统权限变更**。如果你已经将 app 的 **targetSdkVersion** 升级为 24 （或者更高），并且你通过 [Intent](https://developer.android.com/reference/android/content/Intent.html) 传递 **file://**[URI](https://developer.android.com/reference/android/net/Uri.html) 来访问你的主包之外的文件，那么你将会遇到 [FileUriExposedException](https://developer.android.com/reference/android/os/FileUriExposedException.html) 的异常。
 
 #### 为什么会这样呢？ ####
 
 根据官方文档介绍：
 
-> 为提高私有文件的安全性，在 Android 7.0 及以上的应用中的私有目录有着严格的访问权限 （`0700`）。这个设定可以防止私有文件元数据的泄漏（比如文件的大小或者是否存在）。
+> 为提高私有文件的安全性，在 Android 7.0 及以上的应用中的私有目录有着更严格的访问权限 （`0700`）。这个设定可以防止私有文件元数据的泄漏（比如文件的大小或者是否存在）。
 
 当你通过 **file://** [URI](https://developer.android.com/reference/android/net/Uri.html)方式共享一个文件时，你同时修改了它的文件系统权限，使得它对所有应用都是可访问的（直到你再次修改它）。毋庸置疑这种方法是不安全的。
 
@@ -32,7 +32,7 @@
 
 ![Markdown](http://p1.bqimg.com/1949/46be5570af09f88d.png)
 
-我们创建了一个文件，并把文件的 [URI](https://developer.android.com/reference/android/net/Uri.html) 传给了 [Intent](https://developer.android.com/reference/android/content/Intent.html) 来从相机应用接收文件（我们应用主包之外的路径）。这段代码在 Marshmallow 或更低版本上是正常的，在 Nougat、 SDK 24 版本或更高的版本，你会遇到下面类似的堆栈信息：
+我们创建了一个文件，并把文件的 [URI](https://developer.android.com/reference/android/net/Uri.html) 传给了 [Intent](https://developer.android.com/reference/android/content/Intent.html) 来从相机应用接收文件（我们应用主包之外的路径）。这段代码在 Marshmallow 或更低版本上是正常的，在 Nougat、 SDK 24 版本或更高的版本，你会遇到类似下面的堆栈信息：
 
 ```
 
