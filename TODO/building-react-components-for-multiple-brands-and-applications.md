@@ -1,29 +1,29 @@
 > * 原文地址：[Building React Components for Multiple Brands and Applications](https://medium.com/walmartlabs/building-react-components-for-multiple-brands-and-applications-7e9157a39db4#.7tbsp6vsz)
 * 原文作者：[Alex Grigoryan](https://medium.com/@lexgrigoryan)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者： 
+* 译者：[XatMassacrE](https://github.com/XatMassacrE) 
 * 校对者：
 
 ---
 
 # Building React Components for Multiple Brands and Applications
-
+# 为多个品牌和应用构建React组件
 ![](https://cdn-images-1.medium.com/max/1600/1*7bG_2QAIOzbKNeesEkkTzg.png)
 
 There are several distinct brands that make up the Walmart family, including [Sam’s Club](https://www.samsclub.com/), [Asda](http://www.asda.com/), and regional branches like [Walmart Canada](http://www.walmart.ca/en). E-commerce applications use tons of functionally similar capabilities, such as; credit card components, login forms, onboarding, carousels, navigation, and more. Developing e-commerce applications for each of these brands in isolation would reduce opportunities for code reuse, resulting in countless hours of duplicated work of these functionally similar components. At @WalmartLabs, [code reusability is important to us](https://medium.com/walmartlabs/how-to-achieve-reusability-with-react-components-81edeb7fb0e0#.arwumefxh). That’s why our application architecture is centered around multi-tenancy/multi-branding — which is the act of building a component for one brand and then adopting it for other brands with different visuals or content. Below, you’ll find our multi brand strategy for react components.
-
+沃尔玛家庭由多个不同的品牌组成，其中包括 [Sam’s Club](https://www.samsclub.com/)， [Asda](http://www.asda.com/)，和例如 [Walmart Canada](http://www.walmart.ca/en) 之类的地区分支。电商应用使用大量功能相似的函数，例如信用卡组件，登录表单，新手引导，轮播图，导航栏等等。然而为每一个独立的品牌开发他们的电商应用将会降低代码的复用率，这将导致在相似功能的组件上耗费大量的时间进行重复性的工作。在@WalmartLabs， [代码的复用性对我们非常重要](https://medium.com/walmartlabs/how-to-achieve-reusability-with-react-components-81edeb7fb0e0#.arwumefxh)。这就是为什么我们的产品架构是基于多重租户或者说多重品牌来构建的 —— 其实就是为一个品牌构建组件的同时把它应用在其他拥有不同外观和内容的品牌上的一种行为。接下来，你将会看到我们的React组件的多重品牌策略。
 For context, most of our services are built around different types of multi tenancy. When you make a call to the service, you would usually pass the tenant in the header or in the payload, and the service provides data for that specific tenant. The service might pull different item data for example for samsclub.com versus walmart.com.
-
+就像上面说的， 我们的大部分服务都是建立在不同类型的多重租户上的。当你访问服务的时候，通常情况下你会在头部或者载荷上经过租户，而这个服务也会为特定的租户提供数据。这个服务或许会拉取不同的项目数据举例来说就像 samsclub.com 通过 walmart.com。
 We then tried to extend that idea to the front end applications as well. Because we’re using React with Redux, the visual components are already separated from application state, actions, and reducers. This meant we could abstract the React components into one GitHub organization and Redux actions, reducers, and connected components into another. By publishing all of these in a private npm registry, we make it easy for developers to install, try out, and upgrade not only the shared UI elements, but also the actions and reducers that implement our business logic and API calls. [You can read more about how we reuse here.](https://medium.com/walmartlabs/how-to-achieve-reusability-with-react-components-81edeb7fb0e0#.arwumefxh)
-
+然后我们尝试着去在前端应用上推广这个想法。因为我们使用 React 和 Redux，视图层组件已经和应用的 state，actions，以及 reducers 分离开了。这意味着我们可以将 React 组件抽象出来作为一个 GitHub 组织，将 Redux actions，reducers 和已连接的组件抽象成另一个。通过把这些发布在 npm 的私人地址上，我们的开发者就可以轻易的安装，调试和升级这些分享出来的 UI 界面以及事项了我们业务逻辑和 API 调用的 actions 和 reducers。 [你可以了解更多关于我们这个地方的复用](https://medium.com/walmartlabs/how-to-achieve-reusability-with-react-components-81edeb7fb0e0#.arwumefxh)
 Of course, if that were the end of the story, all of our applications would look and act the same. In reality, each brand has different requirements in regards to visual guidelines, business requirements, or content, and those requirements must be accounted for.
-
+当然，如果这就结束了，那么我们的所有的应用外观和行为都将会是一模一样的了。然而实际上，每一个品牌对于视觉指导方案，业务需求或者内容都有不同的要求，并且这些要求对于品牌来说是必不可少的。
 ### Visual Differences
-
+### 视觉差异
 Purely visual differences can be handled through styling. The majority of our styling is at the component level. We have a “styles” folder and within that folder are tenant folders, and within those tenant folders are tenant specific styles.
-
+纯粹的视觉差异可以通过样式来处理。我们的样式主要是在组件级别。我们有一个 "style" 文件夹，这个文件夹里面是一些租户文件夹，租户文件夹里面是租户的特定的样式文件。
 Looks kind of like this:
-
+就像这样：
     Component
     - src
     - styles
@@ -32,13 +32,13 @@ Looks kind of like this:
       - grocery
 
 A problem that occurs when managing styles at the component layer is your css clashes across components. I’m particularly not very creative in naming and definitely would have conflicts. We are moving towards using [CSS modules](https://github.com/css-modules/css-modules) (who have a really brilliant logo) which help remove the problem of accidental clashing (already supported in our archetype).
-
+当在组件层管理这些样式文件的时候，会发生一个问题，这个问题就是你的组件的 css 会相互冲突。在命名方面我是尤其的没有创造性，所有对于我来说绝对会产生冲突。我们将会使用 [CSS modules](https://github.com/css-modules/css-modules) (它有一个绝妙的 logo)，它会帮助我们移除意外冲突的问题 (在我们的原型中已经支持了)。
 On the topic of icons, we abstract common icons into a separate GitHub organization and import them into components as required.
-
+在图标方面，我们可以抽取一些常用的图标放到一个单独 GitHub 组织并且按照需要导入到组件中。
 These tenant-specific CSS files and icons are bundled using Webpack at build time.
-
+这些特定租户的 CSS 文件和图标在 build 的时候会使用 Webpack 打包到一起。
 ### Content Differences
-
+### 内容差异
 Different brands also have different content requirements based on the region they are serving. A super simple example is, walmart.com and walmart.ca say “add to cart”, but asda.com just says “add”, while our George clothing brand says “add to basket”, and our grocery.walmart.com has an icon.
 
 ![](https://cdn-images-1.medium.com/max/1600/1*a-3DlvR6-xabNhFenEcRkg.png)
