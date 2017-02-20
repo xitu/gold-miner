@@ -8,7 +8,7 @@
 
 哇哦，我们又有一整天时间，所以就来学点酷炫的新知识吧。
 
-你们好，希望各位都有所进步。在上周中，我们学习了 ConstraintLayout 的[第一部分](http://www.uwanttolearn.com/android/constraint-layout-hell/)。现在是时候来学习这个神奇布局的剩下内容了。
+你们好，希望各位都有所进步。在上周中，我们学习了 ConstraintLayout 的[第一部分](https://github.com/xitu/gold-miner/blob/master/TODO/constraint-layout-hell.md)。现在是时候来学习这个神奇布局的剩下内容了。
 
 **动机:**
 学习动机与先前在[第一部分](https://github.com/xitu/gold-miner/blob/master/TODO/constraint-layout-hell.md)中讨论的是一样的。 不过这次我不准备解释 ConstraintLayout 的特性，相反，我会分享一些当你们独立实现时可能遇到的问题。最后，我向大家保证，你们将会潜移默化地了解所有（我知道的）概念。
@@ -441,7 +441,7 @@ Spread Chain, Spread Inside Chain, Packed Chain, Packed Chain with Bias 以及 W
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-14-at-11.57.28-AM-211x300.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-14-at-11.57.28-AM.png)
 
-并没有发生变化，因为 **spread ** 就是默认值。
+并没有发生变化，因为 **spread ** 就是默认值。🙂
 
 **Spread Inside Chain:**
  
@@ -507,4 +507,5 @@ Spread Chain, Spread Inside Chain, Packed Chain, Packed Chain with Bias 以及 W
 砰！如期所至！好耶。
 
 好啦各位，该说再见啦。下期再见！
+
 **[ConstraintLayout \[Animations | Dynamic Constraints | UI by Java\] ( What the hell is this) \[Part3\] ](https://github.com/xitu/gold-miner/blob/master/TODO/constraint-layout-animations-dynamic-constraints-ui-java-hell.md)**
