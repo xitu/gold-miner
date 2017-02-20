@@ -3,7 +3,8 @@
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Deepmissea](http://deepmissea.blue)
 * 校对者：[Karthus1110](https://github.com/Karthus1110)，[lovelyCiTY](https://github.com/lovelyCiTY)
-# 步入 Swift 3 #
+
+# 步入 Swift 3 
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*yRyt_nc-U0j7xGW0bMADOg.png">
 
