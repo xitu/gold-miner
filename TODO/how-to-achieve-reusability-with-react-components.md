@@ -2,7 +2,7 @@
 * 原文作者：[Alex Grigoryan](https://medium.com/@lexgrigoryan?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[aleen42](https://github.com/aleen42)
-* 校对者：
+* 校对者：[Professor-Z](https://github.com/Professor-Z)、[sqrthree](https://github.com/sqrthree)
 
 # 如何实现 React 组件的可复用性 #
 
