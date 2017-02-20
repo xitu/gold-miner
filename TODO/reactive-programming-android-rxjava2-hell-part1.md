@@ -1,18 +1,18 @@
 > * 原文地址：[Observer Pattern – Reactive Programming [Android RxJava2]\( What the hell is this ) Part1](http://www.uwanttolearn.com/android/reactive-programming-android-rxjava2-hell-part1/)
 * 原文作者：[Hafiz Waleed Hussain](http://www.uwanttolearn.com/author/admin/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[Zhiw](https://github.com/Zhiw)
 * 校对者：
 
-## Observer Pattern – Reactive Programming [Android RxJava2]\(What the hell is this) Part1 ##
+## 观察者模式 – 响应式编程 [Android RxJava2]（这到底是什么）：第一部分
 
-WOW, we got one more day so its time to make this day awesome by learning something new 🙂.
 
 Hello Guys, hope you are doing good. Today I am going to start a new series of Rx Java2 more specific in Android but first 2-3 posts are general related to reactive programming. Hope we will learn something new and clear our all confusions together.
 
 **Motivation:**
 
 Truly saying I faced a lot of issues when I start learning Rx. I tried lot of tutorials, books but in the end I am not able to start working with Rx in my app. Lot of tutorials confused me, like some are saying as we know iterator pattern which is pull based in a same way Rx is push based and giving some example but that is useless for me at that time. I want to learn Rx, I want to know the benefits, I want to know how this will save me from lot of bugs, lines of boiler plate code but every time I will get push vs pull or some times I will get imperative vs reactive but never got the real Rx answers which I want. On some posts authors are saying, this is just like Observer pattern. With the passage of time confusion increased, learning curve is going very difficult. Later I got some more tutorials on FRP then lambda expressions, functional programming. I got lot of examples in which people are using lambda expressions with calling map, filter blah blah blah functions. But I am on a same page What is Rx and why I choose this paradigm. Later I met with some friends who are using Rx. I ask these guys, can you teach me. They teach me like hey as you know we have a EditText. If you want to check user added any new text. How you will know? I gave answer I will use change listener.
+和他们一样，我也想知道到底 Rx 是什么以及我为什么要选择它。后来我遇到了使用 Rx 的朋友，我就问他们能否指导一下如何使用 Rx。他们是这样教我的：你知道我们有一个 EditText，如果你想检查用户是否输入了新文本，你用什么方法得知？我回答说我会用改变监听。
 
 Oh you know the API is really difficult you can use Rx and that will be very easy by using debounce and simple Rx observable but I asked the question only to save from 10 lines of code I will go with Rx. They replied me no. You can use map, filter or lot of other functions to make your code in good shape and easy. I am not convinced because I can make one class that will manage all these things for me if that is the only benefit. On the other side I know Netflix and many other big companies are using this paradigm and there stats are good after using Rx. So I am more confused. The day come when I say ok, done. I am not going with Rx but I know myself. I never quit sometimes I take rest but I never quit. So I decided I already learned a lot of things, in lot of tutorials but that is just like a puzzle blocks for me. So Its time to make that puzzle blocks into a proper shape.
 
@@ -57,18 +57,20 @@ Streams
 FRP
 
 etc… oh man.
+等等。。。
 
 So we are going to write a one component of a real enterprise application system. Which is our first step to reactive paradigm. Basically that will not give you any information about Rx but that will make some base which we will use in later tutorials.
 
 **Requirement:**
+**需求：**
 
 Our client has a website. He wants, when he publish a new tutorial, all members who subscribed will get an email.
+我们的客户有一个网站，他要求，当他发布一篇新教程时，所有订阅的成员都会收到邮件。
 
 **Solution:**
+**解决方案：**
 
-I am not going to implement every thing real but I will implement in a way, so the concept which we want we will grasp easily.
 
-Its time to breakdown our requirement.
 
 1. We have users who are subscribing. Its mean we need to save information about users who subscribed.
 
@@ -88,6 +90,7 @@ public static class User {
     private String name;
     private String email;
     private boolean isSubscribed; 
+    private boolean isSubscribed;
 
     public String getName() {
         return name;
@@ -191,6 +194,7 @@ public static void main(String[] args){
 Now first point is done. In which we need to save information about those users who wants email.
 
 Its time to take care of second point. When user publish new tutorial I want to inform. Here I have one class, Tutorial like shown below.
+是时候去看一下第二点了。当用户发布新教程时，我想通知。这里我有一个 Tutorial 类如下所示。
 
 ```
 public static class Tutorial{
@@ -279,6 +283,7 @@ public static void main(String[] args){
 How I can determine fourth or any new tutorial published so I can send emails.
 
 Hmmm very critical requirement. I am going to implement polling. Polling means I have timer which will check any thing change in my data after some time interval. Here I am going to take an int object which will work for me as a data changed informer as shown below.
+嗯，非常关键的要求。我打算实现轮询，轮询意味着我要实现一个定时器，它会在一段时间间隔后检查我的数据是否发生改变。这里我将设置一个 int 对象作为数据改变的通知者，如下所示：
 
 ```
 private static int lastCountOfPublishedTutorials = 0;
@@ -348,10 +353,13 @@ Polling
 Done. Everything which is given by client is done but its time to review our approach. I think polling is really bad. Any thing else which we can use?
 
 Yes we can. Its time to use second approach to achieve this functionality.
+是的，当然可以。是时候来使用第二种方法来实现这个功能了。
 
 Now I am going to change some code in our classes. Guys I am again going from very basic so currently no interfaces, nothing abstract every thing will be concrete. In the end I will do little bit refactoring so we can see clear picture like how things are working in Profession Software development.
+现在我要改变一下我们类中的代码。伙计们，我会再次从最基本的部分开始，所有目前没什么接口，没有任何抽象的内容，所有事情都是具体的。最后我要做一点点的重构，以便我们可以很清晰的看到如何在专业软件开发中工作。
 
 Its time to see what new changes occurred in Tutorial class as shown below.
+让我们来看一下 Tutorial 类里面发生的新改变，如下所示。
 
 ```
 public static class Tutorial{
@@ -415,6 +423,7 @@ public static void main(String[] args){
 Now tutorial class is responsible for publishing tutorial. Also that class managing subscription of users. So we remove first polling. Which is a really big achievement. Then developer no more responsible to write logic which will inform any thing change in data so we remove Object **lastCountOfPublishedTutorials**.
 
 That is really awesome. Output is shown below.
+那真是太棒了，输出如下所示。
 
 
 Email send: A
@@ -424,7 +433,6 @@ Email send: C
 Email send: D
 
 
-I know above output not clear because program exit so I am going to implement one logic which only make our program always run in memory, never exit and also published new tutorial after 1 second. So we can see how emails are going.
 
 Email send: A
 
@@ -612,7 +620,6 @@ Now I am going to implement Rx Java lib methods.
 User (Observer) class after Rx applying shown below.
 
 ```
-public static class User **implements Action**1{
 
     private String name;
     private String email;
