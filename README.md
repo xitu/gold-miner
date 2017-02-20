@@ -4,7 +4,7 @@
 
 [掘金翻译计划](https://juejin.im/tag/%E6%8E%98%E9%87%91%E7%BF%BB%E8%AF%91%E8%AE%A1%E5%88%92) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](#android)、[iOS](#ios)、[React](#react)、[前端](#前端)、[后端](#后端)、[产品](#产品)、[设计](#设计) 等领域，读者为热爱新技术的新锐开发者。
 
-掘金翻译计划目前翻译完成 [376](#近期文章列表) 篇文章，共有 [240](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
+掘金翻译计划目前翻译完成 [377](#近期文章列表) 篇文章，共有 [240](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
 
 #  官方指南：
 
@@ -28,10 +28,10 @@
 
 ## iOS
 
+* [iOS 开发中使用 Swift 进行 iBeacons 交互指南](https://gold.xitu.io/entry/58a6f4091b69e6006d275610/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lovelyCiTY](https://github.com/lovelyCiTY) 翻译)
 * [[译] iOS 开发者一定要知道的 14 个知识点](https://gold.xitu.io/entry/58a5727261ff4b006c432a7f/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Deepmissea](http://deepmissea.blue) 翻译)
 * [iOS 应用测试](https://gold.xitu.io/entry/58a16cc161ff4b006b51d882/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([thanksdanny](https://github.com/thanksdanny) 翻译)
 * [老司机手把手带你在 Swift 中应用代理（Delegate）](https://gold.xitu.io/entry/58a11b7c61ff4b006b4f7f69/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Gocy015](https://github.com/Gocy015) 翻译)
-* [在 Swift 3 上对视图控件实践面向协议编程](https://gold.xitu.io/entry/589b42692f301e00699b8011/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Tuccuay](https://github.com/Tuccuay) 翻译)
 * [所有 iOS 译文>>](https://github.com/xitu/gold-miner/blob/master/ios.md)
 
 ## 前端
