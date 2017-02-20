@@ -2,7 +2,7 @@
 * 原文作者：[Tyler McGinnis](https://medium.freecodecamp.com/@tylermcginnis?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者： [aleen42](https://github.com/aleen42)
-* 校对者：
+* 校对者：[Tina92](https://github.com/Tina92)、[sqrthree](https://github.com/sqrthree)
 
 # React 中“灵光乍现”的那些瞬息
 
