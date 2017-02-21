@@ -2,17 +2,17 @@
 * 原文作者：[James M Snell](https://medium.com/@jasnell?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[hikperpig](https://github.com/hikerpig)
-* 校对者：
+* 校对者：[showd0wn](https://github.com/showd0wn), [Tina92](https://github.com/Tina92)
 
 # Node.js 支持 ES6 模块的进展 #
 
 （译者注：作者 James M Snell 任职于 IBM，是 Node.js 项目的核心贡献者之一）
 
-几个月前我写了篇[文章](https://hackernoon.com/node-js-tc-39-and-modules-a1118aecf95e)阐述 Node.js 现有的 CommonJS 模块系统与 ES6 模块系统的一些区别，以及由此产生的给 Node.js 核心实现带来的挑战。本文将跟进相关进展。
+几个月前我写了篇[文章](https://hackernoon.com/node-js-tc-39-and-modules-a1118aecf95e)阐述 Node.js 现有的 CommonJS 模块系统与 ES6 模块系统的一些区别，以及由此产生的在 Node.js 中实现 ES6 模块系统的挑战。本文将跟进相关进展。
 
 ### 何时知晓 ###
 
-在继续阅读之前，建议你看下我之前的[文章](https://hackernoon.com/node-js-tc-39-and-modules-a1118aecf95e)，里面描述了两种模块系统架构一些重大差异。简单来说：CommonJS 和 ES6 模块的根本差异在于知晓模块结构并能够在其他代码里使用的时机。
+如果你没有读过我之前的文章，在继续阅读之前，建议你[看一下](https://hackernoon.com/node-js-tc-39-and-modules-a1118aecf95e)，里面描述了两种模块系统架构一些重大差异。简单来说：CommonJS 和 ES6 模块的根本差异在于模块结构解析完全并能够在其他代码里使用的时机。
 
 例如，有如下简单的 CommonJS 模块，姑且称为 `foobar` 模块。
 
@@ -34,7 +34,7 @@ const {foo, bar} = require('foobar');
 console.log(foo(), bar());
 ```
 
-在命令行里执行 `node app.js` 时，Node.js 程序读取 `app.js` 文件内容和解析，执行代码。执行期间 `require()` 函数被调用，**同步**地读取 `foobar.js` 内容载入内存，**同步**解析和编译 JavaScript 代码，而后**同步**执行代码，将 `module.exports` 的返回值作为 `app.js` 中 `require('foobar')` 的值。`app.js` 中的 `require()` 函数执行完后，`foobar` 模块的结构已知。以上所有的一切全发生在 Node.js 事件循环的一次执行中。
+在命令行里执行 `node app.js` 时，Node.js 程序读取并开始解析 `app.js` 文件的内容，执行代码。执行期间 `require()` 函数被调用，**同步**地读取 `foobar.js` 内容载入内存，**同步**解析和编译 JavaScript 代码，而后**同步**执行代码，将 `module.exports` 的返回值 `app.js` 中 `require('foobar')` 的值。`app.js` 中的 `require()` 函数执行完后，`foobar` 模块的结构已知并能被调用。以上所有的一切全发生在 Node.js 事件循环的一次执行中。
 
 理解 CommonJS 和 ES6 差异的重要一点，在于 CommonJS 模块的结构（模块的 API）在模块代码执行完之前是未知的，即便在执行完后，其结构也随时能被其他代码更改。
 
@@ -62,11 +62,11 @@ console.log(bar());
 
 ### 时机决定一切 ###
 
-我们实现 ES6 模块标准时的一个主要目标，是尽可能地无缝切换。我们希望对用户来说，两种机制基本无差别，例如 `require('es6-module')` 和 `import from 'commonjs-module'` 都能正常工作。
+我们实现 ES6 模块标准时的一个主要目标，是尽可能地无缝切换。我们希望能够同时兼容两种标准，且对使用者隐藏两种标准细节的差别，例如 `require('es6-module')` 和 `import from 'commonjs-module'` 都能正常工作。
 
 不幸的是，事情没那么简单。
 
-由于 ES6 模块的读取和解析都是异步的，不可能 `require()` 一个 ES6 模块，因为 `require()` 是个同步的函数。若通过改变 `require()` 函数的语义去支持异步加载，会让整个社区闹得鸡犬不宁。因此我们考虑过写一个 `require.import()` 作为 ES6 [提议](https://github.com/tc39/proposal-dynamic-import)的 `import()` 函数实现。该函数返回一个 `Promise`, 于 ES6 模块载入完成时解决。虽说这不是最理想的方案，但能在现有的 CommonJS 风格 Node.js 代码中使用 ES6 模块。
+由于 ES6 模块的读取和解析都是异步的，这就不可能 `require()` 一个 ES6 模块，因为 `require()` 是个同步的函数。若通过改变 `require()` 函数的语义去支持异步加载，会让整个社区闹得鸡犬不宁。因此我们考虑过写一个 `require.import()` 作为 ES6 [提议](https://github.com/tc39/proposal-dynamic-import)的 `import()` 函数实现。该函数返回一个 `Promise` 对象, 其于 ES6 模块载入完成时解决 (resolve) 。虽说这不是最理想的方案，但起码能在现有的 CommonJS 风格 Node.js 代码中使用 ES6 模块。
 
 一个小小好消息是，在 ES6 模块中通过 `import` 声明使用 CommonJS 模块应该变得很容易。因为并不总强制异步加载。为更好支持此点，ECMAScript 语言标准将会有一些更改，不过当一切稳定下来后，肯定是能正常使用的。
 
