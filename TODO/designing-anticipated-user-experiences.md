@@ -1,91 +1,95 @@
 > * 原文地址：[Designing Anticipated User Experiences](https://uxdesign.cc/designing-anticipated-user-experiences-c419b574a417#.k46dd8myv)
 * 原文作者：[Joël van Bodegraven](https://uxdesign.cc/@jvb_nl?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[jifaxu](https://github.com/jifaxu)
 * 校对者：
 
-# Designing Anticipated User Experiences #
+# 设计预期的用户体验 #
 
-## How To Design For A Future Without Choice ##
+(你们觉得标题这么翻译合不合理？)
+
+## 如何做出不需要选择的设计 ##
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/2000/1*nJbVyR1EpTAATNqVkn3xeA.png">
 
-[Anticipatory Design](https://www.anticipatorydesign.com/)  is possibly the next big leap within the field of Experience Design. “[Design that is one step ahead](https://www.fastcodesign.com/3045039/the-next-big-thing-in-design-fewer-choices)” as Shapiro refers to it. This sounds amazing, but where does it lead us? And how will it affect our relationship with technology?
+[预期设计](https://www.anticipatorydesign.com/)可能是在体验设计领域里的下一个重大飞跃。就像 Shapiro 说的那样：“[超前一步的设计](https://www.fastcodesign.com/3045039/the-next-big-thing-in-design-fewer-choices)”。这听上去有些疯狂，这又能给我们带来哪些帮助呢？又会对我们和技术的关系造成怎样的影响？
 
-I’ve dedicated my Master thesis to this topic to identify both ethical as design challenges that come with the development of predictive UX and application of Anticipatory Design as design pattern. With as overarching question “How Anticipatory Design might challenge our relationship with technology”.
+我已经将我的硕士论文贡献给这个话题，在论文里讨论了随着预测性 UX 而来的设计挑战和预测设计的应用。而最主要的论点是“预期设计会对我们与技术的关系造成怎样的挑战”。
 
-### A Future Without Choice ###
+### 一个不需要进行选择的未来 ###
 
-Anticipatory Design is an upcoming design pattern within the field of predictive user experiences (UX). The premise behind this pattern is to reduce cognitive load of users by making decisions on behalf of them.
+预期设计是一种正在到来的设计理念，它的目的是通过预测用户行为，替用户做出决定来减少用户做决定的次数，从而减少用户的认知负荷。
 
-Despite its promise, little research has been done towards possible implications that may come with Anticipatory Design and predictive user experiences. Ethical challenges like data, privacy and experience bubbles could inhibit the development of predictive UX.
+除了它承诺的这些可能的有点，很少有人研究预测设计可能带来的影响。它可能带来一些伦理上的挑战，比如数据、隐私和经验泡沫，这将可能会阻碍预测 UX 的发展。
 
-We’re moving towards a future with ambient technology, smart operating systems and anticipated experiences. Google Home, Alexa, Siri and Cortana are all intelligent personal assistants that learn from your behavior, patterns and data and will likely anticipate your needs in the near future pro-actively.
+环境技术、智能操作系统和预期体验都是未来的发展方向。 Google Home，Alexa，Siri 和 Cortana 都是智能个人助理，从您的行为，模式和数据中学习，并可能在不久的将来积极主动地预测您的需求。
 
-Anticipated user experiences are a promising development that releases us from our decision fatigue. With the approximately [20.000 decisions we make on daily average](http://www.nytimes.com/2011/08/21/magazine/do-you-suffer-from-decision-fatigue.html?_r=1), most of us are suffering from it.
+
+预期 UX 肯定是一个有前途的发展方向，它能够将我们从[每天要做的 20000 个 决定](http://www.nytimes.com/2011/08/21/magazine/do-you-suffer-from-decision-fatigue.html?_r=1)中解放出来。
 
 ### Less Choice, More Automation ###
+### 自动化，更少的选择 ###
 
-Anticipatory Design is a design pattern that moves around learning (Internet of Things), predicting (Machine Learning) and anticipation (UX Design).
+预期设计是一种涉及了学习（物联网），预测（机器学习）和预期（UX 设计）的设计理念。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*7L5dA1Cqb8Jz5aU1X900BA.png">
 
-Anticipatory Design Mix
+预期设计的结构
 
-Smart technology within the Internet of Things learns by observing, while our data is interpreted by machine learning algorithms. UX design is crucial for delivering a seamless anticipated experience that take users away from technology. Anticipatory Design only works when all three actors are well aligned and effectively used.
+物联网中的智能技术通过观察来学习，而我们的数据通过机器学习算法来解释。 UX 设计对于提供无缝的预期体验，使用户远离技术至关重要。预期设计仅在所有三个参与者都可以有效协调工作时才起作用。
 
-Anticipatory Design as design principle is already used in quite a few products without us being actively aware of it. Products like Nest, Netflix and Amazon’s Echo are good examples of how products learn, adjust and anticipates on given data of the user.
+作为一种设计原则，预测设计已经在很多产品中使用，而我们并没有积极地意识到这一点。 诸如Nest，Netflix 和 Amazon 的 Echo 等产品是如何通过用户提供的数据学习，调整和预测的。
 
-### 5 Design Considerations ###
+### 5 点在设计时需要考虑的因素 ###
 
-Over the past few months I’ve interviewed several experts in the field of UX and A.I. to investigate what challenges lie ahead and what considerations are there to make. The following 5 design considerations were distilled:
+在过去几个月，我采访了 UX 和 AI 领域的几位专家。 调查前面的挑战和需要考虑的因素。 提出了以下5点在设计时需要考虑地要素：
 
-#### 1. Design Against the Experience Bubble ####
+#### 1. 针对经验泡沫进行设计 ####
 
-We saw what happened with Trump, the filter bubble is real and most of us circle around in our own ‘reality’. Eli Pariser described with ‘the filter bubble’ in 2011 how the new personalized web is changing what people read and how people think. The same risk applies when devices around us anticipate our needs and act on them. An Experience Bubble at which you get stuck in a loop of returning events, actions and activities. Algorithms are causing these returning events. Algorithms are binary and unable to understand meaning behind actions. It is worrisome that algorithms are not conversational. There should be a way to teach algorithms on what is right, wrong and accidental behavior.
+我们已经知道了在川普身上发生了什么（其实我还真不知道。。。），言论滤泡是真实存在的，我们大多数人被我们自己的“现实”环绕。 Eli Pariser 在 2011 年描述了“言论滤泡”，新的个性化网络如何改变人们阅读的内容和人们的想法。 当我们周围的设备预测我们的需求并采取行动时同样的风险也存在。 一个经验泡沫会让你陷入一个循环的返回事件，行动和活动。 算法导致这些返回事件。 算法是二进制的，无法理解其背后的意义。 令人担忧的是算法是不可交流的。 应该有一种方法来教授算法什么是正确和错误和意外的行为。
 
-#### **2. Focus on Extended Intelligence Instead of Artificial Intelligence** ####
+#### **2. 专注于扩展智能而不是人工智能** ####
 
-The head of MIT Media Lab, Joi Ito, gave a very interesting perspective that colored my beliefs regarding design principles to follow. Mr. Ito said that humanity should not pursue robotics and Generalized AI but rather focus on Extended Intelligence. This, because it is in humans nature to use technology as an extension of itself. It would feel inhuman to replace our daily activities by machines.
+麻省理工学院媒体实验室的负责人 Joi Ito 提出了一个非常有趣的观点，让我关于设计原则的信念更加多彩。 Ito 先生说，人类不应该追求机器人和广义 AI，而应该专注于扩展智能。 因为人类的本性是使用技术作为自己的延伸。 用机器代替我们的日常活动不符合人类的真正习惯。
 
-#### 3. **Responsive Algorithms Make Data Understandable** ####
+#### 3. **响应算法使数据可理解** ####
 
-Current used algorithms are binary and limited to the actions and input of users. Conceptually they pretend to be ‘personal’ and ‘understandable’ about our actions but in real-life it is a matter of ones and zero’s. Algorithms are not ready for predictive systems and need to be more responsive in order to adapt to people’s motives and needs. Revisiting the feedback loop is a way to implement responsiveness. In this way, people can teach algorithms what- but foremost **why** they like or dislike things.
+当前使用的算法是二进制的并且限于用户的动作和输入。 从理论上讲，他们假设对我们的行为是“个人的”和“可理解的”，但在现实生活中它是一个和零的问题。 算法没有准备好用于预测系统，需要变得更灵敏以适应人们的动机和需求。 重新访问反馈回路是实现响应的一种方式。 这样，人们可以教算法，最重要的是**为什么**他们喜欢或不喜欢这样东西。
 
-#### **4. Personality Make Interactions More Human-Like** ####
+#### **4. 个性化让交互更人性化** ####
 
-The Internet of Things (IoT) is growing as a market and there’s a shift from mobile first to A.I. first, meaning that users will get a more personal and unique relation and experience with their device.
+物联网是一个正在快速发展的领域，并且有从移动端转向人工智能的趋势。 首先，这意味着用户与他们的设备将有着更私人化和更独特的联系。
 
-When I interviewed respondents and asked them about their view on smart operating systems and Artificial Intelligence, most people referred to the movie Her as a future perspective. This perspective is intriguing. However, looking at recent developments for smart assistants like Siri, Cortana and Google Home an essential feature is missing: **personality**.
+当我采访受访者并询问问他们对于智能操作系统和人工智能的看法时，大多数人了提到电影《她》。 这个角度是有趣的。 然而，从 Siri，Cortana 和 Google Home 等智能助手的最新发展来看，缺少一个基本功能：**个性化**。
 
-Personality adds huge value to our interactions with devices, because it gives a human touch. We can relate more to devices if it has a personality. Looking at services like Siri, I believe that the personality will be more relevant in the future than the amount of Gigabytes.
+个性为我们与设备的互动增加了巨大的价值，因为它给人以真实感。 如果它富有个性，我们一定会更多的使用它。 看看像 Siri 这样的服务，我相信在未来个性化将比千兆字节的数量更重要。
 
-#### 5. Build Trust by Giving Control and Transparency ####
+#### 5. 通过提供控制和透明度建立信任 ####
 
-Today, people need to hack their own online behavior to receive the right content. It is so frustrating when you buy a gift for someone else, and get bombarded after purchase with adverts of the same product (THE SAME PRODUCT, that you just bought…).
+今天，人们需要小心自己的在线行为以获得正确的内容。 当你为别人买一个礼物后，立刻就被这个产品（同一个产品，就是你刚买的）的广告后轰炸，这多么令人沮丧。
 
-Algorithms often misinterpret my actions. There’s room for improvement. Data interaction has become a crucial element in developing experiences for the future. Respondents that I’ve interviewed voiced their concerns about the lack of transparency and control that comes with the internet. Much personal data ends up in a ‘black box’. No one knows how our data is used and processed by big tech firms. Providing options for automation should build trust and enable growth.
+算法常常误解我的行为，这里有很多改进的余地。 数据交互已成为未来提升体验的关键因素。 受访者们表达了他们对互联网缺乏透明度和控制力的担忧。 很多个人数据最终都进入了“黑盒子”。 没有人知道我们的数据如何被大型科技公司使用和处理。 为自动化提供选择应该建立信任并促进增长。
 
-### UX Design is Evolving ###
+### UX 设计正在发生变化 ###
 
-The craft of UX Designers is changing. Increasing responsibilities, interactions and forms influence the design approach.
+UX 设计师的工作正在改变。更多的责任，互动和形式正在影响设计的方法。
 
-User Interfaces for example increasingly take different forms (e.g. voice-driven interfaces) that require a different way of design thinking. UX designers are getting more exposed to ethical design since a lot of confidentiality is involved by creating predictive user experiences.
+比如，用户界面有着越来越多的形式（例如，声控界面），这要求有不同的设计思维。由于构建预测性用户体验涉及到大量的用户隐私， UX 设计师的工作越来越与伦理相关。
 
-With the dawn of fully automated consumer-facing systems, a clear view on design mitigations and guiding principles are desired since future designers will face much more responsibility concerning topics like privacy and data.
+随着完全自动化的面向消费者的系统的出现，对于 design mitigations and guiding principles (这个地方不知该作何解？) 渐渐有了一个清晰的观点，因为未来的设计师承担着着更多关于隐私的责任。
 
-Current sets of design principles from Rams, Nielsen (1998), Norman (2013) and Schneiderman (2009) are insufficient for automation because principles regarding transparency, control, loops and privacy are missing.
+目前基于 Rams, Nielsen(1998), Norman(2013)  和 Schneiderman(2009) 的设计原则不足以实现自动化，因为他们缺少关于透明度，控制，循环和隐私的原则。
 
-The evolvement of Experience Design within a context of automation requires discussions and design practices to mitigate forecasted design challenges.
+在自动化的背景下，经验设计的演变需要通过讨论和设计实践来减轻预测设计带来挑战。
 
-#### Let’s Continue This Conversation ####
+#### 让我们继续讨论 ####
 
-Predictive UX is an increasingly growing field of expertise. The craft of UX design is changing with it. As we are at the shift of a new AI- driven era, it is important to share design stories, insights and practices to continue the development of Anticipatory Design as pattern, and predictive UX as a service.
+预测 UX 是一个日益增长的专业领域。 UX 设计的工作随之正在改变。我们正在步入一个由 AI 驱动时代，重要的是分享设计故事，见解和实践，以继续将预测设计发展为一种模式并让预测 UX 成为一种服务。
 
-[Please join the movement and share your thoughts on **Predictive UX **& **Anticipatory Design**](http://www.anticipatorydesign.com)
+[投身于这趟浪潮之中并分享你关于**预测 UX**和**预期设计**的见解](http://www.anticipatorydesign.com)
 
 [www.anticipatorydesign.com](http://www.anticipatorydesign.com)
 
-### Thanks for reading! ###
+### 感谢阅读！###
 
-If you liked it, please click that little heart below. That would be amazing!
+如果你喜欢这篇文章，请点击下面的喜欢按钮。
