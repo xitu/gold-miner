@@ -14,9 +14,9 @@
 
 Python 社区进来针对性能做了很多优化。CPython 3.6 新的字典实现方式提升了解释器的总体性能。CPython 3.7 引入了更快的调用约定和字典查询缓存之后会更快。
 
-所有这些杰出的贡献鼓舞我在 Python 应用最广泛的领域 —— web 和微服务 —— 开拓创新。
+对于计算密集的工作，可以利用 PyPy 的即时编译。Numpy 的测试组件亦可一试，其对 C 拓展的兼容性已有全面提升。预计今年晚些时候 PyPy 会兼容 Python 3.5。
 
-All this great work inspired me to innovate in one of the areas where Python is used extensively: web and micro-service development.
+所有这些杰出的贡献鼓舞我在 Python 应用最广泛的领域 —— web 和微服务 —— 开拓创新。
 
 ### 欢迎来到 Japronto 的世界！
 
@@ -44,7 +44,7 @@ HTTP 管线化（图片版权维基百科）
 
 [HTTP 管线化](https://zh.wikipedia.org/zh-cn/HTTP%E7%AE%A1%E7%B7%9A%E5%8C%96)至关重要，因为这是 Japronto 在执行请求时考虑到的优化手段之一。
 
-大多数服务器执行管线化客户端请求的方式并不会和处理非管线化客户端请求有什么不同。也不会尝试进行优化。（事实上 S 和 M 会静默丢弃管线化客户端发来的请求，这不符合 HTTP 1.1 协议。）
+大多数服务器执行管线化客户端请求的方式并不会和处理非管线化客户端请求有什么不同。也不会尝试进行优化。（事实上 Sanic 和 Meinheld 会静默丢弃管线化客户端发来的请求，这不符合 HTTP 1.1 协议。）
 
 简而言之，管线化技术让客户端不必等待响应就可以复用同一 TCP 连接发送后续的请求。为保证通信的完整性，服务端发送响应的顺序要和收到的请求的顺序一致。
 
