@@ -8,7 +8,7 @@
 
 哇哦，又是新的一天。为了不浪费这宝贵的时光，让我们来学点新知识吧 🙂 。
 
-大家好，希望各位都有所进步。在[第一部分](http://www.uwanttolearn.com/android/constraint-layout-hell/), [第二部分](http://www.uwanttolearn.com/android/constraint-layout-concepts-hell-tips-tricks-part-2/) 和 [第三部分](http://www.uwanttolearn.com/android/constraint-layout-animations-dynamic-constraints-ui-java-hell/)这些文章中我们已经学习了许多关于 ConstraintLayout 的知识。现在是时候来学习这个神奇布局的剩余内容了。顺便一提，本文是 Constraint Layout (这到底是什么)系列的最后一篇文章了。
+大家好，希望各位都有所进步。在[第一部分](http://www.uwanttolearn.com/android/constraint-layout-hell/), [第二部分](http://www.uwanttolearn.com/android/constraint-layout-concepts-hell-tips-tricks-part-2/) 和 [第三部分](http://www.uwanttolearn.com/android/constraint-layout-animations-dynamic-constraints-ui-java-hell/)这些文章中我们已经学习了许多关于 ConstraintLayout 的知识。现在是时候来学习这个神奇布局的剩余内容了。顺便一提，本文是 Constraint Layout（这到底是什么）系列的最后一篇文章了。
 
 **动机：**
 
@@ -18,13 +18,13 @@
 
 **引言**
 
-在这篇文章里我们大部分都是使用可视化编辑器，比较少会用到 XML。那么让我们开始吧！
+在这篇文章里我们大部分都是使用可视化编辑器，用到 XML 的机会比较少。那么让我们开始吧！
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-7.40.17-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-7.40.17-AM.png)
 
-在上图中我标出了五个红色的方框。这就是整个可视化编辑器了。在开始介绍之前有一个问题。那就是：了解各个组成部分以及他们的名字真的那么重要吗？在我看来，如果我们只是想要独立完成某些工作，那么通过一遍又一遍地重复那些工作就可以掌握相应的技能，并不需要了解术语。但如果我们想要帮助社区里的成员，或者说我们想要成为一名优秀的善于团队合作者，我们就应该学习所有相关的术语。这确实很有用，我将会展示给你们看。
+在上图中我标出了五个红色的方框。这就是整个可视化编辑器了。在开始介绍之前有一个问题。那就是：了解各个组成部分以及它们的名字真的那么重要吗？在我看来，如果我们只是想要独立完成某些工作，那么通过一遍又一遍地重复那些工作就可以掌握相应的技能，并不需要了解术语。但如果我们想要帮助社区里的成员，或者说我们想要成为一名优秀的团队合作者，我们就应该学习所有相关的术语。这确实很有用，我将会展示给你们看。
 
-我知道大多数人不是很了解（或许有一些人了解）什么是 Palette, Component Tree, Properties 等等，但是我将会使用这些术语来描述流程。任何从事 UI 工作的开发人员都会遵循这些步骤。
+我知道大多数人不是很了解（或许有一些人了解 🙂）什么是 Palette, Component Tree, Properties 等等，但是我将会使用这些术语来描述流程。任何从事 UI 工作的开发人员都会遵循这些步骤。
 
 从 Palette 窗口选取 UI 组件 -> 拖拽到 Design 编辑器中 -> 在 Property 窗口中改变组件的属性（宽度，高度，文字，外边距，内边距… 等等） -> 在 Design 编辑器中调整约束关系。
 
@@ -36,15 +36,15 @@ Palette 窗口 ->  Design 编辑器 -> Properties 窗口 ->  Design 编辑器
 
 **Palette:**
 
-提供了一系列的部件（widgets）和布局（layouts），你可以将其拖拽到位于编辑器中的布局里。（Documentation）
+提供了一系列的部件（widgets）和布局（layouts），你可以将其拖拽到位于编辑器中的布局里。（官方文档介绍）
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-8.24.43-AM-188x300.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-8.24.43-AM.png)
 
 在这里你可以获取到 Android 提供的所有 UI 组件。在右上角有一个搜索图标，你可以通过搜索节省寻找的时间。搜索图标的右边还有一个设置图标。点击这个酷炫的图标，你可以根据个人喜好更改 UI 组件的外观。
 
-**设计编辑器:**
+** Design 编辑器:**
 
-通过设计（Design）视图和蓝图（Blueprint）视图来预览你的布局。（Documentation）
+通过设计（Design）视图和蓝图（Blueprint）视图来预览你的布局。（官方文档介绍）
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-8.35.45-AM-300x280.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-8.35.45-AM.png)
 
@@ -126,7 +126,7 @@ Palette 窗口 ->  Design 编辑器 -> Properties 窗口 ->  Design 编辑器
 
 这两个图标功能是一样的的，只不过一个用于水平方向，另一个用于垂直方向。当我点击了水平方向的图标后，所有视图都会水平方向对齐。那么随之而来的问题是：这和上面刚学习过的那对图标有什么区别呢？
 
-区别在于，上面的图标通过扩展数值（来对齐）。而这两个图标并不会扩展数值，而是将视图平移至互相对齐。**另外值得注意的是**，这只是在 Design 编辑器中设定了值，如果你运行到设备上你是无法获得在 Design 编辑器中显示的效果的。你需要自己去构建约束。但其实你可以先通过使用这些图标来对齐视图，这样可以节省很多时间，如果还需要做一些调整的话，你可以再构建约束，这样你就可以在设备上得到适当的效果。让我们来看一下点击这些图标之后会发生什么吧。
+区别在于，上面的图标通过扩展尺寸（来对齐）。而这两个图标并不会扩展尺寸，而是将视图平移至互相对齐。**另外值得注意的是**，这只是在 Design 编辑器中设定了值，如果你运行到设备上你是无法获得在 Design 编辑器中显示的效果的。你需要自己去构建约束。但其实你可以先通过使用这些图标来对齐视图，这样可以节省很多时间，然后再构建约束，这样你就可以在设备上得到适当的效果。让我们来看一下点击这些图标之后会发生什么吧。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-11-03-02-221x300.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-11-03-02.gif)
 
@@ -216,7 +216,7 @@ Palette 窗口 ->  Design 编辑器 -> Properties 窗口 ->  Design 编辑器
 
 工具栏：
 
-提供了一些按钮用来配置编辑器中的布局外观以及编辑布局的属性。
+提供了一些按钮用来配置编辑器中的布局外观以及编辑布局的属性。（官方文档介绍）
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-12.19.33-PM-300x16.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-12.19.33-PM.png)
 
@@ -244,16 +244,16 @@ Palette 窗口 ->  Design 编辑器 -> Properties 窗口 ->  Design 编辑器
 
 **组件树（Component Tree）：**
 
-展示你的布局的界面层级。单击某一项可以将其在编辑器中选中。(Documentation)
+展示你的布局的界面层级。单击某一项可以将其在编辑器中选中。（官方文档介绍）
 
 这个窗口很有用，尤其是当我在 Design 编辑器中并且有大量的图标层层堆叠时，这时很难去选中某些视图旁边的一些视图。在这种情况下，我一般都会使用它来选中我想要的视图。如下图所示。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-12-40-09.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-12-40-09.gif)
 
 
-**属性（Properties）：**
+**Properties：**
 
-提供了对当前选中视图的属性控制。(Documentation)
+提供了对当前选中视图的属性控制。（官方文档介绍）
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-12.42.57-PM-1-170x300.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-12.42.57-PM-1.png)
 
@@ -317,6 +317,6 @@ Palette 窗口 ->  Design 编辑器 -> Properties 窗口 ->  Design 编辑器
 
 上图中有一个按钮，我为该按钮构建了左侧值为 24 dp 的约束。之后我将值修改为 207 dp，最后我通过点击小圆点将约束移除。有一点值得注意的是，这些值不是约束，而是外边距。你只能在构建约束后设置该值。
 
-希望你们喜欢我的 Constraint Layout（这到底是什么） 这一系列教程。今天我们完成了所有我对 ConstraintLayout 了解的内容的介绍。
+希望你们喜欢我的 Constraint Layout（这到底是什么） 这一系列教程。今天我们完成了所有我对 Constraint Layout 了解的内容的介绍。
 
 下次我们再一起学点新的知识吧。**再见**。周末愉快 🙂 。
