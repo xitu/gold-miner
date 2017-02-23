@@ -1,36 +1,36 @@
 > * 原文地址：[How Flexbox works — explained with big, colorful, animated gifs](https://medium.freecodecamp.com/an-animated-guide-to-flexbox-d280cf6afc35#.u44ga6k7p)
 * 原文作者：[Scott Domes](https://medium.freecodecamp.com/@scottdomes)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
-* 校对者：
+* 译者：[linpu.li](https://github.com/llp0574)
+* 校对者：[sqrthree](https://github.com/sqrthree)，[xuzaixian](https://github.com/xuzaixian)
 
-# How Flexbox works — explained with big, colorful, animated gifs
+# 几张 GIF 动图让你看懂弹性盒模型（Flexbox）如何工作
 
 ![](https://cdn-images-1.medium.com/max/2000/1*zyzR64aw4rDPsoG-ZwZ9rQ.png)
 
-Flexbox promises to save us from the evils of plain CSS (like vertical alignment).
+弹性盒模型许诺可以解决纯 CSS 造成的诸多弊端（比如垂直对齐）。
 
-Well, Flexbox does deliver on that goal. But mastering its new mental model can be challenging.
+好吧，它的确兑现了诺言。但是掌握这种新的思路可不是一件简单的事情。
 
-So let’s take an animated look at how Flexbox works, so we can use it to build better layouts.
+所以我们将以动图的形式来看看弹性盒模型是怎么工作的，好在以后的工作中使用它来构建更好的布局。
 
-Flexbox’s underlying principle is to make layouts flexible and intuitive.
+弹性盒模型的基本原理是让布局变得直观且富有弹性。
 
-To accomplish this, it lets containers decide for themselves how to evenly distribute their children — including their size and the space between them.
+要实现这个目标，它会让容器自己决定如何均匀分布它的子元素，包括子元素的大小和相互之间的间隔。
 
-This all sounds good in principle. But let’s see what it looks like in practice.
+这些从原理上讲都很好理解。但让我们来看看在实践当中它又会是什么样子。
 
-In this article, we’ll dive into the 5 most common Flexbox properties. We’ll explore what they do, how you can use them, and what their results will actually look like.
+在本文当中，我们将深入弹性盒模型最常用的 5 个属性。探究一下它们做了什么、如何使用它们、以及会产生什么效果。
 
-### Property #1: Display: Flex
+### 第一个属性：Display: Flex
 
-Here’s our example webpage:
+下面是我们的示例页面：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*ifusEqwI87nBKXgK9oZ_7A.gif)
 
-You have four colored divs of various sizes, held within a grey container div. As of now, each div has defaulted to `display: block`. Each square thus takes up the full width of its line.
+有四个不同大小和颜色的 div，包含在一个灰色的 div 容器里。现在，每个 div 都有一个默认的属性为 `display: block`，因此每个 div 块都占满了整行的宽度。
 
-In order to get started with Flexbox, you need to make your **container** into a **flex container**. This is as easy as:
+为了使用弹性盒模型，需要将**容器**变成一个**弹性容器**，更改代码如下，很简单：
 
     #container {
       display: flex;
@@ -38,19 +38,19 @@ In order to get started with Flexbox, you need to make your **container** into a
 
 ![](https://cdn-images-1.medium.com/max/2000/1*L2W-ziqU45a1BNWV79ijDQ.gif)
 
-Not a lot has changed — your divs are displayed inline now, but that’s about it. But behind the scenes, you’ve done something powerful. **You gave your squares something called a *flex context*.**
+可以看到并没有改变很多代码，容器里的 div 就展示为行内形式了。但在这个操作背后，其实已经发生了很大的变化，因为**你给每个块赋予了一个叫做弹性上下文的东西**。
 
-You can now start to position them within that context, with far less difficulty than traditional CSS.
+现在你就可以开始在这个上下文里改变它们的位置，相比传统的 CSS 简单多了。
 
-### Property #2: Flex Direction
+### 第二个属性：Flex Direction
 
-A Flexbox container has two axes: **a main axis** and **a cross axis**, which default to looking like this:
+弹性盒模型的容器有两个轴：**主轴**和**交叉轴**，它们默认如下所示：
 
 ![](https://cdn-images-1.medium.com/max/1600/1*_Ruy6jFG7gUpSf76IUcJTQ.png)
 
-**By default, items are arranged along the main axis, from left to right**. This is why your squares defaulted to a horizontal line once you applied `display: flex`.
+**默认状态下，容器里的每一个元素都会从左至右沿着主轴排列**。这也是为什么一旦 `display: flex` 生效，所有块都会默认排列在一个水平线上。
 
-`Flex-direction`, however, let’s you rotate the main axis.
+但是 `Flex-direction` 可以让你旋转主轴。
 
     #container {
       display: flex;
@@ -59,25 +59,25 @@ A Flexbox container has two axes: **a main axis** and **a cross axis**, which de
 
 ![](https://cdn-images-1.medium.com/max/2000/1*4yKnG2-vuPF5XA-BmXADLQ.gif)
 
-There’s an important distinction to make here: `flex-direction: column` doesn’t align the squares on the cross axis instead of the main axis.** It makes the main axis itself go from horizontal to vertical.**
+这里有一个很重要的区别：`flex-direction: column` 并不是把块从主轴移到交叉轴上排列，**而是让主轴自身从水平变成垂直。**
 
-There are a couple of other options for flex-direction, as well: *row-reverse *and *column-reverse.*
+另外 flex-direction 还有两个选项值：**row-reverse** 和 **column-reverse**。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*PBr_ncouIehALaEOWmSbpQ.gif)
 
-### Property #3: Justify Content
+### 第三个属性：Justify Content
 
-*Justify-content* controls how you align items on the **main axis.**
+**justify-content** 控制元素在**主轴**上的对齐方式。
 
-Here, you’ll dive a bit deeper into the main/cross axis distinction. First, let’s go back to flex-direction: row.
+下面，将稍微深入一下主轴和交叉轴的区别。首先，回到 `flex-direction: row` 的状态。
 
     #container {
       display: flex;
       flex-direction: row;
-    **  justify-content: flex-start;
-    **}
+      justify-content: flex-start;
+    }
 
-You have five commands at your disposal to use *justify-content*:
+**justify-content** 有五个可选值：
 
 1. Flex-start
 2. Flex-end
@@ -87,23 +87,23 @@ You have five commands at your disposal to use *justify-content*:
 
 ![](https://cdn-images-1.medium.com/max/2000/1*2-6Tw8jqWrMKOfIugKyuDA.gif)
 
-Space-around and space-between are the least intuitive. **Space-between gives equal space between each square, but not between it and the container.**
+`space-around` 和 `space-between` 是最直观的。**`space-between` 使每个块之间产生相同大小的间隔，但不会在容器和块之间产生。**
 
-Space-around puts an equal cushion of space on either side of the square — which means **the space between the outermost squares and the container is half as much as the space between two squares** (each square contributing a non-overlapping equal amount of margin, thus doubling the space).
+`space-around` 则会在每个块的两边产生一个相同大小的间隔，也就是说**最外层块和容器之间的间隔大小刚好是两块之间间隔大小的一半**（每个块产生的间隔不重叠，所以间隔变成两倍）。
 
-A final note: remember that** justify-content works along the main-axis**, and **flex-direction switches the main-axis**. This will be important as you move to…
+最后一个注意点：记住 **`justify-content` 是沿着主轴工作的**，**而 `flex-direction` 则是用来改变主轴的**。当看到下一个属性的时候就会发现这点很重要。
 
-### Property #4: Align Items
+### 第四个属性: Align Items
 
-If you ‘get’ justify-content, align-items will be a breeze.
+如果你掌握了 `justify-content`，`align-items` 也会很容易掌握。
 
-As justify-content works along the main axis,** align-items applies to the cross axis.**
+前面讲到 `justify-content` 是沿着主轴工作的，而 **`align-items` 则作用于交叉轴。**
 
 ![](https://cdn-images-1.medium.com/max/1600/1*_Ruy6jFG7gUpSf76IUcJTQ.png)
 
-Let’s reset our *flex-direction* to row, so our axes look the same as the above image.
+首先重置 `flex-direction` 为 row，这样我们的轴就和上图一样了。
 
-Then, let’s dive into the align-items commands.
+然后，来深入一下 `align-items` 这个属性，可选值如下：
 
 1. flex-start
 2. flex-end
@@ -111,33 +111,33 @@ Then, let’s dive into the align-items commands.
 4. stretch
 5. baseline
 
-The first three are exactly the same as *justify-content*, so nothing too fancy here.
+前三个值和 `justify-content` 的完全一样，所以这里略过。
 
-The next two are a bit different, however.
+但下面两个值有一点不一样。
 
-You have stretch, in which the items take up the entirety of the cross-axis, and baseline, in which the bottom of the paragraph tags are aligned.
+`stretch` 状态下，每一项都会占满整个交叉轴，而 `baseline` 状态下，将按照段落标签的底部对齐（译者注：图中每个块里的数字均由`p`标签包含，此处就是按照`p`标签的底部对齐）。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*htfdNmRIIFu_veRaFOj5qA.gif)
 
-(Note that for `align-items: stretch`, I had to set the height of the squares to auto. Otherwise the height property would override the stretch.)
+（注意 `align-items: stretch`，必须将每一块的高度设置为 `auto`，否则高度属性（height）就会将 `stretch` 的作用给覆盖掉。）
 
-For baseline, be aware that if you take away the paragraph tags, it aligns the bottom of the squares instead, like so:
+对于 baseline 来说，要意识到如果去掉段落标签，就将按照每个块的底部对齐（译者注：只要是元素标签内没有文字或者子标签内没有文字，均会按照每个块的底部对齐），像下面这样：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*6dd9KnKMUN49lFsbHlJi6A.png)
 
-To demonstrate the main and cross axes better, let’s combine justify-content and align-items and see how centering works different for the two flex-direction commands:
+为了更清楚地阐明主轴和交叉轴的区别，下面我们来把 `justify-content` 和 `align-items` 合在一起，看看在 `flex-direction` 两种值的作用下轴心有什么不一样：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*6mq-Uay7t6NhdF2E41Do0g.gif)
 
-**With row, the squares are set up along a horizontal main axis. With column, they fall along a vertical main axis.**
+**取值为 row 时，每个块会按照一个水平的主轴进行排列，为 column 时，它们就会按照一个垂直的主轴向下排列。**
 
-Even if the squares are centered both vertically and horizontally in both cases, the two are not interchangeable!
+虽然这些块在两种情况下都可以水平或者垂直居中，但这两者是不可以相互转化的！
 
-### Property #5: Align Self
+### 第五个属性: Align Self
 
-*Align-self* allows you to manually manipulate the alignment of one particular element.
+`align-self` 允许你手动设置一个特定元素的对齐方式。
 
-It’s basically overriding *align-items* for one square. All the properties are the same, though it defaults to *auto*, in which it follows the *align-items* of the container.
+它会针对一个块覆盖掉 `align-items` 属性。容器内元素的所有属性都默认为 `auto`，所以每个块默认会使用容器的 `align-items` 属性。
 
     #container {
       align-items: flex-start;
@@ -146,16 +146,16 @@ It’s basically overriding *align-items* for one square. All the properties are
     .square#one {
       align-self: center;
     }
-    // Only this square will be centered.
+    // 只有这个块会居中
 
-Let’s see what this looks like. You’ll apply *align-self* to two squares, and for the rest apply `align-items: center` and `flex-direction: row`.
+下面将给两个块设置 `align-self` 属性，其余的使用 `align-items: center` 和 `flex-direction: row`，来看看会是什么效果：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*HIADl1oL6pxXb2dMh_pXSQ.gif)
 
-### Conclusion
+### 结论
 
-Even though we’ve just scratched the surface of Flexbox, these commands should be enough for you to handle most basic alignments — and to vertically align to your heart’s content.
+尽管我们只介绍了弹性盒模型的一点皮毛，但对于操作基本的对齐，或者垂直排列你的核心内容来说，这些属性应该足够使用了。
 
-If you want to see more GIF Flexbox tutorials, or if this tutorial was helpful to you, hit the green heart below or leave a comment.
+如果你想看到更多的 GIF 弹性盒模型教程，或者如果这个教程对你有帮助，请点击下面的绿色心形或者留下一个评论吧。
 
-Thanks for reading!
+感谢阅读！
