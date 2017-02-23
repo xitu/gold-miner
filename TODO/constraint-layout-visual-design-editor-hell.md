@@ -1,18 +1,18 @@
 > * 原文地址：[Constraint Layout Visual [Design] Editor ( What the hell is this )[Part4]](http://www.uwanttolearn.com/android/constraint-layout-visual-design-editor-hell/)
 * 原文作者：[Hafiz Waleed Hussain](http://www.uwanttolearn.com/author/admin/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
-* 校对者：
+* 译者：[yazhi1992](https://github.com/yazhi1992)
+* 校对者：[phxnirvana](https://github.com/phxnirvana)，[tanglie1993](https://github.com/tanglie1993)
 
 # ConstaintLayout 可视化[Design]编辑器 （这到底是什么）[第四部分]
 
 哇哦，又是新的一天。为了不浪费这宝贵的时光，让我们来学点新知识吧 🙂 。
 
-大家好，希望各位都有所进步。在[第一部分](http://www.uwanttolearn.com/android/constraint-layout-hell/), [第二部分](http://www.uwanttolearn.com/android/constraint-layout-concepts-hell-tips-tricks-part-2/) 和 [第三部分](http://www.uwanttolearn.com/android/constraint-layout-animations-dynamic-constraints-ui-java-hell/)这些文章中我们已经学习了许多关于 ConstraintLayout 的知识。现在是时候来学习这个神奇布局的剩余内容了。顺便一提，本文是 Constraint Layout（这到底是什么）系列的最后一篇文章了。
+大家好，希望各位都有所进步。在[第一部分](https://github.com/xitu/gold-miner/blob/master/TODO/constraint-layout-hell.md), [第二部分](https://github.com/xitu/gold-miner/blob/master/TODO/constraint-layout-concepts-hell-tips-tricks-part-2.md) 和 [第三部分](https://github.com/xitu/gold-miner/blob/master/TODO/constraint-layout-animations-dynamic-constraints-ui-java-hell.md)这些文章中我们已经学习了许多关于 ConstraintLayout 的知识。现在是时候来学习这个神奇布局的剩余内容了。顺便一提，本文是 Constraint Layout（这到底是什么）系列的最后一篇文章了。
 
 **动机：**
 
-学习动机与先前在[第一部分](http://www.uwanttolearn.com/android/constraint-layout-hell/)中讨论的是一样的。这篇文章里我们将会学习如何使用可视化编辑器（Visual Editor）。有一些地方我会引用到[第二部分](http://www.uwanttolearn.com/android/constraint-layout-concepts-hell-tips-tricks-part-2/)的内容。我将会使用可视化编辑器来实现一些，我们已经讨论过怎样在 XML 或者 Java 中实现的概念。通过这种方式我们可以节省许多的时间。
+学习动机与先前在[第一部分](https://github.com/xitu/gold-miner/blob/master/TODO/constraint-layout-hell.md)中讨论的是一样的。这篇文章里我们将会学习如何使用可视化编辑器（Visual Editor）。有一些地方我会引用到[第二部分](https://github.com/xitu/gold-miner/blob/master/TODO/constraint-layout-concepts-hell-tips-tricks-part-2.md)的内容。我将会使用可视化编辑器来实现一些，我们已经讨论过怎样在 XML 或者 Java 中实现的概念。通过这种方式我们可以节省许多的时间。
 
 我们需要下载 2.3 版本的 Android studio。先前版本的可视化编辑器不太完善，有时会在 Design 面板上显示错误的信息。所以下载 2.3 beta 版是非常重要的，该版本在我写这篇文章时已经可以获取到了。
 
@@ -42,7 +42,7 @@ Palette 窗口 ->  Design 编辑器 -> Properties 窗口 ->  Design 编辑器
 
 在这里你可以获取到 Android 提供的所有 UI 组件。在右上角有一个搜索图标，你可以通过搜索节省寻找的时间。搜索图标的右边还有一个设置图标。点击这个酷炫的图标，你可以根据个人喜好更改 UI 组件的外观。
 
-** Design 编辑器:**
+**Design 编辑器:**
 
 通过设计（Design）视图和蓝图（Blueprint）视图来预览你的布局。（官方文档介绍）
 
@@ -56,7 +56,7 @@ Palette 窗口 ->  Design 编辑器 -> Properties 窗口 ->  Design 编辑器
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-8.51.15-AM-300x23.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-8.51.15-AM.png)
 
-在开始之前，为了便于后面解释，我会给这些图标起个名。从左到右开始分别是：**眼睛**图标，**磁铁**图标，**交叉箭头**图标，**星星**图标，**数字**盒子，**背包**图标，**对齐**图标，**指示线**图标，**放大**图标，**缩小**图标，**适应屏幕**图标，**平移缩放**图标，**警告和错误**图标。
+在开始之前，为了便于后面解释，我会给这些图标起个名。从左到右开始分别是：**眼睛**图标、**磁铁**图标、**交叉箭头**图标、**星星**图标、**数字**盒子、**背包**图标、**对齐**图标、**指示线**图标、**放大**图标、**缩小**图标、**适应屏幕**图标、**平移缩放**图标、**警告和错误**图标。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.56.38-AM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-9.56.38-AM.png) **眼睛图标：**
 
@@ -140,7 +140,7 @@ Palette 窗口 ->  Design 编辑器 -> Properties 窗口 ->  Design 编辑器
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-11-14-06-221x300.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-11-14-06.gif)
 
-还可以通过双击图标将视图链接成链。如果你对链不太了解，你可以去阅读该系列博客的[第二部分](http://www.uwanttolearn.com/android/constraint-layout-concepts-hell-tips-tricks-part-2/)。那篇文章里介绍了什么是链以及使用链带来的好处。
+还可以通过双击图标将视图链接成链。如果你对链不太了解，你可以去阅读该系列博客的[第二部分](https://github.com/xitu/gold-miner/blob/master/TODO/constraint-layout-concepts-hell-tips-tricks-part-2.md)。那篇文章里介绍了什么是链以及使用链带来的好处。
 
 在下图中你可以看到如何使用编辑器构建链。
 
@@ -188,13 +188,13 @@ Palette 窗口 ->  Design 编辑器 -> Properties 窗口 ->  Design 编辑器
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-12.04.46-PM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-12.04.46-PM.png) **指示线图标：**
 
-我们已经在[第二部分](http://www.uwanttolearn.com/android/constraint-layout-concepts-hell-tips-tricks-part-2/)中讨论过什么是指示线以及使用它会带来什么好处了。这里我就不再多介绍了。你可以放心地在 UI 中添加指示线因为它不算作视图。现在有了这个图标，我们可以使用它来添加指示线，如下图所示。
+我们已经在[第二部分](https://github.com/xitu/gold-miner/blob/master/TODO/constraint-layout-concepts-hell-tips-tricks-part-2.md)中讨论过什么是指示线以及使用它会带来什么好处了。这里我就不再多介绍了。你可以放心地在 UI 中添加指示线因为它不算作视图。现在有了这个图标，我们可以使用它来添加指示线，如下图所示。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-12-03-28-208x300.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-28-2017-12-03-28.gif)
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-12.04.52-PM.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-28-at-12.04.52-PM.png)
 
-**放大，缩小，适应屏幕图标：**
+**放大、缩小、适应屏幕图标：**
 
 这个大家应该都懂就不用多说了吧。
 
