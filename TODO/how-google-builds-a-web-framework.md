@@ -1,7 +1,7 @@
 > * 原文地址：[How Google builds web frameworks](https://medium.freecodecamp.com/how-google-builds-a-web-framework-5eeddd691dea#.dv1nhpg5w)
 * 原文作者：[Filip Hracek](https://medium.freecodecamp.com/@filiph)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者： 
+* 译者： [fghpdf](https://github.com/fghpdf) 
 * 校对者：
 
 # Google 是如何构建 web 框架的
