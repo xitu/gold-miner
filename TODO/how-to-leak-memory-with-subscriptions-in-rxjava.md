@@ -1,25 +1,24 @@
 > * 原文地址：[How to leak memory with Subscriptions in RxJava](https://medium.com/@scanarch/how-to-leak-memory-with-subscriptions-in-rxjava-ae0ef01ad361#.frvn3pkux)
 * 原文作者：[Marcin Robaczyński](https://medium.com/@scanarch)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者： 
+* 译者： [tanglie1993](https://github.com/tanglie1993)
 * 校对者：
-
 ---
 
 ![](https://cdn-images-1.medium.com/max/2000/1*aroR2HpWJo8simEzPVRgjQ.jpeg)
 
-# How to leak memory with Subscriptions in RxJava
+# RxJava 中的 Subscriptions 是怎样泄露内存的
 
-There are plenty of great how-to articles about RxJava. It does simplify things significantly when working with Android framework but be careful because simplification may have its own pitfalls. In the following parts, you are going to explore one of them and see how easy it is to create a memory leak with RxJava’s `Subscriptions`.
+关于 RxJava 已经有了很多很好的的教程文章。在使用 Android 框架时，它确实显著地简化了工作。然而需要注意，这种简化有它自己的缺陷。在接下来的部分中，你将探索其中的一个，从而了解 RxJava 的 Subscriptions 有多容易造成内存泄漏。
 
-### Solving simple task
 
-Imagine that your manager called in and asked you to create a widget which displays a random movie title. It has to be based on some external recommendation service. This widget should display a movie title on user’s demand or it could do it on its own. The manager also wants this widget to be able to store some information related to user’s interaction with it.
 
-MVP-based approach is one of the many ways to do this. You create a simple view containing both`ProgressBar` and`TextView` widgets. The `RecommendedMovieUseCase` handles providing a random movie title. 
-`Presenter` connects to a use case and displays a title on a view. Saving presenter’s state is implemented by keeping it in memory even when your Activity is being recreated (in so-called `NonConfigurationScope`).
+### 解决简单任务
 
-Here is how your `Presenter` looks like. For the purpose of this article, let’s assume that you want to store a flag indicating whether the user has tapped the title.
+假设你的主管让你实现一个显示随机的电影名的控件。它必须基于一些外部的推荐服务。这个控件应当根据用户要求显示电影名称。如果用户没有要求，它也可以自己显示。你的主管还希望它可以存储一些和用户交互有关的信息。
+有很多办法可以实现这一点。基于 MVP 的方法是其中之一。你可以创建一个包含 ProgressBar 和 TextView 的 view。`RecommendedMovieUseCase`负责提供一个随机的电影名。
+`Presenter`和一个用例相连，并在 view 上显示一个标题。 Presenter 的状态是被保存在内存中的，甚至在 Activity（在 `NonConfigurationScope` 中）被重新创建时，它也还会在内存中。
+这是你的 Presenter 的样子。在这篇文章中，我们假定你想要存储一个用于标志用户是否点击了标题的flag。
 
 ```
 @NonConfigurationScope
@@ -60,8 +59,8 @@ public class Presenter {
                         view.hideProgress();
                         view.showLoadingError();
                     }
-                });
-    }
+                });
+    }
 
     public void onViewTapped() {
         didUserTapTitle = true;
@@ -74,13 +73,13 @@ public class Presenter {
 }
 
 ```
-
-A widget will be added to a purple container when the user asks for a recommendation. It will be removed after the user decides to clear it.
+当用户请求推荐时，一个控件将会被加入紫色的容器。在用户决定清除它之后，它将会被移除。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*C85wCkIAGeDiLIPGNXk8Iw.gif)
 
-Everything seems to be working fine for now.
+目前一切看起来都没问题。
 
+安全起见，我们决定初始化在 debug build 中初始化 StrictMode。
 To be safer, we decided to initialize StrictMode in debug builds.
 We start to play around with our app and try to rotate our device a couple of times. Suddenly, a log message appears.
 
