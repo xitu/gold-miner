@@ -80,22 +80,21 @@ public class Presenter {
 目前一切看起来都没问题。
 
 安全起见，我们决定初始化在 debug build 中初始化 StrictMode。
-To be safer, we decided to initialize StrictMode in debug builds.
-We start to play around with our app and try to rotate our device a couple of times. Suddenly, a log message appears.
+我们开始试用我们的 app，并尝试把我们的设备旋转几次。突然，一条 log 消息出现了。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*JF-royfW1_twemFL3Gn88Q.png)
 
-This does not sound right. You can try dumping current memory state and take a deeper look at the problem:
+这听起来不对。你可以尝试导出目前的内存状态，仔细研究这个问题：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*e8IblGcaEdyFJC1jCYOpGw.png)
 
-There is your culprit marked with the blue font. For some reason, there is still an instance of `MovieSuggestionView` holding a reference to an old `MainActivity` instance.
+罪魁祸首是蓝色字体标出的部分。由于某种原因，仍然有一个 `MovieSuggestionView` 的实例持有对原有 `MainActivity` 的引用。
 
-But why? You have unsubscribed from your background job and also cleared the reference to a `MovieSuggestionView` when dropping the view from your `Presenter`. Where is this leak coming from?
+但是为什么？你已经注销了后台的工作，并在从你的 `Presenter` 中删除 view 时清除了对 `MovieSuggestionView` 的引用。这个泄露出自哪里？
 
-### Searching for a leak
+### 查找泄露
 
-By storing a reference to a `Subscription`, you are actually storing an instance of an `ActionSubscriber<T>`, which looks like this:
+通过把引用存储到 `Subscription`，你实际上把 `ActionSubscriber<T>` 的实例存储起来了。它看上去像这样：
 
 ```
 public final class ActionSubscriber<T> extends Subscriber<T> {
@@ -107,10 +106,9 @@ public final class ActionSubscriber<T> extends Subscriber<T> {
     ...
 }
 ```
+由于 `onNext`, `onError` 和 `onCompleted` 是 final 变量，你没有办法把它们设为 null。问题是在 `Subscriber` 上调用 `unsubscribe()` 只会把它标志为已注销（也会做些别的事情，但对我们来说不重要）。
 
-Because of `onNext`, `onError` and `onCompleted` fields being final there is no clean way to nullify them. The problem is that calling `unsubscribe()` on a `Subscriber` only marks it as unsubscribed (and couple of things more, but it is not important in our case).
-
-For those who are wondering from where this `ActionSubscriber` object comes from, take a look at the `subscribe` method definition:
+对于那些怀疑这个 `ActionSubscriber` 从哪里来的人而言，你们可以看看 `subscribe` 方法的定义：
 
 ```
 public final Subscription subscribe(final Action1<? super T> onNext, final Action1<Throwable> onError) {
@@ -125,11 +123,11 @@ public final Subscription subscribe(final Action1<? super T> onNext, final Actio
 }
 ```
 
-Further analysis of the memory dump proves that MovieSuggestionView reference is indeed still kept inside of `onNext` and `onError` fields.
+对 memory dump 的进一步分析证明：MovieSuggestionView 的引用仍然被保留在 `onNext` 和 `onError` 域的内部。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*VS65D4I9rNUvlQ34sGnFSw.png)
 
-To understand the problem better, let’s dig a little bit deeper and see what happens after your code gets compiled.
+为了更好地理解这个问题，请挖掘得更深一点，看你的代码编译后会发生什么。
 
     => ls -1 app/build/intermediates/classes/debug/me/scana/subscriptionsleak
 
@@ -138,10 +136,10 @@ To understand the problem better, let’s dig a little bit deeper and see what h
     Presenter$2.class
     Presenter.class
     ...
+    
+你可以看到，除了你的主要的 `Presenter` 类之外，还有两个额外的类文件，分别对应你引入的两个匿名 `Action1<>` 类。
 
-You can see that in addition to your main `Presenter` class, you get two additional class files, one for each of anonymous `Action1<>` classes that you introduced.
-
-Let’s check out what is happening inside of one of those anonymous classes using a handy *javap* tool:
+我们使用非常方便的 *javap* 工具，看看这些匿名类内部发生着什么：
 
     => javap -c Presenter\$1
     
@@ -164,6 +162,7 @@ class me.scana.subscriptionsleak.Presenter$1 implements rx.functions.Action1<jav
 view raw
 ```
 
+你可能听说过，一个匿名的类持有对外部类的隐式引用。
 You might have heard that an anonymous class holds an implicit reference to an outer class. **It turns out that anonymous classes also *capture* all of the variables that you use inside of them.**
 
 Because of this, by keeping a reference to a `Subscription` object, you effectively keep references to those anonymous classes that you used to handle the movie title result. They keep the reference to a view that you wanted to do something with and there is your leak.
