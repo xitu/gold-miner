@@ -2,7 +2,7 @@
 * 原文作者：[Anton Badashov](https://medium.muz.li/@badashov?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[jifaxu](https://github.com/jifaxu)
-* 校对者：
+* 校对者：[llp0547](https://github.com/llp0574), [skyar2009](https://github.com/skyar2009)
 
 # 优秀产品背后的设计原则
 
