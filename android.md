@@ -1,3 +1,4 @@
+* [Android Nougat 中通过 Intents 共享文件，你准备好了吗？](https://gold.xitu.io/entry/58aa665b8d6d810058b534f9?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([skyar2009](https://github.com/skyar2009) 翻译)
 * [观察者模式 – 响应式编程 [Android RxJava2]（这到底是什么）：第一部分](https://gold.xitu.io/entry/58ada9738fd9c5006704f5a1?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zhiwei Yu（Zhiw）](https://github.com/Zhiw) 翻译)
 * [为什么 Android 测试如此困难：历史版本](https://gold.xitu.io/entry/58ac5b3b570c35006bc9e52c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([tanglie1993](https://github.com/tanglie1993/) 翻译)
 * [ConstraintLayout ( 这到底是什么 ) (小贴士及小技巧) 第二部分](https://gold.xitu.io/entry/58aaedd5ac502e006974e868?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jamweak](https://github.com/jamweak) 翻译)
