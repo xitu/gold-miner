@@ -13,11 +13,11 @@
 
 When I first started writing React, I remember seeing many different approaches to writing components, varying greatly from tutorial to tutorial. Though the framework has matured considerably since then, there doesn’t seem to yet be a firm ‘right’ way of doing things.
 
-当我一开始写 React 的时候，我记得有许多不同的方法来写组件，每个教程都大不相同。虽然框架早已被认为是相对成熟，但似乎着写好组件一直没有正确的方法。
+当我一开始写 React 的时候，我记得有许多不同的方法来写组件，每个教程都大不相同。虽然从那以后 React 框架已经变得相当的成熟，但似乎仍然没有一种稳定的写组件的“正确”方式。
 
 Over the past year at [MuseFind](https://musefind.com/), our team has written a lot of React components. We’ve gradually refined our approach until we’re happy with it.
 
-在过去的几年工作在 [MuseFind](https://musefind.com/) 当中，我们的团队写过了无数的 React 组件。我们也在不断的改善方法直到我们满意为止。
+过去一年在 [MuseFind](https://musefind.com/) 工作，我们的团队写过了无数的 React 组件。我们也在不断的改善方法直到我们满意为止。
 
 This guide represents our suggested best practices. We hope it will be useful, whether you’re a beginner or experienced.
 
@@ -110,7 +110,7 @@ We also make sure to export our class as the default.
 
 propTypes and defaultProps are static properties, declared as high as possible within the component code. They should be immediately visible to other devs reading the file, since they serve as documentation.
 
-propTypes 和 defaultProps 是静态的属性，需要尽可能早的在组件代码中申明。因为它们是作为文档存在，所以当其他开发者在阅读代码时候，它们是可见的。
+propTypes 和 defaultProps 是静态的属性，需要尽可能早的在组件代码中申明。因为它们是作为文档存在，所以当其他开发者在阅读代码时候，它们应该尽早被看到。
 
 
 All your components should have propTypes.
@@ -157,7 +157,7 @@ All your components should have propTypes.
 
 With class components, when you pass methods to subcomponents, you have to ensure that they have the right *this* when they’re called. This is usually achieved by passing *this.handleSubmit.bind(this)* to the subcomponent.
 
-在基于类的组件中，当你需要向子组件传递方法的时候，你应该确保他们被调用的时候写上了正确的 *this*。通常可以由 *this.handleSubmit.bind(this)* 来实现。
+在基于类的组件中，当你需要向子组件传递方法的时候，你应该确保他们被调用的时候正确地绑定了 *this*。通常可以由 *this.handleSubmit.bind(this)* 来实现。
 
 We think this approach is cleaner and easier, maintaining the correct context automatically via the ES6 arrow function.
 
@@ -259,7 +259,7 @@ If you don’t want to use decorators, do the following:
 
 Avoid passing new closures to subcomponents, like so:
 
-避免像子组件传递新的闭包，比如:
+避免向子组件传递新的闭包，比如:
 
               <input
                 type="text"
@@ -271,15 +271,15 @@ Avoid passing new closures to subcomponents, like so:
 
 Here’s why: every time the parent component renders, a new function is created and passed to the input.
 
-原因在此：每次父级组件渲染的时候，一个新的函数就会被创建，传递到输入中。
+原因在此：每次父级组件渲染的时候，一个新的函数就会被创建，传递到 input 中。
 
 If the input were a React component, this would automatically trigger it to re-render, regardless of whether its other props have actually changed.
 
-如果输入是一个 React 组件，这会自动触发该组件重新渲染，不管该组件当中的 props 有没有被改变。
+如果这里的 input 是一个 React 组件，这会自动触发该组件重新渲染，不管该组件当中的 props 有没有被改变。
 
 Reconciliation is the most expensive part of React. Don’t make it harder than it needs to be! Plus, passing a class method is easier to read, debug, and change.
 
-和解 Reconciliation 是 React 框架中最耗资源的部分。如果不需要，就不要增加难度（使用）。而且，传递一个类方法会更易读，易调试和改变。
+Reconciliation 是 React 框架中最耗资源的部分。如果不需要，就不要增加难度（使用）。而且，传递一个类方法会更易读，易调试和改变。
 
 
 Here’s our full component:
@@ -408,7 +408,7 @@ Here, we assign the propTypes to a variable at the top of the file, so they are 
 
 Our component is a function, which takes its props as its argument. We can expand them like so:
 
-我们的组件是一个函数，其中 props 作为参数。我们如下展开：
+我们的组件是一个函数，其中 props 作为参数。我们可以像下面这样把它展开：
 
     import React from 'react'
     import {observer} from 'mobx-react'
@@ -531,13 +531,13 @@ No, nested ternaries are not a good idea.
 
 There are some libraries that solve this problem ([JSX-Control Statements](https://github.com/AlexGilleran/jsx-control-statements)), but rather than introduce another dependency, we settled on this approach for complex conditions:
 
-这里有一些第三方的库解决这个问题（[JSX-Control Statements](https://github.com/AlexGilleran/jsx-control-statements)）
+有一些第三方的库解决这个问题（[JSX-Control Statements](https://github.com/AlexGilleran/jsx-control-statements)），但这里我们用下面的方法来解决复杂的条件语句，而不去引用这些依赖。
 
 ![](https://cdn-images-1.medium.com/max/800/1*IVFlMaSGKqHISJueTC26sw.png)
 
 Use curly braces wrapping an [IIFE](http://stackoverflow.com/questions/8228281/what-is-the-function-construct-in-javascript), and then put your if statements inside, returning whatever you want to render. Note that IIFE’s like this can cause a performance hit, but in most cases it will not be significant enough to warrant losing the readability factor.
 
-使用花括号包装一个[IIFE](http://stackoverflow.com/questions/8228281/what-is-the-function-construct-in-javascript)，然后把声明放进去，返回你想渲染的任何东西。注意 IIFE 可能会导致性能问题，但是绝大多数情况下它带来的可读性不会让你丢失太多性能。
+使用花括号包装一个[IIFE](http://stackoverflow.com/questions/8228281/what-is-the-function-construct-in-javascript)，然后把声明放进去，返回你想渲染的任何东西。注意 IIFE 可能会导致性能问题，但是绝大多数情况下它带来的性能问题不至于让你放弃代码可读性。
 
 Also, when you only want to render an element on one condition, instead of doing this…
 同样，当你只想在一个条件语句中渲染某个元素，不要这么做：
@@ -548,7 +548,7 @@ Also, when you only want to render an element on one condition, instead of doing
     }
 
 … use short-circuit evaluation:
-使用短路评估？？
+短路求值
     {
       isTrue && 
         <p>True!</p>
