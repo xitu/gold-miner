@@ -174,9 +174,9 @@ view raw
 
  `CompositeSubscription` 类可以存储多个 `Subscription` 对象，并对他们进行  `unsubscribe()`。这可以使我们免于直接存储 `Subscription` 引用。记住，这还不会解决你的问题。引用仍然会被存储在 `CompositeSubscription` 内部。
 
-幸运的是，还有一个 `clear()` 方法，它注销所有东西并清除引用。它还允许你重用 `CompositeSubscription` 对象。Fortunately, there is a `clear()` method available, which unsubscribes everything and then clears up the references. It also allows you to reuse a `CompositeSubscription` object as opposed to `unsubscribe()` which renders your object unusable.
+幸运的是，还有一个 `clear()` 方法，它注销所有东西并清除引用。它还允许你重用 `CompositeSubscription` 对象，而 `unsubscribe()` 会使你的对象完全不可用。
 
-Here is fixed `Presenter` class with one of the aforementioned methods implemented:
+这是修正过的 `Presenter` 类，它实现了一个前文提到的方法：
 
 ```
 @NonConfigurationScope
@@ -236,10 +236,10 @@ public class NonLeakingPresenter implements Presenter {
 }
 ```
 
-It is worth adding that you can actually solve this problem in many different ways. Always keep in mind that there is no silver bullet for every issue that you come upon.
+值得一提的是，你有很多方法可以解决这个问题。记住：没有一种解决方案适用于你遇到的所有问题。
 
-### To sum things up:
+### 总结：
 
-- `Subscription` objects hold final references to your callbacks. Your callbacks can hold references to your Android’s lifecycle-tied objects. They both can leak memory when not treated with care
-- You can use tools like StrictMode, javap, HPROF Viewer to find and analyze the source of leaks. I did not mention it in the article, but you can also check out the LeakCanary library from Square.
-- Digging into libraries that you use on a daily basis helps a lot with solving potential problems that may arise
+- `Subscription` 对象持有对你的回调的 final 引用。你的回调可能引用和 Android 生命周期绑定的对象。如果不小心的话，他们都有可能造成内存泄露。
+- 你可以使用 StrictMode, javap, HPROF Viewer 等工具寻找和分析泄露的根源。我在文章中没有提及，但你也可以尝试 Square 的 LeakCanary。
+- 深入挖掘你日常使用的库，有助于解决潜在的问题。
