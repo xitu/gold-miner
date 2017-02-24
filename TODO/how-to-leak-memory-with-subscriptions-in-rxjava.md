@@ -162,20 +162,19 @@ class me.scana.subscriptionsleak.Presenter$1 implements rx.functions.Action1<jav
 view raw
 ```
 
-你可能听说过，一个匿名的类持有对外部类的隐式引用。
-You might have heard that an anonymous class holds an implicit reference to an outer class. **It turns out that anonymous classes also *capture* all of the variables that you use inside of them.**
+你可能听说过，一个匿名的类持有对外部类的隐式引用。**事实证明，匿名类会持有所有在它内部使用的变量。**
 
-Because of this, by keeping a reference to a `Subscription` object, you effectively keep references to those anonymous classes that you used to handle the movie title result. They keep the reference to a view that you wanted to do something with and there is your leak.
+因此，通过保留对 `Subscription` 对象的引用，你保留了用于处理电影名结果的匿名类的引用。它们保留了对你希望处理的 view 的引用，这就是内存泄露的地方。
 
-### You know what is wrong with our current solution. So, how do you fix it?
+### 你已经知道了目前的问题所在。如何解决？
 
-It is quite easy.
+这很简单。
 
-You can set our `Subscription` object to `Subscription.empty()`, thus clearing up a reference to an old `ActionObserver`.
+你可以对 `Subscription` 对象调用 `Subscription.empty()`，从而清除对旧  `ActionObserver` 的引用。
 
-There is also a `CompositeSubscription` class which allows to store multiple `Subscription` objects and performs `unsubscribe()` on them. This should relieve us from storing a `Subscription` reference directly. Keep in mind, though, that this will not yet solve your problem. The references are still going to be kept inside of `CompositeSubscription`.
+ `CompositeSubscription` 类可以存储多个 `Subscription` 对象，并对他们进行  `unsubscribe()`。这可以使我们免于直接存储 `Subscription` 引用。记住，这还不会解决你的问题。引用仍然会被存储在 `CompositeSubscription` 内部。
 
-Fortunately, there is a `clear()` method available, which unsubscribes everything and then clears up the references. It also allows you to reuse a `CompositeSubscription` object as opposed to `unsubscribe()` which renders your object unusable.
+幸运的是，还有一个 `clear()` 方法，它注销所有东西并清除引用。它还允许你重用 `CompositeSubscription` 对象。Fortunately, there is a `clear()` method available, which unsubscribes everything and then clears up the references. It also allows you to reuse a `CompositeSubscription` object as opposed to `unsubscribe()` which renders your object unusable.
 
 Here is fixed `Presenter` class with one of the aforementioned methods implemented:
 
