@@ -4,7 +4,7 @@
 * 译者：[yazhi1992](https://github.com/yazhi1992)
 * 校对者：[phxnirvana](https://github.com/phxnirvana)，[tanglie1993](https://github.com/tanglie1993)
 
-# ConstaintLayout 可视化[Design]编辑器 （这到底是什么）[第四部分]
+# ConstraintLayout 可视化[Design]编辑器 （这到底是什么）[第四部分]
 
 哇哦，又是新的一天。为了不浪费这宝贵的时光，让我们来学点新知识吧 🙂 。
 
