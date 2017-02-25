@@ -3,6 +3,7 @@
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Siegen](https://github.com/siegeout)
 * 校对者：[tanglie1993](https://github.com/tanglie1993),[yazhi1992](https://github.com/yazhi1992)
+
 # Constraint Layout 动画 |动态 Constraint |用 Java 实现的 UI（这到底是什么）[第三部分]
 
 
