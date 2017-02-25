@@ -59,35 +59,17 @@ Xcode、Sketch 和 Android Studio（和一些闪电符号）
 
 ![](https://cdn-images-1.medium.com/max/1600/1*g4gsq4tDW707agveiSOzNg.png)
 
-Action Items with View Bounds at 100% opacity
-
 100% 透明度时的操作视图元素
-
-Make sure to not just group your layers randomly. Define their sizes and spacing in a clear way (avoid odd numbers) and sort everything in hierarchical order.
 
 确保不要随机把图层分类。以清晰的方式定义它们的尺寸和间距（避免奇数），并按层级顺序排序。
 
-The same applies for layer styles, for cases where you need to use consistent strokes, rounded corners, drop shadows, you name it.
-
 同样的原则也适用于图层的样式，当你需要统一的边框、圆角、阴影时，也可以这样做。
-
-This app called [Zeplin](https://zeplin.io) helps a lot here. Long story short: you import your design in there, and the app extracts all view sizes, text sizes, colors, etc. in a developer oriented way. It’s a great tool that bridges the gap between designers and developers, and I can’t wait to see what it holds for the future.
 
 这个叫 [Zeplin](https://zeplin.io) 的应用非常有用。简单说：你可以在应用中引入你的设计，应用会以一个开发人员使用的方式，抽取所有视图的尺寸、文本大小、颜色等。这是一个可以填补设计和开发差异的很棒的工具，我迫不及待地想看到它后续功能。
 
-When you hand over your design, the developer can look at Zeplin and extract the sizes, margins, paddings from one single item, and create the view in their IDE accordingly.
-
 当你交付设计后，开发人员可以在 Zeplin 中提取某个元素的尺寸、边距、留白等信息，再在 IDE 中创建相应的视图。
 
-### Design in 1x
-
 ### 按 1x 设计
-
-Why is this even up here…
-
-By designing in **1x**, first you help yourself by not having to calculate sizes in other screen densities, but most importantly, both you and the developer end up using the same numbers. This way you prevent any miscalculations when handing over your design, and keep a consistent set of values.
-
-This applies to view sizes, text sizes, line heights, most numbers really…
 
 为什么会在这里。。。
 
@@ -95,49 +77,25 @@ This applies to view sizes, text sizes, line heights, most numbers really…
 
 这是适用于视图尺寸、文本尺寸、行高等绝大部分与数字相关的设计。
 
-### Consistent Color Palette
-
 ### 一致的调色板
-
-Create once, always reuse. Try to have as few colors as possible.
 
 一次创建，多次重用。尝试使用尽可能少的颜色。
 
 ![](https://cdn-images-1.medium.com/max/1200/1*MwWQuonkMOBlroqzqD9l2Q.png)
 
-You’ll see developers mostly use names such as *Primary, Secondary, Accent, Enabled, Disabled* etc. You can do the same thing. *Primary* and *Secondary* can be your text colors, *Accent* can be your brand’s color, you get the point.
-
 开发人员最常用的命名是  *Primary, Secondary, Accent, Enabled, Disabled* 等。你可以按同样规则命名。*Primary* 和 *Secondary*  可以是你的文本颜色，*Accent* 可以是你的品牌主色调，你懂的。
-
-In Sketch, you can save these colors in the Color Picker, but as far as I know, there’s no way to share them outside of the Sketch file. What you can do instead is create an artboard with the colors from your palette, along with their names and hex codes. This way, developers can quickly extract them when they access your design through Zeplin, and insert them in the app’s code.
 
 在 Sketch 里，你可以用颜色拾取器来保存这些颜色，但就我所知，没有什么可以在 Sketch 文件之外共享它们的好办法。然而你可以用你的调色板的颜色、它们的名字和 hex 码创建一个画板。这样当开发人员用 Zeplin 打开你的设计时，就能快速提取出这些颜色，在应用的代码中使用它们。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*UnGAceC6fZfRUcc63u4-2A.png)
 
-These are the colors we use on the Nimber apps
-
 Nimber 应用中我们用到的颜色。
-
-### **Design for all cases**
-
-Keep in mind that developers don’t build the ideal UI, but rather something that adapts into the ideal UI. They have to take care of cases where there’s no connectivity, or there’s a server error, or when there’s no content to display and much more.
-
-So make sure to design for every scenario. Specifically, make sure to design every screen in its Empty state, Loading state, Error state, and the Ideal state. 99% of the time, these will be enough. [This article](http://scotthurff.com/posts/why-your-user-interface-is-awkward-youre-ignoring-the-ui-stack) by [Scott Hurff](https://medium.com/@scotthurff) goes into more depth about states, recommended read.
 
 ### 适用于所有情况的设计
 
 牢记开发人员不是在创建完美的 UI，而是在创建接近理想 UI 的东西。他们不得不处理无网络链接、或服务器响应错误、或者没有内容显示的等很多情况。
 
 所以确保你的设计可以适用于每一个场景。具体说就是，确保每一屏都有自己的空白状态、加载状态、错误状态和完美状态。这样做的话，99% 的时间里，就表现足够好了。[Scott Hurff](https://medium.com/@scotthurff) 的[这篇文章](http://scotthurff.com/posts/why-your-user-interface-is-awkward-youre-ignoring-the-ui-stack)更深入地解释了各类状态的问题，推荐阅读。
-
-### **Screen sizes**
-
-We live in an era of multiple screen sizes, so we have to design accordingly. This is a big deal when designing for Android because of its plethora of devices which come in multiple screen sizes.
-
-The “lazy” way to deal with this is to use a plugin such as [Sketch Constraints](https://github.com/bouchenoiremarc/Sketch-Constraints) when creating your design in Sketch. When you use something like that, you can duplicate your artboards, resize them, and refresh the artboard. Magically, the UI will adapt accordingly to fit that screen size.
-
-The “correct” way to do this is to design your UI for phone screens (under 7 inches), 7 inch tablets, and 10 inch tablets. It’s especially awesome when you use Master-Detail Flows, which is a fancy term for combining List and Detail panels into one layout, such as the one below.
 
 ### 屏幕尺寸
 
@@ -151,35 +109,17 @@ The “correct” way to do this is to design your UI for phone screens (under 7
 
 Oh, you wanna know what this is? [Well you’re in luck!](https://medium.com/@BashaChris/overhauling-the-twitter-experience-on-android-80f5b09e7c67#.1c8wpz368)
 
----
-
-### **Things to keep in mind**
-
-1. Not all of your users will use the app in English. Keep in mind that text might get longer (or shorter) in other languages, and you have to take this into account when designing your layouts.
-2. You can’t cherry pick — you don’t have control over every pixel. Some parts of the app will inevitably end up looking less than ideal because of unpredictable data.
-3. Try to use interactions, gestures, transitions, and animations built into the platform. Your developers will thank you.
-
 ### 需要记住的事情
 
 1. 并非所有用户都是在英语环境中使用应用。时刻想着，在其他的语言中，文字的长度可能较长（或者较短），在设计布局时，必须要考虑到这个因素。
 2. 不要过于挑剔 — 你不可能控制每一个像素。由于不可预知的数据，应用程序的某些部分设计不可避免地不完美。
 3. 尝试使用平台内置的交互方式、手势、过场及动画特效，开发人员会感谢你的。
 
-#### **Last but not least**
-
-Communicate with your developers! Let them educate you. While tools such as Zeplin and Flinto are a great way to share your design with developers, they don’t have the ability to explain the behavior of every part of the app. Share knowledge and strive to achieve the result that is best for the product!
-
 ### 最后但最重要的
 
 多与开发人员沟通！让他们指导你。虽然 Zeplin 和 Flinto 这类工具是与开发人员共享设计的好方法，但是它们不能解释应用每个部分的行为。分享知识，努力实现最好的产品。
 
-
-
 ---
-
-That’s it for this article! Hopefully, you learned something and give these methods a go.
-
-**Happy shipping! ✌️**
 
 就这样，希望你可以学习并尝试这些方法。
 
