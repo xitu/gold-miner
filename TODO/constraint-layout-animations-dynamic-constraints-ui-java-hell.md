@@ -15,23 +15,22 @@ WOW, we got one more day so its time to make this day awesome by learning someth
 Hello guys, hope every body is doing good. We already learned a lot of new things about Constraint Layout in [part1](http://www.uwanttolearn.com/android/constraint-layout-hell/) and [part2](http://www.uwanttolearn.com/android/constraint-layout-concepts-hell-tips-tricks-part-2/). Now Its time to start learning about remaining things of this awesome layout. Most probably this is the final post about Constraint Layout.
 
 各位读者朋友你们好，希望各位一切顺利。我们之前已经在[第一部分](http://www.uwanttolearn.com/android/constraint-layout-hell/)和 [第二部分](http://www.uwanttolearn.com/android/constraint-layout-concepts-hell-tips-tricks-part-2/)
-中学习了许多关于 Constraint Layout 的新东西。
-
+中学习了许多关于 Constraint Layout 的新东西。现在是时候学习这个令人惊讶的布局剩下的部分了。这一篇很有可能是关于 Constraint Layout系列的最后一篇文章了。
 **Motivation:**
 
 Motivation is same as discus with you guys in [part1](http://www.uwanttolearn.com/android/constraint-layout-hell/). Now in this post my main focus is animations on Constraint Layout. One bad news there is not enough help on this topic in android docs. I want to apologise before starting this post may be I am wrong on some places in the perspective of concept due to lack of knowledge but I am giving you 100% surety in the end you will enjoy and comfortable with animations according to my concepts 🙂 .
 
 **动机：**
 
-写这篇文章的动机和在[第一部分](http://www.uwanttolearn.com/android/constraint-layout-hell/)讨论的是一样的。现在在这篇投稿里我主要谈论的是关于 Constraint Layout 的动画。关于这个主题有一个坏消息，那就是 android 的开发文档并没有提供足够的帮助。在开始这篇文章之前我想先道个歉，由于知识的欠缺我可能会在某些地方出现错误的观点。但是我可以 100% 的保证通过我的讲述，最终你会喜欢并且适应这些动画。
+写这篇文章的动机和在[第一部分](http://www.uwanttolearn.com/android/constraint-layout-hell/)讨论的是一样的。现在在这篇文章里我主要谈论的是关于 Constraint Layout 的动画。关于这个主题有一个坏消息，那就是 android 的开发文档并没有提供足够的帮助。在开始这篇文章之前我想先道个歉，由于知识的欠缺我可能会在某些地方出现错误的观点。但是我可以 100% 的保证通过我的讲述，最终你会喜欢并且适应这些动画。
 
 I am confuse for the name of this topic. So I decided I will go with three names, Constraint Layout Animations, Constraint Layout Dynamic Constraints and Constraint Layout UI by Java. In the end of this post, you will know why I choose three names.
 
-我对这个主题的命名有些犹豫，所以我决定使用三个名字组成的题目，《Constraint Layout Animations, Constraint Layout Dynamic Constraints and Constraint Layout UI by Java》。在这篇文章的最后，你会了解到为什么我选择这三个名字。
+我对这个主题的命名有些犹豫，所以我决定使用三个名字组成的题目，《Constraint Layout 动画 |动态 Constraint |用 Java 实现的 UI》。在这篇文章的最后，你会了解到为什么我选择这三个名字。
 
 Now this time I am not going to explain what features are given by Constraint Layout animations API instead I will share with you issues which may be you will face when implementing. So its time to **ATTACK** :).
 
-现在我不打算讲解 Constraint Layout 动画 API 带来的新特点，替代的我将和你们分享我在实现动画效果遇到的一些问题。所以是时候开始我们的文章了。
+现在我不打算讲解 Constraint Layout 动画 API 带来的新特点，而是准备和你们分享我在实现动画效果时遇到的一些问题。那么让我们开始吧。
 
 We need to download 2.3 Android studio. In previous versions Visual Editor is not good and that show some wrong info on Design Tab. So that is really important download 2.3 beta which is available when I am writing this post.
 
@@ -118,7 +117,7 @@ Apply and Reset buttons are doing nothing except they will apply or reset our an
 
 So after examine the code you can easily see the relationship of these three buttons but for our ease see below image.
 
-在你检查这段代码之后你可以轻松的了解这三个按钮之间的关系，看下面这张图会给你一个更直观的认识。
+在你检查这段代码之后你可以轻松地了解这三个按钮之间的关系，下面这张图会给你一个更直观的认识。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-21-at-10.57.06-AM-763x1024.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Screen-Shot-2017-01-21-at-10.57.06-AM.png)
 
@@ -154,7 +153,7 @@ Also I want to explain one more new API before deep diving.
 
 Focus on bold lines, all other code is simple. So ConstraintSet is an API which we are using a lot in this tutorial. In simple words you can think like this API will remember all the constraints which we implement in XML. How? as you saw, I have a **constarintLayout** reference  in above code after that I am doing clone its constraints in our two fields **resetConstraintSet** and **applyConstraintSet**. Very easy.
 
-留意粗体字，这些代码很简单。 ConstraintSet 就是我们要在这个教程中经常用到的一个 API。简单来说，你可以这样理解，这个 API 将记住我们在 XML 文件里实现的所有的 constraints。这样使用呢？就像你看到的，在上面的代码里我拥有了一个 **constarintLayout** 引用，在那之后，我将把它的 constraints 复制到我们的两个变量 **resetConstraintSet** 和 **applyConstraintSet** 中。非常的简单。 
+留意粗体字，这些代码很简单。 ConstraintSet 就是我们要在这个教程中经常用到的一个 API。简单来说，你可以这样理解，这个 API 将记住我们在 XML 文件里实现的所有的 constraints。怎样使用呢？就像你看到的，在上面的代码里我拥有了一个 **constarintLayout** 引用，在那之后，我将把它的 constraints 复制到我们的两个变量 **resetConstraintSet** 和 **applyConstraintSet** 中。非常的简单。 
 
 
 Now from this point I am going to change my writing style for new requirements.  Confused…….
@@ -175,8 +174,7 @@ Bro I want button 1, align to parent left when user click apply button using Jav
 
 **新需求:**
 
-我想要让按钮 1 动起来，当用户点击启动按钮的时候，让它与父控件的左边对齐。
-
+我想要让按钮 1 动起来，当用户点击启动按钮的时候，让它与父控件的左边对齐。你能帮我一下么？
 用开发语言来说：
 
 兄弟，我想要在 constraint layout 里使用 Java 代码让按钮 1 在用户点击启动按钮的时候与父控件的左边对齐。你可以帮我一下么。
@@ -205,7 +203,7 @@ From now I only show you onApplyClick() method, remaining code always same. Oh f
         resetConstraintSet.applyTo(constraintLayout);
     }
  
- 从现在开始我只向你展示 onApplyClick() 方法，代码始终是不变的。如果你看见了 onResetClick()方法，噢，请你忘掉它。我正在应用最初的 constraint 来返回到我最开始的 UI 界面。
+ 从现在开始我只向你展示 onApplyClick() 方法，其他的代码始终是不变的。如果你看见了 onResetClick()方法，噢，请你忘掉它。我会一直使用最初时的 constraints 来返回到最开始的 UI 界面
 
 
 
@@ -253,7 +251,7 @@ Here I need to add TransitionManager API. Guys there is a support library availa
 
     compile 'com.android.support:transition:25.1.0'
     
-这里我需要添加 TransitionManager API 。这是 support library 里的一个 API 。你可以添加 gradle 依赖。
+这里我需要添加 TransitionManager API。从一个 support library 里面能够获取到 TransistionManager API。你可以添加 gradle 依赖。
 
     compile 'com.android.support:transition:25.1.0'
  
@@ -285,10 +283,7 @@ Bro I want, all buttons move to parent centre horizontal when user click apply b
 
 开发者语言：
 
-兄弟我想要当用户点击应用按钮的时候通过使用 Java 代码让所有的按钮在 constraint layout 里移动到水平居中的位置。
-
-
-
+兄弟我想要当用户点击应用按钮的时候通过使用 Java 代码让所有的按钮在 constraint layout 里移动到水平居中的位置。你能帮我一下么？
 **Solution:**
 
 **解决方案:**
@@ -359,7 +354,7 @@ Bro I want button 3, move to parent centre when user click apply button using Ja
 
 开发者的语言：
 
-当用户点击应用按钮的时候，我想要通过在 constraint layout 里使用 Java 代码让按钮 3 移动到父控件的中心。你可以帮到我。
+当用户点击应用按钮的时候，我想要通过在 constraint layout 里使用 Java 代码让按钮 3 移动到父控件的中心。你能帮我一下么？
 
 **Solution:**
 **解决方案:**
@@ -402,7 +397,7 @@ In Developer Language:
 Bro I want, all buttons width size change to 600px when user click apply button using Java in constraint layout. Can you help me.
 
 开发者语言：
-当用户点击应用按钮的时候，我想要通过在 constraint layout 里使用 Java 代码让所有按钮的宽度尺寸都变成 600 像素。你可以帮到我。
+当用户点击应用按钮的时候，我想要通过在 constraint layout 里使用 Java 代码让所有按钮的宽度尺寸都变成 600 像素。你能帮我一下么？
 
 
 
@@ -426,7 +421,7 @@ Bro I want, all buttons width size change to 600px when user click apply button 
 
 Here i used constraintWidth method as shown above.
 
-上面展示的使我使用的 constraintWidth 方法。
+上面展示的是我使用的 constraintWidth 方法。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-21-2017-17-31-53.gif)
 ](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-21-2017-17-31-53.gif)
@@ -449,7 +444,7 @@ In Developer Language:
 Bro I want button 1 should be match_parent, matche_parent and all other views should gone when user click apply button using Java in constraint layout. Can you help me.
 
 开发者语言：
-当用户点击应用按钮的时候，我想要通过在 constraint layout 里使用 Java 代码让按钮1的宽度和高度都 match_parent， 并且让其他的视图 gone，你可以帮到我。
+当用户点击应用按钮的时候，我想要通过在 constraint layout 里使用 Java 代码让按钮1的宽度和高度都 match_parent， 并且让其他的视图 gone，你能帮我一下么？
 
 **Solution:**
 **解决方案:**
@@ -526,7 +521,7 @@ In Developer Language:
 Bro I want to implement packed chaining on all three  buttons, when user click apply button using Java in constraint layout. Can you help me.
 
 开发者语言：
-当用户点击应用按钮的时候，我想要通过在 constraint layout 里使用 Java 代码来实现这三个按钮的 packed chaining 逻辑。
+当用户点击应用按钮的时候，我想要通过在 constraint layout 里使用 Java 代码来实现这三个按钮的 packed chaining 逻辑。你能帮我一下么？
 
 **Solution:**
 **解决方案:**
@@ -534,7 +529,7 @@ Bro I want to implement packed chaining on all three  buttons, when user click a
 
 As I am saying that is advance thing in my opinion but I am going to explain like that is nothing. So guys ready.
 
-？我将讲述进一步的操作但我不打算详细解释它。所以各位准备好。
+我接下来要讲述的东西会有点超前，但我会把它当成没什么了不起的东西来解释。所以各位准备好。
 
     public void onApplyClick(View view) {
         TransitionManager.beginDelayedTransition(constraintLayout);
@@ -552,14 +547,14 @@ First I clear all the constraints from all three buttons. That is my personal pr
 
 Now I gave left constraint to button 1 as shown above.
 
-如上面展示的，现在我给按钮 1 添加上左边的 constraint 。
+如上面展示的，现在我给按钮 1 添加上左边的 constraint。
 
     // button 3 right and top align to parent
     applyConstraintSet.connect(R.id.button3, ConstraintSet.RIGHT, R.id.main, ConstraintSet.RIGHT, 0);
 
 Now I gave right constraint to button 3 as shown above.
 
-如上面展示的，现在我给按钮 3 添加上右边的 constraint 。
+如上面展示的，现在我给按钮 3 添加上右边的 constraint。
 
 Make a sketch of this code in your mind currently our button 1 on the left and top parent and same for button2 but right parent.
 
@@ -615,7 +610,7 @@ Now If I try to run. I will get below result.
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-21-2017-14-27-28.gif)
 ](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-21-2017-14-27-28.gif)Oh no. That is not required behaviour. If you guys remember I clear all constraints of these Buttons. That’s why there width and height is 0. Now I need to give width and height as shown below.
 
-这不是我们需要的动作。如果你们还记的我清除了这些按钮的 constraint，这就是为什么这里的宽度和高度都为 0.如下所示，我需要给它们的宽度和高度赋值。
+这不是我们需要的动作。如果你们还记得我清除了这些按钮的 constraint，这就是为什么这里的宽度和高度都为 0 的原因.如下所示，我需要给它们的宽度和高度赋值。
 
     applyConstraintSet.constrainWidth(R.id.button1,ConstraintSet.WRAP_CONTENT);
     applyConstraintSet.constrainWidth(R.id.button2,ConstraintSet.WRAP_CONTENT);
@@ -696,7 +691,7 @@ Now change chain style.
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-21-2017-15-03-47.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-21-2017-15-03-47.gif)
 
 Now I am going to show you again CHAIN_PACKED with bias.
-现在我将向你们展示带有偏差值的 CHAIN_PACKED 。
+现在我将向你们展示带有偏差值的 CHAIN_PACKED。
 
     applyConstraintSet.createHorizontalChain(R.id.button1,
             R.id.button3,
