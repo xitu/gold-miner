@@ -1,3 +1,4 @@
+* [用神经网络进行文本分类](https://gold.xitu.io/entry/58aa65ec2f301e006c32ee0c/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Kulbear](https://github.com/Kulbear) 翻译)
 * [防守式编程的艺术](https://gold.xitu.io/entry/58980dbc1b69e6005997f069/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([GiggleAll](https://github.com/GiggleAll) 翻译)
 * [为何我抵制使用缓存？](https://gold.xitu.io/entry/5884184f1b69e60058dc7fc6/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Romeo0906](https://github.com/Romeo0906) 翻译)
 * [为什么我关闭了你的 PR （开源软件维护者笔记）](https://gold.xitu.io/entry/5870ed78da2f603a93d7e0f0/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([cdpath](https://github.com/cdpath) 翻译)
