@@ -1,5 +1,4 @@
-- 原文地址：[Design like a Developer](https://medium.com/going-your-way-anyway/design-like-a-developer-b92f7a8f4520#.ohgf4aagn)
-
+> - 原文地址：[Design like a Developer](https://medium.com/going-your-way-anyway/design-like-a-developer-b92f7a8f4520#.ohgf4aagn)
 * 原文作者：[Chris Basha](https://medium.com/@BashaChris)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Airmacho](https://github.com/Airmacho)
