@@ -6,31 +6,31 @@
 
 ---
 
-# React’s JSX vs Vue’s templates: a showdown on the front end
-
+# React  JSX 与 Vue 模板的对比：前端界的一次决斗
+(感觉标题翻译的不是很好)
 ![](https://cdn-images-1.medium.com/max/2000/1*QH4RGlNwXUFnJSytytvb6A.jpeg)
 
-React.js and Vue.js are two of the most popular JavaScript libraries on the planet. They are both powerful and are relatively easy to pick up and run with.
+React.js 与 Vue.js 是这个星球上最受欢迎的两个JavaScript库。他们都非常强大并且相对容易上手和使用。
 
-Both React and Vue:
+React 和 Vue 的共同点:
 
-- use a virtual DOM
-- provide reactive view components
-- maintain a focus on one aspect of development. In this case, the view.
+- 使用虚拟 DOM
+- 提供响应式的视图组件
+- 在开发阶段保持对视图的关注
 
-With so many similarities, you might assume that they’re both different versions of the same thing.
+伴随着如此多的相同点,你可能会怀疑他们是同一个库的不同版本。
 
-Well there’s one major difference between these two libraries: how they empower you the developer to create your view components, and in turn, your application.
+不过这两个库有一个主要的区别：就是他们如何授权开发人员创建你的视图组件，并完成你的应用。
 
-React uses JSX, a term coined by the React team, to render content onto the DOM. So what is JSX? Basically, JSX is a JavaScript render function that helps you insert your HTML right into your JavaScript code.
+React 使用 JSX（由 React 小组创建的名词）在 DOM 中渲染内容。那么什么是 JSX ？从根本上上来讲，JSX 是一个 JavaScript 渲染函数，它帮助你将你的 HTML 插入到你的 JavaScript 代码中。
 
-Vue takes a different approach and uses HTML-like templates. Using Vue templates is like using JSX in that they’re both created using JavaScript. The main difference is that JSX functions are never used in the actual HTML file, while Vue templates are.
+Vue 采用了不同的方法，它使用的是类 HTML 模板。使用 Vue 的模板和使用 JSX 非常相似因为他们都是用 JavaScript 创建的。主要区别就是 JSX 函数永远不会在实际的 HTML 文件中使用，而 Vue 模板却是那么做的。
 
 ### **React JSX**
 
-Let’s take a deeper look into how JSX works. Assume that you have a list of names that you want to display onto the DOM. A list of new hires that your company recently made.
+让我们深入讨论一下 JSX 是如何工作的。假设你有一个你们公司最近招聘的新员工的姓名列表，并且你想在 DOM 中展示它。
 
-If you were using plain HTML, you would first need to create an index.html file. Then you would add the following lines of code.
+如果你使用简单的 HTML，你可能首先需要创建一个 index.html 文件，然后添加下面几行代码
 
     <ul>
 
@@ -44,23 +44,23 @@ If you were using plain HTML, you would first need to create an index.html file.
 
     <ul>
 
-Nothing spectacular here, just plain HTML code.
+这里没什么特殊的，只是 HTML 代码。
 
-So how would you do the same thing using JSX? The first step would be to create another index.html file. But instead of adding the full HTML like you did before, you’ll only add a simple `div` element. This `div` will be the container element where all your React code will be rendered.
+那么怎么使用 JSX 完成同样的事呢？第一步是创建另一个 index.html 文件。不过你只需要添加一个简单的 `div` 标签而不是像你之前做的那样添加完整的 HTML。这个 `div` 将成为渲染你的 React 代码的容器元素。 
 
-The `div` will need to have a unique ID so that React knows where to find it. Facebook tends to favor the root keyword, so let’s stick with that.
-
+这个 `div` 需要有一个唯一的 ID 以便于 React 知道如何找到它。Facebook 往往青睐于用 root 关键字，所以我们也跟着这么做了。
+   
     <div id=root></div>
 
-Now, onto the most important step. Creating the JavaScript file that will hold all the React code. Call this one app.js.
+现在，到了最重要的一步。创建一个保存所有 React 代码的 JavaScript 文件。给这个命名为 app.js。
 
-So now that you have all that out of the way, onto the main event. Displaying all the new hires to the Dom using JSX
+现在，你只差一件最主要的事情，使用 JSX 将所有新招聘员工展示在 DOM 中。
 
-You would first need to create an array with the names of the new hires.
+首先你需要创建一个包含新招聘员工姓名的数组
 
     const names = [‘John’, ‘Sarah’, ‘Kevin’, ‘Alice’];
 
-From there you would need to create a React element that will dynamically render the entire list of names. This without you having to manually display each one.
+之后创建一个 React 元素来动态渲染整个姓名列表。这里不需要手动地去展示每一个。
 
     const displayNewHires = (
 
@@ -72,9 +72,9 @@ From there you would need to create a React element that will dynamically render
 
     );
 
-The key thing to note here is that you are not having to create individual `<li>` elements. You only need describe how you want them to look once and React will handle the rest. That is quite a powerful thing. While you only have a few names, imagine having a list of hundreds of thousands! You can see how this would be a much better approach. Especially if the `<li>` elements are more complex than the ones used here.
+这里需要注意的关键点是你不需要单个的创建 `<li>` 元素。你只需要描述你希望他们每个是如何展示的，React 将处理剩下的事情。这是一个非常强大的功能。毕竟这里你只有几个名字，想想如果你有一个成千上万的列表呢！尤其是当 `<li>` 元素比这里使用到的更复杂时，你将发现这是一个很好的方法。
 
-The last bit of code that is needed to render the content to the screen is the main ReactDom render function.
+将内容呈现到屏幕上所需要的最后一点代码是 ReactDom 的 render 函数。
 
     ReactDOM.render(
 
@@ -84,9 +84,9 @@ The last bit of code that is needed to render the content to the screen is the m
 
     );
 
-Here you are telling React to render the content of `displayNewHires` inside the `div` with an element of root.
+这里你告诉 React 将 `displayNewHires` 里的内容渲染到 ID 为 root的 `div` 元素中。
 
-This is what your final React code should look like:
+你最终的 React 代码应该看起来像这样：
 
     const names = [‘John’, ‘Sarah’, ‘Kevin’, ‘Alice’];
 
@@ -108,7 +108,7 @@ This is what your final React code should look like:
 
     );
 
-One key thing to keep in mind here is that this is all React code. This means that it will all compile down to plain old JavaScript. Here’s what it would ultimately look like:
+请记住一个关键点，这里全部都是 React 代码。这意味着它将全部编译成简单的旧的 JavaScript 。这里是它最终看起来的样子：
 
     ‘use strict’;
 
@@ -138,32 +138,32 @@ One key thing to keep in mind here is that this is all React code. This means th
 
     ReactDOM.render(displayNewHires, document.getElementById(‘root’));
 
-That’s all there is to it. You now have a simple React application that will display a list of names. Nothing to write home about, but it should give you a glimpse of what React is capable of.
+这里就是全部的代码了。你现在有一个简单的 React 应用来展示一个姓名列表。没什么可详述的，但是它应该已经让你粗略的看到了 React 的能力。
 
 ### **Vue.js Templates**
 
-In keeping with the last example, you will once again create a simple application that will display a list of names onto the browser.
+与上个例子一样，你要再创建一个在浏览器中展示姓名列表的简单应用。
 
-The first thing that you need to do is create another empty index.html file. Inside that file, you will then create another empty `div` with an id of root. Keep in mind though, that root is only a personal preference. You can call the id whatever you like. You only need to make sure that it matches up later on when you sync the html to your JavaScript code.
+你要做的第一件事是创建一个空的 index.html。在这个文件里你再创建一个 id 为 root 的空 `div`。但请记住 root 只是个人喜好，你可以使用任何你喜欢的 id，只要确保之后你把 html 同步到你的 JavaScript 代码时这个 id 可以匹配上。
 
-This div will function like it does in React. It will tell the JavaScript library, in this case Vue, where to look in the DOM when it wants to start making changes.
+这个 div 的功能与在 React 中一样。它将告诉 JavaScript 库（在这里指的是 Vue）当它想要进行更改时在哪里可以查找到这个 DOM。
 
-Once that’s done, you’re going to create a JavaScript file that will house all the Vue code. Call it app.js, to stay consistent.
+完成这步之后，继续创建一个包含全部 Vue 代码的 JavaScript 文件。为了保持一致，将它命名为 app.js。
 
-So now that you have your files ready to go, let’s get into how Vue displays element onto the browser.
+现在你已经准备好了你的文件。让我看看 Vue 是如何在浏览器中展示元素的。
 
-Vue uses a template-like approach when it comes to manipulating the DOM. This means that your HTML file will not only have an empty `div`, like in React. You’re actually going to write a good part of your code in your HTML file.
+Vue 使用类似于模板的方法来操作 DOM。这意味着像 React 一样，你的 HTML 文件不会仅仅只有一个空的 `div`。实际上你要在你的 HTML 文件中编写一部分代码。
 
-To give you a better idea, think back on what it takes to create a list of name using plain HTML. A `<ul>`element with some `<li>` elements inside. In Vue, you are going to do almost the exact same thing, with only a few changes added in.
+为了给你一个更好的思路，回想一下用简单的 HTML 是如何创建一个姓名列表的。就是在一个 `<ul>` 元素里添加几个 `<li>` 元素。在 Vue 里，你将做几乎完全相同的事，只不过增加了一点变化。
 
-Create a `<ul>` element.
+创建一个 `<ul>` 元素。
 
     <ul>
 
     </ul>
 
-Now add one empty `<li>` element inside the `<ul>` element.
-
+现在在 `<ul>` 元素里添加一个空的 `<li>` 元素。
+ 
     <ul>
 
       <li>
@@ -172,7 +172,7 @@ Now add one empty `<li>` element inside the `<ul>` element.
 
     </ul>
 
-Nothing new yet. Change that by adding a directive, a custom Vue attribute, to your `<li>`element.
+这不是什么新内容。通过给你的 `<li>` 元素添加一个指令 (一个 Vue 的自定义属性) 来做一些改变。
 
     <ul>
 
@@ -182,9 +182,9 @@ Nothing new yet. Change that by adding a directive, a custom Vue attribute, to y
 
     </ul>
 
-A directive is Vue’s way of adding JavaScript functionality straight into the HTML. They all start with v- and are followed by descriptive names that give you an idea of what they are doing. In this case, it’s a for loop. For every name in your list of names, `listOfNames`, you want to copy this `<li>`element and replace it with a new `<li>` element with a name from your list.
+指令是 Vue 将 JavaScript 的功能直接添加到 HTML 上的方式。他们都以 v- 开头并且跟上一些描述性的名字以便于你知道他们的功能是什么。在这个例子里，它是一个 for 循环。对于你的姓名列表 `listOfNames` 里的每一个名字，你都要复制这个 `<li>` 元素并将其替换成一个新的包含姓名的 `<li>`。
 
-Now, the code only needs one final touch. Currently, it will display an `<li>` element for every name in your list, but you have not actually told it to display the actual name onto the browser. To fix that, you are going to insert some mustache like syntax inside your `<li>`element. Something you might have seen in some other JavaScript libraries.
+现在，代码还差最后一步。目前，它为你的列表里的每个姓名展示一个 `<li>` 元素，但你实际上并没有告诉它在浏览器上显示实际的名字。为了完成这个，你需要在你的 `<li>` 元素里添加一些 mustache 语法。你可能在其他一些 JavaScript 库中看到过。
 
     <ul>
 
@@ -196,17 +196,17 @@ Now, the code only needs one final touch. Currently, it will display an `<li>` e
 
     </ul>
 
-Now the `<li>`element is complete. It will now display each item inside a list called listOfNames. Keep in mind that the word **name** is arbitrary. You could have called it **item** and it would have served the same purpose. All the keyword does is serve as a placeholder that will be used to iterate over the list.
+现在 `<li>` 元素已完成。它将展示 listOfNames 这个列表里的每个元素。请记住 **name** 这个单词是任意的。你也可以叫它 **item**，但是它的目的是相同的。所有的关键字所做的只是一个占位符并且将被用于遍历列表。
 
-The last thing that you need to do is create the data set and actually initialize Vue in your application.
+你要做的最后一件事是创建一个数据集并且在您的应用中实例化 Vue。
 
-To do so, you will need to create a new Vue instance. Instantiate it by assigning it to a variable called app.
+为了完成这个，你需要创建一个新的 Vue 实例。通过将它分配给一个名为 app 的变量来实例化它。
 
     let app = new Vue({
 
     });
 
-Now, the object is going to take in a few parameters. The first one being the most important, the `el` (element) parameter that tells Vue where to start adding things to the DOM. Just like you did with your React example.
+现在，这个对象需要接收几个参数。第一个参数 `el` (element) 是最重要的，它告诉 Vue 从哪开始向 DOM 里添加内容。就像你在 React 的例子里做的那样。
 
     let app = new Vue({
 
@@ -214,7 +214,7 @@ Now, the object is going to take in a few parameters. The first one being the mo
 
     });
 
-The final step is to add the data to the Vue application. In Vue, all the data passed into the application will be done so as a parameter to the Vue instance. Also, each Vue instance can only have one parameter of each kind. While there are quite a few, you only need to focus on two for this example, `el` and `data`.
+最后一步是给 Vue 应用添加数据。在 Vue 里，所有传递给应用的数据都会像这样作为参数传递给 Vue 实例。并且，对于每种类型的参数，每个 Vue 实例里只能有一个。虽然有很多参数类型，在这个例子里你只需要关注两个，`el` 和 `data`。
 
     let app = new Vue({
 
@@ -228,9 +228,9 @@ The final step is to add the data to the Vue application. In Vue, all the data p
 
     });
 
-The data object will accept an array called `listOfNames`. Now whenever you want to use that dataset in your application, you only need to call it using a directive. Simple, right?
+data 对象将要接收一个名为 `listOfNames` 的数组。现在，无论何时要在应用程序中使用该数据集，只需要使用指令调用它，很简单，对吧？
 
-Here’s the final application:
+这里是完整的应用：
 
 #### **HTML**
 
@@ -262,8 +262,9 @@ Here’s the final application:
 
     });
 
-### **Conclusion**
+### **结论**
 
-You know now how to create two simple applications using both React and Vue. They both offer a robust amount of features, though Vue tends to be the easier to use. Also, keep in mind that Vue allows the use of JSX, though it is not the preferred method of implementation.
+现在你知道如何使用 React 和 Vue 创建两个简单的应用了。他们都提供了大量的功能，不过 Vue 往往更容易使用一些。并且，记住 Vue 允许使用 JSX，虽然它不是首选的实现方法。
 
-Either way, these are two powerful libraries and you can’t go wrong using either one.
+无论哪种方式，这两个都是非常强大的库并且无论你选谁都不会错。
+
