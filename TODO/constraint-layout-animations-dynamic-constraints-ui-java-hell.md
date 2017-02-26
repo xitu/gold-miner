@@ -826,7 +826,7 @@ connect: 我想要 view 上添加 constraint。这个方法需要5个参数。
     </android.support.constraint.ConstraintLayout>
 
 
-哇哦，我们已经完成了 ConstraitLayout 动画。剩下的最后一个主题是 {ConstraintLayout 可视化[Design]编辑器 （这到底是什么）[第四部分]}(https://github.com/xitu/gold-miner/blob/master/TODO/constraint-layout-visual-design-editor-hell.md)
+哇哦，我们已经完成了 ConstraitLayout 动画。剩下的最后一个主题是 [ConstraintLayout 可视化[Design]编辑器 （这到底是什么）[第四部分]](https://github.com/xitu/gold-miner/blob/master/TODO/constraint-layout-visual-design-editor-hell.md)
 
 
 好的各位，是时候说再见了，希望你们都有一个很棒的周末。
