@@ -10,13 +10,13 @@
 喔，又是新的一天，是时候学些新东西来让今天变得精彩起来了。
 
 
-各位读者朋友你们好，希望各位一切顺利。我们之前已经在[第一部分](http://www.uwanttolearn.com/android/constraint-layout-hell/)和 [第二部分](http://www.uwanttolearn.com/android/constraint-layout-concepts-hell-tips-tricks-part-2/)
+各位读者朋友你们好，希望各位一切顺利。我们之前已经在[第一部分](https://github.com/xitu/gold-miner/blob/master/TODO/constraint-layout-hell.md)和 [第二部分](https://github.com/xitu/gold-miner/blob/master/TODO/constraint-layout-concepts-hell-tips-tricks-part-2.md)
 中学习了许多关于 Constraint Layout 的新东西。现在是时候学习这个令人惊讶的布局剩下的部分了。这一篇很有可能是关于 Constraint Layout系列的最后一篇文章了。
 
 
 **动机：**
 
-写这篇文章的动机和在[第一部分](http://www.uwanttolearn.com/android/constraint-layout-hell/)讨论的是一样的。现在在这篇文章里我主要谈论的是关于 Constraint Layout 的动画。关于这个主题有一个坏消息，那就是 android 的开发文档并没有提供足够的帮助。在开始这篇文章之前我想先道个歉，由于知识的欠缺我可能会在某些地方出现错误的观点。但是我可以 100% 的保证通过我的讲述，最终你会喜欢并且适应这些动画。
+写这篇文章的动机和在[第一部分](https://github.com/xitu/gold-miner/blob/master/TODO/constraint-layout-hell.md)讨论的是一样的。现在在这篇文章里我主要谈论的是关于 Constraint Layout 的动画。关于这个主题有一个坏消息，那就是 Android 的开发文档并没有提供足够的帮助。在开始这篇文章之前我想先道个歉，由于知识的欠缺我可能会在某些地方出现错误的观点。但是我可以 100% 的保证通过我的讲述，最终你会喜欢并且适应这些动画。
 
 我对这个主题的命名有些犹豫，所以我决定使用三个名字组成的题目，《Constraint Layout 动画 |动态 Constraint |用 Java 实现的 UI》。在这篇文章的最后，你会了解到为什么我选择这三个名字。
 
@@ -191,7 +191,7 @@ SetMargin() 方法将使用三个参数(viewId, anchor, margin)。
 
 
 
-除了猛地一跳，没有按钮移动的轨迹，这看起来并不像动画。所以我们需要重新检查下我们的代码。 ———–。在检查之后我发现需要在 applyButton() 方法里再加点东西。在增加了之后，得到动画效果如下图所示。
+除了猛地一跳，没有按钮移动的轨迹，这看起来并不像动画。所以我们需要重新检查下我们的代码。在检查之后我发现需要在 applyButton() 方法里再加点东西。在增加了之后，得到动画效果如下图所示。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-21-2017-11-34-58.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-21-2017-11-34-58.gif)
 
@@ -405,7 +405,7 @@ connect: 我想要 view 上添加 constraint。这个方法需要5个参数。
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-21-2017-12-11-25.gif)](http://www.uwanttolearn.com/wp-content/uploads/2017/01/Jan-21-2017-12-11-25.gif)
 
 
-是时候开始进一步的操作了。在[教程2](http://www.uwanttolearn.com/android/constraint-layout-concepts-hell-tips-tricks-part-2/)里我们已经了解到了 Chaining 的概念了。我将向你们展示如何使用 Java 语言来实现它。 
+是时候开始进一步的操作了。在[教程2](https://github.com/xitu/gold-miner/blob/master/TODO/constraint-layout-concepts-hell-tips-tricks-part-2.md)里我们已经了解到了 Chaining 的概念了。我将向你们展示如何使用 Java 语言来实现它。 
 
 **新需求:**
 
@@ -826,7 +826,7 @@ connect: 我想要 view 上添加 constraint。这个方法需要5个参数。
     </android.support.constraint.ConstraintLayout>
 
 
-哇哦，我们已经完成了 ConstraitLayout 动画。剩下的最后一个主题是 [Constraint Layout Visual [Design] Editor ( What the hell is this )[Part4].](http://www.uwanttolearn.com/uncategorized/constraint-layout-visual-design-editor-hell/)
+哇哦，我们已经完成了 ConstraitLayout 动画。剩下的最后一个主题是 {ConstraintLayout 可视化[Design]编辑器 （这到底是什么）[第四部分]}(https://github.com/xitu/gold-miner/blob/master/TODO/constraint-layout-visual-design-editor-hell.md)
 
 
 好的各位，是时候说再见了，希望你们都有一个很棒的周末。
