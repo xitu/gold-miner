@@ -108,6 +108,6 @@ Japronto 尝试避免不必要的跨缓冲区拷贝，许多操作都就地完�
 
 我这里提到的所有技术其实都不是 Python 独占的。它们可能也可以用在其他语言上，比如 Ruby、JavaScript 甚至 PHP。我也想做这一部分的开发，不过除非有人赞助这基本上不太现实。
 
-我想感谢 Python 社区在优化性能方面持续的投入。具体就是感谢 Victor Stinner @VictorStinner，[INADA Naoki](https://twitter.com/methane?lang=en) @methane，Yury Selivanov @1st1 以及全体 PyPy 团队。
+我想感谢 Python 社区在优化性能方面持续的投入。具体就是感谢 Victor Stinner [@VictorStinner](https://twitter.com/VictorStinner)，INADA Naoki [@methane](https://twitter.com/methane)，Yury Selivanov [@1st1](https://twitter.com/1st1) 以及全体 PyPy 团队。
 
 出于对 Python 的爱。
