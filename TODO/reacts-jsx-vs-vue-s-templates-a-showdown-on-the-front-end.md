@@ -6,7 +6,7 @@
 
 ---
 
-# React  JSX 与 Vue 模板的对比：前端界的一次决斗
+# React  JSX 与 Vue 模板的对比：前端界的一次对决
 (感觉标题翻译的不是很好)
 ![](https://cdn-images-1.medium.com/max/2000/1*QH4RGlNwXUFnJSytytvb6A.jpeg)
 
