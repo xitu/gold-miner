@@ -1,3 +1,5 @@
+
+* [Bob，我要怎样才能成为一名 iOS 开发者](https://gold.xitu.io/entry/58b153c38fd9c50063d38068/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([thanksdanny](https://github.com/thanksdanny)翻译)
 * [步入 Swift 3](https://gold.xitu.io/entry/58aa701fda2f60006fa9978f/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([DeepMissea](https://github.com/DeepMissea)翻译)
 * [iOS 开发中使用 Swift 进行 iBeacons 交互指南](https://gold.xitu.io/entry/58a6f4091b69e6006d275610/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lovelyCiTY](https://github.com/lovelyCiTY) 翻译)
 * [[译] iOS 开发者一定要知道的 14 个知识点](https://gold.xitu.io/entry/58a5727261ff4b006c432a7f/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Deepmissea](http://deepmissea.blue) 翻译)
