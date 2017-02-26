@@ -62,7 +62,7 @@ Japronto 收到数据并成功地解析了几个请求后，就会尝试尽快�
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*Xy5aoOtYNpq4DzPJUU6ihA.png">
 
-Japronto 可以发出每秒请求数 (RPS) 中位数达 1,214,440 的分组连续数据，计算为第五十百分位数（存疑），使用内插法。
+Japronto 可以发出每秒请求数 (RPS) 中位数达 1,214,440 的分组连续数据，该数字使用内插法，取第五十百分位数算出。
 
 除了延迟对管线化客户端的写操作外，Japronto 还用到了其他技术。
 
