@@ -2,7 +2,7 @@
 * 原文作者：[Paweł Piotr Przeradowski](https://medium.freecodecamp.com/@squeaky_pl?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[cdpath](https://github.com/cdpath)
-* 校对者：
+* 校对者：[Kangkang](https://github.com/xuxiaokang), [独步清风](https://github.com/dubuqingfeng)
 
 # 用 Python 实现每秒百万级请求
 
@@ -36,7 +36,7 @@ Python 微框架（蓝色），黑暗力量（绿色）和 Japronto（紫色）
 
 这些测试是在 AWS São Paulo 区的 c4.2xlarge 实例上进行的，配置是 8 VCPU，默认配置的共享带宽，HVM 虚拟化和弹性存储。操作系统是 Ubuntu 16.04.1 LTS (Xenial Xerus)，内核是 Linux 4.4.0–53-generic x86_64，CPU 是 Xeon® E5–2666 v3，主频是 2.90GHz。Python 版本是最近从源码编译的 Python 3.6。
 
-公平起见，所有评比对象（包括 Go）都运行在单工作进程上。服务端则使用单线程的 wrk 做负载测试，100 个连接，每个连接 24 个（管线化的）同步请求，累积起来相当于 2400 个请求。
+公平起见，所有评比对象（包括 Go）都运行在单工作进程上。服务端则使用单线程的 [wrk](https://github.com/wg/wrk) 做负载测试，100 个连接，每个连接 24 个（管线化的）同步请求，累积起来相当于 2400 个请求。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*dy-91Ek-ecUy2kvYUe0Thg.png">
 
@@ -56,7 +56,7 @@ HTTP 管线化（图片版权维基百科）
 
 Japronto 收到数据并成功地解析了几个请求后，就会尝试尽快搞定所有的请求，并将响应以正确的顺序组合在一起，然后用**一次系统调用写回**。实际上内核在组合响应时亦可发挥作用，这要归功于 [scatter/gather IO](https://en.wikipedia.org/wiki/Vectored_I/O) 系统调用，不过 Japronto 还没有利用它。
 
-不过要注意管线化不总是可行，因为个别请求可能会耗费过长时间，等待它们会毫无必要地增加延迟。
+不过要注意管线化并不总是可行，因为个别请求可能会耗费过长时间，等待它们会毫无必要地增加延迟。
 
 在调整试探方法时请务必小心，既要考虑到系统调用的成本也要考虑到预估的完成请求的耗时。
 
@@ -66,11 +66,11 @@ Japronto 可以发出每秒请求数 (RPS) 中位数达 1,214,440 的分组连�
 
 除了延迟对管线化客户端的写操作外，Japronto 还用到了其他技术。
 
-[Japronto](https://github.com/squeaky-pl/japronto) 几乎完全用 C 语言写就。解析器，协议，连接收割机（connection reaper)，路由以及请求和响应对象都是 C 语言拓展。
+[Japronto](https://github.com/squeaky-pl/japronto) 几乎完全用 C 语言实现。解析器，协议，连接收割机（connection reaper)，路由以及请求和响应对象都是 C 语言拓展。
 
-除非明确要求，[Japronto](https://github.com/squeaky-pl/japronto) 会尽量推迟创建其内部结构对应的 Python 对象。比如除非在 view 中明确要求，Japronto 不会创建头部字典。所有的符号边界都已标记，但是标准化头部键并创建几个字符串对象这种事只有在第一次被访问时才会做。
+除非明确要求，[Japronto](https://github.com/squeaky-pl/japronto) 会尽量推迟创建其内部结构对应的 Python 对象。比如除非在 view 中明确要求，Japronto 不会创建头部字典。所有的符号边界都已标记，但是标准化请求头的键名并创建字符串对象这种事只有在第一次被访问时才会做。
 
-Japronto 使用出色的 picohttpparser 库来解析状态行，头部以及分块的 HTTP 消息体。Picohttpparser 直接调用有 SSE4.2 拓展（几乎所有十年来的 x86_64 CPU 都有）的现代 CPU 的文字处理指令来迅速匹配 HTTP 符号边界。I/O 交由超级赞的 uvloop 处理，uvloop 本身就是包的 libuv。在最底层这就是 epoll 系统调用的桥梁，提供了异步的读写就绪通知。
+Japronto 使用出色的 picohttpparser 库来解析状态行，头部以及分块的 HTTP 消息体。Picohttpparser 直接调用有（几乎所有十年来的 x86_64 CPU 都有的） SSE4.2 拓展的现代 CPU 的文字处理指令，来迅速匹配 HTTP 符号边界。I/O 交由超级赞的 uvloop 处理，uvloop 本身就是 libuv 的包装器。在最底层这就是 epoll 系统调用的桥梁，提供了异步的读写就绪通知。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*I_QzQDSDqTVf04SwsEe3IQ.png">
 
@@ -80,7 +80,7 @@ Python 具有垃圾回收机制，所以设计高性能系统时要小心不要�
 
 所有分配的内存大小都是 4KB 的整数倍。精心排布的内部结构将频繁使用的数据放在非常接近的内存区域中，这就最小化了缓存未命中的概率。
 
-Japronto 尝试避免不必要的跨缓冲区拷贝，许多操作都就地完成。比如它先百分比解码(存疑)路径，再进行路由的匹配。
+Japronto 尝试避免不必要的跨缓冲区拷贝，许多操作都就地完成。比如它先百分比解码（注：即 URL 解码）路径，再进行路由的匹配。
 
 ### 开源贡献者们，我需要你的帮助
 
@@ -92,9 +92,9 @@ Japronto 尝试避免不必要的跨缓冲区拷贝，许多操作都就地完�
 
 - 实现了 HTTP 1.x ，支持分块上传
 - 完善的 HTTP 管线化支持
-- Keep-alive 连接，可配置的 reaper（存疑）
-- 支持同步和异步 view（存疑）
-- 基于 fork 的主-多从模型
+- Keep-alive 连接，可配置的 reaper
+- 支持同步和异步 view
+- 基于 fork 的 Master-multiworker 模型
 - 支持变化时重载代码
 - 简化的路由
 
