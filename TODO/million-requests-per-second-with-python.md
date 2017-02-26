@@ -10,11 +10,11 @@
 
 用 Python 可以每秒发出百万个请求吗？这个问题终于有了肯定的回答。
 
-一众公司抛弃 Python 拥抱其他语言就为了提高性能节约服务器成本。但是没必要啊。Python 也可以胜任。
+许多公司抛弃 Python 拥抱其他语言就为了提高性能节约服务器成本。但是没必要啊。Python 也可以胜任。
 
-Python 社区进来针对性能做了很多优化。CPython 3.6 新的字典实现方式提升了解释器的总体性能。CPython 3.7 引入了更快的调用约定和字典查询缓存之后会更快。
+Python 社区近来针对性能做了很多优化。CPython 3.6 新的字典实现方式提升了解释器的总体性能。得益于更快的调用约定和字典查询缓存，CPython 3.7 会更快。
 
-对于计算密集的工作，可以利用 PyPy 的即时编译。Numpy 的测试组件亦可一试，其对 C 拓展的兼容性已有全面提升。预计今年晚些时候 PyPy 会兼容 Python 3.5。
+对于计算密集型工作，可以利用 PyPy 的即时编译。Numpy 的测试组件亦可一试，其对 C 拓展的兼容性已有全面提升。预计今年晚些时候 PyPy 会兼容 Python 3.5。
 
 所有这些杰出的贡献鼓舞我在 Python 应用最广泛的领域 —— web 和微服务 —— 开拓创新。
 
@@ -26,7 +26,7 @@ Python 社区进来针对性能做了很多优化。CPython 3.6 新的字典实�
 
 Python 微框架（蓝色），黑暗力量（绿色）和 Japronto（紫色）
 
-**勘误**：@heppu 指出， Go 标准库 HTTP 服务端如果写得更小心些可以获得比图表所示要高 **12% 的速度提升**。此外还有个出色的 Go 语言 fasthttp 服务端据说在这个基准测试中只比 Japronto **慢 18%**。赞！详见 [https://github.com/squeaky-pl/japronto/pull/12](https://github.com/squeaky-pl/japronto/pull/12)  和 [https://github.com/squeaky-pl/japronto/pull/14](https://github.com/squeaky-pl/japronto/pull/14)。
+**勘误**：@heppu 指出， Go 标准库 HTTP 服务端如果写得更小心些可以获得比图表所示要高 **12% 的速度提升**。此外还有个出色的 Go 语言 fasthttp 服务端实现，据说在这个基准测试中只比 Japronto **慢 18%**。赞！详见 [https://github.com/squeaky-pl/japronto/pull/12](https://github.com/squeaky-pl/japronto/pull/12)  和 [https://github.com/squeaky-pl/japronto/pull/14](https://github.com/squeaky-pl/japronto/pull/14)。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*z0kap1TTsGimPXTafpW0gw.png">
 
