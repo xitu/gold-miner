@@ -1,3 +1,4 @@
+* [Node.js 支持 ES6 模块的进展](http://gold.xitu.io/entry/58b393f08d6d8100586955fa?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([hikerpig](https://github.com/hikerpig) 翻译)
 * [在线进行大规模的数据迁移](https://gold.xitu.io/entry/58b2b7268ac24728d5484e1b/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([steinliber](https://github.com/steinliber)翻译)
 * [用神经网络进行文本分类](https://gold.xitu.io/entry/58aa65ec2f301e006c32ee0c/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Kulbear](https://github.com/Kulbear) 翻译)
 * [防守式编程的艺术](https://gold.xitu.io/entry/58980dbc1b69e6005997f069/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([GiggleAll](https://github.com/GiggleAll) 翻译)
