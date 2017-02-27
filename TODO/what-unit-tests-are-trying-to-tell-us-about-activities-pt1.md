@@ -24,19 +24,18 @@ MVP 和 VIPER 和 RIBLETS 和……都在 Android 社区中很火。然而，这
 
 ### 为什么是 Android-Centric 架构？
 
-I suspect that a part of the reason why we buy into android-centric architecture is that Google hasn’t really been clear on what `Activity`s and `Fragment`s are for until relatively recently. On channels less official and visible than the Android docs, [Chet Haase](https://medium.com/google-developers/developing-for-android-vii-the-rules-framework-concerns-d0210e52eee3#.1o25pxfat) and [Diane Hackborne](https://plus.google.com/+DianneHackborn/posts/FXCCYxepsDU) have both suggested that `Activity`s aren’t really the kind of things with which you want to build your application.
+我怀疑我们采用 android-centric 架构的一部分原因是 Google 直到不久以前才搞清楚 `Activity` 和 `Fragment` 是什么。在比 Android 文档更不正规和更不明显的渠道中，[Chet Haase](https://medium.com/google-developers/developing-for-android-vii-the-rules-framework-concerns-d0210e52eee3#.1o25pxfat) 和 [Diane Hackborne](https://plus.google.com/+DianneHackborn/posts/FXCCYxepsDU) 都表示 `Activity` 并不是人们想要用来构建应用的东西。
 
-Here’s Hackborne:
-
-> …With its Java language APIs and fairly high-level concepts, it can look like a typical application framework that is there to say how applications should be doing their work. But for the most part, it is not.
+Hackborne是这样说的：
+> …从它的 Java 语言 API 和相当高层的概念来看，它像是一个典型的应用框架，用于指示应用应当如何工作。但就大部分情况而言，它不是。
 > 
-> It is probably better to call the core Android APIs a “system framework.” For the most part, the platform APIs we provide are there to define how an application interacts with the operating system; but for anything going on purely within the app, these APIs are often just not relevant.
+> 大概把 Android API 称为“系统框架”会更合适。大多数情况下，我们提供的平台 API 是用于定义一个应用如何与操作系统互动的；但对于任何从纯粹在应用内部运行的东西而言，这些 API 和它并没有什么关系。
 
-and here’s Haase:
+而Haase是这样说的：
 
-> Application components (activities, services, providers, receivers) are interfaces for your application to interact with the operating system; don’t take them as a recommendation of the facilities you should architect your entire application around.
+> 应用组件（activities, services, providers, receivers）是用于和操作系统互动的接口；不推荐把它们作为架构整个应用的核心。
 
-Hackborne and Haase almost explicitly reject android-centric architecture. I say “almost”, as they both don’t seem to denounce the use of `Fragment`s as building blocks for our apps. However, there’s a tension between the idea `Activity`s are not suitable app components and that `Fragment`s are, and that tension is as strong as the the many similarities between the two components.
+Hackborne 和 Haase 几乎明确地反对 android-centric 架构。我说“几乎”，因为看起来他们并不反对把 `Fragment` 作为我们应用的构件。然而，尽管“ `Activity` 不是应用的合适组件” However, there’s a tension between the idea `Activity`s are not suitable app components and that `Fragment`s are, and that tension is as strong as the the many similarities between the two components.
 
 It might even be fair to say that Google has actually suggested an android-centric architecture through the previous [Google I/O app samples](https://github.com/google/iosched) and the android documentation. The “app components” section of the Android docs is a particularly good example of this. [The section introduction](https://developer.android.com/guide/components/index.html) tells the reader that they’ll learn “how you can build the components [including `Activity`s and `Fragment`s] that define the *building blocks* of your app.”
 
