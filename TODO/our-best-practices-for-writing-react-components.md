@@ -200,10 +200,10 @@ export default class ProfileContainer extends Component {
 
 
 #### 装饰器
-
-[@observer](http://twitter.com/observer)
+```javascript
+@observer
 export default class ProfileContainer extends Component {
-
+```
 如果你使用了像[mobx](https://github.com/mobxjs/mobx)的工具，你可以像上面这样来装饰组件，这和把组件传递到函数一样。
 
 
@@ -237,7 +237,7 @@ export default observer(ProfileContainer)
 
 如果这里的 input 是一个 React 组件，这会自动触发该组件重新渲染，不管该组件当中的 props 有没有被改变。
 
-子级校正 （Reconciliation） 是 React 框架中最耗资源的部分。如果不需要，就不要增加难度。而且传递一个类方法会更易读，易调试并且容易修改代码。
+子级校正 （Reconciliation） 是 React 框架中最耗资源的部分。如果不需要，就不要增加难度。而且传递一个类方法会使代码更易于阅读，易于调试，易于修改。
 
 以下是组件的全貌：
 
