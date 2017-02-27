@@ -4,7 +4,7 @@
 
 [掘金翻译计划](https://juejin.im/tag/%E6%8E%98%E9%87%91%E7%BF%BB%E8%AF%91%E8%AE%A1%E5%88%92) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](#android)、[iOS](#ios)、[React](#react)、[前端](#前端)、[后端](#后端)、[产品](#产品)、[设计](#设计) 等领域，读者为热爱新技术的新锐开发者。
 
-掘金翻译计划目前翻译完成 [388](#近期文章列表) 篇文章，共有 [240](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
+掘金翻译计划目前翻译完成 [389](#近期文章列表) 篇文章，共有 [240](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
 
 #  官方指南：
 
@@ -19,10 +19,10 @@
 
 ## Android
 
+* [RxJava 中的 Subscriptions 是怎样泄露内存的](https://gold.xitu.io/entry/58b43c908ac2475ccb5d8e39?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([tanglie1993](https://github.com/tanglie1993/) 翻译)
 * [ConstraintLayout 可视化[Design]编辑器 （这到底是什么）[第四部分]](https://gold.xitu.io/entry/58b0e0381b69e60058a49455?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([yazhi1992](https://github.com/yazhi1992) 翻译)
 * [Android Nougat 中通过 Intents 共享文件，你准备好了吗？](https://gold.xitu.io/entry/58aa665b8d6d810058b534f9?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([skyar2009](https://github.com/skyar2009) 翻译)
 * [观察者模式 – 响应式编程 [Android RxJava2]（这到底是什么）：第一部分](https://gold.xitu.io/entry/58ada9738fd9c5006704f5a1?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zhiwei Yu（Zhiw）](https://github.com/Zhiw) 翻译)
-* [为什么 Android 测试如此困难：历史版本](https://gold.xitu.io/entry/58ac5b3b570c35006bc9e52c?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([tanglie1993](https://github.com/tanglie1993/) 翻译)
 * [所有 Android 译文>>](https://github.com/xitu/gold-miner/blob/master/android.md)
 
 
