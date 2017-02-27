@@ -18,7 +18,7 @@
 假设你的主管让你实现一个显示随机的电影名的控件。它必须基于一些外部的推荐服务。这个控件应当根据用户要求显示电影名称。如果用户没有要求，它也可以自己显示。你的主管还希望它可以存储一些和用户交互有关的信息。
 有很多办法可以实现这一点。基于 MVP 的方法是其中之一。你可以创建一个包含 ProgressBar 和 TextView 的 view。`RecommendedMovieUseCase`负责提供一个随机的电影名。
 `Presenter`和一个用例相连，并在 view 上显示一个标题。 Presenter 的状态是被保存在内存中的，甚至在 Activity（在 `NonConfigurationScope` 中）被重新创建时，它也还会在内存中。
-这是你的 Presenter 的样子。在这篇文章中，我们假定你想要存储一个用于标志用户是否点击了标题的flag。
+这是你的 Presenter 的样子。在这篇文章中，我们假定你想要存储一个用于标志用户是否点击了标题的 flag。
 
 ```
 @NonConfigurationScope
@@ -79,8 +79,8 @@ public class Presenter {
 
 目前一切看起来都没问题。
 
-安全起见，我们决定初始化在 debug build 中初始化 StrictMode。
-我们开始试用我们的 app，并尝试把我们的设备旋转几次。突然，一条 log 消息出现了。
+安全起见，我们决定在 debug build 中初始化 StrictMode。
+我们开始试用 app，并尝试把我们的设备旋转几次。突然，一条 log 消息出现了。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*JF-royfW1_twemFL3Gn88Q.png)
 
@@ -139,7 +139,7 @@ public final Subscription subscribe(final Action1<? super T> onNext, final Actio
     
 你可以看到，除了你的主要的 `Presenter` 类之外，还有两个额外的类文件，分别对应你引入的两个匿名 `Action1<>` 类。
 
-我们使用非常方便的 *javap* 工具，看看这些匿名类内部发生着什么：
+我们使用非常方便的 *javap* 工具，看看其中一个匿名类内部发生着什么：
 
     => javap -c Presenter\$1
     
