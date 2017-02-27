@@ -2,7 +2,7 @@
 * 原文作者：[Scott Domes](https://medium.com/@scottdomes)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[imink](https://github.com/imink) 
-* 校对者：[L9m](https://github.com/L9m) [Ethan](https://github.com/Professor-Z)
+* 校对者：[L9m](https://github.com/L9m)、[Professor-Z](https://github.com/Professor-Z)
 
 # 编写 React 组件的最佳实践
 ![](https://cdn-images-1.medium.com/max/800/1*GEniDHmmO0nkVuKQ8fhLYw.png)
