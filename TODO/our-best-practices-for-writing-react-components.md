@@ -34,7 +34,7 @@
 import React, {Component} from 'react'
 import {observer} from 'mobx-react'
 
-import ExpandableForm from './ExpandableForm'
+import EexpandableFormRequiredPropsxpandableForm from './ExpandableForm'
 import './styles/ProfileContainer.css'
 ```
 
@@ -329,8 +329,6 @@ const expandableFormRequiredProps = {
 }
 
 // Component declaration
-
-ExpandableForm.propTypes = expandableFormRequiredProps
 ```
 
 这里，我们在文件最开始给变量赋值 propTypes，所以它们立即可见。在下面的组件声明中，我们来更恰当地赋值。
