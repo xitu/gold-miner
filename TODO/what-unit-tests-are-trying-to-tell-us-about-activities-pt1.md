@@ -1,28 +1,28 @@
 > * 原文地址：[What Unit Tests are Trying to Tell us about Activities: Pt. 1](https://www.philosophicalhacker.com/post/what-unit-tests-are-trying-to-tell-us-about-activities-pt1/)
 * 原文作者：[Philosophical Hacker](https://www.philosophicalhacker.com)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者： 
+* 译者： [tanglie1993](https://github.com/tanglie1993)
 * 校对者：
 
 ![](https://www.philosophicalhacker.com/images/broken-brick.jpg)
 
-# What Unit Tests are Trying to Tell us about Activities: Pt. 1
+# 单元测试试图告诉我们关于 Activity 的什么事情：第一部分
 
-`Activity`s and `Fragment`s, perhaps by [some strange historical accidents](/post/why-android-testing-is-so-hard-historical-edition/), have been seen as *the optimal* building blocks upon which we can build our Android applications for much of the time that Android has been around. Let’s call this idea – the idea that `Activity`s and `Fragment`s are the best building blocks for our apps – “android-centric” architecture.
+`Activity` 和 `Fragment`，可能是因为一些[奇怪的历史巧合](/post/why-android-testing-is-so-hard-historical-edition/)，从 Android 推出之时起就被视为构建 Android 应用的*最佳*构件。我们把这种想法——`Activity` 和 `Fragment` 是应用的最佳构件——称为“android-centric”架构。
 
-This series of posts is about the connection between the testability of android-centric architecture and the other problems that are now leading Android developers to reject it; it’s about how our unit tests are trying to tell us that `Activity`s and `Fragment`s don’t make the best building blocks for our apps because they force us to write code with *tight coupling* and *low cohesion*.
+本系列博文是关于 android-centric 架构的可测试性和其它问题之间的联系的，而这些问题正导致 Android 开发者们排斥这种架构。这些博文也涉及单元测试怎样试图告诉我们：`Activity` 和 `Fragment` 不是应用的最佳构件，因为它们迫使我们写出*高耦合*和*低内聚*的代码。
 
-In this first part of the series, I want to say a little about why I think android-centric architecture has been dominant for so long and to provide a little background on why I think unit tests have insightful things to say about rejecting android-centric architecture.
+在本系列文章的第一部分，我想介绍一点 android-centric 架构之所以统治了这么久的原因。另外，我认为单元测试可以为摒弃 android-centric 架构提供有价值的见解。我在第一部分中也将提供一点与之相关的背景。
 
-### What is Android-Centric Architecture?
+### 什么是 Android-Centric 架构？
 
-An android-centric architecture is one in which each screen the user sees is *ultimately* backed by a class whose main purpose is to interact with the android operating system. As we’ll see later, Diane Hackborne and Chet Haase have both recently stated that `Activity`s are an example of such a class. Since `Fragment`s are very similar to `Activity`s, I consider an app where each screen is backed by a `Fragment` to also have an android-centric architecture, even if there’s only one `Activity` in the app.
+在 android-centric 架构中，用户看见的每一个屏幕都*最终*基于一个主要用于和 Android 操作系统交互的类。我们接下来将发现，Diane Hackborne 和 Chet Haase 最近都表示 `Activity` 就是这样的类。因为 `Fragment` 和 `Activity` 非常相似，我认为一个每个屏幕都基于 `Fragment` 的应用也属于 android-centric 架构，哪怕这个应用只有一个 `Activity`。
 
-MVP and VIPER and RIBLETS and…are a thing now in the Android community. However, these suggestions aren’t *necessarily* a full rejection of android-centric architecture. Although there may be `Presenter`s or `Interactors`s or whatever involved, these objects are often still built on top of `Activity`s and `Fragment`s; they could still get instantiated by and delegate to android-centric components, one for each screen the user sees.
+MVP 和 VIPER 和 RIBLETS 和……都在 Android 社区中很火。然而，这些建议并不*必然*完全排斥 android-centric 架构。虽然可能有 `Presenter` 或 `Interactors` 或其它的东西涉及，这些对象仍是被建筑在 `Activity` 或 `Fragment` 之上的；它们仍然可以被 android-centric 组件实例化或者被委派给这些组件，每个组件对应一个用户看见的屏幕。
 
-An app that doesn’t follow android-centric architecture has one `Activity` and no `Fragment`s. Router and Controller type classes are POJOs.
+一个不遵循 android-centric 架构的应用有一个 `Activity` 但没有 `Fragment`。Router 和 Controller 类型的类都是 POJOs。
 
-### Why Android-Centric Architecture?
+### 为什么是 Android-Centric 架构？
 
 I suspect that a part of the reason why we buy into android-centric architecture is that Google hasn’t really been clear on what `Activity`s and `Fragment`s are for until relatively recently. On channels less official and visible than the Android docs, [Chet Haase](https://medium.com/google-developers/developing-for-android-vii-the-rules-framework-concerns-d0210e52eee3#.1o25pxfat) and [Diane Hackborne](https://plus.google.com/+DianneHackborn/posts/FXCCYxepsDU) have both suggested that `Activity`s aren’t really the kind of things with which you want to build your application.
 
