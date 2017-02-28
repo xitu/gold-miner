@@ -37,17 +37,17 @@ Hackborne是这样说的：
 
 Hackborne 和 Haase 几乎明确地反对 android-centric 架构。我说“几乎”，因为看起来他们并不反对把 `Fragment` 作为我们应用的构件。然而，尽管“ `Activity` 不是应用的合适组件” However, there’s a tension between the idea `Activity`s are not suitable app components and that `Fragment`s are, and that tension is as strong as the the many similarities between the two components.
 
-It might even be fair to say that Google has actually suggested an android-centric architecture through the previous [Google I/O app samples](https://github.com/google/iosched) and the android documentation. The “app components” section of the Android docs is a particularly good example of this. [The section introduction](https://developer.android.com/guide/components/index.html) tells the reader that they’ll learn “how you can build the components [including `Activity`s and `Fragment`s] that define the *building blocks* of your app.”
+似乎可以说：Google 通过以前的 [Google I/O 应用样例](https://github.com/google/iosched) 和官方文档建议人们使用 android-centric 架构。Android  文档的“应用组件”一节是一个很好的例子。 [本节介绍](https://developer.android.com/guide/components/index.html) 告诉读者，他们将会学到“如何建造构成你的应用的*基本组件*（包括 `Activity` 和 `Fragment`）。”
 
-Over the past couple of years, many Android developers – myself included – are starting to realize that `Activity`s and `Fragment`s often are not helpful building blocks for their applications. Companies like [Square](https://medium.com/square-corner-blog/advocating-against-android-fragments-81fd0b462c97), [Lyft](https://eng.lyft.com/building-single-activity-apps-using-scoop-763d4271b41#.mshtjz99n), and [Uber](https://eng.uber.com/new-rider-app/) are moving away from android-centric architecture. Two common complaints stand out: as the app gets more complicated, the code is *difficult to understand* and *too rigid to handle their varying use-cases.*
+在过去几年中，很多 Android 开发者——包括我自己——开始意识到 `Activity` 和 `Fragment` 通常并不是他们应用的有用的构件。包括 [Square](https://medium.com/square-corner-blog/advocating-against-android-fragments-81fd0b462c97)，[Lyft](https://eng.lyft.com/building-single-activity-apps-using-scoop-763d4271b41#.mshtjz99n) 和 [Uber](https://eng.uber.com/new-rider-app/) 在内的一些公司都正在远离  android-centric 架构。两种常见的抱怨是：随着应用不断变得更加复杂，代码变得*难以理解*以及*在处理多种用例时过于死板*。
 
-### What does Testing have to do with this?
+### 测试和它有什么关系？
 
-The connection between testability and understandable, flexible code is well expressed in this quotation from *Growing Object Oriented Software Guided by Tests*:
+*Growing Object Oriented Software Guided by Tests* 中的内容很好地解释了可测试性和容易理解、灵活的代码之间的关系：
 
-> for a class to be easy to unit-test, the class must…be loosely coupled and highly cohesive – in other words, well-designed.
+> 要想让一个类易于单元测试，这个类必须……低耦合高内聚——换句话说，设计得好。
 
-Coupling and cohesion have direct bearing on how understandable and flexible your code is, so if this quote is right and if unit testing `Activity`s and `Fragment`s is difficult – and you likely know that even if you haven’t read [my](/post/why-we-should-stop-putting-logic-in-activities/) [posts](https://www.philosophicalhacker.com/2015/04/17/why-android-unit-testing-is-so-hard-pt-1/) suggesting as much – then writing unit tests would have shown us, before Google and painful experiences did, that `Activity`s and `Fragment`s aren’t the building blocks we want for constructing our applications.
+耦合和内聚直接影响了你的代码的可读性和灵活性。所以如果这句话是对的而且 `Activity` 和 `Fragment` 很难进行单元测试（即使你没有看过[我的](/post/why-we-should-stop-putting-logic-in-activities/) [帖子]也很可能知道这一点），那么单元测试就可以告诉我们 `Activity` 和 `Fragment` 并不是理想的用于构建应用的组件。这样，我们就可以在 Google 告诉我们之前，也在痛苦的开发经验之前，发现这个结论。
 
 ### Next Time…
 
