@@ -1,25 +1,25 @@
 > * 原文地址：[How to leak memory with Subscriptions in RxJava](https://medium.com/@scanarch/how-to-leak-memory-with-subscriptions-in-rxjava-ae0ef01ad361#.frvn3pkux)
 * 原文作者：[Marcin Robaczyński](https://medium.com/@scanarch)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者： 
-* 校对者：
+* 译者： [tanglie1993](https://github.com/tanglie1993)
+* 校对者：[ilumer](https://github.com/ilumer), [jamweak](https://github.com/jamweak)
 
 ---
 
 ![](https://cdn-images-1.medium.com/max/2000/1*aroR2HpWJo8simEzPVRgjQ.jpeg)
 
-# How to leak memory with Subscriptions in RxJava
+# RxJava 中的 Subscriptions 是怎样泄露内存的
 
-There are plenty of great how-to articles about RxJava. It does simplify things significantly when working with Android framework but be careful because simplification may have its own pitfalls. In the following parts, you are going to explore one of them and see how easy it is to create a memory leak with RxJava’s `Subscriptions`.
+关于 RxJava 已经有了很多很好的的教程文章。在使用 Android 框架时，它确实显著地简化了工作。然而需要注意，这种简化有它自己的缺陷。在接下来的部分中，你将探索其中的一个，从而了解 RxJava 的 Subscriptions 有多容易造成内存泄漏。
 
-### Solving simple task
 
-Imagine that your manager called in and asked you to create a widget which displays a random movie title. It has to be based on some external recommendation service. This widget should display a movie title on user’s demand or it could do it on its own. The manager also wants this widget to be able to store some information related to user’s interaction with it.
 
-MVP-based approach is one of the many ways to do this. You create a simple view containing both`ProgressBar` and`TextView` widgets. The `RecommendedMovieUseCase` handles providing a random movie title. 
-`Presenter` connects to a use case and displays a title on a view. Saving presenter’s state is implemented by keeping it in memory even when your Activity is being recreated (in so-called `NonConfigurationScope`).
+### 解决简单任务
 
-Here is how your `Presenter` looks like. For the purpose of this article, let’s assume that you want to store a flag indicating whether the user has tapped the title.
+假设你的主管让你实现一个显示随机的电影名的控件。它必须基于一些外部的推荐服务。这个控件应当根据用户要求显示电影名称。如果用户没有要求，它也可以自己显示。你的主管还希望它可以存储一些和用户交互有关的信息。
+有很多办法可以实现这一点。基于 MVP 的方法是其中之一。你可以创建一个包含 ProgressBar 和 TextView 的 view。`RecommendedMovieUseCase`负责提供一个随机的电影名。
+`Presenter`和一个用例相连，并在 view 上显示一个标题。 Presenter 的状态是被保存在内存中的，甚至在 Activity（在 `NonConfigurationScope` 中）被重新创建时，它也还会在内存中。
+这是你的 Presenter 的样子。在这篇文章中，我们假定你想要存储一个用于标志用户是否点击了标题的 flag。
 
 ```
 @NonConfigurationScope
@@ -60,8 +60,8 @@ public class Presenter {
                         view.hideProgress();
                         view.showLoadingError();
                     }
-                });
-    }
+                });
+    }
 
     public void onViewTapped() {
         didUserTapTitle = true;
@@ -74,29 +74,28 @@ public class Presenter {
 }
 
 ```
-
-A widget will be added to a purple container when the user asks for a recommendation. It will be removed after the user decides to clear it.
+当用户请求推荐时，一个控件将会被加入紫色的容器。在用户决定清除它之后，它将会被移除。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*C85wCkIAGeDiLIPGNXk8Iw.gif)
 
-Everything seems to be working fine for now.
+目前一切看起来都没问题。
 
-To be safer, we decided to initialize StrictMode in debug builds.
-We start to play around with our app and try to rotate our device a couple of times. Suddenly, a log message appears.
+安全起见，我们决定在 debug build 中初始化 StrictMode。
+我们开始试用 app，并尝试把我们的设备旋转几次。突然，一条 log 消息出现了。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*JF-royfW1_twemFL3Gn88Q.png)
 
-This does not sound right. You can try dumping current memory state and take a deeper look at the problem:
+这听起来不对。你可以尝试导出目前的内存状态，仔细研究这个问题：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*e8IblGcaEdyFJC1jCYOpGw.png)
 
-There is your culprit marked with the blue font. For some reason, there is still an instance of `MovieSuggestionView` holding a reference to an old `MainActivity` instance.
+罪魁祸首是蓝色字体标出的部分。由于某种原因，仍然有一个 `MovieSuggestionView` 的实例持有对原有 `MainActivity` 的引用。
 
-But why? You have unsubscribed from your background job and also cleared the reference to a `MovieSuggestionView` when dropping the view from your `Presenter`. Where is this leak coming from?
+但是为什么？你已经注销了后台的工作，并在从你的 `Presenter` 中删除 view 时清除了对 `MovieSuggestionView` 的引用。这个泄露出自哪里？
 
-### Searching for a leak
+### 查找泄露
 
-By storing a reference to a `Subscription`, you are actually storing an instance of an `ActionSubscriber<T>`, which looks like this:
+通过把引用存储到 `Subscription`，你实际上把 `ActionSubscriber<T>` 的实例存储起来了。它看上去像这样：
 
 ```
 public final class ActionSubscriber<T> extends Subscriber<T> {
@@ -108,10 +107,9 @@ public final class ActionSubscriber<T> extends Subscriber<T> {
     ...
 }
 ```
+由于 `onNext`, `onError` 和 `onCompleted` 是 final 变量，你没有办法把它们设为 null。问题是在 `Subscriber` 上调用 `unsubscribe()` 只会把它标志为已注销（也会做些别的事情，但对我们来说不重要）。
 
-Because of `onNext`, `onError` and `onCompleted` fields being final there is no clean way to nullify them. The problem is that calling `unsubscribe()` on a `Subscriber` only marks it as unsubscribed (and couple of things more, but it is not important in our case).
-
-For those who are wondering from where this `ActionSubscriber` object comes from, take a look at the `subscribe` method definition:
+对于那些怀疑这个 `ActionSubscriber` 从哪里来的人而言，你们可以看看 `subscribe` 方法的定义：
 
 ```
 public final Subscription subscribe(final Action1<? super T> onNext, final Action1<Throwable> onError) {
@@ -126,11 +124,11 @@ public final Subscription subscribe(final Action1<? super T> onNext, final Actio
 }
 ```
 
-Further analysis of the memory dump proves that MovieSuggestionView reference is indeed still kept inside of `onNext` and `onError` fields.
+对 memory dump 的进一步分析证明：MovieSuggestionView 的引用仍然被保留在 `onNext` 和 `onError` 域的内部。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*VS65D4I9rNUvlQ34sGnFSw.png)
 
-To understand the problem better, let’s dig a little bit deeper and see what happens after your code gets compiled.
+为了更好地理解这个问题，请挖掘得更深一点，看你的代码编译后会发生什么。
 
     => ls -1 app/build/intermediates/classes/debug/me/scana/subscriptionsleak
 
@@ -139,10 +137,10 @@ To understand the problem better, let’s dig a little bit deeper and see what h
     Presenter$2.class
     Presenter.class
     ...
+    
+你可以看到，除了你的主要的 `Presenter` 类之外，还有两个额外的类文件，分别对应你引入的两个匿名 `Action1<>` 类。
 
-You can see that in addition to your main `Presenter` class, you get two additional class files, one for each of anonymous `Action1<>` classes that you introduced.
-
-Let’s check out what is happening inside of one of those anonymous classes using a handy *javap* tool:
+我们使用非常方便的 *javap* 工具，看看其中一个匿名类内部发生着什么：
 
     => javap -c Presenter\$1
     
@@ -165,21 +163,21 @@ class me.scana.subscriptionsleak.Presenter$1 implements rx.functions.Action1<jav
 view raw
 ```
 
-You might have heard that an anonymous class holds an implicit reference to an outer class. **It turns out that anonymous classes also *capture* all of the variables that you use inside of them.**
+你可能听说过，一个匿名的类持有对外部类的隐式引用。**事实证明，匿名类会持有所有在它内部使用的变量。**
 
-Because of this, by keeping a reference to a `Subscription` object, you effectively keep references to those anonymous classes that you used to handle the movie title result. They keep the reference to a view that you wanted to do something with and there is your leak.
+因此，通过保留对 `Subscription` 对象的引用，你保留了用于处理电影名结果的匿名类的引用。它们保留了对你希望处理的 view 的引用，这就是内存泄露的地方。
 
-### You know what is wrong with our current solution. So, how do you fix it?
+### 你已经知道了目前的问题所在，那么，如何解决呢？
 
-It is quite easy.
+这很简单。
 
-You can set our `Subscription` object to `Subscription.empty()`, thus clearing up a reference to an old `ActionObserver`.
+你可以对 `Subscription` 对象调用 `Subscription.empty()`，从而清除对旧  `ActionObserver` 的引用。
 
-There is also a `CompositeSubscription` class which allows to store multiple `Subscription` objects and performs `unsubscribe()` on them. This should relieve us from storing a `Subscription` reference directly. Keep in mind, though, that this will not yet solve your problem. The references are still going to be kept inside of `CompositeSubscription`.
+ `CompositeSubscription` 类可以存储多个 `Subscription` 对象，并对他们进行  `unsubscribe()`。这可以使我们免于直接存储 `Subscription` 引用。记住，这还不会解决你的问题。引用仍然会被存储在 `CompositeSubscription` 内部。
 
-Fortunately, there is a `clear()` method available, which unsubscribes everything and then clears up the references. It also allows you to reuse a `CompositeSubscription` object as opposed to `unsubscribe()` which renders your object unusable.
+幸运的是，还有一个 `clear()` 方法，它注销所有东西并清除引用。它还允许你重用 `CompositeSubscription` 对象，而 `unsubscribe()` 会使你的对象完全不可用。
 
-Here is fixed `Presenter` class with one of the aforementioned methods implemented:
+这是修正过的 `Presenter` 类，它实现了一个前文提到的方法：
 
 ```
 @NonConfigurationScope
@@ -239,10 +237,10 @@ public class NonLeakingPresenter implements Presenter {
 }
 ```
 
-It is worth adding that you can actually solve this problem in many different ways. Always keep in mind that there is no silver bullet for every issue that you come upon.
+值得一提的是，你有很多方法可以解决这个问题。记住：没有一种解决方案适用于你遇到的所有问题。
 
-### To sum things up:
+### 总结：
 
-- `Subscription` objects hold final references to your callbacks. Your callbacks can hold references to your Android’s lifecycle-tied objects. They both can leak memory when not treated with care
-- You can use tools like StrictMode, javap, HPROF Viewer to find and analyze the source of leaks. I did not mention it in the article, but you can also check out the LeakCanary library from Square.
-- Digging into libraries that you use on a daily basis helps a lot with solving potential problems that may arise
+- `Subscription` 对象持有对你的回调的 final 引用。你的回调可能引用和 Android 生命周期绑定的对象。如果不小心的话，他们都有可能造成内存泄露。
+- 你可以使用 StrictMode, javap, HPROF Viewer 等工具寻找和分析泄露的根源。我在文章中没有提及，但你也可以尝试 Square 的 LeakCanary。
+- 深入挖掘你日常使用的库，有助于解决潜在的问题。
