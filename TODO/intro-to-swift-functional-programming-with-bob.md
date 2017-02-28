@@ -315,8 +315,7 @@ In my biased opinion, this article is gold. This is what I needed when I was so 
 
 One of my Portuguese friends [João](https://twitter.com/NSMyself) , is organizing a Swift conference at Aveiro, Portugal. Unlike many ones out there, this conference was designed to be experimental and engaging. The audience gets to interact and build along with speakers — Bring your laptops guys. It’s my first Swift conference. I’m super excited! On top of that, it is affordable as well. The event will happen on June 1–2, 2017. If you are interested in knowing more, feel free to check out its website [here](http://swiftaveiro.xyz) or Twitter below.
 
-[SwiftAveiro (@SwiftAveiro) | Twitter
-The latest Tweets from SwiftAveiro (@SwiftAveiro). An experimental Swift event. iOS by the sea. June 1st — 2nd, 2017…twitter.com](https://twitter.com/SwiftAveiro) 
+[SwiftAveiro (@SwiftAveiro) | Twitter](https://twitter.com/SwiftAveiro) 
 
 ### About Me ###
 
