@@ -1,113 +1,113 @@
 > * 原文地址：[A million requests per second with Python](https://medium.freecodecamp.com/million-requests-per-second-with-python-95c137af319#.59n519vvy)
 * 原文作者：[Paweł Piotr Przeradowski](https://medium.freecodecamp.com/@squeaky_pl?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
-* 校对者：
+* 译者：[cdpath](https://github.com/cdpath)
+* 校对者：[Kangkang](https://github.com/xuxiaokang), [独步清风](https://github.com/dubuqingfeng)
 
-# A million requests per second with Python #
+# 用 Python 实现每秒百万级请求
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/2000/1*nAr_UQ1RcT-2mcfstPLocQ.jpeg">
 
-Is it possible to hit a million requests per second with Python? Probably not until recently.
+用 Python 可以每秒发出百万个请求吗？这个问题终于有了肯定的回答。
 
-A lot of companies are migrating away from Python and to other programming languages so that they can boost their operation performance and save on server prices, but there’s no need really. Python can be right tool for the job.
+许多公司抛弃 Python 拥抱其他语言就为了提高性能节约服务器成本。但是没必要啊。Python 也可以胜任。
 
-The Python community is doing a lot of around performance lately. CPython 3.6 boosted overall interpreter performance with new dictionary implementation. CPython 3.7 is going to be even faster, thanks to the introduction of faster call convention and dictionary lookup caches.
+Python 社区近来针对性能做了很多优化。CPython 3.6 新的字典实现方式提升了解释器的总体性能。得益于更快的调用约定和字典查询缓存，CPython 3.7 会更快。
 
-For number crunching tasks you can use PyPy with its just-in-time code compilation. You can also run NumPy’s test suite, which now has improved overall compatibility with C extensions. Later this year PyPy is expected to reach Python 3.5 conformance.
+对于计算密集型工作，可以利用 PyPy 的即时编译。Numpy 的测试组件亦可一试，其对 C 拓展的兼容性已有全面提升。预计今年晚些时候 PyPy 会兼容 Python 3.5。
 
-All this great work inspired me to innovate in one of the areas where Python is used extensively: web and micro-service development.
+所有这些杰出的贡献鼓舞我在 Python 应用最广泛的领域 —— web 和微服务 —— 开拓创新。
 
-### Enter Japronto! ###
+### 欢迎来到 Japronto 的世界！
 
-[Japronto](https://github.com/squeaky-pl/japronto) is a brand new micro-framework tailored for your micro-services needs. Its main goals include being **fast** , **scalable** ,and **lightweight**. It lets you do both **synchronous** and **asynchronous** programming thanks to **asyncio**. And it’s shamelessly **fast**. Even faster than NodeJS and Go.
+[Japronto](https://github.com/squeaky-pl/japronto) 是为你的需求量身打造的全新微服务框架。其主要目标就是**快，可拓展并且轻量**。通过 asyncio 使得同时**同步**和**异步**编程变成可能。而且 Japronto 出人意料的**快**，甚至快过 NodeJS 和 Go。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*FThTeS_kxx3j7AkTgmMKNw.png">
 
-Python micro-frameworks (blue), Dark side of force (green) and Japronto (purple)
+Python 微框架（蓝色），黑暗力量（绿色）和 Japronto（紫色）
 
-**Errata:** As user @heppu points out, Go’s stdlib HTTP server can be **12% faster** than this graph shows when written more carefully. Also there’s an awesome **fasthttp** server for Go that apparently is **only 18% slower** than Japronto in this particular benchmark. Awesome! For details see [https://github.com/squeaky-pl/japronto/pull/12](https://github.com/squeaky-pl/japronto/pull/12)  and [https://github.com/squeaky-pl/japronto/pull/14](https://github.com/squeaky-pl/japronto/pull/14) .
+**勘误**：@heppu 指出， Go 标准库 HTTP 服务端如果写得更小心些可以获得比图表所示要高 **12% 的速度提升**。此外还有个出色的 Go 语言 fasthttp 服务端实现，据说在这个基准测试中只比 Japronto **慢 18%**。赞！详见 [https://github.com/squeaky-pl/japronto/pull/12](https://github.com/squeaky-pl/japronto/pull/12)  和 [https://github.com/squeaky-pl/japronto/pull/14](https://github.com/squeaky-pl/japronto/pull/14)。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*z0kap1TTsGimPXTafpW0gw.png">
 
-We can also see that Meinheld WSGI server is almost on par with NodeJS and Go. Despite of its inherently blocking design, it is a great performer compared to the preceding four, which are asynchronous Python solutions. So never trust anyone who says that asynchronous systems are always speedier. They are almost always more concurrent, but there’s much more to it than just that.
+我们同时注意到 Meinheld WSGI 服务端几乎跟 NodeJS 和 Go 一样快。尽管其内部采用阻塞设计，它和前面四个 Python 异步方案比起来性能也不差。所以不要轻信任何人所说的异步系统一定更快的言论。异步几乎一定意味着更高的并发，但是往往并发过了头了。
 
-I performed this micro benchmark using a “Hello world!” application, but it clearly demonstrates server-framework overhead for a number of solutions.
+我用 “Hello world！” 做了这个小基准测试，足够说明一些服务器框架解决方案的系统开销。
 
-These results were obtained on an AWS c4.2xlarge instance that had 8 VCPUs, launched in São Paulo region with default shared tenancy and HVM virtualization and magnetic storage. The machine was running Ubuntu 16.04.1 LTS (Xenial Xerus) with the Linux 4.4.0–53-generic x86_64 kernel. The OS was reporting Xeon® CPU E5–2666 v3 @ 2.90GHz CPU. I used Python 3.6, which I freshly compiled from its source code.
+这些测试是在 AWS São Paulo 区的 c4.2xlarge 实例上进行的，配置是 8 VCPU，默认配置的共享带宽，HVM 虚拟化和弹性存储。操作系统是 Ubuntu 16.04.1 LTS (Xenial Xerus)，内核是 Linux 4.4.0–53-generic x86_64，CPU 是 Xeon® E5–2666 v3，主频是 2.90GHz。Python 版本是最近从源码编译的 Python 3.6。
 
-To be fair, all the contestants (including Go) were running a single-worker process. Servers were load tested using [wrk](https://github.com/wg/wrk)  with 1 thread, 100 connections, and 24 simultaneous (pipelined) requests per connection (cumulative parallelism of 2400 requests).
+公平起见，所有评比对象（包括 Go）都运行在单工作进程上。服务端则使用单线程的 [wrk](https://github.com/wg/wrk) 做负载测试，100 个连接，每个连接 24 个（管线化的）同步请求，累积起来相当于 2400 个请求。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*dy-91Ek-ecUy2kvYUe0Thg.png">
 
-HTTP pipelining (image credit Wikipedia)
+HTTP 管线化（图片版权维基百科） 
 
-[HTTP pipelining](https://en.wikipedia.org/wiki/HTTP_pipelining)  is crucial here since it’s one of the optimizations that Japronto takes into account when executing requests.
+[HTTP 管线化](https://zh.wikipedia.org/zh-cn/HTTP%E7%AE%A1%E7%B7%9A%E5%8C%96)至关重要，因为这是 Japronto 在执行请求时考虑到的优化手段之一。
 
-Most of the servers execute requests from pipelining clients in the same fashion they would from non-pipelining clients. They don’t try to optimize it. (In fact Sanic and Meinheld will also silently drop requests from pipelining clients, which is a violation of HTTP 1.1 protocol.)
+大多数服务器执行管线化客户端请求的方式并不会和处理非管线化客户端请求有什么不同。也不会尝试进行优化。（事实上 Sanic 和 Meinheld 会静默丢弃管线化客户端发来的请求，这不符合 HTTP 1.1 协议。）
 
-In simple words, pipelining is a technique in which the client doesn’t need to wait for the response before sending subsequent requests over the same TCP connection. To ensure integrity of the communication, the server sends back several responses in the same order requests are received.
+简而言之，管线化技术让客户端不必等待响应就可以复用同一 TCP 连接发送后续的请求。为保证通信的完整性，服务端发送响应的顺序要和收到的请求的顺序一致。
 
-### The gory details of optimizations ###
+### 关于优化的有趣细节
 
-When many small GET requests are pipelined together by the client, there’s a high probability that they’ll arrive in one TCP packet (thanks to [Nagle’s algorithm](https://en.wikipedia.org/wiki/Nagle%27s_algorithm) ) on the server side, then be **read** back by one **system call**.
+客户端在合并许多小 GET 请求的时候，这些请求很有可能会发到服务端的同一个 TCP 包中去（这要归功于[纳格算法](https://zh.wikipedia.org/zh-cn/%E7%B4%8D%E6%A0%BC%E7%AE%97%E6%B3%95)），随后被一次**系统调用读取**。
 
-Doing a system call and moving data from kernel-space to user-space is a very expensive operation compared to, say, moving memory inside process space. That’s why doing it’s important to perform as few as necessary system calls (but no less).
+进行一次系统调用并将数据从内核空间移动到用户空间比在进程空间内移动内存要更加昂贵。这就是为什么只执行必需的系统调用非常重要（但是也不能过少）。
 
-When Japronto receives data and successfully parses several requests out of it, it tries to execute all the requests as fast as possible, glue responses back in correct order, then **write** back in **one system call**. In fact the kernel can aid in the gluing part, thanks to [scatter/gather IO](https://en.wikipedia.org/wiki/Vectored_I/O)  system calls, which Japronto doesn’t use yet.
+Japronto 收到数据并成功地解析了几个请求后，就会尝试尽快搞定所有的请求，并将响应以正确的顺序组合在一起，然后用**一次系统调用写回**。实际上内核在组合响应时亦可发挥作用，这要归功于 [scatter/gather IO](https://en.wikipedia.org/wiki/Vectored_I/O) 系统调用，不过 Japronto 还没有利用它。
 
-Note that this isn’t always possible, since some of the requests could take too long, and waiting for them would needlessly increase latency.
+不过要注意管线化并不总是可行，因为个别请求可能会耗费过长时间，等待它们会毫无必要地增加延迟。
 
-Take care when you tune heuristics, and consider the cost of system calls and the expected request completion time.
+在调整试探方法时请务必小心，既要考虑到系统调用的成本也要考虑到预估的完成请求的耗时。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*Xy5aoOtYNpq4DzPJUU6ihA.png">
 
-Japronto gives a 1,214,440 RPS median of grouped continuous data, calculated as the 50th percentile, using interpolation.
+Japronto 可以发出每秒请求数 (RPS) 中位数达 1,214,440 的分组连续数据，该数字使用内插法，取第五十百分位数算出。
 
-Besides delaying writes for pipelined clients, there are several other techniques that the code employs.
+除了延迟对管线化客户端的写操作外，Japronto 还用到了其他技术。
 
-[Japronto](https://github.com/squeaky-pl/japronto) is written almost entirely in C. The parser, protocol, connection reaper, router, request, and response objects are written as C extensions.
+[Japronto](https://github.com/squeaky-pl/japronto) 几乎完全用 C 语言实现。解析器，协议，连接收割机（connection reaper)，路由以及请求和响应对象都是 C 语言拓展。
 
-[Japronto](https://github.com/squeaky-pl/japronto)  tries hard to delay creation of Python counterparts of its internal structures until asked explicitly. For example, a headers dictionary won’t be created until it’s requested in a view. All the token boundaries are already marked before but normalization of header keys, and creation of several str objects is done when they’re accessed for the first time.
+除非明确要求，[Japronto](https://github.com/squeaky-pl/japronto) 会尽量推迟创建其内部结构对应的 Python 对象。比如除非在 view 中明确要求，Japronto 不会创建头部字典。所有的符号边界都已标记，但是标准化请求头的键名并创建字符串对象这种事只有在第一次被访问时才会做。
 
-Japronto relies on the excellent picohttpparser C library for parsing status line, headers, and a chunked HTTP message body. Picohttpparser directly employs text processing instructions found in modern CPUs with SSE4.2 extensions (almost any 10-year-old x86_64 CPU has it) to quickly match boundaries of HTTP tokens. The I/O is handled by the super awesome uvloop, which itself is a wrapper around libuv. At the lowest level, this is a bridge to epoll system call providing asynchronous notifications on read-write readiness.
+Japronto 使用出色的 picohttpparser 库来解析状态行，头部以及分块的 HTTP 消息体。Picohttpparser 直接调用有（几乎所有十年来的 x86_64 CPU 都有的） SSE4.2 拓展的现代 CPU 的文字处理指令，来迅速匹配 HTTP 符号边界。I/O 交由超级赞的 uvloop 处理，uvloop 本身就是 libuv 的包装器。在最底层这就是 epoll 系统调用的桥梁，提供了异步的读写就绪通知。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*I_QzQDSDqTVf04SwsEe3IQ.png">
 
-Picohttpparser relies on SSE4.2 and CMPESTRI x86_64 intrinsic to do parsing
+Picohttpparser 依赖 SSE4.2 和 CMPESTRI x86_64 intrinsic 进行解析。
 
-Python is a garbage collected language, so care needs to be taken when designing high performance systems so as not to needlessly increase pressure on the garbage collector. The internal design of [Japronto](https://github.com/squeaky-pl/japronto)  tries to avoid reference cycles and do as few allocations/deallocations as necessary. It does this by preallocating some objects into so-called arenas. It also tries to reuse Python objects for future requests if they’re no longer referenced instead of throwing them away.
+Python 具有垃圾回收机制，所以设计高性能系统时要小心不要给垃圾回收器带来不必要的压力。[Japronto](https://github.com/squeaky-pl/japronto) 的内部设计尽量避免循环引用，分配/释放内存亦非常节制。这是通过预先分配一些对象到所谓的「竞技场」实现的。Japronto 还会尝试复用不再被引用的 Python 对象到将来的请求上，而不是直接丢弃掉。
 
-All the allocations are done as multiples of 4KB. Internal structures are carefully laid out so that data used frequently together is close enough in memory, minimizing the possibility of cache misses.
+所有分配的内存大小都是 4KB 的整数倍。精心排布的内部结构将频繁使用的数据放在非常接近的内存区域中，这就最小化了缓存未命中的概率。
 
-Japronto tries to not copy between buffers unnecessarily, and does many operations in-place. For example, it percent-decodes the path before matching in the router process.
+Japronto 尝试避免不必要的跨缓冲区拷贝，许多操作都就地完成。比如它先百分比解码（注：即 URL 解码）路径，再进行路由的匹配。
 
-### Open source contributors, I could use your help. ###
+### 开源贡献者们，我需要你的帮助
 
-I’ve been working on [Japronto](https://github.com/squeaky-pl/japronto)  continuously for past 3 months — often during weekends, as well as normal work days. This was only possible due to me taking a break from my regular programmer job and putting all my effort into this project.
+我连续开发 [Japronto](https://github.com/squeaky-pl/japronto) 已有三月 —— 通常是在周末，也有工作日。这还是因为我放下了日常的开发工作，全身心投入到了这个项目。
 
-I think it’s time to share the fruit of my labor with the community.
+我想是时候和社区分享我劳动的果实了。
 
-Currently [Japronto](https://github.com/squeaky-pl/japronto)  implements a pretty solid feature set:
+[Japronto](https://github.com/squeaky-pl/japronto) 已实现了许多完善的特性：
 
-- HTTP 1.x implementation with support for chunked uploads
-- Full support for HTTP pipelining
-- Keep-alive connections with configurable reaper
-- Support for synchronous and asynchronous views
-- Master-multiworker model based on forking
-- Support for code reloading on changes
-- Simple routing
+- 实现了 HTTP 1.x ，支持分块上传
+- 完善的 HTTP 管线化支持
+- Keep-alive 连接，可配置的 reaper
+- 支持同步和异步 view
+- 基于 fork 的 Master-multiworker 模型
+- 支持变化时重载代码
+- 简化的路由
 
-I would like to look into Websockets and streaming HTTP responses asynchronously next.
+我接下来还打算研究一下 Websockets 和异步 HTTP 响应。
 
-There’s a lot of work to be done in terms of documenting and testing. If you’re interested in helping, please [contact me directly on Twitter](http://twitter.com/squeaky_pl) . Here’s [Japronto’s GitHub project repository](https://github.com/squeaky-pl/japronto) .
+还有许多文档和测试的工作有待完成。如果你想伸出援手，请直接在 [Twitter](http://twitter.com/squeaky_pl) 上与我联系。这是 Japronto 的 [GitHub 地址](https://github.com/squeaky-pl/japronto)。
 
-Also, if your company is looking for a Python developer who’s a performance freak and also does DevOps, I’m open to hearing about that. I am going to consider positions worldwide.
+ 同时，如果你的公司在招募热衷于压榨性能同时还会 DevOps 的 Python 开发者，请联系我。国外的公司我也会考虑。
 
-### Final words ###
+### 最后的话
 
-All the techniques that I’ve mentioned here are not really specific to Python. They could be probably employed in other languages like Ruby, JavaScript or even PHP. I’d be interested in doing such work, too, but this sadly will not happen unless somebody can fund it.
+我这里提到的所有技术其实都不是 Python 独占的。它们可能也可以用在其他语言上，比如 Ruby、JavaScript 甚至 PHP。我也想做这一部分的开发，不过除非有人赞助这基本上不太现实。
 
-I’d like to thank Python community for their continuous investment in performance engineering. Namely Victor Stinner @VictorStinner, [INADA Naoki](https://twitter.com/methane?lang=en)  @methane and Yury Selivanov @1st1 and entire PyPy team.
+我想感谢 Python 社区在优化性能方面持续的投入。具体就是感谢 Victor Stinner [@VictorStinner](https://twitter.com/VictorStinner)，INADA Naoki [@methane](https://twitter.com/methane)，Yury Selivanov [@1st1](https://twitter.com/1st1) 以及全体 PyPy 团队。
 
-For the love of Python.
+出于对 Python 的爱。
