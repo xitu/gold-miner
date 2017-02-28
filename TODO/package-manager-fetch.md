@@ -1,19 +1,36 @@
 > * 原文地址：[Using 'swift package fetch' in an Xcode project](http://www.cocoawithlove.com/blog/package-manager-fetch.html)
 * 原文作者：[Matt Gallagher](http://www.cocoawithlove.com/about/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[Gocy](https://github.com/Gocy015/)
 * 校对者：
 
 # Using 'swift package fetch' in an Xcode project #
+# 在 Xcode 项目中使用 swift package fetch 
 
 Up until now, the Cocoa with Love git repositories have included their dependencies as “git subtrees” where each dependency is copied and statically hosted within the depender. I want to replace this arrangement with a more dynamic dependency management while remaining totally transparent to users of the library.
 
 I’d like to use the Swift Package Manager for the task but it’s complicated by the fact that I don’t want the Swift Package Manager to be a required way to build any of these repositories. The Swift Package Manager has a very narrow range of build capabilities and I don’t want my libraries to be subject to these limitations.
 
 In this article, I’ll look at a hybrid approach where the Swift Package Manager is used as a behind-the-scenes tool to fetch dependencies for an otherwise manually configured Xcode project that continues to support the same target platforms and build structures from the previous “subtree” arrangement.
+
+到目前为止，Cocoa with Love 的 git 仓库都使用“git subtrees”来管理相关依赖，所有的依赖都被拷贝并静态存放于依赖方目录下。我希望能找到一种更动态地依赖管理方式来代替现有的方案，同时依赖方式对库使用者的不可见性（或者翻译成“同时保持库对使用者的抽象性”？或者校者有更好的翻译吗）。（译者注：[Cocoa with Love](https://www.cocoawithlove.com/)）
+
+我想要使用 Swift 包管理工具（Swift Package Manager）来解决这个问题，但我又不希望所有的仓库都必须依赖 Swift 包管理工具才能构建（build）。Swift 包管理工具所支持的构建范围相当有限，我可不愿意给我的库套上这些枷锁。
+
+在本文中，我会讨论一种混合（hybrid）的方法，Swift 包管理工具将替代手工配置 Xcode 项目的方案，充当获取依赖的幕后工具，同时，保持对原有“subtree”形式运行的目标平台和构建结构的支持。
+
 Contents
 
 - [Managing dependencies](#managing-dependencies)
+- [Hoping for the future](#hoping-for-the-future)
+- [Swift package fetch](#swift-package-fetch)
+- [Some kind of automated script](#some-kind-of-automated-script)
+- [Try it out](#try-it-out)
+- [Conclusion](#conclusion)
+
+目录
+
+- [依赖管理](#managing-dependencies)
 - [Hoping for the future](#hoping-for-the-future)
 - [Swift package fetch](#swift-package-fetch)
 - [Some kind of automated script](#some-kind-of-automated-script)
@@ -25,6 +42,9 @@ Contents
 The dependency graph for the CwlSignal library that I released last year is pretty simple:
 
 CwlCatchException ← CwlPreconditionTesting ← CwlUtils ← CwlSignal
+
+<span id="managing-dependencies">## 依赖管理</span>
+
 
 ### Git subtree ###
 
