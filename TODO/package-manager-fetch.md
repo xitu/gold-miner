@@ -37,14 +37,13 @@ Contents
 - [Try it out](#try-it-out)
 - [Conclusion](#conclusion)
 
-## Managing dependencies ##
+<!--## Managing dependencies ##-->
 
 The dependency graph for the CwlSignal library that I released last year is pretty simple:
 
 CwlCatchException ← CwlPreconditionTesting ← CwlUtils ← CwlSignal
 
-<span id="managing-dependencies">## 依赖管理</span>
-
+## 依赖管理 ##
 
 ### Git subtree ###
 
