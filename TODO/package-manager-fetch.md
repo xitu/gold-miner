@@ -30,7 +30,7 @@ Contents
 
 目录
 
-- [依赖管理](#managing-dependencies)
+- [依赖管理](#依赖管理)
 - [Hoping for the future](#hoping-for-the-future)
 - [Swift package fetch](#swift-package-fetch)
 - [Some kind of automated script](#some-kind-of-automated-script)
