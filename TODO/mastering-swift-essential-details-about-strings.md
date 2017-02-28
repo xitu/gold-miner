@@ -28,7 +28,7 @@ For `let myStr = "Hello, world"` you can access the following string views:
 - `myStr.utf16` is `String.UTF16View`. Useful to access the code unit values encoded in UTF16
 - `myStr.utf8` is `String.UTF8View`. Valuable to access the code unit values encoded in UTF8
 
-![CharacterView, UnicodeScalarView, UTF16View, UTF8View of strings in Swift](/content/images/2016/10/Swift-strings--3-.png)
+![CharacterView, UnicodeScalarView, UTF16View, UTF8View of strings in Swift](https://rainsoft.io/content/images/2016/10/Swift-strings--3-.png)
 
 Most of the time developer deals with simple string characters, without diving into details like encoding or code units.  
 
@@ -212,7 +212,7 @@ Notice that `first` and `last` properties are optional type `Character?`.
 
 In the empty string `empty` these properties are `nil`.
 
-![String indexes in Swift](/content/images/2016/10/Swift-strings--2--1.png)
+![String indexes in Swift](https://rainsoft.io/content/images/2016/10/Swift-strings--2--1.png)
 
 To get a character at specific position, you have to use `String.Index` type (actually an alias of `String.CharacterView.Index`). String offers a subscript that accepts `String.Index` to access the character, as well as pre-defined indexes `myString.startIndex` and `myString.endIndex`.  
 
@@ -538,9 +538,3 @@ Special index type adds a bit of complexity when accessing individual characters
 
 **P.S.** You might be interested to read my [detailed overview of array and dictionary literals in Swift](https://rainsoft.io/concise-initialization-of-collections-in-swift/).
 
-[Twitter](https://twitter.com/share?text=Mastering Swift: essential details about strings&amp;url=https://rainsoft.io/mastering-swift-essential-details-about-strings/) [Facebook](https://www.facebook.com/sharer/sharer.php?u=https://rainsoft.io/mastering-swift-essential-details-about-strings/) [Google+](https://plus.google.com/share?url=https://rainsoft.io/mastering-swift-essential-details-about-strings/) 
-[swift](/tag/swift/)[string](/tag/string/)[unicode](/tag/unicode/)[characterview](/tag/characterview/)[for-in](/tag/for-in/)![Dmitri Pavlutin](//www.gravatar.com/avatar/0d57a57d8807ebc70e24b46f6d9e3a36?s=250&amp;d=mm&amp;r=x)
-
-#### [Dmitri Pavlutin](/author/dmitri-pavlutin/) ####
-
-Web & mobile iOS developer. Swift and JavaScript languages fan. My routine is coding, blogging, learning, open sourcing and solving problems. [About me](/about-me/)
