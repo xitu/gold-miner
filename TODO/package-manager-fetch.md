@@ -4,14 +4,7 @@
 * 译者：[Gocy](https://github.com/Gocy015/)
 * 校对者：
 
-# Using 'swift package fetch' in an Xcode project #
-# 在 Xcode 项目中使用 swift package fetch 
-
-Up until now, the Cocoa with Love git repositories have included their dependencies as “git subtrees” where each dependency is copied and statically hosted within the depender. I want to replace this arrangement with a more dynamic dependency management while remaining totally transparent to users of the library.
-
-I’d like to use the Swift Package Manager for the task but it’s complicated by the fact that I don’t want the Swift Package Manager to be a required way to build any of these repositories. The Swift Package Manager has a very narrow range of build capabilities and I don’t want my libraries to be subject to these limitations.
-
-In this article, I’ll look at a hybrid approach where the Swift Package Manager is used as a behind-the-scenes tool to fetch dependencies for an otherwise manually configured Xcode project that continues to support the same target platforms and build structures from the previous “subtree” arrangement.
+# 在 Xcode 项目中使用 swift package fetch #
 
 到目前为止，Cocoa with Love 的 git 仓库都使用“git subtrees”来管理相关依赖，所有的依赖都被拷贝并静态存放于依赖方目录下。我希望能找到一种更动态地依赖管理方式来代替现有的方案，同时依赖方式对库使用者的不可见性（或者翻译成“同时保持库对使用者的抽象性”？或者校者有更好的翻译吗）。（译者注：[Cocoa with Love](https://www.cocoawithlove.com/)）
 
@@ -19,85 +12,77 @@ In this article, I’ll look at a hybrid approach where the Swift Package Manage
 
 在本文中，我会讨论一种混合（hybrid）的方法，Swift 包管理工具将替代手工配置 Xcode 项目的方案，充当获取依赖的幕后工具，同时，保持对原有“subtree”形式运行的目标平台和构建结构的支持。
 
-Contents
-
-- [Managing dependencies](#managing-dependencies)
-- [Hoping for the future](#hoping-for-the-future)
-- [Swift package fetch](#swift-package-fetch)
-- [Some kind of automated script](#some-kind-of-automated-script)
-- [Try it out](#try-it-out)
-- [Conclusion](#conclusion)
-
-目录
+内容
 
 - [依赖管理](#依赖管理)
-- [Hoping for the future](#hoping-for-the-future)
+- [展望未来](#展望未来)
 - [Swift package fetch](#swift-package-fetch)
 - [Some kind of automated script](#some-kind-of-automated-script)
 - [Try it out](#try-it-out)
 - [Conclusion](#conclusion)
-
-<!--## Managing dependencies ##-->
-
-The dependency graph for the CwlSignal library that I released last year is pretty simple:
-
-CwlCatchException ← CwlPreconditionTesting ← CwlUtils ← CwlSignal
 
 ## 依赖管理 ##
 
+我去年发布的 CwlSignal 库的依赖关系非常的简单：
+
+CwlCatchException ← CwlPreconditionTesting ← CwlUtils ← CwlSignal
+
 ### Git subtree ###
 
-Until now, I’ve been using [Git subtrees](https://github.com/git/git/blob/master/contrib/subtree/git-subtree.txt).
+直到现在，我都一直在使用 [Git subtrees](https://github.com/git/git/blob/master/contrib/subtree/git-subtree.txt)。
 
-In this arrangement, you don’t need to separately download any dependencies; if you browse [the previous structure of the CwlSignal repository](https://github.com/mattgallagher/CwlSignal/tree/72d4a10656ff4c8de8083e88f8651c5f7d0b8e47), you’ll notice that it contains [CwlUtils](https://github.com/mattgallagher/CwlSignal/tree/72d4a10656ff4c8de8083e88f8651c5f7d0b8e47/CwlUtils), which contains [CwlPreconditionTesting](https://github.com/mattgallagher/CwlSignal/tree/72d4a10656ff4c8de8083e88f8651c5f7d0b8e47/CwlUtils/CwlPreconditionTesting), which contains [CwlCatchException](https://github.com/mattgallagher/CwlSignal/tree/72d4a10656ff4c8de8083e88f8651c5f7d0b8e47/CwlUtils/CwlPreconditionTesting/CwlCatchException). This is not totally different to manually copying the files into each repository but with the minor advantage that if a dependency changes, I can easily pull changes into the depender with a simple subtree pull.
+在本例中，你不需要分别单独地下载每个依赖；如果你看看 [CwlSignal 仓库早些时候的结构](https://github.com/mattgallagher/CwlSignal/tree/72d4a10656ff4c8de8083e88f8651c5f7d0b8e47)，就会发现它包含了 [CwlUtils](https://github.com/mattgallagher/CwlSignal/tree/72d4a10656ff4c8de8083e88f8651c5f7d0b8e47/CwlUtils)，其中又包含了 [CwlPreconditionTesting](https://github.com/mattgallagher/CwlSignal/tree/72d4a10656ff4c8de8083e88f8651c5f7d0b8e47/CwlUtils/CwlPreconditionTesting)，其中又包含了 [CwlCatchException](https://github.com/mattgallagher/CwlSignal/tree/72d4a10656ff4c8de8083e88f8651c5f7d0b8e47/CwlUtils/CwlPreconditionTesting/CwlCatchException)。这和手动将每个文件拷贝到仓库中有相似之处，其唯一的小优势在于：如果依赖发生了改变，我只需简单地调用一个 subtree pull 就可以将更新同步到依赖方了。
 
-This arrangement has its problems. Subtrees scale poorly since changes need to be manually pulled into each subsequent link in the chain; you can’t easily update all dependencies with a single command. Each repository is bloated by needing to contain its dependencies. It also creates merge problems if you accidentally modify a dependency’s subtree in the depender then try to pull the dependency.
+这样的做法有着它的缺陷。在缺乏灵活性的树结构中，你必须沿着文件链，按顺序逐步拉取改动；你无法简单地用一个指令就更新所有的依赖。每个仓库都因为需要包含它的依赖而变得臃肿。而如果你无意间修改了依赖方的依赖树，那么在拉取依赖进行合并（merge）的时候也会遇到一些麻烦。
 
-None of these are major problems for a small, simple dependency graph like CwlSignal but they’ve always been concerns that I’ve wanted to address.
+对于依赖关系简单又轻便的 CwlSignal 库而言，这些都不是什么大问题，但这些问题和困扰我还是得指出来。
 
 ### Git submodules ###
 
-I could use [git submodule](https://git-scm.com/docs/git-submodule). In theory, it’s just a more dynamic approach for the problem that git subtrees solve. I feel as though git submodules should be ideal choice but in practice, git modules are not a transparent change to your git repository and their poor handling by git makes them confusing and frustrating for users.
+我也可以试试 [git submodule](https://git-scm.com/docs/git-submodule)。理论上说，它能更动态地解决 git subtrees 所解决的问题。我觉得 git submodules 应该是一个理想的选择，但实际操作起来发现，git modules 对你的仓库的改变是可见（not transparent）的，而 git 那寒酸地处理方式会把一切弄得晦涩难懂。
 
-It is possible to pull and push repositories in the wrong order and end up overwriting your changes. Switching from one dependency to another is complicated and often involves manually editing the contents of the “.git” directory. The “Download ZIP” functionality on Github becomes completely useless as the ZIP file omits the submodule references as do most other non-git means of managing your code.
+你有可能遇到 pull 和 push 指令顺序错乱而最终导致改动丢失的情况。改变依赖目标非常麻烦，而且通常需要你手动修改“.git”目录下的内容。Github 上面的“Download ZIP”功能变得毫无用处，因为 ZIP 文件就和其它大部分非 git 代码管理方式一样，会忽略对子模块的引用。
 
-In comparison to git subtrees which usually go unnoticed, submodules suffer from the fact that every user needs to be aware of the submodule arrangement and needs to run slightly different git commands just to fetch and update the repository correctly.
+submodules 的每个用户都要熟悉 submodule 的结构，并且每次都要微调 git 指令以确保拉取更新仓库的正确性，相比之下，git subtrees 中通常不需要注意这个问题。
 
-### Established package managers ###
+### 有保障的包管理工具 ###
 
-I could move to an established package manager like [CocoaPods](https://cocoapods.org) or [Carthage](https://github.com/carthage/carthage). While I should probably do more to improve compatibility with these systems for users who *want* to use them, I’d rather not force *everyone* to use them. For my own purposes, I’d rather avoid the loss of control over the workspace or build settings imposed by the use of these systems so I’d rather keep a workflow that can be used independent of these systems.
+我当然也可以用一些有保障的包管理工具，像是 [CocoaPods](https://cocoapods.org) 或是 [Carthage](https://github.com/carthage/carthage)。我确实应该进一步改进对这些工具的兼容性，以满足部分 **希望** 使用它们的用户，但我不希望强迫 **所有** 用户都使用它们。站在自己的角度出发，我更希望能自己独立掌控工作流，而不是依赖这些工具，让它们来控制工作区（workspace）或是构建配置（build settings）。
 
-### Swift Package Manager ###
+### Swift 包管理工具 ###
 
-Which brings me to the [Swift Package Manager](https://github.com/apple/swift-package-manager); a combined build-system and dependency manager.
+于是我选择了 [Swift 包管理工具](https://github.com/apple/swift-package-manager)；一个自带构建系统和依赖管理的综合方案。
 
-Does the Swift Package Manager offer anything new compared to the previous options I’ve mentioned? Well, it offers a new build system but my primary motivation here is dependency management; I wasn’t looking for a build system.
+和我前文提到的几个选项相比，Swift 包管理工具提供了新的特性吗？呃，它确实提供了一个全新的构建系统，但我的主要目标是依赖管理；我并没有想找一个构建系统。
 
-Using the Swift Package Manager isn’t going to have the weird effects on the repository that git submodules have. It is also bundled with Swift, so it’s a lower friction option than CocoaPods or Carthage – although I still don’t want to force users of my library to use the Swift Package Manager.
+使用 Swift 包管理工具不会出现像 git submodules 那样的诡异的问题，同时，它内嵌于 Swift 中，所以比起 CocoaPods 和 Carthage，它是个更自然的选择 - 尽管我还是不想让使用我的库的用户也必须使用 Swift 包管理工具。
 
-Is it possible to use the Swift Package Manager as a dependency resolver without using it as a build system?
+有没有可能只使用 Swift 包管理工具的依赖管理功能，而不使用它的构建系统？
 
-## Hoping for the future ##
+## 展望未来 ##
 
-When I said “my primary motivation here is dependency management; I wasn’t looking for a build system”, I wasn’t being totally honest. I *should* be primarily motivated by dependency management but truthfully, I’d also like to play around with the Swift Package Manager build system.
+我刚说“我的主要目标是依赖管理；我并没有想找一个构建系统”的时候，其实我撒了小谎。我 **理应** 是由于它出色的依赖管理能力而青睐它的，但老实说，我也很想试试 Swift 包管理工具的构建系统。
 
-Like [Apache Maven](https://maven.apache.org) or [Rust Cargo](https://github.com/rust-lang/cargo), the Swift Package Manager includes a convention-based build system. While some metadata is declared in a top-level manifest, the build is, as much as possible, determined by the organization of files in the repository. I’m a big fan of this type of build system; a build shouldn’t require substantial configuring. Assuming folder structure conventions are followed, it should be possible to infer most – even all – parameters for a build, rather than forcing the programmer to manually enumerate all aspects, every time.
+就像 [Apache Maven](https://maven.apache.org) 和 [Rust Cargo](https://github.com/rust-lang/cargo)，Swift 包管理工具包含了一个具有约定准则的构建系统。尽管一些元数据是在顶层清单（top-level manifest）中声明的，构建过程本身则尽可能由目录下的文件组织结构决定。我可是这种构建系统的忠实粉丝；构建不应该需要大量的配置。如果我们的目录结构遵循了约定，系统应该能够推测出大部分 - 甚至全部 - 的构建参数，而不是让开发者每次都列举出方方面面的参数。
 
-I would like to see Swift Package Manager projects become a project type in Xcode. Automatically keeping files sensibly in module folders rather than arbitrarily distributed around the filesystem and needing constant sheparding. Build settings inferred rather than configured through a vast array of tabs and inspectors. Dependencies viewable like the Xcode “Debug Memory Graph” display.
+我期待着 Swift 包管理工具项目成为 Xcode 模板工程的一种。自动化保持文件在各自模块目录下的逻辑，而不是随意存储在文件系统中却又要持续进行维护。构建参数通过推测生成，而不是在长串的标签和检查器中设置。依赖关系像 Xcode 中的“Debug Memory Graph”一样可视化展示。
 
-Obviously, though, Xcode doesn’t support the Swift Package Manager, yet (Swift Package Manager supports Xcode but it’s the other direction that’s more interesting to me). And, bluntly, until the Swift Package Manager can build apps, build for iOS, build for watchOS, build for tvOS, build mixed language modules, build bundles with resources, manage separate dependencies for tests or inline across modules, it won’t satisfy all the requirements of even a relatively simple library like CwlSignal.
+但很明显，Xcode 暂时还不支持 Swift 包管理工具（Swift 包管理工具支持 Xcode 但我对反向支持更感兴趣）。而且说实话，在 Swift 包管理工具支持构建应用，支持在 iOS 构建，支持在 watchOS 构建，支持在 tvOS 上构建，支持混语言模块构建，支持含有资源包的构建，并能够管理独立的测试依赖或跨模块内联之前，它甚至无法满足简单如 CwlSignal 库的所有需求。
 
-But I’d still like to support the Swift Package Manager as a *secondary* build option in the hope that it in a couple years it will be possible to make it the *primary* option.
+（译者注：通过 Swift 包管理工具生成的项目，支持使用 `swift package generate-xcodeproj` 指令转化成普通的 Xcode 项目，但目前 Xcode 项目无法转化成 Swift 包管理工具格式的项目）
+
+但我依然支持你把 Swift 包管理工具作为 **次要** 构建选择，并希望几年后，它能够成为我的 **主要** 选择。
+
 
 ## Swift package fetch ##
 
-Wanting to use the Swift Package Manager for dependency management but not as the primary build system creates some problems.
+想使用 Swift 包管理工具的依赖管理功能，但不将其作为首要构建系统导致了一些问题。
 
-Summarizing what need to be done:
+总的来说我们要完成以下几件事：
 
-1. Support the Swift Package Manager (for both building and fetching dependencies)
-2. Make Xcode projects refer to the files downloaded by Swift Package Manager.
-3. Make everything transparent to the user.
+1. 对 Swift 包管理工具进行支持（包括构建和依赖获取）。
+2. 让 Xcode 工程依赖 Swift 包管理工具下载的文件。
+3. 确保上述操作对用户的不可见性。
 
 ### 1. Support the Swift Package Manager ###
 
@@ -115,6 +100,23 @@ The signficant work was actually across the following tasks (in no particular or
 8. Move Info.plist files around. These are generated automatically by the Swift-PM but must manually exist for Xcode – Swift-PM must be set to ignore them all (all projects).
 
 There was also a non-zero amount of effort involved in accepting how the conventions of the Swift Package Manager work and letting it guide some aspects of the build.
+
+### 1. 对 Swift 包管理工具进行支持 ###
+
+配置好 “Package.swift” 文件，向仓库中添加语义上的版本标签并确保依赖的正确拉取只是微不足道的工作。
+
+真正的重点是下列任务（排列顺序无关）：
+
+1. 将项目目录层级调整为遵循 Swift 包管理工具约定中规定的结构（本例中涉及所有项目）。
+2. 将 Objective-C 和 Swift 混编的模块拆分为独立模块（本例中涉及除 CwlSignal 外所有项目）。
+3. 确保在 `#if SWIFT_PACKAGE` 判断下，`import` 步骤 2 中所创建的新模块（本例中涉及除 CwlSignal 外所有项目）。
+4. 将“.h”头文件拆分出来，这样我们就可以通过一个 Xcode 全局头文件或是 Swift-PM 中的模块头文件来一并引入它们（例中涉及除 CwlSignal 外所有项目）。
+5. 确保将步骤 2 中所影响到的模块中的 `internal` 关键字改为 `public`，以确保它们能被正常访问（本例中涉及 CwlCatchException）。
+6. 移除所有对 `DEBUG` 或其他非 Swift 包管理工具设置条件的依赖（本例中涉及 CwlDeferredWork 和 CwlUtils、CwlSignal 的测试文件）。
+7. 对于具有双向依赖关系的 Objective-C 和 Swift 文件，将 Objective-C 中的依赖改为动态寻找以避免模块循环依赖（本例中涉及 CwlMachBadInstructionHandler）。
+8. 移动 Info.plist 文件。这些文件是 Swift 包管理工具自动生成的，但它们必须被手动迁移到 Xcode 中 - Swift 包管理工具必须设置成忽略这些文件（本例中涉及所有项目）。
+
+另外，学习了解 Swift 包管理工具的约定和工作模式，并让其引导构建的某些方面的过程也花了我们不少工夫。
 
 ### 2. Make Xcode projects refer to the files downloaded by Swift Package Manager ###
 
