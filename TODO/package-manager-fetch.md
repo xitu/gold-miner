@@ -17,9 +17,9 @@
 - [依赖管理](#依赖管理)
 - [展望未来](#展望未来)
 - [Swift package fetch](#swift-package-fetch)
-- [Some kind of automated script](#some-kind-of-automated-script)
-- [Try it out](#try-it-out)
-- [Conclusion](#conclusion)
+- [自动化脚本](#自动化脚本)
+- [来试试看吧](#来试试看吧)
+- [总结](#总结)
 
 ## 依赖管理 ##
 
@@ -63,7 +63,7 @@ submodules 的每个用户都要熟悉 submodule 的结构，并且每次都要�
 
 我刚说“我的主要目标是依赖管理；我并没有想找一个构建系统”的时候，其实我撒了小谎。我 **理应** 是由于它出色的依赖管理能力而青睐它的，但老实说，我也很想试试 Swift 包管理工具的构建系统。
 
-就像 [Apache Maven](https://maven.apache.org) 和 [Rust Cargo](https://github.com/rust-lang/cargo)，Swift 包管理工具包含了一个具有约定准则的构建系统。尽管一些元数据是在顶层清单（top-level manifest）中声明的，构建过程本身则尽可能由目录下的文件组织结构决定。我可是这种构建系统的忠实粉丝；构建不应该需要大量的配置。如果我们的目录结构遵循了约定，系统应该能够推测出大部分 - 甚至全部 - 的构建参数，而不是让开发者每次都列举出方方面面的参数。
+就像 [Apache Maven](https://maven.apache.org) 和 [Rust Cargo](https://github.com/rust-lang/cargo)，Swift 包管理工具包含了一个具有约定准则的构建系统。尽管一些元数据是在顶层清单（top-level manifest）中声明的，构建过程本身则尽可能由目录下的文件组织结构决定。我可是这种构建系统的忠实粉丝；构建不应该需要大量的配置。如果我们的目录结构遵循了约定，系统应该能够推测出大部分（甚至全部）的构建参数，而不是让开发者每次都列举出方方面面的参数。
 
 我期待着 Swift 包管理工具项目成为 Xcode 模板工程的一种。自动化保持文件在各自模块目录下的逻辑，而不是随意存储在文件系统中却又要持续进行维护。构建参数通过推测生成，而不是在长串的标签和检查器中设置。依赖关系像 Xcode 中的“Debug Memory Graph”一样可视化展示。
 
@@ -84,23 +84,6 @@ submodules 的每个用户都要熟悉 submodule 的结构，并且每次都要�
 2. 让 Xcode 工程依赖 Swift 包管理工具下载的文件。
 3. 确保上述操作对用户的不可见性。
 
-### 1. Support the Swift Package Manager ###
-
-Setting up the “Package.swift” file, adding semantic version tags to repositories and making sure that dependencies are fetched is trivial.
-
-The signficant work was actually across the following tasks (in no particular order):
-
-1. Reorganize my folders to follow the convention-based structure expected by the Swift Package Manager (all projects).
-2. Separate my mixed Objective-C/Swift modules into separate modules (all projects except CwlSignal).
-3. Under a `#if SWIFT_PACKAGE` guard, be certain to `import` the new modules created by the separation in step 2 (all projects except CwlSignal).
-4. Separate my “.h” files so that they can be included from a project-wide umbrella header as in Xcode or from a module header as in Swift-PM (all projects except CwlSignal).
-5. Ensure that symbols affected by step 2 that were previously `internal` were `public` so they remained accessible (CwlCatchException).
-6. Remove any reliance on `DEBUG` or other conditions not set by the Swift Package Manager (CwlDeferredWork and tests in CwlUtils and CwlSignal).
-7. In Objective-C files that needed to both reference and be referenced by Swift, changed the references from Objective-C to Swift to dynamic lookups to avoid circular module dependencies (CwlMachBadInstructionHandler).
-8. Move Info.plist files around. These are generated automatically by the Swift-PM but must manually exist for Xcode – Swift-PM must be set to ignore them all (all projects).
-
-There was also a non-zero amount of effort involved in accepting how the conventions of the Swift Package Manager work and letting it guide some aspects of the build.
-
 ### 1. 对 Swift 包管理工具进行支持 ###
 
 配置好 “Package.swift” 文件，向仓库中添加语义上的版本标签并确保依赖的正确拉取只是微不足道的工作。
@@ -118,43 +101,43 @@ There was also a non-zero amount of effort involved in accepting how the convent
 
 另外，学习了解 Swift 包管理工具的约定和工作模式，并让其引导构建的某些方面的过程也花了我们不少工夫。
 
-### 2. Make Xcode projects refer to the files downloaded by Swift Package Manager ###
+### 2. 让 Xcode 工程依赖 Swift 包管理工具下载的文件
 
-In Swift 3.0, dependencies are placed in “./Packages/ModuleName-X.Y.Z” where X.Y.Z is the semantic version tag of checkout. Obviously, this will change if you ever change the version depended upon.
+在 Swift 3.0 版本中，依赖都被放置在“./Packages/ModuleName-X.Y.Z”目录下，X，Y，Z 是相应的语义版本号。显然，这个路径会随着依赖版本的改变而改变。
 
-Swift 3.1 and later place dependencies in “./.build/checkout/ModuleName-XXXXXXXX” where XXXXXXXX is a hash derived from the repository URL. The hash is not guaranteed to be stable and as far as I can tell, the path format is undocumented and subject to change.
+在 Swift 3.1 以及更新的版本中，依赖被放置在“./.build/checkout/ModuleName-XXXXXXXX”目录下，其中 XXXXXXXX 是仓库 URL 的 hash 值。这个 hash 值是可能会变化的，并且据我所知，该路径的格式未在文档中提及而且随时可能改变。
 
-Clearly, we can’t point Xcode directly at either of these since they’re subject to change. We need to create symlinks from a stable location to these subject-to-change locations. This means that we need a simple way to determine the current locations.
+因此，我们不能直接将 Xcode 项目中的路径直接指向上述的目录。我们需要创建一个稳定的符号链接（symlink）而不是依赖可能变化的实际路径。这意味着我们需要想一个简单的办法来确定当下的路径。
 
-The closest we get to a documented solution for handling these paths is the output to the following command:
+我们能在文档定义范围内找到的最靠谱的解决路径问题的方案，源于以下这条指令：
 
 ```
 swift package show-dependencies --format json
 
 ```
 
-The output from this command offers a JSON structure that includes the module names and the checkout paths. While there’s no guarantee that this structure will remain stable in the future, it is *currently* stable across 3.0 and 3.1 so it’s better than simply enumerating directories.
+这条指令会输出一条 JSON 结构的信息，其中包含了模块名和 checkout 的路径。尽管我们没法保证该结构能保持可靠，但 **就目前来说** 它在 3.0 到 3.1 版本中都表现良好，这可比遍历整个目录结构好多了。
 
-We need to create symlinks from a stable location to the locations detailed in this JSON file.
+我们需要将符号链接从一个稳定路径细化为 JSON 文件中所描述的具体路径。
 
-I chose to use the location “./.build/cwl_symlinks/ModuleName” to store a symlink to the actual location used by either Swift 3.0 or Swift 3.1 package managers. This creates the minor risk of collision in the scenario where two dependencies have the same module name but different origin or version but outside of that possibility it should offer a stable location that my Xcode projects can use to find these dependencies. When I change the version of a library that I depend upon or the hash changes (because I’m switching between local and remote versions of a repository for testing) or something else that affects the path, all we’ll need to do is update the symlink.
+我选择用“./.build/cwl_symlinks/ModuleName”路径来存储包含 Swift 3.0 以及 3.1 版本的包管理工具所使用的具体路径的符号链接。尽管这样可能出现依赖模块同名但不同源、不同版本的冲突风险，但若不考虑这细微的可能，该路径应该能稳定地指引 Xcode 找到其依赖项。如果我更新了依赖库的版本或是 hash 值改变了（我常出于测试目的，在本地分支和远端分支间切换）或是其它因素导致路径变化了，我们只需要更新符号链接就可以了。
 
-Getting Xcode to keep a path through the symlink rather than immediately resolve the symlink is a little tricky. While using Swift 3.1, I actually created a duplicate of each “./.build/checkout/ModuleName-XXXXXXXX” folder at the “./.build/cwl_symlinks/ModuleName” location, added all the files to Xcode before deleting the duplicate and creating a symlink at “./.build/cwl_symlinks/ModuleName” pointing to “./.build/checkout/ModuleName-XXXXXXXX”.
+想让 Xcode 引用符号链接来间接获取路径，而不是立刻解析符号链接还有些棘手。在使用 Swift 3.1 版本的时候，我实际上还在“./.build/cwl_symlinks/ModuleName”目录下拷贝了一分“./.build/checkout/ModuleName-XXXXXXXX”目录，并将所有文件拖入 Xcode 中，然后再删除该份拷贝，并在“./.build/cwl_symlinks/ModuleName”目录下创建指向“./.build/checkout/ModuleName-XXXXXXXX”的符号链接。
 
-### 3. Making everything transparent to the user ###
+### 3. 确保操作对用户的不可见性 ###
 
-We now have two non-transparent steps that we need to eliminate:
+现在，我们有以下两个对用户可见的操作需要消除：
 
-1. Run `swift package fetch` to get the dependencies.
-2. Create symlinks in a stable location for all dynamically fetched dependencies.
+1. 获取依赖时执行的 `swift package fetch` 指令。
+2. 在稳定的目录下，为所有动态获取的依赖创建符号链接文件。
 
-For this, we’ll need some kind of automated script.
+要达到目标，我们需要写一个自动化脚本。
 
-## Some kind of automated script ##
+## 自动化脚本 ##
 
-We need a “Run script” build phase at the top of any Xcode target with external dependencies.
+我们需要为所有有外部依赖的 Xcode 项目添加一个用来“运行脚本”的构建阶段（“Run Script” build phase）。
 
-When you add a “Run script” build phase to Xcode, it defaults to “/bin/sh”. I got about 5 lines into that before remembering that I’m terrible at bash so I change the “Shell” value for the build phase to “/usr/bin/xcrun –sdk macosx swift” (since I need to ensure the macOS SDK is used, even when building targets for iOS or other platforms) and set the script to the following code. Some of the parsing and configuring is a little dense but you should be able to read the comments to get a general feel for what’s happening.
+当你为 Xcode 添加“运行脚本”的构建阶段时，它默认指向“/bin/sh”。由于我对 bash 相关指令不熟，所以我把构建阶段的“Shell”值改为“/usr/bin/xcrun –sdk macosx swift”（这么做是因为即便构建目标是 iOS 或其它平台，我仍然需要保证使用了 macOS SDK）并将下列代码添加到脚本中。其中的一些解析和配置逻辑或许有些复杂，但配合注释你应该可以理解大致的思路。
 
 ```
 import Foundation
@@ -225,27 +208,24 @@ do {
 }
 ```
 
-Compiling and running this code takes about a second but it would still be better to avoid that overhead after the first run. You can add `$(SRCROOT)/Package.swift` to the “Input Files” list for the Run Script and add one of `$(SRCROOT)/.build/cwl_symlinks/ModuleName` (where “ModuleName” is a modules fetched by the task) for each dependency fetched by the Swift Package Manager. This will prevent Xcode re-running unless the “Package.swift” file changes or the module symlink is deleted, eliminating that additional second of overhead.
+编译运行这段代码大概会花掉一秒钟时间，时间不长，但如果能在首次运行后就省去这段时间就更好了。你可以向运行脚本的“Input Files”列表中添加 `$(SRCROOT)/Package.swift` 并为每个 Swift 包管理工具所获取到的依赖添加一个 `$(SRCROOT)/.build/cwl_symlinks/ModuleName` （ModuleName 是获取到的模块名）。这就能避免 Xcode 在“Package.swift”没有改变或模块符号链接未被删除时反复运行脚本，如此便可以节省一秒的编译时间。
 
-> **Irony note:** To avoid the static inclusion of dependencies, I’ve statically included this file in each repository.
+> **说着有点讽刺：** 为了避免静态包含依赖，我转而在每个仓库中静态包含了这个文件。
 
-## Try it out ##
+## 来试试看吧 ##
 
-You can inspect or download the [CwlCatchException](https://github.com/mattgallagher/CwlCatchException), [CwlPreconditionTesting](https://github.com/mattgallagher/CwlPreconditionTesting), [CwlUtils](https://github.com/mattgallagher/CwlUtils) and [CwlSignal](https://github.com/mattgallagher/CwlSignal) projects from github. They now all support the Swift Package Manager for building on macOS. Theoretically, the Swift Package Manager opens up the possibility of some of these on Linux but that’ll be an exercise for another day.
+你可以查看或下载 Github 上的 [CwlCatchException](https://github.com/mattgallagher/CwlCatchException)，[CwlPreconditionTesting](https://github.com/mattgallagher/CwlPreconditionTesting)，[CwlUtils](https://github.com/mattgallagher/CwlUtils) 以及 [CwlSignal](https://github.com/mattgallagher/CwlSignal) 工程。这些工程现在支持在 macOS 上用 Swift 包管理工具进行构建。理论上说，Swift 包管理工具为这其中某些库在 Linux 上运行提供了可能，但这部分内容我们留到下次探索。
 
-This is an experimental change to these repositories. There’s every likelihood that I’ve broken something or ignored a better option, somehow. Create an issue on github if you encounter any problems or have a suggestion for a better approach.
+这是一次对这些仓库的实验性变更。出于某些原因，我可能犯下了一些错误或是忽略了更好地选择。如果你遇到任何问题或是有任何更好的建议，欢迎在 github 上提交 issue。
 
-## Conclusion ##
+## 总结 ##
 
-I’m glad to remove the git subtree inclusion of dependencies and replace it with something more dynamic.
+能把 git subtree 的依赖包含方案替换成一个更动态的方案，我十分开心。
 
-I’m also happy to have Swift Package Manager support. It’s not Linux support yet (give me time) but it works really smoothly and – other than needing to change a lot of paths – wasn’t particularly difficult.
+我还十分庆幸有 Swift 包管理工具的支持。它暂时还不支持 Linux（别急嘛）但它的工作流程确实流畅（虽然要修改一大堆路径配置）而且不会特别难用。
 
-If it was possible to completely switch to the Swift Package Manager for all use cases, then that would be the end of the story and everything would be a lot cleaner. Unfortunately, current versions of the Swift Package Manager can’t handle a large number of build scenarios (including apps and iOS/watchOS/tvOS platforms) so it’s necessary to keep Xcode as the primary build environment and that means integrating the two.
+如果能够将所有用例都完全转为依赖 Swift 包管理工具，那么事情就变简单了、结构也就更清晰了。但可惜，现版本的 Swift 包管理工具还无法处理大量不同的构建场景（包含其它应用以及在 iOS/watchOS/tvOS 平台构建），所以将 Xcode 当作首选构建环境还是相当必要的，但这意味着你需要集成两者。
 
-The “Run Script” build phase works pretty well to hide fetch machinery. Things are going to fail if you don’t have a internet connection when trying to build for the first time, but otherwise it should be transparent and effortless. By setting the “Input Files and “Output Files” for the “Run Script” build step, the minor overhead of compiling and running this step is eliminated in almost all cases so it’s very low interference.
+“运行脚本”的构建阶段很好的隐藏了拉取依赖的过程。尽管没有网络连接时，首次构建会失败，但正常情况下它应该是不可见的，不需要特殊处理。为“运行脚本”的构建阶段设置好“Input Files”和“Output Files”，能够消除绝大部分场景下构建和运行阶段所产生的额外消耗，因此其不会产生太多影响。
 
-I do have concerns that this build script is liable to break while the Swift Package Manager remains under a high rate of change. I’m sure I’ll need to keep an eye on future Swift Package Manager updates – particularly any that might affect the `swift package show-dependencies --format json` output.
-
-Previous article:
-[Compiling a Mac OS 8 application on macOS Sierra](/blog/porting-from-macos8-to-sierra.html)
+但我确实担心，在 Swift 包管理工具如此频繁的更新率下，这个构建脚本会很容易失效。我知道今后我要时刻关注 Swift 包管理工具的更新 - 尤其是任何可能影响到 `swift package show-dependencies --format json` 输出结果的。
