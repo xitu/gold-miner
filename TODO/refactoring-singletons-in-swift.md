@@ -11,16 +11,16 @@
 ## 使代码库更加简洁，模块化，和可测试的技巧 2017 年 2 月 10 日 ##
 
 In software development, [singletons](https://en.wikipedia.org/wiki/Singleton_pattern) are widely [discouraged](https://www.objc.io/issues/13-architecture/singletons/) and [frowned upon](http://coliveira.net/software/day-19-avoid-singletons/) — but with good reason. They are difficult or impossible to test, and they entangle your codebase when used implicitly in other classes, making code reuse difficult. Most of the time, a singleton amounts to nothing more than a disguise for global, mutable state. Everyone knows at least knows *that* is a terrible idea. However, singletons are occasionally an unavoidable and necessary evil. How can we incorporate them into our code in a clean, modular, and testable way?
-在软件开发中，[单例模式](https://en.wikipedia.org/wiki/Singleton_pattern)被广泛的[不推荐](https://www.objc.io/issues/13-architecture/singletons/)和[不赞成](http://coliveira.net/software/day-19-avoid-singletons/)因为以下原因。它们难以测试或者说是不可能测试，当它们在其他类中隐式调用时会使你的代码库混乱。大部分时候，一个单例其实就相当于一个伪全局变量。每个人都知道，至少知道这是一个糟糕的主意。然而，单例有时又是不可避免且必须的。我们如何能把它们用一种整洁，模块化的和可测试化的方法整合到我们的代码中呢？
+在软件开发中，[单例模式](https://en.wikipedia.org/wiki/Singleton_pattern)有足够的原因被广泛的[不推荐](https://www.objc.io/issues/13-architecture/singletons/)和[不赞成](http://coliveira.net/software/day-19-avoid-singletons/)。它们难以测试或者说是不可能测试，当它们在其他类中隐式调用时会使你的代码库混乱，让代码难以复用。大部分时候，一个单例其实就相当于一个伪全局变量。每个人都知道，至少知道这是一个糟糕的主意。然而，单例有时又是不可避免且必须的。我们如何能把它们用一种整洁，模块化的和可测试化的方法整合到我们的代码中呢？
 
 ### Singletons everywhere ###
 ### 随处可见的单例 ###
 
 On Apple platforms, singletons are everywhere in the Cocoa and Cocoa Touch frameworks. There’s `UIApplication.shared`, `FileManager.default`, `NotificationCenter.default`, `UserDefaults.standard`, `URLSession.shared`, and others. The design pattern even has its own section in the [*Cocoa Core Competencies*](https://developer.apple.com/library/content/documentation/General/Conceptual/DevPedia-CocoaCore/Singleton.html#//apple_ref/doc/uid/TP40008195-CH49-SW1) guide.
-在苹果平台，单例在 Cocoa 还有 Cocoa Touch 框架中随处可见。比如 `UIApplication.shared`，`FileManager.default`，`NotificationCenter.default`， `UserDefaults.standard`，`URLSession.shared` 等等。这个设计模式甚至在[*Cocoa Core Competencies*](https://developer.apple.com/library/content/documentation/General/Conceptual/DevPedia-CocoaCore/Singleton.html#//apple_ref/doc/uid/TP40008195-CH49-SW1)指导中有自己的章节。
+在苹果平台，单例在 Cocoa 还有 Cocoa Touch 框架中随处可见。比如 `UIApplication.shared`，`FileManager.default`，`NotificationCenter.default`， `UserDefaults.standard`，`URLSession.shared` 等等。这个设计模式甚至在 [*Cocoa Core Competencies*](https://developer.apple.com/library/content/documentation/General/Conceptual/DevPedia-CocoaCore/Singleton.html#//apple_ref/doc/uid/TP40008195-CH49-SW1) 指导中有自己的章节。
 
 When you implicitly reference these — and your own — singletons, it increases the amount of effort it takes to change your code. It also makes it difficult or impossible to test your code, because there’s no way to change or mock those singletons from outside of the classes in which they are used. Here’s what you typically see in an iOS app:
-当你隐式的引用这些单例，还有你自己的单例的时候，会增加你更新维护代码的工作量。它还会让你的代码难以测试，因为你没有办法在这些单例类外任何使用它们的地方改变它们或使它们失效。
+当你隐式的引用这些单例，还有你自己的单例的时候，会增加你更新维护代码的工作量。它还会让你的代码难以测试，因为并没有任何方法在单例的使用类的外面去改变或者模拟这些单例。下面是我们在 iOS app 中常见的用法：
 ```
 class MyViewController: UIViewController {
 
@@ -45,7 +45,7 @@ class MyViewController: UIViewController {
 ```
 
 This is what I mean by *implicit references* — you simply use the singleton directly in your class. We can do better. There is a lightweight, easy, and low impact way to improve this in Swift. Swift makes it elegant, too.
-这就是我所说的**隐式引用** - 你很容易在类中直接使用单例。我们可以做到更好。我们有更简单，轻量级，低影响的方式在 Swift 中进行优化。Swift让此更加优雅。
+这就是我所说的**隐式引用** - 你简单的在类中直接使用单例。我们可以做到更好。我们有更简单，轻量级，低影响的方式在 Swift 中进行优化。Swift让此更加优雅。
 
 ### Dependency injection ###
 ### 依赖注入 ###
@@ -88,7 +88,7 @@ class MyViewController: UIViewController {
 ```
 
 This class no longer implicitly (or explicitly) depends on any singletons. It explicitly depends on a `CurrentUserManager`, `UserDefaults`, and `URLSession` — but nothing about these dependencies indicates that they are singletons. This detail no longer matters, but the functionality remains unchanged. The view controller merely knows that instances of these objects exist. At the call site you can pass in the singletons. Again, this detail is irrelevant from the class’s perspective.
-这个类不不再隐式地（或显式地）依赖于任何单例。它现在显式的依赖于`CurrentUserManager`，`UserDefaults`和`URLSession`，但是这些依赖关系表明它们是单例。这个细节不再重要,但是功能却保持不变。控制器仅仅是知道这些实例对象的存在而已。在调用方你可以传入单例。同样，这个细节从类的角度来看是不相关的。
+这个类不不再隐式地（或显式地）依赖于任何单例。它现在显式的依赖于`CurrentUserManager`，`UserDefaults`和`URLSession`，但是这些依赖关系并没有表明它们是单例。这个细节不再重要,但是功能却保持不变。控制器仅仅是知道这些实例对象的存在而已。在调用方你可以传入单例。同样，这个细节从类的角度来看是不相关的。
 ```
 let controller = MyViewController(userManager: .shared, defaults: .standard, urlSession: .shared)
 
@@ -99,7 +99,7 @@ Pro tip: Swift type inference works here. Instead of writing `URLSession.shared`
 专业提示：Swift 的类型判断在此处有用。你可以简单的写`.shared`来代替`URLSession.shared`。
 
 If you ever need to provide a *different*`userDefaults` — for example, if you need to [share data with App Groups](https://developer.apple.com/library/content/documentation/General/Conceptual/ExtensibilityPG/ExtensionScenarios.html#//apple_ref/doc/uid/TP40014214-CH21-SW6) — then it’s easy to change. In fact, you *do not* have to change any code in this class. Instead of passing in `UserDefaults.standard`, you pass in `UserDefaults(suiteName: "com.myApp")`.
-如果你需要提供一个**不同的** `userDefaults`。例如，你需要在[应用组间共享数据](https://developer.apple.com/library/content/documentation/General/Conceptual/ExtensibilityPG/ExtensionScenarios.html#//apple_ref/doc/uid/TP40014214-CH21-SW6)，这很容易变化。事实上，你**不需要**改变这个类中的任何代码。你只需要传入 `UserDefaults(suiteName: "com.myApp")` 来代替 `UserDefaults.standard` 即可。
+如果你需要提供一个**不同的** `userDefaults`。例如，你需要在[应用组间共享数据](https://developer.apple.com/library/content/documentation/General/Conceptual/ExtensibilityPG/ExtensionScenarios.html#//apple_ref/doc/uid/TP40014214-CH21-SW6)，这很容易修改。事实上，你**不需要**修改这个类中的任何代码。你只需要传入 `UserDefaults(suiteName: "com.myApp")` 来代替 `UserDefaults.standard` 即可。
 
 Furthermore, in unit tests you can now pass in fakes or mocks of these classes. Real mocking isn’t possible in Swift, but there are [workarounds](/testing-without-ocmock/). It depends on how you want to structure your code. You could use a protocol for `CurrentUserManager`, which you could then “mock” in a test. You could provide a fake suite for `UserDefaults` for testing. You could make `URLSession` optional and pass `nil` in your tests.
 此外，在单元测试中你可以传入假的或者无效的这些类。真的伪装类在 Swift 中不可能，但是有[解决办法](/testing-without-ocmock/)。这取决于你想如何构建你的代码。你可以为 `CurrentUserManager` 使用一个协议，让你可以在测试中“伪装”。你可以为 `UserDefaults` 提供一个假的套件进行测试。你可以在测试中使 `URLSession`  可选，并传入 `nil` 。
@@ -109,10 +109,10 @@ Furthermore, in unit tests you can now pass in fakes or mocks of these classes. 
 
 
 You are sold on this idea and now you want to disentangle and liberate your debt-stricken codebase. While dependency injection is ideal and gives you a more pure object model, it is often a struggle to achieve. Even more, code is rarely designed to accommodate this when it is first written.
-抛弃这个想法，你现在想把你的代码库从混乱中解脱出来。虽然依赖注入是理想的并且给你更纯粹的对象模型，但它通常是难以实现的。甚至代码在第一次写为这种类型时是难以兼容的。
+抛弃这个想法，你现在想把你的代码库从混乱中解脱出来。虽然依赖注入是理想的并且给你更纯粹的对象模型，但它通常是难以实现的。甚至一开始写代码时几乎不会为兼容依赖注入做设计。
 
 What we refactored above is now more modular and testable — but there is a real problem. The initializer for `MyViewController` used to be empty (`init()`), but now it takes three parameters. Every single call site has to change. The clean and proper way to structure this would be to pass instances from the top down, or from the previous view controller to this one. This would require passing data from the root of your object graph to all the children. In iOS in particular, this can cause quite the headache as you pass data from view controller to view controller. Legacy codebases in particular will struggle to implement such a large change immediately.
-我们下面即将进行的重构会更加模块化和可测试，但也有个很实际的问题。 `MyViewController` 的初始化过去是空的 (`init()`) ,但现在带了三个参数。每个调用方都必须进行更改。更清晰和恰当的方式来对此进行重构，应该是至顶向下的传递实例，或者从前一层控制器传入到当前层。这可能需要你将数据从对象图的根节点传递到所有子节点。尤其是在 iOS 中，数据在控制器间的传递是很让人头痛的。尤其是遗留代码更难以快速实现这个变化。
+我们前面进行的重构会更加模块化和可测试，但也有个很实际的问题。 `MyViewController` 的初始化过去是空的 (`init()`) ,但现在带了三个参数。每个调用方都必须进行更改。更清晰和恰当的方式来对此进行重构，应该是至顶向下的传递实例，或者从前一层控制器传入到当前层。这可能需要你将数据从对象图的根节点传递到所有子节点。尤其是在 iOS 中，数据在控制器间的传递是很让人头痛的。尤其是遗留代码更难以快速实现这个变化。
 
 The initializer for most classes (and especially view controllers) will need to change. Such a change becomes insurmountable as you realize that you literally have to refactor the entire app. Either everything will be broken, or only some classes will be updated for dependency injection while others will continue to reference singletons implicitly. This inconsistency could cause problems in the future.
 大部分类（尤其是控制器）的初始化方法都需要修改。这种修改是难以应付的，不夸张的说你会意识到你需要重构整个应用 。要么所有的东西都会被打破重构，要么就只有一部分类根据依赖注入更新而其他的则继续隐式引用单例。这个不一致可能会在将来造成一些问题。
@@ -145,7 +145,7 @@ class MyViewController: UIViewController {
 ```
 
 Now, the initializer has not changed from the perspective of the call site. But there is a world of difference in the class itself, which is now using dependency injection and no longer referencing singletons.
-现在，初始化方法再调用方的角度来看是没有变化的。但是类本身有一个世界的差异，就是现在使用依赖注入而不再引用单例了。
+现在，初始化方法再调用方的角度来看是没有变化的。但是类本身有极大的差异，就是现在使用依赖注入而不再引用单例了。
 ```
 let controller = MyViewController()
 
@@ -153,7 +153,7 @@ present(controller, animated: true, completion: nil)
 ```
 
 What have you gained with this change? You can refactor every class to use this pattern without updating any call sites. Nothing has changed semantically, nor functionally. Yet, your classes are using dependency injection. They are merely using instances internally. You can test them as described above and maintain a flexible, modular API — all while the public interface remains unchanged. Essentially, you can continue working in your codebase as if nothing ever changed.
-你从这个变化中获得了什么？你可以用这个模式重构所有的类而不用更新任何调用方的代码。语义上没有变化，功能上也没有。然而，你的类已经在使用依赖注入了。它们很少贼内部使用实例。你可以使用上述的方法进行测试然后维护一个灵活的，模块化的 API ，所有的公共接口都保持不变。基本上，你可以像什么都没有改变一样继续在你的代码库上工作。
+你从这个变化中获得了什么？你可以用这个模式重构所有的类而不用更新任何调用方的代码。语义上没有变化，功能上也没有。然而，你的类已经在使用依赖注入了。它们很少在内部使用实例。你可以使用上述的方法进行测试然后维护一个灵活的，模块化的 API，所有的公共接口都保持不变。基本上，你可以像什么都没有改变一样继续在你的代码库上工作。
 
 If and when the time comes to pass in custom, non-singleton parameters you can do that without changing any class. You only need to update the call sites. Furthermore, if you decide to implement full-fledged dependency injection and pass in every single dependency from the top downward, then you simply remove the default parameters and pass in the dependencies from above.
 假如到了需要传入自定义参数，非单例参数的时候你可以不用改变任何类就可以做到。你只需要更新调用方。此外，如果你决定完全实现依赖注入并且自顶向下的传入所有依赖，你只需要简单的移除默认参数并且从顶部传入依赖即可。
