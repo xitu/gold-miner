@@ -78,14 +78,14 @@ class MyViewController: UIViewController {
 
 ```
 
-这个类不不再隐式地（或显式地）依赖于任何单例。它现在显式的依赖于`CurrentUserManager`，`UserDefaults`和`URLSession`，但是这些依赖关系并没有表明它们是单例。这个细节不再重要,但是功能却保持不变。控制器仅仅是知道这些实例对象的存在而已。在调用方你可以传入单例。同样，这个细节从类的角度来看是不相关的。
+这个类不不再隐式地（或显式地）依赖于任何单例。它现在显式的依赖于 `CurrentUserManager`，`UserDefaults` 和 `URLSession`，但是这些依赖关系并没有表明它们是单例。这个细节不再重要,但是功能却保持不变。控制器仅仅是知道这些实例对象的存在而已。在调用方你可以传入单例。同样，这个细节从类的角度来看是不相关的。
 ```
 let controller = MyViewController(userManager: .shared, defaults: .standard, urlSession: .shared)
 
 present(controller, animated: true, completion: nil)
 ```
 
-专业提示：Swift 的类型判断在此处有用。你可以简单的写`.shared`来代替`URLSession.shared`。
+专业提示：Swift 的类型判断在此处有用。你可以简单的写 `.shared` 来代替 `URLSession.shared`。
 
 如果你需要提供一个**不同的** `userDefaults`。例如，你需要在[应用组间共享数据](https://developer.apple.com/library/content/documentation/General/Conceptual/ExtensibilityPG/ExtensionScenarios.html#//apple_ref/doc/uid/TP40014214-CH21-SW6)，这很容易修改。事实上，你**不需要**修改这个类中的任何代码。你只需要传入 `UserDefaults(suiteName: "com.myApp")` 来代替 `UserDefaults.standard` 即可。
 
