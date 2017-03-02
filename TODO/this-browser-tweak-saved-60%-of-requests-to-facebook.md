@@ -6,7 +6,7 @@
 
 # 这项浏览器调整使 Facebook 收到的网络请求减少了 60% #
 
-在过去两年里，我们 Facebook 一直与浏览器厂商合作，以求改进浏览器的缓存效果。合作的成果是，Chrome和Firefox最近推出的功能使其缓存机制在我们和整个网络上的效率显著提高。在这些改进的帮助下，发向我们服务器的静态资源请求数量减少了 60％，因此大大提高了网页加载时间。（静态资源是指服务器从磁盘上读取的文件，服务器不用运行任何额外的代码便能对外提供它们）这篇文章将详细说明为了得到这样的效果，我们联合 Chrome 和 Firefox 做了什么 —— 不过我们需要先定义一些概念和语义环境，这有助于解释我们需要解决的问题。首先要讲的是，重新验证。
+在过去两年里，我们 Facebook 一直与浏览器厂商合作，以求改进浏览器的缓存效果。合作的成果是，Chrome 和 Firefox 最近推出的功能使其缓存机制在我们和整个网络上的效率显著提高。在这些改进的帮助下，发向我们服务器的静态资源请求数量减少了 60％，因此大大提高了网页加载时间。（静态资源是指服务器从磁盘上读取的文件，服务器不用运行任何额外的代码便能对外提供它们）这篇文章将详细说明为了得到这样的效果，我们联合 Chrome 和 Firefox 做了什么 —— 不过我们需要先定义一些概念和语义环境，这有助于解释我们需要解决的问题。首先要讲的是 —— 重新验证。
 
 ## 每次重新验证意味着另一个请求 ##
 
@@ -65,7 +65,7 @@
 
 ## **条件请求**太多 ##
 
-2014 年，我们发现 60％ 的静态资源请求会得到 304 响应。由于内容定址 URL 永远不会改变，这意味着有机会优化掉 60％ 的静态资源请求。 在 [Scuba](https://www.facebook.com/notes/facebook-engineering/under-the-hood-data-diving-with-scuba/10150599692628920/)的帮助下 ，我们开始研究条件请求的数据。我们注意到，不同浏览器的表现之间存在巨大差异。
+2014 年，我们发现 60％ 的静态资源请求会得到 304 响应。由于内容定址 URL 永远不会改变，这意味着有机会优化掉 60％ 的静态资源请求。 在 [Scuba](https://www.facebook.com/notes/facebook-engineering/under-the-hood-data-diving-with-scuba/10150599692628920/) 的帮助下 ，我们开始研究条件请求的数据。我们注意到，不同浏览器的表现之间存在巨大差异。
 
 ![](https://fb-s-c-a.akamaihd.net/h-ak-xat1/v/t39.2365-6/16180519_427963810928354_1151983436504760320_n.jpg?oh=1ac60c43dd09ea9cabfeab1066c2d1ed&oe=58FDE361&__gda__=1493046161_b41dc531b43ad09f295b50d434b0fd5e)
 
@@ -109,7 +109,6 @@ $ curl https://example.com/foo.png
 
 Firefox 很快实现了 `cache-control:immutable` 这一机制，并在 Chrome 全面发行其对刷新行为的终极改进的时候推出了这一机制。你可以在 [这里](https://l.facebook.com/l.php?u=https%3A%2F%2Fhacks.mozilla.org%2F2017%2F01%2Fusing-immutable-caching-to-speed-up-the-web%2F&amp;h=ATPlpvy6viRY3IThq2PSQFIuzSkd6fGeHb26V6X7kf8LWPShGs1CaOVLU7heN6SCS4yEBEFQSgv1phHYMZoT8v3aRo_P1xc6n_KhkyvOg6mJKNcmcf0NJ4-py-mhnQBqXg&amp;s=1) 阅读更多关于 Firefox 的改进的内容。
 
-There is a bit more developer overhead for Firefox's change, but after we modified our servers to add the immutable header we began to see some great results.
 按照 Firefox 的方案，我们会有些开发成本。但是我们修改服务端代码添加 immutable header 后，得到了一些很好的结果。
 
 ## 改进之后 ##
