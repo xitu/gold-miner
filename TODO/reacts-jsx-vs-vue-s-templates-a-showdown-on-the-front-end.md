@@ -1,13 +1,12 @@
 > * 原文地址：[React’s JSX vs Vue’s templates: a showdown on the front end](https://medium.freecodecamp.com/reacts-jsx-vs-vue-s-templates-a-showdown-on-the-front-end-b00a70470409#.wbkkiga1e)
 * 原文作者：[Juan Vega](https://medium.freecodecamp.com/@juanmvega)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者： 
-* 校对者：
+* 译者：[ZhangFe](https://github.com/ZhangFe)
+* 校对者：[Tina92](https://github.com/Tina92)  [zhouzihanntu](https://github.com/zhouzihanntu)
 
 ---
 
 # React JSX vs Vue 模板：前端界的一次对决
-(感觉标题翻译的不是很好)
 ![](https://cdn-images-1.medium.com/max/2000/1*QH4RGlNwXUFnJSytytvb6A.jpeg)
 
 React.js 与 Vue.js 是地球上最受欢迎的两个 JavaScript 库。他们都非常强大并且相对容易上手和使用。
@@ -18,7 +17,7 @@ React 和 Vue 的共同点:
 - 提供响应式的视图组件
 - 保持对视图的关注
 
-伴随着如此多的相同点,你可能会怀疑它们就是同一个库的不同版本。
+伴随着如此多的相同点，你可能会怀疑它们就是同一个库的不同版本。
 
 不过这两个库有一个主要的区别：就是他们如何授权给你（开发者）创建你自己的视图组件，甚至是你的应用。
 
