@@ -35,7 +35,7 @@ Hackborne是这样说的：
 
 > 应用组件（activities, services, providers, receivers）是用于和操作系统互动的接口；不推荐把它们作为架构整个应用的核心。
 
-Hackborne 和 Haase 几乎明确地反对 android-centric 架构。我说“几乎”，因为看起来他们并不反对把 `Fragment` 作为我们应用的构件。然而，尽管“ `Activity` 不是应用的合适组件” However, there’s a tension between the idea `Activity`s are not suitable app components and that `Fragment`s are, and that tension is as strong as the the many similarities between the two components.
+Hackborne 和 Haase 几乎明确地反对 android-centric 架构。我说“几乎”，因为看起来他们并不反对把 `Fragment` 作为我们应用的构件。然而，尽管“ `Activity` 不是应用的合适组件”和“ `Fragment` 是应用的合适组件”两种观点之间存在着冲突，这两种组件仍然是有很多共同点的。
 
 似乎可以说：Google 通过以前的 [Google I/O 应用样例](https://github.com/google/iosched) 和官方文档建议人们使用 android-centric 架构。Android  文档的“应用组件”一节是一个很好的例子。 [本节介绍](https://developer.android.com/guide/components/index.html) 告诉读者，他们将会学到“如何建造构成你的应用的*基本组件*（包括 `Activity` 和 `Fragment`）。”
 
@@ -49,6 +49,6 @@ Hackborne 和 Haase 几乎明确地反对 android-centric 架构。我说“几�
 
 耦合和内聚直接影响了你的代码的可读性和灵活性。所以如果这句话是对的而且 `Activity` 和 `Fragment` 很难进行单元测试（即使你没有看过[我的](/post/why-we-should-stop-putting-logic-in-activities/) [帖子]也很可能知道这一点），那么单元测试就可以告诉我们 `Activity` 和 `Fragment` 并不是理想的用于构建应用的组件。这样，我们就可以在 Google 告诉我们之前，也在痛苦的开发经验之前，发现这个结论。
 
-### Next Time…
+### 下一次…
 
-In the next post, I’ll try and fail to write an example test against an `Activity` and show exactly how the tight coupling and low cohesion of `Activity`s makes testing difficult. Next, I’ll test drive the same functionality, and we’ll end up with testable code. In the following post, I’ll show how the resulting code is loosely coupled and highly cohesive and talk about some of the benefits of these properties, including how they open up novel solutions to common problems on Android, like runtime permissions and intermittent connectivity.
+在下一篇帖子中，我将尝试对 `Activity` 写一个测试。这个测试将会失败，以显示低内聚高耦合的 `Activity` 使测试变得多么困难。接下来，我将用测试驱动同一个功能的实现，最终得到可测试的代码。在接下来的帖子中，我将说明所得到的代码是高内聚低耦合的，并讨论这些性质的一些益处。它们可以对 Android 常见的问题提出新的解决方案，例如运行时权限和连接不稳定等。
