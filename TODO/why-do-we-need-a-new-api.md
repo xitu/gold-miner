@@ -9,16 +9,16 @@
 多年来，Web 一直向着与移动原生应用等价的方向发展，并且新增了许多以前没有的特性。
 如今，浏览器支持了其中的大部分特性，从离线模式到用 Service Workers 增强体验以及 Geolocation 和 NFC。
 
-但其中最重要的功能仍然缺失，但在移动应用上已经广泛使用了，那就是共享页面，文章或一些特定数据的能力。
+但有一种已经在移动应用上广泛使用的重要功能，仍然缺失，，那就是分享页面，文章或一些特定数据。
 
-Web 分享 API 是填补 Web 应用和原生分享功能之间缺口的第一步，它将把原生的分享能力带到 Web 端。
+Web 分享 API 是填补这种缺失的第一步，它将把原生的分享能力带到 Web 端。
 
 # 为什么需要新的 API
 
 Previous years there were many tries to deliver some API/agreement for the sharing in
 the mobile Web applications:
 
-之前许多年里，在移动 Web 应用上尝试实现了一些 API/协议 能够实现共享功能：
+前几年，在移动 Web 应用上尝试实现了一些 API/协议 能够实现分享功能：
 
 1）[Web Intents](http://webintents.org/) 在 Chrome 15 引入并实现，但在 [Chrome 24 中废弃](https://developer.chrome.com/apps/app_intents)
 
@@ -112,7 +112,7 @@ const sharePage = () => {
 
 ![](https://hospodarets.com/img/blog/1485720302108099000.gif)
 
-绝大多数通用方案中，如果你想拥有从任何页面分享数据的能力，但是并不确定是 Open Graph 还是其他标签，
+绝大多数情况下，如果你想拥有从任何页面分享数据的能力，但是并不确定是 Open Graph 还是其他标签，
 这里有一个通用方案：
 
 ```
@@ -129,7 +129,7 @@ navigator.share({
 
 如果没有提供规范 link，那么分享的就是默认 URL。 
 
-最新建议，如果不可用的话（浏览器不支持，设备没有分享功能等），别忘了禁用或降级分享功能。
+最新建议，如果不可用的话（浏览器不支持，设备没有分享功能等），别忘了禁用或撤销分享功能。
 
 ```
 if(!navigator.share){
@@ -147,7 +147,8 @@ if(!navigator.share){
 
 简而言之，Origin Trial 使得开发者能够在固定一段时间内启用 API。
 这将给予供应商和 API 作者/提供商 反馈。
-你可以把这解释为网站启用了一个类似浏览器 flag。
+你可以把它理解为你的网站可以在浏览器下启用分享的一个标志。
+你可以在这里找到一些可用的尝试 [here](https://github.com/jpchase/OriginTrials/blob/gh-pages/available-trials.md)。
 
 要启用 Web 分享 API，你需要：
 
