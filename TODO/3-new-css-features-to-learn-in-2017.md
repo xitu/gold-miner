@@ -2,7 +2,7 @@
 * 原文作者：[ireaderinokun](https://twitter.com/ireaderinokun)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者： [熊贤仁](https://github.com/FrankXiong)
-* 校对者： [Professor-Z](https://github.com/Professor-Z) [aleen42](https://github.com/aleen42)
+* 校对者： [vuuihc](https://github.com/vuuihc) [aleen42](https://github.com/aleen42)
 
 # 2017 年要去学的 3 个 CSS 新属性
 
