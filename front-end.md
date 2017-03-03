@@ -1,3 +1,4 @@
+* [为多个品牌和应用构建 React 组件](https://gold.xitu.io/entry/58b92529128fe1007e4493da/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([XatMassacrE](https://github.com/XatMassacrE) 翻译)
 * [编写 React 组件的最佳实践](https://gold.xitu.io/entry/58b3bbf6b123db0052d23e42/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([imink](https://github.com/imink) 翻译)
 * [如何实现 React 组件的可复用性](https://gold.xitu.io/entry/58ac4eb58d6d810058c1d325?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([aleen42](https://github.com/aleen42) 翻译)
 * [React 中“灵光乍现”的那些瞬息](https://gold.xitu.io/entry/58aaec530ce463006b14aa69?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([aleen42](https://github.com/aleen42) 翻译)
