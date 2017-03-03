@@ -37,7 +37,7 @@ Hackborne是这样说的：
 
 Hackborne 和 Haase 几乎明确地反对 android-centric 架构。我说“几乎”，因为看起来他们并不反对把 `Fragment` 作为我们应用的构件。然而，尽管“ `Activity` 不是应用的合适组件”和“ `Fragment` 是应用的合适组件”两种观点之间存在着冲突，这两种组件仍然是有很多共同点的。
 
-似乎可以说：Google 通过以前的 [Google I/O 应用样例](https://github.com/google/iosched) 和官方文档建议人们使用 android-centric 架构。Android  文档的“应用组件”一节是一个很好的例子。 [本节介绍](https://developer.android.com/guide/components/index.html) 告诉读者，他们将会学到“如何建造构成你的应用的**基本组件**（包括 `Activity` 和 `Fragment`）。”
+似乎可以说：Google 通过以前的 [Google I/O 应用样例](https://github.com/google/iosched) 和官方文档建议人们使用 android-centric 架构。Android  文档的“应用组件”一节是一个很好的例子。 [本节介绍](https://developer.android.com/guide/components/index.html) 告诉读者，他们将会学到“如何建造构成你的应用的**基本组件**（包括 `Activity` 和 `Fragment`）”。
 
 在过去几年中，很多 Android 开发者 —— 包括我自己 —— 开始意识到 `Activity` 和 `Fragment` 通常并不是他们应用的有用的构件。包括 [Square](https://medium.com/square-corner-blog/advocating-against-android-fragments-81fd0b462c97)，[Lyft](https://eng.lyft.com/building-single-activity-apps-using-scoop-763d4271b41#.mshtjz99n) 和 [Uber](https://eng.uber.com/new-rider-app/) 在内的一些公司都正在远离  android-centric 架构。两种常见的抱怨是：随着应用不断变得更加复杂，代码变得**难以理解**以及**在处理多种用例时过于死板**。
 
@@ -45,10 +45,10 @@ Hackborne 和 Haase 几乎明确地反对 android-centric 架构。我说“几�
 
 *Growing Object Oriented Software Guided by Tests* 中的内容很好地解释了可测试性和容易理解、灵活的代码之间的关系：
 
-> 要想让一个类易于单元测试，这个类必须低耦合高内聚 —— 换句话说，设计得好。
+> 要想让一个类易于单元测试，这个类必须……低耦合高内聚 —— 换句话说，设计得好。
 
 耦合和内聚直接影响了你的代码的可读性和灵活性。所以如果这句话是对的而且 `Activity` 和 `Fragment` 很难进行单元测试（即使你没有看过[我的](/post/why-we-should-stop-putting-logic-in-activities/) [帖子]也很可能知道这一点），那么单元测试就可以告诉我们 `Activity` 和 `Fragment` 并不是理想的用于构建应用的组件。这样，我们就可以在 Google 告诉我们之前，也在痛苦的开发经验之前，发现这个结论。
 
 ### 下一次…
 
-在下一篇帖子中，我将尝试对 `Activity` 写一个测试。这个测试将会失败，以显示低内聚高耦合的 `Activity` 使测试变得多么困难。接下来，我将用测试驱动同一个功能的实现，最终得到可测试的代码。在接下来的帖子中，我将说明所得到的代码是高内聚低耦合的，并讨论其带来的一些好处 —— 如何对 Android 常见问题提出新的解决办法，比如运行时权限，不稳定的连接等。
+在下一篇帖子中，我将尝试对 `Activity` 写一个测试。这个测试将会失败，以显示低内聚高耦合的 `Activity` 使测试变得多么困难。接下来，我将用测试驱动同一个功能的实现，最终得到可测试的代码。在接下来的帖子中，我将说明所得到的代码是高内聚低耦合的，并讨论这些性质的一些益处。它们可以对 Android 常见的问题提出新的解决方案，例如运行时权限和连接不稳定等。
