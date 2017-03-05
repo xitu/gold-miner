@@ -2,7 +2,7 @@
 * 原文作者：[Philosophical Hacker](https://www.philosophicalhacker.com)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者： [tanglie1993](https://github.com/tanglie1993)
-* 校对者：
+* 校对者：[yunshuipiao](https://github.com/yunshuipiao), [skyar2009](https://github.com/skyar2009)
 
 ![](https://www.philosophicalhacker.com/images/broken-brick.jpg)
 
@@ -26,12 +26,12 @@
 
 我怀疑我们采用 android-centric 架构的一部分原因是 Google 直到不久以前才搞清楚 `Activity` 和 `Fragment` 是什么。在比 Android 文档更不正规和更不明显的渠道中，[Chet Haase](https://medium.com/google-developers/developing-for-android-vii-the-rules-framework-concerns-d0210e52eee3#.1o25pxfat) 和 [Diane Hackborne](https://plus.google.com/+DianneHackborn/posts/FXCCYxepsDU) 都表示 `Activity` 并不是人们想要用来构建应用的东西。
 
-Hackborne是这样说的：
+Hackborne 是这样说的：
 > …从它的 Java 语言 API 和相当高层的概念来看，它像是一个典型的应用框架，用于指示应用应当如何工作。但就大部分情况而言，它不是。
 > 
 > 大概把 Android API 称为“系统框架”会更合适。大多数情况下，我们提供的平台 API 是用于定义一个应用如何与操作系统互动的；但对于任何从纯粹在应用内部运行的东西而言，这些 API 和它并没有什么关系。
 
-而Haase是这样说的：
+而 Haase 是这样说的：
 
 > 应用组件（activities, services, providers, receivers）是用于和操作系统互动的接口；不推荐把它们作为架构整个应用的核心。
 
@@ -47,7 +47,7 @@ Hackborne 和 Haase 几乎明确地反对 android-centric 架构。我说“几�
 
 > 要想让一个类易于单元测试，这个类必须低耦合高内聚 —— 换句话说，设计得好。
 
-耦合和内聚直接影响了你的代码的可读性和灵活性。所以如果这句话是对的而且 `Activity` 和 `Fragment` 很难进行单元测试（即使你没有看过[我的](/post/why-we-should-stop-putting-logic-in-activities/) [帖子]也很可能知道这一点），那么单元测试就可以告诉我们 `Activity` 和 `Fragment` 并不是理想的用于构建应用的组件。这样，我们就可以在 Google 告诉我们之前，也在痛苦的开发经验之前，发现这个结论。
+耦合和内聚直接影响了你的代码的可读性和灵活性。所以如果这句话是对的而且 `Activity` 和 `Fragment` 很难进行单元测试（即使你没有看过[我的](/post/why-we-should-stop-putting-logic-in-activities/) [帖子](https://www.philosophicalhacker.com/2015/04/17/why-android-unit-testing-is-so-hard-pt-1/) 也很可能知道这一点），那么单元测试就可以告诉我们 `Activity` 和 `Fragment` 并不是理想的用于构建应用的组件。这样，我们就可以在 Google 告诉我们之前，也在痛苦的开发经验之前，发现这个结论。
 
 ### 下一次…
 
