@@ -164,7 +164,7 @@ render((
 ), document.getElementById('app'));
 ```
 
-*(→* *[*full source code on GitHub*](https://github.com/technology-ebay-de/universal-react-router4/blob/master/src/client/index.js)* *)*
+*(→[**full source code on GitHub**](https://github.com/technology-ebay-de/universal-react-router4/blob/master/src/client/index.js)\)*
 
 Much simpler than the server-side version! The *render* function in [line 1](https://gist.github.com/pahund/7c8a3f92800003105ca38bf2cf7eb5b6#file-index-js-L1) is just the [render function of ReactDOM](https://facebook.github.io/react/docs/rendering-elements.html#rendering-an-element-into-the-dom). It attaches the layout rendered by my React components to a DOM node.
 

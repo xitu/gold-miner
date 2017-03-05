@@ -1,4 +1,4 @@
-
+* [重构 Swift 中单例的用法](https://gold.xitu.io/entry/58b81150570c3500598fc567/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Karthus1110](https://github.com/Karthus1110)翻译)
 * [Bob，我要怎样才能成为一名 iOS 开发者](https://gold.xitu.io/entry/58b153c38fd9c50063d38068/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([thanksdanny](https://github.com/thanksdanny)翻译)
 * [步入 Swift 3](https://gold.xitu.io/entry/58aa701fda2f60006fa9978f/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([DeepMissea](https://github.com/DeepMissea)翻译)
 * [iOS 开发中使用 Swift 进行 iBeacons 交互指南](https://gold.xitu.io/entry/58a6f4091b69e6006d275610/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lovelyCiTY](https://github.com/lovelyCiTY) 翻译)
