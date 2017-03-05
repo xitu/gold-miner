@@ -1,12 +1,12 @@
 > * 原文地址：[A cartoon intro to WebAssembly](https://hacks.mozilla.org/2017/02/a-cartoon-intro-to-webassembly/)
 * 原文作者：[Lin Clark](https://code-cartoons.com/@linclark)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者： 
+* 译者： [根号三](https://github.com/sqrthree)
 * 校对者：
 
 # A cartoon intro to WebAssembly
 
-# WebAssembly 的介绍
+# 关于 WebAssembly 的一篇介绍
 
 WebAssembly is fast. You’ve probably heard this. But what is it that makes WebAssembly fast?
 
