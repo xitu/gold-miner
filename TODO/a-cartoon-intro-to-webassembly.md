@@ -6,7 +6,7 @@
 
 # A cartoon intro to WebAssembly
 
-# 关于 WebAssembly 的一篇介绍
+# 看漫画，学 WebAssembly
 
 WebAssembly is fast. You’ve probably heard this. But what is it that makes WebAssembly fast?
 
