@@ -2,14 +2,14 @@
 * 原文作者：[Serg Hospodarets](https://blog.hospodarets.com/about)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Jiang Haichao](https://github.com/AceLeeWinnie)
-* 校对者：
+* 校对者：[xilihuasi](https://github.com/xilihuasi),[IridescentMia](https://github.com/IridescentMia)
 
 # Web 分享 API 赋予浏览器原生分享能力
 
 多年来，Web 一直向着与移动原生应用等价的方向发展，并且新增了许多以前没有的特性。
 如今，浏览器支持了其中的大部分特性，从离线模式到用 Service Workers 增强体验以及 Geolocation 和 NFC。
 
-但有一种已经在移动应用上广泛使用的重要功能，仍然缺失，，那就是分享页面，文章或一些特定数据。
+但有一种已经在移动应用上广泛使用的重要功能，仍然缺失，那就是分享页面，文章或一些特定数据。
 
 Web 分享 API 是填补这种缺失的第一步，它将把原生的分享能力带到 Web 端。
 
@@ -44,7 +44,7 @@ the mobile Web applications:
 
 如今的 Web 分享 API 是基于 [Promise](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise) 的非阻塞API 的最佳实践。
 
-正如其他大多数分享 API 一样，你能够分享的数据包括 `title`, `url` 和 `text`（必填参数）。
+正如其他大多数分享 API 一样，你能够分享的数据包括 `title`, `url` 和 `text`（三者至少一项为必填项）。
 下面是允许分享图片数据或/和文件对象的方案。
 
 如下所示：
@@ -124,8 +124,8 @@ navigator.share({
 })
 ```
 
-[`link[rel=canonical]`](https://en.wikipedia.org/wiki/Canonical_link_element) 代表可选但是比 `<link>` 元素更通用，
-意思是网站有例如 `mobile` 的前缀，URL 或者 URL 的其他部分不能被分享。
+[`link[rel=canonical]`](https://en.wikipedia.org/wiki/Canonical_link_element) 代表可选但是更通用的 `<link>` 元素，
+意思是使用这个元素内 href 标签指向的 URL。 如果网站的 URL 有例如 `mobile` 的前缀或者其他内容，则这个 URL 不应该被分享。
 
 如果没有提供规范 link，那么分享的就是默认 URL。 
 
