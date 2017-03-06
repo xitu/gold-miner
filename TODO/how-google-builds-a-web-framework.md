@@ -2,7 +2,7 @@
 * 原文作者：[Filip Hracek](https://medium.freecodecamp.com/@filiph)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者： [fghpdf](https://github.com/fghpdf) 
-* 校对者：
+* 校对者：[dubuqingfeng](https://github.com/dubuqingfeng) [Germxu](https://github.com/Germxu)
 
 # Google 是如何构建 web 框架的
 
@@ -14,15 +14,15 @@
 
 对于不在 Google 的众多开发者来说，这件事非常的令人吃惊和违背常理，但是这个代码仓库却工作的非常好。（上面链接里的文章提供了很好的例子，所以我在此不再赘述。）
 
-> Google 的代码库为 Google 在全球各个国家和地区超过 2 万 5 千名的官方开发人员提供代码共享服务。在具有代表性的工作日中，这些开发者有 16,000 份代码修改提交给代码库。([来源](http://cacm.acm.org/magazines/2016/7/204032-why-google-stores-billions-of-lines-of-code-in-a-single-repository/fulltext))
+> Google 的代码库为 Google 在全球各个国家和地区超过 2 万 5 千名的官方开发人员提供代码共享服务。在具有代表性的工作日中，这些开发者有 16,000 份代码修改提交给代码库。（[来源](http://cacm.acm.org/magazines/2016/7/204032-why-google-stores-billions-of-lines-of-code-in-a-single-repository/fulltext)）
 
-这篇文章讲述构建一个开源 web 框架([AngularDart](https://webdev.dartlang.org/angular))的一些细节
+这篇文章讲述构建一个开源 web 框架 [AngularDart](https://webdev.dartlang.org/angular) 的一些细节
 
 ![](https://cdn-images-1.medium.com/max/800/1*42xyxKFKI9a0j0BWuHGIHg.jpeg)
 
 ### 只有一个版本
 
-当你在一个巨大的项目中采用主从式的开发模式，这个项目中的任何东西都只有一个版本。即使这种情况显而易见，但这里还是指出一下，因为这种情况意味着 — 在 Google  — 不可能有一款叫做 FooBar 的应用程序用着 AngularDart 2.2.1 版本，而另一款叫做 BarFoo 的应用程序却用着 2.3.0 版本。所有的 app 都必须使用的是同一个版本 (AngularDart)  — 最新的版本。
+当你在一个巨大的项目中采用主从式的开发模式，这个项目中的任何东西都只有一个版本。即使这种情况显而易见，但这里还是指出一下，因为这种情况意味着 — 在 Google  — 不可能有一款叫做 FooBar 的应用程序用着 AngularDart 2.2.1 版本，而另一款叫做 BarFoo 的应用程序却用着 2.3.0 版本。所有的 app 都必须使用的是同一个版本 (AngularDart)  —— 最新的版本。
 
 ![](https://cdn-images-1.medium.com/max/800/0*vdQqatZdTxZ9CUDs.)
 
@@ -30,11 +30,11 @@
 
 这就是为什么 Google 的员工会说，他们的软件都采用的是及时更新的先进技术。
 
-如果你的整个灵魂尖叫着“危险”！现在，是可以理解的。仅仅依靠处于生产环境中的代码仓库中的主干（类似 'master' 分支在 git 中）听起来很危险。但它却真实的在进行。
+如果你的整个灵魂尖叫着“危险”！现在是可以理解的。仅仅依靠处于生产环境中的代码仓库中的主干（类似 “master” 分支在 git 中）听起来很危险。但它却真实的在进行。
 
 ### 每一个提交有着 7 万 4 千个测试
 
-AngularDart 定义了 1601 个测试 ([AngularDart 的测试](https://github.com/dart-lang/angular2/tree/master/test))。但是当你在 Google 的仓库中提交了一份关于 AngularDart 的代码改动时，这个代码仓库就会让每一个依赖这个框架的 Google 员工执行测试。目前，一份提交大约有 7 万 4 千个测试（这取决于你提交的代码有多大的改动 — 一种让系统知道你的代码不会造成影响的启发式测试）
+AngularDart 定义了 1601 个测试 （[AngularDart 的测试](https://github.com/dart-lang/angular2/tree/master/test)）。但是当你在 Google 的仓库中提交了一份关于 AngularDart 的代码改动时，这个代码仓库就会让每一个依赖这个框架的 Google 员工执行测试。目前，一份提交大约有 7 万 4 千个测试（这取决于你提交的代码有多大的改动 —— 一种让系统知道你的代码不会造成影响的启发式测试）
 
 ![](https://cdn-images-1.medium.com/max/800/1*5VjjBOiVq74495vLAKctOg.png)
 
@@ -45,7 +45,7 @@ AngularDart 定义了 1601 个测试 ([AngularDart 的测试](https://github.com
 
 真正的值在这里，即使这些测试是*实际的应用程序* 。他们不仅数量众多，而且还反映了开发人员如何使用框架（不仅仅是框架作者）。很有意思的是：框架所有者并不能够总是正确地估计他们的框架被如何使用。
 
-它还帮助那些在生产环境中的应用程序，获得每月数十亿的流量。框架作者在业余时间做的演示程序与实际生产环境中的应用程序之间存在很大的区别，这些生产环境中的应用程序每年具有几十或几百个人的投资。如果在未来网页是相互关联的，我们就需要更好地支持后者的发展
+它还帮助那些在生产环境中的应用程序获得每月数十亿美金的流量。框架作者在业余时间做的演示程序与实际生产环境中的应用程序之间存在很大的区别，这些生产环境中的应用程序每年具有几十或几百个人的投资。如果在未来网页是相互关联的，我们就需要更好地支持后者的发展
 
 
 
@@ -66,7 +66,7 @@ AngularDart 定义了 1601 个测试 ([AngularDart 的测试](https://github.com
 
 这对处于早期不受影响的发展阶段的框架能起到很明显的保护。AngularDart 框架的开发人员可以使用他们的平台构建的数百万行代码，他们自己也经常接触那些代码。但他们不需要假设他们的框架被如何使用。（有一个警告很明显，他们只看到 Google 的代码，但这份代码而不是世界上所有的 Workivas，Wrikes 和 StableKernels 使用 AngularDart 的代码，也使用 AngularDart 的代码。）
 
-不得不升级用户的代码也会减慢开发速度。虽然没有你想象的那么多（看看 AngularDart 自十月以来的进展），但它仍然拖慢了很多事情。
+不得不升级用户的代码也会减慢开发速度。虽然没有你想象的那么多（看看 AngularDart 自十月以来的进展），但它仍然拖慢了很多事情。这种情况说好也行，说坏也可以，这取决于你想从一个框架中得到什么。我们会回来的处理这个事的。
 
 无论如何。下次 Google 的某个员工说，某个代码库的 alpha 版本是稳定的版本和处于生产环境的版本，现在你知道是为什么了。
 
@@ -94,9 +94,9 @@ AngularDart 定义了 1601 个测试 ([AngularDart 的测试](https://github.com
 
 ### 附注：封闭式构建工具
 
-你可能想知道：这个人怎么知道往 AngularDart 中这个巨大仓库的引入一点错误的代码后运行了哪些测试？当然，他不是手工挑选的 7 万 4 千次测试，而且肯定他没有运行 Google *所有*的测试。答案在于一个叫 Bazel 的东西。
+你可能想知道：这个人怎么知道往 AngularDart 中这个巨大仓库的引入一点错误的代码后运行了哪些测试？当然，他不是手工挑选的 7 万 4 千次测试，而且肯定他没有运行 Google *所有*的测试。答案就是一个叫 Bazel 的东西。
 
-当处于这个规模的时候，你不能用一系列 shell 脚本来构建东西。因为会把事情弄得支离破碎和出奇的慢。这就是你为什么需要这个封闭式构建工具。
+当处于这个规模的时候，你不能用一系列 shell 脚本来构建东西。因为会把事情弄得支离破碎和出奇得慢。这就是你为什么需要这个封闭式构建工具。
 
 “封闭” 在上下文中非常类似于函数领域中的“[pure](https://zh.wikipedia.org/wiki/%E7%BA%AF%E5%87%BD%E6%95%B0)”。你的构建步骤不会有副作用（就像临时文件，换了路径而已），并且它们的结果是确定的（相同的输入总是导致相同的输出）。在这种情况下，您可以在任何时间在任何机器上运行构建和测试，您将获得一致的输出。你不会再需要 `make clean` 这个命令。因此，您可以使用 build 或者 test 命令来来构建服务器并将其并行化。
 
@@ -114,4 +114,4 @@ AngularDart 的明确目标是在提高生产力，性能和可靠性方面上�
 
 如果你正在寻找一个框架，它使得你的代码进行重大检修，并引入了最近几个月的主要功能，AngularDart 绝对不适合你。即使 AngularDart 团队希望以这种方式构建框架，我认为这篇文章讲得很清楚了，他们没法这么做。然而，我们确信，留给框架发展空间是少一点新潮，多一点稳定。
 
-在我看来，对开源技术栈的长期支持的良性预测是它的主要维护者业务的很大一部分。比如，安卓，dagger，MySQL 和 git。这就是为什么我很高兴于 Dart 终于有了一个首选的 Web 框架（AngularDart），一个首选组件库（ [AngularDart Components](https://pub.dartlang.org/packages/angular2_components) 组件）和一个首选移动框架（ [Flutter](https://flutter.io/) ） — 所有这些都用于构建 Google 的关键应用。
+在我看来，预测开源技术栈能否得到长期良好的支持要看它的主要维护者是否把它当做业务的一部分。比如，Android，dagger，MySQL 和 git。这就是为什么我很高兴于 Dart 终于有了一个首选的 Web 框架（AngularDart），一个首选组件库（ [AngularDart Components](https://pub.dartlang.org/packages/angular2_components) 组件）和一个首选移动框架（ [Flutter](https://flutter.io/) ） — 所有这些都用于构建 Google 的关键应用。
