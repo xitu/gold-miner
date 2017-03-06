@@ -14,17 +14,17 @@
 
 不像其他领域中的无神论，面向对象编程中的无神论无可争议地是没毛病的。有些人可能希望学校里有上帝或者政府里有上帝，但是其他条件相同的情况下，没有人真正愿意在他们的编程过程中存在着上帝。
 
-特别是在安卓开发中，我们都知道有一个让我们又爱又恨的上帝: `Context` 。1 这篇文章是关于我为什么要和如何把我的应用中的 `Context` 消灭的，其原因和方法同样也适用于其他 “神论” 应用中。
+特别是在安卓开发中，我们都知道有一个让我们又爱又恨的上帝: `Context` 。<sup>[\[1\]](#note1)</sup>  这篇文章是关于我为什么要和如何把我的应用中的 `Context` 消灭，其原因和方法同样也适用于其他 “神论” 应用中。
 
 ### 为什么我要干掉 Context
 
 虽然 `Context` 是上帝对象，我也知道使用上帝对象有很多不好的地方，但是这并不是我想要移除 Context 的主要原因。事实上，在开始 `TDD` 之后很自然而然地就要想要去干掉 `Context` 了。为什么呢？因为在我们进行 TDD 的时候，主要是忙着进行着一厢情愿的活动：我们为测试的对象写了很多我们想要的接口。Freeman 和 Pryce 这么说到：
 
-> 我们倾向于通过写一个测试来开始，假设它已经有对应的实现了，然后添加任何需要的参数来让它生效 - 这就是 Abelson 和 Sussman 所说的 “一厢情愿的编程” 2
+> 我们倾向于通过写一个测试来开始，假设它已经有对应的实现了，然后添加任何需要的参数来让它生效 - 这就是 Abelson 和 Sussman 所说的 “一厢情愿的编程” 。<sup>[\[2\]](#note2)</sup>
 
 如果我们仔细地考虑下这种方式，它和[我们不应该构造我们没有的虚拟对象](https://www.philosophicalhacker.com/post/how-we-misuse-mocks-for-android-tests/)的思想很相似，一方面，我们把对象所需要的依赖（声明在其他对象中）都整合在一起，在另一方面，它就是一个适配层。Freeman 和 Pryce 又说过：
 
-> 如果我们不想模拟外部的 API，那我们怎么能测试那些驱动他的代码呢？ 我们将在对象内部使用 TDD 来设计其所需要的服务的接口，而不是直接用外部的库。3
+> 如果我们不想模拟外部的 API，那我们怎么能测试那些驱动他的代码呢？ 我们将在对象内部使用 TDD 来设计其所需要的服务的接口，而不是直接用外部的库。<sup>[\[3\]](#note3)</sup>
 
 当在测试中第一次给我的对象写这个理想接口时，我发现其实没有一个的类是真正需要 `Context` 的。我的对象们真正需要的是一个获取本地字符串，或者是持久化存储键值对的方法，而这些我们通常都是直接通过 Context 对象来获取的。
 
@@ -55,11 +55,11 @@ public class AppRaterPresenterTests {
 }
 ```
    
-在我写这个测试和给 `AskAppRatePresenter` 写理想接口的时候，我不会去考虑应用使用次数是怎么存储的。它们应该是通过 `SharedPreferences` 或者数据库或者是 realm 或者其他方式来存储的，因此，我没有将 `AskAppRatePresenter` 设计成需要 Context 对象。我关心的只有 `AskAppRatePresenter` 有一个获得应用使用次数的方法而已。4
+在我写这个测试和给 `AskAppRatePresenter` 写理想接口的时候，我不会去考虑应用使用次数是怎么存储的。它们应该是通过 `SharedPreferences` 或者数据库或者是 realm 或者其他方式来存储的，因此，我没有将 `AskAppRatePresenter` 设计成需要 Context 对象。我关心的只有 `AskAppRatePresenter` 有一个获得应用使用次数的方法而已。<sup>[\[4\]](#note4)</sup>
 
-这一步确实让我后面看代码更加容易一点。如果看到 Context 已经被注入到对象里了，我可能真的不知道它是用来做什么的。它是个上帝对象，能够用来干任何事情。但是如果我看到了一个 AppUsageStore 被传进去了，那我就能进一步知道这个 AskAppRatePresenter 是干什么的。5
+这一步确实让我后面看代码更加容易一点。如果看到 Context 已经被注入到对象里了，我可能真的不知道它是用来做什么的。它是个上帝对象，能够用来干任何事情。但是如果我看到了一个 AppUsageStore 被传进去了，那我就能进一步知道这个 AskAppRatePresenter 是干什么的。<sup>[\[5\]](#note5)</sup>
 
-### 我怎么样干掉 Contex
+### 我怎么样干掉 Context
 
 一旦我们写了测试和失败用例，我们可以开始实现我们需要传进去的参数。很明显，在实现里面我们需要一个 `Context` ，但是它是一个 AskAppRatePresenter 不需要知道的细节。这里有两个公认的方式去实现，一种是把 `Context` 传入 AppUsageStore 的构造方法里，这样就能从 `SharedPreferences` 获取存储的信息。
 
@@ -108,12 +108,12 @@ public class MainActivity extends Activity implements AppUsageStore, AskAppRateV
 
 ### 注释:
 
-1. `Context` 是一个上帝对象。我们都知道[上帝对象是反设计模式](https://en.wikipedia.org/wiki/God_object), 也许 `Context` 看上去就是一个错误。但是我不这么认为，因为第一，在我[上一篇文章](https://www.philosophicalhacker.com/post/why-android-testing-is-so-hard-historical-edition/)指出的， Android 刚开始的时候非常看重性能，整洁的抽象在那个时候可能是一种消耗计算机性能的奢侈浪费，并不能被接受。第二点，根据 Diane Hackborne 的想法，app 组件被精确定位为和 Android OS 的进行特定交互作用的。他们不是你的典型对象因为他们是由框架实例化的并且他们是庞大的 Android SDK 的一个入口。这两个论点证明了 context 设计成一个上帝对象可能不是一个坏的点子。
+ <a name="note1"></a> `Context` 是一个上帝对象。我们都知道[上帝对象是反设计模式](https://en.wikipedia.org/wiki/God_object), 也许 `Context` 看上去就是一个错误。但是我不这么认为，因为第一，在我[上一篇文章](https://www.philosophicalhacker.com/post/why-android-testing-is-so-hard-historical-edition/)指出的， Android 刚开始的时候非常看重性能，整洁的抽象在那个时候可能是一种消耗计算机性能的奢侈浪费，并不能被接受。第二点，根据 Diane Hackborne 的想法，app 组件被精确定位为和 Android OS 的进行特定交互作用的。他们不是你的典型对象因为他们是由框架实例化的并且他们是庞大的 Android SDK 的一个入口。这两个论点证明了 context 设计成一个上帝对象可能不是一个坏的点子。
 
-2. Steve Freeman 和 Nat Pryce, *测试驱动的面向对象软件开发*, 141.
+ <a name="note2"></a> Steve Freeman 和 Nat Pryce, *测试驱动的面向对象软件开发*, 141.
 
-3. Ibid., 121-122
+ <a name="note3"></a>Ibid., 121-122
 
-4. 有趣的是，通过 TDD, 我们无意中就走进了遵循[接口分离原则](https://en.wikipedia.org/wiki/Interface_segregation_principle)的代码中去了。
+ <a name="note4"></a> 有趣的是，通过 TDD, 我们无意中就走进了遵循[接口分离原则](https://en.wikipedia.org/wiki/Interface_segregation_principle)的代码中去了。
 
-5. 这说明注入对象的复杂度和我们去理解被注入的类的难易程度是成反相关的。换句话说，一个类的依赖越复杂，那么理解这个类的本身含义就越难。
+ <a name="note5"></a> 这说明注入对象的复杂度和我们去理解被注入的类的难易程度是成反相关的。换句话说，一个类的依赖越复杂，那么理解这个类的本身含义就越难。
