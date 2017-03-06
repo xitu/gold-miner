@@ -108,12 +108,12 @@ public class MainActivity extends Activity implements AppUsageStore, AskAppRateV
 
 ### 注释:
 
- <a name="note1"></a> `Context` 是一个上帝对象。我们都知道[上帝对象是反设计模式](https://en.wikipedia.org/wiki/God_object), 也许 `Context` 看上去就是一个错误。但是我不这么认为，因为第一，在我[上一篇文章](https://www.philosophicalhacker.com/post/why-android-testing-is-so-hard-historical-edition/)指出的， Android 刚开始的时候非常看重性能，整洁的抽象在那个时候可能是一种消耗计算机性能的奢侈浪费，并不能被接受。第二点，根据 Diane Hackborne 的想法，app 组件被精确定位为和 Android OS 的进行特定交互作用的。他们不是你的典型对象因为他们是由框架实例化的并且他们是庞大的 Android SDK 的一个入口。这两个论点证明了 context 设计成一个上帝对象可能不是一个坏的点子。
+ <a name="note1"></a> 1. `Context` 是一个上帝对象。我们都知道[上帝对象是反设计模式](https://en.wikipedia.org/wiki/God_object), 也许 `Context` 看上去就是一个错误。但是我不这么认为，因为第一，在我[上一篇文章](https://www.philosophicalhacker.com/post/why-android-testing-is-so-hard-historical-edition/)指出的， Android 刚开始的时候非常看重性能，整洁的抽象在那个时候可能是一种消耗计算机性能的奢侈浪费，并不能被接受。第二点，根据 Diane Hackborne 的想法，app 组件被精确定位为和 Android OS 的进行特定交互作用的。他们不是你的典型对象因为他们是由框架实例化的并且他们是庞大的 Android SDK 的一个入口。这两个论点证明了 context 设计成一个上帝对象可能不是一个坏的点子。
 
- <a name="note2"></a> Steve Freeman 和 Nat Pryce, *测试驱动的面向对象软件开发*, 141.
+ <a name="note2"></a> 2. Steve Freeman 和 Nat Pryce, *测试驱动的面向对象软件开发*, 141.
 
- <a name="note3"></a>Ibid., 121-122
+ <a name="note3"></a> 3. Ibid., 121-122
 
- <a name="note4"></a> 有趣的是，通过 TDD, 我们无意中就走进了遵循[接口分离原则](https://en.wikipedia.org/wiki/Interface_segregation_principle)的代码中去了。
+ <a name="note4"></a> 4. 有趣的是，通过 TDD, 我们无意中就走进了遵循[接口分离原则](https://en.wikipedia.org/wiki/Interface_segregation_principle)的代码中去了。
 
- <a name="note5"></a> 这说明注入对象的复杂度和我们去理解被注入的类的难易程度是成反相关的。换句话说，一个类的依赖越复杂，那么理解这个类的本身含义就越难。
+ <a name="note5"></a> 5. 这说明注入对象的复杂度和我们去理解被注入的类的难易程度是成反相关的。换句话说，一个类的依赖越复杂，那么理解这个类的本身含义就越难。
