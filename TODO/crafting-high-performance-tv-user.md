@@ -1,7 +1,7 @@
 > * 原文链接: [Crafting a high-performance TV user interface using React](http://techblog.netflix.com/2017/01/crafting-high-performance-tv-user.html)
 * 原文作者 : [Ian McKay](https://twitter.com/madcapnmckay)
 * 译文出自 : [掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者 : [Professor-Z](https://github.com/Professor-Z)
+* 译者 : [vuuihc](https://github.com/vuuihc)
 * 校对者 : [SumiMakito](https://github.com/SumiMakito) [zhouzihanntu](https://github.com/zhouzihanntu)
 
 # Netflix: 使用 React 构建高性能的电视用户界面 
