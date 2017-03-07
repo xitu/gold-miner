@@ -257,17 +257,17 @@ Just one key selector each.
 每个只有一个关键选择器
 
 ## A Class Appearing in Another Component’s File ##
-## 一个类名出现在另一个组件文件中 ##
+## 一个类名出现在另一个组件的文件中 ##
 
 On a similar but subtly different theme as above, the appearance of classes in
 other components’ files is indicative of a code smell.
-在一个和上面相似但是稍微不同的场景里，类名出现在另一个组件文件中预示着代码味道。
+在一个和上面相似但是稍微不同的场景里，类名出现在另一个组件的文件中预示着代码味道。
 
 Where the previous code smell deals with the question of there being more than
 one instance of the same key selector, this code smell deals with where those
 selectors might live. Take this question from [Dave
 Rupert](https://twitter.com/davatron5000):
-上一个代码味道处理同一个关键选择器有超过一个的实例的问题，这个代码味道处理这些选择器应该放在哪。这个问题来自于 [Dave Rupert](https://twitter.com/davatron5000)：
+上一个代码味道处理同一个关键选择器有多于一个实例的问题，这个代码味道处理这些选择器应该放在哪。这个问题来自于 [Dave Rupert](https://twitter.com/davatron5000)：
 
 If we need to style something differently because of its context, where should
 we put that additional CSS?
