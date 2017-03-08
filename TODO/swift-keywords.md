@@ -28,9 +28,7 @@ protocol Entertainment
 {
     associatedtype MediaType
 }
-```
 
-```
 class Foo : Entertainment
 {
     typealias MediaType = String // 可以是任何符合需求的类型？
@@ -61,9 +59,7 @@ class Person
     var name:String
     var age:Int
     var gender:String
-```
 
-```
     deinit
     {
         // 从堆里释放，在这里卸货。
@@ -90,9 +86,7 @@ class Person
     var age:Int = 0
     var gender:String = ""
 }
-```
 
-```
 extension Person
 {
     func printInfo()
@@ -109,14 +103,10 @@ class Person
 {
     fileprivate var jobTitle:String = ""
 }
-```
 
-```
 extension Person
 {
-```
 
-```
     // 如果使用 "private" 声明，将不会通过编译。
     func printJobTitle()
     {
@@ -139,9 +129,7 @@ func addNumbers(num1:Int, num2:Int) -> Int
 
 ```
 import UIKit
-```
 
-```
 // 现在，所有 UIKit 的代码都可以调用
 class Foo {}
 ```
@@ -165,17 +153,11 @@ func dangerousOp(_ error:inout NSError?)
 {
     error = NSError(domain: "", code: 0, userInfo: ["":""])
 }
-```
 
-```
 var potentialError:NSError?
-```
 
-```
 dangerousOp(&potentialError)
-```
 
-```
 // 现在 potentialError 被初始化了，不再是 nil 了
 ```
 
@@ -186,9 +168,7 @@ class Person
 {
     internal var jobTitle:String = ""
 }
-```
 
-```
 let aPerson = Person()
 aPerson.jobTitle = "This can set anywhere in the application"
 ```
@@ -215,14 +195,12 @@ let anotherFoo = -foo // anotherFoo 现在是 -5 了
 
 // ”+“ 组合两个值
 let box = 5 + 3
-```
 
-```
+
 // ”&&“ 逻辑运算符，用来组合两个布尔值
 if didPassCheckOne && didPassCheckTwo
-```
 
-```
+
 // 三元运算符，包含三个值？
 let isLegalDrinkingAgeInUS:Bool = age >= 21 ? true : false
 ```
@@ -234,14 +212,9 @@ class Person
 {
     private var jobTitle:String = ""
 }
-```
 
-```
 extension Person
 {
-```
-
-```
     // 不会被编译，jobTitle 的作用域只在 Person 类里
     func printJobTitle()
     {
@@ -257,9 +230,7 @@ protocol Blog
     var wordCount:Int { get set }
     func printReaderStats()
 }
-```
 
-```
 class TTIDGPost : Blog
 {
     var wordCount:Int
@@ -268,9 +239,7 @@ class TTIDGPost : Blog
     {
         self.wordCount = wordCount
     }
-```
 
-```
     func printReaderStats()
     {
         // 打印一些统计信息
@@ -290,17 +259,13 @@ public var foo:String? // 在程序内部的任何地方都可以被覆盖或重
 class Person
 {
     var jobTitle:String?
-```
 
-```
     static func assignRandomName(_ aPerson:Person)
     {
         aPerson.jobTitle = "Some random job"
     }
 }
-```
 
-```
 let somePerson = Person()
 Person.assignRandomName(somePerson)
 //somePerson.jobTitle is now "Some random job"
@@ -332,9 +297,7 @@ let postLikes = postMetrics["Likes"]
 
 ```
 typealias JSONDictionary = [String: AnyObject]
-```
 
-```
 func parseJSON(_ deserializedData:JSONDictionary){}
 ```
 
@@ -363,9 +326,7 @@ for idx in 0...3
 
 ```
 let box = 1
-```
 
-```
 switch box
 {
 case 0:
@@ -396,9 +357,7 @@ for idx in 0...3
 
 ```
 let box = 1
-```
 
-```
 switch box
 {
 case 0:
@@ -419,9 +378,7 @@ func cleanUpIO()
     {
         print("This is called right before exiting scope")
     }
-```
 
-```
     //Close out file streams,etc.
 }
 ```
@@ -457,9 +414,7 @@ else
 
 ```
 let box = 1
-```
 
-```
 switch box
 {
 case 0:
@@ -488,9 +443,7 @@ private func printRecordFromLastName(userLastName: String?)
         //Sorry Bill Null, find a new job
         return
     }
-```
 
-```
     //Party on
     print(dataStore.findByLastName(name))
 }
@@ -527,9 +480,7 @@ while 1 > 2
 func doNothing()
 {
     return //Immediately leaves the context
-```
 
-```
     let anInt = 0
     print("This never prints \(anInt)")
 }
@@ -548,9 +499,7 @@ func returnName() -> String?
 
 ```
 let box = 1
-```
 
-```
 switch box
 {
 case 0:
@@ -570,9 +519,7 @@ protocol Nameable
 {
     var name:String {get set}
 }
-```
 
-```
 func createdFormattedName<T:Nameable>(_ namedEntity:T) -> String where T:Equatable
 {
     //Only entities that conform to Nameable which also conform to equatable can call this function
@@ -580,7 +527,7 @@ func createdFormattedName<T:Nameable>(_ namedEntity:T) -> String where T:Equatab
 }
 ```
 
-and
+以及
 
 ```
 for i in 0…3 where i % 2 == 0
@@ -604,9 +551,7 @@ while foo != bar
 
 ```
 var anything = [Any]()
-```
 
-```
 anything.append("Any Swift type can be added")
 anything.append(0)
 anything.append({(foo: String) -> String in "Passed in \(foo)"})
@@ -616,15 +561,11 @@ anything.append({(foo: String) -> String in "Passed in \(foo)"})
 
 ```
 var anything = [Any]()
-```
 
-```
 anything.append("Any Swift type can be added")
 anything.append(0)
 anything.append({(foo: String) -> String in "Passed in \(foo)" })
-```
 
-```
 let intInstance = anything[1] as? Int
 ```
 
@@ -632,15 +573,11 @@ let intInstance = anything[1] as? Int
 
 ```
 var anything = [Any]()
-```
 
-```
 anything.append("Any Swift type can be added")
 anything.append(0)
 anything.append({(foo: String) -> String in "Passed in \(foo)" })
-```
 
-```
 for thing in anything
 {
     switch thing
@@ -681,9 +618,7 @@ catch
 ```
 let alwaysFalse = false
 let alwaysTrue = true
-```
 
-```
 if alwaysFalse { print("Won't print, alwaysFalse is false 😉")} 
 ```
 
@@ -693,13 +628,9 @@ if alwaysFalse { print("Won't print, alwaysFalse is false 😉")}
 class Person {}
 class Programmer : Person {}
 class Nurse : Person {}
-```
 
-```
 let people = [Programmer(), Nurse()]
-```
 
-```
 for aPerson in people
 {
     if aPerson is Programmer
@@ -718,9 +649,7 @@ for aPerson in people
 ```
 class Person{}
 struct Place{}
-```
 
-```
 //Literally any Swift type or instance can be nil
 var statelessPerson:Person? = nil
 var statelessPlace:Place? = nil
@@ -754,9 +683,7 @@ class Person
         print("Printing a name. ")
     }
 }
-```
 
-```
 class Programmer : Person
 {
     override func printName()
@@ -765,9 +692,7 @@ class Programmer : Person
         print("Hello World!")
     }
 }
-```
 
-```
 let aDev = Programmer()
 aDev.printName() //"Printing a name. Hello World!"
 ```
@@ -782,9 +707,7 @@ class Person
         print("This is me: \(self)")
     }
 }
-```
 
-```
 let aPerson = Person()
 aPerson.printSelf() //"This is me: Person"
 ```
@@ -796,9 +719,7 @@ protocol Printable
 {
     func printTypeTwice(otherMe:Self)
 }
-```
 
-```
 struct Foo : Printable
 {
     func printTypeTwice(otherMe: Foo)
@@ -806,14 +727,10 @@ struct Foo : Printable
         print("I am me plus \(otherMe)")
     }
 }
-```
 
-```
 let aFoo = Foo()
 let anotherFoo = Foo()
-```
 
-```
 aFoo.printTypeTwice(otherMe: anotherFoo) //I am me plus Foo()
 ```
 
@@ -825,9 +742,7 @@ enum WeekendError: Error
     case Overtime
     case WorkAllWeekend
 }
-```
 
-```
 func workOvertime () throws
 {
     throw WeekendError.Overtime
@@ -842,16 +757,12 @@ enum WeekendError: Error
     case Overtime
     case WorkAllWeekend
 }
-```
 
-```
 func workOvertime () throws
 {
     throw WeekendError.Overtime
 }
-```
 
-```
 //"throws" indicates in the function's signature that I need use try, try? or try!
 try workOvertime()
 ```
@@ -861,9 +772,7 @@ try workOvertime()
 ```
 let alwaysFalse = false
 let alwaysTrue = true
-```
 
-```
 if alwaysTrue { print("Always prints")}
 ```
 
@@ -919,9 +828,7 @@ class Person
         print("Some person info - on column \(#column)") 
     }
 }
-```
 
-```
 let aPerson = Person()
 aPerson.printInfo() //Some person info - on column 53
 ```
@@ -964,9 +871,7 @@ class Person
         print("Some person info - inside file \(#file)") 
     }
 }
-```
 
-```
 let aPerson = Person()
 aPerson.printInfo() //Some person info - inside file /*file path to the Playground file I wrote it in*/
 ```
@@ -987,9 +892,7 @@ class Person
         print("Some person info - inside function \(#function)") 
     }
 }
-```
 
-```
 let aPerson = Person()
 aPerson.printInfo() //Some person info - inside function printInfo()
 ```
@@ -1018,9 +921,7 @@ class Person
         print("Some person info - on line number \(#line)") 
     }
 }
-```
 
-```
 let aPerson = Person()
 aPerson.printInfo() //Some person info - on line number 5
 ```
@@ -1036,20 +937,14 @@ control.sendAction(#selector(doAnObjCMethod), to: target, forEvent: event)
 
 ```
 #sourceLocation(file:"foo.swift", line:6)
-```
 
-```
 //Reports new values
 print(#file)
 print(#line)
-```
 
-```
 //This resets the source code location back to the default values numbering and filename
 #sourceLocation()
-```
 
-```
 print(#file)
 print(#line)
 ```
@@ -1071,24 +966,20 @@ infix operator ~ { associativity right precedence 140 }
 class Person
 {
     var name:String
-```
 
-```
+
     init(_ name:String)
     {
         self.name = name
     }
-```
 
-```
+
     convenience init()
     {
         self.init("No Name")
     }
 }
-```
 
-```
 let me = Person()
 print(me.name)//Prints "No Name"
 ```
@@ -1135,9 +1026,7 @@ class Person
         get { return self.name }
         set { self.name = newValue}
     }
-```
 
-```
     var indirectSetName:String
     {
         get
@@ -1148,17 +1037,13 @@ class Person
             }
             return ""
         }
-```
 
-```
         set (newTitle)
         {
             //If newTitle was absent, newValue could be used
             self.fullTitle = "\(self.name) :\(newTitle)"
         }
-```
 
-```
     }
 }
 ```
@@ -1178,14 +1063,10 @@ indirect enum Entertainment
     case oneEvent(Entertainment)
     case twoEvents(Entertainment, Entertainment)
 }
-```
 
-```
 let dinner = Entertainment.eventType("Dinner")
 let movie = Entertainment.eventType("Movie")
-```
 
-```
 let dateNight = Entertainment.twoEvents(dinner, movie)
 ```
 
@@ -1199,9 +1080,7 @@ class Person
         return ["Nice", "Funny"]
     }()
 }
-```
 
-```
 let aPerson = Person()
 aPerson.personalityTraits //Database hit only happens now once it's accessed for the first time
 ```
@@ -1219,22 +1098,16 @@ aPerson.personalityTraits //Database hit only happens now once it's accessed for
 struct Person
 {
     var job = ""
-```
 
-```
     mutating func assignJob(newJob:String)
     {
         self = Person(job: newJob)
     }
 }
-```
 
-```
 var aPerson = Person()
 aPerson.job //""
-```
 
-```
 aPerson.assignJob(newJob: "iOS Engineer at Buffer")
 aPerson.job //iOS Engineer at Buffer
 ```
@@ -1252,18 +1125,14 @@ aPerson.job //iOS Engineer at Buffer
 enum Paygrade
 {
     case Junior, Middle, Senior, Master
-```
 
-```
     var experiencePay:String?
     {
         get
         {
             database.payForGrade(String(describing:self))
         }
-```
 
-```
         nonmutating set
         {
             if let newPay = newValue
@@ -1273,13 +1142,9 @@ enum Paygrade
         }
     }
 }
-```
 
-```
 let currentPay = Paygrade.Middle
-```
 
-```
 //Updates Middle range pay to 45k, but doesn't mutate experiencePay
 currentPay.experiencePay = "$45,000"
 ```
@@ -1292,9 +1157,7 @@ currentPay.experiencePay = "$45,000"
     func requiredFunction()
     @objc optional func optionalFunction()
 }
-```
 
-```
 class Person : Foo
 {
     func requiredFunction()
@@ -1314,9 +1177,8 @@ class Person
         print("I'm just a person!")
     }
 }
-```
 
-```
+
 class Programmer : Person
 {
     override func printInfo()
@@ -1324,14 +1186,12 @@ class Programmer : Person
         print("I'm a person who is a dev!")
     }
 }
-```
 
-```
+
 let aPerson = Person()
 let aDev = Programmer()
-```
 
-```
+
 aPerson.printInfo() //I'm just a person!
 aDev.printInfo() //I'm a person who is a dev!
 ```
@@ -1363,17 +1223,15 @@ anInt = -anInt //anInt now equals -2
 class Person
 {
     var name:String?
-```
 
-```
+
     required init(_ name:String)
     {
         self.name = name
     }
 }
-```
 
-```
+
 class Programmer : Person
 {
     //Excluding this init(name:String) would be a compiler error
@@ -1390,9 +1248,8 @@ class Programmer : Person
 //The "??" operator's associativity is right to left
 var box:Int?
 var sol:Int? = 2
-```
 
-```
+
 let foo:Int = box ?? sol ?? 0 //Foo equals 2
 ```
 
@@ -1406,9 +1263,8 @@ class Person
         get { return self.name }
         set { self.name = newValue}
     }
-```
 
-```
+
     var indirectSetName:String
     {
         get
@@ -1419,9 +1275,8 @@ class Person
             }
             return ""
         }
-```
 
-```
+
         set (newTitle)
         {
             //If newTitle was absent, newValue could be used
@@ -1436,9 +1291,8 @@ class Person
 ```
 class Person {}
 class Programmer : Person {}
-```
 
-```
+
 let aDev:Programmer.Type = Programmer.self
 ```
 
@@ -1449,16 +1303,14 @@ class Person
 {
     var occupation:Job?
 }
-```
 
-```
+
 //Here, a job never exists without a Person instance, and thus never outlives the Person who holds it.
 class Job
 {
     unowned let employee:Person
-```
 
-```
+
     init(with employee:Person)
     {
         self.employee = employee
@@ -1473,26 +1325,22 @@ class Person
 {
     var residence:House?
 }
-```
 
-```
+
 class House
 {
     weak var occupant:Person?
 }
-```
 
-```
+
 var me:Person? = Person()
 var myHome:House? = House()
-```
 
-```
+
 me!.residence = myHome
 myHome!.occupant = me
-```
 
-```
+
 me = nil
 myHome!.occupant //Is now nil
 ```
@@ -1507,9 +1355,8 @@ class Person
         willSet(newValue) {print("I've got a new name, it's \(newValue)!")}
     }
 }
-```
 
-```
+
 let aPerson = Person()
 aPerson.name = "Jordan" //Prints out "I've got a new name, it's Jordan!" right before name is assigned to
 ```
