@@ -2,7 +2,7 @@
 * 原文作者：[Lin Clark](https://code-cartoons.com/@linclark)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者： [根号三](https://github.com/sqrthree)
-* 校对者：
+* 校对者：[Reid](https://github.com/reid3290)、[Tina92](https://github.com/Tina92)
 
 # 看漫画，学 WebAssembly
 
