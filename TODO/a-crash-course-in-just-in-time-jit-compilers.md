@@ -8,7 +8,7 @@
 # JIT 编译器快速入门 #
 
 *This is the second part in a series on WebAssembly and what makes it fast. If you haven’t read the others, we recommend [starting from the beginning](https://hacks.mozilla.org/2017/02/a-cartoon-intro-to-webassembly/).*
-**本文是 WebAssembly 系列文章的第二部分。如果你还没有阅读过前面的文章，我们建议你 [从头开始看](https://hacks.mozilla.org/2017/02/a-cartoon-intro-to-webassembly/).**
+**本文是 WebAssembly 系列文章的第二部分。如果你还没有阅读过前面的文章，我们建议你 [从头开始](https://hacks.mozilla.org/2017/02/a-cartoon-intro-to-webassembly/).**
 
 JavaScript started out slow, but then got faster thanks to something called the JIT. But how does the JIT work?
 JavaScript 刚面世时运行速度是很慢的，而 JIT 的出现令其性能快速提升。那么问题来了，JIT 是如何运作的呢？
@@ -180,7 +180,7 @@ function arraySum(arr) {
 ```
 
 The `+=` step in the loop may seem simple. It may seem like you can compute this in one step, but because of dynamic typing, it takes more steps than you would expect.
-循环中的 `+=` 一步似乎很简单。看起来你可以一步就得到计算结果，但由于 JavaScript 的动态类型，处理它所需的步骤比你想象的多。
+执行循环中的 `+=` 一步似乎很简单。看起来你可以一步就得到计算结果，但由于 JavaScript 的动态类型，处理它所需要的步骤比你想象的多。
 
 Let’s assume that `arr` is an array of 100 integers. Once the code warms up, the baseline compiler will create a stub for each operation in the function. So there will be a stub for `sum += arr[i]`, which will handle the `+=` operation as integer addition.
 假定 `arr` 是一个存放 100 个整数的数组。在代码执行几次后，基线编译器将为函数中的每个操作创建一个存根。`sum += arr[i]` 将会有一个把 `+=` 依据整数加法处理的存根。
@@ -202,7 +202,7 @@ Because each line of code has its own set of stubs in the baseline compiler, the
 ![Code looping with JIT asking what types are being used in each loop](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/02/02-09-jit_loop02-500x323.png)
 
 The code would execute a lot faster if the JIT didn’t need to repeat those checks. And that’s one of the things the optimizing compiler does.
-如果 JIT 不需要重复这些检查，代码运行速度会加快很多。这就属于优化编译器的范畴了。
+如果 JIT 不需要重复这些检查，代码运行速度会加快很多。这就是优化编译器的工作之一了。
 
 In the optimizing compiler, the whole function is compiled together. The type checks are moved so that they happen before the loop.
 在优化编译器中，整个函数会被一起编译。The type checks are moved 所以类型检查可以在循环开始前完成。
@@ -213,23 +213,23 @@ Some JITs optimize this even further. For example, in Firefox there’s a specia
 一些 JIT 编译器做了进一步优化。例如，在 Firefox 中为仅包含整数的数组设立了一个特殊分类。如果 `arr` 是在这个分类下的数组，JIT 就不需要检查 `arr[i]` 是否是整数了。这意味着 JIT 可以在进入循环前完成所有类型检查。
 
 ## Conclusion ##
-## 结论 ##
+## 总结 ##
 
 That is the JIT in a nutshell. It makes JavaScript run faster by monitoring the code as it’s running it and sending hot code paths to be optimized. This has resulted in many-fold performance improvements for most JavaScript applications.
-它通过监控代码运行和发送高频代码 令 JavaScript 运行得更快
+简而言之，这就是 JIT。它通过监控代码运行确定高频代码，并进行优化，加快了 JavaScript 的运行速度。
 
 Even with these improvements, though, the performance of JavaScript can be unpredictable. And to make things faster, the JIT has added some overhead during runtime, including:
-虽然有了这些改进，JavaScript 的性能是不可预测的。为了加速代码运行，JIT 在运行时增加了以下开销：
+即使有了这些改进，JavaScript 的性能仍是不可预测的。为了加速代码运行，JIT 在运行时增加了以下开销：
 
 - optimization and deoptimization
 - 优化和去优化
 - memory used for the monitor’s bookkeeping and recovery information for when bailouts happen
-- 监视器的内容存储 内存占用 和 在应急机制下的信息恢复
+- 用于存储监视器纪录和应急回退时的恢复信息的内存
 - memory used to store baseline and optimized versions of a function
-- 存储函数基线和优化后版本 的内存占用
+- 用于存储函数的基线和优化版本的内存
 
 There’s room for improvement here: that overhead could be removed, making performance more predictable. And that’s one of the things that WebAssembly does.
-改进空间：提高性能的可预测性。这是 WebAssembly 实现的工作之一。
+这里还有改进空间：除去以上的开销，提高性能的可预测性。这是 WebAssembly 实现的工作之一。
 
 In the [next article](https://hacks.mozilla.org/?p=30503), I’ll explain more about assembly and how compilers work with it.
-在[下一篇文章](https://hacks.mozilla.org/?p=30503)中，我将说明更多集成的相关知识和它与编译器的工作原理。
+在[下一篇文章](https://hacks.mozilla.org/?p=30503)中，我将对集成和它与编译器的工作原理做更多说明。
