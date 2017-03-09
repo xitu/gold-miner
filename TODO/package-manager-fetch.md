@@ -2,11 +2,11 @@
 * 原文作者：[Matt Gallagher](http://www.cocoawithlove.com/about/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Gocy](https://github.com/Gocy015/)
-* 校对者：
+* 校对者：[atuooo](https://github.com/atuooo)
 
 # 在 Xcode 项目中使用 swift package fetch #
 
-到目前为止，Cocoa with Love 的 git 仓库都使用“git subtrees”来管理相关依赖，所有的依赖都被拷贝并静态存放于依赖方目录下。我希望能找到一种更动态地依赖管理方式来代替现有的方案，同时依赖方式对库使用者的不可见性（或者翻译成“同时保持库对使用者的抽象性”？或者校者有更好的翻译吗）。（译者注：[Cocoa with Love](https://www.cocoawithlove.com/)）
+到目前为止，Cocoa with Love 的 git 仓库都使用“git subtrees”来管理相关依赖，所有的依赖都被拷贝并静态存放于依赖方目录下。我希望能找到一种更动态地依赖管理方式来代替现有的方案，同时保持对库使用者的不可见性。（译者注：[Cocoa with Love](https://www.cocoawithlove.com/)）
 
 我想要使用 Swift 包管理工具（Swift Package Manager）来解决这个问题，但我又不希望所有的仓库都必须依赖 Swift 包管理工具才能构建（build）。Swift 包管理工具所支持的构建范围相当有限，我可不愿意给我的库套上这些枷锁。
 
@@ -31,7 +31,7 @@ CwlCatchException ← CwlPreconditionTesting ← CwlUtils ← CwlSignal
 
 直到现在，我都一直在使用 [Git subtrees](https://github.com/git/git/blob/master/contrib/subtree/git-subtree.txt)。
 
-在本例中，你不需要分别单独地下载每个依赖；如果你看看 [CwlSignal 仓库早些时候的结构](https://github.com/mattgallagher/CwlSignal/tree/72d4a10656ff4c8de8083e88f8651c5f7d0b8e47)，就会发现它包含了 [CwlUtils](https://github.com/mattgallagher/CwlSignal/tree/72d4a10656ff4c8de8083e88f8651c5f7d0b8e47/CwlUtils)，其中又包含了 [CwlPreconditionTesting](https://github.com/mattgallagher/CwlSignal/tree/72d4a10656ff4c8de8083e88f8651c5f7d0b8e47/CwlUtils/CwlPreconditionTesting)，其中又包含了 [CwlCatchException](https://github.com/mattgallagher/CwlSignal/tree/72d4a10656ff4c8de8083e88f8651c5f7d0b8e47/CwlUtils/CwlPreconditionTesting/CwlCatchException)。这和手动将每个文件拷贝到仓库中有相似之处，其唯一的小优势在于：如果依赖发生了改变，我只需简单地调用一个 subtree pull 就可以将更新同步到依赖方了。
+在本例中，你不需要分别单独地下载每个依赖；如果你看看 [CwlSignal 仓库早些时候的结构](https://github.com/mattgallagher/CwlSignal/tree/72d4a10656ff4c8de8083e88f8651c5f7d0b8e47)，就会发现它包含了 [CwlUtils](https://github.com/mattgallagher/CwlSignal/tree/72d4a10656ff4c8de8083e88f8651c5f7d0b8e47/CwlUtils)，其中又包含了 [CwlPreconditionTesting](https://github.com/mattgallagher/CwlSignal/tree/72d4a10656ff4c8de8083e88f8651c5f7d0b8e47/CwlUtils/CwlPreconditionTesting)，其中又包含了 [CwlCatchException](https://github.com/mattgallagher/CwlSignal/tree/72d4a10656ff4c8de8083e88f8651c5f7d0b8e47/CwlUtils/CwlPreconditionTesting/CwlCatchException)。这和手动将每个文件拷贝到仓库中有相似之处，但它的小优势在于：如果依赖发生了改变，我只需简单地调用一个 subtree pull 就可以将更新同步到依赖方了。
 
 这样的做法有着它的缺陷。在缺乏灵活性的树结构中，你必须沿着文件链，按顺序逐步拉取改动；你无法简单地用一个指令就更新所有的依赖。每个仓库都因为需要包含它的依赖而变得臃肿。而如果你无意间修改了依赖方的依赖树，那么在拉取依赖进行合并（merge）的时候也会遇到一些麻烦。
 
@@ -76,7 +76,7 @@ submodules 的每个用户都要熟悉 submodule 的结构，并且每次都要�
 
 ## Swift package fetch ##
 
-想使用 Swift 包管理工具的依赖管理功能，但不将其作为首要构建系统导致了一些问题。
+想使用 Swift 包管理工具的依赖管理功能，但不将其作为首要构建系统会导致一些问题。
 
 总的来说我们要完成以下几件事：
 
