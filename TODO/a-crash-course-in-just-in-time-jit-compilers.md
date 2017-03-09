@@ -232,4 +232,4 @@ There’s room for improvement here: that overhead could be removed, making perf
 这里还有改进空间：除去以上的开销，提高性能的可预测性。这是 WebAssembly 实现的工作之一。
 
 In the [next article](https://hacks.mozilla.org/?p=30503), I’ll explain more about assembly and how compilers work with it.
-在[下一篇文章](https://hacks.mozilla.org/?p=30503)中，我将对集成和它与编译器的工作原理做更多说明。
+在[下一篇文章](https://hacks.mozilla.org/?p=30503)中，我将对汇编做更多说明并解释编译器与它是如何工作的。
