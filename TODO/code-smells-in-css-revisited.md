@@ -13,7 +13,7 @@ that piece, I still agree with all of it even four years later, but I do have
 some new things to add to the list. Again, these aren’t necessarily always bad
 things, hence referring to them as code smells: they might be perfectly
 acceptable in your use case, but they still smell kinda funny.
-回到2012年，我写了一篇关于可能存在的 CSS 反面教材的帖子 [CSS中的代码味道](/2012/11/code-smells-in-css/)。回看那篇文章，尽管四年过去了，我依然认同里面的全部内容，但是我有一些新的东西加到列表中。再次说明，这些内容并不一定总是坏的东西，因此把它们称为代码味道：在你的使用案例中它们也许可以很好的被接受，但是它们仍然让人觉得有一点奇怪。
+回到2012年，我写了一篇关于潜在 CSS 反模式的文章 [CSS中的代码味道](https://csswizardry.com/2012/11/code-smells-in-css/)。回看那篇文章，尽管四年过去了，我依然认同里面的全部内容，但是我有一些新的东西加到列表中。再次说明，这些内容并不一定总是坏的东西，因此把它们称为代码味道：在你的使用案例中它们也许可以很好的被接受，但是它们仍然让人觉得有一点奇怪。
 
 Before we start, then, let’s remind ourselves what a Code Smell actually is.
 From [Wikipedia](https://en.m.wikipedia.org/wiki/Code_smell) (emphasis mine):
@@ -33,11 +33,11 @@ From [Wikipedia](https://en.m.wikipedia.org/wiki/Code_smell) (emphasis mine):
 > contribute to technical debt. Robert C. Martin calls a list of code smells a
 > ‘value system’ for software craftsmanship.
 
-> 代码味道，也被称作代码异味，在计算机编程领域，指程序源代码中的任何 **有可能预示着更深层次问题** 的征兆。按照 Martin Fowler 所说的，“代码味道是一种表面迹象，通常对应着系统中的深层次问题”。另外一种看待代码味道方式是关于准则和质量：“代码味道是代码中某种特定的结构表明了 **违反了基本的设计准则** 并且对设计质量产生负面影响”，代码味道通常不是 bug -**它们不是技术性的错误** 并且不会当时就对程序的功能产生阻碍。相反的，**它们预示着可能拖慢开发的设计上的缺陷** 或者增大未来出现 bug 或者故障的风险。代码异味是促成技术债的因素的指示器。Robert C. Martin 将一系列代码味道称作软件技艺的“价值体系”
+> 代码味道，也被称作代码异味，在计算机编程领域，指程序源代码中的任何 **有可能预示着更深层次问题** 的征兆。按照 Martin Fowler 所说的，“代码味道是一种表面迹象，通常对应着系统中的深层次问题”。另外一种看待代码味道方式是关于准则和质量：“代码味道是代码中某种特定的结构表明了 **违反了基本的设计准则** 并且对设计质量产生负面影响”，代码味道通常不是 bug —— **它们不是技术性的错误** 并且不会当时就对程序的功能产生阻碍。相反的，**它们预示着可能拖慢开发的设计缺陷** 或者增大未来出现 bug 或者故障的风险。代码异味是导致技术债的因素的指示器。Robert C. Martin 将一系列代码味道称作软件技艺的“价值体系”
 。
 
 So they’re not technically, always wrong, they’re just a good litmus test.
-因此它们不是技术上多大的问题，并不总是错的，它们只是很不错的检验办法。
+因此, 它们并不总是技术上的错误, (不过)它们可作为一个不错的检验方法。
 
 ## `@extend` ##
 
@@ -45,7 +45,7 @@ Hopefully I can keep this first one nice and brief: I have long been vocal about
 the side effects and pitfalls of `@extend`, and now I would actively consider it
 a code smell. It’s not absolutely, always, definitely bad, but it usually is.
 Treat it with suspicion.
-希望我可以把这第一条讲的细致又简洁：我早就被告知 `@extend` 的副作用和陷阱，我也会积极地认为它是代码味道。它也并不绝对的总是不好的，但是通常它是。对它持有一种怀疑的态度。
+希望我可以把这第一条讲得细致又简洁：我早就被告知 `@extend` 的副作用和陷阱，我也会积极地认为它是代码味道。它也并不绝对的不好, 虽然通常是的。对它应该持怀疑态度。
 
 The problems with `@extend` are manifold, but to summarise:
 `@extend`的问题是多方面的，可以概括如下：
@@ -53,7 +53,7 @@ The problems with `@extend` are manifold, but to summarise:
 - **It’s actually worse for performance than mixins are.** Gzip favours
 repetition, so CSS files with greater repetition (i.e. mixins) achieve a
 greater compression delta.
-- **它对性能的影响事实上比 mixins 更严重。** Gzip 偏爱重复性的内容，所以具有更高重复性 CSS 文件 (如mixins) 取得更好的压缩 delta。
+- **它对性能的影响事实上比 mixins 更严重。** Gzip 偏爱重复性的内容，所以具有更高重复性 CSS 文件 (如mixins) 取得更高的压缩量。
  
 - **It’s greedy.** Sass’ `@extend` will `@extend` every instance of a class that
 it finds, giving us crazy-long selector chains [that look like
@@ -73,11 +73,11 @@ For further reading:
 扩展阅读：
 
 - [Mixins Better for
-Performance](/2016/02/mixins-better-for-performance/)
+Performance](https://csswizardry.com/2016/02/mixins-better-for-performance/)
 - [When to Use `@extend`; When to Use a
-Mixin](/2014/11/when-to-use-extend-when-to-use-a-mixin/)
+Mixin](https://csswizardry.com/2014/11/when-to-use-extend-when-to-use-a-mixin/)
 - [Extending Silent Classes in
-Sass](/2014/01/extending-silent-classes-in-sass/)
+Sass](https://csswizardry.com/2014/01/extending-silent-classes-in-sass/)
 
 ## String Concatenation for Classes ##
 ## 为类使用连接字符串 ##
@@ -134,7 +134,7 @@ looking for a class of `.nav__item` then I simply need to open the `nav.scss`
 file, but unfortunately that’s not always going to help. For a little more
 detail, I made [a screencast](https://www.youtube.com/watch?v=MGzoRM3Al40) about
 it.
-当然你也可以说 sourcemaps 将会帮助我们，或者如果我正在查找 `.nav__item` 这个类，我可以简单的打开 `nav.scss` 这个文件，但是不幸的是这并不总是能奏效。获得更多的信息，可以看我做的关于它的 [录屏](https://www.youtube.com/watch?v=MGzoRM3Al40)。
+当然你也可以说 sourcemaps 将会帮助我们，或者如果我正在查找 `.nav__item` 这个类，我可以简单的打开 `nav.scss` 这个文件，但是不幸的是这并不总是奏效。获得更多的信息，可以看我做的关于它的 [录屏](https://www.youtube.com/watch?v=MGzoRM3Al40)。
 
 ## Background Shorthand ##
 ## Background 简写 ##
@@ -143,7 +143,7 @@ Something else I discussed only recently is the use of `background` shorthand
 syntax. For full details, please refer to [the relevant
 article](/2016/12/css-shorthand-syntax-considered-an-anti-pattern/), but the
 summary here is that using something like:
-我最近讨论的另外一个主题就是使用 `background` 简写语法。想了解更多细节，请参考 [the relevant article](/2016/12/css-shorthand-syntax-considered-an-anti-pattern/)，但是在这里做一个总结如下：
+我最近讨论的另外一个主题就是使用 `background` 简写语法。想了解更多细节，请参考 [the relevant article](https://csswizardry.com/2016/12/css-shorthand-syntax-considered-an-anti-pattern/)，但是在这里做一个总结如下：
 
 ```
 .btn {
@@ -201,7 +201,7 @@ nav li .bar {}
 
 If I were to take a codebase and [ack for
 `.btn`](/2017/01/ack-for-css-developers/), I might see some output like this:
-如果我负责一个代码库并且 [ack for `.btn`](/2017/01/ack-for-css-developers/)，我可能看到如下输出：
+如果我负责一个代码库并且 [ack for `.btn`](https://csswizardry.com/2017/01/ack-for-css-developers/)，我可能看到如下输出：
 
 ```
 .btn {}
@@ -222,7 +222,7 @@ nav .btn {}
 Aside from the fact that a lot of that is just generally pretty poor CSS, the
 problem I’m spotting here is that `.btn` is defined many times. This tells me
 that:
-除了很多普遍存在的相当糟糕的 CSS，我在这里向指出的问题是 `.btn` 被定义的很多次，这告诉我：
+除了很多普遍存在的相当糟糕的 CSS，我在这里想指出的问题是 `.btn` 被定义了很多次，这告诉我：
 
 1. **there is no Single Source of Truth** telling me what buttons look like;
 2. **there has been a lot of mutation** meaning that the class `.btn` has many
@@ -236,7 +236,7 @@ buttons will have a large surface area, tracking down exactly where buttons’
 styles come from will be a lot more difficult, and that changing anything will
 likely have huge knock-on effects elsewhere. This is one of the key problems
 with mutable CSS.
-一看到像这样的 CSS，我就意识到在按钮上做任何工作都将会有很大的影响面，追踪按钮样式到底来自哪里将会非常困难，并且任何位置的改动都有可能对其他地方造成影响。这就是 CSS 可变性的关键性问题之一。
+一看到像这样的 CSS，我就意识到在按钮上做任何工作都将会有很大的影响，追踪按钮样式到底来自哪里将会非常困难，并且任何位置的改动都有可能对其他地方造成影响。这就是 CSS 可变性的关键性问题之一。
 
 Make use of something like BEM in order to create completely brand new classes
 that carry those changes, e.g.:
@@ -388,7 +388,7 @@ This is called a BEM mix, in which we introduce a third brand new class to refer
 to a button belonging to a modal. This avoids the question of where things live,
 it reduces the specificity by avoiding nesting, and also prevents mutation by
 avoiding repeating the `.btn` class again. Magical.
-这被叫做 BEM mix，我们介绍第三种新的类名称来指向属于 modal 的按钮。这样避免了它在哪里的问题，它通过避免嵌套，减少了名称唯一性的问题，同时通过重复 `.btn` 类避免可变性带来的问题。真神奇。
+这被叫做 BEM mix，我们介绍第三种新的类名称来指向属于 modal 的按钮。这样避免了它在哪里的问题，它通过避免嵌套，减少了名称唯一性的问题，同时通过重复 `.btn` 类避免可变性带来的问题。完美！
 
 ## CSS `@import` ##
 
@@ -397,7 +397,7 @@ active bad practice. It poses a huge performance penalty in that it delays the
 downloading of CSS (which is a critical asset) until later than necessary. The
 (simplified) workflow involved in downloading `@import`ed CSS looks a little
 like:
-我会说 CSS `@import` 不仅仅是代码味道，它的的确确的坏的实践。它推迟 CSS 文件的加载（性能的决定性因素），比实际的需要加载的更晚，造成严重的性能下降。下载具有 `@import` 的 CSS 文件的（简化的）工作流程看起来有点像：
+我会说 CSS `@import` 不仅仅是代码味道，它的的确确是坏的实践。它推迟 CSS 文件的加载（性能的决定性因素），比实际的需要加载的更晚，造成严重的性能下降。下载具有 `@import` 的 CSS 文件的（简化的）工作流程看起来有点像：
 
 1. Get the HTML file, which asks for a CSS file;
 2. Get the CSS file, which asks for another CSS file;
