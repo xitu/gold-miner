@@ -34,9 +34,9 @@ Sure it is…
 
 Well, you do not have to create an SDK/library in all cases. It makes more sense to decide on building one based on the understanding of what value you bring to the table. Ask yourself the below
 
-***Is there some existing solution that would solve the problem?*** 
+***Is there some existing solution that would solve the problem?***
 
-If your answer is Yes, then possible try and use that existing solution. 
+If your answer is Yes, then possible try and use that existing solution.
 
 Say that does not solve your specific problem, even in that scenario it is better to start by forking the code, modifying it to solve the problem and then using it versus starting from scratch.
 
@@ -86,7 +86,7 @@ repositories{
 
 ..what comes with this is that now whenever you want to share your android library you are passing around your `aar` file(…which is not the best way to share your android library).
 
-> ***Avoid doing this as much as you can***, since it is prone to a lot of problems the biggest one being manageability and maintainability of the code base. 
+> ***Avoid doing this as much as you can***, since it is prone to a lot of problems the biggest one being manageability and maintainability of the code base.
 > Another issue with this approach is you cannot make sure that the users of this artifact are in sync with the latest code.
 > Not to mention the whole process is lengthy and prone to human error, just to integrate the library in an android project.
 
@@ -129,9 +129,9 @@ allprojects {
 
 You can read about how to publish your android library to JitPack [here](http://crushingcode.co/publish-your-android-library-via-jitpack/).
 
-The other option you have is of **Maven Central** or **Jcenter**. 
+The other option you have is of **Maven Central** or **Jcenter**.
 
-Personally ***I would suggest you to stick to Jcenter*** as it well documented and better managed. It is also the default repository that is looked up for dependencies in Android projects (…unless someone changed it). 
+Personally ***I would suggest you to stick to Jcenter*** as it well documented and better managed. It is also the default repository that is looked up for dependencies in Android projects (…unless someone changed it).
 
 If you publish to Jcenter, bintray the company behind it gives you the option to sync with Maven Central from within their publishing platform. Once published its as simple as adding the below line to your `build.gradle` file to use the library in any android project
 
@@ -162,18 +162,14 @@ void init(ApiSecret apisecret);
 where `ApiSecret` is an Entity Class, declared as below
 
 ```
-public class ApiSecret{
+public class ApiSecret {
     String apikey;
     int refresh;
     long interval;
     String type;
-```
 
-```
     // constructor
-```
 
-```
     /* you can define proper checks(such as type safety) and
      * conditions to validate data before it gets set
      */
@@ -182,7 +178,7 @@ public class ApiSecret{
 }
 ```
 
-***Or*** you can also use `Builder Pattern` as an alternative approach to the above. 
+***Or*** you can also use `Builder Pattern` as an alternative approach to the above.
 
 You can read more about Builder Pattern [here](https://sourcemaking.com/design_patterns/builder) . [JOSE LUIS ORDIALES](https://jlordiales.me/about/)  talks in depth about how to implement it in your code, take a look [here](https://jlordiales.me/2012/12/13/the-builder-pattern-in-practice/) .
 
@@ -228,9 +224,9 @@ public boolean hasPermission(Context context, String permission) {
 Some of the devs would say that they really need that specific permission, what to do in that case. Well, your library code should be generic for all types of apps that need the specific functionality. If you can provide hooks such as functions to let users of your android library pass the data you need the dangerous permission for. In that way, you do not force the devs to require a permission they do not want to. In absence of the permission provide a fallback implementation. Simple.
 
 ```
-/* Requiring GET_ACCOUNTS permission (as a requisite to use the 
- * library) is avoided here by providing a function which lets the 
- * devs to get it on their own and feed it to a function in the 
+/* Requiring GET_ACCOUNTS permission (as a requisite to use the
+ * library) is avoided here by providing a function which lets the
+ * devs to get it on their own and feed it to a function in the
  * library.
  */
 
@@ -256,13 +252,13 @@ public boolean isFeatureAvailable(Context context, String feature) {
 }
 ```
 
-.. this way there is no entry in the manifest and once it merges into the app, it won’t let the app get filtered in the Play Store. 
+.. this way there is no entry in the manifest and once it merges into the app, it won’t let the app get filtered in the Play Store.
 
 ***As an added feature*** though if the feature is not available you can just disable the functionality in your library code and have some fallback functionality in place. It is a Win- Win for both the android dev who built the library and the dev who integrates the lib in their app.
 
 ### Support different versions ###
 
-<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*7Lh4ChOmBQ5A9fJ0vP2e1Q.gif">
+![](https://cdn-images-1.medium.com/max/1600/1*7Lh4ChOmBQ5A9fJ0vP2e1Q.gif)
 
 How many are out there exactly?
 
@@ -279,7 +275,7 @@ public boolean isMarshmallow(){
 
 ### Do not log in production ###
 
-<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/600/1*D3Ogn3_abl0wQkkk4yehrw.gif">
+<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1200/1*78Ghqzo3iMUnaYjNcuu1xw.gif">
 
 Just DO NOT.
 
@@ -288,11 +284,11 @@ Almost every time I am asked to test an app or an android library project the fi
 As a rule of thumb, never log in production. You should use [**build-variants**](https://developer.android.com/studio/build/build-variants.html)  with [**timber**](https://github.com/JakeWharton/timber)  to help you in the process to separate logging info in production vs debug builds. A simple solution can be to provide a `debuggable` flag that the devs can flip to enable/disable logging from your android library
 
 ```
-// In code     
+// In code
 boolean debuggable = false;
 MyAwesomeLibrary.init(apisecret,debuggable);
 
-// In build.gradle     
+// In build.gradle
 debuggable = true
 ```
 
@@ -337,18 +333,18 @@ If the android library you wrote deals with making network calls, a very simple 
 
 What I have observed is that library code developers assume that the network calls being made will always go through. A good example will be if your android library fetches some config file from the server to initialize itself. Now when developing the library the devs assume that the config file will always get downloaded. What they forget is that on a flaky network, the library code will not be able to download the config file and hence would crash the whole codebase. If simple checks and a strategy to handle such situations are built right into the android library code, it saves quite a number of people the headaches they would have otherwise.
 
-Whenever possible batch your network calls and avoid multiple calls. This also [saves a lot of battery](https://developer.android.com/training/monitoring-device-state/index.html), [read here](https://developer.android.com/training/efficient-downloads/efficient-network-access.html) 
+Whenever possible batch your network calls and avoid multiple calls. This also [saves a lot of battery](https://developer.android.com/training/monitoring-device-state/index.html), [read here](https://developer.android.com/training/efficient-downloads/efficient-network-access.html)
 
 Reduce the amount of data you transfer over the network by moving away from *JSON* and *XML* to [***Flatbuffers***](https://google.github.io/flatbuffers/) .
 
 [Read more about managing network here](https://developer.android.com/topic/performance/power/network/index.html)
 
-### Reluctance to include large libraries as dependencies ### 
+### Reluctance to include large libraries as dependencies ###
 
 This one goes without much explanation. As most of fellow Android Devs would be knowing, there is a method count limit of 65K methods for android app code. Now say if you have a transitive dependency on a large library, you would introduce two undesirable effects to the android app your library is being included
 
 1. You will considerably increase the method count of the android app, even though your own library codebase has a low method count footprint since you would transitively download the larger library and thus it will contribute to the method count too.
-2. If the method count hits the 65K limit, just because of your library code that transitively downloaded the larger library, the app developer will be forced to get into the lands of multi-dexing. Trust me on this, no one wants to get into the multi-dexing world. 
+2. If the method count hits the 65K limit, just because of your library code that transitively downloaded the larger library, the app developer will be forced to get into the lands of multi-dexing. Trust me on this, no one wants to get into the multi-dexing world.
 In such a scenario, your library has introduced a bigger problem than solving the initial problem. So most probably your library will be replaced by some other library that does not add to the method count or basically that takes care everything in a better way.
 
 ### Do not require dependencies unless you very much have to ###
@@ -390,7 +386,7 @@ dependencies {
 
 ### Try not to hog the startup ###
 
-<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/600/1*78Ghqzo3iMUnaYjNcuu1xw.gif">
+![](https://cdn-images-1.medium.com/max/1200/1*78Ghqzo3iMUnaYjNcuu1xw.gif)
 
 no kidding…
 
@@ -423,7 +419,7 @@ Being the creator of the android library you would know about your code, but the
 Document your library well including every detail about how to use it and detailing every feature you have implemented.
 
 1. Create a `Readme.md` file and place it at the root of your repository.
-2. Have `javadoc` comments in your code, covering all `public` functions. They should cover and explain 
+2. Have `javadoc` comments in your code, covering all `public` functions. They should cover and explain
 - Purpose of the `public` method
 - The arguments passed
 - Return type
@@ -434,7 +430,7 @@ Document your library well including every detail about how to use it and detail
 
 Screenshot of Github Releases section for Sensey android library
 
-*…and* [*here is the link to releases section*](https://github.com/nisrulz/sensey/releases) for [*Sensey*](https://github.com/nisrulz/sensey) 
+*…and* [*here is the link to releases section*](https://github.com/nisrulz/sensey/releases) for [*Sensey*](https://github.com/nisrulz/sensey)
 
 ### Provide a most minimalistic Sample App ###
 
@@ -448,7 +444,7 @@ Say you decided to license your android library in a restrictive manner i.e Usin
 
 The solution to this is that you stick to more open licenses such as MIT or Apache 2.
 
-Read about licensing at this [simple site](https://choosealicense.com/)  and about need of [copyright in your code here](http://jeroenmols.com/blog/2016/08/03/copyright/) 
+Read about licensing at this [simple site](https://choosealicense.com/)  and about need of [copyright in your code here](http://jeroenmols.com/blog/2016/08/03/copyright/)
 
 ### Last but not the least, get feedback ###
 
@@ -506,7 +502,3 @@ If you have suggestions or maybe would like me to add something to the content h
 
 Till then keep crushing code 🤓
 
-
-> Thanks for reading! Be sure to click *❤* below to recommend this article if you found it helpful.
-
-> You can connect with me on [Github](https://github.com/nisrulz) , [Twitter](https://twitter.com/nisrulz) , [Linkedin](https://in.linkedin.com/in/nisrulz) , [Facebook](https://www.facebook.com/NishantRulez) , [Dribbble](https://dribbble.com/nisrulz) and [Google+](https://plus.google.com/u/0/+NishantSrivastava26) 
