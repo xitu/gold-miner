@@ -28,7 +28,7 @@
 
 ### 非函数式编程
 
-我是十万个为什么。为什么要学习函数式编程？好吧，最好的答案往往来自于历史。假设你要创建一个计时的引用，要添加一个数组的计算器应用。
+我是十万个为什么。为什么要学习函数式编程？好吧，最好的答案往往来自于历史。假设你要创建一个添加一个数组的计算器应用。
 
 ```
 // Somewhere in ViewController
@@ -249,7 +249,7 @@ stringFilter(grade: myGrade, returnBool: { $0 == “A” })
 
 ### 泛型代码 ###
 
-如果你对泛型代码感到不适，那你现在所在的位置并不正确，这里车速很快。赶快到安全的地方，名字是“[**Bob，泛型是什么鬼？**](https://medium.com/ios-geek-community/intro-to-generics-in-swift-with-bob-df58118a5001#.z61lki1c5)”，然后带点武器回来继续。
+如果你对泛型代码感到不适，那你现在所在的位置并不正确，这里车速很快，赶快到安全的地方，名字是“[**Bob，泛型是什么鬼？**](https://medium.com/ios-geek-community/intro-to-generics-in-swift-with-bob-df58118a5001#.z61lki1c5)”，然后带点武器回来继续。
 
 我要创建一个含有 `Bob` 泛型的函数，你可以使用 `T` 或者 `U`。但是你要知道，这是我的文章。
 
