@@ -1,59 +1,59 @@
 > * 原文地址：[Model-View-Presenter: Android guidelines](https://medium.com/@cervonefrancesco/model-view-presenter-android-guidelines-94970b430ddf#.e55fepeg1)
 * 原文作者：[Francesco Cervone](https://medium.com/@cervonefrancesco?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：[tanglie1993](https://github.com/tanglie1993)
+* 译者：
 * 校对者：
 
-# Model-View-Presenter: Android 指南 #
+# Model-View-Presenter: Android guidelines #
 
-目前已经有了很多关于 MVP 架构的文章和例子，也有很多不同的实现。开发者们一直试图把这个模式以最合适的方式适配到 Android 平台上。
+There are plenty of articles and examples about the MVP architecture and there are a lot of different implementations. There is a constant effort by the developer community to adapt this pattern to Android in the best way possible.
 
-如果你决定采用这种模式，你就做了一个架构选择，而且你必须知道你的代码库，以及实现新特性的方式会因此改变（变得更好）。你也必须知道，你需要面对像 Activity 生命周期之类的常见 Android 问题，而且你可能问自己这些问题：
+If you decide to adopt this pattern, you are making an architectural choice and you must know that your codebase will change, as well as your way to approach new features (for the better). You must also know that you need to face with common Android problems like the Activity lifecycle and you may ask yourself questions like:
 
-- *我是否应该保存 presenter 的状态？*
-- *我是否应该持久化 presenter？*
-- *presenter 是否应该有生命周期？*
+- *should I save the state of the presenter?*
+- *should I persist the presenter?*
+- *should presenter have a lifecycle?*
 
-在本文中，我将我将写下一个**指南和最佳实践**的清单。它是用来：
+In this article, I’m going to put down a list of ***guidelines or best practices*** to follow in order to:
 
-- 用这种模式**解决最常见的问题** （至少是我个人经验中最常见的问题）
-- **最大化此模式的优势**
+- **solve the most common problems** (or at least those ones I’ve had in my personal experience) using this pattern
+- **maximize the benefits** of this pattern
 
-首先，让我描述一下参与者：
+First of all, let’s describe the players:
 
 ![](https://cdn-images-1.medium.com/max/800/1*3JERTTFmC35Rhx-C0uvECA.png)
 
 Model-View-Presenter
 
-- **Model**: 它是**负责管理数据**的接口。Model 的职责包括使用 API，缓存数据，管理数据库等等。Model 也可以是一个和其它模块交流并负责这些功能的接口。例如，如果你在使用  [Repository 模式](https://martinfowler.com/eaaCatalog/repository.html)，model 可以是一个 Repository。如果你在使用  [Clean architecture](https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html)，Model 可以是一个 Interactor。
-- **Presenter**: presenter 是 model 和 view 之间的中间人。你所有的业务逻辑都属于它。Presenter 负责**查询 model 并更新 view**，**响应用户交互并更新 model**。
-- **View**: 它只负责**以 presenter 决定的方式展示数据**。View 可以通过 Activities，Fragments，任何 Android widget 或者任何能展示 ProgressBar，更新 TextView，填充 RecyclerView 等的东西实现。
+- **Model**: it is an interface **responsible for managing data**. Model’s responsibilities include using APIs, caching data, managing databases and so on. The model can also be an interface that communicates with other modules in charge of these responsibilities. For example, if you are using the [Repository pattern](https://martinfowler.com/eaaCatalog/repository.html)  the model could be a Repository. If you are using the [Clean architecture](https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html) , instead, the Model could be an Interactor.
+- **Presenter**: the presenter is the middle-man between model and view. All your business logic belongs to it. The presenter is responsible for **querying the model and updating the view**, **reacting to user interactions updating the model**.
+- **View**: it is only responsible for **presenting data in a way decided by the presenter**. The view can be implemented by Activities, Fragments, any Android widget or anything that can do operations like showing a ProgressBar, updating a TextView, populating a RecyclerView and so on.
 
-下面的内容是我根据个人观点提出的指南。你可能不喜欢它们，但接下去我会解释为什么这些原则在我看来是合理的。
+The following are guidelines from my personal point of view and you might not like them, then I will try to explain why these principles seem reasonable to me.
 
-### 1. 使 View 变得沉默和被动 ###
+### 1. Make View dumb and passive ###
 
-Android 最大的问题之一是 views (Activities, Fragments,…) 由于框架的复杂性而不容易测试。要解决这个问题，你应该实现**被动 View**(https://martinfowler.com/eaaDev/PassiveScreen.html) 模式。这个模式的实现通过使用 controller （在我们的例子中是 presenter）把 view 的行为减到最少。这个选择把可测试性提高了很多。
+One of the biggest problems of Android is that views (Activities, Fragments,…) aren’t easy to test because of the framework complexity. To solve this problem, you should implement the [**Passive View**](https://martinfowler.com/eaaDev/PassiveScreen.html) pattern.The implementation of this pattern reduces the behavior of the view to the absolute minimum by using a controller, in our case, the presenter. This choice dramatically improves testability.
 
-比如，如果你有一个用户名/密码表格和一个“提交”按钮，把验证逻辑写在 presenter 而不是 view 中。你的 view 应该只收集用户名和密码，并把它发送给 presenter。
+For example, if you have a username/password form and a “submit” button, you don’t write the validation logic inside the view but inside the presenter. Your view should just collect the username and password and send them to the presenter.
 
-### 2. 使 presenter 不依赖于框架 ###
+### 2. Make presenter framework-independent ###
 
-为了把前一条原则变得真正有效（提升可测试性），**确保 presenter 不依赖于 Android 类**。有两个理由支持只用 Java 依赖写 presenter：首先，你把 presenter 从 实现细节 （Android framework）中抽象出来，因此你可以给 presenter 写**不依赖于 instrument** 的测试（甚至不需要 Robolectric(http://robolectric.org/)），把测试不借助模拟器运行在本地 JVM 上会更快。
+In order to make the previous principle really effective (improving testability), **make sure that presenter doesn’t depend on Android classes**. Write the presenter using just Java dependencies for two reasons: firstly you are abstracting presenter from implementation details (Android framework) and consequently, you can write *non-instrumented* tests for the presenter (even without [Robolectric](http://robolectric.org/)), running tests faster on your local JVM and without an emulator.
 
-> 如果我需要 Context 怎么办？
+> What if I need the Context?
 
-避免它。在这种情况下，你应该问自己 **为什么** 你需要 context。比如，你可能需要通过它访问 shared preferences 或资源。但你不应该在 presenter 中做这些事：你应该在 view 中访问资源，在 model 中访问 preferences。这些只是两个简单的例子，但我可以打赌，大多数时候这只是错误的职责带来的问题。
+Well, get rid of it. In cases like this, you should ask yourself *why* you need the context. You may need the context to access shared preferences or resources, for example. But you shouldn’t do that in the presenter: you should access to resources in the view and to preferences in the model. These are just two simple examples, but I can bet that the most of the times it is just a problem of wrong responsibilities.
 
-顺便一提，**依赖倒置原则**在这种情况下很有帮助，如果你需要解耦一个对象的话。
+By the way, the **dependency inversion principle** helps a lot in cases like this, when you need to decouple an object.
 
-### 3. 写一个描述 View 和 Presenter 之间交互的合约 ###
+### 3. Write a contract to describe the interaction between View and Presenter ###
 
-如果你打算写一个新的 feature，首先写一个合约是一个好的做法。**合约描述 view 和 presenter 之间的交互**，它帮助你以更清晰的方式设计交互。
+When you are going to write a new feature, it is a good practice to write a contract at first step. The **contract describes the communication between view and presenter,** it helps you to design in a cleaner way the interaction.
 
-我喜欢使用 Google 在 [Android Architecture](https://github.com/googlesamples/android-architecture) repository 中提出的解决方案： 它包括一个包含两个内部接口的接口，其中一个用于 view，另一个用于 presenter。
+I like to use the solution proposed by Google in the [Android Architecture](https://github.com/googlesamples/android-architecture)  repository: it consists of an interface with two inner interfaces, one for the view and one for the presenter.
 
-举个例子。
+Let’s make an example.
 
 ```
 public interface SearchRepositoriesContract {
@@ -79,21 +79,21 @@ public interface SearchRepositoriesContract {
 }
 ```
 
-一个用于搜索和显示 Github repositories 的合约
+An MVP contract to search and show GitHub repositories
 
-只要阅读方法名，你就应该可以理解我用这个合约描述的用例。
+Just reading the method names, you should be able to understand the use case I’m describing with this contract.
 
-如果你不能，我就很可悲地失败了。
+If you can’t, I failed miserably.
 
-就像你在例子中看到的那样，view 方法如此简单，说明它除了展示以外没有任何逻辑。
+As you can see from the example, view methods are so simple that suggest there isn’t any logic except presentation.
 
-#### View 合约 ####
+#### The View contract ####
 
-就像我曾说过的，这个 view 是被一个 Activity（或Fragment） 实现的。**Presenter 必须依赖 View 接口，而不直接依赖 Activity**：这样，你就把 presenter 和 view 的具体实现（从而和 Android 平台）解耦了。这体现了 SOLID 原则中的 D：**依赖于抽象而非具体**。
+Like I said before, the view is implemented by an Activity (or a Fragment). **The presenter must depend on the View interface and not directly on the Activity**: in this way, you decouple the presenter from the view implementation (and then from the Android platform) respecting the D of the SOLID principles: “*Depend upon Abstractions. Do not depend upon concretions*”.
 
-我们可以不改动 presenter 中的任何代码而改变具体的 view。而且，我们可以轻易地用 mock view 对 presenter 做单元测试。
+We can replace the concrete view without changing a line of code of the presenter. Furthermore, we can easily unit-test presenter by creating a mock view.
 
-#### Presenter 合约 ####
+#### The presenter contract ####
 
 > Wait. Do we really need a Presenter interface?
 
