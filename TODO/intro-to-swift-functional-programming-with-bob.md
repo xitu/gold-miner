@@ -2,7 +2,7 @@
 * 原文作者：[Bob Lee](https://medium.com/@bobleesj?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Deepmissea](http://deepmissea.blue)
-* 校对者：
+* 校对者：[thanksdanny](http://thanksdanny.mobi)，[Germxu](https://github.com/Germxu)
 
 # Bob，函数式编程是什么鬼？
 
@@ -10,7 +10,7 @@
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/2000/1*AHNKmNnflyMN2zfQh9Cb4Q.png">
 
-老司机是怎么开车的，我们就怎么开
+老司机怎么开车,我们就怎么开
 
 ### 函数式编程？
 
@@ -18,17 +18,17 @@
 
 > “函数式编程是一种编程范式，能让你的代码清晰又明确，没有变量也没有状态。”
 
-我还在这，兄弟。事实上，我还是做了。我的脸以一个柔和的角度包裹着我的嘴唇，回应道：
+和你一样, 老兄, 事实上, 我也这样搜索过。我温柔地做了个捂脸的表情，并轻声回应道：
 
 > 这 TM 是啥？
 
 #### **先决条件**
 
-和闭包很像。如果你不理解什么是后进和关键标识，比如 XX，那你还没做好阅读这篇教程的准备。你可以暂时离开，找[这里](https://bobleesj.gitbooks.io/bob-s-learning-journey/content/WORK.html)的资源来升升级。
+和闭包很像。如果你不理解什么是后进和关键标识，比如 $0，那你还没做好阅读这篇教程的准备。你可以暂时离开，找[这里](https://bobleesj.gitbooks.io/bob-s-learning-journey/content/WORK.html)的资源来升升级。
 
 ### 非函数式编程
 
-我是十万个为什么。为什么要学习函数式编程？好吧，最好的答案往往来自于历史。假设你要创建一个计时的引用，要添加一个数组。
+我是十万个为什么。为什么要学习函数式编程？好吧，最好的答案往往来自于历史。假设你要创建一个计时的引用，要添加一个数组的计算器应用。
 
 ```
 // Somewhere in ViewController
@@ -41,7 +41,7 @@ for number in numbers {
 }
 ```
 
-好的，但是如果我再添加一个呢？
+没问题，但是如果我再添加一个呢？
 
 ```
 // Somewhere in NextViewController 
@@ -54,7 +54,7 @@ for newNumber in numbers {
 }
 ```
 
-这看起来就像我们重复我们自己，又长又无聊，还没必要。你不得不创建一个 `sum` 来记录添加的结果。这很残念，五行代码。我们最好创建一个函数代替这些玩意。
+这看起来就像我们重复我们自己，又长又无聊，还没必要。你不得不创建一个 `sum` 来记录添加的结果。这很让人崩溃，五行代码。我们最好创建一个函数代替这些玩意。
 
 ```
 func saveMeFromMadness(elements: [Int]) -> Int {
@@ -88,7 +88,7 @@ saveMeFromMadness(elements: [4, 5, 6])
 
 Excel 里的求和函数
 
-*好，就是这样，再见。感觉阅读。* 😂
+*好，就是这样，再见。感谢阅读。* 😂
 
 ### 声明式 vs 命令式 
 
@@ -115,7 +115,7 @@ for number in numbers {
 
 ### 其他的好处 ###
 
-在上面那个残念的例子里，我们不得不创建一个 `var sum = 0` 来跟踪每个视图控制器的增加结果。但是这有必要吗？`sum` 的值不断改变，如果我弄乱了总和怎么办？而且，我在[10 条 tips 让你成为一个更好的 Swift 开发者](https://medium.com/ios-geek-community/10-tips-to-become-better-swift-developer-a7c2ab6fc0c2#.rcnngphgj)中提到过，
+在上面那个让人崩溃的例子里，我们不得不创建一个 `var sum = 0` 来跟踪每个视图控制器的增加结果。但是这有必要吗？`sum` 的值不断改变，如果我弄乱了总和怎么办？而且，我在[10 条 tips 让你成为一个更好的 Swift 开发者](https://medium.com/ios-geek-community/10-tips-to-become-better-swift-developer-a7c2ab6fc0c2#.rcnngphgj)中提到过，
 
 
 更多的变量 → 更多记忆 → 更多头痛 → 更多 bug → 更多的生活问题。
@@ -130,11 +130,14 @@ for number in numbers {
 
 那好，现在你明白了为什么我们喜欢函数式编程。所以呢？嗯，这篇教程，**只专注于基本面**。我不会讨论函数式编程在事件和网络等等中的应用。我可能会发一些通过 RxSwift 来做这些事的教程。所以说如果你是新手，跟着我，螺旋稳。
 
+![](http://pic.7230.com/Uploads/Picture/2016-12-23/585cc99f0000f.png)
+（译者配的图 😂 ）
+
 ### 真正的工作 ###
 
-你可能已经见过像 `filter`、`map`、`reduce` 等等的一些东西。不错，这些让你用函数式的途径中的**过滤器**来处理一个数组。确保你对泛型一样酷。
+你可能已经见过像 `filter`、`map`、`reduce` 等等的一些东西。不错，这些让你用函数式的途径中的**过滤器**来处理一个数组。确保你对泛型的理解同样的酷。
 
-这全是关于基本面的东西。如果我能教你如何在泳池里游泳，那你也可以在海里，湖里，池塘里，泥坑里（最好不是）游泳，这这篇教程，如果你学会了基本面，你就可以创建你自己的 `map` 和 `reduce` 或者其他你想要的炫酷函数。你可以 google 东西，只是，你不会从我这里得到这个鲍伯开发者的解释。
+这全是关于基本面的东西。如果我能教你如何在泳池里游泳，那你也可以在海里，湖里，池塘里，泥坑里（最好不是）游泳，这这篇教程，如果你学会了基本面，你就可以创建你自己的 `map` 和 `reduce` 或者其他你想要的炫酷函数。你可以 google 东西，否则，你不会从我这里得到这个叫“Bob”的开发者的解释了。
 
 ### 过滤器 ###
 
@@ -164,8 +167,7 @@ print(happyGrade) // ["A", "A", "A", "A"]
 
 > *不堪回首*。
 
-We have to this stop this madness and save all of you who have been doing this way. Let’s create a function that does it all. Brace yourself. **We are now going to deal with closures**. Let’s try to create a filter that accomplishes the same task above. *Real shit happens now.*
-
+我们必须停止这种疯狂，并拯救所有像你这么做的人。让我们创建一个函数来完成它。振作起来。**我们现在要对付一下闭包了**。让我们试着创建一个过滤器来完成和上面一样的工作。**真正麻烦现在来了。**
 ### 函数式的方式简介 ###
 
 现在我们创建一个函数，有一个包含 `String` 类型的数组并且有个闭包，类型是 `(String) -> Bool`。最后，它返回一个过滤后的 `String` 数组。为啥？忍我两分钟就告诉你。
@@ -216,7 +218,7 @@ func stringFilter (grade: [String], returnBool: (String) -> Bool)-> [String] {
 
 它返回 `true` 或者 `false`。如果返回真，把 `letter` 加到只有 “A” 的 `happyGrade` 里。🤓 这就是为什么我妈妈在过去 12 年里感到开心的原因。
 
-不管怎么说，最终运行一下函数。
+不管怎样，最终运行一下函数。
 
 ```
 let myGrade = ["A", "A", "A", "A", "B", "D"]
@@ -241,7 +243,7 @@ stringFilter(grade: myGrade, returnBool: { $0 == “A” })
 
 ### 肉和土豆 ###
 
-祝贺，如果你已经到了这里，那你已经做到了。我很感谢你的关注。现在让我们创建一个野蛮点的，广为人知的通用过滤器，你可以创建一堆你想要过滤的。比如，过滤你不喜欢的单词，过滤数组里在 大于 60 小于 100 的分数。过滤只包含真值的布尔类型
+祝贺，如果你已经到了这里，那你已经做到了。我很感谢你的关注。现在让我们创建一个野蛮点的，广为人知的通用过滤器，你可以创建一堆你想要过滤的。比如，过滤你不喜欢的单词，过滤数组里大于 60 小于 100 的数。过滤只包含真值的布尔类型。
 
 最棒的是它用**一句话**就可以形容。我们拯救了生命和时间。爱它，我们可以努力工作，但是我们要聪明的努力工作。
 
@@ -302,7 +304,7 @@ zeroToHund.filter{ $0 % 2 == 0 }.filter { $0 <= 50 })
 
 你需要清晰的是如何将函数式范式引用到更多的领域。在你 Google 之前，我建议你花一点时间消耗一两个脑细胞想一想。
 
-从你理解 “filter” 背后的真正含义后，你现在可以更简单的 google 然后查看什么是 `map` 和 `reduce`，以及其他函数是怎么组成的。我希望能你在不冷不热的环境中学会了游泳。
+从你理解 “filter” 背后的真正含义后，你现在可以更简单的 google 然后查看什么是 `map` 和 `reduce`，以及其他函数是怎么组成的。我希望能你在不冷不热的环境中学会游泳。
 
 > 你现在只被你的想象力所限制。保持思考并 Google。
 
