@@ -10,7 +10,7 @@
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/2000/1*AHNKmNnflyMN2zfQh9Cb4Q.png">
 
-老司机怎么开车,我们就怎么开
+老司机怎么开车，我们就怎么开
 
 ### 函数式编程？
 
@@ -18,7 +18,7 @@
 
 > “函数式编程是一种编程范式，能让你的代码清晰又明确，没有变量也没有状态。”
 
-和你一样, 老兄, 事实上, 我也这样搜索过。我温柔地做了个捂脸的表情，并轻声回应道：
+和你一样，老兄，事实上，我也这样搜索过。我温柔地做了个捂脸的表情，并轻声回应道：
 
 > 这 TM 是啥？
 
