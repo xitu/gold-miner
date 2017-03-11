@@ -4,19 +4,19 @@
 * 译者：[reid3290](https://github.com/reid3290)
 * 校对者：
 
-# 处理 Redux 异步 Action 的 4 种方式#
+# Redux 异步四兄弟 #
 
-## 在十分钟内实现 [Thunk](https://github.com/gaearon/redux-thunk) 、 [Saga](https://github.com/redux-saga/redux-saga) 、 [Observable](https://github.com/redux-observable/redux-observable) 以及 [Redux Promise Middleware](https://github.com/pburtchaell/redux-promise-middleware)。 ##
+## 在十分钟内实践 [Thunk](https://github.com/gaearon/redux-thunk) 、 [Saga](https://github.com/redux-saga/redux-saga) 、 [Observable](https://github.com/redux-observable/redux-observable) 以及 [Redux Promise Middleware](https://github.com/pburtchaell/redux-promise-middleware)。 ##
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*V6i_YjJC80VVeSnYvBiL5Q.jpeg">
 
 在上一次的 [React Native online meetup](https://github.com/knowbody/react-native-online-meetups) 活动中, 笔者就 Thunk 、 Saga 以及 Redux Observable 之间的不同之处做了报告 [(点击此处获取幻灯片)](http://slides.com/dabit3/deck-11-12) 。
 
-> 上述函数库都提供了一些方法用以处理 Redux 应用中带有副作用的或者是异步的 action 。更多关于为什么要用到这些库的介绍，请 [点击此处](https://github.com/markerikson/react-redux-links/blob/master/redux-side-effects.md) 。
+> 上述函数库都提供了一些方法用以处理 Redux 应用中带有副作用的或者是异步的 action。更多关于为什么要用到这些库的介绍，请 [点击此处](https://github.com/markerikson/react-redux-links/blob/master/redux-side-effects.md) 。
 
-相较于仅仅是创建一个[仓库](https://github.com/dabit3/redux-4-ways)，然后查看和测试这些库的实现方法，笔者希望更进一步，即一步步地弄清这些库是如何实现的，并额外增加一种实现方式 —— [Redux Promise Middleware](https://github.com/pburtchaell/redux-promise-middleware) 。
+相较于仅仅是创建一个[仓库](https://github.com/dabit3/redux-4-ways)，然后查看和测试这些库的实现方法，笔者希望更进一步，即一步步地弄清这些库是如何解决异步在 Redux 中产生的副作用，并额外增加一种方案 —— [Redux Promise Middleware](https://github.com/pburtchaell/redux-promise-middleware) 。
 
-笔者第一次接触 Redux 的时候，就被这些异步的、带有副作用的函数库搞得“头昏脑胀”。 虽然相关文档还算齐全，但还是希望能够结合实际项目去深入理解这些函数库的基本实现原理，从而快速上手，避免浪费过多时间。
+笔者第一次接触 Redux 的时候，就被这些异步的、带有副作用的函数库搞得“头昏脑胀”。 虽然相关文档还算齐全，但还是希望能够结合实际项目去深入理解这些函数库是如何解决 Redux 中的异步问题。，从而快速上手，避免浪费过多时间。
 
 在本教程中，笔者将应用上述函数库，一步步地实现一个拉取数据并将数据存储在 reducer 中的简单例子。
 
@@ -436,7 +436,7 @@ export default connect(
 此处代码主要有以下几个要点：
 
 1. 为 TouchableHighlight 组件绑定 onPress 函数，当按压事件触发后调用 `props.fetchData()`。
-2. 检查 `props.appData.isFetching` 的值是否为真， 如果是则返回正在加载的文字提示。
+2. 检查 `props.appData.isFetching` 的值是否为 true， 如果是则返回正在加载的文字提示。
 3. 检查 `props.appData.data.length`，如果该值存在且不为 0，则遍历该数组，展示人员姓名和年龄信息。
 
 至此，当按下按钮 Load Data 后，首先会看到正在加载的提示文字，3 秒后会看到人员信息。
@@ -514,7 +514,7 @@ export default function configureStore() {
 
 Redux Observable 使用 RxJS 和 observables 来为 Redux 应用创建异步 action 和异步数据流。（[branch](https://github.com/dabit3/redux-4-ways/tree/observable)）
 
-> “基于 [“RxJS 5](http://github.com/ReactiveX/RxJS) 的 [Redux] 中间件(http://github.com/reactjs/redux). 调解和抵消异步 actions， 从而实现副作用及其他更多特性。” — Redux Observable 文档
+> “基于 [“RxJS 5](http://github.com/ReactiveX/RxJS) 的 [Redux] 中间件(http://github.com/reactjs/redux). 调解和抵消异步 actions 产生的副作用及其他问题” — Redux Observable 文档
 
 首先还是需要更新 actions.js 文件：
 ```
@@ -568,7 +568,7 @@ export default fetchUserEpic
 > 一般在 RxJS 中，变量名中的 $ 符号用以表示该变量是某 stream 的引用。
 
 1. 引入常量 FETCHING_DATA。
-2. 引如 `getDataSuccess` 和 `getDataFailure` 函数。
+2. 引入 `getDataSuccess` 和 `getDataFailure` 函数。
 3. 从 rxjs 中引入 `rxjs` 和 `Observable`。
 4. 定义函数 `fetchUserEpic`。
 5. 等到 `FETCHING_DATA` action 通过该 stream 之后, 调用 [mergeMap](https://www.learnrxjs.io/operators/transformation/mergemap.html) 函数, 从 `getPeople` 中返回 `Observable.fromPromise` 并将返回值映射到 `getDataSuccess` 函数中。
