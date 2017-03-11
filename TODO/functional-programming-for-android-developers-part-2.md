@@ -12,7 +12,7 @@
 
 如果你没有读过第一部分，请到这里读：
 
-[**Android 开发者如何使用函数式编程 （一）**](https://medium.com/@anupcowkur/functional-programming-for-android-developers-part-1-a58d40d6e742)
+[**Android 开发者如何使用函数式编程 （一）**](https://github.com/xitu/gold-miner/blob/master/TODO/functional-programming-for-android-developers-part-1.md)
 
 在上一篇帖子中，我们学习了**纯粹性**, **副作用**和**排序**。在本部分中，我们将讨论**不变性**和**并发**。
 
@@ -135,7 +135,7 @@ public final class Car {
 
 ![](https://cdn-images-1.medium.com/max/2000/1*PXDu-vgwZ6hmh96lc5TYOg.png)
 
-这是一个名为“读-修改-写问题”的典型 race condition。传统的解决方案是使用[锁和互斥](https://en.wikipedia.org/wiki/Mutual_exclusion)。这样，同时只有一个线程可以操纵共享数据，在操作结束之后才释放锁（在我们的例子中，*Thread_1* 将持有对 *Car* 的锁，直到它完成计算）。
+这是一个名为“读-修改-写问题”的典型资源竞争。传统的解决方案是使用[锁和互斥](https://en.wikipedia.org/wiki/Mutual_exclusion)。这样，同时只有一个线程可以操纵共享数据，在操作结束之后才释放锁（在我们的例子中，*Thread_1* 将持有对 *Car* 的锁，直到它完成计算）。
 
 这种基于锁的资源管理是很难以保证安全的。它会造成极其难以分析的并发 bug。许多程序员在面对[死锁和活锁](https://en.wikipedia.org/wiki/Deadlock)时会失去理智。
 
@@ -153,11 +153,11 @@ public final class Car {
         }
     }
 
-现在，*Thread_1* 可以放心地计算，因为 *Thread_2* 保证不会修改这个对象。如果 *Thread_2* 想要修改 *Car*，那么它将会创建它自己的拷贝，而 *Thread_1* 完全不会受到影响。不需要任何锁。
+现在，*Thread_1* 可以放心地计算，因为 *Thread_2* 保证无法修改这个对象。如果 *Thread_2* 想要修改 *Car*，那么它将会创建它自己的拷贝，而 *Thread_1* 完全不会受到影响。不需要任何锁。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*EyBmNH__K0QlOfapgib_rg.png)
 
-不可变性保证共享数据在默认状况下就是线程安全的。**不应该**被修改的东西是**不会**被修改的。
+不可变性保证共享数据在默认状况下就是线程安全的。**不应该**被修改的东西是**不能**被修改的。
 
 #### 如果我们需要全局可变状态怎么办？
 
@@ -205,7 +205,7 @@ PCollections 有一些标准持久数据结构。它们是针对多种不同的�
 
 持久数据结构的范围是很广泛的，而这一部分只是触及了冰山的一角。如果你对学习更多相关知识感兴趣，我强烈推荐 [Chris Okasaki 的纯函数数据结构](https://www.amazon.com/Purely-Functional-Structures-Chris-Okasaki/dp/0521663504)。
 
-### 概要
+### 总结
 
 **不可变性**和**纯粹性**是帮助我们写出安全的并发代码的强力组合。现在我们已经学习了足够多的概念，我们可以在下一部分中看一看如何为 Android 应用设计函数式框架。
 
