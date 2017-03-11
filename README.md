@@ -4,7 +4,7 @@
 
 [掘金翻译计划](https://juejin.im/tag/%E6%8E%98%E9%87%91%E7%BF%BB%E8%AF%91%E8%AE%A1%E5%88%92) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](#android)、[iOS](#ios)、[React](#react)、[前端](#前端)、[后端](#后端)、[产品](#产品)、[设计](#设计) 等领域，读者为热爱新技术的新锐开发者。
 
-掘金翻译计划目前翻译完成 [403](#近期文章列表) 篇文章，共有 [240](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
+掘金翻译计划目前翻译完成 [406](#近期文章列表) 篇文章，共有 [240](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
 
 #  官方指南：
 
@@ -28,18 +28,18 @@
 
 ## iOS
 
+* [Bob，函数式编程是什么鬼？](https://juejin.im/post/58c24c35a22b9d00589a56d4/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([DeepMissea](https://github.com/DeepMissea)翻译)
 * [Swift + 关键字](https://juejin.im/post/58bf76aaa22b9d0058896bff?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([DeepMissea](https://github.com/DeepMissea)翻译)
 * [重构 Swift 中单例的用法](https://gold.xitu.io/entry/58b81150570c3500598fc567/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Karthus1110](https://github.com/Karthus1110)翻译)
 * [Bob，我要怎样才能成为一名 iOS 开发者](https://gold.xitu.io/entry/58b153c38fd9c50063d38068/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([thanksdanny](https://github.com/thanksdanny)翻译)
-* [步入 Swift 3](https://gold.xitu.io/entry/58aa701fda2f60006fa9978f/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([DeepMissea](https://github.com/DeepMissea)翻译)
 * [所有 iOS 译文>>](https://github.com/xitu/gold-miner/blob/master/ios.md)
 
 ## 前端
 
+* [再谈 CSS 中的代码味道](https://gold.xitu.io/entry/58c2034dac502e0062cf8e2a/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([IridescentMia](https://github.com/IridescentMia)) 翻译)
+* [Web 分享 API 赋予浏览器原生分享能力](https://gold.xitu.io/entry/58c174ec44d9040069777f17/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Jiang Haichao](https://github.com/AceLeeWinnie) 翻译)
 * [React JSX 与 Vue 模板的对比：前端界的一次对决](https://gold.xitu.io/entry/58b9841dac502e006c0a69d5/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([ZhangFe](https://github.com/ZhangFe) 翻译)
 * [为多个品牌和应用构建 React 组件](https://gold.xitu.io/entry/58b92529128fe1007e4493da/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([XatMassacrE](https://github.com/XatMassacrE) 翻译)
-* [编写 React 组件的最佳实践](https://gold.xitu.io/entry/58b3bbf6b123db0052d23e42/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([imink](https://github.com/imink) 翻译)
-* [如何实现 React 组件的可复用性](https://gold.xitu.io/entry/58ac4eb58d6d810058c1d325?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([aleen42](https://github.com/aleen42) 翻译)
 * [所有前端译文>>](https://github.com/xitu/gold-miner/blob/master/front-end.md)
 
 
