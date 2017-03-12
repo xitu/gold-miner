@@ -1,8 +1,8 @@
 > * 原文链接：[Cross-Site Request Forgery is dead!](https://scotthelme.co.uk/csrf-is-dead/?utm_source=webopsweekly&utm_medium=email)
 * 原文作者：[Scott](https://scotthelme.co.uk/author/scott/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
-* 校对者：
+* 译者：[XatMassacrE](https://github.com/XatMassacrE)
+* 校对者：[newbieYoung](https://github.com/newbieYoung) [DeadLion](https://github.com/DeadLion)
 
 ## 跨站请求伪造已死！##
 
