@@ -17,13 +17,13 @@ JavaScript 刚面世时运行速度是很慢的，而 JIT 的出现令其性能�
 ## JavaScript 在浏览器中的运行机制 ##
 
 When you as a developer add JavaScript to the page, you have a goal and a problem.
-作为一名开发者，当你向网页中添加 JavaScript 代码的时候，you have a goal and a problem.
+作为一名开发者，当你向网页中添加 JavaScript 代码的时候，你有一个目标和一个问题。
 
 Goal: you want to tell the computer what to do.
-Goal: 你想要告诉计算机做什么。
+目标: 你想要告诉计算机做什么。
 
 Problem: you and the computer speak different languages.
-Problem: 你和计算机使用的是不同的语言。
+问题: 你和计算机使用的是不同的语言。
 
 You speak a human language, and the computer speaks a machine language. Even if you don’t think about JavaScript or other high-level programming languages as human languages, they really are. They’ve been designed for human cognition, not for machine cognition.
 你使用的是人类语言，而计算机使用的是机器语言。即使你不愿承认，对于计算机来说 JavaScript 甚至其他高级编程语言都是人类语言。这些语言是为人类的认知设计的，而不是机器。
@@ -62,7 +62,7 @@ There are pros and cons to each of these ways of handling the translation.
 ### 解释器的优缺点 ###
 
 Interpreters are quick to get up and running. You don’t have to go through that whole compilation step before you can start running your code. You just start translating that first line and running it.
-解释器可以迅速开始工作。你不必等待所有的汇编步骤完成，只要开始转义第一行代码就可以就可以运行程序了。
+解释器可以迅速开始工作。在运行代码之前，你不必等待所有的汇编步骤完成，只要开始转义第一行代码就可以就可以运行程序了。
 
 Because of this, an interpreter seems like a natural fit for something like JavaScript. It’s important for a web developer to be able to get going and run their code quickly.
 因此，解释器看起来自然很适用于 JavaScript 这类语言。对于 Web 开发者来说，能够快速运行代码相当重要。
@@ -77,13 +77,13 @@ But the con of using an interpreter comes when you’re running the same code mo
 ### 编译器的优缺点 ###
 
 The compiler has the opposite trade-offs.
-编译器的权衡恰恰和解释器相反。
+编译器的优缺点恰恰和解释器相反。
 
 It takes a little bit more time to start up because it has to go through that compilation step at the beginning. But then code in loops runs faster, because it doesn’t need to repeat the translation for each pass through that loop.
 使用编译器在启动时会花费多一些时间，因为它必须在启动前完成编译的所有步骤。但是在循环体中的代码运行速度更快，因为它不需要在每次循环时都进行编译。
 
 Another difference is that the compiler has more time to look at the code and make edits to it so that it will run faster. These edits are called optimizations.
-另一个不同之处在于编译器有更多时间对代码进行查看和编辑，来让程序运行得更快。这些编辑我们称为优化。Another difference is that the compiler has more time to look at the code and make edits to it so that it will run faster. These edits are called optimizations.
+另一个不同之处在于编译器有更多时间对代码进行查看和编辑，来让程序运行得更快。这些编辑我们称为优化。
 
 The interpreter is doing its work during runtime, so it can’t take much time during the translation phase to figure out these optimizations.
 解释器在程序运行时工作，因此它无法在转义过程中花费大量时间来确定这些优化。
@@ -137,7 +137,7 @@ In order to make a faster version of the code, the optimizing compiler has to ma
 为了得到运行速度更快的代码版本，优化编译器会做一些假设。
 
 For example, if it can assume that all objects created by a particular constructor have the same shape—that is, that they always have the same property names, and that those properties were added in the same order— then it can cut some corners based on that.
-举例来说，如果它可以假设由特定构造函数创建的所有对象结构相同，即所有对象的属性名相同，并且这些属性的添加顺序相同，它就可以基于这个进行优化。
+举例来说，如果它可以假设由特定构造函数创建的所有对象结构相同，即所有对象的属性名相同，并且这些属性的添加顺序相同，然后它就可以基于这个进行优化。
 
 The optimizing compiler uses the information the monitor has gathered by watching code execution to make these judgments. If something has been true for all previous passes through a loop, it assumes it will continue to be true.
 优化编译器会依据监视器监测代码运行时收集到的信息做出判断。如果在之前通过的循环中有一个值总是 true，它便假定这个值在后续的循环中也是 true。
@@ -163,7 +163,7 @@ Most browsers have added limits to break out of these optimization/deoptimizatio
 ### 优化示例: 类型专门化 ###
 
 There are a lot of different kinds of optimizations, but I want to take a look at one type so you can get a feel for how optimization happens. One of the biggest wins in optimizing compilers comes from something called type specialization.
-优化的类型有很多，但我会演示其中一种以便你理解优化是如何发生的。优化编译器最大的成功之一来自于类型专门化。
+优化的类型有很多，但我只演示其中一种以便你理解优化是如何发生的。优化编译器最大的成功之一来自于类型专门化。
 
 
 The dynamic type system that JavaScript uses requires a little bit of extra work at runtime. For example, consider this code:
@@ -205,7 +205,7 @@ The code would execute a lot faster if the JIT didn’t need to repeat those che
 如果 JIT 不需要重复这些检查，代码运行速度会加快很多。这就是优化编译器的工作之一了。
 
 In the optimizing compiler, the whole function is compiled together. The type checks are moved so that they happen before the loop.
-在优化编译器中，整个函数会被一起编译。The type checks are moved 所以类型检查可以在循环开始前完成。
+在优化编译器中，整个函数会被一起编译。所以类型检查可以在循环开始前完成。
 
 ![Code looping with questions being asked ahead of time](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/02/02-10-jit_loop02-500x318.png)
 
@@ -216,7 +216,7 @@ Some JITs optimize this even further. For example, in Firefox there’s a specia
 ## 总结 ##
 
 That is the JIT in a nutshell. It makes JavaScript run faster by monitoring the code as it’s running it and sending hot code paths to be optimized. This has resulted in many-fold performance improvements for most JavaScript applications.
-简而言之，这就是 JIT。它通过监控代码运行确定高频代码，并进行优化，加快了 JavaScript 的运行速度。
+简而言之，这就是 JIT。它通过监控代码运行确定高频代码，并进行优化，加快了 JavaScript 的运行速度，因此令大多数 JavaScript 应用程序的性能提高了数倍。
 
 Even with these improvements, though, the performance of JavaScript can be unpredictable. And to make things faster, the JIT has added some overhead during runtime, including:
 即使有了这些改进，JavaScript 的性能仍是不可预测的。为了加速代码运行，JIT 在运行时增加了以下开销：
