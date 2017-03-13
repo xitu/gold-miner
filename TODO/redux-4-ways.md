@@ -2,7 +2,7 @@
 * 原文作者：[Nader Dabit](https://medium.com/@dabit3?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[reid3290](https://github.com/reid3290)
-* 校对者：
+* 校对者：[rccoder](https://github.com/rccoder) [xekri](https://github.com/xekri)
 
 # Redux 异步四兄弟 #
 
@@ -22,7 +22,7 @@
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*8PlQZYT4kGnCGZTVGtAoGg.jpeg">
 
-如图所示，上述函数库最通用的模式之一就是发起一个 API 请求，显示加载图标，数据返回后展示结果（如果访问出错则展示错误信息）。笔者将依次使用上述 4 个函数库实现该功能。
+如图所示，上述函数库最通用的模式之一就是发起一个 API 请求，显示加载图标，数据返回后展示结果（如果出现错误则展示错误信息）。笔者将依次使用上述 4 个函数库实现该功能。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*06R5v_0WvZNNdvPntIuWaA.gif">
 
@@ -483,7 +483,7 @@ export default dataSaga
 ```
 
 1. 引入所需常量。
-2. 从 `redux-saga/effects` 中引入 `put` 和 `takeEvery`。当调用 `put` 函数时，Reduc Sage 会指示中间件 dipatch 一个 action。`takeEvery` 函数则会监听 action（本例中即为 `FETCHING_DATA`），然后调用回调函数（本例中即为 `fetchData`）。
+2. 从 `redux-saga/effects` 中引入 `put` 和 `takeEvery`。当调用 `put` 函数时，Reduc Sage 会指示中间件 dipatch 一个 action。`takeEvery` 函数则会监听被 dispatch 了的 action（本例中即为 `FETCHING_DATA`），然后调用回调函数（本例中即为 `fetchData`）。
 3. 当 `fetchData` 被调用后，代码会等待函数 `getPeople` 的返回，如果返回成功则 dispatch `FETCHING_DATA_SUCCCESS` action。
 
 最后更新 `configureStore.js` 文件，用 saga 替换 thunk。
@@ -514,7 +514,7 @@ export default function configureStore() {
 
 Redux Observable 使用 RxJS 和 observables 来为 Redux 应用创建异步 action 和异步数据流。（[branch](https://github.com/dabit3/redux-4-ways/tree/observable)）
 
-> “基于 [“RxJS 5](http://github.com/ReactiveX/RxJS) 的 [Redux] 中间件(http://github.com/reactjs/redux). 调解和抵消异步 actions 产生的副作用及其他问题” — Redux Observable 文档
+> “基于 [“RxJS 5](http://github.com/ReactiveX/RxJS) 的 [Redux] 中间件(http://github.com/reactjs/redux)。组合撤销异步 actions 以产生副作用等。” — Redux Observable 文档
 
 首先还是需要更新 actions.js 文件：
 ```
