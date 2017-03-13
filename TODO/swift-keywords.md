@@ -1,49 +1,46 @@
 > * 原文地址：[Swift + Keywords (V 3.0.1)](https://medium.com/the-traveled-ios-developers-guide/swift-keywords-v-3-0-1-f59783bf26c#.jyslid67n)
 * 原文作者：[Jordan Morgan](https://medium.com/@JordanMorgan10?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
-* 校对者：
+* 译者：[Deepmissea](http://deepmissea.blue)
+* 校对者：[ylq167](http://www.11167.xyz)，[oOatuo](http://atuo.xyz)
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*377To6hCTuE51ZzrVQMBfw.jpeg">
 
-Macbook + Real Paper. Killer combo.
+Macbook + 纸张。致命组合
 
-# Swift + Keywords (V 3.0.1) #
-
+# Swift + 关键字（V 3.0.1）
 ## A Tell All ##
 
-It’s been said before and it’ll be mentioned again, a craftsmen is as only as good as his or her tools of the trade. Our strict adherence to such tools take us where we want to go or make the thing we’ve dreamed of.
+有句话以前说过，现在我要再次提一下，一个优秀的匠人，他（她）的工具同样优秀。当我们一丝不苟地去使用这些工具时，它们就会带我们到想去的地方，或者完成我们的梦寐以求的作品。
 
-And I don’t say that in a pejorative sense, since there is always more to learn. So today — [we’ll look at *every**single* keyword Swift](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/LexicalStructure.html) (v 3.0.1) has to offer us along with some code for each one, all in the name of booking up on our trade’s tools.
+我并没有贬义的意思，因为总是有很多东西要学。所以今天，[我们来看看 Swift 中的**每一个关键字**](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/LexicalStructure.html)(v 3.0.1)，看看它为我们每个人提供的代码，我们每个人预定的工具的名字。
 
-Some are obvious, some are obscure and some are sorta(ish) recognizable but they all make for great reading and learning. This one is long, ready?
+有一些是很简单的，有一些是晦涩难懂的，也有一些是有点能认出来的。但是他们都很值得阅读和学习，这会很漫长，准备好了吗？
 
-Lets.Dance(.rightNow)
+现在，让我们嗨起来~
 
-#### Declaration Keywords ####
+#### 声明关键字
 
-**associatedtype**: Gives a placeholder name to a type that is used as part of a protocol. The type is not specified until the protocol is adopted.
+**associatedtype**：通常作为协议的一部分，为一种类型提供一个占位符。在协议未被遵守之前，这个类型都是未知的。
 
 ```
 protocol Entertainment
 {
     associatedtype MediaType
 }
-```
 
-```
 class Foo : Entertainment
 {
-    typealias MediaType = String //Could be any type to fit the need
+    typealias MediaType = String // 可以是任何符合需求的类型？
 }
 ```
 
-**class** : A general-purpose, flexible construct that become the building blocks of your program’s code. Similar to struct, except that:
+**class**：一个构建程序代码的通用且灵活的基础结构。和 struct 有些相似，除了：
 
-- Inheritance enables one class to inherit the characteristics of another.
-- Type casting enables you to check and interpret the type of a class instance at runtime.
-- Deinitializers enable an instance of a class to free up any resources it has assigned.
-- Reference counting allows more than one reference to a class instance.
+- 继承。允许一个类继承另一个类的特性。
+- 类型转换。允许你在运行时检查并解释一个类的实例的类型。
+- 析构器。允许一个类的实例释放它分配的任何资源。
+- 引用计数。允许类的实例有多个引用。
 
 ```
 class Person
@@ -54,7 +51,7 @@ class Person
 }
 ```
 
-**deinit**: Called immediately before a class instance is deallocated.
+**deinit**：在类的实例被释放前马上调用。
 
 ```
 class Person
@@ -62,17 +59,15 @@ class Person
     var name:String
     var age:Int
     var gender:String
-```
 
-```
     deinit
     {
-        //Deallocated from the heap, tear down things here
+        // 从堆里释放，在这里卸货。
     }
 }
 ```
 
-**enum** : Defines a common type for a group of related values and enables you to work with those values in a type-safe way within your code. In Swift, they are first-class types and can use features typically supported only by classes in other languages.
+**enum**：为一组相关值定义通用类型，并使你能够在代码中以类型安全的方式使用这些值。在 Swift 中，它们属于第一类类型，并且可以使用一些特性，这些特性在其他语言里往往只有类才支持。
 
 ```
 enum Gender
@@ -82,7 +77,7 @@ enum Gender
 }
 ```
 
-**extension** : Lets one add new functionality to an existing class, structure, enumeration, or protocol type.
+**extension**：允许为现有的类、结构体、枚举或协议添加新的功能。
 
 ```
 class Person
@@ -91,9 +86,7 @@ class Person
     var age:Int = 0
     var gender:String = ""
 }
-```
 
-```
 extension Person
 {
     func printInfo()
@@ -103,22 +96,18 @@ extension Person
 }
 ```
 
-**fileprivate** : An access control construct that restricts scope to only the defining source file.
+**fileprivate**：访问控制结构，将作用域限制在源文件。
 
 ```
 class Person
 {
     fileprivate var jobTitle:String = ""
 }
-```
 
-```
 extension Person
 {
-```
 
-```
-    //This wouldn't compile using "private"
+    // 如果使用 "private" 声明，将不会通过编译。
     func printJobTitle()
     {
         print("My job is \(jobTitle)")
@@ -126,7 +115,7 @@ extension Person
 }
 ```
 
-**func** : Self-contained chunks of code that perform a specific task.
+**func** : 执行一个特定的自包含的代码块。
 
 ```
 func addNumbers(num1:Int, num2:Int) -> Int
@@ -135,121 +124,105 @@ func addNumbers(num1:Int, num2:Int) -> Int
 }
 ```
 
-**import** : Exposes a framework or application that is built and shipped as a single unit into the given binary.
+**import**：将一个已构建的框架或应用，作为一个单元暴露给指定的二进制文件。
+
 
 ```
 import UIKit
-```
 
-```
-//All of UIKit's code is now available
+// 现在，所有 UIKit 的代码都可以调用
 class Foo {}
 ```
 
-**init** : The process of preparing an instance of a class, structure, or enumeration for use.
+**init** : 构造一个类、结构体或枚举的实例的过程。
 
 ```
 class Person 
 {
     init()
     {
-        //Set default values, prep for use, etc.
+        // 在这设置默认的值等等。
     }
 }
 ```
 
-**inout** : A value that is passed to a function and modified by it, and is passed back out of the function to replace the original value. Applies to both reference and value types.
+**inout**：传递给函数一个值，然后修改它，它会被传回原来的位置来代替原始值。适用于引用类型和值类型。
 
 ```
 func dangerousOp(_ error:inout NSError?)
 {
     error = NSError(domain: "", code: 0, userInfo: ["":""])
 }
-```
 
-```
 var potentialError:NSError?
-```
 
-```
 dangerousOp(&potentialError)
+
+// 现在 potentialError 被初始化了，不再是 nil 了
 ```
 
-```
-//Now potentialError is no longer nil and initialized
-```
-
-**internal** : An access control construct that allows entities to be used within any source file from its defining module, but not in any source file outside of it.
+**internal**：访问控制结构，允许实体在它定义模块的任何源文件中使用，但不能在其外部的源文件中使用。
 
 ```
 class Person
 {
     internal var jobTitle:String = ""
 }
-```
 
-```
 let aPerson = Person()
 aPerson.jobTitle = "This can set anywhere in the application"
 ```
 
-**let** : Defines a variable as immutable.
+**let**：定义一个不可变的变量。
 
 ```
 let constantString = "This cannot be mutated going forward"
 ```
 
-**open** : An access control construct that allows objects to be both accessible and subclassable outside of its defining module. For members, they are both accessible and overridable outside of its defining module.
+**open**：访问控制结构，允许对象在定义的模块之外被访问或子类化。对于成员，外部模块也是可以访问和覆盖的。
 
 ```
-open var foo:String? //This can be overriden and accessible inside and outside of the app. Writing frameworks is a common use case for this access modifier
-```
-
-**operator** : A special symbol or phrase that you use to check, change, or combine values.
+open var foo:String? // 应用的内外都可以访问或覆盖，编写框架时，是很常用的访问控制符
 
 ```
-//The "-" unary operator decrements a single target
+
+**operator**：一个用来检查、更改或合并值的特殊符号或短语。
+
+```
+// “-” 一元运算符，减少目标的值
 let foo = 5
-let anotherFoo = -foo //anotherFoo now equals -5
+let anotherFoo = -foo // anotherFoo 现在是 -5 了
 
-//The "+" binary operator combines two values
+// ”+“ 组合两个值
 let box = 5 + 3
-```
 
-```
-//The "&&" logical operator combines two boolean values
+
+// ”&&“ 逻辑运算符，用来组合两个布尔值
 if didPassCheckOne && didPassCheckTwo
-```
 
-```
-//The ternary conditional operator considers three values
+
+// 三元运算符，包含三个值？
 let isLegalDrinkingAgeInUS:Bool = age >= 21 ? true : false
 ```
 
-**private** : An access control construct that allows entities to be scoped to its defining declaration.
+**private**：访问控制结构，把实体的作用域限制在声明的位置。
 
 ```
 class Person
 {
     private var jobTitle:String = ""
 }
-```
 
-```
 extension Person
 {
-```
-
-```
-    //This won't compile, jobTitle is only available inside of Person
+    // 不会被编译，jobTitle 的作用域只在 Person 类里
     func printJobTitle()
     {
         print("My job is \(jobTitle)")
     }
 }
 ```
-
-**protocol** : Defines a blueprint of methods, properties, and other requirements that suit a particular task or piece of functionality.
+**protocol**：定义适合特定任务或部分功能的类、属性和其他需求的蓝图。
 
 ```
 protocol Blog
@@ -257,9 +230,7 @@ protocol Blog
     var wordCount:Int { get set }
     func printReaderStats()
 }
-```
 
-```
 class TTIDGPost : Blog
 {
     var wordCount:Int
@@ -268,49 +239,43 @@ class TTIDGPost : Blog
     {
         self.wordCount = wordCount
     }
-```
 
-```
     func printReaderStats()
     {
-        //Print out some stats on the post
+        // 打印一些统计信息
     }
 }
 ```
 
-**public** : An access control construct that allows objects to be both accessible and subclassable but only inside of its defining module. For members, they are both accessible and overridable inside of its defining module.
+**public**：访问控制结构，允许对象在被定义的模块内部访问或子类化，对于成员，也只可以在定义的模块内部可以访问和覆盖。
 
 ```
-public var foo:String? //This can be overriden and accessible anywhere inside of the app, but not outside of it.
+public var foo:String? // 在程序内部的任何地方都可以被覆盖或重写，但是外部不行。
 ```
 
-**static**: Defines methods that are called on the type itself. Also used to define static members.
+**static**：定义该类型自己的调用方法。也用于定义其静态成员。
 
 ```
 class Person
 {
     var jobTitle:String?
-```
 
-```
     static func assignRandomName(_ aPerson:Person)
     {
         aPerson.jobTitle = "Some random job"
     }
 }
-```
 
-```
 let somePerson = Person()
 Person.assignRandomName(somePerson)
 //somePerson.jobTitle is now "Some random job"
 ```
 
-**struct** : A general-purpose, flexible construct that become the building blocks of your program’s code and can also provide member wise initializers. Unlike a `class`, they are always copied when they are passed around in your code and as such, do not use automatic reference counting. In addition, they do not
+**struct**：一个构建程序代码的通用且灵活的基础结构，也提供了成员的初始化方法。和 `class` 不同，他们在代码中被传递的时候，永远复制，而不会启动自动引用计数。另外，他们也不能：
 
-- Use inheritance.
-- Allow type casting at runtime.
-- Have, or use, deinitializers.
+- 使用继承。
+- 在运行时进行类型转换。
+- 拥有或者使用析构器。
 
 ```
 struct Person
@@ -321,33 +286,31 @@ struct Person
 }
 ```
 
-**subscript** : A shortcut for accessing the member elements of a collection, list, or sequence.
+**subscript**：访问集合、列表或者序列的快捷方式。
 
 ```
 var postMetrics = ["Likes":422, "ReadPercentage":0.58, "Views":3409]
 let postLikes = postMetrics["Likes"]
 ```
 
-**typealias** : Introduces a named alias of an existing type into your program.
+**typealias**：将现有的类型的命名作为别名。
 
 ```
 typealias JSONDictionary = [String: AnyObject]
-```
 
-```
 func parseJSON(_ deserializedData:JSONDictionary){}
 ```
 
-**var** : Defines a variable as mutable.
+**var**：定义一个可变的变量。
 
 ```
 var mutableString = ""
 mutableString = "Mutated"
 ```
 
-#### Keywords in Statements ####
+#### 语句中的关键字 ####
 
-**break** : Ends program execution of a loop, an `if` statement, or a `switch` statement.
+**break**：在结束一个循环，或者在 `if`、`switch` 中使用。
 
 ```
 for idx in 0...3
@@ -359,14 +322,11 @@ for idx in 0...3
     }
 }
 ```
-
-**case** : A statement that is evaluated and then compared with the provided patterns inside a `switch` case.
+**case**：求值，然后和 `switch` 提供的类型来比较的语句。
 
 ```
 let box = 1
-```
 
-```
 switch box
 {
 case 0:
@@ -378,7 +338,7 @@ default:
 }
 ```
 
-**continue** : Ends program execution of the current iteration of a loop statement but does not stop execution of the loop statement.
+**continue**：结束循环语句的当前迭代，但是不终止循环语句的继续执行。
 
 ```
 for idx in 0...3
@@ -393,13 +353,11 @@ for idx in 0...3
 }
 ```
 
-**default** : Used to cover any values that are not addressed explicitly in a case.
+**default**：用来覆盖在 `case` 结构中未被明确定义的值。
 
 ```
 let box = 1
-```
 
-```
 switch box
 {
 case 0:
@@ -411,7 +369,7 @@ default:
 }
 ```
 
-**defer** : Used for executing code just before transferring program control outside of the scope that it appears in.
+**defer**：用来执行在程序控制转移到作用域之外之前的代码。
 
 ```
 func cleanUpIO()
@@ -420,14 +378,12 @@ func cleanUpIO()
     {
         print("This is called right before exiting scope")
     }
-```
 
-```
     //Close out file streams,etc.
 }
 ```
 
-**do** : Begins a statement to handle errors by running a block of code.
+**do**：一个前置语句，用来处理一块代码运行的错误。
 
 ```
 do
@@ -441,7 +397,7 @@ catch someError ex
 }
 ```
 
-**else** : Used in conjunction with an `if` statement, it executes one part of code when the condition is true and another part of code when the same condition is false.
+**else**：与 `if` 语句联合使用，当条件为真时执行代码的一部分，当相同的条件为假的时候执行另一部分。
 
 ```
 if 1 > val
@@ -454,13 +410,11 @@ else
 }
 ```
 
-**fallthrough** : Explicitly allows execution to continue from one case to the next in a `switch` statement.
+**fallthrough**：在 `switch` 语句中，明确允许一个 case 执行完继续执行下一个。
 
 ```
 let box = 1
-```
 
-```
 switch box
 {
 case 0:
@@ -473,13 +427,13 @@ default:
 }
 ```
 
-**for** : Iterates over a sequence, such as ranges of numbers, items in an array, or characters in a string. **pairs with the *`*in*`* keyword*
+**for**：对序列进行迭代，例如数字的范围、数组中的项或字符串里的字符。**和 `in` 关键字配对**
 
 ```
 for _ in 0..<3 { print ("This prints 3 times") }
 ```
 
-**guard** : Used to transfer program control out of a scope if one or more conditions aren’t met, while also unwrapping any optional values provided.
+**guard**：在不满足一个或多个条件的情况下，将程序控制转移到作用域之外，同时还可以拆包任何可选类型。
 
 ```
 private func printRecordFromLastName(userLastName: String?) 
@@ -489,15 +443,13 @@ private func printRecordFromLastName(userLastName: String?)
         //Sorry Bill Null, find a new job
         return
     }
-```
 
-```
     //Party on
     print(dataStore.findByLastName(name))
 }
 ```
 
-**if** : Used for executing code based on the evaluation of one or more conditions.
+**if**：根据一个或者多个条件的值来执行代码。
 
 ```
 if 1 > 2
@@ -506,13 +458,13 @@ if 1 > 2
 }
 ```
 
-**in** : Iterates over a sequence, such as ranges of numbers, items in an array, or characters in a string. **pairs with the *`*for*`* keyword*
+**in**：对序列进行迭代，例如数字的范围、数组中的项或字符串里的字符。**和 `for` 关键字配对**
 
 ```
 for _ in 0..<3 { print ("This prints 3 times") }
 ```
 
-**repeat** : Performs a single pass through the loop block first, *before* considering the loop’s condition.
+**repeat**：在考虑循环条件**之前**，执行一次循环里的内容。
 
 ```
 repeat
@@ -522,15 +474,13 @@ repeat
 while 1 > 2
 ```
 
-**return** : Immediately breaks control flow out of the current context, and additionally returns a value supplied after it if one is present.
+**return**：立即打断当前上下文的控制流，另外返回一个得到的值（如果存在的话）。
 
 ```
 func doNothing()
 {
     return //Immediately leaves the context
-```
 
-```
     let anInt = 0
     print("This never prints \(anInt)")
 }
@@ -545,13 +495,11 @@ func returnName() -> String?
 }
 ```
 
-**switch** : Considers a value and compares it against several possible matching patterns. It then executes an appropriate block of code, based on the first pattern that matches successfully.
+**switch**：考虑一个值，并与几种可能的匹配模式进行比较。然后根据成功匹配的第一个模式，执行合适的代码块。
 
 ```
 let box = 1
-```
 
-```
 switch box
 {
 case 0:
@@ -564,16 +512,14 @@ default:
 }
 ```
 
-**where** : Requires that an associated type must conform to a certain protocol, or that certain type parameters and associated types must be the same. It’s also used to provide an additional condition within a pattern in cases that are considered to be matched to the control expression. **The where clause can be used in several contexts, these are examples of their primary use as a generic where clause and pattern matching.*
+**where**：要求关联的类型必须符合一个特定的协议，或者和某些特定的参数类型相同。它也用于提供一个额外的控制条件，来判断一个模式是否符合控制表达式。**where 子句可以在多个上下文中使用，这些例子是 where 作为从句和模式匹配的主要用途。**
 
 ```
 protocol Nameable
 {
     var name:String {get set}
 }
-```
 
-```
 func createdFormattedName<T:Nameable>(_ namedEntity:T) -> String where T:Equatable
 {
     //Only entities that conform to Nameable which also conform to equatable can call this function
@@ -581,7 +527,7 @@ func createdFormattedName<T:Nameable>(_ namedEntity:T) -> String where T:Equatab
 }
 ```
 
-and
+以及
 
 ```
 for i in 0…3 where i % 2 == 0
@@ -590,7 +536,7 @@ for i in 0…3 where i % 2 == 0
 }
 ```
 
-**while** : Performs a set of statements until a condition becomes `false`.
+**while**：执行一组语句，直到条件变为 `false'。
 
 ```
 while foo != bar
@@ -599,49 +545,39 @@ while foo != bar
 }
 ```
 
-#### Expressions and Types Keywords ####
+#### 表达式和类型关键字 ####
 
-**Any** : Can be used to represent an instance of any type at all, including function types.
+**Any**：可以用来表示任何类型的实例，包括函数类型。
 
 ```
 var anything = [Any]()
-```
 
-```
 anything.append("Any Swift type can be added")
 anything.append(0)
 anything.append({(foo: String) -> String in "Passed in \(foo)"})
 ```
 
-**as** : A type cast operator used to attempt to cast a value to a different, or an expected and specific, type.
+**as**：类型转换运算符，用于尝试将值转换成不同的、预期的和特定的类型。
 
 ```
 var anything = [Any]()
-```
 
-```
 anything.append("Any Swift type can be added")
 anything.append(0)
 anything.append({(foo: String) -> String in "Passed in \(foo)" })
-```
 
-```
 let intInstance = anything[1] as? Int
 ```
 
-or
+或
 
 ```
 var anything = [Any]()
-```
 
-```
 anything.append("Any Swift type can be added")
 anything.append(0)
 anything.append({(foo: String) -> String in "Passed in \(foo)" })
-```
 
-```
 for thing in anything
 {
     switch thing
@@ -656,7 +592,7 @@ for thing in anything
 }
 ```
 
-**catch** : If an error is thrown by code in a `do` clause, it’s matched against a `catch` clause to determine how the error will be handled. *[*Excerpt from one of my previous posts on Swift’s error handling.*](https://medium.com/the-traveled-ios-developers-guide/swift-error-handling-2ccc1e305f3f#.tkyggy7cw) 
+**catch**：如果一个错误在 `do` 从句中被抛出，它会根据 `catch` 从句来匹配错误会如何被处理。[**摘自我之前的一篇关于 Swift 的错误处理文章。**](https://medium.com/the-traveled-ios-developers-guide/swift-error-handling-2ccc1e305f3f#.tkyggy7cw)
 
 ```
 do
@@ -677,30 +613,24 @@ catch
 }
 ```
 
-**false** : One of two constant values Swift used to represent the logical type, Bool, as not being true.
+**false**：Swift 中用于表示逻辑类型 — 布尔类型的两个值之一，代表非真。
 
 ```
 let alwaysFalse = false
 let alwaysTrue = true
-```
 
-```
 if alwaysFalse { print("Won't print, alwaysFalse is false 😉")} 
 ```
 
-**is** : A type check operator used to determine whether an instance is of a certain subclass type.
+**is**：类型检查运算符，用来识别一个实例是否是特定的类型。
 
 ```
 class Person {}
 class Programmer : Person {}
 class Nurse : Person {}
-```
 
-```
 let people = [Programmer(), Nurse()]
-```
 
-```
 for aPerson in people
 {
     if aPerson is Programmer
@@ -714,14 +644,12 @@ for aPerson in people
 }
 ```
 
-**nil** : Represents a stateless value for any type in Swift. **Different from Objective-C’s nil, which is a pointer to a nonexistent object.*
+**nil**：表示 Swift 中任何类型的无状态的值。**和 Objective-C 的 nil 不同，它是一个指向不存在对象的指针。**
 
 ```
 class Person{}
 struct Place{}
-```
 
-```
 //Literally any Swift type or instance can be nil
 var statelessPerson:Person? = nil
 var statelessPlace:Place? = nil
@@ -729,7 +657,7 @@ var statelessInt:Int? = nil
 var statelessString:String? = nil
 ```
 
-**rethrows** : Indicates that the function throws an error only if one of its function parameters throws an error.
+**rethrows**：表明仅当该函数的一个函数类型的参数抛出错误时，该函数才抛出错误。
 
 ```
 func networkCall(onComplete:() throws -> Void) rethrows
@@ -745,7 +673,7 @@ func networkCall(onComplete:() throws -> Void) rethrows
 }
 ```
 
-**super** : Exposes access to the superclass version of a method, property, or subscript.
+**super**：公开的访问父类属性、方法或别名。
 
 ```
 class Person
@@ -755,9 +683,7 @@ class Person
         print("Printing a name. ")
     }
 }
-```
 
-```
 class Programmer : Person
 {
     override func printName()
@@ -766,14 +692,12 @@ class Programmer : Person
         print("Hello World!")
     }
 }
-```
 
-```
 let aDev = Programmer()
 aDev.printName() //"Printing a name. Hello World!"
 ```
 
-**self** : An implicit property that every instance of a type has, which is exactly equivalent to the instance itself. Also very useful for distinguishing between a parameter name and a property name.
+**self**：每个类型实例的隐含属性，它完全等于实例本身。在区别函数参数名和属性名时非常有用。
 
 ```
 class Person
@@ -783,23 +707,19 @@ class Person
         print("This is me: \(self)")
     }
 }
-```
 
-```
 let aPerson = Person()
 aPerson.printSelf() //"This is me: Person"
 ```
 
-**Self** : In protocols, represents the type that will eventually conform to the given protocol.
+**Self**：在协议里，代表最终符合给定协议的类型。
 
 ```
 protocol Printable
 {
     func printTypeTwice(otherMe:Self)
 }
-```
 
-```
 struct Foo : Printable
 {
     func printTypeTwice(otherMe: Foo)
@@ -807,18 +727,14 @@ struct Foo : Printable
         print("I am me plus \(otherMe)")
     }
 }
-```
 
-```
 let aFoo = Foo()
 let anotherFoo = Foo()
-```
 
-```
 aFoo.printTypeTwice(otherMe: anotherFoo) //I am me plus Foo()
 ```
 
-**throw** : Used to explicitly throw an error from the current context.
+**throw**：从当前上下文直接抛出一个错误。
 
 ```
 enum WeekendError: Error
@@ -826,16 +742,14 @@ enum WeekendError: Error
     case Overtime
     case WorkAllWeekend
 }
-```
 
-```
 func workOvertime () throws
 {
     throw WeekendError.Overtime
 }
 ```
 
-**throws** : Indicates that a function, method, or initializer can potentially throw an error.
+**throws**：表示一个函数、方法或初始化方法可能会抛出一个错误。
 
 ```
 enum WeekendError: Error
@@ -843,32 +757,26 @@ enum WeekendError: Error
     case Overtime
     case WorkAllWeekend
 }
-```
 
-```
 func workOvertime () throws
 {
     throw WeekendError.Overtime
 }
-```
 
-```
 //"throws" indicates in the function's signature that I need use try, try? or try!
 try workOvertime()
 ```
 
-**true** One of two constant values Swift used to represent the logical type, Bool, as being true.
+**true**：Swift 中用于表示逻辑类型 — 布尔类型的两个值之一，代表真。
 
 ```
 let alwaysFalse = false
 let alwaysTrue = true
-```
 
-```
 if alwaysTrue { print("Always prints")}
 ```
 
-**try** : Indicates that the following function could potentially throw an error. Can be used three different ways: try, try? and try!.
+**try**：表示接下来的函数可能会抛出一个错误。有三种不同的用法：try、try? 和 try!。
 
 ```
 let aResult = try dangerousFunction() //Handle it, or propagate it
@@ -876,9 +784,9 @@ let aResult = try! dangerousFunction() //This could trap
 if let aResult = try? dangerousFunction() //Unwrap the optional
 ```
 
-#### Keywords Using Patterns ####
+#### 关键字中使用模式 ####
 
-**_** : A wilcard pattern that matches and ignores any value.
+**_**：通配符，匹配并忽略任何值。
 
 ```
 for _ in 0..<3
@@ -893,9 +801,9 @@ another use
 let _ = Singleton() //Ignore value or unused variable
 ```
 
-#### Keywords Using # #### (#4346 .graf .graf--h4 .graf-after--pre name=graf graf--h4 graf-after--pre)
+#### 关键字中使用 # 
 
-**#available**: A condition of an `if`, `while`, and `guard` statement to query the availability of APIs at runtime, based on specified platforms arguments.
+**#available**：`if`、`while` 和 `guard` 语句的条件，根据特定的平台，来在运行时查询 API 的可用性。
 
 ```
 if #available(iOS 10, *)
@@ -904,13 +812,13 @@ if #available(iOS 10, *)
 }
 ```
 
-**#colorLiteral**: A playground literal which brings up an interactive color picker to assign to a variable.
+**#colorLiteral**：playground 字面量，返回一个可交互的颜色选择器来赋值给一个变量。
 
 ```
 let aColor = #colorLiteral //Brings up color picker
 ```
 
-**#column**: A special literal expression that returns the column number in which it begins.
+**#column**：特殊的文字表达式，返回它开始位置的列数。
 
 ```
 class Person
@@ -920,14 +828,12 @@ class Person
         print("Some person info - on column \(#column)") 
     }
 }
-```
 
-```
 let aPerson = Person()
 aPerson.printInfo() //Some person info - on column 53
 ```
 
-**#else**: A conditional compiler control statement that allows the program to conditionally compile some given code. Used in conjunction with an `#if` statement, it executes one part of code when the condition is true and another part of code when the same condition is false.
+**#else**：编译条件控制语句，允许程序条件编译一些指定的代码。与 `＃if` 语句结合使用，当条件为真时执行代码的一部分，当相同的条件为假时执行另一部分。
 
 ```
 #if os(iOS)
@@ -937,7 +843,7 @@ aPerson.printInfo() //Some person info - on column 53
 #endif
 ```
 
-**#elseif**: A conditional compiler control statement that allows the program to conditionally compile some given code. Used in conjunction with an `#if` statement, it executes one part of code when the given condition is true.
+**#elseif**：条件编译控制语句，允许程序条件编译一些指定的代码。与 `＃if` 语句结合使用，在给出的条件为真时，执行这部分的代码。
 
 ```
 #if os(iOS)
@@ -947,7 +853,7 @@ aPerson.printInfo() //Some person info - on column 53
 #endif
 ```
 
-**#endif**: A conditional compiler control statement that allows the program to conditionally compile some given code. Used for marking the end of conditionally compiled code.
+**#endif**：条件编译控制语句，允许程序条件编译一些指定的代码。用于标记结束需要条件编译的代码。
 
 ```
 #if os(iOS)
@@ -955,7 +861,7 @@ aPerson.printInfo() //Some person info - on column 53
 #endif
 ```
 
-**#file**: A special literal expression that returns the name of the file in which it appears.
+**#file**：特殊的文字表达式，返回这个文件的名称。
 
 ```
 class Person
@@ -965,20 +871,18 @@ class Person
         print("Some person info - inside file \(#file)") 
     }
 }
-```
 
-```
 let aPerson = Person()
 aPerson.printInfo() //Some person info - inside file /*file path to the Playground file I wrote it in*/
 ```
 
-**#fileReference**: A playground literal which brings up a picker to select a file which returns as a `NSURL` instance.
+**#fileReference**：playground 字面量，返回一个选择器来选择文件，然后作为一个 `NSURL` 实例返回。
 
 ```
 let fontFilePath = #fileReference //Brings up file picker
 ```
 
-**#function**: A special literal expression which returns the name of a function, inside a method it is the name of that method, inside a property getter or setter it is the name of that property, inside special members like `init` or `subscript` it is the name of that keyword, and at the top level of a file it is the name of the current module.
+**#function**：特殊的文字表达式，用来返回一个函数的名称，如果在方法里，它返回方法名，如果在属性的 getter 或者 setter 里，它返回属性的名称，如果在特殊的成员，比如 `init` 或者 `subscript`里，它返回关键字，如果在文件的顶部，那它返回当前模块的名称。
 
 ```
 class Person
@@ -988,14 +892,12 @@ class Person
         print("Some person info - inside function \(#function)") 
     }
 }
-```
 
-```
 let aPerson = Person()
 aPerson.printInfo() //Some person info - inside function printInfo()
 ```
 
-**#if**: A conditional compiler control statement that allows the program to conditionally compile some given code. Used for executing code based on the evaluation of one or more conditions.
+**#if**：条件编译控制语句，允许程序条件编译一些指定的代码。根据一个或多个条件来判断是否执行代码。
 
 ```
 #if os(iOS)
@@ -1003,13 +905,13 @@ aPerson.printInfo() //Some person info - inside function printInfo()
 #endif
 ```
 
-**#imageLiteral**: A playground literal which brings up a picker to select an image which returns as a`UIImage` instance.
+**#imageLiteral**：playground 字面量，返回一个选择器来选择图片，然后作为一个 `UIImage` 实例返回。
 
 ```
 let anImage = #imageLiteral //Brings up a picker to select an image inside the playground file
 ```
 
-**#line**: A special literal expression which returns the line number on which it appears.
+**#line**：特殊的文字表达式，返回它所在位置的行数。
 
 ```
 class Person
@@ -1019,81 +921,70 @@ class Person
         print("Some person info - on line number \(#line)") 
     }
 }
-```
 
-```
 let aPerson = Person()
 aPerson.printInfo() //Some person info - on line number 5
 ```
 
-**#selector**: An expression that forms the Objective-C selector which uses static checking to ensure that the method exists and that it’s also exposed to Objective-C.
+**#selector**：构成 Objective-C 选择器的表达式，它使用静态检查来确保该方法存在，并且它也暴露给 Objective-C。
 
 ```
 //Static checking occurs to make sure doAnObjCMethod exists
 control.sendAction(#selector(doAnObjCMethod), to: target, forEvent: event)
 ```
 
-**#sourceLocation**: A line control statement used to specify a line number and filename that can be different from the line number and filename of the source code being compiled. Useful for changing the source code location used by Swift for diagnostic and debugging purposes.
+**#sourceLocation**：用于指定行数和文件名的行控制语句，该行数和文件名可能和正在编译的源代码的行数和文件名不同。适用于诊断和调试时，更改源代码的位置。
 
 ```
 #sourceLocation(file:"foo.swift", line:6)
-```
 
-```
 //Reports new values
 print(#file)
 print(#line)
-```
 
-```
 //This resets the source code location back to the default values numbering and filename
 #sourceLocation()
-```
 
-```
 print(#file)
 print(#line)
 ```
 
-#### Keywords For Specific Context(s) ####
+#### 在特定上下文中的关键字 ####
 
-- *These keywords can actually be used as identifiers if they are used outside of their respective contexts.*
+- **如果这些关键字在它们各自的上下文之外使用，则它们实际上可以作为标识符**
 
-**associativity**: Specifies how a sequence of operators with the same precedence level are grouped together in the absence of grouping parentheses by using `left`, `right` or `none` .
+**associativity**：指定如何在没有使用 `left`、`right` 或 `none` 分组括号的情况下，将具有相同优先级级别的运算符组合在一起。
 
 ```
 infix operator ~ { associativity right precedence 140 }
 4 ~ 8
 ```
-**convenience** : Secondary, supporting initializers for a class that eventually delegate initialization of the instance to a designated initializer.
+
+**convenience**：类中的辅助初始化器，最终会把实例的初始化委托给特定的初始化器。
 
 ```
 class Person
 {
     var name:String
-```
 
-```
+
     init(_ name:String)
     {
         self.name = name
     }
-```
 
-```
+
     convenience init()
     {
         self.init("No Name")
     }
 }
-```
 
-```
 let me = Person()
 print(me.name)//Prints "No Name"
 ```
 
-**dynamic** : Indicates that access to that member or function is never inlined or devirtualized by the compiler, which means access to that member is always dynamically dispatched (instead of statically) using the Objective-C runtime.
+**dynamic**：表示对该成员或函数的访问从未被编译器内联或虚拟化，这意味着对该成员的访问始终使用 Objective-C 运行时来动态（而非静态）派发。
 
 ```
 class Person
@@ -1106,7 +997,7 @@ class Person
 }
 ```
 
-**didSet** : A property observer that is invoked immediately after a value is stored on a property.
+**didSet**：属性观察，在属性存入一个值后立即调用。
 
 ```
 var data = [1,2,3]
@@ -1118,14 +1009,14 @@ var data = [1,2,3]
 }
 ```
 
-**final** : Prevents a method, property, or subscript from being overridden.
+**final**：阻止方法、属性或者下标被继承。
 
 ```
 final class Person {}
 class Programmer : Person {} //Compile time error
 ```
 
-**get** : Returns the given value for a member. Also used with computed properties to get other properties and values indirectly.
+**get**：返回成员给定的值。也用于计算属性，可以间接地获取其他属性和值。
 
 ```
 class Person
@@ -1135,9 +1026,7 @@ class Person
         get { return self.name }
         set { self.name = newValue}
     }
-```
 
-```
     var indirectSetName:String
     {
         get
@@ -1148,28 +1037,24 @@ class Person
             }
             return ""
         }
-```
 
-```
         set (newTitle)
         {
             //If newTitle was absent, newValue could be used
             self.fullTitle = "\(self.name) :\(newTitle)"
         }
-```
 
-```
     }
 }
 ```
 
-**infix** : Specifies that an operator is used between two targets. If a new global operator is defined as an infix operator, it also requires membership to a precedence group.
+**infix**：用于两个目标之间的特定运算符。如果一个新的全局运算符被定义为中置运算符，那它还需要成员之间的优先级组。
 
 ```
 let twoIntsAdded = 2 + 3
 ```
 
-**indirect** : Indicates that an enumeration has another instance of the enumeration as the associated value for one or more of the enumeration cases.
+**indirect**：表示枚举将另一个枚举的实例作为一个或多个枚举的关联值。
 
 ```
 indirect enum Entertainment
@@ -1178,18 +1063,14 @@ indirect enum Entertainment
     case oneEvent(Entertainment)
     case twoEvents(Entertainment, Entertainment)
 }
-```
 
-```
 let dinner = Entertainment.eventType("Dinner")
 let movie = Entertainment.eventType("Movie")
-```
 
-```
 let dateNight = Entertainment.twoEvents(dinner, movie)
 ```
 
-**lazy** : A property whose initial value is not calculated until the first time it is used.
+**lazy**：属性的初始值在第一次使用时再计算。
 
 ```
 class Person
@@ -1199,71 +1080,59 @@ class Person
         return ["Nice", "Funny"]
     }()
 }
-```
 
-```
 let aPerson = Person()
 aPerson.personalityTraits //Database hit only happens now once it's accessed for the first time
 ```
 
-**left** : Specifies the associativity of an operator as left-to-right so operators with the same precedence level are grouped together correctly in the absence of grouping parentheses.
+**left**：指定操作符的关联顺序为从左到右，这样在没有分组括号的情况下，相同优先级的也会被正确的分到一组。
 
 ```
 //The "-" operator's associativity is left to right
 10-2-4 //Logically grouped as (10-2) - 4
 ```
 
-**mutating** : Allows modification of the properties of a structure or enumeration within a particular method.
+**mutating**：允许在特定的方法中，对结构体或枚举的属性进行修改。
 
 ```
 struct Person
 {
     var job = ""
-```
 
-```
     mutating func assignJob(newJob:String)
     {
         self = Person(job: newJob)
     }
 }
-```
 
-```
 var aPerson = Person()
 aPerson.job //""
-```
 
-```
 aPerson.assignJob(newJob: "iOS Engineer at Buffer")
 aPerson.job //iOS Engineer at Buffer
 ```
 
-**none** : Specifies that an operator has the absence of any associativity applied to it, which restricts operators of the same precedence level from appearing adjacent to each to other.
+**none**：运算符没有提供任何关联性，这限制了相同优先级运算符的出现间隔。
 
 ```
 //The "<" operator is a nonassociative operator
 1 < 2 < 3 //Won't compile
 ```
 
-**nonmutating** : Indicates that a member’s setter doesn’t modify the containing instance, but rather has other intended consequences.
+**nonmutating**：指定成员的 setter 不会修改它包含的实例，但是可以有其他的目的。
 
 ```
 enum Paygrade
 {
     case Junior, Middle, Senior, Master
-```
 
-```
     var experiencePay:String?
     {
         get
         {
             database.payForGrade(String(describing:self))
         }
-```
 
-```
         nonmutating set
         {
             if let newPay = newValue
@@ -1273,18 +1142,14 @@ enum Paygrade
         }
     }
 }
-```
 
-```
 let currentPay = Paygrade.Middle
-```
 
-```
 //Updates Middle range pay to 45k, but doesn't mutate experiencePay
 currentPay.experiencePay = "$45,000"
 ```
 
-**optional** : Used to declare optional methods in protocols. These requirements do not have to be implemented by types that conform to it.
+**optional**：用于描述协议中的可选方法。这些方法不必由符合协议的类型来实现。
 
 ```
 @objc protocol Foo
@@ -1292,9 +1157,7 @@ currentPay.experiencePay = "$45,000"
     func requiredFunction()
     @objc optional func optionalFunction()
 }
-```
 
-```
 class Person : Foo
 {
     func requiredFunction()
@@ -1304,7 +1167,7 @@ class Person : Foo
 }
 ```
 
-**override** : Indicates that a subclass will provide its own custom implementation of an instance method, type method, instance property, type property, or subscript that it would otherwise inherit from a superclass.
+**override**：表示子类将提供自己的实例方法、类方法、实例属性，类属性或下标的自定义实现，否则它将从父类继承。
 
 ```
 class Person
@@ -1314,9 +1177,8 @@ class Person
         print("I'm just a person!")
     }
 }
-```
 
-```
+
 class Programmer : Person
 {
     override func printInfo()
@@ -1324,56 +1186,52 @@ class Programmer : Person
         print("I'm a person who is a dev!")
     }
 }
-```
 
-```
+
 let aPerson = Person()
 let aDev = Programmer()
-```
 
-```
+
 aPerson.printInfo() //I'm just a person!
 aDev.printInfo() //I'm a person who is a dev!
 ```
 
-**postfix**: Specifies that an operator follows the target that it operates on.
+**postfix**：指定操作符在它操作的目标之后。
 
 ```
 var optionalStr:String? = "Optional"
 print(optionalStr!)
 ```
 
-**precedence** : Represents an operator’s higher priority than others; so that these operators are applied first.
+**precedence**：表示一个操作符的优先级高于其他，所以这些运行符先被应用。
 
 ```
 infix operator ~ { associativity right precedence 140 }
 4 ~ 8
 ```
 
-**prefix** : Specifies that an operator precedes the target it operates on.
+**prefix**：指定操作符在它的操作的目标之前。
 
 ```
 var anInt = 2
 anInt = -anInt //anInt now equals -2
 ```
 
-**required** : Enforces the compiler to make sure that every subclass of the class must implement the given initializer.
+**required**：强制编译器确保每个子类都必须实现给定的初始化器。
 
 ```
 class Person
 {
     var name:String?
-```
 
-```
+
     required init(_ name:String)
     {
         self.name = name
     }
 }
-```
 
-```
+
 class Programmer : Person
 {
     //Excluding this init(name:String) would be a compiler error
@@ -1384,19 +1242,18 @@ class Programmer : Person
 }
 ```
 
-**right** : Specifies the associativity of an operator as right-to-left so operators with the same precedence level are grouped together correctly in the absence of grouping parentheses.
+**right**：指定操作符的关联顺序为从右到左，这样在没有分组括号的情况下，相同优先级的也会被正确的分到一组。
 
 ```
 //The "??" operator's associativity is right to left
 var box:Int?
 var sol:Int? = 2
-```
 
-```
+
 let foo:Int = box ?? sol ?? 0 //Foo equals 2
 ```
 
-**set** : Takes in a value for a member to set as its new value. Also used with computed properties to set other properties and values indirectly. If a computed property’s setter does not define a name for the new value to be set, a default name of `newValue` can be used implicitly.
+**set**：获取成员的值来作为它的新值。也可用于计算属性，间接地设置其他属性和值。如果一个计算属性的 setter 没有定义一个名字来代表要设置的新值，那么默认新值的名字为 `newValue`。 
 
 ```
 class Person
@@ -1406,9 +1263,8 @@ class Person
         get { return self.name }
         set { self.name = newValue}
     }
-```
 
-```
+
     var indirectSetName:String
     {
         get
@@ -1419,9 +1275,8 @@ class Person
             }
             return ""
         }
-```
 
-```
+
         set (newTitle)
         {
             //If newTitle was absent, newValue could be used
@@ -1431,34 +1286,31 @@ class Person
 }
 ```
 
-**Type** : Refers to the type of any type, including class types, structure types, enumeration types, and protocol types.
+**Type**：代指任何类型的类型，包括类的类型、结构体的类型、枚举类型和协议类型。
 
 ```
 class Person {}
 class Programmer : Person {}
-```
 
-```
+
 let aDev:Programmer.Type = Programmer.self
 ```
 
-**unowned** : Enables one instance in a reference cycle to refer to the other instance without keeping a strong hold on it when the other instance has the same lifetime or a longer lifetime.
+**unowned**：在循环引用中，一个实例引用另一个实例，在另一个实例具有相同的生命周期或更长的生命周期时，不会对它强持有。
 
 ```
 class Person
 {
     var occupation:Job?
 }
-```
 
-```
+
 //Here, a job never exists without a Person instance, and thus never outlives the Person who holds it.
 class Job
 {
     unowned let employee:Person
-```
 
-```
+
     init(with employee:Person)
     {
         self.employee = employee
@@ -1466,38 +1318,34 @@ class Job
 }
 ```
 
-**weak** : Enables one instance in a reference cycle to refer to the other instance without keeping a strong hold on it when the other instance has a shorter lifetime — that is, when the other instance can be deallocated first.
+**weak**：在循环引用中，一个实例引用另一个实例，在另一个实例具有较短生命周期时，不会对它强持有。
 
 ```
 class Person
 {
     var residence:House?
 }
-```
 
-```
+
 class House
 {
     weak var occupant:Person?
 }
-```
 
-```
+
 var me:Person? = Person()
 var myHome:House? = House()
-```
 
-```
+
 me!.residence = myHome
 myHome!.occupant = me
-```
 
-```
+
 me = nil
 myHome!.occupant //Is now nil
 ```
 
-**willSet** : A property observer that is invoked right before a value is stored on a property.
+**willSet**：属性观察，在属性即将存入一个值之前调用。
 
 ```
 class Person
@@ -1507,19 +1355,18 @@ class Person
         willSet(newValue) {print("I've got a new name, it's \(newValue)!")}
     }
 }
-```
 
-```
+
 let aPerson = Person()
 aPerson.name = "Jordan" //Prints out "I've got a new name, it's Jordan!" right before name is assigned to
 ```
 
-#### Final Thoughts ####
+#### 最后的思考 ####
 
-Phew!
+呼!
 
-This was a fun one to author up. I picked up a few things I hadn’t really thought much of prior to writing it, but I do think the trick here is *not* to memorize it like a list of definitions for an exam.
+这是一个有趣的创作。我选了一些我以前没有真正仔细思考的东西写，但是我认为这些技巧是**不需要**像要考试的列表一样记住的。
 
-Rather, keep this list handy. Let it hit your brainwaves every now and again — and when the time comes when you need that specific keyword for that outlier scenario, you’ll know it and use it.
+更好的是，随时带着这个列表。让它随时的刺激着你的脑波，这样在你需要使用一些特定的关键字的时候，你就会知道它，然后使用它。
 
-Until next time — thanks for reading ✌️.
+下次再见 — 感谢阅读 ✌️。
