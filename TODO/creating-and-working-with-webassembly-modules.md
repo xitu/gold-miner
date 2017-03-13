@@ -15,31 +15,28 @@ So when people talk about WebAssembly being fast, the apples to apples compariso
 因此当人们谈论WebAssembly运行迅速时，合理的比较对象就是JavaScript。但这并不意味着一个非此即彼的选择——你使用WebAssembly还是JavaScript。
 *situation是否可以翻译成选择存疑*
 In fact, we expect that developers are going to use both WebAssembly and JavaScript in the same application. Even if you don’t write WebAssembly yourself, you can take advantage of it.
-事实上我们希望开发者在同一应用中同时使用WebAssembly和JavaScript。即使你不亲自写WebAssembly代码，你也可以利用它。
-*take advantage of 利用 or 使用*
+事实上我们希望开发者在同一应用中同时使用WebAssembly和JavaScript。即使你不亲自写WebAssembly代码，你也可以使用它。
 WebAssembly modules define functions that can be used from JavaScript. So just like you download a module like lodash from npm today and call functions that are part of its API, you will be able to download WebAssembly modules in the future.
 WebAssembly组件定义的函数可以在JavaScript中使用。因此就像现在你可以从npm上下载一个lodash这样的组件并且根据它的API调用方法一样，在未来你同样可以下载WebAssembly组件。
 So let’s see how we can create WebAssembly modules, and then how we can use them from JavaScript.
 所以让我们看看如何创建WebAssembly组件，以及怎样在JavaScript中使用。
 ## Where does WebAssembly fit?
-## WebAssembly在哪里适用？
+## WebAssembly适用于哪里？
 In the article about [assembly](https://hacks.mozilla.org/2017/02/a-crash-course-in-assembly/), I talked about how compilers take high-level programming languages and translate them to machine code.
-在这篇关于[assembly](https://hacks.mozilla.org/2017/02/a-crash-course-in-assembly/)的文章里，我谈到过编译器怎么接收高级程序语言并且把它们翻译成机器码。
-*take 使用 or 接收 ？*
+在这篇关于[汇编](https://hacks.mozilla.org/2017/02/a-crash-course-in-assembly/)的文章里，我谈到过编译器怎么提取高级程序语言并且把它们翻译成机器码。
 ![Diagram showing an intermediate representation between high level languages and assembly languages, with arrows going from high level programming languages to intermediate representation, and then from intermediate representation to assembly language](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/02/04-01-langs09-500x306.png)
 
 Where does WebAssembly fit into this picture?
 WebAssembly对应这张图片的哪个部分？
 You might think it is just another one of the target assembly languages. That is kind of true, except that each one of those languages (x86, ARM ) corresponds to a particular machine architecture.
 你可能认为它只不过是又一个目标汇编语言。某种程度上是对的，除了那些语言(x86,ARM)中每个都对应一个特定的机器架构。
-*kind of true ? *
 When you’re delivering code to be executed on the user’s machine across the web, you don’t know what your target architecture the code will be running on.
 当你通过web向用户的机器上发送要执行的代码时，你并不知道你的代码将要在那种目标架构上运行。
 So WebAssembly is a little bit different than other kinds of assembly. It’s a machine language for a conceptual machine, not an actual, physical machine.
 所以WebAssembly和其他的汇编有些细微的差别。它是概念机的机器语言，而非真实的物理机。
 Because of this, WebAssembly instructions are sometimes called virtual instructions. They have a much more direct mapping to machine code than JavaScript source code. They represent a sort of intersection of what can be done efficiently across common popular hardware. But they aren’t direct mappings to the particular machine code of one specific hardware.
 正因如此，WebAssembly指令有时也被称为虚拟指令。它们比JavaScript源码有更直接的机器码映射。它们代表一套可以在常见的流行硬件上高效执行的指令集合。但是它们并不直接映射某一具体硬件的特定机器码。
-*a sort of intersection*
+*a sort of intersection ？*
 ![Same diagram as above with WebAssembly inserted between the intermediate representation and assembly](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/02/04-02-langs08-500x326.png)
 
 The browser downloads the WebAssembly. Then, it can make the short hop from WebAssembly to that target machine’s assembly code.
@@ -54,7 +51,7 @@ Let’s say that we wanted to go from C to WebAssembly. We could use the clang f
 比如说我们想把C编译成WebAssembly。我们可以使用clang前端把C编译成LLVM中介码。一旦它处于LLVM的中间层，LLVM编译它，LLVM就可以展现一些性能优化。
 *LLVM intermediate representation  VS  LLVM’s IR  中介码 or 中间层*
 To go from LLVM’s IR ([intermediate representation](https://en.wikipedia.org/wiki/Intermediate_representation)) to WebAssembly, we need a back-end. There is one that’s currently in progress in the LLVM project. That back-end is most of the way there and should be finalized soon. However, it can be tricky to get it working today.
-要把LLVM中介码（[intermediate representation](https://en.wikipedia.org/wiki/Intermediate_representation)）编译成WebAssembly，我们需要一个后端支持。在LLVM项目中有一个这类后端正在开发中。这个后端项目已经接近完成并且应该很快就会定稿。然而，现在使用它还会有不少问题。
+要把LLVM中介码（[中介码](https://en.wikipedia.org/wiki/Intermediate_representation)）编译成WebAssembly，我们需要一个后端支持。在LLVM项目中有一个这类后端正在开发中。这个后端项目已经接近完成并且应该很快就会定稿。然而，现在使用它还会有不少问题。
 There’s another tool called Emscripten which is a bit easier to use at the moment. It has its own back-end that can produce WebAssembly by compiling to another target (called asm.js) and then converting that to WebAssembly. It uses LLVM under the hood, though, so you can switch between the two back-ends from Emscripten.
 目前有一个稍微容易使用的工具叫Emscripten。他有自己的后端，可以通过编译成其他对象(称为asm.js)然后再转换成WebAssembly的方式来产生WebAssembly。好像它底层仍旧使用LLVM，因此你可以在Emscripten中切换这两种后端。
 ![Diagram of the compiler toolchain](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/02/04-03-toolchain07-500x411.png)
@@ -99,13 +96,13 @@ If you want to pass a string between the JavaScript and the WebAssembly, you con
 It’s likely that anybody who’s developing a WebAssembly module to be used by web developers is going to create a wrapper around that module. That way, you as a consumer of the module don’t need to know about memory management.
 几乎任何想要开发供web开发者使用的WebAssembly组件的开发者，都会为组件创建一个包装器。这样以来，你作为一个组件的消费者并不需要了解内存管理。
 If you want to learn more, check out our docs on [working with WebAssembly’s memory](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_objects/WebAssembly/Memory).
-如果想了解更多的话，查看我们关于[working with WebAssembly’s memory](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_objects/WebAssembly/Memory)的文档。
+如果想了解更多的话，查看我们关于[使用WebAssembly内存](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_objects/WebAssembly/Memory)的文档。
 ## The structure of a .wasm file
 ## .wasm文件结构
 If you are writing code in a higher level language and then compiling it to WebAssembly, you don’t need to know how the WebAssembly module is structured. But it can help to understand the basics.
 如果你使用高级语言来编写代码然后把它编译成WebAssembly，你不必知道WebAssembly组件的结构。但是它可以帮助你理解其基本原理。
 If you haven’t already, we suggest reading the [article on assembly](https://hacks.mozilla.org/2017/02/a-crash-course-in-assembly/) (part 3 of the series).
-如果你之前没有了解这些基本原理，我们建议你先阅读 [article on assembly](https://hacks.mozilla.org/2017/02/a-crash-course-in-assembly/) (part 3 of the series)。
+如果你之前没有了解这些基本原理，我们建议你先阅读 [汇编文章](https://hacks.mozilla.org/2017/02/a-crash-course-in-assembly/) (part 3 of the series)。
 Here’s a C function that we’ll turn into WebAssembly:
 下面是一个C函数，我们将把它转成WebAssembly:
 
