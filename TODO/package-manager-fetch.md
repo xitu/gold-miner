@@ -2,7 +2,7 @@
 * 原文作者：[Matt Gallagher](http://www.cocoawithlove.com/about/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Gocy](https://github.com/Gocy015/)
-* 校对者：[atuooo](https://github.com/atuooo)
+* 校对者：[atuooo](https://github.com/atuooo), [lovelyCiTY](https://github.com/lovelyCiTY)
 
 # 在 Xcode 项目中使用 swift package fetch #
 
@@ -45,9 +45,9 @@ CwlCatchException ← CwlPreconditionTesting ← CwlUtils ← CwlSignal
 
 submodules 的每个用户都要熟悉 submodule 的结构，并且每次都要微调 git 指令以确保拉取更新仓库的正确性，相比之下，git subtrees 中通常不需要注意这个问题。
 
-### 有保障的包管理工具 ###
+### 成熟的包管理工具 ###
 
-我当然也可以用一些有保障的包管理工具，像是 [CocoaPods](https://cocoapods.org) 或是 [Carthage](https://github.com/carthage/carthage)。我确实应该进一步改进对这些工具的兼容性，以满足部分 **希望** 使用它们的用户，但我不希望强迫 **所有** 用户都使用它们。站在自己的角度出发，我更希望能自己独立掌控工作流，而不是依赖这些工具，让它们来控制工作区（workspace）或是构建配置（build settings）。
+我当然也可以用一些成熟的包管理工具，像是 [CocoaPods](https://cocoapods.org) 或是 [Carthage](https://github.com/carthage/carthage)。我确实应该进一步改进对这些工具的兼容性，以满足部分 **希望** 使用它们的用户，但我不希望强迫 **所有** 用户都使用它们。站在自己的角度出发，我更希望能自己独立掌控工作流，而不是依赖这些工具，让它们来控制工作区（workspace）或是构建配置（build settings）。
 
 ### Swift 包管理工具 ###
 
