@@ -41,7 +41,7 @@ CwlCatchException ← CwlPreconditionTesting ← CwlUtils ← CwlSignal
 
 我也可以试试 [git submodule](https://git-scm.com/docs/git-submodule)。理论上说，它能更动态地解决 git subtrees 所解决的问题。我觉得 git submodules 应该是一个理想的选择，但实际操作起来发现，git modules 对你的仓库的改变是可见（not transparent）的，而 git 那寒酸地处理方式会把一切弄得晦涩难懂。
 
-你有可能遇到 pull 和 push 指令顺序错乱而最终导致改动丢失的情况。改变依赖目标非常麻烦，而且通常需要你手动修改“.git”目录下的内容。Github 上面的“Download ZIP”功能变得毫无用处，因为 ZIP 文件就和其它大部分非 git 代码管理方式一样，会忽略对子模块的引用。
+你有可能遇到 pull 和 push 指令顺序错乱而最终导致改动丢失的情况。改变依赖目标非常麻烦，而且通常需要你手动修改 “.git” 目录下的内容。GitHub 上面的“Download ZIP”功能变得毫无用处，因为 ZIP 文件就和其它大部分非 git 代码管理方式一样，会忽略对子模块的引用。
 
 submodules 的每个用户都要熟悉 submodule 的结构，并且每次都要微调 git 指令以确保拉取更新仓库的正确性，相比之下，git subtrees 中通常不需要注意这个问题。
 
@@ -93,7 +93,7 @@ submodules 的每个用户都要熟悉 submodule 的结构，并且每次都要�
 1. 将项目目录层级调整为遵循 Swift 包管理工具约定中规定的结构（本例中涉及所有项目）。
 2. 将 Objective-C 和 Swift 混编的模块拆分为独立模块（本例中涉及除 CwlSignal 外所有项目）。
 3. 确保在 `#if SWIFT_PACKAGE` 判断下，`import` 步骤 2 中所创建的新模块（本例中涉及除 CwlSignal 外所有项目）。
-4. 将“.h”头文件拆分出来，这样我们就可以通过一个 Xcode 全局头文件或是 Swift-PM 中的模块头文件来一并引入它们（例中涉及除 CwlSignal 外所有项目）。
+4. 将 “.h” 头文件拆分出来，这样我们就可以通过一个 Xcode 全局头文件或是 Swift-PM 中的模块头文件来一并引入它们（本例中涉及除 CwlSignal 外所有项目）。
 5. 确保将步骤 2 中所影响到的模块中的 `internal` 关键字改为 `public`，以确保它们能被正常访问（本例中涉及 CwlCatchException）。
 6. 移除所有对 `DEBUG` 或其他非 Swift 包管理工具设置条件的依赖（本例中涉及 CwlDeferredWork 和 CwlUtils、CwlSignal 的测试文件）。
 7. 对于具有双向依赖关系的 Objective-C 和 Swift 文件，将 Objective-C 中的依赖改为动态寻找以避免模块循环依赖（本例中涉及 CwlMachBadInstructionHandler）。
@@ -103,9 +103,9 @@ submodules 的每个用户都要熟悉 submodule 的结构，并且每次都要�
 
 ### 2. 让 Xcode 工程依赖 Swift 包管理工具下载的文件
 
-在 Swift 3.0 版本中，依赖都被放置在“./Packages/ModuleName-X.Y.Z”目录下，X，Y，Z 是相应的语义版本号。显然，这个路径会随着依赖版本的改变而改变。
+在 Swift 3.0 版本中，依赖都被放置在 “./Packages/ModuleName-X.Y.Z” 目录下，X、Y、Z 是相应的语义版本号。显然，这个路径会随着依赖版本的改变而改变。
 
-在 Swift 3.1 以及更新的版本中，依赖被放置在“./.build/checkout/ModuleName-XXXXXXXX”目录下，其中 XXXXXXXX 是仓库 URL 的 hash 值。这个 hash 值是可能会变化的，并且据我所知，该路径的格式未在文档中提及而且随时可能改变。
+在 Swift 3.1 以及更新的版本中，依赖被放置在 “./.build/checkout/ModuleName-XXXXXXXX” 目录下，其中 XXXXXXXX 是仓库 URL 的 hash 值。这个 hash 值是可能会变化的，并且据我所知，该路径的格式未在文档中提及而且随时可能改变。
 
 因此，我们不能直接将 Xcode 项目中的路径直接指向上述的目录。我们需要创建一个稳定的符号链接（symlink）而不是依赖可能变化的实际路径。这意味着我们需要想一个简单的办法来确定当下的路径。
 
@@ -120,9 +120,9 @@ swift package show-dependencies --format json
 
 我们需要将符号链接从一个稳定路径细化为 JSON 文件中所描述的具体路径。
 
-我选择用“./.build/cwl_symlinks/ModuleName”路径来存储包含 Swift 3.0 以及 3.1 版本的包管理工具所使用的具体路径的符号链接。尽管这样可能出现依赖模块同名但不同源、不同版本的冲突风险，但若不考虑这细微的可能，该路径应该能稳定地指引 Xcode 找到其依赖项。如果我更新了依赖库的版本或是 hash 值改变了（我常出于测试目的，在本地分支和远端分支间切换）或是其它因素导致路径变化了，我们只需要更新符号链接就可以了。
+我选择用 “./.build/cwl_symlinks/ModuleName” 路径来存储包含 Swift 3.0 以及 3.1 版本的包管理工具所使用的具体路径的符号链接。尽管这样可能出现依赖模块同名但不同源、不同版本的冲突风险，但若不考虑这细微的可能，该路径应该能稳定地指引 Xcode 找到其依赖项。如果我更新了依赖库的版本或是 hash 值改变了（我常出于测试目的，在本地分支和远端分支间切换）或是其它因素导致路径变化了，我们只需要更新符号链接就可以了。
 
-想让 Xcode 引用符号链接来间接获取路径，而不是立刻解析符号链接还有些棘手。在使用 Swift 3.1 版本的时候，我实际上还在“./.build/cwl_symlinks/ModuleName”目录下拷贝了一分“./.build/checkout/ModuleName-XXXXXXXX”目录，并将所有文件拖入 Xcode 中，然后再删除该份拷贝，并在“./.build/cwl_symlinks/ModuleName”目录下创建指向“./.build/checkout/ModuleName-XXXXXXXX”的符号链接。
+想让 Xcode 引用符号链接来间接获取路径，而不是立刻解析符号链接还有些棘手。在使用 Swift 3.1 版本的时候，我实际上还在 “./.build/cwl_symlinks/ModuleName” 目录下拷贝了一分 “./.build/checkout/ModuleName-XXXXXXXX” 目录，并将所有文件拖入 Xcode 中，然后再删除该份拷贝，并在 “./.build/cwl_symlinks/ModuleName” 目录下创建指向 “./.build/checkout/ModuleName-XXXXXXXX” 的符号链接。
 
 ### 3. 确保操作对用户的不可见性 ###
 
@@ -137,7 +137,7 @@ swift package show-dependencies --format json
 
 我们需要为所有有外部依赖的 Xcode 项目添加一个用来“运行脚本”的构建阶段（“Run Script” build phase）。
 
-当你为 Xcode 添加“运行脚本”的构建阶段时，它默认指向“/bin/sh”。由于我对 bash 相关指令不熟，所以我把构建阶段的“Shell”值改为“/usr/bin/xcrun –sdk macosx swift”（这么做是因为即便构建目标是 iOS 或其它平台，我仍然需要保证使用了 macOS SDK）并将下列代码添加到脚本中。其中的一些解析和配置逻辑或许有些复杂，但配合注释你应该可以理解大致的思路。
+当你为 Xcode 添加“运行脚本”的构建阶段时，它默认指向 “/bin/sh”。由于我对 bash 相关指令不熟，所以我把构建阶段的 “Shell” 值改为 “/usr/bin/xcrun –sdk macosx swift”（这么做是因为即便构建目标是 iOS 或其它平台，我仍然需要保证使用了 macOS SDK）并将下列代码添加到脚本中。其中的一些解析和配置逻辑或许有些复杂，但配合注释你应该可以理解大致的思路。
 
 ```
 import Foundation
@@ -208,15 +208,15 @@ do {
 }
 ```
 
-编译运行这段代码大概会花掉一秒钟时间，时间不长，但如果能在首次运行后就省去这段时间就更好了。你可以向运行脚本的“Input Files”列表中添加 `$(SRCROOT)/Package.swift` 并为每个 Swift 包管理工具所获取到的依赖添加一个 `$(SRCROOT)/.build/cwl_symlinks/ModuleName` （ModuleName 是获取到的模块名）。这就能避免 Xcode 在“Package.swift”没有改变或模块符号链接未被删除时反复运行脚本，如此便可以节省一秒的编译时间。
+编译运行这段代码大概会花掉一秒钟时间，时间不长，但如果能在首次运行后就省去这段时间就更好了。你可以向运行脚本的 “Input Files” 列表中添加 `$(SRCROOT)/Package.swift` 并为每个 Swift 包管理工具所获取到的依赖添加一个 `$(SRCROOT)/.build/cwl_symlinks/ModuleName` （ModuleName 是获取到的模块名）。这就能避免 Xcode 在 “Package.swift” 没有改变或模块符号链接未被删除时反复运行脚本，如此便可以节省一秒的编译时间。
 
 > **说着有点讽刺：** 为了避免静态包含依赖项，我转而在每个仓库中静态包含了这个文件。
 
 ## 来试试看吧 ##
 
-你可以查看或下载 Github 上的 [CwlCatchException](https://github.com/mattgallagher/CwlCatchException)，[CwlPreconditionTesting](https://github.com/mattgallagher/CwlPreconditionTesting)，[CwlUtils](https://github.com/mattgallagher/CwlUtils) 以及 [CwlSignal](https://github.com/mattgallagher/CwlSignal) 工程。这些工程现在支持在 macOS 上用 Swift 包管理工具进行构建。理论上说，Swift 包管理工具为这其中某些库在 Linux 上运行提供了可能，但这部分内容我们留到下次探索。
+你可以查看或下载 GitHub 上的 [CwlCatchException](https://github.com/mattgallagher/CwlCatchException)、[CwlPreconditionTesting](https://github.com/mattgallagher/CwlPreconditionTesting)、[CwlUtils](https://github.com/mattgallagher/CwlUtils) 以及 [CwlSignal](https://github.com/mattgallagher/CwlSignal) 工程。这些工程现在支持在 macOS 上用 Swift 包管理工具进行构建。理论上说，Swift 包管理工具为这其中某些库在 Linux 上运行提供了可能，但这部分内容我们留到下次探索。
 
-这是一次对这些仓库的实验性变更。出于某些原因，我可能犯下了一些错误或是忽略了更好地选择。如果你遇到任何问题或是有任何更好的建议，欢迎在 github 上提交 issue。
+这是一次对这些仓库的实验性变更。出于某些原因，我可能犯下了一些错误或是忽略了更好地选择。如果你遇到任何问题或是有任何更好的建议，欢迎在 GitHub 上提交 issue。
 
 ## 总结 ##
 
@@ -226,6 +226,6 @@ do {
 
 如果能够将所有用例都完全转为依赖 Swift 包管理工具，那么事情就变简单了、结构也就更清晰了。但可惜，现版本的 Swift 包管理工具还无法处理大量不同的构建场景（包含其它应用以及在 iOS/watchOS/tvOS 平台构建），所以将 Xcode 当作首选构建环境还是相当必要的，但这意味着你需要集成两者。
 
-“运行脚本”的构建阶段很好的隐藏了拉取依赖的过程。尽管没有网络连接时，首次构建会失败，但正常情况下它应该是不可见的，不需要特殊处理。为“运行脚本”的构建阶段设置好“Input Files”和“Output Files”，能够消除绝大部分场景下构建和运行阶段所产生的额外消耗，因此其不会产生太多影响。
+“运行脚本”的构建阶段很好的隐藏了拉取依赖的过程。尽管没有网络连接时，首次构建会失败，但正常情况下它应该是不可见的，不需要特殊处理。为“运行脚本”的构建阶段设置好 “Input Files” 和 “Output Files”，能够消除绝大部分场景下构建和运行阶段所产生的额外消耗，因此其不会产生太多影响。
 
 但我确实担心，在 Swift 包管理工具如此频繁的更新率下，这个构建脚本会很容易失效。我知道今后我要时刻关注 Swift 包管理工具的更新 - 尤其是任何可能影响到 `swift package show-dependencies --format json` 输出结果的。
