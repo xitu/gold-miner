@@ -105,7 +105,6 @@ public class MainActivity extends Activity implements AppUsageStore, AskAppRateV
 
 ### 结论
 
-If you follow the above recipe consistently, none of your interesting code will actually interact with a `Context`. That’ll all happen in an adapter layer. When you get to this point, you’ll be able to do work on your interesting code without having any gods interfere with your ability to understand your code.
 
 如果你能够坚持遵循上述的准则，那么所有你感兴趣的代码实际上都不会和 Context 有交互。所有与 `Context` 交互都将在适配层中实现。当你领悟到这一点时，你就能够专心在你感兴趣的代码上 ，并不会因为任何与上帝有关接口而影响你去理解你的代码。
 
