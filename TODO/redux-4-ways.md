@@ -2,7 +2,7 @@
 * 原文作者：[Nader Dabit](https://medium.com/@dabit3?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[reid3290](https://github.com/reid3290)
-* 校对者：[rccoder](https://github.com/rccoder) [xekri](https://github.com/xekri)
+* 校对者：[rccoder](https://github.com/rccoder)，[xekri](https://github.com/xekri)
 
 # Redux 异步四兄弟 #
 
@@ -10,13 +10,13 @@
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*V6i_YjJC80VVeSnYvBiL5Q.jpeg">
 
-在上一次的 [React Native online meetup](https://github.com/knowbody/react-native-online-meetups) 活动中, 笔者就 Thunk 、 Saga 以及 Redux Observable 之间的不同之处做了报告 [(点击此处获取幻灯片)](http://slides.com/dabit3/deck-11-12) 。
+在上一次的 [React Native online meetup](https://github.com/knowbody/react-native-online-meetups) 活动中，笔者就 Thunk 、 Saga 以及 Redux Observable 之间的不同之处做了报告 [(点击此处获取幻灯片)](http://slides.com/dabit3/deck-11-12) 。
 
 > 上述函数库都提供了一些方法用以处理 Redux 应用中带有副作用的或者是异步的 action。更多关于为什么要用到这些库的介绍，请 [点击此处](https://github.com/markerikson/react-redux-links/blob/master/redux-side-effects.md) 。
 
 相较于仅仅是创建一个[仓库](https://github.com/dabit3/redux-4-ways)，然后查看和测试这些库的实现方法，笔者希望更进一步，即一步步地弄清这些库是如何解决异步在 Redux 中产生的副作用，并额外增加一种方案 —— [Redux Promise Middleware](https://github.com/pburtchaell/redux-promise-middleware) 。
 
-笔者第一次接触 Redux 的时候，就被这些异步的、带有副作用的函数库搞得“头昏脑胀”。 虽然相关文档还算齐全，但还是希望能够结合实际项目去深入理解这些函数库是如何解决 Redux 中的异步问题。，从而快速上手，避免浪费过多时间。
+笔者第一次接触 Redux 的时候，就被这些异步的、带有副作用的函数库搞得“头昏脑胀”。 虽然相关文档还算齐全，但还是希望能够结合实际项目去深入理解这些函数库是如何解决 Redux 中的异步问题。从而快速上手，避免浪费过多时间。
 
 在本教程中，笔者将应用上述函数库，一步步地实现一个拉取数据并将数据存储在 reducer 中的简单例子。
 
@@ -514,7 +514,7 @@ export default function configureStore() {
 
 Redux Observable 使用 RxJS 和 observables 来为 Redux 应用创建异步 action 和异步数据流。（[branch](https://github.com/dabit3/redux-4-ways/tree/observable)）
 
-> “基于 [“RxJS 5](http://github.com/ReactiveX/RxJS) 的 [Redux] 中间件(http://github.com/reactjs/redux)。组合撤销异步 actions 以产生副作用等。” — Redux Observable 文档
+> “基于 [RxJS 5](http://github.com/ReactiveX/RxJS) 的 [Redux] 中间件(http://github.com/reactjs/redux)。组合撤销异步 actions 以产生副作用等。” — Redux Observable 文档
 
 首先还是需要更新 actions.js 文件：
 ```
@@ -571,7 +571,7 @@ export default fetchUserEpic
 2. 引入 `getDataSuccess` 和 `getDataFailure` 函数。
 3. 从 rxjs 中引入 `rxjs` 和 `Observable`。
 4. 定义函数 `fetchUserEpic`。
-5. 等到 `FETCHING_DATA` action 通过该 stream 之后, 调用 [mergeMap](https://www.learnrxjs.io/operators/transformation/mergemap.html) 函数, 从 `getPeople` 中返回 `Observable.fromPromise` 并将返回值映射到 `getDataSuccess` 函数中。
+5. 等到 `FETCHING_DATA` action 通过该 stream 之后，调用 [mergeMap](https://www.learnrxjs.io/operators/transformation/mergemap.html) 函数, 从 `getPeople` 中返回 `Observable.fromPromise` 并将返回值映射到 `getDataSuccess` 函数中。
 
 最后，更新 configureStore，应用新中间件 —— epic。
 
@@ -685,7 +685,7 @@ export default function dataReducer (state = initialState, action) {
 
 最后更新 `configureStore`，应用 Redux Promise Middleware：
 
-、、、
+```
 import { createStore, applyMiddleware } from 'redux'
 import app from './reducers'
 import promiseMiddleware from 'redux-promise-middleware';
@@ -694,7 +694,7 @@ export default function configureStore() {
   let store = createStore(app, applyMiddleware(promiseMiddleware()))
   return store
 }
-、、、
+```
 
 至此，可以再次运行该程序并看到后之前一样的效果！
 
