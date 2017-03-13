@@ -2,11 +2,11 @@
 * 原文作者：[Scott](https://scotthelme.co.uk/author/scott/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[XatMassacrE](https://github.com/XatMassacrE)
-* 校对者：[newbieYoung](https://github.com/newbieYoung) [DeadLion](https://github.com/DeadLion)
+* 校对者：[newbieYoung](https://github.com/newbieYoung)，[DeadLion](https://github.com/DeadLion)
 
 ## 跨站请求伪造已死！##
 
-在连续不断的被跨站请求伪造折磨了这么多年后，我们现在终于有了一个合理的解决方案。一个对网站拥有者没有技术负担、实施起来没有难度、部署又非常简单的方案，它就是 Same-Site Coookies。
+在连续不断的被跨站请求伪造折磨了这么多年后，我们现在终于有了一个合理的解决方案。一个对网站拥有者没有技术负担、实施起来没有难度、部署又非常简单的方案，它就是 Same-Site Cookies。
 
 #### 和互联网历史一样悠久的跨站请求伪造 ####
 
