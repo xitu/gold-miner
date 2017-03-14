@@ -1,3 +1,4 @@
+* [Redux 异步四兄弟](https://gold.xitu.io/entry/58c75f9444d90400699add86/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([reid3290](https://github.com/reid3290) 翻译)
 * [再谈 CSS 中的代码味道](https://gold.xitu.io/entry/58c2034dac502e0062cf8e2a/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([IridescentMia](https://github.com/IridescentMia)) 翻译)
 * [Web 分享 API 赋予浏览器原生分享能力](https://gold.xitu.io/entry/58c174ec44d9040069777f17/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Jiang Haichao](https://github.com/AceLeeWinnie) 翻译)
 * [React JSX 与 Vue 模板的对比：前端界的一次对决](https://gold.xitu.io/entry/58b9841dac502e006c0a69d5/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([ZhangFe](https://github.com/ZhangFe) 翻译)
