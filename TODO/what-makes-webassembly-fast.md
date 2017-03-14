@@ -130,3 +130,4 @@ WebAssembly 比 JavaScript 执行更快是因为：
 
 但是，还有一些情况 WebAssembly 表现的会不如预期；同时 WebAssembly 的未来也会朝着使 WebAssembly 执行效率更高的方向发展。这些我会在下一篇文章[《WebAssembly 的现在与未来》](https://hacks.mozilla.org/?p=30522)中介绍。
 
+欢迎大家关注我的专栏[前端大哈](https://zhuanlan.zhihu.com/qianduandaha)，定期发布高质量前端文章。
