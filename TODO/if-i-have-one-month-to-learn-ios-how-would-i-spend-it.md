@@ -69,7 +69,6 @@
 - Youtube 上的 [一些 Core Data 教程](https://www.youtube.com/results?search_query=core+data)
 - Mattt Thompson 编写的 [NSCoding/NSKeyedArchiver 相关文章](http://nshipster.com/nscoding/) 
 
-
 ### 利用 iOS 网络连接来与世界互动 ###
 
 我们生活在互联网时代，所以你的应用理应能够与外界互联并与他人进行数据交换。让我们进入下一课：iOS 网络连接。你要学习如何使用 iOS 中的 REST API（译者注：REST - REpresentational State Transfer）。在这个阶段，请你一定不要使用第三方的库。让我们用 iOS 内置的框架来完成这部分的内容。
