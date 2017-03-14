@@ -65,7 +65,7 @@
 
 我所参看过的资源包括：
 
-- 优达学城的 [iOS 数据持久化 和 Core Data](https://www.udacity.com/course/ios-persistence-and-core-data--ud325)
+- 优达学城的 [iOS 数据持久化和 Core Data](https://www.udacity.com/course/ios-persistence-and-core-data--ud325)
 - Youtube 上的 [一些 Core Data 教程](https://www.youtube.com/results?search_query=core+data)
 - Mattt Thompson 编写的 [NSCoding/NSKeyedArchiver 相关文章](http://nshipster.com/nscoding/) 
 
