@@ -514,7 +514,7 @@ export default function configureStore() {
 
 Redux Observable 使用 RxJS 和 observables 来为 Redux 应用创建异步 action 和异步数据流。（[branch](https://github.com/dabit3/redux-4-ways/tree/observable)）
 
-> “基于 [RxJS 5](http://github.com/ReactiveX/RxJS) 的 [Redux] 中间件(http://github.com/reactjs/redux)。组合撤销异步 actions 以产生副作用等。” — Redux Observable 文档
+> “基于 [RxJS 5](http://github.com/ReactiveX/RxJS) 的 [Redux](http://github.com/reactjs/redux) 中间件。组合撤销异步 actions 以产生副作用等。” —— Redux Observable 文档
 
 首先还是需要更新 actions.js 文件：
 ```
