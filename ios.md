@@ -1,3 +1,4 @@
+* [在 Xcode 项目中使用 swift package fetch](https://juejin.im/post/58c7a4cb1b69e6006bec354c/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Gocy015(Gocy)](https://github.com/Gocy015)翻译)
 * [Bob，函数式编程是什么鬼？](https://juejin.im/post/58c24c35a22b9d00589a56d4/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([DeepMissea](https://github.com/DeepMissea)翻译)
 * [Swift + 关键字](https://juejin.im/post/58bf76aaa22b9d0058896bff/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([DeepMissea](https://github.com/DeepMissea)翻译)
 * [重构 Swift 中单例的用法](https://gold.xitu.io/entry/58b81150570c3500598fc567/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Karthus1110](https://github.com/Karthus1110)翻译)
