@@ -1,5 +1,5 @@
 > * 原文地址：[Redux 4 Ways](https://medium.com/react-native-training/redux-4-ways-95a130da0cdc#.nyb3hqtgb)
-* 原文作者：[Nader Dabit](https://medium.com/@dabit3?source=post_header_lockup)
+* 原文作者：本篇文章已获得作者 [Nader Dabit](https://medium.com/@dabit3?source=post_header_lockup) 授权
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[reid3290](https://github.com/reid3290)
 * 校对者：[rccoder](https://github.com/rccoder)，[xekri](https://github.com/xekri)
