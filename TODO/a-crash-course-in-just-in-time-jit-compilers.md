@@ -6,7 +6,7 @@
 
 # JIT 编译器快速入门 #
 
-**本文是 WebAssembly 系列文章的第二部分。如果你还没有阅读过前面的文章，我们建议你 [从头开始](https://hacks.mozilla.org/2017/02/a-cartoon-intro-to-webassembly/).**
+**本文是 WebAssembly 系列文章的第二部分。如果你还没有阅读过前面的文章，我们建议你 [从头开始](https://github.com/xitu/gold-miner/blob/master/TODO/a-cartoon-intro-to-webassembly.md).**
 
 JavaScript 刚面世时运行速度是很慢的，而 JIT 的出现令其性能快速提升。那么问题来了，JIT 是如何运作的呢？
 
@@ -22,7 +22,7 @@ JavaScript 刚面世时运行速度是很慢的，而 JIT 的出现令其性能�
 
 所以 JavaScript 引擎的作用就是将你使用的人类语言转换成机器能够理解的东西。
 
-我认为这就像电影 [降临](https://en.wikipedia.org/wiki/Arrival_(film) 里人类和外星人试图互相交谈的情节一样。
+我认为这就像电影 [降临](https://en.wikipedia.org/wiki/Arrival_(film)) 里人类和外星人试图互相交谈的情节一样。
 
 ![A person holding a sign with source code on it, and an alien responding in binary](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/02/02-01-alien03-500x286.png)
 
@@ -44,7 +44,7 @@ JavaScript 刚面世时运行速度是很慢的，而 JIT 的出现令其性能�
 
 ### 解释器的优缺点 ###
 
-解释器可以迅速开始工作。在运行代码之前，你不必等待所有的汇编步骤完成，只要开始转义第一行代码就可以就可以运行程序了。
+解释器可以迅速开始工作。在运行代码之前，你不必等待所有的汇编步骤完成，只要开始转义第一行代码就可以运行程序了。
 
 因此，解释器看起来自然很适用于 JavaScript 这类语言。对于 Web 开发者来说，能够快速运行代码相当重要。
 
@@ -164,4 +164,4 @@ JIT 处理这种情况的方法是编译多个基线存根。一段代码如果�
 
 这里还有改进空间：除去以上的开销，提高性能的可预测性。这是 WebAssembly 实现的工作之一。
 
-在[下一篇文章](https://hacks.mozilla.org/?p=30503)中，我将对汇编做更多说明并解释编译器与它是如何工作的。
+在[下一篇文章](https://github.com/xitu/gold-miner/blob/master/TODO/a-crash-course-in-assembly.md)中，我将对汇编做更多说明并解释编译器与它是如何工作的。
