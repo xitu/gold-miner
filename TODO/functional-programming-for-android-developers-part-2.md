@@ -2,7 +2,7 @@
 * 原文作者：[Anup Cowkur](https://medium.com/@anupcowkur)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者： [tanglie1993](https://github.com/tanglie1993)
-* 校对者：
+* 校对者：[skyar2009](https://github.com/skyar2009), [phxnirvana](https://github.com/phxnirvana)
 
 ---
 
@@ -14,7 +14,7 @@
 
 [**Android 开发者如何使用函数式编程 （一）**](https://github.com/xitu/gold-miner/blob/master/TODO/functional-programming-for-android-developers-part-1.md)
 
-在上一篇帖子中，我们学习了**纯粹性**, **副作用**和**排序**。在本部分中，我们将讨论**不变性**和**并发**。
+在上一篇帖子中，我们学习了**纯粹性*、**副作用**和**排序**。在本部分中，我们将讨论**不变性**和**并发**。
 
 ### 不变性
 
@@ -161,7 +161,7 @@ public final class Car {
 
 #### 如果我们需要全局可变状态怎么办？
 
-要写出有用的应用，我们在很多情况下需要共享可变的状态。我们可能会真正需要更新 *noOfDrivers* ，并把改变反映到整个系统中去。我们在下一章讨论 **函数式架构**时，将使用状态隔离处理这种情况，并把副作用推到系统的边缘。
+要写出有用的应用，我们在很多情况下需要共享可变的状态。我们可能会真正需要更新 *noOfDrivers* ，并把改变反映到整个系统中去。我们在下一章讨论**函数式架构**时，将使用状态隔离处理这种情况，并把副作用推到系统的边缘。
 
 ### 持久数据结构
 
