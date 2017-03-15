@@ -2,7 +2,7 @@
 * 原文作者：[Quang Nguyen](https://android.jlelse.eu/@quangctkm9207?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Gocy](https://github.com/Gocy015)
-* 校对者：
+* 校对者：[reid3290](https://github.com/reid3290)
 
 # 如果只有一个月入门 iOS：我该如何学习呢？ #
 
@@ -10,10 +10,10 @@
 
 图片来源：[https://unsplash.com/@firmbee](https://unsplash.com/@firmbee) 
 
-直到去年，我都一直在从事 Android 平台的开发。当时，我对 iOS 开发没有任何的概念，甚至从来没有用过 Apple 的产品。但这一切都是过去式了，现在我已经能够同时进行 iOS 和 Android 应用的开发了。
+直到去年，我一直都在从事 Android 平台的开发。当时，我对 iOS 开发没有任何的概念，甚至从来没有用过 Apple 的产品。但这一切都是过去式了，现在我已经能够同时进行 iOS 和 Android 应用的开发了。
 
 今天再回顾过去的学习时光，我想分享一个由我自己总结出的一个月入门 iOS 开发的课程大纲。
-依我个人的经验，我非常推荐 Android 开发者学习如何开发 iOS 应用。尽管这听起来怪怪的，但别误解我。因为：**广泛地涉猎能够让你在自己的领域有更深的见解。**
+依我个人的经验，我非常推荐 Android 开发者学习 iOS 应用开发。尽管这听起来怪怪的，但别误解我。因为：**广泛地涉猎能够让你在自己的领域有更深的见解。**
 
 > “如果你做出了些成果并且收效不错，那么你应该投入到创造下一个美妙的东西中去，不要在已有的成果上沉浸太久。弄清楚下一个目标就是了。” - **Steve Jobs**
 
@@ -35,9 +35,9 @@
 
 ### 用 UIKit 来绘制应用界面 ###
 
-接下来让我们看看有趣的视觉部分。UIKit 能让的程序在 iOS 设备上进行展示和交互。听着不错，不是吗。
+接下来让我们看看有趣的视觉部分。UIKit 能让你的程序在 iOS 设备上进行展示和交互。听着不错，不是吗？
 
-当时我在优达学城上搜索相关的免费课程。我还真找到了。[UIKit 基础课程](https://www.udacity.com/course/uikit-fundamentals--ud788)。
+当时我在优达学城上搜索相关的免费课程，我还真找到了 - [UIKit 基础课程](https://www.udacity.com/course/uikit-fundamentals--ud788)。
 
 起初，iOS 的 Auto Layout 让我颇感困扰。因为在开发 Android 应用时，我都是通过 xml 文件来实现界面并视觉检视的，几乎从来没有用过拖拽摆放（drag-and-drop）的方法。但在 iOS 上，这个过程完全不同。
 在花了一些时间去实践、理解 Auto Layout 的机制之后，我发现我学到了一些日常 Android 设计风格之外的新东西，这太棒了。
@@ -57,8 +57,8 @@
 在 iOS 应用中，你有以下几个选择：
 
 - **NSUserDefaults** : 一种键-值形式的存储，与 Android 中的 SharePreferences 相似
-- **NSCoding / NSKeyed&#8203;Archiver** : 将兼容的类与数据表示互相转换，并存储于文件系统（File System）或 NSUserDefaults 中。
-- **Core Data**: iOS 的功能强大的框架。
+- **NSCoding / NSKeyed&#8203;Archiver** : 将兼容的类与数据表示互相转换，并存储于文件系统（File System）或 NSUserDefaults 中
+- **Core Data**: iOS 的功能强大的框架
 - 其它: SQLite，Realm 等等。
 
 尽管当下许多 iOS 开发者都更愿意使用 Realm 而非 Core Data，但我还是推荐你学习 Core Data，因为它是 iOS 官方的持久化框架，当你理解了它的核心架构和实现方式后，你将如虎添翼。（译者注：关于 SQLite，Realm 还是 Core Data 的争论一直没有停过，建议初学者都了解一下，根据实际项目需要进行选择）
