@@ -8,13 +8,13 @@
 # 汇编快速入门
 
 *This is the third part in a series on WebAssembly and what makes it fast. If you haven’t read the others, we recommend [starting from the beginning](https://hacks.mozilla.org/2017/02/a-cartoon-intro-to-webassembly/).*
-**本文是 WebAssembly 系列文章的第三部分。如果你还没有阅读过前面的文章，我们建议你 [从头开始](https://hacks.mozilla.org/2017/02/a-cartoon-intro-to-webassembly/).**
+**本文是 WebAssembly 系列文章的第三部分。如果你还没有阅读过前面的文章，我们建议你 [从头开始](https://hacks.mozilla.org/2017/02/a-cartoon-intro-to-webassembly/)。**
 
 To understand how WebAssembly works, it helps to understand what assembly is and how compilers produce it.
 理解汇编和编译器如何生成它的有助于你后续理解 WebAssembly 的工作原理，
 
 In the [article on the JIT](https://hacks.mozilla.org/2017/02/a-crash-course-in-just-in-time-jit-compilers/), I talked about how communicating with the machine is like communicating with an alien.
-在 [介绍 JIT 的文章](https://hacks.mozilla.org/2017/02/a-crash-course-in-just-in-time-jit-compilers/)里，我谈到了与机器交流和与外星人通信是如何相似。
+在 [介绍 JIT 的文章](https://hacks.mozilla.org/2017/02/a-crash-course-in-just-in-time-jit-compilers/)里，我谈到了与机器交流的方式和与外星人通信是相似的。
 
 ![A person holding a sign with source code on it, and an alien responding in binary](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/02/03-01-alien03-500x286.png)
 
@@ -62,10 +62,10 @@ Note the annotations above the machine code here, which make it easier for us hu
 注意这里机器码上方的注释，有助于我们人类理解是怎么回事。这就叫做汇编。这段代码称为符号机器码。符号机器码是人类理解机器码的一种方式。
 
 You can see here there is a pretty direct relationship between the assembly and the machine code for this machine. Because of this, there are different kinds of assembly for the different kinds of machine architectures that you can have. When you have a different architecture inside of a machine, it is likely to require its own dialect of assembly.
-你会发现汇编和这台机器的机器码有相当直接的关系。因此对应不同的机器架构有不同的汇编方式。当你遇到使用不同架构的机器时，可能就得按它们自己的方式进行汇编。
+你会发现汇编和这台机器的机器码有很直接的关系。因此不同的机器架构对应有不同的汇编方式。当你遇到使用不同架构的机器时，可能就得按它们自己的方式进行汇编。
 
 So we don’t just have one target for our translation. It’s not just one language called machine code. It’s many different kinds of machine code. Just as we speak different languages as people, machines speak different languages.
-因此，我们的翻译对象并不止一个。机器码不止一种语言，有许许多多种类的机器码。就像我们人类会说不同的语言一样，机器也会使用不同的语言。		
+因此，我们的翻译对象并不止一个。机器码不止一种语言，有许多不同种类的机器码。就像我们人类会说不同的语言一样，机器也会使用不同的语言。		
 
 With human to alien translation, you may be going from English, or Russian, or Mandarin to Alien Language A or Alien language B. In programming terms, this is like going from C, or C++, or Rust to x86 or to ARM.
 随着人类和外星人之间的翻译问题解决，你也可以将英语、俄语、普通话等语言转化成外星文A、外星文B了。对编程而言，就是将 C、C++、Rust 等语言转化成 x86、ARM。
