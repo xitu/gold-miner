@@ -19,11 +19,10 @@
 
 ## Android
 
-* [面向无神论安卓开发：如何和为什么要干掉上帝对象](https://gold.xitu.io/entry/58c748891b69e6006be9f834/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Danny1451](https://github.com/Danny1451) 翻译)
+* [面向无神论安卓开发：如何和为什么要干掉上帝对象](https://juejin.im/post/58c748891b69e6006be9f834/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Danny1451](https://github.com/Danny1451) 翻译)
 * [Android 开发者如何使用函数式编程 （二）](https://gold.xitu.io/entry/58c7db7c570c3500584639a3/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([tanglie1993](https://github.com/tanglie1993/) 翻译)
 * [单元测试试图告诉我们关于 Activity 的什么事情：第一部分](https://gold.xitu.io/entry/58bc1d51128fe1006447531e/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([tanglie1993](https://github.com/tanglie1993/) 翻译)
 * [Android 开发者如何使用函数式编程（一）](https://gold.xitu.io/entry/58b7b301570c35006c466c85/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([skyar2009](https://github.com/skyar2009) 翻译)
-* [Constraint Layout 动画 |动态 Constraint |用 Java 实现的 UI[Part3]](https://gold.xitu.io/entry/58b2fd59570c350069704265?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([siegeout](https://github.com/siegeout) 翻译)
 * [所有 Android 译文>>](https://github.com/xitu/gold-miner/blob/master/android.md)
 
 
@@ -37,11 +36,10 @@
 
 ## 前端
 
-* [JIT 编译器快速入门](https://gold.xitu.io/entry/58c7777eda2f605dc5b1c258/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([zhouzihanntu](https://github.com/zhouzihanntu) 翻译)
-* [看漫画，学 WebAssembly](https://gold.xitu.io/entry/58c76be244d90400699b3a1f/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([sqrthree](https://github.com/sqrthree) 翻译)
-* [Redux 异步四兄弟](https://gold.xitu.io/entry/58c75f9444d90400699add86/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([reid3290](https://github.com/reid3290) 翻译)
-* [再谈 CSS 中的代码味道](https://gold.xitu.io/entry/58c2034dac502e0062cf8e2a/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([IridescentMia](https://github.com/IridescentMia)) 翻译)
-* [Web 分享 API 赋予浏览器原生分享能力](https://gold.xitu.io/entry/58c174ec44d9040069777f17/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Jiang Haichao](https://github.com/AceLeeWinnie) 翻译)
+* [JIT 编译器快速入门](https://juejin.im/post/58c7777eda2f605dc5b1c258/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([zhouzihanntu](https://github.com/zhouzihanntu) 翻译)
+* [看漫画，学 WebAssembly](https://juejin.im/post/58c76be244d90400699b3a1f/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([sqrthree](https://github.com/sqrthree) 翻译)
+* [Redux 异步四兄弟](https://juejin.im/post/58c75f9444d90400699add86/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([reid3290](https://github.com/reid3290) 翻译)
+* [再谈 CSS 中的代码味道](https://juejin.im/post/58c2034dac502e0062cf8e2a/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([IridescentMia](https://github.com/IridescentMia)) 翻译)
 * [所有前端译文>>](https://github.com/xitu/gold-miner/blob/master/front-end.md)
 
 
