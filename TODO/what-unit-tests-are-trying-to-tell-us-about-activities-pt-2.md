@@ -1,19 +1,18 @@
 * 原文地址：[What Unit Tests are Trying to Tell us About Activities Pt 2](https://www.philosophicalhacker.com/post/what-unit-tests-are-trying-to-tell-us-about-activities-pt-2/)
 * 原文作者：[Matt Dupree](https://twitter.com/philosohacker)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
+* 译者：[tanglie1993](https://github.com/tanglie1993)
 * 校对者：
 
-# What Unit Tests are Trying to Tell us About Activities Pt 2 #
+# 单元测试试图告诉我们关于 Activity 的什么事情：第二部分 #
 
+`Activity` 和 `Fragment`，可能是因为一些[奇怪的历史巧合](https://juejin.im/entry/58ac5b3b570c35006bc9e52c)，从 Android 推出之时起就被视为构建 Android 应用的**最佳**构件。我们把这种想法——`Activity` 和 `Fragment` 是应用的最佳构件——称为“android-centric”架构。
 
-`Activity`s and `Fragment`s, perhaps by [some strange historical accidents](/post/why-android-testing-is-so-hard-historical-edition/), have been seen as *the optimal* building blocks upon which we can build our Android applications for much of the time that Android has been around. Let’s call this idea – the idea that `Activity`s and `Fragment`s are the best building blocks for our apps – “android-centric” architecture.
+本系列博文是关于 android-centric 架构的可测试性和其它问题之间的联系的，而这些问题正导致 Android 开发者们排斥这种架构。这些博文也涉及单元测试怎样试图告诉我们：`Activity` 和 `Fragment` 不是应用的最佳构件，因为它们迫使我们写出**高耦合**和**低内聚**的代码。
 
-This series of posts is about the connection between the testability of android-centric architecture and the other problems that are now leading Android developers to reject it; it’s about how our unit tests are trying to tell us that `Activity`s and `Fragment`s don’t make the best building blocks for our apps because they force us to write code with *tight coupling* and *low cohesion*.
+在本[系列文章](https://juejin.im/entry/58bc1d51128fe1006447531e)的第二部分，通过对 Google I/O 示例应用的会话详情页面的检查，我将说明：把 `Activity` 和 `Fragment` 当作组件，会把代码变得难以测试。我也将说明：我们单元测试的失败告诉我们，目标类的内聚是很低的。
 
-In this second part of [the series](/post/what-unit-tests-are-trying-to-tell-us-about-activities-pt1/), through an examination of the Session Detail screen in the Google I/O sample app, I show how using `Activity`’s and `Fragment`s as building blocks makes our code hard to test and show that our failure to unit test tell us that our target class has low-cohesion.
-
-### The Google I/O Session Detail Example ###
+### The Google I/O 会话细节例子 ###
 
 When I’m working on a project, I try to start by [testing the code that scares me the most](/post/what-should-we-unit-test/). Large classes scare me. The largest class in the Google I/O app is the `SessionDetailFragment`. Large methods scare me too, and the largest method of this large class is `displaySessionData`. Here’s a screenshot of what this monster class displays:
 
