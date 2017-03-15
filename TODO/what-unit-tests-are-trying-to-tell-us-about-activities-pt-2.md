@@ -14,7 +14,7 @@
 
 ### The Google I/O 会话细节例子 ###
 
-When I’m working on a project, I try to start by [testing the code that scares me the most](/post/what-should-we-unit-test/). Large classes scare me. The largest class in the Google I/O app is the `SessionDetailFragment`. Large methods scare me too, and the largest method of this large class is `displaySessionData`. Here’s a screenshot of what this monster class displays:
+当我在开发一个项目时，我尝试从[最让我害怕的代码](https://www.philosophicalhacker.com/post/what-should-we-unit-test/)开始测试。大的类让我害怕。Google I/O 应用的最大的类是 `SessionDetailFragment`。大的方法也让我害怕，而这个大型类中最大的方法是 `displaySessionData`。这是这个巨大的类显示的内容的截图:
 
 ![](https://www.philosophicalhacker.com/images/session-detail.png)
 
