@@ -1,14 +1,14 @@
-* 原文地址：[Where is WebAssembly now and what’s next?](https://hacks.mozilla.org/2017/02/where-is-webassembly-now-and-whats-next/)
-* 原文作者：[Lin Clark](http://code-cartoons.com/)
-* 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：[胡子大哈](https://github.com/huzidaha/)
-* 校对者：
+> * 原文地址：[Where is WebAssembly now and what’s next?](https://hacks.mozilla.org/2017/02/where-is-webassembly-now-and-whats-next/)
+> * 原文作者：[Lin Clark](http://code-cartoons.com/)
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 译者：[胡子大哈](https://github.com/huzidaha/)
+> * 校对者：[根号三](https://github.com/sqrthree)
 
 # WebAssembly 的现在与未来
 
-*本文是关于 WebAssembly 系列的第六篇文章（本系列共六篇文章，后续会将连接补充归整），也同时是本系列的收尾文章。如果你没有读先前文章的话，建议[先读这里（英文文章）](https://hacks.mozilla.org/2017/02/a-cartoon-intro-to-webassembly/)。
+本文是关于 WebAssembly 系列的第六篇文章，也同时是本系列的收尾文章。如果你没有读先前文章的话，建议[先读这里](https://github.com/xitu/gold-miner/blob/master/TODO/a-cartoon-intro-to-webassembly.md)。
 
-2017 年 2 月 28 日，四个主要的浏览器[一致同意宣布](https://lists.w3.org/Archives/Public/public-webassembly/2017Feb/0002.html) WebAssembly 的MVP 版本已经完成，它是一个浏览器可以搭载的稳定版本。
+2017 年 2 月 28 日，四个主要的浏览器[一致同意宣布](https://lists.w3.org/Archives/Public/public-webassembly/2017Feb/0002.html) WebAssembly 的 MVP 版本已经完成，它是一个浏览器可以搭载的稳定版本。
 
 ![](https://huzidaha.github.io/images-store/201703/21-1.png)
 
@@ -16,10 +16,10 @@
 
 这样一来开发者就可以使用 WebAssembly 代码了。对于旧版本的浏览器，开发者可以通过 asm.js 来向下兼容代码，asm.js 是 JavaScript 的一个子集，所有 JS 引擎都可以使用它。另外，通过 Emscripten 工具，既可以用 WebAssembly 也可以用 asm.js 来编译你的代码。
 
-尽管是第一个版本，WebAssembly 已经能发挥出它的优势了，未来通过不断地改善和融入新特征，WebAssembly 会变的更快。
+尽管是第一个版本，但是 WebAssembly 已经能发挥出它的优势了，未来通过不断地改善和融入新特征，WebAssembly 会变得更快。
 
 ## 提升浏览器中 WebAssembly 的性能
-随着各种浏览器都使自己的引擎支持 WebAssembly，速度提升就变成自然而然的了，目前各大浏览器厂商都在积极推动这件事情。
+随着各种浏览器都使自己的引擎支持 WebAssembly，速度提升就变成自然而然的事情了，目前各大浏览器厂商都在积极推动这件事情。
 
 ### JavaScript 和 WebAssembly 之间调用的中间函数
 目前，在 JS 中调用 WebAssembly 的速度比本应达到的速度要慢。这是因为中间需要做一次“蹦床运动”。JIT 没有办法直接处理 WebAssembly，所以 JIT 要先把 WebAssembly 函数发送到懂它的地方。这一过程是引擎中比较慢的地方。
@@ -28,7 +28,7 @@
 
 按理来讲，如果 JIT 知道如何直接处理 WebAssembly 函数，那么速度会有百倍的提升。
 
-如果你传递的是单一任务给 WebAssembly 模块，那么不用担心这个开销，因为只有一次转换，也会比较快。但是如果是频繁地从 WebAssembly 和 JavaScript 之间切换，那么这个开销就必须要考虑了。
+如果你传递给 WebAssembly 模块的是单一任务，那么不用担心这个开销，因为只有一次转换，也会比较快。但是如果是频繁地从 WebAssembly 和 JavaScript 之间切换，那么这个开销就必须要考虑了。
 
 ### 快速加载
 JIT 必须要在快速加载和快速执行之间做权衡。如果在编译和优化阶段花了大量的时间，那么执行的必然会很快，但是启动会比较慢。目前有大量的工作正在研究，如何使预编译时间和程序真正执行时间两者平衡。
@@ -84,6 +84,6 @@ SIMD 在处理存放大量数据的数据结构有其独特的优势。比如存
 ## 总结
 WebAssembly 执行起来更快，随着浏览器逐步支持了 WebAssembly 的各种特性，WebAssembly 将会变得更快。
 
-欢迎大家关注我的专栏[前端大哈](https://zhuanlan.zhihu.com/qianduandaha)，定期发布高质量前端文章。
+（译者注：欢迎大家关注我的专栏[前端大哈](https://zhuanlan.zhihu.com/qianduandaha)，定期发布高质量前端文章。）
 
 
