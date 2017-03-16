@@ -1,11 +1,11 @@
 > * 原文地址：[A crash course in assembly](https://hacks.mozilla.org/2017/02/a-crash-course-in-assembly/)
-* 原文作者：[Lin Clark](https://code-cartoons.com/@linclark)
-* 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：[zhouzihanntu](https://github.com/zhouzihanntu)
-* 校对者：[Tina92](https://github.com/Tina92)、[zhaochuanxing](https://github.com/zhaochuanxing)
+> * 原文作者：[Lin Clark](https://code-cartoons.com/@linclark)
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 译者：[zhouzihanntu](https://github.com/zhouzihanntu)
+> * 校对者：[Tina92](https://github.com/Tina92)、[zhaochuanxing](https://github.com/zhaochuanxing)
 # 汇编快速入门
 
-**本文是 WebAssembly 系列文章的第三部分。如果你还没有阅读过前面的文章，我们建议你 [从头开始](https://hacks.mozilla.org/2017/02/a-cartoon-intro-to-webassembly/)。**
+**本文是 WebAssembly 系列文章的第三部分。如果你还没有阅读过前面的文章，我们建议你 [从头开始](https://github.com/xitu/gold-miner/blob/master/TODO/a-cartoon-intro-to-webassembly.md)。**
 
 理解汇编和编译器如何生成它的有助于你后续理解 WebAssembly 的工作原理，
 
@@ -65,4 +65,4 @@
 
 ## 总结
 
-以上就是汇编的简要说明，以及编译器将高级程序语言转成汇编的过程。在[下一篇文章](https://hacks.mozilla.org/?p=30512)里，我们将会看到 WebAssembly 是如何实现的。
+以上就是汇编的简要说明，以及编译器将高级程序语言转成汇编的过程。在[下一篇文章](https://github.com/xitu/gold-miner/blob/master/TODO/creating-and-working-with-webassembly-modules.md)里，我们将会看到 WebAssembly 是如何实现的。
