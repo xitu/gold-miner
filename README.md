@@ -36,10 +36,10 @@
 
 ## 前端
 
+* [汇编快速入门](https://juejin.im/post/58ca1f47ac502e0058864116/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([zhouzihanntu](https://github.com/zhouzihanntu) 翻译)
 * [如何让你的 React Native 应用在键盘弹出时优雅地响应](https://juejin.im/entry/58c7ceab0ce4630054834b07/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Shangbin Yang](https://github.com/rccoder) 翻译)
 * [JIT 编译器快速入门](https://juejin.im/post/58c7777eda2f605dc5b1c258/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([zhouzihanntu](https://github.com/zhouzihanntu) 翻译)
 * [看漫画，学 WebAssembly](https://juejin.im/post/58c76be244d90400699b3a1f/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([sqrthree](https://github.com/sqrthree) 翻译)
-* [Redux 异步四兄弟](https://juejin.im/post/58c75f9444d90400699add86/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([reid3290](https://github.com/reid3290) 翻译)
 * [所有前端译文>>](https://github.com/xitu/gold-miner/blob/master/front-end.md)
 
 
