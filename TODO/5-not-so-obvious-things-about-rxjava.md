@@ -2,11 +2,11 @@
 * 原文作者：[Jag Saund](https://medium.com/@jagsaund)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者： [skyar2009](https://github.com/skyar2009)
-* 校对者：
+* 校对者：[Danny1451](https://github.com/Danny1451), [yunshuipiao](https://github.com/yunshuipiao)
 
 ![](https://cdn-images-1.medium.com/max/2000/1*0VDGLZYyQhUFBa9ZkFiHEQ.jpeg)
 
-# RxJava 5 点不那么明显的事
+# 震惊！RxJava 5 个不为人知的小秘密
 
 无论你是刚刚接触 RxJava，还是已经使用过一段时间，关于 RxJava 你总会有些新的知识要学。在使用 RxJava 框架过程中，我发现了 5 点不那么明显的知识，使我可以充分挖掘它的潜能。
 
@@ -37,7 +37,7 @@
 
 **syncOnSubscribe**
 
-一个可以创建安全 `OnSubscribe<T>` 的工具，它创建的 `OnSubscribe<T>` 能够正确地处理来自订阅者的背压请求。当你需要将一个同步获取式 API 转成响应式 API 时可以使用。
+一个可以创建安全 `OnSubscribe<T>` 的工具，它创建的 `OnSubscribe<T>` 能够正确地处理来自订阅者的背压请求。当你需要将一个同步获取式的阻塞 API 转成响应式 API 时可以使用。
 
 ```
 public Observable<byte[]> readFile(@NonNull FileInputStream stream) {
@@ -138,7 +138,7 @@ RxJava 提供了一些方法管理背压，但是具体使用哪一种需要视�
 
 **冷、热 Observable**
 
-冷 Observable 根据订阅开始发送元素。观察者订阅冷 Observable 可以控制发送事件的速度而不需要牺牲流的完整性。冷 Observable 例子有：读文件、数据库查询、网络请求以及静态迭代器转成的 Observable。
+只有当有订阅时，冷 Observable 才会发送元素。观察者订阅冷 Observable 可以控制发送事件的速度而不需要牺牲流的完整性。冷 Observable 例子有：读文件、数据库查询、网络请求以及静态迭代器转成的 Observable。
 
 热 Observable 是连续的事件流，它的发出不依赖订阅者的数量。当一个观察者订阅了 Observable，那么它将面临下面的一种情况：
 
@@ -148,7 +148,7 @@ RxJava 提供了一些方法管理背压，但是具体使用哪一种需要视�
 
 热 Observables 例子有：触摸事件、通知以及进度更新。
 
-由于热 Observable 发出事件的本性，我们不能控制它的速度。例如，你不能降低触摸事件发出的速度。因此，最好是使用 `BackpressureMode` 提到的一种流控制策略。
+由于热 Observable 发出事件的本性，我们不能控制它的速度。例如，你不能降低触摸事件发出的速度。因此，最好是使用 `BackpressureMode` 提供的流控制策略。
 
 使用一个响应式获取方法，冷 Observable 可以根据观察者的反馈降低发送速度。更多知识，请看 ReactiveX 文档的[背压与响应式获取方法](https://github.com/ReactiveX/RxJava/wiki/Backpressure).
 
