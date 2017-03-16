@@ -3,7 +3,6 @@
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[zhouzihanntu](https://github.com/zhouzihanntu)
 * 校对者：[Tina92](https://github.com/Tina92)、[zhaochuanxing](https://github.com/zhaochuanxing)
-# A crash course in assembly
 # 汇编快速入门
 
 **本文是 WebAssembly 系列文章的第三部分。如果你还没有阅读过前面的文章，我们建议你 [从头开始](https://hacks.mozilla.org/2017/02/a-cartoon-intro-to-webassembly/)。**
