@@ -1,8 +1,8 @@
 > * 原文地址：[Unit testing, Lean Startup, and everything in-between](https://codewithoutrules.com/2017/03/12/software-testing-big-picture/)
-* 原文作者：[Itamar Turner-Trauring](https://twitter.com/itamarst)
-* 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者： 
-* 校对者：
+>* 原文作者：[Itamar Turner-Trauring](https://twitter.com/itamarst)
+>* 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+>* 译者： 
+>* 校对者：
 
 # Unit testing, Lean Startup, and everything in-between
 
