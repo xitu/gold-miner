@@ -2,7 +2,7 @@
 * 原文作者：[Quang Nguyen](https://android.jlelse.eu/@quangctkm9207?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Gocy](https://github.com/Gocy015)
-* 校对者：[reid3290](https://github.com/reid3290)
+* 校对者：[reid3290](https://github.com/reid3290) ,[zhaochuanxing](https://github.com/zhaochuanxing)
 
 # 如果只有一个月入门 iOS：我该如何学习呢？ #
 
@@ -87,9 +87,9 @@
 
 在进行完上述的学习之后，你已经有丰富的知识储备了。你可以用 Swift 编程，用 Storyboard 和 UIKit 来构建 iOS 应用界面，在本地设备存储数据，并利用 iOS 网络连接来于外界交换信息。
 
-太棒了大兄弟。放手去做任何你想得到的东西吧。
+太棒了大兄弟。放手去实现任何你想到的东西吧！
 
-我们开发者，创造酷又富有价值的工具来让这繁复的世界变得简单。所以，你可以试着做一个改进你日常生活的应用，帮助你的家人，甚至是解决全球性问题。最后，我建议你将应用发布到 Apple Store 上。这将给予你正反馈并有助于你坚持下去。
+我们开发者，创造又酷又富有价值的工具来让这繁复的世界变得简单。所以，你可以试着做一个改进你日常生活的应用，帮助你的家人，甚至是解决全球性问题。最后，我建议你将应用发布到 Apple Store 上。这将给予你正反馈并有助于你坚持下去。
 
 三年以前，我在学习了 Android 一个月后，在 Google Play 发布了我的第一个 Android 应用（是一个作笔记的应用）。一年前，我同样在自学一个月后在 Apple Store 发布了我的第一个 iOS 应用（一个天气应用）。它们一开始都简单粗糙，但却时刻激励着我继续前进的脚步。
 
