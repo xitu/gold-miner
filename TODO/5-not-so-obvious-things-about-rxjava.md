@@ -1,8 +1,8 @@
 > * 原文地址：[5 Not So Obvious Things About RxJava](https://medium.com/@jagsaund/5-not-so-obvious-things-about-rxjava-c388bd19efbc#.kf2q0gksm)
-* 原文作者：[Jag Saund](https://medium.com/@jagsaund)
-* 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者： [skyar2009](https://github.com/skyar2009)
-* 校对者：[Danny1451](https://github.com/Danny1451), [yunshuipiao](https://github.com/yunshuipiao)
+> * 原文作者：[Jag Saund](https://medium.com/@jagsaund)
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 译者： [skyar2009](https://github.com/skyar2009)
+> * 校对者：[Danny1451](https://github.com/Danny1451), [yunshuipiao](https://github.com/yunshuipiao)
 
 ![](https://cdn-images-1.medium.com/max/2000/1*0VDGLZYyQhUFBa9ZkFiHEQ.jpeg)
 
