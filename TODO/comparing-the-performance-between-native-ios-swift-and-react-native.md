@@ -76,7 +76,7 @@ Swift VS React-Native 的 CPU 用量
 
 ***Profile:*** React-Native 在这里略胜一筹，它比 Swift 更有效地利用了 1.86% 的 CPU。在执行任务并记录数据的过程中，当我按下 “Log in with Facebook” 按钮的时候可以明显观察到有一个峰值。
 
-***To Do List:*** React-Native 同样以微弱的优势胜出，它比 Swift 节省了 1.53% 的 CPU 的使用。在执行任务并记录数据的过程中，当我**添加完（added）**一项以及**删除完（deleted）**一项的时候，可以明显观察到有一个峰值。
+***To Do List:*** React-Native 同样以微弱的优势胜出，它比 Swift 节省了 1.53% 的 CPU 的使用。在执行任务并记录数据的过程中，当我**添加完(added)** 一项以及**删除完(deleted)** 一项的时候，可以明显观察到有一个峰值。
 
 ***Page View:*** 这一次，Swift 用 8.82% 的 CPU 使用率打败了 React-Native。在执行任务并记录数据的过程中，当我滑动到另一个不同的页面时候可以明显观察到有一个峰值。当我停留在一个页面时，CPU 的使用会减少，但是如果我再次滑动页面，CPU 的使用就会增加。
 
@@ -95,7 +95,7 @@ Swift VS React-Native 的 GPU 用量
 
 ***Profile:*** Swift 以比 React Native 高出 1.7 帧/秒的帧率的微弱优势，赢得了这个 tab 的胜利。在执行任务并记录数据的过程中，当我按下 “Log in with Facebook” 按钮的时候可以明显观察到有一个峰值。
 
-***To Do List:*** React-Native 以比 Swift 高出 6.25 帧/秒的帧率赢得了这个类别的胜利。在执行任务并记录数据的过程中，当我**添加完（added）**一项以及**删除完（deleted）**一项的时候，可以明显观察到有一个峰值。
+***To Do List:*** React-Native 以比 Swift 高出 6.25 帧/秒的帧率赢得了这个类别的胜利。在执行任务并记录数据的过程中，当我**添加完(added)** 一项以及**删除完(deleted)** 一项的时候，可以明显观察到有一个峰值。
 
 ***Page View:*** Swift 在这个 tab 上以 3.6 帧/秒的帧率击败了 React-Native。在执行任务并记录数据的过程中，我观察到，如果我快速滑动两个页面，帧率会急升到 50。如果我停留在一个页面，那帧率会下降，但是如果我重新再页面之间滑动，帧数又会急升。
 
@@ -114,7 +114,7 @@ Swift VS React-Native 内存使用
 
 ***Profile:*** Swift 以节省 0.02 MiB 的内存使用，稍微赢得这个 tab 的胜利。在执行任务并记录数据的过程中，当我按下 “Log in with Facebook” 按钮的时候可以明显观察到有一个峰值。
 
-***To Do List:*** React-Native 以比 Swift 节省 0.83 MiB 的内存赢得了这个 tab 的胜利。在执行任务并记录数据的过程中，当我向列表**添加完（added）**一项以及**删除完（deleted）**一项的时候，可以明显观察到有一个峰值。
+***To Do List:*** React-Native 以比 Swift 节省 0.83 MiB 的内存赢得了这个 tab 的胜利。在执行任务并记录数据的过程中，当我向列表**添加完(added)** 一项以及**删除完(deleted)** 一项的时候，可以明显观察到有一个峰值。
 
 ***Page View:*** 在这个 tab 中，React-Native 以节省 0.04 MiB 的内存用量击败了 Swift。在执行任务并记录数据的过程中，我发现我在 PageView 切换页面的时，内存的峰值并没有改变。字面上没变。
 
