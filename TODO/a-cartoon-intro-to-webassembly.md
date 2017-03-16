@@ -1,8 +1,8 @@
 > * 原文地址：[A cartoon intro to WebAssembly](https://hacks.mozilla.org/2017/02/a-cartoon-intro-to-webassembly/)
-* 原文作者：[Lin Clark](https://code-cartoons.com/@linclark)
-* 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者： [根号三](https://github.com/sqrthree)
-* 校对者：[Reid](https://github.com/reid3290)、[Tina92](https://github.com/Tina92)
+> * 原文作者：[Lin Clark](https://code-cartoons.com/@linclark)
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 译者： [根号三](https://github.com/sqrthree)
+> * 校对者：[Reid](https://github.com/reid3290)、[Tina92](https://github.com/Tina92)
 
 # 看漫画，学 WebAssembly
 
@@ -12,7 +12,7 @@ WebAssembly 运行得很快，你可能已经听说过这个了。但是是什�
 
 ## 等等，WebAssembly 究竟是什么？
 
-WebAssembly 是一种用 JavaScript 以外的编程语言编写的代码并在浏览器中运行该代码的方法。因此当人们说 WebAssembly 运行得很快的时候，通常他们都是在和 JavaScript 进行比较。
+WebAssembly 是一种用 JavaScript 以外的编程语言编写代码并在浏览器中运行该代码的方法。因此当人们说 WebAssembly 运行得很快的时候，通常他们都是在和 JavaScript 进行比较。
 
 现在，我不想暗示这是一个二选一的情况 —— 你要么用 WebAssembly 或者用 JavaScript。事实上，我们期望开发者能够在同一个应用里面同时使用 WebAssembly 和 JavaScript。
 
