@@ -16,9 +16,9 @@ React 使得函数式编程在 JavaScript 领域流行了起来，这驱使大�
 
 因此本文将展示深藏在 React 中的又一函数式“宝藏” —— **函数式（functional）setState**！
 
-好吧，名字其实是我乱编的，而且也称不上是**全新的**或秘密的。这一模式内建于 React 中，但是只有少数 React 深耕者才知道，而且从未有过正式名称 —— 不过现在它有了，那就是 **函数式 setState**！
+好吧，名字其实是我乱编的，而且也称不上是**全新的**或秘密的。这一模式内建于 React 中，但是只有少数 React 深耕者才知道，而且从未有过正式名称 —— 不过现在它有了，那就是**函数式 setState**！
 
-正如 [Dan Abramov](https://medium.com/@dan_abramov) 所言，在 **函数式 setState** 模式中，“组件 state 变化的声明可以和组件类本身独立开来”。
+正如 [Dan Abramov](https://medium.com/@dan_abramov) 所言，在**函数式 setState** 模式中，“组件 state 变化的声明可以和组件类本身独立开来”。
 
 这？
 
@@ -60,13 +60,13 @@ React 提供了一个用于管理 state 的特殊函数 —— `setState()`，�
       ...
     }
 
-注意 `setState()` 的作用机制：你传递给它一个***对象***，该对象含有 state 中你想要更新的部分。换句话说，该对象的键（keys）和组件 state 中的键相对应，然后 `setState()` 通过将该对象合并到 state 中来更新（或者说 *sets*）state。因此称为 “set-State”。
+注意 `setState()` 的作用机制：你传递给它一个**对象**，该对象含有 state 中你想要更新的部分。换句话说，该对象的键（keys）和组件 state 中的键相对应，然后 `setState()` 通过将该对象合并到 state 中来更新（或者说 *sets*）state。因此称为 “set-State”。
 
 ### 你可能还不知道的是...
 
-记住 `setState()` 的作用机制了吗？如果我告诉你说，`setState()` 不仅能接受一个对象，还能接受一个***函数***作为参数呢？
+记住 `setState()` 的作用机制了吗？如果我告诉你说，`setState()` 不仅能接受一个对象，还能接受一个**函数**作为参数呢？
 
-没错，`setState()` 确实可以接受一个函数作为参数。该函数接受该组件**前一刻**的 state 以及 **当前** 的 props 作为参数，计算和返回**下一刻**的 state。如下所示：
+没错，`setState()` 确实可以接受一个函数作为参数。该函数接受该组件**前一刻**的 state 以及**当前**的 props 作为参数，计算和返回**下一刻**的 state。如下所示：
 
 
     this.setState(function (state, props) {
@@ -75,7 +75,7 @@ React 提供了一个用于管理 state 的特殊函数 —— `setState()`，�
      }
     });
 
-注意 `setState()` 本身是一个函数，而且我们传递了另一个函数给它作为参数（函数式编程，**函数式setState**）。乍一看可能觉得这样写挺丑陋的，set-state 需要的步骤太多了。那为什么还要这样写呢？
+注意 `setState()` 本身是一个函数，而且我们传递了另一个函数给它作为参数（函数式编程，**函数式 setState**）。乍一看可能觉得这样写挺丑陋的，set-state 需要的步骤太多了。那为什么还要这样写呢？
 
 ### 为什么传递一个函数给 stateState？
 
@@ -87,17 +87,16 @@ React 提供了一个用于管理 state 的特殊函数 —— `setState()`，�
 
 > React 不会仅仅简单地 “set-state”。
 
-考虑到所涉及的工作量，调用 `setState()` 并不一定会 **即时** 更新 state。
+考虑到所涉及的工作量，调用 `setState()` 并不一定会**即时**更新 state。
 
 > 考虑到性能问题，React 可能会将多次 `setState()` 调用批处理（batch）为一次 state 的更新。
 
 这又意味着什么呢？
 
-首先，“**多次 `setState()` 调用”** 的意思可能是说在某个函数中调用了多次 `setState()`，例如：
+首先，“**多次 `setState()` 调用”** 的意思是说在某个函数中调用了多次 `setState()`，例如：
 
-```javascript
-...
 ```
+    ...
 
     state = {score : 0};
 
@@ -109,10 +108,11 @@ React 提供了一个用于管理 state 的特殊函数 —— `setState()`，�
     }
     
     ...
+```
 
-面对这种 “*多次 `setState()` 调用”* 的情况，为了避免重复做上述大量的工作，React 并不会真地 “set-state” 三次；相反，它会机智地告诉自己：“哼！我才不要‘愚公移山’三次呢，每次还得更新部分 state。不行，我的找个‘背包’，把这些部分更新打包装好，一次性搞定。”朋友们，这就是所谓的**批处理**啊！
+面对这种 **多次 `setState()` 调用** 的情况，为了避免重复做上述大量的工作，React 并不会真地 “set-state” 三次；相反，它会机智地告诉自己：“哼！我才不要‘愚公移山’三次呢，每次还得更新部分 state。不行，我的找个‘背包’，把这些部分更新打包装好，一次性搞定。”朋友们，这就是所谓的**批处理**啊！
 
-记住传递给 `setState()` 的纯粹是个对象。现在，假设 React 每次遇到 “*多次 `setState()` 调用”*都会作上述批处理过程，即将每次调用 `setState()` 时传递给它的对象合并为一个对象，然后用这个对象去做真正地 `setState()`。
+记住传递给 `setState()` 的纯粹是个对象。现在，假设 React 每次遇到 **多次 `setState()` 调用**都会作上述批处理过程，即将每次调用 `setState()` 时传递给它的对象合并为一个对象，然后用这个对象去做真正地 `setState()`。
 
 在 JavaScript 中，对象合并可以这样写：
 
@@ -139,7 +139,7 @@ React 提供了一个用于管理 state 的特殊函数 —— `setState()`，�
 
 综上所述，如果你多次调用 `setState()` 函数，每次都传递给它一个对象，那么 React 就会将这些对象**合并**。也就是说，基于你传进来的多个对象，React 会**组合**出一个新对象。如果这些对象有同名的属性，那么就会取**最后一个**对象的属性值，对吧？
 
-这意味着，上述 `increaseScoreBy3` 函数的最终结果会是 1 而不是 3。因为 React 并不会按照 `setState()` 的调用顺序 **即时** 更新 state，而是首先会将所有对象合并到一起，得到 `{score : this.state.score + 1}`，然后仅用该对象进行一次 “set-state”，即 `User.setState({score : this.state.score + 1}`。
+这意味着，上述 `increaseScoreBy3` 函数的最终结果会是 1 而不是 3。因为 React 并不会按照 `setState()` 的调用顺序**即时**更新 state，而是首先会将所有对象合并到一起，得到 `{score : this.state.score + 1}`，然后仅用该对象进行一次 “set-state”，即 `User.setState({score : this.state.score + 1}`。
 
 需要搞清楚的是，给 `setState()` 传递对象本身是没有问题的，问题出在当你想要基于之前的 state 计算出下一个 state 时还给 `setState()` 传递对象。因此可别这样做了，这是不安全的！
 
@@ -153,7 +153,7 @@ React 提供了一个用于管理 state 的特殊函数 —— `setState()`，�
 
 如果你还未曾把玩上面的例子，我还是强烈建议你玩一玩，因为这有利于你理解本文的核心概念。
 
-你在把玩上述例子的时候，你肯定注意到了 **setState** 解决了我们的问题。但究竟是如何解决的呢？
+在把玩上述例子的时候，你肯定注意到了 **setState** 解决了我们的问题。但究竟是如何解决的呢？
 
 让我们请教一下 React 界的 Oprah（译者注：非知名脱口秀主持人）—— Dan。
 
@@ -163,11 +163,11 @@ React 提供了一个用于管理 state 的特殊函数 —— `setState()`，�
 
 > 更新操作会形成一个任务队列，稍后会按其调用顺序依次执行。
 
-因此，当面对 “**多次 `函数式 setState()` 调用**”时，React 并不会将对象合并（显然根本没有对象让它合并），而是会**按调用顺序**将这些函数**排列**起来。
+因此，当面对**多次`函数式 setState()` 调用**时，React 并不会将对象合并（显然根本没有对象让它合并），而是会**按调用顺序**将这些函数**排列**起来。
 
-之后，React 会依次调用**队列**中的函数，传递给它们 **前一刻** 的 state —— 如果当前执行的是队列中的第一个函数式 `setState()` ，那么就是在该函数式 `setState()` 调用之前的 state；否则就是最近一次函数式 `setState()` 调用并更新了 state 之后的 state。通过这种机制，React 达到 state 更新的目的。
+之后，React 会依次调用**队列**中的函数，传递给它们**前一刻**的 state —— 如果当前执行的是队列中的第一个函数式 `setState()` ，那么就是在该函数式 `setState()` 调用之前的 state；否则就是最近一次函数式 `setState()` 调用并更新了 state 之后的 state。通过这种机制，React 达到 state 更新的目的。
 
-话说回来，我还是觉得代码更有说服力。只不过这次我们会“伪造“点东西，虽然这不是 React 内部真正的做法，但也基本是这么个意思。
+话说回来，我还是觉得代码更有说服力。只不过这次我们会“伪造”点东西，虽然这不是 React 内部真正的做法，但也基本是这么个意思。
 
 还有，考虑到代码简洁问题，下面会使用 ES6，当然你也可以用 ES5 重写一下。
 
@@ -219,7 +219,7 @@ React 提供了一个用于管理 state 的特殊函数 —— `setState()`，�
     
     updateState(Justice, updateQueue);
 
-诚然，这些代码并不能称之为优雅，你肯定能写得更好。但核心概念是，使用**函数式 setState**，你可以传递一个函数作为其参数，当执行该函数时，React 会将更新后的 state 复制一份并传递给它，这便起到了更新 state 的作用。基于上述机制，函数式 setState 便可基于 **前一刻的 state** 来更新当前 state。
+诚然，这些代码并不能称之为优雅，你肯定能写得更好。但核心概念是，使用**函数式 setState**，你可以传递一个函数作为其参数，当执行该函数时，React 会将更新后的 state 复制一份并传递给它，这便起到了更新 state 的作用。基于上述机制，函数式 setState 便可基于**前一刻的 state** 来更新当前 state。
 
 下面是这个例子的完整代码，请细细把玩以充分理解上述概念（或许还可以改得更优雅些）。
 
@@ -294,7 +294,7 @@ React 提供了一个用于管理 state 的特殊函数 —— `setState()`，�
 
 ![](https://cdn-images-1.medium.com/max/1600/0*uInBa_PPwz5aLo0j.jpg)
 
-最近几年，React 团队一直都致力于更好地实现  [stateful functions](https://github.com/reactjs/react-future/blob/master/07%20-%20Returning%20State/01%20-%20Stateful%20Functions.js) 。
+最近几年，React 团队一直都致力于更好地实现  [stateful functions](https://github.com/reactjs/react-future/blob/master/07%20-%20Returning%20State/01%20-%20Stateful%20Functions.js)。
 
 函数式 setState 貌似就是这个问题的正确答案（貌似）。
 
