@@ -1,8 +1,8 @@
 > * 原文地址：[Golden Guidelines for Writing Clean CSS](https://www.sitepoint.com/golden-guidelines-for-writing-clean-css/)
-* 原文作者：[Tiffany Brown](https://www.sitepoint.com/author/tbrown/)
-* 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者： 
-* 校对者：
+>* 原文作者：[Tiffany Brown](https://www.sitepoint.com/author/tbrown/)
+>* 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+>* 译者： 
+>* 校对者：
 
 ---
 

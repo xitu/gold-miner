@@ -1,8 +1,8 @@
 > * 原文地址：[Detecting Bots in Apache & Nginx Logs](http://tech.marksblogg.com/detect-bots-apache-nginx-logs.html)
-* 原文作者：[Mark Litwintschik](http://tech.marksblogg.com/)
-* 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者： 
-* 校对者：
+>* 原文作者：[Mark Litwintschik](http://tech.marksblogg.com/)
+>* 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+>* 译者： 
+>* 校对者：
 
 # Detecting Bots in Apache & Nginx Logs
 
