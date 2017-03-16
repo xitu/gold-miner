@@ -2,7 +2,7 @@
 * 原文作者：[John A. Calderaio](https://medium.com/@jcalderaio?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Deepmissea](http://deepmissea.blue)
-* 校对者：
+* 校对者：[gy134340](http://gy134340.com/)，[Danny1451](http://danny-lau.com/)
 
 # 原生 iOS(Swift) 和 React-Native 的性能比较
 
@@ -16,9 +16,9 @@ React-Native 是一个混合的移动框架，可以让你仅仅使用 JavaScrip
 
 第一步是 iOS 和 Swift。学习 Swift 相对比较容易，因为它很像我知道的其他语言（Java、C++）。然而，学习 Cocoa Touch（iOS 框架）才是更难的任务。我看了 **Udemy.com** 上 Rob Percival 的一系列视频，这让我从初识 Swift 阶段过渡到完成了几个应用。虽然我在看完介绍视频后还是在 Cocoa Touch 上有很多问题。视频里大多数的“学习”只是调用复制/粘贴代码，但是我们不是很清楚它做了什么。我感觉可能老师也不知道这是啥，只是记住了它。我不喜欢对我的代码一无所知。
 
-Apple 的 IDE（Xcode）对用户无疑即先进又友好。你可以点击叫做 Storyboard 的东西，按你想要的顺序来设置你应用的屏幕，放一个箭头，指向程序启动的首屏。在第一个 tab（“Profile”）里，我要拖一个图片视图、姓名标签和邮箱标签。然后，我拖住它跟代码做一个连接，在代码里创建一个新变量。接着，以编程的方式，一旦用户登录了 Facebook，我就把变量的值改变成 Facebook 里的值。通过视频，我花了三周的时间来适应并完成了 Swift/iOS 的代码。
+Apple 的 IDE（Xcode）对用户无疑即先进又友好。你可以点击叫做 Storyboard 的东西，按你想要的顺序来设置你应用的屏幕，放一个箭头，指向程序启动的首屏。在第一个 tab（“Profile”）里，我要拖一个图片视图、姓名标签和邮箱标签。然后，我拖住它跟代码做一个链接，在代码里创建一个新变量。接着，以编程的方式，一旦用户登录了 Facebook，我就把变量的值改变成 Facebook 里的值。通过视频，我花了三周的时间来适应并完成了 Swift/iOS 的代码。
 
-你可以在 Github 上看一下这个应用的 Swift 版本的代码，链接在这里：[https://github.com/jcalderaio/swift-honors-app](https://github.com/jcalderaio/swift-honors-app)
+你可以在 GitHub 上看一下这个应用的 Swift 版本的代码，链接在这里：[https://github.com/jcalderaio/swift-honors-app](https://github.com/jcalderaio/swift-honors-app)
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*2rOfHO8rCsb8S8EANfTXCg.png">
 
@@ -38,11 +38,11 @@ Swift Tab 4 (Maps)
 
 ### React-Native 的历程 ###
 
-第二部分是 React-Native。学习 JavaScript 比 Swift 要难上一点，但也不是很困难。我试着利用我从网上学到的一些零碎的 React-Native 知识来编写应用，但是还不够。我需要一些视频讲座。回到 ** Udemy.com**，我看了 Stephen Grider 介绍 React-Native 的精彩演讲。一开始的时候，我感到非常不知所措，React-Native 的结构对我一点用也没有。不过在看了 Stephen Grider 的演讲之后的一周，我已经可以自己编码了。
+第二部分是 React-Native。学习 JavaScript 比 Swift 要难上一点，但也不是很困难。我试着利用我从网上学到的一些零碎的 React-Native 知识来编写应用，但是还不够。我需要一些视频讲座。回到 **Udemy.com**，我看了 Stephen Grider 介绍 React-Native 的精彩演讲。一开始的时候，我感到非常不知所措，React-Native 的结构对我一点用也没有。不过在看了 Stephen Grider 的演讲之后的一周，我已经可以自己编码了。
 
 我对 React-Native 感到真正喜欢的地方是，你写的每一行代码都很说得通，你知道每一行代码的作用。另外，不像在 iOS 里（需要调整每个页面，让他们在横屏或者竖屏时显示正确的尺寸），在 React-Native 里，所有的都调整好了。不需要任何设置，我就能让我的应用看上去很完美。我在一些不同尺寸的 iphone 上运行我的程序也跑得很好。因为 React-Native 使用的是 flexbox（有点像 HTML 中的 CSS），它对正在展示的页面尺寸来说是响应式的。
 
-你可以在 Github 上看一下这个应用的 React-Native 版本的代码，连接在这里：[https://github.com/jcalderaio/react-native-honors-app](https://github.com/jcalderaio/react-native-honors-app) 
+你可以在 GitHub 上看一下这个应用的 React-Native 版本的代码，连接在这里：[https://github.com/jcalderaio/react-native-honors-app](https://github.com/jcalderaio/react-native-honors-app) 
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*wvxOOPoww_9IZto4cSpXYQ.png">
 
@@ -62,7 +62,7 @@ React-Native Tab 4 (Maps)
 
 ### 数据 ###
 
-现在是时候来对着刚一波，看看哪个应用性能更出色了。我会通过 Apple Instruments（Xcode 里的工具包）工具，测试两个应用的三个主要类别：CPU（“Time Profiler Tool”）、GPU（“Core Animation Tool”）和内存使用 （“Allocations Tool”）。Apple Instruments 允许我连接手机，然后选择手机上的任何应用，再选择我要用的测试工具，然后记录测试。
+现在是时候来对比一下看看哪个应用性能更出色了。我会通过 Apple Instruments（Xcode 里的工具包）工具，测试两个应用的三个主要类别：CPU（“Time Profiler Tool”）、GPU（“Core Animation Tool”）和内存使用 （“Allocations Tool”）。Apple Instruments 允许我连接手机，然后选择手机上的任何应用，再选择我要用的测试工具，然后记录测试。
 
 每个应用有 4 个 tab，每个 tab 都有一个“任务”，我在每个类别里测试。首先是 “Profile”，它的功能是登陆 Facebook。在代码里的表现形式是请求 Facebook 服务器，返回个人信息图片、邮箱以及姓名。第二个（“To Do List”）任务是从列表里添加或删除一个“代办项”。第三个（“Page View”）任务是在三个页面间来回滑动。第四个(“Maps”)任务是点击 tab 后，代码会让 GPS 来放大我当前的位置，在我的位置上放一个蓝色的放射形标记。
 
@@ -74,13 +74,13 @@ Swift VS React-Native 的 CPU 用量
 
 **让我们来看看各个类别的情况：**
 
-***Profile:*** React-Native 在这里略胜一筹，它比 Swift 更有效地利用了 1.86% 的 CPU。在执行任务和录制测试的过程中，CPU 用量被监测的精确时间是：当我按下 “Log in with Facebook” 按钮的时候。
+***Profile:*** React-Native 在这里略胜一筹，它比 Swift 更有效地利用了 1.86% 的 CPU。在执行任务并记录数据的过程中，当我按下 “Log in with Facebook” 按钮的时候可以明显观察到有一个峰值。
 
-***To Do List:*** React-Native 同样以微弱的优势胜出，它比 Swift 节省了 1.53% 的 CPU 的使用。在执行任务和录制测试的过程中，CPU 用量被监测的精确时间是：在我**添加完（added）**一项以及**删除完（deleted）**一项的时候。
+***To Do List:*** React-Native 同样以微弱的优势胜出，它比 Swift 节省了 1.53% 的 CPU 的使用。在执行任务并记录数据的过程中，当我**添加完（added）**一项以及**删除完（deleted）**一项的时候，可以明显观察到有一个峰值。
 
-***Page View:*** 这一次，Swift 用 8.82% 的 CPU 使用率打败了 React-Native。在执行任务和录制测试的过程中，CPU 用量被监测的精确时间是：我滑动到另一个不同的页面时候。当我停留在一个页面时，CPU 的使用会减少，但是如果我再次滑动页面，CPU 的使用就会增加。
+***Page View:*** 这一次，Swift 用 8.82% 的 CPU 使用率打败了 React-Native。在执行任务并记录数据的过程中，当我滑动到另一个不同的页面时候可以明显观察到有一个峰值。当我停留在一个页面时，CPU 的使用会减少，但是如果我再次滑动页面，CPU 的使用就会增加。
 
-***Maps:*** Swift 再次以 13.68% 的优势胜出。在执行任务和录制测试的过程中，CPU 用量被监测的精确时间是：我按下 “Maps” 这个 tab 的时候，这会促使 MapView 会找到我当前位置，并显示一个显眼的蓝色脉冲点。
+***Maps:*** Swift 再次以 13.68% 的优势胜出。在执行任务并记录数据的过程中，当我按下 “Maps” 这个 tab 的时候可以明显观察到有一个峰值，这会促使 MapView 找到我当前位置，并显示一个显眼的蓝色脉冲点。
 
 是的，Swift 和 React-Native 都赢得了两个 tab 的胜利，但是整体而言 Swift 更高效的使用了 17.58% 的 CPU。如果我让自己不专注于单个任务执行与停止，而是在各个应用长时间运行，那结果可能会不同。而我也注意到了在切换不同的 tab 时，CPU 使用并没有变化。
 
@@ -93,13 +93,13 @@ Swift VS React-Native 的 CPU 用量
 Swift VS React-Native 的 GPU 用量
 让我们看看每个类别的情况：
 
-***Profile:*** Swift 以比 React Native 高出 1.7 帧/秒的帧率的微弱优势，赢得了这个 tab 的胜利。执行任务并记录数据峰值的准确时间是：在我按下 “Log in with Facebook” 按钮的时候。
+***Profile:*** Swift 以比 React Native 高出 1.7 帧/秒的帧率的微弱优势，赢得了这个 tab 的胜利。在执行任务并记录数据的过程中，当我按下 “Log in with Facebook” 按钮的时候可以明显观察到有一个峰值。
 
-***To Do List:*** React-Native 以比 Swift 高出 6.25 帧/秒的帧率赢得了这个类别的胜利。执行任务并记录数据峰值的准确时间是：在我向列表**添加完（added）**一项以及**删除完（deleted）**一项的时候。
+***To Do List:*** React-Native 以比 Swift 高出 6.25 帧/秒的帧率赢得了这个类别的胜利。在执行任务并记录数据的过程中，当我**添加完（added）**一项以及**删除完（deleted）**一项的时候，可以明显观察到有一个峰值。
 
-***Page View:*** Swift 在这个 tab 上以 3.6 帧/秒的帧率击败了 React-Native。在执行任务并记录测量数据的时候，我观察到，如果我快速滑动两个页面，帧率会急升到 50。如果我停留在一个页面，那帧率会下降，但是如果我重新再页面之间滑动，帧数又会急升。
+***Page View:*** Swift 在这个 tab 上以 3.6 帧/秒的帧率击败了 React-Native。在执行任务并记录数据的过程中，我观察到，如果我快速滑动两个页面，帧率会急升到 50。如果我停留在一个页面，那帧率会下降，但是如果我重新再页面之间滑动，帧数又会急升。
 
-***Maps:*** React-Native 赢得了这个类别的胜利，因为它的帧率比 Swift 高出 3 帧/秒。执行任务并记录数据峰值的准确时间是：我按下 “Maps” 这个 tab 的时候，这会促使 MapView 会找到我当前位置，并显示一个显眼的蓝色脉冲点。
+***Maps:*** React-Native 赢得了这个类别的胜利，因为它的帧率比 Swift 高出 3 帧/秒。在执行任务并记录数据的过程中，当我按下 “Maps” 这个 tab 的时候，可以明显观察到有一个峰值，且这会促使 MapView 会找到我当前位置，并显示一个显眼的蓝色脉冲点。
 
 Swift 和 React-Native 再一次的各自赢得了两个 tab 的胜利。但是，React-Native 以 0.95 帧/秒在整体上胜出。Facebook 从 React-Native 的代码中榨出的果汁量让人非常吃惊 — 目前为止，React-Native 似乎和 iOS（Swift）不相上下。
 
@@ -112,15 +112,15 @@ Swift 和 React-Native 再一次的各自赢得了两个 tab 的胜利。但是�
 Swift VS React-Native 内存使用
 让我们看看每个类别的情况：
 
-***Profile:*** Swift 以节省 0.02 MiB 的内存使用，稍微赢得这个 tab 的胜利。执行任务并记录数据峰值的准确时间是：在我按下 “Log in with Facebook” 按钮的时候。
+***Profile:*** Swift 以节省 0.02 MiB 的内存使用，稍微赢得这个 tab 的胜利。在执行任务并记录数据的过程中，当我按下 “Log in with Facebook” 按钮的时候可以明显观察到有一个峰值。
 
-***To Do List:*** React-Native 以比 Swift 节省 0.83 MiB 的内存赢得了这个 tab 的胜利。执行任务并记录数据峰值的准确时间是：在我向列表**添加完（added）**一项，然后**删除完（deleted）**一项，内存用量减少的时候。
+***To Do List:*** React-Native 以比 Swift 节省 0.83 MiB 的内存赢得了这个 tab 的胜利。在执行任务并记录数据的过程中，当我向列表**添加完（added）**一项以及**删除完（deleted）**一项的时候，可以明显观察到有一个峰值。
 
-***Page View:*** 在这个 tab 中，React-Native 以节省 0.04 MiB 的内存用量击败了 Swift。在执行任务并记录测量数据的时候，我发现我在 PageView 切换页面的时，内存的峰值并没有改变。字面上没变。
+***Page View:*** 在这个 tab 中，React-Native 以节省 0.04 MiB 的内存用量击败了 Swift。在执行任务并记录数据的过程中，我发现我在 PageView 切换页面的时，内存的峰值并没有改变。字面上没变。
 
-***Maps:*** React-Native 节省了 61.11 MiB 的内存，以巨大优势赢得了这个类别的胜利。执行任务并记录数据峰值的准确时间是：我按下 “Maps” 这个 tab 的时候，这会促使 MapView 会找到我当前位置，并显示一个显眼的蓝色脉冲点。在两个 app 里，内存都在持续的增加，但最终都停止了。
+***Maps:*** React-Native 节省了 61.11 MiB 的内存，以巨大优势赢得了这个类别的胜利。在执行任务并记录数据的过程中，我按下 “Maps” 这个 tab 的时候可以明显观察到一个峰值，而且这会促使 MapView 会找到我当前位置，并显示一个显眼的蓝色脉冲点。在两个 app 里，内存都在持续的增加，但最终都停止了。
 
-React-Native 赢得了 3 个 tab 的胜利，而 Swift 赢得了一个。整体而言，React-Native 比 Swift 节省了 61.96 MiB 的内存。如果我让自己不专注于单个任务执行与停止，而是在各个应用长时间运行，那结果可能会不同。我在 “Maps” 的 tab 注意到，当我缩放地图或者移动地图的时候，内存呈指数地增长。“Maps” 消耗的内存要远远高于其他情况。
+React-Native 赢得了 3 个 tab 的胜利，而 Swift 赢得了 1 个。整体而言，React-Native 比 Swift 节省了 61.96 MiB 的内存。如果我让自己不专注于单个任务执行与停止，而是在各个应用长时间运行，那结果可能会不同。我在 “Maps” 的 tab 注意到，当我缩放地图或者移动地图的时候，内存呈指数地增长。“Maps” 消耗的内存要远远高于其他情况。
 
 ### 结论 ###
 
