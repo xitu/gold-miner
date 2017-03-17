@@ -2,15 +2,15 @@
 * 原文作者：该文章已获得作者 [Samer Buna](https://medium.freecodecamp.com/@samerbuna) 授权
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[fghpdf](https://github.com/fghpdf)
-* 校对者：
+* 校对者：[rccoder](https://github.com/rccoder)
 
 # 在你沉迷于包的海洋之前，还是了解一下运行时 Node.js 的本身
 
 ![](https://cdn-images-1.medium.com/max/2000/1*LSfLSMQ1kPuHnyCPLNEKgQ.png)
 
-这篇文章将挑战你的 Node.js 知识的极限。
+这篇文章将挑战你 Node.js 的知识极限
 
-我在 Ryan Dahl 第一次[介绍](https://www.youtube.com/watch?v=ztspvPYybIY) Node.js 之后不久就开始学习它，甚至一年前我也不能回答我在这篇文章中提出的许多问题。 如果你能真正地回答所有的问题，那么你的 Node.js 的知识储备是迥乎常人的。 我们应该成为朋友。
+我在 Ryan Dahl 第一次 [介绍](https://www.youtube.com/watch?v=ztspvPYybIY) Node.js 之后不久就开始学习它，甚至一年前我也不能回答我在这篇文章中提出的许多问题。 如果你能真正地回答所有的问题，那么你的 Node.js 的知识储备是迥乎常人的。 我们应该成为朋友。
 
 我认为这个挑战的原因会让你吃惊的是，我们中的许多人一直采用着的错误方式来学习 Node。大多数关于 Node 的教程，书籍和课程都关注于 Node 生态，而不是 Node 本身。 他们专注于教你使用的所有的 Node 包，例如 Express 和 Socket.IO，而不是教会你使用 Node 本身的功能。
 
@@ -45,7 +45,7 @@
 15. 如何读取和检查 Node.js 进程的内存使用情况？
 16. 当调用栈和事件循环队列都为空时，Node 将做什么？
 17. 什么是 V8 对象和函数模板？
-18. 什么是libuv而且 Node.js 如何使用它？
+18. 什么是libuv, Node.js 如何使用它？
 19. 如何使 Node 的 REPL 总是使用 JavaScript 严格模式？
 20. 什么是 `process.argv`？ 它拥有什么类型的数据？
 21. 在 Node 进程结束之前，我们该如何做最后一个操作？该操作可以异步完成吗？
@@ -93,7 +93,7 @@ Node 是一个基于 VM 引擎的可以编译 JavaScript 的库，所以不言�
 
 回调和 promise（和 generators/async 模式）对于 Node 特别重要。异步操作是你在 Node 中的第一课。
 
-你可以比较一个 Node 程序中的几行代码的非阻塞性质和你订购星巴克咖啡的方式（在商店中，而不是驱动器）：
+你可以比较一个 Node 程序中的几行代码的非阻塞性质和你订购星巴克咖啡的方式（在商店中，而不是得来速）：
 
 1. 下订单 | 给 Node 一些执行指令（一个函数）
 2. 自定义你的订单，例如没有生奶油 | 给函数一些参数：`({whippedCream: false})`
@@ -105,8 +105,7 @@ Node 是一个基于 VM 引擎的可以编译 JavaScript 的库，所以不言�
 
 ### 了解 JavaScript 并发模型及其如何基于事件循环而运作
 
-There is a Stack, a Heap, and a Queue. You can read books on this subject and still not understand it completely, but I guarantee you’ll do if you watch [this guy](https://www.youtube.com/watch?v=8aGhZQkoFbQ).
-栈，堆和队列。你会阅读有关这个主题的书却仍然不完全理解，如果你看[这个家伙](https://www.youtube.com/watch?v=8aGhZQkoFbQ)，我保证你就懂了。
+栈，堆和队列。如果你阅读了有关这个主题的书却仍然不完全理解，可以看看 [这个家伙](https://www.youtube.com/watch?v=8aGhZQkoFbQ)，我保证你就懂了。
 
 [![](https://i.ytimg.com/vi/8aGhZQkoFbQ/maxresdefault.jpg)](https://www.youtube.com/embed/8aGhZQkoFbQ?wmode=opaque&widget_referrer=https%3A%2F%2Fmedium.freecodecamp.com%2Fmedia%2Fa661a28c8cc4ab11cdfc9f9487ebd139%3FpostId%3Df9031fbd8b69&enablejsapi=1&origin=https%3A%2F%2Fcdn.embedly.com&widgetid=1)
 
