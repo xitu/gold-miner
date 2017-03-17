@@ -1,8 +1,9 @@
 > * 原文地址：[A crash course in assembly](https://hacks.mozilla.org/2017/02/a-crash-course-in-assembly/)
-> * 原文作者：[Lin Clark](https://code-cartoons.com/@linclark)
+> * 原文作者：本文已获作者 [Lin Clark](https://code-cartoons.com/@linclark) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[zhouzihanntu](https://github.com/zhouzihanntu)
 > * 校对者：[Tina92](https://github.com/Tina92)、[zhaochuanxing](https://github.com/zhaochuanxing)
+
 # 汇编快速入门
 
 **本文是 WebAssembly 系列文章的第三部分。如果你还没有阅读过前面的文章，我们建议你 [从头开始](https://github.com/xitu/gold-miner/blob/master/TODO/a-cartoon-intro-to-webassembly.md)。**
@@ -16,7 +17,7 @@
 我现在真想看看外星人大脑的思考方式——即机器大脑解析和理解通信的机制。
 
 大脑中有一部分专门用来思考（例如做加减或其他逻辑运算），一部分提供短期记忆存储，还有一部分提供长期记忆存储。
- 
+
 这几个不同的部分都有各自的名称：
 
 - 负责思维的部分称为算术逻辑单元 (ALU)。
@@ -45,7 +46,7 @@
 
 你会发现汇编和这台机器的机器码有很直接的关系。因此不同的机器架构对应有不同的汇编方式。当你遇到使用不同架构的机器时，可能就得按它们自己的方式进行汇编。
 
-因此，我们的翻译对象并不止一个。机器码不止一种语言，有许多不同种类的机器码。就像我们人类会说不同的语言一样，机器也会使用不同的语言。		
+因此，我们的翻译对象并不止一个。机器码不止一种语言，有许多不同种类的机器码。就像我们人类会说不同的语言一样，机器也会使用不同的语言。
 
 随着人类和外星人之间的翻译问题解决，你也可以将英语、俄语、普通话等语言转化成外星文A、外星文B了。对编程而言，就是将 C、C++、Rust 等语言转化成 x86、ARM。
 

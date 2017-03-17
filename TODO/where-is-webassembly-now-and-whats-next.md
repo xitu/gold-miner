@@ -1,5 +1,5 @@
 > * 原文地址：[Where is WebAssembly now and what’s next?](https://hacks.mozilla.org/2017/02/where-is-webassembly-now-and-whats-next/)
-> * 原文作者：[Lin Clark](http://code-cartoons.com/)
+> * 原文作者：本文已获作者 [Lin Clark](https://code-cartoons.com/@linclark) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[胡子大哈](https://github.com/huzidaha/)
 > * 校对者：[根号三](https://github.com/sqrthree)

@@ -1,7 +1,7 @@
 > * 原文地址：[Golden Guidelines for Writing Clean CSS](https://www.sitepoint.com/golden-guidelines-for-writing-clean-css/)
-> * 原文作者：[Tiffany Brown](https://www.sitepoint.com/author/tbrown/)
+> * 原文作者：本文已获作者 [Tiffany Brown](https://www.sitepoint.com/author/tbrown/) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者： 
+> * 译者：
 > * 校对者：
 
 ---
@@ -38,7 +38,7 @@ button {
 This seems innocuous enough. But what if we want to create a button that’s styled differently? Let’s style a `.close` button that will be used to close dialog modules:
 
 ```
-<section class="dialog"> 
+<section class="dialog">
   <button type="button" class="close">Close</button>
 </section>
 ```
@@ -61,7 +61,7 @@ Now we need to write CSS to override every line that we don’t want to inherit 
   line-height: 1;
   padding: 5px;
   border-radius: 100px;
-  width: auto;        
+  width: auto;
 }
 ```
 

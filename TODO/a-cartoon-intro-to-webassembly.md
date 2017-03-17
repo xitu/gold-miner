@@ -1,5 +1,5 @@
 > * 原文地址：[A cartoon intro to WebAssembly](https://hacks.mozilla.org/2017/02/a-cartoon-intro-to-webassembly/)
-> * 原文作者：[Lin Clark](https://code-cartoons.com/@linclark)
+> * 原文作者：本文已获作者 [Lin Clark](https://code-cartoons.com/@linclark) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者： [根号三](https://github.com/sqrthree)
 > * 校对者：[Reid](https://github.com/reid3290)、[Tina92](https://github.com/Tina92)
