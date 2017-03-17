@@ -1,5 +1,5 @@
 > * 原文地址：[Before you bury yourself in packages, learn the Node.js runtime itself](https://medium.freecodecamp.com/before-you-bury-yourself-in-packages-learn-the-node-js-runtime-itself-f9031fbd8b69#.91p6p8nkz)
-* 原文作者：[Samer Buna](https://medium.freecodecamp.com/@samerbuna)
+* 原文作者：该文章已获得作者 [Samer Buna](https://medium.freecodecamp.com/@samerbuna) 授权
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[fghpdf](https://github.com/fghpdf)
 * 校对者：
@@ -140,7 +140,7 @@ Node 进程可以空闲，但它从不进入 sleep 状态。它跟踪所有正�
 
 #### 阅读并尝试理解为 Node 编写的一些代码
 
-选择一个框架，如 Express，并尝试理解它的一些代码。告诉我你不懂的地方。当条件允许我会试着回答在 [slack 频道](https://slackin-bfcnswvsih.now.sh/)问题。
+选择一个框架，如 Express，并尝试理解它的一些代码。告诉我你不懂的地方。当条件允许我会试着在 [slack 频道](https://slackin-bfcnswvsih.now.sh/)回答问题。
 
 最后，用 Node 编写一个 Web 应用，而且不使用任何框架。尝试处理尽可能多的情况，使用 HTML 文件，解析查询字符串，接受表单输入，并创建一个以 JSON 响应的终端。
 
