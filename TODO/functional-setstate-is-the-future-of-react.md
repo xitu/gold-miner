@@ -32,7 +32,7 @@ React 是一个基于组件的 UI 库，组件基本上可以看作是一个接�
       );
     }
 
-组件可能需要持有和管理 state。在这种情况下，一般将组件编写为一个类，然后在该类的 `constructor` 函数中初始化 state：
+组件可能需要持有并管理其 state。在这种情况下，一般将组件编写为一个类，然后在该类的 `constructor` 函数中初始化 state：
 
     class User {
       constructor () {
@@ -77,13 +77,13 @@ React 提供了一个用于管理 state 的特殊函数 —— `setState()`，�
 
 注意 `setState()` 本身是一个函数，而且我们传递了另一个函数给它作为参数（函数式编程，**函数式 setState**）。乍一看可能觉得这样写挺丑陋的，set-state 需要的步骤太多了。那为什么还要这样写呢？
 
-### 为什么传递一个函数给 stateState？
+### 为什么传递一个函数给 setState？
 
 理由是，[state 的更新可能是异步的](https://facebook.github.io/react/docs/state-and-lifecycle.html#state-updates-may-be-asynchronous)。
 
 思考一下调用 `setState()` 时[发生了什么](https://facebook.github.io/react/docs/reconciliation.html)。React 首先会将你传递给 `setState()` 的参数对象合并到当前 state 对象中，然后会启动所谓的 **reconciliation**，即创建一个新的 React Element tree，和之前的 tree 作比较，基于你传递给 `setState()` 的对象找出发生的变化，最后更新 DOM。
 
-呦！工作很多嘛！实际上，这还只是精简版总结。但是一定不要怀疑React！
+呦！工作很多嘛！实际上，这还只是精简版总结。但一定要相信：
 
 > React 不会仅仅简单地 “set-state”。
 
@@ -110,9 +110,9 @@ React 提供了一个用于管理 state 的特殊函数 —— `setState()`，�
     ...
 ```
 
-面对这种 **多次 `setState()` 调用** 的情况，为了避免重复做上述大量的工作，React 并不会真地 “set-state” 三次；相反，它会机智地告诉自己：“哼！我才不要‘愚公移山’三次呢，每次还得更新部分 state。不行，我的找个‘背包’，把这些部分更新打包装好，一次性搞定。”朋友们，这就是所谓的**批处理**啊！
+面对这种 **多次 `setState()` 调用** 的情况，为了避免重复做上述大量的工作，React 并不会真地**完整调用三次** "set-state"；相反，它会机智地告诉自己：“哼！我才不要‘愚公移山’三次呢，每次还得更新部分 state。不行，我得找个‘背包’，把这些部分更新打包装好，一次性搞定。”朋友们，这就是所谓的**批处理**啊！
 
-记住传递给 `setState()` 的纯粹是个对象。现在，假设 React 每次遇到 **多次 `setState()` 调用**都会作上述批处理过程，即将每次调用 `setState()` 时传递给它的对象合并为一个对象，然后用这个对象去做真正地 `setState()`。
+记住传递给 `setState()` 的纯粹是个对象。现在，假设 React 每次遇到 **多次 `setState()` 调用**都会作上述批处理过程，即将每次调用 `setState()` 时传递给它的对象合并为一个对象，然后用这个对象去做真正的 `setState()`。
 
 在 JavaScript 中，对象合并可以这样写：
 
@@ -171,7 +171,7 @@ React 提供了一个用于管理 state 的特殊函数 —— `setState()`，�
 
 还有，考虑到代码简洁问题，下面会使用 ES6，当然你也可以用 ES5 重写一下。
 
-首先，创建一个组建类。在这个类里，创建一个**伪造**的 `setState()` 方法。该组件会使用 `increaseScoreBy3()` 方法来调用多次函数式 setState。最后，会仿照 React 的做法实例化该类。
+首先，创建一个组件类。在这个类里，创建一个**伪造**的 `setState()` 方法。该组件会使用 `increaseScoreBy3()` 方法来调用多次函数式 setState。最后，会仿照 React 的做法实例化该类。
 
     class User{
       state = {score : 0};
@@ -239,7 +239,7 @@ React 提供了一个用于管理 state 的特殊函数 —— `setState()`，�
 
 感谢 [Dan Abramov](https://medium.com/@dan_abramov)！
 
-这就是函数式 setState 的强大之处 —— 在组件类**外部**声明 state 的更新逻辑，然后在组建类**内部**调用之。
+这就是函数式 setState 的强大之处 —— 在组件类**外部**声明 state 的更新逻辑，然后在组件类**内部**调用之。
 
     // outside your component class
     function increaseScore (state, props) {
@@ -306,4 +306,4 @@ Hey, Dan！还有什么最后要说的吗？
 
 欢迎扩散，欢迎吐槽（[Twitter](https://twitter.com/Daajust)）。
 
-编程快乐！
+Happy Coding！
