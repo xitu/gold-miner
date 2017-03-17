@@ -6,7 +6,7 @@
 
 # Pull request review 的十大错误
 
-我已在多个 [GitHub](https://github.com/) 托管的项目中工作过，无论是 [个人的](/star-wars-cards/#geeking-out), [开源的](https://scottnonnenberg.com/open-source/) 或者 [工作中的](https://scottnonnenberg.com/work)。有的时候使用公开的 Github，别的时候使用 [GitHub 企业版](https://enterprise.github.com/)。但是有一件事情是一样的：[提交一个 pull request](https://help.github.com/articles/about-pull-requests/) 实在是简单，但是很好地 review 一个 pull request 实在是有点难。
+我已在多个 [GitHub](https://github.com/) 托管的项目中工作过，无论是 [个人的](/star-wars-cards/#geeking-out)、 [开源的](https://scottnonnenberg.com/open-source/) 或者 [工作中的](https://scottnonnenberg.com/work)。有的时候使用公开的 GitHub，别的时候使用 [GitHub 企业版](https://enterprise.github.com/)。但是有一件事情是一样的：[提交一个 pull request](https://help.github.com/articles/about-pull-requests/) 实在是简单，但是很好地 review 一个 pull request 实在是有点难。
 
 为了避免更多的麻烦，本文会涉及到十大 pull request review 错误和一些怎样做得更好的想法：
 
@@ -14,8 +14,8 @@
 
 这是那么地让人难以抗拒：某个 pull request 实在太大，提交者又是你很信任的人。他们已经在这段代码上工作了很久，而且这段代码总是工作得很好。更不必说，你也有你自己的 deadline 要赶啊！
 
-    +1
-    看起来挺好
+    +1    
+    看起来挺好     
     走起，合并吧！
 
 
@@ -40,7 +40,7 @@
 
 ## 3. 统一 diff
 
-你在 review 不知所云的代码吗？在 Github 和 GitHub 企业版上默认的 diff 显示是「统一的」（Unified）。在这种模式下，渲染一系列文件的更改，软件看的是被添加的／被删除的行，并且尝试着将更改块智能分组，所有的都是内联的。但是你能看懂多少更改呢？在多数情况下，「统一的」 diff 很难阅读。所谓智能的块选择真的不够智能。
+你在 review 不知所云的代码吗？在 GitHub 和 GitHub 企业版上默认的 diff 显示是「统一的」（Unified）(译者注：现在 GitHub 已经默认使用 Split 显示了)。在这种模式下，渲染一系列文件的更改，软件看的是被添加的／被删除的行，并且尝试着将更改块智能分组，所有的都是内联的。但是你能看懂多少更改呢？在多数情况下，「统一的」 diff 很难阅读。所谓智能的块选择真的不够智能。
 
 好消息是 [GitHub 和 GitHub 企业版都支持将 diff 「分屏」（Split）](https://github.com/blog/1884-introducing-split-diffs)。左侧是旧文件，右侧是新文件。如果代码被移除，你将在右侧看到空区域；如果代码被添加，你将在左侧看到空区域。这两者都可以让你清楚地看到文件在更改前后的模样，能够促使你做更好的 review 决策。
 
@@ -86,7 +86,7 @@
 
 ## 7. 不考虑前端复杂性
 
-I如果改动发生在 CSS 和 HTML 里，人们的倾向是将它当作算法代码改动来对待。你会看到看起来很规范的改动，并且想象它们会在浏览器里做些什么。“看起来很合理”，你说。
+如果改动发生在 CSS 和 HTML 里，人们的倾向是将它当作算法代码改动来对待。你会看到看起来很规范的改动，并且想象它们会在浏览器里做些什么。“看起来很合理”，你说。
 
 但是事情不是这么简单的。用户最终看到的效果来自于你的应用和不同的渲染引擎之间的复杂交互。
 
@@ -123,7 +123,7 @@ I如果改动发生在 CSS 和 HTML 里，人们的倾向是将它当作算法�
 
 对 pull request 的修正是开发者有史以来可能做出的风险最大的更改，因为所有人都只想前进。如果一个人在开发中给予的关注不够，那么对 review 也不会太关注。
 
-尤其要密切注意对最初的 pull request 的任何更改，即使，是的，你已经完整地 review 过 pull request。如果新的更改被放到了单独的提交里，那么情况要简单些。如果整个 pull request 被重新 [rebased/squashed](https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History)，那么这就让人有点沮丧了。
+尤其要密切注意对最初的 pull request 的任何更改，即使你已经完整地 review 过 pull request。如果新的更改被放到了单独的提交里，那么情况要简单些。如果整个 pull request 被重新 [rebased/squashed](https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History)，那么这就让人有点沮丧了。
 
 ## 这不容易！
 
