@@ -1,8 +1,8 @@
 > * 原文地址：[Top ten pull request review mistakes](https://blog.scottnonnenberg.com/top-ten-pull-request-review-mistakes/)
-* 原文作者：[Scott Nonnenberg](https://scottnonnenberg.com/)
-* 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者： [luoyaqifei](http://www.zengmingxia.com)
-* 校对者：[xiaoyusilen](https://github.com/xiaoyusilen)，[phxnirvana](https://github.com/phxnirvana)
+> * 原文作者：[Scott Nonnenberg](https://scottnonnenberg.com/)
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 译者： [luoyaqifei](http://www.zengmingxia.com)
+> * 校对者：[xiaoyusilen](https://github.com/xiaoyusilen)，[phxnirvana](https://github.com/phxnirvana)
 
 # Pull request review 的十大错误
 
