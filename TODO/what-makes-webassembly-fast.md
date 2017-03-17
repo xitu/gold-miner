@@ -1,7 +1,7 @@
 > * 原文地址：[What makes WebAssembly fast?](https://hacks.mozilla.org/2017/02/what-makes-webassembly-fast/)
-* 原文作者：[Lin Clark](https://code-cartoons.com/@linclark)
+* 原文作者：本文已获作者 [Lin Clark](https://code-cartoons.com/@linclark) 授权
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者： 
+* 译者：
 * 校对者：
 
 # What makes WebAssembly fast?

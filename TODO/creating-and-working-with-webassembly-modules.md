@@ -1,7 +1,7 @@
 > * 原文地址：[Creating and working with WebAssembly modules](https://hacks.mozilla.org/2017/02/creating-and-working-with-webassembly-modules/)
-* 原文作者：[Lin Clark](https://code-cartoons.com/@linclark)
+* 原文作者：本文已获作者 [Lin Clark](https://code-cartoons.com/@linclark) 授权
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者： 
+* 译者：
 * 校对者：
 
 ---
@@ -70,7 +70,7 @@ The .wasm file is the WebAssembly module, and it can be loaded in JavaScript. As
         results.instance
       );
     }
-    
+
 
 You can see this in more depth in [our docs](https://developer.mozilla.org/en-US/docs/WebAssembly).
 
@@ -105,13 +105,13 @@ Here’s a C function that we’ll turn into WebAssembly:
     intadd42(int num) {
       return num + 42;
     }
-    
+
 
 You can try using the [WASM Explorer](http://mbebenita.github.io/WasmExplorer/) to compile this function.
 
 If you open up the .wasm file (and if your editor supports displaying it), you’ll see something like this.
 
-    
+
     00 61 73 6D 0D 00 00 00 01 86 80 80 80 00 01 60
     01 7F 01 7F 03 82 80 80 80 00 01 00 04 84 80 80
     80 00 01 70 00 00 05 83 80 80 80 00 01 00 01 06
@@ -119,7 +119,7 @@ If you open up the .wasm file (and if your editor supports displaying it), you�
     6D 6F 72 79 02 00 09 5F 5A 35 61 64 64 34 32 69
     00 00 0A 8D 80 80 80 00 01 87 80 80 80 00 00 20
     00 41 2A 6A 0B
-    
+
 
 That is the module in its “binary” representation. I put quotes around binary because it’s usually displayed in hexadecimal notation, but that can be easily converted to binary notation, or to a human readable format.
 

@@ -1,8 +1,8 @@
 > * 原文地址：[A crash course in just-in-time (JIT) compilers](https://hacks.mozilla.org/2017/02/a-crash-course-in-just-in-time-jit-compilers/)
-* 原文作者：[Lin Clark](http://code-cartoons.com/)
-* 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：[zhouzihanntu](https://github.com/zhouzihanntu)
-* 校对者：[Tina92](https://github.com/Tina92)、[Germxu](https://github.com/Germxu)
+> * 原文作者：本文已获作者 [Lin Clark](https://code-cartoons.com/@linclark) 授权
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 译者：[zhouzihanntu](https://github.com/zhouzihanntu)
+> * 校对者：[Tina92](https://github.com/Tina92)、[Germxu](https://github.com/Germxu)
 
 # JIT 编译器快速入门 #
 
