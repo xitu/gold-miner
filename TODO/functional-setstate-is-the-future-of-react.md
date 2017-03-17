@@ -100,7 +100,7 @@ React 提供了一个用于管理 state 的特殊函数 —— `setState()`，�
 
     state = {score : 0};
 
-    // multiple **setState() calls
+    // 多次 **setState() 调用
     increaseScoreBy3 () {
     this.setState({score : this.state.score + 1});
      this.setState({score : this.state.score + 1});
@@ -176,13 +176,13 @@ React 提供了一个用于管理 state 的特殊函数 —— `setState()`，�
     class User{
       state = {score : 0};
     
-      //let's fake setState
+      //“伪造” setState
       setState(state, callback) {
         this.state = Object.assign({}, this.state, state);
         if (callback) callback();
       }
     
-      // multiple functional setState call
+      // 多次函数式 setState 调用
       increaseScoreBy3 () {
         this.setState( (state) => ({score : state.score + 1}) ),
         this.setState( (state) => ({score : state.score + 1}) ),
@@ -204,7 +204,7 @@ React 提供了一个用于管理 state 的特殊函数 —— `setState()`，�
 
 最后模拟更新过程：
 
-    // recursively update state in the order
+    // 按序递归式更新 state
     function updateState(component, updateQueue) {
       if (updateQueue.length === 1) {
         return component.setState(updateQueue[0](component.state));
@@ -241,7 +241,7 @@ React 提供了一个用于管理 state 的特殊函数 —— `setState()`，�
 
 这就是函数式 setState 的强大之处 —— 在组件类**外部**声明 state 的更新逻辑，然后在组件类**内部**调用之。
 
-    // outside your component class
+    // 在组件类之外
     function increaseScore (state, props) {
       return {score : state.score + 1}
     }
@@ -249,7 +249,7 @@ React 提供了一个用于管理 state 的特殊函数 —— `setState()`，�
     class User{
       ...
     
-    // inside your component class
+    // 在组件类之内
       handleIncreaseScore () {
         this.setState(increaseScore)
       }
@@ -268,7 +268,7 @@ React 提供了一个用于管理 state 的特殊函数 —— `setState()`，�
     class User{
       ...
     
-      // inside *your component class
+      // 在组件类之内
       handleIncreaseScore () {
         this.setState(increaseScore)
     }
