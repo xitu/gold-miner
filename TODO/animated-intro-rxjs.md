@@ -1,12 +1,12 @@
 > * 原文地址：[An Animated Intro to RxJS](https://css-tricks.com/animated-intro-rxjs/)
-* 原文作者：[David Khourshid](https://css-tricks.com/author/davidkpiano/)
-* 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者： [luoyaqifei](http://www.zengmingxia.com)
-* 校对者：[vuuihc](https://github.com/vuuihc)，[AceLeeWinnie](https://github.com/AceLeeWinnie)
+> * 原文作者：[David Khourshid](https://css-tricks.com/author/davidkpiano/)
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 译者： [luoyaqifei](http://www.zengmingxia.com)
+> * 校对者：[vuuihc](https://github.com/vuuihc)，[AceLeeWinnie](https://github.com/AceLeeWinnie)
 
 # 看动画，学 RxJS
 
-你以前可能听过 RxJS，ReactiveX，响应式编程，或者只是函数式编程。当我们谈论最新的、最伟大的前端技术时，这些术语正变得越来越重要。如果你的学习心路像我一样，那么你在最开始学习它时一定也是一头雾水。
+你以前可能听过 RxJS、ReactiveX、响应式编程，或者只是函数式编程。当我们谈论最新的、最伟大的前端技术时，这些术语正变得越来越重要。如果你的学习心路像我一样，那么你在最开始学习它时一定也是一头雾水。
 
 根据 [ReactiveX.io](http://reactivex.io/)：
 
@@ -64,7 +64,7 @@ const mouseMove$ = Rx.Observable
   .fromEvent(document.documentElement, 'mousemove');
 ```
 
-**注意：变量后的美元符(`$`)只是一个约定，用于表明这个变量是 observable。** observable 可以被用于代表任何可以用伴随时间流动的数据流表示的东西，比如事件，Promise，定时执行函数，间隔执行函数和动画。
+**注意：变量后的美元符(`$`)只是一个约定，用于表明这个变量是 observable。** observable 可以被用于代表任何可以用伴随时间流动的数据流表示的东西，比如事件、Promise、定时执行函数、间隔执行函数和动画。
 
 现在创建的这些 observable 并不做任何有意义的事，除非你真正地 **observe** 它们。**subscription** 就是做这个的，可以用 `.subscribe()` 来创建它。
 
@@ -152,7 +152,8 @@ mouseMove$.subscribe(pos => {
       .fromEvent(docElm,'touchmove').map(event =>({
         x: event.touches[0].clientX,
         y: event.touches[0].clientY
-      }));const move$ = Rx.Observable.merge(mouseMove$, touchMove$);
+      }));
+    const move$ = Rx.Observable.merge(mouseMove$, touchMove$);
 
     move$.subscribe(pos =>{// ...});
 
@@ -164,7 +165,7 @@ mouseMove$.subscribe(pos => {
 
 ### 加入平滑运动（Smooth Motion）
 
-因为旋转卡片实现得太简洁, 其运动有一点点生硬。无论什么时候鼠标（或手指）一停，旋转戛然而止。为了补救这点，可以使用线性插值（LERP）。Rachel Smith 的 [这个教程](https://codepen.io/rachsmith/post/animation-tip-lerp) 里描述了这种通用技术。从本质上说，不再直接从 A 点跳到 B 点，LERP 将在每个动画帧上走一部分路。这就产生了平滑的过渡，即使鼠标／触摸已经停止。
+因为旋转卡片实现得太简洁，其运动有一点点生硬。无论什么时候鼠标（或手指）一停，旋转戛然而止。为了补救这点，可以使用线性插值（LERP）。Rachel Smith 的 [这个教程](https://codepen.io/rachsmith/post/animation-tip-lerp) 里描述了这种通用技术。从本质上说，不再直接从 A 点跳到 B 点，LERP 将在每个动画帧上走一部分路。这就产生了平滑的过渡，即使鼠标／触摸已经停止。
 
 让我们创建一个函数，这个函数有一个职责：给定一个开始值和一个结束值，使用 LERP 计算下一个值：
 
@@ -213,7 +214,7 @@ const smoothMove$ = animationFrame$
 
 #### 使用 `.scan` 进行过渡
 
-既然你有一个 observable ，它能在每个动画帧上从 `move$` 发送最新的数据，是时候加入线性插值了。[`.scan()`](http://reactivex.io/documentation/operators/scan.html) 操作符会从一个 observable 中「累积」当前值和下一个值，如果指定一个传入这些值的函数。
+既然你有一个 observable ，它能在每个动画帧上从 `move$` 发送最新的数据，是时候加入线性插值了。如果指定一个传入当前和下一个值的函数[`.scan()`](http://reactivex.io/documentation/operators/scan.html) 操作符会从一个 observable 中「累积」这些值。
 
 ![](https://cdn.css-tricks.com/wp-content/uploads/2017/02/scan.png)
 
@@ -241,7 +242,7 @@ RxJS **不** 是一个动画库，这是自然，但是使用可组合的、描�
 - “关注点分离”——你使用 Observable 和操作符声明式地表示你想要的数据，然后在一个单独的 `.subscribe()` 里处理副作用，而不是将这些在你的代码库里洒得到处都是。
 - 有 **如此多** 语言的实现——Java、PHP、Python、Ruby、C#、Swift，以及别的你甚至没听过的语言。
 - 它 **不是一个框架**，很多流行框架（比如 React，Angular 和 Vue）都跟它一起工作得很好。
-- 你可以得到很酷的点，如果你想的话，但是 ReactiveX 最早在接近十年以前（2009）被实现，从 [Conal Elliott 和 Paul Hudak](http://conal.net/papers/icfp97/) **二** 十年以前（1997）的想法中被提出，这个想法描述的是函数式响应式动画（真是惊奇啊真是惊奇）。不用说，它是经过战斗考验的。
+- 如果你想的话，你可以得到很酷的点，但是 ReactiveX 最早在接近十年以前（2009）被实现，从 [Conal Elliott 和 Paul Hudak](http://conal.net/papers/icfp97/) **二** 十年以前（1997）的想法中被提出，这个想法描述的是函数式响应式动画（真是惊奇啊真是惊奇）。不用说，它是经过战斗考验的。
 
 本文探索了一系列 RxJS 中有用的部分和概念——使用 `.fromEvent()` 和 `.interval()` 创建 observable，使用 `.map()` 和 `.scan()` 操作 observable，使用 `.merge()` 和 `.withLatestFrom()` 结合多个 observable，以及使用 `Rx.Scheduler.animationFrame` 引入 scheduler。以下是一些学习 RxJS 的其他有用资源：
 
@@ -249,7 +250,7 @@ RxJS **不** 是一个动画库，这是自然，但是使用可组合的、描�
 - [RxMarbles](http://rxmarbles.com/) - 用于可视化 observable
 - Andre Staltz 写的 [你曾错过的响应式编程入门](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754)
 
-如果你想要在 RxJS 的动画上钻得更深的话（并且使用 CSS 变量变得更加声明式），可以查看 [我在 2016 年 CSS 开发大会上的幻灯片](http://slides.com/davidkhourshid/reactanim#/) 和 [我在 2016 年 JSConf Iceland 上的讲话](https://www.youtube.com/watch?v=lTCukb6Zn3g)。For inspiration, here's some Pens that use RxJS for animation:为了给你更多灵感，这里有一些使用了 RxJS 来做动画的代码：
+如果你想要在 RxJS 的动画上钻得更深的话（并且使用 CSS 变量变得更加声明式），可以查看 [我在 2016 年 CSS 开发大会上的幻灯片](http://slides.com/davidkhourshid/reactanim#/) 和 [我在 2016 年 JSConf Iceland 上的讲话](https://www.youtube.com/watch?v=lTCukb6Zn3g)。为了给你更多灵感，这里有一些使用了 RxJS 来做动画的代码：
 
 - [3D 数字时钟](http://codepen.io/davidkpiano/pen/Vmyyzd)
 - [心率 app 概念](http://codepen.io/davidkpiano/pen/mAoaxP)
