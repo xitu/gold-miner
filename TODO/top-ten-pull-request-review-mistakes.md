@@ -1,134 +1,134 @@
 > * 原文地址：[Top ten pull request review mistakes](https://blog.scottnonnenberg.com/top-ten-pull-request-review-mistakes/)
-* 原文作者：[Scott Nonnenberg](https://scottnonnenberg.com/)
-* 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者： 
-* 校对者：
+> * 原文作者：[Scott Nonnenberg](https://scottnonnenberg.com/)
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 译者： [luoyaqifei](http://www.zengmingxia.com)
+> * 校对者：[xiaoyusilen](https://github.com/xiaoyusilen)，[phxnirvana](https://github.com/phxnirvana)
 
-# Top ten pull request review mistakes
+# Pull request review 的十大错误
 
-I’ve worked on a whole lot of [GitHub](https://github.com/)-hosted projects, whether [personal](/star-wars-cards/#geeking-out), [open-source](https://scottnonnenberg.com/open-source/), or [on contract](https://scottnonnenberg.com/work). Sometimes using the public GitHub, and other times [GitHub Enterprise](https://enterprise.github.com/). But one thing is the same: it’s pretty easy to [submit a pull request](https://help.github.com/articles/about-pull-requests/), but it’s really hard to review a pull request well.
+我已在多个 [GitHub](https://github.com/) 托管的项目中工作过，无论是 [个人的](/star-wars-cards/#geeking-out)、 [开源的](https://scottnonnenberg.com/open-source/) 或者 [工作中的](https://scottnonnenberg.com/work)。有的时候使用公开的 GitHub，别的时候使用 [GitHub 企业版](https://enterprise.github.com/)。但是有一件事情是一样的：[提交一个 pull request](https://help.github.com/articles/about-pull-requests/) 实在是简单，但是很好地 review 一个 pull request 实在是有点难。
 
-Without further ado, the **top ten pull request review mistakes** and some ideas on how to do better!
+为了避免更多的麻烦，本文会涉及到十大 pull request review 错误和一些怎样做得更好的想法：
 
-## 1. The mindless +1
+## 1. 漫不经心 +1
 
-It’s so tempting. The pull request is really big, and the submitter is someone you trust. They’ve been working in this part of the code for a while, and it has always worked out well. Not to mention that you have your own deadlines to hit!
+这是那么地让人难以抗拒：某个 pull request 实在太大，提交者又是你很信任的人。他们已经在这段代码上工作了很久，而且这段代码总是工作得很好。更不必说，你也有你自己的 deadline 要赶啊！
 
     +1
-    LGTM
-    Ship it!
-    
+    看起来挺好
+    走起，合并吧！
 
-Snap out of it!
 
-You need to spend real time to review that code. Everyone makes mistakes - seniority level is no magical ward against them. And your role, as the reviewer, is to use your creativity and expertise to reduce the chance that this pull request makes the codebase worse in any way.
+不要再这么做啦！
 
-That’s really the goal, isn’t it? If every pull request makes the codebase better, maybe the project really has some long-term potential!
+你真的需要花一些时间来 review 这段代码。每个人都会犯错——资历水平并不是什么对抗错误的神奇守卫。并且，你要清楚自己的身份，作为一个 reviewer，你的身份是使用你的创造性和专业性，使用任何方式来减少 pull request 将代码库变得更糟的情况。
 
-## 2. Procrastination
+这才是真正的目的，对不对？如果每个 pull request 都让代码库变得更好，项目很可能是有长期潜力在的！
 
-Why review it now? After all, it really is a big pull request. And your current task is too important. You’ll eventually get around to it, right? Or, maybe you’ll just wait for others to chime in…
+## 2. 拖延
 
-Search your feelings! Let the force flow through you! You might have some very real complaints behind that resistance.
+为什么现在就要 review 它呢？毕竟这真的是个大 pull request 啊。你当下的任务太重要了。你最终会绕着它走，对不对？或者，可能你只是等着别人插手吧……
 
-Now that you’ve identified your real concerns, take action!
+拷问下你自己的内心吧！让那股力量从你的心中流过！在那种阻力下，你可能会有一些真正的顾虑。
 
-- If there isn’t enough guidance from the submitter on what’s going on in all these changes, ask for it! For example, where are the original requirements?
-- If the changes are just too substantial to review at once, ask for them to be split up!
-- If you don’t understand something, break through your pride and ask about it!
-- If you’ve found a whole lot of problems/concerns, it may be time for some face-to-face interaction with the submitter.
+既然你已经认清了你真正的顾虑，行动起来！
 
-## 3. Unified diffs
+- 如果对于更改到底做了什么，代码提交者没有提供足够的指引，直接去问提交者要这些！比如说，原始需求在哪？
+- 如果只是因为更改太庞大，难以一次 review 完毕，让他们分成多次提交！
+- 如果你不明白什么，放下你的骄傲，问！
+- 如果你发现了足够多的问题／有足够多的顾虑，可能是时候与提交者做一些面对面的互动了。
 
-Are you reviewing gibberish? The default diff view on Github and GitHub Enterprise is ‘Unified.’ In this mode, to render a set of changes to a file, the software looks at added and removed lines and attempts to group blocks of changes intelligently, all inline. But you know what? In most cases, ‘Unified’ diffs are very hard to read. That intelligent block selection really isn’t.
+## 3. 统一 diff
 
-The good news is that both [GitHub and GitHub Enterprise support ‘Split’ diffs](https://github.com/blog/1884-introducing-split-diffs). On the left is the old file, and on the right is the new file. You’ll see empty sections on the right if code was removed, or on the left if code was added. Either way, you can clearly see what the file looked like before and after, leading to better review decisions.
+你在 review 不知所云的代码吗？在 GitHub 和 GitHub 企业版上默认的 diff 显示是「统一的」（Unified）(译者注：现在 GitHub 已经默认使用 Split 显示了)。在这种模式下，渲染一系列文件的更改，软件看的是被添加的／被删除的行，并且尝试着将更改块智能分组，所有的都是内联的。但是你能看懂多少更改呢？在多数情况下，「统一的」 diff 很难阅读。所谓智能的块选择真的不够智能。
 
-Don’t settle for the gibberish. Click on ‘Split’ in the top-right of the diff.
+好消息是 [GitHub 和 GitHub 企业版都支持将 diff 「分屏」（Split）](https://github.com/blog/1884-introducing-split-diffs)。左侧是旧文件，右侧是新文件。如果代码被移除，你将在右侧看到空区域；如果代码被添加，你将在左侧看到空区域。这两者都可以让你清楚地看到文件在更改前后的模样，能够促使你做更好的 review 决策。
 
-## 4. Style over substance
+不要为莫名其妙买单。在 diff 的右上角点击「将 diff 分屏（Split）」吧！
 
-Very little time, if any, should be spent discussing code style and formatting during a pull request review. I’ve written before about [the need to use tools like ESLint to make these kinds of things completely automated](/eslint-part-3-analysis/#trying-to-adapt). Why? Because it’s a waste of time!
+## 4. 专注样式而不是实质
 
-A good code reviewer spends the time to try to understand the [ultimate goals of the code changes](/understand-the-problem-dev-productivity-tip-1/), by going back to the original requirements. Is there a work item tracking this? A spec? What exactly was it asking for?
+在 pull request 的 review 时，即便对代码风格和格式有异议，也不应在这些方面浪费时间。我之前写过一篇文章，关于 [使用 ESLint 这类工具来将这些事情完全自动化的必要性](/eslint-part-3-analysis/#trying-to-adapt)。为什么？因为它完全是浪费时间！
 
-Only with that context can true review happen. What may look reasonable during a superficial structure/style review can become unacceptable when the ultimate goal is understood.
+一个好的 reviewer 会将时间放在尝试着去理解 [代码更改的最终目的](/understand-the-problem-dev-productivity-tip-1/) 上，通过回溯到原始的需求。有一个追溯这段更改的工作项吗？有相应的测试用例吗？它到底在要什么？
 
-Yes, you might shy away from bringing up ‘big’ things like this because so much time has already been spent on the existing changes, but it’s worth talking about better solutions. It’s an opportunity to learn for everyone. You might even be wrong in your belief that there’s a better solution, but it takes a discussion with the original submitter to figure that out.
+只有掌握了这些代码背景，真正的 review 才会实现。可能在浮于表面的结构／样式 review 时看起来合理的代码，当理解了终极目标后会变得不能接受。
 
-## 5. Not catching incomplete changes
+当然，你可能会回避惹上这种「大」事情，毕竟有如此多的时间被消耗在已有的更改上了。但是，讨论更好的解决方案是值得的。对于每个人来说，这都是一个学习的机会。你可能错误地相信会有一个更好的解决方案，但是这种相信会引领你和原始提交者进行一次讨论，来确定到底有没有更好的解决方案。
 
-Diffs are really great for showing you what has changed. But that’s the thing! By definition they don’t show you what *hasn’t* changed. Be on the lookout for changes which should have been applied more widely, like a find/replace that maybe didn’t cover the entire codebase.
+## 5. 不注意未完成的更改
 
-Or a change that only hit a subset of the components it should have.
+差异对于展示已有的更改很棒，但是这也是问题所在。从定义上就可以看出来，它并不能展示出什么 **没有** 被更改。时刻观察有哪些更改应该被更广泛地应用，比如说查找／替换这种可能没有覆盖到整个代码库的情况。
 
-Or entirely missing tests. Tests are an important part of any change, but it’s actually very easy to forget about them if they’re not in the diff at all. You won’t be prompted to think about them.
+或者一个更改应该涉及到一整个组件而它只涉及到其中一部分的情况。
 
-I’ll admit, this is really hard! This is the hardest kind of review. It might help to do some quick sanity check searches in either the submitter’s branch or whatever you have on your own machine. Or you could ask the submitter about what kinds of comprehensiveness checks they’ve done beyond the code changes you can see.
+或者完全缺少测试的情况。测试是更改很重要的一部分，但是它实际上是很容易被遗忘的，如果它们根本不在 diff 里面的话。你很难因为被提醒而想起它们。
 
-## 6. Glossing over test code
+不得不承认，这真的很难！这是 review 里最难的类型。它可能帮助你做一些快速的明智的检查搜索，或者在提交者的分支上，或者在你自己的机器上有的任何的东西。或者，你可以问提交者他们在你能看到的代码更改之外，做过哪些类型的全面检查，
 
-Once there are some test code updates in the pull request, it’s easy to get lulled into a false sense of security. If they put some tests in, they must be high-quality and comprehensive. Right?
+## 6. 轻视测试代码
 
-Wrong!
+一旦在 pull request 里有一些测试代码的更新，就很容易被麻痹在一种错误的安全感里。如果他们将测试代码放入了，这些测试代码一定是高质量的、易理解的，对吗？
 
-Testing is an art. It takes a lot of context to properly balance risk mitigation against testing cost, as appropriate for the area of the code and culture of the team. Pull request reviews are a great place for the team to build that shared context.
+错！
 
-Some questions to consider:
+测试是一门艺术。它使用了很多的上下文来恰当地平衡风险转移和测试消耗，以适合代码领域和团队文化的方式。Pull request review 是一个很好的、团队可以创建这种共享上下文的地方。
 
-- Are the test titles adequately descriptive?
-- Are key scenarios captured?
-- Are enough edge cases covered for comfort?
-- What parts of the application are exercised by a single test? Too much? Too little?
-- Are the tests written with good assertions? Can they ever fail? Will they fail too often?
-- If a test fails, would it be easy track down the error?
-- If new frontend behavior has been added, has it been added to the [manual test script](/web-application-test-strategy/#stage-0-real-usage)? [Browser automation tests](/web-application-test-strategy/#stage-4-automating-a-browser)?
+有一些问题需要考虑：
 
-## 7. Discounting frontend complexity
+- 测试标题合适地声明了吗？
+- 关键场景被捕获了吗？
+- 为了安全起见，足够的边缘用例被覆盖了吗？
+- 哪部分应用被单个测试使用了？太多？太少？
+- 测试断言写得好吗？测试挂过吗？测试经常挂吗？
+- 如果一个测试挂掉了，容易追溯到错误原因吗？
+- 如果加入新的前端行为，它有被加入 [手动测试脚本](/web-application-test-strategy/#stage-0-real-usage) 里吗？有被加入 [浏览器自动测试](/web-application-test-strategy/#stage-4-automating-a-browser) 里吗？
 
-If a change is in the CSS and HTML, the inclination is to treat it like an algorithmic code change. You see well-formed changes and imagine what they would do in the browser. “Seems reasonable,” you say.
+## 7. 不考虑前端复杂性
 
-But it’s not so simple. What the user ultimately sees comes from the complicated interactions between your application and various rendering engines.
+如果改动发生在 CSS 和 HTML 里，人们的倾向是将它当作算法代码改动来对待。你会看到看起来很规范的改动，并且想象它们会在浏览器里做些什么。“看起来很合理”，你说。
 
-Get out of your head, and pull the branch down. Try it in multiple browsers and screen sizes, because this stuff is really tricky. Even if you’re an expert frontend developer, don’t trust yourself to eyeball this stuff. This is why [CodePen](https://codepen.io/) and [the like](https://www.sitepoint.com/7-code-playgrounds/) exist!
+但是事情不是这么简单的。用户最终看到的效果来自于你的应用和不同的渲染引擎之间的复杂交互。
 
-## 8. The narrow mindset
+不要只脑补了，把分支 pull 下来。在多种浏览器和屏幕尺寸上试试，因为这种页面改动是很微妙的。就算你是一个专家级前端开发人员，也不要相信你自己能够靠肉眼搞定这种改动。这也是 [CodePen](https://codepen.io/) 和 [the like](https://www.sitepoint.com/7-code-playgrounds/) 存在的意义！
 
-This is another area where you can be lulled to sleep by well-formed code in the diff. But it’s important to consider the large scale. With this new code now in the project, what changes? What could happen?
+## 8. 狭窄眼界
 
-Some questions to get you started:
+这是另一个你可能会被 diff 里看起来很规范的代码所麻痹的领域。从大的角度来考虑问题是很重要的。有了项目里的这段新代码，会有什么改变？可能会发生什么？
 
-- Does this impact the size of the download for the user? Perception of performance? Does it change the user experience enough that it should be in the release notes, or an email to users?
-- Does it introduce a new kind of code or feature? Does it require a new testing approach, new logging or monitoring techniques, or a deployment process change?
-- Can it be exercised by users today, or is it behind a flag? What systems are in place to validate things behind flags?
-- How hard is this to test comprehensively? What might be different in staging or production?
+有一些你可以着手的问题：
 
-## 9. Short-term thinking
+- 这个改动会影响用户的下载量吗？对于性能的影响有多大？会改变用户体验，以至于需要放入版本的发布说明，或者放入给用户的邮件里吗？
+- 它会引入一种新类型的代码或者特性吗？它需要新的测试方法，新的日志方法、监控技术，或者需要部署流程的改变吗？
+- 它会被用户今天用到吗，或者它在一个 flag 后面？存在什么系统可以检测 flag 后面的东西呢？
+- 测试完全有多难？在开发环境和生产环境里可能会有什么区别呢？
 
-On some pull requests there is quite a bit of back and forth, maybe due to disagreements or just the need for clarification. This is really good stuff - it’s building shared context. But what happens when the next developer comes along and encounters this code? They won’t have easy access to this discussion.
+## 9. 短视思维
 
-Some ideas to build accessible context for the future:
+在一些 pull request 里，有一些总在反复的东西，可能是因为不同意，或者只是需要阐明。这种做法很棒——这是在建立共享上下文。但是当下一个开发者遇到这段代码的时候，会发生什么呢？他们会对这段讨论难以理解。
 
-- Capture key pull request discussion in code comments.
-- Change code that was hard for reviewers to understand - it will be hard for others in the future as well!
-- Create a place in the project for full conceptual documentation covering more involved, widely-applicable topics.
-- Make sure all `TODO`s in the code are paired an item in your work item database, with enough detail to make it actionable by someone other than the original reporter.
-- When reviewing, consider long-term maintenance of the code -  will it be easy to change? Easy to maintain in production? What’s the long-term cost?
+为未来建立可以理解的上下文，有这么些想法：
 
-## 10. Cursory review of amendments
+- 在代码的注释里放入关键的 pull request 讨论。
+- 改掉对于 reviewer 来说难以理解的代码——这些代码在未来对于其他人来说同样会难以理解！
+- 在项目里创建一个存放完整的概念文档的地方，包括一些涉及到的、广泛应用的主题。
+- 确保所有代码里的 `TODO` 与你的工作项数据库中的某一项相对，并且有足够的细节能让它被原始报告人以外的人操作。
+- 当 review 的时候，请考虑对代码的长期维护——改变会简单吗？在生产环境中维护简单吗？长期消耗是什么？
 
-Finally! The pull request has seen some lively attention, and it’s back in the submitter’s court. You’ve given your feedback, and the submitter is making some changes in response.
+## 10. 对修正进行 review
 
-Now is not the time to forget about the pull request. You’ve discussed needed changes with the submitter, but that doesn’t mean those changes will be correct! Or even made at all!
+终于！这个 pull request 看起来引起了一些注意，并且又回到了提交者这边。你已经给出了你的反馈，提交者正在相应地作出更改。
 
-Pull request amendments are some of the highest risk changes a developer will ever make, because everyone just wants to move on. Less care given in development, less care given in review.
+现在不是忘掉这个 pull request 的时候。你已经跟提交者讨论好了有哪些需要更改的地方，但是这不意味着这些更改将会是对的！或者甚至完全是错的！
 
-Look especially closely at any updates to the original pull request, even though, yes, you’ve already reviewed the pull request comprehensively. If the new changes are separated into their own commits, this is easier. If the whole pull request has been newly [rebased/squashed](https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History), then this can be a bit frustrating.
+对 pull request 的修正是开发者有史以来可能做出的风险最大的更改，因为所有人都只想前进。如果一个人在开发中给予的关注不够，那么对 review 也不会太关注。
 
-## It’s not easy!
+尤其要密切注意对最初的 pull request 的任何更改，即使你已经完整地 review 过 pull request。如果新的更改被放到了单独的提交里，那么情况要简单些。如果整个 pull request 被重新 [rebased/squashed](https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History)，那么这就让人有点沮丧了。
 
-It’s a hard job to design and implement software. Why would it be any easier to review it? In fact, review is probably harder because you have a whole lot less time to build up the right context to provide reasonable feedback.
+## 这不容易！
 
-But we can’t give up - it’s extremely important!
+设计与实现软件是一件难事。凭什么 review 它就会简单一点呢？实际上，review 很大可能更难，因为比起写代码来说，review 能够用来建立正确的代码背景，从而提供合理的反馈的时间更少。
 
-Use this article as a starting checklist, or an inspiration for one. Over time, you and your team can build up a custom list of reminders for important but easily-forgotten considerations. Eventually, your pull request process will become a powerful [feedback loop](/the-why-of-agile/#feedback-loops) for improving your team’s culture and code quality.
+但是我们不能放弃——它很重要！
+
+将本文作为你 review 的入口清单吧，或者让它在这方面激励你。随着时间的推移，你和你的团队将会创建一个自己独有的清单，用于提醒 review 代码时一些重要但是容易忘记的点。最终，你的 pull request 流程将会变成一个强有力的 [反馈环](/the-why-of-agile/#feedback-loops)，能够提升你们团队的 review 文化和代码质量。
