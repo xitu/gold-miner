@@ -1,8 +1,8 @@
 > * 原文地址：[Things I wish I knew when I started building Android SDK/Libraries](https://android.jlelse.eu/things-i-wish-i-knew-when-i-started-building-android-sdk-libraries-dba1a524d619#.bw591tw8c)
-* 原文作者：[Nishant Srivastava](https://android.jlelse.eu/@nisrulz?source=post_header_lockup)
-* 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
-* 校对者：
+> * 原文作者：本文已获作者 [Nishant Srivastava](https://android.jlelse.eu/@nisrulz) 授权
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 译者：
+> * 校对者：
 
 # Things I wish I knew when I started building Android SDK/Libraries #
 
