@@ -2,7 +2,7 @@
 * 原文作者：[Christian Beck](https://medium.com/@cmbeck_?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Ruixi](https://github.com/Ruixi)
-* 校对者：
+* 校对者：[L9m](https://github.com/L9m),[bobmayuze](https://github.com/bobmayuze)
 
 #某些2017年的 UX 趋势啊，扎心了#
 
