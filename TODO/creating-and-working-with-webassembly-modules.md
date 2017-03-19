@@ -23,10 +23,10 @@ WebAssembly 对应这张图片的哪个部分？
 ![Same diagram as above with WebAssembly inserted between the intermediate representation and assembly](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/02/04-02-langs08-500x326.png)
 
 浏览器下载 WebAssembly 后，它就能从 WebAssembly 转成目标机器的汇编码。
-## Compiling to .wasm
 ## 编译成 .wasm
 LLVM 是当前对 WebAssembly 支持最好的编译工具链。很多前后端编译工具都可以嵌入 LLVM 中。
 > 注：大部分 WebAssembly 组件开发者用 C 和 Rust 这样的语言编写代码，然后编译成 WebAssembly，但仍有其他的方法来创建 WebAssembly 组件。比如，有一个实验性的工具帮你[使用 TypeScript 构建 WebAssembly 组件](https://github.com/rsms/wasm-util)，或者你可以[直接在 WebAssembly 的文本表示上编码](https://developer.mozilla.org/en-US/docs/WebAssembly/Understanding_the_text_format)。
+
 比如说我们想把 C 编译成 WebAssembly。我们可以使用 clang 编译器前端把 C 编译成 LLVM 中介码。一旦它处于 LLVM 的中间层，LLVM 编译它，LLVM 就可以展现一些性能优化。
 要把 LLVM IR（[中介码](https://en.wikipedia.org/wiki/Intermediate_representation)）编译成 WebAssembly，我们需要一个后端支持。在 LLVM 项目中有一个这类后端正在开发中。这个后端项目已经接近完成并且应该很快就会定稿。然而，现在使用它还会有不少问题。
 目前有一个稍微容易使用的工具叫 Emscripten。他有自己的后端，可以通过编译成其他对象(称为 asm.js)然后再转换成 WebAssembly 的方式来产生 WebAssembly。好像它底层仍旧使用 LLVM，因此你可以在 Emscripten 中切换这两种后端。
@@ -98,19 +98,19 @@ Emscripten 包含了许多附加工具和库来支持移植整个 C/C++ 代码�
 除了 `add42` 函数自身，.wasm 文件还有其他部分。那就是 sections。一些 sections 对任何组件都是必需的，而有一些是可选的。
 
 必选项：
-1.**类型(Type)**。包括在该组件中定义的函数签名以及任何引入的函数。
-2.**函数(Function)**。给每一个在该组件中定义的函数一个索引。
-3.**代码(Code)**。该组件中定义的每一个函数的实际函数体。
+1. **类型(Type)**。包括在该组件中定义的函数签名以及任何引入的函数。
+2. **函数(Function)**。给每一个在该组件中定义的函数一个索引。
+3. **代码(Code)**。该组件中定义的每一个函数的实际函数体。
 
 可选项：
-1.**导出(Export)**。使函数，内存，表以及全局变量对其他 WebAssembly 组件和 JavaScript 可用。这使独立编译的组件可以被动态链接在一起。这就是 WebAssembly 的 .dll 版本。
-2.**导入(Import)**。从其他 WebAssembly 组件或 JavaScript 中导入指定的函数，内存，表以及全局变量。
-3.**启动(Start)**。当 WebAssembly 组件载入时自动运行的函数(基本上类似一个主函数)。
-4.**全局变量(Global)**。为组件声明全局变量。
-5.**内存（Memory）**。定义组件将使用到的内存空间。
-6.**表（Table）**。使把值映射到 WebAssembly 组件外部成为可能，就像 JavaScript 对象那样。这对于允许简介函数调用相当有用。
-7.**数据（Data）**。初始化导入或本地内存。
-8。**元素（Element）**。初始化导入或本地的表。
+1. **导出(Export)**。使函数，内存，表以及全局变量对其他 WebAssembly 组件和 JavaScript 可用。这使独立编译的组件可以被动态链接在一起。这就是 WebAssembly 的 .dll 版本。
+2. **导入(Import)**。从其他 WebAssembly 组件或 JavaScript 中导入指定的函数，内存，表以及全局变量。
+3. **启动(Start)**。当 WebAssembly 组件载入时自动运行的函数(基本上类似一个主函数)。
+4. **全局变量(Global)**。为组件声明全局变量。
+5. **内存（Memory）**。定义组件将使用到的内存空间。
+6. **表（Table）**。使把值映射到 WebAssembly 组件外部成为可能，就像 JavaScript 对象那样。这对于允许简介函数调用相当有用。
+7. **数据（Data）**。初始化导入或本地内存。
+8. **元素（Element）**。初始化导入或本地的表。
 
 更多关于 sections 的阐释，这有一篇深度好文[解释这些 sections 如何运行](https://rsms.me/wasm-intro)。
 ## 接下来
