@@ -7,6 +7,7 @@
 # 现代的 JavaScript 开发地图（2017）
 
 过去 5 年里你一直使用 REST 接口。或者你一直在优化搜索公司里庞大的数据库。又或者你一直在给微波炉写嵌入式软件。自从你用 Prototypr.js 来对浏览器进行面向对象编程已经过去很久了，现在你想提升一下你的前端技能，你看了一下发现情况是[这样](https://thefullfool.files.wordpress.com/2010/09/wheres-waldo1.jpg)。
+
 当然你不是从要从一堆徐峥里找出葛优，你在找 25 个连名字都不知道的人。这种情况在 JavaScript 社区特别常见，以至于存在 “JavaScript 疲劳” 这个词。比较喜剧化一点点化，[在2016年学习JavaScript是怎样的体验？](https://hackernoon.com/how-it-feels-to-learn-javascript-in-2016-d3a717dd577f#.c7g9ng4e7)很好的反映了这个现象。
 
 但你现在没时间了，你在一个大迷宫里，你需要一张地图，所以我做了一张。
