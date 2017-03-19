@@ -8,7 +8,7 @@
 # Creating and working with WebAssembly modules
 # 创建和使用 WebAssembly 组件
 *This is the fourth part in a series on WebAssembly and what makes it fast. If you haven’t read the others, we recommend [starting from the beginning](https://hacks.mozilla.org/2017/02/a-cartoon-intro-to-webassembly/).*
-*这是 WebAssembly 系列文章的第四部分。如果你还没阅读过前面的文章，我们建议你[从头开始](https://hacks.mozilla.org/2017/02/a-cartoon-intro-to-webassembly/)。*
+*这是 WebAssembly 系列文章的第四部分。如果你还没阅读过前面的文章，我们建议你[从头开始](https://github.com/xitu/gold-miner/blob/master/TODO/a-cartoon-intro-to-webassembly.md)。*
 WebAssembly is a way to run programming languages other than JavaScript on web pages. In the past when you wanted to run code in the browser to interact with the different parts of the web page, your only option was JavaScript.
 WebAssembly 是一种不同于 JavaScript 的在 web 页面上运行程序语言的方式。以前当你想在浏览器上运行代码来实现 web 页面不同部分的交互时，你唯一的选择就是 JavaScript。
 So when people talk about WebAssembly being fast, the apples to apples comparison is to JavaScript. But that doesn’t mean that it’s an either/or situation—that you are either using WebAssembly, or you’re using JavaScript.
@@ -23,7 +23,7 @@ So let’s see how we can create WebAssembly modules, and then how we can use th
 ## Where does WebAssembly fit?
 ## WebAssembly处于哪个环节？
 In the article about [assembly](https://hacks.mozilla.org/2017/02/a-crash-course-in-assembly/), I talked about how compilers take high-level programming languages and translate them to machine code.
-在上一篇关于[汇编](https://hacks.mozilla.org/2017/02/a-crash-course-in-assembly/)的文章里，我谈到过编译器怎么提取高级程序语言并且把它们翻译成机器码。
+在上一篇关于[汇编](https://github.com/xitu/gold-miner/blob/master/TODO/a-crash-course-in-assembly.md)的文章里，我谈到过编译器怎么提取高级程序语言并且把它们翻译成机器码。
 ![Diagram showing an intermediate representation between high level languages and assembly languages, with arrows going from high level programming languages to intermediate representation, and then from intermediate representation to assembly language](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/02/04-01-langs09-500x306.png)
 
 Where does WebAssembly fit into this picture?
@@ -102,7 +102,7 @@ If you want to learn more, check out our docs on [working with WebAssembly’s m
 If you are writing code in a higher level language and then compiling it to WebAssembly, you don’t need to know how the WebAssembly module is structured. But it can help to understand the basics.
 如果你使用高级语言来编写代码然后把它编译成 WebAssembly，你不必知道 WebAssembly 组件的结构。但是它可以帮助你理解其基本原理。
 If you haven’t already, we suggest reading the [article on assembly](https://hacks.mozilla.org/2017/02/a-crash-course-in-assembly/) (part 3 of the series).
-如果你之前没有了解这些基本原理，我们建议你先阅读 [汇编文章](https://hacks.mozilla.org/2017/02/a-crash-course-in-assembly/) (part 3 of the series)。
+如果你之前没有了解这些基本原理，我们建议你先阅读 [汇编文章](https://github.com/xitu/gold-miner/blob/master/TODO/a-crash-course-in-assembly.md) (part 3 of the series)。
 Here’s a C function that we’ll turn into WebAssembly:
 下面是一个C函数，我们将把它转成 WebAssembly:
 
@@ -181,5 +181,5 @@ For more on sections, here’s a great in-depth [explanation of how these sectio
 ## Coming up next
 ## 接下来
 Now that you know how to work with WebAssembly modules, let’s look at [why WebAssembly is fast](https://hacks.mozilla.org/2017/02/what-makes-webassembly-fast/).
-现在你知道怎样使用 WebAssembly 组件了，让我们看看[为什么 WebAssembly 这么快](https://hacks.mozilla.org/2017/02/what-makes-webassembly-fast/)。
+现在你知道怎样使用 WebAssembly 组件了，让我们看看[为什么 WebAssembly 这么快](https://github.com/xitu/gold-miner/blob/master/TODO/what-makes-webassembly-fast.md)。
 
