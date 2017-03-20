@@ -1,8 +1,8 @@
 > * 原文地址：[Functional setState is the future of React](https://medium.freecodecamp.com/functional-setstate-is-the-future-of-react-374f30401b6b#.p2n552w6l)
-* 原文作者：[Justice Mba](https://medium.freecodecamp.com/@Daajust)
-* 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：[reid3290](https://github.com/reid3290)
-* 校对者：[sunui](https://github.com/sunui)，[imink](https://github.com/imink)
+> * 原文作者：[Justice Mba](https://medium.freecodecamp.com/@Daajust)
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 译者：[reid3290](https://github.com/reid3290)
+> * 校对者：[sunui](https://github.com/sunui)，[imink](https://github.com/imink)
 
 # React 未来之函数式 setState
 
@@ -10,7 +10,7 @@
 
 React 使得函数式编程在 JavaScript 领域流行了起来，这驱使大量框架采用 React 所推崇的基于组件的编程模式，函数式编程热正在大范围涌向 web 开发领域。
 
-[Sylvain Wallez](https://twitter.com/bluxte/status/819915171929948162) 
+[![](https://ww3.sinaimg.cn/large/006tNc79gy1fdtapftrozj312i0fktao.jpg)](https://twitter.com/bluxte/status/819915171929948162)
 
 但是 React 团队却还不“消停”，他们持续深耕，从 React（已经超神了！）中发掘出更多函数式编程的宝藏。
 
@@ -40,7 +40,7 @@ React 是一个基于组件的 UI 库，组件基本上可以看作是一个接�
           score : 0
         };
       }
-    
+
       render () {
         return (
           <div>This user scored **{this.state.score}**</div>
@@ -51,12 +51,12 @@ React 是一个基于组件的 UI 库，组件基本上可以看作是一个接�
 React 提供了一个用于管理 state 的特殊函数 —— `setState()`，其用法如下：
 
     class User {
-      ... 
-    
+      ...
+
       increaseScore () {
       this.setState({score : this.state.score + 1});
       }
-    
+
       ...
     }
 
@@ -100,13 +100,13 @@ React 提供了一个用于管理 state 的特殊函数 —— `setState()`，�
 
     state = {score : 0};
 
-    // 多次 **setState()** 调用
+    // 多次 setState() 调用
     increaseScoreBy3 () {
-    this.setState({score : this.state.score + 1});
-     this.setState({score : this.state.score + 1});
-     this.setState({score : this.state.score + 1});
+      this.setState({score : this.state.score + 1});
+      this.setState({score : this.state.score + 1});
+      this.setState({score : this.state.score + 1});
     }
-    
+
     ...
 ```
 
@@ -117,9 +117,9 @@ React 提供了一个用于管理 state 的特殊函数 —— `setState()`，�
 在 JavaScript 中，对象合并可以这样写：
 
     const singleObject = Object.assign(
-      {}, 
-      objectFromSetState1, 
-      objectFromSetState2, 
+      {},
+      objectFromSetState1,
+      objectFromSetState2,
       objectFromSetState3
     );
 
@@ -127,12 +127,12 @@ React 提供了一个用于管理 state 的特殊函数 —— `setState()`，�
 
 在 JavaScript 中，对象“合并（merging）”或者叫对象**组合（composing）**的工作机制如下：如果传递给 `Object.assign()` 的多个对象有相同的键，那么**最后一个**对象的值会“胜出”。例如：
 
-    const me  = {name : "Justice"}, 
+    const me  = {name : "Justice"},
           you = {name : "Your name"},
           we  = Object.assign({}, me, you);
-    
+
     we.name === "Your name"; //true
-    
+
     console.log(we); // {name : "Your name"}
 
 因为 `you` 是最后一个合并进 `we` 中的，因此 `you` 的 `name` 属性的值 “Your name” 会覆盖 `me` 的 `name` 属性的值。因此 `we` 的 `name` 属性的值最终为 “Your name”，所以说 `you` 胜了！
@@ -147,7 +147,7 @@ React 提供了一个用于管理 state 的特殊函数 —— `setState()`，�
 
 下面 [Sophia Shoemaker](https://medium.com/@shopsifter) 写的一个例子展示了上述问题，细细把玩一番吧，留意其中好坏两种解决方案。
 
-[code pen](http://codepen.io/mrscobbler/pen/JEoEgN)
+[代码链接](http://codepen.io/mrscobbler/pen/JEoEgN)
 
 ### 让函数式 setState 来拯救你
 
@@ -157,7 +157,7 @@ React 提供了一个用于管理 state 的特殊函数 —— `setState()`，�
 
 让我们请教一下 React 界的 Oprah（译者注：非知名脱口秀主持人）—— Dan。
 
-[Dan Abramov](https://twitter.com/dan_abramov/status/824309659775467527?ref_src=twsrc%5Etfw)
+[![](https://ww3.sinaimg.cn/large/006tNc79gy1fdtasm2y6fj313o0u6q6h.jpg)](https://twitter.com/dan_abramov/status/824309659775467527?ref_src=twsrc%5Etfw)
 
 注意看他给出的答案，当你编写函数式 setState 的时候，
 
@@ -175,13 +175,13 @@ React 提供了一个用于管理 state 的特殊函数 —— `setState()`，�
 
     class User{
       state = {score : 0};
-    
+
       //“伪造” setState
       setState(state, callback) {
         this.state = Object.assign({}, this.state, state);
         if (callback) callback();
       }
-    
+
       // 多次函数式 setState 调用
       increaseScoreBy3 () {
         this.setState( (state) => ({score : state.score + 1}) ),
@@ -189,7 +189,7 @@ React 提供了一个用于管理 state 的特殊函数 —— `setState()`，�
         this.setState( (state) => ({score : state.score + 1}) )
       }
     }
-    
+
     const Justice = new User();
 
 注意 setState 还有一个可选的参数 —— 一个回调函数，如果传递了这个参数，那么 React 就会在 state 更新后调用它。
@@ -209,21 +209,21 @@ React 提供了一个用于管理 state 的特殊函数 —— `setState()`，�
       if (updateQueue.length === 1) {
         return component.setState(updateQueue[0](component.state));
       }
-    
+
     return component.setState(
-        updateQueue[0](component.state), 
+        updateQueue[0](component.state),
         () =>
-         updateState( component, updateQueue.slice(1)) 
+         updateState( component, updateQueue.slice(1))
       );
     }
-    
+
     updateState(Justice, updateQueue);
 
 诚然，这些代码并不能称之为优雅，你肯定能写得更好。但核心概念是，使用**函数式 setState**，你可以传递一个函数作为其参数，当执行该函数时，React 会将更新后的 state 复制一份并传递给它，这便起到了更新 state 的作用。基于上述机制，函数式 setState 便可基于**前一刻的 state** 来更新当前 state。
 
 下面是这个例子的完整代码，请细细把玩以充分理解上述概念（或许还可以改得更优雅些）。
 
-[**FunctionalSetStateInAction**](http://jsbin.com/najewe/edit?js,console)
+[![](https://ww3.sinaimg.cn/large/006tNc79gy1fdtatkotz1j314g0ao3zp.jpg)](http://jsbin.com/najewe/edit?js,console)
 
 一番把玩过后，让我们来弄清为何将函数式 setState 称之为“宝藏”。
 
@@ -235,7 +235,7 @@ React 提供了一个用于管理 state 的特殊函数 —— `setState()`，�
 
 不过，今天我将向你展示新出土的宝藏 —— **React 最为深藏不露的秘密**：
 
-[Dan Abramov](https://twitter.com/dan_abramov/status/824308413559668744?ref_src=twsrc%5Etfw)
+[![](https://ww4.sinaimg.cn/large/006tNc79gy1fdtau6cvhbj31620qmn0o.jpg)](https://twitter.com/dan_abramov/status/824308413559668744?ref_src=twsrc%5Etfw)
 
 感谢 [Dan Abramov](https://medium.com/@dan_abramov)！
 
@@ -245,15 +245,15 @@ React 提供了一个用于管理 state 的特殊函数 —— `setState()`，�
     function increaseScore (state, props) {
       return {score : state.score + 1}
     }
-    
+
     class User{
       ...
-    
+
     // 在组件类之内
       handleIncreaseScore () {
         this.setState(increaseScore)
       }
-    
+
       ...
     }
 
@@ -267,12 +267,12 @@ React 提供了一个用于管理 state 的特殊函数 —— `setState()`，�
 
     class User{
       ...
-    
+
       // 在组件类之内
       handleIncreaseScore () {
         this.setState(increaseScore)
     }
-    
+
       ...
     }
 
@@ -282,11 +282,11 @@ React 提供了一个用于管理 state 的特殊函数 —— `setState()`，�
 
 简化测试！
 
-[Dan Abramov](https://twitter.com/dan_abramov/status/824310320399319040/photo/1?ref_src=twsrc%5Etfw)
+[![](https://ww1.sinaimg.cn/large/006tNc79gy1fdtav1aeajj313s0yujvy.jpg)](https://twitter.com/dan_abramov/status/824310320399319040/photo/1?ref_src=twsrc%5Etfw)
 
 你还可以传递**额外**的参数用于计算下一个 state（这让我脑洞大开...#funfunFunction）。
 
-[Dan Abramov](https://twitter.com/dan_abramov/status/824314363813232640?ref_src=twsrc%5Etfw)
+[![](https://ww1.sinaimg.cn/large/006tNc79gy1fdtavhi1ofj3132108789.jpg)](https://twitter.com/dan_abramov/status/824314363813232640?ref_src=twsrc%5Etfw)
 
 更多精彩，敬请期待...
 
@@ -300,7 +300,7 @@ React 提供了一个用于管理 state 的特殊函数 —— `setState()`，�
 
 Hey, Dan！还有什么最后要说的吗？
 
-[Dan Abramov](https://twitter.com/dan_abramov/status/824315688093421568?ref_src=twsrc%5Etfw)
+[![](https://ww1.sinaimg.cn/large/006tNc79gy1fdtavvsxt1j31260cuwg0.jpg)](https://twitter.com/dan_abramov/status/824315688093421568?ref_src=twsrc%5Etfw)
 
 如果你阅读至此，估计就会和我一样兴奋了。即刻开始体验函数式 **setState** 吧！
 
