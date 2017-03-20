@@ -10,6 +10,7 @@
 WebAssembly 是一种不同于 JavaScript 的在 web 页面上运行程序语言的方式。以前当你想在浏览器上运行代码来实现 web 页面不同部分的交互时，你唯一的选择就是 JavaScript。
 
 因此当人们谈论 WebAssembly 运行迅速时，合理的比较对象就是 JavaScript。但这并不意味着你必须在 WebAssembly 和 JavaScript 二者中选择一个使用。
+
 事实上我们希望开发者在同一应用中同时使用 WebAssembly 和 JavaScript。即使你不亲自写 WebAssembly 代码，你也可以使用它。
 
 WebAssembly 组件定义的函数可以在 JavaScript 中使用。因此，就像现在你可以从 npm 上下载一个 lodash 这样的组件并且根据它的 API 调用方法一样，在未来你同样可以下载 WebAssembly 组件。
@@ -87,6 +88,7 @@ Emscripten 包含了许多附加工具和库来支持移植整个 C/C++ 代码�
 ![Diagram showing a JS function calling a C function with an integer that represents a pointer into memory, and then the C function writing into memory](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/02/04-05-memory12-500x400.png)
 
 几乎所有想要开发供 web 开发者使用的 WebAssembly 组件的开发者，都会为组件创建一个包装器。这样以来，你作为组件的消费者并不需要了解内存管理。
+
 如果想了解更多的话，查看我们关于[使用 WebAssembly 内存](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_objects/WebAssembly/Memory)的文档。
 
 ## .wasm 文件结构
