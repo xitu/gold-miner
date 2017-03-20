@@ -1,32 +1,30 @@
 > * 原文地址：[Functional setState is the future of React](https://medium.freecodecamp.com/functional-setstate-is-the-future-of-react-374f30401b6b#.p2n552w6l)
 * 原文作者：[Justice Mba](https://medium.freecodecamp.com/@Daajust)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者： 
-* 校对者：
+* 译者：[reid3290](https://github.com/reid3290)
+* 校对者：[sunui](https://github.com/sunui)，[imink](https://github.com/imink)
 
-# Functional setState is the future of React
+# React 未来之函数式 setState
 
 ![](https://cdn-images-1.medium.com/max/2000/1*K8A3aXts5rTCHYRcdHIR6g.jpeg)
 
-React has popularized functional programming in JavaScript. This has led to giant frameworks adopting the Component-based UI pattern that React uses. And now functional fever is spilling over into the web development ecosystem at large.
+React 使得函数式编程在 JavaScript 领域流行了起来，这驱使大量框架采用 React 所推崇的基于组件的编程模式，函数式编程热正在大范围涌向 web 开发领域。
 
 [Sylvain Wallez](https://twitter.com/bluxte/status/819915171929948162) 
 
-But the React team is far from relenting. They continue to dig deeper, discovering even more functional gems hidden in the legendary library.
+但是 React 团队却还不“消停”，他们持续深耕，从 React（已经超神了！）中发掘出更多函数式编程的宝藏。
 
-So today I reveal to you a new functional gold buried in React, best kept React secret — **Functional setState!**
+因此本文将展示深藏在 React 中的又一函数式“宝藏” —— **函数式（functional）setState**！
 
-Okay, I just made up that name… and it’s not *entirely* new or a secret. No, not exactly. See, it’s a pattern built into React, that’s only known by few developers who’ve really dug in deep. And it never had a name. But now it does — **Functional setState!**
+好吧，名字其实是我乱编的，而且这个技术也称不上是**新事物**或者是个秘密。这一模式内建于 React 中，但是只有少数 React 深耕者才知道，而且从未有过正式名称 —— 不过现在它有了，那就是**函数式 setState**！
 
-Going by [Dan Abramov](https://medium.com/@dan_abramov)’s words in describing this pattern, **Functional setState** is a pattern where you
+正如 [Dan Abramov](https://medium.com/@dan_abramov) 所言，在**函数式 setState** 模式中，“组件 state 变化的声明可以和组件类本身独立开来”。
 
-> “Declare state changes separately from the component classes.”
+这？
 
-Huh?
+### 你已经知道的是...
 
-### Okay… what you already know
-
-React is a component based UI library. A component is basically a function that accept some properties and return a UI element.
+React 是一个基于组件的 UI 库，组件基本上可以看作是一个接受某些属性然后返回 UI 元素的函数。
 
     function User(props) {
       return (
@@ -34,7 +32,7 @@ React is a component based UI library. A component is basically a function that 
       );
     }
 
-A component might need to have and manage its state. In that case, you usually write the component as a class. Then you have its state live in the class `constructor` function:
+组件可能需要持有并管理其 state。在这种情况下，一般将组件编写为一个类，然后在该类的 `constructor` 函数中初始化 state：
 
     class User {
       constructor () {
@@ -42,7 +40,7 @@ A component might need to have and manage its state. In that case, you usually w
           score : 0
         };
       }
-
+    
       render () {
         return (
           <div>This user scored **{this.state.score}**</div>
@@ -50,25 +48,26 @@ A component might need to have and manage its state. In that case, you usually w
       }
     }
 
-To manage the state, React provides a special method called `setState()`. You use it like this:
+React 提供了一个用于管理 state 的特殊函数 —— `setState()`，其用法如下：
 
     class User {
       ... 
-
+    
       increaseScore () {
       this.setState({score : this.state.score + 1});
       }
-
+    
       ...
     }
 
-Note how `setState()` works. You pass it ***an object*** containing part(s) of the state you want to update. In other words, the object you pass would have keys corresponding to the keys in the component state, then `setState()` updates or *sets* the state by merging the object to the state. Thus, “set-State”.
+注意 `setState()` 的作用机制：你传递给它一个**对象**，该对象含有 state 中你想要更新的部分。换句话说，该对象的键（keys）和组件 state 中的键相对应，然后 `setState()` 通过将该对象合并到 state 中来更新（或者说 *sets*）state。因此称为 “set-State”。
 
-### What you probably didn’t know
+### 你可能还不知道的是...
 
-Remember how we said `setState()` works? Well, what if I told you that instead of passing an object, you could pass ***a function***?
+记住 `setState()` 的作用机制了吗？如果我告诉你说，`setState()` 不仅能接受一个对象，还能接受一个**函数**作为参数呢？
 
-Yes. `setState()` also accepts a function. The function accepts the *previous* state and *current* props of the component which it uses to calculate and return the next state. See it below:
+没错，`setState()` 确实可以接受一个函数作为参数。该函数接受该组件**前一刻**的 state 以及**当前**的 props 作为参数，计算和返回**下一刻**的 state。如下所示：
+
 
     this.setState(function (state, props) {
      return {
@@ -76,44 +75,46 @@ Yes. `setState()` also accepts a function. The function accepts the *previous* s
      }
     });
 
-Note that `setState()` is a function, and we are passing another function to it(functional programming… **functional setState**) . At first glance, this might seem ugly, too many steps just to set-state. Why will you ever want to do this?
+注意 `setState()` 本身是一个函数，而且我们传递了另一个函数给它作为参数（函数式编程，**函数式 setState**）。乍一看可能觉得这样写挺丑陋的，set-state 需要的步骤太多了。那为什么还要这样写呢？
 
-### Why pass a function to setState?
+### 为什么传递一个函数给 setState？
 
-The thing is, [state updates may be asynchronous](https://facebook.github.io/react/docs/state-and-lifecycle.html#state-updates-may-be-asynchronous).
+理由是，[state 的更新可能是异步的](https://facebook.github.io/react/docs/state-and-lifecycle.html#state-updates-may-be-asynchronous)。
 
-Think about [what happens when ](https://facebook.github.io/react/docs/reconciliation.html)[`setState()`](https://facebook.github.io/react/docs/reconciliation.html)[is called](https://facebook.github.io/react/docs/reconciliation.html). React will first merge the object you passed to `setState()` into the current state. Then it will start that *reconciliation* thing. It will create a new React Element tree (an object representation of your UI), diff the new tree against the old tree, figure out what has changed based on the object you passed to `setState()` , then finally update the DOM.
+思考一下调用 `setState()` 时[发生了什么](https://facebook.github.io/react/docs/reconciliation.html)。React 首先会将你传递给 `setState()` 的参数对象合并到当前 state 对象中，然后会启动所谓的 **reconciliation**，即创建一个新的 React Element tree（UI 层面的对象表示），和之前的 tree 作比较，基于你传递给 `setState()` 的对象找出发生的变化，最后更新 DOM。
 
-Whew! So much work! In fact, this is even an overly simplified summary. But trust in React!
+呦！工作很多嘛！实际上，这还只是精简版总结。但一定要相信：
 
-> React does not simply “set-state”.
+> React 不会仅仅简单地 “set-state”。
 
-Because of the amount of work involved, calling `setState()` might not *immediately *update your state.
+考虑到所涉及的工作量，调用 `setState()` 并不一定会**即时**更新 state。
 
-> React may batch multiple `setState()` calls into a single update for performance.
+> 考虑到性能问题，React 可能会将多次 `setState()` 调用批处理（batch）为一次 state 的更新。
 
-What does React mean by this?
+这又意味着什么呢？
 
-First, “*multiple `setState()` calls”* could mean calling `setState()` inside a single function more than once, like this:
+首先，**“多次 `setState()` 调用”** 的意思是说在某个函数中调用了多次 `setState()`，例如：
 
+```
     ...
 
     state = {score : 0};
 
-    // multiple **setState() calls
+    // 多次 **setState()** 调用
     increaseScoreBy3 () {
     this.setState({score : this.state.score + 1});
      this.setState({score : this.state.score + 1});
      this.setState({score : this.state.score + 1});
     }
-
+    
     ...
+```
 
-Now when React, encounters “*multiple `setState()` calls”,* instead of doing that “set-state” **three whole times**, React will avoid that huge amount of work I described above and smartly say to itself: “No! I’m not going to climb this mountain three times, carrying and updating some slice of state on every single trip. No, I’d rather get a container, pack all these slices together, and do this update just once.” And that, my friends, is **batching**!
+面对这种 **多次 `setState()` 调用** 的情况，为了避免重复做上述大量的工作，React 并不会真地**完整调用三次** "set-state"；相反，它会机智地告诉自己：“哼！我才不要‘愚公移山’三次呢，每次还得更新部分 state。不行，我得找个‘背包’，把这些部分更新打包装好，一次性搞定。”朋友们，这就是所谓的**批处理**啊！
 
-Remember that what you pass to `setState()` is a plain object. Now, assume anytime React encounters “*multiple `setState()` calls”,* it does the batching thing by extracting all the objects passed to each `setState()` call, merges them together to form a single object, then uses that single object to do `setState()` .
+记住传递给 `setState()` 的纯粹是个对象。现在，假设 React 每次遇到 **多次 `setState()` 调用**都会作上述批处理过程，即将每次调用 `setState()` 时传递给它的所有对象合并为一个对象，然后用这个对象去做真正的 `setState()`。
 
-In JavaScript merging objects might look something like this:
+在 JavaScript 中，对象合并可以这样写：
 
     const singleObject = Object.assign(
       {}, 
@@ -122,78 +123,78 @@ In JavaScript merging objects might look something like this:
       objectFromSetState3
     );
 
-This pattern is known as **object composition.**
+这种写法叫作 **object 组合（composition）**。
 
-In JavaScript, the way “merging” or **composing** objects works is: if the three objects have the same keys, the value of the key of the *last object* passed to `Object.assign()` wins. For example:
+在 JavaScript 中，对象“合并（merging）”或者叫对象**组合（composing）**的工作机制如下：如果传递给 `Object.assign()` 的多个对象有相同的键，那么**最后一个**对象的值会“胜出”。例如：
 
     const me  = {name : "Justice"}, 
           you = {name : "Your name"},
           we  = Object.assign({}, me, you);
-
+    
     we.name === "Your name"; //true
-
+    
     console.log(we); // {name : "Your name"}
 
-Because `you` are the last object merged into `we`, the value of `name` in the `you` object — “Your name” — overrides the value of `name` in the `me` object. So “Your name” makes it into the `we` object… `you` win! :)
+因为 `you` 是最后一个合并进 `we` 中的，因此 `you` 的 `name` 属性的值 “Your name” 会覆盖 `me` 的 `name` 属性的值。因此 `we` 的 `name` 属性的值最终为 “Your name”，所以说 `you` 胜了！
 
-Thus, if you call `setState()` with an object multiple times — passing an object each time — React will **merge**. Or in other words, it will **compose** a new object out of the multiple objects we passed it. And if any of the objects contains the same key, the value of the key of the *last* object with same key is stored. Right?
+综上所述，如果你多次调用 `setState()` 函数，每次都传递给它一个对象，那么 React 就会将这些对象**合并**。也就是说，基于你传进来的多个对象，React 会**组合**出一个新对象。如果这些对象有同名的属性，那么就会取**最后一个**对象的属性值，对吧？
 
-That means that, given our `increaseScoreBy3` function above, the final result of the function will just be 1 instead of 3, because React did not *immediately* update the state in the order we called `setState()` . But first, React composed all the objects together, which results to this: `{score : this.state.score + 1}` , then only did “set-state” once — with the newly composed object. Something like this: `User.setState({score : this.state.score + 1}`.
+这意味着，上述 `increaseScoreBy3` 函数的最终结果会是 1 而不是 3。因为 React 并不会按照 `setState()` 的调用顺序**即时**更新 state，而是首先会将所有对象合并到一起，得到 `{score : this.state.score + 1}`，然后仅用该对象进行一次 “set-state”，即 `User.setState({score : this.state.score + 1}`。
 
-To be super clear, passing object to `setState()` is not the problem here. The real problem is passing object to `setState()` when you want to calculate the next state from the previous state. So stop doing this. It’s not safe!
+需要搞清楚的是，给 `setState()` 传递对象本身是没有问题的，问题出在当你想要基于之前的 state 计算出下一个 state 时还给 `setState()` 传递对象。因此可别这样做了，这是不安全的！
 
-> Because *`this.props`* and *`this.state`* may be updated asynchronously, you should not rely on their values for calculating the next state.
+> 因为 **`this.props`** 和 **`this.state`** 可能是异步更新的，你不能依赖这些值计算下一个 state。
 
-Here is a pen by [Sophia Shoemaker](https://medium.com/@shopsifter) that demos this problem. Play with it, and pay attention to both the bad and the good solutions in this pen:
+下面 [Sophia Shoemaker](https://medium.com/@shopsifter) 写的一个例子展示了上述问题，细细把玩一番吧，留意其中好坏两种解决方案。
 
 [code pen](http://codepen.io/mrscobbler/pen/JEoEgN)
 
-### Functional setState to the rescue
+### 让函数式 setState 来拯救你
 
-If you’ve not spent time playing with the pen above, I strongly recommend that you do, as it will help you grasp the core concept of this post.
+如果你还未曾把玩上面的例子，我还是强烈建议你玩一玩，因为这有利于你理解本文的核心概念。
 
-While you were playing with the pen above, you no doubt saw that **functional setState** fixed our problem. But how, exactly?
+在把玩上述例子的时候，你肯定注意到了 **setState** 解决了我们的问题。但究竟是如何解决的呢？
 
-Let’s consult the Oprah of React — Dan.
+让我们请教一下 React 界的 Oprah（译者注：非知名脱口秀主持人）—— Dan。
 
 [Dan Abramov](https://twitter.com/dan_abramov/status/824309659775467527?ref_src=twsrc%5Etfw)
 
-Note the answer he gave. When you do functional setState…
+注意看他给出的答案，当你编写函数式 setState 的时候，
 
-> Updates will be queued and later executed in the order they were called.
+> 更新操作会形成一个任务队列，稍后会按其调用顺序依次执行。
 
-So, when React encounters “*multiple `functional setState()` calls” ,* instead of merging objects together, (of course there are no objects to merge) React *queues* the functions “*in the order they were called.*”
+因此，当面对**多次`函数式 setState()` 调用**时，React 并不会将对象合并（显然根本没有对象让它合并），而是会**按调用顺序**将这些函数**排列**起来。
 
-After that, React goes on updating the state by calling each functions in the “queue”, passing them the *previous* state — that is, the state as it was *before* the first functional `setState()` call (if it’s the first functional setState() currently executing) or the state with the *latest* update from the *previous* functional `setState()` call in the queue.
+之后，React 会依次调用**队列**中的函数，传递给它们**前一刻**的 state —— 如果当前执行的是队列中的第一个函数式 `setState()` ，那么就是在该函数式 `setState()` 调用之前的 state；否则就是最近一次函数式 `setState()` 调用并更新了 state 之后的 state。通过这种机制，React 达到 state 更新的目的。
 
-Again, I think seeing some code would be great. This time though, we’re gonna fake everything. Know that this is not the real thing, but is instead just here to give you an *idea* of what React is doing.
+话说回来，我还是觉得代码更有说服力。只不过这次我们会“伪造”点东西，虽然这不是 React 内部真正的做法，但也基本是这么个意思。
 
-Also, to make it less verbose, we’ll use ES6. You can always write the ES5 version later if you want.
+还有，考虑到代码简洁问题，下面会使用 ES6，当然你也可以用 ES5 重写一下。
 
-First, let’s create a component class. Then, inside it, we’ll create a *fake* `setState()` method. Also, our component would have a `increaseScoreBy3()`method, which will do a multiple functional setState. Finally, we’ll instantiate the class, just as React would do.
+首先，创建一个组件类。在这个类里，创建一个**伪造**的 `setState()` 方法。该组件会使用 `increaseScoreBy3()` 方法来多次调用函数式 setState。最后，会仿照 React 的做法实例化该类。
 
     class User{
       state = {score : 0};
-
-      //let's fake setState
+    
+      //“伪造” setState
       setState(state, callback) {
         this.state = Object.assign({}, this.state, state);
         if (callback) callback();
       }
-
-      // multiple functional setState call
+    
+      // 多次函数式 setState 调用
       increaseScoreBy3 () {
         this.setState( (state) => ({score : state.score + 1}) ),
         this.setState( (state) => ({score : state.score + 1}) ),
         this.setState( (state) => ({score : state.score + 1}) )
       }
     }
-
+    
     const Justice = new User();
 
-Note that setState also accepts an optional second parameter — a callback function. If it’s present React calls it after updating the state.
+注意 setState 还有一个可选的参数 —— 一个回调函数，如果传递了这个参数，那么 React 就会在 state 更新后调用它。
 
-Now when a user triggers `increaseScoreBy3()`, React queues up the multiple functional setState. We won’t fake that logic here, as our focus is on **what actually makes functional setState safe.** But you can think of the result of that “queuing” process to be an array of functions, like this:
+现在，当用户调用 `increaseScoreBy3()` 后，React 会将多次函数式 setState 调用排成一个队列。本文旨在阐明为什么函数式 setState 是安全的，因此不会在此模拟上述逻辑。但可以想象，所谓“队列化”的处理结果应该是一个函数数组，类似于：
 
     const updateQueue = [
       (state) => ({score : state.score + 1}),
@@ -201,110 +202,110 @@ Now when a user triggers `increaseScoreBy3()`, React queues up the multiple func
       (state) => ({score : state.score + 1})
     ];
 
-Finally, let’s fake the updating process:
+最后模拟更新过程：
 
-    // recursively update state in the order
+    // 按序递归式更新 state
     function updateState(component, updateQueue) {
       if (updateQueue.length === 1) {
         return component.setState(updateQueue[0](component.state));
       }
-
+    
     return component.setState(
         updateQueue[0](component.state), 
         () =>
          updateState( component, updateQueue.slice(1)) 
       );
     }
-
+    
     updateState(Justice, updateQueue);
 
-True, this is not as so sexy a code. I trust you could do better. But the key focus here is that every time React executes the functions from your **functional setState,** React updates your state by passing it a *fresh* copy of the updated state. That makes it possible for **functional setState** to **set state based on the previous state**.
+诚然，这些代码并不能称之为优雅，你肯定能写得更好。但核心概念是，使用**函数式 setState**，你可以传递一个函数作为其参数，当执行该函数时，React 会将更新后的 state 复制一份并传递给它，这便起到了更新 state 的作用。基于上述机制，函数式 setState 便可基于**前一刻的 state** 来更新当前 state。
 
-Here I made a bin with the complete code. Tinker around it (possibly make it look sexier), just to get more sense of it.
+下面是这个例子的完整代码，请细细把玩以充分理解上述概念（或许还可以改得更优雅些）。
 
 [**FunctionalSetStateInAction**](http://jsbin.com/najewe/edit?js,console)
 
-Play with it to grasp it fully. When you come back we’re gonna see what makes functional setState truly golden.
+一番把玩过后，让我们来弄清为何将函数式 setState 称之为“宝藏”。
 
-### The best-kept React secret
+### React 最为深藏不露的秘密
 
-So far, we’ve deeply explored why it’s safe to do multiple functional setStates in React. But we haven’t actually fulfilled the *complete* definition of functional setState: “Declare state changes separately from the component classes.”
+至此，我们已经深入探讨了为什么多次函数式 setState 在 React 中是安全的。但是我们还没有给函数式 setState 下一个完整的定义：“独立于组件类之外声明 state 的变化”。
 
-Over the years, the logic of setting-state — that is, the functions or objects we pass to `setState()` — have always lived *inside* the component classes. This is more imperative than declarative.
+过去几年，setting-state 的逻辑（即传递给 `setState()` 的对象或函数）一直都存在于组件类内部，这更像是命令式（imperative）而非 声明式（declarative）。（译者注：imperative 和 declarative 的区别参见 [stackoverflow上的问答](http://stackoverflow.com/questions/1784664/what-is-the-difference-between-declarative-and-imperative-programming)）
 
-Well today, I present you with newly unearthed treasure — the **best-kept React secret:**
+不过，今天我将向你展示新出土的宝藏 —— **React 最为深藏不露的秘密**：
 
 [Dan Abramov](https://twitter.com/dan_abramov/status/824308413559668744?ref_src=twsrc%5Etfw)
 
-Thanks to [Dan Abramov](https://medium.com/@dan_abramov)!
+感谢 [Dan Abramov](https://medium.com/@dan_abramov)！
 
-That is the power of functional setState. Declare your state update logic *outside *your component class. Then call it *inside *your component class.
+这就是函数式 setState 的强大之处 —— 在组件类**外部**声明 state 的更新逻辑，然后在组件类**内部**调用之。
 
-    // outside your component class
+    // 在组件类之外
     function increaseScore (state, props) {
       return {score : state.score + 1}
     }
-
+    
     class User{
       ...
-
-    // inside your component class
+    
+    // 在组件类之内
       handleIncreaseScore () {
         this.setState(increaseScore)
       }
-
+    
       ...
     }
 
-This is declarative! Your component class no longer cares *how* the state updates. It simply *declares* the *type* of update it desires.
+这就叫做 declarative！组件类不用再关心 state 该如何更新，它只须声明它想要的更新**类型**即可。
 
-To deeply appreciate this, think about those complex components that would usually have many state slices, updating each slice on different actions. And sometimes, each update function would require many lines of code. All of this logic would live *inside* your component. But not anymore!
+为了充分理解这样做的优点，不妨设想如下场景：你有一些很复杂的组件，每个组件的 state 都由很多小的部分组成，基于 action 的不同，你必须更新 state 的不同部分，每一个更新函数都有很多行代码，并且这些逻辑都存在于组件内部。不过有了函数式 setState，再也不用面对上述问题了！
 
-Also, if you’re like me, I like keeping every module as short as possible, but now you feel like your module is getting too long. Now you have the power to extract all your state change logic to a different module, then import and use it in your component.
+此外，我个人偏爱小而美的模块；如果你和我一样，你就会觉得现在这模块略显臃肿了。基于函数式 setState，你就可以将 state 的更新逻辑抽离为一个模块，然后在组件中引入和使用该模块。
 
     import {increaseScore} from "../stateChanges";
 
     class User{
       ...
-
-      // inside *your component class
+    
+      // 在组件类之内
       handleIncreaseScore () {
         this.setState(increaseScore)
     }
-
+    
       ...
     }
 
-Now you can even reuse the increaseScore function in a *different* component. Just import it.
+而且你还可以在其他组件中复用 increaseScore 函数 —— 只须引入模块即可。
 
-What else can you do with functional setState?
+函数式 setState 还能用于何处呢？
 
-Make testing easy!
+简化测试！
 
 [Dan Abramov](https://twitter.com/dan_abramov/status/824310320399319040/photo/1?ref_src=twsrc%5Etfw)
 
-You can also pass **extra** arguments to calculate the next state (this one blew my mind… #funfunFunction).
+你还可以传递**额外**的参数用于计算下一个 state（这让我脑洞大开...#funfunFunction）。
 
 [Dan Abramov](https://twitter.com/dan_abramov/status/824314363813232640?ref_src=twsrc%5Etfw)
 
-Expect even more in…
+更多精彩，敬请期待...
 
-### [The Future of React](https://github.com/reactjs/react-future/tree/master/07%20-%20Returning%20State)
+### [React 未来式](https://github.com/reactjs/react-future/tree/master/07%20-%20Returning%20State)
 
 ![](https://cdn-images-1.medium.com/max/1600/0*uInBa_PPwz5aLo0j.jpg)
 
-For years now, the react team has been experimenting with how to best implement [stateful functions](https://github.com/reactjs/react-future/blob/master/07%20-%20Returning%20State/01%20-%20Stateful%20Functions.js).
+最近几年，React 团队一直都致力于更好地实现  [stateful functions](https://github.com/reactjs/react-future/blob/master/07%20-%20Returning%20State/01%20-%20Stateful%20Functions.js)。
 
-Functional setState seems to be just the right answer to that (probably).
+函数式 setState 看起来就是这个问题的正确答案（也许吧）。
 
-Hey, Dan! Any last words?
+Hey, Dan！还有什么最后要说的吗？
 
 [Dan Abramov](https://twitter.com/dan_abramov/status/824315688093421568?ref_src=twsrc%5Etfw)
 
-If you’ve made it this far, you’re probably as excited as I am. Start experimenting with this **functional setState** today!
+如果你阅读至此，估计就会和我一样兴奋了。即刻开始体验函数式 **setState** 吧！
 
-If you feel like I’ve done any nice job, or that others deserve a chance to see this, kindly click on the green heart below to help spread a better understanding of React in our community.
+欢迎扩散，欢迎吐槽（[Twitter](https://twitter.com/Daajust)）。
 
-If you have a question that hasn’t been answered or you don’t agree with some of the points here feel free to drop in comments here or via [Twitter](https://twitter.com/Daajust).
+Happy Coding！
 
-Happy Coding!
+> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[React](https://github.com/xitu/gold-miner#react)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计) 等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)。
