@@ -1,8 +1,8 @@
 > * 原文地址：[Before you bury yourself in packages, learn the Node.js runtime itself](https://medium.freecodecamp.com/before-you-bury-yourself-in-packages-learn-the-node-js-runtime-itself-f9031fbd8b69#.91p6p8nkz)
-* 原文作者：该文章已获得作者 [Samer Buna](https://medium.freecodecamp.com/@samerbuna) 授权
-* 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：[fghpdf](https://github.com/fghpdf)
-* 校对者：[rccoder](https://github.com/rccoder)，[reid3290](https://github.com/reid3290)
+> * 原文作者：该文章已获得作者 [Samer Buna](https://medium.freecodecamp.com/@samerbuna) 授权
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 译者：[fghpdf](https://github.com/fghpdf)
+> * 校对者：[rccoder](https://github.com/rccoder)，[reid3290](https://github.com/reid3290)
 
 # 在你沉迷于包的海洋之前，还是了解一下运行时 Node.js 的本身
 
