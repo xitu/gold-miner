@@ -1,148 +1,148 @@
 > * 原文地址：[Before you bury yourself in packages, learn the Node.js runtime itself](https://medium.freecodecamp.com/before-you-bury-yourself-in-packages-learn-the-node-js-runtime-itself-f9031fbd8b69#.91p6p8nkz)
-> * 原文作者：该文章已获得作者 [Samer Buna](https://medium.freecodecamp.com/@samerbuna) 授权
-> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者： 
-> * 校对者：
+* 原文作者：该文章已获得作者 [Samer Buna](https://medium.freecodecamp.com/@samerbuna) 授权
+* 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+* 译者：[fghpdf](https://github.com/fghpdf)
+* 校对者：[rccoder](https://github.com/rccoder)，[reid3290](https://github.com/reid3290)
 
-# Before you bury yourself in packages, learn the Node.js runtime itself
+# 在你沉迷于包的海洋之前，还是了解一下运行时 Node.js 的本身
 
 ![](https://cdn-images-1.medium.com/max/2000/1*LSfLSMQ1kPuHnyCPLNEKgQ.png)
 
-This article will challenge the very limits of your Node.js knowledge.
+这篇文章将挑战你 Node.js 的知识极限。
 
-I started learning Node.js shortly after Ryan Dahl first [presented](https://www.youtube.com/watch?v=ztspvPYybIY) it, and I wasn’t able to answer a lot of the questions I ask in this article even a year ago. If you can truly answer all of these questions, then your knowledge of Node.js is beyond great. We should be friends.
+我在 Ryan Dahl 第一次 [介绍](https://www.youtube.com/watch?v=ztspvPYybIY) Node.js 之后不久就开始学习它，甚至一年前我也不能回答我在这篇文章中提出的许多问题。 如果你能真正地回答所有的问题，那么你的 Node.js 的知识储备是迥乎常人的。 我们应该成为朋友。
 
-The reason I think this challenge will take you by surprise is that many of us have been mostly learning Node the wrong way. Most tutorials, books, and courses about Node focus on the Node ecosystem — not the Node runtime itself. They focus on teaching what can be done with all the packages available for you when you work with Node, like Express and Socket.IO, rather than teaching the capabilities of the Node runtime itself.
+我发起这个挑战的原因可能会让你大吃一惊，我们中的许多人一直采用着错误的方式来学习 Node。大多数关于 Node 的教程，书籍和课程都关注于 Node 生态，而不是 Node 本身。 他们专注于教你使用的所有的 Node 包，例如 Express 和 Socket.IO，而不是教会你使用 Node 本身的功能。
 
-There are good reasons for this. Node is raw and flexible. It doesn’t provide complete solutions, but rather provides a rich runtime that enables you to implement solutions of your own. Libraries like Express.js and Socket.IO are more of complete solutions, so it makes more sense to teach those libraries, so you can enable learners to use these complete solutions.
+这样做也有很好的理由。Node 是原生的和灵活的。它不提供完整的解决方案，而是提供一个丰富的，你自己能够实现的解决方案。像 Express.js  和Socket.IO 这样的库则是更完整的解决方案，因此教这些库是更有意义的，这样可以让学习者使用这些完整的解决方案。
 
-The conventional wisdom seems to be that only those whose job is to write libraries like Express.js and Socket.IO need to understand everything about the Node.js runtime. But I think this is wrong. A solid understanding of the Node.js runtime itself is the best thing you can do before using those complete solutions. You should at least have the knowledge and confidence to judge a package by its code, so you can make an educated decision about using it.
+传统的观念似乎觉得只有那些编写类库如 Express.js 和 Socket.IO 的人需要了解 Node.js 运行时的一切。但我认为这样的观点是错误的。深入理解 Node.js 本身是使用这些完整的解决方案之前最好的做法。你至少应该有足够的知识和信心来通过一个包的代码来判断你是否应该学习使用它。
 
-This is why I decided to create a [Pluralsight course](https://www.pluralsight.com/courses/nodejs-advanced) fully dedicated to pure Node. While doing the research for the course, I put together a list of specific questions for you to determine whether your knowledge of the Node runtime is already strong enough, or if it could be improved.
+这就是为什么我决定开一个完完全全专攻于 Node 本身的 [Pluralsight 课程](https://www.pluralsight.com/courses/nodejs-advanced)。在备课时，我会列出一些具体问题来确定你对 Node 本身的了解是否已经足够深入，还是需要改进。
 
-If you can answer most of these questions and you’re looking for a job, let me know! If on the other hand, most of these questions take you by surprise, you just need to make learning the Node runtime itself a priority. Your knowledge of that will make you a much more desirable developer.
+如果你能回答这些问题并且正在找工作，请联系我！反过来说，如果大多数这些问题使你感到茫然，你则需要优先学习 Node 本身了。你所学的知识将使你成为一个更加理想的开发人员。
 
-### The Node.js knowledge challenge:
+### Node.js 知识挑战：
 
-Some of these questions are short and easy while others require longer answers and deeper knowledge. They are all presented here in no particular order.
+其中一些问题简短而容易，而另一些则需要更长的答案和更深入的知识。它们的排名不分先后。
 
-I know that you’re going to want answers after reading this list. The advice section below has some answers, but I’ll also be answering all of these questions in a series of freeCodeCamp articles after this one. But let me tease your knowledge first!
+我知道你会在阅读这个列表后想要它们的答案。下面的建议部分有一些答案，但我也将在这篇的 freeCodeCamp 文章之后回答所有这些问题。 但让我试试你的底！
 
-1. What is the relationship between Node.js and V8? Can Node work without V8?
-2. How come when you declare a global variable in any Node.js file it’s not really global to all modules?
-3. When exporting the API of a Node module, why can we sometimes use `exports` and other times we have to use `module.exports`?
-4. Can we require local files without using relative paths?
-5. Can different versions of the same package be used in the same application?
-6. What is the Event Loop? Is it part of V8?
-7. What is the Call Stack? Is it part of V8?
-8. What is the difference between `setImmediate` and `process.nextTick`?
-9. How do you make an asynchronous function return a value?
-10. Can callbacks be used with promises or is it one way or the other?
-11. What Node module is implemented by most other Node modules?
-12. What are the major differences between `spawn`, `exec`, and `fork`?
-13. How does the cluster module work? How is it different than using a load balancer?
-14. What are the `--harmony-*` flags?
-15. How can you read and inspect the memory usage of a Node.js process?
-16. What will Node do when both the call stack and the event loop queue are empty?
-17. What are V8 object and function templates?
-18. What is libuv and how does Node.js use it?
-19. How can you make Node’s REPL always use JavaScript strict mode?
-20. What is `process.argv`? What type of data does it hold?
-21. How can we do one final operation before a Node process exits? Can that operation be done asynchronously?
-22. What are some of the built-in dot commands that you can use in Node’s REPL?
-23. Besides V8 and libuv, what other external dependencies does Node have?
-24. What’s the problem with the process `uncaughtException` event? How is it different than the `exit` event?
-25. What does the `_` mean inside of Node’s REPL?
-26. Do Node buffers use V8 memory? Can they be resized?
-27. What’s the difference between `Buffer.alloc` and `Buffer.allocUnsafe`?
-28. How is the `slice` method on buffers different from that on arrays?
-29. What is the `string_decoder` module useful for? How is it different than casting buffers to strings?
-30. What are the 5 major steps that the require function does?
-31. How can you check for the existence of a local module?
-32. What is the `main` property in `package.json` useful for?
-33. What are circular modular dependencies in Node and how can they be avoided?
-34. What are the 3 file extensions that will be automatically tried by the require function?
-35. When creating an http server and writing a response for a request, why is the `end()` function required?
-36. When is it ok to use the file system `*Sync` methods?
-37. How can you print only one level of a deeply nested object?
-38. What is the `node-gyp` package used for?
-39. The objects `exports`, `require`, and `module` are all globally available in every module but they are different in every module. How?
-40. If you execute a node script file that has the single line: `console.log(arguments);`, what exactly will node print?
-41. How can a module be both requirable by other modules and executable directly using the `node` command?
-42. What’s an example of a built-in stream in Node that is both readable and writable?
-43. What happens when the line cluster.fork() gets executed in a Node script?
-44. What’s the difference between using event emitters and using simple callback functions to allow for asynchronous handling of code?
-45. What is the `console.time` function useful for?
-46. What’s the difference between the Paused and the Flowing modes of readable streams?
-47. What does the `--inspect` argument do for the node command?
-48. How can you read data from a connected socket?
-49. The `require` function always caches the module it requires. What can you do if you need to execute the code in a required module many times?
-50. When working with streams, when do you use the pipe function and when do you use events? Can those two methods be combined?
+1. Node.js 和 V8 之间的关系是什么？可以在没有 V8 的情况下运行 Node 吗？
+2. 当你在任何一个 Node.js 文件中声明一个全局变量时，它对于所有模块都是真的全局吗？
+3. 当暴露一个 Node 模块的 API 时, 为什么我们有时候用 `exports` 有时候用 `module.exports`?
+4. 我们可以依赖不使用相对路径的本地文件吗？
+5. 可以在同一个应用中使用相同包的不同版本吗？
+6. 什么是事件循环？它是 V8 的一部分吗？
+7. 什么是调用栈？它是 V8 的一部分吗？
+8. `setImmediate` 和 `process.nextTick` 的区别在哪里?
+9. 如何使异步函数返回值？
+10. 回调可以与 promise 一起使用吗？他们还是同一种方式还是两种不同的方式？
+11. 什么 Node 模块由许多其他 Node 模块实现？
+12. `spawn`、 `exec` 和 `fork` 的主要区别是什么?
+13. 集群模块如何工作？它与使用负载均衡有何不同？
+14. `--harmony-*` 标志是什么?
+15. 如何读取和检查 Node.js 进程的内存使用情况？
+16. 当调用栈和事件循环队列都为空时，Node 将做什么？
+17. 什么是 V8 对象和函数模板？
+18. 什么是libuv, Node.js 如何使用它？
+19. 如何使 Node 的 REPL 总是使用 JavaScript 严格模式？
+20. 什么是 `process.argv`？ 它拥有什么类型的数据？
+21. 在 Node 进程结束之前，我们该如何做最后一个操作？该操作可以异步完成吗？
+22. 你可以在 Node REPL 中使用哪些内置命令？
+23. 除了 V8 和 libuv，Node 还有什么其他外部依赖？
+24. 进程 `uncaughtException` 事件的问题是什么? 它和 `exit` 事件的区别是什么?
+25. 在 Node’s REPL 中 `_` 意味着什么?
+26. Node buffer 使用V8内存吗？可以调整他们的大小吗？
+27. `Buffer.alloc` 和 `Buffer.allocUnsafe` 的区别是什么?
+28. `slice` 在 buffer 上与在 array 上有什么不同?
+29. `string_decoder` 模块有什么用? 它和 buffer 转字符串有何不同?
+30. require 函数需要执行的 5 个主要步骤是什么？
+31. 如何检查本地模块是否存在？
+32.  `package.json` 的 `main` 属性有什么用?
+33. 什么是 Node 中的模块循环依赖，如何避免？
+34. require 函数自动尝试的 3 个文件扩展名是什么？
+35. 当创建一个 HTTP 服务并对请求作出响应时, 为什么 `end()` 函数是必须的?
+36. 什么情况下适合使用文件系统的 `*Sync` 方法?
+37. 如何只打印深层嵌套对象的一个级别？
+38. `node-gyp` 包有什么用?
+39. 对象 `exports`、 `require` 和 `module` 在所有模块中都是全局的但在每一个模块中它们都不相同. 这是怎么做到的?
+40. 如果你执行一个只有 `console.log(arguments);` 的 Node 脚本文件 , 实际 Node 会输出什么?
+41. 如何做到一个模块可以同时被其他模块使用，并且可以通过 `node` 命令执行？
+42. 举一个可读写的内置流的例子。
+43. 当在 Node 脚本中执行 cluster.fork() 时会发生什么？
+44. 使用事件发射器和使用简单的回调函数来允许异步处理代码有什么区别？
+45. `console.time` 函数有什么用?
+46. 可读流的“已暂停”和“流动”模式之间有什么区别？
+47. `--inspect` 参数对于 node 命令有什么用?
+48. 如何从已连接的套接字中读取数据？
+49. `require` 函数总是缓存它依赖的模块. 如果需要多次执行所需模块中的代码，你可以做什么?
+50. 使用流时，你何时使用管道功能以及何时使用事件？ 这两种方法可以组合吗？
 
-### My take on the best way to learn the Node.js runtime
+### 我采取了最好的方式来学习 Node.js
 
-Learning Node.js can be challenging. Here are some of the guidelines that I hope will help along that journey:
+学习 Node.js 可能很具有挑战性。以下的一些指南希望能在这个旅程中帮到你：
 
-#### Learn the good parts of JavaScript and learn its modern syntax (ES2015 and beyond)
+#### 学习 JavaScript 的好的部分并学习它的现代语法（ ES2015 及更高版本）
 
-Node is a set of libraries on top of a VM engine which can compile JavaScript so it goes without saying that the important skills for JavaScript itself is a subset of the important skills for Node. You should start with JavaScript itself.
+Node 是一个基于 VM 引擎的可以编译 JavaScript 的库，所以不言而喻，JavaScript 本身的重要功能是 Node 的重要功能的一个子集。故你应该从 JavaScript 本身开始学习之旅。
 
-Do you understand functions, [scopes](https://edgecoders.com/function-scopes-and-block-scopes-in-javascript-25bbd7f293d7#.2h7c9bt6l), binding, this keyword, new keyword, [closures](https://medium.freecodecamp.com/whats-a-javascript-closure-in-plain-english-please-6a1fc1d2ff1c#.fs8bxulzo), classes, module patterns, prototypes, callbacks, and promises? Are you aware of the various methods that can be used on Numbers, Strings, Arrays, Sets, Objects, and Maps? Getting yourself comfortable with the items on this list will make learning the Node API much easier. For example, trying to learn the ‘fs’ module methods before you have a good understanding of callbacks may lead to unnecessary confusion.
+你理解函数、[作用域](https://edgecoders.com/function-scopes-and-block-scopes-in-javascript-25bbd7f293d7#.2h7c9bt6l)、绑定这个关键字以及新的关键字，[闭包](https://medium.freecodecamp.com/whats-a-javascript-closure-in-plain-english-please-6a1fc1d2ff1c#.fs8bxulzo)、类、模块模式、原型、回调和 promise 吗？你知道可以在 Number、String、Array、Set、Object 和 map 上使用的各种方法吗？适应这个列表上的项目，将使得学习 Node API 更容易。例如，在你很好地理解回调之前，试图学习 'fs' 模块方法可能会导致不必要的混乱。
 
-#### Understand the non-blocking nature of Node
+#### 了解 Node 的非阻塞性质
 
-Callbacks and promises (and generators/async patterns) are especially important for Node. You need to understand how asynchronous operations are first class in Node.
+回调和 promise（以及 generators/async 模式）对于 Node 特别重要。异步操作是你在 Node 中的第一课。
 
-You can compare the non-blocking nature of lines of code in a Node program to the way you order a Starbucks coffee (in the store, not the drive-thru):
+你可以将一个 Node 程序中的几行代码的非阻塞性质你订购星巴克咖啡的方式（在商店中，而不是得来速）相比较：
 
-1. Place your order | Give Node some instructions to execute (a function)
-2. Customize your order, no whipped cream for example | Give the function some arguments: `({whippedCream: false})`
-3. Give the Starbucks worker your name with the order | Give Node a callback with your function: `({whippedCream: false}, callback)`
-4. Step aside and the Starbucks worker will take orders from people who were after you in line | Node will take instructions from lines after yours.
-5. When your order is ready, the Starbucks worker will call your name and give you your order | When your function is computed and Node.js has a ready result for you, it’ll call your callback with that result: `callback(result)`
+1. 下订单 | 给 Node 一些执行指令（一个函数）
+2. 自定义你的订单，例如没有生奶油 | 给函数一些参数：`({whippedCream: false})`
+3. 在你的订单上告诉星巴克员工你的命令 | 通过回调告诉 Node 执行你的函数： `({whippedCream: false}, callback)`
+4. 然后靠边站，星巴克的员工会从排在你后面的人接到订单 | Node 将从你的后面的代码接收指令。
+5. 当你要的咖啡准备好了，星巴克员工会叫你的名字，并给咖啡 | 当你的函数计算结束 Node.js 就会根据计算结果执行回调：`callback(result)`
 
-I’ve written a blog post about this: [Asynchronous Programming as Seen at Starbucks](https://edgecoders.com/asynchronous-programming-as-seen-at-starbucks-fc242cf16aa#.mx2cxr3hi)
+我写了一篇博客文章来描述这个过程：[在星巴克参悟异步编程](https://edgecoders.com/asynchronous-programming-as-seen-at-starbucks-fc242cf16aa#.mx2cxr3hi)
 
-### Learn the JavaScript concurrency model and how it is based on an event loop
+### 了解 JavaScript 并发模型及其如何基于事件循环而运作
 
-There is a Stack, a Heap, and a Queue. You can read books on this subject and still not understand it completely, but I guarantee you’ll do if you watch [this guy](https://www.youtube.com/watch?v=8aGhZQkoFbQ).
+栈，堆和队列。如果你阅读了有关这个主题的书却仍然不完全理解，可以看看 [这个家伙](https://www.youtube.com/watch?v=8aGhZQkoFbQ)，我保证你就懂了。
 
 [![](https://i.ytimg.com/vi/8aGhZQkoFbQ/maxresdefault.jpg)](https://www.youtube.com/embed/8aGhZQkoFbQ?wmode=opaque&widget_referrer=https%3A%2F%2Fmedium.freecodecamp.com%2Fmedia%2Fa661a28c8cc4ab11cdfc9f9487ebd139%3FpostId%3Df9031fbd8b69&enablejsapi=1&origin=https%3A%2F%2Fcdn.embedly.com&widgetid=1)
 
-Philip explains the Event Loop that’s in the browser, but almost the exact same thing applies to Node.js (there are some differences).
+Philip 解释了在浏览器中的事件循环，但在 Node.js 中其实是几乎完全相同的事情（尽管有一些差异）。
 
-#### Understand how a Node process never sleeps, and will exit when there is nothing left to do
+#### 了解一个 Node 进程如何不进如入 sleep 状态，并且当没有什么要做的时候就会结束进程
 
-A Node process can be idle but it never sleeps. It keeps track of all the callbacks that are pending and if there is nothing left to execute it will simply exit. To keep a Node process running you can for example use a `setInterval` function because that would create a permanent pending callback in the Event Loop.
+Node 进程可以空闲，但它从不进入 sleep 状态。它跟踪所有正在等待执行的回调，如果没有可以执行的回调它将直接结束进。为了保持 Node 进程持续运行，你可以使用一个 `setInterval` 函数，因为这将在事件循环中创建一个永久处于挂起状态的回调。
 
-#### Learn the global variables that you can use like process, module, and Buffer
+#### 学习可以使用的全局变量，如 process、module 和 Buffer
 
-They’re all defined on a global variable (which is usually compared to the `window` variable in browsers). In a Node’s REPL, type `global.` and hit tab to see all the items available (or simple double-tab on an empty line). Some of these items are JavaScript structures (like `Array` and `Object`). Some of them are Node library functions (like `setTimeout`, or `console` to print to `stdout`/`stderr`), and some of them are Node global objects that you can use for certain tasks (for example, `process.env` can be used to read the host environment variables).
+它们都定义在一个全局变量里（通常与浏览器中的 `window` 变量相比较）。在 Node 的 REPL 中，键入 `global`。并点击选项卡以查看所有可用的项目（或在空行上的简单双击标签）。其中一些项目是 JavaScript 结构（如 `Array` 和 `Object`）。其中一些是 Node 库函数（如 `setTimeout` 或 `console` 输出到 `stdout` / `stderr`），其中一些是 Node 全局对象，你可以将其用于处理某些任务（例如，`process.env` 可用于读取主机的环境变量）。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*6ejru9JVwgJ9iGxBYpysJw.png)
 
-You need to understand most of what you see in that list.
+你在表中看到大部分内容的都应该理解。
 
-#### Learn what you can do with the built-in libraries that ship with Node and how they have a focus on “networking”
+#### 了解你可以使用 Node 附带的内置库做什么，以及它们如何专注于“网络”
 
-Some of those will feel familiar, like *Timers* for example, because they also exist in the browser and Node is simulating that environment. However, there is much more to learn, like `fs`, `path`, `readline`, `http`, `net`, `stream`, `cluster`, ... (The auto-complete list above has them all).
+其中一些人会觉得熟悉，比如 *Timers*，因为他们也存在于浏览器和 Node 模拟的环境中。但是，还有更多要学习的，如 `fs`、`path`、`readline`、`http`、`net`、`stream`、`cluster`、……（上面的列表已经包含它们）。
 
-For example, you can read/write files with `fs`, you can run a streaming-ready web server using “`http`”, and you can run a tcp server and program sockets with “`net`”. Node today is so much more powerful than it was just a year ago, and it’s getting better by the commit. Before you look for a package to do some task, make sure that you can’t do that task with the built-in Node packages first.
+例如，你可以使用 `fs` 读、写文件，可以使用 “`http`” 运行流式 Web 服务器，并且可以运行 tcp 服务器和使用 “`net`” 编程套接字。今天的 Node 比一年前的功能要强大得多，而且它通过社区的代码提交越来越好。在为你的任务寻找可用的包之前，请确保你无法首先使用 Node 内置的程序包完成该任务。
 
-The `events` library is especially important because most of Node architecture is event-driven.
+`event` 库特别重要，因为大多数 Node 架构都是事件驱动的。
 
-There’s always [more that you can learn about the Node API](https://nodejs.org/api/all.html), so keep expanding your horizons.
+[在这里你可以总是更多地了解 Node API](https://nodejs.org/api/all.html), 所以请继续扩展你的视野吧.
 
-#### Understand why Node is named Node
+#### 理解 Node 为什么要叫 Node
 
-You build simple single-process building blocks (nodes) that can be organized with good networking protocols to have them communicate with each other and scale up to build large distributed programs. Scaling a Node application is not an afterthought — it’s built right into the name.
+你构建简单的单进程构建块（节点），可以使用良好的网络协议组织它们，以使它们彼此通信并扩展以构建大型分布式程序。简化成 Node 应用不是在此之后——它的名字就是从这里产生的。
 
-#### Read and try to understand some code written for Node
+#### 阅读并尝试理解为 Node 编写的一些代码
 
-Pick a framework, like Express, and try to understand some of its code. Ask specific questions about the things you don’t understand. I try to answer questions on the [jsComplete slack channel](https://slackin-bfcnswvsih.now.sh/) when I can.
+选择一个框架，如 Express，并尝试理解它的一些代码。告诉我你不懂的地方。当条件允许我会试着在 [slack 频道](https://slackin-bfcnswvsih.now.sh/)回答问题。
 
-Finally, write a web application in Node without using any frameworks. Try to handle as many cases as you can, respond with an HTML file, parse query strings, accept form input, and create an endpoint that responds with JSON.
+最后，用 Node 编写一个 Web 应用，而且不使用任何框架。尝试处理尽可能多的情况，使用 HTML 文件，解析查询字符串，接受表单输入，并创建一个以 JSON 响应的终端。
 
-Also try writing a chat server, publishing an npm package, and contributing to an open-source Node-based project.
+还可以尝试编写聊天服务器，发布 npm 包，并为开源的基于 Node 的项目做出贡献。
 
-Good luck!
+祝君码运昌隆！
