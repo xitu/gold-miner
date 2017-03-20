@@ -95,13 +95,12 @@ Emscripten 包含了许多附加工具和库来支持移植整个 C/C++ 代码�
 
 如果你之前没有了解这些基本原理，我们建议你先阅读 [汇编文章](https://github.com/xitu/gold-miner/blob/master/TODO/a-crash-course-in-assembly.md) (part 3 of the series)。
 
-下面是一个 C 函数，我们将把它转成 WebAssembly:
+下面是一个 C 函数，我们将把它转成 WebAssembly：
 
-    intadd42(int num) {
+    int add42(int num) {
       return num + 42;
     }
-
-
+    
 你可以使用 [WASM Explorer](http://mbebenita.github.io/WasmExplorer/) 来编译这个函数。
 
 如果你打开 .wasm 文件（假设你的编辑器支持显示），你将看到类似这样的内容：
