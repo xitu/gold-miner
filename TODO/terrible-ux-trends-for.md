@@ -4,7 +4,7 @@
 * 译者：[Ruixi](https://github.com/Ruixi)
 * 校对者：[L9m](https://github.com/L9m),[bobmayuze](https://github.com/bobmayuze)
 
-#某些2017年的 UX 趋势啊，扎心了#
+# 某些2017年的 UX 趋势啊，扎心了#
 
 ### 前方高能，非战斗人员请迅速撤离 ###
 
@@ -72,7 +72,7 @@ Adobe 的新型设计机器人 CC™ 的偷跑模型
 
 现在，年轻的眼动追踪者。就现在。
 
-你可以从简单地追踪人们的手势开始。用户竖中指了吗？用户抓狂地摔键盘了吗？这些只是 初级眼动追踪者（Associate Eye Trackers）在成为 **高级眼动追踪者（Senior Eye Trackers）** 的遥远征途中需要学习的一小部分。
+你可以从简单地追踪人们的手势开始。用户竖中指了吗？用户抓狂地摔键盘了吗？这些只是初级眼动追踪者（Associate Eye Trackers）在成为 **高级眼动追踪者（Senior Eye Trackers）** 的遥远征途中需要学习的一小部分。
 
 #### 无人机＋一切 ####
 
