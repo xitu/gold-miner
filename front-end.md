@@ -1,3 +1,4 @@
+* [新一代 JavaScript 的开发图谱（2017）](https://juejin.im/post/58cfe86f61ff4b006ca26aaf/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([gy134340](http://gy134340.com/) 翻译)
 * [React 未来之函数式 setState](https://juejin.im/post/58cfcf6e44d9040068478fc6/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([reid3290](https://github.com/reid3290) 翻译)
 * [看动画，学 RxJS](https://juejin.im/post/58cd146a61ff4b0060277d32/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([luoyaqifei](https://github.com/luoyaqifei) 翻译)
 * [如何让你的 React Native 应用在键盘弹出时优雅地响应](https://juejin.im/entry/58c7ceab0ce4630054834b07/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Shangbin Yang](https://github.com/rccoder) 翻译)
