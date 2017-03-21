@@ -18,21 +18,21 @@ Hello Guys, hope you are doing good. This is our second part of Rx Java Android 
 Motivation is same which I share with you in [part1](http://www.uwanttolearn.com/android/reactive-programming-android-rxjava2-hell-part1/).  Lot of time I confused, when I got examples like we have a Iterative pattern (Pull) which have hasNext(), next() just like same but vice versa we have in Rx. In a same way I got lot of examples which confuse me about imperative and Reactive.
 
 **动机：**
-动机跟我分享[第一部分](http://www.uwanttolearn.com/android/reactive-programming-android-rxjava2-hell-part1/)的是一样的。我经常感到疑惑，当我看到有 hasNext()，next()方法的迭代模式（Pull），在 Rx 中反过来也一样。同样地，关于命令式编程和响应式编程的很多例子也让我困惑。
+动机跟我分享[第一部分](http://www.uwanttolearn.com/android/reactive-programming-android-rxjava2-hell-part1/)的是一样的。当我看到有 hasNext()，next()方法的迭代模式（Pull），在 Rx 中反过来也一样时，我经常感到疑惑。同样地，关于命令式编程和响应式编程的很多例子也让我困惑。
 
 **Revision:**
 
 In [part1](http://www.uwanttolearn.com/android/reactive-programming-android-rxjava2-hell-part1/) we discuss the most important, basic and core concept of Rx and that is a Observer Pattern. Any where in program, I want to know about data change. I always use Observer Pattern. Like we saw in our last post, Email notification example. We need to grasp this concept. This is really important, if you know this one, all other things are function calls on data like map, filter, etc in Rx.
 
 **修改：**
-在[第一部分](http://www.uwanttolearn.com/android/reactive-programming-android-rxjava2-hell-part1/)中，我们讨论了 Rx 最重要，最基本也最核心的概念, 观察者模式。在程序里的任何一个地方，如果我想要知道数据变化，我会使用观察者模式。就像我们在上一篇博客中看到的邮件通知的例子。我们需要吃透这个概念。这很重要，如果你知道这个，其它的对数据的函数调用，比如 Rx 中的地图，过滤器等。
+在[第一部分](http://www.uwanttolearn.com/android/reactive-programming-android-rxjava2-hell-part1/)中，我们讨论了 Rx 最重要，最基本也最核心的概念, 观察者模式。在程序里的任何一个地方，如果我想要知道数据变化，我会使用观察者模式。就像我们在上一篇博客中看到的邮件通知的例子那样。我们需要吃透这个概念。这很重要，如果你理解这个概念，那你就能理解其他操作如Rx中的映射，筛选等都是在数据上的函数调用。
 
 **Introduction:**
 **介绍：**
 
 Today I am going to remove the confusions about what is Pull vs Push in Rx and What is Imperative vs Reactive. So Pull vs Push have nothing with Rx. Basically that is a comparison between two techniques or strategies. Mostly we use Pull strategy in our code but we can convert that Pull to Push using Rx. Which gave us a lot of benefits. In a same way Imperative vs Reactive both are programming paradigm. Mostly the code we right in Java Android that is imperative and where we are going that is Reactive. First I am going to explain Imperative vs Reactive traditional example which we will get every where but later I will use this example as a concept. So try to remember this example.
 
-今天，我准备帮你们真对什么是拉模式（Pull）和推模式（Push），以及命令式和响应式排疑解惑。所以说，拉模式（Pull）和推模式（Push）本身跟 Rx 没有关系。基本上，那只是两种技术或者策略之间的对比。多数情况下，我们用拉模式（Pull）在我们的代码中，但是我们可以用 Rx 把拉模式（Pull）变成推模式（Push），这为我们提供了很多便利。用同样的方式，命令式和响应式都是编程样式。我们使用 Java Android 写的大部分代码是命令式的，而我们要去的地方？是响应式。首先，我准备解释命令式和响应性的传统例子，这些代码我们经常看到，但是之后我将用这个例子作为一个概念。所以，你可以尝试记住我说的例子。
+今天，我将针对拉模式（Pull）和推模式（Push),以及命令式和响应式编程的一些容易困惑的地方做出解答。拉模式（Pull）和推模式（Push）本身跟 Rx 没有关系。基本上，那只是两种技术或者策略之间的对比。多数情况下，我们在代码中使用拉模式（Pull）， 但在Rx中我们可以将其转换为推模式（Push），这能带来很多好处。用同样的方式，命令式和响应式都是编程范式。我们在 Android 而我们将试图写成响应式，而我们将试图写成响应式。首先，我准备解释命令式和响应性的经典例子，这些代码我们经常看到，但是之后我将用这个例子作为一个概念。所以，你可以尝试记住我说的例子。
 
 **Imperative Approach:**
 **命令式方法：**
@@ -122,7 +122,7 @@ Process finished with exit code 0
 
 Basically that is a Pull approach. Now sharing my personal confusion which mostly I got due to lack of knowledge. How this is Pull approach. So imagine after traverse I added two new data objects but I am not going to traverse my data again. Its mean in my program I never know there is any new data just like as shown below.
 
-基本上，那就是拉模式（Pull）方法。现在，我分享一下我因为缺少了解而产生的困惑。拉模式（Pull）是怎样的。想象一下，遍历数据之后，我添加两个新的数据对象，但我不打算再一次遍历我的数据。这代表着，在我的程序里，我将永远不知道有新的数据（被添加进来），正如下面代码所示。
+基本上，那就是拉模式（Pull）方法。现在，我分享一下我因为缺少了解而产生的困惑。解释一下拉模式是怎样的，想象一下，遍历数据之后，我添加两个新的数据对象，但我不打算再一次遍历我的数据。这代表着，在我的程序里，我将永远不知道有新的数据（被添加进来），正如下面代码所示。
 
 ```
 private static ArrayList<String > data = new ArrayList<>();
@@ -185,7 +185,7 @@ private static void iterateOnData(List data) {
 
 Above method only printout a whole list on console.
 
-上面的方法只是用于在控制台中打印出一整个链表。
+上面的方法只是用于在控制台中打印出一整个列表。
 
 ```
 private static final TimerTask dataTimerTask = new TimerTask() {
@@ -209,6 +209,8 @@ Above method is important. Now as a developer I implemented my Pull approach by 
 Its time to check our main method.
 
 上面的方法挺重要的。作为一个开发者，我用轮询来实现拉（Pull）方法。所以我现在做的是什么呢？这个方法会在每 1 秒或每 1000 毫秒调用一次。在第一次运行的时候，我会检查数据中是否有任何改变。如果有，则将数据在控制台显示出来，如果没有，则显示没有改变。
+
+是时候来检查我们的主方法了。
 
 ```
 public static void main(String[] args) throws InterruptedException {
@@ -356,7 +358,7 @@ Now I have a feeling some confusion will be removed what is Pull approach. The b
 
 Before start I think we discuss what is the difference between Pull and Push in simple language. Pull means as a developer I am responsible for everything. Like I want to know any change in data I want to ask. Hey any new change. Which is difficult to maintain because lot of threading start in program and due to little lazy ness of a developer our program start memory leaks.
 
-在开始前，我想我们要用简单的语言来讨论一下拉（Pull）和推（Push）的不同之处。拉（Pull）意味着，作为一个开发者，我对所有事情负责。正如我想知道数据是否有任何变化，我想去询问：“嘿，有什么新的变动吗？”。这是很难维护的，因为程序里多个线程启动，如果开发者有一点偷懒，就会造成内存泄漏。
+在开始前，我们先简单地来讨论一下拉（Pull）和推（Push）的不同之处。拉（Pull）意味着，作为一个开发者，我对所有事情负责。正如我想知道数据是否有任何变化，我想去询问：“嘿，有什么新的变动吗？”。这是很难维护的，因为程序里多个线程启动，如果开发者有一点偷懒，就会造成内存泄漏。
 
 In Push approach developer only write simple code and give orders to data. Hey if any change in you inform me. That is a push approach. I am going to take same example to explain this approach. First I will use Observer pattern to achieve this approach and later I will show you by using Callback.
 
@@ -426,7 +428,7 @@ private ArrayList<String> data = new ArrayList<>();
 
 In start I have some boilerplate code for Observer Pattern. In the second half I have code related to data. I have an array which I initialise with some data (A to D) and print on console. After that I have a one method which adds a new data in our array. Also that will inform to every one about data change. Its time to show you main method.
 
-在开始的时候，我使用了观察者模式的样板代码。在第二部分，代码是跟数据相关的。我用一个数组，并用数据（A 到 D）来初始化这个数组并在控制台显示出来。在那之后，我写了一个方法，添加数据到数组中。同样地，那会通知每个人数据的变化。是时候让你们看看住方法长什么样子了。
+代码前半部分，使用了观察者模式的模版。后半部分，代码与数据相关。用数据 （A 到 D）初始化一个数据组打印到控制台。之后往数组里添加数据，就会收到数据变化的通知。 接下来看一下 main 方法。
 
 ```
 public static void main(String[] args) throws InterruptedException {
@@ -705,7 +707,7 @@ Process finished with exit code 0
 
 Same output which I got from Observer Pattern. Its mean I can apply Push approach by using different implementation. You can run below code for practice on your IDE.
 
-我得到的是跟观察者模式一样的输出。这意味着我可以使用不同的实现来应用推（Push）模式。你可以用下面的代码在你们的 IDE 上实践一下。
+我得到的是跟观察者模式一样的输出。这意味着我可以使用不同的实现方式来应用推（Push）模式。你可以用下面的代码在你们的 IDE 上实践一下。
 
 ```
 import java.util.*;
@@ -775,11 +777,11 @@ public class EntryPoint {
 
 There is one difference between Observer Pattern and Callback approach. In Observer Pattern every body who subscribe will inform but in Callback only one Callback will be informed, which subscribed in last. In our software development when we are using API’s mostly we use Callback interfaces to get result or data. That is Push approach because data will be pushed to you. You are not responsible to check any change in data.
 
-观察者模式和回调方法有个不同。在观察者模式中，每个订阅了的人都会通知，而回调方法中，只有一个最后订阅的回调会被通知。在软件开发过程中，我们多用 API 的回调接口来获取结果活着数据。那就是一种推（Push）模式因为数据会推送给你。你不负责检查数据的变化。
+观察者模式和回调方法有一个区别。在观察者模式中，每个订阅了的人都会通知，而回调方法中，只有一个最后订阅的回调会被通知。在软件开发过程中，我们多用 API 的回调接口来获取结果或者数据。这就是为什么叫做推（Push)模式，因为会把数据变化的状态推送给你。你不负责检查数据的变化。
 
 One tip, sometimes I saw people do things in a very complex way. Like I have a User object in my app. So when I do a login I will get a User object in response. Mostly people use Callback for that but they want to share that User data to many classes or screens. What they do, they take that data in Callback and later they share by using EventBuses, Broadcast Receivers or save in static objects. Which is a wrong use of Callback. If you want data from API’s which will be shared with more then one screens or classes on same time, always use Observer Pattern if you are not using Rx :). Your code will be very simple and stable.
 
-这里给你一个小贴士，有时我看到人们做得非常复杂。比如，我在我的应用中，有一个 User 对象。当我登录时，我会拿到一个 User 对象。大多数人使用回调，但是他们想在多个类或屏幕中使用哪个 User 数据。他们怎么做呢？他们把数据从回调中取出来，扔给 EventBus、广播接收者活着直接保存成静态对象。这是对回调的误用。如果你想同时在其它类或者屏幕中使用从 API 中获取的数据，如果你不用 Rx，那就一定要用观察者模式 :)。你的代码会变得简单和稳定。
+这里给你一个小贴士，有时我看到人们做得非常复杂。比如，我在我的应用中，有一个 User 对象。当我登录时，我会拿到一个 User 对象。大多数人使用回调，但是他们想在多个类或屏幕中使用那个 User 对象。他们怎么做呢？他们把数据从回调中取出来，扔给 EventBus、广播接收者或者直接保存成静态对象。这是对回调的误用。如果你想同时在其它类或者屏幕中使用从 API 中获取的数据，如果你不用 Rx，那就一定要用观察者模式 :)。你的代码会变得简单和稳定。
 
 **Conclusion:**
 **结论:**
@@ -788,7 +790,7 @@ So guys now we know the core concept of Rx that is Observer Pattern. Later we di
 
 Thanks guys for reading. Have a nice WEEKEND BYE BYE :).
 
-现在你们知道了 Rx 的核心概念。在我们讨论了两种策略，观察者模式和回调来达到推（Push）模式之后，我们接下来会讨论拉（Pull）模式和推（Push）模式以及命令式和响应式的困惑。是时候使用 Rx 来达到同样的效果了。我们已经知道我们利用 Rx 来避免样板代码，利用 Rx 的优势有多简单了。我想今天就差不多了。试着自己写代码练习一下。这会帮助你理解这些概念。从下一篇剝壳开始，我们很可能开始学习 Lambda 表达式以及函数式编程。这些事非常重要的的东西，会让 Rx 的学习曲线变简单。
+现在你们知道了 Rx 的核心概念其实就是观察者模式。在我们讨论了两种策略，观察者模式和回调来达到推（Push）模式之后，我们接下来会讨论拉（Pull）模式和推（Push）模式以及命令式和响应式的困惑。是时候使用 Rx 来达到同样的效果了。我们已经知道我们利用 Rx 来避免样板代码，利用 Rx 的优势有多简单了。我想今天就差不多了。试着自己写代码练习一下。这会帮助你理解这些概念。从下一篇开始，我们很可能开始学习 Lambda 表达式以及函数式编程。这些是非常重要的的东西，会让 Rx 的学习曲线变简单。
 
 谢谢你们的阅读。祝你们有个愉快的周末，再见 :)。
 
