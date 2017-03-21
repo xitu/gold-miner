@@ -1,8 +1,8 @@
 > * 原文地址：[How to make your React app fully functional, fully reactive, and able to handle all those crazy side effects](https://medium.freecodecamp.com/how-to-make-your-react-app-fully-functional-fully-reactive-and-able-to-handle-all-those-crazy-e5da8e7dac10#.amw15u5zd)
 * 原文作者：[Luca Matteis](https://medium.freecodecamp.com/@lmatteis)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者： 
-* 校对者：
+* 译者：[ZhangFe ](https://github.com/ZhangFe)
+* 校对者：[AceLeeWinnie](https://github.com/AceLeeWinnie)，[liucaihua9](https://github.com/liucaihua9)
 
 # 如何让你的 React 应用完全的函数式，响应式，并且能处理所有令人发狂的副作用
 
@@ -12,10 +12,10 @@
 
 > 所有的事物都应该是纯粹的并且容易测试和推理**（函数式）**，并且使用随时变化的值给异步行为建模 **（响应式）**
 
-React 本身并非完全的函数式和响应式。但是它受到了一些来自 FRP 背后概念的启发。例如 [函数式组件](https://facebook.github.io/react/docs/components-and-props.html) 是一些依赖他们 props 的纯函数。 并且 [他们反应了 prop 和 state 的变化](https://facebook.github.io/react/docs/react-component.html#updating).
-(译者注：不知这里是否是作者的笔误，这里的函数式组件，即我们通常说的无状态组件，其实只是接受 props，是没有 state 和生命周期的)
+React 本身并非完全的函数式和响应式。但是它受到了一些来自 FRP 背后概念的启发。例如 [函数式组件](https://facebook.github.io/react/docs/components-and-props.html) 是一些依赖他们 props 的纯函数。 并且 [他们反映了 prop 和 state 的变化](https://facebook.github.io/react/docs/react-component.html#updating).
+(译者注：无状态组件只接收 props ，这里的 state 应该是指父元素的）
 
-但是一谈到**副作用**（side effects），仅作为视图层的 React 就需要一些其他库的帮助了，比如说[Redux](https://github.com/reactjs/redux)。
+但是一谈到**副作用的处理**（side effects），仅作为视图层的 React 就需要一些其他库的帮助了，比如说[Redux](https://github.com/reactjs/redux)。
 
 在这篇文章里我会谈谈 [redux-cycles](https://github.com/cyclejs-community/redux-cycles)，它是一个 Redux 中间件，借助 [Cycle.js](https://cycle.js.org/) 框架的优势，帮助你以一种函数式和响应式的方法处理你 React 应用中的副作用和异步代码，这是一个尚未被其他 Redux 副作用模型共享的特征。
 
@@ -29,18 +29,18 @@ React 本身并非完全的函数式和响应式。但是它受到了一些来�
 
 ![](https://cdn-images-1.medium.com/max/800/1*GENmEdK1Rq2dB6H4uxzVNw.jpeg)
 
-> “由于有副作用的存在，一个程序的行为依赖于过去的历史，即代码执行的顺序，因为理解一个有效的程序需要考虑到所有可能的历史，副作用经常会使一个程序很难理解。”— [Norman Ramsey](http://stackoverflow.com/users/41661/norman-ramsey)
+> “由于有副作用的存在，一个程序的行为依赖于历史记录，即代码执行的顺序，因为理解一个有效的程序需要考虑到所有可能的历史记录，副作用经常会使一个程序很难理解。”— [Norman Ramsey](http://stackoverflow.com/users/41661/norman-ramsey)
 (上面这段翻译的不太好，望指点)
 
 这里有几种流行的方式来处理 Redux 中的副作用：
 
 1. [redux-thunk](https://github.com/gaearon/redux-thunk) —将你有副作用的代码放在 action creators 中
-2. [redux-saga](https://github.com/redux-saga/redux-saga) — 使用sagas声明你的副作用逻辑
+2. [redux-saga](https://github.com/redux-saga/redux-saga) — 使用 sagas 声明你的副作用逻辑
 3. [redux-observable](https://github.com/redux-observable/redux-observable) — 使用响应式编程来给副作用建模
 
-问题是他们中没有一个即是纯函数式的又是响应式的。他们中有的（redux-saga）是纯函数有些（redux-observable）则是响应式的，但是没有一个拥有我们之前介绍的 FRP 所拥有的所有的概念。
+问题是他们中没有一个既是纯函数式的又是响应式的。他们中有的（redux-saga）是纯函数有些（redux-observable）则是响应式的，但是没有一个拥有我们之前介绍的 FRP 所拥有的所有的概念。
 
-[**Redux-cycles**](https://github.com/cyclejs-community/redux-cycles) **即是纯函数又是响应式的**
+[**Redux-cycles**](https://github.com/cyclejs-community/redux-cycles) **既是纯函数又是响应式的**
 
 ![](https://cdn-images-1.medium.com/max/800/1*KJuc4SE0zrxXuxBrfOpGjA.png)
 
@@ -90,7 +90,7 @@ HTTP 请求大概是最常见的副作用了。这里是一个使用 redux-thunk
 
 ![](https://cdn-images-1.medium.com/max/1000/1*2eF9bIE5BQExjIg1navQ-Q.png)
 
-**关键的一点事，你没有摆脱副作用，HTTP 请求依然要发出，但是你将它定位在了你的应用代码之外**
+**关键的一点是，你没有摆脱副作用，HTTP 请求依然要发出，但是你将它定位在了你的应用代码之外**
 
 你的函数更加容易理解，尤其是更容易测试，因为你只要测试你的函数是否发出了正确的消息，不需要浪费那些无用的 mock 时间。
 
@@ -106,7 +106,7 @@ HTTP 请求大概是最常见的副作用了。这里是一个使用 redux-thunk
 
 每当你想“被通知某事”你要使用一个输入流（被称作**sources**）并且遍历一次流的值就能知道发生了什么。
 
-这形成一种 **反应式** **循环**，相比于正常的命令式代码，你需要一个不同的思维来理解它。
+这形成一种 **反应式** **循环**，相比于一般的命令式代码，你需要一个不同的思维来理解它。
 让我们使用这个范例来建模一个HTTP请求/响应生命周期：
 
     function main(sources) {
@@ -136,11 +136,11 @@ HTTP driver 知道这个函数返回的 `HTTP` 键值。这是一个包含请求
 
 ![](https://cdn-images-1.medium.com/max/1000/1*RfpxAyyI0h0itIABMZ9TfA.gif)
 
-相比正常的命令式编程，这似乎是反直觉的：为什么读取响应值的代码在发出请求的代码之前？
+相比与一般的命令式编程，这似乎是反直觉的：为什么读取响应值的代码在发出请求的代码之前？
 
 这是因为在 FRP 中代码在哪是不重要的。所有你要做的就是发送描述，并且监控变化，代码的顺序并不重要。
 
-这使得代码非常同意重构。
+这使得代码非常容易重构。
 
 ---
 
@@ -160,7 +160,7 @@ HTTP driver 知道这个函数返回的 `HTTP` 键值。这是一个包含请求
 
 这是一个同步的流程，意味着一旦你想执行异步行为（为了副作用）你需要使用一些中间件来拦截这些 actions，相应的，你要触发其他的 actions 来执行这个异步副作用。
 
-这正是 [redux-cycles](https://github.com/cyclejs-community/redux-cycles) 所做的。它拦截
+这正是 [redux-cycles](https://github.com/cyclejs-community/redux-cycles) 所做的。它是一个中间件，拦截
 了 redux actions 后进入 Cycle.js 的响应式循环，并且允许你使用 drivers 去执行其他副作用。然后它基于你函数里的异步数据流描述 dispatch 一个新的 action。
 
     function main(sources) {
@@ -190,7 +190,7 @@ HTTP driver 知道这个函数返回的 `HTTP` 键值。这是一个包含请求
 
 具体点说它是触发了标准的 [Flux Actions objects](https://github.com/acdlite/flux-standard-action)。
 
-酷的事情是你可以结合其他 drivers 发生的事。在之前的例子里 **在 `HTTP` 世界里发生的事确实触发了 `ACTION` 世界，反之亦然**。
+酷的事情是你可以结合其他 drivers 发生的事。在之前的例子里 **在 `HTTP` 域里发生的事确实触发了 `ACTION` 域，反之亦然**。
 
 — 注意，与 Redux 通信完全通过 `ACTION` 的 source 和 sink。Redux-cycle 的 drivers 为你处理实际的 dispatch。
 
@@ -238,7 +238,7 @@ Redux-cycles 推荐了两个你可以和 Redux 通信的 drivers， `makeActionD
 
 ![](https://cdn-images-1.medium.com/max/800/1*7OmEwOnki2v-cR7mESwD7w.gif)
 
-响应式编程的另一个巨大优势就是能够使用运算符将流组成其他流，可以随时将它们当做数据对待：你可以对它们进行 [`map`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/gettingstarted/categories.md) [`filter`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/gettingstarted/categories.md) [`and even`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/gettingstarted/categories.md) [`reduce`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/gettingstarted/categories.md) 这些操作。
+响应式编程的另一个巨大优势就是能够使用运算符将流组成其他流，可以随时将它们当做数据对待：你可以对它们进行 [`map`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/gettingstarted/categories.md) [`filter`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/gettingstarted/categories.md) [`甚至`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/gettingstarted/categories.md) [`reduce`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/gettingstarted/categories.md) 这些操作。
 
 运算符使得显式的数据流图（即操作符之间的依赖逻辑）成为可能。允许你通过各种操作符将数据流可视化，就像上面的动画一样
 
@@ -250,7 +250,7 @@ Redux-observable 也允许你写复杂的异步流，他们用一个复杂的 We
 
 ![](https://cdn-images-1.medium.com/max/800/1*2uZuH38HrfZwZNgjJB3eNg.png)
 
-最后但并非最不重要的是测试。这才是 redux-cycles（和通常所有的 Cycle.js 应用一样）真正闪耀的地方。
+最后但也值得关注的是测试。这才是 redux-cycles（和通常所有的 Cycle.js 应用一样）真正闪耀的地方。
 
 因为你的应用代码里都是纯函数，要测试你的主要功能，你只需要将其作为输入流，并将特定流作为输出。
 
@@ -264,11 +264,11 @@ Redux-observable 也允许你写复杂的异步流，他们用一个复杂的 We
       ACTION: { '---a------|': actionSink },
     }, searchUsers, done);
 
-[这段代码](https://github.com/cyclejs-community/redux-cycles/blob/master/example/cycle/test/test.js) 执行了 [`searchUsers`](https://github.com/cyclejs-community/redux-cycles/blob/master/example/cycle/index.js#L31) 函数，将特定源作为输入（以第一个参数的方式）。Given these sources it expects the function to return the provided sinks (second argument).如果不是，断言就会失败。
+[这段代码](https://github.com/cyclejs-community/redux-cycles/blob/master/example/cycle/test/test.js) 执行了 [`searchUsers`](https://github.com/cyclejs-community/redux-cycles/blob/master/example/cycle/index.js#L31) 函数，将特定源作为输入（以第一个参数的方式）。给定的这些 sources 期望函数返回所提供的 sinks（以第二个参数的方式）。如果不是，断言就会失败。
 
 当你需要测试异步行为时，以图形的方式定义流特别有用。
 
-当 `HTTP` 源发出一个 `r` （响应），你会立刻看到 `a`（action）出现在 `ACTION` sink 中 —他们同时发生。然而，当  `ACTION` source 发出一段 `-a-b-c`，你不要指望此时 `HTTP` sink 会发生什么。
+当 `HTTP` 源发出一个 `r` （响应），你会立刻看到 `a`（action）出现在 `ACTION` sink 中 — 他们同时发生。然而，当  `ACTION` source 发出一段 `-a-b-c`，你不要指望此时 `HTTP` sink 会发生什么。
 
 这是因为 `searchUsers` 去抖了他接收到的 actions。它只会在 ACTION source 流停止活动 800 毫秒后发送 HTTP 请求，这是一个自动完成的功能
 
