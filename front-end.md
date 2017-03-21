@@ -1,3 +1,4 @@
+* [创建和使用 WebAssembly 组件](https://juejin.im/post/58d0bbe144d90400684c0f3a/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([xilihuasi](https://github.com/xilihuasi) 翻译)
 * [WebAssembly 的现在与未来](https://github.com/xitu/gold-miner/blob/master/TODO/where-is-webassembly-now-and-whats-next.md) ([huzidaha](https://github.com/huzidaha/) 翻译)
 * [是什么让 WebAssembly 执行的这么快？](https://github.com/xitu/gold-miner/blob/master/TODO/what-makes-webassembly-fast.md) ([huzidaha](https://github.com/huzidaha/) 翻译)
 * [新一代 JavaScript 的开发图谱（2017）](https://juejin.im/post/58cfe86f61ff4b006ca26aaf/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([gy134340](http://gy134340.com/) 翻译)
