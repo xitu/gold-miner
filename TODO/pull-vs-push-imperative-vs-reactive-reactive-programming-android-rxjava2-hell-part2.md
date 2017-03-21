@@ -2,7 +2,7 @@
 * 原文作者：[Hafiz Waleed Hussain](http://www.uwanttolearn.com/author/admin/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[XHShirley](https://github.com/XHShirley)
-* 校对者：
+* 校对者：[yunshuipiao](https://github.com/yunshuipiao)，[zhaochuanxing](https://github.com/zhaochuanxing)
 
 ## Pull vs Push & Imperative vs Reactive – Reactive Programming [Android RxJava2]\( What the hell is this ) Part2 ##
 
