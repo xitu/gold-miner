@@ -254,7 +254,7 @@ Redux-observable 也允许你写复杂的异步流，他们用一个复杂的 We
 
 因为你的应用代码里都是纯函数，要测试你的主要功能，你只需要将其作为输入流，并将特定流作为输出。
 
-使用这个很棒的 [@cycle/time](https://github.com/cyclejs/time) 项目，你甚至可以画一个 [弹子图](http://rxmarbles.com/) 并且以一种非常可视化的方式去测试你的函数：
+使用这个很棒的 [@cycle/time](https://github.com/cyclejs/time) 项目，你甚至可以画一个 [弹子图](http://rxmarbles.com/) 并且以一种可视化的方式去测试你的函数：
 
     assertSourcesSinks({
       ACTION: { '-a-b-c----|': actionSource },
