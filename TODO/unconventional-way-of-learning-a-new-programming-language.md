@@ -7,7 +7,7 @@
 ---
 
 # Unconventional way of learning a new programming language
-震惊，还可以用这种姿势学编程
+震惊，还可以用这种姿势学习编程
 
 There are more than 500 programming languages. Hence, it’s pretty normal for you to start learning a new programming language today. It’s possible that you know **C++** and **Java** but your work requires **Python** oryou are well versed in **Python** and you need to code in **Java** at work. Or maybe you want to learn that cool language just to expand your expertise.
 现在已经有 500 多门编程语言了。所以站在今天来说，开始学习一门新的编程语言对你来说是一件很正常的事情。比如你会 C++ 和 Java，但是你的工作却需要用到 Python；或者你精通 Python 但是你工作中用到的语言却是 Java；或者说你只是想扩展一下你的编程技能。
@@ -55,7 +55,7 @@ Last year, I got an offer for full-time job from Booking.com and I knew that I�
 去年，我收到了 Booking 全职工作的邀请，而且我知道我将要用 Perl 语言去工作（因为这个是他们后端主要应用的语言）。2016 年 6 月，我毕业之后就开始学习 Perl，这样我才能做好准备去迎接我大学毕业后的第一份工作。因为我会在 7 月的第二周过去，所以我大概有 1 个月的时间去准备。
 
 I started reading about syntax of Perl and started understanding some of the common patterns of the language. Now, I really wanted to build something using Perl so that I could apply my knowledge of the language and practice various concepts of the language. While I was looking for ideas to build something in Perl, I came across DuckDuckGo’s open source organization on GitHub. I noticed that some of the open projects were written in Perl. I had a look at the issues and found a lot of “beginner” issues. I immediately started working on them and submitted a couple of pull requests. Fast forward to today, I am one of the main contributors for a couple of their open projects and also one of the 20 Open Source Community Leaders for DuckDuckGo.
-我开始阅读 Perl 的语法规则并尝试理解这门语言常用的设计模式。那个时候，我特别想用 Perl 做些什么，那样我就可以应用我学到的知识还可以将这个语言各种各样的概念实践出来。当我还在想我能用 Perl 做些什么的时候，我在 GitHub 上看到了一个叫 DuckDuckGo 的开源项目组织。我注意到它们的一些开源项目是用 Perl 语言写的。我看了看上面的 issue，然后发现有很多 issue 都有“新手（beginner）”的标签。我马上开始着手去解决这些问题并且提交了一些 pull request。到今天为止，我已经成为了他们一些开源项目的主要的贡献者，而且还是 DuckDuckGo 这个开源项目社区 20 个负责人之一。
+我开始阅读 Perl 的语法规则并尝试理解这门语言常用的设计模式。那个时候，我特别想用 Perl 做些什么，那样我就可以应用我学到的知识还可以将这个语言各种各样的概念实践出来。当我还在想我能用 Perl 做些什么的时候，我在 GitHub 上看到了一个叫 DuckDuckGo 的开源项目组织。我注意到它们的一些开源项目是用 Perl 语言写的。我看了看上面的 issue，然后发现有很多 issue 都有“新手（beginner）”的标签。我马上开始着手去解决这些问题并且提交了一些 pull request。到今天为止，我已经成为了他们一些开源项目的主要的贡献者，而且还是 DuckDuckGo 这个开源项目社区中 20 个负责人之一。
 
 > Moral of the story — I ended up learning Perl by contributing to open source projects written in Perl.
 > 这故事想告诉大家的就是 —— 我通过向 Perl 语言写的开源项目贡献代码学习了 Perl 语言。
@@ -131,6 +131,7 @@ This is like getting a free-of-cost personal guidance about how to write good co
 这么说很像是获得了一个教导如何写出优秀代码的免费个人教练。
 
 #### Appreciation
+#### 得到赏识
 
 ![](https://cdn-images-1.medium.com/max/800/1*3qrExiprhpgmLRSfqzW6Yw.png)
 
