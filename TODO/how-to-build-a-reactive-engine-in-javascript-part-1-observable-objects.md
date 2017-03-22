@@ -1,5 +1,5 @@
 > * 原文地址：[How to build a reactive engine in JavaScript. Part 1: Observable objects](https://monterail.com/blog/2016/how-to-build-a-reactive-engine-in-javascript-part-1-observable-objects)
-> * 原文作者：[Damian Dulisz](https://disqus.com/by/damiandulisz/)
+> * 原文作者：本文已获原作者 [Damian Dulisz](https://disqus.com/by/damiandulisz/) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[IridescentMia](https://github.com/IridescentMia)
 > * 校对者：
@@ -479,4 +479,9 @@ Your feedback and ideas on what to cover next are both very welcome in the comme
 非常欢迎在评论区提出你对于下一篇文章讲述内容的反馈和想法！
 
 Thanks for reading. 
+
 感谢阅读。
+
+---
+
+> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[React](https://github.com/xitu/gold-miner#react)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计) 等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)。

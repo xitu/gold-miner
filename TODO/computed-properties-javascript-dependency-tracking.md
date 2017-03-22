@@ -1,5 +1,5 @@
 > * 原文地址：[How to build a reactive engine in JavaScript. Part 2: Computed properties and dependency tracking](https://monterail.com/blog/2017/computed-properties-javascript-dependency-tracking)
-> * 原文作者：[Damian Dulisz](https://disqus.com/by/damiandulisz/)
+> * 原文作者：本文已获原作者 [Damian Dulisz](https://disqus.com/by/damiandulisz/) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：
 > * 校对者：
@@ -458,3 +458,7 @@ As for the 4th part – maybe streams? Would you be interested?
 Feel free to leave your feedback in the comments!
 
 Thanks for reading!
+
+---
+
+> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[React](https://github.com/xitu/gold-miner#react)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计) 等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)。
