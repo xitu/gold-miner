@@ -1,55 +1,54 @@
 > * 原文地址：[What Unit Tests are Trying to Tell us about Activities: Pt. 1](https://www.philosophicalhacker.com/post/what-unit-tests-are-trying-to-tell-us-about-activities-pt1/)
-* 原文作者：[Philosophical Hacker](https://www.philosophicalhacker.com)
-* 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者： 
-* 校对者：
+> * 原文作者：[Philosophical Hacker](https://www.philosophicalhacker.com)
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 译者： [tanglie1993](https://github.com/tanglie1993)
+> * 校对者：[yunshuipiao](https://github.com/yunshuipiao), [skyar2009](https://github.com/skyar2009)
 
 ![](https://www.philosophicalhacker.com/images/broken-brick.jpg)
 
-# What Unit Tests are Trying to Tell us about Activities: Pt. 1
+# 单元测试试图告诉我们关于 Activity 的什么事情：第一部分
 
-`Activity`s and `Fragment`s, perhaps by [some strange historical accidents](/post/why-android-testing-is-so-hard-historical-edition/), have been seen as *the optimal* building blocks upon which we can build our Android applications for much of the time that Android has been around. Let’s call this idea – the idea that `Activity`s and `Fragment`s are the best building blocks for our apps – “android-centric” architecture.
+`Activity` 和 `Fragment`，可能是因为一些[奇怪的历史巧合](/post/why-android-testing-is-so-hard-historical-edition/)，从 Android 推出之时起就被视为构建 Android 应用的**最佳**构件。我们把这种想法——`Activity` 和 `Fragment` 是应用的最佳构件——称为“android-centric”架构。
 
-This series of posts is about the connection between the testability of android-centric architecture and the other problems that are now leading Android developers to reject it; it’s about how our unit tests are trying to tell us that `Activity`s and `Fragment`s don’t make the best building blocks for our apps because they force us to write code with *tight coupling* and *low cohesion*.
+本系列博文是关于 android-centric 架构的可测试性和其它问题之间的联系的，而这些问题正导致 Android 开发者们排斥这种架构。这些博文也涉及单元测试怎样试图告诉我们：`Activity` 和 `Fragment` 不是应用的最佳构件，因为它们迫使我们写出**高耦合**和**低内聚**的代码。
 
-In this first part of the series, I want to say a little about why I think android-centric architecture has been dominant for so long and to provide a little background on why I think unit tests have insightful things to say about rejecting android-centric architecture.
+在本系列文章的第一部分，我想介绍一点 android-centric 架构之所以统治了这么久的原因。另外，我认为单元测试可以为摒弃 android-centric 架构提供有价值的见解。我在第一部分中也将提供一点与之相关的背景。
 
-### What is Android-Centric Architecture?
+### 什么是 Android-Centric 架构？
 
-An android-centric architecture is one in which each screen the user sees is *ultimately* backed by a class whose main purpose is to interact with the android operating system. As we’ll see later, Diane Hackborne and Chet Haase have both recently stated that `Activity`s are an example of such a class. Since `Fragment`s are very similar to `Activity`s, I consider an app where each screen is backed by a `Fragment` to also have an android-centric architecture, even if there’s only one `Activity` in the app.
+在 android-centric 架构中，用户看见的每一个屏幕都**最终**基于一个主要用于和 Android 操作系统交互的类。我们接下来将发现，Diane Hackborne 和 Chet Haase 最近都表示 `Activity` 就是这样的类。因为 `Fragment` 和 `Activity` 非常相似，我认为一个每个屏幕都基于 `Fragment` 的应用也属于 android-centric 架构，哪怕这个应用只有一个 `Activity`。
 
-MVP and VIPER and RIBLETS and…are a thing now in the Android community. However, these suggestions aren’t *necessarily* a full rejection of android-centric architecture. Although there may be `Presenter`s or `Interactors`s or whatever involved, these objects are often still built on top of `Activity`s and `Fragment`s; they could still get instantiated by and delegate to android-centric components, one for each screen the user sees.
+目前，MVP 和 VIPER 和 RIBLETS 等在 Android 社区中都很火。然而，这些建议并不**必然**完全排斥 android-centric 架构。虽然可能涉及 `Presenter` 或 `Interactors` 或其它的东西，这些对象仍是被建筑在 `Activity` 或 `Fragment` 之上的；它们仍然可以被 android-centric 组件实例化或者被委派给这些组件，每个组件对应一个用户看见的屏幕。
 
-An app that doesn’t follow android-centric architecture has one `Activity` and no `Fragment`s. Router and Controller type classes are POJOs.
+一个不遵循 android-centric 架构的应用有一个 `Activity` 并且没有 `Fragment`。Router 和 Controller 类型的类都是 POJOs。
 
-### Why Android-Centric Architecture?
+### 为什么是 Android-Centric 架构？
 
-I suspect that a part of the reason why we buy into android-centric architecture is that Google hasn’t really been clear on what `Activity`s and `Fragment`s are for until relatively recently. On channels less official and visible than the Android docs, [Chet Haase](https://medium.com/google-developers/developing-for-android-vii-the-rules-framework-concerns-d0210e52eee3#.1o25pxfat) and [Diane Hackborne](https://plus.google.com/+DianneHackborn/posts/FXCCYxepsDU) have both suggested that `Activity`s aren’t really the kind of things with which you want to build your application.
+我怀疑我们采用 android-centric 架构的一部分原因是 Google 直到不久以前才搞清楚 `Activity` 和 `Fragment` 是什么。在比 Android 文档更不正规和更不明显的渠道中，[Chet Haase](https://medium.com/google-developers/developing-for-android-vii-the-rules-framework-concerns-d0210e52eee3#.1o25pxfat) 和 [Diane Hackborne](https://plus.google.com/+DianneHackborn/posts/FXCCYxepsDU) 都表示 `Activity` 并不是人们想要用来构建应用的东西。
 
-Here’s Hackborne:
-
-> …With its Java language APIs and fairly high-level concepts, it can look like a typical application framework that is there to say how applications should be doing their work. But for the most part, it is not.
+Hackborne 是这样说的：
+> …从它的 Java 语言 API 和相当高层的概念来看，它像是一个典型的应用框架，用于指示应用应当如何工作。但就大部分情况而言，它不是。
 > 
-> It is probably better to call the core Android APIs a “system framework.” For the most part, the platform APIs we provide are there to define how an application interacts with the operating system; but for anything going on purely within the app, these APIs are often just not relevant.
+> 大概把 Android API 称为“系统框架”会更合适。大多数情况下，我们提供的平台 API 是用于定义一个应用如何与操作系统互动的；但对于任何从纯粹在应用内部运行的东西而言，这些 API 和它并没有什么关系。
 
-and here’s Haase:
+而 Haase 是这样说的：
 
-> Application components (activities, services, providers, receivers) are interfaces for your application to interact with the operating system; don’t take them as a recommendation of the facilities you should architect your entire application around.
+> 应用组件（activities, services, providers, receivers）是用于和操作系统互动的接口；不推荐把它们作为架构整个应用的核心。
 
-Hackborne and Haase almost explicitly reject android-centric architecture. I say “almost”, as they both don’t seem to denounce the use of `Fragment`s as building blocks for our apps. However, there’s a tension between the idea `Activity`s are not suitable app components and that `Fragment`s are, and that tension is as strong as the the many similarities between the two components.
+Hackborne 和 Haase 几乎明确地反对 android-centric 架构。我说“几乎”，因为看起来他们并不反对把 `Fragment` 作为我们应用的构件。然而，尽管“ `Activity` 不是应用的合适组件”和“ `Fragment` 是应用的合适组件”两种观点之间存在着冲突，这两种组件仍然是有很多共同点的。
 
-It might even be fair to say that Google has actually suggested an android-centric architecture through the previous [Google I/O app samples](https://github.com/google/iosched) and the android documentation. The “app components” section of the Android docs is a particularly good example of this. [The section introduction](https://developer.android.com/guide/components/index.html) tells the reader that they’ll learn “how you can build the components [including `Activity`s and `Fragment`s] that define the *building blocks* of your app.”
+似乎可以说：Google 通过以前的 [Google I/O 应用样例](https://github.com/google/iosched) 和官方文档建议人们使用 android-centric 架构。Android  文档的“应用组件”一节是一个很好的例子。 [本节介绍](https://developer.android.com/guide/components/index.html) 告诉读者，他们将会学到“如何建造构成你的应用的**基本组件**（包括 `Activity` 和 `Fragment`）”。
 
-Over the past couple of years, many Android developers – myself included – are starting to realize that `Activity`s and `Fragment`s often are not helpful building blocks for their applications. Companies like [Square](https://medium.com/square-corner-blog/advocating-against-android-fragments-81fd0b462c97), [Lyft](https://eng.lyft.com/building-single-activity-apps-using-scoop-763d4271b41#.mshtjz99n), and [Uber](https://eng.uber.com/new-rider-app/) are moving away from android-centric architecture. Two common complaints stand out: as the app gets more complicated, the code is *difficult to understand* and *too rigid to handle their varying use-cases.*
+在过去几年中，很多 Android 开发者 —— 包括我自己 —— 开始意识到 `Activity` 和 `Fragment` 通常并不是他们应用的有用的构件。包括 [Square](https://medium.com/square-corner-blog/advocating-against-android-fragments-81fd0b462c97)，[Lyft](https://eng.lyft.com/building-single-activity-apps-using-scoop-763d4271b41#.mshtjz99n) 和 [Uber](https://eng.uber.com/new-rider-app/) 在内的一些公司都正在远离  android-centric 架构。两种常见的抱怨是：随着应用不断变得更加复杂，代码变得**难以理解**以及**在处理多种用例时过于死板**。
 
-### What does Testing have to do with this?
+### 测试和它有什么关系？
 
-The connection between testability and understandable, flexible code is well expressed in this quotation from *Growing Object Oriented Software Guided by Tests*:
+*Growing Object Oriented Software Guided by Tests* 中的内容很好地解释了可测试性和容易理解、灵活的代码之间的关系：
 
-> for a class to be easy to unit-test, the class must…be loosely coupled and highly cohesive – in other words, well-designed.
+> 要想让一个类易于单元测试，这个类必须低耦合高内聚 —— 换句话说，设计得好。
 
-Coupling and cohesion have direct bearing on how understandable and flexible your code is, so if this quote is right and if unit testing `Activity`s and `Fragment`s is difficult – and you likely know that even if you haven’t read [my](/post/why-we-should-stop-putting-logic-in-activities/) [posts](https://www.philosophicalhacker.com/2015/04/17/why-android-unit-testing-is-so-hard-pt-1/) suggesting as much – then writing unit tests would have shown us, before Google and painful experiences did, that `Activity`s and `Fragment`s aren’t the building blocks we want for constructing our applications.
+耦合和内聚直接影响了你的代码的可读性和灵活性。所以如果这句话是对的而且 `Activity` 和 `Fragment` 很难进行单元测试（即使你没有看过[我的](/post/why-we-should-stop-putting-logic-in-activities/) [帖子](https://www.philosophicalhacker.com/2015/04/17/why-android-unit-testing-is-so-hard-pt-1/) 也很可能知道这一点），那么单元测试就可以告诉我们 `Activity` 和 `Fragment` 并不是理想的用于构建应用的组件。这样，我们就可以在 Google 告诉我们之前，也在痛苦的开发经验之前，发现这个结论。
 
-### Next Time…
+### 下一次…
 
-In the next post, I’ll try and fail to write an example test against an `Activity` and show exactly how the tight coupling and low cohesion of `Activity`s makes testing difficult. Next, I’ll test drive the same functionality, and we’ll end up with testable code. In the following post, I’ll show how the resulting code is loosely coupled and highly cohesive and talk about some of the benefits of these properties, including how they open up novel solutions to common problems on Android, like runtime permissions and intermittent connectivity.
+在下一篇帖子中，我将尝试对 `Activity` 写一个测试。这个测试将会失败，以显示低内聚高耦合的 `Activity` 使测试变得多么困难。接下来，我将用测试驱动同一个功能的实现，最终得到可测试的代码。在接下来的帖子中，我将说明所得到的代码是高内聚低耦合的，并讨论其带来的一些好处 —— 如何对 Android 常见问题提出新的解决办法，比如运行时权限，不稳定的连接等。
