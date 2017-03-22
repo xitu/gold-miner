@@ -1,10 +1,9 @@
 > * 原文地址：[Things I wish I knew when I started building Android SDK/Libraries](https://android.jlelse.eu/things-i-wish-i-knew-when-i-started-building-android-sdk-libraries-dba1a524d619#.bw591tw8c)
-* 原文作者：本文已获作者 [Nishant Srivastava](https://android.jlelse.eu/@nisrulz) 授权
-* 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：[jifaxu](https://github.com/jifaxu)
-* 校对者：[BoilerYao](https://github.com/BoilerYao), [gaozp](https://github.com/gaozp)
+> * 原文作者：本文已获作者 [Nishant Srivastava](https://android.jlelse.eu/@nisrulz) 授权
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 译者：[jifaxu](https://github.com/jifaxu)
+> * 校对者：[BoilerYao](https://github.com/BoilerYao), [gaozp](https://github.com/gaozp)
 
-# Things I wish I knew when I started building Android SDK/Libraries #
 # 当发布安卓开源库时我希望知道的东西 #
 
 ![](https://cdn-images-1.medium.com/max/1000/1*BfqwDsS3mt2pOslSQnFKCw.png)
@@ -27,7 +26,7 @@
 
 在我们正式开始之前，个所有人在构建安卓库时都会面临的最基本问题，那就是：
 
-### **你为什么要创建一个安卓库？**###
+### **你为什么要创建一个安卓库？** ###
 
 ![](https://cdn-images-1.medium.com/max/800/1*YKokr5q6sL-Cge6AVPBsyQ.gif)
 
@@ -45,7 +44,7 @@
 
 如果你的回答是没有，那么就可以开始编写安卓库了。之后与世界分享你的成果以便别人也可以使用它。
 
-###你的 artifact 有哪些打包方式###
+###你的 artifact 有哪些打包方式 ###
 在开始之前，你需要决定以什么样的方式向开发者发布你的 artifact。
 
 让我在这里解释一下这篇博客中的一些概念。先解释下 **artifact**。
@@ -59,7 +58,7 @@
 - **JAR**：Java Archive 是一个专门将很多 Java 类以及元数据放到一起的包文件。
 - **AAR**：Android Archive 类似于 JAR，但有些额外的功能。和 JAR 不同，**AAR** 可以存储安卓资源和 manifest 文件，这允许你分享诸如布局和 drawable 等资源文件。
 
-### 我们有了 artifact 了，然后呢？这些artifact应该放在哪里呢？###
+### 我们有了 artifact 了，然后呢？这些artifact应该放在哪里呢？ ###
 
 ![](https://cdn-images-1.medium.com/max/600/1*09w_B5kEUXMrLH6Z786d5g.gif)
 
@@ -71,7 +70,7 @@
 
 如果你不想将你的库提交到任何仓库里，你可以产生一个 `arr` 文件并直接使用它。阅读 [StackOverflow 上的一个回答](http://stackoverflow.com/a/28816265/2745762)学习如何实现。
 
-简单来说，将 arr 文件放到 libs 文件夹里(没有就创建)，然后在 build.gradle 中添加如下代码：
+简单来说，将 arr 文件放到 libs 文件夹里（没有就创建），然后在 build.gradle 中添加如下代码：
 
 ```
 dependencies {
@@ -242,7 +241,7 @@ MyAwesomeLibrary.getEmail("username@emailprovider.com");
 <uses-feature android:name="android.hardware.bluetooth" />
 ```
 
-当你在安卓库代码中这么写的时候问题就来了，它会在构建的过程中与应用的 manifest 文件合并，并导致那些没有蓝牙功能的设备无法从 Play 商店中下载它。这样会导致之前对大部分用户可见的app此时却仅仅对一部分用户可见，就只是因为引用了你的库。
+当你在安卓库代码中这么写的时候问题就来了，它会在构建的过程中与应用的 manifest 文件合并，并导致那些没有蓝牙功能的设备无法从 Play 商店中下载它。这样会导致之前对大部分用户可见的 app 此时却仅仅对一部分用户可见，就只是因为引用了你的库。
 
 这可不是我们想要的。所以我们得解决它。不要在 manifest 文件中写 **uses-feature**，在运行时检查是否有这个功能
 
@@ -293,7 +292,6 @@ MyAwesomeLibrary.init(apisecret,debuggable);
 debuggable = true
 ```
 
-### Do not crash silently and fail fast ###
 ### 发生错误的时候让使用者知道 ###
 
 ![](https://cdn-images-1.medium.com/max/600/1*71OXRYnUcGsgX-Ut5aPK6A.png)
@@ -351,8 +349,8 @@ void init(ApiSecret apisecret,boolean debuggable){
 
 ### 避免引用不是必需的库 ###
 
-我觉得这应该时一条大家都知道的规则了，是不是？不要让你的安卓库因为引入了不需要的库而膨胀。但是需要注意的是即使你需要依赖，让你的用户传递性地下载这些依赖（因为用了你的库而不得不去下载另一个库）也不是必须的。比如，那些没有和你的库绑定的依赖。
-*那么现在的问题就是如果没有和我们的库绑定那么我们如何去使用它？*
+我觉得这应该时一条大家都知道的规则了，是不是？不要让你的安卓库因为引入了不需要的库而膨胀。但是需要注意的是即使你需要依赖，让你的用户传递性地下载这些依赖（因为用了你的库而不得不去下载另一个库）。比如，那些没有和你的库绑定的依赖。
+**那么现在的问题就是如果没有和我们的库绑定那么我们如何去使用它？**
 
 答案很简单，要求用户在编译的时候提供你需要的依赖。可能不是每个用户都需要这个依赖提供的方法，对于这些用户来说，如果你找不到这些依赖，你只需要禁用某些方法就行了。对于那些需要的用户，它们会在 `build.gradle` 提供依赖。
 
@@ -431,7 +429,7 @@ dependencies {
 
 GitHub 里 Sensey 库的 Release 部分截图
 
-这是 [*Sensey*](https://github.com/nisrulz/sensey) 的 [*release 链接*](https://github.com/nisrulz/sensey/releases)
+这是 [*Sensey*](https://github.com/nisrulz/sensey) 的 [**release 链接**](https://github.com/nisrulz/sensey/releases)
 
 ### 提供一个极简的示例应用 ###
 
