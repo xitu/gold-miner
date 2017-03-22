@@ -10,7 +10,7 @@
 
 [函数响应式编程](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754) (FRP) 是一个在最近获得了无数关注的编程范式，尤其是在 JavaScript 前端领域。它是一个有很多含义的术语，却描述了一个极为简单的想法:
 
-> 所有的事物都应该是纯粹的以便于测试和推理**（函数式）**，并且使用随时变化的值给异步行为建模 **（响应式）**
+> 所有的事物都应该是纯粹的以便于测试和推理**（函数式）**，并且使用随时变化的值给异步行为建模**（响应式）**。
 
 React 本身并非完全的函数式，也不是完全的响应式。但是它受到了一些来自 FRP 背后理念的启发。例如 [函数式组件](https://facebook.github.io/react/docs/components-and-props.html) 就是一些依赖他们 props 的纯函数。 并且 [他们响应了 prop 和 state 的变化](https://facebook.github.io/react/docs/react-component.html#updating).
 (译者注：无状态组件只接收 props ，这里的 state 应该是指父元素的）
@@ -29,14 +29,13 @@ React 本身并非完全的函数式，也不是完全的响应式。但是它�
 
 ![](https://cdn-images-1.medium.com/max/800/1*GENmEdK1Rq2dB6H4uxzVNw.jpeg)
 
-> “由于有副作用的存在，一个程序的行为依赖于历史记录，即代码执行的顺序，因为理解一个有效的程序需要考虑到所有可能的历史记录，副作用经常会使一个程序很难理解。”— [Norman Ramsey](http://stackoverflow.com/users/41661/norman-ramsey)
-(上面这段翻译的不太好，望指点)
+> “由于有副作用的存在，一个程序的行为依赖于历史记录，即代码执行的顺序，因为理解一个有效的程序需要考虑到所有可能的历史记录，副作用经常会使一个程序很难理解。” —  [Norman Ramsey](http://stackoverflow.com/users/41661/norman-ramsey)
 
 以下是几种现今用来处理 Redux 中的副作用比较流行的方法：
 
-1. [redux-thunk](https://github.com/gaearon/redux-thunk) —将你有副作用的代码放在 action creators 中
-2. [redux-saga](https://github.com/redux-saga/redux-saga) — 使用 sagas 声明你的副作用逻辑
-3. [redux-observable](https://github.com/redux-observable/redux-observable) — 使用响应式编程来给副作用建模
+1. [redux-thunk](https://github.com/gaearon/redux-thunk)  — 将你有副作用的代码放在 action creators 中
+2. [redux-saga](https://github.com/redux-saga/redux-saga)  —  使用 saga 声明你的副作用逻辑
+3. [redux-observable](https://github.com/redux-observable/redux-observable)  —  使用响应式编程来给副作用建模
 
 然而问题是以上方法中没有一个既是纯函数式的又是响应式的。他们中有的（redux-saga）是纯函数有些（redux-observable）则是响应式的，但是没有一个拥有我们前文介绍的 FRP 所拥有的所有的概念。
 
@@ -130,7 +129,7 @@ HTTP driver 知道这个函数返回的 `HTTP` 键值。这是一个包含请求
 
 之后这个 dirver 知道要执行请求，并且将返回值作为 sources（sources.HTTP）返回给 main 函数 — 注意 sinks 和 sources 使用相同的键值。
 
-让我们再解释一次：**我们用** **`sources.HTTP`** 来 ***“被通知 HTTP 已经返回了”，并且我们返回了 ** **`sinks.HTTP`** **来“发送 HTTP请求”**
+让我们再解释一次：**我们用** **`sources.HTTP`** 来 **“被通知 HTTP 已经返回了”，并且我们返回了`sinks.HTTP` 来“发送 HTTP请求”**。
 
 这里有一个动画来解释这一重要的响应式循环：
 
@@ -160,8 +159,7 @@ HTTP driver 知道这个函数返回的 `HTTP` 键值。这是一个包含请求
 
 这是一个同步的流程，意味着一旦你想执行异步行为（为了副作用）你需要使用一些中间件来拦截这些 actions，相应的，你要触发其他的 actions 来执行这个异步副作用。
 
-这正是 [redux-cycles](https://github.com/cyclejs-community/redux-cycles) 所做的。它是一个中间件，拦截
-了 redux actions 后进入 Cycle.js 的响应式循环，并且允许你使用 drivers 去执行其他副作用。然后它基于你函数里的异步数据流描述 dispatch 一个新的 action。
+这正是 [redux-cycles](https://github.com/cyclejs-community/redux-cycles) 所做的。它是一个中间件，拦截了 redux actions 后进入 Cycle.js 的响应式循环，并且允许你使用 drivers 去执行其他副作用。然后它基于你函数里的异步数据流描述 dispatch 一个新的 action。
 
     function main(sources) {
       const request$ = sources.ACTION
