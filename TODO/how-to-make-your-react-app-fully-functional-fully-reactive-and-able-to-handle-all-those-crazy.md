@@ -10,7 +10,7 @@
 
 [函数响应式编程](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754) (FRP) 是一个在最近获得了无数关注的编程范式，尤其是在 JavaScript 前端领域。它是一个有很多含义的术语，却描述了一个极为简单的想法:
 
-> 所有的事物都应该是纯粹的以便于测试和推理**（函数式）**，并且使用随时变化的值给异步行为建模**（响应式）**。
+> 所有的事物都应该是纯粹的以便于测试和推理 **（函数式）**，并且使用随时变化的值给异步行为建模 **（响应式）**。
 
 React 本身并非完全的函数式，也不是完全的响应式。但是它受到了一些来自 FRP 背后理念的启发。例如 [函数式组件](https://facebook.github.io/react/docs/components-and-props.html) 就是一些依赖他们 props 的纯函数。 并且 [他们响应了 prop 和 state 的变化](https://facebook.github.io/react/docs/react-component.html#updating).
 (译者注：无状态组件只接收 props ，这里的 state 应该是指父元素的）
