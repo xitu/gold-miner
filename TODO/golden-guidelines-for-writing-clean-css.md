@@ -219,3 +219,7 @@ sidebar {
 Philip Walton 在其 [“CSS 架构”](http://philipwalton.com/articles/css-architecture/)一文中讨论了相关规则，有关 CSS 架构的更多想法参见 Roberts 的网站 [CSS 原则](http://cssguidelin.es/) 以及 Nicolas Gallagher 的博客文章 [HTML 语义化及前端架构](http://nicolasgallagher.com/about-html-semantics-front-end-architecture/)。
 
 接下来将会探讨有关 CSS 架构的两种方法，这两种方法主要用于提升大规模团队和大规模站点的开发效率，但对于小团队来说其实也是十分适用的。
+
+---
+
+> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[React](https://github.com/xitu/gold-miner#react)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计) 等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)。
