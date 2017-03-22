@@ -7,7 +7,7 @@
 ![](https://d4a7vd7s8p76l.cloudfront.net/uploads/1484604970-4-7876/observables.png)
 
 # [How to build a reactive engine in JavaScript. Part 1: Observable objects](/blog/2016/how-to-build-a-reactive-engine-in-javascript-part-1-observable-objects/) # 
-# 如何用 JavaScript 构建响应式引擎 —— Part 1：可见的对象 #
+# 如何使用 JavaScript 构建响应式引擎 —— Part 1：可见的对象 #
 
 ## The reactive way ##
 ## 响应的方式 ##
@@ -323,13 +323,15 @@ function Seer (dataObj) {
       }
     }
     // We can safely parse the DOM looking for bindings after we converted the dataObject.
-    parseDOM(document.body, obj)
+    //转换数据对象后，可以安全的解析 DOM 绑定。
+    parseDOM(document.body, obj)
   }
 
   function syncNode (node, observable, property) {
     node.textContent = observable[property]
     // We remove the `Seer.` as it is now available for us in our scope.
-    observe(property, () => node.textContent = observable[property])
+    // 移除了 `Seer.` 是因为 observe 函数在可获得的作用域范围之内。
+    observe(property, () => node.textContent = observable[property])
   }
 
   function parseDOM (node, observable) {
@@ -367,6 +369,7 @@ JS
 ```
 // This code uses ES2015.
 // Please use a compatible browser like: Chrome, Opera, Firefox
+// 代码用了 ES2015，使用兼容的浏览器才可以哦，比如 Chrome，Opera，Firefox
 
 function Seer (dataObj) {
   let signals = {}
@@ -412,12 +415,14 @@ function Seer (dataObj) {
       }
     }
     // We can safely parse the DOM looking for bindings after we converted the dataObject.
+    //转换数据对象后，可以安全的解析 DOM 绑定。
     parseDOM(document.body, obj)
   }
 
   function syncNode (node, observable, property) {
     node.textContent = observable[property]
     // We remove the `Seer.` as it is now available for us in our scope.
+    // 移除了 `Seer.` 是因为 observe 函数在可获得的作用域范围之内。
     observe(property, () => node.textContent = observable[property])
   }
 
