@@ -2,7 +2,7 @@
 * 原文作者：[Nick Babich](https://uxplanet.org/@101?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[sunui](http://suncafe.cc)
-* 校对者：
+* 校对者：[iloveivyxuan](https://github.com/iloveivyxuan)、[Graning](https://github.com/Graning)
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*HgoOq5VKfmNfswUF8GM7pg.jpeg">
 
@@ -14,9 +14,9 @@
 
 ### 1. 点击搜索按钮后，不要清除用户的查询内容 ###
 
-**保留用户输入的原始文字。** 如果用户没有找到他们想要的信息，他们可能会把一部分查询内容改为更清晰的关键词再搜索一遍。为了方便用户进行查询，在搜索框中留下初始的关键词，让用户不至于重复输入。
+**保留用户输入的原始文字。** 再次查询是信息检索中关键的一步。如果用户没有找到他们想要的信息，他们可能会把一部分查询内容改为更清晰的关键词再搜索一遍。为了方便用户进行查询，在搜索框中留下初始的关键词，让用户不至于重复输入。
 
-### 2. 提供准确而相关的搜索结果 ###
+### 2. 提供准确而且相关的搜索结果 ###
 
 **搜索结果的第一页是黄金位置。** 搜索结果页是一次搜索体验的焦点，它可以成全或者毁掉一个网站的转化率。通常用户可以基于一两组搜索结果就可以快速判断一个网站是否存在价值。
 
@@ -24,7 +24,7 @@
 
 ### 3. 使用有效的自动提示 ###
 
-**无效的自动提示会让搜索体验大打折扣。** 请确保自动提示是可用的。当用户输入文字时，像识别词根、预测文本、搜索建议都是一些对用户很有帮助的功能。这些做法有助于加快搜索进度，并让用户随时进行跳转。
+**无效的自动提示会让搜索体验大打折扣。** 请确保自动提示是有用的。当用户输入文字时，像识别词根、预测文本、搜索建议都是一些对用户很有帮助的功能。这些做法有助于加快搜索进度，并让用户随时进行跳转。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*AQFWWqXrznprydFeOL-axg.png">
 
@@ -36,7 +36,7 @@
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*U3xATz5_lkAgYsjJXNlH7g.png">
 
-不支持搜索重组的苹果应用商店上没有搜索到结果页面
+不支持搜索重组的苹果商店上没有搜索到结果页面。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*i0oGvymAq0dl7rhLjdLvug.png">
 
@@ -48,11 +48,11 @@ Asos 网站在用户打字错误时，很好地显示了一组代替结果来避
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*WC83Jp1xpJtLdMbuc5hhiQ.png">
 
-匹配的结果数量能够帮助用户做出更明智的搜索
+匹配的结果数量能够帮助用户更好地判断如何二次检索。
 
 ### 6. 保留用户最近的搜索记录 ###
 
-即使用户很熟悉搜索引擎的特征，搜索这件事仍然需要用户从他们的记忆里唤起信息。为了想出一个有意义的关键词，用户需要考虑到他要查找的目标所具有的相关属性，并将它们融合到查询条件中。设计搜索体验时，你应该时刻记住基本的可用性原则：  
+即使用户很熟悉搜索引擎的功能，搜索这件事仍然需要用户从他们的记忆里唤起信息。为了想出一个有意义的关键词，用户需要考虑到他要查找的目标所具有的相关属性，并将它们融合到查询条件中。设计搜索体验时，你应该时刻记住基本的可用性原则：
 
 > 尊重用户的努力
 
@@ -100,7 +100,7 @@ Asos 网站在用户打字错误时，很好地显示了一组代替结果来避
 
 Aviasales 网站提示用户 **搜索需要一些时间**
 
-**提示:** 如果搜索过于耗时，你可以使用动画. 好的动画能够使你的访客分散注意力，让他们忽略漫长的等待。
+**提示:** 如果搜索过于耗时，你可以使用动画. 好的动画能够分散访客的注意力，让他们忽略漫长的等待。
 
 ### 9. 提供排序和筛选的选项 ###
 
@@ -108,13 +108,13 @@ Aviasales 网站提示用户 **搜索需要一些时间**
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*sKSFUtpTpH1KH6rKtJrDYQ.png">
 
-筛选选项能帮助用户缩小和组织他们的搜索结果，不然会需要大量的（过多的）滚动和分页。
+筛选选项可以帮助用户减少搜索结果并对其排序，不然会需要大量的（过多的）滚动和分页。
 
 **提示:**
 
 - 也很重要的一点是不要让用户对过多的过滤选项感到不知所措。如果你的搜索需要大量的过滤，应该为它们设定默认值。
 - 不要在筛选功能中隐藏排序功能，它们是不一样的。
-- 当用户选择了一个狭窄的搜索范围，在搜索结果页的顶部要明确说明这这个范围。
+- 当用户限制了搜索范围，在搜索结果页的顶部要明确说明这这个范围。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*ScC1SnfDGtI6fZ6UUpvNPg.png">
 
