@@ -6,7 +6,7 @@
 
 # WebAssembly 的现在与未来
 
-本文是关于 WebAssembly 系列的第六篇文章，也同时是本系列的收尾文章。如果你没有读先前文章的话，建议[先读这里](https://github.com/xitu/gold-miner/blob/master/TODO/a-cartoon-intro-to-webassembly.md)。
+**本文是关于 WebAssembly 系列的第六篇文章，也同时是本系列的收尾文章。如果你没有读先前文章的话，建议[先读这里](https://github.com/xitu/gold-miner/blob/master/TODO/a-cartoon-intro-to-webassembly.md)。**
 
 2017 年 2 月 28 日，四个主要的浏览器[一致同意宣布](https://lists.w3.org/Archives/Public/public-webassembly/2017Feb/0002.html) WebAssembly 的 MVP 版本已经完成，它是一个浏览器可以搭载的稳定版本。
 

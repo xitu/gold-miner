@@ -1,27 +1,27 @@
 > * 原文地址：[Golden Guidelines for Writing Clean CSS](https://www.sitepoint.com/golden-guidelines-for-writing-clean-css/)
 > * 原文作者：本文已获作者 [Tiffany Brown](https://www.sitepoint.com/author/tbrown/) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
-> * 校对者：
+> * 译者：[reid3290](https://github.com/reid3290)
+> * 校对者：[weapon-xx](https://github.com/weapon-xx)，[bambooom](https://github.com/bambooom)
 
 ---
 
-# Golden Guidelines for Writing Clean CSS
+# 编写整洁 CSS 代码的黄金法则
 
-### Golden Guidelines for Writing Clean CSS
+### 编写整洁 CSS 代码的黄金法则
 
-As mentioned, there are some rules for writing clean CSS that you should try your best to avoid breaking. They’ll help you write CSS that is lightweight and reusable:
+要编写整洁的 CSS 代码，有一些规则是应当极力遵守的，这有助于写出轻量可复用的代码：
 
-- Avoid global and element selectors
-- Omit overly specific selectors
-- Use semantic class names
-- Don’t tie CSS too closely to markup structure
+- 避免使用全局选择器和元素选择器
+- 避免使用权重（specific）过高的选择器
+- 使用语义化类名
+- 避免 CSS 和标签结构的紧耦合
 
-Let’s look at these one by one.
+本文将依次阐述上述规则。
 
-### Avoid Global Selectors
+### 避免使用全局选择器
 
-Global selectors include the universal selector (`*`), element selectors such as `p`, `button`, and `h1`, and attribute selectors such as `[type=checkbox]`. Style declarations applied to these selectors will be applied to every such element across the site. Here’s an example:
+全局选择器包括通配选择器（`*`）、元素选择器（例如`p`、`button`、`h1`等）和属性选择器（例如`[type=checkbox]`），这些选择器下的 CSS 属性会被应用到全站所有符合要求的元素上，例如：
 
 ```
 button {
@@ -35,7 +35,7 @@ button {
 }
 ```
 
-This seems innocuous enough. But what if we want to create a button that’s styled differently? Let’s style a `.close` button that will be used to close dialog modules:
+这段代码看似无伤大雅，但如果我们需要一个样式不同的 `button` 呢？假设需要一个用于关闭对话框组件的 `.close` button：
 
 ```
 <section class="dialog">
@@ -43,11 +43,11 @@ This seems innocuous enough. But what if we want to create a button that’s sty
 </section>
 ```
 
-##### Note: Why not use `dialog?`
+##### 注意: 为什么不使用 `dialog` 元素？
 
-We’re using `section` here instead of the `dialog` element because support for `dialog` is limited to Blink-based browsers such as Chrome/Chromium, Opera, and Yandex.
+##### 此处使用了 `section` 元素而非 `dialog`，因为只有基于 Blink 内核的浏览器才支持 `dialog` 元素， 例如 Chrome/Chromium、Opera、和 Yandex 等。
 
-Now we need to write CSS to override every line that we don’t want to inherit from the `button` rule set:
+现在，需要编写 CSS 代码来覆盖那些不需要继承于 `.button` 的属性：
 
 ```
 .close {
@@ -65,7 +65,7 @@ Now we need to write CSS to override every line that we don’t want to inherit 
 }
 ```
 
-We’d still need many of these declarations to override browser defaults. But what if we scope our `button` styles to a `.default` class instead? We can then drop the `display`, `font-weight`, `line-height`, `margin`, `padding`, and `width` declarations from our `.close` rule set. That’s a 23% reduction in size:
+除此之外，还需要编写大量类似代码来覆盖浏览器的默认样式。但如果将元素选择器 `button` 用类选择器 `.default` 来替代会如何呢？显而易见，`.close` 不再需要指定`display`、`font-weight`、 `line-height`、`margin`、 `padding`和`width`等属性，这便减少了 23% 的代码量：
 
 ```
 .default {
@@ -88,34 +88,34 @@ We’d still need many of these declarations to override browser defaults. But w
 }
 ```
 
-Just as importantly, avoiding global selectors reduces the risk of styling conflicts. A developer working on one module or document won’t inadvertently add a rule that creates a side effect in another module or document.
+还有一点同样重要：避免使用全局选择器有助于减少样式冲突，即某个模块（或页面）的样式不会意外地影响到另一个模块（或页面）的样式。
 
-Global styles and selectors are perfectly okay for resetting and normalizing default browser styles. In most other cases, however, they invite bloat.
+对于重置和统一浏览器默认样式，全局选择器完全适用；但对于其他大部分情况而言，全局选择器只会造成代码臃肿。
 
-### Avoid Overly Specific Selectors
+### 避免使用权重过高的选择器
 
-Maintaining low specificity in your selectors is one of the keys to creating lightweight, reusable, and maintainable CSS. As you may recall on specificity, a type selector has the specificity 0,0,1. Class selectors, on the other hand, have a specificity of 0,1,0:
+保持选择器的低权重是编写轻量级、可复用和可维护的 CSS 代码的又一关键所在。你可能记得什么是权重，元素选择器的权重是 `0,0,1`，而类选择器的权重则是 `0,1,0`：
 
 ```
-/* Specificity of 0,0,1 */
+/* 权重：0,0,1 */
 p {
   color: #222;
   font-size: 12px;
 }
 
-/* Specificity of 0,1,0 */
+/* 特殊性：0,1,0 */
 .error {
   color: #a00;
 }
 ```
 
-When you add a class name to an element, the rules for that selector take precedence over more generic-type selector rules. There’s no need to further qualify a class selector by combining it with a type selector. Doing so increases the specificity of that selector and increases the overall file size.
+当为元素选择器加上一个类名后，该选择器的优先级就会高于一般的选择器。没有必要将类选择器和元素选择器组合在一起来提升优先级，这样做会提升选择器的权重和增加文件体积。
 
-Put differently, using `p.error` is unnecessarily specific because `.error` achieves the same goal. Another advantage is that `.error` can be reused with other elements. A `p.error` selector limits the `.error` class to `p` elements.
+换句话说，没有必要使用 `p.error` 这样的选择器，因为仅仅一个 `.error` 就能达到同样的效果；此外 `.error` 还可以被其他元素所复用，而 `p.error` 则会将 `.error` 这个类限制于 `p` 元素上。
 
-#### Don’t Chain Classes
+#### 避免链接类选择器
 
-Also avoid chaining class selectors. Selectors such as `.message.warning` have a specificity of 0,2,0. Higher specificity means they’re hard to override, plus chaining often causes side effects. Here’s an example:
+还需要避免链接类选择器。形如 `.message.warning` 这样的选择器权重为 `0,2,0`。越高的权重意味着越难进行样式覆盖，而且这种链接还会造成其他副作用。例如：
 
 ```
 message {
@@ -134,21 +134,21 @@ message {
 }
 ```
 
-Using `<p class="message">` with this CSS gives us a nice gray box with a dark gray border, as seen in Figure 2.1:
+如下图所示，在上述 CSS 的作用下，`<p class="message">` 会得到一个带有深灰色边框和灰色背景的盒子。
 
 ![](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2017/03/1489119564SelectorChainingNoChain.png)
 
-Using `<p class="message error">`, however, gives us the background of `.message.error` and the border of `.error` shown in Figure 2.2:
+但 `<p class="message error">` 却会得到 `.message.error` 的背景和 `.error` 的边框：
 
 ![](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2017/03/1489119684SelectorChaining.png)
 
-The only way to override a chained class selector would be to use an even more specific selector. To be rid of the yellow border, we’d need to add a class name or type selector to the chain: `.message.warning.exception` or `div.message.warning`. It’s more expedient to create a new class instead. If you do find yourself chaining selectors, go back to the drawing board. Either the design has inconsistencies, or you’re chaining prematurely in an attempt to prevent problems that you don’t have. Fix those problems. The maintenance headaches you’ll prevent and the reusability you’ll gain are worth it.
+要想覆盖链接在一起的类选择器的样式，只能使用权重更高的选择器。在上例中，要想让边框不是黄色就需要在已有选择器上再加一个类名或一个标签选择器： `.message.warning.exception` 或 `div.message.warning`。更好的做法是创建一个新类。如果你发现你正在链接选择器，那就该回过头重新考量了：要么是设计上存在不一致的地方，要么就是过早尝试避免那些尚不存在的问题。解决这些问题将会带来更高的可维护性和可复用性。
 
-#### Avoid Using `id` Selectors
+#### 避免使用 `id` 选择器
 
-Because you can only have one element per `id` per document, rule sets that use `id` selectors are hard to repurpose. Doing so typically involves using a list of `id` selectors; for example, `#sidebar-features` and `#sidebar-sports`.
+在一个 HTML 文档中一个 `id` 只能对应一个元素，因此应用于 `id` 选择器的 CSS 规则是很难复用的。这样做一般都会涉及到一系列的 `id` 选择器，例如  `#sidebar-features` 和 `#sidebar-sports`。
 
-Identifiers also have a high degree of specificity, so we’ll need longer selectors to override declarations. In the CSS that follows, we need to use `#sidebar.sports` and `#sidebar.local` to override the background color of `#sidebar`:
+此外，`id` 选择器具有很高的权重，要想覆盖它们就必须使用更“长”的选择器。例如下面这段 CSS 代码，为了覆盖 `#sidebar` 的背景颜色属性，必须使用 `#sidebar.sports` 和 `#sidebar.local`：
 
 ```
 #sidebar {
@@ -164,7 +164,7 @@ Identifiers also have a high degree of specificity, so we’ll need longer selec
 }
 ```
 
-Switching to a class selector, such as `.sidebar`, lets us simplify our selector chain:
+改用类选择器，例如 `.sidebar`，可以简化 CSS 选择器：
 
 ```
 sidebar {
@@ -180,42 +180,46 @@ sidebar {
 }
 ```
 
-As well as saving us a few bytes, our `.sports`, and `.local` rule sets can now be added to other elements.
+ `.sports` 和 `.local` 不仅节省了好几个字节，还可以复用到其他元素上。
 
-Using an attribute selector such as `[id=sidebar]` lets us get around the higher specificity of an identifier. Though it lacks the reusability of a class selector, the low specificity means that we can avoid chaining selectors.
+使用属性选择器（例如 `[id=sidebar]`）可以解决 `id` 选择器高权重的问题，尽管其复用性不如类选择器，但其低权重可以让我们避免使用链式选择器。
 
-##### Note: When the High Specificity of `id` Selectors is Useful
+##### 注意:  `id` 选择器的高权重也确有用武之地
 
-In some circumstances, you might *want* the higher specificity of an `id` selector. For example, a network of media sites might wish to use the same navigation bar across all of its web properties. This component must be consistent across sites in the network, and should be hard to restyle. Using an `id` selector reduces the chances of those styles being accidentally overridden.
+在某些情况下，你可能确实需要 `id` 选择器的高特殊性。例如，一些媒体站点可能需要其所有子站都使用同样的导航条组件，该组件必须在所有站点都表现一致并且其样式是难以被覆盖的。此时，使用 `id` 选择器就可以减少导航条样式被意外覆盖的情况。
 
-Finally, let’s talk about selectors such as `#main article.sports table#stats tr:nth-child(even) td:last-child`. Not only is it absurdly long, but with a specificity of 2,3,4, it’s also not reusable. How many *possible* instances of this selector can there be in your markup? Let’s make this better. We can immediately trim our selector to `#stats tr:nth-child(even) td:last-child`. It’s specific enough to do the job. Yet the far better approach—for both reusability and to minimize the number of bytes—is to use a class name instead.
+最后，再来讨论一下形如 `#main article.sports table#stats tr:nth-child(even) td:last-child` 这样的选择器。这条选择器不仅长的离谱，而且其权重为 `2,3,4`，也很难复用。试想 HTML 中会有多少标签真能匹配这一选择器呢？稍作思考，就可以将上述选择器其缩减为 `#stats tr:nth-child(even) td:last-child`，其权重也足够满足需求了。但还有更好的方法既能提高复用性又能减少代码量，也就是使用类选择器。
 
-##### Note: A Symptom of Preprocessor Nesting
+##### 注意：预处理器嵌套综合症
 
-Overly specific selectors are often the result of too much preprocessor nesting.
+权重过高的选择器大多源于预处理器中过多的嵌套（译注：此处所指应是 Sass 中选择器嵌套过深）。
 
-#### Use Semantic Class Names
+#### 使用语义化类名
 
-When we use the word *semantic*, we mean *meaningful*. Class names should describe what the rule does or the type of content it affects. We also want names that will endure changes in the design requirements. Naming is harder than it looks.
+所谓**语义化**，是指要**有意义** —— 类名应当能够表明其规则有何作用或会作用于哪些内容。此外类名也要能够适应 UI 需求的变化。命名看似简单，实则不然。
 
-Here are examples of what not to do: `.red-text`, `.blue-button`, `.border-4px`, `.margin10px`. What’s wrong with these? They are too tightly coupled to the existing design choices. Using `class="red-text"` to mark up an error message does work. But what happens if the design changes and error messages become black text inside orange boxes? Now your class name is inaccurate, making it tougher for you and your colleagues to understand what’s happening in the code.
+例如，不要使用 `.red-text`、`.blue-button`、 `.border-4px` 和  `.margin10px` 这样的类名，这些类名和当前的设计耦合得太紧了。用 `class="red-text"` 来修饰错误信息看似可行，但如果设计稿发生了变化并要求将错误信息用橙底黑字表示呢？这时原有类名就不准确了，使人难以理解代码的真正含义。
 
-A better choice in this case is to use a class name such as `.alert`, `.error`, or `.message-error`. These names indicate how the class should be used and the kind of content (error messages) that they affect. For class names that define page layout, add a prefix such as `layout-`, `grid-`, `col-`, or simply `l-` to indicate at a glance what it is they do. The section on BEM methodology later on describes a process for this.
+在这个例子中，最好使用 `.alert`、`.error`  或是  `.message-error`  这样的类名，这些类名表明了该如何使用它们以及它们会影响哪些内容（即错误信息）。对用于页面布局的类名，不妨加上 `layout-`、 `grid-`、 `col-` 或 `l-` 等前缀，使人一眼可以看出它们的作用。之后关于 BEM 方法论的章节详细阐述了这一过程。
 
-#### Avoid Tying CSS Closely to Markup
+#### 避免 CSS 和标签结构的紧耦合
 
-You’ve probably used child or descendant selectors in your code. Child selectors follow the pattern `E > F` where F is an element, and E is its *immediate* parent. For example, `article > h1` affects the `h1` element in `<article><h1>Advanced CSS</h1></article>`, but not the `h1` element in `<article><section><h1>Advanced CSS</h1></section></article>`. A descendant selector, on the other hand, follows the pattern `E F` where F is an element, and E is an ancestor. To use our previous example, `article h1` selects the `h1` element in both cases.
+你可能在代码中使用过子元素选择器和后代选择器。子元素选择器形如 `E > F`，其中 F 是某个元素，而 E 是 F 的**直接**父元素。例如，`article > h1` 会影响 `<article><h1>Advanced CSS</h1></article>` 中的 `h1` 元素，但不会影响 `<article><section><h1>Advanced CSS</h1></section></article>` 中的 `h1` 元素。另一方面，后代选择器形如 `E F`，其中 F 是某个元素而 E 是 F 的祖先元素。还用上述例子，则那两种标签结构中的 `h1` 元素都会受到 `article h1` 的影响。
 
-Neither child nor descendant selectors are inherently bad. In fact, they work well to limit the scope of CSS rules. But they’re far from ideal, however, because markup occasionally changes.
+子元素选择器和后代选择器本身并没有问题，实际上它们在限制 CSS 规则的作用域方面确实发挥着很好的作用。但它们也绝非理想之选，因为标签结构经常会发生改变。
 
-Raise your hand if you’ve ever experienced the following. You’ve developed some templates for a client and your CSS uses child and descendant selectors in several places. Most of those children and descendants are also element selectors, so selectors such as `.promo > h2` and `.media h3` are all over your code. Your client also hired an SEO consultant, who reviewed your markup and suggested you change your `h2` and `h3` elements to `h1` and `h2` elements. The problem is that we also have to change our CSS.
+遇到过如下情况的同学请举手：你为某个客户编写了一些模版，并且在 CSS 代码中用到了子元素选择器和后代选择器，并且大多数都是元素选择器，即形如 `.promo > h2` 和 `.media h3` 这样的选择器；后来你的客户又聘请了一位 SEO 技术顾问，他检查了你代码中的标签结构并建议你将 `h2` 和 `h3` 分别改为 `h1` 和  `h2`，这时候问题来了 —— 你必须同时修改 CSS 代码。
 
-Once again, class selectors reveal their advantage. Using `.promo > .headline` or `.media .title` (or more simply `.promo-headline` and `.media-title`) lets us change our markup without having to change our CSS.
+在上述情况下，类选择器再一次表现出其优点。使用  `.promo > .headline` 或 `.media .title` （或者更简单一些： `.promo-headline` 和 `.media-title`）使得在改变标签结构的时候无需改变 CSS 代码。
 
-Of course, this rule assumes that you have access to and control over the markup. This may not be true if you’re dealing with a legacy CMS. It’s appropriate and necessary to use child, descendant, or pseudo-class selectors in such cases.
+当然，这条规则假设你对标签结构有足够的控制权，这在面对一些遗留的 CMS 系统的时候可能是不现实的，在这种情况下使用子元素选择器、后代选择器和伪类选择器是适当的同时也是必要的。
 
-##### Note: More Architecturally Sound CSS Rules
+##### PS：更多架构合理的 CSS 规则
 
-Philip Walton discusses these and other these rules in his article [“CSS Architecture.”](http://philipwalton.com/articles/css-architecture/) I also recommend Harry Roberts’ site [CSS Guidelines](http://cssguidelin.es/) and Nicolas Gallagher’s post [About HTML Semantics and Front-end Architecture](http://nicolasgallagher.com/about-html-semantics-front-end-architecture/) for more thoughts on CSS architecture.
+Philip Walton 在其 [“CSS 架构”](http://philipwalton.com/articles/css-architecture/)一文中讨论了相关规则，有关 CSS 架构的更多想法参见 Roberts 的网站 [CSS 原则](http://cssguidelin.es/) 以及 Nicolas Gallagher 的博客文章 [HTML 语义化及前端架构](http://nicolasgallagher.com/about-html-semantics-front-end-architecture/)。
 
-We’ll now look at two methodologies for CSS architecture. Both methods were created to improve the development process for large sites and large teams; however, they work just as well for teams of one.
+接下来将会探讨有关 CSS 架构的两种方法，这两种方法主要用于提升大规模团队和大规模站点的开发效率，但对于小团队来说其实也是十分适用的。
+
+---
+
+> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[React](https://github.com/xitu/gold-miner#react)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计) 等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)。
