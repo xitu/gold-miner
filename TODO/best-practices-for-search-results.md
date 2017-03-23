@@ -1,8 +1,8 @@
-* 原文地址：[Best Practices for Search Results](https://uxplanet.org/best-practices-for-search-results-1bbed9d7a311#.8pysknjlm)
-* 原文作者：[Nick Babich](https://uxplanet.org/@101?source=post_header_lockup)
-* 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：[sunui](http://suncafe.cc)
-* 校对者：[iloveivyxuan](https://github.com/iloveivyxuan)、[Graning](https://github.com/Graning)
+> * 原文地址：[Best Practices for Search Results](https://uxplanet.org/best-practices-for-search-results-1bbed9d7a311#.8pysknjlm)
+> * 原文作者：[Nick Babich](https://uxplanet.org/@101?source=post_header_lockup)
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 译者：[sunui](http://suncafe.cc)
+> * 校对者：[iloveivyxuan](https://github.com/iloveivyxuan)、[Graning](https://github.com/Graning)
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*HgoOq5VKfmNfswUF8GM7pg.jpeg">
 
@@ -131,3 +131,7 @@ Aviasales 网站提示用户 **搜索需要一些时间**
 搜索引擎是构建一个优秀网站的关键要素。用户在寻找和学习事物时期望一个流畅的体验，而且他们通常基于一两组搜索结果的质量对网站的价值做出非常快速的判断。一个优秀的搜索工具应当能够帮助用户快速而简单地查找他们想要的结果。
 
 谢谢!
+
+---
+
+> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[React](https://github.com/xitu/gold-miner#react)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计) 等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)。
