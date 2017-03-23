@@ -7,25 +7,34 @@
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*i1B2ZqmzIJDI3eZrKhFhhw.png">
 
 # How to Create a Bubble Selection Animation on Android #
+# Android 如何实现气泡选择动画 #
 
 *Authors:* [*Irina Galata*](https://github.com/igalata) *, Android Developer;* [*Yulia Serbenenko*](https://dribbble.com/yuyonder) *, UI/UX designer.*
+**作者：[Irina Galata](https://github.com/igalata) Android 开发者；[Yulia Serbenenko](https://dribbble.com/yuyonder) UI/UX 设计师**
 
 There is a growing trend for unifying user experience across platforms: in early days iOS and Android had their own unique feel, but recently they have been growing closer together in the way applications are designed and interactions happen.
+跨平台用户体验统一正处于增长趋势：早些时候 iOS 和安卓有着不同的体验，但是最近在应用设计以及交互方面变得越来越接近。
 
 From [bottom navigation](https://material.io/guidelines/components/bottom-navigation.html#)  to split screen feature available in Nougat Android, there is a lot of common between two platforms these days. For designers it means that often we can adjust popular features that were once associated with one platform to apps designed for another one. As for developers, it is a great chance to improve and refine their technical skills.
+从安卓 Nougat 的[底部导航](https://material.io/guidelines/components/bottom-navigation.html#)到分屏特性，两个平台间有了许多相同之处。对设计师而言，我们可以将主流功能设计成两个平台一致（过去需要单独设计）。对开发者而言，这是一个提高、改进开发经验的好机会。
 
 So we decided to create the component with the bubble based interface for Android, drawing our inspiration from selection bubbles in [Apple music](http://www.apple.com/lae/apple-music/) .
+所以我们决定开发一个安卓气泡选择的组件库 —— 灵感来自于[苹果音乐](http://www.apple.com/lae/apple-music/)的气泡选择。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*CNJ0D-EBz0l_JAyRzqo4Uw.gif">
 
 
 ### ***Put design first*** ###
+### **先说设计** ###
 
 Our Bubble Picker is an example of the animation that is equally appealing to different groups of users. Bubbles summarize information into convenient UI elements that are easy to understand and also visually consistent. It makes the interface simple enough for novice users and still feels interesting for experienced ones.
+我们的气泡选择动画是一个好的范例，它对不同的用户群体有着同样的吸引力。气泡以方便的 UI 元素汇总信息，通俗易懂并且视觉一致。它会让交互对新手足够简单并让经验用户依然感兴趣。
 
 This type of animation is very helpful for apps rich in content, where users have to make a choice from a list of options. For example, in our component we used bubbles to hold names of potential destinations for a travel app. Bubbles float freely, and when a user taps on one of them, the chosen bubble grows in size. It gives users a meaningful feedback on their actions and enhances the sense of direct manipulation.
+这种动画类型对丰富应用的内容由很大帮助，主要体现在用户要从一系列选项中进行选择的地方。例如，我们使用气泡来选择旅游应用中潜在目的地名字。气泡自由的浮动，当用户点击一个气泡时，选中的气泡会变大。这给用户很深刻的反馈并增强操作的直观感受。
 
 The component is pretty with a white theme, lots of bright colors and photographs throughout. Moreover, I decided to experiment with gradients in order to add more depth and volume. Gradients might be the major visual in the display and might attract the attention of new visitors.
+组件使用白色主题，布满明亮的颜色和图片十分漂亮。此外，我决定试验渐变来增加深度和体积。渐变可能是主要的显示视觉，会吸引新用户的注意。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*IUb8sRFq9huEwVB2gUXtOw.png">
 
