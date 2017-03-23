@@ -2,13 +2,13 @@
 * 原文作者：[Yonatan V. Levin](https://medium.com/@yonatanvlevin)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[skyar2009](https://github.com/skyar2009)
-* 校对者：
+* 校对者：[phxnirvana](https://github.com/phxnirvana), [yazhi1992](https://github.com/yazhi1992)
 
 ---
 
 # 离线支持：不再『稍后重试』。
 
-我很荣幸生活在一个 4G 网络和 Wifi 随处可见的国家，家中、公司、甚至我朋友公寓的地下室。
+我很荣幸生活在一个 4G 网络和 Wifi 随处可见的国家，家中、公司、甚至我朋友公寓的地下室（都有网络）。
 尽管如此，我依然会遇到下面的问题：
 
 ![](https://cdn-images-1.medium.com/max/800/1*7yb_YRDhcX6EJJNCzWvRKA.png)
@@ -19,13 +19,13 @@
 
 或许是手机在和我开玩笑吧……
 
-网络链接是我用过最不稳定的东西。95% 的情况下网络是正常工作的，往往我能毫无问题的欣赏喜欢的音乐，但是在电梯中发送消息会失败。
+网络连接是我用过最不稳定的东西。95% 的情况下网络是正常工作的，我能流畅地欣赏喜欢的音乐，但是在电梯中发送消息则往往会失败。
 
 像我们程序员生存在良好的的网络环境下这不是什么问题，但事实上这是个问题。甚至会伤害你的用户，尤其是他们最需要你的 App 时（详见[墨菲定律](https://en.wikipedia.org/wiki/Murphy%27s_law)）。
 
-作为一个 Android 用户，在很多安装的应用中都发现『重试』问题的发生。我争取为这类问题做些什么，至少是在自己的应用中。
+作为一个 Android 用户，我注意到了在我安装的许多应用中都存在『重试』的问题。我努力做些什么改善这类问题，至少是在自己的应用中。
 
-关于离线支持有很多好的观点，例如 [Yigit Boyar](https://medium.com/@yigitboyar) 和他的[ IO talk](https://www.youtube.com/watch?v=70WqJxymPr8) (你甚至可以看到我在前排为他点赞).
+关于离线支持有很多好的观点，例如 [Yigit Boyar](https://medium.com/@yigitboyar) 和他的[ IO talk](https://www.youtube.com/watch?v=70WqJxymPr8) (你甚至可以看到我在前排为他点赞)。
 
 ---
 
@@ -35,18 +35,18 @@
 
 最终，当我开始创办自己的公司 [KolGene](https://www.kolgene.com) 之后，我有了机会。大家都知道，创业公司首先需要构建一个 [MVP](https://en.wikipedia.org/wiki/Minimum_viable_product) 来验证假设的正确性。这个过程是如此的关键、艰难，任何一个环节都可能出错，甚至因为未联网问题而导致失去一个用户也是无法接受的。
 
-每一个失去的用户都花费了我们许多钱。
+每失去一个用户都意味着我们的许多支出打了水漂。
 如果是因为应用使用体验差而离开，那也是不能接受的。
 
-我们的应用使用很简单：临床医生在手机应用上创建基因测试的请求；相关实验室将受到信息、提交试验结果；临床医生收到结果，并根据需要选择最好的结果。
+我们的应用使用很简单：临床医生在手机应用上创建基因测试的请求；相关实验室将收到信息、提交试验结果；临床医生收到结果，并根据需要选择最好的结果。
 
 ![](https://cdn-images-1.medium.com/max/600/1*9r3IDFmhfe5h0bBUeesSFg.gif)
 
 经过一系列 UX 方案的讨论，最终我们决定使用如下方案：抛弃加载进度条 —— 尽管它很美丽。
 
-应用应该平缓的运行，不需要置用户于等待状态。
+应用应该流畅地运行，不需要置用户于等待状态。
 
-总的来说我们要实现的是让网络链接不再是问题 —— 应用永远可用。
+总的来说我们要实现的是让网络连接不再是问题 —— 应用永远可用。
 
 结果如下：
 
@@ -61,21 +61,21 @@
 
 我们是如何实现的呢？
 
-我们首先彻底的将视图、逻辑以及持久化的模型分开。如 [Yigit Boyar](https://medium.com/@yigitboyar) 所说：
+我们首先彻底地将视图、逻辑以及持久化的模型分开。如 [Yigit Boyar](https://medium.com/@yigitboyar) 所说：
 
 > 本地操作，全局同步。
 
-这就意味着你的模型需要持久化并且会被外界更新。模型中的数据应该使用回调/事件的方法异步的传递给 presenter 以及视图。记住 —— 视图是不能言语的，它只是对模型中内容的显示。没有加载对话框和任何内容。视图响应用户的操作，并通过 presenter 将交互结果传递到模型，然后接收、显示下一状态。
+这就意味着你的模型需要持久化并且会被外界更新。模型中的数据应该使用回调/事件的方法异步地传递给 presenter 以及视图。记住 —— 视图是不能言语的，它只是对模型中内容的显示。没有加载对话框和任何内容。视图响应用户的操作，并通过 presenter 将交互结果传递到模型，然后接收、显示下一状态。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*npK-x_AUzNQxRIpsZ4Gqrw.png)
 
 本地存储我们使用的是 [SQLite](https://developer.android.com/training/basics/data-storage/databases.html)。在它基础上我们包装了一层 [Content Provider](https://developer.android.com/guide/topics/providers/content-providers.html)，因为其对事件的 [ContentObserver](https://developer.android.com/reference/android/database/ContentObserver.html) 能力。
 ContentProvider 是对数据访问和操作非常好的抽象。
 
-为什么不使用 RxJava？呃，这是另一个话题了。长话短说，作为创业公司，我们动作要尽可能快并且项目几个月就要迭代更新一次，所以我们尽可能简单的抛弃 RxJava。
+为什么不使用 RxJava？呃，这是另一个话题了。长话短说，作为创业公司，我们动作要尽可能快并且项目几个月就要迭代更新一次，所以我们决定开发过程越简单越好。
 而且，我喜欢 ContentProvider，它还有一些额外的能力：[自动初始化](https://firebase.googleblog.com/2016/12/how-does-firebase-initialize-on-android.html)，[单独进程运行](https://developer.android.com/guide/components/processes-and-threads.html#Processes)以及[自定义搜索接口](https://developer.android.com/guide/topics/search/adding-custom-suggestions.html)。
 
-对于后台同步任务，我们选择使用的是 [GCMNetworkManager](https://developers.google.com/cloud-messaging/network-manager)。 如果你对它不熟悉 —— 它支持在达到特定条件时触发调度执行任务/周期性任务，比如网络恢复连接，GCMNetworkManager 在 [Doze mode](https://developer.android.com/training/monitoring-device-state/doze-standby.html) 模式下工作很好。
+对于后台同步任务，我们选择使用的是 [GCMNetworkManager](https://developers.google.com/cloud-messaging/network-manager)。 如果你对它不熟悉 —— 它支持在达到特定条件时触发调度执行任务/周期性任务，比如网络恢复连接，GCMNetworkManager 在 [Doze 模式](https://developer.android.com/training/monitoring-device-state/doze-standby.html) 下工作很好。
 
 框架结构如下所示：
 
@@ -314,7 +314,7 @@ public class SyncOrderService extends GcmTaskService {
 
 ![](https://cdn-images-1.medium.com/max/800/1*nquwIHLwfOSyPEQVl-qMow.gif)
 
-当然该框架不是万能的。你需要处理所有可能的边界条件，例如同步一个服务端已经存在订单，但是管理员已经在服务端对其进行了取消/修改？如果他们修改了相同的属性怎么办？如果首次更新是由普通用户或管理员进行会发生什么？在我们的产品中对部分这类问题采取不处理方案（毕竟很少发生）。我们解决这类问题的不同方法，我会在后面的文章进行介绍。
+当然该框架不是万能的。你需要处理所有可能的边界条件，例如同步一个服务端已经存在订单，但是管理员已经在服务端对其进行了取消/修改？如果他们修改了相同的属性怎么办？如果首次更新是由普通用户或管理员进行会发生什么？在我们的产品中对部分这类问题已经处理，但是部分问题采取不处理方案（毕竟很少发生）。我们解决这类问题的不同方法，我会在后面的文章进行介绍。
 
 正如 Fred 所说，我们的代码库确实存在改进空间：
 
