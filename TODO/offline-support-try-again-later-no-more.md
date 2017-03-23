@@ -1,89 +1,89 @@
 > * 原文地址：[Offline support: “Try again, later”, no more.](https://medium.com/@yonatanvlevin/offline-support-try-again-later-no-more-afc33eba79dc#.20vizj1qw)
 * 原文作者：[Yonatan V. Levin](https://medium.com/@yonatanvlevin)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者： 
-* 校对者：
+* 译者：[skyar2009](https://github.com/skyar2009)
+* 校对者：[phxnirvana](https://github.com/phxnirvana), [yazhi1992](https://github.com/yazhi1992)
 
 ---
 
-# Offline support: “Try again, later”, no more.
+# 离线支持：不再『稍后重试』。
 
-I have the privilege of living in a country where 4G network and strong Wifi is almost everywhere — at home, at work, even at the basement of my friend’s apartment. 
-And somehow, I still manage to get this:
+我很荣幸生活在一个 4G 网络和 Wifi 随处可见的国家，家中、公司、甚至我朋友公寓的地下室（都有网络）。
+尽管如此，我依然会遇到下面的问题：
 
 ![](https://cdn-images-1.medium.com/max/800/1*7yb_YRDhcX6EJJNCzWvRKA.png)
 
-or this
+或者
 
 ![](https://cdn-images-1.medium.com/max/800/1*6vn5yYlQjc98odN8cgKHaA.png)
 
-Maybe it’s because my Pixel phone is playing with me? Uh… no.
+或许是手机在和我开玩笑吧……
 
-The internet connection is the most unstable thing that I have ever used. While in 95% of the time it’s works well, and I’m successfully able to stream my favorite music without any problem and always, always when I’m standing in an elevator and trying to send a message — it’s fails on me.
+网络连接是我用过最不稳定的东西。95% 的情况下网络是正常工作的，我能流畅地欣赏喜欢的音乐，但是在电梯中发送消息则往往会失败。
 
-We, as developers live in an environment where a strong connection isn’t an issue, but the fact is — it is. Even more — just as in [Murphy’s law](https://en.wikipedia.org/wiki/Murphy%27s_law) — it will hurt your users exactly when they most need your App to work — and work fast.
+像我们程序员生存在良好的的网络环境下这不是什么问题，但事实上这是个问题。甚至会伤害你的用户，尤其是他们最需要你的 App 时（详见[墨菲定律](https://en.wikipedia.org/wiki/Murphy%27s_law)）。
 
-Being an Android user and observing this “Try again” happening in many of my installed apps. I struggled to do something about it, at least in my app.
+作为一个 Android 用户，我注意到了在我安装的许多应用中都存在『重试』的问题。我努力做些什么改善这类问题，至少是在自己的应用中。
 
-There are a lot of great talks about offline support, for example, [Yigit Boyar](https://medium.com/@yigitboyar) and his[ IO talk](https://www.youtube.com/watch?v=70WqJxymPr8) (you even can spot me at the first row cheering him).
+关于离线支持有很多好的观点，例如 [Yigit Boyar](https://medium.com/@yigitboyar) 和他的[ IO talk](https://www.youtube.com/watch?v=70WqJxymPr8) (你甚至可以看到我在前排为他点赞)。
 
 ---
 
-### Our precious App
+### 我们的宝贝应用
 
 ![](https://cdn-images-1.medium.com/max/800/0*DByDLXS1jHbKUFM6.)
 
-Finally, after starting my own startup [KolGene](https://www.kolgene.com), I got my chance. In startups, as most of you know, you start by building your first [MVP](https://en.wikipedia.org/wiki/Minimum_viable_product) and testing your assumptions. The process is so crucial and hard, with so many things that could go wrong, that losing even a single customer because of an offline issue is totally unacceptable.
+最终，当我开始创办自己的公司 [KolGene](https://www.kolgene.com) 之后，我有了机会。大家都知道，创业公司首先需要构建一个 [MVP](https://en.wikipedia.org/wiki/Minimum_viable_product) 来验证假设的正确性。这个过程是如此的关键、艰难，任何一个环节都可能出错，甚至因为未联网问题而导致失去一个用户也是无法接受的。
 
-Every customer we lose costs us a lot of money.
-If there were leaving because the experience of using the application was bad — well, it’s not even an option.
+每失去一个用户都意味着我们的许多支出打了水漂。
+如果是因为应用使用体验差而离开，那也是不能接受的。
 
-Our app usage is pretty simple: A clinician creates a request for genetic tests on mobile app, the relevant laboratories receive a message, submit offers, clinician receives those offers and chooses the best offer based on their needs.
+我们的应用使用很简单：临床医生在手机应用上创建基因测试的请求；相关实验室将收到信息、提交试验结果；临床医生收到结果，并根据需要选择最好的结果。
 
 ![](https://cdn-images-1.medium.com/max/600/1*9r3IDFmhfe5h0bBUeesSFg.gif)
 
-When we discussed various UX solutions, we decided on the following: No loading bar at all — even if it’s very beautiful.
+经过一系列 UX 方案的讨论，最终我们决定使用如下方案：抛弃加载进度条 —— 尽管它很美丽。
 
-The app should work smoothly without putting the user in a “waiting” state.
+应用应该流畅地运行，不需要置用户于等待状态。
 
-So basically what we want to achieve, is that internet connectivity shouldn’t matter — the app will always work.
+总的来说我们要实现的是让网络连接不再是问题 —— 应用永远可用。
 
-And the result was:
+结果如下：
 
 ![](https://cdn-images-1.medium.com/max/800/1*_Cjxt6cmEQ1NeBoUbvN3KA.gif)
 
-When the user is in offline mode, he submits the request and … it’s submitted. 
-The only small reminder about being offline is small icon of “syncing” status at the top right corner. Once he comes online, the app will post his request to the server regardless if it is in background or foreground.
+当用户处于离线模式，他只要提交请求就会成功。
+仅有的离线状态小提示是右上角的同步状态图标。一旦联网，无论应用是在前台还是后台，都会将用户的请求发送到服务器。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Jx1PeLYYsKC809YCckpxAw.gif)
 
-Same goes for every other network request-except for registration and sign In.
+除了注册和登录外的其他网络请求都采用了相同的处理。
 
-So how did we do it?
+我们是如何实现的呢？
 
-First we started by completely separating our view, logic and persistence model. As [Yigit Boyar](https://medium.com/@yigitboyar) says:
+我们首先彻底地将视图、逻辑以及持久化的模型分开。如 [Yigit Boyar](https://medium.com/@yigitboyar) 所说：
 
-> Act locally, sync globally
+> 本地操作，全局同步。
 
-It means that your model should be persistent and will be updated from the outside world. The data from model should propagate asynchronously using callbacks/events to the presenter and later to the view. Remember - the view is dumb and only reflects what we have in our model. No loading dialogs. Nothing. The view reacts to user and passes the interaction result through the presenter to the model and later, receives the next state to show.
+这就意味着你的模型需要持久化并且会被外界更新。模型中的数据应该使用回调/事件的方法异步地传递给 presenter 以及视图。记住 —— 视图是不能言语的，它只是对模型中内容的显示。没有加载对话框和任何内容。视图响应用户的操作，并通过 presenter 将交互结果传递到模型，然后接收、显示下一状态。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*npK-x_AUzNQxRIpsZ4Gqrw.png)
 
-For local storage we use [SQLite](https://developer.android.com/training/basics/data-storage/databases.html). On top of it we decided to wrap it in a [Content Provider](https://developer.android.com/guide/topics/providers/content-providers.html) because of its [ContentObserver](https://developer.android.com/reference/android/database/ContentObserver.html) capability for events. 
-ContentProvider is a nice abstraction for Data access and manipulation.
+本地存储我们使用的是 [SQLite](https://developer.android.com/training/basics/data-storage/databases.html)。在它基础上我们包装了一层 [Content Provider](https://developer.android.com/guide/topics/providers/content-providers.html)，因为其对事件的 [ContentObserver](https://developer.android.com/reference/android/database/ContentObserver.html) 能力。
+ContentProvider 是对数据访问和操作非常好的抽象。
 
-Why not RxJava? Well, it’s completely different topic. In short — for a startup, when you need to move as fast as possible and the project changes hands every couple months — we decided to leave it as simple as possible. 
-Besides, I love ContentProvider, and there are a lot of additional capabilities: [auto-initialization](https://firebase.googleblog.com/2016/12/how-does-firebase-initialize-on-android.html) , [running in a separate process](https://developer.android.com/guide/components/processes-and-threads.html#Processes) and a [custom search interface](https://developer.android.com/guide/topics/search/adding-custom-suggestions.html).
+为什么不使用 RxJava？呃，这是另一个话题了。长话短说，作为创业公司，我们动作要尽可能快并且项目几个月就要迭代更新一次，所以我们决定开发过程越简单越好。
+而且，我喜欢 ContentProvider，它还有一些额外的能力：[自动初始化](https://firebase.googleblog.com/2016/12/how-does-firebase-initialize-on-android.html)，[单独进程运行](https://developer.android.com/guide/components/processes-and-threads.html#Processes)以及[自定义搜索接口](https://developer.android.com/guide/topics/search/adding-custom-suggestions.html)。
 
-For background sync jobs, we choose to use [GCMNetworkManager](https://developers.google.com/cloud-messaging/network-manager). If you’re not familiar with it — it’s enables scheduling tasks/periodic tasks to be executed when certain specific conditions met, like internet connection for example and it lives really well with [Doze mode](https://developer.android.com/training/monitoring-device-state/doze-standby.html).
+对于后台同步任务，我们选择使用的是 [GCMNetworkManager](https://developers.google.com/cloud-messaging/network-manager)。 如果你对它不熟悉 —— 它支持在达到特定条件时触发调度执行任务/周期性任务，比如网络恢复连接，GCMNetworkManager 在 [Doze 模式](https://developer.android.com/training/monitoring-device-state/doze-standby.html) 下工作很好。
 
-So the architecture looks like this:
+框架结构如下所示：
 
 ![](https://cdn-images-1.medium.com/max/1000/1*RvHF6kSmJoUOTxG9JuqsHg.png)
 
-### The flow: Create Order and Sync it.
+### 工作流：创建订单并同步
 
-*Step 1:* Presenter creates new order and sends it for insert via ContentResolver to Content Provider.
+**步骤 1:** Presenter 创建新订单并通过 ContentResolver 传递给 Content Provider 存储。
 
 ![](https://cdn-images-1.medium.com/max/800/1*V-5Lzm1AaITF4FjH3hcpfg.png)
 
@@ -107,7 +107,7 @@ public class NewOrderPresenter extends BasePresenter<NewOrderView> {
 }
 ```
 
-*Step 2:* Content Provider inserts into the local database and notifies all observables that there is a new order created with status *“pending”*.
+**步骤 2:** Content Provider 将数据存储到本地数据库，并通知所有观察者新创建了一个**『待处理』**状态的订单。
 
 ![](https://cdn-images-1.medium.com/max/800/1*yKM91Jxgude1NZ4FDkVOkA.png)
 
@@ -144,7 +144,7 @@ public class KolGeneProvider extends ContentProvider {
 }
 ```
 
-*Step 3*: Our background service that was registered to observe changes in Order table by URI — gets notified and starts the specific service for this task.
+**步骤 3:** 我们注册的用来监听订单表的后台服务，接收到相应 URI 并开始执行该任务的特定服务。 
 
 ![](https://cdn-images-1.medium.com/max/800/1*ZPbhDIWPmIIeTpa_2jqVjA.png)
 
@@ -174,7 +174,7 @@ public class BackgroundService extends Service {
 }
 ```
 
-*Step 4*: The service obtains the data from DB and tries to sync it over the network. When network request succeeds— the order is updated with status “synced” via ContentResolver.
+**步骤 4:** 服务从 DB 获取数据，并尝试同步服务端。当网络请求成功后，通过 ContentResolver 将订单的状态更新为『已同步』。
 
 ![](https://cdn-images-1.medium.com/max/800/1*lMFYUWZZqJPWHp3hXVbVJg.png)
 
@@ -233,9 +233,9 @@ public class SendOrderService extends IntentService {
 }
 ```
 
-*Step 5*: If the request fails, it will schedule GCMNetworkManager one-time task with `.setRequiredNetwork(Task.NETWORK_STATE_CONNECTED)` and order id.
+**步骤 5:** 如果请求失败，会使用 GCMNetworkManager 安排一个一次性任务，设置 `.setRequiredNetwork(Task.NETWORK_STATE_CONNECTED)` 和订单 id。
 
-When the criteria is met (the device is connected to the internet and no doze mode), GCMNetworkManager calls *onRunTask()* and the app will try to sync our order once again. If it fails again — it will reschedule it.
+当条件达到时（设备连接网络并且非 doze 模式），GCMNetworkManager 调用 **onRunTask()**，应用会再次尝试同步订单。如果依然失败，重新进行调度。
 
 ![](https://cdn-images-1.medium.com/max/800/1*bVnwsrtBifduv8ymaaft1A.png)
 
@@ -308,21 +308,20 @@ public class SyncOrderService extends GcmTaskService {
 }
 ```
 
-Once the order is synced, a background service or GCMNetworkManager will update the status of local order via ContentResolver with the status *“synced”.*
+订单一旦同步成功，后台服务或 GCMNetworkManager 会通过 ContentResolver 将订单的本地状态更新为**『已同步』**。
 
 ![](https://cdn-images-1.medium.com/max/800/1*MOUPz0cimb0LaUktu4FvMw.png)
 
 ![](https://cdn-images-1.medium.com/max/800/1*nquwIHLwfOSyPEQVl-qMow.gif)
 
-Of course this type of architecture is not bulletproof. It requires that you handle all possible edge cases, for example what if you schedule a task to update an existing order on the server, but it was canceled/changed by an admin on the server side? What if they change the same property? What should happen if the first update was made by the user, or by an admin?
-Some of them we solved immediately. Some of them we left in production (they are really rare). The different approaches that we took to solve these isseus, I will share in one of my next articles.
+当然该框架不是万能的。你需要处理所有可能的边界条件，例如同步一个服务端已经存在订单，但是管理员已经在服务端对其进行了取消/修改？如果他们修改了相同的属性怎么办？如果首次更新是由普通用户或管理员进行会发生什么？在我们的产品中对部分这类问题已经处理，但是部分问题采取不处理方案（毕竟很少发生）。我们解决这类问题的不同方法，我会在后面的文章进行介绍。
 
-And there is definitely some room for improvements in our codebase as Fred says:
+正如 Fred 所说，我们的代码库确实存在改进空间：
 
-> Even the best planning is not so omniscient as to get it right the first time.
-> 
-> — Fred Brooks
+> 即使最好的方案也不会完美到一次成功。
+>
+> —— Fred Brooks
 
-But we continue to struggle to improve it and make usage of our [KolGene](http://www.kolgene.com) App delightful and full of joy to the users.
+但是我们会继续为改进而努力，让我们的 [KolGene](http://www.kolgene.com) 使用起来更舒心，给用户带来满足。
 
 ![](https://cdn-images-1.medium.com/max/800/1*o5gY6EvVN7ds02NDgBAAAg.gif)
