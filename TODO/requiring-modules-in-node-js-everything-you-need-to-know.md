@@ -1,23 +1,30 @@
 > * 原文地址：[Requiring modules in Node.js: Everything you need to know](https://medium.freecodecamp.com/requiring-modules-in-node-js-everything-you-need-to-know-e7fbd119be8#.wcrwm9c81)
 > * 原文作者：[Samer Buna](https://medium.freecodecamp.com/@samerbuna?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
+> * 译者：[zhouzihanntu](https://github.com/zhouzihanntu)
 > * 校对者：
 
 # Requiring modules in Node.js: Everything you need to know #
+# 在 Node.js 中加载模块 #
 
 ## How modularity works in Node.js ##
+## 模块化在 Node.js 中的应用##
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/2000/1*AL0-iuggGnBLSvSVvt0Xzw.png">
 
 Node uses two core modules for managing module dependencies:
+Node 提供了两个核心模块来管理模块依赖：
 
 - The `require` module, which appears to be available on the global scope — no need to `require('require')`.
+- `require` 模块在全局范围内可用，不需要 `require('require')`.
 - The `module` module, which also appears to be available on the global scope — no need to `require('module')`.
+- `module` 模块同样在全局范围内可用，不需要 `require('module')`.
 
 You can think of the `require` module as the command and the `module` module as the organizer of all required modules.
+你可以把 `require` 模块当做命令 `module` 模块 所有需加载模块的
 
 Requiring a module in Node isn’t that complicated of a concept.
+在 Node 中加载一个模块其实没有概念那么复杂。
 
 ```
 const config = require('/path/to/file');
@@ -108,7 +115,7 @@ Error: Cannot find module 'find-me'
 If you now create a local `node_modules` directory and put a `find-me.js` in there, the `require('find-me')` line will find it.
 
 ```
-~/learn-node $ mkdir node_modules 
+~/learn-node $ mkdir node_modules
 
 ~/learn-node $ echo "console.log('I am not lost');" > node_modules/find-me.js
 
@@ -302,7 +309,7 @@ In util Module {
 I’ve removed some attributes in the above output to keep it brief, but note how the `exports` object now has the attributes we defined in each module. You can put as many attributes as you want on that exports object, and you can actually change the whole object to be something else. For example, to change the exports object to be a function instead of an object, we do the following:
 
 ```
-// Add the following line in index.js before the console.log 
+// Add the following line in index.js before the console.log
 
 module.exports = function() {};
 ```
