@@ -1,25 +1,24 @@
 * 原文地址：[What Unit Tests are Trying to Tell us About Activities Pt 2](https://www.philosophicalhacker.com/post/what-unit-tests-are-trying-to-tell-us-about-activities-pt-2/)
 * 原文作者：[Matt Dupree](https://twitter.com/philosohacker)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：
-* 校对者：
+* 译者：[tanglie1993](https://github.com/tanglie1993)
+* 校对者：[yunshuipiao](https://github.com/yunshuipiao), [zhaochuanxing](https://github.com/zhaochuanxing)
 
-# What Unit Tests are Trying to Tell us About Activities Pt 2 #
+# 单元测试试图告诉我们关于 Activity 的什么事情：第二部分 #
 
+`Activity` 和?`Fragment`，可能是因为一些[奇怪的历史巧合](https://juejin.im/entry/58ac5b3b570c35006bc9e52c)，从 Android 推出之时起就被视为构建 Android 应用的**最佳**构件。我们把这种想法称为“android-centric”架构。
 
-`Activity`s and `Fragment`s, perhaps by [some strange historical accidents](/post/why-android-testing-is-so-hard-historical-edition/), have been seen as *the optimal* building blocks upon which we can build our Android applications for much of the time that Android has been around. Let’s call this idea – the idea that `Activity`s and `Fragment`s are the best building blocks for our apps – “android-centric” architecture.
+本系列博文是关于 android-centric 架构的可测试性和其它问题之间的联系的，而这些问题正导致 Android 开发者们排斥这种架构。它们同时也试图通过单元测试告诉我们：`Activity` 和 `Fragment` 不是应用的最佳构件，因为它们迫使我们写出**高耦合**和**低内聚**的代码。
 
-This series of posts is about the connection between the testability of android-centric architecture and the other problems that are now leading Android developers to reject it; it’s about how our unit tests are trying to tell us that `Activity`s and `Fragment`s don’t make the best building blocks for our apps because they force us to write code with *tight coupling* and *low cohesion*.
+在本[系列文章](https://juejin.im/entry/58bc1d51128fe1006447531e)的第二部分，对 Google I/O 示例 app 会话详情页的单元测试表明，将 `Activity` 和 `Fragment` 当作组件，会使代码难以测试。测试失败同时也揭示，目标类是低内聚的。
 
-In this second part of [the series](/post/what-unit-tests-are-trying-to-tell-us-about-activities-pt1/), through an examination of the Session Detail screen in the Google I/O sample app, I show how using `Activity`’s and `Fragment`s as building blocks makes our code hard to test and show that our failure to unit test tell us that our target class has low-cohesion.
+### The Google I/O 会话细节例子 ###
 
-### The Google I/O Session Detail Example ###
-
-When I’m working on a project, I try to start by [testing the code that scares me the most](/post/what-should-we-unit-test/). Large classes scare me. The largest class in the Google I/O app is the `SessionDetailFragment`. Large methods scare me too, and the largest method of this large class is `displaySessionData`. Here’s a screenshot of what this monster class displays:
+当我在开发一个项目时，我尝试从[最让我害怕的代码](https://www.philosophicalhacker.com/post/what-should-we-unit-test/)开始测试。大型类让我害怕。Google I/O 应用的最大的类是 `SessionDetailFragment`。长的方法也让我害怕，而这个大型类中最长的方法是 `displaySessionData`。这是这个巨大的类显示的内容的截图:
 
 ![](https://www.philosophicalhacker.com/images/session-detail.png)
 
-Here’s the scary `displaySessionData` method. This isn’t something you’re supposed to *easily* understand; that’s what makes it scary. Gaze upon it with fear and trembling for a moment before we move on:
+这是吓人的 `displaySessionData` 方法。这不是人们通常可以**容易**地理解的东西；这正是它可怕的原因。在继续之前，用惊恐的目光看它一眼，并恐惧地颤抖一下：
 
 ```
 private void displaySessionData(final SessionDetailModel data) {
@@ -133,7 +132,7 @@ private void displaySessionData(final SessionDetailModel data) {
 }
 ```
 
-I know that was scary, but pull yourself together. Let’s zoom in on these few lines in particular:
+我知道这很可怕。但振作起来。让我们把目光聚焦在这几行代码上：
 
 ```
 private void displaySessionData(final SessionDetailModel data) {
@@ -154,17 +153,17 @@ private void displaySessionData(final SessionDetailModel data) {
 }
 ```
 
-Interesting. It looks like we’ve stumbled upon a business rule:
+很有趣。看起来我们遇到了一条业务规则：
 
-> A Conference attendee cannot remove the keynote session from their schedule.
+> 与会者不能把主题演讲环节从日程中删除。
 
-Looks like there’s presentation-logic related to this rule as well: If we’re displaying the keynote session, don’t bother providing an affordance to add or remove it from the schedule. Otherwise, go ahead and provide said affordance. Oh…and also, if the session is in the attendee’s schedule, go ahead and show it.
+看起来这条规则有一条对应的展示逻辑：如果我们在展示主题演讲环节，我们将不提供把它添加到日程中，或从日程中删除的功能。否则，我们就提供上述功能。哦……而且，如果这个环节是在与会者的日程中，把它显示出来。
 
-That method name, `showInScheduleDeferred` actually turns out to be a lie. Even if you call it, you won’t see a FAB to add or remove a non-keynote session from their calendar. Lying methods are even scarier than long ones. The reason you won’t see a the FAB is another business rule:
+这个方法名，`showInScheduleDeferred` 实际上是一个谎言。哪怕你调用了它，你也不会看见一个添加或删除非主题演讲环节的 FAB。撒谎的方法比长方法更可怕。你不会看见 FAB 的原因是另一条业务规则：
 
-> A Conference attendee cannot add or remove sessions that have already passed.
+> 与会者不能添加或删除已经过去的环节。
 
-That code lives in `updateTimeBasedUi`:
+这些代码在 `updateTimeBasedUi`中：
 
 ```
 private void updateTimeBasedUi(SessionDetailModel data) {
@@ -182,20 +181,19 @@ private void updateTimeBasedUi(SessionDetailModel data) {
 }
 ```
 
-If you look at a session’s details before the conference starts, you’ll actually see the “add to schedule” FAB:
+如果你在会议开始前看一看该环节的细节，你将会看见“添加到日程”的 FAB：
 
-![Add to schedule fab is visible now](https://www.philosophicalhacker.com/images/session-detail-with-fab.png)
+![“添加到日程” FAB 现在可见](https://www.philosophicalhacker.com/images/session-detail-with-fab.png)
 
-So, we’ve actually got a fairly complicated business rule here:
+所以，我们现在得到了一条相当复杂的业务规则：
 
-> A conference attendee can only add or remove a session from their schedule if that session is not the keynote and if that session hasn’t already passed.
+> 只有在一个环节不是主题演讲环节，并且它还没有过去时，与会者才可以在日程中添加或删除这个环节。
 
-Of course, we want our presentation-logic to reflect this rule, which means we only want to give the attendees an affordance to add or remove a session in accordance with this rule. It’d be silly if we showed the FAB and when the user tapped it, the app said – perhaps with a `Dialog` or a `Toast,` “Nope! You can’t remove the keynote session!”
+当然，我们希望我们的显示逻辑反映这条规则。这意味着我们只在和这条规则一致的情况下添加或删除一个环节。如果我们显示了一个 FAB，用户点击了它，但是应用却说——或许是用一个 `Dialog` 或者一个 `Toast` —— “不！你不能移除主题演讲环节！”，那就太傻了。
 
-### A Failed Attempt to Test ###
+### 失败的测试尝试 ###
 
-Let’s see if we can write a few tests for this presentation logic. Remember, as we said [last time](/post/what-unit-tests-are-trying-to-tell-us-about-activities-pt1/), the idea here is that tests tell us something about our design. If the class is easy to unit test, its well designed. When I write this unit test, I’ll write what I think is the easiest way to unit test this functionality. The more I have to change my ideal easy test, the most suspicious I become of the class I’m testing.
-
+我们看看是否能为这个展示逻辑写几个测试。记住，我[上一次](https://juejin.im/entry/58bc1d51128fe1006447531e)曾说，我的想法是：测试将会告诉我们一些关于设计的事情。如果一个类易于测试，它就设计得好。当我在写测试时，我将以我认为的最简单的方式去写。我在最简单的基础上修改得越多，我就越怀疑正在测试的类。
 ```
 public class SessionDetailFragmentTest {
 
@@ -216,7 +214,7 @@ public class SessionDetailFragmentTest {
 
 ```
 
-This is the easiest test I can think of. There’s already some trouble here since `displaySessionData` is a private method, so we have to test it indirectly through the public `SessionDetailFragment.displayData` method. Not too shabby though. Unfortunately, when we run it. Here’s what we get:
+这是我能想到的最简单的测试。现在已经有了一些问题，因为 `displaySessionData` 是一个 private 方法，所以我们必须通过public `SessionDetailFragment.displayData` 方法间接测试它。看起来不那么傻逼。不幸的是，我们运行它时，将会得到这个结果：
 
 ```
 java.lang.NullPointerException
@@ -225,7 +223,7 @@ java.lang.NullPointerException
 	at com.google.samples.apps.iosched.session.SessionDetailFragmentTest.displayDataOnlyProvidesAddRemoveSessionAffordanceIfSessionIsNotKeynote(SessionDetailFragmentTest.java:19)
 ```
 
-The test is complaining that `SessionDetailFragment.mTitleView` is null. Ugh. The error is annoying because `SessionDetailFragment.mTitleView`*nothing to do with this test*. Looks like I’ll have to add a call to `onActivityCreated` to make sure those `View`s get instantiated:
+这个测试抱怨说 `SessionDetailFragment.mTitleView` 是 null。唉。这个错误很烦人，因为  `SessionDetailFragment.mTitleView` **和这个测试没有关系**。看起来我必须增加一个 `onActivityCreated` 方法来确定这些 `View` 被初始化了：
 
 ```
 @Test public void displayDataOnlyProvidesAddRemoveSessionAffordanceIfSessionIsNotKeynote()
@@ -246,7 +244,7 @@ The test is complaining that `SessionDetailFragment.mTitleView` is null. Ugh. Th
 
 ```
 
-When we run this test, we get another error:
+如果我们运行这个测试，会得到另一个错误：
 
 ```
 java.lang.NullPointerException
@@ -255,23 +253,27 @@ java.lang.NullPointerException
 	at com.google.samples.apps.iosched.session.SessionDetailFragmentTest.displayDataOnlyProvidesAddRemoveSessionAffordanceIfSessionIsNotKeynote(SessionDetailFragmentTest.java:20)
 ```
 
-This time, the complaint basically boils down to the fact that `getActivity()` returns null. At this point, we might decide to call `onAttach` and pass in a dummy `Activity` to get around this. Or, we might realize that even if we did do this, there’s going to be a lot of things we have to do to get this test setup *that have nothing to do with testing the behavior we’re interested in.*
+这一次，这个抱怨基本上可以归结于 `getActivity()` 返回 null。现在，我们也许会调用 `onAttach` 并传入一个哑 `Activity` 来避免这种情况。或者，我们也许会发现，哪怕我们这样做了，也还要做很多别的事来设置这个测试。这些事情**和我们感兴趣的内容没有任何关系**。
 
-At this point, we might tempted give up and go use roboelectric. [I’ve said before](/post/why-i-dont-use-roboletric/) that using roboelectric feels like exactly the wrong thing to do here. The test is trying to tell us something about our code. We don’t need to change the way we test. We need to change the way we code.
+到这一步，我们也许会放弃，并选择 roboelectric。[我曾经说过](https://www.philosophicalhacker.com/post/why-i-dont-use-roboletric/)，我感觉使用 roboelectric 是一个错的选择。测试正试图告诉我们一些关于代码的事情。我们不需要修改我们测试的方式。我们需要修改编码的方式。
 
-So, before giving up, let’s think for a second about what’s happening. We’re interested in testing a small piece of behavior, and the way our class is designed is forcing us to care about a bunch of other objects *that have nothing to do with the behavior we’re testing.* What this means is that our class has low cohesion. Our class has a bunch of functionality and objects that have little to do with each other. This is what makes it difficult to complete the arrange step in our unit test; its what makes it difficult to get our object into a state where we can actually run our test.
 
-As we know, however, low cohesion, isn’t just about testability. Classes that have low cohesion are difficult to understand and change. This test that we’ve tried and failed to write is reinforcing something that we already know intuitively: the 900+ line `SessionDetailFragment` is a monster and it needs to be refactored.
+在放弃之前，先考虑一下正在发生的事情。我们对测试一小段行为感兴趣，但类设计的方式迫使我们关心很多**和我们测试的内容没有关系**的其他对象。这意味着我们的代码是低内聚的，我们的类有很多互相没有太大关系的方法和对象。这使得完成测试的设置步骤非常复杂；这也使得让我们的对象难以进入可以真正运行测试的状态。
 
-Perhaps more controversially, when we listen to the tests and follow their suggestions by writing them first, I think we’ll eventually find that we don’t even really want a `Fragment` here at all. In fact, I think we’ll find that its rare that a `Fragment` is the ideal building block we want to use for our functionality. One claim at a time though. Let’s wrap this post up. We’ll get to the juicy controversy in due time.
+据我们所知，低内聚并不只关于可测试性。低内聚的类难以理解和改变。这个我们尝试了但没有写出来的测试，印证了我们已经本能地知道的事情：超过 900 行的 `SessionDetailFragment` 是一个巨兽，它需要被重构。
 
-### Conclusion ###
 
-We’ve just seen how writing a test for a class can tell us that the target class suffers from low cohesion. The `SessionDetailFragment` may be a particularly obvious case of a low-cohesion class, but TDD can also help us identify more subtle cases of classes that lack cohesion. In this case, the target class was a `Fragment`, but if you write tests for a while, you’ll find that the same thing is true for `Activity`s.
+也许更有争议的是，如果我们听从测试的建议，并首先把它们写出来，我认为我们将最终发现我们根本不需要一个 `Fragment` 。事实上，我认为，我们很少会发现 `Fragment` 是理想的用于实现功能的组件。一次只讨论一个观点吧。先完成这篇帖子。我们将会在合适的时间回到这个有趣的争论的。
 
-In the next post, we’ll look at how the difficulty of testing this class shows us another insight: that `SessionDetailFragment` is tightly coupled. We’ll also test drive this same functionality and show how the resulting design is more cohesive and loosely coupled.
 
-### We're hiring mid-senior Android developers at [Unikey](http://www.unikey.com/). Email me if you want to work for a Startup in the smart lock space in Orlando ###
 
-#### kmatthew[dot]dupree[at][google'semailservice][dot]com ####
+### 总结 ###
+
+
+
+我们刚刚看见，为类写一个测试可以告诉我们：目标类是低内聚的。`SessionDetailFragment` 可能是一个特别明显的低内聚类的例子，但 TDD 可以帮助我们发现更加隐蔽的低内聚类。在本文中，目标类是一个 `Fragment`，但如果你坚持写一段时间的测试，你会发现同样的事情对 `Activity` 也成立。
+
+
+在下一篇帖子中，我们将看一看测试的难度如何给我们提供新的见解：`SessionDetailFragment` 是高耦合的。我们将测试驱动同样的功能，并展示所得的设计是怎样高内聚和低耦合的。
+
 
