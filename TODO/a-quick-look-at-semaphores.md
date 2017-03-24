@@ -6,7 +6,7 @@
 
 ---
 
-# A Quick Look at Semaphores in Swift 🚦
+# 快速浏览 Swift 中的信号量 🚦
 
 首先，如果你对 GCD 和 Dispatch Queue 不熟悉，请看看 [AppCoda](https://medium.com/@appcodamobile) 的[这篇文章](http://www.appcoda.com/grand-central-dispatch/)。
 
