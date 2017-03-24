@@ -1,77 +1,76 @@
 > * 原文地址：[Things I wish I knew when I started building Android SDK/Libraries](https://android.jlelse.eu/things-i-wish-i-knew-when-i-started-building-android-sdk-libraries-dba1a524d619#.bw591tw8c)
 > * 原文作者：本文已获作者 [Nishant Srivastava](https://android.jlelse.eu/@nisrulz) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
-> * 校对者：
+> * 译者：[jifaxu](https://github.com/jifaxu)
+> * 校对者：[BoilerYao](https://github.com/BoilerYao), [gaozp](https://github.com/gaozp)
 
-# Things I wish I knew when I started building Android SDK/Libraries #
+# 当发布安卓开源库时我希望知道的东西 #
 
-<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*BfqwDsS3mt2pOslSQnFKCw.png">
+![](https://cdn-images-1.medium.com/max/1000/1*BfqwDsS3mt2pOslSQnFKCw.png)
 
-It all starts when some android developer tries to figure out a solution to a problem he/she is having while building their “Awesome Android App”. During the process, most developers would encounter a couple of issues and in tandem, to those, they would come up with possible solutions.
+一切要从安卓开发者开发自己的“超酷炫应用”开始说起，他们中的大多数会在这个过程中遇到一系列问题，而他们中的一些人，会提出可能的解决方案。。
 
-Now here is a thing, if you are like me, who believes that if the problem was big enough for me to spend some time on it and there wasn’t an existing solution out there, I would abstract the whole solution in a modular manner, which eventually turns out to be an android library. Just so that whenever in future I encounter this problem again, I can reuse this solution easily.
+事情是这样的，如果你和我一样认为这个问题足够重要，并且没有已知的解决方案，那么我将以模块化的方法抽象整个解决方案，这就是一个安卓库了。这样以后当我再次遇到这个问题时，我就可以很轻松的重用这个解决方案了了
 
-So far, so good. So you have built the library and probably started using it completely privately or if you think someone else could make use of the same solution you release the code as an android library i.e.you open source the code. I believe (..or rather that is what it looks like..) at this point everyone thinks they are done.
+到目前为止一切都好。现在你有一个库了，也许只是拿来自用，或者你认为别人也会遇到这个问题，然后你对外发布了这个库（开源代码）。我相信（更确切的说看上去是这样）很多人认为这就算大功告成了。
 
-**WRONG**! This very point is where most people usually miss out that this android library code is going to be used by other developers that do not sit next to you and that to them this is just some android library they wish to use to solve a similar problem. The better your approach of designing the API the better the chances of making sure that the library will be used as it is intended to be and whoever is using it isn’t confused. It should be clear from the very start what needs to be done to start using the library.
+**错了！** 这一点是大多数人通常弄错的地方。你的安卓库将被一些不在你身边的开发者使用，他们只是想用你的库来解决同样的问题。你的库的 API 设计的越好，它被使用的概率就越大，因为它不会让使用者感到困惑。从一开始就应该明确的是，为了让他人顺利地开始使用这个库，你需要做些什么。
 
-***Why does this happen?***
+**为什么会发生这种事？**
 
-The devs that write these android libraries are usually the ones who don’t care about the API design when building one. At least the majority of them don’t. Not because they are indifferent but I think most of them are just beginners and there is no set rules that they can look up to be better at designing the API. I was in the same boat sometime back, so I can understand the frustration of not having a lot of information in this field.
+开发者在第一次发布安卓库的时候通常不会注意 API 的设计，至少他们中的大多数都不会。倒不是因为漠不关心，而是因为他们都只是新手，又没有一个可以参考的 API 设计规范。之前我也陷入了同样的僵局，所以我可以理解找不到相关资料的沮丧。
 
-So I have had my experiences and I happen to release some of the code as android libraries (which you can check out [here](https://github.com/nisrulz/android-tips-tricks#extra--android-libraries-built-by-me) ). I have come up with a quick list of points which each and every developer who designs an API in the form of Android Library should keep in mind (some of them may apply to designing API in general too).
+我刚好做了一个开源库（你可以在[这个地址](https://github.com/nisrulz/android-tips-tricks#extra--android-libraries-built-by-me)查看）所以有一些经验。我给出了一个对于每一个 Android API 库的开发者来说，都应该牢记的简要列表（它们中的一部分同样适用于通用的 API 设计）。
 
-> Point to note here, my list isn’t exhaustive and I may not be covering everything. It covers things I have encountered and wished I knew it when I started and thus I will keep on updating this post as and when I learn with more experience in the future.
+> 需要注意的是，我的列表并不完善。它只包含了我遇到过并且希望在一开始就明确的一些问题，当我有了新的经验后我也会来更新这篇博客。
 
-Before we dive into anything let’s first answer the most basic questions that everyone would have regarding building Android SDK/Library. So here goes
+在我们正式开始之前，个所有人在构建安卓库时都会面临的最基本问题，那就是：
 
-### **Why would you create an android SDK/Library?** ###
+### **你为什么要创建一个安卓库？** ###
 
-<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*YKokr5q6sL-Cge6AVPBsyQ.gif">
+![](https://cdn-images-1.medium.com/max/800/1*YKokr5q6sL-Cge6AVPBsyQ.gif)
 
-Sure it is…
+额……
 
-Well, you do not have to create an SDK/library in all cases. It makes more sense to decide on building one based on the understanding of what value you bring to the table. Ask yourself the below
+好吧，无论何时都不是非要创建一个库。在开始之前好好想想它能给你带来什么价值。问问自己下面几个问题：
 
-***Is there some existing solution that would solve the problem?***
+**有没有现成的解决方案？**
 
-If your answer is Yes, then possible try and use that existing solution.
+如果你回答是有，那么考虑下使用已有的解决方案吧。
 
-Say that does not solve your specific problem, even in that scenario it is better to start by forking the code, modifying it to solve the problem and then using it versus starting from scratch.
+如果现有方案无法完美解决你的问题，即使在这种情况下，最好也是从 fork 代码开始，修改它以解决你的问题。
 
-> **Bonus Points** to you if you go ahead and submit a **Pull Request** to get the fix you made pushed into the existing library code so that the community can benefit from it.
+> 向现有的库中提交（Pull Request）你所做的修补，对你来说将是一个很好的加分点，同时也会让整个社区从中受益。
 
-If your answer is No, then go ahead and build the android sdk/library. Share it with the world later on so that others can make use of it in their projects.
+如果你的回答是没有，那么就可以开始编写安卓库了。之后与世界分享你的成果以便别人也可以使用它。
 
-### What are the packaging options for your artifacts? ###
+### 你的 artifact 有哪些打包方式 ###
+在开始之前，你需要决定以什么样的方式向开发者发布你的 artifact。
 
-Even before you start building your library you need to decide on how do you want to deliver your artifacts to developers.
+让我在这里解释一下这篇博客中的一些概念。先解释下 **artifact**。
 
-Let me start here by describing some terms which we might use in the post here. To begin with let me describe what is an **artifact** first,
+> 在通用软件术语中，**artifact** 是在软件开发过程中产出的一些东西，可以是相关文档或者一个可执行文件。
+> 在 Maven 术语中，artifact 是编译的输出，`jar`, `war`, `arr` 或者别的可执行文件。
 
-> In general software terms, an “**artifact**” is something produced by the software development process, whether it be software related documentation or an executable file.
-> In Maven terminology, the artifact is the resulting output of the maven build, generally a `jar` , `war` , `aar` or other executable files.
+让我们看下可选项
 
-Let’s look at the options you have
+- **Library Project**：你必须获取代码并链接到你的工程里。这是最灵活的方式，你可以修改它的代码，但也引入了与上游更改同步的问题。
+- **JAR**：Java Archive 是一个专门将很多 Java 类以及元数据放到一起的包文件。
+- **AAR**：Android Archive 类似于 JAR，但有些额外的功能。和 JAR 不同，**AAR** 可以存储安卓资源和 manifest 文件，这允许你分享诸如布局和 drawable 等资源文件。
 
-- ***Library Project***: Code that you have to checkout and link into your project. It is the most flexible one as you can modify the code once you have it in your code, but also introduces issues such as being in sync with upstream changes.
-- **JAR: Java AR**chive is a package file format typically used to aggregate many Java class files and associated metadata into one file for distribution.
-- **AAR:A**ndroid **AR**chive is similar to JAR with added functionality. Unlike JAR files, **AAR** files can contain Android resources and a manifest file, which allows you to bundle in shared resources like layouts and drawable in addition to Java classes and methods.
+### 我们有了 artifact 了，然后呢？这些 artifact 应该放在哪里呢？ ###
 
-### We have the artifact, Now what? Where does one host these artifacts? ###
+![](https://cdn-images-1.medium.com/max/600/1*09w_B5kEUXMrLH6Z786d5g.gif)
 
-<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/600/1*09w_B5kEUXMrLH6Z786d5g.gif">
+开玩笑……
 
-Not really…
+你有好几种选择，每种都有优缺点。让我们一个一个看。
 
-Turns out you have a couple of options here too, each having its own pros and cons. Let’s take a look at each
+#### 本地 ARR ####
 
-#### Local AAR ####
+如果你不想将你的库提交到任何仓库里，你可以产生一个 `arr` 文件并直接使用它。阅读 [StackOverflow 上的一个回答](http://stackoverflow.com/a/28816265/2745762)学习如何实现。
 
-If you happen to be very specific about not wanting to put your android library artifact into any repository, you can generate your local `aar` file and use that directly. Read [this stackoverflow answer](http://stackoverflow.com/a/28816265/2745762) to understand how to do that.
-
-In a gist is you need to put the `aar` file in the `libs` directory (create it if needed), then, add the following code in your build.gradle :
+简单来说，将 arr 文件放到 libs 文件夹里（没有就创建），然后在 build.gradle 中添加如下代码：
 
 ```
 dependencies {
@@ -84,21 +83,21 @@ repositories{
  }
 ```
 
-..what comes with this is that now whenever you want to share your android library you are passing around your `aar` file(…which is not the best way to share your android library).
+随之而来的就是无论何时你想要分享你的安卓库时你都绕不过你的 `arr` 文件了（这可不是分享你的安卓库的好方式）。
 
-> ***Avoid doing this as much as you can***, since it is prone to a lot of problems the biggest one being manageability and maintainability of the code base.
-> Another issue with this approach is you cannot make sure that the users of this artifact are in sync with the latest code.
-> Not to mention the whole process is lengthy and prone to human error, just to integrate the library in an android project.
+> **尽可能的避免这么做**，因为它容易引发很多问题，尤其是代码库的可管理性和可维护性。
+> 另一个问题是这种方式没办法保证你的用户使用的代码是最新的。
+> 更不用说整个过程漫长而且容易出现人为错误，而我们仅仅是往项目中添加一个库。
 
-#### Local/Remote Maven Repositories ####
+### 本地/远程 Maven 仓库 ###
 
-*What if you wanted to use the android library privately?* The solution for that is to deploy your own instance of artifactory (read about how to do that [here](http://jeroenmols.com/blog/2015/08/06/artifactory/) ) or using Github or Bitbucket repository as your own maven repository (read about how to do that [here](http://crushingcode.nisrulz.com/own-a-maven-repository-like-a-bosspart-1/) ).
+**如果你只想给自己用这个安卓库该怎么做？** 解决办法是部署一个自己的 artifact 仓库（在[这里](http://jeroenmols.com/blog/2015/08/06/artifactory/)了解如何去做）或者使用 GitHub 或者 Bitbucket 作为你自己的 maven 库（在[这里](http://crushingcode.nisrulz.com/own-a-maven-repository-like-a-bosspart-1/)）。
 
-> Again ***this is specific to you using your android library privately.If you want to share this with others its not the approach you wanna stick to***.
+> 再次强调，**这只是用来发布自用包的方法。如果你想要与他人分享，那这不是你需要的方式**。
 
-First issue that this approach has is that your artifact is in an private repository, to give access to this library you have to give access to the private repository which could be a security issue.
+这种方式的第一个问题是你的 artifact 是存放在私有仓库里的，为了让别人访问到你的库（library）你不得不给他们访问整个仓库（repository）的权限，这可能会导致安全问题。
 
-Second issue is that to use your android library one would need to include an extra line in their root`build.gradle` file
+第二个问题是别人要想用你的库就得在他的 `build.gradle` 文件里加上额外的语句。
 
 ```
 allprojects {
@@ -110,13 +109,13 @@ allprojects {
 }
 ```
 
-..which to be fair is an extra step and we are all here to make the process simpler. It is easier on the creator part to push the android library out quickly but adds an extra step for the users to use the library code.
+说实话这样比较麻烦，而我们都希望事情简单一点。这种方式在发布安卓库的时候比较迅速但是为别人的使用增加了额外步骤。
 
-#### Maven Central, Jcenter or JitPack ####
+### Maven Central, Jcenter 或 JitPack ###
 
-Now the easiest way to push it out immediately is via **JitPack**. So you would want to do that. JitPack takes your code from a public git repository, checks out the latest release code, builds it to generate the artifacts and later publishes to their self hosted maven repository.
+现在最简单的发布方式是通过 **JitPack**，你可能会想去试试。JitPack 从你的公开 git 仓库中拉取代码，check out 最新的 release 代码，编译并生成 artifact，最后将它发布到它自己的 maven 库中。
 
-However the issue at hand is same as the one for local/remote maven repositories that users of your android library would need to include an extra line in their root`build.gradle` file
+但是它和 local/remote 仓库存在同样的问题，要使用的话必须在根 `build.gradle` 中添加额外内容。
 
 ```
 allprojects {
@@ -127,13 +126,13 @@ allprojects {
 }
 ```
 
-You can read about how to publish your android library to JitPack [here](http://crushingcode.co/publish-your-android-library-via-jitpack/).
+你可以从[这儿](http://crushingcode.co/publish-your-android-library-via-jitpack/)了解该如何发布你的安卓库至 JitPack。
 
-The other option you have is of **Maven Central** or **Jcenter**.
+另一个选择就是 **Maven Central** 或者 **Jcenter**。 
 
-Personally ***I would suggest you to stick to Jcenter*** as it well documented and better managed. It is also the default repository that is looked up for dependencies in Android projects (…unless someone changed it).
+**我个人建议你使用 Jcenter**，因为它有着完善的文档和良好的管理，同时它也是安卓项目的默认仓库（除非谁改了默认选项）。
 
-If you publish to Jcenter, bintray the company behind it gives you the option to sync with Maven Central from within their publishing platform. Once published its as simple as adding the below line to your `build.gradle` file to use the library in any android project
+如果你发布到 Jcenter，bintray 公司提供将库同步到 Maven Central 的选项。一旦成功发布到 Jcenter 上，在 `build.gradle` 中加上如下代码就可以很方便的使用了。
 
 ```
 dependencies {
@@ -141,25 +140,25 @@ dependencies {
   }
 ```
 
-You can read about how to publish your android library to Jcenter [here](http://crushingcode.co/publish-your-android-library-via-jcenter/) .
+你可以在[这儿](http://crushingcode.co/publish-your-android-library-via-jcenter/)了解如何发布你的安卓库至 Jcenter。
 
-With all those basic questions out of the way, let us look at things one should take care of while building an Android SDK/Library
+基础的东西说完了，现在让我们来讨论一下在编写安卓库的时候需要注意的问题。
 
-### Avoid multiple arguments ###
+### 避免多参数 ###
 
-Every android library has to be usually initialized with some arguments and to do that you would usually be passing a set of arguments to either a constructor or have an init function to setup your library. Whenever doing that consider the below
+每个安卓库通常都需要用一些参数来进行初始化，为了达到这个目的，你可能会在构造函数或者新建一个 init 方法来接受这些参数。这么做的时候请考虑以下问题
 
-**Passing more than 2–3 arguments to your init() function is bound to cause more headaches than provide ease of use.** Just because its hard to remember the exact mapping of these arguments and the order in which they are declared in the library code.It also is prone to more mistakes as anyone can make a mistake of passing `int` value in a `String` field or vice versa.
+**向 init() 方法传递超过 2-3 个参数会让使用者感到头大。** 因为很难记住每个参数的用处和顺序，这也为将 int 型数据传给了 String 类型的参数之类的错误埋下了隐患。
 
 ```
-// DONOT DO THIS
+// 不要这么做
 void init(String apikey, int refresh, long interval, String type);
 
-// DO this
+// 这样做
 void init(ApiSecret apisecret);
 ```
 
-where `ApiSecret` is an Entity Class, declared as below
+`ApiSecret` 是一个实体类，定义如下
 
 ```
 public class ApiSecret {
@@ -178,41 +177,41 @@ public class ApiSecret {
 }
 ```
 
-***Or*** you can also use `Builder Pattern` as an alternative approach to the above.
+**或者**你可以使用 `建造者模式`。
 
-You can read more about Builder Pattern [here](https://sourcemaking.com/design_patterns/builder) . [JOSE LUIS ORDIALES](https://jlordiales.me/about/)  talks in depth about how to implement it in your code, take a look [here](https://jlordiales.me/2012/12/13/the-builder-pattern-in-practice/) .
+你可以阅读这篇[文章](https://sourcemaking.com/design_patterns/builder)以了解更多建造者模式的知识。[JOSE LUIS ORDIALES](https://jlordiales.me/about/) 在[这篇文章](https://jlordiales.me/2012/12/13/the-builder-pattern-in-practice/)里深入讨论了该如何在你的代码中实现建造者模式。
 
-### Ease of use ###
+### 易用性 ###
 
-When building your android library, keep in mind the usability of the library and the methods you expose. It should be
+当构建你的安卓库时，请关注库的易用性和暴露出的方法，它们应该具有以下特点：
 
-- **Intuitive**
+- **符合直观**
 
-For everything thats happening in the android library code , there should be some feedback either in the logs or in the view. Depends on what kind of an android library is being built. If it does something that cannot be comprehended easily, the android library basically “does not work” in the language of devs. It should do what the user of android library expects it to do without having to look up the documentation.
+安卓库中的代码做了些什么都应该以某种形式反馈给使用者，可以是日志输出，也可以是视图的变化，这根据库的类型来决定。如果它做了一些难以理解的事，那么对开发者来说这个库就没有起作用。你的代码应该按照使用者想的那样来工作，即使使用者没有查看文档。
 
-- **Consistent**
+- **一致性**
 
-The code for the android library should be well thought and should not change drastically between versions. Follow [**semantic versioning**](http://semver.org/) **.**
+代码应该易于理解，同时避免在版本迭代的过程中发生剧烈的变化。遵循 [**sematic versioning**](http://semver.org/)。
 
-- **Easy to use, Hard to misuse**
+- **易于使用，难以误用**
 
-It should be easily understandable in terms of implementation and its usage in the first sight itself. The exposed public methods should have enough validation checks to make sure people cannot misuse its functionality other than what it was coded and intended for.Provide sane defaults and handle scenarios when dependencies are not present.
+就实现与首次使用而言，它应该是易于理解的。暴露给用户的方法应该经过充分的检查以保证用户只会用它干它应该做的事情，避免方法被用户错误使用。在某些需要用到的东西不存在的时候，提供合理的默认设置和处理方案。公开的方法应该经过充分的检查以保证用户不会。
 
-In short…
+简而言之
 
-<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*iBMPbaVozZmJkkp-kisr7g.gif">
+![](https://cdn-images-1.medium.com/max/800/1*iBMPbaVozZmJkkp-kisr7g.gif)
 
-simple.
+简单。
 
-### Minimize Permissions ###
+### 最小化权限 ###
 
-In the current times, when everyone just wants to jump the road and ask as many permissions, you should pause and think about do you really need that extra permission. Take care of these points especially
+在每个开发者都在向用户申请很多的权限时，你得停下来想一想你是不是真的需要这些额外的权限。这一点尤其需要注意。
 
-- Minimize your permissions as much as you can.
-- Use **Intents** to let dedicated apps do the work for you and return the processed result.
-- Enable and disable your features based off if you have the permission for it. Do not let your code crash just because you do not have the said permission. If at all , you must educate the user well before requesting the permission and that why its required. If possible have a fallback functionality if the permission isn’t approved.
+- 尽可能的请求更少的权限。
+- 使用 **Intent** 让专用程序为你工作并返回结果。
+- 基于你获得的权限启用你的功能。避免因为权限不足导致的崩溃。可以的话，在请求权限之前先让用户知道你为什么需要这些权限。尽量在没有获得权限的时候进行功能回退。
 
-This is how you check if you have a said permission granted or not:
+通过如下方式检查是否具有某个权限。
 
 ```
 public boolean hasPermission(Context context, String permission) {
@@ -221,7 +220,8 @@ public boolean hasPermission(Context context, String permission) {
 }
 ```
 
-Some of the devs would say that they really need that specific permission, what to do in that case. Well, your library code should be generic for all types of apps that need the specific functionality. If you can provide hooks such as functions to let users of your android library pass the data you need the dangerous permission for. In that way, you do not force the devs to require a permission they do not want to. In absence of the permission provide a fallback implementation. Simple.
+有些开发者可能会说他是真的需要某个特定权限，在这种情况下该怎么办呢？库代码应该对所有需要这个功能的应用是通用的。如果你需要某个危险权限来获取某些数据，而这些数据是库的使用者可以提供的，那么你就应该提供一个方法来接收这些数据。这种时候你就不应该强迫开发者去申请他不想申请的权限了。当没有权限时，提供功能回退（无法达到但是尽量接近预期效果）的实现。
+
 
 ```
 /* Requiring GET_ACCOUNTS permission (as a requisite to use the
@@ -233,17 +233,17 @@ Some of the devs would say that they really need that specific permission, what 
 MyAwesomeLibrary.getEmail("username@emailprovider.com");
 ```
 
-### Minimize Requisites ###
+### 最小化条件 ###
 
-We have all been there. We have a specific functionality that requires that the device has a certain feature. The usual way you would approach this is by defining the below in your manifest file
+现在，我们有一个功能需要设备具有某种特性。通常我们会在 manifest 文件中进行如下定义
 
 ```
 <uses-feature android:name="android.hardware.bluetooth" />
 ```
 
-..the problem with this is that when this is defined in the android library code, this would get merged into the app manifest file during the manifest-merger phase of `build` and thus hide the app in Play Store for devices that do not have the bluetooth unit (this is something the Play Store does as filtering). So basically an app that was earlier visible to a larger audience would now be visible to a smaller audience, just cause you added that to your library code.
+当你在安卓库代码中这么写的时候问题就来了，它会在构建的过程中与应用的 manifest 文件合并，并导致那些没有蓝牙功能的设备无法从 Play 商店中下载它。这样会导致之前对大部分用户可见的 app 此时却仅仅对一部分用户可见，就只是因为引用了你的库。
 
-Well, that’s not we want, do we? Nope. So how do we solve this. Well what you need to do is not include that **uses-feature** in your manifest file for the android library but rather check for the feature during runtime in your code as below
+这可不是我们想要的。所以我们得解决它。不要在 manifest 文件中写 **uses-feature**，在运行时检查是否有这个功能
 
 ```
 String feature = PackageManager.FEATURE_BLUETOOTH;
@@ -252,19 +252,19 @@ public boolean isFeatureAvailable(Context context, String feature) {
 }
 ```
 
-.. this way there is no entry in the manifest and once it merges into the app, it won’t let the app get filtered in the Play Store.
+这种方式就不会引起 Play 商店的过滤。
 
-***As an added feature*** though if the feature is not available you can just disable the functionality in your library code and have some fallback functionality in place. It is a Win- Win for both the android dev who built the library and the dev who integrates the lib in their app.
+**作为一个额外功能提供**是当这个功能不可用时在库代码中不去调用相关方法或者使用替代的回调方法。这对于库的开发者和使用者来说是一种双赢的局面。
 
-### Support different versions ###
+### 多版本支持 ###
 
 ![](https://cdn-images-1.medium.com/max/1600/1*7Lh4ChOmBQ5A9fJ0vP2e1Q.gif)
 
-How many are out there exactly?
+现在到底有多少种版本？
 
-If you have a feature that’s available in a certain version of android, you should do the check for that in code and disable the feature if the version is lower than supported.
+如果你的库中存在只能在特定版本中运行的代码，你应该在低版本的设备中禁用这些代码。
 
-As a rule of thumb support the full spectrum of versions via defining in `minSdkVersion` and `targetSdkVersion`. What you should do internally to your library code is check for the android version at runtime and enable/disable the feature or use a fallback.
+一般的做法是通过定义 `minSdkVersion` 和 `targetSdkVersion` 来指定支持版本。你应在在代码中检查版本，来决定是否启动某个功能，或者提供回退。
 
 ```
 // Method to check if the Android Version on device is greater than or equal to Marshmallow.
@@ -273,15 +273,15 @@ public boolean isMarshmallow(){
 }
 ```
 
-### Do not log in production ###
+### 不要在正式版中输出日志 ###
 
-<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1200/1*78Ghqzo3iMUnaYjNcuu1xw.gif">
+![](https://cdn-images-1.medium.com/max/1200/1*78Ghqzo3iMUnaYjNcuu1xw.gif)
 
-Just DO NOT.
+**就是不要这么做。**
 
-Almost every time I am asked to test an app or an android library project the first thing that I have seen is that they log everything up in the open, in their release code.
+几乎每次被要求去测试一个应用或者 Android Library 工程时我都会发现他们把所有在日志里输出了所有东西，这可是发布版啊。（译注：在正式版中打印日志是不必要的，可能影响性能，还可能带来安全问题）
 
-As a rule of thumb, never log in production. You should use [**build-variants**](https://developer.android.com/studio/build/build-variants.html)  with [**timber**](https://github.com/JakeWharton/timber)  to help you in the process to separate logging info in production vs debug builds. A simple solution can be to provide a `debuggable` flag that the devs can flip to enable/disable logging from your android library
+根据经验，永远不要在正式版中输出日志。你应该配合使用 [**build-variants**](https://developer.android.com/studio/build/build-variants.html) 和 [**timber**](https://github.com/JakeWharton/timber) 来实现发布版和调试版中的不同日志输出。一个更简单的解决方案是提供一个 `debuggable` 标志位来让开发者设置以开关安卓库中的日志输出。
 
 ```
 // In code
@@ -292,11 +292,11 @@ MyAwesomeLibrary.init(apisecret,debuggable);
 debuggable = true
 ```
 
-### Do not crash silently and fail fast ###
+### 发生错误的时候让使用者知道 ###
 
-<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/600/1*71OXRYnUcGsgX-Ut5aPK6A.png">
+![](https://cdn-images-1.medium.com/max/600/1*71OXRYnUcGsgX-Ut5aPK6A.png)
 
-I have seen this a lot of times now. Some of the devs would not log their errors and exception in logcat! Which basically adds a headache to the users of the android library when they are trying to debug the code. In tandem to the last tip about not logging in production, you must understand that exceptions and errors need to be logged irrespective of being in *debug* or *production*. If you do not want to log in production, at least provide a functionality of enabling logs via passing some flag when you initialize your library. i.e
+经常有开发者不在日志里输出错误和异常信息，我遇到过很多次这种情况。这让安卓库的使用者在调试的过程中感到十分的头疼。虽然上面说了不要在发布版中输出日志，但是你得理解无论是在**发布版**还是**调试版**中错误和异常信息都需要输出。如果你真的不愿意在发布版中输出，至少在初始化的时候提供一个方法来让使用者启用日志。
 
 ```
 void init(ApiSecret apisecret,boolean debuggable){
@@ -313,49 +313,48 @@ void init(ApiSecret apisecret,boolean debuggable){
 }
 ```
 
-It is important that your android library fails immediately and shows an exception to the user of your android library instead of being hung up on doing something. Avoid writing code which would block the Main Thread.
+当你的安卓库崩溃的时候要立刻向用户显示异常，而不是挂起并做一些处理。避免写一些会阻塞主进程的代码。
 
-### Degrade gracefully in an event of error ###
+### 当发生错误时及时退出并禁用功能 ###
 
-What I mean by this is that when say your android library code fails, try to have a check so that the code would not crash the app instead only the functionality provided by your library code is disabled.
+我的意思是当你的代码挂掉后，尝试进行检查和处理，从而使这些有问题的代码仅仅会导致你提供的库中的一些功能被禁用而不是让整个APP崩溃。
 
-### Catch specific exceptions ###
+### 捕获特定的异常 ###
 
-Continuing with the last tip, you might notice that in my last code snippet I am using a try-catch statement. Catch statement specifically catches all `Exception` as its a base class. There is no specific distinction between one exception vs the other one. So what one must do is define specific types of Exception as per the requirement at hand. i.e `NUllPointerException`, `SocketTimeoutException`, `IOException`, etc.
+接上一条建议，你可以看到上面那段代码里我使用了 try-catch 语句。Catch 语句只是简单的捕获了所有的 `Exception` 。一个异常与另一个异常之间并没有什么太大的区别。因此，必须要根据手头的需求捕获特定类型的异常。比如：`NULLPointerException`, `SocketTimeoutException`, `IOException` 等等。
 
-### Handle poor network conditions ###
+### 对网络状况差的情况进行处理 ###
 
-<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*I_Cs9YSx0ZbTVUWSwF6YCA.gif">
+![](https://cdn-images-1.medium.com/max/800/1*I_Cs9YSx0ZbTVUWSwF6YCA.gif)
 
-…this gets on my nerves, seriously!
+这很重要，严肃点！
 
-If the android library you wrote deals with making network calls, a very simple thing that usually goes unnoticed is that you should always consider a case of what happens if the network is slow or non-responsive.
+如果你的安卓库需要进行网络请求，一个很容易忽视的情况就是网速较慢或者请求无相应。
 
-What I have observed is that library code developers assume that the network calls being made will always go through. A good example will be if your android library fetches some config file from the server to initialize itself. Now when developing the library the devs assume that the config file will always get downloaded. What they forget is that on a flaky network, the library code will not be able to download the config file and hence would crash the whole codebase. If simple checks and a strategy to handle such situations are built right into the android library code, it saves quite a number of people the headaches they would have otherwise.
+据我观察，开发者总会假设网络畅通。举个例子吧，你的安卓库需要从服务器上获取配置文件来进行初始化。如果你忽略了在网络状态差的时候没法下载配置文件，那么你的代码就可能因为获取不了配置文件而崩溃。如果你进行了网络状态检查并进行处理，那么就能为你的库的使用者省很多事。
 
-Whenever possible batch your network calls and avoid multiple calls. This also [saves a lot of battery](https://developer.android.com/training/monitoring-device-state/index.html), [read here](https://developer.android.com/training/efficient-downloads/efficient-network-access.html)
+尽可能的批量处理你的网络请求，避免多次请求。这能够[节省很多电量](https://developer.android.com/training/monitoring-device-state/index.html)，再看下[这个](https://developer.android.com/training/efficient-downloads/efficient-network-access.html)。
 
-Reduce the amount of data you transfer over the network by moving away from *JSON* and *XML* to [***Flatbuffers***](https://google.github.io/flatbuffers/) .
+通过将 *JSON* 与 *XML* 转成 [***Flatbuffers***](https://google.github.io/flatbuffers/) 来节省数据传输量。
 
-[Read more about managing network here](https://developer.android.com/topic/performance/power/network/index.html)
+[阅读更多有关网络管理的知识](https://developer.android.com/topic/performance/power/network/index.html)。
 
-### Reluctance to include large libraries as dependencies ###
+### 避免将大型库作为依赖 ###
 
-This one goes without much explanation. As most of fellow Android Devs would be knowing, there is a method count limit of 65K methods for android app code. Now say if you have a transitive dependency on a large library, you would introduce two undesirable effects to the android app your library is being included
+这一点不需要太多的解释。就像安卓开发者都知道的那样，一个安卓应用最多只能有 65k 方法。如果你依赖了一个大型的库，那么会对使用你的库的应用带来两个不期望的影响。
 
-1. You will considerably increase the method count of the android app, even though your own library codebase has a low method count footprint since you would transitively download the larger library and thus it will contribute to the method count too.
-2. If the method count hits the 65K limit, just because of your library code that transitively downloaded the larger library, the app developer will be forced to get into the lands of multi-dexing. Trust me on this, no one wants to get into the multi-dexing world.
-In such a scenario, your library has introduced a bigger problem than solving the initial problem. So most probably your library will be replaced by some other library that does not add to the method count or basically that takes care everything in a better way.
+1. 你会让应用的方法数将会大大增加，即使你的库只有很少一些方法，但是你依赖的库中的方法也被算上了。
+2. 如果因为引入你的库而导致方法数达到了 65k，那么应用开发者不得不去使用 multi-dex。相信我，没人想用 multi-dex 的。
+   在这种情况下，为了解决一个问题你引入了一个更大的问题，你的库的使用者将会转而去使用别的库。
 
-### Do not require dependencies unless you very much have to ###
+### 避免引用不是必需的库 ###
 
-Now this rule is something that I think everyone knows, right? Do not bloat your android libraries with dependencies you do not need. But the point to note here is that even if you need dependencies you do not have to make the users of the library download it transitively. i.e the dependency does not not need to be bundled with your android library.
+我觉得这应该时一条大家都知道的规则了，是不是？不要让你的安卓库因为引入了不需要的库而膨胀。但是需要注意的是即使你需要依赖，让你的用户传递性地下载这些依赖（因为用了你的库而不得不去下载另一个库）。比如，那些没有和你的库绑定的依赖。
+**那么现在的问题就是如果没有和我们的库绑定那么我们如何去使用它？**
 
-*Well, then the question arises as to how do we use it if it is not bundled with our library?*
+答案很简单，要求用户在编译的时候提供你需要的依赖。可能不是每个用户都需要这个依赖提供的方法，对于这些用户来说，如果你找不到这些依赖，你只需要禁用某些方法就行了。对于那些需要的用户，它们会在 `build.gradle` 提供依赖。
 
-Well the simple answer is you ask your users to provide that dependency to you during compile time. What this means is that not every user might need the functionality which requires the dependency. And for those users, if you cannot find the dependency as provided to you, you just disable the functionality in your code. But for those who need it, they will provide you the dependency, by including it in their `build.gradle` .
-
-#### **How to achieve this ?** Check in classpath ####
+#### **如何实现它？** 检查 classpath ####
 
 ```
 private boolean hasOKHttpOnClasspath() {
@@ -369,7 +368,7 @@ private boolean hasOKHttpOnClasspath() {
 }
 ```
 
-Next, you can use `provided`(Gradle v2.12 and below) or `compileOnly`(Gradle v2.12+)([Read here for complete information](https://blog.gradle.org/introducing-compile-only-dependencies) ), so as to be able to get hold of the classes defined by the dependency during compile time.
+接下来，你可以使用 `provided`(Gradle v2.12 或更低)或者 `compileOnly`(Gradle v2.12+)（[阅读完整内容](https://blog.gradle.org/introducing-compile-only-dependencies)），以便在编译时获取依赖库内定义的类。
 
 ```
 dependencies {
@@ -382,123 +381,126 @@ dependencies {
 }
 ```
 
-> A word of caution here, you can only use this functionality of requiring a dependency if its a complete java dependency. i.e if its an android library you want to include at compile time, you can not reference its transitive libs as well as resources which need to be present before compilation. A pure java dependency, on the other hand, has only java classes and they are the only ones that would be added to classpath during the compilation process.
+> 还有要注意的是，只有当依赖是单纯的 Java 依赖的时候你才能使用这种控制依赖的方法。比如，如果你在编译时引入安卓库，你就没法引用它的依赖库或者资源文件，这些都必须在编译前被加入。只有依赖是一个纯 Java 依赖（仅仅由 Java 类组成）时，才可以通过在编译的过程中加入 ClassPath 来使用。
 
-### Try not to hog the startup ###
+### 不要阻塞启动过程 ###
 
 ![](https://cdn-images-1.medium.com/max/1200/1*78Ghqzo3iMUnaYjNcuu1xw.gif)
 
-no kidding…
+没开玩笑
 
-What I mean by this is that, as soon as the app starts up try not to initialize your android library greedily. What that would tend to do is that it will increase the startup time for the App itself, even though the app does simply nothing at startup except off course initialize your android library.
+我指的不要应用一启动就立刻初始化你的安卓库。这么做会降低应用的启动速度，即使应用什么都没做就只是初始化了你的库。
 
-The solution to such a problem is to do all work of initializing off the main thread i.e in a new thread, async. Better if you use `Executors.newSingleThreadExecutor()` and keep the number of thread to just one.
+解决办法是不要在主线程里进行初始化工作，可以新建一个线程，更好的办法是使用 `Executors.newSingleThreadExecutor()` 让线程数量保持唯一。
 
-Another solution would be to initialize components of your android library ***on demand***  *i.e Load them up/initialize them only when they are needed.*
+另一个解决办法是**根据需要**初始化你的安卓库，比如只有在使用到的时候加载/初始化它们。
 
-### Remove functionality and features gracefully ###
+### 优雅地移除方法和功能 ###
 
-Do not remove your `public` functions between versions as that would lead the builds of many users of your android library break and they would be clueless as to why did that even happen.
+不要在版本迭代的过程中移除 `public` 方法，这会导致使用你的库的应用无法使用，而开发者并不知道什么导致了这个问题。
 
-Solution: Deprecate the functions by marking them `@Deprecated` and then define a roadmap of their removal in future versions.
+解决方案：使用 `@Deprecated` 来标注方法并给出在未来版本的弃用计划。
 
-### Make your code Testable ###
+### 使你的代码可测试 ###
 
-Making sure you have tests in your code isn’t actually a rule to follow. You should be doing this everywhere and for every project app or library without saying.
+确定你的代码里有测试实例，这不是一个规则，而是一个常识，你应该在你的每一个应用和库中这么做。
 
-Test your library code by making use of Mocks, avoiding final classes, not having static methods, etc.
+使用 Mock 来测试你的代码，避免 final 类，不要有静态方法等等。
 
-Writing code with interfaces around your public API also makes your android library capable of swapping implementations easily and in turn makes the code more testable.i.e you can provide mock implementations easily when testing.
+基于接口编写你的 public  API 使你的安卓库能交换实现，反过来让你的代码可测试，比如，在测试的时候，你可以很容易地提供 mock 实现。
 
-### Document Everything! ###
+### 为每一个东西编写文档 ###
 
-<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*Qtged_3sWzcWmRstgkTGJQ.gif">
+![](https://cdn-images-1.medium.com/max/800/1*Qtged_3sWzcWmRstgkTGJQ.gif)
 
-Being the creator of the android library you would know about your code, but the people who are going to use it won’t know about it unless you expect them to figure out by reading your source code (you should never need that).
+作为安卓库的创建者你很了解你的代码，但是使用者不会很了解，除非你让他们去阅读你的代码（而你永远也不应该这么做）。
 
-Document your library well including every detail about how to use it and detailing every feature you have implemented.
+编写文档，包括使用时的每个细节，你实现的每个功能。
 
-1. Create a `Readme.md` file and place it at the root of your repository.
-2. Have `javadoc` comments in your code, covering all `public` functions. They should cover and explain
-- Purpose of the `public` method
-- The arguments passed
-- Return type
-3. Bundle a sample app which demonstrates a working example of how the library and its features are used.
-4. Make sure you keep a detailed change log for your changes. A good place to do that would be to add the information right in your `release` section for the specific version tag.
+1. 创建一个 `Readme.md` 文件并将其放在库的根目录下。
+2. 为代码里所有 `public` 写 `javadoc`注释。它们应该包括
+- `public` 方法的目的
+- `传入的参数`
+- `返回的数据`
+3. 提供一个示例应用来演示这个库的功能以及如何使用。
+4. 确定你有一个详细的修改日志。放在 `release` 记录里的特殊的版本 tag 里都比较合适。
 
-<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*7cIRxmPZLxOzoR6sMYDXJQ.jpeg">
+![](https://cdn-images-1.medium.com/max/800/1*7cIRxmPZLxOzoR6sMYDXJQ.jpeg)
 
-Screenshot of Github Releases section for Sensey android library
+GitHub 里 Sensey 库的 Release 部分截图
 
-*…and* [*here is the link to releases section*](https://github.com/nisrulz/sensey/releases) for [*Sensey*](https://github.com/nisrulz/sensey)
+这是 [*Sensey*](https://github.com/nisrulz/sensey) 的 [**release 链接**](https://github.com/nisrulz/sensey/releases)
 
-### Provide a most minimalistic Sample App ###
+### 提供一个极简的示例应用 ###
 
-This goes without saying. Always provide the most minimalistic Sample app with your library code, as that is the first thing other devs will checkout to understand a working example of using your android library. The simpler it is the easier it is to understand. Making the sample app look fancy and code complex would only undermine the actual goal of the sample app, that is to provide a working example of using your android library.
+这都不用说了。始终提供一个最简洁的示例程序，这是开发者在学习使用你的库的过程中接触的第一个东西。它越简单就越好理解。让这个程序看起来花哨或者把示例代码写得很复杂只会背离它最初的目的，它只是一个如何使用库的例子。
 
-### Consider putting up a License ###
+### 考虑加一个 License ###
 
-Most of the time developers forget about the Licensing piece. This is one factor that decides the adoption of your android library.
+很多时候开发者都忘了 License 这部分。这是别人决定要不要采纳你的库的一个因素。
 
-Say you decided to license your android library in a restrictive manner i.e Using GPL license, would mean that whoever uses your library and makes modification will have to contribute back to your codebase in order to keep using the android library. Putting such restrictions hampers the adoption of android libraries and developers tend to avoid such codebases.
+如果你决定使用一种带限制的协议，比如 GRL，这意味着无论谁只要修改了你的代码那他必须要将修改提交到你的代码库中。这样的限制阻碍了安卓库的使用，开发者倾向于避免使用这样的代码库。
 
-The solution to this is that you stick to more open licenses such as MIT or Apache 2.
+解决办法是使用诸如 MIT 或者 Apache 2 这样更为开放的协议。
 
-Read about licensing at this [simple site](https://choosealicense.com/)  and about need of [copyright in your code here](http://jeroenmols.com/blog/2016/08/03/copyright/)
+在这个[简单的网站](https://choosealicense.com/)阅读有关协议的知识，以及关于你的[代码需要的 copyright](http://jeroenmols.com/blog/2016/08/03/copyright/)。
 
-### Last but not the least, get feedback ###
+### 最后，获取反馈 ###
 
-<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/600/1*Yqf4olqT9Xsrk_ApAk-uiA.gif">
+![](https://cdn-images-1.medium.com/max/600/1*Yqf4olqT9Xsrk_ApAk-uiA.gif)
 
-Yeah, you heard that right!
+是的，你听到了！
 
-Your android library was built to cater to your needs initially. Once you put it out for others to use, you will come to know a lot of issues in it. Hear out your fellow devs and gather feedback. Act on it considering and weighing on the functionality to introduce or fix while maintaining the goals of the android library intact.
+起初，你的安卓库是用来满足自己的需求的。一旦你发布出去让别人用，你将会发现大量的问题。从你的库的使用者那里听取意见收集反馈。基于这些意见在保持原有目的不变的情况下考虑增加新的功能和修复一些问题。
 
-### Summary ###
+### 总结 ###
 
-In short, you need to take care of the below points while building
+简而言之，你需要在编码过程中注意以下几点
 
-- Avoid multiple arguments
-- Ease of use
-- Minimize permissions
-- Minimize requisites
-- Support different versions
-- Do not log in production
-- Do not crash silently and fail fast
-- Degrade gracefully in an event of error
-- Catch specific exceptions
-- Handle poor network conditions
-- Reluctance to include large libraries as dependencies
-- Do not require dependencies unless you very much have to
-- Try not to hog the startup
-- Remove features and functionalities gracefully
-- Make your code testable
-- Document everything
-- Provide a most minimalistic sample app
-- Consider putting up a license
-- Get feedback, lots of them
+- 避免多参数
+- 易用
+- 最小化权限
+- 最小化前置条件
+- 多版本支持
+- 不要在发布版中打印日志
+- 在崩溃的时候给使用者反馈
+- 当发生错误时及时退出并禁用功能
+- 捕获特定异常
+- 处理网络不良的情况
+- 避免依赖大型库
+- 除非特别需要，不要引入依赖
+- 避免阻塞启动过程
+- 优雅地移除功能和特性
+- 让代码可测试
+- 完善的文档
+- 提供极简的示例应用
+- 考虑加个协议
+- 获取反馈
 
-#### As a rule of thumb follow the rule of SPOIL-ing your Library ####
+#### 根据经验，你的库应该依照 SPOIL 原则 ####
 
-**S**imple — Briefly and Clearly expressed
+简单（**S**imple）—— 简洁而清晰的表达
 
-**P**urposeful — Having or showing resolve
+目的（**P**urposeful）—— 解决问题
 
-**O**penSource — Universal Access, Free license
+开源（**O**penSource）—— 自由访问，免费协议
 
-**I**diomatic — Natural to the native environment
+习惯（**I**diamatic）—— 符合正常使用习惯
 
-**L**ogical — Clear, Sound Reasoning
+逻辑（**L**ogical) —— 清晰有理
 
-> I read this sometime back in a presentation by some author I cannot recall. I took note of it as it makes a lot of sense and provides a clear picture in a very concise manner. If you know who the author is, please comment it and I will add his link and give due credit.
+> 我在曾经某个时候从某位作者的演示里看到这个，但我想不起来他是谁了。因为它很有意义并以很简洁的方式提供了图片所以当时我记了笔记。如果你知道他是谁，在下面评论，我会将他的链接加上。
 
-### Ending Thoughts ###
+### 最后的思考 ###
 
-I hope this post helps fellow android devs in building better android libraries. Android Community benefits extensively from using android libraries published daily by fellow android devs and if everyone starts to take care of their API design process keeping in mind the end user (other android developers) we would all be a step closer to an even better ecosystem as a whole.
+我希望这篇博客给那些正在开发更好的安卓库的开发者们带来帮助。安卓社区从开发者每天发布的库中获得了很大的益处。如果每个人都开始注意他们 API 设计，学会为用户（其他的安卓开发者）考虑，我们将会迎来一个更好的生态。
 
-These guidelines are compiled on my experience of developing android libraries. I would love to know your views on the pointers mentioned above. Please leave a comment, and let me know!
+这个教程是基于我开发安卓库的经验。我很想知道你关于这些观点的意见。欢迎留下评论。
 
-If you have suggestions or maybe would like me to add something to the content here, please let me know.
+如果你有什么建议或者想让我加一些内容，请让我知道。
 
 Till then keep crushing code 🤓
 
+---
+
+> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[React](https://github.com/xitu/gold-miner#react)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计) 等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)。
