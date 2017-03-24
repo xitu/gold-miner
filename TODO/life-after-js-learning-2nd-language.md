@@ -11,11 +11,11 @@
 	
 ## 打折啦！获取 5 个 WordPress 主题! ##	
 	
-通常 $39 刀， 便宜 $156 刀。
-又快，又好看，还是响应式的。
-由 sitePooint 构建。
-24 小时内结束。
-[Show Me The Themes]（）	
+通常 $39 刀， 便宜 $156 刀。 
+又快，又好看，还是响应式的。 
+由 sitePooint 构建。 
+24 小时内结束。 
+[Show Me The Themes](/themes?utm_source=sitepoint&amp;utm_campaign=launchoffer&amp;utm_medium=article-promo)
 	
 	
 你会多少种编程语言？根据最近的调查，大约 80% 的读者至少会两种。超过半数的人经常使用 PHP，就像我一样，我敢打赌大多数人使用这门语言开始他们的 Web 开发。
