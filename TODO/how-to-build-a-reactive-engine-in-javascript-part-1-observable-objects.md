@@ -7,7 +7,7 @@
 ![](https://d4a7vd7s8p76l.cloudfront.net/uploads/1484604970-4-7876/observables.png)
 
 # [How to build a reactive engine in JavaScript. Part 1: Observable objects](/blog/2016/how-to-build-a-reactive-engine-in-javascript-part-1-observable-objects/) # 
-# 如何使用 JavaScript 构建响应式引擎 —— Part 1：可见的对象 #
+# 如何使用 JavaScript 构建响应式引擎 —— Part 1：可观察的对象 #
 
 ## The reactive way ##
 ## 响应的方式 ##
