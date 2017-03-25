@@ -1,11 +1,11 @@
 > * 原文地址：[Pull vs Push & Imperative vs Reactive – Reactive Programming [Android RxJava2]|( What the hell is this ) Part2](http://www.uwanttolearn.com/android/pull-vs-push-imperative-vs-reactive-reactive-programming-android-rxjava2-hell-part2/)
-* 原文作者：[Hafiz Waleed Hussain](http://www.uwanttolearn.com/author/admin/)
-* 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：[XHShirley](https://github.com/XHShirley)
-* 校对者：[yunshuipiao](https://github.com/yunshuipiao)，[zhaochuanxing](https://github.com/zhaochuanxing)
+> * 原文作者：[Hafiz Waleed Hussain](http://www.uwanttolearn.com/author/admin/)
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 译者：[XHShirley](https://github.com/XHShirley)
+> * 校对者：[yunshuipiao](https://github.com/yunshuipiao)，[zhaochuanxing](https://github.com/zhaochuanxing)
 
 
-##拉模式和推模式，命令式和响应式 – 响应式编程 [Android RxJava2]（这到底是什么）：第二部分##
+## 拉模式和推模式，命令式和响应式 – 响应式编程 [Android RxJava2]（这到底是什么）：第二部分 ##
 
 太棒了，我们又来到新的一天。这一次，我们要学一些新的东西让今天变得有意思起来。
 
@@ -13,11 +13,11 @@
 
 **动机：**
 
-动机跟我分享[第一部分](http://www.uwanttolearn.com/android/reactive-programming-android-rxjava2-hell-part1/)的是一样的。当我看到有 hasNext()，next()方法的迭代模式（Pull），在 Rx 中反过来也一样时，我经常感到疑惑。同样地，关于命令式编程和响应式编程的很多例子也让我困惑。
+动机跟我分享[第一部分](https://github.com/xitu/gold-miner/blob/master/TODO/reactive-programming-android-rxjava2-hell-part1.md)的是一样的。当我看到有 hasNext()，next()方法的迭代模式（Pull），在 Rx 中反过来也一样时，我经常感到疑惑。同样地，关于命令式编程和响应式编程的很多例子也让我困惑。
 
 **修改：**
 
-在[第一部分](http://www.uwanttolearn.com/android/reactive-programming-android-rxjava2-hell-part1/)中，我们讨论了 Rx 最重要，最基本也最核心的概念, 观察者模式。在程序里的任何一个地方，如果我想要知道数据变化，我会使用观察者模式。就像我们在上一篇博客中看到的邮件通知的例子那样。我们需要吃透这个概念。这很重要，如果你理解这个概念，那你就能理解其他操作如Rx中的映射，筛选等都是在数据上的函数调用。
+在[第一部分](https://github.com/xitu/gold-miner/blob/master/TODO/reactive-programming-android-rxjava2-hell-part1.md)中，我们讨论了 Rx 最重要，最基本也最核心的概念, 观察者模式。在程序里的任何一个地方，如果我想要知道数据变化，我会使用观察者模式。就像我们在上一篇博客中看到的邮件通知的例子那样。我们需要吃透这个概念。这很重要，如果你理解这个概念，那你就能理解其他操作如Rx中的映射，筛选等都是在数据上的函数调用。
 
 **介绍：**
 
@@ -314,7 +314,7 @@ public class EntryPoint {
 
 ```
 
-我感觉现在对于什么是拉(Pull)模式，已经少了很多困惑。这种方法最大的问题在于，开发者需要写很多程序来管理所有的事情。所以对于管理这样的需求，如果不用轮询或拉(Pull)模式，我可以怎么做呢？我们可以利用观察者模式，正如我们在[第一部分](http://www.uwanttolearn.com/android/reactive-programming-android-rxjava2-hell-part1/)所做的。但那是一堆样板文件代码，开发者需要写很多次。我们可以利用 Rx 的库获得便利，这样我们就不需要写一大堆观察者模式的样板代码，但是现在我们还不准备开始用 Rx。首先我们抛开 Rx 理解另外一些概念。那么现在我将把我的代码转换成 推（Push）模式，而不是用 Rx。这样，拉(Pull)和推（Push）分别是什么就非常清晰了。
+我感觉现在对于什么是拉(Pull)模式，已经少了很多困惑。这种方法最大的问题在于，开发者需要写很多程序来管理所有的事情。所以对于管理这样的需求，如果不用轮询或拉(Pull)模式，我可以怎么做呢？我们可以利用观察者模式，正如我们在[第一部分](https://github.com/xitu/gold-miner/blob/master/TODO/reactive-programming-android-rxjava2-hell-part1.md)所做的。但那是一堆样板文件代码，开发者需要写很多次。我们可以利用 Rx 的库获得便利，这样我们就不需要写一大堆观察者模式的样板代码，但是现在我们还不准备开始用 Rx。首先我们抛开 Rx 理解另外一些概念。那么现在我将把我的代码转换成 推（Push）模式，而不是用 Rx。这样，拉(Pull)和推（Push）分别是什么就非常清晰了。
 
 在开始前，我们先简单地来讨论一下拉（Pull）和推（Push）的不同之处。拉（Pull）意味着，作为一个开发者，我对所有事情负责。正如我想知道数据是否有任何变化，我想去询问：“嘿，有什么新的变动吗？”。这是很难维护的，因为程序里多个线程启动，如果开发者有一点偷懒，就会造成内存泄漏。
 
@@ -335,7 +335,7 @@ private interface Observer {
 ```
 
 
-这些事帮助我们实现观察者模式的接口。如果你想了解更多，可以参考[第一部分](http://www.uwanttolearn.com/android/reactive-programming-android-rxjava2-hell-part1/)。
+这些事帮助我们实现观察者模式的接口。如果你想了解更多，可以参考[第一部分](https://github.com/xitu/gold-miner/blob/master/TODO/reactive-programming-android-rxjava2-hell-part1.md)。
 
 如下所示，我创建了一个类来管理数据。
 
@@ -725,4 +725,3 @@ public class EntryPoint {
 现在你们知道了 Rx 的核心概念其实就是观察者模式。在我们讨论了两种策略，观察者模式和回调来达到推（Push）模式之后，我们接下来会讨论拉（Pull）模式和推（Push）模式以及命令式和响应式的困惑。是时候使用 Rx 来达到同样的效果了。我们已经知道我们利用 Rx 来避免样板代码，利用 Rx 的优势有多简单了。我想今天就差不多了。试着自己写代码练习一下。这会帮助你理解这些概念。从下一篇开始，我们很可能开始学习 Lambda 表达式以及函数式编程。这些是非常重要的的东西，会让 Rx 的学习曲线变简单。
 
 谢谢你们的阅读。祝你们有个愉快的周末，再见 :)。
-
