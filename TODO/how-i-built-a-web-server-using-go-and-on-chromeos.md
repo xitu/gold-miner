@@ -2,7 +2,7 @@
 * 原文作者：[Peter GleesonFollow](https://medium.freecodecamp.com/@petergleeson1?source=post_header_lockup)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[xiaoyusilen](http://xiaoyu.world)
-* 校对者：
+* 校对者：[nicebug](https://github.com/nicebug)，[steinliber](https://github.com/steinliber)
 
 
 # 如何在 ChromeOS 下用 Go 搭建 Web 服务 #
