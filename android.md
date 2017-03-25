@@ -1,3 +1,4 @@
+* [离线支持：不再『稍后重试』](https://juejin.im/post/58d491a8128fe1006cb6e750/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([skyar2009](https://github.com/skyar2009) 翻译)
 * [当发布安卓开源库时我希望知道的东西](https://juejin.im/post/58d247b00ce4630057e92e9c/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jifaxu](https://github.com/jifaxu) 翻译)
 * [单元测试试图告诉我们关于 Activity 的什么事情：第二部分](https://gold.xitu.io/entry/58cf988b2f301e007e54c434/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([tanglie1993](https://github.com/tanglie1993/) 翻译)
 * [面向无神论安卓开发：如何和为什么要干掉上帝对象](https://gold.xitu.io/entry/58c748891b69e6006be9f834/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Danny1451](https://github.com/Danny1451) 翻译)
