@@ -1,3 +1,5 @@
+* [震惊，还可以用这种姿势学习编程](https://juejin.im/post/58d3ebd4128fe1006cb43722/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([iloveivyxuan](https://github.com/iloveivyxuan) 翻译)
+* [如何让你的 React 应用完全的函数式，响应式，并且能处理所有令人发狂的副作用](https://juejin.im/post/58d3287f61ff4b006cb3f56d/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([ZhangFe](https://github.com/ZhangFe) 翻译)
 * [编写整洁 CSS 代码的黄金法则](https://juejin.im/post/58d34bed128fe1006caf8b6b/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([reid3290](https://github.com/reid3290) 翻译)
 * [创建和使用 WebAssembly 组件](https://juejin.im/post/58d0bbe144d90400684c0f3a/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([xilihuasi](https://github.com/xilihuasi) 翻译)
 * [WebAssembly 的现在与未来](https://github.com/xitu/gold-miner/blob/master/TODO/where-is-webassembly-now-and-whats-next.md) ([huzidaha](https://github.com/huzidaha/) 翻译)
