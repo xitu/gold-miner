@@ -16,7 +16,7 @@ With the growing need for robust and interactive web interfaces, many developers
 随着对强健、可交互的网站界面的需求不断增多，很多开发者开始拥抱响应式编程规范。
 
 Before we begin implementing our own reactive engine, let’s quickly explain what reactive programming actually is. Wikipedia gives us a classic example of a reactive interface implementation – namely a spreadsheet. Defining a formula such as `=A1+B1` would update the cell whenever either `A1` or `B1` change. Such a formula can be considered a computed value.
-在开始实现我们自己的响应式引擎之前，快速的解释一下到底什么是响应式编程。维基百科给出一个经典的响应式界面实现的例子 —— 叫做 spreadsheet。定义一个准则，对于 `=A1+B1`，只要  `A1` 或 `B1` 发生变化，`=A1+B1` 也会随之变化。这个准则被认为是 computed value。
+在开始实现我们自己的响应式引擎之前，快速地解释一下到底什么是响应式编程。维基百科给出一个经典的响应式界面实现的例子 —— 叫做 spreadsheet。定义一个准则，对于 `=A1+B1`，只要  `A1` 或 `B1` 发生变化，`=A1+B1` 也会随之变化。这个准则被认为是 computed value。
 
 You will learn how to implement computed values in the second part of this reactive series. Before that, we first need a base for our reactivity engine.
 我们将会在这系列教程的 Part 2 部分学习如何实现 computed value。在那之前，我们首先需要对响应式引擎有个基础的了解。
@@ -33,9 +33,9 @@ Currently there are many different approaches to solving the problem of observin
 - Libraries like Vue.js, MobX or Ractive.js all use a variation of getters/setters to create observable data models.
 
 - Angular 1.x 有脏检查。
-- React 由于它工作方式的原因，并不追踪数据模型中的改变。它用虚拟 DOM 比较并修补 DOM。
-- Cycle.js 和 Angular 2 更喜欢响应流方式实现，像 XStream 和 Rx.js.
-- 像 Vue.js， MobX 或 Ractive.js 这些库都使用 getters/setters 变量创建可见的数据模型。
+- React 由于它工作方式，并不追踪数据模型中的改变。它用虚拟 DOM 比较并修补 DOM。
+- Cycle.js 和 Angular 2 更喜欢响应流方式实现，像 XStream 和 Rx.js。
+- 像 Vue.js， MobX 或 Ractive.js 这些库都使用 getters/setters 变量创建可观察的数据模型。
 
 In this tutorial, we will go the getters/setters way of observing and reacting to changes.
 在这篇教程中，我们将使用 getters/setters 的方式观察并响应变化。
@@ -45,10 +45,10 @@ In this tutorial, we will go the getters/setters way of observing and reacting t
 > 注意：为了让这篇教程尽量保持简单，代码缺少对非初级数据类型或嵌套属性的支持，并且很多内容需要完整性检查，因此决不能认为这些代码已经可以用于生产环境。下面的代码是受 Vue.js 启发的响应式引擎的实现，使用 ES2015 标准编写。
 
 ## The observable object ##
-## 可见的对象 ##
+## 可观察的对象 ##
 
 Let’s start with a `data` object, whose properties we want to observe.
-让我们从一个 `data` 对象开始，我们想要将它的属性可见。
+让我们从一个 `data` 对象开始，我们想要观察它的属性。
 
 ```
 let data = {
@@ -59,7 +59,7 @@ let data = {
 ```
 
 Let’s start by creating two functions that will transform our object’s properties into observable properties using the getter/setter functionality.
-首先从创建两个函数开始，使用 getter/setter 的功能，将对象的普通属性转换成可见的属性。
+首先从创建两个函数开始，使用 getter/setter 的功能，将对象的普通属性转换成可观察的属性。
 
 ```
 function makeReactive (obj, key) {
@@ -67,7 +67,7 @@ function makeReactive (obj, key) {
 
   Object.defineProperty(obj, key, {
     get () {
-      return val // 简单的返回缓存的 value
+      return val // 简单地返回缓存的 value
     },
     set (newVal) {
       val = newVal // 保存 newVal
@@ -106,12 +106,12 @@ let signals = {} // Signals 从一个空对象开始
 function observe (property, signalHandler) {
   if(!signals[property]) signals[property] = [] // 如果给定属性没在 signal 中，则创建这个属性的 signal，并将其设置为空数组来存储 signalHandlers
 
-  signals[property].push(signalHandler) // 将 signalHandler 存入 signal 数组，高效的获得一组保存在数组中的回调函数
+  signals[property].push(signalHandler) // 将 signalHandler 存入 signal 数组，高效地获得一组保存在数组中的回调函数
 }
 ```
 
 We can now use the `observe` function like this: `observe('propertyName', callback)`, where `callback` is a function that should be called each time the property’s value has changed. When we **observe** a property multiple times, each callback will be stored inside the corresponding property’s signal array. This way we can store all callbacks and have easy access to them.
-我们现在可以这样用 `observe` 函数：`observe('propertyName', callback)`，每次属性值发生改变的时候 `callback` 函数应该被调用。当多次在一个属性上调用 **observe** 时，每个回调函数将被存在对应属性的 signal 数组中。这样就可以存储所有的回调函数并且可以很容易的获得到它们。
+我们现在可以这样用 `observe` 函数：`observe('propertyName', callback)`，每次属性值发生改变的时候 `callback` 函数应该被调用。当多次在一个属性上调用 **observe** 时，每个回调函数将被存在对应属性的 signal 数组中。这样就可以存储所有的回调函数并且可以很容易地获得到它们。
 
 Now for the `notify` function that you saw before.
 现在来看一下上文中提到的 `notify` 函数。
@@ -196,7 +196,7 @@ App.observe('firstName', () => console.log(App.data.firstName))
 App.observe('lastName', () => console.log(App.data.lastName))
 
 // To trigger the above callbacks simply change the values like this:
-// 为了触发上面的回调函数，像下面这样简单的改变 values：
+// 为了触发上面的回调函数，像下面这样简单地改变 values：
 App.data.firstName = 'Sansa'
 App.data.lastName = 'Stark'
 
@@ -205,7 +205,7 @@ App.data.lastName = 'Stark'
 Simple, isn’t it? Now that we have the basic reactivity engine covered, let’s make some use of it.
 I mentioned that with the more reactive approach to front-end programming, we should not be concerned with things like manually updating the DOM after each change.
 很简单，是不是？现在我们讲完了基本的响应式引擎，让我们来用用它。
-我提到过随着前端编程可响应式方法的增多，我们不能总想着在发生改变后手动的更新 DOM。
+我提到过随着前端编程可响应式方法的增多，我们不能总想着在发生改变后手动地更新 DOM。
 
 There are many approaches to this. I guess the most trending one right now is the so called virtual DOM. If you are interested in learning how to create your own virtual DOM implementation, there are already great tutorials for this. However, here we will go with a much simpler approach.
 有很多方法来完成这项任务。我猜现在最流行的趋势是用虚拟 DOM 的办法。如果你对学习如何创建你自己的虚拟 DOM 实现感兴趣，已经有很多这方面的教程。然而，这里我们将用到更简单的方法。
@@ -323,7 +323,7 @@ function Seer (dataObj) {
       }
     }
     // We can safely parse the DOM looking for bindings after we converted the dataObject.
-    //转换数据对象后，可以安全的解析 DOM 绑定。
+    //转换数据对象后，可以安全地解析 DOM 绑定。
     parseDOM(document.body, obj)
   }
 
@@ -415,7 +415,7 @@ function Seer (dataObj) {
       }
     }
     // We can safely parse the DOM looking for bindings after we converted the dataObject.
-    //转换数据对象后，可以安全的解析 DOM 绑定。
+    //转换数据对象后，可以安全地解析 DOM 绑定。
     parseDOM(document.body, obj)
   }
 
