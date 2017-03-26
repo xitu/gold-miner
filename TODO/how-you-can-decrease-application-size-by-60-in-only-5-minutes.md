@@ -52,7 +52,7 @@ Android Studio 提供了一个有用的工具：[**APK Analyser**](https://devel
 
 ![](https://cdn-images-1.medium.com/max/1000/1*8ITi0D6JrpibvAC9iTG2rA.png)
 
-- **resources.arsc** —— 这个文件包含了所有 value 资源。这个文件包含了你value目录下的所有数据。包括 strings, dimensions, styles, intergers, ids 等等。
+- **resources.arsc** —— 这个文件包含了所有 value 资源。这个文件包含了你 value 目录下的所有数据。包括 strings、dimensions、styles、intergers、ids 等等。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*B1MMigEQSVfKIJRmujeIag.png)
 
