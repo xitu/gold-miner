@@ -10,10 +10,10 @@
 # 如何使用 JavaScript 构建响应式引擎 —— Part 2：计算属性和依赖追踪 #
 
 Hey! If you have ever worked with Vue.js, Ember or MobX I’m pretty sure you stumbled upon so-called **computed** properties. They allow you to create functions that can be accessed just like normal values, but once computed they are cached until one of its dependencies has changed. In general this is a concept very similar to getters and in fact, the following implementation will be using getters. In a smart way. ;)
-Hey！如果你用过 Vue.js、Ember 或 MobX，我敢肯定你被 **计算** 属性难倒过。计算属性允许你创建像正常的值一样使用的函数，但是一旦完成计算，他们就被缓存下来直到它的一个依赖发生改变。总的来说，这一概念与 getters 非常相似，并且事实上，下面的实现将会使用 getters。用一种机智的方式。;)
+Hey！如果你用过 Vue.js、Ember 或 MobX，我敢肯定你被 **计算** 属性难倒过。计算属性允许你创建像正常的值一样使用的函数，但是一旦完成计算，他们就被缓存下来直到它的一个依赖发生改变。总的来说，这一概念与 getters 非常相似，并且事实上，下面的实现将会使用 getters。用一种机智的方式。 ;)
 
 > This is the 2nd part of the How to build a reactive engine in JavaScript series. Before reading any further it is highly recommended to read [Part 1: Observable objects](https://monterail.com/blog/2016/how-to-build-a-reactive-engine-in-javascript-part-1-observable-objects), because the following implementation is built on top of the previous article's code.
-> 这是如何使用 JavaScript 构建响应式引擎系列文章的第二部分。在深入阅读前强烈建议读一下[Part 1： 可观察的对象](https://monterail.com/blog/2016/how-to-build-a-reactive-engine-in-javascript-part-1-observable-objects)，因为接下来的实现是构建于前一篇文章的代码之上的。
+> 这是如何使用 JavaScript 构建响应式引擎系列文章的第二部分。在深入阅读前强烈建议读一下 [Part 1： 可观察的对象](https://monterail.com/blog/2016/how-to-build-a-reactive-engine-in-javascript-part-1-observable-objects)，因为接下来的实现是构建于前一篇文章的代码基础之上的。
 
 ## Computed properties ##
 ## 计算属性 ## 
@@ -344,7 +344,7 @@ To sum things up, our dependency lists:
 - A secondary dependency list that is used to remove dead dependencies and stores the most recent dependencies of a computed property. Think: **Those are the values I’m depending on.**
 
 - 依赖于这个值（可观察的或者其他的计算后的）的计算属性名列表存储在本地。可以这样想：**这些是依赖于我的值。**
-- 第二个依赖列表，用来移除废弃的依赖并存储计算属性的最新的依赖。可以这样想：**这些值是我依赖的**
+- 第二个依赖列表，用来移除废弃的依赖并存储计算属性的最新的依赖。可以这样想：**这些值是我依赖的。**
 
 With those two lists, we can run a filter function to remove the no longer valid dependencies. So let’s start with creating an object to store a secondary dependency list and some utility functions.
 用这两列表，我们可以运行一个过滤函数来移除无效的依赖。让我们首先创建一个存储第二个依赖列表的对象和一些实用的函数。
