@@ -9,7 +9,7 @@
 
 ![](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2017/03/1490154323ezgif.com-optimize.gif) 
 	
-## 打折啦！获取 5 个 WordPress 主题! ##	
+
 	
 
 
