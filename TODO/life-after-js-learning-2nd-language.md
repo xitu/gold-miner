@@ -1,8 +1,8 @@
 > * 原文地址：[Life after JavaScript: The Benefits of Learning a 2nd Language](https://www.sitepoint.com/life-after-js-learning-2nd-language/)
 > * 原文作者：[Nilson Jacques](https://www.sitepoint.com/author/njacques/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
-> * 校对者：
+> * 译者：[gy134340](https://github.com/gy134340)
+> * 校对者：[Tina92](https://github.com/Tina92),[lsvih](https://github.com/lsvih)
 
 
 # 生活在 JavaScript 之中：学习第二门语言的好处 #
