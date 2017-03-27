@@ -1,5 +1,5 @@
 > * 原文地址：[Life after JavaScript: The Benefits of Learning a 2nd Language](https://www.sitepoint.com/life-after-js-learning-2nd-language/)
-> * 原文作者：[Nilson Jacques](https://www.sitepoint.com/author/njacques/)
+> * 原文作者：本文已获原作者 [Nilson Jacques](https://www.sitepoint.com/author/njacques/) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[gy134340](https://github.com/gy134340)
 > * 校对者：[Tina92](https://github.com/Tina92),[lsvih](https://github.com/lsvih)
@@ -30,11 +30,13 @@
 
 值得一提的是，一些现在流行的库和设计模式正是从其他语言中提取出来的概念。Redux，一个 React 的状态管理插件，是借鉴 Elm 中数据流系统。Elm 本身是受 Haskell 启发的一门编译成 JavaScript 的语言。学习别的编程语言可以更好的帮助你更好的理解这些库和它们背后的概念。如果呆在 JavaScript 的舒适区中，你就只能依靠别人从别的编程语言中提取这些见解，并以比较浅显的方式展现出来。
 
+
 学习新的语言也会影响你看待第一门语言的方式。当我开始学习葡萄牙语时，它改变了我看待英语的方式。当你不得不以一种其他的方式做事情时，它会强迫你以母语来思考如何做。你不再觉得理所当然，而是会开始追根溯源。你可以看到一些语言的相似之处：例如葡萄牙语和英语都是起源于拉丁语，它们的一些动词很接近，你可以轻易猜出它们的意思。对于编程语言也是一样，特别是你还只会一个的时候。接触其他语言下将会帮助你思考设计 JavaScript 时所采取的设计选择。一个更为具体的例子是，学习一门支持类继承的语言可以让你对比其与 JavaScript 原型对象继承体系的不同之处。
 
 WebAssembly (WASM)，一个实验中的偏底层语言，将很快可以在浏览器中使用。C 和 C++ 等高级语言将可以编译成 WASM，并获得比 JavaScript 更小的文件和更出色的表现。这将把浏览器向其他语言开放，在未来将一定会有越来越多的语言可以被编译成 WASM。JavaScript 的创造者 Brendan Eich 最近说他可以预见 [JavaScript 在未来可能会过时](http://www.infoworld.com/article/3175024/web-development/brendan-eich-tech-giants-could-botch-webassembly.html)。可以确定的是，JavaScript 将会在长时间内依然重要，但使用另一门语言肯定不会伤害你的就业前景，也可以避免你被局限于 JavaScript 开发的小笼子里。
 
 ### 更多篇文章 ###
+
 
 * [Behind the Scenes: A Look at SitePoint's Peer Review Program](https://www.sitepoint.com/behind-the-scenes-sitepoints-peer-review-program/?utm_source=sitepoint&amp;utm_medium=relatedinline&amp;utm_term=&amp;utm_campaign=relatedauthor)
 * [SitePoint Needs You: The 2017 JavaScript Survey](https://www.sitepoint.com/2017-javascript-survey/?utm_source=sitepoint&amp;utm_medium=relatedinline&amp;utm_term=&amp;utm_campaign=relatedauthor)

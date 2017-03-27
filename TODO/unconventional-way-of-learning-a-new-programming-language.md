@@ -1,5 +1,5 @@
 > * 原文地址：[Unconventional way of learning a new programming language](https://hackernoon.com/unconventional-way-of-learning-a-new-programming-language-e4d1f600342c#.alz60t9jd)
-> * 原文作者：[Sahil Dua](https://hackernoon.com/@sahildua2305)
+> * 原文作者：该文章已获原作者 [Sahil Dua](https://hackernoon.com/@sahildua2305) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[ivyxuan](https://github.com/iloveivyxuan)
 > * 校对者：[atuooo](https://github.com/atuooo), [gaozp](http://gaozhipeng.me)
