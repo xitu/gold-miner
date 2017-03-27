@@ -10,13 +10,13 @@
 # 如何使用 JavaScript 构建响应式引擎 —— Part 1：可观察的对象 #
 
 ## The reactive way ##
-## 响应的方式 ##
+## 响应式的方式 ##
 
 With the growing need for robust and interactive web interfaces, many developers have started embracing the reactive programming paradigm.
 随着对强健、可交互的网站界面的需求不断增多，很多开发者开始拥抱响应式编程规范。
 
 Before we begin implementing our own reactive engine, let’s quickly explain what reactive programming actually is. Wikipedia gives us a classic example of a reactive interface implementation – namely a spreadsheet. Defining a formula such as `=A1+B1` would update the cell whenever either `A1` or `B1` change. Such a formula can be considered a computed value.
-在开始实现我们自己的响应式引擎之前，快速地解释一下到底什么是响应式编程。维基百科给出一个经典的响应式界面实现的例子 —— 叫做 spreadsheet。定义一个准则，对于 `=A1+B1`，只要  `A1` 或 `B1` 发生变化，`=A1+B1` 也会随之变化。这个准则被认为是 computed value。
+在开始实现我们自己的响应式引擎之前，快速地解释一下到底什么是响应式编程。维基百科给出一个经典的响应式界面实现的例子 —— 叫做 spreadsheet。定义一个准则，对于 `=A1+B1`，只要  `A1` 或 `B1` 发生变化，`=A1+B1` 也会随之变化。这样的准则也可以被理解为是一种 computed value。
 
 You will learn how to implement computed values in the second part of this reactive series. Before that, we first need a base for our reactivity engine.
 我们将会在这系列教程的 Part 2 部分学习如何实现 computed value。在那之前，我们首先需要对响应式引擎有个基础的了解。
@@ -34,7 +34,7 @@ Currently there are many different approaches to solving the problem of observin
 
 - Angular 1.x 有脏检查。
 - React 由于它工作方式，并不追踪数据模型中的改变。它用虚拟 DOM 比较并修补 DOM。
-- Cycle.js 和 Angular 2 更喜欢响应流方式实现，像 XStream 和 Rx.js。
+- Cycle.js 和 Angular 2 更倾向于响应流方式实现，像 XStream 和 Rx.js。
 - 像 Vue.js， MobX 或 Ractive.js 这些库都使用 getters/setters 变量创建可观察的数据模型。
 
 In this tutorial, we will go the getters/setters way of observing and reacting to changes.
@@ -89,7 +89,7 @@ observeData(data)
 ```
 
 By running `observeData(data)` we transform our object into an object capable of being observed; now we have a way to create notifications whenever the value changes.
-通过运行 `observeData(data)`，将原始的对象转换成具有可见性的对象；现在当对象的 value 发生变化时，我们有创建通知的办法。
+通过运行 `observeData(data)`，将原始的对象转换成可被观察的对象；现在当对象的 value 发生变化时，我们有创建通知的办法。
 
 ## Reacting to changes ##
 ## 响应变化 ##
@@ -136,7 +136,7 @@ function Seer (dataObj) {
 
   observeData(dataObj)
 
-  // 除了响应的数据对象，我们也需要返回并且暴露出 observe 和 notify 函数。
+  // 除了响应式的数据对象，我们也需要返回并且暴露出 observe 和 notify 函数。
   return {
     data: dataObj,
     observe,
