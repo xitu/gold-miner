@@ -22,7 +22,7 @@ Visual feedback might be easily overlooked in the greater design scheme, but it 
 You must ensure that there is always some feedback for user actions, because it makes users feel in control. Visual feedback
 
 - Acknowledges that the app has received a user’s action.
-- Communicates the results of interaction, making it both *visible *and *understandable*. Gives the user a signal that they (or the app) have succeeded or failed at performing a task.
+- Communicates the results of interaction, making it both *visible* and *understandable*. Gives the user a signal that they (or the app) have succeeded or failed at performing a task.
 
 #### Make buttons and other controls tangible ####
 
