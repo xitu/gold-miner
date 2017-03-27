@@ -11,7 +11,7 @@
 
 Your product’s success is based on a combination of factors, but the overall user experience tops them all. When it comes down to designing a new app or a site, sticking to best practices is a solid way to go, but during the creation of the big picture, it’s fairly easy to skimp over design elements that feel like nice to have but not necessary. However, the difference between good and bad experiences often comes down to how thoughtful we can design these small details.
 
-In this article, I’ll focus on* visual feedback*, *microcopy *and *whitespace *and you’ll see why these *little big details* are just as important as the more obvious elements of your design, and how they help determine the success of your product.
+In this article, I’ll focus on *visual feedback*, *microcopy* and *whitespace* and you’ll see why these *little big details* are just as important as the more obvious elements of your design, and how they help determine the success of your product.
 
 ### Visual Feedback ###
 
