@@ -2,7 +2,7 @@
 > * 原文作者：本文已获原作者 [Damian Dulisz](https://disqus.com/by/damiandulisz/) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[IridescentMia](https://github.com/IridescentMia)
-> * 校对者：
+> * 校对者：[reid3290](https://github.com/reid3290)，[malcolmyu](https://github.com/malcolmyu)
 
 ![](https://d4a7vd7s8p76l.cloudfront.net/uploads/1484604970-4-7876/observables.png)
 
