@@ -1,3 +1,4 @@
+* [我是如何做到在 5 分钟之内将应用大小减少 60% 的](https://juejin.im/post/58d9b6a1a22b9d0064719f9e/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jifaxu](https://github.com/jifaxu) 翻译)
 * [拉模式和推模式，命令式和响应式 – 响应式编程 [Android RxJava2]（这到底是什么）：第二部分](https://juejin.im/post/58d78547a22b9d006465ca57/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([XHShirley](https://github.com/XHShirley) 翻译)
 * [离线支持：不再『稍后重试』](https://juejin.im/post/58d491a8128fe1006cb6e750/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([skyar2009](https://github.com/skyar2009) 翻译)
 * [当发布安卓开源库时我希望知道的东西](https://juejin.im/post/58d247b00ce4630057e92e9c/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jifaxu](https://github.com/jifaxu) 翻译)
