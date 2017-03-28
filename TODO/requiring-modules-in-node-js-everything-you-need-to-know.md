@@ -16,41 +16,52 @@ Node uses two core modules for managing module dependencies:
 Node 提供了两个核心模块来管理模块依赖：
 
 - The `require` module, which appears to be available on the global scope — no need to `require('require')`.
-- `require` 模块在全局范围内可用，不需要 `require('require')`.
+- `require` 模块在全局范围内可用，不需要 `require('require')`.    
 - The `module` module, which also appears to be available on the global scope — no need to `require('module')`.
 - `module` 模块同样在全局范围内可用，不需要 `require('module')`.
 
 You can think of the `require` module as the command and the `module` module as the organizer of all required modules.
-你可以把 `require` 模块当做命令 `module` 模块 所有需加载模块的
+你可以将 `require` 模块理解为命令，将 `module` 模块理解为组织所有需加载模块的工具。
 
 Requiring a module in Node isn’t that complicated of a concept.
-在 Node 中加载一个模块其实没有概念那么复杂。
+在 Node 中加载一个模块其实不像概念那么复杂。
 
 ```
 const config = require('/path/to/file');
 ```
 
 The main object exported by the `require` module is a function (as used in the above example). When Node invokes that `require()` function with a local file path as the function’s only argument, Node goes through the following sequence of steps:
+`require` 模块导出的主对象是一个函数（如上例）。当 Node 将本地文件路径作为唯一参数调用 `require()` 时，Node 将执行以下步骤：
 
 - **Resolving**: To find the absolute path of the file.
+- **解析**：找到该文件的绝对路径。
 - **Loading**: To determine the type of the file content.
+- **加载**：确定文件内容的类型。
 - **Wrapping**: To give the file its private scope. This is what makes both the `require` and `module` objects local to every file we require.
+- **打包**：为文件划分私有作用域，这样 `require` 和 `module` 两个对象对于我们要加载的每个模块来说就都是本地的。
 - **Evaluating**: This is what the VM eventually does with the loaded code.
+- **评估**：最后由虚拟机对加载得到的代码做评估。
 - **Caching**: So that when we require this file again, we don’t go over all the steps another time.
+- **缓存**：当再次加载该文件时，无需再重复以上所有步骤。
 
 In this article, I’ll attempt to explain with examples these different stages and how the affect the way we write modules in Node.
+在本文中，我将试着用示例说明这些不同阶段，以及它们如何影响我们在 Node 中编写模块的方式。
 
 Let me first create a directory to host all the examples using my terminal:
+我先使用终端创建一个目录来托管本文中的所有示例：
 
 ```
 mkdir ~/learn-node && cd ~/learn-node
 ```
 
 All the commands in the rest of this article will be run from within `~/learn-node`.
+本文余下部分的所有命令都将在 `~/learn-node` 目录下运行。
 
 #### Resolving a local path ####
+#### 解析本地路径 ####
 
 Let me introduce you to the `module` object. You can check it out in a simple REPL session:
+首先，让我来介绍一下 `module` 对象。你可以通过一个简单的 REPL 会话查看它：
 
 ```
 ~/learn-node $ node
@@ -62,10 +73,12 @@ Module {
   filename: null,
   loaded: false,
   children: [],
-  paths: [ ... ] }
+  paths: [ ... ]
+}
 ```
 
 Every module object gets an `id` property to identify it. This `id` is usually the full path to the file, but in a REPL session it’s simply `<repl>.`
+每个模块对象都有一个用于识别该对象的 `id` 属性。这个 `id` 通常是该文件的完整路径，但在 REPL 会话中 `<repl>.`
 
 Node modules have a one-to-one relation with files on the file-system. We require a module by loading the content of a file into memory.
 
