@@ -40,12 +40,13 @@ Not so much with modern JavaScript. I’ve found myself trawling through comment
 
 The other difficult thing about learning JavaScript in 2017: getting set up will feel like it takes you as long as building the app will. The sheer number of tools and plugins and packages and dependencies and editor setup and build configurations required to do it “the right way” is enough to stall you before you even get started.
 
-![Markdown](http://i4.buimg.com/1949/adafb30475d3d36a.png)
+[![Markdown](http://i4.buimg.com/1949/adafb30475d3d36a.png)](https://twitter.com/capndesign/status/832638513048850433/photo/1)
 
 *Do not let this stop you.* I had to let go of doing it The Right Way from the get-go, and allow myself to fumble through using suboptimal or just plain amateur setups just to get comfortable with individual tools. (Let me tell you about that time I used [nodemon](https://nodemon.io/) to do my linting…) Then I’d find out better ways and incorporate what I could, when I could, on each new project.
 
 The JS world has a *lot* of work to do in this regard. Again, this area of modern JavaScript is a constantly moving target, but my Local Friendly Modern JS Engineers tell me that [this tutorial from Jonathan Verrecchia](https://github.com/verekia/js-stack-from-scratch) is currently the definitive guide to building a modern JavaScript stack. For now.
 
+![Markdown](http://i1.piimg.com/1949/95cedaf271a8c352.png)
 [**verekia/js-stack-from-scratch**](https://github.com/verekia/js-stack-from-scratch)
 
 [*js-stack-from-scratch - 🎉 V2 release! 🎉 - Step-by-step tutorial to build a modern JavaScript stack.*github.com](https://github.com/verekia/js-stack-from-scratch)
@@ -85,4 +86,8 @@ Ultimately the most important thing I’ve had to remember is this: Doing is lea
 
 > It takes time, experimentation and skill to master the fundamentals of any new topic. Beginners shouldn’t feel like they’re failing if they’re not using the library-du-jour or reactive-pattern of the week. It took me weeks to get Babel and React right. Longer to get Isomorphic JS, WebPack and all of the other libraries around it right. **Start simple and build on that base.**
 
-*Thanks to *[*NodeSchool*](https://nodeschool.io/)* and *[*Free Code Camp*](https://www.freecodecamp.com/)*, two fantastic resources for beginners learning JavaScript.*
+*Thanks to* [*NodeSchool*](https://nodeschool.io/)and[*Free Code Camp*](https://www.freecodecamp.com/), two fantastic resources for beginners learning JavaScript.
+
+---
+
+> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[React](https://github.com/xitu/gold-miner#react)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计) 等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)。
