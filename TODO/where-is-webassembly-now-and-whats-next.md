@@ -1,12 +1,12 @@
 > * 原文地址：[Where is WebAssembly now and what’s next?](https://hacks.mozilla.org/2017/02/where-is-webassembly-now-and-whats-next/)
-> * 原文作者：[Lin Clark](http://code-cartoons.com/)
+> * 原文作者：本文已获作者 [Lin Clark](https://code-cartoons.com/@linclark) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[胡子大哈](https://github.com/huzidaha/)
 > * 校对者：[根号三](https://github.com/sqrthree)
 
 # WebAssembly 的现在与未来
 
-本文是关于 WebAssembly 系列的第六篇文章，也同时是本系列的收尾文章。如果你没有读先前文章的话，建议[先读这里](https://github.com/xitu/gold-miner/blob/master/TODO/a-cartoon-intro-to-webassembly.md)。
+**本文是关于 WebAssembly 系列的第六篇文章，也同时是本系列的收尾文章。如果你没有读先前文章的话，建议[先读这里](https://github.com/xitu/gold-miner/blob/master/TODO/a-cartoon-intro-to-webassembly.md)。**
 
 2017 年 2 月 28 日，四个主要的浏览器[一致同意宣布](https://lists.w3.org/Archives/Public/public-webassembly/2017Feb/0002.html) WebAssembly 的 MVP 版本已经完成，它是一个浏览器可以搭载的稳定版本。
 

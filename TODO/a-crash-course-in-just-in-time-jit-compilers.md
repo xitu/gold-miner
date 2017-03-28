@@ -1,12 +1,12 @@
 > * 原文地址：[A crash course in just-in-time (JIT) compilers](https://hacks.mozilla.org/2017/02/a-crash-course-in-just-in-time-jit-compilers/)
-* 原文作者：[Lin Clark](http://code-cartoons.com/)
-* 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：[zhouzihanntu](https://github.com/zhouzihanntu)
-* 校对者：[Tina92](https://github.com/Tina92)、[Germxu](https://github.com/Germxu)
+> * 原文作者：本文已获作者 [Lin Clark](https://code-cartoons.com/@linclark) 授权
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 译者：[zhouzihanntu](https://github.com/zhouzihanntu)
+> * 校对者：[Tina92](https://github.com/Tina92)、[Germxu](https://github.com/Germxu)
 
 # JIT 编译器快速入门 #
 
-**本文是 WebAssembly 系列文章的第二部分。如果你还没有阅读过前面的文章，我们建议你 [从头开始](https://github.com/xitu/gold-miner/blob/master/TODO/a-cartoon-intro-to-webassembly.md).**
+**本文是 WebAssembly 系列文章的第二部分。如果你还没有阅读过前面的文章，我们建议你 [从头开始](https://github.com/xitu/gold-miner/blob/master/TODO/a-cartoon-intro-to-webassembly.md)。**
 
 JavaScript 刚面世时运行速度是很慢的，而 JIT 的出现令其性能快速提升。那么问题来了，JIT 是如何运作的呢？
 
