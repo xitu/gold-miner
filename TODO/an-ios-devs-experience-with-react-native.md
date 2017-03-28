@@ -1,5 +1,5 @@
 > * 原文地址：[An iOS Dev’s Experience with React Native](https://blog.madebywindmill.com/an-ios-devs-experience-with-react-native-559275b5a4e8#.qvkcgzpaa)
-> * 原文作者：[John Scalo](https://blog.madebywindmill.com/@scalo?source=post_header_lockup)
+> * 原文作者：本文已获原作者 [John Scalo](https://blog.madebywindmill.com/@scalo?source=post_header_lockup) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：
 > * 校对者：
