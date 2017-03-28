@@ -239,3 +239,7 @@ If you’ve learned something new, I’d appreciate your gratitude by gently tap
 ### Bob the Developer
 
 I work towards providing affordable education. I’ve started with teaching iOS Development. [bobthedeveloper.io](https://bobthedeveloper.io)[Facebook](https://facebook.com/bobthedeveloper), [Instagram](https://instagram.com/bobthedev), [YouTube](https://youtube.com/bobthedeveloper), [LinkedIn](https://linkedin.com/in/bobthedev)
+
+---
+
+> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[React](https://github.com/xitu/gold-miner#react)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计) 等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)。
