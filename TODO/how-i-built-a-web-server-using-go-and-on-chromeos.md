@@ -371,3 +371,39 @@ Firfox 看上去似乎比 Lynx 更热情一些…
 我已经表达了我对于 Termux 的观点 — 它很棒，我希望它能够适于用更多的应用。不光是 Go 和 Node.js，我同样用它成功的写过并且编译和运行了简单的 C，C++，CoffeeScript，PHP 以及 Python 3.6等语言的代码，并且仍然有一些其他语言我没有尝试过（有人试过 Erlang/Lua/PicoLisp吗？）
 
 至于 Go，第一次使用令我非常满意。我喜欢它专注于简易性，并且我喜欢它的语法，而且它的文档很容易理解，它让我可以根据我的理解去开发。一个初学者的意见是有价值的，这点就像是 C++ 和 Python 的结合。在某种程度上，这可能恰好是它的意义所在！
+
+#### 译者注
+
+感谢大家的阅读，首先，这是一篇 Go 语言的入门文章，不过作者的代码有一点小问题，发表前我已经向作者提出问题，暂时还没有收到回复，收到回复后会在文章中更新，现在根据我的理解稍作分析，这是作者的最后一段代码：
+
+```go
+func main() {
+   http.ListenAndServe(":8080",nil)
+   fmt.Println("Server is listening at port 8080")
+   http.HandleFunc("/", handler)
+   http.HandleFunc("/log-in/", loginHandler)
+}
+```
+
+监听是阻塞的执行，内部一直 runloop 等待网络请求，不退出。所以监听一旦打开，后续代码都不会执行，直到按 ctrl+c 强制结束。这一点，我们从 `ListenAndServe` 的源码中看出：
+
+```go
+// ListenAndServe always returns a non-nil error.
+func ListenAndServe(addr string, handler Handler) error {
+	server := &Server{Addr: addr, Handler: handler}
+	return server.ListenAndServe()
+}
+```
+
+因此作者的代码中执行到 `http.ListenAndServe(":8080",nil)` 后，后续代码都不会继续执行。所以这里应该先设置访问路由，再监听端口。否则这段代码是无法出现预期效果的。修改后代码如下：
+
+```go
+func main() {
+   http.HandleFunc("/", handler)
+   http.HandleFunc("/log-in/", loginHandler)
+   fmt.Println("Server is listening at port 8080")
+   http.ListenAndServe(":8080",nil)
+}
+```
+
+> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[React](https://github.com/xitu/gold-miner#react)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计) 等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)。
