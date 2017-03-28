@@ -1,8 +1,8 @@
 > * 原文地址：[Flying Solo with Android Development](https://hackernoon.com/flying-solo-with-android-development-c52d911b62bf#.yhgjjtwz1)
 > * 原文作者：[Anita Singh](https://hackernoon.com/@anitas3791?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：Boiler Yao
-> * 校对者： gaozp 、tanglie1993
+> * 译者：[Boiler Yao](https://github.com/boileryao)
+> * 校对者： [gaozp](https://github.com/gaozp) 、[tanglie1993](https://github.com/tanglie1993)
 # 一个人的 Android 开发 #
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*gqA2o9GN2tU2xaIMuddXJg.jpeg">
