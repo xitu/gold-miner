@@ -161,3 +161,7 @@ Always understand your process before applying solutions!
 These are just a sampling of options and uses for `CommonsChunkPlugin()`. To find more, check out our `[/examples](https://github.com/webpack/webpack/tree/master/examples)`[ directory](https://github.com/webpack/webpack/tree/master/examples) in our webpack/webpack core GitHub repo! If you have a great idea for more, feel free and submit a [Pull Request](https://github.com/webpack/webpack/blob/master/CONTRIBUTING.md)!
 
 No time to help contribute? Want to give back in other ways? Become a Backer or Sponsor to webpack by [donating to our open collective](https://opencollective.com/webpack). Open Collective not only helps support the Core Team, but also supports contributors who have spent significant time improving our organization on their free time! ❤
+
+---
+
+> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[React](https://github.com/xitu/gold-miner#react)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计) 等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)。
