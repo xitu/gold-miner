@@ -4,21 +4,21 @@
 > * 译者： 
 > * 校对者：
 
-# Dependency Injection with Dagger 2
+# 用 Dagger 2 实现依赖注入
 
-## Overview 
+## 概要 
 
-Many Android apps rely on instantiating objects that often require other dependencies.  For instance, a Twitter API client may be built using a networking library such as [[Retrofit|Consuming-APIs-with-Retrofit]]. To use this library, you might also need to add parsing libraries such as [[Gson|Leveraging-the-Gson-Library]].  In addition, classes that implement authentication or caching may require accessing [[shared preferences|Storing-and-Accessing-SharedPreferences]] or other common storage, requiring instantiating them first and creating an inherent dependency chain.
+很多 Android 应用依赖于一些含有其它依赖的对象。例如，一个 Twitter API 客户端可能需要通过 [Retrofit](https://github.com/codepath/android_guides/wiki/Consuming-APIs-with-Retrofit) 之类的网络库被构建。要使用这个库，你可能还需要添加 [Gson](https://github.com/codepath/android_guides/wiki/Leveraging-the-Gson-Library) 这样的解析库。另外，实现认证或缓存的库可能需要使用 [shared preferences](https://github.com/codepath/android_guides/wiki/Storing-and-Accessing-SharedPreferences)或其它通用存储方式。这就需要先把它们实例化，并创建一个隐含的依赖链。
 
-If you're not familiar with Dependency Injection, watch [this](https://www.youtube.com/watch?v=IKD2-MAkXyQ) quick video.
+如果你不熟悉依赖注入，看看[这个](https://www.youtube.com/watch?v=IKD2-MAkXyQ) 短视频。
 
-Dagger 2 analyzes these dependencies for you and generates code to help wire them together.  While there are other Java dependency injection frameworks, many of them suffered limitations in relying on XML, required validating dependency issues at run-time, or incurred performance penalties during startup. [Dagger 2](http://google.github.io/dagger/) relies purely on using Java [annotation processors](https://www.youtube.com/watch?v=dOcs-NKK-RA) and compile-time checks to analyze and verify dependencies.  It is considered to be one of the most efficient dependency injection frameworks built to date.
+Dagger 2 为你解析这些依赖，并生成把它们绑定在一起的代码。也有很多其它的 Java 依赖注入框架，但它们中很多个是有缺陷的，比如依赖 XML，需要在运行时验证依赖，或者在起始时造成性能负担。 [Dagger 2](http://google.github.io/dagger/) 纯粹依赖于 Java [annotation processors](https://www.youtube.com/watch?v=dOcs-NKK-RA) 以及编译时检查来分析并验证依赖。它被认为是目前最高效的依赖注入框架之一。
 
-### Advantages
+### 优点
 
-Here is a list of other advantages for using Dagger 2:
+这是使用 Dagger 2 的一系列其它优势：
 
- * **Simplifies access to shared instances**. Just as the [[ButterKnife|Reducing-View-Boilerplate-with-Butterknife]] library makes it easier to define references to Views, event handlers, and resources, Dagger 2 provides a simple way to obtain references to shared instances.  For instance,  once we declare in Dagger our singleton instances such as  `MyTwitterApiClient` or `SharedPreferences`, we can declare fields with a simple `@Inject` annotation:
+ * **简化共享实例访问**。就像 [ButterKnife](https://github.com/codepath/android_guides/wiki/Reducing-View-Boilerplate-with-Butterknife) 库简化了引用View， event handler 和 resources 的方式一样，Dagger 2 提供了一个简单的方式获取对共享对象的引用。例如，一旦我们在 Dagger 中声明了  `MyTwitterApiClient` 或 `SharedPreferences` 的单例，就可以用一个简单的 `@Inject` 标注来声明域：
 
 ```java
 public class MainActivity extends Activity {
@@ -31,11 +31,11 @@ public class MainActivity extends Activity {
    } 
 ```
 
- * **Easy configuration of complex dependencies**. There is an implicit order in which your objects are often created.   Dagger 2 walks through the dependency graph and [[generates code|Dependency-Injection-with-Dagger-2#code-generation]] that is both easy to understand and trace, while also saving you from writing the large amount of boilerplate code you would normally need to write by hand to obtain references and pass them to other objects as dependencies.  It also helps simplify refactoring, since you can focus on what modules to build rather than focusing on the order in which they need to be created.
+ * **容易配置复杂的依赖**。 对象创建是有隐含顺序的。Dagger 2 浏览依赖图，并且[生成易于理解和追踪的代码](https://github.com/codepath/android_guides/wiki/Dependency-Injection-with-Dagger-2#code-generation)。而且，它可以节约大量的样板代码，使你不再需要手写，手动获取引用并把它们传递给其他对象作为依赖。它也简化了重构，因为你可以聚焦于构建模块本身，而不是它们被创建的顺序。
 
- * **Easier unit and integration testing**  Because the dependency graph is created for us, we can easily swap out modules that make network responses and mock out this behavior.
+ * **更简单的单元和集成测试**  因为依赖图是为我们创建的，我们可以轻易换出用于创建网络响应的模块，并模拟这种行为。
 
- * **Scoped instances**  Not only can you easily manage instances that can last the entire application lifecycle, you can also leverage Dagger 2 to define instances with shorter lifetimes (i.e. bound to a user session, activity lifecycle, etc.).
+ * **实例范围** 你不仅可以轻易地管理持续整个应用生命周期的实例，也可以利用 Dagger 2 来定义生命周期更短（比如和一个用户 session 或 Activity 生命周期相绑定）的实例。 
 
 ### Setup
 
