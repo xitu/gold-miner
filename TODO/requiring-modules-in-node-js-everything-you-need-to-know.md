@@ -5,63 +5,46 @@
 > * 校对者：
 
 # Requiring modules in Node.js: Everything you need to know #
-# 在 Node.js 中加载模块 #
+# 在 Node.js 中引用模块 #
 
-## How modularity works in Node.js ##
-## 模块化在 Node.js 中的应用##
+## Node.js 中模块化的工作原理 ##
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/2000/1*AL0-iuggGnBLSvSVvt0Xzw.png">
 
-Node uses two core modules for managing module dependencies:
 Node 提供了两个核心模块来管理模块依赖：
 
-- The `require` module, which appears to be available on the global scope — no need to `require('require')`.
-- `require` 模块在全局范围内可用，不需要 `require('require')`.    
-- The `module` module, which also appears to be available on the global scope — no need to `require('module')`.
-- `module` 模块同样在全局范围内可用，不需要 `require('module')`.
+- `require` 模块在全局范围内可用，不需要写 `require('require')`.    
+- `module` 模块同样在全局范围内可用，不需要写 `require('module')`.
 
-You can think of the `require` module as the command and the `module` module as the organizer of all required modules.
-你可以将 `require` 模块理解为命令，将 `module` 模块理解为组织所有需加载模块的工具。
+你可以将 `require` 模块理解为命令，将 `module` 模块理解为组织所有被引用模块的工具。
 
-Requiring a module in Node isn’t that complicated of a concept.
-在 Node 中加载一个模块其实不像概念那么复杂。
+在 Node 中引入一个模块其实不像概念那么复杂。
 
 ```
 const config = require('/path/to/file');
 ```
 
-The main object exported by the `require` module is a function (as used in the above example). When Node invokes that `require()` function with a local file path as the function’s only argument, Node goes through the following sequence of steps:
 `require` 模块导出的主对象是一个函数（如上例）。当 Node 将本地文件路径作为唯一参数调用 `require()` 时，Node 将执行以下步骤：
 
-- **Resolving**: To find the absolute path of the file.
 - **解析**：找到该文件的绝对路径。
-- **Loading**: To determine the type of the file content.
 - **加载**：确定文件内容的类型。
-- **Wrapping**: To give the file its private scope. This is what makes both the `require` and `module` objects local to every file we require.
-- **打包**：为文件划分私有作用域，这样 `require` 和 `module` 两个对象对于我们要加载的每个模块来说就都是本地的。
-- **Evaluating**: This is what the VM eventually does with the loaded code.
+- **打包**：为文件划分私有作用域，这样 `require` 和 `module` 两个对象对于我们要引入的每个模块来说就都是本地的。
 - **评估**：最后由虚拟机对加载得到的代码做评估。
-- **Caching**: So that when we require this file again, we don’t go over all the steps another time.
-- **缓存**：当再次加载该文件时，无需再重复以上所有步骤。
+- **缓存**：当再次引用该文件时，无需再重复以上所有步骤。
 
-In this article, I’ll attempt to explain with examples these different stages and how the affect the way we write modules in Node.
-在本文中，我将试着用示例说明这些不同阶段，以及它们如何影响我们在 Node 中编写模块的方式。
+在本文中，我将试着用示例说明这些不同阶段的运行原理，以及它们如何影响我们在 Node 中编写模块的方式。
 
-Let me first create a directory to host all the examples using my terminal:
 我先使用终端创建一个目录来托管本文中的所有示例：
 
 ```
 mkdir ~/learn-node && cd ~/learn-node
 ```
 
-All the commands in the rest of this article will be run from within `~/learn-node`.
 本文余下部分的所有命令都将在 `~/learn-node` 目录下运行。
 
-#### Resolving a local path ####
 #### 解析本地路径 ####
 
-Let me introduce you to the `module` object. You can check it out in a simple REPL session:
-首先，让我来介绍一下 `module` 对象。你可以通过一个简单的 REPL 会话查看它：
+首先，让我来介绍一下 `module` 对象。你可以在一个简单的 REPL 会话中查看该对象：
 
 ```
 ~/learn-node $ node
@@ -77,20 +60,19 @@ Module {
 }
 ```
 
-Every module object gets an `id` property to identify it. This `id` is usually the full path to the file, but in a REPL session it’s simply `<repl>.`
-每个模块对象都有一个用于识别该对象的 `id` 属性。这个 `id` 通常是该文件的完整路径，但在 REPL 会话中 `<repl>.`
+每个模块对象都有一个用于识别该对象的 `id` 属性。这个 `id` 通常是该文件的完整路径，但在 REPL 会话中只会显示为 `<repl>`。
 
-Node modules have a one-to-one relation with files on the file-system. We require a module by loading the content of a file into memory.
+Node 模块与文件系统中的文件有着一一对应的关系。我们通过加载模块对应的文件内容到内存中来实现模块引用。
 
-However, since Node allows many ways to require a file (for example, with a relative path or a pre-configured path), before we can load the content of a file into the memory we need to find the absolute location of that file.
+然而，由于 Node 允许使用许多方式引入文件（例如，使用相对路径或预先配置的路径），我们需要在将文件的内容加载到内存前找到该文件的绝对位置。
 
-When we require a `'find-me'` module, without specifying a path:
+例如，我们不声明路径，直接引入一个 `'find-me'` 模块时：
 
 ```
 require('find-me');
 ```
 
-Node will look for `find-me.js` in all the paths specified by `module.paths` — in order.
+Node 会在 `module.paths` 声明的所有路径中依次查找 `find-me.js` 。
 
 ```
 ~/learn-node $ node
@@ -105,9 +87,9 @@ Node will look for `find-me.js` in all the paths specified by `module.paths` �
   '/usr/local/Cellar/node/7.7.1/lib/node' ]
 ```
 
-The paths list is basically a list of node_modules directories under every directory from the current directory to the root directory. It also includes a few legacy directories whose use is not recommended.
+Node 从当前目录开始一级级向上寻找 node_modules 目录，这个数组大致就是当前目录到所有 node_modules 目录的相对路径。其中还包括一些为了兼容性保留的目录，不推荐使用。
 
-If Node can’t find `find-me.js` in any of these paths, it will throw a “cannot find module error.”
+如果 Node 在以上路径中都无法找到 `find-me.js` ，将抛出一个 “找不到该模块” 错误。
 
 ```
 ~/learn-node $ node
@@ -125,7 +107,7 @@ Error: Cannot find module 'find-me'
     at REPLServer.onLine (repl.js:533:10)
 ```
 
-If you now create a local `node_modules` directory and put a `find-me.js` in there, the `require('find-me')` line will find it.
+如果你现在创建一个本地的 `node_modules` 目录，并向目录中添加一个 `find-me.js` 文件，就能通过 `require('find-me')` 找到它了。
 
 ```
 ~/learn-node $ mkdir node_modules
@@ -139,14 +121,14 @@ I am not lost
 >
 ```
 
-If another `find-me.js` file existed in any of the other paths, for example, if we have a `node_modules` directory under the home directory and we have a different `find-me.js` file in there:
+如果在其他路径下也有 `find-me.js` 文件呢？例如，我们在主目录下的 `node_modules` 目录中放置一个不同的 `find-me.js` 文件：
 
 ```
 $ mkdir ~/node_modules
 $ echo "console.log('I am the root of all problems');" > ~/node_modules/find-me.js
 ```
 
-When we `require('find-me')` from within the `learn-node` directory — which has its own `node_modules/find-me.js`, the `find-me.js` file under the home directory will not be loaded at all:
+当我们在 `learn-node` 目录下执行 `require('find-me')` 时，`learn-node` 目录会加载自己的 `node_modules/find-me.js`，主目录下的 `find-me.js` 文件并不会被加载：
 
 ```
 ~/learn-node $ node
@@ -156,7 +138,7 @@ I am not lost
 >
 ```
 
-If we remove the local `node_modules` directory under `~/learn-node` and try to require `find-me` one more time, the file under the home’s `node_modules` directory would be used:
+此时，如果我们将 `~/learn-node` 下的 `node_modules` 移除，再一次引入 `find-me` 模块，那么主目录下的 `node_modules` 将会被加载：
 
 ```
 ~/learn-node $ rm -r node_modules/
@@ -168,9 +150,9 @@ I am the root of all problems
 >
 ```
 
-#### Requiring a folder ####
+#### 引入文件夹 ####
 
-Modules don’t have to be files. We can also create a `find-me` folder under `node_modules` and place an `index.js` file in there. The same `require('find-me')` line will use that folder’s `index.js` file:
+模块不一定是单个文件。我们也可以在 `node_modules` 目录下创建一个 `find-me` 文件夹，然后向其中添加一个 `index.js` 文件。`require('find-me')` 会引用该文件夹下的 `index.js` 文件：
 
 ```
 ~/learn-node $ mkdir -p node_modules/find-me
@@ -184,9 +166,9 @@ Found again.
 >
 ```
 
-Note how it ignored the home directory’s `node_modules` path again since we have a local one now.
+>注意，由于我们现在有一个本地目录，它再次忽略了主目录的 `node_modules` 路径。
 
-An `index.js` file will be used by default when we require a folder, but we can control what file name to start with under the folder using the `main` property in `package.json`. For example, to make the `require('find-me')` line resolve to a different file under the `find-me` folder, all we need to do is add a `package.json` file in there and specify which file should be used to resolve this folder:
+当我们引入一个文件夹时，将默认执行 `index.js` 文件，但是我们可以通过 `package.json` 中的 `main` 属性指定主入口文件。例如，要令 `require('find-me')` 解析到 `find-me` 文件夹下的另一个文件，我们只需要在该文件夹下添加一个 `package.json` 文件来声明解析该文件夹时引用的文件：
 
 ```
 ~/learn-node $ echo "console.log('I rule');" > node_modules/find-me/start.js
@@ -200,9 +182,9 @@ I rule
 >
 ```
 
-#### require.resolve ####
+#### require.resolve 方法 ####
 
-If you want to only resolve the module and not execute it, you can use the `require.resolve` function. This behaves exactly the same as the main `require` function, but does not load the file. It will still throw an error if the file does not exist and it will return the full path to the file when found.
+如果你只想解析模块而不运行，此时可以使用 `require.resolve` 函数。这个方法与 `require` 的主要功能完全相同，但是不加载文件。如果文件不存在，它仍会抛出错误，并在找到文件时返回文件的完整路径。
 
 ```
 > require.resolve('find-me');
@@ -222,34 +204,34 @@ Error: Cannot find module 'not-there'
 >
 ```
 
-This can be used, for example, to check whether an optional package is installed or not and only use it when it’s available.
+这个方法可以用于检查一个可选安装包是否安装，并仅在该包可用时使用。
 
-#### Relative and absolute paths ####
+#### 相对路径和绝对路径 ####
 
-Besides resolving modules from within the `node_modules` directories, we can also place the module anywhere we want and require it with either relative paths (`./` and `../`) or with absolute paths starting with `/`.
+除了从 `node_modules` 目录中解析模块以外，我们还可以将模块放置在任意位置，使用相对路径（ `./` 和 `../` ）或以 `/` 开头的绝对路径引入。
 
-If, for example, the `find-me.js` file was under a `lib` folder instead of the `node_modules` folder, we can require it with:
+举个例子，如果 `find-me.js` 文件并不在 `node_modules` 中，而在 `lib` 文件夹中。我们可以使用以下代码引入它：
 
 ```
 require('./lib/find-me');
 ```
 
-#### Parent-child relation between files ####
+#### 文件间的父子关系 ####
 
-Create a `lib/util.js` file and add a `console.log` line there to identify it. Also, `console.log` the `module` object itself:
+现在我们来创建一个 `lib/util.js` 文件，向文件添加一行 `console.log` 代码作为标识。打印出 `module` 对象本身：
 
 ```
 ~/learn-node $ mkdir lib
 ~/learn-node $ echo "console.log('In util', module);" > lib/util.js
 ```
 
-Do the same for an `index.js` file, which is what we’ll be executing with the node command. Make this `index.js` file require `lib/util.js`:
+同样的，向 `index.js` 文件中也添加一行打印 `module` 对象的代码，并在文件中引入 `lib/util.js`，我们将使用 node 命令运行该文件：
 
 ```
 ~/learn-node $ echo "console.log('In index', module); require('./lib/util');" > index.js
 ```
 
-Now execute the `index.js` file with node:
+用 node 运行 `index.js` 文件：
 
 ```
 ~/learn-node $ node index.js
@@ -279,25 +261,27 @@ In util Module {
   paths: [...] }
 ```
 
-Note how the main `index` module `(id: '.')` is now listed as the parent for the `lib/util` module. However, the `lib/util` module was not listed as a child of the `index` module. Instead, we have the `[Circular]` value there because this is a circular reference. If Node prints the `lib/util` module object, it will go into an infinite loop. That’s why it simply replaces the `lib/util` reference with `[Circular]`.
+>注意：`index` 主模块 `(id: '.')` 现在被列为 `lib/util` 模块的父类。但 `lib/util` 模块并没有被列为 `index` 模块的子目录。相反，我们在这里得到的值是 `[Circular]`，因为这是一个循环引用。如果 Node 打印 `lib/util` 模块对象，将进入一个无限循环。这就是为什么 Node 使用 `[Circular]` 代替了 `lib/util` 引用。
 
-More importantly now, what happens if the `lib/util` module required the main `index` module? This is where we get into what’s known as the circular modular dependency, which is allowed in Node.
+
+重点来了，如果我们在 `lib/util` 模块中引入 `index` 主模块会发生什么？这就是 Node 中所支持的循环模块依赖关系。
 
 To understand it better, let’s first understand a few other concepts on the module object.
+为了更好理解循环模块依赖，我们先来了解一些关于 module 对象的概念。
 
-#### exports, module.exports, and synchronous loading of modules ####
+#### exports、module.exports 和模块异步加载 ####
 
-In any module, exports is a special object. If you’ve noticed above, every time we’ve printed a module object, it had an exports property which has been an empty object so far. We can add any attribute to this special exports object. For example, let’s export an id attribute for `index.js` and `lib/util.js`:
+在所有模块中，exports 都是一个特殊对象。你可能注意到了，以上我们每打印一个 module 对象时，它都有一个空的 exports 属性。我们可以向这个特殊的 exports 对象添加任意属性。例如，我们现在为 `index.js` 和 `lib/util.js` 的 exports 对象添加一个 id 属性：
 
 ```
-// Add the following line at the top of lib/util.js
+// 在 lib/util.js 顶部添加以下代码
 exports.id = 'lib/util';
 
-// Add the following line at the top of index.js
+// 在 index.js 顶部添加以下代码
 exports.id = 'index';
 ```
 
-When we now execute `index.js`, we’ll see these attributes as managed on each file’s `module` object:
+然后运行 `index.js`，我们将看到：
 
 ```
 ~/learn-node $ node index.js
@@ -319,15 +303,15 @@ In util Module {
   ... }
 ```
 
-I’ve removed some attributes in the above output to keep it brief, but note how the `exports` object now has the attributes we defined in each module. You can put as many attributes as you want on that exports object, and you can actually change the whole object to be something else. For example, to change the exports object to be a function instead of an object, we do the following:
+为了保持示例简短，我删除了以上输出中的一些属性，但请注意：`exports` 对象现在拥有我们在各模块中定义的属性。你可以向 exports 对象添加任意多的属性，也可以直接将整个对象改为其它对象。例如，我们可以通过以下方式将 exports 对象更改为一个函数：
 
 ```
-// Add the following line in index.js before the console.log
+// 将以下代码添加在 index.js 中的 console.log 语句前
 
 module.exports = function() {};
 ```
 
-When you run `index.js` now, you’ll see how the `exports` object is a function:
+再次运行 `index.js`，你将看到 `exports` 对象是一个函数：
 
 ```
 ~/learn-node $ node index.js
@@ -338,9 +322,9 @@ In index Module {
   ... }
 ```
 
-Note how we did not do `exports = function() {}` to make the `exports` object into a function. We can’t actually do that because the `exports` variable inside each module is just a reference to `module.exports` which manages the exported properties. When we reassign the `exports` variable, that reference is lost and we would be introducing a new variable instead of changing the `module.exports` object.
+>注意：我们并没有使用 `exports = function() {}` 来将 `exports` 对象更改为函数。实际上，由于各模块中的 `exports` 变量仅仅是对管理输出属性的 `module.exports` 的引用，当我们对 `exports` 变量重新赋值时，引用就会丢失，此时我们只是引入了一个新的变量，而没有对 `module.exports` 做修改。
 
-The `module.exports` object in every module is what the `require` function returns when we require that module. For example, change the `require('./lib/util')` line in `index.js` into:
+各模块中的 `module.exports` 对象就是我们在引入该模块时 `require` 函数的返回值。例如，我们将 `index.js` 中的 `require('./lib/util')` 改为：
 
 ```
 const UTIL = require('./lib/util');
@@ -348,24 +332,24 @@ const UTIL = require('./lib/util');
 console.log('UTIL:', UTIL);
 ```
 
-The above will capture the properties exported in `lib/util` into the `UTIL` constant. When we run `index.js` now, the very last line will output:
+以上代码会将 `lib/util` 输出的属性赋值给 `UTIL` 常量。我们现在运行 `index.js`，最后一行将输出以下结果：
 
 ```
 UTIL: { id: 'lib/util' }
 ```
 
-Let’s also talk about the `loaded` attribute on every module. So far, every time we printed a module object, we saw a `loaded` attribute on that object with a value of `false`.
+我们再来谈谈各模块中的 `loaded` 属性。到目前为止我们打印的所有 module 对象中都有一个值为 `false` 的 `loaded` 属性。
 
-The `module` module uses the `loaded` attribute to track which modules have been loaded (true value) and which modules are still being loaded (false value). We can, for example, see the `index.js` module fully loaded if we print its `module` object on the next cycle of the event loop using a `setImmediate` call:
+`module` 模块使用 `loaded` 属性对模块的加载状态进行跟踪，判断哪些模块已经加载完成（值为 true）以及哪些模块仍在加载（值为 false）。例如，要判断 `index.js` 模块是否已完全加载，我们可以在下一个事件循环中使用一个 `setImmediate` 回调打印出他的 `module` 对象。
 
 ```
-// In index.js
+// index.js 中
 setImmediate(() => {
   console.log('The index.js module object is now loaded!', module)
 });
 ```
 
-The output of that would be:
+以上输出将得到：
 
 ```
 The index.js module object is now loaded! Module {
@@ -390,23 +374,26 @@ The index.js module object is now loaded! Module {
      '/node_modules' ] }
 ```
 
-Note how in this delayed `console.log` output both `lib/util.js` and `index.js` are fully loaded.
+>注意：这个延迟的 `console.log` 的输出显示了 `lib/util.js` 和 `index.js` 都已完全加载。
 
 The `exports` object becomes complete when Node finishes loading the module (and labels it so). The whole process of requiring/loading a module is *synchronous.* That’s why we were able to see the modules fully loaded after one cycle of the event loop.
+`exports` 对象在 Node 完成引入/加载所有模块并标记时（becomes complete……构建完成？？）。引入一个模块的整个过程是 **同步的**，因此我们才能在一个事件循环结束后看见模块被完全加载。
 
-This also means that we cannot change the `exports` object asynchronously. We can’t, for example, do the following in any module:
+这也意味着我们无法异步地更改 `exports` 对象。例如，我们在任何模块中都无法执行以下操作：
 
 ```
 fs.readFile('/etc/passwd', (err, data) => {
   if (err) throw err;
 
-  exports.data = data; // Will not work.
+  exports.data = data; // 无效
 });
 ```
 
 #### Circular module dependency ####
+#### 循环模块依赖 ####
 
 Let’s now try to answer the important question about circular dependency in Node: What happens when module 1 requires module 2, and module 2 requires module 1?
+我们现在来回答关于 Node 中循环依赖的重要问题：当模块1
 
 To find out, let’s create the following two files under `lib/`, `module1.js` and `module.js` and have them require each other:
 
