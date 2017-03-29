@@ -46,10 +46,7 @@ The other difficult thing about learning JavaScript in 2017: getting set up will
 
 The JS world has a *lot* of work to do in this regard. Again, this area of modern JavaScript is a constantly moving target, but my Local Friendly Modern JS Engineers tell me that [this tutorial from Jonathan Verrecchia](https://github.com/verekia/js-stack-from-scratch) is currently the definitive guide to building a modern JavaScript stack. For now.
 
-![Markdown](http://i1.piimg.com/1949/95cedaf271a8c352.png)
-[**verekia/js-stack-from-scratch**](https://github.com/verekia/js-stack-from-scratch)
-
-[*js-stack-from-scratch - 🎉 V2 release! 🎉 - Step-by-step tutorial to build a modern JavaScript stack.*github.com](https://github.com/verekia/js-stack-from-scratch)
+[![Markdown](http://i1.piimg.com/1949/95cedaf271a8c352.png)](https://github.com/verekia/js-stack-from-scratch)
 
 ### Tutorial / Project / Throw It Away / Repeat ###
 
