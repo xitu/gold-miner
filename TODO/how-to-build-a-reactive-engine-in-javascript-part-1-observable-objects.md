@@ -411,7 +411,7 @@ Result
 
 这篇是制作你自己的响应式引擎系列文章中的第一篇。
 
-**下一篇将是关于创建 computed properties，每个属性都有它自己的可追踪依赖。**
+**[下一篇](https://github.com/xitu/gold-miner/blob/master/TODO/computed-properties-javascript-dependency-tracking.md) 将是关于创建 computed properties，每个属性都有它自己的可追踪依赖。**
 
 非常欢迎在评论区提出你对于下一篇文章讲述内容的反馈和想法！
 
