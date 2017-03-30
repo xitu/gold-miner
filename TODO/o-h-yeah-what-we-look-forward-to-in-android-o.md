@@ -6,8 +6,6 @@
 
 # O-h yeah! What we look forward to in Android O
 
-[/blog/author/novoda/](/blog/author/novoda/)
-[Team Novoda](/blog/author/novoda/)Joint Thinkers
 
 Novoda has a reputation of building the most desirable apps for Android and iOS. We believe living and sharing a hack-and-tell culture is one way to maintain top-shelf quality.
         
