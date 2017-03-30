@@ -1,5 +1,5 @@
 > * 原文地址：[Beyond The Browser: From Web Apps To Desktop Apps](https://www.smashingmagazine.com/2017/03/beyond-browser-web-desktop-apps/)
-> * 原文作者：[Adam Lynch](https://www.smashingmagazine.com/author/adamlynch/)
+> * 原文作者：本文已获原作者 [Adam Lynch](https://www.smashingmagazine.com/author/adamlynch/) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者： 
 > * 校对者：
