@@ -2,11 +2,11 @@
 > * 原文作者：本文已获作者 [Lin Clark](https://code-cartoons.com/@linclark) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[胡子大哈](https://github.com/huzidaha/)
-> * 校对者：
+> * 校对者：[Tina92](https://github.com/Tina92)、[根号三](https://github.com/sqrthree)
 
 # 是什么让 WebAssembly 执行的这么快？
 
-本文是关于 WebAssembly 系列的第五篇文章。如果你没有读先前文章的话，建议[从头开始](https://github.com/xitu/gold-miner/blob/master/TODO/a-cartoon-intro-to-webassembly.md)。
+**本文是关于 WebAssembly 系列的第五篇文章。如果你没有读先前文章的话，建议[从头开始](https://github.com/xitu/gold-miner/blob/master/TODO/a-cartoon-intro-to-webassembly.md)。**
 
 [上一篇文章中](https://github.com/xitu/gold-miner/blob/master/TODO/creating-and-working-with-webassembly-modules.md)，我介绍了编写程序时不用在 WebAssembly 和 javascript 里二者选其一啦，也表达了我希望看到更多的开发者在自己的工程中同时使用 WebAssembly 和 JavaScript 的期许。
 
