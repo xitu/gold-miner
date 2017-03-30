@@ -266,7 +266,6 @@ In util Module {
 
 重点来了，如果我们在 `lib/util` 模块中引入 `index` 主模块会发生什么？这就是 Node 中所支持的循环模块依赖关系。
 
-To understand it better, let’s first understand a few other concepts on the module object.
 为了更好理解循环模块依赖，我们先来了解一些关于 module 对象的概念。
 
 #### exports、module.exports 和模块异步加载 ####
@@ -389,13 +388,11 @@ fs.readFile('/etc/passwd', (err, data) => {
 });
 ```
 
-#### Circular module dependency ####
 #### 循环模块依赖 ####
 
-Let’s now try to answer the important question about circular dependency in Node: What happens when module 1 requires module 2, and module 2 requires module 1?
-我们现在来回答关于 Node 中循环依赖的重要问题：当模块1
+我们现在来回答关于 Node 中循环依赖的重要问题：当我们在模块1中引用模块2，在模块2中引用模块1时会发生什么？
 
-To find out, let’s create the following two files under `lib/`, `module1.js` and `module.js` and have them require each other:
+为了找到答案，我们在 `lib/` 下创建 `module1.js` 和 `module.js` 两个文件并让它们互相引用：
 
 ```
 // lib/module1.js
@@ -413,24 +410,25 @@ const Module1 = require('./module1');
 console.log('Module1 is partially loaded here', Module1);
 ```
 
-When we run `module1.js` we see the following:
+执行 `module1.js` 后，我们将看到：
 
 ```
 ~/learn-node $ node lib/module1.js
 Module1 is partially loaded here { a: 1 }
 ```
 
-We required `module2` before `module1` was fully loaded, and since `module2` required `module1` while it wasn’t fully loaded, what we get from the `exports` object at that point are all the properties exported prior to the circular dependency. Only the `a` property was reported because both `b` and `c` were exported after `module2` required and printed `module1`.
+我们在 `module1` 加载完成前引用了 `module2`，而此时 `module1` 尚未加载完，我们从当前的 `exports` 对象中得到的是在循环依赖之前导出的所有属性。这里只列出的只有属性 `a`，因为属性 `b` 和 `c` 都是在 `module2` 引入并打印了 `module1` 后导出的。
 
-Node keeps this really simple. During the loading of a module, it builds the `exports` object. You can require the module before it’s done loading and you’ll just get a partial exports object with whatever was defined so far.
+Node 使这个过程变得非常简单。它在模块加载时构建 `exports` 对象。你可以在该模块完成加载前引用它，而你将得到此时已定义的部分导出对象。
 
 #### JSON and C/C++ addons ####
+#### 使用 JSON 和 C/C++ 插件 ####
 
-We can natively require JSON files and C++ addon files with the require function. You don’t even need to specify a file extension to do so.
+我们可以使用自带的 require 函数引用 JSON 文件和 C++ 插件。你甚至不需要为此去指定一个文件扩展。
 
-If a file extension was not specified, the first thing Node will try to resolve is a `.js` file. If it can’t find a `.js` file, it will try a `.json` file and it will parse the `.json` file if found as a JSON text file. After that, it will try to find a binary `.node` file. However, to remove ambiguity, you should probably specify a file extension when requiring anything other than `.js` files.
+如果一个文件扩展未被声明，Node 会在第一时间解析 `.js` 文件。如果没有找到 `.js` 文件，它将继续寻找 `.json` 文件并在找到一个 JSON 文本文件后将其解析为 `.json` 文件。随后，Node 将会查找二进制的 `.node` 文件。但是为了避免歧义，你最好在引用除 `.js` 文件以外的文件类型时声明文件扩展。
 
-Requiring JSON files is useful if, for example, everything you need to manage in that file is some static configuration values, or some values that you periodically read from an external source. For example, if we had the following `config.json` file:
+如果你需要在文件中放置的内容都是一些静态的配置信息，或定期从外部来源读取的一些值，那么使用 JSON 文件非常有用。例如，我们有以下 `config.json` 文件：
 
 ```
 {
@@ -439,28 +437,29 @@ Requiring JSON files is useful if, for example, everything you need to manage in
 }
 ```
 
-We can require it directly like this:
+我们可以这样直接引用它：
 
 ```
 const { host, port } = require('./config');
+
+console.log(`Server will run at [http://${host}:${port}](http://$%7Bhost%7D:$%7Bport%7D`));
+
 ```
 
-console.log(`Server will run at [http://${host}:${port}`](http://$%7Bhost%7D:$%7Bport%7D`));
+执行以上代码将输出以下结果：
 
-
-Running the above code will have this output:
-
-
+```
 Server will run at [http://localhost:8080](http://localhost:8080)
+```
 
 
-If Node can’t find a `.js` or a `.json` file, it will look for a `.node` file and it would interpret the file as a compiled addon module.
+如果 Node 找不到 `.js` 或 `.json` 文件，它将查找一个 `.node` 文件并将其解释为一个编译后的插件模块。
 
-The Node documentation site has a [sample addon file](https://nodejs.org/api/addons.html#addons_hello_world)  which is written in C++. It’s a simple module that exposes a `hello()` function and the hello function outputs “world.”
+Node 文档站点有一个用 C++ 编写的[插件示例](https://nodejs.org/api/addons.html#addons_hello_world)，该示例模块提供了一个输出 “world” 的 `hello()` 函数。
 
-You can use the `node-gyp` package to compile and build the `.cc` file into a `.addon` file. You just need to configure a [binding.gyp](https://nodejs.org/api/addons.html#addons_building)  file to tell `node-gyp` what to do.
+你可以使用 `node-gyp` 插件将 `.cc` 文件编译成 `.addon` 文件。只需要配置一个 [binding.gyp](https://nodejs.org/api/addons.html#addons_building) 文件来告诉 `node-gyp` 要做什么。
 
-Once you have the `addon.node` file (or whatever name you specify in `binding.gyp`) then you can natively require it just like any other module:
+有了 `addon.node` 文件（你可以在 `binding.gyp` 中声明任意文件名），你就可以像引用其他模块一样引用它了。
 
 ```
 const addon = require('./addon');
@@ -468,29 +467,31 @@ const addon = require('./addon');
 console.log(addon.hello());
 ```
 
-We can actually see the support of the three extensions by looking at `require.extensions`.
+我们可以通过 `require.extensions` 查看 Node 对这三类扩展的支持。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*IcpIrifyQIn9M0q8scMZdA.png">
 
-Looking at the functions for each extension, you can clearly see what Node will do with each. It uses `module._compile` for `.js` files, `JSON.parse` for `.json` files, and `process.dlopen` for `.node` files.
+你可以从各个扩展对应的函数中清楚了解 Node 对它们分别所做的操作：对 `.js` 文件使用 `module._compile`，对 `.json` 文件使用 `JSON.parse`，对 `.node` 文件使用 `process.dlopen`。
 
 #### All code you write in Node will be wrapped in functions ####
+#### 你在 Node 中写的所有代码都将被包装成函数 ####
 
-Node’s wrapping of modules is often misunderstood. To understand it, let me remind you about the `exports`/`module.exports` relation.
+Node 的模块打包经常被误解。要了解它的原理，请回忆一下 `exports` 与 `module.exports` 的关系。
 
-We can use the `exports` object to export properties, but we cannot replace the `exports` object directly because it’s just a reference to `module.exports`
+我们可以使用 `exports` 对象导出属性，但是由于 `exports` 对象仅仅是对 `module.exports` 的一个引用，我们无法直接对其执行替换操作。
 
 ```
-exports.id = 42; // This is ok.
+exports.id = 42; // 有效
 
-exports = { id: 42 }; // This will not work.
+exports = { id: 42 }; // 无效
 
-module.exports = { id: 42 }; // This is ok.
+module.exports = { id: 42 }; // 有效
 ```
 
-How exactly does this `exports` object, which appears to be global for every module, get defined as a reference on the `module` object?
+这个 `exports` 对象看起来对所有模块都是全局的，它是如何被定义成 `module` 对象的引用的呢？
 
 Let me ask one more question before explaining Node’s wrapping process.
+在解释 Node 的打包进程前，再
 
 In a browser, when we declare a variable in a script like this:
 
