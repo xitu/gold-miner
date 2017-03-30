@@ -13,7 +13,7 @@ Today we’ll dive into insights from Chrome’s networking stack to provide cla
 
 As covered well in [other articles](https://www.smashingmagazine.com/2016/02/preload-what-is-it-good-for/), **preload is a declarative fetch, allowing you to force the browser to make a request for a resource without blocking the document’s** [**onload**](https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/onload) **event**.
 
-**Prefetch****is a hint to the browser that a resource might be needed**, but delegates deciding whether and when loading it is a good idea or not to the browser.
+**Prefetch is a hint to the browser that a resource might be needed**, but delegates deciding whether and when loading it is a good idea or not to the browser.
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/2000/1*PSMeFcC3AXDUmdNf5l19Ug.jpeg">
 
@@ -129,17 +129,17 @@ Preload and prefetch are blunt tools and it isn’t hard to find yourself [doubl
 
 If you don’t supply a valid “as” when specifying what to preload, for example, scripts, you will end up [fetching twice](https://twitter.com/DasSurma/status/808791438171537408).
 
-**Preloaded fonts without crossorigin will double fetch! **Ensure you’re adding a [crossorigin attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_settings_attributes) when fetching fonts using preload otherwise they will be double downloaded. They’re requested using anonymous mode CORS. This advice applies even if fonts are on the same origin as the page. This is applicable to other anonymous fetches too (e.g XHR by default).
+**Preloaded fonts without crossorigin will double fetch!** Ensure you’re adding a [crossorigin attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_settings_attributes) when fetching fonts using preload otherwise they will be double downloaded. They’re requested using anonymous mode CORS. This advice applies even if fonts are on the same origin as the page. This is applicable to other anonymous fetches too (e.g XHR by default).
 
 **Resources with an integrity attribute can’t reuse preloaded resources (for now) and can also cause double fetches.** The `[integrity](https://bugs.chromium.org/p/chromium/issues/detail?id=677022)` attribute for link elements has not yet been implemented and there’s an open [spec issue](https://github.com/w3c/webappsec-subresource-integrity/issues/26) about it. This means the presence of any integrity metadata will currently discard preloaded resources. In the wild, it can also result in duplicate requests where you have to make a trade-off between security and performance.
 
 Finally, although it won’t cause double fetches, this is generally good advice:
 
-**Don’t try preloading absolutely everything! **Instead, select specific late discovered resources that you want to load earlier and use preload to tell the browser about them.
+**Don’t try preloading absolutely everything!** Instead, select specific late discovered resources that you want to load earlier and use preload to tell the browser about them.
 
 ### Should I just preload all the assets that my page requests in the head? Is there a recommended limit like “only preload ~6 things”?
 
-This is a good example of **Tools, not rules. **How much you preload may well factor in how much network contention you’re going to have with other resources also being loaded on your page, your user’s available bandwidth and other network conditions.
+This is a good example of **Tools, not rules.** How much you preload may well factor in how much network contention you’re going to have with other resources also being loaded on your page, your user’s available bandwidth and other network conditions.
 
 Preload resources that are likely to be discovered late in your page, but are otherwise important to fetch as early as possible. With scripts, preloading your key bundles is good as it separates fetching from execution in a way that just using say, <script async> wouldn’t as it blocks the window’s onload event. You can preload images, styles, fonts, media. Most things — what’s important is that you’re in better control of early-fetching what you as a page author knows is definitely needed by your page sooner rather than later.
 
@@ -155,7 +155,7 @@ Preload decouples fetching a resource from JS processing and execution. As such,
 
 ### Wait. Shouldn’t we be using HTTP/2 Server Push instead of Preload?
 
-**Use Push when you know the precise loading order for resources and have a service worker to intercept requests that would cause cached resources to be pushed again. Use preload to move the start download time of an asset closer to the initial request — it’s useful for both first and third-party resources.**
+Use Push when you know the precise loading order for resources and have a service worker to intercept requests that would cause cached resources to be pushed again. Use preload to move the start download time of an asset closer to the initial request — it’s useful for both first and third-party resources.
 
 Again, this is going to be an “[it depends](https://docs.google.com/document/d/1K0NykTXBbbbTlv60t5MyJvXjqKGsCVNYHyLEXIxYMv0/edit)”. Let’s imagine we’re working on a cart for the Google Play store. For a given request to play.google.com/cart:
 
@@ -207,7 +207,7 @@ For more examples like this, see *Use Cases* in this great Yoav Weiss [deck](htt
 
 ### What else is Preload being used for in the wild?
 
-**According to the HTTPArchive,** [**most**](https://twitter.com/addyosmani/status/843254667316465664) **sites using <link rel=”preload”> use it to** [**preload Web Fonts**](https://www.zachleat.com/web/preload/) **, including Teen Vogue and as mentioned earlier, Shopify:**
+**According to the HTTPArchive,** [**most**](https://twitter.com/addyosmani/status/843254667316465664) **sites using <link rel=”preload”> use it to** [**preload Web Fonts**](https://www.zachleat.com/web/preload/) , **including Teen Vogue and as mentioned earlier, Shopify:**
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/2000/1*osYEtZ6gZnmstK4fpcJTrg.png">
 
