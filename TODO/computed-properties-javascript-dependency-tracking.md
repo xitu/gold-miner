@@ -10,7 +10,7 @@
 # 如何使用 JavaScript 构建响应式引擎 —— Part 2：计算属性和依赖追踪 #
 
 Hey! If you have ever worked with Vue.js, Ember or MobX I’m pretty sure you stumbled upon so-called **computed** properties. They allow you to create functions that can be accessed just like normal values, but once computed they are cached until one of its dependencies has changed. In general this is a concept very similar to getters and in fact, the following implementation will be using getters. In a smart way. ;)
-Hey！如果你用过 Vue.js、Ember 或 MobX，我敢肯定你被 **计算** 属性难倒过。计算属性允许你创建像正常的值一样使用的函数，但是一旦完成计算，他们就被缓存下来直到它的一个依赖发生改变。总的来说，这一概念与 getters 非常相似，并且事实上，下面的实现将会使用 getters。用一种机智的方式。 ;)
+Hey！如果你用过 Vue.js、Ember 或 MobX，我敢肯定你被 **计算** 属性难倒过。计算属性允许你创建像正常的值一样使用的函数，但是一旦完成计算，他们就被缓存下来直到它的一个依赖发生改变。总的来说，这一概念与 getters 非常相似，实际上下面的实现也将会用到 getters。只不过实现的方式更加聪明一点。 ;)
 
 > This is the 2nd part of the How to build a reactive engine in JavaScript series. Before reading any further it is highly recommended to read [Part 1: Observable objects](https://monterail.com/blog/2016/how-to-build-a-reactive-engine-in-javascript-part-1-observable-objects), because the following implementation is built on top of the previous article's code.
 > 这是如何使用 JavaScript 构建响应式引擎系列文章的第二部分。在深入阅读前强烈建议读一下 [Part 1： 可观察的对象](https://monterail.com/blog/2016/how-to-build-a-reactive-engine-in-javascript-part-1-observable-objects)，因为接下来的实现是构建于前一篇文章的代码基础之上的。
@@ -37,7 +37,7 @@ computed: {
 ```
 
 Now if we use the `fullName` somewhere in our template, we expect it will be updated whenever `firstName` or `lastName` change. If you come from an AngularJS background you might also remember using expressions inside the template or function calls. Of course, this works the same when using render functions (with JSX or not); it doesn’t really matter.
-现在如果在模板中使用 `fullName`，我们希望它能随着 `firstName` 或 `lastName` 的改变而更新。如果你有使用 AngularJS 的背景，你可能还记得在模板或者函数调用内使用表达式。当然了，使用渲染函数（使用 JSX 或者不使用）的时候和这里是一样的；其实这无关紧要。
+现在如果在模板中使用 `fullName`，我们希望它能随着 `firstName` 或 `lastName` 的改变而更新。如果你有使用 AngularJS 的背景，你可能还记得在模板或者函数调用内使用表达式。当然了，使用渲染函数（不管用不用 JSX）的时候和这里是一样的；其实这无关紧要。
 
 Let’s consider the following example:
 来看一下下面的例子：
@@ -58,7 +58,7 @@ The result of the above code will be mostly the same. Each time `firstName` or `
 上面代码的执行结果几乎是一样的。每次 `firstName` 或 `lastName` 发生变化，视图将会更新这些 `<h>` 并且显示出全名。
 
 However, what if we use the expression, method call and computed property multiple times? The expression and method call will have to be calculated each time they are accessed, whereas the computed property will be cached after the first computation until one of its dependencies change. It will also persist through the re-render cycles! That’s actually quite a nice optimization if you consider that in event-based modern user interfaces, it’s hard to predict which action the user will take first.
-然而，如果多次使用表达式、函数调用和计算属性呢？使用表达式和函数调用每次都会计算一遍，而计算属性在第一次计算后将会缓存下来，直到它的依赖发生改变。它也会在重新渲染的循环中一直保持！如果考虑在基于事件模型的用户界面中，很难预测用户会首先执行哪项操作，那么这确实是一个最优化方案。
+然而，如果多次使用表达式、函数调用和计算属性呢？使用表达式和函数调用每次都会计算一遍，而计算属性在第一次计算后将会缓存下来，直到它的依赖发生改变。它也会在重新渲染的周期中一直保持！如果考虑在基于事件模型的现代用户界面中，很难预测用户会首先执行哪项操作，那么这确实是一个最优化方案。
 
 ## Basic computed property ##
 ## 基础的计算属性 ##
@@ -169,7 +169,7 @@ will call both the `firstName` and `lastName` getters.
 将会调用 `firstName` 和 `lastName` 的 getters。
 
 Let’s make use of it!
-让我们开始使用它！
+让我们利用这一点！
 
 We need a way to collect the information that a getter was called when evaluating a computed property. For this to work, first we need a place to store which computed property is currently being evaluated. We can use a simple object for this:
 当对计算属性求值的时候，我们需要收集 getter 被调用的信息。为了完成这项工作，首先需要空间存储当前求值的计算属性。可以用这样的简单对象：
@@ -491,7 +491,7 @@ Done! You might have already noticed that it also enables computed properties to
 ## 异步陷阱 ##
 
 Now that you know how dependency tracking works, it should be quite obvious why it’s not possible to track asynchronous data inside computed properties both in MobX and Vue.js. It all breaks because even a `setTimeout(callback, 0)` will be called out of the current context where `Dep.target` no longer exists. This means that whatever happens inside the callback won’t be tracked.
-既然你知道了依赖追踪如何工作，也就很明显为什么在 MobX 和 Vue.js 中追踪计算属性中的异步数据是不可能的。这一切会被打破，因为即使 `setTimeout(callback, 0)` 将会在当前上下文外被调用，在那里 `Dep.target` 不在存在。这也就意味着在回调函数中无论发生什么都不会被追踪到。
+既然你知道了依赖追踪如何工作，在 MobX 和 Vue.js 中不能追踪计算属性种的异步数据的原因就很明显了。这一切会被打破，因为即使 `setTimeout(callback, 0)` 将会在当前上下文外被调用，在那里 `Dep.target` 不在存在。这也就意味着在回调函数中无论发生什么都不会被追踪到。
 
 ## Bonus: Watchers ##
 ## 红利：Watchers ##
