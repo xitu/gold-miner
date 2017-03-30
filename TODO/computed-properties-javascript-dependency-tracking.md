@@ -65,8 +65,8 @@ However, what if we use the expression, method call and computed property multip
 
 In the previous article, we learned how to track and react to changes inside observable object properties by utilizing an event emitter. We know that when we change the `firstName` it will call all the handlers that subscribed to the `’firstName’` event. Thus it is quite easy to build a computed property by manually subscribing to its dependencies.
 This is actually how Ember does it:
-在前面文章中，我们学习了如何通过使用事件发射器追踪和响应可观察对象内的改变。我们知道当改变 `firstName` 时，会调用所有的订阅了 `’firstName’` 事件的处理器。因此通过手动订阅它的依赖来构建计算属性是相当容易的。
-这也是 Ember 实现它的方式：
+在前面文章中，我们学习了如何通过使用事件发射器追踪和响应可观察对象属性内的改变。我们知道当改变 `firstName` 时，会调用所有的订阅了 `’firstName’` 事件的处理器。因此通过手动订阅它的依赖来构建计算属性是相当容易的。
+这也是 Ember 实现计算属性的方式：
 
 ```
 fullName: Ember.computed('firstName', 'lastName', function() {
@@ -75,7 +75,7 @@ fullName: Ember.computed('firstName', 'lastName', function() {
 ```
 
 The drawback here is that you have to declare the dependencies yourself. Doesn’t seem like a problem until you have computed properties that are a result of a chain of more expensive, complex functions. For example:
-这样做的缺点就是你不得不自己声明依赖。当你的计算属性是一串高开销的、复杂的函数的时候，你就知道这的确是个问题了。例如：
+这样做的缺点就是你不得不自己声明依赖。当你的计算属性是一串高开销的、复杂的函数的运行结果时候，你就知道这的确是个问题了。例如：
 
 ```
 selectedTransformedList: Ember.computed('story', 'listA', 'listB', 'listC', function() {
@@ -105,7 +105,7 @@ Vue.js 和 MobX 在解决这个问题上使用了与上文不同的方法。不�
 When `this.story` changes to `’B’` it will collect a fresh set of dependencies and remove the unnecessary ones (`this.listA`) that were used before but was not called anymore.
 This way even if the other lists change it won’t trigger a recalculation of `selectedTransformedList`.
 That’s smart!
-当 `this.story` 变成 `’B’`，它将会收集一组新的依赖，并移除那些之前用而现在不再使用的多余的依赖（`this.listA`）。这样，尽管其他 lists 发生变化，也不会触发 `selectedTransformedList` 的重计算。
+当 `this.story` 变成 `’B’`，它将会收集一组新的依赖，并移除那些之前用而现在不再使用的多余的依赖（`this.listA`）。这样，尽管其他 lists 发生变化，也不会触发 `selectedTransformedList` 的重计算。真聪明！
 
 Now it’s a good time to look again at the [code from the previous article - JSFiddle](https://jsfiddle.net/shentao/4k0gk3bx/10/), as the following changes will be based upon that code.
 现在是时候返回来看一看 [上一篇文章中的代码 - JSFiddle](https://jsfiddle.net/shentao/4k0gk3bx/10/)，下面的改动将基于这些代码。
@@ -387,8 +387,7 @@ let Dep = {
 }
 ```
 
-If the `Dep.depend` method doesn’t make much sense right now, wait until we use it. It should become more clear what is actually happening there.
-如果 `Dep.depend` 函数现在还没什么意义，等一下我们就会用到它。这里做的什么应该就更清楚了。
+If the `Dep.depend` method doesn’t make much sense right now, wait until we use it. It should become more clear what is actually `Dep.depend` 函数现在还看不出用处，但我们待会就会用到它。那时在这里它的用处会更清楚。
 
 First, let’s tune the `makeReactive` transform function.
 首先，来调整 `makeReactive` 转换函数。
@@ -467,7 +466,7 @@ function makeComputed (obj, key, computeFunc) {
 
       if (!cache) {
         // Clear dependencies list to ensure getting a fresh one
-        // 清空依赖列表以获得一个新的
+        // 清空依赖列表以获得一个新的列表
         Dep.subs[key] = []
         cache = computeFunc.call(obj)
       }
@@ -497,7 +496,7 @@ Now that you know how dependency tracking works, it should be quite obvious why 
 ## 红利：Watchers ##
 
 The above problem can be, however, partially tackled with watchers. You might know them from Vue.js. Building watchers on top of what we already have is actually really simple. After all, a watcher is just a signal handler called after a given value has changed.
-然而，上面的问题可以通过 watchers 部分的解决。你可能已经在 Vue.js 中了解过它们。在我们已有的基础上创建 watchers 真的很容易。毕竟，watcher 是一个给定值发生变化时调用的信号处理器。
+然而，上面的问题可以通过 watchers 部分解决。你可能已经在 Vue.js 中了解过它们。在我们已有的基础上创建 watchers 真的很容易。毕竟，watcher 是一个给定值发生变化时调用的信号处理器。
 
 We just have to add a watchers registration method and trigger it within our Seer function.
 我们只是不得不添加一个 watchers 注册方法并在 Seer 函数内触发它。
@@ -545,7 +544,7 @@ The complete code is available here:
 [https://github.com/shentao/seer/tree/cached-computed](https://github.com/shentao/seer/tree/cached-computed)
 
 You can play with it online here (Opera/Chrome only):
-你可以在线的试试它（仅支持 Opera/Chrome）：
+你可以在线的试玩（仅支持 Opera/Chrome）：
 [https://jsfiddle.net/oyw72Lyy/](https://jsfiddle.net/oyw72Lyy/)
 
 ## Summary ##
@@ -563,7 +562,7 @@ As for the 4th part – maybe streams? Would you be interested?
 至于第四部分，也许是数据流？你们感兴趣吗？
 
 Feel free to leave your feedback in the comments!
-在评论区随意反馈意见！
+欢迎在评论区随意反馈意见！
 
 Thanks for reading!
 感谢阅读！
