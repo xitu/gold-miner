@@ -4,7 +4,7 @@
 > * 译者：[lsvih](https://github.com/lsvih)
 > * 校对者：
 
-# 一名 iOS 开发者的 React Native 开发经验 #
+# 一名 iOS 开发者的 React Native 开发经历 #
 
 如果你是一名 iOS 开发者，你应该听说过 React Native。它给出了简单而吸引人的承诺：一次编写,随处运行，它可以同时制作 iOS 与安卓 app。我是一名资深的 iOS 开发者（还是一名更资深的 macOS 开发者），我想分享我应用这门神奇技术的经历。
 
