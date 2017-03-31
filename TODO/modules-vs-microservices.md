@@ -24,12 +24,9 @@ Many of these principles can be realized with microservices. A microservice can 
 
 So, microservices realize important modularity principles, leading to tangible benefits:
 
-- 
-Teams can work and scale independently.
-- 
-Microservices are small and focused, reducing complexity.
-- 
-Services can be internally changed or replaced without global impact.
+- Teams can work and scale independently.
+- Microservices are small and focused, reducing complexity.
+- Services can be internally changed or replaced without global impact.
 
 What's not to like? Well, along the way you've gone from a single (albeit slightly obese) application to a distributed system of microservices. This brings an enormous amount of operational complexity to the table. Suddenly, you need to continuously deploy many different (possibly containerized) services. New concerns arise: service discovery, distributed logging, tracing and so on. You are now even more prone to the [fallacies of distributed computing](https://en.wikipedia.org/wiki/Fallacies_of_distributed_computing). Versioning of interfaces and configuration management become a major concern. The list goes on and on.
 
