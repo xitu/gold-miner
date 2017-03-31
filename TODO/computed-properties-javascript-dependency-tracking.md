@@ -12,7 +12,7 @@ Hey！如果你用过 Vue.js、Ember 或 MobX，我敢肯定你被 **计算** �
 
 > 这是如何使用 JavaScript 构建响应式引擎系列文章的第二部分。在深入阅读前强烈建议读一下 [Part 1： 可观察的对象](https://juejin.im/post/58dc9da661ff4b0061547ca0)，因为接下来的实现是构建于前一篇文章的代码基础之上的。
 
-## 计算属性 ## 
+## 计算属性 ##
 
 假设有一个计算属性叫 `fullName`，是 `firstName` 和 `lastName` 之间加上空格的组合。
 
