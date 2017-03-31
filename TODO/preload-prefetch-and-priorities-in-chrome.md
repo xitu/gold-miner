@@ -1,4 +1,4 @@
-> * 原文地址：[Preload, Prefetch And Priorities in Chrome](https://www.teambition.com/project/583d8744180aa4d012496f03/tasks/scrum/583d8744fa1e93bf18a85a7a/task/58dc6b68fd0faca50d444dbc)
+> * 原文地址：[Preload, Prefetch And Priorities in Chrome](https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf)
 > * 原文作者：[Addy Osmani](https://medium.com/@addyosmani?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：
@@ -9,7 +9,7 @@
 
 # **Preload, Prefetch And Priorities in Chrome**
 
-Today we’ll dive into insights from Chrome’s networking stack to provide clarity on how web loading primitives (like [**<link rel=“preload”>**](https://w3c.github.io/preload/) & [**<link rel=“prefetch”>**](https://w3c.github.io/resource-hints/)) work behind the scenes so you can be more effective with them.
+Today we’ll dive into insights from Chrome’s networking stack to provide clarity on how web loading primitives (like [**`<link rel=“preload”>`**](https://w3c.github.io/preload/) & [**`<link rel=“prefetch”>`**](https://w3c.github.io/resource-hints/)) work behind the scenes so you can be more effective with them.
 
 As covered well in [other articles](https://www.smashingmagazine.com/2016/02/preload-what-is-it-good-for/), **preload is a declarative fetch, allowing you to force the browser to make a request for a resource without blocking the document’s** [**onload**](https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/onload) **event**.
 
@@ -53,7 +53,7 @@ As for prefetch, it’s widely used and at Google we still use it in [Search res
 
 Preload is used in production by large sites for a number of use-cases and you can find more of them later on in the article. Before that, let’s dive into how the network stack actually treats preload vs prefetch.
 
-### When should you <link rel=”preload”> vs <link rel=”prefetch”>?
+### When should you `<link rel=”preload”>` vs `<link rel=”prefetch”>`?
 
 **Tip:** **Preload resources you have high-confidence will be used in the current page. Prefetch resources likely to be used for future navigations across multiple navigation boundaries.**
 
@@ -63,7 +63,7 @@ Prefetch serves a slightly different use case — a future navigation by the
 
 Between preload and prefetch, we get solutions for loading critical resources for the current navigation _or_ a future navigation.
 
-### What is the caching behavior for <link rel=”preload”> and <link rel=”prefetch”>?
+### What is the caching behavior for `<link rel=”preload”>` and `<link rel=”prefetch”>`?
 
 [Chrome has four caches](https://calendar.perfplanet.com/2016/a-tale-of-four-caches/): the HTTP cache, memory cache, Service Worker cache & Push cache. Both preload and prefetched resources are stored in the **HTTP cache.**
 
@@ -141,7 +141,7 @@ Finally, although it won’t cause double fetches, this is generally good advice
 
 This is a good example of **Tools, not rules.** How much you preload may well factor in how much network contention you’re going to have with other resources also being loaded on your page, your user’s available bandwidth and other network conditions.
 
-Preload resources that are likely to be discovered late in your page, but are otherwise important to fetch as early as possible. With scripts, preloading your key bundles is good as it separates fetching from execution in a way that just using say, <script async> wouldn’t as it blocks the window’s onload event. You can preload images, styles, fonts, media. Most things — what’s important is that you’re in better control of early-fetching what you as a page author knows is definitely needed by your page sooner rather than later.
+Preload resources that are likely to be discovered late in your page, but are otherwise important to fetch as early as possible. With scripts, preloading your key bundles is good as it separates fetching from execution in a way that just using say, `<script async>` wouldn’t as it blocks the window’s onload event. You can preload images, styles, fonts, media. Most things — what’s important is that you’re in better control of early-fetching what you as a page author knows is definitely needed by your page sooner rather than later.
 
 ### Does prefetch have any magical properties you should be aware of? Well, yes.
 
@@ -185,7 +185,7 @@ You can avoid unwanted pushes by using preload link tags instead of headers, or 
 
 ### How can I feature detect support for link rel=preload?
 
-Feature detecting for <link rel=”preload”>can be accomplished using the following snippet:
+Feature detecting for `<link rel=”preload”>` can be accomplished using the following snippet:
 
     const preloadSupported = () => {
       const link = document.createElement('link');
@@ -199,7 +199,7 @@ The FilamentGroup also have a [preload check](https://github.com/filamentgroup/l
 
 ### Can you immediately apply preloaded CSS stylesheets?
 
-Absolutely. Preload support markup based asynchronous loading. Stylesheets loaded using <link rel=”preload”> can be immediately applied to the current document using the `onload` event as follows:
+Absolutely. Preload support markup based asynchronous loading. Stylesheets loaded using `<link rel=”preload”>` can be immediately applied to the current document using the `onload` event as follows:
 
     <link rel="preload" href="style.css" onload="this.rel=stylesheet">
 
@@ -207,7 +207,7 @@ For more examples like this, see *Use Cases* in this great Yoav Weiss [deck](htt
 
 ### What else is Preload being used for in the wild?
 
-**According to the HTTPArchive,** [**most**](https://twitter.com/addyosmani/status/843254667316465664) **sites using <link rel=”preload”> use it to** [**preload Web Fonts**](https://www.zachleat.com/web/preload/) , **including Teen Vogue and as mentioned earlier, Shopify:**
+**According to the HTTPArchive,** [**most**](https://twitter.com/addyosmani/status/843254667316465664) **sites using `<link rel=”preload”>` use it to** [**preload Web Fonts**](https://www.zachleat.com/web/preload/) , **including Teen Vogue and as mentioned earlier, Shopify:**
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/2000/1*osYEtZ6gZnmstK4fpcJTrg.png">
 
@@ -223,7 +223,7 @@ For more examples like this, see *Use Cases* in this great Yoav Weiss [deck](htt
 
 ### What is the current browser support for Preload and Prefetch?
 
-<link rel=”preload”> is available to [~50% ](http://caniuse.com/#feat=link-rel-preload)of the global population according to CanIUse and is implemented in the [Safari Tech Preview](https://developer.apple.com/safari/technology-preview/release-notes/). <link rel=”prefetch”> is available to [71%](http://caniuse.com/#search=prefetch) of global users.
+`<link rel=”preload”>` is available to [~50% ](http://caniuse.com/#feat=link-rel-preload)of the global population according to CanIUse and is implemented in the [Safari Tech Preview](https://developer.apple.com/safari/technology-preview/release-notes/). `<link rel=”prefetch”>` is available to [71%](http://caniuse.com/#search=prefetch) of global users.
 
 ### Further insights you may find helpful:
 
@@ -245,7 +245,6 @@ For more examples like this, see *Use Cases* in this great Yoav Weiss [deck](htt
 *With thanks to @ShopifyEng, @AdityaPunjani from Flipkart, @HousingEngg, @adgad and @wheresrhys at the FT and @__lakshya from Treebo for sharing their before/after preload stats.*
 
 ***With many thanks for their technical reviews & suggestions: Ilya Grigorik, Gray Norton, Yoav Weiss, Pat Meenan, Kenji Baheux, Surma, Sam Saccone, Charles Harrison, Paul Irish, Matt Gaunt, Dru Knox, Scott Jehl.***
-
 
 ---
 
