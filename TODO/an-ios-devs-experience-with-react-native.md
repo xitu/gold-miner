@@ -54,7 +54,10 @@ React Native 的依赖链
 
 总而言之，iOS 开发者不应该将 React Native 视为两个平台的跨平台解决方案。写一个原生的 iOS app 将会花费*更少*的时间并可能得到更棒的 UX。对于安卓 app 也一样，所以我认为大家应该更多的去专注于平台原生解决方案。
 
-什么时候用 RN 才是正确的呢？如果你是一个专业的 Javascript 程序员或者你有这么一个员工，并且你*不打算*配置 iOS 开发或安卓开发人员，那么你可能会从中获益。还记得那个想要尽快做好跨平台 app 的那个客户吗？他们*曾*有一名 Javascript 工程师，他们 app 的 v1.0 版本最近才出现在应用商店中。此时，距他们联系我们已经过去了 8 个月。
+什么时候用 RN 才是正确的呢？如果你是一个专业的 Javascript 程序员或者你有这么一个员工，并且你*不打算*配置 iOS 开发或安卓开发人员，那么你*可能*会从中获益。还记得那个想要尽快做好跨平台 app 的那个客户吗？他们*曾*有一名 Javascript 工程师，他们 app 的 v1.0 版本最近才出现在应用商店中。此时，距他们联系我们已经过去了 8 个月。
 
 
 *最后是无耻的广告时间！如果你需要人帮你开发 iOS app，*[*请点这里*](http://www.madebywindmill.com)*！*
+
+
+> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[React](https://github.com/xitu/gold-miner#react)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计) 等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)。
