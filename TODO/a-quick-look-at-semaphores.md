@@ -1,33 +1,32 @@
 > * 原文地址：[A Quick Look at Semaphores in Swift 🚦](https://medium.com/swiftly-swift/a-quick-look-at-semaphores-6b7b85233ddb#.61uw6lq2d)
 > * 原文作者：[Federico Zanetello](https://medium.com/@zntfdr)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者： 
-> * 校对者：
+> * 译者：[Deepmissea](http://deepmissea.blue)
+> * 校对者：[Gocy015](http://blog.gocy.tech)，[skyar2009](https://github.com/skyar2009)
 
 ---
 
-# A Quick Look at Semaphores in Swift 🚦
+# 看！Swift 里竟然有红绿灯 🚦！
 
-First of all, if you’re not familiar with the Grand Central Dispatch (GCD) and Dispatch Queues, please head over [this awesome article](http://www.appcoda.com/grand-central-dispatch/) from [AppCoda](https://medium.com/@appcodamobile).
+首先，如果你对 GCD 和 Dispatch Queue 不熟悉，请看看 [AppCoda](https://medium.com/@appcodamobile) 的[这篇文章](http://www.appcoda.com/grand-central-dispatch/)。
 
-All right! Time to talk about Semaphores!
+好了！是时候来聊聊信号量了！
 
 ![](https://cdn-images-1.medium.com/max/1600/1*8ZCGzvA6DjfR9JoamqauoQ.jpeg)
 
-### Introduction
+### 引言
 
-Let’s imagine a group of *writers* that must share a single *pen*. 
-Obviously only one *writer *can use the *pen* at any given time.
+让我们想象一下，一群**作家**只能共同使用一支**笔**。显然，在任何指定的时间里，只有一名**作家**可以使用**笔**。
 
-Now, imagine that those *writers* are our threads and that the *pen* is our *shared resource* (it can be anything: a file, a variable, the right to do something, etc).
+现在，把**作家**想象成我们的线程，把**笔**想象成我们的**共享资源**（可以是任何东西：一个文件、一个变量、做某事的权利等等）。
 
-How do we make sure that our *resource* is really [mutually exclusive](https://en.wikipedia.org/wiki/Mutual_exclusion)?
+怎么才能确保我们的**资源**是真正[互斥](https://en.wikipedia.org/wiki/Mutual_exclusion)的呢？
 
 ![](https://cdn-images-1.medium.com/max/1600/1*nfAYVSYFMB874-z4sfJ_YQ.jpeg)
 
-### Implementing our own Resource Control Access
+### 实现我们自己的资源控制访问
 
-Someone may think: well I can just use a *resourceIsAvailable* *Bool* and set it to *true*/*false.*
+有人可能会想：我只要用一个 **Bool** 类型的 **resourceIsAvailable** 变量，然后设置它为 **true** 或者 **false** 就可以互斥了。
 
 ```
 if (resourceIsAvailable) {
@@ -39,108 +38,109 @@ if (resourceIsAvailable) {
 }
 ```
 
-The problem is that, on concurrency, **there’s no guarantee of knowing which thread, among all, is going to execute the next step, regardless of their priority**.
+问题是出现在并发上，**不论线程之间的优先级如何，我们都没办法确切知道哪个线程会执行下一步。**
 
-#### Example
+#### 例子
 
-Imagine that we’ve implemented the code above and that we have two threads, *threadA* and *threadB*, that would like to use a mutual exclusive resource:
+假设我们实现了上面的代码，我们有两个线程，**threadA** 和 **threadB**，他们会使用一个互斥的资源：
 
-- *threadA* reads the if-condition and see that the resource is available, great!
-- But, before the execution of the next line (*resourceIsAvalilable = false*), the processor turns to *threadB* and it also reads the if-condition.
-- Now we have two threads that believe that the resource is available and both are going to execute the *use-the-resource* block.
+- **threadA** 读取到 if 条件语句，发现资源可用，很棒！
+- 但是，在执行下一行代码（**resourceIsAvalilable = false**）之前，处理器切换到 **threadB**，然后它也读取了 if 条件语句。
+- 现在我们的两个线程都确信资源是可用的，然后他们都会执行**使用资源**部分的代码块。
 
-Writing thread-safe code without GCD is not an easy task.
+
+不用 GCD 编写线程安全的代码可不是一个容易的任务。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*p54pBislRafckGffcDqRdA.png)
 
-### How Semaphores Work
+### 信号量是如何工作的
 
-Three steps:
+三步：
 
-1. Whenever we would like to use one shared resource, we send a **request** to its semaphore;
-2. Once the semaphore gives us the green light (see what I did here?) we can assume that the resource is ours and we can use it;
-3. Once the resource is no longer necessary, we let the semaphore know by sending him a **signal**,allowing him to assign the resource to another thread.
+1. 在我们需要使用一个共享资源的时候，我们发送一个 **request** 给它的信号量；
+2. 一旦信号量给出我们绿灯（see what I did here?），我们就可以假定资源是我们的并使用它；
+3. 一旦不需要资源了，我们通过发送给信号量一个 **signal** 让它知道，然后它可以把资源分配给另一个的线程。
 
-When this resource is only one and can be used only by onethread at any given time, you can think of these **request/signal** as the resource **lock/unlock**.
+当这个资源只有一个，并且在任何给定的时间里，只有一个线程可以使用，你就可以把这些 **request/signal** 作为资源的 **lock/unlock**。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*-_owdkyNPRUQS5a5yjdEkA.jpeg)
 
-### What’s Happening Behind the Scenes
+### 在幕后发生了什么
 
-#### The Structure
+#### 结构
 
-The Semaphore is composed by:
+信号量由下面的两部分组成：
 
-- a *counter* that let the Semaphore know how many threads can use its resource(s);
-- a *FIFO queue* for tracking the threads waiting for the resource;
+- 一个**计数器**，让信号量知道有多少个线程能使用它的资源；
+- 一个 **FIFO 队列**，用来追踪这些等待资源的线程；
 
-#### Resource Request: wait()
+#### 请求资源: wait()
 
-When the semaphore receives a request, it checks if its *counter* is above zero:
+当信号量收到一个请求时，它会检查它的**计数器**是否大于零：
 
-- if yes, then the semaphore decrements it and gives the thread the green light;
-- otherwise it pushes the thread at the end of its queue;
+- 如果是，那信号量会减一，然后给线程放绿灯；
+- 如果不是，它会把线程添加到它队列的末尾；
 
-#### Resource Release: signal()
+#### 释放资源: signal()
 
-Once the semaphore receives a signal, it checks if its FIFO queue has threads in it:
+一旦信号量收到一个信号，它会检查它的 FIFO 队列是否有线程存在：
 
-- if yes, then the semaphore pulls the first thread and give him the green light;
-- otherwise it increments its counter;
+- 如果有，那么信号量会把第一个线程拉出来，然后给他一个绿灯；
+- 如果没有，那么它会增加它的计数器；
 
-#### Warning: Busy Waiting
+#### 警告: 忙碌等待
 
-When a thread sends a *wait() *resource request to the semaphore, the thread **freezes **until the semaphore gives the thread the green light.
+当一个线程发送一个 **wait()** 资源请求给信号量时，线程会**冻结**直到信号量给线程绿灯。
 
-⚠️️If you do this in the main thread, the whole app will freeze ⚠️️
+⚠️️如果你在在主线程这么做，那整个应用都会冻结⚠️️
 
 ![](https://cdn-images-1.medium.com/max/1600/1*3GANzX3n1uEiuhXE49fcrg.jpeg)
 
-### Using Semaphores in Swift (with GCD)
+### 在 Swift 里使用信号量 (通过 GCD)
 
-Let’s write some code!
+让我们写一些代码！
 
-#### Declaration
+#### 声明
 
-Declaring a Semaphore is simple:
+声明一个信号量很简单：
 
 ```
 let semaphore = DispatchSemaphore(value: 1)
 ```
 
-The *value* parameter is the number of threads that can access to the resource as for the semaphore creation.
+**value** 参数代表创建的信号量允许同时访问该资源的线程数量。
 
-#### Resource Request
+#### 资源请求
 
-To **request** the *semaphore*’s resource(s), we just call:
+如果要**请求信号量**的资源，我们只需：
 
 ```
  semaphore.wait()
 ```
 
-Note that the semaphore is not physically giving us anything, the resource has to be in the thread’s scope already, we just use the resource only between our request and release calls.
+要知道信号量并不能实质上地给我们任何东西，资源都是在线程的范围内，而我们只是在请求和释放调用之间使用资源。
 
-Once the semaphore gives us its blessing, the thread resumes its normal execution and can consider the resource his to use.
+一旦信号量给我们放行，那线程就会恢复正常执行，并可以放心地将资源纳为己用了。
 
-#### Resource Release
+#### 资源释放
 
-To **release** the resource we write:
+要**释放**资源，我们这么写：
 
 ```
 semaphore.signal()
 ```
 
-After sending this signal we aren’t allowed to touch the resource anymore, until we request for it again.
+在发送这个信号后，我们就不能接触到任何资源了，直到我们再次的请求它。
 
-### Semaphore Playgrounds
+### Playgrounds 中的信号量
 
-Following [AppCoda](https://medium.com/@appcodamobile)[article](http://www.appcoda.com/grand-central-dispatch/) examples, let’s see this Semaphore in action!
+跟随 [AppCoda](https://medium.com/@appcodamobile) 上[这篇文章](http://www.appcoda.com/grand-central-dispatch/)的例子，让我们看看实际应用中的信号量！
 
-> Warning: these are Xcode Playgrounds, as Swift Playgrounds don’t support Logging just yet. Fingers crossed for WWDC17!
+> 注意：这些是 Xcode 中的 Playground，Swift Playground 还不支持日志记录。希望 WWDC17 能解决这个问题！
 
-In these playgrounds we have two threads, one with slightly higher priority than the other, that print 10 times an emoji and incremental numbers.
+在这些 playground 里，我们有两个线程，一个线程的优先级比其他的略微高一些，打印 10 次表情和增加的数字。
 
-#### Semaphore-less Playground
+#### 没有信号量的 Playground
 
 ```
 import Foundation
@@ -163,15 +163,15 @@ asyncPrint(queue: lowerPriority, symbol: "🔵")
 PlaygroundPage.current.needsIndefiniteExecution = true
 ```
 
-As you can Imagine, the higher priority thread finishes first most of the times:
+和你想的一样，多数情况下，高优先级的线程先完成任务：
 
 ![](https://cdn-images-1.medium.com/max/1600/1*OjtJO8-44tStXpRS8y1N-A.png)
 
-#### Semaphore Playground
+#### 有信号量的 Playground
 
-In this case we will use the same code as before, but we will give the right to print the *emoji+number* sequence only to one thread at a time.
+这次我们会使用和前面一样的代码，但是在同一时间，我们只给一个线程赋予打印**表情+数字**的权利。
 
-In order to do so we will define one semaphore and update our *asyncPrint* function:
+为了达到这个目的，我们定义了一个信号量并且更新了我们的 **asyncPrint** 函数：
 
 ```
 import Foundation
@@ -185,14 +185,14 @@ let semaphore = DispatchSemaphore(value: 1)
 func asyncPrint(queue: DispatchQueue, symbol: String) {
   queue.async {
     print("\(symbol) waiting")
-    semaphore.wait()  // requesting the resource
+    semaphore.wait()  // 请求资源
     
     for i in 0...10 {
       print(symbol, i)
     }
     
     print("\(symbol) signal")
-    semaphore.signal() // releasing the resource
+    semaphore.signal() // 释放资源
   }
 }
 
@@ -202,50 +202,50 @@ asyncPrint(queue: lowerPriority, symbol: "🔵")
 PlaygroundPage.current.needsIndefiniteExecution = true
 ```
 
-I’ve also added a couple more *print* commands to see the actual state of each thread during our execution.
+我还添加了一些 **print** 指令，以便我们看到每个线程执行中的实际状态。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*g7SMrR7svWNetOqjSGIEYA.png)
 
-As you can see, when one thread starts printing the sequence, the other thread must wait until the first one ends, then the semaphore will receive the *signal* from the first thread and then, *only then*, the second thread can start printing its own sequence.
+就像你看到的，当一个线程开始打印队列，另一个线程必须等待，直到第一个结束，然后信号量会从第一个线程收到 **signal**。**当且仅当此后**，第二个线程才能开始打印它的队列。
 
-It doesn’t matter at which point of the sequence the second thread will send the *wait()* request, it will always have to wait until the other thread is done.
+第二个线程在队列的哪个点发送 **wait()** 无关紧要，它会一直处于等待状态直到另一个线程结束。
 
-**Priority Inversion**
+**优先级反转**
 
-Now that we understand how everything works, please take a look at the following log:
+现在我们已经明白每个步骤是如何工作的，请看一下这个日志：
 
 ![](https://cdn-images-1.medium.com/max/1600/1*eCFBl9XpF6JYX1b8xwD26w.png)
 
-In this case, with the exact code above, the processor has decided to execute the low priority thread first.
+在这种情况下，通过上面的代码，处理器决定先执行低优先级的线程。
 
-When this happens, the high priority thread must wait the low priority thread to finish! This is ok, it can happen. 
-The problem is that the low priority thread has low priority even when one high priority thread is waiting for him: this is called [***Priority Inversion***](https://en.wikipedia.org/wiki/Priority_inversion).
+这时，高优先级的线程必须等待低优先级的线程完成！这是真的，它的确会发生。
+问题是即使一个高优先级线程正等待它，低优先级的线程也是低优先级的：这被称为[***优先级反转***](https://en.wikipedia.org/wiki/Priority_inversion)。
 
-In other programming concepts different than the Semaphore, when this happens the low priority thread will temporarily *inherit* the priority of the highest priority thread that is waiting on him: this is called [***Priority Inheritance***](https://en.wikipedia.org/wiki/Priority_inheritance).
+在不同于信号量的其他编程概念里，当发生这种情况时，低优先级的线程会暂时**继承**等待它的最高优先级线程的优先级，这被称为：[***优先级继承***](https://en.wikipedia.org/wiki/Priority_inheritance)。
 
-With Semaphores this is not the case because, actually, anybody can call the *signal()* function (not only the thread that is currently using the resource).
+在使用信号量的时候不是这样的，实际上，谁都可以调用 **signal()** 函数（不仅是当前正使用资源的线程）。
 
-**Thread Starvation** 
+**线程饥饿** 
 
-To make things even worse, let’s imagine that between our high & low priority threads there are 1000 more middle-priority threads.
+为了让事情变得更糟，让我们假设在我们的高优先级和低优先级线程之间还有 1000 多个中优先级的线程。
 
-If we have a case of *Priority Inversion* like above, the high priority thread must wait for the low priority thread, but, most of the time, the processor will execute the middle priority threads, as they have higher priority than our low priority one.
+如果我们有一种像上面那样**优先级反转**的情况，高优先级的线程必须等待低优先级的线程，但是，大多数情况下，处理器会执行中优先级的线程，因为他们的优先级高于我们的低优先级线程。
 
-In this scenario our high priority thread is being starved of CPU time (hence the concept of [Starvation](https://en.wikipedia.org/wiki/Starvation_%28computer_science%29)).
+这种情况下，我们的高优先级线程正被 CPU 饿的要死（于是有了[饥饿](https://en.wikipedia.org/wiki/Starvation_%28computer_science%29)的概念）。
 
-#### Solutions
+#### 解决方案
 
-In my opinion, it’s better to use Semaphores only among threads of the same priority. If this is not your case, I suggest you to look at other solutions such as [Regions](https://en.wikipedia.org/wiki/Critical_section) and [Monitors](https://en.wikipedia.org/wiki/Monitor_%28synchronization%29).
+我的观点是，在使用信号量的时候，线程之间最好都使用相同的优先级。如果这不符合你的情况，我建议你看看其他的解决方案，比如[临界区块](https://en.wikipedia.org/wiki/Critical_section)和[管程](https://en.wikipedia.org/wiki/Monitor_%28synchronization%29).
 
-### Deadlock Playground
+### Playground 上的死锁
 
-This time we have two threads that use two mutual exclusive resources “*A*” and “*B*”.
+现在我们有两个线程，使用两个互斥的资源，“**A**” 和 “**B**”。
 
-If the two resources can be used separately, it makes sense to define one semaphore for each resource. If not, one semaphore can manage both.
+如果两个资源可以分离使用，为每个资源定义一个信号量是有意义的，如果不可以，那一个信号量足以管理两者。
 
-I want to make an example with the former case (2 resources, 2 semaphores) with a twist: the high priority thread will use first resource “A” and then “B”, while our low priority one will use first resource “B” and then “A”.
+我想用一个用前一种情况（2 个资源， 2 个信号量）做一个例子：高优先级线程会先使用资源 “A”，然后 “B”，而低优先级的线程会先使用 “B”，然后再使用 "A"。
 
-Here’s the code:
+代码在这：
 
 ```
 import Foundation
@@ -284,37 +284,37 @@ asyncPrint(queue: lowerPriority, symbol: "🔵", firstResource: "B", firstSemaph
 PlaygroundPage.current.needsIndefiniteExecution = true
 ```
 
-If we’re lucky, this is what happens:
+如果我们幸运的话，会这样:
 
 ![](https://cdn-images-1.medium.com/max/1600/1*_ASgiqbV_o9caE7M7hNBpQ.png)
 
-Simply, the high priority thread will be served with the first resource, then the second and only later the the processor will move to the low priority thread.
+简单来说就是，第一个资源会先提供给高优先级线程，然后对于第二个资源，处理器只有稍后把它移动到低优先级线程。
 
-However, if we’re unlucky, this can also happen:
+然而，如果我们不是很幸运的话，那这种情况也会发生：
 
 ![](https://cdn-images-1.medium.com/max/1600/1*cVvGM-1NRH7kouSRu2mSRQ.png)
 
-Both threads didn’t finish their execution! Let’s review the current state:
+两个线程都没有完成他们的执行！让我们检查一下当前的状态：
 
-- The high priority thread is waiting for the resource “B”, which is held by the low priority thread;
-- The low priority thread is waiting for the resource “A”, which is held by the high priority thread;
+- 高优先级的线程正在等待资源 “B”，可是被低优先级的线程持有；
+- 低优先级的线程正在等待资源 “A”，可是被高优先级的线程持有；
 
-Both threads are waiting on each other with no possibility to move forward: welcome to a [*Thread Deadlock*](https://en.wikipedia.org/wiki/Deadlock)!
+两个线程都在等待相互的资源，谁也不能向前一步：欢迎来到[**线程死锁**](https://en.wikipedia.org/wiki/Deadlock)!
 
-#### Solutions
+#### 解决方案
 
-Avoiding [deadlocks](https://en.wikipedia.org/wiki/Deadlock) is not simple. The best solution would be preventing them by writing code that [can’t possibly reach this state](https://en.wikipedia.org/wiki/Deadlock_prevention_algorithms).
+避免[死锁](https://en.wikipedia.org/wiki/Deadlock)很难。最好的解决方案是编写[不能达到这种状态](https://en.wikipedia.org/wiki/Deadlock_prevention_algorithms)的代码来防止他们。
 
-In other OSs, for example, one of the deadlock threads could be killed (in order to release all its resources) with the hope that other threads can continue their execution.
+例如，在其他的操作系统里，为了其他线程的继续执行，其中一个死锁线程可能被杀死（为了释放它的所有资源）。
 
-…Or you can just use the [Ostrich_Algorithm](https://en.wikipedia.org/wiki/Ostrich_algorithm) 😆.
+...或者你可以使用[鸵鸟算法（Ostrich_Algorithm）](https://en.wikipedia.org/wiki/Ostrich_algorithm) 😆。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*Nmcb2GTIk-PO0TNPNPD8Mw.jpeg)
 
-### Conclusions
+### 结论
 
-Semaphores are a little nice concept that can be very handy in many applications. Just, be careful: look both ways before crossing.
+信号量是一个很棒的概念，它可以在很多应用里方便的使用，只是要小心：过马路要看两边。
 
 ---
 
-[*Federico*](https://twitter.com/zntfdr) *is a Bangkok-based Software Engineer with a strong passion for Swift, Minimalism, Design, and iOS Development.*
+**[Federico](https://twitter.com/zntfdr) 是一名在曼谷的软件工程师，对 Swift、Minimalism、Design 和 iOS 开发有浓厚的热情。**
