@@ -8,7 +8,6 @@
 
 # 看！Swift 里竟然有红绿灯 🚦！
 
-
 首先，如果你对 GCD 和 Dispatch Queue 不熟悉，请看看 [AppCoda](https://medium.com/@appcodamobile) 的[这篇文章](http://www.appcoda.com/grand-central-dispatch/)。
 
 好了！是时候来聊聊信号量了！
@@ -17,13 +16,11 @@
 
 ### 引言
 
-
 让我们想象一下，一群**作家**只能共同使用一支**笔**。显然，在任何指定的时间里，只有一名**作家**可以使用**笔**。
 
 现在，把**作家**想象成我们的线程，把**笔**想象成我们的**共享资源**（可以是任何东西：一个文件、一个变量、做某事的权利等等）。
 
 怎么才能确保我们的**资源**是真正[互斥](https://en.wikipedia.org/wiki/Mutual_exclusion)的呢？
-
 
 ![](https://cdn-images-1.medium.com/max/1600/1*nfAYVSYFMB874-z4sfJ_YQ.jpeg)
 
@@ -41,9 +38,7 @@ if (resourceIsAvailable) {
 }
 ```
 
-
 问题是出现在并发上，**不论线程之间的优先级如何，我们都没办法确切知道哪个线程会执行下一步。**
-
 
 #### 例子
 
@@ -63,9 +58,7 @@ if (resourceIsAvailable) {
 三步：
 
 1. 在我们需要使用一个共享资源的时候，我们发送一个 **request** 给它的信号量；
-
 2. 一旦信号量给出我们绿灯（see what I did here?），我们就可以假定资源是我们的并使用它；
-
 3. 一旦不需要资源了，我们通过发送给信号量一个 **signal** 让它知道，然后它可以把资源分配给另一个的线程。
 
 当这个资源只有一个，并且在任何给定的时间里，只有一个线程可以使用，你就可以把这些 **request/signal** 作为资源的 **lock/unlock**。
@@ -115,9 +108,7 @@ if (resourceIsAvailable) {
 let semaphore = DispatchSemaphore(value: 1)
 ```
 
-
 **value** 参数代表创建的信号量允许同时访问该资源的线程数量。
-
 
 #### 资源请求
 
@@ -129,9 +120,7 @@ let semaphore = DispatchSemaphore(value: 1)
 
 要知道信号量并不能实质上地给我们任何东西，资源都是在线程的范围内，而我们只是在请求和释放调用之间使用资源。
 
-
 一旦信号量给我们放行，那线程就会恢复正常执行，并可以放心地将资源纳为己用了。
-
 
 #### 资源释放
 
@@ -140,7 +129,6 @@ let semaphore = DispatchSemaphore(value: 1)
 ```
 semaphore.signal()
 ```
-
 
 在发送这个信号后，我们就不能接触到任何资源了，直到我们再次的请求它。
 
@@ -316,7 +304,6 @@ PlaygroundPage.current.needsIndefiniteExecution = true
 #### 解决方案
 
 避免[死锁](https://en.wikipedia.org/wiki/Deadlock)很难。最好的解决方案是编写[不能达到这种状态](https://en.wikipedia.org/wiki/Deadlock_prevention_algorithms)的代码来防止他们。
-
 
 例如，在其他的操作系统里，为了其他线程的继续执行，其中一个死锁线程可能被杀死（为了释放它的所有资源）。
 
