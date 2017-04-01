@@ -86,7 +86,7 @@ Retrofit retrofit = new Retrofit.Builder()
 
 你需要通过创建 Dagger 2 **模块**定义哪些对象应该作为依赖链的一部分。例如，假设我们想要创建一个 `Retrofit` 单例，使它绑定到应用生命周期，对所有的 Activity 和 Fragment 都可用，我们首先需要使 Dagger 意识到他可以提供 `Retrofit` 的实例。
 
-Because we wish to setup caching, we need an Application context.  Our first Dagger module, `AppModule.java`, will be used to provide this reference.  We will define a method annotated with `@Provides` that denotes to Dagger that this method is the constructor for the `Application` return type:
+因为需要设置缓存，我们需要一个 Application context。我们的第一个 Dagger 模块，`AppModule.java`，被用于提供这个依赖。我们将定义一个 `@Provides` 注解，标注带有 `Application` 的构造方法:
 
 ```java
 @Module
@@ -106,9 +106,9 @@ public class AppModule {
 }
 ```
 
-We create a class called `NetModule.java` and annotate it with `@Module` to signal to Dagger to search within the available methods for possible instance providers.  
+我们创建了一个名为 `NetModule.java` 的类，并用 `@Module` 来通知 Dagger，在这里查找提供实例的方法。
 
-The methods that will actually expose available return types should also be annotated with `@Provides` decorator.  The `Singleton` annotation also signals to the Dagger compiler that the instance should be created only once in the application.  In the following example, we are specifying `SharedPreferences`, `Gson`, `Cache`, `OkHttpClient`, and `Retrofit` as the return types that can be used as part of the dependency list.  
+返回实例的方法也应当用 `@Provides` 标注。`Singleton` 标注通知 Dagger 编译器，实例在应用中只应被创建一次。在下面的例子中，我们把 `SharedPreferences`, `Gson`, `Cache`, `OkHttpClient`, 和 `Retrofit` 设置为在依赖列表中可用的类型。
 
 ```java
 @Module
@@ -166,7 +166,7 @@ public class NetModule {
 }
 ```
 
-Note that the method names (i.e. `provideGson()`, `provideRetrofit()`, etc) do not matter and can be named anything.  The return type annotated with a `@Provides` decorator is used to associate this instantiation with any other modules of the same type.  The `@Singleton` annotation is used to declare to Dagger to be only initialized only once during the entire lifecycle of the application.  
+注意，方法名称（比如 `provideGson()`, `provideRetrofit()` 等）是没关系的，可以任意设置。 用 `@Provides` decorator is used to associate this instantiation with any other modules of the same type.  The `@Singleton` annotation is used to declare to Dagger to be only initialized only once during the entire lifecycle of the application.  
 
 A `Retrofit` instance depends both on a `Gson` and `OkHttpClient` instance, so we can define another method within the same class that takes these two types.  The `@Provides` annotation and these two parameters in the method will cause Dagger to recognize that there is a dependency on `Gson` and `OkHttpClient` to build a `Retrofit` instance.
 
