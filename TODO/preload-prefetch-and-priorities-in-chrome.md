@@ -1,4 +1,4 @@
-> * 原文地址：[Preload, Prefetch And Priorities in Chrome](https://www.teambition.com/project/583d8744180aa4d012496f03/tasks/scrum/583d8744fa1e93bf18a85a7a/task/58dc6b68fd0faca50d444dbc)
+> * 原文地址：[Preload, Prefetch And Priorities in Chrome](https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf)
 > * 原文作者：[Addy Osmani](https://medium.com/@addyosmani?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：
@@ -224,6 +224,7 @@ FilamentGroup 也有一个作为他们的异步 CSS 加载库 [loadCSS](https://
 ### 当前浏览器对 preload 和 prefetch 的支持度？
 
 根据 CanIUse 在 [Safari Tech Preview](https://developer.apple.com/safari/technology-preview/release-notes/)的调查看，`<link rel=”preload”>` 大约有 [50%](http://caniuse.com/#feat=link-rel-preload) 的支持度，`<link rel=”prefetch”>` 大约有 [70%](http://caniuse.com/#search=prefetch) 的支持度。
+`<link rel=”preload”>` is available to [~50% ](http://caniuse.com/#feat=link-rel-preload)of the global population according to CanIUse and is implemented in the [Safari Tech Preview](https://developer.apple.com/safari/technology-preview/release-notes/). `<link rel=”prefetch”>` is available to [71%](http://caniuse.com/#search=prefetch) of global users.
 
 ### 更多有用的见解
 
@@ -245,7 +246,6 @@ FilamentGroup 也有一个作为他们的异步 CSS 加载库 [loadCSS](https://
 感谢 @ShopifyEng、@AdityaPunjani、@HousingEngg、@adgad、@wheresrhys 和 @__lakshya 分享的统计信息。
 
 ***非常感谢下列技术审核与建议人员: Ilya Grigorik, Gray Norton, Yoav Weiss, Pat Meenan, Kenji Baheux, Surma, Sam Saccone, Charles Harrison, Paul Irish, Matt Gaunt, Dru Knox, Scott Jehl.***
-
 
 ---
 

@@ -1,7 +1,7 @@
 > * 原文地址：[Nothing will change until you start building.](https://medium.freecodecamp.com/nothing-will-change-until-you-start-building-2681e85e7bdc)
 > * 原文作者：[Jonathan Z. White](https://medium.freecodecamp.com/@JonathanZWhite?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者： 
+> * 译者：
 > * 校对者：
 
 ---
@@ -59,7 +59,7 @@ For further reading, [John Carmack on Idea Generation](https://amasad.me/carmack
 
 Once you’ve identified a problem and come up with a solution, you’ll probably ask yourself if your idea is good.
 
-**Plenty of seemingly bad ideas have turned out to be great businesses. **For example, no one wanted to invest in Airbnb. Brian Chesky, one of the co-founders of Airbnb, detailed their rejections in his essay [7 Rejections](https://medium.com/@bchesky/7-rejections-7d894cbaa084#.l8fdqlasz).
+**Plenty of seemingly bad ideas have turned out to be great businesses.** For example, no one wanted to invest in Airbnb. Brian Chesky, one of the co-founders of Airbnb, detailed their rejections in his essay [7 Rejections](https://medium.com/@bchesky/7-rejections-7d894cbaa084#.l8fdqlasz).
 
 ![](https://cdn-images-1.medium.com/max/800/1*WpxUxMCO-7NXr-o1yo023g.png)
 
