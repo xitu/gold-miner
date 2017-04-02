@@ -8,11 +8,11 @@
 
 ## 概要 
 
-很多 Android 应用依赖于一些含有其它依赖的对象。例如，一个 Twitter API 客户端可能需要通过 [Retrofit](https://github.com/codepath/android_guides/wiki/Consuming-APIs-with-Retrofit) 之类的网络库被构建。要使用这个库，你可能还需要添加 [Gson](https://github.com/codepath/android_guides/wiki/Leveraging-the-Gson-Library) 这样的解析库。另外，实现认证或缓存的库可能需要使用 [shared preferences](https://github.com/codepath/android_guides/wiki/Storing-and-Accessing-SharedPreferences)或其它通用存储方式。这就需要先把它们实例化，并创建一个隐含的依赖链。
+很多 Android 应用依赖于一些含有其它依赖的对象。例如，一个 Twitter API 客户端可能需要通过 [Retrofit](https://github.com/codepath/android_guides/wiki/Consuming-APIs-with-Retrofit) 之类的网络库被构建。要使用这个库，你可能还需要添加 [Gson](https://github.com/codepath/android_guides/wiki/Leveraging-the-Gson-Library) 这样的解析库。另外，实现认证或缓存的库可能需要使用 [shared preferences](https://github.com/codepath/android_guides/wiki/Storing-and-Accessing-SharedPreferences) 或其它通用存储方式。这就需要先把它们实例化，并创建一个隐含的依赖链。
 
-如果你不熟悉依赖注入，看看[这个](https://www.youtube.com/watch?v=IKD2-MAkXyQ) 短视频。
+如果你不熟悉依赖注入，看看[这个](https://www.youtube.com/watch?v=IKD2-MAkXyQ)短视频。
 
-Dagger 2 为你解析这些依赖，并生成把它们绑定在一起的代码。也有很多其它的 Java 依赖注入框架，但它们中很多个是有缺陷的，比如依赖 XML，需要在运行时验证依赖，或者在起始时造成性能负担。 [Dagger 2](http://google.github.io/dagger/) 纯粹依赖于 Java [annotation processors](https://www.youtube.com/watch?v=dOcs-NKK-RA) 以及编译时检查来分析并验证依赖。它被认为是目前最高效的依赖注入框架之一。
+Dagger 2 为你解析这些依赖，并生成把它们绑定在一起的代码。也有很多其它的 Java 依赖注入框架，但它们中很多个是有缺陷的，比如依赖 XML，需要在运行时验证依赖，或者在起始时造成性能负担。 [Dagger 2](http://google.github.io/dagger/) 纯粹依赖于 Java [注解解析器](https://www.youtube.com/watch?v=dOcs-NKK-RA)以及编译时检查来分析并验证依赖。它被认为是目前最高效的依赖注入框架之一。
 
 ### 优点
 
