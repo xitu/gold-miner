@@ -34,7 +34,7 @@ When I was younger, I realized that I wanted my borders and link text to be the 
 
 Then I started second-guessing all the long comments I left for why`#left-section` was exactly 546px wide. (250 * 2 + 23 * 2 duh). Then I started writing my math in Less: `2 * @sectionWidth + 2 * @sectionPadding`. *I guess you’re unfamiliar with calc(), Jordan, because that has phenomenal browser support…*
 
-Back when `border-radius` had to be polyfilled, I started including all the prefixes everywhere, then moved things over to a `border-radius()` mixin that I could just drop-in when I needed it. *Well if you had only used component clas — *Dude can you stop? Let me finish my article here. *Sorr — *It’s fine don’t worry about it, just hold on.
+Back when `border-radius` had to be polyfilled, I started including all the prefixes everywhere, then moved things over to a `border-radius()` mixin that I could just drop-in when I needed it. *Well if you had only used component clas —* Dude can you stop? Let me finish my article here. *Sorr —* It’s fine don’t worry about it, just hold on.
 
 I was writing Less when CSS wasn’t cutting it for me. CSS was still getting written, let me assure you, and it was working great on my users’ machines. I just wasn’t the one writing it — I was too busy 10x’ing.
 
@@ -44,7 +44,7 @@ I started [working on teams](https://www.khanacademy.org/), on these big pages w
 
 Some of those pages got really big, so often times we would split up our CSS (well, Less) and JavaScript into individual files so the users didn’t have to download code for the exercise page to watch a video.
 
-Sometimes, we’d remove too much code, and things wouldn’t look right. Because the homepage menu would expect `.left-arrow` to be around, but now the styles for that class were in `exercise.css`. Sometimes we wouldn’t notice because that `.left-arrow` would be neatly tucked away behind a couple mouse clicks in a nav bar. *Well you should have had screenshot testing or a stricter QA proce — * What did I **just** say?
+Sometimes, we’d remove too much code, and things wouldn’t look right. Because the homepage menu would expect `.left-arrow` to be around, but now the styles for that class were in `exercise.css`. Sometimes we wouldn’t notice because that `.left-arrow` would be neatly tucked away behind a couple mouse clicks in a nav bar. *Well you should have had screenshot testing or a stricter QA proce —* What did I **just** say?
 
 Phew, this was hard work! But hey code has bugs in it sometimes, it’s cool. Fix ’em and move on.
 
@@ -58,7 +58,7 @@ Now’s the time where I throw in a personal story about my grandmother writing 
 
 Anyway imagine a world where my grandmother *did* write machine code by hand onto punch cards. Again, riddled with human error! Got a bug? Punch ’em all again. Dropped the cards on the floor? Pick ’em all up and re-sort them, or just start over. Weird right? Couldn’t we make robots do this for us?
 
-So that’s exactly what my theoretical grandmother did, she built a machine to punch the cards for her. Okay, she didn’t, but someone else did! And we got cool stuff like assembly code, and FORTRAN, and C. Each step of the way folks took to their equivalent twitter dot com and chastised this new technology. **Just use punch cards! Just use FORTRAN! Just use C — ** okay I guess people still do this one.
+So that’s exactly what my theoretical grandmother did, she built a machine to punch the cards for her. Okay, she didn’t, but someone else did! And we got cool stuff like assembly code, and FORTRAN, and C. Each step of the way folks took to their equivalent twitter dot com and chastised this new technology. **Just use punch cards! Just use FORTRAN! Just use C —** okay I guess people still do this one.
 
 —
 
@@ -66,7 +66,7 @@ Which leads me to the point of this article.
 
 CSS is fine, it’s fast, and it’s been fine tuned for over 20 years now for all sorts of applications.
 
-But I really don’t like writing it. A lot of people don’t, so we develop these cool patterns to write it in. I don’t like writing in those patterns either, I have better stuff to do. And JavaScript is cool. *Actually JavaScript has even more prob — **ahem*. [So I write my CSS with JavaScript](https://github.com/khan/aphrodite).
+But I really don’t like writing it. A lot of people don’t, so we develop these cool patterns to write it in. I don’t like writing in those patterns either, I have better stuff to do. And JavaScript is cool. *Actually JavaScript has even more prob — ahem*. [So I write my CSS with JavaScript](https://github.com/khan/aphrodite).
 
 Turning this:
 
@@ -99,7 +99,7 @@ Into this:
         color: tomato !important;
     }
 
-See? Still CSS. Clean CSS. Perfect CSS. To-the-**book** CSS. But I didn’t write it. The robots did. The unused stuff is gone, and I can render `<Example>`*anywhere* and know what it will look like.
+See? Still CSS. Clean CSS. Perfect CSS. To-the-**book** CSS. But I didn’t write it. The robots did. The unused stuff is gone, and I can render `<Example>` *anywhere* and know what it will look like.
 
 [Rendering Khan Academy’s Learn Menu Wherever I Please](https://medium.com/@jdan/rendering-khan-academys-learn-menu-wherever-i-please-4b58d4a9432d)
 

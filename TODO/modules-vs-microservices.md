@@ -16,8 +16,6 @@ Much has been said about moving from monoliths to microservices. Besides rolling
 
 "With microservices we can finally have teams work independently", or "our monolith is too complex, which slows us down." These expressions are just a few of the many reasons that lead development teams down the path of microservices. Another one is the need for scalability and resilience. What developers collectively seem to be yearning for is a modular approach to system design and development. Modularity in software development can be boiled down into three guiding principles:
 
-[![](https://cdn.oreillystatic.com/oreilly/email/programming-newsletter-20160205.jpg)](![](https://cdn.oreillystatic.com/oreilly/email/programming-newsletter-20160205.jpg))
-
 - **Strong encapsulation**: hide implementation details inside components, leading to low coupling between different parts. Teams can work in isolation on decoupled parts of the system.
 - **Well-defined interfaces**: you can't hide everything (or else your system won't do anything meaningful), so well-defined and stable APIs between components are a must. A component can be replaced by any implementation that conforms to the interface specification.
 - **Explicit dependencies**: having a modular system means distinct components must work together. You'd better have a good way of expressing (and verifying) their relationships.
@@ -26,12 +24,9 @@ Many of these principles can be realized with microservices. A microservice can 
 
 So, microservices realize important modularity principles, leading to tangible benefits:
 
-- 
-Teams can work and scale independently.
-- 
-Microservices are small and focused, reducing complexity.
-- 
-Services can be internally changed or replaced without global impact.
+- Teams can work and scale independently.
+- Microservices are small and focused, reducing complexity.
+- Services can be internally changed or replaced without global impact.
 
 What's not to like? Well, along the way you've gone from a single (albeit slightly obese) application to a distributed system of microservices. This brings an enormous amount of operational complexity to the table. Suddenly, you need to continuously deploy many different (possibly containerized) services. New concerns arise: service discovery, distributed logging, tracing and so on. You are now even more prone to the [fallacies of distributed computing](https://en.wikipedia.org/wiki/Fallacies_of_distributed_computing). Versioning of interfaces and configuration management become a major concern. The list goes on and on.
 
@@ -42,8 +37,6 @@ It turns out there is as much complexity in the connections between microservice
 Does this mean we are either relegated to the messy monolith, or must drown in the complexity of microservice madness? Modularity can be achieved by other means as well. What's essential is that we can effectively draw and enforce boundaries during development. But we can achieve this by creating a well-structured monolith as well. Of course, that means embracing any help we can get from the programming language and development tooling to enforce the principles of modularity.
 
 In Java, for example, there are several module systems that can help in structuring an application. OSGi is the most well-known one, but with the release of Java 9 a native module system is added to the Java platform itself. Modules are now part of the language and platform as a first-class construct. Java modules can express dependencies on other modules, and publicly export interfaces while strongly encapsulating implementation classes. Even the Java platform itself (an enormous codebase) has been modularized using the new Java module system. You can learn more about modular development with Java 9 in my forthcoming book, [Java 9 Modularity](https://www.safaribooksonline.com/library/view/java-9-modularity/9781491954157/?utm_source=newsite&amp;utm_medium=content&amp;utm_campaign=lgen&amp;utm_content=modules-vs-microservices-inline), now available in early release.
-
-[![](https://d3ansictanv2wj.cloudfront.net/software-architecture-16-cta-1d5409f91b486d57eed2d816223fa119.jpg)](https://conferences.oreilly.com/software-architecture/sa-ny?intcmp=il-prog-confreg-article-sany17_new_site)
 
 Other languages offer similar mechanisms. For instance, JavaScript got a [module system](http://exploringjs.com/es6/ch_modules.html) as of ES2015. Before that, Node.js already offered a non-standard module system for JavaScript back-ends. However, as a dynamic language, JavaScript has weaker support for enforcing interfaces (types) and encapsulation between modules. You can consider using TypeScript on top of JavaScript to get back this advantage again. Microsoft's .Net Framework does have strong typing like Java, but it doesn't have a direct equivalent to Java's upcoming module system in terms of strong encapsulation and explicit dependencies between assemblies. Still, a good modular architecture can be achieved by using Inversion-of-Control patterns which are standardized in [.Net Core](https://msdn.microsoft.com/en-us/magazine/mt707534.aspx) and by creating logically related assemblies. Even C++ is [considering the addition](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2016/n4610.pdf) of a module system in a future revision. Many languages are gaining appreciation for modularization, which is in itself a striking development.
 
@@ -56,8 +49,6 @@ Creating good modules requires the same design rigor as creating good microservi
 In many ways, modules in statically typed languages offer better constructs for well-defined interfaces. Calling a method through a typed interface exposed by another module is much more robust against changes than calling a REST endpoint on another microservice. REST+JSON is ubiquitous, but it is not the hallmark of well-typed interoperability in the absence of (compiler-checked) schemas. Add in the fact that traversing the network including (de)serialization still isn't free, and the picture becomes even bleaker. What's more, many module systems allow you to express your dependencies on other modules. When these dependencies are violated, the module system will not allow it. Dependencies between microservices only materialize at run-time, leading to hard to debug systems.
 
 Modules are natural units for code-ownership as well. Teams can be responsible for one or more modules in the system. The only thing shared with other teams is the public API of their modules. At run-time, there's less isolation between modules in comparison with microservices. Everything still runs in the same process, after all. 
-
-[![](https://d3ansictanv2wj.cloudfront.net/safari-topic-cta-1f60e6f96856da19ba3cb25660472ca5.jpg)](https://www.safaribooksonline.com/home/?utm_source=newsite&amp;utm_medium=content&amp;utm_campaign=lgen&amp;utm_content=software-architecture-post-safari-right-rail-cta)
 
 There's no reason why a module in a monolith can't own its data just like a good microservice does. Sharing within the modular application then happens through well-defined interfaces or messages between modules, not through a shared datastore. The big difference with microservices is that everything happens in-process. Eventual consistency concerns should not be underestimated. With modules, eventual consistency can be a deliberate, strategic choice. Or, you can just 'logically' separate data while storing them in the same datastore and still use cross-domain transactions for the time being. For microservices, there is no choice: eventual consistency is a given and you need to adapt.
 
