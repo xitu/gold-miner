@@ -1,83 +1,50 @@
-> * 原文地址：[Beyond The Browser: From Web Apps To Desktop Apps](https://www.smashingmagazine.com/2017/03/beyond-browser-web-desktop-apps/)
+> * ​
 > * 原文作者：[Adam Lynch](https://www.smashingmagazine.com/author/adamlynch/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者： [bambooom](https://github.com/bambooom)
 > * 校对者：
 
-> ## Beyond The Browser: From Web Apps To Desktop Apps
-
 ## 超越浏览器：从 web 应用到桌面应用
 
-> I started out as a web developer, and that’s now one part of what I do as a full-stack developer, but never had I imagined I’d create things for the desktop. I love the web. I love how altruistic our community is, how it embraces open-source, testing and pushing the envelope. I love discovering beautiful websites and powerful apps. When I was first tasked with creating a desktop app, I was apprehensive and intimidated. It seemed like it would be difficult, or at least… different.
+一开始我是个 web 开发者，现在我是个全栈开发者，但从未想过在桌面上有所作为。我热爱 web 技术，热爱这个无私的社区，热爱它对于开源的友好，尝试挑战极限。我热爱探索好看的网站和强大的应用。当我被指派做桌面应用的任务的时候，我非常忧虑和害怕，因为那看起来很难，或者至少非常不同。
 
-一开始我是个 web 开发者，现在我是个全栈开发者，但从未想过在桌面上有所作为。我喜欢 web，我热爱这个无私的社区，热爱它对于开源的友好，测试并推向更远的地方？我喜欢发现好看的网站和强大的应用。当我被指派做桌面应用的任务的时候，我f非常忧虑和害怕，因为那看起来很难，或者至少非常不同。
+这并不吸引人，对吧？你需要学一门新的语言，甚至三门？想象一下过时的工作流，古旧的工具，没有任何你喜欢的有关 web 的一切。你的职业发展会被怎样影响呢？
 
-> It’s not an attractive prospect, right? Would you have to learn a new language or three? Imagine an archaic, alien workflow, with ancient tooling, and none of those things you love about the web. How would your career be affected?
+别慌，深呼吸，现实情况是，作为 web 开发者，你已经拥有一切开发现代桌面应用所需的一切技能，感谢新的强大的 API，你甚至可以在桌面应用中发挥你最大的潜能。
 
-这并不吸引人，对吧？你需要学一门新的语言，甚至三种？想象一下过时的工作流，古旧的工具，没有任何你喜欢的有关 web 的一切。你的职业会怎样被影响呢？
+本文将会介绍使用 [NW.js](http://nwjs.io/) 和 [Electron](https://electron.atom.io/) 开发桌面应用，它们的优劣，使用同一套代码库给桌面、web，甚至更多。
 
-> OK, take a breath. The reality is that, as a web developer, not only do you already possess all of the skills to make great modern desktop apps, but thanks to powerful new APIs at your disposal, the desktop is actually where your skills can be leveraged the most.
-
-别慌，深呼吸，现实情况是，作为 web 开发者，你已经拥有一切开发现代桌面应用所需的一切技能，甚至感谢新的强大的 API，你可以在桌面应用中发挥你最大的潜能。
-
-> In this article, we’ll look at the development of desktop applications using [NW.js](http://nwjs.io/) and [Electron](http://electron.atom.io/), the ups and downs of building one and living with one, using one code base for the desktop and the web, and more.
-
-本文将会介绍使用 [NW.js](http://nwjs.io/) 和 [Electron](https://electron.atom.io/) 开发桌面应用，它们的优劣，使用同一套基准代码给桌面、web，甚至更多。
-
-> ###  Why?
 ### 为什么？
 
-> First of all, why would anyone create a desktop app? Any existing web app (as opposed to a website, if you believe in the distinction) is probably suited to becoming a desktop app. You could build a desktop app around any web app that would benefit from integration in the user’s system; think native notifications, launching on startup, interacting with files, etc. Some users simply prefer having certain apps there permanently on their machine, accessible whether they have a connection or not.
+首先，为什么会有人开发桌面应用？任何现有的 web 应用（不同于网站，如果你认为它们是不同的）都可能适合变成一个桌面应用。你可以围绕任何可以从与用户系统集中中获益的 web 应用构建桌面应用；例如本地通知，开机启动，与文件的交互等。有些用户单纯更喜欢在自己的电脑中永久保存一些 app，无论是否联网都可以访问。
 
-首先，为什么会有人开发桌面应用？任何现有的 web 应用（不同于网站，如果你认为它们是不同的）都可能适合变成一个桌面应用。你可以为任何可以受益于与用户系统整合的 web 应用制作桌面应用；例如本地通知，开机启动，与文件的交互等。有些用户单纯更喜欢在自己的电脑中永久拥有一些 app，无论是否联网都可以使用。
+也许你有个想法，但只能用作桌面应用，有些事情只是在 web 应用中不可能实现（至少还有一点，但更多的是这一点）。你可能想要为公司内部创建一个独立的功能性应用程序，而不需要任何人安装除了你的 app 之外的任何内容（因为内置 Node.js ）。也许你有个有关 Mac 应用商店的想法，也许只是你的一个个人兴趣的小项目。
 
-> Maybe you’ve an idea that would only work as a desktop app; some things simply aren’t possible with a web app (at least yet, but more about that in a little bit). You could create a self-contained utility app for internal company use, without requiring anyone to install anything other than your app (because Node.js in built-in). Maybe you’ve an idea for the Mac App Store. Maybe it would simply be a fun side project.
+很难总结为什么你应该考虑开发桌面应用，因为真的有很多类型的应用你可以创建。这非常取决于你想要达到什么目的，API 是否足够有利于开发，离线使用将多大程度上增强用户体验。在我的团队，这些都是毋庸置疑的，因为我们在开发一个[聊天应用程序](https://teamwork.com/chat)。另一方面来说，一个依赖于网络而没有任何与系统集成的桌面应用应该是一个 web 应用，并且只是 web 应用。当用户并不能从桌面应用中获得比在浏览器中访问一个网址更多的价值的时候，期待用户下载你的应用（其中自带浏览器以及 Node.js）是不公平的。
 
-也许你有个想法，但只能在桌面应用上有意义，有些事情只是在 web 应用中不可能（至少是这样，但也可能更多一点（译注：没太懂这一句））。你可能想要创建一个独立的多功能应用，只给公司内部使用，除了你的 app 不需要安装其他东西（因为内置 Node.js ）。也许你有个有关 Mac 应用商店的想法，也许只是你的一个个人兴趣的小项目。
-
-> It’s hard to sum up why you should consider creating a desktop app because there are so many kinds of apps you could create. It really depends on what you’d like to achieve, how advantageous you find the additional APIs, and how much offline usage would enhance the experience for your users. For my team, it was a no-brainer because we were building a [chat application](https://teamwork.com/chat). On the other hand, a connection-dependent desktop app that doesn’t really have any desktop integration should be a web app and a web app alone. It wouldn’t be fair to expect a user to download your app (which includes a browser of its own and Node.js) when they wouldn’t get any more value from it than from visiting a URL of yours in their favorite browser.
-
-很难概括你应该考虑开发桌面应用的原因，因为真的有很多很多东西你可以做。这非常取决于你想要达到什么，API 是否足够有利于开发，离线使用将多大程度上改进用户体验。在我的团队，这些都是毋庸置疑的，因为我们在开发一个[即时通讯应用](https://teamwork.com/chat)。另一方面来说，一个依赖于网络而没有任何与系统整合的桌面应用应该是一个 web 应用，并且仅仅是一个 web 应用。当用户并不能从桌面应用中获得比在浏览器中访问一个网址更多的价值的时候，期待用户下载你的应用（其中自带浏览器以及 Node.js）是不公平的。
-
-> Instead of describing the desktop app you personally should build and why, I’m hoping to spark an idea or at least spark your interest in this article. Read on to see just how easy it is to create powerful desktop apps using web technology and what that can afford you over (or alongside of) creating a web app.
-
-比起描述你个人应该建造的桌面应用以及为什么建造，我更希望的是激发一个想法，或者只是激发你对这篇文章的兴趣。继续往下读来看看用 web 技术构造一个强大的桌面应用是多么简单，以及它将给予你的超过（或者相同）创造一个 web 应用。
+比起描述你个人应该建造的桌面应用以及为什么建造，我更希望的是激发一个想法，或者只是激发你对这篇文章的兴趣。继续往下读来看看用 web 技术构造一个强大的桌面应用是多么简单，以及需要承受的困难超过（或者相同）创造一个 web 应用。
 
 ### NW.js
 
-> Desktop applications have been around a long time but you don’t have all day, so let’s skip some history and begin in Shanghai, 2011. Roger Wang, of Intel’s Open Source Technology Center, created node-webkit; a proof-of-concept Node.js module that allowed the user to spawn a WebKit browser window and use Node.js modules within `<script>` tags.
+桌面应用已经有很长一段时间了，我知道你没有很多时间，所以我们跳过一些历史，从2011年的上海开始。来自 Intel 开源技术中心的 Roger Wang 创造了 node-webkit，一个概念验证的 Node.js 模块，这个模块可以让用户生成一个自带 WebKit 内核的浏览器窗口并直接在 `<script>` 中使用 Node.js 模块。
 
-桌面应用已经有很长一段时间了，我知道你没有很多时间，所以我们跳过一些历史，从2011年的上海开始。来自 Intel 开源技术中心的 Roger Wang 创造了 node-webkit，一个概念验证的 Node.js 模块，这个模块可以让用户生成一个自带 WebKit 内核的浏览器窗口并直接在 `<script>` 使用 Node.js 模块。
-
-> After some progress and a switch from WebKit to Chromium (the open-source project Google Chrome is based on), an intern named Cheng Zhao joined the project. It was soon realized that an app runtime based on Node.js and Chromium would make a nice framework for building desktop apps. The project went on be quite popular.
-
-经过一段时间的开发以及将内核从 WebKit 转换到 Chromium（Google Chrome 基于这个开源项目开发），一个叫 Cheng Zhao 的实习生加入了这个项目。不久就有人意识到一个基于 Node.js 和 Chromium 运行的应用是一个很好的建造桌面应用的框架。于是这个项目变得很火。
-
-> *Note*: node-webkit was later renamed NW.js to make it a bit more generic because it no longer used Node.js or WebKit. Instead of Node.js, it was based on io.js (the Node.js fork) at the time, and Chromium had moved on from WebKit to its own fork, Blink.
+经过一段时间的开发以及将内核从 WebKit 转换到 Chromium（Google Chrome 基于这个开源项目开发），一个叫 Cheng Zhao 的实习生加入了这个项目。不久就有人意识到一个基于 Node.js 和 Chromium 运行的应用是一个很好的建造桌面应用的框架。于是这个项目变得颇受欢迎。
 
 *注意*：node-webkit 后来更名为 NW.js，是因为项目不再使用 Node.js 以及 WebKit，所以需要改一个更通用的名字。Node.js 的替换选择是 io.js （Node.js fork 版本），Chromium 也已经从 WebKit 转为它自己的版本，Blink。
 
-> So, if you were to download an NW.js app, you would actually be downloading Chromium, plus Node.js, plus the actual app code. Not only does this mean a desktop app can be created using HTML, CSS and JavaScript, but the app would also have access to all of the Node.js APIs (to read and write to disk, for example), and the end user wouldn’t know any better. That’s pretty powerful, but how does it work? Well, first let’s take a look at Chromium.
-
-所以，如果现在去下载一个 NW.js 应用，实际上是下载了 Chromium，Node.js，以及真正的 app 的代码。这不仅意味着桌面应用也可以使用 HTML，CSS，JavaScript 来写，也意味着 app 可以直接使用所有 Node.js 的 API（读取或写入硬盘，比方说），而对于终端用户，没有比这更好的选择了。非常强大对吧，但是它是怎么实现的呢？我们先来了解一下 Chromium。
+所以，如果现在去下载一个 NW.js 应用，实际上是下载了 Chromium，Node.js，以及真正的 app 的代码。这不仅意味着桌面应用也可以使用 HTML，CSS，JavaScript 来写，也意味着 app 可以直接使用所有 Node.js 的 API（比如读取或写入硬盘），而对于终端用户，没有比这更好的选择了。这看起来非常强大，但是它是怎么实现的呢？我们先来了解一下 Chromium。
 
 ![Chromium diagram](https://www.smashingmagazine.com/wp-content/uploads/2017/01/chromiumDiagram-preview-opt.png)
 
-> There is a main background process, and each tab gets its own process. You might have seen that Google Chrome always has at least two processes in Windows’ task manager or macOS’ activity monitor. I haven’t even attempted to arrange the contents of the main process here, but it contains the Blink rendering engine, the V8 JavaScript engine (which is what Node.js is built on, too, by the way) and some platform APIs that abstract native APIs. Each isolated tab or renderer process has access to the JavaScript engine, CSS parser and so on, but it is completely separate to the main process for fault tolerance. Renderer processes interact with the main process through interprocess communication (IPC).
-
-Chromium 有一个主要的后台进程，每个标签页也会有自己的进程。你可能注意到 Google Chrome 在 Windows 的任务管理器或者 macOS 的活动监视器上总是至少存在两个进程。我并没有尝试去整理主后台进程相关的内容，但是它包括了Blink 渲染引擎，V8 JavaScript 引擎（Node.js 也是基于此）以及一些从原生 API 抽象出来的平台 APIs。每个独立的标签页或渲染的过程都可以使用 JavaScript 引擎，CSS 解析器等，但为了提高容错性，它们又和主进程是完全隔离的。渲染进程与主进程之前是用进程间通信（interprocess communication, IPC）来进行通讯。
+Chromium 有一个主要的后台进程，每个标签页也会有自己的进程。你可能注意到 Google Chrome 在 Windows 的任务管理器或者 macOS 的活动监视器上总是至少存在两个进程。我并没有尝试在这里安排穿插主后台进程相关的内容，但是它包括了 Blink 渲染引擎，V8 JavaScript 引擎（也就是构建了 Node.js ）以及一些从原生 API 抽象出来的平台 API。每个独立的标签页或渲染的过程都可以使用 JavaScript 引擎，CSS 解析器等，但为了提高容错性，它们又和主进程是完全隔离的。渲染进程与主进程之前是用进程间通信（IPC）来进行通讯。
 
 ![NW.js diagram](https://www.smashingmagazine.com/wp-content/uploads/2017/01/nwjsDiagram-preview-opt.png)
 
 
 
-> This is roughly what an NW.js app looks like. It’s basically the same, except that each window has access to Node.js now as well. So, you have access to the DOM and you can require other scripts, node modules you’ve installed from npm, or built-in modules provided by NW.js. By default, your app has one window, and from there you can spawn other windows.
+大致上这就是一个 NW.js app 的结构，它和 Chromium 基本一致，除了每个窗口也可以访问 Node.js。现在，你可以访问 DOM，可以访问其他脚本，npm 安装的模块，或者 NW.js 提供的内置的模块。你的 app 默认只有一个窗口，但从这一个窗口，可以生成其他窗口。
 
-大致上这就是一个 NW.js app 的结构，它和 Chromium 基本一致，除了每个窗口也可以访问 Node.js。现在，你可以访问 DOM，可以访问其他脚本代码，npm 安装的包，或者 NW.js 中自带的包。你的 app 默认只有一个窗口，但从这一个窗口，可以延伸出其他窗口。
-
-> Creating an app is really easy. All you need is an HTML file and a `package.json`, like you would have when working with Node.js. You can create a default one by running `npm init --yes`. Typically, a `package.json` would point a JavaScript file as the “main” file for the module (i.e. using the `main` property), but with NW.js you need to edit the `main` property to point to your HTML file.
-
-创建一个应用很简单，只需要一个 HTML 文件和一个 `package.json` 文件，就像你平时使用 Node.js 时那样。你可以使用 `npm init --yes` 新建一个默认的。一般来说，`package.json` 会指定一个 JavaScript 文件作为模块的「主要」文件（也就是使用 `main` 属性），但是如果是 NW.js，你需要去编辑一下 `main` 指向你的 HTML 文件。
+创建一个应用很简单，只需要一个 HTML 文件和一个 `package.json` 文件，就像你平时使用 Node.js 时那样。你可以使用 `npm init --yes` 新建一个默认的。一般来说，`package.json` 会指定一个 JavaScript 文件作为模块的入口（也就是使用 `main` 属性），但是如果是 NW.js，你需要去编辑一下 `main` 指向你的 HTML 文件。
 
 ```
 {
@@ -108,40 +75,26 @@ Chromium 有一个主要的后台进程，每个标签页也会有自己的进�
 </html>
 ```
 
-> Once you install the official `nw` package from npm (by running `npm install -g nw`), you can run `nw .` within the project directory to launch your app.
-
 只要你安装好了 `nw`（通过 `npm install -g nw`），你就可以在项目目录下执行 `nw .` 启动 app，然后就可以看到下图。
 
 ![Example app screenshot](https://www.smashingmagazine.com/wp-content/uploads/2017/01/nwjsHelloWorld-preview-opt.png)
 
-> It’s as easy as that. So, what happened here was that NW.js opened the initial window, loading your HTML file. I know this doesn’t look like much, but it’s up to you add some markup and styles, just like you would in a web app.
+就是这么简单。NW.js 初始化了第一个窗口，加载了你的 HTML 文件，虽然这看起来并没有什么，但接下来就是你来添加标签及样式了，就和在 web 应用中一样。
 
-就是这么简单，NW.js 初始了第一个窗口，加载了你的 HTML 文件，虽然这看起来并没有什么，但接下来就是你来添加标签及样式了，就和在 web 应用中一样。
-
-> You could drop the window bar and chrome if you like, or create your own custom frame. You could have semi to fully transparent windows, hidden windows and more. I took this a bit further recently and [resurrected Clippy](http://engineroom.teamwork.com/resurrecting-clippy/) using NW.js. There’s something weirdly satisfying about seeing Clippy on macOS or Windows 10.
-
-你可以凭自己喜好去掉窗口条，或者制作自己的框架。你可以有半透明或全透明的窗口，可以有隐藏窗口或者更多。我最近试了一下用 NW.js 复活了[回形针](http://engineroom.teamwork.com/resurrecting-clippy/) Office 助手（一般昵称 Clippy）。能看到它同时在 macOS 或者 Windows 10 中复活有种奇妙的满足感。
+你可以凭自己喜好去掉窗口栏，构建自己的框架模板。你可以有半透明或全透明的窗口，可以有隐藏窗口或者更多。我最近试了一下用 NW.js 复活了[回形针](http://engineroom.teamwork.com/resurrecting-clippy/) Office 助手（一般昵称 Clippy）。能看到它同时在 macOS 或者 Windows 10 中复活有种奇妙的满足感。
 
 ![Screenshot of clippy.desktop on macOS](https://www.smashingmagazine.com/wp-content/uploads/2017/01/clippy-preview-opt.png)
 
-> So, you get to write HTML, CSS and JavaScript. You can use Node.js to read and write to disk, execute system commands, spawn other executables and more. Hypothetically, you could build a multiplayer roulette game over WebRTC that deletes some of the users’ files randomly, if you wanted.
-
-现在你可以写 HTML，CSS 和 JavaScript 了，你可以使用 Node.js 读取或写入硬盘，执行系统命令，生成其他可执行文件等等。设想一下，你可以通过 WebRTC 造一个多玩家的轮盘赌游戏，随机删除其他人的文件。
+现在你可以写 HTML，CSS 和 JavaScript 了，你可以使用 Node.js 读取或写入硬盘，执行系统命令，生成其他可执行文件等等。设想一下，你甚至可以通过 WebRTC 造一个多玩家的轮盘赌游戏，随机删除其他人的文件。
 
 ![Bar graph showing the number of modules per major package manager](https://www.smashingmagazine.com/wp-content/uploads/2017/01/moduleCounts-preview-opt.png)
 
-> You get access not only to Node.js’ APIs but to all of npm, which has over 350,000 modules now. For example, [auto-launch](https://github.com/Teamwork/node-auto-launch) is an open-source module we created at [Teamwork.com](https://www.teamwork.com/) to launch an NW.js or Electron app on startup.
-
 你不仅可以使用 Node.js 的 APIs，还有所有 npm 的包，现在已经有超过35万个了。例如，[auto-launch](https://github.com/Teamwork/node-auto-launch) 是我们在 [Teamwork.com](https://www.teamwork.com/) 做的开源包，用来开机启动 NW.js 或者 Electron 应用。
-
-> Node.js also has what’s known as “native modules,” which, if you really need to do something a bit lower level, allows you to create modules in C or C++.
 
 如果你需要做一些偏底层的事，Node.js 也有原生的模块，能让你使用 C 或者 C++创建模块。
 
-> To top it all off, NW.js exposes APIs that effectively wrap native APIs, allowing you to integrate closely with the desktop environment. You can have a tray icon, open a file or URL in the default system application, and a lot lot more. All you need to do to trigger a notification is use the HTML5 notification API:
-
-总之，NW.js 高效包装了原生的 APIs，让你可以简单的与桌面环境整合。
-比如你有一个托盘图标，使用系统默认应用打开一个文件或者 URL 之类的。你需要做的是使用 HTML5 notification 的 API 触发一个 notification。
+总之，NW.js 高效包装了原生的 API，让你可以简单的与桌面环境集成。
+比如你有一个托盘图标，使用系统默认应用打开一个文件或者 URL 之类的。你需要做的是使用 HTML5 notification 的 API 触发一个通知：
 
 ```
 new Notification('Hello', {
@@ -151,51 +104,33 @@ new Notification('Hello', {
 
 ### Electron
 
-> You might recognize GitHub’s text editor, Atom, below. Whether you use it or not, Atom was a game-changer for desktop apps. GitHub started development of Atom in 2013, soon recruited Cheng Zhao, and forked node-webkit as its base, which it later open-sourced under the name atom-shell.
-
 你可能认出来了，下图是 GitHub 开发的编辑器，Atom。不管你是否使用 Atom，它的出现对于桌面应用都是一个颠覆者。GitHub 从 2013 年开始开发 Atom，后来 Cheng Zhao 加入，fork 了 node-webkit 作为基础，后来开源名称为 atom-shell。
 
 ![Atom screenshot](https://www.smashingmagazine.com/wp-content/uploads/2017/01/atom-preview-opt.png)
 
-> *Note*: It’s disputed whether Electron is a fork of node-webkit or whether everything was rewritten from scratch. Either way, it’s effectively a fork for the end user because the APIs were almost identical.
+*注意*：对于 Electron 只是 node-webkit 的 fork，还是一切从头重新做的，是很有争议的。但无论哪种方式，最终都成为终端用户的一个分支，因为 API 几乎完全一致。
 
-*注意*：对于 Electron 只是 node-webkit 的 fork，还是一切从头重新做的，是很有争议的。但无论如何，对于终端用户是一个高效的 fork，因为 API 几乎一致。
-
-> In making Atom, GitHub improved on the formula and ironed out a lot of the bugs. In 2015, atom-shell was renamed Electron. Since then it has hit version 1.0, and with GitHub pushing it, it has really taken off.
-
-在开发 Atom 的过程中，GitHub 改进了一些方案，也解决了很多 bug。2015年，atom-shell 正式更名为 Electron。它的版本已经更新到 1.0 以上（译注：最新正式版本为v1.3.14），并且因为 GitHub 的推行，已经得到很大的发展。
+在开发 Atom 的过程中，GitHub 改进了一些方案，也解决了很多 bug。2015年，atom-shell 正式更名为 Electron。它的版本已经更新到 1.0 以上（译注：最新正式版本为v1.3.14），并且因为 GitHub 的推行，它已经真正发展壮大了。
 
 ![Logos of projects that use Electron](https://www.smashingmagazine.com/wp-content/uploads/2017/01/logos-preview-opt.png)
 
 > As well as Atom, other notable projects built with Electron include Slack, Visual Studio Code, Brave, HyperTerm and Nylas, which is really doing some cutting-edge stuff with it. Mozilla Tofino is an interesting one, too. It was an internal project at Mozilla (the company behind Firefox), with the aim of radically improving web browsers. Yeah, a team within Mozilla chose Electron (which is based on Chromium) for this experiment.
 
-和 Atom 一样，其他用 Electron 开发的有名项目包括 [Slack](https://slack.com/)、[Visual Studio Code](https://code.visualstudio.com/)、 [Brave](https://www.brave.com/)、[HyperTerm](https://hyper.is/)、[Nylas](https://www.nylas.com/)，都是在做着一些前沿的东西。Mozilla Tofino 也是其中一个很有趣的，它是 Mozilla （ FireFox 的公司）的一个内部项目，目标是彻底地优化浏览器。嗯哼，Mozilla 的团队选择了 Electron （基于 Chromium ）来做这个实验。
+和 Atom 一样，其他用 Electron 开发的有名项目包括 [Slack](https://slack.com/)、[Visual Studio Code](https://code.visualstudio.com/)、 [Brave](https://www.brave.com/)、[HyperTerm](https://hyper.is/)、[Nylas](https://www.nylas.com/)，真的是在做着一些尖端的东西。Mozilla Tofino 也是其中一个很有趣的，它是 Mozilla（ FireFox 的公司）的一个内部项目，目标是彻底优化浏览器。你没看错，Mozilla 的团队选择了 Electron （基于 Chromium ）来做这个实验。
 
-> ### How Does It Differ?
+### Electron 有什么不同呢？
 
-### 有什么不同呢？
-
-> But how is it different from NW.js? First of all, Electron is less browser-oriented than NW.js. The entry point for an Electron app is a script that runs in the main process.
-
-但是 Electron 和 NW.js 有什么不同？首先，Electron 没有 NW.js 那么面向浏览器，Electron app 的入口是一个在主进程中运行的脚本。
+那么 Electron 和 NW.js 有什么不同？首先，Electron 没有 NW.js 那么面向浏览器，Electron app 的入口是一个在主进程中运行的脚本。
 
 ![Electron architecture diagram](https://www.smashingmagazine.com/wp-content/uploads/2017/01/electronDiagram-preview-opt-1.png)
 
-> The Electron team patched Chromium to allow for the embedding of multiple JavaScript engines that could run at the same time. So, when Chromium releases a new version, they don’t have to do anything.
+Electron 团队修补了 Chromium 以便嵌入多个可以同时运行的 JavaScript 引擎，所以当 Chromium 发布新版本的时候，他们不需要做任何事。
 
-Electron 团队修补了 Chromium 使之可以嵌入多个同时运行的 JavaScript 引擎，所以当 Chromium 发布新版本的时候，他们不需要做任何事。
-
-> *Note*: NW.js hooks into Chromium a little differently, and this was often blamed on the fact NW.js wasn’t quite as good at keeping up with Chromium as Electron was. However, throughout 2016, NW.js has released a new version within 24 hours of each major Chromium release, which the team attributes to an organizational shift.
-
-*注意*：NW.js 与 Chromium 的绑定不太一样，造成了 NW.js 经常被指责不如 Electron 那样紧跟 Chromium。不管怎样，整个2016年，NW.js 每次在 Chromium 发布主要版本之后的24小时内发布新版本，这很大程度也归功于团队组织的转变。
-
-> Back to the main process. Your app hasn’t any window by default, but you can open as many windows as you’d like from the main process, each having its own renderer process, just like NW.js.
+*注意*：NW.js 与 Chromium 的绑定不太一样，造成了 NW.js 经常被指责不如 Electron 那样紧跟 Chromium。然而，整个2016年，NW.js 每次在 Chromium 发布主要版本之后的24小时内发布新版本，这很大程度也归功于团队组织转型。
 
 回到主进程的话题，你的应用默认是没有窗口的，但是你可以从主进程开启任意多个窗口，每个窗口和 NW.js 一样有自己的渲染进程。
 
-> So, yeah, the minimum you need for an Electron app is a main JavaScript file (which we’ll leave empty for now) and a `package.json` that points to it. Then, all you need to do is `npm install --save-dev electron` and run `electron .` to launch your app.
-
-那么，当然，创建一个 Electron app，你需要的只是一个 JavaScript 文件（现在暂时只是个空文件）以及一个 `package.json` 文件指向它。然后你只需要执行 `npm install --save-dev electron`，以及 `electron .` 来启动你的 app。
+那么当然，创建一个 Electron app，你需要的只是一个 JavaScript 文件（现在暂时只是个空文件）以及一个 `package.json` 文件指向它。然后你只需要执行 `npm install --save-dev electron`，以及 `electron .` 来启动你的 app。
 
 ```
 {
@@ -213,11 +148,8 @@ Electron 团队修补了 Chromium 使之可以嵌入多个同时运行的 JavaSc
 ```
 
 ```
-// main.js, which is empty
 // main.js 文件，现在是空的
 ```
-
-> Not much will happen, though, because your app hasn’t any window by default. You can open as many windows as you’d like from the main process, each having its own renderer process, just like they’d have in an NW.js app.
 
 没有什么会发生，因为你的 app 没有默认窗口。接下来你可以和 NW.js 一样打开任意多个窗口，每个都有各自的渲染进程。
 
@@ -248,83 +180,49 @@ app.on('ready', () => {
 </html>
 ```
 
-> You could load a remote URL in this window, but typically you’d create a local HTML file and load that. Ta-da!
-
-你可以在这个窗口中加载一个远程 URL，但是一般来说你会在本地创建 HTML 文件并加载它，好啦~加载出来啦！
+你可以在这个窗口中加载远程 URL，但是一般来说你会在本地创建 HTML 文件并加载它，好啦~加载出来啦！
 
 ![Screenshot of example Electron app](https://www.smashingmagazine.com/wp-content/uploads/2017/01/electronHelloWorld-preview-opt.png)
 
-> Of the built-in modules Electron provides, like the `app` or `BrowserWindow` module used in the previous example, most can only be used in either the main or a renderer process. For example, the main process is where, and only where, you can manage your windows, automatic updates and more. You might want a click of a button to trigger something in your main process, though, so Electron comes with built-in methods for IPC. You can basically emit arbitrary events and listen for them on the other side. In this case, you’d catch the `click` event in the renderer process, emit an event over IPC to the main process, catch it in the main process and finally perform the action.
+在 Electron 提供的模块中，像在前面例子中使用的 `app` 和 `BrowserWindow`，大多只能要么在主进程要么在某个渲染进程中使用。比方说，你只能在主进程中管理你的所有窗口，自动更新或者其他。你可能想在主进程中点击一个按钮触发一些事件，Electron 为 IPC 提供了一些内置方法。基本上你可以发出任意的事件，然后在另一端监听它们。这样，你就可以在某一个渲染进程中捕获 `click` 事件，通过 IPC 发出事件信息给主进程，主进程捕获后执行相关操作。
 
-在 Electron 提供的模块中，像在前面例子中使用的 `app` 和 `BrowserWindow`，大多只能在主进程或者某个渲染进程中使用。比方说，你只能在主进程中管理你的所有窗口，自动更新或者其他。你可能想在主进程中点击一个按钮触发一些事件，Electron 为 IPC 提供了一些内置方法。基本上你可以发出任意的事件，然后在另一端监听它们。这样，你就可以在某一个渲染进程中捕获 `click` 事件，通过 IPC 发出事件信息给主进程，主进程捕获后执行相关操作。
-
-> OK, so Electron has distinct processes, and you have to organize your app slightly differently, but that’s not a big deal. Why are people using Electron instead of NW.js? Well, there’s mindshare. So many related tools and modules are out there as a result of its popularity. The documentation is better. Most importantly, it has fewer bugs and superior APIs.
-
-Electron 有着不同的进程，你需要稍微不同地组织你的 app，但这不算什么。为什么使用 ELectron 而不是 NW.js？这是个影响力的问题，有很多相关的工具和模块是它流行起来的结果。文档更好懂，最重要的是，Electron 的 bug 更少，并且有更好的 API。
-
->Electron’s documentation really is amazing, though — that’s worth emphasizing. Take the [Electron API Demos app](https://github.com/electron/electron-api-demos). It’s an Electron app that interactively demonstrates what you can do with Electron’s APIs. Not only is the API described and sample code provided for creating a new window, for example, but clicking a button will actually execute the code and a new window will open.
+Electron 有着不同的进程，你需要稍微不同地组织你的 app，但这不算什么。为什么使用 Electron 而不是 NW.js？这其中有影响力的因素，有很多相关的工具和模块是它流行起来的结果。 Electron 的文档更好懂，最重要的是，Electron 的 bug 更少，并且有更好的 API。
 
 Electron 的文档非常棒，这值得再强调一下。拿 [Electron API Demos app](https://github.com/electron/electron-api-demos) 来说，这是个 Electron app，它可以交互式的演示出你可通过 Electron 的 API 做到什么。比如新建窗口，它不仅提供了 API 的描述以及示例代码，甚至点击按钮的确可以执行代码并打开新的窗口。（下图就是 Electron API Demos app 的截图）
 
 ![A screenshot of the Electron API Demos app](https://www.smashingmagazine.com/wp-content/uploads/2017/01/apiDemosApp-preview-opt.png)
 
-> If you submit an issue via Electron’s bug tracker, you’ll get a response within a couple of days. I’ve seen three-year-old NW.js bugs, although I don’t hold it against them. It’s tough when an open-source project is written in languages drastically different from the languages known by its users. NW.js and Electron are written mostly in C++ (and a tiny bit of Objective C++) but used by people who write JavaScript. I’m extremely grateful for what NW.js has given us.
+如果你通过 Electron 的 bug 追踪器提交问题，你可以在几天之内得到回复。我曾经见过 NW.js 有经过三年都未修复的 bug，我并不是坚决反对他们这么做，开发开源项目采用的语言和使用这个项目的开发者了解的语言如此的不同，是非常难维护的。NW.js 和 Electron 主要是用 C++ （以及少部分 Objective C++）写的，但是使用这两个项目的人写的是 JavaScript。我非常感激 NW.js 给我的帮助。
 
-如果你给 Electron 提出 issue 说有 bug，你可以在几天之内得到回复。我曾经见过 NW.js 有经过三年都未修复的 bug。我并不是坚决反对他们这么做，开发开源项目的语言和使用这个项目的开发者了解的语言如此的不同，是非常难维护的。NW.js 和 Electron 主要是用 C++ （以及少部分 Objective C++）写的，但是使用这两个项目的人写的是 JavaScript。我非常干净 NW.js 给我的帮助。
+Electron 弥补了 NW.js API 上的一些不足。比如，你可以绑定全局的键盘快捷键，这样即使你的 app 并没有获取焦点，键盘事件也可以被捕获。曾经我在 NW.js 的应用中碰到过一个 API 的漏洞，就是我在 Windows 上可以绑定 `Control + Shift + A` 快捷键达到预期目的，但是实际上到了 Mac 上绑定的快捷键是 `Command + Shift + A`，这个的确是有意而为之的，但是仍然很奇怪。没有任何方法可以在 Mac 上绑定 `Control` 键。另外，如果想绑定 `Command` 键，在 Mac 上的确没问题，而到了 Windows 和 Linux 上绑定的却是 `Windows` 键。Electron 的团队发现了这些问题（我猜是在给 Atom 添加快捷键的时候），然后他们很快更新了他们自己的全局快捷键（globalShortcut）API，以上遇到的情况就可以正常工作了。公平起见，NW.js 修复了前一个问题，但一直没有修复后一个。
 
-> Electron ironed out a few of the flaws in the NW.js APIs. For example, you can bind global keyboard shortcuts, which would be caught even if your app isn’t focused. An example API flaw I ran into was that binding to `Control + Shift + A` in an NW.js app did what you would expect on Windows, but actually bound to `Command + Shift + A` on a Mac. This was intentional but really weird. There was no way to bind to the `Control` key. Also, binding to the `Command` key did bind to the `Command` key but the `Windows` key on Windows and Linux as well. The Electron team spotted these problems (when adding shortcuts to Atom I assume) and quickly updated their globalShortcut API so both of these cases work as you’d expect. To be fair, NW.js has since fixed the former but not the latter.
+还有其他一些不同的地方。比如说，之前原生的 notification 通知，在最近的 NW.js 版本中，变成了 Chrome 风格的了。这种通知不会进入到 Mac OS X 或者 Windows 10 的通知中心里面，但是在 npm 上有方便使用的模块解决。如果你想做一些有趣的有关音频或视频的事，建议使用 Electron，因为有些解码器和 NW.js 不兼容。
 
-Electron 弥补了 NW.js API 上的一些不足。比如，你可以绑定全局的键盘快捷键，这样即使你的 app 并没有获取焦点，键盘事件也可以被捕获。曾经我再 NW.js 的应用中碰到过一个 API 的漏洞，就是我在 Windows 上可以绑定 `Control + Shift + A` 快捷键达到预期目的，但是实际上到了 Mac 上绑定的快捷键是 `Command + Shift + A`，这个的确是有意而为之的，但是仍然很奇怪。没有任何方法可以在 Mac 上绑定 `Control` 键。另外，如果想绑定 `Command` 键，在 Mac 上的确没问题，而到了 Windows 和 Linux 上绑定的却是 `Windows` 键。Electron 的团队发现了这些问题（我猜是在给 Atom 添加快捷键的时候），然后他们很快更新了他们自己的全局快捷键（globalShortcut）API，以上遇到的情况就可以正常工作了。公平起见，NW.js 修复了前一个问题，但一直没有修复后一个。
+Electron 还添加了一些新的 API，更加多与桌面端的集成，并且内置了自动升级，我稍后会谈到。
 
-> There are a few other differences. For instance, in recent NW.js versions, notifications that were previously native are now Chrome-style ones. These don’t go into the notification centre on Mac OS X or Windows 10, but there are modules on npm that you could use as a workaround if you’d like. If you want to do something interesting with audio or video, use Electron, because some codecs don’t work out of the box with NW.js.
+### 但是感觉如何呢？
 
-还有其他很多不同的地方。再比如说，最近的 NW.js 版本中，之前是原生的 notification 通知，现在变成了 Chrome 风格的了。这种通知不会进入到 Mac OS X 或者 Windows 10 的通知中心里面，更是一个 npm 上的一个你可以方便使用的模块。如果你想做一些有趣的有关音频或视频的事，建议使用 Electron，因为有些解码器在 NW.js 中无法起作用。
-
-> Electron has added a few new APIs as well, more desktop integration, and it has built-in support for automatic updates, but I’ll cover that later.
-
-Electron 还添加了一些新的 API，更加多与桌面端的结合，并且内置了自动升级，我稍后会谈到。
-
-### But How Does It Feel? 但是感觉如何呢？
-
-> It feels fine. Sure, it’s not native. Most desktop apps these days don’t look like Windows Explorer or Finder anyway, so users won’t mind or realize that HTML is behind your user interface. You can make it feel more native if you’d like, but I’m not convinced it will make the experience any better. For example, you could prevent the cursor from turning to a hand when the user hovers over a button. That’s how a native desktop app would act, but is that better? There are also projects out there like [Photon Kit](http://photonkit.com/), which is basically a CSS framework like Bootstrap, but for macOS-style components.
-
-感觉很好，当然，它并不是原生的。现在大多数桌面应用并不会长得像资源管理器或者 Finder，所以用户并不介意或者意识到界面背后是 HTML。你愿意的话，你可以使之更像原生应用，但是我并不认为那样会让用户体验更加。比如，你可以在用户滑过按钮时不让鼠标变成手，一般原生的桌面应用都是这样做的，但是这样做有什么好的吗？当然也有像 [Photon Kit](http://photonkit.com/) 这样的类似 Bootstrap 的 CSS 框架，可以做出 macOS 风格的组件。（下图是 Photon Kit 做出的组件 demo）
+感觉很好，当然，它并不是原生的。现在大多数桌面应用并不会长得像资源管理器或者 Finder，所以用户并不介意或者意识到用户界面背后是 HTML。你愿意的话，你可以使之更像原生应用，但是我并不认为那样会让用户体验更好。比如，你可以在用户将鼠标悬停在按钮上时，不让光标变成手，一般原生的桌面应用都是这样做的，但是这样做有什么好的吗？当然也有像 [Photon Kit](http://photonkit.com/) 这样的类似 Bootstrap 的 CSS 框架，可以做出 macOS 风格的组件。（下图是 Photon Kit 做出的组件 demo）
 
 ![Photon app example screenshot](https://www.smashingmagazine.com/wp-content/uploads/2017/01/photon-preview-opt.png)
 
-### Performance 性能
-
-> What about performance? Is it slow or laggy? Well, your app is essentially a web app. It’ll perform pretty much like a web app in Google Chrome. You can create a performant app or a sluggish one, but that’s fine because you already have the skills to analyze and improve performance. One of the best things about your app being based on Chromium is that you get its DevTools. You can debug within the app or remotely, and the Electron team has even created a DevTools extension named [Devtron](http://electron.atom.io/devtron/) to monitor some Electron-specific stuff.
+### 性能
 
 性能表现如何呢？会很慢或者延迟吗？其实你的 app 本质上来说仍然是 web 应用，所以它会和在 Google Chrome 中运行的 web app 非常类似。你可能会创造出高性能的或者反应迟缓的 app，但是没关系，你已经有分析并提升性能的技能了。app 基于 Chromium 最好的其中一点就是你可以使用它的开发者工具。你可以在 app 内调试或者远程调试，Electron 团队也开发了一款开发者工具的插件叫 [Devtron](http://electron.atom.io/devtron/) 来监控一些 Electron 特定的信息。
 
-> Your desktop app can be more performant than a web app, though. One thing you could do is create a worker window, a hidden window that you use to perform any expensive work. Because it’s an isolated process, any computation or processing going on in that window won’t affect rendering, scrolling or anything else in your visible window(s).
-
-你的桌面应用应该比 web 应用的性能更高。因为你可以创建一个 worker 窗口，这是一个隐藏的窗口，专门用来做一些复杂耗能的事。因为每个进程都是隔离的，所以任何在这个窗口中进行的计算或者处理不会影响到其他可见窗口的渲染进程，上下滚动等等。
-
-> Keep in mind that you can always spawn system commands, spawn executables or drop down to native code if you really need to (you won’t).
+不过，你的桌面应用可以比 web 应用的性能更高。因为你可以创建一个工作窗口，一个用于执行耗能昂贵工作的隐藏窗口。因为每个进程都是孤立的，所以任何在这个窗口中进行的计算或者处理不会影响到其他可见窗口的渲染进程，上下滚动等等。
 
 记住你总可以生成系统指令、可执行文件，或者原生代码，如果真的需要的话（你不会真的这么做的）。
 
-### Distribution 分发
+### 分发
 
-> Both NW.js and Electron support a wide array of platforms, including Windows, Mac and Linux. Electron doesn’t support Windows XP or Vista; NW.js does. Getting an NW.js app into the Mac App Store is a bit tricky; you’ll have to jump through a few hoops. Electron, on the other hand, comes with Mac App Store-compatible builds, which are just like the normal builds except that you don’t have access to some modules, such as the auto-updater module (which is fine because your app will update via the Mac App Store anyway).
-
-NW.js 和 Electron 都支持很多平台，包括 Windows，Mac 和 Linux。Electron 不支持 Windows XP 和 Vista，但 NW.js 支持。将 NW.js 应用上线到 Mac 的应用市场有些棘手，你必须绕几个弯子。而 Electron 支持直接的 Mac App Strore 兼容的版本，和普通的 app 一样，除非某些模块你并没有权限比如自动更新（因为你的 app 会通过 Mac App Store 更新所以可以接受）。
-
-> Electron even supports ARM builds, so your app can run on a Chromebook or Raspberry Pi. Finally, Google may be [phasing out Chrome Packaged Apps](http://blog.chromium.org/2016/08/from-chrome-apps-to-web.html), but NW.js allows you to port an app over to an NW.js app and still have access the same Chromium APIs.
+NW.js 和 Electron 都支持很多平台，包括 Windows，Mac 和 Linux。Electron 不支持 Windows XP 和 Vista，但 NW.js 支持。将 NW.js 应用上线到 Mac App Store 有些棘手，你必须绕几个弯子。而 Electron 支持直接的 Mac App Strore 兼容的版本，和普通的版本一样，只是某些模块你无法访问，比如自动更新（因为你的 app 会通过 Mac App Store 进行更新所以可以接受）。
 
 Electron 甚至支持 ARM 版本，所以你的 app 可以在 Chromebook 或者树莓派上运行，最终，Google 会[逐步淘汰 Chrome 封装应用 （Packaged App）](https://blog.chromium.org/2016/08/from-chrome-apps-to-web.html)，但是 NW.js 仍然支持将应用程序移植到 NW.js 应用，并且仍然可以访问相同的 Chromium API。
 
-> Even though 32-bit and 64-bit builds are supported, you’ll get away with 64-bit Mac and Windows apps. You will need 32-bit and 64-bit Linux apps, though, for compatibility.
-
 虽然 32 位和 64 位的版本都支持，你也可以使用 64 位的 Mac 和 Windows 应用。但是，为了兼容，32 位和 64 位 Linux 应用程序是都需要的。
 
-> So, let’s say that Electron has won over and you want to ship an Electron app. There’s a nice Node.js module named [electron-packager](https://github.com/electron-userland/electron-packager) that helps with packing your app up into an `.app` or `.exe` file. A few similar projects exist, including interactive ones that prompt you step by step. You should use [electron-builder](https://github.com/electron-userland/electron-builder), though, which builds on top of electron-packager, plus a few other related modules. It generates `.dmg`s and Windows installers and takes care of the code-signing of your app for you. This is really important. Without it, your app would be labelled as untrusted by operating systems, your app could trigger anti-virus software, and Microsoft SmartScreen might try to block the user from launching your app.
-
-假如 Electron 胜出，你想发行一个 Electron 应用。有一个很不错的 Node.js 包叫 [electron-packager](https://github.com/electron-userland/electron-packager) 可以帮你将 app 打包成一个 `.app` 或者 `.exe` 文件。也有其他几个类似的项目，包括交互式的一步一步告诉你该怎么做。你应该用 [electron-builder](https://github.com/electron-userland/electron-builder)，它以 electron-packager 为基础，添加了其他几个相关的模块，生成的是 `.dmg` 文件和 Windows 安装包，并且为你处理好了代码签名的问题。这很重要，如果没有这一步，你的应用将会被操作系统认为是不可信的，你的应用程序可能会触发防毒软件的运行，Microsoft SmartScree 可能会尝试阻止用户启动你的应用。
-
-> The annoying thing about code-signing is that you have to sign your app on a Mac for Mac and on Windows for Windows. So, if you’re serious about shipping desktop apps, then you’ll need to build on multiple machines for each release.
+假如 Electron 胜出，你想发行一个 Electron 应用。有一个很不错的 Node.js 包叫 [electron-packager](https://github.com/electron-userland/electron-packager) 可以帮你将 app 打包成一个 `.app` 或者 `.exe` 文件。也有其他几个类似的项目，包括交互式的一步一步告诉你该怎么做。不过，你应该用 [electron-builder](https://github.com/electron-userland/electron-builder)，它以 electron-packager 为基础，添加了其他几个相关的模块，生成的是 `.dmg` 文件和 Windows 安装包，并且为你处理好了代码签名的问题。这很重要，如果没有这一步，你的应用将会被操作系统认为是不可信的，你的应用程序可能会触发防毒软件的运行，Microsoft SmartScreen 可能会尝试阻止用户启动你的应用。
 
 关于代码签名的令人讨厌的事情是，你必须在 Mac 上为 Mac 和 Windows 上为 Windows 签署你的应用程序。因此，如果是认真要发行桌面应用的话，就需要为每个发行版本给多种机器构建。
 
