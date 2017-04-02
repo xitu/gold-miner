@@ -202,10 +202,11 @@ public interface NetComponent {
 
 #### 生成代码
 
-Dagger 2 的一个重要特点是它会为标注 `@Component` 的接口生成类的代码。你可以使用带有 `Dagger` (比如 `DaggerTwitterApiComponent.java`) 前缀的类that will be responsible for instantiating an instance of our dependency graph and using it to perform the injection work for fields annotated with `@Inject`.  See the [[setup guide|Dependency-Injection-with-Dagger-2#setup]].
-### Instantiating the component
+Dagger 2 的一个重要特点是它会为标注 `@Component` 的接口生成类的代码。你可以使用带有 `Dagger` (比如 `DaggerTwitterApiComponent.java`) 前缀的类来为依赖图提供实例，并用它来完成用 `@Inject` 注解的域的注入。 参见[[setup guide|Dependency-Injection-with-Dagger-2#setup]]。
 
-We should do all this work within an `Application` class since these instances should be declared only once throughout the entire lifespan of the application:
+### 实例化组件
+
+我们应该在一个 `Application` 类中完成这些工作，因为这些实例应当在 application 的整个周期中只被声明一次：
 
 ```java
 public class MyApp extends Application {
@@ -234,9 +235,9 @@ public class MyApp extends Application {
 }
 ```
 
-Make sure to rebuild the project (in Android Studio, select _Build > Rebuild Project_) if you cannot reference the Dagger component.
+如果你不能引用 Dagger 组件，rebuild 整个项目 (在 Android Studio 中，选择 _Build > Rebuild Project_)。
 
-Because we are overriding the default `Application` class, we also modify the application  `name` to launch `MyApp`.  This way your application will use this application class to handle the initial instantiation.
+因为我们在覆盖默认的 `Application` 类，我们同样需要修改应用的 `name` 以启动 `MyApp`。这样，你的 application 将会使用这个 application 类来处理最初的实例化。
 
 ```xml
 <application
@@ -244,7 +245,7 @@ Because we are overriding the default `Application` class, we also modify the ap
       android:name=".MyApp">
 ```
 
-Within our activity, we simply need to get access to these components and call `inject()`.  
+在我们的 activity 中，我们只需要获取这些 components 的引用，并调用 `inject()`。
 
 ```java
 public class MyActivity extends Activity {
@@ -258,10 +259,11 @@ public class MyActivity extends Activity {
     } 
 ```
  
-### Qualified types
+### 限定词类型
+
 ![Dagger Qualifiers](https://raw.githubusercontent.com/codepath/android_guides/master/images/dagger_qualifiers.png)
 
-If we need two different objects of the same return type, we can use the `@Named` qualifier annotation.  You will define it both where you provide the singletons (`@Provides` annotation), and where you inject them (`@Inject` annotations):
+如果我们需要同一类型的两个不同对象，我们可以使用 `@Named` 限定词注解。 你需要定义你如何提供单例 (用 `@Provides` 注解)，以及你从哪里注入它们(用 `@Inject` 注解):
 
 ```java
 @Provides @Named("cached")
@@ -279,14 +281,14 @@ OkHttpClient provideOkHttpClient() {
 }
 ```
 
-Injection will also require these named annotations too:
+注入同样需要这些 named 注解：
 
 ```java
 @Inject @Named("cached") OkHttpClient client;
 @Inject @Named("non_cached") OkHttpClient client2;
 ```
 
-`@Named` is a qualifier that is pre-defined by dagger, but you can create your own qualifier annotations as well:
+`@Named` 是一个被 Dagger 预先定义的限定语，但你也可以创建你自己的限定语注解：
 
 ```java
 @Qualifier
@@ -296,11 +298,10 @@ public @interface DefaultPreferences {
 }
 ```
 
-### Scopes
-![Dagger Scopes](https://raw.githubusercontent.com/codepath/android_guides/master/images/dagger_scopes.png)
+### 作用域
+![Dagger 作用域](https://raw.githubusercontent.com/codepath/android_guides/master/images/dagger_scopes.png)
 
-In Dagger 2, you can define how components should be encapsulated by defining custom scopes.  For instance, you can create a scope that only lasts the duration of an activity or fragment lifecycle.  You can create a scope that maps only to a user authenticated session.  You can define any number of custom scope annotations in your application by declaring them as a public `@interface`:
-
+在 Dagger 2 中，你可以通过自定义作用域来定义组件应当如何封装。例如，你可以创建一个只持续 activity 或 fragment 整个生命周期的作用域。你也可以创建一个对应一个用户认证 session 的作用域。 你可以定义任意数量的自定义作用域注解，只要你把它们声明为 public `@interface`：
 ```java
 @Scope
 @Documented
@@ -310,7 +311,7 @@ public @interface MyActivityScope
 }
 ```
 
-Even though Dagger 2 does not rely on the annotation at runtime, keeping the `RetentionPolicy` at RUNTIME is useful in allowing you to inspect your modules later.
+虽然 Dagger 2 在运行时不依赖注解does not rely on the annotation at runtime, keeping the `RetentionPolicy` at RUNTIME is useful in allowing you to inspect your modules later.
 
 ### Dependent Components vs. Subcomponents
 
