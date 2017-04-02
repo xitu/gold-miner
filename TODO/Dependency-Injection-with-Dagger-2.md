@@ -311,17 +311,17 @@ public @interface MyActivityScope
 }
 ```
 
-虽然 Dagger 2 在运行时不依赖注解does not rely on the annotation at runtime, keeping the `RetentionPolicy` at RUNTIME is useful in allowing you to inspect your modules later.
+虽然 Dagger 2 在运行时不依赖注解，把 `RetentionPolicy` 设置为 RUNTIME 对于将来检查你的 module 将是很有用的。
 
-### Dependent Components vs. Subcomponents
+### 依赖组件和子组件
 
-Leveraging scopes allows us to create either **dependent components** or **subcomponents**.  The example above showed that we used the `@Singleton` notation that lasted the entire lifecycle of the application. We also relied on one major Dagger component.  
+利用作用域，我们可以创建 **依赖组件** 或 **子组件**。上面的例子中，我们使用了 `@Singleton` 注解，它持续了整个应用的生命周期。我们也依赖了一个主要的 Dagger 组件。  
 
-If we wish to have multiple components that do not need to remain in memory all the time (i.e. components that are tied to the lifecycle of an activity or fragment, or even tied to when a user is signed-in), we can create dependent components or subcomponents.  In either case, each provide a way of encapsulating your code. We'll see how to use both in the next section. 
+如果我们不需要组件总是存在于内存中（例如，和 activity 或 fragment 生命周期绑定，或在用户登录时绑定），我们可以创建依赖组件和子组件。它们各自提供了一种封装你的代码的方式。我们将在下一节中看到如何使用它们。
 
-There are several considerations when using these approaches:
+在使用这种方法时，有若干问题要注意：
 
-  * **Dependent components require the parent component to explicitly list out what dependencies can be injected downstream, while subcomponents do not.**   For parent components, you would need to expose to the downstream component by specifying the type and a method:
+  * **依赖组件需要父组件显式指定哪些依赖可以在下游注入，而子组件不需要** 对父组件而言，你需要通过指定类型和方法来向下游组件暴露这些依赖：
 
 ```java
 // parent component
@@ -338,15 +338,16 @@ public interface NetComponent {
 }
 ```
 
-   If you forget to add this line, you will likely to see an error about an injection target missing.  Similar to how private/public variables are managed, using a parent component allows more explicit control and better encapsulation, but using subcomponents makes dependency injection easier to manage at the expense of less encapsulation. 
+   如果你忘记加入这一行，你将有可能看到一个关于注入目标缺失的错误。就像 private/public 变量的管理方式一样，使用一个 parent 组件可以更显式地控制，也可保证更好的封装。使用子组件使得依赖注入更容易管理，但封装得更差。
+   
+   
+  * **两个依赖组件不能使用同一个作用域** 例如，两个组件不能都用 `@Singleton` 注解设置定义域。这个限制的原因在 [这里](https://github.com/google/dagger/issues/107#issuecomment-71073298) 有所说明。依赖组件需要定义它们自己的作用域。
 
-  * **Two dependent components cannot share the same scope.**  For instance, two components cannot both be scoped to a `@Singleton` annotation.  This restriction is imposed because of reasons described [here](https://github.com/google/dagger/issues/107#issuecomment-71073298).  Dependent components need to define their own scope.
+  * **Dagger 2 also enables the ability to create scoped instances, the responsibility rests on you to create and delete references that are consistent with the intended behavior.**  Dagger 2 does not know anything about the underlying implementation.  See this Stack Overflow [discussion](http://stackoverflow.com/questions/28411352/what-determines-the-lifecycle-of-a-component-object-graph-in-dagger-2) for more details.
 
-  * **While Dagger 2 also enables the ability to create scoped instances, the responsibility rests on you to create and delete references that are consistent with the intended behavior.**  Dagger 2 does not know anything about the underlying implementation.  See this Stack Overflow [discussion](http://stackoverflow.com/questions/28411352/what-determines-the-lifecycle-of-a-component-object-graph-in-dagger-2) for more details.
+#### 依赖组件
 
-#### Dependent Components
-
-![Dagger Component Dependencies](https://raw.githubusercontent.com/codepath/android_guides/master/images/dagger_dependency.png)
+![Dagger 组件依赖](https://raw.githubusercontent.com/codepath/android_guides/master/images/dagger_dependency.png)
 
 For instance, if we wish to use a component created for the entire lifecycle of a user session signed into the application, we can define our own `UserScope` interface:
 
