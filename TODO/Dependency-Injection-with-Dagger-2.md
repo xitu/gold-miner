@@ -349,7 +349,7 @@ public interface NetComponent {
 
 ![Dagger 组件依赖](https://raw.githubusercontent.com/codepath/android_guides/master/images/dagger_dependency.png)
 
-For instance, if we wish to use a component created for the entire lifecycle of a user session signed into the application, we can define our own `UserScope` interface:
+如果你想要创建一个组件，使它的生命周期和已登录用户的 session 相绑定，就可以创建 `UserScope` 接口：
 
 ```java
 import java.lang.annotation.Retention;
@@ -360,7 +360,7 @@ public @interface UserScope {
 }
 ```
 
-Next, we define the parent component:
+接下来，我们定义父组件：
 
 ```java
   @Singleton
@@ -372,7 +372,7 @@ Next, we define the parent component:
   }
 ```
 
-We can then define a child component:
+接下来定义子组件：
 
 ```java
 @UserScope // using the previously defined scope, note that @Singleton will not work
@@ -382,7 +382,7 @@ public interface GitHubComponent {
 }
 ```
 
-Let's assume this GitHub module simply returns back an API interface to the GitHub API:
+假定 Github 模块只是把 API 接口返回给 github API:
 
 ```java
 
@@ -402,7 +402,7 @@ public class GitHubModule {
 }
 ```
 
-In order for this `GitHubModule.java` to get access to the `Retrofit` instance, we need explicitly define them in the upstream component.  If the downstream modules will be performing the injection, they should also be removed from the upstream components too:
+为了让这个 `GitHubModule.java` 获得对 `Retrofit` 实例的引用，我们需要在上游组件中显式定义它们。如果下游模块会执行注入，它们也应当被从上游组件中移除：
 
 ```java
 @Singleton
@@ -417,7 +417,7 @@ public interface NetComponent {
 }
 ```
 
-The final step is to use the `GitHubComponent` to perform the instantiation.  This time, we first need to build the `NetComponent` and pass it into the constructor of the `DaggerGitHubComponent` builder:
+最终的步骤是用 `GitHubComponent` 进行实例化。这一次，我们需要首先实现 `NetComponent` 并把它传递给 `DaggerGitHubComponent` builder 的构造方法：
 
 ```java
 NetComponent mNetComponent = DaggerNetComponent.builder()
@@ -431,16 +431,16 @@ GitHubComponent gitHubComponent = DaggerGitHubComponent.builder()
                 .build();
 ```
 
-See [this example code](https://github.com/codepath/dagger2-example) for a working example.
+[示例代码] (https://github.com/codepath/dagger2-example) 中有一个实际的例子。
 
-#### Subcomponents
-![Dagger subcomponents](https://raw.githubusercontent.com/codepath/android_guides/master/images/dagger_subcomponent.png)
+#### 子组件
+![Dagger 子组件] (https://raw.githubusercontent.com/codepath/android_guides/master/images/dagger_subcomponent.png)
 
-Using subcomponents is another way to extend the object graph of a component.  Like components with dependencies, subcomponents have their own life-cycle and can be garbage collected when all references to the subcomponent are gone, and have the same scope restrictions.  One advantage in using this approach is that you do not need to define all the downstream components.  
+使用子组件是扩展组件对象图的另一种方式。就像带有依赖的组件一样，子组件有自己的的生命周期，而且在所有对子组件的引用都失效之后，可以被垃圾回收。此外它们作用域的限制也一样。使用这个方式的一个优点是你不需要定义所有的下游组件。
 
-Another major difference is that subcomponents simply need to be declared in the parent component.
+另一个主要的不同是，子组件需要在父组件中声明。
 
-Here's an example of using a subcomponent for an activity.  We annotate the class with a custom scope and the `@Subcomponent` annotation: 
+这是为一个 activity 使用子组件的例子。我们用自定义作用域和 `@Subcomponent` 注解这个类：
 
 ```java
 @MyActivityScope
@@ -450,7 +450,7 @@ public interface MyActivitySubComponent {
 }
 ```
 
-The module that will be used is defined below:
+被使用的模块在下面定义：
 
 ```java
 @Module
@@ -468,7 +468,7 @@ public class MyActivityModule {
 }
 ```
 
-Finally, in the **parent component**, we will define a factory method with the return value of the component and the dependencies needed to instantiate it:
+最后，在**父组件**中，我们将定义一个工厂方法，它以这个组件的类型作为返回值，并定义初始化所需的依赖：
 
 ```java
 @Singleton
