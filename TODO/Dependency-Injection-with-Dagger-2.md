@@ -431,7 +431,7 @@ GitHubComponent gitHubComponent = DaggerGitHubComponent.builder()
                 .build();
 ```
 
-[示例代码] (https://github.com/codepath/dagger2-example) 中有一个实际的例子。
+[示例代码](https://github.com/codepath/dagger2-example) 中有一个实际的例子。
 
 #### 子组件
 
