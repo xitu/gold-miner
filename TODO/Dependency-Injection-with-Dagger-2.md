@@ -313,7 +313,7 @@ public @interface MyActivityScope
 
 虽然 Dagger 2 在运行时不依赖注解，把 `RetentionPolicy` 设置为 RUNTIME 对于将来检查你的 module 将是很有用的。
 
-### 依赖组件和子组件
+### 依赖组件和
 
 利用作用域，我们可以创建 **依赖组件** 或 **子组件**。上面的例子中，我们使用了 `@Singleton` 注解，它持续了整个应用的生命周期。我们也依赖了一个主要的 Dagger 组件。  
 
@@ -434,7 +434,8 @@ GitHubComponent gitHubComponent = DaggerGitHubComponent.builder()
 [示例代码] (https://github.com/codepath/dagger2-example) 中有一个实际的例子。
 
 #### 子组件
-![Dagger 子组件] (https://raw.githubusercontent.com/codepath/android_guides/master/images/dagger_subcomponent.png)
+
+![Dagger 子组件](https://raw.githubusercontent.com/codepath/android_guides/master/images/dagger_subcomponent.png)
 
 使用子组件是扩展组件对象图的另一种方式。就像带有依赖的组件一样，子组件有自己的的生命周期，而且在所有对子组件的引用都失效之后，可以被垃圾回收。此外它们作用域的限制也一样。使用这个方式的一个优点是你不需要定义所有的下游组件。
 
