@@ -1,7 +1,7 @@
 > * 原文地址：[Dependency Injection with Dagger 2](https://github.com/codepath/android_guides/wiki/Dependency-Injection-with-Dagger-2)
 > * 原文作者：[CodePath](https://github.com/codepath)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者： 
+> * 译者： [tanglie1993](https://github.com/tanglie1993)
 > * 校对者：
 
 # 用 Dagger 2 实现依赖注入
@@ -343,8 +343,8 @@ public interface NetComponent {
    
   * **两个依赖组件不能使用同一个作用域** 例如，两个组件不能都用 `@Singleton` 注解设置定义域。这个限制的原因在 [这里](https://github.com/google/dagger/issues/107#issuecomment-71073298) 有所说明。依赖组件需要定义它们自己的作用域。
 
-  * **Dagger 2 also enables the ability to create scoped instances, the responsibility rests on you to create and delete references that are consistent with the intended behavior.**  Dagger 2 does not know anything about the underlying implementation.  See this Stack Overflow [discussion](http://stackoverflow.com/questions/28411352/what-determines-the-lifecycle-of-a-component-object-graph-in-dagger-2) for more details.
-
+  * **Dagger 2 同样允许使用带作用域的实例。你需要负责在合适的时机创建和销毁引用。**  Dagger 2 对底层实现一无所知。这个 Stack Overflow [讨论](http://stackoverflow.com/questions/28411352/what-determines-the-lifecycle-of-a-component-object-graph-in-dagger-2) 上有更多的细节。
+  
 #### 依赖组件
 
 ![Dagger 组件依赖](https://raw.githubusercontent.com/codepath/android_guides/master/images/dagger_dependency.png)
@@ -417,7 +417,7 @@ public interface NetComponent {
 }
 ```
 
-最终的步骤是用 `GitHubComponent` 进行实例化。这一次，我们需要首先实现 `NetComponent` 并把它传递给 `DaggerGitHubComponent` builder 的构造方法：
+最终的步骤是用 `GitHubComponent` 进行实例化。这一次，我们需要首先实现 `NetComponent` 并把它传递给 `DaggerGitHubComponent` 建造者的构造方法：
 
 ```java
 NetComponent mNetComponent = DaggerNetComponent.builder()
@@ -481,7 +481,7 @@ public interface MyApplicationComponent {
 }
 ```
 
-In the above example, a new instance of the subcomponent will be created every time that the `newMyActivitySubcomponent()` is called.  To use the submodule to inject an activity:
+在上面的例子中，一个子组件的新实例将在每次 `newMyActivitySubcomponent()` 调用时被创建。把这个子模块注入一个 activity 中：
 
 ```java
 public class MyActivity extends Activity {
@@ -497,12 +497,12 @@ public class MyActivity extends Activity {
 }
 ```
 
-#### Subcomponent Builders
-*Available starting in v2.7*
+#### 子组件建造者
+*从 v2.7 版本起可用*
 
-![Dagger subcomponent builders](https://raw.githubusercontent.com/codepath/android_guides/master/images/subcomponent_builders.png)
+![Dagger 子组件建造者](https://raw.githubusercontent.com/codepath/android_guides/master/images/subcomponent_builders.png)
 
-Subcomponent builders allow the creator of the subcomponent to be de-coupled from the parent component, by removing the need to have a subcomponent factory method declared on that parent component.  
+子组件建造者使创建子组件的类和子组件的父类解耦。这是通过移除父组件中的子组件工厂方法实现的。
 
 ```java
 @MyActivityScope
@@ -520,7 +520,7 @@ public interface SubcomponentBuilder<V> {
 }
 ```
 
-The subcomponent is declared as an inner interface in the subcomponent interface and it must include a `build()` method which the return type matching the subcomponent.  It's convenient to declare a base interface with this method, like `SubcomponentBuilder` above.  This new **builder must be added to the parent component graph** using a "binder" module with a "subcomponents" parameter:
+子组件是在子组件接口内部的接口中声明的。它必须含有一个  `build()` 方法，其返回值和子组件相匹配。用这个方法声明一个基接口是很方便的，就像上面的`SubcomponentBuilder` 一样。这个新的**建造者必须被加入父组件的图中**，而这是用一个 "binder" 模块和一个 "subcomponents" 参数实现的:
 
 ```java
 @Module(subcomponents={ MyActivitySubComponent.class })
@@ -543,7 +543,7 @@ public @interface SubcomponentKey {
 }
 ```
 
-Once the builders are made available in the component graph, the activity can use it to create its subcomponent:
+一旦建造者在出现在组件图中，activity 就可以用它来创建子组件：
 
 ```java
 public class MyActivity extends Activity {
@@ -564,13 +564,13 @@ public class MyActivity extends Activity {
 
 ## ProGuard
 
-Dagger 2 should work out of box without ProGuard, but if you start seeing `library class dagger.producers.monitoring.internal.Monitors$1 extends or implements program class javax.inject.Provider`, make sure your Gradle configuration uses the `annotationProcessor` declaration instead of `provided`. 
+Dagger 2 应当在没有 ProGuard 时可以直接使用，但是如果你看到了 `library class dagger.producers.monitoring.internal.Monitors$1 extends or implements program class javax.inject.Provider`，你需要确认你的 gradle 配置使用了 `annotationProcessor` 声明，而不是 `provided`。
 
-## Troubleshooting
+## 常见问题
 
-* If you are upgrading Dagger 2 versions (i.e. from v2.0 to v2.5), some of the generated code has changed.  If you are incorporating Dagger code that was generated with older versions, you may see `MemberInjector` and `actual and former argument lists different in length` errors.  Make sure to clean the entire project and verify that you have upgraded all versions to use the consistent version of Dagger 2.
+* 如果你在升级 Dagger 版本（比如从 v2.0 升级到 v 2.5），一些被生成的代码会改变。如果你在集成使用旧版本 Dagger 生成的代码，你可能会看到 `MemberInjector` 和 `actual and former argument lists different in length` 错误。确保你 clean 过整个项目，并且把所有版本升级到和 Dagger 2 相匹配的版本。
 
-## References
+## 参考资料
 
 * [Dagger 2 Github Page](http://google.github.io/dagger/)
 * [Sample project using Dagger 2](https://github.com/vinc3m1/nowdothis)
