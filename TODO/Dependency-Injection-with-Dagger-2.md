@@ -166,13 +166,13 @@ public class NetModule {
 }
 ```
 
-注意，方法名称（比如 `provideGson()`, `provideRetrofit()` 等）是没关系的，可以任意设置。 用 `@Provides` decorator is used to associate this instantiation with any other modules of the same type.  The `@Singleton` annotation is used to declare to Dagger to be only initialized only once during the entire lifecycle of the application.  
+注意，方法名称（比如 `provideGson()`, `provideRetrofit()` 等）是没关系的，可以任意设置。`@Provides` 被用于把这个实例化和其它同类的模块联系起来。`@Singleton` 标注用于通知 Dagger，它在整个应用的生命周期中只被初始化一次。
 
-A `Retrofit` instance depends both on a `Gson` and `OkHttpClient` instance, so we can define another method within the same class that takes these two types.  The `@Provides` annotation and these two parameters in the method will cause Dagger to recognize that there is a dependency on `Gson` and `OkHttpClient` to build a `Retrofit` instance.
+一个 `Retrofit` 实例依赖于一个 `Gson` 和一个 `OkHttpClient` 实例，所以我们可以在同一个类中定义两个方法，来提供这两种实例。`@Provides` 标注和方法中的这两个参数将使 Dagger 意识到，构建一个 `Retrofit` 实例 需要依赖 `Gson` 和 `OkHttpClient`。
 
-#### Define injection targets
+#### 定义注入目标
 
-Dagger provides a way for the fields in your activities, fragments, or services to be assigned references simply by annotating the fields with an `@Inject` annotation and calling an `inject()` method.  Calling `inject()` will cause Dagger 2 to locate the singletons in the dependency graph to try to find a matching return type.  If it finds one, it assigns the references to the respective fields. For instance, in the example below, it will attempt to find a provider that returns `MyTwitterApiClient` and a `SharedPreferences` type:
+Dagger 使你的 activity, fragment, 或 service 中的域可以通过 `@Inject` 注解和调用 `inject()` 方法被赋值。调用 `inject()` 将会使得 Dagger 2 在依赖图中寻找合适类型的单例。如果找到了一个，它就把引用赋值给对应的域。例如，在下面的例子中，它会尝试找到一个返回`MyTwitterApiClient` 和`SharedPreferences` 类型的 provider：
 
 ```java
 public class MainActivity extends Activity {
@@ -185,7 +185,7 @@ public class MainActivity extends Activity {
    } 
 ```
 
-The injector class used in Dagger 2 is called a **component**.  It assigns references in our activities, services, or fragments to have access to singletons we earlier defined.  We will need to annotate this class with a `@Component` declaration. Note that the activities, services, or fragments that can be added should be declared in this class with individual `inject()` methods: 
+Dagger 2 中使用的注入者类被称为 **component**。它把先前定义的单例的引用传给 activity, service 或 fragment。我们需要用 `@Component` 来注解这个类。注意，需要被注入的 activity, service 或 fragment 需要在这里使用 `inject()` 方法注入： 
 
 
 ```java
@@ -198,11 +198,11 @@ public interface NetComponent {
 }
 ```
 
-**Note** that base classes are not sufficient as injection targets.  Dagger 2 relies on strongly typed classes, so you must specify explicitly which ones should be defined.   (There are [suggestions](https://blog.gouline.net/2015/05/04/dagger-2-even-sharper-less-square/) to workaround the issue, but the code to do so may be more complicated to trace than simply defining them.)
+**注意** 基类不能被作为注入的目标。Dagger 2 依赖于强类型的类，所以你必须指定哪些类会被定义。（有一些[建议](https://blog.gouline.net/2015/05/04/dagger-2-even-sharper-less-square/) 帮助你绕开这个问题，但这样做的话，代码可能会变得更复杂，更难以追踪。）
 
-#### Code generation
+#### 生成代码
 
-An important aspect of Dagger 2 is that the library generates code for classes annotated with the `@Component` interface.  You can use a class prefixed with `Dagger` (i.e. `DaggerTwitterApiComponent.java`) that will be responsible for instantiating an instance of our dependency graph and using it to perform the injection work for fields annotated with `@Inject`.  See the [[setup guide|Dependency-Injection-with-Dagger-2#setup]].
+Dagger 2 的一个重要特点是它会为标注 `@Component` 的接口生成类的代码。你可以使用带有 `Dagger` (比如 `DaggerTwitterApiComponent.java`) 前缀的类that will be responsible for instantiating an instance of our dependency graph and using it to perform the injection work for fields annotated with `@Inject`.  See the [[setup guide|Dependency-Injection-with-Dagger-2#setup]].
 ### Instantiating the component
 
 We should do all this work within an `Application` class since these instances should be declared only once throughout the entire lifespan of the application:
