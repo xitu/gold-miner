@@ -1,5 +1,5 @@
-> * ​
-> * 原文作者：[Adam Lynch](https://www.smashingmagazine.com/author/adamlynch/)
+> * 原文地址：[Beyond The Browser: From Web Apps To Desktop Apps](https://www.smashingmagazine.com/2017/03/beyond-browser-web-desktop-apps/)
+> * 原文作者：本文已获原作者 [Adam Lynch](https://www.smashingmagazine.com/author/adamlynch/) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者： [bambooom](https://github.com/bambooom)
 > * 校对者：
@@ -46,7 +46,7 @@ Chromium 有一个主要的后台进程，每个标签页也会有自己的进�
 
 创建一个应用很简单，只需要一个 HTML 文件和一个 `package.json` 文件，就像你平时使用 Node.js 时那样。你可以使用 `npm init --yes` 新建一个默认的。一般来说，`package.json` 会指定一个 JavaScript 文件作为模块的入口（也就是使用 `main` 属性），但是如果是 NW.js，你需要去编辑一下 `main` 指向你的 HTML 文件。
 
-```
+```json
 {
   "name": "example-app",
   "version": "1.0.0",
@@ -61,7 +61,7 @@ Chromium 有一个主要的后台进程，每个标签页也会有自己的进�
 }
 ```
 
-```
+```html
 <!-- index.html -->
 <!DOCTYPE html>
 <html>
@@ -96,7 +96,7 @@ Chromium 有一个主要的后台进程，每个标签页也会有自己的进�
 总之，NW.js 高效包装了原生的 API，让你可以简单的与桌面环境集成。
 比如你有一个托盘图标，使用系统默认应用打开一个文件或者 URL 之类的。你需要做的是使用 HTML5 notification 的 API 触发一个通知：
 
-```
+```javascript
 new Notification('Hello', {
   body: 'world'
 });
@@ -114,8 +114,6 @@ new Notification('Hello', {
 
 ![Logos of projects that use Electron](https://www.smashingmagazine.com/wp-content/uploads/2017/01/logos-preview-opt.png)
 
-> As well as Atom, other notable projects built with Electron include Slack, Visual Studio Code, Brave, HyperTerm and Nylas, which is really doing some cutting-edge stuff with it. Mozilla Tofino is an interesting one, too. It was an internal project at Mozilla (the company behind Firefox), with the aim of radically improving web browsers. Yeah, a team within Mozilla chose Electron (which is based on Chromium) for this experiment.
-
 和 Atom 一样，其他用 Electron 开发的有名项目包括 [Slack](https://slack.com/)、[Visual Studio Code](https://code.visualstudio.com/)、 [Brave](https://www.brave.com/)、[HyperTerm](https://hyper.is/)、[Nylas](https://www.nylas.com/)，真的是在做着一些尖端的东西。Mozilla Tofino 也是其中一个很有趣的，它是 Mozilla（ FireFox 的公司）的一个内部项目，目标是彻底优化浏览器。你没看错，Mozilla 的团队选择了 Electron （基于 Chromium ）来做这个实验。
 
 ### Electron 有什么不同呢？
@@ -132,7 +130,7 @@ Electron 团队修补了 Chromium 以便嵌入多个可以同时运行的 JavaSc
 
 那么当然，创建一个 Electron app，你需要的只是一个 JavaScript 文件（现在暂时只是个空文件）以及一个 `package.json` 文件指向它。然后你只需要执行 `npm install --save-dev electron`，以及 `electron .` 来启动你的 app。
 
-```
+```json
 {
   "name": "example-app",
   "version": "1.0.0",
@@ -153,7 +151,7 @@ Electron 团队修补了 Chromium 以便嵌入多个可以同时运行的 JavaSc
 
 没有什么会发生，因为你的 app 没有默认窗口。接下来你可以和 NW.js 一样打开任意多个窗口，每个都有各自的渲染进程。
 
-```
+```javascript
 // main.js
 const {app, BrowserWindow} = require('electron');
 let mainWindow;
@@ -166,7 +164,7 @@ app.on('ready', () => {
   mainWindow.loadURL('file://' + __dirname + '/index.html');
 });
 ```
-```
+```html
 <!-- index.html -->
 <!DOCTYPE html>
 <html>
