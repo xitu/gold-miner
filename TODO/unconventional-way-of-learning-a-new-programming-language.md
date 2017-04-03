@@ -1,5 +1,5 @@
 > * 原文地址：[Unconventional way of learning a new programming language](https://hackernoon.com/unconventional-way-of-learning-a-new-programming-language-e4d1f600342c#.alz60t9jd)
-> * 原文作者：[Sahil Dua](https://hackernoon.com/@sahildua2305)
+> * 原文作者：该文章已获原作者 [Sahil Dua](https://hackernoon.com/@sahildua2305) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[ivyxuan](https://github.com/iloveivyxuan)
 > * 校对者：[atuooo](https://github.com/atuooo), [gaozp](http://gaozhipeng.me)
@@ -105,3 +105,7 @@
 一定要让我知道这个不怎么寻常的方法对你有没有用。而如果你认为这个方法有用的话，请给我点个赞(❤)～
 
 如果你有什么其他有用的方法的话也请告诉我。推特／关注我[@sahildua2305](https://twitter.com/sahildua2305)。
+
+---
+
+> [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[React](https://github.com/xitu/gold-miner#react)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计) 等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)。
