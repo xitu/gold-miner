@@ -29,8 +29,6 @@ Google Chrome 可以让我们添加所有类，并在其中使用复选框切换
 
 [![](https://i.vimeocdn.com/video/623010079.webp?mw=700&mh=525)](https://player.vimeo.com/video/207830826)
 
-<video src="https://player.vimeo.com/video/207830826" controls></video>
-
 [可以看看 codepen demo](http://codepen.io/shadeed/pen/e2a8f51691cad05bdfd5b14fb9365214?editors=0100).
 
 ### 开启 designMode 来编辑内容
