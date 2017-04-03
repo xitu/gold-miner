@@ -1,8 +1,8 @@
 > * 原文地址：[What Unit Tests are Trying to Tell us about Activities: Pt. 1](https://www.philosophicalhacker.com/post/what-unit-tests-are-trying-to-tell-us-about-activities-pt1/)
-* 原文作者：[Philosophical Hacker](https://www.philosophicalhacker.com)
-* 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者： [tanglie1993](https://github.com/tanglie1993)
-* 校对者：[yunshuipiao](https://github.com/yunshuipiao), [skyar2009](https://github.com/skyar2009)
+> * 原文作者：[Philosophical Hacker](https://www.philosophicalhacker.com)
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 译者： [tanglie1993](https://github.com/tanglie1993)
+> * 校对者：[yunshuipiao](https://github.com/yunshuipiao), [skyar2009](https://github.com/skyar2009)
 
 ![](https://www.philosophicalhacker.com/images/broken-brick.jpg)
 
