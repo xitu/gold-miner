@@ -1,21 +1,21 @@
 > * 原文地址：[Using DevTools to Tweak Designs in the Browser](https://css-tricks.com/using-devtools-tweak-designs-browser/)
 > * 原文作者：[AHMAD SHADEED](https://css-tricks.com/author/shadeed9/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
+> * 译者：[bambooom](https://github.com/bambooom)
 > * 校对者：
 
-# Using DevTools to Tweak Designs in the Browser #
+# 使用开发者工具在浏览器中调整设计
 
-Let's look at some ways we can use the browsers DevTools to do design work. There are a few somewhat hidden tricks you mind find handy!
+让我们来看看使用浏览器的开发者工具做设计工作的几种方式。你会发现一些很方便的隐藏技巧。
 
-### Toggling Classes With Checkboxes
+### 使用复选框切换类名
 
-This is useful when trying to pick a design from different options or to toggle the active state of an element without adding the class manually in DevTools. 
+当你在从不同的选择中挑选一个设计时，或者在不手动添加类名的时候切换元素的状态时，这个技巧很有用。
 
-To achieve this, we could use different classes and scope styles inside them. So if we want to see different options for a banner design, we could so something like: 
+为了达到这一点，我们可以使用不同的类名和范围样式。那么如果想看看不同的横幅设计的样式的时候，我们可以这么做： 
 
 
-```
+```css
 .banner-1 {
   /* Style variation */
 }
@@ -24,55 +24,57 @@ To achieve this, we could use different classes and scope styles inside them. So
   /* Style variation */
 }
 ```
-  
-Google Chrome gives us the ability to add all of these classes and toggle (show/hide) them with a checkbox to make a quick comparison between them.
+
+Google Chrome 可以让我们添加所有类，并在其中使用复选框切换来快速比较不同的样式。
 
 [![](https://i.vimeocdn.com/video/623010079.webp?mw=700&mh=525)](https://player.vimeo.com/video/207830826)
 
-See the [demo Pen](http://codepen.io/shadeed/pen/e2a8f51691cad05bdfd5b14fb9365214?editors=0100).
+<video src="https://player.vimeo.com/video/207830826" controls></video>
 
-### Editing Content with designMode
+[可以看看 codepen demo](http://codepen.io/shadeed/pen/e2a8f51691cad05bdfd5b14fb9365214?editors=0100).
 
-Web content is dynamic, so our design should be flexible and we should test for various types and lengths of content. For example, entering a very long word might break a design. To check that, we can edit our design right in the browser with `document.designMode`.
+### 开启 designMode 来编辑内容
+
+web 内容是动态的，所以设计应该是灵活的，我们应该测试不同类型不同长度的内容。比方说，输入一个非常长的单词可能会破坏现有的设计。为了检查这个，我们可以在浏览器控制台里输入 `document.designMode = 'on'` 后编辑我们的设计。
 
 [![](https://i.vimeocdn.com/video/623015649.webp?mw=700&mh=525)](https://player.vimeo.com/video/207835383)
 
-This can help us test our design without editing the content manually in the source code. 
+这个可以很方便的测试设计而不需要手动在源代码中进行修改。
 
-### Hiding Elements
+### 隐藏元素
 
-Sometimes we need to hide elements in our design to check how it will look without them. Chrome DevTools give us the ability to inspect an element and type `h` from the keyboard to hide it by toggling CSS visibility property.
+有时我们需要隐藏某些元素试试看如果没有它的时候是什么样子。Chrome DevTools 可以让我们检查一个元素然后键盘输入 `h` 来隐藏它，也就是给元素添加 CSS 的 visibility 属性。
 
 [![](https://i.vimeocdn.com/video/623017144.webp?mw=700&mh=439)](https://player.vimeo.com/video/207836443)
 
-This is very useful in case you want to hide some elements to take a screenshot and then discuss it with your team/designer/manager. Sometimes I use this feature to hide elements and then take a screenshot to mock a quick idea in Photoshop.
+当你需要隐藏某些元素并截图，再和你的同事、设计师或者经理讨论的时候，这个功能非常有用。有时我会利用这个技巧去隐藏元素并截图后，在 PhotoShop 中快速模拟简单的想法。
 
-### Screenshotting design elements
+### 截图设计元素
 
-There is a useful feature in Firefox DevTools to take a screenshot of a specific element in the DOM. By doing that, we can compare our variations side by side to see which one is the best of our case.
+FireFox 的开发者工具中有一个很有用的功能，它可以给 DOM 中特定元素截图。这样的话，我们可以将几种不同的方案放在一起对比挑选最好的方案。
 
-Follow the below steps:
+这个功能需要这样操作：
 
-1. Open Firefox DevTools
-2. Right-click on an element and pick **Screenshot Node**
-3. The screenshots are saved in the default downloads folder
+1. 打开 FireFox 开发者工具
+2. 对一个元素右键，选择**节点截图**（**Screenshot Node**）
+3. 截图会存在默认的下载路径文件夹中
 
 ![](https://cdn.css-tricks.com/wp-content/uploads/2017/03/firefox-screenshot.jpg)
 
-If you want to use Chrome for screenshotting, you can. There is a [plugin](https://chrome.google.com/webstore/detail/element-screenshot/mhbapdljigafafoimcnnhagdclejnkcf) called "Element Screenshot" that does almost the same job.
+你也可以在 Chrome 中使用这个功能，有一个插件叫 [Element Screenshot](https://chrome.google.com/webstore/detail/element-screenshot/mhbapdljigafafoimcnnhagdclejnkcf) 可以达到相同的效果。
 
-### Changing Design Colors
+### 更改设计颜色
 
-In the early stages of every design projects, you might be exploring different color palettes. CSS' `hue-rotate` function is a powerful filter that provides us with the ability to change design colors right in the browser. It causes hue rotation for each pixel in an image or element. The value can be specified in `deg` or `rad`. 
+在设计项目的初期阶段，你可能需要探索多种不同的调色板。CSS 的 `hue-rotate` 函数是一共功能强大的过滤器，它可以让我们在浏览器中更改设计颜色。它可以旋转图像或元素中每个像素的色相。其中的值设定可以通过 `deg` 或者 `rad`。 
 
-In the below video, I added `filter: hue-rotate(value)` to the component, notice how all the colors change.
+在下面的视频中，我给组件添加了 `filter: hue-rotate(value)` 属性，注意看所有的颜色是如何变化的。
 
 [![](https://i.vimeocdn.com/video/623210796.webp?mw=700&mh=577)](https://player.vimeo.com/video/207995530)
 
-Notice that *every* design element got affected from applying `hue-rotate`. For example, the user avatar colors looks wrong. We can revert the normal look by applying the negative value of `hue-rotate`.
+注意*每个*设计元素都会被使用 `hue-rotate` 所影响。比如，用户头像的颜色好像不太对，我们可以通过应用 `hue-rotate` 的负值使之回复正常。
 
 
-```
+```css
 .bio__avatar {
   filter: hue-rotate(-100deg);
 }
@@ -81,13 +83,13 @@ Notice that *every* design element got affected from applying `hue-rotate`. For 
 
 See the [demo Pen](http://codepen.io/shadeed/pen/2d611749947ac7688c2710248c473e50?editors=0010).
 
-### Using CSS Variables (Custom CSS Properties)
+### 使用 CSS 变量（自定义 CSS 属性）
 
-Even if the support is still not [perfectly cross-browser](http://caniuse.com/#feat=css-variables) friendly (it's [currently](https://developer.microsoft.com/en-us/microsoft-edge/platform/status/csscustompropertiesakacssvariables/?q=css%20v) in development in Microsoft Edge), we can get the benefit of CSS variables today. Using them to define the spacing and color units will make it easy to make huge changes by changing tiny values on the fly.
+虽然自定义属性的[浏览器支持](http://caniuse.com/#feat=css-variables)并不是很友好（现在 Microsoft Edge 现在[正在开发](https://developer.microsoft.com/en-us/microsoft-edge/platform/status/csscustompropertiesakacssvariables/?q=css%20v)）。我们现在也仍然可以从 CSS 变量中获益。使用自定义变量定义间距和颜色单位可以更改很小的值轻松实现巨大的变化。
 
-I defined the following for our web page:
+我在我们网页上定义了下面一些变量：
 
-```
+```css
 :root {
   --spacing-unit: 1em;
   --spacing-unit-half: calc(var(--spacing-unit) / 2); /* = 0.5em */
@@ -96,27 +98,27 @@ I defined the following for our web page:
 }
 ```
 
-These variables will be used throughout the website elements like links, nav items, borders and background colors. When changing a single variable from the dev tools, all the associated elements will be affected!
+这些变量可以在网站所有的元素上使用，就像链接、导航、边距和背景颜色。当在开发工具中更改一个变量的值，所有相关联的元素都会变更。
 
 ![](https://cdn.css-tricks.com/wp-content/uploads/2017/03/Screen-Shot-2017-03-12-at-4.34.47-PM.jpg)
 
-### Invert elements with CSS `filter: invert()`
+### 使用 CSS 属性 `filter: invert()` 翻转元素 
 
-This is useful when you have a white text on black background or vice versa. For instance, in the header, we have the page title in white on a black background, and by adding `filter: invert` to the element, all the colors will be inverted. 
+当你在黑底白字或者白底黑字的情况下，这个属性是很有用的。打个比方，在标题中，我们在黑色背景上将页面标题设为白色，然后在元素上添加了 `filter: invert()`属性，所有的颜色就会被反转。 
 
 ![](https://cdn.css-tricks.com/wp-content/uploads/2017/03/invert-filter.gif)
 
-### CSS Visual Editor
+### CSS 视觉编辑器
 
-This feature is becoming better every day. Safari has really nice UI tools for editing values. Chrome is adding similar things slowly to DevTools.
+这个功能每天都在变得越来越好。Safari 具有非常好的用于编辑值的 UI 工具，Chrome 也正在向 DevTools 中缓慢添加类似的东西。
 
 [![](https://i.vimeocdn.com/video/623229127.webp?mw=700&mh=525)](https://player.vimeo.com/video/208011466)
 
-Chrome has some cool stuff for things like `box-shadow`, `background-color`, `text-shadow` and `color`.
+Chrome 有些很酷的工具用来编辑 `box-shadow`、`background-color`、`text-shadow` 和 `color`.
 
 ![](https://cdn.css-tricks.com/wp-content/uploads/2017/03/chrome-visual-css.gif)
 
-I think this will be very useful for designers who doesn't know much about CSS. Editing things visually like that will give them more control over some design details, they can tweak things in the browser and show the result to the developer to be implemented.
+我想上面这些技巧对于并不是特别熟悉 CSS 的设计师会很有帮助。直接视觉上的进行编辑会给设计师更多对设计细节的把控，他们可以在浏览器中调整并将结果显示给开发人员来实现。
 
 ---
 
