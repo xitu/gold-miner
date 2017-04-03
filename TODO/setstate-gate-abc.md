@@ -122,9 +122,9 @@ The API docs also makes mention of a function alternative to the `setState()` si
 
 The API docs are dropping some breadcrumbs, but they don’t really explain the behavior that newbies frequently encounter in a way that clearly guides the reader on the right path, and though React is famous for generating useful errors in dev mode, no such warnings get logged when `setState()` timing bugs crop up.
 
-[Jikku Jose ](https://twitter.com/JikkuJose/status/842915627899670528?ref_src=twsrc%5Etfw) 
+[![](https://ww2.sinaimg.cn/large/006tNc79gy1fdwma23qp0j30jk077mxt.jpg)](https://twitter.com/JikkuJose/status/842915627899670528?ref_src=twsrc%5Etfw) 
 
-[Pier Bover ](https://twitter.com/PierB/status/842590294776451072?ref_src=twsrc%5Etfw)
+[![](https://ww3.sinaimg.cn/large/006tNc79gy1fdwmac1hwlj30ji06rq3h.jpg)](https://twitter.com/PierB/status/842590294776451072?ref_src=twsrc%5Etfw)
 
 Lifecycle timing issues account for a lot of the questions asked about `setState()` on StackOverflow. Of course, React is very popular, so those questions have been [asked](http://stackoverflow.com/questions/25996891/react-js-understanding-setstate)[many](http://stackoverflow.com/questions/35248748/calling-setstate-in-a-loop-only-updates-state-1-time) [times](http://stackoverflow.com/questions/30338577/reactjs-concurrent-setstate-race-condition/30341560#30341560), with answers of various quality and correctness.
 

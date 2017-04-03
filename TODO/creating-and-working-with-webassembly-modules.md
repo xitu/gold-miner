@@ -5,7 +5,7 @@
 > * 校对者：[Tina92](https://github.com/Tina92)、[zhouzihanntu](https://github.com/zhouzihanntu)
 
 # 创建和使用 WebAssembly 组件
-*这是 WebAssembly 系列文章的第四部分。如果你还没阅读过前面的文章，我们建议你[从头开始](https://github.com/xitu/gold-miner/blob/master/TODO/a-cartoon-intro-to-webassembly.md)。*
+**这是 WebAssembly 系列文章的第四部分。如果你还没阅读过前面的文章，我们建议你[从头开始](https://github.com/xitu/gold-miner/blob/master/TODO/a-cartoon-intro-to-webassembly.md)。**
 
 WebAssembly 是一种不同于 JavaScript 的在 web 页面上运行程序语言的方式。以前当你想在浏览器上运行代码来实现 web 页面不同部分的交互时，你唯一的选择就是 JavaScript。
 
