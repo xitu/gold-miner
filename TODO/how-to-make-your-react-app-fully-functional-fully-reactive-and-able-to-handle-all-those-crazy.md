@@ -1,63 +1,64 @@
 > * 原文地址：[How to make your React app fully functional, fully reactive, and able to handle all those crazy side effects](https://medium.freecodecamp.com/how-to-make-your-react-app-fully-functional-fully-reactive-and-able-to-handle-all-those-crazy-e5da8e7dac10#.amw15u5zd)
 * 原文作者：[Luca Matteis](https://medium.freecodecamp.com/@lmatteis)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者： 
-* 校对者：
+* 译者：[ZhangFe ](https://github.com/ZhangFe)
+* 校对者：[AceLeeWinnie](https://github.com/AceLeeWinnie)，[liucaihua9](https://github.com/liucaihua9)
 
-# How to make your React app fully functional, fully reactive, and able to handle all those crazy side effects
+# 如何让你的 React 应用完全的函数式，响应式，并且能处理所有令人发狂的副作用
 
 ![](https://cdn-images-1.medium.com/max/2000/1*lD7IVk_sCcOcgVDOJPn7cA.jpeg)
 
-[Functional reactive programming](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754) (FRP) is a paradigm that has gained lots of attention lately, especially in the JavaScript front end world. It’s an overloaded term, but it describes a simple idea:
+[函数响应式编程](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754) (FRP) 是一个在最近获得了无数关注的编程范式，尤其是在 JavaScript 前端领域。它是一个有很多含义的术语，却描述了一个极为简单的想法:
 
-> Everything should be pure so it’s easy to test and reason about **(functional)**, and async behavior should be modeled using values that change over time **(reactive)**.
+> 所有的事物都应该是纯粹的以便于测试和推理 **（函数式）**，并且使用随时变化的值给异步行为建模 **（响应式）**。
 
-React in itself is not fully functional, nor is it fully reactive. But it is inspired by some of the concepts behind FRP. [Functional components](https://facebook.github.io/react/docs/components-and-props.html) for instance are pure functions with respect to their props. And [they are reactive to prop or state changes](https://facebook.github.io/react/docs/react-component.html#updating).
+React 本身并非完全的函数式，也不是完全的响应式。但是它受到了一些来自 FRP 背后理念的启发。例如 [函数式组件](https://facebook.github.io/react/docs/components-and-props.html) 就是一些依赖他们 props 的纯函数。 并且 [他们响应了 prop 和 state 的变化](https://facebook.github.io/react/docs/react-component.html#updating).
+(译者注：无状态组件只接收 props ，这里的 state 应该是指父元素的）
 
-But when it comes to **handling side effects**, React — being only the view layer — needs help from other libraries, such as [Redux](https://github.com/reactjs/redux).
+但是一谈到**副作用的处理**（side effects），仅作为视图层的 React 就需要一些其他库的帮助了，比如说[Redux](https://github.com/reactjs/redux)。
 
-In this article I’ll talk about [redux-cycles](https://github.com/cyclejs-community/redux-cycles), a Redux middleware that helps you to handle side effects and async code in your React apps in a functional-reactive way — a trait which is not yet shared by other Redux side effect models — by leveraging the [Cycle.js](https://cycle.js.org/) framework.
+在这篇文章里我会谈谈 [redux-cycles](https://github.com/cyclejs-community/redux-cycles)，它是一个 Redux 中间件，借助 [Cycle.js](https://cycle.js.org/) 框架的优势，帮助你以一种函数式和响应式的方法处理你 React 应用中的副作用和异步代码，这是一个尚未被其他 Redux 副作用模型共享的特征。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*G_eskQOkhm6nv-NDylvbjw.jpeg)
 
-### What are side effects?
+### 什么是副作用？
 
-A side effect modifies the outside world. Everything in your app that deals with making HTTP requests, writing to localStorage, or even manipulating the DOM, is considered a side effect.
+副作用即是改变了外部世界的行为。你的应用里所有发出 HTTP 请求，写入 localStorage 的操作，或者甚至操作 DOM 都被认为是副作用。
 
-Side effects are bad. They are hard to test, complicated to maintain, and generally they are where most of your bugs lie. Your goal is therefore to minimize/localize them.
+副作用是不好的，他们很难去测试，维护起来很复杂，并且通常你的 bug 都出现在这里。因此你的目标就是最小化或者定位他们。
 
 ![](https://cdn-images-1.medium.com/max/800/1*GENmEdK1Rq2dB6H4uxzVNw.jpeg)
 
-> “In the presence of side effects, a program’s behavior depends on past history; that is, the order of evaluation matters. Because understanding an effectful program requires thinking about all possible histories, side effects often make a program harder to understand.” — [Norman Ramsey](http://stackoverflow.com/users/41661/norman-ramsey)
+> “由于有副作用的存在，一个程序的行为依赖于历史记录，即代码执行的顺序，因为理解一个有效的程序需要考虑到所有可能的历史记录，副作用经常会使一个程序很难理解。” —  [Norman Ramsey](http://stackoverflow.com/users/41661/norman-ramsey)
 
-Here are several popular ways to handle side effects in Redux:
+以下是几种现今用来处理 Redux 中的副作用比较流行的方法：
 
-1. [redux-thunk](https://github.com/gaearon/redux-thunk) — puts your side effects code inside action creators
-2. [redux-saga](https://github.com/redux-saga/redux-saga) — makes your side effects logic declarative using sagas
-3. [redux-observable](https://github.com/redux-observable/redux-observable) — uses reactive programming to model side effects
+1. [redux-thunk](https://github.com/gaearon/redux-thunk)  — 将你有副作用的代码放在 action creators 中
+2. [redux-saga](https://github.com/redux-saga/redux-saga)  —  使用 saga 声明你的副作用逻辑
+3. [redux-observable](https://github.com/redux-observable/redux-observable)  —  使用响应式编程来给副作用建模
 
-The problem is that none of these are both pure and reactive. Some of them are pure (redux-saga) while others are reactive (redux-observable), but none of them share all of the concepts we introduced earlier about FRP.
+然而问题是以上方法中没有一个既是纯函数式的又是响应式的。他们中有的（redux-saga）是纯函数有些（redux-observable）则是响应式的，但是没有一个拥有我们前文介绍的 FRP 所拥有的所有的概念。
 
-[**Redux-cycles**](https://github.com/cyclejs-community/redux-cycles) **is both pure and reactive.**
+[**Redux-cycles**](https://github.com/cyclejs-community/redux-cycles) **既是纯函数又是响应式的**
 
 ![](https://cdn-images-1.medium.com/max/800/1*KJuc4SE0zrxXuxBrfOpGjA.png)
 
-We’ll first explain in more details these functional and reactive concepts — and why you should care. We’ll then explain how redux-cycles works in detail.
+首先我们会更详细地解释这些函数式和响应式的概念以及为什么你需要关心这些，然后会详细介绍 redux-cycles 是如何工作的。
 
 ---
 
-### Pure side effects handling with Cycle.js
+### 使用 Cycle.js 以纯函数的方式处理副作用
 
-An HTTP request is probably the most common side effect. Here’s an example of an HTTP request using redux-thunk:
+HTTP 请求大概是最常见的副作用了。下面是一个使用 redux-thunk 发出 HTTP 请求的例子：
 
     function fetchUser(user) {
       return (dispatch, getState) => 
       fetch(`https://api.github.com/users/${user}`)
     }
 
-This function is imperative. Yes it’s returning a promise and you can chain it together with other promises, but `fetch()` is doing a call, at that specific moment in time. It is not pure.
+这个函数是命令式的。虽然它返回了一个 promise 并且你可以使用其他 promises 来链式调用它，但是 `fetch()` 已经执行了，在这个特定时刻它已经不是一个纯函数了。
 
-The same applies to redux-observable:
+这同样适用于 redux-observable:
 
     const fetchUserEpic = action$ =>
       action$.ofType(FETCH_USER)
@@ -66,11 +67,11 @@ The same applies to redux-observable:
             .map(fetchUserFulfilled)
         );
 
-`ajax.getJSON()`makes this snippet of code imperative.
+`ajax.getJSON()` 使得这段代码是命令式的。
 
-**To make an HTTP request pure, you shouldn’t think about “make an HTTP request now” but rather “let me describe how I want my HTTP request to look like” and not worry about when it actually happens or who makes it.**
+**为了保证一个 HTTP 请求是纯粹的，你不应该去想“立刻发送一个 HTTP 请求”而是应该“描述一下我希望 HTTP 请求是什么样的”并且不要担心它何时发出去或者谁调用了它**
 
-In [Cycle.js](https://cycle.js.org/) this is essentially how you code all things. Everything you do with the framework is about creating descriptions about what you want to do. These descriptions are then sent to these things called [**drivers**](https://cycle.js.org/drivers.html) (via reactive streams) which actually take care of making the HTTP request:
+这就是你在 [Cycle.js](https://cycle.js.org/) 中编写所有代码的本质。你使用这个框架所做的每件事都是创建你想做某事的描述。这些描述之后会被发送给那些实际关心 HTTP 请求的 [**drivers**](https://cycle.js.org/drivers.html) （通过响应式数据流）。
 
     function main(sources) {
       const request$ = xs.of({
@@ -82,29 +83,30 @@ In [Cycle.js](https://cycle.js.org/) this is essentially how you code all things
       };
     }
 
-As you can see from this snippet of code, there’s no function call to actually make the request. If you run this code you’ll see the request happen regardless. So what’s actually happening behind the scenes?
+就像你在上面这个代码片段中看到的，我们并没有调用函数去发出请求。如果你执行这段代码你会发现请求立即就发出了，那么背后究竟发生了什么呢？
 
-The magic happens thanks to drivers. Cycle.js knows that when your function returns an object with an `HTTP` key, it needs to handle the messages that it receives from this stream, and perform an HTTP request accordingly (via an HTTP driver).
+神奇之处就在于 drivers。当你的函数返回了一个包含 `HTTP` 键值的对象时，Cycle.js 知道需要处理它从数据流收到的消息，并且执行相应的 HTTP 请求（通过 HTTP driver）。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*2eF9bIE5BQExjIg1navQ-Q.png)
 
-**The key point is that you didn’t get rid of the side effect — the HTTP request still needs to happen — but you localized it outside of your application code.**
+**关键的一点是，你虽然没有摆脱副作用，HTTP 请求依然要发出，但是你将它定位在了你的应用代码之外**
 
-Your functions are much easier to reason about, and are especially much easier to test because you can simply test whether your functions emit the right messages — no weird mocking or timing needed.
+你的函数更加容易理解，尤其是更容易测试，因为你只要测试你的函数是否发出了正确的消息，不需要浪费那些无用的 mock 时间。
 
-### Reactive side effects
+### 响应式副作用
 
-In the earlier examples we touched on reactivity. There needs to be a way to communicate with these so called drivers about “doing things in the outside world” and be notified about “things that happen in the outside world”.
+在之前的例子里我们提到了响应式。这需要有一种和这些 drivers 沟通“在外部世界做某事”和被告知“外部世界有某事已经发生了”的方式。
 
-[Observables](http://reactivex.io/documentation/observable.html) (aka streams) are the perfect abstraction for this sort of async communication.
+[Observables](http://reactivex.io/documentation/observable.html) (aka streams) 是对于这类异步交互的完美抽象。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Y9HjN7iA7k6QQm_l7MaP9w.png)
 
-Whenever you want to “do something” you emit to an output stream a description of what you want to do. These output streams are called **sinks** in the Cycle.js world.
+每当你想“做某事”时，你会向输出流发出你想做什么的描述。在 Cycle.js 里这些输出流被称作 **sinks**。
 
-Whenever you want to “be notified about something that happened” you use an input stream (called **sources**) and simply map over the stream values to learn about what happened.
+每当你想“被通知某事”你只要使用一个输入流（被称作**sources**）并且遍历一次流的值就能知道发生了什么。
 
-This forms a sort of **reactive** **loop** which requires a different thinking to understand than normal imperative code. Let’s model an HTTP request/response lifecycle using this paradigm:
+这形成一种 **反应式** **循环**，相比于一般的命令式代码，你需要一个不同的思维来理解它。
+让我们使用这个范例来建模一个HTTP请求/响应生命周期：
 
     function main(sources) {
       const response$ = sources.HTTP
@@ -123,41 +125,41 @@ This forms a sort of **reactive** **loop** which requires a different thinking t
       return sinks;
     }
 
-The HTTP driver knows about the `HTTP` key returned by this function. It’s a stream containing an HTTP request description for a GitHub url. It’s telling the HTTP driver: “I want to make a request to this url”.
+HTTP driver 知道这个函数返回的 `HTTP` 键值。这是一个包含请求 GitHub 链接的 HTTP 请求流描述。它正在告诉 HTTP driver ：“我想要请求这个地址”。 
 
-The driver then knows to perform the request, and sends the response back to the main function as a source (`sources.HTTP`) — note that sinks and sources use the same object key.
+之后这个 dirver 知道要执行请求，并且将返回值作为 sources（sources.HTTP）返回给 main 函数 — 注意 sinks 和 sources 使用相同的键值。
 
-Let’s explain that again: **we use** **`sources.HTTP`** to **“be notified about HTTP responses”. And we return** **`sinks.HTTP`** **to “make HTTP requests”.**
+让我们再解释一次：**我们用** **`sources.HTTP`** 来 **“被通知 HTTP 已经返回了”，并且我们返回了`sinks.HTTP` 来“发送 HTTP请求”**。
 
-To explain this important reactive loop here’s an animation:
+这里有一个动画来解释这一重要的响应式循环：
 
 ![](https://cdn-images-1.medium.com/max/1000/1*RfpxAyyI0h0itIABMZ9TfA.gif)
 
-This seems counter-intuitive compared to normal imperative programming: why would the code for reading the response exist before the code responsible for the request?
+相比于一般的命令式编程，这似乎是反直觉的：为什么读取响应值的代码在发出请求的代码之前？
 
-This is because it doesn’t matter where the code is in FRP. All you have to do is send descriptions, and listen for changes. Code order is not important.
+这是因为在 FRP 中代码在哪是不重要的。所有你要做的就是发送描述，并且监听变化，代码的顺序并不重要。
 
-This allows for very easy code refactoring.
+这使得代码非常容易重构。
 
 ---
 
-### Introducing redux-cycles
+### 介绍 redux-cycles
 
 ![](https://cdn-images-1.medium.com/max/800/1*_iikpPfUOR9f04iFGDJQLA.png)
 
-At this point you might be asking, what does all of this have to do with my React app?
+此时你可能会问，所有的这些和我的 React 应用有什么关系？
 
-You’ve learned about the advantages of making your code pure, by only writing descriptions of what you want to do. And you’ve learned about the advantages of using Observables to communicate with the outside world.
+仅仅通过写一些你想做某事的描述，你已经学习到了使用纯函数的优势，并且学习了用观察者去和外部世界交流的优势。
 
-You’ll now see how to use these concepts within your existing React apps to, in fact, go fully functional and reactive.
+现在，你将看到如何在你当前的 React 应用里使用这些概念去变成完全的函数式和响应式。
 
-#### Intercepting and dispatching Redux actions
+#### 拦截并且调度 Redux 行为
 
-With Redux you dispatch actions to tell your reducers that you want a new state.
+使用 Redux 时你需要 dispatch actions 来告诉你的 reducers 你需要一个新的state。 
 
-This flow is synchronous, meaning that if you want to introduce async behavior (for side effects) you need to use some form of middleware that intercepts actions, does the async side effect, and emits other actions accordingly.
+这是一个同步的流程，意味着一旦你想执行异步行为（为了副作用）你需要使用一些中间件来拦截这些 actions，相应的，你要触发其他的 actions 来执行这个异步副作用。
 
-This is exactly what [redux-cycles](https://github.com/cyclejs-community/redux-cycles) does. It’s a middleware that intercepts redux actions, enters the Cycle.js reactive loop, and allows you to perform other side effects using other drivers. It then dispatches new actions based on the async dataflow described in your functions:
+这正是 [redux-cycles](https://github.com/cyclejs-community/redux-cycles) 所做的。它是一个中间件，拦截了 redux actions 后进入 Cycle.js 的响应式循环，并且允许你使用 drivers 去执行其他副作用。然后它基于你函数里的异步数据流描述 dispatch 一个新的 action。
 
     function main(sources) {
       const request$ = sources.ACTION
@@ -179,23 +181,25 @@ This is exactly what [redux-cycles](https://github.com/cyclejs-community/redux-c
       return sinks;
     }
 
-In the above example there’s a new source and sink introduced by redux-cycles — **`ACTION`**. But the communication paradigm is the same.
 
-It listens to actions being dispatched from the Redux world using `sources.ACTION`. And it dispatches new actions to the Redux world by returning `sinks.ACTION`.
+在上面这个例子里有一个新的 source 和 sink - **`ACTION`**。但是数据通信的模式是一致的。
 
-Specifically it emits standard [Flux Actions objects](https://github.com/acdlite/flux-standard-action).
+它使用 `sources.ACTION` 来监听被 Redux 调用的 actions。并且通过返回 `sinks.ACTION` 来dispatch 新的 actions。
 
-The cool thing is that you can combine stuff happening from other drivers. In the earlier example **things happening in the `HTTP` world actually trigger changes to the `ACTION` world, and vice-versa**.
+具体点说它是触发了标准的 [Flux Actions objects](https://github.com/acdlite/flux-standard-action)。
 
-— Note that communicating with Redux happens entirely through the `ACTION` source/sink. Redux-cycles’ drivers handle the actual dispatching for you.
+最酷的事情是你可以结合其他 drivers 发生的事。在之前的例子里 **在 `HTTP` 域里发生的事确实触发了 `ACTION` 域，反之亦然**。
+
+— 注意，与 Redux 的通信完全通过 `ACTION` 的 source 和 sink。Redux-cycle 的 drivers 负责处理实际的 dispatch。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*A30wroaUd6WiLjq5c-fxYw.gif)
 
-### What about more complex apps?
+### 更复杂的应用程序?
 
-How does one develop more complex apps if you’re just writing pure functions that transform streams of data?
+如果只写那些转换数据流的纯函数该如何开发一个复杂的应用呢？
 
-Turns out you can do pretty much anything using [already built drivers](https://github.com/cyclejs-community/awesome-cyclejs#drivers). Or you can easily build your own — here’s a simple driver which logs messages written to its sink.
+使用[已有的 drivers](https://github.com/cyclejs-community/awesome-cyclejs#drivers)你已经可以做很多事了。或者你可以创建你自己的 drivers — 下面是一个简单的 driver，它在控制台上输出了写入其 sink 的消息。
+
 
     run(main, {
       LOG: msg$ => msg$.addListener({
@@ -203,9 +207,9 @@ Turns out you can do pretty much anything using [already built drivers](https://
       })
     });
 
-`run` is part of Cycle.js, which runs your main function (first argument) and passes along all the drivers (second argument).
+`run` 是 Cycle.js 的一部分，它执行你的 main 函数（第一个参数）并且传入其他所有的 drivers（第二个参数）。
 
-Redux-cycles introduces two drivers which allow you to communicate with Redux; `makeActionDriver()` & `makeStateDriver()`:
+Redux-cycles 推荐了两个你可以和 Redux 通信的 drivers， `makeActionDriver()` & `makeStateDriver()`:
 
     import { createCycleMiddleware } from 'redux-cycles';
 
@@ -222,33 +226,33 @@ Redux-cycles introduces two drivers which allow you to communicate with Redux; `
       STATE: makeStateDriver()
     })
 
-`makeStateDriver()` is a read-only driver. This means you can only read `sources.STATE` in your main function. You can’t tell it what to do; you can only read data from it.
+`makeStateDriver()` 是一个只读的 driver。这意味着在你的 main 函数里只能读取`sources.STATE`。你不能让它做什么，只能从它读取数据。
 
-Every time the Redux state changes, the`sources.STATE` stream will emit the new state object. This is useful [when you need to write specific logic](https://github.com/cyclejs-community/redux-cycles#drivers) based on the current state of the app.
+每当 Redux 的 state 发生了变化，`sources.STATE` 流就会触发产生一个新的 state 对象。[当你需要基于当前应用的数据写一些特定逻辑时](https://github.com/cyclejs-community/redux-cycles#drivers) 非常有用
 
 ![](https://cdn-images-1.medium.com/max/2000/1*YyiXu9GK7EKVUHQZnZnsKw.png)
 
-### Complex async data flow
+### 复杂的异步数据流
 
 ![](https://cdn-images-1.medium.com/max/800/1*7OmEwOnki2v-cR7mESwD7w.gif)
 
-Another great advantage of reactive programming is the ability to use operators to compose streams into other streams — effectively treating them as arrays of values over time: you can [`map`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/gettingstarted/categories.md) [`filter`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/gettingstarted/categories.md) [`and even`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/gettingstarted/categories.md) [`reduce`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/gettingstarted/categories.md) them.
+响应式编程的另一个巨大优势就是能够使用运算符将流组成其他流，可以随时将它们当做数据对待：你可以对它们进行 [`map`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/gettingstarted/categories.md) [`filter`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/gettingstarted/categories.md) [`甚至`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/gettingstarted/categories.md) [`reduce`](https://github.com/Reactive-Extensions/RxJS/blob/master/doc/gettingstarted/categories.md) 这些操作。
 
-Operators make explicit data-flow graphs possible; i.e., reasoning of dependencies between operations. Allowing you to visualize data flowing through various operators like the animation above.
+运算符使得显式的数据流图（即操作符之间的依赖逻辑）成为可能。允许你通过各种操作符将数据流可视化，就像上面的动画一样。
 
-Redux-observable also allows you to write complex async flows — they use a multiplex WebSocket example as their selling point — however, the power of writing these flows in a **pure** fashion is what really sets Cycle.js apart.
+Redux-observable 也允许你写复杂的异步流，他们用一个复杂的 WebSocket 例子作为它们的卖点，然而以纯函数的方式编写这些流才是 Cycle.js 真正区别于其他方式的强大之处。
 
-> Since everything is pure dataflow we can imagine a future where programming will be nothing other than plugging together blocks of operators.
+> 由于一切都是纯数据流，我们可以想象到未来的编程将只是将操作符块连接到一起。
 
-### Testing with marble diagrams
+### 使用弹子图（marble diagrams）测试
 
 ![](https://cdn-images-1.medium.com/max/800/1*2uZuH38HrfZwZNgjJB3eNg.png)
 
-Last but not least comes testing. This is where redux-cycles (and generally all Cycle.js apps) really shines.
+最后但也值得关注的是测试。这才是 redux-cycles（和通常所有的 Cycle.js 应用一样）真正闪耀的地方。
 
-Because everything is pure in your app code, to test your main function you simply give it streams as input and expect specific streams as output.
+因为你的应用代码里都是纯函数，要测试你的主要功能，你只需要将其作为输入流，并将特定流作为输出即可。
 
-Using the wonderful [@cycle/time](https://github.com/cyclejs/time) project, you can even draw [marble diagrams](http://rxmarbles.com/) and test your functions in a very visual way:
+使用这个很棒的 [@cycle/time](https://github.com/cyclejs/time) 项目，你甚至可以画一个 [弹子图](http://rxmarbles.com/) 并且以一种可视化的方式去测试你的函数：
 
     assertSourcesSinks({
       ACTION: { '-a-b-c----|': actionSource },
@@ -258,22 +262,23 @@ Using the wonderful [@cycle/time](https://github.com/cyclejs/time) project, you 
       ACTION: { '---a------|': actionSink },
     }, searchUsers, done);
 
-[This piece of code](https://github.com/cyclejs-community/redux-cycles/blob/master/example/cycle/test/test.js) executes the [`searchUsers`](https://github.com/cyclejs-community/redux-cycles/blob/master/example/cycle/index.js#L31) function, passing it specific sources as input (first argument). Given these sources it expects the function to return the provided sinks (second argument). If it doesn’t, the assertion fails.
+[这段代码](https://github.com/cyclejs-community/redux-cycles/blob/master/example/cycle/test/test.js) 执行了 [`searchUsers`](https://github.com/cyclejs-community/redux-cycles/blob/master/example/cycle/index.js#L31) 函数，将特定源作为输入（以第一个参数的方式）。给定的这些 sources 期望函数返回所提供的 sinks（以第二个参数的方式）。如果不是，断言就会失败。
 
-Defining streams graphically this way is especially useful when you need to test async behavior.
+当你需要测试异步行为时，以图形的方式定义流特别有用。
 
-When the `HTTP` source emits `r` (response), you immediately expect `a` (action) to appear in the `ACTION` sink — they happen at the same time. However, when the `ACTION` source emits a burst of `-a-b-c`, you don’t expect anything to appear at that moment in the `HTTP` sink.
+当 `HTTP` 源发出一个 `r` （响应），你会立刻看到 `a`（action）出现在 `ACTION` sink 中 — 他们同时发生。然而，当  `ACTION` source 发出一段 `-a-b-c`，你不要指望此时 `HTTP` sink 会发生什么。
 
-This is because `searchUsers` is meant to debounce the actions it receives. It’ll only send off an HTTP request after 800 milliseconds of inactivity on the ACTION source stream: it’s implementing an autocomplete functionality.
+这是因为 `searchUsers` 去抖了他接收到的 actions。它只会在 ACTION source 流停止活动 800 毫秒后发送 HTTP 请求，这是一个自动完成的功能。
 
-Testing this sort of async behavior is trivial with pure and reactive functions.
+测试这种异步行为对于纯函数和响应式函数来说是微不足道的。
 
-### Conclusion
+### 结论
 
-In this article we explained the true power of FRP. We introduced Cycle.js and its novel paradigms. The Cycle.js [awesome list](https://github.com/cyclejs-community/awesome-cyclejs) is an important resource if you want to learn more about this technology.
+在这篇文章里我们介绍了 FRP 的真正力量。我们介绍了 Cycle.js 和它新颖的范式。如果你想学习更多的关于 FRP 的知识，Cycle.js [awesome list](https://github.com/cyclejs-community/awesome-cyclejs) 是一个很重要的资源。
 
-Using Cycle.js on its own — without React or Redux — requires a bit of a switch in mentality but can be done if you’re willing to abandon some of the technologies and resources in the React/Redux community.
+只使用 Cycle.js 本身而不使用 React 或者 Redux 可能有点痛苦， 但是如果你愿意放弃一些来自 React 或 Redux 社区的技术和资源的话还是可以做到的。
 
-Redux-cycles on the other hand allows you to continue using all of the great React stuff while getting your hands wet with FRP and Cycle.js.
+另一方面，Redux-cycles 允许你继续使用所有的伟大的 React 的内容并且使用 FRP 和 Cycles.js 使你更加轻松。
 
-Special thanks to [Gosha Arinich](https://medium.com/@goshakkk) and [Nick Balestra](https://medium.com/@nickbalestra) for maintaining the project along with myself, and to [Nick Johnstone](https://twitter.com/widdnz) for proof reading this article.
+也十分感谢 [Gosha Arinich](https://medium.com/@goshakkk) 以及 [Nick Balestra](https://medium.com/@nickbalestra) 和我一起维护这个项目，也谢谢 [Nick Johnstone](https://twitter.com/widdnz) 校对这篇文章。
+
