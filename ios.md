@@ -1,3 +1,4 @@
+* [一名 iOS 开发者的 React Native 开发经历](https://juejin.im/post/58df4c3fa0bb9f0069e2f2bd/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lsvih](https://github.com/lsvih)) 翻译)
 * [优化 Swift 的编译时间](https://juejin.im/post/58df1d75570c35005796966b/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([DeepMissea](https://github.com/DeepMissea)) 翻译)
 * [看！Swift 里竟然有红绿灯 🚦！](https://juejin.im/post/58ddbc612f301e0062fed742/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([DeepMissea](https://github.com/DeepMissea)) 翻译)
 * [原生 iOS(Swift) 和 React-Native 的性能比较](https://juejin.im/post/58ca6d5f44d90400682a215c/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([DeepMissea](https://github.com/DeepMissea)) 翻译)
