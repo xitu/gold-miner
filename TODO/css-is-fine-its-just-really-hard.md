@@ -6,69 +6,73 @@
 
 ---
 
-# CSS is Fine, It’s Just Really Hard
+# CSS很棒，可是太难了
 
-Everyone’s upset about CSS again. Now’s the time where I would sit firmly on my high horse and [write some satire](https://medium.com/friendship-dot-js) to make myself feel better, but instead here are some hot takes.
+大家对CSS再次感到不安。现在是时候站在制高点 [写一些讽刺性的文章](https://medium.com/friendship-dot-js) 让自己感觉好一些了，不过今天说的是一些热门话题。
 
-CSS is fine. It’s just really hard, so I compile to it.
+CSS 很棒。它只是太难了，所以我对它进行了一些编译。
 
 —
 
-My name is Jordan and I write a lot of JavaScript and CSS. I’m really, *really* good at those two things. If CSS were an olympic event I’d easily qualify but probably wouldn’t get a medal. But I don’t need a medal, because I have a trophy with a computer on it.
+我叫 Jordan ，我写过很多的 JavaScript 和 CSS，而且我真的非常擅长这两件事。如果 CSS 是奥运会项目的话我很容易就能获得参赛资格，但是可能得不到奖牌。不过我并不需要一个奖牌，因为我有一个计算机相关的奖杯。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*ioYNZ-FgsSpoos6b3iKblg.png)
 
-I’ve been drawing rectangles on computer and telephone screens for a long, long time. I’ve written lots of bad CSS, many thousands of lines of poor Less code, and megabytes of terrible Sass. It’s in my blood.
+我已经在电脑和手机屏幕上画了很久的矩形。我写了很多不好的 CSS，成千上万行较差的 Less 代码和大量可怕的 Sass。他们已经融入我的血液了。
 
-But I’ve also written lots of good CSS! I’ve made triangles with borders, bezier curves with CSS transforms, 60fps scrolling animations, and tooltips that would knock your socks off.
+但是我也写过很多很棒的 CSS！我使用 borders 画过三角形，使用 CSS transforms 绘制贝塞尔曲线，制作 60fps 的滚动动画，以及会让你大吃一惊的工具提示。
 
-It’s a great technology. Give me 30 seconds I can write some plain HTML and get some fancy Times New Roman text and hyperlinks with the worst shade of blue you’ve ever seen. Give me another 30 seconds and I’ll make that shade of blue a little nicer, and I’ll use a pretty font.
+CSS 是一项非常棒的技术。给我 30 秒我可以写一些纯 HTML 并且使用你从未见过的最差的蓝色和 Times New Roman 字体展示一些花哨的的文本和超链接。再给我 30 秒我又会使那个蓝色好看一些，并且我可以用一个漂亮的字体。
 
-It’s intuitive! If I want all my links to look the same, I can do that! Images with pretty borders and margins? No problem. That’s what this shit was *made for.*
+它非常直观。如果我想我所有的链接看起来一样，我随时可以办到。希望图片有漂亮的边框和外边距？没问题。这就是 CSS 被创造的原因。
 
-It’s performant! Many person-centuries have gone into making CSS fast, debuggable, and all-around pleasant to look at. CSS is here to stay, and it’s a wonderful thing that we’re able to use such sophisticated tooling for free. Not to mention the countless blog posts and cool demos we have access to with a quick Google search.
-
-—
-
-When I was younger, I realized that I wanted my borders and link text to be the same color — and changing it in two or three different places every time was super awful. Then I discovered Less. Now I could make a `@wonderfulBlue` and use it everywhere. *Well actually Jordan CSS has variables now…*
-
-Then I started second-guessing all the long comments I left for why`#left-section` was exactly 546px wide. (250 * 2 + 23 * 2 duh). Then I started writing my math in Less: `2 * @sectionWidth + 2 * @sectionPadding`. *I guess you’re unfamiliar with calc(), Jordan, because that has phenomenal browser support…*
-
-Back when `border-radius` had to be polyfilled, I started including all the prefixes everywhere, then moved things over to a `border-radius()` mixin that I could just drop-in when I needed it. *Well if you had only used component clas —* Dude can you stop? Let me finish my article here. *Sorr —* It’s fine don’t worry about it, just hold on.
-
-I was writing Less when CSS wasn’t cutting it for me. CSS was still getting written, let me assure you, and it was working great on my users’ machines. I just wasn’t the one writing it — I was too busy 10x’ing.
+长久以来，很多人都在为了让 CSS 更快速，可调试以及看起来更舒适做出努力。
+CSS 现在也是这么发展的，并且我们可以免费使用这些复杂的工具，这简直太棒了。更不用说无数的博客和超酷的示例，我们可以利用 Google 搜索快速检索到这些信息。
 
 —
 
-I started [working on teams](https://www.khanacademy.org/), on these big pages with lots of classes and variables. My work then involved navigating the existing markup, reusing variables, refactoring out common patterns into their own utility classes and mixins, and all the other things that developers get paid to do.
+当我年轻的时候，我意识到如果每当我想让边框和超链接文本是同一个颜色的时候都需要在两三个不同的地方去改变是非常可怕的。然后我发现了 LESS。现在我可以定义一个 `@wonderfulBlue` 并且在任何地方去使用它。*好吧，现在 Jordan 的 CSS 有变量了...*
 
-Some of those pages got really big, so often times we would split up our CSS (well, Less) and JavaScript into individual files so the users didn’t have to download code for the exercise page to watch a video.
 
-Sometimes, we’d remove too much code, and things wouldn’t look right. Because the homepage menu would expect `.left-arrow` to be around, but now the styles for that class were in `exercise.css`. Sometimes we wouldn’t notice because that `.left-arrow` would be neatly tucked away behind a couple mouse clicks in a nav bar. *Well you should have had screenshot testing or a stricter QA proce —* What did I **just** say?
+然后我开始考虑为什么我留下的所有的长评论模块 `#left-section` 的宽度总是546px（250 * 2 + 23 * 2）？于是我开始使用 Less 写我的数学表达式：`2 * @sectionWidth + 2 * @sectionPadding`。*我猜测你不熟悉 calc()，因为它浏览器兼容性不好*
 
-Phew, this was hard work! But hey code has bugs in it sometimes, it’s cool. Fix ’em and move on.
+当年 `border-radius` 需要被 polyfill 时，我在所有使用到的地方添加前缀。后来我使用了 `border-radius()` mixin，这样只要在我需要使用的时候把代码添加上就可以了。*好吧如果你只用到了组件分类呢 —*。伙计你能停一停么？让我完成我的文章先。*我错了—*。没事，别担心，继续听下去。
 
-Solutions to this problem existed in the form of [BEM](http://getbem.com/) and [SMACSS](https://smacss.com/). You know, those funky class names you see with all the dashes and underscores. Yeah, they’re sweet, and they’re a really nice way to organize your code.
-
-But, meh, this was weird. Why was I spending time manually refactoring our CSS into these funky class names? It was automatic, it was grunt work, but it was riddled with human error.
+当我需要分割 CSS 代码时，我开始写 Less。我向你保证我依然在写 CSS，并且它在我的用户的设备上工作的非常棒。只是我比原来忙了 10 倍，我无法单独去编写它了。
 
 —
 
-Now’s the time where I throw in a personal story about my grandmother writing machine code onto punch cards by hand. But, my grandma didn’t do that. She worked for our senator on the welfare board and didn’t have time for the computer stuff, though she was certainly smart enough. I could lie but why do this dance?
+我开始[团队作战](https://www.khanacademy.org/)，在这些大型页面上有很多类和变量。我的工作就是对现有的标记做导航，复用变量，将常见的模式重构为自己的实用类和方法，以及其他所有开发者应该做的事。
 
-Anyway imagine a world where my grandmother *did* write machine code by hand onto punch cards. Again, riddled with human error! Got a bug? Punch ’em all again. Dropped the cards on the floor? Pick ’em all up and re-sort them, or just start over. Weird right? Couldn’t we make robots do this for us?
+他们中的某些页面已经很庞大了，因此通常我们会将我们的 CSS （好吧，Less）和 JavaScript 分割成独立的文件，这样用户就不必下载练习页面的代码来观看视频。
 
-So that’s exactly what my theoretical grandmother did, she built a machine to punch the cards for her. Okay, she didn’t, but someone else did! And we got cool stuff like assembly code, and FORTRAN, and C. Each step of the way folks took to their equivalent twitter dot com and chastised this new technology. **Just use punch cards! Just use FORTRAN! Just use C —** okay I guess people still do this one.
+有些时候，我们移除了很多代码后样式看起来就不对了。因为我们的主页菜单可能希望有一个 `.left-arrow` 类，但是现在这个 class 的样式在 `exercise.css` 文件里。通常我们注意不到这点，因为导航条被鼠标点击几次后 `.left-arrow` 会被整齐地卷起来。*这么看来你应该有截图测试或更严格的 QA 过程*，我刚才说了什么来着？
+
+唉，这是很辛苦的工作！但是代码就是偶尔会出 bug，修复它们并且继续前进，这是件很酷的事。
+
+解决这个问题的方案就是使用 [BEM](http://getbem.com/) 和 [SMACSS](https://smacss.com/) 的形式。你会发现这些带有短横线和下划线的新颖类名是一个非常棒的组织你代码的形式。
+
+但是，呃，这很奇怪。为什么我要花时间手动地将我们的 CSS 重构成这些类名呢？它应该是自动化的，是 grunt 的工作，但是现在它充满了人为错误。
 
 —
 
-Which leads me to the point of this article.
+现在是时候讲一个有关我祖母手工为打卡机编写机器码的个人故事了。好吧，我的祖母并没有这么做，她为济贫委员会委员会的参议员工作，即便她已经很聪明了，她也没有足够的时间去做计算机相关的事。我可以撒谎，但是为什么这样跳舞呢？
 
-CSS is fine, it’s fast, and it’s been fine tuned for over 20 years now for all sorts of applications.
+不管怎样，想象一下假如我的祖母真的为打卡机写了机器码呢？又一次充满着人为的错误！出了一个 bug？重新敲一遍。卡片丢地上了？捡起来然后重新排序，或者直接重新开始。很奇怪吧？我们不能让机器帮我们做这些事么？
 
-But I really don’t like writing it. A lot of people don’t, so we develop these cool patterns to write it in. I don’t like writing in those patterns either, I have better stuff to do. And JavaScript is cool. *Actually JavaScript has even more prob — ahem*. [So I write my CSS with JavaScript](https://github.com/khan/aphrodite).
 
-Turning this:
+这正是我祖母做的，她制作了一个机器为她打卡。好吧，她没这么做，但是别人做了！我们有很酷的东西，如汇编语言，FORTRAN，和C语言。人们会把新技术发展的每一步都发布到 twitter 上并且批评它。**只需要用打卡机！只需要用 FORTRAN！只需要用 C —**。好吧，我猜大家也是这么做的。
+
+—
+
+这就引申到到我这篇文章的重点。
+
+CSS很好，速度很快，它已经发展了有20多年了，并且适用于各种应用程序。
+
+但是我真的不喜欢写 CSS。很多人也不喜欢，所以我们开发了这些很棒的模式去写 CSS。但是我也不喜欢以这些模式去写，我有更好的事情要去做。并且 JavaScript 也很酷。*实际上 JavaScript 有更多的可能性*。[所以我用 JavaScript 去编写我的 CSS](https://github.com/khan/aphrodite).
+
+
+把这样的代码:
 
     const Example = () => (
       <h1 className={css(styles.heading, styles.callout)}>
@@ -88,7 +92,7 @@ Turning this:
       },
     })
 
-Into this:
+变成这个样子:
 
     <h1 class="heading_1flg42u-o_O-callout_1ih983s">Hello, world!</h1>
 
@@ -99,22 +103,26 @@ Into this:
         color: tomato !important;
     }
 
-See? Still CSS. Clean CSS. Perfect CSS. To-the-**book** CSS. But I didn’t write it. The robots did. The unused stuff is gone, and I can render `<Example>` *anywhere* and know what it will look like.
+看到没？依然是 CSS，干净的 CSS，完美的 CSS，教科书般的 CSS。但它不是我写的，机器完成了这件事。没用到的代码也被移除了，我可以在任何地方渲染 `<Example>` 并且能确保样式。
 
-[Rendering Khan Academy’s Learn Menu Wherever I Please](https://medium.com/@jdan/rendering-khan-academys-learn-menu-wherever-i-please-4b58d4a9432d)
+[我可以在任何地方呈现可汗学院的学习菜单](https://medium.com/@jdan/rendering-khan-academys-learn-menu-wherever-i-please-4b58d4a9432d)
 
-—
-
-I’m on the same team as you. CSS is great, and it would be silly to replace it all together. Just as FORTRAN didn’t replace even lower-level assembly code, [aphrodite](https://github.com/khan/aphrodite) and [styled-components](https://github.com/styled-components/styled-components) aren’t replacing CSS. They’re writing CSS.
-
-Just promise me you’ll stop telling me to “learn CSS.” I know CSS. Scroll up, I have a trophy with a computer on it. My CSS is great, but it’s even better now that I’m removing as much human error as possible from it. Shouldn’t we both celebrate that?
-
-And hey, I’ll promise you that I’ll stop saying “CSS is bad.” It’s just so much fewer characters than this blog post. It fits in a hashtag! So let’s be friends again, yeah?
 
 —
 
-Go ahead and [follow me on twitter](https://twitter.com/jdan) so we can yell at each other there. If I had a book I’d probably link it here, but no one will give me a book deal. Hope you enjoyed this post ❤
+我和你们是同一阵营的。CSS 非常棒，并且一次性把他们全部替换了是非常愚蠢的。就像 FORTRAN 没有替换低级汇编代码一样，[aphrodite](https://github.com/khan/aphrodite) 和 [styled-components](https://github.com/styled-components/styled-components) 并没有替换 CSS。他们正在编写 CSS。
+
+
+但是请别再和我说去学学 CSS 了。我了解 CSS。往上翻，我在计算机领域拥有一个奖杯。我的 CSS 非常棒，但现在更棒料，因为我正在尽可能的从中移除人为错误。我们不应该庆祝么？
+
+嘿，我也答应你我会停止说 CSS 的坏话。作为博客文章这篇的篇幅太小了，它更适合一个主题标签，那么让我们再来一次？
+
+—
+
+去关注我的 [twitter](https://twitter.com/jdan)，这样我们就可以互相争论了。如果我有一本书，我可能会链接到这里，但是没人会给我出书的邀约的。希望你喜欢这篇文章 ❤
 
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[React](https://github.com/xitu/gold-miner#react)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计) 等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)。
+
+
