@@ -2,19 +2,19 @@
 > * 原文作者：[Mark Litwintschik](http://tech.marksblogg.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[luoyaqifei](http://www.zengmingxia.com)
-> * 校对者：
+> * 校对者：[forezp](https://github.com/forezp)，[1992chenlu](https://github.com/1992chenlu)
 
-# 在 Apache & Nginx 日志里检测爬虫机器人
+# 在 Apache 和 Nginx 日志里检测爬虫机器人
 
 现在阻止基于 JavaScript 追踪的浏览器插件享有九位数的用户量，从这一事实可以看出，web 流量日志可以成为一个很好的、能够感知有多少人在访问你的网站的地方。但是任何监测过 web 流量日志一段时间的人都知道，有成群结队的爬虫机器人在爬网站。然而，在 web 服务器日志里分辨出机器人和人为产生的流量是一个难题。
 
-在本文中，我将带你们重现那些我在创建一个基于 IPv4 所属和浏览器字串（browser string）的机器人检测脚本时用过的步骤。    
+在这篇博文中，我将带你们重现那些我在创建一个基于 IPv4 所属和浏览器字串（browser string）的机器人检测脚本时用过的步骤。  
 
 本文中用到的代码在这个 [代码片段](https://gist.github.com/marklit/80b875ccab8b215bfa0ecdfaa5000e7b) 里。
 
 ## IP 地址所属数据库
 
-我首先会安装 Python 和一些依赖包。接下来的指令会在一个新的 Ubuntu 14.04.3 LTS 安装过程中执行。
+首先，我会安装 Python 和一些依赖包。接下来的指令会在一个新的 Ubuntu 14.04.3 LTS 安装过程中执行。
 
     $ sudo apt-get update
     $ sudo apt-get install \
@@ -23,7 +23,7 @@
         python-virtualenv
 
 
-接下来我要创建一个 Python 虚拟环境，并且激活它。通过 pip 安装库时，会很容易导致权限问题。
+接下来我要创建一个 Python 虚拟环境，并且激活它。通过 pip 安装库时，容易遇到权限问题，这样可以缓解这种问题。
 
     $ virtualenv findbots
     $ source findbots/bin/activate
@@ -38,7 +38,7 @@ MaxMind 提供了一个免费的数据库，数据库里有 IPv4 地址对应的
     $ gunzip GeoLite2-City.mmdb.gz
 
 
-我看过一些 web 流量日志，并且抓取出来一些恰好请求了「robots.txt」的流量。从那个列表里，我重点检查了经常出现的 IP 地址中的一些，发现里面有不少作为 IP 所有者的主机和云提供商。我想知道是不是有可能攒出来一个列表，无论完不完整，包括了这些提供商所有的 IPv4 地址。
+我看过一些 web 流量日志，并且抓取出来一些恰好请求了「robots.txt」的流量。从那个列表里，我重点检查了经常出现的 IP 地址中的一些，发现不少 IP 其实是属于主机和云服务提供商的。我想知道是不是有可能攒出来一个列表，无论完不完整，包括了这些提供商所有的 IPv4 地址。
 
 Google 有一个基于 DNS 的机制，用于收集它们用于提供云的 IP 地址列表。这个最初的调用将给你一系列可以查询的主机。
 
@@ -57,7 +57,7 @@ Google 有一个基于 DNS 的机制，用于收集它们用于提供云的 IP �
 _cloud-netblocks1.googleusercontent.com. 5 IN TXT "v=spf1 ip4:8.34.208.0/20 ip4:8.35.192.0/21 ip4:8.35.200.0/23 ip4:108.59.80.0/20 ip4:108.170.192.0/20 ip4:108.170.208.0/21 ip4:108.170.216.0/22 ip4:108.170.220.0/23 ip4:108.170.222.0/24 ?all"
 ```
 
-去年三月我尝试着抓取了使用一个基于 Hadoop 的 MapReduce 任务的 IPv4 地址空间的 WHOIS 细节，并且发布了一篇 [博客文章](bulk-ip-address-whois-python-hadoop.html#ipv4-whois-mapreduce-job)。这个任务在过早结束之前，跑了接近两个小时，留给了我一份虽然不完整，但是大小可观的数据集，里面有 235,532 个 WHOIS 记录。这个数据集已经存在一年之久了，如果不需要那么新的数据的话，应该还是有价值的。
+去年三月，基于 Hadoop 的 MapReduce 任务，我尝试着抓取了整个 IPv4 地址空间的 WHOIS 细节，并且发布了一篇 [博客文章](http://tech.marksblogg.com/bulk-ip-address-whois-python-hadoop.html#ipv4-whois-mapreduce-job)。这个任务在过早结束之前，跑了接近两个小时，留给了我一份虽然不完整，但是大小可观的数据集，里面有 235,532 个 WHOIS 记录。这个数据集已经存在一年之久了，除了有点过时，应该还是有价值的。
 
     $ ls -l
 
@@ -69,7 +69,7 @@ _cloud-netblocks1.googleusercontent.com. 5 IN TXT "v=spf1 ip4:8.34.208.0/20 ip4:
 -rw-rw-r-- 1 mark mark  5961162 Mar 31  2016 part-00155
 ```    
 
-当我重点检查那些爬到「robots.txt」机器人的 IP 所属的时候，除了 Google，六家公司也出现了很多次：Amazon、百度、Digital Ocean、Hetzner、Linode 和 New Dream Network。我跑了以下的命令，尝试去取出它们的 IPv4 WHOIS 记录。
+当我重点检查那些爬到「robots.txt」的爬虫机器人的 IP 所属时，除了 Google，这六家公司也出现了很多次：Amazon、百度、Digital Ocean、Hetzner、Linode 和 New Dream Network。我跑了以下的命令，尝试去取出它们的 IPv4 WHOIS 记录。
 
     $ grep -i 'amazon'            part-00* > amzn
     $ grep -i 'baidu'             part-00* > baidu
@@ -156,7 +156,7 @@ for _name in ['amzn', 'baidu', 'digital_ocean',
 }
 ```
 
-这份七个公司的列表不是一个关于爬虫机器人来源的全面的列表。我发现很多爬虫流量来源于一些在乌克兰、中国的住宅 IP，源头很难分辨，除了分布式爬虫战队，从世界各地连接。说实话，如果我想要一个全面的爬虫机器人实用的 IP 列表，我只需要看看 [HTTP 头的顺序](http://geocar.sdf1.org/browser-verification.html)，检查下 TCP/IP 的行为，搜寻[伪造 IP 注册](http://go.whiteops.com/rs/179-SQE-823/images/WO_Methbot_Operation_WP.pdf)（请看 28 页），列表就出来了，并且这就像猫和老鼠的游戏一样。
+这份七个公司的列表不是一个关于爬虫机器人来源的全面的列表。我发现，除了一个从世界各地连接的分布式爬虫战队，很多爬虫流量来源于一些在乌克兰、中国的住宅 IP，源头很难分辨。说实话，如果我想要一个全面的爬虫机器人实用的 IP 列表，我只需要看看 [HTTP 头的顺序](http://geocar.sdf1.org/browser-verification.html)，检查下 TCP/IP 的行为，搜寻 [伪造 IP 注册](http://go.whiteops.com/rs/179-SQE-823/images/WO_Methbot_Operation_WP.pdf)（请看 28 页），列表就出来了，并且这就像猫和老鼠的游戏一样。
 
 ## 安装库
 
@@ -172,7 +172,7 @@ for _name in ['amzn', 'baidu', 'digital_ocean',
 
 接下来的部分是跑 monitor.py 的内容。这段脚本从 stdin（标准输入） 管道中接收 web 流量日志。这说明你可以通过 ssh 在远程服务器上看日志，在本地跑这段脚本。
 
-我先从 Python 标准库里 import（导入） 两个库，并通过 pip 安装了五个外部库。
+我先从 Python 标准库里导入两个库，并通过 pip 安装了五个外部库。
 
 ```
 import sys
@@ -189,7 +189,7 @@ from user_agents import parse
 
 我还设置了 apache_log_parser，来处理存储的 web 日志格式。你的日志格式可能不一样，所以可能需要花点时间比较下你的 web 服务器的流量日志配置与这个库的 [格式文档](https://github.com/rory/apache-log-parser#supported-values)。
 
-最后，我有一个我发现的属于那七家公司的 CIDR 块的字典。在这个列表里，从本质上来说，百度不是一家主机或者云提供商，但是跑着很多无法通过它们的用户代理所识别的机器人。
+最后，我有一个我发现的属于那七家公司的 CIDR 块的字典。在这个列表里，从本质上来说，百度不是一家主机或者云提供商，但是跑着很多无法通过它们的用户代理所识别的爬虫机器人。
 
 ```
 reader = geoip2.database.Reader('GeoLite2-City.mmdb')
@@ -288,7 +288,7 @@ def in_block(ip, block):
                 if _ip in IPNetwork(cidr)])
 ```
 
-接下来的函数传入一个请求对象，浏览器代理使用并尝试判断这个流量或这个浏览器代理的来源是不是一个爬虫机器人。浏览器代理对象被 Python 用户代理库放在一起，并有一些测试来确定用户代理字串是否一个已知的爬虫机器人。我已经用一些我从库的分类系统中看到的 token 来扩展这些测试。同时我在 CIDR 块迭代，来判断远程主机的 IPv4 地址是否在里面。
+下面这个函数接收请求（ req ）和浏览器代理（ agent ）的对象，并尝试用这两个对象来判断流量源头／浏览器代理是否来自爬虫机器人。这个浏览器代理对象是使用 Python 用户代理库构造的，并且有一些测试用于判断，用户代理字串是否属于某个已知的爬虫机器人。我已经用一些我从库的分类系统中看到的 token 来扩展这些测试。同时我在 CIDR 块迭代，来判断远程主机的 IPv4 地址是否在里面。
 
 ```
 def bot_test(req, agent):
@@ -318,11 +318,11 @@ def bot_test(req, agent):
     return is_bot
 ```
 
-下面是脚本的主要部分。web 流量日志从标准输入里一行行地读入。内容的每一行都被解析成请求的一个带 token 的版本，用户代理和 URI 被请求。这些对象让与这些数据打交道变得更容易，不需要去麻烦地在空中解析它们。
+下面是脚本的主要部分。web 流量日志从标准输入里一行行地读入。内容的每一行都被解析成一个带 token 版本的请求、用户代理和被请求的 URI。这些对象让与这些数据打交道变得更容易，不需要去麻烦地在空中解析它们。
 
-我尝试着用 MaxMind 的库查询与这些 IPv4 相关的城市和国家。
+我尝试着用 MaxMind 的库查询与这些 IPv4 相关的城市和国家。如果有任何类型的查询失败，结果会简单地设置为 None。
 
-在机器人测试后，我准备输出。如果请求看起来是从机器人处发送的，它会被标成红色背景，高亮在输出上。
+在爬虫机器人测试后，我准备输出。如果请求看起来是从爬虫机器人处发送的，它会被标成红色背景，高亮在输出上。
 
 ```
 if __name__ == '__main__':
@@ -369,9 +369,9 @@ if __name__ == '__main__':
               Style.RESET_ALL
 ```
 
-## 机器人检测实战
+## 爬虫机器人检测实战
 
-接下来是一个例子，关于我是怎么连接输出 web 流量日志的最后一百行的，当我接着做并且将内容放进监测脚本的管道中时。
+接下来是一个例子，在把这些内容放到监测脚本时，我是用下面这种方式连接输出 web 流量日志的最后一百行的。
 
 ```
 $ ssh server \
@@ -380,7 +380,7 @@ $ ssh server \
 ```
 
 
-有可能来源于机器人的请求将使用红色背景和「b」前缀高亮。不存在机器人的流量将被打上「h」的前缀，代表 human（人）。下面是从脚本出来的样例输出，不过没有 ANSI 背景色。
+有可能来源于爬虫机器人的请求将使用红色背景和「b」前缀高亮。不存在爬虫机器人的流量将被打上「h」的前缀，代表 human（人）。下面是从脚本出来的样例输出，不过没有 ANSI 背景色。
 
     ...
     b US Indianapolis /robots.txt Python Requests 2.2 Linux 3.2.0
