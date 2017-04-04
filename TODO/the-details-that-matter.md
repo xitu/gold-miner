@@ -59,7 +59,7 @@ Image credits: [Colin Garven](https://dribbble.com/ColinGarven)
 #### **系统需要告诉用户他的状态是什么** ####
 
 Users want to know their current context in a system at any given time and apps shouldn’t keep them guessing — they should tell the user what’s happening via appropriate visual feedback. For frequent and minor actions, the response can be modest, while for infrequent and major actions, the response should be more substantial.
-在系统中，用户任何时候都会想知道他此刻的状态是什么，而应用不应该让用户自己猜 —— 所以系统应该通过恰当的可视化反馈告诉用户此刻正在发生什么。对于一些常见而且次要的操作，适当的反馈就可以了，而对于不寻常而且重要的操作，反馈就需要更明显一点。
+在系统中，用户任何时候都会想知道他此刻的状态是什么，而这不应该让用户自己去猜 —— 所以系统应该通过恰当的可视化反馈告诉用户此刻正在发生什么。对于一些常见而且次要的操作，适当的反馈就可以了，而对于不寻常而且重要的操作，反馈就需要更明显一点。
 
 - [Animated notification](https://uxplanet.org/3-key-uses-for-animation-in-mobile-ui-design-4d7c482dd84b#.x07lyyazb) makes it possible for a user to quickly understand the current status.
 - [动态提醒](https://uxplanet.org/3-key-uses-for-animation-in-mobile-ui-design-4d7c482dd84b#.x07lyyazb)可以让用户立刻明白此时的状态。
@@ -78,10 +78,10 @@ A loading bar engages the user and prevents confusion when app is busy loading d
 应用无法快速加载信息的时候，进度条可以避免让用户感到困惑。图片来源：[Mark](https://dribbble.com/milkycookie)
 
 ### Microcopy ###
-### 小的文字信息 ###
+### 少量的文字信息 ###
 
 Microcopy is the little bits of text that guide users through an experience. Microcopy examples are error messages, button labels, hint text. At a glance, these tiny clusters of words seem insignificant when compared to the overall app design. But surprisingly, they have a huge impact on conversions.
-小的文字信息是一些用来是指导用户行为的极为小的文字。举一些例子就是，错误信息、按钮对应的标签、提示信息。乍看之下，这么一小点文字和整个应用设计比起来一点也不重要，但出人意料的是，它们对转化率有着极为重要的影响。
+少量的文字信息是一些用来是指导用户行为的一点点文字。举一些例子就是，错误信息、按钮对应的标签、提示信息。乍看之下，这么少的文字和整个应用设计比起来一点也不重要，但出人意料的是，它们对转化率有着极为重要的影响。
 
 > Writing good microcopy in your app is just as important as having the app work correctly and the user interface being easy and efficient to use.
 > 在应用里写出好的文字信息，和让应用正常运行、用户界面易于使用一样重要。
@@ -125,7 +125,7 @@ Error states must incorporate concise, friendly, and instructive copy as to what
 #### 减少用户的担忧 ####
 
 Microcopy is extremely contextual. That’s why it’s so valuable. It answers a very specific question people have and speaks to their concerns right on the spot. For example, microcopy can be fundamental in reassuring your users at the point of subscribing or sharing details. Whilst ‘not to spam/auto-tweet’ might be taken for granted by good marketers when asking for email address/access to the social network account connections, the user is less than sure. Thus, when people add their emails or connect their Twitter accounts, say “we hate spam as much as you do.”
-小的文字信息是很情景化的，这也是为什么它很重要的一个原因。它可以解答用户具体情况下的问题，并针对他们所担忧的事情进行直接地交流。举例来说，当用户选择订阅或是提供了具体信息的时候，一些文字信息对于消除用户担忧会起到相当关键的作用。对于优秀的营销人员来说，“不会有群发消息或是自动关注”是理所当然的事情，但用户自己会存疑。因此，当用户添加了他们的邮箱地址或者绑定了 Twitter 账号的时候，一定要明确表态“我们和你一样讨厌垃圾消息”。
+这些少量的文字信息是很情景化的，这也是为什么它很重要的一个原因。它可以解答用户具体情况下的问题，并针对他们所担忧的事情进行直接地交流。举例来说，当用户选择订阅或是提供了具体信息的时候，一些文字信息对于消除用户担忧会起到相当关键的作用。对于优秀的营销人员来说，“不会有群发消息或是自动关注”是理所当然的事情，但用户自己会存疑。因此，当用户添加了他们的邮箱地址或者绑定了 Twitter 账号的时候，一定要明确表态“我们和你一样讨厌垃圾消息”。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*Cl0P6ebhZTDkCGAHGjLnhA.png">
 
