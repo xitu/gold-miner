@@ -4,8 +4,7 @@
 > * 译者：[zhouzihanntu](https://github.com/zhouzihanntu)
 > * 校对者：
 
-# Requiring modules in Node.js: Everything you need to know #
-# 在 Node.js 中引用模块 #
+# 关于在 Node.js 中引用模块，知道这些就够了 #
 
 ## Node.js 中模块化的工作原理 ##
 
