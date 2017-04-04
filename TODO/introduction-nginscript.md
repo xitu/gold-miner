@@ -18,7 +18,7 @@
 - 在“Galera 集群负载均衡过程中 SQL 方法的日志记录”中的[*nginScript 日志记录进阶*](https://www.nginx.com/blog/scaling-mysql-tcp-load-balancing-nginx-plus-galera-cluster/#nginscript-logging-galera)
 - [*使用 nginScript 实现基于数据遮蔽的用户隐私保护*](https://www.nginx.com/blog/data-masking-user-privacy-nginscript/)
 
-自从 nginScript 上线[2015 年 9 月](https://www.nginx.com/blog/nginscript-new-powerful-way-configure-nginx/?utm_source=introduction-nginscript&amp;utm_medium=blog&amp;utm_campaign=Core+Product)以来，很多新的能力和核心语言被加入的同时，它曾一直作为一个实验性的模块存在。随着 NGINX Plus R12 的推出，我们很荣幸的宣布 nginScript 现在已经是一个在 NGINX 和 NGINX Plus 中可被广泛使用的稳定版模块了。
+自从 nginScript [2015 年 9 月](https://www.nginx.com/blog/nginscript-new-powerful-way-configure-nginx/?utm_source=introduction-nginscript&amp;utm_medium=blog&amp;utm_campaign=Core+Product)上线以来，很多新的能力和核心语言被加入的同时，它曾一直作为一个实验性的模块存在。随着 NGINX Plus R12 的推出，我们很荣幸的宣布 nginScript 现在已经是一个在 NGINX 和 NGINX Plus 中可被广泛使用的稳定版模块了。
 
 nignScript 是一个只适用于 NGINX 和 NGINX Plus 的 JavaScript 实现，它是专为服务端用例和每个请求处理而设计的。它使用 JavaScript 代码扩展了 NGINX 的配置语法，以实现复杂配置的解决方案。
 
