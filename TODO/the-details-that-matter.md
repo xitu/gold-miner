@@ -71,6 +71,7 @@ Image credits: [Eddy Gann](https://dribbble.com/SMSeddy)
 
 - [Loading animations](https://uxplanet.org/progress-indicators-in-mobile-ux-design-a141e22f3ea0#.etoavwmbw) provides real-time notification of app’s process status, enabling the user to quickly understand what is going on.
 - [加载动画](https://uxplanet.org/progress-indicators-in-mobile-ux-design-a141e22f3ea0#.etoavwmbw)是对于应用进程的实时提醒，可以让用户立刻明白现在加载到哪里了。
+
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*cd858x6Yb2k7lountEkefA.gif">
 
 A loading bar engages the user and prevents confusion when app is busy loading data. Image credits: [Mark](https://dribbble.com/milkycookie)
