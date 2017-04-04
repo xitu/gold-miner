@@ -15,7 +15,7 @@
 
 - [*nginScript 入门*](https://www.nginx.com/blog/introduction-nginscript/)
 - [*使用 nginScript 逐步迁移客户端到新的服务器*](https://www.nginx.com/blog/nginscript-progressively-transition-clients-to-new-server/)
-- [*nginScript 日志记录进阶*](https://www.nginx.com/blog/scaling-mysql-tcp-load-balancing-nginx-plus-galera-cluster/#nginscript-logging-galera) in "Scaling MySQL with TCP Load Balancing and Galera Cluster"
+- 在“Galera 集群负载均衡过程中 SQL 方法的日志记录”中的[*nginScript 日志记录进阶*](https://www.nginx.com/blog/scaling-mysql-tcp-load-balancing-nginx-plus-galera-cluster/#nginscript-logging-galera)
 - [*使用 nginScript 实现基于数据遮蔽的用户隐私保护*](https://www.nginx.com/blog/data-masking-user-privacy-nginscript/)
 
 自从 nginScript 上线[2015 年 9 月]（https://www.nginx.com/blog/nginscript-new-powerful-way-configure-nginx/?utm_source=introduction-nginscript&amp;utm_medium=blog&amp;utm_campaign=Core+Product）以来，很多新的能力和核心语言被加入的同时，它曾一直作为一个实验性的模块存在。随着 NGINX Plus R12 的推出，我们很荣幸的宣布 nginScript 现在已经是一个在 NGINX 和 NGINX Plus 中可被广泛使用的稳定版模块了。
@@ -39,7 +39,7 @@ nignScript 可供 HTTP 和 TCP/UDP 两种协议使用，用例的种类广泛，
 
 ## nginScript 不是 Lua
 
-多年来，NIGINX 社区创建了一些程序化扩展。目前，Lua 是其中最流行的；使用时，它是一个[NGINX 模块](https://github.com/openresty/lua-nginx-module)，对于 NGINX Plus 来说，它是一个[经认证的第三方模块](https://www.nginx.com/products/technical-specs/?utm_source=introduction-nginscript&amp;utm_medium=blog&amp;utm_campaign=Core+Product)。Lua模块及其插件库提供了与 NGINX 内核的深度整合和一系列丰富的功能，包括一个 Redis 的驱动程序。
+多年来，NIGINX 社区创建了一些程序化扩展。目前，Lua 是其中最流行的；使用时，它是一个[NGINX 模块](https://github.com/openresty/lua-nginx-module)，对于 NGINX Plus 来说，它是一个[经认证的第三方模块](https://www.nginx.com/products/technical-specs/?utm_source=introduction-nginscript&amp;utm_medium=blog&amp;utm_campaign=Core+Product)。Lua 模块及其插件库提供了与 NGINX 内核的深度整合和一系列丰富的功能，包括一个 Redis 的驱动程序。
 
 Lua 是一个强大的脚本语言。但是，就采用率来看，它仍是有一定缺陷的。并且，它也不算一个前端工程师或者开发运维工程师必备技能。
 
@@ -106,7 +106,7 @@ https://gist.github.com/49e2f6f6b0a36ed9846dd63cddbd742a.json: timeout
 
 如你所见，nginScript 代码与配置规则并不一样。我们用[`js_include`](http://nginx.org/en/docs/http/ngx_http_js_module.html#js_include) 指令来指定包含我们所有的 JavaScript 代码的文件。[`js_set`](http://nginx.org/en/docs/http/ngx_http_js_module.html#js_set) 指令定义了一个新的 NGINX 变量`$access_log_with_headers`，还有填充这个变量所需的 JavaScript 函数。[`log_format`](http://nginx.org/en/docs/http/ngx_http_log_module.html#log_format)指令定义了一种名为 **键值对（kvpairs）** 的新格式，它使用`$access_log_with_headers`变量的值输出每一行日志。
 
-[`server`](http://nginx.org/en/docs/http/ngx_http_core_module.html#server)指令定义了一个简单的 HTTP 反向代理，这个反向代理可以将所有的请求转发给一个新地址，例如**http://www.example.com**。[`access_log`](http://nginx.org/en/docs/http/ngx_http_log_module.html#access_log)指令可以用来指定所有以**键值对（kvpairs）**格式被录入日志的请求。
+[`server`](http://nginx.org/en/docs/http/ngx_http_core_module.html#server)指令定义了一个简单的 HTTP 反向代理，这个反向代理可以将所有的请求转发给一个新地址，例如 **http://www.example.com** 。[`access_log`](http://nginx.org/en/docs/http/ngx_http_log_module.html#access_log)指令可以用来指定所有以 **键值对（kvpairs）** 格式被录入日志的请求。
 
 我们现在来看一下用来准备每一行日志格式的 JavaScript 代码。我们有两个函数：
 
@@ -180,6 +180,7 @@ $ sudo nginx -s reload
 
 1.
 安装预建包（pre‑built packages）
+
 - 
 Ubuntu 和 Debian 系统使用下面的命令：
 
