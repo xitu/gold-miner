@@ -491,19 +491,20 @@ module.exports = { id: 42 }; // 有效
 这个 `exports` 对象看起来对所有模块都是全局的，它是如何被定义成 `module` 对象的引用的呢？
 
 Let me ask one more question before explaining Node’s wrapping process.
-在解释 Node 的打包进程前，再
+在解释 Node 的打包进程前，让我们再来思考一个问题：
 
 In a browser, when we declare a variable in a script like this:
+在浏览器中，我们在脚本里声明如下变量：
 
 ```
 var answer = 42;
 ```
 
-That `answer` variable will be globally available in all scripts after the script that defined it.
+`answer` 变量对声明该变量的脚本后的所有脚本来说都是全局的。
 
-This is not the case in Node. When we define a variable in one module, the other modules in the program will not have access to that variable. So how come variables in Node are magically scoped?
+然而在 Node 中却不是这样的。我们在一个模块中定义了变量，项目中的其他模块却将无法访问该变量。那么在 Node 中是如何神奇地做到为变量是限定作用域的呢？
 
-The answer is simple. Before compiling a module, Node wraps the module code in a function, which we can inspect using the `wrapper` property of the `module` module.
+答案很简单。在编译模块前，Node 就将模块代码封装在一个函数中，我们可以使用 `module` 模块的 `wrapper` 属性来查看。
 
 ```
 ~ $ node
@@ -513,13 +514,13 @@ The answer is simple. Before compiling a module, Node wraps the module code in a
 >
 ```
 
-Node does not execute any code you write in a file directly. It executes this wrapper function which will have your code in its body. This is what keeps the top-level variables that are defined in any module scoped to that module.
+Node 并不会执行你直接在文件中写入的任何代码。它仅仅执行你的代码通过封装得到的封装函数。这就保证了所有模块中定义的顶级变量的作用域都被限定在该模块中。
 
-This wrapper function has 5 arguments: `exports`, `require`, `module`, `__filename`, and `__dirname`. This is what makes them appear to look global when in fact they are specific to each module.
+这个封装函数包含五个参数：`exports`、`require`、`module`、`__filename` 和 `__dirname`。这些参数看起来像是全局的，实际上却是每个模块特定的。
 
-All of these arguments get their values when Node executes the wrapper function. `exports` is defined as a reference to `module.exports` prior to that. `require` and `module` are both specific to the function to be executed, and `__filename`/`__dirname` variables will contain the wrapped module’s absolute filename and directory path.
+在 Node 执行封装函数的同时，以上这几个参数都获取到了它们的值。`exports` 被定义为对上一级 `module.exports` 的引用。`require` 和 `module` 都是特定于被执行函数的，而 `__filename`/`__dirname` 变量将包含被封装模块的文件名和目录的绝对路径。
 
-You can see this wrapping in action if you run a script with a problem on its first line:
+如果你在一个脚本的第一行编写一行错误代码并执行它，你就能看到实际的封装过程：
 
 ```
 ~/learn-node $ echo "euaohseu" > bad.js
@@ -531,9 +532,9 @@ You can see this wrapping in action if you run a script with a problem on its fi
 ReferenceError: euaohseu is not defined
 ```
 
-Note how the first line of the script as reported above was the wrapper function, not the bad reference.
+>注意：这里脚本第一行是作为封装函数中的代码报错的，而不是错误的引用。
 
-Moreover, since every module gets wrapped in a function, we can actually access that function’s arguments with the `arguments` keyword:
+此外，由于每个模块都被封装在一个函数中，我们可以使用 `arguments` 关键字访问该函数的参数：
 
 ```
 ~/learn-node $ echo "console.log(arguments)" > index.js
@@ -567,29 +568,29 @@ Moreover, since every module gets wrapped in a function, we can actually access 
   '4': '/Users/samer' }
 ```
 
-The first argument is the `exports` object, which starts empty. Then we have the `require`/`module` objects, both of which are instances that are associated with the `index.js` file that we’re executing. They are not global variables. The last 2 arguments are the file’s path and its directory path.
+第一个参数是 `exports` 对象，初始值为空。`require`/`module` 对象都是与当前执行的 `index.js` 文件关联的示例。它们不是全局变量。最后两个参数分别为当前文件路径和目录路径。
 
-The wrapping function’s return value is `module.exports`. Inside the wrapped function, we can use the `exports` object to change the properties of `module.exports`, but we can’t reassign exports itself because it’s just a reference.
+封装函数的返回值是 `module.exports`。在封装函数中，我们可以使用 `exports` 对象更改 `module.exports` 的属性，但是由于它仅仅是一个引用，我们无法对其重新赋值。
 
-What happens is roughly equivalent to:
+情况大致如下：
 
 ```
 function (require, module, __filename, __dirname) {
   let exports = module.exports;
 
-  // Your Code...
+  // 你的代码…
 
   return module.exports;
 }
 ```
 
-If we change the whole `exports` object, it would no longer be a reference to `module.exports`. This is the way JavaScript reference objects work everywhere, not just in this context.
+如果我们更改了整个 `exports` 对象，它将不再是对 `module.exports` 的引用。并不仅仅是在这个上下文中，JavaScript 引用对象在所有场景下的工作模式都是如此。
 
-#### The require object ####
+#### require 对象 ####
 
-There is nothing special about `require`. It’s an object that acts mainly as a function that takes a module name or path and returns the `module.exports` object. We can simply override the `require` object with our own logic if we want to.
+`require` 没有什么特别的。它作为一个函数对象，接收一个模块名称或路径，返回 `module.exports` 对象。我们也可以用我们自己的逻辑重写 `require` 对象。
 
-For example, maybe for testing purposes, we want every `require` call to be mocked by default and just return a fake object instead of the required module exports object. This simple reassignment of require will do the trick:
+举个例子，为了测试的目的，我们希望每个 `require` 调用默认为 mocked 并返回一个假的对象，而不是引用的模块所导出的对象。这个对 require 的简单重新赋值会这样实现：
 
 ```
 require = function() {
@@ -599,16 +600,16 @@ require = function() {
 }
 ```
 
-After doing the above reassignment of `require`, every `require('something') `call in the script will just return the mocked object.
+经过以上对 `require` 重新赋值后，脚本中的每个 `require('something')` 调用都会返回 mocked 对象。
 
-The require object also has properties of its own. We’ve seen the `resolve` property, which is a function that performs only the resolving step of the require process. We’ve also seen `require.extensions` above.
+require 对象也有它自己的属性。我们已经认识了 `resolve` 属性，它是在整个引用进程中执行解析步骤的函数。我们也见识了 `require.extensions`。
 
-There is also `require.main` which can be helpful to determine if the script is being required or run directly.
+还有 `require.main` 属性，有助于判断当前脚本是正被引用还是直接执行。
 
-Say, for example, that we have this simple `printInFrame` function in `print-in-frame.js`:
+举个例子，我们在 `print-in-frame.js` 中定义一个简单的 `printInFrame` 函数：
 
 ```
-// In print-in-frame.js
+// 在 print-in-frame.js 中
 
 const printInFrame = (size, header) => {
   console.log('*'.repeat(size));
@@ -617,19 +618,19 @@ const printInFrame = (size, header) => {
 };
 ```
 
-The function takes a numeric argument `size` and a string argument `header` and it prints that header in a frame of stars controlled by the size we specify.
+该函数使用一个数字型参数 `size` 和一个字符串型参数 `header`，并在我们指定大小的星号框中将标题打印出来。
 
-We want to use this file in two ways:
+我们希望通过两种方式执行该文件：
 
-1. From the command line directly like this:
+1. 在命令行下直接运行：
 
 ```
 ~/learn-node $ node print-in-frame 8 Hello
 ```
 
-Passing 8 and Hello as command line arguments to print “Hello” in a frame of 8 stars.
+将 8 和 Hello 作为命令行参数，打印出由8个星号组成的框以及 “Hello”。
 
-2. With `require`. Assuming the required module will export the `printInFrame` function and we can just call it:
+2. 使用 `require`。假设被引用的模块会导出 `printInFrame` 函数，我们可以这样调用它：
 
 ```
 const print = require('./print-in-frame');
@@ -637,22 +638,22 @@ const print = require('./print-in-frame');
 print(5, 'Hey');
 ```
 
-To print the header “Hey” in a frame of 5 stars.
+打印由五个星号组成的框以及其中的标题 “Hey”。
 
-Those are two different usages. We need a way to determine if the file is being run as a stand-alone script or if it is being required by other scripts.
+以上是两种不同的用法。我们需要一种方法来确定该文件是作为独立脚本运行还是被其他脚本引用时运行。
 
-This is where we can use this simple if statement:
+此时我们可以使用简单的 if 声明语句：
 
 ```
 if (require.main === module) {
-  // The file is being executed directly (not with require)
+  // 该文件正被直接运行
 }
 ```
 
-So we can use this condition to satisfy the usage requirements above by invoking the printInFrame function differently:
+所以我们可以使用这个条件来满足以上的使用需求，通过不同的方式调用 printInFrame 函数。
 
 ```
-// In print-in-frame.js
+// 在 print-in-frame.js 中
 
 const printInFrame = (size, header) => {
   console.log('*'.repeat(size));
@@ -667,32 +668,33 @@ if (require.main === module) {
 }
 ```
 
-When the file is not being required, we just call the `printInFrame` function with `process.argv` elements. Otherwise, we just change the `module.exports` object to be the `printInFrame` function itself.
+如果文件没有被引用，我们调用使用 `process.argv` 参数的 `printInFrame` 函数。否则我们就将 `module.exports` 对象替换为 `printInFrame` 函数自身。
 
-#### All modules will be cached ####
+#### 所有模块都将被缓存 ####
 
-Caching is important to understand. Let me use a simple example to demonstrate it.
+理解缓存非常重要。下面我用一个简单的例子来演示一下。
 
-Say that you have the following `ascii-art.js` file that prints a cool looking header:
+假设你有以下 `ascii-art.js` 文件，它能打印出一个很酷的标题：
+
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*yZ57VtXUuEo-nQSs9VztvQ.png">
 
-We want to display this header every time we *require* the file. So when we require the file twice, we want the header to show up twice.
+我们希望在每次 **引用** 该文件时都显示这个标题。因此如果我们引用了两次该文件，我们希望标题显示两次。
 
 ```
-require('./ascii-art') // will show the header.
-require('./ascii-art') // will not show the header.
+require('./ascii-art') // 显示标题
+require('./ascii-art') // 不显示标题
 ```
 
-The second require will not show the header because of modules’ caching. Node caches the first call and does not load the file on the second call.
+由于模块缓存，第二次的引用将不会显示标题。Node 将缓存第一次调用，在第二次调用时并不会加载文件。
 
-We can see this cache by printing `require.cache` after the first require. The cache registry is simply an object that has a property for every required module. Those properties values are the `module` objects used for each module. We can simply delete a property from that `require.cache` object to invalidate that cache. If we do that, Node will re-load the module to re-cache it.
+我们可以通过在第一次引用后打印 `require.cache` 来查看缓存。缓存注册是一个对象，对应每个模块都有特定属性。这些属性值即用于各模块的 `module` 对象。我们可以通过简单地从 `require.cache` 对象中删除一个属性来令该缓存失效，然后 Node 就会再次加载并缓存该模块。
 
-However, this is not the most efficient solution for this case. The simple solution is to wrap the log line in `ascii-art.js` with a function and export that function. This way, when we require the `ascii-art.js` file, we get a function that we can execute to invoke the log line every time:
+然而，这并不是应对这种情况最高效的解决方案。简单的解决办法是将 `ascii-art.js` 中的打印代码用一个函数封装起来并导出该函数。通过这种方式，每当我们引用 `ascii-art.js` 文件时，我们就能获取到一个可执行函数，以供我们多次调用打印代码：
 
 ```
-require('./ascii-art')() // will show the header.
-require('./ascii-art')() // will also show the header.
+require('./ascii-art')() // 显示标题
+require('./ascii-art')() // 显示标题
 ```
 
-That’s all I have for this topic. Until next time!
+以上就是我关于本次主题所要讲述的全部内容。回见！
