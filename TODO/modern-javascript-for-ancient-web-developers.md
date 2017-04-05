@@ -1,7 +1,7 @@
 > * 原文地址：[Modern JavaScript for Ancient Web Developers](https://trackchanges.postlight.com/modern-javascript-for-ancient-web-developers-58e7cae050f9#.ibsx51ylz)
 > * 原文作者：[Gina Trapani](https://trackchanges.postlight.com/@ginatrapani?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
+> * 译者：[sun](http://suncafe.cc)
 > * 校对者：
 
 # 写给“古代” Web 开发者的“现代” JavaScript 指南 #
