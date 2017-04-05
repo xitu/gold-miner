@@ -2,7 +2,7 @@
 > * 原文作者：[Irina Galata](https://medium.com/@igalata13?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[skyar2009](https://github.com/skyar2009)
-> * 校对者：
+> * 校对者：[zhaochuanxing](https://github.com/zhaochuanxing), [ylq167](https://github.com/ylq167)
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*i1B2ZqmzIJDI3eZrKhFhhw.png">
 
@@ -12,7 +12,7 @@
 
 跨平台用户体验统一正处于增长趋势：早些时候 iOS 和安卓有着不同的体验，但是最近在应用设计以及交互方面变得越来越接近。
 
-从安卓 Nougat 的[底部导航](https://material.io/guidelines/components/bottom-navigation.html#)到分屏特性，两个平台间有了许多相同之处。对设计师而言，我们可以将主流功能设计成两个平台一致（过去需要单独设计）。对开发者而言，这是一个提高、改进开发经验的好机会。
+从安卓 Nougat 的[底部导航](https://material.io/guidelines/components/bottom-navigation.html#)到分屏特性，两个平台间有了许多相同之处。对设计师而言，我们可以将主流功能设计成两个平台一致（过去需要单独设计）。对开发者而言，这是一个提高、改进开发技巧的好机会。
 
 所以我们决定开发一个安卓气泡选择的组件库 —— 灵感来自于[苹果音乐](http://www.apple.com/lae/apple-music/)的气泡选择。
 
@@ -21,11 +21,11 @@
 
 ### **先说设计** ###
 
-我们的气泡选择动画是一个好的范例，它对不同的用户群体有着同样的吸引力。气泡以方便的 UI 元素汇总信息，通俗易懂并且视觉一致。它让交互对新手足够简单的同时还能吸引老司机兴趣。
+我们的气泡选择动画是一个好的范例，它对不同的用户群体有着同样的吸引力。气泡以方便的 UI 元素汇总信息，通俗易懂并且视觉一致。它让界面对新手足够简单的同时还能吸引老司机的兴趣。
 
-这种动画类型对丰富应用的内容由很大帮助，主要体现在用户要从一系列选项中进行选择的地方。例如，我们使用气泡来选择旅游应用中潜在目的地名字。气泡自由的浮动，当用户点击一个气泡时，选中的气泡会变大。这给用户很深刻的反馈并增强操作的直观感受。
+这种动画类型对丰富应用的内容由很大帮助，主要使用场景是：用户要从一系列选项中进行选择时的页面。例如，我们使用气泡来选择旅游应用中潜在目的地名字。气泡自由的浮动，当用户点击一个气泡时，选中的气泡会变大。这给用户很深刻的反馈并增强操作的直观感受。
 
-组件使用白色主题，布满明亮的颜色和图片十分漂亮。此外，我决定试验渐变来增加深度和体积。渐变可能是主要的显示视觉，会吸引新用户的注意。
+组件使用白色主题，明亮的颜色和图片贯穿始终。此外，我决定试验渐变来增加深度和体积。渐变可能是主要的显示特征，会吸引新用户的注意。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*IUb8sRFq9huEwVB2gUXtOw.png">
 
@@ -38,7 +38,7 @@
 
 当我决定实现这个动画时，我面临的第一个问题就是使用什么工具开发。我清楚知道绘制如此快速的动画在 Canvas 上绘制的效率是不够的，所以决定使用 OpenGL (Open Graphics Library)。OpenGL 是一个跨平台的 2D 和 3D 图形绘制应用开发接口。幸运地是，Android 支持部分版本的 OpenGL。
 
-我需要圆自然的运动，就像碳酸饮料中的气泡那样。对 Android 来说有许多可用的物理引擎，同时我又有一些特定需要，使得选择变得更加困难。我的需求是：引擎要轻量级并且方便嵌入 Android 库。多数的引擎是为游戏开发的，并且它们需要调整工程结构来适应它们。功夫不负有心人，我最终找到了 JBox2D（C++ 引擎 Box2D 的 Java 版），因为我们的动画不需要支持大量的物理实体（例如 200+），使用非原版的 Java 版引擎已经足够了。
+我需要圆自然地运动，就像碳酸饮料中的气泡那样。对 Android 来说有许多可用的物理引擎，同时我又有一些特定需要，使得选择变得更加困难。我的需求是：引擎要轻量级并且方便嵌入 Android 库。多数的引擎是为游戏开发的，并且它们需要调整工程结构来适应它们。功夫不负有心人，我最终找到了 JBox2D（C++ 引擎 Box2D 的 Java 版），因为我们的动画不需要支持大量的物理实体（例如 200+），使用非原版的 Java 版引擎已经足够了。
 
 此外，本文后面我会解释我为什么选择 Kotlin 语言开发，以及这样做的好处。需要了解 Java 和 Kotlin 更多不同之处可以阅读我之前的[文章](https://yalantis.com/blog/kotlin-vs-java-syntax/)。
 
@@ -101,7 +101,7 @@ GLSL 中有许多类型的变量：
 `u_Matrix` 变量包含由圆初始化位置的 `x` 和 `y` 构成的变化矩阵，显然它的值对图形的所有顶点拉说都是相同的，类型为 `uniform`，然而顶点的位置是不同的，所以 `a_Position` 变量是 `attribute` 类型。`a_UV` 变量有两个用途：
 
 1. 确定当前片段和正方形中心位置的距离。根据这个距离，我可以调整片段的颜色而实现画圆。
-2. 正确地将文理（照片和国家的名字）置于图形的中心位置。
+2. 正确地将 texture（照片和国家的名字）置于图形的中心位置。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*mCT2yR5xj0Pdg18txA4eWg.png">
 
@@ -121,7 +121,7 @@ GLSL 中有许多类型的变量：
 
 有锯齿的圆
 
-解决方案是 `smoothstep`。它根据到纹理与背景的变换起始点的距离平滑的从0到1变化。因此距离 0 到 0.49 时纹理的透明度为 1，大于等于 0.5 时为 0，0.49 和 0.5 之间时平滑变化，如此圆的边就平滑了。
+解决方案是 `smoothstep`。它根据到 texture 与背景的变换起始点的距离平滑的从0到1变化。因此距离 0 到 0.49 时 texture 的透明度为 1，大于等于 0.5 时为 0，0.49 和 0.5 之间时平滑变化，如此圆的边就平滑了。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*QK7o0G1iA6vKe_nNYad4FA.png">
 
@@ -130,9 +130,9 @@ GLSL 中有许多类型的变量：
 
 **OpenGL 中如何使用 texture 显示图像和文本？**
 
-在动画中圆有两种状态 —— 普通和选中。在普通状态下圆的纹理包含文字和颜色，在选中状态下同时包含图像。因此我需要为每个圆创建两个不同的纹理。
+在动画中圆有两种状态 —— 普通和选中。在普通状态下圆的 texture 包含文字和颜色，在选中状态下同时包含图像。因此我需要为每个圆创建两个不同的 texture。
 
-我使用 Bitmap 实例来创建纹理，绘制所有元素。
+我使用 Bitmap 实例来创建 texture，绘制所有元素。
 
 ```
 fun bindTextures(textureIds: IntArray, index: Int) {
@@ -174,7 +174,7 @@ fun bindTextures(textureIds: IntArray, index: Int) {
     }
 ```
 
-之后我将纹理单元赋值给 `u_Text` 变量。我使用 `texture2()` 方法获取片段的真实颜色，`texture2()` 接收纹理单元和片段顶点的位置两个参数。
+之后我将 texture 单元赋值给 `u_Text` 变量。我使用 `texture2()` 方法获取片段的真实颜色，`texture2()` 接收 texture 单元和片段顶点的位置两个参数。
 
 **使用 JBox2D 让气泡动起来**
 
@@ -337,7 +337,7 @@ private fun getItem(position: Vec2) = position.let {
 
 渲染器
 
-当找到选择的圆后，我会修改它的半径和纹理。
+当找到选择的圆后，我会修改它的半径和 texture。
 
 
 ### 你可以随机的使用本组件! ###
