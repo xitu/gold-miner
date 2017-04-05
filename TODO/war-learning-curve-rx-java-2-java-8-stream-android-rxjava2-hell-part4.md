@@ -1,114 +1,112 @@
-> * 原文地址：[War against Learning Curve of Rx Java 2 + Java 8 Stream [ Android RxJava2 ] ( What the hell is this ) Part4](http://www.uwanttolearn.com/android/war-learning-curve-rx-java-2-java-8-stream-android-rxjava2-hell-part4/)
+> * 原文地址：[War against Learning Curve of RxJava2 + Java8 Stream [ Android RxJava2 ] ( What the hell is this ) Part4](http://www.uwanttolearn.com/android/war-learning-curve-rx-java-2-java-8-stream-android-rxjava2-hell-part4/)
 > * 原文作者：[Hafiz Waleed Hussain](http://www.uwanttolearn.com/author/admin/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：
 > * 校对者：
 
 
-## War against Learning Curve of Rx Java 2 + Java 8 Stream [ Android RxJava2 ] ( What the hell is this ) Part4 ##
+## 大战 RxJava2 和 Java8 Stream [ Android RxJava2 ] （这到底是什么） 第四部分 ##
 
 
 
-WOW, we got one more day so its time to make this day awesome by learning something new .
+又是新的一天，如果学点新东西，这一天一定会很酷炫。
 
-Hello guys, hope you are doing good. This is our fourth post in series of RxJava2 Android [ [part1](http://www.uwanttolearn.com/android/reactive-programming-android-rxjava2-hell-part1/), [part2](http://www.uwanttolearn.com/android/pull-vs-push-imperative-vs-reactive-reactive-programming-android-rxjava2-hell-part2/), [part3](http://www.uwanttolearn.com/android/functional-interfaces-functional-programming-and-lambda-expressions-reactive-programming-android-rxjava2-what-the-hell-is-this-part3/) ]. Good news is at last we are ready to start work with Rx. We already completed our prerequisites. I will use Java 8 streams for reactiveness before using Rx Java 2 Android Observables. I think we should know Java 8 and I have a feeling by using Java 8 stream API’s, learning curve of Rx Java 2 Android will be more easy.
+小伙伴们一切顺利啊，这是我们的 RxJava2 Android 系列的第四部分 [ [第一部分](https://github.com/xitu/gold-miner/blob/master/TODO/pull-vs-push-imperative-vs-reactive-reactive-programming-android-rxjava2-hell-part2.md)， [第二部分](http://www.uwanttolearn.com/android/pull-vs-push-imperative-vs-reactive-reactive-programming-android-rxjava2-hell-part2/)， [第三部分](https://github.com/xitu/gold-miner/blob/master/TODO/functional-interfaces-functional-programming-and-lambda-expressions-reactive-programming-android-rxjava2-what-the-hell-is-this-part3.md) ]。 好消息是我们已经满足了一些先决条件，已经准备好用 Rx 来工作了。在使用 RxJava2 Android Observable 之前，我会先用 Java8 的 Stream 来做响应式编程。我认为我们应该了解 Java8，我还感觉通过使用 Java8 的流式 API 会让 RxJava2 Android 的学习曲线更简单。
 
-**Motivation:**
+**动机：**
 
-Motivation is same which I share with you in [part1](http://www.uwanttolearn.com/android/reactive-programming-android-rxjava2-hell-part1/). When I started Rx Java 2 Android at that time I don’t know how and where I will use Rx Java Android.
+动机跟我在 [第一部分](https://github.com/xitu/gold-miner/blob/master/TODO/pull-vs-push-imperative-vs-reactive-reactive-programming-android-rxjava2-hell-part2.md) 和大家分享过的一样。在我开始学习 RxJava2 Android 的时候，我并不知道我该怎样使用、在什么地方使用它。
 
-Now we know prerequisites but at that time I don’t know anything. So at that time first I started, how to create a Observable from any data or object. Then I learned about which interfaces or may be I can say callbacks called when some thing happen in Observable data. That is going good theoretically but the day when I start working with Rx practically. I am gone. I saw lot of marble diagrams which make sense theoretically but when I try to use, nothing make sense for me :). Biggest issue for me, I am not able to make my thinking as Reactive or Functional Reactive. My background is working with Imperative and OOP languages so that it is difficult for me. I am always asking these questions. Where I will implement and how I will implement. In this post if you follow I can give you 100% guarantee. You will know. How convert imperative code into Rx not optimised but you will know where to start.
+现在我们知道学习这个需要一些先决条件，但当初我对此一无所知。在我刚刚开始的时候，该如何从任何数据或对象上创建一个 Observable 呢。然后我知道当 Observable 上的数据发生了一些事件的时候，有接口或者可以叫做“回调”会被调用。这在理论上很棒，但是当我付诸实践的时候，GG了。我发现很多理论上应该成立的模式在我去用的时候完全不起作用。对我来说最大的问题，是不能用响应或者函数式响应的思维思考问题。我有命令式编程和面向对象编程的背景，由于先入为主，所以对我来说理解会有些难。我一直在问这些问题：我该在哪里实现？我应该怎么实现？如果你跟着这篇文章看下来，我可以 100% 保证你会知道怎样把命令式代码转换到 Rx 代码，虽然写出来的 Rx 代码可能不是很好，但是你起码知道怎么开始。
 
-**Revision:**
+**回顾：**
 
-I want to revise all those concepts which we already learn in first three posts[ [part1](http://www.uwanttolearn.com/android/reactive-programming-android-rxjava2-hell-part1/), [part2](http://www.uwanttolearn.com/android/pull-vs-push-imperative-vs-reactive-reactive-programming-android-rxjava2-hell-part2/), [part3](http://www.uwanttolearn.com/android/functional-interfaces-functional-programming-and-lambda-expressions-reactive-programming-android-rxjava2-what-the-hell-is-this-part3/) ] . Because today we will use all these concepts. In [part1](http://www.uwanttolearn.com/android/reactive-programming-android-rxjava2-hell-part1/) we learned Observer Pattern. In [part2](http://www.uwanttolearn.com/android/pull-vs-push-imperative-vs-reactive-reactive-programming-android-rxjava2-hell-part2/) we learned Pull vs Push & Imperative vs Reactive. In [part3](http://www.uwanttolearn.com/android/functional-interfaces-functional-programming-and-lambda-expressions-reactive-programming-android-rxjava2-what-the-hell-is-this-part3/) we learned Functional Interfaces, Default Methods, Higher Order Functions, Side Effects in Functions, Pure Functions, Lambda Expression and Functional Programming. I am going to write (boring material) there definitions. If you already remembered you can skip next part.
-*Functional Interface is an interface having one abstract method*.
-*In Java 8 we can define methods in interface these are called Default Methods.*
-*A function with at least one parameter of type function or a function that returns function is called a Higher Order Function*.
-*Pure Function is a function, where the return value is only determined by its input values, without observable side effects.*
-*Lambda expression in computer programming, also called anonymous function, a function (or a subroutine) defined, and possibly called, without being bound to an identifier.*
+我想回顾之前三篇文章中我们提到过的所有概念 [ [第一部分](https://github.com/xitu/gold-miner/blob/master/TODO/pull-vs-push-imperative-vs-reactive-reactive-programming-android-rxjava2-hell-part2.md)、[第二部分](http://www.uwanttolearn.com/android/pull-vs-push-imperative-vs-reactive-reactive-programming-android-rxjava2-hell-part2/)、 [第三部分](https://github.com/xitu/gold-miner/blob/master/TODO/functional-interfaces-functional-programming-and-lambda-expressions-reactive-programming-android-rxjava2-what-the-hell-is-this-part3.md) ]。因为现在我们要用到这些概念了。在 [第一部分](https://github.com/xitu/gold-miner/blob/master/TODO/pull-vs-push-imperative-vs-reactive-reactive-programming-android-rxjava2-hell-part2.md) 我们学习了观察者模式； 在 [第二部分](http://www.uwanttolearn.com/android/pull-vs-push-imperative-vs-reactive-reactive-programming-android-rxjava2-hell-part2/) 学习了拉模式和推模式、命令式和响应式；在 [第三部分](https://github.com/xitu/gold-miner/blob/master/TODO/functional-interfaces-functional-programming-and-lambda-expressions-reactive-programming-android-rxjava2-what-the-hell-is-this-part3.md) 我们学习了函数式接口（Functional Interfaces）、 接口默认方法（Default Methods）、高阶函数（Higher Order Functions）、函数的副作用（Side Effects in Functions）、纯函数（Pure Functions）、Lambda 表达式和函数式编程。我在下面写了一些定义（很无聊的东西）。如果你早就记得的话，可以跳到下一部分。
+**函数式接口是只有一个抽象方法的接口。**
+**在 Java8 我们可以在接口中定义方法，这种方法叫做“默认方法”。**
+**至少有一个参数是函数的函数和返回类型为函数的函数称为高阶函数。**
+**纯函数的返回值仅仅由参数决定，不会产生可见的副作用（比如修改一些影响程序状态的值。——译注）。**
+**Lambda 表达式在计算机编程中又叫做匿名函数，是一种在声明和执行的时候不会跟标识符绑定的函数或者子程序。**
 
-**Introduction:**
+**简介：**
 
-Today we are going to declare a war against Rx Java learning curve. In the end I am 100% sure we will won.
+今天我们将向 RxJava 的学习曲线宣战。我确定在最后我们会取得胜利。
 
-War Strategy:
+作战策略：
 
-1. Java 8 Stream ( That give us a very fast start + we know Java 8 as Android Developer )
+1. Java8 Stream（这使得我们快速开始，我们将从 Android 开发者的角度来看）
 
-2. Java 8 Stream to Rx Observable
+2. Java8 Stream 向 Rx Observable 转变
 
-3. Rx Java 2 Android Example
+3. RxJava2 Android 示例
 
-4. Tips, how convert imperative code to Rx Java 2 Android code
+4. 技巧，怎样把命令式代码转为 RxJava2 Android 代码
 
-Its time to do a ATTACK according to our strategy. Solders ATTACK.
+是时候根据我们的策略发动进攻了，兄弟们上。
 
-**1. Java 8 Stream:**
+**1. Java8 Stream:**
 
-Currently I am using IntelliJ IDE for Java 8 stream. May be you are thinking why I am going to use Java 8 stream which we are not able to use in Android. All those solders who are thinking like this. I am using Java 8 stream due to two reasons. First I know after some years Java 8 is a first class citizen for Android development. So you should know this stream API’s also any body can ask you in interview. Then Java 8 stream is same like Rx Observable in  perspective of concept. So why not we learn both things in a one go. Second I have a feeling lot of solders who are like me dump or lazy or not able to grasp concept very easily they will get that concept in minutes. Again I am giving you 100% guarantee. By learning Java 8 stream you will learn Rx in minutes. Its time to start.
+现在我用 IntelliJ 这个 IDE 来写 Java8 的 Stream。你可能会想为什么我去使用在 Android 不支持的 Java8 的 Stream。对于这样想的同志，我来解释一下。主要有两个原因。首先，我知道几年后 Java8 将成为 Android 开发的一等公民。所以你应该了解关于 Stream 的 API，并且在面试中你可能被问到。而且，Java8 的 Stream 和 Rx Observable 在概念上很像。所以，为什么不一次性把这两个东西一起学了呢？其次，我感觉很多像我一样能力低下、懒惰并且不容易掌握概念的同志也可以在几分钟内了解这个概念。再次强调，我向你们 100% 地保证。通过学习 Java8 的 Stream 可以让你很快地学会 Rx。好，我们开始了。
 
 Stream:
 
-Classes to support functional-style operations on streams of elements, such as map-reduce transformations on collections (*docs.oracle*).
+ 用来支持在元素形成的流上进行函数式操作（比如在集合上进行的 map-reduce 变换）的类(*docs.oracle*)。
 
-First question. What is a stream in english language?
+第一个问题：在英语中 Stream 是什么意思？
 
-Answer: a small, narrow river. Or a continuous flow of liquid, air, or gas.
+答案：一条很窄的小河，或者源源不断流动的液体、空气、气体。在编程的时候把数据转化成“流”的形式，比如我有一个字符串但是我想把它变成“流”来使用我需要干些什么，我需要创建一个机制，使这个字符串满足“源源不断流动的液体、空气、气体 {**或者数据**}”的定义。问题是，我们为什么想要自己的数据变成“流”呢，下面是个简单的例子。
 
-In programming I want to convert my data in the form of stream. Its mean if I have a string but I want to do a work with that as a stream what I need to do. I need to create a mechanism in which I will get my data according to definition “a continuous flow of liquid, air, or gas {**or data**}”. Now question is why I want my data as a stream. Hmm I am giving you one dump example.
-
-I have a blue colour water in a glass with mixup of small and big stones as shown below. (Sorry for drawing skills  )
+就像下面这幅图中画的那样，我有一杯混合着大大小小石子的蓝色的水。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_1-300x253.jpg) ](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_1.jpg)
 
-Now according to our stream definition. I am going to convert that water into stream as shown below.
+现在按照我们关于“流”的定义，我用下图中的方法将水转化成“流”。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_2-237x300.jpg)](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_2.jpg)
 
-I shifted my water from one glass to another by converting into stream. Now I want to remove all big stones from my water. So now I am going to make a one filter which will help me to remove these big stones. Big stone filter as shown below.
+为了让水变成水流，我把水从一个杯子倒进另一个杯子 里。现在我想去掉水中的大石子，所以我造了一个可以帮我滤掉大石子的过滤器。“大石子过滤器”如下图所示。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_3-300x252.jpg)](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_3.jpg)
 
-Now I am going to apply that filter on my water stream. So I will get water without big stones as shown below.
+现在，将这个过滤器作用在水流上，这会得到不包含大石子的水。如下图所示。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_4-204x300.jpeg)](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_4.jpeg)
 
-Hurray. Next I want to clean my water from both small and big stones. For that I have big stone filter but I need to create a new filter for small stones. Small stone filter as shown below.
+哈哈哈。 接下来，我想从水中清除掉所有石子。已经有一个过滤大石子的过滤器了，我们需要造一个新的来过滤小石子。“小石子过滤器”如下图所示。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_5-300x229.jpg)](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_5.jpg)
 
-Its time to apply both filters on my water stream as shown below.
+像下图这样，将两个过滤器同时作用于水流上。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_6-228x300.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_6.png)
 
-Wow. I have a feeling now you guys are getting my point what type of benefit we can get from stream in programming. Next I want to change my colour from blue to black. For that I need to create a water colour converter (mapper) as shown below.
+哇哦~ 我已经感觉到你们领悟了我说的在编程中使用流所带来的好处是什么了。接下来，我想把水的颜色从蓝色变成黑色。为了达到这个目的，我需要造一个像下图这样的“水颜色转换器（mapper）”。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_7-300x171.jpg)](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_7.jpg)
 
-Its time to implement that converter with my filters as shown below.
+像下图这样使用这个转换器。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_8-214x300.jpg)](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_8.jpg)
 
-Now by converting my water into stream I did a lot of things. I remove big stones using filter, small stone by using filter and in the end I converted my water colour from blue to black using converter (map).
+把水转换成水流后，我们做了很多事情。我先用一个过滤器去掉了大石子，然后用另一个过滤器去掉了小石子， 最后用一个转换器（map）把水的颜色从蓝色变成黑色。
 
-This is the same benefit I will get in our programming when I will convert my data into stream. But now I am going to convert our this example into code. The code now I am going to show you is real code. May be this will not work in example but operator and API’s which I am going to use are real which we will use in later real example. So guys focus on concepts not on compilation. By doing this example I have a feeling we will grasp the concepts very easily. One important point I am using Java 8 stream API in this example not Rx API’s. I don’t want to make things difficult but later I will use Rx also.
+当我将数据转换成流时，我将在编程中得到同样的好处。现在，我将把这个例子转换成代码。我要显示的代码是真正的代码。可能示例代码不能工作，但我将要使用的操作符和API是真实的，我们将在后面的实例中使用。所以，同志们不要把关注点放在编译上。通过这个例子，我有一种感觉，我们将很容易地把握这些概念。在这个例子中，重要的一点是，我使用Java8 的 Stream API 而不是 Rx API。我不想让事情变困难，但稍后我也会使用 Rx。
 
-Image Water + Water in code:
+图像中的水 和 代码中的水：
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_1-300x253.jpg)](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_1.jpg)
 
 ```
 public static void main(String [] args){
     Water water = new Water("water",10, "big stone", 1 , "small stone", 3);
-    // 10 litre water with 1 big and 3 small stones.
+    // 含有一个大石子和三个小石子的十升水
     for (String s : water) {
         System.out.println(s);
     }
 }
 ```
 
-Output:
+输出:
 
 water
 
@@ -138,7 +136,7 @@ water
 
 water
 
-Image Water stream + Water stream in code:
+图像中的水流 和 代码中的水流：
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_2-237x300.jpg)](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_2.jpg)
 
@@ -149,16 +147,16 @@ public static void main(String[] args) {
     water.stream();
 }
 
-Output will be same as above one.
+//输出和上面那个一样
 ```
 
-Image big stone filter + big stone filter in code:
+图像中的“大石子过滤器” 和 代码中的“大石子过滤器”：
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_3-300x252.jpg)](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_3.jpg)
 
-Guys need your attention here.
+同志们这里需要注意下！
 
-Here in Java 8 Stream we have a one Functional Interface its name is called Predicate. So when I want to do a filter I need to give this Functional Interface to stream filter function. Now I am going to show you how I will create a BigStoneFilter in our code.
+在 Java8 Stream 中有个叫做 Predicate（谓词，可以判断真假，详情见线性代数中的相关定义——译注）的函数式接口。所以，如果我想进行过滤的话需要把这个函数式接口送到流的过滤器函数里面。现在，我给大家展示在我们的代码中如何创建“大石子过滤器”。
 
 ```
 private static Predicate<String> BigStoneFilter  = new Predicate<String>() {
@@ -169,13 +167,13 @@ private static Predicate<String> BigStoneFilter  = new Predicate<String>() {
 };
 ```
 
-As we already know in [part3](http://www.uwanttolearn.com/android/functional-interfaces-functional-programming-and-lambda-expressions-reactive-programming-android-rxjava2-what-the-hell-is-this-part3/) any Functional Interface can be convert into Lambda expression. So going to convert this code into Lambda Expression.
+正如我们在 [第三部分](https://github.com/xitu/gold-miner/blob/master/TODO/functional-interfaces-functional-programming-and-lambda-expressions-reactive-programming-android-rxjava2-what-the-hell-is-this-part3.md) 已经知道的，任何函数式接口都可以转换成 Lambda 表达式。把上面的代码转换成 Lambda 表达式：
 
 ```
 private static Predicate<String> BigStoneFilter  = s -> !s.equals("big stone");
 ```
 
-Image big stone filter on Water stream + in code.
+图像中和代码中作用在水流上的”大石子过滤器“：
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_4-204x300.jpeg)](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_4.jpeg)
 
@@ -190,7 +188,7 @@ public static void main(String[] args) {
 private static Predicate<String> BigStoneFilter  = s -> !s.equals("big stone");
 ```
 
-Here I am using forEach method. For the time being take this function as a for loop on a stream. I am using here only to show you output. Otherwise without this function we already achieved what we are showing in image. Now its time to show you output.
+这里我使用了 forEach 方法，暂时把这当作流上的 for 循环。用在这里仅仅是为了输出。除去没有这个方法，我们也已经实现了我们在图像中表示的内容。是时候看看输出了：
 
 water
 
@@ -218,9 +216,9 @@ water
 
 water
 
-There is no big stone. Its mean we filter our water sucessfully.
+没有大石子了，这意味着我们成功过滤了水。
 
-Image Small stone filter + small stone filter in code:
+图像中的“小石子过滤器” 和 代码中的“小石子过滤器”：
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_5-300x229.jpg)](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_5.jpg)
 
@@ -228,7 +226,7 @@ Image Small stone filter + small stone filter in code:
 private static Predicate<String> SmallStoneFilter  = s -> !s.equals("small stone");
 ```
 
-Appending small stone filter on Water stream + in code.
+在图像和代码中使用”小石子过滤器“：
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_6-228x300.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_6.png)
 
@@ -245,7 +243,7 @@ private static Predicate<String> BigStoneFilter  = s -> !s.equals("big stone");
 private static Predicate<String> SmallStoneFilter  = s -> !s.equals("small stone");
 ```
 
-I am not going to explain **SmallStoneFilter**. Implementation is just like **BigStoneFilter**. Only here I am going to show you output.
+我不打算解释 **SmallStoneFilter**，它的实现和 **BigStoneFilter** 是一样一样的。这里我只展示输出。
 
 water
 
@@ -267,13 +265,13 @@ water
 
 water
 
-Image Water colour converter + water colour converter in code:
+图像中的”水颜色转换器“ 和 代码中的”水颜色转换器“
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_7-300x171.jpg)](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_7.jpg)
 
-Guys need your attention here.
+同志们这里需要注意！
 
-Here in Java 8 Stream we have a one Functional Interface its name is called Function. So when I want to do a conversion I need to give this Functional Interface to a stream map function. Now I am going to show you how I will create a Water colour converter in our code.
+在 Java8 Stream 中有个叫做 Function 的函数式接口。所以，当我想进行转换的时候，需要把这个函数式接口送到流的转换（map）函数里面。现在，我给大家展示在我们的代码中如何创建“水颜色过滤器”。
 
 ```
 private static Function<String, String > convertWaterColour = new Function<String, String>() {
@@ -284,21 +282,21 @@ private static Function<String, String > convertWaterColour = new Function<Strin
 };
 ```
 
-That is a functional interface. So I can convert into lambda.
+这是一个函数式接口，所以我可以把它转换为 Lambda ：
 
 ```
 private static Function<String, String > convertWaterColour = s -> s+" black";
 ```
 
-Basically first String in Function <generic> is the value which I will get from water and second String in Function <generic> means what I am returning. For more clarification I am writing one converter which will convert integer into String.
+简单来说，泛型中的第一个 String 代表我从水中得到什么，第二个 String 表示我会返回什么。 为了更好地掰扯清楚，我写了个把 Integer 转化成 String 的转换器。
 
 ```
 private static Function<Integer, String > convertIntegerIntoString = i -> i+" ";
 ```
 
-Coming back to our original example.
+回到我们原来的例子。
 
-Image appending water colour converter on Water stream + in code.
+为水流添加颜色转换器的图像和代码：
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_8-214x300.jpg)](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_8.jpg)
 
@@ -317,7 +315,7 @@ private static Predicate<String> SmallStoneFilter = s -> !s.equals("small stone"
 private static Function<String, String> convertWaterColour = s -> s + " black";
 ```
 
-Output:
+输出:
 
 water black
 
@@ -339,13 +337,13 @@ water black
 
 water black
 
-Done. Now I am going to revise some things again.
+完活！现在我们再次回顾一些内容。
 
-filter: In stream we have a method. Which always take a Functional Interface is called Predicate. In which we will write our logic, which will be apply on our data.
+filter（过滤器）： Stream 有一个只接受 Predicate 这个函数式接口的方法。我们可以在 Predicate 里写作用在数据上的逻辑代码。
 
-map: In stream we have a method.Which always take a Functional Interface is called Function. In which we will write our logic to convert our data according to our requirement.
+map（映射）：Stream 有一个只接受 Function 这个函数式接口的方法。我们可以在 Function 里写按照我们的要求转换数据的逻辑代码。
 
-Before going to next topic. I am going to explain you one more thing which confuse me a lot. Like when I say stream() on any data how that work. So for that I am going to take a one example. I have a list of integers. I want to show that on console.
+在进入下个环节之前，我想解释一个曾经困惑我很久的东西。当我们在任意数据上使用 stream() 的时候，背后是怎样工作的。所以我要举一个例子。我有一个整数列表。我想在控制台上显示它们。
 
 ```
 public static void main(String [] args){
@@ -357,7 +355,7 @@ public static void main(String [] args){
 }
 ```
 
-Using imperative approach data shown on console:
+使用命令式编程来打印数据：
 
 ```
 public static void main(String [] args){
@@ -374,7 +372,7 @@ public static void main(String [] args){
 }
 ```
 
-Using Stream or Rx approach data shown on console:
+使用 Stream 或 Rx 的方式来打印数据：
 
 ```
 public static void main(String [] args){
@@ -389,31 +387,31 @@ public static void main(String [] args){
 }
 ```
 
-Now if you compare both codes. What is the difference?
+对于以上两段代码，它们的不同点在哪呢？
 
-In simple words in first code. I am managing for loop on my own.
+简单来说，在第一段代码中我自己管理 for 循环：
 
 ```
 for (Integer integer : list) {
         System.out.println(integer);
-    }
+}
 ```
 
-but in second example stream (or later I will show you Observable in Rx) will taking care of my loop.
+但是在第二段代码中，流（或者稍后后要展示的 Rx 中的 Observable）进行循环：
 
 ```
 list.stream().forEach(integer -> System.out.println(integer));
 ```
 
-I think lot of things are clear its time to go on a real example by using Rx. In this example I will show you stream code and Rx code both together so you can easily grasp the concept in both domains.
+我认为很多事情都说清楚了，是时候用 Rx 来写个真实的例子了。在这个例子中，我会同时使用流式编码（stream code）和响应式编码（Rx code），这样大家可以更容易地掌握这俩的概念。
 
-**2. Java 8 Stream to Rx Observable:**
+**2. Java8 Stream to Rx Observable:**
 
-I have a list which contain data “Hello World”. In images I am taking as a String but In code example I am going to take as a List which is easy to explain on this point.
+有一个存有 “Hello World” 的列表。 在图片中，把它视作字符串。在代码中把它看作列表，这样比较好解释。
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_9-300x258.jpg)](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_9.jpg)
 
-In code Java 8 Streams:
+Java8 的 Stream 代码：
 
 ```
 public static void main(String [] args){
@@ -430,12 +428,12 @@ public static void main(String [] args){
     list.add("r");
     list.add("l");
     list.add("d");
-    list.stream(); // Java 8
+    list.stream(); // Java8
 }
 
 ```
 
-In Android:
+Android 中的代码：
 
 ```
 public class MainActivity extends AppCompatActivity {
@@ -464,28 +462,28 @@ public class MainActivity extends AppCompatActivity {
 }
 ```
 
-Guys here I am showing you both Java 8 and Android code. From now I will show you only Reactive code from Java 8 and Android not all class code. In the end of the blog post I will share with you code.
+在这里展示了 Java8 代码和 Android 代码。从现在开始，我只给出代码中的响应式（Reactive）部分而不给出完整的一个类。完整代码分享在文章的最后了。上面的代码将变成这样：
 
 Again above example:
 
 ```
-list.stream(); // Java 8
+list.stream(); // Java8
 
 Observable.fromIterable(list); // Android
 ```
 
-So both will give you same result. Now I am going to output integer list.
+这两者会有相同的结果，这样来输出整个列表：
 
 ```
 list.stream()
-       .forEach(s-> System.out.print(s)); // Java 8
+       .forEach(s-> System.out.print(s)); // Java8
 
 Observable.fromIterable(list)
         .forEach(s-> Log.i("Android",s)); // Android
 
-Output in Java 8:
+Java8 的输出:
      Hello World
-Output In Android:
+Android 的输出:
 03-12 15:55:33.561 6094-6094/async.waleed.rx I/Android: H
 03-12 15:55:33.561 6094-6094/async.waleed.rx I/Android: e
 03-12 15:55:33.561 6094-6094/async.waleed.rx I/Android: l
@@ -499,33 +497,33 @@ Output In Android:
 03-12 15:55:33.561 6094-6094/async.waleed.rx I/Android: d
 ```
 
-Now its time to compare both.
+是时候来比较下这俩了。
 
 ```
-list.stream().forEach(s-> System.out.print(s)); // Java 8
+list.stream().forEach(s-> System.out.print(s)); // Java8
 
 Observable.fromIterable(list).forEach(s-> Log.i("Android",s)); // Android
 ```
 
-So in Java 8 any thing I want as a stream. I will use a stream API but in Android I will convert that data into Observable and will get data as stream.
+在 Java8 中我想要一个东西变成流的形式，我会用 Stream 的 API，但是在 Android 里，我先把那个东西转换成 Observable 然后获取到数据流。
 
-Next we need to do a filter Hello World data by ‘l’ like as shown below.
+接下来，我们将用 ’l‘ 作为过滤器来处理 Hello World，就像下面这样：
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_10-300x263.jpg)](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_10.jpg)[![](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_11-300x282.jpg)](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_11.jpg)In code:
 
 ```
 list.stream()
         .filter(s -> !s.equals("l"))
-        .forEach(s-> System.out.print(s)); //Java 8
+        .forEach(s-> System.out.print(s)); //Java8
 
 Observable.fromIterable(list)
         .filter(s->!s.equals("l"))
         .forEach(s-> Log.i("Android",s)); // Android
 
-Output in Java 8: 
+输出 in Java8: 
      Heo Word
 
-Output In Android:
+输出 In Android:
 03-12 16:05:58.558 10236-10236/async.waleed.rx I/Android: H
 03-12 16:05:58.558 10236-10236/async.waleed.rx I/Android: e
 03-12 16:05:58.558 10236-10236/async.waleed.rx I/Android: o
@@ -536,14 +534,14 @@ Output In Android:
 03-12 16:05:58.558 10236-10236/async.waleed.rx I/Android: d
 ```
 
-Good. Now its time to say bye to Java 8 Stream API.
+好。是时候对 Java8 的 Stream API 说再见了。
 
 
-**3. Rx Java 2 Android Example:**
+**3. RxJava2 的 Android 示例：**
 
-I have a one array of Integers. I want to take a square of all members of this array.
+有一个整数数组，我想让数组中的每个成员变成自身的平方。
 
-In image form as shown below.
+如图所示：
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_12-288x300.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_12.png)
 
@@ -551,7 +549,7 @@ In image form as shown below.
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_14-300x296.jpg)](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_14.jpg)
 
-In Android:
+Android 代码：
 
 ```
 @Override
@@ -568,7 +566,7 @@ protected void onCreate(Bundle savedInstanceState) {
 
 ```
 
-Output:
+输出:
 
 03-12 16:13:32.432 14918-14918/async.waleed.rx I/Android: 1
 
@@ -582,15 +580,15 @@ Output:
 .map(value->value*value)
 ```
 
-That is really simple. Same concept which we already used. I gave a one Functional Interface into map. Which basically doing square of the given value and return that square value.
+这波很稳，我们之前已经用到过相同的概念了。把一个函数式接口传进 map，这个函数简单地将输入的数平方后返回。
 
 ```
 .forEach(value-> Log.i("Android",value+""));
 ```
 
-As we know we only can show String in logs. So I converted value integer into String by appending +”” as shown above.
+稍有常识的人都知道，我们只能在 log 中打印字符串。在上面的代码中，我在整数值的后面添加 ``+""`` 来把他们转换成字符串。
 
-Wow. I can see one more use of map in my example. Guys as you know I am converting my integer into String for showing into Logcat. But now I am going to write a one more Functional Interface for map. Which will convert my integer into String. So its mean no need to append +”” as shown below.
+哇哦！我们可以在这个例子中再用一次 map。你们都知道我需要把整数转换成字符串以便打印到 Logcat，但是我现在打算为 map 再写一个函数式接口来完成转换。这意味着我们不需要在数据后面添加 ``+""``了，如下所示：
 
 ```
 Observable.fromArray(data)
@@ -599,17 +597,17 @@ Observable.fromArray(data)
         .forEach(string-> Log.i("Android",string));
 ```
 
-**4. How convert imperative code to Rx Java 2 Android code:**
+**4. 如何把命令式代码转化成 RxJava2 Android 代码：**
 
-Here I am going to use a one real world app imperative code block which I will convert into Reactive using Rx Observable. So you can easily know how you can start with Rx in your project. Important point that may be not good approach but you should start so you feel comfortable. I also know I am using some functions like fromArray, fromIterable which I never explained. So for that please try to use as how I am using in examples. I will explain in detail when I will publish my  next post of Rx Android. Try to do a hands on practice a lot.
+这里我打算使用一段现实存在于某 APP 的代码，我将使用 Rx Observable 把它转化成响应式（Reactive）代码。这样你很容易就知道怎样开始在自己的项目中使用 Rx 了。重要的东西可能不是很容易理解，但你应该开始动手，这样才会感觉良好。所以，像我在示例代码中提到的那样去使用它们，我会在下一篇文章中详细解释。尝试多去练练手。
 
-Example:
+示例：
 
-In one of my project. I am using [OnBoarding](https://www.google.com/search?q=onboarding+ui&amp;rlz=1C5CHFA_enMY704MY704&amp;espv=2&amp;tbm=isch&amp;tbo=u&amp;source=univ&amp;sa=X&amp;ved=0ahUKEwjqtsPv0tDSAhWLybwKHdLMDhcQsAQINg&amp;biw=1280&amp;bih=682) screen. According to UI I need to show dots on my all OnBoarding screens like shown below.
+我在一个项目中使用了 [OnBoarding](https://www.google.com/search?q=onboarding+ui&amp) 界面，根据 UI 设计需要在每个 OnBoarding 界面上显示点点，如下图所示：
 
-[![](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_15-300x287.jpg)](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_15.jpg)If you saw carefully in image. In ViewPager I need to give black solid dot to the selected screen.
+[![](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_15-300x287.jpg)](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_15.jpg)如果你观察得很仔细的话，可以看到我需要将选定的界面对应的点设置成黑色。
 
-In Imperative code:
+命令式编程的代码：
 
 ```
 private void setDots(int position) {
@@ -622,7 +620,7 @@ private void setDots(int position) {
 }
 ```
 
-In Rx:
+响应式代码（Rx）的代码：
 
 ```
 public void setDots(int position) {
@@ -636,9 +634,9 @@ public void setDots(int position) {
 }
 ```
 
-In this setDots function. Basically I am going through from every Image and setting a white empty circle and after that I am setting again solid circle on the selected ImageView.
+在 setDots 函数中，我简单地遍历每个 ImageView 并且把它们设置成白色的空心圈，之后将选定的 ImageView 重新设定为实心圈。
 
-OR
+或者，
 
 ```
 public void setDots(int position) {
@@ -651,27 +649,27 @@ public void setDots(int position) {
 }
 ```
 
-In this setDots function. I set to all Imageviews white empty circle except the one which is a selected one.
+在这个 setDots 函数中，我把除选定的 ImageView 之外的所有 ImageView 设置为白色空心圈。
 
-Later I set the solid circle for the selected Imageview.
+之后，将选中的 ImageView 设置为实心圈。
 
-**4. Tips how convert imperative code to Rx code:**
+**4. 几个关于把命令式代码转换成响应式代码的技巧：**
 
-I am going to write some tips. So you can start work with Rx easily in your current code.
+为了让大家可以在现有的代码上轻松开始使用 Rx，我写了几个小技巧。
 
-1. If we have any loop in code convert that loop into Observable.
+1. 如果代码中有循环的话，用 Observable 替换
 
 ```
 for (int i = 0; i < 10; i++) {
 
 }
 
-to
+==>
 
 Observable.range(0,10);
 ```
 
-2. If we have any if condition in imperative code replaced with filter in Rx.
+2. 如果代码中有 if 语句的话，用 Rx 中的 filter 替换
 
 ```
 for (int i = 0; i < 10; i++) {
@@ -680,14 +678,14 @@ for (int i = 0; i < 10; i++) {
     }
 }
 
-to
+==>
 
 Observable.range(0,10)
         .filter(i->i%2==0)
         .subscribe(value->Log.i("Android","Event :"+value));
 ```
 
-3. If we need to transformed some data form into another data form. I can do that by using map.
+3. 如果需要把一些数据转换为另一种格式，可以用 map 实现
 
 ```
 public class User {
@@ -716,9 +714,9 @@ for (User user : users) {
 }
 ```
 
-In Rx there are lot of ways to achieve above code.
+在 Rx 中，有很多方法实现上述代码。
 
-By using two streams.
+使用两个流：
 
 ```
 Observable.fromIterable(users)
@@ -731,7 +729,7 @@ Observable.fromIterable(users)
         .subscribe(user -> Log.i("Android", user.toString()));
 ```
 
-By using If else in map:
+在 map 中使用 if else ：
 
 ```
 Observable.fromIterable(users)
@@ -746,7 +744,7 @@ Observable.fromIterable(users)
         .subscribe(user -> Log.i("Android", user.toString()));
 ```
 
-4. If we have some nested loops in our code.
+4. 如果代码中有嵌套的循环：
 
 ```
 for (int i = 0; i < 10; i++) {
@@ -756,7 +754,7 @@ for (int i = 0; i < 10; i++) {
     System.out.println("i");
 }
 
-to
+==>
 
 Observable.range(0, 10)
         .doAfterNext(i-> System.out.println("i"))
@@ -765,24 +763,24 @@ Observable.range(0, 10)
         .subscribe();
 ```
 
-Here I used one new operator flatMap. Only try to use in a same way how I used in my example. I will explain that in next post.
+这里用到了 flatmap 这个新的操作符。先仅仅尝试像示例代码中那样使用，我会在下篇文章中解释。
 
-**Conclusion:**
+**总结：**
 
-Good work solders. Today we try to make our self comfortable with Rx Android. We started from diagrams, then we used Java 8 stream API’s. Later we converted Java 8 stream to Rx Java 2 Android Observable. Then we try to saw some real world examples where I show you, how you can start work with Rx in your existing project. In the end I gave you some tips how to convert loop into Rx, if into filter, data transformation using map, nested loop converted by using flatMap. Next post [Dialogue between Rx Observable and a Developer (Me) [ Android RxJava2 ] ( What the hell is this ) Part5](http://www.uwanttolearn.com/android/dialogue-rx-observable-developer-android-rxjava2-hell-part5/).
+同志们干得好！今天我们学 Rx Android 学得很开心。我们从图画开始，然后使用了 Java8 的流（Stream）。之后将 Java8 的流转换到 RxJava 2 Android 的 Observable。再之后，我们看到了真实项目中的示例并且展示了在现有的项目中如何开始使用 Rx，把 if 换成 filter，用 map 进行数据转化，用 flatmap 代替嵌套的循环。下篇文章： [Dialogue between Rx Observable and a Developer (Me) [ Android RxJava2 ] ( What the hell is this ) Part5](http://www.uwanttolearn.com/android/dialogue-rx-observable-developer-android-rxjava2-hell-part5/).
 
-Hope you enjoy. OK guys BYE BYE.
+希望你们开心，同志们再见！
 
-Codes:
+代码：
 
-1. [Water Stream Example
-](https://gist.github.com/Hafiz-Waleed-Hussain/c4d17174af9881c57f0e1ce676fede2d)
-2. [HelloWorldStream using Java 8 sStream API
-](https://gist.github.com/Hafiz-Waleed-Hussain/9f55be929eb0f5e1956e75ac41876a3b)
-3. [HelloWorldStream using Rx Java2 Android](https://gist.github.com/Hafiz-Waleed-Hussain/509a32acad909ac1e90b2f83fb4dde5a) | [project level gradle](https://gist.github.com/Hafiz-Waleed-Hussain/57d2708607da67867d9bed7ba9882f5c) | [app level gradle
-](https://gist.github.com/Hafiz-Waleed-Hussain/2afd1e597fdc0c204a4adb1b43c165eb)
-4. [ArrayOfIntegers using Rx Java2 Android](https://gist.github.com/Hafiz-Waleed-Hussain/a3acd794e4942f296531018bdcad2a23) | [project level gradle](https://gist.github.com/Hafiz-Waleed-Hussain/57d2708607da67867d9bed7ba9882f5c) | [app level gradle](https://gist.github.com/Hafiz-Waleed-Hussain/2afd1e597fdc0c204a4adb1b43c165eb)
+1. [Water Stream Example（示例：水流）
+   ](https://gist.github.com/Hafiz-Waleed-Hussain/c4d17174af9881c57f0e1ce676fede2d)
+2. [HelloWorldStream using Java8 Stream API（示例：Java8 Stream 初体验）
+   ](https://gist.github.com/Hafiz-Waleed-Hussain/9f55be929eb0f5e1956e75ac41876a3b)
+3. [HelloWorldStream using Rx Java2 Android（示例：RxJava2 Android 初体验）](https://gist.github.com/Hafiz-Waleed-Hussain/509a32acad909ac1e90b2f83fb4dde5a) | [project level gradle](https://gist.github.com/Hafiz-Waleed-Hussain/57d2708607da67867d9bed7ba9882f5c) | [app level gradle
+   ](https://gist.github.com/Hafiz-Waleed-Hussain/2afd1e597fdc0c204a4adb1b43c165eb)
+4. [ArrayOfIntegers using Rx Java2 Android（示例：用 RxJava2 Android 操作整数数组）](https://gist.github.com/Hafiz-Waleed-Hussain/a3acd794e4942f296531018bdcad2a23) | [project level gradle](https://gist.github.com/Hafiz-Waleed-Hussain/57d2708607da67867d9bed7ba9882f5c) | [app level gradle](https://gist.github.com/Hafiz-Waleed-Hussain/2afd1e597fdc0c204a4adb1b43c165eb)
 
-For all other examples you can use the same snippets from post.
+对于其他所有示例，您可以使用文章中的片段。
 
  
