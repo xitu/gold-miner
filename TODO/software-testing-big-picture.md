@@ -1,198 +1,198 @@
 > * 原文地址：[Unit testing, Lean Startup, and everything in-between](https://codewithoutrules.com/2017/03/12/software-testing-big-picture/)
 > * 原文作者：[Itamar Turner-Trauring](https://twitter.com/itamarst)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者： 
-> * 校对者：
+> * 译者：[gy134340](https://github.com/gy134340)
+> * 校对者：[zhaochuanxing](https://github.com/zhaochuanxing)，[yifili09](https://github.com/yifili09)
 
-# Unit testing, Lean Startup, and everything in-between
+# 单元测试，精益创业，以及两者之间的关系
 
-Why do we test our software?
+为什么软件需要测试？
 
-I used to think this was in order to produce high-quality code: you should always test you code because you always want to write high-quality code.
-But this viewpoint has some problems.
+我曾经以为是为了产出高质量的代码：你总是需要测试因为你总是需要写出高质量的代码。
+但是这个观点有几点问题。
 
-**Sometimes quality is besides the point.**
-In his book "Lean Startup" Eric Ries talks about building software only to discover that no one actually wanted to use it.
-This was one of his motivations to develop a better methodology for creating startups, a way to figure out if a product will succeed *before* putting the time into building a quality product.
-Ensuring high quality is a waste of time if no one will ever use your software.
+**有时候质量不是主要问题。**
+在“精益创业” 这本书中，作者 Rric Ries 说过有时候发布一个软件最终发现没人真的想用它。
+这也是他创作的动机之一: 为创业初期建立一套更好的方法论，在真正投入时间去构建一个高质量的产品时，就能够发现这款产品是否能够成功的方法论。
+如果没人用你的软件的话那么确保高质量纯属浪费时间。
 
-**Even if quality is necessary, the connection between quality and testing is vague.**
-How does testing by a QA team differ from an automated unit test?
-They're obviously quite different, but exactly what kind of quality does each give?
-When should you use a particular kind of testing?
+**即使高质量很有必要，但高质量与测试之间的关系却很模糊的。**
+一个 QA 的团队跟自动化的单元测试又什么不同？
+他们的确不一样，但他们又分别给出什么样的质量？
+什么时候需要特别的测试？
 
-**In addition, tests have costs: how can you decide if the costs outweigh the benefits?**
-For example, consider a company that writes tax preparation software (I've changed the actual details a little.)
-They wrote Selenium tests for their web UI... but their application was still buggy, and every time they changed the UI the tests would break.
-The tests didn't seem to improve quality, and they wasted developer time maintaining them.
-What did they do wrong?
+**另外，测试是有成本的：你怎样辨别成本的花费是否超出回报？**
+比如说，有一家做税务申报软件的公司（我稍微改了一下细节）。
+他们使用 Selenium 来对他们网站的 UI 来测试... 但是他们的应用依然很烂，而且每次改变 UI 测试都会崩溃。
+这个测试并没有改变产品的质量，相反浪费了程序员的时间来维护测试。
+他们做错了什么？
 
-Saying we should all just write high-quality software doesn't help address these issues.
-So let's take a step back and think more deeply about testing.
+说我们都需要写出高质量的软件并不能帮助解决这些问题。
+那我们回头来更加深入的讨论一下。
 
-## What does it mean to test?
+## 测试的意义是什么？
 
-The [best English dictionary](http://jsomers.net/blog/dictionary) tells us that to test is "to put to the proof; to prove the truth, genuineness, or quality of by experiment, or by some principle or standard."
-Quality is in there, yes, but there's much more to it than that.
+[康熙字典 :) ]((http://jsomers.net/blog/dictionary))里告诉我们测试是为了 “举证，通过一定原则或标准或实验来，证明真理，真实性。“ 
+软件质量就在那里，是的，但事实却又不仅如此。
 
-This is only an English definition, to be sure, and programming is not limited to English-speakers.
-But I don't mean to argue that a dictionary definition can dictate what we *ought* to do.
-Human language is an accumulation of centuries of looking at the world and trying to understand it, a repository of ideas that we can draw on.
+准确的说，这只是英语定义，可以肯定，有很多不说英语的开发者。
+我不想被字典来束缚我们的行为。
+人类语言是数世纪以来对世界的观察和理解，也是我们可以拿来借鉴的宝库。
 
-Let's take this definition as a starting point and see what we can learn.
+那我们来以这个为出发点来看看能学到点什么。
 
-## The first dimension of testing
+## 测试的第一个方面
 
-Is the following code a test?
+下面这个是测试吧？
 
     def test_add():
         assert add(2, 2) == 5
     
 
-I would say that, yes, that's clearly a test.
-Says so right in the function name, even.
-The test proves that `add()` does what it ought to do: add two numbers and give us the result.
+没错，他还真是，没毛病。
+看函数名，一点都没错。
+测试说明 `add()`  做了他该做的：将两个数相加得到结果。
 
-You've noticed, of course, that this test is *wrong*.
-Luckily our development process has another step: code review.
-You, dear reader, can act as a code reviewer and tell me that my code is wrong, that 2 + 2 is 4, not 5.
+你注意到这个测试是**错**的。
+幸运的是我们的开发流程进入到了另一步：代码审查。
+亲爱的读者们，代码审查告诉我我的代码是错的，2 + 2 = 4，不是 5。
 
-Is code review a form of testing?
+代码审查是不是测试的一种？
 
-According to the dictionary definition it is: the code reviewer is validating the code's "truth, genuineness and quality" by comparing it to a "standard", the arithmetic we all learned as children.
+根据字典定义来说是的：代码审查就是根据标准来验证代码的 “正确，真实性和质量”，这个从小我们就知道。
 
-**Let's imagine code review as a form of testing, alongside automated unit tests.**
-Even if they're both tests, they're also quite different.
-What is the core difference between them?
+**那我们假设代码审查跟单元测试一样都是测试的一种。**
+他们都是测试，却又相当不同。
+那主要的区别在哪里？
 
-One form of testing is automated, the other is done by a human.
+一种是自动化的，一种是人来做的。
 
-An automated test is consistent and repeatable.
-You can write this:
+自动化测试具有一致性和可重复性。
+你可以这样写：
 
     def test_add_twice():
         for i in range(10000000):
             assert add(i, i) == 2 * i
     
 
-And the computer will run the exact same code every time.
-The code will make sure `add()` consistently returns that particular result for those particular inputs.
-A human would face some difficulties in manually verifying ten million different computations: boredom, distraction, errors, slowness.
+电脑每次都跑一遍一摸一样的代码。
+代码可以保证根据输入每次调用`add()`返回他们的结果。
+人在手动验证一千万种不同的计算时会遇到一些困难，比如无聊、分心、失误、缓慢啦等等。
 
-On the other hand, a human can read this code and tell you it's buggy:
+另一方面，任何人都可以很快的告诉你下面的代码是错的：
 
     def add(a, b):
         return a + b + 1
     
 
-Where the computer does what it's told, for good or for bad, a human can provide meaning.
-Only a human can tell what the software is *for*.
+计算机只按照指令执行操作，孰对孰错，人类能赋予它意义。
+只有人才知道软件是为何而生。
 
-Now we have one way of understanding what testing means, and how to organize it: **humans test for meaning, whereas automated tests ensure consistency.**
+现在我们知道每种测试的不同，以及如何组织它：**人类来发现意义，自动化测试确保一致性。**
 
-## The second dimension of testing
+## 测试的第二个方面
 
-Let's consider another aspect of testing.
-"A/B testing" is a form of testing where you try out two variations and see which produces a better result.
-Perhaps you are testing a redesign of your website: you show the current design to 90% of your visitors, the new design to 10% of your visitors, and see which results in more signups for your product.
+我们来看一下测试的另一个方面。
+“A／B  测试”是一种尝试不同分类来看哪种结果更好的测试。
+比如你为了测试网站新的设计：给 90% 的访问者原有的设计，同时给 10% 的访问者新的设计，看看哪种注册人数多一点。
 
-Is this a test?
-It's called "A/B testing", so it seems like it ought to be.
+这是测试吗？
+这就叫 “A/B 测试”，跟它的名字一样。
 
-Let's look at the dictionary definition again: "to put to the proof; to prove the truth, genuineness, or quality of **by experiment**, or **by some principle or standard**."
+我们来重新看一下字典定义：“举证，**通过一定原则**或**标准**或**实验**，来证明真理，真实性。”
 
-The dictionary thinks it's a test too, a test **"by experiment"**.
-We're running an experiment to find out which version of the website will do best.
+字典上说这也是测试，因为**通过实验**。
+我们通过实验来看看哪个版本更受欢迎。
 
-Unit tests and code review, in contrast, are tests **"by some principle or standard"**.
-We have some intended specification for the software, some way we want it to behave, and we are trying to ensure it meets that specification.
+单于测试和代码审查，对比来说，就是**通过一定原则**或**标准**来测试。
+我们对软件有一些特定规格，一些我们希望软件的行为，同时我们确保它符合规格。
 
-Now we have a second way of understanding and organizing tests: **testing by experiment vs. testing against a specification.**
+现在我们有了第二种理解与组织测试的方法：**通过实验测试** vs **针对规格测试**
 
-## The testing quadrants
+## 测试的象限图
 
-Put both of these together and we get the following chart showing four different types of testing:
+将它们放在一起我们得到下面这张关于测试的图表：
 
 ![](https://ww2.sinaimg.cn/large/006tKfTcly1fdorbapge0j312c13k0xb.jpg)
 
-### User Behavior
+### 用户行为
 
-- Will people buy your product?
-- Will a design change result in more signups?
-- Will users understand how your software works?
+- 有人买你的产品吗？
+- 设计的改变会影响注册人数吗？
+- 用户知道软件是如何工作的吗？
 
-These are all questions that cannot be answered by comparing your software to a specification.
-Instead you need empirical knowledge: you need to observe what actual human beings do when presented with your software.
+这些都是无法通过软件是否符合规格来回答。
+相反需要你的经验知识：你需要观察人对软件的真实反映。
 
-### Software Behavior
+### 软件表现
 
-- How does your software behave under load?
-- Is your production system throwing exceptions?
+- 你的软件在负载下表现如何？
+- 你的产品抛出异常吗？
 
-These questions can't be answered by comparing your software to a specification.
-You need to actually run your software and observe what happens.
+这些问题不能通过对比规范来解答，
+你需要把软件跑起来看看到底会发生什么。
 
-### Correct Functionality
+### 功能正确性
 
-- Does your software actually match the specification?
-- Does it do what it's supposed to?
+- 你的软件符合规范吗？
+- 它做了它该做的吗？
 
-It's tempting to say that automated tests can prove this, but remember the unit test that checked that 2 + 2 is 5.
-On a more fundamental level, software can technically match a specification and completely fail to achieve the *goal* of the specification.
-Only a human can understand the meaning of the specification and decide if the software matches it.
+很容易说自动化的测试可以证明这一点，但有没有想过单元测试在检查 2 + 2 = 5。
+在基本的层面上，软件可以在技术上符合规范却完全无法达成规范的初衷。
+但只有人明白规范的含义，和辨别是否匹配这个规范。
 
-### Stable Functionality
+### 功能的稳定性
 
-- Does your public API return the same results for the same inputs?
-- Is your code providing the guarantees it ought to provide?
+- 你的公有 API 对于相同输入返回相同的值吗？
+- 你的代码是否提供了它该提供的？
 
-Humans are not a good way to test this.
-Humans are pretty good at ignoring small changes: if a button changes from "Send Now" to "Send now" you might not even notice at all.
-In contrast, software will break if your API changes from `sendNow()` to `send_now()`, or if the return type changes subtly.
+人不是测试这个问题的好办法。
+所有人都会忽略小问题：如果一个按钮从 “Send Now” 变成 “Send now”，很多人都不会注意到。
+对比来说，如果你的 API 从 `sendNow()` 变成 `send_now()`，或者返回一个不同类型的值，你的软件就会崩溃。
 
-This means a public API, an API that other software relies on, needs stability in order to be correct.
-Writing automated tests for private APIs, or code that is changing rapidly, will result in high maintenance costs as you continuously update your tests.
+这就是说公有的 API，或者其他软件依赖的 API，需要稳定性来确保正确性。
+为私有的接口写自动化测试，或者对于迭代较快的代码，更新测试将导致极高的维护成本。
 
-## Applying the model
+## 应用上述模型
 
-How can you use this model?
+如何应用模型？
 
-### Choosing how to test
+### 选择如何测试
 
-First, the model can help you choose what form of testing to do based on your goals.
+首先，模型可以帮助你根据你的目标选择合适的测试。
 
-Consider a startup building a product no one wants.
-Writing automated tests is even more of a waste of a time, since it focuses on implementing a specification before figuring out what users actually want.
+如果一家初创公司做一个没人用的软件。
+写自动化测试纯属浪费时间，因为他连用户想要什么都不知道就开始专心实施了。
 
-One way of doing that is the Lean Startup methodology, which focuses on experiments whose goal is finding what product will meet customers' needs.
-That means focusing on the User Behavior quadrant.
-Only later is it worth spending the time to have more than the most minimal of specifications, and therefore do more than a minimal amount of testing for Correct Functionality or Stable Functionality.
+这里需要用精益创业的方法论，一个专注于用实验找到什么产品将满足客户的需求的方法来解决。
+这意味着专注于用户行为象限。
+只有证明他值得花费时间来进行下去，才值得对这个产品来做一些为了功能性和稳定性的测试。
 
-### Recognize when you've chosen the wrong type of testing
+### 了解你是否选择了错误的测试类型
 
-Second, the model can help you change course if you're using the wrong type of testing.
-Consider the tax preparation startup that had automated UI tests which didn't find bugs, and broke every time they changed the UI.
-Their problem was that their system really had two parts:
+第二，这个模型可以帮助你改变错误的行进路线。
+比如说那家初创的税务公司，如果他们对于 UI 进行自动化测试但是并没有发现问题，然后每改变一次 UI，整个系统都要重新来进行一遍测试。
+他们的问题在于系统的两个方面：
 
-1. The tax engine, which is fairly stable: the tax code changes only once per year.
-This suggests the need for Stable Functionality tests, e.g. unit tests talking directly to the tax calculation engine.
-Correct Functionality could be ensured by code review and feedback from a tax accountant.
-2. The web-based user interface
-The UI was changing constantly, which suggests Stable Functionality wasn't a goal.
-Correct Functionality was still a goal, so the UI should have been tested manually by humans (e.g. the programmers as they wrote the code.)
+1. 税务机制是相当稳定的：税率每年只变一次。
+这就需要他们对核心的税务计算部分进行稳定性或者单元测试。
+正确性可以通过代码审查和税务会计来反馈。
+2. 基于 web 的用户界面
+UI 一直在变，说明不需要稳定性测试。
+正确性测试可以通过人工测试来解决（比如说写代码的开发者）。
 
-### A basis for discussing testing
+### 讨论测试的根据
 
-Finally, the model provides a shared terminology that can help you discuss testing in its broadest sense and its many differing goals.
+最后，这个模型提供了一个公有的术语，来讨论的测试的意义及其不同的目标。
 
-- Instead of getting into fruitless arguments about whether manual testing is a good idea or unit testing is a good idea, you can start with a model that shows very clearly the differences between them.
-- You can also discuss testing with other parts of the company (e.g. marketing) that are starting from a very different point of view.
+- 对于人工测试还是单元测试的优异性选择，你可以从一个很清楚地表明它们之间的差异的模型开始。
+- 你也可以从一个完全不同的角度对公司的其他方面（比如市场）来讨论测试。
 
-## Summary
+## 总结
 
-- Testing is either automated, providing consistency, or by humans, providing meaning.
-- Testing is judged either by the empirical results of an experiment or by comparing to a specification.
-- Each combination provides a different form of testing: user behavior, software behavior, correct functionality, stable functionality.
-- Make sure you choose the right form of testing to match *your* goals and situation.
+- 无论是选择人还是自动化测试来保持持续性，都是有意义的，自动化测试提供准确性，人手工测试提供意义性。
+- 即需要通过实验，也需要对比规范来进行测试。
+- 每个组合提供了不同的测试形式：用户行为、软件行为、正确性、稳定性。
+- 确保根据你的目标和情况来选择合适的测试方式。
 
-Want to discuss this? Email me at [itamar@codewithoutrules.com](mailto:itamar@codewithoutrules.com).
+想更多的讨论这个问题，可以给我发邮件[itamar@codewithoutrules.com](mailto:itamar@codewithoutrules.com)。
