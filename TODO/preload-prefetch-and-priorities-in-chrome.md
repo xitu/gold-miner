@@ -1,8 +1,8 @@
 > * 原文地址：[Preload, Prefetch And Priorities in Chrome](https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf)
 > * 原文作者：[Addy Osmani](https://medium.com/@addyosmani?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
-> * 校对者：
+> * 译者：[gy134340](https://github.com/gy134340)
+> * 校对者：[IridescentMia](https://github.com/IridescentMia),[vuuihc](https://github.com/vuuihc)
 
 
 <img src="https://cdn-images-1.medium.com/max/2000/1*W4_tAMHlFs6tunMxbXQjFA.png">
