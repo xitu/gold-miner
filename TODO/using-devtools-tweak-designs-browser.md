@@ -41,7 +41,7 @@ web 内容是动态的，所以设计应该是灵活的，我们应该测试不�
 
 ### 隐藏元素
 
-有时我们需要隐藏某些元素试试看如果没有它的时候是什么样子。Chrome DevTools 可以让我们检查一个元素然后键盘输入 `h` 来隐藏它，也就是给元素添加 CSS 的 visibility 属性。
+有时我们需要隐藏某些元素试试看如果没有它的时候是什么样子。Chrome DevTools 可以让我们检查一个元素然后键盘输入 `h` 来隐藏它，也就是切换元素 CSS 的 visibility 属性。
 
 [![](https://i.vimeocdn.com/video/623017144.webp?mw=700&mh=439)](https://player.vimeo.com/video/207836443)
 
@@ -51,7 +51,7 @@ web 内容是动态的，所以设计应该是灵活的，我们应该测试不�
 
 FireFox 的开发者工具中有一个很有用的功能，它可以给 DOM 中特定元素截图。这样的话，我们可以将几种不同的方案放在一起对比挑选最好的方案。
 
-这个功能需要这样操作：
+按照如下步骤：
 
 1. 打开 FireFox 开发者工具
 2. 对一个元素右键，选择**节点截图**（**Screenshot Node**）
@@ -63,13 +63,13 @@ FireFox 的开发者工具中有一个很有用的功能，它可以给 DOM 中�
 
 ### 更改设计颜色
 
-在设计项目的初期阶段，你可能需要探索多种不同的调色板。CSS 的 `hue-rotate` 函数是一共功能强大的过滤器，它可以让我们在浏览器中更改设计颜色。它可以旋转图像或元素中每个像素的色相。其中的值设定可以通过 `deg` 或者 `rad`。 
+在设计项目的初期阶段，你可能需要探索多种不同的调色板。CSS 的 `hue-rotate` 函数是一共功能强大的过滤器，它可以让我们在浏览器中更改设计颜色。它可以旋转图像或元素中每个像素的色相。其中的值可以通过 `deg` 或者 `rad` 设定。 
 
 在下面的视频中，我给组件添加了 `filter: hue-rotate(value)` 属性，注意看所有的颜色是如何变化的。
 
 [![](https://i.vimeocdn.com/video/623210796.webp?mw=700&mh=577)](https://player.vimeo.com/video/207995530)
 
-注意*每个*设计元素都会被使用 `hue-rotate` 所影响。比如，用户头像的颜色好像不太对，我们可以通过应用 `hue-rotate` 的负值使之回复正常。
+注意**每个**设计元素都会被使用 `hue-rotate` 所影响。比如，用户头像的颜色好像不太对，我们可以通过应用 `hue-rotate` 的负值使之恢复正常。
 
 
 ```css
@@ -83,7 +83,7 @@ See the [demo Pen](http://codepen.io/shadeed/pen/2d611749947ac7688c2710248c473e5
 
 ### 使用 CSS 变量（自定义 CSS 属性）
 
-虽然自定义属性的[浏览器支持](http://caniuse.com/#feat=css-variables)并不是很友好（现在 Microsoft Edge 现在[正在开发](https://developer.microsoft.com/en-us/microsoft-edge/platform/status/csscustompropertiesakacssvariables/?q=css%20v)）。我们现在也仍然可以从 CSS 变量中获益。使用自定义变量定义间距和颜色单位可以更改很小的值轻松实现巨大的变化。
+虽然自定义属性的[浏览器支持](http://caniuse.com/#feat=css-variables)并不是很友好（现在 Microsoft Edge 现在[正在开发](https://developer.microsoft.com/en-us/microsoft-edge/platform/status/csscustompropertiesakacssvariables/?q=css%20v)）。我们现在也仍然可以从 CSS 变量中获益。使用自定义变量定义间距和颜色单位可以通过更改很小的值轻松实现巨大的变化。
 
 我在我们网页上定义了下面一些变量：
 
@@ -96,13 +96,13 @@ See the [demo Pen](http://codepen.io/shadeed/pen/2d611749947ac7688c2710248c473e5
 }
 ```
 
-这些变量可以在网站所有的元素上使用，就像链接、导航、边距和背景颜色。当在开发工具中更改一个变量的值，所有相关联的元素都会变更。
+这些变量可以在网站所有的元素上使用，就像链接、导航、边距和背景颜色。当在开发工具中更改一个变量的值，所有相关联的元素都会受到影响。
 
 ![](https://cdn.css-tricks.com/wp-content/uploads/2017/03/Screen-Shot-2017-03-12-at-4.34.47-PM.jpg)
 
 ### 使用 CSS 属性 `filter: invert()` 翻转元素 
 
-当你在黑底白字或者白底黑字的情况下，这个属性是很有用的。打个比方，在标题中，我们在黑色背景上将页面标题设为白色，然后在元素上添加了 `filter: invert()`属性，所有的颜色就会被反转。 
+当你在黑底白字或者白底黑字的情况下，这个属性是很有用的。例如，在标题中，我们在黑色背景上将页面标题设为白色，然后在元素上添加了 `filter: invert()`属性，所有的颜色就会被反转。 
 
 ![](https://cdn.css-tricks.com/wp-content/uploads/2017/03/invert-filter.gif)
 
@@ -112,7 +112,7 @@ See the [demo Pen](http://codepen.io/shadeed/pen/2d611749947ac7688c2710248c473e5
 
 [![](https://i.vimeocdn.com/video/623229127.webp?mw=700&mh=525)](https://player.vimeo.com/video/208011466)
 
-Chrome 有些很酷的工具用来编辑 `box-shadow`、`background-color`、`text-shadow` 和 `color`.
+Chrome 有些很实用的工具用来编辑 `box-shadow`、`background-color`、`text-shadow` 和 `color`.
 
 ![](https://cdn.css-tricks.com/wp-content/uploads/2017/03/chrome-visual-css.gif)
 
