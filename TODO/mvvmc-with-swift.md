@@ -99,7 +99,6 @@ class ViewController: UIViewController {
 
 FRP 让你学习到了一种新的方式来开发，你可能对它或爱或恨。如果你没用过 FRP 开发，那你不得不花费几小时的时间来使用，并理解如何正确的使用，因为它是一个完全不同的编程概念。
 
-An alternative framework to RxSwift is [ReactiveCocoa](https://github.com/ReactiveCocoa/ReactiveCocoa). Check [this article](https://www.raywenderlich.com/126522/reactivecocoa-vs-rxswift) if you want to understand the main differences.
 另一个类似于 RxSwift 的框架是 [ReactiveCocoa](https://github.com/ReactiveCocoa/ReactiveCocoa)，如果你想了解他们之间主要的区别的话，你可以看看[这篇文章](https://www.raywenderlich.com/126522/reactivecocoa-vs-rxswift)。
 
 #### 代理
