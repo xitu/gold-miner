@@ -14,7 +14,7 @@
 
 一切都源于上周。3 位 React 初学者尝试在项目中使用 `setState()` 时遇到了 3 种不同的问题。我指导过很多 React 新手，也为团队提供从其他技术到 React 的架构转型咨询。
 
-其中一位初学者正在开发一个十分适合使用 Redux 的生产项目，所以我没有正面去解决 `setState()` 的同步问题（the timing with `setState()`），而是直接建议他用 Redux 替换掉 `setState()`，因为使用 Redux 能避免 state 组件渲染的过程中发生改变。Redux 简单地利用来自 store 的 props 来决定如何渲染界面，巧妙地规避了复杂的同步问题。
+其中一位初学者正在开发一个十分适合使用 Redux 的生产项目，所以我没有正面去解决 `setState()` 的同步问题（the timing with `setState()`），而是直接建议他用 Redux 替换掉 `setState()`，因为使用 Redux 能避免 state 在组件渲染的过程中发生改变。Redux 简单地利用来自 store 的 props 来决定如何渲染界面，巧妙地规避了复杂的同步问题。
 
 因此也就有了下面这条推特：
 
