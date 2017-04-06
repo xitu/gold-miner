@@ -2,7 +2,7 @@
 > * 原文作者：[Samer Buna](https://medium.freecodecamp.com/@samerbuna?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[zhouzihanntu](https://github.com/zhouzihanntu)
-> * 校对者：
+> * 校对者：[lsvih](https://github.com/lsvih)
 
 # 关于在 Node.js 中引用模块，知道这些就够了 #
 
@@ -15,9 +15,9 @@ Node 提供了两个核心模块来管理模块依赖：
 - `require` 模块在全局范围内可用，不需要写 `require('require')`.    
 - `module` 模块同样在全局范围内可用，不需要写 `require('module')`.
 
-你可以将 `require` 模块理解为命令，将 `module` 模块理解为组织所有被引用模块的工具。
+你可以将 `require` 模块理解为命令，将 `module` 模块理解为所有必要模块的组织者。
 
-在 Node 中引入一个模块其实不像概念那么复杂。
+在 Node 中引入一个模块其实并没有想象中的那么复杂。
 
 ```
 const config = require('/path/to/file');
@@ -31,7 +31,7 @@ const config = require('/path/to/file');
 - **评估**：最后由虚拟机对加载得到的代码做评估。
 - **缓存**：当再次引用该文件时，无需再重复以上所有步骤。
 
-在本文中，我将试着用示例说明这些不同阶段的运行原理，以及它们如何影响我们在 Node 中编写模块的方式。
+ 在本文中，我将尝试举例说明这些不同阶段的工作原理，以及它们是如何影响我们在 Node 中编写模块的方式的。
 
 我先使用终端创建一个目录来托管本文中的所有示例：
 
@@ -39,7 +39,7 @@ const config = require('/path/to/file');
 mkdir ~/learn-node && cd ~/learn-node
 ```
 
-本文余下部分的所有命令都将在 `~/learn-node` 目录下运行。
+ 之后的所有命令都将在 `~/learn-node` 目录下运行。
 
 #### 解析本地路径 ####
 
@@ -55,13 +55,12 @@ Module {
   filename: null,
   loaded: false,
   children: [],
-  paths: [ ... ]
-}
+  paths: [ ... ]}
 ```
 
 每个模块对象都有一个用于识别该对象的 `id` 属性。这个 `id` 通常是该文件的完整路径，但在 REPL 会话中只会显示为 `<repl>`。
 
-Node 模块与文件系统中的文件有着一一对应的关系。我们通过加载模块对应的文件内容到内存中来实现模块引用。
+Node 模块与文件系统中的文件有着一对一的关系。我们通过加载模块对应的文件内容到内存中来实现模块引用。
 
 然而，由于 Node 允许使用许多方式引入文件（例如，使用相对路径或预先配置的路径），我们需要在将文件的内容加载到内存前找到该文件的绝对位置。
 
@@ -167,7 +166,7 @@ Found again.
 
 >注意，由于我们现在有一个本地目录，它再次忽略了主目录的 `node_modules` 路径。
 
-当我们引入一个文件夹时，将默认执行 `index.js` 文件，但是我们可以通过 `package.json` 中的 `main` 属性指定主入口文件。例如，要令 `require('find-me')` 解析到 `find-me` 文件夹下的另一个文件，我们只需要在该文件夹下添加一个 `package.json` 文件来声明解析该文件夹时引用的文件：
+当我们引入一个文件夹时，将默认使用 `index.js` 文件，但是我们可以通过 `package.json` 中的 `main` 属性指定主入口文件。例如，要令 `require('find-me')` 解析到 `find-me` 文件夹下的另一个文件，我们只需要在该文件夹下添加一个 `package.json` 文件来声明解析该文件夹时引用的文件：
 
 ```
 ~/learn-node $ echo "console.log('I rule');" > node_modules/find-me/start.js
@@ -183,7 +182,7 @@ I rule
 
 #### require.resolve 方法 ####
 
-如果你只想解析模块而不运行，此时可以使用 `require.resolve` 函数。这个方法与 `require` 的主要功能完全相同，但是不加载文件。如果文件不存在，它仍会抛出错误，并在找到文件时返回文件的完整路径。
+如果你只想解析模块而不运行，此时可以使用 `require.resolve` 函数。这个方法与 `require` 的主要功能完全相同，但是不加载文件。如果文件不存在，它仍会抛出错误；如果找到了文件，则会返回文件的完整路径。
 
 ```
 > require.resolve('find-me');
@@ -260,12 +259,12 @@ In util Module {
   paths: [...] }
 ```
 
->注意：`index` 主模块 `(id: '.')` 现在被列为 `lib/util` 模块的父类。但 `lib/util` 模块并没有被列为 `index` 模块的子目录。相反，我们在这里得到的值是 `[Circular]`，因为这是一个循环引用。如果 Node 打印 `lib/util` 模块对象，将进入一个无限循环。这就是为什么 Node 使用 `[Circular]` 代替了 `lib/util` 引用。
+>注意：`index` 主模块 `(id: '.')` 现在被列为 `lib/util` 模块的父模块。但 `lib/util` 模块并没有被列为 `index` 模块的子模块。相反，我们在这里得到的值是 `[Circular]`，因为这是一个循环引用。如果 Node 打印 `lib/util` 模块对象，将进入一个无限循环。 因此 Node 使用 `[Circular]` 代替了 `lib/util` 引用。
 
 
-重点来了，如果我们在 `lib/util` 模块中引入 `index` 主模块会发生什么？这就是 Node 中所支持的循环模块依赖关系。
+重点来了，如果我们在 `lib/util` 模块中引入 `index` 主模块会发生什么？这就是 Node 中所支持的循环依赖。
 
-为了更好理解循环模块依赖，我们先来了解一些关于 module 对象的概念。
+为了更好理解循环依赖，我们先来了解一些关于 module 对象的概念。
 
 #### exports、module.exports 和模块异步加载 ####
 
@@ -301,7 +300,7 @@ In util Module {
   ... }
 ```
 
-为了保持示例简短，我删除了以上输出中的一些属性，但请注意：`exports` 对象现在拥有我们在各模块中定义的属性。你可以向 exports 对象添加任意多的属性，也可以直接将整个对象改为其它对象。例如，我们可以通过以下方式将 exports 对象更改为一个函数：
+为了保持示例简短，我删除了以上输出中的一些属性，但请注意：`exports` 对象现在拥有我们在各模块中定义的属性。你可以向 exports 对象添加任意多的属性，也可以直接将整个 exports 对象替换为其它对象。例如，我们可以通过以下方式将 exports 对象更改为一个函数：
 
 ```
 // 将以下代码添加在 index.js 中的 console.log 语句前
@@ -320,7 +319,7 @@ In index Module {
   ... }
 ```
 
->注意：我们并没有使用 `exports = function() {}` 来将 `exports` 对象更改为函数。实际上，由于各模块中的 `exports` 变量仅仅是对管理输出属性的 `module.exports` 的引用，当我们对 `exports` 变量重新赋值时，引用就会丢失，此时我们只是引入了一个新的变量，而没有对 `module.exports` 做修改。
+>注意：我们并没有使用 `exports = function() {}` 来将 `exports` 对象更改为函数。实际上，由于各模块中的 `exports` 变量仅仅是对管理输出属性的 `module.exports` 的引用，当我们对 `exports` 变量重新赋值时，引用就会丢失，因此我们只需要引入一个新的变量，而不是对 `module.exports` 进行修改。
 
 各模块中的 `module.exports` 对象就是我们在引入该模块时 `require` 函数的返回值。例如，我们将 `index.js` 中的 `require('./lib/util')` 改为：
 
@@ -338,7 +337,7 @@ UTIL: { id: 'lib/util' }
 
 我们再来谈谈各模块中的 `loaded` 属性。到目前为止我们打印的所有 module 对象中都有一个值为 `false` 的 `loaded` 属性。
 
-`module` 模块使用 `loaded` 属性对模块的加载状态进行跟踪，判断哪些模块已经加载完成（值为 true）以及哪些模块仍在加载（值为 false）。例如，要判断 `index.js` 模块是否已完全加载，我们可以在下一个事件循环中使用一个 `setImmediate` 回调打印出他的 `module` 对象。
+`module` 模块使用 `loaded` 属性对模块的加载状态进行跟踪，判断哪些模块已经加载完成（值为 true）以及哪些模块仍在加载（值为 false）。例如，我们可以使用 `setImmediate` 在下一个事件循环中打印出它的 `module` 对象，以此来判断 `index.js` 模块是否已完全加载。
 
 ```
 // index.js 中
@@ -374,8 +373,7 @@ The index.js module object is now loaded! Module {
 
 >注意：这个延迟的 `console.log` 的输出显示了 `lib/util.js` 和 `index.js` 都已完全加载。
 
-The `exports` object becomes complete when Node finishes loading the module (and labels it so). The whole process of requiring/loading a module is *synchronous.* That’s why we were able to see the modules fully loaded after one cycle of the event loop.
-`exports` 对象在 Node 完成引入/加载所有模块并标记时（becomes complete……构建完成？？）。引入一个模块的整个过程是 **同步的**，因此我们才能在一个事件循环结束后看见模块被完全加载。
+在 Node 完成加载模块（并标记为完成）时，`exports` 对象也就完成了。引入一个模块的整个过程是 **同步的**，因此我们才能在一个事件循环后看见模块被完全加载。
 
 这也意味着我们无法异步地更改 `exports` 对象。例如，我们在任何模块中都无法执行以下操作：
 
@@ -387,7 +385,7 @@ fs.readFile('/etc/passwd', (err, data) => {
 });
 ```
 
-#### 循环模块依赖 ####
+#### 模块的循环依赖 ####
 
 我们现在来回答关于 Node 中循环依赖的重要问题：当我们在模块1中引用模块2，在模块2中引用模块1时会发生什么？
 
@@ -416,18 +414,17 @@ console.log('Module1 is partially loaded here', Module1);
 Module1 is partially loaded here { a: 1 }
 ```
 
-我们在 `module1` 加载完成前引用了 `module2`，而此时 `module1` 尚未加载完，我们从当前的 `exports` 对象中得到的是在循环依赖之前导出的所有属性。这里只列出的只有属性 `a`，因为属性 `b` 和 `c` 都是在 `module2` 引入并打印了 `module1` 后导出的。
+我们在 `module1` 加载完成前引用了 `module2`，而此时 `module1` 尚未加载完，我们从当前的 `exports` 对象中得到的是在循环依赖之前导出的所有属性。这里被列出的只有属性 `a`，因为属性 `b` 和 `c` 都是在 `module2` 引入并打印了 `module1` 后才导出的。
 
 Node 使这个过程变得非常简单。它在模块加载时构建 `exports` 对象。你可以在该模块完成加载前引用它，而你将得到此时已定义的部分导出对象。
 
-#### JSON and C/C++ addons ####
-#### 使用 JSON 和 C/C++ 插件 ####
+#### 使用 JSON 文件和 C/C++ 插件 ####
 
-我们可以使用自带的 require 函数引用 JSON 文件和 C++ 插件。你甚至不需要为此去指定一个文件扩展。
+我们可以使用自带的 require 函数引用 JSON 文件和 C++ 插件。你甚至不需要为此指定文件扩展名。
 
-如果一个文件扩展未被声明，Node 会在第一时间解析 `.js` 文件。如果没有找到 `.js` 文件，它将继续寻找 `.json` 文件并在找到一个 JSON 文本文件后将其解析为 `.json` 文件。随后，Node 将会查找二进制的 `.node` 文件。但是为了避免歧义，你最好在引用除 `.js` 文件以外的文件类型时声明文件扩展。
+如果没有指定文件扩展名，Node 会在第一时间尝试解析 `.js` 文件。如果没有找到 `.js` 文件，它将继续寻找 `.json` 文件并在找到一个 JSON 文本文件后将其解析为 `.json` 文件。随后，Node 将会查找二进制的 `.node` 文件。为了避免产生歧义，你最好在引用除 `.js` 文件以外的文件类型时指定文件扩展名。
 
-如果你需要在文件中放置的内容都是一些静态的配置信息，或定期从外部来源读取的一些值，那么使用 JSON 文件非常有用。例如，我们有以下 `config.json` 文件：
+如果你需要在文件中放置的内容都是一些静态的配置信息，或者需要定期从外部来源读取一些值时，使用 JSON 文件将非常方便。例如，我们有以下 `config.json` 文件：
 
 ```
 {
@@ -452,9 +449,9 @@ Server will run at [http://localhost:8080](http://localhost:8080)
 ```
 
 
-如果 Node 找不到 `.js` 或 `.json` 文件，它将查找一个 `.node` 文件并将其解释为一个编译后的插件模块。
+如果 Node 找不到 `.js` 或 `.json` 文件，它会寻找 `.node` 文件并将其作为一个编译好的插件模块进行解析。
 
-Node 文档站点有一个用 C++ 编写的[插件示例](https://nodejs.org/api/addons.html#addons_hello_world)，该示例模块提供了一个输出 “world” 的 `hello()` 函数。
+Node 文档中有一个用 C++ 编写的[插件示例](https://nodejs.org/api/addons.html#addons_hello_world)，该示例模块提供了一个输出 “world” 的 `hello()` 函数。
 
 你可以使用 `node-gyp` 插件将 `.cc` 文件编译成 `.addon` 文件。只需要配置一个 [binding.gyp](https://nodejs.org/api/addons.html#addons_building) 文件来告诉 `node-gyp` 要做什么。
 
@@ -466,16 +463,15 @@ const addon = require('./addon');
 console.log(addon.hello());
 ```
 
-我们可以通过 `require.extensions` 查看 Node 对这三类扩展的支持。
+我们可以在 `require.extensions` 中查看 Node 对这三类扩展名的支持。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*IcpIrifyQIn9M0q8scMZdA.png">
 
-你可以从各个扩展对应的函数中清楚了解 Node 对它们分别所做的操作：对 `.js` 文件使用 `module._compile`，对 `.json` 文件使用 `JSON.parse`，对 `.node` 文件使用 `process.dlopen`。
+你可以看到每个扩展名分别对应的函数，从中了解 Node 会对它们做出怎样的操作：对 `.js` 文件使用 `module._compile`，对 `.json` 文件使用 `JSON.parse`，对 `.node` 文件使用 `process.dlopen`。
 
-#### All code you write in Node will be wrapped in functions ####
-#### 你在 Node 中写的所有代码都将被包装成函数 ####
+#### 你在 Node 中写的所有代码都将被封装成函数 ####
 
-Node 的模块打包经常被误解。要了解它的原理，请回忆一下 `exports` 与 `module.exports` 的关系。
+常常有人误解 Node 的模块封装。要了解它的原理，请回忆一下 `exports` 与 `module.exports` 的关系。
 
 我们可以使用 `exports` 对象导出属性，但是由于 `exports` 对象仅仅是对 `module.exports` 的一个引用，我们无法直接对其执行替换操作。
 
@@ -489,10 +485,8 @@ module.exports = { id: 42 }; // 有效
 
 这个 `exports` 对象看起来对所有模块都是全局的，它是如何被定义成 `module` 对象的引用的呢？
 
-Let me ask one more question before explaining Node’s wrapping process.
-在解释 Node 的打包进程前，让我们再来思考一个问题：
+在解释 Node 的封装过程前，让我们再来思考一个问题：
 
-In a browser, when we declare a variable in a script like this:
 在浏览器中，我们在脚本里声明如下变量：
 
 ```
@@ -501,7 +495,7 @@ var answer = 42;
 
 `answer` 变量对声明该变量的脚本后的所有脚本来说都是全局的。
 
-然而在 Node 中却不是这样的。我们在一个模块中定义了变量，项目中的其他模块却将无法访问该变量。那么在 Node 中是如何神奇地做到为变量是限定作用域的呢？
+然而在 Node 中却不是这样的。我们在一个模块中定义了变量，项目中的其他模块却将无法访问该变量。那么 Node 是如何神奇地做到为变量限定作用域的呢？
 
 答案很简单。在编译模块前，Node 就将模块代码封装在一个函数中，我们可以使用 `module` 模块的 `wrapper` 属性来查看。
 
@@ -513,7 +507,7 @@ var answer = 42;
 >
 ```
 
-Node 并不会执行你直接在文件中写入的任何代码。它仅仅执行你的代码通过封装得到的封装函数。这就保证了所有模块中定义的顶级变量的作用域都被限定在该模块中。
+Node 并不会直接执行你在文件中写入的代码。它执行的是封装着你的代码的函数。这就保证了所有模块中定义的顶级变量的作用域都被限定在该模块中。
 
 这个封装函数包含五个参数：`exports`、`require`、`module`、`__filename` 和 `__dirname`。这些参数看起来像是全局的，实际上却是每个模块特定的。
 
@@ -567,7 +561,7 @@ ReferenceError: euaohseu is not defined
   '4': '/Users/samer' }
 ```
 
-第一个参数是 `exports` 对象，初始值为空。`require`/`module` 对象都是与当前执行的 `index.js` 文件关联的示例。它们不是全局变量。最后两个参数分别为当前文件路径和目录路径。
+第一个参数是 `exports` 对象，初始值为空。`require`/`module` 对象都与当前执行的 `index.js` 文件的实例关联。它们不是全局变量。最后两个参数分别为当前文件路径和目录路径。
 
 封装函数的返回值是 `module.exports`。在封装函数中，我们可以使用 `exports` 对象更改 `module.exports` 的属性，但是由于它仅仅是一个引用，我们无法对其重新赋值。
 
@@ -583,13 +577,13 @@ function (require, module, __filename, __dirname) {
 }
 ```
 
-如果我们更改了整个 `exports` 对象，它将不再是对 `module.exports` 的引用。并不仅仅是在这个上下文中，JavaScript 引用对象在所有场景下的工作模式都是如此。
+如果我们更改了整个 `exports` 对象，它将不再是对 `module.exports` 的引用。并不仅仅是在这个上下文中，JavaScript 在任何情况下引用对象都是这样的。
 
 #### require 对象 ####
 
 `require` 没有什么特别的。它作为一个函数对象，接收一个模块名称或路径，返回 `module.exports` 对象。我们也可以用我们自己的逻辑重写 `require` 对象。
 
-举个例子，为了测试的目的，我们希望每个 `require` 调用默认为 mocked 并返回一个假的对象，而不是引用的模块所导出的对象。这个对 require 的简单重新赋值会这样实现：
+举个例子，为了测试的目的，我们希望每个 `require` 的调用都返回一个伪造的 mocked 对象，而不是引用的模块所导出的对象。这个对 require 的简单重新赋值会这样实现：
 
 ```
 require = function() {
@@ -601,7 +595,7 @@ require = function() {
 
 经过以上对 `require` 重新赋值后，脚本中的每个 `require('something')` 调用都会返回 mocked 对象。
 
-require 对象也有它自己的属性。我们已经认识了 `resolve` 属性，它是在整个引用进程中执行解析步骤的函数。我们也见识了 `require.extensions`。
+require 对象也有它自己的属性。我们已经认识了 `resolve` 属性，它是在 require 过程中负责解析步骤的函数。我们也见识了 `require.extensions`。
 
 还有 `require.main` 属性，有助于判断当前脚本是正被引用还是直接执行。
 
@@ -667,7 +661,7 @@ if (require.main === module) {
 }
 ```
 
-如果文件没有被引用，我们调用使用 `process.argv` 参数的 `printInFrame` 函数。否则我们就将 `module.exports` 对象替换为 `printInFrame` 函数自身。
+如果文件不是被引用的，我们使用 `process.argv` 的参数来调用 `printInFrame` 函数。否则我们就将 `module.exports` 对象替换为 `printInFrame` 函数。
 
 #### 所有模块都将被缓存 ####
 
@@ -685,9 +679,9 @@ require('./ascii-art') // 显示标题
 require('./ascii-art') // 不显示标题
 ```
 
-由于模块缓存，第二次的引用将不会显示标题。Node 将缓存第一次调用，在第二次调用时并不会加载文件。
+由于模块缓存，第二次的引用将不会显示标题。Node 会在第一次调用时进行缓存，在第二次调用时不再加载文件。
 
-我们可以通过在第一次引用后打印 `require.cache` 来查看缓存。缓存注册是一个对象，对应每个模块都有特定属性。这些属性值即用于各模块的 `module` 对象。我们可以通过简单地从 `require.cache` 对象中删除一个属性来令该缓存失效，然后 Node 就会再次加载并缓存该模块。
+我们可以通过在第一次引用后打印 `require.cache` 来查看缓存。管理缓存的是一个对象，它的属性值分别对应引用过的模块。这些属性值即用于各模块的 `module` 对象。我们可以通过简单地从 `require.cache` 对象中删除一个属性来令该缓存失效，然后 Node 就会再次加载并缓存该模块。
 
 然而，这并不是应对这种情况最高效的解决方案。简单的解决办法是将 `ascii-art.js` 中的打印代码用一个函数封装起来并导出该函数。通过这种方式，每当我们引用 `ascii-art.js` 文件时，我们就能获取到一个可执行函数，以供我们多次调用打印代码：
 
