@@ -2,11 +2,11 @@
 > * 原文作者：[Federico Zanetello](https://medium.com/@zntfdr)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[Deepmissea](http://deepmissea.blue)
-> * 校对者：
+> * 校对者：[Gocy015](http://blog.gocy.tech)，[skyar2009](https://github.com/skyar2009)
 
 ---
 
-# A Quick Look at Semaphores in Swift 🚦
+# 看！Swift 里竟然有红绿灯 🚦！
 
 首先，如果你对 GCD 和 Dispatch Queue 不熟悉，请看看 [AppCoda](https://medium.com/@appcodamobile) 的[这篇文章](http://www.appcoda.com/grand-central-dispatch/)。
 
@@ -16,11 +16,11 @@
 
 ### 引言
 
-让我们想象一下，一群**作家**只能共同使用一只**笔**。显然，在任何指定的时间里，只有一名**作家**可以使用**笔**。
+让我们想象一下，一群**作家**只能共同使用一支**笔**。显然，在任何指定的时间里，只有一名**作家**可以使用**笔**。
 
 现在，把**作家**想象成我们的线程，把**笔**想象成我们的**共享资源**（可以是任何东西：一个文件、一个变量、做某事的权利等等）。
 
-怎么才能确保我们的**资源**是真正[互斥](https://en.wikipedia.org/wiki/Mutual_exclusion)？
+怎么才能确保我们的**资源**是真正[互斥](https://en.wikipedia.org/wiki/Mutual_exclusion)的呢？
 
 ![](https://cdn-images-1.medium.com/max/1600/1*nfAYVSYFMB874-z4sfJ_YQ.jpeg)
 
@@ -38,7 +38,7 @@ if (resourceIsAvailable) {
 }
 ```
 
-问题是出现在并发上，**在无视他们的优先级时，不知道他们之中，哪个线程将执行下一步。**
+问题是出现在并发上，**不论线程之间的优先级如何，我们都没办法确切知道哪个线程会执行下一步。**
 
 #### 例子
 
@@ -58,7 +58,7 @@ if (resourceIsAvailable) {
 三步：
 
 1. 在我们需要使用一个共享资源的时候，我们发送一个 **request** 给它的信号量；
-2. 一旦信号量给出我们绿灯（看我在这做了什么？），我们就可以假定资源是我们的并使用它；
+2. 一旦信号量给出我们绿灯（see what I did here?），我们就可以假定资源是我们的并使用它；
 3. 一旦不需要资源了，我们通过发送给信号量一个 **signal** 让它知道，然后它可以把资源分配给另一个的线程。
 
 当这个资源只有一个，并且在任何给定的时间里，只有一个线程可以使用，你就可以把这些 **request/signal** 作为资源的 **lock/unlock**。
@@ -108,7 +108,7 @@ if (resourceIsAvailable) {
 let semaphore = DispatchSemaphore(value: 1)
 ```
 
-**value** 参数代表信号量创建的可以访问这个资源的线程数量。
+**value** 参数代表创建的信号量允许同时访问该资源的线程数量。
 
 #### 资源请求
 
@@ -120,7 +120,7 @@ let semaphore = DispatchSemaphore(value: 1)
 
 要知道信号量并不能实质上地给我们任何东西，资源都是在线程的范围内，而我们只是在请求和释放调用之间使用资源。
 
-一旦信号量给我们开恩了，那线程就会恢复正常执行，并可以考虑使用它的资源。
+一旦信号量给我们放行，那线程就会恢复正常执行，并可以放心地将资源纳为己用了。
 
 #### 资源释放
 
@@ -130,13 +130,13 @@ let semaphore = DispatchSemaphore(value: 1)
 semaphore.signal()
 ```
 
-在发送这个信号后，我们就不能接触到任何资源了，知道我们再次的请求它。
+在发送这个信号后，我们就不能接触到任何资源了，直到我们再次的请求它。
 
 ### Playgrounds 中的信号量
 
-跟随 [AppCoda](https://medium.com/@appcodamobile) 上[这篇文章](http://www.appcoda.com/grand-central-dispatch/)的例子，让我们看看工作中的信号量！
+跟随 [AppCoda](https://medium.com/@appcodamobile) 上[这篇文章](http://www.appcoda.com/grand-central-dispatch/)的例子，让我们看看实际应用中的信号量！
 
-> 注意：这些是 Xcode 中的 Playground，Swift Playground 还不支持日志记录。希望 WWDC17 能一切顺利！
+> 注意：这些是 Xcode 中的 Playground，Swift Playground 还不支持日志记录。希望 WWDC17 能解决这个问题！
 
 在这些 playground 里，我们有两个线程，一个线程的优先级比其他的略微高一些，打印 10 次表情和增加的数字。
 
@@ -202,15 +202,15 @@ asyncPrint(queue: lowerPriority, symbol: "🔵")
 PlaygroundPage.current.needsIndefiniteExecution = true
 ```
 
-我还添加了一个 **print** 指令，以便我们看到每个线程执行中的实际状态。
+我还添加了一些 **print** 指令，以便我们看到每个线程执行中的实际状态。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*g7SMrR7svWNetOqjSGIEYA.png)
 
-就像你看到的，当一个线程开始打印队列，另一个线程必须等待，直到第一个结束，然后信号量会从第一个线程收到  **signal**，接着，**只有这样**，第二个线程才能开始打印它的队列。
+就像你看到的，当一个线程开始打印队列，另一个线程必须等待，直到第一个结束，然后信号量会从第一个线程收到 **signal**。**当且仅当此后**，第二个线程才能开始打印它的队列。
 
-第二个线程在队列的哪个点发送 **wait()** 无关紧要，它会一直出于等待状态直到另一个线程结束。
+第二个线程在队列的哪个点发送 **wait()** 无关紧要，它会一直处于等待状态直到另一个线程结束。
 
-**优先级翻转**
+**优先级反转**
 
 现在我们已经明白每个步骤是如何工作的，请看一下这个日志：
 
@@ -221,7 +221,7 @@ PlaygroundPage.current.needsIndefiniteExecution = true
 这时，高优先级的线程必须等待低优先级的线程完成！这是真的，它的确会发生。
 问题是即使一个高优先级线程正等待它，低优先级的线程也是低优先级的：这被称为[***优先级反转***](https://en.wikipedia.org/wiki/Priority_inversion)。
 
-在不同于信号量的其他编程概念里，当发生这种情况时，低优先级的线程会**继承**等待它的最高优先级线程的优先级，这被称为：[***优先级继承***](https://en.wikipedia.org/wiki/Priority_inheritance)。
+在不同于信号量的其他编程概念里，当发生这种情况时，低优先级的线程会暂时**继承**等待它的最高优先级线程的优先级，这被称为：[***优先级继承***](https://en.wikipedia.org/wiki/Priority_inheritance)。
 
 在使用信号量的时候不是这样的，实际上，谁都可以调用 **signal()** 函数（不仅是当前正使用资源的线程）。
 
@@ -303,7 +303,7 @@ PlaygroundPage.current.needsIndefiniteExecution = true
 
 #### 解决方案
 
-避免[死锁](https://en.wikipedia.org/wiki/Deadlock)很难。最好的解决方案是编写[不能达到这种状态](https://en.wikipedia.org/wiki/Deadlock_prevention_algorithms)的代码来阻止他们。
+避免[死锁](https://en.wikipedia.org/wiki/Deadlock)很难。最好的解决方案是编写[不能达到这种状态](https://en.wikipedia.org/wiki/Deadlock_prevention_algorithms)的代码来防止他们。
 
 例如，在其他的操作系统里，为了其他线程的继续执行，其中一个死锁线程可能被杀死（为了释放它的所有资源）。
 
@@ -317,4 +317,4 @@ PlaygroundPage.current.needsIndefiniteExecution = true
 
 ---
 
-[*Federico*](https://twitter.com/zntfdr) *是一名在曼谷的软件工程师，对 Swift、Minimalism、Design 和 iOS 开发有浓厚的热情。*
+**[Federico](https://twitter.com/zntfdr) 是一名在曼谷的软件工程师，对 Swift、Minimalism、Design 和 iOS 开发有浓厚的热情。**
