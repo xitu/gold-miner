@@ -1,82 +1,83 @@
 > * 原文地址：[MVVM-C with Swift](https://marcosantadev.com/mvvmc-with-swift/)
 > * 原文作者：[Marco Santarossa](https://marcosantadev.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者： 
+> * 译者：[Deepmissea](http://deepmissea.blue)
 > * 校对者：
 
 ---
 
-# MVVM-C with Swift
+# MVVM-C 与 Swift
 
 ![](https://marcosantadev.com/wp-content/uploads/MVVM-C_with_Swift_header.jpg)
 
-# Introduction
+# 简介
 
-Nowadays, the biggest challenge for an iOS developer is the craft of a robust application which must be easy to maintain, test and scale.
+现今，iOS 开发者面临的最大挑战是构建一个健壮应用程序，它必须易于维护、测试和扩展。
 
-In this article you will learn a reliable approach to achieve it.
+在这篇文章里，你会学到一种可靠的方法来达到目的。
 
-First of all, you need a brief introduction of what you’re going to learn: **Architectural Patterns**.
+首先，需要简介一下你即将学习的内容：
+**架构模式**.
 
-# Architectural Patterns
+# 架构模式
 
-## What is it?
+## 它是什么
 
->   An architectural pattern is a general, reusable solution to a commonly occurring problem in software architecture within a given context. Architectural patterns are similar to software design pattern but have a broader scope. The architectural patterns address various issues in software engineering, such as computer hardware performance limitations, high availability and minimization of a business risk. Some architectural patterns have been implemented within software frameworks.
+> 架构模式是给定上下文中软件体系结构中常见的，可重用的解决方案。架构与软件设计模式相似，但作用范围更广。架构解决了软件工程中的各种问题，如计算机硬件性能限制，高可用性和最小化业务风险。一些架构模式已经在软件框架内实现。
 
-Cit. [Wikipedia](https://en.wikipedia.org/wiki/Architectural_pattern)
+摘自 [Wikipedia](https://en.wikipedia.org/wiki/Architectural_pattern)。
 
-When you start a new project or feature, you should spend some time thinking to the architectural pattern to use. With a good analysis, you may avoid spending days on refactoring because of a messy codebase.
+在你开始一个新项目或功能的时候，你需要花一些时间来思考架构模式的使用。通过一个透彻的分析，你可以避免耗费很多天的时间在重构一个混乱的代码库上。
 
-## Main Patterns
+## 主要的模式
 
-There are several architectural patterns available and you can use more than one in your project, since each one can suit better a specific scenario.
+在项目中，有几种可用的架构模式，并且你可以在项目中使用多个，因为每个模式都能高好的适应特定的场景。
 
-When you read about these kind of patterns you come across mainly with:
+当你阅读关于这几种模式时，主要会遇到这种：
 
 ### [Model-View-Controller](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller)
 
 ![](https://marcosantadev.com/wp-content/uploads/mvc_2.jpg)
 
-This is the most common and you might have used it since your first iOS project. Unfortunately, it’s also the worst because the `Controller` has to manage every dependencies (API, Database and so on), contains the business logic of your application and is tightly coupled with `UIKit`—it means that it’s very difficult to test.
+这是最常见的，也许在你的第一个 iOS 应用中已经使用过。不幸地是，这也是最糟糕的模式，因为 `Controller` 不得不管理每一个依赖（API、数据库等等），包括你应用的业务逻辑，而且与 `UIKit` 的耦合度很高，这意味着测试异常的艰难。
 
-You should usually avoid this pattern and replace it with the next ones.
+你通常会避免这种模式，用下面的某种来代替它。
 
 ### [Model-View-Presenter](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93presenter)
 
 ![](https://marcosantadev.com/wp-content/uploads/mvp.jpg)
 
-It’s one of the first alternatives to MVC and is a good attempt to decouple the `Controller` and the `View`.
+这是第一个 MVC 的替代方案之一，一次对 `Controller` 和 `View` 之间解耦的很好的尝试。
 
-With MVP you have a new layer called `Presenter` which contains the business logic. The `View`—your `UIViewController` and any `UIKit` components—is a dumb object, which is updated by the `Presenter` and has the responsibility to notify the `Presenter` when an UI event is fired. Since the `Presenter` doesn’t have any `UIKit` references, it is very easy to test.
+在 MVP 中，你有一层叫做 `Presenter` 的新结构来处理业务逻辑。而 `View` —— 你的 `UIViewController` 以及任何 `UIKit` 组件，都是一个笨的对象，他们只通过 `Presenter` 更新，并在触发 UI 事件的时候，负责通知 `Presenter`。由于 `Presenter` 没有任何 `UIKit` 的引用，所以非常容易测试。
 
 ### [Viper](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93presenter)
 
 [![](https://www.objc.io/images/issue-13/2014-06-07-viper-intro-0a53d9f8.jpg)](https://www.objc.io/issues/13-architecture/viper/)
 
-It’s is the representation of [Clean Architecture of Uncle Bob](https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html).
+这是 [Bob 叔叔清晰架构](https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html)的代表。
 
-The power of this pattern is the properly distribution of the responsibilities in different layers. In this way you have little layers easy to test and with a single responsibility. The problem with this pattern is that it may be overkilling in the most of the scenarios since you have a lot of layers to manage and it may be confusing and difficult to manage.
+这种模式的强大之处在于，它合理分配了不同层次之间的职责。通过这种方式，你的每个层次做的的事变得很少，易于测试，并且具备单一职责。这种模式的问题是，在大多数场合里，它过于复杂。你需要管理很多层，这会让你感到混乱，难于管理。
 
-This pattern is not easy to master, you can find further details about this architectural pattern in [this](https://www.objc.io/issues/13-architecture/viper/) article.
+这种模式并不容易掌握，你可以在[这里](https://www.objc.io/issues/13-architecture/viper/)找到关于这种架构模式更详细的文章。
 
 ### [Model-View-ViewModel](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel)
 
 ![](https://marcosantadev.com/wp-content/uploads/mvvm.jpg)
 
-Last but not least, MVVM is very similar to MVP since the layers are pretty much the same. You can consider MVVM a MVP version improved thanks to the UI Binding.
+最后但也是最重要的，MVVM 是一个类似于 MVP 的框架，因为层次看几乎相同。你可以认为 MVVM 是 MVP 版本的一个进化，而这得益于 UI 绑定。
 
-UI Binding is a bridge between the `View` and `ViewModel`—mono or bidirectional—and lets communicate these two layers in a completely transparent way.
+UI 绑定是在 `View` 和 `ViewModel` 之间建立一座单向或双向的桥梁，并且两者之间以一种非常透明地方式进行沟通。
 
-Unfortunately, iOS doesn’t have a native way to achieve it, so you must use third party libraries/frameworks or make it by yourself.
+不幸地是，iOS 没有原生的方式来实现，所以你必须通过三方库/框架或者自己写一个来达成目的。
 
-There are different ways to get an UI Binding with Swift:
+在 Swift 里有多种方式实现 UI 绑定：
 
 #### RxSwift (or ReactiveCocoa)
 
-[RxSwift](https://github.com/ReactiveX/RxSwift) is the Swift version of the family [ReactiveX](http://reactivex.io/)—once you master it, you are able to switch easily to RxJava, RxJavascript and so on.
+[RxSwift](https://github.com/ReactiveX/RxSwift) 是 [ReactiveX](http://reactivex.io/) 家族的一个 Swift 版本的实现。一旦你掌握了它，你就能很轻松地切换到 RxJava、RxJavascript 等等。
 
-This framework allows you to write [functional reactive programming (FRP)](https://en.wikipedia.org/wiki/Functional_reactive_programming) and thanks to the internal library RxCocoa you are able to bind `View` and `ViewModel` easily:
+这个框架允许你来用[函数式（FRP）](https://en.wikipedia.org/wiki/Functional_reactive_programming)的方式来编写程序，并且由于内部库 RxCocoa，你可以轻松实现 `View` 和 `ViewModel` 之间的绑定：
 
 ```
 class ViewController: UIViewController {
@@ -94,19 +95,20 @@ class ViewController: UIViewController {
 }
 ``` 
 
-I will not explain how to use RxSwift thoroughly since it would be beyond the goal of this article—it would deserve an own article to be explain properly.
+我不会解释如何彻底地使用 RxSwift，因为这超出本文的目标，它自己会有文章来解释。
 
-FRP lets you learn a new way to develop and you may start either loving or hating it. If you are not used to FRP development, you have to spend several hours before getting used and understanding how to use it properly since it is a completely different concept of programming.
+FRP 让你学习到了一种新的方式来开发，你可能对它或爱或恨。如果你没用过 FRP 开发，那你不得不花费几小时的时间来使用，并理解如何正确的使用，因为它是一个完全不同的编程概念。
 
 An alternative framework to RxSwift is [ReactiveCocoa](https://github.com/ReactiveCocoa/ReactiveCocoa). Check [this article](https://www.raywenderlich.com/126522/reactivecocoa-vs-rxswift) if you want to understand the main differences.
+另一个类似于 RxSwift 的框架是 [ReactiveCocoa](https://github.com/ReactiveCocoa/ReactiveCocoa)，如果你想了解他们之间主要的区别的话，你可以看看[这篇文章](https://www.raywenderlich.com/126522/reactivecocoa-vs-rxswift)。
 
-#### Delegation
+#### 代理
 
-If you want to avoid importing and learning new frameworks you could use the delegation as an alternative. Unfortunately, using this approach you lose the power of a transparent binding since you have to make the binding manually. This version of MVVM becomes very similar to MVP.
+如果你想避免导入并学习新的框架，你可以使用代理作为替代。不幸地是，使用这种方法，你将失去透明绑定的功能，因为你必须手动绑定。这个版本的 MVVM 非常类似于 MVP。
 
-The strategy of this approach is keeping a reference of the delegate—implemented by the `View`—inside your `ViewModel`. In this way the `ViewModel` can update the `View`, without having references of `UIKit` objects.
+这种方式的策略是通过 `View` 内部的 `ViewModel` 保持一个对代理实现的引用。这样 `ViewModel` 就能在无需引用任何 `UIKit` 对象的情况下更新 `View`。
 
-Here an example:
+这有个例子：
 
 ```
 class ViewController: UIViewController, ViewModelDelegate {
@@ -154,15 +156,15 @@ class ViewModel {
 }
 ``` 
 
-#### Closures
+#### 闭包
 
-It’s very similar to the delegation but instead of using a delegate you use the closures.
+和代理非常相似，不过不同的是，你使用的是闭包来代替代理。
 
-The closures are `ViewModel` properties and the `View` uses them to update the UI. You must pay attention to avoid retain cycles in the closures using `[weak self]`.
+闭包是 `ViewModel` 的属性，而 `View` 使用它们来更新 UI。你必须注意在闭包里使用 `[weak self]`，避免造成循环引用。
 
-*You can read [this article](https://krakendev.io/blog/weak-and-unowned-references-in-swift) about retain cycles because of Swift closures.*
+**关于 Swift 闭包的循环引用，你可以阅读[这篇文章](https://krakendev.io/blog/weak-and-unowned-references-in-swift)。**
 
-Here an example:
+这有一个例子：
 
 ```
 class ViewController: UIViewController {
@@ -208,39 +210,39 @@ class ViewModel {
 }
 ```
 
-## The Pick: MVVM-C
+## 抉择: MVVM-C
 
-When you have to choose an architectural pattern, you have the challenge to understand which one suits better your needs. Among these patterns, MVVM is one of the best choices since it’s very powerful and easy to use at the same time.
+在你不得不选择一个架构模式时，你需要理解哪一种更适合你的需求。在这些模式里，MVVM 是最好的选择，因为它强大的同时，也易于使用。
 
-Unfortunately this pattern is not perfect, the main lack of MVVM is the routing management.
+不幸地是这种模式并不完美，主要的缺陷是 MVVM 没有路由管理。
 
-We have to add a new layer to get the power of MVVM and routing in the same patterns. It becomes: **Model-View-ViewModel-Coordinator (MVVM-C)**
+我们要添加一层新的结构，来让它获得 MVVM 的特性，并且具备路由的功能。于是它就变成了：**Model-View-ViewModel-Coordinator (MVVM-C)**
 
-The sample project will show how the `Coordinator` works and how to manage the different layers.
+示例的项目会展示 `Coordinator` 如何工作，并且如何管理不同的层次。
 
 ![](https://marcosantadev.com/wp-content/uploads/mvvm-c.jpg?v=1)
 
-# Getting Started
+# 入门
 
-You can download the project source [here](https://github.com/MarcoSantarossa/MVVM-C_with_Swift).
+你可以在[这里](https://github.com/MarcoSantarossa/MVVM-C_with_Swift)下载项目源码。
 
-The examples are simplified to keep the focus on how MVVM-C works, therefore the classes on Github may be slightly different.
+这些类被简化了，以便于你可以专注于 MVVM-C 是如何工作的，因此 GitHub 上的类可能会有轻微出入。
 
-The sample app is a plain dashboard app which fetches the data from a public API and, once the data is ready, allows the user to find an entity by id, like in the screenshot below:
+示例应用是一个普通的仪表盘应用，它从公共 API 获取数据，一旦数据准备就绪，用户就可以通过 ID 查找实体，如下面的截图：
 
 ![](https://marcosantadev.com/wp-content/uploads/app_screenshot_1.png)
 
-This application has different ways to add the view controller so you’ll see how to use the `Coordinator` in edge cases with child view controllers.
+应用程序有不同的方式来添加视图控制器，所以你会看到，在有子视图控制器的边缘案例中，如何使用 `Coordinator`。
 
-## MVVM-C Layers
+## MVVM-C 的层级结构
 
 ### Coordinator
 
-Its responsibility is to show a new view and to inject the dependencies which the `View` and `ViewModel` need.
+它的职责是显示一个新的视图，并注入 `View` 和 `ViewModel` 所需要的依赖。 
 
-The `Coordinator` must provide a `start` method to create the MVVM layers and add `View` in the view hierarchy.
+`Coordinator` 必须提供一个 `start` 方法，来创建 MVVM 层次并且添加 `View` 到视图的层级结构中。
 
-You may often have a list of `Coordinator` childs since in your current view you may have subviews like in our example:
+你可能会经常有一组 `Coordinator` 子类，因为在你当前的视图中，可能会有子视图，就像我们的例子一样：
 
 ```
 final class DashboardContainerCoordinator: Coordinator {
@@ -293,9 +295,9 @@ final class DashboardContainerCoordinator: Coordinator {
 }
 ```
 
-You can notice that the `Coordinator` has a parent `UIViewController` object—or subclasses like `UINavigationController`—injected in the constructor. Since the `Coordinator` has the responsibility to add the `View` in the view hierarchy, it must know in which parent add the `View`.
+你一定能注意到在 `Coordinator` 里，一个父类 `UIViewController` 对象或者子类对象，类似于 `UINavigationController`，被注入到构造器之中。因为 `Coordinator` 有责任添加 `View` 到视图层级之中，它必须知道那个父类添加了 `View`。
 
-In the example above, `DashboardContainerCoordinator` implements the protocol `Coordinator`:
+在上面的例子里，`DashboardContainerCoordinator` 实现了协议 `Coordinator`：
 
 ```
 protocol Coordinator {
@@ -303,9 +305,9 @@ protocol Coordinator {
 }
 ```
 
-which allows you to take advantage of [Polymorphism](https://en.wikipedia.org/wiki/Polymorphism_(computer_science)).
+这便于你使用[多态](https://en.wikipedia.org/wiki/Polymorphism_(computer_science))。
 
-Once you create your first `Coordinator` you must add it as entry point of your application in the `AppDelegate`:
+创建完第一个 `Coordinator` 后，你必须把它作为程序的入口放到 `AppDelegate` 中：
 
 ```
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -334,13 +336,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 ``` 
 
-In `AppDelegate` we instantiate a new `DashboardContainerCoordinator` and thanks to the method `start` we push the new view in `navigationController`.
+在 `AppDelegate` 里，我们实例化一个新的 `DashboardContainerCoordinator`，通过 `start` 方法，我们把新的视图推入 `navigationController` 里。
 
-*You can see on the Github project how to inject a* `UINavigationController` *type decoupling* `UIKit` *and the* `Coordinator`.
+**你可以看到 GitHub 项目如何注入一个 `UINavigationController` 类型的对象，并去除 `UIKit` 和 `Coordinator` 之间的耦合。**
 
 ### Model
 
-The `Model` is a dumb representation of the data. It must be as plain as possible without business logic.
+`Model` 代表数据。它必须尽可能的简洁，没有业务逻辑。
 
 ```
 struct UserModel: Mappable {
@@ -364,17 +366,17 @@ struct UserModel: Mappable {
 }
 ``` 
 
-The sample project uses the open source framework [ObjectMapper](https://github.com/Hearst-DD/ObjectMapper) to transform the JSON to an object.
+实例项目使用开源库 [ObjectMapper](https://github.com/Hearst-DD/ObjectMapper) 将 JSON 转换为对象。
 
->   ObjectMapper is a framework written in Swift that makes it easy for you to convert your model objects (classes and structs) to and from JSON.
+>   ObjectMapper 是一个使用 Swift 编写的框架。它可以轻松的让你在 JSON 和模型对象（类和结构体）之间相互转换。
 
-It’s very useful when you have a JSON response from an API and you must create your model objects parsing the JSON string.
+在你从 API 获得一个 JSON 响应的时候，它会非常有用，因为你必须创建模型对象来解析 JSON 字符串。
 
 ### View
 
-The `View` is a `UIKit` object—like a common `UIViewController`.
+`View` 是一个 `UIKit` 对象，就像 `UIViewController` 一样。
 
-It usually has a reference of the `ViewModel`—which is injected by the `Coordinator`—to create the bindings.
+它通常持有一个 `ViewModel` 的引用，通过 `Coordinator` 注入来创建绑定。
 
 ```
 final class DashboardContainerViewController: UIViewController {
@@ -405,11 +407,11 @@ final class DashboardContainerViewController: UIViewController {
 }
 ``` 
 
-In this example the title of the view controller is binded to the property `rx_title` of the `ViewModel`. In this way when the `ViewModel` updates `rx_title` then the title of the view controller will be automatically updated with the new value.
+在这个例子中，视图控制器中的标题被绑定到 `ViewModel` 的 `rx_title` 属性上。这样在 `ViewModel` 更新 `rx_title` 值的时候，视图控制器中的标题就会根据新的值自动更新。
 
 ### ViewModel
 
-The `ViewModel` is the core layer of this architectural pattern. It has the responsibility to keep the `View` and `Model` updated. Since the business logic is inside this class, you should use different components with single responsibilities to keep the `ViewModel` as clean as possible.
+`ViewModel` 是这种架构模式的核心层。它的职责是保持 `View` 和 `Model` 的更新。由于业务逻辑在这个类中，你需要用不同的组件的单一职责来保证 `ViewModel` 尽可能的干净。
 
 ```
 final class UsersViewModel {
@@ -439,33 +441,33 @@ final class UsersViewModel {
 }
 ``` 
 
-In this example the `ViewModel` has a data provider injected in the constructor which is used to fetch the data from a public API. Once the data provider returns the data fetched, the `ViewModel` emitting a new event by `rx_usersCountInfo` with the new count of users. This new event is sent to the `View` thanks to the binding which observes `rx_usersCountInfo` and update the UI.
+在这个例子中，`ViewModel` 有一个在构造器中注入的数据提供者，它用于从公共 API 中获取数据。一旦数据提供者返回了取得的数据，`ViewModel` 就会通过 `rx_usersCountInfo` 发射一个新用户数量相关的新事件。因为绑定了观察者 `rx_usersCountInfo`，这个新事件会被发送给 `View`，然后更新 UI。
 
-You may have multiple components inside your `ViewModel` like a data controller for your database (CoreData, Realm and so on), a data provider which interacts with your API and any other external dependencies.
+可能会有很多不同的组件在你的 `ViewModel` 里，比如一个用来管理数据库（CoreData、Realm 等等）的数据控制器，一个用来与你 API 和其他任何外部依赖交互的数据提供者。
 
-The `ViewModel`s use RxSwift so when the type of a property is a RxSwift class (`Driver`, `Observable` and so on) there is a `rx_` prefix. It’s not mandatory but it can help you to understand which properties are RxSwift objects.
+因为所有 `ViewModel` 都使用了 RxSwift，所以当一个属性是 RxSwift 类型（`Driver`、`Observable` 等等）的时候，就会有一个 `rx_` 前缀。这不是强制的，只是它可以帮助你更好的识别哪些属性是 RxSwift 对象。
 
-# Conclusions
+# 结论
 
-MVVM-C has a lot of advantages and it can improve the quality of your application. You should pay attention on which approach to use for the UI Binding since RxSwift is not easy to master, furthermore the debugging and testing may sometimes be a little bit tricky if you don’t know well what are you doing.
+MVVM-C 有很多优点，可以提高应用程序的质量。你应该注意使用哪种方式来进行 UI 绑定，因为 RxSwift 不容易掌握，而且如果你不明白你做的是什么，调试和测试有时可能会有点棘手。
 
-My suggestion is to start using this architectural pattern a little at a time so you can get used of the different layers and how to keep the responsibilities well isolated and easy to test.
+我的建议是一点点地开始使用这种架构模式，这样你可以对不同的层次得到使用，并且能保证层次之间的良好的分离，易于测试。
 
 # FAQ
 
-***Does MVVM-C have some limitations?***
+***MVVM-C 有什么限制吗？***
 
-Yes, of course. If you’re working in a complex project you may have some edge-cases where MVVM-C may be impossible to use—or some little features where this pattern is overkilling. If you start using MVVM-C it doesn’t mean that you are forced to use it everywhere, you should always use the architectural pattern which suits better your needs.
+是的，当然有。如果你正做一个复杂的项目，你可能会遇到一些边缘案例，MVVM-C 可能无法使用，或者在一些小功能上使用过度。如果你开始使用 MVVM-C，并不意味着你必须在每个地方都强制的使用它，你应该始终选择更适合你需求的架构。
 
-***Can I use both functional and imperative programming with RxSwift?***
+***我能用 RxSwift 同时使用函数式和命令式编程吗？***
 
-Yes, you can. But I’d suggest keeping imperative approaches just in the legacy code and using functional programming for the new implementations, in this way you can take advantage of the power of RxSwift. If you want to use RxSwift just for your UI Binding you can easily write imperative programming and use reactive functional programming just to set the binding.
+是的，你可以。但是我建议你在遗留的代码中保持命令式的方式，而在新的实现里使用函数式编程，这样你可以利用 RxSwift 强大的优势。如果你使用 RxSwift 仅仅为了 UI 绑定，你可以轻松使用命令式编写程序，而只用函数响应式编程来设置绑定。
 
-***Can I use RxSwift in an enterprise project?***
+***我可以在企业项目中使用 RxSwift 吗？***
 
-It depends if you are going to start your project or if you have to maintain legacy code. In a project with legacy code you may struggle to use RxSwift and you should refactor a lot of classes. I’d suggest starting a little at a time with little classes if you have the time and the resources to do it—otherwise try using other alternatives for the UI Binding.
+这取决于你要开新项目，还是要维护旧代码。在有遗留代码的项目中，你可能无法使用 RxSwift，因为你需要重构很多的类。如果你有时间和资源来做，我建议你新开一项目一点一点的做，否则还是尝试其他的方法来解决 UI 绑定的问题。
 
-An important thing to consider is that at the end of the day RxSwift is another dependency to add to your project and you can risk to waste time because of RxSwift breaking changes or lack of documentation for what you want to achieve in edge-cases.
+需要考虑的一个重要事情是，RxSwift 会一直是你项目中的另一个依赖，你可能会因为 RxSwift 的突破性改动而导致浪费时间的风险，或者缺少要在边缘案例中实现功能的文档。
 
 ---
 
