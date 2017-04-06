@@ -2,11 +2,11 @@
 > * 原文作者：[Eric Elliott](https://medium.com/@_ericelliott?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[reid3290](https://github.com/reid3290)
-> * 校对者：[1992chenlu](https://github.com/1992chenlu)，[qinfanpeng](https://github.com/qinfanpeng) 
+> * 校对者：[1992chenlu](https://github.com/1992chenlu)，[qinfanpeng](https://github.com/qinfanpeng)
 
 # setState() 门事件 #
 
-## React setState() 解惑 ## 
+## React setState() 解惑 ##
 
 > 译注：本文起因于作者的一条推特，他认为应该避免使用 setState()，随后引发论战，遂写此文详细阐明其观点。译者个人认为，本文主要在于“撕逼“，并未深入介绍 setState() 的技术细节，希望从技术层面深入了解 `setState()` 的同学可以参考[[译] React 未来之函数式 setState](https://juejin.im/post/58cfcf6e44d9040068478fc6)。对 `setState()` 不了解的同学可能会感到本文不知所云，特此说明。
 
@@ -124,9 +124,9 @@ Object.assign(state,
 
 API 文档虽提供了些许线索，但未能以一种清晰明了的方式阐明初学者经常遇到的怪异表现。开发模式下，尽管 React 的错误信息以有效、准确著称，但当 `setState()` 的同步问题出现 bug 的时候控制台却没有任何警告。
 
-[Jikku Jose ](https://twitter.com/JikkuJose/status/842915627899670528?ref_src=twsrc%5Etfw) 
+[![](https://ww2.sinaimg.cn/large/006tKfTcgy1fecsfa9ryhj30jh06qaaq.jpg)](https://twitter.com/JikkuJose/status/842915627899670528?ref_src=twsrc%5Etfw)
 
-[Pier Bover ](https://twitter.com/PierB/status/842590294776451072?ref_src=twsrc%5Etfw)
+[![](https://ww1.sinaimg.cn/large/006tKfTcgy1fecsftg2goj30j406674u.jpg)](https://twitter.com/PierB/status/842590294776451072?ref_src=twsrc%5Etfw)
 
 StackOverflow 上有关 `setState()` 的问题大都要归结于组件的生命周期问题。毫无疑问，React 非常流行，因此那些问题都被[问](http://stackoverflow.com/questions/25996891/react-js-understanding-setstate)[烂](http://stackoverflow.com/questions/35248748/calling-setstate-in-a-loop-only-updates-state-1-time)[了](http://stackoverflow.com/questions/30338577/reactjs-concurrent-setstate-race-condition/30341560#30341560)，也有着各种良莠不齐的回答。
 
@@ -179,9 +179,9 @@ API 文档中并未提及更新函数的这些特性和要求，所以，即使�
 
 因为初学者从未遇到过这种问题，更不知规避方案，所以是掉坑里摔得最惨的。
 
-[](https://twitter.com/_ericelliott/status/842546271944564737?ref_src=twsrc%5Etfw) 
+[![](https://ww4.sinaimg.cn/large/006tKfTcgy1fecsglwlldj30jb067wf0.jpg)](https://twitter.com/_ericelliott/status/842546271944564737?ref_src=twsrc%5Etfw)
 
-[](https://twitter.com/dan_abramov/status/842548605525331969?ref_src=twsrc%5Etfw) 
+[![](https://ww1.sinaimg.cn/large/006tKfTcgy1fecshbe5u6j30jl05xdg8.jpg)](https://twitter.com/dan_abramov/status/842548605525331969?ref_src=twsrc%5Etfw)
 
 当问题发生时，你当然可以选择和 React 斗个你死我活；不过，你也可以选择让 React 顺其自然的工作。这就是我说**即使是对初学者而言**，Redux **有时** 都比 `setState` 更简单的原因。
 
@@ -196,7 +196,7 @@ API 文档中并未提及更新函数的这些特性和要求，所以，即使�
 
 Redux 自有其**陡峭**的学习曲线，但它规避了共享的可变 state 以及 state 更新同步等复杂问题。因此我发现，一旦我教会了学生如何避免可变性，接下来基本就**一帆风顺**了。
 
-对于没有任何函数式编程经验的新手而言，学习 Redux 遇到的问题可能会比学习 `setState()` 遇到的更多 —— 但是，Redux 至少有很多其作者亲自讲授的[免费](https://egghead.io/courses/getting-started-with-redux) [教程](https://egghead.io/courses/building-react-applications-with-idiomatic-redux)  
+对于没有任何函数式编程经验的新手而言，学习 Redux 遇到的问题可能会比学习 `setState()` 遇到的更多 —— 但是，Redux 至少有很多其作者亲自讲授的[免费](https://egghead.io/courses/getting-started-with-redux) [教程](https://egghead.io/courses/building-react-applications-with-idiomatic-redux)
 
 React 应当向 Redux 学习：有关 React 编程模式和 `setState()` 踩坑的视频教程定能让 React 主页锦上添花。
 
@@ -231,7 +231,7 @@ this.setState({count: state.count + 1});
 
 我也希望 API 文档中有关 `setState()` 的章节能够加上[“ state 和声明周期”](https://facebook.github.io/react/docs/state-and-lifecycle.html)这一深度指南的链接，这能给那些想要全面学习 `setState()` 的用户更多的细节内容。`setState()` 并非同步操作，也无任何有意义的返回结果，仅仅是简单地描述其函数签名而没有深入地探讨其各种影响和表现，这对初学者是极不友好的。
 
-初学者必须花上大量时间去找出问题：Google 上搜、StackOverflow 上搜、GitHub issues 里搜。 
+初学者必须花上大量时间去找出问题：Google 上搜、StackOverflow 上搜、GitHub issues 里搜。
 
 ### setState() 为何如此严苛？ ###
 
