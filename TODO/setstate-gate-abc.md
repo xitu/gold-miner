@@ -4,7 +4,7 @@
 > * 译者：[reid3290](https://github.com/reid3290)
 > * 校对者：[1992chenlu](https://github.com/1992chenlu)，[qinfanpeng](https://github.com/qinfanpeng) 
 
-# setState() 门 #
+# setState() 门事件 #
 
 ## React setState() 解惑 ## 
 
