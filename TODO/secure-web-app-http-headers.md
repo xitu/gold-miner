@@ -6,12 +6,6 @@
 
 ## [How To Secure Your Web App With HTTP Headers](https://www.smashingmagazine.com/2017/04/secure-web-app-http-headers/) ##
 
-
-Today, too many websites are still inaccessible. In our new book *Inclusive Design Patterns*, we explore how to craft **flexible front-end design patterns** and make **future-proof and accessible interfaces without extra effort**. Hardcover, 312 pages. [Get the book now!](https://shop.smashingmagazine.com/products/inclusive-design-patterns?utm_source=magazine&amp;utm_campaign=inclusive-design-patterns&amp;utm_medium=html-ad-content-1)
-
-[![](https://www.smashingmagazine.com/wp-content/uploads/2016/10/inclusive-design-pattners-250px.png)](https://shop.smashingmagazine.com/products/inclusive-design-patterns?utm_source=magazine&amp;utm_campaign=inclusive-design-patterns&amp;utm_medium=html-ad-content-1) 
-
-
 Web applications, be they thin websites or thick single-page apps, are notorious targets for cyber-attacks. In 2016, approximately [40% of data breaches](http://www.verizonenterprise.com/verizon-insights-lab/dbir/2016/) originated from attacks on web apps — the leading attack pattern. Indeed, these days, understanding cyber-security is not a luxury but rather **a necessity for web developers**, especially for developers who build consumer-facing applications.
 
 HTTP response headers can be leveraged to tighten up the security of web apps, typically just by adding a few lines of code. In this article, we’ll show how web developers can use HTTP headers to build secure apps. While the code examples are for Node.js, setting HTTP response headers is supported across all major server-side-rendering platforms and is typically simple to set up.
