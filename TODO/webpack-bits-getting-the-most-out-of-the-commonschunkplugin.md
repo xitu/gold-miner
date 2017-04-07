@@ -6,7 +6,7 @@
 
 # webpack 拾翠：充分利用 CommonsChunkPlugin() #
 
-隔三差五地，webpack 核心团队总是喜欢在 Twitter 上作一些寓教于乐的[技术分享](https://twitter.com/TheLarkInn/status/842817690951733248)。
+webpack 核心团队隔三差五地就会在 Twitter 上作一些寓教于乐的[技术分享](https://twitter.com/TheLarkInn/status/842817690951733248)。
 
 ![Markdown](http://i4.buimg.com/1949/614a949156a09f9e.png)
 
@@ -67,7 +67,7 @@
 
 ![Markdown](http://i4.buimg.com/1949/34e0c53c6bcbebc0.png)
 
-如你所见，现在所有符合要求的模块都被抽离到一个独立的文件中，因此应用整体上减小了 17%。
+如你所见，现在所有符合要求的模块都被抽离到一个独立的文件中，[Swizec](https://medium.com/@swizec) 指出这个应用程序大小降低了 17%。
 
 ### 案例二：异步 chunks 中的重复 vendors
 
@@ -77,7 +77,7 @@
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/2000/1*yRCgk_pzDpkMfQGKpCO_HA.jpeg">
 
-异步 chunks 是指那些文件名形如 "[number].[number].js" 的 chunk。
+异步 chunks 是指那些文件名中包含 "[number].[number].js" 的 chunk。
 
 如上图所示，四五十个异步 bundles 都用到了两三个同样的组件，我们该如何利用 `CommonsChunkPlugin` 来解决此问题呢？
 
@@ -158,7 +158,7 @@
 
 上述只是 `CommonsChunkPlugin()` 的部分用例，更多资源请参考我们 webpack/webpack core GitHub 仓库中的 `[/examples](https://github.com/webpack/webpack/tree/master/examples)` [目录](https://github.com/webpack/webpack/tree/master/examples)。如果你还有其他好想法，欢迎 [Pull Request](https://github.com/webpack/webpack/blob/master/CONTRIBUTING.md)！
 
-没时间贡献代码？希望以其他方式做贡献？向[我们的 open collective]()(https://opencollective.com/webpack) 捐款，即刻成为赞助商。Open Collective 不仅为核心团队提供支持，同时也帮助那些在空闲时间为提升我们社区质量而花费了大量宝贵时间的贡献者们！❤
+没时间贡献代码？希望以其他方式做贡献？向[我们的 open collective](https://opencollective.com/webpack) 捐款，即刻成为赞助商。Open Collective 不仅为核心团队提供支持，同时也帮助那些为提升我们社区质量而花费了大量宝贵的空闲时间的贡献者们！❤
 
 ---
 
