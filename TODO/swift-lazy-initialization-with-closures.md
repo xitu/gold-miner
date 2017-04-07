@@ -1,5 +1,5 @@
 > * 原文地址：[Swift Lazy Initialization with Closures](https://blog.bobthedeveloper.io/swift-lazy-initialization-with-closures-a9ef6f6312c)
-> * 原文作者：[Bob Lee](https://blog.bobthedeveloper.io/@bobthedev?source=post_header_lockup)
+> * 原文作者：[Bob Lee](https://blog.bobthedeveloper.io/@bobthedev)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：
 > * 校对者：
