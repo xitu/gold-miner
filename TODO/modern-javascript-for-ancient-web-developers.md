@@ -4,19 +4,19 @@
 > * 译者：[sun](http://suncafe.cc)
 > * 校对者：[xilihuasi](https://github.com/xilihuasi)、 [Reid](https://github.com/reid3290)
 
-# 写给“古代” Web 开发者的“现代” JavaScript 指南 #
+# 写给“老派” Web 开发者的“现代” JavaScript 指南 #
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*_5XMNVNbpIDCDHU1YXZPyA.png">
 
 用 JavaScript 学习 JavaScript。图片来自 [learnyounode](https://github.com/workshopper/learnyounode)。
 
-有这样一种守旧的后端 web 开发者，他们很久以前就掌握了诸如 Perl 、Python、PHP 或 Java Server Pages 一类的东西，甚至还掌握了 Rails 或者 Django。他们使用巨大的关系型数据库构建 JSON API 服务，呃也可能是 XML。
+有这样一种守旧的后端 web 开发者，他们很久以前就掌握了诸如 Perl 、Python、PHP 或 Java Server Pages 一类的东西，甚至还掌握了 Rails 或者 Django。他们使用巨大的关系型数据库构建 JSON API 服务，呃甚至是 XML。
 
 他是个**后端**开发者， 因此对他而言，JavaScript 一直只是个可以添加一些前端花招，使网页上的东西变色的有趣小玩具。如果说 JavaScript 真的很有用，那也不过是给表单添加验证，以防止错误的数据进入数据库。八年前 [jQuery 让这个人十分震惊](https://twitter.com/ginatrapani/status/3252157585)。JavaScript 本身依然是可以被容忍但从未被接纳的语言。
 
  随后 JavaScript 及其现代框架侵蚀了后端、前端和他们之间的一切，对于 JavaScript 开发者而言，2017年正是重新成为一个全新 web 开发者的时刻。
 
-Hi.我是一个正在学习现代 JavaScript 的“古代” web 开发者。我才刚刚起步玩得也还算尽兴，当然也踩了一些坑。有一些现代 JavaScript 的概念我希望我能在开始学习之前就融会贯通。
+Hi.我是一个正在学习现代 JavaScript 的“老派” web 开发者。我才刚刚起步玩得也还算尽兴，当然也踩了一些坑。有一些现代 JavaScript 的概念我希望我能在开始学习之前就融会贯通。
 
 在旧编程语言的惯性思维模式之上学习一个新的生态系统，我在心态和期望方面得做下面一些改变。
 
@@ -26,7 +26,7 @@ Hi.我是一个正在学习现代 JavaScript 的“古代” web 开发者。我
 
 这种情况下，就有必要向你身边的 JavaScript 工程师朋友伸手求助了，和他们聊一聊你的技术路线。我很荣幸在 Postlight 得到了工程师朋友(特别是 [Jeremy Mack](https://medium.com/@mutewinter))的精湛指导，感谢他们容忍我无穷无尽的问题。
 
-我要说的是,学习现代的 JavaScript 需要人为干预。事物还在不断发展变化，各种教程尚未成熟和定型，所谓最佳实践也未形成正式规范。如果你手边没有一个仁道的专家，那么至少也得检查 Medium 上文章或教程的日期,或 Github 仓库的最近一次提交时间。如果时间超过了一年，基本上可以确定已经过时。
+我要说的是,学习现代的 JavaScript 需要人为干预。事物还在不断发展变化，各种教程尚未成熟和定型，所谓最佳实践也未形成正式规范。如果你身边没有大牛，那么至少也得检查 Medium 上文章或教程的日期,或 Github 仓库的最近一次提交时间。如果时间超过了一年，基本上可以确定已经过时。
 
 ### 新的问题，而不是已经确定的解决方案 ###
 
@@ -34,7 +34,7 @@ Hi.我是一个正在学习现代 JavaScript 的“古代” web 开发者。我
 
 当你在使用一种像 PHP 这样的古老的语言的时候，你可以 Google 一个提问或者问题，几乎百分之百能找到一个5年前的 Stack Overflow 回答来解决它，或者你能在（详尽的，大量评论的，无与伦比的）[文档](http://docs.php.net/docs.php)里找到整个描述。
 
-现代 JavaScript 就并非如此了。 我曾经徜徉在 GitHub issues 和源码的时候不止一次找到的都是一些过时的文档。剖析 GitHub 版本库是学习和使用各种包的一部分，而且对于像我这样的“远古人”，靠近边缘的工作更令人迷惑。
+现代 JavaScript 就并非如此了。 我曾经徜徉在 GitHub issues 和源码的时候不止一次找到的都是一些过时的文档。剖析 GitHub 版本库是学习和使用各种包的一部分，而且对于我这样的“老派人”，差之毫厘的学习总是令人迷惑。
 
 ### 工具过载 ###
 
