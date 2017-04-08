@@ -2,7 +2,7 @@
 > * 原文作者：[AHMAD SHADEED](https://css-tricks.com/author/shadeed9/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[bambooom](https://github.com/bambooom)
-> * 校对者：
+> * 校对者：[gy134340](https://github.com/gy134340) / [avocadowang](https://github.com/avocadowang)
 
 # 使用开发者工具在浏览器中调整设计
 
