@@ -107,7 +107,7 @@ preload 使用 “as” 属性加载的资源将会获得与资源 “type” �
 
 ### 这将会浪费用户的带宽吗？
 
-**用“preload”和“prefetch”情况下，如果资源不能被缓存，那么都有可能浪费一部分带宽。
+**用“preload”和“prefetch”情况下，如果资源不能被缓存，那么都有可能浪费一部分带宽。**
 
 没有用到的 preload 资源在 Chrome 的 console 里会在 *onload* 事件 3s 后发生警告。
 
