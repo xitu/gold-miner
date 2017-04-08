@@ -10,15 +10,15 @@
 
 # 真正行动之前 你将一无所成
 
-就在上周我打了一辆 Lyft 出租车，司机跟我聊了很多关于她的天花乱坠的想法。她的想法里，有一个关于儿童的书籍，有帮助人们停车的APP、有一个更高效的打包礼物的方法，但问题是她总是犹豫不决：她又想法但却不知道从何开始。
+就在上周我打了一辆 Lyft 出租车，司机跟我聊了很多关于她的天花乱坠的想法。她的想法里，有一个关于儿童书籍，有帮助人们停车的APP、有一个更高效的打包礼物的方法，但问题是她总是犹豫不决：她很有想法但却不知道从何开始。
 
-接下来这段话是我对她说的：**开始一些实际行动吧。选一个项目然后尽可能的去完成它。** 如果你想写一本书，那么从每天写一页开始；如果你像做一个APP，那就从草稿开始。任何人都可以做到这些。
+接下来这段话是我对她说的：**开始一些实际行动吧。选一个项目然后尽可能的去完成它。** 如果你想写一本书，那么从每天写一页开始；如果你想做一个APP，那就从草稿开始。任何人都可以做到这些。
 
 这些建议对所有创新者都适用。一旦你开始着手在你的项目上，你将会不由自主的继续做下去。创新将会成为你人格的一部分 —— 即使你的项目失败了。
 
-你今天迈出的一小步将会是你人生的一大步。看看那些伟大的产品创造者吧，比如 [Drew Wilson](https://twitter.com/drewwilson), [Pieter Levels](https://twitter.com/levelsio?), 和 [Sebastian Dobrincu](https://twitter.com/Sebyddd)。**他们不仅仅是等待合适的时机。** 他们每周都在更新他们的产品。 
+你今天迈出的一小步将会是你人生的一大步。看看那些伟大的产品缔造者吧，比如 [Drew Wilson](https://twitter.com/drewwilson), [Pieter Levels](https://twitter.com/levelsio?), 和 [Sebastian Dobrincu](https://twitter.com/Sebyddd)。**他们不仅仅是等待合适的时机。** 他们每周都在更新他们的产品。 
 
-在一个 [IndieHackers](https://www.indiehackers.com/podcast/006-josh-pigford-of-baremetrics) 的节目中, [Josh Pigford](https://twitter.com/Shpigford) 透露，在做 Baremetrics 之前，他已经尝试过 *一百个* 失败的点子。 现在， Baremetrics 每个月都会有 60，000 美金进账。
+在一个 [IndieHackers](https://www.indiehackers.com/podcast/006-josh-pigford-of-baremetrics) 的节目中, [Josh Pigford](https://twitter.com/Shpigford) 透露，在做 Baremetrics 之前，他已经尝试过 *一百个* 失败的点子。 然而现在， Baremetrics 每个月都会有 60，000 美金进账。
 
 
 ![](https://cdn-images-1.medium.com/max/800/1*BzmVaqAKEzNRybUmMYOxdA.png)
@@ -31,11 +31,11 @@
 
 在开始的时候，确定你的项目要实现的主要目标。如果你想打破你以往的设计风格，那就把心思花在设计上；如果你测试一个新的前端框架，那就把钻研代码；如果你想获得上百个用户（”大量用户“ 会不会好点），就把精力用在销售上。
 
-**尽早确定目标可以帮助你摆脱诱惑，防止你到最后忘记初心。** 也许你的项目并不能成为下一个 Snapchat, 但是在通往你目标的道路上，你会更加的熟练运用各种做产品的工具。渐渐地，你会拥有越来越强大的设计、代码、销售等的能力。
+**尽早确定目标可以帮助你摆脱诱惑，防止你到最后忘记初心。** 也许你的项目并不能成为下一个 Snapchat, 但是在通往你目标的道路上，你会更加的熟练运用各种做产品的工具。渐渐地，你会拥有越来越强大的设计、代码、销售等能力。
 
 ### 2. 执行计划
 
-有一些产品没能完的原因是作者在半路失去了动力。 **设定一些小目标（比如先赚一个亿）；完成这些目标会让你获得前进的动力。** 小的成就累计起来也是很了不起的。
+有一些产品没能完成的原因是作者在半路失去了动力。 **设定一些小目标（比如先赚一个亿）；完成这些目标会让你获得前进的动力。** 小的成就累计起来也是很了不起的。
 
 ![](https://cdn-images-1.medium.com/max/800/1*ESildSVTSSOnFXGDxD-l9w.png)
 
@@ -47,19 +47,19 @@
 
 解决一个问题。如果你自己也经历了这个问题那就再好不过了。问问你的朋友们他们都有哪些问题需要解决。
 
-比如，我做了 [YC Careers](http://jonathanzwhite.github.io/yc-careers/) 和 [AtomSpace](https://atomspace.co/) 来解决一个产品设计师朋友找工作和面试的烦恼。一夜之间，YC Careers 一下子爬到了 [ProductHunt](https://www.producthunt.com/posts/yc-careers) 的榜首，AtomSpace 在上线6个小时就拿到了来自陌生人的一百美元订单。
+比如，我做了 [YC Careers](http://jonathanzwhite.github.io/yc-careers/) 和 [AtomSpace](https://atomspace.co/) 来解决一个产品设计师朋友找工作和面试的烦恼。一夜之间，YC Careers 占领了 [ProductHunt](https://www.producthunt.com/posts/yc-careers) 的榜首，AtomSpace 在上线6个小时之内就拿到了来自陌生人的一百美元订单。
 
 **你解决越大的痛点，就越容易找到用户。**
 
 同时，尝试从过个角度分析问题和解决方案。有些成功的点子看起来并没有解决任何问题，但其实不然。比如，Instagram 看起来没有直接解决任何问题。其实不是。Instagram 满足了朋友之间实时社交的需求。如果这个需求不能得到满足，那才是个问题。
 
-想要了解更多的话，[John Carmack on Idea Generation](https://amasad.me/carmack) 和 [How to Get Startup Ideas](http://paulgraham.com/startupideas.html) 这两篇文章是非常好的开始。
+想要了解更多关于这方面内容的话，[John Carmack on Idea Generation](https://amasad.me/carmack) 和 [How to Get Startup Ideas](http://paulgraham.com/startupideas.html) 这两篇文章是非常好的起点。
 
 ### 4. 放弃”好主意/坏主意“的想法
 
 当你明确了你想要解决的问题并有了一个解决方案的时候，你可能会问自己这是不是一个好的点子。
 
-**相当一部分看起来很糟糕的点子最后被证明是超级棒的生意。** 比如，多年没人想投资 Airbnb。 Brian Chesky, Airbnb 的创始人之一，在他的文章 [7 Rejections](https://medium.com/@bchesky/7-rejections-7d894cbaa084#.l8fdqlasz) 里详细讲述了被投资人拒绝的故事。
+**相当一部分看起来很糟糕的点子最后被证明是超级棒的生意。** 比如，当年没人想投资 Airbnb。 Brian Chesky, Airbnb 的创始人之一，在他的文章 [7 Rejections](https://medium.com/@bchesky/7-rejections-7d894cbaa084#.l8fdqlasz) 里详细讲述了被投资人拒绝的故事。
 
 ![](https://cdn-images-1.medium.com/max/800/1*WpxUxMCO-7NXr-o1yo023g.png)
 
