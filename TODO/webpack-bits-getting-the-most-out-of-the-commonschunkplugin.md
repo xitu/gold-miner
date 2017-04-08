@@ -91,7 +91,7 @@ webpack 核心团队隔三差五地就会在 Twitter 上作一些寓教于乐的
       filename: "commonlazy.js"
     });
 
-类似地 —— webpack 会扫描所有 chunks 并检查公共模块。由于设置了 `async: true`，只有代码拆分的 bundles 会被扫描。因为我们并没有指明 `minChunks` 的值，所有 webpack 会取其默认值 3。综上，上述代码的含义是：
+类似地 —— webpack 会扫描所有 chunks 并检查公共模块。由于设置了 `async: true`，只有代码拆分的 bundles 会被扫描。因为我们并没有指明 `minChunks` 的值，所以 webpack 会取其默认值 3。综上，上述代码的含义是：
 
 > **嘿 webpack，请检查所有的普通（即懒加载的）chunks，如果某个模块出现在了 3 个或 3 个以上的 chunks 中，就将其分离到一个独立的异步公共 chunk 中去。**
 
@@ -99,7 +99,7 @@ webpack 核心团队隔三差五地就会在 Twitter 上作一些寓教于乐的
 
 ![Markdown](http://i4.buimg.com/1949/626cbab70072f442.png)
 
-现在异步 chunks 都非常的小，并且所有代码都被聚合到 `commonlazy.js` 文件中去了。因为这些 bundles 本来就很小了， 首次访问可能都察觉不到代码体积的变化。现在，每一个代码拆分的 bundle 所需携带的数据更少了；而且，通过将这些公共模块放到一个独立可缓存的 chunk 中，我们节省了用户加载时间，降低了数据消费量（data consumption）。
+现在异步 chunks 都非常的小，并且所有代码都被聚合到 `commonlazy.js` 文件中去了。因为这些 bundles 本来就很小了， 首次访问可能都察觉不到代码体积的变化。现在，每一个代码拆分的 bundle 所需携带的数据更少了；而且，通过将这些公共模块放到一个独立可缓存的 chunk 中，我们节省了用户加载时间，减少了需要传输的数据量（data consumption）。
 
 #### 更多控制：minChunks 函数 ####
 
@@ -129,7 +129,7 @@ webpack 核心团队隔三差五地就会在 Twitter 上作一些寓教于乐的
     function lodashMomentModuleFilter(module, count) {
       return module.resource && /lodash|moment/.test(module.resource) && count >= 2;
     }
-    
+
     function immutableReactModuleFilter(module, count) {
       return module.resource && /immutable|react/.test(module.resource) && count >=4
     }
