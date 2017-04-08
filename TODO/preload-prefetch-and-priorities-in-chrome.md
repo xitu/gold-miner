@@ -1,238 +1,239 @@
 > * 原文地址：[Preload, Prefetch And Priorities in Chrome](https://medium.com/reloading/preload-prefetch-and-priorities-in-chrome-776165961bbf)
 > * 原文作者：[Addy Osmani](https://medium.com/@addyosmani?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
-> * 校对者：
+> * 译者：[gy134340](https://github.com/gy134340)
+> * 校对者：[IridescentMia](https://github.com/IridescentMia),[vuuihc](https://github.com/vuuihc)
 
 
-<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/2000/1*W4_tAMHlFs6tunMxbXQjFA.png">
+<img src="https://cdn-images-1.medium.com/max/2000/1*W4_tAMHlFs6tunMxbXQjFA.png">
 
-# **Preload, Prefetch And Priorities in Chrome**
+# **Preload，Prefetch 和它们在 Chrome 之中的优先级**
 
-Today we’ll dive into insights from Chrome’s networking stack to provide clarity on how web loading primitives (like [**`<link rel=“preload”>`**](https://w3c.github.io/preload/) & [**`<link rel=“prefetch”>`**](https://w3c.github.io/resource-hints/)) work behind the scenes so you can be more effective with them.
+今天我们来深入研究一下 Chrome 的网络协议栈，来更清晰的描述早期网络加载（像 [**\<link rel=“preload”>**](https://w3c.github.io/preload/) 和 [**\<link rel=“prefetch”>**](https://w3c.github.io/resource-hints/)）背后的工作原理，让你对其更加了解。
 
-As covered well in [other articles](https://www.smashingmagazine.com/2016/02/preload-what-is-it-good-for/), **preload is a declarative fetch, allowing you to force the browser to make a request for a resource without blocking the document’s** [**onload**](https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/onload) **event**.
+**像[其他文章](https://www.smashingmagazine.com/2016/02/preload-what-is-it-good-for/)描述的那样，preload 是声明式的 fetch，可以强制浏览器请求资源，同时不阻塞文档 [onload](https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/onload) 事件。**
 
-**Prefetch is a hint to the browser that a resource might be needed**, but delegates deciding whether and when loading it is a good idea or not to the browser.
+**Prefetch 提示浏览器这个资源将来可能需要**，但是把决定是否和什么时间加载这个资源的决定权交给浏览器。
 
-<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/2000/1*PSMeFcC3AXDUmdNf5l19Ug.jpeg">
+<img src="https://cdn-images-1.medium.com/max/2000/1*PSMeFcC3AXDUmdNf5l19Ug.jpeg">
 
-Preload can decouple the load event from script parse time. If you haven’t used it before, read ‘[Preload: What is it Good For?](https://www.smashingmagazine.com/2016/02/preload-what-is-it-good-for/)’ by Yoav Weiss
+Preload 将 load 事件与脚本解析过程解耦，如果你还没有用过它，看看 Yoav Weiss 的文章 [Preload: What is it Good For?](https://www.smashingmagazine.com/2016/02/preload-what-is-it-good-for/)。
 
-### Preload success stories in production sites
+### Preload 在生产环境的成功案例
 
-Before we dive into the details, here’s a quick summary of some positive impact to loading metrics that have been observed using preload in the last year:
+在我们深入细节之前，下面是上一年发现的使用 proload 并对加载产生积极影响的案例总结：
 
-Housing.com saw a [**~10% improvement in Time to Interactive**](https://twitter.com/HousingEngg/status/844169796891508737) when they switched to preloading key late-discovered scripts for their Progressive Web App:
+Housing.com 在对他们的渐进式 Web 应用程序的脚本转用 proload 看到[**大约缩短了10%的可交互时间**](https://twitter.com/HousingEngg/status/844169796891508737)。
 
-<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/2000/1*fZH0GKzI42x7IgxKfiaddA.png">
+<img src="https://cdn-images-1.medium.com/max/2000/1*fZH0GKzI42x7IgxKfiaddA.png">
 
-Shopify’s switch to [preloading Web Fonts](https://www.bramstein.com/writing/preload-hints-for-web-fonts.html) saw a[**50%**](https://twitter.com/ShopifyEng/status/844245243948163072) **(1.2 second) improvement in time-to-text-paint** on Chrome desktop (cable). This removed their flash-of-invisible text completely.
+Shopify 在转用 [preload 加载字体](https://www.bramstein.com/writing/preload-hints-for-web-fonts.html)后在 Chrome 桌面版获得了 [**50%**（1.2s）](https://twitter.com/ShopifyEng/status/844245243948163072) 的文字渲染优化，这完全解决了他们的文字闪动问题。
 
-<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/0*rDnsYXceRwO-xxSZ.">
+<img src="https://cdn-images-1.medium.com/max/1000/0*rDnsYXceRwO-xxSZ.">
 
-Left: with preload, Right: without ([video](https://video.twimg.com/tweet_video/C7dcmxaUwAAUhPX.mp4))
+左边：使用 preload，右边：不使用 preload（[视频](https://video.twimg.com/tweet_video/C7dcmxaUwAAUhPX.mp4)）
 
-<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*r2RiRVrghz5iDUnhBX8W1Q.png">
+<img src="https://cdn-images-1.medium.com/max/1000/1*r2RiRVrghz5iDUnhBX8W1Q.png">
 
-Web Font loading using <link rel=”preload”>
+使用`<link rel=”preload”>` 加载字体。
 
-Treebo, one of India’s largest hotel chains **shaved** [**1 second**](https://twitter.com/__lakshya/status/844429211867791361) **off both time to First Paint and Time to Interactive** for their desktop experience over 3G, by preloading their header image and key Webpack bundles:
+Treebo，印度最大的旅馆网站之一，在 3G 网络下对其桌面版试验，在对其顶部图片和主要的 Webpack 打包文件使用 preload 之后，在**首屏绘制和可交互延迟分别减少了** [**1s**](https://twitter.com/__lakshya/status/844429211867791361)。
 
-<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/2000/1*SKYdHNpGldFFUPZBDZQgSQ.png">
+<img src="https://cdn-images-1.medium.com/max/2000/1*SKYdHNpGldFFUPZBDZQgSQ.png">
 
-Similarly, by switching to preloading their key bundles, Flipkart [**shaved**](https://twitter.com/adityapunjani/status/844250835802619905) **a great deal of main thread idle** before route chunks get evaluated on their PWA (trace from a low-end phone over 3G):
+同样的，在对自己的渐进式 Web 应用程序主要打包文件使用 preload 之后，Flipkart 在路由解析之前 **节省了大量的主线程空闲时间**（在 3G 网络下的低性能手机下）。
 
-<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/0*QL0ztXPZ1wUXpRKX.">
+<img src="https://cdn-images-1.medium.com/max/1000/0*QL0ztXPZ1wUXpRKX.">
 
-Top: without preload, Bottom: with preload
+上面：未使用 preload，下面：使用 preload
 
-And the Chrome Data Saver team saw **time to first contentful paint improvements of** [**12% on average**](https://medium.com/reloading/a-link-rel-preload-analysis-from-the-chrome-data-saver-team-5edf54b08715#.bgj9qkqfr)for pages that could use preload on scripts and CSS stylesheets.
+Chrome 数据保护团队在对脚本和 CSS 样式表使用 preload 之后，发现页面首次绘制时间获得[**平均 12%**](https://medium.com/reloading/a-link-rel-preload-analysis-from-the-chrome-data-saver-team-5edf54b08715#.bgj9qkqfr) 的速度提升。
 
-As for prefetch, it’s widely used and at Google we still use it in [Search results pages](https://plus.google.com/+IlyaGrigorik/posts/ahSpGgohSDo) to prefetch critical resources that can speed up rendering destination pages.
+对于 prefetch ，它被广泛使用，在 Google 我们仍用它来获取可以加快 [搜索结果页面](https://plus.google.com/+IlyaGrigorik/posts/ahSpGgohSDo) 的渲染的关键资源。
 
-Preload is used in production by large sites for a number of use-cases and you can find more of them later on in the article. Before that, let’s dive into how the network stack actually treats preload vs prefetch.
+Preload 在很多大型网站都有实际应用，这点你在接下来的文章里也可以看到，让我们来仔细探讨下网络协议栈实际上是如何对待 preload 和 prefetch 的。
 
-### When should you `<link rel=”preload”>` vs `<link rel=”prefetch”>`?
+### 什么时候该用 \<link rel=”preload”> ？ 什么时候又该用 \<link rel=”prefetch”> ?
 
-**Tip:** **Preload resources you have high-confidence will be used in the current page. Prefetch resources likely to be used for future navigations across multiple navigation boundaries.**
+**建议：对于当前页面很有必要的资源使用 preload，对于可能在将来的页面中使用的资源使用 prefetch。**
 
-Preload is an early fetch instruction to the browser to request a resource *needed* for a page (key scripts, Web Fonts, hero images).
+preload 是对浏览器指示预先请求当前页需要的资源（关键的脚本，字体，主要图片）。
 
-Prefetch serves a slightly different use case — a future navigation by the user (e.g between views or pages) where fetched resources and requests need to persist across navigations. If Page A initiates a prefetch request for critical resources needed for Page B, the critical resource and navigation requests can be completed in parallel. If we used preload for this use case, it would be immediately cancelled on Page A’s unload.
+prefetch 应用场景稍微又些不同 —— 用户将来可能在其他部分（比如视图或页面）使用到的资源。如果 A 页面发起一个 B 页面的 prefetch 请求，这个资源获取过程和导航请求可能是同步进行的，而如果我们用 preload 的话，页面 A 离开时它会立即停止。
 
-Between preload and prefetch, we get solutions for loading critical resources for the current navigation _or_ a future navigation.
+使用 preload 和 prefetch，我们有了对当前页面和将来页面加载关键资源的解决办法。
 
-### What is the caching behavior for `<link rel=”preload”>` and `<link rel=”prefetch”>`?
+###  \<link rel="preload"> 和 \<link rel="prefetch"> 的缓存行为
 
-[Chrome has four caches](https://calendar.perfplanet.com/2016/a-tale-of-four-caches/): the HTTP cache, memory cache, Service Worker cache & Push cache. Both preload and prefetched resources are stored in the **HTTP cache.**
+[Chrome 有四种缓存](https://calendar.perfplanet.com/2016/a-tale-of-four-caches/): HTTP 缓存，内存缓存，Service Worker 缓存和 Push 缓存。preload 和 prefetch 都被存储在 **HTTP 缓存中**。
 
-When a resource is **preloaded or prefetched** is travels up from the net stack through to the HTTP cache and into the renderer’s memory cache. If the resource can be cached (e.g there’s a valid [cache-control](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control) with valid max-age), it is stored in the HTTP cache and is available for **current and future sessions**. If the resource is **not cacheable**, it does not get stored in the HTTP cache. Instead, it goes up to the memory cache and stays there until it gets used.
+当一个资源被 **preload 或者 prefetch** 获取后，它可以从 HTTP 缓存移动至渲染器的内存缓存中。如果资源可以被缓存（比如说存在有效的[cache-control](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control) 和 max-age），它被存储在 HTTP 缓存中可以被**现在或将来的任务使用**，如果资源不能被缓存在 HTTP 缓存中，作为代替，它被放在内存缓存中直到被使用。
 
-### How does Chrome’s network prioritisation handle preload and prefetch?
+### Chrome 对于 preload 和 prefetch 的网络优先级？
 
-Here’s a break-down ([courtesy](https://docs.google.com/document/d/1bCDuq9H1ih9iNjgzyAL0gpwNFiEP4TZS-YLRp_RuMlc/edit#) of Pat Meenan) showing how different resources are prioritized in Blink as of Chrome 46 and beyond:
+下面是在 Blink 内核的 Chrome 46 及更高版本中不同资源的加载优先级情况（ [Pat Meenan](https://docs.google.com/document/d/1bCDuq9H1ih9iNjgzyAL0gpwNFiEP4TZS-YLRp_RuMlc/edit#)）
 
-<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*BTi3YhvCAYiJYRpjNQft9Q.jpeg">
+<img src="https://cdn-images-1.medium.com/max/1000/1*BTi3YhvCAYiJYRpjNQft9Q.jpeg">
 
-Preload using “as” or fetch using “type” use the priority of the type they are requesting. (e.g. preload as=style will use Highest priority). With no “as” they will behave like an XHR. “Early” is defined as being requested before any non-preloaded images have been requested (“late” is after). Thanks to Paul Irish for updating this table with the DevTools priorities mapping to the Net and Blink priorities.
+preload 用 “as” 或者用 “type” 属性来表示他们请求资源的优先级（比如说 preload 使用 as="style" 属性将获得最高的优先级）。没有 “as” 属性的将被看作异步请求，“Early”意味着在所有未被预加载的图片请求之前被请求（“late”意味着之后）,感谢 Paul Irish 更新这张关于开发者工具以及网络层上各种请求优先级的表。
 
-Let’s talk about this table for a moment.
+我们来谈一下这张表。
 
-**Scripts get different priorities based on where they are in the document and whether they are async, defer or blocking:**
+**脚本根据它们在文件中的位置是否异步、延迟或阻塞获得不同的优先级**：
 
-- Blocking scripts requested before the first image (an image early in the document) are Net:Medium
-- Blocking scripts requested after the first image is fetched are Net:Low
-- Async/defer/injected scripts (regardless of where they are in the document) are Net:Lowest
+* 网络在第一个图片资源之前阻塞的脚本在网络优先级中是中级
+* 网络在第一个图片资源之后阻塞的脚本在网络优先级中是低级
+* 异步／延迟／插入的脚本（无论在什么位置）在网络优先级中是很低级
 
-**Images (that are visible and in the viewport) have a higher priority (Net:Medium) than those that are not in the viewport (Net:Lowest)**, so to some extent Chrome will do it’s best to pseudo-lazy-load those images for you. Images start off with a lower priority and after layout is done and they are discovered to be in the viewport, will get a priority boost (but note that images already in flight when layout completes won’t be reprioritized).
+图片（视口可见）将会获得相对于视口不可见图片（低级）的更高的优先级（中级），所以某些程度上 Chrome 将会尽量懒加载这些图片。低优先级的图片在布局完成被视口发现时，将会获得优先级提升（但是注意已经在布局完成后的图片将不会更改优先级）。
 
-Preloaded resources using the “as” attribute will have the **same resource priority** as the **type** of resource they are requesting. For example, preload as=“style” will get the highest priority while as=”script” will get a low or medium priority. These resources are **also subject to the same CSP policies** (e.g script is subject to script-src).
+preload 使用 “as” 属性加载的资源将会获得与资源 “type” 属性所拥有的**相同的优先级**。比如说，preload as="style" 将会获得比 as=“script” 更高的优先级。这些资源同样会受内容安全策略的影响（比如说，脚本会受到其 “src” 属性的影响）。
 
-Preloaded resources without an “as” will otherwise be requested with the same priority as async XHR (so High).
+不带 “as” 属性的 preload 的优先级将会等同于异步请求。
 
-If you’re interested in understanding what priority a resource was loaded with, this information is exposed in DevTools via both the Network section of Timeline/Performance:
+如果你想了解各种资源加载时的优先级属性，从开发者工具的 Timeline/Performance 区域的 Network 区域都能看到相关信息：
 
-<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/2000/1*5QsDQsYJ4ts-4Tl0_1dZwQ.png">
+<img  src="https://cdn-images-1.medium.com/max/2000/1*5QsDQsYJ4ts-4Tl0_1dZwQ.png">
 
-and in the Network panel behind the “Priority” column:
+在 Network 面板下的“Priority”部分
 
-<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/0*26d5UlWhql2NZ0Eg.">
+<img src="https://cdn-images-1.medium.com/max/1000/0*26d5UlWhql2NZ0Eg.">
 
-### What happens when a page tries to preload a resource that has already been cached in the Service Worker cache, the HTTP cache or both?
+### 当页面 preload 已经在 Service Worker 缓存及 HTTP 缓存中的资源时会发生什么？
 
-This is going to be a large “it depends” but generally, something good should almost always happen in this case — the resource won’t be refetched from the network unless it has expired from the HTTP cache or the Service Worker intentionally refetches it.
+这就要说看情况了，但通常来说，会是比较好的情况 —— 如果资源没有超出 HTTP 缓存时间或者 Service Worker 没有主动重新发起请求，那么浏览器就不会再去请求这个资源了。
 
-If the resource is in the HTTP cache (between the SW Cache & the network) then preload should get a cache hit from the same resource.
+如果资源在 HTTP 缓存（ Service Worker 缓存和网络中），那么 preload 将会获得一次缓存命中。
 
-### Are there risks with these primitives of wasting a user’s bandwidth?
+### 这将会浪费用户的带宽吗？
 
-**With “preload” or “prefetch”, you’re running some risk of wasting a user’s bandwidth, especially if the resource is not cacheable.**
+**用“preload”和“prefetch”情况下，如果资源不能被缓存，那么都有可能浪费一部分带宽。
 
-Unused preloads trigger a console warning in Chrome, ~3 seconds after *onload:*
+没有用到的 preload 资源在 Chrome 的 console 里会在 *onload* 事件 3s 后发生警告。
 
-<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/0*Um55iV_tEBO3eXEs.">
+<img src="https://cdn-images-1.medium.com/max/1000/0*Um55iV_tEBO3eXEs.">
 
-The reason for this warning is you’re probably using preload to try warming the cache for other resources you need to improve performance but if these preloaded resources aren’t being used, you’re doing extra work for no reason. On mobile, this sums up to wasting a user’s data plans, so be mindful of what you’re preloading.
+原因是你可能为了改善性能使用 preload 来缓存一定的资源，但是如果没有用到，你就做了无用功。在手机上，这相当于浪费了用户的流量，所以明确你要 preload 对象。
 
-### What can cause double fetches?
+### 什么情况会导致二次获取？
 
-Preload and prefetch are blunt tools and it isn’t hard to find yourself [double-fetching](https://bugs.chromium.org/p/chromium/issues/list?can=2&amp;q=preload%20double%20owner%3Ayoav%40yoav.ws) if you aren’t careful.
+preload 和 prefetch 是很简单的工具，你很容易不小心[二次获取](https://bugs.chromium.org/p/chromium/issues/list?can=2&amp;q=preload%20double%20owner%3Ayoav%40yoav.ws)。
 
-**Don’t use “prefetch” as a fallback for “preload”**. They’re again, used for different purposes and often end up causing [double fetches](https://twitter.com/yoavweiss/status/824957889991303168) while this probably isn’t your intention. Use preload if it’s supported for warming the cache for current sessions otherwise prefetch for future sessions. Don’t use one in place of the other.
+不要用 “prefetch” 作为 “preload” 的后备，它们适用于不同的场景，常常会导致不符合预期的二次获取。使用 preload 来获取当前需要任务否则使用 prefetch 来获取将来的任务，不要一起用。
 
-<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/0*KKong0kz69LOteD3.">
+<img src="https://cdn-images-1.medium.com/max/1000/0*KKong0kz69LOteD3.">
 
-**Don’t rely on fetch() working with “preload”… just yet.** In Chrome if you try to use preload with the fetch() API you will end up triggering a double download. This doesn’t currently occur with XHR and we have an [open bug](https://bugs.chromium.org/p/chromium/issues/detail?id=652228) to try addressing it.
+不要指望 preload 和 fetch() 配合使用，在 Chrome 中这样使用将会导致二次的下载。这并不只发生在异步请求的情况我们有一个关于这个问题公开的 [bug](https://bugs.chromium.org/p/chromium/issues/detail?id=652228)。
 
-**Supply an “as” when preloading or you’ll negate any benefits!**
+**对 preload 使用 “as” 属性，不然将不会从中获益**。
 
-If you don’t supply a valid “as” when specifying what to preload, for example, scripts, you will end up [fetching twice](https://twitter.com/DasSurma/status/808791438171537408).
+如果你对你所 preload 的资源使用明确的 “as” 属性，比如说，脚本，你将会导致[二次获取](https://twitter.com/DasSurma/status/808791438171537408)。
 
-**Preloaded fonts without crossorigin will double fetch!** Ensure you’re adding a [crossorigin attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_settings_attributes) when fetching fonts using preload otherwise they will be double downloaded. They’re requested using anonymous mode CORS. This advice applies even if fonts are on the same origin as the page. This is applicable to other anonymous fetches too (e.g XHR by default).
+**preload 字体不带 crossorigin 也将会二次获取！** 确保你对 preload 的字体添加 [crossorigin](https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_settings_attributes) 属性，否则他会被下载两次，这个请求使用匿名的跨域模式。这个建议也适用于字体文件在相同域名下，也适用于其他域名的获取(比如说默认的异步获取)。
 
-**Resources with an integrity attribute can’t reuse preloaded resources (for now) and can also cause double fetches.** The `[integrity](https://bugs.chromium.org/p/chromium/issues/detail?id=677022)` attribute for link elements has not yet been implemented and there’s an open [spec issue](https://github.com/w3c/webappsec-subresource-integrity/issues/26) about it. This means the presence of any integrity metadata will currently discard preloaded resources. In the wild, it can also result in duplicate requests where you have to make a trade-off between security and performance.
+**存在 intergrity 属性的资源不能使用 preload 属性（目前）也会导致二次获取。**链接元素的 `[integrity](https://bugs.chromium.org/p/chromium/issues/detail?id=677022)` 属性目前还没有被支持，目前有一个关于它的开放[issue](https://github.com/w3c/webappsec-subresource-integrity/issues/26)，这意味着存在 integrity 的元素将会丢弃 preload 的资源。往宽了讲，这会导致重复的请求，你需要在安全和性能之间作出权衡。
 
-Finally, although it won’t cause double fetches, this is generally good advice:
+最后，虽然它不会导致二次获取，还是有下面的建议：
 
-**Don’t try preloading absolutely everything!** Instead, select specific late discovered resources that you want to load earlier and use preload to tell the browser about them.
+**不要 preload 所有东西！** 作为替代的，用 preload 来告诉浏览器一些本来不能被提早发现的资源，以便提早获取它们。
 
-### Should I just preload all the assets that my page requests in the head? Is there a recommended limit like “only preload ~6 things”?
+### 我应当在页面头部加载所有的资源文件吗？有什么建议比如说限制“只加载6个文件”？
 
-This is a good example of **Tools, not rules.** How much you preload may well factor in how much network contention you’re going to have with other resources also being loaded on your page, your user’s available bandwidth and other network conditions.
+这是**工具而不是规则**的好例子。你 preload 的文件数量取决于加载其他资源时网络内容、用户的带宽和其他网络状况。
 
-Preload resources that are likely to be discovered late in your page, but are otherwise important to fetch as early as possible. With scripts, preloading your key bundles is good as it separates fetching from execution in a way that just using say, `<script async>` wouldn’t as it blocks the window’s onload event. You can preload images, styles, fonts, media. Most things — what’s important is that you’re in better control of early-fetching what you as a page author knows is definitely needed by your page sooner rather than later.
+尽早 preload 页面中可能需要的文件，对于脚本文件，preload 关键打包文件很有用因为它将加载与执行分离开来，`script async`不好因为它会阻塞 window 的 onload 事件。你可以尽早加载图片、样式、字体和媒体资源。大部分的 —— 最重要的是，你作为作者是可以清晰的知道哪些东西是页面目前需要的。
 
-### Does prefetch have any magical properties you should be aware of? Well, yes.
+### prefetch 有哪些你需要知道的魔法属性吗？当然
 
-In Chrome, if a user navigates away from a page while prefetch requests for other pages are still in flight, these requests will not get terminated.
+在 Chrome 中，如果用户从一个页面跳转到另一个页面，prefetch 发起的请求仍会进行不会中断。
 
-Furthermore, prefetch requests are maintained in the unspecified net-stack cache for at least 5 minutes regardless of the cachability of the resource.
+另外，prefetch 的资源在网络堆栈中至少缓存 5 分钟，无论它是不是可以缓存的。
 
-### I’m using a custom “preload” implementation written in JS. How does this differ from rel=”preload” or Preload headers?
+### 我在 JS 中使用自定义的 “preload”，它跟原本的 rel="preload" 或者 preload 头部有什么不同？
 
-Preload decouples fetching a resource from JS processing and execution. As such, preloads declared in markup are optimized in Chrome by the preload scanner. This means that in many cases, the preload will be fetched (with the indicated priority) before the HTML parser has even reached the tag. This makes it a lot more powerful than a custom preload implementation.
+preload 将资源获取与执行解耦，像这样，preload 在标记中声明以被 Chrome preload 扫描器扫描。这意味着，在许多案例中，在 HTML 解析器获取到标签之前，preload 就会被获取（用它声明的优先级）。这将会比自定义的 preload 更加强大。
 
-### Wait. Shouldn’t we be using HTTP/2 Server Push instead of Preload?
+### 等一下，我不是可以用 HTTP/2 的服务器推送来代替 preload 吗？
 
-Use Push when you know the precise loading order for resources and have a service worker to intercept requests that would cause cached resources to be pushed again. Use preload to move the start download time of an asset closer to the initial request — it’s useful for both first and third-party resources.
+当你知道资源加载的正确顺序时使用推送，用 service worker 来拦截那些可能需要会导致二次获取的资源请求，用 preload 来加快第一个请求的开始时间 —— 这对所有的资源获取都有用。
 
-Again, this is going to be an “[it depends](https://docs.google.com/document/d/1K0NykTXBbbbTlv60t5MyJvXjqKGsCVNYHyLEXIxYMv0/edit)”. Let’s imagine we’re working on a cart for the Google Play store. For a given request to play.google.com/cart:
+再次说一下，这都要看[情况](https://docs.google.com/document/d/1K0NykTXBbbbTlv60t5MyJvXjqKGsCVNYHyLEXIxYMv0/edit)，我们试想一下位 Google Play 商店做购物车，对于一个向购物车的请求：
 
-Using Preload to load key modules for the page requires the browser to wait for the play.google.com/cart payload in order for the preload scanner to detect dependencies, but after this contains sufficient information to saturate a network pipe with requests for the site’s assets. This might not be the most optimal at cold-boot but is very cache and bandwidth friendly for subsequent requests.
+用 preload 来加载页面的主要的模块需要浏览器等待 play.google.com/cart 有效载荷以便 preload 扫描器发现依赖，但这之后会浸透网络管道可以更好的像资源发起请求，这可能不是最理想的冷启动，但对于高速缓存和带宽的后续请求非常友好。
 
-Using H/2 Server Push, we can saturate the network pipe right away on the request for play.google.com/cart but can waste bandwidth if the resources being pushed are already in the HTTP or Service Worker cache. There are always going to be trade-offs for these two approaches.
+使用 HTTP/2 的服务器推送，当请求 play.google.com/cart 我们可以快速浸透网络管道，但如果资源已经在 HTTP 或者 Service Worker 缓存中的话我们就浪费了带宽，两种方法都需要做出权衡。
 
-Although Push is invaluable, it doesn’t enable all the same use-cases as Preload does.
+虽然推送很有效，但它不像 preload 那样对所有的情况都适应。
 
-Preload has the benefit of decoupling download from execution. Thanks to support for document onload events you can control scripting if, how and when a resource gets applied. This can be powerful for say, fetching JS bundles and executing them in idle blocks or fetching CSS and applying them at the right point in time.
+preload 利于下载与执行的解耦，多亏其对文档 onload 事件的支持我们现在可以控制其加载完毕后的事件，获取 JS 包文件在空闲快执行或者获取 CSS 模块在正确的时间点执行，可以说是非常强大的。
 
-Push can’t be used by third-party hosted content. By sending resources down immediately, it also effectively short-circuits the browser’s own resource prioritization logic. In cases where you know exactly what you’re doing, this can yield performance wins, but in cases where you don’t you could actually harm performance significantly.
+推送不能用于第三方资源的内容，通过立即发送资源，它还有效地缩短浏览器自身的资源优先级情况。在你明确的知道在做什么时，这应该会提高你的应用性能，如果不是很清晰的话，你也许会损失掉部分的性能。
 
-### What is the Link preload header? How does it compare to the preload link tag? And how does it relate to HTTP/2 Server Push?
+### preload HTTP 头是什么？跟 preload 标签有什么不同？又跟 HTTP/2 服务器推送有什么不同？
 
-As with other types of links, a preload link can be specified using either an HTML tag or an HTTP header (a [Link preload header](https://w3c.github.io/preload/#server-push-http-2)). In either case, a preload link directs the browser to begin loading a resource into the memory cache, indicating that the page expects with high confidence to use the resource and doesn’t want to wait for the preload scanner or the parser to discover it.
+跟其他链接不同，preload 链接即可以放在 HTML 标签里也可以放在 HTTP 头部（[preload HTTP 头](https://w3c.github.io/preload/#server-push-http-2)），每种情况下，都会直接使浏览器加载资源并缓存在内存里，表明页面有很高的可能性用这些资源并且不想等待 preload 扫描器或者解析器去发现它。
 
-When the Financial Times introduced a Link preload header to their site, they **shaved **[**1 second**](https://twitter.com/wheresrhys/status/843252599902167040) **off the time it took to display the masthead image:**
+当金融时报在它们的网站使用 preload HTTP 头时，他们节约了**大约 [1s](https://twitter.com/wheresrhys/status/843252599902167040) 的显示片头图片时间**。
 
-<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/2000/1*QGUllBDRLMjdy1uawXG8EQ.jpeg">
+<img src="https://cdn-images-1.medium.com/max/2000/1*QGUllBDRLMjdy1uawXG8EQ.jpeg">
 
-Bottom: with preload, Top: without. **Comparison for Moto G4 over 3G:** Before: [https://www.webpagetest.org/result/170319_Z2_GFR/](https://www.webpagetest.org/result/170319_Z2_GFR/), After: [https://www.webpagetest.org/result/170319_R8_G4Q/](https://www.webpagetest.org/result/170319_R8_G4Q/)
+下面的：使用 preload，上面：使用 preload。在 3G 网络下的 Moto G4 测试。
 
-You can provide preload links in either form, but there is one important difference you should understand: as allowed by the spec, many servers initiate an HTTP/2 Server Push when they encounter a preload link in HTTP header form. The performance implications of H/2 Server Push are different from those of preloading (see below), so you should make sure you don’t unintentionally trigger pushes.
+原来：[https://www.webpagetest.org/result/170319_Z2_GFR/](https://www.webpagetest.org/result/170319_Z2_GFR/)，之后: [https://www.webpagetest.org/result/170319_R8_G4Q/](https://www.webpagetest.org/result/170319_R8_G4Q/)。你可以使用两种形式的 preload，但应当知道很重要的一点：根据规范，许多服务器当它们遇到 preload HTTP 头会发起 HTTP/2 推送，HTTP/2 推送的性能影响不同于普通的预加载，所以你要确保没有发起不必要的推送。
 
-You can avoid unwanted pushes by using preload link tags instead of headers, or by including the ‘nopush’ attribute in your headers.
+你可以使用 preload 标签来代替 preload 头以避免不必要的推送，或者在你的 HTTP 头上加一个 “nopush” 属性。
 
-### How can I feature detect support for link rel=preload?
+### 我怎样检测 link rel=preload 的支持情况呢？
 
-Feature detecting for `<link rel=”preload”>` can be accomplished using the following snippet:
+用下面的代码段可以检测`<link rel=”preload”>`是否被支持：
 
-    const preloadSupported = () => {
-      const link = document.createElement('link');
-      const relList = link.relList;
-      if (!relList || !relList.supports)
-        return false;
-      return relList.supports('preload');
-    };
+	const preloadSupported = () => {
+	      const link = document.createElement('link');
+	      const relList = link.relList;
+	      if (!relList || !relList.supports)
+	        return false;
+	      return relList.supports('preload');
+	    };
 
-The FilamentGroup also have a [preload check](https://github.com/filamentgroup/loadCSS/blob/master/src/cssrelpreload.js#L8-L14) they use as part of their async CSS loading library, [loadCSS](https://github.com/filamentgroup/loadCSS).
+FilamentGroup 也有一个 [preload](https://github.com/filamentgroup/loadCSS/blob/master/src/cssrelpreload.js#L8-L14) 检测器 ，作为他们的异步 CSS 加载库 [loadCSS](https://github.com/filamentgroup/loadCSS) 的一部分。
 
-### Can you immediately apply preloaded CSS stylesheets?
+### 你可以让 preload的 CSS 样式表立即生效吗？
 
-Absolutely. Preload support markup based asynchronous loading. Stylesheets loaded using `<link rel=”preload”>` can be immediately applied to the current document using the `onload` event as follows:
+当然，preload 支持基于异步加载的标记，使用 `<link rel=”preload”>` 的样式表使用 `onload` 事件立即应用到文档：
 
-    <link rel="preload" href="style.css" onload="this.rel=stylesheet">
+	<link rel="preload" href="style.css" onload="this.rel=stylesheet">
 
-For more examples like this, see *Use Cases* in this great Yoav Weiss [deck](http://yoavweiss.github.io/link_htmlspecial_16/#53).
+更多相关的例子，看一下 Yoav Weiss 很棒的[使用实例](http://yoavweiss.github.io/link_htmlspecial_16/#53)。
 
-### What else is Preload being used for in the wild?
+### preload 还有哪些更广泛的应用？
 
-**According to the HTTPArchive,** [**most**](https://twitter.com/addyosmani/status/843254667316465664) **sites using `<link rel=”preload”>` use it to** [**preload Web Fonts**](https://www.zachleat.com/web/preload/) , **including Teen Vogue and as mentioned earlier, Shopify:**
+**根据 HTTPArchive，[很多网站](https://twitter.com/addyosmani/status/843254667316465664)应用 `<link rel=”preload”>` 来加载[字体](https://www.zachleat.com/web/preload/)，包括 Teen Vogue 和以上提到的其他网站：**
 
-<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/2000/1*osYEtZ6gZnmstK4fpcJTrg.png">
+<img src="https://cdn-images-1.medium.com/max/2000/1*osYEtZ6gZnmstK4fpcJTrg.png">
 
-***While*** [***other***](https://twitter.com/addyosmani/status/843258951110074368) ***popular sites like LifeHacker and JCPenny use it to asynchronously load CSS (via the FilamentGroup’s*** [***loadCSS***](https://github.com/filamentgroup/loadCSS)):
+**[其他](https://twitter.com/addyosmani/status/843258951110074368)一些网站，比如 LifeHacker 和 JCPenny 用 FilamentGroup 的 [loadCSS](https://github.com/filamentgroup/loadCSS) 来异步加载 CSS:**
 
-<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/2000/1*BxecU2LjN-uGAW_uQgDTdw.png">
+<img src="https://cdn-images-1.medium.com/max/2000/1*BxecU2LjN-uGAW_uQgDTdw.png">
 
-**And then there are a growing breed of Progressive Web Apps (like Twitter.com mobile, Flipkart and Housing) using it to preload scripts that are needed for the current navigation using patterns like** [**PRPL**](https://developers.google.com/web/fundamentals/performance/prpl-pattern/):
+**有越来越多的渐进式 Web 应用程序（比如 Twitter.com 移动端， Flipkart 和 Housing）使用它来加载当前链接需要的脚本：**
 
-<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/2000/1*rppoHbaTTJQNVZBO4j_NAQ.png">
+<img src="https://cdn-images-1.medium.com/max/2000/1*rppoHbaTTJQNVZBO4j_NAQ.png">
 
-*The basic idea there is to maintain artifacts at high-granularity (as opposed to monolithic bundles) so any facet of the app can on demand load it’s dependencies or preload those that are likely to be needed next to warm up the cache.*
+基本的观点是要保持高粒度而不是单片，所以任何应用都可以按需加载依赖或者预加载资源并放在缓存中。
 
-### What is the current browser support for Preload and Prefetch?
+### 当前浏览器对 preload 和 prefetch 的支持度？
 
-`<link rel=”preload”>` is available to [~50% ](http://caniuse.com/#feat=link-rel-preload)of the global population according to CanIUse and is implemented in the [Safari Tech Preview](https://developer.apple.com/safari/technology-preview/release-notes/). `<link rel=”prefetch”>` is available to [71%](http://caniuse.com/#search=prefetch) of global users.
+根据 CanIUse 在 [Safari Tech Preview](https://developer.apple.com/safari/technology-preview/release-notes/)的调查看，`<link rel="preload">` 大约有 [50%](http://caniuse.com/#feat=link-rel-preload) 的支持度，`<link rel="prefetch">` 大约有 [70%](http://caniuse.com/#search=prefetch) 的支持度。
+`<link rel="preload">` is available to [~50% ](http://caniuse.com/#feat=link-rel-preload)of the global population according to CanIUse and is implemented in the [Safari Tech Preview](https://developer.apple.com/safari/technology-preview/release-notes/). `<link rel="prefetch">` is available to [71%](http://caniuse.com/#search=prefetch) of global users.
 
-### Further insights you may find helpful:
+### 更多有用的见解
 
-- Yoav Weiss landed a [recent change](https://twitter.com/yoavweiss/status/843810722383630337%20) in Chrome that avoids preload contending with CSS & blocking scripts.
-- He also recently [split](https://groups.google.com/a/chromium.org/forum/#!topic/blink-dev/BN6tqGLBmuI) the ability to preload media into three distinct types: video, audio and track.
-- Domenic Denicola is [exploring](https://github.com/whatwg/html/pull/2383) a spec change to add support for preloading ES6 Modules.
-- Yoav also recently shipped support for [Link header support for “prefetch”](https://groups.google.com/a/chromium.org/forum/#!msg/blink-dev/8Zo2HiNEs94/h8mDVkx0EwAJ) allowing easier additional of resource hints needed for the next navigation.
+* Yoav Weiss 最近对 Chrome 里 preload CSS 和 阻塞的脚本做了[更改](https://twitter.com/yoavweiss/status/843810722383630337%20)。
+* 他最近还把 preload 媒体[分成](https://groups.google.com/a/chromium.org/forum/#!topic/blink-dev/BN6tqGLBmuI)三个不同的类型：video、audio 和 track。
+* Domenic Denicola 正在[寻求](https://github.com/whatwg/html/pull/2383)规格的改变以便支持 ES6 模块。
+* Yoav Weiss 最近还增加了在 HTTP 头部支持 [Link header support for “prefetch”](https://groups.google.com/a/chromium.org/forum/#!msg/blink-dev/8Zo2HiNEs94/h8mDVkx0EwAJ) 以便更容易的加载下一个页面的资源。
 
-### Further reading on these loading primitives:
+### 拓展阅读
 
 - [Preload — what is it good for?](https://www.smashingmagazine.com/2016/02/preload-what-is-it-good-for/) — Yoav Weiss
 - [A <link rel=”preload”> study](https://twitter.com/ChromiumDev/status/837715866078752768) by the Chrome Data Saver team
@@ -242,9 +243,9 @@ For more examples like this, see *Use Cases* in this great Yoav Weiss [deck](htt
 - [Web Fonts preloaded](https://www.zachleat.com/web/preload/) by Zach Leat
 - [HTTP Caching: cache-control](https://www.google.com/url?q=https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching%23cache-control&amp;sa=D&amp;ust=1490641457910000&amp;usg=AFQjCNEb6fMArN_ahD7ySMICPF1Obf4rsw) by Ilya Grigorik
 
-*With thanks to @ShopifyEng, @AdityaPunjani from Flipkart, @HousingEngg, @adgad and @wheresrhys at the FT and @__lakshya from Treebo for sharing their before/after preload stats.*
+感谢 @ShopifyEng、@AdityaPunjani、@HousingEngg、@adgad、@wheresrhys 和 @__lakshya 分享的统计信息。
 
-***With many thanks for their technical reviews & suggestions: Ilya Grigorik, Gray Norton, Yoav Weiss, Pat Meenan, Kenji Baheux, Surma, Sam Saccone, Charles Harrison, Paul Irish, Matt Gaunt, Dru Knox, Scott Jehl.***
+***非常感谢下列技术审核与建议人员: Ilya Grigorik, Gray Norton, Yoav Weiss, Pat Meenan, Kenji Baheux, Surma, Sam Saccone, Charles Harrison, Paul Irish, Matt Gaunt, Dru Knox, Scott Jehl.***
 
 ---
 
