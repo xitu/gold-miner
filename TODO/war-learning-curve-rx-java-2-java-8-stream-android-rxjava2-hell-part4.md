@@ -11,13 +11,13 @@
 
 又是新的一天，如果学点新东西，这一天一定会很酷炫。
 
-小伙伴们一切顺利啊，这是我们的 RxJava2 Android 系列的第四部分 [ [第一部分](https://github.com/xitu/gold-miner/blob/master/TODO/pull-vs-push-imperative-vs-reactive-reactive-programming-android-rxjava2-hell-part2.md)， [第二部分](http://www.uwanttolearn.com/android/pull-vs-push-imperative-vs-reactive-reactive-programming-android-rxjava2-hell-part2/)， [第三部分](https://github.com/xitu/gold-miner/blob/master/TODO/functional-interfaces-functional-programming-and-lambda-expressions-reactive-programming-android-rxjava2-what-the-hell-is-this-part3.md) ]。 好消息是我们已经满足了一些先决条件，已经准备好用 Rx 来工作了。在使用 RxJava2 Android Observable 之前，我会先用 Java8 的 Stream 来做响应式编程。我认为我们应该了解 Java8，我还感觉通过使用 Java8 的流式 API 会让 RxJava2 Android 的学习曲线更简单。
+小伙伴们一切顺利啊，这是我们的 RxJava2 Android 系列的第四部分 [ [第一部分](https://github.com/xitu/gold-miner/blob/master/TODO/pull-vs-push-imperative-vs-reactive-reactive-programming-android-rxjava2-hell-part2.md)， [第二部分](http://www.uwanttolearn.com/android/pull-vs-push-imperative-vs-reactive-reactive-programming-android-rxjava2-hell-part2/)， [第三部分](https://github.com/xitu/gold-miner/blob/master/TODO/functional-interfaces-functional-programming-and-lambda-expressions-reactive-programming-android-rxjava2-what-the-hell-is-this-part3.md) ]。 好消息是我们已经做好准备，可以开始使用 Rx 了。在使用 RxJava2 Android Observable 之前，我会先用 Java8 的 Stream 来做响应式编程。我认为我们应该了解 Java8，我还感觉通过使用 Java8 的流式 API 会让 RxJava2 Android 的学习曲线更简单。
 
 **动机：**
 
 动机跟我在 [第一部分](https://github.com/xitu/gold-miner/blob/master/TODO/pull-vs-push-imperative-vs-reactive-reactive-programming-android-rxjava2-hell-part2.md) 和大家分享过的一样。在我开始学习 RxJava2 Android 的时候，我并不知道我该怎样使用、在什么地方使用它。
 
-现在我们知道学习这个需要一些先决条件，但当初我对此一无所知。在我刚刚开始的时候，该如何从任何数据或对象上创建一个 Observable 呢。然后我知道当 Observable 上的数据发生了一些事件的时候，有接口或者可以叫做“回调”会被调用。这在理论上很棒，但是当我付诸实践的时候，GG了。我发现很多理论上应该成立的模式在我去用的时候完全不起作用。对我来说最大的问题，是不能用响应或者函数式响应的思维思考问题。我有命令式编程和面向对象编程的背景，由于先入为主，所以对我来说理解会有些难。我一直在问这些问题：我该在哪里实现？我应该怎么实现？如果你跟着这篇文章看下来，我可以 100% 保证你会知道怎样把命令式代码转换到 Rx 代码，虽然写出来的 Rx 代码可能不是很好，但是你起码知道怎么开始。
+现在我们已经学会了一些预备知识，但当时我什么都不知道。我那时从学习如何从数据或对象创建 Observable 开始。然后学会当 Observable 数据上发生变化时，去调用哪些接口（或者可以叫做“回调”）。这在理论上很棒，但是当我付诸实践的时候，GG了。我发现很多理论上应该成立的模式在我去用的时候完全不起作用。对我来说最大的问题，是不能用响应或者函数式响应的思维思考问题。我有命令式编程和面向对象编程的背景，由于先入为主，所以对我来说理解会有些难。我一直在问这些问题：我该在哪里实现？我应该怎么实现？如果你跟着这篇文章看下来，我可以 100% 保证你会知道怎样把命令式代码转换到 Rx 代码，虽然写出来的 Rx 代码可能不是很好，但是你起码知道怎么开始。
 
 **回顾：**
 
@@ -50,7 +50,7 @@
 
 Stream:
 
- 用来支持在元素形成的流上进行函数式操作（比如在集合上进行的 map-reduce 变换）的类(*docs.oracle*)。
+支持在元素形成的流上进行函数式操作（比如在集合上进行的 map-reduce 变换）的类(*docs.oracle*)。
 
 第一个问题：在英语中 Stream 是什么意思？
 
@@ -156,7 +156,7 @@ public static void main(String[] args) {
 
 同志们这里需要注意下！
 
-在 Java8 Stream 中有个叫做 Predicate（谓词，可以判断真假，详情见线性代数中的相关定义——译注）的函数式接口。所以，如果我想进行过滤的话需要把这个函数式接口送到流的过滤器函数里面。现在，我给大家展示在我们的代码中如何创建“大石子过滤器”。
+在 Java8 Stream 中有个叫做 Predicate（谓词，可以判断真假，详情见离散数学中的相关定义——译注）的函数式接口。所以，如果我想进行过滤的话，可以用这个函数式接口实现流的过滤功能。现在，我给大家展示在我们的代码中如何创建“大石子过滤器”。
 
 ```
 private static Predicate<String> BigStoneFilter  = new Predicate<String>() {
@@ -767,7 +767,7 @@ Observable.range(0, 10)
 
 **总结：**
 
-同志们干得好！今天我们学 Rx Android 学得很开心。我们从图画开始，然后使用了 Java8 的流（Stream）。之后将 Java8 的流转换到 RxJava 2 Android 的 Observable。再之后，我们看到了真实项目中的示例并且展示了在现有的项目中如何开始使用 Rx，把 if 换成 filter，用 map 进行数据转化，用 flatmap 代替嵌套的循环。下篇文章： [Dialogue between Rx Observable and a Developer (Me) [ Android RxJava2 ] ( What the hell is this ) Part5](http://www.uwanttolearn.com/android/dialogue-rx-observable-developer-android-rxjava2-hell-part5/).
+同志们干得好！今天我们学 Rx Android 学得很开心。我们从图画开始，然后使用了 Java8 的流（Stream）。之后将 Java8 的流转换到 RxJava 2 Android 的 Observable。再之后，我们看到了真实项目中的示例并且展示了在现有的项目中如何开始使用 Rx。最后，我展示了一些转换到 Rx 的技巧：把循环用 forEach 替换，把 if 换成 filter，用 map 进行数据转化，用 flatmap 代替嵌套的循环。下篇文章： [Dialogue between Rx Observable and a Developer (Me) [ Android RxJava2 ] ( What the hell is this ) Part5](http://www.uwanttolearn.com/android/dialogue-rx-observable-developer-android-rxjava2-hell-part5/).
 
 希望你们开心，同志们再见！
 
