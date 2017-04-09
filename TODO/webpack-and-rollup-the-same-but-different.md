@@ -1,57 +1,57 @@
 > * 原文地址：[Webpack and Rollup: the same but different](https://medium.com/webpack/webpack-and-rollup-the-same-but-different-a41ad427058c)
 > * 原文作者：[Rich Harris](https://medium.com/@Rich_Harris?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
+> * 译者：[lsvih](https://github.com/lsvih)
 > * 校对者：
 
-# Webpack and Rollup: the same but different #
+# 同中有异的 Webpack 与 Rollup #
 
 ![](https://cdn-images-1.medium.com/max/1000/1*rtjClMZ8sq3cLFT9Aq8Xyg.png)
 
-This week, Facebook merged a [monster pull request](https://github.com/facebook/react/pull/9327) into React that replaced its existing build process with one based on [Rollup](https://rollupjs.org/) , [prompting](https://twitter.com/stanlemon/status/849366789825994752) [several](https://twitter.com/MrMohtas/status/849362334988595201) [people](https://twitter.com/kyleholzinger/status/849683292760797184) to ask ‘why did you choose Rollup over webpack’?
+本周，Facebook 将一个[非常大的 pull request](https://github.com/facebook/react/pull/9327) 合并到了 React 主分支。这个 PR 将 React 以前使用的构建工具替换成了 [Rollup](https://rollupjs.org/)。这让许多人感到不解，纷纷在推特上提问：“为什么你们选择 Rollup 而不选择 Webpack 呢？”<sub>[1](https://twitter.com/stanlemon/status/849366789825994752)</sub> <sub>[2](https://twitter.com/MrMohtas/status/849362334988595201)</sub> <sub>[3](https://twitter.com/kyleholzinger/status/849683292760797184)</sub>
 
-Which is a completely reasonable question. [Webpack](https://webpack.js.org/)  is one of the modern JavaScript community’s greatest success stories, with millions of downloads every month powering tens of thousands of websites and applications. It has a large ecosystem, dozens of contributors, and — unusually for a community open source project — [meaningful financial support](https://opencollective.com/webpack) .
+有人问这个问题是很正常的。[Webpack](https://webpack.js.org/) 是现在 JavaScript 社区中最伟大的成功传奇之一，它有着数百万/月的下载量，驱动了成千上万的网站与应用。它有着巨大的生态系统、众多的贡献者，并且它与一般的社区开源项目不同——它有着[意义非凡的经济支持](https://opencollective.com/webpack)。
 
-By comparison, Rollup is a minnow. But React isn’t alone — Vue, Ember, Preact, D3, Three.js, Moment, and dozens of other well-known libraries also use Rollup. So what’s going on? Why can’t we have just one JavaScript module bundler that everyone agrees on?
+相比之下，Rollup 是那么的微不足道。但是，除了 React 之外，Vue、Ember、Preact、D3、Three.js、Moment 等众多知名项目都使用了 Rollup。为什么会这样呢？为什么这些项目不使用大家一致认可的 JavaScript 模块打包工具呢？
 
-### A tale of two bundlers ###
+### 这两个打包工具的优缺点 ###
 
-webpack was started in 2012 by [Tobias Koppers](https://medium.com/@sokra) to solve a hard problem that existing tools didn’t address: building complex single-page applications (SPAs). Two features in particular changed everything:
+Webpack 由 [Tobias Koppers](https://medium.com/@sokra) 在 2012 年创建，用于解决当时的工具不能处理的问题：构建复杂的单页应用（SPA）。它的两个特点改变了一切：
 
-1. **Code-splitting** makes it possible to break your app apart into manageable chunks that can be loaded on-demand, meaning your users get an interactive site much faster than if they had to wait for the whole application to download and parse. You *can* do this manually, but, well… good luck.
-2. **Static assets** such as images and CSS can be imported into your app and treated as just another node in the dependency graph. No more carefully placing your files in the right folders and hacked-together scripts for adding hashes to file URLs — webpack can take care of it for you.
+1. **代码分割**可以将你的 app 分割成许多个容易管理的分块，这些分块能够在用户使用你的 app 时按需加载。这意味着你的网站可以比那些没有使用此技术的网站要快上很多。因为访问那些网站必须要等待整个应用都被下载并解析完成。当然，你**也可以**自己手动去进行代码分割，但是……总之，祝你好运。
+2. **静态资源**的导入：图片、CSS 等静态资源可以直接导入到你的 app 中，就和其它的模块、节点一样能够进行依赖管理。因此，我们再也不用小心翼翼地将各个静态文件放在特定的文件夹中，然后再去用脚本给文件 URL 加上哈希串了。Webpack 已经帮你完成了这一切。
 
-Rollup was created for a different reason: to build flat distributables of JavaScript libraries as efficiently as possible, taking advantage of the ingenious design of ES2015 modules. Other module bundlers — webpack included — work by wrapping each module in a function, putting them in a bundle with a browser-friendly implementation of `require`, and evaluating them one-by-one. That’s great if you need things like on-demand loading, but otherwise it’s a bit of a waste, and it [gets worse if you have lots of modules](https://nolanlawson.com/2016/08/15/the-cost-of-small-modules/).
+而 Rollup 的开发理念则不同：它利用 ES2015 模块的巧妙设计，尽可能高效地构建精简且易分发的 JavaScript 库。而其它的模块打包器（包括 Webpack在内）都是通过将模块分别封装进函数中，然将这些函数通过能在浏览器中实现的 `require` 方法打包，最后依次处理这些函数。在你需要实现按需加载的时候，这种做法非常的方便，但是这样做引入了很多无关代码，比较浪费资源。当[你有很多模块要打包的时候，这种情况会变得更糟糕](https://nolanlawson.com/2016/08/15/the-cost-of-small-modules/)。
 
-ES2015 modules enable a different approach, which Rollup uses. All your code is put in the same place and evaluates in one go, resulting in leaner, simpler code that starts up faster. You can [see it for yourself with the Rollup REPL](https://rollupjs.org/repl).
+ES2015 模块则启用了一种不同的实现方法，Rollup 用的也就是这种方法。所有代码都将被放置在同一个地方，并且会在一起进行处理。因此得到的最终代码相较而言会更加的精简，运行起来自然也就更快。你可以[点击这儿亲自试试 Rollup 交互式解释器（REPL）](https://rollupjs.org/repl)。
 
-But there’s a trade-off: code-splitting is a much hairier problem, and at the time of writing Rollup doesn’t support it. Similarly, Rollup doesn’t do hot module replacement (HMR). And perhaps the biggest pain point for people coming to Rollup — while it handles most CommonJS files (via a [plugin](https://github.com/rollup/rollup-plugin-commonjs) ), some things just don’t translate to ES2015, whereas webpack handles everything you throw at it with aplomb.
+但这儿也存在一些需要权衡的点：代码分割是一个很棘手的问题，而 Rollup 并不能做到这一点。同样的，Rollup 也不支持模块热替换（HMR）。而且对于打算使用 Rollup 的人来说，还有一个最大的痛点：它通过[插件](https://github.com/rollup/rollup-plugin-commonjs)处理大多数 CommonJS 文件的时候，一些代码将无法被翻译回 ES2015。而与之相反，你可以把这一切的事全部放心交给 Webpack 去处理。
 
-### So which should I use? ###
+### 那么我到底应该选用哪一个呢？ ###
 
-By now, hopefully it’s clear why both tools coexist and support each other — they serve different purposes. The tl;dr is this:
+回答这个问题之前，我们已经了解了这两个工具各自的优缺点，它们同时存在并相互支持的原因正是因为它们解决的问题不同。那么，现在这个问题的答案简单来说就是：
 
-> Use webpack for apps, and Rollup for libraries
+> 在开发应用时使用 Webpack，开发库时使用 Rollup
 
-That’s not a hard and fast rule — lots of sites and apps are built with Rollup, and lots of libraries are built with webpack. But it’s a good rule of thumb.
+当然这不是什么严格的规定——有很多的网站和 app 一样是使用 Rollup 构建的，同时也有很多的库使用 Webpack。不过，这是个很值得参考的经验之谈。
 
-If you need code-splitting, or you have lots of static assets, or you’re building something with lots of CommonJS dependencies, Webpack is a better choice. If your codebase is ES2015 modules and you’re making something to be used by other people, you probably want Rollup.
+如果你需要进行代码分割，或者你有很多的静态资源，再或者你做的东西深度依赖 CommonJS，毫无疑问 Webpack 是你的最佳选择。如果你的代码基于 ES2015 模块编写，并且你做的东西是准备给他人使用的，你应该更适合用 Rollup。
 
-### Package authors: use `pkg.module!` ###
+### 对于包作者的建议：请使用 `pkg.module`！ ###
 
-For a long time, using JavaScript libraries was a bit of a crapshoot, because you and the library author effectively had to agree on a module system. If you were using Browserify but she preferred AMD, you would have to duct tape things together before you could actually build anything. The [Universal Module Definition](https://github.com/umdjs/umd)  (UMD) format *sort of* fixed that, but because it wasn’t enforced anywhere you never knew quite what you were going to get.
+在很长一段时间里，使用 JavaScript 库是一件相当有风险的事，因为这意味着你必须和库的作者在模块系统上的意见保持一致。如果你使用 Browserify 而他更喜欢 AMD，你就不得不在 build 之前先强行将两者粘起来。[通用模块定义（UMD）](https://github.com/umdjs/umd)格式对这个问题进行了 *部分* 的修复，但是它没有强制要求所有的人都用它，最后反而会让你更加不知所措。
 
-ES2015 changes all that, because `import` and `export` are part of the language. In the future, there’ll be no ambiguity, and things will work a lot more seamlessly. Unfortunately, because browsers (mostly) and Node don’t yet support `import` and `export`, we still need to ship UMD files (or CommonJS, if you’re building something Node-only).
+ES2015 改变了这一切，因为 `import` 与 `export` 就是语言规范本身的一部分。在未来，不再会有现在这种模棱两可的情况，所有东西都将更加无缝地配合工作。不幸的是，由于大多数浏览器和 Node 还不支持 `import` 和 `export`，我们仍然需要依靠 UMD 规范（如果你只写 Node 的话也可以用 CommonJS）。
 
-By adding a `"module": "dist/my-library.es.js"` entry to your library’s package.json file (aka `pkg.module`), it’s possible to serve UMD and ES2015 at the same time, right now. **That’s important because Webpack and Rollup can both use** `pkg.module` **to generate the most efficient code possible** — in some cases, they can even both [tree-shake](https://webpack.js.org/guides/tree-shaking/) unused parts of your library away.
+现在给你的库的 package.json 文件增加一个 `"module": "dist/my-library.es.js"` 入口，可以让你的库同时支持 UMD 与 ES2015。**这很重要，因为 Webpack 和 Rollup 都使用了 ** `pkg.module` ** 来尽可能的生成效率更高的代码**——在一些情况下，它们都能使用 [tree-shake](https://webpack.js.org/guides/tree-shaking/) 来精简掉你的库中未使用的部分。
 
-*Learn more about`pkg.module` on the [*Rollup wiki*](https://github.com/rollup/rollup/wiki/pkg.module) .*
+*了解更多有关 `pkg.module` 的内容请访问 [Rollup wiki](https://github.com/rollup/rollup/wiki/pkg.module) 。*
 
-Hopefully this article makes the relationship between the two projects a bit clearer. If you still have questions, find us on Twitter at [rich_harris](https://twitter.com/rich_harris)/[rollupjs](https://twitter.com/rollupjs)  and [thelarkinn](https://twitter.com/thelarkinn) . Happy bundling!
+希望这篇文章能让你理清这两个开源项目之间的关系。如果你还有问题，可以在推特联系[rich_harris](https://twitter.com/rich_harris)、[rollupjs](https://twitter.com/rollupjs)、[thelarkinn](https://twitter.com/thelarkinn)。祝你打包快乐！
 
-Our thanks to Rich Harris for writing this article. We believe that collaboration in open source is incredibly vital to ensure we push technology and the web forward together.
+感谢 Rich Harris 写了这篇文章。我们坚信开源协作是共同促进 web 技术前进的重要动力。
 
-No time to help contribute? Want to give back in other ways? Become a Backer or Sponsor to webpack by [donating to our open collective](https://opencollective.com/webpack). Open Collective not only helps support the Core Team, but also supports contributors who have spent significant time improving our organization on their free time! ❤
+没有时间为开源项目做贡献？想要以其它方式回馈吗？欢迎通过 [Open Collective 进行捐赠](https://opencollective.com/webpack)，成为 Webpack 的支持者或赞助商。Open Collective 不仅会资助核心团队，而且还会资助那些贡献出空闲时间帮助我们改进项目的贡献者们。
 
 ---
 
