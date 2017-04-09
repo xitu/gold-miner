@@ -22,7 +22,7 @@ Hi.我是一个正在学习现代 JavaScript 的“老派” web 开发者。我
 
 ### 转移目标 (.jS)
 
-现代 JS 的特点就是朝气蓬勃和发展迅速，所以很容易就选择了过时的框架、模板引擎、构建工具、 教程或者已经不是最佳实践的技术。（ 如果真有一个被广泛接受的最佳实践的概念的话）
+现代 JS 的特点就是朝气蓬勃和发展迅速，所以很容易就选择了过时的框架、模板引擎、构建工具、 教程或者已经不是最佳实践的技术。（如果真有一个被广泛接受的最佳实践的概念的话）
 
 这种情况下，就有必要向你身边的 JavaScript 工程师朋友伸手求助了，和他们聊一聊你的技术路线。我很荣幸在 Postlight 得到了工程师朋友(特别是 [Jeremy Mack](https://medium.com/@mutewinter))的精湛指导，感谢他们容忍我无穷无尽的问题。
 
@@ -54,7 +54,7 @@ Hi.我是一个正在学习现代 JavaScript 的“老派” web 开发者。我
 
 这是迄今为止我在这个过程中经历过的一些研讨会和教程的不完整列表。
 
-- [HOW-TO-NPM](https://github.com/workshopper/how-to-npm) —— npm 是 JavaScript 的包管理器。即使在学习这个教程之前我已经敲打过上千次 “npm install”，但是知道学完这个我才知道 npm 做的所有事情。（在很多项目中我已经转移使用[yarn](https://github.com/yarnpkg/yarn)，而不是 npm，但所有的概念都是相通的）
+- [HOW-TO-NPM](https://github.com/workshopper/how-to-npm) —— npm 是 JavaScript 的包管理器。即使在学习这个教程之前我已经敲打过上千次 “npm install”，但是知道学完这个我才知道 npm 做的所有事情。（在很多项目中我已经转移使用 [yarn](https://github.com/yarnpkg/yarn)，而不是 npm，但所有的概念都是相通的）
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*0NydvP4xLtp13z_HE2Xqyw.png">
 
