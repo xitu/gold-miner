@@ -26,13 +26,13 @@ Hi.我是一个正在学习现代 JavaScript 的“老派” web 开发者。我
 
 这种情况下，就有必要向你身边的 JavaScript 工程师朋友伸手求助了，和他们聊一聊你的技术路线。我很荣幸在 Postlight 得到了工程师朋友(特别是 [Jeremy Mack](https://medium.com/@mutewinter))的精湛指导，感谢他们容忍我无穷无尽的问题。
 
-我要说的是,学习现代的 JavaScript 需要人为干预。事物还在不断发展变化，各种教程尚未成熟和定型，所谓最佳实践也未形成正式规范。如果你身边没有大牛，那么至少也得检查 Medium 上文章或教程的日期,或 Github 仓库的最近一次提交时间。如果时间超过了一年，基本上可以确定已经过时。
+我要说的是，学习现代的 JavaScript 需要人为干预。事物还在不断发展变化，各种教程尚未成熟和定型，所谓最佳实践也未形成正式规范。如果你身边没有大牛，那么至少也得检查 Medium 上文章或教程的日期，或 GitHub 仓库的最近一次提交时间。如果时间超过了一年，基本上可以确定已经过时。
 
 ### 新的问题，而不是已经确定的解决方案 ###
 
 走类似这样的路线：当你在学习现代 JavaScript 时，你遇到的问题的解决方案还在渐渐得到解决，这正是一个好机会。事实上，很可能仅仅差一次 code review，你在使用这个包时就可以修复问题。
 
-当你在使用一种像 PHP 这样的古老的语言的时候，你可以 Google 一个提问或者问题，几乎百分之百能找到一个5年前的 Stack Overflow 回答来解决它，或者你能在（详尽的，大量评论的，无与伦比的）[文档](http://docs.php.net/docs.php)里找到整个描述。
+当你在使用一种像 PHP 这样的古老的语言的时候，你可以 Google 一个提问或者问题，几乎百分之百能找到一个 5 年前的 Stack Overflow 回答来解决它，或者你能在（详尽的、大量评论的、无与伦比的）[文档](http://docs.php.net/docs.php)里找到整个描述。
 
 现代 JavaScript 就并非如此了。 我曾经徜徉在 GitHub issues 和源码的时候不止一次找到的都是一些过时的文档。剖析 GitHub 版本库是学习和使用各种包的一部分，而且对于我这样的“老派人”，差之毫厘的学习总是令人迷惑。
 
@@ -42,7 +42,7 @@ Hi.我是一个正在学习现代 JavaScript 的“老派” web 开发者。我
 
 [![Markdown](http://i4.buimg.com/1949/adafb30475d3d36a.png)](https://twitter.com/capndesign/status/832638513048850433/photo/1)
 
-**不要因此止步不前**。我不得不放手去做，从起步到正确配置，允许自己的不完美甚至一些业余，只为舒适地使用自己的工具。（我不会告诉你我曾用[nodemon](https://nodemon.io/)做代码检查）随后我会找到更好的方法并且在每个新项目中纳入进来。
+**不要因此止步不前**。我不得不放手去做，从起步到正确配置，允许自己的不完美甚至一些业余，只为舒适地使用自己的工具。（我不会告诉你我曾用 [nodemon](https://nodemon.io/) 做代码检查）随后我会找到更好的方法并且在每个新项目中纳入进来。
 
 这方面 JS 还有大量的工作要做。现代 JavaScript 领域依然是不断变化的，但我一个现代 JS 工程师亲友告诉我，[这份来自 Jonathan Verrecchia 的教程](https://github.com/verekia/js-stack-from-scratch)是目前构建一个当代 JavaScript 栈的不二之选。对，就是现在。
 
@@ -54,17 +54,17 @@ Hi.我是一个正在学习现代 JavaScript 的“老派” web 开发者。我
 
 这是迄今为止我在这个过程中经历过的一些研讨会和教程的不完整列表。
 
-- [HOW-TO-NPM](https://github.com/workshopper/how-to-npm) —— npm 是 JavaScript 的包管理器。即使在学习这个教程之前我已经敲打过上千次 “npm install”，但是知道学完这个我才知道 npm 做的所有事情。（在很多项目中我已经转移使用[yarn](https://github.com/yarnpkg/yarn)，而不是 npm,但所有的概念都是相通的）
+- [HOW-TO-NPM](https://github.com/workshopper/how-to-npm) —— npm 是 JavaScript 的包管理器。即使在学习这个教程之前我已经敲打过上千次 “npm install”，但是知道学完这个我才知道 npm 做的所有事情。（在很多项目中我已经转移使用[yarn](https://github.com/yarnpkg/yarn)，而不是 npm，但所有的概念都是相通的）
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*0NydvP4xLtp13z_HE2Xqyw.png">
 
 `npm i -g how-to-npm`
 
-- [learnyounode](https://github.com/workshopper/learnyounode)——我打算专注于服务端 JavaScript,因为那有令我安逸的东西，那就是 Node.js。Learnyounode 是一个交互式教程，结构上类似 how-to-npm。
+- [learnyounode](https://github.com/workshopper/learnyounode)——我打算专注于服务端 JavaScript，因为那有令我安逸的东西，那就是 Node.js。Learnyounode 是一个交互式教程，结构上类似 how-to-npm。
 
 - [expressworks](https://github.com/azat-co/expressworks) —— 和前面两个项目类似，Expressworks 是 Express.js 的介绍，一个 Node.js 的 web 框架。在 Postlight 公司 Express 没有得到广泛使用，但对于初学者，它值得学习去上手构建一个简单的 web 应用。
 - 现在是时候做点真东西了。我发现 Tomomi Imura 的一篇教程 [Creating a Slack Command Bot from Scratch with Node.js](http://www.girliemac.com/blog/2016/10/24/slack-command-bot-nodejs/) 已经可以学到足够的 Node 和 Express 的新技能来应对工作。因为我专注于后端，使用 Slack 创建一个 “/” 命令是一个很好的开始，因为没有前端演示（Slack 帮你做好了）
-- 在构建这个命令的过程中，我不使用演练中所推荐的 ngrok 或者 Heroku，而是使用 [Zeit Now](https://zeit.co/now)，这是任何人可用的，创建快速一次性的 JS 应用的宝贵工具。
+- 在构建这个命令的过程中，我不使用演练中所推荐的 ngrok 或者 Heroku，而是使用 [Zeit Now](https://zeit.co/now)，这是任何人可用的、创建快速一次性的 JS 应用的宝贵工具。
 - 一旦开始写真正意义的代码，我也开始掉下工具无底洞了，安装 Sublime 插件，获取正确的 [Node 版本](https://github.com/postlight/lux/blob/master/CONTRIBUTING.md#nodejs-version-requirements)，配置 ESLint，使用 [Airbnb 的代码规范 (Postlight 公司的偏好)](https://github.com/airbnb/javascript) —— 这些事情拖了我的后退，但也都是有价值的初始化投资。对于这方面我还在坑里，例如 Webpack 对我来说依然美妙又神秘，不过[这个视频是个很不错的介绍](https://www.youtube.com/watch?v=WQue1AN93YU)*.*
 - 某些时候 JS 的异步执行（特别是[回调地狱](http://callbackhell.com/)）开始困扰我，[Promise It Won’t Hurt](https://github.com/stevekane/promise-it-wont-hurt) 是另一个教你怎样使用 Promise 书写优雅异步逻辑的教程。Promise 是用于解决异步执行的 JS 新概念。说实话 Promise 令我耳目一新，他们是巧妙的范式转变。感谢 [Mariko Kosaka](http://kosamari.com/notes/the-promise-of-a-burger-party)，现在我每次买汉堡的时候都能想起这些。
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*Gh5Pv0ujTuikxGZMeANfCg.png">
