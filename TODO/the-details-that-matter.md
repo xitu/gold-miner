@@ -62,7 +62,7 @@
 
 > 在应用里写出好的文字信息，和让应用正常运行、用户界面易于使用一样重要。
 
-#### 让应用看起来像一个有血有肉的人 ####
+#### 让应用看起来像是一个人 ####
 
 有一个快速的方法能让你的 UI 变得温暖而不呆板，就是用人说话的口吻去描述内容。如果你的产品听起来好像是一个人，用户就会更加的信任你。
 
@@ -80,9 +80,7 @@ Airbnb 的提示听起来像人说的话而且语气还很随和。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*1EESYQmM9pt_SScMmgQqEg.png">
 
-**像“出错啦”这种警告对所有的用户都会造成困扰，而且还会惹恼专家级用户。**
-
-但是，一个精心设计过的错误信息，会顿时化失望为欣喜。所以，把报错变得人性化、不用技术性的语言并且适合你的用户群体。
+**像“出错啦”这种警告对所有的用户都会造成困扰，而且还会惹恼专家级用户。**但是，一个精心设计过的错误信息，会顿时化失望为欣喜。所以，把报错变得人性化、不用技术性的语言并且适合你的用户群体。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*gX0GBH3BM_d_yjhk8Yvlaw.png">
 
@@ -144,13 +142,13 @@ Medium 是一个典型的例子，它善于使用留白来改善用户对内容�
 
 ### 总结 ###
 
-**用心设计，应用界面上的每一个小的细节都值得细心揣摩，因为用户体验就是由这些小的细节相互协调作用而成的：
+**用心设计**，应用界面上的每一个小的细节都值得细心揣摩，因为用户体验就是由这些小的细节相互协调作用而成的：
 
 > “细节不只是细节，细节成就了设计。” —— Charles Eames
 
 谢谢！
 
-**关注 UX Planet：** [*Twitter*](https://twitter.com/101babich)[*Facebook*](https://www.facebook.com/uxplanet/)
+**关注 UX Planet：** [*Twitter*](https://twitter.com/101babich) | [*Facebook*](https://www.facebook.com/uxplanet/)
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[React](https://github.com/xitu/gold-miner#react)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计) 等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)。
