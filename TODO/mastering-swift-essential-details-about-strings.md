@@ -537,10 +537,8 @@ print(numberOfStars) // => 2
 
 因为字符视图中可能包含来自一个或多个 Unicode 标量组成的字形。因此字符串并不能像数组那样直接被整数索引。不过可以用特殊的 `String.Index` 来索引字符串。
 
-虽然特殊的索引类型导致在访问单个字符串或者操作字符串时增加了一些难度。我接受这个成本，因为在字符串上进行诊治的 Unicode 感知操作真的很棒！
+虽然特殊的索引类型导致在访问单个字符串或者操作字符串时增加了一些难度。我接受这个成本，因为在字符串上进行真正的 Unicode 感知操作真的很棒！
 
-*Do you find string views comfortable to use? Write a comment bellow and let's discuss!*
-*您是否发现使用舒适的字符串视图？ 写下评论，让我们讨论一下！
 **对于字符操作你有没有找到更舒适的方法？写下评论我们一起来讨论一些吧！**
 
 **P.S.** 不知道你有没有兴趣阅读我的另一篇文章：[detailed overview of array and dictionary literals in Swift](https://rainsoft.io/concise-initialization-of-collections-in-swift/)
