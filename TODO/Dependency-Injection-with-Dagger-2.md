@@ -2,17 +2,17 @@
 > * 原文作者：[CodePath](https://github.com/codepath)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者： [tanglie1993](https://github.com/tanglie1993)
-> * 校对者：
+> * 校对者：[mnikn](https://github.com/mnikn), [Zhiw](https://github.com/Zhiw)
 
 # 用 Dagger 2 实现依赖注入
 
 ## 概要 
 
-很多 Android 应用依赖于一些含有其它依赖的对象。例如，一个 Twitter API 客户端可能需要通过 [Retrofit](https://github.com/codepath/android_guides/wiki/Consuming-APIs-with-Retrofit) 之类的网络库被构建。要使用这个库，你可能还需要添加 [Gson](https://github.com/codepath/android_guides/wiki/Leveraging-the-Gson-Library) 这样的解析库。另外，实现认证或缓存的库可能需要使用 [shared preferences](https://github.com/codepath/android_guides/wiki/Storing-and-Accessing-SharedPreferences) 或其它通用存储方式。这就需要先把它们实例化，并创建一个隐含的依赖链。
+很多 Android 应用依赖于一些含有其它依赖的对象。例如，一个 Twitter API 客户端可能需要通过 [Retrofit](https://github.com/codepath/android_guides/wiki/Consuming-APIs-with-Retrofit) 之类的网络库来构建。要使用这个库，你可能还需要添加 [Gson](https://github.com/codepath/android_guides/wiki/Leveraging-the-Gson-Library) 这样的解析库。另外，实现认证或缓存的库可能需要使用 [shared preferences](https://github.com/codepath/android_guides/wiki/Storing-and-Accessing-SharedPreferences) 或其它通用存储方式。这就需要先把它们实例化，并创建一个隐含的依赖链。
 
 如果你不熟悉依赖注入，看看[这个](https://www.youtube.com/watch?v=IKD2-MAkXyQ)短视频。
 
-Dagger 2 为你解析这些依赖，并生成把它们绑定在一起的代码。也有很多其它的 Java 依赖注入框架，但它们中很多个是有缺陷的，比如依赖 XML，需要在运行时验证依赖，或者在起始时造成性能负担。 [Dagger 2](http://google.github.io/dagger/) 纯粹依赖于 Java [注解解析器](https://www.youtube.com/watch?v=dOcs-NKK-RA)以及编译时检查来分析并验证依赖。它被认为是目前最高效的依赖注入框架之一。
+Dagger 2 为你解析这些依赖，并生成把它们绑定在一起的代码。也有很多其它的 Java 依赖注入框架，但它们中大多数是有缺陷的，比如依赖 XML，需要在运行时验证依赖，或者在起始时造成性能负担。 [Dagger 2](http://google.github.io/dagger/) 纯粹依赖于 Java [注解解析器](https://www.youtube.com/watch?v=dOcs-NKK-RA)以及编译时检查来分析并验证依赖。它被认为是目前最高效的依赖注入框架之一。
 
 ### 优点
 
@@ -31,7 +31,7 @@ public class MainActivity extends Activity {
    } 
 ```
 
- * **容易配置复杂的依赖**。 对象创建是有隐含顺序的。Dagger 2 浏览依赖图，并且[生成易于理解和追踪的代码](https://github.com/codepath/android_guides/wiki/Dependency-Injection-with-Dagger-2#code-generation)。而且，它可以节约大量的样板代码，使你不再需要手写，手动获取引用并把它们传递给其他对象作为依赖。它也简化了重构，因为你可以聚焦于构建模块本身，而不是它们被创建的顺序。
+ * **容易配置复杂的依赖关系**。 对象创建是有隐含顺序的。Dagger 2 遍历依赖关系图，并且[生成易于理解和追踪的代码](https://github.com/codepath/android_guides/wiki/Dependency-Injection-with-Dagger-2#code-generation)。而且，它可以节约大量的样板代码，使你不再需要手写，手动获取引用并把它们传递给其他对象作为依赖。它也简化了重构，因为你可以聚焦于构建模块本身，而不是它们被创建的顺序。
 
  * **更简单的单元和集成测试**  因为依赖图是为我们创建的，我们可以轻易换出用于创建网络响应的模块，并模拟这种行为。
 
@@ -41,7 +41,7 @@ public class MainActivity extends Activity {
 
 默认的 Android Studio 不把生成的 Dagger 2 代码视作合法的类，因为它们通常并不被加入 source 路径。但引入 `android-apt` 插件后，它会把这些文件加入 IDE classpath，从而提供更好的可见性。
 
-确保[升级](https://github.com/codepath/android_guides/wiki/Getting-Started-with-Gradle#upgrading-gradle) 到最迟的 Gradle 版本以使用最新的 `annotationProcessor` 语法: 
+确保[升级](https://github.com/codepath/android_guides/wiki/Getting-Started-with-Gradle#upgrading-gradle) 到最新的 Gradle 版本以使用最新的 `annotationProcessor` 语法: 
 
 ```gradle
 dependencies {
@@ -202,7 +202,7 @@ public interface NetComponent {
 
 #### 生成代码
 
-Dagger 2 的一个重要特点是它会为标注 `@Component` 的接口生成类的代码。你可以使用带有 `Dagger` (比如 `DaggerTwitterApiComponent.java`) 前缀的类来为依赖图提供实例，并用它来完成用 `@Inject` 注解的域的注入。 参见[[setup guide|Dependency-Injection-with-Dagger-2#setup]]。
+Dagger 2 的一个重要特点是它会为标注 `@Component` 的接口生成类的代码。你可以使用带有 `Dagger` (比如 `DaggerTwitterApiComponent.java`) 前缀的类来为依赖图提供实例，并用它来完成用 `@Inject` 注解的域的注入。 参见[设置](https://github.com/xitu/gold-miner/pull/1484#%E8%AE%BE%E7%BD%AE)。
 
 ### 实例化组件
 
@@ -382,7 +382,7 @@ public interface GitHubComponent {
 }
 ```
 
-假定 Github 模块只是把 API 接口返回给 github API:
+假定 Github 模块只是把 API 接口返回给 Github API:
 
 ```java
 
@@ -417,7 +417,7 @@ public interface NetComponent {
 }
 ```
 
-最终的步骤是用 `GitHubComponent` 进行实例化。这一次，我们需要首先实现 `NetComponent` 并把它传递给 `DaggerGitHubComponent` 建造者的构造方法：
+最终的步骤是用 `GitHubComponent` 进行实例化。这一次，我们需要首先实现 `NetComponent` 并把它传递给 `DaggerGitHubComponent` builder 的构造方法：
 
 ```java
 NetComponent mNetComponent = DaggerNetComponent.builder()
@@ -498,12 +498,12 @@ public class MyActivity extends Activity {
 }
 ```
 
-#### 子组件建造者
+#### 子组件 builder
 *从 v2.7 版本起可用*
 
-![Dagger 子组件建造者](https://raw.githubusercontent.com/codepath/android_guides/master/images/subcomponent_builders.png)
+![Dagger 子组件 builder](https://raw.githubusercontent.com/codepath/android_guides/master/images/subcomponent_builders.png)
 
-子组件建造者使创建子组件的类和子组件的父类解耦。这是通过移除父组件中的子组件工厂方法实现的。
+子组件 builder 使创建子组件的类和子组件的父类解耦。这是通过移除父组件中的子组件工厂方法实现的。
 
 ```java
 @MyActivityScope
@@ -521,7 +521,7 @@ public interface SubcomponentBuilder<V> {
 }
 ```
 
-子组件是在子组件接口内部的接口中声明的。它必须含有一个  `build()` 方法，其返回值和子组件相匹配。用这个方法声明一个基接口是很方便的，就像上面的`SubcomponentBuilder` 一样。这个新的**建造者必须被加入父组件的图中**，而这是用一个 "binder" 模块和一个 "subcomponents" 参数实现的:
+子组件是在子组件接口内部的接口中声明的。它必须含有一个  `build()` 方法，其返回值和子组件相匹配。用这个方法声明一个基接口是很方便的，就像上面的`SubcomponentBuilder` 一样。这个新的 **builder 必须被加入父组件的图中**，而这是用一个 "binder" 模块和一个 "subcomponents" 参数实现的:
 
 ```java
 @Module(subcomponents={ MyActivitySubComponent.class })
@@ -544,7 +544,7 @@ public @interface SubcomponentKey {
 }
 ```
 
-一旦建造者在出现在组件图中，activity 就可以用它来创建子组件：
+一旦 builder 在出现在组件图中，activity 就可以用它来创建子组件：
 
 ```java
 public class MyActivity extends Activity {
