@@ -2,7 +2,7 @@
 > * 原文作者：本文已获原作者 [Adam Lynch](https://www.smashingmagazine.com/author/adamlynch/) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者： [bambooom](https://github.com/bambooom)/[imink](https://github.com/imink)
-> * 校对者：[bambooom](https://github.com/bambooom)/[sunui](https://github.com/sunui)
+> * 校对者：[bambooom](https://github.com/bambooom)/[imink](https://github.com/imink)/[sunui](https://github.com/sunui)
 
 ## 超越浏览器：从 web 应用到桌面应用
 
@@ -12,7 +12,7 @@
 
 别慌，深呼吸，现实情况是，作为 web 开发者，你已经拥有开发现代桌面应用所需的一切技能，得益于新的强大的 API，你甚至可以在桌面应用中发挥你最大的潜能。
 
-本文将会介绍使用 [NW.js](http://nwjs.io/) 和 [Electron](https://electron.atom.io/) 开发桌面应用，它们的优劣，使用同一套代码库给桌面、web，甚至更多。
+本文将会介绍使用 [NW.js](http://nwjs.io/) 和 [Electron](https://electron.atom.io/) 开发桌面应用，包括它们的优劣，以及如何使用同一套代码库来开发桌面、web 应用，甚至更多。
 
 ### 为什么？
 
@@ -22,7 +22,7 @@
 
 很难总结为什么你应该考虑开发桌面应用，因为真的有很多类型的应用你可以创建。这非常取决于你想要达到什么目的，API 是否足够有利于开发，离线使用将多大程度上增强用户体验。在我的团队，这些都是毋庸置疑的，因为我们在开发一个[聊天应用程序](https://teamwork.com/chat)。另一方面来说，一个依赖于网络而没有任何与系统集成的桌面应用应该做成一个 web 应用，并且只做 web 应用。当用户并不能从桌面应用中获得比在浏览器中访问一个网址更多的价值的时候，期待用户下载你的应用（其中自带浏览器以及 Node.js）是不公平的。
 
-比起描述你个人应该建造的桌面应用及其原因，我更希望的是激发一个想法，或者只是激发你对这篇文章的兴趣。继续往下读来看看用 web 技术构造一个强大的桌面应用是多么简单，以及创建完成（或者在这过程中）一个 web 应用你需要承受什么。。
+比起描述你个人应该建造的桌面应用及其原因，我更希望的是激发一个想法，或者只是激发你对这篇文章的兴趣。继续往下读来看看用 web 技术构造一个强大的桌面应用是多么简单，以及在创建过程中你应该付出什么。
 
 ### NW.js
 
@@ -81,7 +81,7 @@ Chromium 有一个主要的后台进程，每个标签页也会有自己的进�
 
 就是这么简单。NW.js 初始化了第一个窗口，加载了你的 HTML 文件，虽然这看起来并没有什么，但接下来就是你来添加标签及样式了，就和在 web 应用中一样。
 
-你可以凭自己喜好去掉窗口栏，构建自己的框架模板。你可以有半透明或全透明的窗口，可以有隐藏窗口或者更多。我最近试了一下用 NW.js 复活了[回形针](http://engineroom.teamwork.com/resurrecting-clippy/) Office 助手（一般昵称 Clippy）。能看到它同时在 macOS 或者 Windows 10 中复活有种奇妙的满足感。
+你可以凭自己喜好去掉窗口栏，构建自己的框架模板。你可以有半透明或全透明的窗口，可以有隐藏窗口或者更多。我最近尝试使用 NW.js 做了[Clippy](http://engineroom.teamwork.com/resurrecting-clippy/)（Office 助手）。能在 macOS 和 Windows 10 上看到它有种奇妙的满足感。
 
 ![Screenshot of clippy.desktop on macOS](https://www.smashingmagazine.com/wp-content/uploads/2017/01/clippy-preview-opt.png)
 
@@ -217,11 +217,11 @@ NW.js 和 Electron 都支持很多平台，包括 Windows，Mac 和 Linux。Elec
 
 Electron 甚至支持 ARM 版本，所以你的 app 可以在 Chromebook 或者树莓派上运行，最终，Google 可能会[逐步淘汰 Chrome 封装应用 （Packaged App）](https://blog.chromium.org/2016/08/from-chrome-apps-to-web.html)，但是 NW.js 仍然支持将应用程序移植到 NW.js 应用，并且仍然可以访问相同的 Chromium API。
 
-虽然 32 位和 64 位的版本都支持，你也可以使用 64 位的 Mac 和 Windows 应用。但是，为了兼容，32 位和 64 位 Linux 应用程序是都需要的。
+虽然 32 位和 64 位的版本都支持，所以你完全可以使用 64 位的 Mac 和 Windows 应用。但是，为了兼容，32 位和 64 位 Linux 应用程序是都需要的。
 
 假如 Electron 胜出，你想发行一个 Electron 应用。有一个很不错的 Node.js 包叫 [electron-packager](https://github.com/electron-userland/electron-packager) 可以帮你将 app 打包成一个 `.app` 或者 `.exe` 文件。也有其他几个类似的项目，包括交互式的一步一步告诉你该怎么做。不过，你应该用 [electron-builder](https://github.com/electron-userland/electron-builder)，它以 electron-packager 为基础，添加了其他几个相关的模块，生成的是 `.dmg` 文件和 Windows 安装包，并且为你处理好了代码签名的问题。这很重要，如果没有这一步，你的应用将会被操作系统认为是不可信的，你的应用程序可能会触发防毒软件的运行，Microsoft SmartScreen 可能会尝试阻止用户启动你的应用。
 
-关于代码签名的令人讨厌的事情是，你必须在 Mac 上为 Mac 和 Windows 上为 Windows 签署你的应用程序。因此，如果是认真要发行桌面应用的话，就需要为每个发行版本给多种机器构建。
+关于代码签名的令人讨厌的事情是，你必须单独为某个平台签名你的应用程序，比如在 Mac 上签名 Mac 应用，在 Windows 签名 Windows 应用。因此，如果你很在乎发行桌面应用的话，就必须为每个发行版本分别构建适用于不同平台的应用（以及分别签名）。
 
 这可能会感到不够自动化很繁琐，特别是如果你习惯于在 web 上创建。幸运的是，electron-builder 被创造出来完成这些自动化工作。我说的是持续集成工具例如 [Jenkins](https://jenkins.io/)，[CodeShip](http://codeship.com/)，[Travis-CI](https://travis-ci.org/)，[AppVeyor](https://www.appveyor.com/)（Windows 集成）等。这些工具可以让你按一个按钮或者每次更新代码到 GitHub 时重新构建你的桌面应用。
 
