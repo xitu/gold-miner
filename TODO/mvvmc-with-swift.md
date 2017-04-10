@@ -2,7 +2,7 @@
 > * 原文作者：[Marco Santarossa](https://marcosantadev.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[Deepmissea](http://deepmissea.blue)
-> * 校对者：
+> * 校对者：[atuooo](http://atuo.xyz)，[1992chenlu](https://github.com/1992chenlu)
 
 ---
 
