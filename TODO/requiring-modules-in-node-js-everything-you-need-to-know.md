@@ -2,7 +2,7 @@
 > * 原文作者：[Samer Buna](https://medium.freecodecamp.com/@samerbuna?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[zhouzihanntu](https://github.com/zhouzihanntu)
-> * 校对者：[lsvih](https://github.com/lsvih)
+> * 校对者：[lsvih](https://github.com/lsvih), [reid3290](https://github.com/reid3290)
 
 # 关于在 Node.js 中引用模块，知道这些就够了 #
 
