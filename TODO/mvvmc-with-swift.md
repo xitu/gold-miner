@@ -12,18 +12,18 @@
 
 # 简介
 
-现今，iOS 开发者面临的最大挑战是构建一个健壮应用程序，它必须易于维护、测试和扩展。
+现今，iOS 开发者面临的最大挑战是构建一个健壮的应用程序，它必须易于维护、测试和扩展。
 
 在这篇文章里，你会学到一种可靠的方法来达到目的。
 
-首先，需要简介一下你即将学习的内容：
+首先，简要介绍下你即将学习的内容：
 **架构模式**.
 
 # 架构模式
 
 ## 它是什么
 
-> 架构模式是给定上下文中软件体系结构中常见的，可重用的解决方案。架构与软件设计模式相似，但作用范围更广。架构解决了软件工程中的各种问题，如计算机硬件性能限制，高可用性和最小化业务风险。一些架构模式已经在软件框架内实现。
+> 架构模式是给定上下文中软件体系结构中常见的，可重用的解决方案。架构与软件设计模式相似，但涉及的范围更广。架构解决了软件工程中的各种问题，如计算机硬件性能限制，高可用性和最小化业务风险。一些架构模式已经在软件框架内实现。
 
 摘自 [Wikipedia](https://en.wikipedia.org/wiki/Architectural_pattern)。
 
@@ -31,31 +31,31 @@
 
 ## 主要的模式
 
-在项目中，有几种可用的架构模式，并且你可以在项目中使用多个，因为每个模式都能高好的适应特定的场景。
+在项目中，有几种可用的架构模式，并且你可以在项目中使用多个，因为每个模式都能更好地适应特定的场景。
 
-当你阅读关于这几种模式时，主要会遇到这种：
+当你阅读这几种模式时，主要会遇到：
 
 ### [Model-View-Controller](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller)
 
 ![](https://marcosantadev.com/wp-content/uploads/mvc_2.jpg)
 
-这是最常见的，也许在你的第一个 iOS 应用中已经使用过。不幸地是，这也是最糟糕的模式，因为 `Controller` 不得不管理每一个依赖（API、数据库等等），包括你应用的业务逻辑，而且与 `UIKit` 的耦合度很高，这意味着测试异常的艰难。
+这是最常见的，也许在你的第一个 iOS 应用中已经使用过。不幸地是，这也是最糟糕的模式，因为 `Controller` 不得不管理每一个依赖（API、数据库等等），包括你应用的业务逻辑，而且与 `UIKit` 的耦合度很高，这意味着很难去测试。
 
-你通常会避免这种模式，用下面的某种来代替它。
+你应该避免这种模式，用下面的某种来代替它。
 
 ### [Model-View-Presenter](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93presenter)
 
 ![](https://marcosantadev.com/wp-content/uploads/mvp.jpg)
 
-这是第一个 MVC 的替代方案之一，一次对 `Controller` 和 `View` 之间解耦的很好的尝试。
+这是第一个 MVC 模式的备选方案之一，一次对 `Controller` 和 `View` 之间解耦的很好的尝试。
 
-在 MVP 中，你有一层叫做 `Presenter` 的新结构来处理业务逻辑。而 `View` —— 你的 `UIViewController` 以及任何 `UIKit` 组件，都是一个笨的对象，他们只通过 `Presenter` 更新，并在触发 UI 事件的时候，负责通知 `Presenter`。由于 `Presenter` 没有任何 `UIKit` 的引用，所以非常容易测试。
+在 MVP 中，你有一层叫做 `Presenter` 的新结构来处理业务逻辑。而 `View` —— 你的 `UIViewController` 以及任何 `UIKit` 组件，都是一个笨的对象，他们只通过 `Presenter` 更新，并在 UI 事件被触发的时候，负责通知 `Presenter`。由于 `Presenter` 没有任何 `UIKit` 的引用，所以非常容易测试。
 
 ### [Viper](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93presenter)
 
 [![](https://www.objc.io/images/issue-13/2014-06-07-viper-intro-0a53d9f8.jpg)](https://www.objc.io/issues/13-architecture/viper/)
 
-这是 [Bob 叔叔清晰架构](https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html)的代表。
+这是 [Bob 叔叔的清晰架构](https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html)的代表。
 
 这种模式的强大之处在于，它合理分配了不同层次之间的职责。通过这种方式，你的每个层次做的的事变得很少，易于测试，并且具备单一职责。这种模式的问题是，在大多数场合里，它过于复杂。你需要管理很多层，这会让你感到混乱，难于管理。
 
@@ -65,7 +65,7 @@
 
 ![](https://marcosantadev.com/wp-content/uploads/mvvm.jpg)
 
-最后但也是最重要的，MVVM 是一个类似于 MVP 的框架，因为层次看几乎相同。你可以认为 MVVM 是 MVP 版本的一个进化，而这得益于 UI 绑定。
+最后但也是最重要的，MVVM 是一个类似于 MVP 的框架，因为层级结构几乎相同。你可以认为 MVVM 是 MVP 版本的一个进化，而这得益于 UI 绑定。
 
 UI 绑定是在 `View` 和 `ViewModel` 之间建立一座单向或双向的桥梁，并且两者之间以一种非常透明地方式进行沟通。
 
@@ -73,7 +73,7 @@ UI 绑定是在 `View` 和 `ViewModel` 之间建立一座单向或双向的桥�
 
 在 Swift 里有多种方式实现 UI 绑定：
 
-#### RxSwift (or ReactiveCocoa)
+#### RxSwift (或 ReactiveCocoa)
 
 [RxSwift](https://github.com/ReactiveX/RxSwift) 是 [ReactiveX](http://reactivex.io/) 家族的一个 Swift 版本的实现。一旦你掌握了它，你就能很轻松地切换到 RxJava、RxJavascript 等等。
 
@@ -97,7 +97,7 @@ class ViewController: UIViewController {
 
 我不会解释如何彻底地使用 RxSwift，因为这超出本文的目标，它自己会有文章来解释。
 
-FRP 让你学习到了一种新的方式来开发，你可能对它或爱或恨。如果你没用过 FRP 开发，那你不得不花费几小时的时间来使用，并理解如何正确的使用，因为它是一个完全不同的编程概念。
+FRP 让你学习到了一种新的方式来开发，你可能对它或爱或恨。如果你没用过 FRP 开发，那你需要花费几个小时来熟悉和理解如何正确地使用它，因为它是一个完全不同的编程概念。
 
 另一个类似于 RxSwift 的框架是 [ReactiveCocoa](https://github.com/ReactiveCocoa/ReactiveCocoa)，如果你想了解他们之间主要的区别的话，你可以看看[这篇文章](https://www.raywenderlich.com/126522/reactivecocoa-vs-rxswift)。
 
@@ -211,7 +211,7 @@ class ViewModel {
 
 ## 抉择: MVVM-C
 
-在你不得不选择一个架构模式时，你需要理解哪一种更适合你的需求。在这些模式里，MVVM 是最好的选择，因为它强大的同时，也易于使用。
+在你不得不选择一个架构模式时，你需要理解哪一种更适合你的需求。在这些模式里，MVVM 是最好的选择之一，因为它强大的同时，也易于使用。
 
 不幸地是这种模式并不完美，主要的缺陷是 MVVM 没有路由管理。
 
@@ -225,7 +225,7 @@ class ViewModel {
 
 你可以在[这里](https://github.com/MarcoSantarossa/MVVM-C_with_Swift)下载项目源码。
 
-这些类被简化了，以便于你可以专注于 MVVM-C 是如何工作的，因此 GitHub 上的类可能会有轻微出入。
+这个例子被简化了，以便于你可以专注于 MVVM-C 是如何工作的，因此 GitHub 上的类可能会有轻微出入。
 
 示例应用是一个普通的仪表盘应用，它从公共 API 获取数据，一旦数据准备就绪，用户就可以通过 ID 查找实体，如下面的截图：
 
@@ -294,7 +294,7 @@ final class DashboardContainerCoordinator: Coordinator {
 }
 ```
 
-你一定能注意到在 `Coordinator` 里，一个父类 `UIViewController` 对象或者子类对象，类似于 `UINavigationController`，被注入到构造器之中。因为 `Coordinator` 有责任添加 `View` 到视图层级之中，它必须知道那个父类添加了 `View`。
+你一定能注意到在 `Coordinator` 里，一个父类 `UIViewController` 对象或者子类对象，比如 `UINavigationController`，被注入到构造器之中。因为 `Coordinator` 有责任添加 `View` 到视图层级之中，它必须知道那个父类添加了 `View`。
 
 在上面的例子里，`DashboardContainerCoordinator` 实现了协议 `Coordinator`：
 
@@ -337,7 +337,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 在 `AppDelegate` 里，我们实例化一个新的 `DashboardContainerCoordinator`，通过 `start` 方法，我们把新的视图推入 `navigationController` 里。
 
-**你可以看到 GitHub 项目如何注入一个 `UINavigationController` 类型的对象，并去除 `UIKit` 和 `Coordinator` 之间的耦合。**
+**你可以看到在 GitHub 上的项目是如何注入一个 `UINavigationController` 类型的对象，并去除 `UIKit` 和 `Coordinator` 之间的耦合。**
 
 ### Model
 
@@ -450,7 +450,7 @@ final class UsersViewModel {
 
 MVVM-C 有很多优点，可以提高应用程序的质量。你应该注意使用哪种方式来进行 UI 绑定，因为 RxSwift 不容易掌握，而且如果你不明白你做的是什么，调试和测试有时可能会有点棘手。
 
-我的建议是一点点地开始使用这种架构模式，这样你可以对不同的层次得到使用，并且能保证层次之间的良好的分离，易于测试。
+我的建议是一点点地开始使用这种架构模式，这样你可以学习不同层次的使用，并且能保证层次之间的良好的分离，易于测试。
 
 # FAQ
 
@@ -466,7 +466,7 @@ MVVM-C 有很多优点，可以提高应用程序的质量。你应该注意使�
 
 这取决于你要开新项目，还是要维护旧代码。在有遗留代码的项目中，你可能无法使用 RxSwift，因为你需要重构很多的类。如果你有时间和资源来做，我建议你新开一项目一点一点的做，否则还是尝试其他的方法来解决 UI 绑定的问题。
 
-需要考虑的一个重要事情是，RxSwift 会一直是你项目中的另一个依赖，你可能会因为 RxSwift 的突破性改动而导致浪费时间的风险，或者缺少要在边缘案例中实现功能的文档。
+需要考虑的一个重要事情是，RxSwift 最终会成为你项目中的另一个依赖，你可能会因为 RxSwift 的破坏性改动而导致浪费时间的风险，或者缺少要在边缘案例中实现功能的文档。
 
 ---
 
