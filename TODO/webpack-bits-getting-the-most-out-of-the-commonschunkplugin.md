@@ -1,5 +1,5 @@
 > * 原文地址：[webpack bits: Getting the most out of the CommonsChunkPlugin()](https://medium.com/webpack/webpack-bits-getting-the-most-out-of-the-commonschunkplugin-ab389e5f318#.hn8v7ul1f)
-> * 原文作者：[Sean T. Larkin](https://medium.com/@TheLarkInn?source=post_header_lockup)
+> * 原文作者：本文已获原作者 [Sean T. Larkin](https://medium.com/@TheLarkInn) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[reid3290](https://github.com/reid3290)
 > * 校对者：
