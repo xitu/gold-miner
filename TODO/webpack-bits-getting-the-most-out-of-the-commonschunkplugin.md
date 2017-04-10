@@ -2,7 +2,7 @@
 > * 原文作者：[Sean T. Larkin](https://medium.com/@TheLarkInn?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[reid3290](https://github.com/reid3290)
-> * 校对者：
+> * 校对者：[avocadowang](https://github.com/avocadowang)，[Aladdin-ADD](https://github.com/Aladdin-ADD)
 
 # webpack 拾翠：充分利用 CommonsChunkPlugin() #
 
