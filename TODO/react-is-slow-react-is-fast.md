@@ -171,7 +171,7 @@ class DatagridBody extends Component {
 export default DatagridBody;
 ```
 
-**小提示**：相比手工实现 `shouldComponentUpdate()` 方法，我可以继承 React 的 `PureComponent` 而不是 `Component`。这个组件会用严格对等（`===`）对比所有的 props，并且仅当 **任一** props 变更时重绘。但是我知道在例子的上下文中 `resource` 和 `children` 不不会变更，所以无需检查他们的对等性。
+**小提示**：相比手工实现 `shouldComponentUpdate()` 方法，我可以继承 React 的 `PureComponent` 而不是 `Component`。这个组件会用严格对等（`===`）对比所有的 props，并且仅当 **任一** props 变更时重绘。但是我知道在例子的上下文中 `resource` 和 `children` 不会变更，所以无需检查他们的对等性。
 
 有了这一优化，点击表头后，`<Datagrid>` 组件的重绘会跳过表体及其全部 231 个组件。这会将 500ms 的更新时间减少到 60ms。网络性能提高超过 400ms！
 
@@ -488,7 +488,7 @@ export default onlyUpdateForKeys(['basePath', 'refresh'])(Toolbar);
 
 ## 结论
 
-还有许多可以使 React 应用更快的方法（使用 keys，懒加载重路由，`react-addons-perf` 包，使用 ServiceWorkers 缓存应用状态，使用同构等等），但正确实现 `shouldComponentUpdate` 是第一步 - 也是最有用的。
+还有许多可以使 React 应用更快的方法（使用 keys、懒加载重路由、`react-addons-perf` 包、使用 ServiceWorkers 缓存应用状态、使用同构等等），但正确实现 `shouldComponentUpdate` 是第一步 - 也是最有用的。
 
 React 默认是不快的，但是无论是什么规模的应用，它都提供了许多工具来加速。这也许是违反直觉的，尤其自从许多框架提供了 React 的替代品，它们声称比 React 快 n 倍。但 React 把开发者的体验放在了性能之前。这也是为什么用 React 开发大型应用是个愉快的体验，没有惊吓，只有不变的实现速度。
 
