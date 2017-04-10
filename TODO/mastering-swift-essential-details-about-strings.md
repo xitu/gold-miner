@@ -542,3 +542,5 @@ print(numberOfStars) // => 2
 **对于字符操作你有没有找到更舒适的方法？写下评论我们一起来讨论一些吧！**
 
 **P.S.** 不知道你有没有兴趣阅读我的另一篇文章：[detailed overview of array and dictionary literals in Swift](https://rainsoft.io/concise-initialization-of-collections-in-swift/)
+
+>[掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[React](https://github.com/xitu/gold-miner#react)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计) 等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)。
