@@ -2,7 +2,7 @@
 * 原文作者：[Dmitri Pavlutin](https://rainsoft.io/author/dmitri-pavlutin/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Tuccuay](https://www.tuccuay.com)
-* 校对者：
+* 校对者：[oOatuo](https://github.com/atuooo)
 
 
 # 掌握 Swift 的字符串细节
@@ -11,7 +11,7 @@ String 类型在任何编程语言中都是一个重要的组成部分。而用�
 
 为了触及更多的用户，iOS 应用必须国际化以支持大量现代语言。Unicode 标准解决了这个问题，不过这也给我们使用 string 类型带来了额外的挑战性。
 
-从一方面来说，编程语言应该在平衡处理字符串时应该在 Unicode 复杂性和性能之间取得平衡。而另一方面，它需要为开发者提供一个舒适的结构来处理字符串。
+从一方面来说，编程语言在处理字符串时应该在 Unicode 复杂性和性能之间取得平衡。而另一方面，它需要为开发者提供一个舒适的结构来处理字符串。
 
 而在我看来，Swift 在这两方面都做的不错。
 
@@ -23,16 +23,16 @@ Swift 对此有着更好的实现方式。字符串本身不再是集合，而�
 
 对于 `let myStr = "Hello, world"` 来说，你可以访问到下面这些 view：
 
-- `myStr.characters` 即 `String.CharacterView`。可以获取字形的值，视觉上呈现为单一的符号。是最常用的试图
+- `myStr.characters` 即 `String.CharacterView`。可以获取字形的值，视觉上呈现为单一的符号，是最常用的视图。
 - `myStr.unicodeScalars` 即 `String.UnicodeScalarView`。可以获取 21 整数表示的 Unicode 码位。
 - `myStr.utf16` 即 `String.UTF16View`。用于获取 UTF16 编码的代码单元。
-- `myStr.utf8` 即 `String.UTF8View`。能够获取 UTF8 编码的代码单一。
+- `myStr.utf8` 即 `String.UTF8View`。能够获取 UTF8 编码的代码单元。
 
 ![Swift 中的 CharacterView, UnicodeScalarView, UTF16View 和 UTF8View](https://rainsoft.io/content/images/2016/10/Swift-strings--3-.png)
 
 在大多数时候开发者都在处理简单的字符串字符，而不是深入到编码或者码位这样的细节中。
 
-`CharacterView` 能很好的完成大多数任务：迭代字符串、字符计数、验证是否包含字符串、通过索引访问和比较操作等。
+`CharacterView` 能很好地完成大多数任务：迭代字符串、字符计数、验证是否包含字符串、通过索引访问和比较操作等。
 
 让我们看看如何用 Swift 来完成这些任务。
 
@@ -52,7 +52,7 @@ print(type(of: characters))// => "CharacterView"
 
 `message.characters` 返回了 `CharacterView` 结构.
 
-字符视图是 `Character` 结构的集合。例如我们可以这样来访问字符视图里的第一个字符：
+字符视图是 `Character` 结构的集合。例如，我们可以这样来访问字符视图里的第一个字符：
 
 [Try in Swift sandbox](http://swiftlang.ng.bluemix.net/#/repl/57ff7e188ef62b25bcea2ab2)
 
@@ -70,7 +70,7 @@ print(capitalHCharacter == firstCharacter) // => true
 
 这个字符实例代表了单个符号 `H`。
 
-在 Unicode 标准中，`H` 代表 *Latin Capital letter H*，码位是 `U+0048`。
+在 Unicode 标准中，`H` 代表 *Latin Capital letter H* (拉丁文大写字母 H)，码位是 `U+0048`。
 
 让我们掠过 ASCII 看看 Swift 如何处理更复杂的符号。这些字符被渲染成单个视觉符号，但实际上是由两个或更多个 Unicode 标量](http://unicode.org/glossary/#unicode_scalar_value) 组成。严格来说这些字符被称为 **字形簇**
 
@@ -79,7 +79,7 @@ print(capitalHCharacter == firstCharacter) // => true
 
 让我们看看 `ç` 的字形。他可以有两种表现形式：
 
-- 使用 `U+00E7` *LATIN SMALL LETTER C WITH CEDILLA*：被渲染为 `ç`
+- 使用 `U+00E7` *LATIN SMALL LETTER C WITH CEDILLA* (拉丁文小写变音字母 C)：被渲染为 `ç`
 - 或者使用组合字符序列：`U+0063`*LATIN SMALL LETTER C* 加上 组合标记 `U + 0327` *COMBINING CEDILLA* 组成复合字形：`c` + `◌̧` = `ç`
 
 我们看看在第二个选项中 Swift 是如何处理它的：
@@ -111,9 +111,9 @@ let multipleGraphemes: Character = "ab" // Error!
 即使 `singleGrapheme` 由 3 个 Unicode 标量组成，它创建了一个字形 `ḉ`。
 而 `multipleGraphemes` 则是从两个 Unicode 标量创建一个 `Character`，这将在单个 `Character` 结构中创建两个分离的字母 `a` 和 `b`，这不是被允许的操作。
 
-# 2. 迭代字符串中的字符
+# 2. 遍历字符串中的字符
 
-`CharacterView` 集合遵循了 `Sequence` 协议。这将允许在 `for-in` 循环中便利字符视图：
+`CharacterView` 集合遵循了 `Sequence` 协议。这将允许在 `for-in` 循环中遍历字符视图：
 
 [Try in Swift sandbox](http://swiftlang.ng.bluemix.net/#/repl/57f4bc8f27a61152fe7c7410)
 
@@ -161,7 +161,7 @@ for (index, char) in weather.characters.enumerated() {
 
 # 3. 统计字符
 
-只需要访问 `CharacterView` 的 `counter` 属性就可以获得字符串中字符的个数：
+只需要访问 `CharacterView` 的 `count` 属性就可以获得字符串中字符的个数：
 
 [Try in Swift sandbox](http://swiftlang.ng.bluemix.net/#/repl/57f4bcf327a61152fe7c7413)
 
@@ -191,11 +191,11 @@ print(drink.characters.count) // => 4
 
 # 4. 按索引访问字符
 
-因为 Swift 直到它实际评估字符视图中的字形之前都不知道字符串中的字符个数。结果就造成了无法通过通过下标的方式访问字符串索引。
+因为 Swift 直到它实际评估字符视图中的字形之前都不知道字符串中的字符个数，所以无法通过下标的方式访问字符串索引。
 
 你可以通过特殊的类型 `String.Index` 访问字符。
 
-如果你需要访问字符串中的第一个或者最好一个字符，字符视图结构提供了 `first` 和 `last` 属性：
+如果你需要访问字符串中的第一个或者最后一个字符，字符视图结构提供了 `first` 和 `last` 属性：
 
 [Try in Swift sandbox](http://swiftlang.ng.bluemix.net/#/repl/57f4bd2027a61152fe7c7415)
 
@@ -230,7 +230,7 @@ print(color[beforeEndIndex]) // => "n"
 ```
 
 `color.startIndex` 是第一个字符的索引，所以 `color[startIndex]` 表示为 `g`。
-`color.endIndex` 表示**结束**位置，或者简单的说是比最后一个有效小标参数大的位置。要访问最后一个字符，你必须计算它的前一个索引：`color.index(before: color.endIndex)`
+`color.endIndex` 表示**结束**位置，或者简单的说是比最后一个有效下标参数大的位置。要访问最后一个字符，你必须计算它的前一个索引：`color.index(before: color.endIndex)`
 
 要通过偏移访问字符的位置， 在 `index(theIndex, offsetBy: theOffset)` 方法中使用 `offsetBy` 参数：
 
@@ -459,9 +459,9 @@ if let index = weather.characters.index(of: " ") {
 
 上面描述的许多字符串操作都是直接应用于字符串中的字符视图。
 
-而更方便的直接使用一个字符序列可能是更好的选择。
+如果你觉得直接对字符序列进行操作更加方便的话，那也是个不错的选择。
 
-比如你可以删除特定索引出的字符，或者直接删除第一个或者最好一个字符：
+比如你可以删除特定索引出的字符，或者直接删除第一个或者最后一个字符：
 
 [Try in Swift sandbox](http://swiftlang.ng.bluemix.net/#/repl/57f4bea927a61152fe7c7425)
 
@@ -531,7 +531,7 @@ print(numberOfStars) // => 2
 
 首先要说，大家对于字符串内容持有的不同观点看起来似乎过于复杂。
 
-而在我看来这是一个很好的实现。字符串可以从不同的角度来例假：昨晚字形集合、UTF-8 或 UTF-16 码位和简单是 Unicode 标量。
+而在我看来这是一个很好的实现。字符串可以从不同的角度来看待：作为字形集合、UTF-8 / UTF-16 码位或者简单的 Unicode 标量。
 
 根据你的任务来选择合适的视图。在大多数情况下，`CharacterView` 都很合适。
 
