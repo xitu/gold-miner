@@ -2,7 +2,7 @@
 > * 原文作者：[Rich Harris](https://medium.com/@Rich_Harris?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[lsvih](https://github.com/lsvih)
-> * 校对者：
+> * 校对者：[avocadowang](https://github.com/avocadowang),[Aladdin-ADD](https://github.com/Aladdin-ADD)
 
 # 同中有异的 Webpack 与 Rollup #
 
@@ -18,14 +18,14 @@
 
 Webpack 由 [Tobias Koppers](https://medium.com/@sokra) 在 2012 年创建，用于解决当时的工具不能处理的问题：构建复杂的单页应用（SPA）。尤其是它的两个特点改变了一切：
 
-1. **代码分割**可以将你的 app 分割成许多个容易管理的分块，这些分块能够在用户使用你的 app 时按需加载。这意味着你的用户可以有更快的交互体验。因为访问那些网站必须要等待整个应用都被下载并解析完成。当然，你**也可以**自己手动去进行代码分割，但是……总之，祝你好运。
+1. **代码分割**可以将你的 app 分割成许多个容易管理的分块，这些分块能够在用户使用你的 app 时按需加载。这意味着你的用户可以有更快的交互体验。因为访问那些没有使用代码分割的应用时，必须要等待整个应用都被下载并解析完成。当然，你**也可以**自己手动去进行代码分割，但是……总之，祝你好运。
 2. **静态资源**的导入：图片、CSS 等静态资源可以直接导入到你的 app 中，就和其它的模块、节点一样能够进行依赖管理。因此，我们再也不用小心翼翼地将各个静态文件放在特定的文件夹中，然后再去用脚本给文件 URL 加上哈希串了。Webpack 已经帮你完成了这一切。
 
 而 Rollup 的开发理念则不同：它利用 ES2015 模块的巧妙设计，尽可能高效地构建精简且易分发的 JavaScript 库。而其它的模块打包器（包括 Webpack在内）都是通过将模块分别封装进函数中，然将这些函数通过能在浏览器中实现的 `require` 方法打包，最后依次处理这些函数。在你需要实现按需加载的时候，这种做法非常的方便，但是这样做引入了很多无关代码，比较浪费资源。当[你有很多模块要打包的时候，这种情况会变得更糟糕](https://nolanlawson.com/2016/08/15/the-cost-of-small-modules/)。
 
 ES2015 模块则启用了一种不同的实现方法，Rollup 用的也就是这种方法。所有代码都将被放置在同一个地方，并且会在一起进行处理。因此得到的最终代码相较而言会更加的精简，运行起来自然也就更快。你可以[点击这儿亲自试试 Rollup 交互式解释器（REPL）](https://rollupjs.org/repl)。
 
-但这儿也存在一些需要权衡的点：代码分割是一个很棘手的问题，而 Rollup 并不能做到这一点。同样的，Rollup 也不支持模块热替换（HMR）。而且对于打算使用 Rollup 的人来说，还有一个最大的痛点：它通过[插件](https://github.com/rollup/rollup-plugin-commonjs)处理大多数 CommonJS 文件的时候，一些代码将无法被翻译回 ES2015。而与之相反，你可以把这一切的事全部放心交给 Webpack 去处理。
+但这儿也存在一些需要权衡的点：代码分割是一个很棘手的问题，而 Rollup 并不能做到这一点。同样的，Rollup 也不支持模块热替换（HMR）。而且对于打算使用 Rollup 的人来说，还有一个最大的痛点：它通过[插件](https://github.com/rollup/rollup-plugin-commonjs)处理大多数 CommonJS 文件的时候，一些代码将无法被翻译为 ES2015。而与之相反，你可以把这一切的事全部放心交给 Webpack 去处理。
 
 ### 那么我到底应该选用哪一个呢？ ###
 
