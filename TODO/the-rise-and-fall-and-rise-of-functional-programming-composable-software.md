@@ -1,8 +1,8 @@
 > * 原文地址：[The Rise and Fall and Rise of Functional Programming (Composing Software)(part 1)](https://medium.com/javascript-scene/the-rise-and-fall-and-rise-of-functional-programming-composable-software-c2d91b424c8c)
 > * 原文作者：[Eric Elliott](https://medium.com/@_ericelliott?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
-> * 校对者：
+> * 译者：[gy134340](https://github.com/gy134340)
+> * 校对者：[avocadowang](https://github.com/avocadowang),[Aladdin-ADD](https://github.com/Aladdin-ADD)
 
 # 跌宕起伏的函数式编程（组成化软件）
 
@@ -12,9 +12,9 @@
 
 > 注意：这是从基础学习函数式编程和使用 JavaScript ES6+ 组成软件的第一部分。保持关注，接下来还有很多！
 
-当我 6 岁时，我花了很多时间跟我的小伙伴玩电脑游戏，他家里有一整房间的电脑。对于我说，那是及其不可抗拒的魔力。我花了很多时间探索所有的游戏。一天我问他，“我们怎样做一个游戏？”
+当我 6 岁时，我花了很多时间跟我的小伙伴玩电脑游戏，他家有一个装满电脑的房间。对于我说，它们有不可抗拒的魔力。我花了很多时间探索所有的游戏。一天我问他，“我们怎样做一个游戏？”
 
-他不知道，所以我们问了他的老爸，他的老爸爬上一个很高的架子拿下来一本使用 Basic 编写的游戏书籍。就那样开始了我的编程之路。当公立学校开始教授代数时，我已经熟稔其中的概念了，因为编程基本上是代数。无论如何，它都是。
+他不知道，所以我们问了他的老爸，他的老爸爬上一个很高的架子拿下来一本使用 Basic 编写游戏的书籍。就那样开始了我的编程之路。当公立学校开始教授代数时，我已经熟稔其中的概念了，因为编程基本上是代数。无论如何，它都是。
 
 ### 软件组成化的兴起
 
@@ -28,11 +28,11 @@ lambda 表达式全是函数组成，依靠函数来编写软件是非常高效�
 
 有三点造就了 lambda 表达式的特别之处：
 
-1. 函数都是匿名的，在 JavaScript 中，右边的 `const sum = (x, y) => x + y` 等同于匿名函数 `(x, y) => x + y`.
+1. 函数都是匿名的，在 JavaScript 中，表达式 `const sum = (x, y) => x + y` ，等同于一个匿名函数 `(x, y) => x + y`。
 2. lambda 表达式中的函数只接收一个参数。他们是一元的，如果你需要多个参数，函数将会接受一个输入返回一个调用下一个函数的函数，然后继续这样。非一元函数 `(x, y) => x + y` 可以被表示为一个像 `x => y => x + y` 的一元函数。这个把多元函数转换成一元函数的过程叫做柯里化。
-3. 函数是一级的，意味着函数可以作为参数传递给其他函数，同时函数可以返回函数。
+3. 函数是一等公民的，意味着函数可以作为参数传递给其他函数，同时函数可以返回函数。
 
-总的说来，这些特性形成使用函数作为初始模块的一个简单且具有表达性的方法来构造软件。在 JavaScript 中，函数的匿名和柯里化都是可选的特性。虽然 JavaScript 支持这些 lambda 表达式的重要属性，它却并不强制使用这些。
+总的说来，这些特性形成一个简单且具有表达性的方法来构造软件，即使用函数作为初始模块。在 JavaScript 中，函数的匿名和柯里化都是可选的特性。虽然 JavaScript 支持这些 lambda 表达式的重要属性，它却并不强制使用这些。
 
 这些经典的函数组成方法用一个函数的输出来作为另一个函数的输入，例如，对于组合：
 
@@ -78,7 +78,7 @@ lambda 表达式对软件设计产生了很大的影响，在 1980 年之前，�
 
 ### 组合型软件的衰落
 
-在 1970 到 1980 中间的某段时间，软件的构造开始偏离简单的组合，成为一串线性的让计算机执行的指令。然后面向对象编程 — 一个伟大的关于组件的封装和信息传递的思想被流行的编程语言扭曲成为了特性的重用而采取的糟糕的继承层次和 *is-a* 关系。
+在 1970 到 1980 中间的某段时间，软件的构造开始偏离简单的组合，成为一串线性的让计算机执行的指令。然后面向对象编程 — 一个伟大的关于组件的封装和信息传递的思想被流行的编程语言扭曲了，变成为了特性的重用所采取的糟糕的继承层次和 *is-a* 关系。
 
 函数式编程语言退居二线：只有编程极客的痴迷、常春藤盟校的教授和一些幸运的学生可以在 1990 — 2010 年间逃离 Java 的强迫性学习。
 
@@ -86,7 +86,7 @@ lambda 表达式对软件设计产生了很大的影响，在 1980 年之前，�
 
 ### 组合型软件的兴起
 
-在 2010 年左右，一些有趣的事情发生了：JavaScript 的崛起。在 2006 年左右，JavaScript 被广泛的看作玩具语言和被用制作浏览器中好玩的动画，但是它有一些隐藏饿及其强大的属性。即 lambda 表达式中最重要的特性。人们开始暗中讨论一个叫做 “函数式编程的” 酷东西。
+在 2010 年左右，一些有趣的事情发生了：JavaScript 的崛起。在大概 2006 年以前，JavaScript 被广泛的看作玩具语言和被用制作浏览器中好玩的动画，但是它里面隐藏着一些极其强大的特性。即 lambda 表达式中最重要的特性。人们开始暗中讨论一个叫做 “函数式编程的” 酷东西。
 
 [![](https://i.embed.ly/1/display/resize?url=https%3A%2F%2Fpbs.twimg.com%2Fprofile_images%2F3722564505%2Fb8030b8f3990875e8f38ed877fdf8d25_bigger.png&key=4fce0568f2ce49e8b54624ef71a8a5bd&width=40)](https://video.twimg.com/tweet_video/CmectVVVUAAsvpo.mp4)
 
@@ -107,14 +107,14 @@ lambda 表达式对软件设计产生了很大的影响，在 1980 年之前，�
 
 想更多的学习 JavaScript 的函数式编程？
 
-[Learn JavaScript with Eric Elliott](http://ericelliottjs.com/product/lifetime-access-pass/)，什么，你还不是其中之一，out 了！
+[Learn JavaScript with Eric Elliott](http://ericelliottjs.com/product/lifetime-access-pass/)，什么，你还没有参加，out 了！
 
 [![](https://cdn-images-1.medium.com/freeze/max/30/1*3njisYUeHOdyLCGZ8czt_w.jpeg?q=20)![](https://cdn-images-1.medium.com/max/800/1*3njisYUeHOdyLCGZ8czt_w.jpeg)](https://ericelliottjs.com/product/lifetime-access-pass/)
 
 
 *Eric Elliott* 是 [*“Programming JavaScript Applications”*](http://pjabook.com) (O’Reilly) 和 “Learn JavaScript with Eric Elliott” 的作者。他曾效力于 *Adobe Systems, Zumba Fitness, he Wall Street Journal, ESPN, BBC, and top recording artists including Usher, Frank Ocean, Metallica* 和其他一些公司。
 
-*他和她的老婆（很漂亮）大部分时间都在旧金山湾区里。*
+**他和她的老婆（很漂亮）大部分时间都在旧金山湾区里。**
 
 
 ---
