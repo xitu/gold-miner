@@ -10,15 +10,15 @@
 
 # 真正行动之前 你将一无所成
 
-就在上周我打了一辆 Lyft 出租车，司机跟我聊了很多关于她的天花乱坠的想法。她的想法里，她有写一本儿童书籍的想法，有开发一个帮助人们找到停车位置的软件的想法，有寻找到一种更高效打包礼物的想法，但问题是她总是犹豫不决：她有很多想法但却不知道从何开始。
+就在上周我打了一辆 Lyft 出租车，司机跟我聊了很多关于她的天花乱坠的想法。她既想写一本儿童书籍，又想开发一个帮助人们找到停车位置的软件，还想找到一种更高效的打包礼物的方式，但问题是她总是犹豫不决：她有很多想法但却不知道从何开始。
 
-接下来这段话是我对她说的：**开始一些实际行动吧。选一个项目然后尽可能的去完成它。** 如果你想写一本书，那么从每天写一页开始；如果你想做一个APP，那就从构建草图开始。任何人都可以做到这些。
+接下来这段话是我对她说的：**开始一些实际行动吧。选一个项目然后尽可能的去完成它。** 如果你想写一本书，那么从每天写一页开始；如果你想做一个 APP ，那就从构建草图开始。任何人都可以做到这些。
 
 这个建议适用于所有的创作者。一旦你开始着手在你的项目上，你将会不由自主的继续做下去。创新将会成为你人格的一部分 —— 即使你的项目失败了。
 
 你今天迈出的一小步将会是你人生的一大步。看看那些伟大的产品缔造者吧，比如 [Drew Wilson](https://twitter.com/drewwilson), [Pieter Levels](https://twitter.com/levelsio?), 和 [Sebastian Dobrincu](https://twitter.com/Sebyddd)。**他们不仅仅是等待合适的时机。** 他们每周都在更新他们的产品。 
 
-在一个 [IndieHackers](https://www.indiehackers.com/podcast/006-josh-pigford-of-baremetrics) 的节目中, [Josh Pigford](https://twitter.com/Shpigford) 透露，在做 Baremetrics 之前，他已经尝试过 *一百个* 失败的点子。 然而现在， Baremetrics 每个月都会有 60，000 美金进账。
+在一个 [IndieHackers](https://www.indiehackers.com/podcast/006-josh-pigford-of-baremetrics) 的采访中, [Josh Pigford](https://twitter.com/Shpigford) 透露，在做 Baremetrics 之前，他已经尝试过 *一百个* 失败的点子。 然而现在， Baremetrics 每个月都会有 60，000 美金进账。
 
 
 ![](https://cdn-images-1.medium.com/max/800/1*BzmVaqAKEzNRybUmMYOxdA.png)
@@ -39,7 +39,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*ESildSVTSSOnFXGDxD-l9w.png)
 
-另一个让你保持动力的建议就是让你的项目更加公开。在网上和你的同行们分享你的进展。人们很喜欢看到线框（wireframe 翻译成 ”框架“ 会不会好一点？）类的东西，并常常带来有价值的投入。
+另一个让你保持动力的建议就是让你的项目更加公开。在网上和你的同行们分享你的进展。人们很喜欢看到流程图一类的东西，并常常带来有价值的投入。
 
 我自己找到的一个非常有用的保持动力的小秘诀是和朋友打赌。我对他们说，如果我在截止日期前没有完成某个任务，我就给他们一百刀。比如，我会在一个项目开始的两周内找到二十个人打赌。
 
@@ -83,7 +83,6 @@
 
 我在 Medium 上每周都会发文。也可以关注我的 [Twitter](https://twitter.com/JonathanZWhite)，我会发一些关于设计、前端开发和虚拟现实的杂想。
 
-*P.S. If you enjoyed this article, it would mean a lot if you click the 💚 and share with friends.*（可删？）
 
 ---
 
