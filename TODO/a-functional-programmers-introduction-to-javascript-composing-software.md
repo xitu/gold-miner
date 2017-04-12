@@ -1,29 +1,30 @@
 > * 原文地址：[A Functional Programmer’s Introduction to JavaScript (Composing Software)(part 3)](https://medium.com/javascript-scene/a-functional-programmers-introduction-to-javascript-composing-software-d670d14ede30)
 > * 原文作者：[Eric Elliott](https://medium.com/@_ericelliott?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
+> * 译者：[sun](http://suncafe.cc)
 > * 校对者：
 
-# A Functional Programmer’s Introduction to JavaScript (Composing Software) #
+# 函数式程序员的 JavaScript 简介 (软件构建系列) #
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*uVpU7iruzXafhU2VLeH4lw.jpeg">
 
-Smoke Art Cubes to Smoke — MattysFlicks — (CC BY 2.0)
+烟雾艺术模仿 — MattysFlicks — (CC BY 2.0)
 
 > Note: This is part of the “Composing Software” series on learning functional programming and compositional software techniques in JavaScript ES6+ from the ground up. Stay tuned. There’s a lot more of this to come!
-> [< Previous](https://medium.com/javascript-scene/why-learn-functional-programming-in-javascript-composing-software-ea13afc7a257#.ia0aq3fmb)  | [<< Start over at Part 1](https://medium.com/javascript-scene/the-rise-and-fall-and-rise-of-functional-programming-composable-software-c2d91b424c8c#.2dfd6n6qe)  | [Next >](https://medium.com/javascript-scene/higher-order-functions-composing-software-5365cf2cbe99#.egoxjg6x7) 
+> [< Previous](https://medium.com/javascript-scene/why-learn-functional-programming-in-javascript-composing-software-ea13afc7a257#.ia0aq3fmb)  | [<< Start over at Part 1](https://medium.com/javascript-scene/the-rise-and-fall-and-rise-of-functional-programming-composable-software-c2d91b424c8c#.2dfd6n6qe)  | [Next >](https://medium.com/javascript-scene/higher-order-functions-composing-software-5365cf2cbe99#.egoxjg6x7)
 
-For those unfamiliar with JavaScript or ES6+, this is intended as a brief introduction. Whether you’re a beginner or experienced JavaScript developer, you may learn something new. The following is only meant to scratch the surface and get you excited. If you want to know more, you’ll just have to explore deeper. There’s a lot more ahead.
+对于不熟悉 JavaScript 或 ES6+ 的同学，这里做一个简短的介绍。无论你是 JavaScript 开发新手还是有经验的老兵，你都可能学到一些新东西。以下内容仅是毛羽鳞鬣，吊吊大家的兴致。如果想知道更多，还需深入学习。敬请期待吧。
 
-The best way to learn to code is to code. I recommend that you follow along using an interactive JavaScript programming environment such as [CodePen](https://codepen.io/) or the [Babel REPL](https://babeljs.io/repl/) .
 
-Alternatively, you can get away with using the Node or browser console REPLs.
+学习编程最好的方法就是动手编程。我建议您使用交互式 JavaScript 编程环境（如 [CodePen](https://codepen.io/) 或 [Babel REPL](https://babeljs.io/repl/)）。
 
-### Expressions and Values ###
+或者，您也可以使用 Node 或浏览器控制台 REPL。
 
-An expression is a chunk of code that evaluates to a value.
+### 表达式和值 ###
 
-The following are all valid expressions in JavaScript:
+表达式是可以求得数据值的代码块。
+
+下面这些都是 JavaScript 中合法的表达式：
 
 ```
 7;
@@ -35,42 +36,42 @@ The following are all valid expressions in JavaScript:
 'Hello'; // Hello
 ```
 
-The value of an expression can be given a name. When you do so, the expression is evaluated first, and the resulting value is assigned to the name. For this, we’ll use the `const` keyword. It's not the only way, but it's the one you'll use most, so we'll stick with `const` for now:
+表达式的值可以被赋予一个名称。执行此操作时，表达式首先被计算，取得的结果值被分配给该名称。对于这一点我们将使用 `const` 关键字。这不是唯一的方式，但这将是你使用最多的，所以目前我们就可以坚持使用 `const`。
 
 ```
 const hello = 'Hello';
 hello; // Hello
 ```
 
-### var, let, and const ###
+### var、let 和 const ###
 
-JavaScript supports two more variable declaration keywords: `var`, and `let`. I like to think of them in terms of order of selection. By default, I select the strictest declaration: `const`. A variable declared with the `const` keyword can't be reassigned. The final value must be assigned at declaration time. This may sound rigid, but the restriction is a good thing. It's a signal that tells you, "the value assigned to this name is not going to change". It helps you fully understand what the name means right away, without needing to read the whole function or block scope.
+JavaScript 支持另外两种变量声明关键字：`var`，还有 `let`。我喜欢根据选择的顺序来考虑它们。默认情况下，我选择最严格的声明方式：`const`。用 `const` 关键字声明的变量不能被重新赋值。最终值必须在声明时分配。这可能听起来很严格，但限制是一件好事。这是个标识在提醒你“赋给这个名称的值将不会改变”。它可以帮你全面了解这个名称的意义，而无需阅读整个函数或块级作用域。
 
-Sometimes it’s useful to reassign variables. For example, if you’re using manual, imperative iteration rather than a more functional approach, you can iterate a counter assigned with `let`.
+有时，给变量重新赋值很有用。比如，如果你正在写一个手动的强制性迭代，而不是一个更具功能性的方法，你可以迭代一个用 `let` 赋值的计数器。
 
-Because `var` tells you the least about the variable, it is the weakest signal. Since I started using ES6, I have never intentionally declared a `var` in a real software project.
+因为 `var` 能告诉你很少关于这个变量的信息，所以它是最无力的声明标识。自从开始用 ES6，我就再也没在实际软件项目中有意使用 `var` 作声明了。
 
-Be aware that once a variable is declared with `let` or `const`, any attempt to declare it again will result in an error. If you prefer more experimental flexibility in the REPL (Read, Eval, Print Loop) environment, you may use `var` instead of `const` to declare variables. Redeclaring `var` is allowed.
+注意一下，一个变量一旦用 `let` 或 `const` 声明，任何再次声明的尝试都将导致报错。如果你在 REPL（读取-求值-输出循环）环境中更喜欢多一些实验性和灵活性，那么建议你使用 `var` 声明变量，而不是 `const`。
 
-This text will use `const` in order to get you in the habit of defaulting to `const` for actual programs, but feel free to substitute `var` for the purpose of interactive experimentation.
+本文将使用 const 来让您习惯于为实际程序中用 `const`，而出于试验的目的自由切换回 `var`。
 
-### Types ###
+### 数据类型 ###
 
-So far we’ve seen two types: numbers and strings. JavaScript also has booleans (`true` or `false`), arrays, objects, and more. We'll get to other types later.
+目前为止我们见到了两种数据类型：数字和字符串。JavaScript 也有布尔值（`true` 或 `false`）、数组、对象等。稍后我们再看其他类型。
 
-An array is an ordered list of values. Think of it as a box that can hold many items. Here’s the array literal notation:
+数组是一系列值的有序列表。可以把它比作一个能够装很多元素的盒子。这是一个数组字面量：
 
 ```
 [1, 2, 3];
 ```
 
-Of course, that’s an expression which can be given a name:
+当然，它也是一个可被赋予名称的表达式：
 
 ```
 const arr = [1, 2, 3];
 ```
 
-An object in JavaScript is a collection of key: value pairs. It also has a literal notation:
+在 JavaScript 中，对象是一系列键值对的集合。它也有字面量：
 
 ```
 {
@@ -78,7 +79,7 @@ An object in JavaScript is a collection of key: value pairs. It also has a liter
 }
 ```
 
-And of course, you can assign an object to a name:
+当然，你也可以给对象赋予名称：
 
 ```
 const foo = {
@@ -86,40 +87,40 @@ const foo = {
 }
 ```
 
-If you want to assign existing variables to object property keys of the same name, there’s a shortcut for that. You can just type the variable name instead of providing both a key and a value:
+如果你想将现有变量赋值给同名的对象属性，这有个捷径。你可以仅输入变量名，而不用同时提供一个键和一个值：
 
 ```
 const a = 'a';
-const oldA = { a: a }; // long, redundant way
-const oA = { a }; // short an sweet!
+const oldA = { a: a }; // 长而冗余的写法
+const oA = { a }; // 短小精悍！
 ```
 
-Just for fun, let’s do that again:
+为了好玩而已，让我们再来一次：
 
 ```
 const b = 'b';
 const oB = { b };
 ```
 
-Objects can be easily composed together into new objects:
+对象可以轻松合并到新的对象中：
 
 ```
 const c = {...oA, ...oB}; // { a: 'a', b: 'b' }
 ```
 
-Those dots are the object spread operator. It iterates over the properties in `oA` and assigns them to the new object, then does the same for `oB`, overriding any keys that already exist on the new object. As of this writing, object spread is a new, experimental feature that may not be available in all the popular browsers yet, but if it's not working for you, there is a substitute: `Object.assign()`:
+这些点是对象扩展运算符。它迭代 `oA` 的属性并分配到新的对象中，`oB` 也是一样，在新对象中已经存在的键都会被重写。在撰写本文时，对象扩展是一个新的试验特性，可能还没有被所有主流浏览器支持，但如果你那不能用，还可以用 `Object.assign()` 替代：
 
 ```
 const d = Object.assign({}, oA, oB); // { a: 'a', b: 'b' }
 ```
 
-Only a little more typing in the `Object.assign()` example, and if you're composing lots of objects, it may even save you some typing. Note that when you use `Object.assign()`, you must pass a destination object as the first parameter. It is the object that properties will be copied to. If you forget, and omit the destination object, the object you pass in the first argument will be mutated.
+这个 `Object.assign()` 的例子代码很少，如果你想合并很多对象，它甚至可以节省一些打字。注意当你使用 `Object.assign()` 时，你必须传一个目标对象作为第一个参数。它就是那个源对象的属性将被复制过去的对象。如果你忘了传，第一个参数传递的对象将被改变。
 
-In my experience, mutating an existing object rather than creating a new object is usually a bug. At the very least, it is error-prone. Be careful with `Object.assign()`.
+以我的经验，改变一个已经存在的对象而不创建一个新的对象常常引发 bug。至少至少，它很容易出错。要小心使用 `Object.assign()`。
 
-### Destructuring ###
+### 解构 ###
 
-Both objects and arrays support destructuring, meaning that you can extract values from them and assign them to named variables:
+对象和数组都支持解构，这意味着你可以从中提取值分配给命过名的变量：
 
 ```
 const [t, u] = ['a', 'b'];
@@ -130,19 +131,19 @@ const blep = {
   blop: 'blop'
 };
 
-// The following is equivalent to:
+// 下面等同于：
 // const blop = blep.blop;
 const { blop } = blep;
 blop; // 'blop'
 ```
 
-As with the array example above, you can destructure to multiple assignments at once. Here’s a line you’ll see in lots of Redux projects:
+和上面数组的例子类似，你可以一次解构多次分配。下面这行你在大量的 Redux 项目中都能见到。
 
 ```
 const { type, payload } = action;
 ```
 
-Here’s how it’s used in the context of a reducer (much more on that topic coming later):
+下面是它在一个 reducer（后面的话题再详细说） 的上下文中的使用方法。
 
 ```
 const myReducer = (state = {}, action = {}) => {
@@ -154,75 +155,76 @@ const myReducer = (state = {}, action = {}) => {
 };
 ```
 
-If you don’t want to use a different name for the new binding, you can assign a new name:
+如果不想为新绑定使用不同的名称，你可以分配一个新名称：
 
 ```
 const { blop: bloop } = blep;
 bloop; // 'blop'
 ```
 
-Read: Assign `blep.blop` as `bloop`.
+读作：把 `blep.blop` 分配给 `bloop`。
 
-### Comparisons and Ternaries ###
+### 比较运算符和三元表达式 ###
 
-You can compare values with the strict equality operator (sometimes called “triple equals”):
+你可以用严格的相等操作符（有时称为“三等于”）来比较数据值：
 
 ```
 3 + 1 === 4; // true
 ```
 
-There’s also a sloppy equality operator. It’s formally known as the “Equal” operator. Informally, “double equals”. Double equals has a valid use-case or two, but it’s almost always better to default to the `===` operator, instead.
+还有另外一种宽松的相等操作符。它正式地被称为“等于”运算符。非正式地可以叫“双等于”。双等于有一两个有效的用例，但大多数时候默认使用 `===` 操作符是更好的选择。
 
-Other comparison operators include:
 
-- `>` Greater than
-- `<` Less than
-- `>=` Greater than or equal to
-- `<=` Less than or equal to
-- `!=` Not equal
-- `!==` Not strict equal
-- `&&` Logical and
-- `||` Logical or
+其它比较操作符有:
 
-A ternary expression is an expression that lets you ask a question using a comparator, and evaluates to a different answer depending on whether or not the expression is truthy:
+- `>` 大于
+- `<` 小于
+- `>=` 大于或等于
+- `<=` 小于或等于
+- `!=` 不等于
+- `!==` 严格不等于
+- `&&` 逻辑与
+- `||` 逻辑或
+
+三元表达式是一个可以让你使用一个比较器来问问题的表达式，运算出的不同答案取决于表达式是否为真:
 
 ```
 14 - 7 === 7 ? 'Yep!' : 'Nope.'; // Yep!
 ```
 
-### Functions ###
+### 函数 ###
 
-JavaScript has function expressions, which can be assigned to names:
+JavaScript 支持函数表达式，函数可以这样分配名称：
 
 ```
 const double = x => x * 2;
 ```
 
-This means the same thing as the mathematical function `f(x) = 2x`. Spoken out loud, that function reads `f` of `x` equals `2x`. This function is only interesting when you apply it to a specific value of `x`. To use the function in other equations, you'd write `f(2)`, which has the same meaning as `4`.
+这和数学表达式 `f(x) = 2x` 是一个意思。大声说出来，这个函数读作 `x` 的 `f` 等于 `2x`。这个函数只有当你用一个具体的 `x` 的值应用它的时候才有意思。在其它方程式里面你写 `f(2)`，就等同于 `4`。
 
-In other words, `f(2) = 4`. You can think of a math function as a mapping from inputs to outputs. `f(x)` in this case is a mapping of input values for `x` to corresponding output values equal to the product of the input value and `2`.
+换种说话就是 `f(2) = 4`。您可以将数学函数视为从输入到输出的映射。这个例子里 `f(x)` 是输入数值 `x` 到相应的输出数值的映射，等于输入数值和 `2` 的乘积。
 
-In JavaScript, the value of a function expression is the function itself:
+在 JavaScript 中，函数表达式的值是函数本身：
 
 ```
 double; // [Function: double]
 ```
 
-You can see the function definition using the `.toString()` method:
+你可以使用 `.toString()` 方法看到这个函数的定义。
 
 ```
 double.toString(); // 'x => x * 2'
 ```
 
-If you want to apply a function to some arguments, you must invoke it with a function call. A function call applies a function to its arguments and evaluates to a return value.
+如果要将函数应用于某些参数，则必须使用函数调用来调用它。函数调用会接收参数并且计算一个返回值。
 
-You can invoke a function using `<functionName>(argument1, argument2, ...rest)`. For example, to invoke our double function, just add the parentheses and pass in a value to double:
+你可以使用 `<functionName>(argument1, argument2, ...rest)` 调用一个函数。比如调用我们的 double 函数，就加一对括号并传进去一个值：
 
 ```
 double(2); // 4
 ```
 
-Unlike some functional languages, those parentheses are meaningful. Without them, the function won’t be called:
+和一些函数式语言不同，这对括号是有意义的。没有它们，函数将不会被调用。
 
 ```
 double 4; // SyntaxError: Unexpected number
@@ -481,7 +483,7 @@ Want to learn more about functional programming in JavaScript?
 [Learn JavaScript with Eric Elliott](http://ericelliottjs.com/product/lifetime-access-pass/). If you’re not a member, you’re missing out!
 
 [<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*3njisYUeHOdyLCGZ8czt_w.jpeg">
-](https://ericelliottjs.com/product/lifetime-access-pass/) 
+](https://ericelliottjs.com/product/lifetime-access-pass/)
 
 
 ***Eric Elliott*** is the author of [*“Programming JavaScript Applications”*](http://pjabook.com)  (O’Reilly), and [*“Learn JavaScript with Eric Elliott”*](http://ericelliottjs.com/product/lifetime-access-pass/) . He has contributed to software experiences for **Adobe Systems, Zumba Fitness, The Wall Street Journal, ESPN, BBC and top recording artists including Usher, Frank Ocean, Metallica**, and many more.
