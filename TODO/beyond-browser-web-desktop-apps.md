@@ -16,7 +16,7 @@
 
 ### 为什么？
 
-首先，为什么会有人开发桌面应用？任何现有的 web 应用（不同于网站，如果你认为它们是不同的）都可能适合变成一个桌面应用。你可以围绕任何可以从与用户系统集成中获益的 web 应用构建桌面应用；例如本地通知，开机启动，与文件的交互等。有些用户单纯更喜欢在自己的电脑中永久保存一些 app，无论是否联网都可以访问。
+首先，为什么会有人开发桌面应用？任何现有的 web 应用（不同于网站，如果你认为它们是不同的）都可能适合变成一个桌面应用。你可以围绕任何可以从与用户系统集成中获益的 web 应用构建桌面应用；例如本地通知、开机启动、与文件的交互等。有些用户单纯更喜欢在自己的电脑中永久保存一些 app，无论是否联网都可以访问。
 
 也许你有个想法，但只能用作桌面应用，有些事情只是在 web 应用中不可能实现（至少还有一点，但更多的是这一点）。你可能想要为公司内部创建一个独立的功能性应用程序，而不需要任何人安装除了你的 app 之外的任何内容（因为内置 Node.js ）。也许你有个有关 Mac 应用商店的想法，也许只是你的一个个人兴趣的小项目。
 
@@ -26,23 +26,23 @@
 
 ### NW.js
 
-桌面应用已经有很长一段时间了，我知道你没有很多时间，所以我们跳过一些历史，从2011年的上海开始。来自 Intel 开源技术中心的 Roger Wang 开发了 node-webkit，一个概念验证的 Node.js 模块，这个模块可以让用户创建一个 WebKit 内核的浏览器窗口并直接在 `<script>` 中调用 Node.js 模块。
+桌面应用已经有很长一段时间了，我知道你没有很多时间，所以我们跳过一些历史，从 2011 年的上海开始。来自 Intel 开源技术中心的 Roger Wang 开发了 node-webkit，一个概念验证的 Node.js 模块，这个模块可以让用户创建一个 WebKit 内核的浏览器窗口并直接在 `<script>` 中调用 Node.js 模块。
 
 经过一段时间的开发以及将内核从 WebKit 转换到 Chromium（Google Chrome 基于这个开源项目开发），一个叫 Cheng Zhao 的实习生加入了这个项目。不久就有人意识到一个基于 Node.js 和 Chromium 运行的应用是一个很好的建造桌面应用的框架。于是这个项目变得颇受欢迎。
 
-*注意*：node-webkit 后来更名为 NW.js，是因为项目不再使用 Node.js 以及 WebKit，所以需要改一个更通用的名字。Node.js 的替换选择是 io.js （Node.js fork 版本），Chromium 也已经从 WebKit 转为它自己的版本，Blink。
+*注意*：node-webkit 后来更名为 NW.js，是因为项目不再使用 Node.js 以及 WebKit，所以需要改一个更通用的名字。Node.js 的替换选择是 io.js （Node.js fork 版本），Chromium 也已经从 WebKit 转为它自己的版本 —— Blink。
 
-所以，如果现在去下载一个 NW.js 应用，实际上是下载了 Chromium，Node.js，以及真正的 app 的代码。这不仅意味着桌面应用也可以使用 HTML，CSS，JavaScript 来写，也意味着 app 可以直接使用所有 Node.js 的 API（比如读取或写入硬盘），而对于终端用户，没有比这更好的选择了。这看起来非常强大，但是它是怎么实现的呢？我们先来了解一下 Chromium。
+所以，如果现在去下载一个 NW.js 应用，实际上是下载了 Chromium、Node.js，以及真正的 app 的代码。这不仅意味着桌面应用也可以使用 HTML、CSS、JavaScript 来写，也意味着 app 可以直接使用所有 Node.js 的 API（比如读取或写入硬盘），而对于终端用户，没有比这更好的选择了。这看起来非常强大，但是它是怎么实现的呢？我们先来了解一下 Chromium。
 
 ![Chromium diagram](https://www.smashingmagazine.com/wp-content/uploads/2017/01/chromiumDiagram-preview-opt.png)
 
-Chromium 有一个主要的后台进程，每个标签页也会有自己的进程。你可能注意到 Google Chrome 在 Windows 的任务管理器或者 macOS 的活动监视器上总是至少存在两个进程。我并没有尝试在这里安排穿插主后台进程相关的内容，但是它包括了 Blink 渲染引擎，V8 JavaScript 引擎（也构建了 Node.js ）以及一些从原生 API 抽象出来的平台 API。每个独立的标签页或渲染的过程都可以使用 JavaScript 引擎，CSS 解析器等，但为了提高容错性，它们又和主进程是完全隔离的。渲染进程与主进程之间是用进程间通信（IPC）来进行通讯。
+Chromium 有一个主要的后台进程，每个标签页也会有自己的进程。你可能注意到 Google Chrome 在 Windows 的任务管理器或者 macOS 的活动监视器上总是至少存在两个进程。我并没有尝试在这里安排穿插主后台进程相关的内容，但是它包括了 Blink 渲染引擎、V8 JavaScript 引擎（也构建了 Node.js ）以及一些从原生 API 抽象出来的平台 API。每个独立的标签页或渲染的过程都可以使用 JavaScript 引擎、CSS 解析器等，但为了提高容错性，它们又和主进程是完全隔离的。渲染进程与主进程之间是用进程间通信（IPC）来进行通讯。
 
 ![NW.js diagram](https://www.smashingmagazine.com/wp-content/uploads/2017/01/nwjsDiagram-preview-opt.png)
 
 
 
-大致上这就是一个 NW.js app 的结构，它和 Chromium 基本一致，除了每个窗口也可以访问 Node.js。现在，你可以访问 DOM，可以访问其他脚本，npm 安装的模块，或者 NW.js 提供的内置的模块。你的 app 默认只有一个窗口，但从这一个窗口，可以生成其他窗口。
+大致上这就是一个 NW.js app 的结构，它和 Chromium 基本一致，除了每个窗口也可以访问 Node.js。现在，你可以访问 DOM，可以访问其他脚本、npm 安装的模块，或者 NW.js 提供的内置的模块。你的 app 默认只有一个窗口，但从这一个窗口，可以生成其他窗口。
 
 创建一个应用很简单，只需要一个 HTML 文件和一个 `package.json` 文件，就像你平时使用 Node.js 时那样。你可以使用 `npm init --yes` 新建一个默认的。一般来说，`package.json` 会指定一个 JavaScript 文件作为模块的入口（也就是使用 `main` 属性），但是如果是 NW.js，你需要去编辑一下 `main` 指向你的 HTML 文件。
 
@@ -85,11 +85,11 @@ Chromium 有一个主要的后台进程，每个标签页也会有自己的进�
 
 ![Screenshot of clippy.desktop on macOS](https://www.smashingmagazine.com/wp-content/uploads/2017/01/clippy-preview-opt.png)
 
-现在你可以写 HTML，CSS 和 JavaScript 了，你可以使用 Node.js 读写硬盘，执行系统命令，生成其他可执行文件等等。设想一下，你甚至可以通过 WebRTC 造一个多玩家的轮盘赌游戏，随机删除其他人的文件。
+现在你可以写 HTML，CSS 和 JavaScript 了，你可以使用 Node.js 读写硬盘、执行系统命令、生成其他可执行文件等等。设想一下，你甚至可以通过 WebRTC 造一个多玩家的轮盘赌游戏，随机删除其他人的文件。
 
 ![Bar graph showing the number of modules per major package manager](https://www.smashingmagazine.com/wp-content/uploads/2017/01/moduleCounts-preview-opt.png)
 
-你不仅可以使用 Node.js 的 API，还有所有 npm 的包，现在已经有超过35万个了。例如，[auto-launch](https://github.com/Teamwork/node-auto-launch) 是我们在 [Teamwork.com](https://www.teamwork.com/) 做的开源包，用来开机启动 NW.js 或者 Electron 应用。
+你不仅可以使用 Node.js 的 API，还有所有 npm 的包，现在已经有超过 35 万个了。例如，[auto-launch](https://github.com/Teamwork/node-auto-launch) 是我们在 [Teamwork.com](https://www.teamwork.com/) 做的开源包，用来开机启动 NW.js 或者 Electron 应用。
 
 如果你需要做一些偏底层的事，Node.js 也有原生的模块，能让你使用 C 或者 C++ 创建模块。
 
@@ -223,13 +223,13 @@ Electron 甚至支持 ARM 版本，所以你的 app 可以在 Chromebook 或者�
 
 关于代码签名的令人讨厌的事情是，你必须单独为某个平台签名你的应用程序，比如在 Mac 上签名 Mac 应用，在 Windows 签名 Windows 应用。因此，如果你很在乎发行桌面应用的话，就必须为每个发行版本分别构建适用于不同平台的应用（以及分别签名）。
 
-这可能会感到不够自动化很繁琐，特别是如果你习惯于在 web 上创建。幸运的是，electron-builder 被创造出来完成这些自动化工作。我说的是持续集成工具例如 [Jenkins](https://jenkins.io/)，[CodeShip](http://codeship.com/)，[Travis-CI](https://travis-ci.org/)，[AppVeyor](https://www.appveyor.com/)（Windows 集成）等。这些工具可以让你按一个按钮或者每次更新代码到 GitHub 时重新构建你的桌面应用。
+这可能会感到不够自动化很繁琐，特别是如果你习惯于在 web 上创建。幸运的是，electron-builder 被创造出来完成这些自动化工作。我说的是持续集成工具例如 [Jenkins](https://jenkins.io/)、[CodeShip](http://codeship.com/)、[Travis-CI](https://travis-ci.org/)、[AppVeyor](https://www.appveyor.com/)（Windows 集成）等。这些工具可以让你按一个按钮或者每次更新代码到 GitHub 时重新构建你的桌面应用。
 
 ### 自动更新
 
 NW.js 没有支持自动更新，但是由于我们可以随意使用 Node.js，我们可以做任何事情。开源模块可以帮你实现，比如 [node-webkit-updater](https://github.com/edjafarov/node-webkit-updater) 可以下载并替换为更新版本的 app。当然你也可以自己造轮子。
 
-通过 [autoUpdater](http://electron.atom.io/docs/api/auto-updater/) API，Electron 自带支持自动更新。但是它不支持 Linux 系统，所以我们建议发布你的 app 到 Linux 包管理器。不必担心, 这在 Linux 上很常见。`autoUpdater` API 使用非常简单，给定一个 URL 就可以调用 `checkForUpdates` 方法。因为它是事件驱动，所以你可以订阅 `update-downloaded` 事件，一旦该事件触发，就调用 `restartAndInstall` 方法来下载新版本 app 并且重启。你可以监听一些其他的事件，将自动更新和用户界面很好的捆绑起来。
+通过 [autoUpdater](http://electron.atom.io/docs/api/auto-updater/) API，Electron 自带支持自动更新。但是它不支持 Linux 系统，所以我们建议发布你的 app 到 Linux 包管理器。不必担心，这在 Linux 上很常见。`autoUpdater` API 使用非常简单，给定一个 URL 就可以调用 `checkForUpdates` 方法。因为它是事件驱动，所以你可以订阅 `update-downloaded` 事件，一旦该事件触发，就调用 `restartAndInstall` 方法来下载新版本 app 并且重启。你可以监听一些其他的事件，将自动更新和用户界面很好的捆绑起来。
 
 *注意*：你可以使用多个更新渠道，比如 Google Chrome 和 Google Chrome Canary。
 
@@ -284,7 +284,7 @@ else {
 
 构建一个可靠稳固的桌面 app 需要生产大量的文件。你需要为一个自动更新的系统生成可执行文件和安装包。然后对应的每一个更新，都需要再次构建可执行文件和更多的安装包（因为如果有人去你的网站下载，他们应当下载到最新版本）以及针对增量更新（delta update）的更新补丁。
 
-文件大小仍然是一个需要考虑的问题。一个“Hello, World!”的 Electron app 压缩包是 40 MB。在构建 web app 的时候，除了遵循一些常见规则外（比如写更少的代码，压缩文件，使用更少的依赖等等），我可以提供的意见不多。“Hello World” app 本质上就是一个包含了 HTML 文件的 app；占 app 体积的绝大多数文件是来自 Chromium 和 Node.js。至少在 Windows 平台上增量更新可以有效减少下载文件的大小。但是我希望用户不要在 2G 网络上去下载文件。
+文件大小仍然是一个需要考虑的问题。一个“Hello, World!”的 Electron app 压缩包是 40 MB。在构建 web app 的时候，除了遵循一些常见规则外（比如写更少的代码、压缩文件、使用更少的依赖等等），我可以提供的意见不多。“Hello World” app 本质上就是一个包含了 HTML 文件的 app；占 app 体积的绝大多数文件是来自 Chromium 和 Node.js。至少在 Windows 平台上增量更新可以有效减少下载文件的大小。但是我希望用户不要在 2G 网络上去下载文件。
 
 #### 预判意外状况
 
