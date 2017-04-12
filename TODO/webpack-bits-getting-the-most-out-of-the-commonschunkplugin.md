@@ -10,7 +10,7 @@ webpack 核心团队隔三差五地就会在 Twitter 上作一些寓教于乐的
 
 ![Markdown](http://i4.buimg.com/1949/614a949156a09f9e.png)
 
-这次的“游戏规则”很简单：安装 `webpacl-bundle-analyzer`，生成一张包含所有 bundles 信息的酷炫图片分享给我，然后 webpack 团队会帮忙指出任何潜在的问题。
+这次的“游戏规则”很简单：安装 `webpack-bundle-analyzer`，生成一张包含所有 bundles 信息的酷炫图片分享给我，然后 webpack 团队会帮忙指出任何潜在的问题。
 
 ### 我们发现了什么？ ###
 
