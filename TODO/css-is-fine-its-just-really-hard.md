@@ -1,5 +1,5 @@
 > * 原文地址：[CSS is Fine, It’s Just Really Hard](https://medium.com/@jdan/css-is-fine-its-just-really-hard-638da7a3dce0)
-> * 原文作者：[Jordan Scales](https://medium.com/@jdan)
+> * 原文作者：该文章已获原作者 [Jordan Scales](https://medium.com/@jdan) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者： [ZhangFe](https://github.com/ZhangFe)
 > * 校对者：[bambooom](https://github.com/bambooom)，[gy134340](https://github.com/gy134340)
