@@ -80,7 +80,7 @@ Airbnb 的提示听起来像人说的话而且语气还很随和。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*1EESYQmM9pt_SScMmgQqEg.png">
 
-**像“出错啦”这种警告对所有的用户都会造成困扰，而且还会惹恼专家级用户。**但是，一个精心设计过的错误信息，会顿时化失望为欣喜。所以，把报错变得人性化、不用技术性的语言并且适合你的用户群体。
+**像“出错啦”这种警告对所有的用户都会造成困扰，而且还会惹恼专家级用户。** 但是，一个精心设计过的错误信息，会顿时化失望为欣喜。所以，把报错变得人性化、不用技术性的语言并且适合你的用户群体。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*gX0GBH3BM_d_yjhk8Yvlaw.png">
 
@@ -100,7 +100,7 @@ Airbnb 的提示听起来像人说的话而且语气还很随和。
 
 #### 让用户界面更容易理解 ####
 
-**杂乱的堆砌是很糟糕的一件事情。**在界面上杂乱堆砌元素会给用户带来过多的信息：每一个被添加的按钮、图片和文字都会让界面显得更加复杂。如果你不想你的设计有任何刻意的留白的话，下面这个例子就能很明白的告诉你，有太多东西一起吸引你的注意力是多么可怕的事情。
+**杂乱的堆砌是很糟糕的一件事情。** 在界面上杂乱堆砌元素会给用户带来过多的信息：每一个被添加的按钮、图片和文字都会让界面显得更加复杂。如果你不想你的设计有任何刻意的留白的话，下面这个例子就能很明白的告诉你，有太多东西一起吸引你的注意力是多么可怕的事情。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*nzZwU1-KnaFrSpzMl04dWg.png">
 
