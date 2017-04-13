@@ -1,8 +1,8 @@
 > * 原文地址：[War against Learning Curve of RxJava2 + Java8 Stream [ Android RxJava2 ] ( What the hell is this ) Part4](http://www.uwanttolearn.com/android/war-learning-curve-rx-java-2-java-8-stream-android-rxjava2-hell-part4/)
 > * 原文作者：[Hafiz Waleed Hussain](http://www.uwanttolearn.com/author/admin/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
-> * 校对者：
+> * 译者： [Boiler Yao](https://github.com/boileryao)
+> * 校对者： [Vivienmm](https://github.com/Vivienmm)、[GitFuture](https://github.com/GitFuture)
 
 
 ## 大战 RxJava2 和 Java8 Stream [ Android RxJava2 ] （这到底是什么） 第四部分 ##
@@ -11,17 +11,16 @@
 
 又是新的一天，如果学点新东西，这一天一定会很酷炫。
 
-小伙伴们一切顺利啊，这是我们的 RxJava2 Android 系列的第四部分 [ [第一部分](https://github.com/xitu/gold-miner/blob/master/TODO/pull-vs-push-imperative-vs-reactive-reactive-programming-android-rxjava2-hell-part2.md)， [第二部分](http://www.uwanttolearn.com/android/pull-vs-push-imperative-vs-reactive-reactive-programming-android-rxjava2-hell-part2/)， [第三部分](https://github.com/xitu/gold-miner/blob/master/TODO/functional-interfaces-functional-programming-and-lambda-expressions-reactive-programming-android-rxjava2-what-the-hell-is-this-part3.md) ]。 好消息是我们已经做好准备，可以开始使用 Rx 了。在使用 RxJava2 Android Observable 之前，我会先用 Java8 的 Stream 来做响应式编程。我认为我们应该了解 Java8，我还感觉通过使用 Java8 的流式 API 会让 RxJava2 Android 的学习曲线更简单。
-
+小伙伴们一切顺利啊，这是我们的 RxJava2 Android 系列的第四部分 [ [第一部分](https://github.com/xitu/gold-miner/blob/master/TODO/pull-vs-push-imperative-vs-reactive-reactive-programming-android-rxjava2-hell-part2.md)， [第二部分](http://www.uwanttolearn.com/android/pull-vs-push-imperative-vs-reactive-reactive-programming-android-rxjava2-hell-part2/)， [第三部分](https://github.com/xitu/gold-miner/blob/master/TODO/functional-interfaces-functional-programming-and-lambda-expressions-reactive-programming-android-rxjava2-what-the-hell-is-this-part3.md) ]。 好消息是我们已经做好准备，可以开始使用 Rx 了。在使用 RxJava2 Android Observable 之前，我会先用 Java8 的 Stream 来做响应式编程。我认为我们应该了解 Java8，而且通过使用 Java8 的 Stream API 让我感觉学习 RxJava2 Android 的过程更简单。
 **动机：**
 
-动机跟我在 [第一部分](https://github.com/xitu/gold-miner/blob/master/TODO/pull-vs-push-imperative-vs-reactive-reactive-programming-android-rxjava2-hell-part2.md) 和大家分享过的一样。在我开始学习 RxJava2 Android 的时候，我并不知道我该怎样使用、在什么地方使用它。
+动机跟我在 [第一部分](https://github.com/xitu/gold-miner/blob/master/TODO/pull-vs-push-imperative-vs-reactive-reactive-programming-android-rxjava2-hell-part2.md) 和大家分享过的一样。在我开始学习 RxJava2 Android 的时候，我并不知道自己会在什么地方，以何种方式使用到它。
 
-现在我们已经学会了一些预备知识，但当时我什么都不知道。我那时从学习如何从数据或对象创建 Observable 开始。然后学会当 Observable 数据上发生变化时，去调用哪些接口（或者可以叫做“回调”）。这在理论上很棒，但是当我付诸实践的时候，GG了。我发现很多理论上应该成立的模式在我去用的时候完全不起作用。对我来说最大的问题，是不能用响应或者函数式响应的思维思考问题。我有命令式编程和面向对象编程的背景，由于先入为主，所以对我来说理解会有些难。我一直在问这些问题：我该在哪里实现？我应该怎么实现？如果你跟着这篇文章看下来，我可以 100% 保证你会知道怎样把命令式代码转换到 Rx 代码，虽然写出来的 Rx 代码可能不是很好，但是你起码知道怎么开始。
+现在我们已经学会了一些预备知识，但当时我什么都不懂。因此我开始学习如何根据数据或对象创建 Observable 。然后知道了当 Observable 的数据发生变化时，应该调用哪些接口（或者可以叫做“回调”）。这在理论上很好，但是当我付诸实践的时候，却 GG 了。我发现很多理论上应该成立的模式在我去用的时候完全不起作用。对我来说最大的问题，是不能用响应或者函数式响应的思维思考问题。我熟悉命令式编程和面向对象编程，由于先入为主，所以对我来说理解响应式会有些难。我一直在问这些问题：我该在哪里实现？我应该怎么实现？如果你能坚持看完这篇文章，我可以 100% 保证你会知道怎样把命令式代码转换成 Rx 代码，虽然写出来的 Rx 代码不是最好的，但至少你知道该从哪里入手了。
 
 **回顾：**
 
-我想回顾之前三篇文章中我们提到过的所有概念 [ [第一部分](https://github.com/xitu/gold-miner/blob/master/TODO/pull-vs-push-imperative-vs-reactive-reactive-programming-android-rxjava2-hell-part2.md)、[第二部分](http://www.uwanttolearn.com/android/pull-vs-push-imperative-vs-reactive-reactive-programming-android-rxjava2-hell-part2/)、 [第三部分](https://github.com/xitu/gold-miner/blob/master/TODO/functional-interfaces-functional-programming-and-lambda-expressions-reactive-programming-android-rxjava2-what-the-hell-is-this-part3.md) ]。因为现在我们要用到这些概念了。在 [第一部分](https://github.com/xitu/gold-miner/blob/master/TODO/pull-vs-push-imperative-vs-reactive-reactive-programming-android-rxjava2-hell-part2.md) 我们学习了观察者模式； 在 [第二部分](http://www.uwanttolearn.com/android/pull-vs-push-imperative-vs-reactive-reactive-programming-android-rxjava2-hell-part2/) 学习了拉模式和推模式、命令式和响应式；在 [第三部分](https://github.com/xitu/gold-miner/blob/master/TODO/functional-interfaces-functional-programming-and-lambda-expressions-reactive-programming-android-rxjava2-what-the-hell-is-this-part3.md) 我们学习了函数式接口（Functional Interfaces）、 接口默认方法（Default Methods）、高阶函数（Higher Order Functions）、函数的副作用（Side Effects in Functions）、纯函数（Pure Functions）、Lambda 表达式和函数式编程。我在下面写了一些定义（很无聊的东西）。如果你早就记得的话，可以跳到下一部分。
+我想回顾之前三篇文章中我们提到过的所有概念 [ [第一部分](https://github.com/xitu/gold-miner/blob/master/TODO/pull-vs-push-imperative-vs-reactive-reactive-programming-android-rxjava2-hell-part2.md)、[第二部分](http://www.uwanttolearn.com/android/pull-vs-push-imperative-vs-reactive-reactive-programming-android-rxjava2-hell-part2/)、 [第三部分](https://github.com/xitu/gold-miner/blob/master/TODO/functional-interfaces-functional-programming-and-lambda-expressions-reactive-programming-android-rxjava2-what-the-hell-is-this-part3.md) ]。因为现在我们要用到这些概念了。在 [第一部分](https://github.com/xitu/gold-miner/blob/master/TODO/pull-vs-push-imperative-vs-reactive-reactive-programming-android-rxjava2-hell-part2.md) 我们学习了观察者模式； 在 [第二部分](http://www.uwanttolearn.com/android/pull-vs-push-imperative-vs-reactive-reactive-programming-android-rxjava2-hell-part2/) 学习了拉模式和推模式、命令式和响应式；在 [第三部分](https://github.com/xitu/gold-miner/blob/master/TODO/functional-interfaces-functional-programming-and-lambda-expressions-reactive-programming-android-rxjava2-what-the-hell-is-this-part3.md) 我们学习了函数式接口（Functional Interfaces）、 接口默认方法（Default Methods）、高阶函数（Higher Order Functions）、函数的副作用（Side Effects in Functions）、纯函数（Pure Functions）、Lambda 表达式和函数式编程。我在下面写了一些定义（很无聊的东西）。如果你清楚这些定义，可以跳到下一部分。
 **函数式接口是只有一个抽象方法的接口。**
 **在 Java8 我们可以在接口中定义方法，这种方法叫做“默认方法”。**
 **至少有一个参数是函数的函数和返回类型为函数的函数称为高阶函数。**
@@ -30,7 +29,7 @@
 
 **简介：**
 
-今天我们将向 RxJava 的学习曲线宣战。我确定在最后我们会取得胜利。
+今天我们将向 RxJava 的学习宣战。我确定在最后我们会取得胜利。
 
 作战策略：
 
@@ -54,7 +53,7 @@ Stream:
 
 第一个问题：在英语中 Stream 是什么意思？
 
-答案：一条很窄的小河，或者源源不断流动的液体、空气、气体。在编程的时候把数据转化成“流”的形式，比如我有一个字符串但是我想把它变成“流”来使用我需要干些什么，我需要创建一个机制，使这个字符串满足“源源不断流动的液体、空气、气体 {**或者数据**}”的定义。问题是，我们为什么想要自己的数据变成“流”呢，下面是个简单的例子。
+答案：一条很窄的小河，或者源源不断流动的液体、空气、气体。在编程的时候把数据转化成“流”的形式，比如我有一个字符串，但是我想把它变成“流”来使用的话我需要干些什么，我需要创建一个机制，使这个字符串满足“源源不断流动的液体、空气、气体 {**或者数据**}”的定义。问题是，我们为什么想要自己的数据变成“流”呢，下面是个简单的例子。
 
 就像下面这幅图中画的那样，我有一杯混合着大大小小石子的蓝色的水。
 
@@ -90,9 +89,9 @@ Stream:
 
 把水转换成水流后，我们做了很多事情。我先用一个过滤器去掉了大石子，然后用另一个过滤器去掉了小石子， 最后用一个转换器（map）把水的颜色从蓝色变成黑色。
 
-当我将数据转换成流时，我将在编程中得到同样的好处。现在，我将把这个例子转换成代码。我要显示的代码是真正的代码。可能示例代码不能工作，但我将要使用的操作符和API是真实的，我们将在后面的实例中使用。所以，同志们不要把关注点放在编译上。通过这个例子，我有一种感觉，我们将很容易地把握这些概念。在这个例子中，重要的一点是，我使用Java8 的 Stream API 而不是 Rx API。我不想让事情变困难，但稍后我也会使用 Rx。
+当我将数据转换成流时，我将在编程中得到同样的好处。现在，我将把这个例子转换成代码。我要显示的代码是真正的代码。可能示例代码不能工作，但我将要使用的操作符和 API 是真实的，我们将在后面的实例中使用。所以，同志们不要把关注点放在编译上。通过这个例子，我有一种感觉，我们将很容易地把握这些概念。在这个例子中，重要的一点是，我使用 Java8 的 Stream API 而不是 Rx API。我不想让事情变困难，但稍后我也会使用 Rx。
 
-图像中的水 和 代码中的水：
+图像中的水 & 代码中的水：
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_1-300x253.jpg)](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_1.jpg)
 
@@ -107,36 +106,22 @@ public static void main(String [] args){
 ```
 
 输出:
-
 water
-
 water
-
 big stone
-
 water
-
 water
-
 small stone
-
 water
-
 small stone
-
 small stone
-
+water
+water
+water
+water
 water
 
-water
-
-water
-
-water
-
-water
-
-图像中的水流 和 代码中的水流：
+图像中的水流 & 代码中的水流：
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_2-237x300.jpg)](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_2.jpg)
 
@@ -150,7 +135,7 @@ public static void main(String[] args) {
 //输出和上面那个一样
 ```
 
-图像中的“大石子过滤器” 和 代码中的“大石子过滤器”：
+图像中的“大石子过滤器” & 代码中的“大石子过滤器”：
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_3-300x252.jpg)](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_3.jpg)
 
@@ -167,13 +152,13 @@ private static Predicate<String> BigStoneFilter  = new Predicate<String>() {
 };
 ```
 
-正如我们在 [第三部分](https://github.com/xitu/gold-miner/blob/master/TODO/functional-interfaces-functional-programming-and-lambda-expressions-reactive-programming-android-rxjava2-what-the-hell-is-this-part3.md) 已经知道的，任何函数式接口都可以转换成 Lambda 表达式。把上面的代码转换成 Lambda 表达式：
+正如我们在 [第三部分](https://github.com/xitu/gold-miner/blob/master/TODO/functional-interfaces-functional-programming-and-lambda-expressions-reactive-programming-android-rxjava2-what-the-hell-is-this-part3.md) 所学到的，任何函数式接口都可以转换成 Lambda 表达式。把上面的代码转换成 Lambda 表达式：
 
 ```
 private static Predicate<String> BigStoneFilter  = s -> !s.equals("big stone");
 ```
 
-图像中和代码中作用在水流上的”大石子过滤器“：
+图像和代码中的作用在水流上的“大石子过滤器”：
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_4-204x300.jpeg)](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_4.jpeg)
 
@@ -189,36 +174,23 @@ private static Predicate<String> BigStoneFilter  = s -> !s.equals("big stone");
 ```
 
 这里我使用了 forEach 方法，暂时把这当作流上的 for 循环。用在这里仅仅是为了输出。除去没有这个方法，我们也已经实现了我们在图像中表示的内容。是时候看看输出了：
-
 water
-
 water
-
 water
-
 water
-
 small stone
-
 water
-
 small stone
-
 small stone
-
 water
-
 water
-
 water
-
 water
-
 water
 
 没有大石子了，这意味着我们成功过滤了水。
 
-图像中的“小石子过滤器” 和 代码中的“小石子过滤器”：
+图像中的“小石子过滤器” & 代码中的“小石子过滤器”：
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_5-300x229.jpg)](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_5.jpg)
 
@@ -226,7 +198,7 @@ water
 private static Predicate<String> SmallStoneFilter  = s -> !s.equals("small stone");
 ```
 
-在图像和代码中使用”小石子过滤器“：
+在图像和代码中使用“小石子过滤器”：
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_6-228x300.png)](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_6.png)
 
@@ -246,32 +218,23 @@ private static Predicate<String> SmallStoneFilter  = s -> !s.equals("small stone
 我不打算解释 **SmallStoneFilter**，它的实现和 **BigStoneFilter** 是一样一样的。这里我只展示输出。
 
 water
-
+water
+water
+water
+water
+water
+water
+water
+water
 water
 
-water
-
-water
-
-water
-
-water
-
-water
-
-water
-
-water
-
-water
-
-图像中的”水颜色转换器“ 和 代码中的”水颜色转换器“
+图像中的“水颜色转换器” 和 代码中的“水颜色转换器”
 
 [![](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_7-300x171.jpg)](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_7.jpg)
 
 同志们这里需要注意！
 
-在 Java8 Stream 中有个叫做 Function 的函数式接口。所以，当我想进行转换的时候，需要把这个函数式接口送到流的转换（map）函数里面。现在，我给大家展示在我们的代码中如何创建“水颜色过滤器”。
+在 Java8 Stream 中有个叫做 Function 的函数式接口。所以，当我想进行转换的时候，需要把这个函数式接口送到流的转换（map）函数里面。现在，我给大家展示在我们的代码中如何创建“水颜色转换器”。
 
 ```
 private static Function<String, String > convertWaterColour = new Function<String, String>() {
@@ -316,25 +279,15 @@ private static Function<String, String> convertWaterColour = s -> s + " black";
 ```
 
 输出:
-
 water black
-
 water black
-
 water black
-
 water black
-
 water black
-
 water black
-
 water black
-
 water black
-
 water black
-
 water black
 
 完活！现在我们再次回顾一些内容。
@@ -567,13 +520,9 @@ protected void onCreate(Bundle savedInstanceState) {
 ```
 
 输出:
-
 03-12 16:13:32.432 14918-14918/async.waleed.rx I/Android: 1
-
 03-12 16:13:32.432 14918-14918/async.waleed.rx I/Android: 4
-
 03-12 16:13:32.432 14918-14918/async.waleed.rx I/Android: 9
-
 03-12 16:13:32.432 14918-14918/async.waleed.rx I/Android: 16
 
 ```
@@ -605,7 +554,8 @@ Observable.fromArray(data)
 
 我在一个项目中使用了 [OnBoarding](https://www.google.com/search?q=onboarding+ui&amp) 界面，根据 UI 设计需要在每个 OnBoarding 界面上显示点点，如下图所示：
 
-[![](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_15-300x287.jpg)](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_15.jpg)如果你观察得很仔细的话，可以看到我需要将选定的界面对应的点设置成黑色。
+[![](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_15-300x287.jpg)](http://www.uwanttolearn.com/wp-content/uploads/2017/03/war_against_learning_curve_of_rx_java_2_java_8_stream_15.jpg)
+如果你观察得很仔细的话，可以看到我需要将选定的界面对应的点设置成黑色。
 
 命令式编程的代码：
 
@@ -767,7 +717,7 @@ Observable.range(0, 10)
 
 **总结：**
 
-同志们干得好！今天我们学 Rx Android 学得很开心。我们从图画开始，然后使用了 Java8 的流（Stream）。之后将 Java8 的流转换到 RxJava 2 Android 的 Observable。再之后，我们看到了真实项目中的示例并且展示了在现有的项目中如何开始使用 Rx。最后，我展示了一些转换到 Rx 的技巧：把循环用 forEach 替换，把 if 换成 filter，用 map 进行数据转化，用 flatmap 代替嵌套的循环。下篇文章： [Dialogue between Rx Observable and a Developer (Me) [ Android RxJava2 ] ( What the hell is this ) Part5](http://www.uwanttolearn.com/android/dialogue-rx-observable-developer-android-rxjava2-hell-part5/).
+同志们干得好！今天我们学 Rx Android 学得很开心。我们从图画开始，然后使用了 Java8 的流（Stream）。之后将 Java8 的流转换到 RxJava 2 Android 的 Observable。再之后，我们看到了实际项目中的示例并且展示了在现有的项目中如何开始使用 Rx。最后，我展示了一些转换到 Rx 的技巧：把循环用 forEach 替换，把 if 换成 filter，用 map 进行数据转化，用 flatmap 代替嵌套的循环。下篇文章： [Dialogue between Rx Observable and a Developer (Me) [ Android RxJava2 ] ( What the hell is this ) Part5](http://www.uwanttolearn.com/android/dialogue-rx-observable-developer-android-rxjava2-hell-part5/).
 
 希望你们开心，同志们再见！
 
