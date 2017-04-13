@@ -1,8 +1,8 @@
 > * 原文地址：[Why Learn Functional Programming in JavaScript? (Composing Software)(part 2)](https://medium.com/javascript-scene/why-learn-functional-programming-in-javascript-composing-software-ea13afc7a257)
 > * 原文作者：[Eric Elliott](https://medium.com/@_ericelliott?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
-> * 校对者：
+> * 译者：[gy134340](https://github.com/gy134340)
+> * 校对者：[sunui](https://github.com/sunui),[avocadowang](https://github.com/avocadowang)
 
 # 为什么用 JavaScript 学习函数式编程？（软件构建）（第二部分）
 
@@ -10,7 +10,7 @@
 
 烟雾的方块艺术 —MattysFlicks —(CC BY 2.0)
 > 注意：这是从基础学习函数式编程和使用 JavaScript ES6+ 撰写软件的第二部分。保持关注，接下来还有很多！
->  [从第一部分开始](https://medium.com/javascript-scene/the-rise-and-fall-and-rise-of-functional-programming-composable-software-c2d91b424c8c#.2dfd6n6qe) | [接下来的 >](https://medium.com/javascript-scene/a-functional-programmers-introduction-to-javascript-composing-software-d670d14ede30#.2e4youss2)
+>  [从第一部分开始](https://github.com/xitu/gold-miner/blob/master/TODO/the-rise-and-fall-and-rise-of-functional-programming-composable-software.md) | [接下来的 >](https://github.com/xitu/gold-miner/blob/master/TODO/a-functional-programmers-introduction-to-javascript-composing-software.md)
 
 忘掉你认为知道的关于 JavaScript 的一切，用初学者的眼光去看待它。为了帮助你做到这一点，我们将会从头复习一下 JavaScript 的基础，就像你与其尚未谋面一样。如果你是初学者，那你就很幸运了。最终从零开始探索 ES6 和函数式编程！希望所有的概念都被解释清楚 — 但不要太依赖于此。
 
@@ -20,9 +20,9 @@
 
 JavaScript 有函数式编程所需要的最重要的特性：
 
-1. **一级公民函数：**使用函数作为数据值的能力：用函数传参，返回函数，用函数做变量和对象属性。这个属性允许更高级别的函数，使偏函数应用、柯里化和组合成为可能。
-2. **匿名函数和简洁的 lambda 语法：**`x => x * 2` 是 JavaScript 中有效的函数表达式。简洁的 lambda 语法使得高阶函数变的简单。
-3. **闭包：**闭包是一个有着自己独立作用域的捆绑函数。闭包在函数被创建时被创建。当一个函数在另一个函数内部被创建，它可以访问外部函数的变量，即使在外部函数退出后。通过闭包偏函数应用可以获取内部固定参数。固定的参数时绑定在返回函数的作用域范围内的参数。在 `add2(1)(2)` 中，`1` 是 `add2(1)` 返回的函数中的固定参数。
+1. **一级公民函数：** 使用函数作为数据值的能力：用函数传参，返回函数，用函数做变量和对象属性。这个属性允许更高级别的函数，使偏函数应用、柯里化和组合成为可能。
+2. **匿名函数和简洁的 lambda 语法：** `x => x * 2` 是 JavaScript 中有效的函数表达式。简洁的 lambda 语法使得高阶函数变的简单。
+3. **闭包：** 闭包是一个有着自己独立作用域的捆绑函数。闭包在函数被创建时被创建。当一个函数在另一个函数内部被创建，它可以访问外部函数的变量，即使在外部函数退出后。通过闭包偏函数应用可以获取内部固定参数。固定的参数时绑定在返回函数的作用域范围内的参数。在 `add2(1)(2)` 中，`1` 是 `add2(1)` 返回的函数中的固定参数。
 
 ### JavaScript 缺少了什么
 
@@ -40,19 +40,19 @@ JavaScript 是多范式语言，意味着它支持多种风格的编程。其他
 
 下面是一些函数式语言拥有但是 JavaScript 没有的特性：
 
-1. **纯粹性：**在一些函数式语言中，纯粹性是强制的，有副作用的表达式是不被允许的。
-2. **不可变性：**一些函数式语言不允许转变，采用表达式来产生新的数据结构来代替更改一个已存的数据结构，比如说数组或者对象。这样看起来可能不够高效，但是大多数函数式语言在引擎下使用 trie 数据结构，具有结构共享的特点：意味着旧的对象和新的对象是对相同数据的引用。
-3. **递归：**递归是函数引用自身来进行迭代的能力。在大多数函数式语言中，递归是迭代的唯一方式，它们没有像 `for` 、`while`、`do` 这类循环语句。
+1. **纯粹性：** 在一些函数式语言中，纯粹性是强制的，有副作用的表达式是不被允许的。
+2. **不可变性：** 一些函数式语言不允许转变，采用表达式来产生新的数据结构来代替更改一个已存的数据结构，比如说数组或者对象。这样看起来可能不够高效，但是大多数函数式语言在引擎下使用 trie 数据结构，具有结构共享的特点：意味着旧的对象和新的对象是对相同数据的引用。
+3. **递归：** 递归是函数引用自身来进行迭代的能力。在大多数函数式语言中，递归是迭代的唯一方式，它们没有像 `for` 、`while`、`do` 这类循环语句。
 
-**纯粹性：**在 JavaScript 中，纯粹性由约定来达成，如果你不是使用纯函数来构成你的大多数应用，那么你就不是在进行函数式风格的编程。很不幸，在 JavaScript 中，你很容易就会不小心创建和使用一些不纯的函数。
+**纯粹性：** 在 JavaScript 中，纯粹性由约定来达成，如果你不是使用纯函数来构成你的大多数应用，那么你就不是在进行函数式风格的编程。很不幸，在 JavaScript 中，你很容易就会不小心创建和使用一些不纯的函数。
 
-**不可变性：**在纯函数式语言中，不可变性通常是强制的，JavaScript 缺少函数式语言中高效的、基于 trie 树的数据结构，但是你可以使用一些库，包括 [Immutable.js](https://facebook.github.io/immutable-js/) 和 [Mori](https://github.com/swannodette/mori)，由衷期望未来的 ECMAScript 规范版本可以拥抱不可变数据结构。
+**不可变性：** 在纯函数式语言中，不可变性通常是强制的，JavaScript 缺少函数式语言中高效的、基于 trie 树的数据结构，但是你可以使用一些库，包括 [Immutable.js](https://facebook.github.io/immutable-js/) 和 [Mori](https://github.com/swannodette/mori)，由衷期望未来的 ECMAScript 规范版本可以拥抱不可变数据结构。
 
 有一些迹象带来了希望，比如说在 ES6 中添加了 `const` 关键字，`const` 声明的变量不能被重新赋值，重要的是要理解 `const` 所声明的值并不是不可改变的。
 
 `const` 声明的对象不能被重新声明为新的对象，但是对象的属性却是可变的，JavaScript 有 `freeze()` 对象的能力，但是这些对象只能在根实例上被冻结，意味着嵌套着的对象还是可以改变它的属性。换句话说，在 JavaScript 规范中看到真正的不可变还有很长的路要走。
 
-**递归：**JavaScript 技术上支持递归，但是大多数函数式语言都有尾部调用优化的特性，尾部调用优化是一个允许递归的函数重用堆栈帧来递归调用的特性。
+**递归：** JavaScript 技术上支持递归，但是大多数函数式语言都有尾部调用优化的特性，尾部调用优化是一个允许递归的函数重用堆栈帧来递归调用的特性。
 
 没有尾部调用优化，一个调用的栈很可能没有边界导致堆栈溢出。JavaScript 在 ES6 规范中有一个有限的尾调用优化。不幸的是，只有一个主要的浏览器引擎支持它，这个优化被部分应用随后从 Babel(最流行的 JavaScript 编译器，在旧的浏览器中被用来把 ES6 编译到 ES5) 中移除。
 
@@ -64,7 +64,7 @@ JavaScript 是多范式语言，意味着它支持多种风格的编程。其他
 
 Monads 的问题是，尽管它的使用很简单，但是对一个不是很熟悉它的人解释清楚它有点像“对牛谈琴”。
 
-> “Monad说白了不过就是自函子范畴上的一个幺半群而已，这有什么难以理解的?” ～James Iry 所引用 Philip Wadler 的话，解释一个 Saunders Mac Lane 说过的名言。[*“编程语言简要、不完整之黑历史”*](http://james-iry.blogspot.com/2009/05/brief-incomplete-and-mostly-wrong.html)
+> “Monad说白了不过就是自函子范畴上的一个幺半群而已，这有什么难以理解的?” ～James Iry 所引用 Philip Wadler 的话，解释一个 Saunders Mac Lane 说过的名言。[**“编程语言简要、不完整之黑历史”**](http://james-iry.blogspot.com/2009/05/brief-incomplete-and-mostly-wrong.html)
 
 典型的，这是在调侃这有趣的一点。在上面的引用中，关于 Monads 的解释相比最初的有了很大的简化，原来是下面这样：
 
@@ -135,7 +135,7 @@ JavaScript 的真正优势在于其生态系统中的思想和用户的多样性
 
 App 正在吞食世界， web 正在吞食 app， 同时 JavaScript 正在吞食 web。
 
-[**接下来的第三部分: 函数式开发者的 JavScript 介绍…**](https://medium.com/javascript-scene/a-functional-programmers-introduction-to-javascript-composing-software-d670d14ede30#.zdpw16p65)
+[**接下来的第三部分: 函数式开发者的 JavScript 介绍…**](https://github.com/xitu/gold-miner/blob/master/TODO/a-functional-programmers-introduction-to-javascript-composing-software.md)
 
 ### 下一步
 
@@ -148,7 +148,7 @@ App 正在吞食世界， web 正在吞食 app， 同时 JavaScript 正在吞食
 
 *Eric Elliott* 是 [*“Programming JavaScript Applications”*](http://pjabook.com) (O’Reilly) 和 “Learn JavaScript with Eric Elliott” 的作者。他曾效力于 *Adobe Systems, Zumba Fitness, he Wall Street Journal, ESPN, BBC, and top recording artists including Usher, Frank Ocean, Metallica* 和其他一些公司。
 
-*他和她的老婆（很漂亮）大部分时间都在旧金山湾区里。*
+**他和她的老婆（很漂亮）大部分时间都在旧金山湾区里。**
 
 
 ---
