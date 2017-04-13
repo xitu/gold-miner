@@ -219,13 +219,17 @@ functionrequestHandler(req, res){
 	res.setHeader('X-XSS-Protection','1;mode=block');}
 ```
 
-### Controlling Framing ###
+### Controlling Framing 控制 iframe ###
 
-An iframe (or HTML inline frame element, if you want to be more formal) is a DOM element that allows a web app to be nested within a parent web app. This powerful element enables some important web use cases, such as embedding third-party content into web apps, but it also has significant drawbacks, such as not being SEO-friendly and not playing nice with browser navigation — the list goes on.
+> An iframe (or HTML inline frame element, if you want to be more formal) is a DOM element that allows a web app to be nested within a parent web app. This powerful element enables some important web use cases, such as embedding third-party content into web apps, but it also has significant drawbacks, such as not being SEO-friendly and not playing nice with browser navigation — the list goes on.
 
-One of the caveats of iframes is that it makes clickjacking easier. Clickjacking is an attack that tricks the user into clicking something different than what they think they’re clicking. To understand a simple implementation of clickjacking, consider the HTML markup below, which tries to trick the user into buying a toaster when they think they are clicking to win a prize!
+iframe （正式来说，是一个 HTML 的行内框架元素）是一个 DOM 元素，它允许一个 web 应用嵌套在另一个 web 应用中。这个强大的元素有部分重要的使用场景，比如在 web 应用中嵌入第三方内容， 但它也有重大的缺点，例如对 SEO 不友好，对浏览器导航跳转也不友好，还有很多。
 
-```
+> One of the caveats of iframes is that it makes clickjacking easier. Clickjacking is an attack that tricks the user into clicking something different than what they think they’re clicking. To understand a simple implementation of clickjacking, consider the HTML markup below, which tries to trick the user into buying a toaster when they think they are clicking to win a prize!
+
+其中一个需要注意的事是它是的点击劫持变得更加容易。点击劫持是一种让用户点击与他们想要点击的不同的攻击。要理解一个简单的劫持实现，参考以下 HTML，当用户认为他们点击可以获得奖品时，实际上是试图欺骗用户购买面包机。
+
+```html
 <html>
   <body>
     <button class='some-class'>Win a Prize!</button>
@@ -234,38 +238,56 @@ One of the caveats of iframes is that it makes clickjacking easier. Clickjacking
 </html>
 ```
 
-Clickjacking has many malicious applications, such as tricking the user into confirming a Facebook like, purchasing an item online and even submitting confidential information. Malicious web apps can leverage iframes for clickjacking by embedding a legitimate web app inside their malicious web app, rendering the iframe invisible with the `opacity: 0` CSS rule, and placing the iframe’s click target directly on top of an innocent-looking button rendered by the malicious web app. A user who clicks the innocent-looking button will trigger a click on the embedded web app — without at all knowing the effect of their click.
+> Clickjacking has many malicious applications, such as tricking the user into confirming a Facebook like, purchasing an item online and even submitting confidential information. Malicious web apps can leverage iframes for clickjacking by embedding a legitimate web app inside their malicious web app, rendering the iframe invisible with the `opacity: 0` CSS rule, and placing the iframe’s click target directly on top of an innocent-looking button rendered by the malicious web app. A user who clicks the innocent-looking button will trigger a click on the embedded web app — without at all knowing the effect of their click.
 
-An effective way to block this attack is by restricting your web app from being framed. `X-Frame-Options`, specified in [RFC 7034](https://www.ietf.org/rfc/rfc7034.txt), is designed to do exactly that! This header instructs the browser to apply limitations on whether your web app can be embedded within another web page, thus blocking a malicious web page from tricking users into invoking various transactions on your web app. You can either block framing completely using the `DENY` directive, whitelist specific domains using the `ALLOW-FROM` directive, or whitelist only the web app’s origin using the `SAMEORIGIN` directive.
+点击劫持有许多恶意应用程序，例如欺骗用户确认 Facebook 点赞，在线购买商品，甚至提交机密信息。恶意 web 应用程序可以通过在其恶意应用中嵌入合法的 web 应用来利用 iframe 进行点击劫持，这可以通过设置 `opacity: 0` 的 CSS 规则将其隐藏，并将 iframe 的点击目标直接放置在看起来无辜的按钮之上。点击了这个无辜按钮的用户会直接点击在嵌入的 web 应用上，并不知道点击后的作用。
 
-My recommendation is to use the `SAMEORIGIN` directive, which enables iframes to be leveraged for apps on the same domain — which may be useful at times — and which maintains security. This recommended header looks like this:
+> An effective way to block this attack is by restricting your web app from being framed. `X-Frame-Options`, specified in [RFC 7034](https://www.ietf.org/rfc/rfc7034.txt), is designed to do exactly that! This header instructs the browser to apply limitations on whether your web app can be embedded within another web page, thus blocking a malicious web page from tricking users into invoking various transactions on your web app. You can either block framing completely using the `DENY` directive, whitelist specific domains using the `ALLOW-FROM` directive, or whitelist only the web app’s origin using the `SAMEORIGIN` directive.
+
+阻止这种攻击的一种有效的方法是限制你的 web 应用被框架化。`X-Frame-Options`，在 [RFC 7034](https://www.ietf.org/rfc/rfc7034.txt) 中引入，就是设计用来做这件事的。此响应头指示浏览器对你的 web 应用是否可以被嵌入另一个网页进行限制，从而阻止恶意网页欺骗用户调用你的应用程序上的各种事务。你可以使用 `DENY` 完全屏蔽，或者使用 `ALLOW-FROM` 指定将特定域列入白名单，也可以使用 `SAMEORIGIN` 指令将应用的源地址列入白名单。
+
+> My recommendation is to use the `SAMEORIGIN` directive, which enables iframes to be leveraged for apps on the same domain — which may be useful at times — and which maintains security. This recommended header looks like this:
+
+我的建议是使用 `SAMEORIGIN` 指令，因为它允许 iframe 被用于同一域上的可以保证安全性的应用程序，这有时是有用的。
 
 ```
 X-Frame-Options: SAMEORIGIN
 ```
 
-Here’s an example of a configuration of this header to enable framing on the same origin in Node.js:
+以下是在 Node.js 中设置此响应头的示例代码：
 
-```
+```javascript
 functionrequestHandler(req, res){
 	res.setHeader('X-Frame-Options','SAMEORIGIN');}
 ```
 
-### Explicitly Whitelisting Sources ###
+### 指定白名单资源 ###
 
-As we’ve noted earlier, you can add in-depth security to your web app by enabling the browser’s XSS filter. However, note that this mechanism is limited, is not supported by all browsers (Firefox, for instance, does not have an XSS filter) and relies on pattern-matching techniques that can be tricked.
+> As we’ve noted earlier, you can add in-depth security to your web app by enabling the browser’s XSS filter. However, note that this mechanism is limited, is not supported by all browsers (Firefox, for instance, does not have an XSS filter) and relies on pattern-matching techniques that can be tricked.
 
-Another layer of in-depth protection against XSS and other attacks can be achieved by explicitly whitelisting trusted sources and operations — which is what Content Security Policy (CSP) enables web app developers to do.
+如前所述，你可以通过启用浏览器的 XSS 过滤器，给你的 web 应用程序增强安全性。然而请注意，这种机制是有局限性的，不是所有浏览器都支持（例如 Firefox 就不支持 XSS 过滤），并且依赖的模式匹配技术可以被欺骗。
 
-CSP is a [W3C specification](https://www.w3.org/TR/2016/WD-CSP3-20160901/) that defines a powerful browser-based security mechanism, enabling granular control over resource-loading and script execution in a web app. With CSP, you can whitelist specific domains for operations such as script-loading, AJAX calls, image-loading and style sheet-loading. You can enable or disable inline scripts or dynamic scripts (the notorious `eval`) and control framing by whitelisting specific domains for framing. Another cool feature of CSP is that it allows you to configure a real-time reporting target, so that you can monitor your app in real time for CSP blocking operations.
+> Another layer of in-depth protection against XSS and other attacks can be achieved by explicitly whitelisting trusted sources and operations — which is what Content Security Policy (CSP) enables web app developers to do.
 
-This explicit whitelisting of resource loading and execution provides in-depth security that in many cases will fend off attacks. For example, by using CSP to disallow inline scripts, you can fend off many of the reflective XSS attack variants that rely on injecting inline scripts into the DOM.
+对抗 XSS 和其他攻击的更多一层的保护，可以通过明确列出可信来源和操作来实现 —— 这就是内容安全策略（CSP）。
 
-CSP is a relatively complex header, with a lot of directives, and I won’t go into the details of the various directives. HTML5 Rocks has a [great tutorial](https://www.html5rocks.com/en/tutorials/security/content-security-policy/) that provides an overview of CSP, and I highly recommend reading it and learning how to use CSP in your web app.
+> CSP is a [W3C specification](https://www.w3.org/TR/2016/WD-CSP3-20160901/) that defines a powerful browser-based security mechanism, enabling granular control over resource-loading and script execution in a web app. With CSP, you can whitelist specific domains for operations such as script-loading, AJAX calls, image-loading and style sheet-loading. You can enable or disable inline scripts or dynamic scripts (the notorious `eval`) and control framing by whitelisting specific domains for framing. Another cool feature of CSP is that it allows you to configure a real-time reporting target, so that you can monitor your app in real time for CSP blocking operations.
 
-Here’s a simple example of a CSP configuration to allow script-loading from the app’s origin only and to block dynamic script execution (`eval`) and inline scripts (as usual, on Node.js):
+CSP 是一种 W3C 规范，它定义了强大的基于浏览器的安全机制，可以对 web 应用中的资源加载以及脚本执行进行精细的控制。使用 CSP 可以将特定的域加入白名单进行例如脚本加载、AJAX 调用、图像加载和样式加载。你可以启用或禁用内嵌脚本或动态脚本（臭名昭著的 `eval`），并通过将特定域列入白名单来控制 iframe。CSP 的另一个很酷的功能是它允许配置实时报告目标，一遍实时监控应用程序进行 CSP 阻止操作。
 
-```
+> This explicit whitelisting of resource loading and execution provides in-depth security that in many cases will fend off attacks. For example, by using CSP to disallow inline scripts, you can fend off many of the reflective XSS attack variants that rely on injecting inline scripts into the DOM.
+
+这种对资源加载和脚本执行的明确的白名单提供了很强的安全性，在很多情况下都可以防范攻击。例如，使用 CSP 禁止内嵌脚本，你可以防范很多反射型 XSS 攻击，因为它们依赖于将内嵌脚本注入到 DOM。
+
+> CSP is a relatively complex header, with a lot of directives, and I won’t go into the details of the various directives. HTML5 Rocks has a [great tutorial](https://www.html5rocks.com/en/tutorials/security/content-security-policy/) that provides an overview of CSP, and I highly recommend reading it and learning how to use CSP in your web app.
+
+CSP 是一个相对复杂的响应头，它有很多种指令，在这里我不详细展开了，可以参考 HTML5 Rocks 里一篇很棒的[教程](https://www.html5rocks.com/en/tutorials/security/content-security-policy/)，提供了 CSP 的概述，我非常推荐阅读它来学习如何在你的 web 应用中使用 CSP。
+
+> Here’s a simple example of a CSP configuration to allow script-loading from the app’s origin only and to block dynamic script execution (`eval`) and inline scripts (as usual, on Node.js):
+
+以下是一个设置 CSP 的示例代码，它仅允许从应用程序的源域加载脚本，并组织动态脚本的执行（eval）以及内嵌脚本（当然，还是 Node.js):
+
+```javascript
 functionrequestHandler(req, res){
 	res.setHeader('Content-Security-Policy',"script-src 'self'");}
 ```
