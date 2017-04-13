@@ -100,7 +100,7 @@ lambda 表达式对软件设计产生了很大的影响，在 1980 年之前，�
 
 你在阅读下一部分时，可以使用实例实验，记住要把你自己当孩子一样把其他的思想扔在一边在学习中去探索和玩耍。重新发现孩童时发现新事物的欣喜。让我们来做一些魔术吧。
 
-[接下来的第二部分：“为什么要用 JavaScript 学习函数式编程？”]
+[接下来的第二部分：“为什么要用 JavaScript 学习函数式编程？”](https://github.com/xitu/gold-miner/blob/master/TODO/why-learn-functional-programming-in-javascript-composing-software.md)
 
 ### 下一步
 
