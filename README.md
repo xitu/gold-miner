@@ -5,7 +5,7 @@
 
 [掘金翻译计划](https://juejin.im/tag/%E6%8E%98%E9%87%91%E7%BF%BB%E8%AF%91%E8%AE%A1%E5%88%92) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](#android)、[iOS](#ios)、[React](#react)、[前端](#前端)、[后端](#后端)、[产品](#产品)、[设计](#设计) 等领域，读者为热爱新技术的新锐开发者。
 
-掘金翻译计划目前翻译完成 [456](#近期文章列表) 篇文章，共有 [300](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
+掘金翻译计划目前翻译完成 [457](#近期文章列表) 篇文章，共有 [300](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
 
 #  官方指南：
 
@@ -37,10 +37,10 @@
 
 ## 前端
 
+* [同中有异的 Webpack 与 Rollup](https://juejin.im/post/58edb865570c350057f199a7?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lsvih](https://github.com/lsvih) 翻译)
 * [webpack 拾翠：充分利用 CommonsChunkPlugin()](https://juejin.im/post/58ec4e3f5c497d0062c470bf?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([reid3290](https://github.com/reid3290) 翻译)
 * [写给“老派” Web 开发者的“现代” JavaScript 指南](https://juejin.im/post/58ebab0c8d6d81006191376f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([SunCafe](http://suncafe.cc/) 翻译)
 * [CSS很棒，只是真的太难了](https://juejin.im/entry/58eae24a61ff4b0061a6a102?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([ZhangFe](https://github.com/ZhangFe) 翻译)
-* [Preload，Prefetch 和它们在 Chrome 之中的优先级](https://juejin.im/post/58e8acf10ce46300585a7a42?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([gy134340](http://gy134340.com/) 翻译)
 * [所有前端译文>>](https://github.com/xitu/gold-miner/blob/master/front-end.md)
 
 
