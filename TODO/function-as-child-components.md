@@ -187,7 +187,7 @@ Ratio.defaultProps = {
 
 Alright, so I did a lot there. We added some event listeners to listen for resize events as well as actually computing the width and height using the provided ratio. Neat, so we’ve got a width and height in our internal state, how can we share it with other components?
 
-This is one of those things that is hard to understand because it is so simple that when you see it you think, “That can’t be all there is to it.” but this ***is***all there is to it.
+This is one of those things that is hard to understand because it is so simple that when you see it you think, “That can’t be all there is to it.” but this is all there is to it.
 
 #### Children is literally just a JavaScript function. ####
 
