@@ -2,7 +2,7 @@
 > * 原文作者：[Jonathan Z. White](https://medium.freecodecamp.com/@JonathanZWhite?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[owenlyn](https://github.com/owenlyn)
-> * 校对者：
+> * 校对者：[luoqiuyu](https://github.com/luoqiuyu),[Tina92](https://github.com/Tina92)
 
 ---
 
@@ -59,7 +59,7 @@
 
 当你明确了你想要解决的问题并有了一个解决方案的时候，你可能会问自己这是不是一个好的点子。
 
-**相当一部分看起来很糟糕的点子最后被证明是超级棒的生意。** 比如，当年没人想投资 Airbnb。 Brian Chesky, Airbnb 的创始人之一，在他的文章 [7 Rejections](https://medium.com/@bchesky/7-rejections-7d894cbaa084#.l8fdqlasz) 里详细讲述了被投资人拒绝的故事。
+**相当一部分看起来很糟糕的点子最后却造就了一些伟大的公司。** 比如，当年没人想投资 Airbnb。 Brian Chesky, Airbnb 的创始人之一，在他的文章 [7 Rejections](https://medium.com/@bchesky/7-rejections-7d894cbaa084#.l8fdqlasz) 里详细讲述了被投资人拒绝的故事。
 
 ![](https://cdn-images-1.medium.com/max/800/1*WpxUxMCO-7NXr-o1yo023g.png)
 
