@@ -88,8 +88,6 @@ lambda 表达式对软件设计产生了很大的影响，在 1980 年之前，�
 
 在 2010 年左右，一些有趣的事情发生了：JavaScript 的崛起。在大概 2006 年以前，JavaScript 被广泛的看作玩具语言和被用制作浏览器中好玩的动画，但是它里面隐藏着一些极其强大的特性。即 lambda 表达式中最重要的特性。人们开始暗中讨论一个叫做 “函数式编程的” 酷东西。
 
-[![](https://i.embed.ly/1/display/resize?url=https%3A%2F%2Fpbs.twimg.com%2Fprofile_images%2F3722564505%2Fb8030b8f3990875e8f38ed877fdf8d25_bigger.png&key=4fce0568f2ce49e8b54624ef71a8a5bd&width=40)](https://video.twimg.com/tweet_video/CmectVVVUAAsvpo.mp4)
-
 ![](http://ww1.sinaimg.cn/large/006tNbRwgy1fekui0p6i3j30j50hcmyn.jpg)
 我一直在告诉大家 #JavaScript 并不是一门玩具语言。现在我需要展示它。
 
