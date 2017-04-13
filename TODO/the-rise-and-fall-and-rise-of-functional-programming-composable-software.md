@@ -90,8 +90,8 @@ lambda 表达式对软件设计产生了很大的影响，在 1980 年之前，�
 
 [![](https://i.embed.ly/1/display/resize?url=https%3A%2F%2Fpbs.twimg.com%2Fprofile_images%2F3722564505%2Fb8030b8f3990875e8f38ed877fdf8d25_bigger.png&key=4fce0568f2ce49e8b54624ef71a8a5bd&width=40)](https://video.twimg.com/tweet_video/CmectVVVUAAsvpo.mp4)
 
-
-我一直在告诉大家 [JavaScript] 并不是一门玩具语言。现在我需要展示它。[#StarWars](https://twitter.com/hashtag/StarWars?src=hash) [@BrendanEich](https://twitter.com/BrendanEich)
+![](http://ww1.sinaimg.cn/large/006tNbRwgy1fekui0p6i3j30j50hcmyn.jpg)
+我一直在告诉大家 #JavaScript 并不是一门玩具语言。现在我需要展示它。
 
 在 2015 年，使用函数的组合来编写软件又开始流行起来。为了更简单化，JavaScript 规范获得的数十年来第一次主要的更新并且添加了箭头函数，为了更简单的编写和读取函数、柯里化，和 lambda 语句。
 
