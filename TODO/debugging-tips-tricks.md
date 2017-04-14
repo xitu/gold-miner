@@ -8,9 +8,9 @@
 
 Writing code is only one small piece of being a developer. In order to be efficient and capable at our jobs, we must also excel at debugging. When I dedicate some time to learning new debugging skills, I often find I can move much quicker, and add more value to the teams I work on. I have a few tips and tricks I rely on pretty heavily and found that I give the same advice again and again during workshops, so here’s a compilation of some of them, as well as some from the community. We'll start with some core tenants and then drill down to more specific examples.
 
-### # Main Concepts ###
+### Main Concepts ###
 
-#### # Isolate the Problem ####
+#### Isolate the Problem ####
 
 Isolation is possibly the strongest core tenant in all of debugging. Our codebases can be sprawling, with different libraries, frameworks, and they can include many contributors, even people who aren't working on the project anymore. Isolating the problem helps us slowly whittle away non-essential parts of the problem so that we can singularly focus on a solution.
 
@@ -39,7 +39,7 @@ The `console.table` function is also a favorite tool of mine, especially great f
 
 console.dir gives an interactive listing
 
-#### #Be Methodical ####
+#### Be Methodical ####
 
 When I teach workshops and help students in my class, the number one thing that I find holds them back as they try to debug a problem is not being methodical enough. This is truly a tortoise-and-the-hare kind of situation. They understandably want to move quickly, so they change a ton of things at once, and then when something stops working, they don’t know which thing they changed is causing the error. Then, to debug, they change many things at once and get a little lost trying to figure out what is working and what isn't.
 
@@ -47,15 +47,15 @@ We all do this to some extent. As we become more proficient with a tool, we can 
 
 **Do you remember when you were a kid and your parents said, "if you get lost, stay where you are?"** My parents did, at least. It's because if they were moving around to find me and I was also moving around to find them, we'd have fewer chances of bumping into one another. Code works the same way. The less moving pieces you have, the better- the more you are returning consistent results, the easier it will be to track things down. So while you’re debugging, try not to also install anything, or put in new dependencies. If you see a different error every time you should be returning a static result, that’s a big red flag you should be headed right for with your sleuth hat on.
 
-### # Choose Good Tools ###
+### Choose Good Tools ###
 
 There are a million different tools for solving a variety of problems. I’m going to work through some of the tools I find the most useful and then we’ll link off to a bevy of resources.
 
-#### # Syntax Highlighting ####
+#### Syntax Highlighting ####
 
 Sure, it’s damn fun to pick out the new hotness in colors and flavors for your syntax highlighting theme, but spending some time thinking about clarity here matters. I often pick dark themes where a skip in syntax will turn all of my code a lighter color, I find errors are really easy to see right away. I tend to like Oceanic Next or Panda, but really, to each their own on this one. It’s important to keep in mind that when looking for a good syntax highlighter, awesome-looking is great, but functional for calling out your mistakes is most important, and it's totally possible to do both.
 
-#### # Linting ####
+#### Linting ####
 
 Linting helps flag suspicious code and calls out errors we might have overlooked. Linting is incredibly important, but which linter you choose has so much to do with what language/framework you’re writing in, and then on top of that, what your agreed-upon code style is.
 
@@ -66,7 +66,7 @@ Here are some resources:
 - I recently found [this responsive images linter](https://github.com/ausi/respimagelint), that tells you what opportunities you might have to use picture, srcset, or sizes.
 - Here’s a [pretty good breakdown](https://www.sitepoint.com/comparison-javascript-linting-tools/) of some JS linters
 
-#### # Browser Extensions ####
+#### Browser Extensions ####
 
 Extensions can be really awesome because they can be enabled and disabled so readily, and they can work with really specific requirements. If you’re working with a particular library or framework, chances are, having their extension for DevTools enabled is going to give you all sorts of clarity that you can’t find otherwise. Take care though- not only can extensions bog a browser down, but they have permissions to execute scripts, so do a little homework into the extension author, ratings, and background. All that said, here are some of my favorites:
 
@@ -76,7 +76,7 @@ Extensions can be really awesome because they can be enabled and disabled so rea
 - [Codopen](https://chrome.google.com/webstore/detail/codopen/agnkphdgffianchpipdbkeaclfbobaak): pops you out of the editor mode into a debug window for CodePen. Full disclosure: my husband made this for me as a present because he was sick of watching me manually opening the debug window (best gift ever!)
 - [Pageruler](https://chrome.google.com/webstore/detail/page-ruler/jlpkojjdgbllmedoapgfodplfhcbnbpn): get pixel dimensions and measure anything on a page. I like this one because I’m super duper anal about my layout. This helps me feed the beast.
 
-### # DevTools ###
+### DevTools ###
 
 This is probably the most obvious of debugging tools, and there are so many things you can do with them. They can have so many packed-in features that can be easy to miss, so in the next section of specific tips, we'll go into a deep dive of some favorites.
 
@@ -88,7 +88,7 @@ One of my favorite recent ones is this [CSS Tracker Enhancement](https://umaar.c
 
 The CSS tracker shows color-coded rules for used and unused sets.
 
-#### # Misc Tools ####
+#### Misc Tools ####
 
 - [What input](https://ten1seven.github.io/what-input/) is a global utility for tracking the current input method (mouse, keyboard or touch), as well as the current intent- this can be really good for tracking down accessiblity leaks (hat tip to Marcy Sutton, accessibility expert for this tipoff)
 - [Ghostlabapp](https://www.vanamco.com/ghostlab/) is a pretty snazzy tool if you’re doing responsive development or checking anything deployed across a ton of devices. It offers synchronized web development, testing, and inspection.
@@ -96,11 +96,11 @@ The CSS tracker shows color-coded rules for used and unused sets.
 
 ![eruda gives you a mobile console](https://cdn.css-tricks.com/wp-content/uploads/2017/04/Screen-Shot-2017-04-10-at-10.38.57-AM.png)
 
-### # Specific Tips ###
+### Specific Tips ###
 
 I am always interested in what other people do to debug, so I asked the community through the CSS-Tricks account and my own what they were really into. This list is a mixture of tips I like as well as a roundup of tips from the community.
 
-#### # Accessibility ####
+#### Accessibility ####
 
 ```
 $('body').on('focusin',function(){
@@ -111,7 +111,7 @@ $('body').on('focusin',function(){
 
 -[Marcy Sutton](https://twitter.com/marcysutton)
 
-#### # Debugging CSS ####
+#### Debugging CSS ####
 
 We got quite a lot of responses saying that people put red borders on elements to see what they’re doing
 
@@ -121,7 +121,7 @@ We got quite a lot of responses saying that people put red borders on elements t
 
 I do this too, I even have a little CSS file that drops in some classes I can access for different colors easily.
 
-#### # Checking State in React ####
+#### Checking State in React ####
 
 > [@sarah_edo](https://twitter.com/sarah_edo) <pre>{JSON.stringify(this.state, null, 2)}</pre>
 >
@@ -129,7 +129,7 @@ I do this too, I even have a little CSS file that drops in some classes I can ac
 
 Props to Michael, this is one of the most useful debugging tools I know of. That snippet "pretty prints" the state of the component you're working with onto the component so that you can see what’s going on. You can validate that the state is working the way that you think it should be, and it helps track down any errors between the state and how you're using it.
 
-#### # Animation ####
+#### Animation ####
 
 We got a lot of responses that said they slow the animation way down:
 
@@ -145,7 +145,7 @@ I also slow down my animations in JavaScript- in GreenSock that would look like:
 
 If you want to use the Chrome Devtools timeline to do performance audits, it's worth mentioning that painting is the most expense of the tasks, so all things being equal, pay a little more attention to a high percentage of that green.
 
-#### # Checking different connection speeds and loads ####
+#### Checking different connection speeds and loads ####
 
 I tend to work on fast connections, so I will throttle my connection to check and see what the performance would look like for people who don’t have my internet speed.
 
@@ -157,7 +157,7 @@ This is also useful in conjunction with a hard reload, or with the cache empty
 >
 > — David Corbacho (@dcorbacho) [March 15, 2017](https://twitter.com/dcorbacho/status/842033259664035840)
 
-#### # Set a Timed Debugger ####
+#### Set a Timed Debugger ####
 
 This one came from Chris. We have a whole writeup on it [right here](https://css-tricks.com/set-timed-debugger-web-inspect-hard-grab-elements/):
 
@@ -169,7 +169,7 @@ setTimeout(function() {
 
 It’s similar to the debugger; tool I mentioned earlier, except you can put it in a setTimeout function and get even more fine-tuned information
 
-#### # Simulators ####
+#### Simulators ####
 
 > [@Real_CSS_Tricks](https://twitter.com/Real_CSS_Tricks) And just in case any Mac users didn't know this, iOS simulator + Safari is sweet. [pic.twitter.com/Uz4XO3e6uD](https://t.co/Uz4XO3e6uD)
 >
@@ -183,7 +183,7 @@ I mentioned simulators with Eruda before. iOS users also get a pretty sweet simu
 
 Chrome also has a device toggle which is helpful.
 
-#### # Remote Debuggers ####
+#### Remote Debuggers ####
 
 > [@chriscoyier](https://twitter.com/chriscoyier)[@Real_CSS_Tricks](https://twitter.com/Real_CSS_Tricks)[https://t.co/q3OfWKNlUo](https://t.co/q3OfWKNlUo) is a good tool.
 >
@@ -191,7 +191,7 @@ Chrome also has a device toggle which is helpful.
 
 I actually didn't know about this tool until seeing this tweet. Pretty useful!
 
-#### # CSS Grid Debugging #### (#article-header-id-18 .has-header-link)
+#### CSS Grid Debugging #### (#article-header-id-18 .has-header-link)
 
 Rachel Andrew gave a presentation at Smashing and mentioned a little waffle thing you can click on in Firefox that will illuminate the gutters in the grid. [Her video](http://gridbyexample.com/learn/2016/12/17/learning-grid-day17/) explains it really eloquently.
 
@@ -199,7 +199,7 @@ Rachel Andrew gave a presentation at Smashing and mentioned a little waffle thin
 
 Rachel Andrew shows how to highlight gutters in Firefox DevTools.
 
-#### # Array Debugging ####
+#### Array Debugging ####
 
 Wes Bos with a really useful tip for searching for a single item in an array:
 
@@ -207,7 +207,7 @@ Wes Bos with a really useful tip for searching for a single item in an array:
 >
 > — Wes Bos (@wesbos) [March 15, 2017](https://twitter.com/wesbos/status/842069915158884354)
 
-### # Further Debugging Resources ###
+### Further Debugging Resources ###
 
 Jon Kuperman has a [Frontend Masters course](https://frontendmasters.com/courses/chrome-dev-tools/) that can help you master devtools it goes along [with this app](https://github.com/jkup/mastering-chrome-devtools).
 
