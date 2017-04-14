@@ -4,18 +4,15 @@
 > * 译者：
 > * 校对者：
 
-# Debugging Tips and Tricks #    
+# Debugging Tips and Tricks #
 
 Writing code is only one small piece of being a developer. In order to be efficient and capable at our jobs, we must also excel at debugging. When I dedicate some time to learning new debugging skills, I often find I can move much quicker, and add more value to the teams I work on. I have a few tips and tricks I rely on pretty heavily and found that I give the same advice again and again during workshops, so here’s a compilation of some of them, as well as some from the community. We'll start with some core tenants and then drill down to more specific examples.
-
-[![](https://s3.buysellads.com/1279518/7386844-1491489478.jpg)](https://srv.buysellads.com/ads/click/x/GTND4237CVYDL23JCV74YKQWF67DTKJNCT7DKZ3JCEAI45QUCT7D6K7KC6BDLKJEF67DTK3EHJNCLSIZ) 
-
 
 ### # Main Concepts ###
 
 #### # Isolate the Problem ####
 
-Isolation is possibly the strongest core tenant in all of debugging. Our codebases can be sprawling, with different libraries, frameworks, and they can include many contributors, even people who aren't working on the project anymore. Isolating the problem helps us slowly whittle away non-essential parts of the problem so that we can singularly focus on a solution. 
+Isolation is possibly the strongest core tenant in all of debugging. Our codebases can be sprawling, with different libraries, frameworks, and they can include many contributors, even people who aren't working on the project anymore. Isolating the problem helps us slowly whittle away non-essential parts of the problem so that we can singularly focus on a solution.
 
 Some of the benefits of isolation include, but are not limited to:
 
@@ -36,7 +33,7 @@ You can take this one step further in Chrome DevTools and even walk through the 
 
 Good 'ol `console.log` is a form of isolation. (Or `echo` in PHP, or `print` in python, etc…). You are taking one tiny piece of execution and testing your assumptions, or checking to see if something is altering. This is probably the most time-tested form of debugging, that no matter how advanced you become, still has it's uses. Arrow functions in ES6 have allowed us to step up our console debugging game as well, as it’s now a lot easier to write useful one-liners in the console.
 
-The `console.table` function is also a favorite tool of mine, especially great for when you have a lot of data you need to represent- large arrays, large objects and the like. The `console.dir` function is also a nice alternative. It will log an interactive listing of an object's properties. 
+The `console.table` function is also a favorite tool of mine, especially great for when you have a lot of data you need to represent- large arrays, large objects and the like. The `console.dir` function is also a nice alternative. It will log an interactive listing of an object's properties.
 
 ![](https://cdn.css-tricks.com/wp-content/uploads/2017/04/dir.png)
 
@@ -93,11 +90,11 @@ The CSS tracker shows color-coded rules for used and unused sets.
 
 #### # Misc Tools ####
 
-- [What input](https://ten1seven.github.io/what-input/) is a global utility for tracking the current input method (mouse, keyboard or touch), as well as the current intent- this can be really good for tracking down accessiblity leaks (hat tip to Marcy Sutton, accessibility expert for this tipoff)  
+- [What input](https://ten1seven.github.io/what-input/) is a global utility for tracking the current input method (mouse, keyboard or touch), as well as the current intent- this can be really good for tracking down accessiblity leaks (hat tip to Marcy Sutton, accessibility expert for this tipoff)
 - [Ghostlabapp](https://www.vanamco.com/ghostlab/) is a pretty snazzy tool if you’re doing responsive development or checking anything deployed across a ton of devices. It offers synchronized web development, testing, and inspection.
 - [Eruda is an awesome tool](http://eruda.liriliri.io/) that helps debug on mobile devices. I really like it because it takes a simulator a step further, gives a console and real devtools to help you gain understanding.
 
-![eruda gives you a mobile console](https://cdn.css-tricks.com/wp-content/uploads/2017/04/Screen-Shot-2017-04-10-at-10.38.57-AM.png) 
+![eruda gives you a mobile console](https://cdn.css-tricks.com/wp-content/uploads/2017/04/Screen-Shot-2017-04-10-at-10.38.57-AM.png)
 
 ### # Specific Tips ###
 
@@ -119,7 +116,7 @@ $('body').on('focusin',function(){
 We got quite a lot of responses saying that people put red borders on elements to see what they’re doing
 
 > [@sarah_edo](https://twitter.com/sarah_edo) for CSS, I'll usually have a .debug class with a red border that I slap on troublesome elements.
-> 
+>
 > — Jeremy Wagner (@malchata) [March 15, 2017](https://twitter.com/malchata/status/842029469246324736)
 
 I do this too, I even have a little CSS file that drops in some classes I can access for different colors easily.
@@ -127,7 +124,7 @@ I do this too, I even have a little CSS file that drops in some classes I can ac
 #### # Checking State in React ####
 
 > [@sarah_edo](https://twitter.com/sarah_edo) <pre>{JSON.stringify(this.state, null, 2)}</pre>
-> 
+>
 > — MICHAEL JACKSON (@mjackson) [March 15, 2017](https://twitter.com/mjackson/status/842041642760646657)
 
 Props to Michael, this is one of the most useful debugging tools I know of. That snippet "pretty prints" the state of the component you're working with onto the component so that you can see what’s going on. You can validate that the state is working the way that you think it should be, and it helps track down any errors between the state and how you're using it.
@@ -137,7 +134,7 @@ Props to Michael, this is one of the most useful debugging tools I know of. That
 We got a lot of responses that said they slow the animation way down:
 
 > [@sarah_edo](https://twitter.com/sarah_edo)[@Real_CSS_Tricks](https://twitter.com/Real_CSS_Tricks) * { animation-duration: 10s !important; }
-> 
+>
 > — Thomas Fuchs (@thomasfuchs) [March 15, 2017](https://twitter.com/thomasfuchs/status/842029720820695040)
 
 I mentioned this on a post I wrote right here on CSS Tricks about [debugging CSS Keyframe animations](https://css-tricks.com/debugging-css-keyframe-animations/), there are more tips too, like how to hardware accelerate, or work with multiple transforms in different percentages.
@@ -157,7 +154,7 @@ I tend to work on fast connections, so I will throttle my connection to check an
 This is also useful in conjunction with a hard reload, or with the cache empty
 
 > [@sarah_edo](https://twitter.com/sarah_edo) Not so secret trick. But still many people are unaware. You need DevTools open, and then right click over the refresh button. [pic.twitter.com/FdAfF9Xtxm](https://t.co/FdAfF9Xtxm)
-> 
+>
 > — David Corbacho (@dcorbacho) [March 15, 2017](https://twitter.com/dcorbacho/status/842033259664035840)
 
 #### # Set a Timed Debugger ####
@@ -175,13 +172,13 @@ It’s similar to the debugger; tool I mentioned earlier, except you can put it 
 #### # Simulators ####
 
 > [@Real_CSS_Tricks](https://twitter.com/Real_CSS_Tricks) And just in case any Mac users didn't know this, iOS simulator + Safari is sweet. [pic.twitter.com/Uz4XO3e6uD](https://t.co/Uz4XO3e6uD)
-> 
+>
 > — Chris Coyier (@chriscoyier) [March 15, 2017](https://twitter.com/chriscoyier/status/842034009060302848)
 
 I mentioned simulators with Eruda before. iOS users also get a pretty sweet simulator. I was going to tell you you have to install XCode first, but this tweet showed another way:
 
 > [@chriscoyier](https://twitter.com/chriscoyier)[@Real_CSS_Tricks](https://twitter.com/Real_CSS_Tricks) Or, you can use this approach if you didn't want to bother with installing xCode:  [https://t.co/WtAnZNo718](https://t.co/WtAnZNo718)
-> 
+>
 > — Chris Harrison (@cdharrison) [March 15, 2017](https://twitter.com/cdharrison/status/842038887904088065)
 
 Chrome also has a device toggle which is helpful.
@@ -189,7 +186,7 @@ Chrome also has a device toggle which is helpful.
 #### # Remote Debuggers ####
 
 > [@chriscoyier](https://twitter.com/chriscoyier)[@Real_CSS_Tricks](https://twitter.com/Real_CSS_Tricks)[https://t.co/q3OfWKNlUo](https://t.co/q3OfWKNlUo) is a good tool.
-> 
+>
 > — Gilles 💾⚽ (@gfra54) [March 15, 2017](https://twitter.com/gfra54/status/842035375304523777)
 
 I actually didn't know about this tool until seeing this tweet. Pretty useful!
@@ -198,7 +195,7 @@ I actually didn't know about this tool until seeing this tweet. Pretty useful!
 
 Rachel Andrew gave a presentation at Smashing and mentioned a little waffle thing you can click on in Firefox that will illuminate the gutters in the grid. [Her video](http://gridbyexample.com/learn/2016/12/17/learning-grid-day17/) explains it really eloquently.
 
-![](https://cdn.css-tricks.com/wp-content/uploads/2017/04/Screen-Shot-2017-04-10-at-9.58.14-AM.png) 
+![](https://cdn.css-tricks.com/wp-content/uploads/2017/04/Screen-Shot-2017-04-10-at-9.58.14-AM.png)
 
 Rachel Andrew shows how to highlight gutters in Firefox DevTools.
 
@@ -207,14 +204,14 @@ Rachel Andrew shows how to highlight gutters in Firefox DevTools.
 Wes Bos with a really useful tip for searching for a single item in an array:
 
 > If you are just looking for a single item array.find() is 🔥 [https://t.co/AuRtyFwnq7](https://t.co/AuRtyFwnq7)
-> 
+>
 > — Wes Bos (@wesbos) [March 15, 2017](https://twitter.com/wesbos/status/842069915158884354)
 
 ### # Further Debugging Resources ###
 
 Jon Kuperman has a [Frontend Masters course](https://frontendmasters.com/courses/chrome-dev-tools/) that can help you master devtools it goes along [with this app](https://github.com/jkup/mastering-chrome-devtools).
 
-There’s a small course on code school called [discover devtools](https://www.codeschool.com/courses/discover-devtools). 
+There’s a small course on code school called [discover devtools](https://www.codeschool.com/courses/discover-devtools).
 
 Umar Hansa has a new online course called [Modern DevTools](https://moderndevtools.com/).
 
