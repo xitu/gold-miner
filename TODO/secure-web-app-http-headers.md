@@ -292,39 +292,45 @@ functionrequestHandler(req, res){
 	res.setHeader('Content-Security-Policy',"script-src 'self'");}
 ```
 
-### Preventing Content-Type Sniffing ###
+### 防止 Content-Type 嗅探 ###
 
-In an effort to make the user experience as seamless as possible, many browsers have implemented a feature called content-type sniffing, or MIME sniffing. This feature enables the browser to detect the type of a resource provided as part of an HTTP response by “sniffing” the actual resource bits, regardless of the resource type declared through the `Content-Type` response header. While this feature is indeed useful in some cases, it introduces a vulnerability and an attack vector known as a MIME confusion attack. A MIME-sniffing vulnerability enables an attacker to inject a malicious resource, such as a malicious executable script, masquerading as an innocent resource, such as an image. With MIME sniffing, the browser will ignore the declared image content type, and instead of rendering an image will execute the malicious script.
+> In an effort to make the user experience as seamless as possible, many browsers have implemented a feature called content-type sniffing, or MIME sniffing. This feature enables the browser to detect the type of a resource provided as part of an HTTP response by “sniffing” the actual resource bits, regardless of the resource type declared through the `Content-Type` response header. While this feature is indeed useful in some cases, it introduces a vulnerability and an attack vector known as a MIME confusion attack. A MIME-sniffing vulnerability enables an attacker to inject a malicious resource, such as a malicious executable script, masquerading as an innocent resource, such as an image. With MIME sniffing, the browser will ignore the declared image content type, and instead of rendering an image will execute the malicious script.
 
-Luckily, the `X-Content-Type-Options` response header mitigates this vulnerability! This header, introduced in Internet Explorer 8 back in 2008 and currently supported by most major browsers (Safari is the only major browser not to support it), instructs the browser not to use sniffing when handling fetched resources. Because `X-Content-Type-Options` was only formally specified as part of the [“Fetch” specification](https://fetch.spec.whatwg.org/#x-content-type-options-header), the actual implementation varies across browsers; some (Internet Explorer and Edge) completely avoid MIME sniffing, whereas others (Firefox) still MIME sniff but rather block executable resources (JavaScript and CSS) when an inconsistency between declared and actual types is detected. The latter is in line with the latest Fetch specification.
+为了使用户体验尽可能无缝连接，许多浏览器实现了一个功能叫 内容类型嗅探，或者 MIME 嗅探。这个功能使得浏览器可以通过「嗅探」实际 HTTP 响应的资源的内容直接检测到资源的类型，无论在响应头中 `Content-Type` 是如何指定资源类型的。虽然这个功能在某些情况下确实是有用的，它引入了一个漏洞以及一种叫 MIME 混乱攻击。MIME 嗅探漏洞使攻击者可以注入恶意资源，例如恶意脚本，伪装成一个无辜的资源，例如一个图片。通过 MIME 嗅探，浏览器将忽略声明的图像内容类型，它不会渲染图片，而是执行恶意脚本。
 
-`X-Content-Type-Options` is a simple response header, with only one directive: `nosniff`. This header looks like this: `X-Content-Type-Options: nosniff`. Here’s an example of a configuration of the header:
+> Luckily, the `X-Content-Type-Options` response header mitigates this vulnerability! This header, introduced in Internet Explorer 8 back in 2008 and currently supported by most major browsers (Safari is the only major browser not to support it), instructs the browser not to use sniffing when handling fetched resources. Because `X-Content-Type-Options` was only formally specified as part of the [“Fetch” specification](https://fetch.spec.whatwg.org/#x-content-type-options-header), the actual implementation varies across browsers; some (Internet Explorer and Edge) completely avoid MIME sniffing, whereas others (Firefox) still MIME sniff but rather block executable resources (JavaScript and CSS) when an inconsistency between declared and actual types is detected. The latter is in line with the latest Fetch specification.
 
-```
+幸运的是，`X-Content-Type-Options` 响应头缓解了这个漏洞。此响应头在 2008 年引入 IE8，目前大多数主流浏览器都支持（Safari 是唯一不支持的主流浏览器），它指示浏览器在处理获取的资源时不使用嗅探。因为 `X-Content-Type-Options` 仅在 [「Fetch」规范](https://fetch.spec.whatwg.org/#x-content-type-options-header)中正式指定，实际的实现因浏览器而异。一部分浏览器（IE 和 Edge）完全阻止了 MIME 嗅探，而其他一些（Firefox）仍然会进行 MIME 嗅探，但会屏蔽掉可执行的资源（JavaScript 和 CSS）如果声明的内容类型与实际的类型不一致。后者符合最新的 Fetch 规范。
+
+> `X-Content-Type-Options` is a simple response header, with only one directive: `nosniff`. This header looks like this: `X-Content-Type-Options: nosniff`. Here’s an example of a configuration of the header:
+
+`X-Content-Type-Options` 是一个很简单的响应头，它只有一个指令，`nosniff`。它是这样指定的：`X-Content-Type-Options: nosniff`。以下是示例代码：
+
+```javascript
 functionrequestHandler(req, res){
 	res.setHeader('X-Content-Type-Options','nosniff');}
 ```
 
-### Summary ###
+### 总结 ###
 
-In this article, we have seen how to leverage HTTP headers to reinforce the security of your web app, to fend off attacks and to mitigate vulnerabilities.
+> In this article, we have seen how to leverage HTTP headers to reinforce the security of your web app, to fend off attacks and to mitigate vulnerabilities.
 
-#### Takeaways ####
+本文中，我们了解了如何利用 HTTP 响应头来加强 web 应用的安全性，防止攻击和减轻漏洞。
 
-- Disable caching for confidential information using the `Cache-Control` header.
-- Enforce HTTPS using the `Strict-Transport-Security` header, and add your domain to Chrome’s preload list.
-- Make your web app more robust against XSS by leveraging the `X-XSS-Protection` header.
-- Block clickjacking using the `X-Frame-Options` header.
-- Leverage `Content-Security-Policy` to whitelist specific sources and endpoints.
-- Prevent MIME-sniffing attacks using the `X-Content-Type-Options` header.
+#### 要点 ####
 
-Remember that for the web to be truly awesome and engaging, it has to be secure. Leverage HTTP headers to build a more secure web!
+- 使用 `Cache-Control` 禁用对机密信息的缓存
+- 通过 `Strict-Transport-Security` 强制使用 HTTPS，并将你的域添加到 Chrome 预加载列表
+- 利用 `X-XSS-Protection` 使你的 web 应用更加能抵抗 XSS 攻击
+- 使用 `X-Frame-Options` 阻止点击劫持
+- 利用 `Content-Security-Policy` 将特定来源于端点列入白名单
+- 使用 `X-Content-Type-Options` 防止 MIME 嗅探攻击
+
+请记住，为了使 web 真正迷人，它必须是安全的。利用 HTTP 响应头构建更加安全的网页吧！
 
 
 
-(**Disclaimer:** The content of this post is my own and doesn’t represent my past or current employers in any way whatsoever.)
-
-*Front page image credits: [Pexels.com](https://www.pexels.com/photo/coffee-writing-computer-blogging-34600/).*
+(**声明:** 此文内容仅属本人，不代表本人过去或现在的雇主。)
 
 ---
 
