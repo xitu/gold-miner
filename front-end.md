@@ -1,3 +1,4 @@
+* [超越浏览器：从 web 应用到桌面应用](https://juejin.im/entry/58f07ea5ac502e006c1e0301?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([bambooom](https://github.com/bambooom) 翻译)
 * [同中有异的 Webpack 与 Rollup](https://juejin.im/post/58edb865570c350057f199a7?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lsvih](https://github.com/lsvih) 翻译)
 * [webpack 拾翠：充分利用 CommonsChunkPlugin()](https://juejin.im/post/58ec4e3f5c497d0062c470bf?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([reid3290](https://github.com/reid3290) 翻译)
 * [写给“老派” Web 开发者的“现代” JavaScript 指南](https://juejin.im/post/58ebab0c8d6d81006191376f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([SunCafe](http://suncafe.cc/) 翻译)
