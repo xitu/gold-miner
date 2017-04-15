@@ -5,7 +5,7 @@
 
 [掘金翻译计划](https://juejin.im/tag/%E6%8E%98%E9%87%91%E7%BF%BB%E8%AF%91%E8%AE%A1%E5%88%92) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](#android)、[iOS](#ios)、[React](#react)、[前端](#前端)、[后端](#后端)、[产品](#产品)、[设计](#设计) 等领域，读者为热爱新技术的新锐开发者。
 
-掘金翻译计划目前翻译完成 [460](#近期文章列表) 篇文章，共有 [300](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
+掘金翻译计划目前翻译完成 [461](#近期文章列表) 篇文章，共有 [300](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
 
 #  官方指南：
 
@@ -55,6 +55,7 @@
 
 ## 后端
 
+* [关于在 Node.js 中引用模块，知道这些就够了](https://juejin.im/post/58eb3812da2f60005f0bae9b/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([zhouzihanntu](https://github.com/zhouzihanntu) 翻译)
 * [模块化 vs. 微服务](https://juejin.im/post/58eb2627da2f60005f0b2d60/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lsvih](https://github.com/lsvih) 翻译)
 * [在 Apache 和 Nginx 日志里检测爬虫机器人](https://juejin.im/post/58ea5758ac502e4957c78808/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([luoyaqifei](https://github.com/luoyaqifei) 翻译)
 * [如何在 ChromeOS 下用 Go 搭建 Web 服务](https://juejin.im/post/58d9e1711b69e6006bc38b1a/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([xiaoyusilen](https://github.com/xiaoyusilen) 翻译)
