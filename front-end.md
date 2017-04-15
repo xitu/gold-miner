@@ -1,3 +1,4 @@
+* [跌宕起伏的函数式编程（软件编写）（第一部分）](https://juejin.im/post/58f0eb570ce463006ba37089?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([gy134340](http://gy134340.com/) 翻译)
 * [React 的慢与快：优化 React 应用实战](https://juejin.im/entry/58eb2fb0570c350057dd921a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([AceLeeWinnie(Jiang Haichao)](https://github.com/AceLeeWinnie) 翻译)
 * [使用开发者工具在浏览器中调整设计](https://juejin.im/post/58f0729b570c35005625630a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([bambooom](https://github.com/bambooom) 翻译)
 * [超越浏览器：从 web 应用到桌面应用](https://juejin.im/entry/58f07ea5ac502e006c1e0301?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([bambooom](https://github.com/bambooom) 翻译)
