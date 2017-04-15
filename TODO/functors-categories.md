@@ -2,7 +2,7 @@
 > * 原文作者：[Eric Elliott](https://medium.com/@_ericelliott?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[yoyoyohamapi](https://github.com/yoyoyohamapi) [reid3290](https://github.com/reid3290)
-> * 校对者：
+> * 校对者：[avocadowang](https://github.com/avocadowang) [Aladdin-ADD](https://github.com/Aladdin-ADD)
 
 # Functor 与 Category （软件编写）（第六部分）#
 
@@ -10,16 +10,16 @@
 
 Smoke Art Cubes to Smoke — MattysFlicks — (CC BY 2.0) （译注：该图是用 PS 将烟雾处理成方块状后得到的效果，参见 [flickr](https://www.flickr.com/photos/68397968@N07/11432696204)。））
 
-> 注意：这是 “软件编写” 系列文章的第四部分，该系列主要阐述如何在 JavaScript ES6+ 中从零开始学习函数式编程和组合化软件（compositional software）技术（译注：关于软件可组合性的概念，参见维基百科 [Composability](https://en.wikipedia.org/wiki/Composability)）。后续还有更多精彩内容，敬请期待！
+> 注意：这是 “软件编写” 系列文章的第六部分，该系列主要阐述如何在 JavaScript ES6+ 中从零开始学习函数式编程和组合化软件（compositional software）技术（译注：关于软件可组合性的概念，参见维基百科 [Composability](https://en.wikipedia.org/wiki/Composability)）。后续还有更多精彩内容，敬请期待！
 > [<上一篇](https://medium.com/javascript-scene/reduce-composing-software-fe22f0c39a1d#.w4y0mlpcs) | [<< 返回第一章](https://medium.com/javascript-scene/the-rise-and-fall-and-rise-of-functional-programming-composable-software-c2d91b424c8c#.2dfd6n6qe)
 
-所谓 **functor（函子）**，是能够对其进行 map 操作的对象。换言之，**functor** 可以被认为是一个容器，该容器容纳了一个值，并且暴露了一个接口（译注：即 map 接口），该接口使得外界的函数能够操纵容器中的值。所以当你见到 **functor**，别被其来自范畴学的名字唬住，简单把他当做个 *“mappable”* 对象就行。
+所谓 **functor（函子）**，是能够对其进行 map 操作的对象。换言之，**functor** 可以被认为是一个容器，该容器容纳了一个值，并且暴露了一个接口（译注：即 map 接口），该接口使得外界的函数能够获取容器中的值。所以当你见到 **functor**，别被其来自范畴学的名字唬住，简单把他当做个 *“mappable”* 对象就行。
 
 **“functor”** 一词源于范畴学。在范畴学中，一个 functor 代表了两个范畴（category）间的映射。简单说来，一个 **范畴** 是一系列事物的分组，这里的 “事物” 可以指代一切的值。对于编码来说，一个 functor 通常代表了一个具有 `.map()` 方法的对象，该方法能够将某一集合映射到另一集合。
 
 上文说到，一个 functor 可以被看做是一个容器，比如我们将其看做是一个盒子，盒子里面容纳了一些事物，或者空空如也，最重要的是，盒子暴露了一个 mapping（映射）接口。在 JavaScript 中，数组对象就是 functor 的绝佳例子（译注：`[1,2,3].map(x => x + 1)`），但是，其他类型的对象，只要能够被 map 操作，也可以算作是 functor，这些对象包括了单值对象（single valued-objects），流（streams），树（trees），对象（objects）等等。
 
-对于如数组和流这样的集合（collections）来说，`.map()` 方法指的是，在集合上进行迭代操作，在此过程中，应用一个预先指定的函数对每次迭代到的值进行处理。但是，不是所有的 functor 都可以被迭代。
+对于如数组和流等其他这样的集合（collections）来说，`.map()` 方法指的是，在集合上进行迭代操作，在此过程中，应用一个预先指定的函数对每次迭代到的值进行处理。但是，不是所有的 functor 都可以被迭代。
 
 在 JavaScript 中，数组和 Promise 对象都是 **functor**（Promise 对象虽然没有 `.map()` 方法，但其 `.then()` 方法也遵从 functor 的定律），除此之外，非常多的第三方库也能够将各种各样的一般事物给转换成 functor（译注：大名鼎鼎的 [Bluebird](https://github.com/petkaantonov/bluebird/) 就能将异步过程封装为 Promise functor）。
 
@@ -29,7 +29,7 @@ Smoke Art Cubes to Smoke — MattysFlicks — (CC BY 2.0) （译注：�
 fmap :: (a -> b) -> f a -> f b
 ```
 
-fmap 接受一个函数参数，该函数接受一个参数 `a`，并返回一个 `b`，最终，fmap 完成了从 `f a` 到 `f b` 的映射。`f a` 及 `f b` 可以被读作 “一个 `a` 的 functor” 和“一个 `b` 的 functor”，亦即 `f a` 这个盒子容纳了 `a`，`f b` 这个盒子容纳了 `b`。
+fmap 接受一个函数参数，该函数接受一个参数 `a`，并返回一个 `b`，最终，fmap 完成了从 `f a` 到 `f b` 的映射。`f a` 及 `f b` 可以被读作 “一个 `a` 的 functor” 和“一个 `b` 的 functor”，亦即 `f a` 这个容器容纳了 `a`，`f b` 这个容器容纳了 `b`。
 
 使用一个 functor 是非常简单的，仅需要调用 `map()` 方法即可：
 
@@ -49,7 +49,7 @@ f.map(double); // [2, 4, 6]
 
 ### 同一性 ###
 
-如果你将函数（`x => x`）传入 `f.map()`，并且，`f` 是任意的一个 functor，那么 `f.map()` 执行结果就等于 `f`。
+如果你将函数（`x => x`）传入 `f.map()`，对任意的一个 functor `f`，`f.map(x => x) == f`。
 
 ```
 const f = [1, 2, 3];
@@ -69,7 +69,7 @@ functor 还必须具有组合性：`F.map(x => f(g(x))) == F.map(g).map(f)`
 - 对于任何被箭头相连接的对象，如 `a -> b -> c`，必须存在一个 `a -> c ` 的组合。
 - 所有的箭头表示都代表了组合（即便这个对象间的组合只是一个同一（identity）箭头：`a->c`）。所有的对象都存在一个同一箭头，即存在同一态射（`a -> a`）。
 
-如果你有一个函数 `g`，该函数接受一个参数 `a` 并且返回一个 `b`，另一个函数 `f` 接受一个 `b` 并返回一个 `c`。那么，必然存在一个函数 `h`，其代表了 `f` 及 `g` 的组合。而 `a -> c` 的组合，就是 `f ∘ g`（读作`f` **紧接着** `g`），进而，也就知 `h(x)=f(g(x))`。函数组合的方向是由右向左的，这也就是就是 `f ∘ g` 常被叫做 `f` **紧接着** `g` 的原因。
+如果你有一个函数 `g`，该函数接受一个参数 `a` 并且返回一个 `b`，另一个函数 `f` 接受一个 `b` 并返回一个 `c`。那么，必然存在一个函数 `h`，其代表了 `f` 及 `g` 的组合。而 `a -> c` 的组合，就是 `f ∘ g`（读作`f` **紧接着** `g`），进而，也就是 `h(x) = f(g(x))`。函数组合的方向是由右向左的，这也就是就是 `f ∘ g` 常被叫做 `f` **紧接着** `g` 的原因。
 
 函数组合是满足结合律的，这就意味着你在组合多个函数时，免去了添加括号的烦恼：
 
@@ -90,7 +90,7 @@ const F = [1, 2, 3];
 ```
 F.map(x => f(g(x)));
 
-// 等效于。。。
+// 等效于......
 
 F.map(g).map(f);
 ```
@@ -152,7 +152,7 @@ r2.map(trace); // 5
 
 现在，你可以对存在该 functor 中的任何数据类型进行 map 操作，就像你对一个数组进行 map 时那样。这简直太美妙了。
 
-上面的代码片展示了 JavaScript 中 functor 的简单实现，但是其缺失了 JavaScript 中常见数据类型的一些特性。现在我们逐个添加它们。首先，我们会想到，假如能够直接通过 `+` 操作符操作我们的 functor 是不是太好了，就像我们在数值或者字符串对象间使用 `+` 号那样。
+上面的代码片展示了 JavaScript 中 functor 的简单实现，但是其缺失了 JavaScript 中常见数据类型的一些特性。现在我们逐个添加它们。首先，我们会想到，假如能够直接通过 + 操作符操作我们的 functor 是不是很好，就像我们在数值或者字符串对象间使用 `+` 号那样。
 
 为了使该想法变现，我们首先要为该 functor 对象添加 `.valueOf()` 方法  —— 这可被看作是提供了一个便捷的渠道来将值从 functor 盒子中取出。
 
@@ -288,7 +288,7 @@ Object.assign(Identity, {
 
 ### 为什么要使用 functor? ###
 
-说 functor 多么多么好是不无理由的。最重要的一点是，functor 作为一种抽象，能让开发者以同一种方式实现大量有用的，能够操纵任何数据类型的事物。例如，如果你想要在 functor 中值不为 `null` 或者不为 `undefined` 前提下，构建一串地链式操作：
+说 functor 多么多么好不是没有理由的。最重要的一点是，functor 作为一种抽象，能让开发者以同一种方式实现大量有用的，能够操纵任何数据类型的事物。例如，如果你想要在 functor 中值不为 `null` 或者不为 `undefined` 前提下，构建一串地链式操作：
 
 ```
 // 创建一个 predicte
@@ -347,7 +347,7 @@ functor 是能够对其进行 map 操作的对象。更进一步地，一个 fun
 
 总之，functor 是一个极佳的高阶抽象，能然你创建各种各样的通用函数来操作任何的数据类型。
 
-**未完待续。。。**
+**未完待续……**
 
 ### 接下来 ###
 
