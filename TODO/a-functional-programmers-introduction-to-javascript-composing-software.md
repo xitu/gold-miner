@@ -1,17 +1,17 @@
 > * 原文地址：[A Functional Programmer’s Introduction to JavaScript (Composing Software)(part 3)](https://medium.com/javascript-scene/a-functional-programmers-introduction-to-javascript-composing-software-d670d14ede30)
 > * 原文作者：[Eric Elliott](https://medium.com/@_ericelliott?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：[sun](http://suncafe.cc)
+> * 译者：[sunui](http://suncafe.cc)
 > * 校对者：
 
-# 函数式程序员的 JavaScript 简介 (软件构建系列) #
+# 函数式程序员的 JavaScript 简介 (软件编写) #
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*uVpU7iruzXafhU2VLeH4lw.jpeg">
 
-烟雾艺术模仿 — MattysFlicks — (CC BY 2.0)
+烟雾艺术魔方 — MattysFlicks — (CC BY 2.0)
 
-> Note: This is part of the “Composing Software” series on learning functional programming and compositional software techniques in JavaScript ES6+ from the ground up. Stay tuned. There’s a lot more of this to come!
-> [< Previous](https://medium.com/javascript-scene/why-learn-functional-programming-in-javascript-composing-software-ea13afc7a257#.ia0aq3fmb)  | [<< Start over at Part 1](https://medium.com/javascript-scene/the-rise-and-fall-and-rise-of-functional-programming-composable-software-c2d91b424c8c#.2dfd6n6qe)  | [Next >](https://medium.com/javascript-scene/higher-order-functions-composing-software-5365cf2cbe99#.egoxjg6x7)
+> Tip：这是“软件编写”系列文章的第四部分，该系列主要阐述如何在 JavaScript ES6+ 中从零开始学习函数式编程和组合化软件（compositional software）技术。后续还有更多精彩内容，敬请期待！
+> [< 上一篇](https://github.com/gy134340/gold-miner/blob/69bca85e75f4b99b33c193c21f577db93622ee8b/TODO/why-learn-functional-programming-in-javascript-composing-software.md)  | [<<第一篇](https://github.com/xitu/gold-miner/blob/master/TODO/the-rise-and-fall-and-rise-of-functional-programming-composable-software.md)  | [下一篇 >](https://github.com/xitu/gold-miner/blob/master/TODO/higher-order-functions-composing-software.md)
 
 对于不熟悉 JavaScript 或 ES6+ 的同学，这里做一个简短的介绍。无论你是 JavaScript 开发新手还是有经验的老兵，你都可能学到一些新东西。以下内容仅是毛羽鳞鬣，吊吊大家的兴致。如果想知道更多，还需深入学习。敬请期待吧。
 
@@ -230,49 +230,49 @@ double(2); // 4
 double 4; // SyntaxError: Unexpected number
 ```
 
-### Signatures ###
+### 签名 ###
 
-Functions have signatures, which consist of:
+函数的签名可以包含以下内容：
 
-1. An *optional* function name.
-2. A list of parameter types, in parentheses. The parameters may optionally be named.
-3. The type of the return value.
+1. 一个 **可用的** 函数名。
+2. 在括号里的一组参数。 参数的命名是可选的。
+3. 返回值的类型。
 
-Type signatures don’t need to be specified in JavaScript. The JavaScript engine will figure out the types at runtime. If you provide enough clues, the signature can also be inferred by developer tools such as IDEs (Integrated Development Environment) and [Tern.js](http://ternjs.net/)  using data flow analysis.
+JavaScript 中类型签名并不是强制规定。JavaScript 引擎将会在运行时断定类型。如果你提供足够的线索，签名信息也可以通过开发工具推断出来，比如一些 IDE（集成开发环境）和使用数据流分析的 [Tern.js](http://ternjs.net/)。
 
-JavaScript lacks its own function signature notation, so there are a few competing standards: JSDoc has been very popular historically, but it’s awkwardly verbose, and nobody bothers to keep the doc comments up-to-date with the code, so many JS developers have stopped using it.
+JavaScript 缺少它自己的函数签名语法，所以有几个竞争标准：JSDoc 在历史上非常流行，但它太过笨拙臃肿，没有人会不厌其烦地维护文档十七与代码同步，所以很多 JS 开发者都弃坑了。
 
-TypeScript and Flow are currently the big contenders. I’m not sure how to express everything I need in either of those, so I use [Rtype](https://github.com/ericelliott/rtype), for documentation purposes only. Some people fall back on Haskell’s curry-only [Hindley–Milner types](http://web.cs.wpi.edu/~cs4536/c12/milner-damas_principal_types.pdf) . I’d love to see a good notation system standardized for JavaScript, if only for documentation purposes, but I don’t think any of the current solutions are up to the task, at present. For now, squint and do your best to keep up with the weird type signatures which probably look slightly different from whatever you’re using.
+TypeScript 和 Flow 是目前的大竞争者。这二者都不能让我确定地知道怎么表达我需要的一切，所以我使用 [Rtype](https://github.com/ericelliott/rtype)，仅仅用于写文档。一些人倒退回 Haskell 的 curry-only [Hindley–Milner 类型系统](http://web.cs.wpi.edu/~cs4536/c12/milner-damas_principal_types.pdf)。如果仅用于文档，我很乐意看到 JavaScript 能有一个好的标记系统标准，但目前为止，我觉得当前的解决方案没有能胜任这个任务的。现在，怪异的类型标记即使和你在用的不尽相同，也就将就先用着吧。
 
 ```
 functionName(param1: Type, param2: Type) => Type
 ```
 
-The signature for double is:
+double 函数的签名是：
 
 ```
 double(x: n) => n
 ```
 
-In spite of the fact that JavaScript doesn’t require signatures to be annotated, knowing what signatures *are* and what they *mean* will still be important in order to communicate efficiently about how functions are used, and how functions are composed. Most reusable function composition utilities require you to pass functions which share the same type signature.
+尽管事实上 JavaScript 不需要注释签名，知道何为签名和签名意味着什么依然很重要，它有助于你搞笑的交流函数是如何使用和如何构建的。大多数可重复使用的函数构建工具都需要你传入共享同样类型签名的函数。
 
-### Default Parameter Values ###
+### 默认参数值 ###
 
-JavaScript supports default parameter values. The following function works like an identity function (a function which returns the same value you pass in), unless you call it with `undefined`, or simply pass no argument at all -- then it returns zero, instead:
+JavaScript 支持默认参数值。下面这个函数类似一个恒等函数（以你传入参数为返回值的函数），一旦你用 `undefined` 调用它，或者根本不传入参数——它就会返回 0，来替代：
 
 ```
 const orZero = (n = 0) => n;
 ```
 
-To set a default, simply assign it to the parameter with the `=` operator in the function signature, as in `n = 0`, above. When you assign default values in this way, type inference tools such as [Tern.js](http://ternjs.net/) , Flow, or TypeScript can infer the type signature of your function automatically, even if you don't explicitly declare type annotations.
+如上，若想设置默认值，只需在传入参数时带上 `=` 操作符，比如 `n = 0`。当你用这种方式传入默认值，像 [Tern.js](http://ternjs.net/)、Flow、或者 TypeScript 这些类型检测工具可以自行推断函数的类型签名，甚至你不需要刻意声明类型注解。
 
-The result is that, with the right plugins installed in your editor or IDE, you’ll be able to see function signatures displayed inline as you’re typing function calls. You’ll also be able to understand how to use a function at a glance based on its call signature. Using default assignments wherever it makes sense can help you write more self-documenting code.
+结果就是这样，在你的编辑器或者 IDE 中安装正确的插件，在你输入函数调用时，你可以看见内联显示的函数签名。依据它的调用签名，函数的使用方法也一目了然。无论起不起作用，使用默认值的做法可以让你的代码更可读。
 
-> Note: Parameters with defaults don’t count toward the function’s `.length` property, which will throw off utilities such as autocurry which depend on the `.length` value. Some curry utilities (such as `lodash/curry`) allow you to pass a custom arity to work around this limitation if you bump into it.
+> 注意： 使用默认值的参数不会增加函数的 `.length` 属性，比如使用依赖 `.length` 值的自动柯里化会抛出不可用异常。如果你碰上它，一些柯里化工具（比如 `lodash/curry`）允许你传入自定义参数来绕开这个限制。
 
-### Named Arguments ###
+### 命名参数 ###
 
-JavaScript functions can take object literals as arguments and use destructuring assignment in the parameter signature in order to achieve the equivalent of named arguments. Notice, you can also assign default values to parameters using the default parameter feature:
+JavaScript 函数可以传入对象字面量作为参数，并且使用对象解构来分配参数标识，这样做可以达到命名参数的同样效果。注意，你也可以使用默认参数特性传入默认值。
 
 ```
 const createUser = ({
@@ -297,36 +297,37 @@ george;
 */
 ```
 
-### Rest and Spread ###
+### 剩余和展开 ###
 
-A common feature of functions in JavaScript is the ability to gather together a group of remaining arguments in the functions signature using the rest operator: `...`
+JavaScript 中函数共有的一个特性是可以在函数参数中使用剩余操作符 `...` 来将一组剩余的参数聚集到一起。
 
-For example, the following function simply discards the first argument and returns the rest as an array:
+例如下面这个函数简单地丢弃第一个参数，返回其余的参数：
 
 ```
 const aTail = (head, ...tail) => tail;
 aTail(1, 2, 3); // [2, 3]
 ```
 
-Rest gathers individual elements together into an array. Spread does the opposite: it spreads the elements from an array to individual elements. Consider this:
+剩余参数将各个元素组成一个数组。而扩展操作恰恰相反：它将一个数组中的元素扩展为独立元素。研究一下这个：
 
 ```
 const shiftToLast = (head, ...tail) => [...tail, head];
 shiftToLast(1, 2, 3); // [2, 3, 1]
 ```
 
-Arrays in JavaScript have an iterator that gets invoked when the spread operator is used. For each item in the array, the iterator delivers a value. In the expression, `[...tail, head]`, the iterator copies each element in order from the `tail` array into the new array created by the surrounding literal notation. Since the head is already an individual element, we just plop it onto the end of the array and we're done.
+JavaScript 数组在使用扩展操作符的时候会调用一个迭代器，对于数组中的每一个元素，迭代器丢回传递一个值。在 `[...tail, head]` 表达式中，迭代器按顺序从 `tail` 数组中拷贝到一个刚刚创建的新的数组。之前 head 已经是一个独立元素了，我们只需把它放到数组的末端，就完成了。
 
-### Currying ###
+### 柯里化 ###
 
-Curry and partial application can be enabled by returning another function:
+可以通过返回另一个函数来实现柯里化（Curry）和偏应用（partial application）：
 
 ```
 const highpass = cutoff => n => n >= cutoff;
-const gt4 = highpass(4); // highpass() returns a new function
+const gt4 = highpass(4); // highpass() 返回了一个新函数
 ```
 
-You don’t have to use arrow functions. JavaScript also has a `function` keyword. We're using arrow functions because the `function` keyword is a lot more typing. This is equivalent to the `highPass()` definition, above:
+你可以不使用箭头函数。JavaScript 也有一个 `function` 关键字。我们使用箭头函数是因为 `function` 关键字需要打更多的字。
+这种写法和上面的 `highPass()` 定义是一样的：
 
 ```
 const highpass = function highpass(cutoff) {
@@ -336,11 +337,11 @@ const highpass = function highpass(cutoff) {
 };
 ```
 
-The arrow in JavaScript roughly means “function”. There are some important differences in function behavior depending on which kind of function you use (`=>` lacks its own `this`, and can't be used as a constructor), but we'll get to those differences when we get there. For now, when you see `x => x`, think "a function that takes `x` and returns `x`". So you can read `const highpass = cutoff => n => n >= cutoff;` as:
+JavaScript 中箭头的大致异地就是“函数”。使用不同种的方式声明，函数行为会有一些重要的不同点（`=>` 缺少了它自己的 `this` ，不能用于构造），但当我们遇见那就知道不同之处了。现在，当你看见 `x => x`，想到的是 “一个携带 `x` 并且返回 `x` 的函数”。所以 `const highpass = cutoff => n => n >= cutoff;` 可以这样读：
 
-`“highpass` is a function which takes `cutoff` and returns a function which takes `n` and returns the result of `n >= cutoff`".
+“`highpass` 是一个携带 `cutoff` 返回一个携带 `n` 并返回结果 `n >= cutoff` 的函数的函数”
 
-Since `highpass()` returns a function, you can use it to create a more specialized function:
+既然 `highpass()` 返回一个函数，你可以使用它创建一个更独特的函数：
 
 ```
 const gt4 = highpass(4);
@@ -349,13 +350,13 @@ gt4(6); // true
 gt4(3); // false
 ```
 
-Autocurry lets you curry functions automatically, for maximal flexibility. Say you have a function `add3()`:
+自动柯里化让你自动地柯里化函数，以获得最大的灵活性。比如你有一个函数 `add3()`:
 
 ```
 const add3 = curry((a, b, c) => a + b + c);
 ```
 
-With autocurry, you can use it in several different ways, and it will return the right thing depending on how many arguments you pass in:
+使用自动柯里化，你可以有很多种不同方法使用它，它将根据你传入多少个参数返回正确结果：
 
 ```
 add3(1, 2, 3); // 6
@@ -364,22 +365,22 @@ add3(1)(2, 3); // 6
 add3(1)(2)(3); // 6
 ```
 
-Sorry Haskell fans, JavaScript lacks a built-in autocurry mechanism, but you can import one from Lodash:
+令 Haskell 粉遗憾的是，JavaScript 没有内置自动柯里化机制，但你可以从 Lodash 引入：
 
 ```
 $ npm install --save lodash
 ```
 
-Then, in your modules:
+然后在你的模块里:
 
 ```
 import curry from 'lodash/curry';
 ```
 
-Or, you can use the following magic spell:
+或者你可以使用下面这个魔性写法:
 
 ```
-// Tiny, recursive autocurry
+// 精简的递归自动柯里化
 const curry = (
   f, arr = []
 ) => (...args) => (
@@ -389,106 +390,106 @@ const curry = (
 )([...arr, ...args]);
 ```
 
-### Function Composition ###
+### 函数组合 ###
 
-Of course you can compose functions. Function composition is the process of passing the return value of one function as an argument to another function. In mathematical notation:
+当然你能够开始组合函数了。组合函数是传入一个函数的返回值作为参数给另一个函数的过程。用数学符号标识：
 
 ```
 f . g
 ```
 
-Which translates to this in JavaScript:
+翻译成 JavaScript:
 
 ```
 f(g(x))
 ```
 
-It’s evaluated from the inside out:
+这是从内到外地求值：
 
-1. `x` is evaluated
-2. `g()` is applied to `x`
-3. `f()` is applied to the return value of `g(x)`
+1. `x` 是被求数值
+2. `g()` 应用给 `x`
+3. `f()` 应用给 `g(x)` 的返回值
 
-For example:
+例如:
 
 ```
 const inc = n => n + 1;
 inc(double(2)); // 5
 ```
 
-The value `2` is passed into `double()`, which produces `4`. `4` is passed into `inc()` which evaluates to `5`.
+数值 `2` 被传入 `double()`，求得 `4`。 `4` 被传入 `inc()` 求得 `5`。
 
-You can pass any expression as an argument to a function. The expression will be evaluated before the function is applied:
+你可以给函数传入任何表达式作为参数。表达式在函数应用之前被计算:
 
 ```
 inc(double(2) * double(2)); // 17
 ```
 
-Since `double(2)` evaluates to `4`, you can read that as `inc(4 * 4)` which evaluates to `inc(16)` which then evaluates to `17`.
+既然 `double(2)` 求得 `4`，你可以读作 `inc(4 * 4)`，然后计算得 `inc(16)`，然后求得 `17`。
 
-Function composition is central to functional programming. We’ll have a lot more on it later.
+函数组合是函数式编程的核心。我们后面还会介绍很多。
 
-### Arrays ###
+### 数组 ###
 
-Arrays have some built-in methods. A method is a function associated with an object: usually a property of the associated object:
+数组有一些内置方法。方法是指对象关联的函数，通常是这个对象的属性：
 
 ```
 const arr = [1, 2, 3];
 arr.map(double); // [2, 4, 6]
 ```
 
-In this case, `arr` is the object, `.map()` is a property of the object with a function for a value. When you invoke it, the function gets applied to the arguments, as well as a special parameter called `this`, which gets automatically set when the method is invoked. The `this` value is how `.map()` gets access to the contents of the array.
+这个例子里，`arr` 是对象，`.map()` 是一个以函数为值的对象属性。当你调用它，这个函数会被应用给参数，和一个特别的参数叫做 `this`，`this` 在方法被调用之时自动设置。这个 `this` 的存在使 `.map()` 能够访问数组的上下文。
 
-Note that we’re passing the `double` function as a value into `map` rather than calling it. That's because `map` takes a function as an argument and applies it to each item in the array. It returns a new array containing the values returned by `double()`.
+注意我们传递给 `map` 的是 `double` 函数而不是直接调用。因为 `map` 携带一个函数作为参数并将函数应用给数组的每一个元素。它返回一个包含了 `double()` 返回值的新的数组。
 
-Note that the original `arr` value is unchanged:
+注意原始的 `arr` 值没有改变：
 
 ```
 arr; // [1, 2, 3]
 ```
 
-### Method Chaining ###
+### 方法链 ###
 
-You can also chain method calls. Method chaining is the process of directly calling a method on the return value of a function, without needing to refer to the return value by name:
+你也可以链式调用方法。方法链是 在函数返回值上直接调用方法的过程，不需要给返回值命名：
 
 ```
 const arr = [1, 2, 3];
 arr.map(double).map(double); // [4, 8, 12]
 ```
 
-A **predicate** is a function that returns a boolean value (`true` or `false`). The `.filter()` method takes a predicate and returns a new list, selecting only the items that pass the predicate (return `true`) to be included in the new list:
+返回布尔值（`true` 或 `false`）的函数叫做 **谓词**（predicate）。`.filter()` 方法携带谓词并返回一个新的数组，新数组中只包含传入谓词函数（返回 `true`）的元素：
 
 ```
 [2, 4, 6].filter(gt4); // [4, 6]
 ```
 
-Frequently, you’ll want to select items from a list, and then map those items to a new list:
+你常常会想要从一个列表选择一些元素，然后把这些元素序列化到一个新列表中：
 
 ```
 [2, 4, 6].filter(gt4).map(double); [8, 12]
 ```
 
-Note: Later in this text, you’ll see a more efficient way to select and map at the same time using something called a *transducer*, but there are other things to explore first.
+注意：后面的文章你将看到使用叫做 **transducer** 东西更高效地同时选择元素并序列化，不过这之前还有一些其他东西要了解。
 
-### Conclusion ###
+### 总结 ###
 
-If your head is spinning right now, don’t worry. We barely scratched the surface of a lot of things that deserve a lot more exploration and consideration. We’ll circle back and explore some of these topics in much more depth, soon.
+如果你现在有点发懵，不必担心。我们仅仅概览了一下很多事情的表面，它们尚需大量的解释和总结。很快我们就会回过头来，深入探讨其中的一些话题。
 
-[**Continued in “Higher Order Functions”…**](https://medium.com/javascript-scene/higher-order-functions-composing-software-5365cf2cbe99#.egoxjg6x7)
+[**继续阅读 “高阶函数”…**](https://github.com/xitu/gold-miner/blob/master/TODO/higher-order-functions-composing-software.md)
 
-### Next Steps ###
+### 接下来 ###
 
-Want to learn more about functional programming in JavaScript?
+想要学习更多 JavaScript 函数式编程知识？
 
-[Learn JavaScript with Eric Elliott](http://ericelliottjs.com/product/lifetime-access-pass/). If you’re not a member, you’re missing out!
+[和 Eric Elliott 一起学习 JavaScript](http://ericelliottjs.com/product/lifetime-access-pass/)。 如果你不是其中一员，千万别错过！
 
 [<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*3njisYUeHOdyLCGZ8czt_w.jpeg">
 ](https://ericelliottjs.com/product/lifetime-access-pass/)
 
 
-***Eric Elliott*** is the author of [*“Programming JavaScript Applications”*](http://pjabook.com)  (O’Reilly), and [*“Learn JavaScript with Eric Elliott”*](http://ericelliottjs.com/product/lifetime-access-pass/) . He has contributed to software experiences for **Adobe Systems, Zumba Fitness, The Wall Street Journal, ESPN, BBC and top recording artists including Usher, Frank Ocean, Metallica**, and many more.
+***Eric Elliott*** 是 [*“JavaScript 应用程序设计”*](http://pjabook.com)  (O’Reilly) 以及 [*“和 Eric Elliott 一起学习 JavaScript”*](http://ericelliottjs.com/product/lifetime-access-pass/) 的作者。 曾就职于 **Adobe Systems、Zumba Fitness、The Wall Street Journal、ESPN、BBC and top recording artists including Usher、Frank Ocean、Metallica** 等公司，具有丰富的软件实践经验。
 
-*He spends most of his time in the San Francisco Bay Area with the most beautiful woman in the world.*
+*他大多数时间在 San Francisco Bay Area ，和世界上最美丽的姑娘在一起。*
 
 ---
 
