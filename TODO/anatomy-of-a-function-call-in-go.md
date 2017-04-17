@@ -2,11 +2,11 @@
 > * 原文作者：[Phil Pearl](https://syslog.ravelin.com/@philpearl?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[xiaoyusilen](http://xiaoyu.world)
-> * 校对者：[1992chenlu](https://github.com/1992chenlu)
+> * 校对者：[1992chenlu](https://github.com/1992chenlu)，[Zheaoli](https://github.com/Zheaoli)
 
 # 解析 Go 中的函数调用 #
 
-让我们来看一些简单的 Go 的函数，然后看看我们能否明白函数调用是怎么回事。我们将通过分析 Go 编译器根据函数生成的汇编语言来完成这件事。对于一个小小的博客来说这可能有一点野心，但是别担心，汇编语言很简单。哪怕是 CPU 都能读懂。
+让我们来看一些简单的 Go 的函数，然后看看我们能否明白函数调用是怎么回事。我们将通过分析 Go 编译器根据函数生成的汇编来完成这件事。对于一个小小的博客来讲，这样的目标可能有点不切实际，但是别担心，汇编语言很简单。哪怕是 CPU 都能读懂。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*CKK4XrLm3ylzsQzNbOaroQ.png">
 
@@ -20,9 +20,9 @@ func add(a, b int) int {
 }
 ```
 
-我们编译的时候需要关闭优化，这样方便理解每个部分。我们用 `go build -gcflags 'N -l'` 这个命令来完成上述操作。然后我们可以用 `go tool objdump -s main.add func` 输出我们函数的具体细节（这里的 func 是我们的包名，也就是我们刚刚用 go build 编译出的可执行文件）。
+我们编译的时候需要关闭优化，这样方便我们去理解生成的汇编代码。我们用 `go build -gcflags 'N -l'` 这个命令来完成上述操作。然后我们可以用 `go tool objdump -s main.add func` 输出我们函数的具体细节（这里的 func 是我们的包名，也就是我们刚刚用 go build 编译出的可执行文件）。
 
-如果你以前从来没有看过汇编语言，那么恭喜啦，你今天看到的内容对你来说是全新的。我将在 Mac 上完成这些事情，所以配置是 Intel 64位。
+如果你之前没有学过汇编，那么恭喜你，你将接触到一个全新的事物。另外我会在 Mac 上完成这篇博客的代码，因此所生成的是 Intel 64-bit 汇编。
 
 ```
  main.go:20 0x22c0 48c744241800000000 MOVQ $0x0, 0x18(SP)
@@ -33,7 +33,7 @@ func add(a, b int) int {
  main.go:21 0x22db c3   RET
 ```
 
-我们看到了什么？每一行如下所示被分为了4部分：
+现在我们看到了什么？如下所示，每一行被分为了4部分：
 
 - 源文件的名称和行号（main.go:15）。这行的源代码会被转换为标有代码行号的说明。Go 的一行可能被转换成多行程序集。
 - 目标文件中的偏移量（例如 0x22C0）。
@@ -51,8 +51,8 @@ func add(a, b int) int {
 
 现在让我们从第一条指令开始看每一条内容。别忘了我们需要从内存中加载两个参数 `a` 和 `b`，把它们相加，然后返回至调用函数。
 
-1. `MOVQ $0x0, 0x18(SP)` 将 0 置于存储单元 SP+0x18 中。 这句看起来有点神秘。
-2. `MOVQ 0x8(SP), AX` 将存储单元 SP+0x8 中的内容放到 CPU 寄存器 AX 中。也许这就是从内存中加载的我们的参数之一？
+1. `MOVQ $0x0, 0x18(SP)` 将 0 置于存储单元 SP+0x18 中。 这句代码看起来有点抽象。
+2. `MOVQ 0x8(SP), AX` 将存储单元 SP+0x8 中的内容放到 CPU 寄存器 AX 中。也许这就是从内存中加载的我们所使用的参数之一？
 3. `MOVQ 0x10(SP), CX` 将存储单元 SP+0x10 的内容置于 CPU 寄存器 CX 中。 这可能就是我们所需的另一个参数。
 4. `ADDQ CX, AX` 将 CX 与 AX 相加，将结果存到 AX 中。好，现在已经把两个参数相加了。
 5. `MOVQ AX, 0x18(sp)` 将寄存器 AX 的内容存储在存储单元 SP+0x18 中。这就是在存储相加的结果。
