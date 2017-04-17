@@ -10,7 +10,7 @@
 
 烟雾的方块艺术 —MattysFlicks —(CC BY 2.0)
 > 注意：这是从基础学习函数式编程和使用 JavaScript ES6+ 撰写软件的第二部分。保持关注，接下来还有很多！
->  [从第一部分开始](https://github.com/xitu/gold-miner/blob/master/TODO/the-rise-and-fall-and-rise-of-functional-programming-composable-software.md) | [接下来的 >](https://github.com/xitu/gold-miner/blob/master/TODO/a-functional-programmers-introduction-to-javascript-composing-software.md)
+>  [第一篇](https://github.com/xitu/gold-miner/blob/master/TODO/the-rise-and-fall-and-rise-of-functional-programming-composable-software.md) | [第三篇 >](https://github.com/xitu/gold-miner/blob/master/TODO/a-functional-programmers-introduction-to-javascript-composing-software.md)
 
 忘掉你认为知道的关于 JavaScript 的一切，用初学者的眼光去看待它。为了帮助你做到这一点，我们将会从头复习一下 JavaScript 的基础，就像你与其尚未谋面一样。如果你是初学者，那你就很幸运了。最终从零开始探索 ES6 和函数式编程！希望所有的概念都被解释清楚 — 但不要太依赖于此。
 
@@ -135,7 +135,7 @@ JavaScript 的真正优势在于其生态系统中的思想和用户的多样性
 
 App 正在吞食世界， web 正在吞食 app， 同时 JavaScript 正在吞食 web。
 
-[**接下来的第三部分: 函数式开发者的 JavScript 介绍…**](https://github.com/xitu/gold-miner/blob/master/TODO/a-functional-programmers-introduction-to-javascript-composing-software.md)
+[**第三篇: 函数式开发者的 JavScript 介绍…**](https://github.com/xitu/gold-miner/blob/master/TODO/a-functional-programmers-introduction-to-javascript-composing-software.md)
 
 ### 下一步
 
