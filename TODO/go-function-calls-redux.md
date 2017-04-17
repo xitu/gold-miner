@@ -2,13 +2,13 @@
 > * 原文作者：[Phil Pearl](https://hackernoon.com/@philpearl?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[xiaoyusilen](http://xiaoyu.world)
-> * 校对者：[1992chenlu](https://github.com/1992chenlu)
+> * 校对者：[1992chenlu](https://github.com/1992chenlu)，[Zheaoli](https://github.com/Zheaoli)
 
 # Go 函数调用 Redux #
 
-前段时间在一篇[文章](https://syslog.ravelin.com/anatomy-of-a-function-call-in-go-f6fc81b80ecc#.gpqsgzmjc)中我答应写一篇进一步分析 Go 中如何进行函数调用和调用堆栈在 Go 中如何工作的文章。现在我找到了一种简洁的方式来向大家展示上述内容，所以有了现在这篇文章。
+前段时间在一篇[文章](https://syslog.ravelin.com/anatomy-of-a-function-call-in-go-f6fc81b80ecc#.gpqsgzmjc)中我答应写一篇进一步分析 Go 中如何进行函数调用和堆栈调用在 Go 中如何工作的文章。现在我找到了一种简洁的方式来向大家展示上述内容，所以有了现在这篇文章。
 
-什么是调用堆栈？它是一个用于保存局部变量和调用参数的内存区域，并且跟踪每个函数应该返回到哪里去。每个 goroutine 都有它自己的堆栈。你甚至可以说每个 goroutine 就是它自己的堆栈。
+什么是堆栈调用？它是一个用于保存局部变量和调用参数的内存区域，并且跟踪每个函数应该返回到哪里去。每个 goroutine 都有它自己的堆栈。你甚至可以说每个 goroutine 就是它自己的堆栈。
 
 下面是我用于演示堆栈的代码。就是一系列简单的函数调用，main() 函数调用 [f1(0xdeadbeef)](https://en.wikipedia.org/wiki/Hexspeak)，然后调用 `f2(0xabad1dea)`，再调用 `f3(0xbaddcafe)`。然后 `f3()` 将其中一个作为它的参数，并且将它存储在名为 `local` 的本地变量中。然后获取 `local` 的内存地址并且从那里开始输出。因为 `local` 在栈内，所以输出的就是栈。
 
