@@ -1,21 +1,22 @@
 > * 原文地址：[Reduce (Composing Software)(part 5)](https://medium.com/javascript-scene/reduce-composing-software-fe22f0c39a1d)
 > * 原文作者：[Eric Elliott](https://medium.com/@_ericelliott?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
-> * 校对者：
+> * 译者：[yoyoyohamapi](https://github.com/yoyoyohamapi)
+> * 校对者：[avocadowang](https://github.com/avocadowang) [Aladdin-ADD](https://github.com/Aladdin-ADD)
 
-# Reduce (Composing Software) #
+# Reduce（软件编写）（第五部分） #
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*uVpU7iruzXafhU2VLeH4lw.jpeg">
 
-Smoke Art Cubes to Smoke — MattysFlicks — (CC BY 2.0)
+Smoke Art Cubes to Smoke — MattysFlicks — (CC BY 2.0) （译注：该图是用 PS 将烟雾处理成方块状后得到的效果，参见 [flickr](https://www.flickr.com/photos/68397968@N07/11432696204)。））
 
-> Note: This is part of the “Composing Software” series on learning functional programming and compositional software techniques in JavaScript ES6+ from the ground up. Stay tuned. There’s a lot more of this to come!
-> [< Previous](https://medium.com/javascript-scene/higher-order-functions-composing-software-5365cf2cbe99#.su6cmn4f7)  | [<< Start over at Part 1](https://medium.com/javascript-scene/the-rise-and-fall-and-rise-of-functional-programming-composable-software-c2d91b424c8c#.2dfd6n6qe)  | [Next >](https://medium.com/javascript-scene/functors-categories-61e031bac53f#.4hqndcx22)
 
-**Reduce** (aka: fold, accumulate) utility commonly used in functional programming that lets you iterate over a list, applying a function to an accumulated value and the next item in the list, until the iteration is complete and the accumulated value gets returned. Many useful things can be implemented with reduce. Frequently, it’s the most elegant way to do any non-trivial processing on a collection of items.
+> 注意：这是 “软件编写” 系列文章的第五部分，该系列主要阐述如何在 JavaScript ES6+ 中从零开始学习函数式编程和组合化软件（compositional software）技术（译注：关于软件可组合性的概念，参见维基百科 [Composability](https://en.wikipedia.org/wiki/Composability)）。后续还有更多精彩内容，敬请期待！
+> > [<上一篇](https://github.com/xitu/gold-miner/blob/master/TODO/higher-order-functions-composing-software.md) | [<< 返回第一篇](https://github.com/xitu/gold-miner/blob/master/TODO/the-rise-and-fall-and-rise-of-functional-programming-composable-software.md)
 
-Reduce takes a reducer function and an initial value, and returns the accumulated value. For `Array.prototype.reduce()`, the initial list is provided by `this`, so it's not one of the arguments:
+在函数式编程中，**reduce**（也称为：fold，accumulate）允许你在一个序列上迭代，并应用一个函数来处理预先声明的累积值和当前迭代到的元素。当迭代完成时，将返回这个累积值。许多其他有用的功能都可以通过 reduce 实现。多数时候，reduce 可以说是处理集合（collection）最优雅的方式。
+
+reduce 接受一个 reducer 函数以及一个初始值，最终返回一个累积值。对于 `Array.prototype.reduce()` 来说， 初始列表将由 `this` 指明， 所以列表本身不会作为该函数的参数：
 
 ```
 array.reduce(
@@ -24,28 +25,28 @@ array.reduce(
 ) => accumulator: Any
 ```
 
-Let’s sum an array:
+我们利用如下方式对一个数组进行求和:
 
 ```
 [2, 4, 6].reduce((acc, n) => acc + n, 0); // 12
 ```
 
-For each element in the array, the reducer is called and passed the accumulator and the current value. The reducer’s job is to “fold” the current value into the accumulated value somehow. How is not specified, and specifying how is the purpose of the reducer function. The reducer returns the new accumulated value, and `reduce()` moves on to the next value in the array. The reducer may need an initial value to start with, so most implementations take an initial value as a parameter.
+对于数组的每步迭代，reducer 函数都会被调用，并且向其传入了累积值和当前迭代到的数组元素。reducer 的职责在于以某种方式将当前迭代的元素 “合拢（fold）” 到累加值中。reducer 规定了 “合拢” 的手段和方式，完成了对当前元素的 “合拢” 后，reducer 将返回新的累加值，然后， `.reduce()` 将开始处理数组中的下一个元素。reducer 需要一个初始值才能开始工作，所以绝大多数的 `.reduce()` 实现都需要接收一个初始值作为参数。
 
-In the case of this summing reducer, the first time the reducer is called, `acc` starts at `0` (the value we passed to `.reduce()` as the second parameter). The reducer returns `0` + `2` (`2` was the first element in the array), which is `2`. For the next call, `acc = 2, n = 4` and the reducer returns the result of `2 + 4` (`6`). In the last iteration, `acc = 6, n = 6`, and the reducer returns `12`. Since the iteration is finished, `.reduce()` returns the final accumulated value, `12`.
+在数组元素求和一例中，reducer 函数第一次调用时，`acc` 将会以 `0` 值（该值是传入 `.reduce()` 方法的第二个参数）开始。然后，reducer 返回了 `0` + `2`（`2` 是数组的第一个元素）， 也就是返回了 `2` 作为新的累积值。下一步，`acc = 2, n = 4` 传入了 reducer，reducer返回了 `2 + 4`（`6`）。在最后一步迭代中，`acc = 6, n = 6`, reducer 返回了 `12`。迭代完成，`.reduce（）` 返回了最终的累积值 `12`。
 
-In this case, we passed in an anonymous reducing function, but we can abstract it and give it a name:
+在这一例子中，我们传入了一个匿名函数作为 reducer，但是我们也可以抽象出每次求和的过程为一个具名函数，这使得我们代码的复用程度更高：
 
 ```
 const summingReducer = (acc, n) => acc + n;
 [2, 4, 6].reduce(summingReducer, 0); // 12
 ```
 
-Normally, `reduce()` works left to right. In JavaScript, we also have `[].reduceRight()`, which works right to left. In other words, if you applied `.reduceRight()` to `[2, 4, 6]`, the first iteration would use `6` as the first value for `n`, and it would work its way back and finish with `2`.
+通常，`reduce` 的工作过程为由左向右。在 JavaScript 中，我们也有一个 `[].reduceRight()` （译注：[MDN -- Array.prototype.reduceRight()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/ReduceRight)）方法来让 reduce 由右向左地工作。 具体说来，如果你对数组 `[2, 4, 6]` 应用 `.reduceRight()` ，第一个被迭代到的元素就将是 `6`，最后一个迭代到的元素就是 `2`。
 
-### Reduce is Versatile ###
+### 无所不能的 reduce ###
 
-Reduce is versatile. It’s easy to define `map()`, `filter()`, `forEach()` and lots of other interesting things using reduce:
+别吃惊，reduce 确实无所不能，你所熟悉的 `map()`，`filter()`，`forEach()` 以及其他函数都可借助于 reduce 来创建。
 
 **Map:**
 
@@ -55,7 +56,7 @@ const map = (fn, arr) => arr.reduce((acc, item, index, arr) => {
 }, []);
 ```
 
-For map, our accumulated value is a new array with a new element for each value in the original array. The new values are generated by applying the passed in mapping function (`fn`) to each element in the `arr` argument. We accumulate the new array by calling `fn` with the current element, and concatenating the result to the accumulator array, `acc`.
+对于 map 来说，我们的累积值就是一个新的数组对象，该数组对象中的每个元素都由原数组对应元素映射得到。累积数组中新的元素由传入 map 的映射函数（`fn`）所确定：对于当前迭代到的元素 `item`，我们通过 `fn` 计算出新的元素，并将其拼接入累加数组 `acc` 中。
 
 **Filter:**
 
@@ -65,37 +66,37 @@ const filter = (fn, arr) => arr.reduce((newArr, item) => {
 }, []);
 ```
 
-Filter works in much the same way as map, except that we take a predicate function and *conditionally* append the current value to the new array if the element passes the predicate check (`fn(item)` returns `true`).
+filter 的工作方式与 map 类似，只不过原数组的元素只有通过一个真值检测函数（predicate function）才能被送入新的累积数组中。亦即，相较于 map，filter 是**有条件**地选择元素到累积数组中，并且不会改变元素的值。
 
-For each of the above examples, you have a list of data, iterate over that data applying some function and folding the results into an accumulated value. Lots of applications spring to mind. But what if *your data is a list of functions?*
+上面几个例子，你处理的数据都是一些数值序列，你在数值序列上应用指定的函数迭代数据，并将结果合拢到累积值中。大多数应用都因此开始雏形初备，但是你想过这个问题：**假如你的序列是函数序列呢？**
 
 **Compose:**
 
-Reduce is also a convenient way to compose functions. Remember function composition: If you want to apply the function `f` to the result of `g` of `x` i.e., the composition, `f . g`, you could use the following JavaScript:
+reduce 也是实现函数组合的便捷渠道。假如你想用将函数 `g` 的输出作为函数 `f` 的输入，即组合这两个函数： `f . g`，那么你可以使用下面的 JavaScript 代码片，它没有任何的抽象：
 
 ```
 f(g(x))
 ```
 
-Reduce lets us abstract that process to work on any number of functions, so you could easily define a function that would represent:
+reduce 让我们能抽象出函数组合过程，从而让你也能轻易地实现更多层次的函数组合：
 
 ```
 f(g(h(x)))
 ```
 
-To make that happen, we’ll need to run reduce in reverse. That is, right-to-left, rather than left-to-right. Thankfully, JavaScript provides a `.reduceRight()` method:
+为了使函数组合是由右向左的，我们就要使用上面提到的 `.reduceRight()` 方法来抽象函数组合过程：
 
 ```
 const compose = (...fns) => x => fns.reduceRight((v, f) => f(v), x);
 ```
 
-> Note: If JavaScript had not provided `[].reduceRight()`, you could still implement `reduceRight()` -- using `reduce()`. I'll leave it to adventurous readers to figure out how.
+> 注意：如果 JavaScript 的版本没有提供 `[].reduceRight()`，你可以借助于 `reduce` 实现该方法。该实现留给读者自己思考。
 
 **Pipe:**
 
-`compose()` is great if you want to represent the composition from the inside-out -- that is, in the math notation sense. But what if you want to think of it as a sequence of events?
+`compose()` 很好地描述了由内至外的组合过程，某种程度上，这是数学上的关于输入输出的组合。如果你想从事件发生顺序上来思考函数组合呢？
 
-Imagine we want to add `1` to a number and then double it. With `compose(), that would be:
+假设我们想要对一个数值加 `1`，然后对新得到的数值进行翻倍。如果是利用 `compose()`，就需要这么做：
 
 ```
 const add1 = n => n + 1;
@@ -110,15 +111,15 @@ add1ThenDouble(2); // 6
 // ((2 + 1 = 3) * 2 = 6)
 ```
 
-See the problem? The first step is listed last, so in order to understand the sequence, you’ll need to start at the bottom of the list and work your way backwards to the top.
+发现问题没有？第一步（加1操作）是 compose 序列上的最后一个元素，所以，`compose` 需要你自底向上地分析流程的执行。
 
-Or we can reduce left-to-right as you normally would, instead of right-to-left:
+我们使用 reduce 由左向右的常用特性取代由右向左的组合方式，以示区别，我们用 `pipe` 来描述新的组合方式：
 
 ```
 const pipe = (...fns) => x => fns.reduce((v, f) => f(v), x);
 ```
 
-Now you can write `add1ThenDouble()` like this:
+现在，新的流程就可以这么撰写：
 
 ```
 const add1ThenDouble = pipe(
@@ -130,7 +131,7 @@ add1ThenDouble(2); // 6
 // ((2 + 1 = 3) * 2 = 6)
 ```
 
-This is important because sometimes if you compose backwards, you get a different result:
+如你所见，在组合中，顺序是非常重要的，如果你调换了 `double` 和 `add1` 的顺序，你将得到截然不同的结果：
 
 ```
 const doubleThenAdd1 = pipe(
@@ -141,25 +142,25 @@ const doubleThenAdd1 = pipe(
 doubleThenAdd1(2); // 5
 ```
 
-We’ll go into more details on `compose()` and `pipe()` later. What you should understand right now is that `reduce()` is a very powerful tool, and you really need to learn it. Just be aware that if you get very tricky with reduce, some people may have a hard time following along.
+之后，我们还会讨论跟多的关于 `compose()` 和 `pipe()` 的细节。现在，你所要知道的只是，`reduce()` 是一个极为强大的工具，因此一定要掌握它。 如果在学习过程中遇到了挫折，也大可不必灰心，很多开发者都花了大量时间才能掌握 reduce。
 
-### A Word on Redux ###
+### Redux 中的 reduce ###
 
-You may have heard the term “reducer” used to describe the important state update bits of Redux. As of this writing, Redux is the most popular state management library/architecture for web applications built using React and Angular (the latter via `ngrx/store`).
+你可能听说过 “reducer” 这个术语被用于描述 [Redux](https://github.com/reactjs/redux) 的状态更新。这篇文章撰写之时，对于使用了 React 或者 Angular 进行构建的 web 应用来说，Redux 是最流行的状态管理库/架构（Angualar 中的类 Redux 管理是 ngrx/store ）。
 
-Redux uses reducer functions to manage application state. A Redux-style reducer takes the current state and an action object and returns the new state:
+Redux 使用了 reducer 函数来管理应用状态。一个 Redux 风格的 reducer 接收一个当前应用状态 `state` 和 和交互对象 `action` 作为参数（译注：当前状态就相当于累积值，而 action 就相当于目前处理的元素），处理完成后，返回一个新的应用状态：
 
 ```
 reducer(state: Any, action: { type: String, payload: Any}) => newState: Any
 ```
 
-Redux has some reducer rules you need to keep in mind:
+Redux 的一些 reducer 规则需要你牢记在心：
 
-1. A reducer called with no parameters should return its valid initial state.
-2. If the reducer isn’t going to handle the action type, it still needs to return the state.
-3. Redux reducers **must be pure functions.**
+1. 一个 reducer 如果进行了无参调用，它要返回它的初始状态。
+2. 如果 reducer 操纵的 action 没有声明类型，他要返回当前状态。
+3. 最最重要的是，Redux reducer 必须是纯函数。
 
-Let’s rewrite our summing reducer as a Redux-style reducer that reduces over action objects:
+现在，我们以 Redux 风格重写上面的求和 reducer，该 reducer 的行为将由 action 类型决定：
 
 ```
 const ADD_VALUE = 'ADD_VALUE';
@@ -175,7 +176,7 @@ const summingReducer = (state = 0, action = {}) => {
 };
 ```
 
-The cool thing about Redux is that the reducers are just standard reducers that you can plug into any `reduce()` implementation which respects the reducer function signature, including `[].reduce()`. That means you can create an array of action objects and reduce over them to get a snapshot of state representing the same state you'd have if those same actions were dispatched to your store:
+关于 Redux 的一个非常美妙的事儿就是，其 reducer 都是标准的 reducer （译注：即接收 `accumulator` 和 `current` 两个参数的 reducer ），这意味着你将 Redux 中的 reducer 插入到任何现有的 `reduce()` 实现中去，比如最常用的 `[].reduce()`。以此为例，我们可以创建一个 action 对象的数组，并对其进行 reduce 操作，传入 `reduce()` 的将是我们定义好的 `summingReducer`，据此，我们获得一个状态快照。之后，一旦对 Redux 中的状态树（store）分派了同样的 action 序列，那么一定能俘获到相同的状态快照：
 
 ```
 const actions = [
@@ -187,26 +188,26 @@ const actions = [
 actions.reduce(summingReducer, 0); // 3
 ```
 
-That makes unit testing Redux-style reducers a breeze.
+这使得对 Redux 风格的 reducer 的单元测试变得极为容易。
 
-### Conclusion ###
+### 总结 ###
 
-You should be starting to see that reduce is an incredibly useful and versatile abstraction. It’s definitely a little trickier to understand than map or filter, but it is an essential tool in your functional programming utility belt — one you can use to make a lot of other great tools.
+现在，你应该可以瞥见 reduce 的强大甚至是无所不能了。虽然，理解 reduce 要比理解 map 或者 filter 难一些，还是函数式编程中重要的工具，这个工具强大在它是一个基础工具，能够通过它构建出更多更强大的工具。
 
-[**Next: Functors & Categories >**](https://medium.com/javascript-scene/functors-categories-61e031bac53f#.4hqndcx22)
+[**下一篇: Functors 与 Categories  >**](https://github.com/xitu/gold-miner/blob/master/TODO/functors-categories.md)
 
-### Next Steps ###
 
-Want to learn more about functional programming in JavaScript?
+### 接下来 ###
 
-[Learn JavaScript with Eric Elliott](http://ericelliottjs.com/product/lifetime-access-pass/). If you’re not a member, you’re missing out!
+想学习更多 JavaScript 函数式编程吗？
 
-[<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*3njisYUeHOdyLCGZ8czt_w.jpeg">
-](https://ericelliottjs.com/product/lifetime-access-pass/)
+[跟着 Eric Elliott 学 Javacript](http://ericelliottjs.com/product/lifetime-access-pass/)，机不可失时不再来！
 
-***Eric Elliott*** is the author of [*“Programming JavaScript Applications”*](http://pjabook.com)  (O’Reilly), and [*“Learn JavaScript with Eric Elliott”*](http://ericelliottjs.com/product/lifetime-access-pass/) . He has contributed to software experiences for **Adobe Systems, Zumba Fitness, The Wall Street Journal, ESPN, BBC, and top recording artists including Usher, Frank Ocean, Metallica**, and many more.
+[<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*3njisYUeHOdyLCGZ8czt_w.jpeg">](https://ericelliottjs.com/product/lifetime-access-pass/)
 
-*He spends most of his time in the San Francisco Bay Area with the most beautiful woman in the world.*
+**Eric Elliott** 是  [**“编写 JavaScript 应用”**](http://pjabook.com) （O’Reilly） 以及 [**“跟着 Eric Elliott 学 Javascript”**](http://ericelliottjs.com/product/lifetime-access-pass/) 两书的作者。他为许多公司和组织作过贡献，例如 **Adobe Systems**、**Zumba Fitness**、**The Wall Street Journal**、**ESPN** 和 **BBC** 等 , 也是很多机构的顶级艺术家，包括但不限于 **Usher**、**Frank Ocean** 以及 **Metallica**。
+
+大多数时间，他都在 San Francisco Bay Area，同这世上最美丽的女子在一起。
 
 ---
 
