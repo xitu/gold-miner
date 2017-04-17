@@ -2,7 +2,7 @@
 > * 原文作者：[Bob Lee][2]
 > * 译文出自：[掘金翻译计划][3]
 > * 译者：[lsvih][4]
-> * 校对者：
+> * 校对者：[zhangqippp](https://github.com/zhangqippp)
 
 
 # 在 Swift 中使用闭包实现懒加载
@@ -17,7 +17,7 @@
 
 ### 动机
 
-在我刚开始学习 iOS 开发的时候，我在 YouTube 上找了一个教程。我发现这个教程有时候会用下面这种方式来创建 UI 对象:
+在我刚开始学习 iOS 开发的时候，我在 YouTube 上找了一些教程。我发现这些教程有时候会用下面这种方式来创建 UI 对象:
 
 ```
 let makeBox: UIView = {
@@ -95,7 +95,7 @@ createButton(enterTitle: "Yoyo") //  👍
 func createButton(title: String, borderWidth: Double, backgrounColor, ...) -> Button 
 ```
 
-但是，上面的代码并不理想。即使你为这个函数加上了默认参数，它的可读性很差。因此，比起这个方法，我们还是采用上面那个”单调“的方法为妙。
+但是，即使你为这个函数加上了默认参数，上面的代码依然不理想。这样的设计降低了代码的可读性。因此，比起这个方法，我们还是采用上面那个”单调“的方法为妙。
 
 到底有没有办法让我们既不那么无聊，还能让代码更有条理呢？当然咯。我们现在只是复习你过去的做法——是时候更上一层楼，展望你未来的做法了。
 
@@ -139,7 +139,7 @@ let bobby = { () -> Human in
 }()
 ```
 
-现在，这个闭包通过在最后加上 `()` 执行了自己，`bobby` 现在附上了一个 `Human` 对象。干的漂亮！
+现在，这个闭包通过在最后加上 `()` 执行了自己，`bobby` 现在被赋值为一个 `Human` 对象。干的漂亮！
 
 **现在你已经学会了使用闭包来创建一个对象**
 
@@ -168,11 +168,11 @@ Swift 能够通过关键字 `return` 推导出这个闭包的类型是 `() -> UI
 
 ### 使用闭包创建的好处
 
-我们已经讨论了：直接创建对象是很单调无聊的，使用函数构造是会出现问题的。现在你可能会想“为什么我非得用闭包来创建？”
+我们已经讨论了直接创建对象的单调和使用构造函数带来的问题。现在你可能会想“为什么我非得用闭包来创建？”
 
 #### 重复起来更容易
 
-我不喜欢用 Storyboard，我比较喜欢复制粘贴 UI 对象。实际上，在我电脑里有一个“库”的代码。假设库里有个按钮，代码如下：
+我不喜欢用 Storyboard，我比较喜欢复制粘贴 UI 对象。实际上，在我的电脑里有一个“代码库”。假设库里有个按钮，代码如下：
 
 ```
 let myButton: UIButton = {
@@ -218,7 +218,7 @@ return button
 vs
 
 ```
-// 使用我的手指创建.. 
+// 手动创建
 let leftCornerButton = UIButton(frame: buttonSize)
 leftCornerButton.backgroundColor = .black
 leftCornerButton.titleLabel?.text = "Button"
@@ -234,7 +234,7 @@ rightCornerButton.layer.cornerRadius =
 rightCornerButton.layer.masksToBounds = true
 ```
 
-虽然使用闭包创建对象甚至还多出了一行，但是比起要在 `rightCornerButton` 或者 `leftCornerButton` 后面狂加属性，我还是更喜欢在 `button` 后面加属性。
+尽管使用闭包创建对象要多出几行，但是比起要在 `rightCornerButton` 或者 `leftCornerButton` 后面狂加属性，我还是更喜欢在 `button` 后面加属性。
 
 *实际上如果按钮的命名特别详细时，用闭包创建对象还可以少几行。*
 
@@ -331,7 +331,7 @@ bobGreet?.greeting
 bobClass = nil // I'm gone, bruh 🙆
 ```
 
-不用担心 `[unowned self]`，闭包并没有对对象存在引用。相反，它仅仅是在闭包内复制了 `self`。如果你对前面的代码声明有疑问，放松一会儿，读读 [Swift Capture Lists][10] 来了解更多这方面的知识。👍
+不用担心 `[unowned self]`，闭包并没有对对象存在引用。相反，它仅仅是在闭包内复制了 `self`。如果你对前面的代码声明有疑问，可以读读 [Swift Capture Lists][10] 来了解更多这方面的知识。👍
 
 ### 最后的唠叨
 
