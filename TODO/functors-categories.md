@@ -1,7 +1,7 @@
 > * 原文地址：[Functors & Categories](https://medium.com/javascript-scene/functors-categories-61e031bac53f)
 > * 原文作者：[Eric Elliott](https://medium.com/@_ericelliott?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：[yoyoyohamapi](https://github.com/yoyoyohamapi) [reid3290](https://github.com/reid3290)
+> * 译者：[yoyoyohamapi](https://github.com/yoyoyohamapi)
 > * 校对者：[avocadowang](https://github.com/avocadowang) [Aladdin-ADD](https://github.com/Aladdin-ADD)
 
 # Functor 与 Category （软件编写）（第六部分）#
@@ -11,13 +11,13 @@
 Smoke Art Cubes to Smoke — MattysFlicks — (CC BY 2.0) （译注：该图是用 PS 将烟雾处理成方块状后得到的效果，参见 [flickr](https://www.flickr.com/photos/68397968@N07/11432696204)。））
 
 > 注意：这是 “软件编写” 系列文章的第六部分，该系列主要阐述如何在 JavaScript ES6+ 中从零开始学习函数式编程和组合化软件（compositional software）技术（译注：关于软件可组合性的概念，参见维基百科 [Composability](https://en.wikipedia.org/wiki/Composability)）。后续还有更多精彩内容，敬请期待！
-> [<上一篇](https://medium.com/javascript-scene/reduce-composing-software-fe22f0c39a1d#.w4y0mlpcs) | [<< 返回第一章](https://medium.com/javascript-scene/the-rise-and-fall-and-rise-of-functional-programming-composable-software-c2d91b424c8c#.2dfd6n6qe)
+> [<上一篇](https://github.com/xitu/gold-miner/blob/master/TODO/reduce-composing-software.md) | [<< 返回第一章](https://github.com/xitu/gold-miner/blob/master/TODO/the-rise-and-fall-and-rise-of-functional-programming-composable-software.md)
 
 所谓 **functor（函子）**，是能够对其进行 map 操作的对象。换言之，**functor** 可以被认为是一个容器，该容器容纳了一个值，并且暴露了一个接口（译注：即 map 接口），该接口使得外界的函数能够获取容器中的值。所以当你见到 **functor**，别被其来自范畴学的名字唬住，简单把他当做个 *“mappable”* 对象就行。
 
 **“functor”** 一词源于范畴学。在范畴学中，一个 functor 代表了两个范畴（category）间的映射。简单说来，一个 **范畴** 是一系列事物的分组，这里的 “事物” 可以指代一切的值。对于编码来说，一个 functor 通常代表了一个具有 `.map()` 方法的对象，该方法能够将某一集合映射到另一集合。
 
-上文说到，一个 functor 可以被看做是一个容器，比如我们将其看做是一个盒子，盒子里面容纳了一些事物，或者空空如也，最重要的是，盒子暴露了一个 mapping（映射）接口。在 JavaScript 中，数组对象就是 functor 的绝佳例子（译注：`[1,2,3].map(x => x + 1)`），但是，其他类型的对象，只要能够被 map 操作，也可以算作是 functor，这些对象包括了单值对象（single valued-objects），流（streams），树（trees），对象（objects）等等。
+上文说到，一个 functor 可以被看做是一个容器，比如我们将其看做是一个盒子，盒子里面容纳了一些事物，或者空空如也，最重要的是，盒子暴露了一个 mapping（映射）接口。在 JavaScript 中，数组对象就是 functor 的绝佳例子（译注：`[1,2,3].map(x => x + 1)`），但是，其他类型的对象，只要能够被 map 操作，也可以算作是 functor，这些对象包括了单值对象（single valued-objects）、流（streams）、树（trees）、对象（objects）等等。
 
 对于如数组和流等其他这样的集合（collections）来说，`.map()` 方法指的是，在集合上进行迭代操作，在此过程中，应用一个预先指定的函数对每次迭代到的值进行处理。但是，不是所有的 functor 都可以被迭代。
 
