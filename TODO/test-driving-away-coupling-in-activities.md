@@ -17,7 +17,7 @@ This series of posts is about the connection between the testability of android-
 
 The code that we want to test, the “target code”, does the following: when the user navigates to the map view that shows where all the Google I/O sessions are, it asks for their location. If they reject the permission, we show a toast notifying the user that they’ve disabled an app permission. Here’s a screenshot of this:
 
-![permission denied toast](http:/images/permission-denied-toast.png)
+![permission denied toast](https://www.philosophicalhacker.com/images/permission-denied-snackbar.png)
 
 Here’s the code that accomplishes this:
 
