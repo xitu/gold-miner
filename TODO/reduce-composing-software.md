@@ -1,17 +1,17 @@
 > * 原文地址：[Reduce (Composing Software)(part 5)](https://medium.com/javascript-scene/reduce-composing-software-fe22f0c39a1d)
 > * 原文作者：[Eric Elliott](https://medium.com/@_ericelliott?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：[yoyoyohamapi](https://github.com/yoyoyohamapi) [reid3290](https://github.com/reid3290)
+> * 译者：[yoyoyohamapi](https://github.com/yoyoyohamapi)
 > * 校对者：[avocadowang](https://github.com/avocadowang) [Aladdin-ADD](https://github.com/Aladdin-ADD)
 
-# Reduce (软件编写) (第五部分) #
+# Reduce（软件编写）（第五部分） #
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*uVpU7iruzXafhU2VLeH4lw.jpeg">
 
 Smoke Art Cubes to Smoke — MattysFlicks — (CC BY 2.0) （译注：该图是用 PS 将烟雾处理成方块状后得到的效果，参见 [flickr](https://www.flickr.com/photos/68397968@N07/11432696204)。））
 
 > 注意：这是 “软件编写” 系列文章的第五部分，该系列主要阐述如何在 JavaScript ES6+ 中从零开始学习函数式编程和组合化软件（compositional software）技术（译注：关于软件可组合性的概念，参见维基百科 [Composability](https://en.wikipedia.org/wiki/Composability)）。后续还有更多精彩内容，敬请期待！
-> > [<上一篇](https://medium.com/javascript-scene/higher-order-functions-composing-software-5365cf2cbe99#.su6cmn4f7) | [<< 返回第一章](https://medium.com/javascript-scene/the-rise-and-fall-and-rise-of-functional-programming-composable-software-c2d91b424c8c#.2dfd6n6qe)
+> > [<上一篇](https://github.com/xitu/gold-miner/blob/master/TODO/higher-order-functions-composing-software.md) | [<< 返回第一篇](https://github.com/xitu/gold-miner/blob/master/TODO/the-rise-and-fall-and-rise-of-functional-programming-composable-software.md)
 
 在函数式编程中，**reduce**（也称为：fold，accumulate）允许你在一个序列上迭代，并应用一个函数来处理预先声明的累积值和当前迭代到的元素。当迭代完成时，将返回这个累积值。许多其他有用的功能都可以通过 reduce 实现。多数时候，reduce 可以说是处理集合（collection）最优雅的方式。
 
@@ -193,7 +193,7 @@ actions.reduce(summingReducer, 0); // 3
 
 现在，你应该可以瞥见 reduce 的强大甚至是无所不能了。虽然，理解 reduce 要比理解 map 或者 filter 难一些，还是函数式编程中重要的工具，这个工具强大在它是一个基础工具，能够通过它构建出更多更强大的工具。
 
-[**下一篇: Functors（函子） & Categories（范畴） >**](https://medium.com/javascript-scene/functors-categories-61e031bac53f#.4hqndcx22)
+[**下一篇: Functors 与 Categories  >**](https://github.com/xitu/gold-miner/blob/master/TODO/functors-categories.md)
 
 
 ### 接下来 ###
