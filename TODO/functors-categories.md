@@ -4,7 +4,7 @@
 > * 译者：[yoyoyohamapi](https://github.com/yoyoyohamapi)
 > * 校对者：[avocadowang](https://github.com/avocadowang) [Aladdin-ADD](https://github.com/Aladdin-ADD)
 
-# Functor 与 Category （软件编写）（第六部分）#
+# Functor 与 Category （软件编写）（第六部分）
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*uVpU7iruzXafhU2VLeH4lw.jpeg">
 
