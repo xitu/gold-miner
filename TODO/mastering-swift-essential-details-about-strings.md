@@ -2,7 +2,7 @@
 * 原文作者：[Dmitri Pavlutin](https://rainsoft.io/author/dmitri-pavlutin/)
 * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 * 译者：[Tuccuay](https://www.tuccuay.com)
-* 校对者：[oOatuo](https://github.com/atuooo)
+* 校对者：[oOatuo](https://github.com/atuooo) , [lsvih](https://github.com/lsvih)
 
 
 # 掌握 Swift 的字符串细节
@@ -72,7 +72,7 @@ print(capitalHCharacter == firstCharacter) // => true
 
 在 Unicode 标准中，`H` 代表 *Latin Capital letter H* (拉丁文大写字母 H)，码位是 `U+0048`。
 
-让我们掠过 ASCII 看看 Swift 如何处理更复杂的符号。这些字符被渲染成单个视觉符号，但实际上是由两个或更多个 Unicode 标量](http://unicode.org/glossary/#unicode_scalar_value) 组成。严格来说这些字符被称为 **字形簇**
+让我们掠过 ASCII 看看 Swift 如何处理更复杂的符号。这些字符被渲染成单个视觉符号，但实际上是由两个或更多个 [Unicode 标量](http://unicode.org/glossary/#unicode_scalar_value) 组成。严格来说这些字符被称为 **字形簇**
 
 *Important*: `CharacterView` is a collection of grapheme clusters of the string.
 **重点**： `CharacterView` 是字符串的字形簇集合。
