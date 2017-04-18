@@ -1,3 +1,4 @@
+* [Go 函数调用 Redux](https://juejin.im/post/58f57be144d904006c09019c/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([xiaoyusilen](https://github.com/xiaoyusilen)翻译)
 * [关于在 Node.js 中引用模块，知道这些就够了](https://juejin.im/post/58eb3812da2f60005f0bae9b/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([zhouzihanntu](https://github.com/zhouzihanntu) 翻译)
 * [模块化 vs. 微服务](https://juejin.im/post/58eb2627da2f60005f0b2d60/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lsvih](https://github.com/lsvih) 翻译)
 * [在 Apache 和 Nginx 日志里检测爬虫机器人](https://juejin.im/post/58ea5758ac502e4957c78808/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([luoyaqifei](https://github.com/luoyaqifei) 翻译)
