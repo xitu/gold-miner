@@ -74,7 +74,6 @@ print(capitalHCharacter == firstCharacter) // => true
 
 让我们掠过 ASCII 看看 Swift 如何处理更复杂的符号。这些字符被渲染成单个视觉符号，但实际上是由两个或更多个 [Unicode 标量](http://unicode.org/glossary/#unicode_scalar_value) 组成。严格来说这些字符被称为 **字形簇**
 
-*Important*: `CharacterView` is a collection of grapheme clusters of the string.
 **重点**： `CharacterView` 是字符串的字形簇集合。
 
 让我们看看 `ç` 的字形。他可以有两种表现形式：
