@@ -9,18 +9,18 @@
 
 ![](https://cdn.wp.nginx.com/wp-content/uploads/2017/03/introduction-to-nginScript-1000x600.jpg)
 
-### *为每一个请求使用 JavaScript 方便和强大的功能*
+### *在 HTTP 请求中发挥出 JavaScript 的强大力量和便捷优势*
 
-*编者的话 – 这是关于 nignScript 这个系列的博文的第一篇。本文中讨论了 NGINX 公司开发他们自己的 JavaScript 实现的原因，并且提出了一个简单的用例。探索更多的用例，请阅读其他的博文：*
+*编者的话 – 这是关于 nignScript 这个系列的博文的第一篇。本文中讨论了 NGINX 公司选择自己实现 JavaScript 的原因，并且提供了一个简单的使用案例。探索更多的使用案例，请阅读其他的博文：*
 
 - [*nginScript 入门*](https://www.nginx.com/blog/introduction-nginscript/)
 - [*使用 nginScript 逐步迁移客户端到新的服务器*](https://www.nginx.com/blog/nginscript-progressively-transition-clients-to-new-server/)
 - 在“Galera 集群负载均衡过程中 SQL 方法的日志记录”中的[*nginScript 日志记录进阶*](https://www.nginx.com/blog/scaling-mysql-tcp-load-balancing-nginx-plus-galera-cluster/#nginscript-logging-galera)
 - [*使用 nginScript 实现基于数据遮蔽的用户隐私保护*](https://www.nginx.com/blog/data-masking-user-privacy-nginscript/)
 
-自从 nginScript [2015 年 9 月](https://www.nginx.com/blog/nginscript-new-powerful-way-configure-nginx/?utm_source=introduction-nginscript&amp;utm_medium=blog&amp;utm_campaign=Core+Product)上线以来，很多新的能力和核心语言被加入的同时，它曾一直作为一个实验性的模块存在。随着 NGINX Plus R12 的推出，我们很荣幸的宣布 nginScript 现在已经是一个在 NGINX 和 NGINX Plus 中可被广泛使用的稳定版模块了。
+自从 nginScript [2015 年 9 月](https://www.nginx.com/blog/nginscript-new-powerful-way-configure-nginx/?utm_source=introduction-nginscript&amp;utm_medium=blog&amp;utm_campaign=Core+Product)上线以来，作为一个实验性的模块，持续有新功能和语言的核心支持被加入。随着 NGINX Plus R12 的推出，我们很荣幸的宣布 nginScript 现在已经是一个在 NGINX 和 NGINX Plus 中可被广泛使用的稳定版模块了。
 
-nignScript 是一个只适用于 NGINX 和 NGINX Plus 的 JavaScript 实现，它是专为服务端用例和每个请求处理而设计的。它使用 JavaScript 代码扩展了 NGINX 的配置语法，以实现复杂配置的解决方案。
+nignScript 是一个只适用于 NGINX 和 NGINX Plus 的 JavaScript 实现，它是专为服务端用例和每个请求处理而设计的。它通过 JavaScript 代码扩展了 NGINX 的配置语法，为复杂配置提供了解决方案。
 
 nignScript 可供 HTTP 和 TCP/UDP 两种协议使用，用例的种类广泛，例如：
 
@@ -28,7 +28,7 @@ nignScript 可供 HTTP 和 TCP/UDP 两种协议使用，用例的种类广泛，
 - 实现新的负载均衡算法
 - 为应用层粘滞会话（sticky sessons）解析 TCP/UDP 协议
 
-当然，nignScript 可以做更多，也有更多可能性有待实现。虽然我们已经宣布 nignScript 支持广泛地应用，并且已经推荐在生产环境使用 nignScript，但我们还有一些在计划中的改良，用来支持更多的用例：
+当然，nignScript 可以做更多，也有更多可能性有待实现。虽然我们已经宣布 nignScript 能被广泛地应用，并且已经推荐在生产环境使用 nignScript，但我们还有一些在计划中的改良，用来支持更多的用例：
 
 - 查看并修改 HTTP 请求／响应的 body（现已支持 TCP/UDP）
 - 在 nginScript 代码中发出 HTTP 子请求（subrequests）
@@ -43,39 +43,39 @@ nignScript 可供 HTTP 和 TCP/UDP 两种协议使用，用例的种类广泛，
 
 Lua 是一个强大的脚本语言。但是，就采用率来看，它仍是有一定缺陷的。并且，它也不算一个前端工程师或者开发运维工程师必备技能。
 
-nginScript 没有企图取代 Lua，并且 nginScript 也无法立刻达到同等级别的实用性。nignScript 的目标是给广大 NIGINX 社区的人民群众，提供一个可以基于一种流行的编程语言的，程序化配置的解决方案。
+nginScript 没有企图取代 Lua，并且 nginScript 还有很长的路要走才能与 Lua 相提并论。nignScript 的目标是给广大 NIGINX 社区的人民群众，提供一个可以基于一种流行的编程语言的，程序化配置的解决方案。
 
 ## nginScript 不是 Node.js
 
-nginScript 的目标并不是将 NGINX 或者 NGINX Plus 变成一个应用服务器。简言之，使用中的 nginScript 类似于中间件，因为脚本的执行是发生于客户端与内容之间的。技术上讲，Node.js 与 nginScript 和 NGINX（或 NGINX Plus）的结合体有两个共同点，那就是[事件驱动的架构](https://www.nginx.com/blog/inside-nginx-how-we-designed-for-performance-scale/?utm_source=introduction-nginscript&amp;utm_medium=blog&amp;utm_campaign=Core+Product)，以及，都将 JavaScript 作为编程语言，仅此而已。
+nginScript 的目标并不是将 NGINX 或者 NGINX Plus 变成一个应用服务器。简言之，nginScript 的功能相当于中间件，因为脚本的执行是发生于客户端与内容之间的。技术上讲，Node.js 与 nginScript 和 NGINX（或 NGINX Plus）的结合体有两个共同点，那就是[事件驱动的架构](https://www.nginx.com/blog/inside-nginx-how-we-designed-for-performance-scale/?utm_source=introduction-nginscript&amp;utm_medium=blog&amp;utm_campaign=Core+Product)，以及，都将 JavaScript 作为编程语言，仅此而已。
 
-Node.js 使用 Google V8 JavaScript 引擎，而 nginScript 则完全是 ECMAScript 标准的实现，专为 NGINX 和 NGINX Plus 设计。Node.js 有一个 JavaScript 虚拟机在内存中一直存在，用来执行垃圾回收和内存管理的操作，而 nginScript 则会对每一个请求都初始化一个 JavaScript 虚拟机和相应的内存空间，并在请求被完成后释放内存空间。
+Node.js 使用 Google V8 JavaScript 引擎，而 nginScript 则完全是 ECMAScript 标准的实现，专为 NGINX 和 NGINX Plus 设计。Node.js 内置 JavaScript 虚拟机，用来执行垃圾回收和内存管理的操作，而 nginScript 则会对每一个请求都初始化一个 JavaScript 虚拟机和相应的内存空间，并在请求被完成后释放内存空间。
 
 ## 作为服务端语言的 JavaScript
 
 如上所述，nginScript 是 JavaScript 语言的标准实现。而目前，所有其他的 JavaScript 运行引擎，都是以运行在网络浏览器为目的而设计的。客户端代码运行与服务端的代码运行有许多本质上的不同 - 从系统资源的可利用性，到可能存在的并发运行的数量。
 
-我们决定实现自己的 JavaScript runtime，来满足运行服务端代码的需要，与 NGINX 请求处理架构那庞大的体量。以下是我们的设计原则：
+我们决定实现自己的 JavaScript runtime，一方面来满足服务端运行的需要，另一方面这种方式可以与 NGINX 请求处理的架构进行优雅适配。以下是我们的设计原则：
 
 - 
 **运行环境与请求有相同的生命周期**
 
-nginScript 使用单线程的字节码执行，这么设计是为了快速的初始化和垃圾清理。对每个请求，都对应的运行环境被初始化。初始启动是很迅速的，因为初始化没有用到复杂的状态或者帮助类。内存池的消耗在运行的期间逐渐累积，在运行完成的时候被释放。这种内存管理的设计，消除了为单个对象跟踪和释放内存，或者使用垃圾收集器的需要。
+nginScript 使用单线程的字节码执行，这么设计是为了快速的初始化和垃圾清理。对每个请求，都有对应的运行环境被初始化。初始启动是很迅速的，因为初始化没有用到复杂的状态或者帮助类。内存池的消耗在运行的期间逐渐累积，在运行完成的时候被释放。这种内存管理的设计无需为单个对象跟踪和释放内存，或使用垃圾收集器。
 
 - 
-**非阻塞的代码执行**
+**非阻塞式代码执行**
 
 NGINX 和 NGINX Plus 的事件驱动模式会调度每个 nginScript 运行环境的运行。当一个 nginScript 规则执行一个阻塞操作时（比如读取网络数据，或者发起外部的子请求），NGINX 和 NGINX Plus 会将那个 JavaScript 虚拟机挂起，并在那个操作结束时，重新安排它的运行。这意味着，你可以将规则写的简单、线性，而 NGINX 和 NGINX Plus 在调度它们的时候也不会被阻塞。
 
 - 
 **按照我们的需要实现语言**
 
-JavaScript 的详细描述是被 [ECMAScript](https://en.wikipedia.org/wiki/ECMAScript) 标准定义的。nginScript 使用 [ECMAScript 5.1](http://www.ecma-international.org/ecma-262/5.1/)，和一部分 [ECMAScript 6](http://www.ecma-international.org/ecma-262/6.0/) 以实现数学相关的功能。实现自己的 JavaScript runtime 让我们能够更自由的调整服务端用例的语言支持的优先级，并忽视掉我们不需要的部分。我们有一个[已经提供支持和尚未提供支持的语言要素的列表](http://nginx.org/en/docs/njs_about.html)。
+JavaScript 的规范是按 [ECMAScript](https://en.wikipedia.org/wiki/ECMAScript) 标准定义的。nginScript 使用 [ECMAScript 5.1](http://www.ecma-international.org/ecma-262/5.1/)，和一部分 [ECMAScript 6](http://www.ecma-international.org/ecma-262/6.0/) 以实现数学相关的功能。实现自己的 JavaScript runtime 让我们能够更自由的调整服务端用例的语言支持的优先级，并忽视掉我们不需要的部分。我们有一个[已经提供支持和尚未提供支持的语言要素的列表](http://nginx.org/en/docs/njs_about.html)。
 
 - 
 **与请求处理阶段的紧密结合**
 
-NGINX 和 NGINX Plus 的请求处理分为不同的阶段。配置指令通常在一个特定的阶段被执行，原生的 NGINX 模块通常会在某个特定阶段，查看或者修改一个请求。nginScript 会将一些处理阶段暴露出去，通过配置指令，将控制权交给运行时的 JavaScript 代码。这种整合配置规则的方式，同时保证了原生 NGINX 模块的功能性和灵活性，与 JavaScript 代码的简单。
+NGINX 和 NGINX Plus 的请求处理分为不同的阶段。配置指令通常在一个特定的阶段被执行，原生的 NGINX 模块通常会在某个特定阶段，查看或者修改一个请求。nginScript 会将一些处理阶段暴露出去，通过配置指令，将控制权交给运行时的 JavaScript 代码。这种整合配置规则的方式，同时保证了原生 NGINX 模块的功能性和灵活性，并让其 JavaScript 实现代码变得简单。
 
 下面的表格指出了目前可被 nginScript 利用的处理阶段，还有相应的配置指令。
 
@@ -161,7 +161,7 @@ $ sudo yum install nginx-plus-module-njs
 ```
 
 2.
-在 **nginx.conf** 配置文件的顶层 ("main") 语境（而不是 `http` 或者 `流（stream）` 语境）中为这个模块加入一个[`load_module`](http://nginx.org/en/docs/ngx_core_module.html#load_module)命令。这个例子给 HTTP 流量装载了 nginScript 模块：
+我们可以在配置文件 **nginx.conf** 的顶级 context 下（"main"）加入一条配置指令[`load_module`](http://nginx.org/en/docs/ngx_core_module.html#load_module)，用来给 HTTP 流量加载 nginScript 模块（注意不是在 http 或者 stream 的 context 下）：
 
 ```
 load_module modules/ngx_http_js_module.so;
@@ -196,7 +196,7 @@ $ sudo yum install nginx-module-njs
 ```
 
 2.
-在 **nginx.conf** 配置文件的顶层 ("main") 语境（而不是 `http` 或者 `流（stream）` 语境）中为这个模块加入一个[`load_module`](http://nginx.org/en/docs/ngx_core_module.html#load_module)命令。这个例子给 HTTP 流量装载了 nginScript 模块：
+我们可以在配置文件 **nginx.conf** 的顶级 context 下（"main"）加入一条配置指令[`load_module`](http://nginx.org/en/docs/ngx_core_module.html#load_module)，用来给 HTTP 流量加载 nginScript 模块（注意不是在 http 或者 stream 的 context 下）：
 
 ```
 load_module modules/ngx_http_js_module.so;
