@@ -20,7 +20,7 @@
 
 自从 nginScript [2015 年 9 月](https://www.nginx.com/blog/nginscript-new-powerful-way-configure-nginx/?utm_source=introduction-nginscript&amp;utm_medium=blog&amp;utm_campaign=Core+Product)上线以来，作为一个实验性的模块，持续有新功能和语言的核心支持被加入。随着 NGINX Plus R12 的推出，我们很荣幸的宣布 nginScript 现在已经是一个在 NGINX 和 NGINX Plus 中可被广泛使用的稳定版模块了。
 
-nignScript 是一个只适用于 NGINX 和 NGINX Plus 的 JavaScript 实现，它是专为服务端用例和每个请求处理而设计的。它通过 JavaScript 代码扩展了 NGINX 的配置语法，为复杂配置提供了解决方案。
+nignScript 是一个只适用于 NGINX 和 NGINX Plus 的 JavaScript 实现，它是专为服务端用例和每次请求处理而设计的。它通过 JavaScript 代码扩展了 NGINX 的配置语法，为复杂配置提供了解决方案。
 
 nignScript 可供 HTTP 和 TCP/UDP 两种协议使用，用例的种类广泛，例如：
 
@@ -57,23 +57,19 @@ Node.js 使用 Google V8 JavaScript 引擎，而 nginScript 则完全是 ECMAScr
 
 我们决定实现自己的 JavaScript runtime，一方面来满足服务端运行的需要，另一方面这种方式可以与 NGINX 请求处理的架构进行优雅适配。以下是我们的设计原则：
 
-- 
-**运行环境与请求有相同的生命周期**
+- **运行环境与请求有相同的生命周期**
 
 nginScript 使用单线程的字节码执行，这么设计是为了快速的初始化和垃圾清理。对每个请求，都有对应的运行环境被初始化。初始启动是很迅速的，因为初始化没有用到复杂的状态或者帮助类。内存池的消耗在运行的期间逐渐累积，在运行完成的时候被释放。这种内存管理的设计无需为单个对象跟踪和释放内存，或使用垃圾收集器。
 
-- 
-**非阻塞式代码执行**
+- **非阻塞式代码执行**
 
 NGINX 和 NGINX Plus 的事件驱动模式会调度每个 nginScript 运行环境的运行。当一个 nginScript 规则执行一个阻塞操作时（比如读取网络数据，或者发起外部的子请求），NGINX 和 NGINX Plus 会将那个 JavaScript 虚拟机挂起，并在那个操作结束时，重新安排它的运行。这意味着，你可以将规则写的简单、线性，而 NGINX 和 NGINX Plus 在调度它们的时候也不会被阻塞。
 
-- 
-**按照我们的需要实现语言**
+- **按照我们的需要实现语言**
 
 JavaScript 的规范是按 [ECMAScript](https://en.wikipedia.org/wiki/ECMAScript) 标准定义的。nginScript 使用 [ECMAScript 5.1](http://www.ecma-international.org/ecma-262/5.1/)，和一部分 [ECMAScript 6](http://www.ecma-international.org/ecma-262/6.0/) 以实现数学相关的功能。实现自己的 JavaScript runtime 让我们能够更自由的调整服务端用例的语言支持的优先级，并忽视掉我们不需要的部分。我们有一个[已经提供支持和尚未提供支持的语言要素的列表](http://nginx.org/en/docs/njs_about.html)。
 
-- 
-**与请求处理阶段的紧密结合**
+- **与请求处理阶段的紧密结合**
 
 NGINX 和 NGINX Plus 的请求处理分为不同的阶段。配置指令通常在一个特定的阶段被执行，原生的 NGINX 模块通常会在某个特定阶段，查看或者修改一个请求。nginScript 会将一些处理阶段暴露出去，通过配置指令，将控制权交给运行时的 JavaScript 代码。这种整合配置规则的方式，同时保证了原生 NGINX 模块的功能性和灵活性，并让其 JavaScript 实现代码变得简单。
 
@@ -143,32 +139,27 @@ nginScript 的许多功能都来自它访问 NGINX 内部的能力。这个例�
  
 nginScript 是 NGINX Plus 订阅者可以免费使用的[动态模块](https://www.nginx.com/products/dynamic-modules/)，（关于开源 NGINX，请参考下面[给开源 NGINX 装载 nginScript](#nginscript-oss-load)的部分。）
 
-1. 
-从 NGINX Plus repository 获取并安装 nginScript 模块
+1. 从 NGINX Plus repository 获取并安装 nginScript 模块
 
-- 
-Ubuntu 和 Debian 系统使用下面的命令：
+- Ubuntu 和 Debian 系统使用下面的命令：
 
 ```
 $ sudo apt‑get install nginx-plus-module-njs
 ```
 
--
-RedHat、CentOS 和 Oracle Linux 系统使用下面的命令：
+- RedHat、CentOS 和 Oracle Linux 系统使用下面的命令：
 
 ```
 $ sudo yum install nginx-plus-module-njs
 ```
 
-2.
-我们可以在配置文件 **nginx.conf** 的顶级 context 下（"main"）加入一条配置指令[`load_module`](http://nginx.org/en/docs/ngx_core_module.html#load_module)，用来给 HTTP 流量加载 nginScript 模块（注意不是在 http 或者 stream 的 context 下）：
+2. 我们可以在配置文件 **nginx.conf** 的顶级 context 下（"main"）加入一条配置指令[`load_module`](http://nginx.org/en/docs/ngx_core_module.html#load_module)，用来给 HTTP 流量加载 nginScript 模块（注意不是在 http 或者 stream 的 context 下）：
 
 ```
 load_module modules/ngx_http_js_module.so;
 ```
 
-3.
-重新加载 NGINX Plus，将 nginScript 模块载入到正在运行的实例中。
+3. 重新加载 NGINX Plus，将 nginScript 模块载入到正在运行的实例中。
 
 ```
 $ sudo nginx -s reload
@@ -178,32 +169,27 @@ $ sudo nginx -s reload
 
 如果你的系统配置了官方的[开源 NGINX 预建包（pre‑built packages）](http://nginx.org/en/linux_packages.html#mainline)，并且你安装的版本在 1.9.11 或以上，你可以直接将 nginScript 安装为平台的预建包（pre‑built packages）。
 
-1.
-安装预建包（pre‑built packages）
+1. 安装预建包（pre‑built packages）
 
-- 
-Ubuntu 和 Debian 系统使用下面的命令：
+- Ubuntu 和 Debian 系统使用下面的命令：
 
 ```
 $ sudo apt-get install nginx-module-njs
 ```
 
-- 
-RedHat、CentOS 和 Oracle Linux 系统使用下面的命令：
+- RedHat、CentOS 和 Oracle Linux 系统使用下面的命令：
 
 ```
 $ sudo yum install nginx-module-njs
 ```
 
-2.
-我们可以在配置文件 **nginx.conf** 的顶级 context 下（"main"）加入一条配置指令[`load_module`](http://nginx.org/en/docs/ngx_core_module.html#load_module)，用来给 HTTP 流量加载 nginScript 模块（注意不是在 http 或者 stream 的 context 下）：
+2. 我们可以在配置文件 **nginx.conf** 的顶级 context 下（"main"）加入一条配置指令[`load_module`](http://nginx.org/en/docs/ngx_core_module.html#load_module)，用来给 HTTP 流量加载 nginScript 模块（注意不是在 http 或者 stream 的 context 下）：
 
 ```
 load_module modules/ngx_http_js_module.so;
 ```
 
-3.
-重新加载 NGINX Plus，将 nginScript 模块载入到正在运行的实例中。
+3. 重新加载 NGINX Plus，将 nginScript 模块载入到正在运行的实例中。
 
     $ sudo nginx -s reload
 
