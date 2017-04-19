@@ -2,7 +2,7 @@
 > *   原文作者：[Eric Elliott](https://medium.com/@_ericelliott?source=post_header_lockup)
 > *   译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > *   译者：[reid3290](https://github.com/reid3290)
-> *   校对者：
+> *   校对者：[Aladdin-ADD](https://github.com/Aladdin-ADD)、[avocadowang](https://github.com/avocadowang)
 
 # 高阶函数（软件编写）（第四部分） #
 
@@ -10,7 +10,7 @@
 
 Smoke Art Cubes to Smoke — MattysFlicks — (CC BY 2.0)（译注：该图是用 PS 将烟雾处理成方块状后得到的效果，参见 [flickr](https://www.flickr.com/photos/68397968@N07/11432696204)。）
 > 注意：这是“软件编写”系列文章的第四部分，该系列主要阐述如何在 JavaScript ES6+ 中从零开始学习函数式编程和组合化软件（compositional software）技术（译注：关于软件可组合性的概念，参见维基百科 [Composability](https://en.wikipedia.org/wiki/Composability)）。后续还有更多精彩内容，敬请期待！
-> [< 上一篇](https://medium.com/javascript-scene/a-functional-programmers-introduction-to-javascript-composing-software-d670d14ede30#.gof8dsqh9) | [<< 第一篇](https://medium.com/javascript-scene/the-rise-and-fall-and-rise-of-functional-programming-composable-software-c2d91b424c8c#.2dfd6n6qe)  | [下一篇 >](https://medium.com/javascript-scene/reduce-composing-software-fe22f0c39a1d) 
+> [< 上一篇](https://github.com/xitu/gold-miner/blob/master/TODO/a-functional-programmers-introduction-to-javascript-composing-software.md) | [<< 第一篇](https://github.com/xitu/gold-miner/blob/master/TODO/the-rise-and-fall-and-rise-of-functional-programming-composable-software.md)  | [下一篇 >](https://github.com/xitu/gold-miner/blob/master/TODO/reduce-composing-software.md)
 
 **高阶函数**是一种接收一个函数作为输入或输出一个函数的函数（译注：参见维基百科[高阶函数](https://zh.wikipedia.org/wiki/%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0)），这是和一阶函数截然不同的。
 
@@ -129,7 +129,7 @@ const gt3 = highpass(3);
 
 换言之，高阶函数可以用来实现函数的多态性。如你所见，相对于一阶函数而言，高阶函数的复用性和通用性更好。一般来讲，在实际编码中会组合使用高阶函数和一些非常简单的一阶函数。
 
-[**再续 “Reduce” >**](https://medium.com/javascript-scene/reduce-composing-software-fe22f0c39a1d)
+[**再续 “Reduce” >**](https://github.com/xitu/gold-miner/blob/master/TODO/reduce-composing-software.md)
 
 ### 接下来 ###
 
