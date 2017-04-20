@@ -1,3 +1,4 @@
+* [函数式程序员的 JavaScript 简介 (软件编写)（第三部分）](https://juejin.im/post/58f58b06da2f60005d43388b?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([sunui](https://github.com/sunui) 翻译)
 * [Reduce（软件编写）（第五部分）](https://juejin.im/post/58f44082da2f60005d3a3710?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([yoyoyohamapi](https://github.com/yoyoyohamapi) 翻译)
 * [跌宕起伏的函数式编程（软件编写）（第一部分）](https://juejin.im/post/58f0eb570ce463006ba37089?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([gy134340](http://gy134340.com/) 翻译)
 * [React 的慢与快：优化 React 应用实战](https://juejin.im/entry/58eb2fb0570c350057dd921a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([AceLeeWinnie(Jiang Haichao)](https://github.com/AceLeeWinnie) 翻译)
