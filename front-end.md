@@ -1,3 +1,4 @@
+* [为什么用 JavaScript 学习函数式编程？（软件编写）（第二部分）](https://juejin.im/post/58f5a2ecb123db2fa2b1b244?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([gy134340](http://gy134340.com/) 翻译)
 * [Functor 与 Category （软件编写）（第六部分）](https://juejin.im/post/58f58d5da0bb9f006aac3e8d?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([yoyoyohamapi](https://github.com/yoyoyohamapi) 翻译)
 * [函数式程序员的 JavaScript 简介 (软件编写)（第三部分）](https://juejin.im/post/58f58b06da2f60005d43388b?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([sunui](https://github.com/sunui) 翻译)
 * [Reduce（软件编写）（第五部分）](https://juejin.im/post/58f44082da2f60005d3a3710?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([yoyoyohamapi](https://github.com/yoyoyohamapi) 翻译)
