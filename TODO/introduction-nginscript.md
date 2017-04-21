@@ -1,22 +1,22 @@
 > * 原文地址：[Introduction to nginScript](https://www.nginx.com/blog/introduction-nginscript/)
 > * 原文作者：[Liam Crilly](https://www.nginx.com/blog/author/liam-crilly/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者： [鲁辰](https://github.com/1992chenlu)
-> * 校对者：
+> * 译者： [1992chenlu](https://github.com/1992chenlu)
+> * 校对者：[mnikn](https://github.com/mnikn)、[imink](https://github.com/imink)
 
 # nginScript 入门
 
 
 ![](https://cdn.wp.nginx.com/wp-content/uploads/2017/03/introduction-to-nginScript-1000x600.jpg)
 
-### *在 HTTP 请求中发挥出 JavaScript 的强大力量和便捷优势*
+### **在 HTTP 请求中发挥出 JavaScript 的强大力量和便捷优势**
 
-*编者的话 – 这是关于 nignScript 这个系列的博文的第一篇。本文中讨论了 NGINX 公司选择自己实现 JavaScript 的原因，并且提供了一个简单的使用案例。探索更多的使用案例，请阅读其他的博文：*
+**编者的话 – 这是关于 nignScript 这个系列的博文的第一篇。本文中讨论了 NGINX 公司选择自己实现 JavaScript 的原因，并且提供了一个简单的使用案例。探索更多的使用案例，请阅读其他的博文：**
 
-- [*nginScript 入门*](https://www.nginx.com/blog/introduction-nginscript/)
-- [*使用 nginScript 逐步迁移客户端到新的服务器*](https://www.nginx.com/blog/nginscript-progressively-transition-clients-to-new-server/)
-- 在“Galera 集群负载均衡过程中 SQL 方法的日志记录”中的[*nginScript 日志记录进阶*](https://www.nginx.com/blog/scaling-mysql-tcp-load-balancing-nginx-plus-galera-cluster/#nginscript-logging-galera)
-- [*使用 nginScript 实现基于数据遮蔽的用户隐私保护*](https://www.nginx.com/blog/data-masking-user-privacy-nginscript/)
+- [** nginScript 入门**](https://www.nginx.com/blog/introduction-nginscript/)
+- [**使用 nginScript 逐步迁移客户端到新的服务器**](https://www.nginx.com/blog/nginscript-progressively-transition-clients-to-new-server/)
+- 在“Galera 集群负载均衡过程中 SQL 方法的日志记录”中的[**nginScript 日志记录进阶**](https://www.nginx.com/blog/scaling-mysql-tcp-load-balancing-nginx-plus-galera-cluster/#nginscript-logging-galera)
+- [**使用 nginScript 实现基于数据遮蔽的用户隐私保护**](https://www.nginx.com/blog/data-masking-user-privacy-nginscript/)
 
 自从 nginScript [2015 年 9 月](https://www.nginx.com/blog/nginscript-new-powerful-way-configure-nginx/?utm_source=introduction-nginscript&amp;utm_medium=blog&amp;utm_campaign=Core+Product)上线以来，作为一个实验性的模块，持续有新功能和语言的核心支持被加入。随着 NGINX Plus R12 的推出，我们很荣幸的宣布 nginScript 现在已经是一个在 NGINX 和 NGINX Plus 中可被广泛使用的稳定版模块了。
 
@@ -39,11 +39,11 @@ nignScript 可供 HTTP 和 TCP/UDP 两种协议使用，用例的种类广泛，
 
 ## nginScript 不是 Lua
 
-多年来，NIGINX 社区创建了一些程序化扩展。目前，Lua 是其中最流行的；使用时，它是一个[NGINX 模块](https://github.com/openresty/lua-nginx-module)，对于 NGINX Plus 来说，它是一个[经认证的第三方模块](https://www.nginx.com/products/technical-specs/?utm_source=introduction-nginscript&amp;utm_medium=blog&amp;utm_campaign=Core+Product)。Lua 模块及其插件库提供了与 NGINX 内核的深度整合和一系列丰富的功能，包括一个 Redis 的驱动程序。
+多年来，NIGINX 社区创建了一些程序化扩展。目前，Lua 是其中最流行的；使用时，它是一个[ NGINX 模块](https://github.com/openresty/lua-nginx-module)，对于 NGINX Plus 来说，它是一个[经认证的第三方模块](https://www.nginx.com/products/technical-specs/?utm_source=introduction-nginscript&amp;utm_medium=blog&amp;utm_campaign=Core+Product)。Lua 模块及其插件库提供了与 NGINX 内核的深度整合和一系列丰富的功能，包括一个 Redis 的驱动程序。
 
 Lua 是一个强大的脚本语言。但是，就采用率来看，它仍是有一定缺陷的。并且，它也不算一个前端工程师或者开发运维工程师必备技能。
 
-nginScript 没有企图取代 Lua，并且 nginScript 还有很长的路要走才能与 Lua 相提并论。nignScript 的目标是给广大 NIGINX 社区的人民群众，提供一个可以基于一种流行的编程语言的，程序化配置的解决方案。
+nginScript 没有企图取代 Lua，并且 nginScript 还有很长的路要走才能与 Lua 相提并论。nignScript 的目标是给广大 NIGINX 社区的人民群众，提供一个可以基于一种流行的编程语言的、程序化配置的解决方案。
 
 ## nginScript 不是 Node.js
 
@@ -85,7 +85,7 @@ NGINX 和 NGINX Plus 的请求处理分为不同的阶段。配置指令通常�
 
 ## nginScript 入门 – 一个真实的例子
 
-nginScript 可以作为一个模块，可以被编译到一个开源的 NGINX 二进制文件里，或者动态地载入 NGINX 或 NGINX Plus。本文的结尾处，有在 NGINX 和 NGINX Plus 中[开始使用 nginScript](#nginscript-enable)的说明。
+nginScript 可以作为一个模块，可以被编译到一个开源的 NGINX 二进制文件里，或者动态地载入 NGINX 或 NGINX Plus。本文的结尾处，有在 NGINX 和 NGINX Plus 中[开始使用 nginScript ](#nginscript-enable)的说明。
 
 在这个例子中，我们使用 NGINX 或 NGINX Plus 作为简单的反向代理，并使用 nginScript 以一种特定的格式构建访问日志记录。
 
