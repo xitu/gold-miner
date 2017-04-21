@@ -83,7 +83,7 @@ NGINX 和 NGINX Plus 的请求处理分为不同的阶段。配置指令通常�
 |内容 – 向客户端发送响应|✅ [js_content](http://nginx.org/en/docs/http/ngx_http_js_module.html#js_content)|❌|
 |日志/变量 – 应需评估|✅ [js_set](http://nginx.org/en/docs/http/ngx_http_js_module.html#js_set)|✅ [js_set](http://nginx.org/en/docs/stream/ngx_stream_js_module.html#js_set)|
 
-## nginScript 入门 – 一个真实的例子
+## nginScript 入门 —— 一个真实的例子
 
 nginScript 可以作为一个模块，可以被编译到一个开源的 NGINX 二进制文件里，或者动态地载入 NGINX 或 NGINX Plus。本文的结尾处，有在 NGINX 和 NGINX Plus 中[开始使用 nginScript ](#nginscript-enable)的说明。
 
