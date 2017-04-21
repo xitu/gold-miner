@@ -132,7 +132,6 @@ nginScript 的许多功能都来自它访问 NGINX 内部的能力。这个例�
 
 - [给 NGINX Plus 装载 nginScript](#nginscript-nginx-plus-load)
 - [给开源 NGINX 装载 nginScript](#nginscript-oss-load)
-[#nginscript-oss-load](#nginscript-oss-load)- [#nginscript-oss-load](#nginscript-oss-load)
 - [给开源 NGINX 编译动态 nginScript 模块](#nginscript-oss-compile)
 
 ### 给 NGINX Plus 装载 nginScript
@@ -197,9 +196,9 @@ load_module modules/ngx_http_js_module.so;
 
 如果你更喜欢直接从源代码编译出一个 NGINX 模块：
 
-1. 跟随 [这些操作说明](https://www.nginx.com/blog/compiling-dynamic-modules-nginx-plus/)，使用[开源 repository](http://hg.nginx.org/njs/)构建 nginScript 模块。
+1. 跟随 [这些操作说明](https://www.nginx.com/blog/compiling-dynamic-modules-nginx-plus/)，使用[开源 repository ](http://hg.nginx.org/njs/)构建 nginScript 模块。
 2. 将这个模块的二进制文件(**ngx_http_js_module.so**)拷贝到 NGINX 根目录（通常是 **/etc/nginx/modules**）下的 **modules** 子目录下。
-3. 完成 [给开源 NGINX 装载 nginScript](#nginscript-oss-load&quot;)的第二步和第三步。
+3. 完成 [给开源 NGINX 装载 nginScript ](#nginscript-oss-load&quot;)的第二步和第三步。
 
 ---
 
