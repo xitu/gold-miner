@@ -53,7 +53,7 @@ Node.js 使用 Google V8 JavaScript 引擎，而 nginScript 则完全是 ECMAScr
 
 ## 作为服务端语言的 JavaScript
 
-如上所述，nginScript 是 JavaScript 语言的标准实现。而目前，所有其他的 JavaScript 运行引擎，都是以运行在网络浏览器为目的而设计的。客户端代码运行与服务端的代码运行有许多本质上的不同 - 从系统资源的可利用性，到可能存在的并发运行的数量。
+如上所述，nginScript 是 JavaScript 语言的标准实现。而目前，所有其他的 JavaScript 运行引擎，都是以运行在网络浏览器为目的而设计的。客户端代码运行与服务端的代码运行有许多本质上的不同 —— 从系统资源的可利用性，到可能存在的并发运行的数量。
 
 我们决定实现自己的 JavaScript runtime，一方面来满足服务端运行的需要，另一方面这种方式可以与 NGINX 请求处理的架构进行优雅适配。以下是我们的设计原则：
 
