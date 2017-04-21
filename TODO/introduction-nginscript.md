@@ -136,7 +136,7 @@ nginScript 的许多功能都来自它访问 NGINX 内部的能力。这个例�
 
 ### 给 NGINX Plus 装载 nginScript
  
-nginScript 是 NGINX Plus 订阅者可以免费使用的[动态模块](https://www.nginx.com/products/dynamic-modules/)，（关于开源 NGINX，请参考下面[给开源 NGINX 装载 nginScript](#nginscript-oss-load)的部分。）
+nginScript 是 NGINX Plus 订阅者可以免费使用的[动态模块](https://www.nginx.com/products/dynamic-modules/)（关于开源 NGINX，请参考下面[给开源 NGINX 装载 nginScript](#nginscript-oss-load)的部分。）
 
 1. 从 NGINX Plus repository 获取并安装 nginScript 模块
 
