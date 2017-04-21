@@ -15,7 +15,7 @@
 
 - [** nginScript 入门**](https://www.nginx.com/blog/introduction-nginscript/)
 - [**使用 nginScript 逐步迁移客户端到新的服务器**](https://www.nginx.com/blog/nginscript-progressively-transition-clients-to-new-server/)
-- 在“Galera 集群负载均衡过程中 SQL 方法的日志记录”中的[**nginScript 日志记录进阶**](https://www.nginx.com/blog/scaling-mysql-tcp-load-balancing-nginx-plus-galera-cluster/#nginscript-logging-galera)
+- 在“Galera 集群负载均衡过程中 SQL 方法的日志记录”中的[** nginScript 日志记录进阶**](https://www.nginx.com/blog/scaling-mysql-tcp-load-balancing-nginx-plus-galera-cluster/#nginscript-logging-galera)
 - [**使用 nginScript 实现基于数据遮蔽的用户隐私保护**](https://www.nginx.com/blog/data-masking-user-privacy-nginscript/)
 
 自从 nginScript [2015 年 9 月](https://www.nginx.com/blog/nginscript-new-powerful-way-configure-nginx/?utm_source=introduction-nginscript&amp;utm_medium=blog&amp;utm_campaign=Core+Product)上线以来，作为一个实验性的模块，持续有新功能和语言的核心支持被加入。随着 NGINX Plus R12 的推出，我们很荣幸的宣布 nginScript 现在已经是一个在 NGINX 和 NGINX Plus 中可被广泛使用的稳定版模块了。
