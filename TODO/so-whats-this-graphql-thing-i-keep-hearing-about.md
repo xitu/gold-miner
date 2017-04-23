@@ -1,18 +1,18 @@
 > * 原文地址：[So what’s this GraphQL thing I keep hearing about?](https://medium.freecodecamp.com/so-whats-this-graphql-thing-i-keep-hearing-about-baf4d36c20cf)
 > * 原文作者：[Sacha Greif](https://medium.freecodecamp.com/@sachagreif?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：[lsvih](https://github.com/xitu/lsvih)
-> * 校对者：
+> * 译者：[lsvih](https://github.com/lsvih)
+> * 校对者：[xiaoyusilen](https://github.com/xiaoyusilen),[steinliber](https://github.com/steinliber)
 
 ![](https://cdn-images-1.medium.com/max/2000/1*uF2-YU2quykHIs4tKXy7sw.png)
 
 # 我经常听到的 GraphQL 到底是什么？ #
 
-当听说又出了一门新技术的时候，你可能会和我一样有以下 3 种反应：
+当听说出了一门新技术的时候，你可能会和我一样有以下 3 种反应：
 
 #### 1. 嫌弃 ####
 
-> 又来一个 JavaScript 类库？反正我就用 jQuery。
+> 又来一个 JavaScript 类库？反正我只用 JQuery 就行了。
 
 #### 2. 感兴趣 ####
 
@@ -20,9 +20,9 @@
 
 #### 3. 恐慌 ####
 
-> 救命啊！我必须**现在马上**去学这个新东西，否则我就会被淘汰了！
+> 救命啊！我必须**马上**去学这个新库，否则我就会被淘汰了！
 
-在这个迅速变化的时代，让你保持理智的方法就是在以上第二到第三阶段间学习一些新的知识，走在潮流之前的同时仍然保持高昂的兴趣。
+在这个迅速发展的时代，让你保持理智的方法就是保持上述第二或第三种态度去学一些新的知识，走在潮流之前的同时激起你的兴趣。
 
 因此，现在就是学习 GraphQL 这个你常常听到别人谈论的东西的最好时机！
 
@@ -30,7 +30,7 @@
 
 简单的说，GraphQL 是一种**描述请求数据方法的语法**，通常用于客户端从服务端加载数据。GraphQL 有以下三个主要特征：
 
-- 它让客户端能具体指定需要拿的数据。
+- 它允许客户端指定具体所需的数据。
 - 它让从多个数据源汇总取数据变得更简单。
 - 它使用了类型系统来描述数据。
 
@@ -42,23 +42,23 @@
 
 GraphQL 是由 Facebook 开发的，用于解决他们巨大、老旧的架构的数据请求问题。但是即使是比 Facebook 小很多的 app，也同样会碰上一些传统 REST API 的局限性问题。
 
-例如，假设你要展示一个文章（`posts`）列表，在每篇文章的下面显示喜欢这篇文章的用户列表（`likes`），其中包括用户名和用户头像。这个需求很容易解决，你只需要请求你的`posts` API，然后在其中嵌入包括用户对象的 `likes` 列表，如下所示：
+例如，假设你要展示一个文章（`posts`）列表，在每篇文章的下面显示喜欢这篇文章的用户列表（`likes`），其中包括用户名和用户头像。这个需求很容易解决，你只需要调整你的 `posts` API 请求，在其中嵌入包括用户对象的 `likes` 列表，如下所示：
 
 ![](https://cdn-images-1.medium.com/max/800/1*VuIe8p5Z00HAdnWTv0QUww.png)
 
-但是现在你要开发移动 app，加载所有的额外数据会降低 app 的速度。所以你得请求两个端点（API），一个包含了 `likes` 的信息，另一个不含这些信息（只含有文章信息）。
+但是现在你是在开发移动 app，加载所有的数据明显会降低 app 的速度。所以你得请求两个接口（API），一个包含了 `likes` 的信息，另一个不含这些信息（只含有文章信息）。
 
-现在我们再掺入另一种情况：`posts` 是由 MySQL 数据库存储的，而 `likes` 却是由 Redis 存储的。现在你该怎么办？
+现在我们再掺入另一种情况：`posts` 数据是由 MySQL 数据库存储的，而 `likes` 数据却是由 Redis 存储的。现在你该怎么办？
 
-按着这个剧本想一想 Facebook 的客户端有多少个数据源和 API 需要管理，你就知道为什么现在评价很好的 REST API 会体现出局限性了。
+按着这个剧本想一想 Facebook 的客户端有多少个数据源和 API 需要管理，你就知道为什么现在评价很好的 REST API 所体现出的局限性了。
 
 ### 解决的方案 ###
 
 Facebook 提出了一个概念很简单的解决方案：不再使用多个“愚蠢”的节点，而是换成用一个“聪明”的节点来进行复杂的查询，将数据按照客户端的要求传回。
 
-实际上，GraphQL 处于客户端与一个或多个数据源之间，它接收客户端的请求然后根据你的设定取出需要的数据。还是不明白吗？让我们打个比方吧！
+实际上，GraphQL 层处于客户端与一个或多个数据源之间，它接收客户端的请求然后根据你的设定取出需要的数据。还是不明白吗？让我们打个比方吧！
 
-之前的 REST 模型就好像你预定了一块披萨，然后又要去找便利店送货上门一些日用品，接着打电话给干洗店去取衣服。这有三个商店，你就得打三次电话。
+之前的 REST 模型就好像你预定了一块披萨，然后又要叫便利店送一些日用品上门，接着打电话给干洗店去取衣服。这有三个商店，你就得打三次电话。
 
 ![](https://cdn-images-1.medium.com/max/800/1*LVQb9_hxti9j-fY7SH3aKA.png)
 
@@ -76,7 +76,7 @@ GraphQL 从某方面来说就像是一个私人助理：你只需要给它这三
 
 理论上，一个 GraphQL API 主要由三个部分组成：**schema（类型）**，**queries（查询）** 以及 **resolvers（解析器）**。
 
-### Queries ###
+### 查询（Queries） ###
 
 你向你的 GraphQL 私人助理提出的请求就是 `query` ，query 的形式如下所示：
 
@@ -132,7 +132,7 @@ query {
 }
 ```
 
-最后，如果我想让 `id` 参数能动态改变，我可以定义一个**变量**，然后在 query 字段中使用它。（请注意，我们在 query 字段处也要定义一次这个变量的名字）
+最后，如果我想让 `id` 参数能动态改变，我可以定义一个**变量**，然后在 query 字段中重用它。（请注意，我们在 query 字段处也要定义一次这个变量的名字）
 
 ```
 query getMyPost($id: String) {
@@ -148,7 +148,7 @@ query getMyPost($id: String) {
 }
 ```
 
-有个很好的方式来实践这些方法：使用  [GitHub’s GraphQL API Explorer](https://developer.github.com/early-access/graphql/explorer/) 。例如，试着查询一下：
+有个很好的方式来实践这些方法：使用  [GitHub’s GraphQL API Explorer](https://developer.github.com/early-access/graphql/explorer/) 。例如，你可以尝试下面的查询：
 
 ```
 query {
@@ -161,9 +161,9 @@ query {
 
 ![](https://cdn-images-1.medium.com/max/1000/1*adGjZ9lofuO_ohkmlqtZvg.gif)
 
-GraphQL 的自动完成功能
+GraphQL 的自动补全功能
 
-你可能注意到了，你使用了一个名为 `description` 的新字段名，IDE 会根据 GraphQL API 将可选的字段名自动补全。真棒！
+当你尝试在下面输入一个名为 `description` 的新字段名时，你可能会注意到 IDE 会根据 GraphQL API 将可选的字段名自动补全。真棒！
 
 [![](https://cdn-images-1.medium.com/max/800/1*XthnQqgmM5Ag4TmwM6UVWw.png)](https://dev-blog.apollodata.com/the-anatomy-of-a-graphql-query-6dffa9e9e747)
 
@@ -171,13 +171,13 @@ GraphQL 的自动完成功能
 
 你可以读读这篇超棒的文章[《Anatomy of a GraphQL Query》](https://dev-blog.apollodata.com/the-anatomy-of-a-graphql-query-6dffa9e9e747)，了解更多 GraphQL 查询的知识。
 
-### Resolvers ###
+### 解释器（Resolvers） ###
 
-即使是世界上最好的私人助理也只能根据你提供的地址去取干洗衣物，而不能凭空将你的衣服变出来。
+除非你给他们地址，否则即使是这个世界上最好的私人助理也不能去拿到干洗衣物。
 
-同样的，GraphQL 服务端并不知道要对一个即将到来的查询做什么处理，除非你告诉它要使用 **resolver**。
+同样的，GraphQL 服务端并不知道要对一个即将到来的查询做什么处理，除非你使用 **resolver** 来告诉他。
 
-一个 resolver 会告诉 GraphQL 在哪里以及如何去取到符合给出字段的数据。例如，下面是之前我们取出 `post` 字段例子的 resolver（使用了 Apollo 的 [GraphQL-Tools](https://github.com/apollographql/graphql-tools) ）：
+一个 resolver 会告诉 GraphQL 在哪里以及如何去取到对应字段的数据。例如，下面是之前我们取出 `post` 字段例子的 resolver（使用了 Apollo 的 [GraphQL-Tools](https://github.com/apollographql/graphql-tools) ）：
 
 ```
 Query: {
@@ -215,13 +215,13 @@ Post: {
 }
 ```
 
-理解这里的关键概念：对于 GraphQL，**你的 API 结构与你的数据库结构是解耦的**。换一种说法，我们的数据库中可能根本就没有 `author` 和 `commentsCount` 这两个字段，但是我们可以通过 resolver 的力量将它们“模拟”出来。
+理解这里的关键在于：对于 GraphQL，**你的 API 结构与你的数据库结构是解耦的**。换一种说法，我们的数据库中可能根本就没有 `author` 和 `commentsCount` 这两个字段，但是我们可以通过 resolver 的力量将它们“模拟”出来。
 
-正如你所见，我们可以在 resolver 中写任何你想写的代码。因此，你可以通过**改变** resolver 任意地**修改**数据库中的内容。
+正如你所见，我们可以在 resolver 中写任何你想写的代码。因此，你可以通过**改变** resolver 任意地**修改**数据库中的内容，这种形式也被称为 **mutation** resolver。
 
-### Schema ###
+### 类型（Schema） ###
 
-GraphQL 的强类型结构系统可以让很多事情都变得可行。我今天的目标仅仅是给你做一个快速的概述而不是详细的介绍，所以我不会在这个内容上继续深入。
+GraphQL 的类型结构系统可以让很多事情都变得可行。我今天的目标仅仅是给你做一个快速的概述而不是详细的介绍，所以我不会在这个内容上继续深入。
 
 话虽如此，如果你想了解更多这方面的信息，我建议你阅读 [GraphQL 官方文档](http://graphql.org/learn/schema/)。
 
@@ -270,7 +270,7 @@ GraphQL 的强类型结构系统可以让很多事情都变得可行。我今天
 
 ![](https://cdn-images-1.medium.com/max/800/1*zugVY5cAa9KIP6Necc7uCw.png)
 
-现在你应该对 GraphQL 有了一个恰当的认识，让我们来聊一聊这个领域的玩家们。
+现在你应该对 GraphQL 有了一个恰当的认识，下面让我们来介绍一下 GraphQL 的主要平台与产品。
 
 ### GraphQL 服务端 ###
 
@@ -311,7 +311,7 @@ Apollo 在 Chrome 开发者工具中的插件
 
 ### 开源 App ###
 
-虽然 GraphQL 还属于新鲜事物，但是已经有一些开源 app 在使用它了。
+虽然 GraphQL 还属于新鲜事物，但是它已经被一些开源 app 使用了。
 
 #### [VulcanJS](http://vulcanjs.org) ####
 
@@ -321,13 +321,13 @@ Apollo 在 Chrome 开发者工具中的插件
 
 #### [Gatsby](https://www.gatsbyjs.org/docs/) ####
 
-Gatsby 是一个 React 静态网站生成器，基于 [GraphQL 1.0 版本](https://www.gatsbyjs.org/docs/) 开发。它一眼看上去像个奇怪的大杂脍，但其实它的功能十分强大。Gatsby 在构建过程中，可以从多个 GraphQL API 取得数据，然后用它们创建出一个全静态的无后端 React app。
+Gatsby 是一个 React 静态网站生成器，它现在是基于 [GraphQL 1.0 版本](https://www.gatsbyjs.org/docs/) 开发。它一眼看上去像个奇怪的大杂脍，但其实它的功能十分强大。Gatsby 在构建过程中，可以从多个 GraphQL API 取得数据，然后用它们创建出一个全静态的无后端 React app。
 
 ### 其它的 GraphQL 工具 ###
 
 #### [GraphiQL](https://github.com/graphql/graphiql) ####
 
-GraphiQL 是一个基于浏览器的非常好用的 IDE，他可以很方便地帮你对 GraphQL 端点进行查询。
+GraphiQL 是一个非常好用的基于浏览器的 IDE，它可以方便你进行 GraphQL 端点查询。
 
 [![](https://cdn-images-1.medium.com/max/800/1*fbeXj5wB383gWsMXn_6JAw.png)](https://github.com/graphql/graphiql)
 
