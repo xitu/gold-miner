@@ -2,7 +2,7 @@
 > * 原文作者：[Gergely Nemeth](https://blog.risingstack.com/author/gergely/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[mnikn](https://github.com/mnikn)
-> * 校对者：
+> * 校对者：[lsvih](https://github.com/lsvih)、[Aladdin-ADD](https://github.com/Aladdin-ADD)
 
 # Node.js 之战: 在生产环境中调试错误 #
 
