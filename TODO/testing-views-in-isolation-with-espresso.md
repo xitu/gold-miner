@@ -16,7 +16,7 @@
 
 这很困难，因为这些类型的测试包含了多个潜在的故障点。理论上来说，当某个测试失败时，你会希望它是由于单个逻辑断言而导致的。
 
-大多数（或者说很多）被引入的问题是出现在UI中的。这些问题很可能是十分细微的，以至于我们在添加新特性时并不会注意到，但是敏锐的 QA 团队往往可以。
+大多数（或者说很多）被引入的问题是出现在 UI 中的。这些问题很可能是十分细微的，以至于我们在添加新特性时并不会注意到，但是敏锐的 QA 团队却往往可以。
 
 这样就浪费太多时间了。
 
@@ -47,16 +47,16 @@ public class MovieItemView extends RelativeLayout {
 }
 ```
 
-他们将 UI 的逻辑部分组合在一起，并且通常包含来自业务领域的命名规范。在
+他们将 UI 的逻辑部分组合在一起，并且通常还包含来自业务领域的命名规范。在
  Novoda 的页面布局中你很少会看到“原始”的 Android 视图。
 
-让我们使用 BDD 风格来编写这些视图测试（译者注：BDD（Behaviour Driven Development）是TDD的一种， 倾向于断言被测对象的行为特征而非输入输出），比如“给定的 MovieItemView 被绑定到 Edward Scissorhands 上，然后标题就被设置成 Edward Scissorhands”或者“给定的 MovieItemView 被绑定到 Edward Scissorhands 上，当点击视图时，onClick(Edward Scissorhands) 就会被调用”，等等。
+让我们使用 BDD 风格来编写这些视图测试（译者注：BDD（Behaviour Driven Development）是TDD的一种，倾向于断言被测对象的行为特征而非输入输出），比如“给定的 MovieItemView 被绑定到 Edward Scissorhands 上，然后标题就被设置成 Edward Scissorhands”或者“给定的 MovieItemView 被绑定到 Edward Scissorhands 上，当点击视图时，onClick(Edward Scissorhands) 就会被调用”，等等。
 
 ## 难道不能使用单元测试来捕获这些问题吗？ ##
 
-如果你使用了 MVP 或者 MVVM 等表现模式，为什么还需要 Espresso 来运行这些测试呢？为何不直接使用单元测试？
+如果使用了 MVP 或者 MVVM 等表现模式，为什么还需要 Espresso 来运行这些测试呢？为何不直接使用单元测试？
 
-首先，让我们来看一下展示信息的流程并且描述一下目前测试所能做的事情，然后再看看使用 Espresso 测试能多做些什么。
+首先，让我们来看一下展示信息的流程并且描述一下目前所能做的测试，然后再看看使用 Espresso 测试能多做些什么。
 
 - Presenters 订阅发送事件的数据生成器
 
@@ -66,7 +66,7 @@ public class MovieItemView extends RelativeLayout {
 
 - displayers 的具体实现将显示/隐藏 Android 视图，并执行诸如`moviesView.bind（List <Movie>） `之类的操作
 
-您可以对 presenters 进行单元测试，验证是否调用了 displayers 正确的方法并且带有正确的参数。
+你可以对 presenters 进行单元测试，验证是否调用了 displayers 正确的方法并且带有正确的参数。
 
 你可以用相同的方式测试 displayers 吗？是的，你是可以模拟 Android 视图，并验证是否调用了正确的方法。但它不会是正确的粒度：
 
