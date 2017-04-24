@@ -3,7 +3,7 @@
 > * 原文作者：[Pierce Zaifman](https://android.jlelse.eu/@PierceZaifman?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[PhxNirvana](https://github.com/phxnirvana)
-> * 校对者：
+> * 校对者：[yazhi1992](https://github.com/yazhi1992)、[stormrabbit](https://github.com/stormrabbit)
 
 # RxJava 中的多线程 #
 
