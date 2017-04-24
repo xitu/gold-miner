@@ -19,7 +19,7 @@
 
 **陈词滥调**。
 
-像其他许多陈词滥调一样，它的核心是一个真理。但是这个真理已经被滥用，大多数说出这句话的人并不知道它实际上是什么意思。
+像其他许多陈词滥调一样，它的核心是一个真理。但是这个真理已经被滥用，大多数说出这句话的人并不知道它的真正意思。
 
 这句话正确吗？**是的**。
 
@@ -31,9 +31,9 @@
 
 ### 文档注释 ###
 
-文档注释是为了给任何可能使用你的源代码的人看的，但他们不一定可以完全通读代码。如果你正在构建给其他开发者使用的库或框架，你需要某种形式的 API 文档。
+文档注释是为了给任何可能使用你的源代码的人看的，但他们不一定会通读代码。如果你正在构建给其他开发者使用的库或框架，你需要某种形式的 API 文档。
 
-源代码中 API 文档越少，越有可能变得过时或不准确。减少这种情况的一个好策略就是直接将文档嵌入代码中，之后再使用工具提取文档。
+越早从源代码中移除 API 文档，随着时间的推移，文档就越有可能变得过时或不准确。减少这种情况的一个好策略就是直接将文档嵌入代码中，之后再使用工具提取文档。
 
 下面是一个文档注释的例子，来自一个流行的 JavaScript 库，叫做 [Lodash](https://lodash.com)。
 
@@ -71,7 +71,7 @@
 
 如果你[将这些注释与他们的线上文档做对比](https://lodash.com/docs/#countBy)，你会发现它们完全一致。
 
-如果你开始使用文档注释，则需要确保遵循一致的标准，并且使它们与其他说明性的注释可以轻易区分开。一些广泛使用、有良好支持的标准和工具包括 JavaScript 的 [JSDoc](http://usejsdoc.org)，dotNet 的 [DocFx](https://github.com/dotnet/docfx)，Java 的 [JavaDoc](http://www.oracle.com/technetwork/java/javase/documentation/index-jsp-135444.html)。
+如果你开始使用文档注释，则需要确保这些注释遵循一致的标准，并且使它们与其他说明性的注释可以轻易区分开。一些广泛使用、有良好支持的标准和工具包括 JavaScript 的 [JSDoc](http://usejsdoc.org)，dotNet 的 [DocFx](https://github.com/dotnet/docfx)，Java 的 [JavaDoc](http://www.oracle.com/technetwork/java/javase/documentation/index-jsp-135444.html)。
 
 这种注释的缺点就是使你的代码非常「嘈杂」，并使得积极参与维护的人更难阅读代码。好消息是，大多是代码编辑器都支持「代码折叠」的功能，这样就可以折叠这部分注释，专注在代码上。
 
@@ -83,7 +83,7 @@
 
 说明性注释是给任何可能需要维护、重构或扩展你的代码的人（包括你自己）看的。
 
-通常来说，说明性注释是一种代码警示（？）。它告诉你，你的代码太复杂了。你应该尽量简化代码并删除这种注释，因为「好的代码自身就是文档」。
+通常来说，需要说明性注释的代码散发着一种坏代码的气味，它的出现说明你的代码太复杂了。你应该尽量简化代码并删除这种注释，因为「好的代码自身就是文档」。
 
 以下是一个不好的 —— 虽然很有趣 —— 说明性注释的[例子](http://stackoverflow.com/a/766363)。
 
@@ -98,7 +98,7 @@
 $str = str_replace(array("\{","\}")," ",$str);
 ```
 
-如果作者不花时间在使用韵脚诗装点这个稍微令人疑惑的代码，肯定可以将代码本身写的更加易读易懂。也许使用函数名，`removeCurlyBraces` 在另一个函数 `sanitizeInput` 中调用？
+如果作者不花时间在使用韵脚诗装点这个稍微令人疑惑的代码，肯定可以将代码本身写的更加易读易懂。也许命名一个函数，`removeCurlyBraces` 在另一个函数 `sanitizeInput` 中调用？
 
 不要会错意，的确有不少时候 —— 特别当你正在拼命应对繁重的工作时 —— 注入一些幽默对身心都有好处。但是当你写了一个有趣的注释来修饰不好的代码时，实际上人们不太可能稍后重构或修复代码。
 
@@ -117,14 +117,13 @@ int age = 32;
 
 不过，有时候，无论你对代码本身做了什么，一个说明性注释还是需要的。
 
-通常这发生在，你需要添加一些上下文解释非直观的解决方法。
+这通常发生在你需要添加一些上下文解释一个不太直观的解决方法。
 
 以下是一个来自 Lodash 的很好的例子：
 
 ```javascript
 function addSetEntry(set, value) {   
   /* 
-   Don't return `set.add` because it's not chainable in IE 11.
    不要返回 `set.add`，因为它在 IE 11 中不可链接。
   */  
   set.add(value);    
@@ -134,7 +133,7 @@ function addSetEntry(set, value) {
 
 也有一些情况是 ，在经过很多思考和实验后 ，看上去天真的解决方法事实上是最好的。在这些情况下，其他的程序员会不可避免地认为他们更聪明并开始自己动手实践，最后却发现你的方法是最好的。
 
-有时上面提到的其他程序员就是未来的你自己。
+有时上面提到的其他程序员就是未来的你。
 
 在这些情况下，最好的做法就是写下注释，节省所有人的时间，避免尴尬。
 
@@ -142,18 +141,13 @@ function addSetEntry(set, value) {
 
 ```
 /**
-Dear maintainer:
 亲爱的维护者：
 
-Once you are done trying to 'optimize' this routine,
-and have realized what a terrible mistake that was,
-please increment the following counter as a warning
-to the next guy:
-只要你完成了尝试「优化」这部分代码，
+当你完成了尝试「优化」这部分代码，
 并意识到这是个多么大的错误时，
-请给下面的计数器加一以给下一个人警告：
+请增加下面的计数器以给下一个人警告：
 
-total_hours_wasted_here = 42
+总共在此处浪费的小时数 = 42
 **/
 ```
 
@@ -163,7 +157,6 @@ total_hours_wasted_here = 42
 
 ```javascript
 /* 
-don't use the global isFinite() because it returns true for null values
 不要使用全局 isFinite()，因为它对 null 值会返回 true.
 */
 Number.isFinite(value)
@@ -177,23 +170,21 @@ Number.isFinite(value)
 
 使用过很多的代码库后，你会见到各种各样愤世嫉俗、沮丧到黑暗或意味深长的注释。
 
-像这种[看似无害的东西](http://stackoverflow.com/a/185550)...
+像这种[看似无害的注释](http://stackoverflow.com/a/185550)...
 
 ```
 /*
-This code sucks, you know it and I know it.  
-Move on and call me an idiot later.
 这段代码很糟糕，你知道，我也知道。
 继续往前，之后再叫我白痴。
 */
 ```
 
-...到[彻底的意思？](http://stackoverflow.com/a/184673)
+...[以及这种直白刻薄的注释](http://stackoverflow.com/a/184673)
 
 ```
 /* 
 Class used to workaround Richard being a f***ing idiot
-这部分以前是 Richard 的工作，他是个白痴
+这是配合 Richard 的工作而写的类，他是个白痴
 */
 ```
 
