@@ -1,96 +1,96 @@
 > * 原文地址：[From Form to Function, Our Thoughts On Design Are Changing](https://medium.com/thinking-design/from-form-to-function-our-thoughts-on-design-are-changing-ed556d8f2b58)
 > * 原文作者：[Adobe Creative Cloud](https://medium.com/@creativecloud)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者： 
-> * 校对者：
+> * 译者：[Ruixi](https://github.com/ruixi)
+> * 校对者：[cfanlife](https://github.com/cfanlife)，[hudson6666](https://github.com/hudson6666)
 
-# From Form to Function, Our Thoughts On Design Are Changing
+# 从形式到功能，设计思维的改变
 
 ![](https://cdn-images-1.medium.com/max/1600/1*bImmCpF6MPs9JslB21eAVQ.jpeg)
 
-Design is more important to business than ever before, because it’s an essential driver of user engagement. Looking at the recent evolution of user interface design might give you a sense of how user expectations have been changing and what’s coming next. But before we dive into details we need to find an answer to one important question — *what is design?*
+设计作为用户参与的基本驱动力，对商业而言比以往任何时候都更加重要。留意一下最近的用户界面设计趋势，这可能让你感受到用户的期望是如何发生改变的，以及未来的趋势。但在我们深入讨论之前，有个重要的问题需要回答—— **设计是什么？**
 
-### What is Design?
+### 设计是什么？
 
-Most people (even some designers) perceive design as visual elements that are added to a product after it’s done; a process that comes at the end of a product’s development, and is treated like a decoration that the designers slapped onto the real work of the engineers. While design is visual aesthetics, it is also much more. As Steve Jobs once said, “Design is not just what it looks like and feels like. *Design is how it works.*” Design is both how product ***looks*** and how it ***works*** .
+大多数人（甚至包括一些设计师）都将设计视作在产品完成之后所添加的视觉点缀、在产品开发结束之后的工艺流程，就像是设计师们强加在工程师的真实工作之上的。设计的确是视觉美学，但不仅如此。就像史蒂夫·乔布斯曾经说过的：“设计不只关乎视觉和感官。**设计关乎（产品）如何运作**。（Design is not just what it looks like and feels like. Design is how it works.）” 设计既包括产品的**视觉体验**，也包括产品的**运作原理**。
 
-### The Evolution of Graphical User Interface (GUI) Design
+### 图形用户界面（GUI）设计的演化
 
-Computers and humans don’t speak the same language. To make interaction possible, designers rely on *graphical* user interfaces. The recent evolution of GUI makes it clear that *design trends are evolving for users.* In order to prove this point let’s examine the GUI changes in the last decade.
+计算机和人类说着不同的语言。设计师们依靠**图形**用户界面使交互成为可能。最近的 GUI 设计演化清晰地表明：**设计趋势就是用户（需求）的不断变化。** 为了证明这一点，我们来看看最近十年的 GUI 设计变化。
 
-#### From Complexity to Simplicity
+#### 从复杂到简单
 
-Towards the end of the 2000’s GUI design started to change significantly due to the rise in popularity of mobile devices. This huge shift in device preference led to designers having to rethink interfaces from scratch, which in turn led to global changes in GUI design.
+由于移动设备的普及，2000 年底的 GUI 设计开始产生了明显的变化。设备配置的极大变化迫使设计师们不得不界面进行重新思考，而这又反过来引起了全球的 GUI 设计的变化。
 
-Looking at the history of the web, we can see that a decade ago websites were rudimentary in terms of design. But visual appearance wasn’t the only problem in this approach to design. Websites tried to provide *as many options as possible* : all the information a site contained seemed to be available; everything included on a site was ‘equally’ important. Designers thought that it would make websites more valuable to users. Unfortunately this often led to a cluttered interface. In the example below, you can see how distracting a cluttered interface can be from a usability standpoint.
+看看 Web 的历史，我们就会发现十年前的网站设计是不成熟的。但对于这种设计来说，视觉展示并不是唯一的问题。网站试图提供**尽可能多的选择**：一个站点所包含的所有信息似乎都是可用的，页面上的每个元素都“同等”重要。（那时的）设计师们觉得这样会让网站对用户来说更有价值。不幸的是，这往往导致页面的杂乱无章。在下方的案例中，你可以看出，从可用性的角度去观察，你可以看到一个乱糟糟的界面能够让人分心到何种程度。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*MgAzj4RVV2zFTQKQCmfSRw.jpeg)
 
-With the rise of mobile devices designers began to realize that user attention is a precious resource and should be treated accordingly. This lead to the *highly focused* and *very prioritized interfaces*. Such interfaces have just the right amount of information available at the exactly right time users need it.
+随着移动设备的兴起，设计师们开始意识到，用户的注意力是一种需要被合理利用的珍贵资源。这就促使了**高度集中**和**层次化界面**的出现。这样的界面能在用户最需要的时候提供最恰当数量的可用信息。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*IMwAqnMVH2peTtdNtwPPhQ.jpeg)
 
-#### From Skeuomorphism to Flat Design
+#### 从拟物化到扁平化
 
-Do you remember when all touch screen apps looked very physical? At one point in time, almost all apps used a skeuomorphic design style which was based on symbols borrowed from the real world.
+你还记得触屏上的所有应用程序看起来都像真的一样的时候吗？那个时候，几乎所有应用程序都在使用拟物化设计风格，而这种风格又是对现实世界中符号的借用。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*Mrt--PeX7t5qPmnmwzDUAg.png)
 
-Skeuomorphism wasn’t just a pure design trend, it played an important role in usability. When touch screen devices were fairly new to many users, designers had to make sure users would understand how apps worked. Skeuomorphic designs help users understand how to use a new interface works by making the design familiar. That’s why the iOS Newsstand app in the example above looks like a physical bookshelf. As users progressively became more familiar with touch screens, such design metaphors weren’t needed and this style went away.
+拟物化并不是一种纯粹的设计趋势，它在可用性方面也扮演了重要的角色。当很多用户都对触屏设备知之甚少的时候，设计师们必须确保用户能够明白这些应用程序是做什么的。拟物化设计通过让设计更加贴近(现实生活)来帮助人们理解新页面的运作方式。这就是上方的 iOS 报刊亭应用看上去就像是一个真实的书架（的原因）。随着用户渐渐的熟悉了触屏，这种设计隐喻显得鸡肋，而这种设计风格也逐渐退出了历史舞台。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*TxE-vVFUv_61nYtdml78Kw.jpeg)
 
-With the quick adoption of new technologies, there was a movement towards a pure digital look, called flat design. This new style relies mainly on flat textures and icons, typography, spacing, and color to bring order to the digital canvas.
+随着新技术的使用，一种纯粹的数字化外观出现了：扁平化。这种新的设计风格主要依靠平面质感、图标、排版、间距和色彩来营造数字界面的秩序。
 
-#### From a Single Channel to Seamless Experience Across All Channels
+#### 从单一终端到跨终端
 
-Ten years ago a major design challenge was to make sure designs worked in every browser. Today, the major design challenge is to *make sure your designworks on the devices your users use*. There’s no such thing as mobile user and desktop user any more. There are users who may want to use your product in the same way, regardless of the device. That’s why *continuity across multiple devices* — creating a seamless experience across mobile, desktop, tablet and wearables — is so important. The goal is to put users at the center of your multi-channel design, [offering an omnichannel approach](https://uxmag.com/articles/5-elements-of-omni-channel-user-experiences) that lets users efficiently use product regardless of the device.
+十年前，一个主要的设计挑战就是保证设计能够在每一个浏览器下正常运行。今天，主要的设计挑战是**保证你的设计在用户所使用的设备上正常运行**。不再有移动用户和桌面端用户这种说法了。只有无论在什么设备上都可能想要照常使用你的产品的用户。这就是为什么**跨终端体验**（在移动端、桌面端、平板和可穿戴设备上的无缝体验）如此重要。目标就是将用户放在你的设计（包括多种终端）之中，[提供一个全方位的解决方案](https://uxmag.com/articles/5-elements-of-omni-channel-user-experiences) ，能够让用户无论在何种设备上都能够高效地使用产品。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*j5kqBjTpLFS5e1J3wkmvgw.jpeg)
 
-### From Pixels to People
+### 从像素到人
 
-Modern apps and sites are more than just the graphical representation of a solution — they are complex systems focused on solving user problems and generating valuable outcome. Despite all advantages, these systems have a serious natural barrier — graphical user interface. No matter how good a GUI is, people still have to learn to use it. In order to solve this problem modern UX goes beyond on-screen design and into a world of UI-less interactions.
+现代应用程序和网站不只是解决方案的视觉表现，更是专注于解决用户问题并提供有价值结果的复杂系统。尽管这些系统有种种优点，但它还是有一个严重的天然障碍——图形用户界面。无论 GUI 如何优秀，人们都不得不去学习如何使用它。为了解决这个问题，现代 UX 已经不再局限于屏幕上的设计，走到了一个没有用户界面的交互世界之中。
 
-#### Time-Saving Design
+#### 节省时间的设计
 
-Today, users expect more user-devoted, frictionless experiences from their interactions with technology. They want to use products designed to save their time. Since time-saving design is all about respecting a user’s time, it’s clear why it’s on the rise. Modern apps strive to follow this trend by:
+今天，用户期望他们在与科技交互中获得更忠实于用户习惯、更畅快的体验。他们想要使用被设计来节省他们的时间的产品。节约时间的设计完全是对用户时间的慎重对待，这也清楚地解释了它们崛起的原因。当代应用程序设计力求追随如下趋势：
 
-- **Anticipating user needs** Take Dark Sky weather app for instance. Some users might still prefer to open a weather app to check the forecast, but the most useful thing the weather app can do is to alert user about suddenly changed weather conditions (e.g. notify user that it’ll be snowing soon).
+- **预见用户需求。** 这里用 Dark Sky weather 举个例子。一些用户可能仍然喜欢打开天气应用来查看天气预报，但天气应用最有用的功能是提醒用户突然变化的天气状况：比如通知用户很快就要下雪了。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*79Wbi92BeDyVaDPEEQjMLQ.jpeg)
 
-- **Interpreting user actions and goals.** When you open the Uber app for Apple Watch, it goes straight to a screen showing how long it’ll be until a car can come get you — no pulling out your phone to drop pins required.
+- **理解用户行为和目标。** 当你打开 Apple Watch 的优步应用时，它会直接在屏幕上显示车辆能够到达的时间——不需要拿出手机选择定位。
 
 ![](https://cdn-images-1.medium.com/max/1600/0*0ouzEuTHaORKAryP.jpg)
 
-#### Self-learning systems (SLS)
+#### 自我学习系统（Self-learning systems，SLS）
 
-Self learning systems (SLS) powered software anticipates tasks that need to be done and simply auto-completes them for the user, or at least gets the user several steps closer to finishing the tasks. Software that functions more autonomously has a major benefit for the users — it requires *much less attention*. The basic building block of self-learning software is the ability for a system to learn based on experience, analyse incoming data, and take action in response to new events. The challenge with SLS is to design behaviours based on the fewest possible interactions, while focusing on people’s behavior. Why is it a challenge? Because you need to find a balance between saving your user’s time and providing just enough options so users feel that they have control over a system.
+自我学习系统控制软件预见一些简单的、需要被自动代替用户完成的任务，或者至少能让用户距离完成任务更近若干步。功能更为自主的软件对用户来说有个很重大的益处——减少了**需要的注意力**。 自我学习软件的基本构件是基于经验学习、对传入数据分析，以及对新的事件作出反应的能力。自我学习系统面临的挑战是如何在关注用户行为的同时，以尽可能少的交互来设计行为。为什么这是个挑战？因为你需要在节约用户时间和为用户提供足够多的选项（让用户感受到自己对系统的控制）找到一个平衡点。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*_yiHy0NAU1xANCf6HYxMDA.jpeg)
 
-[Nest](https://nest.com/) is great example of SLS. It’s a semi-intelligent thermostat that can program itself around user’s life. Each time a user changes the settings, Nest remembers temperature adjustments, and after a few days users will be adjusting Nest less, because it pulls all it has learned into a schedule for the home. Yes, Nest has a lot of downsides (the most critical one is that [the system often lives its own way](https://www.nngroup.com/articles/emotional-design-fail/)), but still it’s a great example of the next wave of product. Looking ahead, self-learning software will be the one thing that distinguishes legacy apps from modern ones.
+[Nest](https://nest.com/) 就是个很好的自我学习系统的例子。它是一个可以围绕用户的生活来制定计划的半智能恒温器。每当用户更改系统设置的时候，Nest 都会记下温度调整，并且在几天之后用户对 Nest 的调整会减少，因为它把它学到的一切都变成家庭的时间表。是的，Nest 有很多缺点(最严重的是[系统总是采用自己的方式](https://www.nngroup.com/articles/emotional-design-fail/))，但它依然是下一代产品的绝好示例。展望未来，自我学习软件将会是区别传统应用和现代应用的一个重要因素。
 
-#### Conversational Interfaces
+#### 会话式交互界面
 
-With the advent of iPhone Messages, Slack or WhatsApp, the way we exchange information changed irreversibly. Text messages have become an extremely natural way of communicating.
+随着 iPhone 消息、Slack 以及 WhatsApp 的出现，我们交换信息的方式被完全改变。 短信已经成为一种极其自然的交流方式。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*ZMmEYOSW_mZttqHXIEqDpw.png)
 
-This trend led to the popularization of conversational interfaces. Essentially, a conversational interface is any user interface that mimics chatting with a real human. “Chatbot” is one of the hottest terms in our industry right now. More and more apps are leaving behind the GUI in favor of personal chat. Why? Because conversation feels natural for us and this property makes the use of chatbots much more intuitive than tapping on a bunch of buttons in traditional user interfaces. Another benefit of conversational interfaces is in detalization: GUI can only have a finite amount of options in practice, but speaking to a chatbot can in theory (if designed well) allow open ended discovery and interaction.
+这一趋势导致了会话界面的普及。从本质上讲，会话界面就是是模仿真实人类聊天的用户界面。“聊天机器人（Chatbot）”是目前我们行业最热门的术语之一。越来越多的应用程序倾向于使用个人聊天而不是 GUI（的形式来和用户交互）。为什么？因为交谈对我们来说感觉很自然，这种特性使聊天机器人的使用比在传统用户界面中点击一堆按钮更加直观。另一个会话界面的优势在于细节程度（这个词我不太确定——译者注）：GUI 在实际中只有有限的选项，但和聊天机器人交谈在理论上（如果设计得好）允许开放式的发现和交互。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*odt0dGAYbEau2LXZo8EF3A.gif)
 
-Last but not least, teens and millennials — who represent the bulk of tomorrow’s market — spend more time on messaging apps than on any other apps or sites, creating a huge opportunity for businesses who want to reach this audience.
+最后但同样重要，青少年和千禧一代——未来市场的主要代表——在短信应用程序中花的时间比任何其他应用程序或网站都要多，为想要接触到这个群体的（人／企业）创造了一个巨大的商业机会。
 
-But chatbots aren’t a final step of conversational interface evolution. Voice interfaces will be a natural next step for chatbots. In the not too distant future, voice interaction will make up a large part of how we interact with the technology around us. The experience of using voice commands to control computers has already been transformed by a new generation of voice-interaction systems such as Apple’s Siri, Google Now and Amazon Echo. The latter doesn’t use a traditional GUI as a means of interaction. But the biggest challenge is to understand how people will interact with voice interfaces. This requires a better understanding of humans — not only the topics they are interested in talking about, but *how* they are going to talk about the topics.
+但聊天机器人不是会话界面进化的最终形态。语音界面将会是聊天机器人的下一步。在不远的将来，语音交互将会在我们与技术的互动中占据很大部分。使用语音命令来控制计算机已经由新一代语音交互软件，比如 Siri、Google Now 和 Amazon Echo 实现了。它们不使用传统的 GUI 作为交互手段。但最大的挑战是了解人们将如何与语音界面进行交互。这需要更好地了解人类——不仅是他们感兴趣的话题，还包括他们将**如何**谈论这些话题。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*coZE_xgldZTEQyI7SCdkvg.jpeg)
 
-### Conclusion
+### 结语
 
-With technology continuously evolving, we are on a path that could make interaction with digital services more intuitive, more accessible, and more efficient. Next generation platforms continue to develop much more like human-to-human conversation. The interface of the future might not always be made of pixels.
+随着技术的不断发展，我们正在使互动与数字服务更直观、更便捷、更高效的道路上不断前行。下一代平台继续发展得更接近人与人之间的对话，未来的界面不一定是由像素组成的。
 
 ---
 
