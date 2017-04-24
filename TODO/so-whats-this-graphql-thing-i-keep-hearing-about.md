@@ -16,7 +16,7 @@
 
 #### 2. 感兴趣 ####
 
-> 嗯，也许我**应该**去了解一下这个我总是听别人说到的新东西。
+> 嗯，也许我**应该**去了解一下这个我总是听别人说到的新库。
 
 #### 3. 恐慌 ####
 
@@ -247,7 +247,7 @@ GraphQL 的类型结构系统可以让很多事情都变得可行。我今天的
 
 当然能！因为 GraphQL 仅仅是一个标准，你可以在任何平台、任何框架中使用它，甚至在客户端中也同样能应用它（例如，[Apollo](http://dev.apollodata.com/) 有针对 web、iOS、Angular 等环境的 GraphQL 客户端）。你也可以自己去做一个 GraphQL 服务端。
 
-#### GraphQL 是 Facebook 做的，但是我不信任 Facebook####
+#### GraphQL 是 Facebook 做的，但是我不信任 Facebook ####
 
 再强调一次，GraphQL 只是一个标准，这意味着你可以在不用 Facebook 一行代码的情况下实现 GraphQL。
 
