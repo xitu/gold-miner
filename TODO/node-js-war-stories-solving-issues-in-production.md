@@ -10,7 +10,7 @@
 
 **感谢来自 Netflix 的 Yunong Xiao、来自 Strongloop 的 NearForm 和来自 Shubhra Kar 的 Matteo Collina 对这篇文章的见解与帮助。**
 
-过去4年里，我们在 RisingStack 的生产环境中运行 Node 应用，积累了许多相关经验 -  感谢 [Node.js 咨询, 学习和开发](https://risingstack.com/) 的业务支持。
+过去4年里，我们在 RisingStack 的生产环境中运行 Node 应用，积累了许多相关经验 -  感谢 [Node.js 咨询、学习和开发](https://risingstack.com/) 的业务支持。
 
 Netflix 和 nearForm 的 Node 开发团队都一样，我们都有把调试过程记录下来的习惯，因此整个开发团队 (现在是全世界的开发团队) 都可以从我们的错误中学习。 
 
