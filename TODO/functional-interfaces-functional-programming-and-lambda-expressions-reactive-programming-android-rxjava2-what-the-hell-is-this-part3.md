@@ -1,4 +1,4 @@
-> * 原文地址：[Reactive Programming [ Android RxJava2 ] ( What the hell is this ) Part3](https://www.teambition.com/project/583d8744180aa4d012496f03/tasks/scrum/583d8744fa1e93bf18a85a7a/task/58d0e5c09e4371c673330e96)
+> * 原文地址：[Reactive Programming [ Android RxJava2 ] ( What the hell is this ) Part3](http://www.uwanttolearn.com/android/functional-interfaces-functional-programming-and-lambda-expressions-reactive-programming-android-rxjava2-what-the-hell-is-this-part3/)
 > * 原文作者：[Hafiz Waleed Hussain](http://www.uwanttolearn.com/author/admin/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：
