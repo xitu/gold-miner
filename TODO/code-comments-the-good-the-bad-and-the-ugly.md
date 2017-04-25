@@ -2,13 +2,13 @@
 > * 原文作者：[Bill Sourour](https://medium.freecodecamp.com/@BillSourour?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者： [bambooom](https://github.com/bambooom)
-> * 校对者：
+> * 校对者：[zhangqippp](https://github.com/zhangqippp)、[steinliber](https://github.com/steinliber)
 
 # 代码中添加注释之好坏丑
 
 ![](https://cdn-images-1.medium.com/max/1000/1*ddM-OL7PF36NZ6QYCa95bQ.jpeg) 
 
-题图是克林特 · 伊斯特伍德在《黄金三镖客》中。
+题图是克林特 · 伊斯特伍德在《黄金三镖客》中剧照。
 
 
 如果你以前听过这句话就打断我...
@@ -33,7 +33,7 @@
 
 文档注释是为了给任何可能使用你的源代码的人看的，但他们不一定会通读代码。如果你正在构建给其他开发者使用的库或框架，你需要某种形式的 API 文档。
 
-越早从源代码中移除 API 文档，随着时间的推移，文档就越有可能变得过时或不准确。减少这种情况的一个好策略就是直接将文档嵌入代码中，之后再使用工具提取文档。
+越早从源代码中提取 API 文档，随着时间的推移，文档就越有可能变得过时或不准确。减少这种情况的一个好策略就是直接将文档嵌入代码中，之后再使用工具提取文档。
 
 下面是一个文档注释的例子，来自一个流行的 JavaScript 库，叫做 [Lodash](https://lodash.com)。
 
@@ -183,7 +183,6 @@ Number.isFinite(value)
 
 ```
 /* 
-Class used to workaround Richard being a f***ing idiot
 这是配合 Richard 的工作而写的类，他是个白痴
 */
 ```
