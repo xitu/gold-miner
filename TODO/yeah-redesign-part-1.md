@@ -1,5 +1,5 @@
 > * 原文地址：[Yeah, redesign(Part 1)](https://medium.muz.li/yeah-redesign-part-1-b61af07eb41a)
-> * 原文作者：[Jingxi Li](https://medium.muz.li/@jingxili?source=post_header_lockup)
+> * 原文作者：[Jingxi Li](https://medium.muz.li/@jingxili)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：
 > * 校对者：
@@ -111,7 +111,7 @@ It is designers’ responsibility to do the design QA, and ensure the design was
 
 By the time we started to think redesign, Sing had moved from US centric app to an international product. To serve the community of global users, we localized Sing! from 12 languages to 20 languages. When applying foreign language into an English-based app, the UI could easily break. For example, compared to English, German or Russian takes more characters to express the same meanings. A defined limited space that would normally fit English labels would not work for German and Russian. Without a clear rule on how to set spacing and apply the right hierarchy, our localized languages were either cut off or presented in the smaller sizes. Addressing these issues for each language one by one consumed a lot of efforts from our engineers and QA. We know through the redesign, we need to find a sustainable solution that could optimize for all the different languages that we have or might have in the future.
 
-![](https://cdn-images-1.medium.com/max/2000/1*cAPZbmDZEe5byrPDOB7QVA.jpeg) 
+![](https://cdn-images-1.medium.com/max/2000/1*cAPZbmDZEe5byrPDOB7QVA.jpeg)
 
 source:shutterstock
 
