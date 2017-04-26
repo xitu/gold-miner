@@ -76,7 +76,7 @@ Netflix 的底层代码包含了每 6 分钟运行的定时代码，从拓展资
 
 作为一个在 PaaS 运行的 早期 Trace 版本，它通过公共云来与我们的其他服务通信。
 
-为了确保我们的请求是完整的，我们决定对所有请求进行签名。为了实现这个，我们看了 Joyent 的 [HTTP signing library](https://github.com/joyent/node-http-signature)。很棒的是，[request](https://www.npmjs.com/package/request) 这一模块支持开箱即用的Http签名。
+为了确保我们的请求是完整的，我们决定对所有请求进行签名。为了实现这个，我们看了 Joyent 的 [HTTP signing library](https://github.com/joyent/node-http-signature)。很棒的是，[request](https://www.npmjs.com/package/request) 这一模块支持开箱即用的HTTP签名。
 
 **解决方案代价不仅很大，而且会对我们的响应速度造成不好的影响。**
 
@@ -106,7 +106,7 @@ Netflix 的底层代码包含了每 6 分钟运行的定时代码，从拓展资
 
 ## nearForm: 不要堵塞 Node.js 的事件循环 ##
 
-**React 现在很流行。**开发者在前端和后端都会使用它，甚至他们更进一步用它来构建同构的 JavaScript 应用。
+** React 现在很流行。**开发者在前端和后端都会使用它，甚至他们更进一步用它来构建同构的 JavaScript 应用。
 
 > 然而，渲染 React 页面会让 CPU 有挺大的负担，当绘制复杂的 React 内容时会受到 CPU 限制。
 
