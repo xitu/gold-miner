@@ -2,7 +2,7 @@
 > * 原文作者：[Merrick](http://merrickchristensen.com/about.html)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[rottenpen](https://github.com/rottenpen)
-> * 校对者：
+> * 校对者：[loveky](https://github.com/loveky) [avocadowang](https://github.com/avocadowang) 
 
 
 # 函数式子类组件 #（这个名字待定）
