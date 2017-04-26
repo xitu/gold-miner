@@ -6,7 +6,7 @@
 
 # 针对失败者的用户体验设计 #
 
-## 设计平台或产品不仅是针对赢家，大V和意见领袖。##
+## 设计平台或产品不仅是针对赢家，大V和意见领袖。 ##
 
 ![](https://cdn-images-1.medium.com/max/800/1*kVOEiUv3YK8tcYEa5QKmLA.jpeg)
 
