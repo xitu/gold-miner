@@ -1,5 +1,5 @@
 > * 原文地址：[Design principle: Aesthetics](https://uxdesign.cc/design-principle-aesthetics-af926f8f86fe)
-> * 原文作者：[Anton Nikolov](https://uxdesign.cc/@antonnikolov?source=post_header_lockup)
+> * 原文作者：[Anton Nikolov](https://uxdesign.cc/@antonnikolov)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：
 > * 校对者：
