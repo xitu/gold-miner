@@ -136,9 +136,9 @@ So for those of you who want the benefits or storyboards, but want to minimize t
 
 *If you liked this one, check out some some other articles from my team:*
 
-[![Markdown](http://i4.buimg.com/1949/a68c5bee9aecbe65.png)](https://medium.cobeisfresh.com/how-to-win-a-hackathon-tips-tricks-8cd391e18705)
+[![](http://ww3.sinaimg.cn/large/006tNbRwgy1ff10iqm6lxj315a0ai76b.jpg)](https://medium.cobeisfresh.com/how-to-win-a-hackathon-tips-tricks-8cd391e18705)
 
-[![Markdown](http://i4.buimg.com/1949/d5fb464e8b33d195.png)](https://medium.cobeisfresh.com/accessing-types-from-extensions-in-swift-32ca87ec5190)
+[![](http://ww4.sinaimg.cn/large/006tNbRwgy1ff10jmsrsej314c0aa0ud.jpg)](https://medium.cobeisfresh.com/accessing-types-from-extensions-in-swift-32ca87ec5190)
 
 
 
