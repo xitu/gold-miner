@@ -1,30 +1,40 @@
 > * 原文地址：[CSS in JavaScript: The future of component-based styling](https://medium.freecodecamp.com/css-in-javascript-the-future-of-component-based-styling-70b161a79a32)
 > * 原文作者：[Jonathan Z. White](https://medium.freecodecamp.com/@JonathanZWhite)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
+> * 译者：[bambooom](https://github.com/bambooom)
 > * 校对者：
 
-# CSS in JavaScript: The future of component-based styling #
+# JavaScript 中的 CSS：基于组件的样式的未来
 
 ![](https://cdn-images-1.medium.com/max/1000/1*yVKDbwtvfoakj3RZ9g8ARQ.png)
 
-Image by [@jonathanzwhite](https://twitter.com/JonathanZWhite)
+图片所属 [@jonathanzwhite](https://twitter.com/JonathanZWhite)
 
-By adopting inline styles, we can get all of the programmatic affordances of JavaScript.This gives us the benefits of something like a CSS pre-processor (variables, mixins, and functions). It also solves a lot of the problems that CSS has, such as global namespacing and styling conflicts.
+> By adopting inline styles, we can get all of the programmatic affordances of JavaScript.This gives us the benefits of something like a CSS pre-processor (variables, mixins, and functions). It also solves a lot of the problems that CSS has, such as global namespacing and styling conflicts.
 
-For a deep dive into the problems that CSS in JavaScript solves, check out the famous presentation: [React CSS in JS](https://speakerdeck.com/vjeux/react-css-in-js). For a case study on the performance improvements you get from Aphrodite, you can read [Inline CSS at Khan Academy: Aphrodite](http://engineering.khanacademy.org/posts/aphrodite-inline-css.htm). If you want to learn more about CSS in JavaScript best practices, check out [Airbnb’s styleguide](https://github.com/airbnb/javascript/tree/master/css-in-javascript).
+使用行内样式使我们可以获得 JavaScript 的所有编程支持。这给了我们类似 CSS 预处理器（变量、混入和函数）的好处。它也解决了 CSS 的很多问题，如全局命名空间和样式冲突。
 
-In addition we’ll be using inline JavaScript styles to build components to address some of the fundamentals of design I covered in one of my previous articles: [Before you can master design, you must first master the fundamentals](https://medium.freecodecamp.com/before-you-can-master-design-you-must-first-master-the-fundamentals-1981a2af1fda).
+> For a deep dive into the problems that CSS in JavaScript solves, check out the famous presentation: [React CSS in JS](https://speakerdeck.com/vjeux/react-css-in-js). For a case study on the performance improvements you get from Aphrodite, you can read [Inline CSS at Khan Academy: Aphrodite](http://engineering.khanacademy.org/posts/aphrodite-inline-css.htm). If you want to learn more about CSS in JavaScript best practices, check out [Airbnb’s styleguide](https://github.com/airbnb/javascript/tree/master/css-in-javascript).
 
-### A motivating example ###
+如果想要更深入了解 JavaScript 中的 CSS 所解决的问题，可以查看著名的演示幻灯：[React CSS in JS](https://speakerdeck.com/vjeux/react-css-in-js)。有关使用 Aphrodite 性能优化的案例研究，你可以阅读 [行内 CSS 在可汗学院：Aphrodite](http://engineering.khanacademy.org/posts/aphrodite-inline-css.htm)。如果你想了解更多，可以阅读 [Airbnb 的风格指南](https://github.com/airbnb/javascript/tree/master/css-in-javascript).
 
-Let’s start off with a simple example: creating and styling a button.
+> In addition we’ll be using inline JavaScript styles to build components to address some of the fundamentals of design I covered in one of my previous articles: [Before you can master design, you must first master the fundamentals](https://medium.freecodecamp.com/before-you-can-master-design-you-must-first-master-the-fundamentals-1981a2af1fda).
 
-Normally the component and its associated styles would go in the same file: `Button` and `ButtonStyles`. This is because they fall under the same concern: the view. However, for this example, I broke up the code into multiple gists to make it more digestible.
+此外，我们将使用行内 JavaScript 样式来构建组件，以解决我之前的一篇文章（[掌握设计之前，必须掌握基本原理](https://medium.freecodecamp.com/before-you-can-master-design-you-must-first-master-the-fundamentals-1981a2af1fda)）中涉及的一些设计基础问题。
 
-Here’s the button component:
+### 一个启发性的例子 ###
 
-```
+> Let’s start off with a simple example: creating and styling a button.
+
+让我们从一个简单的例子开始，构建一个按钮并给它添加样式。
+
+> Normally the component and its associated styles would go in the same file: `Button` and `ButtonStyles`. This is because they fall under the same concern: the view. However, for this example, I broke up the code into multiple gists to make it more digestible.
+
+一般来说，组件及其样式在同一个文件中：`Button` 和 `ButtonStyles`。这是因为他们都属于视图层。但是，下面的例子中，我将代码拆分成多个 gist，以便更容易理解。
+
+下面就是按钮组件：
+
+```javascript
 ...
 
 function Button(props) {
@@ -38,11 +48,13 @@ function Button(props) {
 }
 ```
 
-This is nothing unexpected — just a stateless React component. Where Aphrodite comes into play is in the `className` property. The function `css` takes in a `styles` object and converts it into css. The `styles` object is created with Aphrodite’s `StyleSheet.create({ ... })` function. You can see the output of `StyleSheet.create({ ... })` with this [Aphrodite playground](https://output.jsbin.com/qoseye?).
+> This is nothing unexpected — just a stateless React component. Where Aphrodite comes into play is in the `className` property. The function `css` takes in a `styles` object and converts it into css. The `styles` object is created with Aphrodite’s `StyleSheet.create({ ... })` function. You can see the output of `StyleSheet.create({ ... })` with this [Aphrodite playground](https://output.jsbin.com/qoseye?).
 
-**Here is the button stylesheet:**
+这没什么特别的，只是一个无状态的 React 组件。Aphrodite 起作用的地方是在 `className` 属性中。`css` 函数接受一个 `styles` 对象为参数并将其转换为 `css`。`styles` 对象是由 Aphrodite 的函数 `StyleSheet.create({ ... })` 创建的，你可以用 [Aphrodite playground](https://output.jsbin.com/qoseye?) 来看下这个函数的输出结果。
 
-```
+**下面是按钮的样式表：**
+
+```javascript
 ...
 
 const gradient = 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)';
@@ -61,16 +73,17 @@ const styles = StyleSheet.create({
 });
 ```
 
-One of the benefits of Aphrodite is that migration is straightforward and the learning curve is low. Properties like `border-radius` become `borderRadius` and values become strings. Pseudo-selectors, media queries, and font definitions all work. In addition, vendor prefixes are added automatically.
+> One of the benefits of Aphrodite is that migration is straightforward and the learning curve is low. Properties like `border-radius` become `borderRadius` and values become strings. Pseudo-selectors, media queries, and font definitions all work. In addition, vendor prefixes are added automatically.
 
-**Here is the result:**
+Aphrodite 的优势之一就是迁移是很直观的，学习曲线很平缓。类似 `border-radius`  变成 `borderRadius`，值变成字符串。伪类选择器、媒体查询、字体定义都可以正常工作。另外也自动添加浏览器引擎前缀。
+
+**下面就是按钮的样子：**
 
 ![](https://cdn-images-1.medium.com/max/800/1*x1ccRv9UGvcxBvz4TvC4Qg.png)
 
-[One of the benefits of Aphrodite is that migration is straightforward and the learning curve is low.](https://twitter.com/JonathanZWhite)
+> With this example in mind, **let’s take a look at how we can use Aphrodite to build a basic visual design system**, focusing on the following design fundamentals: typography and spacing.
 
-With this example in mind, **let’s take a look at how we can use Aphrodite to build a basic visual design system**, focusing on the following design fundamentals: typography and spacing.
-
+以这个例子为基础，**让我们来看看我们如何使用 Aphrodite 来构建一个基本的视觉设计系统**，着重关注字体排版和间距两个设计基础元素。
 
 ### Fundamental №1 —Typography ###
 
