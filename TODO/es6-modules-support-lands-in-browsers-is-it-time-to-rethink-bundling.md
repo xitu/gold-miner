@@ -2,7 +2,7 @@
 > * 原文作者：[Stefan Judis](https://www.contentful.com/about-us/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[lsvih](https://github.com/lsvih)
-> * 校对者：
+> * 校对者：[Aladdin-ADD](https://github.com/Aladdin-ADD),[yzgyyang](https://github.com/yzgyyang)
 
 #  ES6 模块原生支持在浏览器中落地，是时候该重新考虑打包了吗？  #
 
@@ -10,9 +10,9 @@
 
 最近一段日子，编写高效的 JavaScript 应用变得越来越复杂。早在几年前，大家都还使用脚本连接来减少 HTTP 请求数；后来有了压缩工具，人们为了压缩代码而缩短变量名，甚至连代码的最后一字节都要省出来。
 
-今天，我们有了  [tree shaking](https://blog.engineyard.com/2016/tree-shaking)  和各种模块打包器，我们为了不在首屏加载时阻塞主进程又开始进行代码分割，[加快交互时间](https://developers.google.com/web/tools/lighthouse/audits/time-to-interactive)。我们还开始移植一切东西：感谢 Babel，让我们能够在现在就使用未来的特性。
+今天，我们有了 [tree shaking](https://blog.engineyard.com/2016/tree-shaking) 和各种模块打包器，我们为了不在首屏加载时阻塞主进程又开始进行代码分割，[加快交互时间](https://developers.google.com/web/tools/lighthouse/audits/time-to-interactive)。我们还开始转译一切东西：感谢 Babel，让我们能够在现在就使用未来的特性。
 
-ES6 模块由 ECMAScript 标准制定，直到[最近才定稿](http://2ality.com/2014/09/es6-modules-final.html)。社区为它写了很多的文章，讲解如何通过 Babel 使用它们，以及 `import` 和 Node.js 的  `require` 的区别。但是要在浏览器中真正实现它还需要一点时间。我惊喜地发现 Safari 在它的 technology preview 版本中第一个装载了 ES6 模块，并且 Edge 和 Firefox Nightly 版本也将要装载 ES6 模块——虽然目前还不支持。在使用 `RequireJS` 和 `Browserify` 之类的（还记得关于 [AMD 与 CommonJS  的讨论吗](https://addyosmani.com/writing-modular-js/)？）工具后，模块化支持似乎最终抵达了浏览器。让我们来看看明朗的未来带来了怎样的礼物吧！🎉
+ES6 模块由 ECMAScript 标准制定，[定稿有些时日了](http://2ality.com/2014/09/es6-modules-final.html)。社区为它写了很多的文章，讲解如何通过 Babel 使用它们，以及 `import` 和 Node.js 的  `require` 的区别。但是要在浏览器中真正实现它还需要一点时间。我惊喜地发现 Safari 在它的 technology preview 版本中第一个装载了 ES6 模块，并且 Edge 和 Firefox Nightly 版本也将要支持 ES6 模块——虽然目前还不支持。在使用 `RequireJS` 和 `Browserify` 之类的（还记得关于 [AMD 与 CommonJS  的讨论吗](https://addyosmani.com/writing-modular-js/)？）工具后，浏览器终于能支持模块了。让我们来看看明朗的未来带来了怎样的礼物吧！🎉
 
 ## 传统方法 ##
 
@@ -58,7 +58,7 @@ export default function() {
 }
 ```
 
-这个 app 将会显示“Hello world”，以此告诉我们文件加载完成。
+这个 app 将会显示“Hello world”。在下文中显示“Hello world” 即表示脚本加载成功。
 
 ### 装载一个代码包（bundle） ###
 
@@ -170,11 +170,11 @@ import dep1 from './dep-1.js';
 这儿有几个问题。首先，JavaScript 在 ES6 模块中运行与平常在 script 元素中不同。Axel Rauschmayer 在[他的探索 ES6 一书](http://exploringjs.com/es6/ch_modules.html#sec_modules-vs-scripts)中很好地讨论了这个问题。我推荐你点击上面的链接阅读这本书，但是在此我先快速地总结一下主要的不同点：
 
 - ES6 模块默认在严格模式下运行（因此你不需要加上 `use strict` 了）。
-- `this` 指向的最高一级对象是 `undefined`（而不是 window）。
+- 最外层的 `this` 指向 `undefined`（而不是 window）。
 - 最高级变量是 module 的局部变量（而不是 global）。
 - ES6 模块会在浏览器完成 HTML 的分析之后异步加载与执行。
 
-我认为，这些特性是巨大进步。模块是局部的——这意味着我们不再需要到处使用 IIFE 了，而且我们不用再担心全局变量泄露。而且默认在严格模式下运行，意味着我们可以在很多地方抛弃  `use strict` 声明。
+我认为，这些特性是巨大进步。模块是局部的——这意味着我们不再需要到处使用 IIFE 了，而且我们不用再担心全局变量泄露。而且默认在严格模式下运行，意味着我们可以在很多地方抛弃 `use strict` 声明。
 
 > 译注：IIFE 全称 immediately-invoked function expression，即立即执行函数，也就是大家熟知的在函数后面加括号。
 
@@ -197,13 +197,13 @@ import dep1 from './dep-1.js';
 </script>
 ```
 
-如果你想详细了解这方面内容，可以阅读 [script 元素说明书](https://html.spec.whatwg.org/multipage/scripting.html#the-script-element)，这篇文章简单易读，并且包含了一些示例。
+如果你想详细了解这方面内容，可以阅读 [script 元素说明](https://html.spec.whatwg.org/multipage/scripting.html#the-script-element)，这篇文章简单易读，并且包含了一些示例。
 
 ## 压缩纯 ES6 代码 ##
 
 还没完！我们现在能为 Chrome 提供压缩过的代码包，但是还不能为 Safari Preview 提供单独压缩过的文件。我们如何让这些文件变得更小呢？UglifyJS 能完成这项任务吗？
 
-然而必须指出，UglifyJS 并不能完全处理好 ES6 代码。虽然它有个 `harmony` 分支（[地址](https://github.com/mishoo/UglifyJS2/tree/harmony)）支持ES6，但不幸的是在我写这 3 个 JavaScript 文件的时候它并不能正常工作。
+然而必须指出，UglifyJS 并不能完全处理好 ES6 代码。虽然它有个 `harmony` 开发版分支（[地址](https://github.com/mishoo/UglifyJS2/tree/harmony)）支持ES6，但不幸的是在我写这 3 个 JavaScript 文件的时候它并不能正常工作。
 
 ```
 $ uglifyjs dep-1.js -o dep-1.min.js
@@ -260,7 +260,7 @@ $ ll dist/modules
 
 对单个 JS 文件进行压缩取得了很好的效果。文件大小从 856B 降低到了 298B，但是我们还能进一步地加快加载速度。通过使用 ES6 模块，我们可以装载更少的代码，但是看看瀑布图你会发现，request 会按照模块的依赖链一个一个连续地加载。
 
-那如果我们像之前在浏览器中对代码进行预加载那样，用  `<link rel="preload" as="script">` 元素告知浏览器要加载额外的 request，是否会加快模块的加载速度呢？在 Webpack 中，我们已经有了类似的工具，比如 Addy Osmani 的 [Webpack 预加载插件](https://github.com/GoogleChrome/preload-webpack-plugin)可以对分割的代码进行预加载，那 ES6 模块有没有类似的方法呢？如果你还不清楚 `rel="preload"` 是如何运作的，你可以先阅读 Yoav Weiss 在 Smashing Magazine 发表的相关文章：[点击阅读](https://www.smashingmagazine.com/2016/02/preload-what-is-it-good-for/)
+那如果我们像之前在浏览器中对代码进行预加载那样，用 `<link rel="preload" as="script">` 元素告知浏览器要加载额外的 request，是否会加快模块的加载速度呢？在 Webpack 中，我们已经有了类似的工具，比如 Addy Osmani 的 [Webpack 预加载插件](https://github.com/GoogleChrome/preload-webpack-plugin)可以对分割的代码进行预加载，那 ES6 模块有没有类似的方法呢？如果你还不清楚 `rel="preload"` 是如何运作的，你可以先阅读 Yoav Weiss 在 Smashing Magazine 发表的相关文章：[点击阅读](https://www.smashingmagazine.com/2016/02/preload-what-is-it-good-for/)
 
 但是，ES6 模块的预加载并不是那么简单，他们与普通的脚本有很大的不同。那么问题来了,对一个 link 元素加上  `rel="preload"` 将会怎样处理 ES6 模块呢？它也会取出所有的依赖文件吗？这个问题显而易见（可以），但是使用 `preload` 命令加载模块，需要解决更多浏览器的内部实现问题。[Domenic Denicola](https://twitter.com/domenic) 在[一个 GitHub issue](https://github.com/whatwg/fetch/issues/486) 中讨论了这方面的问题，如果你感兴趣的话可以点进去看一看。但是事实证明，使用 `rel="preload"` 加载脚本与加载 ES6 模块是截然不同的。可能以后最终的解决方案是用另一个 `rel="modulepreload"` 命令来专门加载模块。在本文写作时，[这个 pull request](https://github.com/whatwg/html/pull/2383) 还在审核中，你可以点进去看看未来我们可能会怎样进行模块的预加载。
 
@@ -297,7 +297,7 @@ document.body.appendChild(getComponent());
 
 ### 压缩工作仅对大文件表现良好 ###
 
-如果你仔细看上面 Safari 开发者工具的截图，你可能会注意到转换后的文件大小其实比源码还要大。在很大的 JavaScript app 中这个现象会更加明显，一堆的小 Chunk 会造成文件大小的很大不同，因为 GZIP 并不能很好地压缩小文件。
+如果你仔细看上面 Safari 开发者工具的截图，你可能会注意到传输后的文件大小其实比源码还要大。在很大的 JavaScript app 中这个现象会更加明显，一堆的小 Chunk 会造成文件大小的很大不同，因为 GZIP 并不能很好地压缩小文件。
 
 Khan Academy 在前一段时间[探究了同样的问题](http://engineering.khanacademy.org/posts/js-packaging-http2.htm)，他是用 HTTP/2 进行研究的。装载更小的文件能够很好地确保缓存命中率，但到最后它一般都会作为一个权衡方案，而且它的效果会被很多因素影响。对于一个很大的代码库来说，分解成若干个 chunk（一个 *vendor* 文件和一个 app bundle）是理所当然的，但是要装载数千个不能被压缩的小文件可能并不是一种明智的方法。
 
@@ -325,7 +325,7 @@ ES6 模块即将到来，但是直到它最终在各大主流浏览器中实现�
 
 不要把所有东西都进行分割然后就假设它会改善性能。我们即将迎来 ES6 模块的浏览器原生支持，但是这不意味着我们可以抛弃构建过程与合适的打包策略。在我们 Contentful 这儿，将继续坚持我们的构建过程，以及继续使用我们的  [JavaScript SDKs](https://www.contentful.com/developers/docs/javascript/) 进行打包。
 
-然而，我们必须承认现在前端的开发体验仍然良好。JavaScript 仍在进步，最终我们将能使用真正融入语言的模块。在几年后，原生模块对 JavaScript 生态的影响以及最佳实践方法将会是怎样的呢？让我们拭目以待。
+然而，我们必须承认现在前端的开发体验仍然良好。JavaScript 仍在进步，最终我们将能够使用语言本身提供的模块系统。在几年后，原生模块对 JavaScript 生态的影响以及最佳实践方法将会是怎样的呢？让我们拭目以待。
 
 ## 其它资源 ##
 
