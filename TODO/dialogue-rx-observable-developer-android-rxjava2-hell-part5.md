@@ -6,7 +6,7 @@
 
 ## Dialogue between Rx Observable and a Developer (Me)  [ Android RxJava2 ] ( What the hell is this ) Part5 ##
 
-## 开发者（也就是我）与Rx Observable 类 [ Android RxJava2 ] ( 这到底是什么？) 第五部分 ##
+## 开发者（也就是我）与Rx Observable 类的对话 [ Android RxJava2 ] ( 这到底是什么？) 第五部分 ##
 
 
 WOW, we got one more day so its time to make this day awesome by learning something new 🙂.
@@ -291,7 +291,7 @@ This one is awesome. I am showing you one example in which you can compare two a
 
 这个 API 碉堡了。我用两种方法实现同一种需求，你可以比较一下。第一种我用 Java 的线程来实现，另一种我用 interval() 这个 API ，两种方法会得到同一个结果。
 
-**（校对 wbinarytree 注：interval() 会默认在 Scheduler.compute 进行操作。）**
+**（校对 wbinarytree 注：interval() 会默认在 Scheduler.computation() 进行操作。）**
 
 ```
 public static void main(String[] args) {
