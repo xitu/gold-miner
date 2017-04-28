@@ -11,7 +11,7 @@ Photo by Alice Achterhof [via Unsplash](https://unsplash.com/search/designer-pai
 图片作者 Alice Achterhof [来自于 Unsplash](https://unsplash.com/search/designer-paint?photo=FwF_fKj5tBo)
 
 # Everyone is a designer. Get over it. #
-# 人人都是设计师。忘了它吧。#
+# 人人都是设计师。结束它吧。#
 
 Recently, [Jared Spool](https://www.uie.com/about/) caught my attention with [an article](https://articles.uie.com/signup/)  about how Netflix’s performance engineers are *actually designers*. It’s a provocative idea, but it makes sense. His argument is that everyone in your organization (including performance engineers) designs the product, not just the people with “design” in their job titles.
 最近，[Jared Spool](https://www.uie.com/about/) 通过一篇关于 Netflix 的性能工程师竟然是**设计师**的[文章](https://articles.uie.com/signup/)吸引了我的注意 。这是一个挑衅的想法，但也有一定的道理。他的论点是你团队中的每个人（包括性能工程师）都参与到产品设计，而不仅仅是职位为「设计」的人。
