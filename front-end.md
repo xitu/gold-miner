@@ -1,3 +1,4 @@
+* [真正行动之前 你将一无所成](https://juejin.im/entry/58f6136861ff4b00580aef28?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([owenlyn](https://github.com/owenlyn) 翻译)
 * [高阶函数（软件编写）（第四部分）](https://juejin.im/post/58f6d6ff570c3500564fbddc?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([reid3290](https://github.com/reid3290) 翻译)
 * [为什么用 JavaScript 学习函数式编程？（软件编写）（第二部分）](https://juejin.im/post/58f5a2ecb123db2fa2b1b244?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([gy134340](http://gy134340.com/) 翻译)
 * [Functor 与 Category （软件编写）（第六部分）](https://juejin.im/post/58f58d5da0bb9f006aac3e8d?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([yoyoyohamapi](https://github.com/yoyoyohamapi) 翻译)
