@@ -6,7 +6,7 @@
 
 ## Dialogue between Rx Observable and a Developer (Me)  [ Android RxJava2 ] ( What the hell is this ) Part5 ##
 
-## 开发者（ 也就是我 ）与Rx Observable 类 [ Android RxJava2 ] ( 这到底是什么？ ) 第五部分 ##
+## 开发者（也就是我）与Rx Observable 类 [ Android RxJava2 ] ( 这到底是什么？) 第五部分 ##
 
 
 WOW, we got one more day so its time to make this day awesome by learning something new 🙂.
@@ -15,7 +15,7 @@ WOW, we got one more day so its time to make this day awesome by learning someth
 
 Hello guys, hope you are doing good. This is our fifth post in series of RxJava2 Android [ [part1](http://www.uwanttolearn.com/android/reactive-programming-android-rxjava2-hell-part1/), [part2](http://www.uwanttolearn.com/android/pull-vs-push-imperative-vs-reactive-reactive-programming-android-rxjava2-hell-part2/), [part3](http://www.uwanttolearn.com/android/functional-interfaces-functional-programming-and-lambda-expressions-reactive-programming-android-rxjava2-what-the-hell-is-this-part3/), [part4](http://www.uwanttolearn.com/android/war-learning-curve-rx-java-2-java-8-stream-android-rxjava2-hell-part4/) ]. In this part we are going to work with Rx Java Android. Our prerequisites are done. So we can start now.
 
-大家好,希望你们都过的不错。这是我们 RxJava2 Android 系列的第五篇文章 [ [part1](http://www.uwanttolearn.com/android/reactive-programming-android-rxjava2-hell-part1/), [part2](http://www.uwanttolearn.com/android/pull-vs-push-imperative-vs-reactive-reactive-programming-android-rxjava2-hell-part2/), [part3](http://www.uwanttolearn.com/android/functional-interfaces-functional-programming-and-lambda-expressions-reactive-programming-android-rxjava2-what-the-hell-is-this-part3/), [part4](http://www.uwanttolearn.com/android/war-learning-curve-rx-java-2-java-8-stream-android-rxjava2-hell-part4/) ] 。在这篇文章中，我们会继续研究 Rx Java Android 。
+大家好，希望你们都过的不错。这是我们 RxJava2 Android 系列的第五篇文章 [ [part1](http://www.uwanttolearn.com/android/reactive-programming-android-rxjava2-hell-part1/), [part2](http://www.uwanttolearn.com/android/pull-vs-push-imperative-vs-reactive-reactive-programming-android-rxjava2-hell-part2/), [part3](http://www.uwanttolearn.com/android/functional-interfaces-functional-programming-and-lambda-expressions-reactive-programming-android-rxjava2-what-the-hell-is-this-part3/), [part4](http://www.uwanttolearn.com/android/war-learning-curve-rx-java-2-java-8-stream-android-rxjava2-hell-part4/) ] 。在这篇文章中，我们会继续研究 Rx Java Android 。
 
 **Motivation:**
 
@@ -23,7 +23,7 @@ Hello guys, hope you are doing good. This is our fifth post in series of RxJava2
 
 Motivation is same which I share with you in [part1](http://www.uwanttolearn.com/android/reactive-programming-android-rxjava2-hell-part1/). This time we will see, a lot of things in action which we already learned in last four posts.
 
-动机和我在第一部分 [part1](http://www.uwanttolearn.com/android/reactive-programming-android-rxjava2-hell-part1/) 中分享给大家的一样。现在我们来把之前 4 篇学到的东西融会贯通起来。
+动机和我在第一部分 [part1](http://www.uwanttolearn.com/android/reactive-programming-android-rxjava2-hell-part1/) 中分享给大家的一样。现在我们把之前 4 篇学到的东西融会贯通起来。
 
 **Introduction:**
 
@@ -48,7 +48,7 @@ Me: Why your learning curve is really tough? Why you are not easy for developers
 
 Observable: Haha. Truly saying. I really want to make lot of friends instead I have some very good friends. Which discuss about me on different forums and they are talking about me and my powers. These guys are really good in lot of things, they are spending a lot of hours with me. So for a good friend ship you need to give your time with sincerity. But there is one issue, some developers wants  to make friendship with me but they are not sincere. They start working on me but after some minutes they open social websites and forgot me about hours. So how you can expect from me, I will be a good friend of a developer who is not sincere with me.
 
-Observable 类：哈哈，你说的是。我真想交很多朋友，不过我现在也有一些好哥们儿。他们在不同的论坛上讨论我，介绍我和我的能力。而且这些家伙真的很棒，他们花了很久的时间和我呆在一起。只有精诚所至，才会金石为开。但问题是，很多想撩我的人只走肾不走心。他们关注我了一小会就去刷推特，把我给忘了。所以说，对我不真诚的人又如何指望我和他们交朋友呢？
+Observable 类：哈哈，你说的是。我真想交很多朋友，不过我现在也有一些好哥们儿。他们在不同的论坛上讨论我，介绍我和我的能力。而且这些家伙真的很棒，他们花了很久的时间和我呆在一起。只有精诚所至，才会金石为开。但问题是，很多想撩我的人只走肾不走心。他们关注我了一小会就去刷推特脸书，把我给忘了。所以说，对我不真诚的人又如何指望我和他们交朋友呢？
 
 Me: Okay If I want to make a friendship with you. What I will do?
 
@@ -95,9 +95,7 @@ Observable 类：这个问题的答案很长很长。如果你来看我（Rx Jav
 Every method will return you Observable. Yes I have a lot of friends in my community which I use to make my self according to Developer requirement like map, filter and more but I am here going to share with you some methods which will help you to make any thing as Observable. Sorry because I have a feeling answer will be long but that will not be boring. I will not only show you methods to create Observable instead I will share with you how you refactor your current data objects to Observable with suitable method.
 
 
-我的团队里也有好几个朋友，可以根据开发者的需求返回 Observable 对象，比如 map ，filter。不过现在我会告诉你几个可以帮助你把任何东西转化为 Observable 类的方法。抱歉我的回答可能会很长，但是也不会很无聊。我不仅仅会演示这些方法如何创建 Observable 类，同时也会和你像你展示如何对手头边代码进行重构。
-
-1. just():
+我的团队里也有好几个朋友，可以根据开发者的需求返回 Observable 对象，比如 map ，filter。不过现在我会告诉你几个可以帮助你把任何东西转化为 Observable 对象的方法。抱歉我的回答可能会很长，但是也不会很无聊。我不仅仅会演示这些方法如何创建 Observable 类，同时也会向你展示如何对手头边代码进行重构。
 
 1. just():
 
@@ -177,9 +175,6 @@ if (!(s != null && !s.isEmpty() && s.length() > 3))
 
 2. from…:
 
-
-2. from…:
-
 I have a lot more API to convert your complex data structure into Observable which starting keyword is from as shown below.
 
 我有一大堆的 API 可以把复杂的数据结构转化为 Observable  对象，比如下面那些以关键字 from 开头的方法：
@@ -215,7 +210,7 @@ public String toString() {return "Tasks{" + "id=" + id + ", description='" + des
     
 From array:
 
-从数组转化为 Observable 类
+从数组转化为 Observable 对象
 
 ```
     public static void main(String[] args) {
@@ -229,9 +224,6 @@ Integer[] values= {1,2,3,4,5};
 Here two examples are enough. You can try others on your own.
 
 两个例子就够啦，回头你可以亲自试试其他的。
-
-3. create():
-
 
 3. create():
 
@@ -257,9 +249,6 @@ Observable me= Observable.create(new ObservableOnSubscribe<Integer>() {
     }
 
 ```
-4. range():
-
-
 4. range():
  
 
@@ -298,12 +287,9 @@ if(i%2== 0)continue;
 
 5. interval():
 
-
-5. interval():
-
 This one is awesome. I am showing you one example in which you can compare two approaches. For first one I used a Java thread and for a second one I used my own interval() API and both have same result.
 
-这个 API 碉堡了。我用两种方法实现同一种需求，你可以比较一下。第一种我用 Java 的线程来实现，另一种我用 interval() API ，两种方法会得到同一个结果。
+这个 API 碉堡了。我用两种方法实现同一种需求，你可以比较一下。第一种我用 Java 的线程来实现，另一种我用 interval() 这个 API ，两种方法会得到同一个结果。
 
 **（校对 wbinarytree 注：interval() 会默认在 Scheduler.compute 进行操作。）**
 
@@ -329,9 +315,6 @@ public static void greeting(){
     
 6. timer():
 
-
-6. timer():
-
 One more good API. In program if I want some thing will called after one second I can use timer Observable as shown below.
 
 又是一个好的 API。在程序中如果我想一秒钟后调用什么方法，可以用 timer ，就像下面展示的那样：
@@ -353,7 +336,7 @@ public static void greeting(){
 
 This is useful specially in mocking. This create Observable that emit nothing and complete. I am showing you one example in which if tests are running then send me mock data else the real one.
 
-这个 API 很有用，尤其是在有假数据的时候。这个 API 创建了一个什么都不包含，只有 complete 方法的 Observable 类 。比如这个例子，如果在测试运行时发送给我假数据，在生产环境下就调用真的数据。
+这个 API 很有用，尤其是在有假数据的时候。这个 API 创建的 Observable 对象中，注册的 Observer 对象只调用 complete 方法。比如这个例子，如果在测试运行时发送给我假数据，在生产环境下就调用真的数据。
 
 ```
 public static void main(String[] args) throws InterruptedException {
@@ -365,7 +348,7 @@ return isMock ? Observable.empty(): Observable.just(1, 2, 3, 4);
 }
 ```
 
-7. defer():
+8. defer():
 
 This is very use full in many cases. I am going to explain this one by using one example as shown below.
 
@@ -394,7 +377,7 @@ private static class Employee{
 
 What will be the output of the above code. If your answer is age should be 28 then you are wrong. Basically all creation methods of Observable will take the value which is available at the time of creation. Like if I do output I will get 27 because I create an Observable at that time when I have age 27 and later I change to 28 but observable already created. So what will be the solution? Yes you can use defer API. That is really helpful. When you use defer basically what happen Observable only created when you will subscribe so its mean by using this I will get my expected result.
 
-上面的代码会输出什么呢？如果你的答案是 age= 28 那就大错特错了。基本上所有创建 Observable 的方法在创建时就记录了可用的值。就像刚才的数据实际上输出的是 age = 27 ， 因为在我创建 Observable 的时候 age 值是 27 ，当我把 age 的值变成 28 的时候 Observable 类已经创建过了。所以怎么解决这个问题呢？是的，这个时候就轮到 defer 这个 API 出场了。太有用了！当你使用 defer 以后，只有注册（subscribe）的时候才创建 Observable 类。用这个 API ，我就可以获得想要的值。
+上面的代码会输出什么呢？如果你的答案是 age = 28 那就大错特错了。基本上所有创建 Observable 对象的方法在创建时就记录了可用的值。就像刚才的数据实际上输出的是 age = 27 ， 因为在我创建 Observable 的时候 age 值是 27 ，当我把 age 的值变成 28 的时候 Observable 类已经创建过了。所以怎么解决这个问题呢？是的，这个时候就轮到 defer 这个 API 出场了。太有用了！当你使用 defer 以后，只有注册（subscribe）的时候才创建 Observable 类。用这个 API ，我就可以获得想要的值。
 
 ```
 Observable getObservable(){
@@ -409,21 +392,24 @@ Now this time my age on output is 28.
 
 **（校对 wbinarytree 注：Observable 的创建方法中，并不是像原文中写到的，“基本上所有创建 Observable 的方法在创建时就记录了可用的值”。而是只有 just, from 方法。 create , fromCallable 等等方法都是在 subscribe 后才会调用。文中的例子可以使用 fromCallable 代替 defer。）**
 
-8. error():
+9. error():
 
 Again useful to generate error signal. I will share with you when we will discuss about the Observer and there methods.
 
 一个可以弹出错误提示的方法。当我们讨论 Observer 类和他的方法的时候，我再和你分享吧。
 
-9. never():
+10. never():
+
 
 This API emit nothing.
 
-这个 API 创建出的 Observable 对象没有包含泛型。**（译者注：Observable.never 虽然可以得到一个 Observable 对象，但是注册的对应 Observer 既不会调用 onNext 方法也不会 onCompleted 方法，甚至不会调用 onError 方法）**
+这个 API 创建出的 Observable 对象没有包含泛型。
+
+**（译者注：Observable.never 虽然可以得到一个 Observable 对象，但是注册的对应 Observer 既不会调用 onNext 方法也不会 onCompleted 方法，甚至不会调用 onError 方法）**
 
 Me: Wow. Thank you Observable. For a long and robust answer. I will use that as a cheat sheet for me. Observable can you convert any function as a Observable.
 
-我：哇哦。谢谢你，Observable 类。谢谢你耐心又详细的回答，我把你的回答记在我的秘籍手册上的。话说，你可以把函数也转化 Observable 对象吗？
+我：哇哦。谢谢你，Observable 类。谢谢你耐心又详细的回答，我会把你的回答记在我的秘籍手册上的。话说，你可以把函数也转化成 Observable 对象吗？
 
 Observable: Yes. Check below code.
 
@@ -443,11 +429,11 @@ private static float scale(int width, int height){
  
 Me: Wow you are really powerful. Currently I want to ask you about operators like map, filter and more. But if you want to share with me about Observable creation. Which I am not able to ask you due to lack of knowledge please share with me.
 
-我：哇哦，你真的好强大。现在我想问你有关操作符，比如 map ，filter 方面的问题。但是有关 Observable 类创建，如果还有什么我因为缺乏知识没问到的地方，再多告诉我一点呗。
+我：哇哦，你真的好强大。现在我想问你有关操作符，比如 map ，filter 方面的问题。但是有关 Observable 对象创建，如果还有什么我因为缺乏知识没问到的地方，再多告诉我一点呗。
 
 Observable: There is a lot. But I think I can explain here about two types of Observables. One is called Cold Observable and the second one is called Hot Observable. In Cold …
 
-Observable 类：其实还有很多。我在这里介绍两类 Observable 类。一种叫做冷被观察者（Cold Observable）， 第二个是热被观察者（Hot Observable）。在冷...
+Observable 类：其实还有很多。我在这里介绍两类 Observable 对象。一种叫做 Cold Observable，第二个是 Hot Observable。在...
 
 Conclusion:
 
@@ -455,7 +441,7 @@ Conclusion:
 
 Hello Friends. This dialogue is very very long but I need to stop some where. Otherwise this post will be like a giant book which may be ok but the main purpose will be die and that is, I want we should learn and know everything practically. So I am going to pause my dialogue here I will do resume in next part. Only try your best to play with all these methods and if possible try to take your real world projects and refactor these for practice. In the end I want to say thanks to Rx Observable who give me a lot of his/her time.
 
-大家好。这篇对话已经非常非常的长，我需要就此搁笔了。不然这篇文章就会像大部头的书，可能看上去不错，但是主要目的就跑偏了。我希望，我们可以循序渐进的学习。所以我要暂停我的对话，然后在下一篇继续。读者可以试试亲自实现这些方法，如果可能的话在实际的项目中去运用、重构。最后我想说，谢谢Observable 类给我了这么多他/她的时间。
+大家好。这篇对话已经非常非常的长，我需要就此搁笔了。不然这篇文章就会像大部头的书，可能看上去不错，但是主要目的就跑偏了。我希望，我们可以循序渐进的学习。所以我要暂停我的对话，然后在下一篇继续。读者可以试试亲自实现这些方法，如果可能的话在实际的项目中去运用、重构。最后我想说，谢谢 Observable 类给我了这么多他/她的时间。
 
 Happy Weekend Friends Bye. 🙂
 
