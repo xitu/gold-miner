@@ -1,5 +1,5 @@
 > * 原文地址：[Putting comments in code: the good, the bad, and the ugly.](https://medium.freecodecamp.com/code-comments-the-good-the-bad-and-the-ugly-be9cc65fbf83)
-> * 原文作者：[Bill Sourour](https://medium.freecodecamp.com/@BillSourour?source=post_header_lockup)
+> * 原文作者：本文已获原作者 [Bill Sourour](https://medium.freecodecamp.com/@BillSourour) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者： [bambooom](https://github.com/bambooom)
 > * 校对者：[zhangqippp](https://github.com/zhangqippp)、[steinliber](https://github.com/steinliber)
