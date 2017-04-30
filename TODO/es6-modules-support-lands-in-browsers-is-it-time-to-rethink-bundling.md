@@ -8,15 +8,15 @@
 
 ![](http://images.contentful.com/256tjdsmm689/3xFvPzCb6wUek00gQAuU6q/0e8221e0e5c673f18d20448a9ba8924a/Contentful_ES6Modules_.png) 
 
-最近一段日子，编写高效的 JavaScript 应用变得越来越复杂。早在几年前，大家都还使用脚本连接来减少 HTTP 请求数；后来有了压缩工具，人们为了压缩代码而缩短变量名，甚至连代码的最后一字节都要省出来。
+最近一段日子，编写高效的 JavaScript 应用变得越来越复杂。早在几年前，大家都开始合并脚本来减少 HTTP 请求数；后来有了压缩工具，人们为了压缩代码而缩短变量名，甚至连代码的最后一字节都要省出来。
 
-今天，我们有了 [tree shaking](https://blog.engineyard.com/2016/tree-shaking) 和各种模块打包器，我们为了不在首屏加载时阻塞主进程又开始进行代码分割，[加快交互时间](https://developers.google.com/web/tools/lighthouse/audits/time-to-interactive)。我们还开始转译一切东西：感谢 Babel，让我们能够在现在就使用未来的特性。
+今天，我们有了 [tree shaking](https://blog.engineyard.com/2016/tree-shaking) 和各种模块打包器，我们为了不在首屏加载时阻塞主进程又开始进行代码分割，加快[交互时间](https://developers.google.com/web/tools/lighthouse/audits/time-to-interactive)。我们还开始转译一切东西：感谢 Babel，让我们能够在现在就使用未来的特性。
 
-ES6 模块由 ECMAScript 标准制定，[定稿有些时日了](http://2ality.com/2014/09/es6-modules-final.html)。社区为它写了很多的文章，讲解如何通过 Babel 使用它们，以及 `import` 和 Node.js 的  `require` 的区别。但是要在浏览器中真正实现它还需要一点时间。我惊喜地发现 Safari 在它的 technology preview 版本中第一个装载了 ES6 模块，并且 Edge 和 Firefox Nightly 版本也将要支持 ES6 模块——虽然目前还不支持。在使用 `RequireJS` 和 `Browserify` 之类的（还记得关于 [AMD 与 CommonJS  的讨论吗](https://addyosmani.com/writing-modular-js/)？）工具后，浏览器终于能支持模块了。让我们来看看明朗的未来带来了怎样的礼物吧！🎉
+ES6 模块由 ECMAScript 标准制定，[定稿有些时日了](http://2ality.com/2014/09/es6-modules-final.html)。社区为它写了很多的文章，讲解如何通过 Babel 使用它们，以及 `import` 和 Node.js 的  `require` 的区别。但是要在浏览器中真正实现它还需要一点时间。我惊喜地发现 Safari 在它的 technology preview 版本中第一个装载了 ES6 模块，并且 Edge 和 Firefox Nightly 版本也将要支持 ES6 模块——虽然目前还不支持。在使用 `RequireJS` 和 `Browserify` 之类的工具后（还记得关于 [AMD 与 CommonJS  的讨论吗](https://addyosmani.com/writing-modular-js/)？），至少看起来浏览器终于能支持模块了。让我们来看看明朗的未来带来了怎样的礼物吧！🎉
 
 ## 传统方法 ##
 
-现在构建 web 应用的常用方式就是使用由 Browserify、Rollup、Webpack 等工具构建的代码包（bundle）。而不使用 SPA（单页面应用）技术的网站则通常由服务端生成 HTML，在其中引入一个 JavaScript 代码包。
+构建 web 应用的常用方式就是使用由 Browserify、Rollup、Webpack 等工具构建的代码包（bundle）。而不使用 SPA（单页面应用）技术的网站则通常由服务端生成 HTML，在其中引入一个 JavaScript 代码包。
 
 ```
 <html>
@@ -62,7 +62,7 @@ export default function() {
 
 ### 装载一个代码包（bundle） ###
 
-配置使用 Webpack 创建一个代码包相对来说比较简单。在构建过程中，除了打包和使用 UglifyJS 压缩 JavaScript 文件之外并没有做别的什么事。
+配置使用 Webpack 创建一个代码包相对来说比较直观。在构建过程中，除了打包和使用 UglifyJS 压缩 JavaScript 文件之外并没有做别的什么事。
 
 ```
 // webpack.config.js
@@ -92,7 +92,7 @@ total 24
 -rw-r--r--  1 stefanjudis  staff   197B Mar 16 19:33 index.js
 ```
 
-在我通过 Webpack 构建之后，我得到了一个 856 字节的代码包，大约增大了 500 字节。增加这么些字节还是可以接受的，这个代码包与我们平常生产环境中做代码装载没啥区别。感谢 Webpack，现在我们可以使用 ES6 模块了。
+在我通过 Webpack 构建之后，我得到了一个 856 字节的代码包，大约增大了 500 字节。增加这么些字节还是可以接受的，这个代码包与我们平常生产环境中做代码装载没啥区别。感谢 Webpack，我们已经可以使用 ES6 模块了。
 
 
 ```
@@ -107,9 +107,9 @@ bundle.js   856 bytes   0       [emitted]  main
   [2] ./app/index.js 202 bytes {0}[built]
 ```
 
-## 使用新设定支持原生 ES6 模块 ##
+## 使用原生支持的 ES6 模块的新设定 ##
 
-现在，我们得到了一个“传统的打包代码”，现在所有还不支持 ES6 模块的浏览器都支持这种打包的代码。我们可以开始玩一些有趣的东西了。让我们在 `index.html` 中加上一个新的 script 元素，使用 `type="module"` 指明这是 ES6 模块。
+现在，我们得到了一个“传统的打包代码”，现在所有还不支持 ES6 模块的浏览器都支持这种打包的代码。我们可以开始玩一些有趣的东西了。让我们在 `index.html` 中加上一个新的 script 元素指向 ES6 模块，为其加上 `type="module"`。
 
 
 ```
@@ -126,7 +126,7 @@ bundle.js   856 bytes   0       [emitted]  main
 
 ![Bildschirmfoto 2017-03-29 um 17.06.26](http://images.contentful.com/256tjdsmm689/1mefe0J3JKOiAoSguwMkka/0d76c5666300ed0b631a0fe548ac5b52/Bildschirmfoto_2017-03-29_um_17.06.26.png)
 
-遗憾的是，它并没有显示另外的“Hello world”。造成问题的原因是构建工具与原生 ES 模块的差异：Webpack 是在构建的过程中找到那些文件需要 include 的，而 ES 模块是在浏览器中运行的时候才去取文件的，因此我们需要为此指定正确的文件路径：
+遗憾的是，它并没有显示另外的“Hello world”。造成问题的原因是构建工具与原生 ES 模块的差异：Webpack 是在构建的过程中找到那些需要 include 的文件，而 ES 模块是在浏览器中运行的时候才去取文件的，因此我们需要为此指定正确的文件路径：
 
 ```
 // app/index.js
@@ -167,7 +167,7 @@ import dep1 from './dep-1.js';
 
 ### 模块与脚本的不同 ###
 
-这儿有几个问题。首先，JavaScript 在 ES6 模块中运行与平常在 script 元素中不同。Axel Rauschmayer 在[他的探索 ES6 一书](http://exploringjs.com/es6/ch_modules.html#sec_modules-vs-scripts)中很好地讨论了这个问题。我推荐你点击上面的链接阅读这本书，但是在此我先快速地总结一下主要的不同点：
+这儿有几个问题。首先，JavaScript 在 ES6 模块中运行与平常在 script 元素中不同。Axel Rauschmayer 在他的[探索 ES6](http://exploringjs.com/es6/ch_modules.html#sec_modules-vs-scripts)一书中很好地讨论了这个问题。我推荐你点击上面的链接阅读这本书，但是在此我先快速地总结一下主要的不同点：
 
 - ES6 模块默认在严格模式下运行（因此你不需要加上 `use strict` 了）。
 - 最外层的 `this` 指向 `undefined`（而不是 window）。
@@ -262,11 +262,11 @@ $ ll dist/modules
 
 那如果我们像之前在浏览器中对代码进行预加载那样，用 `<link rel="preload" as="script">` 元素告知浏览器要加载额外的 request，是否会加快模块的加载速度呢？在 Webpack 中，我们已经有了类似的工具，比如 Addy Osmani 的 [Webpack 预加载插件](https://github.com/GoogleChrome/preload-webpack-plugin)可以对分割的代码进行预加载，那 ES6 模块有没有类似的方法呢？如果你还不清楚 `rel="preload"` 是如何运作的，你可以先阅读 Yoav Weiss 在 Smashing Magazine 发表的相关文章：[点击阅读](https://www.smashingmagazine.com/2016/02/preload-what-is-it-good-for/)
 
-但是，ES6 模块的预加载并不是那么简单，他们与普通的脚本有很大的不同。那么问题来了,对一个 link 元素加上  `rel="preload"` 将会怎样处理 ES6 模块呢？它也会取出所有的依赖文件吗？这个问题显而易见（可以），但是使用 `preload` 命令加载模块，需要解决更多浏览器的内部实现问题。[Domenic Denicola](https://twitter.com/domenic) 在[一个 GitHub issue](https://github.com/whatwg/fetch/issues/486) 中讨论了这方面的问题，如果你感兴趣的话可以点进去看一看。但是事实证明，使用 `rel="preload"` 加载脚本与加载 ES6 模块是截然不同的。可能以后最终的解决方案是用另一个 `rel="modulepreload"` 命令来专门加载模块。在本文写作时，[这个 pull request](https://github.com/whatwg/html/pull/2383) 还在审核中，你可以点进去看看未来我们可能会怎样进行模块的预加载。
+但是，ES6 模块的预加载并不是那么简单，他们与普通的脚本有很大的不同。那么问题来了，对一个 link 元素加上  `rel="preload"` 将会怎样处理 ES6 模块呢？它也会取出所有的依赖文件吗？这个问题显而易见（可以），但是使用 `preload` 命令加载模块，需要解决更多浏览器的内部实现问题。[Domenic Denicola](https://twitter.com/domenic) 在[一个 GitHub issue](https://github.com/whatwg/fetch/issues/486) 中讨论了这方面的问题，如果你感兴趣的话可以点进去看一看。但是事实证明，使用 `rel="preload"` 加载脚本与加载 ES6 模块是截然不同的。可能以后最终的解决方案是用另一个 `rel="modulepreload"` 命令来专门加载模块。在本文写作时，[这个 pull request](https://github.com/whatwg/html/pull/2383) 还在审核中，你可以点进去看看未来我们可能会怎样进行模块的预加载。
 
-## 加入真实情况中的依赖 ##
+## 加入真实的依赖 ##
 
-仅仅 3 个文件当然没法做一个真正的 app，所以让我们给它加一些真实情况中的依赖。[Lodash](https://lodash.com/) 根据 ES6 模块对它的功能进行了分割，并分别提供给用户。我取出其中一个功能，然后使用 Babili 进行压缩。现在让我们对 `index.js` 文件进行修改，引入这个 Lodash 的方法。
+仅仅 3 个文件当然没法做一个真正的 app，所以让我们给它加一些真实的依赖。[Lodash](https://lodash.com/) 根据 ES6 模块对它的功能进行了分割，并分别提供给用户。我取出其中一个功能，然后使用 Babili 进行压缩。现在让我们对 `index.js` 文件进行修改，引入这个 Lodash 的方法。
 
 
 ```
@@ -317,7 +317,7 @@ export const unneededStuff = [
 ];
 ```
 
-Babili 将会简单地压缩文件，比如 Safari Preview 还是会接收到这几行没有用过的代码。而另一方面，Webpack 打的包或者 Rollup 打的包将不会包含这个 `unnededStuff`。Tree shaking 省略了大量代码，毫无疑问，它能够在真实的产品代码库中很好地发挥作用。
+Babili 只会压缩文件， Safari Preview 在这种情况下会接收到这几行没有用过的代码。而另一方面，Webpack 或者 Rollup 打的包将不会包含这个 `unnededStuff`。Tree shaking 省略了大量代码，它毫无疑问应当被用在真实的产品代码库中。
 
 ## 尽管未来很明朗，但是现在的构建过程仍然不会变动 ##
 
