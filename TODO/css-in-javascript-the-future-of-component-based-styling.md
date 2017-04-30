@@ -2,7 +2,7 @@
 > * 原文作者：[Jonathan Z. White](https://medium.freecodecamp.com/@JonathanZWhite)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[bambooom](https://github.com/bambooom)
-> * 校对者：[Aladdin-ADD](https://github.com/Aladdin-ADD)
+> * 校对者：[Aladdin-ADD](https://github.com/Aladdin-ADD)、[reid3290](https://github.com/reid3290)
 
 # JavaScript 中的 CSS：基于组件的样式的未来
 
@@ -12,7 +12,7 @@
 
 使用行内样式使我们可以获得 JavaScript 的所有编程支持。这让我们获得类似 CSS 预处理器（变量、混入和函数）的好处，它也解决了 CSS 的很多问题，如全局命名空间和样式冲突。
 
-如果想要更深入了解 JavaScript 中的 CSS 所解决的问题，可以查看著名的演示幻灯：[React：JS 中的 CSS](https://speakerdeck.com/vjeux/react-css-in-js)。有关使用 Aphrodite 性能优化的案例研究，你可以阅读 [行内 CSS 在可汗学院：Aphrodite](http://engineering.khanacademy.org/posts/aphrodite-inline-css.htm)。如果你想了解更多，可以阅读 [Airbnb 的风格指南](https://github.com/airbnb/javascript/tree/master/css-in-javascript)。
+如果想要更深入了解 JavaScript 中的 CSS 所解决的问题，可以查看著名的演示幻灯：[React：JS 中的 CSS](https://speakerdeck.com/vjeux/react-css-in-js)。有关使用 Aphrodite 性能优化的案例研究，你可以阅读 [行内 CSS 在可汗学院：Aphrodite](http://engineering.khanacademy.org/posts/aphrodite-inline-css.htm)。如果想要学习更多有关 JavaScript 中的 CSS 的最佳实践，可以阅读 [Airbnb 的风格指南](https://github.com/airbnb/javascript/tree/master/css-in-javascript)。
 
 此外，我们将使用行内 JavaScript 样式来构建组件，以解决我之前的一篇文章（[掌握设计之前，必须掌握基本原理](https://medium.freecodecamp.com/before-you-can-master-design-you-must-first-master-the-fundamentals-1981a2af1fda)）中涉及的一些基础设计问题。
 
@@ -287,7 +287,7 @@ const styles = StyleSheet.create({
 
 多数情况下这都是有效的。但是如果我们想要根据按钮的位置来修改它的 `marginBottom` 属性呢？
 
-实现可变边距的一种方法是覆盖从父组件继承的样式。另一种方法是**创建一个 **`Spacing` **组件来控制元素的垂直边距**。
+实现可变边距的一种方法是覆盖从父组件继承的样式。另一种方法是**创建一个 `Spacing` 组件来控制元素的垂直边距**。
 
 ```javascript
 import React, { PropTypes } from 'react';
@@ -344,11 +344,11 @@ export const styles = StyleSheet.create({
 
 对 margin 和 padding 使用相同的间距常量，可以在设计中实现更好的视觉一致性。
 
-结果可能大致如下：
+结果大致如下：
 
 ![](https://cdn-images-1.medium.com/max/800/1*oDkbVmgCJ4ss5fuRNvzoUg.png)
 
-现在你已经大致了解了 JavaScript 中的 CSS 了，去试验一下吧。尝试在下个项目中采用行内 JavaScript 样式吧。我想**你会喜欢上能够在同一个上下文中处理所有样式及视图问题的感觉**。
+现在你已经大致了解 JavaScript 中的 CSS 了，去试验一下吧。尝试在下个项目中采用行内 JavaScript 样式吧。我想**你会喜欢上能够在同一个上下文中处理所有样式及视图问题的感觉**。
 
 有关 CSS 和 JavaScript 的主题中，你对什么新的发展感兴趣呢？我个人对 async/await 非常感兴趣。给我留言或者在  [Twitter](https://twitter.com/jonathanzwhite) 上发信息给我吧。
 
