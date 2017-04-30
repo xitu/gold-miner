@@ -2,7 +2,7 @@
 > * 原文作者：[Jonathan Z. White](https://medium.freecodecamp.com/@JonathanZWhite)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[bambooom](https://github.com/bambooom)
-> * 校对者：
+> * 校对者：[Aladdin-ADD](https://github.com/Aladdin-ADD)
 
 # JavaScript 中的 CSS：基于组件的样式的未来
 
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
 });
 ```
 
-Aphrodite 的优势之一是迁移很直观，学习曲线较平缓。类似 `border-radius`  变成 `borderRadius`，值变成字符串，伪类选择器、媒体查询、字体定义都可以正常工作。另外也可以自动添加浏览器引擎前缀。
+Aphrodite 的优势之一是迁移很直观，学习曲线较平缓。类似 `border-radius` 变成 `borderRadius`，值变成字符串，伪类选择器、媒体查询、字体定义都可以正常工作。另外也可以自动添加浏览器引擎前缀。
 
 **下面就是按钮的样子：**
 
@@ -75,7 +75,7 @@ Aphrodite 的优势之一是迁移很直观，学习曲线较平缓。类似 `bo
 
 #### 定义排版常数
 
-在定义常量时，**使用语义化的变量名**。例如，在给字体大小命名时，不要使用 `h2`，使用 `displayLarge` 描述它的作用。类似的，不要给字体权重命名 `600`，使用 `semibold` 描述它的效果。
+在定义常量时，**使用语义化的变量名**。例如，在给字体大小命名时，不要使用 `h2`，使用 `displayLarge` 描述它的作用。类似的，不要给字体粗细命名 `600`，使用 `semibold` 描述它的效果。
 
 ```javascript
 export const fontSize = {
@@ -120,9 +120,9 @@ export const lineHeight = {
 };
 ```
 
-设置正确的字体大小和行高变量的值是很重要的。这是因为他们直接影响了设计的垂直规律。垂直规律是一个能帮助你实现一致的元素间距的概念。
+设置正确的字体大小和行高变量的值是很重要的。这是因为他们直接影响了设计的垂直韵律。垂直韵律是一个能帮助你实现一致的元素间距的概念。
 
-想要了解更多有关垂直规律的内容，你可以阅读这篇文章：[为什么垂直规律对排版实践很重要？](https://zellwk.com/blog/why-vertical-rhythms/)
+想要了解更多有关垂直韵律的内容，你可以阅读这篇文章：[为什么垂直韵律对排版实践很重要？](https://zellwk.com/blog/why-vertical-rhythms/)
 
 ![](https://cdn-images-1.medium.com/max/800/1*Ehj9XMvQ9wJNhxWNqwXfKw.png)
 
@@ -216,11 +216,9 @@ function Parent() {
 
 ### 设计基础第二部分：间距 ###
 
-**间距同时控制着设计中的垂直与水平规律**。所以间距对建立视觉设计系统至关重要。和排版部分一样，第一步也是设定间距常量。
+**间距同时控制着设计中的垂直与水平韵律**。所以间距对建立视觉设计系统至关重要。和排版部分一样，第一步也是设定间距常量。
 
 #### 定义间距常量 ###
-
-> When defining spacing constants for the margins between elements, we can adopt a mathematic approach. Using a `spacingFactor` constant, we can generate a set of distances based on a common factor. **This approach ensures that we have logical and consistent spacing between elements.**
 
 当为元素之间的 margin 定义间距常量时，我们可以采取一种数学方法。使用一个 `spacingFactor` 常量来生成一组距离。**这种方法确保元素之间的间距是有逻辑并且一致的**。
 
@@ -241,9 +239,7 @@ export const spacing = {
 };
 ```
 
-> The example above uses a linear scale, one to thirteen. However, experiment with different scales and ratios. Designs require different scales based on their purpose, their audience, and the devices they target. As an example,**here are the first six computed distances using the golden ratio**  with a `spacingFactor` of eight.
-
-上面的例子采用了线性关系，从 1 到 13。不管怎样，多试验几种不同的尺度和比例的搭配才能找到合适的方案。目的、受众、目标设备的不同都需要在设计时考虑。**下面是使用黄金比率计算出来的前 6 个距离**，以 8 个 `spacingFactor` 为例。
+上面的例子采用了线性关系，从 1 到 13。不管怎样，多试验几种不同的尺度和比例的搭配才能找到合适的方案。目的、受众、目标设备的不同都需要在设计时考虑。**下面是使用黄金比率计算出来的前 6 个距离**，以 `spacingFactor` 等于 8 为例。
 
     Golden Ratio (1:1.618)
 
@@ -253,8 +249,6 @@ export const spacing = {
     8.0 x (1.618 ^ 3) = 33.89
     8.0 x (1.618 ^ 4) = 54.82
     8.0 x (1.618 ^ 5) = 88.71
-
-> This is what the spacing scale would look like in code. I added a helper function to handle the computation and round off the output to its nearest pixel value.
 
 下面是在代码中如何写间距比例。我添加了一个帮助处理间距计算结果的函数，它会返回其最近的像素值。
 
@@ -274,7 +268,7 @@ function computeGoldenRatio(spacingFactor, exp) {
 }
 ```
 
-定义好常量后，我们就可以用它们给元素添加间距。**一种方法就是在组件中 import**。
+定义好间距常量后，我们就可以用它们给元素添加间距。**一种方法就是在组件中 import**。
 
 例如，下面我们给 `Button` 组件添加 `marginBottom`。
 
@@ -318,7 +312,7 @@ export default Spacing;
 
 由于按钮、输入框、卡片等组件可能需要可变的间距，所以这种方法是有效的。例如，表单中的按钮可能比导航栏的按钮需要更大的边距。需要注意的是，如果一个组件始终具有一致的边距，那么在组件内部处理边距更好。
 
-你可能注意到前面的例子中只使用了 `marginBottom` ，这是因为**在一个方向定义所有的垂直边距可以避免边距合并，并能跟踪垂直规律**。你可以从 Harry Robert 的文章 [单向边距声明](https://csswizardry.com/2012/06/single-direction-margin-declarations/) 中了解更多这方面知识。
+你可能注意到前面的例子中只使用了 `marginBottom` ，这是因为**在一个方向定义所有的垂直边距可以避免边距合并，并能跟踪垂直韵律**。你可以从 Harry Robert 的文章 [单向边距声明](https://csswizardry.com/2012/06/single-direction-margin-declarations/) 中了解更多这方面知识。
 
 最后，你还可以使用间距常量来定义 padding。
 
@@ -360,7 +354,7 @@ export const styles = StyleSheet.create({
 
 你可以在 Medium 上找到我，我每周都会发布一篇文章。你也可以在 [Twitter](https://twitter.com/jonathanzwhite) 上关注我，我会在那里发布一些有关设计、前端开发和虚拟现实的随笔。
 
-*如果你喜欢这篇文章，欢迎给我点赞 ❤ 并分享给朋友，非常感谢！*
+**如果你喜欢这篇文章，欢迎给我点赞 ❤ 并分享给朋友，非常感谢！**
 
 [![](https://cdn-images-1.medium.com/max/600/1*mxQhZLqG7l5dMLvxYAklgw.png)](http://mrwhite.space/signup)
 
