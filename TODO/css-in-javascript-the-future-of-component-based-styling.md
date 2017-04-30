@@ -279,7 +279,7 @@ import { spacing } from '../styles/base/spacing';
 
 const styles = StyleSheet.create({
   button: {
-    marginBottom: spacing.space4, // adding margin using spacing constant
+    marginBottom: spacing.space4, // 使用间距常量来添加 margin
     ...
   },
 });
