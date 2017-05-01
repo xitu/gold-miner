@@ -1,22 +1,22 @@
-> * 原文地址：[Higher Order Functions (Composing Software)(part 4)](https://medium.com/javascript-scene/higher-order-functions-composing-software-5365cf2cbe99)
-> * 原文作者：[Eric Elliott](https://medium.com/@_ericelliott?source=post_header_lockup)
-> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
-> * 校对者：
+> *   原文地址：[Higher Order Functions (Composing Software)(part 4)](https://medium.com/javascript-scene/higher-order-functions-composing-software-5365cf2cbe99)
+> *   原文作者：[Eric Elliott](https://medium.com/@_ericelliott?source=post_header_lockup)
+> *   译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> *   译者：[reid3290](https://github.com/reid3290)
+> *   校对者：[Aladdin-ADD](https://github.com/Aladdin-ADD)、[avocadowang](https://github.com/avocadowang)
 
-# Higher Order Functions (Composing Software) #
+# 高阶函数（软件编写）（第四部分） #
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*uVpU7iruzXafhU2VLeH4lw.jpeg">
 
-Smoke Art Cubes to Smoke — MattysFlicks — (CC BY 2.0)
-> Note: This is part of the “Composing Software” series on learning functional programming and compositional software techniques in JavaScript ES6+ from the ground up. Stay tuned. There’s a lot more of this to come!
-> [< Previous](https://medium.com/javascript-scene/a-functional-programmers-introduction-to-javascript-composing-software-d670d14ede30#.gof8dsqh9) | [<< Start over at Part 1](https://medium.com/javascript-scene/the-rise-and-fall-and-rise-of-functional-programming-composable-software-c2d91b424c8c#.2dfd6n6qe)  | [Next >](https://medium.com/javascript-scene/reduce-composing-software-fe22f0c39a1d) 
+Smoke Art Cubes to Smoke — MattysFlicks — (CC BY 2.0)（译注：该图是用 PS 将烟雾处理成方块状后得到的效果，参见 [flickr](https://www.flickr.com/photos/68397968@N07/11432696204)。）
+> 注意：这是“软件编写”系列文章的第四部分，该系列主要阐述如何在 JavaScript ES6+ 中从零开始学习函数式编程和组合化软件（compositional software）技术（译注：关于软件可组合性的概念，参见维基百科 [Composability](https://en.wikipedia.org/wiki/Composability)）。后续还有更多精彩内容，敬请期待！
+> [< 上一篇](https://github.com/xitu/gold-miner/blob/master/TODO/a-functional-programmers-introduction-to-javascript-composing-software.md) | [<< 第一篇](https://github.com/xitu/gold-miner/blob/master/TODO/the-rise-and-fall-and-rise-of-functional-programming-composable-software.md)  | [下一篇 >](https://github.com/xitu/gold-miner/blob/master/TODO/reduce-composing-software.md)
 
-A **higher order function** is a function that takes a function as an argument, or returns a function. Higher order function is in contrast to first order functions, which don’t take a function as an argument or return a function as output.
+**高阶函数**是一种接收一个函数作为输入或输出一个函数的函数（译注：参见维基百科[高阶函数](https://zh.wikipedia.org/wiki/%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0)），这是和一阶函数截然不同的。
 
-Earlier we saw examples of `.map()` and `.filter()`. Both of them take a function as an argument. They're both higher order functions.
+之前我们看到的 `.map()` 和 `.filter()` 都是高阶函数 —— 它们都接受一个函数作为参数，
 
-Let’s look at an example of a first-order function which filters all the 4-letter words from a list of words:
+先来看个一阶函数的例子，该函数会将单词数组中 4 个字母的单词过滤掉：
 
 ```
 const censor = words => {
@@ -32,7 +32,7 @@ censor(['oops', 'gasp', 'shout', 'sun']);
 // [ 'shout', 'sun' ]
 ```
 
-Now what if we want to select all the words that begin with ‘s’? We could create another function:
+如果又要选择出所有以 's' 开头的单词呢？可以再定义一个函数：
 
 ```
 const startsWithS = words => {
@@ -48,29 +48,29 @@ startsWithS(['oops', 'gasp', 'shout', 'sun']);
 // [ 'shout', 'sun' ]
 ```
 
-You may already be recognizing a lot of repeated code. There’s a pattern forming here that could be abstracted into a more generalized solution. These two functions have a whole lot in common. They both iterate over a list and filter it on a given condition.
+显然可以看出这里面有很多重复的代码，这两个函数的主体是相同的 —— 都是遍历一个数组并根据给定的条件进行过滤。这便形成了一种特定的模式，可以从中抽象出更为通用的解决方案。
 
-Both the iteration and the filtering seem like they’re begging to be abstracted so they can be shared and reused to build all sorts of similar functions. After all, selecting things from lists of things is a very common task.
+不难看出， “遍历”和“过滤”都是亟待抽象出来的，以便分享和复用到其他所有类似的函数中去。毕竟，从数组中选取某些特定元素是很常见的需求。
 
-Luckily for us, JavaScript has first class functions. What does that mean? Just like numbers, strings, or objects, functions can be:
+幸运的是，函数是 JavaScript 中的一等公民，就像数字、字符串和对象一样，函数可以：
 
-- Assigned as an identifier (variable) value
-- Assigned to object property values
-- Passed as arguments
-- Returned from functions
+- 像变量一样赋值给其他变量
+- 作为对象的属性值
+- 作为参数进行传递
+- 作为函数的返回值
 
-Basically, we can use functions just like any other bits of data in our programs, and that makes abstraction a lot easier. For instance, we can create a function that abstracts the process of iterating over a list an accumulating a return value by passing in a function that handles *the bits that are different.* We’ll call that function the *reducer:*
+函数基本上可以像其他任何数据类型一样被使用，这点使得“抽象”容易了许多。例如，可以定义一种函数，将遍历数组并累计出一个返回值的过程抽象出来，该函数接收一个函数作为参数来决定具体的**累计**过程，不妨将此函数称为 **reducer**：
 
 ```
 const reduce = (reducer, initial, arr) => {
-  // shared stuff
+  // 共享的
   let acc = initial;
   for (let i = 0, length = arr.length; i < length; i++) {
 
-    // unique stuff in reducer() call
+    // 独特的
     acc = reducer(acc, arr[i]);
 
-  // more shared stuff
+  // 又是共享的
   }
   return acc;
 };
@@ -78,14 +78,14 @@ const reduce = (reducer, initial, arr) => {
 reduce((acc, curr) => acc + curr, 0, [1,2,3]); // 6
 ```
 
-This `reduce()` implementation takes a reducer function, an initial value for the accumulator, and an array of data to iterate over. For each item in the array, the reducer is called, passing it the accumulator and the current array element. The return value is assigned to the accumulator. When it's finished applying the reducer to all of the values in the list, the accumulated value is returned.
+该 `reduce()` 接受 3 个参数：一个 reducer 函数、一个累计的初始值和一个用于遍历的数组。对数组中的每个元素都会调用 reducer，传入累计器和当前数组元素，返回值又会赋给累计器。对数组中的所有元素都执行过 reducer 之后，返回最终的累计结果。
 
-In the usage example, we call reduce and pass it the function, `(acc, curr) => acc + curr`, which takes the accumulator and the current value in the list and returns a new accumulated value. Next we pass an initial value, `0`, and finally, the data to iterate over.
+在用例中，调用 `reduce` 并传给它 3 个参数：`reducer` 函数、初始值 0 以及需要遍历的数组。其中 `reducer` 函数以累计器和当前数组元素为参数，返回累计后的结果。
 
-With the iteration and value accumulation abstracted, now we can implement a more generalized `filter()` function:
+如此将遍历和累计的过程抽象出来之后，便可实现更为通用的 `filter()` 函数：
 
 ```
-const filter = (
+ const filter = (
   fn, arr
 ) => reduce((acc, curr) => fn(curr) ?
   acc.concat([curr]) :
@@ -93,11 +93,11 @@ const filter = (
 );
 ```
 
-In the `filter()` function, everything is shared except the `fn()` function that gets passed in as an argument. That `fn()`argument is called a predicate. A **predicate** is a function that returns a boolean value.
+在此 `filter()` 函数中，除了以参数形式传进来的 `fn()` 函数以外，所有代码都是可复用的。其中 `fn()` 参数被称为**断言（predicate）** —— 返回一个布尔值的函数。
 
-We call `fn()` with the current value, and if the `fn(curr)` test returns `true`, we concat the `curr` value to the accumulator array. Otherwise, we just return the current accumulator value.
+将当前值传给 `fn()`，如果 `fn(curr)` 返回 `true`，则将 `curr` 添加到结果数组中并返回之；否则，直接返回当前数组。
 
-Now we can implement `censor()` with `filter()` to filter out 4-letter words:
+现在便可借助 `filter()` 函数来实现过滤 4 字母单词的 `censor()` 函数：
 
 ```
 const censor = words => filter(
@@ -106,20 +106,20 @@ const censor = words => filter(
 );
 ```
 
-Wow! With all the common stuff abstracted out, `censor()` is a tiny function.
+喔！将所有公共代码抽象出来之后，`censor()` 函数便十分简洁了。
 
-And so is `startsWithS()`:
+`startsWithS()` 也是如此：
 
 ```
-const startsWithS = words => filter(
+ const startsWithS = words => filter(
   word => word.startsWith('s'),
   words
 );
 ```
 
-If you’re paying attention, you probably know that JavaScript has already done this abstraction work for us. We have the `Array.prototype` methods, `.reduce()` and `.filter()` and `.map()` and a few more for good measure.
+ 你若稍加留意便会发现 JavaScript 其实已经为我们做了这些抽象，即 `Array.prototype` 的相关方法，例如 `.reduce()`、`.filter()`、`.map()` 等等。
 
-Higher order functions are also commonly used to abstract how to operate on different data types. For instance, `.filter()` doesn't have to operate on arrays of strings. It could just as easily filter numbers, because you can pass in a function that knows how to deal with a different data type. Remember the `highpass()` example?
+ 高阶函数也常常被用于对不同数据类型的操作进行抽象。例如，`.filter()` 函数不一定非得作用于字符串数组。只需传入一个能够处理不同数据类型的函数，`.filter()` 便能过滤数字了。还记得 `highpass` 的例子吗？
 
 ```
 const highpass = cutoff => n => n >= cutoff;
@@ -127,22 +127,21 @@ const gt3 = highpass(3);
 [1, 2, 3, 4].filter(gt3); // [3, 4];
 ```
 
-In other words, you can use higher order functions to make a function polymorphic. As you can see, higher order functions can be a whole lot more reusable and versatile than their first order cousins. Generally speaking, you’ll use higher order functions in combination with very simple first order functions in your real application code.
+换言之，高阶函数可以用来实现函数的多态性。如你所见，相对于一阶函数而言，高阶函数的复用性和通用性更好。一般来讲，在实际编码中会组合使用高阶函数和一些非常简单的一阶函数。
 
-[**Continue to “Reduce” >**](https://medium.com/javascript-scene/reduce-composing-software-fe22f0c39a1d)
+[**再续 “Reduce” >**](https://github.com/xitu/gold-miner/blob/master/TODO/reduce-composing-software.md)
 
-### Next Steps ###
+### 接下来 ###
 
-Want to learn more about functional programming in JavaScript?
+想学习更多 JavaScript 函数式编程吗？
 
-[Learn JavaScript with Eric Elliott](http://ericelliottjs.com/product/lifetime-access-pass/). If you’re not a member, you’re missing out!
+[跟着 Eric Elliott 学 Javacript](http://ericelliottjs.com/product/lifetime-access-pass/)，机不可失时不再来！
 
-[<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*3njisYUeHOdyLCGZ8czt_w.jpeg">
-](https://ericelliottjs.com/product/lifetime-access-pass/) 
+[<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*3njisYUeHOdyLCGZ8czt_w.jpeg">](https://ericelliottjs.com/product/lifetime-access-pass/)
 
-***Eric Elliott*** is the author of [*“Programming JavaScript Applications”*](http://pjabook.com) (O’Reilly), and *[*“Learn JavaScript with Eric Elliott”*](http://ericelliottjs.com/product/lifetime-access-pass/). He has contributed to software experiences for **Adobe Systems, Zumba Fitness, The Wall Street Journal, ESPN, BBC, and top recording artists including Usher, Frank Ocean, Metallica**, and many more.
+**Eric Elliott** 是  [**“编写 JavaScript 应用”**](http://pjabook.com) （O’Reilly） 以及 [**“跟着 Eric Elliott 学 Javascript”**](http://ericelliottjs.com/product/lifetime-access-pass/) 两书的作者。他为许多公司和组织作过贡献，例如 **Adobe Systems**、**Zumba Fitness**、**The Wall Street Journal**、**ESPN** 和 **BBC**等 , 也是很多机构的顶级艺术家，包括但不限于 **Usher**、**Frank Ocean** 以及 **Metallica**。
 
-*He spends most of his time in the San Francisco Bay Area with the most beautiful woman in the world.*
+大多数时间，他都在 San Francisco Bay Area，同这世上最美丽的女子在一起。
 
 ---
 
