@@ -60,7 +60,7 @@ export default function() {
 
 这个 app 将会显示“Hello world”。在下文中显示“Hello world” 即表示脚本加载成功。
 
-### 装载一个代码包（bundle） ###
+### 装载一个代码包（bundle）###
 
 配置使用 Webpack 创建一个代码包相对来说比较直观。在构建过程中，除了打包和使用 UglifyJS 压缩 JavaScript 文件之外并没有做别的什么事。
 
