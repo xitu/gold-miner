@@ -1,5 +1,5 @@
 > * 原文地址：[CSS in JavaScript: The future of component-based styling](https://medium.freecodecamp.com/css-in-javascript-the-future-of-component-based-styling-70b161a79a32)
-> * 原文作者：[Jonathan Z. White](https://medium.freecodecamp.com/@JonathanZWhite)
+> * 原文作者：本文已获原作者 [Jonathan Z. White](https://medium.freecodecamp.com/@JonathanZWhite) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[bambooom](https://github.com/bambooom)
 > * 校对者：[Aladdin-ADD](https://github.com/Aladdin-ADD)、[reid3290](https://github.com/reid3290)
