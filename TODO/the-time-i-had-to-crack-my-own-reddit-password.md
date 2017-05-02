@@ -2,7 +2,7 @@
 > * 原文作者：[Haseeb Qureshi](https://medium.freecodecamp.com/@hosseeb?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[cdpath](https://github.com/cdpath)
-> * 校对者：
+> * 校对者：[atuooo (oOatuo)](https://github.com/atuooo), [yzgyyang (Guangyuan (Charlie) Yang)](https://github.com/yzgyyang)
 
 # 我是如何找回 Reddit 密码的
 
@@ -10,16 +10,16 @@
 
 黑掉整个星球，伙计们！
 
-我一点自制力都没有。
+我真是一点自制力都没有。
 
-幸运地是我对这一点颇有自知之明。我有意识地筹划生活，所以尽管我跟海洛因上瘾的实验小白鼠一样不成熟，偶尔还是可以搞定一些事情。
+好在我对这一点颇有自知之明。我有意识地筹划生活，所以尽管我跟海洛因上瘾的小白鼠一样不成熟，偶尔还是可以搞定一些事情。
 
 ![](https://media.giphy.com/media/gOH54eiriYIwM/giphy.gif) 
 
 
 嗯，简直是浪费时间！
 
-我逛 Reddit 浪费了很多时间。如果我想拖延点事情的话，常常会开一个新标签页然后一头扎进 Reddit。但是有时我又得心无旁骛，减少干扰。比如 2015年 —— 我专注于提升自己的编程水平，而在 Reddit 闲逛就成了负担。
+我逛 Reddit 浪费了很多时间。如果我想拖延点事情的话，常常会开一个新标签页然后一头扎进 Reddit。但是有时我又得心无旁骛，减少干扰。比如 2015 年 —— 我专注于提升自己的编程水平，而在 Reddit 闲逛就成了负担。
 
 我要搞个计划控制我自己。
 
@@ -33,7 +33,7 @@
 
 本应有效，不过......
 
-不幸的是事实上朋友根本扛不住社会工程学。换句话说，他们对你太好了，如果你求他们要密码，他们还是会发给你。
+不幸的是，事实上朋友根本扛不住社会工程学。换句话说，他们「对你太好了」，如果你「求」他们要密码，他们还是会发给你。
 
 ![](https://media.giphy.com/media/uB6rsQFg5yPzW/giphy.gif) 
 
@@ -53,13 +53,13 @@
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*TOUIDOIRHiVySUWt46n3mw.gif">
 
-我这样子坚持了一阵子：在工作日把密码 email 给自己，周末收到密码，在互联网垃圾信息中浪费时间，待下周开始就再锁掉账号。我印象中这一套效果不错。
+我这样坚持了一阵子：在工作日把密码 email 给自己，周末收到密码，在互联网垃圾信息中浪费时间，待下周开始就再锁掉账号。我印象中这一套效果不错。
 
 终于有一天写代码实在太忙了，我完全忘了这一回事。
 
 ### 一转就是两年后
 
-我现在在 Airbnb 工作，薪酬颇丰。而且 Airbnb，事实如此，有个巨大的测试组件。也就是说等待时间颇多，而等待就意味着可以上网摸鱼。
+我现在在 Airbnb 工作，薪酬颇丰。而且 Airbnb 刚巧有个巨大的测试组件。也就是说等待时间颇多，而等待就意味着可以上网摸鱼。
 
 我决定讨回旧账号并找回 Reddit 密码。
 
@@ -71,7 +71,7 @@
 
 我该怎么办？只能新建一个 Reddit 账号然后从头开始吗？但是这样好麻烦啊。
 
-我大可以给 LetterMeLater 发邮件解释自己并不是真的想这么做。但是他们回信可能要好一会儿呢。而且你们都知道了，我是个急性子。这个网站看上去也不像是有客服团队的样子。更不要提写这种邮件有多尴尬了。我开始头脑风暴精心编造理由甚至扯到了去世的亲人，试图解释为什么需要看自己的邮件。
+我完全可以给 LetterMeLater 发邮件解释自己并不是真的想这么做。但是他们回信可能要好一会儿呢。而且你们都知道了，我是个急性子。这个网站看上去也不像是有客服团队的样子。更不要提写这种邮件有多尴尬了。我开始头脑风暴精心编造理由甚至扯到了去世的亲人，试图解释为什么需要看自己的邮件。
 
 所有的选择都不怎么靠谱。那天晚上，从公司走到家一路上我都在思考自己的尴尬处境，突然就有灵感了。
 
@@ -119,17 +119,17 @@
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*GJ5xKZzTe0F5un-Iz11pXg.png">
 
-继续构建子字符串，直到找不到更多的字符。
+继续构建子字符串，直到无法在末尾添加字符。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*E9ri3Rf8LBPxUTjgs5BvPQ.png">
 
-不过这还没完 — 不过接近了，我落下了字符串的前缀，因为我是随机选了个起点开始的。不过好办，只需要再重复一下之前的操作，方向反过来就好了。
+这还没完 — 不过接近了，我落下了字符串的前缀，因为我是随机选了个起点开始的。不过好办，只需要再重复一下之前的操作，方向反过来就好了。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*F_n0WGRP_8RJdFtR-v0b1g.png">
 
 搞定之后就可以着手重建密码了。总而言之，我需要搞定 `L` 个字符，每个字符平均需要猜测 `A/2` 次（`A` 是字母表长度），加起来需要猜测 `A/2 * L` 次。
 
-准确地说，我还得再猜测 `2A` 次来确保字符串两端都到头了。所以总数是 xxx，提取公因数就是 `A(L/2 + 2)`.
+准确地说，我还得再猜测 `2A` 次来确保字符串两端都到头了。所以总数是 `A/2 * L + 2A`，提取公因数就是 `A(L/2 + 2)`.
 
 假设密码中有 20 个字符，字母表由 `a-z` 和 `0–9` 组成，总长度为 36。所以总迭代次数是 `36 * (20/2 + 2) = 36 * 12 = 432`。
 
@@ -145,7 +145,7 @@
 
 首先：我得写一个客户端，用代码控制搜索框执行检索。也就是我的子字符串「先知」。这个网站显然没有 API，我得直接爬网站。
 
-看起来搜索用的 URL 模式就是简单的检索字符串，`www.lettermelater.com/account.php?**qe=#{query_here}**`。简单吧。
+搜索用的 URL 模式看来就是简单的检索字符串，`www.lettermelater.com/account.php?**qe=#{query_here}**`。简单吧。
 
 开始写脚本吧。我会用 Faraday 这个 gem 完成网络请求，交互简单，我比较熟悉。
 
