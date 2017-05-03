@@ -1,5 +1,5 @@
-> * 原文地址：[](https://www.thedroidsonroids.com/blog/android/workcation-app-part-1-fragments-custom-transition/)
-> * 原文作者：[Mariusz Brona]()
+> * 原文地址：[Workcation App – Part 1. Fragment custom transition](https://www.thedroidsonroids.com/blog/android/workcation-app-part-1-fragments-custom-transition/)
+> * 原文作者：[Mariusz Brona](https://www.thedroidsonroids.com/blog/android/workcation-app-part-1-fragments-custom-transition/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：
 > * 校对者：
