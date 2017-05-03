@@ -58,7 +58,7 @@ export default function() {
 }
 ```
 
-这个 app 将会显示“Hello world”。在下文中显示“Hello world” 即表示脚本加载成功。
+这个 app 将会显示“Hello world”。在下文中显示“Hello world”即表示脚本加载成功。
 
 ### 装载一个代码包（bundle）
 
