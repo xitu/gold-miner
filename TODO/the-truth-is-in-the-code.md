@@ -8,7 +8,7 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*Fw8F2fRNVfkcE-0VGyDZhQ.png)
 
-[shoppingapp](https://github.com/bertilmuth/requirementsascode/tree/master/requirementsascodeexamples/shoppingappjavafx) 模型,[requirementsascode](https://github.com/bertilmuth/requirementsascode) 的示例代码
+[shoppingapp](https://github.com/bertilmuth/requirementsascode/tree/master/requirementsascodeexamples/shoppingappjavafx) 模型, [requirementsascode](https://github.com/bertilmuth/requirementsascode) 的示例代码
 
 早晚有一天，每个程序员都会听到这样一句话：
 
@@ -118,7 +118,7 @@
 
 我想知道每一个用例中的不同部分对应哪块代码。
 
-#### 那么一个用例由哪些零件构成呢？###
+#### 那么一个用例由哪些零件构成呢？####
 
 用例的基础零件是使用户离期望结果更进一步的**步骤**。比如：“系统展示一个手套的列表。”
 
@@ -132,7 +132,7 @@
 
 用户在任何给定的时间点上只能执行一部分步骤。用户只有在输入配送信息后才可以填写支付详情。因此每一个用例中都有一个定义了该用例中所有步骤执行顺序的**流程**。以及一个根据系统当前状态，表示系统是否可以响应用户的操作的**条件**。
 
-#### 要理解代码，你需要一个简单方法来了解几件事情。###
+#### 要理解代码，你需要一个简单方法来了解几件事情。####
 
 对于一个用例（例如“买手套”）：
 
