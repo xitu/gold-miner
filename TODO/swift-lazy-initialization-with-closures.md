@@ -1,5 +1,5 @@
 > * 原文地址：[Swift Lazy Initialization with Closures][1]
-> * 原文作者：[Bob Lee][2]
+> * 原文作者：本文已获原作者 [Bob Lee][2] 授权
 > * 译文出自：[掘金翻译计划][3]
 > * 译者：[lsvih][4]
 > * 校对者：[zhangqippp](https://github.com/zhangqippp),[Zheaoli](https://github.com/Zheaoli)
