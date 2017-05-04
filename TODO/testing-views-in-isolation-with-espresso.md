@@ -1,5 +1,5 @@
 > * 原文地址：[Testing Views in Isolation with Espresso](https://www.novoda.com/blog/testing-views-in-isolation-with-espresso/)
-> * 原文作者：本文已获原作者 [Ataul Munim](https://www.novoda.com/blog/author/ataulm/) 授权
+> * 原文作者：本文已获原作者 [Ataul Munim](https://twitter.com/ataulm) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[yazhi1992](https://github.com/yazhi1992)
 > * 校对者：[lovexiaov](https://github.com/lovexiaov), [Phoenix](https://github.com/wbinarytree)
