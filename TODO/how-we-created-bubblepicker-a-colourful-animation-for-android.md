@@ -1,5 +1,5 @@
 > * 原文地址：[How We Created BubblePicker – a Colorful Menu Animation for Android](https://yalantis.com/blog/how-we-created-bubblepicker-a-colourful-animation-for-android/)
-> * 原文作者：[Irina Galata](https://yalantis.com/blog/how-we-created-bubblepicker-a-colourful-animation-for-android/) [Yuliya Serbenenko](https://yalantis.com/blog/how-we-created-bubblepicker-a-colourful-animation-for-android/)
+> * 原文作者：[Irina Galata](https://yalantis.com/blog/how-we-created-bubblepicker-a-colourful-animation-for-android/), [Yuliya Serbenenko](https://yalantis.com/blog/how-we-created-bubblepicker-a-colourful-animation-for-android/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：
 > * 校对者：
