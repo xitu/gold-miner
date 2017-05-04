@@ -20,10 +20,10 @@
 
 ## 什么是函数作为子组件的组件？ ##
 
-“函数作为子组件的组件”是接收一个函数当作父组件的子组件组件。这种模式的实施和执行得益于 React 的 property types。
+“函数作为子组件的组件”是接收一个函数当作子组件的组件。这种模式的实施和执行得益于 React 的 property types。
 
 ```
-classMyComponentextendsReact.Component{   
+class MyComponent extends React.Component{   
   render() {  
     return (  
         <div>
@@ -69,7 +69,7 @@ Ratio 组件将使用设备的宽度，监听 resize 事件并将宽度、高度
 首先我们从函数作为子类组件的组件的代码片段开始，这片段在所有子组件函数中都是常见的，它只是让 Comsumer 知道我们期望一个函数作为子组件，而不是 React 节点。
 
 ```
-classRatioextendsReact.Component{  
+class Ratio extends React.Component{  
   render() {  
     return (  
         {this.props.children()}  
@@ -86,7 +86,7 @@ Ratio.propTypes = {
 接下来让我们设计 API ，我们想要一个 X Y 轴的比率，然后我们使用当前的宽度来计算，可以设置一些内部 state 来管理宽度和高度，无论我们是否已经计算了。此外，也该让 propTypes 和 defaultProps 在使用组件时发挥点作用。
 
 ```
-classRatioextendsReact.Component{  
+class Ratio extends React.Component{  
 
   constructor() {  
     super(...arguments);  
@@ -117,10 +117,10 @@ Ratio.defaultProps = {
 
 ```
 
-实际上我们没有做任何有趣的事情，让我们来添加一些事件监听，并计算实际宽度（根据我们比率的变化）：
+实际上我们还没有做什么有趣的事情，让我们来添加一些事件监听，并计算实际宽度（根据我们比率的变化）：
 
 ```
-classRatioextendsReact.Component{
+class Ratio extends React.Component{
 
   constructor() {
     super(...arguments);
@@ -220,7 +220,7 @@ render() {
 </Ratio>
 ```
 
-同时，在另一个文件中，有人决定使用它来设置CSS属性。
+同时，在另一个文件中，有人决定使用它来设置 CSS 属性。
 
 ```
 <Ratio>
@@ -255,13 +255,13 @@ MyComponent.SomeContant = 'SCUBA';
 
 ```
 
-然后被高阶组件封装,
+然后被高阶组件封装，
 
 ```
 exportdefault connect(...., MyComponent);
 
 ```
-.
+
 和你的常量说再见吧。因为如果没有高阶组件提供的函数，你将再也不能访问到这个常量。哭。
 
 #### 总结 ####
