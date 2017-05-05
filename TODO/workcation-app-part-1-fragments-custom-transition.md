@@ -41,7 +41,7 @@ A few months back we’ve had a company meeting, where my friend Paweł Szymanki
 
 GIF 1 *“The animation”*
 
-GIF 1 *“动画效果”*
+GIF 1 **“动画效果”**
 
 # Let’s start! 
 
@@ -201,7 +201,7 @@ public class MainActivity extends MvpActivity<MainView,MainPresenter> implements
 
     @Override
 
-    public void setMapLatLngBounds(finalLatLngBounds latLngBounds){
+    public void setMapLatLngBounds(final LatLngBounds latLngBounds){
 
         mapLatLngBounds=latLngBounds;
 
