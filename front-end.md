@@ -1,3 +1,4 @@
+* [JavaScript 中的 CSS：基于组件的样式的未来](https://juejin.im/post/590822768d6d810058e4d24d?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([bambooom](https://github.com/bambooom) 翻译)
 * [代码中添加注释之好坏丑](https://juejin.im/post/5902126aa0bb9f0065e80ea9?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([bambooom](https://github.com/bambooom) 翻译)
 * [真正行动之前 你将一无所成](https://juejin.im/entry/58f6136861ff4b00580aef28?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([owenlyn](https://github.com/owenlyn) 翻译)
 * [高阶函数（软件编写）（第四部分）](https://juejin.im/post/58f6d6ff570c3500564fbddc?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([reid3290](https://github.com/reid3290) 翻译)
