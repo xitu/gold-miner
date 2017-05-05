@@ -1,3 +1,4 @@
+* [开发者（也就是我）与Rx Observable 类的对话 [ Android RxJava2 ] ( 这到底是什么？) 第五部分](https://juejin.im/post/590ab4f7128fe10058f35119/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([stormrabbit](https://github.com/stormrabbit) 翻译)
 * [使用 Espresso 隔离测试视图](https://juejin.im/post/59088d650ce463006182a07/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([yazhi1992](https://github.com/yazhi1992) 翻译)
 * [RxJava 中的多线程](https://juejin.im/post/58ff6259da2f60005dd81459/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([phxnirvana](https://github.com/phxnirvana) 翻译)
 * [Android 如何实现气泡选择动画](https://juejin.im/post/58e5ec838d6d8100616d82e2/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([skyar2009](https://github.com/skyar2009) 翻译)
