@@ -1,5 +1,5 @@
 > * 原文地址：[That time I had to crack my own Reddit password](https://medium.freecodecamp.com/the-time-i-had-to-crack-my-own-reddit-password-a6077c0a13b4)
-> * 原文作者：[Haseeb Qureshi](https://medium.freecodecamp.com/@hosseeb?source=post_header_lockup)
+> * 原文作者：本文已获原作者 [Haseeb Qureshi](https://medium.freecodecamp.com/@hosseeb) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[cdpath](https://github.com/cdpath)
 > * 校对者：[atuooo (oOatuo)](https://github.com/atuooo), [yzgyyang (Guangyuan (Charlie) Yang)](https://github.com/yzgyyang)
