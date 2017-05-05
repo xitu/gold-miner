@@ -1,3 +1,4 @@
+* [ES6 模块原生支持在浏览器中落地，是时候该重新考虑打包了吗？](https://juejin.im/post/590a990a5c497d005852cf61?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lsvih](https://github.com/lsvih) 翻译)
 * [JavaScript 中的 CSS：基于组件的样式的未来](https://juejin.im/post/590822768d6d810058e4d24d?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([bambooom](https://github.com/bambooom) 翻译)
 * [代码中添加注释之好坏丑](https://juejin.im/post/5902126aa0bb9f0065e80ea9?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([bambooom](https://github.com/bambooom) 翻译)
 * [真正行动之前 你将一无所成](https://juejin.im/entry/58f6136861ff4b00580aef28?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([owenlyn](https://github.com/owenlyn) 翻译)
