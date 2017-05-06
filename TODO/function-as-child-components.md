@@ -55,7 +55,7 @@ MyComponent.propTypes = {
 ```
 <MyComponent>
   {(name) => (
-    <imgsrc=’/scuba-steves-picture.jpg’alt={name} />
+    <img src=’/scuba-steves-picture.jpg’ alt={name} />
   )}
 </MyComponent>
 ```
@@ -169,7 +169,7 @@ return {
 
   render() {
     return (
-      <divref={(ref) => this.container = ref}>
+      <div ref={(ref) => this.container = ref}>
         {this.props.children(this.state.width, this.state.height, this.state.hasComputed)}
       </div>
     );
@@ -200,7 +200,7 @@ Ratio.defaultProps = {
 ```
 render() {
     return (
-      <divref='container'>
+      <div ref='container'>
         {this.props.children(this.state.width, this.state.height, this.state.hasComputed)}
       </div>
     );
@@ -214,7 +214,7 @@ render() {
 <Ratio>
   {(width, height, hasComputed) => (
     hasComputed 
-      ? <imgsrc='/scuba-steve-image.png'width={width}height={height} /> 
+      ? <img src='/scuba-steve-image.png' width={width} height={height} /> 
       : null
   )}
 </Ratio>
