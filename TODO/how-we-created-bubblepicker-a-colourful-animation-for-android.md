@@ -1,26 +1,40 @@
 > * 原文地址：[How We Created BubblePicker – a Colorful Menu Animation for Android](https://yalantis.com/blog/how-we-created-bubblepicker-a-colourful-animation-for-android/)
 > * 原文作者：[Irina Galata](https://yalantis.com/blog/how-we-created-bubblepicker-a-colourful-animation-for-android/), [Yuliya Serbenenko](https://yalantis.com/blog/how-we-created-bubblepicker-a-colourful-animation-for-android/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
+> * 译者：[hackerkevin](https://github.com/hackerkevin)
 > * 校对者：
 
-# How We Created BubblePicker – a Colorful Menu Animation for Android #
+# 如何创建 BubblePicker – Android 多彩菜单动画 #
 
 We’re used to mobile applications supporting various types of interactions such as sliding gestures to select, or to drag and drop. What we tend to forget is that there is a growing trend toward unifying the user experience across platforms. 
 
+我们已经习惯了移动应用丰富的交互方式，如滑动手势去选择、拖拽。但是我们没有察觉到，统一用户的跨平台体验是一个正在发生的趋势。
+
 In the early days, iOS and Android each had their own unique feel, but recently they have been growing closer together in terms of the way applications are designed and interactions happen. With [bottom navigation](https://material.io/guidelines/components/bottom-navigation.html#) and split screen features now available in Android Nougat, Android has a lot in common with iOS these days.
+
+早期时候，iOS 和 Android 都有其独特的体验，但是在近期，这两个平台上的应用体验和交互在逐渐的靠拢。[底部导航](https://material.io/guidelines/components/bottom-navigation.html#)和分屏的特性已经成为Android Nougat版本的特性，Android 已经和 iOS 已经有了很多相同的地方了。
 
 For designers, this coalescing of design languages means that we can often adjust popular features that were once associated with one platform for apps designed for the other.
 
+对于设计者而言，设计语言的融合意味着在一个平台上流行的特性可以适配到另一个平台。
+
 Recently, to keep up with the trend of merging design styles across platforms, we worked on an Android animation that is inspired by the popular bubble animation in Apple music. Our task was to develop an interface that was easy enough for novice users but that still felt interesting for more experienced users.
 
+最近，为了跟上跨平台风格的步伐，我们使用 Android 动画实现了苹果音乐上的气泡动画。我们设计了一个接口，使得初学者也可以方便的使用，而且也让有经验的开发者觉得有趣。
+
 Our vibrant [BubblePicker](https://github.com/igalata/Bubble-Picker) is a great way to make an app more content-focused, original, and fun. Google is rolling out their “Material Design” language across all their products, but nevertheless, we decided to experiment with bold colors and gradients this time around to add more depth and volume to the image. Gradients might be the major visual in the display and might attract the attention of new visitors.
+
+使用 [BubblePicker](https://github.com/igalata/Bubble-Picker)能让一个应用更加的聚焦内容、原创感和有趣。尽管 Google 已经对它所有的产品推出了材料设计语言，但是我们依然决定在此时尝试大胆的颜色和渐变的效果，增加更多的深度和体积的图像。渐变可能是界面显示最主要的视觉效果，也可能会吸引到更多的人使用。
 
 ![](http://images.yalantis.com/w736/uploads/ckeditor/pictures/2328/content_1_gradients.jpg)
 
 Our component has a white background with lots of bright colors and graphics against it. 
 
+我们的组件是白色背景，上面包含了很多明亮的颜色和图形。
+
 This high contrast is very helpful for apps rich in content, where users have to choose from a list of options. For example, in our concept we used bubbles to hold the names of potential destinations within a travel app. Bubbles float freely, and when a user taps on one of them, the tapped bubble grows in size.
+
+
 
 ![](https://yalantis-com-dev-06-09.s3.amazonaws.com/uploads/ckeditor/pictures/2329/content_discover_animation.gif)
 
