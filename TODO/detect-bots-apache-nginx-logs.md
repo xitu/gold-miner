@@ -1,66 +1,66 @@
 > * 原文地址：[Detecting Bots in Apache & Nginx Logs](http://tech.marksblogg.com/detect-bots-apache-nginx-logs.html)
 > * 原文作者：[Mark Litwintschik](http://tech.marksblogg.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者： 
-> * 校对者：
+> * 译者：[luoyaqifei](http://www.zengmingxia.com)
+> * 校对者：[forezp](https://github.com/forezp)，[1992chenlu](https://github.com/1992chenlu)
 
-# Detecting Bots in Apache & Nginx Logs
+# 在 Apache 和 Nginx 日志里检测爬虫机器人
 
-As browser plugins that block JavaScript-based tracking beacons now enjoy a 9-figure user base, web traffic logs can be a good place to get a better feel for how many people are visiting your website. But anyone that has monitored a web traffic log for more than a few minutes is aware there is an army of bots crawling websites. But being able to separate bot and human-generated traffic in web server logs can be challenging.
+现在阻止基于 JavaScript 追踪的浏览器插件享有九位数的用户量，从这一事实可以看出，web 流量日志可以成为一个很好的、能够感知有多少人在访问你的网站的地方。但是任何监测过 web 流量日志一段时间的人都知道，有成群结队的爬虫机器人在爬网站。然而，在 web 服务器日志里分辨出机器人和人为产生的流量是一个难题。
 
-In this blog I'll walk through the steps I went through to build an IPv4 ownership and browser string-based bot detection script.
+在这篇博文中，我将带你们重现那些我在创建一个基于 IPv4 所属和浏览器字串（browser string）的机器人检测脚本时用过的步骤。  
 
-The code used in this blog can be found in this [gist](https://gist.github.com/marklit/80b875ccab8b215bfa0ecdfaa5000e7b).
+本文中用到的代码在这个 [代码片段](https://gist.github.com/marklit/80b875ccab8b215bfa0ecdfaa5000e7b) 里。
 
-## IP Address Ownership Databases
+## IP 地址所属数据库
 
-I'll first install Python and some dependencies. The following was run on a fresh Ubuntu 14.04.3 LTS installation.
+首先，我会安装 Python 和一些依赖包。接下来的指令会在一个新的 Ubuntu 14.04.3 LTS 安装过程中执行。
 
     $ sudo apt-get update
     $ sudo apt-get install \
         python-dev \
         python-pip \
         python-virtualenv
-    
 
-I'll then create a Python virtual environment and activate it. This should ease any issues with permissions when installing libraries via pip.
+
+接下来我要创建一个 Python 虚拟环境，并且激活它。通过 pip 安装库时，容易遇到权限问题，这样可以缓解这种问题。
 
     $ virtualenv findbots
     $ source findbots/bin/activate
-    
 
-MaxMind offer a free database of country and city registration information for IPv4 addresses. Along with this dataset they've released a Python-based library called "geoip2" that can map their datasets to memory-mapped files and use a C-based Python extension to perform very fast lookups.
 
-The following will install their library and download and unpack their city-level dataset.
+MaxMind 提供了一个免费的数据库，数据库里有 IPv4 地址对应的国家和城市注册信息。和这些数据集一起，他们还发布了一个基于 Python 的库，叫 “geoip2”，这个库可以将他们的数据集映射到内存映射的文件里，并且用基于 C 的 Python 扩展来执行非常快的查询。
+
+下面的命令会安装它们的包，下载、解压它们在城市那一层的数据集。
 
     $ pip install geoip2
     $ curl -O http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz
     $ gunzip GeoLite2-City.mmdb.gz
-    
 
-I had a look at some web traffic logs and grep'ed out hits where "robots.txt" was being requested. From that list I spot-checked some of the more frequently-appearing IP addresses and found a number of hosting and cloud providers being listed as the owners of these IPs. I wanted to see if it was possible to put together a list, however incomplete, of IPv4 addresses under these providers' ownership.
 
-Google have a DNS-based mechanism for collecting a list of their IP addresses they use for their cloud offering. This first call will give you a list of hosts to query.
+我看过一些 web 流量日志，并且抓取出来一些恰好请求了「robots.txt」的流量。从那个列表里，我重点检查了经常出现的 IP 地址中的一些，发现不少 IP 其实是属于主机和云服务提供商的。我想知道是不是有可能攒出来一个列表，无论完不完整，包括了这些提供商所有的 IPv4 地址。
+
+Google 有一个基于 DNS 的机制，用于收集它们用于提供云的 IP 地址列表。这个最初的调用将给你一系列可以查询的主机。
 
     $ dig -t txt _cloud-netblocks.googleusercontent.com | grep spf
-    
+
 ```
  _cloud-netblocks.googleusercontent.com. 5 IN TXT "v=spf1 include:_cloud-netblocks1.googleusercontent.com include:_cloud-netblocks2.googleusercontent.com include:_cloud-netblocks3.googleusercontent.com include:_cloud-netblocks4.googleusercontent.com include:_cloud-netblocks5.googleusercontent.com ?all"
 ```
-    
 
-The above states that _cloud-netblocks[1-5].googleusercontent.com will contain SPF records that contain IPv4 and IPv6 CIDR addresses they use. Querying all five addresses like the following should give you an up-to-date listing.
+
+以上阐明了 _cloud-netblocks[1-5].googleusercontent.com 将包含 SPF 记录，这些记录里包括他们实用的 IPv4 和 IPv6 CIDR 地址。像如下这样查询所有的五个地址，应当会给你一个最新的列表。
 
     $ dig -t txt _cloud-netblocks1.googleusercontent.com | grep spf
-    
+
 ```
 _cloud-netblocks1.googleusercontent.com. 5 IN TXT "v=spf1 ip4:8.34.208.0/20 ip4:8.35.192.0/21 ip4:8.35.200.0/23 ip4:108.59.80.0/20 ip4:108.170.192.0/20 ip4:108.170.208.0/21 ip4:108.170.216.0/22 ip4:108.170.220.0/23 ip4:108.170.222.0/24 ?all"
 ```
 
-I published a [blog post](bulk-ip-address-whois-python-hadoop.html#ipv4-whois-mapreduce-job) last March where I attempted to scrape WHOIS details for the entirety of the IPv4 address space using a Hadoop-based MapReduce job. The job itself ran for about two hours before terminating prematurely. I was left with an incomplete but still sizeable dataset of 235,532 WHOIS records. The dataset is a year old now but should still prove valuable, if not somewhat dated.
+去年三月，基于 Hadoop 的 MapReduce 任务，我尝试着抓取了整个 IPv4 地址空间的 WHOIS 细节，并且发布了一篇 [博客文章](http://tech.marksblogg.com/bulk-ip-address-whois-python-hadoop.html#ipv4-whois-mapreduce-job)。这个任务在过早结束之前，跑了接近两个小时，留给了我一份虽然不完整，但是大小可观的数据集，里面有 235,532 个 WHOIS 记录。这个数据集已经存在一年之久了，除了有点过时，应该还是有价值的。
 
     $ ls -l
-    
+
 ```
 -rw-rw-r-- 1 mark mark  5946203 Mar 31  2016 part-00001
 -rw-rw-r-- 1 mark mark  5887326 Mar 31  2016 part-00002
@@ -69,7 +69,7 @@ I published a [blog post](bulk-ip-address-whois-python-hadoop.html#ipv4-whois-ma
 -rw-rw-r-- 1 mark mark  5961162 Mar 31  2016 part-00155
 ```    
 
-When I spot-checked the IP ownership of bots hitting "robots.txt", in addition to Google, six firms came up a lot: Amazon, Baidu, Digital Ocean, Hetzner, Linode and New Dream Network. I ran the following commands to try and pick out their IPv4 WHOIS records.
+当我重点检查那些爬到「robots.txt」的爬虫机器人的 IP 所属时，除了 Google，这六家公司也出现了很多次：Amazon、百度、Digital Ocean、Hetzner、Linode 和 New Dream Network。我跑了以下的命令，尝试去取出它们的 IPv4 WHOIS 记录。
 
     $ grep -i 'amazon'            part-00* > amzn
     $ grep -i 'baidu'             part-00* > baidu
@@ -77,9 +77,9 @@ When I spot-checked the IP ownership of bots hitting "robots.txt", in addition t
     $ grep -i 'hetzner'           part-00* > hetzner
     $ grep -i 'linode'            part-00* > linode
     $ grep -i 'new dream network' part-00* > dream
-    
 
-I had to parse out double-encoded JSON strings that were embedded with file name and frequency count information from the above six files. I use the following code in iPython to get the distinctive CIDR blocks.
+
+我需要从以上六个文件中，解析二次编码的 JSON 字符串，这些字符串包含了文件名和频率次数信息。我使用了 iPython 代码来获得不同的 CIDR 块，代码如下：
 
 ```
 import json
@@ -107,7 +107,7 @@ for _name in ['amzn', 'baidu', 'digital_ocean',
     print _name, parse_cidrs(_name)
 ```
 
-Here is an example WHOIS record once it's been cleaned up. I've truncated out the contact information.
+下面是一份清理完毕的 WHOIS 记录实例，我已经去掉了联系信息。
 
 ```
 {
@@ -156,23 +156,23 @@ Here is an example WHOIS record once it's been cleaned up. I've truncated out th
 }
 ```
 
-The list of seven firms isn't an exhaustive list of where bot traffic originates from. I found a lot of bot traffic from residential IPs in the Ukraine, Chinese IPs where the originating organisation is difficult to distinguish in addition to a distributed army of bots connecting from all around the world. If I wanted an exhaustive list of IPs used by bots I could look into [HTTP header order](http://geocar.sdf1.org/browser-verification.html), examine TCP/IP behaviour, hunt down [forged IP registrations](http://go.whiteops.com/rs/179-SQE-823/images/WO_Methbot_Operation_WP.pdf) (see page 28), the list goes on and it's a bit of a cat-and-mouse game to be honest.
+这份七个公司的列表不是一个关于爬虫机器人来源的全面的列表。我发现，除了一个从世界各地连接的分布式爬虫战队，很多爬虫流量来源于一些在乌克兰、中国的住宅 IP，源头很难分辨。说实话，如果我想要一个全面的爬虫机器人实用的 IP 列表，我只需要看看 [HTTP 头的顺序](http://geocar.sdf1.org/browser-verification.html)，检查下 TCP/IP 的行为，搜寻 [伪造 IP 注册](http://go.whiteops.com/rs/179-SQE-823/images/WO_Methbot_Operation_WP.pdf)（请看 28 页），列表就出来了，并且这就像猫和老鼠的游戏一样。
 
-## Installing Libraries
+## 安装库
 
-For this project I'll be using a number of well-written libraries. [Apache Log Parser](https://github.com/rory/apache-log-parser) can parse lines in Apache and Nginx-generated traffic logs. The library supports parsing over 30 different types of information from log files and I've found it remarkably flexible and reliable. [Python User Agents](https://github.com/selwin/python-user-agents) can parse user agent strings as well as perform some basic classification of the agent being used. [Colorama](https://github.com/tartley/colorama) assists in creating colourful ANSI output. [Netaddr](https://github.com/drkjam/netaddr/) is a mature and well-maintained network address manipulation library.
+对于这个项目而言，我会实用一些写得很好的库。[Apache Log Parser](https://github.com/rory/apache-log-parser) 可以解析 Apache 和 Nginx 生成的流量日志。这个库支持从日志文件中解析超过 30 种不同类型的信息，并且我发现，它相当弹性、可靠。[Python User Agents](https://github.com/selwin/python-user-agents) 可以解析用户代理的字符串，并执行一些代理使用的基本分类操作。[Colorama](https://github.com/tartley/colorama) 协助创建有高亮的 ANSI 输出。[Netaddr](https://github.com/drkjam/netaddr/) 是一种成熟的、维护得很好的网络地址操作库。
 
     $ pip install -e git+https://github.com/rory/apache-log-parser.git#egg=apache-log-parser \
                   -e git+https://github.com/selwin/python-user-agents.git#egg=python-user-agents \
                   colorama \
                   netaddr
-    
 
-## The Bot Monitoring Script
 
-The following walks through the contents of monitor.py. This script accepts web traffic logs piped in from stdin. This means you can tail a log on a remote server via ssh and run this script locally.
+## 爬虫机器人监控脚本
 
-I'll first import two libraries from the Python Standard Library and the five external libraries installed via pip.
+接下来的部分是跑 monitor.py 的内容。这段脚本从 stdin（标准输入） 管道中接收 web 流量日志。这说明你可以通过 ssh 在远程服务器上看日志，在本地跑这段脚本。
+
+我先从 Python 标准库里导入两个库，并通过 pip 安装了五个外部库。
 
 ```
 import sys
@@ -185,11 +185,11 @@ from netaddr import IPNetwork, IPAddress
 from user_agents import parse
 ```
 
-In the following I've setup MaxMind's geoip2 library to use the "GeoLite2-City.mmdb" city-level library.
+接下来我设置好 MaxMind 的 geoip2 库，以使用「GeoLite2-City.mmdb」城市级别的库。
 
-I've also setup apache_log_parser to work with the format my web logs are being stored in. Your log format may vary so please take the time to compare your web server's traffic logging configuration against the library's [format documentation](https://github.com/rory/apache-log-parser#supported-values).
+我还设置了 apache_log_parser，来处理存储的 web 日志格式。你的日志格式可能不一样，所以可能需要花点时间比较下你的 web 服务器的流量日志配置与这个库的 [格式文档](https://github.com/rory/apache-log-parser#supported-values)。
 
-Finally, I have a dictionary of the CIDR blocks I found being owned by the seven firms. Included in this list is Baidu, which isn't a hosting or cloud provider per-se but nonetheless run bots that haven't always identified themselves by their user agent.
+最后，我有一个我发现的属于那七家公司的 CIDR 块的字典。在这个列表里，从本质上来说，百度不是一家主机或者云提供商，但是跑着很多无法通过它们的用户代理所识别的爬虫机器人。
 
 ```
 reader = geoip2.database.Reader('GeoLite2-City.mmdb')
@@ -278,7 +278,7 @@ CIDRS = {
 }
 ```
 
-I've created a utility function where I can pass in an IPv4 address and a list of CIDR blocks and it'll tell me if the IP address belongs to any of the given CIDR blocks.
+我创建了一个工具函数，可以传入一个 IPv4 地址和一个 CIDR 块列表，它会告诉我这个 IP 地址是不是属于给定的这些 CIDR 块中的任何一个。
 
 ```
 def in_block(ip, block):
@@ -288,7 +288,7 @@ def in_block(ip, block):
                 if _ip in IPNetwork(cidr)])
 ```
 
-The following function takes objects of a request and the browser agent used and tries to determine if the source of traffic and/or the browser agent are that of a bot. The browser agent object is put together by the Python User Agents library and it already has some tests for determining if a user agent string is that of a known bot. I've further expanded these tests with a number of tokens I saw slip through the library's classification system. I also iterate through the CIDR blocks to see if the the remote host's IPv4 address is within any of them.
+下面这个函数接收请求（ req ）和浏览器代理（ agent ）的对象，并尝试用这两个对象来判断流量源头／浏览器代理是否来自爬虫机器人。这个浏览器代理对象是使用 Python 用户代理库构造的，并且有一些测试用于判断，用户代理字串是否属于某个已知的爬虫机器人。我已经用一些我从库的分类系统中看到的 token 来扩展这些测试。同时我在 CIDR 块迭代，来判断远程主机的 IPv4 地址是否在里面。
 
 ```
 def bot_test(req, agent):
@@ -318,11 +318,11 @@ def bot_test(req, agent):
     return is_bot
 ```
 
-The following is the main section of the script. Here web traffic logs are read in from stdin line by line. Each line of content is parsed for a tokenised version of the request, user agent and URI being requested. These objects make it easier to work with the data without the complexity of having to parse them on the fly.
+下面是脚本的主要部分。web 流量日志从标准输入里一行行地读入。内容的每一行都被解析成一个带 token 版本的请求、用户代理和被请求的 URI。这些对象让与这些数据打交道变得更容易，不需要去麻烦地在空中解析它们。
 
-I attempt to look up the city and country associated with the IPv4 address using MaxMind's library. If there is any sort of failure these are simply set to None.
+我尝试着用 MaxMind 的库查询与这些 IPv4 相关的城市和国家。如果有任何类型的查询失败，结果会简单地设置为 None。
 
-After the bot test I prepare the output. If the request is seen to be that of a bot it'll highlight the output with a red background.
+在爬虫机器人测试后，我准备输出。如果请求看起来是从爬虫机器人处发送的，它会被标成红色背景，高亮在输出上。
 
 ```
 if __name__ == '__main__':
@@ -369,18 +369,18 @@ if __name__ == '__main__':
               Style.RESET_ALL
 ```
 
-## Bot Detection in Action
+## 爬虫机器人检测实战
 
-Below is an example where I concatenate out the last 100 lines of a web traffic log while continuing to follow it and pipe the contents into the monitoring script.
+接下来是一个例子，在把这些内容放到监测脚本时，我是用下面这种方式连接输出 web 流量日志的最后一百行的。
 
 ```
 $ ssh server \
     'tail -n100 -f access.log' \
     | python monitor.py
 ```
-    
 
-Requests suspected to have originated from bots will be highlighted with a red background and a "b" prefix. Non-bot traffic will be prefixed with "h" for human. The following is an example output from the script sans the ANSI background colours.
+
+有可能来源于爬虫机器人的请求将使用红色背景和「b」前缀高亮。不存在爬虫机器人的流量将被打上「h」的前缀，代表 human（人）。下面是从脚本出来的样例输出，不过没有 ANSI 背景色。
 
     ...
     b US Indianapolis /robots.txt Python Requests 2.2 Linux 3.2.0
@@ -396,4 +396,3 @@ Requests suspected to have originated from bots will be highlighted with a red b
     h IE Dublin /theme/css/syntax.css Chrome 56.0.2924 Mac OS X 10.12.0
     h IE Dublin /theme/images/mark.jpg Chrome 56.0.2924 Mac OS X 10.12.0
     b SG Singapore /./theme/images/mark.jpg Slack-ImgProxy Spider Spider Desktop Amazon IP
-  

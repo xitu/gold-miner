@@ -1,57 +1,52 @@
 > * 原文地址：[Beyond The Browser: From Web Apps To Desktop Apps](https://www.smashingmagazine.com/2017/03/beyond-browser-web-desktop-apps/)
 > * 原文作者：本文已获原作者 [Adam Lynch](https://www.smashingmagazine.com/author/adamlynch/) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者： 
-> * 校对者：
+> * 译者： [bambooom](https://github.com/bambooom)、[imink](https://github.com/imink)
+> * 校对者：[bambooom](https://github.com/bambooom)、[imink](https://github.com/imink)、[sunui](https://github.com/sunui)
 
-## Beyond The Browser: From Web Apps To Desktop Apps
+## 超越浏览器：从 web 应用到桌面应用
 
-I started out as a web developer, and that’s now one part of what I do as a full-stack developer, but never had I imagined I’d create things for the desktop. I love the web. I love how altruistic our community is, how it embraces open-source, testing and pushing the envelope. I love discovering beautiful websites and powerful apps. When I was first tasked with creating a desktop app, I was apprehensive and intimidated. It seemed like it would be difficult, or at least… different.
+一开始我是个 web 开发者，现在我是个全栈开发者，但从未想过在桌面上有所作为。我热爱 web 技术，热爱这个无私的社区，热爱它对于开源的友好，尝试挑战极限。我热爱探索好看的网站和强大的应用。当我被指派做桌面应用任务的时候，我非常忧虑和害怕，因为那看起来很难，或者至少不一样。
 
-It’s not an attractive prospect, right? Would you have to learn a new language or three? Imagine an archaic, alien workflow, with ancient tooling, and none of those things you love about the web. How would your career be affected?
+这并不吸引人，对吧？你需要学一门新的语言，甚至三门？想象一下过时的工作流，古旧的工具，没有任何你喜欢的有关 web 的一切。你的职业发展会被怎样影响呢？
 
-OK, take a breath. The reality is that, as a web developer, not only do you already possess all of the skills to make great modern desktop apps, but thanks to powerful new APIs at your disposal, the desktop is actually where your skills can be leveraged the most.
+别慌，深呼吸，现实情况是，作为 web 开发者，你已经拥有开发现代桌面应用所需的一切技能，得益于新的强大的 API，你甚至可以在桌面应用中发挥你最大的潜能。
 
-In this article, we’ll look at the development of desktop applications using [NW.js](http://nwjs.io/) and [Electron](http://electron.atom.io/), the ups and downs of building one and living with one, using one code base for the desktop and the web, and more.
+本文将会介绍使用 [NW.js](http://nwjs.io/) 和 [Electron](https://electron.atom.io/) 开发桌面应用，包括它们的优劣，以及如何使用同一套代码库来开发桌面、web 应用，甚至更多。
 
-#### Further Reading on SmashingMag: 
+### 为什么？
 
-- [Pixel-Perfect Specifications Without The Headaches](https://www.smashingmagazine.com/2016/08/pixel-perfect-specifications-without-the-headaches/)
-- [Building A First-Class App That Leverages Your Website](https://www.smashingmagazine.com/2016/02/building-first-class-app-leverages-website-case-study/)
-- [Mobile Considerations in UX Design: “Web or Native?”](https://www.smashingmagazine.com/2012/06/mobile-considerations-in-user-experience-design-web-or-native/)
-- [A Beginner’s Guide To Progressive Web Apps](https://www.smashingmagazine.com/2016/08/a-beginners-guide-to-progressive-web-apps/)
+首先，为什么会有人开发桌面应用？任何现有的 web 应用（不同于网站，如果你认为它们是不同的）都可能适合变成一个桌面应用。你可以围绕任何可以从与用户系统集成中获益的 web 应用构建桌面应用；例如本地通知、开机启动、与文件的交互等。有些用户单纯更喜欢在自己的电脑中永久保存一些 app，无论是否联网都可以访问。
 
-### Why?
+也许你有个想法，但只能用作桌面应用，有些事情只是在 web 应用中不可能实现（至少还有一点，但更多的是这一点）。你可能想要为公司内部创建一个独立的功能性应用程序，而不需要任何人安装除了你的 app 之外的任何内容（因为内置 Node.js ）。也许你有个有关 Mac 应用商店的想法，也许只是你的一个个人兴趣的小项目。
 
-First of all, why would anyone create a desktop app? Any existing web app (as opposed to a website, if you believe in the distinction) is probably suited to becoming a desktop app. You could build a desktop app around any web app that would benefit from integration in the user’s system; think native notifications, launching on startup, interacting with files, etc. Some users simply prefer having certain apps there permanently on their machine, accessible whether they have a connection or not.
+很难总结为什么你应该考虑开发桌面应用，因为真的有很多类型的应用你可以创建。这非常取决于你想要达到什么目的，API 是否足够有利于开发，离线使用将多大程度上增强用户体验。在我的团队，这些都是毋庸置疑的，因为我们在开发一个[聊天应用程序](https://teamwork.com/chat)。另一方面来说，一个依赖于网络而没有任何与系统集成的桌面应用应该做成一个 web 应用，并且只做 web 应用。当用户并不能从桌面应用中获得比在浏览器中访问一个网址更多的价值的时候，期待用户下载你的应用（其中自带浏览器以及 Node.js）是不公平的。
 
-Maybe you’ve an idea that would only work as a desktop app; some things simply aren’t possible with a web app (at least yet, but more about that in a little bit). You could create a self-contained utility app for internal company use, without requiring anyone to install anything other than your app (because Node.js in built-in). Maybe you’ve an idea for the Mac App Store. Maybe it would simply be a fun side project.
-
-It’s hard to sum up why you should consider creating a desktop app because there are so many kinds of apps you could create. It really depends on what you’d like to achieve, how advantageous you find the additional APIs, and how much offline usage would enhance the experience for your users. For my team, it was a no-brainer because we were building a [chat application](https://teamwork.com/chat). On the other hand, a connection-dependent desktop app that doesn’t really have any desktop integration should be a web app and a web app alone. It wouldn’t be fair to expect a user to download your app (which includes a browser of its own and Node.js) when they wouldn’t get any more value from it than from visiting a URL of yours in their favorite browser.
-
-Instead of describing the desktop app you personally should build and why, I’m hoping to spark an idea or at least spark your interest in this article. Read on to see just how easy it is to create powerful desktop apps using web technology and what that can afford you over (or alongside of) creating a web app.
+比起描述你个人应该建造的桌面应用及其原因，我更希望的是激发一个想法，或者只是激发你对这篇文章的兴趣。继续往下读来看看用 web 技术构造一个强大的桌面应用是多么简单，以及在创建过程中你应该付出什么。
 
 ### NW.js
 
-Desktop applications have been around a long time but you don’t have all day, so let’s skip some history and begin in Shanghai, 2011. Roger Wang, of Intel’s Open Source Technology Center, created node-webkit; a proof-of-concept Node.js module that allowed the user to spawn a WebKit browser window and use Node.js modules within `<script>` tags.
+桌面应用已经有很长一段时间了，我知道你没有很多时间，所以我们跳过一些历史，从 2011 年的上海开始。来自 Intel 开源技术中心的 Roger Wang 开发了 node-webkit，一个概念验证的 Node.js 模块，这个模块可以让用户创建一个 WebKit 内核的浏览器窗口并直接在 `<script>` 中调用 Node.js 模块。
 
-After some progress and a switch from WebKit to Chromium (the open-source project Google Chrome is based on), an intern named Cheng Zhao joined the project. It was soon realized that an app runtime based on Node.js and Chromium would make a nice framework for building desktop apps. The project went on be quite popular.
+经过一段时间的开发以及将内核从 WebKit 转换到 Chromium（Google Chrome 基于这个开源项目开发），一个叫 Cheng Zhao 的实习生加入了这个项目。不久就有人意识到一个基于 Node.js 和 Chromium 运行的应用是一个很好的建造桌面应用的框架。于是这个项目变得颇受欢迎。
 
-*Note*: node-webkit was later renamed NW.js to make it a bit more generic because it no longer used Node.js or WebKit. Instead of Node.js, it was based on io.js (the Node.js fork) at the time, and Chromium had moved on from WebKit to its own fork, Blink.
+*注意*：node-webkit 后来更名为 NW.js，是因为项目不再使用 Node.js 以及 WebKit，所以需要改一个更通用的名字。Node.js 的替换选择是 io.js （Node.js fork 版本），Chromium 也已经从 WebKit 转为它自己的版本 —— Blink。
 
-So, if you were to download an NW.js app, you would actually be downloading Chromium, plus Node.js, plus the actual app code. Not only does this mean a desktop app can be created using HTML, CSS and JavaScript, but the app would also have access to all of the Node.js APIs (to read and write to disk, for example), and the end user wouldn’t know any better. That’s pretty powerful, but how does it work? Well, first let’s take a look at Chromium.
+所以，如果现在去下载一个 NW.js 应用，实际上是下载了 Chromium、Node.js，以及真正的 app 的代码。这不仅意味着桌面应用也可以使用 HTML、CSS、JavaScript 来写，也意味着 app 可以直接使用所有 Node.js 的 API（比如读取或写入硬盘），而对于终端用户，没有比这更好的选择了。这看起来非常强大，但是它是怎么实现的呢？我们先来了解一下 Chromium。
 
 ![Chromium diagram](https://www.smashingmagazine.com/wp-content/uploads/2017/01/chromiumDiagram-preview-opt.png)
 
-There is a main background process, and each tab gets its own process. You might have seen that Google Chrome always has at least two processes in Windows’ task manager or macOS’ activity monitor. I haven’t even attempted to arrange the contents of the main process here, but it contains the Blink rendering engine, the V8 JavaScript engine (which is what Node.js is built on, too, by the way) and some platform APIs that abstract native APIs. Each isolated tab or renderer process has access to the JavaScript engine, CSS parser and so on, but it is completely separate to the main process for fault tolerance. Renderer processes interact with the main process through interprocess communication (IPC).
+Chromium 有一个主要的后台进程，每个标签页也会有自己的进程。你可能注意到 Google Chrome 在 Windows 的任务管理器或者 macOS 的活动监视器上总是至少存在两个进程。我并没有尝试在这里安排穿插主后台进程相关的内容，但是它包括了 Blink 渲染引擎、V8 JavaScript 引擎（也构建了 Node.js ）以及一些从原生 API 抽象出来的平台 API。每个独立的标签页或渲染的过程都可以使用 JavaScript 引擎、CSS 解析器等，但为了提高容错性，它们又和主进程是完全隔离的。渲染进程与主进程之间是用进程间通信（IPC）来进行通讯。
 
 ![NW.js diagram](https://www.smashingmagazine.com/wp-content/uploads/2017/01/nwjsDiagram-preview-opt.png)
 
-This is roughly what an NW.js app looks like. It’s basically the same, except that each window has access to Node.js now as well. So, you have access to the DOM and you can require other scripts, node modules you’ve installed from npm, or built-in modules provided by NW.js. By default, your app has one window, and from there you can spawn other windows.
 
-Creating an app is really easy. All you need is an HTML file and a `package.json`, like you would have when working with Node.js. You can create a default one by running `npm init --yes`. Typically, a `package.json` would point a JavaScript file as the “main” file for the module (i.e. using the `main` property), but with NW.js you need to edit the `main` property to point to your HTML file.
 
-```
+大致上这就是一个 NW.js app 的结构，它和 Chromium 基本一致，除了每个窗口也可以访问 Node.js。现在，你可以访问 DOM，可以访问其他脚本、npm 安装的模块，或者 NW.js 提供的内置的模块。你的 app 默认只有一个窗口，但从这一个窗口，可以生成其他窗口。
+
+创建一个应用很简单，只需要一个 HTML 文件和一个 `package.json` 文件，就像你平时使用 Node.js 时那样。你可以使用 `npm init --yes` 新建一个默认的。一般来说，`package.json` 会指定一个 JavaScript 文件作为模块的入口（也就是使用 `main` 属性），但是如果是 NW.js，你需要去编辑一下 `main` 指向你的 HTML 文件。
+
+```json
 {
   "name": "example-app",
   "version": "1.0.0",
@@ -66,7 +61,7 @@ Creating an app is really easy. All you need is an HTML file and a `package.json
 }
 ```
 
-```
+```html
 <!-- index.html -->
 <!DOCTYPE html>
 <html>
@@ -80,27 +75,27 @@ Creating an app is really easy. All you need is an HTML file and a `package.json
 </html>
 ```
 
-Once you install the official `nw` package from npm (by running `npm install -g nw`), you can run `nw .` within the project directory to launch your app.
+只要你安装好了 `nw`（通过 `npm install -g nw`），你就可以在项目目录下执行 `nw .` 启动 app，然后就可以看到下图。
 
 ![Example app screenshot](https://www.smashingmagazine.com/wp-content/uploads/2017/01/nwjsHelloWorld-preview-opt.png)
 
-It’s as easy as that. So, what happened here was that NW.js opened the initial window, loading your HTML file. I know this doesn’t look like much, but it’s up to you add some markup and styles, just like you would in a web app.
+就是这么简单。NW.js 初始化了第一个窗口，加载了你的 HTML 文件，虽然这看起来并没有什么，但接下来就是你来添加标签及样式了，就和在 web 应用中一样。
 
-You could drop the window bar and chrome if you like, or create your own custom frame. You could have semi to fully transparent windows, hidden windows and more. I took this a bit further recently and [resurrected Clippy](http://engineroom.teamwork.com/resurrecting-clippy/) using NW.js. There’s something weirdly satisfying about seeing Clippy on macOS or Windows 10.
+你可以凭自己喜好去掉窗口栏，构建自己的框架模板。你可以有半透明或全透明的窗口，可以有隐藏窗口或者更多。我最近尝试使用 NW.js 做了[Clippy](http://engineroom.teamwork.com/resurrecting-clippy/)（Office 助手）。能在 macOS 和 Windows 10 上看到它有种奇妙的满足感。
 
 ![Screenshot of clippy.desktop on macOS](https://www.smashingmagazine.com/wp-content/uploads/2017/01/clippy-preview-opt.png)
 
-So, you get to write HTML, CSS and JavaScript. You can use Node.js to read and write to disk, execute system commands, spawn other executables and more. Hypothetically, you could build a multiplayer roulette game over WebRTC that deletes some of the users’ files randomly, if you wanted.
+现在你可以写 HTML，CSS 和 JavaScript 了，你可以使用 Node.js 读写硬盘、执行系统命令、生成其他可执行文件等等。设想一下，你甚至可以通过 WebRTC 造一个多玩家的轮盘赌游戏，随机删除其他人的文件。
 
 ![Bar graph showing the number of modules per major package manager](https://www.smashingmagazine.com/wp-content/uploads/2017/01/moduleCounts-preview-opt.png)
 
-You get access not only to Node.js’ APIs but to all of npm, which has over 350,000 modules now. For example, [auto-launch](https://github.com/Teamwork/node-auto-launch) is an open-source module we created at [Teamwork.com](https://www.teamwork.com/) to launch an NW.js or Electron app on startup.
+你不仅可以使用 Node.js 的 API，还有所有 npm 的包，现在已经有超过 35 万个了。例如，[auto-launch](https://github.com/Teamwork/node-auto-launch) 是我们在 [Teamwork.com](https://www.teamwork.com/) 做的开源包，用来开机启动 NW.js 或者 Electron 应用。
 
-Node.js also has what’s known as “native modules,” which, if you really need to do something a bit lower level, allows you to create modules in C or C++.
+如果你需要做一些偏底层的事，Node.js 也有原生的模块，能让你使用 C 或者 C++ 创建模块。
 
-To top it all off, NW.js exposes APIs that effectively wrap native APIs, allowing you to integrate closely with the desktop environment. You can have a tray icon, open a file or URL in the default system application, and a lot lot more. All you need to do to trigger a notification is use the HTML5 notification API:
+总之，NW.js 高效封装了原生的 API，让你可以简单地与桌面环境集成。比如你有一个任务栏图标，使用系统默认应用打开一个文件或者 URL 之类的。你需要做的是使用 HTML5 notification 的 API 触发一个通知：
 
-```
+```javascript
 new Notification('Hello', {
   body: 'world'
 });
@@ -108,33 +103,33 @@ new Notification('Hello', {
 
 ### Electron
 
-You might recognize GitHub’s text editor, Atom, below. Whether you use it or not, Atom was a game-changer for desktop apps. GitHub started development of Atom in 2013, soon recruited Cheng Zhao, and forked node-webkit as its base, which it later open-sourced under the name atom-shell.
+你可能认出来了，下图是 GitHub 开发的编辑器，Atom。不管你是否使用 Atom，它的出现对于桌面应用都是一个颠覆者。GitHub 从 2013 年开始开发 Atom，后来 Cheng Zhao 加入，fork 了 node-webkit 作为基础，后来以 atom-shell 为名开源。
 
 ![Atom screenshot](https://www.smashingmagazine.com/wp-content/uploads/2017/01/atom-preview-opt.png)
 
-*Note*: It’s disputed whether Electron is a fork of node-webkit or whether everything was rewritten from scratch. Either way, it’s effectively a fork for the end user because the APIs were almost identical.
+*注意*：对于 Electron 只是 node-webkit 的 fork，还是一切从头重新做的，是很有争议的。但无论哪种方式，最终都成为终端用户的一个分支，因为 API 几乎完全一致。
 
-In making Atom, GitHub improved on the formula and ironed out a lot of the bugs. In 2015, atom-shell was renamed Electron. Since then it has hit version 1.0, and with GitHub pushing it, it has really taken off.
+在开发 Atom 的过程中，GitHub 改进了一些方案，也解决了很多 bug。2015年，atom-shell 正式更名为 Electron。它的版本已经更新到 1.0 以上（译注：最新正式版本为v1.3.14），并且因为 GitHub 的推行，它已经真正发展壮大了。
 
 ![Logos of projects that use Electron](https://www.smashingmagazine.com/wp-content/uploads/2017/01/logos-preview-opt.png)
 
-As well as Atom, other notable projects built with Electron include Slack, Visual Studio Code, Brave, HyperTerm and Nylas, which is really doing some cutting-edge stuff with it. Mozilla Tofino is an interesting one, too. It was an internal project at Mozilla (the company behind Firefox), with the aim of radically improving web browsers. Yeah, a team within Mozilla chose Electron (which is based on Chromium) for this experiment.
+和 Atom 一样，其他用 Electron 开发的有名项目包括 [Slack](https://slack.com/)、[Visual Studio Code](https://code.visualstudio.com/)、 [Brave](https://www.brave.com/)、[HyperTerm](https://hyper.is/)、[Nylas](https://www.nylas.com/)，真的是在做着一些尖端的东西。Mozilla Tofino 也是其中很有趣的一个，它是 Mozilla（ FireFox 的公司）的一个内部项目，目标是彻底优化浏览器。你没看错，Mozilla 的团队选择了 Electron （基于 Chromium ）来做这个实验。
 
-### How Does It Differ?
+### Electron 有什么不同呢？
 
-But how is it different from NW.js? First of all, Electron is less browser-oriented than NW.js. The entry point for an Electron app is a script that runs in the main process.
+那么 Electron 和 NW.js 有什么不同？首先，Electron 没有 NW.js 那么面向浏览器，Electron app 的入口是一个在主进程中运行的脚本。
 
 ![Electron architecture diagram](https://www.smashingmagazine.com/wp-content/uploads/2017/01/electronDiagram-preview-opt-1.png)
 
-The Electron team patched Chromium to allow for the embedding of multiple JavaScript engines that could run at the same time. So, when Chromium releases a new version, they don’t have to do anything.
+Electron 团队修补了 Chromium 以便嵌入多个可以同时运行的 JavaScript 引擎，所以当 Chromium 发布新版本的时候，他们不需要做任何事。
 
-*Note*: NW.js hooks into Chromium a little differently, and this was often blamed on the fact NW.js wasn’t quite as good at keeping up with Chromium as Electron was. However, throughout 2016, NW.js has released a new version within 24 hours of each major Chromium release, which the team attributes to an organizational shift.
+*注意*：NW.js 与 Chromium 的绑定不太一样，造成了 NW.js 经常被指责不如 Electron 那样紧跟 Chromium。然而，整个 2016 年，NW.js 每次在 Chromium 发布主要版本之后的 24 小时内发布新版本，这很大程度也归功于团队组织转型。
 
-Back to the main process. Your app hasn’t any window by default, but you can open as many windows as you’d like from the main process, each having its own renderer process, just like NW.js.
+回到主进程的话题，你的应用默认是没有窗口的，但是你可以从主进程开启任意多个窗口，每个窗口和 NW.js 一样有自己的渲染进程。
 
-So, yeah, the minimum you need for an Electron app is a main JavaScript file (which we’ll leave empty for now) and a `package.json` that points to it. Then, all you need to do is `npm install --save-dev electron` and run `electron .` to launch your app.
+那么当然，创建一个 Electron app，你需要的只是一个 JavaScript 文件（现在暂时只是个空文件）以及一个 `package.json` 文件指向它。然后你只需要执行 `npm install --save-dev electron`，以及 `electron .` 来启动你的 app。
 
-```
+```json
 {
   "name": "example-app",
   "version": "1.0.0",
@@ -150,12 +145,12 @@ So, yeah, the minimum you need for an Electron app is a main JavaScript file (wh
 ```
 
 ```
-// main.js, which is empty
+// main.js 文件，现在是空的
 ```
 
-Not much will happen, though, because your app hasn’t any window by default. You can open as many windows as you’d like from the main process, each having its own renderer process, just like they’d have in an NW.js app.
+没有什么会发生，因为你的 app 没有默认窗口。接下来你可以和 NW.js 应用一样打开任意多个窗口，每个都有各自的渲染进程。
 
-```
+```javascript
 // main.js
 const {app, BrowserWindow} = require('electron');
 let mainWindow;
@@ -168,7 +163,7 @@ app.on('ready', () => {
   mainWindow.loadURL('file://' + __dirname + '/index.html');
 });
 ```
-```
+```html
 <!-- index.html -->
 <!DOCTYPE html>
 <html>
@@ -182,91 +177,91 @@ app.on('ready', () => {
 </html>
 ```
 
-You could load a remote URL in this window, but typically you’d create a local HTML file and load that. Ta-da!
+你可以在这个窗口中加载远程 URL，但是一般来说你会在本地创建 HTML 文件并加载它，当当当当～加载出来啦！
 
 ![Screenshot of example Electron app](https://www.smashingmagazine.com/wp-content/uploads/2017/01/electronHelloWorld-preview-opt.png)
 
-Of the built-in modules Electron provides, like the `app` or `BrowserWindow` module used in the previous example, most can only be used in either the main or a renderer process. For example, the main process is where, and only where, you can manage your windows, automatic updates and more. You might want a click of a button to trigger something in your main process, though, so Electron comes with built-in methods for IPC. You can basically emit arbitrary events and listen for them on the other side. In this case, you’d catch the `click` event in the renderer process, emit an event over IPC to the main process, catch it in the main process and finally perform the action.
+在 Electron 提供的内置模块中，像在前面例子中使用的 `app` 和 `BrowserWindow`，大多只能要么在主进程要么在某个渲染进程中使用。比方说，你只能在主进程中管理你的所有窗口，自动更新或者其他。你可能想在主进程中点击一个按钮触发一些事件，因此 Electron 为 IPC 提供了一些内置方法。基本上你可以触发任意的事件，然后在另一端监听它们。这样，你就可以在某一个渲染进程中捕获 `click` 事件，通过 IPC 发出事件信息给主进程，主进程捕获后执行相关操作。
 
-OK, so Electron has distinct processes, and you have to organize your app slightly differently, but that’s not a big deal. Why are people using Electron instead of NW.js? Well, there’s mindshare. So many related tools and modules are out there as a result of its popularity. The documentation is better. Most importantly, it has fewer bugs and superior APIs.
+Electron 有着不同的进程，你需要稍微不同地组织你的 app，但这不算什么。为什么人们使用 Electron 而不是 NW.js？这其中有影响力的因素，它的流行造就了许多相关的工具和模块。 Electron 的文档更好懂，最重要的是，Electron 的 bug 更少，并且有更好的 API。
 
-Electron’s documentation really is amazing, though — that’s worth emphasizing. Take the [Electron API Demos app](https://github.com/electron/electron-api-demos). It’s an Electron app that interactively demonstrates what you can do with Electron’s APIs. Not only is the API described and sample code provided for creating a new window, for example, but clicking a button will actually execute the code and a new window will open.
+Electron 的文档非常棒，这值得再强调一下。拿 [Electron API Demos app](https://github.com/electron/electron-api-demos) 来说，这是个 Electron app，它可以交互式的演示出你可通过 Electron 的 API 做到什么。比如新建窗口，它不仅提供了 API 的描述以及示例代码，甚至点击按钮的确可以执行代码并打开新的窗口。（下图就是 Electron API Demos app 的截图）
 
 ![A screenshot of the Electron API Demos app](https://www.smashingmagazine.com/wp-content/uploads/2017/01/apiDemosApp-preview-opt.png)
 
-If you submit an issue via Electron’s bug tracker, you’ll get a response within a couple of days. I’ve seen three-year-old NW.js bugs, although I don’t hold it against them. It’s tough when an open-source project is written in languages drastically different from the languages known by its users. NW.js and Electron are written mostly in C++ (and a tiny bit of Objective C++) but used by people who write JavaScript. I’m extremely grateful for what NW.js has given us.
+如果你通过 Electron 的 bug 追踪器提交问题，你可以在几天之内得到回复。我曾经见过 NW.js 有经过三年都未修复的 bug，我并不是坚决反对他们这么做，开发开源项目采用的语言和使用这个项目的开发者了解的语言如此的不同，是非常难维护的。NW.js 和 Electron 主要是用 C++ （以及少部分 Objective C++）写的，但是使用这两个项目的人写的是 JavaScript。我非常感激 NW.js 给我们的帮助。
 
-Electron ironed out a few of the flaws in the NW.js APIs. For example, you can bind global keyboard shortcuts, which would be caught even if your app isn’t focused. An example API flaw I ran into was that binding to `Control + Shift + A` in an NW.js app did what you would expect on Windows, but actually bound to `Command + Shift + A` on a Mac. This was intentional but really weird. There was no way to bind to the `Control` key. Also, binding to the `Command` key did bind to the `Command` key but the `Windows` key on Windows and Linux as well. The Electron team spotted these problems (when adding shortcuts to Atom I assume) and quickly updated their globalShortcut API so both of these cases work as you’d expect. To be fair, NW.js has since fixed the former but not the latter.
+Electron 弥补了 NW.js API 上的一些不足。比如，你可以绑定全局的键盘快捷键，这样即使你的 app 并没有获取焦点，键盘事件也可以被捕获。曾经我在 NW.js 的应用中碰到过一个 API 的漏洞，就是我在 Windows 上可以绑定 `Control + Shift + A` 快捷键达到预期目的，但是实际上到了 Mac 上绑定的快捷键是 `Command + Shift + A`，这个的确是有意而为之的，但是仍然很奇怪。没有任何方法可以在 Mac 上绑定 `Control` 键。另外，如果想绑定 `Command` 键，在 Mac 上的确没问题，而到了 Windows 和 Linux 上绑定的却是 `Windows` 键。Electron 的团队发现了这些问题（我猜是在给 Atom 添加快捷键的时候），然后他们很快更新了他们自己的全局快捷键（globalShortcut）API，以上遇到的情况就可以正常工作了。公平起见，NW.js 修复了前一个问题，但一直没有修复后一个。
 
-There are a few other differences. For instance, in recent NW.js versions, notifications that were previously native are now Chrome-style ones. These don’t go into the notification centre on Mac OS X or Windows 10, but there are modules on npm that you could use as a workaround if you’d like. If you want to do something interesting with audio or video, use Electron, because some codecs don’t work out of the box with NW.js.
+还有其他一些不同的地方。比如说，之前原生的 notification 通知，在最近的 NW.js 版本中，变成了 Chrome 风格的了。这种通知不会进入到 Mac OS X 或者 Windows 10 的通知中心里面，但是在 npm 上有方便使用的模块解决。如果你想做一些有趣的有关音频或视频的东西，建议使用 Electron，因为有些解码器和 NW.js 不兼容。
 
-Electron has added a few new APIs as well, more desktop integration, and it has built-in support for automatic updates, but I’ll cover that later.
+Electron 还添加了一些新的 API，更加多地与桌面端的集成，并且内置了自动升级，我稍后会谈到。
 
-### But How Does It Feel?
+### 但是感觉如何呢？
 
-It feels fine. Sure, it’s not native. Most desktop apps these days don’t look like Windows Explorer or Finder anyway, so users won’t mind or realize that HTML is behind your user interface. You can make it feel more native if you’d like, but I’m not convinced it will make the experience any better. For example, you could prevent the cursor from turning to a hand when the user hovers over a button. That’s how a native desktop app would act, but is that better? There are also projects out there like [Photon Kit](http://photonkit.com/), which is basically a CSS framework like Bootstrap, but for macOS-style components.
+感觉很好，当然，它并不是原生的。现在大多数桌面应用并不会长得像资源管理器或者 Finder，所以用户并不介意或者意识到用户界面背后是 HTML。你愿意的话，你可以使之更像原生应用，但是我并不认为那样会让用户体验更好。比如，你可以在用户将鼠标悬停在按钮上时，不让光标变成手，一般原生的桌面应用都是这样做的，但是这样做有什么好的吗？当然也有像 [Photon Kit](http://photonkit.com/) 这样的类似 Bootstrap 的 CSS 框架，可以做出 macOS 风格的组件。（下图是 Photon Kit 做出的组件 demo）
 
 ![Photon app example screenshot](https://www.smashingmagazine.com/wp-content/uploads/2017/01/photon-preview-opt.png)
 
-### Performance
+### 性能
 
-What about performance? Is it slow or laggy? Well, your app is essentially a web app. It’ll perform pretty much like a web app in Google Chrome. You can create a performant app or a sluggish one, but that’s fine because you already have the skills to analyze and improve performance. One of the best things about your app being based on Chromium is that you get its DevTools. You can debug within the app or remotely, and the Electron team has even created a DevTools extension named [Devtron](http://electron.atom.io/devtron/) to monitor some Electron-specific stuff.
+性能表现如何呢？会很慢或者延迟吗？其实你的 app 本质上来说仍然是 web 应用，所以它会和在 Google Chrome 中运行的 web app 非常类似。你可能会创造出高性能的或者反应迟缓的 app，但是没关系，你已经有分析并提升性能的技能了。app 基于 Chromium 最好的其中一点就是你可以使用它的开发者工具。你可以在 app 内调试或者远程调试，Electron 团队也开发了一款开发者工具的插件叫 [Devtron](http://electron.atom.io/devtron/) 来监控一些 Electron 特定的信息。
 
-Your desktop app can be more performant than a web app, though. One thing you could do is create a worker window, a hidden window that you use to perform any expensive work. Because it’s an isolated process, any computation or processing going on in that window won’t affect rendering, scrolling or anything else in your visible window(s).
+不过，你的桌面应用可以比 web 应用的性能更高。因为你可以创建一个工作窗口，一个用于执行耗能昂贵工作的隐藏窗口。因为每个进程都是孤立的，所以任何在这个窗口中进行的计算或者处理不会影响到其他可见窗口的渲染进程，上下滚动等等。
 
-Keep in mind that you can always spawn system commands, spawn executables or drop down to native code if you really need to (you won’t).
+记住你总可以生成系统指令、可执行文件，或者原生代码，如果真的需要的话（你不会真的这么做的）。
 
-### Distribution
+### 分发
 
-Both NW.js and Electron support a wide array of platforms, including Windows, Mac and Linux. Electron doesn’t support Windows XP or Vista; NW.js does. Getting an NW.js app into the Mac App Store is a bit tricky; you’ll have to jump through a few hoops. Electron, on the other hand, comes with Mac App Store-compatible builds, which are just like the normal builds except that you don’t have access to some modules, such as the auto-updater module (which is fine because your app will update via the Mac App Store anyway).
+NW.js 和 Electron 都支持很多平台，包括 Windows，Mac 和 Linux。Electron 不支持 Windows XP 和 Vista，但 NW.js 支持。将 NW.js 应用上线到 Mac App Store 有些棘手，你必须绕几个弯子。而 Electron 支持直接的 Mac App Strore 兼容的版本，和普通的版本一样，只是某些模块你无法访问，比如自动更新（因为你的 app 会通过 Mac App Store 进行更新所以可以接受）。
 
-Electron even supports ARM builds, so your app can run on a Chromebook or Raspberry Pi. Finally, Google may be [phasing out Chrome Packaged Apps](http://blog.chromium.org/2016/08/from-chrome-apps-to-web.html), but NW.js allows you to port an app over to an NW.js app and still have access the same Chromium APIs.
+Electron 甚至支持 ARM 版本，所以你的 app 可以在 Chromebook 或者树莓派上运行，最终，Google 可能会[逐步淘汰 Chrome 封装应用 （Packaged App）](https://blog.chromium.org/2016/08/from-chrome-apps-to-web.html)，但是 NW.js 仍然支持将应用程序移植到 NW.js 应用，并且仍然可以访问相同的 Chromium API。
 
-Even though 32-bit and 64-bit builds are supported, you’ll get away with 64-bit Mac and Windows apps. You will need 32-bit and 64-bit Linux apps, though, for compatibility.
+虽然 32 位和 64 位的版本都支持，所以你完全可以使用 64 位的 Mac 和 Windows 应用。但是，为了兼容，32 位和 64 位 Linux 应用程序是都需要的。
 
-So, let’s say that Electron has won over and you want to ship an Electron app. There’s a nice Node.js module named [electron-packager](https://github.com/electron-userland/electron-packager) that helps with packing your app up into an `.app` or `.exe` file. A few similar projects exist, including interactive ones that prompt you step by step. You should use [electron-builder](https://github.com/electron-userland/electron-builder), though, which builds on top of electron-packager, plus a few other related modules. It generates `.dmg`s and Windows installers and takes care of the code-signing of your app for you. This is really important. Without it, your app would be labelled as untrusted by operating systems, your app could trigger anti-virus software, and Microsoft SmartScreen might try to block the user from launching your app.
+假如 Electron 胜出，你想发行一个 Electron 应用。有一个很不错的 Node.js 包叫 [electron-packager](https://github.com/electron-userland/electron-packager) 可以帮你将 app 打包成一个 `.app` 或者 `.exe` 文件。也有其他几个类似的项目，包括交互式的一步一步告诉你该怎么做。不过，你应该用 [electron-builder](https://github.com/electron-userland/electron-builder)，它以 electron-packager 为基础，添加了其他几个相关的模块，生成的是 `.dmg` 文件和 Windows 安装包，并且为你处理好了代码签名的问题。这很重要，如果没有这一步，你的应用将会被操作系统认为是不可信的，你的应用程序可能会触发防毒软件的运行，Microsoft SmartScreen 可能会尝试阻止用户启动你的应用。
 
-The annoying thing about code-signing is that you have to sign your app on a Mac for Mac and on Windows for Windows. So, if you’re serious about shipping desktop apps, then you’ll need to build on multiple machines for each release.
+关于代码签名的令人讨厌的事情是，你必须单独为某个平台签名你的应用程序，比如在 Mac 上签名 Mac 应用，在 Windows 签名 Windows 应用。因此，如果你很在乎发行桌面应用的话，就必须为每个发行版本分别构建适用于不同平台的应用（以及分别签名）。
 
-This can feel a bit too manual or tedious, especially if you’re used to creating for the web. Thankfully, electron-builder was created with automation in mind. I’m talking here about continuous integration tools and services such as [Jenkins](https://jenkins.io/), [CodeShip](http://codeship.com/), [Travis-CI](https://travis-ci.org/), [AppVeyor](https://www.appveyor.com/) (for Windows) and so on. These could run your desktop app build at the press of a button or at every push to GitHub, for example.
+这可能会感到不够自动化很繁琐，特别是如果你习惯于在 web 上创建。幸运的是，electron-builder 被创造出来完成这些自动化工作。我说的是持续集成工具例如 [Jenkins](https://jenkins.io/)、[CodeShip](http://codeship.com/)、[Travis-CI](https://travis-ci.org/)、[AppVeyor](https://www.appveyor.com/)（Windows 集成）等。这些工具可以让你按一个按钮或者每次更新代码到 GitHub 时重新构建你的桌面应用。
 
-### Automatic Updates
+### 自动更新
 
-NW.js doesn’t have automatic update support, but you’ll have access to all of Node.js, so you can do whatever you want. Open-source modules are out there for it, such as [node-webkit-updater](https://github.com/edjafarov/node-webkit-updater), which handles downloading and replacing your app with a newer version. You could also roll your own custom system if you wanted.
+NW.js 没有支持自动更新，但是由于我们可以随意使用 Node.js，我们可以做任何事情。开源模块可以帮你实现，比如 [node-webkit-updater](https://github.com/edjafarov/node-webkit-updater) 可以下载并替换为更新版本的 app。当然你也可以自己造轮子。
 
-Electron has built-in support for automatic updates, via its [autoUpdater](http://electron.atom.io/docs/api/auto-updater/) API. It doesn’t support Linux, first of all; instead, publishing your app to Linux package managers is recommended. This is common on Linux — don’t worry. The `autoUpdater` API is really simple; once you give it a URL, you can call the `checkForUpdates` method. It’s event-driven, so you can subscribe to the `update-downloaded` event, for example, and once it’s fired, call the `restartAndInstall` method to install the new version and restart the app. You can listen for a few other events, which you can use to tie the auto-updating functionality into your user interface nicely.
+通过 [autoUpdater](http://electron.atom.io/docs/api/auto-updater/) API，Electron 自带支持自动更新。但是它不支持 Linux 系统，所以我们建议发布你的 app 到 Linux 包管理器。不必担心，这在 Linux 上很常见。`autoUpdater` API 使用非常简单，给定一个 URL 就可以调用 `checkForUpdates` 方法。因为它是事件驱动，所以你可以订阅 `update-downloaded` 事件，一旦该事件触发，就调用 `restartAndInstall` 方法来下载新版本 app 并且重启。你可以监听一些其他的事件，将自动更新和用户界面很好的捆绑起来。
 
-*Note*: You can have multiple update channels if you want, such as Google Chrome and Google Chrome Canary.
+*注意*：你可以使用多个更新渠道，比如 Google Chrome 和 Google Chrome Canary。
 
-It’s not quite as simple behind the API. It’s based on the Squirrel update framework, which differs drastically between Mac and Windows, which use the [Squirrel.Mac](https://github.com/Squirrel/Squirrel.Mac) and [Squirrel.Windows](https://github.com/Squirrel/Squirrel.Windows) projects, respectively.
+API 背后的逻辑可就没这么简单了。它是基于 Squirrel 更新框架，用来区分 Mac 和 Windows 平台，对应的软件分别是 [Squirrel.Mac](https://github.com/Squirrel/Squirrel.Mac) 和 [Squirrel.Windows](https://github.com/Squirrel/Squirrel.Windows)。
 
-The update code within your Mac Electron app is simple, but you’ll need a server (albeit a simple server). When you call the autoUpdater module’s `checkForUpdates` method, it will hit your server. What your server needs to do is return a 204 (“No Content”) if there isn’t an update; and if there is, it needs to return a 200 with a JSON containing a URL pointing to a `.zip` file. Back under the hood of your app (or the client), Squirrel.Mac will know what to do. It’ll go get that `.zip`, unzip it and fire the appropriate events.
+Mac 上的 Electron app 和更新有关的代码非常简单，但是你还是需要一个简单的服务器。一旦你调用 autoUpdater 模块中的 `checkForUpdates` 的方法，它会访问服务器。如果没有更新，服务器返回 204（“No Content”）；如果有更新，则返回 200 和一个包含 `.zip` 文件 URL 的 JSON。再回到客户端 app，Squirrel 知道接下来该怎么做：它会下载 `.zip`，解压然后触发相应的事件。
 
-There a bit more (magic) going on in your Windows app when it comes to automatic updates. You won’t need a server, but you can have one if you’d like. You could host the static (update) files somewhere, such as AWS S3, or even have them locally on your machine, which is really handy for testing. Despite the differences between Squirrel.Mac and Squirrel.Windows, a happy medium can be found; for example, having a server for both, and storing the updates on S3 or somewhere similar.
+Windows 平台上 app 的更新需要更多点功夫。你不一定需要一台服务器。你可以把静态文件部署在某些地方，比如亚马逊的 AWS S3，或者甚至放在本地机器，可以方便测试。虽然 Mac 平台上的 Squirrel 和 Windows 平台上的 Squirrel 有些不同，但是依然有折中的办法来实现更新，比如给每个平台都分别部署一个服务器，或者把更新文件放在 S3 或者其他地方。
 
-Squirrel.Windows has a couple of nice features over Squirrel.Mac as well. It applies updates in the background; so, when you call `restartAndInstall`, it’ll be a bit quicker because it’s ready and waiting. It also supports delta updates. Let’s say your app checks for updates and there is one newer version. A binary diff (between the currently installed app and the update) will be downloaded and applied as a patch to the current executable, instead of replacing it with a whole new app. It can even do that incrementally if you’re, say, three versions behind, but it will only do that if it’s worth it. Otherwise, if you’re, say, 15 versions behind, it will just download the latest version in its entirety instead. The great thing is that all of this is done under the hood for you. The API remains really simple. You check for updates, it will figure out the optimal method to apply the update, and it will let you know when it’s ready to go.
+Squirrel.Windows 有些很不错的特性是 Squirrel.Mac 所没有的。Squirrel.Windows 在后台实现更新，所以当你调用`restartAndInstall`，速度会更快，因为本地已经提前下载好了需要的更新文件。Squirrel.Windows 也支持 delta 更新，比如 app 检测到新版本需要更新，需要更新的部分会以补丁包的方式被下载和安装，而不是重新下载整个新的 app。假如当前的 app 要比最新版本低三个版本，Squirrel.Windows 甚至可以按照递增的方式来下载和安装需要的更新。当然如果当前 app 已经落后最新版本 15 个版本，Squirrel.Windows 就直接下载和安装整个最新的 app。这些功能底层已经帮你实现好了，API 使用起来依然很简单。你只需要检查更新，系统会帮你找到最优方案实现更新，并且告知用户更新完毕。
 
-*Note*: You will have to generate those binary diffs, though, and host them alongside your standard updates. Thankfully, electron-builder generates these for you, too.
+*注意*：虽然这些补丁包也必须部署在服务器上，但是 electron-builder 会帮你生成这些文件。
 
-Thanks to the Electron community, you don’t have to build your own server if you don’t want to. There are open-source projects you can use. Some allow you to [store updates on S3](https://github.com/ArekSredzki/electron-release-server) or use [GitHub releases](https://github.com/GitbookIO/nuts), and some even go as far as [providing administrative dashboards](https://github.com/ArekSredzki/electron-release-server) to manage the updates.
+感谢 Electron 社区，让我们不一定非要构建自己的服务器。有很多开源项目帮助你实现把[更新文件部署在 S3 上](https://github.com/ArekSredzki/electron-release-server)，或者用 [GitHub release](https://github.com/GitbookIO/nuts)，甚至还有[提供后台控制面板](https://github.com/ArekSredzki/electron-release-server)来管理不同的更新版本。
 
-### Desktop Versus Web
+### 桌面应用和网页应用的对决
 
-So, how does making a desktop app differ from making a web app? Let’s look at a few unexpected problems or gains you might come across along the way, some unexpected side effects of APIs you’re used to using on the web, workflow pain points, maintenance woes and more.
+那么桌面 app 到底和 web app 有些哪些不同？让我们来看看你可能遇到的一些意想不到的问题或收获，比如在 web 平台上使用 API 的副作用以及工作流中的痛点还有维护困难等。
 
-Well, the first thing that comes to mind is browser lock-in. It’s like a guilty pleasure. If you’re making a desktop app exclusively, you’ll know exactly which Chromium version all of your users are on. Let your imagination run wild; you can use flexbox, ES6, pure WebSockets, WebRTC, anything you want. You can even enable experimental features in Chromium for your app (i.e. features coming down the line) or tweak settings such as your localStorage allowance. You’ll never have to deal with any cross-browser incompatibilities. This is on top of Node.js’ APIs and all of npm. You can do anything.
+第一件事情就是浏览器限定（browser lock-in），你也许会因此暗自高兴。假如你只做桌面 app，你很清楚用户用的是哪个版本的 Chromium。让我们来假设一下：你可以在 app 当中用到 flexbox，ES6，原生的 WebSocket，WebRTC 以及任何你想到的东西。你甚至可以在 app 当中开启尚在测试的 Chromium 特性，或者允许使用 localStorage。你根本不用处理任何跨浏览器的兼容问题。基于 Node.js API 和 NPM，你可以做任何事情。
 
-*Note*: You’ll still have to consider which operating system the user is running sometimes, though, but OS-sniffing is a lot more reliable and less frowned upon than browser sniffing.
+*注意*：但你依然需要考虑用户在使用什么样的操作系统。不过相比较不同浏览器之间的问题，跨操作系统的兼容性处理要更简单些。
 
-#### Working With file://
+#### 处理 file://
 
-Another interesting thing is that your app is essentially offline-first. Keep that in mind when creating your app; a user can launch your app without a network connection and your app will run; it will still load the local files. You’ll need to pay more attention to how your app behaves if the network connection is lost while it’s running. You may need to adjust your mindset.
+另外一个有趣的事情是你的 app 要做到离线优先（offline-first）。在构建 app 的时候需要牢记的是，用户即使在没有网路的情况下也能正常使用 app，载入本地文件。你需要认真考虑 app 在网络条件差的情况下，如何正常工作。你可能需要改变思考问题的方式。
 
-*Note*: You can load remote URLs if you really want, but I wouldn’t.
+*注意*：你可以载入远程 URL，但是我不建议这么做。
 
-One tip I can give you here is not to trust [`navigator.onLine`](https://developer.mozilla.org/en-US/docs/Web/API/NavigatorOnLine/onLine) completely. This property returns a Boolean indicating whether or not there’s a connection, but watch out for false positives. It’ll return `true` if there’s any local connection without validating that connection. The Internet might not actually be accessible; it could be fooled by a dummy connection to a Vagrant virtual machine on your machine, etc. Instead, use Sindre Sorhus’ [`is-online`](https://github.com/sindresorhus/is-online) module to double-check; it will ping the Internet’s root servers and/or the favicon of a few popular websites. For example:
+我给出的建议是不要完全相信 [`navigator.onLine`](https://developer.mozilla.org/en-US/docs/Web/API/NavigatorOnLine/onLine)。这个属性会返回布尔值来反馈是否存在网络连接，不过请注意误报。如果有本地连接它就返回 true 而不去验证连接的有效性。网络连接虽然显示成功，但是可能实际上无法正常访问网页。比如本地机器到 Vagrant 虚拟机的连接会被误认为是成功的网络连接。所以，请使用 Sindre Sorhus 的 [`is-online`](https://github.com/sindresorhus/is-online) 来复核网络连接状态。它会 ping 互联网的根服务器或者一些著名网站的 favicon 文件。比如：
 
-```
+```javascript
 const isOnline = require('is-online');
 
 if(navigator.onLine){
@@ -281,31 +276,31 @@ else {
 }
 ```
 
-Speaking of local files, there are a few things to be aware of when using the `file://` protocol — protocol-less URLs, for one; you can’t use them anymore. I mean URLs that start with `//` instead of `http://` or `https://`. Typically, if a web app requests `//example.com/hello.json`, then your browser would expand this to `http://example.com/hello.json` or to `https://example.com/hello.json` if the current page is loaded over HTTPS. In our app, the current page would load using the `file://` protocol; so, if we requested the same URL, it would expand to `file://example.com/hello.json` and fail. The real worry here is third-party modules you might be using; authors aren’t thinking of desktop apps when they make a library.
+说到本地文件，有几件事情需要注意，比如你无法使用少协议（protocol less）的 URL，我的意思是比如用 `//` 代替 `http://` 或者 `https://`。理论上，如果一个 web app 在请求 `//example.com/hello.json` 时，浏览器会把地址扩展为 `http://example.com/hello.json` 或者 `https://example.com/hello.json` （如果当前页面是通过 HTTPS 加载）。在我们的 app 当中，如果这么做，当前页面会使用 `file://` 协议。所以，当我们请求同样的 URL 时候，app 会把地址扩展为 `file://example.com/hello.json` 然后请求失败。我们真正要担心的是那些第三方模块；那些作者可能并没有按照桌面 app 的思路来制作模块。
 
-You’d never use a CDN. Loading local files is basically instantaneous. There’s also no limit on the number of concurrent requests (per domain), like there is on the web (with HTTP/1.1 at least). You can load as many as you want in parallel.
+你不会使用到 CDN，因为载入本地文件基本上是瞬间完成的。而且不像浏览器，你没有同时请求数量的限制，至少不会像 HTTP/1.1 那样。你可以并发载入尽可能多的文件。
 
-#### Artifacts Galore
+#### 大量文件生成
 
-A lot of asset generation is involved in creating a solid desktop app. You’ll need to generate executables and installers and decide on an auto-update system. Then, for each update, you’ll have to build the executables again, more installers (because if someone goes to your website to download it, they should get the latest version) and binary diffs for delta updates.
+构建一个可靠稳固的桌面 app 需要生产大量的文件。你需要为一个自动更新的系统生成可执行文件和安装包。然后对应的每一个更新，都需要再次构建可执行文件和更多的安装包（因为如果有人去你的网站下载，他们应当下载到最新版本）以及针对增量更新（delta update）的更新补丁。
 
-Weight is still a concern. A “Hello, World!” Electron app is 40 MB zipped. Besides the typical advice you follow when creating a web app (write less code, minify it, have fewer dependencies, etc.), there isn’t much I can offer you. The “Hello, World!” app is literally an app containing one HTML file; most of the weight comes from the fact that Chromium and Node.js are baked into your app. At least delta updates will reduce how much is downloaded when a user performs an update (on Windows only, I’m afraid). However, your users won’t be downloading your app on a 2G connection (hopefully!).
+文件大小仍然是一个需要考虑的问题。一个“Hello, World!”的 Electron app 压缩包是 40 MB。在构建 web app 的时候，除了遵循一些常见规则外（比如写更少的代码、压缩文件、使用更少的依赖等等），我可以提供的意见不多。“Hello World” app 本质上就是一个包含了 HTML 文件的 app；占 app 体积的绝大多数文件是来自 Chromium 和 Node.js。至少在 Windows 平台上增量更新可以有效减少下载文件的大小。但是我希望用户不要在 2G 网络上去下载文件。
 
-#### Expect the Unexpected
+#### 预判意外状况
 
-You will discover unexpected behavior now and again. Some of it is more obvious than the rest, but a little annoying nonetheless. For example, let’s say you’ve made a music player app that supports a mini-player mode, in which the window is really small and always in front of any other apps. If a user were to click or tap a dropdown (`<select/>`), then it would open to reveal its options, overflowing past the bottom edge of the app. If you were to use a non-native select library (such as select2 or chosen), though, you’re in trouble. When open, your dropdown will be cut off by the edge of your app. So, the user would see a few items and then nothing, which is really frustrating. This would happen in a web browser, too, but it’s not often the user would resize the window down to a small enough size.
+在日后你一定会遇到一些意想不到的事情。有些事情要比其他更明显而且让人恼火。比如你制作了一个音乐播放器的 app，它支持迷你化，在其他应用之上用小窗口展示。假如用户点击了下拉菜单，app 会展示可选项，从 app 的底部边界溢出。如果你使用了非原生的包（比如 select2 或者 chosen），你会因此陷入麻烦。在打开下拉菜单的时候，它会被 app 的底部边界切割。用户会看到很少的选项甚至什么也看不到，这确实让人无语。当然这件事也会发生在浏览器上。但是用户不太可能会调整窗口到那么小。
 
 ![Screenshots comparing what happens to a native dropdown versus a non-native one](https://www.smashingmagazine.com/wp-content/uploads/2017/01/dropdownComparison-preview-opt.png)
 
-You may or may not know it, but on a Mac, every window has a header and a body. When a window isn’t focused, if you hover over an icon or button in the header, its appearance will reflect the fact that it’s being hovered over. For example, the close button on macOS is gray when the window is blurred but red when you hover over it. However, if you move your mouse over something in the body of the window, there is no visible change. This is intentional. Think about your desktop app, though; it’s Chromium missing the header, and your app is the web page, which is the body of the window. You could drop the native frame and create your own custom HTML buttons instead for minimize, maximize and close. If your window isn’t focused, though, they won’t react if you were to hover over them. Hover styles won’t be applied, and that feels really wrong. To make it worse, if you were to click the close button, for example, it would focus the window and that’s it. A second click would be required to actually click the button and close the app.
+你也许会知道，在 Mac 上每一个窗口都有一个 header 和 body。当窗口没有聚焦的时候，如果你把鼠标停留在 header 里面的图标或者按钮上，窗口的外观会对应的显示为鼠标停留状态。举个例子，macOS 上窗口的关闭按钮在未被停留时是灰色模糊的，当鼠标停留时，按钮变成红色。但是如果鼠标只是停留在 body 上，窗口外观不会发生改变。这是有意而为之的设计。让我们再回到我们的桌面 app，基于 Chromium 的 app 是没有 header，整个 web app 就是窗口 body。你可以不用原生的框架而创建自己的 HTML 按钮来取代原生的最小化，最大化还有关闭按钮。如果窗口没有被聚焦，当鼠标停留的时候，窗口不会有任何变化。Hover 的样式没有被应用，这总让人感觉不太对。更糟糕的是，只有在点击关闭按钮的时候，窗口才会被聚焦。然后你还得再次点击关闭按钮来真正关闭当前窗口。
 
-To add insult to injury, Chromium has a bug that can mask the problem, making you think it works as you might have originally expected. If you move your mouse fast enough (nothing too unreasonable) from outside the window to an element inside the window, hover styles will be applied to that element. It’s a confirmed bug; applying the hover styles on a blurred window body “doesn’t meet platform expectations,” so it will be fixed. Hopefully, I’m saving you some heartbreak here. You could have a situation in which you’ve created beautiful custom window controls, yet in reality a lot of your users will be frustrated with your app (and will guess it’s not native).
+雪上加霜的是，Chromium 有一个 bug 可以掩盖这个问题，让你以为窗口会按照你期待的样子工作。把鼠标从窗口外移动到窗口内的元素，如果你移动得足够快，hover 样式会被应用。这是已经确认的 bug。把 hover 样式应用在一个模糊化的窗口 body 上“并不满足当前系统平台的要求”，日后该 bug 会被修复。但愿我上面说的话不会让你太心碎。事实上，你可以创建一个足够漂亮的自定义窗口控制区，但现实是许多用户会因此苦恼（他们会怀疑这到底是不是原生的）。
 
-So, you must use native buttons on a Mac. There’s no way around that. For an NW.js app, you must enable the native frame, which is the default anyway (you can disable it by setting `window` object’s `frame` property to `false` in your `package.json`).
+所以你必须用到 Mac 原生的按钮。没有其他更好的办法了。对于 NW.js app，你必须开启使用原生框架（你也可以通过在 `package.json` 里面把 `window` 的属性 `frame` 设置为 `false` 来关闭使用原生框架）。
 
-You could do the same with an Electron app. This is controlled by setting the `frame` property when creating a window; for example, `new BrowserWindow({width: 800, height: 600, frame: true})`. As the Electron team does, they spotted this issue and added another option as a nice compromise; `titleBarStyle`. Setting this to `hidden` will hide the native title bar but keep the native window controls overlaid over the top-left corner of your app. This gets you around the problem of having non-native buttons on Mac, but you can still style the top of the app (and the area behind the buttons) however you like.
+Electron app 也可以实现同样效果。比如设置 `new BrowserWindow({width: 800, height: 600, frame: true})` 来创建窗口。Electron 官方团队就是这么做的，他们还加入另外一种不错的选项：把 `titleBarStyle` 设置成 `hidden` 会隐藏原生标题栏但是通过覆盖 app 左上角来保留原生的窗口控制。 这样就解决了之前的问题，但同时可以使用在左上角使用自定义按钮。
 
-```
+```javascript
 // main.js
 const {app, BrowserWindow} = require('electron');
 let mainWindow;
@@ -320,39 +315,39 @@ app.on('ready', () => {
 });
 ```
 
-Here’s an app in which I’ve disabled the title bar and given the `html` element a background image:
+下面这张图，我禁用了标题栏然后设置了`html` 的背景图片:
 
 ![A screenshot of our example app without the title bar](https://www.smashingmagazine.com/wp-content/uploads/2017/01/hiddenTitleBar-preview-opt.png)
 
-See “[Frameless Window](http://electron.atom.io/docs/api/frameless-window)[57](#57)” from Electron’s documentation for more.
+详见 Electron 官方文档 “[Frameless Window](http://electron.atom.io/docs/api/frameless-window)[57](#57)” 
 
-#### Tooling
+#### 工具
 
-Well, you can pretty much use all of the tooling you’d use to create a web app. Your app is just HTML, CSS and JavaScript, right? Plenty of plugins and modules are out there specifically for desktop apps, too, such as Gulp plugins for signing your app, for example (if you didn’t want to use electron-builder). [Electron-connect](https://github.com/Quramy/electron-connect) watches your files for changes, and when they occur, it’ll inject those changes into your open window(s) or relaunch the app if it was your main script that was modified. It is Node.js, after all; you can pretty much do anything you’d like. You could run webpack inside your app if you wanted to — I’ve no idea why you would, but the options are endless. Make sure to check out [awesome-electron](https://github.com/sindresorhus/awesome-electron) for more resources.
+你可以尽情地使用在构建 web app 时候用到的工具。你的 app 其实就是 HTML，CSS 还有 JavaScript 不是吗？针对桌面 app 开源社区也有丰富的插件和模块供你使用，比如你可以用 Gulp 插件来为你的 app 签名（如果你不打算用 electron-builder）。[Electron-connect](https://github.com/Quramy/electron-connect) 可以用来监控文件改动，如果主要的脚本文件有改动，它会在打开的窗口中应用这些改动或者重启 app。毕竟这就是 Node.js，你可以做任何事情。你也可以在 app 中用到 webpack 如果你想的话，虽然我不知道为什么要这么做，但这也是一个选择嘛。详情见 [awesome-electron](https://github.com/sindresorhus/awesome-electron) 获取更多资源。
 
-#### Release Flow
+#### 版本发布流程
 
-What’s it like to maintain and live with a desktop app? First of all, the release flow is completely different. A significant mindset adjustment is required. When you’re working on the web app and you deploy a change that breaks something, it’s not really a huge deal (of course, that depends on your app and the bug). You can just roll out a fix. Users who reload or change the page and new users who trickle in will get the latest code. Developers under pressure might rush out a feature for a deadline and fix bugs as they’re reported or noticed. You can’t do that with desktop apps. You can’t take back updates you push out there. It’s more like a mobile app flow. You build the app, put it out there, and you can’t take it back. Some users might not even update from a buggy version to the fixed version. This will make you worry about all of the bugs out there in old versions.
+维护和开发一个桌面应用是怎么样的体验？首先，发行版本流是完全不一样的。观念上就需要重新调整。在开发 web app 的时候，如果部署了之后然后遇到问题，这些都不是事。你直接修复 bug 就行了。新用户直接访问页面或者老用户重新加载页面就能得到最新的代码。开发者一旦有新任务，就直接去完成任务或者修复 bug 就好了。但是开发桌面 app 可不是这样。一旦冒失犯错，就无法撤回。这特别像开发移动 app 一样。你构建了 app，然后发布，就不可能撤回了。有些用户可能都不会从立即更新到最新的修复版本。这些存在于旧版本的 bug 可能会让你非常苦恼。
 
-#### Quantum Mechanics
+#### 量子力学
 
-Because a host of different versions of your app are in use, your code will exist in multiple forms and states. Multiple variants of your client (desktop app) could be hitting your API in 10 slightly different ways. So, you’ll need to strongly consider versioning your API, really locking down and testing it well. When an API change is to be introduced, you might not be sure if it’s a breaking change or not. A version released a month ago could implode because it has some slightly different code.
+考虑到要服务于不同版本的 app，你的代码会以不同的形式和状态而存在。多个版本的客户端（桌面 app）会以多种方式访问你的 API。所以你得认真考虑 API 的版本控制问题，做好测试。当 API 有变化时，你无法获知此次变动会不会造成问题。一个月前发布的版本可能会因为一些代码的变动而发生崩溃。
 
-#### Fresh Problems to Solve
+#### 亟待解决的问题
 
-You might receive a few strange bug reports — ones that involve bizarre user account arrangements, specific antivirus software or worse. I had a case in which a user had installed something (or had done something themselves) that messed with their system’s environment variables. This broke our app because a dependency we used for something critical failed to execute a system command because the command could no longer be found. This is a good example because there will be occasions when you’ll have to draw a line. This was something critical to our app, so we couldn’t ignore the error, and we couldn’t fix their machine. For users like this, a lot of their desktop apps would be somewhat broken at best. In the end, we decided to show a tailored error screen to the user if this unlikely error were ever to pop up again. It links to a document explaining why it has occurred and has a step-by-step guide to fix it.
+你也许会遇到一些很奇怪的问题，一些涉及到奇怪的账户管理，反病毒软件或者更糟。我之前遇到过一个案例，用户自己安装某些文件导致系统环境变量被修改。这直接导致了我们的 app 当中某个重要的依赖安装失败，因为系统命令无法找到。这些案例提醒我们有些情况下必须划清界限，这对我们的 app 很重要，所以不能忽略报错，但我们也不能帮用户修好电脑。对于遇到这种问题的用户，他们的多数桌面应用顶多也是无法正常启动。最后我们决定如果再次报错，用户会看到一条链接到文档的报错信息，这个文档用来解释错误为什么会发生，同时告诉用户如何一步步去修复错误。
 
-Sure, a few web-specific concerns are no longer applicable when you’re working on a desktop app, such as legacy browsers. You will have a few new ones to take into consideration, though. There’s a 256-character limit on file paths in Windows, for example.
+当然，一些基于 web 的顾虑将不再适配于桌面 app，比如一些历史遗留的浏览器问题。但有一些新的问题需要考虑，比如在 Windows 上文件路径有 256 字节大小的限制。
 
-Old versions of npm store dependencies in a recursive file structure. Your dependencies would each get stored in their own directory within a `node_modules` directory in your project (for example, `node_modules/a`). If any of your dependencies have dependencies of their own, those grandchild dependencies would be stored in a `node_modules` within that directory (for example, `node_modules/a/node_modules/b`). Because Node.js and npm encourage small single-purpose modules, you could easily end up with a really long path, like `path/to/your/project/node_modules/a/node_modules/b/node_modules/c/.../n/index.js`.
+旧版本的 npm 采用递归的文件结构存储依赖。你的依赖都各自存储在项目中的 `node_modules` 目录下的文件夹里（例如， `node_modules/a`）。如果依赖模块自己本身也有依赖模块，这些子级的子级依赖会被存储在父级的 `node_modules` 中，比如 `node_modules/a/node_modules/b`。因为 Node.js 和 npm 鼓励使用小巧的单用途模块，你可能会很容易遇到长路径，比如 `path/to/your/project/node_modules/a/node_modules/b/node_modules/c/.../n/index.js`。
 
-*Note*: Since version 3, npm flattens out the dependency tree as much as possible. However, there are other causes for long paths.
+*注意*：版本 3 之后 npm 尽可能地扁平化依赖关系树。但是也存在一些其他原因导致长路径。
 
-We had a case in which our app wouldn’t launch at all (or would crash soon after launching) on certain versions of Windows due to an exceeding long path. This was a major headache. With Electron, you can put all of your app’s code into an [asar archive](http://electron.atom.io/docs/tutorial/application-packaging/), which protects against path length issues but has exceptions and can’t always be used.
+我们之前遇到一个问题，就是在特定版本的 Windows 上因为路径太长 app 无法正常启动或者启动之后就崩溃。这是个很头痛的问题。使用 Electron 时，你可以把所有代码放在 [asar archive](http://electron.atom.io/docs/tutorial/application-packaging/) 当中。虽然使用这种方法也存在例外而不能保证永远都能正常使用。
 
-We created a little Gulp plugin named [gulp-path-length](https://github.com/Teamwork/gulp-path-length), which lets you know whether any dangerously long file paths are in your app. Where your app is stored on the end user’s machine will determine the true length of the path, though. In our case, our installer will install it to `C:\Users\<username>\AppData\Roaming`. So, when our app is built (locally by us or by a continuous integration service), gulp-path-length is instructed to audit our files as if they’re stored there (on the user’s machine with a long username, to be safe).
+我们做了一个小小的 Gulp 插件  [gulp-path-length](https://github.com/Teamwork/gulp-path-length) 用来告知开发者当前 app 当中是否存在任何危险的长文件路径。终端用户将 app 放在哪里才能最终决定是否存在长文件路径。举个例子，假如安装包安装在 `C:\Users\<username>\AppData\Roaming`，当 app 构建完成（在本地通过持续集成服务完成），gulp-path-length 会用来监控是否当前目录下存在长文件路径（比如用户机器上的用户名过长而导致问题）。
 
-```
+```javascript
 var gulp = require('gulp');
 var pathLength = require('gulp-path-length');
 
@@ -367,31 +362,31 @@ gulp.task('default', function(){
 });
 ```
 
-#### Fatal Errors Can Be Really Fatal
+#### 关键性错误真的很致命
 
-Because all of the automatic updates handling is done within the app, you could have an uncaught exception that crashes the app before it even gets to check for an update. Let’s say you discover the bug and release a new version containing a fix. If the user launches the app, an update would start downloading, and then the app would die. If they were to relaunch app, the update would start downloading again and… crash. So, you’d have to reach out to all of your users and let them know they’ll need to reinstall the app. Trust me, I know. It’s horrible.
+因为所有的自动更新都发生在 app 内部，在每次检查更新前，未捕获的异常会导致 app 崩溃。假设你发现了一个 bug 然后发布了新版本进行修复。如果用户启动 app，自动更新开始下载，然后 app 崩溃。如果用户重新启动 app，自动更新再次下载，再次崩溃...所以，你必须想尽办法让用户知道他们需要重新安装 app。相信我，这确实很糟糕。
 
-#### Analytics and Bug Reports
+#### 分析和 bug 报告
 
-You’ll probably want to track usage of the app and any errors that occur. First of all, Google Analytics won’t work (out of the box, at least). You’ll have to find something that doesn’t mind an app that runs on `file://` URLs. If you’re using a tool to track errors, make sure to lock down errors by app version if the tool supports release-tracking. For example, if you’re using [Sentry](https://sentry.io/welcome/) to track errors, make sure to [set the `release` property when setting up your client](https://docs.sentry.io/clients/javascript/config/#optional-settings), so that errors will be split up by app version. Otherwise, if you receive a report about an error and roll out a fix, you’ll keep on receiving reports about the error, filling up your reports or logs with false positives. These errors will be coming from people using older versions.
+你很可能想追踪 app 的使用情况和各种错误。首先 Google Analytics 不起作用。你得找到一个分析工具可以支持 `file://` URL。如果你正使用工具来追查错误，假如工具支持发布版本追踪，一定要确保错误和版本挂钩。例如，如果你使用 [Sentry](https://sentry.io/welcome/) 追踪错误，[确保在设定客户端的时候设定了正确的 `release` 属性 ](https://docs.sentry.io/clients/javascript/config/#optional-settings)，这样错误会按照版本分类。否则当你收到错误报告准备修复错误的时候，你会持续收到错误报告和日志，这当中会包含一些误报。而这些误报来自用户正在使用旧版本 app。
 
-Electron has a [`crashReporter`](http://electron.atom.io/docs/api/crash-reporter/) module, which will send you a report any time the app completely crashes (i.e. the entire app dies, not for any old error thrown). You can also listen for events indicating that your renderer process has become unresponsive.
+Electron 包含了 [`crashReporter`](http://electron.atom.io/docs/api/crash-reporter/) 模块，该模块在 app 完全崩溃后（例如整个 app 崩溃，而不是错误抛出）自动向开发者发送报告。你也可以监听一些事件用来指示 app 的渲染进程无法响应。
 
-#### Security
+#### 安全
 
-Be extra-careful when accepting user input or even trusting third-party scripts, because a malicious individual could have a lot of fun with access to Node.js. Also, never accept user input and pass it to a native API or command without proper sanitation.
+当接收用户输入或者信任第三方脚本的时候需要格外注意，因为恶意攻击者会用各种意想不到的方式来使用 Node.js。而且记住永远不要在未经检查直接接受用户输入并传值到原生 API 或者命令。
 
-Don’t trust code from vendors either. We had a problem recently with a third-party snippet we had included in our app for analytics, provided by company X. The team behind it rolled out an update with some dodgy code, thereby introducing a fatal error in our app. When a user launched our app, the snippet grabbed the newest JavaScript from their CDN and ran it. The error thrown prevented anything further from executing. Anyone with the app already running was unaffected, but if they were to quit it and launch it again, they’d have the problem, too. We contacted X’s support team and they promptly rolled out a fix. Our app was fine again once our users restarted it, but it was scary there for a while. We wouldn’t have been able to patch the problem ourselves without forcing affected users to manually download a new version of the app (with the snippet removed).
+也不要相信来自 vendors 的代码。我们最近遇到的问题来自公司 X 的分析应用的第三方代码片段。官方团队在发布的新版本当中包含了问题代码，导致了 app 致命错误。当用户启动 app 的时候，代码片段从 CDN 获取最新的 JavaScript 代码然后运行，随后抛出异常导致 app 无法继续运行。任何正在运行的 app 都不会受到影响，但是一旦重新打开 app 就会产生问题。我们联系公司 X 客服，随后他们发布了修复版本。如果再次重启 app 就会正常运行了，虽然已经解决了问题，但是回头想想还是很让人担心。如果我们不去强制受影响的用户手动下载修复版本的 app，我们自己就很难直接解决问题。
 
-How can you mitigate this risk? You could try to catch errors, but you’ve no idea what they company X might do in its JavaScript, so you’re better off with something more solid. You could add a level of abstraction. Instead of pointing directly to X’s URL from your `<script>`, you could use [Google Tag Manager](https://www.google.ie/analytics/tag-manager/) or your own API to return either HTML containing the `<script>` tags or a single JavaScript file containing all of your third-party dependencies somehow. This would enable you to change which snippets get loaded (by tweaking Google Tag Manager or your API endpoint) without having to roll out a new update.
+该怎么样才能规避风险呢？也许你可以试着捕获报错，但是你完全不知道公司 X 在 JavaScript 里面究竟做了什么。你最好使用更可靠稳固的代码。你可以加入一层抽象，不直接在 `<script>` 指向公司 X 的URL而使用 [Google Tag Manager](https://www.google.ie/analytics/tag-manager/) 或者你自己的 API 来返回包含有 `<script>` 标签的 HTML 文件或者包含所有第三方依赖的单独的 JavaScript 文件。这样在避免重新安装新版本的情况下，指定任意第三方代码片段被加载。
 
-However, if the API no longer returned the analytics snippet, the global variable created by the snippet would still be there in your code, trying to call undefined functions. So, we haven’t solved the problem entirely. Also, this API call would fail if a user launches the app without a connection. You don’t want to restrict your app when offline. Sure, you could use a cached result from the last time the request succeeded, but what if there was a bug in that version? You’re back to the same problem.
+但是，假如 API 不再返回用来分析的代码片段，之前被代码片段创建的全局变量依然会存在你的代码当中，这些全局变量会尝试调用未定义的函数。所以我们并没有完全解决问题。而且，如果用户没有联网就打开 app，API 调用会失败。你并不想在离线时限制你的 app。当然你可以用上次成功请求的缓存文件来用作离线版本的加载。但是如果当前版本出现问题怎么办，你又回到了之前提到的问题（如果不强制用户下载新版本，app 就会崩溃）。
 
-Another solution would be to create a hidden window and load a (local) HTML file there that contains all of your third-party snippets. So, any global variables that the snippets create would be scoped to that window. Any errors thrown would be thrown in that window and your main window(s) would be unaffected. If you needed to use those APIs or global variables in your main window(s), you’d do this via IPC now. You’d send an event over IPC to your main process, which would then send it onto the hidden window, and if it was still healthy, it would listen for the event and call the third-party function. That would work.
+另外一种解决方案是创建一个隐藏窗口加载包含了所有第三方代码片段的本地HTML 文件。这样，任何由全局变量导致的问题会在这个隐藏窗口里报错，而主要窗口不受影响。如果你需要在主要窗口当中调用 这些 API 或者 全局变量，你可以通过 IPC 的方式来实现。通过 IPC 向主进程发送一个事件，然后该事件会被发送到隐藏窗口当中。如果隐藏窗口没有任何问题，它会监听事件同时调用第三方函数。这样就可以解决之前提到的问题。
 
-This brings us back to security. What if someone malicious at company X were to include some dangerous Node.js code in their JavaScript? We’d be rightly screwed. Luckily, Electron has a nice option to disable Node.js for a given window, so it simply wouldn’t run:
+这会带来安全问题。万一来自公司 X 的恶意攻击者在他们的 JavaScript 中包含有危险的 Node.js 代码？我们肯定死惨了。幸运的是，Electron 里有一个很不错的设置用来禁止在给定窗口中执行 Node.js 代码，使恶意代码不会运行：
 
-```
+```javascript
 // main.js
 const {app, BrowserWindow} = require('electron');
 let thirdPartyWindow;
@@ -408,13 +403,13 @@ app.on('ready', () => {
 });
 ```
 
-#### Automated Testing
+#### 自动化测试
 
-NW.js doesn’t have any built-in support for testing. But, again, you have access to Node.js, so it’s technically possible. There is a way to test stuff such as button-clicking within the app using [Chrome Remote Interface](https://github.com/cyrus-and/chrome-remote-interface), but it’s tricky. Even then, you can’t trigger a click on a native window control and test what happens, for example.
+NW.js 本身不包含对测试的支持。但是由于你可以使用 Node.js， 技术上，测试是可行的。 例如 [Chrome Remote Interface](https://github.com/cyrus-and/chrome-remote-interface) 可以用来测试 app 当中的按钮点击。但这个还是有点牵强，因为你无法触发原生窗口按钮的点击，也就无法测试。
 
-The Electron team has created [Spectron](http://electron.atom.io/spectron/) for automated testing, and it supports testing native controls, managing windows and simulating Electron events. It can even be run in continuous integration builds.
+Electron 官方团队开发了 [Spectron](http://electron.atom.io/spectron/) 用来自动测试。它支持测试原生控制按钮，管理窗口还有模拟 Electron 事件。它甚至可以在持续集成构建中运行。
 
-```
+```javascript
 var Application = require('spectron').Application
 var assert = require('assert')
 
@@ -442,31 +437,31 @@ describe('application launch', function () {
 })
 ```
 
-Because your app is HTML, you could easily use any tool to test web apps, just by pointing the tool at your static files. However, in this case, you’d need to make sure the app can run in a web browser without Node.js.
+考虑到你的 app 就是 HTML 文件，仅仅在静态文件中添加指向测试工具的脚本，你可以用任何工具来测试 web app。但是你得确保 app 可以在没有 Node.js 的 web 浏览器中依然可以运行。
 
-### Desktop And Web
+### 桌面和 Web
 
-It’s not necessarily about desktop or web. As a web developer, you have all of the tools required to make an app for either environment. Why not both? It takes a bit more effort, but it’s worth it. I’ll mention a few related topics and tools, which are complicated in their own right, so I’ll keep just touch on them.
+这不仅仅是关乎桌面 app 或者 web app。作为一个 web 开发者，你可以用任何工具制作 app 确保在任何平台和环境中运行。但是为什么没有一劳永逸的办法呢？我们还需要努力，但这是值得的。接下来我会提到一些相关的话题和工具，考虑到它们太过复杂，我就点到为止。
 
-First of all, forget about “browser lock-in,” native WebSockets, etc. The same goes for ES6. You can either revert to writing plain old ES5 JavaScript or use something like [Babel](https://babeljs.io/) to transpile your ES6 into ES5, for web use.
+首先，忘记什么“浏览器限定”和原生 WebSockets 等等其他的事情。ES6 也是如此.你要么写纯粹的 ES5，要么用类似 [Babel](https://babeljs.io/) 的工具来把 ES6 代码编译成 ES5，供 web 使用。
 
-You also have `require`s throughout your code (for importing other scripts or modules), which a browser won’t understand. Use a module bundler that supports CommonJS (i.e. Node.js-style `require`s), such as [Rollup](http://rollupjs.org), [webpack](https://webpack.github.io) or [Browserify](http://browserify.org). When making a build for the web, a module bundler will run over your code, traverse all of the `require`s and bundle them up into one script for you.
+你的代码里也会写满了许多浏览器不会理解的 `require`（用来引入其他脚本文件或者模块）。使用支持 CommonJS 的模块打包器，比如 [Rollup](http://rollupjs.org)，[webpack](https://webpack.github.io) 或者 [Browserify](http://browserify.org)。当构建 web app 的时候，模块打包器会遍历代码，找到所有的 `require` 然后把他们放在一个脚本文件里。
 
-Any code using Node.js or Electron APIs (i.e. to write to disk or integrate with the desktop environment) should not be called when the app is running on the web. You can detect this by checking whether `process.version.nwjs` or `process.versions.electron` exists; if it does, then your app is currently running in the desktop environment.
+任何用到 Node.js 或者 Electron API（比如写盘操作或者集成桌面环境）的代码都不应该在 app 运行在 web 端的时候被调用。你可以通过检测 `process.version.nwjs` 和 `process.versions.electron` 是否存在来判断。如果存在，则表明 app 当前运行在桌面环境。
 
-Even then, you’ll be loading a lot of redundant code in the web app. Let’s say you have a `require` guarded behind a check like `if(app.isInDesktop)`, along with a big chunk of desktop-specific code. Instead of detecting the environment at runtime and setting `app.isInDesktop`, you could pass `true` or `false` into your app as a flag at buildtime (for example, using the [envify](https://github.com/hughsk/envify) transform for Browserify). This will aide your module bundler of choice when it’s doing its static analysis and tree-shaking (i.e. dead-code elimination). It will now know whether `app.isInDesktop` is `true`. So, if you’re running your web build, it won’t bother going inside that `if` statement or traversing the `require` in question.
+即便如此，你仍会在 web app 上加载大量冗余代码。假设你的代码中 `if(app.isInDesktop)` 后面紧接着和桌面环境有关的 `require` 代码。与其在 app 运行的时候来检测当前运行环境，同时设置对应的 `app.isInDesktop`，不如把 `true` 和 `false` 当做 flag 在构建的时候传值到 app。在它进行静态和树状分析（也就是消除无用代码）时，这将有助于模块捆绑的选择。它会知道 `app.isInDesktop` 是否为 `true`。因此，当你运行 web app 的时候，它不会到代码里去找对应的 `if` 条件，或者找到相关的 `require`。
 
-#### Continuous Delivery
+#### 持续交付
 
-There’s that release mindset again; it’s challenging. When you’re working on the web, you want to be able to roll out changes frequently. I believe in continually delivering small incremental changes that can be rolled back quickly. Ideally, with enough testing, an intern can push a little tweak to your master branch, resulting in your web app being automatically tested and deployed.
+我们对于版本发行的观念也需要换一换了，这非常有挑战性。当你在开发 web app 的时候，你希望能够频繁发布新的改动。我相信在持续交付中，小的增量改动可以快速回滚。理想情况是，经过足够的测试，一个实习生也可以把改动的代码 push 到 master 分支，然后让 web app 自动测试和部署。
 
-As we covered earlier, you can’t really do this with a desktop app. OK, I guess you technically could if you’re using Electron, because electron-builder can be automated and, so, can spectron tests. I don’t know anyone doing this, and I wouldn’t have enough faith to do it myself. Remember, broken code can’t be taken back, and you could break the update flow. Besides, you don’t want to deliver desktop updates too often anyway. Updates aren’t silent, like they are on the web, so it’s not very nice for the user. Plus, for users on macOS, delta updates aren’t supported, so users would be downloading a full new app for each release, no matter how small a tweak it has.
+我们之前谈到，你不能像 web app 那样在桌面 app 中实现同样的效果。没错，理论上如果你使用 Electron 的话，electron-builder 可以自动测试，而且 spectron 也可以测试。我不知道还有谁这么做，我自己不会有信心这么做。记住，错误的代码不可以撤销，你可能打破正常的更新流。而且，你也不想让桌面 app 更新太过频繁。更新不会悄无声息的发生，不像 web app 那样，这对于用户来说其实很不友好。而且在 macOS 上不支持增量更新，用户必须针对每一个发行版本都要下载完整的新版本的 app，不管更新是多么的小。
 
-You’ll have to find a balance. A happy medium might be to release all fixes to the web as soon as possible and release a desktop app weekly or monthly — unless you’re releasing a feature, that is. You don’t want to punish a user because they chose to install your desktop app. Nothing’s worse than seeing a press release for a really cool feature in an app you use, only to realize that you’ll have to wait a while longer than everyone else. You could employ a feature-flags API to roll out features on both platforms at the same time, but that’s a whole separate topic. I first learned of feature flags from “[Continuous Delivery: The Dirty Details](https://www.youtube.com/watch?v=JR-ccCTmMKY),” a talk by Etsy’s VP of Engineering, Mike Brittain.
+你得找到一个平衡点。一个妥协的做法是针对 web app 要尽可能快的更新和修复问题，对于桌面 app 每周或者每月更新一次就可以，除非你要发布新功能。你也不能指责用户选择安装桌面 app。没有什么比等待很久来发布新功能更糟糕的事情了。你可以采用功能发布控制器（feature-flag）API 来在同一平台同一时间发布新功能，但这又是另外一个话题了。我第一次学习和了解到功能发布控制器是来自 Etsy 的工程师 VP，Mike Brittain 的讲话，[持续交付：肮脏的细节](https://www.youtube.com/watch?v=JR-ccCTmMKY)（需翻墙）
 
-### Conclusion
+### 总结
 
-So, there you have it. With minimal effort, you can add “desktop app developer” to your resumé. We’ve looked at creating your first modern desktop app, packaging, distribution, after-sales service and a lot more. Hopefully, despite the pitfalls and horror stories I’ve shared, you’ll agree that it’s not as scary as it seems. You already have what it takes. All you need to do is look over some API documentation. Thanks to a few new powerful APIs at your disposal, you can get the most value from your skills as a web developer. I hope to see you around (in the NW.js or Electron community) soon.
+那么你已经掌握了。只要一点点努力，你就可以在简历中加上”桌面 app 开发者“的标签了。我们从创建第一个现代桌面 app，打包，分发，讲到售后服务还有更多。但愿我提到的一些陷阱和坑对你来说并没有那么可怕。你已经知道它们的前因后果了。你需要做的就是看一遍 API 文档。感谢那些可供我们任意使用的强大的 API，你可以从 web 开发者的技能树上获取更多有价值的东西。我希望可以在 NW.js 和 Electron 社区中看到你的身影。
 
 ---
 
