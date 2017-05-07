@@ -6,7 +6,7 @@
 
 # 哪些项目需要 React？都需要！#
 
-项目什么时候需要 React 框架呢？这是 Chris Coyier 在[最近一篇博文](https://github.com/xitu/gold-miner/blob/master/TODO/project-need-react.md)中提出的问题。我是 Chris 博客的粉丝，所以我好奇地看到了他不得不说的话。
+项目什么时候需要 React 框架呢？这是 Chris Coyier 在[最近一篇博文](https://github.com/xitu/gold-miner/blob/master/TODO/project-need-react.md)中提出的问题。我是 Chris 博客的粉丝，所以我好奇他要说什么。
 
 简而言之，Chris 提出了一系列使用 React（或其他类似的当代 JavaScript 库）的优势和劣势。虽然我并不反对他的观点，但我依然发现自己得出了不同的结论。
 
@@ -24,7 +24,7 @@
 
 > 如果你手里只有一把锤子， 所有东西看上去都像钉子。
 
-这则谚语长久以来用来谴责一刀切看问题的人。
+这则谚语长久以来都被用于谴责一刀切看问题的人。
 
 但我们假设有一段时间，你的确生活在布满钉子的世界（听起来有点起鸡皮疙瘩），那么你信任的锤子能够解决你遇到的任何问题。
 
@@ -40,11 +40,11 @@
 
 首先，我们来看看最常见的反对“一切皆 React”的观点。我直接引用 Chris 原话：
 
-> 举个例子，一个博客也许没什么复杂的逻辑，一点也不符合应该使用 React 框架的情况。所以如果不是很适合的话，那么也许就是很不适合 React 框架。因为这么做引入了复杂的技术，依赖了很多根本没用到的东西。
+> 举个例子，一个博客也许没什么复杂的逻辑，一点也不符合应该使用 React 框架的情况。既然在这种情况下 React 框架不是很合适，那么在这用 React 框架就不是好的选择。因为这么做引入了复杂的技术，依赖了很多根本没用到的东西。
 
-讲的很公平。一个简单的博客不**需要** React。毕竟即使你需要一点 Javascript 处理注册表单，你也可以仅仅使用 jQuery。
+说的很在理。一个简单的博客不**需要** React。毕竟即使你需要一点 Javascript 处理注册表单，你也可以仅仅使用 jQuery。
 
-什么？你需要在不同页面多处使用那个表单？还要只在某些条件下才显示？也要加上动画？等等，打住…
+什么？你需要在不同页面的多个地方使用那个表单？还要只在某些条件下才显示？也要加上动画？等等，打住…
 
 我用这个小情景想表达的主旨就是复杂性并不是一个或是或非的问题，现代网站生活在一个连续的频谱上，从静态页面一直到丰富的单页应用。
 
@@ -52,15 +52,15 @@
 
 ### React 的优势 ###
 
-> 过早优化是所有邪恶的根源。
+> 过早优化是万恶之源。
 
 这是程序员中流行的另一则言语。毕竟，当胶带就能做的很好的时候，谁会需要锤子和钉子呢！
 
 但这里做了一个假设就是“过早优化”是一个长期的少有成效的艰难过程。并且我觉得这个不适于 React。
 
-虽然 React 需要一些时间来习惯，但一旦了解了其[基本概念](https://medium.freecodecamp.com/the-5-things-you-need-to-know-to-understand-react-a1dbd5d114a3)，您就能像传统的前端工具一样快速上手。
+虽然 React 需要一些时间来习惯，但一旦了解了其[基本概念](https://medium.freecodecamp.com/the-5-things-you-need-to-know-to-understand-react-a1dbd5d114a3)，您就能像使用传统的前端工具一样快速上手。
 
-也许更多的是因为 React 使用了非常强大的**组件**概念。就像 CSS 鼓励你考虑可重用的类和样式一样，React 带来了一个灵活的模块化前端架构，从简单的静态主页到交互式后端仪表板，为每一个用例带来好处。
+事实上，也许更多的是因为 React 使用了非常强大的**组件**概念。就像 CSS 鼓励你考虑可重用的类和样式一样，React 带来了一个灵活的模块化前端架构，从简单的静态主页到交互式后端仪表板，为每一个用例带来好处。
 
 ### JavaScript， 随处都是 JavaScript ###
 
@@ -70,13 +70,13 @@
 >
 > 万物归于 JavaScript！JavaScript 万岁！
 
-Chris 不十分相信，但我很确信。JavaScript 本身并不一定完美，但访问整个现代 NPM 生态系统太棒了。
+Chris 不是很相信，但我相信。JavaScript 本身并不一定完美，但能够访问整个现代 NPM 生态系统太棒了。
 
 过去安装一个 jQuery 插件要找到它的官网，下载下来，拷贝到你的项目目录，加一个 `<script>` 标签，然后期望记得每过几个月检查一下新版本。现在，安装和 React 包同样的插件只是 npm install 命令的问题。
 
 使用像 [styled-components](https://medium.freecodecamp.com/a-5-minute-intro-to-styled-components-41f40eb7cd55) 这样的新库，甚至 CSS 现在也被连带着尖叫着进入未来。
 
-相信我，一旦你习惯了这个一切都在说同一种语言的世界，就很难回到旧的做事方式了。
+相信我，一旦你习惯了那种全世界都在说的语言，那就很难再回归到以前的方式了。
 
 ### 不会有人想到用户！###
 
@@ -86,9 +86,9 @@ Chris 不十分相信，但我很确信。JavaScript 本身并不一定完美，
 
 此外还有一个小秘密：**你可以完全不引用 JavaScript 而获得 React 的所有优势**！
 
-我想说的是**服务端**渲染 React。事实上， 像 [Gatsby](https://github.com/gatsbyjs/gatsby)（还有 [Next.js](https://github.com/zeit/next.js/) 等等）这样的工具可以把你的 React 组建编译进静态 HTML 文件中，这样你可以托管在 GitHub pages 上面。
+我想说的是在**服务端**渲染 React。事实上， 像 [Gatsby](https://github.com/gatsbyjs/gatsby)（还有 [Next.js](https://github.com/zeit/next.js/) 等等）这样的工具可以把你的 React 组建编译进静态 HTML 文件中，这样你可以托管在 GitHub pages 上面。
 
-举个例子，[我自己的个人站点](http://sachagreif.com/) 就是一个 Gatsby-generated React 应用，没有加载任何的 JavaScript（除了一个 Google Analytics 片段）。 我在开发中获得了 React 的所有优势（全 JavaScript，拥抱 NPM 生态，styled-components 等），而最终得到了纯 HTML 和 CSS 的最终产品。
+举个例子，[我自己的个人站点](http://sachagreif.com/) 就是一个 Gatsby-generated React 应用，没有加载任何的 JavaScript（除了一个 Google Analytics 片段）。 我在开发中发挥了 React 的所有优势（全 JavaScript，拥抱 NPM 生态，styled-components 等），而最终得到了纯 HTML 和 CSS 的最终产品。
 
 ### 总结
 
