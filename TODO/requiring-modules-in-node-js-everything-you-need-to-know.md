@@ -1,49 +1,49 @@
 > * 原文地址：[Requiring modules in Node.js: Everything you need to know](https://medium.freecodecamp.com/requiring-modules-in-node-js-everything-you-need-to-know-e7fbd119be8#.wcrwm9c81)
 > * 原文作者：本文已获原作者 [Samer Buna](https://medium.freecodecamp.com/@samerbuna) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
-> * 校对者：
+> * 译者：[zhouzihanntu](https://github.com/zhouzihanntu)
+> * 校对者：[lsvih](https://github.com/lsvih), [reid3290](https://github.com/reid3290)
 
-# Requiring modules in Node.js: Everything you need to know #
+# 关于在 Node.js 中引用模块，知道这些就够了 #
 
-## How modularity works in Node.js ##
+## Node.js 中模块化的工作原理 ##
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/2000/1*AL0-iuggGnBLSvSVvt0Xzw.png">
 
-Node uses two core modules for managing module dependencies:
+Node 提供了两个核心模块来管理模块依赖：
 
-- The `require` module, which appears to be available on the global scope — no need to `require('require')`.
-- The `module` module, which also appears to be available on the global scope — no need to `require('module')`.
+- `require` 模块在全局范围内可用，不需要写 `require('require')`.    
+- `module` 模块同样在全局范围内可用，不需要写 `require('module')`.
 
-You can think of the `require` module as the command and the `module` module as the organizer of all required modules.
+你可以将 `require` 模块理解为命令，将 `module` 模块理解为所有引入模块的组织者。
 
-Requiring a module in Node isn’t that complicated of a concept.
+在 Node 中引入一个模块其实并不是个多么复杂的概念。
 
 ```
 const config = require('/path/to/file');
 ```
 
-The main object exported by the `require` module is a function (as used in the above example). When Node invokes that `require()` function with a local file path as the function’s only argument, Node goes through the following sequence of steps:
+`require` 模块导出的主对象是一个函数（如上例）。当 Node 将本地文件路径作为唯一参数调用 `require()` 时，Node 将执行以下步骤：
 
-- **Resolving**: To find the absolute path of the file.
-- **Loading**: To determine the type of the file content.
-- **Wrapping**: To give the file its private scope. This is what makes both the `require` and `module` objects local to every file we require.
-- **Evaluating**: This is what the VM eventually does with the loaded code.
-- **Caching**: So that when we require this file again, we don’t go over all the steps another time.
+- **解析**：找到该文件的绝对路径。
+- **加载**：确定文件内容的类型。
+- **打包**：为文件划分私有作用域，这样 `require` 和 `module` 两个对象对于我们要引入的每个模块来说就都是本地的。
+- **评估**：最后由虚拟机对加载得到的代码做评估。
+- **缓存**：当再次引用该文件时，无需再重复以上步骤。
 
-In this article, I’ll attempt to explain with examples these different stages and how the affect the way we write modules in Node.
+ 在本文中，我将尝试举例说明这些不同阶段的工作原理，以及它们是如何影响我们在 Node 中编写模块的方式的。
 
-Let me first create a directory to host all the examples using my terminal:
+我先使用终端创建一个目录来托管本文中的所有示例：
 
 ```
 mkdir ~/learn-node && cd ~/learn-node
 ```
 
-All the commands in the rest of this article will be run from within `~/learn-node`.
+ 之后的所有命令都将在 `~/learn-node` 目录下运行。
 
-#### Resolving a local path ####
+#### 解析本地路径 ####
 
-Let me introduce you to the `module` object. You can check it out in a simple REPL session:
+首先，让我来介绍一下 `module` 对象。你可以在一个简单的 REPL 会话中查看该对象：
 
 ```
 ~/learn-node $ node
@@ -55,22 +55,22 @@ Module {
   filename: null,
   loaded: false,
   children: [],
-  paths: [ ... ] }
+  paths: [ ... ]}
 ```
 
-Every module object gets an `id` property to identify it. This `id` is usually the full path to the file, but in a REPL session it’s simply `<repl>.`
+每个模块对象都有一个用于识别该对象的 `id` 属性。这个 `id` 通常是该文件的完整路径，但在 REPL 会话中只会显示为 `<repl>`。
 
-Node modules have a one-to-one relation with files on the file-system. We require a module by loading the content of a file into memory.
+Node 模块与文件系统中的文件有着一对一的关系。我们通过加载模块对应的文件内容到内存中来实现模块引用。
 
-However, since Node allows many ways to require a file (for example, with a relative path or a pre-configured path), before we can load the content of a file into the memory we need to find the absolute location of that file.
+然而，由于 Node 允许使用多种方式引入文件（例如，使用相对路径或预先配置的路径），我们需要在将文件的内容加载到内存前找到该文件的绝对位置。
 
-When we require a `'find-me'` module, without specifying a path:
+例如，我们不声明路径，直接引入一个 `'find-me'` 模块时：
 
 ```
 require('find-me');
 ```
 
-Node will look for `find-me.js` in all the paths specified by `module.paths` — in order.
+Node 会在 `module.paths` 声明的所有路径中依次查找 `find-me.js` 。
 
 ```
 ~/learn-node $ node
@@ -85,9 +85,9 @@ Node will look for `find-me.js` in all the paths specified by `module.paths` �
   '/usr/local/Cellar/node/7.7.1/lib/node' ]
 ```
 
-The paths list is basically a list of node_modules directories under every directory from the current directory to the root directory. It also includes a few legacy directories whose use is not recommended.
+Node 从当前目录开始一级级向上寻找 node_modules 目录，这个数组大致就是当前目录到所有 node_modules 目录的相对路径。其中还包括一些为了兼容性保留的目录，不推荐使用。
 
-If Node can’t find `find-me.js` in any of these paths, it will throw a “cannot find module error.”
+如果 Node 在以上路径中都无法找到 `find-me.js` ，将抛出一个 “找不到该模块” 错误。
 
 ```
 ~/learn-node $ node
@@ -105,10 +105,10 @@ Error: Cannot find module 'find-me'
     at REPLServer.onLine (repl.js:533:10)
 ```
 
-If you now create a local `node_modules` directory and put a `find-me.js` in there, the `require('find-me')` line will find it.
+如果你现在创建一个本地的 `node_modules` 目录，并向目录中添加一个 `find-me.js` 文件，就能通过 `require('find-me')` 找到它了。
 
 ```
-~/learn-node $ mkdir node_modules 
+~/learn-node $ mkdir node_modules
 
 ~/learn-node $ echo "console.log('I am not lost');" > node_modules/find-me.js
 
@@ -119,14 +119,14 @@ I am not lost
 >
 ```
 
-If another `find-me.js` file existed in any of the other paths, for example, if we have a `node_modules` directory under the home directory and we have a different `find-me.js` file in there:
+如果在其他路径下也有 `find-me.js` 文件呢？例如，我们在主目录下的 `node_modules` 目录中放置一个不同的 `find-me.js` 文件：
 
 ```
 $ mkdir ~/node_modules
 $ echo "console.log('I am the root of all problems');" > ~/node_modules/find-me.js
 ```
 
-When we `require('find-me')` from within the `learn-node` directory — which has its own `node_modules/find-me.js`, the `find-me.js` file under the home directory will not be loaded at all:
+当我们在 `learn-node` 目录下执行 `require('find-me')` 时，`learn-node` 目录会加载自己的 `node_modules/find-me.js`，主目录下的 `find-me.js` 文件并不会被加载：
 
 ```
 ~/learn-node $ node
@@ -136,7 +136,7 @@ I am not lost
 >
 ```
 
-If we remove the local `node_modules` directory under `~/learn-node` and try to require `find-me` one more time, the file under the home’s `node_modules` directory would be used:
+此时，如果我们将 `~/learn-node` 下的 `node_modules` 移除，再一次引入 `find-me` 模块，那么主目录下的 `node_modules` 将会被加载：
 
 ```
 ~/learn-node $ rm -r node_modules/
@@ -148,9 +148,9 @@ I am the root of all problems
 >
 ```
 
-#### Requiring a folder ####
+#### 引入文件夹 ####
 
-Modules don’t have to be files. We can also create a `find-me` folder under `node_modules` and place an `index.js` file in there. The same `require('find-me')` line will use that folder’s `index.js` file:
+模块不一定是单个文件。我们也可以在 `node_modules` 目录下创建一个 `find-me` 文件夹，然后向其中添加一个 `index.js` 文件。`require('find-me')` 会引用该文件夹下的 `index.js` 文件：
 
 ```
 ~/learn-node $ mkdir -p node_modules/find-me
@@ -164,9 +164,9 @@ Found again.
 >
 ```
 
-Note how it ignored the home directory’s `node_modules` path again since we have a local one now.
+>注意，由于我们现在有一个本地目录，它再次忽略了主目录的 `node_modules` 路径。
 
-An `index.js` file will be used by default when we require a folder, but we can control what file name to start with under the folder using the `main` property in `package.json`. For example, to make the `require('find-me')` line resolve to a different file under the `find-me` folder, all we need to do is add a `package.json` file in there and specify which file should be used to resolve this folder:
+当我们引入一个文件夹时，将默认使用 `index.js` 文件，但是我们可以通过 `package.json` 中的 `main` 属性指定主入口文件。例如，要令 `require('find-me')` 解析到 `find-me` 文件夹下的另一个文件，我们只需要在该文件夹下添加一个 `package.json` 文件来声明解析该文件夹时引用的文件：
 
 ```
 ~/learn-node $ echo "console.log('I rule');" > node_modules/find-me/start.js
@@ -180,9 +180,9 @@ I rule
 >
 ```
 
-#### require.resolve ####
+#### require.resolve 方法 ####
 
-If you want to only resolve the module and not execute it, you can use the `require.resolve` function. This behaves exactly the same as the main `require` function, but does not load the file. It will still throw an error if the file does not exist and it will return the full path to the file when found.
+如果你只想解析模块而不运行，此时可以使用 `require.resolve` 函数。这个方法与 `require` 的主要功能完全相同，但是不加载文件。如果文件不存在，它仍会抛出错误；如果找到了文件，则会返回文件的完整路径。
 
 ```
 > require.resolve('find-me');
@@ -202,34 +202,34 @@ Error: Cannot find module 'not-there'
 >
 ```
 
-This can be used, for example, to check whether an optional package is installed or not and only use it when it’s available.
+这个方法可以用于检查一个可选安装包是否安装，并仅在该包可用时使用。
 
-#### Relative and absolute paths ####
+#### 相对路径和绝对路径 ####
 
-Besides resolving modules from within the `node_modules` directories, we can also place the module anywhere we want and require it with either relative paths (`./` and `../`) or with absolute paths starting with `/`.
+除了从 `node_modules` 目录中解析模块以外，我们还可以将模块放置在任意位置，使用相对路径（ `./` 和 `../` ）或以 `/` 开头的绝对路径引入。
 
-If, for example, the `find-me.js` file was under a `lib` folder instead of the `node_modules` folder, we can require it with:
+举个例子，如果 `find-me.js` 文件并不在 `node_modules` 中，而在 `lib` 文件夹中。我们可以使用以下代码引入它：
 
 ```
 require('./lib/find-me');
 ```
 
-#### Parent-child relation between files ####
+#### 文件间的父子关系 ####
 
-Create a `lib/util.js` file and add a `console.log` line there to identify it. Also, `console.log` the `module` object itself:
+现在我们来创建一个 `lib/util.js` 文件，向文件添加一行 `console.log` 代码作为标识。打印出 `module` 对象本身：
 
 ```
 ~/learn-node $ mkdir lib
 ~/learn-node $ echo "console.log('In util', module);" > lib/util.js
 ```
 
-Do the same for an `index.js` file, which is what we’ll be executing with the node command. Make this `index.js` file require `lib/util.js`:
+同样的，向 `index.js` 文件中也添加一行打印 `module` 对象的代码，并在文件中引入 `lib/util.js`，我们将使用 node 命令运行该文件：
 
 ```
 ~/learn-node $ echo "console.log('In index', module); require('./lib/util');" > index.js
 ```
 
-Now execute the `index.js` file with node:
+用 node 运行 `index.js` 文件：
 
 ```
 ~/learn-node $ node index.js
@@ -259,25 +259,26 @@ In util Module {
   paths: [...] }
 ```
 
-Note how the main `index` module `(id: '.')` is now listed as the parent for the `lib/util` module. However, the `lib/util` module was not listed as a child of the `index` module. Instead, we have the `[Circular]` value there because this is a circular reference. If Node prints the `lib/util` module object, it will go into an infinite loop. That’s why it simply replaces the `lib/util` reference with `[Circular]`.
+>注意：`index` 主模块 `(id: '.')` 现在被列为 `lib/util` 模块的父模块。但 `lib/util` 模块并没有被列为 `index` 模块的子模块。相反，我们在这里得到的值是 `[Circular]`，因为这是一个循环引用。如果 Node 打印 `lib/util` 模块对象，将进入一个无限循环。 因此 Node 使用 `[Circular]` 代替了 `lib/util` 引用。
 
-More importantly now, what happens if the `lib/util` module required the main `index` module? This is where we get into what’s known as the circular modular dependency, which is allowed in Node.
 
-To understand it better, let’s first understand a few other concepts on the module object.
+重点来了，如果我们在 `lib/util` 模块中引入 `index` 主模块会发生什么？这就是 Node 中所支持的循环依赖。
 
-#### exports, module.exports, and synchronous loading of modules ####
+为了更好理解循环依赖，我们先来了解一些关于 module 对象的概念。
 
-In any module, exports is a special object. If you’ve noticed above, every time we’ve printed a module object, it had an exports property which has been an empty object so far. We can add any attribute to this special exports object. For example, let’s export an id attribute for `index.js` and `lib/util.js`:
+#### exports、module.exports 和模块异步加载 ####
+
+在所有模块中，exports 都是一个特殊对象。你可能注意到了，以上我们每打印一个 module 对象时，它都有一个空的 exports 属性。我们可以向这个特殊的 exports 对象添加任意属性。例如，我们现在为 `index.js` 和 `lib/util.js` 的 exports 对象添加一个 id 属性：
 
 ```
-// Add the following line at the top of lib/util.js
+// 在 lib/util.js 顶部添加以下代码
 exports.id = 'lib/util';
 
-// Add the following line at the top of index.js
+// 在 index.js 顶部添加以下代码
 exports.id = 'index';
 ```
 
-When we now execute `index.js`, we’ll see these attributes as managed on each file’s `module` object:
+然后运行 `index.js`，我们将看到：
 
 ```
 ~/learn-node $ node index.js
@@ -299,15 +300,15 @@ In util Module {
   ... }
 ```
 
-I’ve removed some attributes in the above output to keep it brief, but note how the `exports` object now has the attributes we defined in each module. You can put as many attributes as you want on that exports object, and you can actually change the whole object to be something else. For example, to change the exports object to be a function instead of an object, we do the following:
+为了保持示例简短，我删除了以上输出中的一些属性，但请注意：`exports` 对象现在拥有我们在各模块中定义的属性。你可以向 exports 对象添加任意多的属性，也可以直接将整个 exports 对象替换为其它对象。例如，我们可以通过以下方式将 exports 对象更改为一个函数：
 
 ```
-// Add the following line in index.js before the console.log 
+// 将以下代码添加在 index.js 中的 console.log 语句前
 
 module.exports = function() {};
 ```
 
-When you run `index.js` now, you’ll see how the `exports` object is a function:
+再次运行 `index.js`，你将看到 `exports` 对象是一个函数：
 
 ```
 ~/learn-node $ node index.js
@@ -318,9 +319,9 @@ In index Module {
   ... }
 ```
 
-Note how we did not do `exports = function() {}` to make the `exports` object into a function. We can’t actually do that because the `exports` variable inside each module is just a reference to `module.exports` which manages the exported properties. When we reassign the `exports` variable, that reference is lost and we would be introducing a new variable instead of changing the `module.exports` object.
+>注意：我们并没有使用 `exports = function() {}` 来将 `exports` 对象更改为函数。实际上，由于各模块中的 `exports` 变量仅仅是对管理输出属性的 `module.exports` 的引用，当我们对 `exports` 变量重新赋值时，引用就会丢失，因此我们只需要引入一个新的变量，而不是对 `module.exports` 进行修改。
 
-The `module.exports` object in every module is what the `require` function returns when we require that module. For example, change the `require('./lib/util')` line in `index.js` into:
+各模块中的 `module.exports` 对象就是我们在引入该模块时 `require` 函数的返回值。例如，我们将 `index.js` 中的 `require('./lib/util')` 改为：
 
 ```
 const UTIL = require('./lib/util');
@@ -328,24 +329,24 @@ const UTIL = require('./lib/util');
 console.log('UTIL:', UTIL);
 ```
 
-The above will capture the properties exported in `lib/util` into the `UTIL` constant. When we run `index.js` now, the very last line will output:
+以上代码会将 `lib/util` 输出的属性赋值给 `UTIL` 常量。我们现在运行 `index.js`，最后一行将输出以下结果：
 
 ```
 UTIL: { id: 'lib/util' }
 ```
 
-Let’s also talk about the `loaded` attribute on every module. So far, every time we printed a module object, we saw a `loaded` attribute on that object with a value of `false`.
+我们再来谈谈各模块中的 `loaded` 属性。到目前为止我们打印的所有 module 对象中都有一个值为 `false` 的 `loaded` 属性。
 
-The `module` module uses the `loaded` attribute to track which modules have been loaded (true value) and which modules are still being loaded (false value). We can, for example, see the `index.js` module fully loaded if we print its `module` object on the next cycle of the event loop using a `setImmediate` call:
+`module` 模块使用 `loaded` 属性对模块的加载状态进行跟踪，判断哪些模块已经加载完成（值为 true）以及哪些模块仍在加载（值为 false）。例如，我们可以使用 `setImmediate` 在下一个事件循环中打印出它的 `module` 对象，以此来判断 `index.js` 模块是否已完全加载。
 
 ```
-// In index.js
+// index.js 中
 setImmediate(() => {
   console.log('The index.js module object is now loaded!', module)
 });
 ```
 
-The output of that would be:
+以上输出将得到：
 
 ```
 The index.js module object is now loaded! Module {
@@ -370,25 +371,25 @@ The index.js module object is now loaded! Module {
      '/node_modules' ] }
 ```
 
-Note how in this delayed `console.log` output both `lib/util.js` and `index.js` are fully loaded.
+>注意：这个延迟的 `console.log` 的输出显示了 `lib/util.js` 和 `index.js` 都已完全加载。
 
-The `exports` object becomes complete when Node finishes loading the module (and labels it so). The whole process of requiring/loading a module is *synchronous.* That’s why we were able to see the modules fully loaded after one cycle of the event loop.
+在 Node 完成加载模块（并标记为完成）时，`exports` 对象也就完成了。引入一个模块的整个过程是 **同步的**，因此我们才能在一个事件循环后看见模块被完全加载。
 
-This also means that we cannot change the `exports` object asynchronously. We can’t, for example, do the following in any module:
+这也意味着我们无法异步地更改 `exports` 对象。例如，我们在任何模块中都无法执行以下操作：
 
 ```
 fs.readFile('/etc/passwd', (err, data) => {
   if (err) throw err;
 
-  exports.data = data; // Will not work.
+  exports.data = data; // 无效
 });
 ```
 
-#### Circular module dependency ####
+#### 模块的循环依赖 ####
 
-Let’s now try to answer the important question about circular dependency in Node: What happens when module 1 requires module 2, and module 2 requires module 1?
+我们现在来回答关于 Node 中循环依赖的重要问题：当我们在模块1中引用模块2，在模块2中引用模块1时会发生什么？
 
-To find out, let’s create the following two files under `lib/`, `module1.js` and `module.js` and have them require each other:
+为了找到答案，我们在 `lib/` 下创建 `module1.js` 和 `module2.js` 两个文件并让它们互相引用：
 
 ```
 // lib/module1.js
@@ -406,24 +407,24 @@ const Module1 = require('./module1');
 console.log('Module1 is partially loaded here', Module1);
 ```
 
-When we run `module1.js` we see the following:
+执行 `module1.js` 后，我们将看到：
 
 ```
 ~/learn-node $ node lib/module1.js
 Module1 is partially loaded here { a: 1 }
 ```
 
-We required `module2` before `module1` was fully loaded, and since `module2` required `module1` while it wasn’t fully loaded, what we get from the `exports` object at that point are all the properties exported prior to the circular dependency. Only the `a` property was reported because both `b` and `c` were exported after `module2` required and printed `module1`.
+我们在 `module1` 加载完成前引用了 `module2`，而此时 `module1` 尚未加载完，我们从当前的 `exports` 对象中得到的是在循环依赖之前导出的所有属性。这里被列出的只有属性 `a`，因为属性 `b` 和 `c` 都是在 `module2` 引入并打印了 `module1` 后才导出的。
 
-Node keeps this really simple. During the loading of a module, it builds the `exports` object. You can require the module before it’s done loading and you’ll just get a partial exports object with whatever was defined so far.
+Node 使这个过程变得非常简单。它在模块加载时构建 `exports` 对象。你可以在该模块完成加载前引用它，而你将得到此时已定义的部分导出对象。
 
-#### JSON and C/C++ addons ####
+#### 使用 JSON 文件和 C/C++ 插件 ####
 
-We can natively require JSON files and C++ addon files with the require function. You don’t even need to specify a file extension to do so.
+我们可以使用自带的 require 函数引用 JSON 文件和 C++ 插件。你甚至不需要为此指定文件扩展名。
 
-If a file extension was not specified, the first thing Node will try to resolve is a `.js` file. If it can’t find a `.js` file, it will try a `.json` file and it will parse the `.json` file if found as a JSON text file. After that, it will try to find a binary `.node` file. However, to remove ambiguity, you should probably specify a file extension when requiring anything other than `.js` files.
+如果没有指定文件扩展名，Node 会在第一时间尝试解析 `.js` 文件。如果没有找到 `.js` 文件，它将继续寻找 `.json` 文件并在找到一个 JSON 文本文件后将其解析为 `.json` 文件。随后，Node 将会查找二进制的 `.node` 文件。为了避免产生歧义，你最好在引用除 `.js` 文件以外的文件类型时指定文件扩展名。
 
-Requiring JSON files is useful if, for example, everything you need to manage in that file is some static configuration values, or some values that you periodically read from an external source. For example, if we had the following `config.json` file:
+如果你需要在文件中放置的内容都是一些静态的配置信息，或者需要定期从外部来源读取一些值时，使用 JSON 文件将非常方便。例如，我们有以下 `config.json` 文件：
 
 ```
 {
@@ -432,28 +433,29 @@ Requiring JSON files is useful if, for example, everything you need to manage in
 }
 ```
 
-We can require it directly like this:
+我们可以这样直接引用它：
 
 ```
 const { host, port } = require('./config');
+
+console.log(`Server will run at [http://${host}:${port}](http://$%7Bhost%7D:$%7Bport%7D`));
+
 ```
 
-console.log(`Server will run at [http://${host}:${port}`](http://$%7Bhost%7D:$%7Bport%7D`));
+执行以上代码将输出以下结果：
 
-
-Running the above code will have this output:
-
-
+```
 Server will run at [http://localhost:8080](http://localhost:8080)
+```
 
 
-If Node can’t find a `.js` or a `.json` file, it will look for a `.node` file and it would interpret the file as a compiled addon module.
+如果 Node 找不到 `.js` 或 `.json` 文件，它会寻找 `.node` 文件并将其作为一个编译好的插件模块进行解析。
 
-The Node documentation site has a [sample addon file](https://nodejs.org/api/addons.html#addons_hello_world)  which is written in C++. It’s a simple module that exposes a `hello()` function and the hello function outputs “world.”
+Node 文档中有一个用 C++ 编写的[插件示例](https://nodejs.org/api/addons.html#addons_hello_world)，该示例模块提供了一个输出 “world” 的 `hello()` 函数。
 
-You can use the `node-gyp` package to compile and build the `.cc` file into a `.addon` file. You just need to configure a [binding.gyp](https://nodejs.org/api/addons.html#addons_building)  file to tell `node-gyp` what to do.
+你可以使用 `node-gyp` 插件将 `.cc` 文件编译成 `.addon` 文件。只需要配置一个 [binding.gyp](https://nodejs.org/api/addons.html#addons_building) 文件来告诉 `node-gyp` 要做什么。
 
-Once you have the `addon.node` file (or whatever name you specify in `binding.gyp`) then you can natively require it just like any other module:
+有了 `addon.node` 文件（你可以在 `binding.gyp` 中声明任意文件名），你就可以像引用其他模块一样引用它了。
 
 ```
 const addon = require('./addon');
@@ -461,41 +463,41 @@ const addon = require('./addon');
 console.log(addon.hello());
 ```
 
-We can actually see the support of the three extensions by looking at `require.extensions`.
+我们可以在 `require.extensions` 中查看 Node 对这三类扩展名的支持。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*IcpIrifyQIn9M0q8scMZdA.png">
 
-Looking at the functions for each extension, you can clearly see what Node will do with each. It uses `module._compile` for `.js` files, `JSON.parse` for `.json` files, and `process.dlopen` for `.node` files.
+你可以看到每个扩展名分别对应的函数，从中了解 Node 会对它们做出怎样的操作：对 `.js` 文件使用 `module._compile`，对 `.json` 文件使用 `JSON.parse`，对 `.node` 文件使用 `process.dlopen`。
 
-#### All code you write in Node will be wrapped in functions ####
+#### 你在 Node 中写的所有代码都将被封装成函数 ####
 
-Node’s wrapping of modules is often misunderstood. To understand it, let me remind you about the `exports`/`module.exports` relation.
+常常有人误解 Node 的模块封装。要了解它的原理，请回忆一下 `exports` 与 `module.exports` 的关系。
 
-We can use the `exports` object to export properties, but we cannot replace the `exports` object directly because it’s just a reference to `module.exports`
+我们可以使用 `exports` 对象导出属性，但是由于 `exports` 对象仅仅是对 `module.exports` 的一个引用，我们无法直接对其执行替换操作。
 
 ```
-exports.id = 42; // This is ok.
+exports.id = 42; // 有效
 
-exports = { id: 42 }; // This will not work.
+exports = { id: 42 }; // 无效
 
-module.exports = { id: 42 }; // This is ok.
+module.exports = { id: 42 }; // 有效
 ```
 
-How exactly does this `exports` object, which appears to be global for every module, get defined as a reference on the `module` object?
+这个 `exports` 对象看起来对所有模块都是全局的，它是如何被定义成 `module` 对象的引用的呢？
 
-Let me ask one more question before explaining Node’s wrapping process.
+在解释 Node 的封装过程前，让我们再来思考一个问题：
 
-In a browser, when we declare a variable in a script like this:
+在浏览器中，我们在脚本里声明如下变量：
 
 ```
 var answer = 42;
 ```
 
-That `answer` variable will be globally available in all scripts after the script that defined it.
+`answer` 变量对声明该变量的脚本后的所有脚本来说都是全局的。
 
-This is not the case in Node. When we define a variable in one module, the other modules in the program will not have access to that variable. So how come variables in Node are magically scoped?
+然而在 Node 中却不是这样的。我们在一个模块中定义了变量，项目中的其他模块却将无法访问该变量。那么 Node 是如何神奇地做到为变量限定作用域的呢？
 
-The answer is simple. Before compiling a module, Node wraps the module code in a function, which we can inspect using the `wrapper` property of the `module` module.
+答案很简单。在编译模块前，Node 就将模块代码封装在一个函数中，我们可以使用 `module` 模块的 `wrapper` 属性来查看。
 
 ```
 ~ $ node
@@ -505,13 +507,13 @@ The answer is simple. Before compiling a module, Node wraps the module code in a
 >
 ```
 
-Node does not execute any code you write in a file directly. It executes this wrapper function which will have your code in its body. This is what keeps the top-level variables that are defined in any module scoped to that module.
+Node 并不会直接执行你在文件中写入的代码。它执行的是封装着你的代码的函数。这就保证了所有模块中定义的顶级变量的作用域都被限定在该模块中。
 
-This wrapper function has 5 arguments: `exports`, `require`, `module`, `__filename`, and `__dirname`. This is what makes them appear to look global when in fact they are specific to each module.
+这个封装函数包含五个参数：`exports`、`require`、`module`、`__filename` 和 `__dirname`。这些参数看起来像是全局的，实际上却是每个模块特定的。
 
-All of these arguments get their values when Node executes the wrapper function. `exports` is defined as a reference to `module.exports` prior to that. `require` and `module` are both specific to the function to be executed, and `__filename`/`__dirname` variables will contain the wrapped module’s absolute filename and directory path.
+在 Node 执行封装函数的同时，以上这几个参数都获取到了它们的值。`exports` 被定义为对上一级 `module.exports` 的引用。`require` 和 `module` 都是特定于被执行函数的，而 `__filename`/`__dirname` 变量将包含被封装模块的文件名和目录的绝对路径。
 
-You can see this wrapping in action if you run a script with a problem on its first line:
+如果你在一个脚本的第一行编写一行错误代码并执行它，你就能看到实际的封装过程：
 
 ```
 ~/learn-node $ echo "euaohseu" > bad.js
@@ -523,9 +525,9 @@ You can see this wrapping in action if you run a script with a problem on its fi
 ReferenceError: euaohseu is not defined
 ```
 
-Note how the first line of the script as reported above was the wrapper function, not the bad reference.
+>注意：这里脚本第一行是作为封装函数中的代码报错的，而不是错误的引用。
 
-Moreover, since every module gets wrapped in a function, we can actually access that function’s arguments with the `arguments` keyword:
+此外，由于每个模块都被封装在一个函数中，我们可以使用 `arguments` 关键字访问该函数的参数：
 
 ```
 ~/learn-node $ echo "console.log(arguments)" > index.js
@@ -559,29 +561,29 @@ Moreover, since every module gets wrapped in a function, we can actually access 
   '4': '/Users/samer' }
 ```
 
-The first argument is the `exports` object, which starts empty. Then we have the `require`/`module` objects, both of which are instances that are associated with the `index.js` file that we’re executing. They are not global variables. The last 2 arguments are the file’s path and its directory path.
+第一个参数是 `exports` 对象，初始值为空。`require`/`module` 对象都与当前执行的 `index.js` 文件的实例关联。它们不是全局变量。最后两个参数分别为当前文件路径和目录路径。
 
-The wrapping function’s return value is `module.exports`. Inside the wrapped function, we can use the `exports` object to change the properties of `module.exports`, but we can’t reassign exports itself because it’s just a reference.
+封装函数的返回值是 `module.exports`。在封装函数中，我们可以使用 `exports` 对象更改 `module.exports` 的属性，但是由于它仅仅是一个引用，我们无法对其重新赋值。
 
-What happens is roughly equivalent to:
+情况大致如下：
 
 ```
 function (require, module, __filename, __dirname) {
   let exports = module.exports;
 
-  // Your Code...
+  // 你的代码…
 
   return module.exports;
 }
 ```
 
-If we change the whole `exports` object, it would no longer be a reference to `module.exports`. This is the way JavaScript reference objects work everywhere, not just in this context.
+如果我们更改了整个 `exports` 对象，它将不再是对 `module.exports` 的引用。并不仅仅是在这个上下文中，JavaScript 在任何情况下引用对象都是这样的。
 
-#### The require object ####
+#### require 对象 ####
 
-There is nothing special about `require`. It’s an object that acts mainly as a function that takes a module name or path and returns the `module.exports` object. We can simply override the `require` object with our own logic if we want to.
+`require` 没有什么特别的。它作为一个函数对象，接收一个模块名称或路径，返回 `module.exports` 对象。我们也可以用我们自己的逻辑重写 `require` 对象。
 
-For example, maybe for testing purposes, we want every `require` call to be mocked by default and just return a fake object instead of the required module exports object. This simple reassignment of require will do the trick:
+举个例子，为了测试的目的，我们希望每个 `require` 的调用都返回一个伪造的 mocked 对象，而不是引用的模块所导出的对象。这个对 require 的简单重新赋值会这样实现：
 
 ```
 require = function() {
@@ -591,16 +593,16 @@ require = function() {
 }
 ```
 
-After doing the above reassignment of `require`, every `require('something') `call in the script will just return the mocked object.
+经过以上对 `require` 重新赋值后，脚本中的每个 `require('something')` 调用都会返回 mocked 对象。
 
-The require object also has properties of its own. We’ve seen the `resolve` property, which is a function that performs only the resolving step of the require process. We’ve also seen `require.extensions` above.
+require 对象也有它自己的属性。我们已经认识了 `resolve` 属性，它是在 require 过程中负责解析步骤的函数。我们也见识了 `require.extensions`。
 
-There is also `require.main` which can be helpful to determine if the script is being required or run directly.
+还有 `require.main` 属性，有助于判断当前脚本是正被引用还是直接执行。
 
-Say, for example, that we have this simple `printInFrame` function in `print-in-frame.js`:
+举个例子，我们在 `print-in-frame.js` 中定义一个简单的 `printInFrame` 函数：
 
 ```
-// In print-in-frame.js
+// 在 print-in-frame.js 中
 
 const printInFrame = (size, header) => {
   console.log('*'.repeat(size));
@@ -609,19 +611,19 @@ const printInFrame = (size, header) => {
 };
 ```
 
-The function takes a numeric argument `size` and a string argument `header` and it prints that header in a frame of stars controlled by the size we specify.
+该函数使用一个数字型参数 `size` 和一个字符串型参数 `header`，并在我们指定大小的星号框中将标题打印出来。
 
-We want to use this file in two ways:
+我们希望通过两种方式执行该文件：
 
-1. From the command line directly like this:
+1. 在命令行下直接运行：
 
 ```
 ~/learn-node $ node print-in-frame 8 Hello
 ```
 
-Passing 8 and Hello as command line arguments to print “Hello” in a frame of 8 stars.
+将 8 和 Hello 作为命令行参数，打印出由8个星号组成的框以及 “Hello”。
 
-2. With `require`. Assuming the required module will export the `printInFrame` function and we can just call it:
+2. 使用 `require`。假设被引用的模块会导出 `printInFrame` 函数，我们可以这样调用它：
 
 ```
 const print = require('./print-in-frame');
@@ -629,22 +631,22 @@ const print = require('./print-in-frame');
 print(5, 'Hey');
 ```
 
-To print the header “Hey” in a frame of 5 stars.
+打印由五个星号组成的框以及其中的标题 “Hey”。
 
-Those are two different usages. We need a way to determine if the file is being run as a stand-alone script or if it is being required by other scripts.
+以上是两种不同的用法。我们需要一种方法来确定该文件是作为独立脚本运行还是被其他脚本引用时运行。
 
-This is where we can use this simple if statement:
+此时我们可以使用简单的 if 声明语句：
 
 ```
 if (require.main === module) {
-  // The file is being executed directly (not with require)
+  // 该文件正被直接运行
 }
 ```
 
-So we can use this condition to satisfy the usage requirements above by invoking the printInFrame function differently:
+所以我们可以使用该条件判断来满足上述使用需求，通过不同的方式调用 printInFrame 函数。
 
 ```
-// In print-in-frame.js
+// 在 print-in-frame.js 中
 
 const printInFrame = (size, header) => {
   console.log('*'.repeat(size));
@@ -659,32 +661,33 @@ if (require.main === module) {
 }
 ```
 
-When the file is not being required, we just call the `printInFrame` function with `process.argv` elements. Otherwise, we just change the `module.exports` object to be the `printInFrame` function itself.
+如果文件不是被引用的，我们使用 `process.argv` 的参数来调用 `printInFrame` 函数。否则我们就将 `module.exports` 对象替换为 `printInFrame` 函数。
 
-#### All modules will be cached ####
+#### 所有模块都将被缓存 ####
 
-Caching is important to understand. Let me use a simple example to demonstrate it.
+理解缓存非常重要。下面我用一个简单的例子来演示一下。
 
-Say that you have the following `ascii-art.js` file that prints a cool looking header:
+假设你有以下 `ascii-art.js` 文件，它能打印出一个很酷的标题：
+
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*yZ57VtXUuEo-nQSs9VztvQ.png">
 
-We want to display this header every time we *require* the file. So when we require the file twice, we want the header to show up twice.
+我们希望在每次 **引用** 该文件时都显示这个标题。因此如果我们引用了两次该文件，我们希望标题显示两次。
 
 ```
-require('./ascii-art') // will show the header.
-require('./ascii-art') // will not show the header.
+require('./ascii-art') // 显示标题
+require('./ascii-art') // 不显示标题
 ```
 
-The second require will not show the header because of modules’ caching. Node caches the first call and does not load the file on the second call.
+由于模块缓存，第二次的引用将不会显示标题。Node 会在第一次调用时进行缓存，在第二次调用时不再加载文件。
 
-We can see this cache by printing `require.cache` after the first require. The cache registry is simply an object that has a property for every required module. Those properties values are the `module` objects used for each module. We can simply delete a property from that `require.cache` object to invalidate that cache. If we do that, Node will re-load the module to re-cache it.
+我们可以通过在第一次引用后打印 `require.cache` 来查看缓存。管理缓存的是一个对象，它的属性值分别对应引用过的模块。这些属性值即用于各模块的 `module` 对象。我们可以通过简单地从 `require.cache` 对象中删除一个属性来令该缓存失效，然后 Node 就会再次加载并缓存该模块。
 
-However, this is not the most efficient solution for this case. The simple solution is to wrap the log line in `ascii-art.js` with a function and export that function. This way, when we require the `ascii-art.js` file, we get a function that we can execute to invoke the log line every time:
+然而，这并不是应对这种情况最高效的解决方案。简单的解决办法是将 `ascii-art.js` 中的打印代码用一个函数封装起来并导出该函数。通过这种方式，每当我们引用 `ascii-art.js` 文件时，我们就能获取到一个可执行函数，以供我们多次调用打印代码：
 
 ```
-require('./ascii-art')() // will show the header.
-require('./ascii-art')() // will also show the header.
+require('./ascii-art')() // 显示标题
+require('./ascii-art')() // 显示标题
 ```
 
-That’s all I have for this topic. Until next time!
+以上就是我关于本次主题所要讲述的全部内容。回见！
