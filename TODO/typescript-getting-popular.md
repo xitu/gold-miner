@@ -1,28 +1,28 @@
 > * 原文地址：[Why TypeScript Is Growing More Popular](https://thenewstack.io/typescript-getting-popular/)
 > * 原文作者：[Mary Branscombe](https://thenewstack.io/author/marybranscombe/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
+> * 译者：[loveky](https://github.com/loveky)
 > * 校对者：
 
-# Why TypeScript Is Growing More Popular #
+# 为何 TypeScript 变得更加流行了？ #
 
 ![](https://cdn.thenewstack.io/media/2017/04/2fd01361-unnamed-1024x876.jpg)
 
-Why is [TypeScript](https://www.typescriptlang.org/) getting so popular? Key development frameworks depend on it and it improves developer productivity in the ever-changing JavaScript world.
+为何 [TypeScript](https://www.typescriptlang.org/) 这么流行呢？主要的开发框架依赖于它，它还可以提高开发人员在不断变化的 JavaScript 世界中的生产力。
 
-The recent [Stack Overflow Developer Survey](https://stackoverflow.com/insights/survey/2017#technology) and the annual [RedMonk](http://redmonk.com) programming [language rankings](https://redmonk.com/sogrady/2017/03/17/language-rankings-1-17/) both showed that [TypeScript](https://www.thenewstack.io/tag/TypeScript) — the open source project started by Microsoft to combine transpiling for advanced JavaScript features with static type checking and tooling — is reaching new heights of popularity. By providing[ minimal checking syntax on top of JavaScript](https://medium.com/@tomdale/glimmer-js-whats-the-deal-with-typescript-f666d1a3aad0), TypeScript allows developers to type check their code, which can [reveal bugs and generally improve the organization and documentation](https://slack.engineering/typescript-at-slack-a81307fa288d) of large JavaScript code bases.
+在最近的 [Stack Overflow 开发者问卷](https://stackoverflow.com/insights/survey/2017#technology)以及年度[RedMonk](http://redmonk.com)编程[语言排名](https://redmonk.com/sogrady/2017/03/17/language-rankings-1-17/)中都显示 [TypeScript](https://www.thenewstack.io/tag/TypeScript) —— 由微软发起的结合了编译高级 JavaScript 特性与静态类型检查及工具的开源项目 —— 正在达到新的人气高度。通过为 JavaScript 提供[最基本的检查语法](https://medium.com/@tomdale/glimmer-js-whats-the-deal-with-typescript-f666d1a3aad0)，TypeScript 允许开发人员对他们的代码进行类型检查，这可以暴露 bug 并改善大型 JavaScript 代码库的结构和文档。
 
-Nine and a half percent of the developers Stack Overflow surveyed are using TypeScript, making it the ninth most popular language, just ahead of Ruby and twice as popular with that audience as Perl. Stack Overflow reaches a diverse audience in this survey; the top two languages used are JavaScript and SQL, so this survey isn’t just querying front end development. In fact, TypeScript coders show up in all four of the job roles Stack Overflow asks about; web developers, desktop developers, admins and DevOps, and data scientists.
+参与了 Stack Overflow 问卷的开发人员中有9.5% 的人正在使用 TypeScript，这使得 TypeScript 成为了第九流行的编程语言。排名在 Ruby 之前，用户量是 Perl 的两倍。此次 Stack Overflow 问卷中的受访者来自不同领域；使用最广泛的两种语言是 JavaScript 和 SQL，这说明此次问卷并非只针对前端开发领域。事实上，TypeScript 程序员出现在了参与 Stack Overflow 问卷的所有4种工作角色中；web 开发人员、桌面开发人员、系统管理员与 DevOps 以及数据科学家。
 
-RedMonk’s rankings combine the Stack Overflow numbers with GitHub pull requests to find out what developers are thinking about, as well as what they’re using. TypeScript has also gained popularity with this audience of developers, moving from 26 to 17 in the rankings. Some of that is down to interest on Stack Overflow, but mostly it’s because of the increased developer involvement on GitHub.
+RedMonk 的排名将 Stack Overflow 的数据与 Github 上的 pull request 结合起来试图理解开发人员的想法以及他们正在使用什么。TypeScript 同样受到了开发者的欢迎，排名从26位上升到了17位。其中一部分原因是 Stack Overflow 上关注度的提升，但主要还是因为在 GitHub 上参与的开发者在不断增多。
 
-Indeed, GitHub’s own 2016 [State of the Octoverse](https://octoverse.github.com/) puts TypeScript as the 15th most popular of the 316 programming languages developers use for projects on GitHub (based on both the number of pull requests and the 250 percent increase in pull requests for TypeScript over the previous year).
+的确，GitHub 在自己的2016[年度八卦](https://octoverse.github.com/)中把 TypeScript 列为在 GitHub 上用于项目开发的316中编程语言中最受欢迎榜单的第15位（基于 pull request 的数量以及相较与前一年 pull request 250%的增长率）。
 
-TypeScript also has both the highest usage (21 percent) and the highest interest among those not yet using it (39 percent) among the various “alternative” JavaScript [flavors](http://stateofjs.com/2016/flavors/) in another survey of developers. The methodology of this survey is unusual — it rather strangely conflates transpilers with package managers like [npm](https://www.npmjs.com/) and [Bower](https://bower.io/) — but the developers who responded to the survey and use TypeScript also commonly use [ECMAScript 2015](http://www.ecma-international.org/ecma-262/6.0/), [NativeScript](https://www.nativescript.org/), [Angular](https://angular.io/), and especially Angular2.
+在另一个针对开发者的调查中，TypeScript 在众多 JavaScript 的『替代』[风格](http://stateofjs.com/2016/flavors/)中拥有最高的使用率（21%）以及尚未的用户中最高的关注度（39%）。这项调查的方式不同寻常 —— 它很奇怪的将转译器和包管理器（如 [npm](https://www.npmjs.com/) 和 [Bower](https://bower.io/)）混合在一起 —— 但参与了这项调查且经常使用 TypeScript 的开发者也经常使用 [ECMAScript 2015](http://www.ecma-international.org/ecma-262/6.0/)、[NativeScript](https://www.nativescript.org/)、[Angular](https://angular.io/)，尤其是 Angular2。
 
-RedMonk’s [Stephen O’Grady ](http://redmonk.com/team/stephen-ogrady/)notes that “it seems reasonable to suspect that Angular is playing a role” in the increasing popularity of TypeScript. Angular2 is just one of the projects that has adopted TypeScript though (Asana and Dojo already used it, as do internal projects at Adobe, Google, Palantir, SitePen and eBay). But it might be the best known — with Google employees like Rob Wormald [@robwormald] evangelizing TypeScript alongside Angular.
+来自 RedMonk 的 [Stephen O’Grady](http://redmonk.com/team/stephen-ogrady/) 指出『似乎有理由相信 Angular』在 TypeScript 的日益普及中发挥了作用。Angular2 只是众多使用了 TypeScript 的项目中的一个（Asana 和 Dojo 已经在使用了，Adobe、Google、Palantir、SitePen 以及 eBay 的一些内部项目也是一样）。但最为人们所熟知的，恐怕还是像 [Rob Wormald](https://twitter.com/robwormald) 这样的 Google 员工在宣传 Angular 时顺带推广了 TypeScript。
 
-## Not Just Angular2 ##
+## 不止是 Angular2 ##
 
 “There’s no doubt the partnership that we have with the Angular team has helped drive the numbers,” core TypeScript developer [Anders Hejlsberg ](https://twitter.com/ahejlsberg?lang=en)told The New Stack. “That goes without saying; but even so, I think the real point is that it was a massive vote of confidence on the part of an important industry force.”
 
