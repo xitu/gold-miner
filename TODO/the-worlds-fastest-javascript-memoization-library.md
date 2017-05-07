@@ -103,7 +103,7 @@ The goal here is to let the computer do the heavy lifting for us!
 序列化器基于给定的输入输出一个字符串。它必须是一个确定性算法，意味着对相同的输入，总是给出相同的输出。
 序列化器生成的字符串用作缓存的key，代表记忆化函数的输入。
 `JSON.stringify` 是实现它性能最佳的方式，比其它方式的都好 -- 这也很容易理解，因为 `JSON.stringify` 是原生的。
-我尝试使用 bound `JSON.stringify`（JSON.stringify.bind(null)，译者注），希望通过减少一次变量查找来提高性能，但很遗憾没有效果。
+我尝试使用 bound `JSON.stringify`（`bar = foo.bind(null)`，此时 `bar.name` 为 `bound foo`，译者注），希望通过减少一次变量查找来提高性能，但很遗憾没有效果。
 想在本地执行，可以执行命令 `npm run benchmark:serializer`，实现的具体代码可以在[项目的 GitHub 页面](https://github.com/caiogondim/fast-memoize.js/tree/master/benchmark/serializer)找到。
 
 ![变量序列化器](https://blog-assets.risingstack.com/2017/01/variable-serializer.png)
