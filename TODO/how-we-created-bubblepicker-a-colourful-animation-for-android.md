@@ -68,11 +68,17 @@ Also, later in this article we’ll explain our choice of programming language (
 
 To begin with, it’s important to understand that the building block in OpenGL is a triangle since it’s the simplest shape that can approximate other shapes. Any shape that you create in OpenGL will consist of one or more triangles. To implement our animation we used two combined triangles for every body, so it looks like a square, where I can draw the circle.
 
+在开始的时候，我们需要先理解 OpenGL 中的构建快是三角形，因为三角形是能够模拟成其他形状中最简单的形状。你在 OpenGL 中创建出的任何形状，都包含了一个或多个三角形。为了实现动画，我们为每个动画体使用了两个组合三角形，所以看起来像个正方形，我们可以在里面画圆。
+
 To render a shape you need to write at least two shaders – a vertex shader and a fragment shader. The difference between these two is evident by their names. A vertex shader is executed for each vertex of each triangle, while a fragment shader is executed for every pixel-sized part of the triangles. 
+
+渲染一个形状至少需要写两个着色器 - 一个顶点着色器和一个片段着色器。它们的名称已经体现了各自的不同。对每个三角形的每个顶点执行一个顶点着色器，而对三角形中的每个像素大小的部分则执行片段着色器。
 
 ![](http://images.yalantis.com/w736/uploads/ckeditor/pictures/2330/content_3.jpg)
 
 Vertex shaders are used to control transformations of the shape (e.g scaling, position, rotation), while fragment shaders are responsible for the color of the sample. 
+
+顶点着色器通常被用于控制形状（如缩放、位置、旋转），而片段着色器负责控制其颜色。
 
 ```
     // language=GLSL
@@ -108,7 +114,11 @@ Vertex shaders are used to control transformations of the shape (e.g scaling, po
 
 Shaders are written in GLSL (OpenGL Shading Language) and must be compiled at runtime. If you code in Java, the most convenient way to do that is to write your shaders in a separate file and retrieve them using an input stream. As you can see, Kotlin lets developers create shaders in classes more conveniently by putting any multiline code in triple quotes (""").
 
+着色器是使用 GLSL (OpenGL Shading Language) 编写的，必须在运行时编译。如果你用的是 Java 代码，最方便的方法是将你的着色器写到一个单独的文件中，然后使用输入流取回。如你所见，Kotlin 开发人员通过将任何多行代码放到三重引号（"""）中，更方便的在类中创建着色器。
+
 In GLSL there are several types of variables: 
+
+GLSL 有几种不同类型的变量：
 
 - Uniform variables hold the same value for all vertices and fragments
 
