@@ -34,23 +34,37 @@ Our component has a white background with lots of bright colors and graphics aga
 
 This high contrast is very helpful for apps rich in content, where users have to choose from a list of options. For example, in our concept we used bubbles to hold the names of potential destinations within a travel app. Bubbles float freely, and when a user taps on one of them, the tapped bubble grows in size.
 
-
+这种高反差对丰富应用的内容很有帮助，在这里用户不得不从一系列选项列表中做出选择。比如，在我们的概念中，我们在旅行应用中使用气泡来持有潜在的目的地名称。气泡在自由的漂浮，当用户点击其中一个时，那个气泡就会变大。
 
 ![](https://yalantis-com-dev-06-09.s3.amazonaws.com/uploads/ckeditor/pictures/2329/content_discover_animation.gif)
 
 Moreover, we provide developers with the opportunity to customize the elements of the screen to make the animation suit any app.  
 
+此外，开发者可以通过自定义屏幕中的元素使得动画适配任何应用。
+
 While working on this animation we had to deal with the following five challenges:
+
+当我们在制作这个动画的同时，我们要面对下面五个挑战：
 
 ### **1. Choosing the optimal development tools** ###
 
+### **1. 选择最佳开发工具** ###
+
 It became clear to us that rendering such a fast animation on Canvas wouldn’t be efficient enough, so we decided to use OpenGL (Open Graphics Library). OpenGL is a cross-platform application programming interface for 2D and 3D graphics rendering. Fortunately, Android supports some versions of OpenGL.
+
+我们都清楚，在 Canvas 上执行这么快的动画效率不够高，所以我们决定使用OpenGL (Open Graphics Library)。 OpenGL 是一个提供 2D 或 3D 图形渲染的、跨平台的应用程序接口。幸运的是，Android 支持一些 OpenGL 的版本。
 
 We needed to make our circles move naturally, just as gas bubbles do in a fizzy drink. There are plenty of physics engines available for Android, but we had specific requirements that made it significantly more difficult to make a choice: the engine needed to be lightweight and easy to embed in the Android library. Most engines are developed for games and require you to adapt the project structure to them. After some research we found JBox2D (a Java port of the Box2D engine written in C++); and since our animation isn’t supposed to be used with a great number of physical bodies (in other words it’s not designed for 200 or more objects) we could get away with using a Java port instead of the original engine.
 
+我们需要让圆更加的自然，就像是汽水中的气泡。有很多物理引擎可用于 Android，但是我们有更特别的需求使得很难选择：这个引擎必须轻量而且方便嵌入 Android 库中。大多数引擎都是为游戏开发的，你必须使工程机构适应它们。经过一些研究，我们发现 JBox2D (一个使用 C++ 开发的、 Java 端口的 Box2D 引擎)；因为我们的动画并不支持很多数量的物理体（换句话说，它不是为了200+的对象设计的），我们可以使用 Java 端口而不是原生引擎。
+
 Also, later in this article we’ll explain our choice of programming language (Kotlin) and talk about the advantages of this new language.To find out more about the difference between Java and Kotlin you can read our review in [our previous article](https://yalantis.com/blog/kotlin-vs-java-syntax/).
 
+另外，在本文的后面我们会解释为何选择了 Kotlin 语言编写，我们会谈到它的优势。想要了解 Java 与 Kotlin 更多的区别，请访问[之前的文章](https://yalantis.com/blog/kotlin-vs-java-syntax/)。
+
 ### **2. Creating shaders** ###
+
+### **2. 创建着色器** ###
 
 To begin with, it’s important to understand that the building block in OpenGL is a triangle since it’s the simplest shape that can approximate other shapes. Any shape that you create in OpenGL will consist of one or more triangles. To implement our animation we used two combined triangles for every body, so it looks like a square, where I can draw the circle.
 
