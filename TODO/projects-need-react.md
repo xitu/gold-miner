@@ -2,13 +2,13 @@
 > * 原文作者：[SACHA GREIF](https://css-tricks.com/author/sachagreif/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[sunui](https://github.com/sunui)
-> * 校对者：
+> * 校对者：[LeviDing](https://github.com/leviding)、[Shangbin Yang](https://github.com/rccoder)
 
 # 哪些项目需要 React？都需要！#
 
-项目什么时候需要 React 框架呢？这是 Chris Coyier 在[最近一篇博文](https://github.com/xitu/gold-miner/blob/master/TODO/project-need-react.md)中的问题。我是 Chris 博客的粉丝，所以我好奇地看到了他不得不说的话。
+项目什么时候需要 React 框架呢？这是 Chris Coyier 在[最近一篇博文](https://github.com/xitu/gold-miner/blob/master/TODO/project-need-react.md)中提出的问题。我是 Chris 博客的粉丝，所以我好奇地看到了他不得不说的话。
 
-简而言之，Chris 提出了一系列使用 React（或其他类似的当代 JavaScript 库）的优势和劣势。然而，虽然我并不反对他的观点，但我依然发现自己得出了不同的结论。
+简而言之，Chris 提出了一系列使用 React（或其他类似的当代 JavaScript 库）的优势和劣势。虽然我并不反对他的观点，但我依然发现自己得出了不同的结论。
 
 所以今天我想说的是，对于“项目什么时候需要 React 框架”的答案不是“要看情況”，而是“**任何时候**”。
 
@@ -60,7 +60,7 @@
 
 虽然 React 需要一些时间来习惯，但一旦了解了其[基本概念](https://medium.freecodecamp.com/the-5-things-you-need-to-know-to-understand-react-a1dbd5d114a3)，您就能像传统的前端工具一样快速上手。
 
-也许更多的是因为 React 利用了非常强大的**组件**概念。就像 CSS 鼓励你考虑可重用的类和样式一样，React 带来了一个灵活的模块化前端架构，从简单的静态主页到交互式后端仪表板，为每一个用例带来好处。
+也许更多的是因为 React 使用了非常强大的**组件**概念。就像 CSS 鼓励你考虑可重用的类和样式一样，React 带来了一个灵活的模块化前端架构，从简单的静态主页到交互式后端仪表板，为每一个用例带来好处。
 
 ### JavaScript， 随处都是 JavaScript ###
 
@@ -96,7 +96,7 @@ Chris 不十分相信，但我很确信。JavaScript 本身并不一定完美，
 
 - 即使是最简单的网站，也很难保证你永远不会需要交互功能，如标签、表单等。
 - React 基于组件的方式即使相比于基于内容的静态站，也有巨大的优势。
-- 访问现代 JavaScript 生态系统是又一个巨大的优势。
+- 拥抱现代 JavaScript 生态系统是又一个巨大的优势。
 - 现代服务端渲染工具可以消除终端用户使用 React 的劣势。
 
 所以 Chris，您觉得呢？我的观点否足够令人信服？还是您依然保持怀疑？
