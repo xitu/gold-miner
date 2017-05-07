@@ -68,7 +68,7 @@ The goal here is to let the computer do the heavy lifting for us!
 ```js
     // Keys 代表斐波那契函数的输入
     // Values 代表函数执行结果
-    const cache = {  
+    const cache = {
       5: 5,
       6: 8,
       7: 13
@@ -92,8 +92,8 @@ The goal here is to let the computer do the heavy lifting for us!
 ```js
     functionfoo(arg) { returnString(arg) }
 
-    foo({a: 1}) // => '[object Object]'  
-    foo({b: 'lorem'}) // => '[object Object]'  
+    foo({a: 1}) // => '[object Object]'
+    foo({b: 'lorem'}) // => '[object Object]'
 ```
 
 这就是为什么我们还需要一个序列化器，用它来生成参数的**指纹**（唯一标识，译者注）。它的速度越快越好。
@@ -115,7 +115,7 @@ The goal here is to let the computer do the heavy lifting for us!
 策略使用了**序列化器**和**缓存**，将两者结合起来。对 [fast-memoize.js](https://github.com/caiogondim/fast-memoize.js) 来说，策略是我花时间最多的部分。即使非常简单的算法，每一个版本迭代都有一些性能提升。
 以下是我先后尝试的方式：
 
-1. 普通方式 (初始版本) 
+1. 普通方式 (初始版本)
 2. 针对单个参数优化
 3. 参数推断
 4. 偏特化
@@ -128,7 +128,7 @@ The goal here is to let the computer do the heavy lifting for us!
 
 这是我第一次尝试，也是最简单的版本。步骤是：
 
-1. 序列化参数 
+1. 序列化参数
 2. 检查给定输入的输出是否已经计算过
 3. 如果`是`，从缓存中读取结果
 4. 如果`否`，计算，并且将结果保存到缓存中
@@ -156,11 +156,11 @@ The goal here is to let the computer do the heavy lifting for us!
 对已定义的函数，`function.length` 返回期望接受的参数个数。我们可以通过给策略 monadic（单参数函数）和 not-monadic，这样就避免了检查 `arguments.length === 1`。
 
 ```js
-    functionfoo(a, b) {  
+    functionfoo(a, b) {
       Return a + b
     }
-    foo.length // => 2  
-```    
+    foo.length // => 2
+```
 
 ![参数推断](https://blog-assets.risingstack.com/2017/01/infer-arity.png)
 
@@ -171,11 +171,11 @@ The goal here is to let the computer do the heavy lifting for us!
 我觉得大多数时间都花费在了变量查找上（？？？），起初我也没有好的想法去改善。灵机一动，我突然想到可以使用 `bind` 方法，通过偏函数应用的方法将变量注入到函数中。
 
 ```js
-    functionsum(a, b) {  
+    functionsum(a, b) {
       return a + b
     }
-    const sumBy2 = sum.bind(null, 2)  
-    sumBy2(3) // => 5  
+    const sumBy2 = sum.bind(null, 2)
+    sumBy2(3) // => 5
 ```
 
 这种方式可以将函数的某些参数固定下来。我用就它把**原函数**，**缓存**，和**序列化器**固定下来。就用它来试试吧！
@@ -196,10 +196,10 @@ V8 会更根据函数的调用频率、代码结构等因素，做很多运行�
 
 Legend:
 
-1. **策略**: 偏函数, **缓存**: 普通对象, **序列化器**: json-stringify 
-2. **策略**: 偏函数, **缓存**: 无原型对象, **序列化器**: json-stringify 
-3. **策略**: 偏函数, **缓存**: 无原型对象, **序列化器**: json-stringify-binded 
-4. **策略**: 偏函数, **缓存**: 普通对象, **序列化器**: json-stringify-binded 
+1. **策略**: 偏函数, **缓存**: 普通对象, **序列化器**: json-stringify
+2. **策略**: 偏函数, **缓存**: 无原型对象, **序列化器**: json-stringify
+3. **策略**: 偏函数, **缓存**: 无原型对象, **序列化器**: json-stringify-binded
+4. **策略**: 偏函数, **缓存**: 普通对象, **序列化器**: json-stringify-binded
 5. **策略**: 偏函数, **缓存**: Map, **序列化器**: json-stringify
 
 事实证明我们上面的分析是对的。最快的组合是：
@@ -238,7 +238,7 @@ V8有一个很新的、未发布的优化编译器 [TurboFan](http://v8project.b
 
 正如前V8工程师 [Vyacheslav Egorov](https://www.youtube.com/watch?v=g0ek4vV7nEA&amp;t=22s) 所言，在虚拟机上测试算法性能非常棘手。如果你发现测试中的错误，请在 [GitHub](https://github.com/caiogondim/fast-memoize.js/issues) 上提交 issue。
 
-The same goes for the library itself. Create an issue if you spotted anything wrong (issues with a failing test are appreciated). 
+The same goes for the library itself. Create an issue if you spotted anything wrong (issues with a failing test are appreciated).
 ？？？
 Pull requests with improvements are super appreciated!
 ？？？
