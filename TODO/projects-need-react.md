@@ -4,7 +4,7 @@
 > * 译者：[sunui](https://github.com/sunui)
 > * 校对者：[LeviDing](https://github.com/leviding)、[Shangbin Yang](https://github.com/rccoder)
 
-# 哪些项目需要 React？都需要！#
+# 哪些项目需要 React？都需要！
 
 项目什么时候需要 React 框架呢？这是 Chris Coyier 在[最近一篇博文](https://github.com/xitu/gold-miner/blob/master/TODO/project-need-react.md)中提出的问题。我是 Chris 博客的粉丝，所以我好奇他要说什么。
 
@@ -78,7 +78,7 @@ Chris 不是很相信，但我相信。JavaScript 本身并不一定完美，但
 
 相信我，一旦你习惯了那种全世界都在说的语言，那就很难再回归到以前的方式了。
 
-### 不会有人想到用户！###
+### 不会有人想到用户！
 
 我知道你在想什么：目前为止我一直在推销 React 给开发者带来的好处，却小心翼翼的提及终端用户的体验。
 
