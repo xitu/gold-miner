@@ -9,19 +9,24 @@
 
 太棒了，我们又来到新的一天。这一次，我们要学一些新的东西让今天变得有意思起来。
 
-大家好，希望你们都过得不错。这是我们的 RxJava2 Android 系列的第三篇文章[[第一部分](http://www.uwanttolearn.com/android/reactive-programming-android-rxjava2-hell-part1/), [第二部分](http://www.uwanttolearn.com/android/pull-vs-push-imperative-vs-reactive-reactive-programming-android-rxjava2-hell-part2/)]。在这篇文章中，我们将讨论函数式的接口，函数式编程，Lambda 表达式以及与 Java 8 的相关的其它内容。这对每个人近期都是有帮助的。
+大家好，希望你们都过得不错。这是我们的 RxJava2 Android 系列的第三篇文章.
+
+- [第一部分](http://www.uwanttolearn.com/android/reactive-programming-android-rxjava2-hell-part1/)
+- [第二部分](http://www.uwanttolearn.com/android/pull-vs-push-imperative-vs-reactive-reactive-programming-android-rxjava2-hell-part2/)
+
+在这篇文章中，我们将讨论函数式的接口，函数式编程，Lambda 表达式以及与 Java 8 的相关的其它内容。这对每个人近期都是有帮助的。
 
 **动机：**
 
-动机和我在分享[第一部分](http://www.uwanttolearn.com/android/reactive-programming-android-rxjava2-hell-part1/)时一致。Lambda 表达式，函数式编程，高阶函数等等总是让我在使用 Java 时很痛苦，因为大家都知道，Java 是面向对象编程的。所以，Java 怎么可能支持函数式编程。那么，在函数式编程里，Lambda 表达式的角色是什么呢？为了让所有问题变得简单明了，我会从函数式接口开始。重要的是，我向你们保证，只要你们 100% 看完这部分，你们将会对最近我们听到的所有名字都感觉自在很多。函数式接口，默认方法，纯函数，函数的副作用，高阶函数，可变的与不可变的，函数式编程与 Lambda 表达式。我觉得很多人最近都在使用 Lambda 表达式，但或许在读完这篇文章后，他们会更了解 Lambda 表达式。攻克难题的时刻到了。
+动机和我在分享[第一部分](http://www.uwanttolearn.com/android/reactive-programming-android-rxjava2-hell-part1/)时一致。Lambda 表达式、函数式编程、高阶函数等等总是让我在使用 Java 时很痛苦，因为大家都知道，Java 是面向对象编程的。所以，Java 怎么可能支持函数式编程。那么，在函数式编程里，Lambda 表达式的角色是什么呢？为了让所有问题变得简单明了，我会从函数式接口开始。重要的是，我向你们保证，只要你们 100% 看完这部分，你们将会对最近我们听到的所有名字都感觉自在很多。函数式接口，默认方法，纯函数，函数的副作用，高阶函数，可变的与不可变的，函数式编程与 Lambda 表达式。我觉得很多人最近都在使用 Lambda 表达式，但或许在读完这篇文章后，他们会更了解 Lambda 表达式。攻克难题的时刻到了。
 
 **修改:**
 
-在[第一部分](http://www.uwanttolearn.com/android/reactive-programming-android-rxjava2-hell-part1/)，我们讨论了 Rx 最重要，最基础也最核心的概念，那就是观察者模式。在[第二部分](http://www.uwanttolearn.com/android/pull-vs-push-imperative-vs-reactive-reactive-programming-android-rxjava2-hell-part2/)，我们讨论了拉模式和推模式，以及命令式和响应式编程。
+在[第一部分](http://www.uwanttolearn.com/android/reactive-programming-android-rxjava2-hell-part1/)，我们讨论了 Rx 最重要、最基础也最核心的概念，那就是观察者模式。在[第二部分](http://www.uwanttolearn.com/android/pull-vs-push-imperative-vs-reactive-reactive-programming-android-rxjava2-hell-part2/)，我们讨论了拉模式和推模式，以及命令式和响应式编程。
 
 **介绍:**
 
-今天我们将会弄清楚所有关于函数式接口，默认方法，纯函数，函数的副作用，高阶函数，可变的和不可变的，函数式编程以及 Lambda 表达式的所有困惑。所以为了方便理解 Lambda 表达式的概念，我要先解释什么是函数式接口。
+今天我们将会弄清楚所有关于函数式接口、默认方法、纯函数、函数的副作用、高阶函数、可变的和不可变的、函数式编程以及 Lambda 表达式的所有困惑。所以为了方便理解 Lambda 表达式的概念，我要先解释什么是函数式接口。
 
 **函数式接口:**
 
@@ -72,11 +77,11 @@ public interface Do {
 一些我们现在日常开发使用的函数式接口的例子：
 
 ```
-public interface **Runnable** {
+public interface Runnable {
     public abstract void **run**();
 }
 
-public interface **OnClickListener** {
+public interface OnClickListener {
     void **onClick**(View v);
 }
 ```
@@ -561,12 +566,12 @@ int sum = add.add(1,2);
 ```
 
 
-现在我们知道函数式接口，默认方法，纯函数，函数的副作用，高阶函数，可变的和不可变的，函数式编程和 Lambda 表达式。
+现在我们知道函数式接口、默认方法、纯函数、函数的副作用、阶函数、可变的和不可变的、函数式编程和 Lambda 表达式。
 
 
 结论：
 
-大家都太棒了。今天我们到达了一个 Rx 学习中的里程碑。下一篇文章是 [War against Learning Curve of Rx Java 2 + Java 8 Stream [ Android RxJava2 ] ( What the hell is this ) Part4](http://www.uwanttolearn.com/android/war-learning-curve-rx-java-2-java-8-stream-android-rxjava2-hell-part4/)。到现在为止，我们了解了观察者模式，拉模式与推模式，响应式与命令式，函数式接口，默认方法，纯函数，函数的副作用，高阶函数，可变的和不可变的，函数式编程和 Lambda 表达式。我认为，如果你都了解了上述名词，Rx 的学习将会越来越简单。现在我感觉你们都已经了解了，所以接下来 Rx 的学习对于我们都会更简单。
+大家都太棒了。今天我们到达了一个 Rx 学习中的里程碑。下一篇文章是 [War against Learning Curve of Rx Java 2 + Java 8 Stream [ Android RxJava2 ] ( What the hell is this ) Part4](http://www.uwanttolearn.com/android/war-learning-curve-rx-java-2-java-8-stream-android-rxjava2-hell-part4/)。（[第四部分](https://github.com/xitu/gold-miner/blob/master/TODO/war-learning-curve-rx-java-2-java-8-stream-android-rxjava2-hell-part4.md)）到现在为止，我们了解了观察者模式、拉模式与推模式、响应式与命令式、函数式接口、默认方法、纯函数、函数的副作用、高阶函数、可变的和不可变的、函数式编程和 Lambda 表达式。我认为，如果你都了解了上述名词，Rx 的学习将会越来越简单。现在我感觉你们都已经了解了，所以接下来 Rx 的学习对于我们都会更简单。
 
 祝你们有个愉快的周末。让我们下周再见吧。
 
