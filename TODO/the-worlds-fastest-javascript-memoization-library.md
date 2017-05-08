@@ -2,7 +2,7 @@
 > * 原文作者：[Caio Gondim](https://community.risingstack.com/author/caio/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[薛定谔的猫](https://github.com/Aladdin-ADD)
-> * 校对者：
+> * 校对者：[GangsterHyj](https://github.com/GangsterHyj)
 
 # 我是如何实现世界上最快的 JavaScript 记忆化的 #
 
