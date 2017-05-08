@@ -1,5 +1,5 @@
 > * 原文地址：[When Does a Project Need React?](https://css-tricks.com/project-need-react/)
-> * 原文作者：[CHRIS COYIER](https://css-tricks.com/author/chriscoyier/)
+> * 原文作者：本文已获原作者 [CHRIS COYIER](https://css-tricks.com/author/chriscoyier/) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[龙骑将杨影枫](https://github.com/stormrabbit)
 > * 校对者：[Guangyuan (Charlie) Yang](https://github.com/yzgyyang)、[薛定谔的猫](https://github.com/Aladdin-ADD)
