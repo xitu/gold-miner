@@ -24,25 +24,26 @@ RedMonk 的排名将 Stack Overflow 的数据与 Github 上的 pull request 结�
 
 ## 不止是 Angular2 ##
 
-“There’s no doubt the partnership that we have with the Angular team has helped drive the numbers,” core TypeScript developer [Anders Hejlsberg ](https://twitter.com/ahejlsberg?lang=en)told The New Stack. “That goes without saying; but even so, I think the real point is that it was a massive vote of confidence on the part of an important industry force.”
+『毫无疑问，我们与 Angular 团队的合作有助于 TypeScript 的推广』，TypeScript 核心成员 [Anders Hejlsberg ](https://twitter.com/ahejlsberg?lang=en) 向 New Stack 说到。『但即便如此，我认为真正重要的点在于这是一次代表了行业力量重大信心的投票。』
 
-That vote of confidence is broader than just Angular, he pointed out. “Lots of other frameworks are using TypeScript at this point. [Aurelia](http://aurelia.io/), [Ionic](https://ionicframework.com/), NativeScript are all, in one way or another, involved in TypeScript. The [Ember ](https://www.emberjs.com/)framework, the [Glimmer ](https://github.com/glimmerjs)framework that was just released is written in TypeScript.”
+他指出，这种信任投票带来的影响比 Angular 更广泛。『目前，许多其它框架也在使用 TypeScript。[Aurelia](http://aurelia.io/)、[Ionic](https://ionicframework.com/)、NativeScript都以某种方式使用了 TypeScript。[Ember](https://www.emberjs.com/) 框架与[Glimmer](https://github.com/glimmerjs) 框架的最新发布版本就是使用 TypeScript 编写的。』
 
-> “We’re seeing a pretty large vote of confidence by a lot of people who have a lot of experience in this industry and I think that’s probably what everyone at large is noticing,” — Anders Hejlsberg
+> 『我们看到许多来自在这个行业经验丰富的人的信任投票。我想这可能是每个在大公司的人都会注意到的』—— Anders Hejlsberg
 
-That vote of confidence brings framework users on board too. “We’ve done a lot of work to be a really great citizen in the[ React ecosystem](https://facebook.github.io/react/). We support [JSX](https://jsx.github.io/), we support all the advanced type system features that you want like refactoring and code navigation on JSX markup. We’re also now working with the [Vue.js](https://vuejs.org/) community to provide better support for the patterns used in the framework,” Hejlsberg said.
+这种信任投票也给框架的使用者带来了机会。『我们做了很多努力以成为 [React 生态](https://facebook.github.io/react/)中重要的一员。我们支持 [JSX](https://jsx.github.io/)，支持所有你在重构或是浏览 JSX 代码时想要用到的类型系统的高级特性。我们还正在和 [Vue.js](https://vuejs.org/) 社区合作以更好的支持这个框架中用到的各种模式。』 Hejlsberg说到。
 
-Adding support for new frameworks is an important part of staying popular with developers. “We’re always on the lookout when it comes to frameworks. We understand that this a very dynamic ecosystem. It changes a lot; you’ve got to stay on your toes and work well with everything.”
+为新框架提供支持是在开发者中保持流行度的一项重要手段。『我们始终都在关注框架领域。我们知道这是一个不断变化的生态系统。它在不断变化，你必须时刻准备着并保证一切顺利。』
 
-The same is true for the tooling pipeline, especially as ECMAScript modules become more popular. “A lot of people writing modern style JavaScript apps use modules, and when you’re using ECMAScript 6 modules you need a bundler to bundle up your code so it can run in a browser, like [Webpack](https://webpack.github.io/) or [Rollup.js](https://rollupjs.org/). We make sure to work well with those tools so we fit into the whole pipeline,” Hejlsberg said.
+对于工具链来说也是如此，尤其是在 ECMAScript 模块愈发流行的情况下。『许多人使用模块编写现代风格的 JavaScript 应用，当你使用 ECMAScript 6模块的时候，你需要使用一个类似 [Webpack](https://webpack.github.io/) 或 [Rollup.js](https://rollupjs.org/)这样的打包工具将代码打包起来以便能在浏览器中运行。我们要确保 TypeScript 可以与这些工具配合使用以保证我们可以融入整个工具链之中』 Hejlsberg说到。
 
 [![](https://cdn.thenewstack.io/media/2017/04/940acc19-stateofthenation.png)](http://vmob.me/DE1Q17)
 
-React is a library with Facebook roots. Angular is a Google-spawned framework. There is abundant analysis comparing them, and in general, it shows that Angular trails, with Vue.js getting significant buzz. Angular has seen a lot of uptake among TypeScript fans, with 41 percent prioritizing 2.x and another 18 percent favoring the older version. With the recent release of Angular 4 and TypeScript’s growing popularity, we expect the JavaScript wars to continue (Lawrence Hecht).
+React 是由 Facebook 发起的库。Angular 是从 Google 衍生出来的框架。有很多分析把它们做了比较。总得来说，Angular 处于领跑地位，与此同时 Vue.js 正在受到大量关注。Angular 在 TypeScript 的用户圈中受到追捧，41%的人倾向于 2.x 版本，另外18%的人则更喜欢老版本。随着近期 Angular 4 的发布以及 TypeScript 的日益流行，我们预计 JavaScript 的战争还将持续下去（Lawrence Hecht）。
 
-There’s also been the same steady growth in the number of libraries with TypeScript definitions. [DefinitelyTyped](http://definitelytyped.org/), a  repository for TypeScript typed definitions, now has over 3,000 frameworks and libraries. That’s accelerated by automatically scraping and publishing declaration files as npm packages under the @type namespace.
+拥有 TypeScript 定义的库的数量也在稳步增长。[DefinitelyTyped](http://definitelytyped.org/)，一个维护 TypeScript 类型定义的仓库，现在已经包含了超过3000个框架和库。通过把声明文件作为 npm 包发布在 @type 命名空间下，这个过程被大大提速了。
 
-“That means there’s now a very predictable way of discovering what framework have types – and we can auto provision the types. When we see you’re importing a particular framework we can go find types for you so you don’t have to do it anymore.” In fact, Hejlsberg claimed, “for some developers, that’s becoming a decision factor when they pick a framework; whether they can work with a framework and get types.”
+『这意味着现在有一个可以预测哪些框架支持类型的方法 —— 我们可以自动提供这些类型。当我们发现你引用了某个特定的框架时，我们就可以帮你找到类型定义，你就不必亲自去寻找了。』事实上，Hejlsberg 声称：『对某些开发者来说，某个框架是否拥有类型定义，已经成为了他们在选择框架时的决定性因素。』
+
 
 > “Often the way TypeScript ends up being adopted — in enterprises and start-ups and individual developers — is that you try it on one project and you say ‘wow, this is great!’ and then you start evangelizing and it grows locally in your sphere of influence.”— Anders Hejlsberg
 
