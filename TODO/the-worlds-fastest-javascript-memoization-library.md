@@ -1,13 +1,15 @@
 > * 原文地址：[How I wrote the world's fastest JavaScript memoization library](https://community.risingstack.com/the-worlds-fastest-javascript-memoization-library/)
 > * 原文作者：[Caio Gondim](https://community.risingstack.com/author/caio/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
+> * 译者：[薛定谔的猫](https://github.com/Aladdin-ADD)
 > * 校对者：
 
 # How I wrote the world's fastest JavaScript memoization library #
+# 我是如何实现世界上最快的 JavaScript 记忆化（memoization）的。 #
 
 **In this article, I’ll show you how I wrote the world’s fastest JavaScript memoization library called [fast-memoize.js](https://github.com/caiogondim/fast-memoize.js) - which is able to do 50 million operations / second.**
 
+**在本文中，我将介绍如何实现 [fast-memoize.js][fast-memoize.js](https://github.com/caiogondim/fast-memoize.js)，它是世界上最快的 JavaScript 记忆化（memoization）实现，每秒能进行5000万次操作。
 We’re going to discuss all the steps and decisions I took in a detailed way, and I’ll also show you the code and benchmarks as proof.
 
 As **fast-memoize.js** is an open source project, I’ll be delighted to read your comments and suggestions for this library!
