@@ -135,8 +135,8 @@
 
 1. 序列化参数
 2. 检查给定输入的输出是否已经计算过
-3. 如果`是`，从缓存中读取结果
-4. 如果`否`，计算，并且将结果保存到缓存中
+3. 如果 `true`，从缓存中读取结果
+4. 如果 `false`，计算，并且将结果保存到缓存中
 
 ![Variable strategy](https://blog-assets.risingstack.com/2017/01/variable-strategy.png)
 
