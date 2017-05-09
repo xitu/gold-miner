@@ -4,7 +4,7 @@
 > * 译者：[XHShirley](https://github.com/XHShirley)
 > * 校对者：[stormrabbit](https://github.com/stormrabbit), [phxnirvana](https://github.com/phxnirvana)
 
-#函数式接口、默认方法、纯函数、函数的副作用、高阶函数、可变的和不可变的、函数式编程和 Lambda 表达式 -  响应式编程 ［Android RxJava 2］（这到底是什么）第三部分
+# 函数式接口、默认方法、纯函数、函数的副作用、高阶函数、可变的和不可变的、函数式编程和 Lambda 表达式 -  响应式编程 ［Android RxJava 2］（这到底是什么）第三部分
 
 
 太棒了，我们又来到新的一天。这一次，我们要学一些新的东西让今天变得有意思起来。
