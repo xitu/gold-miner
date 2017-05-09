@@ -190,7 +190,7 @@ The goal here is to let the computer do the heavy lifting for us!
 对每个部分，我们将其中 2 个部分固定，更换其余一个测试其性能。通过这种单变量测试，我们能更加确信每次改变的效果--由于GC造成的不确定性停顿，JS代码的性能并不完全确定。
 V8 会更根据函数的调用频率、代码结构等因素，做很多运行时优化。
 为了确保我们将这 3 部分组合起来时不会错过大量性能优化的机会，我们尝试所有可能的组合。
-一共 4 种策略 x 2 种序列化器 x 4 种缓存 = **32种不同的组合**。本地运行，请执行命令 `npm run benchmark:combination`。下面是性能最好的 5 种组合：
+一共 4 种策略 x 2 种序列化器 x 4 种缓存 = **32 种不同的组合**。本地运行，请执行命令 `npm run benchmark:combination`。下面是性能最好的 5 种组合：
 
 ![fastest javascript memoize combinations](https://blog-assets.risingstack.com/2017/01/fastest-javascript-memoize-combinations.png)
 
