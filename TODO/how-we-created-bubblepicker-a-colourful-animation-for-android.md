@@ -180,9 +180,11 @@ smoothstep 方法可以解决这个问题。基于纹理与背景之间过度的
 
 Every circle in this animation has two states – normal and selected. In the normal state, the texture of a circle contains text and color; in the selected state, the texture also contains an image. So for every circle we needed to create two different textures. 
 
-动画中的每个圆都有两个状态 - 正常状态和选中状态。在正常状态中
+动画中的每个圆都有两个状态 - 正常状态和选中状态。在正常状态中，圆中的纹理包含了文字和颜色；在选中的状态，纹理则还会包含了一个图片。所以，对每个圆我们都应该创建两个不同的纹理。
 
 To create the texture we use a Bitmap instance where we draw all the elements and bind the texture:
+
+为了创建纹理，我们使用一个 Bitmap 的实例，在实例里我们画出所有的元素并绑定纹理：
 
 ```
     fun bindTextures(textureIds: IntArray, index: Int){
@@ -226,9 +228,15 @@ To create the texture we use a Bitmap instance where we draw all the elements an
 
 After doing this, we pass the texture unit to the `u_Text` variable. To get the actual color of a fragment we use the `texture2D()` method, which receives the texture unit and the position of the fragment respective to its vertices. 
 
+做完这些之后，我们将这个纹理传递给 u_Text 变量。我们通过 texture2D() 方法来获取一个片段的真实颜色，我们还能获得纹理单元和片段相对于其顶点的位置。
+
 ### **5. Using JBox2D to make the bubbles move** ###
 
+### **5. 使用 JBox2D 让气泡移动** ###
+
 The animation is pretty simple in terms of the physics. The main object is a World instance, and all the bodies must be created using this world: 
+
+从物理的角度，这个动画非常简单。主对象是一个 World 实例，所有的 body 都需要在这个 World 里创建：
 
 ```
     classCircleBody(world: World, varposition: Vec2, varradius: Float, varincreasedRadius: Float) {
@@ -267,9 +275,15 @@ The animation is pretty simple in terms of the physics. The main object is a Wor
 
 As we can see, it’s easy to create the body: we simply need to specify the body type (e.g dynamic, static, kinematic), and its position, radius, shape, density, and fixture. 
 
+正如我们所见，body 容易创建：我们需要简单的制定 body 类型（如：dynamic, static, kinematic），position，radius，shape，density 和 fixture 属性。
+
 Every time the surface is being drawn, it’s necessary to call the `step()` method of the World instance to move all the bodies. After that we can draw all shapes at their new positions. 
 
+当这个面被画出来，我们需要调用 World 的 step() 方法来移动所有的 body。然后，我们就可以在新的位置画出所有的形状了。
+
 The issue we faced is that `JBox2D` doesn’t support orbital gravity. As a result, we couldn’t move the circles to the center of the screen. So we had to implement this feature ourselves:
+
+我们遇到一个问题，JBox2D 不能支持轨道重力。这样，我们就不能将圆移动到屏幕中间了。所以我们只能自己实现这个特性：
 
 ```
     private val currentGravity: Float
@@ -291,9 +305,15 @@ The issue we faced is that `JBox2D` doesn’t support orbital gravity. As a resu
 
 Every time the world moves, we calculate the appropriate force and apply it to each body, making it look like the circles are affected by a gravitation force. 
 
+每当 World 移动时，我们计算一个合适的力度作用于每个 body，使得看起来像是受到了重力的影响。
+
 ### **6. Detecting user touch in GlSurfaceView** ###
 
+### **6. 在 GlSurfaceView 中检测用户触碰** ###
+
 `GLSurfaceView`, like any other Android view, can react to a user’s touch:
+
+GLSurfaceView 和其他的 Android view 一样可以对用户触碰反应：
 
 ```
     override fun onTouchEvent(event: MotionEvent): Boolean {
@@ -330,6 +350,8 @@ Every time the world moves, we calculate the appropriate force and apply it to e
 
 The `GLSurfaceView` intercepts all touches and its renderer handles all of them:
 
+GLSurfaceView 拦截所有的触摸事件，渲染器处理他们：
+
 ```
     //Rendererfun swipe(x: Float, y: Float)= Engine.swipe(x.convert(glView.width, scaleX),
                 y.convert(glView.height, scaleY))
@@ -351,9 +373,15 @@ The `GLSurfaceView` intercepts all touches and its renderer handles all of them:
 
 When a user swipes the screen, we increase the gravity and change its center, so for the user it looks like they are controlling the movements of the bubbles. When the user stops swiping, we return the bubbles to their initial state. 
 
+当用户滑动屏幕，我们增加重力并改变中心，在用户看来就像是控制了气泡的移动。当用户停止了滑动，我们将气泡恢复到初始状态。
+
 ### **7. Finding a bubble by the coordinates of a user’s touches** ###
 
+### **7. 通过用户触碰的坐标找到气泡** ###
+
 When a user clicks on a circle, we receive the touch position on the screen in the `onTouchEvent() `method. But we also need to find the clicked circle in OpenGL’s coordinate system. By default, the center of the `GLSurfaceView` has the position [0, 0], and the x and y values lie between -1 and 1. So we also have to consider the ratio of the screen:
+
+当用户点击了一个圆，我们通过 onTouchEvent() 方法接收到了触碰点在屏幕上的坐标。但是，我们还需要找到被点击的圆在 OpenGL 坐标体系中的位置。默认情况下，GLSerfaceView 中心的坐标是 [0, 0]，x 和 y 变量在 -1 到 1 之间。所以，我们还需要考虑到屏幕的比例：
 
 ```
     private fun getItem(position: Vec2)= position.let {
@@ -365,14 +393,23 @@ When a user clicks on a circle, we receive the touch position on the screen in t
 
 When we find the selected circle, we change its radius, density, and texture.
 
+当我们找到了选中的圆就改变它的半径、密度和纹理。
+
 This is the first version of our Bubble Picker, and we surely plan to develop it further. We'd like to give other developers the possibility to customize the physical behavior of bubbles and specify urls to add images to the animation. We also want to add some new features such as the ability to remove bubbles.
+
+这是我们第一版 Bubble Picker，而且还将进一步完善。
 
 Don’t hesitate to send us your experiments, we are curious to see how you use our Bubble Picker. And do let us know if you have any questions or suggestion regarding the animation.
 
+请将你们的实验发给我们，让我们看到你是如何使用 Bubble Picker的。如果对动画有任何问题或建议，请告诉我们。
+
 We are going to publish more awesome things soon. Stay tuned!
+
+我们会尽快出版更多干活。 敬请关注！
 
 Check out our [BubblePicker animation on GitHub](https://github.com/igalata/Bubble-Picker) and [BubblePicker on Dribbble](https://dribbble.com/shots/3349372-Bubble-Picker-Open-Source-Component).
 
+请检出[BubblePicker animation on GitHub](https://github.com/igalata/Bubble-Picker) 和 [BubblePicker on Dribbble](https://dribbble.com/shots/3349372-Bubble-Picker-Open-Source-Component)。
 
 ---
 
