@@ -122,23 +122,41 @@ GLSL 有几种不同类型的变量：
 
 - Uniform variables hold the same value for all vertices and fragments
 
+- 统一变量对所有顶点和片段持有相同的值
+
 - Attribute variables are different for each vertex
+
+- 属性变量对每个顶点都不同
 
 - Varying variables are used to pass data from a vertex shader to a fragment shader, and their values are linearly interpolated for each fragment  
 
+- 变化中变量将数据从顶点着色器传递到片段着色器，对于每个片段都是用线性内插法赋值
+
 The `u_Move` variable contains x and y values that should be added to the current position of the vertex. Obviously, these values should be equal for all vertices of the shape and the type of this variable is uniform, while the position of the vertices will differ. So the `a_Position` variable is an attribute variable. The` a_UV` variable is needed for two purposes:
+
+u_Move 变量包含了 x 和 y 两个值，用于表示顶点当前位置的移动增量。很明显，他们的值应该与一个形状中的所有顶点的该变量的值相同，类型也应该是相同的，虽然这些顶点各自的位置不同。a_Position 变量是属性变量，a_UV 变量用于以下两个目的：
 
 1. To find out the distance between the current fragment and the center of the square; depending on this distance, we can change the color of the fragment to draw a circle.
 
+1. 得到当前片段与正方形中心的距离；根据这个距离，我们能够改变片段的颜色来画圆。
+
 2. To properly place the texture (the photo and the name of the country) in the center of a shape.
+
+2. 将纹理（照片和国家名称）放在图形的中心。
 
 ![](http://images.yalantis.com/w736/uploads/ckeditor/pictures/2331/content_4.jpg)
 
 The `a_UV` variable contains x and y values that are different for each vertex and which lie between 0 and 1. In the vertex shader, we just pass the value of the `a_UV` variable to the `v_UV` variable, so the `v_UV` variable can be interpolated for every fragment. As a result, the `v_UV` variable for a fragment in the center of a shape will contain the value [0.5, 0.5]. To figure out the distance between the picked fragment and the center we use the distance() method. This method uses two points as a parameter.
 
+a_UV 变量包含了 x 和 y 两个变量，值在 0 和 1 之间，对于每个顶点都不同。在顶点着色器中，我们将值从 a_UV 变量传递给 v_UV 变量，这样每个片段都会被插入 v_UV 变量。结果，形状中心片段的 v_UV 变量的值就是 [0.5, 0.5]。我们使用 distance() 方法来计算一个选中的片段到中心的距离。这个方法使用两点作为参数。
+
 ### **3. Using smoothstep to draw antialiased circles** ###
 
+### **3. 使用 smoothstep 方法画抗锯齿圆** ###
+
 Initially my fragment shader looked a bit different:
+
+起初，我的片段着色器看起来有些不一样：
 
 ```
     gl_FragColor = distance < 0.5 ? texture2D(u_Text, v_UV) : u_BgColor;
@@ -146,15 +164,23 @@ Initially my fragment shader looked a bit different:
 
 I changed the fragment color depending on the distance from the center without any antialiasing. And the result was not so impressive — the edges of the circles were notched.
 
+我根据到中心的距离改变了片段颜色，没有使用抗锯齿。结果并不理想，圆的边缘被切开了。
+
 ![](http://images.yalantis.com/w736/uploads/ckeditor/pictures/2332/content_6.jpg)
 
 So the smoothstep function was the solution. It smoothly interpolates from 0 to 1 based on distance compared to the start and end point of the transition between the texture and the background. Thus the alpha of the texture on the distance from 0 to 0.49 is 1, on the 0.5 and above it is 0, and between the 0.49 and 0.5 it is interpolated, so the edges of the circles would be antialiased.
+
+smoothstep 方法可以解决这个问题。基于纹理与背景之间过度的从开始到结束点之间的距离，从 0 到 1 平滑插入。纹理的距离在 0 到 0.49 之间值设为1，0.5 以上的为0，并且0.49 到 0.5 之间会被插入，所以圆的边缘会被抗锯齿。
 
 ![](http://images.yalantis.com/w736/uploads/ckeditor/pictures/2333/content_7.jpg)
 
 ### **4. Using textures to display images and text in OpenGL** ###
 
+### **4. 使用纹理在 OpenGL 中显示图片和文本** ###
+
 Every circle in this animation has two states – normal and selected. In the normal state, the texture of a circle contains text and color; in the selected state, the texture also contains an image. So for every circle we needed to create two different textures. 
+
+动画中的每个圆都有两个状态 - 正常状态和选中状态。在正常状态中
 
 To create the texture we use a Bitmap instance where we draw all the elements and bind the texture:
 
