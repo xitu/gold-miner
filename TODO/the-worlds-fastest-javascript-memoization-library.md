@@ -7,20 +7,21 @@
 # 我是如何实现世界上最快的 JavaScript 记忆化的 #
 
 
-**在本文中，我将详细介绍如何实现 [fast-memoize.js](https://github.com/caiogondim/fast-memoize.js)，它是世界上最快的 JavaScript 记忆化（memoization）实现，每秒能进行 50,000,000 万次操作。**
+**在本文中，我将详细介绍如何实现 [fast-memoize.js](https://github.com/caiogondim/fast-memoize.js)，它是世界上最快的 JavaScript 记忆化（memoization）实现，每秒能进行 50,000,000 次操作。**
 我们会详细讨论实现的步骤和决策，并且给出代码实现和性能测试作为证明。
 
 **fast-memoize.js** 是开源项目，欢迎大家给我留言和建议。
 
-不久前，我尝试了V8中一些[即将发布的特性](http://www.2ality.com/2015/06/tail-call-optimization.html)，以斐波那契算法为基础做了一些基准测试实验。
+不久前，我尝试了 V8 中一些[即将发布的特性](http://www.2ality.com/2015/06/tail-call-optimization.html)，以斐波那契算法为基础做了一些基准测试实验。
 实验之一就是比较斐波那契算法的记忆化版本和普通实现，结果表明记忆化版本有着巨大的性能优势。
 
-意识到这一点，我又翻阅了不同的记忆化库的实现，并比较了它们的性能（因为……呃，为什么不呢？）。记忆化算法本身非常简单，然而我震惊的发现不同实现之间性能差异巨大。
+意识到这一点，我又翻阅了不同的记忆化库的实现，并比较了它们的性能（因为……呃，为什么不呢？）。记忆化算法本身非常简单，然而我震惊地发现不同实现之间性能差异巨大。
+
 这是什么原因呢？
 
 ![常见 JavaScript 记忆化库的性能](https://blog-assets.risingstack.com/2017/01/performance-of-popular-javascript-memoization-libraries.png)
 
-在翻阅 [lodash](https://github.com/lodash/lodash/blob/master/memoize.js#L50) 和 [underscore](https://github.com/jashkenas/underscore/blob/master/underscore.js#L810) 的源码时，我发现默认情况下，它们只能记忆化接受一个参数的函数。于是我就很好奇，能否实现一个足够快并且可以接受多个参数的版本呢？*（或许可以开发出npm包给全世界的开发者使用呢？）*
+在翻阅 [lodash](https://github.com/lodash/lodash/blob/master/memoize.js#L50) 和 [underscore](https://github.com/jashkenas/underscore/blob/master/underscore.js#L810) 的源码时，我发现默认情况下，它们只能记忆化接受一个参数的函数。于是我就很好奇，能否实现一个足够快并且可以接受多个参数的版本呢？**（或许可以开发出 npm 包给全世界的开发者使用呢？）**
 
 下文中，我将详细介绍实现它的步骤，以及实现过程中所做的决策。
 
@@ -29,7 +30,7 @@
 引自[ Haskell 语言 wiki](https://wiki.haskell.org/Memoization)
 > 『记忆化是保存函数执行结果，而不是每次重新计算的一种技术。』
 
-**换句话说，记忆化就是对于函数的缓存。** 它只适用于确定性算法,对于相同的输入总是生成相同的输出。
+**换句话说，记忆化就是对于函数的缓存。** 它只适用于确定性算法，对于相同的输入总是生成相同的输出。
 
 为了便于理解和测试，我们把这个问题拆分成几个小问题。
 
@@ -42,8 +43,7 @@
 3. **策略**：将缓存和序列化组合起来，输出记忆化函数。
 
 现在我们就要分别以不同的方式实现这 3 个部分，测试它们的性能，选择其中最快的方式，最后将它们结合起来就是我们最终的算法了。
-The goal here is to let the computer do the heavy lifting for us!
-这样做的目标就是提升计算性能？？？
+这样做的目标就是让计算机为我们解除重担！
 
 ### #1 - 缓存 ###
 
@@ -63,6 +63,7 @@ The goal here is to let the computer do the heavy lifting for us!
 #### 实现 ####
 
 每次执行记忆化函数，我们需要做的就是：检查对应输入的输出是否已经被计算过。
+
 因此最合理的数据结构是哈希表。它能够在 O(1) 时间复杂度检查某个值是否存在。 从底层看，一个 JavaScript 对象就是一个哈希表（[或类似的结构](https://simplenotions.wordpress.com/2011/07/05/javascript-hashtable/)），所以我们可以将输入作为哈希表的 key，将输出作为它的 value。
 
 ```js
@@ -83,6 +84,7 @@ The goal here is to let the computer do the heavy lifting for us!
 4. [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map)
 
 以下是这些实现的性能测试。本地运行，请执行命令 `npm run benchmark:cache`。不同版本实现的源码可以在[项目的 GitHub 页面](https://github.com/caiogondim/fast-memoize.js/tree/master/benchmark/cache)找到。
+
 ![Variable JavaScript memoization cache](https://blog-assets.risingstack.com/2017/01/variable-javascript-memoization-cache.png)
 
 #### 还需要一个序列化器 ####
@@ -141,19 +143,19 @@ The goal here is to let the computer do the heavy lifting for us!
 
 改善性能的一个有效方法是优化热路径（hot path，指执行频率最高的路径，译者注）。对我们的代码来说，热路径就是接受一个基本类型参数的函数，这种情况下我们不需要对参数序列化。
 
-1. 检查`arguments.length === 1` && 参数为基本类型
+1. 检查 `arguments.length === 1` && 参数为基本类型
 2. 如果`是`，无需序列化参数，因为基本类型本身就可以作为缓存的key
 3. 检查给定输入的输出是否已经计算过
-4. 如果`是`，从缓存中读取结果
-5. 如果`否`，计算，并且将结果保存到缓存中
+4. 如果 `true`，从缓存中读取结果
+5. 如果 `false`，计算，并且将结果保存到缓存中
 
 ![针对单个参数优化](https://blog-assets.risingstack.com/2017/01/optimizing-for-single-argument.png)
 
-通过避免执行不必要的序列化操作，我们可以得到更快的执行结果（对热路径而言）。现在可以达到**每秒5,500,000次**了。
+通过避免执行不必要的序列化操作，我们可以得到更快的执行结果（对热路径而言）。现在可以达到**每秒 5,500,000 次**了。
 
 #### 参数推断 ####
 
-对已定义的函数，`function.length` 返回期望接受的参数个数。我们可以通过给策略 monadic（单参数函数）和 not-monadic，这样就避免了检查 `arguments.length === 1`。
+`function.length` 返回一个已定义函数的形参个数，我们可以利用这个性质避免动态检查函数的实参个数（即避免 `arguments.length === 1` 的条件判断，译者注），并为单参数函数和非单参数函数分别提供不同的策略。
 
 ```js
     functionfoo(a, b) {
@@ -181,7 +183,7 @@ The goal here is to let the computer do the heavy lifting for us!
 这种方式可以将函数的某些参数固定下来。我用就它把**原函数**，**缓存**，和**序列化器**固定下来。就用它来试试吧！
 ![偏函数](https://blog-assets.risingstack.com/2017/01/partial-application.png)
 
-哇！效果非常好。？？？这个版本可以达到**每秒 20,000,000 次操作**。
+哇！效果非常好。我不知道如何进一步改进，但我对这个版本的测试结果已经很满意了。这个版本可以达到**每秒 20,000,000 次操作**。
 
 ## 最快的 JavaScript 记忆化组合 ##
 
@@ -210,10 +212,10 @@ Legend:
 
 ## 与流行库的性能对比 ##
 
-有了上面的算法，是时候把它同最流行的库做一个性能上的比较了。运行命令`npm run benchmark`，就可以在本地执行了。结果如下：
+有了上面的算法，是时候把它同最流行的库做一个性能上的比较了。运行命令 `npm run benchmark`，就可以在本地执行了。结果如下：
 ![与流行库的性能对比](https://blog-assets.risingstack.com/2017/01/benchmarking-against-other-memoization-libraries.png)
 
-[fast-memoize.js](https://github.com/caiogondim/fast-memoize.js)是最快的，几乎是第二名的 3 倍，**每秒27,000,000次操作**。
+[fast-memoize.js](https://github.com/caiogondim/fast-memoize.js)是最快的，几乎是第二名的 3 倍，**每秒 27,000,000次操作**。
 
 ### 面向未来 ###
 
@@ -228,7 +230,7 @@ V8有一个很新的、未发布的优化编译器 [TurboFan](http://v8project.b
 
 ## 结论 ##
 
-以上就是我创建这个世界上最快的记忆化库的过程。分别实现各个部分，组合它们，然后统计每种组合方案的性能数据，从中选择最优的方案。*(使用 [benchmark.js](https://benchmarkjs.com/) )。*
+以上就是我创建这个世界上最快的记忆化库的过程。分别实现各个部分，组合它们，然后统计每种组合方案的性能数据，从中选择最优的方案。**(使用 [benchmark.js](https://benchmarkjs.com/) )。**
 希望这个过程对其他开发者有所帮助。
 
 [fast-memoize.js 是目前最好的 #JavaScrip 库, 并且我会努力让它一直是最好的。](https://twitter.com/share)
@@ -236,7 +238,7 @@ V8有一个很新的、未发布的优化编译器 [TurboFan](http://v8project.b
 
 **并非是因为我聪明绝顶, 而是我会一直维护它。** 欢迎给我提交 [Pull requests](https://github.com/caiogondim/fast-memoize.js/pulls)。
 
-正如前V8工程师 [Vyacheslav Egorov](https://www.youtube.com/watch?v=g0ek4vV7nEA&amp;t=22s) 所言，在虚拟机上测试算法性能非常棘手。如果你发现测试中的错误，请在 [GitHub](https://github.com/caiogondim/fast-memoize.js/issues) 上提交 issue。
+正如前 V8 工程师 [Vyacheslav Egorov](https://www.youtube.com/watch?v=g0ek4vV7nEA&amp;t=22s) 所言，在虚拟机上测试算法性能非常棘手。如果你发现测试中的错误，请在 [GitHub](https://github.com/caiogondim/fast-memoize.js/issues) 上提交 issue。
 
 The same goes for the library itself. Create an issue if you spotted anything wrong (issues with a failing test are appreciated).
 ？？？
