@@ -118,7 +118,7 @@ The goal here is to let the computer do the heavy lifting for us!
 1. 普通方式 (初始版本)
 2. 针对单个参数优化
 3. 参数推断
-4. 偏特化
+4. 偏函数
 
 我们来逐个介绍它们。我会以尽量简化的代码，来介绍每种方式背后的想法。如果某些细节我没有解释清楚，你想要深入探究一下，可以在[项目的 GitHub 页面](https://github.com/caiogondim/fast-memoize.js/tree/master/benchmark/strategy)中找到每个版本的代码。
 
@@ -168,7 +168,7 @@ The goal here is to let the computer do the heavy lifting for us!
 
 ### 偏函数（Partial application） ###
 
-我觉得大多数时间都花费在了变量查找上（？？？），起初我也没有好的想法去改善。灵机一动，我突然想到可以使用 `bind` 方法，通过偏函数应用的方法将变量注入到函数中。
+我觉得大多数时间都花费在了变量查找上（但没有量化数据支持），起初我也没有好的想法去改善。灵机一动，我突然想到可以使用 `bind` 方法，通过偏函数应用的方法将变量注入到函数中。
 
 ```js
     functionsum(a, b) {
@@ -187,7 +187,7 @@ The goal here is to let the computer do the heavy lifting for us!
 
 上面我们把记忆化分解为了 3 个部分。
 
-对每个部分，我们将其余 2 个部分固定，更换其中一个测试其性能。通过这种单变量测试，我们能更加确信每次改变的效果--由于GC造成的不确定性停顿，JS代码的性能并不完全确定。
+对每个部分，我们将其中 2 个部分固定，更换其余一个测试其性能。通过这种单变量测试，我们能更加确信每次改变的效果--由于GC造成的不确定性停顿，JS代码的性能并不完全确定。
 V8 会更根据函数的调用频率、代码结构等因素，做很多运行时优化。
 为了确保我们将这 3 部分组合起来时不会错过大量性能优化的机会，我们尝试所有可能的组合。
 一共 4 种策略 x 2 种序列化器 x 4 种缓存 = **32种不同的组合**。本地运行，请执行命令 `npm run benchmark:combination`。下面是性能最好的 5 种组合：
@@ -205,7 +205,7 @@ Legend:
 事实证明我们上面的分析是对的。最快的组合是：
 
 - **策略**: 偏函数
-- **缓存**: Object
+- **缓存**: 普通对象
 - **序列化器**: JSON.stringify
 
 ## 与流行库的性能对比 ##
@@ -224,7 +224,7 @@ V8有一个很新的、未发布的优化编译器 [TurboFan](http://v8project.b
 
 性能几乎翻倍，现在达到接近**每秒 50,000,000 次**。
 
-似乎最新的 TurboFan 编译器可以极大的优化我们最终版本的 [fast-memoize.js](https://github.com/caiogondim/fast-memoize.js)。
+看起来最新的 TurboFan 编译器可以极大的优化我们最终版本的 [fast-memoize.js](https://github.com/caiogondim/fast-memoize.js)。
 
 ## 结论 ##
 
