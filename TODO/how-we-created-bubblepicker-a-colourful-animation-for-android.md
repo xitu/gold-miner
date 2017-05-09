@@ -56,7 +56,7 @@ It became clear to us that rendering such a fast animation on Canvas wouldn’t 
 
 We needed to make our circles move naturally, just as gas bubbles do in a fizzy drink. There are plenty of physics engines available for Android, but we had specific requirements that made it significantly more difficult to make a choice: the engine needed to be lightweight and easy to embed in the Android library. Most engines are developed for games and require you to adapt the project structure to them. After some research we found JBox2D (a Java port of the Box2D engine written in C++); and since our animation isn’t supposed to be used with a great number of physical bodies (in other words it’s not designed for 200 or more objects) we could get away with using a Java port instead of the original engine.
 
-我们需要让圆更加的自然，就像是汽水中的气泡。有很多物理引擎可用于 Android，但是我们有更特别的需求使得很难选择：这个引擎必须轻量而且方便嵌入 Android 库中。大多数引擎都是为游戏开发的，你必须使工程机构适应它们。经过一些研究，我们发现 JBox2D (一个使用 C++ 开发的、 Java 端口的 Box2D 引擎)；因为我们的动画并不支持很多数量的物理体（换句话说，它不是为了200+的对象设计的），我们可以使用 Java 端口而不是原生引擎。
+我们需要让圆更加的自然，就像是汽水中的气泡。有很多物理引擎可用于 Android，但是我们有更特别的需求使得很难选择：这个引擎必须轻量而且方便嵌入 Android 库中。大多数引擎都是为游戏开发的，你必须使工程机构适应它们。经过一些研究，我们发现 JBox2D (一个使用 C++ 开发的、 Java 端口的 Box2D 引擎)；因为我们的动画并不支持很多数量的 body（换句话说，它不是为了200+的对象设计的），我们可以使用 Java 端口而不是原生引擎。
 
 Also, later in this article we’ll explain our choice of programming language (Kotlin) and talk about the advantages of this new language.To find out more about the difference between Java and Kotlin you can read our review in [our previous article](https://yalantis.com/blog/kotlin-vs-java-syntax/).
 
@@ -68,7 +68,7 @@ Also, later in this article we’ll explain our choice of programming language (
 
 To begin with, it’s important to understand that the building block in OpenGL is a triangle since it’s the simplest shape that can approximate other shapes. Any shape that you create in OpenGL will consist of one or more triangles. To implement our animation we used two combined triangles for every body, so it looks like a square, where I can draw the circle.
 
-在开始的时候，我们需要先理解 OpenGL 中的构建快是三角形，因为三角形是能够模拟成其他形状中最简单的形状。你在 OpenGL 中创建出的任何形状，都包含了一个或多个三角形。为了实现动画，我们为每个动画体使用了两个组合三角形，所以看起来像个正方形，我们可以在里面画圆。
+在开始的时候，我们需要先理解 OpenGL 中的构建快是三角形，因为三角形是能够模拟成其他形状中最简单的形状。你在 OpenGL 中创建出的任何形状，都包含了一个或多个三角形。为了实现动画，我们为每个 body 使用了两个组合三角形，所以看起来像个正方形，我们可以在里面画圆。
 
 To render a shape you need to write at least two shaders – a vertex shader and a fragment shader. The difference between these two is evident by their names. A vertex shader is executed for each vertex of each triangle, while a fragment shader is executed for every pixel-sized part of the triangles. 
 
