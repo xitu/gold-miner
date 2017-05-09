@@ -44,44 +44,44 @@ React 是由 Facebook 发起的库。Angular 是从 Google 衍生出来的框架
 
 『这意味着现在有一个可以预测哪些框架支持类型的方法 —— 我们可以自动提供这些类型。当我们发现你引用了某个特定的框架时，我们就可以帮你找到类型定义，你就不必亲自去寻找了。』事实上，Hejlsberg 声称：『对某些开发者来说，某个框架是否拥有类型定义，已经成为了他们在选择框架时的决定性因素。』
 
+> “通常，TypeScript 被采用的流程 —— 不论是企业，创业团队还是个人开发者 —— 是你在某个项目中尝试使用并发现它很棒，接着你就开始给别人推荐。就这样，它就在你的影响范围内发展开了。”—— Anders Hejlsberg
 
-> “Often the way TypeScript ends up being adopted — in enterprises and start-ups and individual developers — is that you try it on one project and you say ‘wow, this is great!’ and then you start evangelizing and it grows locally in your sphere of influence.”— Anders Hejlsberg
+关注度的提高似乎是用户增长的原因之一。“我们没做过任何推广，所有这些都是社区驱动的。实际上是稳步增长，我们现在开始注意到更大的数字了。”Hejlsberg 说道。
 
-The general rise in interest seems to be one of organic growth. “We don’t do any advertising whatsoever, this is all driven by the community. It’s actually steady growth and we’re just starting to notice the larger numbers now,” Hejlsberg said.
+Hejlsberg 指出 TypeScript 还是在 Stack Overflow 的调查中排在 Rust 和 Smalltalk 之后第三受欢迎的语言（排在 Swift 和 go 之前）以及第六急需人才的语言，排在 C# 和 Swift 之前。“我认为这从很大程度上说明我们解决了实际问题”Hejlsberg 指出。
 
-Hejlsberg notes that TypeScript is also the third most loved language in the Stack Overflow survey after Rust and Smalltalk (and just ahead of Swift and go) and the sixth most wanted language, head of both C# and Swift. “I think that speaks a lot to the fact that we’re actually solving real problems,” Hejlsberg said.
 
-## Microsoft’s Sphere of Influence ##
+## 微软的影响范围 ##
 
-It’s easy to view the success of TypeScript as Microsoft bringing enterprise developers who are already in the Microsoft world to JavaScript via familiar tools.
+人们很容易把 TypeScript 的成功视为微软通过熟悉的工具把已经在微软世界中的企业开发者引入 JavaScript 的结果。
 
-“We obviously have a large developer ecosystem already with C# and C++ and Visual Basic. Lots of enterprises use Microsoft tooling and they also have front ends, and when we start improving the world on the front end side, they sit up and take notice and start using that,” Hejlsberg admitted.
+“我们有一个围绕着 C#、C++ 以及 Visual Basic 的大型开发者生态系统。许多企业使用微软的工具同时他们也有前端开发，当我们开始改善前端开发的世界，他们就坐下来，注意并开始使用了。”Hejlsberg坦言。
 
-But while a lot of TypeScript development is done in [Visual Studio](https://www.visualstudio.com/), just as much is done in[ Visual Studio Code](https://code.visualstudio.com/), Microsoft’s open source, cross-platform IDE. “That’s a community we increasingly did not have all that much of a connection to. For Visual Studio Code, half of our users are not on Windows, so all of a sudden we’re having a conversation with a developer community that we did not really converse much with previously.”
+但是，虽然很多 TypeScript 的开发工作是在 [Visual Studio](https://www.visualstudio.com/) 中进行的，和使用[ Visual Studio Code](https://code.visualstudio.com/) —— 微软开源的，跨平台的 IDE —— 的一样多。“那是一个和我们没有太多联系的社区。以 Visual Studio Code 来说，一半的用户来自非 Windows 系统，因此突然间我们就与一个之前没什么沟通的社区建立了联系。”
 
-## Open Source and on the Fast Track ##
+## 开源快车道 ##
 
-The TypeScript team recently announced that releases will now happen every two months rather than quarterly, which Heljsberg called an attempt to make release dates more predictable, rather than holding up a new release to get a particular feature in. That’s the same approach that the ECMAScript committee is taking.
+TypeScript 团队最近宣布发布周期将由每季度改为每两个月，Heljsberg 呼吁让发布日期更加可预测，而不是为了添加某个新功能而延迟发布。这也正是 ECMAScript 委员会正在采取的做法。
 
-The new release cadence for TypeScript is also aligned with the Visual Studio Code schedule; partly because Visual Studio Code is actually written in TypeScript, but also because tooling is a key part of the appeal of TypeScript.
+新的发布节奏也会与 Visual Studio Code 保持一致，部分原因是因为 Visual Studio Code 是由 TypeScript 开发的，但更重要的原因在于工具是 TypeScript 吸引力的重要组成部分。
 
-While it’s important that TypeScript supports multiple editors and IDEs, Hejlsberg noted that Visual Studio Code is another factor helping with the popularity of the language.
+尽管 TypeScript 支持多种编辑器与 IDE 很重要，但 Hejlsberg 指出 Visual Studio Code 是另一个帮助该语言普及的因素。
 
-In fact, you get better coding features because of TypeScript, even if you only write in JavaScript, he explained. “Visual Studio Code and Visual Studio both use the TypeScript language service as their language service for JavaScript. Since TypeScript a superset of JavaScript, that means JavaScript is a subset of TypeScript it’s really just TypeScript without type annotations,” he noted.
+事实上，即便只是开发 JavaScript，你也能从 TypeScript 获得更好的编码特性，他解释道。“Visual Studio Code 和 Visual Studio 都使用 TypeScript 语言服务作为它们的 JavaScript 语言服务。由于 TypeScript 是 JavaScript 的超集，这意味着 JavaScript 是 TypeScript 的一个子集，它只是没有类型注释的 TypeScript 罢了。”他指出。
 
-In Visual Studio Code, opening a JavaScript file will trigger a TypeScript parser, scanner, lexer and type analyzer to provide statement completion and code navigation in the JavaScript code. “Even though there are no type annotations, we can infer an awful lot about a project structure just from the modules you’re using and the classes you’re declaring,” Hejlsberg said. “We can go and auto-provision type information for the framework you’re importing then we can give you excellent statement completion in JavaScript, which actually surprises the heck out of people.”
+在 Visual Studio Code中，打开一个 JavaScript 文件会触发 TypeScript 的解析器、扫描器、词法分析器和类型分析器以提供 JavaScript 代码中的语句补全和代码导航。“即使没有类型注释，我们也可以通过你使用的模块以及声明的类来推断出关于项目结构的很多信息”Hejlsberg 说道。“令人惊奇的是，我们可以自动为你引用的框架导入类型信息，然后就可以为你提供出色的语句补全功能，”
 
-What makes this fast cadence possible are the tests required for pull requests to be accepted, guaranteeing the quality of the master branch, and the popularity of TypeScript, which means any problems are found quickly.
+使这样的快速发布节奏成为可能的是所有 pull request 被合并前必须通过测试，保证了 master 分支的质量和 TypeScript 的流行，这意味着任何问题都可以被快速发现。
 
-“We’re an open source project, we do a lot of work on GitHub. And we never take pull requests unless they pass all the 55,000 tests that we have, and unless they come with new tests if you’re implementing a new feature, or regressions test if it is fixing a bug. That means our master branch is always in very good shape,” he said.
+“我们是一个开源项目，我们在 GitHub 上做了很多工作。我们绝不合并任何 pull request，触发它能通过我们现有的 55000 个测试；如果是增加新功能，就必须提供相应的测试代码；如果是修改 bug，就必须提供回归测试。这意味着我们的 master 分支始终保持着很高的代码质量。”他说道。
 
-## JavaScript: Powerful but Complex ##
+## JavaScript: 强大但复杂 ##
 
-More than any single factor, what might really be behind the increasing popularity of TypeScript is how complex JavaScript development has become, and also how powerful it can be.
+除了任何一个单一因素以外，驱使 TypeScript 愈发流行的真实原因可能是现如今 JavaScript 开发越来越高的复杂性以及越来越强大的能力。
 
-“Our industry and our usage of JavaScript has changed dramatically,” Hejlsberg pointed out. “It used to be that we lived in a homogenous world where everyone was running Windows and using a browser, and that was how you got JavaScript. Now the world has become very heterogeneous. There are all sorts of different devices — phones and tablets, and running JavaScript on the backend with node, and JavaScript has jumped out of the browser using things like NativeScript or React Native or Cordova that allows you to build native apps using JavaScript.”
+“我们的行业和 JavaScript 的使用都发生了巨大的变化。” Hejlsberg指出。“以前我们生活在一个同质的世界。所有人都使用 Windows 和浏览器，这就是你如何接触 JavaScript的。现在世界已经变得非常多元化了。有各种不同的设备 —— 手机和平板电脑，并且在后端使用 node 运行 JavaScript。JavaScript 还脱离了浏览器，通过使用 NativeScript、React Native 或是 Cordova 你已经可以使用 JavaScript 构建原生应用。”
 
-“Yes it’s more complicated but it’s also infinitely more capable,” Hejlsberg said of JavaScript. “You can reach so many different application profiles with JavaScript, with a single language and toolset. To me, that’s what is fueling all of this: The incredible breadth of the kinds of apps you can build, and the kinds of reusability and leverage you can get in this evolving ecosystem. It’s not just got more complex; it’s also gotten way more capable.”
+“是的，它变得更复杂，但也有着无限多的能力。” Hejlsberg 谈到 JavaScript。“利用 JavaScript，你可以使用同一种语言和工具开发出如此多种类的应用。对我而言，这正是推动所有这些的原因：你可以开发不同类型应用的多样性，你能从这个不断进化的生态系统中获得的可重用性。它不仅仅变得更复杂了，它也更强大了。”
 
 *TNS analyst [Lawrence Hecht](https://thenewstack.io/author/lawrence-hecht/) contributed to this report.*
 
