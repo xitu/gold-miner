@@ -18,15 +18,11 @@
 
 ![](http://images.yalantis.com/w736/uploads/ckeditor/pictures/2328/content_1_gradients.jpg)
 
-Our component has a white background with lots of bright colors and graphics against it. 
-
 我们的组件是白色背景，上面包含了很多明亮的颜色和图形。
 
 这种高反差对丰富应用的内容很有帮助，在这里用户不得不从一系列选项列表中做出选择。比如，在我们的概念中，我们在旅行应用中使用气泡来持有潜在的目的地名称。气泡在自由的漂浮，当用户点击其中一个时，那个气泡就会变大。
 
 ![](https://yalantis-com-dev-06-09.s3.amazonaws.com/uploads/ckeditor/pictures/2329/content_discover_animation.gif)
-
-Moreover, we provide developers with the opportunity to customize the elements of the screen to make the animation suit any app.  
 
 此外，开发者可以通过自定义屏幕中的元素使得动画适配任何应用。
 
