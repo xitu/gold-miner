@@ -103,9 +103,12 @@
 ### #2 - 序列化器 ###
 
 序列化器基于给定的输入输出一个字符串。它必须是一个确定性算法，意味着对相同的输入，总是给出相同的输出。
+
 序列化器生成的字符串用作缓存的key，代表记忆化函数的输入。
+
 `JSON.stringify` 是实现它性能最佳的方式，比其它方式的都好 -- 这也很容易理解，因为 `JSON.stringify` 是原生的。
 我尝试使用 bound `JSON.stringify`（`bar = foo.bind(null)`，此时 `bar.name` 为 `bound foo`，译者注），希望通过减少一次变量查找来提高性能，但很遗憾没有效果。
+
 想在本地执行，可以执行命令 `npm run benchmark:serializer`，实现的具体代码可以在[项目的 GitHub 页面](https://github.com/caiogondim/fast-memoize.js/tree/master/benchmark/serializer)找到。
 
 ![变量序列化器](https://blog-assets.risingstack.com/2017/01/variable-serializer.png)
@@ -189,8 +192,10 @@
 
 上面我们把记忆化分解为了 3 个部分。
 
-对每个部分，我们将其中 2 个部分固定，更换其余一个测试其性能。通过这种单变量测试，我们能更加确信每次改变的效果--由于GC造成的不确定性停顿，JS代码的性能并不完全确定。
+对每个部分，我们将其中 2 个部分固定，更换其余一个测试其性能。通过这种单变量测试，我们能更加确信每次改变的效果--由于 GC 造成的不确定性停顿，JS代码的性能并不完全确定。
+
 V8 会更根据函数的调用频率、代码结构等因素，做很多运行时优化。
+
 为了确保我们将这 3 部分组合起来时不会错过大量性能优化的机会，我们尝试所有可能的组合。
 一共 4 种策略 x 2 种序列化器 x 4 种缓存 = **32 种不同的组合**。本地运行，请执行命令 `npm run benchmark:combination`。下面是性能最好的 5 种组合：
 
@@ -212,7 +217,7 @@ Legend:
 
 ## 与流行库的性能对比 ##
 
-有了上面的算法，是时候把它同最流行的库做一个性能上的比较了。运行命令 `npm run benchmark`，就可以在本地执行了。结果如下：
+有了上面的算法，是时候把它同最流行的库做一个性能上的比较了。本地运行，请执行命令 `npm run benchmark`。结果如下：
 ![与流行库的性能对比](https://blog-assets.risingstack.com/2017/01/benchmarking-against-other-memoization-libraries.png)
 
 [fast-memoize.js](https://github.com/caiogondim/fast-memoize.js)是最快的，几乎是第二名的 3 倍，**每秒 27,000,000次操作**。
