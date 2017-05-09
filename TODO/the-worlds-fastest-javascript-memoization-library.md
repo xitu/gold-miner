@@ -240,10 +240,8 @@ V8有一个很新的、未发布的优化编译器 [TurboFan](http://v8project.b
 
 正如前 V8 工程师 [Vyacheslav Egorov](https://www.youtube.com/watch?v=g0ek4vV7nEA&amp;t=22s) 所言，在虚拟机上测试算法性能非常棘手。如果你发现测试中的错误，请在 [GitHub](https://github.com/caiogondim/fast-memoize.js/issues) 上提交 issue。
 
-The same goes for the library itself. Create an issue if you spotted anything wrong (issues with a failing test are appreciated).
-？？？
-Pull requests with improvements are super appreciated!
-？？？
+这个库也一样，如果你发现任何问题请提交 issue（如果带上错误用例我会很感激）。带有改进建议的 Pull requests 我将感激不尽。
+
 如果你喜欢这个库，欢迎 [star](https://github.com/caiogondim/fast-memoize.js/stargazers)。这是对我们开源开发者的鼓励哦。
 
 #### 参考文献 ####
