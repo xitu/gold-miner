@@ -10,7 +10,7 @@
 
 为何 [TypeScript](https://www.typescriptlang.org/) 这么流行呢？许多主流的开发框架依赖于它，它还能提高开发者在不断变化的 JavaScript 世界中的生产力。
 
-在最近的 [Stack Overflow 开发者调查](https://stackoverflow.com/insights/survey/2017#technology)以及年度[RedMonk](http://redmonk.com)编程[语言排名](https://redmonk.com/sogrady/2017/03/17/language-rankings-1-17/)中都显示 [TypeScript](https://www.thenewstack.io/tag/TypeScript) —— 由微软发起的结合了编译高级 JavaScript 特性与静态类型检查及工具的开源项目 —— 正在达到新的人气高度。通过为 JavaScript 提供[最基本的检查语法](https://medium.com/@tomdale/glimmer-js-whats-the-deal-with-typescript-f666d1a3aad0)，TypeScript 允许开发者对他们的代码进行类型检查，这可以暴露 bug 并改善大型 JavaScript 代码库的结构和文档。
+在最近的 [Stack Overflow 开发者调查](https://stackoverflow.com/insights/survey/2017#technology)以及年度 [RedMonk](http://redmonk.com) 编程[语言排名](https://redmonk.com/sogrady/2017/03/17/language-rankings-1-17/)中都显示 [TypeScript](https://www.thenewstack.io/tag/TypeScript) —— 由微软发起的结合了编译高级 JavaScript 特性与静态类型检查及工具的开源项目 —— 正在达到新的人气高度。通过为 JavaScript 提供[最基本的检查语法](https://medium.com/@tomdale/glimmer-js-whats-the-deal-with-typescript-f666d1a3aad0)，TypeScript 允许开发者对他们的代码进行类型检查，这可以暴露 bug 并改善大型 JavaScript 代码库的结构和文档。
 
 参与了 Stack Overflow 调查的开发者中有 9.5% 的人正在使用 TypeScript，这使得 TypeScript 成为了第九流行的编程语言。排名在 Ruby 之前，用户量是 Perl 的两倍。此次 Stack Overflow 调查中的受访者来自不同领域；使用最广泛的两种语言是 JavaScript 和 SQL，这说明此次调查并非只针对前端开发。事实上，TypeScript 程序员出现在了参与 Stack Overflow 调查的所有 4 种工作角色中；web 开发者、桌面开发者、系统管理员与 DevOps 以及数据科学家。
 
