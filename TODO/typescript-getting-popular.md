@@ -83,7 +83,7 @@ TypeScript 团队最近宣布发布频率将由每季度改为每两个月，Hel
 
 『是的，它变得更复杂，但也有着无限多的能力。』 Hejlsberg 谈到 JavaScript 时说道。『利用 JavaScript，你可以使用同一种语言和工具开发出如此多种类的应用。对我而言，这正是推动所有这一切的原因：你可以开发不同类型应用的多样性以及你能从这个不断进化的生态系统中获得的可重用性。它不仅仅变得更复杂了，也更强大了。』
 
-*TNS 分析员 [Lawrence Hecht](https://thenewstack.io/author/lawrence-hecht/) 为此份报告的撰写提供了帮助。*
+**TNS 分析员 [Lawrence Hecht](https://thenewstack.io/author/lawrence-hecht/) 为此份报告的撰写提供了帮助。**
 
 
 
