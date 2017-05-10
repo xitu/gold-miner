@@ -162,7 +162,7 @@
 
 ```js
     functionfoo(a, b) {
-      Return a + b
+      return a + b
     }
     foo.length // => 2
 ```
