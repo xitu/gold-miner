@@ -11,7 +11,7 @@
 本系列博文是关于 android-centric 架构的可测试性和其它问题之间的联系的，而这些问题正导致 Android 开发者们排斥这种架构。这些博文也涉及单元测试怎样试图告诉我们：`Activity` 和 `Fragment` 不是应用的最佳构件，因为它们迫使我们写出**高耦合**和**低内聚**的代码。
 
 
-[上次](https://www.philosophicalhacker.com/post/what-unit-tests-are-trying-to-tell-us-about-activities-pt-2/),我们发现`Activity` 和 `Fragment`有低内聚的倾向。这次，通过测试我们将会发现 `Activity` 是高耦合的。我们还会发现如何通过测试来驱使实现一个耦合度更低的设计，这样我们就能轻易地改变应用和有更多的机会来减去重复代码。像本系列博文中的其他文章一样，我们依然以 Google I/O 应用为例子进行探讨。
+[上次](https://www.philosophicalhacker.com/post/what-unit-tests-are-trying-to-tell-us-about-activities-pt-2/)，我们发现`Activity` 和 `Fragment`有低内聚的倾向。这次，通过测试我们将会发现 `Activity` 是高耦合的。我们还会发现如何通过测试来驱使实现一个耦合度更低的设计，这样我们就能轻易地改变应用和有更多的机会来减去重复代码。像本系列博文中的其他文章一样，我们依然以 Google I/O 应用为例子进行探讨。
 
 ### 目标代码
 
