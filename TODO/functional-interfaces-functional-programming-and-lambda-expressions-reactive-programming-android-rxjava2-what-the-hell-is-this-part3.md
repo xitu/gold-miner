@@ -11,18 +11,18 @@
 
 大家好，希望你们都过得不错。这是我们的 RxJava2 Android 系列的第三篇文章.
 
-- [第一部分](http://www.uwanttolearn.com/android/reactive-programming-android-rxjava2-hell-part1/)
-- [第二部分](http://www.uwanttolearn.com/android/pull-vs-push-imperative-vs-reactive-reactive-programming-android-rxjava2-hell-part2/)
+- [第一部分](https://github.com/xitu/gold-miner/blob/master/TODO/reactive-programming-android-rxjava2-hell-part1.md)
+- [第二部分](https://github.com/xitu/gold-miner/blob/master/TODO/pull-vs-push-imperative-vs-reactive-reactive-programming-android-rxjava2-hell-part2.md)
 
 在这篇文章中，我们将讨论函数式的接口，函数式编程，Lambda 表达式以及与 Java 8 的相关的其它内容。这对每个人近期都是有帮助的。
 
 **动机：**
 
-动机和我在分享[第一部分](http://www.uwanttolearn.com/android/reactive-programming-android-rxjava2-hell-part1/)时一致。Lambda 表达式、函数式编程、高阶函数等等总是让我在使用 Java 时很痛苦，因为大家都知道，Java 是面向对象编程的。所以，Java 怎么可能支持函数式编程。那么，在函数式编程里，Lambda 表达式的角色是什么呢？为了让所有问题变得简单明了，我会从函数式接口开始。重要的是，我向你们保证，只要你们 100% 看完这部分，你们将会对最近我们听到的所有名字都感觉自在很多。函数式接口，默认方法，纯函数，函数的副作用，高阶函数，可变的与不可变的，函数式编程与 Lambda 表达式。我觉得很多人最近都在使用 Lambda 表达式，但或许在读完这篇文章后，他们会更了解 Lambda 表达式。攻克难题的时刻到了。
+动机和我在分享[第一部分](https://github.com/xitu/gold-miner/blob/master/TODO/reactive-programming-android-rxjava2-hell-part1.md)时一致。Lambda 表达式、函数式编程、高阶函数等等总是让我在使用 Java 时很痛苦，因为大家都知道，Java 是面向对象编程的。所以，Java 怎么可能支持函数式编程。那么，在函数式编程里，Lambda 表达式的角色是什么呢？为了让所有问题变得简单明了，我会从函数式接口开始。重要的是，我向你们保证，只要你们 100% 看完这部分，你们将会对最近我们听到的所有名字都感觉自在很多。函数式接口，默认方法，纯函数，函数的副作用，高阶函数，可变的与不可变的，函数式编程与 Lambda 表达式。我觉得很多人最近都在使用 Lambda 表达式，但或许在读完这篇文章后，他们会更了解 Lambda 表达式。攻克难题的时刻到了。
 
 **修改:**
 
-在[第一部分](http://www.uwanttolearn.com/android/reactive-programming-android-rxjava2-hell-part1/)，我们讨论了 Rx 最重要、最基础也最核心的概念，那就是观察者模式。在[第二部分](http://www.uwanttolearn.com/android/pull-vs-push-imperative-vs-reactive-reactive-programming-android-rxjava2-hell-part2/)，我们讨论了拉模式和推模式，以及命令式和响应式编程。
+在[第一部分](https://github.com/xitu/gold-miner/blob/master/TODO/reactive-programming-android-rxjava2-hell-part1.md)，我们讨论了 Rx 最重要、最基础也最核心的概念，那就是观察者模式。在[第二部分](https://github.com/xitu/gold-miner/blob/master/TODO/pull-vs-push-imperative-vs-reactive-reactive-programming-android-rxjava2-hell-part2.md)，我们讨论了拉模式和推模式，以及命令式和响应式编程。
 
 **介绍:**
 
@@ -65,10 +65,10 @@ public interface Add {
 
 ```
 public interface Do {
-   
+
     void why();
-   
-    void sorry(); 
+
+    void sorry();
 }
 ```
 
@@ -78,11 +78,11 @@ public interface Do {
 
 ```
 public interface Runnable {
-    public abstract void **run**();
+    public abstract void run();
 }
 
 public interface OnClickListener {
-    void **onClick**(View v);
+    void onClick(View v);
 }
 ```
 
@@ -134,11 +134,7 @@ RxJava2:
 
 f(x) = x+3
 
-if x = 2 what will be the answer.
-
-如果 x = 2，答案是什么。
-
-f(x) equal to y.
+如果 x = 2，答案是什么。d
 
 f(x) 等于 y。
 
@@ -215,13 +211,13 @@ public int squre(int x){
 
 ```
 public void login(String username, String password, Callback c){
-    API.login(username, password, callback); 
+    API.login(username, password, callback);
 }
 ```
 
 现在我们又理解了两个名词。纯函数和副作用。
 
-~~函数式接口、默认方法、纯函数、函数的副作用~~、高阶函数、可变的和不可变的、函数式编程和 Lambda 表达式。
+~函数式接口、默认方法、纯函数、函数的副作用~、高阶函数、可变的和不可变的、函数式编程和 Lambda 表达式。
 
 接下来，我们准备讨论可变的不可变的。在数学中，我们记得，当我给函数一个值，我总能获得新的值，而我原来的值还是一样的。但是，在编程中，那个概念就变了。这时为什么我们有两种不同的定义。可变的和不可变的。在面向对象中，我们几乎无时不刻不在破坏不可变性。这可能导致很多问题，但是函数式编程总是利用不可变性。正如每个人都知道在 Java 里，String 是不可变的。
 
@@ -254,7 +250,7 @@ for (int i = 0; i < array.length; i++) {
 
 ```
 Output:
-2 4 6 8 10 
+2 4 6 8 10
 1 2 3 4 5
 ```
 
@@ -289,21 +285,21 @@ public class FunctionalLambda {
 在这个例子里，基本上我用到了线程。子线程让数组里的每一个数据 + 1，而主线程或者其他子线程则对数组中的数据做平方运算。作为一个开发者，我期望数值应如下所示。
 
 ```
-        1
-        4
-        9
-        16
-        25
+1
+4
+9
+16
+25
 ```
 
 但是，当我执行这段代码时，得到的结果如下。
 
 ```
-        4
-        9
-        16
-        25
-        36
+4
+9
+16
+25
+36
 ```
 
 结果和期望并不相同，因为我没有管数据可变性。现在我准备写一个合适的函数式程序，对数据的不可变性进行严格控制。
@@ -339,7 +335,7 @@ public class FunctionalLambda {
 
 运行完这段例子后，我所期望的和实际输出的是一致的，因为我的程序没有对数组做直接改变，而是拷贝了我的数据。这就是为什么我可以说我的数组是不可变的。对不起，我也用 Rx 了。但是从现在开始，我会加一点 Rx 到我的例子里。我会在接下来的文章中解释清楚。但是，请相信我，那是一个函数式程序。在程序里，我有一个纯函数做平方运算，并且我的数组不改变，因为我将使用函数式范式。
 
-~~函数式接口、默认方法、纯函数、函数的副作用、~~高阶函数、~~可变的和不可变的、~~函数式编程和 Lambda 表达式。
+~函数式接口、默认方法、纯函数、函数的副作用~、高阶函数、~可变的和不可变的~、函数式编程和 Lambda 表达式。
 
 是时候解释清楚高阶函数 (HOF) 的含义了。
 
@@ -347,7 +343,7 @@ public class FunctionalLambda {
 
 那简直太简单了，并且我们在 Rx 编程中用了很多这个概念。在 Java 8 之前，展示 HOF 还是有点困难的，但是我们使用匿名类作为 HOF。我们大多在 C++ 中使用这个概念，把函数作为一个参数。在安卓中，这就类似于添加一个匿名类为点击事件监听者。所以你可以说，这是 HOF 的一个例子。我会在介绍 Rx 的文章中更详细地解释这个。
 
-~~函数式接口、默认方法、纯函数、函数的副作用、高阶函数、可变的和不可变的、~~函数式编程和 Lambda 表达式。
+~函数式接口、默认方法、纯函数、函数的副作用、高阶函数、可变的和不可变的~、函数式编程和 Lambda 表达式。
 
 现在，如果我们使用这些概念，在任何语言中，我们所讨论的纯函数，HOF，不可变的都是接下来的函数式范式。那就是函数式编程。在面向对象编程时我们经常要管理对象的状态，但是在函数式程序里，我们有数据，管理好了不可变性，我们可以大胆地做运算。
 
@@ -401,10 +397,10 @@ List<String > list = new ArrayList<>();
 
 ```
 public static void main(String [] args){
-    System.out.println(**giveMeBack(1)**);
+    System.out.println(giveMeBack(1));
 }
 
-public static int  **giveMeBack**(int a){
+public static int  giveMeBack(int a){
     return a;
 }
 ```
@@ -464,7 +460,7 @@ button.setOnClickListener(v -> /* Click */);
 /**
  * Interface definition for a callback to be invoked when a view is clicked.
  */
-public interface **OnClickListener** {
+public interface OnClickListener {
     /**
      * Called when a view has been clicked.
      *
@@ -517,7 +513,7 @@ button.setOnClickListener(v -> {
 我可以明确提及数据类型，如下所示。
 
 ```
-button.setOnClickListener(**(View v)** -> System.out.println());
+button.setOnClickListener((View v) -> System.out.println());
 ```
 
 现在，如何返回 Lambda 表达式类型呢？再给你一个例子。
@@ -571,7 +567,7 @@ int sum = add.add(1,2);
 
 结论：
 
-大家都太棒了。今天我们到达了一个 Rx 学习中的里程碑。下一篇文章是 [War against Learning Curve of Rx Java 2 + Java 8 Stream [ Android RxJava2 ] ( What the hell is this ) Part4](http://www.uwanttolearn.com/android/war-learning-curve-rx-java-2-java-8-stream-android-rxjava2-hell-part4/)。（[第四部分](https://github.com/xitu/gold-miner/blob/master/TODO/war-learning-curve-rx-java-2-java-8-stream-android-rxjava2-hell-part4.md)）到现在为止，我们了解了观察者模式、拉模式与推模式、响应式与命令式、函数式接口、默认方法、纯函数、函数的副作用、高阶函数、可变的和不可变的、函数式编程和 Lambda 表达式。我认为，如果你都了解了上述名词，Rx 的学习将会越来越简单。现在我感觉你们都已经了解了，所以接下来 Rx 的学习对于我们都会更简单。
+大家都太棒了。今天我们到达了一个 Rx 学习中的里程碑。下一篇文章是 [War against Learning Curve of Rx Java 2 + Java 8 Stream [ Android RxJava2 ] ( What the hell is this ) Part4](https://github.com/xitu/gold-miner/blob/master/TODO/war-learning-curve-rx-java-2-java-8-stream-android-rxjava2-hell-part4.md)。到现在为止，我们了解了观察者模式、拉模式与推模式、响应式与命令式、函数式接口、默认方法、纯函数、函数的副作用、高阶函数、可变的和不可变的、函数式编程和 Lambda 表达式。我认为，如果你都了解了上述名词，Rx 的学习将会越来越简单。现在我感觉你们都已经了解了，所以接下来 Rx 的学习对于我们都会更简单。
 
 祝你们有个愉快的周末。让我们下周再见吧。
 
