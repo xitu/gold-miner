@@ -225,7 +225,7 @@ V8 会更根据函数的调用频率、代码结构等因素，做很多运行�
 ### 面向未来 ###
 
 V8有一个很新的、未发布的优化编译器 [TurboFan](http://v8project.blogspot.com.br/2015/07/digging-into-turbofan-jit.html)。
-我们现在就应该用它测试一下，因为 TurboFan（极有可能）很快就会添加到V8中。通过给 Node.js 设置 flag `--turbo-fan` 就可以启用它。本地运行，请执行命令`npm run benchmark:turbo-fan`。以下是启用后的测试结果：
+我们现在就应该用它测试一下，因为 TurboFan（极有可能）很快就会添加到 V8 中。通过给 Node.js 设置 flag `--turbo-fan` 就可以启用它。本地运行，请执行命令`npm run benchmark:turbo-fan`。以下是启用后的测试结果：
 
 ![使用 TurboFan 的性能](https://blog-assets.risingstack.com/2017/01/performance-with-turbofan.png)
 
@@ -238,14 +238,13 @@ V8有一个很新的、未发布的优化编译器 [TurboFan](http://v8project.b
 以上就是我创建这个世界上最快的记忆化库的过程。分别实现各个部分，组合它们，然后统计每种组合方案的性能数据，从中选择最优的方案。**(使用 [benchmark.js](https://benchmarkjs.com/) )。**
 希望这个过程对其他开发者有所帮助。
 
-[fast-memoize.js 是目前最好的 #JavaScrip 库, 并且我会努力让它一直是最好的。](https://twitter.com/share)
-[分享到 Tweet](https://twitter.com/share)
+fast-memoize.js 是目前最好的 #JavaScrip 库, 并且我会努力让它一直是最好的。
 
 **并非是因为我聪明绝顶, 而是我会一直维护它。** 欢迎给我提交 [Pull requests](https://github.com/caiogondim/fast-memoize.js/pulls)。
 
 正如前 V8 工程师 [Vyacheslav Egorov](https://www.youtube.com/watch?v=g0ek4vV7nEA&amp;t=22s) 所言，在虚拟机上测试算法性能非常棘手。如果你发现测试中的错误，请在 [GitHub](https://github.com/caiogondim/fast-memoize.js/issues) 上提交 issue。
 
-这个库也一样，如果你发现任何问题请提交 issue（如果带上错误用例我会很感激）。带有改进建议的 Pull requests 我将感激不尽。
+这个库也一样，如果你发现任何问题请提交 issue（如果带上错误用例我会很感激）。带有改进建议的 Pull Requests 我将感激不尽。
 
 如果你喜欢这个库，欢迎 [star](https://github.com/caiogondim/fast-memoize.js/stargazers)。这是对我们开源开发者的鼓励哦。
 
