@@ -4,7 +4,7 @@
 > * 译者：
 > * 校对者：
 
-# React at Light Speed #
+# 光速 React #
 
 ## Vixlet优化性能的经验教训 ##
 
