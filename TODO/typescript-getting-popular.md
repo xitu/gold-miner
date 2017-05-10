@@ -10,7 +10,7 @@
 
 为何 [TypeScript](https://www.typescriptlang.org/) 这么流行呢？许多主流的开发框架依赖于它，它还能提高开发者在不断变化的 JavaScript 世界中的生产力。
 
-在最近的 [Stack Overflow 开发者调查](https://stackoverflow.com/insights/survey/2017#technology)以及年度 [RedMonk](http://redmonk.com) 编程[语言排名](https://redmonk.com/sogrady/2017/03/17/language-rankings-1-17/)中都显示 [TypeScript](https://www.thenewstack.io/tag/TypeScript) —— 由微软发起的结合了编译高级 JavaScript 特性与静态类型检查及工具的开源项目 —— 正在达到新的人气高度。通过为 JavaScript 提供[最基本的检查语法](https://medium.com/@tomdale/glimmer-js-whats-the-deal-with-typescript-f666d1a3aad0)，TypeScript 允许开发者对他们的代码进行类型检查，这可以暴露 bug 并改善大型 JavaScript 代码库的结构和文档。
+在最近的 [Stack Overflow 开发者调查](https://stackoverflow.com/insights/survey/2017#technology)以及年度 [RedMonk](http://redmonk.com) 编程[语言排名](https://redmonk.com/sogrady/2017/03/17/language-rankings-1-17/)中都显示 [TypeScript](https://www.thenewstack.io/tag/TypeScript) —— 由微软发起的结合了编译高级 JavaScript 特性与静态类型检查及工具的开源项目 —— 正在达到新的人气高度。通过为 JavaScript 提供[最基本的检查语法](https://medium.com/@tomdale/glimmer-js-whats-the-deal-with-typescript-f666d1a3aad0)，TypeScript 允许开发者对他们的代码进行类型检查，这可以[暴露 bug 并改善大型 JavaScript 代码库的结构和文档]((https://slack.engineering/typescript-at-slack-a81307fa288d))。
 
 参与了 Stack Overflow 调查的开发者中有 9.5% 的人正在使用 TypeScript，这使得 TypeScript 成为了第九流行的编程语言。排名在 Ruby 之前，用户量是 Perl 的两倍。此次 Stack Overflow 调查中的受访者来自不同领域；使用最广泛的两种语言是 JavaScript 和 SQL，这说明此次调查并非只针对前端开发。事实上，TypeScript 程序员出现在了参与 Stack Overflow 调查的所有 4 种工作角色中；web 开发者、桌面开发者、系统管理员与 DevOps 以及数据科学家。
 
@@ -20,13 +20,13 @@ RedMonk 的排名将 Stack Overflow 的数据与 Github 上的 pull request 结�
 
 在另一个针对开发者的调查中，TypeScript 在众多 JavaScript 的『替代』[风格](http://stateofjs.com/2016/flavors/)中拥有最高的使用率（21%）以及尚未的用户中最高的关注度（39%）。这项调查的方式不同寻常 —— 它很奇怪的将转译器和包管理器（如 [npm](https://www.npmjs.com/) 和 [Bower](https://bower.io/)）混合在一起 —— 但参与了这项调查且经常使用 TypeScript 的开发者也经常使用 [ECMAScript 2015](http://www.ecma-international.org/ecma-262/6.0/)、[NativeScript](https://www.nativescript.org/)、[Angular](https://angular.io/)，尤其是 Angular2。
 
-来自 RedMonk 的 [Stephen O’Grady](http://redmonk.com/team/stephen-ogrady/) 指出『似乎有理由相信 Angular』在 TypeScript 的日益普及中发挥了作用。Angular2 只是众多使用了 TypeScript 的项目中的一个（Asana 和 Dojo 已经在使用了，Adobe、Google、Palantir、SitePen 以及 eBay 的一些内部项目也是一样）。但最为人们所熟知的，恐怕还是像 [Rob Wormald](https://twitter.com/robwormald) 这样的 Google 员工在宣传 Angular 时顺带推广了 TypeScript。
+来自 RedMonk 的 [Stephen O’Grady](http://redmonk.com/team/stephen-ogrady/) 指出『似乎有理由相信 Angular』在 TypeScript 的日益普及中发挥了作用。虽然Angular2 只是众多使用了 TypeScript 的项目中的一个（Asana 和 Dojo 已经在使用了，Adobe、Google、Palantir、SitePen 以及 eBay 的一些内部项目也是一样）。但最为人们所熟知的，恐怕还是像 [Rob Wormald](https://twitter.com/robwormald) 这样的 Google 员工在宣传 Angular 时顺带推广了 TypeScript。
 
 ## 不止是 Angular2 ##
 
 『毫无疑问，我们与 Angular 团队的合作有助于 TypeScript 的推广』，TypeScript 核心成员 [Anders Hejlsberg ](https://twitter.com/ahejlsberg?lang=en) 向 New Stack 说到。『但即便如此，我认为真正重要的点在于这是一次代表了行业力量重大信心的信任投票。』
 
-他指出，这种信任投票带来的影响比 Angular 更广泛。『目前，许多其它框架也在使用 TypeScript。[Aurelia](http://aurelia.io/)、[Ionic](https://ionicframework.com/)、NativeScript都以某种方式使用了 TypeScript。[Ember](https://www.emberjs.com/) 框架与 [Glimmer](https://github.com/glimmerjs) 框架的最新发布版本就是使用 TypeScript 编写的。』
+他指出，这种信任投票带来的影响不仅仅在于 Angular。『目前，许多其它框架也在使用 TypeScript。[Aurelia](http://aurelia.io/)、[Ionic](https://ionicframework.com/)、NativeScript都以某种方式使用了 TypeScript。[Ember](https://www.emberjs.com/) 框架与 [Glimmer](https://github.com/glimmerjs) 框架的最新发布版本就是使用 TypeScript 编写的。』
 
 > 『我们看到许多来自在这个行业经验丰富的人的信任投票。我想这可能是每个在大公司的人都会注意到的』—— Anders Hejlsberg
 
@@ -38,7 +38,7 @@ RedMonk 的排名将 Stack Overflow 的数据与 Github 上的 pull request 结�
 
 [![](https://cdn.thenewstack.io/media/2017/04/940acc19-stateofthenation.png)](http://vmob.me/DE1Q17)
 
-React 是由 Facebook 发起的库。Angular 是从 Google 衍生出来的框架。有很多分析把它们做了比较。总得来说，Angular 处于领跑地位，与此同时 Vue.js 正在受到大量关注。Angular 在 TypeScript 的用户圈中受到追捧，41% 的人倾向于 2.x 版本，另外 18% 的人则更喜欢老版本。随着近期 Angular 4 的发布以及 TypeScript 的日益流行，我们预计 JavaScript 的战争还将持续下去（Lawrence Hecht）。
+React 是由 Facebook 发起的库。Angular 是从 Google 衍生出来的框架。有很多分析把它们做了比较。总的来说，Angular 处于领跑地位，与此同时 Vue.js 正在受到大量关注。Angular 在 TypeScript 的用户圈中受到追捧，41% 的人倾向于 2.x 版本，另外 18% 的人则更喜欢老版本。随着近期 Angular 4 的发布以及 TypeScript 的日益流行，我们预计 JavaScript 的战争还将持续下去（Lawrence Hecht）。
 
 拥有 TypeScript 类型定义的库的数量也在稳步增长。[DefinitelyTyped](http://definitelytyped.org/)，一个维护 TypeScript 类型定义的仓库，现在已经包含了超过 3000 个框架和库。通过把声明文件作为 npm 包发布在 @type 命名空间下，这个过程被大大提速了。
 
@@ -46,7 +46,7 @@ React 是由 Facebook 发起的库。Angular 是从 Google 衍生出来的框架
 
 >『通常，TypeScript 被采用的流程 —— 不论是企业，创业团队还是个人开发者 —— 是你在某个项目中尝试使用并发现它很棒，接着你就开始推荐给别人。就这样，它就在你的影响范围内传播开了。』—— Anders Hejlsberg
 
-关注度的提高似乎是用户增长的原因之一。『我们没做过任何推广，所有这些都是社区驱动的。实际上是在稳步增长，我们现在开始注意到更大的数字了。』Hejlsberg 说道。
+关注度的提高似乎是用户增长的原因之一。『我们没做过任何推广，所有这些都是社区驱动的。实际上是在稳步增长，我们现在开始注意增长速度更快了。』Hejlsberg 说道。
 
 Hejlsberg 指出 TypeScript 还是在 Stack Overflow 的调查中排在 Rust 和 Smalltalk 之后第三受欢迎的语言（排在 Swift 和 go 之前）以及第六急需人才的语言，排在 C# 和 Swift 之前。『我认为这从很大程度上说明我们真的解决了实际问题』Hejlsberg 指出。
 
@@ -73,7 +73,7 @@ TypeScript 团队最近宣布发布频率将由每季度改为每两个月，Hel
 
 使这样的快速发布节奏成为可能的是所有 pull request 被合并前必须通过测试，这保证了 master 分支的代码质量和 TypeScript 的流行，意味着任何问题都可以被快速发现。
 
-『我们是一个开源项目，我们在 GitHub 上做了很多工作。我们绝不合并任何 pull request，除非它能通过我们现有的 55000 个测试；如果是增加新功能，就必须提供相应的测试代码；如果是修改 bug，就必须提供回归测试。这意味着我们的 master 分支始终保持着很高的代码质量。』他说道。
+『我们是一个开源项目，我们在 GitHub 上做了很多工作。除非能通过我们现有的 55000 个测试，否则我们绝不合并任何 pull request；如果是增加新功能，就必须提供相应的测试代码；如果是修改 bug，就必须提供回归测试。这意味着我们的 master 分支始终保持着很高的代码质量。』他说道。
 
 ## JavaScript: 强大但复杂 ##
 
@@ -83,7 +83,7 @@ TypeScript 团队最近宣布发布频率将由每季度改为每两个月，Hel
 
 『是的，它变得更复杂，但也有着无限多的能力。』 Hejlsberg 谈到 JavaScript 时说道。『利用 JavaScript，你可以使用同一种语言和工具开发出如此多种类的应用。对我而言，这正是推动所有这一切的原因：你可以开发不同类型应用的多样性以及你能从这个不断进化的生态系统中获得的可重用性。它不仅仅变得更复杂了，也更强大了。』
 
-*TNS 分析员 [Lawrence Hecht](https://thenewstack.io/author/lawrence-hecht/) 为此份报告提供了帮助。*
+*TNS 分析员 [Lawrence Hecht](https://thenewstack.io/author/lawrence-hecht/) 为此份报告的撰写提供了帮助。*
 
 
 
