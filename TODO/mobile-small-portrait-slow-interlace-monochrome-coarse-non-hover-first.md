@@ -1,12 +1,10 @@
 > * 原文地址：[Mobile, Small, Portrait, Slow, Interlace, Monochrome, Coarse, Non-Hover, First](https://css-tricks.com/mobile-small-portrait-slow-interlace-monochrome-coarse-non-hover-first/)
-> * 原文作者：[ANDRÉS GALANTE](https://css-tricks.com/author/agalante/)
+> * 原文作者：本文已获原作者 [ANDRÉS GALANTE](https://css-tricks.com/author/agalante/) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：
 > * 校对者：
 
 # Mobile, Small, Portrait, Slow, Interlace, Monochrome, Coarse, Non-Hover, First #
-
-[![](http://s3.buysellads.com/1279518/7386844-1491489478.jpg)](https://srv.buysellads.com/ads/click/x/GTND4237CE7DV5QUCAY4YKQWF6BDCKQYFTAITZ3JCEAIVK7UCKSD55QKC6BDL23LCW7DTK3EHJNCLSIZ) 
 
 A month ago I [explored the importance of relying on Interaction Media Features](https://css-tricks.com/touch-devices-not-judged-size/) to identify the user's ability to hover over elements or to detect the accuracy of their pointing device, meaning a fine pointer like a mouse or a coarse one like a finger.
 
