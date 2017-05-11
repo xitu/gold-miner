@@ -8,13 +8,13 @@
 
 ![](https://cdn-images-1.medium.com/max/800/1*Fw8F2fRNVfkcE-0VGyDZhQ.png)
 
-[购物应用](https://github.com/bertilmuth/requirementsascode/tree/master/requirementsascodeexamples/shoppingappjavafx) 模型，[requirementsascode](https://github.com/bertilmuth/requirementsascode) 的示例代码
+[购物应用](https://github.com/bertilmuth/requirementsascode/tree/master/requirementsascodeexamples/shoppingappjavafx)模型，[requirementsascode](https://github.com/bertilmuth/requirementsascode) 的示例代码
 
 早晚有一天，每个程序员都会听到这样一句话：
 
 > “真相只能在一处找到：代码中。”
 
-> —— Robert C. Martin，【代码整洁之道】(https://www.amazon.de/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882)
+> —— Robert C. Martin，[代码整洁之道](https://www.amazon.de/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882)
 
 但这句话是什么意思呢？
 
@@ -118,7 +118,7 @@
 
 我想知道每一个用例中的不同部分对应哪块代码。
 
-#### 那么一个用例由哪些**零件**构成呢？####
+#### 那么一个用例由哪些零件构成呢？####
 
 用例的基础零件是使用户离期望结果更近一步的**步骤**。比如：“系统展示一个手套的列表。”
 
