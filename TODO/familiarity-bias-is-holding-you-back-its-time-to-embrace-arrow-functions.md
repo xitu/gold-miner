@@ -1,5 +1,5 @@
 > * 原文地址：[Familiarity Bias is Holding You Back: It’s Time to Embrace Arrow Functions](https://medium.com/javascript-scene/familiarity-bias-is-holding-you-back-its-time-to-embrace-arrow-functions-3d37e1a9bb75)
-> * 原文作者：[Eric Elliott](https://medium.com/@_ericelliott)
+> * 原文作者：本文已获原作者 [Eric Elliott](https://medium.com/@_ericelliott) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[lsvih](https://github.com/lsvih)
 > * 校对者：[Germxu](https://github.com/Germxu),[GangsterHyj](https://github.com/GangsterHyj)
