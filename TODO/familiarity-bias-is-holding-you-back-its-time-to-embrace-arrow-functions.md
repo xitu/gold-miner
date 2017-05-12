@@ -2,7 +2,7 @@
 > * 原文作者：[Eric Elliott](https://medium.com/@_ericelliott)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[lsvih](https://github.com/lsvih)
-> * 校对者：
+> * 校对者：[Germxu](https://github.com/Germxu),[GangsterHyj](https://github.com/GangsterHyj)
 
 # 别让你的偏爱拖了后腿：快拥抱箭头函数吧！ #
 
@@ -24,7 +24,7 @@
 const secret = msg => () => msg;
 ```
 
-我对有人在推特上指责我在误导别人感到不可思议。我写这个函数是为了示范在 ES6 中写柯里化函数是多么的**简单**。它是我能想到的 JavaScript 的**最简单**的实际应用与闭包表达式了。（相关阅读：“[什么是闭包](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-closure-b2f0d2152b36)”）
+我对有人在推特上指责我在误导别人感到不可思议。我写这个函数是为了示范在 ES6 中写柯里化函数是多么的**简单**。它是我能想到的在 JavaScript 中**最简单**的实际运用与闭包表达式了。（相关阅读：[什么是闭包](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-closure-b2f0d2152b36)）
 
 它和下面的函数表达式等价：
 
@@ -36,7 +36,7 @@ const secret = function (msg) {
 };
 ```
 
-`secret()` 是一个函数，它需要传入 `msg` 这个参数，然后会返回一个新的函数，这个函数将会返回 `msg` 的值。无论你像 `secret()` 中传入什么值，它都会应用闭包固定 `msg` 的值。
+`secret()` 是一个函数，它需要传入 `msg` 这个参数，然后会返回一个新的函数，这个函数将会返回 `msg` 的值。无论你向 `secret()` 中传入什么值，它都会利用闭包固定 `msg` 的值。
 
 你可以这么用它：
 
@@ -47,7 +47,7 @@ mySecret(); // 'hi'
 
 事实证明，双箭头并没有让人感到困惑。我坚信：
 
-> 对于熟悉的人来说，单行的箭头函数是 JavaScript 中**最具有可读性**的表达柯里化函数的方法了。
+> 对于熟悉的人来说，单行的箭头函数是 JavaScript 表达柯里化函数**最具有可读性**的方法了。
 
 有许多人指责我，告诉我将代码写的长一些比简短的代码更容易阅读。他们有时也许是对的，但是大多数情况都错了。更长、更详细的代码不一定更容易阅读——至少，对熟悉箭头函数的人来说就是如此。
 
@@ -63,17 +63,17 @@ mySecret(); // 'hi'
 
 **偏爱**是一种显著的[人类认知偏差](https://www.psychologytoday.com/blog/mind-my-money/200807/familiarity-bias-part-i-what-is-it)，它会让我们在有更好的选择的情况下做出自暴自弃的选择。我们会因此无视更舒服更好的方法，习惯性地选用以前使用过的老方法。
 
-你可以从这本书中更详细地了解“偏爱”这种心理：[《The Undoing Project: A Friendship that Changed Our Minds》](https://www.amazon.com/Undoing-Project-Friendship-Changed-Minds-ebook/dp/B01GI6S7EK/ref=as_li_ss_tl?ie=UTF8&qid=1492606452&sr=8-1&keywords=the+undoing+project&linkCode=ll1&tag=eejs-20&linkId=4ebd1476f97023e8acb4bba37ea18b90)（很多情况都是我们自欺欺人）。这本书推荐每个软件工程师都去读一读，因为它会鼓励你辩证地去看待问题，以及鼓励你多对假设进行实验，以免掉入各种认知陷阱中。书中那些发现认知陷阱的故事也很有趣。
+你可以从这本书中更详细地了解“偏爱”这种心理：[《The Undoing Project: A Friendship that Changed Our Minds》](https://www.amazon.com/Undoing-Project-Friendship-Changed-Minds-ebook/dp/B01GI6S7EK/ref=as_li_ss_tl?ie=UTF8&qid=1492606452&sr=8-1&keywords=the+undoing+project&linkCode=ll1&tag=eejs-20&linkId=4ebd1476f97023e8acb4bba37ea18b90)（很多情况都是我们自欺欺人）。每个软件工程师都应该读一读这本书，因为它会鼓励你辩证地去看待问题，以及鼓励你多对假设进行实验，以免掉入各种认知陷阱中。书中那些发现认知陷阱的故事也很有趣。
 
 ### 传统的函数表达式可能会在你的代码中导致 Bug 的出现 ###
 
-今天我将一个 ES6 写的柯里化箭头函数重新到 ES5 版本，以便发布开源模块让人们无需编译就能在老浏览器中用。然而 ES5 版本让我震惊。
+今天我用 ES5 的语法重写了一个 ES6 写的柯里化箭头函数，以便发布开源模块让人们无需编译就能在老浏览器中用。然而 ES5 版本让我震惊。
 
 ES6 版本的代码非常简短、简介、优雅——仅仅只需要 4 行。
 
-我觉得，这件事可以发个推特，告诉大家箭头函数是更加优越的一种实现，人们是时候放弃已经习惯传统函数表达式了。
+我觉得，这件事可以发个推特，告诉大家箭头函数是一种更加优越的实现，是时候如同放弃自己的坏习惯一样，放弃传统函数表达式的写法了。
 
-然后我发了一条推特：
+所以我发了一条推特：
 
 [![Markdown](http://i2.muimg.com/1949/15826825ba3ae5a9.png)](https://twitter.com/_ericelliott/status/854608052967751680/photo/1)
 
@@ -105,9 +105,9 @@ var composeMixins = function () {
 };
 ```
 
-这里的函数封装了一个 `pipe()`，它是一个通用、使用的函数，[用来组合函数](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-function-composition-20dfb109a1a0)。这个 `pipe()` 函数在 lodash 中是 `lodash/flow`，在 Ramda 中是 `R.pipe()`，在一些函数式编程语言中它甚至本身就是一个运算符号。
+这里的函数封装了一个 `pipe()`，它是标准的函数式编程的工具函数，通常[用于组合函数](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-function-composition-20dfb109a1a0)。这个 `pipe()` 函数在 lodash 中是 `lodash/flow`，在 Ramda 中是 `R.pipe()`，在一些函数式编程语言中它甚至本身就是一个运算符号。
 
-它对每个[熟悉函数式编程](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-functional-programming-7f218c68b3a0)的人来说都应该很熟悉。它的实现主要依赖于[Reduce](https://medium.com/javascript-scene/reduce-composing-software-fe22f0c39a1d)。
+每个[熟悉函数式编程](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-functional-programming-7f218c68b3a0)的人都应该很熟悉它。它的实现主要依赖于[Reduce](https://medium.com/javascript-scene/reduce-composing-software-fe22f0c39a1d)。
 
 在这个例子中，它用来组合混合函数，不过这点无关紧要（有专门写这方面的博客文章）。我们需要注意是以下几个重要的细节：
 
@@ -133,7 +133,7 @@ var composeMixins = function () {
 - ES6 版本代码在函数片段中定义了 `mix` 的默认值，由此你可以很清楚地看到它是参数的值。而 ES5 版本代码却混淆了这个细节问题，将它隐藏在函数体中。（不推荐原因之二）
 - ES6 版本代码仅有 2 层代码块，这将会帮助读者理解代码结构，以及知道如何去阅读这个代码。而 ES5 代码有 6 层代码块，复杂的层级结构会让函数结构的可读性变得很差。（不推荐原因之三）
 
-在 ES5 版本代码中，`pipe()` 占据了函数体的大部分内容——要把它们放到同一行中去简直是个荒唐的想法。非常**有必要**将这个函数打散，让我们的 ES5 版本代码更具有可读性：
+在 ES5 版本代码中，`pipe()` 占据了函数体的大部分内容——要把它们放到同一行中去简直是个荒唐的想法。非常**有必要**将 `pipe()` 这个函数单独抽离出来，让我们的 ES5 版本代码更具有可读性：
 
 ```
 var pipe = function () {
@@ -203,7 +203,7 @@ var composeMixins = function (...mixins) {
 
 现在，至少我觉得它的可读性显著的提升了。我们利用 **rest** 语法以及**默认参数**语法对它进行了修改。当然，你得对 rest 语法和默认参数语法很熟悉才会觉得这个版本的代码更可读。不过即使你不了解这些，我觉得这个版本也会看起来更加**有条理**。
 
-现在已经改进了许多了，但是我觉得这个版本还是比较简洁。将 `pips()` 抽象出来，写到它自己的函数里可能会**有所帮助**：
+现在已经改进了许多了，但是我觉得这个版本还是比较简洁。将 `pipe()` 抽象出来，写到它自己的函数里可能会**有所帮助**：
 
 ```
 const pipe = function (...fns) {
@@ -263,7 +263,7 @@ const composeMixins = (...mixins) => (
 ) => mix(...mixins)(instance);
 ```
 
-现在让我们回头看看最初的函数。无论我们后面做了什么调整，**我们都没有丢弃任何本来就有的信息**。并且，通过制定变量、在行内给定默认值，我们还给这个函数**增加了信息量**，描述了这个函数是怎么使用的以及参数值是什么样子的。
+现在让我们回头看看最初的函数。无论我们后面做了什么调整，**我们都没有丢弃任何本来就有的信息**。并且，通过在行内声明变量和默认值，我们还给这个函数**增加了信息量**，描述了这个函数是怎么使用的以及参数值是什么样子的。
 
 ES5 版本中增加的额外的代码其实都是语法干扰。这些代码对于**熟悉**柯里化箭头函数的人来说**没有任何有用之处**。
 
