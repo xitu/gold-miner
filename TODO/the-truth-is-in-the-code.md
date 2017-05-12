@@ -1,271 +1,275 @@
 > * 原文地址：[The truth is in the code](https://medium.freecodecamp.com/the-truth-is-in-the-code-86a712362c99)
 > * 原文作者：[Bertil Muth](https://medium.freecodecamp.com/@BertilMuth)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
-> * 校对者：
+> * 译者：[loveky](https://github.com/loveky)
+> * 校对者：[sunui](https://github.com/sunui) [yzgyyang](https://github.com/yzgyyang)
 
-# The truth is in the code #
+# 真相就在代码中 #
 
 ![](https://cdn-images-1.medium.com/max/800/1*Fw8F2fRNVfkcE-0VGyDZhQ.png)
 
-[shoppingapp](https://github.com/bertilmuth/requirementsascode/tree/master/requirementsascodeexamples/shoppingappjavafx) model, example of [requirementsascode](https://github.com/bertilmuth/requirementsascode)
+[购物应用](https://github.com/bertilmuth/requirementsascode/tree/master/requirementsascodeexamples/shoppingappjavafx)模型，[requirementsascode](https://github.com/bertilmuth/requirementsascode) 的示例代码
 
-Sooner or later, every software developer will hear something like this:
+早晚有一天，每个程序员都会听到这样一句话：
 
-> “Truth can only be found in one place: the code.”
+> “真相只能在一处找到：代码中。”
 
-> – Robert C. Martin, [Clean Code](https://www.amazon.de/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882)
+> —— Robert C. Martin，[代码整洁之道](https://www.amazon.de/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882)
 
-But what does that mean?
+但这句话是什么意思呢？
 
-The [Agile Manifesto](http://agilemanifesto.org/) values “working software over comprehensive documentation.”
+[敏捷宣言](http://agilemanifesto.org/)中指出“可工作的软件胜过繁琐的文档”。
 
-Developers write comprehensive documentation of the software’s behavior all the time, though. The code.
+即便开发人员一直都在撰写繁琐的文档以描述软件的行为。代码也在做着相同的事。
 
-Code comments, and external specifications, document the software’s behavior as well. But they may not get updated when the code changes. Then they stop reflecting the software’s behavior soon.
+代码注释、外部规范也在记录软件的行为，但是当代码被修改时它们可能不会被同步更新。然后它们很快就不再能表达代码的行为了。
 
-In contrast, code *always* reflects the software’s behavior. It defines it.
+相反，代码**始终**都能表达软件的行为。因为正是它定义了这些行为。
 
-That’s why the truth is in the code.
+这就是为什么说真相存在于代码中。
 
-### Writing for your readers ###
+### 为阅读你代码的人考虑 ###
 
-Code is documentation. Any kind of documentation should be understandable by its readers.
+代码是一种文档。任何文档都应该能够被它的读者理解。
 
-The readers of code are a compiler or interpreter, and other developers.
+代码的读者可能是一个编译器，解释器或是其他开发人员。
 
-So it is not enough if your code compiles. Other developers need to understand it as well. They need to work on your code in the future, change it and extend it.
+所以你的代码仅能编译通过是不够的。你还要保证其他开发人员能够读懂它。未来他们需要在你代码的基础上工作，修改它，扩展它。
 
-A common suggestion to make code understandable is that you write clean code. Code that uses understandable language for variable and method names. That also makes a lot of code comments unnecessary.
+一个关于使代码容易阅读的常见建议是编写整洁的代码。整洁的代码指的是使用易懂的语言命名变量和方法的代码。这也使得很多代码注释变得不必要了。
 
-Clean code should express the intent: *what* somebody can achieve by calling a method. Not *how* the method achieves it.
+整洁的代码应该能表达意图：使用者通过调用该方法能**做什么**。而不是**怎么做**。
 
-Guess what this method does:
+猜测一下这个方法是做什么的：
 
+```java
     BigDecimal addUp(List<BigDecimal> ns){..}
+```
 
-How about rather writing this:
+如果是这么写呢：
 
+```java
     BigDecimal calculateTotal(List<BigDecimal> individualPrice){..}
+```
 
-Clean code is a good idea. But I don’t think it is sufficient.
+整洁的代码是一个好主意。但我认为这还不够。
 
-### The importance of shared understanding ###
+### 知识共享的重要性 ###
 
-When there’s a new requirement, you need to understand how implementing it affects the existing code.
+当有一个新需求时，你需要评估实现该需求对现有代码的影响。
 
-That can be a challenge if your software has been around for some time. Quite often, I have heard a dialogue like this:
+如果你的软件已经存在了一段时间，这可能会是个挑战。我经常听到这样的对话：
 
-*X*: We can’t go on with feature *foo*.
+**X**：我们不能继续开发 **foo** 特性了。
 
-*Y*: Why?
+**Y**：为什么？
 
-*X*: Cause *Z* is the only one who knows about the code. He has implemented the code that we need to change now.
+**X**：因为 **Z** 是唯一了解这块代码的人。我们要改动的代码就是他开发的。
 
-*Y:* Well, why don’t we ask him?
+**Y**：好吧，为什么不去问问他呢？
 
-*X*: Because he is sick / on vacation / at a conference / no longer at the company.
+**X**：因为他病了/休假了/在开会/离职了。
 
-*Y*: Oh…
+**Y**：额……
 
-Here’s the thing. To find out if your code is understandable, somebody else should try to understand it.
+事情就是这样。要想知道你的代码是否容易被理解，至少要有个人去尝试阅读它。
 
-There are techniques for that. [Pair programming](https://en.m.wikipedia.org/wiki/Pair_programming) is a good one. Or you sit down with other developers. You walk them through the code you have written.
+有这方面的技术。[结对编程](https://en.m.wikipedia.org/wiki/Pair_programming)就是一个不错的选择。或者是和其他开发人员坐下来，一起过一遍你写的代码。
 
-Still, what if many developers are involved with a product? What if the development teams change their members? That makes it harder to write code that enough other people understand.
+然而，如果参与一个项目的开发人员太多呢？如果一个研发团队的成员变化了呢？这使得编写容易被其他人理解的代码变得更困难了。
 
-### The story ###
+### 故事 ###
 
-Clean code gives you the right *words*.
+整洁代码带给你正确的**用语**。
 
-The question is: what *story* will you tell with them in your code?
+问题是：你在代码中使用它们讲述怎样的**故事**呢？
 
-I have no idea.
+我不知道。
 
-But for a typical business application, I am pretty sure what story I want to read in the code.
+但是对于一个典型的业务应用，我很清楚我希望在代码中读到怎样的故事。
 
-After introducing you to a brief example, I will outline that story.
+在介绍一个简单的例子之后，我会简要描述那个故事。
 
-### The glove shop example ###
+### 手套商店的例子 ###
 
-As a user of software, I want to [reach a desired outcome](https://medium.freecodecamp.com/nobody-wants-to-use-software-a75643bee654?source=linkShare-a74297325869-1489339708). For example, I want to own a new pair of gloves to keep my fingers warm in winter.
+作为一个软件的用户，我想要[达到期望的目的](https://medium.freecodecamp.com/nobody-wants-to-use-software-a75643bee654?source=linkShare-a74297325869-1489339708)。比如，我想拥有一双新手套在冬天可以给我的手保暖。
 
-So I go online and see there is a new online shop specialized in gloves. The shop’s website lets me buy gloves. The “basic flow” (also called “happy day scenario”) of the use case could look like this one:
+因此我上网找到了一家新开的线上手套专卖店。该店铺的网站可以让我购买手套。“基本流程”（也被称为“正常用例”）大概是这样的：
 
-- The system starts with an empty shopping cart.
-- The system displays a list of gloves.
-- I add the gloves I like to the shopping cart. The system adds the gloves to my order.
-- I check out.
-- I enter shipping information and payment details. The system saves this information.
-- The system displays a summary of the order.
-- I confirm. The system initiates shipping of my order.
+- 系统以一个空购物车开始。
+- 系统展示一个手套的列表。
+- 我添加喜欢的手套到购物车。系统将这些手套加入到我的订单中。
+- 我选择结账。
+- 我输入配送信息和支付详情。系统保存这些信息。
+- 系统展示一份订单的详细信息。
+- 我确认信息。系统开始配送我的订单。
 
-After a few days, I get my gloves.
+几天以后，我收到手套。
 
-### Here’s the story I want to read in code. ###
+### 下面是我想在代码中读到的故事 ###
 
-### Chapter 1: Use cases ###
+### 第一章: 用例 ###
 
-The first chapter of the story is about use cases. When I read code, I want to follow a use case in the code step by step to the desired outcome.
+故事的第一章是关于用例的。当我阅读代码时，我希望在代码中按照某个用例一步一步的达到期望的结果。
 
-I want to understand how the system reacts when something goes wrong. From a user’s perspective.
+从一个用户的角度来看，我想弄明白当出现错误时系统是如何应对的。
 
-I also want to understand the possible turns along the way. The user tries to go back from the payment details to the shipping information, for example. What happens? Is that even possible?
+我还想搞清楚流程中可能的分支。例如，用户企图从支付详情页回到配送信息页时会发生什么？用户可以这样操作吗？
 
-I want to understand what code to look at for each part of a use case.
+我想知道每一个用例中的不同部分对应哪块代码。
 
-#### So what are the *parts* of a use case? ###
+#### 那么一个用例由哪些零件构成呢？ ####
 
-The fundamental part of a use case is a *step* that brings a user closer to a desired outcome. For example: “The system displays a list of gloves.”
+用例的基础零件是使用户离期望结果更近一步的**步骤**。比如：“系统展示一个手套的列表。”
 
-Not all users may be able to run a step, but only members of certain user groups (the “*actors”*). End customers buy gloves. Marketing people enter new glove offers into the system.
+不是所有用户都可以执行某一步骤，只有特定用户组的成员（“**行为者**”）才可以这么做。例如，终端消费者买手套。销售人员向系统中添加新款手套的报价。
 
-The system runs some of the steps on its own. Like when it displays the gloves. No user interaction necessary there.
+某些步骤由系统主动执行。例如在展示手套列表时。无需用户交互。
 
-Or a step is an interaction with the user. The system *reacts* to some *user event*. For example: The user enters shipping information. The system saves the information.
+而有的步骤则是用户交互的结果。系统**响应**某些**用户事件**。例如：用户输入配送信息。系统保存这些信息。
 
-I want to understand which *data* to expect with the event. Shipping information includes the user’s name, address etc.
+我想知道这些事件中包含哪些**数据**。配送信息包含用户的姓名，地址等等。
 
-The user can run only a subset of steps at any given time. The user can enter payment details only after shipping information. So there is a *flow* that defines the order of the steps in a use case. And a *condition* that defines if the system can react, depending on the system’s state.
+用户在任何给定的时间点上只能执行一部分步骤。用户只有在输入配送信息后才可以填写支付详情。因此每一个用例中都有一个定义了该用例中所有步骤执行顺序的**流程**。以及一个根据系统当前状态，表示系统是否可以响应用户的操作的**条件**。
 
-#### To understand the code, you need an easy way to know several things. ###
+#### 要理解代码，你需要一个简单方法来了解几件事情。 ####
 
-For a use case (like “buy gloves”):
+对于一个用例（例如“买手套”）：
 
-- The *flow(s)* of *steps*
+- **步骤**的**流程**
 
-For each step:
+对于每个步骤：
 
-- Which *actors* have access to it (that is, which user groups)
-- Under which *condition* the system reacts
-- If the step is *autonomous*, or based on a *user interaction*
-- The *system* *reaction*
+- 哪些**行为者**有执行的权限（也就是哪个用户组）
+- 在哪些**条件**下，系统可以响应
+- 该步骤是**自发的**还是基于**用户交互**
+- **系统**的**响应**
 
-For each step that is a user interaction:
+对于每个基于用户交互的步骤：
 
-- The *user event* (like “user entered shipping information”)
-- The *data* that comes with the event
+- **用户事件**（例如“用户输入配送信息”）
+- 伴随事件而来的**数据**
 
-Once I know where to find a use case and its parts in the code, I can drill deeper.
+一旦我知道在哪里可以找到用例以及它的零件之后，我就可以深入研究了。
 
-### Chapter 2: Breaking things down into steps through components ###
+### 第二章: 通过组件分解步骤 ###
 
-Let’s call an encapsulated, replaceable building block of your software a *component.* A component’s *responsibilities* are available to the world outside the component.
+让我们把你软件中一个封装的，可替换的组成单位称为一个**组件**。一个组件的**职责**可以被该组件之外的世界访问。
 
-A component could be:
+一个组件可能是：
 
-- a technical component like a database repository,
-- a service like “shopping cart service”,
-- an entity in your domain model.
+- 一个技术组件，比如数据库
+- 一个服务，比如“购物车服务”
+- 你的领域模型中的一个实体
 
-That depends on your software design. But no matter what your components are: you usually need several of them to realize one step of a use case.
+这取决于你的软件设计。但不论你的组件是什么：你通常都需要若干个组件配合来实现用例中的某个步骤。
 
-Let’s look at the *system reaction* of the step “The system displays a list of gloves”. You probably need to develop at least two *responsibilities*. One finds the gloves in the database, and one turns the list of gloves into a webpage.
+让我们来看看“系统展示一个手套的列表”这一步骤中的**系统响应**。你很可能需要开发至少两项**职责**。一个用来在数据库中查找手套，另一个用来把这些数据转变为一个页面。
 
-When reading code I want to understand the following things:
+当阅读代码时，我希望能了解以下这些内容：
 
-- What are a component’s *responsibilities.* For example: “find gloves” for the database repository.
-- What are the *inputs* / *outputs* of each responsibility. Example input: criteria for which gloves to find. Example output: list of gloves.
-- Who *coordinates* the responsibilities. For example: find gloves first. Turn result into a webpage second.
+- 一个组件的**职责**是什么。例如：对数据库来说是“查找手套”。
+- 每个职责的**输入**/**输出**是什么。输入的例子：查找手套的规则。输出的例子：手套列表。
+- 谁来**协调**这些职责。例如：首先查找手套，然后将结果转换成一个网页。
 
-### Chapter 3: What components do ###
+### 第三章：组件做什么 ###
 
-A component’s code fulfills responsibilities.
+组件的代码用来实现它的职责。
 
-That often happens in a *domain model*. The domain model uses terms relevant in the business domain.
+这通常出现在**领域模型**中。领域模型使用和业务领域相关的术语。
 
-For the example, a term could be Glove. Another term could be Order.
+举例来说，手套可以是一个术语。订单也可以是一个术语。
 
-The domain model describes the *data* for each term. Each Glove has a color, a brand, a size, a price and so on.
+领域模型用于描述每个术语的**数据**。每个手套都有颜色，品牌，尺码，价格等数据。
 
-The domain model also describes computations on the data. The total price of an Order is the sum of the prices of each Glove bought by the user.
+领域模型还用来描述基于这些数据的运算。一个订单的总价是该订单中用户购买的所有手套价格的总和。
 
-A component can also be a technical component like a database repository. The code needs to answer: How does the repository create, find, update and delete elements in the database?
+一个组件还可以是类似数据库这样的技术组件。该组件的代码就要解决如何在数据库中创建、查找、更新、删除数据的问题。
 
-### Telling your story ###
+### 讲述你的故事 ###
 
-Maybe your story looks similar to the one above. Maybe it’s different. Whatever your story is, programming languages give you great freedom to express yourself and tell that story.
+你的故事可能看起来和上面提到的故事很相似，也可能完全不同。不论你的故事是怎样的，编程语言都给了你极大的自由来讲述你的故事。
 
-That’s a good thing because it allows developers to adapt to different contexts and requirements.
+这是件好事情，因为它允许开发人员适应不同的情景与需求。
 
-It also bears the risk that developers tell too many different stories. Even for the same product. That makes it harder than necessary to understand code that somebody else has written.
+这也承担了由开发人员讲述太多不同故事（哪怕是针对同一个产品）带来的风险，使得理解其他人编写的代码变得更困难了。
 
-One way to address this is the use of design patterns. They allow you to structure your code. You can agree on that common structure in your team or even across teams.
+解决这个问题的一个办法是使用设计模式。它们可以帮你合理的组织代码。你可以在团队中甚至是团队间就这种通用结构达成一致。
 
-For example, the Rails framework is based on the well-known Model View Controller pattern.
+例如：Rails 框架就是基于众所周知的模型、视图、控制器模式的。
 
-The model is the place for *domaindata.*
+模型用于放置**领域数据**。
 
-The view is the client side user interface, like HTML pages. It is the origin of *userevents.*
+视图是客户端用户界面，比如 HTML 页面。这是**用户事件**的来源。
 
-The controller receives the user events on server side. It is responsible for *flow.*
+控制器在服务器端接收用户事件。它负责**流程**。
 
-So if several developers use Rails, they know which part of the code to look at for certain parts of their story.
+因此，如果多个开发人员使用 Rails，他们就知道在哪里能找到和故事中特定部分相关的代码。
 
-They could find out what is missing when sharing their understanding. Then, they could agree on further conventions on where to put which part of their story.
+他们可以在分享他们的见解时找出缺失的东西。然后，他们就可以进一步的就约定在哪里放置故事的模块达成一致。
 
-If that works for you, that is just fine. But I want to go further than that.
+如果这些适用于你，那就好了。但我想比这更进一步。
 
-### Requirements as Code ###
+### 代码即需求 ###
 
-Many of my clients ask me how to deal with long term software documentation.
+很多客户问我如何处理长期的软件文档。
 
-When working in an agile context, how do you create documentation for software maintenance?
+在敏捷开发中，如何创建软件维护文档？
 
-What requirements have been implemented so far?
+到目前为止都实现了哪些需求？
 
-Where do you find their realization in the code?
+在哪里能找到它们在代码中的实现？
 
-For a long time I had no satisfying answer. Except, of course: the importance of well written, automated tests. Clean production code. Shared understanding.
+很久以来我都没有满意的答案。当然，除了良好编写的自动化测试，整洁的线上代码，以及共同认知的重要性之外。
 
-But a few years ago, I started thinking:
+但是在几年前，我开始思考：
 
-> If the truth is in the code, the code should be able to speak the truth.
+> 如果真相在代码中，那么代码也应该能讲述真相。
 
-In other words: if you took great care of telling your story in the code, why would you want to tell it again?
+换句话说：如果你非常小心的在代码中讲述你的故事，为何还要再说一遍呢？
 
-There needs to be a better way. It must be possible to extract the story, and generate documentation from it. Documentation that non-technical stakeholders understand as well.
+需要有更好的方法。它可以提取故事，并基于它生成文档。非技术相关方也能理解的文档。
 
-Documentation that is always up-to-date, because it comes from the same source that defines the software’s behavior.
+始终保持最新状态的文档，因为正是它的来源定义了软件行为。
 
-The only reliable source: the code itself.
+唯一可靠的来源：代码自身。
 
-After a lot of experiments, I had some results. I made them public in a Github project called [requirementsascode](https://github.com/bertilmuth/requirementsascode).
+在许多次尝试之后，我有了一些成果。我把它们发布在一个名为 [requirementsascode](https://github.com/bertilmuth/requirementsascode) 的 GitHub 项目中。
 
-### How it works ###
+### 它是如何工作的 ###
 
 ![](https://cdn-images-1.medium.com/max/800/1*rZAA0h24T9SdEZYdE7stIQ@2x.png)
 
-- A UseCaseModel instance defines the *actors*, *use cases*, their *flows* and *steps*. It tells chapter 1 of the story. You find an example of such a model at the start of this article.
-- A use case model configures UseCaseModelRunner instances. Every user has her own runner, because every user may take a different path through the use cases in the model.
-- The runner reacts to a *user event* from the frontend by calling the *system reaction* in the backend.The frontend communicates to the backend only through the runner.
-- But the runner only reacts if the user is at the right position of the *flow* and the step’s *condition* is fulfilled. For example, the runner only reacts to the “EnterPaymentDetails“ event if the user has entered the shipping information right before.
-- The *systemreaction* is a single method. The method’s body is responsible for coordinating the components to realize the step, as described in chapter 2.
-- Chapter 3 is out of scope of requirementsascode. It is left up to the application. That makes requirementsascode compatible with arbitrary software designs.
+- UseCaseModel 实例用于定义**行为者**，**用例**，它们的**流程**以及**步骤**。它讲述故事的第一章。在本文的开头你能找到一个这种模型的例子。
+- 用例模型配置 UseCaseModelRunner 实例。每个用户都有自己的运行程序，因为每个用户选择执行的用例路径可能不同。
+- 运行程序通过调用后端的**系统响应**来响应前端的**用户事件**。前端只能通过运行程序和后端通信。
+- 但是运行程序只有当用户在**流程**中的正确位置且满足步骤的**条件**时才会响应用户。例如：运行程序只有在用户已经输入了配送信息之后才会响应“进入支付详情页”事件。
+- **system reaction** 是一个单例方法。方法内部负责协调不同组件以实现该步骤，就像在第二章中描述的那样。
+- 第三章已经超出了 requirementsascode 的范畴。它留给应用程序决定。这使得 requirementsascode 可以兼容任意的软件设计。
 
-So the UseCaseModelRunner controls the user visible behavior of the software. Based on a UseCaseModel.
+因此，基于 UseCaseModel，UseCaseModelRunner 控制了对用户可见的软件行为。
 
-With [requirementsascodeextract](https://github.com/bertilmuth/requirementsascode/tree/master/requirementsascodeextract), you can generate documentation from the same use case model that configures the runner. That way, the documentation always reflects how the software works.
+通过 [requirementsascodeextract](https://github.com/bertilmuth/requirementsascode/tree/master/requirementsascodeextract)， 你可以从同一个配置运行程序的用例模型中生成文档。这样，文档就可以始终表达软件的行为了。
 
-Requirementsascodeextract uses the FreeMarker template engine. That allows you to generate any plain text documentation you like. For example HTML pages. Further processing could turn it into other documentation formats, like PDF.
+Requirementsascodeextract 使用了 FreeMarker 模板引擎。它允许你生成任何你喜欢的纯文本文档。例如 HTML 页面。进一步的处理可以生成其它格式的文档，例如 PDF。
 
-### Your feedback will help me improve this project ###
+### 你的反馈可以帮我改进这个项目 ###
 
-I started working on requirementsascode several years ago, but just recently made the project public. It has gone through significant improvement since the beginning.
+我从几年前就开始了 requirementsascode 这个项目，直到最近才将它公开。与最初相比，它已经得到了极大的改善。
 
-To learn whether the approach scales, I tried it on an application with several thousand lines of code. It worked. I tried it on smaller applications as well.
+为了了解这种方法是否具有可扩展性，我尝试在一个有数千行代码的项目中使用。被证明是有效的，我也在一些更加小型的应用中尝试过。
 
-Still, so far, requirementsascode has been my hobby project.
+到目前为止，requirementsascode 一直都是我的业余项目。
 
-That’s why I need your help. Please give me feedback.
+这就是为什么我需要你们的帮助。请给我一些反馈。
 
-What do you think of the idea? Can you imagine that it works in the context of the software you develop? Any other feedback?
+你觉得这个想法怎么样？你能想象它在你的软件上下文中有效吗？还有其他的反馈意见吗？
 
-You can drop me a note in the comments or contact me on [Twitter](https://twitter.com/BertilMuth) or [LinkedIn](https://www.linkedin.com/in/bertilmuth).
+你可以在评论区给我留言或是在 [Twitter](https://twitter.com/BertilMuth) 或 [LinkedIn](https://www.linkedin.com/in/bertilmuth) 和我联系。
 
-You can [clone](https://github.com/bertilmuth/requirementsascode) the project and try it out yourself.
+你可以 [clone](https://github.com/bertilmuth/requirementsascode) 这个项目并亲自尝试一下。
 
-Or you can [contribute](https://github.com/bertilmuth/requirementsascode/blob/master/CONTRIBUTING.md) to documenting the truth in the code.
+也可以[帮助](https://github.com/bertilmuth/requirementsascode/blob/master/CONTRIBUTING.md)在代码中记录真相。
 
 ---
 
