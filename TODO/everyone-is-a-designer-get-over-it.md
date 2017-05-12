@@ -39,7 +39,7 @@
 
 当你接受设计决策来自于你团队之外而且不带有「设计」头衔的人的现实时，你就会向你的其他同事靠拢。因为他们不仅是你的同事，也构成了你的设计团队。
 
-苹果（Apple）和爱彼迎（Airbnb）那些能带来顶尖设计的公司都深谙此道。爱彼迎（Airbnb）的设计副总裁 Alex Schleifer [对** 《连线》杂志 **提及](https://www.wired.com/2015/01/airbnbs-new-head-design-believes-design-led-companies-dont-work/)他们的公司其实**并不是**设计驱动的。
+苹果（Apple）和爱彼迎（Airbnb）那些能带来顶尖设计的公司都深谙此道。爱彼迎（Airbnb）的设计副总裁 Alex Schleifer [对 ** 《连线》杂志 ** 提及](https://www.wired.com/2015/01/airbnbs-new-head-design-believes-design-led-companies-dont-work/)他们的公司其实**并不是**设计驱动的。
 
 >**Airbnb 的解决方案其实淡化了设计师的概念。重点不是去创造一个「设计驱动的文化」，因为这就相当于对其他人说他们的看法是不重要的。这会把整个团体置于必须去迎合某个特权观点的不利位置。相反，Schleifer 则希望更多的人能够去细细体会那些只存在于设计师领域的 —— 「用户」观点。**
 
@@ -77,7 +77,7 @@ Dan Saffer 和 ThomasGläser 的 「用户体验设计学科」
 
 行政人员每天作出影响他的顾客的决定。「在这里」却没有与设计师接触，她需要承担一部分责任。但设计团队才是应该承担这个责任的——他们错过了与同事接触并共同完成业务中最重要难题的机会。
 
-感谢 [Jared M. Spool](https://medium.com/@jmspool) 拟写优秀的文章, [John Zeratsky](https://medium.com/@jazer) 和 [Michael Margolis](https://medium.com/@mmargolis) 参与编辑和建议, 以及 [Alex Schleifer](https://medium.com/@alexoid) 为优秀的** 《连线》 **文章（做的努力）。
+感谢 [Jared M. Spool](https://medium.com/@jmspool) 拟写优秀的文章, [John Zeratsky](https://medium.com/@jazer) 和 [Michael Margolis](https://medium.com/@mmargolis) 参与编辑和建议, 以及 [Alex Schleifer](https://medium.com/@alexoid) 为优秀的 ** 《连线》 ** 文章（做的努力）。
 
 ---
 
