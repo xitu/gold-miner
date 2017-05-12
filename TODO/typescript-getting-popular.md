@@ -2,7 +2,7 @@
 > * 原文作者：[Mary Branscombe](https://thenewstack.io/author/marybranscombe/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[loveky](https://github.com/loveky)
-> * 校对者：
+> * 校对者：[Aladdin-ADD](https://github.com/Aladdin-ADD)  [Germxu](https://github.com/Germxu)
 
 # 为何 TypeScript 愈发流行了？ #
 
@@ -14,7 +14,7 @@
 
 参与了 Stack Overflow 调查的开发者中有 9.5% 的人正在使用 TypeScript，这使得 TypeScript 成为了第九流行的编程语言，排名在 Ruby 之前，用户量是 Perl 的两倍。此次 Stack Overflow 调查中的受访者来自不同领域，使用最广泛的两种语言是 JavaScript 和 SQL，这说明此次调查并非只针对前端开发。事实上，TypeScript 程序员出现在了参与 Stack Overflow 调查的所有 4 种工作角色中：web 开发者、桌面开发者、系统管理员与 DevOps 以及数据科学家。
 
-RedMonk 的排名将 Stack Overflow 的数据与 Github 上的 pull request 结合起来试图理解开发者的想法以及他们正在使用什么。TypeScript 同样受到了开发者的欢迎，排名从第 26 位上升到了第 17 位。其中一部分原因是 TypeScript 在 Stack Overflow 上关注度的提升，但主要还是因为在 GitHub 上参与的开发者在不断增多。
+RedMonk 的排名将 Stack Overflow 的数据与 GitHub 上的 pull request 结合起来试图理解开发者的想法以及他们正在使用什么。TypeScript 同样受到了开发者的欢迎，排名从第 26 位上升到了第 17 位。其中一部分原因是 TypeScript 在 Stack Overflow 上关注度的提升，但主要还是因为在 GitHub 上参与的开发者在不断增多。
 
 的确，GitHub 在其 2016 [年度总结](https://octoverse.github.com/)中把 TypeScript 列为在 GitHub 上用于项目开发的 316 种编程语言中最受欢迎榜单的第 15 位（基于 pull request 的数量以及相较与前一年 pull request 250% 的增长率）。
 
