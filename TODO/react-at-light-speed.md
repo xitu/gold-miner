@@ -6,15 +6,15 @@
 
 # 光速 React #
 
-## Vixlet优化性能的经验教训 ##
+## Vixlet 团队优化性能的经验教训 ##
 
 ![](https://cdn-images-1.medium.com/max/1000/1*SJzLm3SW2IegLw0GzlaG-w.jpeg)
 
-在过去一年多，我们 [Vixlet](http://www.vixlet.com) 的 web 团队已经着手于一个激动人心的项目：将我们的整个 web 应用迁移到 React + Redux 架构，对于整个团队来说，这是不断增长的机遇，并且在整个过程中，我们遇到了一些挑战。
+在过去一年多，我们 [Vixlet](http://www.vixlet.com) 的 web 团队已经着手于一个激动人心的项目：将我们的整个 web 应用迁移到 React + Redux 架构。对于整个团队来说，这是不断增长的机遇，而在迁移过程中，我们一路风雨兼程。
 
 因为我们的 web-app 可能有非常大的 feed 视图，包括成百上千的媒体、文本、视频、链接元素，我们花了相当多的时间寻找能充分利用 React 性能的方法。在这里，我们将分享我们这一路学到的一些经验教训。
 
-**声明**：**下面讲的做法和方法更适用于我们具体应用的性能需求。然而，像所有的开发者建议的那样，最重要的是要考虑到你的应用程序和团队的需求。React 是一个开箱即用的框架，所以你可能不需要像我们这样对性能做微调。话虽如此，我们还是希望你能在这篇文章里找到一些有用的信息。**
+**声明**：**下面讲的做法和方法更适用于我们具体应用的性能需求。然而，像所有的开发者建议的那样，最重要的是要考虑到你的应用程序和团队的实际需求。React 是一个开箱即用的框架，所以你可能不需要像我们一样细致地优化性能。话虽如此，我们还是希望你能在这篇文章里找到一些有用的信息。**
 
 ### 基本原理 ###
 
@@ -71,7 +71,7 @@ render() {
 
 ```
 /*
-对象或者数组字面量在功能上来看是调用了 Object.create() 和 new Array()。这意味如果给 prop 传递了对象字面量或者数组字面量。每次render 时 React 会将他们作为一个新的值。这在处理 Radium 或者行内样式时是有问题的。
+对象或者数组字面量在功能上来看是调用了 Object.create() 和 new Array()。这意味如果给 prop 传递了对象字面量或者数组字面量。每次render 时 React 会将他们作为一个新的值。这在处理 Radium 或者行内样式时通常是有问题的。
 */
 
 /* Bad */
@@ -130,7 +130,7 @@ render() {
 
 #### 组件方法 ####
 
-由于组件方法是为组件的每个实例创建的，如果可能的话，使用 helper/util 模块的纯函数或者 [静态类方法](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes)。在一个渲染大量组件的应用中会有明显的区别。
+由于组件方法是为组件的每个实例创建的，如果可能的话，使用 helper/util 模块的纯函数或者[静态类方法](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes)。尤其在渲染大量组件的应用中会有明显的区别。
 
 ### 进阶 ###
 
@@ -140,7 +140,7 @@ render() {
 
 #### shouldComponentUpdate() ####
 
-React 有一个一个生命周期函数 [shouldComponentUpdate()](https://facebook.github.io/react/docs/react-component.html#shouldcomponentupdate)。这个方法可以根据当前的和下一次的 props 和 state 来通知这个 React 组件是否应该被重新渲染。
+React 有一个生命周期函数 [shouldComponentUpdate()](https://facebook.github.io/react/docs/react-component.html#shouldcomponentupdate)。这个方法可以根据当前的和下一次的 props 和 state 来通知这个 React 组件是否应该被重新渲染。
 
 然而使用这个方法有一个问题，开发者必须考虑到需要触发重新渲染的每一种情况。这会导致逻辑复杂，一般来说，会非常痛苦。如果非常需要，你可以使用一个自定义的  `shouldComponentUpdate()` 方法，但是很多情况下有更好的选择。
 
@@ -152,7 +152,7 @@ React 从 v15 开始会包含一个 PureComponent 类，它可以被用来构建
 
 在大多数情况下，`React.PureComponent` 是比 `React.Component` 更好的选择。在创建新组件时，首先尝试将其构建为纯组件，只有组件的功能需要时才使用 `React.Component`。
 
-更多信息: [React.PureComponent](https://facebook.github.io/react/docs/react-api.html#react.purecomponent) 官方文档。
+更多信息，请查阅相关文档 [React.PureComponent](https://facebook.github.io/react/docs/react-api.html#react.purecomponent)。
 
 #### 组件性能分析 (在 Chrome 里) ####
 
@@ -162,9 +162,9 @@ React 从 v15 开始会包含一个 PureComponent 类，它可以被用来构建
 
 #### 有用的工具: [why-did-you-update](https://www.npmjs.com/package/why-did-you-update) ####
 
-这是一个很棒的 NPM 包，他们给 React 添加补丁，当一个组件触发了不必要的重新渲染时，
+这是一个很棒的 NPM 包，他们给 React 添加补丁，当一个组件触发了不必要的重新渲染时，它会在控制台输出一个 console 提示。
 
-**注意**: 这个模块在初始化时可以可以通过一个过滤器匹配特定的想要优化的组件，否则你的命令行可能会被垃圾信息填满，并且可能你的浏览器会挂起或者崩溃，通过 [why-did-you-update 文档](https://www.npmjs.com/package/why-did-you-update)获取更多详细信息。
+**注意**: 这个模块在初始化时可以可以通过一个过滤器匹配特定的想要优化的组件，否则你的命令行可能会被垃圾信息填满，并且可能你的浏览器会挂起或者崩溃，查阅 [why-did-you-update 文档](https://www.npmjs.com/package/why-did-you-update)获取更多详细信息。
 
 ### 常见性能陷阱
 
@@ -174,11 +174,11 @@ React 从 v15 开始会包含一个 PureComponent 类，它可以被用来构建
 
 在 React 组件中使用 `setTimeout()` 或者  `setInterval()` 要十分小心。几乎总是有更好的选择，例如 'resize' 和 'scroll' 事件（注意：有关注意事项请参阅下一节）。
 
-如果你需要使用 `setTimeout()` 和 `setInterval()`，你必须 **遵守下面两条建议**
+如果你需要使用 `setTimeout()` 和 `setInterval()`，你必须**遵守下面两条建议**
 
-> 不要设置过短的时间。
+> 不要设置过短的时间间隔。
 
-当心那些小于 100ms 的定时器，他们很可能是没意义的。如果确实需要一个更短的时间，可以使用 [window.requestAnimationFrame()](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame)。
+当心那些小于 100 ms 的定时器，他们很可能是没意义的。如果确实需要一个更短的时间，可以使用 [window.requestAnimationFrame()](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame)。
 
 > 保留对这些函数的引用，并且在 unmount 时取消或者销毁他们。
 
@@ -188,7 +188,7 @@ React 从 v15 开始会包含一个 PureComponent 类，它可以被用来构建
 
 解决这个问题最简答的方法是使用 [react-timeout](https://www.npmjs.com/package/react-timeout) 这个 NPM 包，它提供了一个可以自动处理上述内容的高阶组件。它将 setTimeout/setInterval 等功能添加到包装组建的 props 上。(**特别感谢 Vixlet 的开发人员 [*Carl Pillot*](https://twitter.com/@carlpillot) 提供这个方法**)
 
-如果你不想引入这个依赖，并且希望用自己的解决方法解决此问题，你可以使用以下的方法：
+如果你不想引入这个依赖，并且希望自行解决此问题，你可以使用以下的方法：
 
 ```
 // 如何正确取消 timeouts/intervals
@@ -270,7 +270,7 @@ class ScrollMonitor extends React.Component {
     window.removeEventListener( 'scroll', this.handleScrollStart );
     window.removeEventListener( 'scroll', this.handleScrollEnd );
     
-    //确保组件销毁后循环不会继续执行
+    //确保组件销毁后结束循环
     this.stopWatching();
   }
 
@@ -310,9 +310,9 @@ MDN 文档: [Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Worker
 
 ### 结语 ###
 
-我们希望您觉得上述建议是有用且有效的。如果没有 Vixlet 团队的伟大工作和研究，上述的提示和编程技巧是不可能产出的。他们真的是我曾经合作过的最棒的人之一。
+我们希望上述建议对您能有所帮助。如果没有 Vixlet 团队的伟大工作和研究，上述的提示和编程技巧是不可能产出的。他们真的是我曾经合作过的最棒的团队之一。
 
-在你的 React 的征途中保持学习和练习，力量与你同在！
+在你的 React 的征途中保持学习和练习，愿原力与你同在！
 
 ---
 
