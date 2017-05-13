@@ -10,9 +10,9 @@
 
 ![](https://cdn-images-1.medium.com/max/1000/1*SJzLm3SW2IegLw0GzlaG-w.jpeg)
 
-过去一年左右，我们 [Vixlet](http://www.vixlet.com) 的 web 团队已经开始了一个令人兴奋的旅程：将我们的整个 web 应用迁移到 React + Redux 架构，对于整个团队来说，这是一个越来越大的机会，并且在整个过程中，我们遇到了一些挑战。
+在过去一年多，我们 [Vixlet](http://www.vixlet.com) 的 web 团队已经着手于一个激动人心的项目：将我们的整个 web 应用迁移到 React + Redux 架构，对于整个团队来说，这是不断增长的机遇，并且在整个过程中，我们遇到了一些挑战。
 
-因为我们的 web-app 可能有非常大的 feed 视图，包括成百上千的媒体、文本、视频、链接元素，我们花了相当多的时间寻找能充分利用 React 的性能的方法。在这里，我们将分享我们这一路学到的一些经验教训。
+因为我们的 web-app 可能有非常大的 feed 视图，包括成百上千的媒体、文本、视频、链接元素，我们花了相当多的时间寻找能充分利用 React 性能的方法。在这里，我们将分享我们这一路学到的一些经验教训。
 
 **声明**：**下面讲的做法和方法更适用于我们具体应用的性能需求。然而，像所有的开发者建议的那样，最重要的是要考虑到你的应用程序和团队的需求。React 是一个开箱即用的框架，所以你可能不需要像我们这样对性能做微调。话虽如此，我们还是希望你能在这篇文章里找到一些有用的信息。**
 
@@ -24,13 +24,13 @@
 
 #### render() 函数 ####
 
-一般来说，要尽可能少的在 render 函数中做操作。如果非要做一些复杂操作或者计算，也许你可以考虑使用一个 [memoized](https://en.wikipedia.org/wiki/Memoization) 函数以便于缓存那些重复的结果。可以看看 [Lodash.memoize](https://lodash.com/docs#memoize)，这是一个开箱即用的记忆函数。
+一般来说，要尽可能少地在 render 函数中做操作。如果非要做一些复杂操作或者计算，也许你可以考虑使用一个 [memoized](https://en.wikipedia.org/wiki/Memoization) 函数以便于缓存那些重复的结果。可以看看 [Lodash.memoize](https://lodash.com/docs#memoize)，这是一个开箱即用的记忆函数。
 
 反过来讲，避免在组件的 state 上存储一些容易计算的值也很重要。举个例子，如果 props 同时包含 `firstName` 和 `lastName`，没必要在 state 上存一个 `fullName`，因为它可以很容易通过提供的 props 来获取。如果一个值可以通过简单的字符串拼接或基本的算数运算从 props 派生出来，那么没理由将这些值包含在组件的 state 上。
 
 #### Prop 和 Reconciliation ####
 
-重要的是要记住，只要 props（或 state）的值不等于之前的值，React 就会触发重新渲染。如果 props 或者 state 包含一个对象或者数组，嵌套值中的任何改变也会触发重新渲染。考虑到这一点，你需要考虑在每次渲染的生命周期中，创建一个新的 props 或者 state 都可能无意中导致了性能下降。
+重要的是要记住，只要 props（或 state）的值不等于之前的值，React 就会触发重新渲染。如果 props 或者 state 包含一个对象或者数组，嵌套值中的任何改变也会触发重新渲染。考虑到这一点，你需要注意在每次渲染的生命周期中，创建一个新的 props 或者 state 都可能无意中导致了性能下降。
 PS:译者对这段保留意见，对象或者数组只要引用不变，是不会触发rerender的，是我翻译有误还是原文的错误？
 
 **例子:** **函数绑定的问题**
@@ -89,7 +89,7 @@ render() {
 }
 ```
 
-**例子** *: 注意兜底值字面量Be careful of literals in fallback values*
+**例子** **: 注意兜底值字面量**
 
 ```
 /*
@@ -156,9 +156,9 @@ React 从 v15 开始会包含一个 PureComponent 类，它可以被用来构建
 
 #### 组件性能分析 (在 Chrome 里) ####
 
-在新版本的 Chrome 里，timeline 工具里有一个额外的内置功能可以显示哪些 React 组件正在渲染以及他们花费的时间。要启用此功能，将 `？react_perf` 作为要测试的 URL 的查询字符串。React 渲染时间轴数据将位于 User Timing 部分。
+在新版本的 Chrome 里，timeline 工具里有一个额外的内置功能可以显示哪些 React 组件正在渲染以及他们花费的时间。要启用此功能，将 `?react_perf` 作为要测试的 URL 的查询字符串。React 渲染时间轴数据将位于 User Timing 部分。
 
-更多信息: [Profiling Components with Chrome Timeline](https://facebook.github.io/react/docs/optimizing-performance.html#profiling-components-with-chrome-timeline) 官方文档。
+更多相关信息，请查阅官方文档：[Profiling Components with Chrome Timeline](https://facebook.github.io/react/docs/optimizing-performance.html#profiling-components-with-chrome-timeline) 。
 
 #### 有用的工具: [why-did-you-update](https://www.npmjs.com/package/why-did-you-update) ####
 
@@ -247,7 +247,7 @@ stopLoop() {
 
 Lodash 有 [_.debounce](https://lodash.com/docs/#debounce) 方法。在 NPM 上还有一个独立的 [debounce](https://www.npmjs.com/package/debounce) 包.
 
-> ”但是我真的需要立即反馈 scroll/resize 或者别的事件”
+> “但是我真的需要立即反馈 scroll/resize 或者别的事件”
 
 我发现一种可以处理这些事件并且以高性能的方式进行响应的方法，那就是在第一次事件触发时启动 `requestAnimationFrame()` 循环。然后可以使用 `[debounce()](https://lodash.com/docs#debounce)` 方法并且将 `trailing` 这个配置项设为 `true`  (**这意味着该功能只在频繁触发的事件流结束后触发**) 来取消对值的监听，看看下面这个例子。
 
