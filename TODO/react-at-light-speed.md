@@ -154,7 +154,7 @@ React 从 v15 开始会包含一个 PureComponent 类，它可以被用来构建
 
 更多信息，请查阅相关文档 [React.PureComponent](https://facebook.github.io/react/docs/react-api.html#react.purecomponent)。
 
-#### 组件性能分析 (在 Chrome 里) ####
+#### 组件性能分析（在 Chrome 里）####
 
 在新版本的 Chrome 里，timeline 工具里有一个额外的内置功能可以显示哪些 React 组件正在渲染以及他们花费的时间。要启用此功能，将 `?react_perf` 作为要测试的 URL 的查询字符串。React 渲染时间轴数据将位于 User Timing 部分。
 
@@ -249,7 +249,7 @@ Lodash 有 [_.debounce](https://lodash.com/docs/#debounce) 方法。在 NPM 上�
 
 > “但是我真的需要立即反馈 scroll/resize 或者别的事件”
 
-我发现一种可以处理这些事件并且以高性能的方式进行响应的方法，那就是在第一次事件触发时启动 `requestAnimationFrame()` 循环。然后可以使用 `[debounce()](https://lodash.com/docs#debounce)` 方法并且将 `trailing` 这个配置项设为 `true`  (**这意味着该功能只在频繁触发的事件流结束后触发**) 来取消对值的监听，看看下面这个例子。
+我发现一种可以处理这些事件并且以高性能的方式进行响应的方法，那就是在第一次事件触发时启动 `requestAnimationFrame()` 循环。然后可以使用 `[debounce()](https://lodash.com/docs#debounce)` 方法并且将 `trailing` 这个配置项设为 `true`（**这意味着该功能只在频繁触发的事件流结束后触发**）来取消对值的监听，看看下面这个例子。
 
 ```
 class ScrollMonitor extends React.Component {
