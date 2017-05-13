@@ -1,3 +1,4 @@
+* [为何 TypeScript 愈发流行了？](https://juejin.im/post/59152911a22b9d0058fd5fe8?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([loveky](https://github.com/loveky) 翻译)
 * [何为 HTML API，如何设计之？](https://juejin.im/entry/59131ee7a0bb9f0058ba4a88/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Romeo0906](https://github.com/Romeo0906) 翻译)
 * [前端调试技巧与诀窍](https://juejin.im/post/5901e8d6a0bb9f0065e64f63?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lsvih](https://github.com/lsvih) 翻译)
 * [哪些项目需要 React？都需要！](https://juejin.im/post/5910050661ff4b0062553421?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([sunui](https://github.com/sunui) 翻译)
