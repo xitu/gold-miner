@@ -1,42 +1,42 @@
 > * 原文地址：[Quantum Up Close: What is a browser engine?](https://hacks.mozilla.org/2017/05/quantum-up-close-what-is-a-browser-engine/)
 > * 原文作者：[Potch](http://potch.me/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
+> * 译者：[吃土小2叉](https://github.com/xunge0613)
 > * 校对者：
 
-# Quantum Up Close: What is a browser engine? #
+# 走近 Quantum：浏览器引擎解密 #
 
-In October of last year [Mozilla announced Project Quantum](https://medium.com/mozilla-tech/a-quantum-leap-for-the-web-a3b7174b3c12)  – our initiative to create a next-generation browser engine. We’re well underway on the project now. We actually [shipped our first significant piece of Quantum](https://hacks.mozilla.org/2017/04/firefox-53-quantum-compositor-compact-themes-css-masks-and-more/)  just last month with Firefox 53.
+2016 年 11 月，[Mozilla 公布了 Quantum 计划](https://medium.com/mozilla-tech/a-quantum-leap-for-the-web-a3b7174b3c12) —— 倡议开创下一代浏览器引擎。现在这一计划已然步入正轨。实际上，我们在上个月刚更新的 Firefox 53 中[首次引入了 Quantum 计划的部分核心内容](https://hacks.mozilla.org/2017/04/firefox-53-quantum-compositor-compact-themes-css-masks-and-more/) 。
 
-But, we realize that for people who don’t build web browsers (and that’s most people!), it can be hard to see just why some of the changes we’re making to Firefox are so significant. After all, many of the changes that we’re making will be invisible to users.
+但是，我们意识到对于那些不从事开发浏览器的人来说（大多数人！），实际上很难察觉到这些改动对于 Firefox 有着重大意义。毕竟，许多改动对于用户来说是不可见的。
 
-With this in mind, we’re kicking off a series of blog posts to provide a deeper look at just what it is we’re doing with Project Quantum. We hope that this series of posts will give you a better understanding of how Firefox works, and the ways in which Firefox is building a next-generation browser engine made to take better advantage of modern computer hardware.
+意识到这点后，我们开始撰写一系列博客文章来深度解读 Quantum 计划正在做什么。我们希望通过这一系列的文章，能够帮助大家理解 Firefox 的工作原理，以及 Firefox 是如何打造一款下一代浏览器引擎，从而更好地利用现代计算机的硬件性能。
 
-To begin this series of posts, we think it’s best to start by explaining the fundamental thing Quantum is changing.
+作为这系列文章的第一篇，最好还是先说明一下 Quantum 正在改变哪些核心内容。
 
-What *is* a browser engine, and how does one work?
+浏览器引擎**是**什么？它的工作原理又是什么？
 
-If we’re going to start from somewhere, we should start from the beginning.
+那么，就从头开始说起吧。
 
-A web browser is a piece of software that loads files (usually from a remote server) and displays them locally, allowing for user interaction.
+Web 浏览器是一种软件，它首先加载文件（通常这些文件来自于远程服务器），然后在本地显示这些文件，同时用户可以与之互动。
 
-Quantum is the code name for a project we’ve undertaken at Mozilla to massively upgrade the part of Firefox that figures what to display to users based on those remote files. The industry term for that part is “browser engine”, and without one, you would just be reading code instead of actually seeing a website. Firefox’s browser engine is called Gecko.
+Quantum 是项目里的代码名，这个项目是 Mozilla 为了大幅度升级 Firefox 浏览器的一个模块，它决定了浏览器如何根据那些远程文件将网页显示给用户。这一模块的行业术语叫“浏览器引擎”。Firefox 的浏览器引擎叫 Gecko。
 
-It’s pretty easy to see the browser engine as a single black box, sort of like a TV- data goes in, and the black box figures out what to display on the screen to represent that data. The question today is: How? What are the steps that turn data into the web pages we see?
+可以简单地把浏览器引擎看作一个黑盒，（有点类似于电视机机顶盒），这个黑盒处理网页数据然后将页面呈现在屏幕上。现在的问题是：浏览器引擎是如何呈现页面的？它是通过哪些步骤将数据转化为我们所看见的网页？
 
 [![](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/05/black-box.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/05/black-box.png) 
 
-The data that makes up a web page is lots of things, but it’s mostly broken down into 3 parts:
+网页数据通常有许多类型，但总的来说可以划分为三大类：
 
-- code that represents the *structure* of a web page
-- code that provides *style*: the visual appearance of the structure
-- code that acts as a *script* of actions for the browser to take: computing, reacting to user actions, and modifying the structure and style beyond what was loaded initially
+- 用于描述网页**结构**的代码
+- 用于提供**样式**的代码，描述了网页结构的视觉外观
+- 用于控制浏览器行为的**脚本**代码，包括：计算、人机互动以及修改已初始化的网页结构和样式。
 
-The browser engine combines structure and style together to draw the web page on your screen, and figure out which bits of it are interactive.
+浏览器引擎结合了页面结构和样式从而在屏幕上渲染出网页，同时确定可以互动的内容。
 
-It all starts with structure. When a browser is asked to load a website, it’s given an address. At this address is another computer which, when contacted, will send data back to the browser. The particulars of how that happens are [a whole separate article](https://developer.mozilla.org/en-US/docs/Web/HTTP) in themselves, but at the end the browser has the data. This data is sent back in a format called HTML, and it describes the structure of the web page. How does a browser understand HTML?
+这一切要从网页结构说起。浏览器会根据给定的地址去加载一个网站。这个地址指向的是另一台电脑，当它收到访问请求时，会返回网页数据给浏览器。至于这个过程的具体实现可以查阅[这篇文章](https://developer.mozilla.org/en-US/docs/Web/HTTP)，反正最后浏览器拿到网页数据了。这个数据被称为 HTML，它描述了网页的结构。那么浏览器又是如何读懂 HTML 的呢？
 
-Browser engines contain special pieces of code called *parsers* that convert data from one format into another that the browser holds in its memory. The HTML parser takes the HTML, something like:
+浏览器引擎包含一类称为**解析器**的特殊模块，它将数据从一种格式转换为另一种可以存储在浏览器内存中的格式。举个例子，HTML 解析器拿到了以下 HTML 内容：
 
 ```
 <section>
@@ -45,19 +45,20 @@ Browser engines contain special pieces of code called *parsers* that convert dat
 </section>
 ```
 
-And parses it, understanding:
+于是，解析器开始解析、理解 HTML，下面是解析器的独白：
 
->   Okay, there’s a section. Inside the section is a heading of level 1, which itself contains the text: “Hello!” Also inside the section is an image. I can find the image data at the location: *http://example.com/image.png*
 
-The in-memory structure of the web page is called the [Document Object Model](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction), or DOM. As opposed to a long piece of text, the DOM represents a tree of elements of the final web page: the properties of the individual elements, and which elements are inside other elements.
+> 嗯，这里有个章节。在这个章节里有个一级标题，这个标题包含的文本内容是 “Hello!”。另外在这个章节中，还有一张图片。这个图片的数据从这里获取：http://example.com/image.png
+
+网页在浏览器内存中的结构被称为[文档对象模型](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction)，简称 DOM。DOM 以元素树的形式来表示页面结构，（而非长文本形式），包括：每个元素各自的属性以及元素间的嵌套关系。
 
 [![A diagram showing the nesting of HTML elements](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/05/html-diagra.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/05/html-diagra.png)
 
-In addition to describing the structure of the page, the HTML also includes addresses where styles and scripts can be found. When the browser finds these, it contacts those addresses and loads their data. That data is then fed to other parsers that specialize in those data formats. If scripts are found, they can modify the page structure and style before the file is finished being parsed. The style format, CSS, plays the next role in our browser engine.
+除了用于描述页面结构，HTML 同样包含指向样式文件和脚本文件的地址。浏览器发现这些后，就开始请求并加载数据。然后浏览器会根据数据的类型，指定相应的解析器来处理。脚本文件可以在 HTML 文件解析的同时，改变页面的结构和样式。而样式规则，CSS， 在浏览器引擎中发挥以下作用。
 
-## With Style ##
+## 关于样式 ##
 
-CSS is a programming language that lets developers describe the appearance of particular elements on a page. CSS stands for “Cascading Style Sheets”, so named because it allows for multiple sets of style instructions, where instructions can override earlier or more general instructions (called the cascade). A bit of CSS could look like the following:
+CSS 是一门编程语言，开发者可以借助 CSS 描述页面元素的外观。CSS 全称 Cascading Style Sheets （译注：层叠样式表），之所以这样命名是因为多个 CSS 指令可以作用在同一个元素上，后定义的指令可以覆盖之前定义的指令，特殊性高的指令可以覆盖特殊性低的指令（这就是层叠的概念）。下面是一些 CSS 代码。
 
 ```
 section {
@@ -77,52 +78,51 @@ img {
 
 ```
 
-CSS is largely broken up into groupings called rules, which themselves consist of two parts. The first part is selectors. Selectors describe the elements of the DOM (remember those from above?) being styled, and a list of declarations that specify the styles to be applied to elements that match the selector. The browser engine contains a subsystem called a style engine whose job it is to take the CSS code and apply it to the DOM that was created by the HTML parser.
+大部分 CSS 代码被分割在称为规则的一个个分组中，每条规则包含两个部分。其中一个部分是选择器，选择器描述了 DOM 中需要应用样式的元素（上文说过，还记得吗？）。另一部分则是一系列样式声明，应用于与选择器匹配的元素。浏览器引擎中包含一个名为样式引擎的子系统，用于接收 CSS 代码，并将 CSS 规则应用到由 HTML 解析器生成的 DOM 中。
 
 [![](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/05/style-engine-1.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/05/style-engine-1.png)
 
-For example, in the above CSS, we have a rule that targets the selector “section”, which will match any element in the DOM with that name. Style annotations are then made for each element in the DOM. Eventually each element in the DOM is finished being styled, and we call this state the computed style for that element. When multiple competing styles are applied to the same element, those which come later or are more specific wins. Think of stylesheets as layers of thin tracing paper- each layer can cover the previous layers, but also let them show through.
+举个例子，在上述 CSS 中，我们有一条规则指定了选择器 “section”，这会匹配到 DOM 中所有 section 元素。接着，浏览器引擎会为 DOM 中的每一个元素附上样式注解。直到最后每个 DOM 元素都应用了样式，我们将该状态称为元素样式计算完毕。而当多个选择器作用在一个元素上时，源代码次序靠后的或者更特殊的 CSS 规则最终会应用到元素上。想象一下，样式表好比一层层薄薄的透写纸，一层盖一层，不同之处在于，样式表允许那些比较特殊的透写纸的内容一直展示在最上层。（译注：此处译文追加较多……欢迎探讨……TBD）
 
-Once the browser engine has computed styles, it’s time to put it to use! The DOM and the computed styles are fed into a layout engine that takes into account the size of the window being drawn into. The layout engine uses various algorithms to take each element and draw a box that will hold its content and take into account all the styles applied to it.
+一旦浏览器引擎计算好了样式，接下来就要派上用场了！布局引擎接下来会接手 DOM 和已计算的样式，并且会考虑待绘制布局所在的窗口大小。然后布局引擎会分析该元素应用的所有样式，并通过各种算法将每个元素绘制在一个个内容盒子中。
 
 [![](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/05/layout-time.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/05/layout-time.png)
 
-When layout is complete, it’s time to turn the blueprint of the page into the part you see. This process is known as painting, and it is the final combination of all the previous steps. Every box that was defined by layout gets drawn, full of the content from the DOM and with styles from the CSS. The user now sees the page, reconstituted from the code that defines it.
+页面布局绘制完毕后，是时候将页面蓝图转化成你所看见的实际页面了。这一步骤称为 painting（绘制），这也是先前所有步骤的最终整合。每个由布局定义的内容盒子都将被绘制，其内容来自 DOM，其样式源自 CSS。最终，从代码一步步重组而成的页面，展现在用户眼中。
 
-That used to be all that happened!
+以上就是以前的浏览器引擎所做的事情。
 
-When the user scrolled the page, we would re-paint, to show the new parts of the page that were previously outside the window. It turns out, however, that users love to scroll! The browser engine can be fairly certain it will be asked to show content outside of the initial window it draws (called the viewport). More modern browsers take advantage of this fact and paint more of the web page than is visible initially. When the user scrolls, the parts of the page they want to see are already drawn and ready. As a result, scrolling can be faster and smoother. This technique is the basis of compositing, which is a term for techniques to reduce the amount of painting required.
+当用户滚动页面的时候，浏览器会进行重绘来显示原先在可见窗口外的页面内容。然而，显然用户都喜欢滚动页面！浏览器引擎清楚地意识到自己肯定会被要求展示初始窗口以外的内容（也称视口）。现代浏览器根据这个事实在页面初始化的时候绘制了比视口更多的页面内容。当用户滚动页面的时候，这部分用户想要看的内容早就已经绘制完毕了。这样的好处就是页面滚动变得更快更流畅。这种技术是网页合成的基础，合成是一种减少所需绘制量的技术术语。
 
-Additionally, sometimes we need to redraw parts of the screen. Maybe the user is watching a video that plays at 60 frames per second. Or maybe there’s a slideshow or animated list on the page. Browsers can detect that parts of the page will move or update, and instead of re-painting the whole page, they create a layer to hold that content. A page can be made of many layers that overlap one another. A layer can change position, scroll, transparency, or move behind or in front of other layers without having to re-paint anything! Pretty convenient.
+另外，我们有时候也需要重绘部分页面内容。比如用户有可能正在观看一个每秒 60 帧的视频。也可能页面上有一个图片轮播或者滚动列表。浏览器能够检测出页面上哪一部分内容将要移动或者更新，并且会为这些更新的内容创建一个新的图层，而非重新渲染整个页面。一个页面可以由多个彼此重叠的图层构成。每个图层都可以改变定位方式、滚动位置、透明度或者在不触发重绘的前提下控制图层的上下位置！相当方便。
 
-Sometimes a script or an animation changes an element’s style. When this occurs, the style engine need to re-compute the element’s style (and potentially the style of many more elements on the page), recalculate the layout (do a reflow), and re-paint the page. This takes a lot of time as computer-speed things go, but so long as it only happens occasionally, the process won’t negatively affect a user’s experience.
+有时候一些脚本或者动画会修改元素的样式。这个时候，样式引擎就需要重新计算这个元素的样式（可能页面上许多其他元素也要重新计算），重新计算布局（产生一次回流），然后重绘整个页面。随着计算量的增加，这些操作会耗费很多时间，但只要发生的频率低，那么就不会对用户体验产生负面影响。
 
-In modern web applications, the structure of the document itself is frequently changed by scripts. This can require the entire rendering process to start more-or-less from scratch, with HTML being parsed into DOM, style calculation, reflow, and paint.
+在现代 web 应用中，文档结构经常会被脚本改变。而哪怕只是一点小改动，都会或多或少地触发整个渲染流程：HTML 解析成 DOM，样式计算，回流，重绘。
 
 [![](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/05/browser-diagram-full-2.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/05/browser-diagram-full-2.png)
 
-## Standards ##
+## Web 标准 ##
 
-Not every browser interprets HTML, CSS, and JavaScript the same way. The effect can vary: from small visual differences all the way to the occasional website that works in one browser and not at all in another. These days, on the modern Web, most websites seem to work regardless of which browser you choose. How do browsers achieve this level of consistency?
+不同浏览器解释 HTML、CSS 和 JavaScript 的方式也不一样。这就产生了各种影响：小到细微的视觉差异，大到不同浏览器的兼容性问题。近年来在现代互联网中，大多数网站在不同浏览器下似乎都表现的不错，而且也没有关注用户具体使用的是什么浏览器。那么，不同浏览器又是如何达到这种程度的一致性体验呢？
 
-The formats of website code, as well as the rules that govern how the code is interpreted and turned into an interactive visual page, are defined by mutually-agreed-upon documents called standards. These documents are developed by committees consisting of representatives from browser makers, web developers, designers, and other members of industry. Together they determine the precise behavior a browser engine should exhibit given a specific piece of code. There are [standards for HTML, CSS, and JavaScript](https://developer.mozilla.org/en-US/docs/Web_Standards) as well as the data formats of images, video, audio, and more.
+网站代码的格式，以及代码的解释规则、页面的渲染规则都是由一种由多方认可的文件定义的，即 Web 标准。来自浏览器厂商、Web 开发者、设计师等行业成员的代表组成了委员会制定了这些标准文档。他们一起确定了浏览器引擎对于代码的精确表现。Web 标准包括 [HTML、CSS 和 JavaScript 标准](https://developer.mozilla.org/en-US/docs/Web_Standards)以及图像、视频、音频等数据格式的标准。
 
-Why is this important? It’s possible make a whole new browser engine and, so long as you make sure that your engine follows the standards, the engine will draw web pages in a way that matches all the other browsers, for all the billions of web pages on the Web. This means that the “secret sauce” of making websites work isn’t a secret that belongs to any one browser. Standards allow users to choose the browser that meets their needs.
+为什么说 Web 标准是重要的？因为只要保证遵循了 Web 标准，就有可能开发出一个全新的浏览器引擎，而且绘制出互联网上数以亿计的网页的方法和其他浏览器完全一致。这也意味着在某些浏览器中才能运作的“秘密配方”不再是秘密了（译者注：例如，不再需要 CSS 私有前缀）。另外，正因为 Web 标准的存在，用户可以凭自己的喜好挑选浏览器。
 
-## Moore’s No More ##
+## 摩尔定律的终结 ##
 
-When dinosaurs roamed the earth and people only had desktop computers, it was a relatively safe assumption that computers would only get faster and more powerful. This idea was based on [Moore’s Law](https://en.wikipedia.org/wiki/Moore%27s_law), an observation that the density of components (and thus miniaturization/efficiency of silicon chips) would double roughly every two years. Incredibly, this observation held true well into the 21st century and, some would argue, still holds true at the cutting edge of research today. So why is it that the speed of the average computer seems to have leveled off in the last 10 years?
+恐龙时代，人们只要有台式电脑就够了。这曾经是一个相对保守的假设：计算机只会变得更快更强大。这个想法是基于[摩尔定律](https://en.wikipedia.org/wiki/Moore%27s_law)的推测：集成电路上可容纳的元器件的数目，约每隔 2 年便会增加一倍（因此半导体芯片的性能也将提升一倍、体积也将缩小一倍）。令人难以置信的是，这种趋势一直持续到了 21 世纪并且有人认为这一定律仍然适用于当今最前沿的研究。那么为什么在过去十年中，计算机的平均运算速度似乎已经趋于稳定了？
 
-Speed is not the only feature customers look for when shopping for a computer. Fast computers can be very power-hungry, very hot, and very expensive. Sometimes, people want a portable computer that has good battery life. Sometimes, they want a tiny touch-screen computer with a camera that fits in their pocket and lasts all day without a charge! Advances in computing have made that possible (which is amazing!), but at the cost of raw speed. Just as it’s not efficient (or safe) to drive your car as fast as possible, it’s not efficient to drive your computer as fast as possible. The solution has been to have multiple “computers” (cores) in one CPU chip. It’s not uncommon to see smartphones with 4 smaller, less powerful cores.
+顾客买电脑的时候不单单考虑运行速度，毕竟速度快的电脑很可能非常耗电、非常易过热还非常贵！有时候人们想要一台电池状况良好的笔记本电脑。有时候呢，人们又想要一个微型的触屏电脑，带摄像头，又足够小到可以塞进口袋里，并且电量足够用一天！计算能力的进步已经让这成为可能（真的很惊人！），不过代价就是运行速度下降。正如你在飙车的时候无法有效（或者说安全）地控制行车路线，你也无法让电脑超负荷计算的同时处理大量任务。现在的解决方案都是借助于一个 CPU 芯片包含多个“计算机”（核心）。因此，现在智能手机普遍都有 4 个较小、较弱的计算核心。
 
-Unfortunately, the historical design of the web browser kind-of assumed this upward trajectory in speed. Also, writing code that’s good at using multiple CPU cores at the same time can be *extremely* complicated. So, how do we make a fast, efficient browser in the era of lots of small computers?
+不幸的是，过去的浏览器设计也有点在速度方面呈现了这种上升轨迹。另外，编写能够充分利用多核 CPU 的代码也是**极为**复杂的。所以，我们该如何在这个到处都是小型计算机的时代，开发一款高速又高效的浏览器呢？
 
-We have some ideas!
+我们已经想到了！
 
-In the upcoming months, we’ll take a closer look at some of changes coming to Firefox and how they will take better advantage of modern hardware to deliver [a faster and more stable browser](https://www.mozilla.org/en-US/firefox/developer/) that makes websites shine.
+在接下来的几个月中，我们将更进一步观察 Firefox 的变化，以及这些变化将如何更好地利用现代硬件来交付[一个更快更稳定的浏览器](https://www.mozilla.org/en-US/firefox/developer/)，从而让网站更加多姿多彩。
 
-Onward!
-
+皮皮虾，我们走！ 
 
 ---
 
