@@ -124,7 +124,7 @@ render() {
 
 #### 尽可能的保持 Props（和 State）简单和精简 ####
 
-理想情况下，传递给组件的 props 应该是它直接需要的。为了将值传给子组件而将一个大的，复杂的对象或者很多独立的 props 传递给一个组件会导致很多不必要的组件渲染（并且会增加开发复杂性）。
+理想情况下，传递给组件的 props 应该是它直接需要的。为了将值传给子组件而将一个大的、复杂的对象或者很多独立的 props 传递给一个组件会导致很多不必要的组件渲染（并且会增加开发复杂性）。
 
 在 Vixlet，我们使用 Redux 作为状态容器，所以在我们看来，最理想的是方案在组件层次结构的每一个层级中使用 [react-redux](https://www.npmjs.com/package/react-redux) 的 [connect()](https://github.com/reactjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options) 函数直接从 store 上获取数据。connect 函数的性能很好，并且使用它的开销也非常小。
 
@@ -154,7 +154,7 @@ React 从 v15 开始会包含一个 PureComponent 类，它可以被用来构建
 
 更多信息，请查阅相关文档 [React.PureComponent](https://facebook.github.io/react/docs/react-api.html#react.purecomponent)。
 
-#### 组件性能分析（在 Chrome 里）####
+#### 组件性能分析（在 Chrome 里）
 
 在新版本的 Chrome 里，timeline 工具里有一个额外的内置功能可以显示哪些 React 组件正在渲染以及他们花费的时间。要启用此功能，将 `?react_perf` 作为要测试的 URL 的查询字符串。React 渲染时间轴数据将位于 User Timing 部分。
 
@@ -164,7 +164,7 @@ React 从 v15 开始会包含一个 PureComponent 类，它可以被用来构建
 
 这是一个很棒的 NPM 包，他们给 React 添加补丁，当一个组件触发了不必要的重新渲染时，它会在控制台输出一个 console 提示。
 
-**注意**: 这个模块在初始化时可以可以通过一个过滤器匹配特定的想要优化的组件，否则你的命令行可能会被垃圾信息填满，并且可能你的浏览器会挂起或者崩溃，查阅 [why-did-you-update 文档](https://www.npmjs.com/package/why-did-you-update)获取更多详细信息。
+**注意**: 这个模块在初始化时可以通过一个过滤器匹配特定的想要优化的组件，否则你的命令行可能会被垃圾信息填满，并且可能你的浏览器会挂起或者崩溃，查阅 [why-did-you-update 文档](https://www.npmjs.com/package/why-did-you-update)获取更多详细信息。
 
 ### 常见性能陷阱
 
