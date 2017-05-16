@@ -1,3 +1,4 @@
+
 > * 原文地址：[Quantum Up Close: What is a browser engine?](https://hacks.mozilla.org/2017/05/quantum-up-close-what-is-a-browser-engine/)
 > * 原文作者：[Potch](http://potch.me/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
@@ -50,7 +51,7 @@ Quantum 是项目的代号，Mozilla 启动这个项目是为了大幅度升级 
 
 > 嗯，这里有个章节。在这个章节里有个一级标题，这个标题包含的文本内容是 “Hello!”。另外在这个章节中，还有一张图片。这个图片的数据从这里获取：http://example.com/image.png
 
-网页在浏览器内存中的结构被称为[文档对象模型](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction)，简称 DOM。DOM 以元素树的形式来表示页面结构，（而非长文本形式），包括：每个元素各自的属性以及元素间的嵌套关系。
+网页在浏览器内存中的结构被称为[文档对象模型](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction)，简称 DOM。DOM 以元素树的形式来表示页面结构，而非长文本形式，包括：每个元素各自的属性以及元素间的嵌套关系。
 
 [![A diagram showing the nesting of HTML elements](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/05/html-diagra.png)](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2017/05/html-diagra.png)
 
