@@ -1,6 +1,6 @@
 
 > * 原文地址：[Quantum Up Close: What is a browser engine?](https://hacks.mozilla.org/2017/05/quantum-up-close-what-is-a-browser-engine/)
-> * 原文作者：[Potch](http://potch.me/)
+> * 原文作者：本文已获得原作者 [Potch](http://potch.me/) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[吃土小2叉](https://github.com/xunge0613)
 > * 校对者：[AceLeeWinnie](https://github.com/AceLeeWinnie)、[yzgyyang](https://github.com/yzgyyang)、[薛定谔的猫](https://github.com/Aladdin-ADD)
