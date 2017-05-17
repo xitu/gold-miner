@@ -7,7 +7,7 @@
 
 掘金翻译计划目前翻译完成 [499](#近期文章列表) 篇文章，共有 [300](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
 
-# 官方指南：
+# 官方指南
 
 - [**推荐优质英文文章到掘金翻译计划**](https://github.com/xitu/gold-miner/issues/new?title=推荐优秀英文文章&body=-%20原文链接：%0A-%20简要介绍：介绍一下好不好啦，毕竟小编也看不太懂哎_(:з」∠)_)
 - [如何参与翻译](https://github.com/xitu/gold-miner/wiki/如何参与翻译)
@@ -15,7 +15,7 @@
 - [译文排版规则指北](https://github.com/xitu/gold-miner/wiki/译文排版规则指北)
 - [参与翻译所得的积分能做什么?](https://github.com/xitu/gold-miner/wiki/)
 
-# 合作伙伴：
+# 合作伙伴
 
 - [虚位以待]()
 
