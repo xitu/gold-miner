@@ -4,9 +4,10 @@
 > * 译者：
 > * 校对者：
 
-# Rearchitecting Airbnb’s Frontend #
+# Airbnb 的前端重构 #
 
 Overview: We recently rethought the architecture for the JavaScript side of our codebase at Airbnb. This post will look at (1) the product drivers that precipitated the changes, (2) the steps we took to move away from our legacy Rails solutions, and (3) some of the key pillars of the new stack. *Bonus: We’ll talk about what’s next!*
+概述：最近，我们重新思考了 Airbnb 代码库中 JavaScript 端的架构。
 
 
 Airbnb sees more than 75 million searches each day, which makes the search page our highest traffic page. For nearly ten years, engineers have evolved, enhanced, and optimized the way that Rails delivers the page.
