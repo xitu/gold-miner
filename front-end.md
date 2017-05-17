@@ -1,3 +1,4 @@
+* [解密 Quantum：现代浏览器引擎的构建之道](https://juejin.im/post/591bc865a22b9d00583c17b8?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([xunge0613](https://github.com/xunge0613) 翻译)
 * [光速 React](https://juejin.im/post/591ad6b7128fe1005ce1123a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([ZhangFe](https://github.com/ZhangFe) 翻译)
 * [我是如何实现世界上最快的 JavaScript 记忆化的](https://juejin.im/post/5912b635a0bb9f0058b44c60?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Aladdin-ADD](https://github.com/Aladdin-ADD) 翻译)
 * [别让你的偏爱拖了后腿：快拥抱箭头函数吧！](https://juejin.im/post/59158c92a0bb9f005fd58fd7?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lsvih](https://github.com/lsvih) 翻译)
