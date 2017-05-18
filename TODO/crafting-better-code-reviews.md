@@ -1,223 +1,235 @@
 > * 原文地址：[Crafting Better Code Reviews](https://medium.com/@vaidehijoshi/crafting-better-code-reviews-1a5fc00a9312)
 > * 原文作者：[Vaidehi Joshi](https://medium.com/@vaidehijoshi)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
+> * 译者：bobmayuze
 > * 校对者：
 
-# Crafting Better Code Reviews #
+# 建立更好的代码审查制度 #
 
-*Adapted and reworked from a talk originally given at RailsConf 2017.*
+*来自Rails 2017开发者大会中的一段演讲*
 
-The intersection between humans and technology has never been simple or easy. This truth is particularly evident when it comes to the humans who *create* technology. As a human who also happens to write code for a living, I feel this the most during the code review process.
+人与科技之间的交互部分总是那么忽明忽暗，难以捉摸。对于以 *开发科技产品* 为职业的人来说，更是如此。作为一个资深码农，我在代码审查的时候对于这一点的感触特别明显。
 
-Most developers tend think of their code as a craft and — as seems to be the case with artists and most creators of all kinds — we become incredibly attached to our code. We’ve been told to be [egoless programmers](https://blog.codinghorror.com/the-ten-commandments-of-egoless-programming/), to critique not just our own code, but every single line of code that crosses our desk, as it waits to be merged into a project’s codebase. We’ve heard that having our own code reviewed by our peers and reviewing the code of our colleagues are both Very Good Things™, that [we should all be doing](https://blog.codinghorror.com/code-reviews-just-do-it/) . And a good many of us already happen to be doing all of these highly-recommended things.
+大多数开发者们习惯于把他们的代码看成一种艺术品，就好比画家看待自己的画一样，我们的代码总是和我们有着密不可分的关系。一直以来，我们都被教导说要做一个[无私奉献](https://blog.codinghorror.com/the-ten-commandments-of-egoless-programming/)的码农，能够在审查自己的代码的同时也能审查同事们写出来的代码。其实我们都知道这样的审查是对大家都有利的事,是一件[我们都应该做的事情](https://blog.codinghorror.com/code-reviews-just-do-it/)，而且很多人都一直在做这件事。
 
-But when was the last time we evaluated these methodologies? Are any of us sure that our code review processes are actually *working*? Are we certain that they’re serving the roles that they were originally intended to fill?
+但是谁还记得上一次我们衡量这些方法论是什么时候？我们真的能保证我们的代码审查制度是 *有效* 的吗？我们能够保证我们的代码审查制度不忘初心吗？
 
-And if not: how can we try and make them better?
+如果答案是不，那我们如何才能解决这个问题呢？
 
 ![](https://cdn-images-1.medium.com/max/800/1*INwRDJ_vspfJKkyFpv5jww.png)
 
 © geek & poke, [http://geek-and-poke.com](http://geek-and-poke.com)
 
-### Why even *bother* with review? ###
+### 避免和代码审查*过不去* ###
 
-Before we can really understand the *practical* benefits of peer code review, it’s helpful to know why they even started in the first place. There has been a decent amount of [research](https://en.wikipedia.org/wiki/Code_review#References) around code review best practices, but I think that Steve McConnell’s research in [*Code Complete*](https://www.amazon.com/Code-Complete-Practical-Handbook-Construction/dp/0735619670) (originally published in 1993) is a good place to start.
+
+在我们能真正完全理解代码审查的实际意义和好处之后，我们就能知道为什么会有代码审查这个传统了。网上有大量的有关代码审查的[研究](https://en.wikipedia.org/wiki/Code_review#References) ，但是我认为Steve McConnell在1993年发表的[*Code Complete*](https://www.amazon.com/Code-Complete-Practical-Handbook-Construction/dp/0735619670) 这个才是一个比较适合我们开始讨论的地方。
 
 In his book, he describes code reviews, and what function they *ought* to serve. He writes:
+在他的书中，对于代码审查制度*应该有*的功能描述，他写下了下面这些话：
 
-> One part of managing a software-engineering process is catching problems at the “lowest-value” stage — that is, at the time at which the least investment has been made and at which problems cost the least to correct. To achieve such a goal, developers use “quality gates”, periodic tests or reviews that determine whether the quality of the product at one stage is sufficient to support moving on to the next.
+> 管理软件工程的一个重点就是找出在“最低价值”的问题。换句话说，就是找出最容易解决的问题。为了达到这样的一个预期，我们可以使用“质量门”这样一个理念，也就是周期性的测试或者审查来决定是否应该进行到开发的下一阶段。
 
-The most powerful aspect of McConnell’s case for code review on every single team is the way that he ties it back to something he terms the “Collective Ownership in Construction”: the idea that all code is owned by a group of contributors, who can each equally access, change, and modify the collectively-owned project.
+McConnell的代码审查研究中最重要的理念就是代码集体拥有制度。具体就是所有代码都是被一组贡献者们所拥有的，这些贡献者们能平等的对代码进行查看和更改。
 
-> The original intent behind code reviews was that they would help us take collective ownership in the creation of our software. In other words, we’d each be stakeholders in our development process by having a hand in controlling the quality of our products.
+> 代码审查制度最初是为了帮助我们共同维护一个软件。换句话说，就像我们同时持股一家公司时我们会做质量检测以确定产品的可行性。
 
-McConnell goes on to highlight a few different types of code review processes that an engineering team can adopt into their everyday workflows. I strongly recommend that you pick up a copy of *Code Complete* and learn more about each of these techniques; for our purposes, however, a summary will suffice. There are three formats for a code review:
+McConnell在他的书中提出了很多种不同的代码审查制度的方式和流程，这些方式都可以被任何一个团队采用在日常的工作流当中。强烈推荐McConnell的 *Code Complete* ，真的非常赞。但是这边的话我们就简短的说3种来帮助理解。
 
-#### **1. Inspections** ####
+#### **1. 3人审查制度** ####
 
-Inspections are longer code reviews that are meant to take approximately an hour, and include a moderator, the code’s author, and a reviewer.
+3人审查制度是一个比较长的审查流程，耗时基本都在1小时左右。整个流程会包括一个公司的把关人（扛把子），代码作者（程序猿），和一个审查员（产品狗）。
 
-When used effectively, inspections typically catch about *60% of defects* (either bugs or errors) in a program. According to McConnell’s research, inspections result in *20–30% fewer defects per 1000 lines of code* than less formalized review practices.
+当大家能正确打开这个审查制度的时候，研究表明这个审查可以抓住一个程序 *60%的问题* 。根据McConnell的研究，相比于不怎么流程化的代码审查，这个制度平均每1000行代码能减少20%到30%的错误。
 
-#### **2. Walkthroughs** ####
+#### **2. 带着一起过** ####
 
-A walkthough is a 30–60 minute working meetings, usually intended to provide teaching opportunities for senior developers to explain concepts to newer programmers, while also giving junior engineers the chance to push back on old methodologies.
+这个方式的话大概是30~60分钟，通常用于来帮助初级程序员们在一家公司中理解一些技术性难题，同时也能让高级开发人员们回顾旧的方法论。
 
-Walkthroughs can sometimes be very effective, but they’re not nearly as impactful as a more formalized code review process, such as an inspection. A walkthrough can usually reveal *20–40% of errors* in a program.
+带着新人一起过的话有时候还蛮高效的，但是这个方式的话就不像上面那个3人审查一样流程化。这样的一个代码审查大概能检测到程序中20%到40%的问题。
 
-#### **3. Short code reviews** ####
+#### **3. 审查小片段** ####
 
-Short reviews are, as their name would suggest, much faster; however, they are still very much in-depth reviews of small changes, including single-line changes, that tend to be the most error-prone.
+就想这个名字一样，这种审查非常短。但是这都是很有深度的审查，还蛮难的。有时候可能就是更改了1行代码，但是会引起大量的问题。
 
-McConnell’s research uncovered the following about shorter code review:
+McConnell的研究发现了下面这些有关于审查小片段的事实：
 
-> An organization that introduced reviews for one-line changes found that its error rate went from 55 percent before reviews to 2 percent afterward. A telecommunications organization in the late 80’s went from 86 percent correct before reviewing code changes to 99.6 percent afterward.
+> 一个专门针对单行修改代码审查的机构发现在进行代码审查后代码报错率从55%下降到了2%。一个在80年代晚期的通讯机构代码正确率在审查后从80%上升到了99.6%。
 
-The data — at least McConnell’s *subset* of collected data — seems to suggest that every software team should be conducting *some* combination of these three types of code reviews.
+McConnell的一组组数据似乎在告诉我们作为一个开发团队我们应该构造一些这三种代码审查的融合来进行开发的推进。
 
-However, McConnell’s book was first researched and written back in 1993. Our industry has changed since then and, arguably, so have our peer review methodologies. But are our implementations of code review today actually effective? How are we putting the *theory* behind code reviews into *practice*?
+然而，McConnell的书是在1993年写的。时至今日，我们的工作流程早就已经更新换代了，同事之间互相检查的方法论也随之更新。但是我们现在对于代码审查的构造足够合理完整吗？我们应该如何把*理论*上的东西运营到*实际*中去？
 
 To find the answer to these questions, I did what any determined (but a little unsure of where to start) developer would do: I asked the Internet!
+为了解答我的问题，我做了大多数码农会做的事：Google一下
 
 [![Markdown](http://i4.buimg.com/1949/4bcc14c27f51262e.png)](https://twitter.com/vaidehijoshi)
 
-Well, okay — I asked Twitter.
+好吧，并没有什么卵用，那我来看看推特。
 
-### What do developers think of code reviews? ###
+### 程序猿们如何看待代码审查 ###
 
-Before I dive into the results of the survey, a quick disclaimer: *I am not a data scientist.* (I wish I were, because I’d probably be a lot better at analyzing all of the responses to this survey, and maybe I’d even be halfway-decent at plotting graphs in R!). Ultimately, this means is that my dataset is limited in *many* ways, the first of which being that it was a self-selecting survey on Twitter, and the second being the fact that the survey itself presupposed a branch/pull request based team.
 
-Okay, now that we have that out of the way: *what do developers think of code reviews?*
+在我对这个调查进一步阐述之前，我想先说点什么：*我不是一个数据科学家* （我希望我是，但是我也许在处理这篇文章反馈的时候能更加得心应手，或许我连在R语言里画个图都困难）。还有一点，就是说我的数据集其实是非常有限的。首先这个数据是我自己在推特上选过来的，然后的话数据是来自一个基于 branch/pull request的团队的。
 
-#### The quantitative data ####
+好，那么重点来了：*程序猿们是到底如何看待代码审查的？*
 
-We’ll try to answer this question by looking at the quantitative data to start.
+#### 量化的数据 ####
 
-First off, the answer to this question depends a lot on *which* developers you ask. At the time that I am writing this, I have received a little over 500 responses to my survey.
+让我们先来看看这组已经量化的数据。
 
-The developers who responded primarily worked in Java, Ruby, or JavaScript. Here’s how those responses break down in terms of developers and the primary language that they and their team work in.
+首先，这个问题的答案很大程度上取决于你问了*哪个*程序猿。在我写这个报告的时候，我已经收到超过500条回复了。
+
+下面是一些根据工作时用的语言分类的结果，包括了JS，JAVA，还有Ruby。
+
 
 ![](https://cdn-images-1.medium.com/max/600/1*hiGuGx5OvayL4dPu1tSC4w.png)
 
 I asked every respondent to the survey to what extent they agreed with the statement: *Code reviews are beneficial to my team*.
+根据我一个个问完之后，大家都认为 *代码审查对于团队是有好处的* 。
 
-Overall, Swift developers found code reviews the *most* beneficial to their teams, averaging a 9.5 on a scale of 1–10, where 1 was *strongly disagree*, and 10 was *strongly agree*. Ruby developers came in a close second, averaging about 9.2.
+总的来说，从1分到非常不认可，10分非常认可，Swift开发团队给代码审查认可度打了9.5/10的高分。Ruby开发团队第二，打出了9.2的高分。
 
 ![](https://cdn-images-1.medium.com/max/800/1*1zSl-fd9hygIBzxp52yHOQ.jpeg)
 
-While the majority of survey respondents (approximately 70%) stated that all pull requests were reviewed stated that every single pull request was reviewed by someone on the team before being merged, this wasn’t the case on all teams. About 50 respondents (approximately 10% of the entire dataset) stated that pull requests were only peer reviewed in their teams when a review was *requested* by them.
+当70%的受调查者告诉我他们的pull request在被merge之前会由团队里的其他人来检查时，有10%的受访者（大概50个）告诉我的说他们的pull request只有在自己要求进行代码审查的时候才会进行代码审查。
 
 ![](https://cdn-images-1.medium.com/max/800/1*fVl3H0KGsauN1Bxs_jsN7A.jpeg)
 
-The data seemed to suggest that this distribution, for the most part, carried across languages and frameworks. No one single language seemed to have an overwhelmingly different result in terms of whether all pull requests were reviewed, or if reviews had to first be requested. In other words, it would appear that it is not the language or the framework that results in a more consistent code review culture, but more likely, the team itself.
+这张图片通过不同语言阐明了代码审查的深度。总的来说，每个语言直接没有差很多。换句话来说，决定代码审查的的深度和频率和你用什么语言没有关系，重点在于你在什么样的一个团队。
 
 ![](https://cdn-images-1.medium.com/max/800/1*jFZ_2zCzHM78m_L_p0OK8A.jpeg)
 
-Finally, for those developers who were working on teams that *did* require for pull requests to be reviewed before being merged, it appeared that the majority of teams only needed one other person to peer review before merging code into the shared codebase.
+最后，对于那些当有要求进行代码审查才会进行审查的团队来说，大部分通常只有1个人在代码merge到主程序之前审查这个代码。
 
 ![](https://cdn-images-1.medium.com/max/800/1*KsuH1lurvkf5wpoXZ2queQ.png)
 
-#### The qualitative data ####
+#### 定性描述的数据 ####
 
-So what about the *unquantifiable* stuff? In addition to multiple choice questions, the survey also allowed respondents to fill in their own answers. And this is where the results actually proved to be the most *illuminating*, not to mention the most useful.
 
-There were a few overarching themes that popped up repeatedly in the anonymized responses.
+那么对于那些不可量化的东西来说，我们能知道什么呢？在多项选择题之外，这个调查同时也能够让受访者填写他们自己的答案。这一部分也是这个调查最重要的一部分，最能*说明问题*的一部分。
 
-> Ultimately, what seemed to make or break a code review experience depended upon two things: how much energy was spent during the review process, and how much substance the review itself had.
+这写回答具体聚焦在如下几个重点。
 
-A code review was bad (and left a bad taste in the reviewer’s and reviewee’s mouth) if there wasn’t enough energy spend on the review, or if it lacked substance. On the other hand, if a code review process was thorough, and time was spent reviewing aspects of the code in a substantive way, it left a much more positive impression overall on both the reviewer and the reviewee.
 
-But what do we mean by *energy* and *substance*, exactly?
+> 总的来说，对于代码审查制度有很大关系的有两个因素：执行代码审查所需要消耗的资源和代码审查这一流程的可持续性。
 
-#### Energy ####
+一个非常耗资源和可持续性很差的代码审查会让一个代码审查变得非常差劲。如果一个代码审查不是非常消耗资源，然后可持续性也很高的话，这会给审查者和受审查者双方都留下一个非常好的印象。
 
-Another way of determining the **energy behind a code review** is by answering the question: *Who all is doing the review?**And how much time are they spending on it?*
+但是我们这里说的资源，和可持续性到底指什么呢？
 
-A lot of respondents were conducting code reviews, but many seemed to be unhappy with who was doing them, and how much time they ended up spending while reviewing — or waiting to be reviewed.
+#### 资源 ####
 
-Below are just a few of the anonymized responses to the survey:
+另一种来找出一个代码审查*到底消耗了多少资源*的方法是问自己这样的问题：*谁在执行这个流程*以及他们花了多少时间来执行这个流程？
 
-> We have one dev who just blindly thumbs-up every PR and rarely leaves comments. That person is attempting to game the rule of “at least two approvals”. It is easy to tell, because inside of one minute they will suddenly have approved 5–6 PRs.
+大量的受访者们都是很有生产力的代码审查员，但是大家都表示对于团队里执行这个环节的人不爽，以及对于等待他们的代码被审查时花费的大量时间表示不爽。
 
-> I find that the 2nd or 3rd reviewer is often more likely to rubber stamp after seeing one approval.
+下面是一些匿名的反馈：
 
-> There have been times when the same code has been reviewed differently depending on who submits the PR.
+> 我们有一个开发人员只是盲目的给每个PR一个赞然后都不怎么留评论。我可以告诉你这是真的因为他们1分钟能看5到6个PR。
 
-> Everyone on the team should receive equal review. I feel like it’s so common for senior people to get no feedback because people assume they can do no wrong but they totally can, and might want feedback. And junior people get nit picked to death… remember people’s self esteem is likely to be affected and they’re being vulnerable.
+> 我发现第二个或者第三个的审查者大多数都是在打酱油。
 
-> Commits are too big, so PR’s take long to review. People don’t check out the branch locally to test.
+> 有时候相同的代码审查的结果会根据不同的提交者而不同。
 
-> Especially long PR’s take longer to be reviewed, which is an issue because they have the most effect on future branches/PRs/merges.
+> 团队里的每个人应该受到相同的对待。高级工程师也会犯错，而且他们也希望有人能提出来。初级工程师也不能被各种黑。人呐，总是会被事物有偏见。
 
-The overarching takeaways when it came to *how**much* energy was being spent (or not spent) on a code review boiled down to three things:
+> Commits太长了，导致PR需要很久去审查。人们不会先在本地去测试一下代码。
 
-1. No one feels good about a code review process that’s just a formality & doesn’t carry any weight.
-2. It’s not fun to review a long PR with code that you’re unfamiliar with, or have no context for.
-3. To err is human, and we’re all human. We should all be reviewed, and review others fairly.
+> 长长的PR总是花费大量的时间，然后这个PR还对将来的特性有重要的影响。
 
-#### Substance ####
+各位码农对于代码审查和消耗的消耗资源的关系评论归类之后主要有以下三点：
+
+1. 大家都对代码审查不爽，而且觉得没什么卵用。
+2. 审查一个你不熟悉的代码很不爽。
+3. 错误都处在人身上，我们都是人。我们应该平等的对待，不能因为谁是老大就说他/她写的代码没有问题。
+
+#### 可持续性 ####
 
 The **substance of a code review** boils down to the answer to one question question: *What exactly is someone saying, doing, or making another person feel while they review their code?*
+*代码审查可持续性*主要被以下几个因素影响：执行代码审查的时候执行者到底*说了什么，做了什么，让被审查者有什么样的感受*
 
-The responses connected to the substance of a code review were, for the most part, grounded in what people were saying in their reviews, and how they were saying it.
+重点还是在于大家说了什么以及说话的方式.
 
-Here are a few of the anonymized responses from the survey:
+让我们来看看大家的吐槽吧：
 
-> I take any feedback on PR’s at face value. If changing that string to a symbol will make you happy, let’s do that and move on. I’m not going to try and justify an arbitrary decision. It’s not unlike working in an IDE environment, it’s very easy for my brain to fall into a “see red squiggle, fix red squiggle” mindset. I don’t really care why it’s upset, just make it stop yelling at me.
+> 面对PR的时候，我觉得你要是不喜欢变量名就直接改，我觉得这个不是最重要的，这完全是个人喜好嘛！就像在IDE里一样，我很容易就被搞蒙了。我不关心为什么不开心，让这个东西停止报错就好，不停叫真的不能忍。
 
-> Do not do big picture or architectural critiques in a review. Have offline conversations. Too easy to send folks down a rabbit hole and create frustration.
+> 不要在公开场合说思想上的大错误。在线下有个友善的对话会非常有帮助。直接PR上说会让人很爽，最后弄得大家都不愉快。
 
-> I feel pretty strongly that it’s annoying when people demand changes, especially if they don’t take the time to explain why they’re doing so, or leave room for the possibility that they’re wrong. Especially when people just rewrite your code in a comment and tell you to change to their version.
+> 当需求不停的改的时候我非常难过，特别是他们不向我解释为什么更改了需求的时候，或者留下他们犯错的可能性。特别是当别人告诉你改写你的代码成为他们的版本的时候，你简直难过的想要抱抱。
 
-> If a comment thread is getting long, it’s an indication a verbal conversation should be had (report the consensus back in the comment thread)
+> 当一个回复过长的时候，我们不如去进行一次线下的交流。
 
-> People need to do better jobs distinguishing between their own stylistic preferences and feedback that makes a functional difference. It can be tough for a more junior person to figure out which is which. It’s also frustrating when multiple seniors give conflicting feedback (e.g. What to call a route and why).
+> 我觉得对于个人喜好问题和功能是否能正常运作完全是两个问题。对于初级工程师来说，这是非常难分辨的。有时候几个高级工程师给出不同的反馈的时候更加懵逼。
 
 The main themes when it came to the *substance* of a code review could be summarized into the following:
+总的来说，代码审查的重点有一下几个：
 
-1. Comments nitpicking purely at syntax lead to a negative experience. Style and semantics are not the same thing. (Interestingly, 5% of respondents used the word ***nitpick***to describe code review comments in a negative context.)
-2. The words we use to review one another’s code really do matter. An unkind review can break someone’s self-confidence.
+1. 反馈过度注重语法和习惯的问题，导致让双方都非常不爽。代码习惯与风格和代码功能错误根本就是两回事儿。
+2. 说话方式也很重要。过激的语言会打消对方的自信心，对团队也不是好事。
 
-### How do we do better? ###
+### 我们如何能够做的更好？ ###
 
-Although this data may not be the most complete, full, or even the most *accurate* representation of our industry’s code review culture, there is one thing that seems like a fair claim to make: we could all stand to revisit our code review processes on our teams and within the larger community.
 
-This anonymous survey response highlights the immense impact that a review process can have on members of an engineering team:
+也许这些数据不能我们最完整，最细致，或者最精准的代表我们代码审查的结构，但是我们还是能学到一些东西：我们能够回顾并检查我们团队的甚至整个社区的代码审查流程。
 
-> A bad code review almost made me leave the company. A great code review leaves me feeling better equipped to tackle future projects.
+下面的匿名调查告诉了我们代码审查对于一个团队成员的影响是怎么样的：
 
-Indeed, having *some* sense of a formalized code review is incredibly beneficial and statistically powerful; both Steve McConnell’s research and this small survey both seem to support this fact. But, it’s not just enough to implement a code review culture and then never think about it again. In fact, a code review process where members of a team are simply going through the actions of reviewing can be detrimental and discouraging to the team as a whole.
+> 一个非常差劲的代码审查让我几乎决定离职。一个优秀的代码审查流程会让我有信心面对将来更加困难的项目。
 
-> Instead, it is the act of introspection, reflection, and reevaluation of our collective code review culture that will allow us to build upon any kind of formalized review process we might have.
+确实，有一个流程化的代码审查制度*似乎*是非常有效且能帮助团队快速成长的；Steve McConnell和这篇文字的调查都证明了这一点。但是，单纯的重构代码审查流程然后永远不改是远远不够的。事实上，代码审查的流程应该根据整个团队的情况来更改以保证团队的生长。
 
-In other words, it’s the act of asking ourselves whether our code reviews are effective, and whether they’re making a difference — both on the entire team, as well as the individuals who form it.
+> 与直接采用一个代码审查方式不同的是，我们需要重新思考我们的代码审查流程并且流程化工作来帮助我们面对以后的可能遇到的问题。
 
-#### Easy ways to improve your code review process ####
+换句话说，重点在于我们能够思考我们的代码审查是否足够有效，是否能对于团队和个人同时产生好处。
 
-There are a few ways to immediately make the code review process more painless and enjoyable for your team. Here are a few things to help you get started:
+#### 一些提高代码审查的小技巧 ####
 
-- Implement [linters](https://github.com/showcases/clean-code-linters) or a code analyzer (if available) in order to eliminate the need for syntactical comments on a pull request.
-- Use [Github templates](https://quickleft.com/blog/pull-request-templates-make-code-review-easier/) for every pull request, complete with a checklist to make it easy for the author of the code and the reviewer to know what to add, and what to check for.
-- Add screenshots and detailed explanations to help provide context to teammates who might not be familiar with the codebase.
-- Aim for small, concise commits, and encapsulated pull requests that aren’t massive in size, and thus much easier and quicker to review.
-- Assign specific reviewers to a PR — more than one, if possible. Make sure that the role of reviewing is equally distributed amongst engineers of each and every level.
+这边是一些能够快速帮助提高代码审查感受的一些技巧：
 
-#### The harder things — but the most important ####
+- 使用 [linters](https://github.com/showcases/clean-code-linters) 或者其他的代码构成器来避免PR时的语法格式问题。
+- 使用 [Github 的模板](https://quickleft.com/blog/pull-request-templates-make-code-review-easier/)来生产每个PR。在发PR的时候带上更改列表对于作者和审查者都非常有帮助。
+- 在发PR的时候可以加个截图来帮助那些不是很熟悉的人理解问题。
+- 提高commits的信息量，尽量语言短小精湛。
+- 对于每个PR钦定审查者，如果可能的话人多于一个比较好。确定代码编写和审查的分配对于各个等级的工程师来说是均衡的。
 
-Once you’ve picked off some of the low-hanging fruit, there are some bigger changes you can help bring about, too. These are actually the most important things to do if you want to change your code review culture.
+#### 很难做到但是非常重要的事情 ####
 
-And, let me warn you: that’s probably what makes them so hard.
+当你已经代码审查入门之后，这里是一些更加重要的东西。事实上，对于重构代码审查流程来说，这里的东西是最重要的。
 
-- ***Develop a sense of empathy on your team.*** The greatest burden of making this happen falls on the shoulders of senior, more experienced engineers. Build empathy with people who are newer to the team or the industry.
+警告：前方高能，内容可能有一定难度
+
+- ***能够理解你的团队。*** 这项任务一般都由高级工程师们来承担，希望大家对于新人们能多多帮助。
 
 [![Markdown](http://i1.piimg.com/1949/36f270199929bb1e.png)](https://twitter.com/sarahmei)
 
-- ***Push for a culture that values vulnerability — both in actions and in words.*** This means reevaluating the language used in pull request comments, identifying when a review is on track to turn into a downward spiral, and determining when to take conversations offline, rather than questioning the author of the code publicly.
+- ***更加委婉的交流。*** 这意味着在发评论之前思考自己的言行是否妥当，是否会让其他人很不爽。在公众下批评别人是一件非常不好的事情。相比，有个私人对话会好很多。
 
 [![Markdown](http://i1.piimg.com/1949/51bfec74a7cf1e42.png)](https://twitter.com/j3)
 
-- ***Have a conversation.*** Sit your team down, start a Slack channel, create an anonymized survey — whichever fits your group’s culture best. Have the conversation that will make everyone comfortable enough to share whether they are each happy with the current code review process, and what they wish the team did differently.
+- ***进行一次口头交流。*** 带着整个团队坐下来，到slack（美国的一种团队交流软件）上开个新的频道，让大家能够匿名的交流（选择最适合的即可）。在匿名的情况下大家都愿意说真话。
 
-I saved the most important one for last because, honestly, if you’ve stuck with me and read this far, you must really want to change the status quo. And that really *is* a Very Good Thing™! Ultimately, though, having the conversation with your team is the most important first step to take in making that change happen.
+我把最重要的一点放在最后，因为当你还有耐心读到这里的时候，说明你真的想要更改一下你们的代码审查结构了，这是个好事儿。团队交流真的非常重要，这几乎是每个团队必须跨出的一步如果他们想要提升代码审查制度的话。
 
-This survey response summarizes why, far better than I ever could:
+下面这句话基本上包括了我最想说的：
 
-> I love code reviews in theory. In practice, they are only as good as the group that’s responsible for conducting them in the right manner.
+> 理论上来说，我很喜欢代码审查。事实上，这个东西取决于构建这个流程的团队。
 
-#### Resources ####
+#### 更多链接 ####
 
-If you’d like to view a larger collection of curated, anonymized survey responses, you can view the website that accompanies this project:
+如果你想看一个更加大的匿名的反馈，你可以看下面这个有关于这个项目的网站：
 
 [![Markdown](http://i1.piimg.com/1949/2b892fa3a6988b39.png)](http://bettercode.reviews)
 
-#### Acknowledgements ####
+#### 感谢 ####
 
-First and foremost, I’m deeply grateful to the hundreds of developers who took the time and effort to answer my survey.
+首先我很想感谢一路上一直支持我的工程师朋友们，感谢你们的答案和接受我的调查。
 
 A huge thank you to [Kasra Rahjerdi](https://medium.com/@jc4p), who helped me analyze the responses to my survey and created many of the graphs in this project.
+非常感谢 [Kasra Rahjerdi](https://medium.com/@jc4p) 帮我整理反馈并且生成那么多的图像。
 
-Thank you to [Jeff Atwood](https://blog.codinghorror.com/code-reviews-just-do-it/), for his articles on peer reviews, Karl Wiegers for his work in [*Humanizing Peer Reviews*](http://www.processimpact.com/articles/humanizing_reviews.html), and Steve McConnell for his extensive research on code review processes in [*Code Complete*](https://www.amazon.com/Code-Complete-Practical-Handbook-Construction/dp/0735619670) . I hope you’ll consider supporting these authors by reading their writing or purchasing their books.
+感谢 [Jeff Atwood](https://blog.codinghorror.com/code-reviews-just-do-it/)的有关于互相检查的文章, Karl Wiegers 的 [*人类化互相审查流程*](http://www.processimpact.com/articles/humanizing_reviews.html), 以及 Steve McConnell 对于 [*Code Complete*](https://www.amazon.com/Code-Complete-Practical-Handbook-Construction/dp/0735619670) 的研究。 我希望你能购买他们的书来支持他们。
 
 
 ---
