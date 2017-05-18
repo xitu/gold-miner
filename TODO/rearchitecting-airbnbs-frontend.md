@@ -36,11 +36,13 @@ Airbnb 每天接收超过 7500 万次搜索，这使得搜索页面成为我们�
 
 ### 从 Rails 之中解脱 ###
 
-Before firing up the barbecue for all the fun [Progressive Web App](https://developers.google.com/web/progressive-web-apps/) work on our roadmap, we needed to separate from Rails (or at least the way we use Rails at Airbnb in delivering standalone pages).
+在我们的烧烤开火之前，因为我们的线路图上存在所有有趣的[渐进式 web 应用](https://developers.google.com/web/progressive-web-apps/)（WPA）,我们需要从 Rails 中解脱出来（或者至少在 Airbnb 用 Rails 提供单独页面的这种方式）。
 
-Unfortunately, only a matter of months ago, our search page contained some very old code…like, *Lord of the Rings*, touch-that-at-your-peril old. Fun fact: I once replaced a small [Handlebars](http://handlebarsjs.com/) template backed by a Rails presenter with a simple React component, and suddenly things were breaking in entirely separate parts of the page — even in our API response! Turns out, the presenter was mutating the backing Rails model, which had been impacting all downstream data for years, even when the UI wasn’t being rendered.
+不幸的是，就在几个月前，我们的搜索页还包含一些非常老旧的代码，像指环王一样，碰它就要小心自负后果。有趣的事实：我曾尝试用一个简单的 React 组件替换一个 Rails presenter 备份过的小巧的 [Handlebars](http://handlebarsjs.com/) 模板，突然很多完全不相关的部分都崩掉了——甚至 API 响应都除了问题。原来，presenter 正在改变后备 Rails 模式，多年来即使在 UI 没有渲染的时候，它也影响着所有的下游数据。
 
 In short, we were in this project like Indiana Jones swapping the idol for a bag of sand, and immediately the temple starts collapsing, and we’re running from a boulder.
+简而言之，我们在这个项目中，像 Indiana Jone 用灵魂交换一袋沙子，突然间寺庙开始崩溃，我们正在从一块巨石上跑。
+
 
 #### Step 1: Aligning on API Data ####
 
@@ -272,7 +274,7 @@ Also, note the `scheduleAsyncLoad()` utility, which requests the bundle in advan
 
 The final benefit of this approach is that `HomesSearch_Map` becomes a named bundle that the browser can cache. As we disaggregate larger route-based bundles, the slowly-changing sections of the app remain untouched across updates, further saving JavaScript download time.
 
-#### Building Accessibility into our Design Language #### 
+#### Building Accessibility into our Design Language ####
 
 Doubtless it warrants a dedicated post, but we have begun building our internal component library with Accessibility enforced as a hard constraint. In the coming months, we will have replaced all UI across the guest flow that is incompatible with screen readers.
 
