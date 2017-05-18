@@ -1,5 +1,5 @@
 > * 原文地址：[React at Light Speed](https://blog.vixlet.com/react-at-light-speed-78cd172a6411)
-> * 原文作者：[Jacob Beltran](https://blog.vixlet.com/@jacob_beltran)
+> * 原文作者：本文已获原作者 [Jacob Beltran](https://blog.vixlet.com/@jacob_beltran) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[ZhangFe](https://github.com/ZhangFe)
 > * 校对者：[yzgyyang](https://github.com/yzgyyang),[xunge0613](https://github.com/xunge0613)
