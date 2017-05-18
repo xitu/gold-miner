@@ -1,40 +1,40 @@
 > * 原文地址：[Rearchitecting Airbnb’s Frontend](https://medium.com/airbnb-engineering/rearchitecting-airbnbs-frontend-5e213efc24d2)
 > * 原文作者：[Adam Neary](https://medium.com/@AdamRNeary)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
+> * 译者：[sunui](https://github.com/sunui)
 > * 校对者：
 
 # Airbnb 的前端重构 #
 
-Overview: We recently rethought the architecture for the JavaScript side of our codebase at Airbnb. This post will look at (1) the product drivers that precipitated the changes, (2) the steps we took to move away from our legacy Rails solutions, and (3) some of the key pillars of the new stack. *Bonus: We’ll talk about what’s next!*
-概述：最近，我们重新思考了 Airbnb 代码库中 JavaScript 端的架构。
+概述：最近，我们重新思考了 Airbnb 代码库中 JavaScript 端的架构。本文将讨论：（1）催生一些变化的产品驱动因素，（2）摆脱遗留的 Rails 解决方案的一些步骤，（3）一些新技术栈的关键性支柱。彩蛋：我们将讨论接下来要做的事。
 
 
-Airbnb sees more than 75 million searches each day, which makes the search page our highest traffic page. For nearly ten years, engineers have evolved, enhanced, and optimized the way that Rails delivers the page.
+Airbnb 每天接收超过 7500 万次搜索，这使得搜索页面成为我们流量最高的页面。近十年来，工程师们一直在发展、加强、和优化 Rails 输出页面的方式。
 
-Recently, we moved into verticals beyond Homes, [introducing Experiences and Places](https://www.airbnb.com/new) . As a part of bringing these new products to web, we took the time to rethink the search experience itself.
+最近，我们转移到了主页以外的垂直页面，[来介绍一些体验和去处](https://www.airbnb.com/new)。作为 web 端新增产品的一部分，我们花时间重新思考了搜索体验本身。
 
 ![](https://cdn-images-1.medium.com/max/800/1*VMRwDmHVeYC3YnJhhtKn4Q.gif)
 
-Transitioning between routes for a broad search
+用于一个广泛搜索的路由间的过渡
 
-Rather than navigating from our landing page at [www.airbnb.com](http://www.airbnb.com) (1) to a search results page (2) to a single listing (3) to the booking flow (4)— *each page delivered standalone via Rails* — we want the user experience to be fluid, adjusting what the user is experiencing as they explore and narrow their search.
+我们希望用户体验流畅，要去斟酌用户在浏览页面和缩小搜索范围时遇到的内容，而不是从 [www.airbnb.com](http://www.airbnb.com) 着陆页导航，（1）访问一个搜索结果页，（2）访问一个单一列表页，（3）访问预订流程，（4）**每个页面都由 Rails 单独传送**。
 
 ![](https://cdn-images-1.medium.com/max/800/1*epBwi0kxrcW5a6Wv-T4rSg.gif)
 
-Designs exploring search from three states: New User, Returning User, and Marketing Marquee
+设计三种浏览搜索页的状态：新用户，老用户，和营销页。
 
-Navigating across tabs and interacting with listings should feel luxurious and effortless. In fact, today there is nothing stopping us from delivering an experience on par with native applications on small and medium screens.
+在标签页之间切换和与列表进行交互应该感到惬意而轻松。事实上，如今没有什么可以阻止我们致力于在中小屏幕上提供与本地应用相符的体验。
+
 
 ![](https://cdn-images-1.medium.com/max/800/1*y_gKoEDVvBvJpGq7hfcr_g.gif)
 
-Future concept for navigating between tabs, considering async-loaded of content
+再标签页之间切换的未来概念，考虑异步加载内容
 
-To tee up this type of experience, we needed to break free of the legacy page-by-page approach that got us here, and in the end we wound up with a fundamental rearchitecting of our Frontend code.
+要开发这种类型的体验，我们需要摆脱传统的页面切换方法，最后我们结束了对我们的前端代码的基本重构。
 
-[Leland Richardson](https://medium.com/@intelligibabble) [recently spoke at React Conf about React Native in the “brownfield” of an existing, high traffic native application](https://www.youtube.com/watch?v=tWitQoPgs8w) . This article will examine how we undertook a dramatic upgrade with similar constraints, but on the web. Hopefully you find it useful if you find yourself in a similar place!
+[Leland Richardson](https://medium.com/@intelligibabble) [最近在 React Conf 大会上发表了关于 React Native 的存在于高访问量 native 应用中的“褐色地带”。 ](https://www.youtube.com/watch?v=tWitQoPgs8w)。这篇文章将会探讨如何在类似的约束下进行强制性升级，不过是在 web 端。如果你遇到类似的情况，希望对你有帮助。
 
-### Breaking Free from Rails ###
+### 从 Rails 之中解脱 ###
 
 Before firing up the barbecue for all the fun [Progressive Web App](https://developers.google.com/web/progressive-web-apps/) work on our roadmap, we needed to separate from Rails (or at least the way we use Rails at Airbnb in delivering standalone pages).
 
