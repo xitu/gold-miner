@@ -8,13 +8,13 @@
 
 我们已经习惯了移动应用丰富的交互方式，如滑动手势去选择、拖拽。但是我们没有察觉到，统一用户的跨平台体验是一个正在发生的趋势。
 
-早期时候，iOS 和 Android 都有其独特的体验，但是在近期，这两个平台上的应用体验和交互在逐渐的靠拢。[底部导航](https://material.io/guidelines/components/bottom-navigation.html#)和分屏的特性已经成为Android Nougat版本的特性，Android 已经和 iOS 已经有了很多相同的地方了。
+早期时候，iOS 和 Android 都有其独特的体验，但是在近期，这两个平台上的应用体验和交互在逐渐的靠拢。[底部导航](https://material.io/guidelines/components/bottom-navigation.html#)和分屏的特性已经成为Android Nougat版本的特性，Android 和 iOS 已经有了很多相同的地方了。
 
 对于设计者而言，设计语言的融合意味着在一个平台上流行的特性可以适配到另一个平台。
 
-最近，为了跟上跨平台风格的步伐，我们使用 Android 动画实现了苹果音乐上的气泡动画。我们设计了一个接口，使得初学者也可以方便的使用，而且也让有经验的开发者觉得有趣。
+最近，为了跟上跨平台风格的步伐，我们受 Apple music 上气泡动画的启发，用 Android 动画实现了一份。我们设计了一个接口，使得初学者也可以方便的使用，而且也让有经验的开发者觉得有趣。
 
-使用 [BubblePicker](https://github.com/igalata/Bubble-Picker)能让一个应用更加的聚焦内容、原创感和有趣。尽管 Google 已经对它所有的产品推出了材料设计语言，但是我们依然决定在此时尝试大胆的颜色和渐变的效果，增加更多的深度和体积的图像。渐变可能是界面显示最主要的视觉效果，也可能会吸引到更多的人使用。
+使用 [BubblePicker](https://github.com/igalata/Bubble-Picker)能让一个应用更加的聚焦内容、原汁原味和有趣。尽管 Google 已经对它所有的产品推出了材料设计语言，但是我们依然决定在此时尝试大胆的颜色和渐变的效果，使得图像增加更多的深度和体积。渐变可能是界面显示最主要的视觉效果，也可能会吸引到更多的人使用。
 
 ![](http://images.yalantis.com/w736/uploads/ckeditor/pictures/2328/content_1_gradients.jpg)
 
@@ -30,15 +30,15 @@
 
 ### **1. 选择最佳开发工具** ###
 
-我们都清楚，在 Canvas 上执行这么快的动画效率不够高，所以我们决定使用OpenGL (Open Graphics Library)。 OpenGL 是一个提供 2D 或 3D 图形渲染的、跨平台的应用程序接口。幸运的是，Android 支持一些 OpenGL 的版本。
+很明显，在 Canvas 上渲染这样一个快速的动画效果不够高效，所以我们决定使用OpenGL (Open Graphics Library)。 OpenGL 是一个提供 2D 或 3D 图形渲染的、跨平台的应用程序接口。幸运的是，Android 支持一些 OpenGL 的版本。
 
-我们需要让圆更加的自然，就像是汽水中的气泡。有很多物理引擎可用于 Android，但是我们有更特别的需求使得很难选择：这个引擎必须轻量而且方便嵌入 Android 库中。大多数引擎都是为游戏开发的，你必须使工程机构适应它们。经过一些研究，我们发现 JBox2D (一个使用 C++ 开发的、 Java 端口的 Box2D 引擎)；因为我们的动画并不支持很多数量的 body（换句话说，它不是为了200+的对象设计的），我们可以使用 Java 端口而不是原生引擎。
+我们需要让圆更加的自然，就像是汽水中的气泡。有很多物理引擎可用于 Android，但我们的特殊需求使得做出选择格外困难：这个引擎必须轻量而且方便嵌入 Android 库中。大多数引擎都是为游戏开发的，你必须使项目结构适应它们。经过一些研究，我们发现了 JBox2D (一个使用 C++ 开发的、 Java 端口的 Box2D 引擎)；因为我们的动画并不支持很多数量的 body（换句话说，它不是为了200个或更多的对象设计的），我们可以使用 Java 端口而不是原生引擎。
 
-另外，在本文的后面我们会解释为何选择了 Kotlin 语言编写，我们会谈到它的优势。想要了解 Java 与 Kotlin 更多的区别，请访问[之前的文章](https://yalantis.com/blog/kotlin-vs-java-syntax/)。
+另外，在本文的后面我们会解释为何选择了 Kotlin 语言编写，并且谈到这种新语言的优点。想要了解 Java 与 Kotlin 更多的区别，请访问[之前的文章](https://yalantis.com/blog/kotlin-vs-java-syntax/)。
 
 ### **2. 创建着色器** ###
 
-在开始的时候，我们需要先理解 OpenGL 中的构建快是三角形，因为三角形是能够模拟成其他形状中最简单的形状。你在 OpenGL 中创建出的任何形状，都包含了一个或多个三角形。为了实现动画，我们为每个 body 使用了两个组合三角形，所以看起来像个正方形，我们可以在里面画圆。
+在开始的时候，我们需要先理解 OpenGL 中的构建块是三角形，因为三角形是能够模拟成其他形状中最简单的形状。你在 OpenGL 中创建出的任何形状，都包含了一个或多个三角形。为了实现动画，我们为每个 body 使用了两个组合三角形，所以看起来像个正方形，我们可以在里面画圆。
 
 渲染一个形状至少需要写两个着色器 - 一个顶点着色器和一个片段着色器。它们的名称已经体现了各自的不同。对每个三角形的每个顶点执行一个顶点着色器，而对三角形中的每个像素大小的部分则执行片段着色器。
 
@@ -96,7 +96,7 @@ u_Move 变量包含了 x 和 y 两个值，用于表示顶点当前位置的移�
 
 ![](http://images.yalantis.com/w736/uploads/ckeditor/pictures/2331/content_4.jpg)
 
-a_UV 变量包含了 x 和 y 两个变量，值在 0 和 1 之间，对于每个顶点都不同。在顶点着色器中，我们将值从 a_UV 变量传递给 v_UV 变量，这样每个片段都会被插入 v_UV 变量。结果，形状中心片段的 v_UV 变量的值就是 [0.5, 0.5]。我们使用 distance() 方法来计算一个选中的片段到中心的距离。这个方法使用两点作为参数。
+a_UV 变量包含了 x 和 y 两个变量，这两个值对每个顶点都不同但都在 0 和 1 之间。在顶点着色器中，我们将值从 a_UV 变量传递给 v_UV 变量，这样每个片段都会被插入 v_UV 变量。结果，形状中心片段的 v_UV 变量的值就是 [0.5, 0.5]。我们使用 distance() 方法来计算一个选中的片段到中心的距离。这个方法使用两点作为参数。
 
 ### **3. 使用 smoothstep 方法画抗锯齿圆** ###
 
@@ -110,7 +110,7 @@ a_UV 变量包含了 x 和 y 两个变量，值在 0 和 1 之间，对于每个
 
 ![](http://images.yalantis.com/w736/uploads/ckeditor/pictures/2332/content_6.jpg)
 
-smoothstep 方法可以解决这个问题。基于纹理与背景之间过度的从开始到结束点之间的距离，从 0 到 1 平滑插入。纹理的距离在 0 到 0.49 之间值设为1，0.5 以上的为0，并且0.49 到 0.5 之间会被插入，所以圆的边缘会被抗锯齿。
+smoothstep 方法可以解决这个问题。在纹理和背景间平滑插入由起点和终点决定的值，取值范围在 0 到 1 之间。。纹理的透明度在 0 到 0.49 之间值设为1，0.5 以上的为0，并且0.49 到 0.5 之间会被插入，所以圆的边缘会被抗锯齿。
 
 ![](http://images.yalantis.com/w736/uploads/ckeditor/pictures/2333/content_7.jpg)
 
@@ -227,7 +227,7 @@ smoothstep 方法可以解决这个问题。基于纹理与背景之间过度的
 
 每当 World 移动时，我们计算一个合适的力度作用于每个 body，使得看起来像是受到了重力的影响。
 
-### **6. 在 GlSurfaceView 中检测用户触碰** ###
+### **6. 在 GlSurfaceView 中检测用户触摸事件** ###
 
 GLSurfaceView 和其他的 Android view 一样可以对用户触碰反应：
 
@@ -264,7 +264,7 @@ GLSurfaceView 和其他的 Android view 一样可以对用户触碰反应：
     private fun isClick(event: MotionEvent)= Math.abs(event.x - startX) < 20 && Math.abs(event.y - startY) < 20private fun isSwipe(event: MotionEvent)= Math.abs(event.x - previousX) > 20 && Math.abs(event.y - previousY) > 20
 ```
 
-GLSurfaceView 拦截所有的触摸事件，渲染器处理他们：
+GLSurfaceView 拦截所有的触摸事件，渲染器处理它们：
 
 ```
     //Rendererfun swipe(x: Float, y: Float)= Engine.swipe(x.convert(glView.width, scaleX),
@@ -301,13 +301,13 @@ GLSurfaceView 拦截所有的触摸事件，渲染器处理他们：
 
 当我们找到了选中的圆就改变它的半径、密度和纹理。
 
-这是我们第一版 Bubble Picker，而且还将进一步完善。
+这是我们第一版 Bubble Picker，而且还将进一步完善。其他开发者可以自定义泡泡的物理行为，并指定 url 将图片添加到动画中。而且我们还将添加一些新的特性，比如移除泡泡。
 
 请将你们的实验发给我们，让我们看到你是如何使用 Bubble Picker的。如果对动画有任何问题或建议，请告诉我们。
 
-我们会尽快出版更多干活。 敬请关注！
+我们会尽快发布更多干货。 敬请关注！
 
-请检出[BubblePicker animation on GitHub](https://github.com/igalata/Bubble-Picker) 和 [BubblePicker on Dribbble](https://dribbble.com/shots/3349372-Bubble-Picker-Open-Source-Component)。
+戳这里进一步查看[BubblePicker animation on GitHub](https://github.com/igalata/Bubble-Picker) 和 [BubblePicker on Dribbble](https://dribbble.com/shots/3349372-Bubble-Picker-Open-Source-Component)。
 
 ---
 
