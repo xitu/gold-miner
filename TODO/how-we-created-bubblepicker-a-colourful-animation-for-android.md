@@ -14,7 +14,7 @@
 
 最近，为了跟上跨平台风格的步伐，我们受 Apple music 上气泡动画的启发，用 Android 动画实现了一份。我们设计了一个接口，使得初学者也可以方便的使用，而且也让有经验的开发者觉得有趣。
 
-使用 [BubblePicker](https://github.com/igalata/Bubble-Picker)能让一个应用更加的聚焦内容、原汁原味和有趣。尽管 Google 已经对它所有的产品推出了材料设计语言，但是我们依然决定在此时尝试大胆的颜色和渐变的效果，使得图像增加更多的深度和体积。渐变可能是界面显示最主要的视觉效果，也可能会吸引到更多的人使用。
+使用 [BubblePicker](https://github.com/igalata/Bubble-Picker) 能让一个应用更加的聚焦内容、原汁原味和有趣。尽管 Google 已经对它所有的产品推出了材料设计语言，但是我们依然决定在此时尝试大胆的颜色和渐变的效果，使得图像增加更多的深度和体积。渐变可能是界面显示最主要的视觉效果，也可能会吸引到更多的人使用。
 
 ![](http://images.yalantis.com/w736/uploads/ckeditor/pictures/2328/content_1_gradients.jpg)
 
@@ -303,11 +303,11 @@ GLSurfaceView 拦截所有的触摸事件，渲染器处理它们：
 
 这是我们第一版 Bubble Picker，而且还将进一步完善。其他开发者可以自定义泡泡的物理行为，并指定 url 将图片添加到动画中。而且我们还将添加一些新的特性，比如移除泡泡。
 
-请将你们的实验发给我们，让我们看到你是如何使用 Bubble Picker的。如果对动画有任何问题或建议，请告诉我们。
+请将你们的实验发给我们，让我们看到你是如何使用 Bubble Picker 的。如果对动画有任何问题或建议，请告诉我们。
 
 我们会尽快发布更多干货。 敬请关注！
 
-戳这里进一步查看[BubblePicker animation on GitHub](https://github.com/igalata/Bubble-Picker) 和 [BubblePicker on Dribbble](https://dribbble.com/shots/3349372-Bubble-Picker-Open-Source-Component)。
+戳这里进一步查看 [BubblePicker animation on GitHub](https://github.com/igalata/Bubble-Picker) 和 [BubblePicker on Dribbble](https://dribbble.com/shots/3349372-Bubble-Picker-Open-Source-Component)。
 
 ---
 
