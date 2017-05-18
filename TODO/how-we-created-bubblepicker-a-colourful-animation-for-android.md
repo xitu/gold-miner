@@ -2,7 +2,7 @@
 > * 原文作者：[Irina Galata](https://yalantis.com/blog/how-we-created-bubblepicker-a-colourful-animation-for-android/), [Yuliya Serbenenko](https://yalantis.com/blog/how-we-created-bubblepicker-a-colourful-animation-for-android/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[hackerkevin](https://github.com/hackerkevin)
-> * 校对者：
+> * 校对者：[luoqiuyu](https://github.com/luoqiuyu) [phxnirvana](https://github.com/phxnirvana)
 
 # 如何创建 BubblePicker – Android 多彩菜单动画 #
 
