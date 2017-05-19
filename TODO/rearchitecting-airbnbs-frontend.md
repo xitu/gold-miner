@@ -40,11 +40,11 @@ Airbnb 每天接收超过 7500 万次搜索，这使得搜索页面成为我们�
 
 不幸的是，就在几个月前，我们的搜索页还包含一些非常老旧的代码，像指环王一样，碰它就要小心自负后果。有趣的事实：我曾尝试用一个简单的 React 组件替换一个 Rails presenter 备份过的小巧的 [Handlebars](http://handlebarsjs.com/) 模板，突然很多完全不相关的部分都崩掉了——甚至 API 响应都除了问题。原来，presenter 正在改变后备 Rails 模式，多年来即使在 UI 没有渲染的时候，它也影响着所有的下游数据。
 
-In short, we were in this project like Indiana Jones swapping the idol for a bag of sand, and immediately the temple starts collapsing, and we’re running from a boulder.
 简而言之，我们在这个项目中，像 Indiana Jone 用灵魂交换一袋沙子，突然间寺庙开始崩溃，我们正在从一块巨石上跑。
 
 
-#### Step 1: Aligning on API Data ####
+
+#### 第 1 步： 调整 API 数据 ####
 
 When Rails is server-rendering your page, you can get away with throwing data at your server-rendered React components any way you like. Controllers, helpers, and presenters can produce data of any shape, and even as you migrate sections of the page to React, each component can consume whatever data it requires.
 
@@ -54,7 +54,7 @@ If you find yourself in similar waters with a large application, you might find 
 
 The tricky bit for us was working with all the teams who interact with the guest booking flow: our Business Travel, Growth, and Vacation Rentals teams; our China and India market-specific teams, Disaster Recovery…the list goes on, and we needed to reeducate all these folks that even though it was technically possible to pass data directly to the component being rendered (“yes, I understand it’s just an experiment, but…”), *all data* needs to go through the API.
 
-#### Step 2: Non-API Data: Config, Experiments, Phrases, L10n, I18n… ####
+#### 第 2 步： 非 API 数据: 配置、试验、惯用语、本地化、 国际化… ####
 
 There is a separate class of data from what we would think of as API data, and it includes application config, user-specific experiment assignment, internationalization, localization, and similar concerns. Over the years, Airbnb has built up some incredible tooling to support all these functions, but the mechanisms for delivering them to the Frontend were a bit under-baked (or possibly fully-baked when built, before the ground began shifting under foot!).
 
@@ -172,11 +172,11 @@ This higher order component does two very important things:
 
 In a single shot, we eliminated `add_bootstrap_data` and prevented engineers from passing arbitrary keys through to top level React components. Order was restored to the shire, and before long we were navigating to routes dynamically in the client and rendering content of material complexity without Rails to prop it up (pun intended).
 
-### Super-Charging the Frontend ###
+### 进击的前端 ###
 
 Server rework in hand, we now turn our gaze to the client.
 
-#### The Lazy-Loaded Single Page App ####
+#### 懒加载的单页面应用 ####
 
 Gone are the days, friends, of the monster Single Page App (SPA) with a gruesome loading spinner on initialization. This dreaded loading spinner was the objection many folks raised when we pitched the idea of client-side routing with React Router.
 
@@ -196,7 +196,7 @@ Side-by-side comparison fetching Homes for Tokyo: Legacy page load vs client-sid
 
 …now transitions between routes are smooth as butter and a step change (~5x) faster, and we can break ground on the animations featured at the beginning of this post.
 
-#### AsyncComponent ####
+#### 异步组件 ####
 
 Prior to React, we would render an entire page at a time, and this practice carried over into our early React days. But we use an AsyncComponent similar to [this](https://medium.com/@thejameskyle/react-loadable-2674c59de178) as a way to load sections of the component hierarchy after mount.
 
