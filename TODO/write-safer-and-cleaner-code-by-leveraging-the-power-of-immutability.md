@@ -2,24 +2,24 @@
 ](https://medium.freecodecamp.com/write-safer-and-cleaner-code-by-leveraging-the-power-of-immutability-7862df04b7b6)
 > * 原文作者：[Guido Schmitz](https://medium.freecodecamp.com/@guidsen)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
+> * 译者：[gy134340](https://github.com/gy134340)
 > * 校对者：
 
-# Write safer and cleaner code by leveraging the power of “Immutability” #
+# 利用“Immutability（不可变性）”编写更为简洁高效的代码
 
 ![](https://cdn-images-1.medium.com/max/2000/1*eO8-0-GT5ht8CR7TdK9knA.jpeg)
 
-Photo from [https://unsplash.com](https://unsplash.com) 
+图片来自[https://unsplash.com](https://unsplash.com)
 
-Immutability is one of the building blocks of functional programming. It allows you to write safer and cleaner code. I’ll show you how you can achieve immutability through some JavaScript examples.
+不可变性是函数式编程中的一部分，它允许你写更安全和简洁的代码。我将会通过一些 JavaScript 的例子来告诉你如何达到不可变性。
 
-**According to Wikipedia ([source](https://en.wikipedia.org/wiki/Immutable_object)):**
+**根据维基（ [地址](https://en.wikipedia.org/wiki/Immutable_object) ）：**
 
-> An immutable object (unchangeable object) is an object whose state cannot be modified after it is created. This is in contrast to a mutable object (changeable object), which can be modified after it is created. In some cases, an object is considered immutable even if some internally used attributes change but the object’s state appears to be unchanging from an external point of view.
+> 一个不可变对象（不能被改变的对象）是指在创建之后其状态不能被更改的对象，这与在创建之后可以被更改的可变对象（可以被改变的对象）相反。在某些情况下，一个对象的外部状态如果从外部看来是未不变的，那么即使它的一些内部属性更改了，仍被视为不可变对象。
 
-### Immutable Arrays ###
+### 不可变的数组
 
-Arrays are a good starting point to get a grasp of how immutability actually works. Lets take a look.
+数组是抓住不可变性如何工作的一个要点。我们来看一下。
 
 ```
 const arrayA = [1, 2, 3];
@@ -32,9 +32,9 @@ console.log(arrayA); // [1, 2, 3, 4, 5]
 console.log(arrayB); // [1, 2, 3, 4, 5]
 ```
 
-This example assigns **arrayB** to a reference of **arrayA**, so the push method adds the value 5 into both variables. Our code mutates other values indirectly, which is not what we want to do. This violates the principle of immutability.
+例子中 **arrayB** 是 **arrayA** 的引用，所以如果我们通过 push 方法向任意数组中添加一个值 5，那么就会间接影响到另外一个，这个是违反不可变性的原则的。
 
-We can improve our example to be immutable by using the [slice](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice) function, and the behavior of the code is different.
+我们可以通过使用 [slice](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice) 函数以达到不可变性，进而优化我们的例子，此时代码的行为是完全不一样的。
 
 ```
 const arrayA = [1, 2, 3];
@@ -47,15 +47,15 @@ console.log(arrayA); // [1, 2, 3, 4]
 console.log(arrayB); // [1, 2, 3, 4, 5]
 ```
 
-This is exactly what we want. The code doesn’t mutate the other values.
+这才是我们要的，代码不改变其它的值。
 
-Remember: When using [push](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/push) to add a value to an array, you are **mutating** the array. You want to avoid mutating variables because it can cause side effects in your code. The [slice](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice) function returns a copy of the array.
+记住：当使用 [push](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/push) 来给数组添加一个值时，你在**改变**这个数组，你想要避免值的改变因为这个可能会影响你代码里的其他部分。[slice](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice) 会返回一个复制的数组。
 
-### Functions ###
+### 函数
 
-Now you know how to avoid mutating other values. How would you write functions to be “pure”? Pure is another word to call a function that doesn’t have any side effects and will not change state.
+现在你知道了如何避免改变其它的值。那要怎样写“纯”的函数呢？纯洁性是指调用一个函数同时不会产生额外的影响和改变状态的函数属性。
 
-Let’s look at a function that leverages the same principle from the arrays example. First we create a function that mutates another value, then we improve the function to be “pure”.
+让我们看看一个函数，它利用了数组实例的相同原理。首先我们写一个会改变其它值的函数，然后我们将这个函数优化为“纯”函数。
 
 ```
 const add = (arrayInput, value) => {
@@ -72,11 +72,11 @@ console.log(add(array, 4)); // [1, 2, 3, 4]
 console.log(add(array, 5)); // [1, 2, 3, 4, 5]
 ```
 
-So again, we are **mutating** our input which creates an unpredictable function. In the functional programming world, there is a golden rule around functions: **a function with the same input should always return the same result**.
+所以再一次的，我们**改变**我们的输入来创建一个不可预测的函数。在函数式编程的世界里，有一个关于函数的铁律：**函数对于相同的输入应当返回相同的值。**
 
-The function above violates the golden rule. Every time our **add** function is called, it mutates the **array** variable and the result is different.
+上面的函数违反了这一规则，每次我们调用 **add** 方法，它都会改变**数组**变量导致结果不一样。
 
-Let’s see how we can change the implementation of our **add **function so it’s immutable.
+让我们来看看怎样修改 **add** 函数的实现来使其不可变。
 
 ```
 const add = (arrayInput, value) => {
@@ -99,37 +99,38 @@ const resultB = add(array, 5);
 console.log(resultB); // [1, 2, 3, 5]
 ```
 
-Now we can call our function multiple times, and expect the output to be the same, based on the input. This is because we are no longer mutating the **array** variable. We can call this function a “pure function”.
+现在我们可以多次调用这个函数，然后根据相同的输入，获得相同的输出。这是因为我们不再改变 **array** 变量。我们把这个函数叫做“纯函数”。
 
-> **Note:** You can also use **concat**, instead of **slice** and **push**.
-> So: arrayInput.concat(value);
+> **注意：**你还可以使用 **concat**，来代替 **slice** 和 **push**。
+> 那样就是：arrayInput.concat(value);
 
-We can use the [spread syntax](https://developer.mozilla.org/nl/docs/Web/JavaScript/Reference/Operators/Spread_operator) , available in ES6, to shorten this function.
+我们还可以使用 ES6 的[扩展语法](https://developer.mozilla.org/nl/docs/Web/JavaScript/Reference/Operators/Spread_operator)，来简化函数。
 
 ```
 const add = (arrayInput, value) => […arrayInput, value];
 ```
 
-### Concurrency ###
+### 并发
 
-NodeJS applications use a concept called concurrency. A concurrent operation means that two computations can both make progress regardless of the other. If there are two threads, the second computation doesn’t need to wait for the completion of the first one in order to advance.
+NodeJS 的应用有一个叫并发的概念，并发的操作是指两个计算可以同时的进行而不用管另外的一个。如果有两个线程，第二个的计算不需要等待第一个的完成。
 
 ![](https://cdn-images-1.medium.com/max/800/1*LS1VkNditQwYMJvtIPAhdg.png)
 
-Visualization of a concurrent operation
+可视化的并发操作
 
-NodeJS makes concurrency possible with the event-loop. The event-loop repeatedly takes an event and fires any event handlers listening to that event one at a time. This model allows a NodeJS application to process a huge amount of requests. If you want to learn more, read [this article about the event-loop](https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick).
+NodeJS 用事件循环机制使并发成为可能。事件循环循环重复接收事件，并对每个事件添加监听。这个模型允许 NodeJS 的应用处理大规模的请求。如果你想学习更多，读一下[这篇关于事件循环的文章](https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick)。
 
-What does immutability have to do with concurrency? Since multiple operations can change a value outside of the function’s scope in a concurrent way, this creates unreliable output and causes unexpected results. Be aware of a function that mutates variables outside of its scope, as this can be really dangerous.
+不可变性跟并发又有什么关系呢？由于多个操作可能并发的改变函数的作用域的值，这将会产生不可靠的输出和导致意向不到的结果。明确函数是否改变它作用域之外的值，因为这可能真的会很危险。
 
-### Next steps ###
+### 下一步
 
-Immutability is an important concept to understand on your journey to learn functional programming. You might want to take a look at [ImmutableJS](https://facebook.github.io/immutable-js), written by developers at Facebook. The library provides certain immutable data structures like **Map**, **Set**, and **List**.
+不可变性是你学习函数式编程中重要的概念。你也许想了解一下由 Facebook 开发者写的 [ImmutableJS](https://facebook.github.io/immutable-js)，这一个库提供正确的不可变数据结构比如说 **Map**、**Set**、和 **List**。
 
 [![](http://i2.muimg.com/1949/d4d40e047da813b5.png)](https://medium.com/@dtinth/immutable-js-persistent-data-structures-and-structural-sharing-6d163fbd73d2)
 
-Click the 💙 below so other people will see this article here on Medium. Thanks for reading.
+点击 💙 让更多的人可以在 Medium 上看见这篇文章，感谢阅读。
 
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[React](https://github.com/xitu/gold-miner#react)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计) 等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)。
+
