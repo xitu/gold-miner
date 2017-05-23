@@ -1,155 +1,155 @@
 > * 原文地址：[That time I had to crack my own Reddit password](https://medium.freecodecamp.com/the-time-i-had-to-crack-my-own-reddit-password-a6077c0a13b4)
-> * 原文作者：[Haseeb Qureshi](https://medium.freecodecamp.com/@hosseeb?source=post_header_lockup)
+> * 原文作者：本文已获原作者 [Haseeb Qureshi](https://medium.freecodecamp.com/@hosseeb) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
-> * 校对者：
+> * 译者：[cdpath](https://github.com/cdpath)
+> * 校对者：[atuooo (oOatuo)](https://github.com/atuooo), [yzgyyang (Guangyuan (Charlie) Yang)](https://github.com/yzgyyang)
 
-# That time I had to crack my own Reddit password #
+# 我是如何找回 Reddit 密码的
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*ZAFlM8eSiuGVRo9P-8L6MQ.jpeg">
 
-Hack the planet, everybody.
+黑掉整个星球，伙计们！
 
-I have no self-control.
+我真是一点自制力都没有。
 
-Luckily, I know this about myself. This allows me to consciously engineer my life so that despite having the emotional maturity of a heroin-addicted lab rat, I’m occasionally able to get things done.
+好在我对这一点颇有自知之明。我有意识地筹划生活，所以尽管我跟海洛因上瘾的小白鼠一样不成熟，偶尔还是可以搞定一些事情。
 
 ![](https://media.giphy.com/media/gOH54eiriYIwM/giphy.gif) 
 
 
-Mm, a waste of time!
+嗯，简直是浪费时间！
 
-I waste a lot of time on Reddit. If I want to procrastinate on something, I’ll often open a new tab and dive down a Reddit-hole. But sometimes you need to turn on the blinders and dial down distractions. 2015 was one of these times — I was singularly focused on improving as a programmer, and Redditing was becoming a liability.
+我逛 Reddit 浪费了很多时间。如果我想拖延点事情的话，常常会开一个新标签页然后一头扎进 Reddit。但是有时我又得心无旁骛，减少干扰。比如 2015 年 —— 我专注于提升自己的编程水平，而在 Reddit 闲逛就成了负担。
 
-I needed an abstinence plan.
+我要搞个计划控制我自己。
 
-So it occurred to me: how about I lock myself out of my account?
+于是我就想：让自己登陆不了账号咋样？
 
-**Here’s what I did:**
+**我是这样做的：**
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*8Zpw3ipnu92ehqA_6T-o8w.gif">
 
-I set a random password on my account. Then I asked a friend to e-mail me this password on a certain date. With that, I’d have a foolproof way to lock myself out of Reddit. (Also changed the e-mail for password recovery to cover all the bases.)
+我给账号重设了随机密码。叫朋友在某天把密码用 email 发给我。这样就可以万无一失地让自己上不了 Reddit 啦。（出于周全的考虑我还修改了找回密码用的邮箱）。
 
-This should have worked.
+本应有效，不过......
 
-Unfortunately it turns out, friends are very susceptible to social engineering. The technical terminology for this is that they are “nice to you” and will give you back your password if you “beg them.”
+不幸的是，事实上朋友根本扛不住社会工程学。换句话说，他们「对你太好了」，如果你「求」他们要密码，他们还是会发给你。
 
 ![](https://media.giphy.com/media/uB6rsQFg5yPzW/giphy.gif) 
 
-Don’t look at me like that.
+不要这样子看我。
 
-After a few rounds of this failure mode, I needed a more robust solution. A little Google searching, and I came across this:
+失败了几次后，我得找个更可靠的办法。谷歌搜索了一会儿，我发现了这个：
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*iMtDCzvNYVF9UOeiIbU7Ww.png">
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*7QCLp-4HnnDwgj1FSnRstw.png">
 
-Looks legit.
+看上去不错。
 
-Perfect — an automated, friend-less solution! (I’d alienated most of them by now, so that was a big selling point.)
+完美！一个自动化且不需要朋友介入的方案！（我现在要疏远大部分朋友，所以这一点很重要。）
 
-A bit sketchy looking, but hey, any port in a storm.
+看上去并不完善，不过管他呢，有个办法就不错了。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*TOUIDOIRHiVySUWt46n3mw.gif">
 
-For a while I set this up this routine — during the week I’d e-mail myself my password, on the weekends I’d receive the password, load up on internet junk food, and then lock myself out again once the week began. It worked quite well from what I remember.
+我这样坚持了一阵子：在工作日把密码 email 给自己，周末收到密码，在互联网垃圾信息中浪费时间，待下周开始就再锁掉账号。我印象中这一套效果不错。
 
-Eventually I got so busy with programming stuff, I completely forgot about it.
+终于有一天写代码实在太忙了，我完全忘了这一回事。
 
-### **Cut to two years later.** ###
+### 一转就是两年后
 
-I’m now gainfully employed at Airbnb. And Airbnb, it so happens, has a large test suite. This means waiting, and waiting of course means internet rabbit holes.
+我现在在 Airbnb 工作，薪酬颇丰。而且 Airbnb 刚巧有个巨大的测试组件。也就是说等待时间颇多，而等待就意味着可以上网摸鱼。
 
-I decide to scrounge up my old account and find my Reddit password.
+我决定讨回旧账号并找回 Reddit 密码。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*sAr_MYJtJVkNq6uHiVQxtQ.gif">
 
-Oh no.That’s not good.
+哦，不。这可不好。
 
-I didn’t remember doing this, but I must have gotten so fed up with myself that** I locked myself out until 2018**. I also set it to “hide,” so I couldn’t view the contents of the e-mail until it’s sent.
+我不记得我做过这一切，不过我当时肯定是太生自己的气了，都把自己锁到了 2018 年之后了。我还把邮件内容隐藏了，所以除非等到邮件发出去，我根本看不到内容。
 
-What do I do? Do I just have to create a new Reddit account and start from scratch? But that’s *so much work.*
+我该怎么办？只能新建一个 Reddit 账号然后从头开始吗？但是这样好麻烦啊。
 
-I could write in to LetterMeLater and explain that I didn’t mean to do this. But they would probably take a while to get back to me. We’ve already established I’m wildly impatient. Plus this site doesn’t look like it has a support team. Not to mention it would be an embarrassing e-mail exchange. I started brainstorming elaborate explanations involving dead relatives about why I needed access to the e-mail…
+我完全可以给 LetterMeLater 发邮件解释自己并不是真的想这么做。但是他们回信可能要好一会儿呢。而且你们都知道了，我是个急性子。这个网站看上去也不像是有客服团队的样子。更不要提写这种邮件有多尴尬了。我开始头脑风暴精心编造理由甚至扯到了去世的亲人，试图解释为什么需要看自己的邮件。
 
-All of my options were messy. I was walking home that night from the office pondering my predicament, when suddenly it hit me.
+所有的选择都不怎么靠谱。那天晚上，从公司走到家一路上我都在思考自己的尴尬处境，突然就有灵感了。
 
-**The search bar.**
+**搜索栏**
 
-I pulled up the app on my mobile phone and tried it:
+我用手机打开浏览器 App 开始尝试：
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*DvLUtm_ZGOaTGKy1bOuyYQ.gif">
 
-Hmm.
+嗯。
 
-Okay. So it’s indexing the subject for sure. What about the body?
+好吧。所以（邮件）标题肯定是有索引的。那（邮件）内容呢？
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*esw6gkV0G-M1JKaPAqipLA.gif">
 
-I try a few letters, and voila. It’s definitely got the body indexed. Remember: the body consisted entirely of my password.
+试了几个字母，果然没错。内容也是有索引的。记住：邮件内容里面有我的密码。
 
-*Essentially, I’ve been given an interface to perform substring queries.* By entering in a string into the search bar, the search results will confirm whether my password contains this substring.
+**本质上这是一个执行子字符串检索的界面**。通过在搜索栏输入字符串，搜索结果会告诉我密码中是否有我输入的子字符串。
 
-**We’re in business.**
+**万事俱备。**
 
-I hurry into my apartment, drop my bag, and pull out my laptop.
+我赶回自己的公寓，放下包，取出笔记本电脑。
 
-Algorithms problem: you are given a function `substring?(str)`, which returns true or false depending on whether a password contains any given substring. *Given this function, write an algorithm that can deduce the hidden password.*
+算法问题：已知函数 `substring?(str)`，它会根据输入的密码是否包含任何已知的子字符串来返回 True 或 False。给定这个函数，写一个可以推导出隐含密码的算法。
 
-### The Algorithm ###
+### 算法
 
-So let’s think about this. A few things I know about my password: I know it was a long string with some random characters, probably something along the lines of `asgoihej2409g`. I *probably* didn’t include any upper-case characters (and Reddit doesn’t enforce that as a password constraint) so let’s assume for now that I didn’t — in case I did, we can just expand the search space later if the initial algorithm fails.
+让我们好好想想。我记得我的密码有这些特征：随机字符组成的长字符串，就像这样子 `asgoihej2409g`。我很可能没有用任何大写字母（Reddit 并不要求密码中一定有大写字母），那么先假设我没用大写字母。如果我真用了大写字母，第一次尝试失败之后再将搜索范围扩大吧。
 
-We also have a subject line as part of the string we’re querying. And we know the subject is “password”.
+还有一个标题行，是检索的字符串的一部分。而且邮件标题就是 "password"。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*XvaVCyWtSdqKSz59HKnNDw.png">
 
-Let’s pretend the body is 6 characters long. So we’ve got six slots of characters, some of which may appear in the subject line, some of which certainly don’t. So if we take all of the characters that aren’t in the subject and try searching for each of them, we know for sure we’ll hit a unique letter that’s in the password. Think like a game of Wheel of Fortune.
+假设密码长度为 6，就有了 6 个空位来放字符，有些字符会出现在标题行，有些不会。所以可以取出所有没有出现在标题行的字符，逐一尝试进行搜索，肯定可以碰到一个独一无二的字母，恰好出现在密码中。就像是命运之轮游戏。
 
 ![](https://cdn-images-1.medium.com/max/800/1*LOzh--_Ujutrh_OKhjfNaw.png)
 
-We keep trying letters one by one until we hit a match for something that’s not in our subject line. Say we hit it.
+继续逐个字母进行尝试，直到命中没有出现在标题行的字符。这样就找到了。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*fdoVAq3t5naQ5G9yARr0RA.png">
 
-Once I’ve found my first letter, I don’t actually know where in this string I am. But I know I can start building out a bigger substring by appending different characters to the end of this until I hit another substring match.
+找到了第一个字母之后我仍然不知道它在字符串中的位置。不过我知道可以在它后面加一个不同的字符来构造一个更大的子字符串，直到再次命中。
 
-We’ll potentially have to iterate through every character in our alphabet to find it. Any of those characters could be correct, so on average it’ll hit somewhere around the middle, so given an alphabet of size `A`, it should average out to `A/2` guesses per letter (let’s assume the subject is small and there are no repeating patterns of 2+ characters).
+有可能必需遍历字母表中每一个字符才能找到它。任何一个字母都可能是正确的，所以平均来说会命中中间位置的字母，如果字母表有 A 个字母，那么可以预计每个字母平均会落到 A/2 处（假设主题字母较少且没有超过两个字符的重复组合）。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*GJ5xKZzTe0F5un-Iz11pXg.png">
 
-I’ll keep building this substring until it eventually hits the end and no characters can extend it further.
+继续构建子字符串，直到无法在末尾添加字符。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*E9ri3Rf8LBPxUTjgs5BvPQ.png">
 
-But that’s not enough — most likely, there will be a prefix to the string that I missed, because I started in a random place. Easy enough: all I have to do is now repeat the process, except going backwards.
+这还没完 — 不过接近了，我落下了字符串的前缀，因为我是随机选了个起点开始的。不过好办，只需要再重复一下之前的操作，方向反过来就好了。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*F_n0WGRP_8RJdFtR-v0b1g.png">
 
-Once the process terminates, I should be able to reconstruct the password. In total, I’ll need to figure out`L` characters(where `L` is the length), and need to expend on average `A/2` guesses per character (where `A` is the alphabet size), so total guesses = `A/2 * L`.
+搞定之后就可以着手重建密码了。总而言之，我需要搞定 `L` 个字符，每个字符平均需要猜测 `A/2` 次（`A` 是字母表长度），加起来需要猜测 `A/2 * L` 次。
 
-To be precise, I also have to add another `2A` to the number of guesses for ascertaining that the string has terminated on each end. So the total is `A/2 * L + 2A`, which we can factor as `A(L/2 + 2)`.
+准确地说，我还得再猜测 `2A` 次来确保字符串两端都到头了。所以总数是 `A/2 * L + 2A`，提取公因数就是 `A(L/2 + 2)`.
 
-Let’s assume we have 20 characters in our password, and an alphabet consisting of `a-z` (26) and `0–9` (10), so a total alphabet size of 36. So we’re looking at an average of `36 * (20/2 + 2) = 36 * 12 = 432` iterations.
+假设密码中有 20 个字符，字母表由 `a-z` 和 `0–9` 组成，总长度为 36。所以总迭代次数是 `36 * (20/2 + 2) = 36 * 12 = 432`。
 
-Damn.
+可恶。
 
-This is actually doable.
+不过实际上是可行的。
 
 ![](https://media.giphy.com/media/119cVU19ICcAKc/giphy.gif) 
 
-Programming IRL
+生活中的编程
 
-### The Implementation ###
+### 实现
 
-First things first: I need to write a client that can programmatically query the search box. This will serve as my substring oracle. Obviously this site has no API, so I’ll need to scrape the website directly.
+首先：我得写一个客户端，用代码控制搜索框执行检索。也就是我的子字符串「先知」。这个网站显然没有 API，我得直接爬网站。
 
-Looks like the URL format for searching is just a simple query string, `www.lettermelater.com/account.php?**qe=#{query_here}**`. That’s easy enough.
+搜索用的 URL 模式看来就是简单的检索字符串，`www.lettermelater.com/account.php?**qe=#{query_here}**`。简单吧。
 
-Let’s start writing this script. I’m going to use the Faraday gem for making web requests, since it has a simple interface that I know well.
+开始写脚本吧。我会用 Faraday 这个 gem 完成网络请求，交互简单，我比较熟悉。
 
-I’ll start by making an API class.
+首先写一个 API 类。
 
 ```
 require 'faraday'
@@ -163,7 +163,7 @@ class Api
 end
 ```
 
-Of course, we don’t expect this to work yet, as our script won’t be authenticated into any account. As we can see, the response returns a 302 redirect with an error message provided in the cookie.
+当然，我可没指望这就能用了，毕竟还没有授权脚本登陆我的账号。可以看到响应返回了 302 重定向，还在 cookie 中提供了错误信息。
 
 ```
 [10] pry(main)> Api.get(“foo”)
@@ -180,15 +180,15 @@ Of course, we don’t expect this to work yet, as our script won’t be authenti
 status=302>
 ```
 
-So how do we sign in? We need to send in our [cookies](http://stackoverflow.com/questions/17769011/how-does-cookie-based-authentication-work) in the header, of course. Using Chrome inspector we can trivially grab them.
+那怎么登陆呢？显然得在 header 中带上 [cookies](http://stackoverflow.com/questions/17769011/how-does-cookie-based-authentication-work)。有了 Chrome 的 inspector 这简直轻而易举。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*PSxZtW4wppyzRXMdBWgGWw.gif">
 
-(Not going to show my real cookie here, obviously. Interestingly, looks like it’s storing `user_id` client-side which is always a great sign.)
+（我当然不会把真的 cookie 贴在这儿。有意思的是看上去 cookie 在客户端保存了 user_id，这是个好信号。）
 
-Through process of elimination, I realize that it needs both `code` and `user_id` to authenticate me… sigh.
+反复排除之后我发现需要 `code` 和 `user_id` 才能通过验证…… 哎。
 
-So I add these to the script. (This is a fake cookie, just for illustration.)
+所以我把这些加到脚本中。（这只是个用作示例的假 cookie）
 
 ```
 
@@ -212,9 +212,9 @@ end
 => true
 ```
 
-It’s got my name in there, so we’re definitely logged in!
+拿到我的名字了，显然登陆成功了！
 
-We’ve got the scraping down, now we just have to parse the result. Luckily, this pretty easy — we know it’s a hit if the e-mail result shows up on the page, so we just need to look for any string that’s unique when the result is present. The string “password” appears nowhere else, so that will do just nicely.
+爬数据搞定了，现在需要解析爬到的数据。幸运的是，这并不难 — 如果页面中出现了 e-mail 就意味着搜索命中了，所以只需要找到这种情况下才会出现的字符串就好了。“password“ 在其他搜索失败的情况下并不会出现，所以就是它了。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*cZT37Ji9j8sm8dobFpiAWQ.png">
 
@@ -224,7 +224,7 @@ def self.include?(substring)
 end
 ```
 
-That’s all we need for our API class. We can now do substring queries entirely in Ruby.
+API 类弄完了。现在完全可以用 Ruby 实现子字符串检索了。
 
 ```
 [31] pry(main)> Api.include?('password')
@@ -235,9 +235,9 @@ That’s all we need for our API class. We can now do substring queries entirely
 => true
 ```
 
-Now that we know that works, let’s stub out the API while we develop our algorithm. Making HTTP requests is going to be really slow and we might trigger some rate-limiting as we’re experimenting. If we assume our API is correct, once we get the rest of the algorithm working, everything should just work once we swap the real API back in.
+这个搞定之后就要用 stub 替换掉真正的 API 来琢磨算法了。发送 HTTP 请求会非常慢，还有可能在试验的时候被限流。假设 stub API 是正确的，一旦搞定了剩下的算法部分，只要换成真正的 API 可以用了。
 
-So here’s the stubbed API, with a random secret string:
+下面就是内置了随机密码的 stub API 了：
 
 ```
 class ApiStub
@@ -249,17 +249,17 @@ class ApiStub
 end
 ```
 
-We’ll inject the stubbed API into the class while we’re testing. Then for the final run, we’ll use the real API to query for the real password.
+在测试时用 stub API 注入到类中。万事俱备后再用真实的 API 来检索真正的密码。
 
-So let’s get started with this class. From a high level, recalling my algorithm diagram, it goes in three steps:
+下面就开始用 Apistub 类吧。先在较高的层次回忆一下算法流程，主要分为三步：
 
-1. First, find the first letter that’s not in the subject but exists in the password. This is our starting off point.
-2. Build those letters forward until we fall off the end of the string.
-3. Build that substring backwards until we hit the beginning of the string.
+1. 首先，找到第一个标题中没有，却在密码中出现的字母。拿它作起点。
+2. 向前构建字符串，直到字符串尾。
+3. 反向构建字符串，直到字符串头。
 
-Then we’re done!
+这样就搞定了！
 
-Let’s start with initialization. We’ll inject the API, and other than that we just need to initialize the current password chunk to be an empty string.
+先做准备工作。要注入 API，还要把当前的密码段置为空字符串。
 
 ```
 class PasswordCracker
@@ -270,7 +270,7 @@ class PasswordCracker
 end
 ```
 
-Now let’s write three methods, following the steps we outlined.
+接下来写三个方法，就按照刚才计划的做。
 
 ```
   def crack!
@@ -282,23 +282,23 @@ Now let’s write three methods, following the steps we outlined.
 ```
 
 
-Perfect. Now the rest of the implementation can take place in private methods.
+完美。现在剩下的都可以在私有方法中执行。
 
-For finding the first letter, we need to iterate over each character in the alphabet that’s not contained in the subject. To construct this alphabet, we’re going to use `a-z` and `0–9`. Ruby allows us to do this pretty easily with ranges:
+为了找到第一个字母，需要遍历字母表中的每个字符，条件是没有出现在标题中。可以用 a-z 和 0-9 来构造字母表。用 Ruby 的范围运算符（`..`）可以轻松搞定：
 
 ```
 ALPHABET = ((‘a’..’z’).to_a + (‘0’..’9').to_a).shuffle
 ```
 
-I prefer to shuffle this to remove any bias in the password’s letter distribution. This will make our algorithm query A/2 times on average per character, even if the password is non-randomly distributed.
+我偏向于把字母表随机打乱这样可以避免密码中字母的分布造成的偏差。这种情况下算法找到每个字符平均需要检索 A/2 次，即使密码并不是随机分布的。
 
-We also want to set the subject as a constant:
+还可以把标题定义为一个常量。
 
 ```
 SUBJECT = ‘password’
 ```
 
-That’s all the setup we need. Now time to write `find_starting_letter`. This needs to iterate through each candidate letter (in the alphabet but not in the subject) until it finds a match.
+准备工作就是这些。下面该写 `find_starting_letter` 了。这需要遍历每个候选字母（按照字母表顺序，当然不能出现在标题中），直到第一个匹配。
 
 ```
   private
@@ -309,15 +309,15 @@ That’s all the setup we need. Now time to write `find_starting_letter`. This n
   end
 ```
 
-In testing, looks like this works perfectly:
+在测试阶段看上去效果不错：
 
 ```
 PasswordCracker.new(ApiStub).send(:find_starting_letter!) # => 'f'
 ```
 
-Now for the heavy lifting.
+下面是难点。
 
-I’m going to do this recursively, because it makes the structure very elegant.
+我会用递归来实现，因为结构更优雅。
 
 ```
 def build_forward!
@@ -335,7 +335,7 @@ def build_forward!
   end
 ```
 
-The code is surprisingly straightforward. Let’s see if it works with our stub API.
+上面的代码简洁明了。现在看看能不能和 stub API 工作。
 
 ```
 [63] pry(main)> PasswordCracker.new(ApiStub).crack!
@@ -357,7 +357,7 @@ fjpefoj490rjgsd
 => “fjpefoj490rjgsd”
 ```
 
-Awesome. We’ve got a suffix, now just to build backward and complete the string. This should look very similar.
+赞！有了后缀，现在需要反向构建字符串。代码应该看上去很相似。
 
 ```
 def build_backward!
@@ -374,7 +374,7 @@ def build_backward!
 ```
 
 
-In fact, there’s only two lines of difference here: how we construct the `guess`, and the name of the recursive call. There’s an obvious refactoring here, so let’s do it.
+实际上只有两行代码有异：如何构建 `guess`，以及递归调用的名字。可以重构一下。
 
 ```
 def build!(forward:)
@@ -391,7 +391,7 @@ def build!(forward:)
   end
 ```
 
-Now these other calls simply reduce to:
+现在另一个调用可以简化为：
 
 ```
   def build_forward!
@@ -403,7 +403,7 @@ Now these other calls simply reduce to:
   end
 ```
 
-And let’s see how it works in action:
+来实战一下：
 
 
 ```
@@ -433,7 +433,7 @@ Current password: g420hpfjpefoj490rjgsd
 g420hpfjpefoj490rjgsd
 ```
 
-Beautiful. Now let’s just add some more print statements and a bit of extra logging, and we’ll have our finished `PasswordCracker`.
+漂亮。再加一些 print 语句和 log，`PasswordCracker` 就完成了。
 
 ```
 require 'faraday'
@@ -522,43 +522,44 @@ class ApiStub
 end
 ```
 
-And now… the magic moment. Let’s swap the stub with the real API and see what happens.
+接下来......就是见证奇迹的时刻。把 stub API 换成真实的 API，看看结果怎么样。
 
-### The Moment of Truth ###
+### 见证真相的时刻
 
-Cross your fingers…
+上天保佑……
 
 `PasswordCracker.new(Api).crack!`
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*NR-y9WthtHg4DVjLDwikVA.gif">
 
-(Sped up 3x)
+（三倍速）
 
-Boom. 443 iterations.
+Boom. 443 次迭代。
 
-Tried it out on Reddit, and login was successful.
+赶紧去 Reddit 试了一下，成功登录。
 
-Wow.
+哇噢。
 
-It… actually worked.
+真的有效。
 
-Recall our original formula for the number of iterations: `A(N/2 + 2)`. The true password was 22 characters, so our formula would estimate `36 * (22/2 + 2) = 36 * 13 = 468` iterations. Our real password took 443 iterations, so our estimate was within 5% of the observed runtime.
+回忆一下原来那个计算迭代数的公式：`A(N/2 + 2)`。真正的密码长度为 22，所以公式预计需要 `36 * (22/2 + 2) = 36 * 13 = 468` 次迭代。实际上用了 443 次迭代，所以估计值和观测值的误差在 5% 以内。
 
-**Math.**
+**这就是数学。**
 
 ![](https://media.giphy.com/media/26xBI73gWquCBBCDe/giphy.gif) 
 
-tfw wtf ftw
+什么鬼 鬼什么 什鬼么
 
-**It works.**
+**真的有效**
 
-Embarrassing support e-mail averted. Reddit rabbit-holing restored. It’s now confirmed: programming is, indeed, magic.
+不用给客服写尴尬的邮件了。重获 Reddit 休闲时光。事实证明：编程——的确是——魔法。
 
-(The downside is I am now going to have to find a new technique to lock myself out of my accounts.)
+（不过我又得找个新办法让自己暂时无法登录了。）
 
-And with that, I’m gonna get back to my internet rabbit-holes. Thanks for reading, and give it a like if you enjoyed this!
+有了编程之技，我又可以在互联网上挥霍时间了。感谢阅读，如果喜欢请点赞！
 
 *—Haseeb*
+
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[React](https://github.com/xitu/gold-miner#react)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计) 等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)。

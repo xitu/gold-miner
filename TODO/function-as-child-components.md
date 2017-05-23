@@ -1,25 +1,29 @@
 > * 原文地址：[Function as Child Components](http://merrickchristensen.com/articles/function-as-child-components.html)
 > * 原文作者：[Merrick](http://merrickchristensen.com/about.html)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
-> * 校对者：
+> * 译者：[rottenpen](https://github.com/rottenpen)
+> * 校对者：[loveky](https://github.com/loveky) [avocadowang](https://github.com/avocadowang) 
 
-# Function as Child Components #
 
-I recently polled on Twitter regarding Higher Order Components and Function as Child, the results were surprising to me.
+# 将函数作为子组件的组件 #
 
-If you don’t know what the “Function as Child” pattern is, this article is my attempt to:
+我最近在 Twitter 上发起了关于高阶组件和将函数作为子类的组件的投票，得到的结果让我很意外。
 
-1. Teach you what it is.
-2. Convince you of why it is useful.
-3. Get some fetching hearts, or retweets or likes or newsletters or something, I don’t know. I just want to feel appreciated, you know?
+如果你不知什么是“函数作为子组件的组件”，我试图通过这篇文章告诉你：
 
-## What are Function as Child Components? ##
+1. 函数作为子组件的组件是什么。
 
-“Function as Child Component”s are components that receive a function as their child. The pattern is simply implemented and enforced thanks to React’s property types.
+2. 它为什么有用。
+
+3. 我只想享受分享的快乐，而不是收获一些 Twitter 转发，点赞，或是上一些 newsletter 等等。你懂我的意思吧？
+
+
+## 什么是函数作为子组件的组件？ ##
+
+“函数作为子组件的组件”是接收一个函数当作子组件的组件。这种模式的实施和执行得益于 React 的 property types。
 
 ```
-classMyComponentextendsReact.Component{   
+class MyComponent extends React.Component{   
   render() {  
     return (  
         <div>
@@ -35,7 +39,7 @@ MyComponent.propTypes = {
 
 ```
 
-That is it! By using a Function as Child Component we decouple our parent component and our child component letting the composer decide what & how to apply parameters to the child component. For example:
+没错！通过函数作为子类组件的组件我们就能解耦父类组件和它们的子类组件，让设计者决定选用哪些参数及怎么将参数应用于子类组件。例如：
 
 ```
 <MyComponent>
@@ -46,26 +50,26 @@ That is it! By using a Function as Child Component we decouple our parent compon
 
 ```
 
-And somebody else, using the same component could decide to apply the name differently, perhaps to an attribute:
+其他使用这一组件的人可能考虑以不同的方式使用 name ，比如使之作为一个元素的属性：
 
 ```
 <MyComponent>
   {(name) => (
-    <imgsrc=’/scuba-steves-picture.jpg’alt={name} />
+    <img src=’/scuba-steves-picture.jpg’ alt={name} />
   )}
 </MyComponent>
 ```
 
-What is really neat here is that MyComponent, the Function as Child Component can manager state on behalf of components it is composed with, without making demands on how that state is leveraged by its children. Lets move on to a more realistic example.
+这里真正奇妙的地方在于，MyComponent ，可以让函数作为子类组件的组件管理状态而不用关心它们是如何使用这些状态的。让我们再来一个更真实的例子。
 
-### The Ratio Component ###
+### 百分比组件 ###
 
-The Ratio Component will use the current device width, listen for resize events and call into its children with a width, height and some information about whether or not it has computed the size yet.
+Ratio 组件将使用设备的宽度，监听 resize 事件并将宽度、高度以及一些描述是否完成尺寸计算的信息传给它的子组件。
 
-First we start out with a Function as Child Component snippet, this is common across all Function as Child Component’s and it just lets consumers know we are expecting a function as our child, not React nodes.
+首先我们从函数作为子类组件的组件的代码片段开始，这片段在所有子组件函数中都是常见的，它只是让 Comsumer 知道我们期望一个函数作为子组件，而不是 React 节点。
 
 ```
-classRatioextendsReact.Component{  
+class Ratio extends React.Component{  
   render() {  
     return (  
         {this.props.children()}  
@@ -79,10 +83,10 @@ Ratio.propTypes = {
 
 ```
 
-Next lets design our API, we want a ratio provided in terms of X and Y axis which we will then use the current width to compute, lets set up some internal state to manage the width and height, whether or not we have even calculated that yet, along with some propTypes and defaultProps to be good citizens for people using our component.
+接下来让我们设计 API ，我们想要一个 X Y 轴的比率，然后我们使用当前的宽度来计算，可以设置一些内部 state 来管理宽度和高度，无论我们是否已经计算了。此外，也该让 propTypes 和 defaultProps 在使用组件时发挥点作用。
 
 ```
-classRatioextendsReact.Component{  
+class Ratio extends React.Component{  
 
   constructor() {  
     super(...arguments);  
@@ -113,10 +117,10 @@ Ratio.defaultProps = {
 
 ```
 
-Alright so we aren’t doing anything interesting yet, lets add some event listeners and actually calculate the width (accommodating as well for when our ratio changes):
+实际上我们还没有做什么有趣的事情，让我们来添加一些事件监听，并计算实际宽度（根据我们比率的变化）：
 
 ```
-classRatioextendsReact.Component{
+class Ratio extends React.Component{
 
   constructor() {
     super(...arguments);
@@ -165,7 +169,7 @@ return {
 
   render() {
     return (
-      <divref={(ref) => this.container = ref}>
+      <div ref={(ref) => this.container = ref}>
         {this.props.children(this.state.width, this.state.height, this.state.hasComputed)}
       </div>
     );
@@ -185,18 +189,18 @@ Ratio.defaultProps = {
 
 ```
 
-Alright, so I did a lot there. We added some event listeners to listen for resize events as well as actually computing the width and height using the provided ratio. Neat, so we’ve got a width and height in our internal state, how can we share it with other components?
+好吧，在这我做了很多东西。我们添加了一些事件监听来监听 resize 事件以及使用提供的比率计算实际的宽度高度。所以我们得到的宽高在组件的 state 里，那我们如何与其他组件共享它们呢？
 
-This is one of those things that is hard to understand because it is so simple that when you see it you think, “That can’t be all there is to it.” but this is all there is to it.
+这是一件难以理解的事情，因为它很容易让人认为“这就完了？”，但事实这就是全部了。
 
-#### Children is literally just a JavaScript function. ####
+#### 子类组件只是一个 Javascript 函数 ####
 
-That means in order to pass the calculated width and height down we just provide them as parameters:
+这意味着想要计算出宽度和高度，我们只需要提供参数：
 
 ```
 render() {
     return (
-      <divref='container'>
+      <div ref='container'>
         {this.props.children(this.state.width, this.state.height, this.state.hasComputed)}
       </div>
     );
@@ -204,19 +208,19 @@ render() {
 
 ```
 
-Now anyone can use the ratio component to provide a full width and properly computed height in whatever way they would like! For example, someone could use the Ratio component for setting the ratio on an img:
+现在任何人都可以使用比例组件通过提供的宽度以他们喜欢的方式来正确计算出高度！例如，有人可以使用比例组件来设置 img 上的比例：
 
 ```
 <Ratio>
   {(width, height, hasComputed) => (
     hasComputed 
-      ? <imgsrc='/scuba-steve-image.png'width={width}height={height} /> 
+      ? <img src='/scuba-steve-image.png' width={width} height={height} /> 
       : null
   )}
 </Ratio>
 ```
 
-Meanwhile, in another file, someone has decided to use it for setting CSS properties.
+同时，在另一个文件中，有人决定使用它来设置 CSS 属性。
 
 ```
 <Ratio>
@@ -227,7 +231,7 @@ Meanwhile, in another file, someone has decided to use it for setting CSS proper
 
 ```
 
-And in another app, someone is using to conditionally render different children based on computed height:
+在另一个 app 里，有人正根据计算高度使用不同的子类组件:
 
 ```
 <Ratio>
@@ -239,52 +243,47 @@ And in another app, someone is using to conditionally render different children 
 </Ratio>
 ```
 
-### Strengths ###
-
-1. The developer composing the components owns how these properties are passed around and used.
-2. The author of the Function as Child Component doesn’t enforce how its values are leveraged allowing for very flexible use.
-3. Consumers don’t need to create another component to decide how to apply properties passed in from a “Higher Order Component”. Higher Order Components typically enforce property names on the components they are composed with. To work around this many providers of “Higher Order Components” provide a selector function which allows consumers to choose your property names (think redux-connects select function). This isn’t a problem with Function as Child Components.
-4. Doesn’t pollute “props” namespace, this allows you to use a “Ratio” component and a “Pinch to Zoom” component together regardless that they are both calculating width. Higher Order Components carry an implicit contract they impose on the components they are composed with, unfortunately this can mean colliding prop names being unable to compose Higher Order Components with other ones.
-5. Higher Order Components create a layer of indirection in your development tools and components themselves, for example setting constants on a Higher Order Component will be unaccessible once wrapped in a Higher Order Component. For example:
+### 优势 ###
+1. 构造组件的开发人员能自主控制如何传递和使用这些属性。
+2. 函数作为子类组件的组件的作者不强制组件的值如何被利用，允许它非常灵活的使用。
+3. Comsumers 不需要创建另一个组件来决定怎样从“高阶组件”传入属性。高阶组件通常在组成的组件上强制执行属性名称。 为了解决这个问题，许多“高阶组件”提供了一个选择器函数，允许 Comsumers 选择你的属性名称（请参考 redux 连接选择功能）。这不是函数子组件的问题。
+4. 不污染 “props” 命名空间，这允许你同时使用 “Ratio” 组件和 “Pinch to Zoom” 组件，不管它们是否都会计算宽度。高阶组件带有与它们组成的组件相关的隐式契约，不幸的是这可能意味着 prop 的名称会发生冲突以至于高阶组件无法与其他组件进行组合。
+5. 高阶组件在你的开发工具和组件本身中创建一个间接层，例如设置在组件上的常量被高阶组件封装后将无法使用。例如：
 
 ```
 MyComponent.SomeContant = 'SCUBA';
 
 ```
 
-Then wrapped by a Higher Order Component,
+然后被高阶组件封装，
 
 ```
 exportdefault connect(...., MyComponent);
 
 ```
 
-RIP your constant. It is no longer accessible without the Higher Order Component providing a function to access the underlying component class. Sad.
+和你的常量说再见吧。因为如果没有高阶组件提供的函数，你将再也不能访问到这个常量。哭。
 
-#### Summary ####
+#### 总结 ####
+大多数时候我们会认为“我需要一个高阶组件来实现这个共享功能！”根据我的经验，我相信在多数情况下函数作为子类组件的组件是一个更好的替代方法来抽象你的 UI 问题，除非你的子组件与其组合的高阶组件真正耦合。
 
-Most the time when you think “I need a Higher Order Component for this shared functionality!” I hope I have convinced you that a Function as Child Component is a better alternative for abstracting your UI concerns, in my experience it nearly always is, with the exception that your child component is truly coupled to the Higher Order Component it is composed with.
+#### 关于高阶组件的不幸事实 ####
+补充一下，我认为高阶组件的名称不正确，尽管现在尝试修改已经有点晚了。高阶函数是至少执行一下操作之一的函数：
+1. 将n个函数作为参数。
+2. 返回一个函数作为结果。
 
-#### An Unfortunate Truth About Higher Order Components ####
+事实上，高阶组件做了类似的事情，也就是拿一个组件作为参数并返回一个组件，但是我更容易将高阶组件看作是工厂函数，它是一个能动态创建的组件将允许的功能用于组件的运行组合。然而，在运行组合的时候他们是**不知道**你的 React 的 state 和 props 。
 
-As an ancillary point, I believe that Higher Order Components are improperly named though it is probably to late to try and change their name. A higher order function is a function that does at least one of the following:
+函数作为子类组件的组件允许你的组件们在作出组合决策时可以访问 state ， props 和上下文。当函数作为子组件：
 
-1. Takes n functions as arguments.
-2. Returns a function as a result.
+1. 将一个函数作为参数。
+2. 渲染此函数的结果。
 
-Indeed Higher Order Components do something similar to this, namely take a Component as and argument and return a Component but I think it is easier to think of a Higher Order Component as a factory function, it is a function that dynamically creates a component to allow for runtime composition of your components. However, they are **unaware** of your React state and props at composition time!
-
-Function as Child Components allow for similar composition of your components with the benefit of having access to state, props and context when making composition decisions. Since Function as Child Components:
-
-1. Take a function as an argument.
-2. Render the result of said function.
-
-I can’t help but feel they should have gotten the title “Higher Order Components” since it is a lot like higher order functions only using the component composition technique instead of functional composition. Oh well, for now we will keep calling them “Function as Child Components” which is just wordy and gross sounding.
-
-### Examples ###
+我觉得它们应该被命名为“高阶组件”，因为它像高阶函数只使用组件组合技术而不是功能组合。好吧，现在我们还是继续用“将函数作为子类的组件”这个粗暴的名字。
+### 例子 ###
 
 1. [Pinch to Zoom - Function as Child Component](https://gist.github.com/iammerrick/c4bbac856222d65d3a11dad1c42bdcca)
-2. [react-motion](https://github.com/chenglou/react-motion) This project introduced me to this concept after being a long time Higher Order Component convert.
+2. [react-motion](https://github.com/chenglou/react-motion) 这个项目在讲了很长一段时间这个概念之后，高阶组件才演变出函数作为子类组件的组件。
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[React](https://github.com/xitu/gold-miner#react)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计) 等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)。

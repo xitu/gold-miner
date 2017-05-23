@@ -1,8 +1,8 @@
 > * 原文地址：[Observer Pattern – Reactive Programming [Android RxJava2]\( What the hell is this ) Part1](http://www.uwanttolearn.com/android/reactive-programming-android-rxjava2-hell-part1/)
-* 原文作者：[Hafiz Waleed Hussain](http://www.uwanttolearn.com/author/admin/)
-* 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-* 译者：[Zhiw](https://github.com/Zhiw)
-* 校对者：[dubuqingfeng](https://github.com/dubuqingfeng)，[Vivienmm](https://github.com/Vivienmm)
+> * 原文作者：[Hafiz Waleed Hussain](http://www.uwanttolearn.com/author/admin/)
+> * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
+> * 译者：[Zhiw](https://github.com/Zhiw)
+> * 校对者：[dubuqingfeng](https://github.com/dubuqingfeng)，[Vivienmm](https://github.com/Vivienmm)
 
 ## 观察者模式 – 响应式编程 [Android RxJava2]（这到底是什么）：第一部分
 

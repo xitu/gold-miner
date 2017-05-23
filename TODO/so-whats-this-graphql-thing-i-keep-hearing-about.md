@@ -1,84 +1,84 @@
 > * 原文地址：[So what’s this GraphQL thing I keep hearing about?](https://medium.freecodecamp.com/so-whats-this-graphql-thing-i-keep-hearing-about-baf4d36c20cf)
-> * 原文作者：[Sacha Greif](https://medium.freecodecamp.com/@sachagreif?source=post_header_lockup)
+> * 原文作者：本文已获原作者 [Sacha Greif](https://medium.freecodecamp.com/@sachagreif) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
-> * 校对者：
+> * 译者：[lsvih](https://github.com/lsvih)
+> * 校对者：[xiaoyusilen](https://github.com/xiaoyusilen),[steinliber](https://github.com/steinliber)
 
 ![](https://cdn-images-1.medium.com/max/2000/1*uF2-YU2quykHIs4tKXy7sw.png)
 
-# So what’s this GraphQL thing I keep hearing about? #
+# 我经常听到的 GraphQL 到底是什么？ #
 
-If you’re like me, you probably go through three stages when hearing about a new technology:
+当听说出了一门新技术的时候，你可能会和我一样有以下 3 种反应：
 
-#### 1. Dismissal ####
+#### 1. 嫌弃 ####
 
-> One more JavaScript library?! Just use jQuery already!
+> 又来一个 JavaScript 类库？反正我只用 JQuery 就行了。
 
-#### 2. Interest ####
+#### 2. 感兴趣 ####
 
-> Hmm, maybe I **should** check out this new library I keep hearing about…
+> 嗯，也许我**应该**去了解一下这个我总是听别人说到的新库。
 
-#### 3. Panic ####
+#### 3. 恐慌 ####
 
-> Help! I need to learn this new library **right now** or I’ll be completely obsolete!
+> 救命啊！我必须**马上**去学这个新库，否则我就会被淘汰了！
 
-The trick to maintaining your sanity in these fast-moving times is to learn new stuff right between stages two and three, once your interest is piqued but while you’re still ahead of the curve.
+在这个迅速发展的时代，让你保持理智的方法就是保持上述第二或第三种态度去学一些新的知识，走在潮流之前的同时激起你的兴趣。
 
-Which is why now is the perfect time to learn what exactly this GraphQL thing you keep hearing about really is.
+因此，现在就是学习 GraphQL 这个你常常听到别人谈论的东西的最好时机！
 
-### The Basics ###
+### 基础 ###
 
-In a nutshell, GraphQL is **a syntax that describes how to ask for data**, and is generally used to load data from a server to a client. GraphQL has three main characteristics:
+简单的说，GraphQL 是一种**描述请求数据方法的语法**，通常用于客户端从服务端加载数据。GraphQL 有以下三个主要特征：
 
-- It lets the client specify exactly what data it needs.
-- It makes it easier to aggregate data from multiple sources.
-- It uses a type system to describe data.
+- 它允许客户端指定具体所需的数据。
+- 它让从多个数据源汇总取数据变得更简单。
+- 它使用了类型系统来描述数据。
 
-So how did GraphQL get started? What does it look like in practice? And how do you start using it? Read on to find out!
+如何入门 GraphQL 呢？它实际应用起来是怎样的呢？你如何开始使用它呢？要找到以上问题的答案，请继续阅读吧！
 
 ![](https://cdn-images-1.medium.com/max/800/1*NpFL8vnrMQ-D1L6T89T-4A.png)
 
-### The Problem ###
+### 遇到的问题 ###
 
-GraphQL got its start at big old Facebook, but even much simpler apps can often bump into the limitations of traditional REST APIs.
+GraphQL 是由 Facebook 开发的，用于解决他们巨大、老旧的架构的数据请求问题。但是即使是比 Facebook 小很多的 app，也同样会碰上一些传统 REST API 的局限性问题。
 
-For example, imagine you need to display a list of `posts`, and under each post a list of `likes`, including user names and avatars. Easy enough, you tweak your `posts` API to include a `likes` array containing user objects:
+例如，假设你要展示一个文章（`posts`）列表，在每篇文章的下面显示喜欢这篇文章的用户列表（`likes`），其中包括用户名和用户头像。这个需求很容易解决，你只需要调整你的 `posts` API 请求，在其中嵌入包括用户对象的 `likes` 列表，如下所示：
 
 ![](https://cdn-images-1.medium.com/max/800/1*VuIe8p5Z00HAdnWTv0QUww.png)
 
-But now, it’s time to work on your mobile app, and it turns out loading all that extra data is slowing things down. So you now need *two* endpoints, one with the `likes` and one without them.
+但是现在你是在开发移动 app，加载所有的数据明显会降低 app 的速度。所以你得请求两个接口（API），一个包含了 `likes` 的信息，另一个不含这些信息（只含有文章信息）。
 
-Now add one more factor to the mix: it turns out that while `posts` are stored in a MySQL database, `likes` on the other hand live in a Redis store! What do you do now?!
+现在我们再掺入另一种情况：`posts` 数据是由 MySQL 数据库存储的，而 `likes` 数据却是由 Redis 存储的。现在你该怎么办？
 
-Extrapolate this scenario to however many data sources and API clients Facebook has to manage, and you can imagine why good old REST APIs were starting to show their limits.
+按着这个剧本想一想 Facebook 的客户端有多少个数据源和 API 需要管理，你就知道为什么现在评价很好的 REST API 所体现出的局限性了。
 
-### The Solution ###
+### 解决的方案 ###
 
-The solution Facebook came up with is conceptually very simple: instead of having multiple “dumb” endpoints, have a single “smart” endpoint that can take in complex queries, and then massage the data output into whatever shape the client requires.
+Facebook 提出了一个概念很简单的解决方案：不再使用多个“愚蠢”的节点，而是换成用一个“聪明”的节点来进行复杂的查询，将数据按照客户端的要求传回。
 
-Practically speaking, the GraphQL layer lives between the client and one or more data sources, receiving client requests and fetching the necessary data according to your instructions. Confused? It’s metaphor time!
+实际上，GraphQL 层处于客户端与一个或多个数据源之间，它接收客户端的请求然后根据你的设定取出需要的数据。还是不明白吗？让我们打个比方吧！
 
-The old REST model is like ordering pizza, then getting groceries delivered, then calling your dry cleaner to get your clothes. Three shops, three phone calls.
+之前的 REST 模型就好像你预定了一块披萨，然后又要叫便利店送一些日用品上门，接着打电话给干洗店去取衣服。这有三个商店，你就得打三次电话。
 
 ![](https://cdn-images-1.medium.com/max/800/1*LVQb9_hxti9j-fY7SH3aKA.png)
 
-GraphQL on the other hand is like having a personal assistant: once you’ve given them the addresses to all three places, you can simply ask for what you want (“get me my dry cleaning, a large pizza, and two dozen eggs”) and wait for them to return.
+GraphQL 从某方面来说就像是一个私人助理：你只需要给它这三个店的地址，然后简单地告诉它你需要什么 （“把我放在干洗店的衣服拿来，然后带一块大号披萨，顺便带两个鸡蛋”），然后坐着等他回来就行了。
 
 ![](https://cdn-images-1.medium.com/max/800/1*AFX14UE3utIs7xktnxVIng.png)
 
-In other words, GraphQL establishes a standard language for talking to this magical personal assistant.
+换句话说，为了让你能和这个神奇的私人助手沟通，GraphQL 建立了一套标准的语言。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*tulrgfYYaRaDetz7jP5Q-g.png)
 
-According to Google Images, the typical personal assistant is an eight-armed alien
+上图是 Google 图片找的，有的私人助理甚至有八条手臂。
 
 ![](https://cdn-images-1.medium.com/max/800/1*nC8aB5GHMhUEV28GdvSb5Q.png)
 
-In practice, a GraphQL API is organized around three main building blocks: the **schema**, **queries**, and **resolvers**.
+理论上，一个 GraphQL API 主要由三个部分组成：**schema（类型）**，**queries（查询）** 以及 **resolvers（解析器）**。
 
-### Queries ###
+### 查询（Queries） ###
 
-The request you make to your GraphQL personal assistant is the **query**, and it looks something like this:
+你向你的 GraphQL 私人助理提出的请求就是 `query` ，query 的形式如下所示：
 
 ```
 query {
@@ -86,7 +86,7 @@ query {
 }
 ```
 
-We’re declaring a new query using the `query` keyword, then asking for a field named `stuff`. The great thing about GraphQL queries is that they support nested fields, so we can go one level deeper:
+在这里，我们用 `query` 关键字定义了一个新的查询，它将取出名叫 `stuff` 的字段。GraphQL 查询（Queries）最棒之处就是它支持多个字段嵌套查询，我们可以在上面的基础上加深一个层级：
 
 ```
 query{
@@ -98,9 +98,9 @@ query{
 }
 ```
 
-As you can see, the client making the query doesn’t need to care which “shop” the data is coming from. Just ask for what you need, and let the GraphQL server take care of the rest.
+正如你所见，客户端在查询的时候不需要关心数据是来自于哪一个“商店”的。你只需要请求你要的数据，GraphQL 服务端将会完成其它所有的工作。
 
-It’s worth noting that query fields can also point to **arrays**. For example, here’s a common pattern when querying for a list of posts:
+还有一点值得注意，query 字段也可以指向一个数组。例如，以下是一个查询一个文章列表的常用模式：
 
 ```
 query {
@@ -116,7 +116,7 @@ query {
 }
 ```
 
-Query fields also support **arguments**. If I want to display a specific post, I can add an `id` argument to the `post` field:
+Query 字段也支持使用**参数**。如果我想展示一篇特别的文章，我可以将 `id` 参数放在 `post` 字段中：
 
 ```
 query {
@@ -132,7 +132,7 @@ query {
 }
 ```
 
-Finally, if I want to make that `id` argument dynamic, I can define a **variable** and then reuse it inside the query (note that we’re also **naming** the query here):
+最后，如果我想让 `id` 参数能动态改变，我可以定义一个**变量**，然后在 query 字段中重用它。（请注意，我们在 query 字段处也要定义一次这个变量的名字）
 
 ```
 query getMyPost($id: String) {
@@ -148,7 +148,7 @@ query getMyPost($id: String) {
 }
 ```
 
-A good way to put all this in practice is to use [GitHub’s GraphQL API Explorer](https://developer.github.com/early-access/graphql/explorer/) . For example, give the following query a try:
+有个很好的方式来实践这些方法：使用  [GitHub’s GraphQL API Explorer](https://developer.github.com/early-access/graphql/explorer/) 。例如，你可以尝试下面的查询：
 
 ```
 query {
@@ -161,23 +161,23 @@ query {
 
 ![](https://cdn-images-1.medium.com/max/1000/1*adGjZ9lofuO_ohkmlqtZvg.gif)
 
-GraphQL autocomplete in action
+GraphQL 的自动补全功能
 
-Notice that as you try typing a new field name below `description`, the IDE will automatically offer possible field names directly auto-completed from the GraphQL API itself. Neat!
+当你尝试在下面输入一个名为 `description` 的新字段名时，你可能会注意到 IDE 会根据 GraphQL API 将可选的字段名自动补全。真棒！
 
 [![](https://cdn-images-1.medium.com/max/800/1*XthnQqgmM5Ag4TmwM6UVWw.png)](https://dev-blog.apollodata.com/the-anatomy-of-a-graphql-query-6dffa9e9e747)
 
 [The Anatomy of a GraphQL Query](https://dev-blog.apollodata.com/the-anatomy-of-a-graphql-query-6dffa9e9e747)
 
-You can learn more about GraphQL queries in the excellent [Anatomy of a GraphQL Query](https://dev-blog.apollodata.com/the-anatomy-of-a-graphql-query-6dffa9e9e747)  article.
+你可以读读这篇超棒的文章[《Anatomy of a GraphQL Query》](https://dev-blog.apollodata.com/the-anatomy-of-a-graphql-query-6dffa9e9e747)，了解更多 GraphQL 查询的知识。
 
-### Resolvers ###
+### 解释器（Resolvers） ###
 
-Even the best personal assistant in the world can’t go and get your dry cleaning unless you give them an address.
+除非你给他们地址，否则即使是这个世界上最好的私人助理也不能去拿到干洗衣物。
 
-Similarly, your GraphQL server won’t know what to do with an incoming query unless you tell it using a **resolver**.
+同样的，GraphQL 服务端并不知道要对一个即将到来的查询做什么处理，除非你使用 **resolver** 来告诉他。
 
-A resolver tells GraphQL how and where to fetch the data corresponding to a given field. For example, here’s what a resolver for the `post` field above could look like (using Apollo’s [GraphQL-Tools](https://github.com/apollographql/graphql-tools) :
+一个 resolver 会告诉 GraphQL 在哪里以及如何去取到对应字段的数据。例如，下面是之前我们取出 `post` 字段例子的 resolver（使用了 Apollo 的 [GraphQL-Tools](https://github.com/apollographql/graphql-tools) ）：
 
 ```
 Query: {
@@ -187,7 +187,7 @@ Query: {
 }
 ```
 
-We’re putting the resolver on `Query` because we want to query for `post` directly at the root level. But you can also have resolvers for sub-fields, such as a `post`'s `author` field:
+在这个例子中，我们将 resolver 放在 `Query` 中，因为我们想要直接在根层级查询 `post`。但你也可以将 resolver 放在子字段中，例如查询 `post`（文章）的 `author`（作者）字段可以按照下面的形式：
 
 ```
 Query: {
@@ -202,7 +202,7 @@ Post: {
 }
 ```
 
-And note that your resolvers are not limited to returning database documents. For example, maybe you want to add a `commentsCount` to your `Post` type:
+还有，resolver 不仅仅只能返回数据库里的内容，例如，如果你想为你的 `Post` 类型加上一个 `commentsCount`（评论数量）属性，可以这么做：
 
 ```
 Post: {
@@ -215,119 +215,119 @@ Post: {
 }
 ```
 
-The key concept to understand here is that with GraphQL, **your API schema and your database schemas are decoupled**. In other words, there might not be any `author` and `commentsCount` fields in our database, but we can “simulate” them through the power of resolvers.
+理解这里的关键在于：对于 GraphQL，**你的 API 结构与你的数据库结构是解耦的**。换一种说法，我们的数据库中可能根本就没有 `author` 和 `commentsCount` 这两个字段，但是我们可以通过 resolver 的力量将它们“模拟”出来。
 
-As you’ve seen you can write any code you want inside a resolver. Which is why you can also make them *modify* the contents of your database, in which case they’re known as **mutation** resolvers.
+正如你所见，我们可以在 resolver 中写任何你想写的代码。因此，你可以通过**改变** resolver 任意地**修改**数据库中的内容，这种形式也被称为 **mutation** resolver。
 
-### Schema ###
+### 类型（Schema） ###
 
-All this good stuff is made possible by GraphQL’s typed schema system. My goal today is to give you a quick overview more than an exhaustive introduction, so I won’t go into details here.
+GraphQL 的类型结构系统可以让很多事情都变得可行。我今天的目标仅仅是给你做一个快速的概述而不是详细的介绍，所以我不会在这个内容上继续深入。
 
-That being said, I encourage you to check out the [GraphQL documentation](http://graphql.org/learn/schema/)  if you’d like to learn more.
+话虽如此，如果你想了解更多这方面的信息，我建议你阅读 [GraphQL 官方文档](http://graphql.org/learn/schema/)。
 
 ![](https://cdn-images-1.medium.com/max/800/1*uLSaEA8VyrGrU2Nki7LiKg.png)
 
-### Frequently Asked Questions ###
+### 常见问题 ###
 
-Let’s take a break to answer a few common questions.
+让我们先暂停，回答一些常见的问题。
 
-You there, in the back. Yes, you. I can see you want to ask something. Go ahead, don’t be shy!
+你肯定想问一些问题，来吧，尽管问别害羞！
 
-#### What’s the relation between GraphQL and graph databases? ####
+#### GraphQL 与图形数据库有什么关系？ ####
 
-Not much, really, GraphQL doesn’t have anything to do with graph databases like [Neo4j](https://en.wikipedia.org/wiki/Neo4j). The “graph” part comes from the idea of crawling across your API graph by using fields and subfields; while “QL” stands for “query language”.
+它们真的没有关系，GraphQL 与诸如 [Neo4j](https://en.wikipedia.org/wiki/Neo4j) 之类的图形数据库没有任何关系。名称中的 “Graph” 是来自于 GraphQL 使用字段与子字段来遍历你的 API 图谱；“QL” 的意思是“查询语言”（query language）。
 
-#### I’m perfectly happy with REST, why should I switch to GraphQL? ####
+#### 我用 REST 用的很开心，为什么我要切换成 GraphQL 呢？ ####
 
-If you haven’t yet bumped into the REST pain points that GraphQL is meant to address, then I would say that’s a good thing!
+如果你使用 REST 还没有碰上 GraphQL 所解决的那些痛点，那当然是件好事啦！
 
-Using GraphQL over REST probably won’t affect your app’s overall user experience that much, so switching to it isn’t a matter of life or death by any means. That being said, I’d definitely recommend trying out GraphQL on a small side project if you ever get the chance.
+但是使用 GraphQL 来代替 REST 基本不会对你 app 的用户体验产生任何影响，所以“切换”这件事并不是所谓“生或死”的抉择。话虽如此，我还是建议你如果有机会的话，先在项目里小范围地尝试一下 GraphQL 吧。
 
-#### Can I use GraphQL without React/Relay/*insert library here*? ####
+#### 如果我不用 React、Relay 等框架，我能使用 GraphQL 吗？ ####
 
-Yes you can! Since GraphQL is just a specification, you can use it with any library on any platform, either with a client (for example, [Apollo](http://dev.apollodata.com/) has GraphQL clients for the web, iOS, Angular, etc.) or by making your own calls to a GraphQL server.
+当然能！因为 GraphQL 仅仅是一个标准，你可以在任何平台、任何框架中使用它，甚至在客户端中也同样能应用它（例如，[Apollo](http://dev.apollodata.com/) 有针对 web、iOS、Angular 等环境的 GraphQL 客户端）。你也可以自己去做一个 GraphQL 服务端。
 
-#### GraphQL was made by Facebook, and I don’t trust Facebook ####
+#### GraphQL 是 Facebook 做的，但是我不信任 Facebook ####
 
-Again, GraphQL is a specification, meaning you can use GraphQL implementations without running a single line of code written by Facebook.
+再强调一次，GraphQL 只是一个标准，这意味着你可以在不用 Facebook 一行代码的情况下实现 GraphQL。
 
-And while having Facebook’s support is definitely a nice plus for the GraphQL ecosystem, at this point I believe the community is big enough for GraphQL to thrive even if Facebook were to stop using it.
+并且，有 Facebook 的支持对于 GraphQL 生态系统来说是一件好事。关于这块，我相信 GraphQL 的社区足够繁荣，即使 Facebook 停止使用 GraphQL，GraphQL 依然能够茁壮成长。
 
-#### This whole “let the client ask for the data they need” business doesn’t sound very secure to me… ####
+#### “让客户端自己请求需要的数据”这整件事情听起来似乎不怎么安全…… ####
 
-Since you write your own resolvers, it’s up to you to address any security concerns at that level.
+你得自己写自己的 resolver，因此在这个层面上是否会出现安全问题完全取决于你。
 
-For example, if you let the client specify a `limit` parameter to control the number of documents it receives, you’ll probably want to cap that number to avoid denial-of-service-style attacks where clients requests millions of documents over and over.
+例如，为了防止客户端一遍又一遍地请求查询记录造成 DDOS 攻击，你可以让客户端指定了一个 `limit` 参数去控制它接受数据的数量。
 
-#### So what do I need to get started? ####
+#### 那么我如何上手 GraphQL？ ####
 
-Generally speaking, you’ll need at least two components to run a GraphQL-powered app:
+通常来说，一个 GraphQL 驱动的 app 起码需要以下两个组件：
 
-- A **GraphQL server** that serves your API.
-- A **GraphQL client** that connects to your endpoint.
+- 一个 **GraphQL 服务端** 来为你的 API 提供服务。
+- 一个 **GraphQL 客户端** 来连接你的节点。
 
-Read on to learn more about the various options available.
+了解更多可用的工具，请继续阅读。
 
 ![](https://cdn-images-1.medium.com/max/800/1*zugVY5cAa9KIP6Necc7uCw.png)
 
-Now that you have a fair idea of how GraphQL works, let’s talk about some of the main players in the space.
+现在你应该对 GraphQL 有了一个恰当的认识，下面让我们来介绍一下 GraphQL 的主要平台与产品。
 
-### GraphQL Servers ###
+### GraphQL 服务端 ###
 
-The first brick you’ll need is a GraphQL server. [GraphQL itself](http://graphql.org/) is just a specification after all, so this leaves the door open to a few competing implementations.
+万丈高楼平地起，盖起这栋楼的第一块砖就是一个 GraphQL 服务端。 [GraphQL](http://graphql.org/) 它本身仅仅是一个标准，因此它敞开大门接受各种各样的实现。
 
 #### [GraphQL-JS](https://github.com/graphql/graphql-js)  (Node) ####
 
-This is the original reference implementation of GraphQL. You can use it together with [express-graphql](https://github.com/graphql/express-graphql)  to [create your API server](http://graphql.org/graphql-js/running-an-express-graphql-server/) .
+它是 GraphQL 的最初的实现。你可以将它和 [express-graphql](https://github.com/graphql/express-graphql) 一起使用，[创建你自己的 API 服务](http://graphql.org/graphql-js/running-an-express-graphql-server/) 。
 
 #### [GraphQL-Server](http://graphql.org/graphql-js/running-an-express-graphql-server/) (Node) ####
 
-The [Apollo](http://apollostack.com)  team also has their own all-in-one GraphQL server implementation. It’s not as widespread as the original yet, but is very well documented and supported and quickly gaining ground.
+[Apollo](http://apollostack.com) 团队也有他们自己的一站式 GraphQL 服务端实现。它虽然还没有像 GraphQL-JS 一样被广泛使用，但是它的文档、支持都做得很棒，使用它能快速取得进展。
 
-#### [Other Platforms](http://graphql.org/code/) ####
+#### [其它平台](http://graphql.org/code/) ####
 
-GraphQL.org has a [list of GraphQL implementations for various other platforms](http://graphql.org/code/)  (PHP, Ruby, etc.).
+GraphQL.org 列了一个清单： [GraphQL 在其它平台下的实现清单](http://graphql.org/code/)  （包括 PHP、Ruby 等）。
 
-### GraphQL Clients ###
+### GraphQL 客户端 ###
 
-Although you can technically query your GraphQL API directly without the need for a dedicated client library, it can [definitely make your life easier](https://dev-blog.apollodata.com/why-you-might-want-a-graphql-client-e864050f789c) .
+虽然你不使用客户端类库也可以很好地查询 GraphQL API，但是一个相对应的客户端类库将会[让你的开发更加轻松](https://dev-blog.apollodata.com/why-you-might-want-a-graphql-client-e864050f789c)。
 
 #### [Relay](https://facebook.github.io/relay/) ####
 
-Relay is Facebook’s own GraphQL toolkit. I haven’t used it myself, but from what I’ve heard it’s mainly tailored to Facebook’s own needs, and might be a bit over-engineered for most usages.
+Relay 是 Facebook 的 GraphQL 工具。我还没用过它，但是我听说它主要是为了 Facebook 自己的需求量身定做的，可能对大多数的用户来说不是那么人性化。
 
 #### [Apollo Client](http://www.apollodata.com/) ####
 
-The new entrant in this space is [Apollo](http://apollostack.com) , and it’s quickly taken over. The typical Apollo client stack is composed of two bricks:
+在这个领域的最新参赛者是 [Apollo](http://apollostack.com)，它正在迅速发展。典型的 Apollo 客户端技术栈由以下两部分组成：
 
-- [Apollo-client](http://dev.apollodata.com/core/) (, which lets you run GraphQL queries in the browser and store their data (and also has its own [devtools extension](https://github.com/apollographql/apollo-client-devtools)).
-- A connector for your front-end framework of choice ([React-Apollo](http://dev.apollodata.com/react/) , [Angular-Apollo](http://dev.apollodata.com/angular2/), etc.).
+- [Apollo-client](http://dev.apollodata.com/core/)，它能让你在浏览器中运行 GraphQL 查询，并存储数据。（它还有自己的[开发者插件](https://github.com/apollographql/apollo-client-devtools)）。
+- 与你用的前端框架的连接件（例如 [React-Apollo](http://dev.apollodata.com/react/)、[Angular-Apollo](http://dev.apollodata.com/angular2/) 等）。
 
-Note that by default, Apollo-client stores its data using [Redux](http://redux.js.org) , which is great since Redux is itself a pretty established state management library with a rich ecosystem.
+另外，在默认的情况下 Apollo 客户端使用  [Redux](http://redux.js.org) 存储数据。这点很棒，Redux 本身是一个有着丰富生态系统的超棒的状态管理类库。
 
 [![](https://cdn-images-1.medium.com/max/800/1*SLvbmGeU1p3mUfG8qA4cQQ.png)](https://github.com/apollographql/apollo-client-devtools) 
 
-The Apollo Devtools Chrome extension
+Apollo 在 Chrome 开发者工具中的插件
 
-### Open-Source Apps ###
+### 开源 App ###
 
-Even though GraphQL is fairly new, there are already some promising open-source apps making use of it.
+虽然 GraphQL 还属于新鲜事物，但是它已经被一些开源 app 使用了。
 
 #### [VulcanJS](http://vulcanjs.org) ####
 
 [![](https://cdn-images-1.medium.com/max/800/1*YoSlSmK3P1CIlpXKyVujCQ.png)](http://vulcanjs.org) 
 
-First, a disclaimer: I’m the lead maintainer of [VulcanJS](http://vulcanjs.org) . I created VulcanJS to let people take advantage of the power of the React/GraphQL stack without having to write so much boilerplate. You can think of it as “Rails for the modern web ecosystem”, in that it lets you build CRUD apps (such as an [Instagram clone](https://www.youtube.com/watch?v=qibyA_ReqEQ)) in a matter of hours.
+首先我得声明一下，我是 [VulcanJS](http://vulcanjs.org) 的主要维护者。我创建 VulcanJS 是为了让人们在不用写太多样板代码的情况下充分享受 React、GraphQL 技术栈的好处。你可以把它看成是“现代 web 生态系统的 Rails”，让你可以在短短几个小时内做出你的 CRUD（增删查改）型 app。（例如 [Instagram clone](https://www.youtube.com/watch?v=qibyA_ReqEQ)）
 
 #### [Gatsby](https://www.gatsbyjs.org/docs/) ####
 
-Gatsby is a React static site generator, which is now powered by GraphQL as of [version 1.0](https://www.gatsbyjs.org/docs/) . While that might seem like an odd combination at first, it’s actually quite powerful. During its build process, Gatsby can fetch data from multiple GraphQL APIs, and then use them to create a fully static client-only React app.
+Gatsby 是一个 React 静态网站生成器，它现在是基于 [GraphQL 1.0 版本](https://www.gatsbyjs.org/docs/) 开发。它一眼看上去像个奇怪的大杂脍，但其实它的功能十分强大。Gatsby 在构建过程中，可以从多个 GraphQL API 取得数据，然后用它们创建出一个全静态的无后端 React app。
 
-### Other GraphQL Tools ###
+### 其它的 GraphQL 工具 ###
 
 #### [GraphiQL](https://github.com/graphql/graphiql) ####
 
-GraphiQL is a very handy in-browser IDE for querying GraphQL endpoints.
+GraphiQL 是一个非常好用的基于浏览器的 IDE，它可以方便你进行 GraphQL 端点查询。
 
 [![](https://cdn-images-1.medium.com/max/800/1*fbeXj5wB383gWsMXn_6JAw.png)](https://github.com/graphql/graphiql)
 
@@ -335,81 +335,81 @@ GraphiQL
 
 #### [DataLoader](https://github.com/facebook/dataloader) ####
 
-Due to the nested nature of GraphQL queries, a single query can easily trigger dozens of database calls. To avoid taking a performance hit, you can use a batching and caching library such as DataLoader, developed by Facebook.
+由于 GraphQL 的查询通常是嵌套的，一个查询可能会调用很多个数据库请求。为了避免影响性能，你可以使用一些批量出入库框架和缓存库，例如 Facebook 开发的 DataLoader。
 
 #### [Create GraphQL Server](https://blog.hichroma.com/create-graphql-server-instantly-scaffold-a-graphql-server-1ebad1e71840) ####
 
-Create GraphQL Server is a command line utility that makes it easy to quickly scaffold a GraphQL server powered by a Node server and a Mongo database.
+Create GraphQL Server 是一个简单的命令行工具，它能快速地帮你搭建好基于 Node 服务端与 Mongo 数据库的 GraphQL 服务端。
 
-### GraphQL Services ###
+### GraphQL 服务 ###
 
-Finally, there are also a number of “GraphQL-backend-as-a-service” companies that take care of the whole server side of things for you, and might be a nice way to dip your toes in the GraphQL ecosystem.
+最后，这儿列了一些 GraphQL BAAS（后台即服务）公司，它们已经为你准备好了服务端的所有东西。这可能是一个让你尝试一下 GraphQL 生态系统的很好的方式。
 
-#### [GraphCool](http://graph.cool) #### 
+#### [GraphCool](http://graph.cool) ####
 
-A flexible backend platform combining GraphQL and AWS Lambda, with a free developer plan.
+一个由 GraphQL 和 AWS Lambda 组成的一个弹性后端平台服务，它提供了开发者免费计划。
 
 #### [Scaphold](https://scaphold.io/) ####
 
-Another GraphQL backend as a service, which also offers a free plan. Compared to GraphCool, it offers a few extra features such as custom user roles and callback hooks for common actions.
+另一个 GraphQL BAAS 平台，它也提供了免费计划。与 GraphCool 相比，它提供了更多的功能。（例如定制用户角色、常规操作的回调钩子等）
 
 ![](https://cdn-images-1.medium.com/max/800/1*deLIZh7AfYbAt0u2t7dAKQ.png)
 
-There are already quite a few places where you can brush up on GraphQL.
+下面是一些能让你学习 GraphQL 的资源。
 
 #### [GraphQL.org](http://graphql.org/learn/)  ####
 
-The official GraphQL site has some great documentation to get you started.
+GraphQL 的官方网站，有许多很好的文档供你学习。
 
 #### [LearnGraphQL](https://learngraphql.com/) ####
 
-LearnGraphQL is an interactive course put together by the folks at [Kadira](https://kadira.io/).
+LearnGraphQL 是由 [Kadira](https://kadira.io/) 员工共同制作的课程。
 
 #### [LearnApollo](https://www.learnapollo.com/) ####
 
-A good follow-up to LearnGraphQL, LearnApollo is a free course made by Graphcool.
+LearnApollo 是由 GraphCool 制作的免费课程，是对于 LearnGraphQL 课程的一个很好的补充。
 
-#### [The Apollo Blog](https://dev-blog.apollodata.com/) ####
+#### [Apollo 博客](https://dev-blog.apollodata.com/) ####
 
-The Apollo blog has tons of detailed, well-written posts about Apollo and GraphQL in general.
+Apollo 的博客有成吨的干货，有很多关于 Apollo 和 GraphQL 的超棒的文章。
 
-#### [GraphQL Weekly](https://graphqlweekly.com/) ####
+#### [GraphQL 周报](https://graphqlweekly.com/) ####
 
-A newsletter about all things GraphQL curated by the Graphcool team.
+由 Graphcool 团队策划的一个简报，其内容包括任何有关 GraphQL 的信息。
 
-#### [Hashbang Weekly](http://hashbangweekly.okgrow.com/) ####
+#### [Hashbang 周报](http://hashbangweekly.okgrow.com/) ####
 
-Another great newsletter, which also covers React and Meteor in addition to GraphQL.
+另一个不错的简报，除了 GraphQL 的内容外，还涵盖了 React、Meteor。
 
 #### [Awesome GraphQL](https://github.com/chentsulin/awesome-graphql) ####
 
-A pretty exhaustive list of GraphQL links and resources.
+一个关于 GraphQL 的链接和资源的很全面的清单。
 
 ![](https://cdn-images-1.medium.com/max/800/1*S69N5yYp1VLSSO0GTnrpmw.png)
 
-So how do you put your newly acquired GraphQL knowledge in practice? Here are a few recipes you can try:
+你如何实践你刚学到的 GraphQL 的知识呢？你可以尝试下面这些方式：
 
 #### [Apollo + Graphcool + Next.js](https://github.com/zeit/next.js/tree/master/examples/with-apollo)  ####
 
-If you’re already familiar with Next.js and React, [this example](https://github.com/zeit/next.js/tree/master/examples/with-apollo)  will let you set up your GraphQL endpoint using Graphcool, and then query it using Apollo.
+如果你对 Next.js 与 React 很熟悉，[这个例子](https://github.com/zeit/next.js/tree/master/examples/with-apollo)将会帮助你使用 Graphcool 很快的搭建好你的 GraphQL 端点，并在客户端使用 Apollo 进行查询。
 
 #### [VulcanJS](http://docs.vulcanjs.org/) ####
 
-The [Vulcan tutorial](http://docs.vulcanjs.org/) will take you through setting up a simple GraphQL data layer, both on the server and client. Since Vulcan is an all-in-one platform, it’s a nice way to get started without any setup. If you need help, don’t hesitate to [drop by our Slack channel](http://slack.vulcanjs.org/) !
+[Vulcan 教程](http://docs.vulcanjs.org/)将会引导你创建一个简单的 GraphQL 数据层，既有服务端部分也有客户端部分。因为 Vulcan 是一个一站式平台，所以这种无需任何配置的方式是一种很好的上手途径。如果你需要帮助，请访问[我们的 Slack 栏目](http://slack.vulcanjs.org/)！
 
-#### [GraphQL & React Tutorial](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858#.o54ygcruh)  ####
+#### [GraphQL & React 教程](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858#.o54ygcruh)  ####
 
-The Chroma blog has a [six-part tutorial](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858#.o54ygcruh) on building a React/GraphQL app following a component-driven development approach.
+Chroma 博客有一篇[《分为六部的教程》](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858#.o54ygcruh)，讲述了如何按照组件驱动的开发方式来构建一个 React/GraphQL app。
 
 ![](https://cdn-images-1.medium.com/max/800/1*uLSaEA8VyrGrU2Nki7LiKg.png)
 
-### Conclusion ###
+### 总结 ###
 
-GraphQL might seem complex at first because it’s a technology that reaches across many areas of modern development. But if you take the time to understand the underlying concepts, I think you’ll find out that a lot of it just makes sense.
+当你刚开始接触 GraphQL 可能会觉得它非常复杂，因为它横跨了现代软件开发的众多领域。但是，如果你稍微花点时间去明白它的原理，我认为你可以找到它很多的可取之处。
 
-So whether you end up actually using it or not, I believe it’s worth taking the time to familiarize yourself with GraphQL. More and more companies and frameworks are adopting it, and it might very well end up becoming one of the key building blocks of the web over the next few years.
+所以不管你最后会不会用上它，我相信多了解了解 GraphQL 是值得的。越来越多的公司与框架开始接受它，过几年它可能会成为 web 开发的又一个重要组成部分。
 
-Agree? Disagree? Questions? Just let me know here in the comments. And if you’ve enjoyed this article, please consider 💚ing and sharing it!
+赞同？不赞同？有疑问？请留下评论让我们知道你的看法。如果你还比较喜欢这篇文章，请点亮💚或者分享给他人。
 
 ---
 
