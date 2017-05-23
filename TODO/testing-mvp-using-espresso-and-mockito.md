@@ -1,46 +1,46 @@
 > * 原文地址：[TESTING MVP USING ESPRESSO AND MOCKITO](https://josiassena.com/testing-mvp-using-espresso-and-mockito/)
 > * 原文作者：[Josias Sena](https://josiassena.com/about-me/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
-> * 校对者：
+> * 译者：[skyar2009](https://github.com/skyar2009)
+> * 校对者：[lovexiaov](https://github.com/lovexiaov), [GangsterHyj](https://github.com/GangsterHyj)
 
-# Testing MVP using Espresso and Mockito #
+# 使用 Espresso 和 Mockito 测试 MVP #
 
-As software developers, we try our best to do what is right and make sure that we are not incompetent, and try to have others and our employers trust in the code we write. We all try to follow best practices and apply good architecture patterns, but sometimes many of us find it difficult to actually test what we code.
+作为软件开发者，我们尽最大努力做正确的事情确保我们并非无能，并且让其他同事以及领导信任我们所写的代码。我们遵守最好的编程习惯、使用好的架构模式，但是有时发现要确切的测试我们所写的代码很难。
 
-Personally, I have seen a few open-source projects where the developers are great at building awesome products—and can build any application you can think of—but for some reason lack at writing the proper tests, if any at all.
+就个人而言，我发现一些开源项目的开发者非常善于打造令人惊叹的产品（可以打造任何你可以想象的应用），但是由于某些原因缺乏编写正确测试的能力，甚至一点都没有。
 
-This here is another simplified tutorial on how to unit test the “oh so amazing” MVP architecture pattern that many of us try to follow.
+本文是关于如何对广泛应用的 MVP 架构模型进行单元测试的简单教程。
 
-Before I continue, I want to mention that I assume you are familiar with the MVP pattern, and have used it before. I will not go over the MVP pattern at all, and I will not explain how it works. With that in mind, I’d like to mention ahead of time that I am using one of my favorite libraries for MVPs created by a guy named [Hannes Dorfman](http://hannesdorfmann.com/) called [Mosby](https://github.com/sockeqwe/mosby). For simplicity’s sake, I am also using the view binding library called [ButterKnife](http://jakewharton.github.io/butterknife/).
+在开始前需要解释一下，本文假设你熟悉 MVP 模型并且之前使用过。本文不会介绍 MVP 模型，也不会介绍它的工作原理。同样，需要提一下的是我使用了一个我喜欢的 MVP 库 —— 由 [Hannes Dorfman](http://hannesdorfmann.com/) 编写的 [Mosby](https://github.com/sockeqwe/mosby)。为了方便起见，我使用了 view 绑定库 [ButterKnife](http://jakewharton.github.io/butterknife/)。
 
-So what is this application we will be looking at?
+那么这个应用究竟长什么样呢？
 
-It is a very simple Android app, and it does one thing and one thing only: It hides and displays a TextView with the click of a button. That’s it.
+这是一个非常简单的 Android 应用，它只做一件事：当点击按钮时隐藏或者显示一个 TextView。
 
-Here’s how the app looks initially:
+这是应用起初的样子：
 
 ![Initial](https://i1.wp.com/www.andevcon.com/hubfs/EVENTS_ASSETS/ANDEVCON/Images/Article_Images/MVP%20Mockito/IVvsdac.png)
 
-Here’s how it looks when the button is clicked:
+这是按钮点击后的样子：
 
 ![724E8fE.png](https://i2.wp.com/www.andevcon.com/hubfs/EVENTS_ASSETS/ANDEVCON/Images/Article_Images/MVP%20Mockito/724E8fE.png)
 
-For the sake of this article, let’s imagine that this is a multi-million-dollar product, and that the way it is now is the way it should be for a very long time. And if it were to ever change, we should be notified immediately.
+出于文章的需要，我们假设这是一个价值数百万的产品，并且它现在的样子将会持续很长时间。一旦发生变化，我们需要立刻知晓。
 
-So we have three things in this app: a blue toolbar with the app name, a text view that displays “Hello World,” and a button that hides/shows the TextView.
+应用中有三部分内容：一个有应用名的蓝色工具栏，一个显示 “Hello World” 的 TextView，以及一个控制 TextView 显隐的按钮。
 
-Before I start, I would like to mention that you can find all of the code for this article on  [my GitHub](https://github.com/josias1991/TestingMVP); if you do not want to read any of my rambling, please feel free to skip the rest of the post and go straight to the code. Comments will be added for clarity.
+开始前需要做下说明，本文的所有代码都可以在[我的 GitHub ](https://github.com/josias1991/TestingMVP)找到；如果你不想阅读后文，可以放心去直接阅读源码。源码中的注释十分明确。
 
-Now, lets get testing!
+我们开始吧！
 
-## **The Espresso tests** ##
+## **Espresso 测试** ##
 
-The first thing we want to test is our awesome ToolBar design. I mean, it is a million-dollar app after all; we need to make sure it stays that way!
+我们首先对炫酷的 ToolBar 进行测试。毕竟是一个价值数百万的应用，我们需要确保它的正确性。
 
-So first, here’s the complete code used to test the TooBar design. If you have no idea what is going on here, don’t worry: We will walk through it together.
+如下是测试 ToolBar 的完整代码。如果你看不懂这到底是什么鬼，也没关系，后面我们一起过一下。
 
-```
+``` java
 @RunWith (AndroidJUnit4.class)
 public class MainActivityTest {
  
@@ -76,49 +76,51 @@ public class MainActivityTest {
 }
 ``` 
 
-First things first: We need to tell JUnit what sort of test we are running. This is what the first line does (@RunWith (AndroidJUnit4.class)). It says. “Hey, listen, I want to run an Android test that uses JUnit4 on an actual connected device.”
+首先，我们需要告诉 JUnit 所执行测试的类型。对应于第一行代码（@runwith (AndroidJUnit4.class)）。它这样声明，“嘿，听着，我将在真机上使用 JUnit4 进行 Android 测试”。
 
-So what exactly is an Android test? An Android test is a test that runs on the device instead of locally on the [Java Virtual Machine (JVM)](https://en.wikipedia.org/wiki/Java_virtual_machine) on your computer. This means that a device needs to be connected to your computer in order to run the test. This gives the test code access to functional Android framework APIs.
+那么 Android 测试到底是什么呢？Android 测试是在 Android 设备上而非电脑上的 [Java 虚拟机 (JVM)](https://en.wikipedia.org/wiki/Java_virtual_machine) 的测试。这就意味着 Android 设备需要连接到电脑以便运行测试。这就使得测试可以访问 Android 框架功能性 API。
 
-These tests go in the androidTest directory.
+测试代码存放在 androidTest 目录。
 
 ![android_test_directory](https://i0.wp.com/www.andevcon.com/hs-fs/hubfs/EVENTS_ASSETS/ANDEVCON/Images/Article_Images/MVP%20Mockito/gcpEaEX.png?w=442)
 
-Next lets take a look at this thing called an “ActivityTestRule”. Since the android documentation explains it really well, here it is:
+下面我们看一下 “ActivityTestRule”，如下 Android 文档做出了详细的介绍：
 
-*“This rule provides functional testing of a single activity. The activity under test will be launched before each test annotated with [Test](http://junit.org/javadoc/latest/org/junit/Test.html) and before methods annotated with [Before](http://junit.sourceforge.net/javadoc/org/junit/Before.html). It will be terminated after the test is completed and methods annotated with [After](http://junit.sourceforge.net/javadoc/org/junit/After.html) are finished. During the duration of the test you will be able to manipulate your Activity directly.”*
+**“本规则针对单个 Activity 的功能性测试。测试的 Activity 会在 [Test](http://junit.org/javadoc/latest/org/junit/Test.html) 注释的测试以及 [Before](http://junit.sourceforge.net/javadoc/org/junit/Before.html) 注释的方法运行之前启动。会在测试完成以及 [After](http://junit.sourceforge.net/javadoc/org/junit/After.html) 注释的方法结束后停止。在测试期间可以直接对 Activity 进行操作。”**
 
-This basically says, “This is the activity I want to run my test.”
+本质上是说，“这是我要测试的 Activity”。
 
-Lets get in to the testToolbarDesign() method and see what the hell is going on.
+下面我们具体看下 testToolBarDesign() 方法具体做了什么。
 
-### **Testing the toolbar** ###
+### **测试 toolbar** ###
 
-```    onView(withId(R.id.toolbar)).check(matches(isDisplayed()));
+``` java    
+onView(withId(R.id.toolbar)).check(matches(isDisplayed()));
 ```
 
-What this test does is find a view with the ID that matches “R.id.toolbar,” then checks to make sure that this view is visible/displayed. If this line were to fail, the test would end right there and wouldn’t even bother with the rest.
+这段测试代码是找到 ID 为 “R.id.toolbar” 的 view，然后检查它的可见性。如果本行代码执行失败，测试会立刻结束并不会进行其余的测试。
 
-```    onView(withText(R.string.app_name)).check(matches(withParent(withId(R.id.toolbar))));
+``` java    
+onView(withText(R.string.app_name)).check(matches(withParent(withId(R.id.toolbar))));
 ```
 
-This one says “Hey, lets see if there is some text that equals ‘R.string.app_name’ and has a parent whose id is R.id.toolbar.”
+这行是说，“嘿，让我们看看是否有文本内容为 R.string.app_name 的 textView ，并且看看它的父 View 的 id 是否为 R.id.toolbar”。
 
-The last line in this test is a bit more involved. So basically what it is trying to do is to make sure that the background of the toolbar is equal to the app’s primary color.
+最后一行的测试更有趣一些。它是要确认 toolbar 的背景色是否和应用的首要颜色一致。
 
-```
+``` java
 onView(withId(R.id.toolbar)).check(matches(withToolbarBackGroundColor()));
 ```
 
-So by default, Espresso does not provide a straightforward way to do this, so we need to create what is called a [Matcher](https://developer.android.com/reference/android/support/test/espresso/matcher/package-summary.html). A Matcher is exactly what we have been using previously to match some view property to another. In this case, we want to match the primary color to the toolbars background.
+Espresso 没有提供直接的方式来做此校验，因此我们需要创建 [Matcher](https://developer.android.com/reference/android/support/test/espresso/matcher/package-summary.html)。Matcher 确切的说是我们前面使用的判断 view 属性是否与预期一致的工具。这里，我们需要匹配首要颜色是否与 toolbar 背景一致。
 
-What we do is we create a [Matcher](https://developer.android.com/reference/android/support/test/espresso/matcher/BoundedMatcher.html) and override the matchesSafely() method. The code inside this method is pretty easy to understand. First we get the toolbar’s background, then we compare it to the app’s primary color. If it is equal, it returns true; false otherwise.
+我们需要创建一个 [Matcher](https://developer.android.com/reference/android/support/test/espresso/matcher/BoundedMatcher.html) 并覆盖 matchesSafely() 方法。该方法里面的代码十分易懂。首先我们获取 toolbar 背景色，然后与应用首要颜色对比。如果相等，返回 true 否则返回 false。
 
-### **Test TextView hides/shows properly** ###
+### **测试 TextView 的隐藏/显示** ###
 
-Ok, before I show any code, I just want to mention that this code is a bit more verbose, but pretty straightforward to read. I have added some comments to show what exactly is going on.
+在讲代码之前，我需要说下代码有点长，但是十分易读。我对代码内容作了详细注释。
 
-```
+``` java
 
 @RunWith (AndroidJUnit4.class)
 public class MainActivityTest {
@@ -165,15 +167,15 @@ public class MainActivityTest {
 }
 ```
 
-The gist of this code is that it is making sure that when the app opens, the TextView with ID “R.id.tv_to_show_hide” is displayed, and the text displayed on the TextView says “Hello World!”
+这段代码主要功能是保证应用打开时，ID 为 “R.id.tv_to_show_hide” 的 TextView 处于显示状态，并且其显示内容为 “Hello World!”
 
-Then we check that the button is also displayed properly, and that the text on the button (by default) is set to “Hide”.
+然后检查按钮也是显示状态，并且其文案（默认）显示为 “Hide”。
 
-Next we click on the button. A click on a button is very straightforward, and it is very easy to read how it is done. This time instead of calling “.check” after we find a view by ID, we call .perform(), and inside the perform() method, we pass in click(). The perform() method says “Please do the following action,” and then “performs” whatever action is passed in. In our case it is a click() action.
+接着点击按钮。点击按钮十分简单，如何实现的也十分易懂。这里我们对找到相应 ID 的 view 执行 .perform() (而非 “.check”)，并且在其内执行 click() 方法。perform() 方法实际是执行传入的操作。这里对应是 click() 操作。
 
-Since the “Hide” button was clicked, we need to make sure the TextView is actually hidden now. We do this by adding a “not()” in front of the isDisplayed() method we used previously, and the button text has been changed to “Show”. This is the same as doing “!=” in plain ol’ java.
+因为点击了 “Hide” 按钮，我们需要验证 TextView 是否真的隐藏了。具体做法是在 disDisplayed() 方法前置一个 “not()”，并且按钮文案变为 “Show”。其实这就和 java 中的 “!=” 操作符一样。
 
-```
+``` java
 
 
 @RunWith (AndroidJUnit4.class)
@@ -198,13 +200,13 @@ public class MainActivityTest {
 }
 ``` 
 
-The code after these lines is the reverse of what we did before. We click the button again, make sure the TextView is visible again, and make sure that the button text has changed to successfully to match the situation.
+后面的代码是前面代码的反转。再次点击按钮，验证 TextView 重新显示，并且按钮文案符合当前状态。
 
-And that’s it!
+就这些。
 
-Here is the full UI test code:
+如下是全部的 UI 测试代码：
 
-```
+``` java
 
 @RunWith (AndroidJUnit4.class)
 public class MainActivityTest {
@@ -273,19 +275,19 @@ public class MainActivityTest {
 }
 ```
 
-## **The Unit Tests** ##
+## **单元测试** ##
 
-The great thing about unit tests—as opposed to Android tests—is that they run locally on your machine on the JVM. No need to have a device attached, and the tests run so much faster. The downside is that they do not have access to functional Android framework APIs. Overall, when testing anything other then UI you should try your best to write unit tests instead of Android/Instrumentation tests. The faster the tests, the better.
+单元测试最大特点是在本机的 JVM 环境上运行（与 Android 测试不同）。无需连接设备，测试跑的也更快。缺点就是无法访问 Android 框架 API。总之进行 UI 之外的测试时，尽量使用单元测试而非 Android/Instrumentation 测试。测试运行的越快越好。
 
-Lets start with the directory of the unit tests. The unit tests go in a different location then the Android tests did.
+下面我们看下单元测试的目录。单元测试的位置与 Android 测试不同。
 
 ![different_location](https://i1.wp.com/www.andevcon.com/hubfs/EVENTS_ASSETS/ANDEVCON/Images/Article_Images/MVP%20Mockito/mYBjN1x.png)
 
-Before moving on lets take a look at our presenter and what we are going to consider our model for this tutorial.
+开始前我们先看下 presenter 以及关于 model 需要考虑的问题。
 
-### *Lets start with the presenter* ###
+### **首先看下 presenter** ###
 
-```
+``` java
 
 public class MainPresenterImpl extends MvpBasePresenter implements MainPresenter {
  
@@ -312,13 +314,13 @@ public class MainPresenterImpl extends MvpBasePresenter implements MainPresenter
 }
 ``` 
 
-Simple enough. We have two methods: One checks to see if the view is visible. If it is, hide it, otherwise show it. Once this is done, we call into our view and say “Hey, change the button text to either ‘Hide’ or ‘Show’.”
+很简单。两个方法：一个检查 view 是否可见。如果可见就隐藏它，反之显示。之后将按钮的文案改为 “Hide” 或 “Show”。
 
-Our reverseViewVisibility() method calls into what we call (for this tutorial at least) our “model” to set the proper visibility on the view passed in.
+reverseViewVisibility() 方法调用 “model” 对传入的 view 进行可见性设置。
 
-### *Lets take a look at our model.* ###
+### **下面看下 model** ###
 
-```
+``` java
 public final class Utils {
 
     // ...
@@ -336,19 +338,19 @@ public final class Utils {
     }
 ``` 
 
-There are two methods: showView(View) and hideView(View). What these methods do is very straightforward and self-explanatory. We check if the view is null; if not, we either hide it or show it.
+两个方法：showView(View) 和 hideView(View)。具体功能十分直观。检查 view 是否为 null，不为 null 则对其进行显隐设置。
 
-Great, now that we are familiar with both our presenter and our “model,” lets go ahead and test them. After all, this is a multi-million-dollar product, and we cannot have anything go wrong.
+现在我们对 presenter 和 model 都有所了解了，下面我们开始测试。毕竟这是一个数百万的产品，我们不能有任何错误。
 
-Let start start testing our presenter first. When it comes to a presenter—ANY presenter—we need to make sure that the view is attached to the presenter. Note: We are NOT testing the view. We just need to make sure that the view is attached so that we can verify the proper view methods are being made in the right time. Keep this in mind as this is very important.
+我们首先测试 presenter。当使用 presenter （任何 presenter）时，我们需要确保 view 已与之关联。注意：我们并不测试 view。我们只需要确保 view 的绑定以便确认是否在正确的时间调用了正确的 view 方法。记住，这很重要。
 
-We will be using Mockito to run our tests, so just like we did with our unit tests, we ned to tell Android, “Hey, we want to run these tests with the MockitoJUnitRunner.” To do so we add the @RunWith (MockitoJUnitRunner.class) annotation on top of our test class.
+这里我们使用 Mockito 进行测试，就像单元测试那样，我们需要告诉 Android，“嘿，我们需要使用 MockitoJUnitRunner 进行测试。”实际操作时在测试类的顶部添加 @RunWith (MockitoJUnitRunner.class) 即可。
 
-So we know two things right from the start: We need a mocked View because our presenter uses a View Object to hide or show it, and we also need our presenter.
+从前面可知我们需要两个东西：一是模拟一个 View （因为 presenter 使用了 View 对象，对其进行显隐控制），另外一个是 presenter。
 
-This is how we mock using Mockito
+下面展示了如何使用 Mockito 进行模拟
 
-```
+``` java
 @RunWith (MockitoJUnitRunner.class)
 public class MainPresenterImplTest {
  
@@ -364,9 +366,9 @@ public class MainPresenterImplTest {
 }
 ```
 
-The first actual test we want to write is called “testReverseViewVisibilityFromVisibleToGone”. As the name says, we are going to make sure that the presenter sets the proper visibility when the view passed in to the reverseViewVisibility() method is visible.
+我们要写的第一个测试是 “testReverseViewVisibilityFromVisibleToGone”。顾名思义，我们将要验证的是，当可见的 View 被传入 presenter 的 reverseViewVisibility() 方法时，presenter 能正确地设置 View 的可见性。
 
-```
+``` java
    @Test
     public void testReverseViewVisibilityFromVisibleToGone() throws Exception {
         final View view = Mockito.mock(View.class);
@@ -379,13 +381,13 @@ The first actual test we want to write is called “testReverseViewVisibilityFro
     }
 ```
 
-Let’s step through this together. What is actually going on here? Well, when the isShown() method is called on the view that is passed in to the presenter, we want to say yes, the view is shown, because we are testing from visible to gone, so we need to start at visible. Then, we call the presenters reverseViewVisibility() method by passing in the mocked view. Now we need to verify that the mocked views .setVisibility() was called at least once, and it was set to View.GONE. Afterwards, we need to verify that the presenters view setButtonText() method was called. Not that hard right?
+我们一起看下，这里具体做了什么？由于我们要测试的是 view 从可见到不可见的操作，我们需要 view 一开始是可见的，因此我们希望一开始调用 view 的 isShown() 方法返回是 true。接着，以模拟的 view 作为入参调用 presenter 的 reverseViewVisibility() 方法。现在我们需要确认 view 最近被调用的方法是 setVisibility()，并且设置为 GONE。然后，我们需要确认与 presenter 绑定的 view 的 setButtonText() 方法是否调用。并不难吧？
 
-Alright, lets do the opposite. Before moving on and looking at the next piece of code, take some time to figure it out yourself. How would we test going from hidden to visible? Think about what you already know.
+嗯，接着我们进行相反的测试。在继续阅读下面的代码之前，试着自己想一下怎么做。如何测试从隐藏到显示的情况？根据上面已知的信息思考一下。
 
-Here’s the code:
+代码实现如下：
 
-```
+``` java
     @Test
     public void testReverseViewVisibilityFromGoneToVisible() throws Exception {
         final View view = Mockito.mock(View.class);
@@ -399,9 +401,9 @@ Here’s the code:
 ```
 
 
-Lets move on to testing our “Model.” As before, we start by adding the @RunWith (MockitoJUnitRunner.class) annotation on top of our class.
+接着测试 “Model”。和前面一样，我们首先在类顶部添加注解 @RunWith (MockitoJUnitRunner.class) 。
 
-``` 
+``` java 
 @RunWith(MockitoJUnitRunner.class)
 
 publicclassUtilsTest{
@@ -412,11 +414,11 @@ publicclassUtilsTest{
 ```
  
 
-As mentioned previously, our Utils class first checks if the view is not null. If not, a visibility is applied, otherwise nothing is done.
+如前面所说，Utils 类首先检查 view 是否为 null。如果不为 null 将执行显隐操作，反之什么都不会做。
 
-The tests for this class are very easy, so I am just going to put the whole thing here without stepping through it line by line.
+Utils 类的测试十分简单，因此我不再逐行解释，大家直接看代码即可。
 
-```
+``` java
 @RunWith (MockitoJUnitRunner.class)
 public class UtilsTest {
 
@@ -451,11 +453,11 @@ public class UtilsTest {
 ```
  
 
-I’ll explain what is going on in the testShowViewWithNullView() and testHideViewWithNullView() methods. Why would we want to test something like this? Well if we think about it for a second, we do not want our method calls to crash the entire application because the view was null.
+我解释下 testShowViewWithNullView() 和 testHideViewWithNullView() 方法的作用。为什么要进行这些测试？试想下，我们不希望因为 view 为 null 时调用方法造成整个应用的崩溃。
 
-Lets take a look at the Utils showView() method. If we remove the null check, the app will throw a NullPointerException and would crash.
+我们看下 Utils 的 showView() 方法。如果不做 null 检查，当 view 为 null 时应用会抛出 NullPointerException 并崩溃。
 
-```
+``` java
 public final class Utils {
 
     // ...
@@ -470,9 +472,9 @@ public final class Utils {
 }
 ```
 
-In other scenarios we may want the app to actually throw an exception. How would we test an exception? Its actually very easy: You would just pass in an expected param to the @Test annotation like so:
+另外一些情况下，我们需要应用抛出一个异常。我们如何测试一个异常？十分简单：只需要对 @Test 注解传递一个 expected 参数进行指定：
 
-```
+``` java
 @RunWith (MockitoJUnitRunner.class)
 public class UtilsTest {
 
@@ -485,13 +487,13 @@ public class UtilsTest {
 }
 ```
 
-If no exception is thrown, the test would fail.
+如果没有异常抛出，该测试会失败。
 
-Again, you can find all of the code on [GitHub](https://github.com/josias1991/TestingMVP).
+再次提示，你可以在 [GitHub](https://github.com/josias1991/TestingMVP) 获取全部代码。
 
-Now that we are at the end of the post, I want to mention something to you guys: Testing will not always be as straightforward as it was in this example, but it doesn’t mean it can’t, and shouldn’t be done. As software developers, we need to make sure that our applications work properly and as expected. We need to make sure others trust our code. I have been doing this for many years and you couldn’t imagine how many times tests have saved me, even for the simplest thing such as changing a view ID.
+本文接近尾声，需要提醒大家的是：测试并不总是像本例这样简单，但也不意味着不会如此或不该如此。作为开发者，我们需要确保应用正确的运行。我们需要确保大家信任我们的代码。我已经持续这样做许多年了，你可能无法想象测试拯救了我多少次，甚至是像改变 view ID 这样最简单的事。
 
-No one is perfect, but tests help us get a step closer. Keep on coding, keep on testing and until next time!
+没有人是完美的，但是测试让我们趋近完美。保持编码，保持测试，直到永远！
 
 ---
 
