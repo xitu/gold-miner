@@ -1,155 +1,154 @@
 > * 原文地址：[Why Learn Functional Programming in JavaScript? (Composing Software)(part 2)](https://medium.com/javascript-scene/why-learn-functional-programming-in-javascript-composing-software-ea13afc7a257)
 > * 原文作者：[Eric Elliott](https://medium.com/@_ericelliott?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
-> * 校对者：
+> * 译者：[gy134340](https://github.com/gy134340)
+> * 校对者：[sunui](https://github.com/sunui),[avocadowang](https://github.com/avocadowang)
 
-# Why Learn Functional Programming in JavaScript? (Composing Software)
+# 为什么用 JavaScript 学习函数式编程？（软件编写）（第二部分）
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*uVpU7iruzXafhU2VLeH4lw.jpeg">
 
-Smoke Art Cubes to Smoke — MattysFlicks — (CC BY 2.0)
-> Note: This is part of the “Composing Software” series on learning functional programming and compositional software techniques in JavaScript ES6+ from the ground up. Stay tuned. There’s a lot more of this to come!
-> [Start over at Part 1](https://medium.com/javascript-scene/the-rise-and-fall-and-rise-of-functional-programming-composable-software-c2d91b424c8c#.2dfd6n6qe) | [Next >](https://medium.com/javascript-scene/a-functional-programmers-introduction-to-javascript-composing-software-d670d14ede30#.2e4youss2)
+烟雾的方块艺术 —MattysFlicks —(CC BY 2.0)
+> 注意：这是从基础学习函数式编程和使用 JavaScript ES6+ 撰写软件的第二部分。保持关注，接下来还有很多！
+>  [第一篇](https://github.com/xitu/gold-miner/blob/master/TODO/the-rise-and-fall-and-rise-of-functional-programming-composable-software.md) | [第三篇 >](https://github.com/xitu/gold-miner/blob/master/TODO/a-functional-programmers-introduction-to-javascript-composing-software.md)
 
-Forget whatever you think you know about JavaScript, and approach this material with a beginner’s mind. To help you do that, we’re going to review the JavaScript basics from the ground up, as if you’ve never seen JavaScript before. If you’re a beginner, you’re in luck. Finally something exploring ES6 and functional programming from scratch! Hopefully all the new concepts are explained along the way — but don’t count on too much pampering.
+忘掉你认为知道的关于 JavaScript 的一切，用初学者的眼光去看待它。为了帮助你做到这一点，我们将会从头复习一下 JavaScript 的基础，就像你与其尚未谋面一样。如果你是初学者，那你就很幸运了。最终从零开始探索 ES6 和函数式编程！希望所有的概念都被解释清楚 — 但不要太依赖于此。
 
-If you’re a seasoned developer already familiar with JavaScript, or a pure functional language, maybe you’re thinking that JavaScript is a funny choice for an exploration of functional programming. Set those thoughts aside, and try to approach the material with an open mind. You may find that there is another level to JavaScript programming. One you never knew existed.
+如果你是已经熟悉 JavaScript 或者纯函数式语言的老开发者了，也许你会认为 JavaScript 是探索函数式编程有趣的选择。把这些想法放在一边，用更开放的思想接触它，你会发现 JavaScript 编程更高层次的东西。一些你从来不知道的东西。
 
-Since this text is called “Composing Software”, and functional programming is the obvious way to compose software (using function composition, higher order functions, etc…), you may be wondering why I’m not talking about Haskell, ClojureScript, or Elm, instead of JavaScript.
+由于这个被称为“组合式软件”，同时函数式编程是明显的构建软件的方法（使用函数组合，高阶函数等等），你也许想知道为什么我不用 Haskell、ClojureScript,或者 Elm，而是 JavaScript。
 
-JavaScript has the most important features needed for functional programming:
+JavaScript 有函数式编程所需要的最重要的特性：
 
-1. **First class functions:** The ability to use functions as data values: pass functions as arguments, return functions, and assign functions to variables and object properties. This property allows for higher order functions, which enable partial application, currying, and composition.
-2. **Anonymous functions and concise lambda syntax:**`x => x * 2` is a valid function expression in JavaScript. Concise lambdas make it easier to work with higher-order functions.
-3. **Closures:** A closure is the bundling of a function with its lexical environment. Closures are created at function creation time. When a function is defined inside another function, it has access to the variable bindings in the outer function, even after the outer function exits. Closures are how partial applications get their fixed arguments. A fixed argument is an argument bound in the closure scope of a returned function. In `add2(1)(2)`, `1` is a fixed argument in the function returned by `add2(1)`.
+1. **一级公民函数：** 使用函数作为数据值的能力：用函数传参，返回函数，用函数做变量和对象属性。这个属性允许更高级别的函数，使偏函数应用、柯里化和组合成为可能。
+2. **匿名函数和简洁的 lambda 语法：** `x => x * 2` 是 JavaScript 中有效的函数表达式。简洁的 lambda 语法使得高阶函数变的简单。
+3. **闭包：** 闭包是一个有着自己独立作用域的捆绑函数。闭包在函数被创建时被创建。当一个函数在另一个函数内部被创建，它可以访问外部函数的变量，即使在外部函数退出后。通过闭包偏函数应用可以获取内部固定参数。固定的参数时绑定在返回函数的作用域范围内的参数。在 `add2(1)(2)` 中，`1` 是 `add2(1)` 返回的函数中的固定参数。
 
-### What JavaScript is Missing
+### JavaScript 缺少了什么
 
-JavaScript is a multi-paradigm language, meaning that it supports programming in many different styles. Other styles supported by JavaScript include procedural (imperative) programming (like C), where functions represent a subroutine of instructions that can be called repeatedly for reuse and organization, object-oriented programming, where objects — not functions — are the primary building blocks, and of course, functional programming. The disadvantage of a multi-paradigm language is that imperative and object-oriented programming tend to imply that almost everything needs to be mutable.
+JavaScript 是多范式语言，意味着它支持多种风格的编程。其他被 JavaScript 支持的风格包括过程式（命令式）编程（比如 C），把函数看作可以被重复调用和组织的子程序指令；面向对象编程，对象— 而不是函数— 作为初始构造块；当然，还有函数式编程。多范式编程语言的劣性在于命令式和面向对象往往意味着所有东西都是可变的。
 
-Mutation is a change to data structure that happens in-place. For example:
+可变性指的是数据结构上的变化。比如：
+	
+	const foo = {
+	  bar: 'baz'
+	};
 
-    const foo = {
-      bar: 'baz'
-    };
+	foo.bar = 'qux'; // 改变
 
-    foo.bar = 'qux'; // mutation
+对象通常需要可变性以便于被方法更新值，在命令式的语言中，大部分的数据结构可变以便于数组和对象的高效操作。
 
-Objects usually need to be mutable so that their properties can be updated by methods. In imperative programming, most data structures are mutable to enable efficient in-place manipulation of objects and arrays.
+下面是一些函数式语言拥有但是 JavaScript 没有的特性：
 
-Here are some features that some functional languages have, that JavaScript does not have:
+1. **纯粹性：** 在一些函数式语言中，纯粹性是强制的，有副作用的表达式是不被允许的。
+2. **不可变性：** 一些函数式语言不允许转变，采用表达式来产生新的数据结构来代替更改一个已存的数据结构，比如说数组或者对象。这样看起来可能不够高效，但是大多数函数式语言在引擎下使用 trie 数据结构，具有结构共享的特点：意味着旧的对象和新的对象是对相同数据的引用。
+3. **递归：** 递归是函数引用自身来进行迭代的能力。在大多数函数式语言中，递归是迭代的唯一方式，它们没有像 `for` 、`while`、`do` 这类循环语句。
 
-1. **Purity:** In some FP languages, purity is enforced by the language. Expressions with side-effects are not allowed.
-2. **Immutability:** Some FP languages disable mutations. Instead of mutating an existing data structure, such as an array or object, expressions evaluate to new data structures. This may sound inefficient, but most functional languages use trie data structures under the hood, which feature structural sharing: meaning that the old object and new object share references to the data that is the same.
-3. **Recursion:** Recursion is the ability for a function to reference itself for the purpose of iteration. In many FP languages, recursion is the only way to iterate. There are no loop statements like `for`, `while`, or `do` loops.
+**纯粹性：** 在 JavaScript 中，纯粹性由约定来达成，如果你不是使用纯函数来构成你的大多数应用，那么你就不是在进行函数式风格的编程。很不幸，在 JavaScript 中，你很容易就会不小心创建和使用一些不纯的函数。
 
-**Purity:** In JavaScript, purity must be achieved by convention. If you’re not building most of your application by composing pure functions, you’re not programming using the functional style. It’s unfortunately easy in JavaScript to get off track by accidentally creating and using impure functions.
+**不可变性：** 在纯函数式语言中，不可变性通常是强制的，JavaScript 缺少函数式语言中高效的、基于 trie 树的数据结构，但是你可以使用一些库，包括 [Immutable.js](https://facebook.github.io/immutable-js/) 和 [Mori](https://github.com/swannodette/mori)，由衷期望未来的 ECMAScript 规范版本可以拥抱不可变数据结构。
 
-**Immutability:** In pure functional languages, immutability is often enforced. JavaScript lacks efficient, immutable trie-based data structures used by most functional languages, but there are libraries that help, including [Immutable.js](https://facebook.github.io/immutable-js/) and [Mori](https://github.com/swannodette/mori). I’m hoping that future versions of the ECMAScript spec will embrace immutable data structures.
+有一些迹象带来了希望，比如说在 ES6 中添加了 `const` 关键字，`const` 声明的变量不能被重新赋值，重要的是要理解 `const` 所声明的值并不是不可改变的。
 
-There are signs that offer hope, like the addition of the `const` keyword in ES6. A name binding defined with `const` can't be reassigned to refer to a different value. It's important to understand that `const` does not represent an immutable *value.*
+`const` 声明的对象不能被重新声明为新的对象，但是对象的属性却是可变的，JavaScript 有 `freeze()` 对象的能力，但是这些对象只能在根实例上被冻结，意味着嵌套着的对象还是可以改变它的属性。换句话说，在 JavaScript 规范中看到真正的不可变还有很长的路要走。
 
-A `const` object can't be reassigned to refer to a completely different object, but the object it refers to *can have its properties mutated*. JavaScript also has the ability to `freeze()` objects, but those objects are only frozen at the root level, meaning that a nested object can still have properties of its properties mutated. In other words, there's still a long road ahead before we see true composite immutables in the JavaScript specification.
+**递归：** JavaScript 技术上支持递归，但是大多数函数式语言都有尾部调用优化的特性，尾部调用优化是一个允许递归的函数重用堆栈帧来递归调用的特性。
 
-**Recursion:** JavaScript technically supports recursion, but most functional languages have a feature called tail call optimization. Tail call optimization is a feature which allows recursive functions to reuse stack frames for recursive calls.
+没有尾部调用优化，一个调用的栈很可能没有边界导致堆栈溢出。JavaScript 在 ES6 规范中有一个有限的尾调用优化。不幸的是，只有一个主要的浏览器引擎支持它，这个优化被部分应用随后从 Babel(最流行的 JavaScript 编译器，在旧的浏览器中被用来把 ES6 编译到 ES5) 中移除。
 
-Without tail call optimization, a call stack can grow without bounds and cause a stack overflow. JavaScript technically got a limited form of tail call optimization in the ES6 specification. Unfortunately, only one of the major browser engines implemented it, and the optimization was partially implemented and then subsequently removed from Babel (the most popular standard JavaScript compiler, used to compile ES6 to ES5 for use in older browsers).
+最重要的事实：现在使用递归来作为大的迭代还不是很安全 — 即使你很小心的调用尾部的函数。
 
-Bottom line: It still isn’t safe to use recursion for large iterations — even if you’re careful to call the function in the tail position.
+### 什么又是 JavaScript 拥有但是纯函数式语言缺乏的
 
-### What JavaScript Has that Pure Functional Languages Lack
+一个纯粹主义者会告诉你 JavaScript 的可变性是它的重大缺点，这是事实。但是，引起的副作用和改变有时候很有用。事实上，不可能在规避所有副作用的情况下开发有用的现代应用。纯函数式语言比如说 Haskell 使用副作用，使用 monads 包将有副作用的函数伪装成纯函数，从而使程序保持纯净，尽管用 Monads 所带来的副作用是不纯净的。
 
-A purist will tell you that JavaScript’s mutability is its major disadvantage, which is true. However, side effects and mutation are sometimes beneficial. In fact, it’s impossible to create most useful modern applications without side effects. Pure functional languages like Haskell use side-effects, but camouflage them from pure functions using boxes called monads, allowing the program to remain pure even though the side effects represented by the monads are impure.
+Monads 的问题是，尽管它的使用很简单，但是对一个不是很熟悉它的人解释清楚它有点像“对牛谈琴”。
 
-The trouble with monads is that, even though their use is quite simple, explaining what a monad is to somebody unfamiliar with lots of examples is a bit like explaining what the color “blue” looks like to a blind person.
+> “Monad说白了不过就是自函子范畴上的一个幺半群而已，这有什么难以理解的?” ～James Iry 所引用 Philip Wadler 的话，解释一个 Saunders Mac Lane 说过的名言。[**“编程语言简要、不完整之黑历史”**](http://james-iry.blogspot.com/2009/05/brief-incomplete-and-mostly-wrong.html)
 
-> “A monad is a monoid in the category of endofunctors, what’s the problem?” ~ James Iry, fictionally quoting Philip Wadler, paraphrasing a real quote by Saunders Mac Lane.[*“A Brief, Incomplete, and Mostly Wrong History of Programming Languages”*](http://james-iry.blogspot.com/2009/05/brief-incomplete-and-mostly-wrong.html)
+典型的，这是在调侃这有趣的一点。在上面的引用中，关于 Monads 的解释相比最初的有了很大的简化，原来是下面这样：
 
-Typically, parody exaggerates things to make a funny point funnier. In the quote above, the explanation of monads is actually *simplified* from the original quote, which goes like this:
+> “`X` 中的 monad 是其 endofunctor 范畴的幺半群，生成 endofunctor 和被 endofunctor 单位 set 组合所代替的 `X` ” ~ Saunders Mac Lane。 [*"Categories for the Working Mathematician"*](https://www.amazon.com/Categories-Working-Mathematician-Graduate-Mathematics/dp/0387984038//ref=as_li_ss_tl?ie=UTF8&amp;linkCode=ll1&amp;tag=eejs-20&amp;linkId=de6f23899da4b5892f562413173be4f0)
 
-> “A monad in `X` is just a monoid in the category of endofunctors of `X`, with product `×` replaced by composition of endofunctors and unit set by the identity endofunctor." ~ Saunders Mac Lane. [*"Categories for the Working Mathematician"*](https://www.amazon.com/Categories-Working-Mathematician-Graduate-Mathematics/dp/0387984038//ref=as_li_ss_tl?ie=UTF8&amp;linkCode=ll1&amp;tag=eejs-20&amp;linkId=de6f23899da4b5892f562413173be4f0)
+尽管这样，在我的观点看来，害怕 Monads 是没有必要的，学习 Monads 最好的方法不是去读关于它的一堆书和博客，而是立刻去使用它。对于大部分的函数式编程语言来说，晦涩的学术词汇比它实际概念难的多，相信我，你不必通过了解 Saunders Mac Lane 来了解函数式编程。
 
-Even so, in my opinion, fear of monads is weak reasoning. The best way to learn monads is not to read a bunch of books and blog posts on the subject, but to jump in and start using them. As with most things in functional programming, the impenetrable academic vocabulary is much harder to understand than the concepts. Trust me, you don’t have to understand Saunders Mac Lane to understand functional programming.
+尽管它不是对所有的编程风格都绝对完美，JavaScript 无疑是作为适应各种编程风格和背景的人的通用编程语言被设计出来的。
 
-While it may not be absolutely ideal for every programmming style, JavaScript is unapologetically a general-purpose language designed to be usable by various people with various programming styles and backgrounds.
+根据 [Brendan Eric](https://brendaneich.com/2008/04/popularity/) 所言，在一开始的时候，网景公司就有意适应两类开发者：
 
-[According to Brendan Eich](https://brendaneich.com/2008/04/popularity/), this was intentional from the beginning. Netscape had to support two kinds of programmers:
+> “...写组件的，比如说 C++ 或者 Java；写脚本的、业余的和爱好者，比如直接写嵌在 HTML 里的代码的。”
 
-> *“…the component authors, who wrote in C++ or (we hoped) Java; and the ‘scripters’, amateur or pro, who would write code directly embedded in HTML.”*
+本来，网景公司的意向是支持两种不同的语言，同时脚本语言大致要像 Scheme (一个 Lisp 的方言)，而且，Brendan Eich：
 
-Originally, the intent was that Netscape would support two different languages, and the scripting language would probably resemble Scheme (a dialect of Lisp). Again, Brendan Eich:
+> “我被招聘到网景公司，目的是在浏览器中 **做一些 Scheme**”。
 
-> *“I was recruited to Netscape with the promise of ‘doing Scheme’ in the browser.”*
+JavaScript 应当是一门新的语言：
 
-JavaScript had to be a new language:
+> “上级工程管理的命令是这门语言**应当像 Java**，这就排除了 Perl，Python，和 Tcl，以及 Scheme。”
 
-> *“The *diktat* from upper engineering management was that the language must ‘look like Java’. That ruled out Perl, Python, and Tcl, along with Scheme.”*
+所以，Brendan Eich 最初脑子里的想法是：
 
-So, the ideas in Brendan Eich’s head from the beginning were:
+1. 浏览器中的 Scheme。
+2. 看起来像 Java。
 
-1. Scheme in the browser.
-2. Look like Java.
+它最终更像是个大杂烩：
 
-It ended up being even more of a mish-mash:
+>“我不骄傲，但我很高兴我选择了 Scheme 的一类函数和 Self（尽管奇怪）的原型作为主要的元素。”由于 Java 的影响，特别是 y2k 的 Date 问题以及对象的区别（比如 string 和 String），就不幸了。”
 
-> *“I’m not proud, but I’m happy that I chose Scheme-ish first-class functions and Self-ish (albeit singular) prototypes as the main ingredients. The Java influences, especially y2k Date bugs but also the primitive vs. object distinction (e.g., string vs. String), were unfortunate.”*
+我列出了这些 “不好的” 的类 Java 特性，最后整理成 JavaScript:
 
-I’d add to the list of “unfortunate” Java-like features that eventually made their way into JavaScript:
+* 构造函数和 `new` 关键子，跟工厂函数有着不同的调用和使用语义。
+* `class` 的关键字和单一父类 `extends` 作为最初的继承机制。
+* 用户更习惯于把 `class` 看作是它的静态类型（实际并非如此）。
 
-- Constructor functions and the `new` keyword, with different calling and usage semantics from factory functions.
-- A `class` keyword with single-ancestor `extends` as the primary inheritance mechanism.
-- The user’s tendency to think of a `class` as if it's a static type (it's not).
+我的意见：永远避免使用这些东西。
 
-My advice: Avoid those whenever you can.
+很幸运 JavaScript 成为了这样厉害的语言，因为事实上证明脚本的方式赢了那些建立在“组件”上的方式（现在，Java、Flash、和 ActiveX 扩展已经不被大部分安装的浏览器支持）。
 
-We’re lucky that JavaScript ended up being such a capable language, because it turns out that the scripting approach won over the “component” approach (today, Java, Flash, and ActiveX extensions are unsupported in huge numbers of installed browsers).
+我们最终创作了一个直接被浏览器支持的语言：JavaScript。
 
-What we eventually ended up with was one language directly supported by the browser: JavaScript.
+那意味着浏览器可以减少臃肿和问题，因为它们现在只需要支持一种语言：JavaScript。你也许认为 WebAssembly 是例外，但是 WebAssembly 设计之初的目的是使用兼容的抽象语法树来共享 JavaScript 的语言绑定（AST）。事实上，最早的把 WebAssembly 编译成 JavaScript 的子集的示范是 ASM.js。
 
-That means that browsers are less bloated and less buggy, because they only need to support a single set of language bindings: JavaScript’s. You might be thinking that WebAssembly is an exception, but one of the design goals of WebAssembly is to share JavaScript’s language bindings using a compatible Abstract Syntax Tree (AST). In fact, the first demonstrations compiled WebAssembly to a subset of JavaScript known as ASM.js.
+作为 web 平台唯一的通用标准编程语言，JavaScript 在软件历史潮流中乘风直上：
 
-The position as the only standard general purpose programming language for the web platform allowed JavaScript to ride the biggest language popularity wave in the history of software:
+App 吞食世界， web 吞食 app， 同时 JavaScript 吞食 web。
 
-Apps ate the world, the web ate apps, and JavaScript ate the web.
+根据[多个平台](http://redmonk.com/sogrady/2016/07/20/language-rankings-6-16/)[调查](http://stackoverflow.com/research/developer-survey-2016)，[JavaScript](https://octoverse.github.com/) 是目前世界上最流行的语言。
 
-By [multiple](http://redmonk.com/sogrady/2016/07/20/language-rankings-6-16/)[measures](http://stackoverflow.com/research/developer-survey-2016), [JavaScript](https://octoverse.github.com/) is now the most popular programming language in the world.
+JavaScript 并不是函数式编程的理想化工具，但是它却是为大型的分布式的团队开发大型应用的好工具，因为不同的团队对于如何构建一个应用或许有不同的看法。
 
-JavaScript is not the ideal tool for functional programming, but it’s a great tool for building large applications on very large, distributed teams, where different teams may have different ideas about how to build an application.
+一些团队致力于脚本化，那么命令式的编程就特别有用，另外一些更精于抽象架构，那么一点保留的面向对象方法也许不失为坏。还有一些拥抱函数式编程，使用纯函数来确保稳定性、可测试性和项目状态管理以便减少用户的反馈。团队里的这些人可以使用相同的语言，意味着他们可以更好的交换想法，互相学习和在其他人的基础上更进一步的开发。
 
-Some teams may concentrate on scripting glue, where imperative programming is particularly useful. Others may concentrate on building architectural abstractions, where a bit of (restrained, careful) OO thinking may not be a bad idea. Still others may embrace functional programming, reducing over user actions using pure functions for deterministic, testable management of application state. Members on these teams are all using the same language, meaning that they can more easily exchange ideas, learn from each other, and build on each other’s work.
+在 JavaScript 中，所有这些想法可以共存，这样就让更多的人开始拥抱 JavaScript，然后就产生了[世界上最大的开源包管理器](http://www.modulecounts.com/) (2017 年 2 月)，[npm](https://www.npmjs.com/)。
 
-In JavaScript, all of these ideas can co-exist, which allows more people to embrace JavaScript, which has led to the [largest open-source package registry in the world](http://www.modulecounts.com/) (as of February, 2017), [npm](https://www.npmjs.com/).
+JavaScript 的真正优势在于其生态系统中的思想和用户的多样性。它也许不是纯函数式编程最理想的语言，但它是你可以想象的工作在不同平台的人共同合作的理想语言，比如说 Java、Lisp 或者 C。JavaScript 也许并不对有这些背景的用户完全友好，但是这些人很乐意学习这门语言并迅速投入生产。
 
-The true strength of JavaScript is diversity of thought and users in the ecosystem. It may not be absolutely the ideal language for functional programming purists, but it may be the ideal language for working together using one language that works on just about every platform you can imagine — familiar to people coming from other popular languages such as Java, Lisp, or C. JavaScript won’t feel ideally comfortable to users with any of those backgrounds, but they may feel *comfortable enough* to learn the language and become productive quickly.
+我同意 JavaScript 并不是对函数式编程者最好的语言。但是，没有任何其他语言可以声称他们可以被所有人使用，同时正如 ES6 所述：JavaScript 可以满足到更与喜欢函数式编程的人的需要，同时也越来越好。相比于抛弃 JavaScript 和世界上几乎每家公司都使用的令人难以置信的生态系统，为什么不拥抱它，把它变成一个更适合软件组合化的语言？
 
-I agree that JavaScript is not the best language for functional programmers. However, no other functional language can claim that it is a language that everybody can use and embrace, and as demonstrated by ES6: JavaScript can and does get better at serving the needs of users interested in functional programming. Instead of abandoning JavaScript and its incredible ecosystem used by virtually every company in the world, why not embrace it, and make it a better language for software composition incrementally?
+现在，JavaScript 已经是一门**足够优秀**的函数式编程语言，意味着人们可以使用 JavaScript 的函数式编程方法来构造很多有趣的和有用的东西。Netflix（和其他使用 Angular 2+ 的应用）使用基于 RxJS 的函数式功能。[Facebook](https://github.com/facebook/react/wiki/sites-using-react)在 React 中使用纯函数、高阶函数和高级组件来开发 Facebook 和 Instagram，[PayPal、KhanAcademy、和Flipkart](https://github.com/reactjs/redux/issues/310)使用 Redux 来进行状态管理。
 
-As-is, JavaScript is already a *good enough* functional programming language, meaning that people are building all kinds of useful and interesting things in JavaScript, using functional programming techniques. Netflix (and every app built with Angular 2+) uses functional utilities based on RxJS. [Facebook](https://github.com/facebook/react/wiki/sites-using-react) uses the concepts of pure functions, higher-order functions, and higher order components in React to build Facebook and Instagram. [PayPal, KhanAcademy, and Flipkart](https://github.com/reactjs/redux/issues/310) use Redux for state management.
+它们并不孤单：Angular、React、Redux 和 Lodash 是 JavaScript 生态系统中主要的框架和库，同时它们都被函数式编程很深的影响到— 在 Lodash 和 Redux 中，明确地表达是为了在实际的 JavaScript 应用中使用函数式编程模式。
 
-They’re not alone: Angular, React, Redux, and Lodash are the leading frameworks and libraries in the JavaScript application ecosystem, and all of them are heavily influenced by functional programming — or in the cases of Lodash and Redux, built for the express purpose of enabling functional programming patterns in real JavaScript applications.
+“为什么是 JavaScript?”因为 JavaScript 是实际上大多数公司开发真实的软件所使用的语言。无论你对它是爱是恨，JavaScript 已经取代了 Lisp 这个数十年来 “最受欢迎的函数式编程语言”。事实上，Haskell 更适合当今函数式编程概念的标准，但是人们并不使用它来开发实际应用。
 
-“Why JavaScript?” Because JavaScript is the language that most real companies are using to build real software. Love it or hate it, JavaScript has stolen the title of “most popular functional programming language” from Lisp, which was the standard bearer for decades. True, Haskell is a much more suitable standard bearer for functional programming concepts today, but people just aren’t building as many real applications in Haskell.
+在任何时候，在美国都有近十万的 JavaScript 工作需求，世界其他地方也有数十万的量。学习 Haskell 可以帮助你很好的学习函数式编程，但学习 JavaScript 将会教会你在实际工作中开发应用。
 
-At any given moment, there are close to a hundred thousand JavaScript job openings in the United States, and hundreds of thousands more world-wide. Learning Haskell will teach you a lot about functional programming, but learning JavaScript will teach you a lot about building production apps for real jobs.
+App 正在吞食世界， web 正在吞食 app， 同时 JavaScript 正在吞食 web。
 
-Apps ate the world, the web ate apps, and JavaScript ate the web.
+[**第三篇: 函数式开发者的 JavScript 介绍…**](https://github.com/xitu/gold-miner/blob/master/TODO/a-functional-programmers-introduction-to-javascript-composing-software.md)
 
-[**Continued in Part 3: A Functional Programmer’s Introduction to JavaScript…**](https://medium.com/javascript-scene/a-functional-programmers-introduction-to-javascript-composing-software-d670d14ede30#.zdpw16p65)
+### 下一步
 
-### Next Steps
+想更多的学习 JavaScript 的函数式编程？
 
-Want to learn more about functional programming in JavaScript?
+[Learn JavaScript with Eric Elliott](http://ericelliottjs.com/product/lifetime-access-pass/)，什么，你还不是其中之一，out 了！
 
-[Learn JavaScript with Eric Elliott](http://ericelliottjs.com/product/lifetime-access-pass/). If you’re not a member, you’re missing out!
+[![](https://cdn-images-1.medium.com/freeze/max/30/1*3njisYUeHOdyLCGZ8czt_w.jpeg?q=20)![](https://cdn-images-1.medium.com/max/800/1*3njisYUeHOdyLCGZ8czt_w.jpeg)](https://ericelliottjs.com/product/lifetime-access-pass/)
 
-[<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*3njisYUeHOdyLCGZ8czt_w.jpeg">
-](https://ericelliottjs.com/product/lifetime-access-pass/)
 
+*Eric Elliott* 是 [*“Programming JavaScript Applications”*](http://pjabook.com) (O’Reilly) 和 “Learn JavaScript with Eric Elliott” 的作者。他曾效力于 *Adobe Systems, Zumba Fitness, he Wall Street Journal, ESPN, BBC, and top recording artists including Usher, Frank Ocean, Metallica* 和其他一些公司。
 
-***Eric Elliott*** is the author of [*“Programming JavaScript Applications”*](http://pjabook.com) (O’Reilly), and [*“Learn JavaScript with Eric Elliott”*](http://ericelliottjs.com/product/lifetime-access-pass/). He has contributed to software experiences for **Adobe Systems, Zumba Fitness, The Wall Street Journal, ESPN, BBC, and top recording artists including Usher, Frank Ocean**, Metallica, and many more.
-
-*He spends most of his time in the San Francisco Bay Area with the most beautiful woman in the world.*
+**他和她的老婆（很漂亮）大部分时间都在旧金山湾区里。**
 
 
 ---

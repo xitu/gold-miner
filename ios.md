@@ -1,3 +1,5 @@
+* [在 Swift 中使用闭包实现懒加载](https://juejin.im/post/590a9eeab123db00549776ee/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lsvih](https://github.com/lsvih)) 翻译)
+* [掌握 Swift 的字符串细节](https://juejin.im/post/58f822ff5c497d0058e0e427/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Tuccuay（洪朔）](https://github.com/Tuccuay)) 翻译)
 * [MVVM-C 与 Swift](https://juejin.im/post/58ef16b8da2f60005d180666/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([DeepMissea](https://github.com/DeepMissea)) 翻译)
 * [Swift 闭包和代理中的保留周期](https://juejin.im/post/58e4ac5d44d904006d2a9a19/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([oOatuo](http://atuo.xyz/)) 翻译)
 * [一名 iOS 开发者的 React Native 开发经历](https://juejin.im/post/58df4c3fa0bb9f0069e2f2bd/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lsvih](https://github.com/lsvih)) 翻译)
