@@ -1,3 +1,4 @@
+* [使用速率限制扩展你的 API](https://github.com/xitu/gold-miner/blob/master/TODO/rate-limiters.md?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([tanglie1993](https://github.com/tanglie1993/) 翻译)
 * [真相就在代码中](https://juejin.im/post/59152d17da2f60005dd0ae77?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)[loveky](https://github.com/loveky) 翻译)
 * [nginScript 入门](https://github.com/xitu/gold-miner/blob/master/TODO/introduction-nginscript.md?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([1992chenlu](https://github.com/1992chenlu) 翻译)
 * [我是如何找回 Reddit 密码的](https://juejin.im/entry/590aee94da2f60005328fb2d/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([cdpath](https://github.com/cdpath) 翻译)
