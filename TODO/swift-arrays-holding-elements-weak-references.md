@@ -1,26 +1,26 @@
 > * 原文地址：[Swift Arrays Holding Elements With Weak References](https://marcosantadev.com/swift-arrays-holding-elements-weak-references/)
 > * 原文作者：[Marco Santarossa](https://marcosantadev.com/about-me/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
+> * 译者：[zhangqippp](https://github.com/zhangqippp)
 > * 校对者：
 
-# [Swift Arrays Holding Elements With Weak References](https://marcosantadev.com/swift-arrays-holding-elements-weak-references/) #
+# [对元素持有弱引用的Swift数组](https://marcosantadev.com/swift-arrays-holding-elements-weak-references/) #
 
 ![](https://marcosantadev.com/wp-content/uploads/header-1.jpg)
 
-In iOS development there are moments where you ask yourself: “To weak, or not to weak, that is the question”. Let’s see how “to weak” with the arrays.
+在 iOS 开发中我们经常面临一个问题：“使用弱引用，还是不使用弱引用？”。我们来看一下如何在数组中使用弱引用。
 
-# Overview #
+# 概述 #
 
-*In this article, I speak about memory management without explaining it since it would be beyond the goal of this article. The [official documentation](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/AutomaticReferenceCounting.html) is a good starting point to learn this subject. Then, if you have other doubts, please leave a comment and I’ll reply as soon as possible.*
+*在本文中，我会谈到内存管理但是不会解释它，因为这不是本文的主题。  这里的[官方文档](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/AutomaticReferenceCounting.html)可以帮助你开始学习内存管理。 如果你有其它疑问，请留言，我会尽快给予回复。*
 
-`Array` is the most popular collection in Swift. By default, it maintains a strong references of its elements. Even if this behaviour is useful most of the time, you might have some scenarios where you would want to use weak references. For this reason, Apple provides an alternative to `Array` which maintains weak references of its elements: **NSPointerArray**.
+`Array` 是Swift中使用最多的集合。它会默认的对其元素持有强引用。 这种默认的行为在大多数时候都很有用，但是在某些场景下你可能想要使用弱引用。因此，苹果公司给我们提供了一个 `Array` 的替代品：**NSPointerArray**，这个类对它的元素持有弱引用。
 
-Before looking at this class, let’s see and example to understand why we should use it.
+在开始研究这个类之前，我们先通过一个例子来了解为什么我们需要使用它。
 
-# Why Weak References? #
+# 为什么要使用弱引用？ #
 
-Let’s use, as example, a `ViewManager` class which has two properties of type `View`. In its constructor, we add these views in an array to inject inside `Drawer`—which uses this array to draw something inside the views. Finally, we have a method `destroyViews` to destroy the two `View`s:
+举个例子，我们有一个 `ViewManager` ，它有两个 `View` 类型的属性。在它的构造器中，我们把这些视图添加到 `Drawer` 内部的一个数组中，`Drawer` 使用这个数组在其中的视图内绘制一些内容。最后，我们还有一个 `destroyViews` 方法来销毁这两个 `View`：
 
 ```
 class View { }
@@ -56,13 +56,13 @@ class ViewManager {
 ```
  
 
-Unfortunately, `destroyViews` doesn’t destroy the two views because the array inside `Drawer` is maintaining a strong reference of the views. We can avoid this problem replacing the array with a `NSPointerArray`.
+但是，`destroyViews` 方法并没能销毁这两个视图，因为 `Drawer` 内部的数组依然对这些视图保持着强引用。我们可以通过使用 `NSPointerArray` 来避免这个问题。
 
 # [NSPointerArray](https://developer.apple.com/reference/foundation/nspointerarray) #
 
-`NSPointerArray` is an alternative to `Array` with the main difference that it doesn’t store an object but its pointer (`UnsafeMutableRawPointer`).
+`NSPointerArray` 是 `Array` 的一个替代品，主要区别在于它不存储对象而是存储对象的指针（ `UnsafeMutableRawPointer` ）。 
 
-This type of array can store the pointer maintaining either a weak or a strong reference depending on how it’s initialised. It provides two static methods to be initialised in different ways:
+这种类型的数组可以管理弱引用也可以管理强引用，取决于它是如何被初始化的。它提供两个静态方法以便我们使用不同的初始化方式：
 
 ```
 let strongRefarray = NSPointerArray.strongObjects() // Maintains strong references
@@ -70,9 +70,9 @@ let weakRefarray = NSPointerArray.weakObjects() // Maintains weak references
 ```
  
 
-Since we want an array of weak references, we’ll use `NSPointerArray.weakObjects()`.
+我们需要一个弱引用的数组，所以我们使用 `NSPointerArray.weakObjects()`。
 
-Now, we can add a new object in this array:
+现在，我们向数组中添加一个新对象：
 
 ```
 class MyClass { }
@@ -84,7 +84,7 @@ let pointer = Unmanaged.passUnretained(obj).toOpaque()
 array.addPointer(pointer)
 ```
 
-Since using the pointer may be annoying, you can use this extension which I made to simplify the `NSPointerArray`:
+如果你觉得这样使用指针很烦，你可以使用我写的这个扩展，可以简化 `NSPointerArray ` 的使用：
 
 ```
 extension NSPointerArray {
@@ -122,7 +122,7 @@ extension NSPointerArray {
 }
 ```
 
-Thanks to this extension, you can replace the previous example with:
+有了这个扩展类，你可以将前面的例子替换为：
 
 ```
 var array = NSPointerArray.weakObjects()
@@ -131,13 +131,13 @@ let obj = MyClass()
 array.addObject(obj)
 ``` 
 
-If you want to clean the array removing the objects with value `nil`, you can call the method `compact()`:
+如果你想清理这个数组，把其中的对象都置为 `nil`，你可以调用 `compact()` 方法：
 
 ```
 array.compact()
 ```
  
-At this point, we can refactor the example used in “Why Weak References?” with the following code:
+到了这里，我们可以将上一小节 “为什么要使用弱引用？” 中的例子重构为如下代码：
 
 ```
 class View { }
@@ -176,21 +176,21 @@ class ViewManager {
  
 ```
 
-Note:
+注意:
 
-1. You may have noticed that `NSPointerArray` stores pointers of `AnyObject` only, it means that you can store just classes—so neither structs nor enums. You can store protocols if they have the keyword [`class`](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/Protocols.html#//apple_ref/doc/uid/TP40014097-CH25-ID281):
+1. 你可能已经注意到了 `NSPointerArray` 只存储 `AnyObject` 的指针，这意味着你只能存储类 —— 结构体和枚举都不行。你可以存储带有 [`class`](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/Protocols.html#//apple_ref/doc/uid/TP40014097-CH25-ID281) 关键字的协议：
 
 ```
 protocolMyProtocol: class{}
 ```
 
-2. If you want to play with `NSPointerArray`, I suggest you to avoid the Playground since you may have odd behaviours with the retain count. A sample app would be better.
+2. 如果你想试用一下 `NSPointerArray`，我建议不要试用 Playground ，因为你可能因为引用计数问题得到一些奇怪的行为。使用一个简单的 app 会更好。
 
-# Alternatives #
+# 备选方案 #
 
-`NSPointerArray` is very useful to store objects maintaining weak references, but it has a problem: it’s not type-safe.
+`NSPointerArray` 对于存储对象和保持弱引用来说非常有用，但是它有一个问题：它不是类型安全的。 
 
-For “not type-safe”, I mean that the compiler is not able to infer the type of the objects inside `NSPointerArray`, since it uses pointers of objects `AnyObject`. For this reason, when you get an object from the array, you must cast it to your object type:
+“非类型安全”，在此处的意思是编译器无法隐含 `NSPointerArray` 内部对象的类型，因为它使用的是 `AnyObject` 型对象的指针。因此，当你从数组中获取一个对象时，你需要检查它是否是你所需要的类型：
 
 ```
 ifletfirstObject=array.object(at:0)as?MyClass{// Cast to MyClass
@@ -201,11 +201,11 @@ ifletfirstObject=array.object(at:0)as?MyClass{// Cast to MyClass
 
 ``` 
 
-*`object(at:)` comes from my `NSPointerArray` extension which I shown previously.*
+*`object(at:)` 方法来自我先前展示的 `NSPointerArray` 扩展类。*
 
-If we want to use a type-safe alternative we can’t use `NSPointerArray` anymore.
+如果我们想使用一个类型安全的数组替代品，我们就不能使用 `NSPointerArray` 了。 
 
-A possible workaround is creating a new class `WeakRef` with a generic weak property `value`:
+一个可行的方案是创建一个新类 `WeakRef` ，它带有一个普通的weak属性 `value`：
 
 ```
 classWeakRef<T>whereT: AnyObject{
@@ -222,25 +222,25 @@ classWeakRef<T>whereT: AnyObject{
 ```
  
 
-*`private(set)` exposes `value` in read-only mode, in this way no one can set its value from outside the class.*
+*`private(set)` 方法将 `value` 设置为只读模式, 这样就无法在类的外部设置它的值了。*
 
-Then, we can create an array of `WeakRef`, where `value` is your `MyClass` object to store:
+然后，我们可以创建一组 `WeakRef` 对象，将你的 `MyClass` 对象储存到它们的 `value` 属性：
 
 ```
-vararray=[WeakRef<MyClass>]()
+var array=[WeakRef<MyClass>]()
 
  
 
-letobj=MyClass()
+let obj=MyClass()
 
-letweakObj=WeakRef(value:obj)
+let weakObj=WeakRef(value:obj)
 
 array.append(weakObj)
 ``` 
 
-Now, we have an array type-safe which maintains a weak reference of your `MyClass` objects. The disadvantage of this approach is that we must add an extra layer in our code (`WeakRef`) to wrap the weak reference in a type-safe way.
+现在，我们拥有一个类型安全的数组，其内部对你的 `MyClass` 对象持有弱引用。这种实现的坏处在于，我们必须在代码中多加一层（`WeakRef`），来用一种类型安全的方式包裹弱引用。
 
-If you want to clean the array removing the objects with value `nil`, you can write the following method:
+如果你想清理数组，去除其中值为 `nil` 的对象，你可以使用下面的方法：
 
 ```
 funccompact(){
@@ -250,9 +250,9 @@ funccompact(){
 }
 ```
 
-*`filter` returns a new array with the elements that satisfy the given predicate. You can find more details in the [documentation](https://developer.apple.com/reference/swift/array/1688383-filter).*
+*`filter` 返回一个其中元素满足给定条件的新数组。你可以在[文档](https://developer.apple.com/reference/swift/array/1688383-filter)中获取更多的信息。*
 
-Now, we can refactor the example used in “Why Weak References?” with the following code:
+现在，我们可以将 “为什么要使用弱引用？” 小节中的例子重构为如下代码：
 
 ```
 class View { }
@@ -290,7 +290,7 @@ class ViewManager {
 }
 ```
 
-A cleaner version using the typealias:
+使用类型别名的更简洁的版本如下：
 
 ```
 typealias WeakRefView = WeakRef<View>
@@ -329,15 +329,15 @@ class ViewManager {
 }
 ```
  
-# Dictionary And Set #
+# Dictionary 和 Set #
 
-This article has the main focus on `Array`, if you need something similar to `NSPointerArray` for `Dictionary` you can have a look at [NSMapTable](https://developer.apple.com/reference/foundation/nsmaptable), whereas for `Set` you can use [NSHashTable](https://developer.apple.com/reference/foundation/nshashtable).
+本文主要讨论了 `Array`，如果你需要 `Dictionary` 的类似于 `NSPointerArray` 的替代品，你可以参考 [NSMapTable](https://developer.apple.com/reference/foundation/nsmaptable)，以及 `Set` 的替代品 [NSHashTable](https://developer.apple.com/reference/foundation/nshashtable)。
 
-If you want a type-safe `Dictionary`/`Set`, you can achieve it storing a `WeakRef` object.
+如果你需要一个类型安全的 `Dictionary`/`Set`，你可以通过使用 `WeakRef` 对象来实现。
 
-# Conclusion #
+# 结论 #
 
-I guess you are not going to use arrays with weak references very often, but it’s not an excuse not to know how to achieve it. In iOS development the memory management is very important to avoid memory leaks, since iOS doesn’t have a garbage collector. ¯\_(ツ)_/¯
+你可能不会经常使用持有弱引用的数组，但是你仍然可以学习如何实现它。在 iOS 开发中，内存管理是非常重要的，我们应该避免内存泄露，因为 iOS 没有垃圾回收器。 ¯\_(ツ)_/¯
 
 
 ---
