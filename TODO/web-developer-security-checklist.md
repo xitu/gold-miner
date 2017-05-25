@@ -1,8 +1,8 @@
 > * 原文地址：[Web Developer Security Checklist](https://simplesecurity.sensedeep.com/web-developer-security-checklist-f2e4f43c9c56)
 > * 原文作者：[Michael O'Brien](https://simplesecurity.sensedeep.com/@sensedeep)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
-> * 校对者：
+> * 译者： [GangsterHyj](https://github.com/gangsterhyj)
+> * 校对者： [zaraguo](https://github.com/zaraguo), [yzgyyang](https://github.com/yzgyyang)
 
 
 # Web 开发者安全清单
