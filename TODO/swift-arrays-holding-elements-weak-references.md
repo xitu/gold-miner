@@ -2,19 +2,19 @@
 > * 原文作者：[Marco Santarossa](https://marcosantadev.com/about-me/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[zhangqippp](https://github.com/zhangqippp)
-> * 校对者：
+> * 校对者：[ZhangRuixiang](https://github.com/ZhangRuixiang)，[Danny1451](https://github.com/Danny1451)
 
 # [对元素持有弱引用的Swift数组](https://marcosantadev.com/swift-arrays-holding-elements-weak-references/) #
 
 ![](https://marcosantadev.com/wp-content/uploads/header-1.jpg)
 
-在 iOS 开发中我们经常面临一个问题：“使用弱引用，还是不使用弱引用？”。我们来看一下如何在数组中使用弱引用。
+在 iOS 开发中我们经常面临一个问题：“用弱引用还是不用，这是一个问题。”。我们来看一下如何在数组中使用弱引用。
 
 # 概述 #
 
-*在本文中，我会谈到内存管理但是不会解释它，因为这不是本文的主题。  这里的[官方文档](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/AutomaticReferenceCounting.html)可以帮助你开始学习内存管理。 如果你有其它疑问，请留言，我会尽快给予回复。*
+*在本文中，我会谈到内存管理但是不会解释它，因为这不是本文的主题。[官方文档](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/AutomaticReferenceCounting.html)是学习内存管理的一个好的起点。如果你有其它疑问，请留言，我会尽快给予回复。*
 
-`Array` 是Swift中使用最多的集合。它会默认的对其元素持有强引用。 这种默认的行为在大多数时候都很有用，但是在某些场景下你可能想要使用弱引用。因此，苹果公司给我们提供了一个 `Array` 的替代品：**NSPointerArray**，这个类对它的元素持有弱引用。
+`Array` 是Swift中使用最多的集合。它会默认地对其元素持有强引用。 这种默认的行为在大多数时候都很有用，但是在某些场景下你可能想要使用弱引用。因此，苹果公司给我们提供了一个 `Array` 的替代品：**NSPointerArray**，这个类对它的元素持有弱引用。
 
 在开始研究这个类之前，我们先通过一个例子来了解为什么我们需要使用它。
 
@@ -184,16 +184,16 @@ class ViewManager {
 protocolMyProtocol: class{}
 ```
 
-2. 如果你想试用一下 `NSPointerArray`，我建议不要试用 Playground ，因为你可能因为引用计数问题得到一些奇怪的行为。使用一个简单的 app 会更好。
+2. 如果你想试用一下 `NSPointerArray`，我建议不要使用 Playground ，因为你可能因为引用计数问题得到一些奇怪的行为。使用一个简单的 app 会更好。
 
 # 备选方案 #
 
 `NSPointerArray` 对于存储对象和保持弱引用来说非常有用，但是它有一个问题：它不是类型安全的。 
 
-“非类型安全”，在此处的意思是编译器无法隐含 `NSPointerArray` 内部对象的类型，因为它使用的是 `AnyObject` 型对象的指针。因此，当你从数组中获取一个对象时，你需要检查它是否是你所需要的类型：
+“非类型安全”，在此处的意思是编译器无法无法推断隐含在 `NSPointerArray` 内部的对象的类型，因为它使用的是 `AnyObject` 型对象的指针。因此，当你从数组中获取一个对象时，你需要把它转成你所需要的类型：
 
 ```
-ifletfirstObject=array.object(at:0)as?MyClass{// Cast to MyClass
+if let firstObject=array.object(at:0)as?MyClass{// Cast to MyClass
 
     print("The first object is a MyClass")
 
@@ -208,7 +208,7 @@ ifletfirstObject=array.object(at:0)as?MyClass{// Cast to MyClass
 一个可行的方案是创建一个新类 `WeakRef` ，它带有一个普通的weak属性 `value`：
 
 ```
-classWeakRef<T>whereT: AnyObject{
+class WeakRef<T>whereT: AnyObject{
 
     private(set)weakvarvalue:T?
 
@@ -243,7 +243,7 @@ array.append(weakObj)
 如果你想清理数组，去除其中值为 `nil` 的对象，你可以使用下面的方法：
 
 ```
-funccompact(){
+func compact(){
 
     array=array.filter{$0.value!=nil}
 
@@ -337,7 +337,7 @@ class ViewManager {
 
 # 结论 #
 
-你可能不会经常使用持有弱引用的数组，但是你仍然可以学习如何实现它。在 iOS 开发中，内存管理是非常重要的，我们应该避免内存泄露，因为 iOS 没有垃圾回收器。 ¯\_(ツ)_/¯
+你可能不会经常使用持有弱引用的数组，但是这不是不去了解其实现原理的理由。在 iOS 开发中，内存管理是非常重要的，我们应该避免内存泄露，因为 iOS 没有垃圾回收器。 ¯\_(ツ)_/¯
 
 
 ---
