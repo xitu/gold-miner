@@ -224,23 +224,23 @@ Nathan Barry 是一个酷爱传授你已知知识的家伙。他讲过 CSS Trick
 
 无论在找工作或是自己单干方面，这都十分的有价值。
 
-#### 6. Build to solve problems ####
+#### 6. 为解决问题而开发 ####
 
-One of the most important aspects of becoming a professional developer is doing everything with a specific intention.
+做事有明确的意图是成为一个专业的程序员最重要的方面之一。
 
-It’s one thing to build random apps for fun, it’s another to build apps and sites that solve specific problems.
+为了乐趣随意开发应用是一回事，为了解决问题去开发应用和网站又是另外一回事。
 
-Web development shops aren’t really in the business of coding, they are in the business of solving problems. The coding is just their preferred tool to make that happen.
+电商本质其实不是程序开发，其本质是关于解决问题。代码只是他们首选的工具而已。
 
-Read any marketing or copywriting book and they will tell you to sell the benefits of your product, not the features.
+任何一本市场营销的书或文案都会告诉你去推销你的商品的优点而不是特点。
 
-Web developers should market their apps to show how they effectively solve a customer’s problems. And then back up their claims with specific metrics. Customers are generally more responsive to this approach than if the developers talk about the bleeding edge technologies they use.
+Web 开发人员应该通过展示他们如何有效地解决了用户的问题来推销他们的应用。然后用具体的指标来支撑他们的言论。客户通常对这种方式的介绍更感兴趣，而不是听开发者谈论他们使用的尖端技术。
 
-You will be a very attractive prospect for employers if you can demonstrate your programming skills as well as your ability to code with the specific intention of solving problems and making meaningful applications.
+如果你能够在展示编程技能的同时还展现出带有解决问题和生产有意义的应用的明确意图进行编程的能力，那么你将非常受雇主欢迎。
 
-Think about benefits vs features when you are communicating with potential employers or clients, and when writing the content for your site.
+当你与潜在雇主或是客户沟通时，以及在为你的网站编写内容时，请进行优势与功能这两方面的思考。
 
-Of course, you should also mention your coding proficiency, but most people spend all their time on this. Mention it briefly so potential employers know what you do. If you have a portfolio of effective applications, your coding skills will mostly speak for themselves.
+当然，你也应该提及你的编程熟练程度，但是大部分人在这个方面花了所有时间。简要地介绍一下好让潜在雇员知道你在做什么就可以了。如果你开发了一系列很有用的程序，那么它们将会为你的编程技能说话。
 
 #### 7. Take on an apprentice mindset ####
 
