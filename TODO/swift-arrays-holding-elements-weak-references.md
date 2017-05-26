@@ -12,7 +12,7 @@
 
 # 概述 #
 
-*在本文中，我会谈到内存管理但是不会解释它，因为这不是本文的主题。[官方文档](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/AutomaticReferenceCounting.html)是学习内存管理的一个好的起点。如果你有其它疑问，请留言，我会尽快给予回复。*
+**在本文中，我会谈到内存管理但是不会解释它，因为这不是本文的主题。[官方文档](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/AutomaticReferenceCounting.html)是学习内存管理的一个好的起点。如果你有其它疑问，请留言，我会尽快给予回复。**
 
 `Array` 是Swift中使用最多的集合。它会默认地对其元素持有强引用。 这种默认的行为在大多数时候都很有用，但是在某些场景下你可能想要使用弱引用。因此，苹果公司给我们提供了一个 `Array` 的替代品：**NSPointerArray**，这个类对它的元素持有弱引用。
 
@@ -201,7 +201,7 @@ if let firstObject=array.object(at:0)as?MyClass{// Cast to MyClass
 
 ``` 
 
-*`object(at:)` 方法来自我先前展示的 `NSPointerArray` 扩展类。*
+**`object(at:)` 方法来自我先前展示的 `NSPointerArray` 扩展类。**
 
 如果我们想使用一个类型安全的数组替代品，我们就不能使用 `NSPointerArray` 了。 
 
@@ -222,7 +222,7 @@ class WeakRef<T>whereT: AnyObject{
 ```
  
 
-*`private(set)` 方法将 `value` 设置为只读模式, 这样就无法在类的外部设置它的值了。*
+**`private(set)` 方法将 `value` 设置为只读模式, 这样就无法在类的外部设置它的值了。**
 
 然后，我们可以创建一组 `WeakRef` 对象，将你的 `MyClass` 对象储存到它们的 `value` 属性：
 
@@ -250,7 +250,7 @@ func compact(){
 }
 ```
 
-*`filter` 返回一个其中元素满足给定条件的新数组。你可以在[文档](https://developer.apple.com/reference/swift/array/1688383-filter)中获取更多的信息。*
+**`filter` 返回一个其中元素满足给定条件的新数组。你可以在[文档](https://developer.apple.com/reference/swift/array/1688383-filter)中获取更多的信息。**
 
 现在，我们可以将 “为什么要使用弱引用？” 小节中的例子重构为如下代码：
 
