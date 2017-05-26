@@ -1,3 +1,4 @@
+* [设计准则：如何说服用户去使用新的功能](https://juejin.im/post/59279b650ce463006b029cbc?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([iloveivyxuan](https://github.com/iloveivyxuan) 翻译)
 * [最激动人心的视觉系统其实是最枯燥乏味的](https://juejin.im/entry/59228e15a0bb9f005f60915a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Nicolas(Yifei) Li](https://github.com/yifili09) 翻译)
 * [人人都是设计师，我们可以的。](https://juejin.im/post/59157cdf0ce4630069d79857?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([ylq167](https://github.com/ylq167) 翻译)
 * [设计师装腔指南](https://juejin.im/post/5915880b570c35006932fac9?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Changkun Ou](https://github.com/changkun) 翻译)
