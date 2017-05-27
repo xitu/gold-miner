@@ -5,7 +5,7 @@
 > * 译者：[gy134340](https://github.com/gy134340)
 > * 校对者：[bambooom](https://github.com/bambooom),[xunge0613](https://github.com/xunge0613)
 
-# 利用「Immutability（不可变性）」编写更为简洁高效的代码
+# 利用 Immutability（不可变性）编写更为简洁高效的代码
 
 ![](https://cdn-images-1.medium.com/max/2000/1*eO8-0-GT5ht8CR7TdK9knA.jpeg)
 
