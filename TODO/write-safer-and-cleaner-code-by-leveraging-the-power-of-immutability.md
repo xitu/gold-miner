@@ -3,23 +3,23 @@
 > * 原文作者：[Guido Schmitz](https://medium.freecodecamp.com/@guidsen)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[gy134340](https://github.com/gy134340)
-> * 校对者：
+> * 校对者：[bambooom](https://github.com/bambooom),[xunge0613](https://github.com/xunge0613)
 
-# 利用“Immutability（不可变性）”编写更为简洁高效的代码
+# 利用「Immutability（不可变性）」编写更为简洁高效的代码
 
 ![](https://cdn-images-1.medium.com/max/2000/1*eO8-0-GT5ht8CR7TdK9knA.jpeg)
 
 图片来自[https://unsplash.com](https://unsplash.com)
 
-不可变性是函数式编程中的一部分，它允许你写更安全和简洁的代码。我将会通过一些 JavaScript 的例子来告诉你如何达到不可变性。
+不可变性是函数式编程中的一部分，它可以使你写出更安全更简洁的代码。我将会通过一些 JavaScript 的例子来告诉你如何达到不可变性。
 
 **根据维基（ [地址](https://en.wikipedia.org/wiki/Immutable_object) ）：**
 
-> 一个不可变对象（不能被改变的对象）是指在创建之后其状态不能被更改的对象，这与在创建之后可以被更改的可变对象（可以被改变的对象）相反。在某些情况下，一个对象的外部状态如果从外部看来是未不变的，那么即使它的一些内部属性更改了，仍被视为不可变对象。
+> 一个不可变对象（不能被改变的对象）是指在创建之后其状态不能被更改的对象，这与在创建之后可以被更改的可变对象（可以被改变的对象）相反。在某些情况下，一个对象的外部状态如果从外部看来没有变化，那么即使它的一些内部属性更改了，仍被视为不可变对象。
 
 ### 不可变的数组
 
-数组是抓住不可变性如何工作的一个要点。我们来看一下。
+数组是了解不可变性如何运作的一个很好的起点。我们来看一下。
 
 ```
 const arrayA = [1, 2, 3];
@@ -49,13 +49,13 @@ console.log(arrayB); // [1, 2, 3, 4, 5]
 
 这才是我们要的，代码不改变其它的值。
 
-记住：当使用 [push](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/push) 来给数组添加一个值时，你在**改变**这个数组，你想要避免值的改变因为这个可能会影响你代码里的其他部分。[slice](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice) 会返回一个复制的数组。
+记住：当使用 [push](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/push) 来给数组添加一个值时，你在**改变**这个数组，因为这样可能会影响代码里的其他部分，所以你想要避免使变量值发生改变。[slice](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice) 会返回一个复制的数组。
 
 ### 函数
 
-现在你知道了如何避免改变其它的值。那要怎样写“纯”的函数呢？纯洁性是指调用一个函数同时不会产生额外的影响和改变状态的函数属性。
+现在你知道了如何避免改变其它的值。那如何写「纯」的函数呢？纯函数是指不会产生任何副作用，也不会改变状态的函数。
 
-让我们看看一个函数，它利用了数组实例的相同原理。首先我们写一个会改变其它值的函数，然后我们将这个函数优化为“纯”函数。
+我们来看一个示例函数，其原理与前面数组示例的原理相同。首先我们写一个会改变其它值的函数，然后我们将这个函数优化为「纯」函数。
 
 ```
 const add = (arrayInput, value) => {
@@ -72,11 +72,11 @@ console.log(add(array, 4)); // [1, 2, 3, 4]
 console.log(add(array, 5)); // [1, 2, 3, 4, 5]
 ```
 
-所以再一次的，我们**改变**我们的输入来创建一个不可预测的函数。在函数式编程的世界里，有一个关于函数的铁律：**函数对于相同的输入应当返回相同的值。**
+于是我们又一次**改变**输入的变量的值，这使得这个函数变得不可预测。在函数式编程的世界里，有一个关于函数的铁律：**函数对于相同的输入应当返回相同的值。**
 
 上面的函数违反了这一规则，每次我们调用 **add** 方法，它都会改变**数组**变量导致结果不一样。
 
-让我们来看看怎样修改 **add** 函数的实现来使其不可变。
+让我们来看看怎样修改 **add** 函数来使其不可变。
 
 ```
 const add = (arrayInput, value) => {
@@ -99,10 +99,10 @@ const resultB = add(array, 5);
 console.log(resultB); // [1, 2, 3, 5]
 ```
 
-现在我们可以多次调用这个函数，然后根据相同的输入，获得相同的输出。这是因为我们不再改变 **array** 变量。我们把这个函数叫做“纯函数”。
+现在我们可以多次调用这个函数，且相同的输入获得相同的输出，与预期一致。这是因为我们不再改变 **array** 变量。我们把这个函数叫做“纯函数”。
 
 > **注意：**你还可以使用 **concat**，来代替 **slice** 和 **push**。
-> 那样就是：arrayInput.concat(value);
+> 即：arrayInput.concat(value);
 
 我们还可以使用 ES6 的[扩展语法](https://developer.mozilla.org/nl/docs/Web/JavaScript/Reference/Operators/Spread_operator)，来简化函数。
 
@@ -112,19 +112,19 @@ const add = (arrayInput, value) => […arrayInput, value];
 
 ### 并发
 
-NodeJS 的应用有一个叫并发的概念，并发的操作是指两个计算可以同时的进行而不用管另外的一个。如果有两个线程，第二个的计算不需要等待第一个的完成。
+NodeJS 的应用有一个叫并发的概念，并发操作是指两个计算可以同时的进行而不用管另外的一个。如果有两个线程，第二个计算不需要等待第一个完成即可开始。
 
 ![](https://cdn-images-1.medium.com/max/800/1*LS1VkNditQwYMJvtIPAhdg.png)
 
 可视化的并发操作
 
-NodeJS 用事件循环机制使并发成为可能。事件循环循环重复接收事件，并对每个事件添加监听。这个模型允许 NodeJS 的应用处理大规模的请求。如果你想学习更多，读一下[这篇关于事件循环的文章](https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick)。
+NodeJS 用事件循环机制使并发成为可能。事件循环重复接收事件，并一次触发一个监听该事件的处理程序。这个模型允许 NodeJS 的应用处理大规模的请求。如果你想学习更多，读一下[这篇关于事件循环的文章](https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick)。
 
-不可变性跟并发又有什么关系呢？由于多个操作可能并发的改变函数的作用域的值，这将会产生不可靠的输出和导致意向不到的结果。明确函数是否改变它作用域之外的值，因为这可能真的会很危险。
+不可变性跟并发又有什么关系呢？由于多个操作可能会并发地改变函数的作用域的值，这将会产生不可靠的输出和导致意想不到的结果。注意函数是否改变它作用域之外的值，因为这可能真的会很危险。
 
 ### 下一步
 
-不可变性是你学习函数式编程中重要的概念。你也许想了解一下由 Facebook 开发者写的 [ImmutableJS](https://facebook.github.io/immutable-js)，这一个库提供正确的不可变数据结构比如说 **Map**、**Set**、和 **List**。
+不可变性是学习函数式编程过程中的一个重要概念。你可以了解一下由 Facebook 开发者写的 [ImmutableJS](https://facebook.github.io/immutable-js)，这一个库提供一些不可变的数据结构，比如说 **Map**、**Set**、和 **List**。
 
 [![](http://i2.muimg.com/1949/d4d40e047da813b5.png)](https://medium.com/@dtinth/immutable-js-persistent-data-structures-and-structural-sharing-6d163fbd73d2)
 
