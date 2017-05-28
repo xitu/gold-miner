@@ -268,41 +268,41 @@ Web 开发人员应该通过展示他们如何有效地解决了用户的问题�
 
 #### 8. 学会合作 ####
 
-One of the biggest differences between coding as a hobby and coding for a living is learning to collaborate with people.
+将编程作为兴趣和以编程为生之间的最大差别就是你需要学会与他人合作。
 
-You’ll need to interact and work with peers, bosses, colleagues, clients, partner companies, and all kinds of personalities throughout your career.
+你需要与同辈、老板、同事、客户、合作工作沟通和合作，并且在你的职业生涯中你会遇到形形色色的人。
 
-Learning how to effectively work with other people is important.
+学会如果与他人有效地合作是十分重要的。
 
-In the field of web development, communication is key. When a company comes in and tells you what they want, and you aren’t clear about exactly what that looks like, it can cause a lot of problems and headaches in the future.
+在 Web 开发领域，沟通是关键。当一个公司向你们表达自己所需时，如果你们对他们所表述的东西不清楚会给未来的工作带来很多头疼的问题。
 
-Likewise, if you can’t communicate with the people you work with, your work will suffer and you won’t be able to do your job as well.
+同样的，如果你不能与同你一起工作的人们良好地沟通，你的工作也将遭遇很多问题并无法完成。
 
-While you’re still learning, there are a few great ways to do this.
+如果你还在学习的话，我这里倒是有几个不错的意见可以给你。
 
-Part of this will come when you start teaching everything you know. People will interact with you, sometimes negatively, and you’ll learn how to deal with those situations.
+当你开始传授你所知道的知识时可能就会遇到这些问题。人们将与你进行交互，有时候这些交互是负面的，你需要学会如何去处理这种情况。
 
-I also highly recommend contributing to open source projects. This gives you a taste of what it is like to collaborate on a project where different people may have different ideas on the best way to do things.
+我还十分推荐给开源项目做贡献。你将收获在一个项目中与带有不同观点的人们合作的体验。
 
-Contributing to open source projects can be intimidating, but it will do wonders for your development career.
+参与开源项目的确是一件令人胆怯的事情，但是它会给你的开发生涯创造奇迹。
 
-[Check out this site to get started.](http://www.firsttimersonly.com/)
+[看看这个网站然后开始](http://www.firsttimersonly.com/)
 
-### Get out there and make a living ###
+### 动身去以此谋生 ###
 
-Being a web developer is hard. It means a life of non-stop learning and adapting to new technologies. It’s one of those careers where you need to be well-versed in not only technology, but business and communication as well.
+成为一个 Web 开发者是困难的。意味着你的一生需要永不止步地学习和不断接受新的事物。它是一个不仅需要精通技术还需要了解业务和沟通的职业。
 
-It’s an extremely rewarding path. You get to make things that solve people’s problems and make their lives easier, while making a fantastic living at the same time.
+成为一个 Web 开发者还是一条非常有利的道路。你将制造产品来解决人们的问题，使他们的生活更加便利，同时你将拥有非常棒的生计。
 
-There are countless resources to help you learn to code, [many of them completely free](http://freecodecamp.com/), but there seems to be a lack of resources helping people make that transition into professional developer.
+帮助你去学习编程的资源有很多，[他们大多数还是完全免费的](http://freecodecamp.com/)，但是帮助人们转变成为专业的开发人员的资料却很少。
 
-I hope this short guide provided a good road map for you to get started becoming a professional developer.
+我希望这个简短的指导可以为你指明一条好的道路以帮助你成为一个专业的开发者。
 
-Remember, nothing will happen unless you take action. Build a simple portfolio website, email a few potential employers, write some posts on Medium. Just start doing something.
+记住，如果你不采取行动什么都不会发生。搭建一个简单的个人站点，给一些潜在的雇主发邮件，在 Medium 上发表一些文章。反正就是要开始有所行动。
 
-The more you put yourself out there, and the more you do, the sooner you’ll make the shift from amateur to professional.
+你越展示自己，做得越多，那么你将越快从业余爱好者成长成为一位专业人士。
 
-I’m considering running a live workshop teaching developers how they can make the transition from hobbyist to professional. If that sounds like something you’d enjoy. You can enter your email below to let me know you’re interested and be the first to hear about it.
+我正在考虑开设一个在线研讨班教开发者如何从业余爱好者成长成为专业人士。如果你对此有兴趣，可以在下方留下你的邮箱地址让我知道并且我将为你们提供第一手资料。
 
 ---
 
