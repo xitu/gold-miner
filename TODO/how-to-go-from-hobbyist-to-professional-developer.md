@@ -242,31 +242,31 @@ Web 开发人员应该通过展示他们如何有效地解决了用户的问题�
 
 当然，你也应该提及你的编程熟练程度，但是大部分人在这个方面花了所有时间。简要地介绍一下好让潜在雇员知道你在做什么就可以了。如果你开发了一系列很有用的程序，那么它们将会为你的编程技能说话。
 
-#### 7. Take on an apprentice mindset ####
+#### 7. 采取学徒心态 ####
 
-The day you think you have mastered something is the day you stop learning.
+你认为你掌握技能的那一天便是你停止学习的一天。
 
-Adopt the mindset of a lifelong apprentice. There is always more to learn and always more to improve on.
+养成终生学习的观念。总是有更多的东西去学习，有更大的空间去进步。
 
-This is especially important in the early stages of your career. If you get a part time job or internship or land a role as a junior developer, you need to immediately get in the mindset of learning and growing as much as possible.
+这在你早期的职业生涯相当重要。如果你兼职或实习或担任初级开发人员，你需要尽可能快速进入学习和成长状态。
 
-You should really be doing this right away, even before you have an actual ‘mentor’.
+你真的应该马上这么做，即使你还没有一个真实的“导师”。
 
-In his book, [The Art of Work](https://www.amazon.com/Art-Work-Proven-Discovering-Meant/dp/0718022076), Jeff Goins talks about the 21st century version of the apprentice-master relationship.
+在[工作的艺术](https://www.amazon.com/Art-Work-Proven-Discovering-Meant/dp/0718022076)这本书中，Jeff Goins 谈论了二十一世纪的师徒关系。
 
-Back in medieval times, the relationship was very formal. A master would take on an apprentice for years, and they would slowly start to master their craft until they reached the title of master, at which point they would take on an apprentice.
+回到中世纪，这种关系非常正式。大师会带一个徒弟多年，直到徒弟慢慢地掌握手艺达到大师的头衔，那时他们就可以收自己的徒弟了。
 
-The relationship has changed, but it is still very important to consider yourself an apprentice. The main difference is that now you have to keep an eye out for potential mentors and learning opportunities, and there will be many throughout your journey.
+虽然这种关系已经发生了改变，但是将自己视为一个学徒仍然十分重要。有所不同是的是现在你需要自己关注潜在的导师和学习机遇，他们遍布你的征途。
 
-In the world of web development, we constantly on the internet, so this can come in various forms.
+在 Web 开发的世界里，我们经常上网，所以学习形式多种多样。
 
-Books, tutorials, courses, forums, and other forms of learning are all valuable. I think, however, the most valuable form of apprenticeship comes from learning from someone who is currently in the position you want to be in.
+书本，教程，课程，专题讨论会以及其他形式的学习都是十分有价值的。但是我觉得最有价值的学习形式是从你想成为的人身上学习。
 
-This is why it is so important to be eager and willing to learn. Getting your first development job is not the end of the journey, it’s the beginning.
+这就是为什么乐意并热切地去学习是这么的重要。得到了你的第一份开发工作不是征途的结束，而只是开始。
 
-That is when you will really start learning and exponentially growing your knowledge.
+当采取了学徒心态你将真正开始学习并且呈几何级数地增长你的知识。
 
-#### 8. Learn to collaborate ####
+#### 8. 学会合作 ####
 
 One of the biggest differences between coding as a hobby and coding for a living is learning to collaborate with people.
 
