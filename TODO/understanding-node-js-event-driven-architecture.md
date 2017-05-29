@@ -4,27 +4,27 @@
 > * 译者：
 > * 校对者：
 
-# Understanding Node.js Event-Driven Architecture #
+# 理解NodeJS中基于事件驱动的架构 #
 
 ![](https://cdn-images-1.medium.com/max/2000/1*Nozl2qd0SV8Uya2CEkF_mg.jpeg)
 
-Most of Node’s objects — like HTTP requests, responses, and streams — implement the `EventEmitter` module so they can provide a way to emit and listen to events.
+对于绝大部分的nodejs中的对象，比如HTTP请求、相应以及'流',他们都是使用了`eventEmitter`模块的支持来监听和发射事件。
 
 ![](https://cdn-images-1.medium.com/max/800/1*74K5OhiYt7WTR0WuVGeNLQ.png)
 
-The simplest form of the event-driven nature is the callback style of some of the popular Node.js functions — for example, `fs.readFile`. In this analogy, the event will be fired once (when Node is ready to call the callback) and the callback acts as the event handler.
+最简单的基于事件驱动的样子是一些流行的nodejs函数回调风格,例如：fs.readFile.在这个类比模型中，callback扮演着事件处理者的角色，当Node准备好调用callback的时候：事件将会被发射一次。
 
-Let’s explore this basic form first.
+让我们来探究一下这个基础形式。
 
-#### Call me when you’re ready, Node! ####
+#### Node,在你准备好的时候调用我把！ ####
 
-The original way Node handled asynchronous events was with callback. This was a long time ago, before JavaScript had native promises support and the async/await feature.
+在很久以前，当没有原生的promise、async/await特性支持的时候，Node最原始的处理异步的方式是使用callback。
 
-Callbacks are basically just functions that you pass to other functions. This is possible in JavaScript because functions are first class objects.
+callback函数基本上是你传给其他函数的函数，在JS中这是可能的，因为方法是第一级的对象。
 
-It’s important to understand that callbacks do not indicate an asynchronous call in the code. A function can call the callback both synchronously and asynchronously.
+理解`callback函数并不是在代码中被异步调用的`非常重要的，在函数中，我们可以随心所欲的同步/异步调用callback。
 
-For example, here’s a host function `fileSize` that accepts a callback function `cb` and can invoke that callback function both synchronously and asynchronously based on a condition:
+例如,在下面这种情况中，主函数fileSize包含一个回调函数cb,并且会在同步和异步的情况下调用这个回调函数：
 
 ```
 function fileSize (fileName, cb) {
@@ -40,9 +40,9 @@ function fileSize (fileName, cb) {
 }
 ```
 
-Note that this is a bad practice that leads to unexpected errors. Design host functions to consume callback either always synchronously or always asynchronously.
+但是我们要记住，这种把主函数在处理callback的时候同时采用同步和异步的方式并不是一个好的实践，它也许会带来一些难以处理的错误。
 
-Let’s explore a simple example of a typical asynchronous Node function that’s written with a callback style:
+我们再来看看下面这种典型的用callback风格处理的异步node函数：
 
 ```
 const readFileAsArray = function(file, cb) {
@@ -57,9 +57,9 @@ const readFileAsArray = function(file, cb) {
 };
 ```
 
-`readFileAsArray` takes a file path and a callback function. It reads the file content, splits it into an array of lines, and calls the callback function with that array.
+readFileAsArray有文件的路径和callback，它把文件读取并切割成一行一行的数组来当做参数调用callback
 
-Here’s an example use for it. Assuming that we have the file `numbers.txt` in the same directory with content like this:
+这里有一个使用他的实例，假设同目录下我们有一个numbers.txt文件中有如下内容:
 
 ```
 10
@@ -70,7 +70,7 @@ Here’s an example use for it. Assuming that we have the file `numbers.txt` in 
 15
 ```
 
-If we have a task to count the odd numbers in that file, we can use `readFileAsArray` to simplify the code:
+我们想求这个文件中的基数之和，我们可以像下面这样调用readFileAsArray这个函数：
 
 ```
 readFileAsArray('./numbers.txt', (err, lines) => {
@@ -82,15 +82,15 @@ readFileAsArray('./numbers.txt', (err, lines) => {
 });
 ```
 
-The code reads the numbers content into an array of strings, parses them as numbers, and counts the odd ones.
+代码会读取数组中的字符串内容，解析成数字并求奇数之和。
 
-Node’s callback style is used purely here. The callback has an error-first argument `err` that’s nullable and we pass the callback as the last argument for the host function. You should always do that in your functions because users will probably assume that. Make the host function receive the callback as its last argument and make the callback expect an error object as its first argument.
+在NodeJS的回调风格中的写法是这样的：第一个参数err代表着错误处理，当是null的时候我们就是正常调用callback,用户和作者都习惯了这样写，主函数接受callback作为最后一个参数并且调用的时候给callback第一个参数传递err对象。
 
 #### The modern JavaScript alternative to Callbacks ####
 
-In modern JavaScript, we have promise objects. Promises can be an alternative to callbacks for asynchronous APIs. Instead of passing a callback as an argument and handling the error in the same place, a promise object allows us to handle success and error cases separately and it also allows us to chain multiple asynchronous calls instead of nesting them.
+在高版本的JS中，我们有Promise对象，作为callback的有力竞争者，它的异步API替代了把callback作为一个参数传递并且同时处理错误信息，一个Promise对象允许我们分别处理成功和失败两种情况，并且链式的调用多个异步方法避免了回调地狱。
 
-If the `readFileAsArray` function supports promises, we can use it as follows:
+如果刚刚的readFileAsArray方法允许使用Promise，它的调用将是这个样子的：
 
 ```
 readFileAsArray('./numbers.txt')
@@ -102,9 +102,9 @@ readFileAsArray('./numbers.txt')
   .catch(console.error);
 ```
 
-Instead of passing in a callback function, we called a `.then` function on the return value of the host function. This `.then` function usually gives us access to the same lines array that we get in the callback version, and we can do our processing on it as before. To handle errors, we add a `.catch` call on the result and that gives us access to an error when it happens.
+作为调用callback的替代品，我们用.then函数来接受主方法的返回值；.then函数通常给我们和之前callback一样的参数，我们处理起来和以前一样，但是对于错误我们使用.catch函数来处理。
 
-Making the host function support a promise interface is easier in modern JavaScript thanks to the new Promise object. Here’s the `readFileAsArray` function modified to support a promise interface in addition to the callback interface it already supports:
+这要非常感谢新的Promise对象， 它让现代JavaScript中主函数支持Promise接口更加EZ，我们把刚刚的readFileAsArray方法用Promise来改写一下：
 
 ```
 const readFileAsArray = function(file, cb = () => {}) {
@@ -123,19 +123,19 @@ const readFileAsArray = function(file, cb = () => {}) {
 };
 ```
 
-So we make the function return a Promise object, which wraps the `fs.readFile` async call. The promise object exposes two arguments, a `resolve` function and a `reject` function.
+现在这个函数返回了一个Promise对象，这里面包含着`fs.readFile`这个异步调用，Promise对象中同时包含一个resolve函数和reject函数。
 
-Whenever we want to invoke the callback with an error we use the promise `reject` function as well, and whenever we want to invoke the callback with data we use the promise `resolve` function as well.
+reject函数的作用就和我们之前callback中处理错误是一样的，而resolve函数也就和我们正常处理返回值是一样的。
 
-The only other thing we needed to do in this case is to have a default value for this callback argument in case the code is being used with the promise interface. We can use a simple, default empty function in the argument for that case: `() => {}`.
+我们剩下唯一要做的就是在实例中制定一个reject resolve函数的默认值，在Promise中，我们只要写一个空函数即可，例如\(\) =&gt; {}.
 
 #### Consuming promises with async/await ####
 
-Adding a promise interface makes your code a lot easier to work with when there is a need to loop over an async function. With callbacks, things become messy.
+当你需要一个常常的异步loop函数的时候，使用promise会让你coding的时候比callback的回调地狱简单一些，
 
-Promises improve that a little bit, and function generators improve on that a little bit more. This said, a more recent alternative to working with async code is to use the `async` function, which allows us to treat async code as if it was synchronous, making it a lot more readable overall.
+Promise是一个小小的进步，generator也是一个小小的进步，但是async/await函数的到来，让这一步变得更有力了，它的编码风格让函数的可读性就像同步函数一样轻松。
 
-Here’s how we can consume the `readFileAsArray` function with async/await:
+我们用async/await函数特性来改写一下刚刚的调用readFileAsArray过程：
 
 ```
 async function countOdd () {
@@ -152,24 +152,24 @@ async function countOdd () {
 countOdd();
 ```
 
-We first create an async function, which is just a normal function with the word `async` before it. Inside the async function, we call the `readFileAsArray` function as if it returns the lines variable, and to make that work, we use the keyword `await`. After that, we continue the code as if the `readFileAsArray` call was synchronous.
+首先我们创建了一个async函数，只是在定义functiond的时候前面加了async关键字，在async函数里，我们把readFileAsArray这个异步方法用await来作为一个普通变量，这样我们的代码看起来真的是同步的呢！
 
-To get things to run, we execute the async function. This is very simple and more readable. To work with errors, we need to wrap the async call in a `try`/`catch` statement.
+当async函数执行的过程是非常易读的，处理错误，我们只需要使用try/catch即可。
 
-With this async/await feature, we did not have to use any special API (like .then and .catch). We just labeled functions differently and used pure JavaScript for the code.
+在async/await函数中我们没有使用特殊API\(像: .then and .catch这种\)，我们仅仅使用了特殊关键字，但是像普通函数那样coding.
 
-We can use the async/await feature with any function that supports a promise interface. However, we can’t use it with callback-style async functions (like setTimeout for example).
+我们可以在支持Promise的函数中嵌套async/await函数，但是不能在callback风格的异步方法中使用它，比如setTimeout等等。
 
 ### The EventEmitter Module ###
 
-The EventEmitter is a module that facilitates communication between objects in Node. EventEmitter is at the core of Node asynchronous event-driven architecture. Many of Node’s built-in modules inherit from EventEmitter.
+EventEmitter是NodeJS中基于事件驱动的架构的核心，它是促进了各个对象之间交流的模块，很多nodejs的原生模块都使用了这个模块。
 
-The concept is simple: emitter objects emit named events that cause previously registered listeners to be called. So, an emitter object basically has two main features:
+关于概念这一块很简单，Emitter对象emit命名好的事件，使得之前注册好的监听器被调用起来，Emitter对象有两个显著特点：
 
-- Emitting name events.
-- Registering and unregistering listener functions.
+* emit注册好的事件
+* 注册和取消注册listener方法
 
-To work with the EventEmitter, we just create a class that extends EventEmitter.
+如何使用呢？我们只需要穿件一个类来继承EventEmitter即可：
 
 ```
 class MyEmitter extends EventEmitter {
@@ -183,19 +183,19 @@ Emitter objects are what we instantiate from the EventEmitter-based classes:
 const myEmitter = new MyEmitter();
 ```
 
-At any point in the lifecycle of those emitter objects, we can use the emit function to emit any named event we want.
+有了实例，就可以在实例的全部生命周期里，emit任何我们命名好的方法了。
 
 ```
 myEmitter.emit('something-happened');
 ```
 
-Emitting an event is the signal that some condition has occurred. This condition is usually about a state change in the emitting object.
+emit一个事件就代表着有些情况的发生，这些情况通常是关于Emitter对象的状态改变的。
 
-We can add listener functions using the `on` method, and those listener functions will be executed every time the emitter object emits their associated name event.
+我们使用on方法来注册，然后这些监听的方法将会在每一个Emitter对象emit的时候执行。
 
 #### Events !== Asynchrony ####
 
-Let’s take a look at an example:
+让我们看一个例子：
 
 ```
 const EventEmitter = require('events');
@@ -218,11 +218,9 @@ withLog.on('end', () => console.log('Done with execute'));
 withLog.execute(() => console.log('*** Executing task ***'));
 ```
 
-Class `WithLog` is an event emitter. It defines one instance function `execute`. This `execute` function receives one argument, a task function, and wraps its execution with log statements. It fires events before and after the execution.
+定义的WithLog类是一个event emitter.它有个方法excutej接受一个参数，并且有很多执行顺序的输出log,并且分别在开始和结束的时候emit了两次。
 
-To see the sequence of what will happen here, we register listeners on both named events and finally execute a sample task to trigger things.
-
-Here’s the output of that:
+让我们来看看运行它会有什么样的结果：
 
 ```
 Before executing
@@ -232,17 +230,17 @@ Done with execute
 After executing
 ```
 
-What I want you to notice about the output above is that it all happens synchronously. There is nothing asynchronous about this code.
+需要我们注意的是所有的输出log都是同步的，在代码里没有任何异步操作。
 
-- We get the “Before executing” line first.
-- The `begin` named event then causes the “About to execute” line.
-- The actual execution line then outputs the “*** Executing task ***” line.
-- The `end` named event then causes the “Done with execute” line
-- We get the “After executing” line last.
+* 第一步‘’Before executing‘’
+* 命名为begin的事件的emit导致了‘’About to execute‘’
+* 内含方法的执行输出了“\*\*\* Executing task \*\*\*”
+* 另一个命名事件输出“Done with execute”
+* 最后“After executing”
 
-Just like plain-old callbacks, do not assume that events mean synchronous or asynchronous code.
+就像之前的callback,我们在events中并没有假设同步或者异步的代码
 
-This is important, because if we pass an asynchronous `taskFunc` to `execute`, the events emitted will no longer be accurate.
+这一点很重要，假如我们有异步代码，那么很多结果就会迥然不同。
 
 We can simulate the case with a `setImmediate` call:
 
@@ -266,15 +264,15 @@ After executing
 *** Executing task ***
 ```
 
-This is wrong. The lines after the async call, which were caused the “Done with execute” and “After executing” calls, are not accurate any more.
+这明显有问题，它的输出看起来不再精确了。
 
-To emit an event after an asynchronous function is done, we’ll need to combine callbacks (or promises) with this event-based communication. The example below demonstrates that.
+当异步方法结束的时候emit一个事件,我们需要把callback/promise与合并事件驱动的交流合并起来，刚刚的例子证明了这一点。
 
-One benefit of using events instead of regular callbacks is that we can react to the same signal multiple times by defining multiple listeners. To accomplish the same with callbacks, we have to write more logic inside the single available callback. Events are a great way for applications to allow multiple external plugins to build functionality on top of the application’s core. You can think of them as hook points to allow for customizing the story around a state change.
+使用事件驱动来代替传统callback有一个好处是在定义多个listener后，我们可以多次对同一个emit做出反应。如果要用callback来做到这一点的话，我们需要些很多的逻辑在同一个callback中，事件是应用程序允许多个外部插件在应用程序核心之上构建功能的一个好方法，你可以把它们当作钩子点来允许围绕状态变化来做更多自定义的事。
 
 #### Asynchronous Events ####
 
-Let’s convert the synchronous sample example into something asynchronous and a little bit more useful.
+我们把刚刚的例子修改一下，在同步代码中加入一点异步代码，让它更有意思一点：
 
 ```
 const fs = require('fs');
@@ -304,11 +302,10 @@ withTime.on('end', () => console.log('Done with execute'));
 withTime.execute(fs.readFile, __filename);
 ```
 
-The `WithTime` class executes an `asyncFunc` and reports the time that’s taken by that `asyncFunc` using `console.time` and `console.timeEnd` calls. It emits the right sequence of events before and after the execution. And also emits error/data events to work with the usual signals of asynchronous calls.
 
-We test a `withTime` emitter by passing it an `fs.readFile` call, which is an asynchronous function. Instead of handling file data with a callback, we can now listen to the data event.
+执行WithTime类的asyncFunc方法，使用console.time和console.timeEnd来返回执行的时间，他emit了正确的序列在执行之前和之后，同样emit  error/data来保证函数的正常工作。
 
-When we execute this code , we get the right sequence of events, as expected, and we get a reported time for the execution, which is helpful:
+执行之后的结果如下，正如我们期待的正确事件序列，我们得到了执行的时间，这是很有用的：
 
 ```
 About to execute
@@ -316,7 +313,7 @@ execute: 4.507ms
 Done with execute
 ```
 
-Note how we needed to combine a callback with an event emitter to accomplish that. If the `asynFunc` supported promises as well, we could use the async/await feature to do the same:
+请注意，我们如何结合一个callback在事件发射器上完成它，如果asynFunc同样支持Promise的话，我们可以使用async/await特性来做到同样的事情：
 
 ```
 class WithTime extends EventEmitter {
@@ -335,13 +332,13 @@ class WithTime extends EventEmitter {
 }
 ```
 
-I don’t know about you, but this is much more readable to me than the callback-based code or any .then/.catch lines. The async/await feature brings us as close as possible to the JavaScript language itself, which I think is a big win.
+这真的看起来更易读了呢！用async/await真的是我们的coding越来越接近JavaScript语言的一大进步。
 
 #### Events Arguments and Errors ####
 
-In the previous example, there were two events that were emitted with extra arguments.
+在之前的例子中，我们使用了额外的参数来发射两个事件。
 
-The error event is emitted with an error object.
+错误的事件使用了错误对象，data事件使用了data对象
 
 ```
 this.emit('error', err);
@@ -353,9 +350,9 @@ The data event is emitted with a data object.
 this.emit('data', data);
 ```
 
-We can use as many arguments as we need after the named event, and all these arguments will be available inside the listener functions we register for these named events.
+在listener函数调用的时候我们可以传递很多的参数，这些参数在执行的时候都会切实可用。
 
-For example, to work with the data event, the listener function that we register will get access to the data argument that was passed to the emitted event and that data object is exactly what the `asyncFunc` exposes.
+例如：data事件执行的时候，listener函数在注册的时候就会允许我们的接纳事件发射的data参数，而asyncFunc函数也实实在在暴露给了我们。
 
 ```
 withTime.on('data', (data) => {
@@ -363,9 +360,9 @@ withTime.on('data', (data) => {
 });
 ```
 
-The `error` event is usually a special one. In our callback-based example, if we don’t handle the error event with a listener, the node process will actually exit.
+error事件也是同样是典型的一个。在我们基于callback的例子中，如果没用listener函数来处理错误，node进程就会直接终止-。-
 
-To demonstrate that, make another call to the execute method with a bad argument:
+我们写个例子来展示这一点：
 
 ```
 class WithTime extends EventEmitter {
@@ -397,9 +394,9 @@ Error: ENOENT: no such file or directory, open ''
 
 ```
 
-The second execute call will be affected by this crash and will potentially not get executed at all.
+第二个执行调用将受到之前崩溃的影响，并可能不会得到执行。
 
-If we register a listener for the special `error` event, the behavior of the node process will change. For example:
+如果我们注册一个listener来处理它，情况就不一样了：
 
 ```
 withTime.on('error', (err) => {
@@ -415,7 +412,7 @@ If we do the above, the error from the first execute call will be reported but t
 execute: 4.276ms
 ```
 
-Note that Node currently behaves differently with promise-based functions and just outputs a warning, but that will eventually change:
+记住：Node目前的表现和Promise不同 ：只是输出警告，但最终会改变：
 
 ```
 UnhandledPromiseRejectionWarning: Unhandled promise rejection (rejection id: 1): Error: ENOENT: no such file or directory, open ''
@@ -423,9 +420,9 @@ UnhandledPromiseRejectionWarning: Unhandled promise rejection (rejection id: 1):
 DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
 ```
 
-The other way to handle exceptions from emitted errors is to register a listener for the global `uncaughtException` process event. However, catching errors globally with that event is a bad idea.
+另一种方式处理emit的error的方法是注册一个全局的uncaughtException进程事件，但是，全局的捕获错误对象并不是一个好办法。
 
-The standard advice about `uncaughtException` is to avoid using it, but if you must do (say to report what happened or do cleanups), you should just let the process exit anyway:
+标准的关于uncaughtException的建议是不要使用他，你一定要用的话，应该让进程在此结束：
 
 ```
 process.on('uncaughtException', (err) => {
@@ -439,14 +436,13 @@ process.on('uncaughtException', (err) => {
 });
 ```
 
-However, imagine that multiple error events happen at the exact same time. This means the `uncaughtException` listener above will be triggered multiple times, which might be a problem for some cleanup code. An example of this is when multiple calls are made to a database shutdown action.
+然而，想象在同一时间发生多个错误事件。这意味着上述的uncaughtException听众会多次触发，这可能对一些清理代码是一个问题。典型的一个例子是，当对数据库关闭操作进行多次调用时。
 
-The `EventEmitter` module exposes a `once` method. This method signals to invoke the listener just once, not every time it happens. So, this is a practical use case to use with the uncaughtException because with the first uncaught exception we’ll start doing the cleanup and we know that we’re going to exit the process anyway.
+EventEmitter模块暴露一个once方法。这种方法只需要调用一次监听器，而不是每次发生。所以，这是一个实际使用的uncaughtException用例因为第一未捕获的异常我们就开始做清理工作，无论如何我们要知道退出的过程。
 
 #### Order of Listeners ####
 
-If we register multiple listeners for the same event, the invocation of those listeners will be in order. The first listener that we register is the first listener that gets invoked.
-
+如果我们在一个事件上注册多个队列，并且期望这些listener是有顺序的，会按顺序来调用
 ```
 // प्रथम
 withTime.on('data', (data) => {
@@ -461,9 +457,9 @@ withTime.on('data', (data) => {
 withTime.execute(fs.readFile, __filename);
 ```
 
-The above code will cause the “Length” line to be logged before the “Characters” line, because that’s the order in which we defined those listeners.
+上面代码的输出结果里，“Length”将会比“Characters”在前，因为我们就是这样定义他们的。
 
-If you need to define a new listener, but have that listener invoked first, you can use the `prependListener` method:
+如果你想定义一个Listener,还想插队到前面的话，要使用prependListener方法来注册
 
 ```
 // प्रथम
@@ -479,12 +475,13 @@ withTime.prependListener('data', (data) => {
 withTime.execute(fs.readFile, __filename);
 ```
 
-The above will cause the “Characters” line to be logged first.
+这时“Characters”会在“Length”之前。
 
-And finally, if you need to remove a listener, you can use the `removeListener` method.
+最后，想移除的话，用removeListener方法就好啦！
 
-That’s all I have for this topic. Thanks for reading! Until next time!
 
+
+感谢阅读，下次再会，以上。
 
 *If you found this article helpful, please click the💚 below. Follow me for more articles on Node and JavaScript.*
 
