@@ -8,23 +8,23 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*Nozl2qd0SV8Uya2CEkF_mg.jpeg)
 
-对于绝大部分的nodejs中的对象，比如HTTP请求、响应以及”流“,他们都是使用了 `eventEmitter` 模块的支持来监听和发射事件。
+对于绝大部分的nodejs中的对象，比如HTTP请求、响应以及”流“,他们都是使用了 `eventEmitter` 模块的支持来监听和触发事件。
 
 ![](https://cdn-images-1.medium.com/max/800/1*74K5OhiYt7WTR0WuVGeNLQ.png)
 
-事件驱动最简单的形式是流行的nodejs函数回调风格，例如：`fs.readFile`。在这个类比模型中，callback 扮演着事件处理者的角色，当 Node 准备好调用 callback 的时候：事件将会被发射一次。
+事件驱动最简单的形式是常见的 Nodejs 函数回调风格，例如：`fs.readFile`。在这个类比模型中，callback 扮演着事件处理者的角色，当 Node 准备好调用 callback 的时候：事件将会被触发一次。
 
 让我们来探究一下这个基础形式。
 
 #### Node,在你准备好的时候调用我吧！ ####
 
-在很久以前，没有原生的 promise、async/await 特性支持，Node 最原始的处理异步的方式是使用 callback。
+以前没有原生的 promise、async/await 特性支持，Node 最原始的处理异步的方式是使用 callback。
 
 callback 函数从本质上讲就是作为参数传递给其他函数的函数，在JS中这是可能的，因为函数是一等公民。
 
-callback 函数并不必要异步调用，这一点非常重要。在函数中，我们可以随心所欲的同步/异步调用callback。
+callback 函数并不必要异步调用，这一点非常重要。在函数中，我们可以随心所欲的同步/异步调用 callback。
 
-例如,在下面这种情况中，主函数 `fileSize` 包含一个回调函数 `cb`，并且会在同步和异步的情况下调用这个回调函数：
+例如，在下面例子中，主函数 `fileSize` 接收一个回调函数 `cb` 为参数，根据不同情况以同步/异步方式调用 `cb`：
 
 ```js
 function fileSize (fileName, cb) {
@@ -40,7 +40,7 @@ function fileSize (fileName, cb) {
 }
 ```
 
-请注意，这种把主函数在处理 callback 的时候同时采用同步和异步的方式并不是一个好的实践，它也许会带来一些预期外的错误。
+请注意，这并不是一个好的实践，它也许会带来一些预期外的错误。最好能够保持一致--都是同步，或都是异步。
 
 我们再来看看下面这种典型的用 callback 风格处理的异步 Node 函数：
 
@@ -82,13 +82,13 @@ readFileAsArray('./numbers.txt', (err, lines) => {
 });
 ```
 
-代码会读取数组中的字符串内容，解析成数字并统计奇数个数。
+这段代码会读取数组中的字符串内容，解析成数字并统计奇数个数。
 
-在 NodeJS 的回调风格中的写法是这样的：第一个参数err代表着错误处理，当是 `null` 的时候我们就是正常调用 callback,用户和作者都习惯了这样写，主函数接受 callback 作为最后一个参数并且调用的时候给 callback 第一个参数传递 err 对象。
+在 NodeJS 的回调风格中的写法是这样的：第一个参数err代表着错误对象，当是 `null` 的时候我们就是正常调用 callback,用户和作者都习惯了这样写，主函数接受 callback 作为最后一个参数并且调用的时候给 callback 第一个参数传递 err 对象。
 
 #### The modern JavaScript alternative to Callbacks ####
 
-在高版本的 JS 中，我们有 Promise 对象，作为 callback 的有力竞争者，它的异步API替代了把 callback 作为一个参数传递并且同时处理错误信息，一个 Promise 对象允许我们分别处理成功和失败两种情况，并且链式的调用多个异步方法避免了回调地狱。
+在 ES6+ 中，我们有了 Promise 对象。作为 callback 的有力竞争者，它的异步 API 替代了把 callback 作为一个参数传递并且同时处理错误信息，一个 Promise 对象允许我们分别处理成功和失败两种情况，并且链式的调用多个异步方法避免了回调的嵌套（callback hell，回调地狱）。
 
 如果刚刚的 `readFileAsArray` 方法允许使用 Promise，它的调用将是这个样子的：
 
@@ -123,11 +123,11 @@ const readFileAsArray = function(file, cb = () => {}) {
 };
 ```
 
-现在这个函数返回了一个Promise对象，这里面包含着`fs.readFile`这个异步调用，Promise对象中同时包含一个 resolve 函数和 reject 函数。
+现在这个函数返回了一个Promise对象，这里面包含着 `fs.readFile` 这个异步调用，Promise对象中同时包含一个 resolve 函数和 reject 函数。
 
 reject 函数的作用就和我们之前 callback 中处理错误是一样的，而 resolve 函数也就和我们正常处理返回值是一样的。
 
-我们剩下唯一要做的就是在实例中制定一个 reject resolve 函数的默认值，在 Promise 中，我们只要写一个空函数即可，例如\(\) =&gt; {}.
+我们剩下唯一要做的就是在实例中指定 reject resolve 函数的默认值，在 Promise 中，我们只要写一个空函数即可，例如 `(\) => {}`.
 
 #### Consuming promises with async/await ####
 
@@ -152,24 +152,24 @@ async function countOdd () {
 countOdd();
 ```
 
-首先我们创建了一个 `async` 函数，只是在定义 functiond 的时候前面加了 `async` 关键字，在 `async` 函数里，我们把 `readFileAsArray` 这个异步方法用 `await` 来作为一个普通变量，这样我们的代码看起来真的是同步的呢！
+首先我们创建了一个 `async` 函数，只是在定义 function 的时候前面加了 `async` 关键字，在 `async` 函数里，我们把 `readFileAsArray` 这个异步方法用 `await` 来作为一个普通变量，这样我们的代码看起来真的是同步的呢！
 
 当 `async` 函数执行的过程是非常易读的，处理错误，我们只需要使用 `try/catch` 即可。
 
-在 `async/await` 函数中我们没有使用特殊API\(像: .then and .catch这种\)，我们仅仅使用了特殊关键字，但是像普通函数那样coding.
+在 `async/await` 函数中我们没有使用特殊 API（像: .then and .catch这种\），我们仅仅使用了特殊关键字，但是像普通函数那样coding.
 
-我们可以在支持Promise的函数中嵌套async/await函数，但是不能在callback风格的异步方法中使用它，比如setTimeout等等。
+我们可以在支持 Promise 的函数中嵌套 `async/await` 函数，但是不能在 callback 风格的异步方法中使用它，比如 `setTimeout` 等等。
 
 ### The EventEmitter Module ###
 
-EventEmitter是NodeJS中基于事件驱动的架构的核心，它是促进了各个对象之间交流的模块，很多nodejs的原生模块都使用了这个模块。
+EventEmitter 是 NodeJS 中基于事件驱动的架构的核心，它用于各个对象之间通信，很多 Nodejs 的原生模块都使用了这个模块。
 
-关于概念这一块很简单，Emitter对象emit命名好的事件，使得之前注册好的监听器被调用起来，Emitter对象有两个显著特点：
+关于概念这一块很简单，Emitter 对象 emit 命名好的事件，使得之前注册好的监听器被调用起来，Emitter 对象有两个显著特点：
 
-* emit注册好的事件
-* 注册和取消注册listener方法
+* emit 注册好的事件
+* 注册和取消注册 listener 方法
 
-如何使用呢？我们只需要穿件一个类来继承EventEmitter即可：
+如何使用呢？我们只需要创建一个类来继承 EventEmitter 即可：
 
 ```js
 class MyEmitter extends EventEmitter {
@@ -177,21 +177,21 @@ class MyEmitter extends EventEmitter {
 }
 ```
 
-Emitter objects are what we instantiate from the EventEmitter-based classes:
+然后我们创建一个基于 `EventEmitter` 的实例：
 
 ```js
 const myEmitter = new MyEmitter();
 ```
 
-有了实例，就可以在实例的全部生命周期里，emit任何我们命名好的方法了。
+有了实例，就可以在实例的全部生命周期里，emit 任何我们命名好的方法了。
 
 ```js
 myEmitter.emit('something-happened');
 ```
 
-emit一个事件就代表着有些情况的发生，这些情况通常是关于Emitter对象的状态改变的。
+emit 一个事件就代表着有些情况的发生，这些情况通常是关于 Emitter 对象的状态改变的。
 
-我们使用on方法来注册，然后这些监听的方法将会在每一个Emitter对象emit的时候执行。
+我们使用on方法来注册，然后这些监听的方法将会在每一个 Emitter 对象 emit 的时候执行。
 
 #### Events !== Asynchrony ####
 
@@ -218,7 +218,7 @@ withLog.on('end', () => console.log('Done with execute'));
 withLog.execute(() => console.log('*** Executing task ***'));
 ```
 
-定义的WithLog类是一个event emitter.它有个方法excutej接受一个参数，并且有很多执行顺序的输出log,并且分别在开始和结束的时候emit了两次。
+定义的 WithLog 类是一个 event emitter。它有个方法excute接收一个参数，并且有很多执行顺序的输出log，并且分别在开始和结束的时候emit了两次。
 
 让我们来看看运行它会有什么样的结果：
 
@@ -238,11 +238,11 @@ After executing
 * 另一个命名事件输出“Done with execute”
 * 最后“After executing”
 
-就像之前的callback,我们在events中并没有假设同步或者异步的代码
+如同之前的 callback，events 并不意味着同步或者异步。
 
-这一点很重要，假如我们有异步代码，那么很多结果就会迥然不同。
+这一点很重要，假如我们有给 `excute` 传递一个异步 `taskFunc` 函数，事件的触发就不再精确了。
 
-We can simulate the case with a `setImmediate` call:
+可以使用 `setImmediate` 来模拟这种情况：
 
 ```js
 // ...
@@ -254,7 +254,7 @@ withLog.execute(() => {
 });
 ```
 
-Now the output would be:
+会输出：
 
 ```
 Before executing
@@ -264,11 +264,11 @@ After executing
 *** Executing task ***
 ```
 
-这明显有问题，它的输出看起来不再精确了。
+这明显有问题，异步调用之后不再精确，“Done with execute” 、 “After executing” 出现在了 “\*\*\* Executing task \*\*\*”之前（应该在后）。
 
-当异步方法结束的时候emit一个事件,我们需要把callback/promise与合并事件驱动的交流合并起来，刚刚的例子证明了这一点。
+当异步方法结束的时候 emit 一个事件,我们需要把 callback/promise 与事件通信结合起来，刚刚的例子证明了这一点。
 
-使用事件驱动来代替传统callback有一个好处是在定义多个listener后，我们可以多次对同一个emit做出反应。如果要用callback来做到这一点的话，我们需要些很多的逻辑在同一个callback中，事件是应用程序允许多个外部插件在应用程序核心之上构建功能的一个好方法，你可以把它们当作钩子点来允许围绕状态变化来做更多自定义的事。
+使用事件驱动来代替传统 callback 有一个好处是：在定义多个 listener 后，我们可以多次对同一个 emit 做出反应。如果要用 callback 来做到这一点的话，我们需要些很多的逻辑在同一个 callback 中，事件是应用程序允许多个外部插件在应用程序核心之上构建功能的一个好方法，你可以把它们当作钩子点来允许围绕状态变化来做更多自定义的事。
 
 #### Asynchronous Events ####
 
@@ -303,7 +303,7 @@ withTime.execute(fs.readFile, __filename);
 ```
 
 
-执行WithTime类的asyncFunc方法，使用console.time和console.timeEnd来返回执行的时间，他emit了正确的序列在执行之前和之后，同样emit  error/data来保证函数的正常工作。
+执行 WithTime 类的 asyncFunc 方法，使用 console.time 和 console.timeEnd 来返回执行的时间，他 emit 了正确的序列在执行之前和之后，同样 emit error/data 来保证函数的正常工作。
 
 执行之后的结果如下，正如我们期待的正确事件序列，我们得到了执行的时间，这是很有用的：
 
@@ -313,7 +313,7 @@ execute: 4.507ms
 Done with execute
 ```
 
-请注意，我们如何结合一个callback在事件发射器上完成它，如果asynFunc同样支持Promise的话，我们可以使用async/await特性来做到同样的事情：
+请注意，我们如何结合一个 callback 在事件发射器上完成它，如果 asynFunc 同样支持 Promise 的话，我们可以使用 async/await 特性来做到同样的事情：
 
 ```js
 class WithTime extends EventEmitter {
@@ -338,7 +338,7 @@ class WithTime extends EventEmitter {
 
 在之前的例子中，我们使用了额外的参数来发射两个事件。
 
-错误的事件使用了错误对象，data事件使用了data对象
+错误的事件使用了错误对象，data 事件使用了 data 对象
 
 ```js
 this.emit('error', err);
