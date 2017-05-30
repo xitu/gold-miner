@@ -1,56 +1,56 @@
 > * 原文地址：[A follow-up on how to store tokens securely in Android](https://medium.com/@enriquelopezmanas/a-follow-up-on-how-to-store-tokens-securely-in-android-e84ac5f15f17)
 > * 原文作者：[Enrique López Mañas](https://medium.com/@enriquelopezmanas)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
+> * 译者： [lovexiaov](https://github.com/lovexiaov)
 > * 校对者：
 
 ![](https://cdn-images-1.medium.com/max/2000/1*nWjJ7GKUSVEQMC0srKK-9Q.jpeg)
 
-# A follow-up on how to store tokens securely in Android #
+# 再谈如何安全地在 Android 中存储令牌 #
 
-As a prologue to this article, I want to remark a short sentence for the notional reader. This quote will be important as we move forward.
+作为本文的序言，我想对假想的读者做一个简短的声明。下面的引言对本文的后续内容而言十分重要。
 
-> Absolute security does not exist. Security is a set of measures, being piled up and combined, trying to slow down the inevitable.
+> 没有绝对的安全。所谓的安全是指利用一系列措施的堆积和组合，来试图延缓必然发生的事情。
 
-Almost three years ago, I wrote [a post](http://codetalk.de/?p=86) giving some ideas to protect String tokens from a hypothetical attacker decompiling our Android application. For the sake of remembrance, and in order to ward off the inescapable death of the Internet, I am reproducing some sections here.
+大约 3 年前，我写了[一篇文章](http://codetalk.de/?p=86)，给出了几种方法来防止反编译我们 Android 应用的潜在攻击者窃取字符串令牌。为了便于回忆，也为了防止不可避免的网络损坏，我将会在此重新列出一些章节。
 
-One of the most common use cases happens when our application needs to communicate with a web service in order to exchange data. This data exchange can oscillate from a less to a more sensitive nature, and vary between a login request, user data alteration petition, etc.
+一个十分常见的场景是应用需要与服务器连接来交换数据。交换的数据敏感性时小时大，而且不同请求（登陆请求、用户信息变更请求，等）之间交换的数据类型也多种多样。
 
-The absolute first measure to be applied is using a [SSL](http://info.ssl.com/article.aspx?id=10241) (Secure Sockets Layer) connection between the client and the server. Go again to the initial quote. This does not ensure an absolute privacy and security, although it makes a good initial job.
+首先要提到并应用的技术是使用 [SSL](http://info.ssl.com/article.aspx?id=10241)（安全套接层）链接客户端与服务端。再看一下文章开头的引言。尽管这样做是一个良好的开端，但这并不能确保绝对的隐私和安全。
 
-When you are using a SSL connection (like when you see the locker in your browser) it indicates that the connection between you and the server is encrypted. On a theoretical level, nothing can access the information contained within this requests(*)
+当你使用 SSL 连接时（也就是当你看到浏览器上有一个小锁时），这意味着你与服务器之间的连接被加密了。理论上讲，没有什么能够访问到你请求里的信息（*）
 
-(*)Did I mention that the absolute security does not exist? SSL connections can still be compromised. This article does not intend to provide an extensive list of all the possible attacks, but I want to let you know of a few possibilities. Fake SSL certificates can be used, as well as Man-in-the-Middle attacks.
+（*）我说过绝对的安全不存在吧？SSL 连接仍然可以被攻破。本文不打算提供所有可能的攻击手段列表，我只想让你明白这是可能发生的。可以伪造 SSL 证书，也可以进行中间人攻击。
 
-Let’s move forward. We are assuming our client is communicating via an encrypted SSL channel with our backend. They are exchanging useful data, making their business, being happy. But we want to provide an additional security layer.
+我们继续。假设客户端正在通过加密的 SSL 通道与后台链接，它们在愉快的交换有用的数据，执行业务逻辑。但是我们还想提供一个额外的安全层。
 
-A next logical step used nowadays is to provide an authentication token or API Key to be used in the communication. It works this way. Our backend receives a petition. How do we know the petition comes from one of our verified clients, and not a random dude trying to gain access to our API? The backend will check if the client is providing a valid API Key. If the previous statement happens to be true, then we proceed with the request. Otherwise, we deny it and depending on the nature of our business we take some corrective measures (when this is happening, I particularly like to store the IP and IDs from the client to see how often this occurs. When the frequency is swelling more than it is desirable for my fine taste, I do consider a ban or observing closely what the impolite internet dude is trying to achieve).
+接下来要采取的措施是在通信中使用授权令牌或 API 密钥。当后台收到一个请求时，我们如何判断该请求是来自认证的客户端而不是任意一个想要获取我们 API 数据的家伙？后台会检查该客户端是否提供了一个有效的 API 密钥。如果密钥有效，则执行请求操作，否则拒绝该请求并根据业务需求采取一些措施（当出现此情况时，我一般会纪录他们的 IP 地址和客户端 ID，看一下他们的访问频率。如果频率高于我的忍受范围，我会考虑禁止并观察一下这个无礼的家伙想要得到什么）。
 
-Let’s construct our castle from the ground. In our app, we will likely add a variable called API_KEY that gets automatically injected in each request (if you are using Android, probably in your Retrofit client).
+让我们从头开始构建我们的城堡吧。在我们的应用中，添加一个叫做 API_KEY 的变量，该变量会自动注入到每次的请求（如果是 Android 应用，可能会是你的 Retrofit 客户端）中。
 
-```
+```java
 private final static String API_KEY = “67a5af7f89ah3katf7m20fdj202”
 ```
 
-This is great, and works if we want to authenticate our client. The problem is that does not provide a very effective layer by itself.
+很好，这样可以帮助我们鉴定客户端。但问题在于它本身并没有提供一个十分有效的安全保证。
 
-If you use [apktool](https://ibotpeaches.github.io/Apktool/)  to decompile the application and perform a search looking for strings, you will find in one of the resulting .smali files the following:
+如果你使用 [apktool](https://ibotpeaches.github.io/Apktool/) 反编译该应用，然后搜索该字符串，你会在其中一个 .smali 文件中发现：
 
-```
+```smali
 const-string v1, “67a5af7f89ah3katf7m20fdj202”
 ```
 
-Yeah, sure. It does not say this is a validation Token, so we still need to go through a meticulous verification to decide how to reach this string and whether it can be used for authentication purposes or not. But you know where I am going: this is mostly a matter of time and resources.
+是的，我知道。这并不能保证是一个有效的令牌，所以我们仍然需要通过一个精确地验证来决定如何找到那个字符串，和它是否可以用来通过验证。但是你知道我要表达什么：这通常只是时间个资源的问题。
 
-Could Proguard help us to secure this String, so we do not have to worry about it? Not really. Proguard states in [its FAQ](http://proguard.sourceforge.net/FAQ.html#encrypt) that String encryption is not totally possible.
+Proguard 是否会能我们保证该字符串的安全呢？并不能。Proguard 在[常见问题](http://proguard.sourceforge.net/FAQ.html#encrypt)中提到了字符串的加密是完全不可能的。
 
-What about saving this String in one of the other mechanisms provided by Android, such as the SharedPreferences? This is barely a good idea. SharedPreferences can be easily accessed from the Emulator or any rooted device. Some years ago a guy called [Srinivas](http://resources.infosecinstitute.com/android-hacking-security-part-9-insecure-local-storage-shared-preferences/) proofed how the scored could be altered in a video-game. We are running out of options here!
+那将字符串保存到 Android 提供的其他存储机制中呢，比如说 SharedPreferences？这并不是一个好方法。在模拟器或者 root 过的设备中可以轻易的访问到 SharedPreferences。几年前，一个叫 [Srinivas](http://resources.infosecinstitute.com/android-hacking-security-part-9-insecure-local-storage-shared-preferences/) 的伙计向我们证明了如何更改一个视频游戏中的得分。跑题了！
 
-#### Native Development Kit (NDK) ####
+#### 原生开发工具包 (NDK) ####
 
-I am going to refresh here the initial model I proposed, and how we can as well iterate through it to provide a more secure alternative. Let’s image two functions that could serve to encrypt and decrypt our data:
+我将会更新我提出的初始模型，不断迭代它，以提供更安全的替代方案。我们假设有两个函数分别负责加密和解密数据：
 
-```
+```java
  private static byte[] encrypt(byte[] raw, byte[] clear) throws Exception {
         SecretKeySpec skeySpec = new SecretKeySpec(raw, "AES");
         Cipher cipher = Cipher.getInstance("AES");
@@ -68,18 +68,18 @@ I am going to refresh here the initial model I proposed, and how we can as well 
     }
 ```
 
-Nothing fancy here. These two functions will take a key value and a string to be encoded or decoded. They will return the encrypted or the decrypted token, respectively. We would call the following function as follows:
+代码没啥好说的。这两个函数会使用一个密钥值和一个被用来编/解码的字符串作为入参。它们会返回相应的加密或解密过的字符串。我们会用如下方式调用它们：
 
-```
+```java
 ByteArrayOutputStream baos = new ByteArrayOutputStream();  
-bm.compress(Bitmap.CompressFormat.PNG, 100, baos); 
+bm.compress(Bitmap.CompressFormat.PNG, 100, baos);
 byte[] b = baos.toByteArray();  
 
 byte[] keyStart = "encryption key".getBytes();
 KeyGenerator kgen = KeyGenerator.getInstance("AES");
 SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
 sr.setSeed(keyStart);
-kgen.init(128, sr); 
+kgen.init(128, sr);
 SecretKey skey = kgen.generateKey();
 byte[] key = skey.getEncoded();    
 
@@ -89,21 +89,21 @@ byte[] encryptedData = encrypt(key,b);
 byte[] decryptedData = decrypt(key,encryptedData);
 ```
 
-Are you guessing the direction? That is right. We could encrypt and decrypt our token on demand. This provides an additional layer of security: when the code gets obfuscated, it is not anymore as straightforward as performing a String search and check the environment surrounding that String. But can you still figure out a problem that needs to be solved?
+抓到重点了吗？是的，我们可以根据需求来加/解密令牌。这就为我们提供了一个额外的安全层：当代码混淆后，寻找令牌不再像执行字符串搜索和检查字符串周围的环境那样简单了。但是，你能指出还有一个需要解决的问题吗？
 
-Can you?
+找到了吗？
 
-Give it a couple of seconds more if you have not figured it out yet.
+如果还没找到就多花点时间。
 
-Yes, you are right. We have an encryption key that is being also stored as String. This is adding more layers of security by obscurity, but we still have a token on plain text, regardless of whether this token is used for encryption or is the token per-se.
+是的。我们仍然有一个加密密钥以字符串的形式存储。虽然这种隐晦的做法增加了更多的安全层，但不管这个令牌是用于加密或它本身就是一个令牌，我们仍然有一个以文本形式存在的令牌。
 
-Let’s going to use now the NDK, and keep iterating our security mechanism.
+现在，我们将使用 NDK 来继续迭代我们的安全机制。
 
-NDK allows us to access a C++ code base from our Android code. As a first approach, let’s take a minute to think what to do. We could have a native C++ function that stores an API Key or whatever sensitive data we are trying to store. This function could later on be called from the code, and no string will be stored in any Java file. This would provide an automatic protection against decompiling techniques.
+NDK 允许我们在 Android 代码中访问 C++ 代码库。首先我们来想一下要做什么。我们可以在一个 C++ 函数中存放 API 密钥或者敏感数据。该函数可以在之后的代码中调用，避免了在 Java 文件中存储字符串。这就提供了一个自动的保护机制来防止反编译技术。
 
-Our C++ function would look like follows:
+C++ 函数如下：
 
-```
+```cpp
 Java_com_example_exampleApp_ExampleClass_getSecretKey( JNIEnv* env,
                                                   jobject thiz )
 {
@@ -111,9 +111,9 @@ Java_com_example_exampleApp_ExampleClass_getSecretKey( JNIEnv* env,
 }
 ```
 
-It will be called easily in your Java code:
+在 Java 代码中调用它也很简单：
 
-```
+```java
 static {
         System.loadLibrary("library-name");
     }
@@ -121,58 +121,57 @@ static {
 public native String getSecretKey();
 ```
 
-And the encryption/decryption function will be called as in the next snippet:
+在加/解密函数中会这样调用：
 
-```
+```java
 byte[] keyStart = getSecretKey().getBytes();
 ```
 
-If we know generate an APK, obfuscate it, decompile it and try to access the string contained in the native function getSecretKey(), we will not be able to find it! Victory?
+此时我们生成 APK，混淆它，然后反编译并尝试在原生函数 getSecretKey() 中查找该字符串，无法找到！胜利了吗？
 
-Not really. The NDK code can actually be disassembled and inspected. This is getting tougher, and you are starting to require more advanced tools and techniques. You got rid of 95% of the script kids, but a team with enough resources and motivation will still be able to access the token. Remember this sentence?
+并没有！NDK 代码其实也可以被反汇编和检查。只是难度较高，需要更高级的工具和技术。虽然这样可以摆脱掉 95% 的脚本小子，但一个有充足资源和动机的团队让然可以拿到令牌。还记得这句话吗？
 
-> Absolute security does not exist. Security is a set of measures, being piled up and combined, trying to slow down the inevitable.
+> 没有绝对的安全。所谓的安全是指利用一系列措施的堆积和组合，来试图延缓必然发生的事情。
 
 ![](https://cdn-images-1.medium.com/max/800/1*JPErsmBbKjKbFoQYJAoUkg.png)
 
-You can still access in disassembled code String literals!
-[Hex Rays](https://www.hex-rays.com/products/decompiler/), for instance, makes a very good job at decompiling native files. I am sure there are a bunch of tools as well that could deconstruct any native code generated with Android (I am not associated with Hex Rays neither receiving any kind of monetary compensation from them).
+你仍然可以在反汇编代码中找到该字符串字面值。[Hex Rays](https://www.hex-rays.com/products/decompiler/) 在反编译原生文件方面就做的很好。我很确信有一大堆的工具可以解构 Android 生成的任意原生代码（我跟 Hex Rays 并没有关系，也没有从他们那里拿到任何形式的资金酬劳）。
 
-So which solution could we use to communicate between a backend and a client without being flagged?
+那么，我们要使用哪种方案来避免后台与客户端的通信被标记呢？
 
-**Generate the key in real time on the device.**
+**在设备上实时生成密钥。**
 
-Your device does not need to store any kind of key and deal with all the hassle of protecting a String literal! This is a very old technique used by services such as remote key validation.
+你的设备不需要存储任何形式的密钥并处理各种保护字符串字面值的麻烦！这是在服务中用到的非常古老的技术，比如远程密钥验证。
 
-1. The client knows a function() that returns a key.
-2. The backend knows the function() implemented in the client
-3. The client generates a key through the function(), and this gets delivered to the server.
-4. The server validates it, and proceeds with the request.
+1. 客户端知道有个函数会返回一个密钥。
+2. 后台知道在客户端中实现的那个函数。
+3. 客户端通过该函数生成一个密钥，并发送到服务器上。
+4. 服务器验证密钥，并根据请求执行相应的操作。
 
-Are you connecting the dots? Instead of having a native function that returns you a string (easily identifiable) why not having a function that returns you the sum of three random prime numbers between 1 and 100? Or a function that takes the current day expressed in unixtime and adds a 1 to each different digit? What about taking some contextual information from the device, such as the amount of memory being used, to provide a higher degree of entropy?
+抓到重点了吗？为什么不使用返回三个随机素数（ 1～100 之间）之和的函数来代替返回一个字符串（很容易被识别）的原生函数呢？或者拿到当天的 UNIX 时间，然后给每一位数字加 1？通过设备的一些上下文相关信息(如正在使用的内存量)来提供一个更高程度的熵值？
 
-The last paragraph includes a series of ideas, but our hypothetical reader has hopefully taken the main point.
+上面这段包含了一些想法，希望假想的读者已经得到重点了。
 
-### **Summary** ###
+### **总结** ###
 
-1. Absolute security does not exist.
-2. Combining a set of protecting measures is the key to achieving a high degree of security.
-3. Do not store String literals in your code.
-4. Use the NDK to create a self-generated key.
+1. 绝对的安全是不存在的。
+2. 多种保护手段的组合是达到高安全度的关键。
+3. 不要在代码中存储字符串字面值。
+4. 使用 NDK 来创建自生成的密钥。
 
-Remember the first sentence?
+还记得开头的那段话吧？
 
-> Absolute security does not exist. Security is a set of measures, being piled up and combined, trying to slow down the inevitable.
+> 没有绝对的安全。所谓的安全是指利用一系列措施的堆积和组合，来试图延缓必然发生的事情。
 
-I want to point once more that your goal is to protect as much as possible your code, without losing perspective that 100% of security is unattainable. But if you are able to protect your code in a way that requires a vast amount of resources to decrypt any sensible information you have, you will be able to sleep well and quiet.
+我想再强调一次，你的目标是尽可能的保护你的代码，同时不要忘记 100% 的安全是不可能的。但是，如果你能保证解密你代码中任意的敏感信息都需要耗费大量的资源，你就能安心睡觉啦。
 
-### A small disclaimer ###
+### 一个小小的免责声明 ###
 
-I know. You got until here, thinking throughout the entire article “how is this guy not mentioning [Dexguard](https://www.guardsquare.com/en/dexguard) , and going through all the hassle?”. You are right. Dexguard can actually obfuscate Strings, and they do a very good job at it. However, Dexguard pricing [can be prohibitive](http://thinkdiff.net/mobile/dexguard-480-eur-to-10313-eur-the-worst-software-do-not-use/) . I have used Dexguard in previous companies with critical security systems, but this might not be an option for everybody. And, in Software Development as well as in life, the more options you have the richer and more abundant the world gets.
+我知道，读到此处，纵观整文，你会纳闷“这家伙怎么讲了所有麻烦的方法而没有提到 [Dexguard](https://www.guardsquare.com/en/dexguard) 呢？”。是的 Dexguard 可以混淆字符串，他们在这方面做的很好。然而 Dexguard 的售价[让人望而却步](http://thinkdiff.net/mobile/dexguard-480-eur-to-10313-eur-the-worst-software-do-not-use/)。我在之前的公司的关键安全系统中使用过 Dexguard，但这也许并不是一个适合所有人的选择。再说了，像生活一样，在软件开发中选择越多世界越丰富多彩。
 
-Happy coding!
+愉快的编码吧！
 
-I write my thoughts about Software Engineering and life in general in my [Twitter account](https://twitter.com/eenriquelopez) . If you have liked this article or it did help you, feel free to share it, ♥ it and/or leave a comment. This is the currency that fuels amateur writers.
+我会在 [Twitter](https://twitter.com/eenriquelopez) 上写一些关于软件工程和生活点滴的思考。如果你喜欢此文，或者它能帮到你，请随意分享，点赞或者留言。这是业余作者写作的动力。
 
 ---
 
