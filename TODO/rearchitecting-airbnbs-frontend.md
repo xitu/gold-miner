@@ -1,65 +1,68 @@
 > * 原文地址：[Rearchitecting Airbnb’s Frontend](https://medium.com/airbnb-engineering/rearchitecting-airbnbs-frontend-5e213efc24d2)
 > * 原文作者：[Adam Neary](https://medium.com/@AdamRNeary)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
-> * 校对者：
+> * 译者：[sunui](https://github.com/sunui)
+> * 校对者：[Dalston Xu](https://github.com/xunge0613)、[yzgyyang](https://github.com/yzgyyang)
 
-# Rearchitecting Airbnb’s Frontend #
+# Airbnb 的前端重构 #
 
-Overview: We recently rethought the architecture for the JavaScript side of our codebase at Airbnb. This post will look at (1) the product drivers that precipitated the changes, (2) the steps we took to move away from our legacy Rails solutions, and (3) some of the key pillars of the new stack. *Bonus: We’ll talk about what’s next!*
+概述：最近，我们重新思考了 Airbnb 代码库中 JavaScript 部分的架构。本文将讨论：（1）催生一些变化的产品驱动因素，（2）我们如何一步步摆脱遗留的 Rails 解决方案，（3）一些新技术栈的关键性支柱。彩蛋：我们将透露一下未来的发展方向。
 
 
-Airbnb sees more than 75 million searches each day, which makes the search page our highest traffic page. For nearly ten years, engineers have evolved, enhanced, and optimized the way that Rails delivers the page.
+Airbnb 每天处理超过 7500 万次搜索，这使得搜索页面成为我们流量最高的页面。近十年来，工程师们一直在发展、加强和优化 Rails 输出页面的方式。
 
-Recently, we moved into verticals beyond Homes, [introducing Experiences and Places](https://www.airbnb.com/new) . As a part of bringing these new products to web, we took the time to rethink the search experience itself.
+最近，我们转移到了主页以外的垂直页面，[来介绍一些体验和去处](https://www.airbnb.com/new)。作为 web 端新增产品的一部分，我们花时间重新思考了搜索体验本身。
 
 ![](https://cdn-images-1.medium.com/max/800/1*VMRwDmHVeYC3YnJhhtKn4Q.gif)
 
-Transitioning between routes for a broad search
+在一个用于宽泛搜索的路由之间过渡
 
-Rather than navigating from our landing page at [www.airbnb.com](http://www.airbnb.com) (1) to a search results page (2) to a single listing (3) to the booking flow (4)— *each page delivered standalone via Rails* — we want the user experience to be fluid, adjusting what the user is experiencing as they explore and narrow their search.
+为了使用户体验流畅，我们选择调整用户浏览页面和缩小搜索范围的交互方式，而不再采用以前那样的多页交互方式：（1）首先访问着陆页 [www.airbnb.com](http://www.airbnb.com)，（2）接着进入搜索结果页，（3）随后访问某个列表页，（4）最后进入预订流程。**每个页面都是一个独立的 Rails 页面**。
 
 ![](https://cdn-images-1.medium.com/max/800/1*epBwi0kxrcW5a6Wv-T4rSg.gif)
 
-Designs exploring search from three states: New User, Returning User, and Marketing Marquee
+设计三种浏览搜索页的状态：新用户、老用户和营销页。
 
-Navigating across tabs and interacting with listings should feel luxurious and effortless. In fact, today there is nothing stopping us from delivering an experience on par with native applications on small and medium screens.
+在标签页之间切换和与列表进行交互应该感到惬意而轻松。事实上，如今没有什么可以阻止我们在中小屏幕上提供与原生应用一致的体验。
+
 
 ![](https://cdn-images-1.medium.com/max/800/1*y_gKoEDVvBvJpGq7hfcr_g.gif)
 
-Future concept for navigating between tabs, considering async-loaded of content
+会考虑将来在切换标签页时，异步加载相应内容
 
-To tee up this type of experience, we needed to break free of the legacy page-by-page approach that got us here, and in the end we wound up with a fundamental rearchitecting of our Frontend code.
+为了实现这种体验，我们需要摆脱传统的页面切换方法，最终我们只好全面重构了前端代码。
 
-[Leland Richardson](https://medium.com/@intelligibabble) [recently spoke at React Conf about React Native in the “brownfield” of an existing, high traffic native application](https://www.youtube.com/watch?v=tWitQoPgs8w) . This article will examine how we undertook a dramatic upgrade with similar constraints, but on the web. Hopefully you find it useful if you find yourself in a similar place!
+[Leland Richardson](https://medium.com/@intelligibabble) [最近在 React Conf 大会上发表了演讲，称 React Native 如今正处于和现有的高访问量原生应用共存的“褐色地带”](https://www.youtube.com/watch?v=tWitQoPgs8w)这篇文章将会探讨如何在类似的限制条件下进行 web 端重构。希望你在遇到类似情况时，这篇文章对你有所帮助。
 
-### Breaking Free from Rails ###
+### 从 Rails 之中解脱 ###
 
-Before firing up the barbecue for all the fun [Progressive Web App](https://developers.google.com/web/progressive-web-apps/) work on our roadmap, we needed to separate from Rails (or at least the way we use Rails at Airbnb in delivering standalone pages).
+在我们的烧烤开火之前，因为我们的线路图上存在所有有趣的[渐进式 web 应用](https://developers.google.com/web/progressive-web-apps/)（WPA），我们需要从 Rails 中解脱出来（或者至少在 Airbnb 用 Rails 提供单独页面的这种方式）。
 
-Unfortunately, only a matter of months ago, our search page contained some very old code…like, *Lord of the Rings*, touch-that-at-your-peril old. Fun fact: I once replaced a small [Handlebars](http://handlebarsjs.com/) template backed by a Rails presenter with a simple React component, and suddenly things were breaking in entirely separate parts of the page — even in our API response! Turns out, the presenter was mutating the backing Rails model, which had been impacting all downstream data for years, even when the UI wasn’t being rendered.
+不幸的是，就在几个月前，我们的搜索页还包含一些非常老旧的代码，像指环王一样，触碰它就要小心自负后果。有趣的事实：我曾尝试用一个简单的 React 组件来替换基于 Rails presenter 的 [Handlebars](http://handlebarsjs.com/) 模板，突然很多完全不相关的部分都崩掉了 —— 甚至 API 响应都出了问题。原来，presenter 改变了底层 Rails 模型，多年来即使在 UI 没有渲染的时候，它也影响着所有的下游数据。
 
-In short, we were in this project like Indiana Jones swapping the idol for a bag of sand, and immediately the temple starts collapsing, and we’re running from a boulder.
+简而言之，我们在这个项目中，就好像 Indiana Jone 用一袋沙子替换了宝物，突然间庙宇开始崩塌，我们正在从石块中奔跑。
 
-#### Step 1: Aligning on API Data ####
 
-When Rails is server-rendering your page, you can get away with throwing data at your server-rendered React components any way you like. Controllers, helpers, and presenters can produce data of any shape, and even as you migrate sections of the page to React, each component can consume whatever data it requires.
 
-But once you endeavor to render the route client-side, you need to be able to request the data you need dynamically and in a predetermined shape. In the future, we may crack this problem with something like [GraphQL](http://graphql.org/), but let’s set that aside for now, as it wasn’t an option when this refactor took place. Rather, we chose to align on a “v2” of our API, and we needed all our components to begin consuming that canonical data shape.
+#### 第 1 步： 调整 API 数据 ####
 
-If you find yourself in similar waters with a large application, you might find as we did that planning for the migration of existing server-side data plumbing was the easy part. Simply step through any place Rails is rendering a React component, and ensure that data inputs are API shapes. You can further validate compliance with API V2 shapes used as React PropTypes on the client.
+当使用 Rails 在服务器端渲染页面时，你可以用任何你喜欢的方式把数据丢给服务器端的 React 组件。Controllers、helpers 和 presenters 能生成任何形式的数据，甚至当你把部分页面迁移到 React 时，每个组件都能处理它所需的任何数据。
 
-The tricky bit for us was working with all the teams who interact with the guest booking flow: our Business Travel, Growth, and Vacation Rentals teams; our China and India market-specific teams, Disaster Recovery…the list goes on, and we needed to reeducate all these folks that even though it was technically possible to pass data directly to the component being rendered (“yes, I understand it’s just an experiment, but…”), *all data* needs to go through the API.
+但一旦你想渲染客户端路由，你需要能够以预定的形式动态请求所需的数据。将来我们可能用类似 [GraphQL](http://graphql.org/) 的东西解决这个问题，但是现在暂且把它放到一边吧，因为这件事和重构代码没太大关系。相反，我们选择在我们的 API 的 “v2” 上进行调整，我们需要我们所有的组件来开始处理规范的数据格式。
 
-#### Step 2: Non-API Data: Config, Experiments, Phrases, L10n, I18n… ####
+如果你自己和我们处在类似的情况中，在维护一个大型的应用，你可能发现我们像我们这样做，规划迁移现有的服务器端数据管道是很容易的。只需在任何地方用 Rails 渲染一个 React 组件，并确保数据输入是 API 所规定的类型。你可以用客户端的 React PropTypes 来进一步验证数据类型是否与 API v2 一致。
 
-There is a separate class of data from what we would think of as API data, and it includes application config, user-specific experiment assignment, internationalization, localization, and similar concerns. Over the years, Airbnb has built up some incredible tooling to support all these functions, but the mechanisms for delivering them to the Frontend were a bit under-baked (or possibly fully-baked when built, before the ground began shifting under foot!).
+对我们来说棘手的问题是和那些参与客户预定流程交互的团队协作：商业旅游、发展、度假租赁团队；中国和印度市场团队，灾难恢复团队等等，我们需要重新培训所有这些人，即使在技术上可以将数据直接传递到正在呈现的组件上("是的，我明白，这仅仅是一种实验，但是...")，**所有的数据**都要通过 API。
 
-We use [Hypernova](https://www.npmjs.com/package/hypernova) to server-render React, but before we went deep on this refactor, it was a bit nebulous whether experiment delivery in a React component would blow up during server-rendering or if string translations available on the client would all be reliably available on the server. Critically, if the server and client output don’t match to the bit, the page not only flashes the diff but also re-renders the entire page after load, which is terrible for performance.
+#### 第 2 步： 非 API 数据: 配置、试验、惯用语、本地化、国际化… ####
 
-Worse yet, we had some magical Rails functions written long ago, for instance `add_bootstrap_data(key, value)`, which could ostensibly be called anywhere in Rails to make data available on the client globally via `BootstrapData.get(key)`(though, again, not necessarily for Hypernova). What began as a helpful utility for a small team became a source of untraceable witchcraft for a large application and team. The “data laundering” crimes became increasingly tricky to unwind, as each team owns a different page or feature, and therefore each team cultivated a different mechanism for loading config, each suiting their unique needs.
+有一类独特的数据和我们设想的 API 化的数据不同，包括应用配置、用户试验任务、国际化、本地化等等类似的问题。近年来，Airbnb 已经建立了一套很棒的工具来支持这些功能，但是把这些数据传送到前端的机制就不那么令人愉快了（在革命开始之前，或许就已经很蹩脚了！）。
 
-Clearly, this was already breaking down, so we converged on a canonical mechanism for bootstrapping non-API data, and we began migrating all apps/pages to this handoff between Rails and React/Hypernova.
+我们使用 [Hypernova](https://www.npmjs.com/package/hypernova)  在服务端渲染渲染 React，但是在我们此次重构深入之前，无论服务端渲染时 React 组件中的试验交付会不会爆发或者客户端上提供的字符串转换是否都可以在服务器上可靠地使用，这些都还有点模糊。最重要的是，如果服务器和客户端输出匹配不到位，页面不仅会不断闪烁刷新 diff，还会在加载后重新渲染整个页面，这对于性能来说很可怕。
+
+更糟糕的是，我们很久以前写过一些神奇的 Rails 功能，比如 `add_bootstrap_data(key, value)` 表面上可以在 Rails 中的任何地方调用，通过 `BootstrapData.get(key)` 使数据在客户端的全局可用（再次强调，对 Hypernova 来说已经不必要了）。曾经这些小工具对小团队来说很实用，但如今随着团队规模扩大，应用规模扩张，这些小工具反而变成了累赘。由于每个团队拥有不同的页面或功能，因此“数据清洗”变得越来越棘手，因此每个团队都会培养出一种不同的加载配置的机制，以满足其独特需求。
+
+显然， 这套机制已经崩溃了，所以我们融合了一个用于引导非 API 数据的规范机制，我们开始将所有应用程序和页面迁移到 Rails 和 React/Hypernova 之间的这种切换。
 
 ```
 import React, { PropTypes } from 'react';
@@ -111,14 +114,14 @@ function withHypernovaBootstrap(App) {
         userAttributes,
       } = props;
 
-      // clear out bootstrap data on the server to avoid leaking data
+      // 清除服务器上的引导数据，以避免泄露数据
       if (!global.document) {
         BootstrapData.clear();
       }
       BootstrapData.extend(bootstrapData);
       ImagePaths.extend(images);
 
-      // It is not safe to call L10n.init with empty object in tests
+      // 在测试中用空对象调用 L10n.init 是不安全的
       if (i18nInit) {
         L10n.init(i18nInit);
       }
@@ -141,10 +144,8 @@ function withHypernovaBootstrap(App) {
     }
 
     render() {
-      // Ideally, we only want to pass through bootstrapData. If you have redux or alt data from
-      // the server to bootstrap, you can actually pass that data as a key in bootstrapData.
-      //
-      // Other props are consumed and not passed to the app.
+      // 理想情况下，我们只想通过 bootstrapData 传输数据 
+      // 如果你使用 redux 或从服务端转换数据到 bootstrap，你其实可以将数据当作一个键值(key)传入 bootstrapData，其他属性被使用但是不会传入 app 。
       return <App bootstrapData={this.props.bootstrapData} />;
     }
   }
@@ -160,42 +161,43 @@ function withHypernovaBootstrap(App) {
 export default compose(withPhrases, withHypernovaBootstrap);
 ```
 
-A canonical higher order component for bootstrapping non-API data
+用于引导非 API 数据规范的更高阶的组件
 
-This higher order component does two very important things:
 
-1. It receives a canonical shape of bootstrap data as a Plain Old JavaScript Object, and initializes all the supporting tooling correctly both for server-rendering and client-rendering identically.
-2. It swallows everything except `bootstrapData`, another simple object which we expect `<App>`to load into Redux to be used by children as needed (in place of `BootstrapData.get`).
+这个非常高阶的组件做了两件更重要的事情：
 
-In a single shot, we eliminated `add_bootstrap_data` and prevented engineers from passing arbitrary keys through to top level React components. Order was restored to the shire, and before long we were navigating to routes dynamically in the client and rendering content of material complexity without Rails to prop it up (pun intended).
+1. 它接收一个引导数据作为普通的旧对象的规范形式，并且正确地初始化所有支持的工具，用于服务器渲染和客户端渲染。
+2. 它吞噬除了 `bootstrapData` 的一切 ，它是另一个简单的对象，必要时把 `<App>` 组件传入 Redux 作为 children 使用。
 
-### Super-Charging the Frontend ###
+单纯来看，我们删除了 `add_bootstrap_data`，并阻止工程师将任意键传递到顶级的 React 组件。秩序被重新恢复，以前我们在客户端中动态地导航到路由，并且渲染材料复杂的 content，而不需要Rails来支持它。
 
-Server rework in hand, we now turn our gaze to the client.
+### 进击的前端 ###
 
-#### The Lazy-Loaded Single Page App ####
+服务端的重构已经有了头绪，现在我们把目光转向客户端。
 
-Gone are the days, friends, of the monster Single Page App (SPA) with a gruesome loading spinner on initialization. This dreaded loading spinner was the objection many folks raised when we pitched the idea of client-side routing with React Router.
+#### 懒加载的单页面应用 ####
+
+那段日子已经过去了，朋友们，初始化时带着可怕 loading 的巨型单页面应用（SPA）已经不复存在了。当我们提出用 React Router 做客户端路由的方案时，可怕的 loading 是很多人提出拒绝的理由。
 
 ![](https://cdn-images-1.medium.com/max/800/1*O2fK16vfyWaDT-IR61drPw.png)
 
-Lazy loading of route bundles in the Chrome Timeline
+在 Chrome Timeline 中 route 包的懒加载
 
-But if you look above, you’ll see the impact of [code-splitting](https://webpack.github.io/docs/code-splitting.html) and [lazy-loading](https://webpack.js.org/guides/lazy-load-react/) bundles by route. In essence, we server render the page and deliver just the bare minimum JavaScript required to make it interactive in the browser, then we begin proactively downloading the rest when the browser is idle.
+但是，再看看上文，你就会发现路由对[代码分割](https://webpack.github.io/docs/code-splitting.html)和[延迟加载](https://webpack.js.org/guides/lazy-load-react/)进行捆绑造成的影响。实质上，我们在服务端渲染页面并且仅仅传输最低限度的一部分用于在浏览器端交互的 Javascript 代码，然后我们利用浏览器的空余时间主动下载其余部分。
 
-On the Rails side, we have one controller for all routes delivered via the SPA. Each action is simply responsible for (1) making whatever API request the client would have made on client-side navigation, then (2) bootstrapping that data to Hypernova along with config. We went from thousands of lines of Ruby code per action (between the controller, helpers, and presenters) down to ~20–30 lines. Yahtzee.
+在 Rails 端，我们有一个 controller 用于通过 SPA 交付的所有路由。每一个 action 只负责：（1）触发客户端导航中的一切请求，（2）将数据和配置引导到 Hypernova。我们把每个 action （controller、helpers 和 presenters 之间）都有上千行的 Ruby 代码缩减到 20-30 行。实力碾压。
 
-But it’s not just code that is noticeably different…
+但这不仅仅是代码的不同...
 
 ![](https://cdn-images-1.medium.com/max/800/1*EpKNHdS4Xzl9fRdGekUgEA.gif)
 
-Side-by-side comparison fetching Homes for Tokyo: Legacy page load vs client-side routing (4–5x difference)
+两种方式加载东京主页的对比（4-5 倍的差距）
 
-…now transitions between routes are smooth as butter and a step change (~5x) faster, and we can break ground on the animations featured at the beginning of this post.
+...现在页面间的过渡像奶油般顺滑，并且这一步大幅提升了速度（约 5 倍）。而且我们我们可以实现文章开头的那张动画特性。
 
-#### AsyncComponent ####
+#### 异步组件 ####
 
-Prior to React, we would render an entire page at a time, and this practice carried over into our early React days. But we use an AsyncComponent similar to [this](https://medium.com/@thejameskyle/react-loadable-2674c59de178) as a way to load sections of the component hierarchy after mount.
+在（采用）React 之前，我们需要一次渲染整个页面，我们以前的 React 都是这么做的。但现在我们使用异步组件，类似[这种](https://medium.com/@thejameskyle/react-loadable-2674c59de178)方式， 挂载（mount）以后加载组件层次结构的部分。
 
 ```
 export default class AsyncComponent extends React.Component {
@@ -214,7 +216,7 @@ export default class AsyncComponent extends React.Component {
 
   render() {
     const { Component } = this.state;
-    // `loader` prop unused. It is extracted so we don't pass it down to wrapped component
+    // `loader` 属性没有被使用。 它被提取，所以我们不会将其传递给包装的组件
     // eslint-disable-next-line no-unused-vars
     const { renderPlaceholder, placeholderHeight, loader, ...rest } = this.props;
     if (Component) {
@@ -229,17 +231,17 @@ export default class AsyncComponent extends React.Component {
 
 
 AsyncComponent.propTypes = {
-  // specifically loader is a function that returns a promise. The promise
-  // should resolve to a renderable React component.
+  // 注意 loader 是返回一个 promise 的函数。
+  // 这个 promise 应该处理一个可渲染的组件。
   loader: PropTypes.func.isRequired,
   placeholderHeight: PropTypes.number,
   renderPlaceholder: PropTypes.func,
 };
 ```
 
-This is particularly useful for heavy elements that aren’t initially visible, like Modals and Panels. Our explicit goal is to ship precisely the JavaScript required to initially render the visible portion of the page and make it interactive, not one line more. This has also meant that if, for example, teams want to use D3 for a chart in a modal on a page that doesn’t otherwise use D3, they can weigh the “cost” of downloading that library as part of their modal code in isolation from the rest of the page.
+这对于最初不可见的重量级元素尤其有用，比如 Modals 和 Panels。我们的明确目标是一行也不多地提供初始化页面可见部分所需的 JavaScript，并使其可交互。这也意味着如果，比方说团队想使用 D3 用于页面弹窗的一个图表，而其他部分不使用 D3，这时候他们就可以权衡一下下载仓库的代码，可以把他们的弹窗代码和其他代码隔离出来。
 
-Best of all, it is this simple to use anywhere it is needed:
+最重要的是，它可以简单地在任何需要的地方使用：
 
 ```
 import React from 'react';
@@ -265,15 +267,16 @@ export default function MapAsync(props) {
 view raw
 ```
 
-Here we can simply swap out the synchronous version of our map for an async version, which is particularly useful on small breakpoint, where the map is displayed via user interaction with a button. Since most of these users are on phones, getting them to interactive before worrying about Google Maps comes with a tasty boost in page load time.
+这里我们可以简单地把我们的同步版本的地图换成异步版本，这在小断点上特别有用，用户通过点击按钮显示地图。考虑到大多数用户用手机，在担心 Google 地图之前，让他们进入互动会缩短加载时的焦虑感。
 
-Also, note the `scheduleAsyncLoad()` utility, which requests the bundle in advance of user interaction. Since the map is so frequently used, we don’t need to wait for user interaction to request it. Instead, we can enqueue it when you get to the Homes Search route. If the user does request it prior to download, they see a reasonable `<Loader />` until the component is available. No sweat.
 
-The final benefit of this approach is that `HomesSearch_Map` becomes a named bundle that the browser can cache. As we disaggregate larger route-based bundles, the slowly-changing sections of the app remain untouched across updates, further saving JavaScript download time.
+另外，注意 `scheduleAsyncLoad()` 组件，在用户交互之前就要请求包。考虑到地图如此频繁地被使用，我们不需要等待用户交互才去请求它。而是在用户进入主页和搜索页的时候就把它加入队列，如果用户在下载完成之前就请求了它，他们会看到一个 `<Loader />` 直到组件可用。没毛病。
 
-#### Building Accessibility into our Design Language #### 
+这种方法的最后一个好处是 `HomesSearch_Map` 成为浏览器可以缓存的命名包。当我们分解较大的基于路由的捆绑包时，应用程序中 slowly-changing 的部分在更新时保持不变，从而进一步节省了 JavaScript 下载时间。
 
-Doubtless it warrants a dedicated post, but we have begun building our internal component library with Accessibility enforced as a hard constraint. In the coming months, we will have replaced all UI across the guest flow that is incompatible with screen readers.
+#### 构建无障碍的设计语言 ####
+
+毫无疑问，它保证的是一个专有的需求，但是我们已经开始构建内部组件库，其中辅助功能被强制为一个严格的约束。在接下来的几个月中，我们将替换所有与屏幕阅读器不兼容的横跨客流的 UI 界面。
 
 ```
 import React, { PropTypes } from 'react';
@@ -360,27 +363,27 @@ RoomTypeFilter.propTypes = propTypes;
 RoomTypeFilter.defaultProps = defaultProps;
 ```
 
-An example of building accessibility into our product through our design language system
+通过我们的设计语言系统将无障碍设计加入到产品的例子
 
-The UI is rich enough that we want to associate a CheckBox not only with a title, but also a subtitle using `aria-describedby`. To achieve this requires a unique identifier in the DOM, which means enforcing a required ID as a prop that any calling parents need to provide. These are the types of hard constraints the UI can impose to ensure that if a component is used in the product, it is delivered with accessibility built in.
+这个 UI 非常丰富，我们不仅希望将 CheckBox 与 title 相关联，还希望与使用了 `aria-describedby` 的 subtitle 关联。为了实现这一点，需要 DOM 中唯一的标识符，这意味着强制关联一个必须的 ID 作为任何调用方需要提供的属性。如果一个组件被用于生产，这些是 UI 是可以强制约束类型的，它提供内置的可访问性。
 
-The code above also demonstrates our responsive utilities HideAt and ShowAt, which allow us to dramatically alter what the user experiences at different screen sizes without having to hide and show using CSS. This leads to much leaner pages.
+上面的代码也演示了我们的响应式实体 HideAt 和 ShowAt，它使我们能够大幅度地改变用户在不同屏幕尺寸下的体验，而无需使用 CSS 控制隐藏和显示。这造就了更精简的页面。
 
-#### Getting Surgical and Philosophical about State ####
+#### 关于状态的“外科”和“哲学” ####
 
-No Frontend post would be complete without touching on the debate about how to handle app state.
+不涉及关于如何处理应用程序状态的争论的前端文章不是完整的前端文章。
 
-We use Redux for all API data and “globals” like authentication state and experiment configurations. Personally, I like [redux-pack](https://github.com/lelandrichardson/redux-pack) for async. Your mileage may vary.
+我们使用 Redux 来处理所有的 API 数据和“全局”数据比如认证状态和体验配置。个人来讲我喜欢 [redux-pack](https://github.com/lelandrichardson/redux-pack) 处理异步，你会发现新大陆。
 
-However, with all the complexity on the page—particularly around Search—it doesn’t work to use Redux for low-level user interactions like form elements. We found that no matter how we optimized, the Redux loop was going to make typing in inputs feel inadequately responsive.
+然而，当遇到页面上所有的复杂性 —— 特别是围绕搜索的 —— 对于一些像表单元素这样低级的用户交互使用 redux 就没那么好用了。我们发现无论如何优化，Redux 循环依然会造成输入体验的卡顿。
 
 ![](https://cdn-images-1.medium.com/max/600/1*12LgecpKz8HA2e2evkYacw.png)
 
-Our Room Type Filter (code featured above)
+我们的房间类型筛选器 (代码在上面)
 
-So we use component local state for everything the user does up until it triggers a route changes or a network interaction, and we haven’t had any problems.
+所以对于用户的所有操作我们使用组件的本地状态，除非触发路由变化或者网络请求才使用 Redux，并且我们没再遇到什么麻烦。
 
-At the same time, I like the feel of a Redux container component, and we found that even with local state, we could build Higher Order Components that could be shared. A great example is with our filters. Search for [homes in Detroit](https://www.airbnb.com/s/Detroit--MI--United-States/homes), and you’ll find a few different panels on the page, each operating independently, that can modify your search. Across various breakpoints, there are actually dozens of components that need to know the currently-applied search filters and how to update them, both temporarily during user interaction and officially once accepted by the user.
+同时，我喜欢 Redux container 组件的那种感觉，并且我们即使带有本地状态，我们依然可以构建可以共享的高阶组件。一个伟大的例子就是我们的筛选功能。搜索[在底特律的家](https://www.airbnb.com/s/Detroit--MI--United-States/homes)，你会在页面上看见几个不同的面板，每一个都可以独立操作，你可以更改你的搜索条件。在不同的断点之间，实际上有几十个组件需要知道当前应用的搜索过滤器以及如何更新它们，在用户交互期间被暂时或正式地被用户接受。
 
 ```
 import React, { PropTypes } from 'react';
@@ -477,24 +480,24 @@ export default function withFilters(WrappedComponent) {
 }
 ```
 
-Here we have a neat trick. Every component that needs to interact with filters can be wrapped with this HOC, and you’re done. It even comes with prop types. Each component wires into the *responseFilters* (those associated with the currently-displayed results) from Redux but keeps a local stagedFilters object available for modification.
+这里我们有一个利落的技巧。每一个需要和筛选交互的组件只需被 HOC 包裹起来，就是这么简单。它甚至还有属性类型。每个组件都通过 Redux 连接到 **responseFilters**（与当前显示的结果相关联）,并同时保有一个本地 stagedFilters 状态对象用于更改。
 
-By tackling state this way, interacting with our Price Slider has no impact on the rest of the page, so performance is great. But all filters panels are implemented with the same function signatures, so development is simple.
+以这种方式处理状态，与我们的价格滑块进行交互对页面的其余部分没有影响，所以表现很好。而且所有过滤器面板都具有相同的功能签名，因此开发也很简单。
 
-### What’s Next? ###
+### 未来做些什么？ ###
 
-Now that the grizzly legwork of catching the Frontend up with the present is largely in hand, we can turn our attention to the future.
+既然现在繁重的前端改造工作已经接近完成，我们可以把目光转向未来。
 
-- [AMP](https://www.ampproject.org/) versions of all pages in the core booking flow will lead to sub-second (in some cases) *Time To Interactive* from Google search on mobile web, and many of the the changes required to get there will drive dramatic improvements in P50/P90/P95 cold load times across mobile web and desktop web alike.
-- [PWA](https://developers.google.com/web/progressive-web-apps/) functionality will lead to sub-second (in some cases) *Time To Interactive* for returning visitors and will open the door to offline-first functionality so very critical to users with flaky connections.
-- Dropping the final hammer on legacy tech/frameworks will cut bundle sizes in half. It’s not flashy work, but finally ripping out jQuery, Alt, Bootstrap, Underscore, and all external CSS requests (they block rendering, and 97% of the rules are unused!) will streamline not only the code we ship, but also the footprint of what new hires need to learn as they ramp up.
-- Finally, the yeoman’s work of manually bird-dogging rendering bottlenecks, async-loading code not visible at initial render, avoiding unnecessary re-renders, and reducing the cost of re-renders. These improvements are the difference between a clunky feeling app and a well-oiled machine.
+- [AMP](https://www.ampproject.org/) 核心预订流程中的所有页面的 AMP 版本将会实现亚秒级（某些情况下）在手机 web 上 Google 搜索的 **可交互时间**，通过移动网络和桌面网络，所需的许多更改将在 P50 / P90 / P95 冷负载时间内实现显着改善。
+- [PWA](https://developers.google.com/web/progressive-web-apps/) 功能将实现亚秒级（在某些情况下）返回访客的**可交互时间**，并将打开离线优先功能的大门，因此对于具有脆弱网络连接的用户非常关键。
+- 下定决心干掉老旧的技术和框架可以使包大小减少一半。这不是华而不实的工作，我们最终翻出 jQuery、Alt、Bootstrap、Underscore 以及所有额外的 CSS 请求（他们使渲染停滞，并且将近 97% 的规则是不会被使用！）不仅精简了我们的代码，还精简了新员工在上升时需要学习的足迹。
+- 最后，yeoman 的手动捕捉瓶颈的工作、异步加载代码在初始渲染时不可见、避免不必要的重新渲染、并降低重新渲染的成本，这些改进正是拖拉机和顶级跑车之间的区别。
 
-Tune in next time as we chase down these opportunities. Since so many of the wins will have immediate quantitative impact, we will try to capture some of the specific wins in subsequent posts.
+欢迎下次继续围观我们的成果分享。因为这么多的成果会有一些数量上的冲突，我们将尽量选择一些具体的成果在下篇文章中总结。
 
-*Naturally, if you enjoyed reading this and thought this was an interesting challenge, we are always looking for talented, curious people to [join the team](https://www.airbnb.com/careers/departments/engineering) . Or, if you just want to talk shop, hit me up on twitter any time [@adamrneary](https://twitter.com/AdamRNeary)*
+**自然，如果你欣赏本文并觉得这是一个有趣的挑战，我们一直在寻找优秀出色的人[加入团队](https://www.airbnb.com/careers/departments/engineering)。如果你只想做一些交流，那么随时可以点击我的 twitter [@adamrneary](https://twitter.com/AdamRNeary)。**
 
-Finally, huge props to [Salih Abdul-Karim](https://twitter.com/therealsalih) and [Hugo Ahlberg](https://twitter.com/hugoahlberg) , the experience designers behind the face-melting animations I still can’t stop ogling. The list of many engineers deserving kudos for their role in this effort is indescribably long but most certainly includes Nick Sorrentino, [Joe Lencioni](https://medium.com/@lencioni) , [Michael Landau](https://medium.com/@mikeland86), Jack Zhang, Walker Henderson, and Nico Moschopoulos.
+最后，深切地向 [Salih Abdul-Karim](https://twitter.com/therealsalih) 和 [Hugo Ahlberg](https://twitter.com/hugoahlberg) 两位体验设计师致敬，他们的令人动容的动画至今让我目不转睛。许多工程师在他们的领域值得赞美，作出贡献的人数众多，难以一一列出的，但绝对包括 Nick Sorrentino、[Joe Lencioni](https://medium.com/@lencioni)、[Michael Landau](https://medium.com/@mikeland86)、Jack Zhang、Walker Henderson 和 Nico Moschopoulos.
 
 ---
 
