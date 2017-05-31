@@ -197,7 +197,7 @@ export default compose(withPhrases, withHypernovaBootstrap);
 
 #### 异步组件 ####
 
-在（采用）React 之前，我们需要一次渲染整个页面，我们以前的 React 都是这么做的。但现在我们使用异步组件，类似[这种](https://medium.com/@thejameskyle/react-loadable-2674c59de178)方式， 挂在（mount）以后加载组件层次结构的部分。
+在（采用）React 之前，我们需要一次渲染整个页面，我们以前的 React 都是这么做的。但现在我们使用异步组件，类似[这种](https://medium.com/@thejameskyle/react-loadable-2674c59de178)方式， 挂载（mount）以后加载组件层次结构的部分。
 
 ```
 export default class AsyncComponent extends React.Component {
