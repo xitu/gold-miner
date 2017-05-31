@@ -1,6 +1,6 @@
 > * 原文地址：[Write safer and cleaner code by leveraging the power of “Immutability”
 ](https://medium.freecodecamp.com/write-safer-and-cleaner-code-by-leveraging-the-power-of-immutability-7862df04b7b6)
-> * 原文作者：[Guido Schmitz](https://medium.freecodecamp.com/@guidsen)
+> * 原文作者：本文已获原作者 [Guido Schmitz](https://medium.freecodecamp.com/@guidsen) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[gy134340](https://github.com/gy134340)
 > * 校对者：[bambooom](https://github.com/bambooom),[xunge0613](https://github.com/xunge0613)
