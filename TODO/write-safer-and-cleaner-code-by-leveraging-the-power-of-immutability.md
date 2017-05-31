@@ -101,7 +101,7 @@ console.log(resultB); // [1, 2, 3, 5]
 
 现在我们可以多次调用这个函数，且相同的输入获得相同的输出，与预期一致。这是因为我们不再改变 **array** 变量。我们把这个函数叫做“纯函数”。
 
-> **注意：**你还可以使用 **concat**，来代替 **slice** 和 **push**。
+> **注意：** 你还可以使用 **concat**，来代替 **slice** 和 **push**。
 > 即：arrayInput.concat(value);
 
 我们还可以使用 ES6 的[扩展语法](https://developer.mozilla.org/nl/docs/Web/JavaScript/Reference/Operators/Spread_operator)，来简化函数。
