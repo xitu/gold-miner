@@ -1,5 +1,5 @@
 > * 原文地址：[Crafting Better Code Reviews](https://medium.com/@vaidehijoshi/crafting-better-code-reviews-1a5fc00a9312)
-> * 原文作者：[Vaidehi Joshi](https://medium.com/@vaidehijoshi)
+> * 原文作者：本文已获原作者 [Vaidehi Joshi](https://medium.com/@vaidehijoshi) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[bobmayuze](https://github.com/bobmayuze)
 > * 校对者：[SareaYu](https://github.com/SareaYu)、[吃土小2叉](https://github.com/xunge0613)
