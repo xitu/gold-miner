@@ -4,7 +4,7 @@
 > * 译者：[龙骑将杨影枫](https://github.com/stormrabbit)
 > * 校对者：[Vivienmm](https://github.com/Vivienmm)、[张拭心](https://github.com/shixinzhang)
 
-#  Workcation App – 第二部分 . Animating Markers 和 MapOverlayLayout #
+#  Workcation App – 第二部分 . 带有动画的标记（Animating Markers）与 MapOverlayLayout
 
 欢迎阅读本系列文章的第二篇，此系列文章和我前一段时间完成的“研究发”项目有关。在文章里，我会针对开发中遇到的动画问题分享一些解决办法。
 
@@ -12,7 +12,7 @@ Part 1: [自定义 Fragment  转场](https://github.com/xitu/gold-miner/blob/mas
 
 Part 2: [带有动画的标记（Animating Markers） 与 MapOverlayLayout ](https://github.com/xitu/gold-miner/blob/master/TODO/workcation-app-part-2-animating-markers-with-mapoverlaylayout.md)
 
-Part 3: [带有动画的标记（Animated Markers） 与 RecyclerView 的互动](https://github.com/xitu/gold-miner/blob/master/TODO/workcation-app-part-3-recyclerview-interaction-with-animated-markers.md)
+Part 3: [带有动画的标记（Animated Markers）与 RecyclerView 的互动](https://github.com/xitu/gold-miner/blob/master/TODO/workcation-app-part-3-recyclerview-interaction-with-animated-markers.md)
 
 Part 4: [场景（Scenes）和 RecyclerView 的共享元素转场动画（Shared Element Transition）](https://github.com/xitu/gold-miner/blob/master/TODO/workcation-app-part-4-shared-element-transition-recyclerview-scenes.md)
 
