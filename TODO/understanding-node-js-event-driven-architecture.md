@@ -86,9 +86,9 @@ readFileAsArray('./numbers.txt', (err, lines) => {
 
 在 NodeJS 的回调风格中的写法是这样的：回调函数的第一个参数是一个可能为 null 的错误对象 err，而回调函数作为主函数的最后一个参数出传入。 你应该永远这么做, 因为使用者们极有可能是这么以为的。
 
-#### The modern JavaScript alternative to Callbacks ####
+#### 现代 JavaScript 中回调函数的替代品 ####
 
-在 ES6+ 中，我们有了 Promise 对象。作为 callback 的有力竞争者，它的异步 API 替代了把 callback 作为一个参数传递并且同时处理错误信息，一个 Promise 对象允许我们分别处理成功和失败两种情况，并且链式的调用多个异步方法避免了回调的嵌套（callback hell，回调地狱）。
+在 ES6+ 中，我们有了 Promise 对象。对于异步 API，它是 callback 的有力竞争者。不再需要将 callback 作为参数传递的同时处理错误信息，Promise 对象允许我们分别处理成功和失败两种情况，并且链式的调用多个异步方法避免了回调的嵌套（callback hell，回调地狱）。
 
 如果刚刚的 `readFileAsArray` 方法允许使用 Promise，它的调用将是这个样子的：
 
@@ -102,9 +102,9 @@ readFileAsArray('./numbers.txt')
   .catch(console.error);
 ```
 
-作为调用 callback 的替代品，我们用 `.then` 函数来接受主方法的返回值；`.then`函数通常给我们和之前 callback 一样的参数，我们处理起来和以前一样，但是对于错误我们使用`.catch`函数来处理。
+作为调用 callback 的替代品，我们用 `.then` 函数来接受主方法的返回值；`.then` 中我们可以和之前在回调函数中一样处理数据，但是对于错误我们用`.catch`函数来处理。
 
-这要非常感谢新的 Promise 对象， 它让现代 JavaScript 中主函数支持 Promise 接口更加EZ，我们把刚刚的 `readFileAsArray` 方法用 Promise 来改写一下：
+现代 JavaScript 中的 Promise 对象，使主函数支持 Promise 接口变得更加容易。我们把刚刚的 `readFileAsArray` 方法用 Promise 来改写一下：
 
 ```js
 const readFileAsArray = function(file, cb = () => {}) {
@@ -123,7 +123,7 @@ const readFileAsArray = function(file, cb = () => {}) {
 };
 ```
 
-现在这个函数返回了一个Promise对象，这里面包含着 `fs.readFile` 这个异步调用，Promise对象中同时包含一个 resolve 函数和 reject 函数。
+现在这个函数返回了一个 Promise 对象，该对象包含 `fs.readFile` 的异步调用，Promise 对象暴露了两个参数：一个 resolve 函数和 reject 函数。
 
 reject 函数的作用就和我们之前 callback 中处理错误是一样的，而 resolve 函数也就和我们正常处理返回值是一样的。
 
