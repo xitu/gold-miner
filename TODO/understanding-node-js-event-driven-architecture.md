@@ -8,11 +8,11 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*Nozl2qd0SV8Uya2CEkF_mg.jpeg)
 
-对于绝大部分的nodejs中的对象，比如HTTP请求、响应以及”流“,他们都是使用了 `eventEmitter` 模块的支持来监听和触发事件。
+绝大部分的nodejs中的对象，比如HTTP请求、响应以及”流“，都使用了 `eventEmitter` 模块的支持来监听和触发事件。
 
 ![](https://cdn-images-1.medium.com/max/800/1*74K5OhiYt7WTR0WuVGeNLQ.png)
 
-事件驱动最简单的形式是常见的 Nodejs 函数回调风格，例如：`fs.readFile`。在这个类比模型中，callback 扮演着事件处理者的角色，当 Node 准备好调用 callback 的时候：事件将会被触发一次。
+事件驱动最简单的形式是常见的 Nodejs 函数回调，例如：`fs.readFile`。事件被触发时，Node 就会调用回调函数，所以回调函数可类比为事件处理程序。
 
 让我们来探究一下这个基础形式。
 
@@ -40,7 +40,7 @@ function fileSize (fileName, cb) {
 }
 ```
 
-请注意，这并不是一个好的实践，它也许会带来一些预期外的错误。最好能够保持一致--都是同步，或都是异步。
+请注意，这并不是一个好的实践，它也许会带来一些预期外的错误。最好将主函数设计为始终同步或始终异步地使用回调。
 
 我们再来看看下面这种典型的用 callback 风格处理的异步 Node 函数：
 
@@ -57,7 +57,7 @@ const readFileAsArray = function(file, cb) {
 };
 ```
 
-`readFileAsArray` 有文件的路径和 callback，它把文件读取并切割成一行一行的数组来当做参数调用callback。
+`readFileAsArray` 以文件路径和回调函数 callback 为参，读取文件并切割成行的数组来当做参数调用 callback。
 
 这里有一个使用它的示例，假设同目录下我们有一个 `numbers.txt` 文件中有如下内容:
 
@@ -82,9 +82,9 @@ readFileAsArray('./numbers.txt', (err, lines) => {
 });
 ```
 
-这段代码会读取数组中的字符串内容，解析成数字并统计奇数个数。
+这段代码会读取数组中的字符串，解析成数字并统计奇数个数。
 
-在 NodeJS 的回调风格中的写法是这样的：第一个参数err代表着错误对象，当是 `null` 的时候我们就是正常调用 callback,用户和作者都习惯了这样写，主函数接受 callback 作为最后一个参数并且调用的时候给 callback 第一个参数传递 err 对象。
+在 NodeJS 的回调风格中的写法是这样的：回调函数的第一个参数是一个可能为 null 的错误对象 err，而回调函数作为主函数的最后一个参数出传入。 你应该永远这么做, 因为使用者们极有可能是这么以为的。
 
 #### The modern JavaScript alternative to Callbacks ####
 
