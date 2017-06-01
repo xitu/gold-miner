@@ -1,3 +1,6 @@
+* [使用 Espresso 和 Mockito 测试 MVP](https://juejin.im/post/5924e5740ce4630069757f75?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([skyar2009](https://github.com/skyar2009) 翻译)
+* [用 Dagger 2 实现依赖注入](https://github.com/xitu/gold-miner/blob/master/TODO/Dependency-Injection-with-Dagger-2.md?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([tanglie1993](https://github.com/tanglie1993/) 翻译)
+* [如何创建 BubblePicker – Android 多彩菜单动画](https://juejin.im/post/591e734d2f301e006bea5243?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([hackerkevin](https://github.com/hackerkevin) 翻译)
 * [通过测试来解耦Activity](https://juejin.im/post/59143d7c8d6d81005854d982?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([mnikn](https://github.com/mnikn) 翻译)
 * [函数式接口、默认方法、纯函数、函数的副作用、高阶函数、可变的和不可变的、函数式编程和 Lambda 表达式 - 响应式编程 ［Android RxJava 2］（这到底是什么）第三部分](https://juejin.im/entry/591298eea0bb9f0058b35c7f/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([XHShirley](https://github.com/XHShirley) 翻译)
 * [开发者（也就是我）与Rx Observable 类的对话 [ Android RxJava2 ] ( 这到底是什么？) 第五部分](https://juejin.im/post/590ab4f7128fe10058f35119/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([stormrabbit](https://github.com/stormrabbit) 翻译)
