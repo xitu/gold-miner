@@ -193,7 +193,7 @@ myEmitter.emit('something-happened');
 
 我们使用 on 方法来注册，然后这些监听的方法将会在每一个 Emitter 对象 emit 的时候执行。
 
-#### Events !== Asynchrony ####
+#### 事件 != 异步 ####
 
 让我们看一个例子：
 
@@ -218,9 +218,9 @@ withLog.on('end', () => console.log('Done with execute'));
 withLog.execute(() => console.log('*** Executing task ***'));
 ```
 
-定义的 WithLog 类是一个 event emitter。它有个方法excute接收一个参数，并且有很多执行顺序的输出log，并且分别在开始和结束的时候emit了两次。
+WithLog 类是一个 event emitter。它有 excute 方法，接收一个 taskFunc 任务函数作为参数，并将此函数的执行包含在 log 语句之中，分别在开始和结束的时候调用了 emit 方法。
 
-让我们来看看运行它会有什么样的结果：
+执行结果如下：
 
 ```
 Before executing
@@ -230,17 +230,17 @@ Done with execute
 After executing
 ```
 
-需要我们注意的是所有的输出log都是同步的，在代码里没有任何异步操作。
+需要我们注意的是所有的输出 log 都是同步的，在代码里没有任何异步操作。
 
-* 第一步‘’Before executing‘’
-* 命名为begin的事件的emit导致了‘’About to execute‘’
+* 第一步 “Before executing”
+* 命名为 begin 的事件 emit 导致了 “About to execute”
 * 内含方法的执行输出了“\*\*\* Executing task \*\*\*”
 * 另一个命名事件输出“Done with execute”
 * 最后“After executing”
 
 如同之前的 callback，events 并不意味着同步或者异步。
 
-这一点很重要，假如我们有给 `excute` 传递一个异步 `taskFunc` 函数，事件的触发就不再精确了。
+这一点很重要，假如我们给 `excute` 传递异步函数 `taskFunc`，事件的触发就不再精确了。
 
 可以使用 `setImmediate` 来模拟这种情况：
 
