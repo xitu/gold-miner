@@ -334,25 +334,25 @@ class WithTime extends EventEmitter {
 
 这真的看起来更易读了呢！`async/await` 特性使我们的代码更加贴近 JavaScript 本身, 我认为这是一大进步。
 
-#### Events Arguments and Errors ####
+#### 事件参数及错误 ####
 
 在之前的例子中，我们使用了额外的参数来发射两个事件。
 
-错误的事件使用了错误对象，data 事件使用了 data 对象
+错误事件使用了错误对象，data 事件使用了 data 对象。
 
 ```js
 this.emit('error', err);
 ```
 
-The data event is emitted with a data object.
+data 事件使用了 data 对象。
 
 ```js
 this.emit('data', data);
 ```
 
-在listener函数调用的时候我们可以传递很多的参数，这些参数在执行的时候都会切实可用。
+在 listener 函数调用的时候我们可以传递很多的参数，这些参数在执行的时候都会切实可用。
 
-例如：data事件执行的时候，listener函数在注册的时候就会允许我们的接纳事件发射的data参数，而asyncFunc函数也实实在在暴露给了我们。
+例如：data 事件执行的时候，listener 函数在注册的时候就会允许我们的接纳事件发射的 data 参数，而 asyncFunc 函数也实实在在暴露给了我们。
 
 ```js
 withTime.on('data', (data) => {
@@ -360,7 +360,7 @@ withTime.on('data', (data) => {
 });
 ```
 
-error事件也是同样是典型的一个。在我们基于callback的例子中，如果没用listener函数来处理错误，node进程就会直接终止-。-
+error 事件通常是特例。在我们基于 callback 的例子中，如果没用 listener 函数来处理错误，Node 进程就会直接终止-。-
 
 我们写个例子来展示这一点：
 
@@ -384,8 +384,7 @@ withTime.execute(fs.readFile, ''); // BAD CALL
 withTime.execute(fs.readFile, __filename);
 ```
 
-The first execute call above will trigger an error. The node process is going to crash and exit:
-
+上面代码中调用 excute 会触发一个错误，Node 进程会崩溃然后退出：
 ```bash
 events.js:163
       throw er; // Unhandled 'error' event
@@ -396,7 +395,7 @@ Error: ENOENT: no such file or directory, open ''
 
 第二个执行调用将受到之前崩溃的影响，并可能不会得到执行。
 
-如果我们注册一个listener来处理它，情况就不一样了：
+如果我们注册一个 listener 来处理 error 对象，情况就不一样了：
 
 ```js
 withTime.on('error', (err) => {
@@ -405,8 +404,7 @@ withTime.on('error', (err) => {
 });
 ```
 
-If we do the above, the error from the first execute call will be reported but the node process will not crash and exit. The other execute call will finish normally:
-
+加上了上面的错误处理，第一个 excute 调用的错误会被报告，但 Node 进程不会再崩溃退出了，其它的调用也会正常执行：
 ```bash
 { Error: ENOENT: no such file or directory, open '' errno: -2, code: 'ENOENT', syscall: 'open', path: '' }
 execute: 4.276ms
@@ -420,9 +418,9 @@ UnhandledPromiseRejectionWarning: Unhandled promise rejection (rejection id: 1):
 DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
 ```
 
-另一种方式处理emit的error的方法是注册一个全局的uncaughtException进程事件，但是，全局的捕获错误对象并不是一个好办法。
+另一种方式处理 emit 的 error 的方法是注册一个全局的 uncaughtException 进程事件，但是，全局的捕获错误对象并不是一个好办法。
 
-标准的关于uncaughtException的建议是不要使用他，你一定要用的话，应该让进程在此结束：
+关于 uncaughtException 的建议是不要使用。你一定要用的话，应该让进程在此结束：
 
 ```js
 process.on('uncaughtException', (err) => {
@@ -436,13 +434,13 @@ process.on('uncaughtException', (err) => {
 });
 ```
 
-然而，想象在同一时间发生多个错误事件。这意味着上述的uncaughtException听众会多次触发，这可能对一些清理代码是一个问题。典型的一个例子是，当对数据库关闭操作进行多次调用时。
+然而，想象在同一时间发生多个错误事件。这意味着上述的 uncaughtException 监听器会多次触发，这可能对一些清理代码是一个问题。一个典型例子是, 多次调用数据库关闭操作。
 
-EventEmitter模块暴露一个once方法。这种方法只需要调用一次监听器，而不是每次发生。所以，这是一个实际使用的uncaughtException用例因为第一未捕获的异常我们就开始做清理工作，无论如何我们要知道退出的过程。
+EventEmitter模块暴露一个once方法。这个方法仅允许调用一次监听器, 而非每次触发都调用。所以，这是一个 uncaughtException 的实际用例,在第一次未捕获的异常发生时，我们开始做清理工作，并且知道我们最终会退出进程。
 
-#### Order of Listeners ####
+#### 监听器的顺序 ####
 
-如果我们在一个事件上注册多个队列，并且期望这些listener是有顺序的，会按顺序来调用
+如果我们在同一个事件上注册多个监听器，则监听器会按顺序触发，第一个注册的监听器就是第一个触发的。
 
 ```js
 // प्रथम
@@ -458,7 +456,7 @@ withTime.on('data', (data) => {
 withTime.execute(fs.readFile, __filename);
 ```
 
-上面代码的输出结果里，“Length”将会比“Characters”在前，因为我们就是这样定义他们的。
+上面代码的输出结果里，“Length”将会在“Characters”之前，因为我们是按照这个顺序定义的。
 
 如果你想定义一个Listener,还想插队到前面的话，要使用prependListener方法来注册
 
@@ -476,7 +474,7 @@ withTime.prependListener('data', (data) => {
 withTime.execute(fs.readFile, __filename);
 ```
 
-这时“Characters”会在“Length”之前。
+上面的代码使得 “Characters” 在 “Length” 之前。
 
 最后，想移除的话，用removeListener方法就好啦！
 
