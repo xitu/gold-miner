@@ -270,9 +270,9 @@ After executing
 
 使用事件驱动来代替传统 callback 有一个好处是：在定义多个 listener 后，我们可以多次对同一个 emit 做出反应。如果要用 callback 来做到这一点的话，我们需要些很多的逻辑在同一个 callback 中，事件是应用程序允许多个外部插件在应用程序核心之上构建功能的一个好方法，你可以把它们当作钩子点来允许围绕状态变化来做更多自定义的事。
 
-#### Asynchronous Events ####
+#### 异步事件 ####
 
-我们把刚刚的例子修改一下，在同步代码中加入一点异步代码，让它更有意思一点：
+我们把刚刚的例子修改一下，将同步改为异步方式，让它更有意思一点：
 
 ```js
 const fs = require('fs');
@@ -303,7 +303,7 @@ withTime.execute(fs.readFile, __filename);
 ```
 
 
-执行 WithTime 类的 asyncFunc 方法，使用 console.time 和 console.timeEnd 来返回执行的时间，他 emit 了正确的序列在执行之前和之后，同样 emit error/data 来保证函数的正常工作。
+WithTime 类执行 `asyncFunc` 函数，使用 `console.time` 和 `console.timeEnd` 来返回执行的时间，它 emit 了正确的序列在执行之前和之后，同样 emit error/data 来保证函数的正常工作。
 
 执行之后的结果如下，正如我们期待的正确事件序列，我们得到了执行的时间，这是很有用的：
 
@@ -313,7 +313,7 @@ execute: 4.507ms
 Done with execute
 ```
 
-请注意，我们如何结合一个 callback 在事件发射器上完成它，如果 asynFunc 同样支持 Promise 的话，我们可以使用 async/await 特性来做到同样的事情：
+请注意，注意我们如何将回调函数与事件发生器结合来完成的，如果 `asynFunc` 同样支持 Promise 的话，我们可以使用 `async/await` 特性来做到同样的事情：
 
 ```js
 class WithTime extends EventEmitter {
@@ -332,7 +332,7 @@ class WithTime extends EventEmitter {
 }
 ```
 
-这真的看起来更易读了呢！用async/await真的是我们的coding越来越接近JavaScript语言的一大进步。
+这真的看起来更易读了呢！`async/await` 特性使我们的代码更加贴近 JavaScript 本身, 我认为这是一大进步。
 
 #### Events Arguments and Errors ####
 
