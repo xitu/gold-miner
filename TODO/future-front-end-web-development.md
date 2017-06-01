@@ -1,8 +1,10 @@
 > * 原文地址：[What is the Future of Front End Web Development?](https://css-tricks.com/future-front-end-web-development/)
-> * 原文作者：[Chris Coyier](https://css-tricks.com/author/chriscoyier/)
+> * 原文作者：本文已获 [Chris Coyier](https://css-tricks.com/author/chriscoyier/) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：
 > * 校对者：
+
+# What is the Future of Front End Web Development?
 
 I was asked to do a little session on this the other day. I'd say I'm
 underqualified to answer the question, as is any single person. If you really
