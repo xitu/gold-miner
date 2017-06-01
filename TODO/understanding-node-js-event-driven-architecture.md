@@ -129,11 +129,11 @@ reject 函数的作用就和我们之前 callback 中处理错误是一样的，
 
 我们剩下唯一要做的就是在实例中指定 reject resolve 函数的默认值，在 Promise 中，我们只要写一个空函数即可，例如 `(\) => {}`.
 
-#### Consuming promises with async/await ####
+#### 在 async/await 中使用 Promise ####
 
-当你需要一个常常的异步 loop 函数的时候，使用 promise 会让你 coding 的时候比 callback 的回调地狱简单一些，
+当你需要循环异步函数时，使用 Promise 会让你的代码更易阅读，而如果使用回调函数，事情只会变得混乱。
 
-Promise 是一个小小的进步，generator 也是一个小小的进步，但是 async/await 函数的到来，让这一步变得更有力了，它的编码风格让函数的可读性就像同步函数一样轻松。
+Promise 是一个小小的进步，generator 是一个更大一些的小进步，但是 async/await 函数的到来，让这一步变得更有力了，它的编码风格让函数的可读性就像同步函数一样轻松。
 
 我们用 async/await 函数特性来改写一下刚刚的调用 `readFileAsArray` 过程：
 
@@ -152,13 +152,13 @@ async function countOdd () {
 countOdd();
 ```
 
-首先我们创建了一个 `async` 函数，只是在定义 function 的时候前面加了 `async` 关键字，在 `async` 函数里，我们把 `readFileAsArray` 这个异步方法用 `await` 来作为一个普通变量，这样我们的代码看起来真的是同步的呢！
+首先我们创建了一个 `async` 函数，只是在定义 function 的时候前面加了 `async` 关键字。在 `async` 函数里，使用关键字 `await` 使 `readFileAsArray` 函数好像返回普通变量一样，这之后的编码也好像 `readFileAsArray` 是同步方法一样。
 
-当 `async` 函数执行的过程是非常易读的，处理错误，我们只需要使用 `try/catch` 即可。
+当 `async` 函数执行的过程是非常易读的，而处理错误只需要使用 `try/catch` 即可。
 
-在 `async/await` 函数中我们没有使用特殊 API（像: .then and .catch这种\），我们仅仅使用了特殊关键字，但是像普通函数那样coding.
+在 `async/await` 函数中我们我们不需要使用任何特殊 API（像: `.then` 、 `.catch`\），我们仅仅使用了特殊关键字，并使用普通 JavaScript 编码即可。
 
-我们可以在支持 Promise 的函数中嵌套 `async/await` 函数，但是不能在 callback 风格的异步方法中使用它，比如 `setTimeout` 等等。
+我们可以在支持 Promise 的函数中使用 `async/await` 函数，但是不能在 callback 风格的异步方法中使用它，比如 `setTimeout` 等等。
 
 ### The EventEmitter Module ###
 
