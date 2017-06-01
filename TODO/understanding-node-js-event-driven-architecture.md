@@ -160,14 +160,14 @@ countOdd();
 
 我们可以在支持 Promise 的函数中使用 `async/await` 函数，但是不能在 callback 风格的异步方法中使用它，比如 `setTimeout` 等等。
 
-### The EventEmitter Module ###
+### EventEmitter 模块 ###
 
-EventEmitter 是 NodeJS 中基于事件驱动的架构的核心，它用于各个对象之间通信，很多 Nodejs 的原生模块都使用了这个模块。
+EventEmitter 是 NodeJS 中基于事件驱动的架构的核心，它用于对象之间通信，很多 Nodejs 的原生模块都继承自这个模块。
 
-关于概念这一块很简单，Emitter 对象 emit 命名好的事件，使得之前注册好的监听器被调用起来，Emitter 对象有两个显著特点：
+模块的概念很简单，Emitter 对象触发已命名事件，使之前已注册的监听器被调用，所以 Emitter 对象有两个主要特征：
 
-* emit 注册好的事件
-* 注册和取消注册 listener 方法
+* 触发已命名事件
+* 注册和取消注册监听函数
 
 如何使用呢？我们只需要创建一个类来继承 EventEmitter 即可：
 
@@ -177,21 +177,21 @@ class MyEmitter extends EventEmitter {
 }
 ```
 
-然后我们创建一个基于 `EventEmitter` 的实例：
+实例化前面我们基于 EventEmitter 创建的类，即可得到 Emitter 对象：
 
 ```js
 const myEmitter = new MyEmitter();
 ```
 
-有了实例，就可以在实例的全部生命周期里，emit 任何我们命名好的方法了。
+在 Emitter 对象的生命周期中的任何一点，我们都可以用 emit 方法发出任何已命名的事件：
 
 ```js
 myEmitter.emit('something-happened');
 ```
 
-emit 一个事件就代表着有些情况的发生，这些情况通常是关于 Emitter 对象的状态改变的。
+触发一个事件即某种情况发生生的信号，这些情况通常是关于 Emitter 对象的状态改变的。
 
-我们使用on方法来注册，然后这些监听的方法将会在每一个 Emitter 对象 emit 的时候执行。
+我们使用 on 方法来注册，然后这些监听的方法将会在每一个 Emitter 对象 emit 的时候执行。
 
 #### Events !== Asynchrony ####
 
