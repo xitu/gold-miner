@@ -1,5 +1,5 @@
-> * 原文地址：[Workcation App – Part 1. Fragment custom transition](https://www.thedroidsonroids.com/blog/android/workcation-app-part-1-fragments-custom-transition/)
-> * 原文作者：[Mariusz Brona](https://www.thedroidsonroids.com/blog/android/workcation-app-part-1-fragments-custom-transition/)
+> * 原文地址：[Workcation App – Part 2. Animating Markers with MapOverlayLayout](https://www.thedroidsonroids.com/blog/workcation-app-part-2-animating-markers-with-mapoverlaylayout/)
+> * 原文作者：[Mariusz Brona](https://www.thedroidsonroids.com/blog/workcation-app-part-2-animating-markers-with-mapoverlaylayout/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[龙骑将杨影枫](https://github.com/stormrabbit)
 > * 校对者：[Vivienmm](https://github.com/Vivienmm)、[张拭心](https://github.com/shixinzhang)
@@ -10,13 +10,12 @@
 
 Part 1: [自定义 Fragment  转场](https://github.com/xitu/gold-miner/blob/master/TODO/workcation-app-part-1-fragments-custom-transition.md)
 
-Part 2: [Animating Markers 与 MapOverlayLayout ](https://github.com/xitu/gold-miner/blob/master/TODO/workcation-app-part-2-animating-markers-with-mapoverlaylayout.md)
+Part 2: [带有动画的标记（Animating Markers） 与 MapOverlayLayout ](https://github.com/xitu/gold-miner/blob/master/TODO/workcation-app-part-2-animating-markers-with-mapoverlaylayout.md)
 
-Part 3: [RecyclerView 互动 与 Animated Markers](https://github.com/xitu/gold-miner/blob/master/TODO/workcation-app-part-3-recyclerview-interaction-with-animated-markers.md)
+Part 3: [带有动画的标记（Animated Markers） 与 RecyclerView 的互动](https://github.com/xitu/gold-miner/blob/master/TODO/workcation-app-part-3-recyclerview-interaction-with-animated-markers.md)
 
 Part 4: [场景（Scenes）和 RecyclerView 的共享元素转场动画（Shared Element Transition）](https://github.com/xitu/gold-miner/blob/master/TODO/workcation-app-part-4-shared-element-transition-recyclerview-scenes.md)
 
- 
 项目的 Git 地址:  [Workcation App](https://github.com/panwrona/Workcation)
 
 动画的 Dribbble 地址: [https://dribbble.com/shots/2881299-Workcation-App-Map-Animation](https://dribbble.com/shots/2881299-Workcation-App-Map-Animation)
@@ -72,7 +71,7 @@ GoogleMap map=...// 获得地图
 如[效果](https://www.thedroidsonroids.com/blog/workcation-app-part-2-animating-markers-with-mapoverlaylayout/#animation)所示，我们需要在加载时实现标记渐显和缩放动画，滑动 RecycleView 的时候实现标记闪烁动画，进入详情页面的时候让标记在渐隐动画中隐藏。使用帧动画或者属性动画（Animation/ViewPropertyAnimator API）会更合理一些.我们有解决这个问题的方法吗？当然，我们有！
 
 
-## MapOverlayLayout 
+## MapOverlayLayout
 
 该怎么办呢？其实很简单，但我还是花了点时间才弄明白。我们需要在 SupportMapFragment 上（注：也就是上一篇提到的 MapFragment）添加一层使用谷歌地图 API 所获得的 MapOverlayLayout，在该层上添加地图的映射（映射是用来转换屏幕上的的坐标和地理位置的实际坐标，参见[此文档](https://developers.google.com/android/reference/com/google/android/gms/maps/Projection)）。
 
@@ -96,7 +95,7 @@ GoogleMap map=...// 获得地图
 
     android:orientation="vertical">
 
- 
+
 
     <fragment
 
@@ -110,7 +109,7 @@ GoogleMap map=...// 获得地图
 
         android:layout_marginBottom="@dimen/map_margin_bottom"/>
 
- 
+
 
     <com.droidsonroids.workcation.common.maps.PulseOverlayLayout
 
@@ -122,7 +121,7 @@ GoogleMap map=...// 获得地图
 
         android:layout_marginBottom="@dimen/map_margin_bottom">
 
- 
+
 
         <ImageView
 
@@ -134,7 +133,7 @@ GoogleMap map=...// 获得地图
 
             android:transitionName="@string/mapPlaceholderTransition"/>
 
- 
+
 
         </com.droidsonroids.workcation.common.maps.PulseOverlayLayout>
 
@@ -148,13 +147,13 @@ GoogleMap map=...// 获得地图
 现在就开始专注于代码实现 DetailsFragment。
 
 ```
-public class DetailsFragment extends MvpFragment<DetailsFragmentView,DetailsFragmentPresenter> 
+public class DetailsFragment extends MvpFragment<DetailsFragmentView,DetailsFragmentPresenter>
 
         implements DetailsFragmentView, OnMapReadyCallback{
 
     public static final String TAG = DetailsFragment.class.getSimpleName();
 
- 
+
 
     @BindView(R.id.recyclerview)
     RecyclerView recyclerView;
@@ -168,7 +167,7 @@ public class DetailsFragment extends MvpFragment<DetailsFragmentView,DetailsFrag
     @BindView(R.id.mapOverlayLayout)
     PulseOverlayLayout mapOverlayLayout;
 
- 
+
 
     @Override
 
@@ -182,7 +181,7 @@ public class DetailsFragment extends MvpFragment<DetailsFragmentView,DetailsFrag
 
     }
 
- 
+
 
     private void setupBaliData(){
 
@@ -190,7 +189,7 @@ public class DetailsFragment extends MvpFragment<DetailsFragmentView,DetailsFrag
 
     }
 
- 
+
 
     private void setupMapFragment(){
 
@@ -198,7 +197,7 @@ public class DetailsFragment extends MvpFragment<DetailsFragmentView,DetailsFrag
 
     }
 
- 
+
 
     @Override
 
@@ -210,7 +209,7 @@ public class DetailsFragment extends MvpFragment<DetailsFragmentView,DetailsFrag
 
     }
 
- 
+
 
     private void setupGoogleMap(){
 
@@ -218,7 +217,7 @@ public class DetailsFragment extends MvpFragment<DetailsFragmentView,DetailsFrag
 
     }
 
- 
+
 
     @Override
 
@@ -228,7 +227,7 @@ public class DetailsFragment extends MvpFragment<DetailsFragmentView,DetailsFrag
 
     }
 
- 
+
 
     @Override
 
@@ -294,7 +293,7 @@ public class DetailsFragment extends MvpFragment<DetailsFragmentView,DetailsFrag
 ```
 public class MapOverlayLayout<V extends MarkerView> extends FrameLayout{
 
- 
+
 
     protected List<V> markersList;
 
@@ -304,7 +303,7 @@ public class MapOverlayLayout<V extends MarkerView> extends FrameLayout{
 
     protected ArrayList<LatLng>polylines;
 
- 
+
 
     public MapOverlayLayout(final Context context){
 
@@ -312,7 +311,7 @@ public class MapOverlayLayout<V extends MarkerView> extends FrameLayout{
 
     }
 
- 
+
 
     public MapOverlayLayout(final Context context,final AttributeSet attrs){
 
@@ -322,7 +321,7 @@ public class MapOverlayLayout<V extends MarkerView> extends FrameLayout{
 
     }
 
- 
+
 
     protected void addMarker(final V view){
 
@@ -332,7 +331,7 @@ public class MapOverlayLayout<V extends MarkerView> extends FrameLayout{
 
     }
 
- 
+
 
     protected void removeMarker(final V view){
 
@@ -342,7 +341,7 @@ public class MapOverlayLayout<V extends MarkerView> extends FrameLayout{
 
     }
 
- 
+
 
     public void showMarker(final int position){
 
@@ -350,7 +349,7 @@ public class MapOverlayLayout<V extends MarkerView> extends FrameLayout{
 
     }
 
- 
+
 
     private void refresh(final int position,final Point point){
 
@@ -358,7 +357,7 @@ public class MapOverlayLayout<V extends MarkerView> extends FrameLayout{
 
     }
 
- 
+
 
     public void setupMap(final GoogleMap googleMap){
 
@@ -366,7 +365,7 @@ public class MapOverlayLayout<V extends MarkerView> extends FrameLayout{
 
     }
 
- 
+
 
     public void refresh(){
 
@@ -380,7 +379,7 @@ public class MapOverlayLayout<V extends MarkerView> extends FrameLayout{
 
     }
 
- 
+
 
     public void setOnCameraIdleListener(final GoogleMap.OnCameraIdleListener listener){
 
@@ -388,7 +387,7 @@ public class MapOverlayLayout<V extends MarkerView> extends FrameLayout{
 
     }
 
- 
+
 
     public void setOnCameraMoveListener(final GoogleMap.OnCameraMoveListener listener){
 
@@ -396,7 +395,7 @@ public class MapOverlayLayout<V extends MarkerView> extends FrameLayout{
 
     }
 
- 
+
 
     public void moveCamera(final LatLngBounds latLngBounds){
 
@@ -412,13 +411,13 @@ public class MapOverlayLayout<V extends MarkerView> extends FrameLayout{
 ```
 public abstract class MarkerView extends View{
 
- 
+
 
     protected Point point;
 
     protected LatLng latLng;
 
- 
+
 
     private MarkerView(final Context context){
 
@@ -426,7 +425,7 @@ public abstract class MarkerView extends View{
 
     }
 
- 
+
 
     public MarkerView (final Context context,final LatLng latLng,final Point point){
 
@@ -438,7 +437,7 @@ public abstract class MarkerView extends View{
 
     }
 
- 
+
 
     public double lat(){
 
@@ -446,7 +445,7 @@ public abstract class MarkerView extends View{
 
     }
 
- 
+
 
     public double lng(){
 
@@ -454,7 +453,7 @@ public abstract class MarkerView extends View{
 
     }
 
- 
+
 
     public Point point(){
 
@@ -462,7 +461,7 @@ public abstract class MarkerView extends View{
 
     }
 
- 
+
 
     public LatLng latLng(){
 
@@ -470,15 +469,15 @@ public abstract class MarkerView extends View{
 
     }
 
- 
+
 
     public abstract voi dshow();
 
- 
+
 
     public abstract void hide();
 
- 
+
 
     public abstract void refresh(final Point point);
 
@@ -492,7 +491,7 @@ public class PulseMarkerView extends MarkerView{
 
     private static final int STROKE_DIMEN=2;
 
- 
+
 
     private Animation scaleAnimation;
 
@@ -506,7 +505,7 @@ public class PulseMarkerView extends MarkerView{
 
     private AnimatorSet showAnimatorSet,hideAnimatorSet;
 
- 
+
 
     public PulseMarkerView(final Context context,final LatLng latLng,final Point point){
 
@@ -532,7 +531,7 @@ public class PulseMarkerView extends MarkerView{
 
     }
 
- 
+
 
     public PulseMarkerView(final Context context,final LatLng latLng,final Point point,final int position){
 
@@ -542,7 +541,7 @@ public class PulseMarkerView extends MarkerView{
 
     }
 
- 
+
 
     private void setupHideAnimatorSet(){
 
@@ -574,7 +573,7 @@ public class PulseMarkerView extends MarkerView{
 
     }
 
- 
+
 
     private void setupSizes(finalContext context){
 
@@ -582,7 +581,7 @@ public class PulseMarkerView extends MarkerView{
 
     }
 
- 
+
 
     private void setupShowAnimatorSet(){
 
@@ -614,7 +613,7 @@ public class PulseMarkerView extends MarkerView{
 
     }
 
- 
+
 
     private void setupScaleAnimation(final Context context){
 
@@ -624,7 +623,7 @@ public class PulseMarkerView extends MarkerView{
 
     }
 
- 
+
 
     private void setupTextPaint(final Context context){
 
@@ -638,7 +637,7 @@ public class PulseMarkerView extends MarkerView{
 
     }
 
- 
+
 
     private void setupStrokeBackgroundPaint(final Context context){
 
@@ -654,7 +653,7 @@ public class PulseMarkerView extends MarkerView{
 
     }
 
- 
+
 
     private void setupBackgroundPaint(final Context context){
 
@@ -666,7 +665,7 @@ public class PulseMarkerView extends MarkerView{
 
     }
 
- 
+
 
     @Override
 
@@ -686,7 +685,7 @@ public class PulseMarkerView extends MarkerView{
 
     }
 
- 
+
 
     public void pulse(){
 
@@ -694,7 +693,7 @@ public class PulseMarkerView extends MarkerView{
 
     }
 
- 
+
 
     @Override
 
@@ -710,7 +709,7 @@ public class PulseMarkerView extends MarkerView{
 
     }
 
- 
+
 
     private void drawText(final Canvas canvas){
 
@@ -720,7 +719,7 @@ public class PulseMarkerView extends MarkerView{
 
     }
 
- 
+
 
     private void drawStrokeBackground(final Canvas canvas){
 
@@ -728,7 +727,7 @@ public class PulseMarkerView extends MarkerView{
 
     }
 
- 
+
 
     private void drawBackground(final Canvas canvas){
 
@@ -736,7 +735,7 @@ public class PulseMarkerView extends MarkerView{
 
     }
 
- 
+
 
     public void setText(Stringtext){
 
@@ -746,7 +745,7 @@ public class PulseMarkerView extends MarkerView{
 
     }
 
- 
+
 
     @Override
 
@@ -756,7 +755,7 @@ public class PulseMarkerView extends MarkerView{
 
     }
 
- 
+
 
     @Override
 
@@ -768,7 +767,7 @@ public class PulseMarkerView extends MarkerView{
 
     }
 
- 
+
 
     @Override
 
@@ -778,7 +777,7 @@ public class PulseMarkerView extends MarkerView{
 
     }
 
- 
+
 
     public void showWithDelay(final int delay){
 
@@ -788,7 +787,7 @@ public class PulseMarkerView extends MarkerView{
 
     }
 
- 
+
 
     public void updatePulseViewLayoutParams(final Point point){
 
