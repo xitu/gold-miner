@@ -753,7 +753,7 @@ class HideDetailsTransitionSet extends TransitionSet{
 
 就这么多了。非常感谢阅读这一系列的文章，希望你喜欢它！
 
-铁甲依然在！（译者：咳咳，原文是 see you sonn）
+铁甲依然在！（译者：咳咳，原文是 See you soon!）
 
 Mariusz Brona aka panwrona
 
