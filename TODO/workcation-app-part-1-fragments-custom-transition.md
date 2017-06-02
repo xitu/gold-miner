@@ -116,8 +116,6 @@ XHTML
     </android.support.design.widget.CoordinatorLayout>
 ```
 
-As you can see in the snippet above, the *MapFragment* is placed under the rest of the layout. It will allow us to load the map invisible for the user.
-
 就像上面代码展示的那样，**MapFragment** 被放在布局的最下方，这样我们就可以在用户看不到地方加载地图。
 
 ```
@@ -184,28 +182,16 @@ public class MainActivity extends MvpActivity<MainView,MainPresenter> implements
 }
 ```
 
-MainActivity inherits from MvpActivity, which is a class from [Mosby Framework](https://github.com/sockeqwe/mosby) created by Hannes Dorfmann. The whole project follows MVP pattern, and the framework I mentioned before is a very nice implementation of it.
 
 MainActivity 继承自 MvpActivity，而 MvpActivity 是来自  Hannes Dorfmann 写的 [Mosby Framework](https://github.com/sockeqwe/mosby)。我的项目都遵从 MVP 模式，而这个框架是一个 MVP 模式的非常好的实现。
 
-In onCreate method we have three things:
-
 在 onCreate 方法里我们做了三件事：
 
-1. We are providing *LatLngBounds* for map – they will be used to set the bounds of the map
+1. 为地图提供了 **LatLngBounds**，他们会被用来设置地图的边界。
 
- 为地图提供了 **LatLngBounds**，他们会被用来设置地图的边界。
+2. 在 activity 的布局里加载了 **HomeFragment**
 
-2. We are replacing the *HomeFragment* in activities container layout
-
- 在 activity 的布局里加载了 **HomeFragment**
-
-3. We are setting the *OnMapReadyCallback* on the *MapFragment*
-
- 为 **Mapfragment** 设置了 **OnMapReadyCallback** 的回调。
-
-
-After map is ready, the *onMapReady()* method is called, and we can do some operations to save the properly loaded map into bitmap. We are moving camera to earlier provided *LatLngBounds* using *CameraUpdateFactory.newLatLngBounds()* method. In our case we know exactly what will be the dimension of the map in the next screen, so we are able to pass *width*(width of screen) and *height*(height of screen with bottom margin) parameters to this method. We are calculating them like this:
+3. 为 **Mapfragment** 设置了 **OnMapReadyCallback** 的回调。
 
 当地图加载完毕时，就会调用 **onMapReady()** 方法，我们就可以通过一些操作把当前加载的地图转换成 bitmap 图片。通过 **CameraUpdateFactory.newLatLngBounds()** 方法，我们可以把镜头转到之前提供的 **LatLngBounds**  上。这样的话我们就精确的知道下个页面的地图区域，再把屏幕宽度和高度当作参数传入 **onMapReady()** 方法，像这样操作:
 
@@ -490,7 +476,7 @@ public class ScaleDownImageTransition extends Transition{
 
 我们在转场动画中做了什么事情呢？我们用 **scaleFactor** 对传入的 imageView 进行了 scaleX 和 scaleY 属性的缩放（默认是8）。换句话说我们通过 **scaleFactor** 先把图片拉伸，然后再把图片压缩回需要的大小。
 
-### 创建自定义转场动画
+## 创建自定义转场动画
 
 In order to do the custom transition, we have to inherit from Transition class. The next step is to override the *captureStartValues* and *captureEndValues*. What is happening here?
 
