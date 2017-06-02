@@ -476,25 +476,17 @@ public class ScaleDownImageTransition extends Transition{
 
 我们在转场动画中做了什么事情呢？我们用 **scaleFactor** 对传入的 imageView 进行了 scaleX 和 scaleY 属性的缩放（默认是8）。换句话说我们通过 **scaleFactor** 先把图片拉伸，然后再把图片压缩回需要的大小。
 
-## 创建自定义转场动画
-
-In order to do the custom transition, we have to inherit from Transition class. The next step is to override the *captureStartValues* and *captureEndValues*. What is happening here?
+### 创建自定义转场动画
 
 为了编写转场动画，我们必须继承一个 Transition 类。然后重写 **captureStartValues** 和 **captureEndValues** 方法。猜猜发生了啥？
 
-The Transition Framework is using the Property Animation API to animate between view’s start and end property value. If you are not familiar with this, you should definetely read [this article](https://developer.android.com/guide/topics/graphics/prop-animation.html).  As explained before, we want to scale down our image. So the startValue is our scaleFactor, and endValue is the desired scaleX and scaleY – normally it will be 1.
-
 Transition 框架使用了属性动画的 API ，通过改变 view 开始和结束时的属性值来产生动画。如果你不熟悉属性动画，强烈推荐阅读[这篇文章](https://developer.android.com/guide/topics/graphics/prop-animation.html)。就像刚才解释的那样，我们要缩放图片。开始值是 scaleFactor ,结束值是期望 scaleX 和 scaleY的值，通常情况下是1。
-
-How to pass those values? As said before – easy. We have TransitionValues object passed as argument in both *captureStart* and *captureEnd* methods. It contains a reference to the view and a map in which you can store the view values – in our case the scaleX and scaleY.
 
 怎么传递这些值呢？如前所述，很简单。我们把 TransitionValues 对象当作参数传进 **captureStart** 和 **captureEnd** 方法里。它包括一个 view 的引用和一个可以保存值的 Map 对象，在我们的项目中需要保存的值就是 scaleX 和 scaleY。
 
-With values captured, we need to override the *createAnimator()* method. In this method we are returning the *Animator* (or *AnimatorSet*) object which animates changes between view property values. So in our case we are returning the *AnimatorSet* which will animate the scale and alpha of the view. Also we want our transition to work only for ImageView, so we check if view reference from TransitionValues object passed as argument is ImageView instance.
-
 获得这些值以后，我们需要重写 **createAnimator()** 方法。在这个方法中需要返回一个动态改变 view 属性的 **Animator** （或者  **AnimatorSet** ）。本项目中返回的是 **AnimatorSet** 对象，此对象同时改变一个 view 的尺寸和亮度。同时，因为我们只希望转场动画作用在 ImageView 上，所以通过 instanceof 进行了对象类型校验，以保证传入的 view 是一个 ImageView。
 
-### 部署自定义转场动画 ###
+### 部署自定义转场动画
 
 我们已经在缓存中保存了 bitmap 图片，也已经创建了转场动画，所以只剩最后一步 —— 就是为 fragment 添加转场动画。我喜欢写一个静态工厂方法来创建 fragments 和 activities 。这么做可以让我们保持代码逻辑清晰，所以也应该用这样的设计模式来编写转场动画的代码。
 
