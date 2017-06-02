@@ -1,8 +1,8 @@
 > * 原文地址：[Understanding Node.js Event-Driven Architecture](https://medium.freecodecamp.com/understanding-node-js-event-driven-architecture-223292fcbc2d)
 > * 原文作者：[Samer Buna](https://medium.freecodecamp.com/@samerbuna)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
-> * 校对者：
+> * 译者：[刘德元](https://github.com/xiaomibaobao) [薛定谔的猫](https://github.com/Aladdin-ADD)
+> * 校对者：[bambooom](https://github.com/bambooom) [zaraguo](https://github.com/zaraguo)
 
 # 理解 NodeJS 中基于事件驱动的架构 #
 
