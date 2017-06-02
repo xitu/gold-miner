@@ -215,7 +215,39 @@ setTimeout(unsubscribe, 5000);
 
 在线示例：
 
-<iframe width="100%" height="300" src="//jsfiddle.net/toddmotto/3zgv7q2g/embedded/js,html,result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+```
+HTML
+
+<input type="text">
+<p></p>
+
+JavaScript
+
+const node = document.querySelector('input');
+const p = document.querySelector('p');
+
+function Observable(subscribe) {
+  this.subscribe = subscribe;
+}
+
+Observable.fromEvent = (element, name) => {
+  return new Observable((observer) => {
+    const callback = (event) => observer.next(event);
+    element.addEventListener(name, callback, false);
+    return () => element.removeEventListener(name, callback, false);
+  });
+};
+
+const input$ = Observable.fromEvent(node, 'input');
+
+input$.subscribe({
+  next: (event) => {
+    p.innerHTML = event.target.value;
+  }
+});
+
+
+```
 
 ### 创造我们自己的 Operator（操作符） ###
 
@@ -288,9 +320,61 @@ input$.subscribe({
 请注意，最后一个 `.subscribe()` 不再和之前一样传入 `Event` 对象了，而是传入了一个 `value`。这说明你成功地创建了一个可观察对象流。
 
 再试试：
+```
 
-<iframe width="100%" height="300" src="//jsfiddle.net/toddmotto/0rpkchm8/embedded/js,html,result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+HTML
 
+<input type="text">
+<p></p>
+<button type="button">
+  Unsubscribe
+</button>
+
+JavaScript
+
+const node = document.querySelector('input');
+const p = document.querySelector('p');
+
+function Observable(subscribe) {
+  this.subscribe = subscribe;
+}
+
+Observable.prototype.map = function (mapFn) {
+  const input = this;
+  return new Observable((observer) => {
+    return input.subscribe({
+      next: (value) => observer.next(mapFn(value)),
+      error: (err) => observer.error(err),
+      complete: () => observer.complete()
+    });
+  });
+};
+
+Observable.fromEvent = (element, name) => {
+  return new Observable((observer) => {
+    const callback = (event) => observer.next(event);
+    element.addEventListener(name, callback, false);
+    return () => element.removeEventListener(name, callback, false);
+  });
+};
+
+const input$ = Observable.fromEvent(node, 'input')
+	.map(event => event.target.value);
+
+const unsubscribe = input$.subscribe({
+  next: (value) => {
+    p.innerHTML = value;
+  }
+});
+
+// avert your eyes
+document
+	.querySelector('button')
+	.addEventListener('click', unsubscribe);
+
+
+
+```
 希望这篇文章对你来说还算有趣~:)
 
 ---
