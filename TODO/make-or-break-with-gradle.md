@@ -2,9 +2,9 @@
 > * 原文作者：[Tancho Markovik](https://medium.com/@smarkovik)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[jacksonke](https://github.com/jacksonke)
-> * 校对者：
+> * 校对者：[phxnirvana](https://github.com/phxnirvana)
 
-# Make or break… with Gradle #
+# 使用 Gradle 做构建检查 #
 
 你是否听过这个词, 垃圾代码（***Legacy Code***）? 
 你是否考虑过在实际工作中，你也会制造垃圾代码?
@@ -33,11 +33,11 @@
 - 添加特定的模式匹配，来查找代码
 - 能持续性地产生文档
 - 开发过程中，能够持续的发现问题
-- stop the bleed
+- 预防代码漏洞
 
-### Git and friends ###
+### Git 及其它相关小工具 ###
 
-配备了所有常用的工具。我们使用 GitHub，我们有一个运行我们的构建的 Jenkins 服务器。通常，我们使用特征分支方法。
+（我们）配备了所有常用的工具。我们使用 GitHub，我们有一个运行我们的构建的 Jenkins 服务器。通常，我们使用特征分支方法。
 这意味着，默认情况下，我们的分支如下所示：
 
 ![](https://cdn-images-1.medium.com/max/1000/1*iHPPa72N11sBI_JSDEGxEA.png)
@@ -189,7 +189,7 @@ task pmd(type: Pmd, dependsOn: "assembleDebug") {
 2. ruleSetFiles — 定义将在此构建中使用的一组规则和细节。
 3. reports block — 指定要扫描的内容，要忽略的内容以及要报告的位置。
 
-**FindBugs** 是一个检查 Java 代码中可能存在的 bugs 的工具. 潜在错误分为四个等级: (i) scariest, (ii) scary, (iii) troubling 和 (iv) 关心的.它会给开发者关于代码中可能存在的问题的严重性给予提示。 FindBugs 工作于字节码层面, 而非源码层面.
+**FindBugs** 是一个检查 Java 代码中可能存在的 bugs 的工具. 潜在错误分为四个等级: (i) 最严重的 (scariest), (ii) 严重的 （scary）, (iii) 麻烦的 (troubling) 和 (iv) 关心的 (concerned).它会给开发者关于代码中可能存在的问题的严重性给予提示。 FindBugs 工作于字节码层面, 而非源码层面.
 
 ```
 apply plugin: 'findbugs'
@@ -404,7 +404,7 @@ System.out.println();
 ./gradlew assemble // assemble all build flavors
 ```
 
-到这里，我们在必要的地方都已经加了检测校验，在最后我们还需要设置 Github，除非通过了 Jenkins 编译，否则不予许分支合并。
+到这里，我们在必要的地方都已经加了检测校验，在最后我们还需要设置 Github，除非通过了 Jenkins 编译，否则不许分支合并。
 使用 Github 插件，这会是相当容易的。你可以添加一个编译步骤，运行一次，让它可以在 Github 上使用。
 
 ![](https://cdn-images-1.medium.com/max/800/1*3udc8DO-_c9DaWQcnjcq0w.png)
@@ -431,7 +431,7 @@ You now have a mechanism which runs :
 - 静态代码分析 (Android specific and Java related) ✓
 - 使用模式匹配，检测不良代码 ✓
 - 使用 JavaDoc 生成可持续，可维护的文档 ✓
-- Continuous discovery through the Jenkins loop ✓
+- 使用 Jenkins 来不断发现问题 ✓
 - 保护 master 分支 ✓
 
 现在你还需要做得是集中精力在代码的体系结构以及持续优化这个系统
