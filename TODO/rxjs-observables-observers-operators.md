@@ -2,7 +2,7 @@
 > * 原文作者：[Todd](https://toddmotto.com/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[lsvih](https://github.com/lsvih)
-> * 校对者：
+> * 校对者：[sunui](https://github.com/sunui),[GangsterHyj](https://github.com/GangsterHyj)
 
 # RxJS 简介：可观察对象、观察者与操作符 #
 
@@ -13,7 +13,7 @@
 
 ### 什么是 Observable（可观察对象）？ ###
 
-可观察对象其实就是一个比较特别的函数，它包含了一个“观察者”（observer）对象（在这个观察者对象中有 “next”、“error”、“complete”等方法），以及它会返回一种解除与观察者关系的逻辑。例如我们自己实现的时候会使用一个简单的 “unsubscribe” 函数来实现解除关系这个功能。而在 RxJS 中， 它是一个包含 `unsubsribe` 方法的订阅对象（Subscription）。
+可观察对象其实就是一个比较特别的函数，它接受一个“观察者”（observer）对象作为参数（在这个观察者对象中有 “next”、“error”、“complete”等方法），以及它会返回一种解除与观察者关系的逻辑。例如我们自己实现的时候会使用一个简单的 “unsubscribe” 函数来实现退订功能（即解除与观察者绑定关系的逻辑）。而在 RxJS 中， 它是一个包含 `unsubsribe` 方法的订阅对象（Subscription）。
 
 可观察对象会创建观察者对象（稍后我们将详细介绍它），并将它和我们希望获取数据值的“东西”连接起来。这个“东西”就是生产者（producer），它可能来自于 `click` 或者 `input` 之类的 DOM 事件，是数据值的来源。当然，它也可以是一些更复杂的情况，比如通过 HTTP 与服务器交流的事件。
 
@@ -33,15 +33,15 @@ input$.subscribe({
 
 这个例子使用了一个 `<input type="text">` 节点，并将其传入 `Rx.Observable.fromEvent()` 中。当我们触发指定的事件名时，它将会返回一个输入的 `Event` 的可观察对象。（因此我们在 console.log 中用  `${event.target.value}` 可以获取输入值）
 
-当输入事件被销毁的时候，可观察对象会将它的值传给观察者。
+当输入事件被触发的时候，可观察对象会将它的值传给观察者。
 
 ### 什么是 Observer（观察者）？ ###
 
-在前面的例子中，我们依次传入 `.subscribe()` 中的对象就是观察者（订阅对象将会调用我们的可观察对象）。
+观察者相当容易理解。在前面的例子中，我们传入 `.subscribe()` 中的对象字面量就是观察者（订阅对象将会调用我们的可观察对象）。
 
-> `.subscribe(next, error, complete)` 也是一种合法的语法，但是我们现在研究的是对象依次传入的情况。
+> `.subscribe(next, error, complete)` 也是一种合法的语法，但是我们现在研究的是对象字面量的情况。
 
-当一个可观察对象产生数据值的时候，它会通知观察者，当新的值被成功捕获的时候调用 `.next()`，没能成功捕获的时候调用 `.error()`。
+当一个可观察对象产生数据值的时候，它会通知观察者，当新的值被成功捕获的时候调用 `.next()`，发生错误的时候调用 `.error()`。
 
 当我们订阅一个可观察对象的时候，它会持续不断地将值传递给观察者，直到发生以下两件事：一种是生产者告知没有更多的值需要传递了，这种情况它会调用观察者的 `.complete()` ；一种是我们（“消费者”）对之后的值不再感兴趣，决定取消订阅（unsubsribe）。
 
@@ -64,7 +64,7 @@ const input$ = Rx.Observable.fromEvent(node, 'input')
 
 - 我们先假定用户输入了一个“a”
 - 可观察对象将会对这个输入事件作出反应，将值传给下一个观察者
-- “a”被传给了订阅了我们最开始的可观察对象的 `.map()`
+- “a”被传给了订阅了我们**初始**可观察对象的 `.map()`
 - `.map()` 会返回一个 `event.target.value` 的新可观察对象，然后调用它观察者对象中的 `.next()`
 - `.next()` 将会调用订阅了 `.map()` 的 `.filter()`，并将 `.map()` 处理后的值传递给它
 - `.filter()` 将会返回另一个可观察对象，`.filter()` 过滤后留下 `.length` 大于等于 2 的值，并将其传给 `.next()`
@@ -72,7 +72,7 @@ const input$ = Rx.Observable.fromEvent(node, 'input')
 
 这短短的几行代码做了这么多的事！如果你还觉得弄不清，只需要记住：
 
-每当返回一个新的可观察对象，都会有一个新的**观察者**挂载到前一个**可观察对象**上，这样，我们就可以通过观察者的“流”进行传值了。现在，你可以在前一个函数结束后调用 `.next()` 来将值传给下一个观察者了。
+每当返回一个新的可观察对象，都会有一个新的**观察者**挂载到前一个**可观察对象**上，这样就能通过观察者的“流”进行传值，对观察者生产的值进行处理，然后调用 `.next()` 方法将处理后的值传递给下一个观察者。
 
 简单来说，操作符将会不断地依次返回新的可观察对象，让我们的流能够持续进行。作为用户而言，我们不需要关心什么时候、什么情况下需要创建与使用可观察对象与观察者，我们只需要用我们的订阅对象进行链式调用就行了。
 
@@ -82,7 +82,7 @@ const input$ = Rx.Observable.fromEvent(node, 'input')
 
 #### Observable 构造器 ####
 
-首先，我们需要创建一个 Observable 构造函数，接受且仅接受 `subscribe` 函数作为其参数。我们将会把 subscribe 原型存储在 Observable 的实例中，稍后可以由观察者对象调用它：
+首先，我们需要创建一个 Observable 构造函数，此构造函数接受且仅接受 `subscribe` 函数作为其唯一的参数。每个 Observable 实例都存储 subscribe 属性，稍后可以由观察者对象调用它：
 
 ```
 function Observable(subscribe) {
@@ -109,7 +109,7 @@ one$.subscribe({
 });
 ```
 
-我们订阅了 Observable 实例，将我们的 observer（多个对象）传入构造器中（之后它会被分配给 `this.subscribe`）。
+我们订阅了 Observable 实例，将我们的 observer（对象字面量）传入构造器中（之后它会被分配给 `this.subscribe`）。
 
 #### Observable.fromEvent ####
 
@@ -121,7 +121,7 @@ Observable.fromEvent = (element, name) => {
 };
 ```
 
-我们与 RxJS 一样使用我们的 Observable：
+我们将像使用 RxJS 一样使用我们的 Observable：
 
 ```
 const node = document.querySelector('input');
@@ -151,9 +151,9 @@ Observable.fromEvent = (element, name) => {
 
 那么这个 `observer` 参数是什么呢？它又是从哪里来的呢？
 
-这个 `observer` 其实就是依次传入了 `next`、`error`、`complete` 的对象。
+这个 `observer` 其实就是携带 `next`、`error`、`complete` 的对象字面量。
 
-> 这块其实很有意思。`observer` 在调用 `.subscribe()` 之前都不会被传递，因此 `addEventListener` 在 Observable 被“订阅”之前都不会被执行。
+> 这块其实很有意思。`observer` 在 `.subscribe()` 被调用之前都不会被传递，因此 `addEventListener` 在 Observable 被“订阅”之前都不会被执行。
 
 一旦调用 subscribe，也就会调用 Observable 构造器内的 `this.subscribe` 。它将会调用我们传入 `new Observable(callback)` 的 callback，同时也会依次将值传给我们的观察者。这样，当 Observable 做完一件事的时候，它就会用更新过的值调用我们观察者中的 `.next()` 方法。
 
@@ -181,7 +181,7 @@ Observable.fromEvent = (element, name) => {
 };
 ```
 
-因为这个 Observable 还在处理 DOM API 和事件，因此我们还不会去调用 `.complete()`。这样在技术上就有无限的可拓展性。
+因为这个 Observable 还在处理 DOM API 和事件，因此我们还不会去调用 `.complete()`。这样在技术上就有无限的可用性。
 
 试一试吧！下面是我们已经写好的完整代码：
 
@@ -248,7 +248,6 @@ input$.subscribe({
 
 
 ```
-
 ### 创造我们自己的 Operator（操作符） ###
 
 在我们理解了可观察对象与观察者对象的概念之后，我们可以更轻松地去创造我们自己的操作符了。我们在 `Observable` 对象原型中加上一个新的方法：
@@ -287,7 +286,7 @@ Observable.prototype.map = function (mapFn) {
 };
 ```
 
-> 我们要返回 `input.subscribe()` ，不然在我们没有订阅的时候，非订阅对象将会顺着链一直转下去，解除每个 Observable 的订阅。
+> 我们要返回 `input.subscribe()` ，因为在我们退订的时候，非订阅对象将会顺着链一直转下去，解除每个 Observable 的订阅。
 
 这个订阅对象将允许我们把之前 `Observable.fromEvent` 传来的值传递下去，因为它返回了构造器中含有 `subscribe` 原型的新的 Observable 对象。我们可以轻松地订阅它对数据值做出的任何更新！最后，完成通过 map 调用我们的 `mapFn()` 的功能：
 
@@ -317,7 +316,7 @@ input$.subscribe({
 });
 ```
 
-请注意，最后一个 `.subscribe()` 不再和之前一样传入 `Event` 对象了，而是传入了一个 `value`。这说明你成功地创建了一个可观察对象流。
+注意到最后一个 `.subscribe()` 不再和之前一样传入 `Event` 对象，而是传入了一个 `value` 了吗？这说明你成功地创建了一个可观察对象流。
 
 再试试：
 ```
