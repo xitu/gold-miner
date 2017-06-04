@@ -8,7 +8,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*Nozl2qd0SV8Uya2CEkF_mg.jpeg)
 
-绝大部分的nodejs中的对象，比如HTTP请求、响应以及“流”，都使用了 `eventEmitter` 模块来支持监听和触发事件。
+绝大部分的nodejs中的对象，比如 HTTP 请求、响应以及“流”，都使用了 `eventEmitter` 模块来支持监听和触发事件。
 
 ![](https://cdn-images-1.medium.com/max/800/1*74K5OhiYt7WTR0WuVGeNLQ.png)
 
@@ -315,7 +315,7 @@ execute: 4.507ms
 Done with execute
 ```
 
-请注意，注意我们如何将回调函数与事件发生器结合来完成的，如果 `asynFunc` 同样支持 Promise 的话，我们可以使用 `async/await` 特性来做到同样的事情：
+请注意我们是如何将回调函数与事件发生器结合来完成的，如果 `asynFunc` 同样支持 Promise 的话，我们可以使用 `async/await` 特性来做到同样的事情：
 
 ```js
 class WithTime extends EventEmitter {
