@@ -445,12 +445,10 @@ EventEmitter 模块暴露一个 once 方法。这个方法仅允许调用一次�
 如果我们在同一个事件上注册多个监听器，则监听器会按顺序触发，第一个注册的监听器就是第一个触发的。
 
 ```js
-// प्रथम
 withTime.on('data', (data) => {
   console.log(`Length: ${data.length}`);
 });
 
-// दूसरा
 withTime.on('data', (data) => {
   console.log(`Characters: ${data.toString().length}`);
 });
@@ -463,12 +461,10 @@ withTime.execute(fs.readFile, __filename);
 如果你想定义一个监听器，还想插队到前面的话，要使用 prependListener 方法来注册。
 
 ```js
-// प्रथम
 withTime.on('data', (data) => {
   console.log(`Length: ${data.length}`);
 });
 
-// दूसरा
 withTime.prependListener('data', (data) => {
   console.log(`Characters: ${data.toString().length}`);
 });
