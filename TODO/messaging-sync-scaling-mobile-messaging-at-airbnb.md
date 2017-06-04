@@ -1,70 +1,69 @@
 > * 原文地址：[Messaging Sync — Scaling Mobile Messaging at Airbnb](https://medium.com/airbnb-engineering/messaging-sync-scaling-mobile-messaging-at-airbnb-659142036f06)
 > * 原文作者：[Zhiyao Wang](https://medium.com/@zhiyaowang), [Michelle Leon](https://medium.com/@mkleon) , [Jason Goodman](https://medium.com/@jasonkgoodman) , [Nick Reynolds](https://medium.com/@thenickreynolds) , [Julia Fu](https://medium.com/@chengxiaofu) , [Jeff Hodnett](http://www.jeffhodnett.com/) , [Manuel Deschamps](https://medium.com/@manuel) , [John Pottebaum](https://medium.com/@johnpottebaum), Charlie Jiang
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
+> * 译者：[Tuccuay](https://www.tuccuay.com)
 > * 校对者：
 
-# Messaging Sync — Scaling Mobile Messaging at Airbnb #
+# 消息同步 —— 在 Airbnb 我们是怎样扩展移动消息的
 
-![](https://cdn-images-1.medium.com/max/800/1*fZpQ95jk81Ae7tqpkXNIwA.gif)
+![弱网环境下的新旧收件箱对比](https://cdn-images-1.medium.com/max/800/1*fZpQ95jk81Ae7tqpkXNIwA.gif)
 
-Old Inbox vs New Inbox with slow network
+随着从移动端发出的消息条数超过每小时 100k，消息传递成为了 Airbnb 应用中被使用得最频繁的功能，但是我们之前用在移动版收件箱中获取消息的方法缓慢且不能保证数据的一致性，必须要有网络连接才能阅读消息。这些原因导致了移动版收件箱的房东和游客的体验都不太好。为了让收件箱更快、更可靠、更一致，我们在 Airbnb 中构建了消息同步机制。
 
-With more than 100k messages being sent on mobile per hour, messaging is the most engaged with feature on the Airbnb App. However, with the old inbox fetch method on mobile, the inbox was slow to load, suffered from data inconsistency, and required a network connection to read messages. All of this results in a poor experience for hosts and guests using the mobile inbox. In order to make the inbox faster, more reliable, and more consistent, the Hosts and Homes team at Airbnb built Messaging Sync.
+旧版收件箱的实现方式类似于上世纪末的邮箱客户端，在用户每次点击之后提取需要展示的消息。通过小系统部，只有当数据改变时才会更新消息内容和消息列表，从而大大减少了网络请求的数量。这意味着在收件箱和消息列表直接来回切换导航的速度快乐很多，大部分时间都是用本地缓存来展示数据，而不再需要在进入每个界面的时候都发起网络请求。消息同步还减少了每个网络请求的响应大小，从而导致 API 的延迟性能提升了两倍之多。这些体验优化在网速较慢的地图尤为明显。
 
-The old inbox fetch was implemented similar to a turn-of-the-century webmail client, doing a network fetch for a screenful of information at every user tap. With messaging sync, new messages and thread updates are fetched only when data change, which greatly reduces the number of network requests. This means navigation between the inbox and message thread screens is much faster, hitting the local mobile storage most of the time, instead of issuing a network request with each screen change. Messaging sync also reduces the response size for each network fetch, which results in a 2x improvement in terms of API latency. These user experience gains are magnified in areas with slow networks.
+以下为消息同步的工作方式，分三种情况：
 
-Here’s how Messaging Sync works, broken into 3 scenarios:
-
-**Scenario 1: Full Delta Update**
+** 情景 1： 全幅增量更新 **
 
 ![](https://cdn-images-1.medium.com/max/800/1*RqXfpzXiZ2nudOrEPA7Dvg.png)
 
-This is the most common scenario:
+通常在这样的场景使用：
 
-1. Mobile client calls the sync API with a sequence_id stored locally (e.g. 1490000000), which denotes the last time the client synced with the server.
-2. API server only returns all modified thread objects and new messages after that sequence_id, together with a new sequence_id (e.g. 1491111111).
-3. Mobile client merges those updated threads and messages with its local datastore.
-4. Mobile client also stores the new sequenced_id to be used next time.
+1. 移动客户端使用本地存储的 sequence_id （比如 1490000000，表示客户端上一次与服务器同步的时间）请求同步。
+2. API 服务器只返回所有已修改的消息对象和新的消息并附带一个新的 sequence_id （比如 1491111111）。
+3. 移动客户端将这些被修改的消息和新的消息和本地数据库合并。
+4. 移动客户端还要存储学年度 sequence_id 以供下次使用。
 
-**Scenario 2: Initial Sync**
+** 情景 2：初始化同步 **
 
-This is when there are too many threads and/or messages updates to return. For example, when a user first downloads the App, the server needs to send 10 thread objects and 30 messages for a full delta sync. The full delta sync response payload would be huge, which would result in longer load times and subpar user experience. Instead, we only return a full screen of threads.
+这是在有太多的消息更新需要返回时的方案。比如当用户首次下载 app 的时候，服务器需要发送 10 个会话对象和 30 个消息以进行全增量更新。完整的增量同步响应体将会非常巨大，这将导致更长的加载时间和更差的用户体验。所以这个时候，我们只返回当前屏幕需要展示的会话。
 
 ![](https://cdn-images-1.medium.com/max/800/1*0NQo4EQtq4A6ZcD0I-FGCQ.png)
 
-1. Mobile client calls the sync API with a sequence_id stored locally
-2. API server estimates the size of the response for a full delta sync, and decides it’s too big.
-3. API server sends down only the N most recent thread objects without any messages to have the client render at least a full screen of threads in the inbox view.
-4. Client clears its local datastore.
-5. Client stores the most recent thread objects and sequence_id.
-6. When a user opens a thread, the client requests all messages in the thread from the server.
-7. When a user scrolls historically in the inbox, the client sends paginated requests to fetch threads.
+1. 移动客户端使用本地存储的 sequene_id 来调用同步 API
+2. API 服务器估计完全增量同步的响应提大小，并且判断觉得它太大了
+3. API 服务器仅返回最新 N 个会话对象，足够客户端渲染整个屏幕而没有空白
+4. 客户端清除本地的数据库
+5. 客户端存储最新的消息和 sequence_id
+6. 当用户打开会话时，客户端会向服务器请求这个会话的所有消息
+7. 当用户在收件箱中浏览历史记录时，客户端会发送分页请求来获取会话的消息
 
-**Scenario 3: Threads Removal**
+** 情景 3：删除会话 **
 
-Threads sometimes need to be removed from the mobile App. For example, when a cohost is no longer managing the listing for the host, the server removes the threads between the cohost and the guest. In this case, the API sends down an array of thread ids deleted after last sync.
+会话有时候会需要从应用中移除。比如当房东搭档不再管理这个房子的时候，服务器将删除房东搭档和房客之间的会话。在这种情况 API 会在最后一次同步时发送需要删除的会话 ID 数组。
 
-### Catching Regressions ###
+### 回归测试
 
-While migrating to the new messaging sync API, there were couple caveats to watch out for:
+当迁移到新的消息同步 API 的时候，有几个需要注意的点：
 
-1. Airbnb’s messaging system is closely integrated with its core booking flow and other product logic. The server needs to listen to all changes that affect the data displayed on the inbox screen. For example, after a trip is finished, the App needs to render a “Leave Review” button in the thread. There are two solutions to this. One is to check the review object in read time to see if it has been modified. The other solution is to subscribe to review object changes and update the notion of when the corresponding thread object is last modified. We chose the second solution as it is much cheaper on read time. However, the challenge is to capture relevant changes for all objects that can affect what’s being rendered on the UI.
-2. Updated threads could be in a different order from the threads stored locally. We need to make sure that after merging the data, the UI is refreshed correctly.
+1. Airbnb 的消息系统与核心的预定流程及其它产品紧密结合。服务器需要监听所有会影响屏幕中显示数据的变动。比如当行程完成后，应用需要在会话中显示「评价」按钮。我们当时有两种方案可选：一个是在阅读的时候检查评论对象是否被修改；另一个是订阅评论对象的状态并在下一次读取会话消息的时候改变它。我们选择了第二张方法，因为它看上去比阅读时更新状态更方便。但是带来的挑战是要捕捉所有可能影响 UI 上程序的所有相关对象的更改。
 
-In order to catch any discrepancies between the data returned by the old messaging API and the messaging sync API, a small percentage of mobile Apps run both the old and the new API at the same time to spot check. It logs all attribute values and the thread order returned from the two APIs. This allows us to catch regressions with the new API and iterate quickly. Whenever a bug is caught, the server marks corresponding thread objects as modified so that it would correct the discrepancy in the next sync.
+2. 更新后的会话可能和本地存储的会话有不同的顺序。我们需要确保在合并数据和能够正确的刷新 UI。
 
-### Conclusions ###
+为了抓取在旧的消息 API 和新的消息同步 API 返回的数据之间的差异，一小部分应用同时运行新旧两套 API 进行抽查。它记录两个 API 返回的会话中所有的属性值和会话顺序。这允许我们对新的 API 回归测试并进行快速迭代。每当遇到一个 bug 时，服务器会将绘画对象标记为已修改，以便在下一次同步时纠正错误。
 
-1. Messaging Sync API reduced API request latency by 2x. It also results in a much more stable request duration than the old messaging API (spiky blue line below).
+### 结论
+
+1. 消息同步 API 将请求的延迟减少了两倍。它还比旧的消息 API（下面突出的蓝线）有更加稳定的请求时间。
 
 ![](https://cdn-images-1.medium.com/max/800/1*SbTsdzUkh9miVCbZScBKCQ.png)
 
-2. Messaging Sync makes it possible for users to read messages under airplane mode and bad network conditions.
+2. 消息同步使用户能够在飞行模式或者网络状况不佳的情况下阅读消息。
 
-After rolling out Messaging Sync together with other messaging improvements, we see more messages are being sent from mobile (+3.8% and +5.3% for Android and iOS), fewer messages are being sent from web (-4.6% and -4.2%). And daily inbox visits are way up (+200% and +96%) as it is now the main screen on the hosting mode. The launch is a big win for our hosting community as messaging is the most used feature by hosts on Airbnb.
+在推出消息同步和其他关于消息的改进之后，我们看到更多的消息从手机上发送了（在 Android 和 iOS 上分别是 +3.8% 和 5.3%），从网页上发送的消息变少了（-4.6% 和 -4.2%）。并且每天查看收件箱的次数也提升了（+200% 和 +96%），因为它现在是房东的首页。这个发布对于我们房东社区来说是一个非常巨大的胜利，因为消息是房东在 Airbnb 上最常用的功能。
 
-*Last but not least, if you are interested in creating a thriving community of engaged hosts who provide amazing hospitality everywhere in the world, the Hosts and Homes engineering team is always* [*looking for talented people to join*](https://www.airbnb.com/careers/departments/engineering)!
+**最后说一下，如果你有兴趣创造一个蓬勃发展的社区，在世界各地款待大家，Host & Homes 团队正在招募工程师** [**寻找有才华的人加入**](https://www.airbnb.com/careers/departments/engineering)！
 
 ![](https://cdn-images-1.medium.com/max/2000/1*XMOMFask2IOSeOQznGLe7Q.png)
 
