@@ -2,9 +2,9 @@
 > * 原文作者：[Nathan Shafer](http://blog.lotech.org/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[stein](https://github.com/steinliber)
-> * 校对者：
+> * 校对者：[Zheaoli](https://github.com/Zheaoli) [lovexiaov](https://github.com/lovexiaov)
 
-#Django 基于 Postgres 的全文搜索#
+# Django 基于 Postgres 的全文搜索 #
 
 Django 在 1.10 版本已经增加了对 Postgres 内建全文检索的支持。当我们想要增加 django 的检索能力又不想去建立和维护其它服务时，相较于其它更重型的像 [elasticsearch](https://www.elastic.co/products/elasticsearch)  或者  [SOLR](http://lucene.apache.org/solr/) 搜索系统， Posgres 会是一个很好的选择。
 
@@ -12,9 +12,9 @@ Django 在 1.10 版本已经增加了对 Postgres 内建全文检索的支持。
 
 不言自明，这次主要说的是 Django 和 Postgres 后端技术栈。在 SQLite 或者 MYSQL 中是不会有效的。我也认为你已经熟悉 Django 并且对 Postgres 有基本的了解。
 
-在 [github](https://github.com/nshafer/pgfulltext) 上有这个攻略的项目示例。
+在 [Github](https://github.com/nshafer/pgfulltext) 上有这个攻略的项目示例。
 
-##模型##
+## 模型 ##
 
 我们将使用这些模型作为例子。这是一个类似博客的应用程序的简单数据，其中包括直接包含和通过关系引用数据的 Posts 。但是最重要的是，我们有了想要通过多对一关系( author ) 和 多对多关系( tag ) 查询的数据。
 
@@ -72,9 +72,9 @@ postgres_post = Post.objects.create(
 postgres_post.tags.add(databases, postgres)
 ```
 
-## 创建文档##
+## 创建文档 ##
 
-首先第一步是为我们的 posts 创建*文档*。每一份文档在逻辑上都将代表一个 post ，包括
+首先第一步是为我们的 posts 创建**文档**。每一份文档在逻辑上都将代表一个 post ，包括
 
 - title
 - content
@@ -144,7 +144,7 @@ Post.objects.annotate(document=vector).values_list('document', flat=True)
 
 每个文档都被统一到一组常用的词根。其中包括所有字母都切换到小写，去除通用的前缀和后缀（比如像英语中的 's' 和 'es'），并且移除掉像 'a'，'an' 和 'the' 这样的通用词汇。这个数据表示可以在文档的哪里找到这个词根，后面的字母表示这个词根的比重。如果我们想要覆盖 Postgres 处理这些词汇的配置，比如说使用不同的语言，我们需要向查询向量传递一个额外的参数 config。如果没有声明这个配置， Postgres 将会使用数据库默认的配置，这样很可能基于其配置的 locale。
 
-##执行一次查询##
+## 执行一次查询 ##
 
 我们现在已经有了我们的文档，就可以执行一次查询啦。实现查询最简单的方式就是在我们的文档中筛选。
 
@@ -172,7 +172,7 @@ Post.objects.annotate(document=vector).filter(document=query)
 
 如果我们要在 SearchVector() 中使用自定义的 `config`，我们就应该使用和 SearchQuery() 中 相同的 `config`。
 
-##排序##
+## 排序 ##
 
 如果我们可以通过分配给文档每个部分的比重来对查询结果进行排序，那查询的结果通常是最有效的。DJango 为此提供了 SearchRank 类。
 
@@ -203,7 +203,7 @@ Post.objects\
 
 这提供了我们想要的功能，但如果我们关注性能那这也许就不是最好的方式。我们每执行一次查询，数据库就要为表中的每一行构建文档，然后才能对其搜索并排序。如果查询的数据只有几行当然没什么，但在数据超过几百行之后，查询的速度将会逐渐慢到不可接受的地步。如果我们的文档只包含一个表的数据，我们可以[建立一个 GIN 索引](https://www.postgresql.org/docs/current/static/textsearch-tables.html#TEXTSEARCH-TABLES-INDEX)来解决这个问题，但如果我们需要从其它的表里获取额外的数据这样做就不行了。所以我们真正想要做的是预先计算所有的文档并将它们存储在数据库中。
 
-# 用 SearchVectorField 来储存向量#
+# 用 SearchVectorField 来储存向量 #
 
 Django 为我们提供了一个叫做 `SearchVectorField` 的字段来储存预先计算好的向量。我们将会把这个字段加入到我们的帖子模型。
 
@@ -238,7 +238,7 @@ for post in Post.objects.annotate(document=vector):
     post.save(update_fields=['search_vector'])
 ```
 
-**注意：**这将为表中的每一行触发一次UPDATE，如果我们的表有很多行，这过程将会持续很久很久。如果我们仅需要在文档中包含来自单个模型的字段，那么这么做会更有效率：
+**注意：** 这将为表中的每一行触发一次UPDATE，如果我们的表有很多行，这过程将会持续很久很久。如果我们仅需要在文档中包含来自单个模型的字段，那么这么做会更有效率：
 
 ```
 vector=SearchVector('title', weight='A') + \
@@ -268,7 +268,7 @@ WHERE blog_post.id = document.id;
 
 ```
 
-##通过 search_vector 查询##
+## 通过 search_vector 查询 ##
 
 现在我们已经储存了我们的文档，我们就可以很简单的对它们进行查询
 
@@ -289,7 +289,7 @@ Post.objects.annotate(rank=SearchRank(F('search_vector'), query))\
 
 ```
 
-##索引##
+## 索引 ##
 
 现在我们的文档是储存在一个字段中的，我们可以创建一个 GIN 索引来加快查询速度。在 Django1.11 中，这简单到只需要为我们的模型添加一个 `index` Meta 选项，然后创建并执行 migrate 。
 
@@ -318,7 +318,7 @@ migrations.RunSQL(
 )
 ```
 
-#更新文档#
+# 更新文档 #
 
 目前为止是非常好的，但是一旦其中的任何数据发生改变，这个文档也就过期了，搜寻结果也将变得不正确。我们能够解决这个问题的第一个方法是使用一个 cron 或定期任务来定期更新整张表（如上所述）。这对于需要处理大量更新或者大批量更新的应用是个很好的选择。这样，我们就不需要为每一次更新增加额外的开销，而且可以更有效的一次性更新全部行。
 
@@ -328,8 +328,7 @@ migrations.RunSQL(
 
 最好的方式将取决于具体的应用。这里有一些简单的方法在每次更新时保存文档。
 
-## Overriding save() ##
-##重写 save()##
+## 重写 save() ##
 
 更新文档的其中一个方式是重写 Post 的 save() 方法。在这个方法中，每次查询依赖的数据更新了，search_vector 也会随之更新。所以查询的结果可以立即反映数据的改变。然而这会对数据库的每次更新操作增加额外的开销。
 
@@ -388,7 +387,7 @@ def post_tags_changed(sender, instance, action, **kwargs):
 
 现在所有对 Post，Author 或增删改 tags 的操作都会触发查询数据的更新。如果一个 tag 被重命名了，那么我们不会在没有创建另一个信号处理程序的情况下接收它。
 
-##使用触发器##
+## 使用触发器 ##
 
 也可以为数据库安装一些当数据改变时会自动更新 search_vector 的触发器。我不会描述太多的细节，但它们看起来会像下面这样。我们可以简单地使用 RunSQL 操作将这些添加的一次迁移中，这样就可以将它们安装到我们的数据库。这个想法与上述完全一样，但是由于数据库可以在本地执行所有操作，并且不必将数据来回发送到Django，它将执行得更好。
 
@@ -439,11 +438,11 @@ CREATE TRIGGER search_vector_update AFTER INSERT OR UPDATE OR DELETE ON blog_pos
   FOR EACH ROW EXECUTE PROCEDURE tags_search_vector_trigger();。
 ```
 
-#结论#
+# 结论 #
 
 现在我们已经有了一个运行中的应用了，该应用使用了 Postgres 的全文搜索，一旦它运行起来，大部分就不需要你管了。相较于搭一个  [elasticsearch](https://www.elastic.co/products/elasticsearch) 或者 [SOLR](http://lucene.apache.org/solr/) (even with [Haystack](http://haystacksearch.org/))。这简直是一股清流，而且这结果对于大多数应用来说已经足够了。
 
-想要查询更多的信息和功能，比如语言支持，自定义词根，三连词，口音等，请参见以下资源：
+想要查询更多的信息和功能，比如语言支持、自定义词根、三连词、口音等，请参见以下资源：
 
 - [Official PostgreSQL Full-Text Search Documentation](https://www.postgresql.org/docs/9.6/static/textsearch.html)
 - [Official Django Postgres Search Documentation](https://docs.djangoproject.com/en/1.11/ref/contrib/postgres/search/)
