@@ -1,16 +1,16 @@
 > * 原文地址：[Hot vs Cold Observables](https://medium.com/@benlesh/hot-vs-cold-observables-f8094ed53339)
 > * 原文作者：[Ben Lesh](https://medium.com/@benlesh)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
+> * 译者：[hikerpig](https://github.com/settings/profile)
 > * 校对者：
 
 ---
 
-# Hot vs Cold Observables
+# Observable 之冷和热
 
-## TL;DR: You want a HOT observable when you don’t want to create your producer over and over again.
+## 简单来说：如果不想重复创建生产者（producer），你需要使用热 Observable
 
-#### COLD is when your observable creates the producer
+#### 冷：Observable 自行创建生产者
 
     // COLD
     var cold = new Observable((observer) => {
@@ -18,7 +18,7 @@
       // have observer listen to producer here
     });
 
-#### HOT is when your observable closes over the producer
+#### 热：Observable 使用已存在的生产者
 
     // HOT
     var producer = new Producer();
@@ -26,28 +26,28 @@
       // have observer listen to producer here
     });
 
-### Getting deeper into what’s going on…
+### 深入解析
 
-My last article about [Learning Observable By Building Observable](https://medium.com/@benlesh/learning-observable-by-building-observable-d5da57405d87) was mostly to illustrate that observables are just functions. The goal there was to demystify observables themselves, but it doesn’t really dive into one of the issues that seem to confuse people the most about observables: The notion of “hot” vs “cold”.
+我上篇文章[通过自行实现学习 Observable](https://medium.com/@benlesh/learning-observable-by-building-observable-d5da57405d87) 阐述了 Observable 是种函数。虽旨在揭开 Observable 的神秘外衣，但并没有触及其最令人困惑的部分：“冷”和“热”的概念。
 
-#### Observables are just functions!
+#### Observable 只是种函数！
 
-Observables are functions that tie an observer to a producer. That’s it. They don’t necessarily set up the producer, they just set up an observer to listen to the producer, and generally return a teardown mechanism to remove that listener. The act of subscription is the act of “calling” the observable like a function, and passing it an observer.
+Observable 只是一个将观察者 (Observer) 连接到生产者的函数。意味着，它们并不需要自行创建生产者。只需要让一个观察者订阅生产者的消息，并提供一种取消监听的方式。这种订阅可通过像函数一样“调用” Observable，给它传递一个观察者。
 
-#### What’s a “Producer”?
+#### 什么是“生产者”？
 
-A producer is the source of values for your observable. It could be a web socket, it could be DOM events, it could be an iterator, or something looping over an array. Basically, it’s anything you’re using to get values and pass them to `observer.next(value)`.
+生产者是 Observable 的数据源。可以是一个 websocket 连接、DOM 事件、迭代器或一个遍历某数组的操作。可以是能产生值并向 `observer.next(value)` 传递的任何东西。
 
-### Cold Observables: Producers created *inside*
+### 冷 Observable：在内部创建生产者
 
-An observable is “cold” if its underlying producer is **created and activated **during subscription. This means, that if observables are functions, then the producer is created and activated by *calling that function.*
+一个“冷”的 Observable 的生产者**创建和激活**发生在订阅期。意即若将 observable 比作函数，那么生产者是在“调用函数”时创建和激活的。
 
-1. creates the producer
-2. activates the producer
-3. starts listening to the producer
-4. unicast
+1. 创建生产者
+2. 激活生产者
+3. 订阅生产者的消息
+4. 单播
 
-The example below is “cold” because it creates and listens to the WebSocket *inside* of the subscriber function that is called when you subscribe to the Observable:
+下面例子是“冷”的，因为 WebSocket 连接是在订阅回调“内部”被创建和监听的，而订阅回调函数只有在订阅 Observable 时才会被执行。
 
     const source = new Observable((observer) => {
       const socket = new WebSocket('ws://someurl');
@@ -55,17 +55,17 @@ The example below is “cold” because it creates and listens to the WebSocket 
       return () => socket.close();
     });
 
-So anything that subscribes to `source` above, will get its own WebSocket instance, and when it unsubscribes, it will `close()` that socket. This means that our source is really only ever unicast, because the producer can only send to one observer. [Here is a basic JSBin illustrating the idea.](http://jsbin.com/wabuguy/1/edit?js,output)
+上述`source`的所有订阅者都会有一个自己的 WebSocket，取消订阅时用`close()`将其关闭。因此该数据源是真正的单播，因为其生产者只向一个观察者发送值。[此 JSBin 例子说明了此概念](http://jsbin.com/wabuguy/1/edit?js,output)。
 
-### Hot Observables: Producers created *outside*
+### 热 Observable：在外部创建生产者
 
-An observable is “hot” if its underlying producer is either created or activated outside of subscription.¹
+热 Observable 的生产者在订阅回调函数外被创建或激活(备注1)。
 
-1. shares a reference to a producer
-2. starts listening to the producer
-3. multicast (usually²)
+1. 共享一个生产者的引用
+2. 监听生产者
+3. 组播(multicast)(备注2)
 
-If we were to take our example above and move the creation of the WebSocket *outside* of our observable it would become “hot”:
+若我们改变一下之前的例子，把 WebSocket 的创建移到 Observable 外，就是个“热” Observable：
 
     const socket = new WebSocket('ws://someurl');
 
@@ -73,11 +73,11 @@ If we were to take our example above and move the creation of the WebSocket *out
       socket.addEventListener('message', (e) => observer.next(e));
     });
 
-Now anything that subscribes to `source` will share the same WebSocket instance. It will effectively multicast to all subscribers now. But we have a little problem: We’re no longer carrying the logic to teardown the socket with our observable. That means that things like errors and completions, as well as unsubscribe, will no longer close the socket for us. So what we really want is to make our “cold” observable “hot”. [Here is a JSBin showing this basic concept.](http://jsbin.com/godawic/edit?js,output)
+`source`的所有订阅者共享一个 WebSocket 实例，该 socket 的消息会组播给所有订阅者。但这引入一个小问题：我们没法用 observable 承载销毁该 socket 的逻辑。无论出错、完成，还是取消订阅，都不会关闭该连接。我们做的只是把“冷” Observable 变“热”[此 JSBin 例子说明了此概念](http://jsbin.com/godawic/edit?js,output)。
 
-#### Why Make A “Hot” Observable?
+#### 为什么需要热 Observable？
 
-From the first example above showing a cold observable, you can see that there might be some problems with having all cold observables all the time. For one thing, if you’re subscribing to an observable more than once that is creating some scarce resource, like a web socket connection, you don’t want to create that web socket connection over and over. It’s actually really easy to create more than one subscription to an observable without realizing it too. Let’s say you want to filter all of the “odd” and “even” values out of your web socket subscription. You’ll end up creating two subscriptions in the following scenario:
+在第一个冷 Observable 的例子里你可以看见，一直保有所有的 Observable 实例可能会有问题。首先，如果你需要订阅这个 observable 多次，而这个 observable 会创建类似于 WebSocket 这样的，占用如网络连接般稀缺资源的实例，你肯定不希望创建多个连接。而实际上，我们很容易忽略订阅多次的事实。例如当你需要过滤出 socket 消息值的奇/偶数序列，在此场景下你会创建两个订阅：
 
     source.filter(x => x % 2 === 0)
       .subscribe(x => console.log('even', x));
@@ -87,19 +87,21 @@ From the first example above showing a cold observable, you can see that there m
 
 ### Rx Subjects
 
-Before we can make our “cold” observable “hot”, we need to introduce a new type: The Rx Subject. It has a few properties:
+在我们把 Observable 从冷转热之前，需要介绍一种新类型：Rx Subject，它有以下特性：
 
-1. It’s an observable. It’s shaped like an observable, and has all the same operators.
-2. It’s an observer. It duck-types as an observer. When subscribed to as an observable, will emit any value you “next” into it as an observer.
-3. It multicasts. All observers passed to it via `subscribe()` are added to an internal observers list.
-4. When it’s done, it’s done. Subjects cannot be reused after they’re unsubscribed, completed or errored.
-5. It passes values through itself. To restate #2, really. If you `next` a value into it, it will come out of the observable side of itself.
+1. 它是一个 Observable, 包含了 Observable 的所有操作方法。
+2. 它是一个 Observer, 通过 duck-typing 实现了一些长得和 Observer 相似的接口。当被像 Observable 订阅时，会发出你使用类似 Observer 的 `next` 方法传入的值。
+3. 支持组播。通过 `subscribe()` 传入的所有观察者会被加入一个内部的观察者列表里保存。
+4. 结束状态明确。在取消订阅、完成或出错之后就无法再被使用。
+5. 可以对自己传值。补充下第 2 条，使用 `next` 对其传值，会触发它的 Observable 相关回调。
 
-An Rx Subject is called a “subject” for item #3 above. “Subjects” in the Gang of Four Observer-Pattern are classes with an `addObserver` method, generally. In this case, our `addObserver` method is `subscribe`. [Here is a JSBin showing the basic behavior of an Rx Subject.](http://jsbin.com/muziva/1/edit?js,output)
+Rx Subject 的名字得于第 3 条特性，“Subject” 在 Gang of Four（译者注：经典《设计模式》的几位作者）的观察者模式中，是实现了 `addObserver` 方法的类。在我们的例子中，`addObserver` 就是 `subscribe`。[一个展示 Rx Subject 行为的 JSBin 例子](http://jsbin.com/muziva/1/edit?js,output)。
 
-### Making A Cold Observable Hot
 
-Armed with our Rx Subject above, we can use a bit of functional programming to make any “cold” observable “hot”:
+### 把 Observable 从冷变热
+
+有了 Rx Subject 的加持，我们可以用上一点函数式编程让 Observable 从冷转热：
+
 
     function makeHot(cold) {
       const subject = new Subject();
@@ -107,9 +109,10 @@ Armed with our Rx Subject above, we can use a bit of functional programming to m
       return new Observable((observer) => subject.subscribe(observer));
     }
 
-Our new `makeHot` method will take any cold observable and make it hot by creating a subject that is shared by the resulting observable. [Here’s a JSBin of this in action.](http://jsbin.com/ketodu/1/edit?js,output)
 
-We still have a little problem, though, we’re not tracking our subscription to source, so how can we tear it down when we want to? We can add some reference counting to it to solve that:
+`makeHot` 函数接受一个冷的 Observable，创建一个 Subject 订阅它的消息，同时也作为作为返回的新的热 Observable 的生产者。[一个 JSBin 示例](http://jsbin.com/ketodu/1/edit?js,output)
+
+不过还有一个小问题，我们没有直接订阅数据源，如果想取消订阅，该怎么做呢？可以用引用计数解决：
 
     function makeHotRefCounted(cold) {
       const subject = new Subject();
@@ -126,29 +129,30 @@ We still have a little problem, though, we’re not tracking our subscription to
       });
     }
 
-Now we have an observable that is hot, and when all subscriptions to it are ended, the `refs` we’re using to do reference counting will hit zero, and we’ll unsubscribe from our cold source observable. [Here is a JSBin demonstrating this in action](http://jsbin.com/lubata/1/edit?js,output).
+现在我们有一个热 Observable，且当其所有订阅取消了，用来计数的 `refs` 变为 0 时，便可以取消对原先冷 Observable 的订阅。[一个 JSBin 例子](http://jsbin.com/lubata/1/edit?js,output)。
 
-### In RxJS, Use `publish()` or `share()`
+### 在 RxJS 里使用 `publish()` 或 `share()`
 
-You probably shouldn’t use any of the `makeHot` functions above, and instead should use operators like `publish()` and `share()`. There are a lot of ways and means to make a cold observable hot, and in Rx there are efficient and concise ways to perform each of those things. One could write an entire article just on the various operators used for this in Rx, but that wasn’t the goal here. The goal was to solidify the idea of what “hot” and “cold” really mean.
+你也许不该使用类似于上面 `makeHot` 这样的函数，而应该使用 `publish()` 或 `share()` 这样的算子函数。有许多使冷 Observable 转热的途径，在 Rx 里有高效简洁的方式。为说明使用多种 Rx 算子来做这件事情，能专门写一篇文章，不过这不是本文的目的。真正的目的在于加强对“冷”“热”之分的理解。
 
-In RxJS 5, the operator `share()` makes a hot, refCounted observable that can be retried on failure, or repeated on success. Because subjects cannot be reused once they’ve errored, completed or otherwise unsubscribed, the `share()` operator will recycle dead subjects to enable resubscription to the resulting observable.
+在 RxJS 5 里，`share()` 算子创建一个有引用计数的热 Observable，且可以在失败时重试，或在成功时重复执行。因为 Subject 在出错、完成或取消订阅后便不能再被重用，`share()` 算子会更新重建已结束的 Subject，从而使得返回的 Observable 能够被再次订阅。
 
-[Here is a JSBin demonstrating using `share()` to make a source hot in RxJS 5, and showing that it can be retried.](http://jsbin.com/mexuma/1/edit?js,output)
+[一个在 RxJS 5 里使用 `share()` 创建热数据源的 JSBin 例子，也展示了重试的方法](http://jsbin.com/mexuma/1/edit?js,output)
 
-### The “Warm” Observable
+### “温” Observable
 
-Given everything stated above, one might be able to see how an Observable, being that it’s *just a function*, could actually be both “hot” and “cold”. Perhaps it observes two producers? One it creates and one it closes over? That’s probably bad juju, but there are rare cases where it might be necessary. A multiplexed web socket for example, must share a socket, but send its own subscription and filter out a data stream.
+看完如上所述，能知道 Observable 虽“仅是种函数”，却能有冷热之分。它还能监听两个生产者？一个由它创建，一个由它关闭？有点像不良的小伎俩，非其不用的场景并不多。例如多路 socket 数据源，共享一个 socket 连接，但分别有自己的数据订阅和过滤机制。
 
-### “Hot” And “Cold” Are All About The Producer
+### 冷和热都只和生产者有关
 
-If you’re closing over a shared reference to a producer in your observable, it’s “hot”, if you’re creating a new producer in your observable, it’s “cold”. If you’re doing both…. what are you doing? It’s “warm” I guess.
+如果在 Observable 内操作一个共享的生产者，是“热”的。而在 Observable 内部创建生产者，是“冷”的。那假如你二者皆有，是什么？我猜它是“温”的。
 
-#### NOTES
+#### 备注
 
-¹ (NOTE: It’s sort of weird to say the producer is “activated” inside the subscription, but not “created” until some later point, but with proxies, that could be possible.) Usually “hot” observables have their producers both created and activated outside of the subscription.
+1. 说生产者在订阅回调内部被“激活”，而不是在之后某合适时机被“创建”，可能有点奇怪，不过通过代理（proxy），的确是可以的。通常“热” Observable 的生产者在订阅回调外部被创建和激活。
 
-² Hot observables are usually multicast, but they could be listening to a producer that only supports one listener at a time. The grounds for calling it “multicast” at that point are a little fuzzy.
+2. 热 Observable 通常是组播的，虽说它也许对应的是一个只支持单个监听回调的生产者。在此处说它是“组播”的，可能不是完全准确。
+
 
 ---
 
