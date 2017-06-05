@@ -1,8 +1,8 @@
 > * 原文地址：[How to Go From Hobbyist to Professional Developer](https://medium.freecodecamp.com/how-to-go-from-hobbyist-to-professional-developer-11a8b8a52b5f)
 > * 原文作者：[Ken Rogers](https://medium.freecodecamp.com/@kenrogers)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
-> * 校对者：
+> * 译者：[zaraguo](https://github.com/zaraguo)
+> * 校对者：[SareaYu](https://github.com/sareayu) [DeadLion](https://github.com/deadlion)
 
 # 如何从一个业余爱好者成长成为专业开发者 #
 
