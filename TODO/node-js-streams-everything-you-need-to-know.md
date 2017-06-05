@@ -4,25 +4,25 @@
 > * 译者：[loveky](https://github.com/loveky)
 > * 校对者：
 
-# Node.js Streams: 你需要知道的一切 #
+# Node.js 流: 你需要知道的一切 #
 
 ![](https://cdn-images-1.medium.com/max/2000/1*xGNVMFqXXTeK7ZyK2eN21Q.jpeg)
 
 [图片来源](https://commons.wikimedia.org/wiki/File:Urban_stream_in_park.jpg)
 
-Node.js streams 有着难以使用，更难以理解的名声。现在我有一个好消息告诉你：事情已经不再是这样了。
+Node.js 中的流有着难以使用，更难以理解的名声。现在我有一个好消息告诉你：事情已经不再是这样了。
 
-很长时间以来，开发人员创造了许许多多的软件包为的就是可以更简单的使用 streams。但是在本文中，我会把重点放在原生的 [Node.js stream API](https://nodejs.org/api/stream.html)上。
+很长时间以来，开发人员创造了许许多多的软件包为的就是可以更简单的使用流。但是在本文中，我会把重点放在原生的 [Node.js 流 API](https://nodejs.org/api/stream.html)上。
 
-> “Streams 是 Node 中最棒的，同时也是最容易被误解的概念。”
+> “流是 Node 中最棒的，同时也是最被误解的想法。”
 
 > — Dominic Tarr
 
-### Streams 到底是什么呢？ ###
+### 流到底是什么呢？ ###
 
-Streams 是数据的集合 —— 就像数组或是字符串一样。区别在于 streams 中的数据可能不会立刻就全部可用，并且你无需一次性的把这些数据全部放入内存。这使得 streams 在操作大量数据或是数据从外部来源逐**段**发送过来的时候变得非常有用。
+流是数据的集合 —— 就像数组或字符串一样。区别在于流中的数据可能不会立刻就全部可用，并且你无需一次性的把这些数据全部放入内存。这使得流在操作大量数据或是数据从外部来源逐**段**发送过来的时候变得非常有用。
 
-然而，streams 的作用并不仅限于操作大量数据。它还带给我们组合代码的能力。就像我们可以通过管道连接几个简单的 Linux 命令以组合出强大的功能一样，我们可以利用 streams 在 Node 中做同样的事。
+然而，流的作用并不仅限于操作大量数据。它还带给我们组合代码的能力。就像我们可以通过管道连接几个简单的 Linux 命令以组合出强大的功能一样，我们可以利用流在 Node 中做同样的事。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Fp3dyVZckIUjPFOp58x-zQ.png)
 
@@ -35,21 +35,21 @@ const wc = ... // 一个 wc 命令输入的 stream
 grep.pipe(wc)
 ```
 
-Node 中许多内建的模块都实现了 streams 接口：
+Node 中许多内建的模块都实现了流接口：
 
 ![](https://cdn-images-1.medium.com/max/800/1*lhOvZiDrVbzF8_l8QX3ACw.png)
 
 截屏来自于我的 Pluralsight 课程 —— 高级 Node.js
 
-上边的列表中有一些 Node.js 原生的对象，这些对象也是可以读写的 streams。这些对象中的一部分是既可读、又可写的 streams，例如 TCP sockets，zlib 以及 crypto。
+上边的列表中有一些 Node.js 原生的对象，这些对象也是可以读写的流。这些对象中的一部分是既可读、又可写的流，例如 TCP sockets，zlib 以及 crypto。
 
-需要注意的是这些对象也是紧密关联的。虽然一个 HTTP 响应在客户端是一个可读的 streams，但在服务器端它却是一个可写的 stream。这是因为在 HTTP 的情况中，我们基本上是从一个对象（`http.IncomingMessage`）读取数据，并向另一个对象写入数据（`http.ServerResponse`）。
+需要注意的是这些对象是紧密关联的。虽然一个 HTTP 响应在客户端是一个可读流，但在服务器端它却是一个可写流。这是因为在 HTTP 的情况中，我们基本上是从一个对象（`http.IncomingMessage`）读取数据，向另一个对象写入数据（`http.ServerResponse`）。
 
-还需要注意的是 `stdio` streams（`stdin`，`stdout`，`stderr`）在子进程中有着与父进程中相反的 stream 类型。这使得在子进程中从父进程的 `stdio` streams中读取或写入数据变得非常简单。
+还需要注意的是 `stdio` 流（`stdin`，`stdout`，`stderr`）在子进程中有着与父进程中相反的类型。这使得在子进程中从父进程的 `stdio` 流中读取或写入数据变得非常简单。
 
-### 一个 streams 的实例 ###
+### 一个流的实例 ###
 
-理论是伟大的，当并不总是有 100% 的说服力。下面让我们通过一个例子来看看 streams 在节省内存消耗方面可以起到的作用。
+理论是伟大的，当并不总是有 100% 的说服力。下面让我们通过一个例子来看看流在节省内存消耗方面可以起到的作用。
 
 首先让我们创建一个大文件：
 
@@ -64,9 +64,9 @@ for(let i=0; i<= 1e6; i++) {
 file.end();
 ```
 
-看看在创建这个大文件时我用到了什么。一个可写的 stream！
+看看在创建这个大文件时我用到了什么。一个可写流！
 
-通过 `fs` 模块你可以使用一个 stream 接口读取或写入文件。在上面的例子中，我们通过一个可写的 stream 向 `big.file` 写入了 100 万行数据。
+通过 `fs` 模块你可以使用一个流接口读取或写入文件。在上面的例子中，我们通过一个可写流向 `big.file` 写入了 100 万行数据。
 
 执行这段脚本会生成一个约 400MB 大小的文件。
 
@@ -103,9 +103,9 @@ server.listen(8000);
 
 在我们将其写入响应对象之前，我们基本上把 `big.file` 的全部内容都载入到内存中了。这是非常低效的。
 
-HTTP 响应对象也是一个可写的 stream。这意味着如果我们有一个代表了 `big.file` 内容的可读 stream，我们就可以通过将两个 stream 连接起来以实现相同的功能而不必消耗约 400MB 内存。
+HTTP 响应对象也是一个可写流。这意味着如果我们有一个代表了 `big.file` 内容的可读流，我们就可以通过将两个流连接起来以实现相同的功能而不必消耗约 400MB 的内存。
 
-Node `fs` 模块中的 `createReadStream` 方法可以针对任何文件给我们返回一个可读的 stream。我们可以把它和响应对象连接起来：
+Node `fs` 模块中的 `createReadStream` 方法可以针对任何文件给我们返回一个可读流。我们可以把它和响应对象连接起来：
 
 ```
 const fs = require('fs');
@@ -125,26 +125,26 @@ server.listen(8000);
 
 **发生了什么？**
 
-当客户端请求这个大文件时，我们通过 stream 逐块的发送数据。这意味着我们不需要把文件的全部内容缓存到内存中。内存消耗只增长了大约 25MB。
+当客户端请求这个大文件时，我们通过流逐块的发送数据。这意味着我们不需要把文件的全部内容缓存到内存中。内存消耗只增长了大约 25MB。
 
-你可以把这个例子推向极端。重新生成一个 500 万行而不是 100 万行的 `big.file` 文件。它大概有 2GB 那么大。这已经超过了 Node 中默认的缓存大小的上限。
+你可以把这个例子推向极端。重新生成一个 500 万行而不是 100 万行的 `big.file` 文件。它大概有 2GB 那么大。这已经超过了 Node 中默认的缓冲区大小的上限。
 
-如果你尝试通过 `fs.readFile` 读取那个文件，默认情况下会失败（当然你可以修改缓存上限）。但是通过使用 `fs.createReadStream`，向客户端发送一个 2GB 的文件就没有任何问题。更棒的是，进程的内存消耗并不会因文件增大而增长。
+如果你尝试通过 `fs.readFile` 读取那个文件，默认情况下会失败（当然你可以修改缓冲区大小上限）。但是通过使用 `fs.createReadStream`，向客户端发送一个 2GB 的文件就没有任何问题。更棒的是，进程的内存消耗并不会因文件增大而增长。
 
-准备好学习 streams 了吗？
+准备好学习流了吗？
 
 > 这篇文章是[我的 Pluralsight 课堂上 Node.js 课程](https://www.pluralsight.com/courses/nodejs-advanced)中的一部分。你可以通过这个链接找到这部分内容的视频版。
 
-### Streams 快速入门 ###
+### 流快速入门 ###
 
-在 Node.js 中有四种基本类型的 stream：Readable，Writeable，Duplex 以及 Transform stream。
+在 Node.js 中有四种基本类型的流：可读流，可写流，双向流以及变换流。
 
-- readable stream 是对一个可以读取数据的源的抽象。`fs.createReadStream` 方法是一个 readable stream 的例子。
-- writable stream 是对一个可以写入数据的目标的抽象。`fs.createWriteStream` 方法是一个 writeable stream 的例子。
-- duplex streams 既是可读的，又是可写的。TCP socket 就属于这种。
-- transform stream 是一种特殊的 duplex stream，它会基于写入的数据生成可供读取的数据。例如使用 `zlib.createGzip` 来压缩数据。你可以把一个 transform stream 想象成一个函数，这个函数的输入部分对应 writeable stream，输出部分对应 readable stream。你也可能听说过 transform streams 有时被称为 “**through streams**”。
+- 可读流是对一个可以读取数据的源的抽象。`fs.createReadStream` 方法是一个可读流的例子。
+- 可写流是对一个可以写入数据的目标的抽象。`fs.createWriteStream` 方法是一个可写流的例子。
+- 双向流既是可读的，又是可写的。TCP socket 就属于这种。
+- 变换流是一种特殊的双向流，它会基于写入的数据生成可供读取的数据。例如使用 `zlib.createGzip` 来压缩数据。你可以把一个变换流想象成一个函数，这个函数的输入部分对应可写流，输出部分对应可读流。你也可能听说过变换流有时被称为 “**通过流**”。
 
-所有的 streams 都是 `EventEmitter` 的实例。它们发出可用于读取或写入数据的事件。然而，我们可以利用 `pipe` 方法以一种更简单的方式使用 streams 中的数据。
+所有的流都是 `EventEmitter` 的实例。它们发出可用于读取或写入数据的事件。然而，我们可以利用 `pipe` 方法以一种更简单的方式使用流中的数据。
 
 #### pipe 方法 ####
 
@@ -154,7 +154,7 @@ server.listen(8000);
 readableSrc.pipe(writableDest)
 ```
 
-在这行简单的代码中，我们以管道的方式把一个可读 stream 的输出连接到了一个可写 stream 的输入。管道的源头必须是一个可读的 stream，尽头必须是一个可写的 stream。当然，它们也可以是 duplex/transform stream。事实上，如果我们使用管道连接的是 duplex stream，我们就可以像 Linux 系统里那样连接多个 stream：
+在这行简单的代码中，我们以管道的方式把一个可读流的输出连接到了一个可写流的输入。管道的上游必须是一个可读流，下游必须是一个可写流。当然，它们也可以是双向流/变换流。事实上，如果我们使用管道连接的是双向流，我们就可以像 Linux 系统里那样连接多个流：
 
 ```
 readableSrc
@@ -163,7 +163,7 @@ readableSrc
   .pipe(finalWrtitableDest)
 ```
 
-`pipe` 方法会返回最后一个 stream，这使得我们可以串联多个 stream。对于 stream `a` （可读），`b` 和 `c` （双向），以及 `d`（可写）。我们可以这样：
+`pipe` 方法会返回最后一个流，这使得我们可以串联多个流。对于流 `a` （可读），`b` 和 `c` （双向），以及 `d`（可写）。我们可以这样：
 
 ```
 a.pipe(b).pipe(c).pipe(d)
@@ -177,13 +177,13 @@ c.pipe(d)
 $ a | b | c | d
 ```
 
-`pipe` 方法是使用 stream 最简单的方式。通常的建议是要么使用 `pipe` 方法、要么使用事件来读取 stream，要避免混合使用两者。一般情况下使用 `pipe` 方法时你就不必在使用事件了。但如果你想以一种更加自定义的方式读取 stream，就要用到事件了。
+`pipe` 方法是使用流最简单的方式。通常的建议是要么使用 `pipe` 方法、要么使用事件来读取流，要避免混合使用两者。一般情况下使用 `pipe` 方法时你就不必再使用事件了。但如果你想以一种更加自定义的方式读取流，就要用到事件了。
 
-#### Stream 事件 ####
+#### 流事件 ####
 
-除了从可读流中读取数据写入可写流以外，`pipe` 方法还自动帮你管理了一些其他情况。例如，错误处理，文件结尾，以及两个 stream 读取，写入速度不一致的情况。
+除了从可读流中读取数据写入可写流以外，`pipe` 方法还自动帮你处理了一些其他情况。例如，错误处理，文件结尾，以及两个流读取/写入速度不一致的情况。
 
-然而，streams 也可以直接通过事件读取。以下是一段简化的使用事件来模拟 `pipe` 读取、写入数据的代码：
+然而，流也可以直接通过事件读取。以下是一段简化的使用事件来模拟 `pipe` 读取、写入数据的代码：
 
 ```
 # readable.pipe(writable)
@@ -197,25 +197,25 @@ readable.on('end', () => {
 });
 ```
 
-以下是一些使用 readable stream 或 writeable stream 时用到的事件和方法：
+以下是一些使用可读流或可写流时用到的事件和方法：
 
 ![](https://cdn-images-1.medium.com/max/800/1*HGXpeiF5-hJrOk_8tT2jFA.png)
 
 截屏来自于我的 Pluralsight 课程 - 高级 Node.js
 
-这些事件和函数是相关，因为我们总是把它们组合在一起使用。
+这些事件和函数是相关的，因为我们总是把它们组合在一起使用。
 
-一个 readable stream 上最重要的两个事件是：
+一个可读流上最重要的两个事件是：
 
-- `data` 事件，任何时候当 stream 发送数据给它的消费者时，会触发此事件
-- `end` 事件，当 stream 没有更多的数据要发送给消费者时，会触发此事件
+- `data` 事件，任何时候当可读流发送数据给它的消费者时，会触发此事件
+- `end` 事件，当可读流没有更多的数据要发送给消费者时，会触发此事件
 
-一个 writeable stream 上最重要的两个事件是：
+一个可写流上最重要的两个事件是：
 
-- `drain` 事件，这是一个表示 writeable stream 可以接受更多数据的信号.
+- `drain` 事件，这是一个表示可写流可以接受更多数据的信号.
 - `finish` 事件，当所有数据都被写入底层系统后会触发此事件。
 
-事件和函数可以组合起来使用，以更加定制，优化的方式使用 streams。对于可读流，我们可以使用 `pipe`/`unpipe` 方法，或是 `read`，`unshift`，`resume`方法。对于可写流，我们可以把它设置为 `pipe`/`unpipe` 方法的终点，亦或是使用 `write` 方法写入数据并在写入完成后调用 `end` 方法。
+事件和函数可以组合起来使用，以更加定制，优化的方式使用流。对于可读流，我们可以使用 `pipe`/`unpipe` 方法，或是 `read`，`unshift`，`resume`方法。对于可写流，我们可以把它设置为 `pipe`/`unpipe` 方法的下游，亦或是使用 `write` 方法写入数据并在写入完成后调用 `end` 方法。
 
 #### 可读流的暂停和流动模式 ####
 
@@ -238,7 +238,7 @@ readable.on('end', () => {
 
 截屏来自于我的 Pluralsight 课程 - 高级 Node.js
 
-当使用 `pipe` 方法时，它会自动帮你处理好这些模式之间的切换，因此你无须关系这些细节。
+当使用 `pipe` 方法时，它会自动帮你处理好这些模式之间的切换，因此你无须关心这些细节。
 
 ### 实现流接口 ###
 
@@ -282,13 +282,13 @@ process.stdin.pipe(outStream);
 
 write 方法接受三个参数。
 
-- **chunk** 通常是一个buffer，除非我们对流进行了特殊配置。
+- **chunk** 通常是一个 buffer，除非我们对流进行了特殊配置。
 - **encoding** 通常可以忽略。除非 chunk 被配置为不是 buffer。
 - **callback** 方法是一个在我们完成数据处理后要执行的回调函数。它用来表示数据是否成功写入。若是写入失败，在执行该回调函数时需要传入一个错误对象。
 
 在 `outStream` 中，我们只是单纯的 `console.log` 出收到的数据并通过执行 `callback` 时不传入错误对象以表示写入成功。这是一个非常简单且没什么用处的**回传**流。它会回传任何收到的数据。
 
-要使用这个流，我们可以把它和 `process.stdin` 配合使用。只需把 `process.stdin` 通过管道接入到 `outStream` 中。
+要使用这个流，我们可以把它和 `process.stdin` 配合使用。只需把 `process.stdin` 通过管道连接到 `outStream`。
 
 当我们运行上面的代码时，任何输入到 `process.stdin` 中的字符都会被 `outStream` 中的 `console.log` 输出回来。
 
@@ -325,7 +325,7 @@ inStream.pipe(process.stdout);
 
 当我们 `push` 一个 `null` 值，这表示该流后续不会再有任何数据了。
 
-要使用这个可读流，我们可以把它连接到可读流 `process.stdout`。
+要使用这个可读流，我们可以把它连接到可写流 `process.stdout`。
 
 当我们执行以上代码时，所有来自 `inStream` 的数据都会被显示到标准输出上。非常简单，但并不高效。
 
@@ -339,7 +339,7 @@ const inStream = new Readable({
 });
 ```
 
-当可读流上的 read 方法被调用时，流实现可以向队列中推送部分数据。例如，我们可以从字符编码 65（表示字母 A） 开始，一次推送一个字母，每次都把字符编码加一：
+当可读流上的 read 方法被调用时，流实现可以向队列中推送部分数据。例如，我们可以从字符编码 65（表示字母 A） 开始，一次推送一个字母，每次都把字符编码加 1：
 
 ```
 const inStream = new Readable({
@@ -358,7 +358,7 @@ inStream.pipe(process.stdout);
 
 
 
-当使用者读取该可读流时，`read` 方法会持续被触发，我们就不断推送字母。我们需要在某处停止该循环，这就是为何我们放置了一个 if 语句以便在 currentCharCode 大于 90（代表 Z） 时推送一个 null 值。
+当使用者读取该可读流时，`read` 方法会持续被触发，我们不断推送字母。我们需要在某处停止该循环，这就是为何我们放置了一个 if 语句以便在 currentCharCode 大于 90（代表 Z） 时推送一个 null 值。
 
 这段代码等价于之前的我们开始时编写的那段简单代码，但我们已改为在使用者需要时推送数据。你始终应该这样做。
 
@@ -392,13 +392,13 @@ process.stdin.pipe(inoutStream).pipe(process.stdout);
 
 通过组合这些方法，我们可以通过该双向流读取从 A 到 Z 的字母还可以利用它的回传特性。我们把可读的 `stdin` 流接入这个双向流以利用它的回传特性同时又把它接入可写的 `stdout` 流以查看字母 A 到 Z。
 
-理解双向流的读取和写入部分是完全独立的非常重要。它只不过是把两种特性在同一个对象上实现罢了。
+理解双向流的读取和写入部分是完全独立的这一点非常重要。它只不过是把两种特性在同一个对象上实现罢了。
 
-变换流是一种更有趣的双向流，因为它的输入时基于输入运算得到的。
+变换流是一种更有趣的双向流，因为它的输出是基于输入运算得到的。
 
 对于一个变换流，我们不需要实现 `read` 或 `write` 方法，而是只需要实现一个 `transform` 方法即可，它结合了二者的功能。它的函数签名和 `write` 方法一致，我们也可以通过它 `push` 数据。
 
-以下是一个把你输入的任何内容转换为大写字符的变换流：
+以下是一个把你输入的任何内容转换为大写字母的变换流：
 
 ```
 const { Transform } = require('stream');
@@ -466,7 +466,7 @@ process.stdin
 
 #### Node 内置的变换流 ####
 
-Node 内置了一些非常有用的变换流。也就是 zlib 和 crypto 流。
+Node 内置了一些非常有用的变换流。这就是 zlib 和 crypto 流。
 
 下面是一个组合了 `zlib.createGzip()` 和 `fs` 可读/可写流来压缩文件的脚本：
 
@@ -480,9 +480,9 @@ fs.createReadStream(file)
   .pipe(fs.createWriteStream(file + '.gz'));
 ```
 
-你可以通过该脚本给任何参数中传入的文件进行 gzip 压缩。我们通过可读流读取文件内容传递给 zlib 内置的变换流，然后通过一个可写流来写入新文件。很简单把。
+你可以通过该脚本给任何参数中传入的文件进行 gzip 压缩。我们通过可读流读取文件内容传递给 zlib 内置的变换流，然后通过一个可写流来写入新文件。很简单吧。
 
-使用管道很棒的一点在于，如果有必要，我们可以把它和事件组合使用。例如，我希望在脚本执行过程中给用户一些进度提示，同时在脚本执行完成后显示一条完成消息。既然 `pipe` 方法会返回下游流，我们就可以把注册事件回调的操作级联在一起：
+使用管道很棒的一点在于，如果有必要，我们可以把它和事件组合使用。例如，我希望在脚本执行过程中给用户一些进度提示，在脚本执行完成后显示一条完成消息。既然 `pipe` 方法会返回下游流，我们就可以把注册事件回调的操作级联在一起：
 
 ```
 const fs = require('fs');
@@ -498,7 +498,7 @@ fs.createReadStream(file)
 
 所以使用 `pipe` 方法，我们可以很简单的使用流。当需要时，我们还可以通过事件来进一步定制和流的交互。
 
-`pipe` 方法的好处在于，我们可以用一种更加可读的方式通过若干片段**组合**出我们的程序。例如，我们可以通过创建一个变换流来显示进度，而不是直接监听 `data` 事件。把 `.on()` 调用换成另一个 `.pipe()` 调用：
+`pipe` 方法的好处在于，我们可以用一种更加可读的方式通过若干片段**组合**我们的程序。例如，我们可以通过创建一个变换流来显示进度，而不是直接监听 `data` 事件。把 `.on()` 调用换成另一个 `.pipe()` 调用：
 
 ```
 const fs = require('fs');
@@ -523,7 +523,7 @@ fs.createReadStream(file)
 
 这个 `reportProgress` 流是一个简单的直通流，但同时报告了进度信息。请注意我是如何在 `transform()` 方法中利用 `callback()` 的第二个参数传递数据的。它等价于使用 push 方法推送数据。
 
-组合流的应用是无止境的。例如，假如我们需要在压缩文件之前加密它，我们要做的只不过是在正确的位置引入一个新的变换流。我们可以使用 Node 内置的 `crypto` 模块：
+组合流的应用是无止境的。例如，假设我们需要在压缩文件之前加密它，我们要做的只不过是在正确的位置引入一个新的变换流。我们可以使用 Node 内置的 `crypto` 模块：
 
 ```
 **const crypto = require('crypto');
@@ -542,7 +542,7 @@ fs.createReadStream(file)
 
 ```
 
-以上的脚本对给定的文件先压缩在加密，只有知道秘钥的人才能利用生成的文件。我们不能利用普通的解压工具加压该文件，因为它被加密了。
+以上的脚本对给定的文件先压缩再加密，只有知道秘钥的人才能利用生成的文件。我们不能利用普通的解压工具解压该文件，因为它被加密了。
 
 要能真正的解压任何使用以上脚本压缩过的文件，我们需要以相反的顺序利用 crypto 和 zlib：
 
@@ -557,13 +557,13 @@ fs.createReadStream(file)
 
 假设传入的文件是压缩后的版本，以上的脚本会创建一个针对该文件的读取流，连接到一个 crypto 模块的 `createDecipher()` 流，之后将输出传递给一个 zlib 模块的 `createGunzip()` 流，最后将得到的数据写入一个没有压缩文件扩展名的文件。
 
-以上就是关于本主题要说的全部了。感谢阅读！下次再见！
+以上就是我关于本主题要讨论的全部内容了。感谢阅读！下次再见！
 
 **如果你认为这篇文件对你有帮助，请点击下方的💚。关注我以获取更多关于 Node.js 和 JavaScript 的文章。**
 
 我为[Pluralsight](https://www.pluralsight.com/search?q=samer+buna&amp;categories=course) 和 [Lynda](https://www.lynda.com/Samer-Buna/7060467-1.html) 制作在线课程。我最近的课程是 [React.js 入门](https://www.pluralsight.com/courses/react-js-getting-started) , [高级 Node.js](https://www.pluralsight.com/courses/nodejs-advanced) , 和 [学习全栈 JavaScript](https://www.lynda.com/Express-js-tutorials/Learning-Full-Stack-JavaScript-Development-MongoDB-Node-React/533304-2.html)。
 
-我还进行**线上与现场培训**，内容涵盖 JavaScript，Node.js，React.js 和 GraphQL 从初级到高级的全部级别。如果你在寻找一名讲师，[请联系我](mailto:samer@jscomplete.com)。我将在今年七月份的 Foward.js 上进行 6 场现场讲习班，其中一场是 [Node.js 进阶](https://forwardjs.com/#node-js-deep-dive)
+我还进行**线上与现场培训**，内容涵盖 JavaScript，Node.js，React.js 和 GraphQL 从初级到高级的全部范围。如果你在寻找一名讲师，[请联系我](mailto:samer@jscomplete.com)。我将在今年七月份的 Foward.js 上进行 6 场现场讲习班，其中一场是 [Node.js 进阶](https://forwardjs.com/#node-js-deep-dive)
 
 如果关于本文或任何我的其他文章有疑问，你可以通过[这个 **slack** 账号](https://slack.jscomplete.com/)找到我并在 #questions 房间里提问。
 
