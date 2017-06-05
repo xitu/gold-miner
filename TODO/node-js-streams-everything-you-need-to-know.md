@@ -6,7 +6,7 @@
 
 # Node.js 流: 你需要知道的一切 #
 
-![](https://cdn-images-1.medium.com/max/2000/1*xGNVMFqXXTeK7ZyK2eN21Q.jpeg)
+![](https://img30.360buyimg.com/uba/jfs/t6076/25/1691927562/1083199/d5be5c18/59357a9dNffac5f58.jpg)
 
 [图片来源](https://commons.wikimedia.org/wiki/File:Urban_stream_in_park.jpg)
 
@@ -24,11 +24,11 @@ Node.js 中的流有着难以使用，更难以理解的名声。现在我有一
 
 然而，流的作用并不仅限于操作大量数据。它还带给我们组合代码的能力。就像我们可以通过管道连接几个简单的 Linux 命令以组合出强大的功能一样，我们可以利用流在 Node 中做同样的事。
 
-![](https://cdn-images-1.medium.com/max/800/1*Fp3dyVZckIUjPFOp58x-zQ.png)
+![](https://img13.360buyimg.com/uba/jfs/t5605/188/2846141474/21851/33e5d376/59357acdN88421e7c.png)
 
 Linux 命令的组合性
 
-```
+```bash
 const grep = ... // 一个 grep 命令输出的 stream
 const wc = ... // 一个 wc 命令输入的 stream
 
@@ -37,7 +37,7 @@ grep.pipe(wc)
 
 Node 中许多内建的模块都实现了流接口：
 
-![](https://cdn-images-1.medium.com/max/800/1*lhOvZiDrVbzF8_l8QX3ACw.png)
+![](https://img20.360buyimg.com/uba/jfs/t5737/26/2964786637/95062/83389b23/59357af3N88fa9f2d.png)
 
 截屏来自于我的 Pluralsight 课程 —— 高级 Node.js
 
@@ -53,7 +53,7 @@ Node 中许多内建的模块都实现了流接口：
 
 首先让我们创建一个大文件：
 
-```
+```js
 const fs = require('fs');
 const file = fs.createWriteStream('./big.file');
 
@@ -72,7 +72,7 @@ file.end();
 
 以下是一个用来发送 `big.file` 文件的 Node web 服务器：
 
-```
+```js
 const fs = require('fs');
 const server = require('http').createServer();
 
@@ -93,11 +93,11 @@ server.listen(8000);
 
 当我启动服务器的时候，它占用了一个正常大小的内存空间，8.7MB：
 
-![](https://cdn-images-1.medium.com/max/800/1*125_8HQ4KzJkeBcj1LcEiQ.png)
+![](https://img11.360buyimg.com/uba/jfs/t5623/215/2967958024/56361/da4fbfad/59357b1bNeb053c07.png)
 
 当我连接到服务器的时候。请注意内存消耗的变化：
 
-!![](https://cdn-images-1.medium.com/max/800/1*SGJw31T5Q9Zfsk24l2yirg.gif)
+![](https://img13.360buyimg.com/uba/jfs/t5683/37/2987262957/2500112/2678603c/59357b56N5fb2b483.gif)
 
 哇 —— 内存消耗暴增到 434.8MB。
 
@@ -107,7 +107,7 @@ HTTP 响应对象也是一个可写流。这意味着如果我们有一个代表
 
 Node `fs` 模块中的 `createReadStream` 方法可以针对任何文件给我们返回一个可读流。我们可以把它和响应对象连接起来：
 
-```
+```js
 const fs = require('fs');
 const server = require('http').createServer();
 
@@ -121,7 +121,7 @@ server.listen(8000);
 
 现在，当你再次连接到服务器时，神奇的事情发生了（请注意内存消耗）：
 
-![](https://cdn-images-1.medium.com/max/800/1*iWNNIMhF9QmD25Vho6-fRQ.gif)
+![](https://cloud.githubusercontent.com/assets/1198651/26791059/85afb648-4a48-11e7-917c-48415d8737ee.gif)
 
 **发生了什么？**
 
@@ -150,13 +150,13 @@ server.listen(8000);
 
 以下这行代码就是你要记住的魔法：
 
-```
+```js
 readableSrc.pipe(writableDest)
 ```
 
 在这行简单的代码中，我们以管道的方式把一个可读流的输出连接到了一个可写流的输入。管道的上游必须是一个可读流，下游必须是一个可写流。当然，它们也可以是双向流/变换流。事实上，如果我们使用管道连接的是双向流，我们就可以像 Linux 系统里那样连接多个流：
 
-```
+```js
 readableSrc
   .pipe(transformStream1)
   .pipe(transformStream2)
@@ -165,7 +165,7 @@ readableSrc
 
 `pipe` 方法会返回最后一个流，这使得我们可以串联多个流。对于流 `a` （可读），`b` 和 `c` （双向），以及 `d`（可写）。我们可以这样：
 
-```
+```js
 a.pipe(b).pipe(c).pipe(d)
 
 # 等价于:
@@ -185,7 +185,7 @@ $ a | b | c | d
 
 然而，流也可以直接通过事件读取。以下是一段简化的使用事件来模拟 `pipe` 读取、写入数据的代码：
 
-```
+```js
 # readable.pipe(writable)
 
 readable.on('data', (chunk) => {
@@ -199,7 +199,7 @@ readable.on('end', () => {
 
 以下是一些使用可读流或可写流时用到的事件和方法：
 
-![](https://cdn-images-1.medium.com/max/800/1*HGXpeiF5-hJrOk_8tT2jFA.png)
+![](https://img12.360buyimg.com/uba/jfs/t5761/104/2911588509/94847/ca85cce7/59357be5Nfc521b48.png)
 
 截屏来自于我的 Pluralsight 课程 - 高级 Node.js
 
@@ -234,7 +234,7 @@ readable.on('end', () => {
 
 要手动在这两个模式间切换，你可以使用 `resume()` 和 `pause()` 方法。
 
-![](https://cdn-images-1.medium.com/max/800/1*HI-mtispQ13qm8ib5yey3g.png)
+![](https://img10.360buyimg.com/uba/jfs/t5713/301/2899078962/40099/a3c38f7d/59357c0dN8df8e18c.png)
 
 截屏来自于我的 Pluralsight 课程 - 高级 Node.js
 
@@ -255,20 +255,20 @@ readable.on('end', () => {
 
 要实现一个可写流，我们需要使用来自 stream 模块的 `Writable` 类。
 
-```
+```js
 const { Writable } = require('streams');
 ```
 
 实现一个可写流有很多种方法。例如，我们可以扩展 `Writable` 类：
 
-```
+```js
 class myWritableStream extends Writable {
 }
 ```
 
 然而，我倾向于更简单的构造方法。我们可以直接给 `Writable` 构造函数传入参数来创建一个对象。唯一必须的参数是一个 `write` 函数，它用于暴露一个写入数据的接口。
 
-```
+```js
 const { Writable } = require('stream');
 const outStream = new Writable({
   write(chunk, encoding, callback) {
@@ -294,7 +294,7 @@ write 方法接受三个参数。
 
 这不是一个非常实用的流实现，因为 Node 已经内置了它的实现。它几乎等同于 `process.stdout`。通过把 `stdin` 和 `stdout` 连接起来，我们就可以通过一行代码得到完全相同的回传效果：
 
-```
+```js
 process.stdin.pipe(process.stdout);
 ```
 
@@ -302,7 +302,7 @@ process.stdin.pipe(process.stdout);
 
 要实现可读流，我们需要引入 `Readable` 接口并通过它创建对象：
 
-```
+```js
 const { Readable } = require('stream');
 
 const inStream = new Readable({});
@@ -310,7 +310,7 @@ const inStream = new Readable({});
 
 这是一个非常简单的可读流实现。我们可以通过 `push` 方法向下游推送数据。
 
-```
+```js
 const { Readable } = require('stream');  
 
 const inStream = new Readable();
@@ -331,7 +331,7 @@ inStream.pipe(process.stdout);
 
 在把该流连接到 `process.stdout` 之前，我们就已经推送了所有数据。更好的方式是只在使用者要求时**按需**推送数据。我们可以通过在可读流配置中实现 `read()` 方法来达成这一目的：
 
-```
+```js
 const inStream = new Readable({
   read(size) {
     // 某人想要读取数据
@@ -341,7 +341,7 @@ const inStream = new Readable({
 
 当可读流上的 read 方法被调用时，流实现可以向队列中推送部分数据。例如，我们可以从字符编码 65（表示字母 A） 开始，一次推送一个字母，每次都把字符编码加 1：
 
-```
+```js
 const inStream = new Readable({
   read(size) {
     this.push(String.fromCharCode(this.currentCharCode++));
@@ -368,7 +368,7 @@ inStream.pipe(process.stdout);
 
 以下的例子实现了一个综合了前面提到的可读流与可写流功能的双向流：
 
-```
+```js
 const { Duplex } = require('stream');
 
 const inoutStream = new Duplex({
@@ -400,7 +400,7 @@ process.stdin.pipe(inoutStream).pipe(process.stdout);
 
 以下是一个把你输入的任何内容转换为大写字母的变换流：
 
-```
+```js
 const { Transform } = require('stream');
 
 const upperCaseTr = new Transform({
@@ -421,7 +421,7 @@ process.stdin.pipe(upperCaseTr).pipe(process.stdout);
 
 以下是一个简单的演示。以下变换流的组合用于把一个逗号分割的字符串转变成为一个 JavaScript 对象。
 
-```
+```js
 const { Transform } = require('stream');
 const commaSplitter = new Transform({
   readableObjectMode: true,
@@ -460,7 +460,7 @@ process.stdin
 
 我们接着把 `commaSplitter` 输出的数组传递给了 `arrayToObject` 流。我们需要设置 `writableObjectModel` 以便让该流可以接收一个对象。它还会往下游推送一个对象（输入的数据被转换成对象），这就是为什么我们还需要配置 `readableObjectMode` 标志位。最后的 `objectToString` 流接收一个对象但却输出一个字符串，因此我们只需配置 `writableObjectMode` 即可。传递给下游的只是一个普通字符串。
 
-![](https://cdn-images-1.medium.com/max/800/1*u2kQzUD0ruPpt-xx0UOHoA.png)
+![](https://img11.360buyimg.com/uba/jfs/t5704/241/2983971686/10498/24064b45/59357c3aN4d192424.png)
 
 以上实例代码的使用方法
 
@@ -470,7 +470,7 @@ Node 内置了一些非常有用的变换流。这就是 zlib 和 crypto 流。
 
 下面是一个组合了 `zlib.createGzip()` 和 `fs` 可读/可写流来压缩文件的脚本：
 
-```
+```js
 const fs = require('fs');
 const zlib = require('zlib');
 const file = process.argv[2];
@@ -484,7 +484,7 @@ fs.createReadStream(file)
 
 使用管道很棒的一点在于，如果有必要，我们可以把它和事件组合使用。例如，我希望在脚本执行过程中给用户一些进度提示，在脚本执行完成后显示一条完成消息。既然 `pipe` 方法会返回下游流，我们就可以把注册事件回调的操作级联在一起：
 
-```
+```js
 const fs = require('fs');
 const zlib = require('zlib');
 const file = process.argv[2];
@@ -500,7 +500,7 @@ fs.createReadStream(file)
 
 `pipe` 方法的好处在于，我们可以用一种更加可读的方式通过若干片段**组合**我们的程序。例如，我们可以通过创建一个变换流来显示进度，而不是直接监听 `data` 事件。把 `.on()` 调用换成另一个 `.pipe()` 调用：
 
-```
+```js
 const fs = require('fs');
 const zlib = require('zlib');
 const file = process.argv[2];
@@ -530,7 +530,7 @@ fs.createReadStream(file)
 **// ...
 ```
 
-```
+```js
 const crypto = require('crypto');
 // ...
 fs.createReadStream(file)
@@ -546,7 +546,7 @@ fs.createReadStream(file)
 
 要能真正的解压任何使用以上脚本压缩过的文件，我们需要以相反的顺序利用 crypto 和 zlib：
 
-```
+```js
 fs.createReadStream(file)
   .pipe(crypto.createDecipher('aes192', 'a_secret'))
   .pipe(zlib.createGunzip())
