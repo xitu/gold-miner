@@ -1,5 +1,5 @@
 > * 原文地址：[RxJS: Observables, observers and operators introduction](https://toddmotto.com/rxjs-observables-observers-operators)
-> * 原文作者：[Todd](https://toddmotto.com/)
+> * 原文作者：本文已获原作者 [Todd](https://toddmotto.com/) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[lsvih](https://github.com/lsvih)
 > * 校对者：[sunui](https://github.com/sunui),[GangsterHyj](https://github.com/GangsterHyj)
@@ -134,7 +134,7 @@ const input$ = Observable.fromEvent(node, 'input');
 ```
 Observable.fromEvent = (element, name) => {
   return new Observable((observer) => {
-    
+
   });
 };
 ```
