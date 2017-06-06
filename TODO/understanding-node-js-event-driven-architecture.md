@@ -422,7 +422,7 @@ DeprecationWarning: Unhandled promise rejections are deprecated. In the future, 
 
 另一种处理异常的方法是注册一个全局的 uncaughtException 进程事件，但是，全局的捕获错误对象并不是一个好办法。
 
-关于 uncaughtException 的建议是不要使用。你一定要用的话，应该让进程在此结束：
+关于 uncaughtException 的建议是不要使用。你一定要用的话（比如说报告发生了什么或者做一些清理工作），应该让进程在此结束：
 
 ```js
 process.on('uncaughtException', (err) => {
