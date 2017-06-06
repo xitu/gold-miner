@@ -1,34 +1,32 @@
 > * 原文地址：[Familiarity Bias is Holding You Back: It’s Time to Embrace Arrow Functions](https://medium.com/javascript-scene/familiarity-bias-is-holding-you-back-its-time-to-embrace-arrow-functions-3d37e1a9bb75)
-> * 原文作者：[Eric Elliott](https://medium.com/@_ericelliott)
+> * 原文作者：本文已获原作者 [Eric Elliott](https://medium.com/@_ericelliott) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
-> * 校对者：
+> * 译者：[lsvih](https://github.com/lsvih)
+> * 校对者：[Germxu](https://github.com/Germxu),[GangsterHyj](https://github.com/GangsterHyj)
 
-# Familiarity Bias is Holding You Back: It’s Time to Embrace Arrow Functions #
+# 别让你的偏爱拖了后腿：快拥抱箭头函数吧！ #
 
-![](https://cdn-images-1.medium.com/max/800/1*Dwv24VW3sEuGBo4BqrsRQg.jpeg)
+![题图："锚"——锚212——(CC BY-NC-ND 2.0)](https://cdn-images-1.medium.com/max/800/1*Dwv24VW3sEuGBo4BqrsRQg.jpeg)
 
-“Anchor” — Actor212 — (CC BY-NC-ND 2.0)
+我以教 JavaScript 为生。最近我给学生上了柯里化箭头函数这个课程——这还是最开始的几节课。我认为它是一个很好用的技能，因此将这个内容提到了课程的前面。而学生们没有让我失望，比我想象中地**更快地**掌握了使用箭头函数进行柯里化。
 
-I teach JavaScript for a living. Recently I’ve shuffled around my curriculum to teach curried arrow functions sooner — within the first few lessons. I moved it earlier in the curriculum because it’s an extremely valuable skill, and students pick up currying with arrows **a lot quicker** than I thought they would.
+如果学生们能够理解它，并且能尽快由它获益，为什么不早点将箭头函数教给他们呢？
 
-If they can understand it and take advantage of it earlier, why not teach it earlier?
+> Note：我的课程并不适合那些从来没有接触过代码的人。大多数学生在加入我们的课程之前至少有几个月的编程经历——无论他们是自学，还是通过培训班学习，或者本身就是专业的。然而，我发现许多只有一点经验或者没有经验的年轻开发者们能够很快地接受这些主题。
 
-> Note: My courses are not designed for people who have never touched a line of code before. Most students join after spending at least a few months coding — on their own, in a bootcamp, or professionally. However, I have seen many junior developers with little or no experience pick these topics up quickly.
+我看到很多的学生在上了 1 小时的课之后就能很熟练地使用箭头函数工作了。（如果你是[“和 Eric Elliott 一起学习 JavaScript”](https://ericelliottjs.com/product/lifetime-access-pass/)培训班的同学，你可以看这个约 55 分钟的视频——[ES6 的柯里化与组合](https://ericelliottjs.com/premium-content/es6-curry-composition/)）。
 
-I’ve seen a bunch of students get a working familiarity with curried arrow functions within the span of a single 1-hour lesson. (If you’re a member of [“Learn JavaScript with Eric Elliott”](https://ericelliottjs.com/product/lifetime-access-pass/), you can watch the 55-minute [ES6 Curry & Composition](https://ericelliottjs.com/premium-content/es6-curry-composition/).
+看到学生们如此之快地掌握与应用他们新发现的柯里化方法，我想起了我在推特上发了柯里化箭头函数的帖子，然后被一群人喷“可读性差”的事。我很惊讶为什么他们会坚持这个观点。
 
-Seeing how quickly students pick it up and start wielding their new-found curry powers, I’m always a bit surprised when I post curried arrow functions on Twitter, and the Twitterverse responds with outrage at the thought of inflicting that “unreadable” code on the people who will need to maintain it.
-
-First, let me give you an example of what we’re talking about. The first time I noticed the backlash was the Twitter response to this function:
+首先，我们先来看看这个例子。我在推特发了这个函数，然后我发现有人强烈反对这种写法：
 
 ```
 const secret = msg => () => msg;
 ```
 
-I was shocked when people on Twitter accused me of trying to confuse people. I wrote that function to demonstrate how **easy** it is to express curried functions in ES6. It is the **simplest** practical application and expression of a closure that I can think of in JavaScript. (Related: [“What is a Closure?”](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-closure-b2f0d2152b36)).
+我对有人在推特上指责我在误导别人感到不可思议。我写这个函数是为了示范在 ES6 中写柯里化函数是多么的**简单**。它是我能想到的在 JavaScript 中**最简单**的实际运用与闭包表达式了。（相关阅读：[什么是闭包](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-closure-b2f0d2152b36)）
 
-It’s equivalent to the following function expression:
+它和下面的函数表达式等价：
 
 ```
 const secret = function (msg) {
@@ -38,56 +36,56 @@ const secret = function (msg) {
 };
 ```
 
-`secret()` is a function which takes a `msg` and returns a new function which returns the `msg`. It takes advantage of closures to fix the value of `msg` to whatever value you pass into `secret()`.
+`secret()` 是一个函数，它需要传入 `msg` 这个参数，然后会返回一个新的函数，这个函数将会返回 `msg` 的值。无论你向 `secret()` 中传入什么值，它都会利用闭包固定 `msg` 的值。
 
-Here’s how you use it:
+你可以这么用它：
 
 ```
 const mySecret = secret('hi');
 mySecret(); // 'hi'
 ```
 
-It turns out, the “double arrow” is what confused people. I’m convinced that this is a fact:
+事实证明，双箭头并没有让人感到困惑。我坚信：
 
-> With familiarity, in-line arrow functions are the **most readable** way to express curried functions in JavaScript.
+> 对于熟悉的人来说，单行的箭头函数是 JavaScript 表达柯里化函数**最具有可读性**的方法了。
 
-Many people have argued to me that the longer form is easier to read than the shorter form. They’re partly right, but mostly wrong. It’s more verbose, and more explicit, but not easier to read — at least, not to somebody **familiar** with arrow functions.
+有许多人指责我，告诉我将代码写的长一些比简短的代码更容易阅读。他们有时也许是对的，但是大多数情况都错了。更长、更详细的代码不一定更容易阅读——至少，对熟悉箭头函数的人来说就是如此。
 
-The objections I saw on Twitter just weren’t jiving with the smooth learning experience my students were enjoying. In my experience, students take to curried arrow functions like fish take to water. Within days of learning them, they are one with the arrows. They sling them effortlessly to tackle all sorts of coding challenges.
+我在推特上看到的持反对意见的人，并没有像我的学生一样享受平滑的学习箭头函数的过程。在我的经验里，学生学习柯里化箭头函数就像鱼在水里生活一样。仅仅学了几天，他们就开始使用箭头了。它帮助学生们轻松地跨过了各种编程问题的鸿沟。
 
-I don’t see any sign that arrow functions are “hard” for them to learn, to read, or to understand — once they have made the initial investment of learning them over the course of a few 1-hour lessons and study sessions.
+我没有看到学习、阅读、理解箭头函数对那些学生造成了任何的“困难”——一旦他们决定学习，只要上个大概一小时的课就能基本掌握。
 
-They easily read curried arrow functions they have never seen before and explain to me what’s going on. They naturally write their own when I present a challenge to them.
+他们能够很轻松地读懂柯里化箭头函数，尽管他们从来没有见过这类的东西，他们还是能够告诉我这些函数做了什么事。当我给他们布置任务后他们也能够很自如地自己完成任务。
 
-In other words, as soon as they become **familiar** with seeing curried arrow functions, they have **no trouble **with them. They read them as easily as you are reading this sentence — and their understanding is reflected in much simpler code with fewer bugs.
+从另一方面说，他们能够很快**熟悉**柯里化箭头函数，并且没有为此产生任何**问题**。他们阅读这些函数就像你读一句话一样，他们对其的理解让他们写出了更简单、更少 bug 的代码。
 
-### Why Some People Think Legacy Function Expressions Look “Easier” to Read ###
+### 为什么一些人认为传统的函数表达式看起来“更具有可读性”？ ###
 
-**Familiarity bias** is a measurable [human cognitive bias](https://www.psychologytoday.com/blog/mind-my-money/200807/familiarity-bias-part-i-what-is-it) that leads us to make self-destructive decisions despite being aware of a better option. We keep using the same old patterns in spite of knowing about better patterns out of comfort and habit.
+**偏爱**是一种显著的[人类认知偏差](https://www.psychologytoday.com/blog/mind-my-money/200807/familiarity-bias-part-i-what-is-it)，它会让我们在有更好的选择的情况下做出自暴自弃的选择。我们会因此无视更舒服更好的方法，习惯性地选用以前使用过的老方法。
 
-You can learn a lot more about familiarity bias (and a lot of other ways we fool ourselves) from the excellent book, [“The Undoing Project: A Friendship that Changed Our Minds”](https://www.amazon.com/Undoing-Project-Friendship-Changed-Minds-ebook/dp/B01GI6S7EK/ref=as_li_ss_tl?ie=UTF8&amp;qid=1492606452&amp;sr=8-1&amp;keywords=the+undoing+project&amp;linkCode=ll1&amp;tag=eejs-20&amp;linkId=4ebd1476f97023e8acb4bba37ea18b90). This book should be required reading for every software developer, because it encourages you to think more critically and test your assumptions in order to avoid falling into a variety of cognitive traps — and the story of how those cognitive traps were discovered is really good, too.
+你可以从这本书中更详细地了解“偏爱”这种心理：[《The Undoing Project: A Friendship that Changed Our Minds》](https://www.amazon.com/Undoing-Project-Friendship-Changed-Minds-ebook/dp/B01GI6S7EK/ref=as_li_ss_tl?ie=UTF8&qid=1492606452&sr=8-1&keywords=the+undoing+project&linkCode=ll1&tag=eejs-20&linkId=4ebd1476f97023e8acb4bba37ea18b90)（很多情况都是我们自欺欺人）。每个软件工程师都应该读一读这本书，因为它会鼓励你辩证地去看待问题，以及鼓励你多对假设进行实验，以免掉入各种认知陷阱中。书中那些发现认知陷阱的故事也很有趣。
 
-### Legacy Function Expressions are Probably Causing Bugs in Your Code ###
+### 传统的函数表达式可能会在你的代码中导致 Bug 的出现 ###
 
-Today I was rewriting a curried arrow function from ES6 to ES5 so that I could publish it as an open-source module that people could use in old browsers without transpiling. The ES5 version shocked me.
+今天我用 ES5 的语法重写了一个 ES6 写的柯里化箭头函数，以便发布开源模块让人们无需编译就能在老浏览器中用。然而 ES5 版本让我震惊。
 
-The ES6 version was simple, short, and elegant — only 4 lines.
+ES6 版本的代码非常简短、简介、优雅——仅仅只需要 4 行。
 
-I thought for sure, **this** was the function that would prove to Twitter that arrow functions are superior, and that people should abandon their legacy functions like the bad habit they are.
+我觉得，这件事可以发个推特，告诉大家箭头函数是一种更加优越的实现，是时候如同放弃自己的坏习惯一样，放弃传统函数表达式的写法了。
 
-So I tweeted:
+所以我发了一条推特：
 
 [![Markdown](http://i2.muimg.com/1949/15826825ba3ae5a9.png)](https://twitter.com/_ericelliott/status/854608052967751680/photo/1)
 
-Here’s the text of the functions, in case the image isn’t working for you:
+为了防止你看不清图片，下面贴上这个函数的文本：
 
 ```
-// curried with arrows
+// 使用箭头函数柯里化
 const composeMixins = (...mixins) => (
   instance = {},
   mix = (...fns) => x => fns.reduce((acc, fn) => fn(acc), x)
 ) => mix(...mixins)(instance);
-// vs ES5-style
+// 对比一下 ES5 风格的代码：
 var composeMixins = function () {
   var mixins = [].slice.call(arguments);
   return function (instance, mix) {
@@ -107,35 +105,35 @@ var composeMixins = function () {
 };
 ```
 
-The function in question is a simple wrapper around `pipe()`, a standard functional programming utility commonly [used to compose functions](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-function-composition-20dfb109a1a0). A `pipe()` function exists in lodash as `lodash/flow`, in Ramda as `R.pipe()`, and even has its own operator in several functional programming languages.
+这里的函数封装了一个 `pipe()`，它是标准的函数式编程的工具函数，通常[用于组合函数](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-function-composition-20dfb109a1a0)。这个 `pipe()` 函数在 lodash 中是 `lodash/flow`，在 Ramda 中是 `R.pipe()`，在一些函数式编程语言中它甚至本身就是一个运算符号。
 
-It should be familiar to everybody familiar with [functional programming](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-functional-programming-7f218c68b3a0). As should its primary dependency: [Reduce](https://medium.com/javascript-scene/reduce-composing-software-fe22f0c39a1d).
+每个[熟悉函数式编程](https://medium.com/javascript-scene/master-the-javascript-interview-what-is-functional-programming-7f218c68b3a0)的人都应该很熟悉它。它的实现主要依赖于[Reduce](https://medium.com/javascript-scene/reduce-composing-software-fe22f0c39a1d)。
 
-In this case, it’s being used to compose functional mixins, but that’s an irrelevant detail (and a whole other blog post). Here are the important details:
+在这个例子中，它用来组合混合函数，不过这点无关紧要（有专门写这方面的博客文章）。我们需要注意是以下几个重要的细节：
 
-The function takes any number of functional mixins and returns a function which applies them one after the other in a pipeline — like an assembly line. Each functional mixin takes the `instance` as an input, and tacks some stuff onto it before passing it on to the next function in the pipeline.
+这个函数可以将任何数量的函数混合，最终返回一个函数，这个函数在管道中应用了其它的函数——就像流水线一样。每个混合函数都将实例（`instance`）作为输入，然后在将自己传递给管道中下一个函数之前，将一些变量传入。
 
-If you omit the `instance`, a new object gets created for you.
+如果你没有传入 `instance`，它将会为你创建一个新的对象。
 
-Sometimes we may want to compose the mixins differently. For example, you may want to pass `compose()` instead of `pipe()` to reverse the order of precedence.
+有时你可能会想用别的混合方式。例如，使用 `compose()` 代替 `pipe()` 来传递函数，让组合顺序反过来。
 
-If you don’t need to customize the behavior, you simply leave the default alone, and get standard `pipe()` behavior.
+如果你不需要自定义函数混合时的行为，你可以简单地使用默认设定，使用 `pipe()` 来完成过程。
 
-### Just the Facts ###
+### 事实 ###
 
-Opinions about readability aside, here are **the objective facts** pertaining to this example:
+除了可读性的区别之外，以下列举了一些与这个例子有关的**客观事实**：
 
-- I have multiple years’ experience with both ES5 and ES6 function expressions, arrows or otherwise. Familiarity bias is **not** a variable in this data.
-- I wrote the ES6 version in a few seconds. It contained zero bugs (that I’m aware of — it passes all its unit tests).
-- It took me several minutes to write the ES5 version. At least an order of magnitude more time. Minutes vs seconds. I lost my place in the function indentations twice. I wrote 3 bugs, all of which I had to debug and fix. Two of which I had to resort to `console.log()` to figure out what was going on.
-- The ES6 version is 4 lines of code.
-- The ES5 version is 21 lines long (17 actually contain code).
-- In spite of its tedious verbosity, the ES5 version actually loses some of the information fidelity that is available in the ES6 version. It’s much longer, but **communicates less**, read on for details.
-- The ES6 version contains 2 spreads for function parameters. The ES5 version omits the spreads, and instead uses the *implicit*`arguments` object, which hurts the readability of the function signature (fidelity downgrade 1).
-- The ES6 version defines the default for `mix` in the function signature so you can clearly see that it’s a value for a parameter. The ES5 version obscures that detail and instead hides it deep inside the function body. (fidelity downgrade 2).
-- The ES6 version has only 2 levels of indentation, which helps clarify the structure of how it should be read. The ES5 version has 6, and the nesting levels obscure rather than aid the readability of the function’s structure (fidelity downgrade 3).
+- 我有多年的 ES5 与 ES6 编程经验，无论是箭头函数表达式还是别的函数表达式我都很熟悉。因此“偏爱”对我来说**不是**一个变化无常的因素。
+- 我没几秒就写好了 ES6 版本的代码，它没有任何 bug（它通过了所有的单元测试，因此我敢肯定这点）。
+- 写 ES5 版本的代码花了我好几分钟。一个是几秒，一个是几分钟，差距还是挺大的。写 ES5 代码时，我有 2 次弄错了函数的作用范围；写出了 3 个 bug，然后要花时间去分别调试与修复；还有 2 次我不得不使用 `console.log()` 来弄清函数执行的情况。
+- ES6 版本代码仅仅只有 4 行。
+- ES5 版本代码有 21 行（其中真正有代码的有 17 行）。
+- 尽管 ES5 版本的代码更加冗长，但是它比起 ES6 版本的代码来说仍然缺少了一些信息。它虽然长，但是**表达的东西更少**。这个问题在后面会提到。
+- ES6 版本代码在代码中有 2 个 speard 运算符。而 ES5 版本代码中没有这个运算符，而是使用了**意义晦涩**的 `arguments` 对象，它将严重影响函数内容的可读性。（不推荐原因之一）
+- ES6 版本代码在函数片段中定义了 `mix` 的默认值，由此你可以很清楚地看到它是参数的值。而 ES5 版本代码却混淆了这个细节问题，将它隐藏在函数体中。（不推荐原因之二）
+- ES6 版本代码仅有 2 层代码块，这将会帮助读者理解代码结构，以及知道如何去阅读这个代码。而 ES5 代码有 6 层代码块，复杂的层级结构会让函数结构的可读性变得很差。（不推荐原因之三）
 
-In the ES5 version, `pipe()` occupies most of the function body — so much so that it’s a bit **insane** to define it inline. It really **needs** to be broken out into a separate function to make the ES5 version readable:
+在 ES5 版本代码中，`pipe()` 占据了函数体的大部分内容——要把它们放到同一行中去简直是个荒唐的想法。非常**有必要**将 `pipe()` 这个函数单独抽离出来，让我们的 ES5 版本代码更具有可读性：
 
 ```
 var pipe = function () {
@@ -160,9 +158,9 @@ var composeMixins = function () {
 };
 ```
 
-This seems clearly more readable and understandable to me.
+这样，我觉得它更具可读性，并且更容易理解它的意思了。
 
-Let’s see what happens when we apply the same readability “optimization” to the ES6 version:
+让我们看看如果我们对 ES6 版本代码做一些可读性“优化”会怎么样：
 
 ```
 const pipe = (...fns) => x => fns.reduce((acc, fn) => fn(acc), x);
@@ -173,17 +171,17 @@ const composeMixins = (...mixins) => (
 ) => mix(...mixins)(instance);
 ```
 
-Like the ES5 optimization, this version is more verbose (it adds a new variable that wasn’t there before). Unlike the ES5 version, this version is **not significantly more readable** after abstracting the definition of pipe. After all, it already had a variable name clearly assigned to it *in the function signature:*`mix`.
+就像 ES5 版本代码的优化一样，这个“优化”后的代码更加冗长（它加入了之前没有的新变量）。与 ES5 版本代码不同，这个版本在将管道的概念抽象出来后**并没有明显的提高代码可读性**。不过毕竟函数里已经清楚的写明了 `mix` 这个变量，它还是更容易让人理解一些。
 
-The definition of `mix` was already contained on its own line, which makes it unlikely for readers to get confused about where it ends and the rest of the function continues.
+`mix` 的定义本身在它的那一行就已经存在了，它不太可能会让阅读代码的人找不到何时结束 `mix`、剩下的代码何时执行。
 
-Now we have 2 variables representing the same thing instead of 1. Have we gained very much? Not obviously, no.
+而现在我们用了 2 个变量来表示同一个东西。我们因此而获益了吗？完全没有。
 
-So why is the ES5 version **obviously better** with the same function abstracted?
+那么为什么 ES5 函数在对函数进行抽象之后会变得**更具可读性**呢？
 
-Because the ES5 version is **obviously more complex.** The source of that complexity is the crux of this matter. I assert that the source of the complexity boils down to **syntax noise**, and that syntax noise is **obscuring the meaning of the function**, not helping.
+因为之前 ES5 版本的代码**明显更复杂**。这种复杂度的来源是我们讨论的问题重点。我可以断言，它的复杂度的来源归根结底就是**语法干扰**，这种语法干扰只会让**函数的本身含义变得费解**，并没有别的用处。
 
-Let’s shift gears and eliminate some more variables. Let’s use ES6 for both examples, and only compare *arrow functions* vs *legacy function expressions:*
+让我们换种方法，把一些多余的变量去掉，在例子中都使用 ES6 代码，只比较**箭头函数**与**传统函数表达式**：
 
 ```
 var composeMixins = function (...mixins) {
@@ -203,9 +201,9 @@ var composeMixins = function (...mixins) {
 };
 ```
 
-This looks significantly more readable to me. All we’ve changed is that we’re taking advantage of **rest** and **default parameter** syntax. Of course, you’ll have to be **familiar** with rest and default syntax in order for this version to be more readable, but even if you’re not, I think it’s obvious that this version is still **less cluttered**.
+现在，至少我觉得它的可读性显著的提升了。我们利用 **rest** 语法以及**默认参数**语法对它进行了修改。当然，你得对 rest 语法和默认参数语法很熟悉才会觉得这个版本的代码更可读。不过即使你不了解这些，我觉得这个版本也会看起来更加**有条理**。
 
-That helped a lot, but it’s still clear to me that this version is still cluttered enough that abstracting `pipe()` into its own function would **obviously help:**
+现在已经改进了许多了，但是我觉得这个版本还是比较简洁。将 `pipe()` 抽象出来，写到它自己的函数里可能会**有所帮助**：
 
 ```
 const pipe = function (...fns) {
@@ -216,7 +214,7 @@ const pipe = function (...fns) {
   };
 };
 
-// Legacy function expressions
+// 传统函数表达式
 const composeMixins = function (...mixins) {
   return function (
     instance = {},
@@ -227,13 +225,13 @@ const composeMixins = function (...mixins) {
 };
 ```
 
-That’s better, right? Now that the `mix` assignment only occupies a single line, the structure of the function is much more clear — but there’s still too much syntax noise for my taste. In `composeMixins()`, it’s not clear to me at a glance where one function ends and another begins.
+这样是不是更好了？现在 `mix` 只占了单独的一样，函数结构也更加的清晰——但是这样做不符合我的胃口，它的语法干扰实在是太多了。在现在的 `composeMixins()` 中，我觉得描述一个函数在哪结束、另一个函数从哪开始还不够清楚。
 
-Rather than call out function bodies, that `function` keyword seems to visually **blend in** with the identifiers around it. There are functions **hiding** in my function! Where does the parameter signature end and the function body begin? I can figure it out out if I look closely, but it’s not visually obvious to me.
+除了调用函数体之外，`funcion` 这个关键字似乎和其它的代码**混淆**在一起了。我的函数的真正的功能被**隐藏**了起来！参数的调用和函数体的起始到底在哪里？如果我仔细看也能够分析出来，但是它对我来说实在是不容易阅读。
 
-What if we could get rid of the function keyword, and call out return values by visually pointing to them with a big **fat arrow** `=>`instead of writing a `return` keyword that blends in with surrounding identifiers?
+那么如果我们去掉 `function` 这个关键字，然后通过一个**大箭头** `=>` 指向返回值来代替 `return` 关键字，避免它们和其它关键部分混在一起，现在会怎么样呢？
 
-Turns out, we can, and here’s what that looks like:
+我们当然可以这么做，代码会是这样的：
 
 ```
 const composeMixins = (...mixins) => (
@@ -242,19 +240,21 @@ const composeMixins = (...mixins) => (
 ) => mix(...mixins)(instance);
 ```
 
-Now it should be clear what’s going on. `composeMixins()` is a function that takes any number of `mixins` and returns a function that takes two optional parameters, `instance`, and `mix`. It returns the result of piping `instance` through the composed `mixins`.
+现在应该可以很清楚这段代码做了什么事了。`composeMixins()` 是一个函数，它传入了任意数量的 `mixins`，最终会返回一个得到两个额外参数（`instance` 与 `mix`）的函数。它返回了通过 `mixins` 管道组合的 `instance` 的结果。
 
-Just one more thing… if we apply the same optimization to `pipe()`, it magically transforms into a one-liner:
+还有一件事……如果我们对 `pipe()` 进行同样的优化，可以神奇地将它写到一行中：
 
 ```
 const pipe = (...fns) => x => fns.reduce((acc, fn) => fn(acc), x);
 ```
 
-With that definition on one-line, the advantage of abstracting it out into its own function is less clear. Remember, this function exists as a utility in Lodash, Ramda, and a bunch of other libraries, but is it really worth the overhead of importing another library?
+当它在一行内被定义的时候，将它抽象成一个函数这件事反而变得不那么明了了。
 
-Is it even worth pulling it out into its own line? Probably. They’re really two different functions, and separating them makes that more clear.
+另外请记住，这个函数在 Lodash、Ramda 以及其它库中都有用到，但是仅仅为了用这个函数就去 import 这些库并不是一件划得来的事。
 
-On the other hand, having it in-line clarifies type and usage expectations when you look at the parameter signature. Here’s what happens when we create it in-line:
+那么我们自己写一行这个函数有必要吗？应该有的。它实际上是两个不同的函数，把它们分开会让代码更加清晰。
+
+另一方面，如果将其写在一行中，当你看参数命名的时候，你就已经明了了其类型以及用例。我们将它写在一行，就如下面代码所示：
 
 ```
 const composeMixins = (...mixins) => (
@@ -263,43 +263,39 @@ const composeMixins = (...mixins) => (
 ) => mix(...mixins)(instance);
 ```
 
-Now we’re back to the original function. Along the way, **we didn’t discard any meaning.** In fact, by declaring our parameters and default values inline, we **added information** about how the function is used, and what the values of the parameters might look like.
+现在让我们回头看看最初的函数。无论我们后面做了什么调整，**我们都没有丢弃任何本来就有的信息**。并且，通过在行内声明变量和默认值，我们还给这个函数**增加了信息量**，描述了这个函数是怎么使用的以及参数值是什么样子的。
 
-All that extra code in the ES5 version was just noise. Syntax noise. It didn’t serve **any useful purpose** except to acclimate people who are **unfamiliar** with curried arrow functions.
+ES5 版本中增加的额外的代码其实都是语法干扰。这些代码对于**熟悉**柯里化箭头函数的人来说**没有任何有用之处**。
 
-Once you have gained sufficient familiarity with curried arrow functions, it should be clear that the original version is **more readable** because there’s a lot less syntax to get lost in.
+只要你熟悉柯里化箭头函数，你就会觉得最开头的代码更加清晰并具有**可读性**，因为它没有多余的语法糊弄人。
 
-It’s also **less error-prone**, because there’s a lot less surface area for bugs to hide in.
+柯里化箭头函数还能**减少错误的藏身之处**，因为它能让 bug 隐藏的部分更少。我猜想，在传统函数表达式中一定隐藏了许多的 bug，一旦你升级使用箭头函数就能找到并排除这些 bug。
 
-I suspect there are lots of bugs hiding in legacy functions that would be found and eliminated if you were to upgrade to arrow functions.
+我希望你的团队也能支持、学习与应用 ES6 的更加简洁的代码风格，提高工作效率。
 
-I also supect that your team would become significantly more productive if you learned to embrace and favor more of the concise syntax available in ES6.
+有时，在代码中详细地进行描述是正确的行为，但通常来说，代码越少越好。如果更少的代码能够实现同样的东西，能够传达更多的信息，不用丢弃任何信息量，那么它**明显**更加优越。认知这些不同点的关键就是看它们表达的信息。如果加上的代码没有更多的意义，那么这种代码就不应该存在。这个道理很简单，就和自然语言的风格规范一样（不说废话）。将这种表达风格规范应用到代码中。拥抱它，你将能写出更好的代码。
 
-While it’s true that sometimes things are easier to understand if they’re made explicit, it’s also true that as a general rule, less code is better.
-
-If less code can accomplish the same thing and communicate more, without sacrificing any meaning, it’s **objectively** better.
-
-The key to knowing the difference is meaning. If more code fails to add more meaning, that code should not exist. That concept is so basic, it is a well-known style guideline for natural language.
-
-The same style guideline applies to source code. Embrace it, and your code will be better.
-
-At the end of the day, a light in the darkness. In response to yet another tweet saying the ES6 version less readable:
+一天过去，天色已黑，仍然有其它推特的回复在说 ES6 版本的代码更加缺乏可读性：
 
 [![Markdown](http://i2.muimg.com/1949/4287b75aa0b58a9d.png)](https://twitter.com/blakenewman)
 
-Time to get familiar with ES6, currying, and function composition.
+我只想说：是时候熟练去掌握 ES6、柯里化与组合函数了。
 
-### Next Steps ###
+### 下一步 ###
 
-[“Learn JavaScript with Eric Elliott”](https://ericelliottjs.com/product/lifetime-access-pass/) members can watch the 55-minute [ES6 Curry & Composition](https://ericelliottjs.com/premium-content/es6-curry-composition/)  lesson right now.
+[“与 Eric Elliott 一起学习 JavaScript”](https://ericelliottjs.com/product/lifetime-access-pass/)会员现在可以看这个大约 55 分钟的视频课程——[ES6 柯里化与组合](https://ericelliottjs.com/premium-content/es6-curry-composition/)。
 
-If you’re not a member, you’re missing out!
+如果你还不是我们的会员，你可会遗憾地错过这个机会哦！
 
 [![](https://cdn-images-1.medium.com/max/800/1*3njisYUeHOdyLCGZ8czt_w.jpeg)](https://ericelliottjs.com/product/lifetime-access-pass/) 
 
-***Eric Elliott*** *is the author of [*“Programming JavaScript Applications”*](http://pjabook.com) (O’Reilly), and [*“Learn JavaScript with Eric Elliott”*](http://ericelliottjs.com/product/lifetime-access-pass/). He has contributed to software experiences for Adobe Systems, Zumba Fitness, The Wall Street Journal, ESPN, BBC, and top recording artists including Usher, Frank Ocean, Metallica, and many more.*
+### 作者简介
 
-*He spends most of his time in the San Francisco Bay Area with the most beautiful woman in the world.*
+***Eric Elliott*** 是 O'Reilly 出版的[*《Programming JavaScript Applications》*](http://pjabook.com)书籍、[“与 Eric Elliott 学习 JavaScript”](http://ericelliottjs.com/product/lifetime-access-pass/)课程作者。他曾经帮助 Adobe、莱美、华尔街日报、ESPN、BBC 进行软件开发，以及帮助 Usher、Frank Ocean、Metallica 等著名音乐家做网站。
+
+最后~~喂狗粮~~：
+
+**他与世界上最美丽的女人在旧金山湾区共度一生。**
 
 ---
 

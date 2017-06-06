@@ -1,3 +1,4 @@
+* [对元素持有弱引用的 Swift 数组](https://juejin.im/post/5927a34c0ce46300575a81e1?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([zhangqippp](https://github.com/zhangqippp) 翻译)
 * [在 Swift 中使用闭包实现懒加载](https://juejin.im/post/590a9eeab123db00549776ee/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lsvih](https://github.com/lsvih)) 翻译)
 * [掌握 Swift 的字符串细节](https://juejin.im/post/58f822ff5c497d0058e0e427/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Tuccuay（洪朔）](https://github.com/Tuccuay)) 翻译)
 * [MVVM-C 与 Swift](https://juejin.im/post/58ef16b8da2f60005d180666/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([DeepMissea](https://github.com/DeepMissea)) 翻译)

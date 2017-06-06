@@ -1,44 +1,43 @@
 > * 原文地址：[React at Light Speed](https://blog.vixlet.com/react-at-light-speed-78cd172a6411)
-> * 原文作者：[Jacob Beltran](https://blog.vixlet.com/@jacob_beltran)
+> * 原文作者：本文已获原作者 [Jacob Beltran](https://blog.vixlet.com/@jacob_beltran) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
-> * 校对者：
+> * 译者：[ZhangFe](https://github.com/ZhangFe)
+> * 校对者：[yzgyyang](https://github.com/yzgyyang),[xunge0613](https://github.com/xunge0613)
 
-# React at Light Speed #
+# 光速 React #
 
-## Lessons in optimizing performance at Vixlet ##
+## Vixlet 团队优化性能的经验教训 ##
 
 ![](https://cdn-images-1.medium.com/max/1000/1*SJzLm3SW2IegLw0GzlaG-w.jpeg)
 
-Over the past year or so, the web team here at [Vixlet](http://www.vixlet.com) has embarked on an exciting journey of moving our entire web application to a React + Redux architecture. It has been a growing opportunity for our entire team and throughout this process, we have some challenges along the way.
+在过去一年多，我们 [Vixlet](http://www.vixlet.com) 的 web 团队已经着手于一个激动人心的项目：将我们的整个 web 应用迁移到 React + Redux 架构。对于整个团队来说，这是不断增长的机遇，而在迁移过程中，我们一路风雨兼程。
 
-Since our web-app can have very large feed views consisting of hundreds if not thousands of media/text/video/link items, we spent considerable time looking for ways to get the most out of React’s performance. Here we will share some of the lessons we have learned along the way.
+因为我们的 web-app 可能有非常大的 feed 视图，包括成百上千的媒体、文本、视频、链接元素，我们花了相当多的时间寻找能充分利用 React 性能的方法。在这里，我们将分享我们这一路学到的一些经验教训。
 
-**Disclaimer**: *The practices and methods described below have been found applicable to the performance needs of our specific application. However, as with all development advice, it’s important to take the needs of your application and team into account. React is pretty fast out of the box, so you may not need as finely-tuned performance as our use case. Nevertheless, we hope you find this post informative.*
+**声明**：**下面讲的做法和方法更适用于我们具体应用的性能需求。然而，像所有的开发者建议的那样，最重要的是要考虑到你的应用程序和团队的实际需求。React 是一个开箱即用的框架，所以你可能不需要像我们一样细致地优化性能。话虽如此，我们还是希望你能在这篇文章里找到一些有用的信息。**
 
-### Fundamentals ###
+### 基本原理 ###
 
 ![](https://cdn-images-1.medium.com/max/800/1*UOGdUM1V_rGUbxLS-eaWdQ.gif)
 
-Taking a first step into a larger world.
+向更大的世界迈出第一步。
 
-#### The render() function ####
+#### render() 函数 ####
 
-As a general principle, do as little work as possible in the render function. If it is necessary to perform complex operations or calculations, perhaps consider moving them to a [memoized](https://en.wikipedia.org/wiki/Memoization) function so that duplicate results can be cached. See [Lodash.memoize](https://lodash.com/docs#memoize) for an out-of-the-box memoization function.
+一般来说，要尽可能少地在 render 函数中做操作。如果非要做一些复杂操作或者计算，也许你可以考虑使用一个 [memoized](https://en.wikipedia.org/wiki/Memoization) 函数以便于缓存那些重复的结果。可以看看 [Lodash.memoize](https://lodash.com/docs#memoize)，这是一个开箱即用的记忆函数。
 
-Conversely, it is also important to avoid storing easily computable values in a component’s state. For example, if the props contain both a `firstName` and `lastName`, there is no need to include `fullName` in state, since it’s easy to derive from the provided props. If a value can be derived from props in a performant way, by using simple string concatenation, or basic arithmetic operations, there’s no reason for the derived value to be included in a component’s state.
+反过来讲，避免在组件的 state 上存储一些容易计算的值也很重要。举个例子，如果 props 同时包含 `firstName` 和 `lastName`，没必要在 state 上存一个 `fullName`，因为它可以很容易通过提供的 props 来获取。如果一个值可以通过简单的字符串拼接或基本的算数运算从 props 派生出来，那么没理由将这些值包含在组件的 state 上。
 
-#### Prop Values and Reconciliation ####
+#### Prop 和 Reconciliation ####
 
-It is important to remember that React will trigger a re-render anytime a prop (or state) value is not equal to the previous value. This includes any changes within nested values if props or state includes an object or array. With this in mind, it is important to be mindful of situations where it’s possible to inadvertently cause a performance hit by creating new values for props or state each render cycle.
+重要的是要记住，只要 props（或 state）的值不等于之前的值，React 就会触发重新渲染。如果 props 或者 state 包含一个对象或者数组，嵌套值中的任何改变也会触发重新渲染。考虑到这一点，你需要注意在每次渲染的生命周期中，创建一个新的 props 或者 state 都可能无意中导致了性能下降。
+PS:译者对这段保留意见，对象或者数组只要引用不变，是不会触发rerender的，是我翻译有误还是原文的错误？
 
-**Example:** *Issues with function binding*
+**例子:** **函数绑定的问题**
 
 ```
 /*
-Passing an inline bound function (including ES6 arrow functions)
-directly into a prop value is essentially passing a new 
-function for each render of the parent component.
+给 prop 传入一个行内绑定的函数（包括 ES6 箭头函数）实质上是在每次父组件 render 时传入一个新的函数。
 */
 render() {
   return (
@@ -51,8 +50,7 @@ render() {
 
 
 /*
-Instead handle function binding in the constructor and pass the
-already bound function as the prop value
+应该在构造函数中处理函数绑定并且将已经绑定好的函数作为 prop 的值
 */
 
 constructor( props ) {
@@ -69,25 +67,21 @@ render() {
 }
 ```
 
-**Example:** *Object or Array literals*
+**例子:** **对象或数组字面量**
 
 ```
 /*
-Object literals or Array literals are functionally equivalent to calling
-Object.create() or new Array(). This means that if object literals or
-array literals are passed as prop values, React will consider these to be new
-values for each render.
-This is problematic mostly when dealing with Radium or inline styles.
+对象或者数组字面量在功能上来看是调用了 Object.create() 和 new Array()。这意味如果给 prop 传递了对象字面量或者数组字面量。每次render 时 React 会将他们作为一个新的值。这在处理 Radium 或者行内样式时通常是有问题的。
 */
 
 /* Bad */
-// New object literal for style each render
+// 每次渲染时都会为 style 新建一个对象字面量
 render() {
   return <div style={ { backgroundColor: 'red' } }/>
 }
 
 /* Good */
-// Declare outside of component
+// 在组件外声明
 const style = { backgroundColor: 'red' };
 
 render() {
@@ -95,19 +89,16 @@ render() {
 }
 ```
 
-**Example** *: Be careful of literals in fallback values*
+**例子** **: 注意兜底值字面量**
 
 ```
 /*
-Sometimes a fallback value or object may be created in the render function
-( or prop value ) to avoid undefined value errors. In these cases, it's best
-to define the fallbacks as a constant external to the component instead of
-creating a new literal.
+有时我们会在 render 函数中创建一个兜底的值来避免 undefined 报错。在这些情况下，最好在组件外创建一个兜底的常量而不是创建一个新的字面量。
 /*
 /* Bad */
 render() {
   let thingys = [];
-  // If this.props.thingys is not defined a new array literal is created above.
+  // 如果 this.props.thingys 没有被定义，一个新的数组字面量会被创建
   if( this.props.thingys ) {
     thingys = this.props.thingys;
   }
@@ -117,13 +108,13 @@ render() {
 
 /* Bad */
 render() {
-  // This has functionally the same outcome as the above example.
+  // 这在功能上和前一个例子一样
   return <ThingyHandler thingys={ this.props.thingys || [] }/>
 }
 
 /* Good */
 
-// Declare outside of component
+// 在组件外部声明
 const NO_THINGYS = [];
 
 render() {
@@ -131,76 +122,76 @@ render() {
 }
 ```
 
-#### Keeping Props (and State) as simple and minimal as possible ####
+#### 尽可能的保持 Props（和 State）简单和精简 ####
 
-Ideally, the only props passed to a component should be those directly needed by that component. Passing a large, complex object, or many individual props to a component only for the purpose of passing values to children will cause many unnecessary component renders (as well as add development complexity).
+理想情况下，传递给组件的 props 应该是它直接需要的。为了将值传给子组件而将一个大的、复杂的对象或者很多独立的 props 传递给一个组件会导致很多不必要的组件渲染（并且会增加开发复杂性）。
 
-Here at Vixlet, we use Redux as a state container, so in our case, it is most ideal to use the [connect()](https://github.com/reactjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options) function from the [react-redux](https://www.npmjs.com/package/react-redux) library at each level in the component hierarchy to only fetch the direct data needed from the store. The connect() function is highly performant and overhead of using it is very minimal.
+在 Vixlet，我们使用 Redux 作为状态容器，所以在我们看来，最理想的是方案在组件层次结构的每一个层级中使用 [react-redux](https://www.npmjs.com/package/react-redux) 的 [connect()](https://github.com/reactjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options) 函数直接从 store 上获取数据。connect 函数的性能很好，并且使用它的开销也非常小。
 
-#### Component Methods ####
+#### 组件方法 ####
 
-Since component methods are created for each instance of a component, if possible, use either pure functions from a helper/util module or [static class methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes). This makes a noticeable difference especially in cases where there are a large number of a component being rendered in the app.
+由于组件方法是为组件的每个实例创建的，如果可能的话，使用 helper/util 模块的纯函数或者[静态类方法](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes)。尤其在渲染大量组件的应用中会有明显的区别。
 
-### Advanced ###
+### 进阶 ###
 
 ![](https://cdn-images-1.medium.com/max/800/1*9n2fdJB1gPYLFJAj5D5RqA.gif)
 
-From my point of view jank is evil!
+在我看来视图的变化是邪恶的！
 
 #### shouldComponentUpdate() ####
 
-React includes a lifecycle method [shouldComponentUpdate()](https://facebook.github.io/react/docs/react-component.html#shouldcomponentupdate). This method can be used to tell React whether a component should be re-rendered or not depending on the values of the current and next props/state.
+React 有一个生命周期函数 [shouldComponentUpdate()](https://facebook.github.io/react/docs/react-component.html#shouldcomponentupdate)。这个方法可以根据当前的和下一次的 props 和 state 来通知这个 React 组件是否应该被重新渲染。
 
-One problem with using this method however, is that the developer must be conscious of accounting for every condition in which a re-render must happen. This can get logically complex and in general, be a pain in the ass. You can use a custom `shouldComponentUpdate()` method if absolutely needed, but for many cases there is a better option...
+然而使用这个方法有一个问题，开发者必须考虑到需要触发重新渲染的每一种情况。这会导致逻辑复杂，一般来说，会非常痛苦。如果非常需要，你可以使用一个自定义的  `shouldComponentUpdate()` 方法，但是很多情况下有更好的选择。
 
 #### React.PureComponent ####
 
-Starting in React v15, the library includes a PureComponent class which can be used to build components. `React.PureComponent` basically implements it's own `shouldComponentUpdate()`method that performs a shallow compare between current and next props/state automatically. For more info on shallow comparison see this Stack Overflow:
+React 从 v15 开始会包含一个 PureComponent 类，它可以被用来构建组件。`React.PureComponent` 声明了它自己的 `shouldComponentUpdate()` 方法，它自动对当前的和下一次的 props 和 state 做一次浅对比。有关浅对比的更多信息，请参考这个 Stack Overflow：
 
 [http://stackoverflow.com/questions/36084515/how-does-shallow-compare-work-in-react](http://stackoverflow.com/questions/36084515/how-does-shallow-compare-work-in-react)
 
-In almost all cases, `React.PureComponent` is a better choice than `React.Component`. When creating new components, try building it as a pure component first and only if the component's functionality requires, use `React.Component`.
+在大多数情况下，`React.PureComponent` 是比 `React.Component` 更好的选择。在创建新组件时，首先尝试将其构建为纯组件，只有组件的功能需要时才使用 `React.Component`。
 
-More Info: [React.PureComponent](https://facebook.github.io/react/docs/react-api.html#react.purecomponent) in the official React Docs
+更多信息，请查阅相关文档 [React.PureComponent](https://facebook.github.io/react/docs/react-api.html#react.purecomponent)。
 
-#### Component Performance Profiling (in Chrome) ####
+#### 组件性能分析（在 Chrome 里）
 
-In the latest versions of Chrome, there is additional functionality built into the timeline tool that can display detailed information as to which React components are rendering and how long they take. To enable this functionality add `?react_perf` as a query string to the url that you want to test. The React rendering timeline data will be under the User Timing section.
+在新版本的 Chrome 里，timeline 工具里有一个额外的内置功能可以显示哪些 React 组件正在渲染以及他们花费的时间。要启用此功能，将 `?react_perf` 作为要测试的 URL 的查询字符串。React 渲染时间轴数据将位于 User Timing 部分。
 
-More Info: [Profiling Components with Chrome Timeline](https://facebook.github.io/react/docs/optimizing-performance.html#profiling-components-with-chrome-timeline) in the official React docs
+更多相关信息，请查阅官方文档：[Profiling Components with Chrome Timeline](https://facebook.github.io/react/docs/optimizing-performance.html#profiling-components-with-chrome-timeline) 。
 
-#### Useful Utility: [why-did-you-update](https://www.npmjs.com/package/why-did-you-update) ####
+#### 有用的工具: [why-did-you-update](https://www.npmjs.com/package/why-did-you-update) ####
 
-This is a nifty NPM package that can monkey patch React to add console notifications when a component re-renders unnecessarily.
+这是一个很棒的 NPM 包，他们给 React 添加补丁，当一个组件触发了不必要的重新渲染时，它会在控制台输出一个 console 提示。
 
-**Note**: This module can be initialized with a filter to match the specific component you wish to profile, otherwise your console will be spammed beyond all recognition (SPUBAR?) and possibly your browser will hang/crash. See the [why-did-you-update docs](https://www.npmjs.com/package/why-did-you-update) for more usage details.
+**注意**: 这个模块在初始化时可以通过一个过滤器匹配特定的想要优化的组件，否则你的命令行可能会被垃圾信息填满，并且可能你的浏览器会挂起或者崩溃，查阅 [why-did-you-update 文档](https://www.npmjs.com/package/why-did-you-update)获取更多详细信息。
 
-### Common Performance Traps
+### 常见性能陷阱
 
 ![](https://cdn-images-1.medium.com/max/800/1*GVteDSQnhXZCSui8JRp10A.gif)
 
-#### setTimeout() and setInterval() ####
+#### setTimeout() 和 setInterval() ####
 
-Use `setTimeout()` or `setInterval()` extremely carefully within a React component. There are almost always better alternatives such as 'resize' and 'scroll' events (note: see next section for caveats).
+在 React 组件中使用 `setTimeout()` 或者  `setInterval()` 要十分小心。几乎总是有更好的选择，例如 'resize' 和 'scroll' 事件（注意：有关注意事项请参阅下一节）。
 
-If you do need to use `setTimeout()` or `setInterval()`, you must **obey the following two commandments**
+如果你需要使用 `setTimeout()` 和 `setInterval()`，你必须**遵守下面两条建议**
 
-> Thou shalt not set extremely short time durations.
+> 不要设置过短的时间间隔。
 
-Setting a short duration is most likely unneeded. Be cautions of anything less than 100ms. If shorter durations are really needed, perhaps use [window.requestAnimationFrame()](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame) instead.
+当心那些小于 100 ms 的定时器，他们很可能是没意义的。如果确实需要一个更短的时间，可以使用 [window.requestAnimationFrame()](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame)。
 
-> Thou shalt keep a reference to these functions and cancel/clear them on unmount
+> 保留对这些函数的引用，并且在 unmount 时取消或者销毁他们。
 
-Both `setTimeout()` and `setInterval()` return an identifier for the delayed function that can be used to cancel the operation if needed. Since these functions are run at the global scope, they don't care if your component isn't there anymore, and this can lead to errors and/or death.
+`setTimeout()` 和 `setInterval()` 都返回一个延迟函数的引用，并且需要的时候可以取消它们。由于这些函数是在全局作用域执行的，他们不在乎你的组件是否存在，这会导致报错甚至程序卡死。
 
-**Note**: this is also true of `window.requestAnimationFrame()`
+**注意**: 对 `window.requestAnimationFrame()` 来说也是如此
 
-The easiest solution to this problem is to use the [react-timeout](https://www.npmjs.com/package/react-timeout) NPM package which provides a higher-order component that can be used that will handle the stuff mentioned above automatically. It adds setTimeout/setInterval, etc functions to the wrapped component’s props. (*Special thanks to Vixlet developer* [*Carl Pillot*](https://twitter.com/@carlpillot) *for pointing this one out*)
+解决这个问题最简答的方法是使用 [react-timeout](https://www.npmjs.com/package/react-timeout) 这个 NPM 包，它提供了一个可以自动处理上述内容的高阶组件。它将 setTimeout/setInterval 等功能添加到包装组建的 props 上。(**特别感谢 Vixlet 的开发人员 [*Carl Pillot*](https://twitter.com/@carlpillot) 提供这个方法**)
 
-If you do not wish to import a dependency and would like to roll your own solution to this problem, something like the following would work well:
+如果你不想引入这个依赖，并且希望自行解决此问题，你可以使用以下的方法：
 
 ```
-// How to propery cancel timeouts/intervals
+// 如何正确取消 timeouts/intervals
 
 compnentDidMount() {
  this._timeoutId = setTimeout( this.doFutureStuff, 1000 );
@@ -208,18 +199,18 @@ compnentDidMount() {
 }
 componentWillUnmount() {
  /*
-    ProTip: If the operation already completed, or the value is undefinded
-    these functions don't give a damn
+   高级提示：如果操作已经完成，或者值未被定义，这些函数也不会报错
  */
  clearTimeout( this._timeoutId );
  clearInterval( this._intervalId );
 }
 ```
 
-If you are using requestAnimationFrame() to run an animation loop, you could use a very similar solution with slight modification:
+
+如果你使用 requestAnimationFrame() 执行的一个动画循环，可以使用一个非常相似的解决方案，当前代码要有一点小的修改：
 
 ```
-// How to ensure that our animation loop ends on component unount
+// 如何确保我们的动画循环在组件消除时结束
 
 componentDidMount() {
   this.startLoop();
@@ -236,29 +227,29 @@ startLoop() {
 }
 
 loop() {
-  // perform loop work here
+  // 在这里执行循环工作
   this.theoreticalComponentAnimationFunction()
   
-  // Set up next iteration of the loop
+  // 设置循环的下一次迭代
   this.frameId = window.requestAnimationFrame( this.loop )
 }
 
 stopLoop() {
   window.cancelAnimationFrame( this._frameId );
-  // Note: no need to worry if the loop has already been cancelled
-  // cancelAnimationFrame() won't throw an error
+  // 注意: 不用担心循环已经被取消
+  // cancelAnimationFrame() 不会抛出异常
 }
 ```
 
-#### Non-debounced Rapid-firing Events ####
+#### 未去抖频繁触发的事件 ####
 
-Certain common events can fire extremely rapidly, e.g. ‘scroll’, ‘resize’. It is wise to debounce these events, especially if the event handler is performing anything more than extremely basic functionality.
+某些常见的事件可能会非常频繁的触发，例如 `scroll`，`resize`。去抖这些事件是明智的，特别是如果事件处理程序执行的不仅仅是基本功能。
 
-Lodash has the [_.debounce](https://lodash.com/docs/#debounce) method. There is also a standalone [debounce](https://www.npmjs.com/package/debounce) package on NPM.
+Lodash 有 [_.debounce](https://lodash.com/docs/#debounce) 方法。在 NPM 上还有一个独立的 [debounce](https://www.npmjs.com/package/debounce) 包.
 
-> “But I really need immediate response from the scroll/resize/whatever event”
+> “但是我真的需要立即反馈 scroll/resize 或者别的事件”
 
-One pattern I have found that can be used to handle these kind of events and respond in a high performance manner, is to start a `requestAnimationFrame()` watch loop the first time an event is fired. Then, the `[debounce()](https://lodash.com/docs#debounce)` function can be used with the `trailing` option set to `true` (*this means the function only fires after the stream of rapidly firing events has ended*) to stop watching the value. See an example below
+我发现一种可以处理这些事件并且以高性能的方式进行响应的方法，那就是在第一次事件触发时启动 `requestAnimationFrame()` 循环。然后可以使用 `[debounce()](https://lodash.com/docs#debounce)` 方法并且将 `trailing` 这个配置项设为 `true`（**这意味着该功能只在频繁触发的事件流结束后触发**）来取消对值的监听，看看下面这个例子。
 
 ```
 class ScrollMonitor extends React.Component {
@@ -279,23 +270,23 @@ class ScrollMonitor extends React.Component {
     window.removeEventListener( 'scroll', this.handleScrollStart );
     window.removeEventListener( 'scroll', this.handleScrollEnd );
     
-    //Make sure the loop doesn't run anymore if component is unmounted
+    //确保组件销毁后结束循环
     this.stopWatching();
   }
 
-  // If the watchloop isn't running start it
+  // 如果循环未开始，启动它
   startWatching() {
     if( !this._watchFrame ) {
       this.watchLoop();
     }
   }
 
-  // Cancel the next iteration of the watch loop
+  // 取消下一次迭代
   stopWatching() {
     window.cancelAnimationFrame( this._watchFrame );
   }
 
-  // Keep running on each animation frame untill stopped.
+  // 保持动画的执行直到结束
   watchLoop() {
     this.doThingYouWantToWatchForExampleScrollPositionOrWhatever()
 
@@ -305,25 +296,26 @@ class ScrollMonitor extends React.Component {
 }
 ```
 
-#### Intensive CPU task Thread blocking ####
+#### 密集CPU任务线程阻塞 ####
 
-Certain tasks will always be CPU intensive and thus can cause issues blocking the main rendering thread. Some examples include very complex math calculations, iterating through very large arrays, reading/writing using the `File` api. Encoding or decoding image data from a `<canvas>` object.
+某些任务一直是 CPU 密集型的，因此可能会导致主渲染线程的阻塞。举几个例子，比如非常复杂的数学计算，迭代非常大的数组，使用 `File` api 进行文件读写，利用 `<canvas>` 对图片进行编码解码。
 
-If at all possible in these scenarios, it would be best to use a Web Worker to move that functionality onto another thread, so that our main rendering thread can remain buttery smooth.
+在这些情况下，如果有可能最好使用 Web Worker 将这些功能移到另一个线程上，这样我们的主渲染线程可以保持顺滑。
 
-**Read These**
+**相关阅读**
 
-MDN Article: [Using Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers)
+MDN 文章: [Using Web Workers](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers)
 
-MDN Docs: [Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Worker)
+MDN 文档: [Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Worker)
 
-### Closing Words ###
+### 结语 ###
 
-We hope that you have found the above suggestions useful and informative. The above compilation of tips and tricks could not be possible without the great work and research by the web team here at Vixlet. They truly are one of the most awesome groups of people that I’ve ever had the chance to work with.
+我们希望上述建议对您能有所帮助。如果没有 Vixlet 团队的伟大工作和研究，上述的提示和编程技巧是不可能产出的。他们真的是我曾经合作过的最棒的团队之一。
 
-In your personal quest to get the most out of React, continue to learn and practice, and may the Force be with you!
-
+在你的 React 的征途中保持学习和练习，愿原力与你同在！
 
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[React](https://github.com/xitu/gold-miner#react)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计) 等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)。
+
+

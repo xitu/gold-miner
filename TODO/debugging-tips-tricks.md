@@ -1,5 +1,5 @@
 > * 原文地址：[Debugging Tips and Tricks](https://css-tricks.com/debugging-tips-tricks/)
-> * 原文作者：[SARAH DRASNER](https://css-tricks.com/author/sdrasner/)
+> * 原文作者：本文已获原作者 [SARAH DRASNER](https://css-tricks.com/author/sdrasner/) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[lsvih](https://github.com/lsvih)
 > * 校对者：[loveky](https://github.com/loveky),[ymz1124](https://github.com/ymz1124)

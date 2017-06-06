@@ -1,5 +1,5 @@
 > * 原文地址：[When Does a Project Need React?](https://css-tricks.com/project-need-react/)
-> * 原文作者：[CHRIS COYIER](https://css-tricks.com/author/chriscoyier/)
+> * 原文作者：本文已获原作者 [CHRIS COYIER](https://css-tricks.com/author/chriscoyier/) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[龙骑将杨影枫](https://github.com/stormrabbit)
 > * 校对者：[Guangyuan (Charlie) Yang](https://github.com/yzgyyang)、[薛定谔的猫](https://github.com/Aladdin-ADD)
@@ -56,7 +56,7 @@ React 框架这样告诉我们：
 
 3. 更棒的是：你可以用这些状态（state）直接构建 HTML ，你根本不需要直接操作 DOM，我都替你处理了（也许比你亲自处理的要更快更好）。
 
-### ✅ 对抗面条式代码 （Spaghetti）###
+### ✅ 对抗面条式代码 （Spaghetti） ###
 
 这和我们刚才讨论过的状态有非常大的关系。
 
