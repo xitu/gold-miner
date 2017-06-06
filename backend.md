@@ -1,3 +1,8 @@
+* [建立更好的代码审查制度](https://juejin.im/entry/5934bafb2f301e006b055f57/detail?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([bobmayuze](https://github.com/bobmayuze/) 翻译)
+* [使用速率限制扩展你的 API](https://github.com/xitu/gold-miner/blob/master/TODO/rate-limiters.md?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([tanglie1993](https://github.com/tanglie1993/) 翻译)
+* [真相就在代码中](https://juejin.im/post/59152d17da2f60005dd0ae77?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)[loveky](https://github.com/loveky) 翻译)
+* [nginScript 入门](https://github.com/xitu/gold-miner/blob/master/TODO/introduction-nginscript.md?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([1992chenlu](https://github.com/1992chenlu) 翻译)
+* [我是如何找回 Reddit 密码的](https://juejin.im/entry/590aee94da2f60005328fb2d/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([cdpath](https://github.com/cdpath) 翻译)
 * [Node.js 之战: 如何在生产环境中调试错误](https://juejin.im/post/59035d3644d904006919086b/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([mnikn](https://github.com/mnikn)翻译)
 * [我经常听到的 GraphQL 到底是什么？](https://juejin.im/post/58fd6d121b69e600589ec740/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lsvih](https://github.com/lsvih)翻译)
 * [系统设计入门](https://github.com/xitu/system-design-primer/blob/master/README-zh-Hans.md) ([XatMassacrE](https://github.com/XatMassacrE) [L9m](https://github.com/L9m) [Airmacho](https://github.com/Airmacho) [xiaoyusilen](https://github.com/xiaoyusilen) [jifaxu](https://github.com/jifaxu)翻译)

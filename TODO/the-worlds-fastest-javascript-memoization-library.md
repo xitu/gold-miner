@@ -1,280 +1,261 @@
 > * 原文地址：[How I wrote the world's fastest JavaScript memoization library](https://community.risingstack.com/the-worlds-fastest-javascript-memoization-library/)
 > * 原文作者：[Caio Gondim](https://community.risingstack.com/author/caio/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
-> * 校对者：
+> * 译者：[薛定谔的猫](https://github.com/Aladdin-ADD)
+> * 校对者：[GangsterHyj](https://github.com/GangsterHyj)，[sunui](https://github.com/sunui)
 
-# How I wrote the world's fastest JavaScript memoization library #
+# 我是如何实现世界上最快的 JavaScript 记忆化的 #
 
-**In this article, I’ll show you how I wrote the world’s fastest JavaScript memoization library called [fast-memoize.js](https://github.com/caiogondim/fast-memoize.js) - which is able to do 50 million operations / second.**
 
-We’re going to discuss all the steps and decisions I took in a detailed way, and I’ll also show you the code and benchmarks as proof.
+**在本文中，我将详细介绍如何实现 [fast-memoize.js](https://github.com/caiogondim/fast-memoize.js)，它是世界上最快的 JavaScript 记忆化（memoization）实现，每秒能进行 50,000,000 次操作。**
+我们会详细讨论实现的步骤和决策，并且给出代码实现和性能测试作为证明。
 
-As **fast-memoize.js** is an open source project, I’ll be delighted to read your comments and suggestions for this library!
+**fast-memoize.js** 是开源项目，欢迎大家给我留言和建议。
 
-A while ago I was playing around with some [soon to be released features](http://www.2ality.com/2015/06/tail-call-optimization.html) in V8 using the Fibonacci algorithm as a basis for a benchmark. 
+不久前，我尝试了 V8 中一些[即将发布的特性](http://www.2ality.com/2015/06/tail-call-optimization.html)，以斐波那契算法为基础做了一些基准测试实验。
+实验之一就是比较斐波那契算法的记忆化版本和普通实现，结果表明记忆化版本有着巨大的性能优势。
 
-One of the benchmarks consisted a memoized version of the Fibonacci algorithm against a vanilla implementation, and the results showed a huge gap in performance between them.
+意识到这一点，我又翻阅了不同的记忆化库的实现，并比较了它们的性能（因为……呃，为什么不呢？）。记忆化算法本身非常简单，然而我震惊地发现不同实现之间性能差异巨大。
 
-After realizing this, I started poking around with different memoization libraries and benchmarking them (because... why not?). I was quite surprised to see a huge performance gap between them, since the memoization algorithm is quite straightforward. 
+这是什么原因呢？
 
-But why?
+![常见 JavaScript 记忆化库的性能](https://blog-assets.risingstack.com/2017/01/performance-of-popular-javascript-memoization-libraries.png)
 
-![Performance of popular JavaScript memoization libraries](https://blog-assets.risingstack.com/2017/01/performance-of-popular-javascript-memoization-libraries.png)
+在翻阅 [lodash](https://github.com/lodash/lodash/blob/master/memoize.js#L50) 和 [underscore](https://github.com/jashkenas/underscore/blob/master/underscore.js#L810) 的源码时，我发现默认情况下，它们只能记忆化接受一个参数的函数。于是我就很好奇，能否实现一个足够快并且可以接受多个参数的版本呢？**（或许可以开发出 npm 包给全世界的开发者使用呢？）**
 
-While taking a look at the [lodash](https://github.com/lodash/lodash/blob/master/memoize.js#L50) and [underscore](https://github.com/jashkenas/underscore/blob/master/underscore.js#L810) source code, I also realized that by default, they only could memoize functions that accept one argument (arity one). I was — again — curious, and wondering if I could make a fast enough memoization library that would accept N arguments. 
+下文中，我将详细介绍实现它的步骤，以及实现过程中所做的决策。
 
-*(And, maybe, creating one more npm package in the world?)*
+## 理解问题 ##
 
-Below I explain all the steps and decisions I took while creating the [fast-memoize.js](https://github.com/caiogondim/fast-memoize.js) library.
+引自[ Haskell 语言 wiki](https://wiki.haskell.org/Memoization)
+> 『记忆化是保存函数执行结果，而不是每次重新计算的一种技术。』
 
-## Understanding the problem ##
+**换句话说，记忆化就是对于函数的缓存。** 它只适用于确定性算法，对于相同的输入总是生成相同的输出。
 
-From the [Haskell language wiki](https://wiki.haskell.org/Memoization):
+为了便于理解和测试，我们把这个问题拆分成几个小问题。
 
-> "Memoization is a technique for storing values of a function instead of recomputing them each time."
+### 分解 JavaScript 记忆化问题 ###
 
-**In other words, memoization is a cache for functions.** It only works for deterministic Algorithms though, for those that will always generate the same output for a given input.
+我将这个算法分解为 3 个小问题：
 
-Let's break the problem into smaller pieces for better understanding and testability.
+1. **缓存**：保存上一次计算结果。
+2. **序列化**：输入为参数，输出一个字符串用于表示相应的输入。可以将它视作参数的唯一标识。
+3. **策略**：将缓存和序列化组合起来，输出记忆化函数。
 
-### Breaking down the JavaScript memoization problem ###
+现在我们就要分别以不同的方式实现这 3 个部分，测试它们的性能，选择其中最快的方式，最后将它们结合起来就是我们最终的算法了。
+这样做的目标就是让计算机为我们解除重担！
 
-I broke the memoization algorithm into 3 different pieces:
+### #1 - 缓存 ###
 
-1. **cache**: stores the previously computed values. 
-2. **serializer**: takes the arguments as inputs and generates a string as an output that represents the given input. Think of it as a fingerprint for the arguments. 
-3. **strategy**: glues together cache and serializer, and outputs the memoized function.
+如前文所述，缓存保存了之前的计算结果。
 
-Now the idea is to implement each piece in different ways, benchmark each one and make the **final algorithm as a combination of the fastest cache, serializer, and strategy**. 
+#### 接口 ####
 
-The goal here is to let the computer do the heavy lifting for us!
-
-### #1 - Cache ###
-
-As I just mentioned, the cache stores previously computed values.
-
-#### Interface ####
-
-To abstract implementation details, a similar interface to [Map](http://ecma-international.org/ecma-262/7.0/#sec-properties-of-the-map-prototype-object) was created:
+为了抽象实现细节，我们需要创建一个类似于 [Map](http://ecma-international.org/ecma-262/7.0/#sec-properties-of-the-map-prototype-object) 的接口：
 
 - has(key)
 - get(key)
 - set(key, value)
 - delete(key)
 
-This way we can replace the inner cache implementation without breaking it for consumers, as long we implement the same interface.
+通过（定义接口）这种方式，只要我们实现了这个接口，就可以修改缓存内部的实现，而不影响外部使用。
 
-#### Implementations ####
+#### 实现 ####
 
-One thing that needs to be done every time a memoized function is executed is to check if the output for the given input was already computed.
+每次执行记忆化函数，我们需要做的就是：检查对应输入的输出是否已经被计算过。
 
-A good data structure for that is a hash table. Hash table has an O(1) time complexity in Big-O notation for checking the presence of a value. Under the hood, a JavaScript object is a Hash table ([or something similar](https://simplenotions.wordpress.com/2011/07/05/javascript-hashtable/)), so we can leverage this using the input as key for the hash table and the value as the function output.
+因此最合理的数据结构是哈希表。它能够在 O(1) 时间复杂度检查某个值是否存在。 从底层看，一个 JavaScript 对象就是一个哈希表（[或类似的结构](https://simplenotions.wordpress.com/2011/07/05/javascript-hashtable/)），所以我们可以将输入作为哈希表的 key，将输出作为它的 value。
 
-```
-    // Keys represent the input of fibonacci function// Values represent the outputconst cache = {  
+```js
+    // Keys 代表斐波那契函数的输入
+    // Values 代表函数执行结果
+    const cache = {
       5: 5,
       6: 8,
       7: 13
     }
 ```
-    
 
-I used those different algorithms as a cache:
+为实现缓存，我分别尝试了：
 
-1. Vanilla object 
-2. Object without prototype (to avoid prototype lookup) 
-3. [lru-cache](https://www.npmjs.com/package/lru-cache) package 
+1. 普通对象
+2. 无原型对象（避免原型属性查找）
+3. [lru-cache](https://www.npmjs.com/package/lru-cache)
 4. [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map)
 
-Below you can see a benchmark of all cache implementations. To run locally, do `npm run benchmark:cache`. The source for all different implementations can be found on the [project's GitHub page](https://github.com/caiogondim/fast-memoize.js/tree/master/benchmark/cache). 
+以下是这些实现的性能测试。本地运行，请执行命令 `npm run benchmark:cache`。不同版本实现的源码可以在[项目的 GitHub 页面](https://github.com/caiogondim/fast-memoize.js/tree/master/benchmark/cache)找到。
 
 ![Variable JavaScript memoization cache](https://blog-assets.risingstack.com/2017/01/variable-javascript-memoization-cache.png)
 
-#### The need for a serializer ####
+#### 还需要一个序列化器 ####
 
-There is a problem when a non-literal argument is passed since its string representation is not unique.
+在参数是非字面量时，这个版本会有问题，因为转化为字符串时并不唯一。
 
-```
+```js
     functionfoo(arg) { returnString(arg) }
-    
-    foo({a: 1}) // => '[object Object]'  
-    foo({b: 'lorem'}) // => '[object Object]'  
+
+    foo({a: 1}) // => '[object Object]'
+    foo({b: 'lorem'}) // => '[object Object]'
 ```
-    
 
-That is why we need a serializer, to create a *fingerprint* of arguments that will serve as key for the cache. It needs to be as fast as possible as well.
+这就是为什么我们还需要一个序列化器，用它来生成参数的**指纹**（唯一标识，译者注）。它的速度越快越好。
 
-### #2 - Serializer ###
+### #2 - 序列化器 ###
 
-The serializer outputs a string based on the given inputs. It has to be a deterministic algorithm, meaning that it will always produce the same output for the same input.
+序列化器基于给定的输入输出一个字符串。它必须是一个确定性算法，意味着对相同的输入，总是给出相同的输出。
 
-The serializer is used to create a string that will serve as a key for the cache and represent the inputs for the memoized functions. 
+序列化器生成的字符串用作缓存的key，代表记忆化函数的输入。
 
-Unfortunately, I could not find any library that came close, performance wise, to `JSON.stringify` — which makes sense, since it's implemented in native code.
+`JSON.stringify` 是实现它性能最佳的方式，比其它方式的都好 -- 这也很容易理解，因为 `JSON.stringify` 是原生的。
+我尝试使用 bound `JSON.stringify`（`bar = foo.bind(null)`，此时 `bar.name` 为 `bound foo`，译者注），希望通过减少一次变量查找来提高性能，但很遗憾没有效果。
 
-I tried to use `JSON.stringify` and a bound `JSON.stringify` hoping there would be one less lookup to be made, but no gains here. 
+想在本地执行，可以执行命令 `npm run benchmark:serializer`，实现的具体代码可以在[项目的 GitHub 页面](https://github.com/caiogondim/fast-memoize.js/tree/master/benchmark/serializer)找到。
 
-To run locally, do `npm run benchmark:serializer`. The code for both implementations can be found on the [project's GitHub page](https://github.com/caiogondim/fast-memoize.js/tree/master/benchmark/serializer).
+![变量序列化器](https://blog-assets.risingstack.com/2017/01/variable-serializer.png)
 
-![Variable Serializer](https://blog-assets.risingstack.com/2017/01/variable-serializer.png)
+还剩最后一个部分：**策略**。
 
-There is one piece left: the **strategy**.
-
-### #3 - Strategy ###
+### #3 - 策略 ###
  
-The strategy is the consumer of both **serializer** and **cache**. It orchestrates all pieces. For [fast-memoize.js](https://github.com/caiogondim/fast-memoize.js) library, I spent most of the time here. Although a very simple algorithm, some gains were made in each iteration.
+策略使用了**序列化器**和**缓存**，将两者结合起来。对 [fast-memoize.js](https://github.com/caiogondim/fast-memoize.js) 来说，策略是我花时间最多的部分。即使非常简单的算法，每一个版本迭代都有一些性能提升。
+以下是我先后尝试的方式：
 
-Those were the iterations I did in chronological order:
+1. 普通方式 (初始版本)
+2. 针对单个参数优化
+3. 参数推断
+4. 偏函数
 
-1. Naive (first try) 
-2. Optimize for single argument 
-3. Infer arity 
-4. Partial application
+我们来逐个介绍它们。我会以尽量简化的代码，来介绍每种方式背后的想法。如果某些细节我没有解释清楚，你想要深入探究一下，可以在[项目的 GitHub 页面](https://github.com/caiogondim/fast-memoize.js/tree/master/benchmark/strategy)中找到每个版本的代码。
 
-Let's explore them one by one. I will try to explain the idea behind each approach, with as little code as possible. If my explanation is not enough and you want to dive deeper, the code for each iteration can be found in the [project's GitHub page](https://github.com/caiogondim/fast-memoize.js/tree/master/benchmark/strategy). 
+本地运行，请执行命令 `npm run benchmark:strategy`。
 
-To run locally, do `npm run benchmark:strategy`.
+#### 普通方式 ####
 
-#### Naive ####
+这是我第一次尝试，也是最简单的版本。步骤是：
 
-This was the first iteration and the simplest one. The steps:
-
-1. Serialize arguments 
-2. Check if output for given input was already computed 
-3. If `true`, get result from cache 
-4. If `false`, compute and store value on cache
+1. 序列化参数
+2. 检查给定输入的输出是否已经计算过
+3. 如果 `true`，从缓存中读取结果
+4. 如果 `false`，计算，并且将结果保存到缓存中
 
 ![Variable strategy](https://blog-assets.risingstack.com/2017/01/variable-strategy.png)
 
-With that first try, we could generate around **650,000 operations per second**. That will serve as a basis for next iterations.
+使用第一个版本，我们可以达到**每秒 650,000 次操作**。这个版本是后面优化版本的基础。
 
-#### Optimize for single argument ####
+#### 针对单个参数优化 ####
 
-One simple and effective technique while improving performance is to optimize the hot path. Our hot path here is a function which accepts one argument only (arity one) with primitive values, so we don't need to run the serializer.
+改善性能的一个有效方法是优化热路径（hot path，指执行频率最高的路径，译者注）。对我们的代码来说，热路径就是接受一个基本类型参数的函数，这种情况下我们不需要对参数序列化。
 
-1. Check if `arguments.length === 1` and argument is a primitive value 
-2. If `true`, no need to run serializer, as a primitive value already works as a key for the cache 
-3. Check if output for given input was already computed 
-4. If `true`, get result from cache 
-5. If `false`, compute and store value on cache
+1. 检查 `arguments.length === 1` && 参数为基本类型
+2. 如果`是`，无需序列化参数，因为基本类型本身就可以作为缓存的key
+3. 检查给定输入的输出是否已经计算过
+4. 如果 `true`，从缓存中读取结果
+5. 如果 `false`，计算，并且将结果保存到缓存中
 
-![Optimizing for single argument](https://blog-assets.risingstack.com/2017/01/optimizing-for-single-argument.png)
+![针对单个参数优化](https://blog-assets.risingstack.com/2017/01/optimizing-for-single-argument.png)
 
-By removing the unnecessary call to the serializer, we can go much faster (on the hot path). Now running at **5.5 million operations per second**. 
+通过避免执行不必要的序列化操作，我们可以得到更快的执行结果（对热路径而言）。现在可以达到**每秒 5,500,000 次**了。
 
-#### Infer arity ####
+#### 参数推断 ####
 
-`function.length` returns the number of expected arguments on a defined function. We can leverage this to remove the dynamic check for `arguments.length === 1` and provide a different strategy for monadic (functions that receive one argument) and not-monadic functions.
+`function.length` 返回一个已定义函数的形参个数，我们可以利用这个性质避免动态检查函数的实参个数（即避免 `arguments.length === 1` 的条件判断，译者注），并为单参数函数和非单参数函数分别提供不同的策略。
 
-```
-    functionfoo(a, b) {  
-      Return a + b
-    }
-    foo.length // => 2  
-```    
-
-![infer arity](https://blog-assets.risingstack.com/2017/01/infer-arity.png)
-
-An expected small gain, since we are only removing one check on the if condition. Now we’re running at **6 million operations per second**. 
-
-### Partial application ###
-
-It seemed to me that most of the time was being wasted on variable lookup (no data for this), and I had no more ideas on how to improve it. Then, I suddenly remembered that it's possible to inject variables in a function through a partial application with the `bind` method. 
-
-```
-    functionsum(a, b) {  
+```js
+    functionfoo(a, b) {
       return a + b
     }
-    const sumBy2 = sum.bind(null, 2)  
-    sumBy2(3) // => 5  
+    foo.length // => 2
 ```
-    
-The idea here is to create a function with some arguments fixed. Then I fixed the **original function**, **cache** and **serializer** through this method. Let's give it a try!
 
-![partial application](https://blog-assets.risingstack.com/2017/01/partial-application.png)
+![参数推断](https://blog-assets.risingstack.com/2017/01/infer-arity.png)
 
-Wow. That's a big win. I'm out of ideas again, but this time satisfied with the result. We are now running at **20 million operations per second**.
+省去了这一次条件判断，我们（的实现）性能又有了一点提升，可以达到**每秒 6,000,000 次操作**。
 
-## The Fastest JavaScript Memoization Combination ##
+### 偏函数（Partial application） ###
 
-We broke down the memoization problem into 3 parts. 
+我觉得大多数时间都花费在了变量查找上（但没有量化数据支持），起初我也没有好的想法去改善。灵机一动，我突然想到可以使用 `bind` 方法，通过偏函数应用的方法将变量注入到函数中。
 
-For each part, we kept the other two parts fixed and ran a benchmark alternating only one. By alternating only one variable, we can be more confident the result was an effect of this change — no JS code is deterministic performance wise, due to unpredictable Stop-The-World pauses on VM.
+```js
+    functionsum(a, b) {
+      return a + b
+    }
+    const sumBy2 = sum.bind(null, 2)
+    sumBy2(3) // => 5
+```
 
-V8 does a lot of optimizations on runtime based on how frequently a function is called, its shape, ... 
+这种方式可以将函数的某些参数固定下来。我用就它把**原函数**，**缓存**，和**序列化器**固定下来。就用它来试试吧！
+![偏函数](https://blog-assets.risingstack.com/2017/01/partial-application.png)
 
-To check that we are not missing a massive performance optimization opportunity in any possible combination of the 3 parts, let's run each part against the other, in all possible ways. 
+哇！效果非常好。我不知道如何进一步改进，但我对这个版本的测试结果已经很满意了。这个版本可以达到**每秒 20,000,000 次操作**。
 
-4 strategies x 2 serializers x 4 caches = **32 different combinations**. To run locally, do `npm run benchmark:combination`. Below the top 5 combinations:
+## 最快的 JavaScript 记忆化组合 ##
+
+上面我们把记忆化分解为了 3 个部分。
+
+对每个部分，我们将其中 2 个部分固定，更换其余一个测试其性能。通过这种单变量测试，我们能更加确信每次改变的效果--由于 GC 造成的不确定性停顿，JS代码的性能并不完全确定。
+
+V8 会更根据函数的调用频率、代码结构等因素，做很多运行时优化。
+
+为了确保我们将这 3 部分组合起来时不会错过大量性能优化的机会，我们尝试所有可能的组合。
+一共 4 种策略 x 2 种序列化器 x 4 种缓存 = **32 种不同的组合**。本地运行，请执行命令 `npm run benchmark:combination`。下面是性能最好的 5 种组合：
 
 ![fastest javascript memoize combinations](https://blog-assets.risingstack.com/2017/01/fastest-javascript-memoize-combinations.png)
 
-Legend:
+图例：
 
-1. **strategy**: Partial application, **cache**: Object, **serializer**: json-stringify 
-2. **strategy**: Partial application, **cache**: Object without prototype, **serializer**: json-stringify 
-3. **strategy**: Partial application, **cache**: Object without prototype, **serializer**: json-stringify-binded 
-4. **strategy**: Partial application, **cache**: Object, **serializer**: json-stringify-binded 
-5. **strategy**: Partial application, **cache**: Map, **serializer**: json-stringify
+1. **策略**: 偏函数, **缓存**: 普通对象, **序列化器**: json-stringify
+2. **策略**: 偏函数, **缓存**: 无原型对象, **序列化器**: json-stringify
+3. **策略**: 偏函数, **缓存**: 无原型对象, **序列化器**: json-stringify-binded
+4. **策略**: 偏函数, **缓存**: 普通对象, **序列化器**: json-stringify-binded
+5. **策略**: 偏函数, **缓存**: Map, **序列化器**: json-stringify
 
-It seems that we were right. The fastest algorithm is a combination of:
+事实证明我们上面的分析是对的。最快的组合是：
 
-- **strategy**: Partial application
-- **cache**: Object
-- **serializer**: JSON.stringify
+- **策略**: 偏函数
+- **缓存**: 普通对象
+- **序列化器**: JSON.stringify
 
-## Benchmarking against popular libraries ##
+## 与流行库的性能对比 ##
 
-With all the pieces of the algorithm in place, it's time to benchmark it against the most popular memoization libraries. To run locally, do `npm run benchmark`. Below the results:
+有了上面的算法，是时候把它同最流行的库做一个性能上的比较了。本地运行，请执行命令 `npm run benchmark`。结果如下：
+![与流行库的性能对比](https://blog-assets.risingstack.com/2017/01/benchmarking-against-other-memoization-libraries.png)
 
-![Benchmarking against other memoization libraries](https://blog-assets.risingstack.com/2017/01/benchmarking-against-other-memoization-libraries.png)
+[fast-memoize.js](https://github.com/caiogondim/fast-memoize.js)是最快的，几乎是第二名的 3 倍，**每秒 27,000,000次操作**。
 
-[fast-memoize.js](https://github.com/caiogondim/fast-memoize.js) is almost 3 times faster than the second fastest running at **27 million operations per second**.
+### 面向未来 ###
 
-### Future proof ###
+V8有一个很新的、未发布的优化编译器 [TurboFan](http://v8project.blogspot.com.br/2015/07/digging-into-turbofan-jit.html)。
+我们现在就应该用它测试一下，因为 TurboFan（极有可能）很快就会添加到 V8 中。通过给 Node.js 设置 flag `--turbo-fan` 就可以启用它。本地运行，请执行命令`npm run benchmark:turbo-fan`。以下是启用后的测试结果：
 
-V8 has a new and yet to be officially released new optimization compiler called [TurboFan](http://v8project.blogspot.com.br/2015/07/digging-into-turbofan-jit.html).
+![使用 TurboFan 的性能](https://blog-assets.risingstack.com/2017/01/performance-with-turbofan.png)
 
-We should try it today to see how our code will behave tomorrow since TurboFan will be (very 
+性能几乎翻倍，现在达到接近**每秒 50,000,000 次**。
 
-likely) added to V8 shortly. To enable it pass the flag `--turbo-fan` to the Node.js binary. To run locally, do `npm run benchmark:turbo-fan`. Below the benchmark with TurboFan enabled:
+看起来最新的 TurboFan 编译器可以极大的优化我们最终版本的 [fast-memoize.js](https://github.com/caiogondim/fast-memoize.js)。
 
-![Performance with TurboFan](https://blog-assets.risingstack.com/2017/01/performance-with-turbofan.png)
+## 结论 ##
 
-Almost a double gain in performance. We are now running at almost **50 million operations per second**. 
+以上就是我创建这个世界上最快的记忆化库的过程。分别实现各个部分，组合它们，然后统计每种组合方案的性能数据，从中选择最优的方案。**(使用 [benchmark.js](https://benchmarkjs.com/) )。**
+希望这个过程对其他开发者有所帮助。
 
-Seems the new [fast-memoize.js](https://github.com/caiogondim/fast-memoize.js) version can be highly optimized with the soon to be released new compiler.
+fast-memoize.js 是目前最好的 #JavaScrip 库, 并且我会努力让它一直是最好的。
 
-## Conclusion ##
+**并非是因为我聪明绝顶, 而是我会一直维护它。** 欢迎给我提交 [Pull requests](https://github.com/caiogondim/fast-memoize.js/pulls)。
 
-That was my take on creating a faster library on an already crowded market. Creating many solutions for each part, combining them, and letting the computer tell which one was the fastest based on statistically significant data. *(I used [benchmark.js](https://benchmarkjs.com/) for that).*
+正如前 V8 工程师 [Vyacheslav Egorov](https://www.youtube.com/watch?v=g0ek4vV7nEA&amp;t=22s) 所言，在虚拟机上测试算法性能非常棘手。如果你发现测试中的错误，请在 [GitHub](https://github.com/caiogondim/fast-memoize.js/issues) 上提交 issue。
 
-Hope the process I used can be useful for someone else too.
+这个库也一样，如果你发现任何问题请提交 issue（如果带上错误用例我会很感激）。带有改进建议的 Pull Requests 我将感激不尽。
 
-[fast-memoize.js is currently the best memoization library in #JavaScript, and I will strive for it to always be.](https://twitter.com/share)
+如果你喜欢这个库，欢迎 [star](https://github.com/caiogondim/fast-memoize.js/stargazers)。这是对我们开源开发者的鼓励哦。
 
-[Click To Tweet](https://twitter.com/share)
-
-**Not because I'm the smartest programmer in the world, but because I will keep the algorithm up to date with findings from others.**[Pull requests](https://github.com/caiogondim/fast-memoize.js/pulls) are always welcome.
-
-Benchmarking algorithms that runs on virtual machines can be very tricky, as explained by [Vyacheslav Egorov](https://www.youtube.com/watch?v=g0ek4vV7nEA&amp;t=22s), a former V8 engineer. If you see something wrong on how the tests were set up, please create an issue on [GitHub](https://github.com/caiogondim/fast-memoize.js/issues).
-
-The same goes for the library itself. Create an issue if you spotted anything wrong (issues with a failing test are appreciated). 
-
-Pull requests with improvements are super appreciated!
-
-If you liked the library, please give it a [star](https://github.com/caiogondim/fast-memoize.js/stargazers). That's one of the few feedbacks we open source programmers have.
-
-#### References ####
+#### 参考文献 ####
 
 - [JavaScript & Hashtable](https://simplenotions.wordpress.com/2011/07/05/javascript-hashtable/)
 - [Firing up ignition interpreter](http://v8project.blogspot.com.br/2016/08/firing-up-ignition-interpreter.html)
 - [Big-O cheat sheet](http://bigocheatsheet.com/)
 - [GOTO 2015 • Benchmarking JavaScript • Vyacheslav Egorov](https://www.youtube.com/watch?v=g0ek4vV7nEA&amp;t=22s)
 
-Let me know in the comments if you have any questions!
-
+有任何问题，欢迎评论！
 
 ---
 

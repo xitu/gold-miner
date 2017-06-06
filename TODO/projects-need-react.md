@@ -1,107 +1,107 @@
 > * 原文地址：[Which Projects Need React? All Of Them!](https://css-tricks.com/projects-need-react/)
-> * 原文作者：[SACHA GREIF](https://css-tricks.com/author/sachagreif/)
+> * 原文作者：本文已获原作者 [SACHA GREIF](https://css-tricks.com/author/sachagreif/) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
-> * 校对者：
+> * 译者：[sunui](https://github.com/sunui)
+> * 校对者：[LeviDing](https://github.com/leviding)、[Shangbin Yang](https://github.com/rccoder)
 
-# Which Projects Need React? All Of Them! #
+# 哪些项目需要 React？都需要！
 
-When does a project need React? That's the question Chris Coyier addressed in [a recent blog post](https://css-tricks.com/project-need-react/). I'm a big fan of Chris' writing, so I was curious to see what he had to say. 
+项目什么时候需要 React 框架呢？这是 Chris Coyier 在[最近一篇博文](https://github.com/xitu/gold-miner/blob/master/TODO/project-need-react.md)中提出的问题。我是 Chris 博客的粉丝，所以我好奇他要说什么。
 
-In a nutshell, Chris puts forward a series of good and bad reasons why one might want to use React (or other similar modern JavaScript libraries) on a project. Yet while I don't disagree with his arguments, I still find myself coming to a different conclusion. 
+简而言之，Chris 提出了一系列使用 React（或其他类似的当代 JavaScript 库）的优势和劣势。虽然我并不反对他的观点，但我依然发现自己得出了不同的结论。
 
-So today, I'm here to argue that the answer to "When does a project need React?" is not "it depends". It's "**every time**". 
+所以今天我想说的是，对于“项目什么时候需要 React 框架”的答案不是“要看情況”，而是“**任何时候**”。
 
 ![](https://cdn.css-tricks.com/wp-content/uploads/2017/04/tools.jpg)
 
 ### React vs Vue vs Angular vs… ###
 
-First, let's get something out of the way: in his article, Chris picked React as a stand-in for "front-end libraries" in general, and I'll do the same here. Plus, React is what I'm most familiar with from my ongoing work on [VulcanJS](http://vulcanjs.org), a React and GraphQL framework. 
+首先，说点题外话：在他的文章中，Chris 选择 React 作为一般意义上“前端库”的代表，那么我也一样。况且 React 是我维护的仓库 [VulcanJS](http://vulcanjs.org)（一个 React 和 GraphQL 框架）中最熟悉的东西。
 
-That being said, my arguments should apply equally well to any other library that offers the same features as React. 
+话虽如此，我的观点也适用于任何提供 React 相同特性的其他库。
 
-### The Power of the Hammer ###
+### 锤子的力量 ###
 
-> When all you have is a hammer, everything looks like a nail.
+> 如果你手里只有一把锤子， 所有东西看上去都像钉子。
 
-This proverb has long been used to condemn anybody trying to apply a systematic one-size-fits-all approach to every problem. 
+这则谚语长久以来都被用于谴责一刀切看问题的人。
 
-But let's suppose for a moment that you *did* live in a world full of nails (however uncomfortable this might sound), and that your trusty hammer was able to take care of any issues you encounter. 
+但我们假设有一段时间，你的确生活在布满钉子的世界（听起来有点起鸡皮疙瘩），那么你信任的锤子能够解决你遇到的任何问题。
 
-Just consider the benefits of being able to **reuse the same tool every time**:
+想想**每次重复使用相同工具**的好处：
 
-- No time spent on deciding which tool to use. 
-- Less time spent having to learn new tools.
-- More time to get better at wielding your tool of choice. 
+- 无需花时间决定使用哪一个工具。
+- 花更少的时间学习新工具。
+- 拥有更多的时间来更好地挥舞你选择的工具。
 
-So is React that tool? I think it just might be!
+所以 React 会是这种工具吗？我觉得它可能是的！
 
-### The Complexity Spectrum ###
+### 复杂度谱 ###
 
-First, let's address the most common argument against the "React all the things!" approach. I'll quote directly from Chris:
+首先，我们来看看最常见的反对“一切皆 React”的观点。我直接引用 Chris 原话：
 
-> A blog, for example, *probably* has none of the problems and fits none of the scenarios that would make React a good fit. And because it's not a good fit, it's probably a *bad* fit, because it introduces complicated technology and dependencies for something that doesn't call for it.
+> 举个例子，一个博客也许没什么复杂的逻辑，一点也不符合应该使用 React 框架的情况。既然在这种情况下 React 框架不是很合适，那么在这用 React 框架就不是好的选择。因为这么做引入了复杂的技术，依赖了很多根本没用到的东西。
 
-Fair enough. A simple blog doesn't *need* React. After all, even if you need a bit of JavaScript to hook up a newsletter sign-up form, you can just use jQuery. 
+说的很在理。一个简单的博客不**需要** React。毕竟即使你需要一点 Javascript 处理注册表单，你也可以仅仅使用 jQuery。
 
-What's that? You need to use that form in multiple places on different pages? And only show it under certain conditions? And animate it, too? Wait, hold on…
+什么？你需要在不同页面的多个地方使用那个表单？还要只在某些条件下才显示？也要加上动画？等等，打住…
 
-The point I'm trying to make with this little scenario is that complexity is not an all-or-nothing, binary choice. Instead, modern websites live on a continuous spectrum that goes from static page all the way to rich single-page app. 
+我用这个小情景想表达的主旨就是复杂性并不是一个或是或非的问题，现代网站生活在一个连续的频谱上，从静态页面一直到丰富的单页应用。
 
-So maybe your project is comfortably nested at the "simple" end of the spectrum *now*, but what about six months down the road? Isn't it better to pick a technology that leaves you room to grow, rather than one that pigeon-holes you into bad practices?
+所以可能**现在**你的项目正舒服地生活在“简单”的这一头，但这一路下去六个月后呢？与其陷入鸽子洞式的糟糕实践，选择一种留有成长空间的技术岂不更好？
 
-### The Benefits of React ###
+### React 的优势 ###
 
-> Premature optimization is the root of all evil.
+> 过早优化是万恶之源。
 
-Another popular saying among programmers. After all, who needs a hammer and nails when duct tape will do just fine!
+这是程序员中流行的另一则言语。毕竟，当胶带就能做的很好的时候，谁会需要锤子和钉子呢！
 
-But this makes the assumption that "premature optimization" is a long, arduous process with few benefits. And I don't think this applies to React. 
+但这里做了一个假设就是“过早优化”是一个长期的少有成效的艰难过程。并且我觉得这个不适于 React。
 
-While React may take some time getting used to, once you learn [its basic concepts](https://medium.freecodecamp.com/the-5-things-you-need-to-know-to-understand-react-a1dbd5d114a3) you'll be just as productive as with classic front-end tools. 
+虽然 React 需要一些时间来习惯，但一旦了解了其[基本概念](https://medium.freecodecamp.com/the-5-things-you-need-to-know-to-understand-react-a1dbd5d114a3)，您就能像使用传统的前端工具一样快速上手。
 
-Maybe more in fact, because React leverages the extremely powerful concept of **components**. Just like CSS encourages you to think in terms of reusable classes and styles, React pushes you towards a flexible, modular front-end architecture that has benefits for every use case, from the lowly static homepage to the interactive back-end dashboard. 
+事实上，也许更多的是因为 React 使用了非常强大的**组件**概念。就像 CSS 鼓励你考虑可重用的类和样式一样，React 带来了一个灵活的模块化前端架构，从简单的静态主页到交互式后端仪表板，为每一个用例带来好处。
 
-### JavaScript, JavaScript Everywhere ###
+### JavaScript， 随处都是 JavaScript ###
 
-We live in a JavaScript world. Or, as Chris puts it:
+我们生存在 JavaScript 的世界。就像 Chris 所说：
 
-> You got Node.js on the server side. There are loads of projects that yank CSS out of the mix and handle styles through JavaScript. And with React, your HTML is in JavaScript too.
-> 
-> All JavaScript! All hail JavaScript!
+> 你通过 Node.js 构建服务端，也有很多项目可以通过 JavaScript 处理 CSS。现在通过 React 框架，你还可以在 JavaScript 里写 HTML。
+>
+> 万物归于 JavaScript！JavaScript 万岁！
 
-Chris isn't quite convinced, but I am. JavaScript in itself isn't necessarily perfect, but having access to the entire modern NPM ecosystem is amazing. 
+Chris 不是很相信，但我相信。JavaScript 本身并不一定完美，但能够访问整个现代 NPM 生态系统太棒了。
 
-Installing a jQuery plugin used to involve finding its homepage, downloading it, copying it in your project directory, adding a `<script>` tag, and then hopefully remembering to check back every couple months for new versions. These days, installing the same plugin as a React package is just the matter of a single npm install command. 
+过去安装一个 jQuery 插件要找到它的官网，下载下来，拷贝到你的项目目录，加一个 `<script>` 标签，然后期望记得每过几个月检查一下新版本。现在，安装和 React 包同样的插件只是 npm install 命令的问题。
 
-And with new libraries like [styled-components](https://medium.freecodecamp.com/a-5-minute-intro-to-styled-components-41f40eb7cd55), even CSS is now being dragged kicking and screaming into the future.  
+使用像 [styled-components](https://medium.freecodecamp.com/a-5-minute-intro-to-styled-components-41f40eb7cd55) 这样的新库，甚至 CSS 现在也被连带着尖叫着进入未来。
 
-Believe me, once you get used to this world where everything is speaking the same language, it's really hard to go back to the old way of doing things. 
+相信我，一旦你习惯了那种全世界都在说的语言，那就很难再回归到以前的方式了。
 
-### Won't Somebody Please Think of the Users! ###
+### 不会有人想到用户！
 
-I know what you're thinking: so far I've tried to sell you on the benefits of React to developers, but I've carefully side-stepped any mention of the end user experience. 
+我知道你在想什么：目前为止我一直在推销 React 给开发者带来的好处，却小心翼翼的提及终端用户的体验。
 
-And that remains the key argument against modern libraries: slow, JavaScript-bloated sites that take ages just to display a single "one weird trick" ad. 
+并且这仍然是反对使用当代库的关键论点：缓慢臃肿的 JavaScript 站点却只是为了显示单个“奇迹淫巧”的广告。
 
-Except here's a little secret: **you can get all the benefits of React without any JavaScript at all**!
+此外还有一个小秘密：**你可以完全不引用 JavaScript 而获得 React 的所有优势**！
 
-What I'm talking about here is rendering React on **the server**. In fact, tools like [Gatsby](https://github.com/gatsbyjs/gatsby) (and soon, [Next.js](https://github.com/zeit/next.js/)) even let you compile React components into static HTML files that you can host on, say, GitHub pages. 
+我想说的是在**服务端**渲染 React。事实上， 像 [Gatsby](https://github.com/gatsbyjs/gatsby)（还有 [Next.js](https://github.com/zeit/next.js/) 等等）这样的工具可以把你的 React 组建编译进静态 HTML 文件中，这样你可以托管在 GitHub pages 上面。
 
-As an example, [my own personal site](http://sachagreif.com/) is a Gatsby-generated React app that doesn't load any JavaScript at all (beyond a Google Analytics snippet). I get all the benefits of using React in development (all-JavaScript, access to the NPM ecosystem, styled-components, etc.) but end up with a 100% HTML-and-CSS end product. 
+举个例子，[我自己的个人站点](http://sachagreif.com/) 就是一个 Gatsby-generated React 应用，没有加载任何的 JavaScript（除了一个 Google Analytics 片段）。 我在开发中发挥了 React 的所有优势（全 JavaScript，拥抱 NPM 生态，styled-components 等），而最终得到了纯 HTML 和 CSS 的最终产品。
 
-### Wrappi
+### 总结
 
-To recap, here are the four reasons why I think React is a valid choice for *any* project:
+概括一下，这是我认为 React 是**任何**项目的可行选择的四个原因：
 
-- It's really hard to guarantee you'll never *ever* need interactive features like tabs, forms, etc. even for the simplest of site.
-- React's component-based approach has big benefits even for static content-based sites.
-- Access to the modern JavaScript ecosystem is a huge benefit. 
-- Modern server-rendering tools eliminate the downsides of using React for the end user.
+- 即使是最简单的网站，也很难保证你永远不会需要交互功能，如标签、表单等。
+- React 基于组件的方式即使相比于基于内容的静态站，也有巨大的优势。
+- 拥抱现代 JavaScript 生态系统是又一个巨大的优势。
+- 现代服务端渲染工具可以消除终端用户使用 React 的劣势。
 
-So what do you think, Chris? Have I made a convincing case? Or do doubts still linger in your mind?
+所以 Chris，您觉得呢？我的观点否足够令人信服？还是您依然保持怀疑？
 
-And what about you, dear reader? Whether you think like Chris that every tool has its use, or whether you agree with me that the Time of the Hammer is at hand, let us know in the comments!
+那么你呢，亲爱的读者？你觉得像 Chris 所说每一个工具都有它的用处，还是同意我的观点“锤子时间”就在眼前？评论起来让我知道你们的观点吧！
 
 ---
 
