@@ -264,7 +264,7 @@ After executing
 *** Executing task ***
 ```
 
-这明显有问题，异步调用之后不再精确，“Done with execute” 、 “After executing” 出现在了 “\*\*\* Executing task \*\*\*”之前（应该在后）。
+这明显有问题，异步调用之后不再精确，“Done with execute”、“After executing”出现在了“\*\*\*Executing task\*\*\*”之前（应该在后）。
 
 当异步方法结束的时候 emit 一个事件，我们需要把 callback/promise 与事件通信结合起来，刚刚的例子证明了这一点。
 
