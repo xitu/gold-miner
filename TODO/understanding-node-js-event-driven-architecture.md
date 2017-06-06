@@ -386,7 +386,7 @@ withTime.execute(fs.readFile, ''); // BAD CALL
 withTime.execute(fs.readFile, __filename);
 ```
 
-上面代码中调用 excute 会触发一个错误，Node 进程会崩溃然后退出：
+第一个 execute 函数的调用会触发一个错误，Node 进程会崩溃然后退出：
 ```bash
 events.js:163
       throw er; // Unhandled 'error' event
