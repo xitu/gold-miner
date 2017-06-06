@@ -133,7 +133,7 @@ const readFileAsArray = function(file, cb = () => {}) {
 
 当你需要循环异步函数时，使用 Promise 会让你的代码更易阅读，而如果使用回调函数，事情只会变得混乱。
 
-Promise 是一个小小的进步，generator 是更大一些的小进步，但是 async/await 函数的到来，让这一步变得更有力了，它的编码风格让函数的可读性就像同步函数一样轻松。
+Promise 是一个小小的进步，generator 是更大一些的小进步，但是 async/await 函数的到来，让这一步变得更有力了，它的编码风格让异步代码就像同步一样易读。
 
 我们用 async/await 函数特性来改写刚刚的调用 `readFileAsArray` 过程：
 
