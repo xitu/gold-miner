@@ -1,308 +1,308 @@
 > * 原文地址：[How to Go From Hobbyist to Professional Developer](https://medium.freecodecamp.com/how-to-go-from-hobbyist-to-professional-developer-11a8b8a52b5f)
 > * 原文作者：[Ken Rogers](https://medium.freecodecamp.com/@kenrogers)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
-> * 校对者：
+> * 译者：[zaraguo](https://github.com/zaraguo)
+> * 校对者：[SareaYu](https://github.com/sareayu) [DeadLion](https://github.com/deadlion)
 
-# How to Go From Hobbyist to Professional Developer #
+# 如何从一个业余爱好者成长成为专业开发者 #
 
 ![](https://cdn-images-1.medium.com/max/2000/1*LZZ9Sr4XL7j2-LjSJ5uq9Q.jpeg)
 
-A few years ago, I was bouncing back and forth between landscaping jobs and restaurant jobs. I had just left college, and didn’t know what I was going to do with my life.
+几年前，我正处于园林设计工作和餐馆工作两头跑的状态中。那时我刚离开大学校园，不知道未来我将靠什么为生。
 
-I had a lot of ideas, but no direction. During that time, I started teaching myself programming. At first it was a hobby. I thought it was cool to be able to build things using nothing but my brain and some code.
+我有许多想法，却毫无方向。在那段时间里，我开始自学编程。起初这只是一个爱好。我觉得仅靠自己的大脑和代码去创造东西是一件很酷的事。
 
-But then I started thinking about where my life was going, and saw this as a potential living.
+逐渐地我开始思考生活前进的方向，并视以编程为生为一个有可能的生活方式。
 
-At first, I put the idea out of my head. I couldn’t afford real education. I already dropped out of college once because of money, and if I went in for computer science, I’d have to start over.
+一开始，我也只是随便想想而已。我负担不起现代教育的费用。我早就因为钱的原因而辍学了，如果要修计算机科学专业，我必须重新开始。
 
-I’d leave with 6 years of school and well over $50,000 in debt if I took that route. So that wasn’t an option.
+我已经离开大学校园整整六年之久。如果我选择重返校园学习计算机科学还将给我带来超过五万美元的负债。所以这条路行不通。
 
-Then I started thinking that I could teach myself web development well enough to get an internship.
+然后我想到我可以通过自学 Web 开发来获得一份实习工作。
 
-My initial plan was to introduce myself to a few companies in my town, and ask if they would want to meet with me. I wanted to discuss the potential of me working with them while I was in school. That way I could pay for school and get some experience at the same time.
+我最初的计划是向镇上的几家公司推荐我自己，问他们是否愿意和我见面。我想和他们谈论我一边读书一边帮他们打工的可能性。通过这种方式我可以支付我的学费，同时获得一些工作经验。
 
-So I got serious about web development.
+因此我开始认真对待 Web 开发。
 
-Instead of tinkering I started to build a real portfolio and document my skills.
+不是东学一点西学一点而是开始构建一个真实的作品集并记录自己的技能。
 
-I started becoming active on places like Stack Overflow.
+我开始活跃在类似 Stack Overflow 的网站。
 
-I built a few practical applications and put them on GitHub. They were nothing fancy, but they demonstrated that I knew how to code.
+我写了一些实用的程序并将其放在了 GitHub 上。它们没什么特别的，但是它们展现了我的编程能力。
 
-One company didn’t offer me a part time job. They didn’t say to come back after I had my degree. They offered me a full-time job on a 6 month trial basis as their new Junior Developer.
+有家公司拒绝提供我临时工的岗位。也不用我获得学位。他们直接提供了我一个试用期六个月的全职初级工程师的岗位。
 
-I was over the moon. It turns out that once I got serious and started developing with a purpose, I taught myself quite a bit.
+我开心极了。事实证明，认真并带有目的地开始学习编程，让我收获了相当多的知识。
 
-I was able to answer their questions. I was able to walk them through the modest applications I had built. And I was able to explain how my projects worked.
+我有能力回答他们的提问，向他们展示我那微不足道的应用，并解释其工作原理。
 
-I stayed at that company for two and a half years, and then took a job as a web developer for the city I live in.
+我在那家公司工作了两年半，之后在我生活的城市获得了一个 Web 开发的职位。
 
-### View yourself as a lifelong apprentice ###
+## 把自己视为一个终生学习者 ##
 
-An important part of my transition into a professional developer role was viewing the time I spent with my previous company as an apprenticeship. I learned as much as I could.
+我将我在上一家公司工作的经历视为一个学习过程，尽我所能地去学习，这在我成长为一个专业工程师的道路上起到了相当大的作用。
 
-The real-world knowledge gained from working at a company is invaluable. Knowing how to work with clients, coworkers, and within constraints is essential. This is something you can only learn in the field.
+在公司里工作所获得的实践真知是无价的。知道如何与客户、同事相处以及遵守公司制度是十分重要的。而这些你只能从实践中获得。
 
-While I may know more now than I did when I first started that job, I’ll never stop viewing myself as an apprentice. One of the requirements for being a great developer is the desire to continue learning. The minute we see ourselves as having mastered a skill is the minute we stop growing.
+虽然我比刚开始的时候知道的更多，我一直视自己为一个学徒。渴望不断学习是成为一个伟大的开发人员的重要条件。一旦我们觉得我们已经掌握了某个技能，那么我们就会停止成长。
 
-Hemingway said it best:
+海明威曾说过：
 
-> We are all apprentices in a craft where no one ever becomes a master.
+> 我们在工艺上都是学徒，而且从没有人成为大师。
 
-He was talking about writing, but it applies to development as well.
+他这句话说的是写作，但是在程序开发方面也同样适用。
 
-The combination of teaching myself and working for a company has allowed me to learn so much ([I’m even writing a book](http://meteorandreact.com/)). I understand the technical practice of web development, and also how to go from a hobbyist to a professional. It’s a path that anyone can take, regardless of your time or abilities.
+在工作的同时不断自学令我收获颇丰（[我甚至写了本书](http://meteorandreact.com/)）。我了解了关于网站开发的一些实用技术，同时从一个业余爱好者成长为一个专业开发人员。你们也可以做到，无论你们有多少时间和能力。
 
-To give you some perspective, I was working two jobs at once — one of which involved getting up at 4 a.m. to drive a forklift around.
+再和你说件事儿，我曾经同时做两份工作，其中一个需要我早上四点就爬起来开着叉车到处跑。
 
-Learning to code as a busy adult takes determination, drive, and a stubborn persistence.
+作为一个生活忙碌的成年人，想要学习编程需要有决心、动力以及倔强的坚持。
 
-### Making the transition from Hobbyist to Professional ###
+### 从入门到精通
 
-Here’s a process that you can follow. The exact journey will be different for everyone, but there are steps you can take to get you on the right path.
+下面是一个你可以遵循的流程。每个人的学习过程的确会有所不同，但是有一些好的建议有助于你走上正轨。
 
-#### 1. Realize that you can do this ####
+#### 1. 相信自己可以做到 ####
 
-Anyone can teach themselves to be a developer. There’s this idea that being self-taught is something only a certain type of person can do. They’re right in a sense. You need to be self-driven and motivated by something other than immediate payment. But anyone can become this type of person.
+任何人都可以通过自学成为一个开发者。有一种观点是自学只有特定类型的人能做到，这在某种程度上是正确的。你需要自我驱动，而不是被能立即得到回报的动机驱动。但是任何人都可以成为这种类型的人。
 
-There’s this idea present in our society that some people are born with certain traits and others aren’t. It’s detrimental to growth, and one of the reasons why so many people feel unfulfilled in life.
+现代社会存有“天赋不是人人都有”的这种观点。这种观点不利于我们的成长，也是许多人在生活中感到不满的原因之一。
 
-If you always felt that you either “had it” or you didn’t, it would be very easy to get discouraged.
+如果你执着于自己是否有天赋这一点，那么你将很容易沮丧。
 
-I want to put that myth to bed right now. Anyone can learn to be self-motivated and teach themselves programming. Or start a successful business. Or achieve a long-term goal.
+我要立马把这种错误观念抛诸脑后。任何人可以自我驱动并且自学编程。或者开始一个成功的业务，或者实现一个长期目标。
 
-It’s not about catching a big break, or being born with the right traits. It’s about perseverance.
+这无关你是否抓住了一个大机会，或是天赋异禀。持之以恒才是关键。
 
-If you can put your head down, push through the hard times, and commit, you can do anything you want to.
+如果你能够埋头苦干，即使困难的时候也不放弃，坚持不懈，那么没有什么事情是你办不到的。
 
-That last part is super important, but I want to provide a warning before moving on.
+最后一点相当重要，但是我想先给你们提个醒儿再继续。
 
-People are often too quick to embrace their own successes and the successes of others. It’s known as [survivorship bias](https://youarenotsosmart.com/2013/05/23/survivorship-bias/).
+人们总是更倾向于关注自己和他人的成功。这就是著名的[幸存者偏差](https://youarenotsosmart.com/2013/05/23/survivorship-bias/)。
 
-There is an element of luck in everything. Sometimes things just work out. For example, I contacted a web development agency and was lucky enough that they happened to be looking for someone at that moment, and I happened to fit what they were looking for.
+运气的确客观存在。有时候有了它事情会变得相当的顺利。例如，我之前联系过一个 Web 开发的机构，幸运的是他们当时正好在招人并且我恰巧符合他们的要求。
 
-But what is luck?
+但什么是运气呢？
 
-Sure, I was lucky to get that job, but I never would have been lucky if I hadn’t made the decision to teach myself development. And then made the decision to apply to that job.
+当然，我获得那份工作有运气的成分在，但是如果我没有下定决心去自学开发，那么有运气也是没用的。之后我果断地决定去申请这份工作。
 
-Luck does play a factor, but the myth is that it is all up to luck. You can increase your odds of getting lucky, you just have to be willing to put yourself out there.
+运气的确有一定的作用，但是凡事全靠运气却是不对的。要想自己更加好运，你就应该更加投入于你所做的事情。
 
-But luck will never find you if you don’t commit to being great at something.
+但是好运并不会眷顾胸无大志之人。
 
-#### 2. Commit to being incredible at your craft ####
+#### 2. 持之以恒在促成你的作品方面有着难以置信的魔力 ####
 
-One of my biggest weaknesses is that I get bored and distracted. I want to jump into the next project. This tendency will kill your success.
+我最大的缺点之一就是容易感到厌倦和分心。我会不断想要跳过目前的工作进入下一个项目。这种趋势会断送你的成功。
 
-It feels like freedom. Being able to bounce between whatever project happens to suit your mood that day, but...
+根据心情选择项目固然很自由，但是……
 
 ![](https://cdn-images-1.medium.com/max/800/1*ZXYdFihJqlj0-mIlO1-t6g.jpeg)
 
-It’s a trap! If you take away nothing else from this article, let it be this:
+这是一个陷阱！你可以忽视本文的其他观点，但请记住一点：
 
-**The number one key to succeeding in becoming a professional developer is to commit. Commit and never stop until you make it happen.**
+**成为一个专业的程序员最重要的一点就是坚持。持之以恒决不放弃直到作品完成。**
 
-This applies to everything.
+这句话到处适用。
 
-People stress out about which framework to use. But what matters is picking one and sticking with it. You can transfer and learn new languages and frameworks later.
+人们非常在意选择什么框架去使用。但是关键的是选择一个并坚持使用。你可以之后再转去学新的语言和框架。
 
-What matters is the problem solving skills you will gain when developing. The ability to think like a developer.
+重要的是在开发时学会解决问题的技能，并像开发人员一样思考问题。
 
-I taught myself programming using Laravel, but the company that hired me used CakePHP. It didn’t matter. They knew I could pick up the technical skills required to switch frameworks.
+我自学的时候使用的是 Laravel，但是雇佣我的公司使用 CakePHP 来进行开发。没事，他们知道我有切换框架的能力。
 
-Pick a direction and see it through, no matter what. You have to remove the possibility of getting distracted by something else.
+选择一个方向并深挖下去，无论你选择的是什么。同时你需要清除其它的干扰项。
 
-Few feelings can compare to the relentless pursuit of mastery of a craft.
+这种精益求精的过程中有着一种无与伦比的美妙感受。
 
-It isn’t easy. Once you learn to ignore distractions, you will notice an increase in enjoyment of your work.
+它的确不易。但是一旦你学会不分心，你将发觉到工作中持续增长的乐趣。
 
-Mike Rowe is fond of saying that people shouldn’t start with finding their passion.
+Mike Rowe 常说：人们不应该在发现自己的激情后才开始行动。
 
-People are so unhappy because they look for the perfect career. They look for the one that they are passionate about.
+人们郁郁寡欢。执着于寻求一个完美的事业，一个充满激情的事业。
 
-But passion comes from an unstoppable desire to be incredible at your craft. Once you adopt that mindset, your abilities as a developer will take on a new life.
+但是激情来自于对作品持续不断完善的渴望。一旦你养成这个观念，那么你的开发能力将有一个质的飞跃。
 
-#### 3. Start building things immediately ####
+#### 3. 立即开始搭建你的项目 ####
 
-Aspiring developers can get stuck in the trap of reading too much without taking action.
+有抱负的程序员有时候会陷入只看不行动的境地。
 
-Tutorials and books are great for learning the basics. The problem is that they instill a false sense of confidence in the developer.
+教程和书籍对于基础学习的确很有帮助。但问题是它们会给程序员灌输虚假的自信。
 
-Have you ever finished a programming book and gone to build something on your own only to realize you had no idea how to go about doing it? Then you know what I’m talking about.
+如果你曾经看完一本编程书然后动手编程时却发现自己毫无思路，那么你就知道我在说什么了。
 
-The solution to this is simple, but not easy.
+解决方案很简单，但是并不容易。
 
-Start building.
+开始编程。
 
-Make something. Make an app that solves a problem you have in your own life, or that addresses an issue for someone close to you.
+做点什么东西。开发一个应用解决你自己生活中的问题，或者针对于你身边人的某个问题。
 
-Make something for fun.
+做些好玩的东西。
 
-Make something and put it out there. Make it open source and put in on GitHub. You aren’t doing it for anyone else, it’s for you, so don’t worry about other people’s opinion of it.
+做点东西，并且对外展示。把它开源并放在 GitHub 上。你做这些不是为了别人而是为了自己，所以你不需要担心别人对此的看法。
 
-Your code will be ugly at first. I look back at some of the code I wrote even a few months ago and want to vomit. But you can’t learn development without building stuff. Books are fantastic, and I am obsessed with reading as many as possible. Then you must apply that knowledge.
+你的代码一开始会很丑陋。即使我现在看自己一个月前写的代码我都觉得惨不忍睹。但是如果不做点东西你是学不会开发的。书本很棒，我沉迷于看很多很多的书。但是在那之后你必须不断去应用你看到的知识。
 
-You’re going to run into issues and you’re going to struggle. That’s good. Those are the times we learn the most.
+你会遇到很多问题，举步维艰。这很好，这时候我们学到的东西最多。
 
-Start off by building things that solve problems, I’ll talk more about that in step 6 below.
+开始做点小东西来解决问题，这个我会在下面的第六点详细讨论。
 
-#### 4. Set up an online presence ####
+#### 4. 创建一个线上身份 ####
 
-As soon as you start building things, you’ll want to set up an online presence. Your GitHub account will be a great start.
+一旦你开始做点小项目，你会需要创建一个线上的身份。拥有自己的 GitHub 账户是一个不错的开始。
 
-This is where you’ll be able to house the projects you are working on and share them with the world.
+你可以在这里放置你正在着手的项目，并与全世界的人分享。
 
-But you want to go further than this. I recommend setting up your own portfolio site.
+如果你想要的不止如此。那么我推荐你创建一个个人网站。
 
-This site will do a few things:
+这个网站有以下的几个作用：
 
-1. It will serve as a public place to tell potential employers about yourself
-2. It will be another place where you can showcase your work
-3. It will serve as your platform
+1. 它是一个公开向潜在雇主展示你自己的地方
+2. 它是一个可以展示你作品的地方
+3. 它将成为你的舞台
 
-That last one is huge. Once you start building things, you should immediately start writing about them. Start a simple blog where you share what you are working on and teach everything you know.
+最后一点十分重要。一旦你开始做项目，你就应该立即开始记录他们。开始用一个简单的博客去分享你正在做的事情并且传授你所知道的一切。
 
-This is one of the best ways to give potential employers a taste of who you are and what you can do. It’s a way to get your name out there and start building a platform for yourself.
+这是向潜在雇主展示你身份和能力的最好方法之一。它可以让大家看到你，并且过程中你也将构建出属于你自己的平台。
 
-This can lead to job opportunities and the possibility to make more income on the side by writing books or freelancing.
+这可以带来工作机会和在写书或者自由职业方面获得额外收入的可能。
 
-Your site should serve a very specific purpose.
+你的网站应该有明确的目的。
 
-Most people create an online resume, but you should do more. What is your specific goal? Your website should be designed and created around that goal.
+很多人制作在线简历，但是你要做的不止如此。你的目标是什么？你的网站需要围绕这个目标设计和创建。
 
-If you want to get a job working on a certain kind of project or with a certain framework, put that in your site.
+如果你想要一个基于某个特定项目或者框架的工作，你可以将其放在你的网站上。
 
-I recommend having 4 core areas for your site:
+我建议你的网站要有以下四个主要构成部分：
 
-1. Home page
+1. 主页
 
-Your home page is the entry point to your site. It should provide a very brief overview about who you are and what you do. And should direct people to go where is most relevant for them.
+你的主页是你网站的入口点。它应该提供一个非常简要的介绍，关于你是谁，你是做什么的。并指引大家找到他们最感兴趣的内容。
 
-For example, you could have two main buttons. One leading people to your writing section to learn more about web development, and one leading to a hire me page if someone is interested in hiring you.
+比如，你可以有两个主要的按钮。一个引导人们前往你的博客列表去学习一些关于网站开发的知识，另外一个用来引导有意聘用你的人前往你的招聘页面。
 
-2. Writing
+2. 博文
 
-This is where your blog and your tutorials will live. Write as much as you can here, and don’t be afraid to share it.
+这里是放置你的博文以及教程的地方。尽可能多地写一些博文，并且不要害怕去分享他们。
 
-3. About
+3. 关于我
 
-A simple about section that goes into more detail about who you are and what you do. Don’t make this a life story. Again, target this section to be relevant towards what you want to do.
+简单的关于我板块可以展现更多你是谁做什么的细节。不要把它当做你的个人史。再次声明，这一板块核心内容是你想做的事情。
 
-Rather than talk about your personal life, talk about what led you to web development, your journey so far, and where you want to go. Mention some of your favorite projects and link to them.
+不要谈论你的私人生活，而是谈论什么使你成为一个网站开发者，你做过什么，以及未来的规划。谈论一些你喜欢的项目并给出展示链接。
 
-4. Hire Me
+4. 聘请我
 
-An essential part of your site, this is where people will go if they are interested in hiring you as a developer.
+这是你个人网站非常重要的一个部分。这是展现给有意向聘请你的人的板块。
 
-Make sure to find the right balance between selling yourself and being honest. There may be some overlap between this page and your about page, but this page will be more specific about your skills and what you bring to the table.
+找好“包装”和诚实的平衡点。这个页面的内容可能和关于我页面有部分的重叠，但是这个页面将更加明确你的技能以及你可以给公司带来的好处。
 
-This page should also have a contact form so people can get in touch.
+这个页面还需要有你的联系方式以便他人可以联系到你。
 
-In addition to your own site, start offering to write for other major publications. Then you can provide a link back to your site in the bio section.
+除了维护自己的个人网站，你还可以给一些知名出版社写文章。然后在你网站的个人简历板块附上文章链接。
 
-#### 5. Start teaching everything you know ####
+#### 5. 开始传授你会的一切知识 ####
 
-Nathan Barry is a big fan of teaching everything you know. He tells the story of Chris Coyier, founder of CSS Tricks.
+Nathan Barry 是一个酷爱传授知识的家伙。他讲过 CSS Tricks 的创始人 Chris Coyier 的故事。
 
-That site started out as Chris publicly writing about what he was learning so others could follow along. Now it’s one of the biggest web development sites out there.
+这个网站一开始是 Chris 用来公开记录一些他在学习的东西以便他人借鉴。现在它已经是最大的 Web 开发站点之一。
 
-The lesson here is that you don’t have to be the world’s greatest expert to start writing about something and teaching it.
+这个故事告诉我们你不必在成为世界最厉害的专家之后才去写东西和传授东西。
 
-In the online business world, there is this idea of the relative expert. It’s the idea that everyone is an expert in something relative to someone else.
+在网络商业的世界中，有一个相对专家的概念。这个概念是说每个人相对于别人在某一个特定方面都是专家。
 
-I have my issues with this, especially when it is used by someone to justify selling something that maybe they shouldn’t be selling. But it is a useful comparison to make.
+我对此存有疑虑，特别是被用来推销某些不应该被卖出的商品的时候。这只是一个有用的类比。
 
-What bothers me is the use of the word expert. I don’t think there is anything wrong with teaching what you know, and even potentially selling that information if it is valuable to someone else.
+困扰我的是使用专家一词。我不认为传授你知道的东西有什么问题，你甚至可以向需要的人们贩卖这些知识。
 
-But calling yourself an expert may be taking it too far. So when you write your content, approach it honestly.
+但是自称专家好像又言重了。所以当你写东西的时候，请尽量保持内容真实性。
 
-I prefer the term learning in public.
+我更喜欢在公开场合定期学习。
 
-There are many people who got their start by simply being a public learner. They were learning a craft and documenting what they were learning along the way.
+有很多人是从成为一个公开的学习者开始他们的学习的。他们学习手艺同时并记录下来他们学到的东西。
 
-This is the perfect way to approach teaching everything you know. As you learn more and more, you build up your content, and become a better writer in the process. Over time, others in your industry will start to see you as an authority in your space.
+这是传授你所知道的一切的一个很好的方法。随着你学到的东西越来越多，你构建出自己的内容，并在这个期间成为一个更好的书写者。久而久之，你将在你的圈子被其他人视为权威人物。
 
-This will be invaluable both when it comes to finding a job and if you ever want to strike out on your own.
+无论在找工作或是自己单干方面，这都十分的有价值。
 
-#### 6. Build to solve problems ####
+#### 6. 为解决问题而开发 ####
 
-One of the most important aspects of becoming a professional developer is doing everything with a specific intention.
+做事有明确的意图是成为一个专业的程序员最重要的方面之一。
 
-It’s one thing to build random apps for fun, it’s another to build apps and sites that solve specific problems.
+为了乐趣随意开发应用是一回事，为了解决问题去开发应用和网站又是另外一回事。
 
-Web development shops aren’t really in the business of coding, they are in the business of solving problems. The coding is just their preferred tool to make that happen.
+电商本质其实不是程序开发，其本质是关于解决问题。代码只是他们首选的工具而已。
 
-Read any marketing or copywriting book and they will tell you to sell the benefits of your product, not the features.
+任何一本市场营销的书或文案都会告诉你去推销商品的优点而不是特点。
 
-Web developers should market their apps to show how they effectively solve a customer’s problems. And then back up their claims with specific metrics. Customers are generally more responsive to this approach than if the developers talk about the bleeding edge technologies they use.
+Web 开发人员应该通过展示他们如何有效地解决了用户的问题来推销他们的应用。然后用具体的指标来支撑他们的言论。客户通常对这种方式的介绍更感兴趣，而不是听开发者谈论他们使用的尖端技术。
 
-You will be a very attractive prospect for employers if you can demonstrate your programming skills as well as your ability to code with the specific intention of solving problems and making meaningful applications.
+如果你能证明你的编程技能, 并能用代码解决问题和创造有意义的应用, 那么你将非常受雇主欢迎。
 
-Think about benefits vs features when you are communicating with potential employers or clients, and when writing the content for your site.
+当你与潜在雇主或是客户沟通时，以及在为你的网站编写内容时，请进行优势与功能这两方面的思考。
 
-Of course, you should also mention your coding proficiency, but most people spend all their time on this. Mention it briefly so potential employers know what you do. If you have a portfolio of effective applications, your coding skills will mostly speak for themselves.
+当然，你也应该提及你的编程熟练程度，但是大部分人在这个方面花了所有时间。简要地介绍一下好让潜在雇员知道你在做什么就可以了。如果你开发了一系列很有用的程序，那么它们将会为你的编程技能说话。
 
-#### 7. Take on an apprentice mindset ####
+#### 7. 采取学徒心态 ####
 
-The day you think you have mastered something is the day you stop learning.
+你认为你掌握技能的那一天便是你停止学习的一天。
 
-Adopt the mindset of a lifelong apprentice. There is always more to learn and always more to improve on.
+养成终生学习的观念。总是有更多的东西去学习，有更大的空间去进步。
 
-This is especially important in the early stages of your career. If you get a part time job or internship or land a role as a junior developer, you need to immediately get in the mindset of learning and growing as much as possible.
+这在你早期的职业生涯相当重要。如果你兼职或实习或担任初级开发人员，你需要尽可能快速进入学习和成长状态。
 
-You should really be doing this right away, even before you have an actual ‘mentor’.
+你真的应该马上这么做，即使你还没有一个真实的“导师”。
 
-In his book, [The Art of Work](https://www.amazon.com/Art-Work-Proven-Discovering-Meant/dp/0718022076), Jeff Goins talks about the 21st century version of the apprentice-master relationship.
+在[工作的艺术](https://www.amazon.com/Art-Work-Proven-Discovering-Meant/dp/0718022076)这本书中，Jeff Goins 谈论了二十一世纪的师徒关系。
 
-Back in medieval times, the relationship was very formal. A master would take on an apprentice for years, and they would slowly start to master their craft until they reached the title of master, at which point they would take on an apprentice.
+回到中世纪，这种关系非常正式。大师会带一个徒弟多年，直到徒弟慢慢地掌握手艺达到大师的头衔，那时他们就可以收自己的徒弟了。
 
-The relationship has changed, but it is still very important to consider yourself an apprentice. The main difference is that now you have to keep an eye out for potential mentors and learning opportunities, and there will be many throughout your journey.
+虽然这种关系已经发生了改变，但是将自己视为一个学徒仍然十分重要。有所不同是的是现在你需要自己关注潜在的导师和学习机遇，他们遍布你的征途。
 
-In the world of web development, we constantly on the internet, so this can come in various forms.
+在 Web 开发的世界里，我们经常上网，所以学习形式多种多样。
 
-Books, tutorials, courses, forums, and other forms of learning are all valuable. I think, however, the most valuable form of apprenticeship comes from learning from someone who is currently in the position you want to be in.
+书本，教程，课程，专题讨论会以及其他形式的学习都是十分有价值的。但是我觉得最有价值的学习形式是从你想成为的人身上学习。
 
-This is why it is so important to be eager and willing to learn. Getting your first development job is not the end of the journey, it’s the beginning.
+这就是为什么乐意并热切地去学习是这么的重要。得到了你的第一份开发工作不是征途的结束，而只是开始。
 
-That is when you will really start learning and exponentially growing your knowledge.
+当采取了学徒心态你将真正开始学习并且你的知识将呈几何级数地增长。
 
-#### 8. Learn to collaborate ####
+#### 8. 学会合作 ####
 
-One of the biggest differences between coding as a hobby and coding for a living is learning to collaborate with people.
+将编程作为兴趣和以编程为生之间的最大差别就是你需要学会与他人合作。
 
-You’ll need to interact and work with peers, bosses, colleagues, clients, partner companies, and all kinds of personalities throughout your career.
+你需要与同辈、老板、同事、客户、合作公司沟通和合作，并且在你的职业生涯中你会遇到形形色色的人。
 
-Learning how to effectively work with other people is important.
+学会如何与他人有效地合作是十分重要的。
 
-In the field of web development, communication is key. When a company comes in and tells you what they want, and you aren’t clear about exactly what that looks like, it can cause a lot of problems and headaches in the future.
+在 Web 开发领域，沟通是关键。当一个公司向你们表达自己所需时，如果你对他们所表述的东西不清楚，那么会给未来的工作带来很多头疼的问题。
 
-Likewise, if you can’t communicate with the people you work with, your work will suffer and you won’t be able to do your job as well.
+同样的，如果你不能与同你一起工作的人们良好地沟通，你的工作也将遭遇很多问题并无法完成。
 
-While you’re still learning, there are a few great ways to do this.
+如果你还在学习的话，我这里倒是有几个不错的建议可以给你。
 
-Part of this will come when you start teaching everything you know. People will interact with you, sometimes negatively, and you’ll learn how to deal with those situations.
+当你开始传授你所知道的知识时可能就会遇到这些问题。人们将与你进行交互，有时候这些交互是负面的，你需要学会如何去处理这种情况。
 
-I also highly recommend contributing to open source projects. This gives you a taste of what it is like to collaborate on a project where different people may have different ideas on the best way to do things.
+我还十分推荐大家去给开源项目做贡献。你将收获在一个项目中与带有不同观点的人们合作的体验。
 
-Contributing to open source projects can be intimidating, but it will do wonders for your development career.
+参与开源项目的确是一件令人胆怯的事情，但是它会给你的开发生涯创造奇迹。
 
-[Check out this site to get started.](http://www.firsttimersonly.com/)
+[看看这个网站然后开始](http://www.firsttimersonly.com/)
 
-### Get out there and make a living ###
+### 动身去以此谋生 ###
 
-Being a web developer is hard. It means a life of non-stop learning and adapting to new technologies. It’s one of those careers where you need to be well-versed in not only technology, but business and communication as well.
+成为一个 Web 开发者是困难的。意味着你的一生需要永不止步地学习和不断接受新的事物。它是一个不仅需要精通技术还需要了解业务和沟通的职业。
 
-It’s an extremely rewarding path. You get to make things that solve people’s problems and make their lives easier, while making a fantastic living at the same time.
+成为一个 Web 开发者还是一条非常有利的道路。你将制造产品来解决人们的问题，使他们的生活更加便利，同时你将拥有非常棒的生计。
 
-There are countless resources to help you learn to code, [many of them completely free](http://freecodecamp.com/), but there seems to be a lack of resources helping people make that transition into professional developer.
+帮助你去学习编程的资源有很多，[他们大多数还是完全免费的](http://freecodecamp.com/)，但是帮助人们转变成为专业的开发人员的资料却很少。
 
-I hope this short guide provided a good road map for you to get started becoming a professional developer.
+我希望这个简短的指导可以为你指明一条好的道路以帮助你成为一个专业的开发者。
 
-Remember, nothing will happen unless you take action. Build a simple portfolio website, email a few potential employers, write some posts on Medium. Just start doing something.
+记住，如果你不采取行动什么都不会发生。搭建一个简单的个人站点，给一些潜在的雇主发邮件，在 Medium 上发表一些文章。反正就是要开始有所行动。
 
-The more you put yourself out there, and the more you do, the sooner you’ll make the shift from amateur to professional.
+你越展示自己，做得越多，那么你将越快从业余爱好者成长成为一位专业人士。
 
-I’m considering running a live workshop teaching developers how they can make the transition from hobbyist to professional. If that sounds like something you’d enjoy. You can enter your email below to let me know you’re interested and be the first to hear about it.
+我正在考虑开设一个在线研讨班教开发者如何从业余爱好者成长成为专业人士。如果你对此有兴趣，可以在下方留下你的邮箱地址让我知道并且我将为你们提供第一手资料。
 
 ---
 
