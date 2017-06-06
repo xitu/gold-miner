@@ -218,7 +218,7 @@ withLog.on('end', () => console.log('Done with execute'));
 withLog.execute(() => console.log('*** Executing task ***'));
 ```
 
-WithLog 类是一个 event emitter。它有一个 excute 方法，接收一个 taskFunc 任务函数作为参数，并将此函数的执行包含在 log 语句之中，分别在开始和结束的时候调用了 emit 方法。
+WithLog 类是一个 event emitter。它有一个 excute 方法，接收一个 taskFunc 任务函数作为参数，并将此函数的执行包含在 log 语句之中，分别执行之前和之后调用了 emit 方法。
 
 执行结果如下：
 
