@@ -232,11 +232,11 @@ After executing
 
 需要我们注意的是所有的输出 log 都是同步的，在代码里没有任何异步操作。
 
-* 第一步 “Before executing”
-* 命名为 begin 的事件 emit 输出了 “About to execute”
-* 内含方法的执行输出了“\*\*\* Executing task \*\*\*”
-* 另一个命名事件输出“Done with execute”
-* 最后“After executing”
+* 第一步 “Before executing”；
+* 命名为 begin 的事件 emit 输出了 “About to execute”；
+* 内含方法的执行输出了“\*\*\* Executing task \*\*\*”；
+* 另一个命名事件输出“Done with execute”；
+* 最后“After executing”。
 
 如同之前的 callback，events 并不意味着同步或者异步。
 
