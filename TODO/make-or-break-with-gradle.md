@@ -1,81 +1,81 @@
 > * 原文地址：[Make or break… with Gradle](https://medium.com/contentsquare-engineering-blog/make-or-break-with-gradle-dac2e858868d)
 > * 原文作者：[Tancho Markovik](https://medium.com/@smarkovik)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
-> * 校对者：
+> * 译者：[jacksonke](https://github.com/jacksonke)
+> * 校对者：[phxnirvana](https://github.com/phxnirvana) [stormrabbit](https://github.com/stormrabbit)
 
-# Make or break… with Gradle #
+# 使用 Gradle 做构建检查 #
 
-Have you ever heard of the phrase, ***Legacy Code***?
-Have you ever considered you may be producing Legacy code in real time?
+你是否听过这个词, 垃圾代码（**Legacy Code**）? 
+你是否考虑过在实际工作中，你也会制造垃圾代码？
 
-The feeling is horrible, right?
+那感觉挺可怕的，对吧？
 
-But is it true, is your code “Legacy” ?
-I asked myself this question, and decided to do some research on the subject. I tried to figure out how one applies the adjective “Legacy” to code?
-While searching, I found this definition:
+但这是真的吗？你的代码会是垃圾代码吗？
+我会问自己这个问题，最后决定对这个课题做一些研究。我尝试去弄清楚开发者是如何定义垃圾代码的。
+在我搜索的时候，我发现这么个定义：
 
-> “ There is a common, false perception that legacy code is old. Although some software developers look at legacy code as a poorly written program, legacy code actually describes a code base that is no longer engineered but continually patched. Over time, an unlimited number of modifications may be made to a code base based on customer demand, causing what was originally well-written code to evolve into a complex monster. A software developer will recognize legacy code when a feature cannot be added without breaking other logic or features. At this point, the developers may begin lobbying for a new system.”
+> “有一种常见的误区，认为垃圾代码就是旧代码。虽然一些软件开发人员将垃圾代码视为一个写得不好的程序，但实际上，垃圾代码其实是开发者不再精心设计，而疲于不断修补的代码。客户的需求一直在变化，代码也要跟着变动，久而久之，无休止的变动会让最初编写好的代码演变成一个复杂的怪物。当不破坏原有的逻辑或者功能就无法添加新特性时，开发者就会将这种代码视作垃圾代码。这个时候，开发人员可能会开始尝试新的系统。”
 
-Sounds familiar?
-So how do we fix this?
+听起来是否很熟悉？
+那么，我们要如何解决这种问题呢？
 
-I’ve worked on Android a lot recently, so I will relate the discussion to this platform. I recently joined ContentSquare, and I was lucky enough have the ability to directly affect both Mobile platforms.
+最近我多数工作都是基于 Android 平台的，所以我接下去的讨论都会基于这个平台。我加入 ContentSquare 一段时间了，我很幸运能够直接影响两个移动平台。
 
-“*I will learn from my mistakes and never allow anyone to do them again!*”
+“**我会从所犯的错误中汲取教训，同时不让其他人再一次犯同样的错误！**”
 
-I started looking into the tools of the trade, and also what I want to do, and eventually implement the same safety net on both platforms.
+我开始研究相关工具，最终我想做的是在两个平台上实施相同的安全策略。
 
-So I started writing requirements for my safety net:
+所以，我开始为我的安全策略定了些要求：
 
-- apply code style checks
-- add code analyzers
-- add specific pattern detectors
-- require continuous code documentation
-- perform continuous discovery of new issues
-- stop the bleed
+- 检测代码风格
+- 增加代码分析器
+- 添加特定的模式匹配，来查找代码
+- 能持续性地产生文档
+- 开发过程中，能够持续的发现问题
+- 预防代码漏洞
 
-### Git and friends ###
+### Git 及其它相关小工具 ###
 
-Were equipped with all the usual tools. We use GitHub, and we have a Jenkins server which runs our builds. Our usual process uses the feature branch approach. 
-This means our branch process by default looks like this:
+（我们）配备了所有常用的工具。我们使用 GitHub，我们有一个运行我们的构建的 Jenkins 服务器。通常，我们使用特征分支方法。
+这意味着，默认情况下，我们的分支如下所示：
 
 ![](https://cdn-images-1.medium.com/max/1000/1*iHPPa72N11sBI_JSDEGxEA.png)
 
-Git feature branching model. Image courtesy of github.com
+Git 特征分支模型。图片由 github.com 提供
 
-What we also decided, is to disable direct commits to master, meaning we only can push code to master through a branch merge with a pull request. 
-Doing this on GitHub is super easy. Just go to your repo settings, and select protect this branch.
+我们还决定，禁用直接提交代码到 master 分支，这意味着提交代码到 master 分支，只能通过发起 pull request 来合并分支。
+在 GitHub 上，这样是超级容易实现的。只需要在你的代码库设置中，勾选保护这个分支。
 
 ![](https://cdn-images-1.medium.com/max/800/1*mMx46zrf2rs-mWVM_gvrnQ.png)
 
-Setting up branch protection on GitHub
+在 GitHub 上设置分支保护
 
-What we just did is disallow anyone to commit and push directly to master.
-From now on we have to go through a pull request which will be reviewed by at least one person.
+以上介绍的是如何禁止开发者直接将代码提交到 master 分支。
+从现在开始，只有通过提交 pull request 才能进行修改。这意味着，至少有一个人会审核你的代码。
 
-This helps on two fronts:
+这有两个好处：
 
-1. With the pull request, we notify everyone of the change, allowing them to know the development of the code by review.
-2. Using the peer reviews we get to reduce the amount of bugs as people notice when someone is taking a shortcut.
+1. 通过 pull 请求，我们会给关注的人发送代码变动的通知，他们能够通过审核代码来知悉代码的变动情况。
+2. 采用彼此间的审核，我们可以减少错误的数量。当有人试图取巧而犯错的时候，其他人会注意到的。
 
-For the time being, our build loop is very simple.
+目前，我们的构建循环非常简单。
 
 ```
 ./gradlew check // run unit tests 
 ./gradlew assemble // assemble all build flavors
 ```
 
-OK, now off to finding the tools we’re going to use.
+现在开始介绍我们需要用到的工具。
 
-As a requirement, we decided to only use tools which integrate through gradle. This would allow us to have completely seamless integration.
+作为要求，我们决定只使用通过 gradle 整合的工具。这将使我们能够完全无缝集成。
 
 ### [Lint](https://developer.android.com/studio/write/lint.html) ###
 
-As lint is a common tool I will not go into details about it, instead I will just show you how to enable it.
+由于 lint 是一个常见的工具，这里不会详细介绍它，只会向您展示如何启用它。
 
-Lint is a part of the android plugin, but by default it’s not configured on new projects.
-To enable it, add the following block to the ***android*** section of the ***build.gradle*** file.
+Lint 是 Android 插件的一部分，但默认情况下，它没有在新项目中配置。
+要启用它，可以将下面的代码段添加到 **build.gradle** 文件中的 **android** 代码段内。
 
 ```
 lintOptions {
@@ -89,16 +89,16 @@ lintOptions {
 }
 ```
 
-In the above segment, the things to note are :
+上面的代码段中，需要注意的是：
 
-1. warningsAsErrors = true — Consider all warnings as errors
-2. abortOnError = true — break the build on any Lint error
-3. lintConfig — A file which provides input for lint, with definitions per rule
+1. warningsAsErrors = true — 将所有的警告当成错误处理
+2. abortOnError = true — 发生 Lint 错误时，终止编译
+3. lintConfig — 定义 Lint 规则的配置文件
 
-Ok, so now that we have lint done, we need to actually run it somehow.
+现在我们已经配置过 lint，是时候动手运行看看。
 
-Gradle’s android plugin has a quite a few pre-defined tasks, which you can get a complete listing of by using the option *tasks*. 
-As the listing is huge, here’s an excerpt of it showing the verification tasks:
+Gradle 的 Android 插件有不少预定义的 tasks，你可以使用 **tasks** 选项罗列出所有的 tasks。
+输出的日志数量巨大，下面是其中验证任务的片段：
 
 ```
 $ ./**gradlew****tasks**
@@ -133,29 +133,29 @@ testReleaseUnitTest - Run unit tests for the release build.
 ... etc ...
 ```
 
-I like *check* which is described simply as “runs all checks”.
+我喜欢用 **check**，它是这样描述的 “运行所有检查 （runs all checks）”。
 
-By default check calls the appropriate check tasks on all available modules. This means, by running :
+默认情况下， check 会调用所有可用的模块工程对应的 check 任务，这意味着，运行：
 
 ```
 ./gradlewcheck
 ```
 
-You will run the check task on all submodules. And this task runs :
+会执行所有子模块工程的 check 任务，包括：
 
-- all unit tests for debug/release flavor
-- all UI tests for debug/release flavor
+- debug/release 所有的单元测试
+- debug/release 所有的 UI 测试
 - Lint
 
-For this moment this is all we need, and due to it’s nature, we will link all future checks to this task.
+这些特性正是我们现在所需要的，后面介绍的特性都会与这个 check 任务关联。
 
-### Code Analysis ###
+### 代码分析 ###
 
-So, next I was reading up on [PMD](https://github.com/smarkovik/make-or-break/blob/master/config/codequality-pmd.gradle), [Findbugs](https://github.com/smarkovik/make-or-break/blob/master/config/codequality-findbugs.gradle) and discovered Facebook’s [Infer](https://github.com/smarkovik/make-or-break/blob/master/config/codequality-infer.gradle).
+所以, 接下来，我阅读了 [PMD](https://github.com/smarkovik/make-or-break/blob/master/config/codequality-pmd.gradle), [Findbugs](https://github.com/smarkovik/make-or-break/blob/master/config/codequality-findbugs.gradle) 同时发现了 Facebook 的 [Infer](https://github.com/smarkovik/make-or-break/blob/master/config/codequality-infer.gradle).
 
-**PMD** is a source code analyzer. It finds common programming flaws like unused variables, empty catch blocks, unnecessary object creation, and so forth. PMD works on source code and therefore finds problems like: violation of naming conventions, lack of curly braces, misplaced null check, long parameter list, unnecessary constructor, missing break in switch, etc. PMD also tells you about the Cyclomatic complexity of your code which I find very helpful.
+**PMD** 是一个代码分析工具. 它能发现常见的编程缺陷，如未使用的变量，空的 catch 块，不必要的对象创建等等。 PMD 工作在源代码层，因此会发现以下问题：违反命名规则，缺少花括号，错误的 null 检查，长参数列表，不必要的构造函数，switch 中缺少 break 等。PMD还会告诉您代码的循环复杂性，这我觉得非常有帮助。
 
-To add PMD as an analyzer, we have to append to the build.gradle file. We can add the following definitions
+为了添加 PMD 作为分析器，我们需要在 build.gradle 文件中追加一些内容。我们可以添加下面的代码段
 
 ```
 apply plugin: 'pmd'
@@ -183,13 +183,13 @@ task pmd(type: Pmd, dependsOn: "assembleDebug") {
 }
 ```
 
-In this script, the interesting things to note are :
+在这个脚本中，值得注意的有趣的点是：
 
-1. check.dependsOn ‘pmd’ — this line links the PMD task with check. Which means, when we call gradle check, it will call pmd as a dependency task. This way, the team can get used to just calling gradle check and know all relevant checks are done through this task.
-2. ruleSetFiles — defines the set of rules and specifics which are to be used in this installation.
-3. reports block — defines all the requirements in terms of what to scan, what to ignore, and where to report.
+1. check.dependsOn ‘pmd’ — 这行将 PMD 和 check 任务关联起来了。 这意味着，当我们调用 gradle check 的同时, pmd 作为依赖任务也会被一同调用。 这样, 团队可以习惯于调用 gradle check，所有相关的检查也同时进行。
+2. ruleSetFiles — 定义将在此构建中使用的一组规则和细节。
+3. reports block — 指定要扫描的内容，要忽略的内容以及要报告的位置。
 
-**FindBugs** is an analyzer which detects possible bugs in Java programs. Potential errors are classified in four ranks: (i) scariest, (ii) scary, (iii) troubling and (iv) of concern. This is a hint to the developer about their possible impact or severity. FindBugs operates on Java bytecode, rather than source code.
+**FindBugs** 是一个检查 Java 代码中潜在 bugs 的工具. 潜在错误分为四个等级: (i) 最严重的 (scariest)， (ii) 严重的 （scary）， (iii) 麻烦的 (troubling) 和 (iv) 关心的 (concerned)。它会给开发者关于代码中可能存在的问题的严重性给予提示。 FindBugs 工作于字节码层面, 而非源码层面。
 
 ```
 apply plugin: 'findbugs'
@@ -219,16 +219,17 @@ task findbugs(type: FindBugs, dependsOn: "assembleDebug") {
 }
 ```
 
-Things to note in this configuration are:
+这个配置中需要关注的点是：
 
-1. check.dependsOn ‘findbugs’ — same as before, we link it to check
-2. ignoreFailures = false — defines whether any discoveries are used as warnings or errors.
-3. reportLevel = “max” — It specifies the confidence/priority threshold for reporting issues. If set to “low”, confidence is not used to filter bugs. If set to “medium” (the default), low confidence issues are suppressed. If set to “high”, only high confidence bugs are reported
-4. effort — Set the analysis effort level. Enable analyses which increase precision and find more bugs, but which may require more memory and take more time to complete.
-5. reports = the location where the reports will be saved.
+1. check.dependsOn ‘findbugs’ — 跟之前一样，我们将它和 check 任务关联。
+2. ignoreFailures = false — 定义发现的问题是要归类为警告还是错误。
+3. reportLevel = “max” — 指定报错的阈值. 如果设置为 “low”， 则不需要过滤所发现的问题。 如果设置为 “medium” (默认值)， 低优先级的问题就会直接被滤掉。 如果设置为 “high”， 只有严重的问题才会被提出。
+4. effort —-- 设置分析的等级. 启用分析，增加精度并发现更多错误，但可能需要更多内存并花费更多时间来完成。
+5. reports = 报告生成的位置
 
-**Infer** is a static analysis tool for Java, Objective-C and C. What was nice about infer is the fact it double checks all `@Nullable` vs `@NonNull` annotated variables and has some Android specific checks which were of interest. Infer is a standalone tool, which means that by default it doesn’t integrate with Gradle, however, good guy Uber developed a [Gradle plugin for Infer](https://github.com/uber-common/infer-plugin/) .
-To add this analyzer to our build process, we again add to Gradle.
+**Infer** 是针对 Java， Objective-C 和 C 的静态分析工具。 infer 的优点在于它的双重检测所有的`@Nullable` vs `@NonNull` 注解的变量， 同时对于 Android，它有一些针对性的检测。 Infer 是个独立的工具， 这意味着默认情况下，它不需要集成到 Gradle 中， 但是 Uber 的小伙伴开发了 [Gradle plugin for Infer](https://github.com/uber-common/infer-plugin/) .
+为了在构建过程中加入这个分析器，我们还是将它加入 Gradle 中。
+
 
 ```
 apply plugin: 'com.uber.infer.android'
@@ -246,10 +247,10 @@ inferPlugin {
 }
 ```
 
-Adding this plugin is quite straightforward, we only define the sources which are to be included and excluded from the check.
+添加这个插件是相对直接的，只需要定义哪些源文件需要检测，哪些不需要检测。
 
-Now that we have some analyzers, call ./***gradlew check*** and see what happens. 
-Within the huge log, you will see something similar to the following
+既然我们已经有了一些分析器，调用 ./**gradlew check** 然后查看会发生什么。
+在大量的日志中，你会看到类似于下面的内容
 
 ```
 :mylibrary:inferCheckForCommand
@@ -283,20 +284,19 @@ Ran lint on variant debug: 0 issues found
 :mylibrary:pmd
 ```
 
-However defining the code style was a pain!
+但是定义代码风格是件痛苦的事情！
 
-Google to the rescue! Google actually provides it’s [code style](http://checkstyle.sourceforge.net/reports/google-java-style-20170228.html) publicly. And as it was already pretty close to the IntelliJ Idea defaults,
-I just modified the “code formatting template” in studio and within 10–15 mins,[ I was all set](https://github.com/smarkovik/make-or-break/tree/master/config/codestyle).
+Google 又救场了! Google 实际上有对外公开了它的[代码风格](http://checkstyle.sourceforge.net/reports/google-java-style-20170228.html)。 因为实际上和 IntelliJ Idea 默认风格很类似，我仅仅修改了 Android studio 的“代码格式模板”，只需花费 10–15 分钟，[ 我就设置完了](https://github.com/smarkovik/make-or-break/tree/master/config/codestyle).
 
-***ProTip*** *: if you want to constantly auto format your code, IntelliJ has you covered. You can easily record a macro, which will, rearrange code, re-order imports, remove unused imports, as well as do any other style related operations. When done put a “save all” at the end. Next, store the macro and assign it to ctrl+s. These settings, can be shared to the team, and it automagically works for everyone.*
+**专业提示** **: 如果您想不断自动格式化您的代码，IntelliJ 已经为你提供了。 您可以轻松地录制宏，它能够重新排列代码，重新给 imports 排序，移除未使用的 imports，以及执行其他与代码风格相关操作。当结束的时候，在末尾加上 “save all” 。 接下去, 用 ctrl + s 保存宏定义。 这些设置可以分享到团队内, 它会自动为每个人工作。**
 
-### Generating documentation ###
+### 生成文档 ###
 
-Quite straight forward for java, we need to generate a Javadoc.
+对于 java 来说很直接，我们需要生成 Javadoc。
 
-**Step1**: Require a JavaDoc comment on all public methods, through Checkstyle, already done in the default rules.
+**步骤 1**: 需要给所有公共方法添加 JavaDoc 注释，这些注释得遵守一定的规则，并通过 Checkstyle 检测。
 
-**Step2**: implement the Gradle JavaDoc plugin
+**步骤 2**: 采用 Gradle JavaDoc 插件
 
 ```
 task javadoc(type: Javadoc) {
@@ -320,11 +320,11 @@ afterEvaluate {
 
 ```
 
-Now, if you call *./gradlew javadoc* in your output folder, `build/reports/javadoc` you will find the complete javadoc for your project
+现在, 如果在输出目录执行 *./gradlew javadoc* ，在 `build/reports/javadoc` 目录中，你能够找到工程的完整 javadoc 文档
 
-### Code coverage reports ###
+### 代码覆盖率报告 ###
 
-For this task we’ll use Jacoco, a java standard.
+这里我们会使用 Jacoco, 一个标准 java 插件。
 
 ```
 apply plugin: 'jacoco'
@@ -359,9 +359,9 @@ task coverage(type: JacocoReport, dependsOn: "testDebugUnitTest") {
 }
 ```
 
-So, similarly by calling ./*gradlew* coverage in `build/reports/coverage` you would get a very nice coverage report page.
+这样, 类似地，执行 ./**gradlew** coverage 你可以在 `build/reports/coverage` 找到代码覆盖率报告。
 
-An important thing, in order to reduce code smell, was to break if developers forget code, used for debug purposes or comment out code in hopes of future use.
+值得注意的是，为了减少代码错误（code smell），当开发者忘了删除所添加的调试代码、或者是注释掉将来才会使用的代码的时候，应该终止编译。
 
 ```
 e.printStacktrace();
@@ -374,7 +374,7 @@ System.out.println();
 //}
 ```
 
-There is a quick fix for this, just add these rules to your checkstyle rules set.
+这里有个简单的解决方式, 只需要将下面的规则添加到 checkstyle 规则集中。
 
 ```
 <module name="Regexp">
@@ -395,7 +395,7 @@ There is a quick fix for this, just add these rules to your checkstyle rules set
 </module>
 ```
 
-At the end, our build loop has two extra lines:
+最后，我们的构建过程还有额外的两行：
 
 ```
 ./gradlew check // run unit tests
@@ -404,41 +404,41 @@ At the end, our build loop has two extra lines:
 ./gradlew assemble // assemble all build flavors
 ```
 
-So now that we have our checks in place, at last we need to set Github to disallow branch merges unless our Jenkins build passes. 
-This is quite easy with the Github plugin. You can just add a post build step, and run it once to have it available on Github
+到这里，我们在必要的地方都已经加了检测校验。在最后我们还需要设置 Github，除非通过了 Jenkins 编译，否则不许分支合并。
+使用 Github 插件，这会是相当容易的。你可以添加一个编译步骤，运行一次，让它可以在 Github 上使用。
 
 ![](https://cdn-images-1.medium.com/max/800/1*3udc8DO-_c9DaWQcnjcq0w.png)
 
-Adding a Jenkins build step
+添加 Jenkins 编译步骤
 
-and add the corresponding status as a requirement on Github
+在 Github 上修改相应的状态要求
 
 ![](https://cdn-images-1.medium.com/max/800/1*DBfAZ5j0l47TLBhXmmUbOA.png)
 
-Setting up a status requirement in GitHub
+在 Github 上设置状态要求
 
-And now, once a build finishes, if you have a PR that does not conform to the rules put in place, Jenkins fails the build and by this Github blocks the merge! \o/
+一旦编译完成，如果你的 PR 不符合我们设置的规则， Jenkins 编译算是失败的，这时，Github 会阻止分支合并。
 
 ![](https://cdn-images-1.medium.com/max/800/1*uPCb2nWdnm9IdnszVeiV8Q.png)
 
-Github blocks merges if Jenkins fails to build a plan
+当 Jenkins 编译失败时，Github 阻止分支合并
 
-### Summary ###
+### 总结 ###
 
-You now have a mechanism which runs :
+你现在拥有包含如下规则的机制：
 
-- Code style checks ✓
-- Static code analysis (Android specific and Java related) ✓
-- Bad practice pattern detectors ✓
-- Continuous documentation through JavaDoc ✓
-- Continuous discovery through the Jenkins loop ✓
-- Stopping the bleed through the master branch protection ✓
+- 代码风格检测 ✓
+- 静态代码分析 (Android specific and Java related) ✓
+- 使用模式匹配，检测不良代码 ✓
+- 使用 JavaDoc 生成可持续，可维护的文档 ✓
+- 使用 Jenkins 来不断发现问题 ✓
+- 保护 master 分支 ✓
 
-Nice, now all you’re left to do is focus on the architecture of the code and continue improving your system.
+棒极了，剩下要做的就是集中精力优化代码的体系结构以及持续优化整个系统。
 
-A sample code project implementing most of the above can be found on my github repo, [https://github.com/smarkovik/make-or-break](https://github.com/smarkovik/make-or-break).
+我的 [github 项目](https://github.com/smarkovik/make-or-break)提供了一个样例，包含了上面提到的多数特性。
 
-Oh, and if you’re in Paris and interested, look us up.. [http://www.welcometothejungle.co/companies/contentsquare](http://www.welcometothejungle.co/companies/contentsquare).
+如果你也在巴黎，如果你有兴致，你可以来我们这里看看。[http://www.welcometothejungle.co/companies/contentsquare](http://www.welcometothejungle.co/companies/contentsquare).
 
 ---
 
