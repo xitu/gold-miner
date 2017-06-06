@@ -154,7 +154,7 @@ countOdd();
 
 首先我们创建了一个 `async` 函数，只是在定义 function 的时候前面加了 `async` 关键字。在 `async` 函数里，使用关键字 `await` 使 `readFileAsArray` 函数好像返回普通变量一样，这之后的编码也好像 `readFileAsArray` 是同步方法一样。
 
-`async` 函数的执行过程是非常易读的，而处理错误只需要使用 `try/catch` 即可。
+`async` 函数的执行过程是非常易读的，而处理错误只需要在异步调用外面包上一层 `try/catch` 即可。
 
 在 `async/await` 函数中我们我们不需要使用任何特殊 API（像: `.then` 、 `.catch`\），我们仅仅使用了特殊关键字，并使用普通 JavaScript 编码即可。
 
@@ -412,7 +412,7 @@ withTime.on('error', (err) => {
 execute: 4.276ms
 ```
 
-记住：Node目前的表现和Promise不同 ：只是输出警告，但最终会改变：
+记住：Node.js 目前的表现和 Promise 不同 ：只是输出警告，但最终会改变：
 
 ```bash
 UnhandledPromiseRejectionWarning: Unhandled promise rejection (rejection id: 1): Error: ENOENT: no such file or directory, open ''
