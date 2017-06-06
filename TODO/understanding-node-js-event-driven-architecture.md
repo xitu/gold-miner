@@ -102,7 +102,7 @@ readFileAsArray('./numbers.txt')
   .catch(console.error);
 ```
 
-作为调用 callback 的替代品，我们用 `.then` 函数来接受主方法的返回值；`.then` 中我们可以和之前在回调函数中一样处理数据，但是对于错误我们用`.catch`函数来处理。
+作为调用 callback 的替代品，我们用 `.then` 函数来接受主方法的返回值，`.then` 中我们可以和之前在回调函数中一样处理数据，但是对于错误我们用`.catch`函数来处理。
 
 现代 JavaScript 中的 Promise 对象，使主函数支持 Promise 接口变得更加容易。我们把刚刚的 `readFileAsArray` 方法用改写一下以支持 Promise：
 
@@ -395,7 +395,7 @@ Error: ENOENT: no such file or directory, open ''
 
 ```
 
-第二个执行调用将受到之前崩溃的影响，可能并不会执行。
+第二个 excute 函数调用将受到之前崩溃的影响，可能并不会执行。
 
 如果我们注册一个监听函数来处理 `error` 对象，情况就不一样了：
 
