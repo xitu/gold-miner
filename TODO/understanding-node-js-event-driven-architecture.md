@@ -104,7 +104,7 @@ readFileAsArray('./numbers.txt')
 
 作为调用 callback 的替代品，我们用 `.then` 函数来接受主方法的返回值；`.then` 中我们可以和之前在回调函数中一样处理数据，但是对于错误我们用`.catch`函数来处理。
 
-现代 JavaScript 中的 Promise 对象，使主函数支持 Promise 接口变得更加容易。我们把刚刚的 `readFileAsArray` 方法用 Promise 来改写一下：
+现代 JavaScript 中的 Promise 对象，使主函数支持 Promise 接口变得更加容易。我们把刚刚的 `readFileAsArray` 方法用改写一下以支持 Promise：
 
 ```js
 const readFileAsArray = function(file, cb = () => {}) {
