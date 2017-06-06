@@ -20,7 +20,7 @@
 
 以前没有原生的 promise、async/await 特性支持，Node 最原始的处理异步的方式是使用 callback。
 
-callback 函数从本质上讲就是作为参数传递给其他函数的函数，在JS中这是可能的，因为函数是一等公民。
+callback 函数从本质上讲就是作为参数传递给其他函数的函数，在 JS 中这是可能的，因为函数是一等公民。
 
 callback 函数并不一定异步调用，这一点非常重要。在函数中，我们可以根据需要同步/异步调用 callback。
 
@@ -123,11 +123,11 @@ const readFileAsArray = function(file, cb = () => {}) {
 };
 ```
 
-现在这个函数返回了一个 Promise 对象，该对象包含 `fs.readFile` 的异步调用，Promise 对象暴露了两个参数：resolve 函数和 reject 函数。
+现在这个函数返回了一个 Promise 对象，该对象包含 `fs.readFile` 的异步调用，Promise 对象暴露了两个参数：`resolve` 函数和 `reject` 函数。
 
-reject 函数的作用就和我们之前 callback 中处理错误是一样的，而 resolve 函数也就和我们正常处理返回值是一样的。
+`reject` 函数的作用就和我们之前 callback 中处理错误是一样的，而 `resolve` 函数也就和我们正常处理返回值是一样的。
 
-我们剩下唯一要做的就是在实例中指定 reject resolve 函数的默认值，在 Promise 中，我们只要写一个空函数即可，例如 `(\) => {}`.
+我们剩下唯一要做的就是在实例中指定 `reject` `resolve` 函数的默认值，在 Promise 中，我们只要写一个空函数即可，例如 `(\) => {}`.
 
 #### 在 async/await 中使用 Promise ####
 
@@ -162,7 +162,7 @@ countOdd();
 
 ### EventEmitter 模块 ###
 
-EventEmitter 是 NodeJS 中基于事件驱动的架构的核心，它用于对象之间通信，很多 Nodejs 的原生模块都继承自这个模块。
+EventEmitter 是 Node.js 中基于事件驱动的架构的核心，它用于对象之间通信，很多 Node.js 的原生模块都继承自这个模块。
 
 模块的概念很简单，Emitter 对象触发已命名事件，使之前已注册的监听器被调用，所以 Emitter 对象有两个主要特征：
 
