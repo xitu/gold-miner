@@ -18,11 +18,11 @@
 
 #### Node，在你准备好的时候调用我吧！ ####
 
-以前没有原生的 promise、async/await 特性支持，Node 最原始的处理异步的方式是使用 callback。
+以前没有原生的 promise、async/await 特性支持，Node 最原始的处理异步的方式是使用回调。
 
-callback 函数从本质上讲就是作为参数传递给其他函数的函数，在 JS 中这是可能的，因为函数是一等公民。
+回调函数从本质上讲就是作为参数传递给其他函数的函数，在 JS 中这是可能的，因为函数是一等公民。
 
-callback 函数并不一定异步调用，这一点非常重要。在函数中，我们可以根据需要同步/异步调用 callback。
+回调函数并不一定异步调用，这一点非常重要。在函数中，我们可以根据需要同步/异步调用回调函数。
 
 例如，在下面例子中，主函数 `fileSize` 接收一个回调函数 `cb` 为参数，根据不同情况以同步/异步方式调用 `cb`：
 
@@ -42,7 +42,7 @@ function fileSize (fileName, cb) {
 
 请注意，这并不是一个好的实践，它也许会带来一些预期外的错误。最好将主函数设计为始终同步或始终异步地使用回调。
 
-我们再来看看下面这种典型的用 callback 风格处理的异步 Node 函数：
+我们再来看看下面这种典型的回调风格处理的异步 Node 函数：
 
 ```js
 const readFileAsArray = function(file, cb) {
@@ -102,7 +102,7 @@ readFileAsArray('./numbers.txt')
   .catch(console.error);
 ```
 
-作为调用 callback 的替代品，我们用 `.then` 函数来接受主方法的返回值，`.then` 中我们可以和之前在回调函数中一样处理数据，但是对于错误我们用`.catch`函数来处理。
+作为调用 callback 的替代品，我们用 `.then` 函数来接受主方法的返回值，`.then` 中我们可以和之前在回调函数中一样处理数据，而对于错误我们用`.catch`函数来处理。
 
 现代 JavaScript 中的 Promise 对象，使主函数支持 Promise 接口变得更加容易。我们把刚刚的 `readFileAsArray` 方法用改写一下以支持 Promise：
 
@@ -125,9 +125,9 @@ const readFileAsArray = function(file, cb = () => {}) {
 
 现在这个函数返回了一个 Promise 对象，该对象包含 `fs.readFile` 的异步调用，Promise 对象暴露了两个参数：`resolve` 函数和 `reject` 函数。
 
-`reject` 函数的作用就和我们之前 callback 中处理错误是一样的，而 `resolve` 函数也就和我们正常处理返回值是一样的。
+`reject` 函数的作用就和我们之前 callback 中处理错误是一样的，而 `resolve` 函数也就和我们正常处理返回值一样。
 
-我们剩下唯一要做的就是在实例中指定 `reject` `resolve` 函数的默认值，在 Promise 中，我们只要写一个空函数即可，例如 `(\) => {}`.
+剩下唯一要做的就是在实例中指定 `reject` `resolve` 函数的默认值，在 Promise 中，我们只要写一个空函数即可，例如 `(\) => {}`.
 
 #### 在 async/await 中使用 Promise ####
 
@@ -154,11 +154,11 @@ countOdd();
 
 首先我们创建了一个 `async` 函数，只是在定义 function 的时候前面加了 `async` 关键字。在 `async` 函数里，使用关键字 `await` 使 `readFileAsArray` 函数好像返回普通变量一样，这之后的编码也好像 `readFileAsArray` 是同步方法一样。
 
-`async` 函数的执行过程是非常易读的，而处理错误只需要在异步调用外面包上一层 `try/catch` 即可。
+`async` 函数的执行过程非常易读，而处理错误只需要在异步调用外面包上一层 `try/catch` 即可。
 
 在 `async/await` 函数中我们我们不需要使用任何特殊 API（像: `.then` 、 `.catch`\），我们仅仅使用了特殊关键字，并使用普通 JavaScript 编码即可。
 
-我们可以在支持 Promise 的函数中使用 `async/await` 函数，但是不能在 callback 风格的异步方法中使用它，比如 `setTimeout` 等等。
+我们可以在支持 Promise 的函数中使用 `async/await` 函数，但是不能在回调风格的异步方法中使用它，比如 `setTimeout` 等等。
 
 ### EventEmitter 模块 ###
 
@@ -218,7 +218,7 @@ withLog.on('end', () => console.log('Done with execute'));
 withLog.execute(() => console.log('*** Executing task ***'));
 ```
 
-WithLog 类是一个 event emitter。它有一个 excute 方法，接收一个 taskFunc 任务函数作为参数，并将此函数的执行包含在 log 语句之中，分别执行之前和之后调用了 emit 方法。
+WithLog 类是一个 event emitter。它有一个 excute 方法，接收一个 taskFunc 任务函数作为参数，并将此函数的执行包含在 log 语句之间，分别在执行之前和之后调用了 emit 方法。
 
 执行结果如下：
 
@@ -230,7 +230,7 @@ Done with execute
 After executing
 ```
 
-需要我们注意的是所有的输出 log 都是同步的，在代码里没有任何异步操作。
+我们需要注意的是所有的输出 log 都是同步的，在代码里没有任何异步操作。
 
 * 第一步 “Before executing”；
 * 命名为 begin 的事件 emit 输出了 “About to execute”；
@@ -238,7 +238,7 @@ After executing
 * 另一个命名事件输出“Done with execute”；
 * 最后“After executing”。
 
-如同之前的 callback，events 并不意味着同步或者异步。
+如同之前的回调方式，events 并不意味着同步或者异步。
 
 这一点很重要，假如我们给 `excute` 传递异步函数 `taskFunc`，事件的触发就不再精确了。
 
@@ -268,7 +268,7 @@ After executing
 
 当异步方法结束的时候 emit 一个事件，我们需要把 callback/promise 与事件通信结合起来，刚刚的例子证明了这一点。
 
-使用事件驱动来代替传统 callback 有一个好处是：在定义多个监听器后，我们可以多次对同一个 emit 做出反应。如果要用 callback 来做到这一点的话，我们需要些很多的逻辑在同一个 callback 中，事件是应用程序允许多个外部插件在应用程序核心之上构建功能的一个好方法，你可以把它们当作钩子点来允许利用状态变化做更多自定义的事。
+使用事件驱动来代替传统回调函数有一个好处是：在定义多个监听器后，我们可以多次对同一个 emit 做出反应。如果要用回调来做到这一点的话，我们需要些很多的逻辑在同一个回调函数中，事件是应用程序允许多个外部插件在应用程序核心之上构建功能的一个好方法，你可以把它们当作钩子点来允许利用状态变化做更多自定义的事。
 
 #### 异步事件 ####
 
