@@ -8,11 +8,11 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*Nozl2qd0SV8Uya2CEkF_mg.jpeg)
 
-绝大部分的nodejs中的对象，比如 HTTP 请求、响应以及“流”，都使用了 `eventEmitter` 模块来支持监听和触发事件。
+绝大部分 Node.js 对象，比如 HTTP 请求、响应以及“流”，都使用了 `eventEmitter` 模块来支持监听和触发事件。
 
 ![](https://cdn-images-1.medium.com/max/800/1*74K5OhiYt7WTR0WuVGeNLQ.png)
 
-事件驱动最简单的形式是常见的 Nodejs 函数回调，例如：`fs.readFile`。事件被触发时，Node 就会调用回调函数，所以回调函数可视为事件处理程序。
+事件驱动最简单的形式是常见的 Node.js 函数回调，例如：`fs.readFile`。事件被触发时，Node 就会调用回调函数，所以回调函数可视为事件处理程序。
 
 让我们来探究一下这个基础形式。
 
