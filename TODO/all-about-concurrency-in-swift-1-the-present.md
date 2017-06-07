@@ -1,137 +1,139 @@
 > * 原文地址：[All about Concurrency in Swift - Part 1: The Present](https://www.uraimo.com/2017/05/07/all-about-concurrency-in-swift-1-the-present/)
 > * 原文作者：[Umberto Raimondi](https://www.uraimo.com/about/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
+> * 译者：[Deepmissea](http://deepmissea.blue)
 > * 校对者：
 
-# [All about Concurrency in Swift - Part 1: The Present](/2017/05/07/all-about-concurrency-in-swift-1-the-present/) #
+# Swift 中关于并发的一切：第一部分 — 当前
 
-The current release of the Swift language doesn’t include yet any native concurrency functionality like other modern languages such as Go or Rust do.
+在 Swift 语言的当前版本中，并没有像其他现代语言如 Go 或 Rust 一样，包含任何原生的并发功能。
 
-If you plan to perform tasks concurrently and when you’ll need to deal with the resulting race conditions, your only option is to use external libraries like libDispatch or the synchronization primitives offered by Foundation or the OS.
+如果你计划异步执行任务，并且需要处理由此产生的竞争条件时，你唯一的选择就是使用 Foundation 提供的外部库，比如 libDispatch，或者 OS 提供的同步原语。
 
-In the first part of this series, we’ll take a look at what we have at our disposal with Swift 3, covering everything from Foundation locks, threads and timers to the language guarantees and the recently improved Grand Central Dispatch and Operation Queues.
+在本系列教程的第一部分，我们会介绍 Swift 3 提供的功能，涵盖一切，从基础锁、线程和计时器，到语言守护和最近提升的 GCD 和操作队列。
 
-Some basic concurrency theory and a few common concurrency pattern we’ll also be described.
+我们也会介绍一些基础的并发概念和一些常见的并发模式。
 
-![Example of klingon code with critical section](https://www.uraimo.com/imgs/concurr.png)
+![klingon 示例代码中的关键部分](https://www.uraimo.com/imgs/concurr.png)
 
-Even if they are available on every platform where Swift is available, the functions and primitives from the pthread library will not be discussed here, since for all of them, higher level alternatives exist.
-The NSTimer class will also not be described here, take a look [here](/swiftbites/nstimer-in-swift-3/) for info on how to use it with Swift 3.
+即使 Swift 可以在每个平台使用，关于 pthread 库的函数和原语也不会在这里讨论，因为对于每个平台，都有更高级的方案。
 
-As has already been announced multiple times, one of the major releases after Swift 4.0 (not necessarily Swift 5) will expand the language to better define the memory model and include new native concurrency features that will allow to handle concurrency, and likely parallelism, without external libraries, defining a swifty idiomatic approach to concurrency.
+NSTimer 类也不会在这里介绍，你可以看一看[这里](/swiftbites/nstimer-in-swift-3/)，来了解如何在 Swift 3 中使用它。
 
-This will be the topic of the next article in this series, where we’ll discuss a few alternative approaches and paradigms implemented by other languages, how they could be implemented in Swift and we’ll analyze a few open-source implementations that are already available today and that allow to use the Actors paradigm, Go’s CSP channels, Software Transactional Memory and more with the current release of Swift.
+就像已多次公布的，Swift 4.0 之后的主要版本之一（不一定是 Swift 5）会扩展语言的功能，更好地定义内存模型，并包含了新的原生并发功能，可以不需要借助外部库来处理并发，实现并行化，定义了一种 Swift 方式来实现并发。
 
-This second article will be completely speculative and its main goal will be to give you an introduction to these subjects so that you’ll be able to participate to the, likely heated, discussions that will define how concurrency will be handled in the future releases of Swift.
+这是本系列下一篇文章讨论的内容，我们会讨论一些其他语言实现的替代方法和范式实现，而在 Swift 中他们是如何实现的。并且我们会分析一些当前已经可以使用的开源的实现，如 Actor 范式，Go 的 CSP 通道，软件事务内存等在当前版本 Swift 中的功能。
 
-#### *The playgrounds for this and other articles are available from [GitHub](https://github.com/uraimo/Swift-Playgrounds) or [Zipped](/archives/2017-05-07-ConcurrencyInSwift.playground.zip).* ####
+第二篇文章将会完全是投机的，它主要的目的是为你介绍这些主题，以便你以后可以参与到更热烈讨论当中，而这些讨论将会定义未来 Swift 版本的并发是怎么处理的。
 
-### Contents ###
+#### **本文或其他文章的 playground 可以在 [GitHub](https://github.com/uraimo/Swift-Playgrounds) 或 [Zipped](/archives/2017-05-07-ConcurrencyInSwift.playground.zip) 找到。** ####
 
-- [Multithreading and Concurrency Primer](#multithreading-and-concurrency-primer)
+### 目录 ###
+
+- [多线程与并发入门](#multithreading-and-concurrency-primer)
 - [Language Guarantees](#language-guarantees)
-- [Threads](#threads)
-- [Synchronization Primitives](#synchronization-primitives)
+- [线程](#threads)
+- [同步原语](#synchronization-primitives)
 	- [NSLock](#nslock)
 	- [NSRecursiveLock](#nsrecursivelock)
 	- [NSConditionLock](#nsconditionlock)
 	- [NSCondition](#nscondition)
 	- [NSDistributedLock](#nsdistributedlock)
-	- [OSAtomic Where Art Thou?](#osatomic-where-art-thou)
-	- [On Synchronized Blocks](#on-synchronized-blocks)
+	- [OSAtomic 你在哪里？](#osatomic-where-art-thou)
+	- [同步块](#on-synchronized-blocks)
 
-- [GCD: Grand Central Dispatch](#gcd-grand-central-dispatch)
-	- [Dispatch Queues](#dispatch-queues)
-	- [Using Queues](#using-queues)
-	- [Barriers](#barriers)
-	- [Singletons and Dispatch_once](#singletons-and-dispatch_once)
+- [GCD: 大中枢派发](#gcd-grand-central-dispatch)
+	- [调度队列](#dispatch-queues)
+	- [使用队列](#using-queues)
+	- [屏障](#barriers)
+	- [Singletons 和 Dispatch_once](#singletons-and-dispatch_once)
 	- [Dispatch Groups](#dispatch-groups)
 	- [Dispatch Work Items](#dispatch-work-items)
 	- [Dispatch Semaphores](#dispatch-semaphores)
 	- [Dispatch Assertions](#dispatch-assertions)
 	- [Dispatch Sources](#dispatch-sources)
 	
-- [Operations and OperationQueues](#operations-and-operationqueues)
-- [Closing Thoughts](#closing-thoughts)
+- [操作与可操作的队列](#operations-and-operationqueues)
+- [闭幕后的思考](#closing-thoughts)
 
-## Multithreading and Concurrency Primer ##
+## 多线程与并发入门 ##
 
-Nowadays, regardless of what kind of application you are building, sooner or later you’ll have to consider the fact that your application will be running in an environment with multiple threads of execution.
+现在，无论你构建的是哪一种应用，你迟早会考虑应用在多线程环境运行的情况。
 
-Computing platforms with more than one processors or processors with more than one hardware execution core have been around for a few decades and concept like *thread* and *process* are even older than that.
+具有多个处理器或者多个硬件执行核心的计算平台已经存在了几十年，而像 **thread** 和 **process** 这样的概念甚至更久。
 
-Operating systems have been exposing these capabilities to user programs in various ways and every modern framework or application will likely implement a few well known design pattern involving multiple threads to improve flexibility and performance.
+操作系统已经通过各种方式开放了这些能力给用户的程序，每个现代的框架或者应用都会实现一些涉及多线程的广为人知的设计模式，来提高程序的性能与灵活性。
 
-Before we start to delve into the specifics of how to deal with concurrency with Swift, let me explain briefly a few basic concepts that you need to know before starting to consider if you should use *Dispatch Queues* or *Operation Queues*.
+在我们开始钻研如何处理 Swift 并发的细节之前，让我先简要地解释几个你需要知道的概念，然后再开始考虑你是使用 
+**Dispatch Queues** 还是 **Operation Queues**。
 
-First of all, you could ask, even if Apple’s platform and frameworks use threads, why should you introduce them in your applications?
+首先，你可能会问，即使 Apple 的平台和框架使用了线程，为什么要在应用程序中引入它们呢？
 
-There are a few common circumstances that make the use of multiple threads a no-brainer:
+有一些常见的情况，让多线程的使用合情合理：
 
-- **Task groups separation**: Threads can be used to modularize your application from the point of view of execution flow, different threads can be used to execute in a predictable manner a group of task of the same type, isolating them from the execution flow of other parts of your program, making it easier to reason about the current state of your application.
+- **任务组分离**: 线程能从执行流程的角度，模块化你的程序。不同的线程用可预测方式，执行一组相同的任务，把他们与你程序的其他执行流程部分隔离，这样你会更容易理解当前程序的状态。
 
-- **Parallelize data-independent computations**: Multiple software threads, backed by hardware threads or not(see next point), can be used to parallelize multiple copies of the same task operating on a subset of an original input data structure.
+- **独立数据的计算并行化**: 可以使用由硬件线程支持的多个软件线程（可以参考下一条），来并行化在原始输入数据结构的子集上运行的相同任务的多个副本。
 
-- **Clean way to wait for conditions or I/O**: When using blocking I/O or when performing other kinds of blocking operations, background threads can be used to cleanly wait for the completion of these operations. The use of threads can improve the overall design of your application and make handling blocking calls trivial.
+- **简洁的方式等待条件或 I/O**: 在执行 I/O 阻塞或其他类型的阻塞操作时，可以使用后台线程来干净地等待这些操作完成。使用线程可以改进你程序的整体设计，并且使处理阻塞问题变成细枝末节的事情。
 
-But when multiple threads are executing your application code, a few assumptions that made sense when looking at your code from the point of view of a single thread cease to be valid.
+但是，在多线程执行你应用的代码时，一些有意义的假设，从单线程的角度来看，就是无意义的。
 
-In an ideal world where each thread of execution behave independently and there is no sharing of data, concurrent programming is actually not much more complex that writing code that will be executed by a single thread. But if, as often happens, you plan to have multiple threads operating on the same data, you’ll need a way to regulate access to those data structures and to guarantee that every operation on that data completes as expected without unwanted interaction with operations from other threads.
+在一个理想世界，每个执行线程都独立地执行，并且没有数据共享，编写单线程执行的代码的并发编程实际上一点也不复杂。但是，就像经常发生的那样，你打算在同一数据上操作多个线程，那就需要一种方式来规划对这些数据结构的访问，以确保该数据上的每个操作都按预期完成，而不会与其他线程有任何的交互操作。
 
-Concurrent programming requires additional guarantees from the language and the operating system, that need to explicitly state how variables (or more generically “resources”) will behave when multiple threads try to alter their value accessing them at the same time.
+并发编程需要来自语言和操作系统的额外保证，需要明确地说明在多个线程同时尝试访问变量（或更一般的称之为“资源”）的值时，他们的状态是如何变化的。
 
-The language needs to define a *Memory Model*, a set of rules that explicitly states how some basic statements will behave in presence of concurrent threads, defining how memory can be shared and which kind of memory accesses are valid.
+语言需要定义一个**内存模型**，一组规则明确地列出在并发线程的运行下一些基本语句的行为，并且定义如何共享内存以及哪种内存访问是有效的。
 
-Thanks to this, the user will have a language that behave predictably in the presence of threads and we’ll know that the compiler will only perform optimizations that respect what has been defined in the memory model.
+由于这样，用户就会在线程运转的情况下有一个可行的语言，并且我们知道编译器将仅对遵循内存模型中定义的内容进行优化。
 
-Defining a memory model is a delicate step in the evolution of a language, since a model too strict could limit how the compiler are allowed to evolve. New clever optimizations could be invalid for past decisions on the memory model.
+定义内存模型是语言进化的一个精妙的步骤，因为太严格的模型可能会限制编译器的自身发展。对于内存模型的过去策略，新的巧妙的优化会变得无效。
 
-The memory model defines for example:
+定义内存模型的例子：
 
-- Which language statements can be considered *atomic* and which are not, operations that can be executed only as a whole where no thread can see partial results. It’s for example essential to know if variables are initialized atomically or not.
+- 语言中哪些语句可以被认为是**原子性**的，哪些不是，而只能作为一个整体执行操作，没有线程可以看到其中的部分结果。比如必须知道变量是否被原子地初始化。
 
-- How shared variables are handled by threads, if they are cached by default or not and if it would be possible to influence the caching behaviour with specific language modifiers.
+- 如何处理变量在线程之间的共享，他们是否被默认缓存，以及他们是否会对被特定语言修饰符修饰的缓存行为产生影响。
 
-- Concurrency operators that are used to mark and to regulate access to *critical sections*, sections of code that operate on shared resources, allowing for example only one thread to follow a specific code path at a time.
+- 并发操作被用于标记和规划访问**关键部分**，在共享资源上操作代码段，例如一次只允许一个线程访问一个特定的代码路径。
 
-Now let’s go back to discussing the use of concurrency in your programs.
+现在让我们回头聊聊在你程序中并发的使用。
 
-To handle concurrency correctly, you’ll have to identify the *critical sections* in your program and use concurrency primitives or concurrency-aware data structure to regulate access to data shared among different threads.
+为了正确处理并发问题，你要标识程序中的**关键部分**，然后用并发原语或并发化的数据结构来规划数据在不同线程之间的共享。
 
-Imposing access rules to these sections of code or data structures open the way to another set of problems, that derive from the fact that while the desired outcome is that every thread gets to be executed and has a chance to modify the shared data, under some circumstances some of them could not execute at all or the data could be altered in unexpected and unpredictable ways.
+对代码或数据结构这些部分的强制访问规则打开了另一组问题，这些源于事实的问题就是，每个线程都被执行，并有机会修改共享数据，在某些情况下，其中一些可能根本无法执行，或者数据可能以意想不到的和不可预测的方式改变。
 
-You’ll face an additional set of challenges and you’ll have to work around some common problems:
+你将面临一系列额外的挑战，并且必须处理一些常见的问题：
 
-- **Race conditions**: With multiple threads operating on the same data, for example reading and writing it concurrently, the outcome of the execution of a series of operations could become unpredictable and dependent on the order of execution of the threads.
+- **竞争条件**: 同一数据上多个线程的操作，例如并发地读写，一系列操作的执行结果可能会变得无法预测，并且依赖于线程的执行顺序。
 
-- **Resources contention**: Multiple threads, that could be performing different tasks, trying to access the same resources will increase the amount of time needed to obtain the required resources safely. These delays needed to acquire the resources you need could lead to unexpected behaviour or could require that you structure your program to regulate access to these resources.
+- **资源争夺**: 多个线程执行不同的任务，在尝试获取相同资源的时候，会增加安全获取所需资源的时间。获取这些资源延误的这些时间可能会导致意想不到的行为，或者可能需要你构建程序来规划对这些资源的访问。
 
-- **Deadlocks**: Multiple threads waiting for each other to release the resources/locks they need, forever, blocking the execution of that group of threads.
+- **死锁**: 多线程之间互相等待对方释放他们需要的资源/锁，这组线程将永远的被阻塞。
 
-- **Starvation**: A thread could never be able to acquire the resource, or a set of resources in a specific order, it needs for various reasons and keep trying forever unsuccessfully to acquire them.
+- **（线程）饥饿**: 一个线程永远无法获取资源，或者一组资源有一个特定的顺序，它需要各种原因，永远保持失败地获取他们。
 
-- **Priority Inversion**: A thread with lower priority could keep acquiring resources needed for a thread with higher priority effectively inverting the priority assigned by the system.
+- **优先级反转**: 具有低优先级的线程持续获取高优先级线程所需的资源，实质地反转了系统指定的优先级。
 
-- **Non-determinism and Fairness**: We can’t make assumptions on when and in what order a thread will be able to acquire a shared resource, this delay [cannot be determined a priori](https://en.wikipedia.org/wiki/Unbounded_nondeterminism) and is heavily influenced by the amount of contention. A thread could even never be able to acquire a resource. But concurrency primitives used to guard a critical section can also be built to be *fair* or to support *fairness*, guaranteeing access to the critical section to all the threads that are waiting, also respecting the request order.
+- **非决定论与公平性**: 我们无法对线程获取资源的时间和顺序做出臆断，这个延迟[无法事前确定](https://en.wikipedia.org/wiki/Unbounded_nondeterminism)，而且它严重的受到线程间争夺的影响，线程甚至从不能获得一个资源。但是用于守护关键部分的并发原语也可以用来构建**公平（fair）**或者支持**公平（fairness）**，确保对关键部分的访问的所有的等待线程，都遵守请求顺序。
 
-## Language Guarantees ##
+## 语言守护 ##
 
-Even if at the moment the Swift language itself doesn’t have features related to concurrency, it still offers some guarantees related to how properties are accessed.
+即使现在 Swift 语言本身没有并发性相关的功能，但它仍然提供了一些有关如何访问属性的保证。
 
-Global variables for example are initialized atomically, we will never need to handle manually the case in which multiple threads try to initialize the same global variable concurrently or worry that someone could see a partially initialized variable while initialization is still ongoing.
+例如全局变量的初始化是原子性地，我们从不需要手动处理多个线程初始化同一个全局变量的并发情况，或者担心初始化还在进行的过程中有部分变量会被看到。
 
-We’ll discuss again this behaviour when talking about implementing singletons below.
+在下次讨论单例的实现时，我们会继续讨论这个特性。
 
-But it’s important to remember that lazy properties initialization is instead not performed atomically, and the language for now does not provide annotations or modifiers to change this behaviour.
+但要记住的重要一点是，延迟属性的初始化并不是原子执行的，现在版本的语言并没有提供注释或修饰符来改变这一行为。
 
-Access to class properties is again not atomic, and if you need to make it so, you’ll have to implement exclusive access manually using locks or similar mechanisms.
+类属性的访问也不是原子的，如果你需要访问，那你不得不实现手动独占式的访问，使用锁或类似的机制。
 
-## Threads ##
+## 线程 ##
 
-Foundation offers a Thread class, internally based on pthread, that can be used to create new threads and execute closures.
+Foundation 提供了 Thread 类，内部基于 pthread，可以用来创建新的线程并执行闭包。
 
-Threads can be created using the method `detachNewThreadSelector:toTarget:withObject:` of the Thread class or we can create a new thread declaring a custom Thread class and then overriding  the `main()` method:
+线程可以使用 Thread 类中的 `detachNewThreadSelector:toTarget:withObject:` 函数来创建，或者我们可以创建一个新的线程，声明一个自定义的 Thread 类，然后覆盖 `main()` 函数：
 
 ```
 classMyThread : Thread {
@@ -144,7 +146,7 @@ classMyThread : Thread {
 
 ```
 
-But since iOS 10 and macOS Sierra, it’s finally possible on all platforms to just create a new thread using the initializer that allows to specify the closure that the thread will execute. All the example in this article will still extend the base Thread class though, so that you don’t have to worry about having the right OS to try them out.
+但是自从 iOS 10 和 macOS Sierra 推出以后，所有平台终于可以使用初始化指定执行闭包的方式创建线程，本文中所有的例子仍会扩展基础的 Thread 类，这样你就不用担心为操作系统而做尝试了。
 
 ```
 
@@ -156,33 +158,34 @@ t.stackSize = 1024 * 16
 t.start()               //Time needed to spawn a thread around 100us
 ```
 
-Once we have a thread instance we need to manually start it. As an optional step, we can also choose a custom stack size for this new thread.
+一旦我们有了一个线程实例，我们需要手动的启动它。作为一个可选步骤，我们也可以为线程定义栈的大小。
 
-Threads can be stopped abruptly calling `exit()` but that’s never recommended since it doesn’t give you the opportunity to cleanly end the current task, most of the times you’ll implement the stopping logic yourself if you need it or just use the `cancel()` method and check the `isCancelled` property inside your main closure to know if the thread is required to stop the current job before its natural end.
+线程可以通过调用 `exit()` 来紧急停止，但是我们从不推荐这么做，因为它不会给你机会来干净利落地终止当前任务，如果你有需要，多数情况下你会选择自己实现终止逻辑，或者只需要使用 `cancel()` 函数，然后检查在主闭包中的 `isCancelled` 属性，以明确线程是否需要在它自然结束之前终止当前的工作。
 
-## Synchronization Primitives ##
+## 同步原语 ##
 
-When we have different threads that want to mutate shared data, is essential to handle synchronization of those threads in some way to prevent data corruption and non-deterministic behavior.
+当我们有多个线程想要共享可变数据时，就很有必要通过一些方式来处理这些线程之间的同步，防止数据破损和非确定性行为。
 
-The basic facilities usually used to synchronize threads are locks, semaphores and monitors.
+通常，用于同步线程的基本套路是锁、信号量和监视器。
 
-Foundation provides all of them.
 
-As you’ll see momentarily, the classes (yes, all of them are reference types) implementing these constructs [have not lost the NS prefix](https://github.com/apple/swift-evolution/blob/master/proposals/0086-drop-foundation-ns.md#proposed-solution) in Swift 3, but could in one of the next releases of Swift.
+这些 Foundation 都提供了。
+
+正如你要看到的，在 Swift 3 中，这些[没有去掉 NS 前缀](https://github.com/apple/swift-evolution/blob/master/proposals/0086-drop-foundation-ns.md#proposed-solution)的类（对，他们都是引用类型）实现了这些结构，但是在 Swift 接下来的某个版本中也许会去掉。
 
 ### NSLock ###
 
-NSLock is the basic type of lock that Foundation offers.
+NSLock 是 Foundation 提供的基本类型的锁。
 
-When a thread tries to lock this object two things can happen, the thread will acquire the lock and proceed if it hasn’t already been acquired by a previous thread or alternatively the thread will wait, blocking its execution, until the owner of the lock unlocks it. In other words, locks are object that can be acquired (or locked) only by one thread at a time and this make them perfect to monitor access to critical sections.
+当一个线程尝试锁定一个对象时，可能会发生两件事，线程如果没有被以前的线程获取，那么它会被锁定；或线程将会陷入等待，阻塞执行，直到锁的持有者解锁它。换句话说，在同一时间，锁是一种只能被一个线程获取（锁定）的对象，这可以让他们完美的监控对关键部分的访问。
 
-NSLock and the other Foundation’s locks are *unfair*, meaning that when a series of threads is waiting to acquire a lock, they will **not** acquire it in the same order in which they originally tried to lock it.
+NSLock 和 Foundation 的其他锁都是**不公平的**，意思是，当一系列线程在等待获取一个锁时，他们**不会**按照他们原来的锁定顺序来获取它。
 
-You can’t make assumption on the execution order, and in cases of high thread contention, when a lot of threads are trying to acquire the resource, some of your threads may be subject to *starvation* and never be able to acquire the lock they are waiting for (or not able to acquire it in a timely fashion).
+你无法预估执行顺序。在线程争夺的情况下，当多个线程尝试获取资源时，有的线程可能会陷入**饥饿**，他们永远也不会获得他们等待的锁（或者不能及时的获得）。
 
-The time needed to acquire a lock, without contention, is measurable in 100s of nanoseconds, but that time grows rapidly when more than one thread tries to acquire the locked resource. So, from a performance point of view, locks are usually not the best solution to handle resource allocation.
+获取锁定需要的时间没有争议，测量在 100 纳秒以内。但是在多个线程尝试获取锁定的资源时，这个时间会急速增长。所以，从性能的角度来讲，锁并不是处理资源分配的最佳方案。
 
-Let’s see an example with two threads and remember that since the order in which the lock will be acquired is not deterministic, it could happen that T1 acquires the Lock two times in a row (but that wouldn’t be the norm).
+让我们来看一个例子，例中有两个线程，记住由于锁会被谁获取的顺序无法确定，T1 连续获取两次锁的机会也会发生（但是不怎么常见）。
 
 ```
 
@@ -217,13 +220,13 @@ t2.start()
 
 ```
 
-Let me just add a word of warning for when you’ll decide to use locks. Since it’s likely that sooner or later you’ll have to debug concurrency issues, always try to circumscribe your use of locks inside the bounds of some sort of data structure and try not to refer directly to a single lock object in multiple places in your code base.
+在你决定使用锁之前，容我多说一句。由于你迟早会调试并发问题，要把锁的使用，限制在某种数据结构的范围内，而不是在代码库中的多个地方直接使用。
 
-Checking the status of a synchronized data structure with few entry points while debugging a concurrency problem is way more pleasant than having to keep track of which part of your code is holding a lock and having to remember the local status of multiple functions. Go the extra mile and structure well your concurrent code.
+在调试并发问题的同时，检查有少量入口的同步数据结构的状态，比跟踪某个部分的代码处于锁定，并且还要记住多个功能的本地状态的方式更好。这会让你的代码走的更远并让你的并发结构更优雅。
 
 ### NSRecursiveLock ###
 
-Recursive locks can be acquired multiple times from the thread that already holds that lock, useful in recursive function or when calling multiple functions that check the same lock in sequence. This **would not work** with basic NSLocks.
+递归锁能被已经持有锁的线程多次获取，在递归函数或者多次调用检查相同锁的函数时很有用处。不适用于基本的 NSLock。
 
 ```
 let rlock = NSRecursiveLock()
@@ -253,18 +256,23 @@ tr.start()
 
 ### NSConditionLock ###
 
-Condition locks provides additional sub-locks that can be locked/unlocked independently from each other to support more complex locking setups (e.g. consumer-producer scenarios).
+条件锁提供了可以独立于彼此的附加锁，用来支持更加复杂的锁定设置（比如生产者-消费者的场景）。
 
-A global lock (that locks regardless of a specific condition) is also available and behaves like a classic NSLock.
+一个全局锁（无论特定条件如何都锁定）也是可用的，并且行为和经典的 NSLock 相似。
 
-Let’s see a simple example with a lock that guards a shared integer, that a consumer prints and a producer updates every time it has been shown on screen.
+让我们看一个保护共享整数锁的简单的例子，每次生产者更新而消费者打印都会在屏幕上显示。
 
 ```
-let NO_DATA = 1let GOT_DATA = 2let clock = NSConditionLock(condition: NO_DATA)
-var SharedInt = 0classProducerThread : Thread {
+let NO_DATA = 1
+let GOT_DATA = 2
+
+let clock = NSConditionLock(condition: NO_DATA)
+var SharedInt = 0
+
+classProducerThread : Thread {
     
     override func main(){
-        for i in0..<5 {
+        for i in 0..<5 {
             clock.lock(whenCondition: NO_DATA) //Acquire the lock when NO_DATA//If we don't have to wait for consumers we could have just done clock.lock()
             SharedInt = i
             clock.unlock(withCondition: GOT_DATA) //Unlock and set as GOT_DATA
@@ -290,27 +298,29 @@ pt.start()
 
 ```
 
-When creating the lock, we need to specify the starting condition, represented by an integer.
+当创建锁的时候，我们需要指定一个由证书代表的初始条件。
 
-The `lock(whenCondition:)` method will acquire the lock when the condition is met or will wait until another thread sets that value when releasing the lock using `unlock(withCondition:)`.
+`lock(whenCondition:)` 函数在条件符合时会获得锁，或者等待另一个线程用 `unlock(withCondition:)` 设置值来释放锁定。
 
-A small improvement over basic locks that allows us to model slightly more complex scenarios.
+对比基本锁的一个小改进是，我们可以对更复杂的场景进行稍微建模。
 
 ### NSCondition ###
 
-Not to be confused with Condition Locks, a condition provide a clean way to wait for a *condition* to occur.
+不要与条件锁产生混淆，一个条件提供了一种干净的方式来等待**条件**的发生。
 
-When a thread that has acquired a lock verifies that an additional condition it needs (some resource it needs, another object being in a particular state, etc…) to perform its work is not met, it needs a way to be put on hold and continue its work once that condition is met.
+当获取了锁的线程验证它需要的附加条件（一些资源，处于特定状态的另一个对象等等）不能满足时，它需要一种方式被搁置，一旦满足条件再继续它的工作。
 
-This could be implemented by continuously or periodically checking for that condition (busy waiting) but doing so, what would happen to the locks the thread holds? Should we keep them while we wait or release them hoping that we’ll be able to acquire them again when the condition is met?
+这可以通过连续性或周期性地检查这种条件（繁忙等待）来实现，但是这么做，线程持有的锁会发生什么？在我们等待或释放他们时，是否希望在条件符合时重新获取他们？
 
-Conditions provide a clean solution to this problem, once acquired a thread can be put on a *waiting* list for that condition and is woken up once another thread *signals* that the condition has been met.
+条件提供了一个干净的方式来解决这个问题，一旦获取一个线程，就把它放进关于这个条件的一个**等待**列表中，它会在另一个线程**发信号**时，表示条件满足，而被唤醒。
 
-Let’s see an example:
+让我们看个例子：
 
 ```
 let cond = NSCondition()
-var available = falsevar SharedString = ""classWriterThread : Thread {
+var available = false
+var SharedString = ""
+classWriterThread : Thread {
     
     override func main(){
         for _ in0..<5 {
@@ -348,15 +358,15 @@ writet.start()
 
 ### NSDistributedLock ###
 
-Distributed locks are quite different from what we’ve seen until now and I don’t expect that you’ll need them frequently.
+分布式锁与之前我们所看到的截然不同，我不期望你经常需要它们。
 
-They are made to be shared between multiple applications and are backed by an entry on the file system (for example a simple file). The file system will obviously need to be accessible by all the applications that need to acquire it.
+它们由多个应用程序共享，并由文件系统上的条目（如简单文件）支持。文件系统显然需要所有需要获取的应用程序才能访问。
 
-This kind of lock is acquired using the `try()` method, a non blocking method that returns right away with a boolean indicating if the lock was acquired or not. Acquiring a lock will usually require more than one try, to be performed manually and with a proper delay between successive attempts.
+这种锁需要使用 `try()` 函数，一个非阻塞方法，它立即返回一个布尔值，指出是否获取锁。获取锁通常需要多次的手动执行，并在连续尝试之间适当延迟。
 
-Distributed locks are released as usual using the `unlock()` method.
+分布式锁通常使用 `unlock()` 方法释放。
 
-Let’s see a basic example:
+让我们看一个基本的例子：
 
 ```
 var dlock = NSDistributedLock(path: "/tmp/MYAPP.lock")
@@ -375,21 +385,21 @@ iflet dlock = dlock {
 
 ```
 
-### OSAtomic Where Art Thou? ###
+### OSAtomic 你在哪里？ ###
 
-Atomic operations like those that were provided by [OSAtomic](https://www.mikeash.com/pyblog/friday-qa-2011-03-04-a-tour-of-osatomic.html) are simple operations that allow to set, get or compare-and-set variables without using the classic locking logic because they leverage specific CPU functionalities (sometimes native atomic instructions) and that provide way better performance than the locks described previously.
+像 [OSAtomic](https://www.mikeash.com/pyblog/friday-qa-2011-03-04-a-tour-of-osatomic.html) 提供的原子操作是简单的，并且允许设置、获取或比较变量，而不需要经典的锁逻辑，因为他们利用 CPU 的特定功能（有时是原生原子指令），并提供了比前面锁所描述的更优越的性能。
 
-It goes without saying that they are extremely useful to build concurrent data structures, since the overhead needed to handle concurrency is reduced to a minimum.
+不用多说，他们是建立并发数据结构是非常有用的，因为处理并发所需的开销被降低到最低。
 
-OSAtomic has been deprecated since macOS 10.12 and was never available on Linux, but a few open source project like [this](https://github.com/glessard/swift-atomics) with its useful Swift extensions or [this](https://github.com/bignerdranch/AtomicSwift) provide similar functionalities.
+OSAtomic 在 macOS 10.12 已经被舍弃使用，而在 Linux 上从来都不可以使用，但是一些开源的的项目，比如[这个](https://github.com/glessard/swift-atomics)提供了实用的 Swift 扩展，或者[这个](https://github.com/bignerdranch/AtomicSwift)提供了类似的功能。
 
-### On Synchronized Blocks ###
+### 同步块 ###
 
-In Swift you can’t create a @synchronized block out of the box as you would do in Objective-C, since there is no equivalent keyword available.
+在 Swift 中你不能像在 Objective-C 中一样，创建一个 @synchronized 块，因为没有等效的关键字可用。
 
-On Darwin, with a bit of code you can roll out something similar using directly `objc_sync_enter(OBJ)` and `objc_sync_exit(OBJ)` to enter and exist an @objc object monitor like @synchronized does under the hood, but it’s not worth it, it’s better to simply use a lock if you need something like that, more versatile.
+在 Darwin 上，通过一些代码，你可以直接使用 `objc_sync_enter(OBJ)` 和 `objc_sync_exit(OBJ)` 来弄出类似的东西，以进入现有的 @objc 对象监视器，就像 @synchronized 在底层所做的一样，但这并不值得，如果你想要他们更灵活的话，最好是简单地使用一个锁。
 
-And as we’ll see when describing Dispatch Queues, we can use queues to replicate this functionality with even less code performing a synchronous call:
+就如我们将要描述调度队列时看到的，用队列，我们甚至可以使用更少的代码来执行同步调用来复制这个功能：
 
 ```
 var count: Int {
@@ -398,23 +408,23 @@ var count: Int {
 
 ```
 
-#### *The playgrounds for this and other articles are available from [GitHub](https://github.com/uraimo/Swift-Playgrounds) or [Zipped](/archives/2017-05-07-ConcurrencyInSwift.playground.zip).* ####
+#### **本文或其他文章的 playground 可以在 [GitHub](https://github.com/uraimo/Swift-Playgrounds) 或 [Zipped](/archives/2017-05-07-ConcurrencyInSwift.playground.zip) 找到。** ####
 
-## GCD: Grand Central Dispatch ##
+## GCD: 大中枢派发中心 ##
 
-For those that are not already familiar with this API, the Grand Central Dispatch (GCD) is a queue based API that allows to execute closures on workers pools.
+对于不熟悉他们的 API 的人来说，GCD 是一种基于队列的 API，允许在工作池上执行闭包。
 
-In other words, closures containing a job that need to be executed can be added to a queue that will execute them using a series of threads either sequentially or in parallel depending on the queue’s configuration options. But regardless of the type of queue, jobs will always be started following the *First-in First-out* order, meaning that the jobs will always be started respecting the insertion order. The completion order will depend on the duration of each job.
+换句话说，包含需要执行的工作的闭包能被添加到一个队列中，队列会依赖于配置选项，顺序或并行的用一系列线程来执行他们。但是无论队列是什么类型的，工作始终会按照**先进先出**的顺序启动，这意味着工作会始终遵循插入顺序启动。完成顺序将依赖于每项工作的持续时间。
 
-This is a common pattern that can be found in nearly every relatively modern language runtime that handles concurrency. A thread pool is way more easy to manage, inspect and control than a series of free and unconnected threads.
+这是一种常见的模式，几乎可以从每个处理并发的相对现代的语言运行时系统中找到。线程池的方式比一系列空闲和未连接的线程更易于管理、检查和控制。
 
-The GCD API had a few changes in Swift 3, [SE-0088](https://github.com/apple/swift-evolution/blob/master/proposals/0088-libdispatch-for-swift3.md) modernized its design and made it more object oriented.
+GCD 的 API 在 Swift 3 中有一些小改动，[SE-0088](https://github.com/apple/swift-evolution/blob/master/proposals/0088-libdispatch-for-swift3.md) 模块化了它的设计，让它看上去更面向对象了。
 
-### Dispatch Queues ###
+### 调度队列 ###
 
-The GCD allows the creation of custom queues but also provide access to some predefined system queues.
+GCD 允许创建自定义的队列，但是也提供了一些可以访问的预定义系统队列。
 
-To create a basic serial queue, a queue that will execute your closures sequentially, you just need to provide a string label that will identify it and it’s usually recommended to use a reverse order domain name prefix to simplify tracking back the owner of the queue in stack traces.
+要创建一个基本的串行队列，队列会顺序执行你的闭包，你只需要提供一个字符串标签来标识它，通常建议使用反向域名前缀，在堆栈追踪的时候就能简单地跟踪队列的所有者。
 
 ```
 let serialQueue = DispatchQueue(label: "com.uraimo.Serial1")  //attributes: .serial
@@ -423,9 +433,9 @@ let concurrentQueue = DispatchQueue(label: "com.uraimo.Concurrent1", attributes:
 
 ```
 
-The second queue we created is concurrent, meaning that the queue will use all the available threads in its underlying thread pool when executing the jobs it contains. Order of execution is unpredictable in this case, don’t assume that the completion order of your closures will be in any way related to the insertion order.
+我们创建的第二个队列是并发的，意味着在执行工作时，队列会使用底层线程池中的所有可用线程。这种情况下，执行顺序是无法预测的，不要以为你关闭完成的顺序与插入顺序有任何关系。
 
-The default queues can be retrieved from the `DispatchQueue` object:
+可以从 `DispatchQueue` 对象获得默认队列：
 
 ```
 let mainQueue = DispatchQueue.main
@@ -434,11 +444,11 @@ let globalDefault = DispatchQueue.global()
 
 ```
 
-The *main* queue is the sequential main queue that handles the *main event loop* for graphical applications on either iOS or macOS, responding to events and updating the user interface. As we know, every alteration to the user interface should be performed on this queue and every long operation performed on this thread will render the user interface less responsive.
+**main** 队列是 iOS 和 macOS 上处理图形应用**主事件循环**的顺序主队列，用于响应事件和更新用户界面。就如我们知道的，每个对用户界面的改动都会在这个队列执行，并且每个长操作在这个线程被执行，会使用户界面变得不是那么敏感。
 
-The runtime also provides access to other global queues with different priorities that can be identified by their *Quality of Service (Qos)* parameter.
+运行时系统也提供了对其他不同优先级全局队列的访问，可以通过 **Quality of Service (Qos)** 参数来查看他们的标识。
 
-The different levels of priority are declared in the `DispatchQoS` class, from higher to lower:
+不同优先级声明在 `DispatchQoS` 类里，优先级从高到低：
 
 - .userInteractive
 - .userInitiated
@@ -447,29 +457,29 @@ The different levels of priority are declared in the `DispatchQoS` class, from h
 - .background
 - .unspecified
 
-It’s important to note that on mobile devices that provide a low power mode, [background queues will be suspended](https://mjtsai.com/blog/2017/04/03/beware-default-qos/) when the battery is running low.
+重要的是要注意，移动设备提供了低电量模式，在电池较低时，[后台队列会挂起](https://mjtsai.com/blog/2017/04/03/beware-default-qos/)。
 
-To retrieve a specific default global queue, use the `global(qos:)` getter specifying the desired priority:
+要取得一个特定的默认全局队列，使用 `global(qos:)` 根据想要的优先级来获取：
 
 ```
 let backgroundQueue = DispatchQueue.global(qos: .background)
 
 ```
 
-The same priority specifier can be used with or without other attributes also when creating custom queue:
+在创建自定义队列时，也可以选择使用与其他属性相同的优先说明符：
 
 ```
 let serialQueueHighPriority = DispatchQueue(label: "com.uraimo.SerialH", qos: .userInteractive)
 
 ```
 
-### Using Queues ###
+### 使用队列 ###
 
-Jobs, in the form of closures, can be submitted to a queue in two ways: *synchronously* using the `sync` method or *asynchronously* with the `async` method.
+包含任务的闭包可以以两种方式提交给队列：**同步**和**异步**，分别使用 `sync` 和 `async` 方法。
 
-When using the former, the `sync` call will be blocking, in other words, the call to the `sync` method will complete when its closure will complete (useful when you need to wait for the closure to end, but there are better approaches), whereas the former will add the closure to the queue and complete, allowing the execution to continue.
+在使用前者时，`sync` 会被阻塞，换句话说，当它闭包完成（在你需要等待闭包完成时很有用，但是有更好的途径）时调用的 `sync` 方法才会完成，而后者会把闭包添加都队列，然后允许程序继续执行。
 
-Let’s see a quick example:
+让我们看一个简单的例子：
 
 ```
 
@@ -483,7 +493,7 @@ globalDefault.sync {
 
 ```
 
-Multiple dispatch calls can be nested, like for example when after some background, low priority, operation we need to update the user interface.
+多个调度可以嵌套，例如在后台完成一些东西、低优先、需要我们更新用户界面的操作。
 
 ```
 
@@ -498,9 +508,9 @@ DispatchQueue.global(qos: .background).async {
 
 ```
 
-Closures can also be executed after a specific delay, Swift 3 finally allows to specify in a more comfortable way the desired time interval with the utility enum `DispatchTimeInterval` that allows to compose intervals using these four time units: `.seconds(Int)`, `.milliseconds(Int)`, `.microseconds(Int)` and `.nanoseconds(Int)`.
+闭包也可以在一个特定的延迟执行，Swift 3 最终以一种更舒适的方式指定这个时间间隔，那就是使用 `DispatchTimeInterval` 工具枚举，它允许使用这四个时间工具组成间隔：`.seconds(Int)`、`.milliseconds(Int)`、`.microseconds(Int)` 和 `.nanoseconds(Int)`。
 
-To schedule a closure for future execution use the `asyncAfter(deadline:execute:)` method with a time interval:
+要安排一个闭包在将来执行，使用 `asyncAfter(deadline:execute:)` 方法，并传递一个时间：
 
 ```
 globalDefault.asyncAfter(deadline: .now() + .seconds(5)) {
@@ -509,7 +519,7 @@ globalDefault.asyncAfter(deadline: .now() + .seconds(5)) {
 
 ```
 
-If you need to execute multiple iteration of the same closure concurrently (like you used to to with the *dispatch_apply*) you can use the `concurrentPerform(iterations:execute:)` method, but beware, these closure will be executed concurrently *if possible in the context of the current queue*, so remember to always enclose a call to this method in a sync or async call running on a queue that support concurrency.
+如果你需要多次并发执行相同的闭包（就像你以前用 **dispatch_apply** 一样），你可以使用 `concurrentPerform(iterations:execute:)` 方法，但请注意，**如果在当前队列的上下文中**，这些闭包会并发执行，所以记得，在支持并发的队列中运行的同步或异步调用中，始终会调用此方法。
 
 ```
 
@@ -521,7 +531,7 @@ globalDefault.sync {
 
 ```
 
-While normally a queue is ready to process its closures upon creation, it can be configured to be enabled on-demand.
+虽然队列在通常情况下，创建好就会准备执行它的闭包，但是它也可以配置为按需启动。
 
 ```
 let inactiveQueue = DispatchQueue(label: "com.uraimo.inactiveQueue", attributes: [.concurrent, .initiallyInactive])
@@ -535,9 +545,9 @@ print("Gone!")
 
 ```
 
-This is the first time we need to specify more than one attribute, but as you can see, you can just add multiple attributes with an array if needed.
+这是我们第一次需要制定多个属性，但就如你所见，如果需要，你可以添加一个含有多个属性的数组。
 
-Execution of jobs can also be suspended or resumed temporarily with methods inherited from `DispatchObject`:
+也可以使用集成自 `DispatchObject` 的方法暂停或恢复执行的工作：
 
 ```
 inactiveQueue.suspend()
@@ -546,13 +556,13 @@ inactiveQueue.resume()
 
 ```
 
-A `setTarget(queue:)` method that is to be used only to configure the priority of inactive queues (using it on active queues will result in a crash) is also available. The result of calling this method is that the priority of the queue is set to the same priority of the queue given as parameter.
+仅用于配置非活动队列（在活动的队列中使用会造成崩溃）优先级的方法 `setTarget(queue:)` 也是可用的。调用此方法的结果是将队列的优先级设置为与给定参数的队列相同的优先级。
 
-### Barriers ###
+### 屏障（Barriers） ###
 
-Let’s say you added a series of closures to a specific queue (with different durations) but you now want to execute a job *only after* all the previous asynchronous task are completed. You can use barriers to do it.
+让我们假设你添加了一组闭包到特定的队列（执行闭包的持续时间不同），但是现在你想只有当所有之前的异步任务完成时再执行一个工作，你可以使用屏障来做这样的事情。
 
-Let’s add 5 task(that will sleep for a timeout varying from 1 to 5 seconds) to the concurrent queue we created previously and use a barrier to print something once the other jobs complete, we’ll do this specifying a flag `DispatchWorkItemFlags.barrier` in our final *async* call:
+让我们添加五个任务（会睡眠 1 到 5 秒的时间）到我们前面创建的并发队列中，一旦其他工作完成，就利用屏障来打印一些东西，我们在最后 **async** 的调用中规定一个 `DispatchWorkItemFlags.barrier` 标志来做这件事。
 
 ```
 
@@ -569,17 +579,17 @@ globalDefault.async (flags: .barrier) {
 
 ```
 
-### Singletons and Dispatch_once ###
+### 单例和 Dispatch_once ###
 
-As you could have already noticed, in Swift 3 there is no equivalent of `dispatch_once`, a function used most of the times to build thread-safe singletons.
+就如你所知的一样，在 Swift 3 中并没有与 `dispatch_once` 等效的函数，它多数用来构建线程安全的单例。
 
-Luckily, Swift guarantees that global variables are initialized atomically and if you consider that constants can’t change their value after initialization, these two properties make global constants a great candidate to easily implement singletons:
+幸运地，Swift 保证了全局变量的初始化是原子性地，如果你认为常量在初始化后，他们的值不能发生改变，这两个属性使全局常量成为实现单例的更容易的选择。
 
 ```
 
 final classSingleton {
 
-    publicstaticlet sharedInstance: Singleton = Singleton()
+    public static let sharedInstance: Singleton = Singleton()
 
     privateinit() { }
 
@@ -588,14 +598,14 @@ final classSingleton {
 
 ```
 
-We’ll declare the class as `final` to deny the ability to subclass and we’ll make the designated initializer private, so that it will not be possible to manually create additional instances of this object. A public static constant will be the only entry point of the singleton and will be used to retrieve the single, shared, instance.
+我们将类声明为 `final` 以拒绝它子类化的能力，我们把它的指定构造器设为私有，这样就不能手动创建它对象的实例。公共静态变量是进入单例的唯一入口，它会用于获取单例、共享实例。
 
-The same behaviour can be used to define blocks of code that will be executed only once:
+相同的行为可以用于定义只执行一次的代码块：
 
 ```
 func runMe() {
     struct Inner {
-        staticlet i: () = {
+        static let i: () = {
             print("Once!")
         }()
     }
@@ -607,9 +617,9 @@ runMe() // Constant already initialized
 runMe() // Constant already initialized
 ```
 
-It’s not really pretty to look at but it works, and it could be an acceptable implementation if it’s just a *one time thing™*.
+虽然不太好看，但是它的确可以正常工作，而且如果只是**执行一次**，它也是可以接受的实现。
 
-But if we need to replicate exactly the functionality and API of `dispatch_once` we need to implement it from scratch, as described in the [synchronized blocks section](#on-synchronized-blocks) with an extension:
+但是如果我们需要完全的复制 `dispatch_once` 的功能，我们就需要从头实现它，就如[同步块](#on-synchronized-blocks)中描述的一样，利用一个扩展：
 
 ```
 
@@ -617,8 +627,8 @@ import Foundation
 
 public extension DispatchQueue {
     
-    privatestaticvar onceTokens = [Int]()
-    privatestaticvar internalQueue = DispatchQueue(label: "dispatchqueue.once")
+    private static var onceTokens = [Int]()
+    private static var internalQueue = DispatchQueue(label: "dispatchqueue.once")
     
     public class func once(token: Int, closure: (Void)->Void) {
         internalQueue.sync {
@@ -645,9 +655,9 @@ DispatchQueue.once(token: t) {
 
 ```
 
-As expected, only the first of the three closures will be actually executed.
+和预期一致，三个闭包中，只有第一个会被实际执行。
 
-Alternatively, something with slightly better performance can be built using `objc_sync_enter` and `objc_sync_exit` if they are available on your platform:
+或者，可以使用 `objc_sync_enter` 和 `objc_sync_exit` 来构建性能稍微好一点的东西，如果他们在你的平台上可用的话：
 
 ```
 
@@ -674,9 +684,9 @@ public extension DispatchQueue {
 
 ### Dispatch Groups ###
 
-If you have multiple tasks, even if added to different queues, and want to wait for their completion, you can group them in a dispatch group.
+如果你有多个任务，虽然把他们添加到不同的队列，也希望等待他们的任务完成，你可以把他们分到一个派发组中。
 
-Let’s see an example, a task can be added to a specific group directly with the *sync* or *async* call:
+让我们看一个例子，任务直接被添加到一个特定的组，用 **sync** 或 **async** 调用：
 
 ```
 let mygroup = DispatchGroup()
@@ -690,7 +700,7 @@ for i in0..<5 {
 
 ```
 
-The tasks are executed on `globalDefault`, but we can register an handler for `mygroup` completion that will execute a closure on the queue we prefer once all of them will be completed. The `wait()` method can be used to perform a blocking wait.
+任务在 `globalDefault` 上执行，但是我们可以注册一个 `mygroup` 完成的处理程序，我们可以选择在所有这些被完成后，执行这个队列中的闭包。`wait()` 方法可以用于执行一个阻塞等待。
 
 ```
 print("Waitingforcompletion...")
@@ -702,7 +712,7 @@ print("Done waiting.")
 
 ```
 
-Another way to do track a task with groups, consists in manually entering and leaving a group instead of specifying it when performing the call on the queue:
+另一种追踪队列任务的方式是，在队列执行调用的时候，手动的进入和离开一个组，而不是直接指定它：
 
 ```
 
@@ -717,9 +727,9 @@ for i in 0..<5 {
 
 ### Dispatch Work Items ###
 
-Closures are not the only way to specify a job that needs to be executed by a queue, sometimes you might need a container type able to keep track of its execution status and for that we have `DispatchWorkItem`. Every method that accepts a closure has a variant for work items.
+闭包不是指定作业需要由队列执行的唯一方法，有时你可能需要一个能够跟踪其执行状态的容器类型，为此，我们就有 `DispatchWorkItem`。每个接受闭包的方法都有一个工作项的变型。
 
-Work Items encapsulate a closure that is executed by the thread pool of the queue invoking the `perform()` method:
+工作项封装一个由队列的线程池调用 `perform()` 方法执行的闭包：
 
 ```
 let workItem = DispatchWorkItem {
@@ -730,7 +740,7 @@ workItem.perform()
 
 ```
 
-And WorkItems also provide other useful methods, like `notify` that as it did with groups allows to perform a closure on a specific queue on completion:
+WorkItems 也提供其他很有用的方法，比如 `notify`，与组一样，允许在完成时在指定的队列上执行闭包。
 
 ```
 workItem.notify(queue: DispatchQueue.main) {
@@ -741,7 +751,7 @@ defaultQueue.async(execute: workItem)
 
 ```
 
-We can also wait until the closure has been executed or flag it for removal before the queue tries to execute it with the `cancel()` method (that *does not* cancel closures during execution).
+我们也可以等到闭包已经被执行或者在队列尝试执行它之前，使用 `cancel()` 方法（在闭包执行之间**不会**取消执行）把它标记为移除。
 
 ```
 print("Waiting for work item...")
@@ -752,17 +762,17 @@ workItem.cancel()
 
 ```
 
-But it’s important to know that `wait()` doesn’t just block the current thread waiting for completion but also *elevates* the priority of all the preceding work items in its queue, to try to complete this specific item as soon as possible.
+但是，重要的是要知道，`wait()` 不仅仅会阻塞当前线程的完成，也会**提升**队列中所有前面的工作项目的优先级，以便于尽快的完成这个特定的项目。
 
 ### Dispatch Semaphores ###
 
-Dispatch Semaphores are locks that can be acquired by more than one thread depending on the current value of a counter.
+Dispatch Semaphores 是一种由多个线程获取的锁，它依赖于计数器的当前值。
 
-Threads `wait` on a semaphore when the counter, decremented every time the semaphore is acquired, reaches 0.
+信号量上的 `wait`，每当计数器递减时，信号量是可被线程获取的，直到为计数器值为 0。
 
-A slot to access the semaphore is released for the waiting threads calling `signal` that has the effect of incrementing the counter.
+用于访问信号量，释放等待线程的插槽名为 `signal`，它可以让计数器的计数增加。
 
-Let’s see a simple example:
+让我们看一个简单的例子：
 
 ```
 
@@ -782,7 +792,7 @@ globalDefault.sync {
 
 ### Dispatch Assertions ###
 
-Swift 3 introduces a new function to perform assertions on the current execution context, that allows to verify if a closure is being executed on the expected queue. We can build predicates using the three enum cases of `DispatchPredicate`: `.onQueue`, to verify that we are on a specific queue, `.notOnQueue`, to verify the opposite and `.onQueueAsBarrier` to check if the current closure or work item are acting as a barrier on a queue.
+Swift 3 介绍了一种新的函数来执行当前上下文的断言，可以校验闭包是否在期望的队列上执行。我们可以使用 `DispatchPredicate` 的三个枚举来构建谓词：`.onQueue`，用来校验在特定的队列，`.notOnQueue`，来校验相反的情况，以及 `.onQueueAsBarrier`，来校验是否当前的闭包或工作项是队列上的一个障碍。
 
 ```
 dispatchPrecondition(condition: .notOnQueue(mainQueue))
@@ -790,28 +800,28 @@ dispatchPrecondition(condition: .onQueue(queue))
 
 ```
 
-#### *The playgrounds for this and other articles are available from [GitHub](https://github.com/uraimo/Swift-Playgrounds) or [Zipped](/archives/2017-05-07-ConcurrencyInSwift.playground.zip).* ####
+#### **本文或其他文章的 playground 可以在 [GitHub](https://github.com/uraimo/Swift-Playgrounds) 或 [Zipped](/archives/2017-05-07-ConcurrencyInSwift.playground.zip) 找到。** ####
 
 ### Dispatch Sources ###
 
-Dispatch Sources are a convenient way to handle system-level asynchronous events like kernel signals or system, file and socket related events using event handlers.
+Dispatch Sources 是处理系统级别异步事件（比如内核信号或系统，文件套接字相关事件）的一种便捷方式。
 
-There are a few kind of Dispatch Sources available, that can be grouped as follow:
+有几种可用的调度源，分组如下：
 
-- **Timer Dispatch Sources:** *Used to generate events at a specific point in time or periodic events (DispatchSourceTimer).*
-- **Signal Dispatch Sources:** *Used to handle UNIX signals (DispatchSourceSignal).*
-- **Memory Dispatch Sources:** *Used to register for notifications related to the memory usage status (DispatchSourceMemoryPressure).*
-- **Descriptor Dispatch Sources:** *Used to register for different events related to files and sockets (DispatchSourceFileSystemObject, DispatchSourceRead, DispatchSourceWrite).*
-- **Process dispatch sources:** *Used to monitor external process for some events related to their execution state (DispatchSourceProcess).*
-- **Mach related dispatch sources:** *Used to handle events related to the [IPC facilities](http://fdiv.net/2011/01/14/machportt-inter-process-communication) of the Mach kernel (DispatchSourceMachReceive, DispatchSourceMachSend).*
+- **Timer Dispatch Sources:** **用于在特定时间点或周期性事件中生成事件 (DispatchSourceTimer)。**
+- **Signal Dispatch Sources:** **用于处理 UNIX 信号 (DispatchSourceSignal)。**
+- **Memory Dispatch Sources:** **用于注册与内存使用状态相关的通知 (DispatchSourceMemoryPressure)。**
+- **Descriptor Dispatch Sources:** **用于注册与文件和套接字相关的不同事件 (DispatchSourceFileSystemObject, DispatchSourceRead, DispatchSourceWrite)。**
+- **Process dispatch sources:** **用于监视与执行状态有关的某些事件的外部进程 (DispatchSourceProcess)。**
+- **Mach related dispatch sources:** **用于处理与Mach内核的 [IPC 设备](http://fdiv.net/2011/01/14/machportt-inter-process-communication)有关的事件 (DispatchSourceMachReceive, DispatchSourceMachSend)。**
 
-And you can also build your own dispatch sources if needed. All dispatch sources conform to the `DispatchSourceProtocol` protocol that defines the basic operations required to register handlers and modify the activation state of the Dispatch Source.
+如果有需要，你也可以构建你自己的调度源。所有调度源都符合 `DispatchSourceProtocol` 协议，它定义了注册处理程序所需的基本操作，并修改了调度源的激活状态。
 
-Let’s see an example with `DispatchSourceTimer` to understand how to use these objects.
+让我们通过一个 `DispatchSourceTimer` 相关的例子，来理解如何使用这些对象。
 
-Sources are created with the utility methods provided by `DispatchSource`, in this snippet we’ll use `makeTimerSource`, specifying the dispatch queue that we want to use to execute the handler.
+源是由 `DispatchSource` 提供的工具方法创建的，在这我们会使用 `makeTimerSource`，指定我们想要执行处理程序的调度队列。
 
-Timer Sources don’t have other parameters, so we’ll just need to specify the queue to create a source, as we’ll see, dispatch source able to handle multiple events will usually require that you specify the identifier of the event you want to handle.
+Timer Sources 没有其他的参数，所以我们只需要指定队列，创建源，就如我们所见，能够处理多个事件的调度源通常需要你指定要处理的事件的标识符。
 
 ```
 
@@ -822,27 +832,27 @@ t.activate()
 
 ```
 
-Once the Source is created, we register an event handler with `setEventHandler(closure:)` and if no other configurations are required enable the dispatch source with `activate()` (previous releases of libDispatch used the *resume()* method for this purpose).
+一旦源被创建，我们就会使用 `setEventHandler(closure:)` 注册一个事件处理程序，如果不需要其他配置，就可以通过 `activate()` 让源可用。
 
-Dispatch Sources are initially inactive, meaning that they will not start delivering events right away allowing further configuration. Once we are ready, the source can be activated with `activate()` and if needed the event delivery can be temporarily suspended with `suspend()` and resumed with `resume()`.
+调度源初始化不具备活性，意味着如果没有进一步的配置，他们不会开始传递事件。一旦我们准备就绪，源就能通过 `activate()` 激活，如果有需要，可以通过 `suspend()` 和 `resume()` 来暂时挂起和恢复事件传递。
 
-Timer Sources require an additional step to configure which kind of timed events the object will deliver. In the example above we are defining a single event that will be delivered 5 seconds after the registration with a strict deadline.
+Timer Sources 需要一个额外的步骤来配置对象需要传递的是哪一种类型的定时事件。在上面的例子中，我们定义了单一的事件，会在注册后 5 秒严格执行。
 
-We could have also configured the object to deliver periodic events, like we could have done with the [Timer](/swiftbites/nstimer-in-swift-3/) object:
+我们也可以配置对象来传递周期性事件，就像我们使用 [Timer](/swiftbites/nstimer-in-swift-3/) 对象那样：
 
 ```
 t.scheduleRepeating(deadline: .now(), interval: .seconds(5), leeway: .seconds(1))
 
 ```
 
-When we are done with a dispatch source and we want to just stop completely the delivery of events, we’ll call `cancel()`, that will stop the event source, call the cancellation handler if we did set one and perform some final cleanup operations like unregistering the handlers.
+当我们完成了调度源的使用，并想要完全停止事件的传递时，我们可以调用 `cancel()`，它会停止事件源，调用消除相关的处理程序（如果我们已经设置了一个处理一些结束后的清理操作，比如注销）。
 
 ```
 t.cancel()
 
 ```
 
-The API is still the same for the other dispatch source types, let’s see for example how [Kitura](https://github.com/IBM-Swift/Kitura-net/blob/master/Sources/KituraNet/IncomingSocketHandler.swift#L96) initializes the read source it uses to handle asynchronous reads on an established socket:
+对于其他类型的调度源来说 API 都是相似的，让我们看一个关于 [Kitura](https://github.com/IBM-Swift/Kitura-net/blob/master/Sources/KituraNet/IncomingSocketHandler.swift#L96) 初始化读取源的例子，它用于在已建立的套接字上进行异步读取：
 
 ```
 
@@ -857,19 +867,19 @@ readerSource.resume()
 
 ```
 
-The function `handleRead()` will be called on a dedicated queue when new bytes will be available in the socket’s incoming data buffer. Kitura also uses a *WriteSource* to perform buffered writes, using the dispatch source events [to efficiently pace the writes](https://github.com/IBM-Swift/Kitura-net/blob/master/Sources/KituraNet/IncomingSocketHandler.swift#L328), writing new bytes as soon as the socket channel is ready to send them. When doing I/O, read/write dispatch sources can be a good high level alternative to other lower level APIs you’ll normally use on *nix platforms.
+当套接字的数据缓冲区有新的字节可以传入的时候，`handleRead()` 方法会被调用。Kitura 也使用 **WriteSource** 执行缓冲写入，使用调度源事件[有效地调整写入速度](https://github.com/IBM-Swift/Kitura-net/blob/master/Sources/KituraNet/IncomingSocketHandler.swift#L328)，一旦套接字通道准备好发送就写入新的字节。在执行 I/O 操作的时候，对比于 Unix 平台上的其他低阶 API，读/写源是一个很好的高阶替代。
 
-And on the topic of dispatch sources related to files, another one that could be useful in some use cases is `DispatchSourceFileSystemObject`, that allows to listen to changes to a specific file, from its name down to changes to its attributes. With this dispatch source you’ll be also able to receive notifications if a file has been modified or deleted, essentially a subset of the events that on Linux are managed by the *inotify* kernel subsystem.
+与文件相关的调度源的主题，另一个在某些情况中可能有用的是 `DispatchSourceFileSystemObject`，它允许监听特定文件的更改，从其名称到其属性。通过此调度源，在文件被修改或删除时，你也会收到通知。Linux 上的事件子集实质上都是由 **inotify** 内核子系统管理的。
 
-The remaining source types operate similarly, you can check out the complete list of what’s available in [libDispatch’s documentation](https://developer.apple.com/reference/dispatch/dispatchsource) but remember that some of them like the Mach sources and the memory pressure source will work only on Darwin platforms.
+剩余类型的源操作大同小异，你可以从 [libDispatch 的文档](https://developer.apple.com/reference/dispatch/dispatchsource)中查看完整的列表，但是记住他们其中的一些，比如 Mach 源和内存压力源只会在 Darwin 的平台工作。
 
-## Operations and OperationQueues ##
+## 操作与操作队列 ##
 
-Let’s talk briefly of Operation Queues, and additional API built on top of GCD, that uses concurrent queues and models tasks as Operations, that are easy to cancel and that can have their execution depend on other operations completion.
+我们简要的介绍一下 Operation Queues，以及建立在 GCD 之上的附加 API。它们使用并发队列和模型任务作为操作，这样做可以轻松的取消操作，而且能让他们的执行依赖于其他操作的完成。
 
-Operations can have a priority, which defines the order of execution, and are added to `OperationQueues` that be executed asynchronously.
+操作能定义一个执行顺序的优先级，被添加到 `OperationQueues`里异步执行。
 
-Let’s see a basic example:
+我们看一个基础的例子：
 
 ```
 
@@ -885,9 +895,9 @@ queue.addOperation{
 
 ```
 
-We can also create a *Block Operation* object and configure it before adding it to the queue and if needed we can also add more than one closure to this kind of operations.
+我们也可以创建一个**阻塞操作**对象，然后在加入队列之前配置它，如有需要，我们也可以添加多个这种操作的闭包。
 
-Note that `NSInvocationOperation`, that creates an operation with target+selector, is not available in Swift.
+要注意的是，在 Swift 中不允许 `NSInvocationOperation` 使用目标+选择器创建操作。
 
 ```
 var op3 = BlockOperation(block: {
@@ -910,9 +920,9 @@ var op4 = BlockOperation {
 
 ```
 
-Operations can have a priority and a secondary completion closure that will be run once the main closure completes.
+操作可以有主次优先级，一旦主优先级完成，次优先级才会执行。
 
-We can add a dependency from `op4` to `op3`, so that `op4` will wait for the completion of `op3` to execute.
+我们可以从 `op4` 添加一个依赖关系到 `op3`，这样 `op4` 会等待 `op3` 的完成再执行。
 
 ```
 
@@ -922,9 +932,9 @@ queue.addOperation(op4)  // op3 will complete before op4, alwaysqueue.addOperati
 
 ```
 
-Dependencies can also be removed with `removeDependency(operation:)` and are stored in a publicly accessible `dependencies` array.
+依赖也可以通过 `removeDependency(operation:)` 移除，被存储到一个公共可访问的 `dependencies` 数组里。
 
-The current state of an operation can be examined using specific properties:
+当前操作的状态可以通过特定的属性查看：
 
 ```
 
@@ -934,7 +944,7 @@ op3.isFinished    //Finished naturally or cancelled?
 op3.isCancelled    //Manually cancelled?
 ```
 
-You can cancel all the operations present in a queue calling the `cancelAllOperations` method, that sets the `isCancelled` flag on the operations remaining in the queue. A single operation can be canceled invoking its `cancel` method:
+你可以调用 `cancelAllOperations` 方法，取消队列中所有的当前操作，这个方法会设置队列中剩余操作的 `isCancelled` 属性。一个单独的操作可以通过调用它的 `cancel` 方法来取消：
 
 ```
 queue.cancelAllOperations() 
@@ -943,28 +953,27 @@ op3.cancel()
 
 ```
 
-It’s recommended to check the `isCancelled` property inside your operation to skip execution if the operation was cancelled after it was scheduled to run by the queue.
+如果在计划运行队列之后取消操作，建议您检查操作中的 `isCancelled` 属性，跳过执行。
 
-And finally, you can also stop the execution of new operations on an operation queue (the currently running operation will not be affected):
+最后要说是，你也可以停止操作队列上执行新的操作（正在执行的操作不会受到影响）：
 
 ```
 queue.isSuspended = true
 ```
 
-#### *The playgrounds for this and other articles are available from [GitHub](https://github.com/uraimo/Swift-Playgrounds) or [Zipped](/archives/2017-05-07-ConcurrencyInSwift.playground.zip).* ####
+#### **本文或其他文章的 playground 可以在 [GitHub](https://github.com/uraimo/Swift-Playgrounds) 或 [Zipped](/archives/2017-05-07-ConcurrencyInSwift.playground.zip) 找到。** ####
 
-## Closing Thoughts ##
+## 闭幕后的思考 ##
 
-This article should have given you a good summary of what is possible today from the point of view of concurrency using the external frameworks that are available from Swift.
+本文可以说是从 Swift 可用的外部并发框架的视角，给出一个很好的总结。
 
-Part 2 will focus on what could come next, in term of language facilities that could handle concurrency “natively”, without resorting to external libraries. A few interesting paradigms will be described with the help of a few open source implementations already available today.
+第二部分将重点介绍下一步可能在语言中出现的处理并发的“原生”功能，而不需要借助外部库。现在已经有一些有意思的开源实现的范例。
 
-I hope that these two articles will be a good introduction to the world of concurrency and that they will help you understand and participate to the discussions that will take place on the swift-evolution mailing list when the community will start considering what to introduce in, let’s hope, Swift 5.
+我希望这两篇文章能够对并发世界做一个很好的介绍，并且将帮助你了解和参与在急速发展的邮件列表中的讨论，在社区开始考虑将要介绍的内容时，我们一起期待 Swift 5 的到来。
 
-For more interesting content on concurrency and Swift, check out the [Cocoa With Love](https://www.cocoawithlove.com/tags/asynchrony.html) blog.
+关于并发和 Swift 的更多有趣内容，请看 [Cocoa With Love](https://www.cocoawithlove.com/tags/asynchrony.html) 的博客。
 
-Did you like this article? Let me know [on Twitter](https://www.twitter.com/uraimo)!
-
+你喜欢这篇文章吗？让我[在推特](https://www.twitter.com/uraimo)上看到你！
 
 ---
 
