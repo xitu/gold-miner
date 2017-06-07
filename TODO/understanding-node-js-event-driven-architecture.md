@@ -127,7 +127,7 @@ const readFileAsArray = function(file, cb = () => {}) {
 
 `reject` 函数的作用就和我们之前 callback 中处理错误是一样的，而 `resolve` 函数也就和我们正常处理返回值一样。
 
-剩下唯一要做的就是在实例中指定 `reject` `resolve` 函数的默认值，在 Promise 中，我们只要写一个空函数即可，例如 `(\) => {}`.
+剩下唯一要做的就是在实例中指定 `reject` `resolve` 函数的默认值，在 Promise 中，我们只要写一个空函数即可，例如 `() => {}`.
 
 #### 在 async/await 中使用 Promise ####
 
@@ -189,7 +189,7 @@ const myEmitter = new MyEmitter();
 myEmitter.emit('something-happened');
 ```
 
-触发一个事件即某种情况发生生的信号，这些情况通常是关于 Emitter 对象的状态改变的。
+触发一个事件即某种情况发生的信号，这些情况通常是关于 Emitter 对象的状态改变的。
 
 我们使用 `on` 方法来注册，然后这些监听的方法将会在每一个 Emitter 对象 emit 它们对应名称的事件的时候执行。
 
@@ -480,10 +480,9 @@ withTime.execute(fs.readFile, __filename);
 
 感谢阅读，下次再会，以上。
 
-(下面是广告，就不翻译了->->)
-*If you found this article helpful, please click the💚 below. Follow me for more articles on Node and JavaScript.*
+如果觉得本文有帮助，点击[阅读原文](https://medium.freecodecamp.com/understanding-node-js-event-driven-architecture-223292fcbc2d)可以看到更多关于 Node 和 JavaScript 的文章。
 
-If you have any questions about this article or any other article I wrote, find me on [this slack account](https://slack.jscomplete.com/) (you can invite yourself) and ask in the #questions room.
+关于本文或者我写的其它文章有任何问题，欢迎在 [this slack account](https://slack.jscomplete.com/) 找我，也可以在 #questions room 向我提问。
 
 I create online courses for [Pluralsight](https://www.pluralsight.com/search?q=samer+buna&amp;categories=course) and [Lynda](https://www.lynda.com/Samer-Buna/7060467-1.html) . My most recent courses are [Getting Started with React.js](https://www.pluralsight.com/courses/react-js-getting-started) , [Advanced Node.js](https://www.pluralsight.com/courses/nodejs-advanced) , and [Learning Full-stack JavaScript](https://www.lynda.com/Express-js-tutorials/Learning-Full-Stack-JavaScript-Development-MongoDB-Node-React/533304-2.html) .
 
