@@ -1,52 +1,52 @@
 > * 原文地址：[How to build complex user interfaces without going completely insane](https://medium.freecodecamp.com/3-tips-to-keep-in-mind-while-developing-complex-ui-in-web-b56312310390)
 > * 原文作者：[Illia Kolodiazhnyi](https://medium.freecodecamp.com/@iktash88)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
-> * 校对者：
+> * 译者：[Changkun Ou](https://github.com/changkun/)
+> * 校对者：[MuYunyun](https://github.com/MuYunyun), [noturnot](https://github.com/noturnot)
 
-# How to build complex user interfaces without going completely insane #
+# 如何理智地构建复杂用户界面 #
 
 ![](https://cdn-images-1.medium.com/max/2000/1*jwBhYQ_c_HZ_OOCE4pwbwQ.jpeg)
 
-I recently built a web application with a complex, dynamic User Interface (UI). Along the way, I learned several valuable lessons.
+我最近在构建一个复杂、动态的 Web 应用的用户界面（UI）。在这条路上，我学到了一些宝贵的经验教训。
 
-Here are a few tips I wish someone had told me before I embarked on such an ambitious project. These would have saved me so much time and sanity.
+下面的这些技巧是我希望有人在当我开始这样一个雄心勃勃的项目之前能告诉我的。这将为我节省大量时间和精力。
 
-### Sanity Tip #1: Use a component’s internal state for storing temporary data ###
+### 理智意见 #1: 使用组件的内部状态存储临时数据 ###
 
-A complex UI usually requires you to maintain some sort of application state. This tells the UI what to display and how to display it. One option is to access that state as soon as the user triggers an action on the page. However, I’ve learned there are situations where it’s beneficial to postpone the change in the application state and save this change temporarily in the current component’s internal state.
+复杂的 UI 通常需要你维护某种应用程序状态。这将告诉 UI 显示什么内容以及如何显示它们。 一个选择是当用户触发页面里的某个行为的时候，立即访问这个状态。然而据我了解，推迟改变这个应用的状态，在当前组件的内部状态下临时保存此更改会更好。
 
-An example to illustrate this is a dialog window for the user to edit some record, such as his or her name:
+举个例子，有一个对话框能够让用户编辑某些记录数据，比如他（她）的名字：
 
 ![](https://cdn-images-1.medium.com/max/800/1*bFb-8Zdzf1aGPJyWpD_hsg.jpeg)
 
-In this case, you might want to trigger a change every time the user edits a field in this dialog window. But I encourage you to maintain an internal state of this dialog with all the data displayed. Wait until the user presses the Save button. At this point, you can safely change the application state that holds the data of those records.
+这时，你可能想要让用户每次编辑这个对话框时触发修改。但是，我的建议是使用显示所有数据来维护此对话框的内部状态，直到用户按下保存按钮。 此时，您可以安全地更改保存这些记录数据的应用程序状态。
 
-That way, if the user decides to discard the change and close the dialog window, you can drop the component. Then the application state stays intact. If you need to send the data to the back end, you can do it in one request. If the same list is available to other users, they won’t see the temporary values while someone is editing it.
+这样，如果用户决定放弃更改并关闭对话窗口，则可以直接删除组件，这时应用程序状态保持不变。 如果你需要将数据发送到后端，便可以在一个请求中进行。 如果这些数据对其他用户同时可用，那么当有人编辑这些数据时其他人不会看到这些临时值。
 
-> Your UI behavior should match the user’s mental model
+> 你的 UI 行为应该匹配用户的心理模型
 
-When users work with a dialog box, they won’t consider the record completed until they finish editing it. The component’s functionality should work exactly like this.
+当用户使用对话框时，他们通常会认为这些记录在完成编辑之前是不会被保存的。组件的功能也应该匹配这种行为。
 
-*Note to those working with React/Redux:* this behavior is achievable if you keep the general data in the Redux Store and use React Component state to store temporary pieces of data.
+**使用 React/Redux 的人请注意**：将一般数据保存在 Redux Store 并使用 React 组件状态来存储这些临时数据的行为是可行的。
 
-### Sanity Tip #2: Separate model data from UI state ###
+### 理智意见 #2: 从 UI 状态中分离模型数据 ###
 
-*I’m using the term* ***model*** *here referring to the classic entity from the MVC pattern.*
+**下文中的术语「模型」指代 MVC 设计模式中的模型。**
 
-Modern UI in web applications can be complex in structure and behavior. This generally leads you to store the purely UI-related data in your application state. I recommend that you keep UI-related data and business data separate.
+Web 应用程序中的现代 UI 在结构和行为上可能很复杂。这通常会导致你将纯粹的与 UI 相关的数据存储在应用程序状态之中。我的建议是将 UI 相关数据和业务数据分离。
 
-> Store models with business data and logic separately from the UI state
+> 将 UI 状态中的业务数据和逻辑分别存储在不同模型之中
 
-This approach is easier to follow and understand since it separates business logic from everything else. Your models can hold both the data as well as the methods (functions, means) to handle this data. Otherwise, your application will probably end up with business logic spread across multiple places, most likely *View* components.
+这种方法很容易遵循和理解，因为它想让你把业务逻辑与其他一切分离开来。这样你的模型可以同时保存这些数据和方法（函数）进而处理这些数据。 否则，你的应用程序可能最终会跨越多个地方穿插业务逻辑，其中最有可能是 **View** 组件。
 
-For example, you have a list of to-do tasks in your application and you implement a page to add a new task to that list. You want the Save button to be disabled until there’s both a description explaining the task and a properly formatted date for the task:
+例如，在应用程序中，你有一个待办事宜的列表，并实现一个页面来添加一个新的任务到该列表。 现在你需要在任务描述、任务日期的格式合法之前，禁用「保存」按钮：
 
 ![](https://cdn-images-1.medium.com/max/800/1*Cqmpew82Wo_znz_lCYz3xQ.jpeg)
 
-The naive way would be to store the needed data somewhere in the application state and have code like `const saveButtonDisabled = !description && !date && !dateIsValid(date)` right in your *View* component. But the problem is that the Save button is disabled because there is a *business requirement* to have all records with descriptions and proper dates.
+普通的做法是是将需要的数据存储在应用程序状态的某处，并在 **View** 组件中编写这样的代码：`const saveButtonDisabled = !description && !date && !dateIsValid(date)`。 但问题就出在保存按钮被禁用了，因为**业务要求**必须输入所有的描述以及有效的日期。
 
-So in this case the logic for disabling the button should be put in the *model* for the to-do task. That model can look like this:
+因此，在这种情况下，禁用按钮的逻辑应该放在待执行任务的**模型**中。 该模型可以如下表示：
 
 ```
 {
@@ -58,29 +58,29 @@ So in this case the logic for disabling the button should be put in the *model* 
 }
 ```
 
-And now you can use this for your UI logic `const saveButtonDisabled = !task.isValid()` in the *View* component.
+现在，你可以在 **View** 组件中为你的 UI 逻辑使用 `const saveButtonDisabled = !task.isValid()` 了。
 
-As you can see, this tip is basically about keeping your *Models* separate from *Views* in the MVC pattern.
+正如你所看到的，这个提示基本上是关于如何将你的**模型**与MVC模式中的**视图**进行分离。
 
-### Sanity Tip #3: Prioritize integration testing over unit testing ###
+### 理智意见 #3: 优先考虑集成测试而不是单元测试 ###
 
-This is not an issue if you’re lucky enough to work in an environment where you have time to write multiple tests for every feature. But I’m sure this is not the case for most of us. Usually you have to decide which kind of testing to use. **The majority of time I would consider integration testing more valuable than unit testing**.
+如果你在一个有足够的时间为每个功能编写多个测试的环境中工作，这将不是问题。但我相信，大多数人并非如此。通常，你必须决定使用哪种测试。**而我大多数时候会考虑集成测试，它比单元测试更有价值。**
 
 ![](https://cdn-images-1.medium.com/max/800/1*dsj6MNERxdJtcr5-I7W2vQ.jpeg)
 
-In my experience, I’ve learned that the codebase with good unit test coverage is generally more error-prone than the one with good integration test coverage. I noticed that the majority of bugs introduced with developing work are [regression bugs](https://en.wikipedia.org/wiki/Software_regression). And unit tests are usually not very good in catching those.
+依我的经验，我了解到：具有良好单元测试覆盖率的代码库通常比具有良好集成测试覆盖率的代码更容易出错。我注意到开发工作引入的大多数错误都是[软件回归错误 (regression bug)](https://en.wikipedia.org/wiki/Software_regression)。 单元测试通常不能很好地捕捉到这些问题。
 
-When you are fixing a problem in the code, I would encourage you to follow these simple steps:
+当你在代码中修复问题时，我建议您按照以下简单步骤操作：
 
-1. Write a test that fails due to the existing problem. If it can be done with a unit test, great. Otherwise, make the test touch as many code modules as necessary.
-2. Fix the problem in the codebase.
-3. Verify that the test is not failing anymore.
+1. 写出由于现有问题而导致失败的测试。如果可以通过单元测试完成，这很好。否则，使测试根据需要接触许多代码模块。
+2. 在代码库中解决问题。
+3. 验证测试不会失败。
 
-This simple practice ensures that the problem is fixed and it won’t occur again, as the test will verify it.
+这个简单的做法确保问题是固定且不会再发生的，因为从此之后测试将验证它。
 
-Modern web applications present many challenges to developers and UI development is one of them. I hope this article helps you to avoid mistakes or give you a good topic to think about and discuss.
+现代 Web 应用程序对开发人员提出了许多挑战，UI 开发也是其中之一。 我希望本文可以帮助你避免一些错误，或者给你提供一个很好的话题来进一步思考和讨论。
 
-I would highly appreciate reading your thoughts and discoveries in the comments.
+如果能在评论中看到你对此话题的想法和发现，我将非常感激。
 
 ---
 
