@@ -30,7 +30,7 @@ NSTimer 类也不会在这里介绍，你可以看一看[这里](/swiftbites/nst
 
 ### 目录 ###
 
-- [多线程与并发入门](#multithreading-and-concurrency-primer)
+- [多线程与并发入门](#多线程与并发入门)
 - [Language Guarantees](#language-guarantees)
 - [线程](#threads)
 - [同步原语](#synchronization-primitives)
