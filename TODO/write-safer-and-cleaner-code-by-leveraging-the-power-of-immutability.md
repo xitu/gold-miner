@@ -34,7 +34,7 @@ console.log(arrayB); // [1, 2, 3, 4, 5]
 
 例子中 **arrayB** 是 **arrayA** 的引用，所以如果我们通过 push 方法向任意数组中添加一个值 5，那么就会间接影响到另外一个，这个是违反不可变性的原则的。
 
-我们可以通过使用 [slice](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice) 函数以达到不可变性(注意：slice相当于浅复制，要求数组中的每一项必须是简单数据类型。如undefined,number,null,string,boolean等。)，进而优化我们的例子，此时代码的行为是完全不一样的。
+我们可以通过使用 [slice](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice) 函数以达到不可变性(译者注：slice 相当于浅复制，要求数组中的每一项必须是简单数据类型。如 undefined、Number、null、String、Boolean 等)，进而优化我们的例子，此时代码的行为是完全不一样的。
 
 ```
 const arrayA = [1, 2, 3];
