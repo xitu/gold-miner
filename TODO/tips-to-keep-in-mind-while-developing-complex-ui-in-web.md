@@ -2,7 +2,7 @@
 > * 原文作者：[Illia Kolodiazhnyi](https://medium.freecodecamp.com/@iktash88)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[Changkun Ou](https://github.com/changkun/)
-> * 校对者：[MuYunyun](https://github.com/MuYunyun)
+> * 校对者：[MuYunyun](https://github.com/MuYunyun), [noturnot](https://github.com/noturnot)
 
 # 如何理智地构建复杂用户界面 #
 
