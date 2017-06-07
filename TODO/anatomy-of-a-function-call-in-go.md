@@ -1,18 +1,18 @@
 > * 原文地址：[Anatomy of a function call in Go](https://syslog.ravelin.com/anatomy-of-a-function-call-in-go-f6fc81b80ecc#.povigaliw)
 > * 原文作者：[Phil Pearl](https://syslog.ravelin.com/@philpearl?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
-> * 校对者：
+> * 译者：[xiaoyusilen](http://xiaoyu.world)
+> * 校对者：[1992chenlu](https://github.com/1992chenlu)，[Zheaoli](https://github.com/Zheaoli)
 
-# Anatomy of a function call in Go #
+# 解析 Go 中的函数调用 #
 
-Let’s take a look at a couple of simple Go functions and see if we can see how function calls work. We’ll do this by looking at the assembly language the Go compiler generates for the functions. This might be a little ambitious for a small blog post, but don’t worry, assembly language is simple. Even a CPU can understand it.
+让我们来看一些简单的 Go 的函数，然后看看我们能否明白函数调用是怎么回事。我们将通过分析 Go 编译器根据函数生成的汇编来完成这件事。对于一个小小的博客来讲，这样的目标可能有点不切实际，但是别担心，汇编语言很简单。哪怕是 CPU 都能读懂。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*CKK4XrLm3ylzsQzNbOaroQ.png">
 
-By Rob Baines [https://github.com/telecoda/inktober-2016](https://github.com/telecoda/inktober-2016) 
+图片来自 Rob Baines [https://github.com/telecoda/inktober-2016](https://github.com/telecoda/inktober-2016)
 
-Here’s our first function. Yep, we’re just adding two numbers.
+这是我们的第一个函数。对，我们只是让两个数相加。
 
 ```
 func add(a, b int) int {
@@ -20,9 +20,9 @@ func add(a, b int) int {
 }
 ```
 
-We’ll build it with optimisations disabled to make the assembly easier to follow. We do this with `go build -gcflags ‘-N -l’`. We can then dump out the assembly for our function with `go tool objdump -s main.add func` (func is the name of our package and the executable we just built with go build).
+我们编译的时候需要关闭优化，这样方便我们去理解生成的汇编代码。我们用 `go build -gcflags 'N -l'` 这个命令来完成上述操作。然后我们可以用 `go tool objdump -s main.add func` 输出我们函数的具体细节（这里的 func 是我们的包名，也就是我们刚刚用 go build 编译出的可执行文件）。
 
-If you’ve never looked at assembly language before, then, well, congratulations, this is a new thing for you today. I’ve done this on a Mac, so the assembly is Intel 64-bit.
+如果你之前没有学过汇编，那么恭喜你，你将接触到一个全新的事物。另外我会在 Mac 上完成这篇博客的代码，因此所生成的是 Intel 64-bit 汇编。
 
 ```
  main.go:20 0x22c0 48c744241800000000 MOVQ $0x0, 0x18(SP)
@@ -33,43 +33,43 @@ If you’ve never looked at assembly language before, then, well, congratulation
  main.go:21 0x22db c3   RET
 ```
 
-What are we looking at here? Each line breaks down into 4 sections as follows.
+现在我们看到了什么？如下所示，每一行被分为了4部分：
 
-- The source file name and line number (main.go:15). The source code at this line is translated to the instructions marked with that line number. One line of Go is likely translated to multiple lines of assembly.
-- the offset into the object file (e.g. 0x22C0).
-- The machine code (e.g. 48c744241800000000). This is the actual binary machine code the CPU executes. We’re not going to look at this! Almost nobody ever does.
-- The assembly language representation of the machine code. This is the bit we can hope to understand.
+- 源文件的名称和行号（main.go:15）。这行的源代码会被转换为标有代码行号的说明。Go 的一行可能被转换成多行程序集。
+- 目标文件中的偏移量（例如 0x22C0）。
+- 机器码（例如 48c744241800000000）。这是 CPU 实际执行的二进制机器码。我们不需要看这个，几乎没有人看这玩意。
+- 机器码的汇编表示形式，这也是我们想要理解的部分。
 
-Let’s focus in on that last section, the assembly code.
+让我们将注意力集中在最后一部分，汇编语言。
 
-- MOVQ, ADDQ and RET are instructions. They tell the CPU what operation to perform. They are followed by parameters telling the CPU what to perform the operation on.
-- SP, AX and CX are CPU registers. These are places where the CPU can store working values. There are several other registers the CPU can use.
-- SP is a special purpose register and is used to store the current stack pointer. The stack is an area of memory where the local variables, function parameters and function calls are recorded. There’s one stack per goroutine. As one function calls another, then another, each gets its own area on the stack. Areas are created during the function call by reducing the value of SP by the size of the area needed.
-- 0x8(SP) refers to the memory location that is 8 bytes past the memory location that SP points to.
+- MOVQ，ADDQ 和 RET 是指令。它们告诉 CPU 需要执行的操作。后面的参数告诉 CPU 对什么执行该操作。
+- SP，AX 和 CX 是 CPU 寄存器。寄存器是 CPU 用于存储值的地方，CPU 有多个寄存器可以使用。
+- SP 是一个专用寄存器，用于存储当前堆栈指针。堆栈是记录局部变量，参数和函数调用的寄存器。每个 goroutine 都有一个堆栈。当一个函数调用另一个函数，然后另一个函数再调用其他函数，每个函数在堆栈上获得自己的存储区域。在函数调用期间创建存储区域，将 SP 的大小中减去所需的存储大小。
+- 0x8（SP）是指超过 SP 指向的存储单元的 8 个字节的存储单元。
 
-So, our ingredients are memory locations, CPU registers, instructions to move values between memory and registers, and operations on registers. And that’s pretty much all a CPU does.
+因此，我们的工作的内容包含存储单元，CPU 寄存器，用于在存储器和寄存器之间移动值的指令以及寄存器上的操作。 这几乎就是一个 CPU 所完成的事情了。
 
-Now lets look at the assembly in detail, starting with the first instruction. Remember we have two parameters `a` & `b` which we need to load from memory somewhere, add together, then return to the caller somehow.
+现在让我们从第一条指令开始看每一条内容。别忘了我们需要从内存中加载两个参数 `a` 和 `b`，把它们相加，然后返回至调用函数。
 
-1. `MOVQ $0x0, 0x18(SP)` puts 0 in the memory location SP+0x18. This is a bit mysterious.
-2. `MOVQ 0x8(SP), AX` puts the contents of memory location SP+0x8 in CPU register AX. Perhaps this is loading one of our parameters from memory?
-3. `MOVQ 0x10(SP), CX` puts the contents of memory location SP+0x10 in CPU register CX. This could be our other parameter.
-4. `ADDQ CX, AX` adds CX to AX, leaving the result in AX. Well, that’s adding the two parameters surely.
-5. `MOVQ AX, 0x18(SP)` stores the contents of register AX at the memory location SP+0x18. And that’s saving the result of the addition.
-6. `RET` returns to the calling function.
+1. `MOVQ $0x0, 0x18(SP)` 将 0 置于存储单元 SP+0x18 中。 这句代码看起来有点抽象。
+2. `MOVQ 0x8(SP), AX` 将存储单元 SP+0x8 中的内容放到 CPU 寄存器 AX 中。也许这就是从内存中加载的我们所使用的参数之一？
+3. `MOVQ 0x10(SP), CX` 将存储单元 SP+0x10 的内容置于 CPU 寄存器 CX 中。 这可能就是我们所需的另一个参数。
+4. `ADDQ CX, AX` 将 CX 与 AX 相加，将结果存到 AX 中。好，现在已经把两个参数相加了。
+5. `MOVQ AX, 0x18(sp)` 将寄存器 AX 的内容存储在存储单元 SP+0x18 中。这就是在存储相加的结果。
+6. `RET` 将结果返回至调用函数。
 
-Remember our function has two parameters `a` & `b`, and it calculates `a+b` and returns the result. `MOVQ 0x8(SP), AX` is moving parameter `a` to AX. `a` is passed into the function on the stack at SP+0x8. `MOVQ 0x10(SP), CX` moves parameter `b` to CX. Parameter `b` is passed into the function on the stack at SP+0x10. `ADDQ CX, AX` adds `a` & `b`. `MOVQ AX, 0x18(SP)` stores the result at SP+0x18. The result is passed out of the function by placing it on the stack at SP+0x18. When the function returns the calling function can read the result off the stack.
+记住我们的函数有两个参数 `a` 和 `b`，它计算了 `a+b` 并且返回了结果。`MOVQ 0x8(SP), AX` 将参数 `a` 移到 AX 中，在 SP+0x8 的堆栈中 `a` 将被传给函数。`MOVQ 0x10(SP), CX` 将参数 `b` 移到 CX 中，在 SP+0x10 的堆栈中 `b` 将被传给函数。`ADDQ CX, AX` 使 `a` 和 `b` 相加。`MOVQ AX, 0x18(SP)` 将结果存储到 SP+0x18 中。 现在相加的结果被存储在 SP+0x18 的堆栈中，当函数返回调用函数时，可以从栈中读取结果。
 
-[I’ve assumed `a` is the first parameter and `b` is the second. I’m not sure that’s right. We’d need to play around a bit to work that out, but this post is getting pretty long already]
+我假设 `a` 是第一个参数，`b` 是第二个参数。我不确定是不是这样。我们需要花一点时间来完成这件事，但是这篇文章已经很长了。
 
-So what’s that mysterious first line doing? `MOVQ $0x0, 0x18(SP)` is storing 0 in location SP+0x18, which is where our result is finally stored. We can guess that this is because Go sets uninitialised values to zero, and we’ve turned off optimisations so the compiler still does this even if it’s unnecessary.
+那么有点神秘的第一行代码究竟是做什么用的？`MOVQ $0X0, 0X18(SP)` 将 0 存储至 SP+0x18 中，而 SP+0x18 是我们存储相加结果的地方。我们可以猜测，这是因为 Go 把没有初始化的值设置为 0 ，我们已经关闭了优化，即使没有必要，编译器也会执行这个操作。
 
-So what have we learnt.
+所以我们从中明白了什么：
 
-- Well, it looks like parameters are stored on the stack, with the first at SP+0x8, and the others at following at higher-numbered addresses.
-- And it looks like returned values are stored after the parameters, at yet-higher still addresses.
+- 好，看起来参数都存在堆栈中，第一个参数存储在 SP+0x8 中，另一个在更高编号的地址中。
+- 并且看上去返回的结果存储在参数后边，一个更高编号的地址中。
 
-Let’s now look at another function. This one has a local variable, but we’ve still kept it simple.
+现在让我们看另一个函数。这个函数有一个局部变量，不过我们依然会让它看起来很简单。
 
 ```
 func add3(a int) int {
@@ -78,7 +78,7 @@ func add3(a int) int {
 }
 ```
 
-We use the same procedure to get an assembly listing.
+我们用和刚才一样的过程来获取程序集列表。
 
 ```
 TEXT main.add3(SB) 
@@ -98,37 +98,37 @@ TEXT main.add3(SB)
  main.go:17 0x22b6 c3   RET
 ```
 
-Oh! That looks quite a bit more complicated. Let’s try to work it out.
+喔！看起来有点复杂。让我们来试试。
 
-The first 4 instructions are listed against source code line 15. Here is that line:
+前4条指令是根据源代码中的第15行列出的。这行代码是这样的：
 
 ```
 func add3(a int) int {
 ```
 
-That line doesn’t seem to do much. So perhaps this is some kind of function preamble. Let’s break it down.
+这一行代码似乎没有做什么。所以这可能是一种声明函数的方法。让我们分析一下。
 
-- `SUBQ $0x10, SP` subtracts 0x10=16 from SP. This gives us 16 bytes more space on the stack
-- `MOVQ BP, 0x8(SP)` stores the value of the register BP at SP+8, then `LEAQ 0x8(SP), BP` loads the address SP+8 into BP. So we’ve made a space to store the old value of BP, then loaded BP with the address of that space. This helps establish the chain of stack areas (or *stack frames*). This is a bit mysterious, and I’m afraid we won’t solve this in this post.
-- Finally in this section we have `MOVQ $0x0, 0x20(SP)` which, similar to the last function we considered, initialises the return value to 0.
+- `SUBQ $0x10, SP` 从 SP 减去 0x10=16。这个操作为我们释放了 16 字节的堆栈空间
+- `MOVQ BP, 0x8(SP)` 将寄存器 BP 中的值存储至 SP+8 中，然后 `LEAQ 0x8(SP), BP` 将地址 SP+8 中的内容加载到 BP 中。现在我们已经有空间可以存储 BP 中之前所存的内容，然后将 BP 中的内容存储至刚刚分配的存储空间中，这有助于建立堆栈区域链（或者堆栈框架）。这有点神秘，不过在这篇文章中我们恐怕不会解决这个问题。
+- 在这一部分的最后是 `MOVQ $ 0x0, 0x20 (SP)`，它和我们刚刚分析的最后一句类似，就是将返回值初始化为0。
 
-The next line of the assembly corresponds to `b := 3` in the source code. The instruction is `MOVQ $0x3, 0(SP)`, which puts the value 3 into memory at SP+0. This solves one mystery. When we subtracted 0x10=16 from SP we made room for 2 8-byte values: our local variable `b` stored at SP+0, and the old value of BP stored at SP+0x08.
+下一行对应的是源码中的 `b := 3`，`MOVQ $03x, 0(SP)` 把 3 放到 SP+0 中。这解决了我们的一个疑惑。当我们从 SP 中减去 0x10 = 16 时，我们得到了可以存储两个 8 字节值的空间：我们的局部变量 `b` 存储在 SP+0 中，而 BP 之前的值存储在 SP+0x08 中。
 
-The next 6 lines of assembly correspond to `return a + b`. This needs to cover loading `a` & `b` from memory, adding them, and returning the result. Let’s look at each line in turn.
+接下来的 6 行程序集对应于 `return a + b`。这需要从内存中加载 `a` 和 `b`，然后将它们相加，并且返回结果。让我们依次看看每一行。
 
-- `MOVQ 0x18(SP), AX` moves the function parameter `a` stored at SP+0x18 into register AX
-- `ADDQ $0x3, AX` adds 3 to AX (for some reason it doesn’t use our local variable `b` at SP+0, even though optimisations are turned off)
-- `MOVQ AX, 0x20(SP)` stores the result of `a+b` at SP+0x20, which is where our return value is stored.
-- Next we have `MOVQ 0x8(SP), BP` and `ADDQ $0x10, SP`. These restore the old value of BP, then adds 0x10 to SP, setting it back to the value it was at the start of the function.
-- Finally we have `RET`, which returns to the caller.
+- `MOVQ 0x18(SP), AX` 将存储在 SP+0x18 的参数 `a` 移动到寄存器 AX 中
+- `ADDQ $0x3, AX` 将 3 加到 AX（由于某些原因，它不使用我们存储在 SP+0 的局部变量 `b`，尽管编译时优化被关闭了）
+- `MOVQ AX, 0x20(SP)` 将 `a+b` 的结果存储到 SP+0x20 中，也就是我们返回结果所存的地方。
+- 接下来我们得到的是 `MOVQ 0x8(SP), BP` 以及 `ADDQ $0x10, SP`，这些将恢复BP的旧值，然后将 0x10 添加到 SP，将其设置为该函数开始时的值。
+- 最后我们得到了 `RET`，将要返回给调用函数的。
 
-So what have we learnt?
+所以我们从中学到了什么呢？
 
-- The calling function makes space on the stack for the returned values and function parameters. The space for returned values is higher up the stack than the parameters.
-- If the called function has local variables it makes room for them by decreasing the value of the stack pointer SP. It also does something mysterious with the register BP.
-- When the function returns any manipulations of SP & BP are reversed.
+- 调用函数在堆栈中为返回值和参数分配空间。返回值的存储地址比参数的存储地址高。
+- 如果被调用函数有局部变量，则通过减少堆栈指针 SP 的值为它们分配空间。它也和寄存器 BP 做了一些神秘的事情。
+- 当函数返回任何对 SP 和 BP 的操作都会相反。
 
-Let’s map out how the stack was used in the add3() function:
+让我们看看堆栈在 add3() 方法中如何使用：
 
 ```
 SP+0x20: the return value
@@ -145,8 +145,8 @@ SP+0x08: the old value of BP
 SP+0x0: the local variable b
 ```
 
-If you look we didn’t see any mention of SP+0x10, so we don’t *know* what this is used for. But I can tell you that this is where the return address is stored. This is how the `RET` instruction knows where to return to.
+如果你觉得文章中没有提到 SP+0x10，所以不*知道*这是干什么用的。我可以告诉你，这是存储返回地址的地方。这是为了让 `RET` 指令知道返回到哪里去。
 
-Well, that’s enough for one post. Hopefully if you didn’t know how this stuff worked you now feel you understand it a little more, and if you were intimidated by assembly it’s perhaps a little less opaque. If you’d like any more detail on this stuff please write a comment and I’ll consider it for a future post.
+这篇文章已经足够了。 希望如果以前你不知道这些东西如何工作，但是现在你觉得你已经有了一些了解，或者如果你被汇编吓倒了，那么也许它不那么晦涩难懂了。 如果你想了解有关汇编的更多信息，请在评论中告诉我，我会考虑在之后的文章中写出来。
 
-If you got this far and enjoyed it or learned something, please hit that heart-button so other people can find it.
+既然你已经看到这儿了，如果喜欢我的这篇文章或者可以从中学到一点什么的话，那么请给我点个赞这样这篇文章就可以被更多人看到了。

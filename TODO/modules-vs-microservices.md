@@ -1,74 +1,78 @@
 > * 原文地址：[Modules vs. microservices](https://www.oreilly.com/ideas/modules-vs-microservices)
 > * 原文作者：[Sander Mak](https://www.oreilly.com/people/sander_mak)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者： 
-> * 校对者：
+> * 译者：[lsvih](https://github.com/lsvih)
+> * 校对者：[steinliber](https://github.com/steinliber),[DeadLion](https://github.com/DeadLion)
 
-# Modules vs. microservices
+# 模块化 vs. 微服务
 
-Apply modular system design principles while avoiding the operational complexity of microservices.
+使用模块化系统设计原则来避免微服务的复杂性。
 
 ![](https://d3tdunqjn7n0wj.cloudfront.net/360x240/container-227877_1920-0db52b796e6b80d98f6df2d01a6ee4fb.jpg)
 
-Much has been said about moving from monoliths to microservices. Besides rolling off the tongue nicely, it also seems like a no-brainer to chop up a monolith into microservices. But is this approach really the best choice for your organization? It’s true that there are many drawbacks to maintaining a messy monolithic application. But there is a compelling alternative which is often overlooked: modular application development. In this article, we'll explore what this alternative entails and show how it relates to building microservices.
+从单体式应用向微服务架构迁移已经是老生常谈的话题了。除了过过嘴瘾，似乎真的动手将单体式应用拆分成微服务也不是什么很困难的事。但是这种做法真的是你们团队的最佳选择吗？维护一个凌乱的单体式应用的确很伤脑筋，但是还有另一种优秀但常常被人忽视的替代方案：模块化应用开发。本文将探讨这种替代方案，并展现其与构建微服务的关系。
 
-## Microservices for modularity
+## 模块化微服务
 
-"With microservices we can finally have teams work independently", or "our monolith is too complex, which slows us down." These expressions are just a few of the many reasons that lead development teams down the path of microservices. Another one is the need for scalability and resilience. What developers collectively seem to be yearning for is a modular approach to system design and development. Modularity in software development can be boiled down into three guiding principles:
+“通过微服务，我们终于能够让团队独立工作了”或者“我们的单体式应用实在太复杂了，它降低了我们的工作效率”之类的话，只是让团队改用微服务架构的诸多原因中的一小部分；还有一种说法是需要可拓展性与弹性。所有开发人员似乎都渴望系统设计和开发的模块化。软件开发中的模块化可以总结为以下三个原则：
 
-- **Strong encapsulation**: hide implementation details inside components, leading to low coupling between different parts. Teams can work in isolation on decoupled parts of the system.
-- **Well-defined interfaces**: you can't hide everything (or else your system won't do anything meaningful), so well-defined and stable APIs between components are a must. A component can be replaced by any implementation that conforms to the interface specification.
-- **Explicit dependencies**: having a modular system means distinct components must work together. You'd better have a good way of expressing (and verifying) their relationships.
+- **强大的封装性**：隐藏了各个组件内部实现的细节，减少了不同组件之间的耦合性。团队可以在系统的各个非耦合部分中独立地工作。
+- **定义良好的接口**：你不可能隐藏组件内的所有东西（否则你的系统将毫无意义），因此有必要在组件之间定义良好且可靠的 API。任意一个组件都可以被符合接口规范的其它组件替换。
+- **显式依赖**：模块化系统意味着不同的组件需要在一起工作。因此你最好能有一种途径来表达（与验证）它们之间关系。
 
-Many of these principles can be realized with microservices. A microservice can be implemented in any way, as long as it exposes a well-defined interface (oftentimes a REST API) for other services. Its implementation details are internal to the service, and can change without system-wide impact or coordination. Dependencies between microservices are typically not quite explicit at development-time, leading to possible service orchestration failures at run-time. Let's just say this last modularity principle could use some love in most microservice architectures.
+这些原则都可以用微服务架构来实现。只要做到对其它服务暴露定义明确的接口（通常是一个 REST API），就能以任意方式来实现一个微服务。它的实现细节是这个服务内部的事情，你可以改变这些实现细节而不影响整个系统。微服务之间的依赖关系通常在开发时是不明确的，这可能会导致在运行时服务编排失败。只能说在大多数微服务架构中，实现最后一条模块化原则还需要再接再厉。
 
-So, microservices realize important modularity principles, leading to tangible benefits:
+因此，微服务架构实现了重要的模块化原则，并带来了以下三点实实在在的好处：
 
-- Teams can work and scale independently.
-- Microservices are small and focused, reducing complexity.
-- Services can be internally changed or replaced without global impact.
+- 团队能够独立地工作与扩张。
+- 微服务小巧、专一，降低了复杂度。
+- 服务可以在不会影响全局的情况下内部进行更改或者替换。
 
-What's not to like? Well, along the way you've gone from a single (albeit slightly obese) application to a distributed system of microservices. This brings an enormous amount of operational complexity to the table. Suddenly, you need to continuously deploy many different (possibly containerized) services. New concerns arise: service discovery, distributed logging, tracing and so on. You are now even more prone to the [fallacies of distributed computing](https://en.wikipedia.org/wiki/Fallacies_of_distributed_computing). Versioning of interfaces and configuration management become a major concern. The list goes on and on.
+那么微服务架构的缺点是什么呢？当你从一个单体式（虽然有点臃肿）应用切换成微服务分布式系统的时候，给表操作带来了巨大的复杂性。突然间，你发现你要不断地部署各种不同的（可能是由容器包装的）服务。这时，服务发现、分布式日志记录、跟踪等新的问题出现了。现在，你更加容易出现[分布式计算的谬论](https://en.wikipedia.org/wiki/Fallacies_of_distributed_computing)造成的错误。接口的版本管理与配置管理成为你面对的主要问题。各种问题将数不胜数向你涌来。
 
-It turns out there is as much complexity in the connections between microservices as there is in the combined business logic of all individual microservices. And to get here, you can't just take your monolith and chop it up. Whereas 'spaghetti code' in monolithic codebases is problematic, putting a network boundary in between escalates these entanglement issues to downright painful. 
+事实证明，由于所有的微服务个体都需要联合起来实现业务逻辑，微服务之间的连接将变得无比复杂。看到这里，你应该意识到不能简单地将单体式应用拆分成微服务了。单体式应用中的“意大利面条式代码”问题重重，在其中再加上网络边界会将这些纠缠在一起的问题升级成彻头彻尾的痛苦。
 
-## The modular alternative
+* 译注：[什么是意大利面式代码](http://www.ituring.com.cn/article/10311)
 
-Does this mean we are either relegated to the messy monolith, or must drown in the complexity of microservice madness? Modularity can be achieved by other means as well. What's essential is that we can effectively draw and enforce boundaries during development. But we can achieve this by creating a well-structured monolith as well. Of course, that means embracing any help we can get from the programming language and development tooling to enforce the principles of modularity.
+## 模块化的替代方案
 
-In Java, for example, there are several module systems that can help in structuring an application. OSGi is the most well-known one, but with the release of Java 9 a native module system is added to the Java platform itself. Modules are now part of the language and platform as a first-class construct. Java modules can express dependencies on other modules, and publicly export interfaces while strongly encapsulating implementation classes. Even the Java platform itself (an enormous codebase) has been modularized using the new Java module system. You can learn more about modular development with Java 9 in my forthcoming book, [Java 9 Modularity](https://www.safaribooksonline.com/library/view/java-9-modularity/9781491954157/?utm_source=newsite&amp;utm_medium=content&amp;utm_campaign=lgen&amp;utm_content=modules-vs-microservices-inline), now available in early release.
+这是否意味着我们要么沉没在混乱的单体式应用中，要么淹没在令人抓狂的微服务复杂性中呢？其实，模块化也可以通过其它方式实现。在开发时最重要的是正确地规划项目边界并实施方案，我们也可以通过创建一个结构良好的单体式应用来实现这一点。当然，这意味着我们将尽可能利用编程语言与开发工具的协助来实现模块化原则。
 
-Other languages offer similar mechanisms. For instance, JavaScript got a [module system](http://exploringjs.com/es6/ch_modules.html) as of ES2015. Before that, Node.js already offered a non-standard module system for JavaScript back-ends. However, as a dynamic language, JavaScript has weaker support for enforcing interfaces (types) and encapsulation between modules. You can consider using TypeScript on top of JavaScript to get back this advantage again. Microsoft's .Net Framework does have strong typing like Java, but it doesn't have a direct equivalent to Java's upcoming module system in terms of strong encapsulation and explicit dependencies between assemblies. Still, a good modular architecture can be achieved by using Inversion-of-Control patterns which are standardized in [.Net Core](https://msdn.microsoft.com/en-us/magazine/mt707534.aspx) and by creating logically related assemblies. Even C++ is [considering the addition](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2016/n4610.pdf) of a module system in a future revision. Many languages are gaining appreciation for modularization, which is in itself a striking development.
+例如在 Java 中，有几个可以帮助你构建应用的模块系统。OSGi 是其中最著名的一个，不过随着 Java 9 的发布，Java 平台将加入一个原生的模块系统。现在模块作为一等结构（first-class construct），成为了语言和平台的一部分。Java 模块可以表明对其它模块的依赖，以及在强封装实现类的时候公开暴露接口。甚至 Java 平台本身（一个庞大的代码库）已经使用了新的 Java 模块系统进行模块化。你可以在我即将出版的书[Java 9 Modularity](https://www.safaribooksonline.com/library/view/java-9-modularity/9781491954157/?utm_source=newsite&amp;utm_medium=content&amp;utm_campaign=lgen&amp;utm_content=modules-vs-microservices-inline)中了解有关 Java 9 模块化开发的更多信息。（现早期版本已经发布）
 
-When you make a conscious effort to use the modularity features of your development platform, you can achieve the same modularity benefits that we ascribed to microservices earlier. Essentially, the better the module system, the more help you get during development. Different teams can work on different parts, where only the well-defined interfaces are touch points between the teams. Still, at deployment time the modules come together in a single deployment unit. This way you can prevent the substantial complexity and costs associated with moving to microservices development and management. True, this means you can't build each module on a different tech-stack. But is your organization really ready for that anyway?
+其它的语言也提供了类似的机制。例如，JavaScript 在 ES2015 规范中提供了一个[模块系统](http://exploringjs.com/es6/ch_modules.html)。在此之前，Node.js 也为 JavaScript 后端提供了一个非标准的模块系统。然而 JavaScript 作为一种动态语言，对于强制接口（类型）与模块封装的支持还是较弱。你可以考虑在 JavaScript 的基础上使用 TypeScript 来重新获得这些优点。微软的 .Net 框架与 Java 一样都有着强类型，但就强封装以及程序集（Assemblies）间的显式依赖而言，它与 Java 即将推出的模块系统并不相同。尽管如此，你可以通过使用 [.Net Core](https://msdn.microsoft.com/en-us/magazine/mt707534.aspx) 中标准化的反转控制模式（IOC）以及创建逻辑相关的程序集来实现良好的模块化架构。即使是 C++ 也在以后的版本中[考虑添加](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2016/n4610.pdf)模块系统。许多语言都在向模块化靠近，这本身就是一个显著的进步。
 
-## Designing modules
+当你有意识地使用你的开发平台的模块化特性时，你就可以实现之前提及的微服务的模块化优势。基本上模块系统越好，你在开发过程中获得的帮助就越多。只要在不同团队间的接触点定义好明确的接口，不同的团队也可以独立进行不同部分的工作。当然，在部署时还是要将模块在一个单独的部署单元中组合起来。这样可以防止过于复杂，以及减少迁移到微服务所需要的开发与管理成本。诚然，这也意味着你不能使用不同的技术栈来构建不同的模块，但你的团队应该不会真的这么做吧？
 
-Creating good modules requires the same design rigor as creating good microservices. A module should model (part of) a single bounded context of the domain. Choosing microservice boundaries is an architecturally significant decision with costly ramifications when done wrong. Module boundaries in a modular application are easier to change. Refactoring across modules is typically supported by the type-system and the compiler. Redrawing microservice boundaries involves a lot of inter-personal communication to not let things blow up at run-time. And be honest, how often do you get your boundaries right the first time, or even the second?
+## 模块设计
 
-In many ways, modules in statically typed languages offer better constructs for well-defined interfaces. Calling a method through a typed interface exposed by another module is much more robust against changes than calling a REST endpoint on another microservice. REST+JSON is ubiquitous, but it is not the hallmark of well-typed interoperability in the absence of (compiler-checked) schemas. Add in the fact that traversing the network including (de)serialization still isn't free, and the picture becomes even bleaker. What's more, many module systems allow you to express your dependencies on other modules. When these dependencies are violated, the module system will not allow it. Dependencies between microservices only materialize at run-time, leading to hard to debug systems.
+创建好的模块和创建好的微服务一样，都需要严谨的设计。一个模块应该基于其域的有界上下文建模（DDD）。选择微服务的边界是架构上重要的决策，一旦出错就可能要付出沉重的代价。相较而言，模块化应用程序模块的边界更容易修改一些。模块间的重构通常由类型系统和编译器支持。微服务边界的重新划分则涉及大量的进程间通信（IPC），以确保运行时稳定性。老实说，你真的只用一次两次就能正确的划分好边界？
 
-Modules are natural units for code-ownership as well. Teams can be responsible for one or more modules in the system. The only thing shared with other teams is the public API of their modules. At run-time, there's less isolation between modules in comparison with microservices. Everything still runs in the same process, after all. 
+在许多方面，静态语言的模块为了定义明确的接口而提供了更好的结构。通过调用另一个模块暴露的接口提供的方法，比去调用另一个微服务的 REST 端点健壮性要强的多。REST+JSON 现在无处不在，但在没有编译器检查的情况下，它并没有”类型良好的互通性“这个特点。而事实上，通过网络序列化（或者反序列化）数据并不是无开销的，甚至这种传输方式更加逊色。此外，许多模块化系统允许你表明此模块对于其它模块的依赖关系，模块系统将不允许违背这些依赖关系的情况出现。而微服务之间的依赖关系只在运行时实现，导致系统难以调试。
 
-There's no reason why a module in a monolith can't own its data just like a good microservice does. Sharing within the modular application then happens through well-defined interfaces or messages between modules, not through a shared datastore. The big difference with microservices is that everything happens in-process. Eventual consistency concerns should not be underestimated. With modules, eventual consistency can be a deliberate, strategic choice. Or, you can just 'logically' separate data while storing them in the same datastore and still use cross-domain transactions for the time being. For microservices, there is no choice: eventual consistency is a given and you need to adapt.
+模块也是代码所有权中的自然单位。一个团队可以负责系统中的一个或者多个模块，而只需要给其它团队提供模块的公共 API。在运行时，模块之间的隔离比微服务少，毕竟模块化单体式应用的所有模块都运行在同一个进程中。
 
-## When are microservices right for your organization?
+* 译注：[什么是代码所有权](http://blog.csdn.net/mfowler/article/details/974251)
 
-So when should you turn to microservices? Until now, we've mainly focused on tackling complexity through modularity. For that, both microservices and modular applications will do. But there are different challenges besides the ones addressed so far. 
+毫无疑问，单体式应用的模块不可能像微服务一样有自己的数据。模块化应用内部的数据交流是通过定义良好的接口或者模块间的消息进行的，而不是通过共享数据存储进行。它与微服务最大的差别就是它的一切都发生在同一个进程中，因此同样不能低估最终的数据一致性问题。对于模块来说，最终的一致性问题可以是一个策略问题，或者你也可以仅将数据”逻辑地“分开存储在同一数据库内并仍然使用跨域事务。而对于微服务来说，这个问题别无选择：必须保证最终的一致性。
 
-When your organization is at the scale of Google or Netflix, it makes complete sense to embrace microservices. You have the capacity to build your own platform and toolkits, and the number of engineers prohibits any reasonable monolithic approach. But most organizations  don't operate at this scale. Even if you think your organization will become a billion-dollar unicorn one day, starting out with a modularized monolith won't do much harm. 
+## 何时微服务才适用于你的团队？
 
-Another good reason to spin up separate microservices is if different services are inherently better suited to different technology stacks. Then again, you must have the scale to attract talent across these disparate stacks and keep those platforms up and running. 
+那么何时迁移到微服务架构才合适呢？到目前为止，我们主要关注的是如何通过模块化来解决复杂性问题。对于这一点，微服务与模块化应用都可以做到，只不过各有所难。
 
-Microservices also enable independent deployment of different parts of the system, something that is harder (or even impossible) in most modular platforms. Isolated deployments add to the resilience and fault-tolerance of the system. Furthermore, the scaling characteristics may be different for each microservice. Different microservices can be deployed to matching hardware.  The modularized monolith can be scaled horizontally as well, but you scale out all modules together. That may not always work out for the best, though in practice, you can get quite far with this approach. 
+当你的团队有如同 Google 或者 Netflix 般的规模的时候，拥抱微服务是毋庸置疑的。你有能力去建立你自己的平台与工具库，并且工程师的数量排除了任何使用单体式解决方案的可能。但是大多数的组织都达不到这个规模。即使你认为你的公司有朝一日将成为一个市值十亿美元的独角兽，在刚起步时使用模块化的单体式应用也无伤大雅。
 
-## Conclusion
+另一个拆分微服务的理由是：不同的服务在实现上更适合使用不同的技术栈。那么，你必须有足够的规模来吸引人才以解决这些迥然不同的技术栈，并支持这些平台的运行。
 
-As always, the best option is finding a middle-ground. There's a place for both approaches, and which is best really depends on the environment, organisation and the application itself. Why not start with a modular application? You can always choose to move to microservices later. Then, instead of having to surgically untangle your monolith, you have sensible module boundaries cut out already. It's not even an exclusive choice: you can also use modules to structure microservices internally. The question then becomes, why do microservices have to be 'micro'? 
+微服务还可以做到独立部署系统的不同部分，这在大多数模块化平台中很难（甚至不可能）实现。隔离部署增加了系统的弹性与容错能力。此外，每个微服务的缩放特性可以是不同的，可以部署不同的微服务以匹配硬件。模块化的单体式应用可以进行水平缩放，但是只能将所有模块捆绑在一起同时进行拓展。虽然你可以通过这种方法得到很多好处，但这可能并不是最好的解决方案。
 
-Even if you do depart from a single modularized application, your services don't have to be tiny to be maintainable. Again, applying the principles of modularity within services allows them to scale in complexity beyond what you'd normally ascribe to microservices. There's a place for both modules and microservices in this picture. Real cost-savings can be achieved by reducing the number of services in your architecture. Modules can help structure and scale services just as they can help structure a single monolithic application.
+## 总结
+ 
+总之，最好的方案就是找到一个折中的点。这两种方案都有可取之处，需要根据实际环境、组织和应用本身进行选择。既然你可以在之后迁移成微服务架构，那为什么最开始不直接使用模块化应用呢？如果你之前就已经划分好了模块边界，那也就不需要再去拆分你的单体式应用了。甚至你还可以在模块内部搭建微服务架构。那么问题就变成了：为什么微服务一定要是“微”的呢？
 
-If you're after the benefits of modularity, make sure you don't trick yourself into a microservices-only mindset. Explore the in-process modularity features or frameworks of your favorite technology stack. You’ll get support to enforce modular design, instead of having to just rely on conventions to avoid spaghetti code. Then, make a deliberate choice whether you want to incur the complexity penalty of microservices. Sometimes you just have to, but often, you can find a better way forward. 
+即使你的应用刚从模块化应用转成微服务架构，服务也不必非得很“微”才具备可维护性。在服务中应用模块化原则能让它们在复杂度的可扩展性上超越通常的微服务。现在这份蓝图中既有微服务也有模块，减少架构中的服务的数量可以节约成本；而其中的模块可以像构建单体式应用一样，构建和扩展服务。
+
+如果你追求模块化的好处，请确保自己不要自嗨进入一种“非微服务不可”的心态。探索你喜爱的技术栈中的同进程模块化功能或框架，你将会得到支持去真正的执行模块化设计，而不是仅靠着约定来避免“意大利面条式代码”。最后，请深思熟虑后再选择：你是否愿意接受引入微服务造成的复杂度成本。有的时候你别无选择，但更多的时候其实你可以找到更好的解决方案。
 
 ---
 
