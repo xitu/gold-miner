@@ -31,30 +31,30 @@ NSTimer 类也不会在这里介绍，你可以看一看[这里](/swiftbites/nst
 ### 目录 ###
 
 - [多线程与并发入门](#多线程与并发入门)
-- [Language Guarantees](#language-guarantees)
-- [线程](#threads)
-- [同步原语](#synchronization-primitives)
+- [语言守护](#语言守护)
+- [线程](#线程)
+- [同步原语](#同步原语)
 	- [NSLock](#nslock)
 	- [NSRecursiveLock](#nsrecursivelock)
 	- [NSConditionLock](#nsconditionlock)
 	- [NSCondition](#nscondition)
 	- [NSDistributedLock](#nsdistributedlock)
-	- [OSAtomic 你在哪里？](#osatomic-where-art-thou)
-	- [同步块](#on-synchronized-blocks)
+	- [OSAtomic 你在哪里？](#OSAtomic 你在哪里？)
+	- [同步块](#同步块)
 
-- [GCD: 大中枢派发](#gcd-grand-central-dispatch)
-	- [调度队列](#dispatch-queues)
-	- [使用队列](#using-queues)
-	- [屏障](#barriers)
-	- [Singletons 和 Dispatch_once](#singletons-and-dispatch_once)
+- [GCD: 大中枢派发](#GCD: 大中枢派发)
+	- [调度队列](#调度队列)
+	- [使用队列](#使用队列)
+	- [屏障](#屏障)
+	- [Singletons 和 Dispatch_once](#Singletons 和 Dispatch_once)
 	- [Dispatch Groups](#dispatch-groups)
 	- [Dispatch Work Items](#dispatch-work-items)
 	- [Dispatch Semaphores](#dispatch-semaphores)
 	- [Dispatch Assertions](#dispatch-assertions)
 	- [Dispatch Sources](#dispatch-sources)
 	
-- [操作与可操作的队列](#operations-and-operationqueues)
-- [闭幕后的思考](#closing-thoughts)
+- [操作与可操作的队列](#操作与可操作的队列)
+- [闭幕后的思考](#闭幕后的思考)
 
 ## 多线程与并发入门 ##
 
