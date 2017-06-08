@@ -1,5 +1,5 @@
 > * 原文地址：[iOS 11: Notable UIKit Additions](https://medium.com/the-traveled-ios-developers-guide/ios-11-notable-uikit-additions-92e5eb421c3b)
-> * 原文作者：[Jordan Morgan](https://medium.com/@JordanMorgan10)
+> * 原文作者：本文已获原作者 [Jordan Morgan](https://medium.com/@JordanMorgan10) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：
 > * 校对者：
