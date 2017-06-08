@@ -2,25 +2,25 @@
 > * 原文作者：[Enrique López Mañas](https://medium.com/@enriquelopezmanas)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者： [lovexiaov](https://github.com/lovexiaov)
-> * 校对者：
+> * 校对者：[luoqiuyu](https://github.com/luoqiuyu) [hackerkevin](https://github.com/hackerkevin)
 
 ![](https://cdn-images-1.medium.com/max/2000/1*nWjJ7GKUSVEQMC0srKK-9Q.jpeg)
 
 # 再谈如何安全地在 Android 中存储令牌 #
 
-作为本文的序言，我想对假想的读者做一个简短的声明。下面的引言对本文的后续内容而言十分重要。
+作为本文的序言，我想对读者做一个简短的声明。下面的引言对本文的后续内容而言十分重要。
 
 > 没有绝对的安全。所谓的安全是指利用一系列措施的堆积和组合，来试图延缓必然发生的事情。
 
-大约 3 年前，我写了[一篇文章](http://codetalk.de/?p=86)，给出了几种方法来防止反编译我们 Android 应用的潜在攻击者窃取字符串令牌。为了便于回忆，也为了防止不可避免的网络损坏，我将会在此重新列出一些章节。
+大约 3 年前，我写了[一篇文章](http://codetalk.de/?p=86)，给出了几种方法来防止潜在攻击者反编译我们 Android 应用窃取字符串令牌。为了便于回忆，也为了防止不可避免的网络瘫痪，我将会在此重新列出一些章节。
 
-一个十分常见的场景是应用需要与服务器连接来交换数据。交换的数据敏感性时小时大，而且不同请求（登陆请求、用户信息变更请求，等）之间交换的数据类型也多种多样。
+客户端应用与服务端的交互是最常见的场景之一。数据交换时的敏感度差别很大，并且登录请求、用户数据更改请求等之间交换的数据类型也变化多样。
 
 首先要提到并应用的技术是使用 [SSL](http://info.ssl.com/article.aspx?id=10241)（安全套接层）链接客户端与服务端。再看一下文章开头的引言。尽管这样做是一个良好的开端，但这并不能确保绝对的隐私和安全。
 
 当你使用 SSL 连接时（也就是当你看到浏览器上有一个小锁时），这意味着你与服务器之间的连接被加密了。理论上讲，没有什么能够访问到你请求里的信息（*）
 
-（*）我说过绝对的安全不存在吧？SSL 连接仍然可以被攻破。本文不打算提供所有可能的攻击手段列表，我只想让你明白这是可能发生的。可以伪造 SSL 证书，也可以进行中间人攻击。
+（*）我说过绝对的安全不存在吧？SSL 连接仍然可以被攻破。本文不打算提供所有可能的攻击手段列表，只想让你了解几种攻击的可能性。比如，可以伪造 SSL 证书，或者进行中间人攻击。
 
 我们继续。假设客户端正在通过加密的 SSL 通道与后台链接，它们在愉快的交换有用的数据，执行业务逻辑。但是我们还想提供一个额外的安全层。
 
@@ -40,7 +40,7 @@ private final static String API_KEY = “67a5af7f89ah3katf7m20fdj202”
 const-string v1, “67a5af7f89ah3katf7m20fdj202”
 ```
 
-是的，我知道。这并不能保证是一个有效的令牌，所以我们仍然需要通过一个精确地验证来决定如何找到那个字符串，和它是否可以用来通过验证。但是你知道我要表达什么：这通常只是时间个资源的问题。
+是的，我知道。这并不能保证是一个有效的令牌，所以我们仍然需要通过一个精确的验证来决定如何找到那个字符串，和它是否可以用来通过验证。但是你知道我要表达什么：这通常只是时间和资源的问题。
 
 Proguard 是否会能我们保证该字符串的安全呢？并不能。Proguard 在[常见问题](http://proguard.sourceforge.net/FAQ.html#encrypt)中提到了字符串的加密是完全不可能的。
 
@@ -71,9 +71,9 @@ Proguard 是否会能我们保证该字符串的安全呢？并不能。Proguard
 代码没啥好说的。这两个函数会使用一个密钥值和一个被用来编/解码的字符串作为入参。它们会返回相应的加密或解密过的字符串。我们会用如下方式调用它们：
 
 ```java
-ByteArrayOutputStream baos = new ByteArrayOutputStream();  
+ByteArrayOutputStream baos = new ByteArrayOutputStream();
 bm.compress(Bitmap.CompressFormat.PNG, 100, baos);
-byte[] b = baos.toByteArray();  
+byte[] b = baos.toByteArray();
 
 byte[] keyStart = "encryption key".getBytes();
 KeyGenerator kgen = KeyGenerator.getInstance("AES");
@@ -81,7 +81,7 @@ SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
 sr.setSeed(keyStart);
 kgen.init(128, sr);
 SecretKey skey = kgen.generateKey();
-byte[] key = skey.getEncoded();    
+byte[] key = skey.getEncoded();
 
 // encrypt
 byte[] encryptedData = encrypt(key,b);
@@ -89,13 +89,13 @@ byte[] encryptedData = encrypt(key,b);
 byte[] decryptedData = decrypt(key,encryptedData);
 ```
 
-抓到重点了吗？是的，我们可以根据需求来加/解密令牌。这就为我们提供了一个额外的安全层：当代码混淆后，寻找令牌不再像执行字符串搜索和检查字符串周围的环境那样简单了。但是，你能指出还有一个需要解决的问题吗？
+猜到为什么要这么做了吗？是的，我们可以根据需求来加/解密令牌。这就为我们提供了一个额外的安全层：当代码混淆后，寻找令牌不再像执行字符串搜索和检查字符串周围的环境那样简单了。但是，你能指出还有一个需要解决的问题吗？
 
 找到了吗？
 
 如果还没找到就多花点时间。
 
-是的。我们仍然有一个加密密钥以字符串的形式存储。虽然这种隐晦的做法增加了更多的安全层，但不管这个令牌是用于加密或它本身就是一个令牌，我们仍然有一个以文本形式存在的令牌。
+是的。我们仍然有一个加密密钥以字符串的形式存储。虽然这种隐晦的做法增加了更多的安全层，但不管这个令牌是用于加密或它本身就是一个令牌，我们仍然有一个以明文形式存在的令牌。
 
 现在，我们将使用 NDK 来继续迭代我们的安全机制。
 
@@ -150,13 +150,13 @@ byte[] keyStart = getSecretKey().getBytes();
 
 抓到重点了吗？为什么不使用返回三个随机素数（ 1～100 之间）之和的函数来代替返回一个字符串（很容易被识别）的原生函数呢？或者拿到当天的 UNIX 时间，然后给每一位数字加 1？通过设备的一些上下文相关信息(如正在使用的内存量)来提供一个更高程度的熵值？
 
-上面这段包含了一些想法，希望假想的读者已经得到重点了。
+上面这段包含了一些想法，希望读者们已经得到重点了。
 
 ### **总结** ###
 
 1. 绝对的安全是不存在的。
-2. 多种保护手段的组合是达到高安全度的关键。
-3. 不要在代码中存储字符串字面值。
+2. 多种保护手段的结合是达到高安全度的关键。
+3. 不要在代码中存储字符串明文。
 4. 使用 NDK 来创建自生成的密钥。
 
 还记得开头的那段话吧？
