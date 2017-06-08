@@ -6,23 +6,24 @@
 
 # A Unified Styling Language
 
-In the past few years we’ve seen the rise of [CSS-in-JS](https://github.com/MicheleBertoli/css-in-js), emerging primarily from within the [React](https://facebook.github.io/react) community. This, of course, hasn’t been without its controversies. Many people, particularly those already intimately familiar with CSS, have looked on in disbelief.
+在过去几年中，我们见证了  [CSS-in-JS](https://github.com/MicheleBertoli/css-in-js) 的兴起，尤其是在 [React](https://facebook.github.io/react) 社区。当然，它也饱含争议。很多人，尤其是哪些已经对 CSS 非常熟悉的人都表示难以置信
 
-> “Why would anyone want to write CSS in JS?
+> "为什么有人要在 JS 中写 CSS？
 
-> Surely this is a terrible idea!
+> 这简直是一个可怕的想法！
 
-> If only they’d learn CSS!”
+> 除非他们没学过 CSS"
 
-If this was your reaction, then read on. We’re going to take a look at why writing your styles in JavaScript isn’t such a terrible idea after all, and why I think you should be keeping an eye on this rapidly evolving space.
+如果这就是你的反应，那么请继续读下去。我们来看看为什么在 JavaScript 中编写样式不是一个可怕的想法，以及为什么我认为你应该关注这个快速发展的领域。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*Ipu5Grtzr21suPiTfvGXaw.png)
 
 ### Misunderstood communities
 
-The React community is often misunderstood by the CSS community, and vice versa. This is particularly interesting for me, as I’m caught somewhere between these two worlds.
+React 社区经常被 CSS 社区误解，反之亦然。对我来说这很有趣，因为我经常被卷入这两个世界的纷争。
 
 I started learning HTML in the late nineties, and I’ve been working with CSS professionally since the dark ages of table-based layouts. Inspired by [CSS Zen Garden](http://www.csszengarden.com), I was on the front lines of migrating existing codebases towards [semantic markup](https://en.wikipedia.org/wiki/Semantic_HTML) and cascading style sheets. It wasn’t long after this that I became obsessed with separating our concerns, using [unobtrusive JavaScript](https://www.w3.org/wiki/The_principles_of_unobtrusive_JavaScript) to decorate our server-rendered markup with client-side interactions. There was a small but vibrant community surrounding these practices, and we became the first generation of front-end developers, trying to give the browser platform the respect it deserved.
+我在九十年代后期开始学习 HTML，并且从基于表格布局的黑暗时代以来就一直使用 CSS。
 
 With a web-focused background like this, you might imagine that I’d be vehemently opposed to React’s [_HTML-in-JS_](https://facebook.github.io/react/docs/jsx-in-depth.html) model, which seemingly goes against the principles we held so dear—but in fact, it’s quite the opposite. In my experience, React’s component model, coupled with its ability to render server-side, finally gives us a way to build complex single-page apps at scale, in a way that still allows us to ship fast, accessible, progressively enhanced products to our users. We’ve even leveraged this ability here at [SEEK](https://www.seek.com.au), our flagship product being a single-page React app where the core search flow still works when JavaScript is disabled—gracefully degrading to a traditional web site by running the same JavaScript code on the server.
 
@@ -543,3 +544,5 @@ _This article was written in parallel with a talk of the same name — prese
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[React](https://github.com/xitu/gold-miner#react)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计) 等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)。
+
+
