@@ -1,3 +1,7 @@
+* [使用 Gradle 做构建检查](https://juejin.im/entry/5937f0a48fd9c513c627114a/detail?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jacksonke](https://github.com/jacksonke/) 翻译)
+* [Django 基于 Postgres 的全文搜索](https://juejin.im/entry/593a069b61ff4b006c70ba82/detail?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([steinliber](https://github.com/steinliber/) 翻译)
+* [理解 NodeJS 中基于事件驱动的架构](https://juejin.im/entry/5937f2cdac502e0068d1aeec/detail?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Aladdin-ADD](https://github.com/Aladdin-ADD/) 翻译)
+* [如何从一个业余爱好者成长成为专业开发者](https://juejin.im/entry/59361e1e570c35005b65464e/detail?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([zaraguo](https://github.com/zaraguo/) 翻译)
 * [建立更好的代码审查制度](https://juejin.im/entry/5934bafb2f301e006b055f57/detail?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([bobmayuze](https://github.com/bobmayuze/) 翻译)
 * [使用速率限制扩展你的 API](https://github.com/xitu/gold-miner/blob/master/TODO/rate-limiters.md?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([tanglie1993](https://github.com/tanglie1993/) 翻译)
 * [真相就在代码中](https://juejin.im/post/59152d17da2f60005dd0ae77?utm_source=gold-miner&utm_medium=readme&utm_campaign=github)[loveky](https://github.com/loveky) 翻译)
