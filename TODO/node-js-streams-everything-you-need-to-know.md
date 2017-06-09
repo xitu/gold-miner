@@ -2,7 +2,7 @@
 > * 原文作者：[Samer Buna](https://medium.freecodecamp.com/@samerbuna?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[loveky](https://github.com/loveky)
-> * 校对者：
+> * 校对者：[zaraguo](https://github.com/zaraguo) [Aladdin-ADD](https://github.com/Aladdin-ADD)
 
 # Node.js 流: 你需要知道的一切 #
 
@@ -154,7 +154,7 @@ server.listen(8000);
 readableSrc.pipe(writableDest)
 ```
 
-在这行简单的代码中，我们以管道的方式把一个可读流的输出连接到了一个可写流的输入。管道的上游必须是一个可读流，下游必须是一个可写流。当然，它们也可以是双向流/变换流。事实上，如果我们使用管道连接的是双向流，我们就可以像 Linux 系统里那样连接多个流：
+在这行简单的代码中，我们以管道的方式把一个可读流的输出连接到了一个可写流的输入。管道的上游（source）必须是一个可读流，下游（destination）必须是一个可写流。当然，它们也可以是双向流/变换流。事实上，如果我们使用管道连接的是双向流，我们就可以像 Linux 系统里那样连接多个流：
 
 ```js
 readableSrc
@@ -266,7 +266,7 @@ class myWritableStream extends Writable {
 }
 ```
 
-然而，我倾向于更简单的构造方法。我们可以直接给 `Writable` 构造函数传入参数来创建一个对象。唯一必须的参数是一个 `write` 函数，它用于暴露一个写入数据的接口。
+然而，我倾向于更简单的构造方法。我们可以直接给 `Writable` 构造函数传入配置项来创建一个对象。唯一必须的配置项是一个 `write` 函数，它用于暴露一个写入数据的接口。
 
 ```js
 const { Writable } = require('stream');
@@ -286,7 +286,7 @@ write 方法接受三个参数。
 - **encoding** 通常可以忽略。除非 chunk 被配置为不是 buffer。
 - **callback** 方法是一个在我们完成数据处理后要执行的回调函数。它用来表示数据是否成功写入。若是写入失败，在执行该回调函数时需要传入一个错误对象。
 
-在 `outStream` 中，我们只是单纯的把收到的数据当做字符串 `console.log` 出来并通过执行 `callback` 时不传入错误对象以表示写入成功。这是一个非常简单且没什么用处的**回传**流。它会回传任何收到的数据。
+在 `outStream` 中，我们只是单纯的把收到的数据当做字符串 `console.log` 出来，并通过执行 `callback` 时不传入错误对象以表示写入成功。这是一个非常简单且没什么用处的**回传**流。它会回传任何收到的数据。
 
 要使用这个流，我们可以把它和可读流 `process.stdin` 配合使用。只需把 `process.stdin` 通过管道连接到 `outStream`。
 
