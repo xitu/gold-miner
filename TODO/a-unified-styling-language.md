@@ -18,40 +18,40 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*Ipu5Grtzr21suPiTfvGXaw.png)
 
-### Misunderstood communities
+### 对社区的误解
 
 React 社区经常被 CSS 社区误解，反之亦然。对我来说这很有趣，因为我经常被卷入这两个世界的纷争。
 
-I started learning HTML in the late nineties, and I’ve been working with CSS professionally since the dark ages of table-based layouts. Inspired by [CSS Zen Garden](http://www.csszengarden.com), I was on the front lines of migrating existing codebases towards [semantic markup](https://en.wikipedia.org/wiki/Semantic_HTML) and cascading style sheets. It wasn’t long after this that I became obsessed with separating our concerns, using [unobtrusive JavaScript](https://www.w3.org/wiki/The_principles_of_unobtrusive_JavaScript) to decorate our server-rendered markup with client-side interactions. There was a small but vibrant community surrounding these practices, and we became the first generation of front-end developers, trying to give the browser platform the respect it deserved.
-我在九十年代后期开始学习 HTML，并且从基于表格布局的黑暗时代以来就一直使用 CSS。
+我从九十年代后期开始学习 HTML，并且从基于表格布局的黑暗时代以来就一直使用 CSS。受 [CSS Zen Garden](http://www.csszengarden.com) 启发，我是最早一批将现有代码向 [语义化标签](https://en.wikipedia.org/wiki/Semantic_HTML) 和级联样式表迁移的人。不久之后，我开始专注于前后端分离，使用[非侵入式 JavaScript](https://www.w3.org/wiki/The_principles_of_unobtrusive_JavaScript) 和客户端的交互来装饰服务端渲染的 HTML。围绕这些做法有一个小型且充满活力的社区，并且我们成为第一代尝试给浏览器平台应有尊重的前端开发者。
 
-With a web-focused background like this, you might imagine that I’d be vehemently opposed to React’s [_HTML-in-JS_](https://facebook.github.io/react/docs/jsx-in-depth.html) model, which seemingly goes against the principles we held so dear—but in fact, it’s quite the opposite. In my experience, React’s component model, coupled with its ability to render server-side, finally gives us a way to build complex single-page apps at scale, in a way that still allows us to ship fast, accessible, progressively enhanced products to our users. We’ve even leveraged this ability here at [SEEK](https://www.seek.com.au), our flagship product being a single-page React app where the core search flow still works when JavaScript is disabled—gracefully degrading to a traditional web site by running the same JavaScript code on the server.
+伴随这样的背景，你可能会认为我会强烈反对 React 的 [_HTML-in-JS_](https://facebook.github.io/react/docs/jsx-in-depth.html) 模式，它似乎违背了我们所坚持的原则，但实际上恰恰相反。根据我的经验，React 的组件模型加上服务端渲染的能力，最终给我们提供了一种构建大规模复杂单页应用的方式，从而使我们能够将快速，可访问，逐渐增强的应用推送给我们的用户。我们甚至在 [SEEK](https://www.seek.com.au) 上利用这种能力，这是我们的旗舰产品，它是单页 React 应用程序，当 JavaScript 被禁用时我们的核心搜索流程依然可用，因为我们通过在服务器端运行相同的 JavaScript 代码来正常降级到传统的网站。
 
-So, consider this an olive branch from one community to another. Together, let’s try and understand what this movement is all about. It might not be _perfect,_ it might not be something you plan to use in your products, it might not even be terribly convincing for you—but it’s at least worth trying to wrap your head around.
+所以，也请考虑一下这个从一个社区到另一个社区的橄榄枝。让我们一起尝试理解这个转变。它可能不完美，它可能不是你计划在产品中使用的东西，它可能对你不是很有说服力，但是至少值得你尝试思考一下。
 
-### Why CSS-in-JS?
+### 为什么使用 CSS-in-JS?
 
-If you’re familiar with my recent work with React and [CSS Modules](https://github.com/css-modules/css-modules), you may be surprised to see me defending CSS-in-JS.
+如果你熟悉我最近做的与 React 以及 [CSS 模块](https://github.com/css-modules/css-modules)相关的工作，当看到我维护 CSS-in-JS 时你可能会很惊讶。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*RtAMWbxdwW2ujyrurU9plw.png)
 
-After all, CSS Modules is typically chosen by developers who want locally-scoped styles _without_ buying in to CSS-in-JS. In fact, I don’t even use CSS-in-JS in my own work.
+毕竟，通常是那些希望有局部样式但是又不希望在 JS 中写 CSS 的开发者会选择使用 CSS 模块。事实上，甚至我自己在工作中也还没用到 CSS-in-JS。
 
-Despite this, I continue to maintain a keen interest in the CSS-in-JS community, keeping a close eye on the innovations that they continually come up with. Not only that, _I think the broader CSS community should be interested too._
+尽管如此，我任然对 CSS-in-JS 社区保持浓厚的兴趣，密切关注他们不断提出的创意。不仅如此，**我认为更广泛的 CSS 社区对它也应该很感兴趣**
 
-But why?
+原因是什么呢?
 
-To get a clearer understanding of why people are choosing to write their styles in JavaScript, we’ll focus on the practical benefits that emerge when taking this approach.
+为了更清楚地了解为什么人们选择在 JavaScript 中编写他们的样式，我们将重点关注采用这种方式时带来的实际好处。
 
-I’ve broken this down into five major areas:
+我把它分为五个方面:
 
-1.  Scoped styles
+1.  局部样式
 2.  Critical CSS
 3.  Smarter optimisations
-4.  Package management
+4.  打包管理
 5.  Non-browser styling
 
 Let’s break this down further and have a closer look at what CSS-in-JS brings to the table for each of these points.
+让我们进一步的细分并且仔细看看 CSS-in-JS 
 
 ### 1.
 
