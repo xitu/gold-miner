@@ -1,5 +1,5 @@
 > * 原文地址：[Node.js Child Processes: Everything you need to know](https://medium.freecodecamp.com/node-js-child-processes-everything-you-need-to-know-e69498fe970a)
-> * 原文作者：[Samer Buna](https://medium.freecodecamp.com/@samerbuna)
+> * 原文作者：本文已获原作者 [Samer Buna](https://medium.freecodecamp.com/@samerbuna) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：
 > * 校对者：
