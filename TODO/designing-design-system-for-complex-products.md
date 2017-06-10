@@ -66,13 +66,13 @@
 
 > Lightining 设计规范
 
-If you have a front-end buddy or you can code yourself, a live library can make everyone’s life easier. It’s an efficient tool for front-end developers to keep consistency, avoid mistakes and speed up the development process. [Lightning design system](https://www.lightningdesignsystem.com/) and [Angular material](https://material.angularjs.org/latest/) are good examples for live library
+如果你有一个做前端的朋友，或者你可以自己写代码，一个实时库可以让每个人的生活变得更加轻松。它是一个高效的让前端开发者避免错误、加快开发过程并保持一致的工具。[Lightning Design](https://www.lightningdesignsystem.com/) 的设计规范和 [Angular material](https://material.angularjs.org/latest/) 都是非常好的实时库例子。
 
-Find your **front-end buddy** who cares about design details. Then talk about the components in style guides with him/her, and find the best way to build them. Listen to your buddy, because sometimes your front-end buddy will have amazing ideas that you have never thought about. Then document the codes for each component, and make sure that developers can easily understand and reuse them.
+给你自己找一个关心设计细节的**前端朋友**。然后再和他/她讨论风格指南里的组件，并找到最好的方法来构建他们。聆听你朋友的想法，因为有时候他们会冒出一些你从未考虑过的惊人的东西。然后记录每个组件的代码，并确保开发人员可以轻松地了解和复用他们。
 
 ![](https://cdn-images-1.medium.com/max/800/1*PMfV38WM5jb3GXHoI_WrSQ.gif)
 
-> Finding the developer who cares about CSS #uxreactions via [@uxreactions](http://twitter.com/uxreactions)
+> 发现那些关心 CSS 的开发者 #uxreactions via [@uxreactions](http://twitter.com/uxreactions)
 
 #### 2. 从风格指南到设计规范 ####
 
