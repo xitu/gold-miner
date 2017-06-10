@@ -1,80 +1,84 @@
 > * 原文地址：[What does the time complexity O(log n) actually mean?](https://hackernoon.com/what-does-the-time-complexity-o-log-n-actually-mean-45f94bb5bfbf)
 > * 原文作者：[Maaz](https://hackernoon.com/@maazrk)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
+> * 译者：[cdpath](https://github.com/cdpath)
 > * 校对者：
 
-# What does the time complexity O(log n) actually mean?
+# 时间复杂度 O(log n) 意味着什么？
 
 ![](https://cdn-images-1.medium.com/max/1000/1*IIKt9oYIhWsUQmsKoRZorQ.jpeg)
 
-Knowing the complexity of algorithms beforehand is one thing, and other thing is knowing the reason behind it being like that.
+预先知道算法的时间复杂度是一回事，了解其后的原理是另一件事情。
 
-Whether you’re a CS graduate or someone who wants to deal with optimization problems effectively, this is something that you must understand if you want to use your knowledge for solving actual problems.
+不管你是计算机科班出身还是想有效解决最优化问题，如果想要用自己的知识解决实际问题，你都必须理解时间复杂度。
 
-Complexities like O(1) and O(n) are simple and straightforward. O(1) means an operation which is done to reach an element directly (like a dictionary or hash table), O(n) means first we would have to search it by checking n elements, but what could O(log n) possibly mean?
+先从简单直观的 O(1) 和 O(n) 复杂度说起。O(1) 表示可以直接取得目标元素（比如字典或哈希表），O(n) 意味着先要检查 n 个元素来搜索目标，但是 O(log n) 是什么意思呢？
 
-One place where you might have heard about O(log n) time complexity the first time is Binary search algorithm. So there must be some type of behavior that algorithm is showing to be given a complexity of log n. Let us see how it works.
+你第一次听说 O(log n) 时间复杂度可能是在学二分搜索算法的时候。二分搜索一定有某种行为使其时间复杂度为 log n。我们来看看是二分搜索是如何实现的。
 
-Since binary search has a best case efficiency of O(1) and worst case (average case) efficiency of O(log n), we will look at an example of the worst case. Consider a sorted array of 16 elements.
+因为二分搜索的时间复杂度在运气最好时是 O(1)，运气最坏时（平均情况）是 O(log n)，我们直接来看最坏情况下的例子。已知有 16 个元素的有序数组。
 
-For the worst case, let us say we want to search for the the number 13.
+举个最坏情况的例子，比如我们要找的是数字 13。
 
 ![](https://cdn-images-1.medium.com/max/800/1*2zmw8UA3Ju93DskOT2ja0A.png)
 
-A sorted array of 16 elements
+十六个元素的有序数组
 
 ![](https://cdn-images-1.medium.com/max/800/1*dONXkX6pcZlJsW4pJT2a4w.jpeg)
 
-Selecting the middle element as pivot (length / 2)
+选中间的元素作为中心点（长度的一半）
 
 ![](https://cdn-images-1.medium.com/max/800/1*ZGG_EHsm4F-4ESE4jH4Kqg.jpeg)
 
-Since 13 is less than pivot, we remove the other half of the array
+13 小于中心点，所以不用考虑数组的后一半
 
 ![](https://cdn-images-1.medium.com/max/800/1*ePal2Rfl88eRGFPnvXKFIw.jpeg)
 
-Repeating the process for finding the middle element for every sub-array
+重复这个过程，每次都寻找子数组的中间元素
 
 ![](https://cdn-images-1.medium.com/max/800/1*fJX4YoVfImQvQlWN4CRgsg.jpeg)
 
 ![](https://cdn-images-1.medium.com/max/800/1*1dJ8urBmYpKiGzyNZbwd8w.jpeg)
 
-You can see that after every comparison with the middle term, our searching range gets divided into half of the current range.
+每次和中间元素比较都会使搜索范围减半。
 
-So, for reaching one element from a set of 16 elements, we had to divide the array 4 times,
-
-We can say that,
+所以为了从 16 个元素中找到目标元素，我们需要把数组平均分割 4 次，也就是说，
 
 ![](https://cdn-images-1.medium.com/max/800/1*4wH4sn6FBsAPnVHjIMdhTA.png)
 
-Simplified Formula
-Similarly, for n elements,
+简化后的公式
+
+类似的，如果有 n 个元素，
 
 ![](https://cdn-images-1.medium.com/max/800/1*b4wakMYiYlBXb99b-eYJ9w.png)
 
-Generalization
+归纳一下
 
 ![](https://cdn-images-1.medium.com/max/800/1*XwWCLuB2Zb0zQjSQo7wpbQ.png)
 
-Separating the power for the numerator and denominator
+分子和分母代入指数
 
 ![](https://cdn-images-1.medium.com/max/800/1*lHNSYMPysioxVc38BvokAw.png)
 
-Multiplying both sides by 2^k
+等式两边同时乘以 2^k
+
 ![](https://cdn-images-1.medium.com/max/800/1*y10tlmCach8Uefc3n3d5aA.png)
-Final result
-Now, let us look at the definition of logarithm, it says that
 
-> A quantity representing the power to which a fixed number (the base) must be raised to produce a given number.
+最终结果
 
-Which makes our equation into
+现在来看看「对数」的定义：
+
+> 为使某数（底数）等于一给定数而必须取的乘幂的幂指数。
+
+也就是说可以写成这种形式
 
 ![](https://cdn-images-1.medium.com/max/800/1*qVSjYPYo9t4QNoLP8FZFWw.png)
-Logarithmic form
-So the log n actually means something doesn’t it? A type of behavior nothing else can represent.
 
-Well, i hope the idea of it is clear in your mind. When working in the field of computer science, it is always helpful to know such stuff (and is quite interesting too). Who knows, maybe you’re the one in your team who is able to find an optimized solution for a problem, just because you know what you’re dealing with. Good luck!
+对数形式
+
+所以 log n 的确是有意义的，不是吗？没有其他什么可以表示这种行为。
+
+就这样吧，我希望我讲得这些你都搞懂了。在从事计算机科学相关的工作时，了解这类知识总是有用的（而且很有趣）。说不定就因为你知道算法的原理，你成了小组里能找出问题的最优解的人呢，谁知道呢。祝好运！
 
 ---
 
