@@ -195,17 +195,17 @@ const Title = glamorous.h1({
 
 ### 2.
 
-#### Critical CSS
+#### 关键 CSS
 
-It’s become a relatively recent best practice to inline critical styles in the head of your document, improving initial load times by providing only those styles required to render the current page. This is in stark contrast to how we usually loaded styles—forcing the browser to download every possible visual style for our application before a single pixel was rendered on the screen.
+在文档头部内联关键样式已经成为一种比较新的最佳实践，通过仅提供当前页面所需的样式可以提高首屏时间。这与我们常用的样式加载方式形成鲜明对比，我们常常强制浏览器在渲染之前为应用下载所有可能的视觉风格。
 
-While there are tools available for extracting and inlining critical CSS, like the appropriately named [critical](https://github.com/addyosmani/critical) by [Addy Osmani](https://twitter.com/addyosmani), they don’t fundamentally change the fact that critical CSS is difficult to maintain and automate. It’s a tricky, purely optional performance optimisation, so most projects seem to forgo this step.
+虽然有工具可以用于提取和内联关键 CSS，比如 [Addy Osmani](https://twitter.com/addyosmani) 的 [critical](https://github.com/addyosmani/critical)，但是他们不能从根本上改变关键 CSS 难以维护和自动化的事实。这是一个棘手的，非必选的性能优化，所以大部分项目似乎放弃了这一步。
 
-CSS-in-JS is a totally different story.
+CSS-in-JS 是一个完全不同的故事。
 
-When working in a server rendered application, extracting your critical CSS is not merely an optimisation—CSS-in-JS on the server fundamentally _requires_ critical CSS to even work in the first place.
+当使用服务端渲染的应用时，提取关键 CSS 不仅仅是一个优化，从根本上来说，服务器端的 CSS-in-JS 是**使用**关键 CSS 的首要工作。
 
-For example, when using [Aphrodite](https://github.com/Khan/aphrodite) from [Khan Academy](https://github.com/Khan), it keeps track of which styles are used within a single render pass using its `css` function, which is called inline while applying classes to your elements.
+举个例子，当使用 [Khan Academy](https://github.com/Khan) 开发的 [Aphrodite](https://github.com/Khan/aphrodite) 时，一旦给元素添加 class，就可以内联调用它的 `css` 函数来跟踪在单个渲染过程中使用的样式。
 
 ```
 import { StyleSheet, css } from 'aphrodite'
@@ -217,7 +217,7 @@ const Heading = ({ children }) => (
 )
 ```
 
-Even though all of your styles are defined in JavaScript, you can easily extract all the styles for the current page into a static string of CSS that can be inserted into the head of the document when rendering server-side.
+即便你所有的样式都是在 JavaScript 中定义的，你也可以很轻松的从当前页面中提取所有的样式并生成一个 CSS 字符串，当执行服务端渲染时将它们插入文档的头部。
 
 ```
 import { StyleSheetServer } from 'aphrodite';
@@ -227,7 +227,7 @@ const { html, css } = StyleSheetServer.renderStatic(() => {
 });
 ```
 
-You can now render your critical CSS block like this:
+你可以像这样渲染你的关键 CSS：
 
 ```
 const criticalCSS = `
@@ -237,13 +237,15 @@ const criticalCSS = `
 `;
 ```
 
-If you’ve looked into React’s server rendering model, you may find this to be a very familiar pattern. In React, your components define their markup in JavaScript, but can be rendered to a regular HTML string on the server.
+如果你看过 React 的服务端渲染模型，你可能会发现这是一个非常熟悉的模式。在 React 中，你的组件在 JavaScript 中定义他们的标记，但可以在服务器端渲染成常规的 HTML 字符串。
 
-**_If you build your app with progressive enhancement in mind, despite being written entirely in JavaScript, it might not require JavaScript on the client at all._**
+**尽管是完全用 JavaScript 编写，如果你要以渐进增强的方式构建你的应用程序，那么就没必要在客户端一次性加载全部的 JavaScript**
 
 Either way, the client-side JavaScript bundle includes the code needed to boot up your single-page app, suddenly bringing it to life, rendering in the browser from that point forward.
+无论哪种方式，客户端 JavaScript 代码块都要包含启动单页应用程序所需的代码，
 
 Since rendering your HTML and CSS on the server happen at the same time, libraries like Aphrodite often help us streamline the generation of both critical CSS _and_ server-rendered HTML into a single call, as we saw in the previous example. This now allows us to render our React components to static HTML in a similar fashion.
+由于在服务器上渲染 HTML 和 CSS 是同时的，像 Aphrodite 这样的库通常会帮助我们。现在，我们可以用类似的方式将我们的 React 组件渲染成静态 HTML。
 
 ```
 const appHtml = `
@@ -254,14 +256,16 @@ const appHtml = `
 ```
 
 By using CSS-in-JS on the server, not only does our single-page app continue to work without JavaScript, _it might even render faster too._
+通过在服务器端使用 CSS-in-JS，
 
 **_As with the scoping of our selectors, the best practice of rendering critical CSS is now baked in, not opt-in._**
 
 ### 3.
 
-#### Smarter optimisations
+#### 更智能的优化
 
 We’ve recently seen the rise of new ways of structuring our CSS—like [Atomic CSS](https://acss.io/) from [Yahoo](https://github.com/yahoo) and [Tachyons](http://tachyons.io/) by [Adam Morse](https://twitter.com/mrmrs_)—that eschew “semantic classes” in favour of tiny, single-purpose classes. For example, when using Atomic CSS, you apply classes with a function-like syntax which can then be used to generate an appropriate style sheet.
+我们最近看到了构建 CSS 的新方式的兴起，比如 [Yahoo](https://github.com/yahoo) 的 [Atomic CSS](https://acss.io/) 和 [Adam Morse](https://twitter.com/mrmrs_) 的 [Tachyons](http://tachyons.io/)，它们避免了语义化类名，有利于小的，单一用途的类名。举个例子，当使用  Atomic CSS 时，你使用类似于函数的语法提供 class，然后可以使用它生成
 
 ```
 <div class="Bgc(#0280ae.5) C(#fff) P(20px)">
@@ -270,6 +274,7 @@ We’ve recently seen the rise of new ways of structuring our CSS—like [Atomic
 ```
 
 The goal is to keep your CSS bundle as lean as possible by maximising the re-usability of classes, effectively treating classes like inline styles. While it’s easy to appreciate the reduction in file size, the impacts to both your codebase and your fellow team members are anything but insignificant. These optimisations, by their very nature, involve changes to both your CSS _and_ your markup, making them a more significant architectural effort.
+这么做的目的是通过最大程度地提高类的复用性和有效处理相似内联样式的类来尽可能地精简你的 CSS。虽然很容易理解文件大小的减少，但对于你的代码库和团队成员的影响确实微乎其微的。
 
 As we’ve touched on already, when using CSS-in-JS or CSS Modules, you no longer hard-code class strings in your markup, instead using dynamic references to JavaScript values that have been generated automatically by a library or build tool.
 
