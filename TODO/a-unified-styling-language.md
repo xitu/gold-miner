@@ -51,21 +51,23 @@ React 社区经常被 CSS 社区误解，反之亦然。对我来说这很有趣
 5.  Non-browser styling
 
 Let’s break this down further and have a closer look at what CSS-in-JS brings to the table for each of these points.
-让我们进一步的细分并且仔细看看 CSS-in-JS 
+让我们进一步的细分并且仔细看看 CSS-in-JS
 
 ### 1.
 
-#### **Scoped styles**
+#### **局部样式**
 
-It’s no secret that architecting CSS effectively at scale is incredibly difficult. When joining an existing long-lived project, it wasn’t uncommon to find that the CSS was the hardest part of the system to figure out.
+在大规模项目中想要高效的构建 CSS 是非常困难的。当加入一个现有的长期运行的项目时，通常我们会发现 CSS 是系统中最复杂的部分。
 
-To counter this, the CSS community has invested heavily in trying to address these issues, making our styles more maintainable with methodologies like [OOCSS](https://github.com/stubbornella/oocss/wiki) by [Nicole Sullivan](https://twitter.com/stubbornella) and [SMACSS](https://smacss.com/) by [Jonathan Snook](https://twitter.com/snookca)—but the clear winner right now in terms of popularity seems to be [BEM](http://getbem.com), or Block Element Modifier, from [Yandex](https://github.com/yandex).
+为了解决这个问题，CSS 社区已经投入了巨大的努力，通过 [Nicole Sullivan](https://twitter.com/stubbornella) 的 [OOCSS](https://github.com/stubbornella/oocss/wiki) 和 [Jonathan Snook](https://twitter.com/snookca) 的 [SMACSS](https://smacss.com/) 都可以使我们的样式更好维护，但是[Yandex](https://github.com/yandex) 开发的 [BEM](http://getbem.com) 更流行一些。
 
 Ultimately, BEM (when applied purely to CSS) is just a naming convention, opting to limit styles to classes following a `.Block__element--modifier` pattern. In any given BEM-styled codebase, developers have to remember to follow BEM’s rules at all times. When strictly followed, BEM works really well, but why is something as fundamental as scoping left up to pure _convention?_
+根本上来说，BEM （纯粹用于 CSS）只是一个命名约定，它要求样式的类名要遵守 `.Block__element--modifier` 的模式。在任何给定 BEM 风格的代码库中，开发人员必须始终遵守 BEM 的规则。当严格遵守时，BEM 的效果很好，但是为什么这些基础的功能只是用单纯的**命名约定**来限制呢？
 
-Whether they explicitly say so or not, the majority of CSS-in-JS libraries are following the BEM mindset of trying to target styles to individual UI elements, but implementing it in a radically different way.
+无论是否有明确表示，大多数 CSS-in-JS 类库都遵循 BEM 的思路，它们尝试将样式定位到单个 UI 组件，只不过用了完全不同的实现方式。
 
-What does this look like in practice? When using [glamor](https://github.com/threepointone/glamor) by [Sunil Pai](https://twitter.com/threepointone), it looks something like this:
+
+那么在实际编写代码时时什么样的呢？当使用 [Sunil Pai](https://twitter.com/threepointone) 开发的 [glamor](https://github.com/threepointone/glamor) 时，代码看起来像下面这样：
 
 ```
 import { css } from 'glamor'
@@ -78,25 +80,27 @@ console.log(title)
 // → 'css-1pyvz'
 ```
 
-What you’ll notice here is that _the CSS class is nowhere to be found in our code._ It’s no longer a hard-coded reference to a class defined elsewhere in the system. Instead, it is generated automatically for us by the library. We don’t have to worry about our selectors clashing in the global scope, which means we no longer have to manually prefix them.
+你可能会注意到**代码中没有 CSS 的类名**。因为它不再是对系统中其他位置定义的 class 的硬编码引用，而是由我们的库自动生成的。我们不必再担心全局作用域内的选择器冲突，这也意味着我们不再需要替他们添加前缀了。
 
 The scoping of this selector matches the scoping rules of the surrounding code. If you want to make this rule available to the rest of your application, you’ll need to turn it into a JavaScript module and import it wherever it’s used. In terms of keeping our codebases maintainable over time, this is incredibly powerful, _making sure that the source of any given style can be easily traced like any other code._
+这个选择器的作用域与周围代码的作用域一致。如果你希望在你应用的其他地方使用这个规则，你就需要将它改写成一个 JavaScript 模块并且在需要使用的地方引用它。就保持代码库的可维护性而言，它是非常强大的，**它确保了任何给定的样式都可以像其他代码一样容易追踪来源**。
 
-**_By moving from mere convention towards enforcing locally-scoped styles by default, we’ve now improved the baseline quality of our styles. BEM is baked in, not opt-in._**
+**通过从仅仅是命名约定到默认强制局部样式的转变，我们已经提高了我们样式的基本质量。BEM is baked in, not opt-in。**
 
 —
 
-Before I continue, there’s a critically important point to clarify.
+在继续之前，我要说明至关重要的一点。
 
-**_This is generating real CSS, not inline styles._**
+**它生成的是真正的 CSS，而不是内联样式**
 
-Most of the earliest CSS-in-JS libraries attached styles directly to each element, but the critical flaw in this model is that ‘style’ attributes can’t do everything that CSS can do. Most new libraries instead focus on _dynamic style sheets,_ inserting and removing rules at runtime from a global set of styles.
+大多数早期的 CSS-in-JS 库都是将样式直接添加到每个元素上，但是这个模式有个严重的缺点，'styles' 属性并不能做到 CSS 可以做到的每件事。大多数新的库不再关注于**动态样式表**，而是在运行时从全局样式中插入和删除规则。
 
-As an example, let’s have a look at [JSS](https://github.com/cssinjs/jss) by [Oleg Slobodskoi](https://twitter.com/oleg008), one of the earliest CSS-in-JS libraries to generate _real CSS._
+举个例子，让我们看看 [Oleg Slobodskoi](https://twitter.com/oleg008) 开发的 [JSS](https://github.com/cssinjs/jss)，这是最早的 CSS-in-JS 库之一，并且它生成的是**真实的 CSS**。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*ltBvwbyvBt8OMdGZQOdMDA.png)
 
-When using JSS, you can use standard CSS features like hover styles and media queries, which map directly to the equivalent CSS rules.
+
+当使用 JSS 时，你可以使用标准的 CSS 特性，比如 hover 和媒体查询，它们会映射到相应的 CSS 规则。
 
 ```
 const styles = {
@@ -114,13 +118,13 @@ const styles = {
 }
 ```
 
-Once you insert these styles into the document, the automatically generated classes are provided to you.
+一旦你将这些样式插入到文档中，你就可以使用哪些自动生成的类名。
 
 ```
 const { classes } = jss.createStyleSheet(styles).attach()
 ```
 
-These generated classes can then be used instead of hard-coded class strings when generating markup in JavaScript. This pattern works regardless of whether you’re using a full-blown framework, or something as simple as _innerHTML._
+无论你是使用一个完整的框架，还是简单的使用 **innerHTML**，你都可以在 JavaScript 中使用这些生成的 class，而不是硬编码的 class 字符串。
 
 ```
 document.body.innerHTML = `
@@ -128,7 +132,7 @@ document.body.innerHTML = `
 `
 ```
 
-Managing the styles in this way is of little benefit by itself—it’s usually paired with some kind of component library. As a result, it’s typical to find bindings available for the most popular libraries. For example, JSS can easily bind to React components with the help of [react-jss](https://github.com/cssinjs/react-jss), injecting a small set of styles into each component while managing the global lifecycle for you.
+单独使用这种方式管理样式并没有多大的优势，它通常和一些组件库搭配使用。因此，通常可以找到用于最流行库的绑定方案。例如，JSS 可以通过 [react-jss](https://github.com/cssinjs/react-jss) 的帮助轻松地绑定到 React 组件上，在管理全局生命周期的同时，它可以帮你给每个组件插入一小段样式。
 
 ```
 import injectSheet from 'react-jss'
@@ -142,13 +146,14 @@ const Button = ({ classes, children }) => (
 export default injectSheet(styles)(Button)
 ```
 
-By focusing our styles around components, integrating them more closely at the code level, we’re effectively taking BEM to its logical conclusion. So much so that many in the CSS-in-JS community felt like the importance of extracting, naming and reusing components was being lost in all the style-binding boilerplate.
+通过将我们的样式集中到组件上，可以将他们更紧密得集成到代码层面上，we’re effectively taking BEM to its logical conclusion。所以 CSS-in-JS 社区的很多人觉得在所有的样式绑定样板中，提取、命名和复用组件都是不存在的。
 
-An entirely new way of thinking about this problem emerged with the introduction of [styled-components](https://github.com/styled-components/styled-components) by [Glen Maddern](https://twitter.com/glenmaddern) and [Max Stoiber](https://twitter.com/mxstbr).
+随着 [Glen Maddern](https://twitter.com/glenmaddern) 和 [Max Stoiber](https://twitter.com/mxstbr) 提出了 [styled-components](https://github.com/styled-components/styled-components) 的概念，出现了一个新的思考这个问题的方式。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*l4nfMFKxfT4yNTWUK2Vsdg.png)
 
-Instead of creating styles, which we then have to manually bind to components, we’re forced to create components directly.
+
+我们直接创建组件，而不是创建样式然后手动地将他们绑定到组件上。
 
 ```
 import styled from 'styled-components'
@@ -159,17 +164,17 @@ const Title = styled.h1`
 `
 ```
 
-When applying these styles, we don’t attach a class to an existing element. We simply render the generated component.
+应用这些样式时，我们不会将 class 添加到存在的元素上，而是简单地渲染生成的组件。
 
 ```
 <Title>Hello World!</Title>
 ```
 
-While styled-components uses traditional CSS syntax via tagged template literals, others prefer working with data structures instead. A notable alternative is [Glamorous](https://github.com/paypal/glamorous) by [Kent C. Dodds](https://twitter.com/kentcdodds) from [PayPal](https://github.com/paypal).
+虽然 styled-components 通过模板文字的语法使用了传统的 CSS 语法，但是有人更喜欢使用数据结构。来自 [PayPal](https://github.com/paypal) 的 [Kent C. Dodds](https://twitter.com/kentcdodds) 开发的 [Glamorous](https://github.com/paypal/glamorous) 是一个值得关注的替代方案
 
 ![](https://cdn-images-1.medium.com/max/1600/1*Ere9GQTIJeNac2ONfZlfdw.png)
 
-Glamorous offers the same component-first API as styled-components, but opts for _objects_ instead of _strings,_ eliminating the need to include a CSS parser in the library—reducing the library’s size and performance footprint.
+Glamorous 和 styled-components 一样提供了组件优先的 API，但是选择了**对象**而不是**字符串**，这样就无需在库中引入一个 CSS 解析器，这样可以降低库的大小并提高性能。
 
 ```
 import glamorous from 'glamorous'
@@ -180,13 +185,13 @@ const Title = glamorous.h1({
 })
 ```
 
-Whichever syntax you use to describe your styles, they’re no longer just _scoped_ to components—_they’re inseparable from them._ When using a library like React, components are the fundamental building blocks, and now our styles form a core part of that architecture. _If we describe everything in our app as components, why not our styles too?_
+无论你使用什么语法描述你的样式，他们不再仅仅是组件的**一部分**，他们和组件已经无法分离。当使用一个像 React 的库时，组件是基本构建块，并且现在我们的样式构建了这个架构的核心部分。**如果我们将我们应用程序中的所有内容都描述为组件，那么为什么我们的样式不行呢？**
 
 —
 
-For seasoned veterans of BEM, all of this may seem like a relatively shallow improvement given the significance of the change we’ve introduced to our system. In fact, CSS Modules lets you achieve this without leaving the comfort of the CSS tooling ecosystem. This is why so many projects stick with CSS Modules, finding that it sufficiently solves most of their problems with writing CSS at scale without sacrificing the familiarity of regular CSS.
+考虑到我们之前介绍的对系统做出改变的意义，对于那些有丰富的 BEM 经验的开发人员来说，这一切看起来似乎是一个很小的提升。事实上，CSS 模块让你在不用放弃 CSS 工具生态系统的同时获得了这些提升。很多项目坚持使用 CSS 模块还有一个原因，他们发现 CSS 模块充分解决了编写大规模 CSS 的问题，并且可以保持编写常规 CSS 时的习惯。
 
-However, it’s when we start to build on top of these basic concepts that things start to get a lot more interesting.
+然而，当我们开始在这些基本概念上构建时，事情开始变得更有趣。
 
 ### 2.
 
