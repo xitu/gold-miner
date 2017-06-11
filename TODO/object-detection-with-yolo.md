@@ -47,7 +47,7 @@ YOLO 也会输出一个 **确信值** 来告诉我们它有多确定边界框里
 
 [![](http://machinethink.net/images/yolo/Boxes.png)](http://machinethink.net/images/yolo/Boxes@2x.png)
 
-对每个边界框，单元也会推测一个 **类别**。这就像分类器一样：它提供了所有可能类的可能性分布情况。这个版本的 YOLO 我们是通过 PASCAL VOC dataset](http://host.robots.ox.ac.uk/pascal/VOC/) 来训练的，它可以识别 20 种不同的类，比如：
+对每个边界框，单元也会推测一个**类别**。这就像分类器一样：它提供了所有可能类的可能性分布情况。这个版本的 YOLO 我们是通过 PASCAL VOC dataset](http://host.robots.ox.ac.uk/pascal/VOC/) 来训练的，它可以识别 20 种不同的类，比如：
 
 - 自行车
 - 船
@@ -122,17 +122,17 @@ Convolution    1×1      1      (13, 13, 125)
 
 [![](http://machinethink.net/images/yolo/CatOrDog.png) ](http://machinethink.net/images/yolo/CatOrDog@2x.png)
 
-YOLO 是用 Darknet 写的，YOLO 作者的一个自定义深度学习框架。可下载到的权重只有的 Darknet 格式。虽然 Darknet 已经[开源](https://github.com/pjreddie/darknet)了，但是我不是很愿意花太多的时间来弄清楚它是怎么工作的。
+YOLO 是用 Darknet 写的，YOLO 作者的一个自定义深度学习框架。可下载到的权重只有 Darknet 格式。虽然 Darknet 已经[开源](https://github.com/pjreddie/darknet)了，但是我不是很愿意花太多的时间来弄清楚它是怎么工作的。
 
 幸运的是，[有人](https://github.com/allanzelener/YAD2K/)已经尝试并把 Dardnet 模型转换为 Keras，恰好是我所用的深度学习工具。因此我唯一要做的就是执行这个 ”YAD2K“ 的脚本来把 Darknet 格式的权重转换到 Keras 格式，然后再写我自己的脚本，把 Keras 权重转换到 Metal 的格式。
 
-但是，仍然有些奇怪…… YOLO 在卷积层之后使用的是一个常规的技术叫做 **批量归一化**。
+但是，仍然有些奇怪…… YOLO 在卷积层之后使用的是一个常规的技术叫做**批量归一化**。
 
 在”批量归一化“背后的想法是数据干净的时候神经网络工作效果最好。理想情况下，输入到层的数据的均值是 0 并且没有太多的分歧。任何做过任意机器学习的人应该很熟悉这个，因为我们经常使用一个叫做”特征缩放“或者”白化“在我们的输入数据上来实现这一效果。
 
 批量归一化在层与层之间对数据做了一个类似的特征缩放的工作。这个技术让神经网络表现的更好因为它暂停了数据由于在网络中流动而导致的污染。
 
-为了让你对批量归一的影响有一些概念，下面是一个矩形图，代表着包含还是不包含归一化的第一卷积层的情况。
+为了让你大致了解批量归一的作用，看一看下面这两个直方图，分别是第一次应用卷积层后进行归一化与不进行归一化的不同结果。
 [![](http://machinethink.net/images/yolo/BatchNorm.png)](http://machinethink.net/images/yolo/BatchNorm@2x.png)
 
 在训练深度网络的时候，批量归一化很重要，但是我们证实在推断时可以不用这个操作。这样效果不错，因为不做批量归一化的计算会让我们的 app 更快。而且任何情况下，Metal 都没有一个 `MPSCNNBatchNormalization` 层。
@@ -178,18 +178,18 @@ b_new = ---------------- + beta
 
 现在我们可以移除批量归一化层只用卷积层了，但是由于调整了权重和新的偏置项 `w_new` 和 `b_new` 。我们要对网络中所有的卷积层都重复这个操作。
 
-**注意：** 实际上在 YOLO 中，卷积层并没有使用偏置量，所以 `b` 在上面的等式中始终是 0 。但是请注意在折叠批量统一参数的之后，卷积层*真*得到了一个偏置项。
+**注意：** 实际上在 YOLO 中，卷积层并没有使用偏置量，所以 `b` 在上面的等式中始终是 0 。但是请注意在折叠批量归一化参数的之后，卷积层**真**得到了一个偏置项。
 
-一旦我们把所有的批量统一层都折叠到它们的之前卷积层中时，我们就可以把权重转换到 Metal 了。这是一个很简单的数组的转换（Keras 与 Metal 相比是用不同的顺序来存储），然后把它们写入到一个 32 位浮点数的二进制文件中。
+一旦我们把所有的批量归一化层都折叠到它们的之前卷积层中时，我们就可以把权重转换到 Metal 了。这是一个很简单的数组转换（Keras 与 Metal 相比是用不同的顺序来存储），然后把它们写入到一个 32 位浮点数的二进制文件中。
 
 如果你好奇的话，看下这个转换脚本 [yolo2metal.py](https://github.com/hollance/Forge/blob/master/Examples/YOLO/yolo2metal.py) 可以了解更多。为了测试这个折叠工作，这个脚本生成了一个新的模型，这个模型没有批量归一化层而是用了调整之后的权重，然后和之前的模型的推测进行一个比较。
 
-## iOS 的 app ##
+## iOS 应用 ##
 
-毋庸置疑地，我用了 [Forge](https://github.com/hollance/Forge) 来构建 iOS 的 app 。
+毋庸置疑地，我用了 [Forge](https://github.com/hollance/Forge) 来构建 iOS 应用。
  😂 你可以在 [YOLO](https://github.com/hollance/Forge/tree/master/Examples/YOLO) 的文件夹中找到代码。想试的话：下载或者 clone Forge，在 Xcode 8.3 或者更新的版本中打开 **Forge.xcworkspace** ，然后在 iPhone 6 或者更高版本的手机上运行 **YOLO** 这个 target 。
 
-最简单的测试这个应用的方法是把你的 iPhone 对准这些 [YouTube 视频](https://www.youtube.com/watch?v=e_WBuBqS9h8)上:
+测试这个应用的最简单的方法是把你的 iPhone 对准这些 [YouTube 视频](https://www.youtube.com/watch?v=e_WBuBqS9h8)上:
 
 [![简单的应用](http://machinethink.net/images/yolo/App.png)](http://machinethink.net/images/yolo/App@2x.png)
 
@@ -210,14 +210,14 @@ let output = input
 
 ```
 
-先把来自摄像头的输入缩放至 416x416 像素，然后输入到卷积和最大池化层中。这个其他的转换操作都非常相似。
+先把来自摄像头的输入缩放至 416x416 像素，然后输入到卷积和最大池化层中。这和其他的转换操作都非常相似。
 
 有趣的是在输出之后的操作。回想一下输出的转换之后是一个 13x13x125 的张量：图片中的每个网格的单元都有 125 个通道的数据。这 125 数据包含了边界框和类型的预测，然后我们需要以某种方式把输出排序。这些都在函数 `fetchResult()` 中进行。
 
 **注意：** `fetchResult()` 中的代码是在 CPU 中执行的，不是在 GPU 中。这样的方式更容易实现。话句话说，这个嵌套的循环在 GPU 中并行执行可能效果会更好。未来我也许会研究这个，然后再写一个 GPU 的版本。
 
 
-下面这是 `fetchResult()` 如何工作的： 
+下面介绍了 fetchResult() 是如何工作的： 
 
 ```
 public func fetchResult(inflightIndex: Int) -> NeuralNetworkResult<Prediction> {
@@ -226,7 +226,7 @@ public func fetchResult(inflightIndex: Int) -> NeuralNetworkResult<Prediction> {
 
 ```
 
-在卷积层的输出是以 `MPSImage` 的格式的。我们先把它转换到一个叫做 `features` 的 `Float` 值类型的数据，以便我们更好的使用它。
+在卷积层的输出是以 `MPSImage` 的格式的。我们先把它转换到一个叫做 features 的 Float 值类型的数组，以便我们更好的使用它。
 
 `fetchResult()` 的主体是一个大的嵌套循环。它包含了所有的网格单元和每个单元的五次预测：
 
@@ -271,8 +271,8 @@ let confidence = Math.sigmoid(tc)
 
 ```
 
-现在 `x` 和 `y` 代表了在我们使用的输入到神经网路的 416x416 的图像中边界框的中心；
-`w` 和 `h` 则是上述图像空间中边界框的宽度和高度。边界框的信任值是 `tc` ，我们通过 sigmoid 函数把它转换到百分比。
+现在 `x` 和 `y` 代表了在我们使用的输入到神经网络的 416x416 的图像中边界框的中心；
+`w` 和 `h` 则是上述图像空间中边界框的宽度和高度。边界框的确信值是 `tc` ，我们通过 sigmoid 函数把它转换到百分比。
 
 现在我们有了我们的边界框，并且我们知道了 YOLO 对这个框中是否包含着某个对象的确信度。接下来，让我们看下类型预测，来看看 YOLO 认为框中到底是个什么类型的物体：
 
@@ -289,7 +289,7 @@ let (detectedClass, bestClassScore) = classes.argmax()
 
 重新调用 `features` 数组中包含着对边界框中物体预测的 20 个通道。我们读取到一个新的数组 `classes` 中。因为是用来做分类器的，我们通过 softmax 把这个数组转换成可能的分配情况，然后我们选择最高分数的类作为最后的胜者。
 
-现在我们可以计算边界框的最终分数了 - 举个例子，“我 85% 的确定这个边界框里有一个狗”。由于一共有 845 个边界框，而我们只想要那些分数高于某个值的边界框。
+现在我们可以计算边界框的最终分数了 - 举个例子，“这个边界框有 85% 的概率包含一条狗”。由于一共有 845 个边界框，而我们只想要那些分数高于某个值的边界框。
 
 ```
 let confidenceInClass = bestClassScore * confidence
