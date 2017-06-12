@@ -47,7 +47,7 @@ YOLO 也会输出一个 **确信值** 来告诉我们它有多确定边界框里
 
 [![](http://machinethink.net/images/yolo/Boxes.png)](http://machinethink.net/images/yolo/Boxes@2x.png)
 
-对每个边界框，单元也会推测一个**类别**。这就像分类器一样：它提供了所有可能类的可能性分布情况。这个版本的 YOLO 我们是通过 PASCAL VOC dataset](http://host.robots.ox.ac.uk/pascal/VOC/) 来训练的，它可以识别 20 种不同的类，比如：
+对每个边界框，单元也会推测一个**类别**。这就像分类器一样：它提供了所有可能类的可能性分布情况。这个版本的 YOLO 我们是通过 [PASCAL VOC dataset](http://host.robots.ox.ac.uk/pascal/VOC/) 来训练的，它可以识别 20 种不同的类，比如：
 
 - 自行车
 - 船
@@ -342,7 +342,7 @@ And that’s pretty much all there is to it: a regular convolutional network and
 
 一个让我想去尝试的是采用不同的网络构建方式，比如 SqueezeNet ，然后重新训练网络来在最后一层进行边界框的预测。换句话说，采用 YOLO 的想法并将它在一个更小更快的转换之上实现。用准确度的下降来换取速度的提升的做法是否值得呢？
 
-**注意：**另外，最近发布的 [Caffe2](http://caffe2.ai/) 框架同样是通过 Metal 来实现在 iOS 上运行的。[Caffe2-iOS 项目](https://github.com/KleinYuan/Caffe2-iOS)来自于迷你 YOLO 的一个版本。它似乎比纯 Metal 版本运行的慢，0.17 秒每帧。
+**注意：** 另外，最近发布的 [Caffe2](http://caffe2.ai/) 框架同样是通过 Metal 来实现在 iOS 上运行的。[Caffe2-iOS 项目](https://github.com/KleinYuan/Caffe2-iOS)来自于迷你 YOLO 的一个版本。它似乎比纯 Metal 版本运行的慢 0.17 秒每帧。
 
 
 ## 鸣谢 ##
