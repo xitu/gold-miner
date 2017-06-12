@@ -47,7 +47,6 @@
 
 ## React
 
-* [Node.js 支持 ES6 模块的进展](http://gold.xitu.io/entry/58b393f08d6d8100586955fa?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([hikerpig](https://github.com/hikerpig) 翻译)
 * [[译] 实践 Redux，第 1 部分： Redux-ORM 基础](https://gold.xitu.io/entry/58249792a0bb9f0058dd30ab?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([luoyaqifei](https://github.com/luoyaqifei) 翻译)
 * [[译] 如何用 React 完成图片上传功能？](https://gold.xitu.io/entry/57b923225bbb50005b794943?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([DeadLion](https://github.com/DeadLion) 翻译)
 * [[译] 为你定制的 React 学习路线](https://gold.xitu.io/entry/578375b85bbb5000610cc247?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([aleen42](http://aleen42.github.io/pc.html) 翻译)
@@ -56,10 +55,10 @@
 
 ## 后端
 
+* [Node.js 支持 ES6 模块的进展](http://gold.xitu.io/entry/58b393f08d6d8100586955fa?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([hikerpig](https://github.com/hikerpig) 翻译)
 * [使用 Gradle 做构建检查](https://juejin.im/entry/5937f0a48fd9c513c627114a/detail?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([jacksonke](https://github.com/jacksonke/) 翻译)
 * [Django 基于 Postgres 的全文搜索](https://juejin.im/entry/593a069b61ff4b006c70ba82/detail?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([steinliber](https://github.com/steinliber/) 翻译)
 * [理解 NodeJS 中基于事件驱动的架构](https://juejin.im/entry/5937f2cdac502e0068d1aeec/detail?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Aladdin-ADD](https://github.com/Aladdin-ADD/) 翻译)
-* [如何从一个业余爱好者成长成为专业开发者](https://juejin.im/entry/59361e1e570c35005b65464e/detail?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([zaraguo](https://github.com/zaraguo/) 翻译)
 * [所有后端译文>>](https://github.com/xitu/gold-miner/blob/master/backend.md)
 
 ## 教程
