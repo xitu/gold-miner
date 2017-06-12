@@ -1,8 +1,8 @@
 > * 原文地址：[11 things I learned reading the flexbox spec](https://hackernoon.com/11-things-i-learned-reading-the-flexbox-spec-5f0c799c776b)
 > * 原文作者：[David Gilbertson](https://hackernoon.com/@david.gilbertson)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
-> * 校对者：
+> * 译者：[XatMassacrE](https://github.com/XatMassacrE)
+> * 校对者：[zaraguo](https://github.com/zaraguo)，[reid3290](https://github.com/reid3290)
 
 # 读完 flexbox 细则之后学到的 11 件事
 
