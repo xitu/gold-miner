@@ -244,8 +244,7 @@ const criticalCSS = `
 Either way, the client-side JavaScript bundle includes the code needed to boot up your single-page app, suddenly bringing it to life, rendering in the browser from that point forward.
 无论哪种方式，客户端 JavaScript 代码块都要包含启动单页应用程序所需的代码，
 
-Since rendering your HTML and CSS on the server happen at the same time, libraries like Aphrodite often help us streamline the generation of both critical CSS _and_ server-rendered HTML into a single call, as we saw in the previous example. This now allows us to render our React components to static HTML in a similar fashion.
-由于在服务器上渲染 HTML 和 CSS 是同时的，像 Aphrodite 这样的库通常会帮助我们。现在，我们可以用类似的方式将我们的 React 组件渲染成静态 HTML。
+由于在服务器上渲染 HTML 和 CSS 是同时进行的，就像前面的例子所示， Aphrodite 这样的库通常会以一个函数调用的方式帮助我们流式生成关键 CSS 和服务端渲染的 HTML。现在，我们可以用类似的方式将我们的 React 组件渲染成静态 HTML。
 
 ```
 const appHtml = `
@@ -255,8 +254,7 @@ const appHtml = `
 `
 ```
 
-By using CSS-in-JS on the server, not only does our single-page app continue to work without JavaScript, _it might even render faster too._
-通过在服务器端使用 CSS-in-JS，
+通过在服务器端使用 CSS-in-JS，我们的单页应用不仅可以脱离 JavaScript 工作，**它甚至可以加载的更快**。
 
 **_As with the scoping of our selectors, the best practice of rendering critical CSS is now baked in, not opt-in._**
 
@@ -264,8 +262,7 @@ By using CSS-in-JS on the server, not only does our single-page app continue to 
 
 #### 更智能的优化
 
-We’ve recently seen the rise of new ways of structuring our CSS—like [Atomic CSS](https://acss.io/) from [Yahoo](https://github.com/yahoo) and [Tachyons](http://tachyons.io/) by [Adam Morse](https://twitter.com/mrmrs_)—that eschew “semantic classes” in favour of tiny, single-purpose classes. For example, when using Atomic CSS, you apply classes with a function-like syntax which can then be used to generate an appropriate style sheet.
-我们最近看到了构建 CSS 的新方式的兴起，比如 [Yahoo](https://github.com/yahoo) 的 [Atomic CSS](https://acss.io/) 和 [Adam Morse](https://twitter.com/mrmrs_) 的 [Tachyons](http://tachyons.io/)，它们避免了语义化类名，有利于小的，单一用途的类名。举个例子，当使用  Atomic CSS 时，你使用类似于函数的语法提供 class，然后可以使用它生成
+我们最近看到了构建 CSS 的新方式的兴起，比如 [Yahoo](https://github.com/yahoo) 的 [Atomic CSS](https://acss.io/) 和 [Adam Morse](https://twitter.com/mrmrs_) 的 [Tachyons](http://tachyons.io/)，它们通过使用精简的，单一用途的类名而避免了语义化类名。举个例子，当使用 Atomic CSS 时，你使用类似于函数的语法提供类名，并且它会生成一个合适的样式表。
 
 ```
 <div class="Bgc(#0280ae.5) C(#fff) P(20px)">
@@ -274,25 +271,27 @@ We’ve recently seen the rise of new ways of structuring our CSS—like [Atomic
 ```
 
 The goal is to keep your CSS bundle as lean as possible by maximising the re-usability of classes, effectively treating classes like inline styles. While it’s easy to appreciate the reduction in file size, the impacts to both your codebase and your fellow team members are anything but insignificant. These optimisations, by their very nature, involve changes to both your CSS _and_ your markup, making them a more significant architectural effort.
-这么做的目的是通过最大程度地提高类的复用性和有效处理相似内联样式的类来尽可能地精简你的 CSS。虽然很容易理解文件大小的减少，但对于你的代码库和团队成员的影响确实微乎其微的。
+通过最大程度地提高类的复用性以及有效处理内联样式的类名，可以达到尽可能地精简 CSS 的目的。虽然很容易理解文件大小的减少，但对于你的代码库和团队成员的影响确实是微乎其微的。这些优化涉及你的 CSS 和标记语言的变化，是他们成为更重要的构建工作。
 
-As we’ve touched on already, when using CSS-in-JS or CSS Modules, you no longer hard-code class strings in your markup, instead using dynamic references to JavaScript values that have been generated automatically by a library or build tool.
+正如我们已经介绍过的，当使用 CSS-in-JS 或者 CSS 模块时，你不再需要在 HTML 中硬编码你的类名，而是动态引用由库或者构建工具自动生成的 JavaScript 值。
 
-Instead of this:
-
-```
-<aside className="sidebar" />
-```
-
-We write this:
+我们这样写样式:
 
 ```
 <aside className={styles.sidebar} />
 ```
 
-This may look like a fairly superficial change, but this is a monumental shift in how we manage the relationship between our markup and our styles. By giving our CSS tooling the ability to alter not just our styles, _but the final classes we apply to our elements,_ we unlock an entirely new class of optimisations for our style sheets.
+而不是:
 
-If we look at the example above, _‘styles.sidebar’_ evaluates to a string, but there’s nothing limiting it to a single class. For all we know, it could just as easily end up being a string of over a dozen classes.
+```
+<aside className="sidebar" />
+```
+
+
+This may look like a fairly superficial change, but this is a monumental shift in how we manage the relationship between our markup and our styles. By giving our CSS tooling the ability to alter not just our styles, _but the final classes we apply to our elements,_ we unlock an entirely new class of optimisations for our style sheets.
+这可能看起来是一个相当肤浅的变化，但这是我们如何管理我们的标记语言和样式之间关系的巨大改变。我们为我们的样式表解锁了一个全新的优化。
+
+如果我们看看上面的例子，会发现 'styles.sidebar' 对应了一个字符串，但没有限制到什么样的类。就我们所知，它可以很容易的对应一个或者十几个类的字符串。
 
 ```
 <aside className={styles.sidebar} />
@@ -300,13 +299,14 @@ If we look at the example above, _‘styles.sidebar’_ evaluates to a string, b
 <aside className={'class1 class2 class3 class4'} />
 ```
 
-If we can optimise our styles, generating multiple classes for each set of styles, we can do some really interesting things.
+如果我们可以优化我们的样式，为每一套样式生成多个类，我们就可以做一些非常有趣的事
 
-My favourite example of this is [Styletron](https://github.com/rtsao/styletron) by [Ryan Tsao](https://twitter.com/rtsao).
+我最喜欢的例子是 [Ryan Tsao](https://twitter.com/rtsao) 编写的 [Styletron](https://github.com/rtsao/styletron)
 
 ![](https://cdn-images-1.medium.com/max/1600/1*7xxb6FOmcmPCnQNrFy5pjg.png)
 
 In the same way that CSS-in-JS and CSS Modules automate the process of adding BEM-style class prefixes, Styletron does the same thing to the Atomic CSS mindset.
+与 CSS-in-JS 和 CSS 模块
 
 The core API is focused around a single task—defining individual CSS rules for each combination of property, value and media query, which then returns an automatically generated class.
 
@@ -346,15 +346,17 @@ Optimisations that are typically done by hand—finding the most efficient way t
 
 ### 4.
 
-#### Package management
+#### 包管理
 
-Before digging into this point, it’s first worth stopping and asking yourself a seemingly simple question.
+在谈论这一点之前，我们先停下来问自己一个看似简单的问题。
 
-_How do we share CSS with each other?_
+**我们如何分享 CSS？**
 
 We’ve migrated from manually downloading CSS files, towards front-end specific package managers like [Bower](https://bower.io), and now via [npm](https://www.npmjs.com/) thanks to tools like [Browserify](http://browserify.org/) and [webpack](https://webpack.js.org). Even though some tooling has automated the process of including CSS from external packages, the front-end community has mostly settled on manual inclusion of CSS dependencies.
+我们已经从手动下载 CSS 文件向使用特定的前端包管理工具转变，比如 [Bower](https://bower.io)，或者现在通过 [npm](https://www.npmjs.com/) 可以使用 [Browserify](http://browserify.org/) 和 [webpack](https://webpack.js.org)。即使这些工具已经自动处理了包含外部包的 CSS 的流程，但是前端社区大多还是手工处理 CSS 的依赖关系。
 
 Either way, there’s one thing that CSS dependencies aren’t very good at—depending on _other_ CSS dependencies.
+无论使用哪种方式，CSS
 
 As many of you might remember, we’ve seen a similar effect with _JavaScript modules_ between Bower and npm.
 
