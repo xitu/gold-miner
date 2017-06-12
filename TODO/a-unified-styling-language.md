@@ -352,33 +352,35 @@ Optimisations that are typically done by hand—finding the most efficient way t
 
 **我们如何分享 CSS？**
 
-We’ve migrated from manually downloading CSS files, towards front-end specific package managers like [Bower](https://bower.io), and now via [npm](https://www.npmjs.com/) thanks to tools like [Browserify](http://browserify.org/) and [webpack](https://webpack.js.org). Even though some tooling has automated the process of including CSS from external packages, the front-end community has mostly settled on manual inclusion of CSS dependencies.
-我们已经从手动下载 CSS 文件向使用特定的前端包管理工具转变，比如 [Bower](https://bower.io)，或者现在通过 [npm](https://www.npmjs.com/) 可以使用 [Browserify](http://browserify.org/) 和 [webpack](https://webpack.js.org)。即使这些工具已经自动处理了包含外部包的 CSS 的流程，但是前端社区大多还是手工处理 CSS 的依赖关系。
+我们已经从手动下载 CSS 文件向使用特定的前端包管理工具转变，比如 [Bower](https://bower.io)，或者现在通过 [npm](https://www.npmjs.com/) 可以使用 [Browserify](http://browserify.org/) 和 [webpack](https://webpack.js.org)。虽然这些工具已经自动处理外部包的 CSS 依赖，但是前端社区大多还是手工处理 CSS 的依赖关系。
 
-Either way, there’s one thing that CSS dependencies aren’t very good at—depending on _other_ CSS dependencies.
-无论使用哪种方式，CSS
+无论使用哪种方式，CSS 之间的依赖都不是很好处理。
 
 As many of you might remember, we’ve seen a similar effect with _JavaScript modules_ between Bower and npm.
+你们中的很多人可能还记得，我们已经看到与 Bower 和 npm 之间的 **JavaScript 模块**类似的效果。
 
-Bower wasn’t coupled to any particular module format, whereas modules published to npm use the [CommonJS module format](http://wiki.commonjs.org/wiki/Modules/1.1). This has had a massive impact on the number of packages published to each platform.
+Bower 没有依赖任何特定的模块格式，而发布到 npm 的模块使用 [CommonJS 模块格式](http://wiki.commonjs.org/wiki/Modules/1.1)。这对发布到每个平台的包的数量产生了巨大的影响。
 
-Complex trees of small, _nested_ dependencies felt right at home on npm, while Bower attracted large, _monolithic_ dependencies, of which you might only have two or three—plus a few plugins, of course. Since your dependencies didn’t have a module system to rely on, each package couldn’t easily make use of its _own_ dependencies, so the integration was always a manual step left up to the consumer.
+小型但是有复杂依赖关系的模块更愿意使用 npm，Bower 则吸引了大量大型而独立的模块。当然，你可能只有两三个插件，但是由于你没有一个模块系统来管理你的依赖，每个模块就无法轻易地利用它自己的依赖关系，因此就只能靠开发者手动构建。
 
 As a result, the number of packages on npm over time forms an exponential curve, while Bower only had a fairly linear increase of packages. While there are certainly a variety of reasons for this differentiation, it’s fair to say that a _lot_ of it has to do with the way each platform allows (or doesn’t allow) packages to depend on each other at runtime.
+因此，随着时间的退推移，npm 上的包的数量呈指数性增长，而 Bower 只能是有限的线性增长。虽然这可能是各种原因导致的，但是不得不说，它与许多平台允许（或不允许）包再运行时彼此依赖的方式有很大关系
 
 ![](https://cdn-images-1.medium.com/max/1600/1*LTrsIISPV5qK-qAQKaeINA.png)
 
-Unfortunately, this looks all too familiar to the CSS community, where we’ve also seen a relatively slow increase of monolithic packages compared to what we see with JavaScript packages on npm.
+不幸的是，这对于 CSS 社区来说太熟悉了，我们发现相对于 npm 上的 JavaScript 来说，独立 CSS 模块的数量也增长的很慢。
 
-What if we instead wanted to match npm’s exponential growth? What if we wanted to be able to depend on complex package hierarchies of varying sizes, with less focus on large, all-encompassing frameworks? To do this, we’d not only need a package manager that’s up to the task—we’d also need an appropriate module format too.
+如果我们也想实现 npm 的指数增长该怎么做？如果我们想依赖不同大小不同层次的复杂模块，而不是专注于大型，全面的框架呢？为了做到这一点，我们不仅需要一个包管理器，还需要一个合适的模块格式。
 
-Does this mean that we need a package manager specifically designed for CSS? For preprocessors like Sass and Less?
+这是否意味着我们需要专门为 CSS 或者 Sass 和 Less 这样的预处理器设计一个包管理工具？
 
 What’s really interesting is that we’ve already gone through a similar realisation with HTML. If you ask the same questions about how we share _markup_ with each other, you’ll quickly notice that we almost never share raw HTML directly—we share _HTML-in-JS._
+真正有趣的是，在 HTML 上我们已经实现了类似的功能。
 
 We do this via [jQuery plugins](https://plugins.jquery.com/), [Angular directives](http://ngmodules.org) and [React components](https://react.parts/web). We compose large components out of smaller components, each with their own HTML, each published independently to npm. HTML as a format might not be powerful enough to allow this, but by _embedding HTML within a fully-fledged programming language,_ we’re easily able to work around this limitation.
+我们通过 [jQuery 插件](https://plugins.jquery.com/)，[Angular 指令](http://ngmodules.org) 和 [React 组件](https://react.parts/web)实现了这个功能。我们将大的组件拆分成较小的组件，每个组件都有自己的 HTML，并将它们独立的发布到 npm 上。HTML 这种格式可能不足以强大到完成这个功能，但是**通过将 HTML 嵌入到完整的编程语言中**，我们就可以很轻松的越过这个限制
 
-What if, like HTML, we shared our CSS—and the logic that generates it—via JavaScript? What if, instead of using [mixins](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#mixins), we used _functions returning objects and strings?_ Instead of [extending classes](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#extend), what if we simply _merged objects_ with [_Object.assign_](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Object/assign), or the new [object spread operator](https://github.com/tc39/proposal-object-rest-spread)?
+如果我们像 HTML 一样通过 JavaScript 来共享和生成 CSS 呢？比如使用**函数返回对象和字符串**而不使用 [mixins](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#mixins) ？又或者我们利用  [_Object.assign_](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Object/assign) 和新的 [object spread operator](https://github.com/tc39/proposal-object-rest-spread) 操作符来**简单地 merge 对象**而不是用 [extending classes](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#extend) 呢？
 
 ```
 const styles = {
@@ -390,14 +392,16 @@ const styles = {
 ```
 
 Once we start writing our styles this way, we can now compose and share our styling code like any other code in our application, using the same patterns, the same tooling, the same infrastructure, _the same ecosystem._
+一旦我们开始用这种方式编写我们的样式，我们就可以使用相同的模式，相同的工具，相同的基础架构，相同的生态系统来和生成我们的样式代码，就像我们应用程序中的其他任何代码一样。
 
-A great example of how this starts to pay off is in libraries like [Polished](https://github.com/styled-components/polished) by [Max Stoiber](https://twitter.com/mxstbr), [Nik Graf](https://twitter.com/nikgraf) and [Brian Hough](https://twitter.com/b_hough).
+由 [Max Stoiber](https://twitter.com/mxstbr)、[Nik Graf](https://twitter.com/nikgraf) 和 [Brian Hough](https://twitter.com/b_hough) 开发的 [Polished](https://github.com/styled-components/polished) 就是一个很好的例子。 
 
 ![](https://cdn-images-1.medium.com/max/1600/1*fczf3OWmmKBkFgtUqZnq2g.png)
 
-Polished is essentially the [Lodash](https://lodash.com) of CSS-in-JS, providing a complete suite of mixins, colour functions, shorthands and more, making the process of authoring styles in JavaScript much more familiar for those coming from languages like [Sass](http://sass-lang.com). The key difference now is that this code is much more composable, testable and shareable, able to use the full JavaScript package ecosystem.
+Polished 就像是 CSS-in-JS 界的 [Lodash](https://lodash.com)，它提供了一整套完整的 mixins，颜色函数等等，使得在 JavaScript 可以得到使用 [Sass](http://sass-lang.com) 编写样式的体验。最关键的区别则在于这些代码现在是可以复用，测试和分享的，并且能够使用完整的 JavaScript 包生态系统
 
 So, when it comes to CSS, how do we achieve the same level of open source activity seen across npm as a whole, composing large collections of styles from small, reusable, open-source packages? Strangely enough, we might finally achieve this by embedding our CSS within another language and completely embracing JavaScript modules.
+那么，当谈到 CSS 时，我们如何获得
 
 ### 5.
 
