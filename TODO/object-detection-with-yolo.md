@@ -1,5 +1,5 @@
 > * 原文地址：[Real-time object detection with YOLO](http://machinethink.net/blog/object-detection-with-yolo/)
-> * 原文作者：[Matthijs Hollemans](http://machinethink.net/blog/)
+> * 原文作者：本文已获原作者 [Matthijs Hollemans](http://machinethink.net/blog/) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：
 > * 校对者：
