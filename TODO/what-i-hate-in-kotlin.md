@@ -122,9 +122,9 @@ val list = if(student != null && student.passing) {
 }
 ```
 
-我不做判断，但是事实上，这种刻意使用 Kotlin 拓展实现的代码，对于没有使用过 Kotlin 的开发者来说是非常晦涩和抽象的。这种特性让 Kotlin 对于初学者来说变得很困难。Kotlin 的协程变化很大，这是一个很棒的特性。当我开始学习它的时候，我一整天都在重复“不可思议”和“哇”。Kotlin 协程（Coroutines）让多线程操作变得如此简单，非常棒。我觉得编程一开始就应该这么设计。不过，搞清楚 Kotlin 协程依然是一件很复杂的事情，并且它与其它技术的实现方式相去甚远。如果社区开始广泛使用协程，这又会是其它语言的开发者入门的另一个障碍。这就导致了孤立。并且我觉得这太早了。现在 Kotlin 在 Android 和 Web 方面变得越来越受欢迎，而且它刚刚开始在 JavaScript 和 native 中使用。我认为这种多样化对 Kotlin 来说愈发重要，并且 Kotlin 的具体功能介绍应该稍后开始。现在，Kotlin\JavaScript 和 Kotlin\Native 依然有很多工作要做。
+我不置可否，但事实上，这种刻意使用 Kotlin 拓展实现的代码，对于没有使用过 Kotlin 的开发者来说是非常晦涩和抽象的。这种特性让 Kotlin 对于初学者来说变得很困难。Kotlin 的协程变化很大，这是一个很棒的特性。当我开始学习它的时候，我一整天都在重复“不可思议”和“哇”。Kotlin 协程（Coroutines）让多线程操作变得如此简单，非常棒。我觉得编程一开始就应该这么设计。不过，搞清楚 Kotlin 协程依然是一件很复杂的事情，并且它与其它技术的实现方式相去甚远。如果社区开始广泛使用协程，这又会是其它语言的开发者入门的另一个障碍。这就导致了孤立。并且我觉得这太早了。现在 Kotlin 在 Android 和 Web 方面变得越来越受欢迎，而且它刚刚开始在 JavaScript 和 native 中使用。我认为这种多样化对 Kotlin 来说愈发重要，并且 Kotlin 的具体功能介绍应该稍后开始。现在，Kotlin\JavaScript 和 Kotlin\Native 依然有很多工作要做。
 
-# Tuples vs SAM
+# 元组 VS 单一抽象方法
 
 [Kotlin 放弃了元组](https://blog.jetbrains.com/kotlin/migrating-tuples/)，并且只留下 `Pair` 和 `Triple`。因为应该使用数据类（date class）代替元组。这有什么不同呢？数据类包含其命名，以及其所有的属性的命名。除此之外，它可以像元组一样使用：
 
@@ -139,20 +139,20 @@ data class Student(
 val (name, surname, passing, grade) = getSomeStudent()
 ```
 
-同时，Kotlin 通过生成包含 lambda 方法而不是 Java SAM 的 lambda 构造函数和方法来添加对 Java SAM（Simple Abstract Method - 单一抽象方法）的支持：
+同时，Kotlin 通过生成包含 lambda 方法而不是 Java 单一抽象方法（SAM:Simple Abstract Method）的 lambda 构造函数和方法来添加对 Java 单一抽象方法的支持：
 
 ```
 view.setOnClickListener { toast("Foo") }
 ```
 
-但是在 Kotlin 中定义的 SAM 不起作用，因为它建议使用函数类型。SAM 和函数类型有什么不同呢？ SAM 包含名称，并且其所有参数的命名。从 Kotlin 1.1 开始，函数类型可以通过 typealias 实现：
+但是在 Kotlin 中定义的单一抽象方法不起作用，因为它建议使用函数类型。单一抽象方法和函数类型有什么不同呢？单一抽象方法包含名称，并且其所有参数的命名。从 Kotlin 1.1 开始，函数类型可以通过 typealias（类型别名）实现：
 
 
 ```
 typealias OnClick = (view: View)->Unit
 ```
 
-但我仍然觉得这缺乏对称性。如果强烈建议使用数据类，并禁止元组，那么为什么建议使用函数类型而不是 SAM，并且 Kotlin 不支持 SAM。可能的答案是元组会在现实生活的项目产生更多的问题。JetBrains 有很多关于语言用法的数据，他们知道如何分析它。他们非常了解 lambda 语言特性如何影响开发，并且我猜他们知道他们在做什么。我只是基于我的直觉，如果程序员可以决定是否要使用元组或数据类，那将会更好。而且这样显得不孤立，因为大多数现代语言都引入了元组。
+但我仍然觉得这缺乏对称性。如果强烈建议使用数据类，并禁止元组，那么为什么建议使用函数类型而不是单一抽象方法，并且 Kotlin 不支持单一抽象方法。可能的答案是元组会在现实生活的项目产生更多的问题。JetBrains 有很多关于语言用法的数据，他们知道如何分析它。他们非常了解 lambda 语言特性如何影响开发，并且我猜他们知道他们在做什么。我只是基于我的直觉，如果程序员可以决定是否要使用元组或数据类，那将会更好。而且这样显得不孤立，因为大多数现代语言都引入了元组。
 
 # 总结
 
