@@ -1,8 +1,8 @@
 > * 原文地址：[Yeah, redesign(Part 1)](https://medium.muz.li/yeah-redesign-part-1-b61af07eb41a)
 > * 原文作者：[Jingxi Li](https://medium.muz.li/@jingxili)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：dongpeiguo
-> * 校对者：horizon13th
+> * 译者：[dongpeiguo](https://github.com/dongpeiguo)
+> * 校对者：[horizon13th](https://github.com/horizon13th)
 
 ![](https://cdn-images-1.medium.com/max/2000/1*ZZP4Og3NWAYova0lgaTqHg.jpeg)
 
