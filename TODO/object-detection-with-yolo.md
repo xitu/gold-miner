@@ -326,7 +326,6 @@ var result = NeuralNetworkResult<Prediction>()
 
 这会移除那些有高分数但是和其他框有太多重复部分的框。只会保留最好的那些框。
 
-And that’s pretty much all there is to it: a regular convolutional network and a  bit of postprocessing of the results afterwards.
 上面这些差不多就是这个意思：一个常规的卷积网络加上对结果的一系列处理。
 
 
