@@ -2,7 +2,7 @@
 > * 原文作者：[Paolo Galeone](https://pgaleone.eu/about/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[lsvih](https://github.com/lsvih)
-> * 校对者：
+> * 校对者：[whatbeg](https://github.com/whatbeg),[yifili09](https://github.com/yifili09)
 
 # 用 Go 语言理解 Tensorflow
 
@@ -12,9 +12,9 @@ Tensorflow 并不是一个严格意义上的机器学习库，它是一个使用
 
 根据官方说明，Tensorflow 开发者发布了以下内容：
 
-- C++ 源码：Tensorflow 实现各种高级、低级操作的真正的核心。
+- C++ 源码：Tensorflow 实现各种高层和底层操作的真正的核心。
 
-- Python 封装&Python 库：由 C++ 实现自动生成的封装版本，我们可以直接用 Python 来调用 C++ 函数。这也是 numpy 的核心实现方式。
+- Python 封装与Python 库：由 C++ 实现自动生成的封装版本，通过这种方式我们可以直接用 Python 来调用 C++ 函数：这也是 numpy 的核心实现方式。
 
   Python 库通过将 Python 封装版的各种调用结合起来，组成了各种广为人知的高层 API。
 
@@ -34,17 +34,17 @@ Tensorflow 并不是一个严格意义上的机器学习库，它是一个使用
 
 ---
 
-首先要注意的是，Go API 缺少 `Variable` 支持，因此这个 API 仅用于**使用**训练好的模型，而**不能用于**进行模型训练。
+首先要注意的是，代码维护者自己也承认了，Go API 缺少 `Variable` 支持，因此这个 API 仅用于**使用**训练好的模型，而**不能用于**进行模型训练。
 
 在文档 [Installing Tensorflow for Go](https://www.tensorflow.org/versions/master/install/install_go) 中写的很清楚：
 
-> TensorFlow 为 Go 编程提供了一些 API。这些 API 最好用于加载在 Python 中创建的模型，让其在 Go 应用 中运行。
+> TensorFlow 为 Go 编程提供了一些 API。这些 API 特别适合加载在 Python 中创建的模型，让其在 Go 应用 中运行。
 
 如果我们对训练机器学习模型没兴趣，那这个限制是 OK 的。
 
 但是，如果你打算自己训练模型，请看下面给的建议：
 
-> 作为一名 Gopher，请让 Go 保持简洁、快速的特性！使用 Python 去定义、训练模型，在这之后你随时都可以用 Go 来加载训练好的模型！（意思就是他们懒得开发呗）
+> 作为一名 Gopher，请让 Go 保持简洁！使用 Python 去定义、训练模型，在这之后你随时都可以用 Go 来加载训练好的模型！（意思就是他们懒得开发呗）
 
 简而言之，golang 版 tensorflow 可以**导入与定义**常数图（constant graph）。这个常数图指的是在图中没有训练过程，也没有需要训练的变量。
 
@@ -60,9 +60,9 @@ Tensorflow 并不是一个严格意义上的机器学习库，它是一个使用
 
 我们可以把 Tensorflow 看做一种类似于 SQL 的描述性语言，首先你得确定你需要什么数据，它会通过底层引擎（数据库）分析你的查询语句，检查你的句法错误和语法错误，将查询语句转换为私有语言表达式，进行优化之后运算得出计算结果。这样，它能保证将正确的结果传达给你。
 
-因此，我们无论使用什么 API 实质上都是在描述一个图。我们将它放在 `Session` 中作为评估的起点，这样做确定了这个图将会在这个 Session 中运行。
+因此，我们无论使用什么 API 实质上都是在描述一个图。我们将它放在 `Session` 中作为求值的起点，这样做确定了这个图将会在这个 Session 中运行。
 
-了解这一点，我们可以试着定义一个计算操作的图，并将其放在一个 `Session` 中进行评估。
+了解这一点，我们可以试着定义一个计算操作的图，并将其放在一个 `Session` 中进行求值。
 
  [API 文档](https://godoc.org/github.com/tensorflow/tensorflow/tensorflow/go)中明确告知了 `tensorflow`（简称 `tf`）包与 `op` 包中的可用方法列表。
 
@@ -70,7 +70,7 @@ Tensorflow 并不是一个严格意义上的机器学习库，它是一个使用
 
 `tf` 包中包含了各种构建基础结构的函数，例如 `Graph`（图）。`op` 包是最重要的包，它包含了由 C++ 实现自动生成的绑定等功能。
 
-现在，假设我们要计算 A 与 x 的矩阵乘法：
+现在，假设我们要计算 AAA 与 xxx 的矩阵乘法：
 
 ![](https://ws2.sinaimg.cn/large/006tNc79gy1fg9itnbsc7j31au06274m.jpg)
 
@@ -106,9 +106,9 @@ func main() {
 	// 定义接受 A 与 x 输入的 op 节点
 	product := op.MatMul(root, A, x)
 
-	// 请注意每次我们要在某个作用域中传递操作的时候，我们都要在
-	// 对应的作用域下定义 op。
-	// 如你所限，现在我们已经有了一个空作用域（由 newScope）创建。这个空作用域
+	// 每次我们传递一个域给一个操作的时候，
+	// 我们都要将操作放在在这个域下。
+	// 如你所见，现在我们已经有了一个空作用域（由 newScope）创建。这个空作用域
 	// 是我们图的根，我们可以用“/”表示它。
 
 	// 现在让 tensorflow 按照我们的定义建立图吧。
@@ -123,7 +123,7 @@ func main() {
 		panic(err.Error())
 	}
 
-	// 在这儿，我们的图是有效语法。
+	// 如果到这一步，说明我们的图语法上是正确的。
 	// 现在我们可以将它放在一个 Session 中并执行它了！
 
 	var sess *tf.Session
@@ -173,7 +173,7 @@ func main() {
 
 ## 第 1 课：node IDs
 
-**每次在我们调用方法定义一个操作的时候，Python API 都会生成不同的节点**，无视它的命名是否已经被用过。
+**每次在我们调用方法定义一个操作的时候，不管他是否在之前被调用过，Python API 都会生成不同的节点**。
 
 所以，下面的代码没有任何问题，会返回 3。
 
@@ -232,7 +232,7 @@ Scope WithOpName(const string& op_name) const;
 
 下面引用文档中的内容：
 
-> SubScope 将会返回一个新的 Scope，这个 Scope 能确保所有的被加入图中的操作都被放置在 ‘namespace’ 的命名空间下。如果命名空间这个命名空间和作用域中已经存在的命名空间冲突，将会给它加上后缀。
+> SubScope 将会返回一个新的 Scope，这个 Scope 能确保所有的被加入图中的操作都被放置在 ‘namespace’ 的命名空间下。如果这个命名空间和作用域中已经存在的命名空间冲突，将会给它加上后缀。
 
 这种加后缀的冲突处理和 C++ 中的 `WithOpName` 方法**不同**，`WithOpName` 是在**操作名后面**加`suffix`，它们都在同样的作用域内（例如 `Placeholder` 变成 `Placeholder_1`），而 Go 的 `SubScope` 是在**作用域名称后面**加 `suffix`。
 
@@ -314,7 +314,7 @@ transpose_b: If true, "b" is transposed before multiplication.
 - 输出类型: 自动识别
 - 文档
 
-这个宏没有包含任何 C++ 代码，但是它告诉了我们**当在定义一个操作的时候，即使它使用模版定义，我们也要让 `T` 或属性的类型在所支持的类型列表中。**
+这个宏没有包含任何 C++ 代码，但是它告诉了我们**当在定义一个操作的时候，即使它使用模版定义，我们也需要指定特定类型 `T` 支持的类型（或属性）列表。**
 
 实际上，属性 `.Attr("T: {half, float, double, int32, complex64, complex128}")` 将 `T` 的类型限制在了这个类型列表中。
 [tensorflow 教程](https://www.tensorflow.org/extend/adding_an_op)中提到，当时模版 `T` 时，我们需要对所有支持的重载运算在内核进行注册。这个内核会使用 CUDA 方式引用 C/C++ 函数，进行并发执行。
@@ -375,7 +375,7 @@ func main() {
 
 	// 请注意每次我们要在某个作用域中传递操作的时候，我们都要在
 	// 对应的作用域下定义 op。
-	// 如你所限，现在我们已经有了一个空作用域（由 newScope）创建。这个空作用域
+	// 如你所见，现在我们已经有了一个空作用域（由 newScope）创建。这个空作用域
 	// 是我们图的根，我们可以用“/”表示它。
 
 	// 现在让 tensorflow 按照我们的定义建立图吧。
@@ -389,7 +389,7 @@ func main() {
 		panic(err.Error())                  
 	}                                           
 
-	// 在这儿，我们的图是有效语法。
+	// 如果到这一步，说明我们的图语法上是正确的。
 	// 现在我们可以将它放在一个 Session 中并执行它了！
 
 	var sess *tf.Session                        
