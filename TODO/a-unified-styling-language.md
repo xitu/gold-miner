@@ -407,27 +407,28 @@ So, when it comes to CSS, how do we achieve the same level of open source activi
 
 #### Non-browser styling
 
-So far, all of the points we’ve covered—while certainly a lot _easier_ when writing CSS in JavaScript—they’re by no means things that are _impossible_ with regular CSS. This is why I’ve left the most interesting, future-facing point until last. Something that, while not necessarily playing a huge role in today’s CSS-in-JS community, is quite possibly going to become a foundational layer in the future of _design._ Something that affects not just developers, but designers too, radically altering the way these two disciplines communicate with each other.
+到目前为止，我的文章已经涵盖了所有的要点，在 JavaScript 中编写 CSS 肯定容易的多，但是常规的 CSS 并不是完不成这些功能。这也是我把最有趣，最面向未来的一点留到现在的原因。这一点并不一定在如今的 CSS-in-JS 社区中发挥巨大的作用，但它可能成为未来设计的基础层面。它不仅会影响开发人员，也会影响设计师，最终它将改变这两个领域相互沟通的方式。
 
-First, to put this in context, we need to take a quick detour into React.
+首先，为了介绍它，我们需要先简单介绍一下 React。
 
 —
 
-The React model is all about components rendering intermediate representations of the final output. When working in the browser, rather than directly mutating DOM elements, we’re building up complex trees of virtual DOM.
+React 的理念是用组件作为最终渲染的中间层。在浏览器中工作时，我们构建复杂的虚拟 DOM 树而不是直接操作 DOM 元素。
 
-What’s interesting, though, is that rendering to the DOM is not part of the core React library, instead being provided by _react-dom._
+有趣的是，DOM渲染相关的代码并不属于 React 的核心部分，而是由 **react-dom** 提供的。
 
 ```
 import { render } from 'react-dom'
 ```
 
-Even though React was built for the DOM first, and still gets most of its usage in that environment, this model allows React to target wildly different environments simply by introducing new renderers.
+尽管最初 React 是为 DOM 设计的，并且大部分情况下还是在浏览器中使用，但是这种模式也允许 React 通过引入新的渲染器来适配不同的环境。
 
-JSX isn’t just about virtual DOM—it’s about virtual _whatever._
+JSX 不仅仅可以用于虚拟 DOM，他可以用在任何的虚拟视图上。
 
-This is what allows [React Native](https://facebook.github.io/react-native) to work, writing truly native applications in JavaScript, by writing components that render virtual representations of their native counterparts. Instead of _div_ and _span_, we have _View_ and _Text._
+This is what allows [Reac Native](https://facebook.github.io/react-native) to work, writing truly native applications in JavaScript, by writing components that render virtual representations of their native counterparts. Instead of _div_ and _span_, we have _View_ and _Text._
+这就是 [React Native](https://facebook.github.io/react-native) 的工作原理，我们通过编写那些渲染成 native 组件以实现写用 JavaScript 编写真正的 native 应用，通过编写那些渲染成的组件，比如我们用 **View** 和 **Text** 取代了 **div** 和 **span**。
 
-From a CSS perspective, the most interesting thing about React Native is that it comes with its own [StyleSheet API](https://facebook.github.io/react-native/docs/stylesheet.html):
+从 CSS 的角度来看，React 最有趣的就是它拥有自己的 [StyleSheet API](https://facebook.github.io/react-native/docs/stylesheet.html)。
 
 ```
 var styles = StyleSheet.create({
@@ -446,9 +447,10 @@ var styles = StyleSheet.create({
 })
 ```
 
-Here you can see a familiar set of styles, in this case covering colours, fonts and border styling.
 
-These rules are fairly straightforward and map easily to most UI environments, but things get really interesting when it comes to native layout.
+在这里你会看到一组熟悉的样式，我们编写了颜色，字体和边框样式。
+
+这些规则都非常简单，并且很容易映射到大部分的 UI 环境上，但是当涉及到 native 布局时，事情就变得非常有趣了。
 
 ```
 var styles = StyleSheet.create({
@@ -458,23 +460,26 @@ var styles = StyleSheet.create({
 })
 ```
 
-Despite being outside of a browser environment, _React Native ships with its own native implementation of_ [_flexbox_](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Using_CSS_flexible_boxes)_._
 
-Initially released as a JavaScript package called [_css-layout_](https://www.npmjs.com/package/css-layout)_,_ reimplementing flexbox entirely in JavaScript (backed by an appropriately comprehensive test suite), it’s now been migrated to C for better portability.
+因为在浏览器环境之外，所以 **React Native 有自己的 [flexbox](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Using_CSS_flexible_boxes) 实现**
+
+最初发布时他是一个名为 [css-layout](https://www.npmjs.com/package/css-layout) 的JavaScript 模块，完全用 JavaScript 重新实现了 flexbox（有充分的测试），为了更好的可移植性它现在已经迁移到 C 语言。
 
 Given the scope and importance of the project, it’s been given a more significant brand of its own in the form of [Yoga](https://facebook.github.io/yoga).
+鉴于这个项目的影响力和重要性，它以被赋予了更重要的品牌 ——— [Yoga](https://facebook.github.io/yoga)。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*mv_hHmbOgU7SOd5t2J2Q2g.png)
 
 Even though Yoga is all about porting CSS concepts to non-browser environments, the potentially unmanageable scope has been reigned in by focusing on only a subset of CSS features.
+虽然 Yoga 是专注于将 CSS 迁移到非浏览器环境的，但是仅关注与 CSS 特性的一个子集无法
 
-> “Yoga’s focus is on creating an expressive layout library, not implementing all of CSS”
+> "Yoga 的重点是成为一个有表现力的布局框架，而不是实现各种各样的 CSS"
 
 These sorts of tradeoffs may seem limiting, but when you look at the history of CSS architecture, it’s clear that _working with CSS at scale is all about picking a reasonable subset of the language._
 
-In Yoga’s case, they eschew the cascade in favour of scoped styles, and focus their layout engine entirely on flexbox. While this rules out a lot of functionality, it also unlocks an amazing opportunity for cross-platform components with embedded styling, and we’ve already seen several notable open source projects trying to capitalise on this fact.
+在 Yoga 中，为了控制样式的作用域，他们避开了级联样式，并且将布局引擎完全集中在 flexbox 上。虽然这样会丧失很多功能，但它也为需要嵌入样式的跨平台组件创造了惊人的机会，我们已经看到几个试图利用这个特性的开源项目。
 
-[React Native for Web](https://github.com/necolas/react-native-web) by [Nicolas Gallagher](https://twitter.com/necolas) aims to be a drop-in replacement for the react-native library. When using a bundler like webpack, aliasing third-party packages is fairly straightforward.
+[Nicolas Gallagher](https://twitter.com/necolas) 开发的 [React Native for Web](https://github.com/necolas/react-native-web) 旨在成为 react-native 的一个替代品。当使用 webpack 这类打包工具时，很容易用别名来替换第三方库。
 
 ```
 module: {
@@ -484,43 +489,49 @@ module: {
 }
 ```
 
-Using React Native for Web allows React Native components to work in a browser environment, including a browser port of the [React Native StyleSheet API](https://facebook.github.io/react-native/docs/stylesheet.html)_._
+使用 React Native for Web 后可以在浏览器环境中运行 React Native 组件，包括 [React Native 样式 API](https://facebook.github.io/react-native/docs/stylesheet.html)
 
-Similarly, [react-primitives](https://github.com/lelandrichardson/react-primitives) by [Leland Richardson](https://twitter.com/intelligibabble) is all about providing a cross-platform set of primitive components that abstract away the implementation details of the target platform, creating a workable baseline for cross-platform components.
+同样，[Leland Richardson](https://twitter.com/intelligibabble) 开发的 [react-primitives](https://github.com/lelandrichardson/react-primitives) 也提供了一套跨平台的原始组件，它可以抽象目标平台的实现细节，为跨平台组件创造可行的标准。
 
-Even [Microsoft](https://github.com/Microsoft) is getting in on the act with the introduction of [ReactXP](https://microsoft.github.io/reactxp), a library designed to streamline efforts to share code across both web and native, which also includes its own [platform-agnostic style implementation](https://microsoft.github.io/reactxp/docs/styles.html).
-
+甚至 [微软](https://github.com/Microsoft) 也开始引进 [ReactXP](https://microsoft.github.io/reactxp)，这个库旨在简化跨 web 和 native 的工作流，它也有自己的[跨平台样式实现](https://microsoft.github.io/reactxp/docs/styles.html)
 —
 
 Even if you don’t write software for native applications, it’s important to note that having a truly cross-platform component abstraction allows us to target an effectively limitless set of environments, sometimes in ways that you might never have predicted.
+即使你不编写 native 应用程序，拥有一个真正的跨平台组件抽象也是非常重要的，它能帮我们有针对性地，有事甚至是以一种你无法预测的方式来做到的
 
-The most surprising example of this I’ve seen is [react-sketchapp](http://airbnb.io/react-sketchapp) by [Jon Gold](https://twitter.com/jongold) at [Airbnb](https://github.com/airbnb).
+我所见过的最令人震惊的例子是 [Airbnb](https://github.com/airbnb) 的 [Jon Gold](https://twitter.com/jongold) 开发的 [react-sketchapp](http://airbnb.io/react-sketchapp)。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*qfskIhHAWpYwfR5Lz0_cIA.png)
 
-For many of us, so much of our time is spent trying to standardise our design language, limiting the amount of duplication in our systems as much as possible. Unfortunately, as much as we’d like to only have a single source of truth, it seemed like the best we could hope for was to reduce it to _two_—a living style guide for developers, and _a static style guide for designers._ While certainly much better than what we’ve been historically used to, this still leaves us manually syncing from design tools—like [Sketch](https://www.sketchapp.com)—to code and back. This is where react-sketchapp comes in.
+我们很多人都花费了大量时间去尝试标准化我们的设计语言，并且尽可能的避免系统中的重复。不幸的是，尽管我们希望样式只有一个来源，但似乎我们最多只能减少到两个，**开发人员的动态样式以及设计师的静态样式**。虽然这已经比我们之前的模式好了很多，但是它仍然需要我们手工的将样式从 [Sketch](https://www.sketchapp.com) 这样的设计工具上同步到代码里。这也是 react-sketchapp 被开发出来的原因。
 
-Thanks to Sketch’s [JavaScript API](http://developer.sketchapp.com/reference/api), and the ability for React to connect to different renderers, react-sketchapp lets us take our cross-platform React components and render them into our Sketch documents.
+感谢 Sketch 的 [JavaScript API](http://developer.sketchapp.com/reference/api)，以及 React 连接到不同渲染引擎的能力，react-sketchapp 让我们可以用跨平台的 React 组件渲染我们的 Sketch 文件。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*v2L1DB8OS38GScyBRFD8hQ.png)
 
 Needless to say, this has the potential to massively shake up how designers and developers collaborate. Now, when we refer to the same components while iterating on our designs, we can potentially be referring to the same _implementation_ too, regardless of whether we’re working with tools for designers or developers.
+不用说，这有很大的可能会改变设计师和开发人员的合作方式。现在，当我们在对设计进行迭代时，我们可以使用相同的实现，无论我们是在使用设计工具还是开发者工具
 
-With [symbols in Sketch](https://www.sketchapp.com/learn/documentation/symbols) and [components in React](https://facebook.github.io/react/docs/components-and-props.html), our industry is essentially starting to converge on the same abstraction, opening the opportunity for us to work closer together by sharing the same tools.
+通过 [Sketch 中的符号](https://www.sketchapp.com/learn/documentation/symbols)和[ React 中的组件](https://facebook.github.io/react/docs/components-and-props.html)，我们的行业已经从本质上开始趋于抽象，并且我们通过使用相同的工具可以更紧密的协作。
 
-It’s no coincidence that so many of these new experiments are coming from within the React community, and those communities surrounding it.
 
-In a component architecture, co-locating as many of a component’s concerns in a single place becomes a high priority. This, of course, includes its locally scoped styles, but even extends to more complicated areas like data fetching thanks to libraries like [Relay](https://facebook.github.io/relay) and [Apollo](http://dev.apollodata.com). The result is something that unlocks an enormous amount of potential, of which we’ve only just scratched the surface.
+这么多新的尝试都来自 React 和其周边的社区，看来这并不是巧合。
+
+在组件架构中，最重要的是将组件的集中在一起。这自然就包括它的局部样式，往更复杂的方向延伸就涉及到数据的获取。这里要感谢 [Relay](https://facebook.github.io/relay) 和 [Apollo](http://dev.apollodata.com)，因为我们只了解了皮毛，但是他们帮我们解决了很多复杂的问题。
 
 While this has a huge impact on the way we style our applications, it has an equally large effect on everything else in our architecture—but for good reason.
+虽然这对我们产生了很大的影响，但是它对我们架构里的其他一切都有很大的影响，当然，是出于好的理由
 
 By unifying our model around components written in a single language, we have the potential to better separate our concerns—not by technology, but by _functionality._ Scoping everything around the unit of a component, scaling large yet maintainable systems from them, optimised in ways that weren’t possible before, sharing our work with each other more easily and composing large applications out of small open-source building blocks. Most importantly, we can do all of this without breaking progressive enhancement, without giving up on the principles that many of us see as a non-negotiable part of taking the web platform seriously.
+通过使用单一语言
 
 Most of all, I’m excited about the potential of components written in a single language to form the basis of _a new, unified styling language_—one that unites the front-end community in ways we’ve never seen before.
+最重要的是，我对使用单一语言编写的组件的潜力感到兴奋，
 
-At SEEK, we’re working to take advantage of this by building our own living style guide around this component model, where semantics, interactivity and visual styling are all united under a single abstraction. This forms a common design language, shared between developers and designers alike.
+在 SEEK，我们正在努力利用这一功能，我们围绕组件模型来构建在线样式指南，其中语义化，交互性和视觉风格都有统一的抽象。这形成了开发人员和设计师之间共享的通用设计语言。
 
 As much as possible, building a page should be as simple as combining an opinionated set of components that ensure our work stays on brand, while allowing us to upgrade our design language long after we’ve shipped to production.
+构建一个页面应该尽可能的简单
 
 ```
 import {
@@ -540,23 +551,26 @@ const App = () => (
 Even though our style guide is currently built with React, webpack and CSS Modules, the architecture exactly mirrors what you’d find in any system built with CSS-in-JS. The technology choices may differ, but the mindset is the same.
 
 However, these technology choices will likely need to shift in unexpected ways in the future, which is why keeping an eye on this space is so critical to the ongoing development of our component ecosystem. We may not be using CSS-in-JS today, but it’s quite possible that a compelling reason to switch could arise sooner than we think.
+然而，未来这些技术选型可能会以一种意想不到的方式进行转变，这就是为什么要关注。我们现在可能不会用 CSS-in-JS 这项技术，但是很可能没过多久就会出现一个令人信服的理由让我们使用它。
 
-CSS-in-JS has come a surprisingly long way in a short amount of time, but it’s important to note that, in the grand scheme of things, it’s only just getting started.
+在这段时间里，CSS-in-JS 已经给我们带来了很多惊喜，但更重要的是，它只是这个宏伟蓝图的开始。
 
-There’s still so much room for improvement, and the innovations are showing no signs of stopping. Libraries are still popping up to address the outstanding issues and to improve the developer experience—performance enhancements, extracting static CSS at build time, targeting CSS variables and lowering the barrier to entry for all front-end developers.
+它还有很大的改进空间，并且它的创新还没有停止的迹象。新的库正不断涌现，它们解决了未来会出现的问题并且提升了开发人员的体验 —— 比如性能的提升，在构建时抽取静态 CSS，支持 CSS 变量以及降低了前端开发人员的入门门槛。
 
 This is where the CSS community comes in. Despite all of these massive alterations to our workflow, **_none of this changes the fact that you still need to know CSS._**
 
 We may express it with different syntax, we may architect our apps in different ways, but the fundamental building blocks of CSS aren’t going away. Equally, our industry’s move towards component architectures is inevitable, and the desire to reimagine the front-end through this lens is only getting stronger. There is a very real need for us to work together, to ensure our solutions are widely applicable to developers of all backgrounds, whether design-focused, engineering-focused, or both.
+我们可能使用不同的语法，也可能以不同的方式构建我们的应用，但是 CSS 的基本构建块不会消失。同样，我们行业向组件架构的转变是不可避免的，通过这种方式重新设计前端的意愿只会越来越强烈。我们非常需要合作来
 
-While we may sometimes seem at odds, the CSS and JS communities both share a passion for improving the front-end, for taking the web platform seriously, and improving our processes for the next generation of web sites. There’s so much potential here, and while we’ve covered an incredible amount of ground so far, there’s still so much work left to be done.
+虽然有时我们的观点不一致，但是 CSS 和 JS 社区对于改进前端，认真对待 Web 平台以及改进我们下一代 web 开发流程都有很大的激情。社区的潜力是巨大的，而且尽管到目前为止我们已经解决了大量的问题，但还有很多工作要做。
 
 At this point, you still might not be convinced, and that’s totally okay. It’s completely reasonable to find CSS-in-JS to be ill-fitting for your work _right now,_ but my hope is that it’s for the _right reasons,_ rather than superficial objections to mere _syntax._
 
-Regardless, it seems quite likely that this approach to authoring styles is only going to grow more popular over the coming years, and it’s worth keeping an eye on it while this approach continues to evolve at such a rapid pace. I sincerely hope that you’re able to join us in helping make the next generation of CSS tooling as effective as possible for all front-end developers, whether through code contributions or _simply being an active part of the conversation._ If not, at the _very least,_ I hope I’ve been able to give you a better understanding of why people are so passionate about this space, and—maybe—why it’s not such a ridiculous idea after all.
 
-_This article was written in parallel with a talk of the same name — presented at CSSconf EU 2017 in Berlin, Germany — which is now_ [_available on YouTube_](https://www.youtube.com/watch?v=X_uTCnaRe94)_._
+无论如何，未来几年这种编写样式的风格可能会越来越流行，并且值得关注的是它发展的非常快。我衷心希望你可以加入我们，无论是通过贡献代码还是**简单的参与我们的对话讨论**，都能让下一代 CSS 工具尽可能的提高前端开发人员的工作效率。
 
+
+这篇文章是我在德国柏林参加 CSSconf EU 2017 做相同主题演讲时撰写的，并且现在可以在 [YouTube](https://www.youtube.com/watch?v=X_uTCnaRe94) 上看到相关视频。
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[React](https://github.com/xitu/gold-miner#react)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计) 等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)。
