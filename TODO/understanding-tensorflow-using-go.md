@@ -6,13 +6,13 @@
 
 # 用 Go 语言理解 Tensorflow
 
-Tensorflow 并不是一个严格意义上的机器学习库，它是一个使用图来表示计算的通用计算库。它的核心由 C++ 实现，通过封装，能在各种不同的语言下运行。它的 Golang 版和 Python 版不同，Golang 版 Tensorflow 不仅能让你在 Go 下使用 Tensorflow，还能让你理解 Tensorflow 的底层实现。
+Tensorflow 并不是一个严格意义上的机器学习库，它是一个使用图来表示计算的通用计算库。它的核心功能由 C++ 实现，通过封装，能在各种不同的语言下运行。它的 Golang 版和 Python 版不同，Golang 版 Tensorflow 不仅能让你通过 Go 语言使用 Tensorflow，还能让你理解 Tensorflow 的底层实现。
 
 ## 封装
 
 根据官方说明，Tensorflow 开发者发布了以下内容：
 
-- C++ 源码：Tensorflow 实现各种高层和底层操作的真正的核心。
+- C++ 源码：底层和高层的具体功能由 C ++ 源码实现，它是真正 Tensorflow 的核心。
 
 - Python 封装与Python 库：由 C++ 实现自动生成的封装版本，通过这种方式我们可以直接用 Python 来调用 C++ 函数：这也是 numpy 的核心实现方式。
 
@@ -36,7 +36,7 @@ Tensorflow 并不是一个严格意义上的机器学习库，它是一个使用
 
 首先要注意的是，代码维护者自己也承认了，Go API 缺少 `Variable` 支持，因此这个 API 仅用于**使用**训练好的模型，而**不能用于**进行模型训练。
 
-在文档 [Installing Tensorflow for Go](https://www.tensorflow.org/versions/master/install/install_go) 中写的很清楚：
+在文档 [Installing Tensorflow for Go](https://www.tensorflow.org/versions/master/install/install_go) 中已经明确提到：
 
 > TensorFlow 为 Go 编程提供了一些 API。这些 API 特别适合加载在 Python 中创建的模型，让其在 Go 应用 中运行。
 
