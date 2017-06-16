@@ -1,3 +1,4 @@
+* [深度学习在 iOS 上的实践 —— 通过 YOLO 在 iOS 上实现实时物体检测](https://juejin.im/post/59433498da2f600067604218?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Danny1451](https://github.com/Danny1451) 翻译)
 * [消息同步 —— 在 Airbnb 我们是怎样扩展移动消息的](https://juejin.im/post/593a7647128fe1006acafaf9?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Tuccuay](https://github.com/Tuccuay) 翻译)
 * [对元素持有弱引用的 Swift 数组](https://juejin.im/post/5927a34c0ce46300575a81e1?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([zhangqippp](https://github.com/zhangqippp) 翻译)
 * [在 Swift 中使用闭包实现懒加载](https://juejin.im/post/590a9eeab123db00549776ee/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lsvih](https://github.com/lsvih)) 翻译)
