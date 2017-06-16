@@ -2,33 +2,20 @@
 > * 原文作者：[Wen Wang](https://uxdesign.cc/@wenwang)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[Changkun Ou](https://github.com/changkun/)
-> * 校对者：
+> * 校对者：[horizon13th](https://github.com/horizon13th), [osirism](https://github.com/osirism)
 
 # 为复杂产品制定设计规范 #
 
 ## 设计规范的好处及构建方法 ##
 
-
-
-------
-
-暂译术语表：
-
-- design system 设计规范
-- design guidelines 设计准则
-- style guide 风格指南
-- live library 实时库
-- live style guides 实时风格指南
-
-------
-
-
+> 译者注：本文部分术语有意译，具体为：设计规范（design system）、设计准则（design guidelines）、风格指南（style guide）、实时风格指南（live style guides）、实时库（live library）。
+>
 
 ![](https://cdn-images-1.medium.com/max/2000/1*Foh-OxZWLDg_WjojpavgaA.png)
 
 > Bypass 的设计规范理念
 
-在我的上一篇文章 **「[如何从设计规范起步](https://medium.com/@wenwang/how-to-get-a-head-start-on-design-system-8a217676c1f9#.v42j4b53c)」**中，我谈到了当我缺少资源时如何开始构建简单的风格指南。这次我将分享更多关于构建复杂产品设计规范（如 SaaS Web 应用）的知识。在文章的最后，我还会分享一些有用的资源。
+在我的上一篇文章 **『[如何从设计规范起步](https://medium.com/@wenwang/how-to-get-a-head-start-on-design-system-8a217676c1f9#.v42j4b53c)』** 中，我谈到了当我缺少资源时如何开始构建简单的风格指南。这次我将分享更多关于构建复杂产品设计规范（如 SaaS Web 应用）的知识。在文章的最后，我还会分享一些有用的资源。
 
 ### 我们为什么开始 ###
 
@@ -58,7 +45,7 @@
 
 #### 1.从设计准则开始 ###
 
-风格指南是设计规范的基础设施，要了解更多关于它的细节，可以参考我之前的文章**[「如何从设计规范起步」](https://medium.com/@wenwang/how-to-get-a-head-start-on-design-system-8a217676c1f9#.tf4xqdc8e)**。
+风格指南是设计规范的基础设施，要了解更多关于它的细节，可以参考我之前的文章 **『[如何从设计规范起步](https://medium.com/@wenwang/how-to-get-a-head-start-on-design-system-8a217676c1f9#.tf4xqdc8e)』** 。
 
 #### *可选项: 构建一个实时库 ###
 
