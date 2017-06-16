@@ -2,13 +2,13 @@
 > * 原文作者：本文已获原作者 [Jordan Morgan](https://medium.com/@JordanMorgan10) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[zhangqippp](https://github.com/zhangqippp)
-> * 校对者：
+> * 校对者：[Danny1451](https://github.com/Danny1451)，[atuooo](https://github.com/atuooo)
 
-# iOS 11：UIKit 中重要的新能力
+# iOS 11：UIKit 中值得注意的新能力
 
 ![](https://camo.githubusercontent.com/63483ef51131c9e01754955128f5154d1efd4e27/68747470733a2f2f63646e2d696d616765732d312e6d656469756d2e636f6d2f6d61782f323030302f312a3661395976546c4f6d6c34414e466c43413036526e512e6a706567)
 
-本周每个 iOS 开发者都在热切的观看 W.W.D.C. 的宣讲视频 😜
+本周每个 iOS 开发者都在热切地观看 W.W.D.C. 的宣讲视频 😜
 
 苹果的常用框架又有了新玩法
 
@@ -18,7 +18,7 @@
 
 #### UIStackView
 
-UIStackView 只得到了一点点改变，但关键是这正是它所需要的。我曾经写过这样一篇文章 [stack view 非常流畅，尽管它很复杂](https://medium.com/the-traveled-ios-developers-guide/uistackview-a-field-guide-c1b64f098f6d) ，但是在它的强大和神奇的自动布局之外，有一点它做的不够好：改变它子视图之间的间距。
+大家都喜爱的 UIStackView 只得到了一点点改变，但关键是这正是它所需要的。我曾经写过这样一篇文章 [stack view 的结构越复杂就越灵活](https://medium.com/the-traveled-ios-developers-guide/uistackview-a-field-guide-c1b64f098f6d) ，但是在它的强大和神奇的自动布局之外，有一点它做的不够好：改变它子视图之间的间距。
 
 在 iOS 11 中这一点得到了改善。事实上 PSPDFKit 的 [Pete Steinberger](https://twitter.com/steipete) 问大家 UIKit 的改善中什么使我们印象最深刻，我的第一想法是：
 
@@ -39,7 +39,7 @@ horizontalStackView.setCustomSpacing(10, after: view3)
 
 我自己在使用 stack view 时无数次遇到上面这种场景，非常别扭。在旧版本的 UIStackView 的实现中，你只能将所有的间距设置为一致的值，或者添加一个 “spacer” 视图（ API 刚出现时就有的一个非常古老的属性）来添加间距。 
 
-如果你的 U.I. 需要以动画的形式增加或减少子视图之间的间距，新方法设置的值可以在随后查询和设置：
+如果你的 U.I. 需要以动画的形式增加或减少子视图之间的间距，稍后可以去查询和设置相关参数：
 
     let currentPadding = horizontalStackView.customSpacing(after: view3)
 
@@ -86,7 +86,7 @@ horizontalStackView.setCustomSpacing(10, after: view3)
         return nil
     }
 
-这个代理方法的使用和尾部轻划的使用是一致的。另一个好处是我们可以设置一个默认的轻划动作，用于响应用户各种方式的轻划动作，如同删除邮件时所做的哪样：
+这个代理方法的使用和尾部轻划的使用是一致的。另一个好处是我们可以设置一个默认的轻划动作，用于响应用户向左或向右的长轻划动作，如同原生邮箱中删除邮件时所做的那样：
 
     let contextualGroup = UISwipeActionsConfiguration(actions: [editAction, copyAction])
 
@@ -94,7 +94,7 @@ horizontalStackView.setCustomSpacing(10, after: view3)
 
     return contextualGroup
 
-这个属性的默认值是 true ，所以你得记得在不想响应各方向轻划动作时关掉它，尽管看起来大部分情况都应该响应。
+这个属性的默认值是 true ，所以你得记得在不需要响应该动作时关掉它，尽管看起来大部分情况都应该响应。
 
 为了不被超过太多，table view 从它的小兄弟（译者注：collection view ）那里学了一招，table view 现在可以进行批量更新了： 
 
@@ -106,7 +106,7 @@ horizontalStackView.setCustomSpacing(10, after: view3)
 
 #### UIPasteConfiguration
 
-这一部分在 “ What’s New in Cocoa Touch ” 的宣讲中直接激起了我的兴趣。每个 UIResponder 现在都有一个粘贴配置的属性，可以用它来粘贴操作**和**拖拽数据传递：
+这一部分在 “ What’s New in Cocoa Touch ” 的宣讲中直接激起了我的兴趣。为了粘贴操作**和**支持拖拽数据的传递，现在每个 UIResponder 都有一个粘贴配置的属性：
 
     self.view.pasteConfiguration = UIPasteConfiguration()
 
@@ -135,9 +135,9 @@ horizontalStackView.setCustomSpacing(10, after: view3)
         //Act on pasted data
     }
 
-#### Wrapping Up
+#### 总结
 
-很高兴能写一些关于 iOS 11 的东西。尽管还有很多新内容等着探索和发现，我觉得我们可以在软件开发领域得到一些满足感，毕竟我们中的许多人因为工作或者兴趣的原因每天都要和这些框架打交道。
+很高兴能写一些关于 iOS 11 的东西。虽然总是有很多新东西等着探索和发现，但正因如此，我想我们可以从软件开发中得到一些满足感，毕竟我们中的许多人因为工作或者兴趣的原因每天都要和这些框架打交道。
 
 W.W.D.C. 还在继续进行，大量的代码向我们汹涌而来，我们又有很多新的框架需要掌握，也有很多样例代码需要阅读。这是个令人兴奋的时刻。不论是新的臃肿的导航条，还是 UIFontMetrics ，或者是拖拽式的 API ，都有大量的新内容等着我们去探索。
 
