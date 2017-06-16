@@ -2,7 +2,7 @@
 > * 原文作者：[Ben Lesh](https://medium.com/@benlesh)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[hikerpig](https://github.com/settings/profile)
-> * 校对者：
+> * 校对者：[Tina92](https://github.com/Tina92)
 
 ---
 
@@ -30,21 +30,22 @@
 
 我上篇文章[通过自行实现学习 Observable](https://medium.com/@benlesh/learning-observable-by-building-observable-d5da57405d87) 阐述了 Observable 是种函数。虽旨在揭开 Observable 的神秘外衣，但并没有触及其最令人困惑的部分：“冷”和“热”的概念。
 
-#### Observable 只是种函数！
+#### Observable 只是函数！
 
 Observable 只是一个将观察者 (Observer) 连接到生产者的函数。意味着，它们并不需要自行创建生产者。只需要让一个观察者订阅生产者的消息，并提供一种取消监听的方式。这种订阅可通过像函数一样“调用” Observable，给它传递一个观察者。
 
 #### 什么是“生产者”？
 
-生产者是 Observable 的数据源。可以是一个 websocket 连接、DOM 事件、迭代器或一个遍历某数组的操作。可以是能产生值并向 `observer.next(value)` 传递的任何东西。
+生产者是 Observable 的数据源。可以是一个 websocket 连接、DOM 事件、迭代器或一个遍历某数组的操作。可以是你用来获取并向 `observer.next(value)` 传递值的任何东西。。
+
 
 ### 冷 Observable：在内部创建生产者
 
-一个“冷”的 Observable 的生产者**创建和激活**发生在订阅期。意即若将 observable 比作函数，那么生产者是在“调用函数”时创建和激活的。
+一个“冷”的 Observable 的生产者**创建和激活**发生在订阅期。就是说若将 observable 比作函数，那么生产者是在“调用函数”时创建和激活的。
 
 1. 创建生产者
 2. 激活生产者
-3. 订阅生产者的消息
+3. 开始监听生产者
 4. 单播
 
 下面例子是“冷”的，因为 WebSocket 连接是在订阅回调“内部”被创建和监听的，而订阅回调函数只有在订阅 Observable 时才会被执行。
@@ -77,7 +78,7 @@ Observable 只是一个将观察者 (Observer) 连接到生产者的函数。意
 
 #### 为什么需要热 Observable？
 
-在第一个冷 Observable 的例子里你可以看见，一直保有所有的 Observable 实例可能会有问题。首先，如果你需要订阅这个 observable 多次，而这个 observable 会创建类似于 WebSocket 这样的，占用如网络连接般稀缺资源的实例，你肯定不希望创建多个连接。而实际上，我们很容易忽略订阅多次的事实。例如当你需要过滤出 socket 消息值的奇/偶数序列，在此场景下你会创建两个订阅：
+在第一个冷 Observable 的例子里你可以看见，一直保有所有的冷 Observable 实例可能会有问题。首先，如果你需要订阅这个 observable 多次，而这个 observable 会创建类似于 WebSocket 这样的，占用如网络连接般稀缺资源的实例，你肯定不希望创建多个连接。而实际上，我们很容易忽略订阅多次的事实。例如当你需要过滤出 socket 消息值的奇/偶数序列，在此场景下你会创建两个订阅：
 
     source.filter(x => x % 2 === 0)
       .subscribe(x => console.log('even', x));
@@ -110,7 +111,7 @@ Rx Subject 的名字得于第 3 条特性，“Subject” 在 Gang of Four（译
     }
 
 
-`makeHot` 函数接受一个冷的 Observable，创建一个 Subject 订阅它的消息，同时也作为作为返回的新的热 Observable 的生产者。[一个 JSBin 示例](http://jsbin.com/ketodu/1/edit?js,output)
+`makeHot` 函数接受一个冷的 Observable `cold`，创建一个 `subject` 订阅 `cold` 的消息，最后该函数返回一个热 Observable, 它的生产者为 `subject`。[一个 JSBin 示例](http://jsbin.com/ketodu/1/edit?js,output)
 
 不过还有一个小问题，我们没有直接订阅数据源，如果想取消订阅，该怎么做呢？可以用引用计数解决：
 
@@ -133,15 +134,15 @@ Rx Subject 的名字得于第 3 条特性，“Subject” 在 Gang of Four（译
 
 ### 在 RxJS 里使用 `publish()` 或 `share()`
 
-你也许不该使用类似于上面 `makeHot` 这样的函数，而应该使用 `publish()` 或 `share()` 这样的算子函数。有许多使冷 Observable 转热的途径，在 Rx 里有高效简洁的方式。为说明使用多种 Rx 算子来做这件事情，能专门写一篇文章，不过这不是本文的目的。真正的目的在于加强对“冷”“热”之分的理解。
+你也许不该使用类似于上面 `makeHot` 这样的函数，而应该使用 `publish()` 或 `share()` 这样的函数 Observable 转热的途径，在 Rx 里有高效简洁的方式。为说明使用多种 Rx 操作符（译者注：operator，之后都作此翻译）来做这件事情，能专门写一篇文章，不过这不是本文的目的。真正的目的在于加强对“冷”“热”之分的理解。
 
-在 RxJS 5 里，`share()` 算子创建一个有引用计数的热 Observable，且可以在失败时重试，或在成功时重复执行。因为 Subject 在出错、完成或取消订阅后便不能再被重用，`share()` 算子会更新重建已结束的 Subject，从而使得返回的 Observable 能够被再次订阅。
+在 RxJS 5 里，`share()` 操作符创建一个有引用计数的热 Observable，且可以在失败时重试，或在成功时重复执行。因为 Subject 在出错、完成或取消订阅后便不能再被重用，`share()` 操作符会更新重建已结束的 Subject，从而使得返回的 Observable 能够被再次订阅。
 
 [一个在 RxJS 5 里使用 `share()` 创建热数据源的 JSBin 例子，也展示了重试的方法](http://jsbin.com/mexuma/1/edit?js,output)
 
 ### “温” Observable
 
-看完如上所述，能知道 Observable 虽“仅是种函数”，却能有冷热之分。它还能监听两个生产者？一个由它创建，一个由它关闭？有点像不良的小伎俩，非其不用的场景并不多。例如多路 socket 数据源，共享一个 socket 连接，但分别有自己的数据订阅和过滤机制。
+看完如上所述，能知道 Observable 虽然 “只是函数”，却能有冷热之分。它还能监听两个生产者？一个由它创建，一个由它关闭？有点像不良的小伎俩，非其不用的场景并不多。例如多路 socket 数据源，共享一个 socket 连接，但分别有自己的数据订阅和过滤机制。
 
 ### 冷和热都只和生产者有关
 
