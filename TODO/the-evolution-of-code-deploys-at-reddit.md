@@ -1,28 +1,27 @@
 > * 原文地址：[The Evolution of Code Deploys at Reddit](https://redditblog.com/2017/06/02/the-evolution-of-code-deploys-at-reddit/)
 > * 原文作者：[Neil Williams & Saurabh Sharma](https://redditblog.com/2017/06/02/the-evolution-of-code-deploys-at-reddit/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
+> * 译者：[steinliber](https://github.com/steinliber)
 > * 校对者：
 
-# The Evolution of Code Deploys at Reddit
-
+# 在 Reddit 中代码部署的演进
 ![](https://i2.wp.com/redditupvoted.files.wordpress.com/2017/06/header-1.png)
 
-"It’s important to keep an eye on where you are evolving to so that you keep moving in a useful direction."
+"留意你所演进的方向是重要的，这样你才能持续向有益的方向进展。"
 
-**We’re constantly deploying code at Reddit**. Every engineer writes code, gets it reviewed, checks it in, and rolls it out to production regularly. This happens as often as 200 times each week and a deploy usually takes fewer than 10 minutes end-to-end.
+**在 Reddit 我们仍然不断的部署代码**。每个工程师都会定期写代码，再让其他人审查这份代码，合并代码之后再把代码推到生产环境。这种情形在一周内通常会发生200次而且每次从开始到结束都不会超过 10 分钟。
 
-The system that powers all of this has evolved over the years. Let’s take a look at how it’s changed (and how it hasn’t) over all that time.
+支持所有这些的系统在这些年不断演进。让我们看看这段时间内它是如何改变的（包括没有改变的部分）。
 
-## Where this story starts: consistent and repeatable deploys (2007-2010)
+## 故事最开始的地方：一致和可重复的部署（2007-2010）
 
-The seed of the current system was a Perl script called *push*. It was written at a time very different from now in Reddit’s history. The entire engineering team was [small enough to fit in one small conference room](https://redditupvoted.files.wordpress.com/2010/03/1dff6-table.jpg). Reddit was not yet on AWS. The site ran on a fixed number of servers, with additional capacity having to be added manually, and was comprised of one large monolithic Python application called r2.
+现在系统起源于一个叫做 **push** 的 Perl 脚本。在 Reddit 的历史上，写这个脚本的时候环境和现在大相径庭。当时 Reddit 只有一个[小会议室](https://redditupvoted.files.wordpress.com/2010/03/1dff6-table.jpg)就可以容纳的工程师队伍。Reddit 也没有迁移到 AWS。站点运行在固定数目的服务器上，如果要增加站点处理能力就需要手动添加机器，整个站点是由一个叫做 r2 的大型 Python 应用组成。
 
-One thing that hasn’t changed over the years is that requests are classified at the load balancer and assigned to specific “pools” of otherwise identical application servers. For example, [listing](https://www.reddit.com/r/rarepuppers/) and [comment](https://www.reddit.com/r/AskReddit/comments/cq1q2/help_reddit_turned_spanish_and_i_cannot_undo_it/) pages are served from separate pools of servers. While any given r2 process could handle any kind of request, individual pools are isolated from spikes of traffic to other pools and can fail independently when they have different dependencies.
+一直都现在都没有改变的事是请求在负载均衡器上会被分类并分配到其它独立应用服务器特殊的 "请求池" 中。比如说，[listing](https://www.reddit.com/r/rarepuppers/)  和 [comment](https://www.reddit.com/r/AskReddit/comments/cq1q2/help_reddit_turned_spanish_and_i_cannot_undo_it/)  页面在不同的请求池里处理。虽然任何给定的 r2 进程都可以处理任何类型的请求，但是单个池与其他任何流量达到峰值的池是隔离的，并且当它们有不同的依赖时运行失败也是可以独立的。
 
 ![](https://redditupvoted.files.wordpress.com/2017/06/pools.png?w=720&amp;h=331)
 
-The *push* tool had a hard-coded list of servers in it and was built around the monolith’s deploy process. It would iterate through all the application servers, SSH into the machine, run a pre-set sequence of commands to update the copy of code on the server via git, then restart all the application processes. In essence (heavily distilled, not real code):
+**push** 工具有一个硬编码的服务器列表并且它是围绕部署的过程所构建的。它将会遍历所有的应用服务器，使用 SSH 登录到那台机器，运行一系列预设的命令来通过 git 更新服务器上的代码副本，然后重启所有的应用进程。实际上过程如下（大量简化，不是真实的代码）：
 
 ```
 # build the static files and put them on the static server
@@ -38,39 +37,42 @@ foreach $h (@hostlist) {
 }
 ```
 
-The deploy was sequential. It worked its way through servers one by one. As simple as that sounds, this was actually a good thing: it allowed for a form of canary deploy. If you deployed to a few servers and noticed a new exception popping up, you’d know that you introduced a bug and could abort (Ctrl-C) and revert before affecting all requests. Because of the ease of deploys, it was easy to try things out in production and low friction to revert if it didn’t work out. It also meant it was necessary to do only one deploy at a time to ensure that new errors were from *your *deploy and not *that other one* so it was easier to know when and what to revert.
+整个部署过程是顺序的。它一个接一个的在服务器上完成它的工作。就像听起的那么简单，这实际上是一件很棒的事情：它允许一定形式的金丝雀部署。如果你部署一部分服务器的时候一个新的异常突然出现，这时你知道引入了一个 bug 就可以马上中断（Ctrl-C）部署并且恢复之前已经部署的服务器，这样就不会影响全部的请求。因为部署的简单性，我们可以很轻易的在生产环境尝试新东西并且在它不工作的情况下也可以很轻松的还原到之前状态。这也意味着在同一时间内只执行一次部署是很有必要的，这可以保证新的错误是源自于**你**的部署而不是**其他人**的部署，从而可以很简单的知道何时以及如何恢复之前的状态。
 
-This was all great for ensuring that deploys were consistent and repeatable. It ran pretty quickly. Things were good.
+这些对于确保确保一致和可重复的部署都非常重要。它运行的很快。一切都很美好。
+
 
 ## A bunch of new people (2011)
+## 一大批新的人（2011）
 
-Then we hired a bunch, growing to six whole engineers, and now fit into a [somewhat larger conference room](https://redditblog.com/2011/07/06/its-time-for-us-to-pack-up-and-move-on-to-bigger-and-better-things/). We started to feel a need for better coordination around deploys, particularly when individuals were working from home. We modified the *push* tool to announce when deploys started and ended via an IRC chatbot. The bot just sat in IRC and announced events. The process for actually doing the deploy looked the same, but now the system did the work for you and told everyone what you were doing.
+然后我们雇佣了一批工程师，成为有六个全职工程师的队伍，现在这个队伍适合进入一个[更大点的会议室](https://redditblog.com/2011/07/06/its-time-for-us-to-pack-up-and-move-on-to-bigger-and-better-things/)。我们开始觉得需要在部署中有更好的协调性，特别是当有个人是在家里工作的情况。我们修改了 **push** 工具让它通过一个 IRC 聊天机器人来声明部署是什么时候开始和结束的。这个机器人就在 IRC 中并声明事项。部署的过程看起来和以前一样，只是现在由系统为我们做这个工作并通知每一个人你正在做什么。
 
-This was the beginning of us using chat for deployment workflows. There was a lot of talk of systems that managed deploys *from *chat around this time, but since we used third party IRC servers we weren’t able to fully trust the chat room with production control and so it remained a one-way flow of information.
+这是我们在部署工作流中第一次使用开始使用聊天机器人。在这段时间里，有很多管理部署系统的会话都**源自于**聊天机器人，但是因为我们使用的是第三方的 IRC 服务器，所欲我们在生产环境的控制中并不能完全信任聊天室，所以它仍然是单向的信息。
 
-As traffic to the site grew, so did the infrastructure supporting it. We’d occasionally have to launch a new batch of application servers and put them into service. This was still a very manual process, including updating the list of hosts in *push*.
+当站点流量增加的同时，我们也保证了基础设施的增长来支持它。我们偶尔会需要启动新的一系列应用服务器并把它们放到服务中。这仍然是非常手工化的过程，包括更新 **push** 的主机列表。
 
-When we added capacity we would usually grow a pool by several servers at a time. The result of this was that iterating through the list of servers sequentially would touch multiple servers in the same pool in quick succession rather than a diverse mix.
+当我们添加服务器容量时，我们通常会通过一次性增加数个服务器来增大一个池。其结果是，顺序地遍历服务器列表可以快速地接触同一个池中的多个服务器，而不是多个池多样化的组合。
+
 
 ![](https://redditupvoted.files.wordpress.com/2017/06/unshuffled.png?w=720&amp;h=104)
 
-We used [uWSGI](https://uwsgi-docs.readthedocs.io/en/latest/) to manage worker processes and so when we told the application to restart it would kill the existing processes and spin up new ones. The new ones took some time to get ready to serve requests and, combined with incidentally targeting a single pool at a time, this would impact the capacity of that pool to serve requests. So we were limited in the rate we could safely deploy to servers. As the list of servers grew, so did the length of the deploys.
+我们使用  [uWSGI](https://uwsgi-docs.readthedocs.io/en/latest/) 来工作进程，当我们告诉这个应用重启时，它将会关闭国有已经存在的进程并且相应的生成新的进程。这个新的进程需要一段时间才能准备处理请求，并且我们是在同一时间内针对一个池，这将会影响池处理请求的能力。所以我们把部署速度限制到可以保证安全的部署。当服务器数量增多时，部署的时间也会变长。
 
-## A reworked deploy tool (2012)
+## 一个重构的部署工具（2012）
 
-We did an overhaul on the deploy tool, written in Python now, confusingly also called *push*. The new version had a few major improvements.
+我们对部署工具进行了一次改革，现在部署工作是由 Python 写的，让人困惑的是它仍然叫做 **push**。这个新版本有一些主要的提升。
 
-First, it fetched its list of hosts from DNS rather than keeping it hard-coded. This allowed us to update the list of hosts without having to remember to update the deploy tool as well — a rudimentary service discovery system.
+首先，它是从 DNS 中获取它的主机列表而是不像之前那样硬编码到代码中。这让我们可以在更新主机列表的时候不用担心忘记更新部署工具 — 一个基本的服务发现系统。
 
-To help the issue of sequential restarts, we shuffled the list of hosts before deploying. Because this would mix up the pools of servers, it allowed us to safely roll through at higher speed and so deploy faster.
+为了处理顺序重启的问题，我们在部署前打乱了主机列表的顺序。因为它把所有池的服务器部署顺序都打乱了，这让我们可以在更快的速度下安全的切换版本，从而更快的部署。
 
 ![](https://redditupvoted.files.wordpress.com/2017/06/shuffled.png?w=720&amp;h=103)
 
-The initial implementation just shuffled randomly each time, but this made it hard to quickly revert code because you wouldn’t deploy to the same first few servers each time. So we amended the shuffle to use a seed that could be re-used on a second deploy when reverting.
+这个最初的实现会每次都随机的打乱顺序，但是这样做的话很难快速的回滚代码，因为你不会每次都部署到和之前一样的前几台机器上。所以我们修改了打乱的策略使用了种子（译者注：即随机数生成器的种子），这个种子可以在回滚时第二次部署重新使用。
 
-Another small but important change was to always deploy a fixed version of the code. The previous version of the tool would update *master*on a given host, but what if *master* changed mid-deploy because someone accidentally pushed up code? By deploying a specific git revision instead of branch name, we ensured that the deploy got the same version everywhere in production.
+另一个小而重要的变化是始终部署确定版本的代码。先前版本的部署工具会在给定的主机上更新 **master** 分支，但是如果因为有人不小心推了代码导致 **master** 分支在部署中改变了呢？通过部署特定的 git 版本而不是分支名，我们可以确保部署在生产环境的任何地方都能得到同样的版本。
 
-Finally, the new tool made a distinction between its code (focused on lists of hosts and SSHing into them) and the commands being run. It was still heavily biased by r2’s needs, but it had a proto-API of sorts. This allowed r2 to control its own deploy steps which made it easier to roll out changes to the build and release flow. For example, here’s what might have run on an individual server. The exact commands were hidden but the sequence was still specific to r2’s workflow:
+最后，新工具区分了它的代码（主要关注它的主机和正通过 SSH 登录的列表）和正在运行中的命令。它仍然十分倾向于满足处理 r2 的需求，但是它有了一个原型 API。这可以让 r2 控制自己的部署步骤，从而更简单的把代码的更改推出到构建和发布流。例如，以下是可能在单个服务器上运行的功能。确切的命令并没有显示出来但是这个命令序列仍然是特定于 r2 的处理流程。
 
 ```
 sudo /opt/reddit/deploy.py fetch reddit
@@ -79,65 +81,65 @@ sudo /opt/reddit/deploy.py fetch-names
 sudo /opt/reddit/deploy.py restart all
 ```
 
-That fetch-names thing was very much an r2-only concern!
+那个叫做 fetch-names 的东西就是针对 r2 特别处理的命令。
 
-## The autoscaler (2013)
+## 自动伸缩器（2013）
 
-Then we decided to actually get with the cloud thing and autoscale (a subject for a separate blog post). This allowed us to save a ton of money when the site was less busy and automatically grow to keep up with unexpected demand.
+然后我们决定使用云端的设施和自动伸缩（这是另一篇博客文章的主题）。这让我们在网站不怎么么忙时可以省一大笔钱，遭遇到预料不及的请求量时自动增加设施。
 
-The previous improvements that automatically fetched the hostlist from DNS made this a natural transition. The hostlist changed a lot more often than before, but it was no different to the tool. What started out as a quality of life thing became integral to being able to launch the autoscaler.
+之前所做的自动从 DNS 获取主机列表的功能使这个变成了一个很自然的过渡。主机列表的更改频率比以前更加频繁，但是这对于工具来说并没有什么不同。这个一开始只是生活质量的东西现在成为了自动伸缩的一部分。
 
-However, autoscaling did bring up some interesting edge cases. No free lunches. What happens if a server is launched while a deploy is ongoing? We had to make sure each newly launched server checked in to get new code if present. What about servers going away mid-deploy? The tool had to be made smarter to detect when the server was gone legitimately rather than there being an issue with the deploy process itself that should be noisily alerted on.
+然而，自动伸缩确实带来了一些有趣的边界条件。天下没有免费的午餐，如果在部署进行的期间启动新的服务器，那会发生什么？我们必须确保所有新启动的服务器都能切换到新的代码（如果有的话）。如果服务器在部署中途退出了怎么办？这个工具必须做得更聪明，以检测服务器何时可以合法地移除，而不是成为部署过程中的一个应该被提醒的问题。
 
-Incidentally, we also switched from uWSGI to [Gunicorn](http://gunicorn.org/) around this time for various reasons. This didn’t really make a difference as far as deploys are concerned.
+意外的，这段时间我们也因为各种各样的原因从 uWSGI 切换到 [Gunicorn](http://gunicorn.org/)。对于部署而已，这并没有真正的区别。
 
-So things carried on.
+事情仍在继续。
 
-## Too many servers (2014)
+## 太多服务器了（2014）
 
-Over time, the number of servers needed to serve peak traffic grew. This meant that deploys took longer and longer. At its worst, a normal deploy took close to an hour. This was not good.
+随着时间推移，需要处理峰值流量的服务器不断增长。这意味着部署所花的时间越来越长。在最坏的情况下，一个普通的部署会花掉将近一小时。这看起来不对啊。
 
-We rewrote the deploy tool to handle hosts in parallel. The new version is called *[rollingpin](https://github.com/reddit/rollingpin)**.* A lot of the time the old tool took was initiating ssh connections and waiting for commands to finish, so parallelizing at a safe amount allowed for faster deploys. This instantly took the deploy time down to 5 minutes again.
+我们重写了部署工具来并行处理主机。这个新版本叫做 **[rollingpin](https://github.com/reddit/rollingpin)**。在很多时候老工具都会初始化 ssh 连接并且等待命令完成，所以在可允许的安全数量并行化可以加快部署。这马上把部署的时间降低到了 5 分钟。
 
 ![](https://redditupvoted.files.wordpress.com/2017/06/parallel.png?w=720&amp;h=103)
 
-To reduce the impact of restarting multiple servers at once, the deploy tool’s shuffle got smarter. Instead of blindly shuffling the list of servers, it would [interleave pools of servers in a way that maximally separated servers from each pool](https://github.com/reddit/rollingpin/blob/master/rollingpin/utils.py#L94-L110). A much more intentional reduction of impact on the site.
+为了减少重新启动多台服务器的影响，部署工具的随机打乱程序也变得越来越智能。它不会随便的打乱服务器列表，而是[通过最大限度的分割每个池的服务来交错的部署服务器池]((https://github.com/reddit/rollingpin/blob/master/rollingpin/utils.py#L94-L110)。更加显著的减少了部署对网站的影响。
 
-The most important change of the new tool was that the [API between the deploy tool and the tool that lived on each server](https://github.com/reddit/rollingpin/blob/master/example-deploy.py) was much more clearly defined and decoupled from r2’s needs. This was originally done with an eye to being more open source-friendly, but it ended up being very useful shortly after. Here’s an example of a deploy, with the highlighted commands being the API executed remotely.
+新工具最重要的变化是[部署工具和每个服务器上的工具之前的 API](https://github.com/reddit/rollingpin/blob/master/example-deploy.p)定义的更加清晰并且和 r2 的需求解耦。这最初是为了让源代码更加易读，但不久之后变的非常有用。下面是一个部署示例，高亮显示的命令是远程执行的 API。
 
 ![](https://redditupvoted.files.wordpress.com/2017/06/rollout.png?w=720)
 
-## Too many people (2015)
+## 太多人了（2015）
 
-Suddenly, it seemed, there were a lot of people working on r2 at once. This was great and meant more deploys. Keeping to the one deploy at a time rule slowly became more difficult with individual engineers having to coordinate verbally about which order they would release code in. To fix this, we added another feature to the chatbot which coordinated a queue of deploys. Engineers would ask for the deploy lock and either get it or get put in the queue. This helped keep order in deploys and let people relax a bit while waiting for the lock.
+突然，似乎有太多人在同一时间在 r2 上工作了。这个数量非常多也意味着更多的部署。维持在同一时间只部署一次慢慢变得更加困难，个别的工程师必须先口头上协调好他们发布代码的顺序。为了解决这个问题，我们向聊天机器人添加了协调部署队列的功能。工程师将先申请申请将部署锁定并将其放入队列。这有助于维护部署的顺序并且让人在等待锁解开的时候可以休息一下。
 
-Another important addition as the team grew was to [track deploys in a central location](https://codeascraft.com/2010/12/08/track-every-release/). We modified the deploy tool to send a metric to Graphite so it was easy to correlate deploys to changes in metrics.
+在团队成长中另一个重要功能是[集中化追踪部署](https://codeascraft.com/2010/12/08/track-every-release/)。我们修改了部署工具将部署过程中的指标发送到 Graphite，这样就可以将指标的变化和部署相关联。
 
-## Two (many) services (2015 also)
+## 第二次（太多）服务了（也是 2015）
 
-And just as suddenly we had a second service coming online. The new mobile version of the website was coming online. It was a completely different stack and had its own servers and build process. This was the first real test of the deploy tool’s decoupled API. With the addition of the ability to do build steps in different locations for each project, it held up and we were able to manage both services under the same system.
+恍如隔世，我们有第二个服务要上线。这个网站新的移动版要上线。这是一个完全不同的技术栈，而且它有自己的服务器和构建过程。这是部署工具解耦 API 的第一次实战测试。通过在每个项目不同位置增加构建步骤的能力，新服务的部署成功了而且我们能够在同一套系统下管理这两个服务。
 
-## 25 many services (2016)
+## 太多服务了（2016）
 
-Over the course of the next year, we saw explosive growth in the Reddit team. We went from those two services to a couple dozen and from two teams to fifteen. The majority of our services are either built on [Baseplate](https://github.com/reddit/baseplate), our backend service framework, or node applications similar to mobile web. The deploy infrastructure is common to all of them and more are coming online soon because *rollingpin* doesn’t care what it’s deploying. This makes it easy to spin up new services with tools that people are familiar with.
+在下一年的开发过程中，我们看到了 Reddit 团队的爆炸式增长。我们从这两个服务增长到十几个服务。我们的大部分服务都是建立在 [Baseplate](https://github.com/reddit/baseplate) 上，无论是我们的后端服务框架，还是类似于移动网络的节点应用。这个部署工具在所有的服务中都很常见，而且因为 **rollingpin** 并不关心它部署的是什么，越来越多的服务可以更快的上线。这就可以很轻松地用我们熟悉的工具来部署新的服务。
 
-## The safety net (2017)
+## 安全的网络（2017）
 
-With the increased number of servers dedicated to the monolith, the deploy time grew. We wanted to deploy with a high parallel count but doing so would have caused too many simultaneous restarts to the app servers. Hence, we were below capacity and unable to serve incoming requests, overloading other app servers.
+随着专用于大型应用的服务器数量增加，部署的时间也增长了。我们希望通过高并行数同时部署来解决这个问题，但是这样做会导致过多同时重新启动的应用服务器。这样我们服务器的容量就会不足，导致不足以处理接受的请求，使其它的应用服务器过载。
 
-Gunicorn’s main process used the same model as uWSGI and would restart all workers at once. While the new worker processes are booting, you are unable to serve any requests. The startup time of our monolith ranged from 10-30 seconds which meant during that period we would be unable to serve any requests. To work around this, we replaced the gunicorn master process with Stripe’s worker manager [Einhorn](https://github.com/stripe/einhorn), while [keeping gunicorn’s HTTP stack and WSGI container](https://github.com/reddit/reddit/blob/master/r2/r2/lib/einhorn.py). Einhorn restarts worker processes by spawning one new worker, waiting for it to declare itself ready, then reaping an old worker, and repeating until all are upgraded. This created a safety net and allowed us to be at capacity during a deploy.
+Gunicorn 的主进程使用的是和 uWSGI 相同的模型，它将会同时重启所有的工作进程。一直到新的工作进程启动，你都不能处理任何请求。我们大型应用的 worker 进程启动时间为 10-30 秒，这意味着在这段时间内，我们将无法处理任何请求。为了解决这个问题，我们用 Stripe 的 worker 管理器 [Einhorn](https://github.com/stripe/einhorn) 取代了 gunicorn 的主进程，但是仍然[保存 gunicorn 的 HTTP 堆栈和 WSGI 容器](https://github.com/reddit/reddit/blob/master/r2/r2/lib/einhorn.py)。Einhorn 通过产生一个新的 worker 进程来重启 worker 进程，等到这个新的进程准备好处理请求，然后关闭老的工作进程，重复前面的步骤直到全部升级好。这样创建了一个安全的网络可以让我们在部署期间仍能保证服务器的容量。
 
-This new model introduced a different problem. As mentioned earlier, it could take up to 30 seconds for a worker to be replaced and booted up. This meant that if your code had a bug, it wouldn’t surface right away and you could roll through a lot of servers. To prevent that, we introduced a way to block the deploy from moving on to another server until all the worker process had been restarted. This was done by simply polling einhorn’s state and waiting until all new workers are ready. To keep up speed, we just increased the parallelism, which was now safe to do.
+这个新模式引入了另一个问题。如前所述，一个 worker 进程可能需要长达 30 秒的时间来替换和启动。这意味着如果你的代码有一个 bug，它将不会立刻显露出来而且你继续会在很多服务器上做版本变更。为了防止这种情况我们引入了一个部署方式，部署过程会阻塞一直到 worker 进程已经被重启了才在另外服务器上开始部署。这是通过简单的定时查询 einhorn 状态，一直到所有的新 worker 都准备好。为了保持部署的速度，我们只是增加了并行量，至少现在看是安全的。
 
-This new mechanism allows us to deploy to a lot more machines concurrently, and deploy timings are down to 7 minutes for around 800 servers despite the extra waiting for safety.
+这个新的机制让我们可以同时并行地部署更对的服务器，无视因为安全而等待的额外时间，对于 800 台服务器部署的时间最多为 7 分钟。
 
-## In retrospect
+## 忆古思今
 
-This deploy infrastructure is the product of many years of stepwise improvements rather than any single large dedicated effort. Shades of history and tradeoffs taken at each step are visible in the current system and at any point in the past. There are pros and cons to such an evolutionary approach: it’s less effort at any given time, but we may end up in a dead end. It’s important to keep an eye on where you are evolving to so that you keep moving in a useful direction.
+这个部署的基础设施是多年来逐步提升的结果，而不是任何单一专门的开发过程。历史中的问题和每一步的权衡无论是在现在的系统还是过去任何时候的都看得到。这种演进的方式有利有弊：在任何时间我们所需要付出的努力都会更少，但是在这个过程中我们可能会遇到死胡同。重要的是要关注你正在演进的地方，这样你才能不断朝着有用的方向前进。
 
-## The future
+## 未来
 
-Reddit’s infrastructure needs to support the team as it grows and constantly builds new things. The rate of growth of the company is the highest it’s ever been in Reddit’s history, and we’re working on bigger more interesting projects than ever before. The big issues facing us today are twofold: improving engineer autonomy while maintaining system security in the production infrastructure, and evolving a safety net for engineers to deploy quickly with confidence.
+Reddit 的基础设施需要支持团队和扩大和新项目的构建。现在 Reddit 这家公司的发展速度一历史上的任何时候都要快，而且我们正在开发比以前更大，更有趣的项目。我们今天遇到的大问题有两个方面：首先要在保持生产环境基础设施安全的情况下提高工程师的自主权，还要演进一个可以让工程师安全快速部署的安全网络。
 
 ---
 
