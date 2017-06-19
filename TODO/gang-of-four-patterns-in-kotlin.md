@@ -6,21 +6,21 @@
 
 Kotlin 正在得到越来越广泛的应用。如果把常用的设计模式用 Kotlin 来实现会是什么样子呢？
 
-受到 Mario Fusco 的“从‘四人帮’到 lambda”（相关的[视频](https://www.youtube.com/watch?v=Rmer37g9AZM)、[博客](https://www.voxxed.com/blog/2016/04/gang-four-patterns-functional-light-part-1/)、[代码](https://github.com/mariofusco/from-gof-to-lambda)）的启发，我决定动手实现一些计算机科学领域最著名的设计模式，用 Kotlin！（“四人帮”指 Erich Gamma、Richard Helm、Ralph Johnson 和 John Vlissides，四人在所著的《Design Patterns: Elements of Reusable Object-Oriented Software 》一书中介绍了 23 种设计模式，该书被誉为设计模式的经典之作。——译注）
+受到 Mario Fusco 的“从‘四人帮’到 lambda”（相关的[视频](https://www.youtube.com/watch?v=Rmer37g9AZM)、[博客](https://www.voxxed.com/blog/2016/04/gang-four-patterns-functional-light-part-1/)、[代码](https://github.com/mariofusco/from-gof-to-lambda)）的启发，我决定动手实现一些计算机科学领域最著名的设计模式，用 “Kotlin”！（“四人帮”指 Erich Gamma、Richard Helm、Ralph Johnson 和 John Vlissides，四人在所著的《Design Patterns: Elements of Reusable Object-Oriented Software 》一书中介绍了 23 种设计模式，该书被誉为设计模式的经典之作。——译注）
 
 当然，我的目标不是简单的 **实现** 这些模式。因为 Kotlin 支持面向对象编程并且和 Java 是可互操作的，我可以从 Mario 的仓库直接复制粘贴每一个 Java 文件（先不管是“传统”的还是“lambada 风格”的），**它们将仍然可以正常工作**！
 
-认识到这些模式的发明是为了弥补起源于上世纪九十年代的一些命令式编程语言（尤其是 C++）的不足是很重要的。很多现代编程语言提供了解决这些不足的特性，我们完全不需要再写多余的代码或者做刻意模仿设计模式这种事了。
+需要特别说明一下，这些模式的发明是为了弥补起源于上世纪九十年代的一些命令式编程语言（尤其是 C++）的不足。很多现代编程语言提供了解决这些不足的特性，我们完全不需要再写多余的代码或者做刻意模仿设计模式这种事了。
 
-这就是为什么我像 Mario 那样，去寻找一种简单方便、惯用的方式来解决这些模式所要解决的问题。
+这就是为什么我像 Mario 那样，去寻找一种更简单方便、更惯用的方式来解决这些模式所要解决的问题。
 
-如果不想看下面这坨文字的话，你可以直接去 [这个 GitHub 仓库](https://github.com/lmller/gof-in-kotlin) 看代码。
+如果不想看下面这坨说明文字的话，你可以直接去 [这个 GitHub 仓库](https://github.com/lmller/gof-in-kotlin) 看代码。
 
 ---
 
 众所周知，根据“四人帮”的定义设计模式可以分为三种: **结构型**、**创建型 **和 **行为型**。
 
- 一开始，我们先来看结构型设计模式。这不是很好搞，因为结构型设计模式是关于结构的。怎样用一个 **不同** 的结构来实现另一个结构呢，臣妾做不到啊。不过， **装饰器模式 **是个例外。虽然在技术层面来说是结构型，但就使用来说，更像多个职责构成的行为型设计模式（装饰器模式，每个负责进行包装的类具有增加某一行为这一职责。——译注）。
+ 一开始，我们先来看结构型设计模式。这不是很好搞，因为结构型设计模式是关于结构的。怎样用一个 **不同** 的结构来实现这个结构呢，臣妾做不到啊。不过， **装饰器模式 **是个例外。虽然在技术层面来说算是结构型，但就使用来说，更多是和行为及职责有关的（装饰器模式，每个负责进行包装的类具有增加某一行为这一职责。——译注）。
 
 ### 结构型设计模式
 
@@ -38,7 +38,7 @@ class Text(val text: String) {
 
 如果了解这个模式的话，你应该知道我们需要创建一些类来“修饰”（即，拓展行 为） `Text` 类。
 
-在 Kotlin 中，我们可以用 **函数拓展（extension functions）** 来避免创建这么一坨类：
+在 Kotlin 中，我们可以用 **函数拓展（extension functions）** 来避免创建这么一大坨类：
 
 ```
 fun Text.underline(decorated: Text.() -> Unit) {
@@ -132,7 +132,7 @@ println("Email2 goes to " + copy.recipient + " with subject " + copy.subject)
 
 > 确保一个类只有一个实例，并提供这个实例的全局访问点
 
-尽管近来 **单例模式** 被认为是“反设计模式的”，但是它也有自己独特的用处（本文不会讨论这个话题，只是战战克克克克的来用它）。
+尽管近来 **单例模式** 被认为是“反设计模式的”，但是它也有自己独特的用处（本文不会讨论这个话题，只是战战克克克克的来使用它）。
 
 在 Java 中创建 **单例** 还是需要一番操作的，但是在 Kotlin 中只需要简单的使用 **`object` ** 声明就可以了。
 
@@ -197,7 +197,7 @@ execute {
 }
 ```
 
-看，根本没有必要写一个类！有人可能会有疑问，这不是 **策略模式** 吗，这个疑问不无道理。从另一方面来看，**策略模式** 和 **模板方法** 确实在解决很相似的问题（如果有什么不同）。
+看，根本没有必要写任何类！有人可能会有疑问，这不是 **策略模式** 吗，这个疑问不无道理。从另一方面来看，**策略模式** 和 **模板方法** 确实在解决很相似的问题（如果有什么不同）。
 
 #### 策略模式（Strategy）
 
@@ -233,7 +233,7 @@ println("${regular.name} pays %.2f per month".format(regular.pricePerMonth()))
 
 > 提供了一种在不暴露其底层表示的情况下顺序访问聚合对象内部元素的方法
 
-很难遇到手搓一个 **迭代器** 的情况。大多数情况，包装一个 `List` 并且实现 `Iterable`接口要更简单方便。
+其实很难遇到需要手搓一个 **迭代器** 的情况。大多数情况，包装一个 `List` 并且实现 `Iterable`接口要更简单方便。
 
 在 Kotlin 中， `iterator()` 是个操作符函数。这意味着当一个类定义了 `operator fun iterator()` 这个函数后，可以使用 `for` 循环来遍历它（不需要声明接口）。这个函数也能通过拓展函数配合使用，这是很酷炫的。 通过拓展函数，我们可以让 **每一个** 对象都是可迭代的。看下面这个例子：
 
@@ -249,7 +249,7 @@ operator fun Sentence.iterator(): Iterator<String> = words.iterator()
 
 这篇文章确实提到了相当几个设计模式，但这不是 **“四人帮”** 设计模式的全部。就像我在一开始提到的那样，尤其是结构型设计模式很难甚至根本不可能用和 Java 不同的方法来实现。 你可以在 [这个代码仓库](https://github.com/lmller/gof-in-kotlin) 找到更多的设计模式。欢迎来提交反馈和 PR。☺
 
-希望这篇文章能给你些启发，让你对于 Kotlin 为广为人知的问题带来的新解决方案有自己的认识。
+希望这篇文章能给你些启发，让你认识到 Kotlin 可以为广为人知的问题带来的新的解决方案。
 
 最后我想说的是，仓库中的代码量大概有 ⅓ 的 Kotlin 和 ⅔ 的 Java，虽然这两部分代码干了同样的事情🙃
 
