@@ -17,11 +17,6 @@ GraphQL 是一种 API 查询语言。虽然它和 REST 完全不同，但是 Gra
 
 ![](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2017/04/14918074751489563681243c760b-dcef-4ab0-b6ac-9a1e1e654483.png)
 
-## 就快要到期啦：免费得到 SitePoint 所有的电子书和课程！
-
-从任何 SiteGround 的 web hosting 计划中免费得到 87 本电子书，70 门课程和 300+ 的教程！
-[快来购买吧！](https://www.sitepoint.com/premium/l/sitepoint-premium-siteground-ma) 
-
 ## 早期的 Web
 
 早期网络的技术架构很简单。早期互联网上的网页使用静态的 HTML 文档，随后网站把动态的内容存储在数据库（例如：SQL）并使用 JavaScript 来进行交互。大多数网络的内容是通过桌面电脑上的浏览器来浏览的，并且看起来一切都运作良好。
@@ -38,7 +33,7 @@ GraphQL 是一种 API 查询语言。虽然它和 REST 完全不同，但是 Gra
 
 ## GraphQL: API 的进化
 
-GraphQL 是一种由 Facebook 设计并开源的 **API 查询语言**。在构建 API 时，你可以认为 GraphQL 是 REST的替代品。然而 REST 是一个概念上的模型，用来设计并实现你的 API，而 GraphQL 是一种标准的语言，系统地在客户端和服务端中创建了一个强力的条约。有了这样一门能与我们所有的设备通讯的语言，可以有效地简化建设大规模、跨平台应用程序的过程。
+GraphQL 是一种由 Facebook 设计并开源的 **API 查询语言**。在构建 API 时，你可以认为 GraphQL 是 REST 的替代品。然而 REST 是一个概念上的模型，用来设计并实现你的 API，而 GraphQL 是一种标准的语言，系统地在客户端和服务端中创建了一个强力的条约。有了这样一门能与我们所有的设备通讯的语言，可以有效地简化建设大规模、跨平台应用程序的过程。
 
 通过 GraphQL 我们的图解可简化为：
 
