@@ -32,7 +32,7 @@
 
 #### Observable 只是函数！
 
-Observable 只是一个将观察者 (Observer) 连接到生产者的函数。意味着，它们并不需要自行创建生产者。只需要让一个观察者订阅生产者的消息，并提供一种取消监听的方式。这种订阅可通过像函数一样“调用” Observable，给它传递一个观察者。
+Observable 只是一个将观察者 (Observer) 连接到生产者的函数。意味着，它们并不需要自行创建生产者。只需要让一个观察者订阅生产者的消息，并提供一种取消监听的方式。这种订阅可通过像函数一样“调用” Observable，给它传递一个观察者。
 
 #### 什么是“生产者”？
 
@@ -41,11 +41,11 @@ Observable 只是一个将观察者 (Observer) 连接到生产者的函数。意
 
 ### 冷 Observable：在内部创建生产者
 
-一个“冷”的 Observable 的生产者**创建和激活**发生在订阅期。就是说若将 observable 比作函数，那么生产者是在“调用函数”时创建和激活的。
+一个“冷”的 Observable 的生产者**创建和激活**发生在订阅期。就是说若将 observable 比作函数，那么生产者是在“调用函数”时创建和激活的。
 
 1. 创建生产者
 2. 激活生产者
-3. 开始监听生产者
+3. 开始监听生产者
 4. 单播
 
 下面例子是“冷”的，因为 WebSocket 连接是在订阅回调“内部”被创建和监听的，而订阅回调函数只有在订阅 Observable 时才会被执行。
@@ -56,9 +56,9 @@ Observable 只是一个将观察者 (Observer) 连接到生产者的函数。意
       return () => socket.close();
     });
 
-上述`source`的所有订阅者都会有一个自己的 WebSocket，取消订阅时用`close()`将其关闭。因此该数据源是真正的单播，因为其生产者只向一个观察者发送值。[此 JSBin 例子说明了此概念](http://jsbin.com/wabuguy/1/edit?js,output)。
+上述`source`的所有订阅者都会有一个自己的 WebSocket，取消订阅时用`close()`将其关闭。因此该数据源是真正的单播，因为其生产者只向一个观察者发送值。[此 JSBin 例子说明了此概念](http://jsbin.com/wabuguy/1/edit?js,output)。
 
-### 热 Observable：在外部创建生产者
+### 热 Observable：在外部创建生产者
 
 热 Observable 的生产者在订阅回调函数外被创建或激活(备注1)。
 
@@ -94,7 +94,7 @@ Observable 只是一个将观察者 (Observer) 连接到生产者的函数。意
 2. 它是一个 Observer, 通过 duck-typing 实现了一些长得和 Observer 相似的接口。当被像 Observable 订阅时，会发出你使用类似 Observer 的 `next` 方法传入的值。
 3. 支持组播。通过 `subscribe()` 传入的所有观察者会被加入一个内部的观察者列表里保存。
 4. 结束状态明确。在取消订阅、完成或出错之后就无法再被使用。
-5. 可以对自己传值。补充下第 2 条，使用 `next` 对其传值，会触发它的 Observable 相关回调。
+5. 可以对自己传值。补充下第 2 条，使用 `next` 对其传值，会触发它的 Observable 相关回调。
 
 Rx Subject 的名字得于第 3 条特性，“Subject” 在 Gang of Four（译者注：经典《设计模式》的几位作者）的观察者模式中，是实现了 `addObserver` 方法的类。在我们的例子中，`addObserver` 就是 `subscribe`。[一个展示 Rx Subject 行为的 JSBin 例子](http://jsbin.com/muziva/1/edit?js,output)。
 
