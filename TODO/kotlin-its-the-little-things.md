@@ -92,9 +92,9 @@ vs.
 
 还需要我说更多吗？
 
-*荣幸地提示：虽然没有在文中展示，但再也*[*不用写*](https://kotlinlang.org/docs/reference/classes.html#creating-instances-of-classes)`[*new*](https://kotlinlang.org/docs/reference/classes.html#creating-instances-of-classes)`[*关键字*](https://kotlinlang.org/docs/reference/classes.html#creating-instances-of-classes)了！
----
+*荣幸地提示：虽然没有在文中展示，但再也*[*不用写 'new' 关键字*](https://kotlinlang.org/docs/reference/classes.html#creating-instances-of-classes)了！
 
+---
 瞧，我知道这些不是那种可以让人震惊的特性，但在几个月的工作和上万行代码之后，会让你的工作变得大不一样。这确实是那种你需要经历并赞美的事情之一。
 
 将所有这些小的东西放在一起，包括小标题中 Kotlin 的特性，你会有一个不错的感觉。🍩
