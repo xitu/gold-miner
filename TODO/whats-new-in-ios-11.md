@@ -1,5 +1,5 @@
 > * 原文地址：[What's new in iOS 11 for developers](https://www.hackingwithswift.com/whats-new-in-ios-11)
-> * 原文作者：[]()
+> * 原文作者：[Paul Hudson](https://twitter.com/twostraws)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：
 > * 校对者：
