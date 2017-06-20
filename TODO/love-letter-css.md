@@ -12,7 +12,7 @@
 
 > “TJ，来坐这，我们来聊聊你小时候做的那个糟糕的选择是如何注定你一生的失败的。”
 
-有时候我觉得开发者们——这星球上最固执己见的一批人——只有一条共识：CSS 是最垃圾的。
+有时候我觉得发者们 —— 这星球上最固执己见的一批人 —— 只有一条共识：CSS 是最垃圾的。
 
 ![](https://ws2.sinaimg.cn/large/006tNc79gy1fgcf54bv9uj30eo062dga.jpg)
 
@@ -27,24 +27,24 @@
 
 为了论证我的观点，我会将 CSS 同其他几种样式系统相比较，首先来看一种比较古老的技术。
 
-## 额滴神，还记得 Java applets 吗？
+## 天哪，还记得 Java applets 吗？
 
 大学期间我曾用 Java applets 技术编写过一些应用，这是一种现在几乎已经被淘汰了的技术。Java appltes 基本上就是一些 Java 应用，你可以使用 `<applet>` 标签随意地将其嵌入浏览器中。运气好的话，可能有一半用户在本地安装了版本正确的 Java，并能成功运行你的应用。 
 
 ![](http://developer.telerik.com/wp-content/uploads/2017/05/java-applet.jpg)
 **一个简单的 Java applet，带你回到 90 年代末**
 
-Java applets 在 1995 年粉墨登场，并在随后的几年里逐渐流行了起来。如果你在 90 年代末就已经在出来浪了的话，那你应该记得那场关于 web 技术和 Java applets 的技术论战。
+Java applets 在 1995 年推出，并在随后的几年里逐渐流行了起来。如果你在 90 年代末就已经在出来浪了的话，那你应该记得那场关于 web 技术和 Java applets 的技术论战。
 
 和大多数用于构建用户界面的技术一样，Java applets 允许你改变用户界面上各种控件的外观。而且由于 Java applets 被视为 web 开发的合理替代技术，有时会将在 applets 中进行控件布局的便捷性和用 web 技术实现相同的功能作比较。
 
-Java applets 显然不会用 CSS，那它究竟是如何进行 UI 布局的那？
+Java applets 显然没有使用 CSS，那它究竟是如何进行 UI 布局的呢？并不容易。
 尝试用谷歌搜索“在 Java applet 中改变按钮颜色”，[返回的第一条结果代码如下：](http://www.java-examples.com/change-button-background-color-example).
 
 ```
 /*
         改变按钮背景颜色的例子
-        改 java 示例展示了如何使用 AWT Button 类改变按钮背景颜色
+        该 java 示例展示了如何使用 AWT Button 类改变按钮背景颜色
 */
 
 import java.applet.Applet;
@@ -73,7 +73,7 @@ public class ChangeButtonBackgroundExample extends Applet{
     }
 }
 ```
-首先，在 Java applets 中，程序的逻辑代码和样式代码之间无法进行分离。
+首先应该注意的是，Java applets 没有提供将代码逻辑和样式进行分离的方法，就像你可能在网页上使用 HTML 和 CSS 一样。它将作为本文剩余部分的主题。
 
 其次，创建两个按钮并改变其背景颜色需要编写**大量**代码。此刻你要是在想，“呵呵，这种方法在开发实际应用的时候很快就会变得不可控了”，那么你便开始能理解为什么 web 技术最终战胜了 Java Applets 了。
 
@@ -82,7 +82,7 @@ public class ChangeButtonBackgroundExample extends Applet{
 
 > “TJ，你还没有完全说服我 CSS 的样式系统比 Java Applet 的更好呢。你这标准应该设得更高一点嘛。”
 
-没错，Java applet 的可视化 API 并非界面设计的黄金准则，因此让我们将注意力转到日常开发中来：Android 应用。
+没错，Java applet 的可视化 API 并非界面设计的黄金准则，因此让我们将注意力转到当前的开发中来：Android 应用。
 
 ## 为什么说 Android 应用的样式布局很难？
 
@@ -134,7 +134,7 @@ public class ChangeButtonBackgroundExample extends Applet{
 
 通过类似设计试图这样的工具，将一些基础样式应用于 Android 界面控件是非常简单的。不过，Android 的优点也就止于此了。
 
-真实世界的应用开发所需要的可远不止基础样式，根据我个人的经验，处理复杂样式是 Android 代码之冗余而 CSS 代码之简洁的分水岭。举例来说，假设你需要创建一个易于复用的键值对的集合——类似于 CSS 中的 class。在 Android 中也可以做类似的事情，不过很快就会变得一团糟。
+实际应用开发所需要的可远不止基础样式，根据我个人的经验，处理复杂样式是 Android 代码之冗余而 CSS 代码之简洁的分水岭。举例来说，假设你需要创建一个易于复用的键值对的集合——类似于 CSS 中的 class。在 Android 中也可以做类似的事情，不过很快就会变得一团糟。
 
 Android 应用有一个 `styles.xml` 文件，可以在其中创建具有层级结构的 XML 代码块。例如，假设你想要应用中所有的按钮都具有红色的背景，那你可以使用如下代码创建一个 “RedTheme” 样式：
 
@@ -209,15 +209,15 @@ Android 应用有一个 `styles.xml` 文件，可以在其中创建具有层级�
 
 ## 为什么说 iOS 应用的样式布局很难？
 
-在软件开发行业，iOS 有点独一无二，因为据我所知，它是惟一一个 UI 开发主要是通过可视化工具来完成的软件平台。那个工具叫做 [storyboards](https://developer.apple.com/library/content/documentation/General/Conceptual/Devpedia-CocoaApp/Storyboard.html)，使用它并结合 Xcode 来开发 iOS 和 macOS应用。 
+在软件开发行业，iOS 有点独一无二，因为据我所知，它是惟一一个 UI 开发主要是通过可视化工具来完成的软件平台。那个工具叫做 [Storyboard](https://developer.apple.com/library/content/documentation/General/Conceptual/Devpedia-CocoaApp/Storyboard.html)，使用它并结合 Xcode 来开发 iOS 和 macOS 应用。 
 
 为了你能更好地理解我在说些什么，下图展示了在 iOS 应用中如何为视图添加两个按钮。
 
 ![](http://developer.telerik.com/wp-content/uploads/2017/05/buttons.gif)
 
-值得注意的是，开发 iOS 应用并非**一定**要用storyboards，但其替代方法需要用 Objective-C 或 Swift 代码开发大部分用户界面，因此苹果官方推荐 iOS 开发使用 storyboards。
+值得注意的是，开发 iOS 应用并非**一定**要用 Storyboard，但其替代方法需要用 Objective-C 或 Swift 代码开发大部分用户界面，因此苹果官方推荐 iOS 开发使用 storyboards。
 
-> **注意** 关于 storyboard 适用场景的问题超出了本文的论述范围，如果你对此感兴趣的话，可以参考 [Quora 上关于此话题的讨论](https://www.quora.com/How-many-iOS-developers-dont-use-NIBs-Storyboards-and-Constraints)。
+> **注意** 关于 Storyboard 适用场景的问题超出了本文的论述范围，如果你对此感兴趣的话，可以参考 [Quora 上关于此话题的讨论](https://www.quora.com/How-many-iOS-developers-dont-use-NIBs-Storyboards-and-Constraints)。
 
 让我们回到本文主旨上来，如何为 iOS 中的 UI 组件赋予样式呢？你可能已经猜到了，在可视化编辑器中配置 UI 控件各自的属性是很容易的一件事情。例如，如果想改变一个按钮的背景颜色，使用屏幕右侧的菜单就可以轻易地实现。
 
@@ -255,7 +255,7 @@ class ViewController: UIViewController {
 
 公平地说，原生开发者也能指出 CSS 中一些诡异的特性，而且在某种程度上他们也没错。毕竟，无论是 Web 还是诸如 iOS 和 Android 这样的原生平台，界面组件的定位、样式、动画以及处理各种设备的兼容性都不是什么简单的事情。任何全面的样式系统都不可避免地作出一些取舍，但是，在各种软件行业都工作后，我觉得 CSS 凭借诸多优势脱颖而出了。
 
-## 为什么说 CSS 更棒些
+## 为什么说 CSS 更好
 
 ### CSS 非常灵活
 
@@ -266,7 +266,7 @@ CSS 允许你将应用的关注点分离，因此样式逻辑和应用主体逻�
 在如何为界面控件赋予样式方面，Android 和 iOS 的机制都比较严格，而 web 则有多种选择，你可以选择最满足你实际需求的那一种。
 
 
-### CSS 语言简单，非常适合为它编写编译器
+### CSS 语言简单，且是出色的编译目标
 
 CSS 是一种相对简单的语言。从上层来看，CSS 不过是定义了一系列键值对的选择器的集合。这种简单性使得很多事情都可能实现。
 
