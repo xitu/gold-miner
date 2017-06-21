@@ -12,7 +12,7 @@
 
 ![](https://cdn-images-1.medium.com/max/1000/1*pWGJIKats-zuumA3RQNEWQ.jpeg)
 
-回调  —  题图来自 [unsplash](https://unsplash.com/search/call?photo=qXn5L9BqRbE)
+回调  —— 题图来自 [unsplash](https://unsplash.com/search/call?photo=qXn5L9BqRbE)
 
 ### 回调是什么？
 
@@ -21,7 +21,7 @@
 **稍复杂地讲：** 在 JavaScript 中，函数也是对象。因此，函数可以传入函数作为参数，也可以被其他函数返回。这样的函数称为**高阶函数**。被作为参数传入的函数就叫做**回调函数**。
 
 
-^ 这听起来有点罗嗦，让我们来看一些例子来简化一下。
+^ 这听起来有点啰唆，让我们来看一些例子来简化一下。
 
 ### 为什么我们需要回调？
 
@@ -134,11 +134,11 @@
 - `T.get` 仅仅意味着我们将要向 Twitter 发送一个 get 请求
 - 这个请求中有三个参数：`‘search/tweets’` 是请求的路径，`params` 是搜索参数，随后的一个匿名函数是我们的回调。
 
-回调在这里很重要，因为在我们的代码继续运行之前我们需要等待一个来自服务端的响应。我们并不知道 API 请求会成功或者失败，所以通过 get 向 search/tweets 发送了请求参数以后，我们要等待。一旦 Twitter 响应，我们的回调函数就被调用。Twitter 要么发送一个 `err`（error）对象，要么发送一个 `response` 对象返回给我们。在我们的回调函数中我们可以使用 `if()` 声明来区分请求是否成功，然后相应地处理新数据。
+回调在这里很重要，因为在我们的代码继续运行之前我们需要等待一个来自服务端的响应。我们并不知道 API 请求会成功还是会失败，所以通过 get 向 search/tweets 发送了请求参数以后，我们要等待。一旦 Twitter 响应，我们的回调函数就被调用。Twitter 要么发送一个 `err`（error）对象，要么发送一个 `response` 对象返回给我们。在我们的回调函数中我们可以使用 `if()` 语句来区分请求是否成功，然后相应地处理新数据。
 
 ### 你做到了
 
-干的漂亮！你现在（理想状况下）已经理解了回调是什么,回调如何工作。这只是回调的冰山一角，记住学无止境啊！我每周都会更新一些文章/教程，如果你愿意接收每周一次的推送，[点击这里](https://docs.google.com/forms/d/e/1FAIpQLSeQYYmBCBfJF9MXFmRJ7hnwyXvMwyCtHC5wxVDh5Cq--VT6Fg/viewform)输入你的邮箱订阅吧
+干得漂亮！你现在（理想状况下）已经理解了回调是什么,回调如何工作。这只是回调的冰山一角，记住学无止境啊！我每周都会更新一些文章/教程，如果你愿意接收每周一次的推送，[点击这里](https://docs.google.com/forms/d/e/1FAIpQLSeQYYmBCBfJF9MXFmRJ7hnwyXvMwyCtHC5wxVDh5Cq--VT6Fg/viewform)输入你的邮箱订阅吧！
 
 ---
 
