@@ -2,7 +2,7 @@
 > * 原文作者：[TJ VanToll](http://developer.telerik.com/author/tvantoll/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[reid3290](https://github.com/reid3290)
-> * 校对者：
+> * 校对者：[changkun](https://github.com/changkun)，[CACppuccino](https://github.com/CACppuccino)
 
 # 一封写给 CSS 的情书
 
@@ -12,7 +12,7 @@
 
 > “TJ，来坐这，我们来聊聊你小时候做的那个糟糕的选择是如何注定你一生的失败的。”
 
-有时候我觉得发者们 —— 这星球上最固执己见的一批人 —— 只有一条共识：CSS 是最垃圾的。
+有时候我觉得开发者们 —— 这星球上最固执己见的一批人 —— 只有一条共识：CSS 是最垃圾的。
 
 ![](https://ws2.sinaimg.cn/large/006tNc79gy1fgcf54bv9uj30eo062dga.jpg)
 
@@ -225,7 +225,7 @@ Android 应用有一个 `styles.xml` 文件，可以在其中创建具有层级�
 
 和 Android 很像，为构件配置各种属性是很简单的。但同样和 Android 类似，当需求变得复杂时事情也就更棘手了。例如，在 iOS 应用中如何使多个按钮的看起来完全一样呢？这就不简单了。
 
-iOS 有一个 [outlets](https://developer.apple.com/library/content/documentation/General/Conceptual/Devpedia-CocoaApp/Outlet.html) 的概念，本质上是使得 Objective-C 或 Swift 代码可以获取界面组件的引用的机制。可以将 outlets 看作 iOS 中的 `document.getElementById()`。想要为多个 iOS UI 组件赋予样式，需要获取一个显式的引用，或者叫 outlet，遍历 storyboard 中的每个控件，并赋予其相应的变化。下面这个例子展示了 Swift 视图控制器是如何改变所有按钮的背景颜色的。
+iOS 有一个 [outlets](https://developer.apple.com/library/content/documentation/General/Conceptual/Devpedia-CocoaApp/Outlet.html) 的概念，本质上是使得 Objective-C 或 Swift 代码可以获取界面组件的引用的机制。可以将 outlets 看作 iOS 中的 `document.getElementById()`。想要为多个 iOS UI 组件赋予样式，需要获取一个显式的 reference 或者 outlet，遍历 storyboard 中的每个控件，并赋予其相应的变化。下面这个例子展示了 Swift 视图控制器是如何改变所有按钮的背景颜色的。
 
 ```
 import UIKit
@@ -251,7 +251,7 @@ class ViewController: UIViewController {
 ```
 此处的关键点不在于具体细节，因此我不会详细说明每一行 Swift 代码的作用。关键在于为多个控件赋予样式不可避免地会涉及到 Objective-C 或 Swift 代码，而这在 CSS 中只需要定义一个简单的类名即可搞定。
 
-不难想象，更复杂的 iOS 样式需求会涉及更多的代码。例如，创建一个简单的 iOS“主题”涉及到[一大堆 `UIAppearance` APIs](https://www.raywenderlich.com/108766/uiappearance-tutorial)，而处理多种设备类型则需要学习高深的 [auto layout](https://developer.apple.com/library/content/documentation/UserExperience/Conceptual/AutolayoutPG/)。
+不难想象，更复杂的 iOS 样式需求会涉及更多的代码。例如，创建一个简单的 iOS “主题”涉及到[一大堆 `UIAppearance` APIs](https://www.raywenderlich.com/108766/uiappearance-tutorial)，而处理多种设备类型则需要学习高深的 [auto layout](https://developer.apple.com/library/content/documentation/UserExperience/Conceptual/AutolayoutPG/)。
 
 公平地说，原生开发者也能指出 CSS 中一些诡异的特性，而且在某种程度上他们也没错。毕竟，无论是 Web 还是诸如 iOS 和 Android 这样的原生平台，界面组件的定位、样式、动画以及处理各种设备的兼容性都不是什么简单的事情。任何全面的样式系统都不可避免地作出一些取舍，但是，在各种软件行业都工作后，我觉得 CSS 凭借诸多优势脱颖而出了。
 
