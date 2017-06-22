@@ -8,7 +8,7 @@
 # Making Photos Smaller Without Quality Loss
 Yelp（美国最大点评网站）已经有超过 1 亿张用户上传的照片了，其中有他们的晚餐，发型，对于一个我们最新的特性，[#yelfies](https://www.yelpblog.com/2016/11/yelfie)。这些上传图片的账户占据了我们 app 和网站的主要带宽，同时也代表了主要的存储和传输成本。为了给我们的用户最好的用户体验，我们竭尽所能的优化我们的图片，最终达到图片大小平均减少 30%。这不仅节省了我们用户的时间和带宽，还减少了我们的服务器成本。对了，关键的是我们的这个过程是完全无损的！
 Yelp has over 100 million user-generated photos ranging from pictures of dinners or haircuts, to one of our newest features, [#yelfies](https://www.yelpblog.com/2016/11/yelfie). These images account for a majority of the bandwidth for users of the app and website, and represent a significant cost to store and transfer. In our quest to give our users the best experience, we worked hard to optimize our photos and were able to achieve a 30% average size reduction. This saves our users time and bandwidth and reduces our cost to serve those images. Oh, and we did it all without reducing the quality of these images!
-# 背景知识
+# 背景
 # Background
 Yelp 保存用户上传的图片已经有 12 年了。我们将 PNG 和 GIF 保存为无损格式的 PNG，其他格式的保存为 JPEG。我们使用 Python 和 [Pillow](https://python-pillow.org/) 保存图片，让我们直接从上传图片开始吧：
 Yelp has been storing user-uploaded photos for over 12 years. We save lossless formats (PNG, GIF) as PNGs and all other formats as JPEG. We use Python and [Pillow](https://python-pillow.org/) for saving images, and start our story of photo uploads with a snippet like this:
@@ -37,10 +37,10 @@ First, we had to decide whether to handle this ourselves or let a CDN provider [
 1. Pillow 中的改变
 - 优化 flag
 - 渐进式 JPEG
-2. 改变应用的照片逻辑
+2. 更改应用的照片逻辑
 - 大 PNG 检测
 - JPEG 动态质量
-3. 改变 JPEG 编码器
+3. 更换 JPEG 编码器
 - Mozjpeg (栅格量化，自定义量化矩阵)
 1. Changes in Pillow
 - Optimize flag
@@ -84,7 +84,7 @@ A mock of how a baseline JPEG renders.
 
 渐进式 JPEG 渲染的模拟
 A mock of how a progressive JPEG renders.
-# 应用照片逻辑的更改
+# 更改应用的照片逻辑
 # Changes to Application Photo Logic
 ## 大 PNG 检测
 ## Large PNG Detection
@@ -126,23 +126,32 @@ In the below chart, we plot the SSIM values of 2500 images regenerated via 3 dif
 
 1. 蓝色的线为 `quality = 85` 生成的原始图。
 2. 红色的线为`quality = 80` 生成的图。
-3. 最后，橘色的图是我们最后使用的动态质量，参数为 `SSIM 80-85`。
+3. 最后，橘色的图是我们最后使用的动态质量，参数为 `SSIM 80-85`。为一张图片基于汇合点或者超过 SSIM 比率（一个提前计算好的可以在图片范围的中部发生转变的的静态值）的地方在 80 到 85 (包括 85) 之间选择一个质量值。这种方法可以让我们在不降低我们最差质量图片的质量的情况下，有效的减小图片的大小。
 
-1. The original images made by the current approach at `quality = 85` are plotted as the blue line.
-2. An alternative approach to lowering file size, changing `quality = 80`, is plotted as the red line.
-3. And finally, the approach we ended up using, dynamic quality, `SSIM 80-85`, in orange, chooses a quality for the image in the range 80 to 85 (inclusive) based on meeting or exceeding an SSIM ratio: a pre-computed static value that made the transition occur somewhere in the middle of the images range. This lets us lower the average file size without lowering the quality of our worst-quality images.
+4. The original images made by the current approach at `quality = 85` are plotted as the blue line.
+5. An alternative approach to lowering file size, changing `quality = 80`, is plotted as the red line.
+6. And finally, the approach we ended up using, dynamic quality, `SSIM 80-85`, in orange, chooses a quality for the image in the range 80 to 85 (inclusive) based on meeting or exceeding an SSIM ratio: a pre-computed static value that made the transition occur somewhere in the middle of the images range. This lets us lower the average file size without lowering the quality of our worst-quality images.
 
 ![SSIMs of 2500 images with 3 different quality strategies.](https://engineeringblog.yelp.com/images/posts/2017-05-31-making-images-smaller/ssims-strategies.png)
-SSIMs of 2500 images with 3 different quality strategies.
 
+2500 张 3 种不同的质量策略的 SSIM 值。
+SSIMs of 2500 images with 3 different quality strategies.
+### SSIM ？
 ### SSIM?
+这里有不少的可以模拟人类视觉系统的图片质量算法。我们已经评估了很多方法，但是 SSIM 对于基于特征的迭代优化算法是最有效的：
+
+1. 对[ JPEG 量化误差](http://users.eecs.northwestern.edu/~pappas/papers/brooks_tip08.pdf)敏感。
+2. 快速，简单的算法。
+3. 可以不转换成 PNG 的 PIL 本地图片对象上计算，并且还可以通过命令行工具计算(查看 #2).
+
+动态质量的实例代码：
 
 There are quite a few image quality algorithms that try to mimic the human vision system.
 We’ve evaluated many of these and think that SSIM, while older, is most suitable for this iterative optimization based on a few characteristics:
 
-1. Sensitive to [JPEG quantization error](http://users.eecs.northwestern.edu/~pappas/papers/brooks_tip08.pdf)
-2. Fast, simple algorithm
-3. Can be computed on PIL native image objects without converting images to PNG and passing them to CLI applications (see #2)
+2. Sensitive to [JPEG quantization error](http://users.eecs.northwestern.edu/~pappas/papers/brooks_tip08.pdf)
+3. Fast, simple algorithm
+4. Can be computed on PIL native image objects without converting images to PNG and passing them to CLI applications (see #2)
 
 Example Code for Dynamic Quality:
 
@@ -216,24 +225,28 @@ def jpeg_dynamic_quality(original_photo):
         return hi, default_ssim
 ```
 
+这里有关于这项技术的其他的一些博客，[这篇](https://medium.com/@duhroach/reducing-jpg-file-size-e5b27df3257c) 是 Colt Mcanlis 写的。Etsy 也发表过[一篇](https://codeascraft.com/2017/05/30/reducing-image-file-size-at-etsy/)！快去看看吧！
 There are a few other blog posts about this technique, [here](https://medium.com/@duhroach/reducing-jpg-file-size-e5b27df3257c) is one by Colt Mcanlis. And as we go to press, Etsy has published one [here](https://codeascraft.com/2017/05/30/reducing-image-file-size-at-etsy/)! High five, faster internet!
-
+# 更换 JPEG 编码器
 # Changes to JPEG Encoder
 
 ## Mozjpeg
 
+[Mozjpeg](https://github.com/mozilla/mozjpeg/) 是 [libjpeg-turbo](http://libjpeg-turbo.virtualgl.org/) 的一个开源分支，是通过执行时间来置换文件的大小的编码器。这种方法完美的契合离线批处理再生成图片。在比 libjpeg-turbo 多投入 3 到 5 倍的时间，和一点复杂的算法就可以使图片变的更小了！
 [Mozjpeg](https://github.com/mozilla/mozjpeg/) is an open-source fork of [libjpeg-turbo](http://libjpeg-turbo.virtualgl.org/), which trades execution time for file size. This approach meshes well with the offline batch approach to regenerating images. With the investment of about 3-5x more time than libjpeg-turbo, a few more expensive algorithms make images smaller!
-
+mozjpeg 这个编码器最大的不同点就是使用了一张另外的量化表。就像上面提到的，质量是每一个颜色通道量化表的一个抽象的概念。默认 JPEG 量化表的所有信号点都十分容易击中。用 [JPEG 指导](https://www.w3.org/Graphics/JPEG/itu-t81.pdf) 中的话说就是：
 One of mozjpeg’s differentiators is the use of an alternative quantization table. As mentioned above, quality is an abstraction of the quantization tables used for each color channel. All signs point to the default JPEG quantization tables as being pretty easy to beat. In the words of the [JPEG spec](https://www.w3.org/Graphics/JPEG/itu-t81.pdf):
 
+> 这些表仅供参考，不能保证在任何应用中都是适用的。
 > These tables are provided as examples only and are not necessarily suitable for any particular application.
 
+所以说，大部分编码器的实现默认情况下使用这些表就不足为奇了。
 So naturally, it shouldn’t surprise you to learn that these tables are the default used by most encoder implementations… 🤔🤔🤔
-
+Mozjpeg 已经经渡过了我们替代表的基准测试，并且它新建的图片中也使用了最好表现的替代表。
 Mozjpeg has gone through the trouble of benchmarking alternative tables for us, and uses the best performing general-purpose alternative for images it creates.
 
 ## Mozjpeg + Pillow
-
+大部分 Linux 发行版 都会默认安装 libjpeg。所以[默认情况下](https://github.com/python-pillow/Pillow/issues/539)在 Pillow 中是无法使用 mozjpeg 的，但是配置好它并不难。当你要用 mozjpeg 编译时，使用 `--with-jpeg8` 这个参数，并确认 Pillow 可以链接并找到它就可以了。如果你使用 Docker，你也可以像这样写一个 Dockerfile：
 Most Linux distributions have libjpeg installed by default. So using mozjpeg under Pillow doesn’t work by [default](https://github.com/python-pillow/Pillow/issues/539), but configuring it isn’t terribly difficult either.
 When you build mozjpeg, use the `--with-jpeg8` flag and make sure it can be linked by Pillow will find it. If you’re using Docker, you might have a Dockerfile like:
 
@@ -275,48 +288,58 @@ RUN pip install virtualenv \
 	&& /virtualenv_run/bin/pip install --no-binary=:all: Pillow==4.0.0
 ```
 
+这就 OK 了！编译它就就可以在你的图片工作流中使用支持 mozjpeg 的 Pillow 了。
 That’s it! Build it and you’ll be able to use Pillow backed by mozjpeg within your normal images workflow.
-
+# 影响
 # Impact
-
+那么这些方法到底带来了多少提升呢？让我们来研究研究，在 Yelp 的图片库中随机抽取 2500 张图片并使用我们的工作流来处理，看看文件大小都有什么变化：
 How much did each of those improvements matter for us? We started this research by randomly sampling 2,500 of Yelp’s business photos to put through our processing pipeline and measure the impact on file size.
 
-1. Changes to Pillow settings were responsible for about 4.5% of the savings
-2. Large PNG detection was responsible for about 6.2% of the savings
-3. Dynamic Quality was responsible for about 4.5% of the savings
-4. Switching to the mozjpeg encoder was responsible for about 13.8% of the savings
+1. 更改 Pillow 的设置可以减小 4.5%
+2. 大 PNG 检测可以减小 6.2%
+3. 动态质量可以减小 4.5%
+4. 更换为 mozjpeg 编码器可以减小 13.8%
 
+5. Changes to Pillow settings were responsible for about 4.5% of the savings
+6. Large PNG detection was responsible for about 6.2% of the savings
+7. Dynamic Quality was responsible for about 4.5% of the savings
+8. Switching to the mozjpeg encoder was responsible for about 13.8% of the savings
+
+这些全部加起来可以让图片大小平均减小大概 30%，并且我们应用的是我们最大同时也是最常见的分辨率，对于用户来说我们的网页变的更快同时平均每天可以节约兆兆字节的数据传输量。从 CDN 上就可见一斑：
 This adds up to an average image file size reduction of around 30%, which we applied to our largest and most common image resolutions, making the website faster for users and saving terabytes a day in data transfer. As measured at the CDN:
 
 ![Average filesize over time, as measured from the CDN (combined with non-image static content).](https://engineeringblog.yelp.com/images/posts/2017-05-31-making-images-smaller/Filesize-over-time.png)
+
+CDN 上的时间变化与平均文件大小的趋势图(包含非图片的静态内容)。
 Average filesize over time, as measured from the CDN (combined with non-image static content).
-
+# 我们没有做的
 # What we didn’t do
-
+这一部分是为了介绍一些其他你们可能会用到的改善的方法，Yelp 没有涉及到是因为我们选择的工具链以及一些其他的权衡。
 This section is intended to introduce a few other common improvements that you might be able to make, that either weren’t relevant to Yelp due to defaults chosen by our tooling, or tradeoffs we chose not to make.
-
+## 二次抽样
 ## Subsampling
-
+[二次抽样](https://en.wikipedia.org/wiki/Chroma_subsampling) 是决定网页图片质量和文件大小的主要因素。大段的关于二次抽样的描述可以在网上找到，但是对于这篇博客简而言之就是我们已经使用 `4:1:1` 二次抽样过了(Pillow 在不指定任何参数的情况下的默认设置)，所以这里我们并不能得到任何提升。
 [Subsampling](https://en.wikipedia.org/wiki/Chroma_subsampling) is a major factor in determining both quality and file size for web images. Longer descriptions of subsampling can be found online, but suffice it to say for this blog post that we were already subsampling at `4:1:1` (which is Pillow’s default when nothing else is specified) so we weren’t able to realize any further savings here.
-
+## 有损 PNG 编码
 ## Lossy PNG encoding
-
+看到我们对 PNG 的处理之后，你可以选择将一部分图片使用类似 [pngmini](https://pngmini.com/lossypng.html) 的有损编码器保存为 PNG，虽然我们选择把它们保存为 JPEG。这是另外一种合理的结果，通过没有修改用户的 PNG 就可以减小文件大小的 72-85% 。
 After learning what we did about PNGs, choosing to preserve some of them as PNG but with a lossy encoder like [pngmini](https://pngmini.com/lossypng.html) could have made sense, but we chose to resave them as JPEG instead. This is an alternate option with reasonable results, 72-85% file size savings over unmodified PNGs according to the author.
-
+## 动态格式
 ## Dynamic content types
-
+支持更多的像 WebP，JPEG2k 这样的现代的图片类型正在计划中。即使这个项目我们运行了，因为用户请求的长尾效应，这些现在优化过的 JPEG 和 PNG 图片仍然是值得继续努力优化的。
 Support for more modern content types like WebP or JPEG2k is certainly on our radar. Even once that hypothetical project ships, there will be a long-tail of users requesting these now-optimized JPEG/PNG images which will continue to make this effort well worth it.
 
 ## SVG
 
+在我们的网站上很多地方都使用了 SVG，像我们的设计师按照我们的[风格指导](http://yelp.design)设计的静态资源。这种格式使用像 [svgo](https://github.com/svg/svgo) 这样的优化工具会显著减少网页的负担，只是和我们这里要做的没什么关系。
 We use SVG in many places on our website, like the static assets created by our designers that go into our [styleguide](http://yelp.design). While this format and optimization tools like [svgo](https://github.com/svg/svgo) are useful to reduce website page weight, it isn’t related to what we did here.
-
+## 供应商的魔力
 ## Vendor Magic
-
+市面上有很多的供应商可以提供图片的传输，改变大小，剪裁和转码服务。包括开源的 [thumbor](https://github.com/thumbor/thumbor)。或许未来对我们来说这是支持响应式图片，动态格式和保留边框最简单方法。但是目前来看我们的解决方案可以从容应对。
 There are too many providers to list that offer image delivery / resizing / cropping / transcoding as a service. Including open-source [thumbor](https://github.com/thumbor/thumbor). Maybe this is the easiest way to support responsive images, dynamic content types and remain on the cutting edge for us in the future. For now our solution remains self-contained.
-
+# 延伸阅读
 # Further Reading
-
+下面的这两本书绝对有他们博客中没有提到的干货，同时也是今天这个主题强烈推荐的延伸阅读书籍。
 Two books listed here absolutely stand on their own outside the context of the post, and are highly recommended as further reading on the subject.
 
 - [High Performance Images](https://content.akamai.com/pg6293-high-performance-images-ebook.html)
