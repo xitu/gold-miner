@@ -1,8 +1,8 @@
 > * 原文地址：[JavaScript: What the heck is a Callback?](https://codeburst.io/javascript-what-the-heck-is-a-callback-aba4da2deced)
 > * 原文作者：[Brandon Morelli](https://codeburst.io/@bmorelli25)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
-> * 校对者：[sunui](https://github.com/sunui)
+> * 译者：[sunui](https://github.com/sunui)
+> * 校对者：[reid3290](https://github.com/reid3290)、[wilsonandusa](https://github.com/wilsonandusa)
 
 ---
 
@@ -25,7 +25,7 @@
 
 ### 为什么我们需要回调？
 
-有一个非常重要的原因 —— JavaScript 是事件驱动的语言。这意味着，在继续运行之前，JavaScript 不会等待响应，而是在监听其他事件时继续执行。来看一个基本的例子：
+有一个非常重要的原因 —— JavaScript 是事件驱动的语言。这意味着，JavaScript 不会因为要等待一个响应而停止当前运行，而是在监听其他事件时继续执行。来看一个基本的例子：
 
     function first(){
       console.log(1);
@@ -125,7 +125,7 @@
 
     T.get('search/tweets', params, function(err, data, response) {
       if(!err){
-        // 这里是魔法将要发生之处
+        // 这里是施展魔法之处
       } else {
         console.log(err);
       }
