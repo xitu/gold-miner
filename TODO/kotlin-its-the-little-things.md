@@ -2,7 +2,7 @@
 > * 原文作者：[Dan Kim](https://m.signalvnoise.com/@lateplate)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：CACppuccino
-> * 校对者：
+> * 校对者：wilsonandusa Zhiw
 
 ---
 
@@ -53,7 +53,7 @@ vs.
 “View $view has visibility ${view.visibility}."
 ```
 
-Kotlin 提供了[字符串插值](https://kotlinlang.org/docs/reference/idioms.html#string-interpolation)。它简单至极，使得对字符串的处理变得更加简单和可读，尤其对于记录相关工作帮助很大。
+Kotlin 提供了[字符串插值](https://kotlinlang.org/docs/reference/idioms.html#string-interpolation)。它简单至极，使得对字符串的处理变得更加简单和可读，对日志记录特别有用。
 
 #### 3. 调用 getter/setter
 
@@ -69,7 +69,7 @@ view.visibility
 
 Kotlin 提供了访问器来处理 Java 的 getter 和 setter，使得它们可以像属性一样被使用。因此获得的简洁性（更少的括号和 `get` / `set` 前缀）显著提高了代码的可读性。
 
-*(有时候 Kotlin 编译器不能够解析类中的 getter/setter 且它们不会起作用，不过这种情况比较罕见)*
+*(有时候 Kotlin 编译器不能够解析类中的 getter/setter，因而这个特性无法使用，不过这种情况比较罕见)*
 
 #### 4. 调用令人痛苦的超长模板语句
 
@@ -97,7 +97,7 @@ vs.
 ---
 瞧，我知道这些不是那种可以让人震惊的特性，但在几个月的工作和上万行代码之后，会让你的工作变得大不一样。这确实是那种你需要经历并赞美的事情之一。
 
-将所有这些小的东西放在一起，包括小标题中 Kotlin 的特性，你会有一个不错的感觉。🍩
+将所有这些小的东西放在一起，包括小标题中 Kotlin 的特性，你会感觉比之前好多了。🍩
 
 ---
 
