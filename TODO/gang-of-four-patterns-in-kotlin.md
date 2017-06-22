@@ -2,17 +2,17 @@
 > * 原文作者：[Lovis](https://dev.to/lovis)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[Boiler Yao](https://github.com/boileryao)
-> * 校对者：
+> * 校对者：[windmxf](https://github.com/windmxf), [wilsonandusa](https://github.com/wilsonandusa)
 
 Kotlin 正在得到越来越广泛的应用。如果把常用的设计模式用 Kotlin 来实现会是什么样子呢？
 
 受到 Mario Fusco 的“从‘四人帮’到 lambda”（相关的[视频](https://www.youtube.com/watch?v=Rmer37g9AZM)、[博客](https://www.voxxed.com/blog/2016/04/gang-four-patterns-functional-light-part-1/)、[代码](https://github.com/mariofusco/from-gof-to-lambda)）的启发，我决定动手实现一些计算机科学领域最著名的设计模式，用 “Kotlin”！（“四人帮”指 Erich Gamma、Richard Helm、Ralph Johnson 和 John Vlissides，四人在所著的《Design Patterns: Elements of Reusable Object-Oriented Software 》一书中介绍了 23 种设计模式，该书被誉为设计模式的经典之作。——译注）
 
-当然，我的目标不是简单的 **实现** 这些模式。因为 Kotlin 支持面向对象编程并且和 Java 是可互操作的，我可以从 Mario 的仓库直接复制粘贴每一个 Java 文件（先不管是“传统”的还是“lambada 风格”的），**它们将仍然可以正常工作**！
+当然，我的目标不是简单的 **实现** 这些模式。因为 Kotlin 支持面向对象编程并且和 Java 是可互操作的，我可以从 Mario 的仓库直接复制粘贴每一个 Java 文件（先不管是“传统”的还是“lambda 风格”的），**它们将仍然可以正常工作**！
 
 需要特别说明一下，这些模式的发明是为了弥补起源于上世纪九十年代的一些命令式编程语言（尤其是 C++）的不足。很多现代编程语言提供了解决这些不足的特性，我们完全不需要再写多余的代码或者做刻意模仿设计模式这种事了。
 
-这就是为什么我像 Mario 那样，去寻找一种更简单方便、更惯用的方式来解决这些模式所要解决的问题。
+这就是为什么我像 Mario （相关仓库地址：[gof](https://github.com/mariofusco/from-gof-to-lambda)）那样，去寻找一种更简单方便、更惯用的方式来解决这些模式所要解决的问题。
 
 如果不想看下面这坨说明文字的话，你可以直接去 [这个 GitHub 仓库](https://github.com/lmller/gof-in-kotlin) 看代码。
 
