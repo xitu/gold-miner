@@ -32,6 +32,7 @@
 大学期间我曾用 Java applets 技术编写过一些应用，这是一种现在几乎已经被淘汰了的技术。Java appltes 基本上就是一些 Java 应用，你可以使用 `<applet>` 标签随意地将其嵌入浏览器中。运气好的话，可能有一半用户在本地安装了版本正确的 Java，并能成功运行你的应用。 
 
 ![](http://developer.telerik.com/wp-content/uploads/2017/05/java-applet.jpg)
+
 **一个简单的 Java applet，带你回到 90 年代末**
 
 Java applets 在 1995 年推出，并在随后的几年里逐渐流行了起来。如果你在 90 年代末就已经在出来浪了的话，那你应该记得那场关于 web 技术和 Java applets 的技术论战。
