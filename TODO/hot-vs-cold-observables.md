@@ -1,7 +1,7 @@
 > * 原文地址：[Hot vs Cold Observables](https://medium.com/@benlesh/hot-vs-cold-observables-f8094ed53339)
 > * 原文作者：[Ben Lesh](https://medium.com/@benlesh)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：[hikerpig](https://github.com/settings/profile)
+> * 译者：[hikerpig](https://github.com/hikerpig)
 > * 校对者：[Tina92](https://github.com/Tina92)
 
 ---
