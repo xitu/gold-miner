@@ -1,3 +1,4 @@
+* [为复杂产品制定设计规范](https://juejin.im/post/5944b8e55c497d006bdc261a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([changkun](https://github.com/changkun) 翻译)
 * [是的，重新设计](https://juejin.im/post/5940e74fa0bb9f006b76a841?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([dongpeiguo](https://github.com/dongpeiguo) 翻译)
 * [如何理智地构建复杂用户界面](https://juejin.im/post/5937a61f2f301e006b2879a9?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([changkun](https://github.com/changkun) 翻译)
 * [设计准则：如何说服用户去使用新的功能](https://juejin.im/post/59279b650ce463006b029cbc?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([iloveivyxuan](https://github.com/iloveivyxuan) 翻译)
