@@ -5,7 +5,7 @@
 
 [掘金翻译计划](https://juejin.im/tag/%E6%8E%98%E9%87%91%E7%BF%BB%E8%AF%91%E8%AE%A1%E5%88%92) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](#android)、[iOS](#ios)、[React](#react)、[前端](#前端)、[后端](#后端)、[产品](#产品)、[设计](#设计) 等领域，读者为热爱新技术的新锐开发者。
 
-掘金翻译计划目前翻译完成 [537](#近期文章列表) 篇文章，共有 [330](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
+掘金翻译计划目前翻译完成 [538](#近期文章列表) 篇文章，共有 [330](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
 
 # 官方指南
 
@@ -39,10 +39,10 @@
 
 ## 前端
 
+* [一封写给 CSS 的情书](https://juejin.im/post/594c75c0f265da6c2b765b25?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([reid3290](https://github.com/reid3290) 翻译)
 * [函数式 Mixin（软件编写）（第七部分）](https://juejin.im/post/594a2cf6ac502e006bc0bc3a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([yoyoyohamapi](https://github.com/yoyoyohamapi) 翻译)
 * [webpack 3：官方发布！！](https://juejin.im/post/5949272551882520fa3df038?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([xilihuasi](https://github.com/xilihuasi) 翻译)
 * [理解 NPM 5 中的 lock 文件](https://juejin.im/post/5943849aac502e006b84ce07?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([changkun](https://github.com/changkun) 翻译)
-* [读完 flexbox 细则之后学到的 11 件事](https://juejin.im/post/5940bcef61ff4b006cb6b0d5?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([XatMassacrE](https://github.com/XatMassacrE) 翻译)
 * [所有前端译文>>](https://github.com/xitu/gold-miner/blob/master/front-end.md)
 
 ## React
