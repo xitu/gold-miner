@@ -1,13 +1,13 @@
 > * 原文地址：[Kotlin: It’s the little things](https://m.signalvnoise.com/kotlin-its-the-little-things-8c0f501bc6ea)
 > * 原文作者：[Dan Kim](https://m.signalvnoise.com/@lateplate)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：CACppuccino
-> * 校对者：wilsonandusa Zhiw
+> * 译者：[CACppuccino](https://github.com/CACppuccino)
+> * 校对者：[wilsonandusa](https://github.com/wilsonandusa) [Zhiw](https://github.com/Zhiw)
 
 ---
 
 # Kotlin: 小菜一碟
-Kotlin 有不少很棒的特性，而其中一些如[扩展函数](https://kotlinlang.org/docs/reference/extensions.html#extension-functions), [高阶函数](https://kotlinlang.org/docs/reference/lambdas.html), 和[Null 安全性](https://kotlinlang.org/docs/reference/null-safety.html)更是引人注意。 毫无疑问，这些基本而强大的特性正是这门语言的根基所在。
+Kotlin 有不少很棒的特性，而其中一些如[扩展函数](https://kotlinlang.org/docs/reference/extensions.html#extension-functions)、 [高阶函数](https://kotlinlang.org/docs/reference/lambdas.html)、和[Null 安全性](https://kotlinlang.org/docs/reference/null-safety.html)更是引人注意。 毫无疑问，这些基本而强大的特性正是这门语言的根基所在。
 
 ![](https://cdn-images-1.medium.com/max/800/1*O9IHQ8ivLkRCDLBtGZvaNg.png)
 
@@ -33,7 +33,7 @@ Kotlin 有不少很棒的特性，而其中一些如[扩展函数](https://kotli
 
 浏览完了上面那个例子之后，让我们看看**在 Kotlin 中相对于 Java 永远无需做的五件事**
 
-*(注意：为了看的清楚，Java 总会首先展示，Kotlin 其次。代码的其余部分已被截掉，不同之处以粗体标出)*
+**(注意：为了看的清楚，Java 总会首先展示，Kotlin 其次。代码的其余部分已被截掉，不同之处以粗体标出)**
 
 #### 1.声明变量类型
 
@@ -43,7 +43,7 @@ vs.
 val view
 ```
 
-Kotlin 选择简单地根据被赋予的变量的类型来确定变量类型（这里是 `View`）而不是清晰地声明一个变量类型。你只需写 `val` 或 `var`, 赋值给它，就可以继续工作了，无需考虑更多。
+Kotlin 根据赋值内容推断变量类型（这里是 `View`），而不是明确声明一个变量类型。你只需写 `val` 或 `var`, 赋值给它，就可以继续工作了，无需考虑更多。
 
 #### 2. 将字符串连接成不可读的乱码
 
@@ -69,7 +69,7 @@ view.visibility
 
 Kotlin 提供了访问器来处理 Java 的 getter 和 setter，使得它们可以像属性一样被使用。因此获得的简洁性（更少的括号和 `get` / `set` 前缀）显著提高了代码的可读性。
 
-*(有时候 Kotlin 编译器不能够解析类中的 getter/setter，因而这个特性无法使用，不过这种情况比较罕见)*
+**(有时候 Kotlin 编译器不能够解析类中的 getter/setter，因而这个特性无法使用，不过这种情况比较罕见)**
 
 #### 4. 调用令人痛苦的超长模板语句
 
@@ -92,7 +92,7 @@ vs.
 
 还需要我说更多吗？
 
-*荣幸地提示：虽然没有在文中展示，但再也*[*不用写 'new' 关键字*](https://kotlinlang.org/docs/reference/classes.html#creating-instances-of-classes)了！
+**荣幸地提示：虽然没有在文中展示，但再也**[**不用写 'new' 关键字**](https://kotlinlang.org/docs/reference/classes.html#creating-instances-of-classes)**了！**
 
 ---
 瞧，我知道这些不是那种可以让人震惊的特性，但在几个月的工作和上万行代码之后，会让你的工作变得大不一样。这确实是那种你需要经历并赞美的事情之一。
