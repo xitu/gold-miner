@@ -2,7 +2,7 @@
 > * 原文作者：[Issara Willenskomer](https://medium.com/@ux_in_motion?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[Ruixi](https://github.com/ruixi)
-> * 校对者：
+> * 校对者：[cdpath](https://github.com/cdpath),[osirism](https://github.com/osirism)
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*boQYFGPLtlDof3RRs124bQ.gif">
 
