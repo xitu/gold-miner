@@ -2,13 +2,13 @@
 > * 原文作者：[Matthijs Hollemans](https://twitter.com/mhollemans)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[Changkun Ou](https://github.com/changkun/)
-> * 校对者：
+> * 校对者：[wilsonandusa](https://github.com/wilsonandusa)
 
 WWDC 2017 使一件事情变得非常清楚，那就是：Apple 正在全力以赴地支持「**设备上的机器学习**」了。
 
 他们希望 App 的开发者们能够尽可能的简单的加入他们的行列中。
 
-Apple 去年发布了可以用于创建基本的卷积神经网的 Metal CNN 和 BNNS 框架。今年，我们 Metal 得到了进一步扩展，增加了一个全新的计算机视觉框架，以及 **Core ML**：一个能够轻松简易在 App 中集成机器学习的工具包。
+Apple 去年发布了可以用于创建基本的卷积神经网的 Metal CNN 和 BNNS 框架。今年，Metal 得到了进一步扩展，增加了一个全新的计算机视觉框架，以及 **Core ML**：一个能够轻松简易在 App 中集成机器学习的工具包。
 
 [![Core ML framework](http://machinethink.net/images/ios11/CoreML.png)](http://machinethink.net/images/ios11/CoreML.png)
 
@@ -24,7 +24,7 @@ Core ML 的 API 非常简单。你只能用它做这些事情：
 2. 做出预测
 3. 营利！！！
 
-This may sound limited but in practice loading a model and making predictions is usually all you’d want to do in your app anyway. 这看起来好像很有限，但实际上加载模型和做出预测通常就是你想要在 App 中作的任何事情了。
+这看起来好像很有限，但实际上你一般只会在 App 中加载模型和做出预测这两件事。
 
 在 Core ML 之前，加载训练好的模型是非常困难的 —— 实际上，我写过[一个框架](http://github.com/hollance/Forge)来减轻这种痛苦。所以现在我对这一个简单的两步过程感到非常高兴。
 
@@ -54,7 +54,7 @@ let pixelBuffer: CVPixelBuffer = /* your image */if let prediction = try? model.
 
 **注意:** 要了解背后发生了什么，可以在 Project Navigator 里选择 **mlmodel** 文件，然后点击 Swift generated source 右边的箭头按钮，就能够查看生成的帮助代码了。
 
-Core ML 将决定自己到底是在 CPU 上运行还是 GPu 上运行。这使得它能够充分的利用可以用的资源。Core ML 甚至可以将模型分割成仅在 GPU 上执行的部分（需要大量计算的任务）以及 CPU 上的其他部分（需要大量内存的任务）。
+Core ML 将决定自己到底是在 CPU 上运行还是 GPU 上运行。这使得它能够充分的利用可以用的资源。Core ML 甚至可以将模型分割成仅在 GPU 上执行的部分（需要大量计算的任务）以及 CPU 上的其他部分（需要大量内存的任务）。
 
 Core ML 使用 CPU 的能力对于我们开发者来说另一个很大的好处是：你可以从 iOS 模拟器运行它，从而运行那些对于 Metal 来说做不到，同时在单元测试中也不太好的任务。
 
@@ -71,27 +71,21 @@ Core ML 使用 CPU 的能力对于我们开发者来说另一个很大的好处�
 
 Apple 提供了很多已经训练好的模型[可供下载](http://developer.apple.com/machine-learning/)，例如 Inception v3、ResNet50 和 VGG16 等，但你也可以使用 [Core ML Tools](https://pypi.python.org/pypi/coremltools) 这个 Python 库来转换自己的模型。
 
-目前，你可以转换使用 Keras、Caffe、scikit-learn、XGBoost 和 libSVM 训练的模型。转换工具对于它支持的具体版本有点特殊，比如 Keras 支持 1.2.2 但不支持 2.0。辛运的是，该工具是开源的，所以毫无疑问它将来会支持更多的训练工具包。
+目前，你可以转换使用 Keras、Caffe、scikit-learn、XGBoost 和 libSVM 训练的模型。转换工具只会支持具体指定的版本，比如 Keras 支持 1.2.2 但不支持 2.0。辛运的是，该工具是开源的，所以毫无疑问它将来会支持更多的训练工具包。
 
-如果这些都不行，你还是可以随时编写自己的转换器。mlmodel 文件格式是开源且可以直接使用的（由 Apple 制定发布的一种 protobuf 格式）
+如果这些都不行，你还是可以随时编写自己的转换器。**mlmodel** 文件格式是开源且可以直接使用的（由 Apple 制定发布的一种 protobuf 格式）
 
 ### 局限 
 
-Core ML 对于快速让一个模型运行在你的 App 上是非常棒的。然而使用这样一个简单的 API 一定会有一些限制。
+如果你想在你的 App 上马上运行一个模型， Core ML 很不错。然而使用这样一个简单的 API 一定会有一些限制。
 
-- 仅支持有监督学习的模型，无监督学习和增强学习都是不行的。（不过有一个「通用」的神经网络类型支持，因此你可以使用它）
-
+- 仅支持**有监督**学习的模型，无监督学习和增强学习都是不行的。（不过有一个「通用」的神经网络类型支持，因此你可以使用它）
 - 设备上不能进行训练。你需要使用离线工具包来进行训练，然后将它们转换到 Core ML 格式。
-
 - 如果 Core ML 不支持某种类型的 layer，那么你就不能使用它。在这一点上，你**不能**使用自己的 kernel 来扩展 Core ML。在使用 TensorFlow 这样的工具来构建通用计算图模型时，mlmodel 文件格式可能就不那么灵活了。
-
-- Core ML 转换工具只支持**特定版本**的数量有限的训练工具。例如，如果你在 TensorFLow 中训练了一个模型，则无法使用此工具，你必须编写自己的转换脚本。正如我刚才提到的：如果你的 TensorFlow 模型正在做一些 mlmodel 不支持的特性，那么你就不能在 Core ML 上使用你的模型。
-
-- 你不能查看中间层的输出，只能获得最后一层网络的预测值。
-
-- 我不太确定，但似乎下载的模型都存在更新上的问题。如果你需要经常重新训练你的模型，而且每次更新模型时都不想推出新版本，那么 Core ML 不适合你。
-
-- 隐藏了它是否运行在 CPU 或 GPU 上 —— 这很方便 —— 但你必须相信它对你的 App 能做出正确的事情。即便你真的需要，你也不能强迫 Core ML 运行在 GPU 上。
+- Core ML 转换工具只支持**特定版本**的数量有限的训练工具。例如，如果你在 TensorFLow 中训练了一个模型，则无法使用此工具，你必须编写自己的转换脚本。正如我刚才提到的：如果你的 TensorFlow 模型具有一些 mlmodel 不支持的特性，那么你就不能在 Core ML 上使用你的模型。
+- 你不能查看**中间层**的输出，只能获得最后一层网络的预测值。
+- 我感觉下载模型更新会造成一些问题，如果你不想每次重新训练模型的时候都重写一个新版本的 App，那么 Core ML 不适合你。
+- Core ML 对外屏蔽了它是运行在 CPU 上还是 GPU 上的细节 —— 这很方便 —— 但你必须相信它对你的 App 能做出正确的事情。即便你真的需要，你也不能强迫 Core ML 运行在 GPU 上。
 
 如果你能够忍受这些限制，那么 Core ML 对你来说就是正确的选择。
 
@@ -107,7 +101,7 @@ Core ML 对于快速让一个模型运行在你的 App 上是非常棒的。然�
 
 这个示例程序使用了 [MobileNet](https://arxiv.org/abs/1704.04861v1) 架构来分类图片中的猫。
 
-最初这个模型是[用 Caffe 训练](https://github.com/shicai/MobileNet-Caffe)得出的。我花了一点时间来高兴处如何将它转换到一个 mlmodel 文件，但是一旦我有了这个转换好的模型，便很容易集成到 App 中了（[转换脚本](https://github.com/hollance/MobileNet-CoreML/blob/master/Convert/coreml.py)包含在 GitHub 中）。
+最初这个模型是[用 Caffe 训练](https://github.com/shicai/MobileNet-Caffe)得出的。我花了一点时间来搞清楚如何将它转换到一个 mlmodel 文件，但是一旦我有了这个转换好的模型，便很容易集成到 App 中了（[转换脚本](https://github.com/hollance/MobileNet-CoreML/blob/master/Convert/coreml.py)包含在 GitHub 中）。
 
 这个 App 很无聊 —— 它只输出了一张静态图片的前五个预测值 —— 但却展示了使用 Core ML 是多么的简单。几行代码就够了。
 
@@ -119,7 +113,7 @@ Core ML 对于快速让一个模型运行在你的 App 上是非常棒的。然�
 
 经管如此，他似乎可以更好的优化该模型的结构，因为 **mlmodelc** 仍然包含一些不必要的 scaling layer。
 
-当然，我们还处在 iOS 11 beta 1 的版本，Core ML 可能还会改进。也就是说，在你给 Core ML 之前，你还是值得优化模型的 —— 例如，[通过「folding」操作对 layer 进行批量归一化（Batch Normalization）](http://machinethink.net/blog/object-detection-with-yolo/#converting-to-metal)  —— 但这是你必须对你的特性模型进行测量和比较的东西。
+当然，我们还处在 iOS 11 beta 1 的版本，Core ML 可能还会改进。也就是说，在给 Core ML 之前，还是值得对模型进一步优化的 —— 例如，[通过「folding」操作对 layer 进行批量归一化（Batch Normalization）](http://machinethink.net/blog/object-detection-with-yolo/#converting-to-metal)  —— 但这是你必须对你的特性模型进行测量和比较的东西。
 
 还有其他一些你必须检查的：你的模型是否在 CPU 和 GPU 上运行相同。我提到 Core ML 将选择是否在 CPU 上运行模型（使用 Accelerate 框架）或 GPU（使用 Metal ）。事实证明，这两个实现可能会有所不同 —— 所以你两个都需要测试！
 
