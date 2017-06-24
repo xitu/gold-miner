@@ -1,16 +1,16 @@
 > * 原文地址：[Convincing the Kotlin compiler that code is safe](http://blog.danlew.net/2017/06/14/convincing-the-kotlin-compiler-that-code-is-safe/)
 > * 原文作者：[Dan Lew](http://blog.danlew.net/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
+> * 译者：[wilsonandusa](https://github.com/wilsonandusa)
 > * 校对者：
 
-One of the best features of Kotlin is its built-in null safety in the type system. Try to use a nullable type in a non-null way and the compiler will yell at you.
+Kotlin这门语言最出色的特点之一就是它内部自带的空值安全系统。如果你不严谨的地使用空值，那么编译器会就会发出警告。
 
-This null safety can occasionally create some tricky situations, though. Code that you *know* is ironclad turns out to be full of potential nulls... at least according to the compiler.
+不过确保空值安全偶尔也会造成一些棘手的情况。你所**熟知**的毋庸置疑的代码也会布满空值的隐患。。。至少从编译器的角度来说是这样。
 
-## Navigating Maps
+## 操纵地图数据结构
 
-Let's look at an example. Suppose we want to convert a `List<String>` into a `Map<String, Int>`, where each `Int` represents the number of times each `String` appeared in the list. Here's how we might try to write it:
+来看一个例子。假设我们想将一个`List<String>`转化为`Map<String, Int>`， 其中每一个`Int`代表对应`String`在数列中所出现的次数。我们可以这么写：
 
     fun countInstances(list: List<String>): Map<String, Int> {
       val map = mutableMapOf<String, Int>()
@@ -24,20 +24,21 @@ Let's look at an example. Suppose we want to convert a `List<String>` into a `Ma
     }
 
 
-The code is logically sound but it doesn't compile. Kotlin complains about this line in particular:
+代码逻辑正确但却无法编译。Kotlin认为这行代码有问题：
 
     map[key] = map[key] + 1
 
 
-`map[key]` is equivalent to `map.get(key)`. Critically, **`get()` has the return type of `T?` since you could feed it a nonexistent key.** Even though *you* know that `map[key]` is non-null, the *compiler* doesn't realize that you always initialize it before use.
 
-I found myself bumping into this problem a lot when working with `Map.get()`. I was applying non-null safety in my head, via the logic of the code, but a compiler can't verify that.
+`map[key]`等同于`map.get(key)`。严格上来讲**`get()`会返回`T?`类型，因为你可以给它提供一个本身不存在的关键词**。即使**你**知道`map[key]`不是空值，**编译器**意识不到你在每次使用`map[key]`前都会将其初始化。
 
-I *could* fallback on the `!!` operator, but it looks alarming for a reason - you shouldn't just ignore compiler errors. There are several better ways around this problem than that.
+我发现我在使用`Map.get()`时经常出现这个问题。我自己总是通过思考代码的逻辑来保障非空值的使用是否安全，但编译器无法对此进行核实。
 
-## Null Checks
+我可以依赖使用运算符`!!`，但它看上去就像是一种警告 - 你不能无视编译器所产生的的错误。以下是其他几种可以解决这种问题的方法。
 
-Instead of operating on the `Map` directly, we can extract the value first into a local variable and perform a null check:
+## 空值检查
+
+为了避免直接在地图上进行操作，我们可以通过先提取数值并存储于本地变量中再进行空值检查。
 
     val oldValue = map[key]
     if (oldValue != null) {
@@ -47,39 +48,37 @@ Instead of operating on the `Map` directly, we can extract the value first into 
       map[key] = 1
     }
 
+虽然`oldValue`是可为空类型(`Int?`)，但它是一个本地变量，所以其他线程无法接触到它。这意味着编译器能确保在条件判断后这个变量的值不会再发生改变。结果就是Kotlin将其视为非空变量。
 
-Even though `oldValue` is a nullable type (`Int?`), it's a local variable and thus inaccessible to other threads. That means the compiler can be assured that it's not changing value after the if-check. As such, Kotlin treats it as non-null in the first branch.
+空值检查可以用，但它却是个比较冗长的策略。
 
-Null checks work, but it's a rather verbose strategy.
-
-## Elvis Operator
-
-We can compact the null-checking solution into a single line of code with [the Elvis operator](https://kotlinlang.org/docs/reference/null-safety.html#elvis-operator):
+## Elvis运算符
+我们可以通过结合[Elvis运算符](https://kotlinlang.org/docs/reference/null-safety.html#elvis-operator)将空值检查的解法压缩为单行代码:
 
     map[key] = (map[key] ?: 0) + 1
 
 
-The Elvis operator allows us to take either the value in `map[key]` or `0`, whichever is non-null first. This guarantees the type `Int`, which we can then increment.
+Elivs运算符会选择`map[key]`和`0`中第一个为非空值的那一个。这样能保证结果为整数类型，以便后期对其进行增值。
 
-## Jedi Mind Tricks
+## 绝地心术
+如果我们直接声明“这些都不是非空值”会发生什么呢？
 
-What if we just wave our hands and say "these aren't non-null values"?
-
-It turns out Kotlin provides a `Map.getValue()` just for this purpose. It has the return type of `T` instead of `T?`. As such, using `map.getValue(key)` works where `map[key]` does not:
+其实Kotlint专门为此提供了`Map.getValue()`。这个函数会返回`T`类而不是`T?`类。因此，`map.getValue(key)`具有`map[key]`所不具备的功能：
 
     map[key] = map.getValue(key) + 1
 
 
-What happens if there *is* no value? In that case, it throws an exception! Under the hood, `getValue()` looks a lot like this:
+如果**本来**就没有值会发生什么？这种情况下，它会生成一个异常！`getValue()`本身长这样：
 
     val value = map[key] ?: throw new NoSuchElementException()
 
 
-In this context, `getValue()` isn't any better than `!!`. Both will throw an exception if there's a null value. However...
 
-## Default Values
+结合前文可得知，`getValue()`和`!!`其实差不多。如果有空值存在它们都会生成异常，然而。。。
 
-You can wrap your map using `Map.withDefault()` to provide a default value. When using this method, `Map.getValue()` will now return the default value if the key is not found:
+## 默认值
+
+你可以通过使用`Map.withDefault()`来给你的地图提供默认值。使用这个方法的话，`Map.getValue()`在找不到关键词的情况下会返回默认值：
 
     fun countInstances(list: List<String>): Map<String, Int> {
       val map = mutableMapOf<String, Int>().withDefault { 0 }
@@ -90,53 +89,51 @@ You can wrap your map using `Map.withDefault()` to provide a default value. When
     }
 
 
-In this context, `Map.getValue()`*is* better than `!!` because it is guaranteed to never throw an exception.
 
-If you don't want to wrap your entire `Map` with a default, you can also apply defaults on a case-by-case basis, such as using `Map.getOrDefault()`:
+结合上文可得知，`Map.getValue()`**肯定**比`!!`好，因为它不可能产生异常。
+
+如果你不想为整个地图设置默认值，你也可以分情况使用默认值，比如用`Map.getOrDefault()`:
 
     map[key] = map.getOrDefault(key, 0) + 1
 
 
-You can also execute the default as a function instead of a plain value using `Map.getOrElse()`:
+除了用`Map.getOrElse()`得到数值，你也可以直接执行一个默认的函数：
 
     map[key] = map.getOrElse(key, { 0 }) + 1
 
 
-Which is silly in this case, but this method can save time if the default value is expensive to calculate. (Also, `getOrDefault()` was only recently added to Android, so unless you're at minSdkVersion 24 you'll have to rely on Kotlin's `getOrElse()`.)
 
-For this particular problem, default values are about as good as using the Elvis operator.
+在这个例子里这么写很不明智，但如果默认值的计算很费时，这个方法会节省很多时间。（同时，由于`getOrDefault()`最近才添加到Android中，除非你所使用的最低开发版本为24，你还得用Kotlin的`getOrElse()`函数。）在这个例子中，设默认值和使用Elvis运算符都行。
 
-## Collection Transformations
+## 集合的变形
 
-Instead of iterating through each individual item in the collection, we could instead transform the entire collection at once. Transformations avoid null checking since we're only iterating over values that actually exist in the collection.
+除了走遍集合中的每一个元素，我们也可以将整个集合进行一次变形。变形能避免空值检查，因为我们所遍历的元素一定存在于集合中。
 
-There are some nice built-in functions in the Kotlin standard library to solve our exact problem:
+Kotlin的标准库中内置很多不错的函数正好能解决我们的问题：
 
     fun countInstances(list: List<String>) = list.groupingBy { it }.eachCount()
 
 
-What we're doing here is first converting our `List` into a [`Grouping`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-grouping/). Then we use the helper function `Grouping.eachCount()` to transform that into `Map<String, Int>`.
+这里我们首先将`List`转化为[`Grouping`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-grouping/)，然后我们用`Grouping.eachCount()`将其变形为`Map<String, Int>`。
 
-Collection-level operations can be incredibly powerful and are often more useful than iterating over collections manually (especially because the standard library can optimize what's going on behind the scenes).
+集合层面的操作能力十分强大，经常会比遍历整个集合有用很多（主要是因为标准库会在背后进行优化）。
 
-## Which is Best?
+## 哪个最好？
 
-I've demonstrated a number of strategies to convince the compiler that your code is okay:
+我已经示范了几种能保证代码通过编译器的策略：
+1. 空值检查
+2. Elvis运算符
+3. 转化为非空值 (可能出现异常)
+4. 默认值
+5. 集合变形
 
-1. Null checks
-2. Elvis operator
-3. Casting to non-null (with possible exception)
-4. Default values
-5. Collection transformations
-
-(I don't mean to imply that this is an exhaustive list of strategies; differing circumstances may yield more options.)
-
+（我这么写并不意味着这就是所有的策略；不同情况可能有其它选择）
 Often times it depends on context for which strategy is best. In this case, the clear winner is `groupingBy().eachCount()`. It's succinct, efficient, easy-to-understand, and completely sidesteps any null checking whatsoever.
+一般要通过联系代码所在的环境来判断哪个策略最适合。在我们的例子中，`groupingBy().eachCount()`肯定最好。它简洁，有效，不难理解，而且完全避免了空值检查。
 
 ---
 
-*Many thanks to [Jake Wharton](https://twitter.com/JakeWharton) for helping with this article.*
-
+**感谢[Jake Wharton](https://twitter.com/JakeWharton)对这篇文章的帮助**
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[React](https://github.com/xitu/gold-miner#react)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计) 等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)。
