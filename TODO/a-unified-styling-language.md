@@ -14,7 +14,7 @@
 
 > 难道他们没学过 CSS？"
 
-如果这就是你的反应，那么请继续读下去。我们来看看为什么在 JavaScript 中编写样式并不是一个可怕的想法，并且为什么我认为你应该关注这个快速发展的领域。
+如果这就是你的反应，那么请继续读下去。我们来看看到底为什么在 JavaScript 中编写样式并不是一个可怕的想法，并且为什么我认为你应该关注这个快速发展的领域。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*Ipu5Grtzr21suPiTfvGXaw.png)
 
@@ -24,7 +24,7 @@ React 社区经常被 CSS 社区误解，反之亦然。对我来说这很有趣
 
 我从九十年代后期开始学习 HTML，并且从基于表格布局的黑暗时代以来就一直使用 CSS。受 [CSS Zen Garden](http://www.csszengarden.com) 启发，我是最早一批将现有代码向 [语义化标签](https://en.wikipedia.org/wiki/Semantic_HTML) 和级联样式表迁移的人。不久之后，我开始专注于前后端分离，使用[非侵入式 JavaScript](https://www.w3.org/wiki/The_principles_of_unobtrusive_JavaScript) 和客户端的交互来装饰服务端渲染的 HTML。围绕这些做法有一个小型且充满活力的社区，并且我们成为第一代尝试给浏览器平台应有尊重的前端开发者。
 
-伴随这样的背景，你可能会认为我会强烈反对 React 的 [HTML-in-JS](https://facebook.github.io/react/docs/jsx-in-depth.html) 模式，它似乎违背了我们所坚持的原则，但实际上恰恰相反。根据我的经验，React 的组件模型加上服务端渲染的能力，最终给我们提供了一种构建大规模复杂单页应用的方式，从而使我们能够将快速，可访问，逐渐增强的应用推送给我们的用户。在 [SEEK](https://www.seek.com.au) 上我们就利用了这种能力，这是我们的旗舰产品，它是 React 单页应用程序，当 JavaScript 被禁用时我们的核心搜索流程依然可用，因为我们通过在服务器端运行同构的 JavaScript 代码来正常降级到传统的网站。
+伴随这样的背景，你可能会认为我会强烈反对 React 的 [HTML-in-JS](https://facebook.github.io/react/docs/jsx-in-depth.html) 模式，它似乎违背了我们所坚持的原则，但实际上恰恰相反。根据我的经验，React 的组件模型加上服务端渲染的能力，最终给我们提供了一种构建大规模复杂单页应用的方式，从而使我们能够将快速，可访问，逐渐增强的应用推送给我们的用户。在 [SEEK](https://www.seek.com.au) 上我们就利用了这种能力，这是我们的旗舰产品，它是 React 单页应用程序，当 JavaScript 被禁用时我们的核心搜索流程依然可用，因为我们通过在服务器端运行同构的 JavaScript 代码来完成到传统的网站优雅降级。
 
 所以，也请考虑一下我抛出的从一个社区到另一个社区的橄榄枝。让我们一起尝试理解这个转变。它可能不完美，它可能不是你计划在产品中使用的东西，它可能对你不是很有说服力，但是至少值得你尝试思考一下。
 
@@ -61,7 +61,7 @@ React 社区经常被 CSS 社区误解，反之亦然。对我来说这很有趣
 
 为了解决这个问题，CSS 社区已经投入了巨大的努力，通过 [Nicole Sullivan](https://twitter.com/stubbornella) 的 [OOCSS](https://github.com/stubbornella/oocss/wiki) 和 [Jonathan Snook](https://twitter.com/snookca) 的 [SMACSS](https://smacss.com/) 都可以使我们的样式更好维护，不过 [Yandex](https://github.com/yandex) 开发的 [BEM](http://getbem.com) 更流行一些。
 
-根本上来说，BEM （纯粹用于 CSS）只是一个命名约定，它要求样式的类名要遵守 `.Block__element--modifier` 的模式。在任何使用 BEM 风格的代码库中，开发人员必须始终遵守 BEM 的规则。当严格遵守时，BEM 的效果很好，但是为什么这些基础的功能只是用单纯的**命名约定**来限制呢？
+根本上来说，BEM （纯粹用于 CSS）只是一个命名规范，它要求样式的类名要遵守 `.Block__element--modifier` 的模式。在任何使用 BEM 风格的代码库中，开发人员必须始终遵守 BEM 的规则。当严格遵守时，BEM 的效果很好，但是为什么这些如同作用域一般基础的功能，却只使用单纯的*命名规范**来限制呢？
 
 无论是否有明确表示，大多数 CSS-in-JS 类库都遵循 BEM 的思路，它们尝试将样式定位到单个 UI 组件，只不过用了完全不同的实现方式。
 
@@ -78,17 +78,17 @@ console.log(title)
 // → 'css-1pyvz'
 ```
 
-你可能会注意到**代码中没有 CSS 的类名**。因为它不再是硬编码的引用系统中其他位置定义的 class，而是由我们的库自动生成的。我们不必再担心全局作用域内的选择器冲突，这也意味着我们不再需要替他们添加前缀了。
+你可能会注意到**代码中没有 CSS 的类名**。因为它不再是一个指向定义在项目其他位置 class 的硬编码，而是由我们的库自动生成的。我们不必再担心全局作用域内的选择器冲突，这也意味着我们不再需要替他们添加前缀了。
 
 这个选择器的作用域与周围代码的作用域一致。如果你希望在你应用的其他地方使用这个规则，你就需要将它改写成一个 JavaScript 模块并且在需要使用的地方引用它。就保持代码库的可维护性而言，它是非常强大的，**它确保了任何给定的样式都可以像其他代码一样容易追踪来源**。
 
-**通过从仅仅是命名约定到默认强制局部样式的转变，我们已经提高了我们样式的基本质量。BEM 已经很成熟了，而非可选项。**
+**通过从仅仅是命名约定到默认强制局部样式的转变，我们已经提高了我们样式质量的基准线。BEM 已经烙在里面了，而不再是一个可选项。**
 
 —
 
 在继续之前，我要说明至关重要的一点。
 
-**它生成的是真正的 CSS，而不是内联样式**
+**它生成的是真正的级联样式，而不是内联样式**
 
 大多数早期的 CSS-in-JS 库都是将样式直接添加到每个元素上，但是这个模式有个严重的缺点，'styles' 属性并不能做到 CSS 可以做到的每件事。大多数新的库不再关注于**动态样式表**，而是在运行时在全局样式中插入和删除规则。
 
@@ -167,7 +167,7 @@ const Title = styled.h1`
 <Title>Hello World!</Title>
 ```
 
-虽然 styled-components 通过模板文字的方式使用了传统的 CSS 语法，但是有人更喜欢使用数据结构。来自 [PayPal](https://github.com/paypal) 的 [Kent C. Dodds](https://twitter.com/kentcdodds) 开发的 [Glamorous](https://github.com/paypal/glamorous) 是一个值得关注的替代方案。
+虽然 styled-components 通过模板字面量的方式使用了传统的 CSS 语法，但是有人更喜欢使用数据结构。来自 [PayPal](https://github.com/paypal) 的 [Kent C. Dodds](https://twitter.com/kentcdodds) 开发的 [Glamorous](https://github.com/paypal/glamorous) 是一个值得关注的替代方案。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*Ere9GQTIJeNac2ONfZlfdw.png)
 
@@ -236,9 +236,9 @@ const criticalCSS = `
 
 如果你看过 React 的服务端渲染模型，你可能会发现这个模式非常熟悉。在 React 中，你的组件在 JavaScript 中定义他们的标记，但可以在服务器端渲染成常规的 HTML 字符串。
 
-**尽管是完全用 JavaScript 编写的，如果你要以渐进增强的方式构建你的应用程序，那么就没必要在客户端一次性加载全部的 JavaScript**
+**如果你使用渐进增强的方式构建你的应用，尽管全部使用 JavaScript 编写，但也有可能在客户端根本就不需要 JavaScript**
 
-无论用哪种方式，客户端 JavaScript budle 都要包含启动单页应用所需的代码，突然使其生效，并且在那之后渲染你的页面。(这段没太读懂)
+无论用哪种方式，客户端 JavaScript bundle 都要包含启动单页应用所需的代码，它能让页面瞬间活起来，并与此同时开始浏览器中进行渲染。
 
 由于在服务器上渲染 HTML 和 CSS 是同时进行的，就像前面的例子所示， Aphrodite 这样的库通常会以一个函数调用的方式帮助我们流式生成关键 CSS 和服务端渲染的 HTML。现在，我们可以用类似的方式将我们的 React 组件渲染成静态 HTML。
 
@@ -252,13 +252,13 @@ const appHtml = `
 
 通过在服务器端使用 CSS-in-JS，我们的单页应用不仅可以脱离 JavaScript 工作，**它甚至可以加载的更快**。
 
-**与我们选择器的作用域一样，渲染关键 CSS 的最佳实践已经很成熟了，而不是一个可选项**
+**与我们选择器的作用域一样，渲染关键 CSS 的最佳实践如今已经烙在里面了，而不是一个可选项**
 
 ### 3.
 
 #### 更智能的优化
 
-我们最近看到了构建 CSS 的新方式的兴起，比如 [Yahoo](https://github.com/yahoo) 的 [Atomic CSS](https://acss.io/) 和 [Adam Morse](https://twitter.com/mrmrs_) 的 [Tachyons](http://tachyons.io/)，它们通过使用精简的，单一用途的类名而避免了语义化类名。举个例子，当使用 Atomic CSS 时，你使用类似于函数的语法提供类名，并且它会生成一个合适的样式表。
+我们最近看到了构建 CSS 的新方式的兴起，比如 [Yahoo](https://github.com/yahoo) 的 [Atomic CSS](https://acss.io/) 和 [Adam Morse](https://twitter.com/mrmrs_) 的 [Tachyons](http://tachyons.io/)，它们更喜欢短小的，单一用途的类名，而不是语义化的类名。举个例子，当使用 Atomic CSS 时，你将使用类似于函数调用的语法去作为类名，并且这些类名会在之后被用来生成合适的样式表。
 
 ```
 <div class="Bgc(#0280ae.5) C(#fff) P(20px)">
@@ -266,7 +266,7 @@ const appHtml = `
 </div>
 ```
 
-通过最大程度地提高类的复用性以及有效处理内联样式的类名，可以达到尽可能地精简 CSS 的目的。虽然文件大小的减少很容易体现，但对于你的代码库和团队成员的影响确实是微乎其微的。这些优化会从底层引起你的 CSS 和标记语言的变化，使他们成为构建工作中更重要的部分。
+通过最大程度地提高类的复用性以及用内联样式的方式一样有效处理类名，可以达到尽可能地精简 CSS 的目的。虽然文件大小的减少很容易体现，但对于你的代码库和团队成员的影响确实是微乎其微的。这些优化会从底层引起你的 CSS 和标记语言的变化，使他们成为构建工作中更重要的部分。
 
 正如我们已经介绍过的，当使用 CSS-in-JS 或者 CSS 模块时，你不再需要在 HTML 中硬编码你的类名，而是动态引用由库或者构建工具自动生成的 JavaScript 变量。
 
@@ -283,9 +283,9 @@ const appHtml = `
 ```
 
 
-这个变化可能看起来相当肤浅，但这是我们如何管理我们的标记语言和样式之间关系的巨大改变。通过给我们的 CSS 工具不止修改样式，还能修改最终提供给组件的 class 的能力，我们为我们的样式表解锁了一个全新的优化方式。
+这个变化可能看起来相当肤浅，但是从如何管理标记语言和样式之间关系上来说，这却是一个里程碑式的改变。通过给我们的 CSS 工具不止修改样式，还能修改最终提供给组件的 class 的能力，我们为我们的样式表解锁了一个全新的优化方式。
 
-如果看看上面的例子，就会发现 'styles.sidebar' 对应了一个字符串，但没有限制到什么样的 class。大家知道，它可以很容易的对应一个或者十几个 class 的字符串。
+如果看看上面的例子，就会发现 'styles.sidebar' 对应了一个字符串，但并没有什么去限制它只能是一个 class。就我们所了解的，它可以很容易的对应成表示十几个 class 的字符串。
 
 ```
 <aside className={styles.sidebar} />
@@ -293,7 +293,7 @@ const appHtml = `
 <aside className={'class1 class2 class3 class4'} />
 ```
 
-如果我们可以优化我们的样式，为每一套样式生成多个类，我们就可以做一些非常有趣的事
+如果我们可以优化我们的样式，为每一套样式生成多个类，我们就可以做一些非常有趣的事。
 
 我最喜欢的例子是 [Ryan Tsao](https://twitter.com/rtsao) 编写的 [Styletron](https://github.com/rtsao/styletron)。
 
@@ -338,7 +338,7 @@ injectStyle(styletron, {
 
 ![](https://cdn-images-1.medium.com/max/1600/1*pWXr1A6uhiOkYHqwfBMtWg.png)
 
-之前我们通过手工查找的方式将我们的样式分割成可复用的 class，现在已经可以完全的自动化的完成这种优化了了，并且你应该也开始注意到这个趋势。**原子性 CSS 已经很成熟了，并非一个可选项**
+之前我们通过手工查找的方式将样式分割成可复用的 class，现在已经可以完全自动化的完成这种优化了了，并且你应该也开始注意到这个趋势。*原子性 CSS 已经烙在里面了，并非一个可选项**
 
 ### 4.
 
@@ -348,17 +348,17 @@ injectStyle(styletron, {
 
 **我们如何共享 CSS？**
 
-我们已经从手动下载 CSS 文件向使用特定的前端模块管理工具转变，比如 [Bower](https://bower.io)，或者现在通过 [npm](https://www.npmjs.com/) 可以使用 [Browserify](http://browserify.org/) 和 [webpack](https://webpack.js.org)。虽然这些工具已经自动处理了外部模块的 CSS 依赖，但是目前前端社区大多还是手工处理 CSS 的依赖关系。
+我们已经从手动下载 CSS 文件向使用前端专门的模块管理工具转变，比如 [Bower](https://bower.io)，或者现在通过 [npm](https://www.npmjs.com/) 可以使用 [Browserify](http://browserify.org/) 和 [webpack](https://webpack.js.org)。虽然这些工具已经自动处理了外部模块的 CSS 依赖，但是目前前端社区大多还是手工处理 CSS 的依赖关系。
 
 无论使用哪种方式，CSS 之间的依赖都不是很好处理。
 
-你们许多人可能还记得，我们已经看到使用 Bower 和 npm 管理 **JavaScript 模块**有类似的效果。
+你们许多人可能还记得，在使用 Bower 和 npm 管理 **JavaScript 模块**时，出现过类似的情况。
 
-Bower 没有依赖任何特定的模块格式，而发布到 npm 的模块使用 [CommonJS 模块格式](http://wiki.commonjs.org/wiki/Modules/1.1)。这对发布到每个平台的包的数量产生了巨大的影响。
+Bower 没有依赖任何特定的模块格式，而发布到 npm 的模块则要求使用 [CommonJS 模块格式](http://wiki.commonjs.org/wiki/Modules/1.1)。这种不一致，对发布到两者任何一个平台的包的数量都产生了巨大的影响。
 
-小型但是有复杂依赖关系的模块更愿意使用 npm，Bower 则吸引了大量大型而独立的模块，当然，你可能也就有两三个模块，但是如果你没有一个模块系统来管理你的依赖，每个模块就无法轻易地利用它自己的依赖关系，因此就只能靠开发者手动构建。
+小型但是有复杂依赖关系的模块更愿意使用 npm，Bower 则吸引了大量大型而独立的模块，当然，你可能也就有两三个模块，再加几个插件，但由于在 Bower 中你的依赖没有一个模块系统去作支撑，每个包无法简单的利用它自己的依赖关系，所以在整合这一块，基本上就留给开发者手动去操作了。
 
-因此，随着时间的推移，npm 上的模块数量呈指数性增长，而 Bower 只能是有限的线性增长。虽然这可能是各种原因导致的，但是不得不说，它与许多平台在模块运行时允许（或不允许）使用哪种依赖方式有很大关系
+因此，随着时间的推移，npm 上的模块数量呈指数性增长，而 Bower 只能是有限的线性增长。虽然这可能是各种原因导致的，但是不得不说，主要原因还是在于两个平台处理运行时包与包之间的依赖关系的不同方法。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*LTrsIISPV5qK-qAQKaeINA.png)
 
@@ -372,9 +372,9 @@ Bower 没有依赖任何特定的模块格式，而发布到 npm 的模块使用
 有趣的是，在 HTML 上我们已经实现了类似的功能。如果你问我相同的问题：我们如何共享标记语言？你可能很快会想起来，我们几乎不会直接共享原始的 HTML —— 我们共享 **HTML-in-JS**。
 
 
-我们通过 [jQuery 插件](https://plugins.jquery.com/)，[Angular 指令](http://ngmodules.org) 和 [React 组件](https://react.parts/web)实现了这个功能。我们将大的组件拆分成较小的组件，每个组件都有自己的 HTML，并将它们独立的发布到 npm 上。HTML 这种格式可能不足以强大到完成这个功能，但是**通过将 HTML 嵌入到完整的编程语言中**，我们就可以很轻松的越过这个限制。
+我们通过 [jQuery 插件](https://plugins.jquery.com/)，[Angular 指令集](http://ngmodules.org) 和 [React 组件](https://react.parts/web)实现了这个功能。我们的大组件由小组件组成，每一个小组件都有着自己的 HTML，它们也都独立的发布在了 npm 上。HTML 这种格式可能不足以强大到完成这个功能，但是**通过将 HTML 嵌入到完整的编程语言中**，我们就可以很轻松的越过这个限制。
 
-如果我们像 HTML 一样通过 JavaScript 来共享和生成 CSS 呢？比如使用**函数来返回对象和字符串**而不是使用 [mixins](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#mixins) ？又或者我们利用  [Object.assign](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Object/assign) 和新的 [object spread 操作符](https://github.com/tc39/proposal-object-rest-spread) 来 **merge 对象**而不是用 [extending classes](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#extend) 呢？
+我们能不能像 HTML 那样，通过 JavaScript 去分享 CSS呢？能不能使用*函数来返回对象和字符串**而不是使用 [mixins](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#mixins) ？又或者我们利用  [Object.assign](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Object/assign) 和新的 [object spread 操作符](https://github.com/tc39/proposal-object-rest-spread) 来 **merge 对象**而不是用 [extending classes](http://sass-lang.com/documentation/file.SASS_REFERENCE.html#extend) 呢？
 
 ```
 const styles = {
@@ -385,13 +385,13 @@ const styles = {
 }
 ```
 
-一旦我们开始用这种方式编写我们的样式，我们就可以使用相同的模式，相同的工具，相同的基础架构，相同的生态系统来共享和生成我们的样式代码，就像我们应用程序中的其他任何代码一样。
+一旦我们开始用这种方式编写我们的样式，我们就可以使用相同的模式，相同的工具，相同的基础架构，相同的生态系统来编写和分享我们的样式代码，就像我们应用程序中的其他任何代码一样。
 
 由 [Max Stoiber](https://twitter.com/mxstbr)、[Nik Graf](https://twitter.com/nikgraf) 和 [Brian Hough](https://twitter.com/b_hough) 开发的 [Polished](https://github.com/styled-components/polished) 就是一个很好的例子。 
 
 ![](https://cdn-images-1.medium.com/max/1600/1*fczf3OWmmKBkFgtUqZnq2g.png)
 
-Polished 就像是 CSS-in-JS 界的 [Lodash](https://lodash.com)，它提供了一整套完整的 mixins，颜色函数等等，使得在 JavaScript 中可以得到使用 [Sass](http://sass-lang.com) 编写样式的体验。最关键的区别则在于现在这些代码是可以复用，测试和共享的，并且能够完整的使用 JavaScript 模块生态系统。
+Polished 就像是 CSS-in-JS 界的 [Lodash](https://lodash.com)，它提供了一整套完整的 mixins，颜色函数等等，使得在 JavaScript 中可以得到使用 [Sass](http://sass-lang.com) 编写样式的体验。最大的区别在于，现在这些代码在复用，测试和分享方面，都提高了一个层次，并且能够完整的使用 JavaScript 模块生态系统。
 
 当谈到 CSS 时我们会想，作为一个由小型可复用的开源模块组合成的一个样式集合，我们如何获得和 npm 上其他模块相似的开源程度？奇怪的是，我们最终通过将我们的 CSS 嵌入其他的语言并且完全拥抱 JavaScript 模块实现了这一点。
 
@@ -464,7 +464,7 @@ var styles = StyleSheet.create({
 
 虽然 Yoga 专注于将 CSS 迁移到非浏览器环境中，但是仅关注于 CSS 特性的一小部分无法扩大它的统治范围。
 
-> "Yoga 的重点是成为一个有表现力的布局框架，而不是实现各种各样的样式"
+> "Yoga 的重点是成为一个有表现力的布局框架，而不是去实现一套完整的 CSS"
 
 
 这看起来似乎很难实现，但是当你回顾 CSS 体系的历史时会发现**使用 CSS 进行规模化的工作就是选择一个合适的语言子集**
@@ -485,11 +485,11 @@ module: {
 
 同样，[Leland Richardson](https://twitter.com/intelligibabble) 开发的 [react-primitives](https://github.com/lelandrichardson/react-primitives) 也提供了一套跨平台的原始组件，它可以抽象目标平台的实现细节，为跨平台组件创造可行的标准。
 
-甚至 [微软](https://github.com/Microsoft) 也开始引进 [ReactXP](https://microsoft.github.io/reactxp)，这个库旨在简化跨 web 和 native 的工作流，它也有自己的[跨平台样式实现](https://microsoft.github.io/reactxp/docs/styles.html)
+甚至 [微软](https://github.com/Microsoft) 也开始推出 [ReactXP](https://microsoft.github.io/reactxp)，这个库旨在简化跨 web 和 native 的工作流，它也有自己的[跨平台样式实现](https://microsoft.github.io/reactxp/docs/styles.html)
 —
 
 
-即使你不编写 native 应用程序，也要注意一点：拥有一个真正的跨平台组件抽象使我们能够针对一组有效的、无限的环境，有时甚至是以一种你无法想象的方式实现的。
+即使你不编写 native 应用程序，也要注意一点：拥有一个真正的跨平台组件抽象，能够使我们将目标设定在那些高效的、无限可能的环境中去，有时这些会让你无法想象。
 
 我所见过的最令人震惊的例子是 [Airbnb](https://github.com/airbnb) 的 [Jon Gold](https://twitter.com/jongold) 开发的 [react-sketchapp](http://airbnb.io/react-sketchapp)。
 
@@ -504,22 +504,21 @@ module: {
 
 不用多说，这很可能改变设计师和开发人员的合作方式。现在，当我们对设计进行迭代时，无论在设计工具还是开发者工具上，我们都可以通过相同的声明引用同一个组件。
 
-通过 [Sketch 中的符号](https://www.sketchapp.com/learn/documentation/symbols)和[ React 中的组件](https://facebook.github.io/react/docs/components-and-props.html)，我们的行业已经开始从本质上趋于抽象，并且通过使用相同的工具我们可以更紧密的协作。
+通过 [Sketch 中的符号](https://www.sketchapp.com/learn/documentation/symbols)和 [React 中的组件](https://facebook.github.io/react/docs/components-and-props.html)，我们的行业已经开始从本质上趋于抽象，并且通过使用相同的工具我们可以更紧密的协作。
 
 这么多新的尝试都来自 React 和其周边的社区，看来这并不是巧合。
 
-在组件架构中，最重要的是将组件的功能集中在一起。这自然包括它的局部样式，往更复杂的方向延伸就涉及到数据的获取。这里要感谢 [Relay](https://facebook.github.io/relay) 和 [Apollo](http://dev.apollodata.com)，虽然我们只了解了皮毛，但是他们帮我们解决了很多复杂的问题。
+在组件架构中，最重要的是将组件的功能集中在一起。这自然包括它的局部样式，往更复杂的方向延伸就涉及到数据的获取。这里要感谢 [Relay](https://facebook.github.io/relay) 和 [Apollo](http://dev.apollodata.com)，让这个过程变得简单。这些成果解锁了巨大了潜力，我们现在所了解的，只是其中冰山一角。
 
 虽然这对我们编写样式产生了很大的影响，但其实它对我们架构里的一切都有很大的影响，当然，是出于好的理由。
 
-通过使用单一语言围绕组件构建我们的模型，我们就可以通过功能而不是技术进行更好的分离。将组件的所有内容局部化，用他们构建大型可维护的系统，用之前无法使用的方式进行优化，更容易的分享我们的工作，以及利用小型开源模块构建大型应用程序。更重要的是，完成这一切并不需要打破渐进增强的理念，也不会让我们放弃认真对待 web 平台的理念。
+通过统一单一语言开发组件的模式，我们能够从功能上，而不是从技术上，将我们的关注点进行更好的隔离。将组件的所有内容局部化，用他们构建大型可维护的系统，用之前无法使用的方式进行优化，更容易的分享我们的工作，以及利用小型开源模块构建大型应用程序。更重要的是，完成这一切并不需要打破渐进增强的理念，也不会让我们放弃认真对待 web 平台的理念。
 
 最重要的是，我对使用单一语言编写出的组件的潜力感到兴奋，他们形成了一种新的，统一的样式语言基础，以一种前所未有的方式统一了前端社区。
 
 在 SEEK，我们正在努力利用这一功能，我们围绕组件模型来构建在线样式指南，其中语义化，交互性和视觉风格都有统一的抽象。这构成了开发人员和设计师之间共享的通用设计语言。
 
-
-构建一个页面应该尽可能的和拼装组件一样简单，这样可以确保我们工作的品牌性，并且在运用到生成环境很久以后也可以升级我们的设计语言。
+构建一个页面应该尽可能的和拼装组件一样简单，这样可以确保我们工作的高品质，并且让我们在产品上线很久以后，也有能力去升级其设计语言。
 
 ```
 import {
@@ -537,24 +536,24 @@ const App = () => (
 ```
 
 
-尽管我们现在使用 React，webpack 和 CSS 模块构建了这个样式指南，并且这个架构反映了任何你之前见到的使用了 CSS-in-JS 技术的系统。但是只要理念是一致的，技术选型也可以不同。
+尽管我们现在使用 React，webpack 和 CSS 模块构建了这个样式指南，但是这个架构，和任何你之前知道的 CSS-in-JS 系统是一致的。技术上可能不一致，但是核心理念是一样的。
 
-然而，未来这些技术选型可能也需要以一种意想不到的方式进行转变，这也就是为什么要关注这个领域的原因，他们对我们组件生态系统的持续发展是至关重要的。我们现在可能不会用 CSS-in-JS 这项技术，但是很可能没过多久就会出现一个令人信服的理由让我们使用它。
+然而，未来这些技术选型可能也需要以一种意想不到的方式进行转变，这也就是为什么保持对这个领域的持续关注，对与我们不断发展的组件生态是如此的重要。我们现在可能不会用 CSS-in-JS 这项技术，但是很可能没过多久就会出现一个令人信服的理由让我们使用它。
 
-在这段时间里，CSS-in-JS 已经给我们带来了很多惊喜，但更重要的是，它只是这个宏伟蓝图的开始。
+CSS-in-JS 在短时间里有了出人意料的发展，但更重要的是，它只是这个宏伟蓝图的开始。
 
 它还有很大的改进空间，并且它的创新还没有停止的迹象。新的库正不断涌现，它们解决了未来会出现的问题并且提升了开发人员的体验 —— 比如性能的提升，在构建时抽取静态 CSS，支持 CSS 变量以及降低了前端开发人员的入门门槛。
 
 这也是 CSS 社区关注的地方。尽管这些对我们的工作流程有很大的改动，**但是他们不会改变你仍然需要学习 CSS 的事实**。
 
-我们可能使用不同的语法，也可能以不同的方式构建我们的应用，但是 CSS 的基本构建块不会消失。同样，我们行业向组件架构的转变是不可避免的，通过这种方式重新设计前端的意愿只会越来越强烈。我们非常需要共同合作以确保我们的解决方案广泛适用于各种背景的开发人员，无论是专注于设计的还是工程的。
+我们可能使用不同的语法，也可能以不同的方式构建我们的应用，但是 CSS 的基本构建块不会消失。同样，我们行业向组件架构的转变是不可避免的，通过这种方式重新构想前端的意愿只会越来越强烈。我们非常需要共同合作以确保我们的解决方案广泛适用于各种背景的开发人员，无论是专注于设计的还是工程的。
 
 虽然有时我们的观点不一致，但是 CSS 和 JS 社区对于改进前端，认真对待 Web 平台以及改进我们下一代 web 开发流程都有很大的激情。社区的潜力是巨大的，而且尽管到目前为止我们已经解决了大量的问题，仍然有很多工作还没有完成。
 
 
-你可能不太相信这个观点，但是如今它是完全成立的。虽然现在在工作上使用 CSS-in-JS 不是很合适，但我希望它有正确的原因，而不是仅仅因为语法就反对它。
+到这里，可能你还是没有被说服，但是完全没关系。虽然现在在工作上使用 CSS-in-JS 不是很合适，但我希望它有合适的原因，而不是仅仅因为语法就反对它。
 
-无论如何，未来几年这种编写样式的风格可能会越来越流行，并且值得关注的是它发展的非常快。我衷心希望你可以加入我们，无论是通过贡献代码还是**简单的参与我们的对话讨论**，都能让下一代 CSS 工具尽可能的提高前端开发人员的工作效率。
+无论如何，未来几年这种编写样式的风格可能会越来越流行，并且值得关注的是它发展的非常快。我衷心希望你可以加入我们，无论是通过贡献代码还是**简单的参与我们的对话讨论**，都能让下一代 CSS 工具尽可能的提高前端开发人员的工作效率。或者，我希望已经让你们至少了解为什么人们对这一块如此饱含激情，或者，至少了解为什么这不是一个愚蠢的点子。
 
 
 这篇文章是我在德国柏林参加 CSSconf EU 2017 做相同主题演讲时撰写的，并且现在可以在 [YouTube](https://www.youtube.com/watch?v=X_uTCnaRe94) 上看到相关视频。
