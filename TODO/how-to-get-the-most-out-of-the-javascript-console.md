@@ -2,7 +2,7 @@
 > * 原文作者：[Darryl Pargeter](https://medium.freecodecamp.com/@darrylpargeter)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[sunui](https://github.com/sunui)
-> * 校对者：
+> * 校对者：[reid3290](https://github.com/reid3290)、[Aladdin-ADD](https://github.com/Aladdin-ADD)
 
 ---
 
@@ -20,14 +20,14 @@ JavaScript 中最基本的调试工具之一就是 `console.log()`。`console` �
 
 ### Console 对象
 
-`console` 对象允许您访问浏览器的控制台。它允许你输出有助于调试代码的字符串、数组和对象。`console` 是 `window` 对象的一部分，由[浏览器对象模型(BOM)](https://www.w3schools.com/js/js_window.asp)提供。
+`console` 对象允许您访问浏览器的控制台。它允许你输出有助于调试代码的字符串、数组和对象。`console` 是 `window` 对象的属性，由[浏览器对象模型(BOM)](https://www.w3schools.com/js/js_window.asp)提供。
 
 我们可以通过这两种方法之一访问 `console`：
 
 1. `window.console.log('This works')`
 2. `console.log('So does this')`
 
-第二个选项基本上是对前者的引用，所以我们使用后者以精简代码。
+第二个选项本质上是对前者的引用，所以我们使用后者以精简代码。
 
 关于 BOM 的快速提示：它没有设定标准，所以每家浏览器都以稍微不同的方式实现。我在 Chrome 和 Firefox 测试了所有示例，但你的输出可能有所不同，这取决于你使用的浏览器。
 
@@ -55,9 +55,9 @@ JavaScript 中最基本的调试工具之一就是 `console.log()`。`console` �
 
 输出东西太多将变得难以阅读
 
-你可能注意到了 error 日志消息 —— 它比其他消息更显眼。它显示着红色的背景和[堆栈跟踪](https://en.wikipedia.org/wiki/Stack_trace)，而 `info` 和 `warn` 就不会。尽管在 Chrome 中 `warn` 确实有一个黄色的背景。
+你可能注意到了 error 日志消息 —— 它比其他消息更显眼。它显示着红色的背景和[堆栈跟踪](https://en.wikipedia.org/wiki/Stack_trace)，而 `info` 和 `warn` 就不会。但是在 Chrome 中 `warn` 确实有一个黄色的背景。
 
-视觉上的区分有助于你在控制台快速浏览辨别出错误或警告信息。你将想要确保在准备生产的应用中移除它们，除非你打算让它们来警示其他操作你的代码的开发者。
+视觉上的区分有助于你在控制台快速浏览辨别出错误或警告信息。你应该确保在准备生产的应用中移除它们，除非你打算让它们来警示其他操作你的代码的开发者。
 
 ### 字符串替换
 
@@ -151,11 +151,11 @@ JavaScript 中最基本的调试工具之一就是 `console.log()`。`console` �
     console.error('%c /dancing/bats failed!', failure);
     console.log('/dancing/bats Does not exist');
 
-在字符串替换中使用 `%c` 占位符有应用你的样式规则。
+在字符串替换中使用 `%c` 占位符来应用你的样式规则。
 
     console.error('%c /dancing/bats failed!', failure);
 
-然后把你的 CSS 元素作为参素，你就能看到应用 CSS 的日志了。 你也可以给你的字符串添加多个 `%c`。
+然后把你的 CSS 元素作为参数，你就能看到应用 CSS 的日志了。 你也可以给你的字符串添加多个 `%c`。
 
     console.log('%cred %cblue %cwhite','color:red;','color:blue;', 'color: white;')
 
@@ -189,7 +189,7 @@ JavaScript 中最基本的调试工具之一就是 `console.log()`。`console` �
 
 ![](https://cdn-images-1.medium.com/max/800/1*4Zj5EuPTHcQH5-K0NWHb7g.png)
 
-Chrome 会显示不同的目录
+Chrome 会显示不同的层级
 最终，`dir` 仅仅能节省一两次点击，如果你需要检查一个 API 响应返回的对象，你可以用它结构化地显示出来以节约一些时间。
 
 #### Table()
@@ -274,7 +274,7 @@ Chrome 显示成对象的风格：
 
 ### 结论  
 
-我们已经更深入的了解了 console 对象以及其中附带的其他一些方法。当我们需要调试代码时，这些方法是可用的好工具。
+我们已经更深入地了解了 console 对象以及其中附带的其他一些方法。当我们需要调试代码时，这些方法是可用的好工具。
 
 仍然有几种方法我没有谈论，因为他们的 API 依然在变动。具体可以阅读 [MDN Web API](https://developer.mozilla.org/en/docs/Web/API/console) 和 [WHATWG 规范](https://console.spec.whatwg.org/)。
 
