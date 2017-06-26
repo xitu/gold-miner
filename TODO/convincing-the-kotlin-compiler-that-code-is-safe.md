@@ -128,7 +128,7 @@ Kotlin的标准库中内置很多不错的函数正好能解决我们的问题�
 5. 集合变形
 
 （我这么写并不意味着这就是所有的策略；不同情况可能有其它选择）
-Often times it depends on context for which strategy is best. In this case, the clear winner is `groupingBy().eachCount()`. It's succinct, efficient, easy-to-understand, and completely sidesteps any null checking whatsoever.
+
 一般要通过联系代码所在的环境来判断哪个策略最适合。在我们的例子中，`groupingBy().eachCount()`肯定最好。它简洁，有效，不难理解，而且完全避免了空值检查。
 
 ---
