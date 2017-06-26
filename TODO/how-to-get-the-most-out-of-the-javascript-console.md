@@ -1,109 +1,110 @@
 > * 原文地址：[How to get the most out of the JavaScript console](https://medium.freecodecamp.com/how-to-get-the-most-out-of-the-javascript-console-b57ca9db3e6d)
 > * 原文作者：[Darryl Pargeter](https://medium.freecodecamp.com/@darrylpargeter)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
-> * 校对者：
+> * 译者：[sunui](https://github.com/sunui)
+> * 校对者：[reid3290](https://github.com/reid3290)、[Aladdin-ADD](https://github.com/Aladdin-ADD)
 
 ---
 
-# How to get the most out of the JavaScript console
+# 如何充分利用 JavaScript 控制台
 
 ![](https://cdn-images-1.medium.com/max/2000/1*mM2AMk0TRENA2zF2RMEebA.jpeg)
 
-One of the most basic debugging tools in JavaScript is `console.log()`. The `console` comes with several other useful methods that can add to a developer’s debugging toolkit.
+JavaScript 中最基本的调试工具之一就是 `console.log()`。`console` 还附带了一些其他好用的方法，可以添加到开发人员的调试工具包中。
 
-You can use the `console` to perform some of the following tasks:
+你可以使用 `console` 执行以下任务：
 
-- Output a timer to help with simple benchmarking
-- Output a table to display an array or object in an easy-to-read format
-- Apply color and other styling options to the output with CSS
+- 输出一个计时器来协助进行简单的基准测试
+- 输出一个表格来以易读的格式显示一个数组或对象
+- 使用 CSS 将颜色和其他样式选项应用于输出
 
-### The Console Object
+### Console 对象
 
-The `console` object gives you access to the browser’s console. It lets you output strings, arrays, and objects that help debug your code. The `console` is part of the `window` object, and is supplied by the [Browser Object Model (BOM)](https://www.w3schools.com/js/js_window.asp).
+`console` 对象允许您访问浏览器的控制台。它允许你输出有助于调试代码的字符串、数组和对象。`console` 是 `window` 对象的属性，由[浏览器对象模型(BOM)](https://www.w3schools.com/js/js_window.asp)提供。
 
-We can get access to the `console` in one of two ways:
+我们可以通过这两种方法之一访问 `console`：
 
 1. `window.console.log('This works')`
 2. `console.log('So does this')`
 
-The second option is basically a reference to the former, so we’ll use the latter to save keystrokes.
+第二个选项本质上是对前者的引用，所以我们使用后者以精简代码。
 
-One quick note about the BOM: it does not have a set standard, so each browser implements it in slightly different ways. I tested all of my examples in both Chrome and Firefox, but your output may appear differently depending on your browser.
+关于 BOM 的快速提示：它没有设定标准，所以每家浏览器都以稍微不同的方式实现。我在 Chrome 和 Firefox 测试了所有示例，但你的输出可能有所不同，这取决于你使用的浏览器。
 
-### Outputting text
+### 输出文本
 
 ![](https://cdn-images-1.medium.com/max/800/1*eEnUT7quS8oCeOsoGn1Kxw.png)
 
-Logging text to the console
-The most common element of the `console` object is `console.log`. For most scenarios, you’ll use it to get the job done.
+将文本记录到控制台
+`console` 对象最常见的元素是 `console.log`，对于大多数情况，使用它就可以完成任务。
 
-There are four different ways of outputting a message to the console:
+输出信息到控制台的四种方式：
 
 1. `log`
 2. `info`
 3. `warn`
 4. `error`
 
-All four work the same way. All you do is pass one or more arguments to the selected method. It then displays a different icon to indicate its logging level. In the examples below, you can see the difference between an info-level log and a warning/error-level log.
+他们四个工作方式相同。你唯一要做的是给选择的方法传递一个或更多的参数。控制台会显示不同的图标来指示其记录级别。下面的例子中你可以看到 info 级别的记录和 warning/error 级别的不同之处。
 
 ![](https://cdn-images-1.medium.com/max/800/1*AKbeddGNDqLYaJOMQlrrMw.png)
 
-Simple and easy to read output
+简单易读的输出
 
 ![](https://cdn-images-1.medium.com/max/800/1*3yKUiYLyju8f9gE71w1Sxw.png)
 
-With many things going on this can become hard to read
-You may have noticed the error log message - it’s more showy than the others. It displays both a red background and a [stack trace](https://en.wikipedia.org/wiki/Stack_trace), where `info` and `warn `do not. Though `warn` does have a yellow background in Chrome.
+输出东西太多将变得难以阅读
 
-These visual differences help when you need to identify any errors or warnings in the console at a quick glance. You would want to make sure that they are removed for production-ready apps, unless they are there to warn other developers that they are doing something wrong with your code.
+你可能注意到了 error 日志消息 —— 它比其他消息更显眼。它显示着红色的背景和[堆栈跟踪](https://en.wikipedia.org/wiki/Stack_trace)，而 `info` 和 `warn` 就不会。但是在 Chrome 中 `warn` 确实有一个黄色的背景。
 
-### String Substitutions
+视觉上的区分有助于你在控制台快速浏览辨别出错误或警告信息。你应该确保在准备生产的应用中移除它们，除非你打算让它们来警示其他操作你的代码的开发者。
 
-This technique uses a placeholder in a string that is replaced by the other argument(s) you pass to the method. For example:
+### 字符串替换
 
-**Input**: `console.log('string %s', 'substitutions')`
+这个技术可以使用字符串中的占位符来替换你向方法中传入的其他参数。
 
-**Output**: `string substitutions`
+**输入**： `console.log('string %s', 'substitutions')`
 
-The `%s` is the placeholder for the second argument `'substitutions'` that comes after the comma. Any strings, integers, or arrays will be converted to a string and will replace the `%s`. If you pass an object, it will display `[object Object]`.
+**输出**： `string substitutions`
 
-If you want to pass an object, you need to use `%o` or `%O` instead of `%s`.
+`%s` 是逗号后面第二个参数 `'substitutions'` 的占位符。任何的字符串、整数或数组都将被转换成字符串并替换 `%s`。如果你传入一个对象，它将显示为 `[object Object]`。
+
+如果你想传入对象，你需要使用 `%o` 或者 `%O`，而不是 `%s`。
 
 `console.log('this is an object %o', { obj: { obj2: 'hello' }})`
 
 ![](https://cdn-images-1.medium.com/max/800/1*WhqTGnch8S2kAIQYxXOLhw.png)
 
-#### Numbers
+#### 数字
 
-String substitution can be used with integers and floating-point values by using:
+字符串替换可以与整数和浮点数一起使用：
 
-- `%i` or `%d` for integers,
-- `%f` for floating-points.
+- 整数使用 `%i` 或 `%d`,
+- 浮点数使用 `%f`。
 
-**Input**: `console.log('int: %d, floating-point: %f', 1, 1.5)`
+**输入**： `console.log('int: %d, floating-point: %f', 1, 1.5)`
 
-**Output**: `int: 1, floating-point: 1.500000`
+**输出**：`int: 1, floating-point: 1.500000`
 
-Floats can be formatted to display only one digit after the decimal point by using `%.1f`. You can do `%.nf` to display n amount of digits after the decimal.
+可以使用 `%.1f` 来格式化浮点数，使小数点后仅显示一位小数。你可以用 `%.nf` 来显示小数点后 n 位小数。
 
-If we formatted the above example to display one digit after the decimal point for the floating-point number, it would look like this:
+如果我们使用上述例子显示小数点后一位小数来格式化浮点数值，它看起来这样：
 
-**Input**: `console.log('int: %d, floating-point: %.1f', 1, 1.5)`
+**输入**： `console.log('int: %d, floating-point: %.1f', 1, 1.5)`
 
-**Output**:`int: 1, floating-point: 1.5`
+**输出**： `int: 1, floating-point: 1.5`
 
-#### Formatting specifiers
+#### 格式化说明符
 
-1. `%s` | replaces an element with a string
-2. `%(d|i)`| replaces an element with an integer
-3. `%f `| replaces an element with a float
-4. `%(o|O)` | element is displayed as an object.
-5. `%c` | Applies the provided CSS
+1. `%s` | 使用字符串替换元素
+2. `%(d|i)`| 使用整数替换元素
+3. `%f `| 使用浮点数替换元素
+4. `%(o|O)` | 元素显示为一个对象
+5. `%c` | 应用提供的 CSS
 
-#### String Templates
+#### 字符串模板
 
-With the advent of ES6, template literals are an alternative to substitutions or concatenation. They use backticks (``) instead of quotation marks, and variables go inside `${}`:
+随着 ES6 的出现，模板字符串是替换或连接的替代品。他们使用反引号(\`\`)来代替引号，变量包裹在 `${}` 中：
 
     const a = 'substitutions';
 
@@ -111,21 +112,22 @@ With the advent of ES6, template literals are an alternative to substitutions or
 
     // bear: substitutions
 
-Objects display as `[object Object]` in template literals, so you’ll need to use substitution with `%o` or `%O` to see the details, or log it separately by itself.
+对象在模板字符串中显示为 `[object Object]`，所以你将需要使用 `%o` 或 `%O` 替换以看到详情，或单独记录。
 
-Using substitutions or templates creates code that’s easier to read compared to using string concatenation: `console.log('hello' + str + '!');`.
+比起使用字符串连接：`console.log('hello' + str + '!');`，使用替换或模板可以创建更易读的代码。
 
-#### Pretty color interlude!
+#### 美妙的彩色插曲！
 
-Now it is time for something a bit more fun and colorful!
+现在，是时候来点更有趣而多彩的东西了！
 
-It is time to make our `console` pop with different colors with string substitutions.
+是时候用字符串替换让我们的 `console` 弹出丰富多彩的颜色了。
 
-I will be using a mocked Ajax example that give us both a success (in green) and failure (in red) to display. Here’s the output and code:
+我将使用一个模仿 Ajax 的例子，给我们显示一个请求成功（用绿色）和失败（用红色）。这是输出和代码：
 
 ![](https://cdn-images-1.medium.com/max/800/1*BRAhnRn9GpZgrUf_SQfi3A.png)
 
-Successful bears and failing bats
+成功的小熊和失败的蝙蝠
+
     const success = [
      'background: green',
      'color: white',
@@ -149,25 +151,25 @@ Successful bears and failing bats
     console.error('%c /dancing/bats failed!', failure);
     console.log('/dancing/bats Does not exist');
 
-You apply CSS rules in the string substitution with the `%c` placeholder.
+在字符串替换中使用 `%c` 占位符来应用你的样式规则。
 
     console.error('%c /dancing/bats failed!', failure);
 
-Then place your CSS elements as a string argument and you can have CSS-styled logs. You can add more than one `%c` into the string as well.
+然后把你的 CSS 元素作为参数，你就能看到应用 CSS 的日志了。 你也可以给你的字符串添加多个 `%c`。
 
     console.log('%cred %cblue %cwhite','color:red;','color:blue;', 'color: white;')
 
-This will output the words ‘red’, ‘blue’ and ‘white’ in their respected colors.
+这将按照他们的代表的颜色输出字符 “red”、“blue” 和 “white”。
 
-There are quite a few CSS properties supported by the console. I would recommend experimenting to see what works and what doesn’t. Again, your results may vary depending on your browser.
+控制台仅仅支持少数 CSS 属性，建议你试验一下哪些支持哪些不支持。重申一下，你的输出结果可能因你的浏览器而异。
 
-### Other available methods
+### 其他可用的方法
 
-Here are a few other available `console` methods. Note that some items below have not had their APIs standardized, so there may be incompatibilities between the browsers. The examples were created with Firefox 51.0.1.
+还有几个其他可用的 `console` 方法。注意下面有几项还不是 API 标准，所以可能浏览器间互不兼容。这个例子使用的是 Firefox 51.0.1。
 
 #### Assert()
 
-`Assert` takes two arguments — if the first argument evaluates to a falsy value, then it displays the second argument.
+`Assert` 携带两个参数 —— 如果第一个参数计算为 false，那么它将显示第二个参数。
 
     let isTrue = false;
 
@@ -177,29 +179,30 @@ Here are a few other available `console` methods. Note that some items below hav
 
     console.assert(isTrue, 'This will not');
 
-If the assertion is false, it outputs to the console. It’s displayed as an error-level log as mentioned above, giving you both a red error message and a stack trace.
+如果断言为 false，控制台将输出内容。它显示为一个上文提到的 error 级别的日志，给你显示一个红色的错误消息和堆栈跟踪。
 
 #### Dir()
 
-The `dir` method displays an interactive list of the object passed to it.
+`dir` 方法显示一个传入对象的可交互属性列表。
 
     console.dir(document.body);
 
 ![](https://cdn-images-1.medium.com/max/800/1*4Zj5EuPTHcQH5-K0NWHb7g.png)
 
-Chrome displays dir differently
-Ultimately, `dir` only saves one or two clicks. If you need to inspect an object from an API response, then displaying it in this structured way can save you some time.
+Chrome 会显示不同的层级
+最终，`dir` 仅仅能节省一两次点击，如果你需要检查一个 API 响应返回的对象，你可以用它结构化地显示出来以节约一些时间。
 
 #### Table()
 
-The `table` method displays an array or object as a table.
+`table` 方法用一个表格显示数组或对象
 
     console.table(['Javascript', 'PHP', 'Perl', 'C++']);
 
 ![](https://cdn-images-1.medium.com/max/800/1*nza7ZWxYG-_X47VJ54FtZg.png)
 
-Output for an array
-The array’s indices or object property names come under the left-hand index column. Then the values are displayed in the right-hand column.
+输出数组
+
+数组的索引或对象的属性名位于左侧的索引栏，值显示在右侧列栏。
 
     const superhero = {
         firstname: 'Peter',
@@ -209,9 +212,9 @@ The array’s indices or object property names come under the left-hand index co
 
 ![](https://cdn-images-1.medium.com/max/800/1*BXhY3PzulYFzzcW-Qwga8Q.png)
 
-Output for an object
+输出对象
 
-**Note for Chrome users:** This was brought to my attention by a co-worker but the above examples of the `table` method don’t seem to work in Chrome. You can work around this issue by placing any items into an array of arrays or an array of objects:
+**Chrome 用户需要注意：** 这是我的同事提醒我的，上述 `table` 方法的例子在 Chrome 中貌似不能工作。你可以通过将项目放入数组或对象数组中来解决此问题。
 
     console.table([['Javascript', 'PHP', 'Perl', 'C++']]);
 
@@ -223,9 +226,9 @@ Output for an object
 
 #### Group()
 
-`console.group()` is made up of at least a minimum of three `console` calls, and is probably the method that requires the most typing to use. But it’s also one of the most useful (especially for developers using [Redux Logger](https://github.com/evgenyrodionov/redux-logger)).
+`console.group()` 由至少三个 `console` 调用组成，它可能是使用时需要打最多字的方法。但它也是最有用的方法之一（特别对使用 [Redux Logger](https://github.com/evgenyrodionov/redux-logger) 的开发者）。
 
-A somewhat basic call looks like this:
+稍基础的调用看起来是这样的：
 
     console.group();
     console.log('I will output');
@@ -235,45 +238,45 @@ A somewhat basic call looks like this:
     console.log('ohh look a bear');
     console.groupEnd();
 
-This will output multiple levels and will display differently depending on your browser.
+这将输出多个层级，显示效果因你的显示器而异。
 
-Firefox shows an indented list:
+Firefox 显示成缩进列表：
 
 ![](https://cdn-images-1.medium.com/max/800/1*xFU0AtDqgwLJVUwE4Yo9_w.png)
 
-Chrome shows them in the style of an object:
+Chrome 显示成对象的风格：
 
 ![](https://cdn-images-1.medium.com/max/800/1*9hJkBrf4uEXaC1PYe8bomQ.png)
 
-Each call to `console.group()` will start a new group, or create a new level if it’s called inside a group. Each time you call `console.groupEnd()` it will end the current group or level and move back up one level.
+每次调用 `console.group()` 都将开启一个新的组，如果在一个组内会创建一个新的层级。每次调用 `console.groupEnd()` 都会结束当前组或层级并向上移动一个层级。
 
-I find the Chrome output style is easier to read since it looks more like a collapsible object.
+我发现 Chrome 的输出样式更易读，因为它看起来像一个可折叠的对象。
 
-You can pass `group` a header argument that will be displayed over `console.group`:
+你可以给 `group` 传入一个 header 参数，它将被显示并替代 `console.group`：
 
     console.group('Header');
 
-You can display the group as collapsed from the outset if you call `console.groupCollapsed()`. Based on my experience, this seems to work only in Chrome.
+如果你调用 `console.groupCollapsed()`，你可以从一开始就将这个组显示为折叠。据我所知，这个方法可能只有 Chrome 支持。
 
 #### Time()
 
-The `time` method, like the `group` method above, comes in two parts.
+`time` 方法和上文的 `group` 方法类似，由两部分组成。
 
-A method to start the timer and a method to end it.
+一个用于启动计时器的方法和一个停止它的方法。
 
-Once the timer has finished, it will output the total runtime in milliseconds.
+一旦计时器完成，它将以毫秒为单位输出总运行时间。
 
-To start the timer, you use `console.time('id for timer')` and to end the timer you use `console.timeEnd('id for timer')` . You can have up to 10,000 timers running simultaneously.
+启动计时器使用 `console.time('id for timer')`，结束计时器使用 `console.timeEnd('id for timer')`。您可以同时运行多达 10,000 个定时器。
 
-The output will look a bit like this `timer: 0.57ms`
+输出结果可能有点像这样： `timer: 0.57ms`。
 
-It is very useful when you need to do a quick bit of benchmarking.
+当你需要做一个快速的基准测试时，它非常有用。
 
-### Conclusion
+### 结论  
 
-There we have it, a bit of a deeper look into the console object and some of the other methods that come with it. These methods are great tools to have available when you need to debug code.
+我们已经更深入地了解了 console 对象以及其中附带的其他一些方法。当我们需要调试代码时，这些方法是可用的好工具。
 
-There are a couple of methods that I have not talked about as their API is still changing. You can read more about them or the console in general on the [MDN Web API page](https://developer.mozilla.org/en/docs/Web/API/console) and its [living spec page](https://console.spec.whatwg.org/).
+仍然有几种方法我没有谈论，因为他们的 API 依然在变动。具体可以阅读 [MDN Web API](https://developer.mozilla.org/en/docs/Web/API/console) 和 [WHATWG 规范](https://console.spec.whatwg.org/)。
 
 ![](https://cdn-images-1.medium.com/max/800/1*0SNCJfem2WVKSJIDzConxg.png)
 
