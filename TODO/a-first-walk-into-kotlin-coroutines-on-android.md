@@ -192,8 +192,6 @@ UI参数是 `async` 块的执行上下文。
 
 关于如何充分利用协程还有很多需要学习。如果你有更多相关的经验，请评论以让我们更加了解协程。
 
-And if you are just starting with Kotlin, you can take a look at [my blog](https://antonioleiva.com/kotlin), [the book](https://antonioleiva.com/book), or follow me on [Twitter](https://twitter.com/lime_cl), [LinkedIn](https://www.linkedin.com/in/antoniolg/) or [Github](https://github.com/antoniolg/).
-
 如果你刚刚开始学习 Kotlin ，你可以看看[我的博客](https://antonioleiva.com/kotlin)，[这本书](https://antonioleiva.com/book)，或者关注我的 [Twitter](https://twitter.com/lime_cl)， [LinkedIn](https://www.linkedin.com/in/antoniolg/) 或者 [Github](https://github.com/antoniolg/) 。
 
 ---
