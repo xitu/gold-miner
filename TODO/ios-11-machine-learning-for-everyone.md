@@ -2,7 +2,7 @@
 > * 原文作者：[Matthijs Hollemans](https://twitter.com/mhollemans)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[Changkun Ou](https://github.com/changkun/)
-> * 校对者：[wilsonandusa](https://github.com/wilsonandusa)
+> * 校对者：[wilsonandusa](https://github.com/wilsonandusa) [atuooo](https://github.com/atuooo)
 
 WWDC 2017 使一件事情变得非常清楚，那就是：Apple 正在全力以赴地支持「**设备上的机器学习**」了。
 
