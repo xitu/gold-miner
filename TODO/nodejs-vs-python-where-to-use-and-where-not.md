@@ -2,7 +2,7 @@
 > * 原文作者：[Agriya](https://www.agriya.com/blog/author/ace/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[ymz1124](https://github.com/ymz1124)
-> * 校对者：
+> * 校对者：[zaraguo](https://github.com/zaraguo), [sunui](https://github.com/sunui)
 
 # Node.js 和 Python 对比 —— 哪里使用 Node.js 哪里使用 Python ？
 
