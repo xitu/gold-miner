@@ -1,5 +1,5 @@
 > * 原文地址：[A Unified Styling Language](https://medium.com/seek-blog/a-unified-styling-language-d0c208de2660)
-> * 原文作者：[Mark Dalgleish](https://medium.com/@markdalgleish)
+> * 原文作者：本文已获原作者 [Mark Dalgleish](https://medium.com/@markdalgleish) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[ZhangFe](https://github.com/ZhangFe)
 > * 校对者：[JackGit](https://github.com/JackGit),[yifili09](https://github.com/yifili09)
