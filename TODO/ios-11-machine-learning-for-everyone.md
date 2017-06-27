@@ -8,7 +8,7 @@ WWDC 2017 使一件事情变得非常清楚，那就是：Apple 正在全力以�
 
 他们希望 App 的开发者们能够尽可能的简单的加入他们的行列中。
 
-Apple 去年发布了可以用于创建基本的卷积神经网的 Metal CNN 和 BNNS 框架。今年，Metal 得到了进一步扩展，增加了一个全新的计算机视觉框架，以及 **Core ML**：一个能够轻松简易在 App 中集成机器学习的工具包。
+Apple 去年发布了可以用于创建基本的卷积神经网的 Metal CNN 和 BNNS 框架。今年，Metal 得到了进一步扩展，增加了一个全新的计算机视觉框架，以及 **Core ML**：一个能够轻松地将机器学习集成到 App 中的工具包。
 
 [![Core ML framework](http://machinethink.net/images/ios11/CoreML.png)](http://machinethink.net/images/ios11/CoreML.png)
 
@@ -22,7 +22,7 @@ Core ML 的 API 非常简单。你只能用它做这些事情：
 
 1. 加载一个训练好的模型
 2. 做出预测
-3. 营利！！！
+3. 收益！！！
 
 这看起来好像很有限，但实际上你一般只会在 App 中加载模型和做出预测这两件事。
 
@@ -103,7 +103,7 @@ Apple 提供了很多已经训练好的模型[可供下载](http://developer.app
 
 最初这个模型是[用 Caffe 训练](https://github.com/shicai/MobileNet-Caffe)得出的。我花了一点时间来搞清楚如何将它转换到一个 mlmodel 文件，但是一旦我有了这个转换好的模型，便很容易集成到 App 中了（[转换脚本](https://github.com/hollance/MobileNet-CoreML/blob/master/Convert/coreml.py)包含在 GitHub 中）。
 
-这个 App 很无聊 —— 它只输出了一张静态图片的前五个预测值 —— 但却展示了使用 Core ML 是多么的简单。几行代码就够了。
+虽然这个 App 不是很有趣 —— 它只输出了一张静态图片的前五个预测值 —— 但却展示了使用 Core ML 是多么的简单。几行代码就够了。
 
 **注意:** 示例程序在模拟器上工作正常，但是设备上运行就会崩溃。继续阅读来看看为什么会发生这种情况 ;-)
 
@@ -111,9 +111,9 @@ Apple 提供了很多已经训练好的模型[可供下载](http://developer.app
 
 例如，MobileNet Caffe 模型使用了批量归一化（Batch Normalization）层，我验证了这些转换也存在于 **mlmodel** 文件中。但是在编译的 mlmodelc 中，这些批量归一化 layer 似乎就被移除了。这是个好消息：Core ML 优化了该模型。
 
-经管如此，他似乎可以更好的优化该模型的结构，因为 **mlmodelc** 仍然包含一些不必要的 scaling layer。
+尽管如此，它似乎可以更好的优化该模型的结构，因为 **mlmodelc** 仍然包含一些不必要的 scaling layer。
 
-当然，我们还处在 iOS 11 beta 1 的版本，Core ML 可能还会改进。也就是说，在给 Core ML 之前，还是值得对模型进一步优化的 —— 例如，[通过「folding」操作对 layer 进行批量归一化（Batch Normalization）](http://machinethink.net/blog/object-detection-with-yolo/#converting-to-metal)  —— 但这是你必须对你的特性模型进行测量和比较的东西。
+当然，我们还处在 iOS 11 beta 1 的版本，Core ML 可能还会改进。也就是说，在应用到 Core ML 之前，还是值得对模型进一步优化的 —— 例如，[通过「folding」操作对 layer 进行批量归一化（Batch Normalization）](http://machinethink.net/blog/object-detection-with-yolo/#converting-to-metal)  —— 但这是你必须对你的特性模型进行测量和比较的东西。
 
 还有其他一些你必须检查的：你的模型是否在 CPU 和 GPU 上运行相同。我提到 Core ML 将选择是否在 CPU 上运行模型（使用 Accelerate 框架）或 GPU（使用 Metal ）。事实证明，这两个实现可能会有所不同 —— 所以你两个都需要测试！
 
@@ -125,7 +125,7 @@ Apple 提供了很多已经训练好的模型[可供下载](http://developer.app
 
 ### 有多快？
 
-I haven’t been able to test the speed of Core ML, since my new 10.5” iPad Pro is not arriving until next week (he he). 我没有办法测试 Core ML 的速度，因为我的全新 10.5 寸 iPad Pro 下个星期才能到（呵呵）。
+我没有办法测试 Core ML 的速度，因为我的全新 10.5 寸 iPad Pro 下个星期才能到（呵呵）。
 
 我感兴趣的是我自己写的 [Forge 库](https://github.com/hollance/Forge)和 Core ML （考虑到我们都是一个早期的测试版）之间运行 MobileNets 之间的性能差异。
 
@@ -142,28 +142,21 @@ I haven’t been able to test the speed of Core ML, since my new 10.5” iPad Pr
 Vision 可以执行的任务有以下几种：
 
 - 在图像中寻找人脸。然后对每个脸给出一个矩形框。
-
-- 详细寻找面部特征，比如眼睛和嘴巴的位置，头部的形状等等。
-
+- 寻找面部的详细特征，比如眼睛和嘴巴的位置，头部的形状等等。
 - 寻找矩形形状的图像，比如路标。
-
 - 追踪视频中移动的对象。
-
 - 确定地平线的角度。
-
 - 转换两个图像，使其内容对齐。这对于拼接照片非常有用。
-
 - 检测包含文本的图像中的区域。
-
 - 检测和识别条形码。
 
 Core Image 和 AVFoundation 已经可以实现其中的一些任务，但现在他们都集成在一个具有一致性 API 的框架内了。
 
-如果你的应用程序需要执行这些计算机视觉任务之一，则不再需要滚动自己的实现或使用其他人的库 - 只需使用Vision 框架。你还可以将其与 Core Image 框架相结合，以获得更多的图像处理能力。
+如果你的应用程序需要执行这些计算机视觉任务之一，再也不用跑去自己实现或使用别人的库了 - 只需使用 Vision 框架。你还可以将其与 Core Image 框架相结合，以获得更多的图像处理能力。
 
-更好的是：**你可以使用 Vision 驱动 Core ML**，这允许你使用这些计算机视觉技术作为神经网络的预处理步骤。例如，你可以使用 Vision 来检测人脸的位置和大小，将视频帧裁剪到该区域，然后在面部图像的一部分上运行神经网络。
+更好的是：**你可以使用 Vision 驱动 Core ML**，这允许你使用这些计算机视觉技术作为神经网络的预处理步骤。例如，你可以使用 Vision 来检测人脸的位置和大小，将视频帧裁剪到该区域，然后在这部分的面部图像上运行神经网络。
 
-事实上，任何时候当你结合图像或者视频使用 Core ML 时，使用 Vision 都是合理的。原始的 Core ML 需要你确保输入图像是模型所期望的格式。但使用 Vision 框架就能负责调整图像大小等。这回为你节省不少力气。
+事实上，任何时候当你结合图像或者视频使用 Core ML 时，使用 Vision 都是合理的。原始的 Core ML 需要你确保输入图像是模型所期望的格式。如果使用 Vision 框架来负责调整图像大小等，这会为你节省不少力气。
 
 使用 Vision 来驱动 Core ML 的代码长这个样子：
 
@@ -196,7 +189,7 @@ try? handler.perform([faceDetectionRequest, classificationRequest])
 ```
 
 
-Vision 使计算机视觉变得非常容易使用。 但对我们机器学习人员很酷的事情是，你可以将这些计算机视觉任务的输出输入到你的Core ML模型中。 结合 Core Image 的力量，批量图像处理就跟玩儿一样！
+Vision 使计算机视觉变得非常容易使用。 但对我们机器学习人员很酷的事情是，你可以将这些计算机视觉任务的输出输入到你的 Core ML 模型中。 结合 Core Image 的力量，批量图像处理就跟玩儿一样！
 
 ## Metal Performance Shaders
 
