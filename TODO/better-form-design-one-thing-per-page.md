@@ -8,20 +8,26 @@
 
 # Better Form Design: One Thing Per Page (Case Study)
 
-## [Better Form Design: One Thing Per Page (Case Study)](https://www.smashingmagazine.com/2017/05/better-form-design-one-thing-per-page/)
-
 In 2008, I worked on *Boots.com*. They wanted a single-page checkout with the trendiest of techniques from that era, including accordions, AJAX and client-side validation.
 
 Each step (delivery address, delivery options and credit-card details) had an accordion panel. Each panel was submitted via AJAX. Upon successful submission, the panel collapsed and the next one opened, with a sliding transition.
 
 It looked a little like this:
-[![](https://www.smashingmagazine.com/wp-content/uploads/2017/04/boots1-780w-opt-1.png)](https://www.smashingmagazine.com/wp-content/uploads/2017/04/boots1-large-opt-1.png)[1](#1)Boots’ single-page checkout, using an accordion panel for each step. ([View large version](https://www.smashingmagazine.com/wp-content/uploads/2017/04/boots1-large-opt-1.png)[2](#2))
+
+[![](https://www.smashingmagazine.com/wp-content/uploads/2017/04/boots1-780w-opt-1.png)](https://www.smashingmagazine.com/wp-content/uploads/2017/04/boots1-large-opt-1.png)
+
+Boots’ single-page checkout, using an accordion panel for each step. ([View large version](https://www.smashingmagazine.com/wp-content/uploads/2017/04/boots1-large-opt-1.png)
+
 Users struggled to complete their orders. Errors were hard to fix because users had to scroll up and down. And the accordion panels were painful and distracting. Inevitably, the client asked us to make changes.
 
 We redesigned it so that each panel became its own page, removing the need for accordions and AJAX. However, we kept the client-side validation to avoid an unnecessary trip to the server.
 
 It looked a little like this:
-[![](https://www.smashingmagazine.com/wp-content/uploads/2017/04/boots2-780w-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2017/04/boots2-large-opt.png)[3](#3)Boots’ checkout: Each step became its own screen. ([View large version](https://www.smashingmagazine.com/wp-content/uploads/2017/04/boots2-large-opt.png)[4](#4))
+
+[![](https://www.smashingmagazine.com/wp-content/uploads/2017/04/boots2-780w-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2017/04/boots2-large-opt.png)
+
+Boots’ checkout: Each step became its own screen. ([View large version](https://www.smashingmagazine.com/wp-content/uploads/2017/04/boots2-large-opt.png)
+
 This version converted much better. Though I can’t remember the exact numbers, I do know that the client was happy.
 
 Six years later (2014), when I was at *Just Eat*, the same thing happened. We redesigned the single-page checkout flow so that each section became its own page. This time, I made a note of the numbers.
@@ -29,17 +35,21 @@ Six years later (2014), when I was at *Just Eat*, the same thing happened. We re
 The result was an **extra 2 million orders a year**. Just to be clear, that’s orders, not revenue. The number is based on a percentage increase to conversion at checkout after releasing the new version for at least a week. The percentage was then converted to orders and multiplied by 52.
 
 Here are some of the mobile-first designs we used:
-[![](https://www.smashingmagazine.com/wp-content/uploads/2017/04/justeat-780w-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2017/04/justeat-large-opt.png)[5](#5)Just Eat’s checkout split up into pages. We also had a design that further simplified the payment page: The user would first choose “Pay with cash” or “Pay with card,” which would then go to a page with the relevant form on it. Unfortunately, we never tested it. ([View large version](https://www.smashingmagazine.com/wp-content/uploads/2017/04/justeat-large-opt.png)[6](#6))
+
+[![](https://www.smashingmagazine.com/wp-content/uploads/2017/04/justeat-780w-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2017/04/justeat-large-opt.png)
+
+Just Eat’s checkout split up into pages. We also had a design that further simplified the payment page: The user would first choose “Pay with cash” or “Pay with card,” which would then go to a page with the relevant form on it. Unfortunately, we never tested it. ([View large version](https://www.smashingmagazine.com/wp-content/uploads/2017/04/justeat-large-opt.png)
+
 A couple of years later (2016), Robin Whittleton of GDS told me that putting each thing on a page of its own was a design pattern in its own right, known as “One Thing Per Page.” Apart from the resulting numbers, there is a strong rationale behind the pattern, which we’ll get to shortly.
 
 Before we do that, though, let’s take a look at exactly what this pattern is.
 
 #### Further Reading on SmashingMag:
 
-- [How To Improve Your Billing Form’s UX In One Day](https://www.smashingmagazine.com/2017/03/improve-billing-form-ux/)[7](#7)
-- [Form Inputs: The Browser Support Issue You Didn’t Know You Had](https://www.smashingmagazine.com/2015/05/form-inputs-browser-support-issue/)[8](#8)
-- [How To Design A Better Mobile Checkout Process](https://www.smashingmagazine.com/2013/03/designing-a-better-mobile-checkout-process/)[9](#9)
-- [An Overview Of E-Commerce Platforms](https://www.smashingmagazine.com/2017/04/ultimate-guide-e-commerce-software-platforms/)[10](#10)
+- [How To Improve Your Billing Form’s UX In One Day](https://www.smashingmagazine.com/2017/03/improve-billing-form-ux/)
+- [Form Inputs: The Browser Support Issue You Didn’t Know You Had](https://www.smashingmagazine.com/2015/05/form-inputs-browser-support-issue/)
+- [How To Design A Better Mobile Checkout Process](https://www.smashingmagazine.com/2013/03/designing-a-better-mobile-checkout-process/)
+- [An Overview Of E-Commerce Platforms](https://www.smashingmagazine.com/2017/04/ultimate-guide-e-commerce-software-platforms/)
 
 ### What Does “One Thing Per Page” Mean Exactly?
 
@@ -65,13 +75,19 @@ As Ryan Holiday describes in *The Obstacle Is The Way*:
 
 > Remember the first time you saw a complicated algebra equation? It was a jumble of symbols and unknowns. But when you stopped to break it down and isolate the parts, all that was left was the answer.
 
-[![](https://www.smashingmagazine.com/wp-content/uploads/2017/04/algebra-780w-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2017/04/algebra-large-opt.png)[11](#11)An equation broken down step by step is easier to solve. ([View large version](https://www.smashingmagazine.com/wp-content/uploads/2017/04/algebra-large-opt.png)[12](#12))
+[![](https://www.smashingmagazine.com/wp-content/uploads/2017/04/algebra-780w-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2017/04/algebra-large-opt.png)
+
+An equation broken down step by step is easier to solve. ([View large version](https://www.smashingmagazine.com/wp-content/uploads/2017/04/algebra-large-opt.png)
+
 It’s the same for users trying to complete a form, or anything else for that matter. If there is less stuff on screen and only one choice to make, then friction is reduced to a minimum. Therefore, users stay on task.
 
 #### 2. Handling Errors Is Easy
 
 When users fill out a small form, errors are caught and presented early. If there’s one thing to fix, then it becomes easy to fix, which reduces the chance of users giving up.
-[![](https://www.smashingmagazine.com/wp-content/uploads/2017/04/errors-780w-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2017/04/errors-large-opt.png)[13](#13)Even with several errors, Kidly’s address form is easy to fix. ([View large version](https://www.smashingmagazine.com/wp-content/uploads/2017/04/errors-large-opt.png)[14](#14))
+
+[![](https://www.smashingmagazine.com/wp-content/uploads/2017/04/errors-780w-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2017/04/errors-large-opt.png)
+
+Even with several errors, Kidly’s address form is easy to fix. ([View large version](https://www.smashingmagazine.com/wp-content/uploads/2017/04/errors-large-opt.png)
 
 #### 3. Pages Load Faster
 
@@ -87,7 +103,7 @@ If a user submits information frequently, we can save it in a more granular fash
 
 #### 6. Scrolling Is Reduced or Eliminated
 
-Don’t get me wrong: [Scrolling isn’t a big deal](http://uxmyths.com/post/654047943/myth-people-dont-scroll)[15](#15) — users expect web pages to work that way. But if pages are small, users won’t have to scroll. And the call to action is more likely to appear above the fold, which reinforces the requirements, making it easier to proceed.
+Don’t get me wrong: [Scrolling isn’t a big deal](http://uxmyths.com/post/654047943/myth-people-dont-scroll) — users expect web pages to work that way. But if pages are small, users won’t have to scroll. And the call to action is more likely to appear above the fold, which reinforces the requirements, making it easier to proceed.
 
 #### 7. Branching Is Easier
 
@@ -95,7 +111,7 @@ Sometimes we’ll send users down a different path based on a previous answer. A
 
 One Thing Per Page makes this simple: The user makes a choice and submits, and the server works out what the user sees next — easy and inclusive by default.
 
-We could use JavaScript. But it’s more complicated to build it and ensure that the UI is accessible. When [JavaScript fails](https://kryogenix.org/code/browser/everyonehasjs.html)[16](#16), the user might suffer a broken experience. And loading the page with all of the permutations and options could add significant page weight.
+We could use JavaScript. But it’s more complicated to build it and ensure that the UI is accessible. When [JavaScript fails](https://kryogenix.org/code/browser/everyonehasjs.html), the user might suffer a broken experience. And loading the page with all of the permutations and options could add significant page weight.
 
 Alternatively, we could use AJAX, but this doesn’t free us from having to render new (parts of) screens. More crucially, it doesn’t negate the server-side roundtrip.
 
@@ -114,7 +130,11 @@ If there is less on a page, then screen readers don’t have to wade through a l
 #### 9. Amending Details Is Easier
 
 Imagine someone is about to confirm their order. Crucially, they spot a mistake with their payment details. Going back to a dedicated page is far easier than going to a section *within* a page.
-[![](https://www.smashingmagazine.com/wp-content/uploads/2017/04/kidly-780w-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2017/04/kidly-large-opt.png)[17](#17)Clicking “Edit” takes the user to the payment page, with a dedicated title and related form fields. ([View large version](https://www.smashingmagazine.com/wp-content/uploads/2017/04/kidly-large-opt.png)[18](#18))
+
+[![](https://www.smashingmagazine.com/wp-content/uploads/2017/04/kidly-780w-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2017/04/kidly-large-opt.png)
+
+Clicking “Edit” takes the user to the payment page, with a dedicated title and related form fields. ([View large version](https://www.smashingmagazine.com/wp-content/uploads/2017/04/kidly-large-opt.png)
+
 Being taken halfway down the page is disorienting. Remember that the user clicked a link to perform a particular action — having other things on the page would be distracting.
 
 It’s also potentially more work. For example, if you want to show and hide panels within the same page, you’d need extra logic to handle it.
@@ -123,7 +143,7 @@ With One Thing Per Page, these problems fade away.
 
 #### 10. Users Get Control of Their Data Allowance
 
-Users cannot half download a page. It’s all or nothing. Smaller pages save user’s data. If they want more information, they can click a link, getting the ability to **choose**. [Users don’t mind clicking](http://uxmyths.com/post/654026581/myth-all-pages-should-be-accessible-in-3-clicks)[19](#19), as long as each step brings them closer to their goal.
+Users cannot half download a page. It’s all or nothing. Smaller pages save user’s data. If they want more information, they can click a link, getting the ability to **choose**. [Users don’t mind clicking](http://uxmyths.com/post/654026581/myth-all-pages-should-be-accessible-in-3-clicks), as long as each step brings them closer to their goal.
 
 #### 11. It Solves Performance Problems
 
@@ -161,7 +181,7 @@ This reduces the design effort — which is a nice byproduct of a pattern that
 
 ### Is This Pattern Suitable In All Situations?
 
-Not always. Caroline Jarrett, who first wrote about [One Thing Per Page](https://designnotes.blog.gov.uk/2015/07/03/one-thing-per-page/)[20](#20) in 2015, makes this quite clear. She explains that user research “will quickly show you that some questions will be best grouped into a longer page.”
+Not always. Caroline Jarrett, who first wrote about [One Thing Per Page](https://designnotes.blog.gov.uk/2015/07/03/one-thing-per-page/) in 2015, makes this quite clear. She explains that user research “will quickly show you that some questions will be best grouped into a longer page.”
 
 However, conversely, she also goes onto explain that “questions that naturally ‘go together’ from the point of view of designers… don’t need to be on the same page to work for users.”
 
@@ -182,30 +202,6 @@ Having a lot (or everything) on one page might give the illusion of simplicity, 
 If we consider a task as a transaction that the user wants to complete, breaking it down into multiple steps makes sense. It’s as if we’re using the very building blocks of the web as a form of progressive disclosure. And the metaphor behind pages provides a subconscious sense of moving forward.
 
 I’ve not come across another design pattern that has as many benefits as this one. This is one of those times when simple is just that: simple.
-
-#### Footnotes
-
-1. [1 https://www.smashingmagazine.com/wp-content/uploads/2017/04/boots1-large-opt-1.png](#note-1)
-2. [2 https://www.smashingmagazine.com/wp-content/uploads/2017/04/boots1-large-opt-1.png](#note-2)
-3. [3 https://www.smashingmagazine.com/wp-content/uploads/2017/04/boots2-large-opt.png](#note-3)
-4. [4 https://www.smashingmagazine.com/wp-content/uploads/2017/04/boots2-large-opt.png](#note-4)
-5. [5 https://www.smashingmagazine.com/wp-content/uploads/2017/04/justeat-large-opt.png](#note-5)
-6. [6 https://www.smashingmagazine.com/wp-content/uploads/2017/04/justeat-large-opt.png](#note-6)
-7. [7 https://www.smashingmagazine.com/2017/03/improve-billing-form-ux/](#note-7)
-8. [8 https://www.smashingmagazine.com/2015/05/form-inputs-browser-support-issue/](#note-8)
-9. [9 https://www.smashingmagazine.com/2013/03/designing-a-better-mobile-checkout-process/](#note-9)
-10. [10 https://www.smashingmagazine.com/2017/04/ultimate-guide-e-commerce-software-platforms/](#note-10)
-11. [11 https://www.smashingmagazine.com/wp-content/uploads/2017/04/algebra-large-opt.png](#note-11)
-12. [12 https://www.smashingmagazine.com/wp-content/uploads/2017/04/algebra-large-opt.png](#note-12)
-13. [13 https://www.smashingmagazine.com/wp-content/uploads/2017/04/errors-large-opt.png](#note-13)
-14. [14 https://www.smashingmagazine.com/wp-content/uploads/2017/04/errors-large-opt.png](#note-14)
-15. [15 http://uxmyths.com/post/654047943/myth-people-dont-scroll](#note-15)
-16. [16 https://kryogenix.org/code/browser/everyonehasjs.html](#note-16)
-17. [17 https://www.smashingmagazine.com/wp-content/uploads/2017/04/kidly-large-opt.png](#note-17)
-18. [18 https://www.smashingmagazine.com/wp-content/uploads/2017/04/kidly-large-opt.png](#note-18)
-19. [19 http://uxmyths.com/post/654026581/myth-all-pages-should-be-accessible-in-3-clicks](#note-19)
-20. [20 https://designnotes.blog.gov.uk/2015/07/03/one-thing-per-page/](#note-20)
-
 
 ---
 
