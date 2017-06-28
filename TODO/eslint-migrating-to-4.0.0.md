@@ -22,7 +22,6 @@ ESLint v4.0.0 是 ESLint 第四次发布主版本，这次发布包含了一些�
 8. [现在必须包含包作用域，才能引用限定在包作用域下的插件](#scoped-plugin-resolution)
 
 
-### Breaking changes for plugin/custom rule developers
 ### ESLint 插件开发者和自定义规则开发者需要注意的重大变化
 
 1. [现在 `RuleTester` 将验证测试用例对象的属性](#rule-tester-validation)
@@ -30,7 +29,6 @@ ESLint v4.0.0 是 ESLint 第四次发布主版本，这次发布包含了一些�
 3. [在 AST 遍历期间不会触发 `LineComment` 和 `BlockComments` 事件](#)
 3. [现在 Shebang 可以通过注释 API 返回](#shebangs)
 
-### Breaking changes for integration developers
 ### 集成开发者需要注意的重大变化
 
 1. [`linter.verify()` API  不再支持 `global` 属性](#global-property)
@@ -40,7 +38,7 @@ ESLint v4.0.0 是 ESLint 第四次发布主版本，这次发布包含了一些�
 
 ---
 
-## `eslint:recommended`  新增规则
+## `eslint:recommended` 新增规则
 
 [`eslint:recommended`](http://eslint.org/docs/user-guide/configuring#using-eslintrecommended) 中新增了两条规则：
 
