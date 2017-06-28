@@ -6,30 +6,30 @@
 
 # ESLint v4.0.0 升级指南
 
-ESLint v4.0.0 是 ESLint 第四次发布主版本，这次发布包含了一些重大变化。当然，我们希望大多数改动只影响极少数用户。本文旨在帮助您了解具体有哪些更改。
+ESLint v4.0.0 是 ESLint 的第 4 个主版本。当然，我们希望大多数变更只影响极少数用户。本文旨在帮助您了解具体有哪些更改。
 
 以下列表大致按每个更改可能影响的用户数量进行排序，排序越靠前影响的用户数越多。
 
-### ESLint 使用者需要注意的重大变化
+### ESLint 使用者请注意
 
 1. [`eslint:recommended` 新增规则](#eslint-recommended-changes)
 2. [`indent` 规则将更严格](#indent-rewrite)
 3. [现在配置文件中未识别的属性会报告严重错误](#config-validation)
-4. [现在路径名模板将从 .eslintignore 文件的位置解析](#eslintignore-patterns)
+4. [忽略文件将从 .eslintignore 文件所在目录开始解析](#eslintignore-patterns)
 5. [默认情况下 `padded-blocks` 规则将更严格](#padded-blocks-defaults)
 6. [默认情况下 `space-before-function-paren` 规则将更严格](#space-before-function-paren-defaults)
 7. [默认情况下 `no-multi-spaces` 规则将更严格](#no-multi-spaces-eol-comments)
 8. [现在必须包含包作用域，才能引用限定在包作用域下的插件](#scoped-plugin-resolution)
 
 
-### ESLint 插件开发者和自定义规则开发者需要注意的重大变化
+### ESLint 插件开发者和自定义规则开发者请注意
 
 1. [现在 `RuleTester` 将验证测试用例对象的属性](#rule-tester-validation)
 2. [AST 节点不再具有注释属性](#comment-attachment)
 3. [在 AST 遍历期间不会触发 `LineComment` 和 `BlockComments` 事件](#)
-3. [现在 Shebang 可以通过注释 API 返回](#shebangs)
+4. [现在 Shebang 可以通过注释 API 返回](#shebangs)
 
-### 集成开发者需要注意的重大变化
+### 集成开发者请注意
 
 1. [`linter.verify()` API 不再支持 `global` 属性](#global-property)
 2. [现在更多报告消息具有完整的位置范围](#report-locations)
@@ -83,7 +83,7 @@ ESLint v4.0.0 是 ESLint 第四次发布主版本，这次发布包含了一些�
 
 **注：**升级后如果发现配置文件验证出错，请检查配置文件中是否存在拼写错误。如果使用了未识别的属性，那么应该将之从配置文件中移除，从而使 ESLint 恢复正常。
 
-## 现在路径名模板将从 .eslintignore 文件的位置解析
+## 忽略文件将从 .eslintignore 文件所在目录开始解析
 
 过去由于一个 bug，`.eslintignore` 文件的路径名模板是从进程的当前工作目录解析，而不是 `.eslintignore` 文件的位置。从 ESLint 4.0 开始，`.eslintignore` 文件的路径名模板将从 `.eslintignore` 文件的位置解析。
 
@@ -91,7 +91,7 @@ ESLint v4.0.0 是 ESLint 第四次发布主版本，这次发布包含了一些�
 
 ##  默认情况下 `padded-blocks` 规则将更严格
 
-现在默认情况下， [`padded-blocks`](http://eslint.org/docs/rules/padded-blocks) 规则要求类内填充以及在 switch 语句中填充。而过去除非用户更改配置，否则默认情况下这条规则会忽略上述情况的检查。
+现在默认情况下， [`padded-blocks`](http://eslint.org/docs/rules/padded-blocks) 规则要求在类内填充空行以及在 switch 语句中填充空行。而过去除非用户更改配置，否则默认情况下这条规则会忽略上述情况的检查。
 
 **注：**如果此更改导致代码库中出现更多的错误，您应该修复它们或重新配置规则。
 
@@ -171,11 +171,11 @@ ESLint v4.0.0 是 ESLint 第四次发布主版本，这次发布包含了一些�
 
 在 ESLint 4.0 之前，ESLint 需要借助解析器为注释添加附属物，其中 AST 节点将获得与源文件中的前置注释和后置注释相对应的附加属性。这使得用户难以开发自定义解析器，因为他们必须复制 ESLint 所需的令人困惑的注释附属物语义。（注：这一段和下一段文字翻译得很生涩……可能理解有误，需要讨论下……）
 
-在 ESLint 4.0 中，我们已经摆脱了注释附加物的概念，并将所有的注释处理逻辑转移到了 ESLint 本身。这样可以更容易地开发自定义解析器，但这也意味着 AST 节点将不再具有 `leadingComments` 和 `trailingComments` 属性。 从概念上来说，规则作者现在可以在令牌上下文而不是 AST 节点的上下文中考虑注释。
+在 ESLint 4.0 中，我们已经摆脱了注释附加物的概念，并将所有的注释处理逻辑转移到了 ESLint 本身。这样可以更容易地开发自定义解析器，但这也意味着 AST 节点将不再具有 `leadingComments` 和 `trailingComments` 属性。 从概念上来说，规则作者现在可以在 tokens 上下文而不是 AST 节点的上下文中考虑注释。
 
 **注：**如果您有一个依赖于 AST 节点的 `leadingComments` 或 `trailingComments` 属性的自定义规则，则可以分别使用 `sourceCode.getCommentsBefore()` 和 `sourceCode.getCommentsAfter()` 替代。
 
-此外，`sourceCode` 对象现在也有 `sourceCode.getCommentsInside()` 方法（它返回一个节点内的所有注释），`sourceCode.getAllComments()` 方法（它返回文件中的所有注释），并允许注释通过各种其他令牌迭代器方法（例如 `getTokenBefore()` 和 `getTokenAfter()`）并设置选项`{includeComments：true}` 进行访问。
+此外，`sourceCode` 对象现在也有 `sourceCode.getCommentsInside()` 方法（它返回一个节点内的所有注释），`sourceCode.getAllComments()` 方法（它返回文件中的所有注释），并允许注释通过各种其他 token 迭代器方法（例如 `getTokenBefore()` 和 `getTokenAfter()`）并设置选项`{includeComments：true}` 进行访问。
 
 对于想要同时兼容 ESLint v3.0 和 v4.0 的规则作者，现在已经不推荐使用的 `sourceCode.getComments()` 仍然可用，并且这两个版本都兼容。
 
@@ -189,10 +189,8 @@ ESLint v4.0.0 是 ESLint 第四次发布主版本，这次发布包含了一些�
 
 从 ESLint 4.0 开始，在 AST 遍历期间不会触发 `LineComment` 和 `BlockComments` 事件。原因如下：
 
-- This behavior was relying on comment attachment happening at the parser level, which does not happen anymore, to ensure that all comments would be accounted for
-- Thinking of comments in the context of tokens is more predictable and easier to reason about than thinking about comment tokens in the context of AST nodes
 - 过去这种行为依赖于在解析器级别的注释附属物，而自 ESLint 4.0 开始不再如此，以确保所有注释将被考虑
-- 在令牌上下文中考虑注释更容易预测和更容易理解，而非在 AST 节点上下文中考虑注释令牌
+- 在 tokens 上下文中考虑注释更容易预测和更容易理解，而非在 AST 节点上下文中考虑注释 token
 
 **注：**规则现在可以使用`sourceCode.getAllComments()` 来获取文件中的所有注释，而非依赖于 `LineComment` 和 `BlockComment`。要检查特定类型的所有注释，规则可以使用以下模式：
 
@@ -207,7 +205,7 @@ sourceCode.getAllComments().filter(comment => comment.type === "Block");
 
 在 ESLint 4.0 之前，源文件中的 shebang 注释不会出现在 `sourceCode.getAllComments()` 或 `sourceCode.getComments()` 的输出中，但它们将作为行注释出现在 `sourceCode.getTokenOrCommentBefore` 的输出中。这种不一致会给规则开发者带来困惑。
 
-在 ESLint 4.0 中，shebang 注释被视为 `Shebang` 类型的注释令牌，并可以通过任何返回注释的 `SourceCode` 方法返回。该变化的目的是为了让 shebang 的评论更符合其他令牌的处理方式。
+在 ESLint 4.0 中，shebang 注释被视为 `Shebang` 类型的注释 tokens，并可以通过任何返回注释的 `SourceCode` 方法返回。该变化的目的是为了让 shebang 的评论更符合其他 tokens 的处理方式。
 
 **注：**如果您有一个自定义规则对注释执行操作，可能需要一些额外的逻辑来确保 shebang 注释被正确处理或被正常过滤掉：
 
@@ -227,7 +225,7 @@ sourceCode.getAllComments().filter(comment => comment.type !== "Shebang");
 
 从 ESLint 3.1.0 开始，除了开始位置之外，规则还可以通过调用 `report` 时明确指定一个结束位置来指定问题报告的**结束**位置。这对于编辑器集成这样的工具很有用，可以使用范围来精确显示出现问题的位置。从 ESLint 4.0 开始，如果报告了**节点**而不是一个具体位置，则该结束位置的范围将自动从节点的结束位置推断出来。因此，更多报告的问题将会有结束位置。
 
-这不会导致断层。然而，这可能会导致比以前更大的报告位置范围。例如，如果一条规则报告的是 AST 的根节点，则问题的范围将是整个程序。在某些集成中，这可能导致用户体验不佳（例如，如果整个程序都被高亮显示以指示错误）。
+这不会带来兼容性问题。然而，这可能会导致比以前更大的报告位置范围。例如，如果一条规则报告的是 AST 的根节点，则问题的范围将是整个程序。在某些集成中，这可能导致用户体验不佳（例如，如果整个程序都被高亮显示以指示错误）。
 
 **注：**如果您有处理报告问题范围的集成，请确保以对用户友好的方式处理大型报告范围。
 
