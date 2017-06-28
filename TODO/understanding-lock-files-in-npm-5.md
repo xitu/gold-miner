@@ -1,18 +1,18 @@
 > * 原文地址：[Understanding lock files in NPM 5](http://jpospisil.com/2017/06/02/understanding-lock-files-in-npm-5.html)
 > * 原文作者：[Jiří Pospíšil](https://twitter.com/JiriPospisil)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
-> * 校对者：
+> * 译者：[Changkun Ou](https://github.com/changkun/)
+> * 校对者：[JackGit](https://github.com/JackGit), [Aladdin-ADD](https://github.com/Aladdin-ADD)
 
-# Understanding lock files in NPM 5
+# 理解 NPM 5 中的 lock 文件
 
-The next major version of NPM brings a number of improvements over the previous versions in terms of speed, security, and a bunch of other [nifty things](//blog.npmjs.org/post/161276872334/npm5-is-now-npmlatest). What stands out from the user’s perspective however is the new lock file. Actually lock *files*. More on that in a second. For the uninitiated, a `package.json` file describes the top level dependencies on other packages using [semver](//semver.org/). Each package might in turn depend on other packages and so on and so forth. A lock file is a snapshot of the entire dependency tree and includes all packages and their resolved versions.
+NPM 的下个主版本（NPM 5）在速度、安全性和一堆其他[时髦的东西](blog.npmjs.org/post/161276872334/npm5-is-now-npmlatest)上，相比较前一个版本带来了一些改进。然而从用户的角度来看，最突出的就是全新的 lock 文件，**不止一个** lock 文件。我们一会儿再谈论这个。对于新手来说，一个 `package.json` 文件使用了[语义化版本规范](https://github.com/xitu/gold-miner/pull/1763/semver.org)，去描述对于其他包的直接依赖，而这些包可能依赖于其他包等等，以此类推。lock 文件则是整个依赖关系树的快照，包含了所有包及其解析的版本。
 
-As opposed to the previous version, the lock file now includes an integrity field which uses [Subresource Integrity](https://w3c.github.io/webappsec-subresource-integrity/) to verify that the installed package has not been tempered with or is otherwise invalid. It currently supports SHA-1 for packages published with an older version of NPM and SHA-512 which is used from now on by default.
+与之前版本相反，lock 文件现在包含一个 integrity 字段，它使用 [Subresource Integrity](https://w3c.github.io/webappsec-subresource-integrity/) 来验证已安装的软件包是否被改动过，换句话来说，验证包是否已失效。它依旧支持旧版本 NPM 中对包的加密算法 SHA-1，但是以后将默认使用 SHA-512 进行加密。
 
-What the file now *doesn’t* have is the `from` field which together with the sometimes inconsistent `version` has notoriously been a source of pain when looking at the file’s diff during code reviews. It should be much cleaner now.
+这个文件目前**取消**了 `from` 字段。众所周知，这个字段和时常发生不一致的 `version` 字段一起，给代码审查看文件改动差异时，带来了不少痛苦。不过现在应该变得更加整洁了。
 
-The file now also contains a version of the lock format specified in `lockfileVersion` and set to `1`. This is to enable future updates of the format without having to guess what particular version the file uses. The previous lock format is still supported and recognized as version `0`.
+该文件现在增加了 `lockfileVersion` 字段来指定的 lock 格式的版本，并将其设置为1。这是为了使将来的格式更新时，不用去猜测该文件使用什么特定版本。以前的 lock 格式仍然支持并被识别为版本 `0`。
 
 
 ```
@@ -38,59 +38,59 @@ The file now also contains a version of the lock format specified in `lockfileVe
         },
 ```
 
-You might have noticed that the `resolved` field is still present in the file pointing to a specific URI. Note however that NPM is now able to figure out (based on the settings in `.npmrc`) that the machine is configured to use a different registry and if so, it will transparently use it instead. This plays well with the integrity field because it now doesn’t matter from where the package came from as long as it matches the signature.
+你可能已经注意到了，指向特定 URI 的文件的 `resolved` 字段仍然得到了保留。注意，NPM 现在可以（根据 .npmrc 中的设置）解析机器配置使用的不同仓库，这样的话，与 integrity 字段一起配合，只要签名是匹配的，包的来源并无关紧要。
 
-One more thing worth mentioning is that the lock file precisely describes the physical tree of directories as laid out in the `node_modules` directory. The advantage of that is that even if different developers use a different version of NPM, they should still end up with not only the same versions of dependencies but also with the exact same directory tree. This is different from other package managers such as [Yarn](https://yarnpkg.com/en/). Yarn describes just the dependencies between the individual packages in a [flatten format](https://github.com/yarnpkg/yarn/blob/46750b2bebd487fb2d2011b9c4b7646ec6e2d8a3/yarn.lock) and relies on its current implementation to create the directory structure. This means that if its internal algorithm changes, the structure changes as well. If you want to know more about the differences between Yarn and NPM 5 when it comes to the lock file, head over to [Yarn determinism](https://yarnpkg.com/blog/2017/05/31/determinism/).
+值得一提的是，lock 文件精确描述了 `node_modules` 目录中所列出的目录的物理树。其优点是，即使不同的开发人员使用不同版本的 NPM，他们仍然不仅能够得到相同版本的依赖，还可以使用完全相同的目录树。 这与其他包管理器（如 [Yarn](https://yarnpkg.com/en/) ）不同。 Yarn 仅以 [flatten 格式](https://github.com/yarnpkg/yarn/blob/46750b2bebd487fb2d2011b9c4b7646ec6e2d8a3/yarn.lock) 描述各个包之间的依赖关系，并依赖于其当前实现来创建目录结构。这意味着如果其内部算法发生变化，结构也会发生变化。如果你想了解更多关于 Yarn 和 NPM 5 之间 lock 文件的区别，请查看 [Yarn determinism](https://yarnpkg.com/blog/2017/05/31/determinism/)。
 
-## Two lock files
+## 双 lock 文件
 
-I’ve mentioned that there’s actually more than one lock file now, sort of. NPM will now *automatically* generate a lock file called `package-lock.json` whenever a new dependency is installed or the file doesn’t yet exist. As mentioned at the beginning, the lock file is a snapshot of the current dependency tree and allows for reproducible builds between machines. As such, it’s recommended to add it to your version control.
+上面已经提到过 lock 文件不止一个。当安装新的依赖关系或文件不存在时，NPM 将**自动**生成一个名为 `package-lock.json` 的 lock 文件。如开始所述，lock 文件是当前依赖关系树的快照，允许不同机器间的重复构建。因此，建议将它添加到您的版本控制中去。
 
-You might be thinking that the same can already be achieved with `npm shrinkwrap` and its `npm-shrinkwrap.json`. And you are right. The reasoning for creating a new file is to better convey the message that NPM indeed supports locking which apparently has been an issue in the past.
+你可能会认为，使用 `npm shrinkwrap` 及其 `npm-shrinkwrap.json` 可以实现同样的效果。你的想法没错，但创建新 lock 文件的原因是，这样能够更好的传达一个信息，就是 NPM 真正支持了 locking 机制，这在以前确实是一个显著的问题。
 
-There are however a few differences. First, NPM enforces that `package-lock.json` is never published. Even if you add it explicitly to the package’s `files` property, it will not be a part of the published package. The same doesn’t apply for the `npm-shrinkwrap.json` file however which *can* be a part of a published package and NPM will respect it even for nested dependencies. It’s simple to try it out for yourself by running `npm pack` and seeing what’s inside of the produced archive.
+不过还是有一些区别。首先，NPM 强制该 `package-lock.json` 不会被发布。 即使你将其显式添加到软件包的 `files` 属性中，它也不会是已发布软件包的一部分。这种情况同样不适用于 `npm-shrinkwrap.json` 文件，哪怕这个文件**可以**是发布包的一部分、即便存在嵌套的依赖关系，NPM 也会遵守它。你可以简单的通过运行 `npm pack` 来查看生成的归档内部的内容。
 
-Next, you might be wondering what happens when you run `npm shrinkwrap` in a directory which already contains a `package-lock.json`. The answer is rather simple, NPM will just rename `package-lock.json` to `npm-shrinkwrap.json`. That’s possible because the format of the files is exactly the same.
+接下来，您可能会想知道在已经包含 `package-lock.json` 的目录中运行 `npm shrinkwrap` 时会发生什么。答案很简单，NPM 仅仅会把 `package-lock.json` 重命名为 `npm-shrinkwrap.json`。因为文件的格式是完全一样的。
 
-The most curious will also ask what happens when both of the files are present. In that case, NPM will completely ignore `package-lock.json` and just use `npm-shrinkwrap.json`. The situation should not happen however when manipulating the files just using NPM.
+最好奇的还会问，当两个文件都存在时会发生什么。 在这种情况下，NPM将完全忽略 `package-lock.json`，只使用 `npm-shrinkwrap.json`。 当只使用 NPM 操纵文件时，这种情况不应该发生。
 
-### To summarize:
+### 总结:
 
-- NPM will automatically create a `package-lock.json` when installing packages unless there’s already `npm-shrinkwrap.json` in which case it will update it instead (if necessary).
+- NPM 会在安装包时自动创建 `package-lock.json`，除非已经有 `npm-shrinkwrap.json`，并在必要时更新它。
 
-- The new `package-lock.json` is never published and should be added to your version control system.
+- 新的 `package-lock.json` 永远不会被发布，而且应该将其添加到你的版本控制系统中去。
 
-- Running `npm shrinkwrap` with a `package-lock.json` already present will just rename it to `npm-shrinkwrap.json`.
+- 运行已经带有 `package-lock.json` 文件的 `npm shrinkwrap` 命令将只会对其重命名为 `npm-shrinkwrap.json`。
 
-- When both files are present for some reason, `package-lock.json` will be ignored.
+- 当两个文件处于某些原因同时存在时，`package-lock.json` 将被忽略。
 
-That’s all cool but when do you use the new lock file instead of the good old shrinkwrap or vice versa? It generally depends on the type of package you’re working on.
+这很酷，但是什么时候使用新的 lock 文件而不是旧的 shrinkwrap？ 它通常取决于您正在处理的包的类型。
 
-## When working on a library
+## 当开发库时
 
-If you’re working on a library (as in a package onto which others will depend on), you should use the new lock file. An alternative is to use shrinkwrap but make sure it never gets published with the package (the new lock file is never published automatically). Why not publish the shrinkwrap? It’s because NPM respects shrinkwraps it finds within packages and since a shrinkwrap always points to a specific version of individual packages, you would not take advantage of the fact that NPM can use the same package to satisfy requirements from multiple packages if the [semver](//semver.org) range allows it. In other words, by not forcing NPM to install specific versions, you allow NPM to better reuse packages across the dependency tree and make the result smaller and faster to assemble.
+如果你正在开发一个库（如其他人所依赖的软件包），则应使用新的 lock 文件。 另一种替代方案是使用 shrinkwrap，并确保它不会随包发布（新的 lock 文件不会自动发布）。 但为什么不发布 shrinkwrap 呢？ 这是因为 NPM 遵守在包中找到的 shrinkwraps，并且由于 shrinkwrap 总是指向单个包的特定版本，所以你无法利用 NPM 可以使用相同的包来满足多个包的要求（在 [semver](//semver.org) 允许范围内）的优势。 换句话说，通过不去强制 NPM 来安装特定的版本，您可以让 NPM 更好的复用包，并使结果更小更快地组合。
 
-There’s one caveat to this however. When you’re working on your library, you get the exact same dependencies every time because either `package-lock.json` or `npm-shrinkwrap.json` is present in the repository. The same goes for your continuous integration server where you check out the same code. Now imagine your `package.json` specifies a dependency on some package as `^1.0.0` and that also happens to be the version specified in the lock file and installed every time. Everything works. Now what happens if a new version of the dependency is published, accidentally breaks semver and your package breaks because of it?
+这里有一个警告。当你正在开发库时，因为仓库中存在 `package-lock.json` 或 `npm-shrinkwrap.json`，所以每次都会获得完全相同的依赖关系，这对于你的持续集成服务器也是如此。现在想象你的 `package.json` 指定某个包的依赖关系为 `^1.0.0`，也恰好是 lock 文件中指定的版本，并且每次安装。到目前为止一切正常。但如果依赖项发布了一个新版本，并且意外的破坏了 semver 和你开发的包，这时候会发生什么？
 
-Unfortunately, you might not be able to notice that until a bug report comes in. Without any lock files in the repository, your build would fail at least on the CI because it would always install the `latest` versions of the dependencies and thus run the tests with the new broken version (provided that the build is run periodically, not just for PRs). With the lock in place however, it will always install the working locked version.
+遗憾的是，在出现错误报告之前，你可能无法注意到这个问题。在没有 lock 文件的仓库中，你的构建至少在 CI 服务器上会失败，因为它总是尝试去安装依赖的 `latest` 版本，从而运行出错的版本（只要该版本定期运行，而不仅仅是针对 PR）。 然而，当 lock 文件出现后，它将始终安装能正常工作的被 lock 的版本。
 
-There’s a couple of solutions to this problem however. First, you could sacrifice the exact reproducibility and *not* add the lock file to your version control system. Second, you could make a separate build configuration which would run `npm update` prior running the tests. Third, you simply delete the lock before running the tests in the special build. How to actually deal with the broken dependency once discovered is another topic on its own mainly because semver as implemented by NPM doesn’t have a concept of allowing a wide range but also blacklisting specific versions.
+然而，对于这个问题有几个其他的解决方案。 首先，你可以牺牲问题重现的精确性，而**不**将 lock 文件添加到版本控制系统中。 其次，你可以做一个分离的配置来进行构建，在运行测试之前运行 `npm update`。 第三，你可以简单的在你运行测试之前删除 lock。 如何处理发现的损坏依赖是另一个话题了，其主要原因是因为 NPM 实现的 semver 不仅没有涉及如此广范围的问题，而且还不支持特定版本的黑名单特性。
 
-This of course begs the question whether it’s actually worth it to add the lock file into the version control when working on libraries. A thing to keep in mind however is that the lock file contains not only dependencies but also *dev* dependencies. In that sense working on a library is similar to working on an application (see the next section) and having the exact same dev dependencies over time and across multiple machines is an advantage.
+这当然就会引起一个问题，在开发库的时候，是否真的值得将 lock 文件添加到版本控制中去。要记住的是，lock 文件不仅包含依赖关系，还包含 **dev** 的依赖关系。在这种意义下来讲，开发库与开发应用时类似（见下一节），无论什么时候都有着完全相同的 dev 依赖关系，并且不同设备也算一种优势。
 
-## When working on an application
+## 当开发应用时
 
-Alright, what about packages used by the end users in the terminal or bundled executables in general? In this case, the package is the final result, the application, and you want to make sure that the end users always get the exact dependencies you had while publishing it. This is where you want to use shrinkwrap and make sure to also publish it with the package so that it’s respected by NPM during install. Remember, you can always see what the package would look like if published using `npm pack`.
+好，那么最终用户在终端中使用的包或打包的可执行文件会是个什么情况？在这种情况下，包就是最终结果，即应用。你想要确保最终用户总能获得你发布时所具有的确切依赖性。确保在安装时让 NPM 遵守规则，这就是您想要使用 shrinkwrap 的地方。 记住，使用 `npm pack` 发布包时，你可以随时查看软件包的情况。
 
-Note that pointing to a specific version of a dependency in `package.json` is not good enough because you want to make sure the end users get the *exact* same dependency tree including all of its sub-dependencies. A specific version in `package.json` guarantees the version only at the top level.
+注意，在 `package.json` 中指定一个特定版本依赖是不够的，因为你希望确保最终用户获得完全相同的依赖关系树，包括其所有子依赖关系。而 `package.json` 中的一个特定版本保证只会发生在顶层。
 
-What about other types of applications, for example projects you start from within their repository? It doesn’t really matter that much in this case. All that matters is that the correct dependencies are installed and both of the locks can satisfy that. Your choice.
+其他类型的应用怎么样，比如在仓库内启动的项目？这种情况并不重要。重要的是安装正确的依赖项，而两个 lock 都满足这一点要求。随你怎么选。
 
-## That’s a wrap
+## 结束
 
-And that about wraps it up for now. Feel free to reach out on Twitter if something’s not right or with some general suggestions. If you’ve found a typo or some other grammar issue, the blog post is available on [GitHub](https://github.com/jiripospisil/jpospisil.com). Any help is appreciated!
+没了，就这么多。如果有哪里不对或者有一些一般性的意见，请随时在 Tweitter 上联系我。如果你发现拼写错误或语法问题，则可以在 GitHub 上找到这个文章。感谢你的帮助！
 
-If you've enjoyed the article, you should follow [@JiriPospisil](https://twitter.com/JiriPospisil) on Twitter and subscribe via [feed](/feed.xml).
+如果你喜欢这篇文章，你可以在 Twitter 上关注 [@JiriPospisil](https://twitter.com/JiriPospisil) 并通过 [feed](/feed.xml) 订阅。
 
 ---
 
