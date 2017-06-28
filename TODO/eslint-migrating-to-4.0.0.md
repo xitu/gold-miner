@@ -217,9 +217,9 @@ sourceCode.getAllComments().filter(comment => comment.type !== "Shebang");
 
 ## `linter.verify()` API  不再支持 `global` 属性
 
-过去，`linter.verify()` API 接受  `global` 属性作为一个配置项，它与官方文档中的 `globals` 属性类似。另外，`global` 属性从未出现在官方文档中或者被官方支持，并且在配置文件中该属性会失效。自 ESLint 4.0 起，该属性已被移除。
+过去，`linter.verify()` API 接受  `global` 属性作为一个配置项，它与官方文档中的 `globals` 作用相同。但是，`global` 属性从未出现在官方文档中或者被官方支持，并且在配置文件中该属性会失效。自 ESLint 4.0 起，该属性已被移除。
 
-**注：**如果您先前使用了 `global` 属性，请用类似的 `globals` 属性替换。
+**注：**如果您先前使用了 global 属性，请用 globals 属性替换，其作用与 global 相同。
 
 ## 现在更多报告消息具有完整的位置范围
 
