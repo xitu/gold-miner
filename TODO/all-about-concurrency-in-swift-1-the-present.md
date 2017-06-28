@@ -39,14 +39,14 @@ NSTimer 类也不会在这里介绍，你可以看一看[这里](/swiftbites/nst
 	- [NSConditionLock](#nsconditionlock)
 	- [NSCondition](#nscondition)
 	- [NSDistributedLock](#nsdistributedlock)
-	- [OSAtomic 你在哪里？](#OSAtomic 你在哪里？)
+	- [OSAtomic 你在哪里？](#osatomic-你在哪里)
 	- [同步块](#同步块)
 
-- [GCD: 大中枢派发](#GCD: 大中枢派发)
+- [GCD: 大中枢派发](#gcd-大中枢派发)
 	- [调度队列](#调度队列)
 	- [使用队列](#使用队列)
 	- [屏障](#屏障)
-	- [Singletons 和 Dispatch_once](#Singletons 和 Dispatch_once)
+	- [单例和 Dispatch_once](#单例和-dispatch_once)
 	- [Dispatch Groups](#dispatch-groups)
 	- [Dispatch Work Items](#dispatch-work-items)
 	- [Dispatch Semaphores](#dispatch-semaphores)
@@ -385,7 +385,7 @@ iflet dlock = dlock {
 
 ```
 
-### OSAtomic 你在哪里？ ###
+### OSAtomic 你在哪里? ###
 
 像 [OSAtomic](https://www.mikeash.com/pyblog/friday-qa-2011-03-04-a-tour-of-osatomic.html) 提供的原子操作是简单的，并且允许设置、获取或比较变量，而不需要经典的锁逻辑，因为他们利用 CPU 的特定功能（有时是原生原子指令），并提供了比前面锁所描述的更优越的性能。
 
@@ -410,7 +410,7 @@ var count: Int {
 
 #### **本文或其他文章的 playground 可以在 [GitHub](https://github.com/uraimo/Swift-Playgrounds) 或 [Zipped](/archives/2017-05-07-ConcurrencyInSwift.playground.zip) 找到。** ####
 
-## GCD: 大中枢派发中心 ##
+## GCD: 大中枢派发 ##
 
 对于不熟悉这个 API 的人来说，GCD 是一种基于队列的 API，允许在工作池上执行闭包。
 
@@ -558,7 +558,7 @@ inactiveQueue.resume()
 
 仅用于配置非活动队列（在活动的队列中使用会造成崩溃）优先级的方法 `setTarget(queue:)` 也是可用的。调用此方法的结果是将队列的优先级设置为与给定参数的队列相同的优先级。
 
-### 屏障（Barriers） ###
+### 屏障 ###
 
 让我们假设你添加了一组闭包到特定的队列（执行闭包的持续时间不同），但是现在你想只有当所有之前的异步任务完成时再执行一个工作，你可以使用屏障来做这样的事情。
 
@@ -873,7 +873,7 @@ readerSource.resume()
 
 剩余类型的源操作大同小异，你可以从 [libDispatch 的文档](https://developer.apple.com/reference/dispatch/dispatchsource)中查看完整的列表，但是记住他们其中的一些，比如 Mach 源和内存压力源只会在 Darwin 的平台工作。
 
-## 操作与操作队列 ##
+## 操作与可操作的队列 ##
 
 我们简要的介绍一下 Operation Queues，以及建立在 GCD 之上的附加 API。它们使用并发队列和模型任务作为操作，这样做可以轻松的取消操作，而且能让他们的执行依赖于其他操作的完成。
 
