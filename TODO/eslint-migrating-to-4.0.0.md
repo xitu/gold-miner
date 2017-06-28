@@ -33,7 +33,7 @@ ESLint v4.0.0 是 ESLint 第四次发布主版本，这次发布包含了一些�
 
 1. [`linter.verify()` API 不再支持 `global` 属性](#global-property)
 2. [现在更多报告消息具有完整的位置范围](#report-locations)
-3. [ 部分暴露的 API 将使用 ES2015 中的类](#exposed-es2015-classes)
+3. [部分暴露的 API 将使用 ES2015 中的类](#exposed-es2015-classes)
 
 
 ---
@@ -179,7 +179,7 @@ ESLint v4.0.0 是 ESLint 第四次发布主版本，这次发布包含了一些�
 
 对于想要同时兼容 ESLint v3.0 和 v4.0 的规则作者，现在已经不推荐使用的 `sourceCode.getComments()` 仍然可用，并且这两个版本都兼容。
 
-最后，请注意，以下 `SourceCode` 方法已被弃用，将在以后的 ESLint 版本中被移除：
+最后请注意，以下 `SourceCode` 方法已被弃用，将在以后的 ESLint 版本中被移除：
 
 - `getComments()` - 请使用 `getCommentsBefore()`、`getCommentsAfter()` 和 `getCommentsInside()` 来替换
 - `getTokenOrCommentBefore()` - 请使用 `getTokenBefore()` 方法并设置选项 `{includeComments:true}` 来替换
