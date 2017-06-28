@@ -6,44 +6,45 @@
 > * 译者：
 > * 校对者：
 
-# Functional programming in Javascript is an antipattern
+# Javascript 的函数式编程是一种反模式
 
 ---
 
 ![](https://cdn-images-1.medium.com/max/1600/1*Y6orLTOgb6JFfjVdANVgCQ.png)
 
-## And Clojure is actually easier
+## 其实 Clojure 更简单些 
 
-After a few months writing Clojure I began writing Javascript again. As I was trying to write something ordinary, I had the following thoughts:
+写了几个月 Clojure 之后我再次开始写 Javascript。就在我试着写一些很普通的东西的时候，我总会想下面这些问题：
 
-> “Is this variable ImmutableJS or Javascript?”
+> “这是 ImmutableJS 变量还是 Javascript 变量？”
 
-> “How do I map an object and get one back?”
+> “我如何 map 一个对象并且返回一个对象？”
 
-> “If it’s Immutable, use <this function> with <this syntax>, otherwise use <a different version of the same function> with <different syntax and totally different behavior>.”
+> “如果它是不可变的，使用 <这种语法> 的 <这个函数>，否则使用 <不同的语法和完全不同行为> 的 <同一个函数的另一个版本>”
 
-> “Can a React component’s state be an Immutable Map?”
+> “一个 React 组件的 state 可以是一个不可变的 Map 吗？”
 
-> “Is lodash imported?”
+> “引入 lodash 了吗？”
 
-> “`fromJS` then <write code> then `.toJS()`?”
+> “`fromJS` 然后 <写代码> 然后 `.toJS()`？”
 
-They seemed unnecessary. But I imagine I’ve thought them a million times before and didn’t notice because it was all I knew.
+这些问题似乎没什么必要。但我猜想我已经思考这些问题上百万次了只是没有注意到，因为它们都是我知道的。
 
-I don’t think there’s a way to avoid this kind of thinking when writing Javascript using any combination of React, Redux, ImmutableJS, lodash, and functional programming libraries like lodash/fp and ramda.
+当使用 React、Redux、ImmutableJS、lodash、和像 lodash/fp、ramda 这样的函数式编程库的任意组合写 Javascript 的时候，我觉得没什么方法能避免这种思考。
 
-I need the following in my head at all times:
+我需要一直把下面这些事记在脑海里：
 
-- APIs for lodash, Immutable, lodash/fp, ramda, and native JS or some combination
-- mutable programming techniques when working with Javascript data structures
-- immutable programming techniques for Immutable data structures
-- immutable programming with mutable Javascript data structures when working with Redux or React
+- lodash 的 API、Immutable 的 API、lodash/fp 的 API、ramda 的 API、还有原生 JS 的 API 或一些组合的 API
+- 处理 Javascript 数据结构的可变编程技术
+- 处理 Immutable 数据结构的不可变编程技术
+- 使用 Redux 或 React 时，可变的 Javascript 数据结构的不可变编程
 
-If I manage to keep that in my head, I still run into a tangle of questions like the ones above. Immutable data, mutable data, and mutable-data-that-should-not-be-mutated are situational. So are function signatures and return values for commonly-used functions. There’s a different case in almost every line of code. I believe that’s intractable when using functional programming techniques in Javascript.
+就算我能够记住这些东西，我依然会遇到上面那一堆问题。不可变数据、可变数据和某些情况下不能改变的可变数据。一些常用函数的签名和返回值也是这样，几乎每一行代码都有不同的情况要考虑。我觉得在 Javascript 中使用函数式编程技术很棘手。
 
-Libraries like Redux and React require immutability by convention. So even if I’m not using ImmutableJS, I have to remember “don’t mutate here”. Immutable transformations in Javascript are more difficult than they need to be. I feel like the language is fighting me every step of the way. Compounding that, Javascript doesn’t have basic functions like Object.map. So like more than [43 million of us last month](https://www.npmjs.com/package/lodash), I use lodash, which provides a lot of functions Javascript doesn’t have. Still, the API isn’t immutable-friendly. Some functions return new values, while others mutate the existing ones. Again, keeping things like this straight is unnecessary overhead. So is the fact that presumably, on top of Javascript, I need to know lodash, its function names, its signatures, its return values. And to top it off, its [“collection first, arguments last” approach is not ideal](https://www.youtube.com/watch?v=m3svKOdZijA) for functional programming.
+按照惯例像 Redux 和 React 这种库需要不可变性。所以即使我不使用 ImmutableJS，我也得记得“don’t mutate here”。在 Javascript 中不可变的转换比它本身的使用更难。我感觉这门语言给我前进的道路下了一路坑。此外，JavaScript 没有像 Object.map 这样基本的函数。所以像[上个月 4300 多万人](https://www.npmjs.com/package/lodash)一样，我使用 lodash，它提供大量 Javascript 自身没有的函数。不过它的 API 也不是友好支持不可变的。一些函数返回新的数值，而另一些会更改已经存在的数据。再次强调，花时间来区分它们是很不必要的开销。事实大概如此，想要处理 Javascript，我需要了解 lodash、它的函数名称、它的签名、它的返回值。更糟糕的是，它的[“collection first, arguments last”方式](https://www.youtube.com/watch?v=m3svKOdZijA)对函数式编程来说也并不理想。
 
 If I use ramda or lodash/fp, that helps. It’s easy to compose functions and write clear and concise code. But I can’t use it with Immutable data structures. I will also probably have some code where the collection argument is last, and other times it’s the opposite. I have to know more function names, signatures, return values, and import more basic functions.
+如果我使用 ramda 或者 lodash/fp 会好一些，可以很容易地组合函数并且写出清晰整洁的代码。但是它不能和 Immutable 数据结构一起使用。
 
 When I use ImmutableJS in isolation, some things are easier. Map.set returns a brand new value. Everything returns a brand new value! This is what I want. Unfortunately, ImmutableJS complects things too. I inevitably have two different sets of data structures to work with. So I have to know whether `x` is Immutable or Javascript. As a result of learning its API and its overall way of thinking, I can know how to solve a problem in 2 seconds using Immutable. When I’m working in native JS, I have to skip over that solution and solve the problem another way. Like ramda and lodash, I have a larger set of functions I need to know about — what they return, their signatures, their names . I also need to divide all the functions I know about into two categories: ones that work with Immutable, and ones that don’t. This tends to affect the way I solve problems too. I sometimes arrive at a solution automatically that uses curry and compose. But neither work with ImmutableJS. So I skip that solution and think of another.
 
