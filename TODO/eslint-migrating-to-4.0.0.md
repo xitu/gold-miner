@@ -66,7 +66,7 @@ ESLint v4.0.0 是 ESLint 的第 4 个主版本。当然，我们希望大多数�
 
 为了方便升级到 ESLint 4.0.0，我们引入了 [`indent-legacy`](/docs/rules/indent-legacy) 规则作为 ESLint 3.x 中 `indent` 规则的快照。如果你在升级过程中遇到了 `indent` 规则的相关问题，那么您可以借助于 `indent-legacy` 规则来维持与 3.x 一致。然而，`indent-legacy` 规则已被弃用并且在将来不再维护，所以您最终还是应该使用 `indent` 规则。
 
-**注：**推荐在升级过程中不要更改 `indent` 配置，并修正新的缩进错误。然而如果要与 ESLint 3.x 的 `indent` 规则保持一致，您可以这样配置：
+**注：** 推荐在升级过程中不要更改 `indent` 配置，并修正新的缩进错误。然而如果要与 ESLint 3.x 的 `indent` 规则保持一致，您可以这样配置：
 
 ```
 {
@@ -81,25 +81,25 @@ ESLint v4.0.0 是 ESLint 的第 4 个主版本。当然，我们希望大多数�
 
 在创建配置文件时，用户有时候会犯拼写错误或者弄错配置文件的结构。在以前，ESLint 并不会验证配置文件中的属性，因此很难调试配置文件中的拼写错误。而从 ESLint v4.0.0 起，当配置文件中存在未识别的属性或者属性类型有错误时，ESLint 会抛出一个错误。
 
-**注：**升级后如果发现配置文件验证出错，请检查配置文件中是否存在拼写错误。如果使用了未识别的属性，那么应该将之从配置文件中移除，从而使 ESLint 恢复正常。
+**注：** 升级后如果发现配置文件验证出错，请检查配置文件中是否存在拼写错误。如果使用了未识别的属性，那么应该将之从配置文件中移除，从而使 ESLint 恢复正常。
 
 ## 忽略文件将从 .eslintignore 文件所在目录开始解析
 
 过去由于一个 bug，`.eslintignore` 文件的路径名模板是从进程的当前工作目录解析，而不是 `.eslintignore` 文件的位置。从 ESLint 4.0 开始，`.eslintignore` 文件的路径名模板将从 `.eslintignore` 文件的位置解析。
 
-**注：**如果您使用 `.eslintignore` 文件，并且您经常从项目根目录以外的地方运行 ESLint，则可能会以不同的模式匹配路径名。您应该更新 `.eslintignore` 文件中的匹配模式，以确保它们与该文件相关，而不是与工作目录相关。
+**注：** 如果您使用 `.eslintignore` 文件，并且您经常从项目根目录以外的地方运行 ESLint，则可能会以不同的模式匹配路径名。您应该更新 `.eslintignore` 文件中的匹配模式，以确保它们与该文件相关，而不是与工作目录相关。
 
 ##  默认情况下 `padded-blocks` 规则将更严格
 
 现在默认情况下， [`padded-blocks`](http://eslint.org/docs/rules/padded-blocks) 规则要求在类内填充空行以及在 switch 语句中填充空行。而过去除非用户更改配置，否则默认情况下这条规则会忽略上述情况的检查。
 
-**注：**如果此更改导致代码库中出现更多的错误，您应该修复它们或重新配置规则。
+**注：** 如果此更改导致代码库中出现更多的错误，您应该修复它们或重新配置规则。
 
 ##  默认情况下 `space-before-function-paren` 规则将更严格
 
 现在默认情况下， [`space-before-function-paren`](http://eslint.org/docs/rules/space-before-function-paren) 规则要求异步箭头函数的圆括号与 `async` 关键词之间存在空格。而过去除非用户更改配置，否则默认情况下这条规则会忽略对异步箭头函数的检查。
 
-**注：**如果要与 ESLint 3.x 的默认配置保持一致，您可以这样配置：
+**注：** 如果要与 ESLint 3.x 的默认配置保持一致，您可以这样配置：
 
 ```
 {
@@ -117,7 +117,7 @@ ESLint v4.0.0 是 ESLint 的第 4 个主版本。当然，我们希望大多数�
 
 现在默认情况下， [`no-multi-spaces`](http://eslint.org/docs/rules/no-multi-spaces) 规则禁止行尾注释前存在多个空格。而过去这条规则不对此进行检查。
 
-**注：**如果要与 ESLint 3.x 的默认配置保持一致，您可以这样配置：
+**注：** 如果要与 ESLint 3.x 的默认配置保持一致，您可以这样配置：
 
 ```
 {
@@ -157,7 +157,7 @@ ESLint v4.0.0 是 ESLint 的第 4 个主版本。当然，我们希望大多数�
 }
 ```
 
-**注：**如果您在配置文件中引用了限定在命名空间下的插件，那么请确保在引用的时候包含命名空间。
+**注：** 如果您在配置文件中引用了限定在命名空间下的插件，那么请确保在引用的时候包含命名空间。
 
 ---
 
@@ -165,7 +165,7 @@ ESLint v4.0.0 是 ESLint 的第 4 个主版本。当然，我们希望大多数�
 
 从 ESLint 4.0 开始，`RuleTester` 工具将验证测试用例对象的属性，如果遇到未知属性，将抛出错误。这番改动是因为我们发现开发人员在测试规则时的拼写错误是比较常见的，且通常会使测试用例试图作出的断言无效。
 
-**注:**如果您对自定义规则的测试用例对象具有额外的属性，则应该移除这些属性。
+**注：** 如果您对自定义规则的测试用例对象具有额外的属性，则应该移除这些属性。
 
 ## AST 节点不再具有注释属性
 
@@ -173,7 +173,7 @@ ESLint v4.0.0 是 ESLint 的第 4 个主版本。当然，我们希望大多数�
 
 在 ESLint 4.0 中，我们已经摆脱了注释附加物的概念，并将所有的注释处理逻辑转移到了 ESLint 本身。这样可以更容易地开发自定义解析器，但这也意味着 AST 节点将不再具有 `leadingComments` 和 `trailingComments` 属性。 从概念上来说，规则作者现在可以在 tokens 上下文而不是 AST 节点的上下文中考虑注释。
 
-**注：**如果您有一个依赖于 AST 节点的 `leadingComments` 或 `trailingComments` 属性的自定义规则，则可以分别使用 `sourceCode.getCommentsBefore()` 和 `sourceCode.getCommentsAfter()` 替代。
+**注：** 如果您有一个依赖于 AST 节点的 `leadingComments` 或 `trailingComments` 属性的自定义规则，则可以分别使用 `sourceCode.getCommentsBefore()` 和 `sourceCode.getCommentsAfter()` 替代。
 
 此外，`sourceCode` 对象现在也有 `sourceCode.getCommentsInside()` 方法（它返回一个节点内的所有注释），`sourceCode.getAllComments()` 方法（它返回文件中的所有注释），并允许注释通过各种其他 token 迭代器方法（例如 `getTokenBefore()` 和 `getTokenAfter()`）并设置选项`{includeComments：true}` 进行访问。
 
@@ -192,7 +192,7 @@ ESLint v4.0.0 是 ESLint 的第 4 个主版本。当然，我们希望大多数�
 - 过去这种行为依赖于在解析器级别的注释附属物，而自 ESLint 4.0 开始不再如此，以确保所有注释将被考虑
 - 在 tokens 上下文中考虑注释更容易预测和更容易理解，而非在 AST 节点上下文中考虑注释 token
 
-**注：**规则现在可以使用`sourceCode.getAllComments()` 来获取文件中的所有注释，而非依赖于 `LineComment` 和 `BlockComment`。要检查特定类型的所有注释，规则可以使用以下模式：
+**注：** 规则现在可以使用`sourceCode.getAllComments()` 来获取文件中的所有注释，而非依赖于 `LineComment` 和 `BlockComment`。要检查特定类型的所有注释，规则可以使用以下模式：
 
 ```
 sourceCode.getAllComments().filter(comment => comment.type === "Line");
@@ -207,7 +207,7 @@ sourceCode.getAllComments().filter(comment => comment.type === "Block");
 
 在 ESLint 4.0 中，shebang 注释被视为 `Shebang` 类型的注释 tokens，并可以通过任何返回注释的 `SourceCode` 方法返回。该变化的目的是为了让 shebang 的评论更符合其他 tokens 的处理方式。
 
-**注：**如果您有一个自定义规则对注释执行操作，可能需要一些额外的逻辑来确保 shebang 注释被正确处理或被正常过滤掉：
+**注：** 如果您有一个自定义规则对注释执行操作，可能需要一些额外的逻辑来确保 shebang 注释被正确处理或被正常过滤掉：
 
 ```
 sourceCode.getAllComments().filter(comment => comment.type !== "Shebang");
@@ -219,7 +219,7 @@ sourceCode.getAllComments().filter(comment => comment.type !== "Shebang");
 
 过去，`linter.verify()` API 接受  `global` 属性作为一个配置项，它与官方文档中的 `globals` 作用相同。但是，`global` 属性从未出现在官方文档中或者被官方支持，并且在配置文件中该属性会失效。自 ESLint 4.0 起，该属性已被移除。
 
-**注：**如果您先前使用了 global 属性，请用 globals 属性替换，其作用与 global 相同。
+**注：** 如果您先前使用了 global 属性，请用 globals 属性替换，其作用与 global 相同。
 
 ## 现在更多报告消息具有完整的位置范围
 
@@ -227,13 +227,13 @@ sourceCode.getAllComments().filter(comment => comment.type !== "Shebang");
 
 这不会带来兼容性问题。然而，这可能会导致比以前更大的报告位置范围。例如，如果一条规则报告的是 AST 的根节点，则问题的范围将是整个程序。在某些集成中，这可能导致用户体验不佳（例如，如果整个程序都被高亮显示以指示错误）。
 
-**注：**如果您有处理报告问题范围的集成，请确保以对用户友好的方式处理大型报告范围。
+**注：** 如果您有处理报告问题范围的集成，请确保以对用户友好的方式处理大型报告范围。
 
 ## 部分暴露的 API 将使用 ES2015 中的类
 
 现在部分 ESLint 的 Node.js API，比如 `CLIEngine`、`SourceCode` 以及 `RuleTester` 模块使用了 ES2015 中的类。当然这不会影响到接口的正常使用，不过这的确会产生一些明显的影响（举个例子，`CLIEngine.prototype` 将不可枚举）。
 
-**注：**如果您需要对 ESLint 的 Node.js API 提供的方法进行枚举遍历，可以用诸如 `Object.getOwnPropertyNames` 的函数来访问不可枚举属性。（译者注：可参考[ MDN 文档：属性的可枚举性和所有权](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Enumerability_and_ownership_of_properties)）
+**注：** 如果您需要对 ESLint 的 Node.js API 提供的方法进行枚举遍历，可以用诸如 `Object.getOwnPropertyNames` 的函数来访问不可枚举属性。（译者注：可参考[ MDN 文档：属性的可枚举性和所有权](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Enumerability_and_ownership_of_properties)）
 
 ---
 
