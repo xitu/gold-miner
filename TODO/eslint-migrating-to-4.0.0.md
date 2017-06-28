@@ -17,8 +17,8 @@ ESLint v4.0.0 是 ESLint 第四次发布主版本，这次发布包含了一些�
 3. [现在配置文件中未识别的属性会报告严重错误](#config-validation)
 4. [现在路径名模板将从 .eslintignore 文件的位置解析](#eslintignore-patterns)
 5. [默认情况下 `padded-blocks` 规则将更严格](#padded-blocks-defaults)
-6. [默认情况下`space-before-function-paren` 规则将更严格](#space-before-function-paren-defaults)
-7. [默认情况下`no-multi-spaces` 规则将更严格](#no-multi-spaces-eol-comments)
+6. [默认情况下 `space-before-function-paren` 规则将更严格](#space-before-function-paren-defaults)
+7. [默认情况下 `no-multi-spaces` 规则将更严格](#no-multi-spaces-eol-comments)
 8. [现在必须包含包作用域，才能引用限定在包作用域下的插件](#scoped-plugin-resolution)
 
 
