@@ -1,260 +1,263 @@
 > * 原文地址：[iOS 11: Machine Learning for everyone](http://machinethink.net/blog/ios-11-machine-learning-for-everyone/)
 > * 原文作者：[Matthijs Hollemans](https://twitter.com/mhollemans)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
-> * 校对者：
+> * 译者：[Changkun Ou](https://github.com/changkun/)
+> * 校对者：[wilsonandusa](https://github.com/wilsonandusa) [atuooo](https://github.com/atuooo)
 
-WWDC 2017 has made one thing very clear: Apple is going all in on **machine learning on the device**.
+WWDC 2017 使一件事情变得非常清楚，那就是：Apple 正在全力以赴地支持「**设备上的机器学习**」了。
 
-And they want to make it as easy as possible for app developers to join them.
+他们希望 App 的开发者们能够尽可能的简单的加入他们的行列中。
 
-Last year Apple announced the [Metal CNN and BNNS frameworks](http://machinethink.net/blog/apple-deep-learning-bnns-versus-metal-cnn/) for creating basic convolutional networks. This year we get lots of additions to Metal, a new computer vision framework, and **Core ML**: a toolkit that makes it really easy to put ML models into your app.
+Apple 去年发布了可以用于创建基本的卷积神经网的 Metal CNN 和 BNNS 框架。今年，Metal 得到了进一步扩展，增加了一个全新的计算机视觉框架，以及 **Core ML**：一个能够轻松地将机器学习集成到 App 中的工具包。
 
 [![Core ML framework](http://machinethink.net/images/ios11/CoreML.png)](http://machinethink.net/images/ios11/CoreML.png)
 
-In this blog post I’ll share my thoughts on — and experiences with — the new machine learning stuff in iOS 11 and macOS 10.13.
+在这片文章中，我将就 iOS 11 和 macOS 10.13 中这些新推出的机器学习的内容，分享我自己的一些想法和经验。
 
 ## Core ML
 
-Core ML got most of the attention at WWDC and it’s easy to see why: this is the framework that most developers will want to use in their apps.
+Core ML 在 WWDC 上获得了极大的关注度，原因很简单：大部分开发者希望能够在他们的 App 中使用这个框架。
 
-The API is pretty simple. The only things you can do are:
+Core ML 的 API 非常简单。你只能用它做这些事情：
 
-1. loading a trained model
-2. making predictions
-3. profit!!!
+1. 加载一个训练好的模型
+2. 做出预测
+3. 收益！！！
 
-This may sound limited but in practice loading a model and making predictions is usually all you’d want to do in your app anyway.
+这看起来好像很有限，但实际上你一般只会在 App 中加载模型和做出预测这两件事。
 
-Previously, loading a trained model was much harder — in fact, I wrote a [library to take away some of the pain](http://github.com/hollance/Forge). So I’m happy that it’s a simple two-step process now.
+在 Core ML 之前，加载训练好的模型是非常困难的 —— 实际上，我写过[一个框架](http://github.com/hollance/Forge)来减轻这种痛苦。所以现在我对这一个简单的两步过程感到非常高兴。
 
-The model is contained in a **.mlmodel** file. This is a new [open file format](https://pypi.python.org/pypi/coremltools) that describes the layers in your model, the input and outputs, the class labels, and any preprocessing that needs to happen on the data. It also contains all the learned parameters (the weights and biases).
+模型被包含在了一个 **.mlmodel** 的文件中。这是一种新的[开源文件格式](https://pypi.python.org/pypi/coremltools)，用于描述模型中的 layer、输入输出、标签，以及需要在数据上产生的任何预处理过程。它还包括了所有的学习参数（权重和偏置）。
 
-Everything you need to use the model is inside this one file.
+使用模型所需的一切都在这一个文件里面了。
 
-You simply drop the **mlmodel** file into your project and Xcode will automatically generate a Swift or Objective-C wrapper class that makes it really easy to use the model.
+你只需要将 mlmodel 文件放入你的项目中，Xcode 将会自动生成一个 Swift 或 Objective-C 的包装类，使你能简单的使用这个模型。
 
-For example, if you add the file **ResNet50.mlmodel** to your Xcode project, you can then write,
+举个例子，如果你把文件 **ResNet50.mlmodel** 添加到你的 Xcode 项目中，那么你就可以这么写来实例化这个模型：
 
-    let model = ResNet50()
-
-
-to instantiate the model. And the following to make a prediction:
-
-    let pixelBuffer: CVPixelBuffer = /* your image */iflet prediction = try? model.prediction(image: pixelBuffer) {
-      print(prediction.classLabel)
-    }
+```swift
+let model = ResNet50()
+```
 
 
-And that’s pretty much all there is to it. You don’t need to write any code to load the model or to convert its output into something you can use from Swift — that’s all taken care of by Core ML and Xcode. Sweet!
+然后做出预测：
 
-**Note:** To learn what happens behind the scenes, you can select the **mlmodel** file in the Project Navigator and then click on the button that says (Swift generated source) to see the file with the generated helper code.
+```swift
+let pixelBuffer: CVPixelBuffer = /* your image */if let prediction = try? model.prediction(image: pixelBuffer) {
+  print(prediction.classLabel)
+}
+```
 
-Core ML will decide for itself whether to run the model on the CPU or the GPU. This allows it to make optimal use of the available resources. Core ML can even split up the model to only perform certain parts on the GPU (tasks that need to do a lot of computations) and the other parts on the CPU (tasks that need a lot of memory).
 
-Core ML’s ability to use the CPU has another big benefit to us developers: you can run it from the iOS simulator (something that’s not possible with Metal, which also does not play well with unit tests).
+这差不多就是所有要写的东西了。你不需要编写任何代码来加载模型，或者将其输出转换成可以从 Swift 直接使用的内容 —— 这一切都将由 Core ML 和 Xcode 来处理。
 
-### What models does Core ML support?
+**注意:** 要了解背后发生了什么，可以在 Project Navigator 里选择 **mlmodel** 文件，然后点击 Swift generated source 右边的箭头按钮，就能够查看生成的帮助代码了。
 
-The ResNet50 example above is of an image classifier but Core ML can handle several different types of models, such as:
+Core ML 将决定自己到底是在 CPU 上运行还是 GPU 上运行。这使得它能够充分的利用可以用的资源。Core ML 甚至可以将模型分割成仅在 GPU 上执行的部分（需要大量计算的任务）以及 CPU 上的其他部分（需要大量内存的任务）。
 
-- support vector machines (SVM)
-- tree ensembles such as random forests and boosted trees
-- linear regression and logistic regression
-- neural networks: feed-forward, convolutional, recurrent
+Core ML 使用 CPU 的能力对于我们开发者来说另一个很大的好处是：你可以从 iOS 模拟器运行它，从而运行那些对于 Metal 来说做不到，同时在单元测试中也不太好的任务。
 
-All of these can be used for regression as well as classification. In addition your model can contain typical ML preprocessing steps like one-hot encoding, feature scaling, imputation of missing values, and so on.
+### Core ML 支持什么模型？
 
-Apple makes a number of trained models [available for download](http://developer.apple.com/machine-learning/), such as Inception v3, ResNet50, and VGG16, but you can also convert your own models with the [Core ML Tools](https://pypi.python.org/pypi/coremltools) Python library.
+上面的 ResNet50 例子展示的是一个图像分类器，但是 Core ML 可以处理几种不同类型的模型，如：
 
-Currently you can convert models that are trained with Keras, Caffe, scikit-learn, XGBoost, and libSVM. The conversion tool is a little particular about which versions it supports — for example Keras 1.2.2 works but 2.0 doesn’t. Fortunately, the tool is open source so no doubt it will support more training toolkits in the future.
+- 支持向量机 SVM
+- 诸如随机森林和提升树的决策树集成
+- 线性回归和 logistic 回归
+- 前馈神经网、卷积神经网、递归神经网
 
-And if all else fails, you can always write your own converter. The **mlmodel** file format is open and fairly straightforward to use (it’s in protobuf format and the specs are published by Apple).
+所有这些模型都可以用于回归问题和分类问题。此外，你的模型可以包含这些典型的机器学习预处理操作，例如独热编码（one-hot encoding）、特征缩放（feature scaling）、缺失值处理等等。
 
-### Limitations
+Apple 提供了很多已经训练好的模型[可供下载](http://developer.apple.com/machine-learning/)，例如 Inception v3、ResNet50 和 VGG16 等，但你也可以使用 [Core ML Tools](https://pypi.python.org/pypi/coremltools) 这个 Python 库来转换自己的模型。
 
-Core ML is great for quickly getting a model up and running in your apps. However, with such a simple API there are bound to be some limitations.
+目前，你可以转换使用 Keras、Caffe、scikit-learn、XGBoost 和 libSVM 训练的模型。转换工具只会支持具体指定的版本，比如 Keras 支持 1.2.2 但不支持 2.0。辛运的是，该工具是开源的，所以毫无疑问它将来会支持更多的训练工具包。
 
-- The supported model types are for **supervised** machine learning only. No unsupervised learning algorithms or reinforcement learning. (Although there is support for a “generic” neural network type, so you might be able to use that.)
+如果这些都不行，你还是可以随时编写自己的转换器。**mlmodel** 文件格式是开源且可以直接使用的（由 Apple 制定发布的一种 protobuf 格式）
 
-- There is **no training** on the device. You need to train your models using an offline toolkit and then convert the model to Core ML format.
+### 局限 
 
-- If Core ML does not support a certain layer type, you can’t use it. At this point it’s **impossible to extend** Core ML with your own compute kernels. Where tools like TensorFlow are used to build general-purpose computational graphs, the mlmodel file format is nowhere near that flexible.
+如果你想在你的 App 上马上运行一个模型， Core ML 很不错。然而使用这样一个简单的 API 一定会有一些限制。
 
-- The Core ML conversion tools **only support specific versions** of a limited number of training tools. If you trained a model in TensorFlow, for example, you can’t use this tool and you’ll have to write your own conversion script. And as I just mentioned: if your TensorFlow model is doing something that mlmodel does not support, you can’t use your model with Core ML.
+- 仅支持**有监督**学习的模型，无监督学习和增强学习都是不行的。（不过有一个「通用」的神经网络类型支持，因此你可以使用它）
+- 设备上不能进行训练。你需要使用离线工具包来进行训练，然后将它们转换到 Core ML 格式。
+- 如果 Core ML 不支持某种类型的 layer，那么你就不能使用它。在这一点上，你**不能**使用自己的 kernel 来扩展 Core ML。在使用 TensorFlow 这样的工具来构建通用计算图模型时，mlmodel 文件格式可能就不那么灵活了。
+- Core ML 转换工具只支持**特定版本**的数量有限的训练工具。例如，如果你在 TensorFLow 中训练了一个模型，则无法使用此工具，你必须编写自己的转换脚本。正如我刚才提到的：如果你的 TensorFlow 模型具有一些 mlmodel 不支持的特性，那么你就不能在 Core ML 上使用你的模型。
+- 你不能查看**中间层**的输出，只能获得最后一层网络的预测值。
+- 我感觉下载模型更新会造成一些问题，如果你不想每次重新训练模型的时候都重写一个新版本的 App，那么 Core ML 不适合你。
+- Core ML 对外屏蔽了它是运行在 CPU 上还是 GPU 上的细节 —— 这很方便 —— 但你必须相信它对你的 App 能做出正确的事情。即便你真的需要，你也不能强迫 Core ML 运行在 GPU 上。
 
-- You cannot look at the output produced by **intermediate layers**; you only get the prediction that comes out the last layer of the network.
+如果你能够忍受这些限制，那么 Core ML 对你来说就是正确的选择。
 
-- I’m not 100% sure but it seems that downloading a model update could be problematic. If you need to re-train often and you don’t want to push out a new version of your app every time you update the model, then maybe Core ML is not for you.
+否则的话，如果你想要完全的控制权，那么你必须使用 Metal Performance Shader 或 Accelerate 框架 —— 甚至一起使用 —— 来驱动你的模型了！
 
-- Core ML hides whether it runs on the CPU or the GPU — which is convenient — but you have to trust that it does the right thing for your app. You can’t force Core ML to run on the GPU, even if you really really want it to.
+当然，真正的黑魔法不是 Core ML，而是你的模型。**如果你连模型都没有，Core ML 是没有用的**。而设计和训练一个模型就是机器学习的难点所在……
 
-If you can live with these limitations, then Core ML is the right framework for you.
+### 一个快速示例程序
 
-If not, or if you want full control, you’re going to have to roll your own with Metal Performance Shaders or the Accelerate framework — or both!
-
-Of course, the *real* magic sauce is not in Core ML but in your model. **Core ML is of no use if you don’t have a suitable model to begin with.** And designing and training models is the hard part of doing machine learning…
-
-### A quick demo app
-
-I put together a simple demo project to play with Core ML. As always, you can find the [source code on GitHub](https://github.com/hollance/MobileNet-CoreML).
+我写了一个使用了 Core ML 的简单的示例项目，和往常一样，你可以在 GitHub 上找到[源码](https://github.com/hollance/MobileNet-CoreML)。
 
 [![The demo app in action](http://machinethink.net/images/ios11/Demo@2x.png)](http://machinethink.net/images/ios11/Demo@2x.png)
 
-This demo app uses the [MobileNet architecture](https://arxiv.org/abs/1704.04861v1) to classify a picture of a cat.
+这个示例程序使用了 [MobileNet](https://arxiv.org/abs/1704.04861v1) 架构来分类图片中的猫。
 
-Originally this model was [trained in Caffe](https://github.com/shicai/MobileNet-Caffe). It took me a little effort to figure out how to convert this to an **mlmodel** file, but once I had my converted model it was really easy to build into the app. (The [conversion script](https://github.com/hollance/MobileNet-CoreML/blob/master/Convert/coreml.py) is included in the GitHub repo.)
+最初这个模型是[用 Caffe 训练](https://github.com/shicai/MobileNet-Caffe)得出的。我花了一点时间来搞清楚如何将它转换到一个 mlmodel 文件，但是一旦我有了这个转换好的模型，便很容易集成到 App 中了（[转换脚本](https://github.com/hollance/MobileNet-CoreML/blob/master/Convert/coreml.py)包含在 GitHub 中）。
 
-The app isn’t very exciting just yet — it just outputs a top-5 prediction for a static image — but it does show how easy it is to use Core ML. Just a few lines of code is all you need.
+虽然这个 App 不是很有趣 —— 它只输出了一张静态图片的前五个预测值 —— 但却展示了使用 Core ML 是多么的简单。几行代码就够了。
 
-**Note:** The demo app works OK on the simulator but crashes on device. Keep reading to find out why this happens. ;–)
+**注意:** 示例程序在模拟器上工作正常，但是设备上运行就会崩溃。继续阅读来看看为什么会发生这种情况 ;-)
 
-Of course, I wanted to know what goes on under the hood. It turns out that the **mlmodel** file is actually compiled into an **mlmodelc** folder that goes into your application bundle. This folder contains a bunch of different files, some binary, some JSON. So with a bit of spelunking you can see how Core ML transforms the **mlmodel** before it actually gets deployed in your app.
+当然，我想知道发生了什么事情。事实证明 **mlmodel** 实际上被编译进应用程序 bundle 的 **mlmodelc** 文件夹中了。这个文件夹里包含了一堆不同的文件，一些二进制文件，一些 JSON文件。所以你你可以看到 Core ML 是如何将 mlmodel 在实际部署到应用中之前进行转换的。
 
-For example, the MobileNet Caffe model uses so-called Batch Normalization layers and I verified that these are also present in the converted **mlmodel** file. However, in the compiled **mlmodelc** the Batch Normalization layers appear to have been removed. That’s good news: Core ML optimizes the model.
+例如，MobileNet Caffe 模型使用了批量归一化（Batch Normalization）层，我验证了这些转换也存在于 **mlmodel** 文件中。但是在编译的 mlmodelc 中，这些批量归一化 layer 似乎就被移除了。这是个好消息：Core ML 优化了该模型。
 
-Still, it looks like it could optimize the structure of the model even more, since the **mlmodelc** still appears to include scaling layers that aren’t strictly necessary.
+尽管如此，它似乎可以更好的优化该模型的结构，因为 **mlmodelc** 仍然包含一些不必要的 scaling layer。
 
-Of course, we’re only at beta 1 of iOS 11 and Core ML may still improve. That said, it might be worth optimizing your model *before* you give it to Core ML — for example, by [“folding” the Batch Normalization layers](/blog/object-detection-with-yolo#converting-to-metal) — but this is something you’ll have to measure and compare for your particular model.
+当然，我们还处在 iOS 11 beta 1 的版本，Core ML 可能还会改进。也就是说，在应用到 Core ML 之前，还是值得对模型进一步优化的 —— 例如，[通过「folding」操作对 layer 进行批量归一化（Batch Normalization）](http://machinethink.net/blog/object-detection-with-yolo/#converting-to-metal)  —— 但这是你必须对你的特性模型进行测量和比较的东西。
 
-Something else you’ll have to check: whether your model runs the same on CPU and GPU. I mentioned that Core ML will choose whether to run your model on the CPU (using Accelerate framework) or the GPU (using Metal). It turns out that these two implementations may work differently — so you need to test both!
+还有其他一些你必须检查的：你的模型是否在 CPU 和 GPU 上运行相同。我提到 Core ML 将选择是否在 CPU 上运行模型（使用 Accelerate 框架）或 GPU（使用 Metal ）。事实证明，这两个实现可能会有所不同 —— 所以你两个都需要测试！
 
-For example, MobileNet uses a so-called “depthwise” convolution layer. The original model was trained in Caffe, which supports depthwise convolution by making the `groups` property of a regular convolution equal to the number of output channels. The resulting **MobileNet.mlmodel** file does the same. This works fine in the iOS simulator but it crashes on an actual device!
+例如，MobileNet 使用所谓的「depthwise」卷积层。原始模型在 Caffe 中进行训练，Caffe 通过使正常卷积的 `groups` 属性等于输出通道的数量来支持 depthwise 卷积。所得到的 **MobileNet.mlmodel** 文件也一样。这在 iOS 模拟器中工作正常，但它在设备上就会崩溃！
 
-What happens is that the simulator uses the Accelerate framework but the device uses Metal Performance Shaders. And due to the way Metal encodes the data, the `MPSCNNConvolution` kernel has the restriction that you can’t make the number of groups equal to the number of output channels. Whoops!
+发生这一切的原因是：模拟器使用的是 Accelerate 框架，但是该设备上使用的却是 Metal Performance Shaders。由于 Metal 对数据进行编码方式的特殊性， `MPSCNNConvolution` 内核限制了：不能使 groups 数等于输出通道的数量。噢嚯！ 
 
-I’ve submitted a bug report to Apple, but my point is: just because the model runs OK on the simulator doesn’t mean it runs OK on the device as well. **Be sure to test!**
+我向 Apple 提交了一个 bug，但是我想说的是：模型能在模拟器上运行正常并不意味着它在设备上运行正常。**一定要测试！**
 
-### How fast is it?
+### 有多快？
 
-I haven’t been able to test the speed of Core ML, since my new 10.5” iPad Pro is not arriving until next week (he he).
+我没有办法测试 Core ML 的速度，因为我的全新 10.5 寸 iPad Pro 下个星期才能到（呵呵）。
 
-I’m particularly interested in seeing what the speed difference is between running MobileNets using my [Forge library](https://github.com/hollance/Forge) and using Core ML (taking into consideration we’re still on a very early beta).
+我感兴趣的是我自己写的 [Forge 库](https://github.com/hollance/Forge)和 Core ML （考虑到我们都是一个早期的测试版）之间运行 MobileNets 之间的性能差异。
 
-Stay tuned! I’ll update this section when I have data to share.
+敬请关注！当我有数据可以分享时，我会更新这一节内容。
 
 ## Vision
 
-Next up on the list of things to discuss is the new **Vision** framework.
+下一个要讨论的事情就是全新的 **Vision** 框架。
 
-As you probably guessed from its name, Vision lets you perform **computer vision** tasks. In the past you would probably have used [OpenCV](http://opencv.org/) for this but now iOS has its own API.
+你可能已经从它的名字中猜到了，Vision 可以让你执行**计算机视觉**任务。在以前你可能会使用 [OpenCV](http://opencv.org/)，但现在 iOS 有自己的 API 了。
 
 [![Happy people with square faces](http://machinethink.net/images/ios11/Vision@2x.png)](http://machinethink.net/images/ios11/Vision@2x.png)
 
-The kinds of jobs Vision can perform are:
+Vision 可以执行的任务有以下几种：
 
-- Finding faces within an image. This gives you a rectangle for each face.
+- 在图像中寻找人脸。然后对每个脸给出一个矩形框。
+- 寻找面部的详细特征，比如眼睛和嘴巴的位置，头部的形状等等。
+- 寻找矩形形状的图像，比如路标。
+- 追踪视频中移动的对象。
+- 确定地平线的角度。
+- 转换两个图像，使其内容对齐。这对于拼接照片非常有用。
+- 检测包含文本的图像中的区域。
+- 检测和识别条形码。
 
-- Finding detailed facial features, such as the location of the eyes and the mouth, the shape of the head, and so on.
+Core Image 和 AVFoundation 已经可以实现其中的一些任务，但现在他们都集成在一个具有一致性 API 的框架内了。
 
-- Finding things in images that are rectangular in shape, like street signs.
+如果你的应用程序需要执行这些计算机视觉任务之一，再也不用跑去自己实现或使用别人的库了 - 只需使用 Vision 框架。你还可以将其与 Core Image 框架相结合，以获得更多的图像处理能力。
 
-- Tracking the movement of objects in a video.
+更好的是：**你可以使用 Vision 驱动 Core ML**，这允许你使用这些计算机视觉技术作为神经网络的预处理步骤。例如，你可以使用 Vision 来检测人脸的位置和大小，将视频帧裁剪到该区域，然后在这部分的面部图像上运行神经网络。
 
-- Determining the angle of the horizon.
+事实上，任何时候当你结合图像或者视频使用 Core ML 时，使用 Vision 都是合理的。原始的 Core ML 需要你确保输入图像是模型所期望的格式。如果使用 Vision 框架来负责调整图像大小等，这会为你节省不少力气。
 
-- Transforming two images so that their content is aligned. This is useful for stitching together photos.
+使用 Vision 来驱动 Core ML 的代码长这个样子：
 
-- Detecting the regions in the image that contain text.
+```swift
+// Core ML 的机器学习模型
+let modelCoreML = ResNet50()
+```
 
-- Detecting and recognizing bar codes.
+```swift
+// 将 Core ML 链接到 Vision
+let visionModel = try? VNCoreMLModel(for: modelCoreML.model)
+```
 
-Some of these tasks were already possible with Core Image and AVFoundation but now they’re all gathered inside one framework with a consistent API.
+```swift
+let classificationRequest = VNCoreMLRequest(model: visionModel) {
+  request, error iniflet observations = request.results as? [VNClassificationObservation] {
+    /* 进行预测 */
+  }
+}
 
-If your app needs to do one of these computer vision tasks, you no longer have to roll your own implementation or use someone else’s library — just use the Vision framework. You can also combine it with the Core Image framework for even more image processing power.
-
-Even better: **you can use Vision to drive Core ML**, which allows you to use these computer vision techniques as preprocessing steps for your neural network. For example, you can use Vision to detect the position and size of a person’s face, crop the video frame to that region, and run your neural network on just the part of the image where the face is.
-
-In fact, any time you’re using Core ML with images or video it makes sense to go through Vision. With “raw” Core ML you need to make sure your input image is in the format the model expects, but with Vision the framework takes care of resizing the image, etc. It saves a bit of extra effort on your part.
-
-In code using Vision to drive Core ML looks like this:
-
-    // the Core ML machine learning modellet modelCoreML = ResNet50()
-
-    // link the Core ML model to Visionlet visionModel = try? VNCoreMLModel(for: modelCoreML.model)
-
-    let classificationRequest = VNCoreMLRequest(model: visionModel) {
-      request, error iniflet observations = request.results as? [VNClassificationObservation] {
-        /* do something with the prediction */
-      }
-    }
-
-    let handler = VNImageRequestHandler(cgImage: yourImage)
-    try? handler.perform([classificationRequest])
-
-
-Note that `VNImageRequestHandler` takes an array of request objects, allowing you to chain several computer vision jobs together, like so:
-
-    try? handler.perform([faceDetectionRequest, classificationRequest])
+let handler = VNImageRequestHandler(cgImage: yourImage)
+try? handler.perform([classificationRequest])
+```
 
 
-Vision makes computer vision really easy to use. But the cool thing for us machine learning folks is that you can take the output of those computer vision tasks and feed it into your Core ML model. Combined with the power of Core Image that makes for one hell of an image processing pipeline!
+请注意，`VNImageRequestHandler` 接受一个请求对象数组，允许你将多个计算机视觉任务链接在一起，如下所示：
+
+```swift
+try? handler.perform([faceDetectionRequest, classificationRequest])
+```
+
+
+Vision 使计算机视觉变得非常容易使用。 但对我们机器学习人员很酷的事情是，你可以将这些计算机视觉任务的输出输入到你的 Core ML 模型中。 结合 Core Image 的力量，批量图像处理就跟玩儿一样！
 
 ## Metal Performance Shaders
 
-The last major topic I want to talk about is **Metal**, Apple’s GPU programming API.
+我最后一个想要讨论的话题就是 **Metal** —— Apple 的 GPU 编程 API。
 
-A lot of my work for clients this year has involved building neural networks with [Metal Performance Shaders (MPS)](/blog/convolutional-neural-networks-on-the-iphone-with-vggnet/) and tuning them for optimal performance. But iOS 10 only provided a few basic kernels for creating convolutional networks. Often it was necessary to write custom kernels to fill in the gaps.
+我今年为客户提供的很多工作涉及到使用 [Metal Performance Shaders (MPS)](http://machinethink.net/blog/convolutional-neural-networks-on-the-iphone-with-vggnet/) 来构建神经网络，并对其进行优化，从而获得最佳性能。但是 iOS 10 只提供了几个用于创建神经网络的基本 kernel。通常需要编写自定义的 kernel 来弥补这个缺陷。
 
-So I’m happy that with iOS 11 the number of available kernels has grown a lot, but even better: we now have an API for **building graphs**!
+所以我很开心使用 iOS 11，可用的 kernel 已经增长了许多，更好的是：我们现在有一个用于构建图的 API 了！
 
 [![Metal Performance Shaders](http://machinethink.net/images/ios11/Metal@2x.png)](http://machinethink.net/images/ios11/Metal@2x.png)
 
-**Note:** Why would you use MPS instead of Core ML? Good question! The biggest reason is when Core ML doesn’t support what you want to do, or when you want **full control** over the process and squeeze out the maximum possible speed.
+**注意:** 为什么要使用 MPS 而不是 Core ML？好问题！最大的原因是当 Core ML 不支持你想要做的事情时，或者当你想要完全的控制权并获得最大运行速度时。
 
-The big changes in MPS for machine learning are:
+MPS 中对于机器学习来说的最大的变化是：
 
-**Recurrent neural networks.** You can now create RNN, LSTM, GRU, and MGU layers. These work on sequences of `MPSImage` objects but also on sequences of `MPSMatrix` objects. That’s interesting because all the other MPS layers deal with images only — but obviously that’s not very convenient for when you’re working with text or other non-image data.
+**递归神经网络**。你现在可以创建 RNN，LSTM，GRU 和 MGU 层了。这些工作在 `MPSImage` 对象的序列上，但也适用于 `MPSMatrix` 对象的序列。这很有趣，因为所有其他 MPS layer 仅处理图像 —— 但显然，当你使用文本或其他非图像数据时，这不是很方便。
 
-**More datatypes.** Previously weights were supposed to be 32-bit floats but now can be 16-bit floats (half precision), 8-bit integers, or even binary. Convolution and fully-connected layers can be done with binary weights and binarized inputs.
+**更多数据类型**。以前的权重应该是 32 位浮点数，但现在可以是 16 位浮点数（半精度），8 位整数，甚至是 2 进制数。卷积和 fully-connected 的 layer 可以用 2 进制权重和 2 进制化输入来完成。
 
-**More layers.** Up until now we had to make do with plain-old regular convolution and max/average pooling, but as of iOS 11 MPS lets you do dilated convolution, subpixel convolution, transposed convolution, upsampling and resampling, L2-norm pooling, dilated max pooling, as well as a few new activation functions. MPS doesn’t have *all* the Keras or Caffe layer types yet, but the gap is closing…
+**更多的层**。到目前为止，我们不得不采用普通的常规卷积、最大池化和平均池化，但是在 iOS 11 MPS 中，你可以进行扩张卷积（Dilated Convolution）、子像素卷积（Subpixel Convolution）、转置卷积（Transposed Convolution）、上采样（Upsampling）和重采样（Resampling）、L2 范数池化（L2-norm pooling）、扩张最大池化（dilated max pooling），还有一些新的激活函数。 MPS 还没有所有的 Keras 或 Caffe layer 类型，但差距正在缩小...
 
-**More convenient.** Working with `MPSImage`s is always a bit weird because Metal organizes data in slices of 4 channels at a time (due to images being backed by `MTLTexture` objects). But now `MPSImage` has methods for reading and writing data that don’t break your brain as much.
+**更方便**。使用 `MPSImages` 总是有点奇怪，因为 Metal 每次以 4 个通道的片段组织数据（因为图像由 `MTLTexture` 对象支持）。但是现在，`MPSImage` 有用于读取和写入数据的方法，这些数据不会让你感到困惑。
 
-Also convenient is that `MPSCNNConvolutionDescriptor` has a new method that lets you set the batch normalization parameters on the layer. This means you no longer have to fold the batch normalization into the convolution layer weights yourself but MPS will do this for you. Very handy!
+`MPSCNNConvolutionDescriptor` 还有一个新方法，可以让你在 layer 上设置批量归一化参数。这意味着你不再需要将批量归一化到卷积层中，而 MPS 会为你处理这些事情。非常方便！
 
-**Performance improvements.** The existing kernels have become faster. That’s always good news. 🏎
+**性能改进**。现有的内核变得更快。这总是好消息。 🏎
 
-**Graph API.** This is the big news as far as I’m concerned. Creating all the layers and (temporary) images by hand was always a nuisance. Now you can describe a graph, just like you would in Keras. MPS will automatically figure out how large the images need to be, how to deal with padding, how to set the `offset` of your MPS kernels, and so on. It can even optimize the graph behind the scenes by fusing layers.
+**图 API**。这是我最关心的消息。手动创建所有 layer 和（临时）图像总是令人讨厌的。现在你可以描述一个图，就像你在Keras 中一样。 MPS 将自动计算出图像需要多大，如何处理填充，如何设置 MPS 内核的 `offset` 等等。甚至可以通过融合不同的 layer 来优化整个图。
 
-It looks like all MPS kernels are now serializable with `NSSecureCoding`, which means you can save a graph to a file and later restore it. And doing inference with this graph is now just a single method call. It’s not as easy as Core ML just yet, but using MPS is definitely a *lot* less work than before.
+看起来所有的 MPS 内核都可以使用 `NSSecureCoding` 进行序列化，这意味着你可以将图保存到文件中，然后将其还原。并且使用这个图来推断现在只是一个单一的方法调用。它不像 Core ML 那么简单，但使用 MPS 绝对比以前好用得多。
 
-One thing that is not clear to me yet is whether you can write your own compute kernels and stick them into this graph. In my client work I’ve found that often there’s a need for a preprocessing step, which requires a custom shader written in the Metal Shading Language. As far as I can tell, there does not seem to be an “`MPSNNCustomKernelNode`” class. This needs more investigating!
+有一件事情我目前还不太清楚，那就是我不知道你是否可以编写自己的 kernel 并在这个图中使用。在我客户的工作中，我发现通常需要使用 Metel Shading 语言编写的自定义着色器来进行预处理步骤。据我所知，似乎没有一个「`MPSNNCustomKernelNode`」类。这还要再多研究一下！
 
-Conclusion: the Metal Performance Shaders for machine learning have become a lot more powerful with iOS 11, but most developers should probably stick with Core ML (which uses MPS under the hood).
+结论：用于机器学习的 Metal Performance Shaders 已经在 iOS 11 中变得更加强大，但是大多数开发人员应该转而使用 Core ML（对于那些使用MPS的来说）。
 
-**Note:** The new graph API makes my [Forge library](http://github.com/hollance/Forge) pretty much obsolete, unless you want to keep supporting iOS 10 in your apps. I will be porting the example apps to the new graph API soon and I’ll write a more detailed blog post about it then.
+**注意**：新的图 API 使我的 [Forge 库](http://github.com/hollance/Forge)基本上过时了，除非你希望在 App 中继续支持 iOS 10。我将尽快将示例应用移植到新的图 API 上，然后将写一个更详细的博客文章。
 
-## Odds and ends
+## 杂项
 
-Some other new stuff that was announced:
+还有一些其他的更新：
 
-**Accelerate:** It seems that [BNNS in the Accelerate framework](/blog/apple-deep-learning-bnns-versus-metal-cnn/) didn’t get much of a functionality update. It finally has a Softmax layer but none of the new layer types that MPS got. Maybe that’s all right: using the CPU for deep neural networks isn’t probably a good idea anyway. That said, I love Accelerate and it’s got loads of goodies. And this year it did get more support for sparse matrices, so that’s cool.
+**Accelerate 框架:** 似乎 [Accelerate 框架中的 BNNS](http://machinethink.net/blog/apple-deep-learning-bnns-versus-metal-cnn/) 并没有获得太多功能上的更新。它终于有了 Softmax 层，但 MPS 却没有新的 layer 类型。也许无关紧要：使用 CPU 进行深层神经网络可能不是一个好主意。也就是说，我喜欢 Accelerate，它有很多好玩的东西。而今年，它确实获得了对稀疏矩阵的更多支持，很棒。
 
-**Natural Language Processing:** Core ML is not just for images, it can handle lots of different kinds of data including text. The API to use is the  `NSLinguisticTagger` class that has been around for a while but has become much more efficacious with iOS 11. `NSLinguisticTagger` now does language identification, tokenizing, part-of-speech tagging, lemmatization, and Named Entity Recognition.
+**自然语言处理:** Core ML不仅仅只能处理图像，它还可以处理大量不同类型的数据，包括文本。 使用的 API `NSLinguisticTagger` 类已经存在了一段时间，但是与 iOS 11 相比变得更加有效了。`NSLinguisticTagger` 现在已经能进行语言鉴别，词法分析，词性标注，词干提取和命名实体识别。
 
-I don’t have a lot of experience with NLP, so I can’t really say how it stacks up against other NLP frameworks but `NSLinguisticTagger` looks quite powerful. This API seems like a good place to get started if you want to add NLP to your apps.
+我没有什么 NLP 的经验，所以我没办法比较它与其他 NLP 框架的区别，但`NSLinguisticTagger` 看起来相当强大。 如果要将 NLP 添加到 App 中，此 API 似乎是一个好的起点。
 
-## Is it all good news?
+## 都是好消息吗?
 
-It’s great that Apple provides all these new tools to us developers, but there is an important “problem” with most Apple APIs:
+Apple 向我们开发者提供所有的这些新工具都非常的好，但是大多数 Apple API 都有一些很重要的问题：
 
-1. they are not open source
-2. they have limitations
-3. they’re only updated with new OS releases
+1. 闭源
+2. 有局限
+3. 只有在新 OS 发布时候才会更新
 
-These three things together mean that Apple’s APIs will **always lag behind** other tools. If Keras adds a cool new layer type, you won’t be able to use this with Core ML until Apple updates their framework and their OS.
+这三个东西加在一起意味着苹果的 API **总会落后**于其他工具。如果 Keras 增加了一个很炫酷的新的 layer 类型，那么在 Apple 更新其框架和操作系统之前，你都没办法将它和 Core ML 一起使用了。
 
-And if some part of the API doesn’t quite work the way you want, you can’t go in and fix it — you’ll have to work around it (not always possible) or wait until the next OS release (and require all your users to upgrade).
+如果某些 API 得到的计算结果并不是你想要的，你没办法简单的进去看看到底是 Core ML 的问题还是模型的问题，再去修复它 —— 你必须绕开 Core ML 来解决这个问题（并不总是可能的）；要么就只能等到下一个 OS 发布了（需要你所有的用户进行升级）。
 
-Of course I don’t expect Apple to give away their secret sauce, but as most other machine learning toolkits are open source, why not make Core ML open source too? 🙏
+当然我不希望 Apple 放弃他们的秘密武器，但是就像其他大多数机器学习工具开源一样，为什么不让 Core ML 也开源呢？ 🙏
 
-Knowing Apple this probably isn’t going to happen any time soon, but at least keep the above in mind when you decide to add machine learning to your own apps.
+我知道这对于 Apple 来说不可能马上发生，但当你决定在 App 中使用机器学习时，要记住上面的这些内容。
 
-Written by **Matthijs Hollemans**. First published on Sunday, 11 June 2017.
 
-I hope you found this post useful! Let me know on Twitter [@mhollemans](https://twitter.com/mhollemans) or email me at [matt@machinethink.net](mailto:matt@machinethink.net).
+
+**Matthijs Hollemans** 于 2017 年 6 月 11 日
+
+我希望这篇文章对你有所帮助！欢迎通过 Twitter [@mhollemans](https://twitter.com/mhollemans) 或 Email [matt@machinethink.net](mailto:matt@machinethink.net) 联系我。
 
 ---
 
