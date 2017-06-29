@@ -2,7 +2,7 @@
 > * 原文作者：[ESLint](http://eslint.org/docs/user-guide/migrating-to-4.0.0)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[吃土小2叉](https://github.com/xunge0613)
-> * 校对者：
+> * 校对者：[薛定谔的猫](https://github.com/Aladdin-ADD)、[sqrthree](https://github.com/sqrthree)
 
 # ESLint v4.0.0 升级指南
 
