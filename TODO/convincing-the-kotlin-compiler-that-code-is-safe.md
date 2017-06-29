@@ -2,7 +2,7 @@
 > * 原文作者：[Dan Lew](http://blog.danlew.net/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[wilsonandusa](https://github.com/wilsonandusa)
-> * 校对者：
+> * 校对者：[mnikn](https://github.com/mnikn)，[zaraguo](https://github.com/zaraguo)
 
  Kotlin 这门语言最出色的特点之一就是它内部自带的空值安全系统。如果你在要求非空的情况下使用空值，那么编译器会就会发出警告。
 
