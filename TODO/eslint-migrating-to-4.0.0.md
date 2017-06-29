@@ -169,9 +169,9 @@ ESLint v4.0.0 是 ESLint 的第 4 个主版本。当然，我们希望大多数�
 
 ## AST 节点不再具有注释属性
 
-在 ESLint 4.0 之前，ESLint 需要借助解析器为注释添加附属物，其中 AST 节点将获得与源文件中的前置注释和后置注释相对应的附加属性。这使得用户难以开发自定义解析器，因为他们必须复制 ESLint 所需的令人困惑的注释附属物语义。（注：这一段和下一段文字翻译得很生涩……可能理解有误，需要讨论下……）
+在 ESLint 4.0 之前，ESLint 需要解析器实现附加注释的解析，这个过程中，AST 节点将从源文件的前后置注释中获取额外的相关联属性。这就使得用户很难去开发自定义解析器，因为他们不得不去重复解析那些令人困惑同时又是 ESlint 必需的附加注释语义。
 
-在 ESLint 4.0 中，我们已经摆脱了注释附加物的概念，并将所有的注释处理逻辑转移到了 ESLint 本身。这样可以更容易地开发自定义解析器，但这也意味着 AST 节点将不再具有 `leadingComments` 和 `trailingComments` 属性。 从概念上来说，规则作者现在可以在 tokens 上下文而不是 AST 节点的上下文中考虑注释。
+在 ESLint 4.0 中，我们已经摆脱了附加注释的概念，并将所有的注释处理逻辑转移到了 ESLint 本身。这样可以更容易地开发自定义解析器，但这也意味着 AST 节点将不再具有 `leadingComments` 和 `trailingComments` 属性。 从概念上来说，规则作者现在可以在 tokens 上下文而不是 AST 节点的上下文中考虑注释。
 
 **注：** 如果您有一个依赖于 AST 节点的 `leadingComments` 或 `trailingComments` 属性的自定义规则，则可以分别使用 `sourceCode.getCommentsBefore()` 和 `sourceCode.getCommentsAfter()` 替代。
 
