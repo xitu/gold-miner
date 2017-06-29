@@ -1,5 +1,5 @@
 > * 原文地址：[iOS 11: Machine Learning for everyone](http://machinethink.net/blog/ios-11-machine-learning-for-everyone/)
-> * 原文作者：[Matthijs Hollemans](https://twitter.com/mhollemans)
+> * 原文作者：本文已获原作者 [Matthijs Hollemans](https://twitter.com/mhollemans) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[Changkun Ou](https://github.com/changkun/)
 > * 校对者：[wilsonandusa](https://github.com/wilsonandusa) [atuooo](https://github.com/atuooo)
