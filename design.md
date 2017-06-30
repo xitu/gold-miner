@@ -1,3 +1,4 @@
+* [使登录页面变得正确](https://juejin.im/post/5951e7905188250d98489c6a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([LisaPeng](https://github.com/LisaPeng) 翻译)
 * [可口可乐自由风格售卖亭界面用户体验的回顾和重新设计](https://juejin.im/post/594bd720f265da6c4c4fb134?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([ylq167](https://github.com/ylq167) 翻译)
 * [为复杂产品制定设计规范](https://juejin.im/post/5944b8e55c497d006bdc261a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([changkun](https://github.com/changkun) 翻译)
 * [是的，重新设计](https://juejin.im/post/5940e74fa0bb9f006b76a841?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([dongpeiguo](https://github.com/dongpeiguo) 翻译)
