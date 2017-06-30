@@ -1,3 +1,4 @@
+* [Swift 中关于并发的一切：第一部分 — 当前](https://juejin.im/post/5954571af265da6c4c4fc3f8?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([DeepMissea](https://github.com/DeepMissea) 翻译)
 * [iOS 11：UIKit 中值得注意的新能力](https://juejin.im/post/5944adfffe88c2006a6f6f3a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([zhangqippp](https://github.com/zhangqippp) 翻译)
 * [深度学习在 iOS 上的实践 —— 通过 YOLO 在 iOS 上实现实时物体检测](https://juejin.im/post/59433498da2f600067604218?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Danny1451](https://github.com/Danny1451) 翻译)
 * [消息同步 —— 在 Airbnb 我们是怎样扩展移动消息的](https://juejin.im/post/593a7647128fe1006acafaf9?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Tuccuay](https://github.com/Tuccuay) 翻译)
