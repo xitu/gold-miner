@@ -5,7 +5,7 @@
 
 [掘金翻译计划](https://juejin.im/tag/%E6%8E%98%E9%87%91%E7%BF%BB%E8%AF%91%E8%AE%A1%E5%88%92) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](#android)、[iOS](#ios)、[React](#react)、[前端](#前端)、[后端](#后端)、[产品](#产品)、[设计](#设计) 等领域，读者为热爱新技术的新锐开发者。
 
-掘金翻译计划目前翻译完成 [543](#近期文章列表) 篇文章，共有 [330](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
+掘金翻译计划目前翻译完成 [544](#近期文章列表) 篇文章，共有 [330](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
 
 # 官方指南
 
@@ -23,10 +23,10 @@
 
 ## Android
 
+* [说服Kotlin编译器代码安全](https://juejin.im/post/5955a78cf265da6c2810a9ff?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([wilsonandusa](https://github.com/wilsonandusa) 翻译)
 * [当设计模式遇上 Kotlin](https://juejin.im/post/594b2ac00ce4630057425bd5?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([boileryao](https://github.com/boileryao) 翻译)
 * [Kotlin 中我讨厌什么](https://juejin.im/entry/594335c18d6d810058ce06a0/detail?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zhiw](https://github.com/Zhiw) 翻译)
 * [再谈如何安全地在 Android 中存储令牌](https://juejin.im/post/5938f81e5c497d006b6187ea?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lovexiaov](https://github.com/lovexiaov))
-* [Workcation App – 第四部分. 场景（Scenes）和 RecyclerView 的共享元素转场动画（Shared Element Transition）](https://juejin.im/post/5934bc22a0bb9f0058e27e88?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([stormrabbit](https://github.com/stormrabbit))
 * [所有 Android 译文>>](https://github.com/xitu/gold-miner/blob/master/android.md)
 
 ## iOS
