@@ -1,3 +1,4 @@
+* [统一样式语言](https://juejin.im/post/595311fa6fb9a06b9d5b5f08?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([ZhangFe](https://github.com/ZhangFe) 翻译)
 * [ESLint v4.0.0 升级指南](https://juejin.im/post/5954af2f6fb9a06baa63ab50?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([xunge0613](https://github.com/xunge0613) 翻译)
 * [RxJS Observable 之冷和热](https://juejin.im/entry/594c88765188250d9017d072/detail?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([hikerpig](https://github.com/hikerpig) 翻译)
 * [JavaScript：回调是什么鬼？](https://juejin.im/post/594b3607128fe100650355c7?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([sunui](https://github.com/sunui) 翻译)
