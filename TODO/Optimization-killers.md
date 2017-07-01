@@ -2,15 +2,15 @@
 > * 原文作者：[github.com/petkaantonov/bluebird](https://github.com/petkaantonov/bluebird)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[lsvih](https://github.com/lsvih)
-> * 校对者：
+> * 校对者：[Aladdin-ADD](https://github.com/Aladdin-ADD),[zhaochuanxing](https://github.com/zhaochuanxing)
 
-# 性能优化杀手
+# V8 性能优化杀手
 
 ## 简介
 
 这篇文章给出了一些建议，让你避免写出性能远低于期望的代码。特别指出有一些代码会导致 V8 引擎（涉及到 Node.JS、Opera、Chromium 等）无法对相关函数进行优化。
 
-vhf 也做了一个类似的项目，试图将 V8 引擎的性能杀手全部列出来：[V8 Bailout Reasons](https://github.com/vhf/v8-bailout-reasons)。
+vhf 正在做一个类似的项目，试图将 V8 引擎的性能杀手全部列出来：[V8 Bailout Reasons](https://github.com/vhf/v8-bailout-reasons)。
 
 ### V8 引擎背景知识
 
@@ -36,9 +36,9 @@ add eax, ebx
 
 通常来说，使用普通编译器将会得到前面那种代码，使用优化编译器将会得到后面那种代码。走优化编译器的代码可以说比走普通编译器的代码性能好上 100 倍。但是请注意，并不是任何类型的 JavaScript 代码都能被优化。在 JS 中，有很多种情况（甚至包括一些我们常用的语法）是不能被优化编译器优化的（这种情况被称为“bailout”，从优化编译器降级到普通编译器）。
 
-记住一些会导致整个函数无法被优化的情况是很重要的。JS 代码被优化时，将会逐个优化函数，在优化各个函数的时候不会关心其它的代码做了什么（除非那些代码在已经被优化的函数中）。
+记住一些会导致整个函数无法被优化的情况是很重要的。JS 代码被优化时，将会逐个优化函数，在优化各个函数的时候不会关心其它的代码做了什么（除非那些代码被内联在即将优化的函数中。）。
 
-这篇文章涵盖了大多数会导致函数进入“反优化地狱”的情况。不过在未来，优化编译器进行更新后能够识别越来越多的情况时，下面给出的建议与各种变通方法可能也会变的不再必要或者需要修改。
+这篇文章涵盖了大多数会导致函数坠入“无法被优化的深渊”的情况。不过在未来，优化编译器进行更新后能够识别越来越多的情况时，下面给出的建议与各种变通方法可能也会变的不再必要或者需要修改。
 
 ## 主题
 
@@ -111,7 +111,7 @@ Function is optimized
 
 有一些语法结构是不支持被编译器优化的，用这类语法将会导致包含在其中的函数不能被优化。
 
-**请注意**，即使这些语句不会被执行或者不会被访问到，它仍然会导致整个函数不能被优化。
+**请注意**，即使这些语句不会被访问到或者不会被执行，它仍然会导致整个函数不能被优化。
 
 例如下面这样做是没用的：
 
@@ -139,7 +139,7 @@ if (DEVELOPMENT) {
 - 包含字面调用 `eval()` 的函数
 - 包含 `with` 语句的函数
 
-最后盘一下：如果你用了下面任何一种情况，整个函数将不能被优化：
+最后明确一下：如果你用了下面任何一种情况，整个函数将不能被优化：
 
 ```js
 function containsObjectLiteralWithProto() {
@@ -186,7 +186,7 @@ function tryCatch(fn, ctx, args) {
 }
 
 var result = tryCatch(mightThrow, void 0, [1,2,3]);
-//明确地爆出 try-catch 会抛出什么
+//明确地报出 try-catch 会抛出什么
 if(result === errorObject) {
     var error = errorObject.value;
 }
@@ -201,7 +201,7 @@ else {
 
 有许多种使用 `arguments` 的方式会导致函数不能被优化。因此当使用 `arguments` 的时候需要格外小心。
 
-#### 3.1. 在宽松模式中，对一个已经被定义，同时在函数体中被 `arguments` 引用的参数重新赋值。典型案例：
+#### 3.1. 在非严格模式中，对一个已经被定义，同时在函数体中被 `arguments` 引用的参数重新赋值。典型案例：
 
 ```js
 function defaultArgsReassign(a, b) {
@@ -304,7 +304,7 @@ function doesntLeakArguments() {
 
 #### 3.3. 对 arguments 进行赋值：
 
-在宽松模式下可以这么做：
+在非严格模式下可以这么做：
 
 ```js
 function assignToArguments() {
@@ -320,7 +320,7 @@ function assignToArguments() {
 只使用：
 
 - `arguments.length`
-- `arguments[i]` **`i` 需要始终未 arguments 的合法整型索引，且不允许越界**
+- `arguments[i]` **`i` 需要始终为 arguments 的合法整型索引，且不允许越界**
 - 除了 `.length` 和 `[i] `，不要直接使用 `arguments`
 - 严格来说用 `fn.apply(y, arguments)` 是没问题的，但除此之外都不行（例如 `.slice`）。 `Function#apply` 是特别的存在。
 - 请注意，给函数添加属性值（例如 `fn.$inject = ...`）和绑定函数（即 `Function#bind` 的结果）会生成隐藏类，因此此时使用 `#apply` 不安全。
