@@ -2,7 +2,7 @@
 > * 原文作者：[Issara Willenskomer](https://medium.com/@ux_in_motion?source=post_header_lockup)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[Ruixi](https://github.com/ruixi)
-> * 校对者：
+> * 校对者：[cdpath](https://github.com/cdpath),[osirism](https://github.com/osirism)
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/1000/1*boQYFGPLtlDof3RRs124bQ.gif">
 
@@ -81,7 +81,7 @@ UI 动效对于“动效中 UX 设计的12条法则”来说就像是建筑物�
 
 关系是指空间，时间，和层次表示之间引导用户理解和决策的界面对象。
 
-### 准则，技术，特性和值 ###
+### 准则、技术、特性和值 ###
 
 [Tyler Waye](http://tylerwaye.com/learning-to-learn-principles-vs-techniques/) 这话就和他之前写过的一样好：“准则……是提升技术的基本功能前提和潜在规则。无论发生了什么，这些元素都保持一致。” 重申，原则是不可知的设计。
 
@@ -89,11 +89,11 @@ UI 动效对于“动效中 UX 设计的12条法则”来说就像是建筑物�
 
 **技术**可以认为是原则或原则组合的各种无限制的执行。我觉得技术类似于“风格”。
 
-**特性**则是特定的对象因素来将技术转化为现实。这些包括（但不限于）位置，不透明度，比例，旋转角度，定位点，色彩，笔画宽度，形状，等等。
+**特性**则是特定的对象因素来将技术转化为现实。这些包括（但不限于）位置、不透明度、比例、旋转角度、定位点、色彩、笔画宽度、形状等等。
 
 **值**是随时间而变化的实际数值属性值，用以创建我们所称的“动画”。
 
-所以在这里先停一下（再往前说一点），我们可以说一个假想的动画参考是利用遮蔽原理（？）和“毛玻璃”技术：模糊 25px，不透明度 70%。
+所以在这里先停一下（再往前说一点），我们可以说一个假想的动画参考是利用遮罩和“毛玻璃”技术：模糊 25px，不透明度 70%。
 
 现在我们有些可利用的工具。更重要的是，有些语言工具对于任何其他特殊原型工具来说都是不可知的。
 
@@ -136,7 +136,7 @@ UI 动效对于“动效中 UX 设计的12条法则”来说就像是建筑物�
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*7rRMvWTms2t7FnR0kyJN3g.gif">
 
-分隔和延迟是 UI 动画两大原则中的第二个，它深受迪士尼动画原则的影响，in this case from “[动作跟随与重叠](https://en.wikipedia.org/wiki/12_basic_principles_of_animation#Follow_Through_and_Overlapping_Action)。”
+分隔和延迟是 UI 动画两大原则中的第二个，它深受迪士尼动画原则的影响，这里出自“[动作跟随与重叠](https://en.wikipedia.org/wiki/12_basic_principles_of_animation#Follow_Through_and_Overlapping_Action)。”
 
 这一点很重要，值得注意。然而，这种操作在执行中也有相似之处，目的和结果不同。迪士尼的原则指导出了“更吸引人的动画”，而 UI 动效原则引导了更具可用性的体验。
 
@@ -154,7 +154,7 @@ Credit: [InVision](https://dribbble.com/InVisionApp)
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*DJHXB3kDHesSwHxLYeJyFg.gif">
 
-Credit: [Jordi Verdu](https://dribbble.com/jordiverdu) (
+Credit: [Jordi Verdu](https://dribbble.com/jordiverdu)
 
 在上述案例中，静态的视觉设计告诉我们背景上有图标。假设图标都是分开的，有不同的功能。但动画和这个是矛盾的。
 
@@ -210,7 +210,7 @@ Credit: [Colin Garven](https://dribbble.com/ColinGarven)
 
 变形的作用是在不同的 UX 状态或者“这是”（就像**这是**一个按钮，**这是**一个横向进度条，**这是**一个复选标记）之间为用户提供无缝过渡。这最终都会导致预期的结果。用户被安排通过这些功能来达到最终目的。
 
-“模块”的变化产生的影响适当地将用户体验中的关键时间点分离成为一个无缝和连续的事件序列。这种无缝的体验会带来更好的用户感知，记忆，以及后续行为。
+“模块”的变化产生的影响适当地将用户体验中的关键时间点分离成为一个无缝和连续的事件序列。这种无缝的体验会带来更好的用户感知，记忆，以及后续行为
 
 #### 原理5:数值变化 ####
 **当值的主体发生变化时，产生动态的、连续的叙事关系。**
@@ -231,7 +231,7 @@ Credit: [Colin Garven](https://dribbble.com/ColinGarven)
 
 当基于数值的界面对象在没有**数值变化**时加载，传递给用户的数字是静态对象。它们就像是显示限速每小时55英里的油漆标志牌。
 
-数字和值都是**事实**发生的事件的表征。这个事实可以是时间，收入，游戏分数，商业指标，运动跟踪等等。我们通过动画来区分的是动态的“值的主体”，以及那些反映了动态值的集合的某些东西。
+数字和值都是**事实**发生的事件的表征。这个事实可以是时间、收入、游戏分数、商业指标、运动跟踪。我们通过动画来区分的是动态的“值的主体”，以及那些反映了动态值的集合的某些东西。
 
 这种关系不仅失去了静态对象的视觉价值，也失去了一个更深层次的有利条件。
 
@@ -297,7 +297,7 @@ Credit: [Bady](https://dribbble.com/bady), [Javi Pérez](https://dribbble.com/ja
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*XhtrzHD5PBpHKuhoJqB7fQ.gif">
 
-在当前场景中创建新的对象时(来自当前对象)，外观上的 narratively account 显得尤为重要。在这份宣言中，我强调了创建一个叙事框架的对象起源和出发的重要性。仅仅是对不同明度的调整达不到这种效果。遮罩，生成，以及数值的变化是三种基于可用性来产生强烈叙事性的方法。
+在当前场景中创建新的对象时(来自当前对象)，叙事性地解释其外观尤为重要。在这份宣言中，我强调了创建一个叙事框架的对象起源和出发的重要性。仅仅是对不同明度的调整达不到这种效果。遮罩、生成、以及数值的变化是三种基于可用性来产生强烈叙事性的方法。
 
 <img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/400/1*UsnQMriM_Bjz480Ob70egg.gif">
 
@@ -442,7 +442,7 @@ Credit: [Apple](http://www.apple.com/)
 
 最后再插个广告：如果你想要我就令人激动的动效主题以及可用性在你的会议上发言或者为你的团队组织一个现场讨论的话，请移步[这里](https://uxinmotion.net/workshops-and-speaking/)。如果你想要在你所在城市参加课程，来[这里](https://uxinmotion.net/workshops-and-speaking/#classes)。最后，如果你想要向我咨询你的项目，可以看看[这里](https://uxinmotion.net/consulting/)。添加到我的列表，点击[这里](http://uxinmotion.net/joinnow)。
 
-这份宣言离不开来自亚马逊的 [Kateryna Sitner](https://www.linkedin.com/in/katerynasitner/) 慷慨耐心的贡献和不断的反馈——非常感谢！特别致谢 [Alex Chang](https://www.linkedin.com/in/alexychang/)，他的头脑风暴和坚持给了我莫大的支持，感谢来自微软的 [Bryan Mamaril](http://ficuscreative.com/) 的一双慧眼，感谢 Jeremey Hanson 的笔记编辑整理，感谢疯狂的 UI 动效大师 [Eric Braff](https://www.linkedin.com/in/eric-braff-276504b)，[Artefact](http://artefactgroup.com/) 的 Rob Girling 的多年信任，[Matt Silverman](http://www.swordfish-sf.com/)  在 After Effects 会议上鼓动人心的讲话，良心室友 [Bradley Munkowitz](http://gmunk.com/) 为我带来 UI 设计的灵感，[Pasquale D’Silva](https://medium.com/@pasql)  关于动效的令人吃惊的文章，[Rebecca Ussai Henderson](https://medium.freecodecamp.com/@becca_u)  for her awesome article on UI Choreography, [Adrian Zumbrunnen](https://medium.com/@azumbrunnen) 在 UI 编排领域的佳作，[Wayne Greenfield](http://www.seattlekombucha.com/) 还有 [Christian Brodin](http://www.theapartmentinvestor.com/author/christian-brodin/) 不断推动我进步的策划兄弟。还有你们，不断创造灵性 gif 的成千上万的 UI 动画师们。 
+这份宣言离不开来自亚马逊的 [Kateryna Sitner](https://www.linkedin.com/in/katerynasitner/) 慷慨耐心的贡献和不断的反馈——非常感谢！特别致谢 [Alex Chang](https://www.linkedin.com/in/alexychang/)，他的头脑风暴和坚持给了我莫大的支持，感谢来自微软的 [Bryan Mamaril](http://ficuscreative.com/) 的一双慧眼，感谢 Jeremey Hanson 的笔记编辑整理，感谢疯狂的 UI 动效大师 [Eric Braff](https://www.linkedin.com/in/eric-braff-276504b)，[Artefact](http://artefactgroup.com/) 的 Rob Girling 的多年信任，[Matt Silverman](http://www.swordfish-sf.com/)  在 After Effects 会议上鼓动人心的讲话，良心室友 [Bradley Munkowitz](http://gmunk.com/) 为我带来 UI 设计的灵感，[Pasquale D’Silva](https://medium.com/@pasql)  关于动效的令人吃惊的文章，[Rebecca Ussai Henderson](https://medium.freecodecamp.com/@becca_u)对 UI 在编排方面的精彩论述, [Adrian Zumbrunnen](https://medium.com/@azumbrunnen) 在 UI 编排领域的佳作，[Wayne Greenfield](http://www.seattlekombucha.com/) 还有 [Christian Brodin](http://www.theapartmentinvestor.com/author/christian-brodin/) 不断推动我进步的策划兄弟。还有你们，不断创造灵性 gif 的成千上万的 UI 动画师们。 
 
 
 ---
