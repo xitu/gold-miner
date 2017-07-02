@@ -10,7 +10,7 @@
 
 照片来自 [Raphael Schaller](https://unsplash.com/@raphaelphotoch)
 
-# 以排印为本：从内容出发
+# 以排印为本，从内容出发
 
 **首发于 [Subvisual 的 blog](https://subvisual.co/blog/posts/138-typography-as-base-from-the-content-out)**。本文是为了寻找一种在设计任何 web 项目时都能依赖的结构。
 
