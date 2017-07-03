@@ -1,5 +1,5 @@
 
-  > * 原文地址：[Functional programming in Javascript is an antipattern](https://hackernoon.com/functional-programming-in-javascript-is-an-antipattern-58526819f21e)
+> * 原文地址：[Functional programming in Javascript is an antipattern](https://hackernoon.com/functional-programming-in-javascript-is-an-antipattern-58526819f21e)
 > * 原文作者：[Alex Dixon](https://hackernoon.com/@alexdixon)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/functional-programming-in-javascript-is-an-antipattern.md](https://github.com/xitu/gold-miner/blob/master/TODO/functional-programming-in-javascript-is-an-antipattern.md)
@@ -55,7 +55,7 @@ Javascript 中的函数式编程。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*MVU4TWwrkRMpQlmgkU9TuQ.png)
 
-反模式的可视化。
+`反模式的可视化。
 
 我已孤立无援，并且把 Javascript 的函数式编程称为一种反模式。这是一条迷人之路却将我引入迷宫。它似乎解决了一些问题，最终却创造了更多的问题。重点是这些问题似乎没有更高层次的解决方案能避免我一次有又一次地处理问题。
 
