@@ -1,9 +1,9 @@
 
-> * 原文地址：[Functional programming in Javascript is an antipattern](https://hackernoon.com/functional-programming-in-javascript-is-an-antipattern-58526819f21e)
+  > * 原文地址：[Functional programming in Javascript is an antipattern](https://hackernoon.com/functional-programming-in-javascript-is-an-antipattern-58526819f21e)
 > * 原文作者：[Alex Dixon](https://hackernoon.com/@alexdixon)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/functional-programming-in-javascript-is-an-antipattern.md](https://github.com/xitu/gold-miner/blob/master/TODO/functional-programming-in-javascript-is-an-antipattern.md)
-> * 译者：
+> * 译者：[sunui](https://github.com/sunui)
 > * 校对者：
 
 # Javascript 的函数式编程是一种反模式
@@ -12,7 +12,7 @@
 
 ![](https://cdn-images-1.medium.com/max/1600/1*Y6orLTOgb6JFfjVdANVgCQ.png)
 
-## 其实 Clojure 更简单些 
+## 其实 Clojure 更简单些
 
 写了几个月 Clojure 之后我再次开始写 Javascript。就在我试着写一些很普通的东西的时候，我总会想下面这些问题：
 
@@ -28,7 +28,7 @@
 
 > “`fromJS` 然后 <写代码> 然后 `.toJS()`？”
 
-这些问题似乎没什么必要。但我猜想我已经思考这些问题上百万次了只是没有注意到，因为它们都是我知道的。
+这些问题似乎没什么必要。但我猜想我已经思考这些问题上百万次了只是没有注意到，因为这些都是我知道的。
 
 当使用 React、Redux、ImmutableJS、lodash、和像 lodash/fp、ramda 这样的函数式编程库的任意组合写 Javascript 的时候，我觉得没什么方法能避免这种思考。
 
@@ -41,29 +41,29 @@
 
 就算我能够记住这些东西，我依然会遇到上面那一堆问题。不可变数据、可变数据和某些情况下不能改变的可变数据。一些常用函数的签名和返回值也是这样，几乎每一行代码都有不同的情况要考虑。我觉得在 Javascript 中使用函数式编程技术很棘手。
 
-按照惯例像 Redux 和 React 这种库需要不可变性。所以即使我不使用 ImmutableJS，我也得记得“don’t mutate here”。在 Javascript 中不可变的转换比它本身的使用更难。我感觉这门语言给我前进的道路下了一路坑。此外，JavaScript 没有像 Object.map 这样基本的函数。所以像[上个月 4300 多万人](https://www.npmjs.com/package/lodash)一样，我使用 lodash，它提供大量 Javascript 自身没有的函数。不过它的 API 也不是友好支持不可变的。一些函数返回新的数值，而另一些会更改已经存在的数据。再次强调，花时间来区分它们是很不必要的开销。事实大概如此，想要处理 Javascript，我需要了解 lodash、它的函数名称、它的签名、它的返回值。更糟糕的是，它的[“collection first, arguments last”方式](https://www.youtube.com/watch?v=m3svKOdZijA)对函数式编程来说也并不理想。
+按照惯例像 Redux 和 React 这种库需要不可变性。所以即使我不使用 ImmutableJS，我也得记得“don’t mutate here”。在 Javascript 中不可变的转换比它本身的使用更难。我感觉这门语言给我前进的道路下了一路坑。此外，JavaScript 没有像 Object.map 这样基本的函数。所以像[上个月 4300 多万人](https://www.npmjs.com/package/lodash)一样，我使用 lodash，它提供大量 Javascript 自身没有的函数。不过它的 API 也不是友好支持不可变的。一些函数返回新的数值，而另一些会更改已经存在的数据。再次强调，花时间来区分它们是很不必要的开销。事实大概如此，想要处理 Javascript，我需要了解 lodash、它的函数名称、它的签名、它的返回值。更糟糕的是，它的[“collection 在先, arguments 在后”方式](https://www.youtube.com/watch?v=m3svKOdZijA)对函数式编程来说也并不理想。
 
-If I use ramda or lodash/fp, that helps. It’s easy to compose functions and write clear and concise code. But I can’t use it with Immutable data structures. I will also probably have some code where the collection argument is last, and other times it’s the opposite. I have to know more function names, signatures, return values, and import more basic functions.
-如果我使用 ramda 或者 lodash/fp 会好一些，可以很容易地组合函数并且写出清晰整洁的代码。但是它不能和 Immutable 数据结构一起使用。
+如果我使用 ramda 或者 lodash/fp 会好一些，可以很容易地组合函数并且写出清晰整洁的代码。但是它不能和 Immutable 数据结构一起使用。我可能还是要写一些参数集合在后，而其他在前的代码。我必须知道更多的函数名、签名、返回值，并引入更多的基本函数。
 
-When I use ImmutableJS in isolation, some things are easier. Map.set returns a brand new value. Everything returns a brand new value! This is what I want. Unfortunately, ImmutableJS complects things too. I inevitably have two different sets of data structures to work with. So I have to know whether `x` is Immutable or Javascript. As a result of learning its API and its overall way of thinking, I can know how to solve a problem in 2 seconds using Immutable. When I’m working in native JS, I have to skip over that solution and solve the problem another way. Like ramda and lodash, I have a larger set of functions I need to know about — what they return, their signatures, their names . I also need to divide all the functions I know about into two categories: ones that work with Immutable, and ones that don’t. This tends to affect the way I solve problems too. I sometimes arrive at a solution automatically that uses curry and compose. But neither work with ImmutableJS. So I skip that solution and think of another.
+当我单独使用 ImmutableJS，一些事变得容易些了。Map.set 返回全新的值。一切都返回全新的值！这就是我想要的。不幸的是，ImmutableJS 也纠结了一些事情。我不可避免地要处理两套不同的数据结构。所以我不得不清楚 `x` 是 Immutable 的还是 Javascript 的。通过学习其 API 和整体思维方式，我可以使用 Immutable 在 2 秒内知道如何解决问题。当我使用原生 JS 时，我必须跳过该解决方案，用另一种方式来解决问题。就像 ramda 和 lodash 一样，有大量的函数需要我了解 —— 他们返回什么、他们的签名、它们的名称。我也需要把我所知的所有函数分成两类：一类用于 Immutable 的，另一类不是。这往往也会影响我解决问题的方式。我有时会不自主地想到柯里化和组合函数的解决方案。但不能和 ImmutableJS 一起使用。所以我跳过这个解决方案，想想其他的。
 
-After I figure all this out, I can attempt to write some code. Then I move to another file and do the same thing all over.
+当我全部想清楚以后，我才能尝试写一些代码。然后我转移另一个文件，做一遍同样的事情。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*FVBc2DWB09sW6QJwMxm_fw.png)
 
-Functional programming in Javascript.
+Javascript 中的函数式编程。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*MVU4TWwrkRMpQlmgkU9TuQ.png)
 
-`Visualization of an antipattern.
-I’m going out on a limb and calling functional programming in Javascript an antipattern. It’s an attractive path that gives way to a maze. It seems to solve some problems but ends up creating more. More importantly, those problems appear to have no higher-level solution that can prevent me from having to deal with them over and over again.
+反模式的可视化。
+
+我已孤立无援，并且把 Javascript 的函数式编程称为一种反模式。这是一条迷人之路却将我引入迷宫。它似乎解决了一些问题，最终却创造了更多的问题。重点是这些问题似乎没有更高层次的解决方案能避免我一次有一次的处理问题。
 
 ### What are the long term costs of this?
 
-I don’t have exact figures, but I think it’s safe to say I could be more productive if I didn’t have to wonder things like “What function can I use here?” and “Should I mutate this variable?” They have nothing to do with the problem I’m trying to solve, or the feature I’m trying to implement. They are caused by the language itself. The only way I can find to avoid this is to not go down the path in the first place — don’t use ImmutableJS, immutable data structures, immutable data as a concept in Redux/React, or ramda, or lodash. Basically, write Javascript without functional programming techniques. That doesn’t seem like a good solution.
+我没有确切的数字，但我敢说如果不必去想“在这里我可以用什么函数？”和“我可否改变这个变量”这样的问题，我可以更有成效。这些问题对我想要解决的问题或者我想要增加的功能没有任何意义。它们是语言本身造成的。我能想到避免这个问题的唯一办法就是在路的起点就不要走下去 —— 不要使用 ImmutableJS 、ImmutableJS 数据结构、Redux/React 概念中的不可变数据，以及 ramda 表达式和 lodash。总之就是写 Javascript 不要使用函数式编程技术，它看似不是什么号的解决方案。
 
-If you identify or agree at all with what I’ve said (and if you don’t, that’s fine), then I think it’s worth 5 minutes, a day, or even a week to consider: What might be the long-term costs of staying on the Javascript path versus taking a different one?
+If you identify or agree at all with what I’ve said (and if you don’t, that’s fine), then I think it’s worth 5 minutes, a day, or even a week to consider: What might be the long-term costs of staying on the Javascript path versus taking a different one?如果你确定或同意我所说的
 
 The different one, for me, is called Clojurescript. It’s a “compile-to-JS” language like ES6. By and large, it’s Javascript in a different syntax. It was designed from the ground up as a functional programming language that operates on immutable data structures. To me, it’s way easier and more promising than Javascript.
 
