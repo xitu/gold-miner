@@ -1,3 +1,4 @@
+* [把 UUID 或者 GUID 作为主键？你得小心啦！](https://juejin.im/post/59561e5b6fb9a06bbf6fdf16?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([zaraguo](https://github.com/zaraguo) 翻译)
 * [iOS 11：机器学习人人有份](https://juejin.im/post/59533049f265da6c3a54b739?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([changkun](https://github.com/changkun) 翻译)
 * [Swift 中关于并发的一切：第一部分 — 当前](https://juejin.im/post/5954571af265da6c4c4fc3f8?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([DeepMissea](https://github.com/DeepMissea) 翻译)
 * [iOS 11：UIKit 中值得注意的新能力](https://juejin.im/post/5944adfffe88c2006a6f6f3a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([zhangqippp](https://github.com/zhangqippp) 翻译)
