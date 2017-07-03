@@ -9,26 +9,26 @@
 
 # React 在服务端渲染的实现
 
-React是最受欢迎的客户端 JavaScript 框架，但你知道吗(可以试试)，你可以使用 React 在服务器端进行渲染？
+React是最受欢迎的客户端 JavaScript 框架，但你知道吗(或许更应该试试)，你可以使用 React 在服务器端进行渲染？
 
-假设你已经在客户端使用 React 构建了一个事件列表 app。该应用程序使用了您最喜欢的服务器端工具构建的API。几周后，用户告诉您，他们的页面没有显示在 Google 上，发布到 Facebook 时也显示不出来。 这些问题似乎是可以解决的，对吧？
+假设你为客户构建了一个很棒的事件列表 React app。。该应用程序使用了您最喜欢的服务器端工具构建的API。几周后，用户告诉您，他们的页面没有显示在 Google 上，发布到 Facebook 时也显示不出来。 这些问题似乎是可以解决的，对吧？
 
-您会发现，要解决这个问题，需要在初始加载时从服务器渲染 React 页面，以便来自搜索引擎和社交媒体网站的爬虫工具可以读取您的标记。有证据表明，Google 有时会执行 javascript 程序并且对生成的内容进行索引，但并不总是的。因此，如果您希望确保与其他服​​务（如Facebook，Twitter）有良好的SEO兼容性，那么始终建议使用服务器端渲染。
+您会发现，要解决这个问题，需要在初始加载时从服务器渲染 React 页面，以便来自搜索引擎和社交媒体网站的爬虫工具可以读取您的标记。有证据表明，Google 有时会执行 javascript 程序并且对生成的内容进行索引，但并不总是这样。因此，如果您希望确保与其他服​​务（如 Facebook，Twitter）有良好的SEO兼容性，那么始终建议使用服务器端渲染。
 
-在本教程中，我们将逐步介绍服务器端的呈现示例。包括围绕与API交流的React应用程序的共同路障。
+在本教程中，我们将逐步介绍服务器端的呈现示例。包括围绕与 API 交流的 React 应用程序的共同路障。
 在本教程中，我们将逐步向您介绍服务器端的渲染示例。包括围绕着 APIS 交流一些在服务端渲染 React 应用程序的共同障碍。
 
 # 服务端渲染的优势
 
 可能您的团队谈论到服务端渲染的好处是首先会想到 SEO，但这并不是唯一的潜在好处。
 
-更大的好处如下：服务器端渲染能更快地显示页面。使用服务器端渲染，您的服务器对浏览器进行响应是在您的 HTML 页面可以渲染的时候，因此浏览器可以不用等待所有的 JavaScript 被下载和执行就可以开始渲染。当浏览器下载并执行页面所需的 JavaScript 和其他资源时，不会出现 “白屏” 现象，而 “白屏” 这是在完全有客户端呈现的 React 网站中可能发生的情况。
+更大的好处如下：服务器端渲染能更快地显示页面。使用服务器端渲染，您的服务器对浏览器进行响应是在您的 HTML 页面可以渲染的时候，因此浏览器可以不用等待所有的 JavaScript 被下载和执行就可以开始渲染。当浏览器下载并执行页面所需的 JavaScript 和其他资源时，不会出现 “白屏” 现象，而 “白屏” 却可能在完全由客户端渲染的 React 网站中出现。
 
 # 入门
 
-接下来让我们来看看如何将服务器端渲染添加到一个基本的客户端渲染的使用Babel和Webpack的React应用程序中。我们的应用程序将增加从第三方 API 获取数据的复杂性。我们在GitHub上提供了[相关代码](https://github.com/ButterCMS/react-ssr-example/releases/tag/starter-code)，您可以在其中看到完整的示例。
+接下来让我们来看看如何将服务器端渲染添加到一个基本的客户端渲染的使用 Babel 和 Webpack 的 React 应用程序中。我们的应用程序将会因从第三方 API 获取数据而变得有点复杂。我们在GitHub上提供了[相关代码](https://github.com/ButterCMS/react-ssr-example/releases/tag/starter-code)，您可以在其中看到完整的示例。
 
-提供的代码中只有一个 React 组件，\`hello.js\`，这个文件将向 [ButterCMS](https://buttercms.com/) 发出异步请求，并渲染返回的 JSON 列表的博文。ButterCMS 是一个基于API的博客引擎，可供个人使用，因此它非常适合测试现实生活中的用例。启动代码中连接着一个 API token，如果你想使用你自己的 API token 可以[使用你的 GitHub 账号登入 ButterCMS](https://buttercms.com/home/)。
+提供的代码中只有一个 React 组件，\`hello.js\`，这个文件将向 [ButterCMS API](https://buttercms.com/) 发出异步请求，并渲染返回 JSON 列表中的博文。ButterCMS 是一个基于 API 的博客引擎，可供个人使用，因此它非常适合测试现实生活中的用例。启动代码中连接着一个 API token，如果你想使用你自己的 API token 可以[使用你的 GitHub 账号登入 ButterCMS](https://buttercms.com/home/)。
 
 ``` js
 import React from 'react';
@@ -103,7 +103,7 @@ npm run start
 
 # 增加服务器端渲染
 
-接下来，我们将实现服务器端渲染，以便将完全生成的HTML发送到浏览器。如果要同时查看所有更改，请查看[GitHub上的差异](https://github.com/ButterCMS/react-ssr-example/commit/525c625b0f65489050983ed03b52bb7770ce6b7a)。
+接下来，我们将实现服务器端渲染，以便将完全生成的HTML发送到浏览器。如果要同时查看所有更改，请在 [GitHub](https://github.com/ButterCMS/react-ssr-example/commit/525c625b0f65489050983ed03b52bb7770ce6b7a) 上查看文件的差异。
 
 To get started, we'll install Express, a Node.js server side application framework:
 开始前，让我们安装 Express，一个 Node.js 的服务器端应用程序框架：
@@ -157,7 +157,7 @@ app.listen(3000);
 ReactDOMServer.renderToString(<Hello />);
 ```
 
-这将返回 Hello 组件的 HTML ，我们将其注入到 index.html 的 HTML 中，从而生成服务器上页面的完整 HTML 。
+这将返回 Hello 组件的 HTML，我们将其注入到 index.html 的 HTML 中，从而生成服务器上页面的完整 HTML。
 
 ``` js
 const document = data.replace(/<div id="app"><\/div>/,`<div id="app">${html}</div>`);
@@ -173,7 +173,7 @@ To start the server, update the start script in package.json and then run npm ru
 ```
 
 浏览 `http://localhost:3000` 查看应用程序。瞧！您的页面现在正在从服务器渲染出来了。但是有个问题，
-如果您在浏览器中查看页面源码，您会注意到博客文章仍未包含在回复中。这是怎么回事？如果我们在Chrome中打开网络标签，我们会看到客户端上发生API请求。
+如果您在浏览器中查看页面源码，您会注意到博客文章仍未包含在响应中。这是怎么回事？如果我们在 Chrome 中打开网络面板，我们会看到客户端上发生 API 请求。
 
 ![](https://res.cloudinary.com/css-tricks/image/upload/c_scale,w_1000,f_auto,q_auto/v1497358447/devtools_qx5y1o.png)
 
@@ -275,7 +275,7 @@ app.listen(3000);
 
 # 更进一步
 
-我们做到了！在服务器上使用 React 可能很棘手，尤其是从 API 获取数据时。幸运的是，React社区正在蓬勃发展，并创造了许多有用的工具。如果您对构建在客户端和服务器上渲染的大型 React 应用程序的框架感兴趣，请查看 Walmart Labs 的 [Electrode](https://github.com/electrode-io/electrode) 或 [Next.js](https://github.com/zeit/next.js)。或者如果要在 Ruby 中渲染 React ，请查看 AirBnB 的 [Hypernova](https://github.com/airbnb/hypernova) 。
+我们做到了！在服务器上使用 React 可能很棘手，尤其是从 API 获取数据时。幸运的是，React 社区正在蓬勃发展，并创造了许多有用的工具。如果您对构建在客户端和服务器上渲染的大型 React 应用程序的框架感兴趣，请查看 Walmart Labs 的 [Electrode](https://github.com/electrode-io/electrode) 或 [Next.js](https://github.com/zeit/next.js)。或者如果要在 Ruby 中渲染 React ，请查看 AirBnB 的 [Hypernova](https://github.com/airbnb/hypernova) 。
 
 
 ---
