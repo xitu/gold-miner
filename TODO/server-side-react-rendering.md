@@ -1,17 +1,15 @@
-
-
 > * 原文地址：[Server-Side React Rendering](https://css-tricks.com/server-side-react-rendering/)
 > * 原文作者：[Roger Jin](https://css-tricks.com/author/rogerjin/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/server-side-react-rendering.md](https://github.com/xitu/gold-miner/blob/master/TODO/server-side-react-rendering.md)
 > * 译者：[牧云云](https://github.com/MuYunyun)
-> * 校对者：
+> * 校对者：[CACppuccino](https://github.com/CACppuccino)、[xx1124961758](https://github.com/xx1124961758)
 
-# React 在服务端渲染的实现
+# React 在服务端渲染的实现
 
-React是最受欢迎的客户端 JavaScript 框架，但你知道吗(或许更应该试试)，你可以使用 React 在服务器端进行渲染？
+React是最受欢迎的客户端 JavaScript 框架，但你知道吗(或许更应该试试)，你可以使用 React 在服务器端进行渲染？
 
-假设你为客户构建了一个很棒的事件列表 React app。。该应用程序使用了您最喜欢的服务器端工具构建的API。几周后，用户告诉您，他们的页面没有显示在 Google 上，发布到 Facebook 时也显示不出来。 这些问题似乎是可以解决的，对吧？
+假设你为客户构建了一个很棒的事件列表 React app。。该应用程序使用了您最喜欢的服务器端工具构建的API。几周后，用户告诉您，他们的页面没有显示在 Google 上，发布到 Facebook 时也显示不出来。 这些问题似乎是可以解决的，对吧？
 
 您会发现，要解决这个问题，需要在初始加载时从服务器渲染 React 页面，以便来自搜索引擎和社交媒体网站的爬虫工具可以读取您的标记。有证据表明，Google 有时会执行 javascript 程序并且对生成的内容进行索引，但并不总是这样。因此，如果您希望确保与其他服​​务（如 Facebook，Twitter）有良好的SEO兼容性，那么始终建议使用服务器端渲染。
 
@@ -20,15 +18,15 @@ React是最受欢迎的客户端 JavaScript 框架，但你知道吗(或许更
 
 # 服务端渲染的优势
 
-可能您的团队谈论到服务端渲染的好处是首先会想到 SEO，但这并不是唯一的潜在好处。
+可能您的团队谈论到服务端渲染的好处是首先会想到 SEO，但这并不是唯一的潜在好处。
 
-更大的好处如下：服务器端渲染能更快地显示页面。使用服务器端渲染，您的服务器对浏览器进行响应是在您的 HTML 页面可以渲染的时候，因此浏览器可以不用等待所有的 JavaScript 被下载和执行就可以开始渲染。当浏览器下载并执行页面所需的 JavaScript 和其他资源时，不会出现 “白屏” 现象，而 “白屏” 却可能在完全由客户端渲染的 React 网站中出现。
+更大的好处如下：服务器端渲染能更快地显示页面。使用服务器端渲染，您的服务器对浏览器进行响应是在您的 HTML 页面可以渲染的时候，因此浏览器可以不用等待所有的 JavaScript 被下载和执行就可以开始渲染。当浏览器下载并执行页面所需的 JavaScript 和其他资源时，不会出现 “白屏” 现象，而 “白屏” 却可能在完全由客户端渲染的 React 网站中出现。
 
 # 入门
 
 接下来让我们来看看如何将服务器端渲染添加到一个基本的客户端渲染的使用 Babel 和 Webpack 的 React 应用程序中。我们的应用程序将会因从第三方 API 获取数据而变得有点复杂。我们在GitHub上提供了[相关代码](https://github.com/ButterCMS/react-ssr-example/releases/tag/starter-code)，您可以在其中看到完整的示例。
 
-提供的代码中只有一个 React 组件，\`hello.js\`，这个文件将向 [ButterCMS API](https://buttercms.com/) 发出异步请求，并渲染返回 JSON 列表中的博文。ButterCMS 是一个基于 API 的博客引擎，可供个人使用，因此它非常适合测试现实生活中的用例。启动代码中连接着一个 API token，如果你想使用你自己的 API token 可以[使用你的 GitHub 账号登入 ButterCMS](https://buttercms.com/home/)。
+提供的代码中只有一个 React 组件，\`hello.js\`，这个文件将向 [ButterCMS API](https://buttercms.com/) 发出异步请求，并渲染返回 JSON 列表中的博文。ButterCMS 是一个基于 API 的博客引擎，可供个人使用，因此它非常适合测试现实生活中的用例。启动代码中连接着一个 API token，如果你想使用你自己的 API token 可以[使用你的 GitHub 账号登入 ButterCMS](https://buttercms.com/home/)。
 
 ``` js
 import React from 'react';
@@ -93,7 +91,7 @@ npm install
 npm run start
 ```
 
-浏览器输入 http://localhost:8000 可以看到这个 app: (这里译者进行补充，package.json 里的 start 命令改为如下：`"start": webpack-dev-server --watch`)
+浏览器输入 http://localhost:8000 可以看到这个 app: (这里译者进行补充，package.json 里的 start 命令改为如下：`"start": webpack-dev-server --watch`)
 
 ![](https://res.cloudinary.com/css-tricks/image/upload/c_scale,w_1000,f_auto,q_auto/v1497358286/localhost_r84tot.png)
 
@@ -105,7 +103,6 @@ npm run start
 
 接下来，我们将实现服务器端渲染，以便将完全生成的HTML发送到浏览器。如果要同时查看所有更改，请在 [GitHub](https://github.com/ButterCMS/react-ssr-example/commit/525c625b0f65489050983ed03b52bb7770ce6b7a) 上查看文件的差异。
 
-To get started, we'll install Express, a Node.js server side application framework:
 开始前，让我们安装 Express，一个 Node.js 的服务器端应用程序框架：
 
 ```
@@ -177,13 +174,12 @@ To start the server, update the start script in package.json and then run npm ru
 
 ![](https://res.cloudinary.com/css-tricks/image/upload/c_scale,w_1000,f_auto,q_auto/v1497358447/devtools_qx5y1o.png)
 
-虽然我们在服务器上渲染了 React 组件，但是 API 请求在 componentWillMount 中异步生成，并且组件在请求完成之前渲染。所以即使我们已经在服务器上完成渲染，但我们只是完成了部分。事实上，[React repo 有一个 issue](https://github.com/facebook/react/issues/1739)，超过 100 条评论讨论了这个问题和各种解决方法。
+虽然我们在服务器上渲染了 React 组件，但是 API 请求在 componentWillMount 中异步生成，并且组件在请求完成之前渲染。所以即使我们已经在服务器上完成渲染，但我们只是完成了部分。事实上，[React repo 有一个 issue](https://github.com/facebook/react/issues/1739)，超过 100 条评论讨论了这个问题和各种解决方法。
 
 # 在渲染之前获取数据
 
-要解决这个问题，我们需要在渲染 Hello 组件之前确保 API 请求完成。这意味着要使 API 请求跳出 React 的组件渲染循环，并在渲染组件之前获取数据。我们将逐步介绍这一步，但您可以在[GitHub上查看完整的差异]()https://github.com/ButterCMS/react-ssr-example/commit/5fdd453e31ab08dfdc8b44261696d4ed89fbb719。
+要解决这个问题，我们需要在渲染 Hello 组件之前确保 API 请求完成。这意味着要使 API 请求跳出 React 的组件渲染循环，并在渲染组件之前获取数据。我们将逐步介绍这一步，但您可以在 [GitHub 上查看完整的差异](https://github.com/ButterCMS/react-ssr-example/commit/5fdd453e31ab08dfdc8b44261696d4ed89fbb719)。
 
-To move data fetching before rendering, we'll install react-transmit:
 要在渲染之前获取数据，我们需安装 [react-transmit](https://github.com/RickWong/react-transmit)：
 
 ```
@@ -220,9 +216,9 @@ var Hello = React.createClass({
 });
 
 export default Transmit.createContainer(Hello, {
-  // 必须设定 initiallVariables 和 ftagments ,否则渲染时会报错
+  // 必须设定 initiallVariables 和 ftagments ,否则渲染时会报错
   initialVariables: {},
-  // 定义的方法名将成为 Transmit props 的名称
+  // 定义的方法名将成为 Transmit props 的名称
   fragments: {
     posts() {
       return butter.post.list().then((resp) => resp.data);
@@ -231,7 +227,7 @@ export default Transmit.createContainer(Hello, {
 });
 ```
 
-我们已经使用 `Transmit.createContainer` 将我们的组件包装在一个高级组件中，该组件可以用来获取数据。我们在 React 组件中删除了生命周期方法，因为无需两次获取数据。同时我们把 render 方法中的 state 替换成 props，因为 React Transmit 将数据作为 props 传递给组件。
+我们已经使用 `Transmit.createContainer` 将我们的组件包装在一个高级组件中，该组件可以用来获取数据。我们在 React 组件中删除了生命周期方法，因为无需两次获取数据。同时我们把 render 方法中的 state 替换成 props，因为 React Transmit 将数据作为 props 传递给组件。
 
 为了确保服务器在渲染之前获取数据，我们导入 Transmit 并使用 `Transmit.renderToString` 而不是 `ReactDOM.renderToString` 方法
 
@@ -275,7 +271,7 @@ app.listen(3000);
 
 # 更进一步
 
-我们做到了！在服务器上使用 React 可能很棘手，尤其是从 API 获取数据时。幸运的是，React 社区正在蓬勃发展，并创造了许多有用的工具。如果您对构建在客户端和服务器上渲染的大型 React 应用程序的框架感兴趣，请查看 Walmart Labs 的 [Electrode](https://github.com/electrode-io/electrode) 或 [Next.js](https://github.com/zeit/next.js)。或者如果要在 Ruby 中渲染 React ，请查看 AirBnB 的 [Hypernova](https://github.com/airbnb/hypernova) 。
+我们做到了！在服务器上使用 React 可能很棘手，尤其是从 API 获取数据时。幸运的是，React 社区正在蓬勃发展，并创造了许多有用的工具。如果您对构建在客户端和服务器上渲染的大型 React 应用程序的框架感兴趣，请查看 Walmart Labs 的 [Electrode](https://github.com/electrode-io/electrode) 或 [Next.js](https://github.com/zeit/next.js)。或者如果要在 Ruby 中渲染 React ，请查看 Airbnb 的 [Hypernova](https://github.com/airbnb/hypernova) 。
 
 
 ---
