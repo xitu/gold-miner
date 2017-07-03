@@ -41,13 +41,13 @@
 
 就算我能够记住这些东西，我依然会遇到上面那一堆问题。不可变数据、可变数据和某些情况下不能改变的可变数据。一些常用函数的签名和返回值也是这样，几乎每一行代码都有不同的情况要考虑。我觉得在 Javascript 中使用函数式编程技术很棘手。
 
-按照惯例像 Redux 和 React 这种库需要不可变性。所以即使我不使用 ImmutableJS，我也得记得“don’t mutate here”。在 Javascript 中不可变的转换比它本身的使用更难。我感觉这门语言给我前进的道路下了一路坑。此外，JavaScript 没有像 Object.map 这样基本的函数。所以像[上个月 4300 多万人](https://www.npmjs.com/package/lodash)一样，我使用 lodash，它提供大量 Javascript 自身没有的函数。不过它的 API 也不是友好支持不可变的。一些函数返回新的数值，而另一些会更改已经存在的数据。再次强调，花时间来区分它们是很不必要的开销。事实大概如此，想要处理 Javascript，我需要了解 lodash、它的函数名称、它的签名、它的返回值。更糟糕的是，它的[“collection 在先, arguments 在后”方式](https://www.youtube.com/watch?v=m3svKOdZijA)对函数式编程来说也并不理想。
+按照惯例像 Redux 和 React 这种库需要不可变性。所以即使我不使用 ImmutableJS，我也得记得“don’t mutate here”。在 Javascript 中不可变的转换比它本身的使用更难。我感觉这门语言给我前进的道路下了一路坑。此外，JavaScript 没有像 Object.map 这样基本函数。所以像[上个月 4300 多万人](https://www.npmjs.com/package/lodash)一样，我使用 lodash，它提供大量 Javascript 自身没有的函数。不过它的 API 也不是友好支持不可变的。一些函数返回新的数值，而另一些会更改已经存在的数据。再次强调，花时间来区分它们是很不必要的开销。事实大概如此，想要处理 Javascript，我需要了解 lodash、它的函数名称、它的签名、它的返回值。更糟糕的是，它的[“collection 在先， arguments 在后”](https://www.youtube.com/watch?v=m3svKOdZijA)的方式对函数式编程来说也并不理想。
 
-如果我使用 ramda 或者 lodash/fp 会好一些，可以很容易地组合函数并且写出清晰整洁的代码。但是它不能和 Immutable 数据结构一起使用。我可能还是要写一些参数集合在后，而其他在前的代码。我必须知道更多的函数名、签名、返回值，并引入更多的基本函数。
+如果我使用 ramda 或者 lodash/fp 会好一些，可以很容易地组合函数并且写出清晰整洁的代码。但是它不能和 Immutable 数据结构一起使用。我可能还是要写一些参数集合在后而其他在前的代码。我必须知道更多的函数名、签名、返回值，并引入更多的基本函数。
 
-当我单独使用 ImmutableJS，一些事变得容易些了。Map.set 返回全新的值。一切都返回全新的值！这就是我想要的。不幸的是，ImmutableJS 也纠结了一些事情。我不可避免地要处理两套不同的数据结构。所以我不得不清楚 `x` 是 Immutable 的还是 Javascript 的。通过学习其 API 和整体思维方式，我可以使用 Immutable 在 2 秒内知道如何解决问题。当我使用原生 JS 时，我必须跳过该解决方案，用另一种方式来解决问题。就像 ramda 和 lodash 一样，有大量的函数需要我了解 —— 他们返回什么、他们的签名、它们的名称。我也需要把我所知的所有函数分成两类：一类用于 Immutable 的，另一类不是。这往往也会影响我解决问题的方式。我有时会不自主地想到柯里化和组合函数的解决方案。但不能和 ImmutableJS 一起使用。所以我跳过这个解决方案，想想其他的。
+当我单独使用 ImmutableJS，一些事变得容易些了。Map.set 返回全新的值。一切都返回全新的值！这就是我想要的。不幸的是，ImmutableJS 也纠结了一些事情。我不可避免地要处理两套不同的数据结构。所以我不得不清楚 `x` 是 Immutable 的还是 Javascript 的。通过学习其 API 和整体思维方式，我可以使用 Immutable 在 2 秒内知道如何解决问题。当我使用原生 JS 时，我必须跳过该解决方案，用另一种方式来解决问题。就像 ramda 和 lodash 一样，有大量的函数需要我了解 —— 它们返回什么、它们的签名、它们的名称。我也需要把我所知的所有函数分成两类：一类用于 Immutable 的，另一类不是。这往往也会影响我解决问题的方式。我有时会不自主地想到柯里化和组合函数的解决方案。但不能和 ImmutableJS 一起使用。所以我跳过这个解决方案，想想其他的。
 
-当我全部想清楚以后，我才能尝试写一些代码。然后我转移另一个文件，做一遍同样的事情。
+当我全部想清楚以后，我才能尝试写一些代码。然后我转移到另一个文件，做一遍同样的事情。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*FVBc2DWB09sW6QJwMxm_fw.png)
 
@@ -57,42 +57,42 @@ Javascript 中的函数式编程。
 
 反模式的可视化。
 
-我已孤立无援，并且把 Javascript 的函数式编程称为一种反模式。这是一条迷人之路却将我引入迷宫。它似乎解决了一些问题，最终却创造了更多的问题。重点是这些问题似乎没有更高层次的解决方案能避免我一次有一次的处理问题。
+我已孤立无援，并且把 Javascript 的函数式编程称为一种反模式。这是一条迷人之路却将我引入迷宫。它似乎解决了一些问题，最终却创造了更多的问题。重点是这些问题似乎没有更高层次的解决方案能避免我一次有又一次地处理问题。
 
-### What are the long term costs of this?
+### 这件事的长期成本是什么?
 
-我没有确切的数字，但我敢说如果不必去想“在这里我可以用什么函数？”和“我可否改变这个变量”这样的问题，我可以更有成效。这些问题对我想要解决的问题或者我想要增加的功能没有任何意义。它们是语言本身造成的。我能想到避免这个问题的唯一办法就是在路的起点就不要走下去 —— 不要使用 ImmutableJS 、ImmutableJS 数据结构、Redux/React 概念中的不可变数据，以及 ramda 表达式和 lodash。总之就是写 Javascript 不要使用函数式编程技术，它看似不是什么号的解决方案。
+我没有确切的数字，但我敢说如果不必去想“在这里我可以用什么函数？”和“我可否改变这个变量”这样的问题，我可以更有成效。这些问题对我想要解决的问题或者我想要增加的功能没有任何意义。它们是语言本身造成的。我能想到避免这个问题的唯一办法就是在路的起点就不要走下去 —— 不要使用 ImmutableJS 、ImmutableJS 数据结构、Redux/React 概念中的不可变数据，以及 ramda 表达式和 lodash。总之就是写 Javascript 不要使用函数式编程技术，它看似不是什么好的解决方案。
 
-If you identify or agree at all with what I’ve said (and if you don’t, that’s fine), then I think it’s worth 5 minutes, a day, or even a week to consider: What might be the long-term costs of staying on the Javascript path versus taking a different one?如果你确定或同意我所说的
+如果你确定并同意我所说的（如果不同意，也很好），那么我认为值得花 5 分钟或一天甚至一周时间来考虑：保持在 Javascript 路子上相比用一个不同的东西取代，耗费的长期成本是什么？
 
-The different one, for me, is called Clojurescript. It’s a “compile-to-JS” language like ES6. By and large, it’s Javascript in a different syntax. It was designed from the ground up as a functional programming language that operates on immutable data structures. To me, it’s way easier and more promising than Javascript.
+这个所谓不同的东西对于我来说就是 Clojurescript。它是一门像 ES6 一样的 “compile-to-JS” 语言。一般而论，它是一种使用不同语法的 Javascript。它的底层是被设计成用于函数式编程的语言，操作不可变的数据结构。对我来说，它比 JavaScript 更容易，更有前途。
 
 ![](https://cdn-images-1.medium.com/max/1200/1*_bhmf-j96fW9qSuPm7yEsw.png)
 
-### What is Clojure/Clojurescript?
+### Clojure/Clojurescript 是什么？
 
-Clojurescript is like Clojure except its host language is Javascript instead of Java. Their syntax is identical: If you learn Clojurescript, you learn Clojure and vice versa. This means if you know Clojurescript, you can write Javascript and Java. “3 Billion Devices Run Java”; I’m pretty sure the rest run Javascript.
+Clojurescript 类似 Clojure，除了它的宿主语言是 JavaScript 而不是 Java。它们的语法完全相同：如果你学 Clojurescript，其实你就在学 Clojure。这意味着如果你了解了 Clojurescript，你就可以写 Javascript 和 Java。“30 亿的设备上运行着 Java”；我非常确定其他设备上运行着 Javascript。
 
-Like Javascript, Clojure and Clojurescript are dynamically typed. You can write full stack apps in 100 percent Clojurescript using Node for your server. Unlike with a language that compiles to Javascript alone, you have the option of writing a Java-based server that supports multithreading.
+和 Javascript 一样，Clojure 和 Clojurescript 也是动态类型的。你可以 100% 地使用 Clojurescript 语言用写服务端的 Node 来写全栈应用。与单独编译成 Javascript 的语言不同，你也可以选择写一个基于 Java 的 servrer 来支持多线程。
 
-As an average Javascript/Node developer, it hasn’t been difficult for me to learn the language or the ecosystem.
+作为一个普通的 JavaScript/Node 开发者，学习这门语言及其生态系统对我来说并不困难。
 
-### What makes Clojurescript easier?
+### 是什么让 Clojurescript 更简单？
 
 ![](https://cdn-images-1.medium.com/max/1600/1*cxIhT4wHooj6Cl50sryKIA.gif)
 
-Run whatever code you want inside your editor.
-1. **You can run any code in your editor with a keypress. **This is exactly what it sounds like. You can type whatever code you’re trying to write in your editor, highlight it (or just put your cursor over it) and run it to see the result. You can define functions and call them with whatever arguments you want. You can do all of this while your app is running. So if you don’t know how something works, you can evaluate it in the REPL from your editor and see what’s going on.
-2. **Functions work on arrays and objects. **Map, reduce, filter, etc. all work identically on arrays and objects. This is by design. We shouldn’t have to think about different `map` functions for arrays vs. objects.
-3. **Immutable data structures. **Every Clojurescript data structure is immutable. As a result, you never wonder whether something is immutable or not. You also never switch programming paradigms from mutable to immutable. You’re fully in immutable-land.
-4. **Basic functions are part of the language itself.** Functions like map, filter, reduce, compose, and [many others](https://clojure.github.io/clojure/) are part of the core language and don’t need to be imported. So you don’t end up with 4 different versions of, e.g. “map” (Array.map, lodash.map, ramda.map, Immutable.map) in your head. You only have to know one.
-5. **It’s concise.** It can express ideas in fewer lines of code than most any other programming language (usually much fewer).
-6. **Functional programming.** Clojurescript is a functional programming language from the ground up — implicit return statements, functions are first class, lambda expressions, etc.
-7. **Use anything you want from Javascript.** You can use anything from Javascript and its ecosystem, from`console.log` to npm libraries.
-8. **Performance. **Clojurescript uses the Google Closure compiler to optimize the Javascript it outputs. Bundle sizes are comically small. It requires no configuration apart from setting optimizations to `:advanced` when bundling for production.
-9. **Readable library code.** It’s sometimes useful to know “What does this library function do?” When I use “goto definition” in Javascript, I usually end up seeing the minified or mangled source. Clojure and Clojurescript libraries show up the way they were written, so it’s easy to see how something works without leaving your editor, because you can just read the code.
-10. **It’s a LISP.** It’s hard to enumerate the benefits of this, as there are many. One thing I like is that it’s formulaic (there’s a pattern to it that I can always count on) and code is expressed in terms of the language’s data structures (which makes metaprogramming easy). Clojure differs from LISP because it is not 100% `()`. It uses`[]` and `{}` for code and for data structures, just like most programming languages.
-11. **Metaprogramming. **Clojurescript allows you to write code that writes code. This has vast implications that I won’t attempt to cover either. One is that you can effectively extend the language itself. Here’s an example from [Clojure for the Brave and True](http://www.braveclojure.com/writing-macros/):
+在编辑器中执行任意你想要执行的代码。
+1. **你可以在编辑器中一键执行任何代码。** 的确如此，你可以在编辑器中输入任何你想写的代码，选中它（或者把光标放在上面）然后运行并查看结果。你可以定义函数，然后用你想用的参数调用它。你可以在应用运行的时候做这些事。所以，如果你不知道一些东西如何运作，你可以在你的编辑器的 REPL 里求值，看看会发生什么。
+2. **函数可以作用于数组和对象。** Map、reduce、filter 等对数组和对象的作用都相同。设计就是如此。我们毋须再纠结于 `map` 对数组和对象作用的不同之处。
+3. **不可变的数据结构。** 所有 Clojurescript 数据结构都是不可变的。因此你再也不比纠结一些东西是否可变了。你也不需要切换编程范式，从可变到不可变。不完全在不可变的领地上。
+4. **一些基本函数是语言本身包含的。** 像 map、filter、reduce、compose 和[很多其他](https://clojure.github.io/clojure/)函数都是核心语言的一部分，不需要外界引入。因此你的脑子里不必记着 4 种不同版本的“map”了（Array.map、lodash.map、ramda.map、Immutable.map）。你只需要知道一个。
+5. **它很简洁。** 相对与其他任何编程语言，它只需要短短几行的代码就能表达你的想法。（通常较少）
+6. **函数式编程。** Clojurescript 是一门彻底的函数式编程语言 —— 支持隐式返回声明、函数是一等公民、lambda 表达式等等。
+7. **使用 JavaScript 中所需的任何内容。** 你可以使用 Javascript 的一切以及它的生态系统，从 `console.log` 到 npm 库都可以。
+8. **性能。** Clojurescript 使用 Google Closure 编译器来优化输出的 Javascript。Bundle 体积小到极致。用于生产的打包过程不需要从设置优化到 `:advanced` 的复杂配置。
+9. **可读的库代码。** 有时候了解“这个库的功能是干嘛的？”很有用。当我使用 Javascript 中的“跳转到定义处”，我通常都会看到被压缩或错位的源代码。Clojure 和 Clojurescript 的库都直接显示成被写出来时样子，因此不需离开你的编辑器去看一些东西如何工作就很简单，因为你可以直接阅读源码。
+10. **是一种 LISP 方言。** 很难列举出这方面的好处，因为太多了。我喜欢的一点是它的公式化，（有这么一种模式可以依靠）代码是用语言的数据结构来表达的。（这使得元编程很容易）。Clojure 不同于 LISP 因为它并不是 100% 的 `()`。它的代码和数据结构中可以使用 `[]` 和 `{}`，就像大多数编程语言那样。
+11. **元编程。** Clojurescript 允许你编写生成代码的代码。这一点有我不想掩盖的巨大内涵。其中之一是你可以高效地扩展语言本身。这是一个出自 [Clojure for the Brave and True](http://www.braveclojure.com/writing-macros/) 的例子：
 
 ```
 (defmacro infix
@@ -102,32 +102,33 @@ Run whatever code you want inside your editor.
 => 2
 (macroexpand '(infix (1 + 1)))
 => (+ 1 1)
-; The macro passes this to Clojure. Clojure evaluates it no problem because it's native Clojure syntax
+; 这个宏把它传入 Clojure，Clojure 可以正确执行，因为是 Clojure 的原生语法
 ```
 
-### Why isn’t it popular?
+### 为什么它并不流行？
 
-If it’s so great, why hasn’t it taken off? Some would point out it has, just not as much as lodash, React, Redux and others. But if it’s better, shouldn’t Clojurescript be just as popular as those? Why haven’t JS devs who prefer functional programming, immutability and React migrated to Clojurescript?
+既然说它这么棒，可它怎么不上天呢？有人指出它已经很流行了，它只是不如 lodash、React、Redux 等等那么流行而已。但既然它更好，不应该和它们一样流行吗？为什么偏爱函数式编程、不可变性和 React 的 JS 开发者还没有迁移到 Clojurescript？
 
-**Lack of job opportunities?** Clojure compiles to Javascript and Java. It can actually compile to C#, too. So any Javascript job could be a Clojurescript job. Or a Java or C# job. It’s a functional language for getting stuff done for any or all of those compile targets. And for whatever it’s worth, the 2017 StackOverflow survey found [Clojure developers are the highest paid of all languages on average worldwide](http://www.techrepublic.com/article/what-are-the-highest-paid-jobs-in-programming-the-top-earning-languages-in-2017/).
+**因为缺少工作机会吗？** Clojure 可以编译成 Javascript 和 Java。它实际上也可以编译成 C#。因此大量的 Javascript 工作都可以当作 Clojurescript 工作。它是一种函数式语言，用于为所有编译目标完成所有的工作。先不论它的价值如何体现，2017 StackOverflow 的调查表明 [Clojure 开发者的薪资水平是所有语言中全球平均最高的](http://www.techrepublic.com/article/what-are-the-highest-paid-jobs-in-programming-the-top-earning-languages-in-2017/)。
 
-**JS devs are lazy?** No. As I’ve tried to show above, we do a ton of work. There’s a thing called [Javascript fatigue](https://medium.com/@ericclemmons/javascript-fatigue-48d4011b6fc4) you may have heard of.
+**因为 JS 开发者很懒吗？** 并不是。正如我在上面所展示的，我们做了大量的工作。有个词叫 [Javascript 疲劳](https://medium.com/@ericclemmons/javascript-fatigue-48d4011b6fc4)，你可能已经听说过了。
 
-**We’re resistant don’t want to learn something new?** No. [We’re notorious for adopting new technologies](https://hackernoon.com/how-it-feels-to-learn-javascript-in-2016-d3a717dd577f).
+**我们很抗拒，不想学点新东西吗？** 并不是。 [我们已经因采用新技术而臭名昭著。](https://hackernoon.com/how-it-feels-to-learn-javascript-in-2016-d3a717dd577f)
 
-**Lack of familiar frameworks and tooling?** That perception may exist, but there are Clojurescript equivalents to everything in Javascript: [re-frame](https://github.com/Day8/re-frame) is Redux, [reagent](https://github.com/reagent-project/reagent) is React, [figwheel](https://github.com/bhauman/lein-figwheel) is Webpack/hot reloading, [leiningen](https://github.com/technomancy/leiningen) is yarn/npm, Clojurescript is Underscore/Lodash.
+**因为缺乏熟悉的框架和工具吗？** 这感知上可能是个原因，但 Clojurescript 有 Javascript 中等价的一切： [re-frame](https://github.com/Day8/re-frame) 对应 Redux、[reagent](https://github.com/reagent-project/reagent) 对应 React、[figwheel](https://github.com/bhauman/lein-figwheel) 对应 Webpack/热加载、[leiningen](https://github.com/technomancy/leiningen) 对应 yarn/npm、Clojurescript 对应 Underscore/Lodash。
 
-**Too difficult to write because parentheses? **This might not talked about enough either, but [we don’t have to match parenthesis and brackets](https://shaunlebron.github.io/parinfer/) ourselves. Parinfer makes Clojure a whitespace language, basically.
+**因为括号的问题太难写吗？** 这方面也许谈的还不够多，但[我们不必自己来区分圆括号方括号](https://shaunlebron.github.io/parinfer/) 。基本上，Parinfer 使得 Clojure 成为了空格语言。
 
-**Too hard to use at work?** Possibly. It’s new tech, like React and Redux once were, and those may’ve been a hard sell at some point, too. There’s no technical limit though — Clojurescript integrates into existing codebases the same way React does. You can add Clojurescript to an existing codebase, rewrite old code one file at a time, and continue to interact with the old code from the new.
+**因为在工作中很难使用？** 可能是吧。它是一种新技术，就像 React 和 Redux 曾经那样，在某些时候也是很难推广的。即使也没什么技术限制 ——  Clojurescript 集成到现有代码库和集成 React 的方式是类似的。你可以把 Clojurescript 加入到已经存在的代码库中，每次重写一个文件的旧代码，新代码依然可以和未更改的旧代码交互。
 
-**Not popular enough?** Unfortunately, I think this is what it comes down to. I got into Javascript in part because it has a huge community. Clojurescript is smaller. I started using React in part because it was backed by Facebook. Clojure is backed by [a guy with big hair who spends a lot of time thinking](https://avatars2.githubusercontent.com/u/34045?v=3&amp;s=400).
+**没有足够受欢迎？** 很不幸，我想这就是它的原因。我使用 Javascript 一部分原因就是因为它拥有庞大的社区。Clojurescript 太小众了。我使用 React 的部分原因是它是由 Facebook 维护的。而 Clojure 的维护者是[花大量时间思考的留着长发的家伙](https://avatars2.githubusercontent.com/u/34045?v=3&amp;s=400)。
 
-There’s safety in numbers. I buy that. But “popularity as veto” discards every other possible factor.
+有数量上的劣势，我认了。但“全民投票”否决了所有其他可能的因素。
 
-Suppose one path leads to $100. It’s not popular. Another path leads to $10 It’s vastly popular. Would I choose the popular one?
+假设有一条路通向 100 美元，它很不受欢迎，而另一条路通向 10 美元，它极其受欢迎，我会选择受欢迎的那条路吗？
 
-Well, maybe so! There’s a track record of success. It must be safer than the other way, because more people have chosen it. Nothing awful must have happened to them. The other way does sound better, but I’m sure it’s just a trap. If it was what it seemed, it would be the most popular.
+恩，也许会的吧！那里有成功的先例。它一定比另一条路安全，因为更多的人选择了它。他们一定不会遇到什么可怕的事。而另一条路听起来美好，但我确定那一定是个陷阱。
+如果它像看起来那么美好，那么它就是最受欢迎的那条了。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*Y6orLTOgb6JFfjVdANVgCQ.png)
 
