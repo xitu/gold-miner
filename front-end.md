@@ -1,3 +1,4 @@
+* [V8 性能优化杀手](https://juejin.im/post/5959edfc5188250d83241399?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lsvih](https://github.com/lsvih) 翻译)
 * [如何充分利用 JavaScript 控制台](https://juejin.im/post/59510ac45188250d8860c908?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([sunui](https://github.com/sunui) 翻译)
 * [统一样式语言](https://juejin.im/post/595311fa6fb9a06b9d5b5f08?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([ZhangFe](https://github.com/ZhangFe) 翻译)
 * [ESLint v4.0.0 升级指南](https://juejin.im/post/5954af2f6fb9a06baa63ab50?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([xunge0613](https://github.com/xunge0613) 翻译)
