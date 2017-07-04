@@ -2,14 +2,14 @@
 > * 原文作者：[Ankit Sinhal](https://android.jlelse.eu/@ankit.sinhal)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[PhxNirvana](https://juejin.im/user/57a16f4e6be3ff00650682d8)
-> * 校对者：
+> * 校对者：[ilumer](https://github.com/ilumer)、[wilsonandusa](https://github.com/wilsonandusa)
 
 # Android 中的定时任务调度
 
 ![](https://cdn-images-1.medium.com/max/2000/1*WocBeIFoDtFZE7euHzm_Kg.png)
 
 
-在近期的应用开发中，异步执行任务是很流行的，而且这些任务经常在应用的生命周期之外运行，如下载上传。有些情况下我们还需要做一些并不是马上需要执行的工作。Android 提供了一些 API 来帮助我们在应用中调度这些任务
+在近期的应用开发中，异步执行任务是很流行的，而且这些任务经常在应用的生命周期之外运行，如下载数据或更新网络资源。有些情况下我们还需要做一些并不是马上需要执行的工作。Android 提供了一些 API 来帮助我们在应用中调度这些任务。
 
 选择合适调度器可以提升应用的性能并且延长电池使用时间。
 
@@ -27,11 +27,11 @@ Android 中可以使用的调度器有以下几种：
 
 Services 允许应用在后台执行长时间的操作， 但这一行为是十分耗电的。
 
-当持续使用设备资源却没有有效任务在执行时，service 便更加有害了。当这些后台服务在监听不同系统广播时（比如 *CONNECTIVITY_CHANGE* 或者 *NEW_PICTURE* 等），问题的严重性还会提升。 
+当持续使用设备资源却没有有效任务在执行时，service 便更加有害了。当那些后台服务在监听不同系统广播时（比如 *CONNECTIVITY_CHANGE* 或者 *NEW_PICTURE* 等），问题的严重性还会提升。 
 
 ### **在应用的生命周期之内调度任务**
 
-当应用正在运行时，如果我们想在特定时间执行任务的话，推荐使用 Handler 结合 Timer 和 Thread。而不是使用 Alarm Manger, Job Scheduler 等。使用 [Handler](https://developer.android.com/reference/android/os/Handler.html) 更简单高效。
+当应用正在运行时，如果我们想在特定时间执行任务的话，推荐使用 Handler 结合 Timer 和 Thread，而不是使用 Alarm Manger, Job Scheduler 等。使用 [Handler](https://developer.android.com/reference/android/os/Handler.html) 更简单高效。
 
 ### **在应用的生命周期之外调度任务**
 
@@ -49,7 +49,7 @@ AlarmManager 提供系统级的定时服务。正因此，也是一种在应用�
 
 这是所有提过的调度器中最主要的一个，它可以高效地执行后台任务。 *JobScheduler* API 是在 Android 5.0(API level 21) 引入的
 
-该 API 可以在资源充足时或满足条件时批量执行任务。创建任务时可以定义执行的先决条件。当条件满足时，系统会在应用的 JobService 上执行任务。 *JobScheduler* 也取决于系统的打盹模式和应用当前状态。
+该 API 可以在资源充足时或满足条件时批量执行任务。创建任务时可以定义执行的先决条件。当条件满足时，系统会在应用的 JobService 上执行任务。 *JobScheduler* 的执行也取决于系统的打盹模式和应用当前状态。
 
 批量执行的特性使得设备可以更快地进入休眠，并拥有更长的休眠期，以此来延长电池使用时间。总而言之，这个 API 可以用来执行任何对时间不敏感的计划。
 
@@ -65,7 +65,7 @@ Google 强烈建议 GCM 的用户升级到 FCM 并使用 Firebase Job Dispatcher
 
 Firebase JobDispatcher 也是一个后台任务调度库。该库也被用来向下支持（低于 API level 21）并且支持所有近期 Android 设备（API level 9+）。
 
-这个库也可以在没有安装 Google play 服务，但仍想调度任务的应用上使用。这时，库内部的实现是 AlarmManager。如果设备上有 Google Play 服务，则会使用 Google Play 服务内置的调度器。
+这个库也可以在没有安装 Google play 服务的设备，却仍想调度任务的应用上使用。这时，库内部的实现是 AlarmManager。如果设备上有 Google Play 服务，则会使用 Google Play 服务内置的调度器。
 
 **提示：** 当 Google Play 服务不可用时，会使用 AlarmManager 来支持 API level <= 21 
 
@@ -73,7 +73,7 @@ Firebase JobDispatcher 也是一个后台任务调度库。该库也被用来向
 
 ### [**Sync Adapter**](https://developer.android.com/reference/android/content/AbstractThreadedSyncAdapter.html)
 
-Sync adapter 是被特别设计用来同步设备和云端数据的。它的用途也只限定在这方面。同步可以在云端或客户端数据有改变时触发，也可以通过时间差或设定每日一次。Android 系统会试图执行批量同步来节省电量，无法同步的将会被放到队列中稍后执行。系统会尝试只在联网时执行同步。
+Sync adapter 是被特别设计用来同步设备和云端数据的。它的用途也只限定在这方面。同步可以在云端或客户端数据有改变时触发，也可以通过时间差或设定每日一次。Android 系统会试图执行批量同步来节省电量，无法同步的将会被放到队列中稍后执行。系统只在联网时会尝试执行同步。
 
 不管什么情况，都建议使用 Google 提供的 JobScheduler、Firebase JobDispatcher、或 GCM Network Manager。
 
