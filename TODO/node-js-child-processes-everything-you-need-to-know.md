@@ -14,7 +14,6 @@
 
 截图来自我的视频教学课程 - Node.js 进阶
 
-
 Node.js 的单线程、非阻塞执行特性在单进程下工作的很好。但是，单 CPU 中的单进程最终不足以处理应用中增长的工作负荷。
 
 不管你的服务器性能多么强劲，单个线程只能支持有限的负荷。
@@ -294,7 +293,7 @@ Gif 来自我的视频教学课程 - Node.js 进阶
 
 我们首先移动整个 `longComputation` 函数到它自己的文件，并在主进程通过消息发出通知时，在文件中调用这个函数：
 
-In a new `compute.js` file:
+一个新的 `compute.js` 文件中：
 
     const longComputation = () => {
       let sum = 0;
