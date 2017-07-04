@@ -11,7 +11,7 @@ React是最受欢迎的客户端 JavaScript 框架，但你知道吗(或许更�
 
 假设你为客户构建了一个很棒的事件列表 React app。。该应用程序使用了您最喜欢的服务器端工具构建的API。几周后，用户告诉您，他们的页面没有显示在 Google 上，发布到 Facebook 时也显示不出来。 这些问题似乎是可以解决的，对吧？
 
-您会发现，要解决这个问题，需要在初始加载时从服务器渲染 React 页面，以便来自搜索引擎和社交媒体网站的爬虫工具可以读取您的标记。有证据表明，Google 有时会执行 javascript 程序并且对生成的内容进行索引，但并不总是这样。因此，如果您希望确保与其他服​​务（如 Facebook，Twitter）有良好的SEO兼容性，那么始终建议使用服务器端渲染。
+您会发现，要解决这个问题，需要在初始加载时从服务器渲染 React 页面，以便来自搜索引擎和社交媒体网站的爬虫工具可以读取您的标记。有证据表明，Google 有时会执行 javascript 程序并且对生成的内容进行索引，但并不总是这样。因此，如果您希望确保与其他服​​务（如 Facebook、Twitter）有良好的 SEO 兼容性，那么始终建议使用服务器端渲染。
 
 在本教程中，我们将逐步介绍服务器端的呈现示例。包括围绕与 API 交流的 React 应用程序的共同路障。
 在本教程中，我们将逐步向您介绍服务器端的渲染示例。包括围绕着 APIS 交流一些在服务端渲染 React 应用程序的共同障碍。
@@ -24,7 +24,7 @@ React是最受欢迎的客户端 JavaScript 框架，但你知道吗(或许更�
 
 # 入门
 
-接下来让我们来看看如何将服务器端渲染添加到一个基本的客户端渲染的使用 Babel 和 Webpack 的 React 应用程序中。我们的应用程序将会因从第三方 API 获取数据而变得有点复杂。我们在GitHub上提供了[相关代码](https://github.com/ButterCMS/react-ssr-example/releases/tag/starter-code)，您可以在其中看到完整的示例。
+接下来让我们来看看如何将服务器端渲染添加到一个基本的客户端渲染的使用 Babel 和 Webpack 的 React 应用程序中。我们的应用程序将会因从第三方 API 获取数据而变得有点复杂。我们在 GitHub 上提供了[相关代码](https://github.com/ButterCMS/react-ssr-example/releases/tag/starter-code)，您可以在其中看到完整的示例。
 
 提供的代码中只有一个 React 组件，\`hello.js\`，这个文件将向 [ButterCMS API](https://buttercms.com/) 发出异步请求，并渲染返回 JSON 列表中的博文。ButterCMS 是一个基于 API 的博客引擎，可供个人使用，因此它非常适合测试现实生活中的用例。启动代码中连接着一个 API token，如果你想使用你自己的 API token 可以[使用你的 GitHub 账号登入 ButterCMS](https://buttercms.com/home/)。
 
@@ -101,7 +101,7 @@ npm run start
 
 # 增加服务器端渲染
 
-接下来，我们将实现服务器端渲染，以便将完全生成的HTML发送到浏览器。如果要同时查看所有更改，请在 [GitHub](https://github.com/ButterCMS/react-ssr-example/commit/525c625b0f65489050983ed03b52bb7770ce6b7a) 上查看文件的差异。
+接下来，我们将实现服务器端渲染，以便将完全生成的 HTML 发送到浏览器。如果要同时查看所有更改，请在 [GitHub](https://github.com/ButterCMS/react-ssr-example/commit/525c625b0f65489050983ed03b52bb7770ce6b7a) 上查看文件的差异。
 
 开始前，让我们安装 Express，一个 Node.js 的服务器端应用程序框架：
 
@@ -160,7 +160,6 @@ ReactDOMServer.renderToString(<Hello />);
 const document = data.replace(/<div id="app"><\/div>/,`<div id="app">${html}</div>`);
 ```
 
-To start the server, update the start script in package.json and then run npm run start:
 要启动服务器，请更新 \`package.json\` 中的起始脚本，然后运行 `npm run start` :
 
 ```
