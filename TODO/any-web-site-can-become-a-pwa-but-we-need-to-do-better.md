@@ -3,51 +3,53 @@
 > * 原文作者：[Christian Heilmann](https://christianheilmann.com/about-this/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/any-web-site-can-become-a-pwa-but-we-need-to-do-better.md](https://github.com/xitu/gold-miner/blob/master/TODO/any-web-site-can-become-a-pwa-but-we-need-to-do-better.md)
-> * 译者：
+> * 译者：[wilsonandusa](https://github.com/wilsonandusa)
 > * 校对者：
 
-# Any web site can become a PWA – but we need to do better
+# 任何网站都可以成为渐进型网络应用 - 但我们需要做的更好
 
-Over on his blog, I just go a [ding from Jeremy](https://adactio.com/journal/12461).
+看完[ Jeremy 的博客 ](https://adactio.com/journal/12461)， 我突然觉得间眼前一亮。
 
-> Literally any website can—and should—be a progressive web app. Don’t let anyone tell you otherwise. I was at an event last year where I heard Chris Heilmann say that you shouldn’t make your blog into a progressive web app. I couldn’t believe what I was hearing. He repeats that message in this video chat: “When somebody, for example, turns their blog into a PWA, I don’t see the point. I don’t want to have that icon on my homepage. This doesn’t make any sense to me” Excuse me!? Just because you don’t want to have someone’s icon on your home screen, that person shouldn’t be using state-of-the-art technologies!? Excuse my French, but Fuck. That. Shit!
-> 
-> Our imaginations have become so limited by what native mobile apps currently do that we can’t see past merely imitating the status quo like a sad cargo cult.
-> 
-> I don’t want the web to equal native; I want the web to surpass it. I, for one, would prefer a reality where my home screen isn’t filled with the icons of startups and companies that have fulfilled the criteria of the gatekeepers. But a home screen filled with the faces of people who didn’t have to ask anyone’s permission to publish? That’s what I want!
+> 不管其它人是怎么说的，任意一个网站确实都可以并且应该成为渐进型网络应用。 我去年在一个活动中听到 Chris Heilmann 说你不应该把自己的博客打造成一款渐进型网络应用时，我简直不敢相信我的耳朵。他在视频通话中反复强调：“比方说，我不懂为什么会有人把自己的博客打造成一款渐进型网络应用。我可不想在我的桌面上添加一个图标，我不理解他为什么要这么做。” 不好意思，只因为你不想在你自己的手机桌面上添一个图标，那个人就不应该使用一项最新的技术吗？ 请无视我的法语，简直胡说八道。
 
-Suffice to say, **I am not telling anyone not to use great, modern technologies to the benefit of their end users and their own publishing convenience**. And the stack that make up PWA are great to make either more successful than it is now.
-![PWA presentation at JSPoland](https://christianheilmann.com/wp-content/uploads/2017/06/ShareX_2017-06-27_16-52-48-1009x1024.jpg)Me, literally telling the world that a PWA can be anything
+>我们的想象力被当前的移动端原生应用所局限，以至于我们只能像一群没见过世面的原始人一样一直模仿并持续当前的形势。
+
+> 我不希望网站被原生化；我希望网站能超越原生。我不希望我的屏幕主页布满创业团队和个大公司的标准化应用图标。然而一个布满能够自由发布内容的网站的手机主屏才是我想要的。
+
+足以说明，**我不是告诉大家不要去使用出色且现代化的技术来服务用户并帮助发布内容**。渐进性网站应用本身的组成能够使其变得比现在更加成功。
+![PWA presentation at JSPoland](https://christianheilmann.com/wp-content/uploads/2017/06/ShareX_2017-06-27_16-52-48-1009x1024.jpg)我正在告知全世界渐进型网站可以应用到任何事上。
 
 
-**I want us to do more**. I want modern web technologies not to be a personal thing to use. I want it to be what we do at work, not to bring to work or point to at some amazing web person’s web presence or a showcase of a large web company.
+**我希望我们能做的更多**。我希望现代网站技术不仅仅被私人使用。我希望我们在平时工作中就能接触并使用到它，而不是要带到工作中，更不是要指着某人所做的精彩页面或某个公司所做页面展示。
 
-All power to us for using whatever great technology in the environment we control, but we need to aim higher. We need to go where mistakes happen and bring the convenience and sensible upgrades to hacky old solutions. I don’t have the power to tell anyone not to use something on their blog. But I also don’t want to have a lot of things out there touted as “PWAs” that are a terrible experience. We’ve done that over and over with all kind of packaging formats. We need to get it right this time as our tools have never been better.
+在目前所处的大环境下，我们可以使用任何强大的技术，但我们应该目标定的更高些。我们需要找到哪里会出问题，然后使用更简便明智的方式来取代那些老旧的解决方法。我不能在告诉任何一个写博客的人你不应该使用这项技术，但我也不希望所有的东西全都为了招揽顾客而变成了用户体验极差的渐进型网站。我们之前在包装格式上已经这样做过好多遍了。这一次既然我们的工具从未如此之好，我们一定要按正确的方式来做。
 
-I publicly spoke out over and over again against stores in the current form as they are a barrier to access. A barrier that seems artificial, when we have the web, right?
+我已经不止一次地公开反对目前的商店形式，因为它们阻碍了大家的使用。在有网络的情况下，这些障碍甚至有些智能，对吧？
 
-Maybe. Fact is that a whole new generation of people know apps. Not the web. They know the web as something riddled with ads and malware you need blockers for. In some places where the web is not as conveniently available as it is where we are people even consider Facebook the web. As it is made available to people easier than the bloated web.
 
-When I say that I don’t see the point of turning a blog into a PWA  it hits exactly the confusion point of the “app” part. To me, an app is a “do” thing, not a “read” thing. I see no point in having the Wired, the Guardian, The Rolling Stone, The Times etc… app. Icons on a crammed desktop don’t scale. I use a news reader to read news items. I use an RSS aggregator to read blogs. I use an ebook reader to read books (or a browser). I use Spotify or iTunes to listen to music. I don’t have  an app for each band or movie.
+也许，事实上新的一代人只知道应用程序，而不是网络程序。在他们眼中网站永远充满广告和恶意软件，应该一直被屏蔽。在一些网络信号不好的地方，人们竟然认为脸书程序就是网络。因为它用起来比那些庞大的网站更方便一些。
 
-I’ve been publishing for donkey’s years on the web. And I choose to use a blog as I have no idea how you consume it. And I like that. I don’t think there should be a “Chris Heilmann” icon on your desktop. It should be in the contacts, it should maybe show up as a post or a bookmark. You can’t do anything on this blog except for reading it. Use what makes you most happy to do that.
 
-I very much agree with Jeremy:
+当我说我不理解为什么要把私人博客转变成渐进型网站时，我指的就是其中令人困惑的应用程序这部分。对我而言，一个应用程序是用来“做”一件事的，而不是去“读”一件事的。我不理解为什么会有连线杂志，卫报，滚石，时代周刊这类应用程序。程序图标们无法在拥挤的桌面上生存。我用 RSS 阅读器来浏览博客。我用电子书来阅读（或者浏览网站）。我用 Spotify 或者 iTunes 来听音乐。我可没有给每个乐队或者每部电影下一个应用程序。
 
-> I don’t want the web to equal native; I want the web to surpass it. 
+我在网上已经为 donkey's 发布过很多文章了，我选择使用博客因为我不知道你会怎么接受这些内容，我很喜欢这种方式。我觉得你的桌面上不应该出现一个 “Chris Heilmann” 的图标，而应该是一篇推文或者一个书签。你在博客里只能阅读。使用你最开心的方式来写。
 
-And that’s exactly what I mean when I don’t want a blog as an app – no matter what format of app. I want people to create PWAs that are more than bookmarks – even offline working ones that give me a notification when new content is available.
+我非常赞同 Jeremy:
 
-Does this mean I say that you shouldn’t use a manifest and service worker to improve web pages or your blog? Hell, no. Go wild – do the right thing. Especially do the one thing that PWAs require: stop publishing over HTTP and secure your servers. Man in the middle attacks need to stop, especially with various governments happily being that man in the middle.
+> 我不希望网站被原生化；我希望网站能超越原生。  
 
-I want the web to succeed where it matters. I want native apps to go away. I don’t want to download an app to get tickets to the subway in Berlin. I don’t want an app for each airport I go to. I very much don’t want an app for each event I attend. I don’t want an app for each restaurant I frequent. I don’t need those relationships and having to give them a part of the limited space on my phone. Or on my desktop/launch bar.
+这就是我不希望把博客变成一个应用程序的原因 - 不论哪种形式的应用程序。我希望人们能创造出比书签功能更丰富的渐进型网站 - 甚至创造出能在离线状态下加载新内容提示的程序。
 
-We need the web to beat native where it is terrible: distribution and convenience. I want people to do things without having to go to a store, download and install an app and run it. I want people to get access to free content without a credit card. You need a credit card to access free stuff on app stores – this is a huge barrier. I want people to find the next train, book restaurants, get a doctor and find things regardless of connection and device. I want people to take pictures and sharing them. I don’t want people to use insecure, outdated versions of their apps as it is too much to get 50MB updates every day. I don’t want people to use what comes on the phone and use the browser as the last resort. And for this, we need great PWAs of known entities and great new players.
-![Try before you buy](https://christianheilmann.com/wp-content/uploads/2017/06/ApplicationFrameHost_2017-06-27_17-20-27-875x1024.jpg)[PWA is try before you buy](https://twitter.com/lakatos88/status/876713746655215616)
+这是否就意味着我不赞同你使用一个 manifest 和 service worker 去改进你的网站或者博客呢？一点也不。尽管去做一切对的事。尤其是去做渐进型网站所需的事：停止使用 HTTP 发布并且加密你的服务器。阻止来自中间人的黑客攻击，尤其是那些很高兴成为中间人的政府机构。
 
-I want people to understand that they are in control. As I said last week in Poland, PWA is proper try before you buy. You go to a URL, you like what you see. With later visits you promote it to get more access, work offline and even give you notifications.
+我希望网站能在最需要它们的地方成功。我希望原生程序能消失。我不想为了买一张柏林的地铁票而去下载一个程序。我不想每到一个机场都要下一个程序。我尤其讨厌每次参加一次活动都要下载程序。我不想为了我常去的餐厅而下载一个程序。我不需要为这种关系而牺牲我手机上或者电脑桌面／快速启动栏中仅有的一部分存储空间。
 
-A PWA has to earn that right. And this is where we need kick-ass examples. I have no native Twitter any more, [Twitter Lite](https://lite.twitter.com/) does the trick and saves me a lot of data and space. I go around showing this to people and I see them kick out native Twitter. That’s what we need.
+我们需要网站在原生程序糟糕的地方超越它：分布式和便捷性。我不希望大家为了完成每件事都去商店下载安装并运行一个程序。我希望大家不用信用卡就能接触到免费的内容。你需要一张信用卡才能使用应用程序商店的免费程序 - 这是一个很大的障碍。我希望大家寻找下列火车，预定餐厅，预约医生或寻找任何东西都不需要考虑网络的连接或者设备的选择。我希望人们能拍照并分享图片。我不希望人们为了不去下载每天 50MB 的升级补丁而一直使用不安全且过时的程序。我不希望人们使用手机自带的程序或者把浏览器当作最后稻草。为了做到以上这些，我们需要拥有更出名的实体和更好的播放器的强大渐进型网站。
+![购买前记得先尝试](https://christianheilmann.com/wp-content/uploads/2017/06/ApplicationFrameHost_2017-06-27_17-20-27-875x1024.jpg)[渐进型网站就是购买前先尝试](https://twitter.com/lakatos88/status/876713746655215616)
+
+我希望用户们能知道掌控权在自己手中。就像我上周在波兰说的一样，渐进型网站是合理的购前先试。你登陆某个网址，发现喜欢你所看到的内容。几次浏览后你决定提升这个网站所能控制的权限，比如离线工作甚至给你发送通知。
+
+一个渐进型网站需要能争取到些权限。因此我们需要一个不错的例子。我不再使用原生的 Twitter 了，[Twitter Lite](https://lite.twitter.com/) 能够使用并节省大量的数据和内存。我给很多人展示过这个例子，大家都卸载了原生的 Twitter 程序。这就是我们需要的。
 
 Every time we promote the web as the cool thing it is we repeat the same points.
 
@@ -56,46 +58,50 @@ Every time we promote the web as the cool thing it is we repeat the same points.
 - it is not beholden to anyone
 - It is independent of platform, form factor and generally inviting.
 
-When you see the web that millions of people use every day the story is very different.
+每次我们提倡使用网站都会不断强调这几点：
+- 更加简单的发布方式
+- 人人都能接触内容
+- 不受制于任何人
+- 平台独立，形式独立，邀请独立
 
-It is that bad that every browser maker has a department of cross-browser compliance. We all approach big companies pointing out how their products break and what can be done to fix them. We even offer developer resources to not rely on that webkit prefix. In almost all cases we get asked what the business benefit of that is.
+当你看到一个日用户量超百万的网站时，情况就很不一样了。
 
-Sure, we have a lot of small victories, but it is grim to show someone the web these days. In our bubble, things are great and amazing.
+很不幸每个浏览器制作商都有一个接受来自不同浏览器的抱怨的部门。我们都能为大公司指出他们产品报错的地方并提供解决方法。我们甚至能给予开发者网络工具包以外的解决资源。几乎所有案例中我们都会被问到这样做的商业利益是什么。
 
-How did that happen? We have the technology. We have the knowledge. We have the information out there in hundreds of talks, books and posts. Who do we reach is the question. Who builds this horrible web? Or who builds great stuff at home and gets mostly frustrated at work because things are beyond repair?
+当然我们也有不少小胜利，但当前形势下让某人去接受使用网站是很无情的。在我们眼中这样做是非常棒的。
 
-When I say that I don’t want a blog as an app I am not saying that you shouldn’t supercharge your blog. I am not forbidding anyone to publish and use technology.
+这是怎么发生的？我们拥有技术。我们拥有知识。我们拥有来着无数访谈，书籍和推文的信息。问题是我们应该面向谁。是谁最初建立了如此糟糕的网网络？或又有谁在家里搞出了很赞的产品然而在工作时缺由于产品已经无法修复而陷入困境？
 
-But, I don’t think that is enough. We need commercial successes. We need to beat the marketing of native apps. We need to debunk myths of native convenience by building better, web based, solutions.
+当我说我不希望博客成为一款应用程序我不是说你不应该给你的博客增加负荷。我不会阻止任何人去发布内容或使用技术。
 
-We’ve proven the web works well for self-publishing. Now we need to go where people build an iOS and Android app to have an online presence for their company with higher functionality. We need these people to understand that the web is a great way to publish and get users that do things with your product. We think this is common sense, but it isn’t. We have to remind people again about how great the web is. And how much easier it is using web technology.
+但是，我觉得仅仅这样是不够的。我们需要商业成功。我们需要打败原生程序的市场。我们需要通过打造更好的依靠网络的解决方式来揭穿原生程序便捷性虚假的一面。
 
-For this, we need first and foremost find out how to make money on the web on a huge scale. We need to find a way that people pay for content instead of publishers showing a lot of ads as the simpler way. We need to show numbers and successes of commercial, existing products. Google is spending a lot of money on that with PWA roadshows. Every big web company does. I also all work directly with partners to fix their web products across browsers and turn them into PWAs. And there are [some great first case studies available](https://developers.google.com/web/showcase/2016/). We need more of those.
+我们已经证明了网站能够良好地支持自我发布内容。目前的方向是那些创造能象征公司并且拥有更多功能的在线 iOS 和 Android 产品的开发者。我们需要让这些人明白网络是更好的发布和获取用户的平台。我们可能觉得这是常识，但实际上并不是。我们需要再次提醒人们网络的伟大以及使用网络技术是多么简单。
 
-I want developers not to have to use their spare time and learn new web technologies on their personal projects. I want companies to understand the value of PWA and – most importantly – fix the broken nonsense they have on the web and keep in maintenance mode.
+为此，我们的首要任务便是找的如何在网络上大规模盈利。我们需要找到除了加载广告以外能让用户为内容支付的方式。我们需要展示大量广告及产品的商业型成功案例。 Google 在宣传渐进型网络上花了不少钱。每个大型网络公司都这样做了。我也与合作商联合实现过跨浏览器将普通网站转型为渐进型网站。[这里有很多适合学习的案例](https://developers.google.com/web/showcase/2016/)。我们需要更多的例子。
 
-If you think these and other PWA case studies are by chance and because people involved just love the web – think again. A lot of effort goes into convincing companies to do the “very obvious” thing. A lot of cost of time and money is involved. A lot of internal developers put their career on the line to tell their superiors that there is another way instead of delivering what’s wanted. We want this to work, and we need to remind people that quality means effort. Not adding a manifest and a service worker to an existing product that has been in maintenance hell for years.
+我不希望开发者为了私人项目需要用空闲时间去学习一项全新的技术。我希望公司能理解渐进型网站的价值以及 - 更重要的是 - 解决目前对网络的误解并且不断地对其进行维护。
 
-Jeremy wants a certain world:
+如果你认为这些渐进型网站的案例都是与运气有关，是因为参与的人恰好热爱网络 - 请三思。说服一家公司去做一件“十分明显”的事往往要付出极大的精力，以及大量的时间与金钱。许多公司内部的开发者会不顾自己的前途去劝上级使用另一种解决方式来满足需求。我们需要这样做，我们需要提醒大家想要质量就要付出努力，而不是仅仅给一个无法维护的老项目加个 manifest 和 service worker 那么简单。
 
-> I, for one, would prefer a reality where my home screen isn’t filled with the icons of startups and companies that have fulfilled the criteria of the gatekeepers. But a home screen filled with the faces of people who didn’t have to ask anyone’s permission to publish? That’s what I want! 
+Jeremy 希望世界变成：
+> 我不希望我的屏幕主页布满创业团队和个大公司的标准化应用图标。然而一个布满能够自由发布内容的网站的手机主屏才是我想要的。
 
-I want more. I want the commercial world and the marketing hype of “online” not to be about native apps and closed stores. I don’t want people to think it is OK to demand an iPhone to access their content. I don’t want companies to waste money trying to show up in an app store when they could easily be found on the web. I think we already have the world Jeremy describes. And – to repeat – I don’t want anyone not to embrace this if they want to or they think it is a good idea.
+我想要做的更多。我希望商业广告的世界和线上交易市场并不只有原生应用程序和封闭的市场。我不希望大家都觉得为了接触一些内容而去买一台 iPhone 很正常。我不希望公司在能用网络开发的时候却为了在应用商店里展示一款应用程序而花大价钱。我觉得我们现在所处的世界正是 Jeremy 所描述的。而且 - 我想再强调 - 如果大家都认为这一个好想法而且想要这么做，那么我希望大家都能接受它。
 
-Nothing necessary to turn your current web product into a PWA is a waste. All steps are beneficial to the health and quality of your product. That is the great part. But it does mean certain quality goals should be met to avoid users with an “app” expectation not getting what they want. We have to discuss these quality goals and right now quite a few companies roll out their ideas. This doesn’t mean we censor the web or lock out people (there are other people working on that outside of companies). It means we don’t want another “HTML5 Apps are a bad experience” on our hands.
+为了将你目前的网络产品转换为渐进型网站，任何的努力都不会变为徒劳。对你的产品的质量与寿命而言每一步都是有益的。这是最棒的地方。但这也意味着产品需要达到某些质量要求来应当那些用惯应用程序的用户过高的期望值。我们之前讨论过这些质量目标，目前有几家公司开始推行他们的想法了。这不意味着我们要审查网络或者让雇员们停工（公司以外也有人为此而工作）。这意味着我们不想再次重演 “HTML5 应用程序用户体验极差”的悲剧。
 
-I’ve been running this blog for ages. I learned a lot. That’s great. But I don’t want the web to be a thing for people already believing in it. I want everyone to use it instead of silos like app stores – especially commercial companies. We’ve been shirking away from the responsibility of making the enterprise and products people use day to day embrace the web for too long. The current demise of the native/app store model is a great opportunity to do this. I want everyone with the interest and knowledge to be part of this.
+我已经用了好多年博客了。我从中学到了很多，这很棒。但我不希望网络成为人们所信奉的一件事。我希望大家别把网络当时应用程序的货仓来使用 - 尤其是广告公司。我们为了制作能让大家每天都接触网络的产品而逃避了很多责任。目前应用程序／商店的没落是极好的机会。我希望每个感兴趣有想法的人都参与其中。
 
-I can’t see myself ever having a phone full with the faces of people. This is what the address book is for.  The same way my ebook reader (which is my browser) is what I use to read books. I don’t have an app for each author.
+我无法想象我会拥有一部全都是人脸图标的手机。这应该是本电话簿才对。同样的道理我用电子书（就是我的浏览器）来阅读。我不需要为每个作者而拥有一款应用程序。
 
-I like the concept of having a feed reader to check in bulk what people that inspire me are up to. I like reading aggregators that do the searching for me. And if I want to talk to the people behind those publications I contact them and talk to them. Or – even better – meet them.
+我觉得拥有一款阅读收集器的想法不错，这样可以用来查看最新且能触发灵感的摘要。我喜欢使用能帮我进行寻找的阅读器。这样如果我想和这些著作背后的作者聊聊我可以直接联系他们来交谈，或者 - 更好的是 - 直接和他们见面。
 
-An app – to me – is a thing I do something with. This blog is an app for me, but not for others. You can’t edit. I even turned off comments as I spent more time moderating than answering. That’s why it isn’t a PWA. I could turn it into one, but then I would feel that I should publish a lot more once you promoted me to be on your home screen.
+一款应用程序 - 对我而言 - 是用来做一件事的。 这个博客对我而言是一款应用程序，对其他人而言就不是了。你无法进行编辑。我甚至关掉了评论区所以我能花更多的时间进行讨论而不是回答问题。这就是为什么它不是一款渐进型网络程序。我可以改变这个网站，但我总觉得当你把我的网站放到你的手机主屏上时我就应该多发点文章。
 
-So when I talk about personal blogs not being PWAs to me, this is what I mean. Apps to me are things to do things with. If I can’t do anything with it except for reading and sharing I don’t stop you from publishing it as a PWA. But I am not likely to install it. The same way I don’t download the Kim Kardashian app or apps of bands.
+所以当我说个人博客对我而言不是渐进型网站时，这就是我想说的。应用程序是用来做一件事的。如果我除了阅读或者标星外做不了什么，那么你可以把这个网站改成渐进型网站。但我可能不会去安装。我不会去下载 Kim Kardashian 或某个乐队的应用程序也是出于同样的原因。
 
-This is not about your right to publish. It is about earning the space in the limited environment that is our user’s home screens, docks and desktops. If you’re happy to have that full of friend’s blogs or people you like – great. I’d rather soon see phones in shops that out-of-the-box come with PWAs for people to do things. Not native apps that need a 200MB update the first time you connect and won’t get that upgrade and become a security risk. I want web access to be front and centre on new devices. And to do that, we need to aim higher and do better.
-
+这和你发表文章的权利没关系。而是有关能否在用户的主屏幕，快速启动栏或者桌面上有限的空间里占得一席之地。如果你喜欢在屏幕上加满朋友或者你喜欢的博客 - 很好。我其实想看到在不久的将来出厂手机能为了这类人而自带渐进型网络程序。而不是需要 200MB 升级包，最终又无法升级而遗留安全问题的应用程序。我希望网络连接能集中在最新的设备中，为此我们需要把目标订的更高，做得更好。
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[React](https://github.com/xitu/gold-miner#react)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计) 等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)。
