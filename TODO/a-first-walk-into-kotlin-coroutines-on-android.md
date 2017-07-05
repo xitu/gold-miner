@@ -2,7 +2,7 @@
 > * 原文作者：[Antonio Leiva](https://android.jlelse.eu/@antoniolg)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[Feximin](https://github.com/Feximin)
-> * 校对者：
+> * 校对者：[wilsonandusa](https://github.com/wilsonandusa) 、[atuooo](https://github.com/atuooo)
 
 ---
 
@@ -31,7 +31,7 @@
 
 本文旨在让你了解一些基本概念，会用一个现有的库，而不是去自己去实现一个。但我认为重要的是了解一些内部原理，这样你就不会盲目使用了。
 
-协程基于 *暂停函数* 的想法：那些函数被调用之后**可以终止（程序）执行**，一旦完成他们自己的任务之后又可以让他（程序）继续执行。
+协程基于**暂停函数**的想法：那些函数被调用之后**可以终止（程序）执行**，一旦完成他们自己的任务之后又可以让他（程序）继续执行。
 
 暂停函数用保留关键字 `suspend` 来标记，而且只能在其他暂停函数或协程内部被调用。
 
@@ -58,9 +58,9 @@
 
 使用协程功能有三种方式：
 
-- *原始实现*：意思是创建你自己的方式去使用协程。这非常复杂并且通常不是必要的。
-- *底层实现*： Kotlin 提供了一套库，解决了一些最难的部分并提供了不同场景下的具体实现，你可以在 [kotlinx.coroutines](https://github.com/Kotlin/kotlinx.coroutines) 仓库中找到这些库，比如说： [one for Android](https://github.com/Kotlin/kotlinx.coroutines/tree/master/ui/kotlinx-coroutines-android) 。
-- *高级实现*：如果你只是想要**一个可以提供一切你所需的解决方案**来开始马上使用协程的话，有几个库可以使用，他们为你做了所有复杂的工作，并且（库的）数量在持续增长。我推荐  [Anko](https://github.com/Kotlin/anko)，他提供了一个可以很好的工作在 Android 上的方案，有可能你已经很熟悉了。
+- **原始实现**：意思是创建你自己的方式去使用协程。这非常复杂并且通常不是必要的。
+- **底层实现**： Kotlin 提供了一套库，解决了一些最难的部分并提供了不同场景下的具体实现，你可以在 [kotlinx.coroutines](https://github.com/Kotlin/kotlinx.coroutines) 仓库中找到这些库，比如说： [one for Android](https://github.com/Kotlin/kotlinx.coroutines/tree/master/ui/kotlinx-coroutines-android) 。
+- **高级实现**：如果你只是想要**一个可以提供一切你所需的解决方案**来开始马上使用协程的话，有几个库可以使用，他们为你做了所有复杂的工作，并且（库的）数量在持续增长。我推荐  [Anko](https://github.com/Kotlin/anko)，他提供了一个可以很好的工作在 Android 上的方案，有可能你已经很熟悉了。
 
 ---
 
