@@ -37,7 +37,7 @@ Services 允许应用在后台执行长时间的操作， 但这一行为是十�
 
 ### [**Alarm Manager**](https://developer.android.com/reference/android/app/AlarmManager.html)
 
-AlarmManager 提供系统级的定时服务。正因此，也是一种在应用生命周期之外执行操作的方法。即使应用没有运行，也可以触发事件或动作。AlarmManager 可以在未来唤起服务。当达到预定时间时，触发特定的 PendingIntent。
+AlarmManager 提供系统级的定时服务。正因此，也是一种在应用生命周期之外执行操作的方法。即使应用没有运行，也可以触发事件或动作。AlarmManager 可以在未来唤起服务。当达到预定时间时，触发特定的 PendingIntent。
 
 注册过的定时任务会在设备休眠时保留（并且可以选择是否唤醒设备），但在关机和重启时会被清空。
 
@@ -51,7 +51,7 @@ AlarmManager 提供系统级的定时服务。正因此，也是一种在应用�
 
 该 API 可以在资源充足时或满足条件时批量执行任务。创建任务时可以定义执行的先决条件。当条件满足时，系统会在应用的 JobService 上执行任务。 *JobScheduler* 的执行也取决于系统的打盹模式和应用当前状态。
 
-批量执行的特性使得设备可以更快地进入休眠，并拥有更长的休眠期，以此来延长电池使用时间。总而言之，这个 API 可以用来执行任何对时间不敏感的计划。
+批量执行的特性使得设备可以更快地进入休眠，并拥有更长的休眠期，以此来延长电池使用时间。总而言之，这个 API 可以用来执行任何对时间不敏感的计划。
 
 ### [**GCM Network Manager**](https://developers.google.com/cloud-messaging/network-manager)
 
@@ -154,11 +154,11 @@ Sync adapter 是被特别设计用来同步设备和云端数据的。它的用�
 
     }
 
-可以在 [GitHub](https://github.com/AnkitSinhal/JobSchedulerExample) 下载 *JobSchedulerExample* 的源码
+可以在 [GitHub](https://github.com/AnkitSinhal/JobSchedulerExample) 下载 *JobSchedulerExample* 的源码
 
 ### **总结**
 
-当调度任务时，需要仔细考虑执行的时间和条件，以及出错的后果。需要在应用性能和其他电池之类的条件间取舍。
+当调度任务时，需要仔细考虑执行的时间和条件，以及出错的后果。需要在应用性能和其他电池之类的条件间取舍。
 
 *JobScheduler* 容易实现，并且处理了大多数的复杂情况。当使用 *JobScheduler* 时，即使系统重启我们的任务依旧可以执行下去。此刻，*JobScheduler* 唯一的缺点就是它最低只在 api level 21 (Android 5.0) 上提供。
 
