@@ -16,7 +16,7 @@
 
 [![](https://www.smashingmagazine.com/wp-content/uploads/2017/04/boots1-780w-opt-1.png)](https://www.smashingmagazine.com/wp-content/uploads/2017/04/boots1-large-opt-1.png)
 
-Boots 网站的单页付款图，每一步都是一个折叠模块。([View large version](https://www.smashingmagazine.com/wp-content/uploads/2017/04/boots1-large-opt-1.png)
+Boots 网站的单页付款图，每一步都是一个折叠模块。([View large version](https://www.smashingmagazine.com/wp-content/uploads/2017/04/boots1-large-opt-1.png)）
 
 用户在提交订单时备受折磨，因为一旦填错内容就很难修改，用户需要上下来来回回滑动屏幕。折叠面板的设计简直太让人不爽了。果不其然，客户提出需求让我们修改。
 
@@ -26,7 +26,7 @@ Boots 网站的单页付款图，每一步都是一个折叠模块。([View larg
 
 [![](https://www.smashingmagazine.com/wp-content/uploads/2017/04/boots2-780w-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2017/04/boots2-large-opt.png)
 
-Boots 网站的多页付款图，每一步都是一个单独页面。([View large version](https://www.smashingmagazine.com/wp-content/uploads/2017/04/boots2-large-opt.png)
+Boots 网站的多页付款图，每一步都是一个单独页面。([View large version](https://www.smashingmagazine.com/wp-content/uploads/2017/04/boots2-large-opt.png)）
 
 这一版本变得好多了。我记不清确切的支持数据，但我记得客户当时很满意。
 
@@ -38,7 +38,7 @@ Boots 网站的多页付款图，每一步都是一个单独页面。([View larg
 
 [![](https://www.smashingmagazine.com/wp-content/uploads/2017/04/justeat-780w-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2017/04/justeat-large-opt.png)
 
-Just Eat 的结账被分成了多个页面。我们还提出了一个设计方案使付款更简便：用户可以选择“现金付款”或者“银行卡付款”，这会使下一步走向相关页面。不巧的是，我们从未对此进行测试。([View large version](https://www.smashingmagazine.com/wp-content/uploads/2017/04/justeat-large-opt.png)
+Just Eat 的结账被分成了多个页面。我们还提出了一个设计方案使付款更简便：用户可以选择“现金付款”或者“银行卡付款”，这会使下一步走向相关页面。不巧的是，我们从未对此进行测试。([View large version](https://www.smashingmagazine.com/wp-content/uploads/2017/04/justeat-large-opt.png)）
 
 几年过去了（2016），GDS 公司的 Robin Whittleton 告诉我说，把每一件事情放在属于自己一个页面里，这本身是一个设计模式，被称为“每一页，一件事”。除了数据支持，这个设计模式背后还有可靠的理论依据，我们马上会讲到。
 
@@ -70,7 +70,7 @@ Just Eat 的结账被分成了多个页面。我们还提出了一个设计方�
 
 [![](https://www.smashingmagazine.com/wp-content/uploads/2017/04/algebra-780w-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2017/04/algebra-large-opt.png)
 
-解决方程式的简单办法就是，分步骤分解等式。([View large version](https://www.smashingmagazine.com/wp-content/uploads/2017/04/algebra-large-opt.png)
+解决方程式的简单办法就是，分步骤分解等式。([View large version](https://www.smashingmagazine.com/wp-content/uploads/2017/04/algebra-large-opt.png)）
 
 同样的道理可以应用到用户到试图填好一份表单，或者任何其它事情。如果屏幕上内容较少，且用户只能做出一种选择，阻力将降到最小。因而用户就会专注停留在任务本身。
 
@@ -80,7 +80,7 @@ Just Eat 的结账被分成了多个页面。我们还提出了一个设计方�
 
 [![](https://www.smashingmagazine.com/wp-content/uploads/2017/04/errors-780w-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2017/04/errors-large-opt.png)
 
-即使有好几个错误发生，Kidly 的地址表单修改起来仍很简便。([View large version](https://www.smashingmagazine.com/wp-content/uploads/2017/04/errors-large-opt.png)
+即使有好几个错误发生，Kidly 的地址表单修改起来仍很简便。([View large version](https://www.smashingmagazine.com/wp-content/uploads/2017/04/errors-large-opt.png)）
 
 #### 3. 加快页面加载
 
@@ -96,7 +96,7 @@ Just Eat 的结账被分成了多个页面。我们还提出了一个设计方�
 
 #### 6. 减少滑动操作
 
-不要搞错了噢，[滑动操作也没什么大不了](http://uxmyths.com/post/654047943/myth-people-dont-scroll) —用户期望网页以滑动的方式运作。但是一旦页面变小了，用户不必再滑动屏幕。而且推广召集活动一般都在折叠面板最顶端，强化了需求，也简化了操作流程。
+不要搞错了噢，[滑动操作也没什么大不了](http://uxmyths.com/post/654047943/myth-people-dont-scroll)  —— 用户期望网页以滑动的方式运作。但是一旦页面变小了，用户不必再滑动屏幕。而且推广召集活动一般都在折叠面板最顶端，强化了需求，也简化了操作流程。
 
 #### 7. 分支操作更便捷
 
@@ -126,7 +126,7 @@ Just Eat 的结账被分成了多个页面。我们还提出了一个设计方�
 
 [![](https://www.smashingmagazine.com/wp-content/uploads/2017/04/kidly-780w-opt.png)](https://www.smashingmagazine.com/wp-content/uploads/2017/04/kidly-large-opt.png)
 
-点击“编辑”按钮把用户带回到付款方式页面，页面上有专有标题和相关字段。 ([View large version](https://www.smashingmagazine.com/wp-content/uploads/2017/04/kidly-large-opt.png)
+点击“编辑”按钮把用户带回到付款方式页面，页面上有专有标题和相关字段。 ([View large version](https://www.smashingmagazine.com/wp-content/uploads/2017/04/kidly-large-opt.png)）
 
 浏览页面中途有其他内容，这是很迷惑的事情。记住噢，点击链接去完成某些操作，这种在页面上做其他事情的交互将会让用户分心。
 
@@ -136,11 +136,11 @@ Just Eat 的结账被分成了多个页面。我们还提出了一个设计方�
 
 #### 10. 用户可以控制其数据授权
 
-用户不能只下载一个单独的页面，要么全部要么什么都没有。如果他想要更多的信息，它可以点击链接，拥有**选择**的权利。只要每一步能让他们更接近目标，[用户一点都不介意点鼠标](http://uxmyths.com/post/654026581/myth-all-pages-should-be-accessible-in-3-clicks)。
+用户不可能只让浏览器加载一半页面，要么全部，要么什么都没有。如果用户想要更多的信息，它可以点击链接，拥有**选择**的权利。只要每一步能让他们更接近目标，[用户一点都不介意多点一下鼠标](http://uxmyths.com/post/654026581/myth-all-pages-should-be-accessible-in-3-clicks)。
 
 #### 11. 解决性能问题
 
-如果所有内容融合成一个庞大的怪物 － 最极端的的例子就是单页应用 － 那性能问题是很难解决的。到底是运行时间问题呢？还是内存泄漏？或者 AJAX 调用？
+如果所有内容融合成一个庞大的怪物 —— 最极端的的例子就是单页应用 —— 那性能问题是很难解决的。到底是运行时间问题呢？还是内存泄漏？或者 AJAX 调用？
 
 我们很容易想到 AJAX 改善了用户体验，但是代码量的增加应该不会加快用户感受吧。
 
@@ -173,7 +173,7 @@ Just Eat 的结账被分成了多个页面。我们还提出了一个设计方�
 这种用户受益模式的很好的副产品，这样还减少了设计精力。
 ### 这种模式适合所有情景么？
 
-并不是。Caroline Jarrett 在 2015 年第一次写过一篇[一页一件事](https://designnotes.blog.gov.uk/2015/07/03/one-thing-per-page/) 的文章。她讲到用户研究会很快显示“一些问题最好归类在一起在长页面中显示”。
+并不是。Caroline Jarrett 在 2015 年第一次写过一篇同样标题的文章[一每一页，一件事](https://designnotes.blog.gov.uk/2015/07/03/one-thing-per-page/) 的文章。她讲到用户研究会很快显示“一些问题最好归类在一起在长页面中显示”。
 
 然而，相反的是，她也解释说自然地“走到一起”的问题们往往是从设计师的角度来看的，从用户角度来看，这些问题并不需要放在一起。
 
@@ -181,7 +181,7 @@ Just Eat 的结账被分成了多个页面。我们还提出了一个设计方�
 
 像大多数设计师一样，Caroline 认为将上述两个表单字段放在单独页面上是矫枉过正的。但现实是，用户并没有对此感到太困扰。
 
-关键在于，至少开始于“一页一件事”，随着用户研究，找出适合字段合并分组以优化用户体验。
+关键在于，至少开始于“每一页，一件事”，随着用户研究，找出适合字段合并分组以优化用户体验。
 
 这并不意味着，最终你总会以合并所有页面为结果。在我经验看来，最好的结果往往是将事情拆分。当然了，如果你有更好的经验，我也愿意倾听。
 
@@ -193,7 +193,7 @@ Just Eat 的结账被分成了多个页面。我们还提出了一个设计方�
 
 如果我们把一项任务看作是用户想要完成的交易，将这个流程分步骤处理是很合理的。就好像我们使用网络的传输作为逐渐展现页面的形式，页面背后的比喻给用户提供了潜意识里的进行时。
 
-至今我还未见到过比“一页一件事”更好的设计模式。这就是这个时代：简单就是这么简单。
+至今我还未见到过比“每一页，一件事”更好的设计模式。这就是这个时代：简单，就是这么简单。
 
 ---
 
