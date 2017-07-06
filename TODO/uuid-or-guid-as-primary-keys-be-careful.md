@@ -1,133 +1,133 @@
 > * 原文地址：[UUID or GUID as Primary Keys? Be Careful!](https://tomharrisonjr.com/uuid-or-guid-as-primary-keys-be-careful-7b2aa3dcb439)
 > * 原文作者：[Tom Harrison Jr](https://tomharrisonjr.com/@tomharrisonjr)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
-> * 校对者：
+> * 译者：[zaraguo](https://github.com/zaraguo)
+> * 校对者：[canonxu](https://github.com/canonxu) [yifili09](https://github.com/yifili09)
 ---
 
-# UUID or GUID as Primary Keys? Be Careful!
+# 把 UUID 或者 GUID 作为主键？你得小心啦！
 
 ![](https://cdn-images-1.medium.com/max/800/1*eOxYCicU2O_DHk5CWJS9TQ.png)
 
-Nothing says “User friendly” like GUID!
+没有什么会像 GUID 一样表达“用户友好”！
 
-I just read a post on ways to scale your database that hit home with me — the author suggests the use of UUIDs (similar to GUIDs) as the primary key (PK) of database tables.
+最近在阅读时，一篇谈论如何扩展数据库的文章引起了我的关注 - 作者在文中建议大家使用 UUIDs（类似 GUIDs）作为数据库表的主键。
 
-### Reasons UUIDs are Good
+### UUIDs 的优点
 
-There are several reasons using a UUID as a PK would be great compared to auto-incrementing integers:
+下面列出了一些使用 UUID 作为主键比使用自增整数好的原因：
 
-1. At scale, when you have multiple databases containing a segment (shard) of your data, for example a set of customers, using a UUID means that one ID is unique across *all* databases, not just the one you’re in now. This makes moving data across databases safe. Or in my case where all of our database shards are merged onto our Hadoop cluster as one, no key conflicts.
-2. You can know your PK before insertion, which avoids a round trip DB hit, and simplifies transactional logic in which you need to know the PK before inserting child records using that key as it’s foreign key (FK)
-3. UUIDs do not reveal information about your data, so would be safer to use in a URL, for example. If I am customer 12345678, it’s easy to guess that there are customers 12345677 and 1234569, and this makes for an attack vector. (But see below for a better alternative).
+1. 在扩展数据库的时候，当你有多个数据库包含同一段（片）数据时，比如一个顾客集，使用 UUID 意味着该 ID 在所有的数据库中是唯一标识的，而不是仅仅本数据库唯一。这保障了跨数据库迁移数据的安全。又比如，我曾在项目中把多个数据库分片合并到一个 Hadoop 集群中，也没有产生键的冲突。
+2. 在插入数据之前，你就能知道这个主键的值，这避免了一轮的数据查找，并且简化了事务的逻辑，即在你插入子记录之前，因为需要使用这个主键作为一个外键，你必须要知道这个主键的值。
+3. UUIDs 不会透露数据的信息，因此被用在 URL 中也比自增整数更安全。比如，我是编号 12345678 号顾客，那么人们就会猜测编号为 12345677 和 12345679 的顾客的存在，这就提供了一种攻击向量。（但是后面我们会看到一个更好的替代品）
 
-### Reasons UUIDs May Not be Good
+### UUIDs 的缺点
 
-#### Don’t be naive
+#### 不要太天真了
 
-A naive use of a UUID, which might look like `70E2E8DE-500E-4630-B3CB-166131D35C21`, would be to treat as a string, e.g. `varchar(36)` — don’t do that!!
+一个基础的 UUID 大概是这个样子的： `70E2E8DE-500E-4630-B3CB-166131D35C21`，它将会被视为字符串对待，比如 `varchar(36)` - 千万不要这么做！
 
-“Oh, pshaw”, you say, “no one would ever do such a thing.”
+你会说，“哼，才不会有人这么做呢。”
 
-Think twice — in two cases of very large databases I have inherited at relatively large companies, this was *exactly* the implementation. Aside from the 9x cost in size (36 vs. 4 bytes for an int), strings don’t sort as fast as numbers because they rely on collation rules.
+我再三考虑了下 - 就我所接手的两个大型企业级数据库来看，他们确实是那么实施的。除了 9 倍的多余开销外（比起 36 字节，整数类型只占了 4 字节），字符串在排序上也没有数字快，因为它们依赖排序规则。
 
-Things got really bad in one company where they had originally decided to use Latin-1 character set. When we converted to UTF-8 several of the compound-key indexes were not big enough to contain the larger strings. Doh!
+在一家公司还曾发生过十分糟糕的事情，一开始他们使用 Latin-1 字符集。当我们打算转为 UTF-8 时，好几个联合索引因为太大而存不下。哦！
 
-#### UUIDs are a pain
+#### UUIDs 之殇
 
-Don’t underestimate how annoying it is to have to deal with values that are too big to remember or verbalize.
+不要低估处理大到不能存储和表达的值的恼人程度。
 
-#### Planning for real scaling
+#### 为实际的扩展做计划
 
-If our goal is to scale, and I mean *really scale* let’s first acknowledge that an `int` is not big enough in many cases, maxing out at around 2 billion, which needs 4 bytes. We have way more than 2 billion transactions in each of several databases.
+如果我们的目标是扩展，我是说**真正的扩展**。那么首先让我们意识到 `int` 类型在很多情况下是不够大的。在大约 20 亿（需要 4 字节）的时候就溢出了。然而每个数据库中我们都有远超 20 亿大小的数据存在。
 
-So `bigint` is needed in some cases and that uses 8 bytes. Meanwhile, using one of several strategies, databases like PostgreSQL and SQL Server have a native type that is stored in 16 bytes.
+因此，`bigint` 在某些时候才是我们真正需要的，它占 8 个字节。此外，还有其他多个策略可供选择。像是 PostgreSQL 和 SQL Server 这些数据库都有 16 字节的原生类型。
 
-So who cares if it’s twice as large as `bigint` or four times bigger than `int`? It’s just a few bytes, right?
+谁会介意是否是 `bigint` 的两倍或者 `int` 的四倍大小？这只是一点点字节，对吧？
 
-#### Primary keys get around in normalized databases
+#### 规范良好的数据库中主键到处可见
 
-If you have a well normalized database, as we do at my current company, each use of the key as an FK starts adding up.
+如果你的数据库有良好的规范，正如我现在所在的公司一样，每一次将一个键用作外键前会先进行评估。
 
-Not just on disk but during joins and sorts these keys need to live in memory. Memory is getting cheaper, but whether disk or RAM, it’s limited. And neither is free.
+不单单在磁盘上，在进行 join 和 sort 时这些 key 还需要载入到内存中。内存的确越来越便宜了，但是无论磁盘还是内存它们都是有限的，并且也都不是免费的。
 
-Our database has plenty of intermediate tables that are mainly containers for the foreign keys of others, especially in 1-to-many relations. Accounts have multiple card numbers, addresses, phone numbers, usernames, and all that. For each of these columns in a set of table with billions of accounts, the extra size of foreign keys adds up fast.
+我们的数据库用大量的关系表来存储外键，尤其是在一对多的关系中。账户表内含有多个卡号，地址，电话号码，用户名等等。对于拥有数十亿账户的一组表中的任意一列，外键的空间开销的增长都是十分快速的。
 
-#### It’s really hard to sort random numbers
+#### 随机数排序十分困难
 
-Another problem is fragmentation — because UUIDs are random, they have no natural ordering so cannot be used for clustering. This is why SQL Server has implemented a `newsequentialid()` function that is suitable for use in clustered indexes, and is [probably the right implementation](https://msdn.microsoft.com/en-us/library/ms189786.aspx) for all UUID PKs. It is probable that there are similar solutions for other databases, certainly PostgreSQL, MySQL and likely the rest.
+另外一个问题就是碎片化 - 因为 UUIDs 是随机的，他们没有天然的生成顺序因此不能够被用于集群。这就是为什么 SQL Server 实现了一个 `newsequentialid()` 方法用于集群化索引的使用，这可能就是将 UUIDs 作为主键使用的[正确打开方式](https://msdn.microsoft.com/en-us/library/ms189786.aspx)了。其他的数据库可能也有类似的解决方案，PostgreSQL，MySQL 肯定是有的，其他的可能有。
 
-### Primary keys should never be exposed, even UUIDs
+### 主键永远不应该被暴露，甚至是 UUIDs
 
-A primary key is, by definition unique within its scope. It is, therefore, an obvious thing to use as a customer number, or in a URL to identify a unique page or row.
+因为主键在其作用域内的唯一性，所以显然可以用作用户编号或者用在 URL 中来标志唯一页面或者记录。
 
-Don’t!
+千万不要！
 
-I would argue that *using a PK in any public context is a bad idea.*
+下面我将阐明**在公开环境中暴露主键是十分不好的**这一观点。
 
-The original issue with simple auto-incrementing values is that they are easily guessable as I noted above. Botnets will just keep guessing until they find one. (And they may keep guessing if you use UUIDs, but the chance of a correct guess is astronomically lower).
+正如我上面所说过的，简单的自增值的基本问题便是它们容易被猜到。僵尸网络可以利用这点不断猜测直到找到真实值。（当然如果你使用 UUIDs，它们也可以进行暴力破解，只是猜中的几率将十分低）。
 
-Arguably it would be a fool’s errand to try to guess a UUID, however [Microsoft warns against](https://msdn.microsoft.com/en-us/library/ms189786.aspx) using `newsequentialid()` because by mitigating the clustering issue, it makes the key more guessable.
+理论上说试图猜中一个 UUID 可能是一件十分愚蠢的行为，然而 [Microsoft 还是告诫我们不要](https://msdn.microsoft.com/en-us/library/ms189786.aspx)使用 `newsequentialid()`，因为为了减少集群问题，它其实较为容易猜测。
 
-#### My keys will never change (until they do)
+#### 我曾以为我的键绝对不会变（直到它们变了）
 
-But there’s a far more compelling reason not to use any kind of PK in a public context: if you *ever* need to change keys, all your external references are broken. Think “404 Page Not Found”.
+不在公开环境使用主键还有一个无法反驳的原因：你**一旦**需要改变这个键值，那么所有外在的引用就不可用了。想象一下 “404 页面无法找到”的情形。 
 
-When would you need to change keys? As it happens, we’re doing a data migration this week, because who knew in 2003 when the company started that we would now have 13 massive SQL Server databases and growing fast?
+你什么时候需要更改键值呢？真巧，我们这个星期在做数据迁移，因为在 2003 年一个公司刚起步的时候谁能想到我们现在会需要 13 个庞大的 SQL Server 数据库并且依然在持续快速增长？
 
-Never say “never”. I have been there and done that, and it has happened several times just for me. It’s easy to manage up front. It’s way harder to fix when you’re counting things in the trillions.
+永远不要说“绝不会”。我曾参与那次迁移项目，并且诸如此类的事情在我身上就发生过多次。与此相比，事先预防则更加简单。当你置身数万亿的数据之中迁移将变得更加困难。
 
-Indeed, my current company’s context is a perfect example of why UUIDs are needed, and why they are costly, and why exposing primary keys is an issue.
+事实上，我现在公司的场景就是为什么需要 UUIDs 的最好例子，以及为什么 UUIDs 开销巨大，为什么在公开环境中暴露主键是一个问题。
 
-#### My internal system is external
+#### 我的内部系统是对外的
 
-I manage the Hadoop infrastructure that receives data nightly from all of our databases. The Hadoop system is linked (bound) to our SQL Server databases, which is fine — we’re in the same company.
+我管理的 Hadoop 基础设施每晚都会接收到来自我们所有数据库的数据。该 Hadoop 系统连接到我们的 SQL Server 数据库，这没什么问题，因为这两个同属一家公司。
 
-Still, in order to disambiguate colliding sequence keys from our multiple databases, we generate a pseudo-primary-key by concatenating two values, the id (PK) of the customer which is unique across databases, plus the sequence id of the table rows themselves.
+还有，为了避免多个数据库间的序列化键冲突，我们通过关联两个值来生成了一个假的主键，跨数据库唯一的客户编号（主键），加上它们在表内的序列号。
 
-In so doing we have created a tight, and effectively permanent binding between years of historical customer data. If those primary keys in the RDBMS change, ours will need to also, or we’ll have some horrifying before-and-after scenario.
+通过这样做我们在多年的历史用户数据之间建立了紧密且有效地永久联系。如果这些在关系数据库管理系统中的主键发生了改变，我们与之相对应的键也要进行改变，否则将会产生令人恐惧的前后不一致。
 
-### Best of Both? Integers Internal, UUIDs External
+### 如何两全其美？内部引用用整型，外部引用用 UUIDs 
 
-One solution used in several different contexts that has worked for me is, in short, to use both. (Please note: not a good solution — see note about response to original post below).
+有一个在多个不同场景下都有效的解决办法，简单来说就是，两者都用。（请注意：这不是一个好方法 - 请看下面我记录的 Chris 对原始博文回复）
 
-Internally, let the database manage data relationships with small, efficient, numeric sequential keys, whether `int` or `bigint`.
+在内部，让数据库用小而有效、数值型的序列键来管理数据关系，`int` 或是 `bigint` 皆可。
 
-Then *add a column* populated with a UUID (perhaps as a trigger on insert). Within the scope of the database itself, relationships can be managed using the usual PKs and FKs.
+然后**增加一列**用于存放 UUID（可以将其设计进插入的预处理操作里）。在一个数据库自身的范围内，可以使用普通的主键和外键来管理关系。
 
-But when a reference to the data needs to be exposed to the outside world, *even when “outside” means another internal system,* they must rely only on the UUID.
+当需要暴露一个数据的引用到外部时，**即使这里的“外部”是另一个内部系统，**它们也必须依赖 UUID。
 
-This way, if you ever do have to change your internal primary keys, you can be sure it’s scoped only to one database. (Note: this is just plain wrong, as Chris observed)
+这样一来，如果你需要改变内部的主键，那么你也可以确保它的影响范围在一个数据库内。（注意：正如 Chris 评论的，这点明显错了）
 
-We used this strategy at a different company for customer data, just to avoid the “guessable” problem. (Note: avoid is different than prevent, see below).
+我们曾在另一个公司的客户数据上采用了这个策略，正是为了避免主键“易被猜测”的问题。（注意：避免不同于阻止，详见下文）。
 
-In another case, we would generate a “slug” of text (e.g. in blog posts like this one) that would make the URL a little more human friendly. If we had a duplicate, we would just append a hashed value.
+另一种情况，我会生成了一“段”文本（例如像本篇一样的博文）用于 URL 使其更加对用户友好的。如果有冲突，那么只需追加一段哈希值。
 
-Even as a “secondary primary key”, using a naive use of UUIDs in string form is wrong: use the built-in database mechanisms as values are stored as 8-byte integers, I would expect.
+即使作为“次级主键”（译者注：这里的次级主键指拥有主键特性用于外部引用的键），简单地使用字符串形式的 UUIDs 也是错的：我推荐使用内置的数据库机制生成 8 字节整型值。
 
-Use integers because they are efficient. Use the database implementation of UUIDs in addition for any external reference to obfuscate.
+使用整型是因为它们是高效的。另外也可将数据库实现的 UUIDs 用于无规律化外部引用，避免暴力破解。
 
-[Chris Russell](https://medium.com/@crussell52) responded to the original post on this section correctly noting two important caveats or errors in logic. First, even exposing a UUID that is effectively an alternate for the actual PK reveals information, and this is especially true when using the `newsequentialid` — don’t use UUIDs for security. Second, when the relations of a given schema are internally managed by integer keys, you still have the key-collision problem of merging two databases, unless all keys are doubled … in which case, just use the UUID. So, in reality, the right solution is probably: use UUIDs for keys, and don’t ever expose them. The external/internal thing is probably best left to things like friendly-url treatments, and then (as Medium does) with a hashed value tacked on the end. Thanks Chris!
+[Chris Russell](https://medium.com/@crussell52) 就原始博文的本节给予的回应正确地指出了两个重要的逻辑上的预警或者说是错误。第一点，即使用 UUID 代替真实的主键暴露在外，实际上也会披露很多信息，特别是在用 `newsequentialid` 的时候 - 不用试图用 UUIDs 来保证安全。第二点，如果所给的 schema 的关系在内部被整数键所管理，在合并两个数据库时你依然会有键冲突的问题，除非允许所有的键有两个记录存在...如果是这种情况的话，就使用 UUID。因此，在现实中，正确的解决方案可能是：你可以用 UUIDs 当做键，但是绝不要暴露他们。如何对内或是对外的事情最好还是留给像是 url 友好化处理的模块来负责，并且再（正如 Medium 所做的那样）用一个哈希值附加在尾部。感谢 Chris！
 
-#### References and many thanks
+#### 附言和感谢
 
-Thanks to [Ruby Weekly](http://rubyweekly.com/issues/335) (which I still read, wistfully although Scala is growing on me), [Starr Horne’s great blog from Honeybadger.io](http://blog.honeybadger.io/easy_rails_database_scaling_wins/) on this topic, the always [funny and smart post on Coding Horror by Jeff Atwood](https://blog.codinghorror.com/primary-keys-ids-versus-guids/), co-founder of Stack Overflow, and naturally a fine question on one of Stackoverflow’s sites at [dba.stackexchange.com](http://dba.stackexchange.com/questions/69254/whats-the-most-efficient-uuid-column-type). Also a nice post from [MySqlserverTeam](http://mysqlserverteam.com/storing-uuid-values-in-mysql-tables/), another from [theBuild.com](http://thebuild.com/blog/2015/10/08/uuid-vs-bigserial-for-primary-keys/) and of course MSDN which I linked earlier.
+感谢 [Ruby Weekly](http://rubyweekly.com/issues/335)（我始终在看，尽管我现在在用的是 Scala），[来自 Honeybadger 公司的 Starr Horne 关于此观点的优秀文章](http://blog.honeybadger.io/easy_rails_database_scaling_wins/)，[Jeff Atwood 在 Coding Horror 上发表的总是充满幽默和智慧的文章](https://blog.codinghorror.com/primary-keys-ids-versus-guids/)，Stack Overflow 的联合创始人，自然还有来自 Starkoverflow 的 [dba.stackexchange.com](http://dba.stackexchange.com/questions/69254/whats-the-most-efficient-uuid-column-type) 上的一个不错的问题。当然还有一篇来自 [MySqlserverTeam](http://mysqlserverteam.com/storing-uuid-values-in-mysql-tables/) 的非常棒的文章，另一篇来自 [theBuild.com](http://thebuild.com/blog/2015/10/08/uuid-vs-bigserial-for-primary-keys/) 以及我此前给过链接的 MSDN。
 
-### Meta: Why I Blog
+### 后记：我为什么写这篇文章
 
-I learned *a lot* writing about this.
+我从写这篇文章中学到了**很多**。
 
-I started out reading email on a Sunday afternoon.
+事情开始于一个周日的下午, 我在看邮件。
 
-Then came across an interesting post by Starr, which got me thinking his advice might have unintended outcomes. So I googled and learned way more about UUIDs than I knew before, *and* changed my fundamental understanding and disposition about how and when to use them.
+然后我偶然看到一篇 Starr 写的有趣的文章，这不禁让我开始思考他的建议可能带来一些意料之外的效果。因此我开始去 google 搜索相关资料，而这拓宽了我对 UUIDs 的认识，**并且**改变了我对于如何使用它们的基本认知和态度。
 
-Halfway through writing this, I sent email to the team leads at my company wondering if we had considered one of the topics I discussed. Hopefully we’re ok, but I think we may have avoided at least one unexpected surprise in code scheduled for release this week.
+写作途中，我曾给公司的组长发邮件询问我们的数据库设计是否考虑到了上面我所谈论到的几个观点。但愿我们做得很好，但是我想在本周计划发布的代码中我们已经避免掉了至少一个不可预计的意外。
 
-Note that all of these are entirely selfish reasons :-)
+写下这篇文章纯属满足私欲 :-)
 
-Hope you like it, too!
+但愿你也能喜欢！
 
-[Image Credit](http://unlockforus.blogspot.com/2008/03/advanced-how-to-creategenerate-new-guid.html)
+[图片来源](http://unlockforus.blogspot.com/2008/03/advanced-how-to-creategenerate-new-guid.html)
 
 ---
 
