@@ -1,36 +1,36 @@
 > * 原文地址：[What's new in iOS 11 for developers](https://www.hackingwithswift.com/whats-new-in-ios-11)
 > * 原文作者：[Paul Hudson](https://twitter.com/twostraws)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：swants
-> * 校对者：
+> * 译者：       Swants
+> * 校对者：  Danny1451   RichardLeeH
 
 # 开发者眼中 iOS 11 都更新了什么？
 
-iOS 11 在 2017 年苹果全球开发者大会上公布，并介绍了大量强大的功能，如 `Core ML`,`ARKit`,`Vision `,`PDFKit `,`MusicKit ` 拖放等等。 我尝试着把主要变化在接下来的文章里总结了出来，并在可行的地方提供代码，这样你就可以直接上手。
+苹果在 2017 年全球开发者大会上公布了 iOS 11 , 其加入许多强大的功能，如 `Core ML`,`ARKit`,`Vision `,`PDFKit `,`MusicKit ` 拖放等等。 我尝试着把主要变化在接下来的文章里总结了出来，并在可行的地方提供代码，这样你就可以直接上手。
 
-**注意：** 有些地方没涉及到并不是因为懒，我已经尽我所能提供足够多的代码来帮你做出一个从零开始的示例 app，但是你最终还是免不了去额外了解更多 iOS 11 中大量复杂的设计功能。
+**注意：** 有些地方没涉及到并不是因为懒，我已经尽我所能提供足够多的代码来帮你在应用上快速上手这些特性。但是你最终还是免不了去额外了解更多 iOS 11 中大量复杂的设计功能。
 
 在接着读下去之前，你可能需要了解下这几篇文章：
 
-- [What's new in Swift 4?] (https://www.hackingwithswift.com/swift4)
+- [What's new in Swift 4?](https://www.hackingwithswift.com/swift4)
 - [What's new in Swift 3.1?](https://www.hackingwithswift.com/swift3-1)
 - [What's new in iOS 10?](https://www.hackingwithswift.com/ios10)
 - [What's new in iOS 9?](https://www.hackingwithswift.com/ios9)
 
-**你可能想购买我的新书：《Practical iOS 11》。** 你可以通过教程的形式获得 7 个完整的项目代码，以及更多深入了解特定新技术的技术项目 - 这是熟悉 iOS 11最快的方式！
+**你可能想购买我的新书：《 Practical iOS 11 》。** 你可以通过教程的形式获得 7 个完整的项目代码，以及更多深入了解特定新技术的技术项目 - 这是熟悉 iOS 11最快的方式！
 
 
 [Buy Practical iOS 11 for $30](https://www.hackingwithswift.com/store/practical-ios11)
 
-## 拖拽
+## 拖放
 
-拖拽是我们在桌面操作系统中认为理所当然的操作，但是拖拽在 iOS 上直到 iOS 11 才出现，这真的阻碍了多任务处理的发展。换句话说，在 iOS 11 上尤其是在 iPad 上，多任务处理迎来了高速发展的时代。得益于拖拽成为其中很大的一部分：你可以在 APP 内部和或 APP 之间移动内容，当你拖拽的时候你可以用另一只手对其他 app 进行操作.你甚至可以利用 全新的 dock 系统来激活其他 app 的中间拖动。
+拖放是我们在桌面操作系统中认为理所当然的操作，但是拖放在 iOS 上直到 iOS 11 才出现，这真的阻碍了多任务处理的发展。换句话说，在 iOS 11 上尤其是在 iPad 上，多任务处理迎来了高速发展的时代。得益于拖放成为其中很大的一部分：你可以在 APP 内部和或 APP 之间移动内容，当你拖放的时候你可以用另一只手对其他 app 进行操作.你甚至可以利用 全新的 dock 系统来激活其他 app 的中间拖动。
 
-**注意： 在 iPhone 上拖拽被限制在单个 app 内 - 你不能把内容拖拽到其他 app 里。**
+**注意： 在 iPhone 上拖放被限制在单个 app 内 - 你不能把内容拖放到其他 app 里。**
 
-幸运的是，`UITableView ` 和 `UICollectionView ` 同时在一定程度上支持拖拽内置。但是想要使用拖拽功能仍旧需要写相当多的代码。你也可以向其他组件添加拖拽支持，而且你将会看到这实际上需要做很少的工作。
+令人欣喜的是，`UITableView ` 和 `UICollectionView ` 在一定程度上都支持拖拽内置。但是想要使用拖放功能仍旧需要写相当多的代码。你也可以向其他组件添加拖放支持，而且你会发现实际上这只需要少量的工作。
 
-下面让我们来看看如何使用简单的拖拽来实现在两个列表之间拷贝行内容。首先，我们需要使用一个简单的 app 。让我们写一些代码来创建两个有示例数据的 `tableview` 供我们拷贝。
+下面让我们来看看如何使用简单的拖放来实现在两个列表之间拷贝行内容。首先，我们需要使用一个简单的 app 。让我们写一些代码来创建两个有示例数据的 `tableview` 供我们拷贝。
 
 在 Xcode 内创建一个新的单一视图 app 模板，然后打开 `ViewController.swift` 类进行编辑。
 
@@ -39,7 +39,7 @@ iOS 11 在 2017 年苹果全球开发者大会上公布，并介绍了大量强�
 这些代码将：
 
 - 创建两个 `tableView` ,并且创建两个分别包含`Left ` 和 `Right ` 元素的字符串数组。
-- 制定两个 `tableView ` 都使用 `view controller` 来作为它们的数据源，给他们设置位置宽高，注册一个可重用的 `cell` ，把它们两个都添加到这个 `view` 上。
+- 制定两个 `tableView ` 都使用 `view controller` 来作为它们的数据源，给他们写死位置宽高，注册一个可重用的 `cell` ，把它们两个都添加到这个 `view` 上。
 - 实现 `numberOfRowsInSection`  方法，确保每个 table view 都根据其字符串数组有正确的行数。
 - 实现 `cellForRowAt` 来排列，这时 cell根据 table 来从两个字符串数组中选出对应的数据源正确展示。
 
@@ -95,7 +95,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
 好：下面就是 *新* 的内容了。如果你现在运行 app 你就会看到两个并列并且填满数据的 tableView 。我们现在想要做的就是让用户可以从一个 table 上选择一行并且复制到另一个 table 里，或者反方向操作。
 
-第一步就是就是设置两个 tableView 的拖和拽操作的代理为当前 view controller ，然后把它们设置为可拖拽。 把下面的代码加入到 `viewDidLoad()` 方法里：
+第一步就是就是设置两个 tableView 的拖和放操作的代理为当前 view controller ，然后把它们设置为可拖放。 把下面的代码加入到 `viewDidLoad()` 方法里：
 
 ```
 leftTableView.dragDelegate = self
@@ -107,14 +107,14 @@ leftTableView.dragInteractionEnabled = true
 rightTableView.dragInteractionEnabled = true
 ```
 
-当你做完这些后，Xcode 会抛出几个警告，因为我们当前的控制器类没有遵从 `UITableViewDragDelegate` 和 `UITableViewDropDelegate` 协议。这些警告通过添加这两个协议到我们的类就会很容易被修正 ——滚动带文件的最顶端并且改变类的声明：
+当你做完这些后，Xcode 会抛出几个警告，因为我们当前的控制器类没有遵从 `UITableViewDragDelegate` 和 `UITableViewDropDelegate` 协议。通过给我们的类添加这两个协议很容易就修复这些警告了 —— 滚动到文件的最顶端并且改变类的定义：
 
 ```
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITableViewDragDelegate, UITableViewDropDelegate {
 
 ```
 
-但是这样又会产生新的问题：我说过我们应该遵从这两个类的协议，但是我们没有实现协议必须实现的方法，在过去修复这个常常是很麻烦的，但是 Xcode 9 可以自动完成这几个协议必须实现的方法 —— 点击报红色高亮代码行上的数字 2，这时你将会看到出现了更多的详细解释。点击 "fix" 来让 Xcode 9 为我们插入两个缺少的方法 —— 你将会看到你的类里边出现了下面的代码：
+但是这样又会产生新的问题：我说过我们应该遵从这两个新协议，但是我们没有实现协议必须实现的方法，在过去修复这个常常是很麻烦的，但是 Xcode 9 可以自动完成这几个协议必须实现的方法 —— 点击报红色高亮代码行上的数字 2，这时你将会看到出现了更多的详细解释。点击 "fix" 来让 Xcode 9 为我们插入两个缺少的方法 —— 你将会看到你的类里边出现了下面的代码：
 
 ```
 func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
@@ -128,16 +128,16 @@ func tableView(_ tableView: UITableView, performDropWith coordinator: UITableVie
 
 Xcode 总是把新的方法插在你的类最上面，至少在这次初始的 beta 版本里是。如果你和我一样看这不顺眼 —— 在继续之前可以把它们移到更明智地方！
 
-`itemsForBeginning` 方法是最简单的，让我们先从它开始。这个方法是在当用户的手指在 tableView 某行 cell 上按下执行拖的操作的时候调用。当你进行了有效的拖放操作时，方法需要返回一个包含所有拖动元素的数组。
+`itemsForBeginning` 方法是最简单的，让我们先从它开始。这个方法是在当用户的手指在 tableView 某行 cell 上按下执行拖的操作的时候调用。如果你返回一个空数组，你实际上就是拒绝了拖放操作。
 
 我们打算为这个方法添加四行代码：
 
 1. 指出哪一个字符串被拷贝，我们可以使用一个简单的三元操作符来实现：如果当前的 tableView 是在左边就从 `leftItems`中读取，否则就从`rightItems` 中读取。
-2. 试着将这个字符串包装成一个 `Data` 对象， 以便可以通过拖拽进行传递。
-3. 将这个 data 放进一个 `NSItemProvider` 中，并且标记为存储了一个纯文本字符串 从而其他 app 可以知道如何去处理它。
+2. 试着将这个字符串转换成一个 `Data` 对象， 以便可以通过拖放进行传递。
+3. 将这个 data 放进一个 `NSItemProvider` 中，并且标记为存储了一个纯文本字符串从而其他 app 可以知道如何去处理它。
 4. 最后， 把这个 `NSItemProvider` 放进一个 `UIDragItem`内，从而它可以用于 UIKit 的拖放。
 
-为了把 data 元素标记为纯文本字符串 我们需要引入 MobileCoreServices 框架，所以请把下面的代码加入到 ViewController.swift 类的最上面：
+为了把 data 元素标记为纯文本字符串 我们需要引入 MobileCoreServices 框架，所以请把下面的代码加入到 ViewController.swift 文件最上面：
 
 ```
 import MobileCoreServices
@@ -155,11 +155,11 @@ func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSessio
 }
 ```
 
-接下来我们只需要实现 `performDropWith` 方法。我说 “只需要”，但是剩下的两个潜在的复杂问题还是很棘手的。首先，如果有人拖拽了很多东西我们就会同时获得很多字符串，我们需要把它们都正确插入。其次，我们可能被告知用户想要插入到那几行，也可能不被告知 —— 用户可能只是把字符串拖拽到 tableView 的空白处，这时需要我们决定该怎么处理。
+接下来我们只需要实现 `performDropWith` 方法。我说 “只需要”，但是剩下的两个潜在的复杂问题还是很棘手的。首先，如果有人拖放了很多东西我们就会同时获得很多字符串，我们需要把它们都正确插入。其次，我们可能被告知用户想要插入到哪几行，也可能不被告知 —— 用户可能只是把字符串拖放到 tableView 的空白处，这时需要我们决定该怎么处理。
 
-要解决这两个问题需要写比你期望中的更多的代码，但我会尽力带你一步步走过去，让这件事变得更容易一些。
+要解决这两个问题需要写比你期望中的更多的代码，但我会带你一步一步编写代码，让它更容易些。
 
-首先，是最简单的部分：指出行被拖拽到哪里。 `performDropWith` 返回一个 `UITableViewDropCoordinator` 类对象，该对象有一个 `destinationIndexPath` 属性 可以告诉我们用户想把数据拖拽到哪里。然而 这个方法是*可选*实现：如果用户把他们的数据拖拽到我们 tableView 的空单元格上，方法返回的将会是 nil。如果这真的发生了我们会猜用户是想把数据拖拽到 table 的最尾部。
+首先，是最简单的部分：找出行被拖放到哪里。 `performDropWith` 返回一个 `UITableViewDropCoordinator` 类对象，该对象有一个 `destinationIndexPath` 属性 可以告诉我们用户想把数据拖放到哪里。然而 这个方法是 __可选__ 实现：如果用户把他们的数据拖放到我们 tableView 的空单元格上，方法返回的将会是 nil。如果这真的发生了我们会认为用户是想把数据拖放到 table 的最尾部。
 
 所以，把下面的代码添加到 `performDropWith` 方法内继续吧：
 
@@ -177,9 +177,9 @@ if let indexPath = coordinator.destinationIndexPath {
 
 正如你所看到的那样，如果 coordinator 的 `destinationIndexPath` 存在就直接用，如果不存在则创建一个最后一组最后一行的 `destinationIndexPath` 。
 
-下一步就是让拖拽的 coordinator 来加载拖动的所有特定类对象。在我们的例子里这个特定类是 `NSString` 。（然而，通常用 `String` 不起作用。）当所有拷贝的内容都就绪时我们需要发送一个结束信号来运行，这也是最复杂的地方：我们需要把内容一个接一个地在目标行下面插入，修改 `leftItems` 或 `rightItems` 数组，最后调用我们 tableView 的 `insertRows()` 方法来展示拷贝后的结果。
+下一步就是让拖放的 coordinator 来加载拖动的所有特定类对象。在我们的例子里这个特定类是 `NSString` 。（然而，通常用 `String` 不起作用。）当所有拷贝的内容都就绪时我们需要发送一个闭包来运行，这也是最复杂的地方：我们需要把内容一个接一个地在目标行下面插入，修改 `leftItems` 或 `rightItems` 数组，最后调用我们 tableView 的 `insertRows()` 方法来展示拷贝后的结果。
 
-那么，接下来：我们刚刚写了一些代码来指出拖拽操作最终的目标行。但如果我们得到了*多个*拷贝对象，那么我们所有的都是初始的 destination index path —— 第一个拷贝对象的目标行就是它，第二个拷贝对象的目标行比它低一行，第三个拷贝对象的目标行比它低两行，等等。当我们移动每个拷贝对象时，我们会创建一个新的 index path 并且把它暂存到一个 `indexPaths` 数组中，这样我们就可以让 tableView 只调用一次 `insertRows()` 方法 。
+那么，接下来：我们刚刚写了一些代码来指出拖放操作最终的目标行。但如果我们得到了 __多个__ 拷贝对象，那么我们所有的都是初始的 destination index path —— 第一个拷贝对象的目标行就是它，第二个拷贝对象的目标行比它低一行，第三个拷贝对象的目标行比它低两行，等等。当我们移动每个拷贝对象时，我们会创建一个新的 index path 并且把它暂存到一个 `indexPaths` 数组中，这样我们就可以让 tableView 只调用一次 `insertRows()` 方法就完成了全部插入操作 。
 
 把代码添加到你的 `performDropWith` 方法中，放在我们刚才写的代码下面：
 
@@ -213,11 +213,11 @@ coordinator.session.loadObjects(ofClass: NSString.self) { items in
 }
 ```
 
-这就是完成的所有代码了 —— 你现在能够运行这个 app 然后在两个 tableView 之间拖动行内容来完成拷贝。完成这个花费了这么多的工作量，但令人感到惊喜的是：你所做的这些工作你能够支持整个系统的拖拽：譬如如果你试着用 iPad 模拟器的话，你就会发现你可以把这些文本拖拽到 Apple News 内的任何一个列表上，或者把 tableView 上的文本拖拽到 Safari 的搜索条上。非常酷！
+这就是完成的所有代码了 —— 你现在能够运行这个 app 然后在两个 tableView 之间拖动行内容来完成拷贝。完成这个花费了这么多的工作量，但令人感到惊喜的是：你所做的这些工作你能够支持整个系统的拖放：譬如如果你试着用 iPad 模拟器的话，你就会发现你可以把这些文本拖放到 Apple News 内的任何一个列表上，或者把 tableView 上的文本拖放到 Safari 的搜索条上。非常酷！
 
-在你试着去完成拖拽操作之前，我想再展示一件事：如何实现为其他 View 添加拖拽支持。其实比在 tableView 上实现要容易，那就让我们快速做一遍吧。
+在你试着去完成拖放操作之前，我想再展示一件事：如何实现为其他 View 添加拖放支持。其实比在 tableView 上实现要容易，那就让我们快速做一遍吧。
 
-在开始之前，我们需要一个简单的工具来让我们有可以添加拖拽的东西。这次我们打算创建一个 `UIImageView` 并且渲染一个简单的红色圆圈作为图片。你可以保留已存在的单视图 APP 模板 然后把  ViewController.swift 的内容用新代码替换：
+在开始之前，我们需要一个简单的控件来让我们有可以添加拖放的东西。这次我们打算创建一个 `UIImageView` 并且渲染一个简单的红色圆圈作为图片。你可以保留已存在的单视图 APP 模板 然后把  ViewController.swift 的内容用新代码替换：
 
 ```
 import UIKit
@@ -247,9 +247,9 @@ class ViewController: UIViewController {
 
 像之前一样，这都是些 iOS 的老代码所以我不打算给你详细解释它。如果你试着在 iPad 模拟器上运行，你就会在控制器里看到一个大的红色圆圈 —— 这对供我们测试来说足够了。
 
-自定义视图的拖拽是通过一个新的叫作 `UIDragInteraction` 类来实现的。 你告诉它在哪里发送信息（在我们这个例子里，我们用的是当前的控制器），然后将它和用来交互的 View 绑定。
+自定义视图的拖放是通过一个新的叫作 `UIDragInteraction` 类来实现的。 你告诉它在哪里发送信息（在我们这个例子里，我们用的是当前的控制器），然后将它和用来交互的 View 绑定。
 
-**重要提示：** 千万不要忘了打开相关视图的交互，否则当拖拽最后不起作用时，你会感到非常困惑。
+**重要提示：** 千万不要忘了打开相关视图的交互，否则当拖放最后不起作用时，你会感到非常困惑。
 
 首先， 在 `viewDidLoad()` 的最末尾添加这三行代码，就在之前的代码后面。你就会看到 Xcode 提示我们的 view controller 没有遵循
 `UIDragInteractionDelegate` 协议，所以把类的定义改成下面这样：
@@ -266,7 +266,7 @@ func dragInteraction(_ interaction: UIDragInteraction, itemsForBeginning session
 }
 ```
 
-这就像我们之前为我们的 tableView 实现的 `itemsForBeginning` 方法一样：当用户开始在我们的 imageView 上进行拖拽时，我们需要返回我们想要分享的图片。
+这就像我们之前为我们的 tableView 实现的 `itemsForBeginning` 方法一样：当用户开始在我们的 imageView 上进行拖放时，我们需要返回我们想要分享的图片。
 
 这些代码是非常好并且简单的：我们会使用 `guard` 来防止我们在 imageView 上拉取图片时出现问题，然后用一个 `NSItemProvider` 包装 image，然后返回数据的时候再使用 `UIDragItem` 包装下。
 
@@ -282,19 +282,19 @@ func dragInteraction(_ interaction: UIDragInteraction, itemsForBeginning session
 }
 ```
 
-这就完成了！ 尝试使用 ipad 多任务处理功能来将图库放在屏幕的右端 —— 你能够通过拖拽图片来将图片从你的 APP 拷贝到图库里。
+这就完成了！ 尝试使用 ipad 多任务处理功能来将图库放在屏幕的右端 —— 你能够通过拖放图片来将图片从你的 APP 拷贝到图库里。
 
 ## 增强现实
 
-虚拟现实 (AR) 已经出现有一段时间了，但是苹果在 iOS 11 上做了一些可圈可点的事情：他们创造了一个卓越的实现就是让 AR 开发可以和现有的游戏开发技术无缝集成。这就意味着你不需要做太多的工作就能把你 SpriteKit 或 SceneKit 技能和 AR 集成起来，这是个非常诱人的前景。
+增强现实 (AR) 已经出现有一段时间了，但是苹果在 iOS 11 上做了一些可圈可点的事情：他们创造了一个卓越的实现就是让 AR 开发可以和现有的游戏开发技术无缝集成。这就意味着你不需要做太多的工作就能把你 SpriteKit 或 SceneKit 技能和 AR 集成起来，这是个非常诱人的前景。
 
 Xcode自带了一个非常棒可以立即使用的 ARKit 模板，因此我鼓励你去尝试一下 —— 你会惊奇地发现实现它是多么的容易！
 
-我想简单地走一遍模板的使用流程，这样你就可以了解到这一切是如何融合在一起的。首先，使用虚拟现实模板创建一个新的 Xcode 工程，然后选择 SpriteKit 作为内容技术。是的，SpriteKit 是一个 2D 框架，但它仍能够在 ARKit 中用得很好，因为它可以像 3D 一样通过扭曲或旋转来展示你的精灵。
+我想快速地演示下模板的使用，这样你就可以了解到这一切是如何融合在一起的。首先，使用虚拟现实模板创建一个新的 Xcode 工程，然后选择 SpriteKit 作为内容技术。是的，SpriteKit 是一个 2D 框架，但它仍能够在 ARKit 中用得很好，因为它可以像 3D 一样通过扭曲或旋转来展示你的精灵。
 
 如果你打开了 Main.storyboard ， 你会发现这个 ARKit 模板与普通的 SpriteKit 模板有所不同：它使用了一个新的 `ARSKView` 界面对象，将 ARKit 和 SpriteKit 两个世界融合在一起。它们和 ViewController.swift 类有一个引用，在 `viewWillAppear()` 方法中设置 AR 跟踪，在 `viewWillDisappear()` 方法中暂停。
 
-然而，真正的工作发生在两个地方：Scene.swift 文件的 `touchesBegan()` 方法内，和 ViewController.swift 文件的 `nodeFor` 方法。 在通常的 SpriteKit 中你创建节点并把节点直接添加到你的场景中，但是使用 ARKit 后创建的是 *锚点* —— 包含场景位置和标识符的占位，但它没有实际的内容。根据需要的时候使用 `nodeFor` 方法转换为 SpriteKit 节点。如果你曾使用过 `MKMapView` ，会发现这和`MKMapView` 添加大头针和标注的方式是类似的 —— 注释是你的模型数据，大头针是 view。
+然而，真正的工作发生在两个地方：Scene.swift 文件的 `touchesBegan()` 方法内，和 ViewController.swift 文件的 `nodeFor` 方法。 在通常的 SpriteKit 中你创建节点并把节点直接添加到你的场景中，但是使用 ARKit 后创建的是 *锚点* —— 包含场景位置和标识符的占位，但它没有实际的内容。根据需要的时候使用 `nodeFor` 方法转换为 SpriteKit 节点。如果你曾使用过 `MKMapView` ，会发现这和`MKMapView` 添加大头针和标注的方式是类似的 —— 标注是你的模型数据，大头针是 view。
 
 在 Scene.swift 类的 `touchesBegan()` 方法你会看到从 ARKit 拉出当前帧的代码，然后计算放入一个新敌人的位置。这是通过矩阵乘法实现：如果你创建一个单位矩阵（表示位置X:0, Y:0, Z:0的东西），然后将它的 Z 坐标移回0.2（相当于 0.2 米），你可以乘以当前场景相机位置来实现向用户指向的方向移动。
 
@@ -336,7 +336,7 @@ func view(_ view: ARSKView, nodeFor anchor: ARAnchor) -> SKNode? {
 
 ## 插播广告 
 
-如果你喜欢这篇文章，你可你能对我新写的 iOS 11 实践教程新书感兴趣。你将会实际开发基于 Core ML , PDFView, ARKit, 拖拽等更多新技术的工程 。 —— **这是学习 iOS 11 最快的方式！**
+如果你喜欢这篇文章，你可能对我新写的 iOS 11 实践教程新书感兴趣。你将会实际开发基于 Core ML , PDFView, ARKit, 拖拽等更多新技术的工程 。 —— **这是学习 iOS 11 最快的方式！**
 
 ![](https://www.hackingwithswift.com/img/book-ios11@2x.png)
 
@@ -345,7 +345,7 @@ func view(_ view: ARSKView, nodeFor anchor: ARAnchor) -> SKNode? {
 
 ## PDF 渲染
 
-自从 OS X 10.4 开始受益于几乎不需要提供任何代码就可以提供 PDF  ，操作，标注甚至更多的 PDFKit 框架后，macOS 就始终对 PDF 渲染有着一流的支持。
+自从 OS X 10.4 开始受益于几乎不需要提供任何代码就可以提供 PDF 渲染，操作，标注甚至更多的 PDFKit 框架后，macOS 就始终对 PDF 渲染有着一流的支持。
 
 至于，到了 iOS 11 也可以在系统中使用 PDF 框架的全部功能了：你可以使用 `PDFView` 类来显示 PDF，让用户浏览文档，选择并且分享内容，放大缩小等等操作。或者，你可以使用独立的类比如： `PDFDocument`, `PDFPage` 和 `PDFAnnotation`来创建你自己自定义的PDF阅读器。
 
@@ -384,7 +384,7 @@ class ViewController: UIViewController {
 }
 ```
 
-如果运行 app 你应该可以看到你可以使用连续的滚动机制竖直滚动页面。如果你在真机上测试，你也可以通过捏合操作进行缩放 —— 这是你就会发现 PDF 以更高的分辨率重新呈现。如果你想要更改 PDF 的布局样式，你可以试着去设置 `displayMode`, `displayDirection`, 和 `displaysAsBook` 属性。
+如果运行 app 你应该可以看到你可以使用连续的滚动机制垂直滚动页面。如果你在真机上测试，你也可以通过捏合操作进行缩放 —— 这时你就会发现 PDF 以更高的分辨率重新呈现。如果你想要更改 PDF 的布局样式，你可以试着去设置 `displayMode`, `displayDirection`, 和 `displaysAsBook` 属性。
 
 例如，你可以将页面以双页的模式展现，而封面默认就是这样的：
 
@@ -395,7 +395,7 @@ pdfView.displaysAsBook = true
 
 `PDFView`提供了一系列有用的方法来让用户浏览和操作 PDF。为了试验，我们会在我们的控制器上添加一些导航栏按钮，因为这是添加交互最简单的方式。
 
-总共三步，我们先添加一个 navigation controller， 这样我们就有了一个现成的导航栏来使用。所以，打开你的 Main.storyboard ，在目录里选中控制器。然后进入编辑菜单选择 Embed In > Navigation Controller 。
+总共三步，我们先添加一个 navigation controller， 这样我们就有了一个现成的导航栏来使用。所以，打开你的 Main.storyboard ，在大纲视图里选中 View Controller Scene 。然后进入编辑菜单选择 Embed In > Navigation Controller 。
 
 接下来，在 ViewController.swift 中的 `viewDidLoad()` 方法中添加以下代码：
 
@@ -434,7 +434,7 @@ class ViewController: UIViewController {
 
 现在这就全部正确完成了，现在你将会看到跳转到首页和末页的功能可以直接使用了。至于选择按钮，你只需要在点击按钮之前在 PDF 之前选择一些文本 —— 就像在 iBooks 进行文本选择操作那样。
 
-## 开始支持 NFC 读写
+## 开始支持 NFC 读取
 
 iPhone 7 引入了针对 NFC 的硬件支持，至于 iOS 11，NFC 开始支持让我们在自己的APP内使用：你现在可以编写代码来检测附近的 NFC NDEF 标签，这时你会惊讶实现是多么的容易——至少 *代码* 实现特别容易。然而在我们看代码之前，你需要绕过一些坑，所有的我都希望在正式版消失。
 
@@ -523,7 +523,7 @@ func readerSession(_ session: NFCNDEFReaderSession, didDetectNDEFs messages: [NF
 
 在 iOS 11 里所有的这些都是由一个叫做 Core ML 的机器学习框架提供，该框架旨在支持各种各样的模型，而不仅仅是识别图像。不管你信不信，编写 Core ML 的代码是很少的，然而这只是事情的一面。
 
-你清楚的，Core ML 需要训练模型才能工作，而模型是用算法在大量数据训练得出的。这些模型可以从几千字节到数百兆字节甚至更多，而且明显需要一定的专业知识才能训练，特别是当你处理图像识别的时候。幸运的是，苹果提供了一些可以用来快速上手和运行的模型，所以如果你只是想要尝试下使用 Core ML ，实际上是非常简单的。
+你清楚的，Core ML 需要训练模型才能工作，而模型是用算法在大量数据训练得出的。这些模型可以从几千字节到数百兆字节甚至更多，而且明显需要一定的专业知识才能训练，特别是当你处理图像识别的时候。令人欣喜的是，苹果提供了一些可以用来快速上手和运行的模型，所以如果你只是想要尝试下使用 Core ML ，实际上是非常简单的。
 
 难过的是，还有事情还有另外一面：第三方框架总是非常恶心的，你明白的，Core ML 模型为我们自动生成接收一些输入数据并返回一些输出数据的代码 - 这部分是非常友好的。但悲伤的是，处理图像时所需的输入数据不是 “UIImage”，也不是 “CGImage”，更不是 “CIImage”。
 
