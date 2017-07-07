@@ -1,7 +1,7 @@
 > * 原文地址：[What's new in iOS 11 for developers](https://www.hackingwithswift.com/whats-new-in-ios-11)
 > * 原文作者：[Paul Hudson](https://twitter.com/twostraws)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：       Swants[https://swants.github.io]
+> * 译者：       [Swants](https://swants.github.io)
 > * 校对者：  [Danny1451](https://github.com/Danny1451)   [RichardLeeH](https://github.com/RichardLeeH)
 
 # 开发者眼中 iOS 11 都更新了什么？
