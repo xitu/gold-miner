@@ -3,44 +3,44 @@
 > * 原文作者：[Rachel Andrew](https://rachelandrew.co.uk/about/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/you-do-not-need-a-css-grid-based-grid-system.md](https://github.com/xitu/gold-miner/blob/master/TODO/you-do-not-need-a-css-grid-based-grid-system.md)
-> * 译者：
+> * 译者：[LeviDing](https://github.com/leviding)
 > * 校对者：
 
-# You do not need a CSS Grid based Grid System
+# 你不需要基于 CSS Grid 的栅格布局系统
 
-In the last couple of weeks I have started to see CSS Grid layout based frameworks and grid systems appearing. I’m actually surprised as to how long it has taken, but I am yet to see one that adds any value at all over just using CSS Grid Layout. Worse, the ones I have seen so far go backwards. They limit themselves by replicating the past rather than looking to the future. A common theme being that they require row wrappers in markup.
+在过去的几个星期里，我开始看到基于 CSS Grid 的布局框架和栅格系统的出现。实际上令我感到惊讶的是，它已经被使用了那么长时间，但我还没有看到它的进步，而只是使用了 CSS Grid 栅格布局。更糟糕的是，我迄今为止看到的那些都在退步。他们沉醉于自己的过去而不是着眼于未来，这使得发展受到限制。即使一个常见的主题，它们也需要使用 `row wrappers` 进行标记。
 
-## Why is grid different?
+## 为什么 Grid 有些不同？
 
-Grid is a grid system. It allows you to define columns and rows in your CSS, without needing to define them in markup. You don’t need a tool that helps you make it *look* like you have a grid, you actually have a grid!
+Grid 是一个栅格系统。它允许你在 CSS 中定义列和行，而不需要在标记中定义它们。你不需要其他工具，Grid 就可以帮助你实现栅格效果，实际上它就是栅格！
 
-The reason that our legacy methods need row wrappers is because we are faking a grid by assigning widths to items. We then pull and push the items around to make gaps between them. In a float based grid, you need to wrap the elements that make up each row, and clear the row in order that things in the next row don’t float up. In a flex based grid you need your row to define a new flex container, or you need to get very clever with wrapping, flex-basis and margins to get the same effect without.
+我们遗留下来的设置布局的方法需要 `row wrappers`，这是因为我们是通过分配宽度的方式来伪造网格的。然后我们通过推拉的方式调节网格间的间隙。在一个基于 Grid 的浮动网格中，你需要将每行的元素包装起来并清除浮动，以使下一行中的内容不浮动。在一个基于 Flex 的网格中，需要你对每行定义新的 flex 容器，或者你需要恰当灵活地使用 `wrapping`，`flex-basis` 和 `margin` 来获得相同的效果。
 
-Grid doesn’t need these row wrappers because you have defined row tracks, and lines to position items against. There is no danger of grid items hopping up into the row above. If you define row wrappers then each row becomes a new one-dimensional grid layout, and there is little benefit to using Grid over Flexbox if you limit yourself to a single dimension.
+Grid 不需要这些 `row wrappers`，因为您已经定义了 `row tracks`，和用于对齐的线条。且不会有网格内的内容溢出到其他行的危险。 如果你定义了 `row wrappers`，那么每一行都将成为一个新的一维网格布局。所以如果你将自己限制在一个维度上，那么在使用 Grid 没有比使用 Flexbox 有什么好处。
 
-## What might be useful in a Grid-based ‘framework’?
+## 基于 Grid 的布局框架有什么值得借鉴的地方？
 
-The word framework is somewhat laden at this point, however I think that in a team, a set of Sass helpers may well be useful to enforce a certain way of using Grid. If you have dug into the spec, you will realise there are different methods of creating the same end result. You can name areas, use line numbers or line names. You might prefer to place everything explicitly or rely a lot on auto-placement. If everyone on the team uses a different method, the end result will be harder to read and maintain.
+框架这个词在这不是太恰当，但是我认为在一个团队中，一套 Sass helper 在规范化使用 Grid 方面是很有帮助的。如果你已经探究了相关的规范，你会发现有对于实现相同的效果来说，会有很多种不同的方法。你可以命名区域，使用行号或行名。或许你希望将所有内容明确放置或自动放置在 `auto-placement` 上。如果团队中的每个人都使用不同的方法，最终将似的编写出来的代码难以阅读和维护。
 
-The same could be true for fallback code. If you have decided how to deal with non-grid supporting browsers, some tooling could help you to ensure that the decisions you have made are implemented in the same way everywhere. However this approach would be far more useful when developed on a project level, rather than importing another company’s requirements and methodologies wholesale.
+对于代码向后兼容也是如此。如果你已经决定如何处理不支持 Grid 布局的浏览器，某些工具可以帮助你确保你所做的决定能够在不同的地方以相同的效果展现出来。此外，这种方法在项目开发层面上比直接导入其他公司的方法和需求更有用。
 
-Before breaking ground on your new “Grid Layout framework” make sure you have first understood how Grid Layout actually works. Know why you are creating an abstraction, what it offers and also what it takes away.
+在你的新“Grid Layout 框架”上打破前，请确保你首先了解 Grid Layout 的实际工作原理。知道你为什么要创建一个抽象，它提供什么以及使用它的损失是什么。
 
-## Embrace the new possibilities
+## 拥抱新的可能
 
-I have just come back from Patterns Day, and [one of my slides was mentioned a few times on Twitter](https://twitter.com/tomloake/status/880749728782311424). That slide read:
+我刚刚从 Patterns Day 回来，并且 [我的一张幻灯片在 Twitter 上被提及了好几次](https://twitter.com/tomloake/status/880749728782311424)：
 
-> “Flexbox & Grid are so different. If you build using old methods first you won’t take advantage of their creative possibilities.”
+> “Flexbox & Grid 有很大区别。如果你先使用了旧的方法来进行开发，那你则体验不到使用 Flexbox 和 Grid 进行创新的可能”。
 
-The context here was in terms of dealing with old browsers. I was encouraging people to think about new browsers first. To start with good markup, to then look at creating the design for the browsers that do support methods such as Grid and Flexbox. As if you start with old browsers, you limit yourself to their capabilities.
+这里的背景是为了处理老版本的浏览器。我鼓励人们首先考虑新的浏览器。在最开始的时候就使用良好的标记方式，然后查看该浏览器支持的属性，诸如 Grid 和 Flexbox 等，并据此进行相关设计。如果你从旧版本的浏览器开始，会使得他们的性能成为你能力的限制因素。
 
-Create solid markup, uncluttered by additional elements that the past tells you that you need. Design your site using what Grid and other new methods have to offer. *Then* look at how you deal with the browsers without support, by serving them something slightly simpler. Perhaps your Grid design relies on being able to span rows, something that is hard to achieve without extra markup and precise layout in older browsers. Your fallback could use flexbox, and create a layout without the row spans. Not as neat, but completely usable and without needing to jam in extra markup for a diminishing number of visitors.
+创建规范的标记，整理那些过时了的没有必要的元素。使用 Grid 和其他新方法来设计你的网站。然后看看你如何通过为不支持这些新功能的浏览器提供一些稍微简单的东西来解决浏览器兼容问题。也许你的 Grid 布局设计使用了跨行等设计方案，这种效果很难在没有额外标记方法的旧版本浏览器中实现精准的布局。你可以使用 flexbox 做向后兼容，创建一个没有跨行的布局方案。虽然这样不那么整洁，但也完全可以使用，而且不需要为数量在逐渐减少的那部分用户来增加额外标记。
 
-You can [see an example here](https://gridbyexample.com/patterns/header-asmany-span-footer/), one of a number of patterns with fallbacks that I’ve been posting over at Grid by Example.
+你可以 [点击这来看相关示例](https://gridbyexample.com/patterns/header-asmany-span-footer/)。其中一些模式和特点我已经发布在了网站 [Grid by Example](https://gridbyexample.com/) 上。
 
-If you limit yourself to what has gone before, by only using the parts of Grid that you can recreate in older browsers, or by using some framework that is limiting itself, you miss out on the creative possibilities of using Grid. In that case why bother? You may as well use the legacy code only, and that would indeed be a shame.
+如果你将自己限制在过时的范围内，只需使用可在旧版浏览器中重新创建的 Grid 部分，或使用那些自身受限的框架，那你就会失去使用 Grid 时产生创意的可能。那这样的话你又烦什么呢？你也可以只使用遗留的代码，但这确实是一种耻辱。
 
-If you have found this post while looking for a grid framework, stop right here. [Learn and use CSS Grid Layout](https://gridbyexample.com). You probably don’t need anything else.
+如果你在寻找栅格框架时找到本文，请停在这里。[学习并使用 CSS Grid 布局](https://gridbyexample.com)，可能你你没有必要再找除此之外的材料了。
 
 
 ---
