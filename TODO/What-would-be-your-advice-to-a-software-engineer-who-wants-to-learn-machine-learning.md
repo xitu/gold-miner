@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/What-would-be-your-advice-to-a-software-engineer-who-wants-to-learn-machine-learning.md](https://github.com/xitu/gold-miner/blob/master/TODO/What-would-be-your-advice-to-a-software-engineer-who-wants-to-learn-machine-learning.md)
 > * 译者：[lsvih](https://github.com/lsvih)
-> * 校对者：
+> * 校对者：[xunge0613](https://github.com/xunge0613),[Tina92](https://github.com/Tina92)
 
 # 你会给想学习机器学习的软件工程师提出什么建议？
 
@@ -75,7 +75,7 @@
 
   - 容错机制、规模化与云
 
-    最简单的自己运行自己的算法的方法当然就是使用 [Amazon AWS](http://aws.amazon.com)、[Google GWC](http://console.google.com)、[Microsoft Azure](http://azure.microsoft.com)或者 [其它各种各样的服务商](http://serverbear.com/)的服务啦！一次性启动 1,000 台服务器，意识到自己坐拥如此之大的合法“僵尸网络”是多么的让人兴奋！之前我在 Google 工作，曾在欧洲某处接手 5,000 余台高端主机作为主题模型计算终端，它们我们通过能源法案获益的核电厂相当可观的一部分资源。我的经理把我带到一旁，偷偷告诉我这个实验是多么的昂贵……
+    最简单的自己运行自己的算法的方法当然就是使用 [Amazon AWS](http://aws.amazon.com)、[Google GWC](http://console.google.com)、[Microsoft Azure](http://azure.microsoft.com)或者 [其它各种各样的服务商](http://serverbear.com/)的服务啦！一次性启动 1,000 台服务器，意识到自己坐拥如此之大的合法“僵尸网络”是多么的让人兴奋！之前我在 Google 工作，曾在欧洲某处接手 5,000 余台高端主机作为主题模型计算终端，它们是我们通过能源法案获益的核电厂相当可观的一部分资源。我的经理把我带到一旁，偷偷告诉我这个实验是多么的昂贵……
 
     可能入门这块最简单的方法就是去了解 [docker](http://www.docker.com) 了吧。现在 docker 团队已经开发了大量的规模化工具。特别是他们最近加上的 [Docker Machine](https://docs.docker.com/machine/) 和 [Docker Cloud](https://docs.docker.com/cloud/)，可以让你就像使用打印机驱动一样连接云服务。
 
