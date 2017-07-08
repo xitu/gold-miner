@@ -26,11 +26,11 @@ More likely than not, what you read and learn in this first, “exploratory” p
 
 There are a few issues with this typical approach to interview preparation:
 
-- Most interview guides are written from the perspective of one company. While Company A may really value efficient code, Company B may place more of an emphasis on high-level problem-solving skills. Unless your heart is set on Company A, you probably don’t want to give too much weight to what they value.
-- People lie sometimes, even if they don’t mean to. In writing, companies may say they’re language agnostic, or that it’s worthwhile to explain your thought process, even if the answer isn’t quite right. However, it’s not clear if this is actually how they act! We’re not saying that tech companies are nefarious liars who are trying to mislead their applicant pool. We’re just saying that sometimes implicit biases sneak in and people aren’t even aware of them.
-- A lot of the “folk knowledge” that you hear from friends and acquaintances may not be based in fact at all. A lot of people assume that short interviews spell doom. Similarly, everyone can recall one long interview after which they’ve thought to themselves, “I really hit it off with that interviewer, I’ll definitely get passed onto the next stage.” In the past, [we’ve seen that people are really bad at gauging how they did in interviews](http://blog.interviewing.io/people-are-still-bad-at-gauging-their-own-interview-performance-heres-the-data/). This time, we wanted to look directly at indicators like interview length and see if those actually matter.
+- 绝大多数面试指南是从一个公司的角度写的。可能A公司很重视高效的代码，而B公司更重视的是高级的问题解决能力。除非你一心想去A公司，否则你大概不想太侧重于他们所关心的能力。
+- 人们有时会撒谎，虽然可能不是故意的。他们可能会写“我们不关心具体的编程语言”，或是“哪怕答案不正确，解释你的思路也是值得的”。但是，实际上他们未必会这样做！我们并不是说科技公司是故意误导求职者的骗子。我们只是认为：有时候不明显的偏见会偷偷产生，人们甚至没有意识到它。
+- 你从朋友或认识的人那里听到的传闻并不一定有事实根据。很多人认为短的面试意味着失败。同样，每个人都可以回忆起一个很长的面试，在这面试结束后他们以为：“我成功打动了面试官，我肯定可以进入下个阶段”。过去， [我们发现人们衡量自己面试表现的能力相当差](http://blog.interviewing.io/people-are-still-bad-at-gauging-their-own-interview-performance-heres-the-data/)。现在，我们打算直接观察诸如面试时长之类的指标，看看它们是否真的重要。
 
-At my company, [interviewing.io](http://interviewing.io), we’re uniquely positioned to approach technical interviews and their outcomes in a data-driven way. We have a platform where people can practice technical interviewing anonymously. And if things go well, they can unlock the ability to interview anonymously, whenever they’d like, with top companies like Uber, Lyft, and Twitch.
+在我的公司 [interviewing.io](http://interviewing.io)中，我们用独特的数据驱动方式去分析技术面试及其结果。我们有一个平台，可以让面试者匿名练习技术面试。如果事情顺利，他们可以解锁匿名参加真实面试的功能。他们可以在任何时间参加 Uber, Lyft, 和 Twitch等顶级公司的面试。
 
 The cool thing is that both practice interviews and real interviews with companies take place within the interviewing.io ecosystem. As a result, we’re able to collect quite a bit of interview data and analyze it to better understand technical interviews, the signal they carry, what works and what doesn’t, and which aspects of an interview might actually matter for the outcome.
 
