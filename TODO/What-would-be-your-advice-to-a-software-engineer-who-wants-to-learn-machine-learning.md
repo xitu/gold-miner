@@ -8,18 +8,18 @@
 
 # 你会给想学习机器学习的软件工程师提出什么建议？
 
-这取决于这名软件工程师的受教育背景，以及他希望掌握机器学习的哪一部分。为了具体讨论，现在假设这是一名初级工程师，他读了 4 年本科，从业 2 年，现在想从事计算广告学（CA）、自然语言处理（NLP）、图像分析、社交网络分析、搜索、推荐排名相关领域。现在，让我们从机器学习的必要课程开始讨论（声明：下面的清单很不完整，如果您的论文没有被包括在内，提前向您抱歉）。
+这很大一部分都取决于这名软件工程师的背景，以及他希望掌握机器学习的哪一部分。为了具体讨论，现在假设这是一名初级工程师，他读了 4 年本科，从业 2 年，现在想从事计算广告学（CA）、自然语言处理（NLP）、图像分析、社交网络分析、搜索、推荐排名相关领域。现在，让我们从机器学习的必要课程开始讨论（声明：下面的清单很不完整，如果您的论文没有被包括在内，提前向您抱歉）。
 
 - 线性代数
   很多的机器学习算法、统计学原理、模型优化都依赖线性代数。这也解释了为何在深度学习领域 GPU 要优于 CPU。在线性代数方面，你至少得熟练掌握以下内容：
 
   - 标量、向量、矩阵、张量。你可以将它们看成零维、一维、二维、三维与更高维的对象，可以对它们进行各种组合、变换，就像乐高玩具一样。它们为数据变换提供了最基础的处理方法。
-  - 特征向量、标准化、矩阵近似、分解。实质上这些方法都是为了方便线性代数的运算。如果你想对一个矩阵运算进行分析（例如检查神经网络中梯度消失问题，或者检查强化学习算法发散的问题），你得了解矩阵与向量应用了多少种缩放方法。而低阶矩阵近似与 Cholesky 分解可以帮你写出性能更好、稳定性更强的代码。
+  - 特征向量、标准化、矩阵近似、分解。实质上这些方法都是为了方便线性代数的运算。如果你想分析一个矩阵是如何运算的（例如检查神经网络中梯度消失问题，或者检查强化学习算法发散的问题），你得了解矩阵与向量应用了多少种缩放方法。而低阶矩阵近似与 Cholesky 分解可以帮你写出性能更好、稳定性更强的代码。
   - 数值线性代数
     如果你想进一步优化算法的话，这是必修课。它对于理解核方法与深度学习很有帮助，不过对于图模型及采样来说它并不重要。
   - 推荐书籍
     [《Serge Lang, Linear Algebra》](http://www.amazon.com/Linear-Algebra-Undergraduate-Texts-Mathematics/dp/0387964126)
-    很基础的线代书籍，很适合本科生。
+    很基础的线代书籍，很适合在校学生。
     [《Bela Bolobas, Linear Analysis》](http://www.amazon.com/Linear-Analysis-Introductory-Cambridge-Mathematical/dp/0521655773)
     这本书目标人群是那些想做数学分析、泛函分析的人。当然它的内容更加晦涩难懂，但更有意义。如果你攻读 PhD，值得一读。
     [《Lloyd Trefethen and David Bau, Numerical Linear Algebra》](http://www.amazon.com/Numerical-Linear-Algebra-Lloyd-Trefethen/dp/0898713617)
@@ -37,7 +37,7 @@
 
     Steven Boyd 与 Lieven Vandenberghe [合著的书](http://stanford.edu/~boyd/cvxbook/)可以说是这个领域的规范书籍了，这本书非常棒，而且是免费的，值得一读；此外，你可以在 [Boyd 的课程](http://web.stanford.edu/~boyd/)中找到很多很棒的幻灯片；[Dimitri Bertsekas](http://www.mit.edu/~dimitrib/home.html) 写了一系列关于优化、控制方面的书籍。读通这些书足以让任何一个人在这个领域立足。
 
-  - 随机梯度下降（SDG）
+  - 随机梯度下降（SGD）
 
     大多数问题其实最开始都是凸优化问题的特殊情况（至少早期定理如此），但是随着数据的增加，凸优化问题的占比会逐渐减少。因此，假设你现在得到了一些数据，你的算法将会需要在每一个更新步骤前将所有的数据都检查一遍。
 
@@ -45,7 +45,7 @@
 
     不过，这样的做法对并行化计算提出了挑战。我们于 2009 年发表的[《Slow Learners are Fast》](http://arxiv.org/abs/0911.0491)论文可能就是这个方向的先导者之一。2013 年牛峰等人发表的[《Hogwild》](https://www.eecs.berkeley.edu/~brecht/papers/hogwildTR.pdf)论文给出了一种相当优雅的无锁版本变体。简而言之，这类各种各样的算法都是通过在单机计算局部梯度，并异步更新共有的参数集实现并行快速迭代运算。
 
-    随机梯度下降的另一个难题就是如何控制过拟合（例如可以通过正则化加以控制）。另外还有一种解决凸优化的惩罚方式叫近端梯度算法（PDG）。PDG 算法中最流行的当属 Amir Beck 和 Marc Teboulle 提出的 [FISTA 算法](http://people.rennes.inria.fr/Cedric.Herzet/Cedric.Herzet/Sparse_Seminar/Entrees/2012/11/12_A_Fast_Iterative_Shrinkage-Thresholding_Algorithmfor_Linear_Inverse_Problems_(A._Beck,_M._Teboulle)_files/Breck_2009.pdf) 了。相关代码可以参考 Francis Bach 的 [SPAM toolbox](http://spams-devel.gforge.inria.fr/)。
+    随机梯度下降的另一个难题就是如何控制过拟合（例如可以通过正则化加以控制）。另外还有一种解决凸优化的惩罚方式叫近端梯度算法（PGD）。最流行的当属 Amir Beck 和 Marc Teboulle 提出的 [FISTA 算法](http://people.rennes.inria.fr/Cedric.Herzet/Cedric.Herzet/Sparse_Seminar/Entrees/2012/11/12_A_Fast_Iterative_Shrinkage-Thresholding_Algorithmfor_Linear_Inverse_Problems_(A._Beck,_M._Teboulle)_files/Breck_2009.pdf) 了。相关代码可以参考 Francis Bach 的 [SPAM toolbox](http://spams-devel.gforge.inria.fr/)。
 
   - 非凸优化方法
 
@@ -75,7 +75,7 @@
 
   - 容错机制、规模化与云
 
-    最简单的自己运行自己的算法的方法当然就是使用 [Amazon AWS](http://aws.amazon.com)、[Google GWC](http://console.google.com)、[Microsoft Azure](http://azure.microsoft.com)或者 [其它各种各样的服务商](http://serverbear.com/)的服务啦！一次性启动 1,000 台服务器，意识到自己坐拥如此之大的合法“僵尸网络”是多么的让人兴奋！之前我在 Google 工作，曾在欧洲某处接手 5,000 余台高端主机作为主题模型计算终端，它们是我们通过能源法案获益的核电厂相当可观的一部分资源。我的经理把我带到一旁，偷偷告诉我这个实验是多么的昂贵……
+    最简单的自己运行自己的算法的方法当然就是使用你可以找到的 [Amazon AWS](http://aws.amazon.com)、[Google GWC](http://console.google.com)、[Microsoft Azure](http://azure.microsoft.com)或者 [其它各种各样的服务商](http://serverbear.com/)的服务啦！一次性启动 1,000 台服务器，意识到自己坐拥如此之大的合法“僵尸网络”是多么的让人兴奋！之前我在 Google 工作，曾在欧洲某处接手 5,000 余台高端主机作为主题模型计算终端，它们是我们通过能源法案获益的核电厂相当可观的一部分资源。我的经理把我带到一旁，偷偷告诉我这个实验是多么的昂贵……
 
     可能入门这块最简单的方法就是去了解 [docker](http://www.docker.com) 了吧。现在 docker 团队已经开发了大量的规模化工具。特别是他们最近加上的 [Docker Machine](https://docs.docker.com/machine/) 和 [Docker Cloud](https://docs.docker.com/cloud/)，可以让你就像使用打印机驱动一样连接云服务。
 
