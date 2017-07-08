@@ -3,24 +3,24 @@
 > * 原文作者：[Aline Lerner](https://medium.freecodecamp.org/@alinelernerllc)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/we-analyzed-thousands-of-coding-interviews-heres-what-we-learned.md](https://github.com/xitu/gold-miner/blob/master/TODO/we-analyzed-thousands-of-coding-interviews-heres-what-we-learned.md)
-> * 译者：
+> * 译者：tanglie1993[https://github.com/tanglie1993]
 > * 校对者：
 
-# We analyzed thousands of coding interviews. Here’s what we learned
+# 我们对数千个编程面试的分析结果
 
 ---
 
-# We analyzed thousands of coding interviews. Here’s what we learned.
+# 我们对数千个编程面试的分析结果
 
 ![](https://cdn-images-1.medium.com/max/2000/1*nJCm0Uc5BOq12faK2KR4Dw.jpeg)
 
-*Note: I wrote most of the words in this post, but the legendary *[*Dave Holtz*](https://twitter.com/daveholtz)* did the heavy lifting on the data side. See more of his work on *[*his blog*](http://daveholtz.net/)*.*
+*注意：我写了这个帖子中的绝大部分内容，但传说中的 *[*Dave Holtz*](https://twitter.com/daveholtz)* 完成了数据处理的主要工作。我们可以在 *[*他的博客*](http://daveholtz.net/)*中看到他的其它成果。*
 
-If you’re reading this post, there’s a decent chance that you’re about to re-enter the crazy and scary world of technical interviewing.
+如果你正在读这个帖子，很有可能，你正打算重新进入疯狂而可怕的技术面试的世界。
 
-Maybe you’re a college student or fresh grad who is going through the interviewing process for the first time. Maybe you’re an experienced software engineer who hasn’t even thought about interviews for a few years.
+也许你是一个在读或刚毕业的学生，即将首次经历面试的流程。也许你是一个有经验的软件工程师，已经有几年没考虑过参加面试了。
 
-Either way, the first step in the interviewing process is usually to read a bunch of online interview guides (especially if they’re written by companies you’re interested in) and to chat with friends about their experiences with the interviewing process (both as an interviewer and interviewee).
+无论哪种情况，面试流程的第一步，通常是读一堆在线面试指南（特别是由你感兴趣的公司写的那些），并和朋友们聊起他们面试（作为面试官和面试者）的经验。
 
 More likely than not, what you read and learn in this first, “exploratory” phase of the interview process will inform how you choose to prepare moving forward.
 
