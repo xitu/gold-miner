@@ -32,27 +32,27 @@ There are a few issues with this typical approach to interview preparation:
 
 在我的公司 [interviewing.io](http://interviewing.io)中，我们用独特的数据驱动方式去分析技术面试及其结果。我们有一个平台，可以让面试者匿名练习技术面试。如果事情顺利，他们可以解锁匿名参加真实面试的功能。他们可以在任何时间参加 Uber, Lyft, 和 Twitch等顶级公司的面试。
 
-The cool thing is that both practice interviews and real interviews with companies take place within the interviewing.io ecosystem. As a result, we’re able to collect quite a bit of interview data and analyze it to better understand technical interviews, the signal they carry, what works and what doesn’t, and which aspects of an interview might actually matter for the outcome.
+有意思的是，练习面试和真实面试都发生在 interviewing.io 生态系统内。结果，我们可以收集到相当多的面试数据，用来分析并帮助我们更好地理解技术面试：它们传递的信号，什么有用，什么没有用，以及面试的哪些方面可能真的影响结果。
 
-Each interview, whether it’s practice or real, starts with the interviewer and interviewee meeting in a collaborative coding environment with voice, text chat, and a whiteboard, at which point they jump right into a technical question.
+每一个面试，无论是真实的还是用于练习的，开始时都有面试官和面试者，他们在一个合作式的编程环境中，有语音、文字聊天，以及一块白板。他们可以直接开始讨论技术问题。
 
-Interview questions tend to fall into the category of what you’d encounter in a phone screen for a back-end software engineering role.
+面试问题通常属于后端开发电话面试中常见的问题。
 
-**During these interviews, we collect everything that happens, including audio transcripts, data and metadata describing the code that the interviewee wrote and tried to run, and detailed feedback from both the interviewer and interviewee about how they think the interview went and what they thought of each other.**
+**在这些面试中，我们收集发生的一切。包括音频、面试者写的代码的数据和元数据，面试官和面试者对面试过程和对方的评价。**
 
-If you’re curious, you can see what the feedback forms for interviewers and interviewees look like below — in addition to one direct yes/no question, we also ask about a few different aspects of interview performance using a 1–4 scale.
+如果你好奇，你可以在下方看到面试者和面试官的反馈表格的样子——除了一个直接的是/否问题以外，我们还问了不同方面的面试表现（使用1-4分的评分表）。
 
-We also ask interviewees some extra questions that we don’t share with their interviewers, and one of the things we ask is whether an interviewee has previously seen the question they just worked on.
+我们还问了面试者一些额外的问题，这部分问题面试官是不知道的。其中一个问题是，面试者以前有没有见过刚才的面试问题。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*WG4CovbdT88jxPEqXZBuiQ.png)
 
-Feedback form for interviewers
+面试官反馈表格
 
 ![](https://cdn-images-1.medium.com/max/1600/1*FRfeOXn8visxr36sKprDNw.png)
 
-Feedback form for interviewees
+面试者反馈表格
 
-### The results
+### 结果
 
 Before getting into the thick of it, it’s worth noting that the conclusions below are based on observational data, which means we can’t make strong causal claims… but we can still share surprising relationships we’ve observed and explain what we found so you can draw your own conclusions.
 
