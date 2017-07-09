@@ -2,7 +2,7 @@
 > * 原文作者：[Francisco Baila](https://medium.com/@fcBaila)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[cdpath](https://github.com/cdpath)
-> * 校对者：
+> * 校对者：[osirism (Olivia)](https://github.com/osirism), [laiyun90 (Lai)](https://github.com/laiyun90)
 
 ---
 
