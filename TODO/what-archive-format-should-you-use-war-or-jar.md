@@ -3,8 +3,8 @@
 > * 原文作者：[Nicolas Frankel](https://dzone.com/users/293758/nfrankel.html)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/what-archive-format-should-you-use-war-or-jar.md](https://github.com/xitu/gold-miner/blob/master/TODO/what-archive-format-should-you-use-war-or-jar.md)
-> * 译者：
-> * 校对者：
+> * 译者：[windmxf](https://github.com/windmxf)
+> * 校对者：[lsvih](https://github.com/lsvih), [LeviDing](https://github.com/leviding)
 
 # WAR 还是 JAR，你应该用哪种格式打包？
 
