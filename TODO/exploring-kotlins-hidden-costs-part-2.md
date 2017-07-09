@@ -3,23 +3,29 @@
 > * 原文作者：[Christophe B.](https://medium.com/@BladeCoder)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/exploring-kotlins-hidden-costs-part-2.md](https://github.com/xitu/gold-miner/blob/master/TODO/exploring-kotlins-hidden-costs-part-2.md)
-> * 译者：
+> * 译者：[Feximin](https://github.com/Feximin)
 > * 校对者：
 
 # Exploring Kotlin’s hidden costs — Part 2
+# 探索 Kotlin 中的隐性成本（第二部分）
 
 
 ## Local functions, null safety and varargs
+## 局部函数，空值安全和可变参数
 
-This is part 2 of an ongoing series about the Kotlin programming language. Don’t forget to read [part 1](https://medium.com/@BladeCoder/exploring-kotlins-hidden-costs-part-1-fbb9935d9b62) if you haven’t already.
+This is part 2 of an ongoing series about the Kotlin programming language. Don’t forget to read [part 1](https://medium.com/@BladeCoder/exploring-kotlins-hidden-costs-part-1-fbb9935d9b62) if you haven’t already.  
+本文是 Kotlin 编程语言系列的第二部分。别忘了阅读[第一部分](https://medium.com/@BladeCoder/exploring-kotlins-hidden-costs-part-1-fbb9935d9b62)如果你还未读过的话。
 
-Let’s take a new look behind the curtain and discover the implementation details of more Kotlin features.
+Let’s take a new look behind the curtain and discover the implementation details of more Kotlin features.  
+让我们重新看一下 Kotlin 的本质，去发现更多 Kotlin 特性的实现细节。
 
 ![](https://cdn-images-1.medium.com/max/1000/1*pgUIupLpReTPmScVHMITjg.png)
 
 ### Local functions
+### 局部函数
 
-There is a kind of function we did not cover in the first article: functions that are declared inside other functions, using the regular syntax. These are called [local functions](https://kotlinlang.org/docs/reference/functions.html#local-functions) and they are able to access the scope of the outer function.
+There is a kind of function we did not cover in the first article: functions that are declared inside other functions, using the regular syntax. These are called [local functions](https://kotlinlang.org/docs/reference/functions.html#local-functions) and they are able to access the scope of the outer function.  
+有一种函数我们在第一篇文章没有讲到：使用常规语法在其他函数内部声明的函数。这是[局部函数](https://kotlinlang.org/docs/reference/functions.html#local-functions)，它们可以访问外部函数的范围。
 
 ```
 fun someMath(a: Int): Int {
@@ -29,9 +35,11 @@ fun someMath(a: Int): Int {
 }
 ```
 
-Let’s begin by mentioning their biggest limitation: **local functions can not be declared **`**inline**` (yet?) **and a function containing a local function can not be declared **`**inline**`** either**. There is no magical way to avoid the cost of function calls in this case.
+Let’s begin by mentioning their biggest limitation: **local functions can not be declared **`**inline**` (yet?) **and a function containing a local function can not be declared **`**inline**`** either**. There is no magical way to avoid the cost of function calls in this case.  
+让我们从他们的最大限制开始谈起：**局部函数不能被声明为`内联`（还不能？）并且包含局部函数的函数也不能被声明为`内联`**。没有什么神奇的方法可以避免在这种情况下函数调用的成本。
 
-After compilation, these local functions are converted to `Function` objects, just like lambdas and with **most of the same limitations** described in the previous article regarding non-inline functions. The Java representation of the compiled code looks like this:
+After compilation, these local functions are converted to `Function` objects, just like lambdas and with **most of the same limitations** described in the previous article regarding non-inline functions. The Java representation of the compiled code looks like this:  
+局部函数在编译后被转换为 `Function` 对象，就像 lambdas 那样，并且有着和上篇文章中描述的关于非内联函数的**大多数相同的限制**。编译之后的代码的 Java 形式是这样的：
 
 ```
 public static final int someMath(final int a) {
@@ -50,7 +58,8 @@ public static final int someMath(final int a) {
 }
 ```
 
-There is however one less performance hit compared to lambdas: because the actual instance of the function is known from the caller, its *specific* method will be called directly instead of its *generic* synthetic method from the `Function` interface. This means that **no casting or boxing of primitive types will occur when calling a local function from the outer function**. We can verify this by looking at the bytecode:
+There is however one less performance hit compared to lambdas: because the actual instance of the function is known from the caller, its *specific* method will be called directly instead of its *generic* synthetic method from the `Function` interface. This means that **no casting or boxing of primitive types will occur when calling a local function from the outer function**. We can verify this by looking at the bytecode:  
+但是比 lambdas 少一个性能影响：由于调用者是知道这个函数的真正实例的，它的**特定**方法将被直接调用，而不是调用来自 `Function` 接口的通用合成方法。这意味着**当从外部函数调用局部函数的时候不会有强制类型转换或者基础类型装包现象的发生**。我们可以通过查看字节码来确认：
 
 ```
 ALOAD 1
@@ -63,9 +72,11 @@ IADD
 IRETURN
 ```
 
-We can see that the method being invoked twice is the one accepting an `**int**` and returning an `**int**`, and that the addition is performed immediately without any intermediate unboxing operation.
+We can see that the method being invoked twice is the one accepting an `**int**` and returning an `**int**`, and that the addition is performed immediately without any intermediate unboxing operation.  
+我们可以看到那个被调用了再次的方法就是那个接收一个 **`int`** 参数并且返回一个 **`int`** 的方法，加法被立即执行并且没有任何中间的拆包操作。
 
-Of course there is still the cost of creating a new `Function` object during each method call. This can be avoided by rewriting the local function to be non-capturing:
+Of course there is still the cost of creating a new `Function` object during each method call. This can be avoided by rewriting the local function to be non-capturing:  
+当然，在每次方法调用的过程中，创建一个新的 `Function` 对象仍是有成本的。这个成本可以通过将局部函数重写为非捕获性的来避免。
 
 ```
 fun someMath(a: Int): Int {
@@ -75,13 +86,16 @@ fun someMath(a: Int): Int {
 }
 ```
 
-Now the same `Function` instance will be reused an still no casting or boxing will occur. The only penalty of this local function compared to a classic private function will be the generation of an extra class with a few methods.
+Now the same `Function` instance will be reused an still no casting or boxing will occur. The only penalty of this local function compared to a classic private function will be the generation of an extra class with a few methods.  
+现在这个相同的 `Function` 实例将被重用，而且依然没的强制类型转换或者装包情况发生。与典型的私有函数相比，局部函数唯一的缺点就是会额外生成一个有几个方法的的类。
 
-> Local functions are an alternative to private functions with the added benefit of being able to access local variables of the outer function. That benefit comes with the hidden cost of the creation of a `Function` object for each call of the outer function, so non-capturing local functions are preferred.
+> Local functions are an alternative to private functions with the added benefit of being able to access local variables of the outer function. That benefit comes with the hidden cost of the creation of a `Function` object for each call of the outer function, so non-capturing local functions are preferred.  
+局部函数可以选择来代替私有函数，好处是可以访问外部函数的本地变量。这些好处附带着每次调用外部函数的时都会生成一个 `Function` 对象的隐性成本，所以最好用非捕获性的函数。
 
 ---
 
 ### Null safety
+### 空值安全
 
 One of the best features of the Kotlin language is that it makes a clear distinction between [nullable and non-null types](https://kotlinlang.org/docs/reference/null-safety.html). This enables the compiler to effectively prevent unexpected `NullPointerException`s at runtime by forbidding any code assigning a `**null**` or nullable value to a non-null variable.
 
