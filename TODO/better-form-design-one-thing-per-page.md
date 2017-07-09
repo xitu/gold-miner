@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译文地址：[github.com/xitu/gold-miner/blob/master/TODO/better-form-design-one-thing-per-page.md](https://github.com/xitu/gold-miner/blob/master/TODO/better-form-design-one-thing-per-page.md)
 > * 译者：[horizon13th](https://github.com/horizon13th)
-> * 校对者：[LeviDing](https://github.com/leviding)
+> * 校对者：[LeviDing](https://github.com/leviding), [laiyun90](https://github.com/laiyun90)
 
 # 更好的表单设计: 每一页，一件事（实例研究）
 
