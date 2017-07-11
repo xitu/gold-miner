@@ -1,6 +1,6 @@
 
 > * 原文地址：[Upcoming Regular Expression Features](https://developers.google.com/web/updates/2017/07/upcoming-regexp-features)
-> * 原文作者：[Jakob Gruber](https://developers.google.com/web/resources/contributors#jgruber)
+> * 原文作者：[Jakob Gruber](https://developers.google.com/web/resources/contributors#jgruber)、[Yang Guo](https://developers.google.com/web/resources/contributors#yangguo)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/upcoming-regexp-features.md](https://github.com/xitu/gold-miner/blob/master/TODO/upcoming-regexp-features.md)
 > * 译者：
