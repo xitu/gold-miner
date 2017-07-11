@@ -76,13 +76,13 @@ There are a few issues with this typical approach to interview preparation:
 
 我们把自己平台上的面试按照语言分组，并过滤掉了面试数量小于5个的语言（这只删去了少量的几个面试）。然后，我们就可以看到面试结果随语言变化的函数。
 
-The results of that analysis are in the chart below. Any non-overlapping confidence intervals represent a statistically significant difference in how likely an interviewee is to ‘pass’ an interview, as a function of interview language.
+分析结果在下表中显示。任何不重叠的置信区间都表示不同语言通过面试概率的显著差异。
 
-Although we don’t do a pairwise comparison for every possible pair of languages, the data below suggest that generally speaking,** there aren’t statistically significant differences between the success rate when interviews are conducted in different languages. **(There were more languages than these on our platform, but the more obscure the language, the less data points we have. For instance, all interviews in [Brainf***](https://en.wikipedia.org/wiki/Brainfuck) were clearly successful. Kidding.)
+虽然我们没有把所有语言逐对比较，但是下面的数据显示，总的来说，** 不同语言的面试通过率没有显著的差异。**（我们的平台上还有其它的语言，但语言越没名气，我们的数据点就越少。例如，所有用 [Brainfuck](https://en.wikipedia.org/wiki/Brainfuck) 的面试都很成功。开个玩笑。）
 
 ![](https://cdn-images-1.medium.com/max/2000/1*S1-Aj4ZEKgyuihnFftCD6w.png)
 
-That said, one of the most common mistakes we’ve observed qualitatively is people choosing languages they’re not comfortable in and then messing up basic stuff like array length lookup, iterating over an array, instantiating a hash table, and so on.
+我们观察到的定性的结果是一种很常见的错误：That said, one of the most common mistakes we’ve observed qualitatively is people choosing languages they’re not comfortable in and then messing up basic stuff like array length lookup, iterating over an array, instantiating a hash table, and so on.
 
 This is especially mortifying when interviewees purposely pick a fancy-sounding language to impress their interviewer. Trust us, wielding your language of choice comfortably beats out showing off in a fancy-sounding language you don’t know well, every time.
 
