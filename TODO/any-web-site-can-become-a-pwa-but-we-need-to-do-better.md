@@ -52,8 +52,6 @@
 
 一个渐进式网站需要能争取到些权限。因此我们需要一个不错的例子。我不再使用原生的 Twitter 了，[Twitter Lite](https://lite.twitter.com/) 能够使用并节省大量的数据和内存。我给很多人展示过这个例子，大家都卸载了原生的 Twitter 程序。这就是我们需要的。
 
-Every time we promote the web as the cool thing it is we repeat the same points.
-
 - It is easy to publish
 - it is available for everyone
 - it is not beholden to anyone
@@ -71,7 +69,7 @@ Every time we promote the web as the cool thing it is we repeat the same points.
 
 当然我们也有不少小胜利，但当前形势下让某人去接受使用网站是很无情的。在我们眼中这样做是非常棒的。
 
-这是为什么？我们拥有技术。我们拥有知识。我们拥有来着无数访谈，书籍和推文的信息。问题是我们应该面向谁。是谁最初建立了如此糟糕的网络？或又有谁在家里搞出了很赞的产品，然而在工作时于由于产品已经无法修复而陷入困境？
+这是为什么？我们拥有技术。我们拥有知识。我们拥有来着无数访谈、书籍和推文的信息。问题是我们应该面向谁。是谁最初建立了如此糟糕的网络？或又有谁在家里搞出了很赞的产品，然而在工作时于由于产品已经无法修复而陷入困境？
 
 当我说我不希望博客成为一款应用程序我不是说你不应该给你的博客增加负荷。我不会阻止任何人去发布内容或使用技术。
 
@@ -103,6 +101,7 @@ Jeremy 希望世界变成：
 所以当我说个人博客对我而言不是渐进式网站时，这就是我想说的。应用程序是用来做一件事的。如果我除了阅读或者分享外做不了什么，那么你可以把这个网站改成渐进式网站。但我可能不会去安装。我不会去下载 Kim Kardashian 或某个乐队的应用程序也是出于同样的原因。
 
 这和你发表文章的权利没关系。而是有关能否在用户的主屏幕，快速启动栏或者桌面上有限的空间里占得一席之地。如果你喜欢在屏幕上加满朋友的博客或者你喜欢的人 - 很好。我其实想看到在不久的将来出厂手机能为了这类人而自带渐进式网络程序。而不是需要 200MB 升级包，最终又无法升级而遗留安全问题的应用程序。我希望网络连接能集中在最新的设备中，为此我们需要把目标定的更高，做得更好。
+
 ---
 
 > [掘金翻译计划](https://github.com/xitu/gold-miner) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](https://github.com/xitu/gold-miner#android)、[iOS](https://github.com/xitu/gold-miner#ios)、[React](https://github.com/xitu/gold-miner#react)、[前端](https://github.com/xitu/gold-miner#前端)、[后端](https://github.com/xitu/gold-miner#后端)、[产品](https://github.com/xitu/gold-miner#产品)、[设计](https://github.com/xitu/gold-miner#设计) 等领域，想要查看更多优质译文请持续关注 [掘金翻译计划](https://github.com/xitu/gold-miner)。
