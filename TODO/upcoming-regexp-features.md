@@ -3,20 +3,20 @@
 > * 原文作者：[Jakob Gruber](https://developers.google.com/web/resources/contributors#jgruber)、[Yang Guo](https://developers.google.com/web/resources/contributors#yangguo)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/upcoming-regexp-features.md](https://github.com/xitu/gold-miner/blob/master/TODO/upcoming-regexp-features.md)
-> * 译者：
+> * 译者：[sunui](https://github.com/sunui)
 > * 校对者：
 
-# Upcoming Regular Expression Features
+# 即将到来的正则表达式新特性
 
-ES2015 introduced many new features to the JavaScript language, including significant improvements to the regular expression syntax with the Unicode (`/u`) and sticky (`/y`) flags. But development has not stopped since then. In tight collaboration with other members at TC39 (the ECMAScript standards body), the V8 team has proposed and co-designed several new features to make regular expressions even more powerful.
+ES2015 给 JavaScript 语言引入了许多新特性，其中包括正则表达式语法的一些重大改进，新增了 Unicode （`/u`） 和粘滞位 （`/y`）两个修饰符。但从那以后，发展从未止步。经过与 TC39（ECMAScript 标准委员会）的其他成员的紧密合作，V8 团队提议并共同设计了让正则表达式更强大的几个新特性。
 
-These features are currently being proposed for inclusion in the JavaScript specification. Even though the proposals have not been fully accepted, they are already at [Stage 3 in the TC39 process](https://tc39.github.io/process-document/). We have implemented these features behind a flag (see below) in order to be able to provide timely design and implementation feedback to the respective proposal authors before the specification is finalized.
+这些新特性目前已经计划包含在 JavaScript 标准中。即使提案还没有完全通过，它们已经进入 [TC39 流程的候选阶段](https://tc39.github.io/process-document/)了。我们已经在一个 flag（见下文）之后实现了这些功能，以便在最终定稿之前提供及时的设计和实现反馈给各自的提案作者。
 
-This blog post gives you a preview of this exciting future. If you'd like to follow along with the upcoming examples, enable experimental JavaScript features at `chrome://flags/#enable-javascript-harmony`.
+本文给您预览一下这个令人兴奋的未来。如果您愿意跟着体验这些即将到来的示例，可以在 `chrome://flags/#enable-javascript-harmony` 开启实验性 JavaScript 功能。
 
-## Named Captures
+## 命名捕获
 
-Regular expressions can contain so-called captures (or groups), which can capture a portion of the matched text. So far, developers could only refer to these captures by their index, which is determined by the position of the capture within the pattern.
+正则表达式可以包含所谓的捕获（或捕获组），它可以捕获一部分匹配的文本。到目前为止，开发者只能通过索引来引用这些捕获，这取决于其在正则匹配中的位置。
 
     const pattern =/(\d{4})-(\d{2})-(\d{2})/u;
     const result = pattern.exec('2017-07-10');
@@ -26,18 +26,18 @@ Regular expressions can contain so-called captures (or groups), which can captur
     // result[3] === '10'
 
 
-But regular expressions are already notoriously difficult to read, write, and maintain, and numeric references can add further complications. For instance, in longer patterns it can be tricky to determine the index of a particular capture:
+但正则表达式已经因难于读、写和维护而臭名昭著，并且数字引用会使事情进一步复杂化。例如，在一个更长的表达式中判断一个独特捕获的索引是很困难的事：
 
-    /(?:(.)(.(?<=[^(])(.)))/  // Index of the last capture?
-
-
-And even worse, changes to a pattern can potentially shift the indices of all existing captures:
-
-    /(a)(b)(c)\3\2\1/     // A few simple numbered backreferences.
-    /(.)(a)(b)(c)\4\3\2/  // All need to be updated.
+    /(?:(.)(.(?<=[^(])(.)))/  // 最后一个捕获组的索引是？
 
 
-Named captures are an upcoming feature that helps mitigate these issues by allowing developers to assign names to captures. The syntax is similar to Perl, Java, .Net, and Ruby:
+更糟糕的是，更改一个表达式可能会潜在得转变所有已存在的捕获的索引：
+
+    /(a)(b)(c)\3\2\1/     // 一些简单的有序的反向引用。
+    /(.)(a)(b)(c)\4\3\2/  // 所有都需要更新。
+
+
+命名捕获是一个即将到来的特性，它允许开发者给捕获组分配名称来帮助缓解这些问题。语法类似于 Perl、Java、.Net 和 Ruby：
 
     const pattern =/(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/u;
     const result = pattern.exec('2017-07-10');
@@ -46,32 +46,32 @@ Named captures are an upcoming feature that helps mitigate these issues by allow
     // result.groups.day === '10'
 
 
-Named captures can also be referenced by named backreferences and through `String.prototype.replace`:
+命名捕获组也可以被命名的反向引用来引用，并传入 `String.prototype.replace`：
 
-    // Named backreferences.
+    // 命名反向引用。
     /(?<LowerCaseX>x)y\k<LowerCaseX>/.test('xyx');  //true
 
-    // String replacement.
+    // 字符串替换。
     const pattern =/(?<fst>a)(?<snd>b)/;
     'ab'.replace(pattern,'$<snd>$<fst>');                              // 'ba'
     'ab'.replace(pattern,(m, p1, p2, o, s,{fst, snd})=> fst + snd);  // 'ba'
 
 
-Full details of this new feature are available in the [specification proposal](https://github.com/tc39/proposal-regexp-named-groups).
+关于这个新特性的全部详情可以在[规范提议](https://github.com/tc39/proposal-regexp-named-groups)中查看。
 
-## dotAll Flag
+## dotAll 修饰符
 
-By default, the `.` atom in regular expressions matches any character except for line terminators:
+默认情况下，元字符 `.` 在正则表达式中匹配除了换行符以外的任何字符：
 
     /foo.bar/u.test('foo\nbar');   // false
 
 
-A proposal introduces dotAll mode, enabled through the `/s` flag. In dotAll mode, `.` matches line terminators as well.
+一个提案引入了 dotAll 模式，通过 `/s` 修饰符来开启。在 dotAll 模式中，`.` 也可以匹配换行符。
 
     /foo.bar/su.test('foo\nbar');  // true
 
 
-Full details of this new feature are available in the [specification proposal](https://github.com/tc39/proposal-regexp-dotall-flag).
+关于这个新特性的全部详情可以在[规范提议](https://github.com/tc39/proposal-regexp-dotall-flag)中查看。
 
 ## Unicode Property Escapes
 
@@ -113,7 +113,7 @@ The name already describes its meaning pretty well. It offers a way to restrict 
 
 For more details, check out our [previous blog post](https://v8project.blogspot.com/2016/02/regexp-lookbehind-assertions.html) dedicated to lookbehind assertions, and examples in related [V8 test cases](https://github.com/v8/v8/blob/master/test/mjsunit/harmony/regexp-lookbehind.js).
 
-## Acknowledgements
+## 致谢
 
 This blog post wouldn’t be complete without mentioning some of the people that have worked hard to make this happen: especially language champions [Mathias Bynens](https://twitter.com/mathias), [Dan Ehrenberg](https://twitter.com/littledan), [Claude Pache](https://github.com/claudepache), [Brian Terlson](https://twitter.com/bterlson), [Thomas Wood](https://twitter.com/IgnoredAmbience), Gorkem Yakin, and Irregexp guru [Erik Corry](https://twitter.com/erikcorry); but also everyone else who has contributed to the language specification and V8’s implementation of these features.
 
