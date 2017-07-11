@@ -52,11 +52,6 @@
 
 一个渐进式网站需要能争取到些权限。因此我们需要一个不错的例子。我不再使用原生的 Twitter 了，[Twitter Lite](https://lite.twitter.com/) 能够使用并节省大量的数据和内存。我给很多人展示过这个例子，大家都卸载了原生的 Twitter 程序。这就是我们需要的。
 
-- It is easy to publish
-- it is available for everyone
-- it is not beholden to anyone
-- It is independent of platform, form factor and generally inviting.
-
 每次我们提倡使用网站都会不断强调这几点：
 - 更加简单的发布方式
 - 人人都能接触内容
