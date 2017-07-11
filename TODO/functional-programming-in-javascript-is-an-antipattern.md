@@ -41,11 +41,11 @@
 
 就算我能够记住这些东西，我依然会遇到上面那一堆问题。不可变数据、可变数据和某些情况下不能改变的可变数据。一些常用函数的签名和返回值也是这样，几乎每一行代码都有不同的情况要考虑。我觉得在 JavaScript 中使用函数式编程技术很棘手。
 
-按照惯例像 Redux 和 React 这种库需要不可变性。所以即使我不使用 ImmutableJS，我也得记得“don’t mutate here”。在 JavaScript 中不可变的转换比它本身的使用更难。我感觉这门语言给我前进的道路下了一路坑。此外，JavaScript 没有像 Object.map 这样的基本函数。所以像[上个月 4300 多万人](https://www.npmjs.com/package/lodash)一样，我使用 lodash，它提供大量 JavaScript 自身没有的函数。不过它的 API 也不是友好支持不可变的。一些函数返回新的数值，而另一些会更改已经存在的数据。再次强调，花时间来区分它们是很不划算的。事实大概如此，想要处理 JavaScript，我需要了解 lodash、它的函数名称、它的签名、它的返回值。更糟糕的是，它的[“collection 在先， arguments 在后”](https://www.youtube.com/watch?v=m3svKOdZijA)的方式对函数式编程来说也并不理想。
+按照惯例像 Redux 和 React 这种库需要不可变性。所以即使我不使用 ImmutableJS，我也得记得“这个地方不能改变”。在 JavaScript 中不可变的转换比它本身的使用更难。我感觉这门语言给我前进的道路下了一路坑。此外，JavaScript 没有像 Object.map 这样的基本函数。所以像[上个月 4300 多万人](https://www.npmjs.com/package/lodash)一样，我使用 lodash，它提供大量 JavaScript 自身没有的函数。不过它的 API 也不是友好支持不可变的。一些函数返回新的数值，而另一些会更改已经存在的数据。再次强调，花时间来区分它们是很不划算的。事实大概如此，想要处理 JavaScript，我需要了解 lodash、它的函数名称、它的签名、它的返回值。更糟糕的是，它的[“collection 在先， arguments 在后”](https://www.youtube.com/watch?v=m3svKOdZijA)的方式对函数式编程来说也并不理想。
 
-如果我使用 ramda 或者 lodash/fp 会好一些，可以很容易地组合函数并且写出清晰整洁的代码。但是它不能和 Immutable 数据结构一起使用。我可能还是要写一些参数集合在后而其他在前的代码。我必须知道更多的函数名、签名、返回值，并引入更多的基本函数。
+如果我使用 ramda 或者 lodash/fp 会好一些，可以很容易地组合函数并且写出清晰整洁的代码。但是它不能和 Immutable 数据结构一起使用。我可能还是要写一些参数集合在后而其他时候在前的代码。我必须知道更多的函数名、签名、返回值，并引入更多的基本函数。
 
-当我单独使用 ImmutableJS，一些事变得容易些了。Map.set 返回全新的值。一切都返回全新的值！这就是我想要的。不幸的是，ImmutableJS 也纠结了一些事情。我不可避免地要处理两套不同的数据结构。所以我不得不清楚 `x` 是 Immutable 的还是 JavaScript 的。通过学习其 API 和整体思维方式，我可以使用 Immutable 在 2 秒内知道如何解决问题。当我使用原生 JS 时，我必须跳过该解决方案，用另一种方式来解决问题。就像 ramda 和 lodash 一样，有大量的函数需要我了解 —— 它们返回什么、它们的签名、它们的名称。我也需要把我所知的所有函数分成两类：一类用于 Immutable 的，另一类用于其它。这往往也会影响我解决问题的方式。我有时会不自主地想到柯里化和组合函数的解决方案。但不能和 ImmutableJS 一起使用。所以我跳过这个解决方案，想想其他的。
+当我单独使用 ImmutableJS，一些事变得容易些了。Map.set 返回全新的值。一切都返回全新的值！这就是我想要的。不幸的是，ImmutableJS 也有一些纠结的事情。我不可避免地要处理两套不同的数据结构。所以我不得不清楚 `x` 是 Immutable 的还是 JavaScript 的。通过学习其 API 和整体思维方式，我可以使用 Immutable 在 2 秒内知道如何解决问题。当我使用原生 JS 时，我必须跳过该解决方案，用另一种方式来解决问题。就像 ramda 和 lodash 一样，有大量的函数需要我了解 —— 它们返回什么、它们的签名、它们的名称。我也需要把我所知的所有函数分成两类：一类用于 Immutable 的，另一类用于其它。这往往也会影响我解决问题的方式。我有时会不自主地想到柯里化和组合函数的解决方案。但不能和 ImmutableJS 一起使用。所以我跳过这个解决方案，想想其他的。
 
 当我全部想清楚以后，我才能尝试写一些代码。然后我转移到另一个文件，做一遍同样的事情。
 
@@ -55,7 +55,7 @@ JavaScript 中的函数式编程。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*MVU4TWwrkRMpQlmgkU9TuQ.png)
 
-`反模式的可视化。
+反模式的可视化。
 
 我已孤立无援，并且把 JavaScript 的函数式编程称为一种反模式。这是一条迷人之路却将我引入迷宫。它似乎解决了一些问题，最终却创造了更多的问题。重点是这些问题似乎没有更高层次的解决方案能避免我一次有又一次地处理问题。
 
@@ -65,7 +65,7 @@ JavaScript 中的函数式编程。
 
 如果你确定并同意我所说的（如果不同意，也很好），那么我认为值得花 5 分钟或一天甚至一周时间来考虑：保持在 JavaScript 路子上相比用一个不同的东西取代，耗费的长期成本是什么？
 
-这个所谓不同的东西对于我来说就是 Clojurescript。它是一门像 ES6 一样的 “compile-to-JS” 语言。一般而论，它是一种使用不同语法的 JavaScript。它的底层是被设计成用于函数式编程的语言，操作不可变的数据结构。对我来说，它比 JavaScript 更容易，更有前途。
+这个所谓不同的东西对于我来说就是 Clojurescript。它是一门像 ES6 一样的 “compile-to-JS” 语言。大体上说，它是一种使用不同语法的 JavaScript。它的底层是被设计成用于函数式编程的语言，操作不可变的数据结构。对我来说，它比 JavaScript 更容易，更有前途。
 
 ![](https://cdn-images-1.medium.com/max/1200/1*_bhmf-j96fW9qSuPm7yEsw.png)
 
@@ -86,7 +86,7 @@ Clojurescript 类似 Clojure，除了它的宿主语言是 JavaScript 而不是 
 2. **函数可以作用于数组和对象。** Map、reduce、filter 等对数组和对象的作用都相同。设计就是如此。我们毋须再纠结于 `map` 对数组和对象作用的不同之处。
 3. **不可变的数据结构。** 所有 Clojurescript 数据结构都是不可变的。因此你再也不必纠结一些东西是否可变了。你也不需要切换编程范式，从可变到不可变。你完全在不可变数据结构的领地上。
 4. **一些基本函数是语言本身包含的。** 像 map、filter、reduce、compose 和[很多其他](https://clojure.github.io/clojure/)函数都是核心语言的一部分，不需要外界引入。因此你的脑子里不必记着 4 种不同版本的“map”了（Array.map、lodash.map、ramda.map、Immutable.map）。你只需要知道一个。
-5. **它很简洁。** 相对于其他任何编程语言，它只需要短短几行的代码就能表达你的想法。（通常较少）
+5. **它很简洁。** 相对于其他任何编程语言，它只需要短短几行的代码就能表达你的想法。（通常少得多）
 6. **函数式编程。** Clojurescript 是一门彻底的函数式编程语言 —— 支持隐式返回声明、函数是一等公民、lambda 表达式等等。
 7. **使用 JavaScript 中所需的任何内容。** 你可以使用 JavaScript 的一切以及它的生态系统，从 `console.log` 到 npm 库都可以。
 8. **性能。** Clojurescript 使用 Google Closure 编译器来优化输出的 JavaScript。Bundle 体积小到极致。用于生产的打包过程不需要从设置优化到 `:advanced` 的复杂配置。
@@ -117,18 +117,17 @@ Clojurescript 类似 Clojure，除了它的宿主语言是 JavaScript 而不是 
 
 **因为缺乏熟悉的框架和工具吗？** 这感觉上可能是个原因，但 Javascript 中有的东西， Clojurescript 都有与之对应的： [re-frame](https://github.com/Day8/re-frame) 对应 Redux、[reagent](https://github.com/reagent-project/reagent) 对应 React、[figwheel](https://github.com/bhauman/lein-figwheel) 对应 Webpack/热加载、[leiningen](https://github.com/technomancy/leiningen) 对应 yarn/npm、Clojurescript 对应 Underscore/Lodash。
 
-**因为括号的问题太难写吗？** 这方面也许谈的还不够多，但[我们不必自己来区分圆括号方括号](https://shaunlebron.github.io/parinfer/) 。基本上，Parinfer 使得 Clojure 成为了空格语言。
+**是因为括号的问题使得这门语言太难写了吗？** 这方面也许谈的还不够多，但[我们不必自己来区分圆括号方括号](https://shaunlebron.github.io/parinfer/) 。基本上，Parinfer 使得 Clojure 成为了空格语言。
 
 **因为在工作中很难使用？** 可能是吧。它是一种新技术，就像 React 和 Redux 曾经那样，在某些时候也是很难推广的。即使也没什么技术限制 ——  Clojurescript 集成到现有代码库和集成 React 的方式是类似的。你可以把 Clojurescript 加入到已经存在的代码库中，每次重写一个文件的旧代码，新代码依然可以和未更改的旧代码交互。
 
 **没有足够受欢迎？** 很不幸，我想这就是它的原因。我使用 JavaScript 一部分原因就是它拥有庞大的社区。Clojurescript 太小众了。我使用 React 的部分原因是它是由 Facebook 维护的。而 Clojure 的维护者是[花大量时间思考的留着长发的家伙](https://avatars2.githubusercontent.com/u/34045?v=3&amp;s=400)。
 
-有数量上的劣势，我认了。但“全民投票”否决了所有其他可能的因素。
+有数量上的劣势，我认了。但“人多势众”否决了所有其他可能的因素。
 
 假设有一条路通向 100 美元，它很不受欢迎，而另一条路通向 10 美元，它极其受欢迎，我会选择受欢迎的那条路吗？
 
-恩，也许会的吧！那里有成功的先例。它一定比另一条路安全，因为更多的人选择了它。他们一定不会遇到什么可怕的事。而另一条路听起来美好，但我确定那一定是个陷阱。
-如果它像看起来那么美好，那么它就是最受欢迎的那条了。
+恩，也许会的吧！那里有成功的先例。它一定比另一条路安全，因为更多的人选择了它。他们一定不会遇到什么可怕的事。而另一条路听起来美好，但我确定那一定是个陷阱。如果它像看起来那么美好，那么它就是最受欢迎的那条路了。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*Y6orLTOgb6JFfjVdANVgCQ.png)
 
