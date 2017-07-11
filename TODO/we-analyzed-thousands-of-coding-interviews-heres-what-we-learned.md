@@ -14,7 +14,7 @@
 
 ![](https://cdn-images-1.medium.com/max/2000/1*nJCm0Uc5BOq12faK2KR4Dw.jpeg)
 
-*注意：我写了这个帖子中的绝大部分内容，但传说中的 *[*Dave Holtz*](https://twitter.com/daveholtz)* 完成了数据处理的主要工作。我们可以在 *[*他的博客*](http://daveholtz.net/)*中看到他的其它成果。*
+*注意：我写了这个帖子中的绝大部分内容，但传说中的 *[*Dave Holtz*](https://twitter.com/daveholtz)* 完成了数据处理的主要工作。我们可以在 *[*他的博客*](http://daveholtz.net/) *中看到他的其它成果。*
 
 如果你正在读这个帖子，很有可能，你正打算重新进入疯狂而可怕的技术面试的世界。
 
@@ -54,27 +54,27 @@ There are a few issues with this typical approach to interview preparation:
 
 ### 结果
 
-Before getting into the thick of it, it’s worth noting that the conclusions below are based on observational data, which means we can’t make strong causal claims… but we can still share surprising relationships we’ve observed and explain what we found so you can draw your own conclusions.
+在深入探究之前，需要注意：这些结论都是基于观察数据的，这意味着我们不能声称其中有很强的因果关系。但我们仍然可以分享观察到的奇特规律，并且解释我们发现了什么，以便让你做出自己的结论。
 
 #### Having seen the interview question before
 
-> *“We’re talking about practice!”* -Allen Iverson
+> *“我们正在讨论的是练习！”* ——阿伦·艾弗森
 
-First thing’s first. It doesn’t take a rocket scientist to suggest that one of the best ways to do better in interviews is to… practice interviewing. There are a number of resources out there to help you practice, ours among them. One of the main benefits of working through practice problems is that you reduce the likelihood of being asked to solve something you’ve never seen before. Balancing that binary search tree will be much less intimidating if you’ve already done it once or twice.
+从首要的东西开始。不算很聪明的人就能发现，最好的提升面试表现的方法之一是……练习面试。现在有大量的资源帮助你练习，包括我们自己的。做练习题的主要好处之一是：你被问到没见过的问题的概率会降低。如果你已经做过一两次的话，平衡一棵二叉树就显得不那么可怕了。
 
-We looked at a sample of ~3000 interviews and compared the outcome to whether the interviewee had seen the interview question before. You can see the results in the plot below.
+我们观察了3000个左右的面试，并把面试者见过与没有见过面试问题的结果相比较。你可以在下面的图中看到结果。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*0ha_0_L7WbspbayJet6N1g.png)
 
-**Unsurprisingly, interviewees who had seen the question were 16.6% more likely to be considered hirable by their interviewer.** This difference is statistically significant — all error bars in this post represent a 95% confidence interval.
+**不出意料，见过题目的面试者通过的概率比没有见过的多16.6%。** 这个差异是统计显著的——所有的误差条都表示95%置信区间。
 
-#### Does it matter what language you code in?
+#### 用什么语言编程重要吗？
 
 > *“Whoever does not love the language of his birth is lower than a beast and a foul smelling fish.” — *Jose Rizal
 
-You might imagine that different languages lead to better interviews. For instance, maybe the readability of Python gives you a leg up in interviews. Or perhaps the fact that certain languages handle data structures in a particularly clean way makes common interview questions easier. We wanted to see whether or not there were statistically significant differences in interview performance across different interview languages.
+你可能认为，使用不同的语言会使面试得到更好的结果。比如，Python的可读性会对面试有帮助。或者，有些语言处理数据结构的方式特别干净，会让常见的面试问题变得简单。我们想看看，使用不同的语言是否会对面试结果产生显著影响。
 
-To investigate, we grouped interviews on our platform by interview language and filtered out any languages that were used in fewer than 5 interviews (this only threw out a handful of interviews). After doing this, we were able to look at interview outcome and how it varied as a function of interview language.
+我们把自己平台上的面试按照语言分组，并过滤掉了面试数量小于5个的语言（这只删去了少量的几个面试）。然后，我们就可以看到面试结果随语言变化的函数。
 
 The results of that analysis are in the chart below. Any non-overlapping confidence intervals represent a statistically significant difference in how likely an interviewee is to ‘pass’ an interview, as a function of interview language.
 
