@@ -81,7 +81,6 @@ fun someMath(a: Int): Int {
 
 ---
 
-### Null safety
 ### 空值安全
 
 Kotlin 语言中最好的特性之一就是明确区分了[可空与非空类型](https://kotlinlang.org/docs/reference/null-safety.html)。这可以使编译器在运行时通过禁止任何代码将 `null` 或者可空值分配给非空变量来有效地阻止意想不到的 `NullPointerException`。
