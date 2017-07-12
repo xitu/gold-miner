@@ -1,3 +1,5 @@
+* [Android 中的定时任务调度](https://juejin.im/post/595c9061f265da6c22119084?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([phxnirvana](https://github.com/phxnirvana) 翻译)
+* [Kotlin:小菜一碟](https://juejin.im/entry/5956f47a5188250d9848abe7/detail?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([CACppuccino](https://github.com/CACppuccino) 翻译)
 * [说服Kotlin编译器代码安全](https://juejin.im/post/5955a78cf265da6c2810a9ff?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([wilsonandusa](https://github.com/wilsonandusa) 翻译)
 * [当设计模式遇上 Kotlin](https://juejin.im/post/594b2ac00ce4630057425bd5?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([boileryao](https://github.com/boileryao) 翻译)
 * [Kotlin 中我讨厌什么](https://juejin.im/entry/594335c18d6d810058ce06a0/detail?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Zhiw](https://github.com/Zhiw) 翻译)
