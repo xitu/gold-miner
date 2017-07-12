@@ -120,33 +120,33 @@ Furthermore, very readable or low-level languages might lead to correlations bet
 
 #### 面试时长
 
-> *“It’s fine when you careen off disasters and terrifyingly bad reviews and rejection and all that stuff when you’re young; your resilience is just terrific.” — *Harold Prince
+> *“年轻的时候搞砸各种事情是没有关系的；你的恢复能力还很强。” — *Harold Prince
 
-We’ve all had the experience of leaving an interview and just feeling like it went poorly. Often, that feeling of certain underperformance is motivated by rules of thumb that we’ve either come up with ourselves or heard repeated over and over again. You might find yourself thinking, “the interview didn’t last long? That’s probably a bad sign… ” or “I barely wrote anything in that interview! I’m definitely not going to pass.” Using our data, we wanted to see whether these rules of thumb for evaluating your interview performance had any merit.
+我们都经历过结束一场面试时，感觉自己表现很糟糕的情况。 Often, that feeling of certain underperformance is motivated by rules of thumb that we’ve either come up with ourselves or heard repeated over and over again. You might find yourself thinking, “the interview didn’t last long? That’s probably a bad sign… ” or “I barely wrote anything in that interview! I’m definitely not going to pass.” Using our data, we wanted to see whether these rules of thumb for evaluating your interview performance had any merit.
 
-First, we looked at the length of the interview. Does a shorter interviewer mean you were such a train wreck that the interviewer just had to stop the interview early? Or was it maybe the case that the interviewer had less time than normal, or had seen in just a short amount of time that you were an awesome candidate? The plot below shows the distributions of interview length (measured in minutes) for both successful and unsuccessful candidates.
+首先，我们观察了面试的时间长度。面试时间短是否意味着面试者表现非常糟糕，面试官只能提早结束？或者，可能面试官不太有时间，或者他很快发现你是一个特别优秀的候选人？下图显示了成功与失败的候选人的面试时长（以分钟计）。
 
-**A quick look at this chart suggests that there is no difference in the distribution of interview lengths between interviews that go well and interviews that don’t — the average length of interviews where the interviewer wanted to hire the candidate was 51.00 minutes, whereas the average length of interviews where the interviewer did not was 49.95 minutes. This difference is not statistically significant**.
+**从表格上我们很快可以看到：成功和失败的面试在时长上并没有差异——成功面试的平均时长是51.00分钟，而失败面试的平均长度是49.95分钟。差异是不显著的**。
 
-(For every comparison of distributions in this post, we use both a Fisher-Pitman permutation test to compare the difference in the means of the distributions.)
+（对于本帖子中的每一个比较，我们用 Fisher-Pitman 置换检验来比较平均值的差异。）
 
 ![](https://cdn-images-1.medium.com/max/1600/1*kUsYEVIdbSKNWH5Ea-ks_w.png)
 
-#### Amount of code written
+#### 代码量
 
-> *“Brevity is the soul of wit.”* -William Shakespeare
+> *“简洁是智慧的灵魂。”* ——威廉·莎士比亚
 
-You may have experienced an interview where you were totally stumped. The interviewer asks you a question you barely understand, you repeat back to him or her “binary search what?”, and you basically write no code during your interview. You might hope that you could still pass an interview like this through sheer wit, charm, and high-level problem-solving skills. In order to assess whether or not this was true, we looked at the final character length of code written by the interviewee. The plot below shows the distributions of character length for both successful and unsuccessful. A quick look at this chart suggests that there is a difference between the two — interviews that don’t go well tend to have less code. There are two phenomena that may contribute to this. First, unsuccessful interviewers may write less code to begin with. Additionally, they may be more prone to delete large swathes of code they’ve written that either don’t run or don’t return the expected result.
+你可能经历过完全失败的面试。面试官问你一个你几乎不理解的问题，你问他“二分查找什么？”，并且在整个过程中几乎没有写任何代码。你可能希望纯粹通过聪明、魅力或者高级的问题解决能力通过这个面试。为了检验这种说法是否正确，我们观察了面试者所写代码的长度。下图展示了成功和失败的面试者所写代码的长度。从中很快可以发现，这两者还是很有差别的——失败的面试代码量更少。有两个现象可能导致这个问题。首先，不成功的面试者可能一开始写的代码就比较少。另外，他们可能更倾向于删除很多自己写出的失败的代码。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*OyxyeBmyDfMdJaYyCDi6ng.png)
 
-**On average, successful interviews had final interview code that was on average 2045 characters long, whereas unsuccessful ones were, on average, 1760 characters long.** That’s a big difference! This finding is statistically significant and probably not very surprising.
+**成功的面试最终的代码平均有 2045 个字符，而不成功的平均只有 1760 个字符。** 这是很大的区别！这个发现是统计显著的，而且很可能不那么令人吃惊。
 
-#### Code modularity
+#### 代码模块化
 
-> *“The mark of a mature programmer is willingness to throw out code you spent time on when you realize it’s pointless.” — *Bram Cohen
+> *“成熟程序员的标志是，愿意抛弃自己花时间写的代码，如果它没有意义的话。” — *Bram Cohen
 
-In addition to just look at *how much* code you write, we can also think about the type of code you write. Conventional wisdom suggests that good programmers don’t recycle code — they write modular code that can be reused over and over again. We wanted to know if that type of behavior was actually rewarded during the interview process. In order to do so, we looked at interviews conducted in Python[5](http://blog.interviewing.io/#guide-fn5) and counted how many function definitions appeared in the final version of the interview. We wanted to know if successful interviewees defined more functions — while having more function handlers is not the definition of modularity, in our experience, it’s a pretty strong signal of it. As always, it’s impossible to make strong causal claims about this — it might be the case that certain interviewers (who are more or less lenient) ask interview questions that lend themselves to more or fewer functions. Nonetheless, it is an interesting trend to investigate!
+除了看看你写了 *多少* 代码以外，我们也可以考虑一下代码的类型。传统的观点是好的程序员不用回收代码——他们写出模块化的代码并不断复用。我们希望知道在面试过程中，有哪些行为是受到鼓励的。我们看了用 Python 进行的面试[5](http://blog.interviewing.io/#guide-fn5)，并且数了最终的版本中代码定义了多少函数。我们想知道，成功的面试者是否定义了更多函数——更多的函数并不是模块化的定义，但根据我们的经验，这是一个标志模块化程度的很强的信号。同样，我们不可能断言其中存在很强的因果联系——也许有的面试官问的问题本身就会导致面试者写出更多或更少的函数。不管怎样，这是一个值得研究的趋势。
 
 The plot below shows the distribution of the number of Python functions defined for both candidates who the interviewer said they would hire and candidates who the interviewer said they would not hire. A quick look at this chart suggests that there *is* a difference in the distribution of function definitions between interviews that go well and interviews that don’t. Successful interviewees seem to define *more* functions.
 
