@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/on-strategies-to-apply-kotlin-to-existing-java-code.md](https://github.com/xitu/gold-miner/blob/master/TODO/on-strategies-to-apply-kotlin-to-existing-java-code.md)
 > * 译者：[Luolc](https://github.com/Luolc)
-> * 校对者：
+> * 校对者：[skyar2009](https://github.com/skyar2009), [phxnirvana](https://github.com/phxnirvana)
 
 # 将 Kotlin 应用于现有 Java 代码的策略
 
