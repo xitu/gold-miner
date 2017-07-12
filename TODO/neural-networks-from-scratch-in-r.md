@@ -1,22 +1,20 @@
-
 > * 原文地址：[Neural Networks from Scratch (in R)](https://medium.com/@iliakarmanov/neural-networks-from-scratch-in-r-dcf97867c238)
 > * 原文作者：[Ilia Karmanov](https://medium.com/@iliakarmanov)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/neural-networks-from-scratch-in-r.md](https://github.com/xitu/gold-miner/blob/master/TODO/neural-networks-from-scratch-in-r.md)
-> * 译者：
-> * 校对者：
+> * 译者：[CACppuccino](https://github.com/CACppuccino)
+> * 校对者：[Isvih](https://github.com/lsvih)
 
-# Neural Networks from Scratch (in R)
+# Scratch 平台的神经网络实现（R 语言）
 
-This post is for those of you with a statistics/econometrics background but not necessarily a machine-learning one and for those of you who want some guidance in building a neural-network from scratch in R to better understand how everything fits (and how it doesn’t).
+这篇文章是针对那些有统计或者经济学背景的人们，帮助他们通过 R 语言上的 Scratch 平台更好地学习和理解机器学习知识。
 
-Andrej Karpathy [wrote](https://medium.com/@karpathy/yes-you-should-understand-backprop-e2f06eab496b) that when CS231n (Deep Learning at Stanford) was offered:
+Andrej Karpathy 在 CS231n 课程中[这样说道](https://medium.com/@karpathy/yes-you-should-understand-backprop-e2f06eab496b) ：
 
-> “we intentionally designed the programming assignments to include explicit calculations involved in backpropagation on the lowest level. The students had to implement the forward and the backward pass of each layer in raw numpy. Inevitably, some students complained on the class message boards”
+>“我们有意识地在设计课程的时候，于反向传播算法的编程作业中包含了对最底层的数据的计算要求。学生们需要在原始的 numpy 库中使数据在各层中正向、反向传播。一些学生因而难免在课程的留言板上抱怨（这些复杂的计算）”
 
-Why bother with backpropagation when all frameworks do it for you automatically and there are more interesting deep-learning problems to consider?
+如果框架已经为你完成了反向传播算法（BP 算法）的计算，你又何苦折磨自己而不去探寻更多有趣的深度学习问题呢？
 
-Nowadays we can train a full neural-network (on a GPU) in [5 lines](https://keras.io/).
 
     import keras
     model = Sequential()
@@ -25,32 +23,32 @@ Nowadays we can train a full neural-network (on a GPU) in [5 lines](https://kera
     model.compile(loss=’categorical_crossentropy’, optimizer=RMSprop())
     model.fit()
 
-Karpathy, abstracts away from the “intellectual curiosity” or “you might want to improve on the core algorithm later” argument. His argument is that the calculations are a [leaky abstraction](https://en.wikipedia.org/wiki/Leaky_abstraction):
+Karpathy教授,将“智力上的好奇”或者“你可能想要晚些提升核心算法”的论点抽象出来，认为计算实际上是一种[泄漏抽象](https://en.wikipedia.org/wiki/Leaky_abstraction)（译者注：“抽象泄漏”是软件开发时，本应隐藏实现细节的抽象化不可避免地暴露出底层细节与局限性。抽象泄露是棘手的问题，因为抽象化本来目的就是向用户隐藏不必要公开的细节--维基百科）：
 
-> “it is easy to fall into the trap of abstracting away the learning process — believing that you can simply stack arbitrary layers together and backprop will “magically make them work” on your data”
+>“人们很容易陷入这样的误区中-认为你可以简单地将任意的神经层组合在一起然后反向传播算法会‘令它们自己在你的数据上工作起来’。”
 
-Hence, my motivation for this post is two-fold:
+因此，我写这篇文章的目的有两层：
 
-1. Understanding (by writing from scratch) the leaky abstractions behind neural-networks dramatically shifted my focus to elements whose importance I initially overlooked. If my model is not learning I have a better idea of what to address rather than blindly wasting time switching optimisers (or even frameworks).
+1. 理解神经网络背后的抽象泄漏（通过在 Scratch 平台上操作），而这些东西的重要性恰恰是我开始所忽略的。这样如果我的模型没有达到预期的学习效果，我可以更好地解决问题，而不是盲目地改变优化方案（甚至更换学习框架）。
 
-2. A deep-neural-network (DNN), once taken apart into lego blocks, is no longer a black-box that is inaccessible to other disciplines outside of AI. It’s a combination of many topics that are very familiar to most people with a basic knowledge of statistics. I believe they need to cover very little (just the glue that holds the blocks together) to get an insight into a whole new realm.
+2. 一个深度神经网络（DNN），一旦被拆分成块，对于 AI 领域之外的人们也再也不是一个黑箱了。相反，对于大多数有基本的统计背景的人来说，是一个个非常熟悉的话题的组合。我相信他们只需要学习很少的一些（只是那些如何将这一块块知识组合一起）知识就可以在一个全新的领域获得不错的洞察力。
 
-Starting from a linear regression we will work through the maths and the code all the way to a deep-neural-network (DNN) in the accompanying R-notebooks. Hopefully to show that very little is actually new information.
+从线性回归开始，借着 R-notebook，通过解决一系列的数学和编程问题直至了解深度神经网络（DNN）。希望能够借此展示出来，你所需学习的新知识其实只有很少的一部分。
 
 ![](https://cdn-images-1.medium.com/max/800/1*nzwaX3XqlaRGAf0kpN9ShA.png)
 
-**Notebooks:**
+**笔记**
 
 [https://github.com/ilkarman/DemoNeuralNet/blob/master/01_LinearRegression.ipynb](https://github.com/ilkarman/DemoNeuralNet/blob/master/01_LinearRegression.ipynb)
 [https://github.com/ilkarman/DemoNeuralNet/blob/master/02_LogisticRegression.ipynb](https://github.com/ilkarman/DemoNeuralNet/blob/master/02_LogisticRegression.ipynb)
 [https://github.com/ilkarman/DemoNeuralNet/blob/master/03_NeuralNet.ipynb](https://github.com/ilkarman/DemoNeuralNet/blob/master/03_NeuralNet.ipynb)
 [https://github.com/ilkarman/DemoNeuralNet/blob/master/04_Convolutions.ipynb](https://github.com/ilkarman/DemoNeuralNet/blob/master/04_Convolutions.ipynb)
 
-### **Step 1 — Linear Regression** ([See Notebook](https://github.com/ilkarman/DemoNeuralNet/blob/master/01_LinearRegression.ipynb))
+### **一、线性回归（[见笔记(github-ipynb)](https://github.com/ilkarman/DemoNeuralNet/blob/master/01_LinearRegression.ipynb)）**  
 
 ![](https://cdn-images-1.medium.com/freeze/max/30/1*OqXD5Z73f433hLfoMEYqyg.jpeg?q=20)<img class="progressiveMedia-noscript js-progressiveMedia-inner" src="https://cdn-images-1.medium.com/max/800/1*OqXD5Z73f433hLfoMEYqyg.jpeg">
 
-Implementing the closed-form solution for the Ordinary Least Squares estimator in R requires just a few lines:
+在 R 中解决最小二乘法的计算器的闭包解决方案只需如下几行：
 
     # Matrix of explanatory variables
     X <- as.matrix(X)
@@ -61,26 +59,26 @@ Implementing the closed-form solution for the Ordinary Least Squares estimator i
     # OLS (closed-form solution)
     beta_hat <- solve(t(X) %*% X) %*% t(X) %*% y
 
-The vector of values in the variable beta_hat, define our “machine-learning model”. A linear regression is used to predict a continuous variable (e.g. how many minutes will this plane be delayed by). In the case of predicting a category (e.g. will this plane be delayed — yes/no) we want our prediction to fall between 0 and 1 so that we can interpret it as the probability of observing the respective category (given the data).
+变量 beta_hat 所形成的向量包含的数值，定义了我们的“机器学习模型”。线性回归是用来预测一个连续的变量的（例如：这架飞机会延误多久）。在预测分类的时候（例如：这架飞机会延误吗-会/不会），我们希望我们的预测能够落在0到1之间，这样我们可以将其转换为各个种类的事件发生的可能性（根据所给的数据）。
 
-When we have just two mutually-exclusive outcomes we would use a binomial logistic regression. With more than two outcomes (or “classes”), which are mutually-exclusive (e.g. this plane will be delayed by less than 5 minutes, 5–10 minutes, or more than 10 minutes), we would use a multinomial logistic regression (or “softmax”). In the case of many (n)classes that are not mutually-exclusive (e.g. this post references “R” and “neural-networks” and “statistics”), we can fit n-binomial logistic regressions.
+当我们只有两个互斥的结果时我们将使用一个二项逻辑回归。当候选结果（或者分类）多于两个时，即多项互斥（例如：这架飞机延误时间可能在5分钟内、5-10分钟或多于10分钟），我们将使用多项逻辑回归（或者“Softmax 回归”）（译者注：Softmax 函数是逻辑函数的一种推广，更多知识见[知乎](https://www.zhihu.com/question/23765351)）。在这种情况下许多类别不是互斥的（例如：这篇文章中的“R”，“神经网络”和“统计学”），我们可以采用二项式逻辑回归（译者注：不是二项逻辑回归）。
 
-An alternative approach to the closed-form solution we found above is to use an iterative method, called [Gradient Descent (GD)](https://en.wikipedia.org/wiki/Gradient_descent). The procedure may look like so:
+另外，我们也可以用[梯度下降（GD）](https://en.wikipedia.org/wiki/Gradient_descent)这种迭代法来替代我们上文提到的闭包方法。整个过程如下：
 
-- Start with a random guess for the weights
-- Plug guess into loss function
-- Move guess in the opposite direction of the gradient at that point by a small amount (something we call the “learning-rate”)
-- Repeat above for N-steps
+- 从随机地猜测权重开始
+- 将所猜测的权重值代入损失函数中
+- 将猜测值移向梯度的相反方向移动一小步（即我们所谓的“学习频率”）
+- 重复上述步骤 N 次
 
-GD only uses the [Jacobian ](https://en.wikipedia.org/wiki/Jacobian_matrix_and_determinant)matrix (not the [Hessian](https://en.wikipedia.org/wiki/Hessian_matrix)), however we know that when we have a convex loss, all local minima are global minima and thus GD is guaranteed to converge to the global minimum.
+GD 仅仅使用了 [Jacobian](https://en.wikipedia.org/wiki/Jacobian_matrix_and_determinant) 矩阵 (而不是 [Hessian](https://en.wikipedia.org/wiki/Hessian_matrix) 矩阵)，不过我们知道， 当我们的损失函数为凸函数时，所有的极小值即（局部最小值）为（全局）最小值，因此 GD 总能够收敛至全局最小值。
 
-The loss-function used for a linear-regression is the Mean Squared Error:
+线性回归中所用的损失函数是均方误差函数：
 
 ![](https://cdn-images-1.medium.com/max/800/1*RarCa--RxFLE29XXs62LsQ.jpeg)
 
-To use GD we only need to find the partial derivative of this with respect to beta_hat (the ‘delta’/gradient).
+要使用 GD 方法我们只需要找出 beta_hat 的偏导数（即 'delta'/梯度）
 
-This can be implemented in R, like so:
+在 R 中实现方法如下：
 
     # Start with a random guess
     beta_hat <- matrix(0.1, nrow=ncol(X_mat))
@@ -95,24 +93,24 @@ This can be implemented in R, like so:
         beta_hat <- beta_hat - (lr*delta)
       }
 
-Running this for 200 iterations gets us to same gradient and coefficient as the closed-form solution. Aside from being a stepping stone to a neural-network (where we use GD), this iterative method can be useful in practice when the the closed-form solution cannot be calculated because the matrix is too big to invert (to fit into memory).
+200次的迭代之后我们会得到和闭包方法一样的梯度与参数。除了这代表着我们的进步意外（我们使用了 GD），这个迭代方法在当闭包方法因矩阵过大，而无法计算矩阵的逆的时候，也非常有用（因为有内存的限制）。
 
-### **Step 2 — Logistic Regression (**[**See Notebook**](https://github.com/ilkarman/DemoNeuralNet/blob/master/02_LogisticRegression.ipynb)**)**
+### **第二步 - 逻辑回归 (**[**见笔记(github-ipynb)**](https://github.com/ilkarman/DemoNeuralNet/blob/master/02_LogisticRegression.ipynb)**)**
 
 ![](https://cdn-images-1.medium.com/max/800/1*MNQueiCKMXqP6V5V5AvN3w.jpeg)
 
-A logistic regression is a linear regression for binary classification problems. The two main differences to a standard linear regression are:
+逻辑回归即一种用来解决二项分类的线性回归方法。它与标准的线性回归主要的两种不同在于：
 
-1. We use an ‘activation’/link function called the logistic-sigmoid to squash the output to a probability bounded by 0 and 1
-2. Instead of minimising the quadratic loss we minimise the negative log-likelihood of the bernoulli distribution
+1. 我们使用一种称为 logistic-sigmoid 的 ‘激活’/链接函数来将输出压缩至 0 到 1 的范围内
+2. 不是最小化损失的方差而是最小化伯努利分布的负对数似然
 
-Everything else remains the same.
+其它的都保持不变。
 
-We can calculate our activation function like so:
+我们可以像这样计算我们的激活函数：
 
     sigmoid <- function(z){1.0/(1.0+exp(-z))}
 
-We can create our log-likelihood function in R:
+我们可以在 R 中这样创建对数似然函数：
 
     log_likelihood <- function(X_mat, y, beta_hat)
     {
@@ -121,17 +119,17 @@ We can create our log-likelihood function in R:
       sum(ll)
     }
 
-This loss function (the logistic loss or the log-loss) is also called the cross-entropy loss. The cross-entropy loss is basically a measure of ‘surprise’ and will be the foundation for all the following models, so it is worth examining a bit more.
+这个损失函数（逻辑损失或对数损失函数）也叫做交叉熵损失。交叉熵损失根本上来讲是对“意外”的一种测量，并且会成为所有接下来的模型的基础，所以值得多花一些时间。
 
-If we simply constructed the least-squares loss like before, because we now have a non-linear activation function (the sigmoid), the loss will no longer be convex which will make optimisation hard.
+如果我们还像以前一样建立最小平方损失函数，由于我们目前拥有的是一个非线性激活函数（sigmoid），那么损失函数将因不再是凸函数而使优化变得困难。
 
 ![](https://cdn-images-1.medium.com/max/800/1*RarCa--RxFLE29XXs62LsQ.jpeg)
 
-We could construct our own loss function for the two classes. When y=1, we want our loss function to be very high if our prediction is close to 0, and very low when it is close to 1. When y=0, we want our loss function to be very high if our prediction is close to 1, and very low when it is close to 0. This leads us to the following loss function:
+我们可以为两个分类设立自己的损失函数。当 y=1 时，我们希望我们的损失函数值在预测值接近0的时候变得非常高，在接近1的时候变得非常低。当 y=0 时，我们所期望的与之前恰恰相反。这导致了我们有了如下的损失函数：
 
 ![](https://cdn-images-1.medium.com/max/800/1*Nj7sNRh1aufj8OVePHbOWA.jpeg)
 
-The delta for this loss function is pretty much the same as the one we had earlier for a linear-regression. The only difference is that we apply our sigmoid function to the prediction. This means that the GD function for a logistic regression will also look very similar:
+这里的损失函数中的 delta 与我们之前的线性回归中的 delta 非常相似。唯一的不同在于我们在这里将 sigmoid 函数也应用在了预测之中。这意味着逻辑回归中的梯度下降函数也会看起来很相似：
 
     logistic_reg <- function(X, y, epochs, lr)
     {
@@ -152,63 +150,64 @@ The delta for this loss function is pretty much the same as the one we had earli
       beta_hat
     }
 
-### **Step 3 — Softmax Regression (No Notebook)**
+### **三、Softmax 回归函数（无笔记）**
 
 ![](https://cdn-images-1.medium.com/max/800/1*yTtVwA4kNcKEM4ETIJwdcQ.jpeg)
 
-A generalisation of the logistic regression is the multinomial logistic regression (also called ‘softmax’), which is used when there are more than two classes to predict. I haven’t created this example in R, because the neural-network in the next step can reduce to something similar, however for completeness I wanted to highlight the main differences if you wanted to create it.
+逻辑回归的推广即为多项逻辑回归（也称为 ‘softmax 函数’），是对两项以上的分类进行预测的。我尚未在 R 中建立这个例子，因为下一步的神经网络中也有一些东西简化之后与之相似，然而为了完整起见，如果你仍然想要创建它的话，我还是要强调一下这里主要的不同。
 
-First, instead of using the sigmoid function to squash our (one) value between 0 and 1:
+首先，我们不再用 sigmoid 函数来讲我们所得的值压缩在 0 至 1 之间：
 
 ![](https://cdn-images-1.medium.com/max/800/1*aTpB9Ibo-RbemepyDvfYbQ.png)
 
-We use the softmax function to squash the sum of our n-values (for n-classes) to 1:
+我们用 softmax 函数来将 n 个值的和压缩至 1：
 
 ![](https://cdn-images-1.medium.com/max/800/1*fkB_2c-KYd_tqzo6A9dZEw.png)
 
-This means the value supplied for each class can be interpreted as the probability of that class, given the evidence. This also means that when we see the target class and increase the weights to increase the probability of observing it, the probability of the other classes will fall. The implicit assumption is that our classes are mutually exclusive.
+这样意味着每个类别所得的值，可以根据所给的条件，被转化为该类的概率。同时也意味着当我们希望提高某一分类的权重来提高它所获得的概率的时候，其它分类的出现概率会有所下降。也就是说，我们的各个类别是互斥的。
 
-Second, we use a more general version of the cross-entropy loss function:
+其次，我们使用一个更加通用的交叉熵损失函数：
 
 ![](https://cdn-images-1.medium.com/max/800/1*iJWZqkYxBTXwyotU2daAmQ.jpeg)
 
-To see why — remember that for binary classifications (previous example) we had two classes: j = 2, under the condition that the categories are mutually-exclusive a1 + a2 = 1 and that y is [one-hot](https://www.quora.com/What-is-one-hot-encoding-and-when-is-it-used-in-data-science) so that y1 + y2 = 1, we can re-write the general formula as:
+要想知道为什么-记住对于二项分类（如之前的例子）我们有两个类别：j = 2，在每个类别是互斥的，a1 + a2 = 1 且 y 是[一位有效编码（one-hot）](https://www.quora.com/What-is-one-hot-encoding-and-when-is-it-used-in-data-science)所以 y1+y2=1，我们可以将通用公式重写为：
+（译者注：one-hot是将分类的特征转化为更加适合分类和回归算法的数据格式（Quora-Håkon Hapnes Strand），[中文资料可见此](http://blog.csdn.net/google19890102/article/details/44039761)）
 
 ![](https://cdn-images-1.medium.com/max/800/1*M_zxupHutdBfXE0pg_ZkRg.jpeg)
 
-Which is the same equation we first started with. However, now we relax the constraint that j = 2. It can be shown that the cross-entropy loss here has the same gradient as for the case of the binary/two-class cross-entropy on logistic outputs.
+这与我们刚开始的等式是相同的。然而，我们现在将 j=2 的条件放宽。这里的交叉熵损失函数可以被看出来有着与二项分类的逻辑输出的交叉熵有着相同的梯度。
 
 ![](https://cdn-images-1.medium.com/max/800/1*l9Vq97wHTVOBVJisti21-Q.png)
 
-However, although the gradient has the same formula it will be different because the activation here takes on a different value (softmax instead of logistic-sigmoid).
+然而，即使梯度有着相同的公式，也会因为激活函数代入了不同的值而不一样（用了 softmax 而不是逻辑中的 sigmoid）。
 
-In most deep-learning frameworks you have the choice of ‘binary_crossentropy’ or ‘categorical_crossentropy’ loss. Depending on whether your last layer contains sigmoid or softmax activation you would want to choose binary or categorical cross-entropy (respectively). The training of the network should not be affected, since the gradient is the same, however the reported loss (for evaluation) would be wrong if these are mixed up.
+在大多数的深度学习框架中，你可以选择‘二项交叉熵（binary_crossentropy）’或者‘分类交叉熵（categorical_crossentropy）’损失函数。这取决于你的最后一层神经包含的是 sigmoid 还是 softmax 激活函数，相对应着，你可以选择‘二项交叉熵（binary_crossentropy）’或者‘分类交叉熵（categorical_crossentropy）’。而由于梯度相同，神经网络的训练并不会被影响，然而所得到的损失（或评测值）会由于搞混它们而错误。
 
-The motivation to go through softmax is that most neural-networks will use a softmax layer as the final/’read-out’ layer, with a multinomial/categorical cross-entropy loss instead of using sigmoids with a binary cross-entropy loss — when the categories are mutually exclusive. Although multiple sigmoids for multiple classes can also be used (and will be used in the next example), this is generally only used for the case of non-mutually-exclusive labels (i.e. we can have multiple labels). With a softmax output, since the sum of the outputs is constrained to equal 1 — we have the advantage of interpreting the outputs as class probabilities.
+之所以要涉及到 softmax 是因为大多数的神经网络，会在各个类别互斥的时候，用 softmax 层作为最后一层（读出层），用多项交叉熵（也叫分类交叉熵）损失函数，而不是用 sigmoid 函数搭配二项交叉熵损失函数。尽管多项 sigmoid 也可以用于多类别分类（并且会被用于下个例子中），但这总体上仅用于多项不互斥的时候。有了 softmax 作为输出，由于输出的和被限制为 1，我们可以直接将输出转化为概率。
 
-### **Step 4 — Neural Network (**[**See Notebook**](https://github.com/ilkarman/DemoNeuralNet/blob/master/03_NeuralNet.ipynb)**)**
+### **四、神经网络（**[**见笔记(github-ipynb)**]((https://github.com/ilkarman/DemoNeuralNet/blob/master/03_NeuralNet.ipynb))**）**
 
 ![](https://cdn-images-1.medium.com/max/800/1*j1cC_Uh46f_wlLpBzkoYsQ.jpeg)
 
-A neural network can be thought of as a series of logistic regressions stacked on top of each other. This means we could say that a logistic regression is a neural-network (with sigmoid activations) with no hidden-layer.
+一个神经网络可以被看作为一系列的逻辑回归堆叠在一起。这意味着我们可以说，一个逻辑回归实际上是一个（带有 sigmoid 激活函数）无隐藏层的神经网络。
 
-This hidden-layer lets a neural-network generate non-linearity and leads to the [Universal approximation theorem](https://en.wikipedia.org/wiki/Universal_approximation_theorem), which states that a network with just one hidden layer can approximate any linear or non-linear function. The number of hidden-layers can go into the hundreds.
+隐藏层，使神经网络具有非线性且导致了用于[通用近似定理](https://en.wikipedia.org/wiki/Universal_approximation_theorem)所描述的特性。该定理声明，一个神经网络和一个隐藏层可以逼近任何线性或非线性的函数。而隐藏层的数量可以扩展至上百层。
 
-It can be useful to think of a neural-network as a combination of two things: 1) many logistic regressions stacked on top of each other that are ‘feature-generators’ and 2) one read-out-layer which is just a softmax regression. The recent successes in deep-learning can arguable be attributed to the ‘feature-generators’. For example; previously with computer vision, we had to painfully state that we wanted to find triangles, circles, colours, and in what combination (similar to how economists decide which interaction-terms they need in a linear regression). Now, the hidden-layers are basically an optimisation to decide which features (which ‘interaction-terms’) to extract. A lot of deep-learning (transfer learning) is actually done by generating features using a trained-model with the head (read-out layer) cut-off, and then training a logistic regression (or boosted decision-trees) using those features as inputs.
+如果将神经网络看作两个东西的结合会很有用：1）很多的逻辑回归堆叠在一起形成‘特征生成器’ 2）一个 softmax 回归函数构成的单个读出层。近来深度学习的成功可归功于‘特征生成器’。例如：在以前的计算机视觉领域，我们需要痛苦地声明我们需要找到各种长方形，圆形，颜色和结合方式（与经济学家们如何决定哪些相互作用需要用于线性回归中相似）。现在，隐藏层是对决定哪个特征（哪个‘相互作用’）需要提取的优化器。很多的深度学习实际上是通过用一个训练好的模型，去掉读出层，然后用那些特征作为输入（或者是促进决策树（boosted decision-trees））来生成的。
 
-The hidden-layer also means that our loss function is not convex in parameters and we can’t roll down a smooth-hill to get to the bottom. Instead of using Gradient Descent (which we did for the case of a logistic-regression) we will use Stochastic Gradient Descent (SGD), which basically shuffles the observations (random/stochastic) and updates the gradient after each mini-batch (generally much less than total number of observations) has been propagated through the network. There are many alternatives to SGD that Sebastian Ruder does a great job of summarising [here](http://sebastianruder.com/optimizing-gradient-descent). I think this is a fascinating topic to go through, but outside the scope of this blog-post. Briefly, however, the vast majority of the optimisation methods are first-order (including SGD, Adam, RMSprop, and Adagrad) because calculating the second-order is too computionally difficult. However, some of these first-order methods have a fixed learning-rate (SGD) and some have an adaptive learning-rate (Adam), which means that the ‘amount’ we update our weights by becomes a function of the loss — we may make big jumps in the beginning but then take smaller steps as we get closer to the target.
+隐藏层同时也意味着我们的损失函数在参数中不是一个凸函数，我们不能够通过一个平滑的山坡来到达底部。我们会用随机梯度下降（SGD）而不是梯度下降（GD），不像我们之前在逻辑回归中做的一样，这样基本上在每一次小批量（mini-batch）（比观察总数小很多）被在神经网络中传播后都会重编观察（随机）并更新梯度。[这里](http://sebastianruder.com/optimizing-gradient-descent)有很多 SGD 的替代方法，Sebastian Ruder 为我们做了很多工作。我认为这确实是个迷人的话题，不过却超出这篇博文所讨论的范围了，很遗憾。简要来讲，大多数优化方法是一阶的（包括 SGD，Adam，RMSprop和 Adagrad）因为计算二阶函数的计算难度过高。然而，一些一阶方法有一个固定的学习频率（SGD）而有一些拥有适应性学习频率（Adam），这意味着我们通过成为损失函数所更新权重的‘数量’-将会在开始有巨大的变化而随着我们接近目标而逐渐变小。
 
-It should be clear, however that minimising the loss on training data is not the main goal — in theory we want to minimise the loss on ‘unseen’/test data; hence all the opimisation methods proxy for that under the assumption that a low lost on training data will generalise to ‘new’ data from the same distribution. This means we may prefer a neural-network with a higher training-loss; because it has a lower validation-loss (on data it hasn’t been trained on) — we would typically say that the network has ‘overfit’ in this case. There have been some [recent papers](https://arxiv.org/abs/1705.08292) that claim that adaptive optimisation methods do not generalise as well as SGD because they find very sharp minima points.
+需要弄清楚的一点是，最小化训练数据上的损失并非我们的主要目标-理论上我们希望最小化‘不可见的’（测试）数据的损失；因此所有的优化方法都代表着已经一种假设之下，即训练数据的的低损失会以同样的（损失）分布推广至‘新’的数据。这意味着我们可能更青睐于一个有着更高的训练数据损失的神经网络；因为它在验证数据上的损失很低（即那些未曾被用于训练的数据）-我们则会说该神经网络在这种情况下‘过度拟合’了。这里有一些近期的[论文](https://arxiv.org/abs/1705.08292)声称，他们发现了很多很尖的最小值点，所以适应性优化方法并不像 SGD 一样能够很好的推广。（译者注：即算法在一些验证数据中表现地出奇的差）
 
-Previously we only had to back-propagate the gradient one layer, now we also have to back-propagate it through all the hidden-layers. Explaining the back-propagation algorithm is beyond the scope of this post, however it is crucial to understand. Many good [resources ](http://neuralnetworksanddeeplearning.com/chap2.html)exist online to help.
+之前我们需要将梯度反向传播一层，现在一样，我们也需要将其反向传播过所有的隐藏层。关于反向传播算法的解释，已经超出了本文的范围，然而理解这个算法却是十分必要的。这里有一些不错的[资源](http://neuralnetworksanddeeplearning.com/chap2.html)可能对各位有所帮助。
 
-We can now create a neural-network from scratch in R using four functions.
+我们现在可以在 Scratch 平台上用 R 通过四个函数建立一个神经网络了。
 
-1. We initialise our weights:
+1. 我们首先初始化权重：
+    
+	neuralnetwork <- function(sizes, training_data, epochs, mini_batch_size, lr, C, verbose=FALSE, validation_data=training_data)
 
-    neuralnetwork <- function(sizes, training_data, epochs, mini_batch_size, lr, C, verbose=FALSE, validation_data=training_data)
-
-Since we now have a complex combination of parameters we can’t just initialise them to be 1 or 0, like before — the network may get stuck. To help, we use the Gaussian distribution (however, just like with the optimisation, there are many other methods):
+由于我们将参数进行了复杂的结合，我们不能简单地像以前一样将它们初始化为 1 或 0，神经网络会因此而在计算过程中卡住。为了防止这种情况，我们采用高斯分布（不过就像那些优化方法一样，这也有许多其他的方法）：
 
     biases <- lapply(seq_along(listb), function(idx){
         r <- listb[[idx]]
@@ -221,115 +220,117 @@ Since we now have a complex combination of parameters we can’t just initialise
         matrix(rnorm(n=r*c), nrow=r, ncol=c)
         })
 
-2. We use stochastic gradient descent as our optimisation method:
+2. 我们使用随机梯度下降（SGD）作为我们的优化方法：
 
-    SGD <- function(training_data, epochs, mini_batch_size, lr, C, sizes, num_layers, biases, weights,
-                        verbose=FALSE, validation_data)
-        {
-          # Every epoch
-          for (j in 1:epochs){
-            # Stochastic mini-batch (shuffle data)
-            training_data <- sample(training_data)
-            # Partition set into mini-batches
-            mini_batches <- split(training_data,
-                                  ceiling(seq_along(training_data)/mini_batch_size))
-            # Feed forward (and back) all mini-batches
-            for (k in 1:length(mini_batches)) {
-              # Update biases and weights
-              res <- update_mini_batch(mini_batches[[k]], lr, C, sizes, num_layers, biases, weights)
-              biases <- res[[1]]
-              weights <- res[[-1]]
-            }
-          }
-          # Return trained biases and weights
-          list(biases, weights)
-        }
+    
+    	SGD <- function(training_data, epochs, mini_batch_size, lr, C, sizes, num_layers, biases, weights,verbose=FALSE, validation_data)
+    	{
+    	  # Every epoch
+    	  for (j in 1:epochs){
+    	# Stochastic mini-batch (shuffle data)
+    	training_data <- sample(training_data)
+    	# Partition set into mini-batches
+    	mini_batches <- split(training_data,
+    	  ceiling(seq_along(training_data)/mini_batch_size))
+    	# Feed forward (and back) all mini-batches
+    	for (k in 1:length(mini_batches)) {
+    	  # Update biases and weights
+    	  res <- update_mini_batch(mini_batches[[k]], lr, C, sizes, num_layers, biases, weights)
+    	  biases <- res[[1]]
+    	  weights <- res[[-1]]
+    	}
+    	  }
+    	  # Return trained biases and weights
+    	  list(biases, weights)
+    	}
+    
 
-3. As part of the SGD method, we update the weights after each mini-batch has been forward and backwards-propagated:
+3. 作为 SGD 方法的一部分，我们更新了
+	    
+	    update_mini_batch <- function(mini_batch, lr, C, sizes, num_layers, biases, weights)
+	    {
+	      nmb <- length(mini_batch)
+	      listw <- sizes[1:length(sizes)-1]
+	      listb <-  sizes[-1]
+	    
+	    # Initialise updates with zero vectors (for EACH mini-batch)
+	      nabla_b <- lapply(seq_along(listb), function(idx){
+	    r <- listb[[idx]]
+	    matrix(0, nrow=r, ncol=1)
+	      })
+	      nabla_w <- lapply(seq_along(listb), function(idx){
+	    c <- listw[[idx]]
+	    r <- listb[[idx]]
+	    matrix(0, nrow=r, ncol=c)
+	      })
+	    
+	    # Go through mini_batch
+	      for (i in 1:nmb){
+	    x <- mini_batch[[i]][[1]]
+	    y <- mini_batch[[i]][[-1]]
+	    # Back propagation will return delta
+	    # Backprop for each observation in mini-batch
+	    delta_nablas <- backprop(x, y, C, sizes, num_layers, biases, weights)
+	    delta_nabla_b <- delta_nablas[[1]]
+	    delta_nabla_w <- delta_nablas[[-1]]
+	    # Add on deltas to nabla
+	    nabla_b <- lapply(seq_along(biases),function(j)
+	      unlist(nabla_b[[j]])+unlist(delta_nabla_b[[j]]))
+	    nabla_w <- lapply(seq_along(weights),function(j)
+	      unlist(nabla_w[[j]])+unlist(delta_nabla_w[[j]]))
+	      }
+	      # After mini-batch has finished update biases and weights:
+	      # i.e. weights = weights - (learning-rate/numbr in batch)*nabla_weights
+	      # Opposite direction of gradient
+	      weights <- lapply(seq_along(weights), function(j)
+	    unlist(weights[[j]])-(lr/nmb)*unlist(nabla_w[[j]]))
+	      biases <- lapply(seq_along(biases), function(j)
+	    unlist(biases[[j]])-(lr/nmb)*unlist(nabla_b[[j]]))
+	      # Return
+	      list(biases, weights)
+	    }
 
-    update_mini_batch <- function(mini_batch, lr, C, sizes, num_layers, biases, weights)
-        {
-          nmb <- length(mini_batch)
-          listw <- sizes[1:length(sizes)-1]
-          listb <-  sizes[-1]
+4. 我们用来计算 delta 的算法是反向传播算法。
 
-    # Initialise updates with zero vectors (for EACH mini-batch)
-          nabla_b <- lapply(seq_along(listb), function(idx){
-            r <- listb[[idx]]
-            matrix(0, nrow=r, ncol=1)
-          })
-          nabla_w <- lapply(seq_along(listb), function(idx){
-            c <- listw[[idx]]
-            r <- listb[[idx]]
-            matrix(0, nrow=r, ncol=c)
-          })
-
-    # Go through mini_batch
-          for (i in 1:nmb){
-            x <- mini_batch[[i]][[1]]
-            y <- mini_batch[[i]][[-1]]
-            # Back propagation will return delta
-            # Backprop for each observation in mini-batch
-            delta_nablas <- backprop(x, y, C, sizes, num_layers, biases, weights)
-            delta_nabla_b <- delta_nablas[[1]]
-            delta_nabla_w <- delta_nablas[[-1]]
-            # Add on deltas to nabla
-            nabla_b <- lapply(seq_along(biases),function(j)
-              unlist(nabla_b[[j]])+unlist(delta_nabla_b[[j]]))
-            nabla_w <- lapply(seq_along(weights),function(j)
-              unlist(nabla_w[[j]])+unlist(delta_nabla_w[[j]]))
-          }
-          # After mini-batch has finished update biases and weights:
-          # i.e. weights = weights - (learning-rate/numbr in batch)*nabla_weights
-          # Opposite direction of gradient
-          weights <- lapply(seq_along(weights), function(j)
-            unlist(weights[[j]])-(lr/nmb)*unlist(nabla_w[[j]]))
-          biases <- lapply(seq_along(biases), function(j)
-            unlist(biases[[j]])-(lr/nmb)*unlist(nabla_b[[j]]))
-          # Return
-          list(biases, weights)
-        }
-
-4. The algorithm we use to calculate the deltas is the back-propagation algorithm.
-
-In this example we use the cross-entropy loss function, which produces the following gradient:
+在这个例子中我们使用交叉熵损失函数，产生了以下的梯度：
 
     cost_delta <- function(method, z, a, y) {if (method=='ce'){return (a-y)}}
 
-Also, to be consistent with our logistic regression example we use the sigmoid activation for the hidden layers and for the read-out layer:
+同时，为了与我们的逻辑回归例子保持连续，我们在隐藏层和读出层上使用 sigmoid 激活函数：
 
     # Calculate activation function
         sigmoid <- function(z){1.0/(1.0+exp(-z))}
         # Partial derivative of activation function
         sigmoid_prime <- function(z){sigmoid(z)*(1-sigmoid(z))}
 
-As mentioned previously; usually the softmax activation is used for the read-out layer. For the hidden layers, [ReLU ](https://en.wikipedia.org/wiki/Rectifier_%28neural_networks%29)is more common, which is just the max function (negative weights get flattened to 0). The activation function for the hidden layers can be imagined as a race to carry a baton/flame (gradient) without it dying. The sigmoid function flattens out at 0 and at 1, resulting in a flat gradient which is equivalent to the flame dying out (we have lost our signal). The ReLU function helps preserve this gradient.
+如之前所说，一般来讲 softmax 激活函数适用于读出层。对于隐藏层，[线性整流函数（ReLU）](https://en.wikipedia.org/wiki/Rectifier_%28neural_networks%29)更加地普遍，这里就是最大值函数（负数被看作为0）。隐藏层使用的激活函数可以被想象为一场扛着火焰同时保持它（梯度）不灭的比赛。sigmoid 函数在0和1处平坦化，成为一个平坦的梯度，相当于火焰的熄灭（我们失去了信号）。而线性整流函数（ReLU）帮助保存了这个梯度。
 
-The back-propagation function is defined as:
+反向传播函数被定义为：
 
     backprop <- function(x, y, C, sizes, num_layers, biases, weights)
 
-Check out the notebook for the full-code — however the principle remains the same: we have a forward-pass where we generate our prediction by propagating the weights through all the layers of the network. We then plug this into the cost gradient and update the weights through all of our layers.
+请在笔记中查看完整的代码-然而原则还是一样的：我们有一个正向传播，使得我们在网络中将权重传导过所有神经层，并产生预测值。然后将预测值代入损失梯度函数中并将所有神经层中的权重更新。
 
-This concludes the creation of a neural-network (with as many hidden layers as you desire). It can be a good exercise to replace the hidden-layer activation with ReLU and read-out to be softmax, and also add L1 and L2 regularisation. Running this on the [iris-dataset](http://scikit-learn.org/stable/auto_examples/datasets/plot_iris_dataset.html) in the notebook (which contains 4 explanatory variables with 3 possible outcomes), with just one hidden-layer containing 40 neurons we get an accuracy of 96% after 30 rounds/epochs of training.
+这总结了神经网络的建成（搭配上你所需要的尽可能多的隐藏层）。将隐藏层的激活函数换为 ReLU
+函数，读出层换为 softmax 函数，并且加上 L1 和 L2 的归一化，是一个不错的练习。把它在笔记中的 [iris 数据集](http://scikit-learn.org/stable/auto_examples/datasets/plot_iris_dataset.html)跑一遍，只用一个隐藏层，包含40个神经元，我们就可以在大概30多回合训练后得到一个96%精确度的神经网络。
 
-The notebook also runs a 100-neuron [handwriting-recognition](http://yann.lecun.com/exdb/mnist/) example to predict the digit corresponding to a 28x28 pixel image.
+笔记中还提供了一个100个神经元的[手写识别系统](http://yann.lecun.com/exdb/mnist/)的例子，来根据28*28像素的图像预测数字。
 
-### **Step 5 — Convolutional Neural Network (**[**See Notebook**](https://github.com/ilkarman/DemoNeuralNet/blob/master/04_Convolutions.ipynb)**)**
+### **五、卷积神经网络（**[**见笔记(https://github.com/ilkarman/DemoNeuralNet/blob/master/04_Convolutions.ipynb)**]**）**
 
 ![](https://cdn-images-1.medium.com/max/800/1*1-jeLcRrMSoUEL9YTMYpCw.jpeg)
 
-Here, we will briefly examine only the **forward-propagation** in a convolutional neural-network (CNN). CNNs were first made popular in 1998 by [LeCun’s seminal paper](http://yann.lecun.com/exdb/publis/pdf/lecun-98b.pdf). Since then, they have proven to be the best method we have for recognising patterns in images, sounds, videos, and even text!
+在这里，我们只会简单地测试卷积神经网络（CNN）中的**正向传播**。CNN 首次受到关注是因为1998年的[LeCun的精品论文](http://yann.lecun.com/exdb/publis/pdf/lecun-98b.pdf)。自此之后，CNN 被证实是在图像、声音、视频甚至文字中最好的算法。
 
-Image recognition was initially a manual process; researchers would have to specify which bits (features) of an image were useful to identify. For example, if we wanted to classify an image into ‘cat’ or ‘basketball’ we could have created code that extracts colours (basketballs are orange) and shapes (cats have triangular ears). Perhaps with a count of these features we could then run a linear regression to get the relationship between number of triangles and whether the image is a cat or a tree. This approach suffers from issues of image scale, angle, quality and light. [Scale Invariant Feature Transformation (SIFT)](https://en.wikipedia.org/wiki/Scale-invariant_feature_transform) largely improved upon this and was used to provide a ‘feature description’ of an object, which could then be fed into a linear regression (or any other relationship learner). However, this approach had set-in-stone rules that could not be optimally altered for a specific domain.
+图像识别开始时是一个手动的过程，研究者们需要明确图像的哪些比特（特征）对于识别有用。例如，如果我们希望将一张图片归类进‘猫’或‘篮球’，我们可以写一些代码提取出颜色（如篮球是棕色）和形状（猫有着三角形耳朵）。这样我们或许就可以在这些特征上跑一个线性回归，来得到三角形个数和图像是猫还是树的关系。这个方法很受图片的大小、角度、质量和光线的影响，有很多问题。[规模不变的特征变换(SIFT)](https://en.wikipedia.org/wiki/Scale-invariant_feature_transform) 在此基础上做了大幅提升并曾被用来对一个物体提供‘特征描述’，这样可以被用来训练线性回归（或其他的关系型学习器）。然而，这个方法有个一成不变的规则使其不能被为特定的领域而优化。
 
-CNNs look at images (extract features) in an interesting way. To start, they look only at very small parts of an image (at a time), perhaps through a restricted window of 5 by 5 pixels (a filter). 2D convolutions are used for images, and these slide the window across until the whole image has been covered. This stage would typically extract colours and edges. However, the next layer of the network would look at a combination of the previous filters and thus ‘zoom-out’. After a certain number of layers the network would be ‘zoomed-out’ enough to recognise shapes and larger structures.
+CNN 卷积神经网络用一种很有趣的方式看待图像（提取特征）。开始时，他们只观察图像的很小一部分（每次），比如说一个大小为 5*5 像素的框（一个过滤器）。2D 用于图像的卷积，是将这个框扫遍整个图像。这个阶段会专门用于提取颜色和线段。然而，下一个神经层会转而关注之前过滤器的结合，因而‘放大来观察’。在一定数量的层数之后，神经网络会放的足够大而能识别出形状和更大的结构。
 
-These filters end up as the ‘features’ that the network has learned to identify. It can then pretty much count the presence of each feature to identify a relationship with the image label (‘basketball’ or ‘cat’). This approach appears quite natural for images — since they can broken down into small parts that describe it (colours, textures, etc.). CNNs appear to thrive on the fractal-like nature of images. This also means they may not be a great fit for other forms of data such as an excel worksheet where there is no inherent structure: we can change the column order and the data remains the same — try swapping pixels in an image (the image changes)!
+这些过滤器最终会成为神经网络需要去学习、识别的‘特征’。接着，它就可以通过统计各个特征的数量来识别其与图像标签（如‘篮球’或‘猫’）的关系。这个方法看起来对图片来讲很自然-因为它们可以被拆成小块来描述（它们的颜色，纹理等）。CNN 看起来在图像分形特征分析方面会蓬勃发展。这也意味着它们不一定适合其他形式的数据，如 excel 工作单中就没有固有的样式：我们可以改变任意几列的顺序而数据还是一样的——不过在图像中交换像素点的位置就会导致图像的改变。
 
-In the previous example we looked at a standard neural-net classifying handwritten text. In that network each neuron from layer i, was connected to each neuron at layer j — our ‘window’ was the whole image. This means if we learn what the digit “2” looks like; we may not recognise it when it is written upside down by mistake, because we have only seen it upright. CNNs have the advantage of looking at small bits of the digit “2” and finding patterns between patterns between patterns. This means that a lot of the features it extracts may be immune to rotation, skew, etc. For more detail, Brandon explains [here ](https://www.youtube.com/watch?v=FmpDIaiMIeA)what a CNN actually is in detail.
+在之前的例子中我们观察的是一个标准的神经网络对手写字体的归类。在神经网络中的 i 层的每个神经元，与 j 层的每个神经元相连-我们所框中的是整个图像（译者注：与 CNN 之前的 5*5 像素的框不同）。这意味着如果我们学习了数字 2 的样子，我们可能无法在它被错误地颠倒的时候识别出来，因为我们只见过它正的样子。CNN 在观察数字 2 的小的比特时并且在比较样式的时候有很大的优势。这意味着很多被提取出的特征对各种旋转，歪斜等是免疫的（译者注：即适用于所有变形）。对于更多的细节，Brandon 在[这里](https://www.youtube.com/watch?v=FmpDIaiMIeA)解释了什么是真正的 CNN。
 
-We can define a 2D convolution function in R:
+我们在 R 中如此定义 2D 卷积函数：
 
     convolution <- function(input_img, filter, show=TRUE, out=FALSE)
     {
@@ -341,17 +342,17 @@ We can define a 2D convolution function in R:
       )
     }
 
-And use it to a apply a 3x3 filter to an image:
+并用它对一个图片应用了一个 3*3 的过滤器：
 
     conv_emboss <- matrix(c(2,0,0,0,-1,0,0,0,-1), nrow = 3)
     convolution(input_img = r_img, filter = conv_emboss)
 
-You can check the notebook to see the result, however this seems to extract the edges from a picture. Other, convolutions can ‘sharpen’ an image, like this 3x3 filter:
+你可以查看笔记来看结果，然而这看起来是从图片中提取线段。否则，卷积可以‘锐化’一张图片，就像一个3*3的过滤器：
 
     conv_sharpen <- matrix(c(0,-1,0,-1,5,-1,0,-1,0), nrow = 3)
     convolution(input_img = r_img, filter = conv_sharpen)
 
-Typically we would randomly initialise a number of filters (e.g. 64):
+很显然我们可以随机地随机地初始化一些个数的过滤器（如：64个）：
 
     filter_map <- lapply(X=c(1:64), FUN=function(x){
         # Random matrix of 0, 1, -1
@@ -359,7 +360,7 @@ Typically we would randomly initialise a number of filters (e.g. 64):
         convolution(input_img = r_img, filter = conv_rand, show=FALSE, out=TRUE)
     })
 
-We can visualise this map with the following function:
+我们可以用以下的函数可视化这个 map：
 
     square_stack_lst_of_matricies <- function(lst)
     {
@@ -376,9 +377,10 @@ We can visualise this map with the following function:
 
 ![](https://cdn-images-1.medium.com/max/800/1*s-TR-n5n2-4ZwwZ962X3LQ.png)
 
-Running this function we notice how computationally intensive the process is (compared to a standard fully-connected layer). If these feature maps are not useful ‘features’ (i.e. the loss is difficult to decrease when these are used) then back-propagation will mean we will get different weights which correspond to different feature-maps; which will become more useful to make the classification.
+在运行这个函数的时候我们意识到了整个过程是如何地高密度计算（与标准的全连接神经层相比）。如果这些 feature-map 不是那些那么有用的集合（也就是说，很难在此时降低损失）然后反向传播会意味着我们将会得到不同的权重，与不同的 feature-map 相关联，对于进行的聚类很有帮助。
 
-Typically we stack convolutions on top of other convolutions (and hence the need for a deep network) so that edges becomes shapes and shapes become noses and noses become faces. It can be interesting to examine some [feature maps](https://adeshpande3.github.io/assets/deconvnet.png) from trained networks to see what the network has actually learnt.
+
+很明显的我们将卷积建立在其他的卷积中（而且因此需要一个深度网络）所以线段构成了形状而形状构成了鼻子，鼻子构成了脸。测试一些训练的网络中的[feature map](https://adeshpande3.github.io/assets/deconvnet.png)来看看神经网络实际学到了什么也是一件有趣的事。
 
 ### References
 
