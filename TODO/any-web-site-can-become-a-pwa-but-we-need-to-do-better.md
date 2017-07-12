@@ -1,6 +1,6 @@
 
 > * 原文地址：[Any web site can become a PWA – but we need to do better](https://christianheilmann.com/2017/06/27/any-web-site-can-become-a-pwa-but-we-need-to-do-better/)
-> * 原文作者：[Christian Heilmann](https://christianheilmann.com/about-this/)
+> * 原文作者：本文已获原作者 [Christian Heilmann](https://christianheilmann.com/about-this/) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/any-web-site-can-become-a-pwa-but-we-need-to-do-better.md](https://github.com/xitu/gold-miner/blob/master/TODO/any-web-site-can-become-a-pwa-but-we-need-to-do-better.md)
 > * 译者：[wilsonandusa](https://github.com/wilsonandusa)
