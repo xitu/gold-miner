@@ -3,123 +3,123 @@
 > * 原文作者：[Taras Mankovski](https://medium.com/@tarasm)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/building-modern-web-applications-in-2017.md](https://github.com/xitu/gold-miner/blob/master/TODO/building-modern-web-applications-in-2017.md)
-> * 译者：
+> * 译者：[LeviDing](https://github.com/leviding)
 > * 校对者：
 
-# Choosing a frontend framework in 2017
+# 2017 如何在众多前端框架中进行选择
 
 ![](https://cdn-images-1.medium.com/max/800/1*T551HACMn9A95dnwpPK-eQ.png)
 
-Credit: [Ember.js: An Antidote To Your Hype Fatigue by Godfrey Chan](http://brewhouse.io/blog/2015/05/13/emberjs-an-antidote-to-your-hype-fatigue.html)
+Credit: [Ember.js: 解决你框架疲劳的良药](http://brewhouse.io/blog/2015/05/13/emberjs-an-antidote-to-your-hype-fatigue.html)
 
-There’s been a lot of development in the frontend frameworks ecosystem over the last seven years. We’ve learned a lot about what it takes to build and maintain large applications. We’ve seen many new ideas emerge. Some of these new ideas changed how we build web applications, and others we discarded because they did not work.
+过去七年来，前端框架生态系统发展很多。我们已经学了很多关于构建和维护大型应用程序的知识。我们看到了很多新想法的出现。其中一些新想法改变了我们构建 Web 应用程序的方式，其他的一些想法被丢弃了，因为它们起不到什么作用。
 
-In the process, we saw a lot of hype and conflicting opinions that made it difficult to choose a framework. This choice is especially difficult when you’re picking a framework for an organization that will be responsible for maintaining this application for a long time.
+在这个过程中，我们看到很多炒作和观点的冲突，使得很难选择一个框架。当您为长期维护一个应用程序的组织挑选框架时，更是难上加难。
 
-In this article, I would like to describe the evolution of our understanding of how to build modern web applications and suggest a way of thinking about which technology to choose.
+在本文中，我想描述我们对如何构建现代 Web 应用程序的理解的演变，并提出一种如何在多种技术中进行选择的方法。
 
-To start, I would like to walk down memory lane, back to the first library that made building web applications feel more like programming. Backbone.js was released in October of 2010 and reached 1.0 in March of 2013. It was one of the first widely used JavaScript libraries to introduce the separation between Model and View.
+在开始前，我想先回顾一下，回到第一个使构建网络应用程序更像编程的库。 Backbone.js于 2010 年 10 月发布，2013 年 3 月达到 1.0 版本。它是第一个广泛使用的用于解决 Model 和 View 之间关系问题的 JavaScript 库。
 
 ![](https://cdn-images-1.medium.com/max/800/1*vqOV_K_r66lUwdFeABCWEQ@2x.png)
 
-Relationship between Model and View in Angular — credit [http://backbonejs.org](http://backbonejs.org)
-Backbone’s Models represented data and business logic. They emitted change to Views. When a change event was triggered, the view was responsible for applying that change to the DOM. Backbone was template agnostic. It left it to the developer to manually update the DOM.
+Angular Model 和 View 之间的关系 — [http://backbonejs.org](http://backbonejs.org)
+Backbone.js 的 Models 表示数据间的逻辑。他们改变了视图层。当 `change` 事件被触发的时候，显示模型数据的视图负责将该更改应用于 DOM。骨干是模板不可知的。它将其留给开发人员手动更新 DOM。Backbone 是模板引擎不可知的。它将其留给开发人员来手动更新 DOM。
 
-Around the time that Backbone 1.0 landed, Angular.js was released and started to grow in popularity. Instead of focusing on the Model like Backbone, it focused on making the view better.
+在 Backbone 1.0 诞生的时候，Angular.js 被发布并开始普及。它不像 Backbone 那样侧重于模型，而是侧重于使视图做的更好。
 
-Angular.js introduced the idea of compiling templates to make HTML dynamic. It allowed injecting behavior into HTML elements using Directives. You could bind a model to a view and the view would automatically update when the model changed.
+Angular.js 介绍了编译模板以使 HTML 动态化的想法。它允许使用指令将行为插入到 HTML 元素中。您可以将模型与视图进行绑定，并且当，模板改变的时候，视图会自动更新。
 
-The popularity of Angular.js grew because it was easy to add Angular.js to any project and easy to get started with. Many developers were attracted to Angular.js because it was built by Google which gave Angular.js automatic credibility.
+Angular.js 的流行度迅速增长，因为你很容易将 Angular.js 添加到任何项目中，并且上手简单。许多开发人员被 Angular.js 所吸引，因为它是由 Google 开发的，这赋予 Angular.js 很强的可信度。
 
-At about the same time, Web Components specification promised to make it possible for developers to create reusable widgets that were isolated from their context and were easy to compose with other widgets.
+大约在同一时间，Web Components 规范承诺使开发人员可以创建与其上下文分离的，并且易于与其他组件进行组合的可重用组件。
 
-The [Web Components specification](https://www.w3.org/standards/history/components-intro) was four separate specifications that worked together.
+[Web Components 规范](https://www.w3.org/standards/history/components-intro)是由四个独立的规范组合而成的。
 
-- HTML Template — provides HTML markup for the component
-- Custom Element — provides a mechanism to create a custom HTML element
-- Shadow DOM — isolates the internals of the component from the context that rendered it
-- HTML Import — makes it possible to load the Web Component into a page
+- HTML 模板 — 为组件提供 HTML 标记
+- 自定义元素 — 提供了一种创建自定义 HTML 元素的机制
+- Shadow DOM — 将组件的内部与渲染它的上下文隔进行离
+- HTML 导入 — 使将 Web 组件加载到页面中成为可能
 
-A team at Google created a polyfill library that provided Web Components for all browsers at the time. This library was called Polymer and was open-sourced in November of 2013.
+Google 的一个团队创建了一个 polyfill 库，为当时所有浏览器提供 Web 组件。这个库被称为 Polymer，并开放于 2013 年 11 月。
 
-Polymer was the first library to make it possible to build an interactive application by composing components. Early adopters benefited from composability but found performance issues that needed to be addressed by the framework.
+Polymer 是第一个通过组合组件构建交互式应用程序的库。早期使用者受益于可组合性，但发现性能问题还是需要用框架来解决。
 
-Simultaneously, a small group of developers were inspired by the ideology of Ruby on Rails and wanted to create a convention-based, community-driven, open-source framework for building large web applications.
+同时，一小群开发人员受到 Ruby on Rails 的意识形态的启发，希望创建一个基于论坛形式的社区驱动的开源框架来构建大型 Web 应用程序。
 
-They started with a fork of SproutCore 2.0, which was an MVC-based framework with clear separation between Model, Controllers, and the View. This new framework was called Ember.js.
+他们开始基于 SproutCore 2.0 进行开发。SproutCore 2.0 是一个基于 MVC 的框架，在模型，控制器和视图之间有明显的分隔。这个新框架叫做 Ember.js。
 
-The first challenge of creating a convention-based framework was finding the patterns that were common to large web applications. The Ember.js team looked at large Backbone applications to find similarities.
+创建基于论坛形式的框架的第一个挑战是找到大型 Web 应用程序的通用模式。 Ember.js 团队查看了大型 Backbone 应用程序，以找到通用之处。
 
-They identified the need to render nested views where some parts of the application where consistent while other parts changed from one part of the app to another.
+他们发现应用程序的某些部分是一致的，而其他部分会有些改动。在这种地方就需要嵌套视图。
 
-They also saw the URL as a key player in the architecture of web applications. They married the idea of nested views and the significance of the URL to create a routing system that served as the entry point into an application and controlled the initial view rendering.
+他们还将 URL 视为 Web 应用程序架构中的关键角色。他们结合了嵌套视图的想法和 URL 的重要性，创建一个路由系统，作为入口点进入应用程序并控制初始视图呈现。
 
 ![](https://cdn-images-1.medium.com/max/800/1*rx9bWvoWTaEJSY8qAuuh4A.png)
 
-Elements of Ember.js — source [Ember JS — An In-Depth Introduction](https://www.smashingmagazine.com/2013/11/an-in-depth-introduction-to-ember-js/)
+Ember.js 的元素 — 原文 [Ember JS 深入介绍](https://www.smashingmagazine.com/2013/11/an-in-depth-introduction-to-ember-js/)
 
-The Ember community, under the leadership of the Ember.js core team, released Ember.js 1.0 in August of 2013. It featured an MVC architecture, robust routing system, and components with compilable templates. Like Angular.js and Polymer, Ember.js relied heavily on two-way bindings to keep the view in sync with the state.
+Ember 社区在 Ember.js 核心团队的领导下，于 2013 年 8 月发布了 Ember.js 1.0。它具有 MVC 架构，强大的路由系统和可编译模板的组件。像 Angular.js 和 Polymer 一样，Ember.js 主要依靠双向绑定来保持视图与状态同步。
 
-Around the middle of 2014, a new library began to captivate developer’s attention. Facebook created a framework for their platform and released it under the name React.
+在 2014 年的年中，一个新的库开始引起开发者的注意。Facebook 为他们的平台创建了一个框架，并以 “React” 的命名发布。
 
-At the time when all other frameworks relied on object mutation and property bindings, React introduced the idea of treating components like pure functions and component parameters as function arguments.
+在其他的框架都依赖于对象突变和属性绑定的时候，React 引入了将诸如纯函数和组件参数之类的组件作为函数参数来处理的想法。
 
 ![](https://cdn-images-1.medium.com/max/800/1*sUeInQGMBhFVqW-rHj1JZg.png)
 
-Component is a function that returns DOM — source [https://facebook.github.io/react/docs/components-and-props.html#functional-and-class-components](https://facebook.github.io/react/docs/components-and-props.html#functional-and-class-components)
+组件是返回 DOM 的函数 — 原文 [https://facebook.github.io/react/docs/components-and-props.html#functional-and-class-components](https://facebook.github.io/react/docs/components-and-props.html#functional-and-class-components)
 
-When the value of a parameter changed, the component’s render function was invoked and returned a new component tree. React compared the returned component tree against a virtual DOM tree to determine how to update the real DOM. This technique of re-rendering everything and comparing the result to a Virtual DOM proved to be very performant.
+当一个参数的值改变时，组件的 `render` 函数被调用并返回一个新的组件树。 React 将返回的组件树与虚拟 DOM 树进行比较，以确定如何更新真实的DOM。这种重新渲染所有内容并将结果与虚拟 DOM 进行比较的技术经实践证明是非常有效的。
 
 ![](https://cdn-images-1.medium.com/max/800/1*cV-klTo3DKl0Uo2Znk3V6g.png)
 
-Source: [React.js Reconciliation](https://www.infoq.com/presentations/react-reconciliation)
+原文: [React.js 一致性比较](https://www.infoq.com/presentations/react-reconciliation)
 
-Angular.js developers were encountering performance problems caused by Angular.js’ change detection mechanism. The Ember community was learning first hand the challenges of maintaining large applications that relied on two-way bindings and observers.
+Angular.js 开发人员面临着 Angular.js 变更检测机制引发的性能问题。Ember 社区正在学习如何解决维护依赖于双向绑定和观察者模式的大型应用程序的挑战。
 
-React did what Polymer failed to accomplish at that time. React showed how component architecture could be made performant. React was killing Ember and Angular.js in benchmarks. Some brave Backbone developers were adding React as views to their applications to fix performance problems that they were encountering.
+React 主攻的是 Polymer 所未能解决的问题。React 显示了如何提高组件架构的性能。 React 在基准中打败了 Ember 和 Angular.js。一些较有尝试新技术精神的 Backbone 开发人员将 React 作为视图添加到其应用程序中，以解决他们遇到的性能问题。
 
-In response to the threat posed by React, the Ember core team created a plan to adopt ideas introduced by React into the Ember framework. They recognized the need for backward compatibility and created an upgrade path that allowed existing applications to upgrade to a version of Ember that included a new React-inspired rendering engine.
+为了应对 React 的威胁，Ember 核心团队制定了一项计划，将 React 提出的想法纳入 Ember 框架。他们认识到需要提升向后兼容性，并创建了一个版本升级的途径，允许现有应用程序升级到包含新 的React-inspired 渲染引擎的 Ember 版本。
 
-Over the course of 4 minor releases Ember.js deprecated Views, moved the community to a CLI-based build process and made component-based architecture the foundation of Ember application development. This process of gradually making significant architectural changes to the framework was named “Stability without Stagnation” and became a fundamental tenet of the Ember community.
+在 4 个次要版本的更新过程中，Ember.js 已弃用 Views，将社区迁移到基于 CLI 的构建过程，并将基于组件的架构作为 Ember 应用程序开发的基础。逐渐对框架进行重要的重构的过程被称为“稳定无停滞”，成为 Ember 社区的基本宗旨。
 
-While Ember was learning from React, the React community was adopting routing that was popularized by Ember. Large React applications are written today using [React Router](https://github.com/ReactTraining/react-router) which evolved from a fork of [router.js](https://github.com/tildeio/router.js/) which powers Ember’s routing.
+当 Ember 正在像 React 学习时，React 社区正在采用由 Ember 推广的路由。 大型 React 应用程序是使用 [React Router](https://github.com/ReactTraining/react-router) 编写的，该路由器是从用于 Ember 路由的 [router.js](https://github.com/tildeio/router.js/) 分支发展而来的。
 
-One of Ember’s biggest contributions to how we build modern web applications was their leadership and popularization of using a command line tool as a default interface for building and deploying a web application. This tool is called EmberCLI. It inspired React’s [create-react-app](https://github.com/facebookincubator/create-react-app) and [AngularCLI](https://github.com/angular/angular-cli). Every web framework today provides a command line tool to ease development of web applications.
+Ember 对我们构建现代 Web 应用程序最大的贡献是他们在使用命令行工具作为构建和部署 Web 应用程序的默认界面上的领导力和普及。此工具称为 EmberCLI。它启发了 React 的[创建 React 应用程序](https://github.com/facebookincubator/create-react-app)和 [AngularCLI](https://github.com/angular/angular-cli)。现在的每个 Web 框架都提供了一个命令行工具来简化 Web 应用程序的开发。
 
-Around the middle of 2015, the Angular.js core team was coming to the conclusion that their framework was reaching an evolutionary dead-end. Google needed a tool that their developers could use to build robust applications, and Angular.js could not become this tool. They started working on a new framework that would be a spiritual successor to Angular.js. Unlike Angular.js, which became popular with very little support from Google, the new framework is fully backed by Google. Google dedicated over 30+ developers to work on the successor they are calling Angular.
+在 2015 年上半年，Angular.js 的核心团队得出结论，他们的框架正在进入一个进化的死胡同。Google 需要一个开发人员可以用来构建强大的应用程序的工具，而 Angular.js 不能成为这个工具。他们开始研究一个新的框架，这将是 Angular.js 的精神继承者。 与 Angular.js 不同，Angular.js 在谷歌不是很支持的情况下流行了起来，而这个新框架完全由 Google 支持。Google 分出了超过 30 多位开发人员，来开发这个被称为 Angular.js 精神继承者的框架。
 
-The scope of the new framework is much broader than Angular.js. The Angular team calls the new framework a platform because they plan to provide everything that a professional developer needs to build web applications. Like Ember and React, Angular uses component-based architecture, but it’s the first framework to make TypeScript their default programming language.
+新框架的范围远远大于 Angular.js。Angular 团队将新框架称为平台，因为他们计划提供专业开发人员构建 Web 应用程序所需的一切。像 Ember 和 React 一样，Angular 使用基于组件的架构，但它是使 TypeScript 成为其默认编程语言的第一个框架。
 
 ![](https://cdn-images-1.medium.com/max/800/1*c4T4WMmvhkQ4yc24dfzgMA.png)
 
-Angular Component with TypeScript — [https://github.com/johnpapa/angular-tour-of-heroes/blob/master/src/app/heroes.component.ts](https://github.com/johnpapa/angular-tour-of-heroes/blob/master/src/app/heroes.component.ts)
-TypeScript offers classes, modules, and interfaces. It supports optional static type checking and is a perfect language for developers who are coming from Java and C#. TypeScript with Visual Studio Code provides excellent Intellisense support.
+具有 TypeScript 的 Angular 组件 — [https://github.com/johnpapa/angular-tour-of-heroes/blob/master/src/app/heroes.component.ts](https://github.com/johnpapa/angular-tour-of-heroes/blob/master/src/app/heroes.component.ts)
+TypeScript 提供类，模块和接口。它支持可选的静态类型检查，它对 Java 和 C＃ 的开发人员来说是一个非常棒的语言。具有 Visual Studio 对代 TypeScript 代码提供了很棒的智能支持功能。
 
 ![](https://cdn-images-1.medium.com/max/800/1*m6CUCh3LRpJNHV2axqtkAQ.png)
 
-Intellisense in Angular Apps — Source [http://rafaelaudy.github.io/simple-angular-2-app/](http://rafaelaudy.github.io/simple-angular-2-app/)
+对 Angular Apps 的智能支持 — 原文 [http://rafaelaudy.github.io/simple-angular-2-app/](http://rafaelaudy.github.io/simple-angular-2-app/)
 
-Angular is highly structured and conventions-based, while still exposing mechanisms for configuration. It has a powerful router. The Angular team is working hard to make their new framework everything that Google developers would expect from a professional development environment. This focus on completeness will benefit the entire Angular community.
+Angular 是高度结构化和以公共标准为基础的，然而仍然存在配置机制的问题。它有一个强大的路由器。Angular 团队正在努力为 Google 开发人员从专业开发环境的角度提供一个全新的框架。对完整性的关注对整个 Angular 社区都非常有好处。
 
-In May of 2017, Polymer 2.0 landed with improvements to their bindings system, reduced dependency on heavy polyfills and alignment with the latest JavaScript standards. The new version introduced a few breaking changes with a detailed plan for users to upgrade to the new version. The new Polymer comes with a command line tool to help build and deploy Polymer projects.
+在 2017 年 5 月，Polymer 2.0 降低了其对绑定系统的改进，减少了对 `heavy polyfills` 的依赖，并与最新的 JavaScript 标准保持一致。新版本引入了一些突破性变化，并为用户升级到新版本提供了详细的计划。新的 Polymer 配备了一个命令行工具来帮助构建和部署 Polymer 项目。
 
-As of June 2017, all top frameworks aligned on component architecture as the development paradigm. Every framework provides routing as a means of breaking up an application into logical chunks. State management techniques like Redux are available for all frameworks. React, Ember and Angular all allow server-side rendering for SEO and fast initial boot.
+截至 2017 年 6 月，所有顶级框架都将组件架构作为开发范例。每个框架都提供路由作为将应用程序分解为逻辑块的一种手段。所有框架都可以使用像 Redux 这样的状态管理技术。React，Ember 和 Angular 都允许服务器端渲染 SEO 和快速初始启动。
 
-So how do you know what tool to use to build a modern web application? I would recommend that you look at the demographics of your organization to figure out which framework will suit best.
+那么你怎么知道用什么工具来构建一个现代的 Web 应用程序呢？我建议你看看各个组织的人口统计数据，以确定哪个框架最适合。
 
-React is a library that’s designed to be one piece of the puzzle. React provides a thin view layer and leaves it to the developer to choose the remaining pieces of the architecture. Nothing comes in the box, so your team has full control over everything that you use. Choose-your-adventure works well if you have a team of experienced JavaScript developers who are comfortable with functional programming and immutable data structures. The React community is on the cutting edge of innovation in the use of web technologies. If your organization needs to target many platforms with the same codebase, knowing React will allow you to write for the web, for native with React Native, and for VR devices with ReactVR.
+React 是一个设计为拼图式的库。React 提供一个薄视图层，并将其留给开发人员选择其余的架构。盒子里没有任何东西，所以你的团队可以完全控制你使用的一切。如果你有一个经验丰富的 JavaScript 开发人员团队，他们对于功能编程和不可变数据结构都很满意，那么 React 是一个不错的选择 React 社区在使用 Web 技术方面处于创新的前沿。如果你的组织需要使用相同的代码库来跨平台，那么你应该知道 React 允许你使用 React Native 编写本地的 Web，使用 ReactVR 编写 VR 设备。
 
-Angular is a platform that’s very well suited to enterprise developers who are coming from Java or C# background. TypeScript and Intellisense support will make these developers feel right at home. Even though Angular is new, it already has many 3rd party component libraries that companies can purchase and start using right away. The Angular team promised to quickly iterate on the framework to make it better without again breaking backward compatibility. Angular can be used to build performant native applications using NativeScript.
+Angular 是一个非常适合有 Java 或 C＃ 背景的企业开发人员的平台。TypeScript 和 Intellisense 的支持将使这些开发人员感觉到非常熟悉。虽然 Angular 是新的，但它已经有很多第三方组件库了，公司可以立即购买并立即开始使用。Angular 团队承诺要快速迭代框架，使之更好，而不会再次破坏向后兼容性。Angular 可用于使用 NativeScript 构建高级本机应用程序。
 
-Ember.js is a framework that optimizes the productivity of small teams and highly skilled individual developers. The focus on conventions over configuration provides an excellent starting point for new developers and organizations that maintain large projects over a long time. Commitment to “Stability without Stagnation” has proven to be an effective way to maintain large applications without requiring a rewrite when best practices change. Stability, maturity, and dedication to the creation of shared primitives produced an ecosystem where most development is surprisingly easy. If you’re looking for a reliable framework for a long-term project, Ember is an excellent choice.
+Ember.js 是一个优化小团队和技能水平较高的独立开发者的生产力框架。其对配置上的约定，为新开发人员和组织长期维护大型项目提供了极好的起点。承诺的“稳定无停滞”已被证明是维护大型应用程序的有效方法，而不需要在最佳实践改变时进行重写。稳定性，成熟度和致力于创造共享代码，促生了一个生态系统，这个生态系统使得大多数开发的简易程度让人惊讶。如果您正在寻找一个长期项目的可靠框架，Ember 是一个很好的选择。
 
-Polymer is a framework that is particularly well positioned for large organizations that wish to create a single style guide and a collection of components to be used across the entire organization. The framework provides comparable development tooling. If you’re looking to sprinkle your applications with modern features without writing a lot of JavaScript, then Polymer is the right tool for your organization.
+Polymer 是一个框架，对于希望创建单一样式指南和要在整个组织中使用的组件集合的大型组织而言特别适合。该框架提供可比较的开发工具。如果你想将一些现代化的功能应用在你的程序上，而不需要编写大量 JavaScript，那么 Polymer 是你们很不错的选择。
 
-We are learning about what it takes to build applications for the browser and converging on good ideas. The makers of all frameworks care deeply about the people who use their libraries. The question is which community and ecosystem are the best matches for your organization and your use case.
+我们正在了解如何为浏览器构建应用程序，并汇集好的想法。 所有框架的制作者都非常关心使用他们的库的人。 问题是哪个社区和生态系统是你的组织和用例的最佳选择。
 
-I hope this article helped to shed light on the developments in the modern web ecosystem and will help you build your next modern web application.
+我希望这篇文章有助于揭示现代网络生态系统的发展，并帮助您构建下一代现代 Web 应用程序。
 
-Please let me know what you think in the comments.
+在评论区留下你的看法吧。
 
 
 ---
