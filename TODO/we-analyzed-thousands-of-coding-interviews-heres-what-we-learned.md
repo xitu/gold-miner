@@ -110,15 +110,15 @@ There are a few issues with this typical approach to interview preparation:
 
 例如，Python 之类非常易读的语言，可能导致面试者能够更好地交流。另外，C++ 之类底层的语言可能使面试者在技术能力上的评分更高。
 
-另外，易读或底层的语言可能在这两种分数上相关Furthermore, very readable or low-level languages might lead to correlations between these two scores (for instance, maybe they’re a C++ interview candidate who can’t explain at all what he or she is doing but who writes very efficient code). The chart below suggests that there isn’t really any observable difference between how candidates’ technical and communication abilities are perceived, across a variety of programming languages.
+Furthermore, very readable or low-level languages might lead to correlations between these two scores (for instance, maybe they’re a C++ interview candidate who can’t explain at all what he or she is doing but who writes very efficient code). The chart below suggests that there isn’t really any observable difference between how candidates’ technical and communication abilities are perceived, across a variety of programming languages.
 
 ![](https://cdn-images-1.medium.com/max/1600/1*Cin1yM1gw62D2Gl1fhdG-w.png)
 
-**Furthermore, no matter what, poor technical ability seems highly correlated with poor communication ability — regardless of language, it’s relatively rare for candidates to perform well technically but not effectively communicate what they’re doing (or vice versa)**, largely (and fortunately) debunking the myth of the incoherent, fast-talking, awkward engineer.
+**另外，无论如何，技术能力似乎和沟通能力紧密相关——不管什么语言，技术表现很好的面试者沟通能力不好，是很罕见的，反之亦反。**, 这很大程度上拆穿了工程师往往笨拙、语无伦次的谣言。
 
-(The best engineers I’ve met have also been legendarily good at breaking down complex concepts and explaining them to laypeople. Why the infuriating myth of the socially awkward, incoherent tech nerd continues to exist, I have absolutely no idea.)
+（我见过的最好的工程师都很擅长分解复杂的概念，并把它们向外行解释。为什么总有人认为优秀的程序员不擅社交？我完全想不通。）
 
-#### Interview duration
+#### 面试时长
 
 > *“It’s fine when you careen off disasters and terrifyingly bad reviews and rejection and all that stuff when you’re young; your resilience is just terrific.” — *Harold Prince
 
