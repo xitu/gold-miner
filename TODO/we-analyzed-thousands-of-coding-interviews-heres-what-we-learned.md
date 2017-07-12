@@ -82,23 +82,23 @@ There are a few issues with this typical approach to interview preparation:
 
 ![](https://cdn-images-1.medium.com/max/2000/1*S1-Aj4ZEKgyuihnFftCD6w.png)
 
-我们观察到的定性的结果是一种很常见的错误：That said, one of the most common mistakes we’ve observed qualitatively is people choosing languages they’re not comfortable in and then messing up basic stuff like array length lookup, iterating over an array, instantiating a hash table, and so on.
+我们观察到的最常见的错误之一是：人们选择自己并不熟悉的语言，然后弄错了查看数组长度、遍历数组、创建哈希表之类的基本操作。但这只是我们定性的结论，没有统计数据支持。
 
-This is especially mortifying when interviewees purposely pick a fancy-sounding language to impress their interviewer. Trust us, wielding your language of choice comfortably beats out showing off in a fancy-sounding language you don’t know well, every time.
+当面试者故意选择一种时髦的语言，以试图打动面试官的时候，这种错误对他非常不利。相信我们，选择自己熟悉的语言，比时髦但不熟悉的语言更好。每一次都是这样。
 
-#### Even if language doesn’t matter… is it advantageous to code in the company’s language of choice?
+#### 哪怕语言并不重要……使用该公司选用的语言是否有优势？
 
-> *“God help me, I’ve gone native.”* — Margaret Blaine
+> *“救命，我已经变成本地人了。”* — Margaret Blaine
 
-It’s all well and good that, in general, interview language doesn’t seem particularly correlated with performance. However, you might imagine that there could be an effect depending on the language that a given company uses. You could imagine a Ruby shop saying “we only hire Ruby developers, if you interview in Python we’re less likely to hire you.”
+总的来说，语言和面试表现并没有特别紧密的关系。这很好。但是对方公司使用的语言可能会影响面试结果。一个使用 Ruby 的公司可能会说：“我们只雇佣 Ruby 程序员，如果你使用 Python 我们就不太可能雇你。”
 
-On the flip side, you could imagine that a company that writes all of their code in Python is going to be much more critical of an interviewee in Python — they know the ins and outs of the language, and might judge the candidate for doing all sorts of “non-pythonic” things during their interview.
+而在另一方面，一个完全使用 Python 的公司会对使用 Python 的面试者更苛刻——他们完全了解这种语言，可能会因为面试者对 Python 的使用不完全地道而对他有意见。
 
-The chart below is similar to the chart which showed differences in interview success rate (as measured by interviewers being willing to hire the interviewee) for C++, Java, and Python. However, this chart also breaks out performance by whether or not the interview language is in the company’s stack.
+下面的表和使用不同语言的面试成功率（也是用面试官愿意雇用面试者的概率来表示）的表很相似。但是，这个表是用面试语言是否在公司的技术栈内来分类的。
 
-We restrict this analysis to C++, Java and Python because these are the three languages where we had a good mixture of interviews where the company did and did not use that language.** The results here are mixed. When the interview language is Python or C++, there’s no statistically significant difference between the success rates for interviews where the interview language is or is not a language in the company’s stack. However, interviewers who interviewed in Java were more likely to succeed when interviewing with a Java shop **(p=0.037).
+我们把这个分析限制在 C++, Java 和 Python ，因为这三种语言都有很多公司用和不用它们。** 结果并不一致。对于 Python 和 C++而言，面试者使用的语言是否在公司的技术栈内，并不会对成功率产生显著的影响。但是，使用 Java 的面试者在使用 Java 的公司面试时，更有可能成功**(p=0.037)。
 
-So, why is it that coding in the company’s language seems to be helpful when it’s Java, but not when it’s Python or C++? One possible explanation is that the communities that exist around certain programming languages (such as Java) place a higher premium on previous experience with the language. Along these lines, it’s also possible that interviewers from companies that use Java are more likely to ask questions that favor those with a pre-existing knowledge of Java’s idiosyncrasies.
+那么，为什么公司使用的语言是 Java 时，So, why is it that coding in the company’s language seems to be helpful when it’s Java, but not when it’s Python or C++? One possible explanation is that the communities that exist around certain programming languages (such as Java) place a higher premium on previous experience with the language. Along these lines, it’s also possible that interviewers from companies that use Java are more likely to ask questions that favor those with a pre-existing knowledge of Java’s idiosyncrasies.
 
 ![](https://cdn-images-1.medium.com/max/2000/1*scSrZGC6Zy9a_ij1S0kZsg.png)
 
