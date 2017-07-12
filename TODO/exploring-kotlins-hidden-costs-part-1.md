@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译文地址：[github.com/xitu/gold-miner/blob/master/TODO/exploring-kotlins-hidden-costs-part-1.md](https://github.com/xitu/gold-miner/blob/master/TODO/exploring-kotlins-hidden-costs-part-1.md)
 > * 译者：[Feximin](https://github.com/Feximin)
-> * 校对者：
+> * 校对者：[CACppuccino](https://github.com/CACppuccino) 、[phxnirvana](https://github.com/phxnirvana)
 
 # 探索 Kotlin 中的隐性成本（第一部分）
 
@@ -28,19 +28,19 @@
 
 #### Kotlin 字节码检测器
 
-这是一个可选择的工具，他能推断出 Kotlin 代码是怎样被转换成字节码的。在 Android Studio 中安装了 Kotlin 插件后，选择“显示 Kotlin 字节码”选项来打开一个显示当前类的字节码的面板。然后你可以点击“反编译”按钮来阅读同等的 Java 代码。
+这是一个可选择的工具，他能推断出 Kotlin 代码是怎样被转换成字节码的。在 Android Studio 中安装了 Kotlin 插件后，选择 “Show Kotlin Bytecode” 选项来打开一个显示当前类的字节码的面板。然后你可以点击 “Decompile” 按钮来阅读同等的 Java 代码。
 
 ![](https://cdn-images-1.medium.com/max/800/1*RUsF1M4oD2G4OwGE89-yOw.png)
 
 特别是，我将提到的 Kotlin 特性有：
 
-- 基本类型装包，分配短期对象
+- 基本类型装箱，分配短期对象
 - 实例化额外的对象在代码中不是直接可见的
-- 生成额外的方法。正如你可能已知，在 Android 应用中[一个 dex 文件中允许的方法数量是有限的](https://developer.android.com/studio/build/multidex.html)，超限了就需要配置 multidex，然而这有局限性且有损性能，尤其是在 Lollipop 之前的 Adnroid 版本中。
+- 生成额外的方法。正如你可能已知的，在 Android 应用中[一个 dex 文件中允许的方法数量是有限的](https://developer.android.com/studio/build/multidex.html)，超限了就需要配置 multidex，然而这有局限性且有损性能，尤其是在 Lollipop 之前的 Android 版本中。
 
 #### 注意基准
 
-我故意选择**不**公布任何微基准，因为他们中的大多数毫无意义，或者有缺陷，或者两者兼有，并且不能够应用于所有的代码变化和运行时环境。当相关的代码运行在循环或者嵌套循环中的时候负面的性能影响通常会被放大。
+我故意选择**不**公布任何微基准，因为他们中的大多数毫无意义，或者有缺陷，或者两者兼有，并且不能够应用于所有的代码变化和运行时环境。当相关的代码运行在循环或者嵌套循环中时负面的性能影响通常会被放大。
 
 此外，执行时间并不是唯一衡量标准，增长的内存使用也必须考虑，因为所有分配的内存最终都必须回收，垃圾回收的成本取决于很多因素，比如说可用内存和平台上使用的垃圾回收算法。
 
@@ -50,7 +50,7 @@
 
 ### 高阶函数和 Lambda 表达式
 
-Kotlin 支持将函数赋值给变量并将他们做为参数传给其他函数。接收其他函数做为参数的函数被称为*高阶函数*。Kotlin 函数可以通过在他的名字前面加 `::` 前缀来引用，或者在代码中中直接声明为一个匿名函数，或者使用最简洁的 [lambda 表达式语法](https://kotlinlang.org/docs/reference/lambdas.html#lambda-expression-syntax) 来描述一个函数。
+Kotlin 支持将函数赋值给变量并将他们做为参数传给其他函数。接收其他函数做为参数的函数被称为**高阶函数**。Kotlin 函数可以通过在他的名字前面加 `::` 前缀来引用，或者在代码中中直接声明为一个匿名函数，或者使用最简洁的 [lambda 表达式语法](https://kotlinlang.org/docs/reference/lambdas.html#lambda-expression-syntax) 来描述一个函数。
 
 Kotlin 是为 Java 6/7 JVM 和 Android 提供 lambda 支持的最好方法之一。
 
@@ -98,12 +98,12 @@ class MyClass$myMethod$1 implements Function1 {
 }
 ```
 
-在你的 Android dex 文件中，每一个 lambda 表达式都被编译成一个 `Function`，这将在方法总数上[增加3个或4个](https://gist.github.com/JakeWharton/ea4982e491262639884e)。
+在你的 Android dex 文件中，每一个 lambda 表达式都被编译成一个 `Function`，这将最终[增加3到4个方法](https://gist.github.com/JakeWharton/ea4982e491262639884e)。
 
 好消息是，这些 `Function` 对象的新实例只在必要的时候才创建。在实践中，这意味着：
 
-- 对*捕获表达式*来说，每当一个 lambda 做为参数传递的时候都会生成一个新的 `Function` 实例，执行完后就会进行垃圾回收。
-- 对*非捕获表达式*（纯函数）来说，会创建一个单例的 `Function` 实例并且在下次调用的时候重用。 
+- 对**捕获表达式**来说，每当一个 lambda 做为参数传递的时候都会生成一个新的 `Function` 实例，执行完后就会进行垃圾回收。
+- 对**非捕获表达式**（纯函数）来说，会创建一个单例的 `Function` 实例并且在下次调用的时候重用。 
 
 由于我们示例中的调用代码使用了一个非捕获的 lambda，因此它被编译为一个单例而不是内部类：
 
@@ -113,9 +113,9 @@ this.transaction(db, (Function1)MyClass$myMethod$1.INSTANCE);
 
 > 避免反复调用那些正在调用**捕获 lambdas**的标准的（非内联）高阶函数以减少垃圾回收器的压力。
 
-#### 装包的开销
+#### 装箱的开销
 
-与 Java8 大约有[43个不同的专业方法接口](https://docs.oracle.com/javase/8/docs/api/java/util/function/package-summary.html)来尽可能地避免装包和拆包相反，Kotnlin 编译出来的 `Function` 对象只实现了完全通用的接口，有效地使用任何输入输出值的 `Object` 类型。
+与 Java8 大约有[43个不同的专业方法接口](https://docs.oracle.com/javase/8/docs/api/java/util/function/package-summary.html)来尽可能地避免装箱和拆箱相反，Kotnlin 编译出来的 `Function` 对象只实现了完全通用的接口，有效地使用任何输入输出值的 `Object` 类型。
 
 ```
 /** A function that takes 1 argument. */
@@ -125,18 +125,18 @@ public interface Function1<in P1, out R> : Function<R> {
 }
 ```
 
-这意味着调用一个做为参数传递给高阶函数的方法时，如果输入值或者返回值涉及到基本类型（如 `Int` 或 `Long`），实际上调用了**系统的装包和拆包**。这在性能上可能有着不容忽视的影响，特别是在 Android 上。
+这意味着调用一个做为参数传递给高阶函数的方法时，如果输入值或者返回值涉及到基本类型（如 `Int` 或 `Long`），实际上调用了**系统的装箱和拆箱**。这在性能上可能有着不容忽视的影响，特别是在 Android 上。
 
-在上面编译好的 lambda 中，你可以看到结果被装包成了 `Integer` 对象。然后调用者代码马上将其拆包。
+在上面编译好的 lambda 中，你可以看到结果被装箱成了 `Integer` 对象。然后调用者代码马上将其拆箱。
 
-> 当写一个标准（非内联）的高阶函数（涉及到以基本类型做为输入或输出值的函数做为参数）时要小心一点。反复调用这个参数函数会由于装包和拆包的操作对垃圾回收器造成更多压力。
+> 当写一个标准（非内联）的高阶函数（涉及到以基本类型做为输入或输出值的函数做为参数）时要小心一点。反复调用这个参数函数会由于装箱和拆箱的操作对垃圾回收器造成更多压力。
 
 #### 内联函数来补救
 
-幸好，使用 lambda 表达式时，Kotlin 有一个非常棒的技巧来避免这些成本：将高阶函数声明为[**内联**](https://kotlinlang.org/docs/reference/inline-functions.html#reified-type-parameters)。这将会使编译器将函数体直接内联到调用代码内，完全避免了方法调用。对高阶函数来说好处更大，因为**做为参数传递的 lambda 表达式的函数体也会被内联起来**。实际的影响有：
+幸好，使用 lambda 表达式时，Kotlin 有一个非常棒的技巧来避免这些成本：将高阶函数声明为[**内联**](https://kotlinlang.org/docs/reference/inline-functions.html#reified-type-parameters)。这将会使编译器将函数体直接内联到调用代码内，完全避免了方法调用。对高阶函数来说好处更大，因为**作为参数传递的 lambda 表达式的函数体也会被内联起来**。实际的影响有：
 
 - 声明 lambda 时不会有 `Function` 对象被实例化；
-- 不需要针对 lambda 输入输出的基本类型值进行装包和拆包；
+- 不需要针对 lambda 输入输出的基本类型值进行装箱和拆箱；
 - 方法总数不会增加；
 - 不会执行真正的函数调用。对那些多次被使用的注重 CPU （计算）的方法来说可以提高性能。
 
@@ -236,7 +236,7 @@ ARETURN
 
 当常量被声明为 `public` 而不是 `private` 时，getter 方法是公共的并且可以被直接调用，因此不需要上一步的方法。但是 Kotlin 仍然必须通过调用 getter 方法来访问常量。
 
-所以我们完成了吗？并没有！事实证明，为了存储常量值，Kotlin 编译器实际上在主类级别上而不是伴生对象中生成了一个 `private static final` 字段。但是，**因为在类中静态字段被声明为私有的，在伴生对象中需要有一个另外的合成方法来访问它**
+所以我们（真的）解决了（问题）吗？并没有！事实证明，为了存储常量值，Kotlin 编译器实际上在主类级别上而不是伴生对象中生成了一个 `private static final` 字段。但是，**因为在类中静态字段被声明为私有的，在伴生对象中需要有另外一个合成方法来访问它**
 
 ```
 INVOKESTATIC be/myapplication/MyClass.access$getTAG$cp ()Ljava/lang/String;
@@ -288,7 +288,7 @@ public final class MyClass {
 
 我们能得到更少的字节码吗？是的，但并不是所有情况都如此。
 
-首先，通过 **`const`** 关键字声明值为[编译时常量](https://kotlinlang.org/docs/reference/properties.html#compile-time-constants)来完全避免任何的方法调用是有可能的。这将有效地在调用代码中直接内联这个值，*但是只有基本类型和字符串才能如此使用*。
+首先，通过 **`const`** 关键字声明值为[编译时常量](https://kotlinlang.org/docs/reference/properties.html#compile-time-constants)来完全避免任何的方法调用是有可能的。这将有效地在调用代码中直接内联这个值，**但是只有基本类型和字符串才能如此使用**。
 
 ```
 class MyClass {
@@ -303,7 +303,7 @@ class MyClass {
 }
 ```
 
-第二，你可以在伴生对象的公共字段上使用 [`@JvmField`](https://kotlinlang.org/docs/reference/java-to-kotlin-interop.html#instance-fields) 注解来告诉编译器不要生成任何的 getter 和 setter 方法，就像纯 Java 中的常量一样做为类的一个静态变量暴露出来。实际上，这个注解只是单独为了兼容 Java 而创建的，如果你的常量不需要从 Java 代码中访问的话，我是一点也不推荐你用一个晦涩的交互注解来弄乱你漂亮 Kotlin 代码的。*同样地，这只能运用在公共变量上*。在 Android 的开发环境中，你可能只在实现 `Parcelable` 对象的时候才会使用这个注解：
+第二，你可以在伴生对象的公共字段上使用 [`@JvmField`](https://kotlinlang.org/docs/reference/java-to-kotlin-interop.html#instance-fields) 注解来告诉编译器不要生成任何的 getter 和 setter 方法，就像纯 Java 中的常量一样做为类的一个静态变量暴露出来。实际上，这个注解只是单独为了兼容 Java 而创建的，如果你的常量不需要从 Java 代码中访问的话，我是一点也不推荐你用一个晦涩的交互注解来弄乱你漂亮 Kotlin 代码的。**此外，它只能用于公共字段**。在 Android 的开发环境中，你可能只在实现 `Parcelable` 对象的时候才会使用这个注解：
 
 ```
 class MyClass() : Parcelable {
@@ -324,16 +324,16 @@ class MyClass() : Parcelable {
 最后，你也可以用 [ProGuard](https://developer.android.com/studio/build/shrink-code.html) 工具来优化字节码，希望通过这种方式来合并这些链式方法调用，但是绝对不保证这是有效的。
 
 > 与 Java 相比，在 Kotlin 中从伴生对象里读取一个 `static` 常量会增加 2 到 3 个额外的间接级别并且每一个常量都会生成 2 到 3个方法。  
-> 始终用 **const** 关键来声明基本类型和字符串常量从而避免这些（成本）。
+> 始终用 **const** 关键字来声明基本类型和字符串常量从而避免这些（成本）。
 > 对其他类型的常量来说，你不能这么做，因此如果你需要反复访问这个常量的话，你或许可以把它的值缓存在一个本地变量中。
 
 > 同时，最好在它们自己的对象而不是伴生对象中来存储公共的全局常量。
 
 ---
 
-这就是第一篇文章的所有了。希望这些可以让你更好的理解使用这些 Kotlin 特性的影响。牢记这一点以便在不损失可读性和性能的情况下编写更智能的的代码。
+这就是第一篇文章的全部内容了。希望这可以让你更好的理解使用这些 Kotlin 特性的影响。牢记这一点以便在不损失可读性和性能的情况下编写更智能的的代码。
 
-继续阅读[第二部分](https://medium.com/@BladeCoder/exploring-kotlins-hidden-costs-part-2-324a4a50b70)：*本地函数*，*空值安全*，*可变参数*。
+继续阅读[第二部分](https://medium.com/@BladeCoder/exploring-kotlins-hidden-costs-part-2-324a4a50b70)：**局部函数**，**空值安全**，**可变参数**。
 
 
 ---
