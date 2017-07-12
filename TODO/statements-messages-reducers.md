@@ -3,46 +3,46 @@
 > * 原文作者：[Matt Gallagher](https://www.cocoawithlove.com/about/)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/statements-messages-reducers.md](https://github.com/xitu/gold-miner/blob/master/TODO/statements-messages-reducers.md)
-> * 译者：
+> * 译者：[zhangqippp](https://github.com/zhangqippp)
 > * 校对者：
 
-# Statements, messages and reducers
+# 语句，消息和归约器
 
-Common advice when improving the design of a program is to break the programs into small isolated units of functionality so that we can consider the behavior within each component separately to the connections between components.
+在优化程序的设计时，一个通常的建议是将程序拆分成小而独立的功能单元，以便我们可以隔离组件之间的联系，独立地考虑组件内部的行为。
 
-If that’s the only advice you’re given though, it can be difficult to work out how to apply it in practice.
+但是如果这是你优化程序的唯一思路，那么在实践中应用它的时候就会有些困难。
 
-In this article, I’ll show how this advice can be followed through the simple evolution of a piece of code, arriving at a pattern that is common in concurrent programming (but is useful across most stateful programs) where we build our program from three different tiers of computational unit: “statements”, “messages” and “reducers”.
+在本文中，我将通过一小段代码的简单演进来向你展示如何实践上述的优化建议，最终我们将达成一个并发编程中普遍的模式（在大多数有状态的程序中都很有用），在此种模式中我们从计算单元的三个不同层面构建我们的程序：“语句”，“消息” 和 “归约器”。
 
-> You can [download this article as a Swift Playground](https://github.com/mattgallagher/CocoaWithLovePlaygrounds) from github.
+> 你可以在github上[下载本文的 Swift Playground](https://github.com/mattgallagher/CocoaWithLovePlaygrounds) 。
 
-Contents
+内容
 - 
-- [Aim](#aim)
-- [A series of statements](#a-series-of-statements)
-- [Controlling our program through messages](#controlling-our-program-through-messages)
-- [Structuring logic through component connections](#structuring-logic-through-component-connections)
-- [Reducers](#reducers)
-- [Where do we go from here?](#where-do-we-go-from-here)
-- [Conclusion](#conclusion)
-- [Looking forward…](#looking-forward)
+- [目标](#目标)
+- [一系列语句](#一系列语句)
+- [通过消息控制你的程序](#通过消息控制你的程序)
+- [通过组件连接构建逻辑](#通过组件连接构建逻辑)
+- [归约器](#归约器)
+- [我们还能做些什么？](#我们还能做些什么)
+- [结论](#结论)
+- [展望…](#展望…)
 
-## Aim
+## 目标
 
-The purpose of this article is to show how to isolate state in your program. There are a number of reasons why we might want to do this:
+本文的目的是介绍如何在程序中将状态独立起来。有很多原因导致我们会希望这样做：
 
-1. If containment is clean, the behavior at a single location is easier to understand
-2. If containment is clean, it is easier to model and understand connections between components.
-3. If state is accessed at a single location, it is easy to move that location inside another execution context (like a queue, thread or simply within a mutex) and make your program threadsafe and asynchronous.
-4. If state can only be accessed in restricted ways, we can more carefully manage dependencies and keep everything up-to-date when dependencies change
+1. 如果控制逻辑是简洁的，那么在单一位置的行为就很容易理解。
+2. 如果控制逻辑是简洁的，模式化和理解组件之间的联系就很简单。
+3. 如果只在单一的位置访问某个状态，那么改变这个访问入口的执行环境（例如队列，线程，或者一个锁的内部）将很容易，同样也可以轻易地将程序变为线程安全的或者同步的。
+4. 如果状态只能以受限制的方式被访问，我们就能够更谨慎地管理依赖，并且在依赖变化时及时更新。
 
-## A series of statements
+## 一系列语句
 
-A **statement** is the standard computational unit in an imperative programming language, like Swift. Statements include assigment, functions and control flow and may include effects (changes in state).
+**语句**是命令式编程语言（如 Swift ）中的标准计算单元。语句包含赋值，函数和控制流，还可能包括逻辑结果（如状态变化）。
 
-I know, I know, I’m explaining basic programming terminology to programmers; I’ll be brief.
+我知道我是在向程序员解释基本的编程术语，我只会简洁的说明。
 
-Here’s a small program where the logic is built from statements:
+下面是一段简单的程序，其内部的逻辑是由语句组成的：
 
 ```
 func printCode(_ code: Int) {
@@ -56,7 +56,7 @@ func printCode(_ code: Int) {
 let grinning = 0x1f600
 printCode(grinning)
 
-let rollingOnTheFloorLaughing = 0x1f600
+let rollingOnTheFloorLaughing = 0x1f923
 printCode(rollingOnTheFloorLaughing)
 
 let notAValidScalar = 0x999999
@@ -69,15 +69,15 @@ let stuckOutTongueClosedEyes = 0x1f61d
 printCode(stuckOutTongueClosedEyes)
 ```
 
-This will print each of the following on their own line: 😀 🤣 � 😏 😝
+这段程序会分行打印如下内容： 😀 🤣 � 😏 😝
 
-*The boxed question mark character is not a mistake, the code deliberately prints the Unicode replacement character (`0xfffd`) on failure to convert to a `UnicodeScalar`.*
+**上面的被框起来的问号字符不是错误，代码中故意在将参数转化为 `UnicodeScalar` 失败时打印 Unicode 替代符号（`0xfffd`）。**
 
-## Controlling our program through messages
+## 通过消息控制你的程序
 
-The biggest problem with logic built purely from statements is that extending it with additional functionality is verbose. Looking for ways to eliminate verbosity naturally leads to code driven (at least in part) by data.
+用纯语句构建的程序逻辑最大的问题在于不易添加函数扩展。在寻求减少代码冗余的过程中自然地会导致代码被数据驱动（至少是部分驱动）。
 
-For example, driving the previous example through data reduces the last 10 lines down to 4:
+例如，通过数据驱动上述例子可以将最后 10 行代码减少到 4 行：
 
 ```
 let codes = [0x1f600, 0x1f923, 0x999999, 0x1f60f, 0x1f61d]
@@ -86,9 +86,9 @@ for c in codes {
 }
 ```
 
-However, this example is very simple and it might not be clear that it has really changed anything. We can increase the complexity of the example to make the difference clearer.
+当然，上述例子有些过于简单，可能不能清晰地反映出这种变化。我们可以增加这个例子的复杂性来使这种变化更清晰。
 
-We’ll modify our array to replace the basic `Int` values with a type that needs a little more handling.
+我们将数组中基本的 `Int` 值替换为一种需要更多的处理的类型。
 
 ```
 enum Instruction {
@@ -100,9 +100,9 @@ enum Instruction {
 }
 ```
 
-Now, instead of simply printing every `Int` value received, our handling requires maintaining an internal `Int` storage and different `Instruction` values may `.set` the storage, may `.increment` the storage or may request that the storage be `.print`ed.
+现在，相对于简单地打印收到的每个 `Int` 值，我们的处理机需要管理一个内部的 `Int` 型的存储器和不同的 `Instruction` 值，这些 `Instruction` 值可能会用 `.set` 方法给存储器赋值，或者用 `.increment` 方法给存储器做累加，又或者用 `.print` 方法打印存储器的值。
 
-Let’s look at what code we might use to process the array of `Instruction` objects:
+来看一下我们会用什么代码来处理数组中的 `Instruction` 对象：
 
 ```
 struct Interpreter {
@@ -136,30 +136,30 @@ for i in instructions {
 }
 ```
 
-This code produces the same output as the previous example and uses a very similar `printCode` function internally but it should be clear that the `Interpreter` struct is running a little mini-program defined by the `instructions` array.
+这段代码产生了和之前的例子一样的输出，它使用了内部使用了一个非常相似的 `printCode` 方法，但是实际上是 `Interpreter` 结构体执行了一小段由 `instructions` 数组定义的微程序。
 
-It should now be much clearer that our program’s logic is composed of logic on two different tiers:
+可以明确地看出我们的程序逻辑是由两个层面上的逻辑组成：
 
-1. Swift statements in `handleInstruction` and `printCode` which interpret and execute each instruction
-2. The `Instructions.array` which contains a sequence of messages that need to be interpreted
+1.  `handleInstruction` 方法和 `printCode` 方法中的 Swift 语句解释和执行每一条指令。
+2.  `Instructions.array` 中包含了一系列需要被解释的消息。
 
-Our second tier of computational unit is the **message** and it is any data which can be fed to a component in a stream, where the structure of data in the stream itself determines the result.
+我们的第二层计算单元就是所谓的**消息**，它可以是任何能够被放入数据流中传递给组件的数据，这些数据流中的数据的结构本身就能够决定执行结果。
 
-> **Terminology note**: I’m calling these instructions “messages”, following common terminology in [process calculus](https://en.wikipedia.org/wiki/Process_calculus) and the [actor model](https://en.wikipedia.org/wiki/Actor_model), but the term “commands” is also sometimes used. In some cases, these messages may also be treated as a complete “domain specific language”.
+> **术语提示**：我将这些指令称为“消息”，这是沿袭了[过程演算](https://en.wikipedia.org/wiki/Process_calculus)和[参与者模式](https://en.wikipedia.org/wiki/Actor_model)中的术语用法，但有时候也会使用“命令”这个词。在某些情况下，这些消息也会被当成是一种完全的“特定作用域语言”。
 
-## Structuring logic through component connections
+## 通过组件连接构建逻辑
 
-The biggest problem with the previous code is that its structure does not aesthetically reflect the structure of the computation; it’s difficult to see at a glance what direction the logic flows.
+上一节的代码最大的问题在于它的结构并不能直观地反映出计算的结构；我们很难一眼就看出逻辑的走向。
 
-We need to consider what the structure of the computation really is. We’re trying to:
+我们需要思考计算结构的本质是什么。我们做如下尝试：
 
-1. take a sequence of instructions
-2. convert those instructions into sequence of effects on our internal state
-3. emit further messages to a third stage that can `print`
+1. 取一系列的指令
+2. 将这些指令转化为一系列对内部状态的影响
+3. 将消息传递给能够实现`打印`动作的第三方控制台
 
-It is possible to identify parts of the `Interpreter` struct that perform these tasks but that struct is not aethetically organized to reflect these three steps.
+我们能够从执行这些任务的 `Interpreter` 结构体中识别出这几部分，但是这个结构体被直观地组织起来以反映出这三个步骤。
 
-So let’s refactor our code to something that directly shows the connection.
+所以我们将代码重构成能够直接地展示这种联系的样子。
 
 ```
 var state: Int = 0
@@ -184,40 +184,41 @@ Instruction.array(
 }
 ```
 
-Once again, the code will print the same output as previous examples.
+这段代码依然会和之前的例子打印同样的输出。
 
-We now have a three stage pipeline that directly reflects the 3 points above: a sequence of instructions, interpreting instructions and applying state effects, and the output phase.
+现在我们有一个三节的管道，它能够直接地反映出上面提到的 3 点：一系列指令，解释指令并对状态值产生影响，以及输出阶段。
 
-## Reducers
+## 归约器
 
-Let’s look in particular at the `flatMap` stage in the middle of our pipeline. Why is it the most important?
+我们来看一下管道中间的 `flatMap` 这一节。为什么这一节最重要？
 
-It’s not because of the `flatMap` function itself but because it is the only stage where I used a capturing closure. The `state` variable is captured and referenced exclusively by this stage, making the `state` value effectively a private variable of the `flatMap` closure. The state is only ever indirectly accessed from outside the `flatMap` stage – it is set by providing an input `Instruction` and it is accessed via `Int` values that the `flatMap` stage chooses to emit.
+不是因为 `flatMap` 函数本身而是因为我只在这一节中使用了捕获闭包。 `state` 变量只在这一节中被捕获和操作，这相当于 `state` 的值是 `flatMap` 闭包的一个私有变量。这个状态在 `flatMap` 这一节之外只能被间接地访问 —— 即只能通过提供一个 `Instruction` 输入来设置，同样也只能通过 `flatMap` 这一节中选择发送的 `Int` 值来进行访问。
 
-We can model this stage like this:
+我们可以将这一节抽象为如下模型：
 
 ![Figure 1: a diagram of a reducer, its state and messages](https://www.cocoawithlove.com/assets/blog/reducer.svg)
 
-A diagram of stage in a pipeline as a "reducer"
-Each of the `a` values in this diagram are the `Instruction` values. The `x` values are the `state` and the `b` values are the `Int?` emitted.
+作为“归约器”的管道中某一节的图表
+ 
+此图中每个 `a` 变量的值都是 `Instruction` 值。 `x` 变量的值是 `state` ， `b` 变量的值是将被发送的 `Int?` 类型的值。
 
-This is called a **reducer** and it is the third tier of computational unit that I want to discuss. A reducer is an entity with identity (a reference type in Swift) and internal state that is accessed purely by incoming and outgoing messages.
+我将之称为**归约器**，这是我想要讨论的第三层计算单元。归约器是一种带有身份标识（ Swift 中的一种引用类型）的实体，其内部状态只能通过出入的消息进行访问。
 
-When I say that reducers are the third tier of computation unit that I want to discuss, I’m excluding consideration of the contents of the reducer (which are typical Swift statements effecting the encapsulated state) and instead considering the reducer as a single black box unit defined by its connections to other units and suggesting that these boxes are how we can lay out higher level logic.
+我说归约器是我想讨论的第三层计算单元是因为我没有考虑归约器内部的逻辑，而是把归约器（典型的 Swift 语句影响被包装的状态）当做一个由其和其它单元的连接定义的黑盒单元来考虑，这些黑盒单元是我们设计更高层逻辑的基础。
 
-Another way of explaining this is while statements perform logic *within* an execution context, reducers form logic by spanning between execution contexts.
+另一种解释是当语句**在**执行环境中执行逻辑时，归约器通过在执行环境之间跨越形成逻辑。
 
-I used a capturing closure to ad hoc a reducer from a `flatMap` function and an `Int` variable but most reducers are `class` instances that maintain their state a little more tightly and assist with integration into a larger graph.
+我使用一个捕获闭包来将一个 `flatMap` 函数和一个 `Int` 变量组成了一个归约器，但大部分归约器是`类`的实例，这些实例会将它们的状态维持的更加紧密，并且帮助我们把逻辑整合到更大的逻辑结构中。
 
-> The term “reducer” to describe this type of construct comes via [reduction semantics](https://en.wikipedia.org/wiki/Operational_semantics#Reduction_semantics) in programming language semantics. In a weird terminology twist, “reducers” are also called “accumulators”, despite those words being near opposites. It’s a matter of perspective: a “reducer” reduces the incoming stream of messages down to a single state value; while an “accumulator” accumulates new information in its state over time by incorporating each incoming message as it arrives.
+> 用“归约器”这个词来描述这种结构来自于编程语言语义学中的[归约语义学](https://en.wikipedia.org/wiki/Operational_semantics#Reduction_semantics)。有一个奇怪的术语转换，“归约器”也被称为“累加器”，尽管这两个词在语义上近乎对立。这是一个视角的问题：“归约器”是指将输入的消息流归约成为一个单一的状态值；而“累加器”则是指在输入消息到达时这种结构会将新的信息累加到它内部的状态上。
 
-## Where do we go from here?
+## 我们还能做些什么？
 
-We can replace the reducer abstractions with very different kinds of machinery.
+我们可以将归约器的抽象替换为完全不同的机制。
 
-We could migrate our previous code, which operates on a Swift `Array` of values to the CwlSignal reactive programming framework with effort that is barely more than drag and drop. This would give us access to asynchronous capabilities or true communication channels between different parts of our program.
+我们可以迁移之前的代码，将对 Swift `数组`值的操作迁移成使用 CwlSignal 响应式编程框架，这其中的工作量不只是拖拽操作这么简单。这样做能够给我们提供异步能力或者给程序的不同部分提供真实的交流通道。
 
-Here’s how it looks:
+代码如下：
 
 ```
 Signal<Instruction>.from(values: [
@@ -242,37 +243,37 @@ Signal<Instruction>.from(values: [
 }
 ```
 
-The `filterMap` function here is more ideally suited as a reducer since it offers truly private internal state as part of the API – no more captured variables required to establish private state - otherwise it is semantically equivalent to the previous `flatMap` as it maps over the sequences of values in the signal and filters out optionals.
+这里的 `filterMap` 功能更适合作为一个归约器，因为它提供了真实的内部私有状态作为 API 的一部分 —— 没有更多的被捕获变量需要建立私有状态 —— 它在语义上等同于之前的 `flatMap` ，因为它映射了信号中的一系列值并且过滤掉了可选项。
 
-This simple change between abstractions is possible because the contents of the reducer are dependent on the messages, not the reducer machinery itself.
+抽象之间的简单变化是可实现的，因为归约器的内容取决于消息，而不是归约器机制本身。
 
-As for any additional tiers of computational unit beyond reducers? I don’t know, I haven’t encountered any. We’ve addressed the issue of state encapsulation so any additional tier would be to address a new issue. But if artificial neural networks can have “Deep Learning”, then why can’t programming have “Deep Semantics”? Clearly, it’s the future 😉.
+除了归约器之外是否还有其它层次的计算单元？我不清楚，至少我没遇到过。我们已经解决了状态封装的问题，所以任何额外的层次都将是新的问题。但是，如果人工神经网络可以具有“深度学习”，那么为什么编程不能有“深度语义学”？显然，这是未来的趋势 😉。
 
-## Conclusion
+## 结论
 
-> You can [download this article as a Swift Playground](https://github.com/mattgallagher/CocoaWithLovePlaygrounds) from github.
+> 你可以在github上[下载本文的 Swift Playground](https://github.com/mattgallagher/CocoaWithLovePlaygrounds)。
 
-The lesson here is that the most natural way to break a program into small, isolated components is to organize your program in three different tiers:
+这里的结论是，将程序分解成小而隔离的组件的最自然的方法是以三个不同的层次组织你的程序：
 
-1. stateful code isolated in reducers with access limited to messages in and messages out
-2. messages which act to program reducers into a given state
-3. graph structure formed by reducers lays out the higher level logic of the program
+1. 归约器中的状态代码被限制为只有进出的消息能够访问
+2. 能够将归约器执行为指定状态的消息
+3. 归约器形成的图表结构组成更高级的程序逻辑
 
-None of this is new advice; this all originates in concurrent computation theory from mid-1970s and the advice hasn’t changed substantially since the early 1990s when “reduction semantics” were formalized.
+这些都不是什么新思路；这一切都源自于 20 世纪 70 年代中期的并行计算理论，而且自从 20 世纪 90 年代初“归约语义学”确立以来，这些思路并没有大的改变。
 
-Of course, that doesn’t mean that people always follow good advice. Object-oriented programming was the hammer that people used to try and solve every programming problem though the 1990s and early 2000s and while you can build a reducer from an object, that doesn’t mean that all objects are reducers. Unrestricted interfaces on objects can make state, dependencies and interface coupling into a maintenance nightmare.
+当然，这并不意味着人们总是遵循这些好的思路。面向对象编程是 20 世纪 90 年代和 21 世纪初人们曾经试图解决所有编程问题的锤子，你可以从对象中构建一个归约器，但并不意味着所有的对象都是归约器。对象中没有限制的接口会使状态，依赖和接口耦合的维护变得非常困难。
 
-However, it is straightforward to model your objects as reducers by simplifying the public interface down to:
+然而，我们可以直接将对象建模为归约器，只要通过将公共接口简化成如下内容：
 
-- a constructor
-- a single function for messages-in
-- a way to subscribe or otherwise connect messages-out
+- 构建器
+- 接受消息输入的方法
+- 订阅或者其它连接到消息输出的方法
 
-It’s a situation where *limiting* the functionality of an interface will greatly improve the ability to maintain and iterate the design.
+在这种情况下，**限制**接口的功能会极大地提供维护和迭代设计的能力。
 
-### Looking forward…
+### 展望…
 
-In the example in the [Structuring logic through component connections](#structuring-logic-through-component-connections) section, I used the controversial definition of `flatMap` (the one that isn’t a monad). In my next article, I’m going to talk about why monads are considered a fundamental unit of computation to many functional programmers yet a strict implementation in imperative programming is sometimes less useful than transforms which aren’t quite monads.
+在[通过组件连接构建逻辑](#通过组件连接构建逻辑)这一节的例子中，我对 `flatMap`（不是单子）使用了有争议的定义。在我的下一篇文章中，我将讨论为什么单子被许多功能程序员认为是基本计算单位，而在命令式编程中的严格实现有时却并不如非单子的转换有用。
 
 
 ---
