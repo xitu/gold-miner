@@ -148,31 +148,31 @@ Furthermore, very readable or low-level languages might lead to correlations bet
 
 除了看看你写了 *多少* 代码以外，我们也可以考虑一下代码的类型。传统的观点是好的程序员不用回收代码——他们写出模块化的代码并不断复用。我们希望知道在面试过程中，有哪些行为是受到鼓励的。我们看了用 Python 进行的面试[5](http://blog.interviewing.io/#guide-fn5)，并且数了最终的版本中代码定义了多少函数。我们想知道，成功的面试者是否定义了更多函数——更多的函数并不是模块化的定义，但根据我们的经验，这是一个标志模块化程度的很强的信号。同样，我们不可能断言其中存在很强的因果联系——也许有的面试官问的问题本身就会导致面试者写出更多或更少的函数。不管怎样，这是一个值得研究的趋势。
 
-The plot below shows the distribution of the number of Python functions defined for both candidates who the interviewer said they would hire and candidates who the interviewer said they would not hire. A quick look at this chart suggests that there *is* a difference in the distribution of function definitions between interviews that go well and interviews that don’t. Successful interviewees seem to define *more* functions.
+下面的图展示了面试官愿意和不愿意雇佣的面试者的 Python 函数数量的对比。很快可以发现，成功和失败的面试在这方面是*有*差别的。成功的面试者会写出更*多*的函数。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*tJ71vF6YBjv-fq489afxSg.png)
 
-**On average, successful candidates interviewing in Python define 3.29 functions, whereas unsuccessful candidates define 2.71 functions. This finding is statistically significant. The upshot here is that interviewers really do reward the kind of code they say they want you to write.**
+**就平均水平而言，成功的 Python 面试者定义 3.29 个函数，而不成功的定义了 2.71 个。这个差异是统计显著的。结果是，面试官确实会对写出他们期望的代码的面试者有所奖励。**
 
-#### Does it matter if your code runs?
+#### 你的代码是否运行重要吗？
 
-> *“Move fast and break things. Unless you are breaking stuff, you are not moving fast enough.” — *Mark Zuckerberg
+> *“要快速行动，不要害怕弄坏东西。如果你什么都没有弄坏，你就做得还不够快。” — *马克·扎克伯格
 
-> *“The most effective debugging tool is still careful thought, coupled with judiciously placed print statements.” — *Brian Kernighan
+> *“最强大的debug工具仍然是缜密的思维，以及准确安放的print语句。” — *Brian Kernighan
 
-A common refrain in technical interviews is that interviewers don’t actually care if your code runs — what they care about is problem-solving skills. Since we collect data on the code interviewees run and whether or not that code compiles, we wanted to see if there was evidence for this in our data. Is there any difference between the percentage of code that compiles error-free in successful interviews versus unsuccessful interviews? Furthermore, can interviewees actually still get hired, even if they make tons of syntax errors?
+对于技术面试，常见的观点是面试官并不真的在乎你的代码是否能够运行——他们关心的是解决问题的技能。我们收集了面试者写的代码是否运行，以及是否能够编译的数据，希望看看我们的数据中是否有这方面的证据。成功与不成功的面试的代码中，含有错误的概率是否有差异？另外，如果面试者犯了很多语法错误，他是否还可以被雇佣？
 
-In order to get at this question, we looked at the data. We restricted our dataset to interviews longer than 10 minutes with more than 5 unique instances of code being executed. This helped filter out interviews where interviewers didn’t actually want the interviewee to run code, or where the interview was cut short for some reason. We then measured the percent of code runs that resulted in errors.[5](http://blog.interviewing.io/#guide-fn5) Of course, there are some limitations to this approach — for instance, candidates could execute code that does compile but gives a slightly incorrect answer. They could also get the right answer and write it to stderr! Nonetheless, this should give us a directional sense of whether or not there’s a difference.
+为了回答这些问题，我们查看了数据。我们把数据限制到超过 10 分钟，并且有超过5份代码被执行的面试。这过滤掉了面试官不希望面试者真的运行代码，或者由于某种原因提前终止的面试。接下来，我们测量了出现错误的代码的比例。[5](http://blog.interviewing.io/#guide-fn5) 当然，这种方式有它的局限性——比如，候选人可能写出能够编译，但是答案稍有不正确的代码。他们也可能得到正确的答案，却把它写到 stderr！虽然如此，这可以帮助我们感觉到它是否有差异。
 
-The chart below gives a summary of this data. The x-axis shows the percentage of code executions that were error-free in a given interview. So an interview with 3 code executions and 1 error message would count towards the “30%-40%” bucket. The y-axis indicates the percentage of all interviews that fall in that bucket, for both successful and unsuccessful interviews. Just eyeballing the chart below, one gets the sense that on average, successful candidates run more code that goes off without an error. But is this difference statistically significant?
+下面的表给出了数据的一个概要。X 轴显示了所有执行次数中没有错误的代码的比例。所以，如果代码执行了3次，但只有1条错误信息，就算在 “30%-40%” 一栏中。Y轴显示所有面试中，成功和失败的面试处于该区域的比例。看一看下面的表就会发现，平均情况下成功的面试者会写出更多的没有错误的代码。但这种差异是否是显著的呢？
 
 ![](https://cdn-images-1.medium.com/max/2000/1*434O4qWrzxlU6YltbN6sIw.png)
 
-On average, successful candidates’ code ran successfully (didn’t result in errors) 64% of the time, whereas unsuccessful candidates’ attempts to compile code ran successfully 60% of the time, and this difference was indeed significant. **Again, while we can’t make any causal claims, the main takeaway is that successful candidates do usually write code that runs better, despite what interviewers may tell you at the outset of an interview.**
+就平均水平而言，成功的面试者的代码在 64% 的情况下运行成功（没有产生错误），而不成功的候选人的代码在 60% 的情况下可以成功运行，这个差异当然是显著的。 **同样，我们不能声称有任何因果联系。我们主要学到的是，成功的候选人通常写出的代码能够运行得更好，无论面试官在面试开始时告诉你什么。**
 
-#### Should you wait and gather your thoughts before writing code?
+#### 在开始写代码之前是否应该等待一会，整理思路？
 
-> *“Never forget the power of silence, that massively disconcerting pause which goes on and on and may at last induce an opponent to babble and backtrack nervously.” — *Lance Morrow
+> *“不要忘记沉默的力量，不断出现的扰乱人思路的暂停，可能会使你的对手Never forget the power of silence, that massively disconcerting pause which goes on and on and may at last induce an opponent to babble and backtrack nervously.” — *Lance Morrow
 
 We were also curious whether or not successful interviewees tended to take their time in the interview. Interview questions are often complex! After being presented with a question, there might be some benefit to taking a step back and coming up with a plan, rather than jumping right into things. In order to get a sense of whether or not this was true, we measured how far into a given interview candidates first executed code. Below is a histogram showing how far into interviews both successful and unsuccessful interviewees first ran code. Looking quickly at the histogram, you can tell that successful candidates do in fact wait a bit longer to start running code, although the magnitude of the effect isn’t huge.
 
