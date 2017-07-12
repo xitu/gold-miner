@@ -96,21 +96,21 @@ There are a few issues with this typical approach to interview preparation:
 
 下面的表和使用不同语言的面试成功率（也是用面试官愿意雇用面试者的概率来表示）的表很相似。但是，这个表是用面试语言是否在公司的技术栈内来分类的。
 
-我们把这个分析限制在 C++, Java 和 Python ，因为这三种语言都有很多公司用和不用它们。** 结果并不一致。对于 Python 和 C++而言，面试者使用的语言是否在公司的技术栈内，并不会对成功率产生显著的影响。但是，使用 Java 的面试者在使用 Java 的公司面试时，更有可能成功**(p=0.037)。
+我们把这个分析限制在 C++, Java 和 Python ，因为这三种语言都有很多公司用和不用它们。** 结果并不一致。对于 Python 和 C++而言，面试者使用的语言是否在公司的技术栈内，并不会对成功率产生显著的影响。但是，使用 Java 的面试者在使用 Java 的公司面试时，更有可能成功 **(p=0.037)。
 
-那么，为什么公司使用的语言是 Java 时，So, why is it that coding in the company’s language seems to be helpful when it’s Java, but not when it’s Python or C++? One possible explanation is that the communities that exist around certain programming languages (such as Java) place a higher premium on previous experience with the language. Along these lines, it’s also possible that interviewers from companies that use Java are more likely to ask questions that favor those with a pre-existing knowledge of Java’s idiosyncrasies.
+那么，为什么公司使用的语言是 Java 时，使用对方公司的语言会有帮助，而 Python 和 C++则没有呢？一个可能的解释是特定编程语言的社区（例如 Java）更看重程序员在该种语言上的工作经验。也有可能是因为使用 Java 的公司的面试官更有可能问出熟悉 Java 的人能回答得更好的问题。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*scSrZGC6Zy9a_ij1S0kZsg.png)
 
-#### What about the relationship between what language you program in and how good of a communicator you’re perceived to be?
+#### 你使用什么语言，和别人眼中你的沟通能力有关吗？
 
 > *“To handle a language skillfully is to practice a kind of evocative sorcery.”* — Charles Baudelaire
 
-Even if language choice doesn’t matter that much for overall performance (Java-wielding companies notwithstanding), we were curious whether different language choices led to different outcomes in other interview dimensions.
+虽然语言选择对总体表现的影响不那么大（使用 Java 语言的公司除外），我们很好奇，选择不同的语言是否在其他维度上影响面试结果。
 
-For instance, an extremely readable language, like Python, may lead to interview candidates who are assessed to have communicated better. On the other hand, a low-level language like C++ might lead to higher scores for technical ability.
+例如，Python 之类非常易读的语言，可能导致面试者能够更好地交流。另外，C++ 之类底层的语言可能使面试者在技术能力上的评分更高。
 
-Furthermore, very readable or low-level languages might lead to correlations between these two scores (for instance, maybe they’re a C++ interview candidate who can’t explain at all what he or she is doing but who writes very efficient code). The chart below suggests that there isn’t really any observable difference between how candidates’ technical and communication abilities are perceived, across a variety of programming languages.
+另外，易读或底层的语言可能在这两种分数上相关Furthermore, very readable or low-level languages might lead to correlations between these two scores (for instance, maybe they’re a C++ interview candidate who can’t explain at all what he or she is doing but who writes very efficient code). The chart below suggests that there isn’t really any observable difference between how candidates’ technical and communication abilities are perceived, across a variety of programming languages.
 
 ![](https://cdn-images-1.medium.com/max/1600/1*Cin1yM1gw62D2Gl1fhdG-w.png)
 
