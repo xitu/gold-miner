@@ -22,9 +22,9 @@
 
 无论哪种情况，面试流程的第一步，通常是读一堆在线面试指南（特别是由你感兴趣的公司写的那些），并和朋友们聊起他们面试（作为面试官和面试者）的经验。
 
-More likely than not, what you read and learn in this first, “exploratory” phase of the interview process will inform how you choose to prepare moving forward.
+更有可能，你在面试流程的“解释性”的第一步中学到的知识，将会告诉你如何准备、如何前往下一步。
 
-There are a few issues with this typical approach to interview preparation:
+这个典型的面试准备流程有一些问题：
 
 - 绝大多数面试指南是从一个公司的角度写的。可能A公司很重视高效的代码，而B公司更重视的是高级的问题解决能力。除非你一心想去A公司，否则你大概不想太侧重于他们所关心的能力。
 - 人们有时会撒谎，虽然可能不是故意的。他们可能会写“我们不关心具体的编程语言”，或是“哪怕答案不正确，解释你的思路也是值得的”。但是，实际上他们未必会这样做！我们并不是说科技公司是故意误导求职者的骗子。我们只是认为：有时候不明显的偏见会偷偷产生，人们甚至没有意识到它。
@@ -56,7 +56,7 @@ There are a few issues with this typical approach to interview preparation:
 
 在深入探究之前，需要注意：这些结论都是基于观察数据的，这意味着我们不能声称其中有很强的因果关系。但我们仍然可以分享观察到的奇特规律，并且解释我们发现了什么，以便让你做出自己的结论。
 
-#### Having seen the interview question before
+#### 以前见过面试问题
 
 > *“我们正在讨论的是练习！”* ——阿伦·艾弗森
 
@@ -70,7 +70,7 @@ There are a few issues with this typical approach to interview preparation:
 
 #### 用什么语言编程重要吗？
 
-> *“Whoever does not love the language of his birth is lower than a beast and a foul smelling fish.” — *Jose Rizal
+> *“不爱自己母语的人比野兽和臭鱼更加低等。” — *Jose Rizal
 
 你可能认为，使用不同的语言会使面试得到更好的结果。比如，Python的可读性会对面试有帮助。或者，有些语言处理数据结构的方式特别干净，会让常见的面试问题变得简单。我们想看看，使用不同的语言是否会对面试结果产生显著影响。
 
@@ -104,13 +104,13 @@ There are a few issues with this typical approach to interview preparation:
 
 #### 你使用什么语言，和别人眼中你的沟通能力有关吗？
 
-> *“To handle a language skillfully is to practice a kind of evocative sorcery.”* — Charles Baudelaire
+> *“精巧地使用一门语言就像使用巫术一样。”* — Charles Baudelaire
 
 虽然语言选择对总体表现的影响不那么大（使用 Java 语言的公司除外），我们很好奇，选择不同的语言是否在其他维度上影响面试结果。
 
 例如，Python 之类非常易读的语言，可能导致面试者能够更好地交流。另外，C++ 之类底层的语言可能使面试者在技术能力上的评分更高。
 
-Furthermore, very readable or low-level languages might lead to correlations between these two scores (for instance, maybe they’re a C++ interview candidate who can’t explain at all what he or she is doing but who writes very efficient code). The chart below suggests that there isn’t really any observable difference between how candidates’ technical and communication abilities are perceived, across a variety of programming languages.
+另外，非常易读或者非常底层的语言，可能使得这两个分数相关（比如，也许有一个 C++ 候选人不能解释清楚自己在做什么，但是写的代码效率很高）。下面的表显示，面试者的技术能力和沟通能力的评分并没有可见的差异，对于各种语言都是如此。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*Cin1yM1gw62D2Gl1fhdG-w.png)
 
@@ -172,7 +172,7 @@ Furthermore, very readable or low-level languages might lead to correlations bet
 
 #### 在开始写代码之前是否应该等待一会，整理思路？
 
-> *“不要忘记沉默的力量，不断出现的扰乱人思路的暂停，可能会使你的对手Never forget the power of silence, that massively disconcerting pause which goes on and on and may at last induce an opponent to babble and backtrack nervously.” — *Lance Morrow
+> *“不要忘记沉默的力量，不断出现的扰乱人思路的暂停，可能会使你的对手非常紧张。” — *Lance Morrow
 
 我们也很好奇，成功的面试者在过程中是否会放慢节奏。面试问题通常是很复杂的！看到一个问题以后，后退一步去想一个完整的计划，可能比直接跳进去要好。为了验证这种观点是否正确，我们测量了候选人在面试中第一次运行代码的时间。下面是一个直方图，展示了成功和失败的面试者在开始面试之后，第一次运行代码的时间。很快地看一眼，你就可以发现，成功的候选人在开始运行代码之前，会等待得稍微久一点，虽然差别不是很大。
 
