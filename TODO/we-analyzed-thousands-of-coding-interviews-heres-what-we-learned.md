@@ -174,26 +174,21 @@ Furthermore, very readable or low-level languages might lead to correlations bet
 
 > *“不要忘记沉默的力量，不断出现的扰乱人思路的暂停，可能会使你的对手Never forget the power of silence, that massively disconcerting pause which goes on and on and may at last induce an opponent to babble and backtrack nervously.” — *Lance Morrow
 
-We were also curious whether or not successful interviewees tended to take their time in the interview. Interview questions are often complex! After being presented with a question, there might be some benefit to taking a step back and coming up with a plan, rather than jumping right into things. In order to get a sense of whether or not this was true, we measured how far into a given interview candidates first executed code. Below is a histogram showing how far into interviews both successful and unsuccessful interviewees first ran code. Looking quickly at the histogram, you can tell that successful candidates do in fact wait a bit longer to start running code, although the magnitude of the effect isn’t huge.
+我们也很好奇，成功的面试者在过程中是否会放慢节奏。面试问题通常是很复杂的！看到一个问题以后，后退一步去想一个完整的计划，可能比直接跳进去要好。为了验证这种观点是否正确，我们测量了候选人在面试中第一次运行代码的时间。下面是一个直方图，展示了成功和失败的面试者在开始面试之后，第一次运行代码的时间。很快地看一眼，你就可以发现，成功的候选人在开始运行代码之前，会等待得稍微久一点，虽然差别不是很大。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*I0npBvlvkI3JVWr5Toi1_g.png)
 
-More specifically, **on average, candidates with successful interviews first run code 27% of the way through the interview, whereas candidates with unsuccessful interviews first run code 23.9% of the way into the interview, and this difference is significant**. Of course, there are alternate explanations for what’s happening here. For instance, perhaps successful candidates are better at taking the time to sweet-talk their interviewer. Furthermore, the usual caveat that we can’t make causal claims applies — if you just sit in an interview for an extra 5 minutes in complete silence, it won’t help your chances. Nonetheless, there does seem to be a difference between the two cohorts.
+更准确地说，**就平均水平而言，成功的候选人在整个面试过程的 27% 处第一次运行代码，而不成功的候选人在 23.9% 处首次运行，这个差异是显著的**。当然，这种现象还有其它的解释。例如，也许成功的候选人更擅长把时间花在拍面试官的马屁上。而且，像平常一样，我们也不能声称其中有因果关系——如果你在面试过程中花5分钟时间坐着，什么也不说，这将对你没有什么帮助。但是，这样做会对第一次运行代码的时间产生影响。
 
-### Conclusions
+### 结论
 
-All in all, this post was our first attempt to understand what does and does not typically lead to an interviewer saying “you know what, I’d really like to hire this person.” Because all of our data are observational, its hard to make causal claims about what we see.
+总而言之，我们试图探究是什么使得面试官说：“你知道吗，我真的想雇佣这个人。”。这个帖子是我们的首次尝试。由于所有的数据都是观察数据，声称其中有因果联系是很困难的。
 
-While successful interviewees may exhibit certain behaviors, adopting those behaviors doesn’t guarantee success. Nonetheless, it does allow us to support (or call BS on) a lot of the advice you’ll read on the internet about how to be a successful interviewee.
+成功的面试者可能表现出特定的行为，但模仿这些行为并不保证你能成功。但是，这使我们有证据支持（或反对）你在网上看到的关于面试的许多建议。 
 
-That said, there is much still to be done. This was a first, quantitative pass over our data (which is, in many ways, a treasure trove of interview secrets), but we’re excited to do a deeper, qualitative dive and actually start to categorize different questions to see which carry the most signal as well as really get our head around 2nd order behaviors that you can’t measure easily by running a regex over a code sample or measuring how long an interview took.
+除此之外，还有很多事情可以做。这是第一个对我们的数据（在很多层面上，它蕴含着关于面试的宝贵信息）的定量分析。接下来，我们打算做一个更深层、定性的研究，并开始把不同的问题分类，看看哪一类问题含有重要的信号。我们也将分析用户的二级行为，这些行为不是把样本代码做一个回归分析，看看面试时长就可以测量的。
 
-If you want to help us with this and are excited to listen to a bunch of technical interviews, [drop me a line](mailto:aline@interviewing.io)!
-
----
-
-*Want to become awesome at technical interviews and land your next job in the process? *[*Join interviewing.io*](http://www.interviewing.io)*!*
-
+如果你想帮助我们，并想要听一些技术面试，[写信给我](mailto:aline@interviewing.io)！
 
 ---
 
