@@ -122,7 +122,7 @@
 
 > *“年轻的时候搞砸各种事情是没有关系的；你的恢复能力还很强。” — *Harold Prince
 
-我们都经历过结束一场面试时，感觉自己表现很糟糕的情况。 Often, that feeling of certain underperformance is motivated by rules of thumb that we’ve either come up with ourselves or heard repeated over and over again. You might find yourself thinking, “the interview didn’t last long? That’s probably a bad sign… ” or “I barely wrote anything in that interview! I’m definitely not going to pass.” Using our data, we wanted to see whether these rules of thumb for evaluating your interview performance had any merit.
+我们都经历过结束一场面试时，感觉自己表现很糟糕的情况。 通常，这种发挥不佳的感觉是出于我们自己发现，或者道听途说的经验法则。我们可能发现自己在想：“面试持续的时间不长？这很可能不是个好消息……”或者“我在面试中几乎什么都没有写！我肯定过不了。”使用自己的数据，我们试图研究这些衡量面试表现的经验法则是否有用。
 
 首先，我们观察了面试的时间长度。面试时间短是否意味着面试者表现非常糟糕，面试官只能提早结束？或者，可能面试官不太有时间，或者他很快发现你是一个特别优秀的候选人？下图显示了成功与失败的候选人的面试时长（以分钟计）。
 
