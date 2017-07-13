@@ -6,27 +6,27 @@
 > * 译者：
 > * 校对者：
 
-# Five Tips for Working with Redux in Large Applications
+# 在大型应用中使用 Redux 的五个技巧
 
-![](https://cdn-images-1.medium.com/max/1200/0*U2DmhXYumRyXH6X1.png)
+![](http://img20.360buyimg.com/uba/jfs/t5653/322/6027363778/85125/11c9a206/5967231dNdc56ee51.png)
 
-Redux is an excellent tool for managing the “state” of an application. The unidirectional flow of data and the focus on immutable state makes reasoning about changes to the state simple. Each update to our state is caused by a dispatched action, which causes our reducer function to return a new state with the desired changes. Many of the user interfaces we create with Redux at AppNexus deal with large amounts of data and very complex user interactions as our customers manage their advertisements or publishing inventory on our platform. Over the course of developing these interfaces, we have arrived at some helpful rules and tips to keep Redux manageable. The following points of discussion should help anyone working with Redux on large, data intensive applications:
+Redux 是一个很棒的用于管理应用程序“状态”的工具。单向数据流以及对不可变数据的关注使得推断状态的变化变得很简单。每次的状态变化都由一个 action 触发，这会导致 reducer 函数返回一个变更后的新状态。由于客户要在我们的平台上管理或发布广告资源，在 AppNexus 使用 Redux 创建的很多用户界面都需要处理大量数据以及非常复杂的交互。在开发这些界面的过程中，我们发现了一些有用的规则和技巧以确保 Redux 便于管理。以下的几点讨论应该可以帮助到任何在大型，数据密集型应用中使用 Redux 的人：
 
-- [Section 1:](#2032) Using indices and selectors for storing and accessing state
-- [Section 2](#b3eb): Separation of state between data objects, edits to those objects, and other UI state
-- [Section 3](#f43d): Sharing of state between multiple screens in a Single Page Application, and when not to
-- [Section 4](#fe11): Reusing common reducers between different places in state
-- [Section 5](#cb70): Best practices for connecting React components to Redux state
+- 第 1 点: 在存储和访问状态时使用索引和选择器
+- 第 2 点: 把数据对象，对数据对象的修改以及其它 UI 状态区分开
+- 第 3 点: 在单页应用的不同页面间共享数据，以及何时不该这么做
+- 第 4 点: 在状态中的不同节点复用通用的 reducer 函数
+- 第 5 点: 连接 React 组件与 Redux 状态的最佳实践
 
-### 1. Store data with an index. Access it with selectors.
+### 1. 使用索引保存数据，使用选择器读取数据
 
-Choosing the right data structure can make a big difference for our application’s organization and performance. Storing serializable data from an API will greatly benefit from being stored in an index. An index is a javascript object in which the keys are the ids of the data objects we’re storing, and the value is the actual data objects themselves. This pattern is very similar to using a hashmap to store data, and we get the same benefits in terms of lookup time. This is likely unsurprising to those well-versed in Redux. Indeed, Redux’s creator Dan Abramov recommends this data structure in his [Redux tutorial](https://egghead.io/lessons/javascript-redux-persisting-the-state-to-the-local-storage).
+选择正确的数据结构可以对应用的结构与性能产生很大影响。存储来自 API 的可序列化数据可以极大的受益于索引的使用。索引是指一个 JavaScript 对象，其键是我们要存储的数据对象的 id，其值则是这些数据对象自身。这种模式和使用 hashmap 存储数据非常类似，在查找时间方面也有相同的优势。这一点对于精通 Redux 的人来说不足为奇。实际上，Redux 的作者 Dan Abramov 在它的 [Redux 教程中](https://egghead.io/lessons/javascript-redux-persisting-the-state-to-the-local-storage)就推荐了这种数据结构。
 
-Imagine you have a list of data objects fetched from a REST API, e.g. data from the `/users` service. Let’s assume that we decided to simply store the plain array in our state, just as it is in the response. What happens when we need to retrieve a specific user object? We would need to iterate over all the users in state. If there are many users, this could be a costly operation. What if we wanted to keep track of a subset of users, perhaps selected and unselected users? We either need to store the data in two separate arrays, or keep track of the indices in the main array of the selected and unselected users.
+设想你有一组从 REST API 获取的数据对象列表，例如来自 `/users` 服务的数据。假设我们决定将这个普通数组存储在状态中，就像在响应中那样。当我们需要获取一个特定用户对象时会怎样呢？我们需要遍历状态中的所有用户。如果用户很多，这可能会是一个昂贵的操作。如果我们想跟踪用户的一小部分，例如选中和未选中的用户呢？我们要么需要把数据保存在两个数组中，要么就要跟踪这些选中和未选中用户在主数组中的索引（译者注：此处指的是普通意义上的数组索引）。
 
-Instead, we decide to refactor our code to store the data in an index. We would store the data in our reducer like so:
+然而，我们决定重构代码改以索引的方式存储数据。我们可以在 reducer 中以如下的方式存储数据：
 
-```
+```javascript
 {
  "usersById": {
     123: {
@@ -41,28 +41,29 @@ Instead, we decide to refactor our code to store the data in an index. We would 
 }
 ```
 
-So how does this data structure help us with these problems? If we need to lookup a specific user object, we simply access the state like so: `const user = state.usersById[userId]`. This method of access does not require us to iterate over the whole list, saving us time and simplifying our retrieval code.
+那么这种数据结构是如何帮助我们解决以上的问题的呢？如果我们需要查找一个特定用户对象，我们可以用 `const user = state.usersById[userId]` 这种简单的方式访问状态。这种读取方式不需要我们遍历整个列表，节省了时间同时简化了代码。
 
-At this point you may be wondering how we actually accomplish rendering a simple list of users with these data structures. To do so, we will use a selector, which is a function that takes the state and returns your data. A simple example would be a function to get all the users in our state:
+此时你可能会好奇我们如何通过这种数据结构来展示一个简单的用户列表呢。为此，我们需要使用一个选择器，它是一个接收状态并返回所需数据的函数。一个简单的例子是一个返回状态中所有用户的函数：
 
-```
+```javascript
 const getUsers = ({ usersById }) => {
   return Object.keys(usersById).map((id) => usersById[id]);
 }
 ```
 
-In our view code, we call that function with our state to produce the list of users. Then we can iterate over those users and produce our view. We could make another function to get just the selected users from our state like so:
+在我们的视图代码中，我们调用该方法以获取用户列表。然后就可以遍历这些用户生成视图了。我们可以创建另一个函数用于从状态中获取指定用户：
 
-```
+```javascript
 const getSelectedUsers = ({ selectedUserIds, usersById }) => {
   return selectedUserIds.map((id) => usersById[id]);
 }
 ```
 
-The selector pattern also increases our code’s maintainability. Imagine that later on we wish to change the shape of our state. Without selectors, we will be required to update all of our view code as well to match the new state shape. As the number of view components increases, the burden of changing state shape increases drastically. To avoid this problem, we will use selectors to access state in our views. If the underlying state shape changes, we just update the selector to access state in the correct way. All of the consuming components will still get their data, and we don’t have to update them. For all these reasons, large Redux applications will benefit from the index and selector data storage pattern.
+选择器模式还同时增加了代码的可维护性。设想以后我们想要改变状态的结构。在不使用选择器的情况下，我们不得不更新所有的视图代码以适应新的状态结构。随着视图组件的增多，修改状态结构的负担会急剧增加。为了避免这种情况，我们将在视图中通过选择器读取状态。即使底层的状态结构发生了改变，我们也只需要更新选择器。所有的消费组件仍将可以获取它们的数据，我们也不必更新它们。出于所有这些原因，大型 Redux 应用将受益于索引与选择器数据存储模式。
 
-### 2. Separate canonical state from view and edit state
+### 2. 区分标准状态与视图状态和编辑状态
 
+现实中的 Redux 应用通常需要从一些服务获取数据，例如一个 REST API。
 Real-world Redux applications usually need to fetch some kind of data from another service, such as a REST API. When we receive that data, we dispatch an action with the payload of whatever data we got back. We refer to data returned from a service as “canonical state” — i.e. the current correct state of the data as it is stored in our database. Our state also contains other kinds of data such as the state of user interface components or of the application as a whole. The first time we retrieve some canonical data from our API, we might be tempted to store it in the same reducer file as the rest of our state for a given page. Although this approach may be convenient, it is difficult to scale when you need to fetch many kinds of data from a variety of sources.
 
 Instead, we will separate out the canonical state into its own reducer file. This approach encourages better code organization and modularity. Scaling reducer files vertically (adding more lines of code) is less maintainable than scaling them horizontally (adding more reducer files to the `combineReducers` call). Breaking reducers out into their own files makes it easier to reuse those reducers (more on that in [Section 3](http://techblog.appnexus.com/#section3)). Additionally, it discourages developers from adding non-canonical state into the data object reducers.
