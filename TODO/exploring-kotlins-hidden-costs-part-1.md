@@ -333,7 +333,7 @@ class MyClass() : Parcelable {
 
 这就是第一篇文章的全部内容了。希望这可以让你更好的理解使用这些 Kotlin 特性的影响。牢记这一点以便在不损失可读性和性能的情况下编写更智能的的代码。
 
-继续阅读[第二部分](https://medium.com/@BladeCoder/exploring-kotlins-hidden-costs-part-2-324a4a50b70)：**局部函数**，**空值安全**，**可变参数**。
+继续阅读[第二部分](https://github.com/xitu/gold-miner/blob/master/TODO/exploring-kotlins-hidden-costs-part-2.md)：**局部函数**，**空值安全**，**可变参数**。
 
 
 ---
