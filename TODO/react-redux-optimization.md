@@ -1,26 +1,26 @@
 
-> * 原文地址：[Redux isn't slow, you're just doing it wrong - An optimization guide](http://reactrocket.com/post/react-redux-optimization/)
+> * 原文地址：[Redux 并不慢，只是你使用姿势不对 —— 一份优化指南](http://reactrocket.com/post/react-redux-optimization/)
 > * 原文作者：[Julian Krispel](https://twitter.com/juliandoesstuff)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/react-redux-optimization.md](https://github.com/xitu/gold-miner/blob/master/TODO/react-redux-optimization.md)
-> * 译者：
+> * 译者：[reid3290](https://github.com/reid3290)
 > * 校对者：
 
-# Redux isn't slow, you're just doing it wrong - An optimization guide
+# Redux 并不慢，只是你使用姿势不对 —— 一份优化指南
 
-It's not very obvious how to optimize react applications that use Redux. But it's actually fairly straightforward. Here's a short guide, along with a few examples.
+如何优化使用了 Redux 的 React 应用不是那么显而易见的，但其实又是非常简单直接的。本文即是一份带有若干示例的简短指南。
 
-When optimizing applications that use Redux with react, I often hear people saying that Redux is slow. In 99% of cases, the cause for bad performance (this goes for any other framework) is linked to unnecessary rendering, since DOM updates are expensive! In this article, you’ll learn how to avoid unnecessary rendering when using Redux bindings for react.
+在优化使用了 Redux 的 React 应用的时候，我经常听人说 Redux 很慢。其实在 99% 的情况下，性能低下都和不必要的渲染有关（这一论断也适用于其他框架），因为 DOM 更新的代价是昂贵的。通过本文，你将学会如何在使用 Redux 的 React 应用中避免不必要的渲染。
 
-Typically, to update react components whenever your Redux store updates, we use the [`connect`](https://github.com/reactjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options) higher order component from the [official react bindings for Redux](https://github.com/reactjs/react-redux). This is a function that wraps your component in another component, which subscribes to changes in the Redux store and renders itself and consequently it’s descendants whenever an update occurs.
+一般来讲，要在 Redux store 更新的时候同步刷新 React 组件，需要用到[ React 和 Redux 的官方连接器](https://github.com/reactjs/react-redux)中的 [`connect`](https://github.com/reactjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options) 高阶组件。
+`connect` 是一个将你的组件进行包裹的函数，它返回一个高阶组件，该高阶组件会监听 Redux store，当有状态更新时就重新渲染自身及其后代组件。
 
-## A quick dive into react-redux, the official react bindings for Redux
+## React 和 Redux 的官方连接器 —— react-redux 快速入门
 
-The `connect` higher order component is actually already optimized. To understand how to best use it it’s best to understand how it works!
+`connect` 高阶组件实际上已经被优化过了。为了理解如何更好地使用它，必须先理解它是如何工作的。
+实际上，Redux 和 react-redux 都是非常小的库，因此其源码也并非高深莫测。我鼓励人们通读源码，或者至少读一部分。如果你想更进一步的话，可以自己实现一个，这能让你深入理解为什么它要作如此设计？
 
-Redux, as well as react-redux are actually quite small libraries so the source code isn’t impenetrable. I encourage people to read through the source code, or at least bits of it. If you want to go a step further, write your own implementation, it’ll give you thorough insight into why a library is designed the way it is.
-
-Without further ado, let’s dive a little into how the react bindings work. As we established, the central piece of the react bindings is the `connect` higher order component, this is it’s signature:
+闲言少叙，让我们稍微深入地研究一下 react-redux 的工作机制。前面已经提过，react-redux 的核心是 `connect` 高阶组件，其函数签名如下：
 
     return function connect(
       mapStateToProps,
@@ -38,14 +38,13 @@ Without further ado, let’s dive a little into how the react bindings work. As 
     ...
     }
 
+顺便说一下 —— 只有 `mapStateToProps` 这一个参数是必须的，而且大多数情况下只会用到前两个参数。此处我引用这个函数签名是为了阐明 react-redux 的工作机制。
 
-As a side note - The only mandatory argument is `mapStateToProps` and in most cases you will only need the first two arguments. However, I’m using the signature to here to illustrate how the react bindings work.
+所有传给 `connect` 函数的参数都用于生成一个对象，该对象则会作为属性传给被包裹的组件。`mapStateToProps` 用于将 Redux store 的状态映射成一个对象，`mapDispatchToProps` 用于产生一个包含函数的对象 —— 这些函数一般都是动作生成器（action creators）。`mergeProps` 则接收 3 个参数：`stateProps`、`dispatchProps` 和 `ownProps`，前两个分别是 `mapStateToProps` 和 `mapDispatchToProps` 的返回结果，最后一个则是继承自组件本身的属性。默认情况下，`mergeProps` 会将上述参数简单地合并到一个对象中；但是你也可以传递一个函数给 `mergeProps`，`connect` 则会使用这个函数为被包裹的组件生成属性。
 
-All arguments passed into the `connect` function are used to generate an object, which is passed onto the wrapped component as props. `mapStateToProps` is used for mapping the state from your Redux store to an object, `mapDispatchToProps` is used to produce an object containing functions - typically those functions are action creators. Finally `mergeProps` takes three arguments `stateProps`, `dispatchProps` and `ownProps`. The first is the result of `mapStateToProps`, the second the result of `mapDispatchToProps` and the third argument is the props object that is inherited from the component itself. By default `mergeProps` simply combines those arguments into one object, but if you pass in a function for the `mergeProps` argument, `connect` will instead use that to generate the props for the wrapped component.
+`connect` 函数的第四个参数是一个属性可选的对象，具体包含 5 个可选属性：一个布尔值 `pure` 以及其他四个用于决定组件是否需要重新渲染的函数（应当返回布尔值）。`pure` 默认为 true，如果设为 false，`connect` 高阶组件则会跳过所有的优化选项，而且那四个函数也就不起任何作用了。我个人认为不太可能有这类应用场景，但是如果你想关闭优化功能的话可以将其设为 false。
 
-The fourth argument of the `connect` function is an options object. This contains 5 options: `pure`, which can be either true or false as well as 4 functions (which should return a boolean) that determine whether to re-render the component or not. `pure` is by default set to true. If set to false, the `connect` hoc will skip any optimizations and the 4 functions in the options object will be irrelevant. I personally can’t think of a use-case for that, but the option to set it to false is available if you prefer to turn off optimization.
-
-The object that our `mergeProps` function produces is compared with the last props object. If our `connect` HOC thinks the props object has changed, the component will re-render. To understand how the library decides whether there has been a change we can look at the [`shallowEqual` function](https://github.com/reactjs/react-redux/blob/master/src/utils/shallowEqual.js). If the function returns true, the component won’t re-render, if it returns false it will re-render. `shallowEqual` performs this comparison. Below you’ll see part of the `shallowEqual` method, which tells you all you need to know:
+`mergeProps` 返回的对象会和上一个属性对象作比较，如果 `connect` 高阶组件认为属性对象所有改变的话就会重新渲染组件。为了理解 `react-redux` 是如何判断属性是否有变化的，请参考 [`shallowEqual` 函数](https://github.com/reactjs/react-redux/blob/master/src/utils/shallowEqual.js)。如果该函数返回 true，则组件不会渲染；反之，组件将会重新渲染。`shallowEqual` 负责进行属性对象的比较，如果是其部分代码，基本表明了其工作原理：
 
     for (let i = 0; i < keysA.length; i++) {
       if (!hasOwn.call(objB, keysA[i]) ||
@@ -54,20 +53,19 @@ The object that our `mergeProps` function produces is compared with the last pro
       }
     }
 
+概括来讲，这段代码做了这些工作：
 
-To summarize, this is what the above code does:
+遍历对象 A 中的所有属性，检查对象 B 中是否存在同名属性。然后检查 A 和 B 同名属性的属性值是否相等。如果这些检查有一个返回 false，则对象 A 和 B 便被认为是不等的，组件也就会重新渲染。
 
-It loops over the keys in object a and checks if object B owns the same property. Then it checks if the property (with the same name) from object A equals the one from object B. If only one of the comparisons returns false, the objects will be deemed unequal and a re-render will occur.
+这引出一条黄金法则：
 
-This leads us to one golden rule:
+## 只给组件传递其渲染所必须的数据
 
-## Give your component only the data it needs to render.
+这可能有点难以理解，所以让我们结合一些例子来细细分析一下。
 
-This is quite vague, so let’s elaborate with a bunch of practical examples.
+### 将和 Redux 有连接的组件拆分开来
 
-### Split up your connected components
-
-I’ve seen people do this. Subscribing a container component to a bunch of state and passing everything down via props.
+我见过很多人这样做：用一个容器组件监听一大堆状态，然后通过属性传递下去。
 
     const BigComponent = ({ a, b, c, d }) => (
       <div>
@@ -81,11 +79,9 @@ I’ve seen people do this. Subscribing a container component to a bunch of stat
       ({ a, b, c }) => ({ a, b, c })
     );
 
+现在，一旦 `a`、`b` 或 `c` 中的任何一个发生改变，`BigComponent` 以及 `CompA`、`CompB` 和 `CompC` 都会重新渲染。
 
-Now, every time either `a`, `b` or `c` changes, the `BigComponent`, including `CompA`, `CompB` and `CompC` will re-render.
-
-Instead, split up your components and don’t be afraid to make more use of `connect`:
-
+其实应该将组件拆分开来，而无需过分担心使用了太多的 `connect`：
 
     const ConnectedA = connect(CompA, ({ a }) => ({ a }));
     const ConnectedB = connect(CompB, ({ b }) => ({ b }));
@@ -99,14 +95,13 @@ Instead, split up your components and don’t be afraid to make more use of `con
       </div>
     );
 
+如此一来，`CompA` 只有在 `a` 发生改变后才会重新渲染，`CompB` 只有在 `b` 发生改变后才会重新渲染，`CompC` 也是类似的。如果 `a`、`b`、`c` 更新很频繁的话，那每次更新我们仅仅只是重新渲染一个组件而不是一下渲染三个。就这三个组件来讲区别可能不会很明显，但要是组件再多一些就另当别论了。
 
-With this update, `CompA` will only re-render when `a` has changed, `CompB` when `b` has changed, etc. Consider a scenario where each value `a`, `b` and `c` are each updated frequently. For every update, we’re now re-rendering one, instead of all components. This is barely noticeable with three components, but what if you have many more!
+### 转变组件状态，使之尽可能地小
 
-### Transform your state to make it as minimal as possible
+这里有一个人为构造的例子：
 
-Here’s a hypothetical (slightly contrived) example:
-
-You have a large list of items, let’s say 300 or more.
+你有一个很大的列表，比如说有 300 多个列表项：
 
     <List>
       {this.props.items.map(({ content, itemId }) => (
@@ -119,28 +114,25 @@ You have a large list of items, let’s say 300 or more.
       ))}
     </List>
 
-
-When we click on a List Item, an action gets fired with updates a store value - `selectedItem`. Each list item connects to Redux and gets the `selectedItem`:
+点击一个列表项便会触发一个动作，同时更新变量 `selectedItem`。每一个列表项都通过 Redux 获取 `selectedItem` 的值：
 
     const ListItem = connect(
       ({ selectedItem }) => ({ selectedItem })
     )(SimpleListItem);
 
+这里我们只给组件传递了其所必须的状态，这是对的。但是，当 `selectedItem` 发生变化时，所有 `ListItem` 都会重新渲染，因为我们从 `selectedItem` 返回的对象发生了变化，之前是 `{ selectedItem: 123 }` 而现在是 `{ selectedItem: 120 }`。
 
-We’re doing the right thing, we’re connecting the component only to the state that it needs. However when `selectedItem` gets updated, all the `ListItem` components re-render, because the object we’re returning from `selectedItem` has changed. Before it was `{ selectedItem: 123 }`, now it is `{ selectedItem: 120 }`.
-
-Now bear in mind that we’re using the `selectedItem` value to check whether the current item is selected. So the only thing our component really needs to know is whether it is selected or not - in essence - a `Boolean`. Booleans are great since there are only two possible states, `true` or `false`. So if we return a boolean instead of `selectedItem`, only the two items for which the boolean changes will re-render, which is all we need. `mapStateToProps` actually takes in the components `props` as it’s second argument, we can use that to check whether this is in fact the selected item. Here’s how that’ll look like:
+记住一点，我们使用了 `selectedItem` 的值来检查当前列表项是否被选中了。但是实际上组件只需要知道它有没有被选中即可， 本质上就是个 `Boolean`。布尔值用在这里简直完美，因为它仅仅有 `true` 和 `false` 两种状态。如果我们返回一个布尔值而不是 `selectedItem`，那当那个布尔值发生改变时只有两个组件会被重新渲染，这正是我们期望的结果。`mapStateToProps` 实际上会 将组件的 `props` 作为第二个参数，我们可以利用这一点来确定当前组件是否是被选中的那一项。代码如下： 
 
     const ListItem = connect(
       ({ selectedItem }, { itemId }) => ({ isSelected: selectedItem === itemId })
     )(SimpleListItem);
 
+如此一来，无论 `selectedItem` 如何变化，只有两个组件会被重新渲染 —— 当前选中的 `ListItem` 和那个被取消选择的 `ListItem`。
 
-Now whenever our `selectedItem` value changes, only two components re-render - the `ListItem` that is now selected and the one that has been unselected.
+### 保持数据扁平
 
-### Keep your data flat
-
-The [Redux docs mention this](http://redux.js.org/docs/recipes/reducers/NormalizingStateShape.html) as a best practice. Keeping the shape of your store flat is beneficial for a bunch of reasons. But for the purpose of this article, nesting poses a problem because for our app to be as fast as possible, we want our updates to be as granular as possible. Let’s say we have a nested shape like this:
+[Redux 文档](http://redux.js.org/docs/recipes/reducers/NormalizingStateShape.html) 认为这是一点最佳实践。保持 store 扁平有很多好处。但就本文而言，嵌套会造成一个问题，因为我们希望状态更新粒度尽量小以使应用运行尽量快。比如说我们有这样一种深浅套的状态：
 
     {
       articles: [{
@@ -152,8 +144,7 @@ The [Redux docs mention this](http://redux.js.org/docs/recipes/reducers/Normaliz
       ...
     }
 
-
-In order to optimize our `Article`, `Comment` and `User` components, we’ll now need to subscribe all of them to `articles` and then reach deep into this structure to return only the state they need. It makes more sense to instead lay out your shape like so:
+为了优化 `Article`、`Comment` 和 `User` 组件，它们都需要订阅 `articles`，而后在层层嵌套的属性中找到所需要的状态。其实如果将状态展开成这样会更加合理：
 
     {
       articles: [{
@@ -169,23 +160,21 @@ In order to optimize our `Article`, `Comment` and `User` components, we’ll now
       }]
     }
 
+之后用自己的映射函数获取评论和用户信息即可。更多关于状态扁平化的内容可以参阅 [Redux 文档](http://redux.js.org/docs/recipes/reducers/NormalizingStateShape.html)。
 
-And then select comments and user information with your mapping functions. More about this can be read in the [Redux docs on normalizing state shape](http://redux.js.org/docs/recipes/reducers/NormalizingStateShape.html).
+### 福利：两个选择 Redux 状态的库
 
-### Bonus: Libraries for selecting Redux state
+这一部分完全是可选的。一般来讲上述那些建议足够你编写出高效的 react 和 Redux 应用了。但还有两个可以大大简化状态选择的库：
 
-This is entirely optional and up to you. Generally all the above advice should get you far enough to write fast apps with react and Redux. But there are two excellent libraries that make selecting state a bunch easier:
+[Reselect](https://github.com/reactjs/reselect) 是为 Redux 应用编写 `selectors` 所必不可少的工具。根据其官方文档：
 
-[Reselect](https://github.com/reactjs/reselect) is a compelling tool for writing `selectors` for your Redux app. From the reselect docs:
+- Selectors 可以计算派生数据，从而使得 Redux 只需要存储最少的状态。
+- Selectors 是高效的. 只有在参数发生改变时 selector 才会重新计算。
+- Selectors 是可组合的。它们可以用作其他 selectors 的输入、
 
-- Selectors can compute derived data, allowing Redux to store the minimal possible state.
-- Selectors are efficient. A selector is not recomputed unless one of its arguments change.
-- Selectors are composable. They can be used as input to other selectors.
+对于界面复杂、状态繁多、更新频繁的应用，reselect 可以大大提高应用运行效率。
 
-For applications with complex interfaces, complex state and/or frequent updates, reselect can help a ton to make your app faster!
-
-[Ramda](http://ramdajs.com/) is a powerful library full of higher order functions. In other words - functions to create functions. Since our mapping functions are just that - functions, we can use Ramda to create our selectors quite conveniently. Ramda can do all that selectors do and more. Checkout the [Ramda cookbook](https://github.com/ramda/ramda/wiki/Cookbook) for some examples of what you can do with Ramda.
-
+[Ramda](http://ramdajs.com/) 是一个由许多高阶函数组成、功能强大的函数库。 换句话说，就是许多用户创建函数的函数。由于我们的映射函数也不过只是函数而已，所以我们可以利用 Ramda 方便地创建 selectors。Ramda 可以完成所有 selectors 可以完成的工作，而且还不止于此。[Ramda cookbook](https://github.com/ramda/ramda/wiki/Cookbook) 中介绍了一些 Ramda 的应用示例。
 
 ---
 
