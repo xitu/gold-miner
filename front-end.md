@@ -1,3 +1,4 @@
+* [JavaScript 的函数式编程是一种反模式](https://juejin.im/post/59645b29f265da6c20419170?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([sunui](https://github.com/sunui) 翻译)
 * [你不需要基于 CSS Grid 的栅格布局系统](https://juejin.im/post/5960e73f6fb9a06bb5403f87?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([leviding](https://github.com/leviding) 翻译)
 * [React 在服务端渲染的实现](https://juejin.im/post/595b01ad6fb9a06bb15a13b2?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([MuYunyun](https://github.com/MuYunyun) 翻译)
 * [V8 性能优化杀手](https://juejin.im/post/5959edfc5188250d83241399?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lsvih](https://github.com/lsvih) 翻译)
