@@ -6,7 +6,7 @@
 > * 译者：[LeviDing](https://github.com/leviding)
 > * 校对者：
 
-# 2017 如何在众多前端框架中进行选择
+# 2017 年了，这么多前端框架，你会怎样选择？
 
 ![](https://cdn-images-1.medium.com/max/800/1*T551HACMn9A95dnwpPK-eQ.png)
 
