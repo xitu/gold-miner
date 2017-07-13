@@ -4,15 +4,15 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/upcoming-regexp-features.md](https://github.com/xitu/gold-miner/blob/master/TODO/upcoming-regexp-features.md)
 > * 译者：[sunui](https://github.com/sunui)
-> * 校对者：
+> * 校对者：[atuooo](https://github.com/atuooo)、[Tina92](https://github.com/Tina92)
 
 # 即将到来的正则表达式新特性
 
-ES2015 给 JavaScript 语言引入了许多新特性，其中包括正则表达式语法的一些重大改进，新增了 Unicode （`/u`） 和粘滞位 （`/y`）两个修饰符。但从那以后，发展从未止步。经过与 TC39（ECMAScript 标准委员会）的其他成员的紧密合作，V8 团队提议并共同设计了让正则表达式更强大的几个新特性。
+ES2015 给 JavaScript 语言引入了许多新特性，其中包括正则表达式语法的一些重大改进，新增了 Unicode 编码 （`/u`） 和粘滞位 （`/y`）两个修饰符。而在那之后，发展也并未停止。经过与 TC39（ECMAScript 标准委员会）的其他成员的紧密合作，V8 团队提议并共同设计了让正则表达式更强大的几个新特性。
 
-这些新特性目前已经计划包含在 JavaScript 标准中。即使提案还没有完全通过，它们已经进入 [TC39 流程的候选阶段](https://tc39.github.io/process-document/)了。我们已经在一个 flag（见下文）之后实现了这些功能，以便在最终定稿之前提供及时的设计和实现反馈给各自的提案作者。
+这些新特性目前已经计划包含在 JavaScript 标准中。虽然提案还没有完全通过，但是它们已经进入 [TC39 流程的候选阶段](https://tc39.github.io/process-document/)了。我们已经以试验功能（见下文）在浏览器实现了这些特性，以便在最终定稿之前提供及时的设计和实现反馈给各自的提案作者。
 
-本文给您预览一下这个令人兴奋的未来。如果您愿意跟着体验这些即将到来的示例，可以在 `chrome://flags/#enable-javascript-harmony` 开启实验性 JavaScript 功能。
+本文给您预览一下这个令人兴奋的未来。如果您愿意跟着体验这些即将到来的示例，可以在 `chrome://flags/#enable-javascript-harmony` 页面中开启实验性 JavaScript 功能。
 
 ## 命名捕获
 
@@ -37,7 +37,7 @@ ES2015 给 JavaScript 语言引入了许多新特性，其中包括正则表达�
     /(.)(a)(b)(c)\4\3\2/  // 所有都需要更新。
 
 
-命名捕获是一个即将到来的特性，它允许开发者给捕获组分配名称来帮助缓解这些问题。语法类似于 Perl、Java、.Net 和 Ruby：
+命名捕获是一个即将到来的特性，它允许开发者给捕获组分配名称来帮助尽可能地解决这些问题。语法类似于 Perl、Java、.Net 和 Ruby：
 
     const pattern =/(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/u;
     const result = pattern.exec('2017-07-10');
@@ -99,13 +99,13 @@ ES2015 给 JavaScript 语言引入了许多新特性，其中包括正则表达�
     /^\p{Script_Extensions=Hiragana}+$/u.test('ひらがな');  // true
 
 
-全部受支持的 Unicode 属性类列表可以在最新的[规范提案](https://tc39.github.io/proposal-regexp-unicode-property-escapes/#sec-static-semantics-unicodematchproperty-p)中找到。更多示例请查看[这篇内容丰富的文章](https://mathiasbynens.be/notes/es-unicode-property-escapes)。
+全部受支持的 Unicode 属性类列表可以在目前的[规范提案](https://tc39.github.io/proposal-regexp-unicode-property-escapes/#sec-static-semantics-unicodematchproperty-p)中找到。更多示例请查看[这篇内容丰富的文章](https://mathiasbynens.be/notes/es-unicode-property-escapes)。
 
 ## 后行断言
 
 先行断言从一开始就已经是 JavaScript 正则表达式语法的一部分。与之相对的后行断言也终于将被[引入](https://github.com/tc39/proposal-regexp-lookbehind)。你们中的一些人可能记得，这成为 V8 的一部分已经有一段时间了。我们甚至在底层已经用后行断言实现了 ES2015 规定的 Unicode 修饰符。
 
-名称已经很好地描述了它的意义。它提供一个方式来限制一个正则，只有后行组匹配通过之后才继续匹配。它提供匹配和非匹配两种选择：
+“后行断言”这个名字已经很好地描述了它的涵义。它提供一个方式来限制一个正则，只有后行组匹配通过之后才继续匹配。它提供匹配和非匹配两种选择：
 
     /(?<=\$)\d+/.exec('$1 is worth about ¥123');  // ['1']
     /(?<!\$)\d+/.exec('$1 is worth about ¥123');  //['123']
