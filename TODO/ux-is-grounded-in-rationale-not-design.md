@@ -6,96 +6,95 @@
 > * 译者：
 > * 校对者：
 
-# UX is Grounded in Rationale, not Design
+# UX 基于背后的合理化，而非设计
 
 ![](https://cdn-images-1.medium.com/max/1600/0*Qjtb14dgGZmwUgOP.png)
 
 [https://ccrma.stanford.edu/wiki/Interaction_Design_Framework](https://ccrma.stanford.edu/wiki/Interaction_Design_Framework)
 
-During the past few weeks of my internship, I felt stuck and unmotivated. I didn’t know what I should be doing or if the work I was doing was worth the time I put in. How could I make the most of my time? I only have 12 weeks was the thought I prioritized over everything else. I felt so pressured by time to make something as fast as possible that I didn’t take time to let the learnings surrounding my project and the company sink in, and how I could use them to give me direction on my project. Thankfully, my manager, [J.B. Chaykowsky](https://medium.com/@jbchaykowsky), saw that I was struggling and suggested I synthesize everything I had learned so far. We were able to break down my learnings and start distilling them into constraints or “truths” surrounding the problem I am currently trying to solve. This experience has changed my mindset of how I approach design and my process.
+去年实习的那几周，我感到困顿且毫无动力，不知道自己到底应该做什么。又或者我做的工作到底值不值得我投入的时间，我应该怎样最大化地利用我的时间呢？实习期只有 12 周的时间，其紧迫感让我感觉其它任何事都没有实习重要。时间的压力让我总觉得不能快速学习项目，不能融入公司氛围，纠结于将时间分配在项目的哪一个方向。幸运的是，我的项目经理，[J.B. Chaykowsky](https://medium.com/@jbchaykowsky)，在我困惑之时提议让我将所学所得总结下来。我们这才得以将我学到的分析提炼，又或者围绕我现在需要解决的问题找出“真理”。这段经历改变了我做设计甚至做事的思维模式。
 
-> When you frame the problem, it allows you to see the big picture of different directions you can take with your approach and evaluate your design with principles
+> 当你尝试构建一个问题时，你将会从不同方面了解问题的背景，选择研究方法，并根据原则评估设计。
 
-An article Dan Brown wrote about [**practical design discovery**](https://alistapart.com/article/practical-design-discovery)really resonated with what my manager was trying to help me do. This was to frame the problem and take a design direction which would help me see a big picture of the what, who and how of the problem vs only seeing the granular details of how a design (aka a solution) would look like.
+Dan Brown 写的一篇文章 [**探索实践设计**](https://alistapart.com/article/practical-design-discovery)，与项目经理试着帮助我做的事情产生共鸣，那就是：构建问题并主导设计方向，会帮助我看到问题的大背景：问题是什么，谁在其中，怎样做以解决问题。而非仅仅看到设计（解决方案）颗粒化的细节。
 
-### You don’t want to start drawing concepts too early
+### 你肯定不想早早开始画概念图
 
 ![](https://cdn-images-1.medium.com/max/1600/0*3gJxd6BvvMCjSrGj.jpg)
 
 [https://dribbble.com/shots/2073055-OpenTable-consumer-iOS-app-wireframes](https://dribbble.com/shots/2073055-OpenTable-consumer-iOS-app-wireframes)
 
-During the few weeks of my internship, I focused my time on sketching and making. How could I sketch solutions without understanding the current issues my user was facing, let alone the main problem I was trying to solve? Though I did do research surrounding the problem, looking at previous insights from users and such, I did not have concrete knowledge to back up my explorations and whether my solution would work or not.
+在我实习最开始的几周，我专注于花草图，做实事。然而，当在我还未理解用户所面对的问题时，怎能画出好的解决方案呢？尽管我围绕问题确实做了一些用户研究，看了看之前用户数据的分析结果等等，但我的探索背后并没有具体理论支持，甚至不确信我的解决方案是否可行。
 
-Research is super important, but *synthesizing* that information to come up with new opportunities is even more valuable than making products look good or building something which already exists. It also opens up the opportunity to give perspective to other designers working a team and allow them to leverage what they are working on to solve bigger issues aside from a specific solution.
+用户研究及其重要，然而，将用户研究所得到的信息与新机遇相*结合*更加重要。相比之下，把产品做好看，或者开发一个已经存在的产品便不那么重要了。用户研究让设计师们协作起来，给大家机会来表达自己的观点，用群众智慧组团解决更大的问题。
 
-> Use sketching as a way to think, but don’t sketch out solutions too early if you don’t understand the problem
+> 用画板来思考，不过在弄清问题之前，别太早尝试手绘解决方案。
 
-Sketching out things is great as it allows you to visualize and conceptualize something, but don’t sketch solutions without understanding of problem. You will end up boxing in your thought process too early if you do that. Though some places may say that sketching in the beginning is good, you could be using your time to distill information and create a solid framework of the work you are trying to do.
+手绘的方式很棒，能帮助你可视化，概念化。但当你对问题不了解时，不要轻易尝试画出解决方案，这会过早地框住你的想法。尽管有人会提倡一开始就手绘结果，但是何不利用时间慢慢沉淀信息，以得到一个可靠的产品框架呢？
 
-### Rationalize instead of inputting (don’t be brain dumped on)
+### 多思考别蛮干（别把脑袋丢了噢～）
 
 ![](https://cdn-images-1.medium.com/max/1600/0*Z1s829rQRLCI-GoN.jpg)
 
-connectivedx
-I have been talking to a lot of people and writing down everything I learned so far, but *writing isn’t the same as understanding*. I was not using that information to generate understanding about the problem, but instead wrote it down in hopes of understanding it later.
+我和很多人聊过，写下每一件我学到的事情，但是*抄写不等于理解*，我并没能够通过写下这些内容而更好地理解问题，反而是想先记下以后再慢慢理解吧。
 
-Without building a rationale behind the problem, my reasoning behind my design decisions would end up being part of a non-existing framework I didn’t have to support them. The things I built wouldn’t be as effective if I had just focused on making sense of my research in the beginning.
+解决方案背后没有原理的支持，我的那堆设计只不过是支离破碎的框架，根本就架不住推理。（有实践无理论）但如果我仅仅在初期关注问题的合理化，也是得不出有效的方案的。（有理论无实践）
 
-> I needed to shift my emphasis from making to synthesizing and using data I learned to build understanding and a solid framework where my decisions would make sense.
+> 我需要做的是将焦点转移，从盲目动手转移到理论实践相结合。
 
-Before building, you need to build a good foundation. This would potentially lead you to building the right thing instead of something that isn’t relevant or has already been done before. I started synthesizing information based on previous work (work I did or what the company had done), current work (the project I am working on), questions and user research. This allowed me to lay down everything visually and provide more clarity on framing the problem.
+动手之前，你需要打下好的基础。这会潜在地引导你向正确的方向发展，以防误入歧途走他人老路。慢慢地，我将各方面获得的知识结合，包括我之前学到的，公司的经验，现在手中的项目，用户问题研究。将不同方面从视觉上铺展开，为我提供了一个清晰的视角以构建问题。
 
-Rationalizing everything made me realize I couldn’t just start designing without knowing the scope of what I was trying to do. I needed to go broad and focus before going narrow. There is potential to solve a part of problem other people hadn’t been focusing on and to prevent repeating the same steps other designers have done if they did something similar to what I am doing.
+对所有事保持质疑让我意识到，我不能未开辟视野就开始设计，而是要先拓展视角再收敛专注。部分问题可能有某种解法，其它人从未尝试过。若有其它设计师做过相似案例，这样也能避免雷同重复的步骤。
 
-### Engage in the problem
+### 深究问题
 
 ![](https://cdn-images-1.medium.com/max/1600/0*Qw0WTbgshXn6n2Ky.jpg)
 
 Akhil Chugh
 
-If you spend time synthesizing information, you can reframe the problem in ways you couldn’t have done if you start doing concepts already. Engaging in the problem will help build a better rationale which will allow you to understand the problem better. To get people to understand your design, you need to have solid rationale about the things you say. This means backing up your design decisions with customer insights and/or data.
+如果你花时间将各种信息糅合，会想到一些新角度来重构问题，这些很难从最初的纯概念提炼。深入探讨问题更好地使问题合理化，帮你更好地理解问题。而帮助用户理解你的设计，你需要以理服人。这意味着设计决定要由用户反馈，运营数据而来。
 
-> If you can’t connect your work to reality, you are essentially wasting time
+> 如果你不能将作品与现实联结，纯属浪费时间。
 
-Dan Brown broke down three ways to create a direction for your designs that will help you break down a problem. These are constraints which allow you to rationalize your thinking and describe your design decisions:
+Dan Brown 提出了一个帮你分解问题的方法，为你的设计之路辟开三条小径。这些约束能够合理化你的想法，描述设计决策。
 
-- **Principles** define what the design should or shouldn’t do. These statements are grounded in research, and may be referred to as *implications* when you can tie them to research.
-- **Concepts** establish an overall approach for the product, expressed as a central theme or idea.
-- **Models** describe the product in an abstract way, showing the underlying architecture, structure, flow, or approach. They offer a sense of how the product will work (without actual functionality)
+- **原则** 定义设计能做什么不能做什么，这些叙述是基于研究的，当它们与研究相联结时，可以被引用作为*奥义*。
+- **概念** 整体上建立产品的方法，可被表述为中心思想，中心主题。
+- **模型** 抽象地描述产品，展现背后的结构，流程，方法。提供了产品运作的概念（非真实功能）。
 
-Taking the time understand the problem by synthesizing data will allow you create constraints and frameworks while meeting your objectives. Constraints make your design scalable and frameworks make your design feasible (what should the design do vs won’t do) This will lead you to focus more, allowing you to think differently and to give you direction on how to practically approach a problem .
+花时间结合数据理解问题，这将帮你建立约束，构建框架，以完成目标。约束在于塑造可扩展性，框架塑造可行性（设计能做什么，不能做什么）这能帮助你更专心，从不同角度思考，怎样实践地着手问题。
 
-### Do you really understand the problem?
+### 你真的了解问题么？
 
 ![](https://cdn-images-1.medium.com/max/1600/0*3hj7tpNR-UUiF3DE.jpg)
 
-When I talk to my co-worker, Vera, about my designs, she will always ask me to provide an example or use case surrounding it. There are times when I can’t do this and this is bad. I have been listening about the problem mainly through her and looking at existing data that I haven’t been able to provide specific use cases to back up my ideas.
+当我和同事 Vera 讨论我的设计时，她总是要求我举个例子或提出具体用户用例。有那么几次，我只是单纯听她陈述问题，看现有的数据，没能够提供确切的用户用例以支持我的想法，这种做法就不太好。
 
-If you can’t give a concrete example, then you probably don’t have a clear understanding of the problem. Because we are on the same team, my co-worker might have an understanding about what I am trying to explain to her, but if I try to explain my idea to someone else without any example or rationale behind it, they won’t get it. In fact, this is how amazing ideas can die on the spot because you couldn’t explain it clearly or thoughtfully.
+如果你不能给出具体实例，那么可能是你对问题没有清楚的认知。由于我们在同一个组里，同事可能还能听懂我在和他解释什么。但一旦我给其他人解释我的想法，若没有实例或理论支持，他们便会无法理解你。事实上，这会让一些惊艳的想法付之一炬，仅仅因为你没能清晰透彻地解释它。
 
-> You can’t relying on an abstract or metaphor when describing your design. You need to tell a story with a solid framework your design is based off of.
+> 在描述你的设计时，你不能只是依赖于抽象概念或比喻。你需要的是讲个故事，背后还要有靠谱的理论框架。
 
-In a company setting, you need to be able to explain to people, especially higher ups, about the project you are working on and how it is going to help their customers. This means providing concrete examples backed with data or customer insights. They are going to be seeing your work for the first time and you want to make sure they understand everything you did, especially because you spent a lot of time on developing your logic and design. Essentially you need to explain 3 months worth of work in 5-10 minutes.
+基于公司背景设定，你不仅需要能解释给大众，尤其是高层，讲清楚你正在进行的项目，进行的怎么样，以方便高层做决策惠及客户。这意味着提供实例，提供数据支持，以及客户反馈。你当然希望他们首次看到你的工作时就能百分百理解你所表达的内容，尤其是你花了很多时间建立的逻辑和设计。必要情况下，你要在五到十分钟内解释三个月的工作。
 
-In UX design, it is crucial to have an understanding of who you are designing for in order to really understand their pain and then come up with solutions that will help alleviate it. Otherwise, you are wasting your time coming up with solutions that won’t be beneficial for you, the company and your customers.
+在 UX 设计领域，重点是你需要理解你的设计受众，以理解他们的痛点，并提出解决方案以减轻用户的痛点。否则，你就是在浪费时间，解决方案既不能使你受益，也不能使公司和客户受益。
 
-### Closing Thoughts
+### 结尾的想法
 
 ![](https://cdn-images-1.medium.com/max/1600/0*vbHDbYW1_txwX_JU.png)
 
-The reason why I felt “unproductive” was because I wasn’t taking the time to understand my users or the problem I was given to solve. I haven’t empathized deeply with what my users go through. This made me realize how hard it was to develop empathy for others when you don’t have a first-hand experience of the problem.
+起初，我感觉到自己“效率低”，究其原因是我不能理解用户和需要解决的问题，没能深入感受用户的经历。这也让我意识到，当你没有对问题的一手经验时，很难感同身受。
 
-> In order to develop empathy, you have to go through what your users to go through to really understand their pains.
+> 想要与用户产生共鸣，你需要经历用户所经历，感受用户所感受。
 
-I had been learning a lot about my project, as well as talking to many people, but I wasn’t distilling any of that information into something actionable. Instead, I started to get stuck in a plethora of different information, letting myself get stuck in analysis paralysis because I wasn’t connecting that information to how it was going to help me move forward.
+在这个项目中，我学到了很多，与很多人聊天谈话，但起初我没能沉淀信息，付之行动。相反，我受阻于多方面冗余的信息，让自己困于麻痹的分析过程，因为我未能将得到的信息与实际生活相结合而进步。
 
-> Embrace what you don’t know, especially in the beginning because what you don’t know can become your greatest asset. It ensures that you will absolutely be doing things different from everybody else (Sara Blakely)
+> 拥抱未知，尤其是在最初的时刻。因为未知使你成为一张最崭新的白纸，让你与他人有彻底的不同。(Sara Blakely)
 
-It’s okay to be stuck in ambiguity or if you aren’t too sure what to do. When in doubt, take the time to process everything you have learned so far and create constraints that will allow you to focus on what is really important and build frameworks to understand the problem. Don’t make design decisions early in your process without knowing what you are trying to design, who you are designing for and how are you going to get there.
+当你不确定做什么的时候，困于模凌两可，这些都还好。在怀疑之中，慢慢用时间消化你学到的一切。创造约束能使你关注于什么才是真正重要的，构建问题的框架，理解问题的实质。别太早做出设计决定，尤其在是你还不了解自己在设计什么，为谁设计，怎样设计的时候。
 
-#### If you have questions or just want to chat, feel free to connect and message me on [Linkedin](https://www.linkedin.com/in/tiffany-wang-551584a0) :)
+#### 关于文章如果您有何问题，或是想和我聊聊，欢迎与我联系 [Linkedin](https://www.linkedin.com/in/tiffany-wang-551584a0) :)
 
-#### If you liked my post, please recommend it!
+#### 喜欢文章的话就别忘了分享一下噢
 
 
 ---
