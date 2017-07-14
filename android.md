@@ -1,3 +1,4 @@
+* [ 将 Kotlin 应用于现有 Java 代码的策略](https://juejin.im/post/5966ed4e51882568b4630f71?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Luolc](https://github.com/Luolc) 翻译)
 * [第一次走进 Android 中的 Kotlin 协程](https://juejin.im/post/596308af5188250d8860f6dc?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Feximin](https://github.com/Feximin) 翻译)
 * [Android 中的定时任务调度](https://juejin.im/post/595c9061f265da6c22119084?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([phxnirvana](https://github.com/phxnirvana) 翻译)
 * [Kotlin:小菜一碟](https://juejin.im/entry/5956f47a5188250d9848abe7/detail?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([CACppuccino](https://github.com/CACppuccino) 翻译)
