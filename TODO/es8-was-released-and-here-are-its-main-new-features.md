@@ -1,10 +1,9 @@
 
 > * 原文地址：[ES8 was Released and here are its Main New Features 🔥](https://hackernoon.com/es8-was-released-and-here-are-its-main-new-features-ee9c394adf66)
-> * 原文作者：[Dor Moshe](https://hackernoon.com/@dormoshe)
+> * 原文作者：本文已获原作者 [Dor Moshe](https://hackernoon.com/@dormoshe) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/es8-was-released-and-here-are-its-main-new-features.md](https://github.com/xitu/gold-miner/blob/master/TODO/es8-was-released-and-here-are-its-main-new-features.md)
 > * 译者：[Jason Cheng](https://github.com/ToBeNumerOne)
-> * 校对者：
 
 # ES8 新特性一览 🔥
 
