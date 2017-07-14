@@ -1,3 +1,4 @@
+* [是的，ES2017 （ES8）来了](https://juejin.im/post/596713b75188250da20604cb?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([ToBeNumerOne](https://github.com/ToBeNumerOne) 翻译)
 * [任何网站都可以成为渐进式网络应用 - 但我们需要做的更好](https://juejin.im/post/5966bf2451882568b20dc2af?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([wilsonandusa](https://github.com/wilsonandusa) 翻译)
 * [JavaScript 的函数式编程是一种反模式](https://juejin.im/post/59645b29f265da6c20419170?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([sunui](https://github.com/sunui) 翻译)
 * [你不需要基于 CSS Grid 的栅格布局系统](https://juejin.im/post/5960e73f6fb9a06bb5403f87?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([leviding](https://github.com/leviding) 翻译)
