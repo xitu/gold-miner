@@ -3,84 +3,122 @@
 > * 原文作者：[Audrey Hacq](https://uxdesign.cc/@audreyhacq)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/atomic-design-how-to-design-systems-of-components.md](https://github.com/xitu/gold-miner/blob/master/TODO/atomic-design-how-to-design-systems-of-components.md)
-> * 译者：
+> * 译者：[H2O-2](https://github.com/H2O-2)
 > * 校对者：
 
-# Atomic design: how to design systems of components
+# 原子设计：如何设计组件系统
 
 Nowadays, digital products must be able to exist across any and all devices, screen sizes, and mediums at the same time:
+现在的数字产品需要同时存在于任何的设备，屏幕尺寸和媒介上：
 
 ![](https://cdn-images-1.medium.com/max/800/1*q-qsAsIFizbZkalv7TwEOw.jpeg)
 
 Every type of medium can now display our interfaces elements
 > *So why the hell are we still designing our products by “page” or by screen?!*
 
+所有媒介现在都可以显示我们的界面元素
+> **所以我们为啥还在依据「页面」或者屏幕设计自己的产品？！**
+
 Instead, we should be creating beautiful and easy access to content, regardless of device, screen size or context.
+我们应该通过设计优美、简洁且兼容一切设备、屏幕尺寸或内容的访问方式取而代之。
 
 By keeping this in mind and by being inspired by Modular Design, Brad Frost formulated the method of Atomic Design, in which everything begins with the smallest element of the interface: the atom. This metaphor allows us to understand what we are creating and especially how we are going to create it.
+依据以上原则以及模块化设计的启发，Brad Frost 构想出了从最小的界面元素：原子，着手的原子设计方法。这个巧妙的比喻让我们理解了我们到底在创作什么，以及应该如何创作它。
 
 I was convinced by this approach which finally allowed us to think about the part and the whole at the same time, have a global vision of a product or a brand, and also get closer to the way developers are working.
+我对这个方法深信不疑：它终于可以让我们同时考虑部分和整体，拥有对产品或品牌的全局视野，并且能够以更接近开发者的工作方式工作。
 
 So I thought to myself:
 *“Of course, that’s it! We need to work like this!”
 *But honestly, I didn’t have a clue about how to do this…
+因此我自忖道：
+**「没错儿了，就是这样！我们就需要像这样工作！」**
+**但是说实话，我完全不知道该怎么做...**
 
 It took me several months and some concrete projects before gaining an idea of what “designing in atomic” really meant and what that was going to change in my everyday life as a designer.
+在花了几个月的时间并且做了几个实打实的项目之后，我才终于对「原子设计方式」的内在含义，以及它将会如何改变我的设计师之路，有了些许了解。
 
 In this article, I’ll go over a bit of what I’ve learned and what to keep in mind when designing systems of components with Atomic Design.
+在这篇文章里，我将会简要介绍一下我学到的知识，以及在通过原子设计方式设计组件系统时需要注意什么。
 
 ### For what kind of project ?
+### 针对何种项目？
 
 For me, every project, big or small can be designed with atomic in mind.
+对于我来说，每一个项目，无论大小都可以使用原子设计的理念。
 
 It gathers teams around a shared vision. The components are easy to reuse, edit and combine together so that the evolutions of the product will be simpler. And as for smaller projects… Well, every small project could one day become a big project, no?
+这种方式可以统一团队的视野。组件易于重复使用、编辑和组合，使得项目的成长变得简单。至于小的项目嘛... 每个小项目总有一天都可能成为大项目，不是吗？
 
 I also think that, contrary to popular belief, the Atomic Design methodology is not just for web projects … Quite the opposite in fact! I was able to introduce Atomic Design into a personal project (an iOS app for cleaning your address book named [TouchUp](https://itunes.apple.com/fr/app/touchup/id1128944336?mt=8)) and the developer with whom I worked really appreciated this approach. It saved us a lot of time when we wanted to quickly develop and iterate the product.
+和大部分人的认知相左的是，我认为原子设计方法并不只适用于网络相关的项目 ... 事实上截然相反！我成功地在一个个人项目中（一个叫做[TouchUp](https://itunes.apple.com/fr/app/touchup/id1128944336?mt=8))的 iOS 应用，可以清理你的地址簿）引入了原子设计，而且与我合作的开发者非常欣赏这种方式。当我们想快速开发并迭代产品的时候，它帮了大忙。
 
 And for those who wonder if it’s possible to build a system of components while still remaining creative, I recommend reading this article:“[Atomic Design & creativity](https://medium.com/@audreyhacq/atomic-design-creativity-28ef74d71bc6)”
+同时我推荐那些担忧创造性与构建组件系统是否可能共存的人读读这篇文章：「[原子设计与创造性](https://medium.com/@audreyhacq/atomic-design-creativity-28ef74d71bc6)」
 
 ### **How is this different than before?**
+### **这和过去有什么不同呢？**
 
 People often ask me:
 *“But how is this different than the way we worked before?”*
+经常有人问我：
+**「但是这和我们过去的工作方式有什么不同呢？」**
 
 I see Atomic Design as a slightly different approach to interface design but one which can make a great impact in the end.
+我把原子设计看作一种尽管只是略有不同却最终可以带来巨大影响的界面设计方式。
 
 > *The part shapes the whole and the whole shapes the part*
+> **部分塑造整体且整体塑造部分**
 
 Until recently, we designed all the screens of a product, and then we cut it into small components to make specifications or UI Kits:
+直到最近，我们仍会单独设计产品的每一个界面，然后把它们裁剪成小组件，以此来创建设计规格或UI套件（UI Kits）：
 
 ![](https://cdn-images-1.medium.com/max/800/1*3OFaoY-yLYdgPmO8AhejmQ.jpeg)
 
 Before : we deconstructed screens to make components
+之前：我们解构界面来制作组件
+
 One of the problem was that the components created in this way were not generic and they weren’t dependent on each other. The reuse of components was thus very limited: our design system was restrictive.
+这样制作出来的组件有一个问题，它们并不通用，且互不关联。因此组件的重复利用是非常有限的：我们的设计系统具有局限性。
 
 ---
 
 Today, the idea of Atomic Design is to begin with common raw material (atoms) with which we can build the rest of the project:
+现如今，原子设计的理念是从可以最终构建出整个项目常用的原材料（原子）入手。
 
 ![](https://cdn-images-1.medium.com/max/800/1*yyN6Ki0646UcFLsDabUShw.jpeg)
 
 Today: we start from atoms and we build the rest from there
 We have thus not only an “air de famille” between all the screens, but also a system which offers infinite design possibilities!
+现如今：我们从原子开始并且用原子构建
+因此我们不仅拥有了充斥在所有界面之间的「家庭气氛」（译者注：「家庭气氛」是一部法国的喜剧电影），更拥有了一个带来无限设计可能性的系统！
 
 ### Everything start with brand identity
+### 一切始于品牌识别
 
 Now you might be wondering:
 *“Where do we begin if we want to design in an atomic way?”*
+现在你也许在想：
+**「如果我们想以原子的方式设计，该从哪开始呢？」**
 
 To which I answer, rather logically: with atoms ;)
-
+对这个问题我给出了一个极富逻辑性的回答：从原子开始 ;)
+ 
 Thus the first thing which we are going to do is to create a unique visual language for our product that will be our starting point. This is what is going to define our atoms, our raw material and it is obviously very close from the brand identity.
+因此我们首先要为产品设计出一个独特的视觉语言作为起点。它将描绘出我们的原子和原材料，而且显然它应与品牌识别紧密相连。
 
 This visual language must be strong, easy to build upon, and free itself from the medium on which it is going to be displayed; it has to be able to work everywhere!
+这个视觉语言一定要有力度、易于扩展、并且能够从其展示媒体中解放自我；它必须能在所有地方奏效！
 
 The [Gretel agency](http://gretelny.com/work/netflix/), for example, made some remarkable work on the Netflix identity:
+比如 [Gretel agency](http://gretelny.com/work/netflix/) 为 Netflix 的品牌识别做了些出色的工作。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Piomy-9oNTP0yT3VcmKH4w.png)
 
 Netflix visual language: strong, recognizable and easy to build upon
 And thanks to a strong identity, we feel that we have all the material to release our first atoms: colors, typographic choices, forms, shadows, spaces, rhythms, animations principles…
+Netflix 的视觉语言：有力度、辨识度高且易于扩展
+多亏了强有力的品牌识别，我们会感觉已经
 
 It is thus essential to spend time designing this identity, thinking about what makes the difference, the uniqueness of a brand or a product.
 
