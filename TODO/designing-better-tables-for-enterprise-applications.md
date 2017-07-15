@@ -6,169 +6,169 @@
 > * 译者：
 > * 校对者：
 
-# Designing better tables for enterprise applications
+# 为企业应用设计更好的表格
 
-## An in-depth guide on how to design tables in enterprise applications, and how to avoid commonly made mistakes
+## 深入了解如何在企业应用中设计表格，以及如何避免常见的错误
 
 ![](https://cdn-images-1.medium.com/max/800/1*CtL7L-xuiyljKBcX6kxjug.jpeg)
 
-Enterprise applications are complex — there is an insane amount of information that is to be displayed that contains data from various sources, modules and users. There are complex graphs, usage patterns, and lists of data that need to be skimmed through before one can make sense of what the console is getting at.
+企业应用通常很复杂，因为要展示包含多种来源、模式和用户的大量的数据信息。需要先浏览一下复杂的图表、使用模式和数据列表，才能理解控制台的功能。
 
-> The biggest challenge with designing enterprise applications is the lack of examples of patterns that work or don’t work in specific scenarios.
+> 设计企业应用程序最大的挑战是缺乏在特定场景中工作或不工作的模式示例。
 
-Since most enterprise applications contain sensitive data pertaining to the company, there are very few examples out there that talk to some of the common problems faced while designing enterprise apps. There exists pattern libraries that talk in-depth about how each component should work but very little on when to use them. The patterns we see in design libraries are often oversimplified and does not work in real enterprise applications where data and the use-cases are more complex in nature.
+由于大多数的企业应用程序都涉及与公司相关的敏感数据，所以很少有实例讨论设计企业应用程序时面临的的常见问题。现有的模式库深入讨论了每个组件如何运行工作，但是很少涉及何时使用它们。我们在设计库中看到的模式通常过于简单，而实际的企业应用程序在本质上数据和用例都更为复杂，这些模式并不起作用。 
 
-> The patterns work well in a silo but when they meet convoluted workflows, domain specific user-types and data of a large scale, they break.
+> 这些模式在建模仓中没什么问题，但是一旦碰到复杂的工作流、特定范围的用户类型或者大规模数据时，就不能正常运行了。
 
 ![](https://cdn-images-1.medium.com/max/800/1*aNPBhln7iDMY8qRcmoyCfA.jpeg)
 
-### Tables in the enterprise world
+### 企业界的表
 
-What you see below is a typical enterprise application. The working window is dense with information with a crazy number of panels each indicating information that is contextual to any other selection made on the screen.
+下面是一个典型的企业应用界面。工作窗口里大量的面板上挤满了密密麻麻的信息，每个面板所指示的信息又和屏幕上的其他选项息息相关。
 
 ![](https://cdn-images-1.medium.com/max/800/1*DrmyxDMEPv7lSGK4W6jNFA.png)
 
-Image source — [http://docplayer.net/docs-images/24/3069798/images/8-0.png](http://docplayer.net/docs-images/24/3069798/images/8-0.png)
-As you can notice above, the most space consuming section of the application is a *table*. Tables This article will help designers who are trying to figure out how to use table patterns the right way depending on specific scenarios.
+图片来源：[http://docplayer.net/docs-images/24/3069798/images/8-0.png](http://docplayer.net/docs-images/24/3069798/images/8-0.png)
+如上所述，应用程序中最耗费空间的部分是**表**。本文将帮助设计师根据具体情况来发现表格的正确使用方法。
 
-A pattern of the past in most consumer facing applications but very much an effective and widely used one in the enterprise world. There is no better way, yet, to display huge lists of data in any other way but on tables. Tables are effective because the nature of enterprise applications requires users to view rows of data simultaneously, scanning through alerts, comparing data and looking at data in any specific order of the user’s choice.
+一种过去大多面向消费者应用的模式，在企业界反而非常有效并被广泛使用。然而也没有什么更好的方法，只有表格能能展示巨大的数据列表。表格的有效性在于企业应用的性质要求用户同时查看多行数据、通过警报扫描、比较数据以及按照用户选择的任何特定顺序查看数据。 
 
-What you are seeing below might seem like a very regular table pattern and might seem like there is nothing wrong about the usability of it at first, but as you get deeper into working on it, one would start realizing the quirks of operating it.
+下面的这张图片看起来像是一个非常正常的表格，起初可能丝毫不会质疑它的可用性。但当你进一步使用它的时候，你会发现操作起来有点奇怪。
 
 ![](https://cdn-images-1.medium.com/max/800/1*hRCUhW9xF3DNMf_8iO7UGg.png)
 
-A very common table in enterprise applications.
+企业应用中非常普遍的表。
 ![](https://cdn-images-1.medium.com/max/800/1*aNPBhln7iDMY8qRcmoyCfA.jpeg)
 
-### 1. Links on tables
+### 1. 表上的链接
 
 ![](https://cdn-images-1.medium.com/max/800/1*C9eu7Lcy_5K1hBA3cDIwRQ.png)
 
-Probably takes the user to that user’s profile
-In the first example here, the links on the first column probably hints at the fact that clicking it will take you to the user’s profile. Not very clear, but not very hard to guess either.
+也许会跳转到用户的个人资料页
+第一个例子里，第一列上的链接可能暗示着点击后会跳转到用户的个人资料页面。虽然页面说明不是很清楚，但也不难猜到。
 
-But on the other hand, what happens on clicking on the link in the example below?
+但是下面这个例子就未必了，你能猜到点击下图中的链接会跳转哪里吗？
 
 ![](https://cdn-images-1.medium.com/max/800/1*lNo9LTYR8NrnOt_IISKCGA.png)
 
-At first, this seems to be some kind of code associated with each row. Placing a link this way does not tell the user what they do.
-Above is a real example from an enterprise application, where clicking the link copies the code to the clipboard. This action was not very easy to understand and such ambiguous patterns should be avoided.
+这似乎是某种与每行内容有关的代码。以这种方式设置链接，会让用户感到困惑。
+以上是一个来自企业应用程序的真实示例，点击链接后会将代码复制到剪贴板。但是这个操作不是很容易理解，应该避免这种意义不明的模式。
 
 ![](https://cdn-images-1.medium.com/max/800/1*aNPBhln7iDMY8qRcmoyCfA.jpeg)
 
-### 2. Actions on tables
+### 2. 表上的操作
 
-Performing actions such as delete, move, print, export etc are very common, especially when done for multiple items simultaneously. Most enterprise applications have actions present on each row, and sometimes it is necessary to have these as there is a need to perform the actions on specific rows. Having said that, most actions can be extrapolated from the row and be a different section on the page.
+删除、移动、打印、导出等是非常常见的操作，特别是在同时处理多个项目时。大多数企业应用程序每行都会有一个操作，这样设置有时很有必要，因为需要对某些特定行执行操作。话虽如此，其实大多数操作可以从表格的行中推算出来，成为页面的不同部分。
 
-#### Action proximity of links
+#### 靠近链接的操作
 
 ![](https://cdn-images-1.medium.com/max/800/1*qMOnR1H0nqFA9o3QLR-z3A.png)
 
-The action to be performed on a row is at the right most column which is furthest away from the identifying column, which in this case, is the first column.
-The proximity of action that needs to be performed on a row should not be furthest away from the identifying column. More often than not, this leads to an action being performed on the wrong row. This puts too much cognitive effort for a person to keep track of row and click the action without mistaking it for another row. This pattern is prone to error and should be avoided.
+要在一行中执行的操作位于距离标识列最远的最右边的列，而在本例中，操作位于第一列。
+一行中要执行的操作的距离不应该远离识别列。通常情况下，这会导致在错误行上执行操作。如若不然，用户需要花费过多认知精力用于识别追踪行，并努力避免点击操作到另外的行。这种模式很容易出错，设计时应该避免。
 
-#### Redundant Actions
+#### 冗余操作
 
 ![](https://cdn-images-1.medium.com/max/800/1*dKwoZRKsF3BUQQb5Fj9t5w.png)
 
-The action “*delete”* is present on each row.
-Here the action “Delete” is present on all the rows and seems repetitive on each row. Imagine the same row with five or six options that repeat itself — this would make the table look visually very cluttered. Also, in such a table, it is impossible to delete multiple items at the same time as there is no way to select multiple items.
+每行都有一个**「删除」** 操作。
+在这个例子中每行都重复出现一个「删除」操作。想象一下，每行有 5、6 个重复的操作选项，会让表格看起来非常混乱。不仅如此，这样的表格中也不能同时删除多个选项，因为没有办法选择进行多选。
 
 ![](https://cdn-images-1.medium.com/max/800/1*CJd_ovH-TA7Y_9jLV4dzow@2x.png)
 
-An example of a modern enterprise application with checkboxes on each item on the table.
-A good pattern followed to select and perform actions on multiple items on a table at the same time is allowing each row to be selected. Upon selection, a toolbar appears either right above or below the table where the actions to be performed can be placed.
+现代企业应用的一个示例，表格里每项之前都有一个复选框。
+在同一时间、同一个表格里，选择并执行多个项目上的操作的一个好的模式是每行都允许被选中。选中后，工具栏出现在表格的上方或下方，可以进行要执行的操作。
 
 ![](https://cdn-images-1.medium.com/max/800/1*9zqme5j3KEbNZf2V0GJXkw@2x.png)
 
-On selection of multiple items on table, there is a toolbar that appears to perform actions on the selected items.
-This pattern is followed in most enterprise applications that has multiple list items in the form of a table. Some designers find the checkbox to be visually overwhelming as well because they are present on each row.
+在表格里选择多个项目后，有一个工具栏可以对所选项目执行操作。
+大多数具有表格形式的列表项的企业应用程序都遵循这种模式。但是一些设计师也发现，因为表格的每行都有复选框，所以在视觉上有点重、令人不知所措。
 
-Google Inbox has a pattern that reveals the checkbox only on hovering over the leftmost part of the row as highlighted below. In addition, for power users there is an option to use shift and select multiple items at the same time. This is a very good example of implementing action patterns on a table.
+在下图中可以看到，Google 收件箱的模式是只有悬停在该行的最左侧时才会显示复选框。另外，对于操作能力较强的用户，可以使用 shift 快捷键同时选择多个项目。这是在表上实现操作模式的一个非常好的例子。
 
 ![](https://cdn-images-1.medium.com/max/800/1*TQxn1KS_PbVsqYeFaePDCg.gif)
 
-This pattern though reduces clutter, can make a user think on how to actually multi-select. This took me a couple of tries to actually figure out a way to multi-select.
-Icon only actions are another commonly used pattern that makes the user think, and a rule of thumb for a good user experience is [not to make them think](https://www.amazon.com/Dont-Make-Me-Think-Usability/dp/0321344758). It cognitively loads the user to remember what each icons mean and where they are located.
+这种模式减少了视觉上的混乱，让用户思考如何实现多选。我也是尝试了几次后才找到一种可以多选的方法。
+只有图标的操作选项是另一种常用的让用户思考的模式，而一个经典的用户体验法则是 [别让用户思考](https://book.douban.com/subject/1901208/)。这种模式让用户记住每个图标的含义和位置。
 
 ![](https://cdn-images-1.medium.com/max/800/1*aNPBhln7iDMY8qRcmoyCfA.jpeg)
 
-### 3. Pagination and search on tables
+### 3. 表格的分页和搜索
 
-The nature of enterprise application is usually such that tables that run multiple pages just due to the volume of data. Often times, designers wonder if users even paginate through multiple pages to view data or if they are viewing just what is present on the first page.
+由于企业应用程序的数据量巨大，所以表格通常要运行多个页面。设计师希望了解用户是否会通过翻页来查看数据，还是只查看第一页显示的内容。
 
-> A table pattern in an enterprise application is successful if there is no need to paginate to view data.
+> 企业应用的表格模式如果不需要翻页就能查看数据的话，就是一个成功的表格。
 
-How can this be accomplished? **Good filters and a robust search mechanism.**
+如何实现表格不翻页就能查看数据呢? **优秀的过滤器和强大的搜索机制。**
 
-When a user paginates, they are looking for something specific. So before we get into designing good pagination, one must ask the question —
+用户之所以翻页是因为他们正在寻找特定的信息。所以在我们设计翻页之前，我们必须提出一个问题
 
-> How might we make finding items on this table easier?
+> 如何才能更快捷方便地在表格里查找信息？
 
-One good proven solution is providing filters that are contextual in nature — that is, based on the workflow of a user on the current screen, the filters present themselves with the options that could be most relevant to the current scenario.
+一个很好的成功解决方案是在自然语境的上下文中设置过滤器。也就是说，基于当前屏幕上的用户工作流程，过滤器显示与当前场景最相关的选项。
 
 ![](https://cdn-images-1.medium.com/max/800/1*GyKRd_H80qoU-198Vnx5Dw.png)
 
-For example, in this demo application, there are different filters based on the different phases of the user’s workflow. This might be tricky to implement, but when done right it is a great UX win.
-**When does search help?
-**Just leaving this here..
+例如，在这个演示应用程序中，根据用户的不同工作流程阶段出现不同的过滤器。也许很难实现，但是一旦成功，将是用户体验的一个伟大胜利。
+**什么时候搜索能够起到帮助作用？**
+刚刚离开当前页面的时候..
 
 ![](https://cdn-images-1.medium.com/max/800/1*-PSI6fE5geCxfCsO9jV24A.png)
 
-Source: [https://www.aspsnippets.com/Articles/Alphabet-Paging-using-Alphabetical-Pager-in-ASPNet-GridView.aspx](https://www.aspsnippets.com/Articles/Alphabet-Paging-using-Alphabetical-Pager-in-ASPNet-GridView.aspx)
+图片来源：[https://www.aspsnippets.com/Articles/Alphabet-Paging-using-Alphabetical-Pager-in-ASPNet-GridView.aspx](https://www.aspsnippets.com/Articles/Alphabet-Paging-using-Alphabetical-Pager-in-ASPNet-GridView.aspx)
 
 ---
 
-Now that we know how to think about pagination, it is necessary nevertheless. One of my biggest pet-peeves with pagination is the presence of item limits in the following fashion —
+现在我们知道了如何考虑分页设计，无论如何这是很有必要的。我最不能忍的一种分页方式是下图中呈现的项目限制
 
 ![](https://cdn-images-1.medium.com/max/800/1*0d74ZT5gQYQo3hxDtSXVhA.png)
 
-Here the system has been set up to view 10 items on a page.
-The user sees the first ten items on the list and has to paginate to view the eleventh one. Why can the table not programmatically find out if there are just one to three more items on the next page and display them all here? Or even better, no pagination if the items on the table are lesser than say 25? These are not difficult to implement, just that they have not been given much thought about.
+这个系统每页展示10条数据。
+用户在一页中只能查看10条数据，必须要翻页来查看第11条。为什么不能编写程序来查看表格下一页是否只有 1 到 3 条数据，如果是的话全部展示在当前这页呢？或者可以做得更好一点，判断条目少于 25 项不做分页。这些并不难实现，只是他们并没有多加考虑。
 
-#### Multi-select breaks on pagination
+#### 分页上多选被中断
 
 ![](https://cdn-images-1.medium.com/max/800/1*cOnC-SXXAH0F39BAenXsgQ.gif)
 
-Multi-select failing on pagination
-A user selects the first three items on page, then the first four on the second page, logically when he hits delete all 7 should be deleted. That does not happen because it is technically challenging and costly to retain the information of user-selection when paginating across pages.
+翻页后多选失效
+用户勾选了第一页的三个选项，然后去勾选第二页的前四个选项，逻辑上来说，他点击删除按钮时，这 7 项会被全部删除。但是实际上并不会发生，因为分页时跨页面保留用户选择的信息实现起来技术挑战难度较大，成本也很高。
 
-Selecting ***all ***items is another challenge when you have a table that paginates. It is only possible to either select all the items in the current view, or select all the items on the complete list.
+表中有分页时，选择**全部**项目是另一个挑战。用户只可能选择当前视图中的所有项，或者选择完整列表中的所有项。 
 
 ![](https://cdn-images-1.medium.com/max/800/1*3hHg3-2lHMjQfOLrpJoqTg.gif)
 
-Selecting all items while paginating can be very confusing
-Here, the user selects all the items on the page, then selects all 3000 odd items on the entire list. On paginating the selection is missing — this is again a technical limitation of pagination where preserving the memory of selection is expensive from an engineering standpoint.
+分页时选择全部项目可能会很混乱
+上面的例子里，用户先选择了当前页面上的所有选项，然后在整个列表中选择了全部 3000 个选项。分页操作后，勾选的信息失效了。这又是由于分页技术的局限性，因为从工程技术角度来看，保留选择记忆的成本很高。
 
-**What about infinite scroll/ lazy loading?
-**Many applications are moving away from pagination altogether for a Facebook/Twitter styled infinite feed. Designers have mixed thoughts about this, and to me personally, a “Load More” button works best.
+**无限滚动或者延迟加载的效果又如何呢？**
+许多应用程序目前正在从全部分页模式转型到 Facebook 或 Twitter 风格的无限加载信息模式。对此，设计师们各执一词。对我个人而言，一个「加载更多」按钮效果最好。
 
 ![](https://cdn-images-1.medium.com/max/800/1*O1e15RjpEpJU-8KQo34wdw.png)
 
-A load more button at the end of a currently loaded table.
-This loads only what fits in the current view, and if there is a conscious action from the user to load more, then more items are loaded.
+在当前加载的表格最后增加一个「加载更多」按钮。
+这只会加载当前视图中的内容，如果用户主动执行加载更多地操作，则会加载出更多内容。
 
 ![](https://cdn-images-1.medium.com/max/800/1*aNPBhln7iDMY8qRcmoyCfA.jpeg)
 
-### Closing thoughts
+### 最后一点想法
 
-This is by no-stretch an extensive list of suggestions for designing tables but a conglomeration of most commonly occurring problems and ways to solve them. I’d love to hear from you if you have items that could be added to this list.
+本文并不是一个设计表格的绝对正确的建议指南，只是一个设计表格时常见问题和解决这些问题的方法的集合。如果你有任何关于设计表格的补充建议，希望你能来信一起讨论。
 
-There are some excellent UI suggestions by [Andrew Coyle](https://medium.com/@CoyleAndrew) on [designing better data tables](https://uxdesign.cc/design-better-data-tables-4ecc99d23356). I’d highly recommend reading it for good interaction practices on tables.
+[Andrew Coyle](https://medium.com/@CoyleAndrew)在[设计更好的数据表格](https://uxdesign.cc/design-better-data-tables-4ecc99d23356)一文中提出了很好的设计表格用户界面的建议。强烈建议你读一读，以便了解良好的表格交互实践。
 
 ---
 
-Image template credit — Payment System Admin Sketch template by [Jurij Ternicki](https://medium.com/@ternicki) from [Sketch App Resources](https://www.sketchappsources.com/free-source/2490-payment-system-admin-template-sketch-freebie-resource.html).
+本文图片模板来自[Sketch App Resources](https://www.sketchappsources.com/free-source/2490-payment-system-admin-template-sketch-freebie-resource.html)，是由[Jurij Ternicki](https://medium.com/@ternicki)制作的支付管理系统原型。
 
 ![](https://cdn-images-1.medium.com/max/800/1*aNPBhln7iDMY8qRcmoyCfA.jpeg)
 
-*I am Adhithya, a Product Designer at OpenDNS, San Francisco. If you liked this article, hit the recommend button below. *☺️
+**我是 Adhithya ，旧金山 OpenDNS 的产品设计师。**
 
-*You can find me on *[*Twitter*](https://twitter.com/adhithyaux)*. Check my work *[*here*](http://www.adhithyakumar.com)*, or simply write to me at adhithya.ramakumar@gmail.com*
+你可以关注我的 **[Twitter](https://twitter.com/adhithyaux)**；**[戳这里](http://www.adhithyakumar.com)**查看我的作品；或者直接发邮件联系我 adhithya.ramakumar@gmail.com
 
 ![](https://cdn-images-1.medium.com/max/800/1*aNPBhln7iDMY8qRcmoyCfA.jpeg)
 
-*Adhithya wrote this story to share knowledge and to help nurture the design community. All articles published on uxdesign.cc follow that same *[*philosophy*](https://uxdesign.cc/the-design-community-we-believe-in-369d35626f2f)*.*
+Adhithya 写了这篇文章来分享知识技能，并帮助设计社区成员成长。所有在 uxdesign.cc 上发布的文章都循序相同的*[*设计哲学*](https://uxdesign.cc/the-design-community-we-believe-in-369d35626f2f)*
 
 ![](https://cdn-images-1.medium.com/max/800/1*aNPBhln7iDMY8qRcmoyCfA.jpeg)
 
