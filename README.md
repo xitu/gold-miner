@@ -5,7 +5,7 @@
 
 [掘金翻译计划](https://juejin.im/tag/%E6%8E%98%E9%87%91%E7%BF%BB%E8%AF%91%E8%AE%A1%E5%88%92) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](#android)、[iOS](#ios)、[React](#react)、[前端](#前端)、[后端](#后端)、[产品](#产品)、[设计](#设计) 等领域，读者为热爱新技术的新锐开发者。
 
-掘金翻译计划目前翻译完成 [516](#近期文章列表) 篇文章，共有 [300](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
+掘金翻译计划目前翻译完成 [570](#近期文章列表) 篇文章，共有 [330](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
 
 # 官方指南
 
@@ -19,38 +19,39 @@
 
 - [虚位以待]()
 
-
 # 近期文章列表
+
+## AI / Deep Learning / Machine Learning
+
+* [Scratch 平台的神经网络实现（R 语言）](https://juejin.im/post/5965cf75f265da6c4741adc4?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([CACppuccino](https://github.com/CACppuccino) 翻译)
+* [你会给想学习机器学习的软件工程师提出什么建议？](https://juejin.im/post/596323416fb9a06bae1dff63?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lsvih](https://github.com/lsvih) 翻译)
 
 ## Android
 
-* [Workcation App – 第四部分. 场景（Scenes）和 RecyclerView 的共享元素转场动画（Shared Element Transition）](https://juejin.im/post/5934bc22a0bb9f0058e27e88?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([stormrabbit](https://github.com/stormrabbit))
-* [Workcation App – 第三部分. 带有动画的标记（Animated Markers） 与 RecyclerView 的互动](https://juejin.im/post/5934bb10ac502e0068aa7598?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([stormrabbit](https://github.com/stormrabbit))
-* [Workcation App – 第二部分 .带有动画的标记（Animating Markers） 与 MapOverlayLayout](https://juejin.im/post/5934ba6aa22b9d0058ed37c5?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([stormrabbit](https://github.com/stormrabbit))
-* [Workcation App – 第一部分 . 自定义 Fragment 转场动画](https://juejin.im/post/5934b96c570c35005b548218?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([stormrabbit](https://github.com/stormrabbit))
+* [ 将 Kotlin 应用于现有 Java 代码的策略](https://juejin.im/post/5966ed4e51882568b4630f71?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Luolc](https://github.com/Luolc) 翻译)
+* [第一次走进 Android 中的 Kotlin 协程](https://juejin.im/post/596308af5188250d8860f6dc?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Feximin](https://github.com/Feximin) 翻译)
+* [Android 中的定时任务调度](https://juejin.im/post/595c9061f265da6c22119084?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([phxnirvana](https://github.com/phxnirvana) 翻译)
+* [Kotlin:小菜一碟](https://juejin.im/entry/5956f47a5188250d9848abe7/detail?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([CACppuccino](https://github.com/CACppuccino) 翻译)
 * [所有 Android 译文>>](https://github.com/xitu/gold-miner/blob/master/android.md)
-
 
 ## iOS
 
-* [对元素持有弱引用的 Swift 数组](https://juejin.im/post/5927a34c0ce46300575a81e1?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([zhangqippp](https://github.com/zhangqippp) 翻译)
-* [在 Swift 中使用闭包实现懒加载](https://juejin.im/post/590a9eeab123db00549776ee/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lsvih](https://github.com/lsvih)) 翻译)
-* [掌握 Swift 的字符串细节](https://juejin.im/post/58f822ff5c497d0058e0e427/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Tuccuay（洪朔）](https://github.com/Tuccuay)) 翻译)
-* [MVVM-C 与 Swift](https://juejin.im/post/58ef16b8da2f60005d180666/?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([DeepMissea](https://github.com/DeepMissea)) 翻译)
+* [开发者眼中 iOS 11 都更新了什么？](https://juejin.im/post/595f1f2c5188250d8a605d69?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([swants](https://github.com/swants) 翻译)
+* [把 UUID 或者 GUID 作为主键？你得小心啦！](https://juejin.im/post/59561e5b6fb9a06bbf6fdf16?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([zaraguo](https://github.com/zaraguo) 翻译)
+* [iOS 11：机器学习人人有份](https://juejin.im/post/59533049f265da6c3a54b739?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([changkun](https://github.com/changkun) 翻译)
+* [Swift 中关于并发的一切：第一部分 — 当前](https://juejin.im/post/5954571af265da6c4c4fc3f8?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([DeepMissea](https://github.com/DeepMissea) 翻译)
 * [所有 iOS 译文>>](https://github.com/xitu/gold-miner/blob/master/ios.md)
 
 ## 前端
 
-* [RxJS 简介：可观察对象、观察者与操作符](https://juejin.im/post/5934d2532f301e00585ea5f3?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([lsvih](https://github.com/lsvih) 翻译)
-* [利用“Immutability（不可变性）”编写更为简洁高效的代码](https://juejin.im/post/592eb8bfa22b9d005776d6df?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([gy134340](http://gy134340.com/) 翻译)
-* [Airbnb 的前端重构](https://juejin.im/post/592e3af8ac502e006c9c3f1f?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([sunui](https://github.com/sunui) 翻译)
-* [Web 开发者安全清单](https://juejin.im/post/592651c944d904006400cd88?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([GangsterHyj](https://github.com/GangsterHyj) 翻译)
+* [是的，ES2017 （ES8）来了](https://juejin.im/post/596713b75188250da20604cb?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([ToBeNumerOne](https://github.com/ToBeNumerOne) 翻译)
+* [任何网站都可以成为渐进式网络应用 - 但我们需要做的更好](https://juejin.im/post/5966bf2451882568b20dc2af?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([wilsonandusa](https://github.com/wilsonandusa) 翻译)
+* [JavaScript 的函数式编程是一种反模式](https://juejin.im/post/59645b29f265da6c20419170?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([sunui](https://github.com/sunui) 翻译)
+* [你不需要基于 CSS Grid 的栅格布局系统](https://juejin.im/post/5960e73f6fb9a06bb5403f87?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([leviding](https://github.com/leviding) 翻译)
 * [所有前端译文>>](https://github.com/xitu/gold-miner/blob/master/front-end.md)
-
 
 ## React
 
-* [Node.js 支持 ES6 模块的进展](http://gold.xitu.io/entry/58b393f08d6d8100586955fa?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([hikerpig](https://github.com/hikerpig) 翻译)
 * [[译] 实践 Redux，第 1 部分： Redux-ORM 基础](https://gold.xitu.io/entry/58249792a0bb9f0058dd30ab?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([luoyaqifei](https://github.com/luoyaqifei) 翻译)
 * [[译] 如何用 React 完成图片上传功能？](https://gold.xitu.io/entry/57b923225bbb50005b794943?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([DeadLion](https://github.com/DeadLion) 翻译)
 * [[译] 为你定制的 React 学习路线](https://gold.xitu.io/entry/578375b85bbb5000610cc247?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([aleen42](http://aleen42.github.io/pc.html) 翻译)
@@ -59,10 +60,10 @@
 
 ## 后端
 
-* [建立更好的代码审查制度](https://juejin.im/entry/5934bafb2f301e006b055f57/detail?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([bobmayuze](https://github.com/bobmayuze/) 翻译)
-* [使用速率限制扩展你的 API](https://github.com/xitu/gold-miner/blob/master/TODO/rate-limiters.md?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([tanglie1993](https://github.com/tanglie1993/) 翻译)
-* [真相就在代码中](https://juejin.im/post/59152d17da2f60005dd0ae77?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([loveky](https://github.com/loveky) 翻译)
-* [nginScript 入门](https://github.com/xitu/gold-miner/blob/master/TODO/introduction-nginscript.md?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([1992chenlu](https://github.com/1992chenlu) 翻译)
+* [Node.js 子进程：你应该知道的一切](https://juejin.im/entry/595dc35b51882568d00a97ab?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([FrankXiong](https://github.com/FrankXiong) 翻译)
+* [如何在无损的情况下让图片变的更小](https://juejin.im/post/5959fbe0f265da6c2518d740?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([XatMassacrE](https://github.com/XatMassacrE) 翻译)
+* [在 Reddit 中代码部署的演进](https://juejin.im/entry/594b7fd21b69e60062a4cb01/detail?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([steinliber](https://github.com/steinliber) 翻译)
+* [REST 2.0 在此，它的名字叫 GraphQL](https://juejin.im/post/5947b45c128fe1006a505189?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([mnikn](https://github.com/mnikn) 翻译)
 * [所有后端译文>>](https://github.com/xitu/gold-miner/blob/master/backend.md)
 
 ## 教程
@@ -76,10 +77,10 @@
 
 ## 设计
 
-* [设计准则：如何说服用户去使用新的功能](https://juejin.im/post/59279b650ce463006b029cbc?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([iloveivyxuan](https://github.com/iloveivyxuan) 翻译)
-* [最激动人心的视觉系统其实是最枯燥乏味的](https://juejin.im/entry/59228e15a0bb9f005f60915a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Nicolas(Yifei) Li](https://github.com/yifili09) 翻译)
-* [人人都是设计师，我们可以的。](https://juejin.im/post/59157cdf0ce4630069d79857?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([ylq167](https://github.com/ylq167) 翻译)
-* [设计师装腔指南](https://juejin.im/post/5915880b570c35006932fac9?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Changkun Ou](https://github.com/changkun) 翻译)
+* [以排印为本，从内容出发](https://juejin.im/entry/5965c5b26fb9a06ba025074c/detail?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([cdpath](https://github.com/cdpath) 翻译)
+* [更好的表单设计: 每一页，一件事（实例研究）](https://juejin.im/post/5964c340f265da6c3f70c617?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([horizon13th](https://github.com/horizon13th) 翻译)
+* [用动效创建的可用性：动效中的用户体验宣言](https://juejin.im/post/595c77a66fb9a06bcb7f92ff?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([ruixi](https://github.com/ruixi) 翻译)
+* [使登录页面变得正确](https://juejin.im/post/5951e7905188250d98489c6a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([LisaPeng](https://github.com/LisaPeng) 翻译)
 * [所有设计译文>>](https://github.com/xitu/gold-miner/blob/master/design.md)
 
 
