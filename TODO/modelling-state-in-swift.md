@@ -3,20 +3,20 @@
 > * 原文作者：[John](https://twitter.com/johnsundell)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/modelling-state-in-swift.md](https://github.com/xitu/gold-miner/blob/master/TODO/modelling-state-in-swift.md)
-> * 译者：
+> * 译者：[Deepmissea](http://deepmissea.blue)
 > * 校对者：
 
-# Modelling state in Swift
+# 模块化 Swift 中的状态
 
-One of the hardest things when building apps and designing systems is deciding how to model and deal with state. Code managing state is also a very common source of bugs, when parts of our app might end up in a state we didn't expect.
+在构建应用或设计系统的时候，最困难的事情之一就是如何建模并处理状态。在我们的应用处于某些我们不意料之外的状态时，管理状态的代码也是一个非常常见的 bug 来源。
 
-This week, let's take a look at some techniques that can make it easier to write code that handles and reacts to state changes - to make it more robust and less error prone. I won't go into specific frameworks or larger, app-wide architectural changes (like RxSwift, ReSwift or using an ELM inspired architecture) in this post (will save that for another week) - instead I'd like to focus on smaller tips, tricks and patterns that I've come to find really useful.
+这周，让我们看一看能更容易处理并响应状态改变的编码技术 - 让代码更加强壮，不容易出错。在本文中，我不会讨论具体的框架或者更大的应用程序架构范围的更改（比如 RxSwift、ReSwift 或者使用 ELM 风格的架构，会把他们留在另一周讨论）。取而代之的是，我会专注于小的技巧、窍门和模式，那些真正有用的东西。
 
-## A single source of truth
+## 单一数据源
 
-One core principle that is good to keep in mind when modelling various states is to try to stick to a *"single source of truth"* as much as possible. One easy way to look at this is that you should never need to check for *multiple conditions* to determine what state you are in. Let's take a look at an example.
+建立各种状态模型时的一个重要原则就是尽量保持**单一的数据源**。看它是否单一的简单方法是永远不需要检查**多个条件**来决定你的状态是什么。让我们看个栗子。
 
-Let's say we're building a game, in which enemies have a certain  health, as well as a flag to determine whether they're in play or not. We might model that using two properties on an `Enemy` class, like this:
+假设我们在做一个游戏，某个敌人会有一个确定的血量，也会有一个标志来决定他们是否在游戏中。我们可能会构建一个 `Enemy` 类，用两个属性来表示，像这样：
 
 ```
 class Enemy {
@@ -25,7 +25,7 @@ class Enemy {
 }
 ```
 
-While the above looks straight forward, it can easily put us in a situation where we have multiple sources of truth. Let's say that as soon as an enemy's health reaches zero, it should be put out of play. So somewhere in our code, we have some logic to handle that:
+虽然上面代码看起来很直观，但很容易让我们处于一种有多种数据来源的情况。假如一旦敌人的血量到零，就不应该在游戏中。所以在我们的代码中，有一些逻辑来处理：
 
 ```
 func enemyDidTakeDamage() {
@@ -35,7 +35,7 @@ func enemyDidTakeDamage() {
 }
 ```
 
-The problem occurs when we introduce new code paths where we forget to perform the above check. For example, we might give our player a special attack that sets all enemies' health to zero instantly:
+在我们引入新的代码路径时，忘记执行上述检查，就会发生问题。例如，我们可能给我们的玩家一个特殊的攻击，立即将所有敌人的血量清零：
 
 ```
 func performSpecialAttack() {
@@ -45,9 +45,9 @@ func performSpecialAttack() {
 }
 ```
 
-As you can see above, we update the `health` property of all enemies, but we forget to update `isInPlay`. This will most likely lead to bugs and situations where we end up in an undefined state.
+就如你在上面看到的一样，我们更新了所有敌人的 `health` 属性，但是我们忘记了更新 `isInPlay` 属性。这很可能导致一堆 bug，并使我们最终陷入一个未定义的状态。
 
-In a situation like this, it might be tempting to fix the problem by adding multiple checks, like this:
+这种情况下，通过添加多重检查来修复这个问题也许很诱人，像这样：
 
 ```
 if enemy.isInPlay && enemy.health > 0 {
@@ -57,9 +57,9 @@ if enemy.isInPlay && enemy.health > 0 {
 }
 ```
 
-While the above might work as a temporary "band aid" solution, it will quickly lead to harder to read code that will easily break as we add more conditions and more complex states. If you think about it, doing something like the above is kind of like not trusting our own APIs, since we have to code so defensively against them 😕
+虽然作为一个临时的“邦迪式”解决方案会正常工作，但它很快就会导致代码更难阅读，随着我们添加更多条件和更复杂的状态，它们更脆弱。如果你仔细思考，会觉得做一些像上面的事情有点像不相信我们自己的 API，因为我们不得不对他们进行这样的防御式编码 😕
 
-One way of solving this problem, and to make sure that we have a single source of truth, is to automatically update the `isInPlay` property inside the `Enemy` class, using a `didSet` on the `health` property:
+这个问题的解决方案之一，就是确保我们有单一的数据源，在 `Enemy` 类里面，对 `health` 使用一个 `didSet`，自动更新 `isInPlay` 属性：
 
 ```
 class Enemy {
@@ -80,14 +80,13 @@ class Enemy {
     }
 }
 ```
+这样我们就只需要关心敌人血量的更新，我们可以确保 `isInPlay` 属性会永远的保持同步。
 
-This way we now only have to worry about updating an enemy's health, and we're sure that the `isInPlay` property will always stay synced 👍
+## 让状态彼此独立
 
-## Making states exclusive
+上面 `Enemy` 的例子实在太简单，所以我们看一下另一个有着更复杂状态的例子，每个状态都有关联值，我们需要相应的渲染并响应。
 
-The above `Enemy` example was pretty simple, so let's take a look at another one where we deal with more complex states that each have associated values that we need to render & react to accordingly.
-
-Let's say we're building a video player, which will let us download and watch a video from a certain URL. To model a video, we might use a `struct`, like this:
+假设我们正构建一个视频播放器，它可以让我们从一个确定的 URL 下载并观看视频。要模块化一个视频，我们使用一个 `struct`，像这样：
 
 ```
 struct Video {
@@ -99,7 +98,7 @@ struct Video {
 }
 ```
 
-The problem with the above way is that we end up with a lot of optionals, and we can't really tell what states that a video can be in just by reading our model code. We also usually end up having to write complex handling that includes code paths that ideally should never be entered:
+上面的问题是，我们最终有太多的选择，我们无法通过阅读视频模块代码来告诉我们视频的状态具体在哪一步。最终，我们还通常编写复杂的处理，包括在理想情况下不该输入的代码路径：
 
 ```
 if let downloadTask = video.downloadTask {
@@ -110,8 +109,7 @@ if let downloadTask = video.downloadTask {
     // Uhm... what to do here? 🤔
 }
 ```
-
-The way I often solve this problem is to use an `enum` to define very clear, exclusive states, like this:
+解决这种问题，我经常使用一个 `enum` 来定义非常清晰的、独占的状态，像这样：
 
 ```
 struct Video {
@@ -126,7 +124,7 @@ struct Video {
 }
 ```
 
-As you can see above, we have taken away all of the optionals, and all state-specific values are now incorporated into the state that they'll be used for. We can further get rid of some duplication by introducing another level of state for playback information:
+如上你所看到的，我们已经把所有的选择都删除了，所有状态特定值现在都被并入了他们被使用的状态当中。我们可以通过引入另一个级别的状态来进一步摆脱重复的信息：
 
 ```
 extension Video {
@@ -137,18 +135,18 @@ extension Video {
 }
 ```
 
-Which we can then use in both the `playing` and `paused` cases:
+我们可以使用 `playing` 和 `paused` 条件来判断状态：
 
 ```
 case playing(PlaybackState)
 case paused(PlaybackState)
 ```
 
-## Rendering reactively
+## 响应式渲染
 
-However, if you start modelling your state like above, but keep writing imperative state handling code (using multiple `if/else` statements, like above), things are going to get quite ugly. Since all of the information we need is "hidden" inside various cases, we'll need to do a lot of `switch` or `if case let` statements to "get it out".
+可是，如果你开始像上面那样对状态进行建模，但继续编写命令式状态处理代码（使用多个 `if/else` 语句，像上面那样），那事情就会非常丑陋。由于我们需要的所有信息都是“隐藏”在各种条件之下，所以我们需要做很多 `switch` 或 `if case let` 语句来“获得它”。
 
-What we need to combine our state enum with is reactive state handling code. As an example, let's take a look at how we might write code to update an action button in a video player view controller:
+我们需要把枚举状态与响应式状态处理代码结合起来。举个栗子，让我们看一看如何编码来更新一个视频播放器 VC 中的操作按钮：
 
 ```
 class VideoPlayerViewController: UIViewController {
@@ -187,7 +185,7 @@ class VideoPlayerViewController: UIViewController {
 }
 ```
 
-Now every time our video state changes, our UI will automatically update. We have a single source of truth, and no undefined states 🎉 We can then extend our `render` method to perform all of our UI updates automatically when our state changes:
+现在每次播放状态改变，我们的 UI 都会自动更新。我们有单一数据源，并且没有未定义的状态 🎉 我们可以接着扩展 `render` 函数，以便当状态改变时，自动更新我们所有的 UI。
 
 ```
 func render() {
@@ -198,11 +196,11 @@ func render() {
 }
 ```
 
-## Handling state changes
+## 处理状态的变化
 
-Rendering is one thing, but usually we also need to trigger some form of logic when states change. We might want to transition into yet another state, or start an operation. The good thing is that we can use the exact same pattern as we did for rendering for performing such logic as well.
+渲染是一件事，不过通常我们也需要在状态改变时，触发某种形式的逻辑。可能我们想要过度到另一个状态，或者开始一个操作。好消息是我们能使用和渲染 UI 时完全相同的模式。
 
-Let's write a `handleStateChange` method that also gets called from the `didSet` of the `video` property, that runs various logic depending on which state we are currently in:
+让我们写一个 `handleStateChange` 函数，它也在 `video` 属性中的 `didSet` 被调用。它会根据我们目前所在的状态来运行各种逻辑：
 
 ```
 private extension VideoPlayerViewController {
@@ -231,11 +229,11 @@ private extension VideoPlayerViewController {
 }
 ```
 
-## Extracting information
+## 抽取信息
 
-Up until now we've been using `switch` statements to perform all of our rendering and state handling. For a good reason - it "forces" us to consider all states and all cases, and write the proper logic for each and every one of them. It also lets us leverage the compiler to give us errors if a new state is introduced that we're not handling.
+到目前，我们一直使用 `switch` 语句来执行所有的渲染和状态处理。这样做的好处是，它会“强制”我们思考，所有的状态和条件，并为每一种情况写下适合的逻辑。如果有一个新的状态我们没有处理，它也会让编译器把错误展示给我们。
 
-However, sometimes you need to do something very specific that only affects a certain state. Let's say that we want to make sure that we cancel any ongoing download task if our view controller goes off screen:
+然而，有时你需要做一些非常具体的事，值影响一个确定的状态，比如我们想在视图控制器离开屏幕时，确保所有正在下载的任务都取消：
 
 ```
 extension VideoPlayerViewController {
@@ -249,9 +247,9 @@ extension VideoPlayerViewController {
 }
 ```
 
-Being able to access certain properties like above is very nice, and can help us get rid of a lot of boilerplate that we'd have to write if we chose to *always* use a `switch` statement for state handling.
+像上面那样访问明确的属性非常好，能帮助我们摆脱一大堆的模板代码，如果我们**一直**使用 `switch` 语句来处理状态的话。
 
-So let's make that happen! To do that we simply create an extension on `Video` that uses Swift's `guard case let` pattern matching syntax to extract any ongoing download task:
+所以，让我们把它变成现实！要实现上面的功能，我们只需要简单的传建一个 `Video` 的扩展，使用 Swift 的 `guard case let` 模式匹配语法来抽取任何正在下载的任务：
 
 ```
 extension Video {
@@ -265,18 +263,17 @@ extension Video {
 }
 ```
 
-## Conclusion
+## 结论
 
-While there are no silver bullets when it comes to state handling, modelling your state in a way that removes ambiguity and enforces clearly defined states will usually lead to more robust code.
+虽然在处理状态时候没有任何捷径，但是以消除歧义并强制明确地定义状态的方式对状态进行建模，通常都会写出更健壮的代码。
 
-Having single sources of truth and handling state changes in a reactive fashion also usually lets you write code that is easier to read and reason about, and also easier to extend and refactor (just add or remove a `case`, and the compiler will tell you what code you need to update).
+使用单一数据源并且响应式的处理状态改变，通常也会让你的代码更加容易阅读与理解，还更容易扩展与重构（只需要添加或删掉一个 `case`，编译器会告诉你，什么代码需要更新）。
 
-The solutions and tips I mentioned in this post sure have tradeoffs, they do require you to write a bit more boilerplate code, and implementing `Equatable` for your state enums can be a bit tricky sometimes (we'll take a look at how to make that easier with code generation and scripts in a future post).
+这篇文章中我提到的解决方案肯定有取舍，他们的确需要你写一些更多的模板代码，在为状态枚举实现 `Equatable` 的时候也可能会有点棘手（在以后的文章中，我们会看一看如何让代码生成与脚本更容易）。
 
-What do you think? Do you already use some of the techniques mentioned in this post, or will you try them out? Let me know, along with any other questions or feedback you might have, either in the comments section below or on Twitter [@johnsundell](https://twitter.com/johnsundell).
+你怎么看？你已经使用过文中提到的一些技巧吗，还是要试试？告诉我，你可以在下面的评论部分或 Twitter [@johnsundell](https://twitter.com/johnsundell) 上提出任何其他问题或反馈。
 
-Thanks for reading! 🚀
-
+感谢阅读！🚀
 
 ---
 
