@@ -3,22 +3,22 @@
 > * 原文作者：[Sashko Stubailo](https://dev-blog.apollodata.com/@stubailo)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/graphql-vs-rest.md](https://github.com/xitu/gold-miner/blob/master/TODO/graphql-vs-rest.md)
-> * 译者：
+> * 译者：[wilsonandusa](https://github.com/wilsonandusa)
 > * 校对者：
 
 # GraphQL vs. REST
 
-## Two ways to send data over HTTP: What’s the difference?
+## 两种通过 HTTP 发送数据的方式：区别在哪里？
 
-Often, GraphQL is presented as a revolutionary new way to think about APIs. Instead of working with rigid server-defined endpoints, you can send queries to get exactly the data you’re looking for in one request. And it’s true — GraphQL can be transformative when adopted in an organization, enabling frontend and backend teams to collaborate more smoothly than ever before. But in practice, both of these technologies involve sending an HTTP request and receiving some result, and GraphQL has many elements of the REST model built in.
+GraphQL 常常被认为是一种全新的 API 方式。你可以通过发送一次查询请求便获得所需要的数据，而不是通过服务器严格定义的终端。GraphQL 确实有这样的变革能力，被团队采用后 GraphQL 能够使得前端和后段团队的合作更加流畅。但在实际用途中，两种技术都通过发送 HTTP 请求获取结果，而且 GraphQL 使用了 REST 模型中的很多基础元素。
 
-So what’s the real deal on a technical level? What are the similarities and differences between these two API paradigms? My claim by the end of the article is going to be that GraphQL and REST are not so different after all, but that GraphQL has some small changes that make a big difference to the developer experience of building and consuming an API.
+那么在技术层面来讲到底它们的本质是什么？这两款 API 范例的相似处和区别都有哪些？我在文章最后会声明 GraphQL 和 REST 的区别并不是很大，但 GraphQL 其本身的一些改变使得打造以及使用一款 API 的开发体验带来了巨大的变化。
 
-So let’s jump right in. We’ll identify some properties of an API, and then discuss how GraphQL and REST handle them.
+那么言归正传，我们会先指出一款 API 的一些性质，然后我们会讨论 GraphQL 和 BEST 是如何处理它们的。
 
-### Resources
+### 资源
 
-The core idea of REST is the resource. Each resource is identified by a URL, and you retrieve that resource by sending a `GET` request to that URL. You will likely get a JSON response, since that’s what most APIs are using these days. So it looks something like:
+REST 的核心理念就是资源。每个资源都由一个 URL 定义，然后通过向指定 URL发送 `GET` 请求来获取资源。目前大部分 API 会得到的一个 JSON 回应。代码如下：
 
     GET /books/1
 
@@ -32,7 +32,7 @@ The core idea of REST is the resource. Each resource is identified by a URL, and
     }
 
 *Note: In the example above, some REST APIs would return “author” as a separate resource.*
-
+*注意：在以上实例中，有的  
 One thing to note in REST is that the type, or shape, of the resource and the way you fetch that resource are coupled. When you talk about the above in REST documentation, you might refer to it as the “book endpoint”.
 
 GraphQL is quite different in this respect, because in GraphQL these two concepts are completely separate. In your schema, you might have `Book` and `Author` types:
