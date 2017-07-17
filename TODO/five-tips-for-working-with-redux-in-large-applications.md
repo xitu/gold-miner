@@ -63,12 +63,11 @@ const getSelectedUsers = ({ selectedUserIds, usersById }) => {
 
 ### 2. 区分标准状态与视图状态和编辑状态
 
-现实中的 Redux 应用通常需要从一些服务获取数据，例如一个 REST API。
-Real-world Redux applications usually need to fetch some kind of data from another service, such as a REST API. When we receive that data, we dispatch an action with the payload of whatever data we got back. We refer to data returned from a service as “canonical state” — i.e. the current correct state of the data as it is stored in our database. Our state also contains other kinds of data such as the state of user interface components or of the application as a whole. The first time we retrieve some canonical data from our API, we might be tempted to store it in the same reducer file as the rest of our state for a given page. Although this approach may be convenient, it is difficult to scale when you need to fetch many kinds of data from a variety of sources.
+现实中的 Redux 应用通常需要从一些服务（例如一个 REST API）获取数据。在收到数据以后，我们发送一个包含了收到的数据的 action。我们把这些从服务返回的数据成为“标准状态” —— 即当前在我们数据库中存储的数据的正确状态。我们的状态还包含其他类型的数据，例如用户界面组件的状态或是整个应用程序的状态。当首次从 API 获取到标准状态时，我们可能会想将其与页面的其他状态保存在同一个 reducer 文件中。这种方式可能很省事，但当你需要从不同数据源获取多种数据时，它就变得难以扩展。
 
-Instead, we will separate out the canonical state into its own reducer file. This approach encourages better code organization and modularity. Scaling reducer files vertically (adding more lines of code) is less maintainable than scaling them horizontally (adding more reducer files to the `combineReducers` call). Breaking reducers out into their own files makes it easier to reuse those reducers (more on that in [Section 3](http://techblog.appnexus.com/#section3)). Additionally, it discourages developers from adding non-canonical state into the data object reducers.
+相反，我们会把标准状态保存它单独的 reducer 文件中。这种方式鼓励更好的代码组织与模块化。垂直扩展 reducer（增加代码行数）比水平扩展 reducer（在 `combineReducers` 调用中引入更多的 reducer）的可维护性要差。将 reducers 拆分到各自的文件中有利于复用这些 reducer（在第 3 点中会详细讨论）。此外，这还可以组织开发者将非标准状态添加到数据对象 reducer 中。
 
-Why not store other kinds of state with canonical state? Imagine we have the same list of users that we fetched from our REST API. Using the index storage pattern, we would store the data in our reducer like so:
+为什么不把其他类型的状态和标准状态保存在一起呢？假设我们有一个与从 REST API 返回内容相同的的用户列表。利用索引存储模式，我们会像下面这样将其存储在 reducer 中：
 
 ```
 {
@@ -85,7 +84,7 @@ Why not store other kinds of state with canonical state? Imagine we have the sam
 }
 ```
 
-Now imagine that our UI allows the users to be edited in the view. When the edit icon is clicked for a user, we need to update our state so that the view renders the edit controls for that user. Instead of keeping our view state out of the canonical state, we just decide to put it in as a new field on the objects stored in the `users/by-id` index. Now our state might look something like this:
+现在假设我们的界面运行编辑用户信息。当点击某个用户的编辑图标时，我们需要更新状态，以便视图呈现出该用户的编辑控件。我们决定在 `users/by-id` 索引中存储的数据对象上新增一个字段，而不是分开存储视图状态和标准状态。现在我们的状态开起来会是这个样子：
 
 ```
 {
@@ -103,9 +102,9 @@ Now imagine that our UI allows the users to be edited in the view. When the edit
 }
 ```
 
-We make some edits, click the submit button, and the changes are PUT back to our REST service. The service returns back the new state of that object. But how do we merge our new canonical state back into our store? If we just set the new object for the user at their id key in the `users/by-id` index, then our `isEditing` flag will no longer be there. We now need to manually specify which fields on the API payload we need to put back into the store. This complicates our update logic. You may have multiple booleans, strings, arrays, or other new fields necessary for UI state that would get appended on to the canonical state. In this situation it is easy for to add a new action for modifying canonical state but forget to reset the other UI fields on the object, resulting in an invalid state. Instead we ought to keep canonical data in its own independent data store in the reducer, and keep our actions simpler and easier to reason about.
+我们进行了一些编辑，点击提交按钮，改动以 PUT 形式提交回 REST 服务。服务返回了该用户最新的状态。可是我们该如何将最新的标准状态合并到 store 呢？如果我们直接把新对象存储到 `users/by-id` 索引中对于的 id 下，那么 `isEditing` 标记就会丢失。我们不得不手动指定来自 API 的数据中哪些字段需要存储到 store 中。这使得更新逻辑变得复杂。你可能有多个布尔、字符串、数组或其他类型的新字段需要追加到标准状态中以维护试图状态。这种情况下，当新增一个 action 修改标准状态时很容易由于忘记重置这些 UI 字段而导致无效的状态。相反，我们在 reducer 中应该将标准状态保存在其独立的数据存储中，并保持我们的 action 更简单，更容易理解。
 
-Another benefit to keeping edit state separate is that if the user cancels their edit we can easily reset back to the canonical state. Imagine we have clicked the edit icon for a user, and have edited the name and email address of the user. Now imagine we don’t want to keep these changes, so we click the cancel button. This should cause the changes we made in the view to revert back to their previous state. However, since we overwrote our canonical state with the editing state, we no longer have the old state of the data. We would be forced to re-fetch the data from our REST API to get the canonical state again. Instead, let’s store the editing state in another place in state. Now our state might look like this:
+将编辑状态分开保存的另一个好处是如果用户取消编辑我们可以很方便的重置回标准状态。假设我们点击了某个用户的编辑图标，并修改了该用户的姓名和电子邮件地址。现在假设我们不想保存这些修改，于是我们点击取消按钮。这应该导致我们在视图中做的修改恢复到之前的状态。然而，由于我们用编辑状态覆盖了标准状态，我们已经没有旧状态的数据了。我们不得不再次请求 REST API 以获取标准状态。相反，让我们把编辑状态分开存储。现在我们的状态看起来是这个样子：
 
 ```
 {
@@ -130,10 +129,11 @@ Another benefit to keeping edit state separate is that if the user cancels their
 }
 ```
 
-Since we now have a copy of both the editing state of the object and the canonical state of the object, resetting back to after clicking cancel is easy. We simply show the canonical state in the view instead of the editing state, and no further calls to the REST API are necessary. As a bonus, we’re still tracking the edit state in our store. If we decide that we did want to keep our edits, we can just click the edit button again and now the edit state is shown with our old changes. Overall, keeping edit and view state separate from the canonical state both provides a better developer experience in terms of code organization and maintainability, as well as a better user experience for interacting with our form.
+由于我们同时拥有该对象编辑状态和标准状态下的两个副本，在点击取消后重置状态变得很简单。我们只需在视图中展示标准状态而不是编辑状态即可，不必再次调用 REST API。作为奖励，我们仍然在 store 中跟踪数据的编辑状态。如果我们决定确实需要保留这些更改，我们可以再次点击编辑按钮，此时之前的修改状态又可以展示出来了。总之，把编辑状态和视图状态与标准状态区分开保存既在代码组织和可维护性方面提供了更好的开发体验又在表单操作方面提供了更好的用户体验。
 
-### 3. Share state between views judiciously
+### 3. 审慎的在视图之间共享状态
 
+许多应用起初都只有一个数据存储和一个用户界面。随着我们为了扩展功能而不断扩展应用，我们将要管理多个不同视图和存储之间的状态。为每个页面创建一个顶层 reducer 可能会有助于扩展我们的 Redux 应用。每个页面和顶层 reducer 对应我们应用中的一个视图。
 Many applications may start off with a single store and a single user interface. As we grow our application to scale out our features, we will need to manage state between multiple different views and stores. In order to scale out our Redux application, it may help to create one top level reducer per page. Each page and top level reducer corresponds to one view in our application. For example, the users screen will fetch users from our API and store them in the `users` reducer, and another page which tracks the domains for the current user will fetch and store data from our domain API. The state might look something like this now:
 
 ```
