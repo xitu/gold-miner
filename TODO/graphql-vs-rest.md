@@ -31,11 +31,11 @@ REST 的核心理念就是资源。每个资源都由一个 URL 定义，然后�
       // ... more fields here
     }
 
-*Note: In the example above, some REST APIs would return “author” as a separate resource.*
-*注意：在以上实例中，有的  
-One thing to note in REST is that the type, or shape, of the resource and the way you fetch that resource are coupled. When you talk about the above in REST documentation, you might refer to it as the “book endpoint”.
+*注意：在以上实例中，有的 REST APIs 会把 “author” 当成独立资源返回。
+在 REST 中需要注意的是，资源的类型和你获取资源的方法是紧密相关的。当使用以上 REST 数据时，你可能会把它当成是 book 的一个终端。
 
-GraphQL is quite different in this respect, because in GraphQL these two concepts are completely separate. In your schema, you might have `Book` and `Author` types:
+
+GraphQL 在这方面就相当不一样了，因为在 GraphQL 里这两个概念是完全分开的。在你的模式里可能会有 ‘Book’ 和 ’Author‘ 两种类型：
 
     type Book {
       id: ID
@@ -52,16 +52,17 @@ GraphQL is quite different in this respect, because in GraphQL these two concept
       books: [Book]
     }
 
-Notice that we have described the kinds of data available, but this description doesn’t tell you anything at all about how those objects might be fetched from a client. That’s one core difference between REST and GraphQL — the description of a particular resource is not coupled to the way you retrieve it.
+注意在这里我们对可获得的数据类型进行了描述，但这个描述并没有告诉你每个对象是如何从客户端获得的。这就是 REST 和 GraphQL 的核心区别之一 —— 对某一指定资源的描述不一定要和获取的方式相结合。
 
-To be able to actually access a particular book or author, we need to create a `Query` type in our schema:
+
+如果想要真正接触到某一本书或者其作者的信息，我们需要在我们现有的模式中创造一个 ‘Query’ 类型：
 
     type Query {
       book(id: ID!): Book
       author(id: ID!): Author
     }
 
-Now, we can send a request similar to the REST request above, but with GraphQL this time:
+现在我们可以发送一个类似于 REST 的请求，不过这次是使用 GraphQL：
 
     GET /graphql?query={ book(id: "1") { title, author { firstName } } }
 
@@ -72,40 +73,43 @@ Now, we can send a request similar to the REST request above, but with GraphQL t
       }
     }
 
-Nice, now we’re getting somewhere! We can immediately see a few things about GraphQL that are quite different from REST, even though both can be requested via URL, and both can return the same shape of JSON response.
+很好，现在我们有成果了！即使双方都使用 URL 来发送请求并返回相同的 JSON 类作为回应，我们还是能马上看出 GraphQL 和 REST 之间的区别。
 
-First of all, we can see that the URL with a GraphQL query specifies the resource we’re asking for and also which fields we care about. Also, rather than the server author deciding for us that the related `author` resource needs to be included, the consumer of the API decides.
+首先，我们能看出 GraphQL 查询的 URL 详细指出了我们所寻找的资源以及我们所关心的值域。而且 API 的使用者决定是否需要包括有关 ‘author’ 的资源，而不是由服务器端的人来决定。
 
-But most importantly, the identities of the resources, the concepts of Books and Authors, are not coupled to the way they are fetched. We could potentially retrieve the same Book through many different types of queries, and with different sets of fields.
 
-#### Conclusion
+但最重要的是，资源的身份以及书和作者的概念和获取的方式无关。我们实际上可以使用多种不同的请求来获取一本书的不同值域。
 
-We’ve identified some similarities and differences already:
+#### 总结
 
-- **Similar: **Both have the idea of a resource, and can specify IDs for those resources.
-- **Similar:** Both can be fetched via an HTTP GET request with a URL.
-- **Similar: **Both can return JSON data in the request.
-- **Different:** In REST, the endpoint you call is the identity of that object. In GraphQL, the identity is separate from how you fetch it.
-- **Different:** In REST, the shape and size of the resource is determined by the server. In GraphQL, the server declares what resources are available, and the client asks for what it needs at the time.
+我们以及找到了一些相同和不同的地方：
 
-Alright, this was pretty basic if you’ve already used GraphQL and/or REST. If you haven’t used GraphQL before, you can play around with [an example similar to the above](https://launchpad.graphql.com/1jzxrj179) on Launchpad, a tool for building and exploring GraphQL examples in your browser.
+- ** 相同：** 都拥有资源这个概念，而且都可以制定资源的身份
+- ** 相同：** 都能通过 HTTP GET 和一个 URL 来获取信息
+- ** 相同：** 请求的返回值都是 JSON 数据
+- ** 不同：** 在 REST 中，你所访问的终端就是所需对象的身份，在 GraphQL 中，对象的身份和获取的方式是独立存在的。
+- ** 不同：** 在 REST 中，资源的形式和大小是由服务器所决定的。在 GraphQL 中，服务器声明哪些资源可以获得，而客户端会对其所需资源作出请求。
 
-### URL Routes vs GraphQL Schema
 
-An API isn’t useful if it isn’t predictable. When you consume an API, you’re usually doing it as part of some program, and that program needs to know what it can call and what it should expect to receive as the result, so that it can operate on that result.
+好吧，如果你之前使用过 GraphQL 和／或 REST的话这些看上去很基础。如果你之前没用过 GraphQL，你可以使用 Launchpad 来试试[这个实例](https://launchpad.graphql.com/1jzxrj179) 。这是一个用于在浏览器中创造和探索 GraphQL 实例的工具。
 
-So one of the most important parts of an API is a description of what can be accessed. This is what you’re learning when you read API documentation, and with GraphQL introspection and REST API schema systems like Swagger, this information can be examined programmatically.
 
-In today’s REST APIs, the API is usually described as a list of endpoints:
+### URL 路径 vs GraphQL 模版
+
+一款无法正确预测结果的API是没有实际用途的。当你使用一款API的时候，大部分情况下你是在一个程序的某一部分去使用它，这款程序会知道在什么时候去使用API，以及API的结果是什么。这样程序才能运用好API返回的结果。
+
+所以一款API最重要的一个特点就是去描述它到底能接触并得到什么。你在读API文档的时候恰恰就是为了了解这些。现在通过使用 GraphQL 的内部描述特点或者使用类似 Swagger 这种适用于 REST 模板系统的工具，我们可以采用编程的方式来获取这方面的信息
+
+目前的 REST API 通常被形容为一连串的终端：
 
     GET /books/:id
     GET /authors/:id
     GET /books/:id/comments
     POST /books/:id/comments
 
-So you could say that the “shape” of the API is linear — there’s a list of things you can access. When you are retrieving data or saving something, the first question to ask is “which endpoint should I call”?
+所以你可以说此 API 的“形态”是线性的 —— 因为你可以接触一连串的信息。当你想要获取或者存储信息的时候，最先想到的问题就是“我应该使用哪一个终端”？
 
-In GraphQL, as we covered above, you don’t use URLs to identify what is available in the API. Instead, you use a GraphQL schema:
+而在 GraphQL 中，就像我们之前提到的，你并不是使用一系列 URL 来验证 API 可以获得有哪些信息，而是使用 GraphQL 的模板：
 
     type Query {
       book(id: ID!): Book
@@ -121,28 +125,28 @@ In GraphQL, as we covered above, you don’t use URLs to identify what is availa
     type Comment { ... }
     input AddCommentInput { ... }
 
-There are a few interesting bits here when compared to the REST routes for a similar data set. First, instead of sending a different HTTP verb to the same URL to differentiate a read vs. a write, GraphQL uses a different *initial type* — Mutation vs. Query. In a GraphQL document, you can select which type of operation you’re sending with a keyword:
+当我们在同一数据集上将它和 REST 的路径做对比时，有几点有趣的地方。首先，在区分读取和写入时，GraphQL 使用的是 Mutation 和 Query 这两种不同的初始类型，而不是通过对同一 URL 发送两种不同的 HTTP 术语。在 GraphQL 文档中，你可以使用关键字来选择你所发送的操作：
 
     query { ... }
     mutation { ... }
 
-*For all of the details about the query language, read my earlier post, *[*“The Anatomy of a GraphQL Query”*](https://dev-blog.apollodata.com/the-anatomy-of-a-graphql-query-6dffa9e9e747)*.*
+*如果想要了解更多有关查询语言的细节，请阅读我之前写的文章， *[*“对 GraphQL 查询的分析*](https://dev-blog.apollodata.com/the-anatomy-of-a-graphql-query-6dffa9e9e747)*.*
 
-You can see that the fields on the `Query` type match up pretty nicely with the REST routes we had above. That’s because this special type is the entry point into our data, so this is the most equivalent concept in GraphQL to an endpoint URL.
+你可以看出 Query 类型中的值域和我们之前所写的 REST 路径正好重合。这是因为此类型是我们数据的切入点，所以这在 GraphQL 中是和终端 URL 几乎相同的一个概念。
 
-The way you get the initial resource from a GraphQL API is quite similar to REST — you pass a name and some parameters — but the main difference is where you can go from there. In GraphQL, you can send a complex query that fetches additional data according to relationships defined in the schema, but in REST you would have to do that via multiple requests, build the related data into the initial response, or include some special parameters in the URL to modify the response.
+你从 GraphQL API 中获取最初资源的方式和使用 REST 的方法类似 —— 都是通过传递一个名字和一些参数 —— 但最大的不同之处是在这之后你会做什么。你可以用 GraphQL 发送一个复杂的请求并通过与模板之间的关系来获取数据。但在 REST 中，你需要通过发送多个请求来使用相关数据去构造最初的回应，或者通过改写 URL 的参数来修改回应。
 
-#### Conclusion
+#### 结论
 
-In REST, the space of accessible data is described as a linear list of endpoints, and in GraphQL it’s a schema with relationships.
+在 REST 中， 可获得数据的空间是由一列线性的终端来描述的，而在 GraphQL 中是通过使用有关联的模板：
 
-- **Similar:** The list of endpoints in a REST API is similar to the list of fields on the `Query` and `Mutation` types in a GraphQL API. They are both the entry points into the data.
-- **Similar:** Both have a way to differentiate if an API request is meant to read data or write it.
-- **Different:** In GraphQL, you can traverse from the entry point to related data, following relationships defined in the schema, in a single request. In REST, you have to call multiple endpoints to fetch related resources.
-- **Different:** In GraphQL, there’s no difference between the fields on the `Query` type and the fields on any other type, except that only the query type is accessible at the root of a query. For example, you can have arguments in any field in a query. In REST, there’s no first-class concept of a nested URL.
-- **Different:** In REST, you specify a write by changing the HTTP verb from `GET` to something else like `POST`. In GraphQL, you change a keyword in the query.
+- **相同：** REST API 中的一列终端和 GraphQL API 中的 Query 和 Mutation 类的值域很像。它们都是数据的切入点。
+- **相同：** 两种 API 都可以区分数据的读取和写入。
+- **不同：** 在 GraphQL 中，你可以使用由模板定义的关系用一次请求从初始点一直走到相关数据。在 REST 中，你必须要使用多个终端来获取相关资源。
+- **不同：** 在 GraphQL 中，除了在每个请求的根源处所能获取的类型都是 Query 类外，Query 的值域和其他类的值域没有本质区别。比方说，你可以在 Query 的每个值域里放一个参数。而在 REST 中，嵌套的URL里 没有第一类这个概念。
+- **不同：** 在 REST 中，你通过将 HTTP 术语 GET 改为 POST 来指定写入，但在 GraphQL里需要改变请求里的关键字。
 
-Because of the first point in the list of similarities above, people often start referring to fields on the `Query` type as GraphQL “endpoints” or “queries”. While that’s a reasonable comparison, it can lead to a misleading perception that the Query type works significantly differently from other types, which is not the case.
+由于第一个相似点，很多人把 GraphQL 的 Query类中的值域当作“终端”或者“请求”。虽然两者确实相似，但这种理解可能会误导别人认为 Query 类 和其他类的工作方式不同，这种理解是错误的。
 
 ### Route Handlers vs. Resolvers
 
