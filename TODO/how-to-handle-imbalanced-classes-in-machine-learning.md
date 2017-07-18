@@ -399,10 +399,10 @@ from sklearn.svm import SVC
 ```
 
 训练时，我们可以使用参数
-      class_weight='balanced'  to penalize mistakes on the minority class by an amount proportional to how under-represented it is.
+      class_weight='balanced' 来减少由于少数类别样本比例不足造成的预测错误。
 
 我们也可以包含参数
-      probability=True  if we want to enable probability estimates for SVM algorithms.
+      probability=True  ，如果我们想启用 SVM 算法的概率估计。
 让我们在原始的不平衡数据集上使用惩罚性的 SVM 训练模型：
 
 SVM 在不平衡数据集上训练惩罚性-SVM
@@ -502,7 +502,7 @@ print( roc_auc_score(y, prob_y_4) )
 
 你可以在 [imblearn 库](http://contrib.scikit-learn.org/imbalanced-learn/generated/imblearn.over_sampling.SMOTE.html) 中 找到 SMOTE 的一种实现
 
-**注意：我们的读者之一，马可，提出了一个很好的观点：仅使用 SMOTE 而不适当的使用交叉验证所造成的风险。查看评论部分了解更多详情或阅读他的关于本主题的 [博客文章](http://www.marcoaltini.com/blog/dealing-with-imbalanced-data-undersampling-oversampling-and-proper-cross-validation) 。*
+**注意：我们的读者之一，马可，提出了一个很好的观点：仅使用 SMOTE 而不适当的使用交叉验证所造成的风险。查看评论部分了解更多详情或阅读他的关于本主题的 [博客文章](http://www.marcoaltini.com/blog/dealing-with-imbalanced-data-undersampling-oversampling-and-proper-cross-validation) 。**
 
 #### 组合少数类别
 
