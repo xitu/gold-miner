@@ -339,7 +339,7 @@ from sklearn.metrics import roc_auc_score
 ```
 
 为了计算 AUROC，你将需要预测类别的概率，而非仅预测类别。你可以使用如下代码获取这些结果
-      .predict_proba() ** **function like so:
+      .predict_proba() ** ** function like so:
 
 获取类别概率
 
@@ -384,7 +384,7 @@ print( roc_auc_score(y, prob_y_0) )
 
 然而，后者模型的 AUROC 为 57%，它稍高于 AUROC  为 53% 原始模型的 (并非远高于)。
 
-**注意：**如果 AUROC 的值为 0.47，这仅仅意味着你需要翻转预测，因为 Scikit-Learn 误解释了正向类别。 AUROC 应该 >= 0.5。
+**注意：** 如果 AUROC 的值为 0.47，这仅仅意味着你需要翻转预测，因为 Scikit-Learn 误解释了正向类别。 AUROC 应该 >= 0.5。
 
 ## 4. 惩罚算法 (代价敏感学习)
 
