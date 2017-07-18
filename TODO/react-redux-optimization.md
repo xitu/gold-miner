@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/react-redux-optimization.md](https://github.com/xitu/gold-miner/blob/master/TODO/react-redux-optimization.md)
 > * 译者：[reid3290](https://github.com/reid3290)
-> * 校对者：[sunui](https://github.com/sunui)
+> * 校对者：[sunui](https://github.com/sunui)，[xekri](https://github.com/xekri)
 
 # Redux 并不慢，只是你使用姿势不对 —— 一份优化指南
 
@@ -12,10 +12,10 @@
 
 在优化使用了 Redux 的 React 应用的时候，我经常听人说 Redux 很慢。其实在 99% 的情况下，性能低下都和不必要的渲染有关（这一论断也适用于其他框架），因为 DOM 更新的代价是昂贵的。通过本文，你将学会如何在使用 Redux 的 React 应用中避免不必要的渲染。
 
-一般来讲，要在 Redux store 更新的时候同步更新 React 组件，需要用到[ React 和 Redux 的官方连接器](https://github.com/reactjs/react-redux)中的 [`connect`](https://github.com/reactjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options) 高阶组件。
+一般来讲，要在 Redux store 更新的时候同步更新 React 组件，需要用到[ React 和 Redux 的官方绑定库](https://github.com/reactjs/react-redux)中的 [`connect`](https://github.com/reactjs/react-redux/blob/master/docs/api.md#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options) 高阶组件。
 `connect` 是一个将你的组件进行包裹的函数，它返回一个高阶组件，该高阶组件会监听 Redux store，当有状态更新时就重新渲染自身及其后代组件。
 
-## React 和 Redux 的官方连接器 —— react-redux 快速入门
+## React 和 Redux 的官方绑定库 —— react-redux 快速入门
 
 `connect` 高阶组件实际上已经被优化过了。为了理解如何更好地使用它，必须先理解它是如何工作的。
 
@@ -169,13 +169,13 @@
 
 [Reselect](https://github.com/reactjs/reselect) 是为 Redux 应用编写 `selectors` 所必不可少的工具。根据其官方文档：
 
-- Selectors 可以计算派生数据，从而使得 Redux 只需要存储最少的状态。
-- Selectors 是高效的. 只有在参数发生改变时 selector 才会重新计算。
+- Selectors 可以计算衍生数据，可以让 Redux 做到存储尽可能少的状态。
+- Selectors 是高效的，只有在某个参数发生变化时才被重新计算。
 - Selectors 是可组合的。它们可以用作其他 selectors 的输入。
 
 对于界面复杂、状态繁多、更新频繁的应用，reselect 可以大大提高应用运行效率。
 
-[Ramda](http://ramdajs.com/) 是一个由许多高阶函数组成、功能强大的函数库。 换句话说，就是许多用户创建函数的函数。由于我们的映射函数也不过只是函数而已，所以我们可以利用 Ramda 方便地创建 selectors。Ramda 可以完成所有 selectors 可以完成的工作，而且还不止于此。[Ramda cookbook](https://github.com/ramda/ramda/wiki/Cookbook) 中介绍了一些 Ramda 的应用示例。
+[Ramda](http://ramdajs.com/) 是一个由许多高阶函数组成、功能强大的函数库。 换句话说，就是许多用于创建函数的函数。由于我们的映射函数也不过只是函数而已，所以我们可以利用 Ramda 方便地创建 selectors。Ramda 可以完成所有 selectors 可以完成的工作，而且还不止于此。[Ramda cookbook](https://github.com/ramda/ramda/wiki/Cookbook) 中介绍了一些 Ramda 的应用示例。
 
 ---
 
