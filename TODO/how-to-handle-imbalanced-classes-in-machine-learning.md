@@ -3,8 +3,8 @@
 > * 原文作者：[elitedatascience](https://elitedatascience.com/imbalanced-classes)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/how-to-handle-imbalanced-classes-in-machine-learning.md](https://github.com/xitu/gold-miner/blob/master/TODO/how-to-handle-imbalanced-classes-in-machine-learning.md)
-> * 译者：
-> * 校对者：
+> * 译者：[RichardLeeH](https://github.com/RichardLeeH)
+> * 校对者：[lsvih](https://github.com/lsvih), [lileizhenshuai](https://github.com/lileizhenshuai)
 
 # 如何处理机器学习中的不平衡类别
 
@@ -443,7 +443,7 @@ print( roc_auc_score(y, prob_y_3) )
 
 最后一个策略我们将考虑使用基于树的算法。决策树通常在不平衡数据集上表现良好，因为它们的层级结构允许它们从两个类别去学习。
 
-在现代应用机器学习中，树集合(随机森林, 梯度提升树等) 几乎总是优于单一决策树，所以我们将跳过单一决策树直接使用树集合模型：
+在现代应用机器学习中，树集合(随机森林、梯度提升树等) 几乎总是优于单一决策树，所以我们将跳过单一决策树直接使用树集合模型：
 
 随机森林
 
