@@ -7,8 +7,10 @@
 > * 校对者：
 
 # Using Feature Queries in CSS
+# 在CSS中使用特征查询
 
 There’s a tool in CSS that you might not have heard of yet. It’s powerful. It’s been there for a while. And it’ll likely become one of your favorite new things about CSS.
+
 
 Behold, the `@supports` rule. Also known as [Feature Queries](http://www.w3.org/TR/css3-conditional/#at-supports).
 
