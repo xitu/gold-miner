@@ -8,257 +8,221 @@
 
 # 原子设计：如何设计组件系统
 
-Nowadays, digital products must be able to exist across any and all devices, screen sizes, and mediums at the same time:
 现在的数字产品需要同时存在于任何的设备，屏幕尺寸和媒介上：
 
 ![](https://cdn-images-1.medium.com/max/800/1*q-qsAsIFizbZkalv7TwEOw.jpeg)
 
-Every type of medium can now display our interfaces elements
-> *So why the hell are we still designing our products by “page” or by screen?!*
-
 所有媒介现在都可以显示我们的界面元素
 > **所以我们为啥还在依据「页面」或者屏幕设计自己的产品？！**
 
-Instead, we should be creating beautiful and easy access to content, regardless of device, screen size or context.
 我们应该通过设计优美、简洁且兼容一切设备、屏幕尺寸或内容的访问方式取而代之。
 
-By keeping this in mind and by being inspired by Modular Design, Brad Frost formulated the method of Atomic Design, in which everything begins with the smallest element of the interface: the atom. This metaphor allows us to understand what we are creating and especially how we are going to create it.
 依据以上原则以及模块化设计的启发，Brad Frost 构想出了从最小的界面元素：原子，着手的原子设计方法。这个巧妙的比喻让我们理解了我们到底在创作什么，以及应该如何创作它。
 
-I was convinced by this approach which finally allowed us to think about the part and the whole at the same time, have a global vision of a product or a brand, and also get closer to the way developers are working.
 我对这个方法深信不疑：它终于可以让我们同时考虑部分和整体，拥有对产品或品牌的全局视野，并且能够以更接近开发者的工作方式工作。
 
-So I thought to myself:
-*“Of course, that’s it! We need to work like this!”
-*But honestly, I didn’t have a clue about how to do this…
 因此我自忖道：
 **「没错儿了，就是这样！我们就需要像这样工作！」**
 **但是说实话，我完全不知道该怎么做...**
 
-It took me several months and some concrete projects before gaining an idea of what “designing in atomic” really meant and what that was going to change in my everyday life as a designer.
-在花了几个月的时间并且做了几个实打实的项目之后，我才终于对「原子设计方式」的内在含义，以及它将会如何改变我的设计师之路，有了些许了解。
+在花了几个月的时间并且做了几个实打实的项目之后，我才终于对「原子设计方式」的内在含义，以及它将会如何改变我的设计师之路，有了些了解。
 
-In this article, I’ll go over a bit of what I’ve learned and what to keep in mind when designing systems of components with Atomic Design.
 在这篇文章里，我将会简要介绍一下我学到的知识，以及在通过原子设计方式设计组件系统时需要注意什么。
 
-### For what kind of project ?
 ### 针对何种项目？
 
-For me, every project, big or small can be designed with atomic in mind.
 对于我来说，每一个项目，无论大小都可以使用原子设计的理念。
 
-It gathers teams around a shared vision. The components are easy to reuse, edit and combine together so that the evolutions of the product will be simpler. And as for smaller projects… Well, every small project could one day become a big project, no?
 这种方式可以统一团队的视野。组件易于重复使用、编辑和组合，使得项目的成长变得简单。至于小的项目嘛... 每个小项目总有一天都可能成为大项目，不是吗？
 
-I also think that, contrary to popular belief, the Atomic Design methodology is not just for web projects … Quite the opposite in fact! I was able to introduce Atomic Design into a personal project (an iOS app for cleaning your address book named [TouchUp](https://itunes.apple.com/fr/app/touchup/id1128944336?mt=8)) and the developer with whom I worked really appreciated this approach. It saved us a lot of time when we wanted to quickly develop and iterate the product.
-和大部分人的认知相左的是，我认为原子设计方法并不只适用于网络相关的项目 ... 事实上截然相反！我成功地在一个个人项目中（一个叫做[TouchUp](https://itunes.apple.com/fr/app/touchup/id1128944336?mt=8))的 iOS 应用，可以清理你的地址簿）引入了原子设计，而且与我合作的开发者非常欣赏这种方式。当我们想快速开发并迭代产品的时候，它帮了大忙。
+和大部分人的认知相左的是，我认为原子设计方法并不只适用于网络相关的项目 ... 事实上截然相反！我成功地在一个个人项目中（一个叫做 [TouchUp](https://itunes.apple.com/fr/app/touchup/id1128944336?mt=8)) 的 iOS 应用，可以清理你的地址簿）引入了原子设计，而且与我合作的开发者非常欣赏这种方式。当我们想快速开发并迭代产品的时候，它帮了大忙。
 
-And for those who wonder if it’s possible to build a system of components while still remaining creative, I recommend reading this article:“[Atomic Design & creativity](https://medium.com/@audreyhacq/atomic-design-creativity-28ef74d71bc6)”
 同时我推荐那些担忧创造性与构建组件系统是否可能共存的人读读这篇文章：「[原子设计与创造性](https://medium.com/@audreyhacq/atomic-design-creativity-28ef74d71bc6)」
 
-### **How is this different than before?**
 ### **这和过去有什么不同呢？**
 
-People often ask me:
-*“But how is this different than the way we worked before?”*
 经常有人问我：
 **「但是这和我们过去的工作方式有什么不同呢？」**
 
-I see Atomic Design as a slightly different approach to interface design but one which can make a great impact in the end.
 我把原子设计看作一种尽管只是略有不同却最终可以带来巨大影响的界面设计方式。
 
-> *The part shapes the whole and the whole shapes the part*
 > **部分塑造整体且整体塑造部分**
 
-Until recently, we designed all the screens of a product, and then we cut it into small components to make specifications or UI Kits:
 直到最近，我们仍会单独设计产品的每一个界面，然后把它们裁剪成小组件，以此来创建设计规格或UI套件（UI Kits）：
 
 ![](https://cdn-images-1.medium.com/max/800/1*3OFaoY-yLYdgPmO8AhejmQ.jpeg)
 
-Before : we deconstructed screens to make components
 之前：我们解构界面来制作组件
 
-One of the problem was that the components created in this way were not generic and they weren’t dependent on each other. The reuse of components was thus very limited: our design system was restrictive.
-这样制作出来的组件有一个问题，它们并不通用，且互不关联。因此组件的重复利用是非常有限的：我们的设计系统具有局限性。
+这样制作出来的组件有一个问题，它们并不通用，且互不依赖。因此组件的重复利用是非常有限的：我们的设计系统具有局限性。
 
 ---
 
-Today, the idea of Atomic Design is to begin with common raw material (atoms) with which we can build the rest of the project:
-现如今，原子设计的理念是从可以最终构建出整个项目常用的原材料（原子）入手。
+现如今，原子设计的理念是从可以最终构建出整个项目的通用原材料（原子）入手。
 
 ![](https://cdn-images-1.medium.com/max/800/1*yyN6Ki0646UcFLsDabUShw.jpeg)
 
-Today: we start from atoms and we build the rest from there
-We have thus not only an “air de famille” between all the screens, but also a system which offers infinite design possibilities!
 现如今：我们从原子开始并且用原子构建
-因此我们不仅拥有了充斥在所有界面之间的「家庭气氛」（译者注：「家庭气氛」是一部法国的喜剧电影），更拥有了一个带来无限设计可能性的系统！
+因此我们不仅拥有了充斥在所有界面之间的「家庭气氛」（译注：「家庭气氛」是一部法国的喜剧电影），更拥有了一个带来无限设计可能性的系统！
 
-### Everything start with brand identity
 ### 一切始于品牌识别
 
-Now you might be wondering:
-*“Where do we begin if we want to design in an atomic way?”*
 现在你也许在想：
 **「如果我们想以原子的方式设计，该从哪开始呢？」**
 
-To which I answer, rather logically: with atoms ;)
 对这个问题我给出了一个极富逻辑性的回答：从原子开始 ;)
- 
-Thus the first thing which we are going to do is to create a unique visual language for our product that will be our starting point. This is what is going to define our atoms, our raw material and it is obviously very close from the brand identity.
-因此我们首先要为产品设计出一个独特的视觉语言作为起点。它将描绘出我们的原子和原材料，而且显然它应与品牌识别紧密相连。
 
-This visual language must be strong, easy to build upon, and free itself from the medium on which it is going to be displayed; it has to be able to work everywhere!
+因此我们首先要为产品设计出一个独特的视觉语言作为起点。它将会定义我们的原子和原材料，而且显然它应与品牌识别紧密相连。
+
 这个视觉语言一定要有力度、易于扩展、并且能够从其展示媒体中解放自我；它必须能在所有地方奏效！
 
-The [Gretel agency](http://gretelny.com/work/netflix/), for example, made some remarkable work on the Netflix identity:
 比如 [Gretel agency](http://gretelny.com/work/netflix/) 为 Netflix 的品牌识别做了些出色的工作。
 
 ![](https://cdn-images-1.medium.com/max/800/1*Piomy-9oNTP0yT3VcmKH4w.png)
 
-Netflix visual language: strong, recognizable and easy to build upon
 And thanks to a strong identity, we feel that we have all the material to release our first atoms: colors, typographic choices, forms, shadows, spaces, rhythms, animations principles…
 Netflix 的视觉语言：有力度、辨识度高且易于扩展
-多亏了强有力的品牌识别，我们会感觉已经
+多亏了强有力的品牌识别，我们会觉得已经有充足的材料发布最初的一系列原子了：色彩，字体选择，表单，阴影，空白，节奏，动画原则
 
-It is thus essential to spend time designing this identity, thinking about what makes the difference, the uniqueness of a brand or a product.
+因此很有必要花时间设计品牌识别、思考重点是什么、以及如何能让品牌和产品与众不同。
 
-### Let’s continue with the components
+### 让我们回到组件上来
 
-Now that we have this raw material (still very abstract for the moment), we can now create our first components according to the objectives of the product and the initial user flow which we’ll have already identified.
+有了原材料（目前仍然比较抽象），我们就可以根据产品目标以及我们辨识出的初始用户流程来设计我们最初的组件了。
 
-#### Begin with key features
+#### 从关键特征开始
 
-What really frightens designers who begin creating a system of components is to have to make components which are connected to nothing … Obviously, we aren’t going to create a shopping basket component if there is no purchase element in our product! That wouldn’t make any sense!
+最让那些构建组件系统的设计师们胆寒的莫过于创建与什么都不关联的组件 ... 很显然，我们不会在没有购物功能的产品里设计购物车组件的！这完全不合常理！
 
-The first components are going to be closely linked to the product or the brand objectives.
+最初的组件将会和产品或品牌目标紧密结合。
 
-And once more, to get rid of this notion of “page”, I insist on the fact that we are going to focus on features or user flow, not screens…
+重申一遍，忘掉「页面」这个概念，我坚持侧重于产品特色或用户流程，而不是界面...
 
 ![](https://cdn-images-1.medium.com/max/800/1*bn-X_RyQCiW375OBOtnZxw.gif)
 
-We want to focus on an action, not a specific screen
-We are going to focus on the action which we want our user to do and on the components that are needed to accomplish this action. The number of screens will then vary, according to the context: maybe we’ll need half of the screen on desktop to display this component versus 3 consecutive screens on smartphone…
+我们应该侧重于一个行为，而不是某个特定的界面
+我们会把注意力集中在某个我们希望用户去实践的行为以及它所需要的组件上。界面数量则会根据用户环境变化：也许在台式电脑上我们只需半个界面，智能手机却需要三个连续的界面来显示某个组件...
 
-#### Enrich the system
+#### 充实组件系统
 
-Next, in order to enrich the system, we are going to make round trips between the already existing components and new features:
+接下来为了充实组件系统，我们要在已经存在的组件和新功能间循环往复：
 
 ![](https://cdn-images-1.medium.com/max/800/1*35_KbPOTixmDVgUnShvitQ.jpeg)
 
-Enrich the system by making round trips between the already existing components and new features
-The first components will help to create the first screens, and the first screens will help to create new components in the system or to change the existing ones.
+通过在已经存在的组件和新功能间循环往复来充实组件系统
+最初的组件可以帮我们创建出最初的界面，接着最初的界面又会帮我们在系统中创造新的组件或改变已有的组件。
 
-#### Think generic
+#### 「通用」思维方式
 
 ![](https://cdn-images-1.medium.com/max/800/1*pMfHPwQ0dH_ITybJ9mVIGg.png)
 
-When we design with atomic, we always have to keep in mind that the same component is going to be declined and reused in very different contexts.
+在用原子设计方法设计时，我们应该牢记，同一个组件会在不同的上下文环境中被否决或重复使用。
 
-> *We are thus going to make a real distinction between the structure of an element and its contents.*
+> **因此我们将会把元素的结构和其内容真正区别开来**
 
-For example, if I create a specific component that is a “contacts list,” I’m very quickly going to transform it into a generic component that will simply be a “list” item.
+例如我要创建一个「联系人列表」组件，我可以马上把它转变成一个通用的「列表」组件
 
-And I am then going to think about some possible variations of this component: What if I add or remove an element? And if the text runs onto 2 lines? What will be the responsive behavior of this component?
+然后我会想想这个组件可能有的变形：如果我要添加或删除元素怎么办？如果文本占了两行呢？这个组件的响应式行为会是什么？
 
 ![](https://cdn-images-1.medium.com/max/800/1*zpLDZgMO0s6R0OsTX0g5NQ.png)
 
-Transforming a specific component into a generic one
-Having anticipated these variations is going to allow me then to use this component to create other ones:
+把一个特定组件转变为通用组件
+预见到这些变形后，我可以从这个组件创建出其他的组件：
 
 ![](https://cdn-images-1.medium.com/max/800/1*nn-NcMuzv6VdV3hpgvc7AQ.png)
 
-Possible variations of a generic component
-This work is necessary if we want our system to be both reusable and rich at the same time.
+通用组件的可能变形
+如果想让我们的组件系统内容丰富且可被再利用，这么做是必须的。
 
-#### Think fluid
+#### 「流体」思维方式
 
-We still tend to think of responsive design as a reorganization of blocks on specific breakpoints.
+我们仍倾向于把响应式设计想成块状元素在特定断点上的重新组合。
 
-Yet it’s the components themselves which have to have their own breakpoints and their own fluid behavior.
+然而实际上组件自身必须拥有它们自己的断点和流体行为（fluid behavior）。
 
-And thanks to software like Sketch, we can finally test the various responsive behavior of our components and define what we want to be fluid or what has to remain fixed:
+多亏了像 Sketch 这样的软件，我们终于可以测试组件的各种响应式行为并且决定哪些组件应该是流体的，哪些组件应该是固定的。
 
 ![](https://cdn-images-1.medium.com/max/800/1*LXu8lJ-poM3d6TD3g6y2uw.gif)
 
-We have to anticipate the fluid behavior of our components
-We can also imagine that a component can be totally different in a context or in another.
+我们需要预测组件的流体行为
+我们也可以预想到，一个组件在不同的用户环境中可能会有很大区别。
 
-For example, a button with round corner on desktop may become a simple circle with an icon on a smartwatch.
+比如一个在台式电脑上显示为圆角矩形的按钮，在智能手表上可能就会变成一个带有图标的简易的圆形。
 
-#### The part and the whole
+#### 部分和整体
 
-One of the really interesting things building a system of components with Atomic Design is that we are conscious of creating a set of elements that depend on each other.
+通过原子设计构建组件系统有一个有趣的地方：我们在有意识地创建一系列互相依赖的组件。
 
 ![](https://cdn-images-1.medium.com/max/800/1*7xilIVazxs1V6rGCY9VuDA.jpeg)
 
-Working out the details before taking a step back to verify the results in the greater scheme of things
-We then constantly zoom-in and zoom-out of our work. We are going to spend time on a detail, a micro-interaction, or the refining of a component, before we take a step back to verify what it looks like in context, before taking yet another step back to see what that makes as a whole.
+完成细节部分后再后退一步，在更大的格局中审视结果。
+我们不断地把视线拉近或拉远来进行作业。我们会先在一个细节、一个微交互、或是一个组件的微调上花时间，接着后退一步在上下文环境中审视其视觉效果，接着再后退一步查看整体效果。
 
-This is the way we’ll refine the brand identity, develop components and verify that the system works.
+这就是我们改进品牌识别，开发组件以及检验组件系统正常运作的方法。
 
-### Mutualize the work
+### 使成品相关联
 
 ![](https://cdn-images-1.medium.com/max/800/1*gczpHM7chfldsdtvr7Umtw.png)
 
-All of our components are linked to our atoms. And as everything is connected, we are going to be able to easily make modifications on a part of the system and verify the repercussion on the rest of the system!
+我们所有的组件都与原子相连。因此我们将可以轻松地更改部分组件系统，并观察这种更改对其余系统部分的副作用！
 
-> *We’re so lucky today as designers: we finally have tools which are adapted to create lively and evolving systems.*
+> **如今身为设计师的我们是何其幸运：利用改良之后的工具，我们终于可以创造出灵活且不断演化的系统了。**
 
-Of course, there are programs like Sketch or Figma which allow us to create shared styles and to mutualize the similar components but I’m sure that we are going to see a lot more in the next few years.
+当然，现在已经有可以让我们创建共享样式并使相似组件相互关联的软件了, 例如 Sketch 和 Figma。但是我确信在接下来的几年内会出现更多这样的软件。
 
-We can at last, just like developers, have our own style guides and build entire systems around these style guides. A modification to an atom of our system will automatically reverberate across all the components which use this atom:
+我们终于可以像开发者一样拥有自己的风格指南（style guide）并围绕它构建整个组件系统了。对系统中一个原子的微调就会波及所有使用它的组件：
 
 ![](https://cdn-images-1.medium.com/max/800/1*xAMdhevJ8lLRMxO_yLljZg.gif)
 
-All components are linked to the atoms
-We realize very quickly how the modification of a component can affect the whole system.
+所有组件都与原子相连
+我们很快就会意识到对组件的修改会如何影响整个系统。
 
-By interlinking all of our components to each other, we also realize that if we create a new component, it’s the heart of the system that is going to be impacted, not just an isolated screen.
+我们也会意识到，通过使组件相连，一个新增的组件将会影响到整个系统的核心部分，而不仅仅是一个孤立的界面。
 
-### Share the system
+### 共享系统
 
-Sharing of the system is essential to keeping consistency between various products.
+为了保持多个产品的一致性，系统的共享是必须的。
 
-We all know that we can very quickly lose this consistency, when we work alone on a project, but it’s even more difficult when we work with other designers, which is happening more and more often.
+独立完成一个项目时，我们都知道，这种一致性很快就会丢失，但当我们越来越多地和其他设计师合作时，保持一致性会更加困难。
 
-Here again, we now have tools which allow us to really work in a team around a common system.
+在这里又一次，已经有可以让我们围绕一个共同的系统进行团队协作的工具了。
 
-There are [shared libraries](https://uxdesign.cc/how-to-use-adobe-cc-shared-libraries-and-make-the-most-of-it-d5e114014170) like Craft for Sketch or those of Adobe for example, which allow us to have a single source of truth, accessible by all and always up to date:
+例如 Sketch 的 Craft，或是 Adobe 的[共享库](https://uxdesign.cc/how-to-use-adobe-cc-shared-libraries-and-make-the-most-of-it-d5e114014170)，这些工具使我们拥有一个公有且一直保持最新状态的单一数据源（single source of truth）。
 
 ![](https://cdn-images-1.medium.com/max/800/1*ses_KEaaren8CHX6KHoxXg.jpeg)
 
-Shared libraries: always up to date and synchronized
-Shared libraries allow several designers to start with the same base to begin their designs.
+共享库：一直同步并保持最新状态
+共享库使多个设计师可以从相同的基本组件开始他们的设计。
 
-They also allow us to streamline the work because if we update a component in the shared library, the modification will automatically take place across all the files of all the designers which used this component:
+这些库同时也精简了我们的工作，因为我们一旦在共享库中更新了一个组件，这个更改会自动应用到每个设计师使用的所有与其相关的文件上：
 
 ![](https://cdn-images-1.medium.com/max/800/1*jIV9_u7tWnNsmEwzlvYB9w.gif)
 
-One change in the library automatically changes linked elements everywhere
-I have to admit that for the moment, of the various shared libraries I’ve tested, I have not yet found one which is totally adapted to work with Atomic Design… Still missing is this strong interdependence between atoms and components which allows us to create a lively and evolving system.
+在库中的一个更改会自动改变所有与其关联的元素
+我必须承认，在我试用过的所有共享库中，还没有一个完美契合原子设计工作的... 原子和组件间强大的相互依赖性仍然缺乏，这一特点使我们可以创建灵活且不断演化的系统。
 
-Another issue is that we still have two different libraries: the designers’ library and the developers’ library… It is thus necessary to maintain both in parallel, which causes errors and requires a lot of additional work.
+另一个问题是我们仍然有两种不同的库：设计师的库和开发者的库... 因此这两种库需要同步维护，带来了错误和许多额外的工作。
 
-My vision of the perfect shared library would be the following; a single library which would feed the designers and the developers at the same time:
+我理想中完美的共享库是这样的：一个可以同时满足设计师和开发者需求的单一的库：
 
 ![](https://cdn-images-1.medium.com/max/800/1*E8xw35qc9Iznt_3JB6o1Yg.jpeg)
 
-My vision for the future: a single library which would feed both designers & developers
-It’s when I see a plugin like [React Sketch app](https://github.com/airbnb/react-sketchapp) (recently launched by Airbnb) which promises coded components directly usable in our Sketch files, that I tell myself that maybe this future isn’t so distant after all…
+我理想中的未来：一个可以同时满足设计师和开发者需求的单一的库
+但在我看到如 [React Sketch app](https://github.com/airbnb/react-sketchapp)（由 Airbnb 在近期发布） 这样使代码写成的组件可以直接在 Sketch 文件中使用的插件之后，我对自己说，也许这个未来已经不远了...
 
 ![](https://cdn-images-1.medium.com/max/800/1*lOm8j3gpZHjxoAei2g9F1Q.png)
 
-React Sketch app plugin: coded components directly usable in Sketch
+React Sketch 插件：代码写成的组件可以直接在 Sketch 中使用
 
-### Last words
+### 最后的话
 
-I think you get it: I’m convinced that we need to design our interfaces using components, thinking about lively and evolving systems, and I think that the Atomic Design methodology will help us do it effectively.
+我想你应该已经理解了：我坚信需要使用组件设计界面，考虑灵活且不断演化的系统，并且我认为原子设计方法会帮助我们有效的达成这些目的。
 
-*If you too have feedback on the implementation of systems of components for small or big projects, do not hesitate to share your experience in the comments!*
+**如果你也有在大小项目上使用组件系统的反馈，就在评论区分享你的经验吧！**
 
 ![](https://cdn-images-1.medium.com/max/800/1*aNPBhln7iDMY8qRcmoyCfA.jpeg)
 
-*Audrey wrote this story to share knowledge and to help nurture the design community. All articles published on uxdesign.cc follow that same *[*philosophy*](https://uxdesign.cc/the-design-community-we-believe-in-369d35626f2f)*.*
+**这篇由 Audrey 撰写的文章旨在分享知识并扶持设计社区。所有在 uxdesign.cc 上发表的文章都服从这一[**理念**](https://uxdesign.cc/the-design-community-we-believe-in-369d35626f2f)**
 
 ![](https://cdn-images-1.medium.com/max/800/1*aNPBhln7iDMY8qRcmoyCfA.jpeg)
 
