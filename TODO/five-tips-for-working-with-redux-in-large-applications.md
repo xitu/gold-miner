@@ -162,12 +162,11 @@ const getSelectedUsers = ({ selectedUserIds, usersById }) => {
 
 ### 4. 在状态之间复用 reducer 函数
 
+在编写了一些 reducer 函数之后，我们可能想要在状态中的不同节点间复用 reducer 逻辑。例如，我们可能会创建一个用于从 API 读取用户信息的 reducer。该 API 每次返回 100 个用户，然而我们的系统中可能有成千上万的用户。要解决该问题，我们的 reducer 还需要记录当前正在展示哪一页。我们的读取逻辑需要访问 reducer 以确定下一次 API 请求的分页参数（例如 `page_number`）。之后当我们需要读取域名列表时，我们最终会写出几乎完全相同的逻辑来读取和存储域名信息，只不过 API 和数据结构不同罢了。
 
-After writing a few reducer functions, we may decide to try reusing our reducer logic between different places in state. For example, we may create a reducer to fetch users from our API. The API only returns 100 users at a time, and we may have thousands of users in our system or more. To address this, our reducer will also need to keep track of which page of data is currently being displayed. Our fetch logic will read from the reducer to determine the pagination parameters to send with the next API request (such as `page_number`). Later on when we need to fetch the list of domains, we will end up writing the same exact logic to fetch and store the domains, just with a different API endpoint and a different object schema. The pagination behavior remains the same. The savvy developer will realize we can probably modularize this reducer and share the logic between any reducers that need to paginate.
+在 Redux 中复用 reducer 逻辑可能会有点棘手。默认情况下，当触发一个 action 时所有的 reducer 都会被执行。如果我们在多个 reducer 函数中共享一个 reducer 函数，那么当触发一个 action 时所有这些 reducer 都会被调用。然而这并不是我们想要的结果。当我们读取用户得到总数是 500 时，我们不想域名的 `count` 也变成 500。
 
-Sharing reducer logic can be a little tricky in Redux. By default, all the reducer functions are called when a new action is dispatched. If we share a reducer function in multiple other reducer functions, then when we dispatch our action it will cause *all* of those reducers to fire. This isn’t the behavior we want for reusing our reducers, though. When we fetch the users and get a total count of 500, we don’t want the domain’s `count` to change to 500 as well.
-
-We recommend two different ways to accomplish this, both using special scopes or prefixes for types. The first way involves passing a scope inside your payload in an action. The action uses the type to infer the key in state to update. For illustrative purposes, let’s imagine that we have a web page containing several different sections, all of which load asynchronously from different API endpoints. Our state to track loading might look like this:
+我们推荐两种不同的方式来解决此问题，利用特殊作用域或是类型前缀。第一种方式涉及到在 action 传递的数据中增加一个类型信息。这个 action 会利用该类型来决定该更新状态中的哪个数据。为了演示该方法，假设我们有一个包含多个部分的页面，每个部分都是从不同 API 异步加载的。我们跟踪加载过程的状态可能会像下面这样：
 
 ```
 const initialLoadingState = {
@@ -178,14 +177,14 @@ const initialLoadingState = {
 };
 ```
 
-Given such a state, we will need reducers and actions to set the loading state for each section of the view. We could write out four different reducer functions with four different actions — each using their own unique action type. That’s a lot of repeated code! Instead, let’s try using a scoped reducer and action. We create just one action type `SET_LOADING`, and a reducer function like so:
+有了这样的状态，我们会需要设置各部分加载状态的 reducer 和 action。我们可能会用 4 种 action 类型写出 4 个不同的 reducer 函数 —— 每个 action 都有它自己的 action 类型。这里有很多重复代码！相反，让我们尝试使用一个xxx的 reducer 和 action。我们只创建一种 action 类型 `SET_LOADING` 以及一个 reducer 函数：
 
 ```
 const loadingReducer = (state = initialLoadingState, action) => {
   const { type, payload } = action;
   if (type === SET_LOADING) {
     return Object.assign({}, state, {
-      // sets the loading boolean at this scope
+      // 设置此范围的加载状态
       [`${payload.scope}Loading`]: payload.loading,
     });
   } else {
@@ -194,7 +193,7 @@ const loadingReducer = (state = initialLoadingState, action) => {
 }
 ```
 
-We also need to provide a scoped action creator function to call our scoped reducer. The action would look something like:
+我们还需要一个支持范围的 action 创建器来调用我们的受限 reducer。这个 action 创建器看起来会像下面这样：
 
 ```
 const setLoading = (scope, loading) => {
@@ -206,26 +205,27 @@ const setLoading = (scope, loading) => {
     },
   };
 }
-// example dispatch call
+// 调用示例
 store.dispatch(setLoading('users', true));
 ```
 
-By using a scoped reducer like this, we eliminate the need to repeat our reducer logic across multiple actions and reducer functions. This significantly decreases the amount of code repetition and helps us to write smaller action and reducer files. If we need to add another section to our view, we simply add a new key in our initial state and make another dispatch call with a different scope passed to `setLoading`. This solution works great when we have several similar collocated fields that need to be updated in the same way.
+通过像这样使用一个带范围的 reducer，我们消除了在多个 action 和 reducer 函数间重复 reducer 逻辑的必要。这极大的减少了代码重复度同时有助于我们编写更小的 action 和 reducer 文件。如果我们需要在视图中新增一个模块，我们只需在初始状态中新增一个字段并在调用 `setLoading` 时传入一个新的范围类型即可。当我们有几个相似的字段以相同的方式更新时，此方案非常有效。
 
-Sometimes though we need to share reducer logic between multiple different places in state. Instead of using one reducer and action to set multiple fields in one place in state, we want a reusable reducer function that we can call `combineReducers` with to plug into different places in state. This reducer will be returned by calls to a reducer factory function, which returns a new reducer function with that type prefix added.
+有时我们还需要在 state 中的多个节点间共享 reducer 逻辑。我们需要一个可以通过 `combineReducers` 在状态中不同节点多次使用的 reducer 函数，而不是在状态中的某一个节点利用一个 reducer 与 action 来维护多个字段。这个 reducer 会通过调用一个 reducer 工厂函数生成，该工厂函数会返回一个添加了类型前缀的 reducer 函数。
 
-A great example for reusing reducer logic is when it comes to pagination information. Going back to our fetching users example, our API might contain thousands of users or more. Most likely our API will provide some information for paginating through multiple pages of users. Perhaps the API response we receive looks something like this:
+复用 reducer 逻辑的一个绝佳例子就是分页信息。回到之前读取用户信息的例子，我们的 API 可能包含成千上万的用户信息。我们的 API 很可能会提供一些信息用于在多页用户之间进行分页。我们收到的 API 响应也许是这样的：
 
 ```
 {
   "users": ...,
-  "count": 2500, // the total count of users in the API
-  "pageSize": 100, // the number of users returned in one page of data
-  "startElement": 0, // the index of the first user in this response
+  "count": 2500, // API 中包含的用户总量
+  "pageSize": 100, // 接口每一页返回的用户数量
+  "startElement": 0, // 此次响应中第一个用户的索引
   ]
 }
 ```
 
+如果我们想要读取下一页数据，我们会发送一个带有 `startElement=100` 查询参数的 GET 请求。
 If we want the next page of data, we would make a GET request with the `startElement=100` query parameter. We could just build a reducer function for each API service we interact with, but that would repeat the same logic across many places in our code. Instead, we will create a standalone pagination reducer. This reducer will be returned from a reducer factory which takes a prefix type and returns a new reducer function:
 
 ```
