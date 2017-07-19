@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/building-modern-web-applications-in-2017.md](https://github.com/xitu/gold-miner/blob/master/TODO/building-modern-web-applications-in-2017.md)
 > * 译者：[LeviDing](https://github.com/leviding)
-> * 校对者：
+> * 校对者：[sunui](https://github.com/sunui), [warcryDoggie](https://github.com/warcryDoggie)
 
 # 2017 年了，这么多前端框架，你会怎样选择？
 
