@@ -4,13 +4,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/make-react-fast-again-tools-and-techniques-for-speeding-up-your-react-app.md](https://github.com/xitu/gold-miner/blob/master/TODO/make-react-fast-again-tools-and-techniques-for-speeding-up-your-react-app.md)
 > * 译者：[sunui](https://github.com/sunui)
-> * 校对者：
+> * 校对者：[yzgyyang](https://github.com/yzgyyang)、[reid3290](https://github.com/reid3290)
 
 # 高性能 React：3 个新工具加速你的应用
 
 ![](https://cdn-images-1.medium.com/max/2000/1*mJFYp7LKVzZM3PPjFb0QXQ.png)
 
-通常来说 React 是相当快的，但也很容易犯一些错误导致出现性能问题。组件挂载过慢、组件树过深和一些非必要的渲染周期可以迅速地联手拉低你的应用速度。
+通常来说 React 是相当快的，但开发者也很容易犯一些错误导致出现性能问题。组件挂载过慢、组件树过深和一些非必要的渲染周期可以迅速地联手拉低你的应用速度。
 
 幸运的是有大量的工具，甚至有些是 React 内置的，可以帮助我们检测性能问题。本文将着重介绍一些加快 React 应用的工具和技术。每一部分都配有一个可交互而且（希望是）有趣的 demo！
 
@@ -18,7 +18,7 @@
 
 React 15.4.0 引入了一个新的性能时间轴特性，可以精确展示组件何时挂载、更新和卸载。也可以让你可视化地观察组件生命周期相互之间的关系。
 
-**注意：** 目前，这一特性仅支持 Chrome、Edge、和 IE，因为它调用的 User Timing API 还没有在所有浏览器中实现。
+**注意：** 目前，这一特性仅支持 Chrome、Edge 和 IE，因为它调用的 User Timing API 还没有在所有浏览器中实现。
 
 #### 如何使用
 
@@ -38,7 +38,7 @@ React 15.4.0 引入了一个新的性能时间轴特性，可以精确展示组�
 
 堆叠的色条代表组件树，虽然在 React 拥有过深的组件树也比较典型，但如果你想优化一个频繁挂载的组件，减少嵌套组件的数量也是有帮助的，因为每一层都会增加少量的性能和内存消耗。
 
-这里需要注意的是时间轴中的计时时长是针对 React 的开发环境构建的，会比生产环境慢很多。实际上性能时间轴本身也会拖慢你的应用。虽然这些时长不能代表真正的性能指标，但不同组件间的**相对**时间是精确的。而且一个组件是否更新完全不取决于是否是生产环境的构建。
+这里需要注意的是时间轴中的计时时长是针对 React 的开发环境构建的，会比生产环境慢很多。实际上性能时间轴本身也会拖慢你的应用。虽然这些时长不能代表真正的性能指标，但不同组件间的**相对**时间是精确的。而且一个组件是否完全被更新不取决于是否是生产环境的构建。
 
 #### Demo #1
 
@@ -48,7 +48,7 @@ React 15.4.0 引入了一个新的性能时间轴特性，可以精确展示组�
 
 ### Tool #2: why-did-you-update
 
-在 React 中最影响性能普遍的问题之一就是非必要的渲染周期。默认情况下，一旦父组件渲染，React 组件就会跟着重新渲染，甚至即使它们的 props 没有变化也是如此。
+在 React 中最影响性能普遍的问题之一就是非必要的渲染周期。默认情况下，一旦父组件渲染，React 组件就会跟着重新渲染，即使它们的 props 没有变化也是如此。
 
 举个例子，如果我有一个简单的组件长这样：
 
@@ -70,13 +70,13 @@ React 15.4.0 引入了一个新的性能时间轴特性，可以精确展示组�
 
 每当父组件渲染，`DumbComponent` 就会重新渲染，尽管它的 props 没有改变。
 
-一般来讲，如果 `render` 运行，并且虚拟 DOM 没有改变，而且既然 `render` 应该是个纯净的没有任何副作用的方法，那么这就是一个浪费的渲染周期。在一个大型应用中检测这种事情是非常困难的，但幸运的是有一个工具可以帮地上忙。
+一般来讲，如果 `render` 运行，并且虚拟 DOM 没有改变，而且既然 `render` 应该是个纯净的没有任何副作用的方法，那么这就是一个浪费的渲染周期。在一个大型应用中检测这种事情是非常困难的，但幸运的是有一个工具可以帮得上忙。
 
 #### 使用 why-did-you-update
 
 ![](https://cdn-images-1.medium.com/max/1000/1*Lb4nr_WLwnLt63jUoszrnQ.png)
 
-`why-did-you-update` 是一个 React 钩子工具，用来检测潜在的非必要组件渲染。它会检测到 props 没有改变的组件 `render` 方法调用。
+`why-did-you-update` 是一个 React 钩子工具，用来检测潜在的非必要组件渲染。它会检测到被调用但 props 没有改变的组件 `render`。
 
 #### 安装
 
@@ -146,7 +146,7 @@ React Developer Tools 在给定的时间点高亮正在重新渲染的组件。�
       }
     }
 
-那么这个组件就只有当它的 props 实际发生变化的时候才会重新渲染了。就是这样！
+那么只有当这个组件的 props 实际发生变化时它才会被重新渲染了。就是这样！
 
 注意 `PureComponent` 对 props 做了一个浅对比，因此如果你使用复杂的数据结构，它可能会错失一些属性变化而不会更新你的组件。
 
@@ -178,7 +178,7 @@ React Developer Tools 只能在你自己的机器上运行的应用中使用。�
 
 ![](https://cdn-images-1.medium.com/max/1000/1*s_rMyo6NbrAsP-XtvBaXFg.png)
 
-[LogRocket](https://logrocket.com) 就像是 web 应用的 DVR，会记录发生在你的站点上的**所有的一切**。并不是猜测问题发生的原因，而是你可以重现带有 bug 或性能问题的会话快速了解问题的根源。
+[LogRocket](https://logrocket.com) 就像是 web 应用的 DVR，会记录发生在你的站点上的**所有的一切**。你可以重现带有 bug 或性能问题的会话来快速了解问题的根源，而不用猜测问题发生的原因。
 
 LogRocket 工具为你的应用记录性能数据、Redux actions/state、日志、带有请求头和请求体的网络请求和响应以及浏览器的元数据。它也能记录页面上的 HTML 和 CSS，甚至可以为最复杂的单页面应用重新创建完美像素的视频。
 
