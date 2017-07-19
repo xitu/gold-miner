@@ -2,7 +2,7 @@
 > * 原文作者：[Doug Farrell](https://dbader.org/blog/understanding-asynchronous-programming-in-python#author)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 译者：[steinliber](https://github.com/steinliber)
-> * 校对者：[CACppuccino](https://github.com/CACppuccino) [MrShayne]https://github.com/MrShayne
+> * 校对者：[CACppuccino](https://github.com/CACppuccino)、[MrShayne](https://github.com/MrShayne)
 
 # 理解 Python 中的异步编程
 
