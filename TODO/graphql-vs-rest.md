@@ -10,11 +10,11 @@
 
 ## 两种通过 HTTP 发送数据的方式：区别在哪里？
 
-GraphQL 常常被认为是一种全新的 API 方式。你可以通过发送一次查询请求便获得所需要的数据，而不是通过服务器严格定义的终端。GraphQL 确实有这样的变革能力，被团队采用后 GraphQL 能够使得前端和后段团队的合作更加流畅。但在实际用途中，两种技术都通过发送 HTTP 请求获取结果，而且 GraphQL 使用了 REST 模型中的很多基础元素。
+GraphQL 常常被认为是一种全新的 API 方式。你可以通过发送一次查询请求便获得所需要的数据，而不是通过服务器严格定义的终端。GraphQL 确实有这样的变革能力，一个团队在采用 GraphQL 后能够使得前端和后段的合作变得更加流畅。然而在实际操作中，两种技术都通过发送 HTTP 请求获取结果，而且 GraphQL 使用了 REST 模型中的很多基础元素。
 
-那么在技术层面来讲到底它们的本质是什么？这两款 API 范例的相似处和区别都有哪些？我在文章最后会声明 GraphQL 和 REST 的区别并不是很大，但 GraphQL 其本身的一些改变使得打造以及使用一款 API 的开发体验带来了巨大的变化。
+那么从技术层面来讲它们的本质到底是什么？这两款 API 范例的相似处和区别都有哪些？我在文章最后会声明 GraphQL 和 REST 的区别并不是很大，但 GraphQL 其本身的一些改变使得为使用一款 API 的开发体验带来了巨大的变化。
 
-那么言归正传，我们会先指出一款 API 的一些性质，然后我们会讨论 GraphQL 和 BEST 是如何处理它们的。
+那么言归正传，我们会先指出 API 的一些性质，然后我们会讨论 GraphQL 和 BEST 是如何处理它们的。
 
 ### 资源
 
@@ -31,11 +31,12 @@ REST 的核心理念就是资源。每个资源都由一个 URL 定义，然后�
       // ... more fields here
     }
 
-*注意：在以上实例中，有的 REST APIs 会把 “author” 当成独立资源返回。
+**注意：在以上实例中，有的 REST APIs 会把 “author” 当成独立资源返回。**
+
 在 REST 中需要注意的是，资源的类型和你获取资源的方法是紧密相关的。当使用以上 REST 数据时，你可能会把它当成是 book 的一个终端。
 
 
-GraphQL 在这方面就相当不一样了，因为在 GraphQL 里这两个概念是完全分开的。在你的模式里可能会有 ‘Book’ 和 ’Author‘ 两种类型：
+GraphQL 在这方面就相当不一样了，因为在 GraphQL 里这两个概念是完全分开的。在你的模版里可能会有 ‘Book’ 和 ’Author‘ 两种类型：
 
     type Book {
       id: ID
@@ -75,10 +76,10 @@ GraphQL 在这方面就相当不一样了，因为在 GraphQL 里这两个概念
 
 很好，现在我们有成果了！即使双方都使用 URL 来发送请求并返回相同的 JSON 类作为回应，我们还是能马上看出 GraphQL 和 REST 之间的区别。
 
-首先，我们能看出 GraphQL 查询的 URL 详细指出了我们所寻找的资源以及我们所关心的值域。而且 API 的使用者决定是否需要包括有关 ‘author’ 的资源，而不是由服务器端的人来决定。
+首先，我们能看出 GraphQL 查询的 URL 详细指出了我们所寻找的资源以及我们所关心的值域。而且 API 的使用者决定是否需要包括有关 ‘author’ 的资源，而不是由服务器端的代码来决定。
 
 
-但最重要的是，资源的身份以及书和作者的概念和获取的方式无关。我们实际上可以使用多种不同的请求来获取一本书的不同值域。
+但最重要的是，资源的身份以及 Book 和 Author 的概念和获取的方式无关。我们实际上可以使用多种不同的请求来获取一本书的不同值域。
 
 #### 总结
 
@@ -87,7 +88,7 @@ GraphQL 在这方面就相当不一样了，因为在 GraphQL 里这两个概念
 - ** 相同：** 都拥有资源这个概念，而且都可以制定资源的身份
 - ** 相同：** 都能通过 HTTP GET 和一个 URL 来获取信息
 - ** 相同：** 请求的返回值都是 JSON 数据
-- ** 不同：** 在 REST 中，你所访问的终端就是所需对象的身份，在 GraphQL 中，对象的身份和获取的方式是独立存在的。
+- ** 不同：** 在 REST 中，你所访问的终端就是所需对象的身份，在 GraphQL 中，对象的身份和获取的方式是独立存在的
 - ** 不同：** 在 REST 中，资源的形式和大小是由服务器所决定的。在 GraphQL 中，服务器声明哪些资源可以获得，而客户端会对其所需资源作出请求。
 
 
@@ -98,7 +99,7 @@ GraphQL 在这方面就相当不一样了，因为在 GraphQL 里这两个概念
 
 一款无法正确预测结果的API是没有实际用途的。当你使用一款API的时候，大部分情况下你是在一个程序的某一部分去使用它，这款程序会知道在什么时候去使用API，以及API的结果是什么。这样程序才能运用好API返回的结果。
 
-所以一款API最重要的一个特点就是去描述它到底能接触并得到什么。你在读API文档的时候恰恰就是为了了解这些。现在通过使用 GraphQL 的内部描述特点或者使用类似 Swagger 这种适用于 REST 模板系统的工具，我们可以采用编程的方式来获取这方面的信息
+所以一款 API 最重要的一个特点就是去描述它到底能接触并得到什么。你在读API文档的时候恰恰就是为了了解这些。现在通过使用 GraphQL 的内部描述特点或者使用类似 Swagger 这种适用于 REST 模板系统的工具，我们可以采用编程的方式来获取这方面的信息。
 
 目前的 REST API 通常被形容为一连串的终端：
 
@@ -130,7 +131,7 @@ GraphQL 在这方面就相当不一样了，因为在 GraphQL 里这两个概念
     query { ... }
     mutation { ... }
 
-*如果想要了解更多有关查询语言的细节，请阅读我之前写的文章， *[*“对 GraphQL 查询的分析*](https://dev-blog.apollodata.com/the-anatomy-of-a-graphql-query-6dffa9e9e747)*.*
+**如果想要了解更多有关查询语言的细节，请阅读我之前写的文章， **[**“对 GraphQL 查询的分析“。**](https://dev-blog.apollodata.com/the-anatomy-of-a-graphql-query-6dffa9e9e747)
 
 你可以看出 Query 类型中的值域和我们之前所写的 REST 路径正好重合。这是因为此类型是我们数据的切入点，所以这在 GraphQL 中是和终端 URL 几乎相同的一个概念。
 
@@ -138,21 +139,20 @@ GraphQL 在这方面就相当不一样了，因为在 GraphQL 里这两个概念
 
 #### 结论
 
-在 REST 中， 可获得数据的空间是由一列线性的终端来描述的，而在 GraphQL 中是通过使用有关联的模板：
+在 REST 中， 可获得数据的空间是由一系列线性的终端来描述的，而在 GraphQL 中是通过使用有关联的模板：
 
 - **相同：** REST API 中的一列终端和 GraphQL API 中的 Query 和 Mutation 类的值域很像。它们都是数据的切入点。
 - **相同：** 两种 API 都可以区分数据的读取和写入。
-- **不同：** 在 GraphQL 中，你可以使用由模板定义的关系用一次请求从初始点一直走到相关数据。在 REST 中，你必须要使用多个终端来获取相关资源。
-- **不同：** 在 GraphQL 中，除了在每个请求的根源处所能获取的类型都是 Query 类外，Query 的值域和其他类的值域没有本质区别。比方说，你可以在 Query 的每个值域里放一个参数。而在 REST 中，嵌套的URL里 没有第一类这个概念。
-- **不同：** 在 REST 中，你通过将 HTTP 术语 GET 改为 POST 来指定写入，但在 GraphQL里需要改变请求里的关键字。
+- **不同：** 在 GraphQL 中，你可以使用由模板定义的关系，通过发送一次请求从初始点一直走到相关数据。然而在 REST 中，你必须要使用多个终端来获取相关资源。
+- **不同：** 在 GraphQL 中，除了在每个请求的根源处所能获取的类型都是 Query 类外，Query 的值域和其他类的值域没有本质区别。比方说，你可以在 Query 的每个值域里放一个参数。而在 REST 中，嵌套的URL里没有第一类这个概念。
+- **不同：** 在 REST 中，你通过将 HTTP 术语 GET 改为 POST 来指定写入，但在 GraphQL 里需要改变请求里的关键字。
 
-由于第一个相似点，很多人把 GraphQL 的 Query类中的值域当作“终端”或者“请求”。虽然两者确实相似，但这种理解可能会误导别人认为 Query 类 和其他类的工作方式不同，这种理解是错误的。
+由于第一个相似点，很多人把 GraphQL 的 Query 类中的值域当作“终端”或者“请求”。虽然两者确实相似，但这种理解可能会误导别人认为 Query 类和其他类的工作方式不同，这种理解是错误的。
 
-### Route Handlers vs. Resolvers
+### 路径处理器 vs Resolvers
+当你使用一款 API 的时候到底发生了什么？通常情况下 API 会在服务器端收到请求后执行一段代码。这类代码即有可能进行计算，也可能是从数据库中加载数据，甚至会使用另一款 API 或做其他事。重要的是你不需要了解它在内部到底做了了什么。不过 REST 和 GraphQL 这两款 API 都具备非常标准化的内部执行方式，通过比较它们内部的执行区别，我们可以找出这两款 API 基础层面的不同点。
 
-So what happens when you actually call an API? Well, usually it executes some code on the server that received the request. That code might do a computation, load data from a database, call a different API, or really do anything. The whole idea is you don’t need to know from the outside what it’s doing. But both REST and GraphQL have pretty standard ways for implementing the inside of that API, and it’s useful to compare them to get a sense for how these technologies are different.
-
-In this comparison I’ll use JavaScript code because that’s what I’m most familiar with, but of course you can implement both REST and GraphQL APIs in almost any programming language. I’ll also skip any boilerplate required for setting up the server, since it’s not important to the concepts.
+在接下来的对比中我会使用 JavaScript，因为这是我最熟悉的语言。不过你当然可以用其他语言去使用 REST 或者 GraphQL。我会省略设置服务器的步骤，因为这不是重点。
 
 Let’s look at a hello world example with express, a popular API library for Node:
 
