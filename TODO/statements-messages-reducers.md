@@ -4,7 +4,7 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/statements-messages-reducers.md](https://github.com/xitu/gold-miner/blob/master/TODO/statements-messages-reducers.md)
 > * 译者：[zhangqippp](https://github.com/zhangqippp)
-> * 校对者：
+> * 校对者：[atuooo](https://github.com/atuooo)，[sqrthree](https://github.com/sqrthree)
 
 # 语句，消息和归约器
 
@@ -12,9 +12,9 @@
 
 但是如果这是你优化程序的唯一思路，那么在实践中应用它的时候就会有些困难。
 
-在本文中，我将通过一小段代码的简单演进来向你展示如何实践上述的优化建议，最终我们将达成一个并发编程中普遍的模式（在大多数有状态的程序中都很有用），在此种模式中我们从计算单元的三个不同层面构建我们的程序：“语句”，“消息” 和 “归约器”。
+在本文中，我将通过一小段代码的简单演进来向你展示如何实践上述的优化建议，最终我们将达成一个并发编程中普遍的模式（在大多数有状态的程序中都很有用），在此种模式中我们从计算单元的三个不同层面构建我们的程序：“语句”、“消息” 和 “归约器”。
 
-> 你可以在github上[下载本文的 Swift Playground](https://github.com/mattgallagher/CocoaWithLovePlaygrounds) 。
+> 你可以在 GitHub 上[下载本文的 Swift Playground](https://github.com/mattgallagher/CocoaWithLovePlaygrounds) 。
 
 内容
 - 
@@ -251,7 +251,7 @@ Signal<Instruction>.from(values: [
 
 ## 结论
 
-> 你可以在github上[下载本文的 Swift Playground](https://github.com/mattgallagher/CocoaWithLovePlaygrounds)。
+> 你可以在 GitHub 上[下载本文的 Swift Playground](https://github.com/mattgallagher/CocoaWithLovePlaygrounds)。
 
 这里的结论是，将程序分解成小而隔离的组件的最自然的方法是以三个不同的层次组织你的程序：
 
