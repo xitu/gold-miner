@@ -33,14 +33,14 @@ Angular.js 的流行度迅速增长，因为你很容易将 Angular.js 添加到
 
 大约在同一时间，Web 组件规范承诺使开发人员可以创建与其上下文分离的，并且易于与其他组件进行组合的可重用组件。
 
-[Web 组件规范](https://www.w3.org/standards/history/components-intro)是由四个独立的规范组合而成的。
+[Web Components 规范](https://www.w3.org/standards/history/components-intro)是由四个独立的规范组合而成的。
 
 - HTML 模板 — 为组件提供 HTML 标记
 - 自定义元素 — 提供了一种创建自定义 HTML 元素的机制
 - Shadow DOM — 将组件的内部与渲染它的上下文隔进行离
 - HTML 导入 — 使将 Web 组件加载到页面中成为可能
 
-Google 的一个团队创建了一个补丁库，为当时所有浏览器提供 Web Components。这个库被称为 Polymer，并于 2013 年 11 月开源。
+Google 的一个团队创建了一个补丁库，为当时所有浏览器提供 Web Components 支持。这个库被称为 Polymer，并于 2013 年 11 月开源。
 
 Polymer 是第一个使通过组合组件构建交互式应用成为可能的库。早期使用者受益于可组合性，但发现性能问题还是需要用框架来解决。
 
@@ -82,18 +82,18 @@ React 主攻的是 Polymer 所未能解决的问题。React 显示了如何提�
 
 在 4 个次要版本的更新过程中，Ember.js 已弃用 Views，将社区迁移到基于 CLI 的构建过程，并将基于组件的架构作为 Ember 应用开发的基础。逐渐对框架进行重要的重构的过程被称为“稳定无停滞”，成为 Ember 社区的基本宗旨。
 
-当 Ember 正在像 React 学习时，React 社区正在采用由 Ember 推广的路由。 大型 React 应用是使用 [React Router](https://github.com/ReactTraining/react-router) 编写的，该路由器是从用于 Ember 路由的 [router.js](https://github.com/tildeio/router.js/) 分支发展而来的。
+当 Ember 正在向 React 学习时，React 社区正在采用由 Ember 推广的路由。 大型 React 应用是使用 [React Router](https://github.com/ReactTraining/react-router) 编写的，该路由器是从用于 Ember 路由的 [router.js](https://github.com/tildeio/router.js/) 分支发展而来的。
 
 Ember 对我们构建现代 Web 应用最大的贡献之一是他们在使用命令行工具作为构建和部署 Web 应用的默认界面上的领导力和普及。此工具称为 EmberCLI。它启发了 React 的 [create-react-app](https://github.com/facebookincubator/create-react-app) 和 [AngularCLI](https://github.com/angular/angular-cli)。现在的每个 Web 框架都提供了一个命令行工具来简化 Web 应用的开发。
 
-在 2015 年上半年，Angular.js 的核心团队得出结论，他们的框架正在进入一个进化的死胡同。Google 需要一个开发人员可以用来构建强大的应用的工具，而 Angular.js 不能成为这个工具。他们开始研究一个新的框架，这将是 Angular.js 的精神继承者。 与 Angular.js 不同，Angular.js 在谷歌不是很支持的情况下流行了起来，而这个新框架完全由 Google 支持。Google 分出了超过 30 多位开发人员，来开发这个被称为 Angular.js 精神继承者的框架。
+在 2015 年上半年，Angular.js 的核心团队得出结论，他们的框架正在进入一个进化的死胡同。Google 需要一个开发人员可以用来构建强大的应用的工具，而 Angular.js 不能成为这个工具。他们开始研究一个新的框架，这将是 Angular.js 的精神继承者。 Angular.js 是在谷歌不是很支持的情况下流行起来的，而这个新框架则与 Angular.js 不同，得到了 Google 的全力支持。Google 分出了超过 30 多位开发人员，来开发这个被称为 Angular.js 精神继承者的框架。
 
 新框架的范围远远大于 Angular.js。Angular 团队将新框架称为平台，因为他们计划提供专业开发人员构建 Web 应用所需的一切。像 Ember 和 React 一样，Angular 使用基于组件的架构，但它是使 TypeScript 成为其默认编程语言的第一个框架。
 
 ![](https://cdn-images-1.medium.com/max/800/1*c4T4WMmvhkQ4yc24dfzgMA.png)
 
 具有 TypeScript 的 Angular 组件 —— [https://github.com/johnpapa/angular-tour-of-heroes/blob/master/src/app/heroes.component.ts](https://github.com/johnpapa/angular-tour-of-heroes/blob/master/src/app/heroes.component.ts)
-TypeScript 提供类，模块和接口。它支持可选的静态类型检查，它对 Java 和 C＃ 的开发人员来说是一个非常棒的语言。具有 Visual Studio Code 编辑器对 TypeScript 代码提供了很棒的智能支持功能。
+TypeScript 提供类、模块和接口。它支持可选的静态类型检查，它对 Java 和 C＃ 的开发人员来说是一个非常棒的语言。具有 Visual Studio Code 编辑器对 TypeScript 代码提供了很棒的智能支持功能。
 
 ![](https://cdn-images-1.medium.com/max/800/1*m6CUCh3LRpJNHV2axqtkAQ.png)
 
@@ -107,7 +107,7 @@ Angular 是高度结构化和以公共标准为基础的，然而仍然存在配
 
 那么你怎么知道用什么工具来构建一个现代的 Web 应用呢？我建议你看看各个组织的人口统计数据，以确定哪个框架最适合。
 
-React 是一个类似于拼图的一块的库。React 提供一个薄视图层，并将其留给开发人员选择其余的架构。盒子里没有任何东西，所以你的团队可以完全控制你使用的一切。如果你有一个经验丰富的 JavaScript 开发人员团队，他们对于功能编程和不可变数据结构都很满意，那么 React 是一个不错的选择 React 社区在使用 Web 技术方面处于创新的前沿。如果你的组织需要使用相同的代码库来跨平台，那么你应该知道 React 允许你使用 React Native 编写本地的 Web，使用 ReactVR 编写 VR 设备。
+React 是一个类似于一大张拼图中的一块的库。React 提供一个轻量级的视图层，并将其留给开发人员选择其余的架构。盒子里没有任何东西，所以你的团队可以完全控制你使用的一切。如果你有一个经验丰富的 JavaScript 开发人员团队，他们对于功能编程和不可变数据结构都很满意，那么 React 是一个不错的选择 React 社区在使用 Web 技术方面处于创新的前沿。如果你的组织需要使用相同的代码库来跨平台，那么你应该知道 React 允许你使用 React Native 编写本地的 Web，使用 ReactVR 编写 VR 设备。
 
 Angular 是一个非常适合有 Java 或 C＃ 背景的企业开发人员的平台。TypeScript 和 Intellisense 的支持将使这些开发人员感觉到非常熟悉。虽然 Angular 是新的，但它已经有很多第三方组件库了，公司可以立即购买并立即开始使用。Angular 团队承诺要快速迭代框架，使之更好，且不会再次破坏向后兼容性。Angular 可用于使用 NativeScript 构建高性能原生应用。
 
