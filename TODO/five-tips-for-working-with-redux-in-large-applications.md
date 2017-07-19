@@ -131,10 +131,9 @@ const getSelectedUsers = ({ selectedUserIds, usersById }) => {
 
 由于我们同时拥有该对象编辑状态和标准状态下的两个副本，在点击取消后重置状态变得很简单。我们只需在视图中展示标准状态而不是编辑状态即可，不必再次调用 REST API。作为奖励，我们仍然在 store 中跟踪数据的编辑状态。如果我们决定确实需要保留这些更改，我们可以再次点击编辑按钮，此时之前的修改状态又可以展示出来了。总之，把编辑状态和视图状态与标准状态区分开保存既在代码组织和可维护性方面提供了更好的开发体验又在表单操作方面提供了更好的用户体验。
 
-### 3. 审慎的在视图之间共享状态
+### 3. 合理地在视图之间共享状态
 
-许多应用起初都只有一个数据存储和一个用户界面。随着我们为了扩展功能而不断扩展应用，我们将要管理多个不同视图和存储之间的状态。为每个页面创建一个顶层 reducer 可能会有助于扩展我们的 Redux 应用。每个页面和顶层 reducer 对应我们应用中的一个视图。
-Many applications may start off with a single store and a single user interface. As we grow our application to scale out our features, we will need to manage state between multiple different views and stores. In order to scale out our Redux application, it may help to create one top level reducer per page. Each page and top level reducer corresponds to one view in our application. For example, the users screen will fetch users from our API and store them in the `users` reducer, and another page which tracks the domains for the current user will fetch and store data from our domain API. The state might look something like this now:
+许多应用起初都只有一个数据存储和一个用户界面。随着我们为了扩展功能而不断扩展应用，我们将要管理多个不同视图和存储之间的状态。为每个页面创建一个顶层 reducer 可能会有助于扩展我们的 Redux 应用。每个页面和顶层 reducer 对应我们应用中的一个视图。例如，用户页面会从 API 获取用户信息并存储在 `users` reducer 中，而另一个为当前用户展示域名信息的页面会从域名 API 存取数据。此时的状态看起来会是如下结构：
 
 ```
 {
@@ -149,19 +148,20 @@ Many applications may start off with a single store and a single user interface.
 }
 ```
 
-Organizing our pages like this will help keep the data behind our views decoupled and self-contained. Each page keeps track of its own state, and our reducer files can even be co-located with our view files. As we continue to expand our application, we may discover the need to share some state between two views which both depend on that data. Consider the following when thinking about sharing state:
+像这样组织页面有助于保持这些页面背后的数据之间的解耦与独立。每个页面跟踪各自的状态，我们的 reducer 文件甚至可以和视图文件保存在相同位置。随着我们不断扩展应用程序，我们可能发现需要在两个视图之间共享一些状态。在考虑共享状态时，请思考以下几个问题：
 
-- How many views or other reducers will depend on this data?
-- Does each page need its own copy of the data?
-- How frequently does the data change?
+- 有多少视图或者其他 reducer 依赖此部分数据？
+- 每个页面是否都需要这些数据的副本？
+- 这些数据的改动有多频繁？
 
-For example, our application needs to display some information about the currently logged-in user on every page. We need to fetch their user information from the API, and store it in our reducer. We know that every page is going to depend on this data, so it doesn’t seem to fit with our one reducer per page strategy. We know that each page doesn’t necessarily need a unique copy of the data, since most pages will not be fetching other users or modifying the current user. Also, the data about the currently logged-in user is unlikely to change unless they are editing themselves on the users page.
+例如，我们的应用在每个页面都要展示一些当前登录用户的信息。我们需要从 API 获取用户信息并保存在 reducer 中。我们知道每个页面都会依赖于这部分数据，所以它似乎并不符合我们每个页面对应一个 reducer 的策略。我们清楚没必要为每个页面准备一份这部分数据的副本，因为绝大多数页面都不会获取其他用户或编辑当前用户。此外，当前登录用户的信息也不太会改变，除非客户在用户页面编辑自己的信息。
 
-Sharing the current user state between our pages seems like a good call, so we will pull it out into its own top level reducer in its own file. Now the first page the user visits will check if the current user reducer has loaded, and fetch the data from the API if not. Any view that is connected to the Redux store can view information about the current logged-in user.
+在页面之间共享当前用户信息似乎是个好办法，于是我们把这部分数据提升到专属于它的、单独保存的顶层 reducer 中。现在，用户首次访问的页面会检查当前用户信息是否加载，如果未加载则调用 API 获取信息。任何连接到 Redux 的视图都可以访问到当前登录用户的信息。
 
-What about cases that don’t make sense to share state? Let’s consider another example. Imagine that each domain belonging to a user also has a number of subdomains. We add a subdomain page to the application which shows a list of all the users subdomains. The domains page also has the option to display the subdomains for a given selected domain. Now we have two pages that both depend on the subdomain data. We also know that domains can change on a somewhat frequent basis — users may add, remove, or edit domains and subdomains at any time. Each page will also probably need its own copy of the data. The subdomain page will allow for reading or writing to the subdomain API, and will also potentially need to paginate through multiple pages of data. The domain screen by contrast will only need to fetch subsets of the subdomains at a time (the subdomains for a given selected domain). It seems clear this isn’t a good use case for sharing our subdomain state between these views. Each page should store its own copy of the subdomain data.
+不适合共享状态的情况又如何呢？让我们考虑另一种情况。设想用户名下的每一个域名还包含一系列子域名。我们增加了一个子域名页面用以展示某个用户名下的全部子域名。域名页面也有一个选项用以展示该域名下的子域名。现在我们有两个页面同时依赖于子域名数据。我们还知道域名信息可能会频繁改动 —— 用户可能会在任何时间增加、删除或是编辑域名与子域名。每个页面也可能需要它自己的数据副本。子域名页面允许通过子域名 API 读取和写入数据，可能还会需要对数据进行分页。而域名页面每次只需要获取子域名的一个子集（某个特定域名的子域名）。很明显，在这些视图间共享子域名数据并不是一个好案例。每个页面应该单独保存其子域名数据。
 
-### 4. Reuse common reducer functions across state
+### 4. 在状态之间复用 reducer 函数
+
 
 After writing a few reducer functions, we may decide to try reusing our reducer logic between different places in state. For example, we may create a reducer to fetch users from our API. The API only returns 100 users at a time, and we may have thousands of users in our system or more. To address this, our reducer will also need to keep track of which page of data is currently being displayed. Our fetch logic will read from the reducer to determine the pagination parameters to send with the next API request (such as `page_number`). Later on when we need to fetch the list of domains, we will end up writing the same exact logic to fetch and store the domains, just with a different API endpoint and a different object schema. The pagination behavior remains the same. The savvy developer will realize we can probably modularize this reducer and share the logic between any reducers that need to paginate.
 
