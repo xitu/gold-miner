@@ -1,6 +1,6 @@
 
 > * 原文地址：[Redux 并不慢，只是你使用姿势不对 —— 一份优化指南](http://reactrocket.com/post/react-redux-optimization/)
-> * 原文作者：[Julian Krispel](https://twitter.com/juliandoesstuff)
+> * 原文作者：本文已获原作者 [Julian Krispel](https://twitter.com/juliandoesstuff) 授权
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/react-redux-optimization.md](https://github.com/xitu/gold-miner/blob/master/TODO/react-redux-optimization.md)
 > * 译者：[reid3290](https://github.com/reid3290)
