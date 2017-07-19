@@ -10,26 +10,36 @@
 # 在CSS中使用特征查询
 
 There’s a tool in CSS that you might not have heard of yet. It’s powerful. It’s been there for a while. And it’ll likely become one of your favorite new things about CSS.
+CSS中有一个你可能还没有听说过的工具。它很强大。它已经存在一段时间了。并且它很可能会成为你最喜欢的CSS新事物之一。
 
 
 Behold, the `@supports` rule. Also known as [Feature Queries](http://www.w3.org/TR/css3-conditional/#at-supports).
+这就是`@supports`规则，也被称为 [Feature Queries](http://www.w3.org/TR/css3-conditional/#at-supports)。
 
 With `@supports`, you can write a small test in your CSS to see whether or not a particular “feature” (CSS property or value) is supported, and apply a block of code (or not) based on the answer. Like this:
+使用`@supports`，你可以在你的CSS中编写一个小测试，以查看是否支持特定的“特性”（CSS属性或值），并根据其返回的结果决定是否调用代码块。例如：
 
     @supports (display: grid) {
        // code that will only run if CSS Grid is supported by the browser
+       // 只有在浏览器支持CSS网格时才会运行代码
      }
 
 
 If the browser understands `display: grid`, then all of the styling inside the brackets will be applied. Otherwise all of that styling will be skipped.
+如果浏览器理解 `display: grid`，那么括号内的所有样式都将被应用。否则将跳过所有样式。
 
 Now, there seems to be a bit of confusion about what Feature Queries are for. This is not some kind of external verification that analyzes whether or not a browser has *properly* implemented a CSS property. If you are looking for that, [look elsewhere](http://testthewebforward.org). Feature Queries ask the browser to self-report on whether or not a certain CSS property/value is supported, and use the answer to decide whether or not to apply a block of CSS. If a browser has implemented a feature improperly or incompletely, `@supports` won’t help you. If the browser is misreporting what CSS it supports, `@supports` won’t help you. It’s not a magic wand for making browser bugs disappear.
 
+现在，对于特征查询是什么，似乎有点混乱。这不是一种分析浏览器是否**正确地**实现了CSS属性的外部验证，如果你正在寻找这样的外部验证，[参考这里](http://testthewebforward.org)。特性查询要求浏览器对是否支持某个 CSS 属性/值进行自我报告，并根据其返回的结果决定是否调用代码块。如果浏览器不正确或不完整地实现了一个特性，`@supports` 不会对你有帮助。如果浏览器是误报了 CSS 支持，`@supports` 不会对你有帮助。这不是一个能使使浏览器漏洞消失的魔法。
+
 That said, I’ve found `@supports` to be incredibly helpful. The `@supports` rule has repeatedly let me use new CSS far earlier than I could without it.
+也就是说，我发现 `@supports` 是非常有用的。`@supports` 规则多次让我使用新的CSS远远早于我能够没有它。
 
 For years, developers have used [Modernizr](https://modernizr.com) to do what Feature Queries do — but Modernizr requires JavaScript. While the scripts might be tiny, CSS architected with Modernizr requires the JavaScript file to download, to execute, and to complete before the CSS is applied. Involving JavaScript will always be slower than only using CSS. Requiring JavaScript opens up the possibility of failure — what happens if the JavaScript doesn’t execute? Plus, Modernizr requires an additional layer of complexity that many projects just can’t handle. Feature Queries are faster, more robust, and much simpler to use.
+多年来，开发商都用 [Modernizr](https://modernizr.com) 做特征查询，但是 Modernizr 需要 JavaScript。即使脚本可能是微小的，CSS 架构与 Modernizr 需要 JavaScript文件的下载、执行和在应用 CSS 之前完成。涉及 JavaScript 总是比只使用 CSS 慢。如果 JavaScript 打开失败也就是说如果JavaScript 不执行会发生什么？另外，Modernizr 需要一个复杂并且许多项目无法处理的附加层。特征查询速度更快，更健壮，使用起来更加简单。
 
 You might notice the syntax of a Feature Query is a lot like a Media Query. I think of them as cousins.
+你可能会注意到，特性查询的语法与媒体查询非常相似。我把他们看做堂兄弟。
 
     @supports (display: grid) {
       main {
@@ -38,7 +48,7 @@ You might notice the syntax of a Feature Query is a lot like a Media Query. I th
       }
     }
 
-
+现在大多数情况下，CSS 中不需要这样的测试。例如，你可以编写此代码而无需测试是否支持：
 Now most of the time, you do not need such a test in your CSS. For example, you can write this code without testing for support:
 
     aside {
@@ -46,8 +56,10 @@ Now most of the time, you do not need such a test in your CSS. For example, you 
       border-radius: 1em;
     }
 
-
+如果浏览器理解 `border-radius`，那么它将在 `aside` 上设置圆角。如果没有，它将跳过代码行并继续前进，使框的边缘为正方形。这里没有理由运行测试或使用特性查询。css 就是这样工作的。这是 [architecting solid, progressively-enhanced CSS](http://jensimmons.com/presentation/progressing-our-layouts) 中的一个基本原则。浏览器只跳过不理解的代码，不抛出错误。
 If a browser understands `border-radius`, then it will put rounded corners on the `aside` box. If it doesn’t, it will skip that line of code and move on, leaving the edges of the box to be square. There is no reason to run a test or use a Feature Query. This is just how CSS works. It’s a fundamental principle in [architecting solid, progressively-enhanced CSS](http://jensimmons.com/presentation/progressing-our-layouts). Browsers simply skip over code they don’t understand, without throwing an error.
+
+
 ![a screenshot of border radius effect in  old vs new browsers](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2016/08/border-radius.png)Most browsers will display `border-radius: 1em` as the result on the right. Internet Explorer 6, 7 and 8, however, will not round the corners, and you’ll see the result on the left. Check out this example at [codepen.io/jensimmons/pen/EydmkK](http://codepen.io/jensimmons/pen/EydmkK?editors=1100)
 You do not need a Feature Query for this.
 
