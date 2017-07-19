@@ -4,14 +4,14 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/exploring-kotlins-hidden-costs-part-2.md](https://github.com/xitu/gold-miner/blob/master/TODO/exploring-kotlins-hidden-costs-part-2.md)
 > * 译者：[Feximin](https://github.com/Feximin)
-> * 校对者：
+> * 校对者：[PhxNirvana](https://github.com/phxnirvana) 、[tanglie](https://github.com/tanglie1993)
 
 # 探索 Kotlin 中的隐性成本（第二部分）
 
 
 ## 局部函数，空值安全和可变参数
 
-本文是正在进行中的 Kotlin 编程语言系列的第二部分。别忘了阅读[第一部分](https://juejin.im/post/596774c96fb9a06bb95ae46a)如果你还未读过的话。
+本文是正在进行中的 Kotlin 编程语言系列的第二部分。如果你还未读过[第一部分](https://juejin.im/post/596774c96fb9a06bb95ae46a)的话，别忘了去看一下。
 
 让我们重新看一下 Kotlin 的本质，去发现更多 Kotlin 特性的实现细节。
 
@@ -224,7 +224,7 @@ printDouble(var10000.toArray());
 
 感谢阅读，如果你喜欢的话请分享本文。
 
-继续阅读[第三部分](https://medium.com/@BladeCoder/exploring-kotlins-hidden-costs-part-3-3bf6e0dbf0a4)：**委派属性**和**范围**。
+继续阅读[第三部分](https://github.com/xitu/gold-miner/blob/master/TODO/exploring-kotlins-hidden-costs-part-3.md)：**委派属性**和**范围**。
 
 
 ---
