@@ -1,130 +1,131 @@
 > * 原文地址：[Understanding Asynchronous Programming in Python](https://dbader.org/blog/understanding-asynchronous-programming-in-python)
 > * 原文作者：[Doug Farrell](https://dbader.org/blog/understanding-asynchronous-programming-in-python#author)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
-> * 译者：
-> * 校对者：
+> * 译者：[steinliber](https://github.com/steinliber)
+> * 校对者：[CACppuccino](https://github.com/CACppuccino)、[MrShayne](https://github.com/MrShayne)
 
-# Understanding Asynchronous Programming in Python
+# 理解 Python 中的异步编程
 
-How to use Python to write asynchronous programs, and why you’d want to do such a thing.
+如何使用 Python 来编写异步程序以及为什么你需要做这件事。
 
 ![](https://dbader.org/blog/figures/python-async-programming.png)
 
-A **synchronous program** is what most of us started out writing, and can be thought of as performing one execution step at a time, one after another.
+我们中的大部分人一开始写的都是**同步程序**，这种类型的程序可以被认为是在同一时间只运行一个执行步骤，一步接着一步这样相继执行的。
 
-Even with conditional branching, loops and function calls, we can still think about the code in terms of taking one execution step at a time, and when complete, moving on to the next.
+即使是有条件分支、循环和函数调用，我们仍然可以认为代码在同一时间只执行一步，当这一步完成时，才执行下一步。
 
-Here are couple of example programs that would work this way:
+下面是使用这种模式运行的示例程序：
 
-- **Batch processing programs** are often created as synchronous programs: get some input, process it, create some output. One step logically follows another till we create the desired output. There’s really nothing else the program has to pay attention to besides those steps, and in that order.
+- **批量处理程序**通常是写成同步程序的：获取一些输入，处理它，然后创建一些输出。按照逻辑一步接一步地运行直到得到我们想要的输出。除了这些执行的步骤和顺序外，这类程序并不需要关注其它任何事情。
 
-- **Command-line programs** are often small, quick processes to “transform” something into something else. This can be expressed as a series of program steps executed serially and done.
+- **命令行程序**通常是一个小而快的程序，用来把一些东西“转换“成其他一些东西。这个程序表现出来就是一系列程序步骤连续执行直到完成任务。
 
-An **asynchronous program** behaves differently. It still takes one execution step at a time. However the difference is the system may not wait for an execution step to be complete before moving on.
+一个**异步程序**表现的就不一样。它仍然是每次只执行一步。然而其不同之处在于系统可能不会等到一个执行步骤完成后再执行下一步。
 
-This means we are continuing onward through execution steps of the program, even though a previous execution step (or multiple steps) is running “elsewhere”. This also implies when one of those execution steps is running “elsewhere” completes, our program code somehow has to handle it.
+这意味着即使先前的执行步骤（或者多个步骤）还在“其他地方“执行，我们仍然可以继续执行程序的下一步。这也意味着当在"其他地方"的步骤执行完成时，我们程序代码中必须去处理它。
 
-Why would we want to write a program in this manner? The simple answer is it helps us handle particular kinds of programming problems.
+为什么我们想要以这种方式写程序呢？简单来说就是它可以帮助我们处理特定类型的编程问题。
 
-Here’s a conceptual program that might be a candidate for asynchronous programming:
+这里有个概念性的程序或许可以作为认识异步编程的例子：
 
-## Let’s Take a Look at a Simplistic Web Server
+## 让我们来看看一个简单的 Web 服务器
 
-Its basic unit of work is the same as we described above for batch processing; get some input, process it, create the output. Written as a synchronous program this would create a working web server.
+它的基本工作单元和我们之前描述的批量处理程序相同；获取一些输入，处理这些输入，然后创建输出。通过写一个同步程序就可以创建一个工作的 web 服务器。
 
-It would also be an *absolutely terrible* web server.
+它将是一个**绝对糟糕**的 web 服务器。
 
-**Why?** In the case of a web server one unit of work (input, process, output) is not its only purpose. Its real purpose is to handle hundreds, perhaps thousands, of units of work at the same time, and for long periods of time.
+**为什么？** 在一个 web 服务器的情况下，一个工作单元（输入、处理、输出）不是这个服务器唯一的目的。它真正的目的是能长时间同时处理数百上千个工作单元。
 
-**Can we make our synchronous web server better?** Sure, we can optimize our execution steps to make them as fast as possible. Unfortunately there are very real limits to this approach that leads to a web server that can’t respond fast enough, and can’t handle enough current users.
+**我们能让这个同步服务器变得更好吗？** 当然，我们可以通过优化我们的执行步骤来让它们运行的尽可能快。但是不幸的是，这种方法有非常现实的限制，从而导致 web 服务器无法足够快的响应请求，并且也不能处理足够数量的当前用户。
 
-**What are the real limits of optimizing the above approach?** The speed of the network, file IO speed, database query speed, the speed of other connected services, etc. The common feature of this list is they are all IO functions. All of these items are many orders of magnitude slower than our CPU’s processing speed.
+**上述方法优化的真实限制是什么？** 网络的速度，文件的读写速度，数据库的查询速度，其它连接服务的速度等。这个列表的的共有特征是它们都是 IO 函数。所有这些项的处理速度都比我们的 CPU 处理速度要慢很多个数量级。
 
-In a *synchronous program* if an execution step starts a database query (for example), the CPU is essentially idle for a long time before the query returns with some data and it can continue with the next execution step.
+在一个**同步程序**里如果一个执行步骤开始一次数据库查询（比如说），在这次查询返回一些数据之前，CPU 本质上会空闲很长一段时间，之后它才可以继续运行下一个执行步骤。
 
-For *batch oriented programs* this isn’t a priority, processing the results of that IO is the goal, and often takes far longer than the IO. Any optimization efforts would be focused on the processing work, not the IO.
+对于**面向批量处理的程序**这并不是关键，它的目的是处理通过 IO 操作得到的结果，而且这个过程所花时间通常比 IO 操作长得多。任何优化的工作都将侧重于处理的工作而不是 IO。
 
-File, network and database IO are all pretty fast, but still way slower than the CPU. Asynchronous programming techniques allow our programs to take advantage of the relatively slow IO processes, and free the CPU to do other work.
+文件，网络和数据库 IO 操作都很快，但是它们的执行速度仍然比 CPU 执行速度慢。异步编程技术让我们的程序可以利用相对较慢的 IO 处理来释放 CPU 从而执行其他工作。
 
-When I started trying to understand asynchronous programming, people I asked and documentation I read talked a lot about the importance of writing non-blocking code. Yeah, this never helped me either.
+当我开始尝试了解异步编程时，我咨询的人们和查阅的文档谈了很多编写非阻塞代码的重要性。是的，这些从来没有帮助到我。
 
-What’s non-blocking code? What’s blocking code? That information was like having a reference manual without any practical context about how to use that technical detail in a meaningful way.
+什么是非阻塞代码？什么是阻塞代码？这个信息就像我们有一个参考手册，但是手册里面没有具有实际意义的内容，来描述如何有意义地使用这些技术细节。
 
-## The Real World is Asynchronous
+## 现实世界是异步的
 
-Writing asynchronous programs is different, and kind of hard to get your head around. And that’s interesting because the world we live in, and how we interact with it, is almost entirely asynchronous.
+相较于同步程序，编写异步程序是不一样的，让你理解起来会有一点困难。这就很有趣了，因为无论是在我们生活的世界里，还是我们与之交互的方式，这些几乎都是完全异步的。
 
-**Here’s an example a lot of you can relate to:** being a parent trying to do several things at once; balance the checkbook, do some laundry and keep an eye on the kids.
+**这里有一个大多数人都相关联的例子：** 作为一个父母尝试同时做好几件事；包括平衡支票本、洗衣服和照看孩子。
 
-We do this without even thinking about it, but let’s break it down somewhat:
+我们做这些事的时候甚至从来都没有细想，但是现在让我们试着把它们拆分出来：
 
-- Balancing the checkbook is a task we’re trying to get done, and we could think of it as a synchronous task; one step follows another till it’s done.
+- 平衡支票本是一个我们正在尝试将其完成的任务，而且我们可以把它看作一个同步任务；一步接着另一步执行直至任务完成。
 
-- However, we can break away from it to do laundry, unloading the dryer, moving clothes from the washer to the dryer and starting another load in the washer. However, these tasks can be done asynchronously.
+- 但是，我们可以离开这个任务去洗衣服，把烘干机里已经烘干的衣物取出，再把已经洗完的衣服从洗衣机拿出来之后放到烘干机里并开始把另一些未洗的衣服放入洗衣机。不管怎样，这些任务是可以被异步完成的。
 
-- While we’re actually working with the washer and dryer that’s a synchronous task and we’re working, but the bulk of the task happens after we start the washer and dryer and walk away to get back to work on the checkbook task. Now the task is asynchronous, the washer and dryer will run independently till the buzzer goes off, notifying us that one or the other needs attention.
+- 虽然我们在使用洗衣机和烘干机来洗衣服,这个过程是一个同步任务而且我们正在处理该任务，但是洗衣服的大部分任务是发生在我们启动洗衣机和烘干机之后发生的，这时候我们已经离开并返回平衡支票本的任务。现在任务就是异步的了，洗衣机和烘干机将会独立运行，一直到其中任意一个需要我们去处理时蜂鸣器就会响。
 
-- Watching the kids is another asynchronous task. Once they are set up and playing, they do so independently (sort of) until they need attention; someone’s hungry, someone gets hurt, someone yells in alarm, and as parents we react to it. The kids are a long running task with high priority, superceding any other task we might be doing, like the checkbook or laundry.
+- 看孩子是另一个异步的任务。一旦他们起床了并且在玩耍，他们是一个人在那玩（一定程度上）直到他们需要我们的注意；一些孩子饿了，一些受伤了，一些在大声的叫喊，作为父母我们需要对此作出响应。照看孩子是一个长期运行的高优先级任务，重要性超过了任何我们可能正在做的其他任务，比如平衡支票本和洗衣服。
 
-This example illustrates both blocking and non-blocking code. While we’re moving laudry around, for example, the CPU (the parent) is busy and blocked from doing other work.
+这个例子展示了阻塞和非阻塞代码。比如说当我们去洗衣服的时候，CPU（父母）就是忙碌的并且阻塞执行其它的工作。
 
-But it’s okay because the CPU is busy and the task is relatively quick. When we start the washer and dryer and go back to do something else, now the laundry task has become asynchronous because the CPU is doing something else, has changed context if you will, and will be notified when the laundry task is complete by the machine buzzers.
+但是没有关系，因为 CPU 正在忙碌而且这个任务运行时间相对来说是比较快的，当我们启动洗衣机和烘干机之后返回做其他事时，这个洗衣的任务现在就变成异步的了，因为 CPU 正在做其它的事情，如果你愿意，这时候已经改变了运行的上下文，而且当洗衣任务完成时你将通过机器的蜂鸣器得到通知。
 
-As people this is how we work, we’re naturally always juggling multiple things at once, often without thinking about it. As programmers the trick is how to translate this kind of behavior into code that does kind of the same thing.
+作为人类这是我们工作的方式，我们很自然的在同一时间做多件事情，这过程经常是不加思索的。作为程序员，其中的诀窍就是把这种行为转化为做同样事的代码。
 
-Let’s try to “program” this using code ideas you might be familiar with:
+让我们尝试使用你可能熟悉的代码观念来"编程"：
 
-## Thought Experiment #1: The “Batching” Parent
+## 头脑风暴 #1："批量处理型"父母
 
-Think about trying to do these tasks in a completely synchronous manner. If we’re a good parent in this scenario we just watch the kids, waiting for something to happen needing our attention. Nothing else, like the checkbook or laundry, would get done in this scenario.
+想想尝试使用完全同步的方式来完成这些任务。在这种情形下，如果我们是好的父母，我们就会一直照看着孩子，等待孩子这边有一些需要我们关注的事情发生。在这种情况下我们不会做其他任何事，比如平衡支票本或者洗衣服。
 
-We could re-prioritize the tasks any way we want, but only one of them would happen at a time in a synchronous, one after another, manner. This would be like the synchronous web server described above, it would work, but it would be a terrible way to live.
+我们可以按任何我们想要的方式在确定任务的优先级，但是在同一时间只有一个任务以同步的方式发生，以一个接着另一个的方式。这种方式就像先前描述的同步服务器一样，它的确可以工作，但这将是一种可怕的运行方式。
 
-Nothing except watching the kids would get done till they were asleep, all other tasks would happen after that, well into the night. A couple of weeks of this and most parents would jump out the window.
+直到孩子睡着之前，我们都不能干其它任何事，其他所有事只能在这个之后才能做了，但是这时候已经夜幕降临了。这样的一个星期之后，大多数父母会选择跳出窗外。
 
-## Thought Experiment #2: The “Polling” Parent
+## 头脑风暴 #2："轮询"的父母
 
-Let’s change things up so mulitple things could get done by using polling. In this approach the parent periodically breaks away from any current task and checks to see if any of the other tasks need attention.
+让我们改变上面的方式，使用轮询来完成多件事。在这个方式中，父母会周期性的离开任何当前正在做的任务，去检查是否有其它任务需要注意。
 
-Since we’re programming a parent, let’s make our polling interval something like fifteen minutes. So here every fifteen minutes the parent goes to check if the washer, dryer or kids need any attention, and then goes back to work on the checkbook. If any of those things do need attention, the work it gets done and the parent goes back to the checkbook task and continues on with the polling loop.
+由于我们正在对一个父母编程，所以让我们来设置这个轮询的间隔时间，比如说15分钟。所以之后每隔15分钟，这个父母就会去检查洗衣机，烘干机或者孩子是否需要注意，然后再返回去处理平衡支票本。如果其中的任何一件事需要注意，父母就需要先完成这个工作再返回处理平衡支票本，之后继续进行轮询的循环。
 
-This works, tasks are getting done, but has a couple of problems. The CPU (parent) is spending a lot of time checking on things that don’t need attention because they aren’t done, like the washer and dryer. Given the polling interval, it’s entirely possible for tasks to be finished, but they wouldn’t get attention for some time, upto fifteen minutes. And the high priority watching the kids task probably couldn’t tolerate a possible window of fifteen minutes with no attention when something might be going drastically wrong.
+如果这样做，任务就都可以完成，但是这样仍会有一些问题。CPU（父母）花了大量时间来检查不需要注意的事，仅仅是因为这些事还没有被完成，比如说像洗衣机和烘干机。给定轮询的时间间隔，在这段时间内任务执行完成是完全有可能的，但是在轮询时间 15 分钟到达之前，该任务有一段时间是不会得到注意的。对于照看孩子这个高优先级的任务，当一些非常严重的事情发生时，这个 15 分钟可能的窗口期是让人不能忍受的。
 
-We could address this by shortening our polling interval, but now the CPU is spending even more time context switching between tasks, and we start to hit a point of diminishing returns. And again, a couple of weeks of living like this and, well, see my previous comment about window and jumping.
+我们可以通过缩短我们的轮询时间来解决这个问题，但是现在 CPU 甚至会花费更多的时间在任务之间进行上下文切换，并且我们得到的收益开始逐渐降低。当我们像这样生活了几个星期之后，下场可以参考我之前关于窗口和跳跃的评论。
 
-## Thought Experiment #3: The “Threading” Parent
+## 头脑风暴 #3："线程型"父母
 
-As parents it’s often heard, “if I could only clone myself”. Since we’re pretending we can program parents, we can essentially do this by using threading.
+我们经常可以从作为父母的人口中听到"只有把自己克隆了才能完成这么多的事"。由于现在我们假装可以对父母这个角色编程，我们可以通过使用线程来实现克隆。
 
-If we think of all the tasks as one “program”, we can break up the tasks and run them as threads, cloning the parent so to speak. Now there is a parent instance for each task; watching the kids, monitoring the dryer, monitoring the washer and doing the checkbook, all running independently. This sounds like a pretty nice solution to the program problem.
+如果我们把所有的任务看成一个"程序"，我们就可以把这些任务分解出来并且使用线程来运行这些任务，只要克隆这个父母就可以了。现在对于每个任务都有一个父母实例；包括照看孩子，看管洗衣机，看管烘干机和平衡收支本，所有这些任务都是独立运行的。这对于这个程序的问题来说听起来是一个很棒的解决方案。
 
-But is it? Since we have to tell the parent instances (CPUs) explicitely what to do in a program, we can run into some problems because all instances share everything in the program space.
+但是确实是这样吗？因为我们必须明确的告诉这些父母实例（CPUs）在程序里面要做什么，当所有的实例都共享程序空间内的全部资源时，我们就会遇到一些问题。
 
-For example, the parent monitoring the dryer sees the clothes are dry, takes control of the dryer and starts unloading. Let’s say that while the dryer parent is unloading clothes, the washer parent sees the washer is done, takes control of the washer, and then wants to take control of the dryer to move clothes from the washer to the dryer. When the dryer parent is finished unloading clothes that parent wants to take control of the washer and move clothes from the washer to the dryer.
+比如说，当监控烘干机的父母看到衣服已经烘干了，就会去控制烘干机并开始把里面的衣服取出来。当负责烘干机的父母正在取出衣服时，负责洗衣机的父母看到洗衣机也洗完衣服了，就会去控制洗衣机，取出衣服后就会想要去控制烘干机来将洗完的衣服从洗衣机放到烘干机。这时候控制烘干机的父母已经从烘干机取出衣服而想要去控制洗衣机，并且之后会把衣服从洗衣机移动到烘干机。
 
-Now those two parents are [deadlocked](https://en.wikipedia.org/wiki/Deadlock).
+现在这两个父母实例就已经[死锁](https://en.wikipedia.org/wiki/Deadlock)了。
 
-Both have control of their own resource, and want control of the other resource. They will wait forever for the other to release control. As programmers we’d have to write code to work this situation out.
+他们两个都控制着自己的资源并且希望控制对方的资源。他们就会一直等待对方释放对资源的控制权。作为程序员，我们必须编写代码来处理这种情况。
 
-Here’s another issue that might arise from parent threading. Suppose that unfortunately a child gets hurt and that parent has to take the child to emergent care. That happens right away because that parent clone is dedicated to watching the kids. But at emergent care the parent has to write a fairly large check to cover the deductible.
+这里是另一个因为父母线程可能引发的问题。比如不幸的是，一个孩子受伤了，父母就必须要带孩子去紧急治疗。因为现在这个父母的克隆是专门用于照看孩子的，所以可以马上响应。但是在这个紧急情况下，照看孩子的父母必须写一张相当大的支票来支付紧急护理的自付额。
 
-Meanwhile, the parent working on the checkbook is unaware of this large check being written, and suddenly the family account is overdrawn. Because the parent clones work within the same program, and the family money (checkbook) is a shared resource in that world, we’d have to work out a way to for the kid watching parent to inform the checkbook parent of what’s going on. Or provide some kind of locking mechanism so the resource can be used by only one parent at a time, with updates.
+同时，在支票本上工作的父母并不知道已经写了这个大额的支票，这时候家庭的账户就已经透支了。因为所有父母的克隆都在同一个程序内工作，家庭的钱（支票本）是这个程序世界里的一个共享资源，我们需要想出一个办法让照看孩子的父母可以通知平衡支票本的父母发生了什么。或者就要提供某种锁机制，这样在同一时间只有一个父母实例能更新这个资源。
 
-All of these things are manageable in program threading code, but it’s difficult to get right, and hard to debug when it’s wrong.
+所有这些事情都是可以在程序的线程代码中管理的，但是很难把代码写正确并且当出现问题时也很难 debug。
 
-## Let’s Write Some Python Code
+## 让我们来写一些 Python 代码
 
-Now we’re going to take some of the approaches outlined in these “thought experiments” and we’ll turn them into functioning Python programs.
+现在我们将采用在"头脑风暴"中概述的一些方法，我们将把它们转变为可以运行的 Python 代码。
 
-You can download all of the example code from [this GitHub repository](https://github.com/writeson/async_python_programming_presentation).
+你可以在这个 [GitHub 仓库](https://github.com/writeson/async_python_programming_presentation) 下载所有的示例代码。
 
-All the examples in this article have been tested with Python 3.6.1, and the [`requirements.txt` file included with the code examples](https://github.com/writeson/async_python_programming_presentation/blob/master/requirements.txt) indicates what modules you’ll need to run all the examples.
+这篇文章中的所有例子都已经在 Python 3.6.1 环境下测试过，而且在代码示例中的这个 [`requirements.txt` 文件](https://github.com/writeson/async_python_programming_presentation/blob/master/requirements.txt)包含了运行所有这些测试所需要的模块。
 
-I would strongly suggest setting up a [Python virtual environment](https://www.youtube.com/watch?v=UqkT2Ml9beg) to run the code so as not to interfere with your system Python.
+我强烈建议创建一个 [Python 虚拟环境](https://www.youtube.com/watch?v=UqkT2Ml9beg)来运行这些代码，这样就不会和系统级别的 Python 产生耦合。
 
-## Example 1: Synchronous Programming
+## 示例 1：同步编程
 
-This first example shows a somewhat contrived way of having a task pull “work” off a queue and do that work. In this case the work is just getting a number, and the task counts up to that number. It also prints it’s running at every count step, and prints the total at the end. The contrived part is this program provides a naive basis for multiple tasks to process the work on the queue.
+
+第一个例子展示的是一种有些刻意设计的方式，即有一个任务先从队列中拉取"工作"之后再执行这个工作。在这种情况下，这个工作的内容只是获取一个数字，然后任务会把这个数字叠加起来。在每个计数步骤中，它还打印了字符串表明该任务正在运行，并且在循环的最后还打印出了总的计数。我们设计的部分即这个程序为多任务处理在队列中的工作提供了很自然的基础。
 
 ```
 """
@@ -173,15 +174,15 @@ if __name__ == '__main__':
     main()
 ```
 
-The “task” in this program is just a function that accepts a string and a queue. When executed it looks to see if there is anything in the queue to process, and if so it pulls values off the queue, starts a for loop to count up to that value, and prints the total at the end. It continues this till there is nothing left in the queue, and exits.
+该程序中的"任务"就是一个函数，该函数可以接收一个字符串和一个队列作为参数。在执行时，它会去看队列里是否有任何需要处理的工作，如果有，它就会把值从队列中取出来，开启一个 for 循环来叠加这个计数值并且在最后打印出总数。它会一直这样运行直到队列里什么都没剩了才会结束离开。
 
-When we run this task we get a listing showing that task one does all the work. The loop within it consumes all the work on the queue, and performs it. When that loop exits, task two gets a chance to run, but finds the queue empty, so it prints a statement to that affect and exits. There is nothing in the code that allows task one and task two to play nice together and switch between them.
+当我们在执行这个任务时，我们会得到一个列表表明任务一（即代码中的 task One）做了所有的工作。它内部的循环消费了队列里的全部工作，并且执行这些工作。当退出任务一的循环后，任务二（即代码中的 task Two）有机会运行，但是它会发现队列是空的，因为这个影响，该任务会打印一段语句之后退出。代码中并没有任何地方可以让任务一和任务二协作的很好并且可以在它们之间切换。
 
-## Example 2: Simple Cooperative Concurrency
+## 示例 2： 简单的协作并发
 
-The next version of the program (`example_2.py`) adds the ability of the two tasks to play nice together through the use of generators. The addition of the yield statement in the task function means the loop exits at that point, but maintains its context so it can be restarted later. The “run the tasks” loop later in the program takes advantage of this when it calls `t.next()`. This statement restarts the task at the point where it previously yielded.
+程序（`example_2.py`）的下个版本通过使用生成器增加了两个任务可以跟好相互协作的能力。在任务函数中添加 yield 语句意味着循环会在执行到这个语句时退出，但是仍然保留当时的上下文，这样之后就可以恢复先前的循环。在程序后面 "run the tasks" 的循坏中当 `t.next()` 被调用时就可以利用这个。这条语句会在之前生成（即调用 yield 的语句处）的地方重新开始之前的任务。
 
-This is a form of cooperative concurrency. The program is yielding control of its current context so something else can run. In this case it allows our primative “run the tasks” scheduler to run two instances of the task function, each one consuming work from the same queue. This is sort of clever, but a lot of work to get the same results as the first program.
+这是一种协作并发的方式。这个程序会让出对它当前上下文的控制，这样其它的任务就可以运行。在这种情况下，它允许我们主要的 "run the tasks" 调度器可以运行任务函数的两个实例，每一个实例都从相同的队列中消费工作。这种做法虽然聪明一些，但是为了和第一个示例达成同样结果的同时做了更多的工作。
 
 ```
 """
@@ -235,15 +236,16 @@ if __name__ == '__main__':
     main()
 ```
 
-When this program is run the output shows that both task one and two are running, consuming work from the queue and processing it. This is what’s intended, both tasks are processing work, and each ends up processing two items from the queue. But again, quite a bit of work to achieve the results.
+当程序运行时，输出表明任务一和任务二都在运行，它们都从队列里消耗工作并且处理它。这就是我们想要的，两个任务都在处理工作，而且都是以处理从队列中的两个项目结束。但是再一次，需要做一点工作来实现这个结果。
 
-The trick here is using the `yield` statement, which turns the task function into a generator, to perform a “context switch”. The program uses this context switch in order to run two instances of the task.
+这里的技巧在于使用 `yield` 语句，它将任务函数转变为生成器，来实现一个 "上下文切换"。这个程序使用这个上下文切换来运行任务的两个实例。
 
-## Example 3: Cooperative Concurreny With Blocking Calls
+## 示例 3：通过阻塞调用来协作并发
 
-The next version of the program (`example_3.py`) is exactly the same as the last, except for the addition of a `time.sleep(1)` call in the body of our task loop. This adds a one second delay to every iteration of the task loop. The delay was added to simulate the affect of a slow IO process occurring in our task.
+程序（`example_3.py`）的下个版本和上一个版本几乎完全一样，除了在我们任务循环体内添加了一个 `time.sleep(1)` 调用。这使任务循环中的每次迭代都添加了一秒的延迟。这个添加的延迟是为了模拟在我们任务中出现缓慢 IO 操作的影响。
 
-I’ve also included a simple Elapsed Time class to handle the start time/elapsed time features used in the reporting.
+我还导入了一个简单的 Elapsed Time 类来处理报告中使用的开始时间／已用时间功能。
+
 
 ```
 """
@@ -308,23 +310,23 @@ if __name__ == '__main__':
     main()
 ```
 
-When this program is run the output shows that both task one and two are running, consuming work from the queue and processing it as before. With the addition of the mock IO delay, we’re seeing that our cooperative concurrency hasn’t gotten us anything, the delay stops the processing of the entire program, and the CPU just waits for the IO delay to be over.
+当该程序运行时，输出表明任务一和任务二都在运行，消费从队列里来的工作并像之前那样处理它们。随着增加的模拟 IO 操作延迟，我们发现我们协作式的并发并没有为我们做任何事，延迟会停止整个程序的运行，而 CPU 就只会等待这个 IO 延迟的结束。
 
-This is exactly what’s meant by “blocking code” in asynchronous documentation. Notice the time it takes to the run the entire program, this is the cummulative time of the all the delays. This again shows running things this way is not a win.
+这就是异步文档中 ”阻塞代码“的确切含义。注意运行整个程序所需要的时间，你会发现这就是所有 IO 延迟的累积时间。这再次意味着通过这种方式运行程序并不是胜利了。
 
-## Example 4: Cooperative Concurrency With Non-Blocking Calls (gevent)
+## 示例 4：使用非阻塞调用来协作并发
 
-The next version of the program (`example_4.py`) has been modified quite a bit. It makes use of the [gevent asynchronous programming module](http://www.gevent.org/) right at the top of the program. The module is imported, along with a module called `monkey`.
+程序（`example_4.py`）的下一个版本已经修改了不少代码。它在程序一开始就使用了 [gevent 异步编程模块](http://www.gevent.org/)。该 模块以及另一个叫做 `monkey` 的模块被导入了。
 
-Then a method of the `monkey` module is called, `patch_all()`. What in the world is that doing? The simple explanation is it sets the program up so any other module imported having blocking (synchronous) code in it is “patched” to make it asynchronous.
+之后 `monkey` 模块一个叫做 `patch_all()` 的方法被调用。这个方法是用来干嘛的呢？简单来说它配置了这个应用程序，使其它所有包含阻塞（同步）代码的模块都会被打上"补丁"，这样这些同步代码就会变成异步的。
 
-Like most simple explanations, this isn’t very helpful. What it means in relation to our example program is the `time.sleep(1)` (our mock IO delay) no longer “blocks” the program. Instead it yields control cooperatively back to the system. Notice the “yield” statement from `example_3.py` is no longer present, it’s now part of the `time.sleep(1)` call.
+就像大多数简单的解释一样，这个解释对你并没有很大的帮助。在我们示例代码中与之相关的就是 `time.sleep(1)`（我们模拟的 IO 延迟）不会再"阻塞"整个程序。取而代之的是它让出程序的控制返回给系统。请注意，"example_3.py" 中的 "yield" 语句不再存在，它现在已经是 `time.sleep(1)` 函数调用内的一部分。
 
-So, if the `time.sleep(1)` function has been patched by gevent to yield control, where is the control going? One of the effects of using gevent is that it starts an event loop thread in the program. For our purposes this is like the “run the tasks” loop from `example_3.py`. When the `time.sleep(1)` delay ends, it returns control to the next executable statement after the `time.sleep(1)` statement. The advantage of this behavior is the CPU is no longer blocked by the delay, but is free to execute other code.
+所以，如果 `time.sleep(1)` 已经被 gevent 打补丁来让出控制，那么这个控制又到哪里去了？使用 gevent 的一个作用是它会在程序中运行一个事件循环的线程。对于我们的目的来说，这个事件循环就像在 `example_3.py` 中 "run the tasks" 的循环。当 `time.sleep(1)` 的延迟结束时，它就会把控制返回给 `time.sleep(1)` 语句的下一条可执行语句。这样做的优点是 CPU 不会因为延迟被阻塞，而是可以有空闲去执行其它代码。
 
-Our “run the tasks” loop no longer exists, instead our task array contains two calls to `gevent.spawn(...)`. These two calls start two gevent threads (called greenlets), which are lightweight microthreads that context switch cooperatively, rather than as a result of the system switching contexts like regular threads.
+我们 "run the tasks" 的循环已经不再存在了，取而代之的是我们的任务队列包含了两个对 `gevent.spawn(...)` 的调用。这两个调用会启动两个 gevent 线程（叫做 greenlet），它们是相互协作进行上下文切换的轻量级微线程，而不是像普通线程一样由系统切换上下文。
 
-Notice the `gevent.joinall(tasks)` right after our tasks are spawned. This statement causes our program to wait till task one and task two are both finished. Without this our program would have continued on through the print statements, but with essentially nothing to do.
+注意在我们任务生成之后的 `gevent.joinall(tasks)` 调用。这条语句会让我们的程序会一直等待任务一和任务二都完成。如果没有这个的话，我们的程序将会继续执行后面打印的语句，但是实际上没有做任何事。
 
 ```
 """
@@ -382,17 +384,17 @@ if __name__ == '__main__':
     main()
 ```
 
-When this program runs, notice both task one and two start at the same time, then wait at the mock IO call. This is an indication the `time.sleep(1)` call is no longer blocking, and other work is being done.
+当这个程序运行的时候，请注意任务一和任务二都在同样的时间开始，然后等待模拟的 IO 调用结束。这表明 `time.sleep(1)` 调用已经不再阻塞，其它的工作也正在被做。
 
-At the end of the program notice the total elapsed time, it’s essentially half the time it took for `example_3.py` to run. Now we’re starting to see the advantages of an asynchronous program.
+在程序结束时，看下总的运行时间你就会发现它实际上是 `example_3.py` 运行时间的一半。现在我们开始看到异步程序的优势了。
 
-Being able to run two, or more, things concurrently by running IO processes in a non-blocking manner. By using gevent greenlets and controlling the context switches, we’re able to multiplex between tasks without to much trouble.
+在并发运行两个或者多个事件可以通过非阻塞的方式来执行 IO 操作。通过使用 gevent greenlets 和控制上下文切换，我们就可以在多个任务之间实现多路复用，这个实现并不会遇到太多麻烦。
 
-## Example 5: Synchronous (Blocking) HTTP Downloads
+## 示例 5：异步（阻塞）HTTP 下载
 
-The next version of the program (`example_5.py`) is kind of a step forward and step back. The program now is doing some actual work with real IO, making HTTP requests to a list of URLs and getting the page contents, but it’s doing so in a blocking (synchronous) manner.
+程序（`example_5.py`）的下一个版本有一点进步也有一点退步。这个程序现在处理的是有真正 IO 操作的工作，即向一个 URL 列表发起 HTTP 请求来获取页面内容，但是它仍然是以阻塞（同步）的方式运行的。
 
-We’ve modified the program to import the wonderful [`requests` module](https://requests.org/) to make the actual HTTP requests, and added a list of URLs to the queue rather than numbers. Inside the task, rather than increment a counter, we’re using the requests module to get the contents of a URL gotten from the queue, and printing how long it took to do so.
+我们修改了这个程序导入了非常棒的 [`requests`  模块](https://requests.org/)  来创建真实的 HTTP 请求，而且我们把一份 URL 列表加入到队列中，而不是像之前一样只是数字。在这个任务中，我们也没有再用计数器，而是使用 requests 模块来获取从队列里得到 URL 页面的内容，并且我们打印了执行这个操作的时间。
 
 ```
 """
@@ -461,17 +463,17 @@ if __name__ == '__main__':
     main()
 ```
 
-As in an earlier version of the program, we’re using a `yield` to turn our task function into a generator, and perform a context switch in order to let the other task instance run.
+和这个程序之前版本一样，我们使用一个 `yield` 关键字来把我们的任务函数转换成生成器，并且为了让其他任务实例可以执行，我们执行了一次上下文切换。
 
-Each task gets a URL from the work queue, gets the contents of the page pointed to by the URL and reports how long it took to get that content.
+每个任务都会从工作队列中获取到一个 URL，获取这个 URL 指向页面的内容并且报告获取这些内容花了多长时间。
 
-As before, the `yield` allows both our tasks to run, but because this program is running synchronously, each `requests.get()` call blocks the CPU till the page is retrieved. Notice the total time to run the entire program at the end, this will be meaningful for the next example.
+和之前一样，这个 `yield` 关键字让我们两个任务都能运行，但是因为这个程序是以同步的方式运行的，每个 `requests.get()` 调用在获取到页面之前都会阻塞 CPU。注意在最后运行整个程序的总时间，这对于下一个示例会很有意义。
 
-## Example 6: Asynchronous (Non-Blocking) HTTP Downloads With gevent
+## 示例 6：使用 gevent 实现异步（非阻塞）HTTP 下载
 
-This version of the program (`example_6.py`) modifies the previous version to use the gevent module again. Remember the gevent `monkey.patch_all()` call modifies any following modules so synchronous code becomes asynchronous, this includes `requests`.
+这个程序（`example_6.py`）的版本修改了先前的版本再次使用了 gevent 模块。记得 gevent 模块的 `monkey.patch_all()` 调用会修改之后的所有模块，这样这些模块的同步代码就会变成异步的，其中也包括 `requests` 模块。
 
-Now the tasks have been modified to remove the `yield` call because the `requests.get(url)` call is no longer blocking, but performs a context switch back to the gevent event loop. In the “run the task” section we use gevent to spawn two instance of the task generator, then use `joinall()` to wait for them to complete.
+现在的任务已经改成移除了对 `yield` 的调用，因为 `requests.get(url)` 调用已经不会再阻塞了，反而是执行一次上下文切换让出控制给 gevent 的事件循环。在 “run the task” 部分我们使用 gevent 来产生两个任务生成器，之后使用 `joinall()` 来等待它们完成。
 
 ```
 """
@@ -533,21 +535,21 @@ if __name__ == '__main__':
     main()
 ```
 
-At the end of this program run, take a look at the total time and the individual times to get the contents of the URL’s. You’ll see the total time is *less* than the cummulative time of all the `requests.get()` calls.
+在程序运行的最后，你可以看下总共的时间和获取每个 URL 分别的时间。你将会看到总时间会**少于** `requests.get()` 函数调用的累计时间。
 
-This is because those calls are running asynchronously, so we’re effectively taking better advantage of the CPU by allowing it to make multiple requests at once.
+这是因为这些函数调用是异步运行的，所以我们可以同一时间发送多个请求，从而更好地发挥出 CPU的优势。
 
-## Example 7: Asynchronous (Non-Blocking) HTTP Downloads With Twisted
+## 示例 7：使用 Twisted 实现异步（非阻塞）HTTP 下载
 
-This version of the program (`example_7.py`) uses the [Twisted module](https://twistedmatrix.com/) to do essentially the same thing as the gevent module, download the URL contents in a non-blocking manner.
+程序（`example_7.py`）的版本使用了 [Twisted 模块](https://twistedmatrix.com/) ，该模块本所做的质上和 gevent 模块一样，即以非阻塞的方式下载 URL 对应的内容。
 
-Twisted is a very powerful system, and takes a fundementally different approach to create asynchronous programs. Where gevent modifies modules to make their synchronous code asynchronous, Twisted provides it’s own functions and methods to reach the same ends.
+Twisted是一个非常强大的系统，采用了和 gevent 根本上不一样的方式来创建异步程序。gevent 模块是修改其模块使它们的同步代码变成异步，Twisted 提供了它自己的函数和方法来达到同样的结果。
 
-Where `example_6.py` used the patched `requests.get(url)` call to get the contents of the URLs, here we use the Twisted function `getPage(url)`.
+之前在 `example_6.py` 中使用被打补丁的 `requests.get(url)` 调用来获取 URL 内容的位置，现在我们使用 Twisted 函数 `getPage(url)`。
 
-In this version the `@defer.inlineCallbacks` function decorator works together with the `yield getPage(url)` to perform a context switch into the Twisted event loop.
+在这个版本中，`@defer.inlineCallbacks` 函数装饰器和语句 `yield getPage(url)` 一起实现把上下文切换到 Twisted  的事件循环。
 
-In gevent the event loop was implied, but in Twisted it’s explicitely provided by the `reactor.run()` statement line near the bottom of the program.
+在 gevent 中这个事件循环是隐含的，但是在 Twisted 中，事件循环由位于程序底部的 `reactor.run()` 明确提供。
 
 ```
 """
@@ -617,17 +619,17 @@ if __name__ == '__main__':
     main()
 ```
 
-Notice the end result is the same as the gevent version, the total program run time is less than the cummulative time for each URL to be retrieved.
+注意最后的结果和 gevent 版本一样，整个程序运行的时间会小于获取每个 URL 内容的累计时间。
 
-## Example 8: Asynchronous (Non-Blocking) HTTP Downloads With Twisted Callbacks
+## 示例8：使用 Twisted 回调函数实现异步（非阻塞）HTTP 下载
 
-This version of the program (`example_8.py`) also uses the Twisted library, but shows a more traditional approach to using Twisted.
+程序 （`example_8.py`）的这个版本也是使用 Twisted 库，但是是以更传统的方式使用 Twisted。
 
-By this I mean rather than using the `@defer.inlineCallbacks` / `yield` style of coding, this version uses explicit callbacks. A “callback” is a function that is passed to the system and can be called later in reaction to an event. In the example below the `success_callback()` function is provided to Twisted to be called when the `getPage(url)` call completes.
+这里我的意思是不再使用  `@defer.inlineCallbacks` / `yield` 这种代码风格，这个版本会使用明确的回调函数。一个"回调函数"是一个被传递给系统的函数，该函数可以在之后的事件响应中被调用。在下面的例子中，`success_callback()` 被提供给 Twisted，用来在 `getPage(url)` 调用完成后被调用。
 
-Notice in the program the `@defer.inlineCallbacks` decorator is no longer present on the `my_task()` function. In addition, the function is yielding a variable called `d`, shortand for something called a deferred, which is what is returned by the `getPage(url)` function call.
+注意在这个程序中 `@defer.inlineCallbacks` 装饰器并没有在 `my_task()` 函数中使用。除此之外，这个函数产出一个叫做  `d` 的变量，该变量是延后调用的缩写，是调用函数 `getPage(url)` 得到的返回值。
 
-A *deferred* is Twisted’s way of handling asynchronous programming, and is what the callback is attached to. When this deferred “fires” (when the `getPage(url)` completes), the callback function will be called with the variables defined at the time the callback was attached.
+**延后**是 Twisted 处理异步编程的方式，回调函数就附加在其之上。当这个延后"触发"（即当 `getPage(url)` 完成时），会以回调函数被附加时定义的变量作为参数，来调用这个回调函数。
 
 ```
 """
@@ -703,19 +705,20 @@ if __name__ == '__main__':
     main()
 ```
 
-The end result of running this program is the same as the previous two examples, the total time of the program is less than the cummulative time of getting the URLs.
+运行这个程序的最终结果和先前的两个示例一样，运行程序的总时间小于获取 URLs 内容的总时间。
 
-Whether you use gevent or Twisted is a matter of personal preference and coding style. Both are powerful libaries that provide mechanisms allowing the programmer to create asynchronous code.
+无论你使用 gevent 还是 Twisted，这只是个人的喜好和代码风格问题。这两个都是强大的库，提供了让程序员可以编写异步代码的机制。
 
-## Conclusion
 
-I hope this has helped you see and understand where and how asynchronous programming can be useful. If you’re writing a program that’s calculating PI to the millionth decimal place, asynchronous code isn’t going to help at all.
+## 结论
 
-However, if you’re trying to implement a server, or a program that does a significant amount of IO, it could make a huge difference. It’s a powerful technique that can take your programs to the next level.
+我希望这可以帮你知道和理解异步编程可以在哪里以及如何可以变得有用。如果你正在编写一个将 PI 计算到小数点后百万级别精度的函数，异步代码对于该程序根本一点用都没有。
 
-## About the Author
+然而，如果你正在尝试实现一个服务器，或者是会执行大量 IO 操作的程序，使用异步编程就会产生巨大的变化。这是一个强大的技术可以帮助你的程序更上一层楼。
 
-Doug is a Python developer with more than 20 years of experience. He writes about Python on his [personal website](http://writeson.pythonanywhere.com/) and currently works as a Senior Web Engineer at Shutterfly. Doug is also an esteemed member of [PythonistaCafe](https://www.pythonistacafe.com).
+## 关于作者
+
+Doug 是一位具有二十多年开发经验的 Python 开发者。他在他的[个人网站](http://writeson.pythonanywhere.com/)上写关于 Python 的文章，目前在 Shutterfly 担任高级 Web 工程师。 Doug 也是 [PythonistaCafe](https://www.pythonistacafe.com) 中的一位值得尊敬的成员。
 
 ---
 
