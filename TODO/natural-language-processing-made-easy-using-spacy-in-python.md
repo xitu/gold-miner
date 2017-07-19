@@ -4,13 +4,13 @@
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/natural-language-processing-made-easy-using-spacy-in-python.md](https://github.com/xitu/gold-miner/blob/master/TODO/natural-language-processing-made-easy-using-spacy-in-python.md)
 > * 译者：[lsvih](https://github.com/lsvih)
-> * 校对者：
+> * 校对者：[yzgyyang](https://github.com/yzgyyang)
 
 # 使用 Python+spaCy 进行简易自然语言处理
 
 ## 简介
 
-自然语言处理（NLP）是人工智能领域最重要的几部分之一。它在许多智能应用中担任了关键的角色，例如聊天机器人、正文提取、多语翻译以及观点识别等应用。业界 NLP 相关的公司都意识到了，处理非结构文本数据时，不仅要看正确率，还需要注意是否能快速得到想要的结果。
+自然语言处理（NLP）是人工智能领域最重要的部分之一。它在许多智能应用中担任了关键的角色，例如聊天机器人、正文提取、多语翻译以及观点识别等应用。业界 NLP 相关的公司都意识到了，处理非结构文本数据时，不仅要看正确率，还需要注意是否能快速得到想要的结果。
 
 NLP 是一个很宽泛的领域，它包括了文本分类、实体识别、机器翻译、问答系统、概念识别等子领域。在我最近的一篇[文章](https://www.analyticsvidhya.com/blog/2017/01/ultimate-guide-to-understand-implement-natural-language-processing-codes-in-python/)中，我探讨了许多用于实现 NLP 的工具与组件。在那篇文章中，我更多的是在描述[NLTK](http://www.nltk.org/)（Natural Language Toolkit）这个伟大的库。
 
@@ -23,13 +23,18 @@ NLP 是一个很宽泛的领域，它包括了文本分类、实体识别、机�
 1. spaCy 简介及安装方法
 2. spaCy 的管道与属性
 - Tokenization
+
 - 词性标注
+
 - 实体识别
+
 - 依存句法分析
+
 - 名词短语
-- 集成词向量计算
-3. 使用 spaCy 进行机器学习
-4. 与 NLTK 和 CoreNLP 对比
+
+3. 集成词向量计算
+4. 使用 spaCy 进行机器学习
+5. 与 NLTK 和 CoreNLP 对比
 
 ** **
 
@@ -37,13 +42,13 @@ NLP 是一个很宽泛的领域，它包括了文本分类、实体识别、机�
 
 ### 1.1 简介
 
-spaCy 由 cython（Python 的 C 语言拓展，旨在让 python 程序达到如同 C 程序一样的性能） 编写，因此它的运行效率非常高。spaCy 提供了一系列简洁的 API 方便用户使用，并基于已经训练好的机器学习与深度学习模型实现底层。
+spaCy 由 cython（Python 的 C 语言拓展，旨在让 python 程序达到如同 C 程序一样的性能）编写，因此它的运行效率非常高。spaCy 提供了一系列简洁的 API 方便用户使用，并基于已经训练好的机器学习与深度学习模型实现底层。
 
 ** **
 
 ### 1.2 安装
 
-spaCy 及其数据和模型可以通过 pip 或者安装工具轻松地完成安装。使用下面的命令在电脑中安装 spaCy：
+spaCy 及其数据和模型可以通过 pip 和安装工具轻松地完成安装。使用下面的命令在电脑中安装 spaCy：
 
     sudo pip install spacy
 
@@ -86,7 +91,7 @@ spaCy 的使用，以及其各种属性，是通过创建管道实现的。在�
 
 ### 2.1 Tokenization
 
-spaCy 的 document 可以被 tokenized 分割成单句，这些单句还可以进一步分割成单词。你可以通过遍历文档来读取这些单词：
+spaCy 的 document 可以在 tokenized 过程中被分割成单句，这些单句还可以进一步分割成单词。你可以通过遍历文档来读取这些单词：
 
     # document 的首个单词
     document[0]
