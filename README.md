@@ -5,7 +5,7 @@
 
 [掘金翻译计划](https://juejin.im/tag/%E6%8E%98%E9%87%91%E7%BF%BB%E8%AF%91%E8%AE%A1%E5%88%92) 是一个翻译优质互联网技术文章的社区，文章来源为 [掘金](https://juejin.im) 上的英文分享文章。内容覆盖 [Android](#android)、[iOS](#ios)、[React](#react)、[前端](#前端)、[后端](#后端)、[产品](#产品)、[设计](#设计) 等领域，读者为热爱新技术的新锐开发者。
 
-掘金翻译计划目前翻译完成 [573](#近期文章列表) 篇文章，共有 [330](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
+掘金翻译计划目前翻译完成 [574](#近期文章列表) 篇文章，共有 [330](https://github.com/xitu/gold-miner/wiki/%E8%AF%91%E8%80%85%E7%A7%AF%E5%88%86%E8%A1%A8) 余名译者贡献翻译。
 
 # 官方指南
 
@@ -44,10 +44,10 @@
 
 ## 前端
 
+* [Redux 并不慢，只是你使用姿势不对 —— 一份优化指南](https://juejin.im/post/596db2f9f265da6c4602ffc3?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([reid3290](https://github.com/reid3290) 翻译)
 * [即将到来的正则表达式新特性](https://juejin.im/post/59683f98f265da6c4f34eec6?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([sunui](https://github.com/sunui) 翻译)
 * [是的，ES2017 （ES8）来了](https://juejin.im/post/596713b75188250da20604cb?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([ToBeNumerOne](https://github.com/ToBeNumerOne) 翻译)
 * [任何网站都可以成为渐进式网络应用 - 但我们需要做的更好](https://juejin.im/post/5966bf2451882568b20dc2af?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([wilsonandusa](https://github.com/wilsonandusa) 翻译)
-* [JavaScript 的函数式编程是一种反模式](https://juejin.im/post/59645b29f265da6c20419170?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([sunui](https://github.com/sunui) 翻译)
 * [所有前端译文>>](https://github.com/xitu/gold-miner/blob/master/front-end.md)
 
 ## React
