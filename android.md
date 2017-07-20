@@ -1,3 +1,4 @@
+* [探索 Kotlin 中的隐性成本（第一部分）](https://juejin.im/post/596774c96fb9a06bb95ae46a?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Feximin](https://github.com/Feximin) 翻译)
 * [ 将 Kotlin 应用于现有 Java 代码的策略](https://juejin.im/post/5966ed4e51882568b4630f71?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Luolc](https://github.com/Luolc) 翻译)
 * [第一次走进 Android 中的 Kotlin 协程](https://juejin.im/post/596308af5188250d8860f6dc?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([Feximin](https://github.com/Feximin) 翻译)
 * [Android 中的定时任务调度](https://juejin.im/post/595c9061f265da6c22119084?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([phxnirvana](https://github.com/phxnirvana) 翻译)
