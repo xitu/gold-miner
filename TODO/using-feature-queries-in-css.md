@@ -106,13 +106,18 @@ The `@supports` rule tests a string that contains both the property and value be
 `@supports` 规则测试一个包含属性和值的字符串，因为有时候需要测试的是属性，有时需要测试的是值。对于 `initial-letter` 的例子，你传入的值并不重要。但是考虑 `@supports (display: grid)`，你会看到两者都是需要的。每个浏览器都理解 `display`。只有测试浏览器理解 `display: grid`（目前来说）。
 
 Back to our example: Currently `initial-letter` is only supported in Safari 9, and it requires a prefix. So I’ve written the prefix, making sure to also include the unprefixed version, and I’ve written the test to look for one or the other. Yes, you can have `or`, `and`, and `not` statements in your Feature Queries.
-回到我们的示例：目前 `initial-letter` 仅在 Safari 9 中得到支持，并且它需要前缀。所以我写了这个前缀，确保无前缀的版本，和我写的测试来检查一个或另一个。是的，可以在功能查询中使用“或”、“和”和“不”语句。
+回到我们的示例：目前 `initial-letter` 仅在 Safari 9 中得到支持，并且它需要前缀。所以我写了这个前缀，为了确保包含无前缀的版本我写了这个测试。是的，可以在功能查询中使用 `or` 、`and` 和 `not` 语句。
 
 Here’s the new result. The browsers that understand `initial-letter` show a giant bolded, orange drop-cap. The other browsers act like the drop cap doesn’t exist — the same way they would if I’d waited to use this feature until more browsers had support for it. (We are currently implementing Initial Letter in Firefox, by the way.)
-![a before and after comparison](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2016/08/intial-letter-with-and-without.gif)The screenshot on the left is from Safari 9. All other browsers show the result on the right. You can see this code in action at [codepen.io/jensimmons/pen/ONvdYL](http://codepen.io/jensimmons/pen/ONvdYL?editors=1100)
+这里有新的结果。浏览器理解 `initial-letter` 的话就会将其展现为字体更大、加粗并且是橘色的首字母。其他其它浏览器表现的像首字母不存在一样，使用这种方式，我会等待使用这个特征，直到更多的浏览器支持它。（顺便说一下，目前在 Firefox 中可以实现首字母的特性。）
+
+![](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2016/08/intial-letter-with-and-without.gif)The screenshot on the left is from Safari 9. All other browsers show the result on the right. You can see this code in action at [codepen.io/jensimmons/pen/ONvdYL](http://codepen.io/jensimmons/pen/ONvdYL?editors=1100)
+![使用之前和之后的对比](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2016/08/intial-letter-with-and-without.gif)截屏的左边是来自 Safari 9。其它浏览器展现的结果显示为右边。你可以在codepen.io/jensimmons/pen/ONvdYL] (http://codepen.io/jensimmons/pen/ONvdYL?editors=1100) 看到这个测试的代码。
 ## Organizing Your Code
+## 组织你的代码
 
 Now you might be tempted to use this tool to cleanly fork your code into two branches. “Hey browser, if you understand Viewport Units, do this, and if you do not understand them, do this other thing.” That feels nice and tidy.
+现在，您可能会尝试使用此工具将代码分成两个分支。“嘿，浏览器，如果你理解视口单位，执行这段代码，如果你不理解他们，执行另一段代码。”这感觉很好并且很整洁。
 
     @supports (height: 100vh) {
       // my layout that uses viewport height
@@ -123,12 +128,16 @@ Now you might be tempted to use this tool to cleanly fork your code into two bra
     // WE MIGHT WISH. BUT THIS IS BAD CODE.
 
 This is not a good idea — at least not yet. Do you see the problem?
+这不是一个好主意 —— 至少现在来说。你发现这个问题了吗？
 
 Well, not all browsers support Feature Queries. And the browsers that do not understand `@supports` will skip over both blocks of code. That’s probably bad.
+然而，不是所有浏览器都支持特征查询。并且浏览器不理解 `@supports` 将会跳过这部分的全部代码。这不是很好。
 
 Does this mean we can’t use Feature Queries until 100% of browsers support them? Nope. We can, and we should use Feature Queries today. Simply do not write your code like the last example.
+这就意味着我们不能使用特征查询了吗直到 100% 的浏览器都支持它们吗？不是的，我们可以，并且当今我们应该使用特征查询。不要像最后一个例子那样编写代码。
 
 How do we do this right? Well, in much the same way we used Media Queries before they were 100% supported. And well, actually it’s easier to use Feature Queries in this transitional period than it was to use Media Queries. You just have to be smart about it.
+那怎么做才是正确的呢？好的，这和我们
 
 You want to structure your code knowing that the oldest browsers won’t support Feature Queries or the feature you are testing for. I’ll show you how.
 
