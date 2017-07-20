@@ -3,34 +3,36 @@
 > * 原文作者：[Evgeny Matviyenko](https://blog.uptech.team/@evgeny.matviyenko)
 > * 译文出自：[掘金翻译计划](https://github.com/xitu/gold-miner)
 > * 本文永久链接：[https://github.com/xitu/gold-miner/blob/master/TODO/how-to-implement-expandable-menu-on-ios-like-in-airbnb.md](https://github.com/xitu/gold-miner/blob/master/TODO/how-to-implement-expandable-menu-on-ios-like-in-airbnb.md)
-> * 译者：
+> * 译者：[]()
 > * 校对者：
 
-# How to implement expandable menu on iOS (like in Airbnb)
+# 如何在 iOS 上实现类似 Airbnb 中的展开式菜单  
 
 ![](https://cdn-images-1.medium.com/max/2000/1*4mjos0c1rx7qIAdfjJy6Wg.png)
 
 A few months ago I had a chance to implement an expandable menu that behaves same as the one in a popular iOS application (like Airbnb). Then I thought it would be great to have it available in form of a library. Now I want to share with you some solutions that I have created in order to implement beautiful scroll driven animations.
 
+几个月前，我有幸实现了一个可扩展式菜单，类似 著名的 iOS 应用 Airbnb 中的同样行为。那时我认为将其制作为库是非常不错的。现在我想分享给你一些解决方案我已经创建的实现美丽的滚动驱动动画。
+
 ![](https://cdn-images-1.medium.com/max/1600/1*c4e83KM3BMh8p04jXY3m1A.gif)
 
-The library supports 3 states. The main goal is to achieve smooth transitions between states while scrolling `[UIScrollView](https://developer.apple.com/documentation/uikit/uiscrollview)`.
+此库支持 3 个状态。主要目的是在滚动时获得流畅的转换。 `[UIScrollView](https://developer.apple.com/documentation/uikit/uiscrollview)`。
 
 ![](https://cdn-images-1.medium.com/max/2000/1*yghDAza2CgWGTfXYIRJ9kQ.png)
 
-Supported states
+支持的状态
 
 ### UIScrollView
 
-`[UIScrollView](https://developer.apple.com/documentation/uikit/uiscrollview)` is an iOS SDK view that supports scrolling and zooming. It is used as a superclass of `[UITableView](https://developer.apple.com/documentation/uikit/uitableview)` and `[UICollectionView](http://uicollectionview)`, so you can use them wherever `UIScrollView` is supported.
+`[UIScrollView](https://developer.apple.com/documentation/uikit/uiscrollview)` 是 iOS SDK 中的一个视图支持滚动和缩放 supports scrolling and zooming. 它被It is used as a superclass of `[UITableView](https://developer.apple.com/documentation/uikit/uitableview)` and `[UICollectionView](http://uicollectionview)`, 因此你可以在任何`UIScrollView`支持的上使用它。so you can use them wherever `UIScrollView` is supported.
 
-`UIScrollView` uses `[UIPanGestureRecognizer](https://developer.apple.com/documentation/uikit/uipangesturerecognizer)` internally to detect scrolling gestures. Scrolling state of `UIScrollView` is defined as `contentOffset: CGPoint` property. Scrollable area is union of `contentInsets` and `contentSize`. So the starting `contentOffset` is `*CGPoint(x: -contentInsets.left, y: -contentInsets.right)*` and ending is `*CGPoint(x: contentSize.width — frame.width+contentInsets.right, y: contentSize.height — frame.height+contentInsets.bottom)*`*.*
+`UIScrollView` 使用 `[UIPanGestureRecognizer](https://developer.apple.com/documentation/uikit/uipangesturerecognizer)` internally to detect scrolling gestures. Scrolling state of `UIScrollView` is defined as `contentOffset: CGPoint` property. Scrollable area is union of `contentInsets` and `contentSize`. So the starting `contentOffset` is `*CGPoint(x: -contentInsets.left, y: -contentInsets.right)*` and ending is `*CGPoint(x: contentSize.width — frame.width+contentInsets.right, y: contentSize.height — frame.height+contentInsets.bottom)*`*.*
 
 `UIScrollView` has a `bounces: Bool` property. In case `bounces` is on `contentOffset` can change to value above/below limits. We need to keep that in mind.
 
 [![](https://i.ytimg.com/vi_webp/fgwVqCGgHZA/maxresdefault.webp)](https://youtu.be/fgwVqCGgHZA)
 
-UIScrollView contentOffset demonstration
+UIScrollView contentOffset 演示
 We are interested in `contentOffset: CGPoint` property for changing our menu state. The main way of observing scroll view `contentOffset` is setting an object to delegate property and implementing `scrollViewDidScroll(UIScrollView)` method. There is no way to use delegate without affecting other client code in Swift (because `NSProxy` is not available) so I have decided to use Key-Value Observing.
 
 ### Observable
@@ -43,9 +45,9 @@ internal class Observable<Value>: NSObject {
 }
 ```
 
-And two `Observable` subclasses:
+和两个 `Observable` 子类：
 
-- `KVObservable` — for wrapping Key-Value Observing.
+- `KVObservable` — 用于封装 KVO。
 
 ```
 internal class KVObservable<Value>: Observable<Value> {
@@ -104,6 +106,8 @@ internal class GestureStateObservable: Observable<UIGestureRecognizerState> {
 ### Scrollable
 
 To make library testable I have implemented `Scrollable` protocol. I also needed a way to make `UIScrollView` provide `Observable`s for `contentOffset`, `contentSize` and `panGestureRecognizer.state`. Protocol conformance is a good way to do this. Apart from observables it contains all properties that library needs to use. It also contains `updateContentOffset(CGPoint, animated: Bool)` method to set `contentOffset` with animation.
+
+为了使库可测试我实现了 `Scrollable` 协议。
 
 ```
 internal protocol Scrollable: class {
@@ -232,6 +236,8 @@ public class BarController {
 ```
 
 It takes `stateReducer`, `configuration` and `stateObserver` as initializer arguments.
+
+它传递 `stateReducer`， `configuration` 和 `stateObserver` 作为初始化参数。
 
 - `stateObserver` closure is called on a `didSet` observer of `state` property. It notifies library user about state changes.
 - `stateReducer` is a function that takes previous state, some scrolling context params and returns a new state. Injecting it through initializer provides decoupling between state calculation logic and `BarController` object itself.
@@ -632,7 +638,7 @@ override func viewDidLoad() {
   }
 ```
 
-### Conclusions
+### 总结
 
 As a result, I got a beautiful scroll driven menu with predictable state and a lot of experience working with `UIScrollView`.
 
@@ -653,7 +659,6 @@ We did the investigation of the topic for the [Freebird Rides](https://www.freeb
 ---
 
 *If you find this helpful, click the* 💚 *below so other can enjoy it too. Follow us for more articles on how to build great products.*
-
 
 ---
 
