@@ -137,17 +137,23 @@ Does this mean we can’t use Feature Queries until 100% of browsers support the
 这就意味着我们不能使用特征查询了吗直到 100% 的浏览器都支持它们吗？不是的，我们可以，并且当今我们应该使用特征查询。不要像最后一个例子那样编写代码。
 
 How do we do this right? Well, in much the same way we used Media Queries before they were 100% supported. And well, actually it’s easier to use Feature Queries in this transitional period than it was to use Media Queries. You just have to be smart about it.
-那怎么做才是正确的呢？好的，这和我们
+那怎么做才是正确的呢？好的，这和我们在 100% 支持媒体查询有相同的方法。事实上，在这个过渡时期使用特征查询比使用媒体查询更容易。你只要聪明点就行了。
 
 You want to structure your code knowing that the oldest browsers won’t support Feature Queries or the feature you are testing for. I’ll show you how.
+你希望构建你的代码，因为最古老的浏览器不支持功能查询或您正在测试的特性。我来教你怎么做。
 
 (Of course, sometime in the far future, once 100% of the browsers have Feature Queries, we can make heavier use of `@supports not` and organize our code in that way. But it’ll be many years until we get there.)
+（当然，在将来的某个时候，一旦 100% 的浏览器有功能查询，我们就可以更大程度地使用 `@supports not`，并以这种方式组织我们的代码。但我们还要等很多年。
 
 ## Support for Feature Queries
+## 支持特征查询
 
 So how far back are Feature Queries supported?
+那么支持特征查询到什么程度了呢？
 
 Well `@supports` has worked in Firefox, Chrome, and Opera since mid–2013. It also works in every version of Edge. Safari shipped it in Fall 2015, in Safari 9. Feature Queries are not supported in any version of Internet Explorer, Opera Mini, Blackberry Browser, or UC Browser.
+自从 2013 年年中以来，在 Firefox、Chrome、和 Opera 就已经支持 `@supports` 了。它也适用于 Edge 的每一个版本。Safari 在 2015 年秋季将其在Safari 9 中支持。在任何版本的 Internet Explorer、Opera Mini、Blackberry Browser 或 UC浏览器中都不支持特性查询。
+
 [![a screenshot from Can I Use showing support for Feature Queries](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2016/08/Can-I-Use-Feature-Queries.gif)](http://caniuse.com/#feat=css-featurequeries)Looking up support for [Feature Queries on Can I Use](http://caniuse.com/#feat=css-featurequeries)
 You might think the fact Internet Explorer doesn’t have support for Feature Queries is a big problem. Actually, it’s usually not. I’ll show you why in a moment. I believe the biggest hurdle is Safari 8. We need to keep an eye out for what happens there.
 
