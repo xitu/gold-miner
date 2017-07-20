@@ -1,3 +1,4 @@
+* [语句，消息和归约器](https://juejin.im/post/596f17366fb9a06bc17c53db?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([zhangqippp](https://github.com/zhangqippp) 翻译)
 * [开发者眼中 iOS 11 都更新了什么？](https://juejin.im/post/595f1f2c5188250d8a605d69?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([swants](https://github.com/swants) 翻译)
 * [把 UUID 或者 GUID 作为主键？你得小心啦！](https://juejin.im/post/59561e5b6fb9a06bbf6fdf16?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([zaraguo](https://github.com/zaraguo) 翻译)
 * [iOS 11：机器学习人人有份](https://juejin.im/post/59533049f265da6c3a54b739?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([changkun](https://github.com/changkun) 翻译)
