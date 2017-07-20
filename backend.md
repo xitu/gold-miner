@@ -1,3 +1,4 @@
+* [WAR 还是 JAR，你应该用哪种格式打包？](https://juejin.im/post/5966fb99f265da6c2211ac4d?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([windmxf](https://github.com/windmxf) 翻译)
 * [Node.js 子进程：你应该知道的一切](https://juejin.im/entry/595dc35b51882568d00a97ab?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([FrankXiong](https://github.com/FrankXiong) 翻译)
 * [如何在无损的情况下让图片变的更小](https://juejin.im/post/5959fbe0f265da6c2518d740?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([XatMassacrE](https://github.com/XatMassacrE) 翻译)
 * [在 Reddit 中代码部署的演进](https://juejin.im/entry/594b7fd21b69e60062a4cb01/detail?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([steinliber](https://github.com/steinliber) 翻译)
