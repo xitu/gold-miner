@@ -62,10 +62,15 @@ If a browser understands `border-radius`, then it will put rounded corners on th
 
 ![a screenshot of border radius effect in  old vs new browsers](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2016/08/border-radius.png)Most browsers will display `border-radius: 1em` as the result on the right. Internet Explorer 6, 7 and 8, however, will not round the corners, and you’ll see the result on the left. Check out this example at [codepen.io/jensimmons/pen/EydmkK](http://codepen.io/jensimmons/pen/EydmkK?editors=1100)
 You do not need a Feature Query for this.
+ 
 
-So when do you want to use `@supports`? A Feature Query is a tool for bundling together CSS declarations so that they’ll run as a group under certain conditions. Use a Feature Query when you want to apply a mix of old and new CSS, but only when the new CSS is supported.
+![新旧浏览器中圆角效果截图](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2016/08/border-radius.png)大多数的浏览器显示 `border-radius: 1em` 如右边所示。然而，Internet Explorer 6、7和8不会设置圆角，显示效果如左边所示。看看这个例子，在[codepen.io/jensimmons/pen/EydmkK](http://codepen.io/jensimmons/pen/EydmkK?editors=1100) 您不需要为此进行功能查询。
+
+So when do you want to use `@supports`? A Feature Query is a tool for bundling together CSS declarations so that they’ll run as a group under certain conditions. Use a Feature Query when you want to apply a mix  of old and new CSS, but only when the new CSS is supported.
+那么，你想什么时候使用 `@supports` ？特征查询是一种将CSS声明捆绑在一起的工具，以便在一定条件下作为一个组运行。当您想应用旧的和新的CSS混合时使用特性查询，但只有在支持新CSS时才使用。
 
 Let’s look at an example using the Initial Letter property. This new property `initial-letter` tells the browser to make the element in question bigger — like for a drop cap. Here, the first letter of the first word in a paragraph is being told to be the size of four lines of text. Fabulous. Oh, but I would also like to make that letter bold, and put a bit of margin on its right side, and hey, let’s make it a nice orange color. Cool.
+让我们看一下使用首字母属性的示例。这个新属性 `initial-letter` 告诉浏览器，使元素变得更大 —— 像首字母大写。在这里，一个段落中第一个词的第一个字母被设置为四行文字的大小。非常好。但我还是想把那字母加粗，在右边留一点空白，让它变成一个漂亮的橙色。酷。
 
     p::first-letter {
          -webkit-initial-letter: 4;
@@ -78,9 +83,11 @@ Let’s look at an example using the Initial Letter property. This new property 
 
 ![a screenshot of this example Initial Letter in Safari 9](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2016/08/intial-letter-1.gif)Here’s what our initial-letter example looks like in Safari 9.
 Now let’s see what will happen in all the other browsers…
+![首字母这个例子在 Safari 9 下面的截图](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2016/08/intial-letter-1.gif)这是我们的首字母的例子在 Safari 9 下的显示。现在让我们看看其他浏览器会发生什么…
+
 ![a screenshot of this Initial Letter example in other browsers](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2016/08/intial-letter-2.png)Oh, no. This looks terrible in all the other browsers.
 Well, that’s not acceptable. We don’t want to change the color of the letter, or add a margin, or make it bold unless it’s also going to be made bigger by the Initial Letter property. We need a way to test and see whether or not the browser understands `initial-letter`, and only apply the change to color, weight, and margin if it does. Enter the Feature Query.
-
+![首字母这个例子在其他浏览器下面的截图](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2016/08/intial-letter-2.png)哦，不，这在其他浏览器看起来非常糟糕。这是不能接受的。我们不想改变字母的颜色，或者增加一个空白，或者让它加粗，除非它通过首字母属性被设置的更大了一些。我们需要一种方法来测试浏览器是否理解 `initial-letter`，并且只在颜色、重量和空白处应用更改。进入特征查询。
     @supports (initial-letter: 4) or (-webkit-initial-letter: 4) {
       p::first-letter {
          -webkit-initial-letter: 4;
@@ -93,10 +100,13 @@ Well, that’s not acceptable. We don’t want to change the color of the letter
 
 
 Notice, you do need to test a full string with both the property and value. This confused me at first. Why am I testing `initial-letter: 4` ? Is the value of 4 important? What if I put 17? Does it need to match the value that is further down in my code?
+注意，您需要测试具有属性和值的完整字符串。最初这是令我困惑的。为什么我要测试 `initial-letter: 4`？值为 4 重要吗？如果我传入的值是 17 呢？它是否需要匹配我代码中较低的值？
 
 The `@supports` rule tests a string that contains both the property and value because sometimes it’s the property that needs the test, and sometimes it’s the value. For the `initial-letter` example, it doesn’t really matter what you put for the value. But consider `@supports (display: grid)` and you’ll see the need for both. Every browser understands `display`. Only experimental browsers understand `display: grid` (at the moment).
+`@supports` 规则测试一个包含属性和值的字符串，因为有时候需要测试的是属性，有时需要测试的是值。对于 `initial-letter` 的例子，你传入的值并不重要。但是考虑 `@supports (display: grid)`，你会看到两者都是需要的。每个浏览器都理解 `display`。只有测试浏览器理解 `display: grid`（目前来说）。
 
 Back to our example: Currently `initial-letter` is only supported in Safari 9, and it requires a prefix. So I’ve written the prefix, making sure to also include the unprefixed version, and I’ve written the test to look for one or the other. Yes, you can have `or`, `and`, and `not` statements in your Feature Queries.
+回到我们的示例：目前 `initial-letter` 仅在 Safari 9 中得到支持，并且它需要前缀。所以我写了这个前缀，确保无前缀的版本，和我写的测试来检查一个或另一个。是的，可以在功能查询中使用“或”、“和”和“不”语句。
 
 Here’s the new result. The browsers that understand `initial-letter` show a giant bolded, orange drop-cap. The other browsers act like the drop cap doesn’t exist — the same way they would if I’d waited to use this feature until more browsers had support for it. (We are currently implementing Initial Letter in Firefox, by the way.)
 ![a before and after comparison](https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2016/08/intial-letter-with-and-without.gif)The screenshot on the left is from Safari 9. All other browsers show the result on the right. You can see this code in action at [codepen.io/jensimmons/pen/ONvdYL](http://codepen.io/jensimmons/pen/ONvdYL?editors=1100)
