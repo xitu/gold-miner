@@ -1,3 +1,4 @@
+* [Redux 并不慢，只是你使用姿势不对 —— 一份优化指南](https://juejin.im/post/596db2f9f265da6c4602ffc3?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([reid3290](https://github.com/reid3290) 翻译)
 * [即将到来的正则表达式新特性](https://juejin.im/post/59683f98f265da6c4f34eec6?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([sunui](https://github.com/sunui) 翻译)
 * [是的，ES2017 （ES8）来了](https://juejin.im/post/596713b75188250da20604cb?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([ToBeNumerOne](https://github.com/ToBeNumerOne) 翻译)
 * [任何网站都可以成为渐进式网络应用 - 但我们需要做的更好](https://juejin.im/post/5966bf2451882568b20dc2af?utm_source=gold-miner&utm_medium=readme&utm_campaign=github) ([wilsonandusa](https://github.com/wilsonandusa) 翻译)
